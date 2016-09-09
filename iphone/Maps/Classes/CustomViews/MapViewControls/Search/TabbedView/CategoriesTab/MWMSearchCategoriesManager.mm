@@ -2,6 +2,7 @@
 #import "MWMSearchCategoriesManager.h"
 #import "MWMSearchCategoryCell.h"
 #import "Statistics.h"
+#import "AppInfo.h"
 
 #include "search/displayed_categories.hpp"
 
@@ -65,7 +66,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
   NSString * string = @(m_categories[indexPath.row].c_str());
   [Statistics logEvent:kStatEventName(kStatSearch, kStatSelectResult)
                    withParameters:@{kStatValue : string, kStatScreen : kStatCategories}];
-  [self.delegate searchText:[L(string) stringByAppendingString:@" "] forInputLocale:nil];
+  [self.delegate searchText:[L(string) stringByAppendingString:@" "] forInputLocale:[[AppInfo sharedInfo] languageId]];
 }
 
 @end
