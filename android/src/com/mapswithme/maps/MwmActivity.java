@@ -19,6 +19,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 
+import java.io.Serializable;
+import java.util.Stack;
+
 import com.mapswithme.maps.Framework.MapObjectListener;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.maps.ads.LikesManager;
@@ -82,9 +85,6 @@ import com.mapswithme.util.statistics.MytargetHelper;
 import com.mapswithme.util.statistics.Statistics;
 import ru.mail.android.mytarget.nativeads.NativeAppwallAd;
 import ru.mail.android.mytarget.nativeads.banners.NativeAppwallBanner;
-
-import java.io.Serializable;
-import java.util.Stack;
 
 public class MwmActivity extends BaseMwmFragmentActivity
                       implements MapObjectListener,

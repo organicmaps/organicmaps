@@ -1,12 +1,19 @@
 package com.mapswithme.maps.routing;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
 import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Build;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Pair;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,17 +26,19 @@ import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.search.SearchEngine;
 import com.mapswithme.maps.settings.SettingsActivity;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.widget.FlatProgressView;
 import com.mapswithme.maps.widget.menu.NavMenu;
+import com.mapswithme.util.Graphics;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
-public class NavigationController
+public class NavigationController implements View.OnClickListener
 {
   private final View mFrame;
   private final View mBottomFrame;
@@ -56,6 +65,55 @@ public class NavigationController
   private final TextView mDistanceValue;
   private final TextView mDistanceUnits;
   private final FlatProgressView mRouteProgress;
+
+  private final View mSearchLayout;
+  private final ImageView mSearchButton;
+  private SearchOption mCurrentSearch;
+  private boolean mIsSearchExpanded;
+
+  private enum SearchOption
+  {
+    FUEL(R.id.search_fuel, R.drawable.ic_routing_fuel_off, R.drawable.ic_routing_fuel_on, "fuel"),
+    PARKING(R.id.search_parking, R.drawable.ic_routing_parking_off, R.drawable.ic_routing_parking_on, "parking"),
+    FOOD(R.id.search_food, R.drawable.ic_routing_food_off, R.drawable.ic_routing_food_on, "food"),
+    SHOP(R.id.search_shop, R.drawable.ic_routing_shop_off, R.drawable.ic_routing_shop_on, "shop"),
+    ATM(R.id.search_atm, R.drawable.ic_routing_atm_off, R.drawable.ic_routing_atm_on, "atm");
+
+    private int resId;
+    private int drawableOff;
+    private int drawableOn;
+    private String searchQuery;
+
+    SearchOption(@IdRes int resId, @DrawableRes int drawableOff, @DrawableRes int drawableOn, String searchQuery)
+    {
+      this.resId = resId;
+      this.drawableOff = drawableOff;
+      this.drawableOn = drawableOn;
+      this.searchQuery = searchQuery;
+    }
+
+    @NonNull
+    public static SearchOption FromResId(@IdRes int resId)
+    {
+      for (SearchOption searchOption : SearchOption.values())
+      {
+        if (searchOption.resId == resId)
+          return searchOption;
+      }
+      throw new IllegalArgumentException("No navigation search for id " + resId);
+    }
+
+    @Nullable
+    public static SearchOption FromSearchQuery(@NonNull String query)
+    {
+      for (SearchOption searchOption : SearchOption.values())
+      {
+        if (searchOption.searchQuery.equals(query))
+          return searchOption;
+      }
+      return null;
+    }
+  }
 
   private boolean mShowTimeLeft = true;
 
@@ -103,6 +161,26 @@ public class NavigationController
     mDistanceValue = (TextView) mBottomFrame.findViewById(R.id.distance_value);
     mDistanceUnits = (TextView) mBottomFrame.findViewById(R.id.distance_dimen);
     mRouteProgress = (FlatProgressView) mBottomFrame.findViewById(R.id.navigation_progress);
+
+    // Search
+    mSearchButton = (ImageView) mFrame.findViewById(R.id.btn_search);
+    mSearchButton.setOnClickListener(this);
+    mSearchLayout = mFrame.findViewById(R.id.search_frame);
+    if (UiUtils.isLandscape(mFrame.getContext()))
+    {
+      UiUtils.waitLayout(mSearchLayout, new ViewTreeObserver.OnGlobalLayoutListener()
+      {
+        @Override
+        public void onGlobalLayout()
+        {
+          mSearchLayout.setPivotX(0);
+          mSearchLayout.setPivotX(mSearchLayout.getMeasuredHeight() / 2);
+        }
+      });
+    }
+    for (SearchOption searchOption : SearchOption.values())
+      mFrame.findViewById(searchOption.resId).setOnClickListener(this);
+    refreshSearchVisibility();
   }
 
   private NavMenu createNavMenu()
@@ -120,6 +198,9 @@ public class NavigationController
           Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_CLOSE);
           AlohaHelper.logClick(AlohaHelper.ROUTING_CLOSE);
           parent.refreshFade();
+          SearchEngine.cancelSearch();
+          mIsSearchExpanded = false;
+          mCurrentSearch = null;
           break;
         case SETTINGS:
           parent.closeMenu(Statistics.EventName.ROUTING_SETTINGS, AlohaHelper.MENU_SETTINGS, new Runnable()
@@ -240,7 +321,7 @@ public class NavigationController
       UiUtils.hide(mTimeHourUnits, mTimeHourValue);
       return;
     }
-    UiUtils.setTextAndShow(mTimeHourValue,String.valueOf(hours));
+    UiUtils.setTextAndShow(mTimeHourValue, String.valueOf(hours));
     // TODO set localized text
     UiUtils.setTextAndShow(mTimeHourUnits, "h");
   }
@@ -269,5 +350,109 @@ public class NavigationController
   public NavMenu getNavMenu()
   {
     return mNavMenu;
+  }
+
+  private void toggleSearch()
+  {
+    final int animRes;
+    if (mIsSearchExpanded)
+    {
+      animRes = R.animator.show_zoom_out_alpha;
+      mIsSearchExpanded = false;
+    }
+    else
+    {
+      animRes = R.animator.show_zoom_in_alpha;
+      mIsSearchExpanded = true;
+      UiUtils.show(mSearchLayout);
+    }
+    final Animator animator = AnimatorInflater.loadAnimator(mSearchLayout.getContext(), animRes);
+    animator.setTarget(mSearchLayout);
+    animator.start();
+    animator.addListener(new UiUtils.SimpleAnimatorListener()
+    {
+      @Override
+      public void onAnimationEnd(Animator animation)
+      {
+        refreshSearchVisibility();
+      }
+    });
+  }
+
+  private void refreshSearchVisibility()
+  {
+    for (SearchOption searchOption : SearchOption.values())
+      UiUtils.showIf(mIsSearchExpanded, mSearchLayout.findViewById(searchOption.resId));
+
+    UiUtils.showIf(mIsSearchExpanded, mSearchLayout);
+  }
+
+  private void refreshWithSearchQuery(@NonNull String query)
+  {
+    if (query.isEmpty())
+      return;
+
+    refreshSearchButtonImage(SearchOption.FromSearchQuery(query));
+  }
+
+  private void refreshSearchButtonImage(@Nullable SearchOption searchOption)
+  {
+    if (searchOption == null)
+    {
+      mSearchButton.setImageDrawable(Graphics.tint(mSearchButton.getContext(),
+                                                   R.drawable.ic_menu_search));
+    }
+    else
+    {
+      mSearchButton.setImageDrawable(Graphics.tint(mSearchButton.getContext(),
+                                                   searchOption.drawableOff,
+                                                   R.attr.colorAccent));
+    }
+  }
+
+  @Override
+  public void onClick(View v)
+  {
+    switch (v.getId())
+    {
+    case R.id.btn_search:
+      if (mCurrentSearch != null)
+      {
+        mCurrentSearch = null;
+        mSearchButton.setImageDrawable(Graphics.tint(mSearchButton.getContext(), R.drawable.ic_menu_search));
+        SearchEngine.cancelSearch();
+        mIsSearchExpanded = false;
+        refreshSearchVisibility();
+        return;
+      }
+
+      if (mIsSearchExpanded)
+      {
+        showSearchInParent();
+        return;
+      }
+
+      toggleSearch();
+      break;
+    default:
+      startSearch(SearchOption.FromResId(v.getId()));
+    }
+  }
+
+  private void showSearchInParent()
+  {
+    final MwmActivity parent = (MwmActivity) mFrame.getContext();
+    parent.showSearch();
+    mIsSearchExpanded = false;
+    refreshSearchVisibility();
+  }
+
+  private void startSearch(SearchOption searchOption)
+  {
+    mCurrentSearch = searchOption;
+    SearchEngine.searchInteractive(searchOption.searchQuery, System.nanoTime(), false /* isMapAndTable */);
+    refreshSearchButtonImage(searchOption);
+
+    toggleSearch();
   }
 }
