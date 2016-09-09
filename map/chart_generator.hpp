@@ -10,6 +10,8 @@
 
 namespace maps
 {
+uint32_t constexpr kAlitudeChartBPP = 4;
+
 /// \brief fills uniformAltitudeDataM with altitude data which evenly distributed by
 /// |resultPointCount| points. |distanceDataM| and |altitudeDataM| form a curve of route altitude.
 /// This method is used to generalize and evenly distribute points of the chart.

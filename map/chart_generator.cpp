@@ -185,7 +185,6 @@ void GenerateChartByPoints(uint32_t width, uint32_t height, vector<m2::PointD> c
   agg::rgba8 const kLineColor = GetLineColor(mapStyle);
   agg::rgba8 const kCurveColor = GetCurveColor(mapStyle);
   double constexpr kLineWidthPxl = 2.0;
-  uint32_t constexpr kBPP = 4;
 
   using TBlender = BlendAdaptor<agg::rgba8, agg::order_rgba>;
   using TPixelFormat = agg::pixfmt_custom_blend_rgba<TBlender, agg::rendering_buffer>;
@@ -199,9 +198,9 @@ void GenerateChartByPoints(uint32_t width, uint32_t height, vector<m2::PointD> c
   TPixelFormat pixelFormat(renderBuffer, agg::comp_op_src_over);
   TBaseRenderer baseRenderer(pixelFormat);
 
-  frameBuffer.assign(width * kBPP * height, 0);
+  frameBuffer.assign(width * kAlitudeChartBPP * height, 0);
   renderBuffer.attach(&frameBuffer[0], static_cast<unsigned>(width),
-                      static_cast<unsigned>(height), static_cast<int>(width * kBPP));
+                      static_cast<unsigned>(height), static_cast<int>(width * kAlitudeChartBPP));
 
   // Background.
   baseRenderer.reset_clipping(true);

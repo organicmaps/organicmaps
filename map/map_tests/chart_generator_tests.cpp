@@ -9,7 +9,8 @@
 namespace
 {
 double constexpr kEpsilon = 0.00001;
-uint32_t constexpr kBPP = 4;
+
+using namespace maps;
 
 bool AlmostEqualAbs(vector<double> const & v1, vector<double> const & v2)
 {
@@ -27,7 +28,7 @@ bool AlmostEqualAbs(vector<double> const & v1, vector<double> const & v2)
 bool IsColor(vector<uint8_t> const & frameBuffer, size_t startColorIdx, uint8_t expectedR,
              uint8_t expectedG, uint8_t expectedB, uint8_t expectedA)
 {
-  CHECK_LESS_OR_EQUAL(startColorIdx + kBPP, frameBuffer.size(), ());
+  CHECK_LESS_OR_EQUAL(startColorIdx + kAlitudeChartBPP, frameBuffer.size(), ());
 
   return frameBuffer[startColorIdx] == expectedR && frameBuffer[startColorIdx + 1] == expectedG &&
          frameBuffer[startColorIdx + 2] == expectedB && frameBuffer[startColorIdx + 3] == expectedA;
@@ -36,13 +37,13 @@ bool IsColor(vector<uint8_t> const & frameBuffer, size_t startColorIdx, uint8_t 
 void TestAngleColors(size_t width, size_t height, vector<uint8_t> const & frameBuffer,
                      uint8_t expectedR, uint8_t expectedG, uint8_t expectedB, uint8_t expectedA)
 {
-  TEST_EQUAL(frameBuffer.size(), width * height * kBPP, ());
+  TEST_EQUAL(frameBuffer.size(), width * height * kAlitudeChartBPP, ());
   TEST(IsColor(frameBuffer, 0 /* startColorIdx */, expectedR, expectedG, expectedB, expectedA), ());
-  TEST(IsColor(frameBuffer, kBPP * (width - 1) /* startColorIdx */, expectedR,
+  TEST(IsColor(frameBuffer, kAlitudeChartBPP * (width - 1) /* startColorIdx */, expectedR,
                expectedG, expectedB, expectedA), ());
-  TEST(IsColor(frameBuffer, kBPP * height * (width - 1) /* startColorIdx */,
+  TEST(IsColor(frameBuffer, kAlitudeChartBPP * height * (width - 1) /* startColorIdx */,
                expectedR, expectedG, expectedB, expectedA), ());
-  TEST(IsColor(frameBuffer, kBPP * height * width - kBPP /* startColorIdx */,
+  TEST(IsColor(frameBuffer, kAlitudeChartBPP * height * width - kAlitudeChartBPP /* startColorIdx */,
                expectedR, expectedG, expectedB, expectedA), ());
 }
 
@@ -160,11 +161,11 @@ UNIT_TEST(GenerateChartByPoints_Test)
 
   maps::GenerateChartByPoints(width, height, geometry, MapStyleLight /* mapStyle */, frameBuffer);
 
-  TEST_EQUAL(frameBuffer.size(), width * height * kBPP, ());
+  TEST_EQUAL(frameBuffer.size(), width * height * kAlitudeChartBPP, ());
   TEST(IsColor(frameBuffer, 0 /* startColorIdx */, 30 /* expectedR */, 150 /* expectedG */,
                240 /* expectedB */, 255 /* expectedA */),
        ());
-  TEST(IsColor(frameBuffer, kBPP * (width - 1) /* startColorIdx */, 255 /* expectedR */,
+  TEST(IsColor(frameBuffer, kAlitudeChartBPP * (width - 1) /* startColorIdx */, 255 /* expectedR */,
                255 /* expectedG */, 255 /* expectedB */, 0 /* expectedA */),
        ());
 }
@@ -194,10 +195,10 @@ UNIT_TEST(GenerateChart_OnePointTest)
   TEST(maps::GenerateChart(width, height, distanceDataM, altitudeDataM, MapStyleDark /* mapStyle */,
                            frameBuffer),
        ());
-  TEST_EQUAL(frameBuffer.size(), width * height * kBPP, ());
+  TEST_EQUAL(frameBuffer.size(), width * height * kAlitudeChartBPP, ());
   TEST(IsColor(frameBuffer, 0 /* startColorIdx */, 255 /* expectedR */, 255 /* expectedG */,
                255 /* expectedB */, 0 /* expectedA */), ());
-  TEST(IsColor(frameBuffer, kBPP * (width - 1) /* startColorIdx */, 255 /* expectedR */,
+  TEST(IsColor(frameBuffer, kAlitudeChartBPP * (width - 1) /* startColorIdx */, 255 /* expectedR */,
                255 /* expectedG */, 255 /* expectedB */, 0 /* expectedA */), ());
 }
 
@@ -227,7 +228,8 @@ UNIT_TEST(GenerateChart_Test)
   TEST(IsColor(frameBuffer, 0 /* startColorIdx */, 255 /* expectedR */, 255 /* expectedG */,
                255 /* expectedB */, 0 /* expectedA */),
        ());
-  TEST(IsColor(frameBuffer, kBPP * 3 * width - kBPP /* startColorIdx */, 255 /* expectedR */,
+  TEST(IsColor(frameBuffer, kAlitudeChartBPP * 3 * width -
+               kAlitudeChartBPP /* startColorIdx */, 255 /* expectedR */,
                230 /* expectedG */, 140 /* expectedB */, 255 /* expectedA */),
        ());
 }
