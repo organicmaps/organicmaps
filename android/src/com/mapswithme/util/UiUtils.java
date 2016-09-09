@@ -334,6 +334,11 @@ public final class UiUtils
                                                  : layout.getContext().getResources().getColor(R.color.base_red));
   }
 
+  public static boolean isLandscape(Context context)
+  {
+    return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+  }
+
   // utility class
   private UiUtils() {}
 }
