@@ -14,6 +14,7 @@
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
+#import "UIImage+RGBAData.h"
 
 #include "Framework.h"
 
@@ -23,6 +24,8 @@ using namespace routing;
 
 namespace
 {
+char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeImagesQueue";
+
 MWMRoutePoint lastLocationPoint()
 {
   CLLocation * lastLocation = [MWMLocationManager lastLocation];
@@ -36,6 +39,9 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
 
 @property(nonatomic, readwrite) MWMRoutePoint startPoint;
 @property(nonatomic, readwrite) MWMRoutePoint finishPoint;
+
+@property(nonatomic) NSMutableDictionary<NSValue *, NSData *> * altitudeImagesData;
+@property(nonatomic) dispatch_queue_t renderAltitudeImagesQueue;
 
 @end
 
@@ -51,11 +57,18 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
   return router;
 }
 
++ (BOOL)hasRouteAltitude
+{
+  return GetFramework().HasRouteAltitude();
+}
+
 - (instancetype)initRouter
 {
   self = [super init];
   if (self)
   {
+    self.altitudeImagesData = [@{} mutableCopy];
+    self.renderAltitudeImagesQueue = dispatch_queue_create(kRenderAltitudeImagesQueueLabel, DISPATCH_QUEUE_SERIAL);
     [self resetPoints];
     [MWMLocationManager addObserver:self];
     [MWMFrameworkListener addObserver:self];
@@ -119,6 +132,8 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
 
 - (void)rebuildWithBestRouter:(BOOL)bestRouter
 {
+  [self.altitudeImagesData removeAllObjects];
+
   if (self.startPoint.IsMyPosition())
   {
     [Statistics logEvent:kStatPointToPoint
@@ -237,6 +252,7 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
 
 - (void)doStop
 {
+  [self.altitudeImagesData removeAllObjects];
   GetFramework().CloseRouting();
   MapsAppDelegate * app = [MapsAppDelegate theApp];
   app.routingPlaneMode = MWMRoutingPlaneModeNone;
@@ -255,6 +271,37 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
   f.GetRouteFollowingInfo(info);
   if (info.IsValid())
     [[MWMNavigationDashboardManager manager] updateFollowingInfo:info];
+}
+
+- (void)routeAltitudeImageForSize:(CGSize)size completion:(MWMImageBlock)block
+{
+  dispatch_async(self.renderAltitudeImagesQueue, ^{
+    if (![MWMRouter hasRouteAltitude])
+      return;
+    CGFloat const screenScale = [UIScreen mainScreen].scale;
+    CGSize const scaledSize = {.width = size.width * screenScale, .height = size.height * screenScale};
+    uint32_t const width = static_cast<uint32_t>(scaledSize.width);
+    uint32_t const height = static_cast<uint32_t>(scaledSize.height);
+    if (width == 0 || height == 0)
+      return;
+
+    NSValue * sizeValue = [NSValue valueWithCGSize:scaledSize];
+    NSData * imageData = self.altitudeImagesData[sizeValue];
+    if (!imageData)
+    {
+      vector<uint8_t> imageRGBAData;
+      if (!GetFramework().GenerateRouteAltitudeChart(width, height, imageRGBAData))
+        return;
+      if (imageRGBAData.empty())
+        return;
+      imageData = [NSData dataWithBytes:imageRGBAData.data() length:imageRGBAData.size()];
+      self.altitudeImagesData[sizeValue] = imageData;
+    }
+
+    UIImage * altitudeImage = [UIImage imageWithRGBAData:imageData width:width height:height];
+    if (altitudeImage)
+      dispatch_async(dispatch_get_main_queue(), ^{ block(altitudeImage); });
+  });
 }
 
 #pragma mark - MWMLocationObserver
