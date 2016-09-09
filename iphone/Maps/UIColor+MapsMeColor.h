@@ -24,6 +24,7 @@
 + (UIColor *)blackDividers;
 + (UIColor *)white;
 + (UIColor *)whitePrimaryText;
++ (UIColor *)whitePrimaryTextHighlighted;
 + (UIColor *)whiteSecondaryText;
 + (UIColor *)whiteHintText;
 + (UIColor *)whiteDividers;
