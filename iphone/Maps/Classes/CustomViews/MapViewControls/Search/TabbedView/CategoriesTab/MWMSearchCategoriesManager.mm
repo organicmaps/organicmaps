@@ -1,6 +1,7 @@
-#import "Macros.h"
 #import "MWMSearchCategoriesManager.h"
+#import "AppInfo.h"
 #import "MWMSearchCategoryCell.h"
+#import "Macros.h"
 #import "Statistics.h"
 
 #include "search/displayed_categories.hpp"
@@ -31,7 +32,7 @@ static NSString * const kCellIdentifier = @"MWMSearchCategoryCell";
   tableView.delegate = self;
   tableView.dataSource = self;
   [tableView registerNib:[UINib nibWithNibName:kCellIdentifier bundle:nil]
-  forCellReuseIdentifier:kCellIdentifier];
+      forCellReuseIdentifier:kCellIdentifier];
   [tableView reloadData];
 }
 
@@ -42,7 +43,8 @@ static NSString * const kCellIdentifier = @"MWMSearchCategoryCell";
   return m_categories.size();
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   return [tableView dequeueReusableCellWithIdentifier:kCellIdentifier];
 }
@@ -54,8 +56,9 @@ static NSString * const kCellIdentifier = @"MWMSearchCategoryCell";
   return 44.0;
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(MWMSearchCategoryCell *)cell
-forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView
+      willDisplayCell:(MWMSearchCategoryCell *)cell
+    forRowAtIndexPath:(NSIndexPath *)indexPath
 {
   [cell setCategory:@(m_categories[indexPath.row].c_str())];
 }
@@ -64,8 +67,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSString * string = @(m_categories[indexPath.row].c_str());
   [Statistics logEvent:kStatEventName(kStatSearch, kStatSelectResult)
-                   withParameters:@{kStatValue : string, kStatScreen : kStatCategories}];
-  [self.delegate searchText:[L(string) stringByAppendingString:@" "] forInputLocale:nil];
+        withParameters:@{kStatValue : string, kStatScreen : kStatCategories}];
+  [self.delegate searchText:[L(string) stringByAppendingString:@" "]
+             forInputLocale:[[AppInfo sharedInfo] languageId]];
 }
 
 @end

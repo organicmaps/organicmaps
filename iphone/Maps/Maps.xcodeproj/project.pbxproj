@@ -258,6 +258,10 @@
 		34BC72241B0DECAE0012A34B /* MWMMapViewControlsManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BC72111B0DECAE0012A34B /* MWMMapViewControlsManager.mm */; };
 		34BF0CC61C31304A00D097EB /* MWMAuthorizationCommon.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BF0CC51C31304A00D097EB /* MWMAuthorizationCommon.mm */; };
 		34BF0CC71C31304A00D097EB /* MWMAuthorizationCommon.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BF0CC51C31304A00D097EB /* MWMAuthorizationCommon.mm */; };
+		34BF68601D74585D001752F6 /* MWMSearch+CoreSpotlight.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BF685F1D74585D001752F6 /* MWMSearch+CoreSpotlight.mm */; };
+		34BF68611D74585D001752F6 /* MWMSearch+CoreSpotlight.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BF685F1D74585D001752F6 /* MWMSearch+CoreSpotlight.mm */; };
+		34BF68631D7459E6001752F6 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34BF68621D7459E6001752F6 /* CoreSpotlight.framework */; };
+		34BF68641D7459EF001752F6 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34BF68621D7459E6001752F6 /* CoreSpotlight.framework */; };
 		34C2431B1CEDBDBA0006B7DC /* MWMEditorAdditionalNamesTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34C2431A1CEDBDBA0006B7DC /* MWMEditorAdditionalNamesTableViewController.mm */; };
 		34C2431C1CEDBDBA0006B7DC /* MWMEditorAdditionalNamesTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34C2431A1CEDBDBA0006B7DC /* MWMEditorAdditionalNamesTableViewController.mm */; };
 		34C659471BD12A77009DC20A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 34C659451BD12A77009DC20A /* InfoPlist.strings */; };
@@ -1145,6 +1149,9 @@
 		34BC72111B0DECAE0012A34B /* MWMMapViewControlsManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMMapViewControlsManager.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		34BF0CC51C31304A00D097EB /* MWMAuthorizationCommon.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAuthorizationCommon.mm; sourceTree = "<group>"; };
 		34BF0CC81C31306300D097EB /* MWMAuthorizationCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMAuthorizationCommon.h; sourceTree = "<group>"; };
+		34BF685E1D745815001752F6 /* MWMSearch+CoreSpotlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWMSearch+CoreSpotlight.h"; sourceTree = "<group>"; };
+		34BF685F1D74585D001752F6 /* MWMSearch+CoreSpotlight.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "MWMSearch+CoreSpotlight.mm"; sourceTree = "<group>"; };
+		34BF68621D7459E6001752F6 /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
 		34C243191CEDBDBA0006B7DC /* MWMEditorAdditionalNamesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMEditorAdditionalNamesTableViewController.h; sourceTree = "<group>"; };
 		34C2431A1CEDBDBA0006B7DC /* MWMEditorAdditionalNamesTableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMEditorAdditionalNamesTableViewController.mm; sourceTree = "<group>"; };
 		34C659461BD12A77009DC20A /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -1596,6 +1603,7 @@
 				F652D9141CFEE47000FC29A0 /* SafariServices.framework in Frameworks */,
 				845C89351C8983F300940D7F /* CoreText.framework in Frameworks */,
 				845C89361C8983F300940D7F /* libc++.tbd in Frameworks */,
+				34BF68641D7459EF001752F6 /* CoreSpotlight.framework in Frameworks */,
 				845C89371C8983F300940D7F /* QuickLook.framework in Frameworks */,
 				288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */,
 				34A62D4E1C903533007FDCB7 /* Fabric.framework in Frameworks */,
@@ -1641,6 +1649,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34BF68631D7459E6001752F6 /* CoreSpotlight.framework in Frameworks */,
 				F659FC6A1CF35C24000A06B1 /* SafariServices.framework in Frameworks */,
 				341F09841C20138100F18AC5 /* libpugixml.a in Frameworks */,
 				3411387D1C15AE73002E3B3E /* libeditor.a in Frameworks */,
@@ -1816,6 +1825,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				34BF68621D7459E6001752F6 /* CoreSpotlight.framework */,
 				343E8B361D08004C0046AEEE /* libstdc++.tbd */,
 				343E8B331D07F84C0046AEEE /* Pushwoosh.framework */,
 				F659FC691CF35C24000A06B1 /* SafariServices.framework */,
@@ -2000,6 +2010,8 @@
 				3436FE801D366CDD005CD87B /* MWMSearch.h */,
 				3436FE811D366CDD005CD87B /* MWMSearch.mm */,
 				347D5CA11D376B9F00FA28DD /* MWMSearchObserver.h */,
+				34BF685E1D745815001752F6 /* MWMSearch+CoreSpotlight.h */,
+				34BF685F1D74585D001752F6 /* MWMSearch+CoreSpotlight.mm */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -3593,6 +3605,7 @@
 				34CC4C091B81F3B500E44C1F /* MWMSearchTabbedViewController.mm in Sources */,
 				340837161B72451A00B5C185 /* MWMShareActivityItem.mm in Sources */,
 				34F9FB901C43AF2400F71201 /* MWMStreetEditorEditTableViewCell.mm in Sources */,
+				34BF68601D74585D001752F6 /* MWMSearch+CoreSpotlight.mm in Sources */,
 				978D4A291996C17300D72CA7 /* RichTextVC.mm in Sources */,
 				9747278418338F0C006B7CB7 /* UIViewController+Navigation.mm in Sources */,
 				F6BC1E521ACBF98600EF0360 /* MWMFacebookAlert.mm in Sources */,
@@ -3820,6 +3833,7 @@
 				6741A9A31BF340DE002C974C /* main.mm in Sources */,
 				6741A9A41BF340DE002C974C /* MWMSearchTabbedViewController.mm in Sources */,
 				6741A9A51BF340DE002C974C /* MWMShareActivityItem.mm in Sources */,
+				34BF68611D74585D001752F6 /* MWMSearch+CoreSpotlight.mm in Sources */,
 				34F9FB911C43AF2400F71201 /* MWMStreetEditorEditTableViewCell.mm in Sources */,
 				6741A9A61BF340DE002C974C /* RichTextVC.mm in Sources */,
 				6741A9A71BF340DE002C974C /* UIViewController+Navigation.mm in Sources */,
