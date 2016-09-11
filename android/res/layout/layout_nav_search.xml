@@ -18,7 +18,7 @@
     android:layout_marginLeft="-70dp"
     android:layout_marginStart="-70dp"
     android:background="?searchLayoutBackground"
-    android:visibility="gone"
+    android:visibility="invisible"
     tools:visibility="visible">
 
     <ImageView

@@ -16,13 +16,14 @@
     android:background="?searchLayoutBackground"
     android:orientation="horizontal"
     android:padding="@dimen/margin_quarter"
-    android:visibility="gone"
+    android:visibility="invisible"
     tools:visibility="visible">
 
     <ImageView
       android:id="@+id/search_fuel"
       style="@style/MwmWidget.SearchNavigationButton"
       android:layout_marginLeft="60dp"
+      android:layout_marginStart="60dp"
       android:src="@drawable/ic_routing_fuel_on"/>
 
     <ImageView

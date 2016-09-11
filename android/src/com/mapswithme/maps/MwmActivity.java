@@ -745,7 +745,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       }
     });
     mOnmapDownloader.onResume();
-    mNavigationController.getNavMenu().onResume(null);
+    mNavigationController.onResume();
   }
 
   @Override
@@ -1249,6 +1249,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (RoutingController.get().isNavigating())
     {
       mNavigationController.show(true);
+      mSearchController.hide();
       mMainMenu.setState(MainMenu.State.NAVIGATION, false);
       return;
     }
