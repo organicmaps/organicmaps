@@ -107,9 +107,6 @@ public class MwmApplication extends Application
     initHockeyApp();
     initCrashlytics();
     initPushWoosh();
-    // Workaround to initialize alohalytics for transferring http requests.
-    // Http wrapper should be cut out from the alohalytics in the future.
-    Statistics s = Statistics.INSTANCE;
 
     String settingsPath = getSettingsPath();
     new File(settingsPath).mkdirs();
@@ -118,6 +115,10 @@ public class MwmApplication extends Application
     nativePreparePlatform(settingsPath);
     nativeInitPlatform(getApkPath(), getStoragePath(settingsPath), getTempPath(), getObbGooglePath(),
                        BuildConfig.FLAVOR, BuildConfig.BUILD_TYPE, UiUtils.isTablet());
+
+    // Workaround to initialize alohalytics for transferring http requests.
+    // Http wrapper should be cut out from the alohalytics in the future.
+    Statistics s = Statistics.INSTANCE;
 
     mPrefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
     mBackgroundTracker = new AppBackgroundTracker();
