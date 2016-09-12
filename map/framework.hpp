@@ -731,7 +731,7 @@ public:
   /// \brief Generates 4 bytes per point image (RGBA) and put the data to |imageRGBAData|.
   /// \returns If there is valid route info and the chart was generated returns true
   /// and false otherwise. If the method returns true it is guaranteed that the size of
-  /// |imageRGBAData| is more than zero.
+  /// |imageRGBAData| is not zero.
   /// \note If HasRouteAltitude() method returns true, GenerateRouteAltitudeChart(...)
   /// could return false if route was deleted or rebuilt between the calls.
   bool GenerateRouteAltitudeChart(uint32_t width, uint32_t height,

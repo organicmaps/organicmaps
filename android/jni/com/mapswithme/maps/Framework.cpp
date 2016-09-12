@@ -41,7 +41,7 @@ using namespace storage;
 using platform::CountryFile;
 using platform::LocalCountryFile;
 
-static_assert(sizeof(jint) >= 4, "Size of jint in less than 4 bytes.");
+static_assert(sizeof(int) >= 4, "Size of jint in less than 4 bytes.");
 
 namespace
 {
@@ -899,8 +899,8 @@ Java_com_mapswithme_maps_Framework_nativeGenerateRouteAltitudeChartBits(JNIEnv *
 {
   ::Framework * fr = frm();
   ASSERT(fr, ());
-  vector<uint8_t> imageRGBAData;
 
+  vector<uint8_t> imageRGBAData;
   if (!fr->GenerateRouteAltitudeChart(width, height, imageRGBAData))
   {
     LOG(LWARNING, ("Can't generate route altitude image."));
@@ -925,10 +925,12 @@ Java_com_mapswithme_maps_Framework_nativeGenerateRouteAltitudeChartBits(JNIEnv *
   for (size_t i = 0; i < pxlCount; ++i)
   {
     size_t const shiftInBytes = i * maps::kAltitudeChartBPP;
-    arrayElements[i] = (static_cast<jint>(imageRGBAData[shiftInBytes + 3]) << 24) /* alpha */
-        | (static_cast<jint>(imageRGBAData[shiftInBytes]) << 16) /* red */
-        | (static_cast<jint>(imageRGBAData[shiftInBytes + 1]) << 8) /* green */
-        | (static_cast<jint>(imageRGBAData[shiftInBytes + 2])); /* blue */
+    // Type of |imageRGBAData| elements is uint8_t. But uint8_t is promoted to unsinged int in code below before shifting.
+    // So there's no data lost in code below.
+    arrayElements[i] = (imageRGBAData[shiftInBytes + 3] << 24) /* alpha */
+        | (imageRGBAData[shiftInBytes] << 16) /* red */
+        | (imageRGBAData[shiftInBytes + 1] << 8) /* green */
+        | (imageRGBAData[shiftInBytes + 2]); /* blue */
   }
   env->ReleaseIntArrayElements(imageRGBADataArray, arrayElements, 0);
 
