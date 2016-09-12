@@ -917,12 +917,12 @@ Java_com_mapswithme_maps_Framework_nativeGenerateRouteAltitudeChartBits(JNIEnv *
     return nullptr;
   }
 
-  jintArray imageRGBADataArray = env->NewIntArray(imageRGBADataSize);
+  jintArray imageRGBADataArray = env->NewIntArray(pxlCount);
   ASSERT(imageRGBADataArray, ());
   jint * arrayElements = env->GetIntArrayElements(imageRGBADataArray, 0);
   ASSERT(arrayElements, ());
 
-  for (size_t i = 0; i < imageRGBADataSize; ++i)
+  for (size_t i = 0; i < pxlCount; ++i)
   {
     size_t const shiftInBytes = i * maps::kAltitudeChartBPP;
     arrayElements[i] = (static_cast<jint>(imageRGBAData[shiftInBytes + 3]) << 24) /* alpha */
