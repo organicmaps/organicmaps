@@ -12,6 +12,7 @@
 #include "indexer/feature.hpp"
 #include "indexer/index.hpp"
 
+#include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
@@ -643,6 +644,21 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategories)
   TEST(ResultsMatch("beach ",
                     {ExactMatch(wonderlandId, nonameBeach), ExactMatch(wonderlandId, namedBeach)}),
        ());
+}
+
+UNIT_CLASS_TEST(ProcessorTest, TestCoords)
+{
+  auto request = MakeRequest("51.681644 39.183481");
+  auto const & results = request->Results();
+  TEST_EQUAL(results.size(), 1, ());
+
+  auto const & result = results[0];
+  TEST_EQUAL(result.GetResultType(), Result::RESULT_LATLON, ());
+  TEST(result.HasPoint(), ());
+
+  m2::PointD const expected = MercatorBounds::FromLatLon(51.681644, 39.183481);
+  auto const actual = result.GetFeatureCenter();
+  TEST(MercatorBounds::DistanceOnEarth(expected, actual) <= 1.0, ());
 }
 }  // namespace
 }  // namespace search
