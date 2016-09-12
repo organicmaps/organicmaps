@@ -78,7 +78,7 @@ public class RoutingPlanController extends ToolbarController
 
     View planFrame = root.findViewById(R.id.planning_frame);
 
-    mRouterTypes = (RadioGroup) planFrame.findViewById(R.id.route_type);
+    mRouterTypes = (RadioGroup) mToolbar.findViewById(R.id.route_type);
 
     setupRouterButton(R.id.vehicle, R.drawable.ic_drive, new View.OnClickListener()
     {
@@ -113,7 +113,7 @@ public class RoutingPlanController extends ToolbarController
       }
     });
 
-    View progressFrame = planFrame.findViewById(R.id.progress_frame);
+    View progressFrame = mToolbar.findViewById(R.id.progress_frame);
     mProgressVehicle = (WheelProgressView) progressFrame.findViewById(R.id.progress_vehicle);
     mProgressPedestrian = (WheelProgressView) progressFrame.findViewById(R.id.progress_pedestrian);
     mProgressBicycle = (WheelProgressView) progressFrame.findViewById(R.id.progress_bicycle);
@@ -132,8 +132,6 @@ public class RoutingPlanController extends ToolbarController
       if (divider != null)
         UiUtils.invisible(divider);
     }
-
-    setTitle(R.string.p2p_route_planning);
 
     mToggle.setImageDrawable(mToggleImage);
     mToggle.setOnClickListener(new View.OnClickListener()

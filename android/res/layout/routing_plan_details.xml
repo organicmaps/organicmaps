@@ -11,57 +11,6 @@
   android:paddingRight="@dimen/margin_half_plus"
   android:paddingEnd="@dimen/margin_half_plus"
   android:clickable="true">
-  <LinearLayout
-    android:id="@+id/progress_frame"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:layout_centerVertical="true"
-    tools:background="#80FF0000">
-    <com.mapswithme.maps.widget.WheelProgressView
-      android:id="@+id/progress_vehicle"
-      style="@style/MwmWidget.ProgressWheel.RoutingPlan"
-      tools:visibility="visible"/>
-
-    <com.mapswithme.maps.widget.WheelProgressView
-      android:id="@+id/progress_pedestrian"
-      style="@style/MwmWidget.ProgressWheel.RoutingPlan"
-      tools:visibility="visible"/>
-
-    <com.mapswithme.maps.widget.WheelProgressView
-      android:id="@+id/progress_bicycle"
-      style="@style/MwmWidget.ProgressWheel.RoutingPlan"
-      tools:visibility="visible"/>
-  </LinearLayout>
-
-  <RadioGroup
-    android:id="@+id/route_type"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:layout_alignLeft="@id/progress_frame"
-    android:layout_alignStart="@id/progress_frame"
-    android:orientation="horizontal">
-    <RadioButton
-      android:id="@+id/vehicle"
-      android:layout_width="@dimen/routing_selector_size"
-      android:layout_height="@dimen/routing_selector_size"
-      tools:button="@drawable/ic_drive"
-      tools:buttonTint="?colorAccent"/>
-
-    <RadioButton
-      android:id="@+id/pedestrian"
-      android:layout_width="@dimen/routing_selector_size"
-      android:layout_height="@dimen/routing_selector_size"
-      tools:button="@drawable/ic_walk"
-      tools:buttonTint="?iconTintLight"/>
-
-    <RadioButton
-      android:id="@+id/bicycle"
-      android:layout_width="@dimen/routing_selector_size"
-      android:layout_height="@dimen/routing_selector_size"
-      tools:button="@drawable/ic_bicycle"
-      tools:buttonTint="?iconTintLight"/>
-  </RadioGroup>
 
   <LinearLayout
     android:id="@+id/numbers"
