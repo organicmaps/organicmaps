@@ -82,8 +82,8 @@ struct Equals<false, T, C>
 }  // namespace impl
 
 // Sorts and removes duplicate entries from |c|.
-template <typename T, template <typename, typename = allocator<T>> class Container>
-void SortUnique(Container<T> & c)
+template <typename T, template <typename, typename = allocator<T>> class Cont>
+void SortUnique(Cont<T> & c)
 {
   sort(c.begin(), c.end());
   c.erase(unique(c.begin(), c.end()), c.end());
@@ -92,18 +92,17 @@ void SortUnique(Container<T> & c)
 // Sorts according to |comp| and removes duplicate entries according to |pred| from |c|.
 // Note. If several entries are equal according to |pred| an arbitrary entry of them
 // is left in |c| after a call of this function.
-template <typename T, template <typename, typename = allocator<T>> class Container,
-          typename TLess, typename TEquals>
-void SortUnique(Container<T> & c, TLess && less, TEquals && equals)
+template <class Cont, typename Less, typename Equals>
+void SortUnique(Cont & c, Less && less, Equals && equals)
 {
-  sort(c.begin(), c.end(), forward<TLess>(less));
-  c.erase(unique(c.begin(), c.end(), forward<TEquals>(equals)), c.end());
+  sort(c.begin(), c.end(), forward<Less>(less));
+  c.erase(unique(c.begin(), c.end(), forward<Equals>(equals)), c.end());
 }
 
-template <typename T, template <typename, typename = allocator<T>> class Container, class TFn>
-void EraseIf(Container<T> & c, TFn && fn)
+template <class Cont, class Fn>
+void EraseIf(Cont & c, Fn && fn)
 {
-  c.erase(remove_if(c.begin(), c.end(), forward<TFn>(fn)), c.end());
+  c.erase(remove_if(c.begin(), c.end(), forward<Fn>(fn)), c.end());
 }
 
 // Creates a comparer being able to compare two instances of class C

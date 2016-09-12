@@ -5,8 +5,8 @@
 #endif
 
 #include <memory>
-using std::auto_ptr;
 using std::allocator;
+using std::auto_ptr;
 
 #ifdef DEBUG_NEW
 #define new DEBUG_NEW
