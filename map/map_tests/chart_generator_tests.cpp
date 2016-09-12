@@ -104,7 +104,7 @@ UNIT_TEST(GenerateYAxisChartData_SmokeTest)
   vector<double> yAxisDataPxl;
 
   TEST(maps::GenerateYAxisChartData(30 /* height */, 1.0 /* minMetersPerPxl */, altitudeDataM, yAxisDataPxl), ());
-  vector<double> expecttedYAxisDataPxl = {28.0, 28.0};
+  vector<double> expecttedYAxisDataPxl = {15.0, 15.0};
   TEST(AlmostEqualAbs(yAxisDataPxl, expecttedYAxisDataPxl), ());
 }
 
@@ -123,7 +123,7 @@ UNIT_TEST(GenerateYAxisChartData_Test)
   vector<double> yAxisDataPxl;
 
   TEST(maps::GenerateYAxisChartData(100 /* height */, 1.0 /* minMetersPerPxl */, altitudeDataM, yAxisDataPxl), ());
-  vector<double> expecttedYAxisDataPxl = {96.0, 94.0, 96.0, 98.0, 95.0};
+  vector<double> expecttedYAxisDataPxl = {50.0, 48.0, 50.0, 52.0, 49.0};
   TEST(AlmostEqualAbs(yAxisDataPxl, expecttedYAxisDataPxl), ());
 }
 
