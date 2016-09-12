@@ -1,4 +1,5 @@
 #pragma once
+#include "search/emitter.hpp"
 #include "search/geocoder.hpp"
 #include "search/mode.hpp"
 #include "search/pre_ranker.hpp"
@@ -99,12 +100,14 @@ public:
   void Search(SearchParams const & params, m2::RectD const & viewport);
 
   // Tries to generate a (lat, lon) result from |m_query|.
-  void SearchCoordinates(Results & res) const;
+  void SearchCoordinates();
 
   void InitParams(QueryParams & params);
+
   void InitGeocoder(Geocoder::Params & params);
   void InitPreRanker(Geocoder::Params const & geocoderParams);
   void InitRanker(Geocoder::Params const & geocoderParams);
+  void InitEmitter();
 
   void ClearCaches();
 
@@ -173,8 +176,9 @@ protected:
 protected:
   bool m_viewportSearch;
 
-  PreRanker m_preRanker;
+  Emitter m_emitter;
   Ranker m_ranker;
+  PreRanker m_preRanker;
   Geocoder m_geocoder;
 };
 }  // namespace search

@@ -19,6 +19,7 @@ HEADERS += \
     downloader_search_callback.hpp \
     dummy_rank_table.hpp \
     editor_delegate.hpp \
+    emitter.hpp \
     engine.hpp \
     everywhere_search_params.hpp \
     feature_offset_match.hpp \

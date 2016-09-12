@@ -34,6 +34,7 @@ class CountryInfoGetter;
 
 namespace search
 {
+class Emitter;
 class PreResult2Maker;
 
 class Ranker
@@ -62,12 +63,11 @@ public:
     TLocales m_categoryLocales;
 
     size_t m_limit = 0;
-    SearchParams::TOnResults m_onResults;
   };
 
   static size_t const kBatchSize;
 
-  Ranker(Index const & index, storage::CountryInfoGetter const & infoGetter,
+  Ranker(Index const & index, storage::CountryInfoGetter const & infoGetter, Emitter & emitter,
          CategoriesHolder const & categories, vector<Suggest> const & suggests,
          my::Cancellable const & cancellable);
   virtual ~Ranker() = default;
@@ -83,16 +83,13 @@ public:
   void MakeResultHighlight(Result & res) const;
 
   void GetSuggestion(string const & name, string & suggest) const;
-  void SuggestStrings(Results & res);
-  void MatchForSuggestions(strings::UniString const & token, int8_t locale, string const & prolog,
-                           Results & res);
+  void SuggestStrings();
+  void MatchForSuggestions(strings::UniString const & token, int8_t locale, string const & prolog);
   void GetBestMatchName(FeatureType const & f, string & name) const;
-  void ProcessSuggestions(vector<IndexedValue> & vec, Results & res) const;
+  void ProcessSuggestions(vector<IndexedValue> & vec) const;
 
   virtual void SetPreResults1(vector<PreResult1> && preResults1) { m_preResults1 = move(preResults1); }
   virtual void UpdateResults(bool lastUpdate);
-
-  inline Results & GetResults() { return m_results; }
 
   void ClearCaches();
 
@@ -134,11 +131,11 @@ private:
 
   Index const & m_index;
   storage::CountryInfoGetter const & m_infoGetter;
+  Emitter & m_emitter;
   CategoriesHolder const & m_categories;
   vector<Suggest> const & m_suggests;
 
   vector<PreResult1> m_preResults1;
   vector<IndexedValue> m_tentativeResults;
-  Results m_results;
 };
 }  // namespace search

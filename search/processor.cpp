@@ -145,8 +145,9 @@ Processor::Processor(Index const & index, CategoriesHolder const & categories,
   , m_minDistanceOnMapBetweenResults(0.0)
   , m_mode(Mode::Everywhere)
   , m_suggestsEnabled(true)
+  , m_ranker(index, infoGetter, m_emitter, categories, suggests,
+             static_cast<my::Cancellable const &>(*this))
   , m_preRanker(index, m_ranker, kPreResultsCount)
-  , m_ranker(index, infoGetter, categories, suggests, static_cast<my::Cancellable const &>(*this))
   , m_geocoder(index, infoGetter, m_preRanker, static_cast<my::Cancellable const &>(*this))
 {
   // Initialize keywords scorer.
@@ -407,23 +408,16 @@ void Processor::Search(SearchParams const & params, m2::RectD const & viewport)
 
   Geocoder::Params geocoderParams;
   InitGeocoder(geocoderParams);
-
   InitPreRanker(geocoderParams);
   InitRanker(geocoderParams);
-
-  try
-  {
-    SearchCoordinates(m_ranker.GetResults());
-  }
-  catch (CancelException const &)
-  {
-    LOG(LDEBUG, ("Search has been cancelled."));
-  }
+  InitEmitter();
 
   try
   {
     if (params.m_onStarted)
       params.m_onStarted();
+
+    SearchCoordinates();
 
     if (viewportSearch)
     {
@@ -432,7 +426,7 @@ void Processor::Search(SearchParams const & params, m2::RectD const & viewport)
     else
     {
       if (m_tokens.empty())
-        m_ranker.SuggestStrings(m_ranker.GetResults());
+        m_ranker.SuggestStrings();
 
       m_geocoder.GoEverywhere();
     }
@@ -445,22 +439,19 @@ void Processor::Search(SearchParams const & params, m2::RectD const & viewport)
   }
 
   if (!viewportSearch && !IsCancelled())
-    SendStatistics(params, viewport, m_ranker.GetResults());
+    SendStatistics(params, viewport, m_emitter.GetResults());
 
   // Emit finish marker to client.
-  params.m_onResults(Results::GetEndMarker(IsCancelled()));
+  m_emitter.Finish(IsCancelled());
 }
 
-void Processor::SearchCoordinates(Results & res) const
+void Processor::SearchCoordinates()
 {
   double lat, lon;
-  if (MatchLatLonDegree(m_query, lat, lon))
-  {
-    ASSERT_EQUAL(res.GetCount(), 0, ());
-    // Note that ranker's locale is not set up here but
-    // it is never used when making lat-lon results anyway.
-    res.AddResultNoChecks(m_ranker.MakeResult(PreResult2(lat, lon)));
-  }
+  if (!MatchLatLonDegree(m_query, lat, lon))
+    return;
+  m_emitter.AddResultNoChecks(m_ranker.MakeResult(PreResult2(lat, lon)));
+  m_emitter.Emit();
 }
 
 namespace
@@ -724,9 +715,10 @@ void Processor::InitRanker(Geocoder::Params const & geocoderParams)
   params.m_categoryLocales = GetCategoryLocales();
   params.m_accuratePivotCenter = GetPivotPoint();
   params.m_viewportSearch = viewportSearch;
-  params.m_onResults = m_onResults;
   m_ranker.Init(params, geocoderParams);
 }
+
+void Processor::InitEmitter() { m_emitter.Init(m_onResults); }
 
 void Processor::ClearCaches()
 {
