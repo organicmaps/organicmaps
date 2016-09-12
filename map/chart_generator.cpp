@@ -169,7 +169,8 @@ bool GenerateYAxisChartData(uint32_t height, double minMetersPerPxl,
   double const freeHeightSpacePxl = drawHeightPxl - deltaAltM / metersPerPxl;
   if (freeHeightSpacePxl < 0 || freeHeightSpacePxl > drawHeightPxl)
   {
-    LOG(LERROR, ("freeHeightSpacePxl is out of the range [0, drawHeightPxl]."));
+    LOG(LERROR, ("Number of pixels free of chart points (", freeHeightSpacePxl,
+                 ") is below zero or greater number of pixels for the chart (", drawHeightPxl, ")."));
     return false;
   }
 
