@@ -31,7 +31,7 @@
 
   <!-- -->
 
-  <dimen name="text_size_routing_number">24sp</dimen>
+  <dimen name="text_size_routing_number">16sp</dimen>
   <dimen name="text_size_routing_dimension">12sp</dimen>
   <dimen name="text_size_routing_dimension_inline">20sp</dimen>
   <dimen name="text_size_routing_plan_detail">18sp</dimen>

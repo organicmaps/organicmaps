@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:visibility="gone"
+    android:visibility="visible"
     android:layout_height="wrap_content"
     android:paddingLeft="@dimen/altitude_chart_container_padding_left">
 
@@ -14,12 +15,31 @@
       android:layout_marginTop="@dimen/altitude_chart_margin_top"
       android:orientation="vertical">
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/numbers"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/altitude_chart_time_distance_height"
-        android:layout_marginBottom="@dimen/altitude_chart_time_distance_margin_bottom"
-        android:text="33 мин 7.0 км"
-        android:textSize="16sp" />
+        android:layout_marginBottom="@dimen/altitude_chart_time_distance_margin_bottom">
+
+      <TextView
+          android:id="@+id/time"
+          style="@style/MwmWidget.TextView.PlanDetail.Number"
+          android:textStyle="bold"
+          tools:text="33 min" />
+
+      <TextView
+          style="@style/MwmWidget.TextView.PlanDetail.Number.Secondary"
+          android:layout_marginLeft="6dp"
+          android:layout_marginRight="6dp"
+          android:layout_marginTop="2dp"
+          android:text="•"
+          tools:ignore="HardcodedText" />
+
+      <TextView
+          android:id="@+id/distance"
+          style="@style/MwmWidget.TextView.PlanDetail.Number"
+          tools:text="1024 km" />
+    </LinearLayout>
 
     <ImageView android:id="@+id/altitude_chart"
         android:layout_width="@dimen/altitude_chart_image_width"

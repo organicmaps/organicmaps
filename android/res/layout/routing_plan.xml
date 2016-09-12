@@ -96,6 +96,4 @@
 
     </android.support.v7.widget.Toolbar>
   </FrameLayout>
-
-  <include layout="@layout/routing_plan_details"/>
 </LinearLayout>

@@ -35,9 +35,9 @@ public class RoutingPlanController extends ToolbarController
   private final WheelProgressView mProgressVehicle;
   private final WheelProgressView mProgressPedestrian;
   private final WheelProgressView mProgressBicycle;
-  private final View mPlanningLabel;
-  private final View mErrorLabel;
-  private final View mDetailsFrame;
+  //TODO: ask Igor about this label
+//  private final View mPlanningLabel;
+//  private final View mErrorLabel;
   private final View mNumbersFrame;
   private final TextView mNumbersTime;
   private final TextView mNumbersDistance;
@@ -118,20 +118,18 @@ public class RoutingPlanController extends ToolbarController
     mProgressPedestrian = (WheelProgressView) progressFrame.findViewById(R.id.progress_pedestrian);
     mProgressBicycle = (WheelProgressView) progressFrame.findViewById(R.id.progress_bicycle);
 
-    mPlanningLabel = planFrame.findViewById(R.id.planning);
-    mErrorLabel = planFrame.findViewById(R.id.error);
-    mDetailsFrame = planFrame.findViewById(R.id.details_frame);
-    mNumbersFrame = planFrame.findViewById(R.id.numbers);
+//    mErrorLabel = planFrame.findViewById(R.id.error);
+    mNumbersFrame = mActivity.findViewById(R.id.numbers);
     mNumbersTime = (TextView) mNumbersFrame.findViewById(R.id.time);
     mNumbersDistance = (TextView) mNumbersFrame.findViewById(R.id.distance);
     mNumbersArrival = (TextView) mNumbersFrame.findViewById(R.id.arrival);
 
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-    {
-      View divider = planFrame.findViewById(R.id.details_divider);
-      if (divider != null)
-        UiUtils.invisible(divider);
-    }
+//    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+//    {
+//      View divider = planFrame.findViewById(R.id.details_divider);
+//      if (divider != null)
+//        UiUtils.invisible(divider);
+//    }
 
     mToggle.setImageDrawable(mToggleImage);
     mToggle.setOnClickListener(new View.OnClickListener()
@@ -177,15 +175,11 @@ public class RoutingPlanController extends ToolbarController
   private void updateProgressLabels()
   {
     RoutingController.BuildState buildState = RoutingController.get().getBuildState();
-    boolean idle = (RoutingController.get().isPlanning() &&
-                    buildState == RoutingController.BuildState.NONE);
-    if (mDetailsFrame != null)
-      UiUtils.showIf(!idle, mDetailsFrame);
 
     boolean ready = (buildState == RoutingController.BuildState.BUILT);
     UiUtils.showIf(ready, mNumbersFrame);
-    UiUtils.showIf(RoutingController.get().isBuilding(), mPlanningLabel);
-    UiUtils.showIf(buildState == RoutingController.BuildState.ERROR, mErrorLabel);
+//    UiUtils.showIf(RoutingController.get().isBuilding(), mPlanningLabel);
+//    UiUtils.showIf(buildState == RoutingController.BuildState.ERROR, mErrorLabel);
 
     if (!ready)
       return;
