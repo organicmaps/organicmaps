@@ -166,10 +166,18 @@ bool GenerateYAxisChartData(uint32_t height, double minMetersPerPxl,
     return false;
   }
 
+  double const freeHeightSpacePxl = drawHeightPxl - deltaAltM / metersPerPxl;
+  if (freeHeightSpacePxl < 0 || freeHeightSpacePxl > drawHeightPxl)
+  {
+    LOG(LERROR, ("freeHeightSpacePxl is out of the range [0, drawHeightPxl]."));
+    return false;
+  }
+
+  double const shift = heightIndentPxl + freeHeightSpacePxl / 2.0;
   size_t const altitudeDataSize = altitudeDataM.size();
   yAxisDataPxl.resize(altitudeDataSize);
   for (size_t i = 0; i < altitudeDataSize; ++i)
-    yAxisDataPxl[i] = height - heightIndentPxl - (altitudeDataM[i] - minAltM) / metersPerPxl;
+    yAxisDataPxl[i] = height - shift - (altitudeDataM[i] - minAltM) / metersPerPxl;
 
   return true;
 }
