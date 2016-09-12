@@ -1,4 +1,4 @@
-include_directories(${PROJECT_SOURCE_DIR}/3party/tomcrypt/src/headers)
+include_directories(${PROJECT_SOURCE_DIR}/3party/tomcrypt/src/headers  ${PROJECT_SOURCE_DIR}/coding)
 
 set(
     SRC
@@ -31,6 +31,10 @@ set(
     hex.hpp
     huffman.cpp
     huffman.hpp
+    internal/file64_api.hpp
+    internal/file_data.cpp
+    internal/file_data.hpp
+    internal/xmlparser.hpp
     matrix_traversal.hpp
     memory_region.hpp
     mmap_reader.cpp
@@ -78,4 +82,4 @@ set(
 
 omim_add_library(coding ${SRC})
 
-#add_subdirectory(coding_tests)
+add_subdirectory(coding_tests)

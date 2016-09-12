@@ -1,5 +1,3 @@
-#add_subdirectory(storage_tests)
-
 include_directories(${PROJECT_SOURCE_DIR}/3party/jansson/src)
 
 set(
@@ -34,3 +32,5 @@ set(
 )
 
 omim_add_library(storage ${SRC})
+
+#add_subdirectory(storage_tests)

@@ -1,4 +1,4 @@
-#add_definitions(-DOMIM_UNIT_TEST_DISABLE_PLATFORM_INIT)
+add_definitions(-DOMIM_UNIT_TEST_DISABLE_PLATFORM_INIT)
 
 set(
     SRC
@@ -40,8 +40,8 @@ set(
     writer_test.cpp
     zip_creator_test.cpp
     zip_reader_test.cpp
-    ${PROJECT_SOURCE_DIR}/testing/testingmain.cpp
 )
 
 omim_add_test(coding_tests ${SRC})
-omim_link_libraries(coding_test coding)
+
+omim_link_libraries(coding_tests coding base minizip tomcrypt succinct ${LIBZ})
