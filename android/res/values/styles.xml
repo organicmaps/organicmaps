@@ -36,6 +36,11 @@
     <item name="android:background">?accentButtonBackground</item>
   </style>
 
+  <style name="MwmWidget.Button.Start">
+    <item name="android:background">@drawable/button_start</item>
+    <item name="android:textSize">14sp</item>
+  </style>
+
   <style name="MwmWidget.ProgressWheel.RoutingPlan">
     <item name="android:layout_width">@dimen/routing_selector_wheel_size</item>
     <item name="android:layout_height">@dimen/routing_selector_wheel_size</item>

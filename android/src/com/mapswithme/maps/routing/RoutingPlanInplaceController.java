@@ -3,7 +3,6 @@ package com.mapswithme.maps.routing;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -95,10 +94,13 @@ public class RoutingPlanInplaceController extends RoutingPlanController
   public void showRouteAltitudeChart()
   {
     ImageView altitudeChart = (ImageView) mActivity.findViewById(R.id.altitude_chart);
-    Bitmap bm = Framework.GenerateRouteAltitudeChart(altitudeChart.getWidth(), altitudeChart.getHeight());
+    int chartWidth = mActivity.getResources().getDimensionPixelSize(R.dimen.altitude_chart_image_width);
+    int chartHeight = mActivity.getResources().getDimensionPixelSize(R.dimen.altitude_chart_image_height);
+    Bitmap bm = Framework.GenerateRouteAltitudeChart(chartWidth, chartHeight);
     if (bm != null)
     {
       altitudeChart.setImageBitmap(bm);
     }
   }
+
 }

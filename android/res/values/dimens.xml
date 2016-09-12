@@ -133,7 +133,7 @@
 
   <!-- Phone bottom panel -->
   <dimen name="altitude_chart_container_padding_left">16dp</dimen>
-  <dimen name="altitude_chart_margin_bottom">12dp</dimen>
+  <dimen name="altitude_chart_margin_bottom">4dp</dimen>
   <dimen name="altitude_chart_margin_top">14dp</dimen>
   <dimen name="altitude_chart_time_distance_height">20dp</dimen>
   <dimen name="altitude_chart_time_distance_text_size">16sp</dimen>

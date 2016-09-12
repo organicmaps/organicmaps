@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:visibility="gone"
     android:layout_height="wrap_content"
     android:paddingLeft="@dimen/altitude_chart_container_padding_left">
 
@@ -22,14 +23,16 @@
 
     <ImageView android:id="@+id/altitude_chart"
         android:layout_width="@dimen/altitude_chart_image_width"
-        android:layout_height="@dimen/altitude_chart_image_height" />
+        android:layout_height="@dimen/altitude_chart_image_height"
+        android:layout_marginBottom="8dp"/>
   </LinearLayout>
   <Button
       android:id="@+id/start"
-      android:layout_width="@dimen/start_button_size"
-      android:layout_height="@dimen/start_button_size"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
       android:layout_gravity="center"
       android:text="@string/p2p_start"
-      style="@style/MwmWidget.Button.Accent"
+      style="@style/MwmWidget.Button.Start"
+      android:padding="8dp"
       android:textAppearance="@style/MwmTextAppearance.Body1"/>
 </LinearLayout>
