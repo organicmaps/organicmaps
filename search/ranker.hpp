@@ -67,7 +67,7 @@ public:
 
   static size_t const kBatchSize;
 
-  Ranker(Index const & index, Emitter & emitter, storage::CountryInfoGetter const & infoGetter,
+  Ranker(Index const & index, storage::CountryInfoGetter const & infoGetter, Emitter & emitter,
          CategoriesHolder const & categories, vector<Suggest> const & suggests,
          my::Cancellable const & cancellable);
   virtual ~Ranker() = default;
@@ -130,8 +130,8 @@ private:
   mutable LocalityFinder m_locality;
 
   Index const & m_index;
-  Emitter & m_emitter;
   storage::CountryInfoGetter const & m_infoGetter;
+  Emitter & m_emitter;
   CategoriesHolder const & m_categories;
   vector<Suggest> const & m_suggests;
 

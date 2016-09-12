@@ -1,5 +1,6 @@
-#include "search/emitter.hpp"
 #include "search/ranker.hpp"
+
+#include "search/emitter.hpp"
 #include "search/string_intersection.hpp"
 #include "search/token_slice.hpp"
 #include "search/utils.hpp"
@@ -276,15 +277,15 @@ public:
 // static
 size_t const Ranker::kBatchSize = 10;
 
-Ranker::Ranker(Index const & index, Emitter & emitter,
-               storage::CountryInfoGetter const & infoGetter, CategoriesHolder const & categories,
+Ranker::Ranker(Index const & index, storage::CountryInfoGetter const & infoGetter,
+               Emitter & emitter, CategoriesHolder const & categories,
                vector<Suggest> const & suggests, my::Cancellable const & cancellable)
   : m_reverseGeocoder(index)
   , m_cancellable(cancellable)
   , m_locality(index)
   , m_index(index)
-  , m_emitter(emitter)
   , m_infoGetter(infoGetter)
+  , m_emitter(emitter)
   , m_categories(categories)
   , m_suggests(suggests)
 {

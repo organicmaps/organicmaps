@@ -3,6 +3,8 @@
 #include "search/result.hpp"
 #include "search/search_params.hpp"
 
+#include "base/logging.hpp"
+
 namespace search
 {
 class Emitter
@@ -21,6 +23,8 @@ public:
   {
     if (m_onResults)
       m_onResults(m_results);
+    else
+      LOG(LERROR, ("OnResults is not set."));
   }
 
   inline Results const & GetResults() const { return m_results; }
@@ -29,6 +33,8 @@ public:
   {
     if (m_onResults)
       m_onResults(Results::GetEndMarker(cancelled));
+    else
+      LOG(LERROR, ("OnResults is not set."));
   }
 
 private:

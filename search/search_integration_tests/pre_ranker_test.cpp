@@ -45,7 +45,7 @@ class TestRanker : public Ranker
 public:
   TestRanker(TestSearchEngine & engine, Emitter & emitter, vector<Suggest> const & suggests,
              my::Cancellable const & cancellable, vector<PreResult1> & results)
-    : Ranker(static_cast<Index const &>(engine), emitter, engine.GetCountryInfoGetter(),
+    : Ranker(static_cast<Index const &>(engine), engine.GetCountryInfoGetter(), emitter,
              GetDefaultCategories(), suggests, cancellable)
     , m_results(results)
   {
