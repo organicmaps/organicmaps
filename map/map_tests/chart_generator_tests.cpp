@@ -28,7 +28,7 @@ bool AlmostEqualAbs(vector<double> const & v1, vector<double> const & v2)
 bool IsColor(vector<uint8_t> const & frameBuffer, size_t startColorIdx, uint8_t expectedR,
              uint8_t expectedG, uint8_t expectedB, uint8_t expectedA)
 {
-  CHECK_LESS_OR_EQUAL(startColorIdx + kAlitudeChartBPP, frameBuffer.size(), ());
+  CHECK_LESS_OR_EQUAL(startColorIdx + kAltitudeChartBPP, frameBuffer.size(), ());
 
   return frameBuffer[startColorIdx] == expectedR && frameBuffer[startColorIdx + 1] == expectedG &&
          frameBuffer[startColorIdx + 2] == expectedB && frameBuffer[startColorIdx + 3] == expectedA;
@@ -37,13 +37,13 @@ bool IsColor(vector<uint8_t> const & frameBuffer, size_t startColorIdx, uint8_t 
 void TestAngleColors(size_t width, size_t height, vector<uint8_t> const & frameBuffer,
                      uint8_t expectedR, uint8_t expectedG, uint8_t expectedB, uint8_t expectedA)
 {
-  TEST_EQUAL(frameBuffer.size(), width * height * kAlitudeChartBPP, ());
+  TEST_EQUAL(frameBuffer.size(), width * height * kAltitudeChartBPP, ());
   TEST(IsColor(frameBuffer, 0 /* startColorIdx */, expectedR, expectedG, expectedB, expectedA), ());
-  TEST(IsColor(frameBuffer, kAlitudeChartBPP * (width - 1) /* startColorIdx */, expectedR,
+  TEST(IsColor(frameBuffer, kAltitudeChartBPP * (width - 1) /* startColorIdx */, expectedR,
                expectedG, expectedB, expectedA), ());
-  TEST(IsColor(frameBuffer, kAlitudeChartBPP * height * (width - 1) /* startColorIdx */,
+  TEST(IsColor(frameBuffer, kAltitudeChartBPP * height * (width - 1) /* startColorIdx */,
                expectedR, expectedG, expectedB, expectedA), ());
-  TEST(IsColor(frameBuffer, kAlitudeChartBPP * height * width - kAlitudeChartBPP /* startColorIdx */,
+  TEST(IsColor(frameBuffer, kAltitudeChartBPP * height * width - kAltitudeChartBPP /* startColorIdx */,
                expectedR, expectedG, expectedB, expectedA), ());
 }
 
@@ -134,7 +134,7 @@ UNIT_TEST(GenerateChartByPoints_NoGeometryTest)
   size_t constexpr height = 40;
   vector<uint8_t> frameBuffer;
 
-  maps::GenerateChartByPoints(width, height, geometry, MapStyleLight /* mapStyle */, frameBuffer);
+  TEST(maps::GenerateChartByPoints(width, height, geometry, MapStyleLight /* mapStyle */, frameBuffer), ());
   TestAngleColors(width, height, frameBuffer, 255 /* expectedR */, 255 /* expectedG */,
                   255 /* expectedB */, 0 /* expectedA */);
 }
@@ -146,7 +146,7 @@ UNIT_TEST(GenerateChartByPoints_OnePointTest)
   size_t constexpr height = 40;
   vector<uint8_t> frameBuffer;
 
-  maps::GenerateChartByPoints(width, height, geometry, MapStyleLight /* mapStyle */, frameBuffer);
+  TEST(maps::GenerateChartByPoints(width, height, geometry, MapStyleLight /* mapStyle */, frameBuffer), ());
   TestAngleColors(width, height, frameBuffer, 255 /* expectedR */, 255 /* expectedG */,
                   255 /* expectedB */, 0 /* expectedA */);
 }
@@ -159,13 +159,13 @@ UNIT_TEST(GenerateChartByPoints_Test)
   size_t constexpr height = 40;
   vector<uint8_t> frameBuffer;
 
-  maps::GenerateChartByPoints(width, height, geometry, MapStyleLight /* mapStyle */, frameBuffer);
+  TEST(maps::GenerateChartByPoints(width, height, geometry, MapStyleLight /* mapStyle */, frameBuffer), ());
 
-  TEST_EQUAL(frameBuffer.size(), width * height * kAlitudeChartBPP, ());
+  TEST_EQUAL(frameBuffer.size(), width * height * kAltitudeChartBPP, ());
   TEST(IsColor(frameBuffer, 0 /* startColorIdx */, 30 /* expectedR */, 150 /* expectedG */,
                240 /* expectedB */, 255 /* expectedA */),
        ());
-  TEST(IsColor(frameBuffer, kAlitudeChartBPP * (width - 1) /* startColorIdx */, 255 /* expectedR */,
+  TEST(IsColor(frameBuffer, kAltitudeChartBPP * (width - 1) /* startColorIdx */, 255 /* expectedR */,
                255 /* expectedG */, 255 /* expectedB */, 0 /* expectedA */),
        ());
 }
@@ -195,10 +195,10 @@ UNIT_TEST(GenerateChart_OnePointTest)
   TEST(maps::GenerateChart(width, height, distanceDataM, altitudeDataM, MapStyleDark /* mapStyle */,
                            frameBuffer),
        ());
-  TEST_EQUAL(frameBuffer.size(), width * height * kAlitudeChartBPP, ());
+  TEST_EQUAL(frameBuffer.size(), width * height * kAltitudeChartBPP, ());
   TEST(IsColor(frameBuffer, 0 /* startColorIdx */, 255 /* expectedR */, 255 /* expectedG */,
                255 /* expectedB */, 0 /* expectedA */), ());
-  TEST(IsColor(frameBuffer, kAlitudeChartBPP * (width - 1) /* startColorIdx */, 255 /* expectedR */,
+  TEST(IsColor(frameBuffer, kAltitudeChartBPP * (width - 1) /* startColorIdx */, 255 /* expectedR */,
                255 /* expectedG */, 255 /* expectedB */, 0 /* expectedA */), ());
 }
 
@@ -209,8 +209,8 @@ UNIT_TEST(GenerateChart_EmptyRectTest)
   feature::TAltitudes const & altitudeDataM = {};
   vector<uint8_t> frameBuffer;
 
-  TEST(maps::GenerateChart(width, 50 /* height */, distanceDataM, altitudeDataM, MapStyleDark /* mapStyle */,
-                           frameBuffer),
+  TEST(!maps::GenerateChart(width, 50 /* height */, distanceDataM, altitudeDataM, MapStyleDark /* mapStyle */,
+                            frameBuffer),
        ());
   TEST(frameBuffer.empty(), ());
 }
@@ -228,8 +228,8 @@ UNIT_TEST(GenerateChart_Test)
   TEST(IsColor(frameBuffer, 0 /* startColorIdx */, 255 /* expectedR */, 255 /* expectedG */,
                255 /* expectedB */, 0 /* expectedA */),
        ());
-  TEST(IsColor(frameBuffer, kAlitudeChartBPP * 3 * width -
-               kAlitudeChartBPP /* startColorIdx */, 255 /* expectedR */,
+  TEST(IsColor(frameBuffer, kAltitudeChartBPP * 3 * width -
+               kAltitudeChartBPP /* startColorIdx */, 255 /* expectedR */,
                230 /* expectedG */, 140 /* expectedB */, 255 /* expectedA */),
        ());
 }

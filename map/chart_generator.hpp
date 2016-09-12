@@ -10,7 +10,7 @@
 
 namespace maps
 {
-uint32_t constexpr kAlitudeChartBPP = 4;
+uint32_t constexpr kAltitudeChartBPP = 4;
 
 /// \brief fills uniformAltitudeDataM with altitude data which evenly distributed by
 /// |resultPointCount| points. |distanceDataM| and |altitudeDataM| form a curve of route altitude.
@@ -36,7 +36,7 @@ bool GenerateYAxisChartData(uint32_t height, double minMetersPerPxl,
 /// \param mapStyle is a current map style.
 /// \param frameBuffer is a vector for a result image. It's resized in this method.
 /// It's filled with RGBA(8888) image date.
-void GenerateChartByPoints(uint32_t width, uint32_t height, vector<m2::PointD> const & geometry,
+bool GenerateChartByPoints(uint32_t width, uint32_t height, vector<m2::PointD> const & geometry,
                            MapStyle mapStyle, vector<uint8_t> & frameBuffer);
 
 bool GenerateChart(uint32_t width, uint32_t height, vector<double> const & distanceDataM,

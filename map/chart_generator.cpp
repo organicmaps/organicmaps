@@ -174,12 +174,12 @@ bool GenerateYAxisChartData(uint32_t height, double minMetersPerPxl,
   return true;
 }
 
-void GenerateChartByPoints(uint32_t width, uint32_t height, vector<m2::PointD> const & geometry,
+bool GenerateChartByPoints(uint32_t width, uint32_t height, vector<m2::PointD> const & geometry,
                            MapStyle mapStyle, vector<uint8_t> & frameBuffer)
 {
   frameBuffer.clear();
   if (width == 0 || height == 0)
-    return;
+    return false;
 
   agg::rgba8 const kBackgroundColor = agg::rgba8(255, 255, 255, 0);
   agg::rgba8 const kLineColor = GetLineColor(mapStyle);
@@ -198,9 +198,9 @@ void GenerateChartByPoints(uint32_t width, uint32_t height, vector<m2::PointD> c
   TPixelFormat pixelFormat(renderBuffer, agg::comp_op_src_over);
   TBaseRenderer baseRenderer(pixelFormat);
 
-  frameBuffer.assign(width * kAlitudeChartBPP * height, 0);
+  frameBuffer.assign(width * kAltitudeChartBPP * height, 0);
   renderBuffer.attach(&frameBuffer[0], static_cast<unsigned>(width),
-                      static_cast<unsigned>(height), static_cast<int>(width * kAlitudeChartBPP));
+                      static_cast<unsigned>(height), static_cast<int>(width * kAltitudeChartBPP));
 
   // Background.
   baseRenderer.reset_clipping(true);
@@ -213,7 +213,7 @@ void GenerateChartByPoints(uint32_t width, uint32_t height, vector<m2::PointD> c
   rasterizer.clip_box(0, 0, width, height);
 
   if (geometry.empty())
-    return; /* No chart line to draw. */
+    return true; /* No chart line to draw. */
 
   // Polygon under chart line.
   agg::path_storage underChartGeometryPath;
@@ -237,6 +237,7 @@ void GenerateChartByPoints(uint32_t width, uint32_t height, vector<m2::PointD> c
 
   rasterizer.add_path(stroke);
   agg::render_scanlines_aa_solid(rasterizer, scanline, baseRenderer, kLineColor);
+  return true;
 }
 
 bool GenerateChart(uint32_t width, uint32_t height, vector<double> const & distanceDataM,
@@ -269,7 +270,6 @@ bool GenerateChart(uint32_t width, uint32_t height, vector<double> const & dista
       geometry[i] = m2::PointD(i * oneSegLenPix, yAxisDataPxl[i]);
   }
 
-  GenerateChartByPoints(width, height, geometry, mapStyle, frameBuffer);
-  return true;
+  return GenerateChartByPoints(width, height, geometry, mapStyle, frameBuffer);
 }
 }  // namespace maps

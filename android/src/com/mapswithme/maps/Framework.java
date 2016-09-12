@@ -73,7 +73,7 @@ public class Framework
    * Generates Bitmap with route altitude image chart taking into account current map style.
    * @param width is width of the image.
    * @param height is height of the image.
-   * @return Bitmap if there's pedestrian of bicycle route and null otherwise.
+   * @return Bitmap if there's pedestrian or bicycle route and null otherwise.
    */
   @Nullable
   public static Bitmap GenerateRouteAltitudeChart(int width, int height)
@@ -165,7 +165,7 @@ public class Framework
   public static native RoutingInfo nativeGetRouteFollowingInfo();
 
   @Nullable
-  public static native final int [] nativeGenerateRouteAltitudeChartBits(int width, int height);
+  public static native final int[] nativeGenerateRouteAltitudeChartBits(int width, int height);
 
   // When an end user is going to a turn he gets sound turn instructions.
   // If C++ part wants the client to pronounce an instruction nativeGenerateTurnNotifications returns

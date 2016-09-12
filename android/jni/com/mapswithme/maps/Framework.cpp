@@ -41,6 +41,8 @@ using namespace storage;
 using platform::CountryFile;
 using platform::LocalCountryFile;
 
+static_assert(sizeof(jint) >= 4, "Size of jint in less than 4 bytes.");
+
 namespace
 {
 ::Framework * frm()
@@ -901,21 +903,17 @@ Java_com_mapswithme_maps_Framework_nativeGenerateRouteAltitudeChartBits(JNIEnv *
 
   if (!fr->GenerateRouteAltitudeChart(width, height, imageRGBAData))
   {
-    LOG(LWARNING, ("Cann't generate route altitude image."));
+    LOG(LWARNING, ("Can't generate route altitude image."));
     return nullptr;
   }
 
   size_t const imageRGBADataSize = imageRGBAData.size();
-  if (imageRGBADataSize == 0)
-  {
-    LOG(LWARNING, ("GenerateRouteAltitudeChart returns true but the vector with altitude image bits is empty."));
-    return nullptr;
-  }
+  ASSERT_NOT_EQUAL(imageRGBADataSize, 0, ("GenerateRouteAltitudeChart returns true but the vector with altitude image bits is empty."));
 
   size_t const pxlCount = width * height;
-  if (maps::kAlitudeChartBPP * pxlCount != imageRGBAData.size())
+  if (maps::kAltitudeChartBPP * pxlCount != imageRGBADataSize)
   {
-    LOG(LWARNING, ("Wrong size of vector with altitude image bits. Expected size:", pxlCount, ". Real size:", imageRGBAData.size()));
+    LOG(LWARNING, ("Wrong size of vector with altitude image bits. Expected size:", pxlCount, ". Real size:", imageRGBADataSize));
     return nullptr;
   }
 
@@ -926,11 +924,11 @@ Java_com_mapswithme_maps_Framework_nativeGenerateRouteAltitudeChartBits(JNIEnv *
 
   for (size_t i = 0; i < imageRGBADataSize; ++i)
   {
-    size_t const shiftInBytes = i * maps::kAlitudeChartBPP;
-    arrayElements[i] = (imageRGBAData[shiftInBytes + 3] << 24) /* alpha */
-        | (imageRGBAData[shiftInBytes] << 16) /* red */
-        | (imageRGBAData[shiftInBytes + 1] << 8) /* green */
-        | (imageRGBAData[shiftInBytes + 2]); /* blue */
+    size_t const shiftInBytes = i * maps::kAltitudeChartBPP;
+    arrayElements[i] = (static_cast<jint>(imageRGBAData[shiftInBytes + 3]) << 24) /* alpha */
+        | (static_cast<jint>(imageRGBAData[shiftInBytes]) << 16) /* red */
+        | (static_cast<jint>(imageRGBAData[shiftInBytes + 1]) << 8) /* green */
+        | (static_cast<jint>(imageRGBAData[shiftInBytes + 2])); /* blue */
   }
   env->ReleaseIntArrayElements(imageRGBADataArray, arrayElements, 0);
 
