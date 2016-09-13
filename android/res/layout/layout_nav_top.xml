@@ -5,7 +5,8 @@
   android:id="@+id/nav_top_frame"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  tools:background="#20FF0000">
+  tools:background="#20FF0000"
+  tools:showIn="@layout/layout_nav">
   <FrameLayout
     android:id="@+id/street_frame"
     android:layout_width="match_parent"

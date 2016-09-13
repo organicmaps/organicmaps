@@ -11,7 +11,8 @@
   android:clickable="true"
   android:visibility="invisible"
   android:background="?menuBackgroundOpen"
-  tools:visibility="visible">
+  tools:visibility="visible"
+  tools:showIn="@layout/layout_nav">
 
   <FrameLayout
     android:id="@+id/line_frame"

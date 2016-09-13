@@ -35,6 +35,7 @@
     android:layout_height="wrap_content"
     android:layout_alignWithParentIfMissing="true"
     android:layout_toRightOf="@+id/fragment_container"
+    android:layout_toEndOf="@id/fragment_container"
     android:clipToPadding="false"
     android:orientation="vertical"
     android:padding="@dimen/margin_base">
@@ -48,13 +49,6 @@
       android:visibility="gone"
       tools:visibility="visible"/>
 
-    <include
-      layout="@layout/layout_nav"
-      android:layout_width="@dimen/panel_width"
-      android:layout_height="match_parent"
-      android:visibility="invisible"
-      tools:visibility="visible"/>
-
     <com.mapswithme.maps.widget.placepage.PlacePageView
       android:id="@+id/info_box"
       style="@style/MwmWidget.Floating"
@@ -65,6 +59,13 @@
       placePage:animationType="left"
       placePage:floating="true"/>
   </LinearLayout>
+
+  <include
+    layout="@layout/layout_nav"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="invisible"
+    tools:visibility="visible"/>
 
   <include
     android:id="@+id/menu_frame"
