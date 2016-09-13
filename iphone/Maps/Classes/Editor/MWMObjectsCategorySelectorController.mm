@@ -5,6 +5,7 @@
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIViewController+Navigation.h"
+#import "MWMKeyboard.h"
 
 #include "LocaleTranslator.h"
 
@@ -28,7 +29,7 @@ string locale()
 
 } // namespace
 
-@interface MWMObjectsCategorySelectorController () <UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface MWMObjectsCategorySelectorController () <UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource, MWMKeyboardObserver>
 {
   NewFeatureCategories m_categories;
   NewFeatureCategories::TNames m_filteredCategories;
@@ -61,47 +62,7 @@ string locale()
   [self configTable];
   [self configNavBar];
   [self configSearchBar];
-
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(keyboardWillShow:)
-                                               name:UIKeyboardWillShowNotification
-                                             object:nil];
-
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(keyboardWillHide:)
-                                               name:UIKeyboardWillHideNotification
-                                             object:nil];
-}
-
-- (void)dealloc
-{
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)keyboardWillShow:(NSNotification *)notification
-{
-  CGSize const keyboardSize = [notification.userInfo[UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-  CGFloat const bottomInset = UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]) ?
-                                                               keyboardSize.height : keyboardSize.width;
-
-  UIEdgeInsets const contentInsets = {.bottom = bottomInset};
-
-  NSNumber * rate = notification.userInfo[UIKeyboardAnimationDurationUserInfoKey];
-  [UIView animateWithDuration:rate.floatValue animations:^
-  {
-    self.tableView.contentInset = contentInsets;
-    self.tableView.scrollIndicatorInsets = contentInsets;
-  }];
-}
-
-- (void)keyboardWillHide:(NSNotification *)notification
-{
-  NSNumber * rate = notification.userInfo[UIKeyboardAnimationDurationUserInfoKey];
-  [UIView animateWithDuration:rate.floatValue animations:^
-  {
-    self.tableView.contentInset = {};
-    self.tableView.scrollIndicatorInsets = {};
-  }];
+  [MWMKeyboard addObserver:self];
 }
 
 - (void)configTable
@@ -177,6 +138,15 @@ string locale()
                                                             kStatIsOnline : Platform::IsConnected() ? kStatYes : kStatNo,
                                                             kStatEditorMWMName : @(featureID.GetMwmName().c_str()),
                                                             kStatEditorMWMVersion : @(featureID.GetMwmVersion())}];
+}
+
+#pragma mark - MWMKeyboard
+
+- (void)onKeyboardAnimation
+{
+  UIEdgeInsets const contentInsets = {.bottom = [MWMKeyboard keyboardHeight]};
+  self.tableView.contentInset = contentInsets;
+  self.tableView.scrollIndicatorInsets = contentInsets;
 }
 
 #pragma mark - Create object
