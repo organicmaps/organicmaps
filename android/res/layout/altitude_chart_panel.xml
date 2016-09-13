@@ -15,30 +15,7 @@
     android:orientation="vertical"
     tools:showIn="@layout/fragment_routing">
 
-    <LinearLayout
-        android:id="@+id/numbers"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/altitude_chart_time_distance_height"
-        android:layout_marginBottom="@dimen/altitude_chart_time_distance_margin_bottom">
-
-        <TextView
-            android:id="@+id/time"
-            style="@style/MwmWidget.TextView.PlanDetail.Number"
-            android:textStyle="bold"
-            tools:text="33 min" />
-
-        <TextView
-            style="@style/MwmWidget.TextView.PlanDetail.Number.Secondary"
-            android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"
-            android:layout_marginTop="2dp"
-            tools:ignore="HardcodedText" />
-
-        <TextView
-            android:id="@+id/distance"
-            style="@style/MwmWidget.TextView.PlanDetail.Number"
-            tools:text="1024 km" />
-    </LinearLayout>
+    <include layout="@layout/routing_details" />
 
     <ImageView
         android:id="@+id/altitude_chart"

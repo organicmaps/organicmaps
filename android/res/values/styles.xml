@@ -175,6 +175,10 @@
     <item name="android:singleLine">true</item>
   </style>
 
+  <style name="MwmWidget.TextView.PlanDetail.Number.Time">
+    <item name="android:textStyle">bold</item>
+  </style>
+
   <style name="MwmWidget.TextView.PlanDetail.Number.Secondary">
     <item name="android:textAppearance">@style/MwmTextAppearance.RoutingDetail.Secondary</item>
   </style>
