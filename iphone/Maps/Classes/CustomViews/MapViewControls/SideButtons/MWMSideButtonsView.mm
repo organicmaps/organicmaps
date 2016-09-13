@@ -42,6 +42,9 @@ CGFloat constexpr kZoomOutToLayoutPortraitOffset = 52;
     self.defaultBounds.size = size;
   }
   self.bounds = self.defaultBounds;
+  if (self.zoomHidden)
+    self.height = self.location.height;
+  self.location.maxY = self.height;
   self.bottomBound = self.superview.height;
 
   [self layoutXPosition:self.hidden];
@@ -116,6 +119,7 @@ CGFloat constexpr kZoomOutToLayoutPortraitOffset = 52;
   CGFloat const minX = zoomHidden ? self.width + kViewControlsOffsetToBounds : 0.0;
   self.zoomIn.minX = minX;
   self.zoomOut.minX = minX;
+  [self setNeedsLayout];
 }
 
 - (void)setHidden:(BOOL)hidden animated:(BOOL)animated
@@ -126,7 +130,6 @@ CGFloat constexpr kZoomOutToLayoutPortraitOffset = 52;
       return;
     if (!hidden)
       self.hidden = NO;
-    [self layoutXPosition:!hidden];
     [UIView animateWithDuration:framesDuration(kMenuViewHideFramesCount)
         animations:^{
           [self layoutXPosition:hidden];
@@ -167,7 +170,7 @@ CGFloat constexpr kZoomOutToLayoutPortraitOffset = 52;
 {
   if (!self.superview)
     return _bottomBound;
-  CGFloat const bottomBoundLimit = (self.superview.height - self.location.maxY) / 2;
+  CGFloat const bottomBoundLimit = (self.superview.height - self.defaultBounds.size.height) / 2;
   return MIN(self.superview.height - bottomBoundLimit, _bottomBound);
 }
 
