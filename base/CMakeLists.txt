@@ -14,9 +14,9 @@ set(
     collection_cast.hpp
     condition.cpp
     condition.hpp
-    condition_bada.cpp
+#    condition_bada.cpp
     condition_posix.cpp
-    condition_windows_native.cpp
+#    condition_windows_native.cpp
     const_helper.hpp
     deferred_task.cpp
     deferred_task.hpp

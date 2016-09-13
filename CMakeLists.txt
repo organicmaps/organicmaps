@@ -2,13 +2,20 @@ cmake_minimum_required(VERSION 3.2)
 
 project(omim C CXX)
 
+add_subdirectory(3party/minizip)
+add_subdirectory(3party/succinct)
+add_subdirectory(3party/tomcrypt)
+
 add_compile_options(
     "-Wall"
-    "-pedantic"
     "-std=c++11"
 )
 
 find_package(Threads)
+find_library(LIBZ NAMES z)
+if (LIBZ STREQUAL "LIBZ-NOTFOUND")
+   message(FATAL_ERROR "Failed to find libz library.")
+endif()
 
 get_filename_component(PROJECT_SOURCE_DIR . ABSOLUTE)
 
@@ -29,19 +36,23 @@ if ("${NO_TESTS}" STREQUAL "")
     set(NO_TESTS FALSE)
 endif()
 
+
 function(omim_add_library library)
     add_library(${library} ${ARGN})
 endfunction()
 
+
 function(omim_add_executable executable)
     add_executable(${executable} ${ARGN})
 endfunction()
+
 
 function(omim_add_test executable)
     if (NOT ${NO_TESTS})
         omim_add_executable(${executable} ${PROJECT_SOURCE_DIR}/testing/testingmain.cpp ${ARGN})
     endif()
 endfunction()
+
 
 function(omim_link_libraries target)
     if (TARGET ${target})
@@ -53,4 +64,7 @@ endfunction()
 
 
 add_subdirectory(base)
+add_subdirectory(coding)
+#add_subdirectory(editor)
 add_subdirectory(geometry)
+#add_subdirectory(storage)

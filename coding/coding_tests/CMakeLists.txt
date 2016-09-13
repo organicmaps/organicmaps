@@ -1,0 +1,47 @@
+add_definitions(-DOMIM_UNIT_TEST_DISABLE_PLATFORM_INIT)
+
+set(
+    SRC
+    base64_for_user_id_test.cpp
+    base64_test.cpp
+    bit_streams_test.cpp
+    coder_test.hpp
+    coder_util_test.cpp
+    compressed_bit_vector_test.cpp
+    dd_vector_test.cpp
+    diff_test.cpp
+    elias_coder_test.cpp
+    endianness_test.cpp
+    file_container_test.cpp
+    file_data_test.cpp
+    file_sort_test.cpp
+    file_utils_test.cpp
+    fixed_bits_ddvector_test.cpp
+    hex_test.cpp
+    huffman_test.cpp
+    mem_file_reader_test.cpp
+    mem_file_writer_test.cpp
+    multilang_utf8_string_test.cpp
+    png_decoder_test.cpp
+    reader_cache_test.cpp
+    reader_test.cpp
+    reader_test.hpp
+    reader_writer_ops_test.cpp
+    sha2_test.cpp
+    simple_dense_coding_test.cpp
+    succinct_mapper_test.cpp
+    uri_test.cpp
+    url_encode_test.cpp
+    value_opt_string_test.cpp
+    var_record_reader_test.cpp
+    var_serial_vector_test.cpp
+    varint_test.cpp
+    #varint_vector_test.cpp
+    writer_test.cpp
+    zip_creator_test.cpp
+    zip_reader_test.cpp
+)
+
+omim_add_test(coding_tests ${SRC})
+
+omim_link_libraries(coding_tests coding base minizip tomcrypt succinct ${LIBZ})
