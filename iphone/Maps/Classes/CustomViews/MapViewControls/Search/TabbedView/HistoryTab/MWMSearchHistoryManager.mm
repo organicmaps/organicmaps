@@ -4,6 +4,7 @@
 #import "MWMSearchHistoryClearCell.h"
 #import "MWMSearchHistoryMyPositionCell.h"
 #import "MWMSearchHistoryRequestCell.h"
+#import "MWMSearchNoResults.h"
 #import "Macros.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
@@ -19,6 +20,7 @@ static NSString * const kMyPositionCellIdentifier = @"MWMSearchHistoryMyPosition
 @property(weak, nonatomic) MWMSearchTabbedCollectionViewCell * cell;
 
 @property(nonatomic) MWMSearchHistoryRequestCell * sizingCell;
+@property(nonatomic) MWMSearchNoResults * noResultsView;
 
 @end
 
@@ -36,16 +38,16 @@ static NSString * const kMyPositionCellIdentifier = @"MWMSearchHistoryMyPosition
 {
   self.cell = cell;
   UITableView * tableView = cell.tableView;
-  tableView.alpha = cell.noResultsView.alpha = 1.0;
+  tableView.alpha = 1.0;
   BOOL const isRouteSearch = self.isRouteSearchMode;
   if (GetFramework().GetLastSearchQueries().empty() && !isRouteSearch)
   {
     tableView.hidden = YES;
-    cell.noResultsView.hidden = NO;
+    [cell addNoResultsView:self.noResultsView];
   }
   else
   {
-    cell.noResultsView.hidden = YES;
+    [cell removeNoResultsView];
     tableView.hidden = NO;
     tableView.delegate = self;
     tableView.dataSource = self;
@@ -60,9 +62,6 @@ static NSString * const kMyPositionCellIdentifier = @"MWMSearchHistoryMyPosition
     }
     [tableView reloadData];
   }
-  cell.noResultsImage.image = [UIImage imageNamed:@"img_search_history"];
-  cell.noResultsTitle.text = L(@"search_history_title");
-  cell.noResultsText.text = L(@"search_history_text");
 }
 
 - (search::QuerySaver::TSearchRequest const &)queryAtIndex:(NSInteger)index
@@ -168,11 +167,10 @@ static NSString * const kMyPositionCellIdentifier = @"MWMSearchHistoryMyPosition
     [UIView animateWithDuration:kDefaultAnimationDuration
         animations:^{
           cell.tableView.alpha = 0.0;
-          cell.noResultsView.alpha = 1.0;
         }
         completion:^(BOOL finished) {
           cell.tableView.hidden = YES;
-          cell.noResultsView.hidden = NO;
+          [cell addNoResultsView:self.noResultsView];
         }];
   }
 }
@@ -184,6 +182,17 @@ static NSString * const kMyPositionCellIdentifier = @"MWMSearchHistoryMyPosition
   if (!_sizingCell)
     _sizingCell = [self.cell.tableView dequeueReusableCellWithIdentifier:kRequestCellIdentifier];
   return _sizingCell;
+}
+
+- (MWMSearchNoResults *)noResultsView
+{
+  if (!_noResultsView)
+  {
+    _noResultsView = [MWMSearchNoResults viewWithImage:[UIImage imageNamed:@"img_search_history"]
+                                                 title:L(@"search_history_title")
+                                                  text:L(@"search_history_text")];
+  }
+  return _noResultsView;
 }
 
 @end

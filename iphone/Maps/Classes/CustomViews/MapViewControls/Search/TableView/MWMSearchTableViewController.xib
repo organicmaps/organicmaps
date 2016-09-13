@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMSearchTableViewController">
@@ -16,6 +17,25 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NsS-9j-1hr">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0ed-oS-Uw6">
+                            <rect key="frame" x="0.0" y="70" width="320" height="320"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="320" id="iu3-jC-BuA"/>
+                                <constraint firstAttribute="width" secondItem="0ed-oS-Uw6" secondAttribute="height" multiplier="1:1" priority="999" id="rBn-RY-c74"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="0ed-oS-Uw6" firstAttribute="centerY" secondItem="NsS-9j-1hr" secondAttribute="centerY" id="3os-g7-XiN"/>
+                        <constraint firstItem="0ed-oS-Uw6" firstAttribute="centerX" secondItem="NsS-9j-1hr" secondAttribute="centerX" id="N4N-MH-XVw"/>
+                        <constraint firstItem="0ed-oS-Uw6" firstAttribute="height" relation="lessThanOrEqual" secondItem="NsS-9j-1hr" secondAttribute="height" id="aad-2C-r3O"/>
+                    </constraints>
+                </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="oZD-Er-6fn">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -28,52 +48,16 @@
                         <outlet property="delegate" destination="-1" id="Syl-wX-U5b"/>
                     </connections>
                 </tableView>
-                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="25T-i3-eR5">
-                    <rect key="frame" x="0.0" y="100" width="320" height="261"/>
-                    <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_search_not_found" translatesAutoresizingMaskIntoConstraints="NO" id="Xva-2d-ze3" userLabel="image">
-                            <rect key="frame" x="80" y="30" width="160" height="160"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="160" id="Ax8-Si-59Z"/>
-                                <constraint firstAttribute="width" constant="160" id="wCn-CD-Osv"/>
-                            </constraints>
-                        </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="VlC-Yr-hSX" userLabel="text">
-                            <rect key="frame" x="16" y="214" width="288" height="17"/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="search_not_found"/>
-                            </userDefinedRuntimeAttributes>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstItem="VlC-Yr-hSX" firstAttribute="leading" secondItem="25T-i3-eR5" secondAttribute="leading" constant="16" id="gVn-UQ-GWx"/>
-                        <constraint firstAttribute="centerX" secondItem="Xva-2d-ze3" secondAttribute="centerX" id="kIp-OL-QdQ"/>
-                        <constraint firstAttribute="trailing" secondItem="VlC-Yr-hSX" secondAttribute="trailing" constant="16" id="lhj-9H-dPK"/>
-                        <constraint firstAttribute="bottom" secondItem="VlC-Yr-hSX" secondAttribute="bottom" constant="30" id="mMJ-3T-Iw3"/>
-                        <constraint firstItem="VlC-Yr-hSX" firstAttribute="top" secondItem="Xva-2d-ze3" secondAttribute="bottom" constant="24" id="nfN-5p-03j"/>
-                        <constraint firstItem="Xva-2d-ze3" firstAttribute="top" secondItem="25T-i3-eR5" secondAttribute="top" constant="30" id="sK3-Ld-4Os"/>
-                    </constraints>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
-                    </userDefinedRuntimeAttributes>
-                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="25T-i3-eR5" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="5Tp-CI-W2N"/>
                 <constraint firstItem="oZD-Er-6fn" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="9cU-AY-lQv"/>
+                <constraint firstItem="NsS-9j-1hr" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="C7g-sy-qp4"/>
                 <constraint firstAttribute="trailing" secondItem="oZD-Er-6fn" secondAttribute="trailing" id="DoP-hv-QXb"/>
-                <constraint firstItem="25T-i3-eR5" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="YNo-gL-UjA"/>
-                <constraint firstItem="25T-i3-eR5" firstAttribute="height" relation="lessThanOrEqual" secondItem="i5M-Pr-FkT" secondAttribute="height" priority="750" id="Z2h-J3-85N"/>
-                <constraint firstAttribute="trailing" secondItem="25T-i3-eR5" secondAttribute="trailing" id="fRl-2H-zOe"/>
+                <constraint firstAttribute="bottom" secondItem="NsS-9j-1hr" secondAttribute="bottom" id="P9i-5E-bpw"/>
+                <constraint firstItem="NsS-9j-1hr" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="csW-fl-Sp0"/>
+                <constraint firstAttribute="trailing" secondItem="NsS-9j-1hr" secondAttribute="trailing" id="dIC-Mf-12H"/>
                 <constraint firstItem="oZD-Er-6fn" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="iKy-dd-6Jt"/>
-                <constraint firstItem="25T-i3-eR5" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="k08-wO-hIF"/>
                 <constraint firstAttribute="bottom" secondItem="oZD-Er-6fn" secondAttribute="bottom" id="rgu-oY-7XC"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
@@ -84,14 +68,11 @@
                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
             </userDefinedRuntimeAttributes>
             <connections>
-                <outlet property="noResultsImage" destination="Xva-2d-ze3" id="aNN-Mo-0W1"/>
-                <outlet property="noResultsText" destination="VlC-Yr-hSX" id="Str-IK-gv7"/>
-                <outlet property="noResultsView" destination="25T-i3-eR5" id="q1E-Rv-Plz"/>
+                <outlet property="noResultsBottomOffset" destination="P9i-5E-bpw" id="qTI-X5-KzS"/>
+                <outlet property="noResultsContainer" destination="NsS-9j-1hr" id="BfV-Wz-ztf"/>
+                <outlet property="noResultsWrapper" destination="0ed-oS-Uw6" id="RbW-yn-sl8"/>
                 <outlet property="tableView" destination="oZD-Er-6fn" id="MfW-RH-aRM"/>
             </connections>
         </view>
     </objects>
-    <resources>
-        <image name="img_search_not_found" width="240" height="240"/>
-    </resources>
 </document>

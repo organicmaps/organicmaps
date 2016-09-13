@@ -25,7 +25,7 @@ static NSString * const kCellIdentifier = @"MWMSearchCategoryCell";
 
 - (void)attachCell:(MWMSearchTabbedCollectionViewCell *)cell
 {
-  cell.noResultsView.hidden = YES;
+  [cell removeNoResultsView];
   UITableView * tableView = cell.tableView;
   tableView.alpha = 1.0;
   tableView.hidden = NO;

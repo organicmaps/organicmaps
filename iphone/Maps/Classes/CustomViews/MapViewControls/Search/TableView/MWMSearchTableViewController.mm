@@ -36,6 +36,7 @@ NSString * identifierForType(MWMSearchTableCellType type)
 @property(weak, nonatomic) IBOutlet UITableView * tableView;
 
 @property(nonatomic) MWMSearchCommonCell * commonSizingCell;
+@property(nonatomic) MWMSearchNoResults * noResultsView;
 
 @property(weak, nonatomic) id<MWMSearchTableViewProtocol> delegate;
 
@@ -235,15 +236,14 @@ NSString * identifierForType(MWMSearchTableCellType type)
   if ([MWMSearch resultsCount] == 0)
   {
     view.tableView.hidden = YES;
-    view.noResultsView.hidden = NO;
-    view.noResultsText.text = L(@"search_not_found_query");
+    [view addNoResultsView:self.noResultsView];
     if ([MWMSearch isSearchOnMap])
-      [[[ToastView alloc] initWithMessage:view.noResultsText.text] show];
+      [[[ToastView alloc] initWithMessage:L(@"search_not_found_query")] show];
   }
   else
   {
     view.tableView.hidden = NO;
-    view.noResultsView.hidden = YES;
+    [view removeNoResultsView];
   }
 }
 
@@ -263,6 +263,17 @@ NSString * identifierForType(MWMSearchTableCellType type)
   if (!_commonSizingCell)
     _commonSizingCell = [self.tableView dequeueReusableCellWithIdentifier:kTableCommonCell];
   return _commonSizingCell;
+}
+
+- (MWMSearchNoResults *)noResultsView
+{
+  if (!_noResultsView)
+  {
+    _noResultsView = [MWMSearchNoResults viewWithImage:[UIImage imageNamed:@"img_search_not_found"]
+                                                 title:nil
+                                                  text:L(@"search_not_found_query")];
+  }
+  return _noResultsView;
 }
 
 @end

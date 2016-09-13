@@ -1,6 +1,7 @@
-#import "Macros.h"
-#import "MWMSearchBookmarksCell.h"
 #import "MWMSearchBookmarksManager.h"
+#import "MWMSearchBookmarksCell.h"
+#import "MWMSearchNoResults.h"
+#import "Macros.h"
 
 #include "Framework.h"
 
@@ -10,9 +11,10 @@ static NSString * const kBookmarksCellIdentifier = @"MWMSearchBookmarksCell";
 
 @interface MWMSearchBookmarksManager ()
 
-@property (weak, nonatomic) MWMSearchTabbedCollectionViewCell * cell;
+@property(weak, nonatomic) MWMSearchTabbedCollectionViewCell * cell;
 
-@property (nonatomic) MWMSearchBookmarksCell * sizingCell;
+@property(nonatomic) MWMSearchBookmarksCell * sizingCell;
+@property(nonatomic) MWMSearchNoResults * noResultsView;
 
 @end
 
@@ -23,16 +25,15 @@ static NSString * const kBookmarksCellIdentifier = @"MWMSearchBookmarksCell";
   self = [super init];
   if (self)
   {
-    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(updateCell) name:kBookmarksChangedNotification object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(updateCell)
+                                               name:kBookmarksChangedNotification
+                                             object:nil];
   }
   return self;
 }
 
-- (void)dealloc
-{
-  [NSNotificationCenter.defaultCenter removeObserver:self];
-}
-
+- (void)dealloc { [NSNotificationCenter.defaultCenter removeObserver:self]; }
 - (void)attachCell:(MWMSearchTabbedCollectionViewCell *)cell
 {
   self.cell = cell;
@@ -46,7 +47,7 @@ static NSString * const kBookmarksCellIdentifier = @"MWMSearchBookmarksCell";
     return;
   if (GetFramework().GetBmCategoriesCount() > 0)
   {
-    cell.noResultsView.hidden = YES;
+    [cell removeNoResultsView];
     UITableView * tableView = cell.tableView;
     tableView.hidden = NO;
     tableView.delegate = self;
@@ -58,10 +59,7 @@ static NSString * const kBookmarksCellIdentifier = @"MWMSearchBookmarksCell";
   else
   {
     cell.tableView.hidden = YES;
-    cell.noResultsView.hidden = NO;
-    cell.noResultsImage.image = [UIImage imageNamed:@"img_bookmarks"];
-    cell.noResultsTitle.text = L(@"search_bookmarks_no_results_title");
-    cell.noResultsText.text = L(@"search_bookmarks_no_results_text");
+    [cell addNoResultsView:self.noResultsView];
   }
 }
 
@@ -72,14 +70,16 @@ static NSString * const kBookmarksCellIdentifier = @"MWMSearchBookmarksCell";
   return GetFramework().GetBmCategoriesCount();
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   return [tableView dequeueReusableCellWithIdentifier:kBookmarksCellIdentifier];
 }
 
 #pragma mark - UITableViewDelegate
 
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView
+    estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   return MWMSearchBookmarksCell.defaultCellHeight;
 }
@@ -90,8 +90,9 @@ static NSString * const kBookmarksCellIdentifier = @"MWMSearchBookmarksCell";
   return self.sizingCell.cellHeight;
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(MWMSearchBookmarksCell *)cell
-forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView
+      willDisplayCell:(MWMSearchBookmarksCell *)cell
+    forRowAtIndexPath:(NSIndexPath *)indexPath
 {
   [cell configForIndex:indexPath.row];
 }
@@ -103,6 +104,17 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
   if (!_sizingCell)
     _sizingCell = [self.cell.tableView dequeueReusableCellWithIdentifier:kBookmarksCellIdentifier];
   return _sizingCell;
+}
+
+- (MWMSearchNoResults *)noResultsView
+{
+  if (!_noResultsView)
+  {
+    _noResultsView = [MWMSearchNoResults viewWithImage:[UIImage imageNamed:@"img_bookmarks"]
+                                                 title:L(@"search_bookmarks_no_results_title")
+                                                  text:L(@"search_bookmarks_no_results_text")];
+  }
+  return _noResultsView;
 }
 
 @end
