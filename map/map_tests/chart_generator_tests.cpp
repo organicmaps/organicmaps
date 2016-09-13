@@ -47,6 +47,30 @@ void TestAngleColors(size_t width, size_t height, vector<uint8_t> const & frameB
                expectedR, expectedG, expectedB, expectedA), ());
 }
 
+UNIT_TEST(ScaleChartData_Test)
+{
+  vector<double> chartData = {0.0, -1.0, 2.0};
+  maps::ScaleChartData(chartData, 2.0 /* scale */);
+  vector<double> const expectedChartData = {0.0, -2.0, 4.0};
+  TEST_EQUAL(chartData, expectedChartData, ());
+}
+
+UNIT_TEST(ShiftChartData_Test)
+{
+  vector<double> chartData = {0.0, -1.0, 2.0};
+  maps::ShiftChartData(chartData, 1 /* shift */);
+  vector<double> const expectedChartData = {1.0, 0.0, 3.0};
+  TEST_EQUAL(chartData, expectedChartData, ());
+}
+
+UNIT_TEST(ReflectChartData_Test)
+{
+  vector<double> chartData = {0.0, -1.0, 2.0};
+  maps::ReflectChartData(chartData);
+  vector<double> const expectedChartData = {0.0, 1.0, -2.0};
+  TEST_EQUAL(chartData, expectedChartData, ());
+}
+
 UNIT_TEST(NormalizeChartData_SmokeTest)
 {
   vector<double> const distanceDataM = {0.0, 0.0, 0.0};
