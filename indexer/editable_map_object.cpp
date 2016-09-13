@@ -225,6 +225,9 @@ NamesDataSource EditableMapObject::GetNamesDataSource()
 
   StringUtf8Multilang fakeSource;
   m_fakeNames = MakeFakeSource(m_name, mwmLanguages, fakeSource);
+  
+  if (m_fakeNames.m_names.empty())
+    return GetNamesDataSource(m_name, mwmLanguages, userLangCode);
 
   return GetNamesDataSource(fakeSource, mwmLanguages, userLangCode);
 }
