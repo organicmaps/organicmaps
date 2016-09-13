@@ -83,6 +83,24 @@ agg::rgba8 GetCurveColor(MapStyle mapStyle)
 
 namespace maps
 {
+void ScaleChartData(vector<double> & chartData, double scale)
+{
+  for (size_t i = 0; i < chartData.size(); ++i)
+    chartData[i] *= scale;
+}
+
+void ShiftChartData(vector<double> & chartData, double shift)
+{
+  for (size_t i = 0; i < chartData.size(); ++i)
+    chartData[i] += shift;
+}
+
+void ReflectChartData(vector<double> & chartData)
+{
+  for (size_t i = 0; i < chartData.size(); ++i)
+    chartData[i] = -chartData[i];
+}
+
 bool NormalizeChartData(vector<double> const & distanceDataM,
                         feature::TAltitudes const & altitudeDataM, size_t resultPointCount,
                         vector<double> & uniformAltitudeDataM)
@@ -166,7 +184,8 @@ bool GenerateYAxisChartData(uint32_t height, double minMetersPerPxl,
     return false;
   }
 
-  double const freeHeightSpacePxl = drawHeightPxl - deltaAltM / metersPerPxl;
+  double const deltaAltPxl = deltaAltM / metersPerPxl;
+  double const freeHeightSpacePxl = drawHeightPxl - deltaAltPxl;
   if (freeHeightSpacePxl < 0 || freeHeightSpacePxl > drawHeightPxl)
   {
     LOG(LERROR, ("Number of pixels free of chart points (", freeHeightSpacePxl,
@@ -174,11 +193,11 @@ bool GenerateYAxisChartData(uint32_t height, double minMetersPerPxl,
     return false;
   }
 
-  double const shift = heightIndentPxl + freeHeightSpacePxl / 2.0;
-  size_t const altitudeDataSize = altitudeDataM.size();
-  yAxisDataPxl.resize(altitudeDataSize);
-  for (size_t i = 0; i < altitudeDataSize; ++i)
-    yAxisDataPxl[i] = height - shift - (altitudeDataM[i] - minAltM) / metersPerPxl;
+  double const maxAltPxl = maxAltM / metersPerPxl;
+  yAxisDataPxl.assign(altitudeDataM.cbegin(), altitudeDataM.cend());
+  ScaleChartData(yAxisDataPxl, 1.0 / metersPerPxl);
+  ReflectChartData(yAxisDataPxl);
+  ShiftChartData(yAxisDataPxl, maxAltPxl + heightIndentPxl + freeHeightSpacePxl / 2.0);
 
   return true;
 }
