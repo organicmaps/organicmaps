@@ -1,6 +1,3 @@
-#add_subdirectory(editor_tests)
-
-
 set(
     SRC
     changeset_wrapper.cpp
@@ -31,3 +28,5 @@ set(
 )
 
 omim_add_library(editor ${SRC})
+
+#add_subdirectory(editor_tests)

@@ -6,7 +6,6 @@ add_subdirectory(3party/minizip)
 add_subdirectory(3party/succinct)
 add_subdirectory(3party/tomcrypt)
 
-
 add_compile_options(
     "-Wall"
     "-std=c++11"
@@ -14,7 +13,7 @@ add_compile_options(
 
 find_package(Threads)
 find_library(LIBZ NAMES z)
-if(LIBZ STREQUAL "LIBZ-NOTFOUND")
+if (LIBZ STREQUAL "LIBZ-NOTFOUND")
    message(FATAL_ERROR "Failed to find libz library.")
 endif()
 
@@ -67,5 +66,5 @@ endfunction()
 add_subdirectory(base)
 add_subdirectory(coding)
 #add_subdirectory(editor)
-#add_subdirectory(geometry)
+add_subdirectory(geometry)
 #add_subdirectory(storage)

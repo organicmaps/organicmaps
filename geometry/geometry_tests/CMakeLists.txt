@@ -35,4 +35,4 @@ set(
 )
 
 omim_add_test(geometry_tests ${SRC})
-omim_link_libraries(geometry_tests base geometry)
+omim_link_libraries(geometry_tests geometry base)
