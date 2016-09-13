@@ -13,6 +13,7 @@ jclass g_hotelClass;
 jmethodID g_hotelClassCtor;
 jmethodID g_priceCallback;
 jmethodID g_descriptionCallback;
+jmethodID g_facilitiesCallback;
 
 void PrepareClassRefs(JNIEnv * env, jclass hotelClass)
 {
@@ -27,6 +28,8 @@ void PrepareClassRefs(JNIEnv * env, jclass hotelClass)
   g_priceCallback = jni::GetStaticMethodID(env, g_hotelClass, "onPriceReceived", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
   // static void onDescriptionReceived(final String id, final String description)
   g_descriptionCallback = jni::GetStaticMethodID(env, g_hotelClass, "onDescriptionReceived", "(Ljava/lang/String;Ljava/lang/String;)V");
+  // static void onFacilitiesReceived(final String id, int[] ids, String[] names)
+  g_facilitiesCallback = jni::GetStaticMethodID(env, g_hotelClass, "onFacilitiesReceived", "(Ljava/lang/String;[I[Ljava/lang/String;)V");
 }
 
 } // namespace
@@ -84,6 +87,25 @@ Java_com_mapswithme_maps_widget_placepage_SponsoredHotel_nativeRequestDescriptio
   //JNIEnv * env = jni::GetEnv();
   env->CallStaticVoidMethod(g_hotelClass, g_descriptionCallback, jni::ToJavaString(env, hotelId),
                                                                  jni::ToJavaString(env, "One of our top picks in New York City. This boutique hotel in the Manhattan neighborhood of Nolita features a private rooftop and rooms with free WiFi. The Bowery subway station is 1 block from this New York hotel. One of our top picks in New York City. This boutique hotel in the Manhattan neighborhood of Nolita features a private rooftop and rooms with free WiFi. The Bowery subway station is 1 block from this New York hotel."));
+}
+
+// static void nativeRequestFacilities(String id, String locale);
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_widget_placepage_SponsoredHotel_nativeRequestFacilities(JNIEnv * env, jclass clazz, jstring id, jstring locale)
+{
+  PrepareClassRefs(env, clazz);
+
+  string const hotelId = jni::ToNativeString(env, id);
+  string const localeCode = jni::ToNativeString(env, locale);
+
+  //TODO make request
+  jintArray result;
+  result = env->NewIntArray(7);
+  jint fill[7]{0, 1, 2, 3, 4, 5, 6};
+  env->SetIntArrayRegion(result, 0, 7, fill);
+  env->CallStaticVoidMethod(g_hotelClass, g_facilitiesCallback, jni::ToJavaString(env, hotelId),
+                                                                result,
+                                                                jni::ToJavaStringArray(env, {"Bar", "Terrace", "Fitness Center", "Pets are allowed on request", "Restaurant", "Private parking", "Ghost Busters"}));
 }
 
 } // extern "C"
