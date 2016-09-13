@@ -4,7 +4,6 @@ project(minizip C CXX)
 
 add_compile_options(
     "-Wall"
-    "-pedantic"
 )
 
 add_definitions(-DUSE_FILE32ZPI -DNOCRYPT)

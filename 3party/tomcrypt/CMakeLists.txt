@@ -4,7 +4,6 @@ project(tomcrypt C CXX)
 
 add_compile_options(
     "-Wall"
-    "-pedantic"
 )
 
 add_definitions(-DLTC_NO_ROLC)
