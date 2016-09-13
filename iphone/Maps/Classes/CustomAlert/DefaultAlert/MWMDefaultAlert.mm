@@ -408,8 +408,8 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
   alert.rightButtonAction = action;
   if (leftButtonTitle)
   {
-    [alert.leftButton setTitle:rightButtonTitle forState:UIControlStateNormal];
-    [alert.leftButton setTitle:rightButtonTitle forState:UIControlStateDisabled];
+    [alert.leftButton setTitle:leftButtonTitle forState:UIControlStateNormal];
+    [alert.leftButton setTitle:leftButtonTitle forState:UIControlStateDisabled];
   }
   else
   {
