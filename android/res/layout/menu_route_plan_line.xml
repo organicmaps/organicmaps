@@ -4,55 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:visibility="visible"
-    android:layout_height="wrap_content"
-    android:paddingLeft="@dimen/altitude_chart_container_padding_left">
+    android:layout_height="wrap_content">
 
-  <LinearLayout
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_weight="1"
-      android:layout_marginBottom="@dimen/altitude_chart_margin_bottom"
-      android:layout_marginTop="@dimen/altitude_chart_margin_top"
-      android:orientation="vertical">
+  <include layout="@layout/altitude_chart_panel" />
 
-    <LinearLayout
-        android:id="@+id/numbers"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/altitude_chart_time_distance_height"
-        android:layout_marginBottom="@dimen/altitude_chart_time_distance_margin_bottom">
-
-      <TextView
-          android:id="@+id/time"
-          style="@style/MwmWidget.TextView.PlanDetail.Number"
-          android:textStyle="bold"
-          tools:text="33 min" />
-
-      <TextView
-          style="@style/MwmWidget.TextView.PlanDetail.Number.Secondary"
-          android:layout_marginLeft="6dp"
-          android:layout_marginRight="6dp"
-          android:layout_marginTop="2dp"
-          android:text="•"
-          tools:ignore="HardcodedText" />
-
-      <TextView
-          android:id="@+id/distance"
-          style="@style/MwmWidget.TextView.PlanDetail.Number"
-          tools:text="1024 km" />
-    </LinearLayout>
-
-    <ImageView android:id="@+id/altitude_chart"
-        android:layout_width="@dimen/altitude_chart_image_width"
-        android:layout_height="@dimen/altitude_chart_image_height"
-        android:layout_marginBottom="8dp"/>
-  </LinearLayout>
-  <Button
-      android:id="@+id/start"
-      android:layout_width="wrap_content"
-      android:layout_height="match_parent"
-      android:layout_gravity="center"
-      android:text="@string/p2p_start"
-      style="@style/MwmWidget.Button.Start"
-      android:padding="8dp"
-      android:textAppearance="@style/MwmTextAppearance.Body1"/>
+  <include layout="@layout/start_button" />
 </LinearLayout>

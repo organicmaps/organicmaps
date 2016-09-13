@@ -19,9 +19,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 
-import java.io.Serializable;
-import java.util.Stack;
-
 import com.mapswithme.maps.Framework.MapObjectListener;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.maps.ads.LikesManager;
@@ -1331,7 +1328,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onRouteBuilt() {
     mLogger.d("onRouteBuilt");
-    if (!mIsFragmentContainer)
+    if (mIsFragmentContainer)
+    {
+      RoutingPlanFragment fragment = (RoutingPlanFragment) getFragment(RoutingPlanFragment.class);
+      if (fragment != null)
+        fragment.showRouteAltitudeChart();
+    }
+    else
     {
       mRoutingPlanInplaceController.showRouteAltitudeChart();
     }

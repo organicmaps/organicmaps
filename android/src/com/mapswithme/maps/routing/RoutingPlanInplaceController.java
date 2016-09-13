@@ -91,6 +91,7 @@ public class RoutingPlanInplaceController extends RoutingPlanController
       mSlotsRestoredState = state.getBoolean(STATE_OPEN);
   }
 
+  @Override
   public void showRouteAltitudeChart()
   {
     ImageView altitudeChart = (ImageView) mActivity.findViewById(R.id.altitude_chart);

@@ -2,7 +2,7 @@ package com.mapswithme.maps.routing;
 
 import android.animation.ValueAnimator;
 import android.app.Activity;
-import android.os.Build;
+import android.graphics.Bitmap;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.view.View;
@@ -35,13 +35,10 @@ public class RoutingPlanController extends ToolbarController
   private final WheelProgressView mProgressVehicle;
   private final WheelProgressView mProgressPedestrian;
   private final WheelProgressView mProgressBicycle;
-  //TODO: ask Igor about this label
-//  private final View mPlanningLabel;
-//  private final View mErrorLabel;
-  private final View mNumbersFrame;
+  private View mNumbersFrame;
   private final TextView mNumbersTime;
   private final TextView mNumbersDistance;
-  private final TextView mNumbersArrival;
+//  private final TextView mNumbersArrival;
 
   private final RotateDrawable mToggleImage = new RotateDrawable(R.drawable.ic_down);
   private int mFrameHeight;
@@ -75,9 +72,6 @@ public class RoutingPlanController extends ToolbarController
 
     mToggle = (ImageView) mToolbar.findViewById(R.id.toggle);
     mSlotFrame = (SlotFrame) root.findViewById(R.id.slots);
-
-    View planFrame = root.findViewById(R.id.planning_frame);
-
     mRouterTypes = (RadioGroup) mToolbar.findViewById(R.id.route_type);
 
     setupRouterButton(R.id.vehicle, R.drawable.ic_drive, new View.OnClickListener()
@@ -118,18 +112,15 @@ public class RoutingPlanController extends ToolbarController
     mProgressPedestrian = (WheelProgressView) progressFrame.findViewById(R.id.progress_pedestrian);
     mProgressBicycle = (WheelProgressView) progressFrame.findViewById(R.id.progress_bicycle);
 
-//    mErrorLabel = planFrame.findViewById(R.id.error);
-    mNumbersFrame = mActivity.findViewById(R.id.numbers);
+    mNumbersFrame = mFrame.findViewById(R.id.numbers);
+    if (mNumbersFrame == null) //We are in Phone mode not tablet
+    {
+      mNumbersFrame = mActivity.findViewById(R.id.numbers);
+    }
     mNumbersTime = (TextView) mNumbersFrame.findViewById(R.id.time);
     mNumbersDistance = (TextView) mNumbersFrame.findViewById(R.id.distance);
-    mNumbersArrival = (TextView) mNumbersFrame.findViewById(R.id.arrival);
-
-//    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-//    {
-//      View divider = planFrame.findViewById(R.id.details_divider);
-//      if (divider != null)
-//        UiUtils.invisible(divider);
-//    }
+    //TODO: restore this field later (from the removed routing_plan_details layout)
+//    mNumbersArrival = (TextView) mNumbersFrame.findViewById(R.id.arrival);
 
     mToggle.setImageDrawable(mToggleImage);
     mToggle.setOnClickListener(new View.OnClickListener()
@@ -178,8 +169,6 @@ public class RoutingPlanController extends ToolbarController
 
     boolean ready = (buildState == RoutingController.BuildState.BUILT);
     UiUtils.showIf(ready, mNumbersFrame);
-//    UiUtils.showIf(RoutingController.get().isBuilding(), mPlanningLabel);
-//    UiUtils.showIf(buildState == RoutingController.BuildState.ERROR, mErrorLabel);
 
     if (!ready)
       return;
@@ -188,9 +177,9 @@ public class RoutingPlanController extends ToolbarController
     mNumbersTime.setText(RoutingController.formatRoutingTime(mFrame.getContext(), rinfo.totalTimeInSeconds, R.dimen.text_size_routing_number));
     mNumbersDistance.setText(rinfo.distToTarget + " " + rinfo.targetUnits);
 
-    if (mNumbersArrival != null)
-      mNumbersArrival.setText(MwmApplication.get().getString(R.string.routing_arrive,
-                              RoutingController.formatArrivalTime(rinfo.totalTimeInSeconds)));
+//    if (mNumbersArrival != null)
+//      mNumbersArrival.setText(MwmApplication.get().getString(R.string.routing_arrive,
+//                              RoutingController.formatArrivalTime(rinfo.totalTimeInSeconds)));
   }
 
   public void updateBuildProgress(int progress, @Framework.RouterType int router)
@@ -282,5 +271,17 @@ public class RoutingPlanController extends ToolbarController
   public boolean isOpen()
   {
     return mOpen;
+  }
+
+  public void showRouteAltitudeChart()
+  {
+    ImageView altitudeChart = (ImageView) mFrame.findViewById(R.id.altitude_chart);
+    int chartWidth = mActivity.getResources().getDimensionPixelSize(R.dimen.altitude_chart_image_width);
+    int chartHeight = mActivity.getResources().getDimensionPixelSize(R.dimen.altitude_chart_image_height);
+    Bitmap bm = Framework.GenerateRouteAltitudeChart(chartWidth, chartHeight);
+    if (bm != null)
+    {
+      altitudeChart.setImageBitmap(bm);
+    }
   }
 }
