@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
-import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
@@ -36,11 +35,7 @@ public class RoutingPlanController extends ToolbarController
   private final WheelProgressView mProgressVehicle;
   private final WheelProgressView mProgressPedestrian;
   private final WheelProgressView mProgressBicycle;
-  private View mNumbersFrame;
-  private final TextView mNumbersTime;
-  private final TextView mNumbersDistance;
-  @Nullable
-  private TextView mNumbersArrival;
+  private final View mAltitudeChartFrame;
 
   private final RotateDrawable mToggleImage = new RotateDrawable(R.drawable.ic_down);
   private int mFrameHeight;
@@ -114,14 +109,17 @@ public class RoutingPlanController extends ToolbarController
     mProgressPedestrian = (WheelProgressView) progressFrame.findViewById(R.id.progress_pedestrian);
     mProgressBicycle = (WheelProgressView) progressFrame.findViewById(R.id.progress_bicycle);
 
-    mNumbersFrame = mFrame.findViewById(R.id.numbers);
-    if (mNumbersFrame == null) //We are in Phone mode not tablet
+    View altitudeChartFrame = mFrame.findViewById(R.id.altitude_chart_panel);
+    if (altitudeChartFrame == null) //We are in Phone mode, not tablet
     {
-      mNumbersFrame = mActivity.findViewById(R.id.numbers);
+      altitudeChartFrame = mActivity.findViewById(R.id.altitude_chart_panel);
+      if (altitudeChartFrame == null)
+      {
+        throw new AssertionError("The altitude panel must be presented in Phone UI if it's absent in Table UI");
+      }
     }
-    mNumbersTime = (TextView) mNumbersFrame.findViewById(R.id.time);
-    mNumbersDistance = (TextView) mNumbersFrame.findViewById(R.id.distance);
-    mNumbersArrival = (TextView) mNumbersFrame.findViewById(R.id.arrival);
+    mAltitudeChartFrame = altitudeChartFrame;
+    mAltitudeChartFrame.setVisibility(View.GONE);
 
     mToggle.setImageDrawable(mToggleImage);
     mToggle.setOnClickListener(new View.OnClickListener()
@@ -169,19 +167,27 @@ public class RoutingPlanController extends ToolbarController
     RoutingController.BuildState buildState = RoutingController.get().getBuildState();
 
     boolean ready = (buildState == RoutingController.BuildState.BUILT);
-    UiUtils.showIf(ready, mNumbersFrame);
+    UiUtils.showIf(ready, mAltitudeChartFrame);
 
     if (!ready)
       return;
 
+    updateAltitudeChartAndRoutingDetails();
+  }
 
+  private void updateAltitudeChartAndRoutingDetails()
+  {
+    final View numbersFrame = mAltitudeChartFrame.findViewById(R.id.numbers);
+    TextView numbersTime = (TextView) numbersFrame.findViewById(R.id.time);
+    TextView numbersDistance = (TextView) numbersFrame.findViewById(R.id.distance);
+    TextView numbersArrival = (TextView) numbersFrame.findViewById(R.id.arrival);
     RoutingInfo rinfo = RoutingController.get().getCachedRoutingInfo();
-    mNumbersTime.setText(RoutingController.formatRoutingTime(mFrame.getContext(), rinfo.totalTimeInSeconds, R.dimen.text_size_routing_number));
-    mNumbersDistance.setText(rinfo.distToTarget + " " + rinfo.targetUnits);
+    numbersTime.setText(RoutingController.formatRoutingTime(mFrame.getContext(), rinfo.totalTimeInSeconds, R.dimen.text_size_routing_number));
+    numbersDistance.setText(rinfo.distToTarget + " " + rinfo.targetUnits);
 
-    if (mNumbersArrival != null)
-      mNumbersArrival.setText(MwmApplication.get().getString(R.string.routing_arrive,
-                              RoutingController.formatArrivalTime(rinfo.totalTimeInSeconds)));
+    if (numbersArrival != null)
+      numbersArrival.setText(MwmApplication.get().getString(R.string.routing_arrive,
+              RoutingController.formatArrivalTime(rinfo.totalTimeInSeconds)));
   }
 
   public void updateBuildProgress(int progress, @Framework.RouterType int router)

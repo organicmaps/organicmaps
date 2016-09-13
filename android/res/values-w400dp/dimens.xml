@@ -3,5 +3,6 @@
   <!-- routing layout -->
   <dimen name="routing_info_height">56dp</dimen>
   <dimen name="routing_turns_padding">12dp</dimen>
-
+  <!-- Altitude chart -->
+  <dimen name="altitude_chart_image_width">600dp</dimen>
 </resources>
