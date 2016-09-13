@@ -2,21 +2,21 @@
 #import "Common.h"
 #import "MWMKeyboard.h"
 
-@interface MWMNoMapsView () <MWMKeyboardObserver>
+@interface MWMNoMapsView ()<MWMKeyboardObserver>
 
-@property (weak, nonatomic) IBOutlet UIImageView * image;
-@property (weak, nonatomic) IBOutlet UILabel * title;
-@property (weak, nonatomic) IBOutlet UILabel * text;
+@property(weak, nonatomic) IBOutlet UIImageView * image;
+@property(weak, nonatomic) IBOutlet UILabel * title;
+@property(weak, nonatomic) IBOutlet UILabel * text;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * containerWidth;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * containerHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * containerTopOffset;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * containerBottomOffset;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * imageMinHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * imageHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * titleImageOffset;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * titleTopOffset;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * textTopOffset;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * containerWidth;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * containerHeight;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * containerTopOffset;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * containerBottomOffset;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * imageMinHeight;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * imageHeight;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * titleImageOffset;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * titleTopOffset;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * textTopOffset;
 
 @end
 
@@ -89,9 +89,5 @@
   [self.superview layoutIfNeeded];
 }
 
-- (void)onKeyboardWillAnimate
-{
-  [self.superview layoutIfNeeded];
-}
-
+- (void)onKeyboardWillAnimate { [self.superview layoutIfNeeded]; }
 @end

@@ -1,11 +1,11 @@
+#import "MWMObjectsCategorySelectorController.h"
 #import "MWMAuthorizationCommon.h"
 #import "MWMEditorViewController.h"
-#import "MWMObjectsCategorySelectorController.h"
+#import "MWMKeyboard.h"
 #import "MWMTableViewCell.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIViewController+Navigation.h"
-#import "MWMKeyboard.h"
 
 #include "LocaleTranslator.h"
 
@@ -19,7 +19,6 @@ using namespace osm;
 
 namespace
 {
-
 NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
 
 string locale()
@@ -27,18 +26,19 @@ string locale()
   return locale_translator::bcp47ToTwineLanguage([NSLocale currentLocale].localeIdentifier);
 }
 
-} // namespace
+}  // namespace
 
-@interface MWMObjectsCategorySelectorController () <UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource, MWMKeyboardObserver>
+@interface MWMObjectsCategorySelectorController ()<UISearchBarDelegate, UITableViewDelegate,
+                                                   UITableViewDataSource, MWMKeyboardObserver>
 {
   NewFeatureCategories m_categories;
   NewFeatureCategories::TNames m_filteredCategories;
 }
 
-@property (weak, nonatomic) IBOutlet UITableView * tableView;
-@property (weak, nonatomic) IBOutlet UISearchBar * searchBar;
-@property (nonatomic) NSIndexPath * selectedIndexPath;
-@property (nonatomic) BOOL isSearch;
+@property(weak, nonatomic) IBOutlet UITableView * tableView;
+@property(weak, nonatomic) IBOutlet UISearchBar * searchBar;
+@property(nonatomic) NSIndexPath * selectedIndexPath;
+@property(nonatomic) BOOL isSearch;
 
 @end
 
@@ -69,19 +69,18 @@ string locale()
 {
   self.tableView.backgroundColor = [UIColor pressBackground];
   self.tableView.separatorColor = [UIColor blackDividers];
-  [self.tableView registerClass:[MWMTableViewCell class] forCellReuseIdentifier:[UITableViewCell className]];
+  [self.tableView registerClass:[MWMTableViewCell class]
+         forCellReuseIdentifier:[UITableViewCell className]];
 }
 
 - (void)setSelectedCategory:(string const &)category
 {
   auto const & all = m_categories.GetAllCategoryNames(locale());
-  auto const it = find_if(all.begin(), all.end(), [&category](NewFeatureCategories::TName const & name)
-  {
-    return name.first == category;
-  });
+  auto const it = find_if(
+      all.begin(), all.end(),
+      [&category](NewFeatureCategories::TName const & name) { return name.first == category; });
   NSAssert(it != all.end(), @"Incorrect category!");
-  self.selectedIndexPath = [NSIndexPath indexPathForRow:(distance(all.begin(), it))
-                                              inSection:0];
+  self.selectedIndexPath = [NSIndexPath indexPathForRow:(distance(all.begin(), it)) inSection:0];
 }
 
 - (void)backTap
@@ -94,16 +93,8 @@ string locale()
   [super backTap];
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-  return UIStatusBarStyleLightContent;
-}
-
-- (void)configNavBar
-{
-  self.title = L(@"editor_add_select_category");
-}
-
+- (UIStatusBarStyle)preferredStatusBarStyle { return UIStatusBarStyleLightContent; }
+- (void)configNavBar { self.title = L(@"editor_add_select_category"); }
 - (void)configSearchBar
 {
   self.searchBar.backgroundImage = [UIImage imageWithColor:[UIColor primary]];
@@ -127,17 +118,21 @@ string locale()
     NSAssert(false, @"incorrect segue");
     return;
   }
-  MWMEditorViewController * dest = static_cast<MWMEditorViewController *>(segue.destinationViewController);
+  MWMEditorViewController * dest =
+      static_cast<MWMEditorViewController *>(segue.destinationViewController);
   dest.isCreating = YES;
   auto const object = self.createdObject;
   [dest setEditableMapObject:object];
 
   using namespace osm_auth_ios;
   auto const & featureID = object.GetID();
-  [Statistics logEvent:kStatEditorAddStart withParameters:@{kStatEditorIsAuthenticated : @(AuthorizationHaveCredentials()),
-                                                            kStatIsOnline : Platform::IsConnected() ? kStatYes : kStatNo,
-                                                            kStatEditorMWMName : @(featureID.GetMwmName().c_str()),
-                                                            kStatEditorMWMVersion : @(featureID.GetMwmVersion())}];
+  [Statistics logEvent:kStatEditorAddStart
+        withParameters:@{
+          kStatEditorIsAuthenticated : @(AuthorizationHaveCredentials()),
+          kStatIsOnline : Platform::IsConnected() ? kStatYes : kStatNo,
+          kStatEditorMWMName : @(featureID.GetMwmName().c_str()),
+          kStatEditorMWMVersion : @(featureID.GetMwmVersion())
+        }];
 }
 
 #pragma mark - MWMKeyboard
@@ -156,17 +151,21 @@ string locale()
   auto const & ds = [self dataSourceForSection:self.selectedIndexPath.section];
   EditableMapObject emo;
   auto & f = GetFramework();
-  if (!f.CreateMapObject(f.GetViewportCenter() ,ds[self.selectedIndexPath.row].second, emo))
-    NSAssert(false, @"This call should never fail, because IsPointCoveredByDownloadedMaps is always called before!");
+  if (!f.CreateMapObject(f.GetViewportCenter(), ds[self.selectedIndexPath.row].second, emo))
+    NSAssert(false, @"This call should never fail, because IsPointCoveredByDownloadedMaps is "
+                    @"always called before!");
   return emo;
 }
 
 #pragma mark - UITableView
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:[UITableViewCell className]];
-  cell.textLabel.text = @([self dataSourceForSection:indexPath.section][indexPath.row].first.c_str());
+  UITableViewCell * cell =
+      [tableView dequeueReusableCellWithIdentifier:[UITableViewCell className]];
+  cell.textLabel.text =
+      @([self dataSourceForSection:indexPath.section][indexPath.row].first.c_str());
   if ([indexPath isEqual:self.selectedIndexPath])
     cell.accessoryType = UITableViewCellAccessoryCheckmark;
   else
@@ -200,10 +199,11 @@ string locale()
   if (self.isSearch)
     return nil;
   return L(@"editor_add_select_category_all_subtitle");
-// TODO(Vlad): Uncoment this line when we will be ready to show recent categories
-//  if (m_categories.m_lastUsed.empty())
-//    return L(@"editor_add_select_category_all_subtitle");
-//  return section == 0 ? L(@"editor_add_select_category_popular_subtitle") : L(@"editor_add_select_category_all_subtitle");
+  // TODO(Vlad): Uncoment this line when we will be ready to show recent categories
+  //  if (m_categories.m_lastUsed.empty())
+  //    return L(@"editor_add_select_category_all_subtitle");
+  //  return section == 0 ? L(@"editor_add_select_category_popular_subtitle") :
+  //  L(@"editor_add_select_category_all_subtitle");
 }
 
 - (NewFeatureCategories::TNames const &)dataSourceForSection:(NSInteger)section
@@ -211,11 +211,11 @@ string locale()
   if (self.isSearch)
     return m_filteredCategories;
   return m_categories.GetAllCategoryNames(locale());
-// TODO(Vlad): Uncoment this line when we will be ready to show recent categories
-//    if (m_categories.m_lastUsed.empty())
-//      return m_categories.m_allSorted;
-//    else
-//      return section == 0 ? m_categories.m_lastUsed : m_categories.m_allSorted;
+  // TODO(Vlad): Uncoment this line when we will be ready to show recent categories
+  //    if (m_categories.m_lastUsed.empty())
+  //      return m_categories.m_allSorted;
+  //    else
+  //      return section == 0 ? m_categories.m_lastUsed : m_categories.m_allSorted;
 }
 
 #pragma mark - UISearchBarDelegate
@@ -231,7 +231,7 @@ string locale()
   }
 
   self.isSearch = YES;
-  string const query {[searchText lowercaseStringWithLocale:[NSLocale currentLocale]].UTF8String};
+  string const query{[searchText lowercaseStringWithLocale:[NSLocale currentLocale]].UTF8String};
   m_filteredCategories = m_categories.Search(query, locale());
   [self.tableView reloadData];
 }
@@ -262,16 +262,8 @@ string locale()
   [self.tableView reloadData];
 }
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
-{
-  [searchBar resignFirstResponder];
-}
-
-- (UIBarPosition)positionForBar:(id<UIBarPositioning>)bar
-{
-  return UIBarPositionTopAttached;
-}
-
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar { [searchBar resignFirstResponder]; }
+- (UIBarPosition)positionForBar:(id<UIBarPositioning>)bar { return UIBarPositionTopAttached; }
 - (void)searchBar:(UISearchBar *)searchBar setActiveState:(BOOL)isActiveState
 {
   [searchBar setShowsCancelButton:isActiveState animated:YES];
