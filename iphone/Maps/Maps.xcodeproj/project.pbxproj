@@ -172,6 +172,8 @@
 		347FDDA11BB59B4E00871410 /* Mapsme.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 347FDDA01BB59B4E00871410 /* Mapsme.storyboard */; };
 		3485C0121B85C20E00F7712D /* MWMSearchTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3485C0101B85C20E00F7712D /* MWMSearchTableViewController.mm */; };
 		3485C0131B85C20E00F7712D /* MWMSearchTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3485C0111B85C20E00F7712D /* MWMSearchTableViewController.xib */; };
+		348868F31D87DFB70069BBA3 /* MWMKeyboard.mm in Sources */ = {isa = PBXBuildFile; fileRef = 348868F21D87DFB70069BBA3 /* MWMKeyboard.mm */; };
+		348868F41D87DFB70069BBA3 /* MWMKeyboard.mm in Sources */ = {isa = PBXBuildFile; fileRef = 348868F21D87DFB70069BBA3 /* MWMKeyboard.mm */; };
 		348C26051D701B9F00813924 /* MWMHelpController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 348C26041D701B9F00813924 /* MWMHelpController.mm */; };
 		348C26061D701B9F00813924 /* MWMHelpController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 348C26041D701B9F00813924 /* MWMHelpController.mm */; };
 		3490D2DE1CE9DD2500D0B838 /* MWMSideButtons.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3490D2DA1CE9DD2500D0B838 /* MWMSideButtons.mm */; };
@@ -1056,6 +1058,9 @@
 		3485C00F1B85C20E00F7712D /* MWMSearchTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchTableViewController.h; sourceTree = "<group>"; };
 		3485C0101B85C20E00F7712D /* MWMSearchTableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMSearchTableViewController.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		3485C0111B85C20E00F7712D /* MWMSearchTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMSearchTableViewController.xib; sourceTree = "<group>"; };
+		348868F11D87DFB70069BBA3 /* MWMKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MWMKeyboard.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		348868F21D87DFB70069BBA3 /* MWMKeyboard.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMKeyboard.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		348868F51D87DFEE0069BBA3 /* MWMKeyboardObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMKeyboardObserver.h; sourceTree = "<group>"; };
 		348C26031D701B9F00813924 /* MWMHelpController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMHelpController.h; sourceTree = "<group>"; };
 		348C26041D701B9F00813924 /* MWMHelpController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMHelpController.mm; sourceTree = "<group>"; };
 		348D1DF91C525B8300860465 /* MWMTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMTypes.h; sourceTree = "<group>"; };
@@ -1736,6 +1741,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				348868F01D87DF8C0069BBA3 /* Keyboard */,
 				3436FE7F1D366CA0005CD87B /* Search */,
 				344D77B11D1BD79700DBED70 /* Location */,
 				34002A651D2F9C8100AC201E /* Routing */,
@@ -2136,6 +2142,16 @@
 				347FD8661C60B2CE002FB65E /* MWMOpeningHoursTimeSpanTableViewCell.xib */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		348868F01D87DF8C0069BBA3 /* Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				348868F11D87DFB70069BBA3 /* MWMKeyboard.h */,
+				348868F21D87DFB70069BBA3 /* MWMKeyboard.mm */,
+				348868F51D87DFEE0069BBA3 /* MWMKeyboardObserver.h */,
+			);
+			path = Keyboard;
 			sourceTree = "<group>";
 		};
 		3497A9321B5CF8A900F51E55 /* NavigationDashboard */ = {
@@ -3780,6 +3796,7 @@
 				34CD81D01C92A884007D2A60 /* MWMPageControllerDataSource.mm in Sources */,
 				34ABA6201C2D517500FE1BEC /* MWMInputValidator.mm in Sources */,
 				F639883B1CF70FE500226B6B /* MWMActionBarButton.mm in Sources */,
+				348868F31D87DFB70069BBA3 /* MWMKeyboard.mm in Sources */,
 				978F9242183B660F000D6C7C /* SelectableCell.mm in Sources */,
 				34ABA6241C2D551900FE1BEC /* MWMInputValidatorFactory.mm in Sources */,
 				34B82AE21B84AC5E00180497 /* MWMSearchCategoriesManager.mm in Sources */,
@@ -4009,6 +4026,7 @@
 				34CD81D11C92A884007D2A60 /* MWMPageControllerDataSource.mm in Sources */,
 				6741AA131BF340DE002C974C /* UIColor+MapsMeColor.mm in Sources */,
 				34ABA6251C2D551900FE1BEC /* MWMInputValidatorFactory.mm in Sources */,
+				348868F41D87DFB70069BBA3 /* MWMKeyboard.mm in Sources */,
 				F639883C1CF70FE500226B6B /* MWMActionBarButton.mm in Sources */,
 				34CE8A681C7740E100F4351A /* MWMStorage.mm in Sources */,
 				6741AA141BF340DE002C974C /* MWMMultilineLabel.mm in Sources */,

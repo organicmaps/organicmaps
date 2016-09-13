@@ -12,6 +12,7 @@
 #import "MWMController.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
+#import "MWMKeyboard.h"
 #import "MWMLocationManager.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMRouter.h"
@@ -662,6 +663,7 @@ using namespace osm_auth_ios;
   [MWMLocationManager applicationDidBecomeActive];
   [MWMRouterSavedState restore];
   [MWMSearch addCategoriesToSpotlight];
+  [MWMKeyboard applicationDidBecomeActive];
 }
 
 - (BOOL)application:(UIApplication *)application
