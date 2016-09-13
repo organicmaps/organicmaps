@@ -159,7 +159,7 @@ class TabAdapter extends FragmentPagerAdapter
   {
     final Context context = tabs.getContext();
     final LayoutInflater inflater = LayoutInflater.from(context);
-    boolean landscape = UiUtils.isLandscape(context);
+    final boolean landscape = UiUtils.isLandscape(context);
 
     int padding = UiUtils.dimen(landscape ? R.dimen.margin_half
                                           : R.dimen.margin_eighth);

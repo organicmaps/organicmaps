@@ -124,14 +124,13 @@ class SearchWheel implements View.OnClickListener
     if (mIsExpanded)
     {
       animRes = R.animator.show_zoom_out_alpha;
-      mIsExpanded = false;
     }
     else
     {
       animRes = R.animator.show_zoom_in_alpha;
-      mIsExpanded = true;
       UiUtils.show(mSearchLayout);
     }
+    mIsExpanded = !mIsExpanded;
     final Animator animator = AnimatorInflater.loadAnimator(mSearchLayout.getContext(), animRes);
     animator.setTarget(mSearchLayout);
     animator.start();

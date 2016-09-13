@@ -60,5 +60,4 @@
     android:background="?nav_background"
     android:src="@drawable/ic_menu_search"
     android:tint="@null"/>
-
 </RelativeLayout>
