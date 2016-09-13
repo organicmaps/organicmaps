@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/ll__place_hotel_description"
+              android:orientation="vertical"
+              style="@style/PlacePageItemFrame"
+              tools:background="#20FF0000">
+
+    <TextView
+            style="@style/PlacePageTitleText"
+            android:text="@string/details"/>
+
+    <com.mapswithme.maps.widget.LineCountTextView
+            android:id="@+id/tv__place_hotel_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_half_plus"
+            android:textAppearance="@style/MwmTextAppearance.Body3.Primary"
+            android:maxLines="5"
+            tools:text="One of our top picks in New York City. This boutique hotel in the Manhattan neighborhood of Nolita features a private rooftop and rooms with free WiFi. The Bowery subway station is 1 block from this New York hotel."/>
+
+    <TextView
+            android:id="@+id/tv__place_hotel_more"
+            style="@style/PlacePageMetadataText.Button"
+            android:height="@dimen/height_block_base"
+            android:background="?clickableBackground"
+            android:gravity="center"
+            android:text="@string/placepage_more_button"/>
+</LinearLayout>

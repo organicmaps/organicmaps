@@ -61,6 +61,7 @@ import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.widget.ArrowView;
 import com.mapswithme.maps.widget.BaseShadowController;
+import com.mapswithme.maps.widget.LineCountTextView;
 import com.mapswithme.maps.widget.ObservableScrollView;
 import com.mapswithme.maps.widget.ScrollViewShadowController;
 import com.mapswithme.util.Graphics;
@@ -77,7 +78,9 @@ import com.mapswithme.util.statistics.Statistics;
 public class PlacePageView extends RelativeLayout
                         implements View.OnClickListener,
                                    View.OnLongClickListener,
-                                   SponsoredHotel.OnPriceReceivedListener
+                                   SponsoredHotel.OnPriceReceivedListener,
+                                   SponsoredHotel.OnDescriptionReceivedListener,
+                                   LineCountTextView.OnLineCountCalculatedListener
 {
   private static final String PREF_USE_DMS = "use_dms";
 
@@ -126,6 +129,10 @@ public class PlacePageView extends RelativeLayout
   // Place page buttons
   private PlacePageButtons mButtons;
   private ImageView mBookmarkButtonIcon;
+  // Hotel
+  private View mHotelDescription;
+  private LineCountTextView mTvHotelDescription;
+  private View mHotelMoreDescription;
 
   // Animations
   private BaseShadowController mShadowController;
@@ -274,6 +281,12 @@ public class PlacePageView extends RelativeLayout
 
     ViewGroup ppButtons = (ViewGroup) findViewById(R.id.pp__buttons);
 
+    mHotelDescription = findViewById(R.id.ll__place_hotel_description);
+    mTvHotelDescription = (LineCountTextView) findViewById(R.id.tv__place_hotel_details);
+    mHotelMoreDescription = findViewById(R.id.tv__place_hotel_more);
+    mTvHotelDescription.setListener(this);
+    mHotelMoreDescription.setOnClickListener(this);
+
     mButtons = new PlacePageButtons(this, ppButtons, new PlacePageButtons.ItemListener()
     {
       @Override
@@ -401,7 +414,8 @@ public class PlacePageView extends RelativeLayout
     if (UiUtils.isLandscape(getContext()))
       mDetails.setBackgroundResource(0);
 
-    SponsoredHotel.setListener(this);
+    SponsoredHotel.setPriceListener(this);
+    SponsoredHotel.setDescriptionListener(this);
   }
 
   @Override
@@ -422,6 +436,22 @@ public class PlacePageView extends RelativeLayout
 
     mSponsoredHotelPrice = getContext().getString(R.string.place_page_starting_from, text);
     refreshPreview();
+  }
+
+  @Override
+  public void onDescriptionReceived(String id, String description) {
+    if (mSponsoredHotel == null || !TextUtils.equals(id, mSponsoredHotel.getId())) {
+      return;
+    }
+
+    mTvHotelDescription.setMaxLines(5);
+    refreshMetadataOrHide(description, mHotelDescription, mTvHotelDescription);
+    mHotelMoreDescription.setVisibility(GONE);
+  }
+
+  @Override
+  public void onLineCountCalculated(boolean grater) {
+    mHotelMoreDescription.setVisibility(grater ? VISIBLE : GONE);
   }
 
   private void onBookingClick(final boolean book)
@@ -559,6 +589,7 @@ public class PlacePageView extends RelativeLayout
 
         Currency currency = Currency.getInstance(Locale.getDefault());
         SponsoredHotel.requestPrice(mSponsoredHotel.getId(), currency.getCurrencyCode());
+        SponsoredHotel.requestDescription(mSponsoredHotel.getId(), Locale.getDefault().toString());
       }
 
       String country = MapManager.nativeGetSelectedCountry();
@@ -944,6 +975,10 @@ public class PlacePageView extends RelativeLayout
       Bookmark bookmark = (Bookmark) mMapObject;
       EditBookmarkFragment.editBookmark(bookmark.getCategoryId(), bookmark.getBookmarkId(),
                                         getActivity(), getActivity().getSupportFragmentManager());
+      break;
+    case R.id.tv__place_hotel_more:
+      mHotelMoreDescription.setVisibility(GONE);
+      mTvHotelDescription.setMaxLines(Integer.MAX_VALUE);
       break;
     }
   }

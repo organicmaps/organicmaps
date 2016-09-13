@@ -12,6 +12,7 @@ namespace
 jclass g_hotelClass;
 jmethodID g_hotelClassCtor;
 jmethodID g_priceCallback;
+jmethodID g_descriptionCallback;
 
 void PrepareClassRefs(JNIEnv * env, jclass hotelClass)
 {
@@ -24,6 +25,8 @@ void PrepareClassRefs(JNIEnv * env, jclass hotelClass)
   g_hotelClassCtor = jni::GetConstructorID(env, g_hotelClass, "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
   // static void onPriceReceived(final String id, final String price, final String currency)
   g_priceCallback = jni::GetStaticMethodID(env, g_hotelClass, "onPriceReceived", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+  // static void onDescriptionReceived(final String id, final String description)
+  g_descriptionCallback = jni::GetStaticMethodID(env, g_hotelClass, "onDescriptionReceived", "(Ljava/lang/String;Ljava/lang/String;)V");
 }
 
 } // namespace
@@ -66,6 +69,21 @@ Java_com_mapswithme_maps_widget_placepage_SponsoredHotel_nativeRequestPrice(JNIE
                                                                jni::ToJavaString(env, currency));
     });
   });
+}
+
+// static void nativeRequestDescription(String id, String locale);
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_widget_placepage_SponsoredHotel_nativeRequestDescription(JNIEnv * env, jclass clazz, jstring id, jstring locale)
+{
+  PrepareClassRefs(env, clazz);
+
+  string const hotelId = jni::ToNativeString(env, id);
+  string const localeCode = jni::ToNativeString(env, locale);
+
+  //TODO make request
+  //JNIEnv * env = jni::GetEnv();
+  env->CallStaticVoidMethod(g_hotelClass, g_descriptionCallback, jni::ToJavaString(env, hotelId),
+                                                                 jni::ToJavaString(env, "One of our top picks in New York City. This boutique hotel in the Manhattan neighborhood of Nolita features a private rooftop and rooms with free WiFi. The Bowery subway station is 1 block from this New York hotel. One of our top picks in New York City. This boutique hotel in the Manhattan neighborhood of Nolita features a private rooftop and rooms with free WiFi. The Bowery subway station is 1 block from this New York hotel."));
 }
 
 } // extern "C"
