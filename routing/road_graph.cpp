@@ -6,9 +6,11 @@
 #include "geometry/mercator.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
+#include "geometry/segment2d.hpp"
 
 #include "base/assert.hpp"
 #include "base/math.hpp"
+#include "base/stl_helpers.hpp"
 
 #include "std/limits.hpp"
 #include "std/sstream.hpp"
@@ -17,50 +19,19 @@ namespace routing
 {
 namespace
 {
-vector<Edge>::const_iterator FindEdgeContainingPoint(vector<Edge> const & edges, m2::PointD const & pt)
+bool OnEdge(Junction const & p, Edge const & ab)
 {
-  // A           P               B
-  // o-----------x---------------o
-
-  auto const liesOnEdgeFn = [&pt](Edge const & e)
-  {
-    // Point P lies on edge AB if:
-    // - P corresponds to edge's start point A or edge's end point B
-    // - angle between PA and PB is 180 degrees
-
-    m2::PointD const v1 = e.GetStartJunction().GetPoint() - pt;
-    m2::PointD const v2 = e.GetEndJunction().GetPoint() - pt;
-    if (my::AlmostEqualAbs(v1, m2::PointD::Zero(), kPointsEqualEpsilon)
-        || my::AlmostEqualAbs(v2, m2::PointD::Zero(), kPointsEqualEpsilon))
-    {
-      // Point p corresponds to the start or the end of the edge.
-      return true;
-    }
-
-    // If an angle between two vectors is 180 degrees then dot product is negative and cross product is 0.
-    if (m2::DotProduct(v1, v2) < 0.0)
-    {
-        double constexpr kEpsilon = 1e-9;
-        if (my::AlmostEqualAbs(m2::CrossProduct(v1, v2), 0.0, kEpsilon))
-        {
-            // Point p lies on edge.
-            return true;
-        }
-    }
-
-    return false;
-  };
-
-  return find_if(edges.begin(), edges.end(), liesOnEdgeFn);
+  auto const & a = ab.GetStartJunction();
+  auto const & b = ab.GetEndJunction();
+  return m2::IsPointOnSegment(p.GetPoint(), a.GetPoint(), b.GetPoint());
 }
 
-/// \brief Reverses |edges| starting from index |beginIdx| and upto the end of |v|.
-void ReverseEdges(size_t beginIdx, IRoadGraph::TEdgeVector & edges)
+void SplitEdge(Edge const & ab, Junction const & p, vector<Edge> & edges)
 {
-  ASSERT_LESS_OR_EQUAL(beginIdx, edges.size(), ("Index too large."));
-
-  for (size_t i = beginIdx; i < edges.size(); ++i)
-    edges[i] = edges[i].GetReverseEdge();
+  auto const & a = ab.GetStartJunction();
+  auto const & b = ab.GetEndJunction();
+  edges.push_back(Edge::MakeFake(a, p));
+  edges.push_back(Edge::MakeFake(p, b));
 }
 }  // namespace
 
@@ -74,7 +45,7 @@ Junction::Junction(m2::PointD const & point, feature::TAltitude altitude)
 string DebugPrint(Junction const & r)
 {
   ostringstream ss;
-  ss << "Junction{point:" << DebugPrint(r.m_point) << ", altitude:}" << r.GetAltitude();
+  ss << "Junction{point:" << DebugPrint(r.m_point) << ", altitude:" << r.GetAltitude() << "}";
   return ss.str();
 }
 
@@ -199,172 +170,56 @@ void IRoadGraph::GetRegularIngoingEdges(Junction const & junction, TEdgeVector &
 
 void IRoadGraph::GetFakeOutgoingEdges(Junction const & junction, TEdgeVector & edges) const
 {
-  auto const itr = m_outgoingEdges.find(junction);
-  if (itr == m_outgoingEdges.cend())
-    return;
-
-  edges.reserve(edges.size() + itr->second.size());
-  edges.insert(edges.end(), itr->second.begin(), itr->second.end());
+  auto const it = m_fakeOutgoingEdges.find(junction);
+  if (it != m_fakeOutgoingEdges.cend())
+    edges.insert(edges.end(), it->second.begin(), it->second.end());
 }
 
 void IRoadGraph::GetFakeIngoingEdges(Junction const & junction, TEdgeVector & edges) const
 {
-  size_t const oldSize = edges.size();
-  GetFakeOutgoingEdges(junction, edges);
-  ReverseEdges(oldSize, edges);
+  auto const it = m_fakeIngoingEdges.find(junction);
+  if (it != m_fakeIngoingEdges.cend())
+    edges.insert(edges.end(), it->second.begin(), it->second.end());
 }
 
 void IRoadGraph::ResetFakes()
 {
-  m_outgoingEdges.clear();
+  m_fakeOutgoingEdges.clear();
+  m_fakeIngoingEdges.clear();
 }
+
 void IRoadGraph::AddFakeEdges(Junction const & junction,
                               vector<pair<Edge, Junction>> const & vicinity)
 {
   for (auto const & v : vicinity)
   {
-    Edge const & closestEdge = v.first;
+    Edge const & ab = v.first;
     Junction const p = v.second;
 
-    if (p == closestEdge.GetStartJunction() || p == closestEdge.GetEndJunction())
+    vector<Edge> edges;
+    SplitEdge(ab, p, edges);
+    edges.push_back(Edge::MakeFake(junction, p));
+    edges.push_back(Edge::MakeFake(p, junction));
+
+    ForEachFakeEdge([&](Edge const & uv)
+                    {
+                      if (OnEdge(p, uv))
+                        SplitEdge(uv, p, edges);
+                    });
+
+    for (auto const & uv : edges)
     {
-      // The point is mapped on the start junction of the edge or on the end junction of the edge:
-      //        o M                                          o M
-      //        ^                                            ^
-      //        |                                            |
-      //        |                                            |
-      //  (P) A o--------------->o B  or  A o--------------->o B (P)  (the feature is A->B)
-      // Here AB is a feature, M is a junction, which is projected to A (where P is projection),
-      // P is the closest junction of the feature to the junction M.
-
-      // Add outgoing edges for M.
-      TEdgeVector & edgesM = m_outgoingEdges[junction];
-      edgesM.push_back(Edge::MakeFake(junction, p));
-
-      // Add outgoing edges for P.
-      TEdgeVector & edgesP = m_outgoingEdges[p];
-      GetRegularOutgoingEdges(p, edgesP);
-      edgesP.push_back(Edge::MakeFake(p, junction));
-    }
-    else
-    {
-      Edge edgeToSplit = closestEdge;
-
-      vector<Edge> splittingToFakeEdges;
-      if (HasBeenSplitToFakes(closestEdge, splittingToFakeEdges))
-      {
-        // Edge AB has already been split by some point Q and this point P
-        // should split AB one more time
-        //            o M
-        //            ^
-        //            |
-        //            |
-        // A o<-------x--------------x------------->o B
-        //            P              Q
-
-        auto const itr = FindEdgeContainingPoint(splittingToFakeEdges, p.GetPoint());
-        CHECK(itr != splittingToFakeEdges.end(), ());
-
-        edgeToSplit = *itr;
-      }
-      else
-      {
-        // The point P is mapped in the middle of the feature AB
-
-        TEdgeVector & edgesA = m_outgoingEdges[edgeToSplit.GetStartJunction()];
-        if (edgesA.empty())
-          GetRegularOutgoingEdges(edgeToSplit.GetStartJunction(), edgesA);
-
-        TEdgeVector & edgesB = m_outgoingEdges[edgeToSplit.GetEndJunction()];
-        if (edgesB.empty())
-          GetRegularOutgoingEdges(edgeToSplit.GetEndJunction(), edgesB);
-      }
-
-      //            o M
-      //            ^
-      //            |
-      //            |
-      // A o<-------x------->o B
-      //            P
-      // Here AB is the edge to split, M is a junction and P is the projection of M on AB,
-
-      // Edge AB is split into two fake edges AP and PB (similarly BA edge has been split into two
-      // fake edges BP and PA). In the result graph edges AB and BA are redundant, therefore edges AB and BA are
-      // replaced by fake edges AP + PB and BP + PA.
-
-      Edge const ab = edgeToSplit;
-
-      Edge const pa(ab.GetFeatureId(), false /* forward */, ab.GetSegId(), p, ab.GetStartJunction());
-      Edge const pb(ab.GetFeatureId(), true /* forward */, ab.GetSegId(), p, ab.GetEndJunction());
-      Edge const pm = Edge::MakeFake(p, junction);
-
-      // Add outgoing edges to point P.
-      TEdgeVector & edgesP = m_outgoingEdges[p];
-      edgesP.push_back(pa);
-      edgesP.push_back(pb);
-      edgesP.push_back(pm);
-
-      // Add outgoing edges for point M.
-      m_outgoingEdges[junction].push_back(pm.GetReverseEdge());
-
-      // Replace AB edge with AP edge.
-      TEdgeVector & edgesA = m_outgoingEdges[pa.GetEndJunction()];
-      Edge const ap = pa.GetReverseEdge();
-      edgesA.erase(remove_if(edgesA.begin(), edgesA.end(), [&](Edge const & e) { return e.SameRoadSegmentAndDirection(ap); }), edgesA.end());
-      edgesA.push_back(ap);
-
-      // Replace BA edge with BP edge.
-      TEdgeVector & edgesB = m_outgoingEdges[pb.GetEndJunction()];
-      Edge const bp = pb.GetReverseEdge();
-      edgesB.erase(remove_if(edgesB.begin(), edgesB.end(), [&](Edge const & e) { return e.SameRoadSegmentAndDirection(bp); }), edgesB.end());
-      edgesB.push_back(bp);
+      auto const & u = uv.GetStartJunction();
+      auto const & v = uv.GetEndJunction();
+      m_fakeOutgoingEdges[u].push_back(uv);
+      m_fakeIngoingEdges[v].push_back(uv);
     }
   }
 
-  // m_outgoingEdges may contain duplicates. Remove them.
-  for (auto & m : m_outgoingEdges)
-  {
-    TEdgeVector & edges = m.second;
-    sort(edges.begin(), edges.end());
-    edges.erase(unique(edges.begin(), edges.end()), edges.end());
-  }
-}
-
-bool IRoadGraph::HasBeenSplitToFakes(Edge const & edge, vector<Edge> & fakeEdges) const
-{
-  vector<Edge> tmp;
-
-  if (m_outgoingEdges.find(edge.GetStartJunction()) == m_outgoingEdges.end() ||
-      m_outgoingEdges.find(edge.GetEndJunction()) == m_outgoingEdges.end())
-    return false;
-
-  auto i = m_outgoingEdges.end();
-  Junction junction = edge.GetStartJunction();
-  while (m_outgoingEdges.end() != (i = m_outgoingEdges.find(junction)))
-  {
-    auto const & edges = i->second;
-
-    auto const j = find_if(edges.begin(), edges.end(), [&edge](Edge const & e) { return e.SameRoadSegmentAndDirection(edge); });
-    if (j == edges.end())
-    {
-      ASSERT(fakeEdges.empty(), ());
-      return false;
-    }
-
-    tmp.push_back(*j);
-
-    junction = j->GetEndJunction();
-    if (junction == edge.GetEndJunction())
-      break;
-  }
-  if (i == m_outgoingEdges.end())
-    return false;
-
-  if (tmp.empty())
-    return false;
-
-  fakeEdges.swap(tmp);
-  return true;
+  for (auto & m : m_fakeIngoingEdges)
+    my::SortUnique(m.second);
+  for (auto & m : m_fakeOutgoingEdges)
+    my::SortUnique(m.second);
 }
 
 double IRoadGraph::GetSpeedKMPH(Edge const & edge) const
@@ -380,6 +235,15 @@ void IRoadGraph::GetEdgeTypes(Edge const & edge, feature::TypesHolder & types) c
     types = feature::TypesHolder(feature::GEOM_LINE);
   else
     GetFeatureTypes(edge.GetFeatureId(), types);
+}
+
+string DebugPrint(IRoadGraph::Mode mode)
+{
+  switch (mode)
+  {
+    case IRoadGraph::Mode::ObeyOnewayTag: return "ObeyOnewayTag";
+    case IRoadGraph::Mode::IgnoreOnewayTag: return "IgnoreOnewayTag";
+  }
 }
 
 IRoadGraph::RoadInfo MakeRoadInfoForTesting(bool bidirectional, double speedKMPH,

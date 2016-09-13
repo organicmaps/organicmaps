@@ -199,8 +199,8 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
     SUBDIRS *= feature_segments_checker
 
     # TODO(AlexZ): Move pedestrian tests into routing dir.
-    pedestrian_routing_tests.depends = $$MapDepLibs routing
-    SUBDIRS *= pedestrian_routing_tests
+    routing_benchmarks.depends = $$MapDepLibs routing
+    SUBDIRS *= routing_benchmarks
 
     search_tests_support.subdir = search/search_tests_support
     search_tests_support.depends = $$MapDepLibs
