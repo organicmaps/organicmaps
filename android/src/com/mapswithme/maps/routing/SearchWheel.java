@@ -16,17 +16,27 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.search.SearchEngine;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.concurrency.UiThread;
 
 class SearchWheel implements View.OnClickListener
 {
-  private static String TAG = "TEST";
   private final View mFrame;
 
   private final View mSearchLayout;
   private final ImageView mSearchButton;
+  private final View mTouchInterceptor;
 
   private boolean mIsExpanded;
   private SearchOption mCurrentOption;
+
+  private static final long CLOSE_DELAY_MILLIS = 5000L;
+  private Runnable mCloseRunnable = new Runnable() {
+    @Override
+    public void run()
+    {
+      toggleSearchLayout();
+    }
+  };
 
   private enum SearchOption
   {
@@ -77,7 +87,8 @@ class SearchWheel implements View.OnClickListener
   {
     mFrame = frame;
 
-    // Search
+    mTouchInterceptor = mFrame.findViewById(R.id.touch_interceptor);
+    mTouchInterceptor.setOnClickListener(this);
     mSearchButton = (ImageView) mFrame.findViewById(R.id.btn_search);
     mSearchButton.setOnClickListener(this);
     mSearchLayout = mFrame.findViewById(R.id.search_frame);
@@ -134,6 +145,7 @@ class SearchWheel implements View.OnClickListener
     final Animator animator = AnimatorInflater.loadAnimator(mSearchLayout.getContext(), animRes);
     animator.setTarget(mSearchLayout);
     animator.start();
+    UiUtils.visibleIf(mIsExpanded, mTouchInterceptor);
     animator.addListener(new UiUtils.SimpleAnimatorListener()
     {
       @Override
@@ -149,7 +161,13 @@ class SearchWheel implements View.OnClickListener
     for (SearchOption searchOption : SearchOption.values())
       UiUtils.visibleIf(mIsExpanded, mSearchLayout.findViewById(searchOption.resId));
 
-    UiUtils.visibleIf(mIsExpanded, mSearchLayout);
+    UiUtils.visibleIf(mIsExpanded, mSearchLayout, mTouchInterceptor);
+
+    if (mIsExpanded)
+    {
+      UiThread.cancelDelayedTasks(mCloseRunnable);
+      UiThread.runLater(mCloseRunnable, CLOSE_DELAY_MILLIS);
+    }
   }
 
   private void resetSearchButtonImage()
@@ -189,6 +207,9 @@ class SearchWheel implements View.OnClickListener
         return;
       }
 
+      toggleSearchLayout();
+      break;
+    case R.id.touch_interceptor:
       toggleSearchLayout();
       break;
     default:
