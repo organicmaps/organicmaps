@@ -394,7 +394,7 @@ public class Utils
     // "UNIQUE_ID" is the value of org.alohalytics.Statistics.PREF_UNIQUE_ID, but it private.
     String installationId = sharedPrefs.getString("UNIQUE_ID", null);
 
-    if (installationId == null)
+    if (TextUtils.isEmpty(installationId))
       return "";
 
     return installationId;
