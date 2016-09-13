@@ -9,7 +9,6 @@ import com.mapswithme.maps.downloader.DownloaderStatusIcon;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationListener;
 import com.mapswithme.maps.routing.RoutingController;
-import com.mapswithme.maps.widget.menu.MyPositionButton;
 import com.mapswithme.util.concurrency.UiThread;
 
 public final class ThemeSwitcher
@@ -92,7 +91,6 @@ public final class ThemeSwitcher
     Framework.nativeMarkMapStyle(style);
 
     DownloaderStatusIcon.clearCache();
-    MyPositionButton.clearCache();
 
     Activity a = MwmApplication.backgroundTracker().getTopActivity();
     if (a != null && !a.isFinishing())
