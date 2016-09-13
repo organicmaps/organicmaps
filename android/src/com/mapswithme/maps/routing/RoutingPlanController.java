@@ -54,8 +54,8 @@ public class RoutingPlanController extends ToolbarController
       @Override
       public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
       {
-        buttonView.setButtonDrawable(Graphics.tint(mActivity, iconRes, isChecked ? R.attr.colorAccent
-                                                                                 : R.attr.iconTint));
+        buttonView.setButtonDrawable(Graphics.tint(mActivity, iconRes, isChecked ? R.attr.routingButtonPressedHint
+                                                                                 : R.attr.routingButtonHint));
       }
     };
 
@@ -173,6 +173,7 @@ public class RoutingPlanController extends ToolbarController
 
     if (!ready)
       return;
+
 
     RoutingInfo rinfo = RoutingController.get().getCachedRoutingInfo();
     mNumbersTime.setText(RoutingController.formatRoutingTime(mFrame.getContext(), rinfo.totalTimeInSeconds, R.dimen.text_size_routing_number));

@@ -48,8 +48,8 @@
     <item name="android:visibility">invisible</item>
     <item name="android:background">?selectableItemBackgroundBorderless</item>
     <item name="centerDrawable">@android:color/transparent</item>
-    <item name="wheelProgressColor">?colorAccent</item>
-    <item name="wheelSecondaryColor">?dividerHorizontal</item>
+    <item name="wheelProgressColor">?routingButtonHint</item>
+    <item name="wheelSecondaryColor">@android:color/transparent</item>
     <item name="wheelThickness">@dimen/margin_eighth</item>
   </style>
 

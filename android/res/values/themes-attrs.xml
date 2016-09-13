@@ -56,6 +56,9 @@
     <attr name="navigationTheme" format="reference"/>
 
     <attr name="fabAdd" format="reference"/>
+
+    <attr name="routingButtonHint" format="color"/>
+    <attr name="routingButtonPressedHint" format="color"/>
   </declare-styleable>
 
   <declare-styleable name="ThemeAttrs.NavButtons">
