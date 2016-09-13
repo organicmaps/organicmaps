@@ -287,6 +287,7 @@ CGFloat constexpr kTimeWidthRegular = 128;
     break;
   case MWMBottomMenuStatePlanning:
   case MWMBottomMenuStateGo:
+    self.downloadBadge.hidden = YES;
     self.menuButton.hidden = YES;
     self.bookmarksButton.hidden = YES;
     self.p2pButton.hidden = YES;
@@ -295,6 +296,7 @@ CGFloat constexpr kTimeWidthRegular = 128;
     break;
   case MWMBottomMenuStateRouting:
   case MWMBottomMenuStateRoutingExpanded:
+    self.downloadBadge.hidden = YES;
     self.bookmarksButton.hidden = YES;
     self.routingView.hidden = NO;
     self.routingAdditionalView.hidden = NO;
@@ -549,7 +551,8 @@ CGFloat constexpr kTimeWidthRegular = 128;
 
 - (void)updateBadge
 {
-  if (self.state == MWMBottomMenuStateRouting || self.state == MWMBottomMenuStateRoutingExpanded)
+  if (self.state == MWMBottomMenuStateRouting || self.state == MWMBottomMenuStateRoutingExpanded ||
+      self.state == MWMBottomMenuStatePlanning || self.state == MWMBottomMenuStateGo)
   {
     self.downloadBadge.hidden = YES;
     return;
@@ -582,7 +585,6 @@ CGFloat constexpr kTimeWidthRegular = 128;
   {
     if (MapsAppDelegate.theApp.routingPlaneMode == MWMRoutingPlaneModeNone)
       _leftBound = 0.0;
-    [self updateBadge];
     self.p2pButton.hidden = self.searchButton.hidden = self.bookmarksButton.hidden = NO;
     self.menuButton.hidden = NO;
     self.layoutDuration =
@@ -660,6 +662,7 @@ CGFloat constexpr kTimeWidthRegular = 128;
   if (updateMenuButton)
     [self updateMenuButtonFromState:_state toState:state];
   _state = state;
+  [self updateBadge];
 }
 
 - (void)setLeftBound:(CGFloat)leftBound
