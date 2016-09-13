@@ -41,6 +41,7 @@ public class RoutingPlanController extends ToolbarController
   private int mFrameHeight;
   private int mToolbarHeight;
   private boolean mOpen;
+  private boolean mAltitudeChartShown;
 
   private RadioButton setupRouterButton(@IdRes int buttonId, final @DrawableRes int iconRes, View.OnClickListener clickListener)
   {
@@ -167,15 +168,17 @@ public class RoutingPlanController extends ToolbarController
     RoutingController.BuildState buildState = RoutingController.get().getBuildState();
 
     boolean ready = (buildState == RoutingController.BuildState.BUILT);
-    UiUtils.showIf(ready, mAltitudeChartFrame);
 
-    if (!ready)
+    if (!ready) 
+    {
+      hideAltitudeChartAndRoutingDetails();
       return;
+    }
 
-    updateAltitudeChartAndRoutingDetails();
+    showAltitudeChartAndRoutingDetails();
   }
 
-  private void updateAltitudeChartAndRoutingDetails()
+  private void showAltitudeChartAndRoutingDetails()
   {
     final View numbersFrame = mAltitudeChartFrame.findViewById(R.id.numbers);
     TextView numbersTime = (TextView) numbersFrame.findViewById(R.id.time);
@@ -188,6 +191,24 @@ public class RoutingPlanController extends ToolbarController
     if (numbersArrival != null)
       numbersArrival.setText(MwmApplication.get().getString(R.string.routing_arrive,
               RoutingController.formatArrivalTime(rinfo.totalTimeInSeconds)));
+
+    UiUtils.show(mAltitudeChartFrame);
+    mAltitudeChartShown = true;
+  }
+  
+  private void hideAltitudeChartAndRoutingDetails()
+  {
+    if (UiUtils.isHidden(mAltitudeChartFrame))
+    {
+      return;
+    }
+
+    UiUtils.hide(mAltitudeChartFrame);
+    mAltitudeChartShown = false;
+  }
+
+  protected boolean isAltitudeChartShown() {
+    return mAltitudeChartShown;
   }
 
   public void updateBuildProgress(int progress, @Framework.RouterType int router)

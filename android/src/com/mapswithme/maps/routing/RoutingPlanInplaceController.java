@@ -19,6 +19,7 @@ import com.mapswithme.util.statistics.Statistics;
 public class RoutingPlanInplaceController extends RoutingPlanController
 {
   private static final String STATE_OPEN = "slots panel open";
+  private static final String STATE_ALTITUDE_CHART_SHOWN = "altitude chart shown";
 
   private Boolean mSlotsRestoredState;
 
@@ -83,12 +84,16 @@ public class RoutingPlanInplaceController extends RoutingPlanController
   public void onSaveState(Bundle outState)
   {
     outState.putBoolean(STATE_OPEN, isOpen());
+    outState.putBoolean(STATE_ALTITUDE_CHART_SHOWN, isAltitudeChartShown());
   }
 
   public void restoreState(Bundle state)
   {
     if (state.containsKey(STATE_OPEN))
       mSlotsRestoredState = state.getBoolean(STATE_OPEN);
+
+    if (state.getBoolean(STATE_ALTITUDE_CHART_SHOWN))
+      showRouteAltitudeChart();
   }
 
   @Override
