@@ -47,6 +47,30 @@ void TestAngleColors(size_t width, size_t height, vector<uint8_t> const & frameB
                expectedR, expectedG, expectedB, expectedA), ());
 }
 
+UNIT_TEST(ScaleChartData_Test)
+{
+  vector<double> chartData = {0.0, -1.0, 2.0};
+  maps::ScaleChartData(chartData, 2.0 /* scale */);
+  vector<double> const expectedChartData = {0.0, -2.0, 4.0};
+  TEST_EQUAL(chartData, expectedChartData, ());
+}
+
+UNIT_TEST(ShiftChartData_Test)
+{
+  vector<double> chartData = {0.0, -1.0, 2.0};
+  maps::ShiftChartData(chartData, 1 /* shift */);
+  vector<double> const expectedChartData = {1.0, 0.0, 3.0};
+  TEST_EQUAL(chartData, expectedChartData, ());
+}
+
+UNIT_TEST(ReflectChartData_Test)
+{
+  vector<double> chartData = {0.0, -1.0, 2.0};
+  maps::ReflectChartData(chartData);
+  vector<double> const expectedChartData = {0.0, 1.0, -2.0};
+  TEST_EQUAL(chartData, expectedChartData, ());
+}
+
 UNIT_TEST(NormalizeChartData_SmokeTest)
 {
   vector<double> const distanceDataM = {0.0, 0.0, 0.0};
@@ -104,8 +128,8 @@ UNIT_TEST(GenerateYAxisChartData_SmokeTest)
   vector<double> yAxisDataPxl;
 
   TEST(maps::GenerateYAxisChartData(30 /* height */, 1.0 /* minMetersPerPxl */, altitudeDataM, yAxisDataPxl), ());
-  vector<double> expecttedYAxisDataPxl = {28.0, 28.0};
-  TEST(AlmostEqualAbs(yAxisDataPxl, expecttedYAxisDataPxl), ());
+  vector<double> expectedYAxisDataPxl = {15.0, 15.0};
+  TEST(AlmostEqualAbs(yAxisDataPxl, expectedYAxisDataPxl), ());
 }
 
 UNIT_TEST(GenerateYAxisChartData_EmptyAltitudeDataTest)
@@ -123,8 +147,8 @@ UNIT_TEST(GenerateYAxisChartData_Test)
   vector<double> yAxisDataPxl;
 
   TEST(maps::GenerateYAxisChartData(100 /* height */, 1.0 /* minMetersPerPxl */, altitudeDataM, yAxisDataPxl), ());
-  vector<double> expecttedYAxisDataPxl = {96.0, 94.0, 96.0, 98.0, 95.0};
-  TEST(AlmostEqualAbs(yAxisDataPxl, expecttedYAxisDataPxl), ());
+  vector<double> expectedYAxisDataPxl = {50.0, 48.0, 50.0, 52.0, 49.0};
+  TEST(AlmostEqualAbs(yAxisDataPxl, expectedYAxisDataPxl), ());
 }
 
 UNIT_TEST(GenerateChartByPoints_NoGeometryTest)

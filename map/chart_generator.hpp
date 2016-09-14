@@ -10,7 +10,12 @@
 
 namespace maps
 {
+
 uint32_t constexpr kAltitudeChartBPP = 4;
+
+void ScaleChartData(vector<double> & chartData, double scale);
+void ShiftChartData(vector<double> & chartData, double shift);
+void ReflectChartData(vector<double> & chartData);
 
 /// \brief fills uniformAltitudeDataM with altitude data which evenly distributed by
 /// |resultPointCount| points. |distanceDataM| and |altitudeDataM| form a curve of route altitude.
