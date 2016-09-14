@@ -82,6 +82,7 @@ extern NSString * const kAlohalyticsTapEventKey;
                        (searchManagerState != MWMSearchManagerStateMapSearch &&
                         searchManagerState != MWMSearchManagerStateHidden) ||
                        self.navigationState == MWMNavigationDashboardStatePlanning ||
+                       self.navigationState == MWMNavigationDashboardStateReady ||
                        self.menuState == MWMBottomMenuStateActive || self.isDirectionViewShown ||
                        (isNightMode && self.navigationState != MWMNavigationDashboardStateHidden) ||
                        MapsAppDelegate.theApp.routingPlaneMode != MWMRoutingPlaneModeNone;
