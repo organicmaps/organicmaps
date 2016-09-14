@@ -3009,8 +3009,8 @@ bool Framework::GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
   feature::TAltitude const minRouteAltitudeM = *minMaxIt.first;
   feature::TAltitude const maxRouteAltitudeM = *minMaxIt.second;
 
-  altitudeUnits = measurement_utils::Units::Metric;
-  UNUSED_VALUE(settings::Get(settings::kMeasurementUnits, altitudeUnits));
+  if (!settings::Get(settings::kMeasurementUnits, altitudeUnits))
+    altitudeUnits = measurement_utils::Units::Metric;
 
   switch (altitudeUnits)
   {
