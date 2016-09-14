@@ -82,12 +82,11 @@ import com.mapswithme.util.sharing.SharingHelper;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.MytargetHelper;
 import com.mapswithme.util.statistics.Statistics;
+import ru.mail.android.mytarget.nativeads.NativeAppwallAd;
+import ru.mail.android.mytarget.nativeads.banners.NativeAppwallBanner;
 
 import java.io.Serializable;
 import java.util.Stack;
-
-import ru.mail.android.mytarget.nativeads.NativeAppwallAd;
-import ru.mail.android.mytarget.nativeads.banners.NativeAppwallBanner;
 
 public class MwmActivity extends BaseMwmFragmentActivity
                       implements MapObjectListener,
@@ -1250,6 +1249,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void updateMenu()
   {
+    adjustMenuLineFrameVisibility();
+
     if (RoutingController.get().isNavigating())
     {
       mNavigationController.show(true);
@@ -1270,6 +1271,21 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     mMainMenu.setState(MainMenu.State.MENU, false);
+  }
+
+  private void adjustMenuLineFrameVisibility()
+  {
+    if (RoutingController.get().isBuilt())
+    {
+      mMainMenu.showLineFrame(true);
+      return;
+    }
+
+    if (RoutingController.get().isPlanning() || RoutingController.get().isBuilding()
+        || RoutingController.get().isErrorEncountered())
+    {
+      mMainMenu.showLineFrame(false);
+    }
   }
 
   @Override
