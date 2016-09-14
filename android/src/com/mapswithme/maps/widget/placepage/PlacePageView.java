@@ -520,8 +520,7 @@ public class PlacePageView extends RelativeLayout
 
   @Override
   public void onItemClick(View v, int position) {
-//    TODO Get hotel title
-    GalleryActivity.start(getContext(), mGalleryAdapter.getItems(), "Hotel photos");
+    GalleryActivity.start(getContext(), mGalleryAdapter.getItems(), mMapObject.getTitle());
   }
 
   private void onBookingClick(final boolean book)
