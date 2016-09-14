@@ -288,8 +288,14 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
     if (!imageData)
     {
       vector<uint8_t> imageRGBAData;
-      if (!GetFramework().GenerateRouteAltitudeChart(width, height, imageRGBAData))
+      int32_t minRouteAltitude = 0;
+      int32_t maxRouteAltitude = 0;
+      measurement_utils::Units units = measurement_utils::Units::Metric;
+      if (!GetFramework().GenerateRouteAltitudeChart(width, height, imageRGBAData,
+                                                     minRouteAltitude, maxRouteAltitude, units))
+      {
         return;
+      }
       if (imageRGBAData.empty())
         return;
       imageData = [NSData dataWithBytes:imageRGBAData.data() length:imageRGBAData.size()];
