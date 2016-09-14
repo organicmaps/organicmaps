@@ -46,17 +46,17 @@ class SearchWheel implements View.OnClickListener
     SHOP(R.id.search_shop, R.drawable.ic_routing_shop_off, R.drawable.ic_routing_shop_on, "shop"),
     ATM(R.id.search_atm, R.drawable.ic_routing_atm_off, R.drawable.ic_routing_atm_on, "atm");
 
-    private int resId;
-    private int drawableOff;
-    private int drawableOn;
-    private String searchQuery;
+    private int mResId;
+    private int mDrawableOff;
+    private int mDrawableOn;
+    private String mSearchQuery;
 
     SearchOption(@IdRes int resId, @DrawableRes int drawableOff, @DrawableRes int drawableOn, String searchQuery)
     {
-      this.resId = resId;
-      this.drawableOff = drawableOff;
-      this.drawableOn = drawableOn;
-      this.searchQuery = searchQuery;
+      this.mResId = resId;
+      this.mDrawableOff = drawableOff;
+      this.mDrawableOn = drawableOn;
+      this.mSearchQuery = searchQuery;
     }
 
     @NonNull
@@ -64,7 +64,7 @@ class SearchWheel implements View.OnClickListener
     {
       for (SearchOption searchOption : SearchOption.values())
       {
-        if (searchOption.resId == resId)
+        if (searchOption.mResId == resId)
           return searchOption;
       }
       throw new IllegalArgumentException("No navigation search for id " + resId);
@@ -76,7 +76,7 @@ class SearchWheel implements View.OnClickListener
       final String normalizedQuery = query.trim().toLowerCase();
       for (SearchOption searchOption : SearchOption.values())
       {
-        if (searchOption.searchQuery.equals(normalizedQuery))
+        if (searchOption.mSearchQuery.equals(normalizedQuery))
           return searchOption;
       }
       return null;
@@ -105,7 +105,7 @@ class SearchWheel implements View.OnClickListener
       });
     }
     for (SearchOption searchOption : SearchOption.values())
-      mFrame.findViewById(searchOption.resId).setOnClickListener(this);
+      mFrame.findViewById(searchOption.mResId).setOnClickListener(this);
     refreshSearchVisibility();
   }
 
@@ -159,7 +159,7 @@ class SearchWheel implements View.OnClickListener
   private void refreshSearchVisibility()
   {
     for (SearchOption searchOption : SearchOption.values())
-      UiUtils.visibleIf(mIsExpanded, mSearchLayout.findViewById(searchOption.resId));
+      UiUtils.visibleIf(mIsExpanded, mSearchLayout.findViewById(searchOption.mResId));
 
     UiUtils.visibleIf(mIsExpanded, mSearchLayout, mTouchInterceptor);
 
@@ -181,7 +181,7 @@ class SearchWheel implements View.OnClickListener
     mSearchButton.setImageDrawable(Graphics.tint(mSearchButton.getContext(),
                                                  mCurrentOption == null ?
                                                  R.drawable.ic_routing_search_off :
-                                                 mCurrentOption.drawableOff,
+                                                 mCurrentOption.mDrawableOff,
                                                  R.attr.colorAccent));
   }
 
@@ -212,7 +212,11 @@ class SearchWheel implements View.OnClickListener
     case R.id.touch_interceptor:
       toggleSearchLayout();
       break;
-    default:
+    case R.id.search_fuel:
+    case R.id.search_parking:
+    case R.id.search_food:
+    case R.id.search_shop:
+    case R.id.search_atm:
       startSearch(SearchOption.FromResId(v.getId()));
     }
   }
@@ -228,7 +232,7 @@ class SearchWheel implements View.OnClickListener
   private void startSearch(SearchOption searchOption)
   {
     mCurrentOption = searchOption;
-    SearchEngine.searchInteractive(searchOption.searchQuery, System.nanoTime(), false /* isMapAndTable */);
+    SearchEngine.searchInteractive(searchOption.mSearchQuery, System.nanoTime(), false /* isMapAndTable */);
     refreshSearchButtonImage();
 
     toggleSearchLayout();
