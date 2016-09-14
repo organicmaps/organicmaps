@@ -670,7 +670,9 @@ public class PlacePageView extends RelativeLayout
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_FLATS), mEntrance, mTvEntrance);
     refreshOpeningHours();
 
-    if (RoutingController.get().isNavigating() || MapManager.nativeIsLegacyMode())
+    if (RoutingController.get().isNavigating() ||
+        RoutingController.get().isPlanning() ||
+        MapManager.nativeIsLegacyMode())
     {
       UiUtils.hide(mEditPlace, mAddOrganisation, mAddPlace);
     }
