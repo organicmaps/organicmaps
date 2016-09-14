@@ -144,6 +144,8 @@
   <dimen name="altitude_chart_image_height">40dp</dimen>
   <dimen name="altitude_chart_image_width">232dp</dimen>
 
-
+  <!-- Gallery-->
+  <dimen name="placepage_hotel_gallery_height">100dp</dimen>
+  <dimen name="placepage_hotel_gallery_width">150dp</dimen>
 
 </resources>

@@ -12,6 +12,9 @@ import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -65,6 +68,8 @@ import com.mapswithme.maps.widget.BaseShadowController;
 import com.mapswithme.maps.widget.LineCountTextView;
 import com.mapswithme.maps.widget.ObservableScrollView;
 import com.mapswithme.maps.widget.ScrollViewShadowController;
+import com.mapswithme.maps.widget.recycler.DividerItemDecoration;
+import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.ThemeUtils;
@@ -82,7 +87,9 @@ public class PlacePageView extends RelativeLayout
                                    SponsoredHotel.OnPriceReceivedListener,
                                    SponsoredHotel.OnDescriptionReceivedListener,
                                    LineCountTextView.OnLineCountCalculatedListener,
-        SponsoredHotel.OnFacilitiesReceivedListener {
+                                   SponsoredHotel.OnFacilitiesReceivedListener,
+                                   SponsoredHotel.OnImagesReceivedListener,
+                                   RecyclerClickListener {
   private static final String PREF_USE_DMS = "use_dms";
 
   private boolean mIsDocked;
@@ -135,8 +142,9 @@ public class PlacePageView extends RelativeLayout
   private LineCountTextView mTvHotelDescription;
   private View mHotelMoreDescription;
   private View mHotelFacilities;
-  private GridView mGvHotelFacilities;
   private View mHotelMoreFacilities;
+  private View mHotelGallery;
+  private RecyclerView mRvHotelGallery;
 
   // Animations
   private BaseShadowController mShadowController;
@@ -148,6 +156,7 @@ public class PlacePageView extends RelativeLayout
   private String mSponsoredHotelPrice;
   private boolean mIsLatLonDms;
   private FacilitiesAdapter mFacilitiesAdapter = new FacilitiesAdapter();
+  private GalleryAdapter mGalleryAdapter;
 
   // Downloader`s stuff
   private DownloaderStatusIcon mDownloaderIcon;
@@ -292,10 +301,20 @@ public class PlacePageView extends RelativeLayout
     mTvHotelDescription.setListener(this);
     mHotelMoreDescription.setOnClickListener(this);
     mHotelFacilities = findViewById(R.id.ll__place_hotel_facilities);
-    mGvHotelFacilities = (GridView) findViewById(R.id.gv__place_hotel_facilities);
+    GridView gvHotelFacilities = (GridView) findViewById(R.id.gv__place_hotel_facilities);
     mHotelMoreFacilities = findViewById(R.id.tv__place_hotel_facilities_more);
-    mGvHotelFacilities.setAdapter(mFacilitiesAdapter);
+    gvHotelFacilities.setAdapter(mFacilitiesAdapter);
     mHotelMoreFacilities.setOnClickListener(this);
+    mHotelGallery = findViewById(R.id.ll__place_hotel_gallery);
+    mRvHotelGallery = (RecyclerView) findViewById(
+            R.id.rv__place_hotel_gallery);
+    mRvHotelGallery.setLayoutManager(new LinearLayoutManager(getContext(),
+            LinearLayoutManager.HORIZONTAL, false));
+    mRvHotelGallery.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getContext(),
+            R.drawable.divider_transparent)));
+    mGalleryAdapter = new GalleryAdapter(getContext());
+    mGalleryAdapter.setListener(this);
+    mRvHotelGallery.setAdapter(mGalleryAdapter);
 
     mButtons = new PlacePageButtons(this, ppButtons, new PlacePageButtons.ItemListener()
     {
@@ -427,6 +446,7 @@ public class PlacePageView extends RelativeLayout
     SponsoredHotel.setPriceListener(this);
     SponsoredHotel.setDescriptionListener(this);
     SponsoredHotel.setFacilitiesListener(this);
+    SponsoredHotel.setImagesListener(this);
   }
 
   @Override
@@ -477,8 +497,28 @@ public class PlacePageView extends RelativeLayout
   }
 
   @Override
+  public void onImagesReceived(String id, List<SponsoredHotel.Image> images) {
+    if (mSponsoredHotel == null || !TextUtils.equals(id, mSponsoredHotel.getId())) {
+      return;
+    }
+
+    if (images == null || images.isEmpty()) {
+      UiUtils.hide(mHotelGallery);
+      return;
+    }
+    UiUtils.show(mHotelGallery);
+    mGalleryAdapter.setItems(images);
+    mRvHotelGallery.scrollToPosition(0);
+  }
+
+  @Override
   public void onLineCountCalculated(boolean grater) {
     mHotelMoreDescription.setVisibility(grater ? VISIBLE : GONE);
+  }
+
+  @Override
+  public void onItemClick(View v, int position) {
+//  TODO call gallery activity
   }
 
   private void onBookingClick(final boolean book)
@@ -619,6 +659,7 @@ public class PlacePageView extends RelativeLayout
         SponsoredHotel.requestPrice(mSponsoredHotel.getId(), currency.getCurrencyCode());
         SponsoredHotel.requestDescription(mSponsoredHotel.getId(), locale.toString());
         SponsoredHotel.requestFacilities(mSponsoredHotel.getId(), locale.toString());
+        SponsoredHotel.requestImages(mSponsoredHotel.getId(), locale.toString());
       }
 
       String country = MapManager.nativeGetSelectedCountry();
@@ -720,6 +761,7 @@ public class PlacePageView extends RelativeLayout
       refreshMetadataOrHide(TextUtils.isEmpty(website) ? mMapObject.getMetadata(Metadata.MetadataType.FMD_URL) : website, mWebsite, mTvWebsite);
       UiUtils.hide(mHotelDescription);
       UiUtils.hide(mHotelFacilities);
+      UiUtils.hide(mHotelGallery);
     }
     else {
       UiUtils.hide(mWebsite);

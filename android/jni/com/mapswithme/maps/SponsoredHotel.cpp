@@ -14,6 +14,7 @@ jmethodID g_hotelClassCtor;
 jmethodID g_priceCallback;
 jmethodID g_descriptionCallback;
 jmethodID g_facilitiesCallback;
+jmethodID g_imagesCallback;
 
 void PrepareClassRefs(JNIEnv * env, jclass hotelClass)
 {
@@ -30,6 +31,8 @@ void PrepareClassRefs(JNIEnv * env, jclass hotelClass)
   g_descriptionCallback = jni::GetStaticMethodID(env, g_hotelClass, "onDescriptionReceived", "(Ljava/lang/String;Ljava/lang/String;)V");
   // static void onFacilitiesReceived(final String id, int[] ids, String[] names)
   g_facilitiesCallback = jni::GetStaticMethodID(env, g_hotelClass, "onFacilitiesReceived", "(Ljava/lang/String;[I[Ljava/lang/String;)V");
+  // static void onImagesReceived(final String id, String[] urls)
+  g_imagesCallback = jni::GetStaticMethodID(env, g_hotelClass, "onImagesReceived", "(Ljava/lang/String;[Ljava/lang/String;)V");
 }
 
 } // namespace
@@ -106,6 +109,25 @@ Java_com_mapswithme_maps_widget_placepage_SponsoredHotel_nativeRequestFacilities
   env->CallStaticVoidMethod(g_hotelClass, g_facilitiesCallback, jni::ToJavaString(env, hotelId),
                                                                 result,
                                                                 jni::ToJavaStringArray(env, {"Bar", "Terrace", "Fitness Center", "Pets are allowed on request", "Restaurant", "Private parking", "Ghost Busters"}));
+}
+
+// static void nativeRequestImages(String id, String locale);
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_widget_placepage_SponsoredHotel_nativeRequestImages(JNIEnv * env, jclass clazz, jstring id, jstring locale)
+{
+  PrepareClassRefs(env, clazz);
+
+  string const hotelId = jni::ToNativeString(env, id);
+  string const localeCode = jni::ToNativeString(env, locale);
+
+  //TODO make request
+  env->CallStaticVoidMethod(g_hotelClass, g_imagesCallback, jni::ToJavaString(env, hotelId),
+                                                            jni::ToJavaStringArray(env, {"http://www.libertyhotelslara.com/dosyalar/resimler/liberty-lara-hotel1.jpg",
+                                                            "https://www.omnihotels.com/-/media/images/hotels/ausctr/pool/ausctr-omni-austin-hotel-downtown-evening-pool.jpg?h=660&la=en&w=1170",
+                                                            "http://www.thefloridahotelorlando.com/var/floridahotelorlando/storage/images/media/images/photo-gallery/hotel-images/florida-hotel-orlando-night/27177-1-eng-US/Florida-Hotel-Orlando-Night.jpg",
+                                                            "http://www.college-hotel.com/client/cache/contenu/_500____college-hotelp1diapo1_718.jpg",
+                                                            "http://top10hotelbookingsites.webs.com/besthotelsites-1.jpg",
+                                                            "http://www.litorehotel.com/web/en/images/placeholders/1920x1200-0.jpg"}));
 }
 
 } // extern "C"

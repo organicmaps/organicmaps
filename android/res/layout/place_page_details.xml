@@ -27,13 +27,11 @@
         android:layout_marginBottom="@dimen/margin_half"
         tools:visibility="gone"/>
 
+      <include layout="@layout/place_page_hotel_gallery"/>
+
       <include layout="@layout/place_page_hotel_facilities"/>
 
-      <include layout="@layout/divider_horizontal"/>
-
       <include layout="@layout/place_page_hotel_description"/>
-
-      <include layout="@layout/divider_horizontal"/>
 
       <include layout="@layout/place_page_placename"/>
 

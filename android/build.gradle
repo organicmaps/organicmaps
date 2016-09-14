@@ -57,6 +57,8 @@ dependencies {
   // TODO remove this library when default LinearLayoutManager will be fixed.
   compile 'org.solovyev.android.views:linear-layout-manager:0.5@aar'
   compile 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
+  //Glide
+  compile 'com.github.bumptech.glide:glide:3.7.0'
 }
 
 def getDate() {
