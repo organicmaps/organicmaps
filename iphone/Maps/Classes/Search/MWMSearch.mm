@@ -103,6 +103,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
 
 - (void)update
 {
+  [MWMSearch clear];
   if (m_everywhereParams.m_query.empty())
     return;
   [self updateCallbacks];
@@ -186,6 +187,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
   MWMSearch * manager = [MWMSearch manager];
   manager->m_results.Clear();
   manager.suggestionsCount = 0;
+  [manager onSearchResultsUpdated];
 }
 
 + (BOOL)isSearchOnMap { return [MWMSearch manager].searchOnMap; }
