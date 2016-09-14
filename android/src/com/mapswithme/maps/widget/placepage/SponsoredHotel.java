@@ -14,6 +14,7 @@ import java.util.Map;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.Metadata;
+import com.mapswithme.maps.gallery.Image;
 
 @UiThread
 public final class SponsoredHotel
@@ -50,18 +51,6 @@ public final class SponsoredHotel
     }
   }
 
-  public static class Image {
-    private final String url;
-
-    public Image(String url) {
-      this.url = url;
-    }
-
-    public String getUrl() {
-      return url;
-    }
-  }
-
   interface OnPriceReceivedListener
   {
     void onPriceReceived(String id, String price, String currency);
@@ -79,7 +68,7 @@ public final class SponsoredHotel
 
   interface OnImagesReceivedListener
   {
-    void onImagesReceived(String id, List<Image> images);
+    void onImagesReceived(String id, ArrayList<Image> images);
   }
 
   // Hotel ID -> Price
@@ -89,7 +78,7 @@ public final class SponsoredHotel
   // Hotel ID -> Facilities
   private static final Map<String, List<FacilityType>> sFacilitiesCache = new HashMap<>();
   // Hotel ID -> Images
-  private static final Map<String, List<Image>> sImagesCache = new HashMap<>();
+  private static final Map<String, ArrayList<Image>> sImagesCache = new HashMap<>();
   private static WeakReference<OnPriceReceivedListener> sPriceListener;
   private static WeakReference<OnDescriptionReceivedListener> sDescriptionListener;
   private static WeakReference<OnFacilitiesReceivedListener> sFacilityListener;
@@ -200,7 +189,7 @@ public final class SponsoredHotel
 
   static void requestImages(String id, String locale)
   {
-    List<Image> images = sImagesCache.get(id);
+    ArrayList<Image> images = sImagesCache.get(id);
     if (images != null) {
       OnImagesReceivedListener listener = sImagesListener.get();
       if (listener == null)
@@ -268,9 +257,9 @@ public final class SponsoredHotel
     if (urls.length == 0)
       return;
 
-    List<Image> result = new ArrayList<>();
-    for (int i = 0; i < urls.length; i++) {
-      result.add(new Image(urls[i]));
+    ArrayList<Image> result = new ArrayList<>();
+    for (String url: urls) {
+      result.add(new Image(url));
     }
 
     sImagesCache.put(id, result);

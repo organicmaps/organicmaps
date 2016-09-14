@@ -61,6 +61,8 @@ import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.editor.OpeningHours;
 import com.mapswithme.maps.editor.data.TimeFormatUtils;
 import com.mapswithme.maps.editor.data.Timetable;
+import com.mapswithme.maps.gallery.GalleryActivity;
+import com.mapswithme.maps.gallery.Image;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.widget.ArrowView;
@@ -497,7 +499,7 @@ public class PlacePageView extends RelativeLayout
   }
 
   @Override
-  public void onImagesReceived(String id, List<SponsoredHotel.Image> images) {
+  public void onImagesReceived(String id, ArrayList<Image> images) {
     if (mSponsoredHotel == null || !TextUtils.equals(id, mSponsoredHotel.getId())) {
       return;
     }
@@ -518,7 +520,8 @@ public class PlacePageView extends RelativeLayout
 
   @Override
   public void onItemClick(View v, int position) {
-//  TODO call gallery activity
+//    TODO Get hotel title
+    GalleryActivity.start(getContext(), mGalleryAdapter.getItems(), "Hotel photos");
   }
 
   private void onBookingClick(final boolean book)

@@ -4,6 +4,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.gallery.Image;
 import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
 import com.mapswithme.util.UiUtils;
 
@@ -22,7 +23,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
   private static final int MAX_COUNT = 5;
 
   private final Context mContext;
-  private List<SponsoredHotel.Image> mItems = new ArrayList<>();
+  private ArrayList<Image> mItems = new ArrayList<>();
   private final List<Item> mLoadedItems = new ArrayList<>();
   private RecyclerClickListener mListener;
   private final int mImageWidth;
@@ -57,7 +58,11 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
     }
   }
 
-  public void setItems(List<SponsoredHotel.Image> items) {
+  public ArrayList<Image> getItems() {
+    return mItems;
+  }
+
+  public void setItems(ArrayList<Image> items) {
     mItems = items;
     synchronized (mMutex) {
       mLoadedItems.clear();
@@ -86,7 +91,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
         state = new DownloadState();
         mDownloadStates.add(state);
       }
-      SponsoredHotel.Image image = mItems.get(i);
+      Image image = mItems.get(i);
       Glide.with(mContext)
               .load(image.getUrl())
               .asBitmap()
@@ -109,6 +114,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
   }
 
   static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private final View mParentView;
     private ImageView mImage;
     private View mMore;
     private final RecyclerClickListener mListener;
@@ -116,10 +122,10 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
 
     public ViewHolder(View itemView, RecyclerClickListener listener) {
       super(itemView);
+      mParentView = itemView;
       mListener = listener;
       mImage = (ImageView) itemView.findViewById(R.id.iv__image);
       mMore = itemView.findViewById(R.id.tv__more);
-      itemView.setOnClickListener(this);
     }
 
     @Override
@@ -136,8 +142,14 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
       mImage.setImageBitmap(item.getBitmap());
       if (item.isShowMore()) {
         UiUtils.show(mMore);
+        mParentView.setClickable(true);
+        mParentView.setFocusable(true);
+        mParentView.setOnClickListener(this);
       } else {
         UiUtils.hide(mMore);
+        mParentView.setOnClickListener(null);
+        mParentView.setClickable(false);
+        mParentView.setFocusable(false);
       }
     }
   }

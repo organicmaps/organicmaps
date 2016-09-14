@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="vertical"
               android:layout_width="@dimen/placepage_hotel_gallery_width"
               android:layout_height="@dimen/placepage_hotel_gallery_height"
               android:clickable="true"
