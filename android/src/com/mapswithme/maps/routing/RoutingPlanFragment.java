@@ -70,8 +70,8 @@ public class RoutingPlanFragment extends BaseMwmFragment
     return RoutingController.get().cancelPlanning();
   }
 
-  public void showRouteAltitudeChart()
+  public void showRouteAltitudeChart(boolean show)
   {
-    mPlanController.showRouteAltitudeChart();
+    mPlanController.showRouteAltitudeChart(show);
   }
 }

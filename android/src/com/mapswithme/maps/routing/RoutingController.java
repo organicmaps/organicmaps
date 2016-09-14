@@ -63,7 +63,7 @@ public class RoutingController
     void showDownloader(boolean openDownloaded);
     void updateMenu();
     void updatePoints();
-    void onRouteBuilt();
+    void onRouteBuilt(@Framework.RouterType int router);
 
     /**
      * @param progress progress to be displayed.
@@ -116,7 +116,7 @@ public class RoutingController
             mCachedRoutingInfo = Framework.nativeGetRouteFollowingInfo();
             setBuildState(BuildState.BUILT);
             mLastBuildProgress = 100;
-            mContainer.onRouteBuilt();
+            mContainer.onRouteBuilt(mLastRouterType);
           }
 
           processRoutingEvent();

@@ -93,20 +93,14 @@ public class RoutingPlanInplaceController extends RoutingPlanController
       mSlotsRestoredState = state.getBoolean(STATE_OPEN);
 
     if (state.getBoolean(STATE_ALTITUDE_CHART_SHOWN))
-      showRouteAltitudeChart();
+      showRouteAltitudeChart(!isVehicleRouteChecked());
   }
 
   @Override
-  public void showRouteAltitudeChart()
+  public void showRouteAltitudeChart(boolean show)
   {
     ImageView altitudeChart = (ImageView) mActivity.findViewById(R.id.altitude_chart);
-    int chartWidth = mActivity.getResources().getDimensionPixelSize(R.dimen.altitude_chart_image_width);
-    int chartHeight = mActivity.getResources().getDimensionPixelSize(R.dimen.altitude_chart_image_height);
-    Bitmap bm = Framework.GenerateRouteAltitudeChart(chartWidth, chartHeight);
-    if (bm != null)
-    {
-      altitudeChart.setImageBitmap(bm);
-    }
+    showRouteAltitudeChartInternal(show, altitudeChart);
   }
 
 }

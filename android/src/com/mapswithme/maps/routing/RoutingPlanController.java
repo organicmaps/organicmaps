@@ -291,6 +291,11 @@ public class RoutingPlanController extends ToolbarController
     }
   }
 
+  protected boolean isVehicleRouteChecked()
+  {
+    return mRouterTypes.getCheckedRadioButtonId() == R.id.vehicle;
+  }
+
   public void disableToggle()
   {
     UiUtils.hide(mToggle);
@@ -302,15 +307,28 @@ public class RoutingPlanController extends ToolbarController
     return mOpen;
   }
 
-  public void showRouteAltitudeChart()
+  public void showRouteAltitudeChart(boolean show)
   {
     ImageView altitudeChart = (ImageView) mFrame.findViewById(R.id.altitude_chart);
-    int chartWidth = mActivity.getResources().getDimensionPixelSize(R.dimen.altitude_chart_image_width);
-    int chartHeight = mActivity.getResources().getDimensionPixelSize(R.dimen.altitude_chart_image_height);
-    Bitmap bm = Framework.GenerateRouteAltitudeChart(chartWidth, chartHeight);
-    if (bm != null)
+    showRouteAltitudeChartInternal(show, altitudeChart);
+  }
+
+  protected void showRouteAltitudeChartInternal(boolean show, ImageView altitudeChart)
+  {
+    if (show)
     {
-      altitudeChart.setImageBitmap(bm);
+      int chartWidth = mActivity.getResources().getDimensionPixelSize(R.dimen.altitude_chart_image_width);
+      int chartHeight = mActivity.getResources().getDimensionPixelSize(R.dimen.altitude_chart_image_height);
+      Bitmap bm = Framework.GenerateRouteAltitudeChart(chartWidth, chartHeight);
+      if (bm != null)
+      {
+        altitudeChart.setImageBitmap(bm);
+        altitudeChart.setVisibility(View.VISIBLE);
+      }
+    }
+    else
+    {
+      altitudeChart.setVisibility(View.GONE);
     }
   }
 }
