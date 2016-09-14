@@ -30,6 +30,7 @@ import com.mapswithme.util.Config;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.PushwooshHelper;
 import com.mapswithme.util.statistics.Statistics;
 import com.pushwoosh.PushManager;
@@ -104,6 +105,10 @@ public class MwmApplication extends Application
     super.onCreate();
     mMainLoopHandler = new Handler(getMainLooper());
 
+    // Alohalytics generates installation id,
+    // it should be initialized before Crashlytics.
+    Statistics s = Statistics.INSTANCE;
+
     initHockeyApp();
     initCrashlytics();
     initPushWoosh();
@@ -115,10 +120,6 @@ public class MwmApplication extends Application
     nativePreparePlatform(settingsPath);
     nativeInitPlatform(getApkPath(), getStoragePath(settingsPath), getTempPath(), getObbGooglePath(),
                        BuildConfig.FLAVOR, BuildConfig.BUILD_TYPE, UiUtils.isTablet());
-
-    // Workaround to initialize alohalytics for transferring http requests.
-    // Http wrapper should be cut out from the alohalytics in the future.
-    Statistics s = Statistics.INSTANCE;
 
     mPrefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
     mBackgroundTracker = new AppBackgroundTracker();
@@ -183,7 +184,10 @@ public class MwmApplication extends Application
       return;
 
     Fabric.with(this, new Crashlytics(), new CrashlyticsNdk());
+
     nativeInitCrashlytics();
+
+    Crashlytics.setString("AlohalyticsInstallationId", Utils.getInstallationId());
   }
 
   public boolean isFrameworkInitialized()
