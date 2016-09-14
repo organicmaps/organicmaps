@@ -15,21 +15,21 @@ class BatchCallbacks
 public:
   virtual void FlushData(BindingInfo const & binding, void const * data, uint32_t count) = 0;
   virtual void * GetIndexStorage(uint32_t indexCount, uint32_t & startIndex) = 0;
-  virtual void SubmitIndeces() = 0;
+  virtual void SubmitIndices() = 0;
   virtual uint32_t GetAvailableVertexCount() const = 0;
   virtual uint32_t GetAvailableIndexCount() const = 0;
   virtual void ChangeBuffer() = 0;
 };
 
-class TriangleBatch
+class UniversalBatch
 {
 public:
-  TriangleBatch(BatchCallbacks & callbacks);
-  virtual ~TriangleBatch(){}
+  UniversalBatch(BatchCallbacks & callbacks, uint8_t minVerticesCount, uint8_t minIndicesCount);
+  virtual ~UniversalBatch(){}
 
   virtual void BatchData(ref_ptr<AttributeProvider> streams) = 0;
-  void SetIsCanDevideStreams(bool canDevide);
-  bool IsCanDevideStreams() const;
+  void SetCanDevideStreams(bool canDevide);
+  bool CanDevideStreams() const;
   void SetVertexStride(uint8_t vertexStride);
 
 protected:
@@ -48,21 +48,46 @@ private:
   BatchCallbacks & m_callbacks;
   bool m_canDevideStreams;
   uint8_t m_vertexStride;
+  uint8_t const m_minVerticesCount;
+  uint8_t const m_minIndicesCount;
 };
 
-class TriangleListBatch : public TriangleBatch
+class TriangleListBatch : public UniversalBatch
 {
-  typedef TriangleBatch TBase;
+  using TBase = UniversalBatch;
 
 public:
   TriangleListBatch(BatchCallbacks & callbacks);
 
-  virtual void BatchData(ref_ptr<AttributeProvider> streams);
+  void BatchData(ref_ptr<AttributeProvider> streams) override;
 };
 
-class FanStripHelper : public TriangleBatch
+class LineStripBatch : public UniversalBatch
 {
-  typedef TriangleBatch TBase;
+  using TBase = UniversalBatch;
+
+public:
+  LineStripBatch(BatchCallbacks & callbacks);
+
+  void BatchData(ref_ptr<AttributeProvider> streams) override;
+};
+
+class LineRawBatch : public UniversalBatch
+{
+  using TBase = UniversalBatch;
+
+public:
+  LineRawBatch(BatchCallbacks & callbacks, vector<int> const & indices);
+
+  void BatchData(ref_ptr<AttributeProvider> streams) override;
+
+private:
+  vector<int> const & m_indices;
+};
+
+class FanStripHelper : public UniversalBatch
+{
+  using TBase = UniversalBatch;
 
 public:
   FanStripHelper(BatchCallbacks & callbacks);
@@ -85,7 +110,7 @@ private:
 
 class TriangleStripBatch : public FanStripHelper
 {
-  typedef FanStripHelper TBase;
+  using TBase = FanStripHelper;
 
 public:
   TriangleStripBatch(BatchCallbacks & callbacks);
@@ -97,7 +122,7 @@ protected:
 
 class TriangleFanBatch : public FanStripHelper
 {
-  typedef FanStripHelper TBase;
+  using TBase = FanStripHelper;
 
 public:
   TriangleFanBatch(BatchCallbacks & callbacks);
@@ -109,7 +134,7 @@ protected:
 
 class TriangleListOfStripBatch : public FanStripHelper
 {
-  typedef FanStripHelper TBase;
+  using TBase = FanStripHelper;
 
 public:
   TriangleListOfStripBatch(BatchCallbacks & callbacks);

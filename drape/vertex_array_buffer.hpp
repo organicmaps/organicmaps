@@ -49,8 +49,8 @@ public:
   /// On devices where implemented OES_vertex_array_object extensions we use it for build VertexArrayBuffer
   /// OES_vertex_array_object create OpenGL resource that belong only one GL context (which was created by)
   /// by this reason Build/Bind and Render must be called only on Frontendrendere thread
-  void Render();
-  void RenderRange(IndicesRange const & range);
+  void Render(bool drawAsLine);
+  void RenderRange(bool drawAsLine, IndicesRange const & range);
   void Build(ref_ptr<GpuProgram> program);
   ///@}
 

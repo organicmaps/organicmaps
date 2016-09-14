@@ -264,7 +264,8 @@ void * GLFunctions::glMapBuffer(glConst, glConst) { return 0; }
 
 void GLFunctions::glUnmapBuffer(glConst target) {}
 
-void GLFunctions::glDrawElements(uint32_t sizeOfIndex, uint32_t indexCount, uint32_t startIndex) {}
+void GLFunctions::glDrawElements(glConst primitive, uint32_t sizeOfIndex,
+                                 uint32_t indexCount, uint32_t startIndex) {}
 
 void GLFunctions::glDrawArrays(glConst mode, int32_t first, uint32_t count) {}
 

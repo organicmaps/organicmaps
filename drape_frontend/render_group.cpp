@@ -105,13 +105,13 @@ void RenderGroup::Render(ScreenBase const & screen)
     dp::ApplyUniforms(m_uniforms, shader);
 
     for(auto & renderBucket : m_renderBuckets)
-      renderBucket->Render();
+      renderBucket->Render(m_state.GetDrawAsLine());
 
     m_uniforms.SetFloatValue("u_contrastGamma", params.m_contrast, params.m_gamma);
     m_uniforms.SetFloatValue("u_isOutlinePass", 0.0f);
     dp::ApplyUniforms(m_uniforms, shader);
     for(auto & renderBucket : m_renderBuckets)
-      renderBucket->Render();
+      renderBucket->Render(m_state.GetDrawAsLine());
   }
   else if (programIndex == gpu::TEXT_PROGRAM ||
            program3dIndex == gpu::TEXT_BILLBOARD_PROGRAM)
@@ -119,14 +119,14 @@ void RenderGroup::Render(ScreenBase const & screen)
     m_uniforms.SetFloatValue("u_contrastGamma", params.m_contrast, params.m_gamma);
     dp::ApplyUniforms(m_uniforms, shader);
     for(auto & renderBucket : m_renderBuckets)
-      renderBucket->Render();
+      renderBucket->Render(m_state.GetDrawAsLine());
   }
   else
   {
     dp::ApplyUniforms(m_uniforms, shader);
 
     for(drape_ptr<dp::RenderBucket> & renderBucket : m_renderBuckets)
-      renderBucket->Render();
+      renderBucket->Render(m_state.GetDrawAsLine());
   }
 
 #ifdef RENDER_DEBUG_RECTS
@@ -233,7 +233,7 @@ void UserMarkRenderGroup::Render(ScreenBase const & screen)
   if (m_renderBucket != nullptr)
   {
     m_renderBucket->GetBuffer()->Build(shader);
-    m_renderBucket->Render();
+    m_renderBucket->Render(m_state.GetDrawAsLine());
   }
 }
 

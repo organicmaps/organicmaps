@@ -24,6 +24,13 @@ struct Color
 
   bool operator==(Color const & other) const { return m_rgba == other.m_rgba; }
   bool operator< (Color const & other) const { return m_rgba < other.m_rgba; }
+  Color operator*(float s) const
+  {
+    return Color(static_cast<uint8_t>(GetRed() * s),
+                 static_cast<uint8_t>(GetGreen() * s),
+                 static_cast<uint8_t>(GetBlue() * s),
+                 GetAlfa());
+  }
 
   static Color Black()       { return Color(0, 0, 0, 255); }
   static Color White()       { return Color(255, 255, 255, 255); }

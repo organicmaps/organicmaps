@@ -120,7 +120,7 @@ void ShapeRenderer::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramMana
           info.m_buffer->ApplyMutation(nullptr, mutatorRef);
         }
 
-        info.m_buffer->Render();
+        info.m_buffer->Render(info.m_state.GetDrawAsLine());
       });
 }
 

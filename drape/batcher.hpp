@@ -45,6 +45,15 @@ public:
   IndicesRange InsertListOfStrip(GLState const & state, ref_ptr<AttributeProvider> params,
                                  drape_ptr<OverlayHandle> && handle, uint8_t vertexStride);
 
+  void InsertLineStrip(GLState const & state, ref_ptr<AttributeProvider> params);
+  IndicesRange InsertLineStrip(GLState const & state, ref_ptr<AttributeProvider> params,
+                               drape_ptr<OverlayHandle> && handle);
+
+  void InsertLineRaw(GLState const & state, ref_ptr<AttributeProvider> params,
+                     vector<int> const & indices);
+  IndicesRange InsertLineRaw(GLState const & state, ref_ptr<AttributeProvider> params,
+                             vector<int> const & indices, drape_ptr<OverlayHandle> && handle);
+
   typedef function<void (GLState const &, drape_ptr<RenderBucket> &&)> TFlushFn;
   void StartSession(TFlushFn const & flusher);
   void EndSession();
@@ -52,9 +61,10 @@ public:
   void SetFeatureMinZoom(int minZoom);
 
 private:
-  template<typename TBacher>
-  IndicesRange InsertTriangles(GLState const & state, ref_ptr<AttributeProvider> params,
-                               drape_ptr<OverlayHandle> && handle, uint8_t vertexStride = 0);
+  template<typename TBatcher, typename ... TArgs>
+  IndicesRange InsertPrimitives(GLState const & state, ref_ptr<AttributeProvider> params,
+                                drape_ptr<OverlayHandle> && transferHandle, uint8_t vertexStride,
+                                TArgs ... batcherArgs);
 
   class CallbacksWrapper;
   void ChangeBuffer(ref_ptr<CallbacksWrapper> wrapper);
@@ -63,10 +73,8 @@ private:
   void FinalizeBucket(GLState const & state);
   void Flush();
 
-private:
   TFlushFn m_flushInterface;
 
-private:
   using TBuckets = map<GLState, drape_ptr<RenderBucket>>;
   TBuckets m_buckets;
 

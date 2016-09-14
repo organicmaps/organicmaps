@@ -67,12 +67,12 @@ void VertexArrayBuffer::PreflushImpl()
   m_isPreflushed = true;
 }
 
-void VertexArrayBuffer::Render()
+void VertexArrayBuffer::Render(bool drawAsLine)
 {
-  RenderRange(IndicesRange(0, GetIndexBuffer()->GetCurrentSize()));
+  RenderRange(drawAsLine, IndicesRange(0, GetIndexBuffer()->GetCurrentSize()));
 }
 
-void VertexArrayBuffer::RenderRange(IndicesRange const & range)
+void VertexArrayBuffer::RenderRange(bool drawAsLine, IndicesRange const & range)
 {
   if (!(m_staticBuffers.empty() && m_dynamicBuffers.empty()) && GetIndexCount() > 0)
   {
@@ -84,7 +84,9 @@ void VertexArrayBuffer::RenderRange(IndicesRange const & range)
 
     BindDynamicBuffers();
     GetIndexBuffer()->Bind();
-    GLFunctions::glDrawElements(dp::IndexStorage::SizeOfIndex(), range.m_idxCount, range.m_idxStart);
+    GLFunctions::glDrawElements(drawAsLine ? gl_const::GLLines : gl_const::GLTriangles,
+                                dp::IndexStorage::SizeOfIndex(),
+                                range.m_idxCount, range.m_idxStart);
 
     Unbind();
   }
@@ -224,7 +226,7 @@ uint32_t VertexArrayBuffer::GetIndexCount() const
 
 void VertexArrayBuffer::UploadIndexes(void const * data, uint32_t count)
 {
-  ASSERT(count <= GetIndexBuffer()->GetAvailableSize(), ());
+  ASSERT_LESS_OR_EQUAL(count, GetIndexBuffer()->GetAvailableSize(), ());
   GetIndexBuffer()->UploadData(data, count);
 }
 

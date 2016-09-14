@@ -17,13 +17,13 @@ void RenderNode::Render(ref_ptr<dp::GpuProgramManager> mng, dp::UniformValuesSto
                         dp::IndicesRange const & range)
 {
   Apply(mng, uniforms);
-  m_buffer->RenderRange(range);
+  m_buffer->RenderRange(m_state.GetDrawAsLine(), range);
 }
 
 void RenderNode::Render(ref_ptr<dp::GpuProgramManager> mng, dp::UniformValuesStorage const & uniforms)
 {
   Apply(mng, uniforms);
-  m_buffer->Render();
+  m_buffer->Render(m_state.GetDrawAsLine());
 }
 
 void RenderNode::Apply(ref_ptr<dp::GpuProgramManager> mng, dp::UniformValuesStorage const & uniforms)

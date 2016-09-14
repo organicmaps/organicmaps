@@ -2,6 +2,7 @@
 
 #include "drape_frontend/stylist.hpp"
 #include "drape_frontend/tile_key.hpp"
+#include "drape_frontend/shape_view_params.hpp"
 
 #include "drape/pointers.hpp"
 
@@ -24,7 +25,7 @@ namespace df
 
 struct TextViewParams;
 class MapShape;
-struct BuildingEdge;
+struct BuildingOutline;
 
 using TInsertShapeFn = function<void(drape_ptr<MapShape> && shape)>;
 
@@ -99,7 +100,7 @@ class ApplyAreaFeature : public ApplyPointFeature
 public:
   ApplyAreaFeature(m2::PointD const & tileCenter,
                    TInsertShapeFn const & insertShape, FeatureID const & id,
-                   m2::RectD const & clipRect, float minPosZ,
+                   m2::RectD const & clipRect, bool isBuilding, float minPosZ,
                    float posZ, int minVisibleScale, uint8_t rank,
                    CaptionDescription const & captions);
 
@@ -112,7 +113,7 @@ private:
   using TEdge = pair<int, int>;
 
   void ProcessBuildingPolygon(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3);
-  void CalculateBuildingEdges(vector<BuildingEdge> & edges);
+  void CalculateBuildingOutline(bool calculateNormals, BuildingOutline & outline);
   int GetIndex(m2::PointD const & pt);
   void BuildEdges(int vertexIndex1, int vertexIndex2, int vertexIndex3);
   bool EqualEdges(TEdge const & edge1, TEdge const & edge2) const;
@@ -121,8 +122,8 @@ private:
 
   vector<m2::PointD> m_triangles;
 
-  unordered_map<int, m2::PointD> m_indices;
-  vector<pair<TEdge, int>> m_edges;
+  buffer_vector<m2::PointD, kBuildingOutlineSize> m_points;
+  buffer_vector<pair<TEdge, int>, kBuildingOutlineSize> m_edges;
   float const m_minPosZ;
   bool const m_isBuilding;
   m2::RectD m_clipRect;
