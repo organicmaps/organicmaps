@@ -61,6 +61,13 @@ public class Framework
     public boolean buildings;
   }
 
+  public static class RouteAltitudeLimits
+  {
+    public int minRouteAltitude;
+    public int maxRouteAltitude;
+    public boolean isMetricUnits;
+  }
+
   // this class is just bridge between Java and C++ worlds, we must not create it
   private Framework() {}
 
@@ -81,7 +88,8 @@ public class Framework
     if (width <= 0 || height <= 0)
       return null;
 
-    final int[] altitudeChartBits = Framework.nativeGenerateRouteAltitudeChartBits(width, height);
+    RouteAltitudeLimits routeAltitudeLimits = new RouteAltitudeLimits();
+    final int[] altitudeChartBits = Framework.nativeGenerateRouteAltitudeChartBits(width, height, routeAltitudeLimits);
     if (altitudeChartBits == null)
       return null;
 
@@ -165,7 +173,7 @@ public class Framework
   public static native RoutingInfo nativeGetRouteFollowingInfo();
 
   @Nullable
-  public static native final int[] nativeGenerateRouteAltitudeChartBits(int width, int height);
+  public static native final int[] nativeGenerateRouteAltitudeChartBits(int width, int height, RouteAltitudeLimits routeAltitudeLimits);
 
   // When an end user is going to a turn he gets sound turn instructions.
   // If C++ part wants the client to pronounce an instruction nativeGenerateTurnNotifications returns
