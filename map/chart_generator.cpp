@@ -189,7 +189,7 @@ bool GenerateYAxisChartData(uint32_t height, double minMetersPerPxl,
   if (freeHeightSpacePxl < 0 || freeHeightSpacePxl > drawHeightPxl)
   {
     LOG(LERROR, ("Number of pixels free of chart points (", freeHeightSpacePxl,
-                 ") is below zero or greater number of pixels for the chart (", drawHeightPxl, ")."));
+                 ") is below zero or greater than the number of pixels for the chart (", drawHeightPxl, ")."));
     return false;
   }
 
