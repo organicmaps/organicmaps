@@ -17,6 +17,45 @@
 		56099E351CC9247E00A7772A /* directions_engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56099E321CC9247E00A7772A /* directions_engine.cpp */; };
 		563B91C51CC4F1DC00222BC1 /* bicycle_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 563B91C31CC4F1DC00222BC1 /* bicycle_model.cpp */; };
 		563B91C61CC4F1DC00222BC1 /* bicycle_model.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 563B91C41CC4F1DC00222BC1 /* bicycle_model.hpp */; };
+		56555E541D897316009D786D /* pedestrian_routing_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56F0D7651D89720900045886 /* pedestrian_routing_tests.cpp */; };
+		56555E561D897C90009D786D /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACE61C68A23B009CB89E /* libalohalitics.a */; };
+		56555E571D897C96009D786D /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56F0D7621D896DAF00045886 /* libopening_hours.a */; };
+		56555E581D897C9D009D786D /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACFA1C68A2D7009CB89E /* liboauthcpp.a */; };
+		56555E591D897D28009D786D /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACDE1C68A13F009CB89E /* testingmain.cpp */; };
+		56F0D7341D896A5300045886 /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BD35DE1C69F198003AA26F /* libmap.a */; };
+		56F0D7391D896A5300045886 /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BD35D41C69F155003AA26F /* libstorage.a */; };
+		56F0D73A1D896A5300045886 /* librouting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675343F81A3F640D00A0A8C3 /* librouting.a */; };
+		56F0D73B1D896A5300045886 /* libosrm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACEC1C68A27C009CB89E /* libosrm.a */; };
+		56F0D73C1D896A5300045886 /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACFE1C68A2F4009CB89E /* libjansson.a */; };
+		56F0D73D1D896A5300045886 /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACE71C68A23B009CB89E /* libgeometry.a */; };
+		56F0D73E1D896A5300045886 /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACEE1C68A27C009CB89E /* libpugixml.a */; };
+		56F0D73F1D896A5300045886 /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACFF1C68A2F4009CB89E /* libtomcrypt.a */; };
+		56F0D7401D896A5300045886 /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACE31C68A203009CB89E /* libcoding.a */; };
+		56F0D7411D896A5300045886 /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACE21C68A203009CB89E /* libbase.a */; };
+		56F0D7421D896A5300045886 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742AD021C68A303009CB89E /* libz.tbd */; };
+		56F0D7441D896A5300045886 /* libsearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACEF1C68A27C009CB89E /* libsearch.a */; };
+		56F0D7461D896A5300045886 /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACF81C68A2C8009CB89E /* libeditor.a */; };
+		56F0D7471D896A5300045886 /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACFB1C68A2D7009CB89E /* libprotobuf.a */; };
+		56F0D7481D896A5300045886 /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACED1C68A27C009CB89E /* libplatform.a */; };
+		56F0D7491D896A5300045886 /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACE81C68A23B009CB89E /* libindexer.a */; };
+		56F0D74A1D896A5300045886 /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742AD051C68A317009CB89E /* libsuccinct.a */; };
+		56F0D74D1D896A5300045886 /* World.mwm in Resources */ = {isa = PBXBuildFile; fileRef = 67BD36001C69F513003AA26F /* World.mwm */; };
+		56F0D74E1D896A5300045886 /* WorldCoasts.mwm in Resources */ = {isa = PBXBuildFile; fileRef = 67BD36021C69F513003AA26F /* WorldCoasts.mwm */; };
+		56F0D74F1D896A5300045886 /* countries.txt in Resources */ = {isa = PBXBuildFile; fileRef = 67BD35FD1C69F4AC003AA26F /* countries.txt */; };
+		56F0D7501D896A5300045886 /* packed_polygons.bin in Resources */ = {isa = PBXBuildFile; fileRef = 67BD35F91C69F474003AA26F /* packed_polygons.bin */; };
+		56F0D7511D896A5300045886 /* WorldCoasts_obsolete.mwm in Resources */ = {isa = PBXBuildFile; fileRef = 671182E91C7F0E1F00CB8177 /* WorldCoasts_obsolete.mwm */; };
+		56F0D7521D896A5300045886 /* drules_proto_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD571C68C7F6009CB89E /* drules_proto_clear.bin */; };
+		56F0D7531D896A5300045886 /* drules_proto_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD581C68C7F6009CB89E /* drules_proto_dark.bin */; };
+		56F0D7541D896A5300045886 /* drules_proto_legacy.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD591C68C7F6009CB89E /* drules_proto_legacy.bin */; };
+		56F0D7551D896A5300045886 /* countries_obsolete.txt in Resources */ = {isa = PBXBuildFile; fileRef = 671182E71C7F0E1F00CB8177 /* countries_obsolete.txt */; };
+		56F0D7561D896A5300045886 /* drules_proto-bw.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD5A1C68C7F6009CB89E /* drules_proto-bw.bin */; };
+		56F0D7571D896A5300045886 /* drules_proto.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD5B1C68C7F6009CB89E /* drules_proto.bin */; };
+		56F0D7581D896A5300045886 /* types.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD551C68C7C1009CB89E /* types.txt */; };
+		56F0D7591D896A5300045886 /* packed_polygons_obsolete.bin in Resources */ = {isa = PBXBuildFile; fileRef = 671182E81C7F0E1F00CB8177 /* packed_polygons_obsolete.bin */; };
+		56F0D75A1D896A5300045886 /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD531C68BB14009CB89E /* classificator.txt */; };
+		56F0D75B1D896A5300045886 /* sound-strings in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD611C68F747009CB89E /* sound-strings */; };
+		56F0D7631D896DAF00045886 /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56F0D7621D896DAF00045886 /* libopening_hours.a */; };
+		56F0D7661D89720900045886 /* pedestrian_routing_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56F0D7651D89720900045886 /* pedestrian_routing_tests.cpp */; };
 		670B84C01A9381D900CE4492 /* cross_routing_context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670B84BE1A9381D900CE4492 /* cross_routing_context.cpp */; };
 		670B84C11A9381D900CE4492 /* cross_routing_context.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670B84BF1A9381D900CE4492 /* cross_routing_context.hpp */; };
 		670C62131AC5A15700C38A8C /* routing_mapping.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670C62111AC5A15700C38A8C /* routing_mapping.cpp */; };
@@ -141,7 +180,6 @@
 		67BD35E51C69F198003AA26F /* libdrape_frontend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BD35D81C69F198003AA26F /* libdrape_frontend.a */; };
 		67BD35E61C69F198003AA26F /* libdrape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BD35D91C69F198003AA26F /* libdrape.a */; };
 		67BD35E71C69F198003AA26F /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BD35DA1C69F198003AA26F /* libexpat.a */; };
-		67BD35E81C69F198003AA26F /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BD35DB1C69F198003AA26F /* libfreetype.a */; };
 		67BD35E91C69F198003AA26F /* libfribidi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BD35DC1C69F198003AA26F /* libfribidi.a */; };
 		67BD35EA1C69F198003AA26F /* liblodepng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BD35DD1C69F198003AA26F /* liblodepng.a */; };
 		67BD35EB1C69F198003AA26F /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BD35DE1C69F198003AA26F /* libmap.a */; };
@@ -196,6 +234,9 @@
 		56099E321CC9247E00A7772A /* directions_engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = directions_engine.cpp; sourceTree = "<group>"; };
 		563B91C31CC4F1DC00222BC1 /* bicycle_model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bicycle_model.cpp; sourceTree = "<group>"; };
 		563B91C41CC4F1DC00222BC1 /* bicycle_model.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = bicycle_model.hpp; sourceTree = "<group>"; };
+		56F0D75F1D896A5300045886 /* routing_benchmarks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = routing_benchmarks.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		56F0D7621D896DAF00045886 /* libopening_hours.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopening_hours.a; path = "/Users/vladimirbykoyanko/src_github/omim/xcode/opening_hours/../../../omim-xcode-build/Debug/libopening_hours.a"; sourceTree = "<absolute>"; };
+		56F0D7651D89720900045886 /* pedestrian_routing_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pedestrian_routing_tests.cpp; path = ../../pedestrian_routing_tests/pedestrian_routing_tests.cpp; sourceTree = "<group>"; };
 		670B84BE1A9381D900CE4492 /* cross_routing_context.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cross_routing_context.cpp; sourceTree = "<group>"; };
 		670B84BF1A9381D900CE4492 /* cross_routing_context.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cross_routing_context.hpp; sourceTree = "<group>"; };
 		670C62111AC5A15700C38A8C /* routing_mapping.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_mapping.cpp; sourceTree = "<group>"; };
@@ -344,10 +385,38 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		56F0D72B1D896A5300045886 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				56555E581D897C9D009D786D /* liboauthcpp.a in Frameworks */,
+				56555E571D897C96009D786D /* libopening_hours.a in Frameworks */,
+				56555E561D897C90009D786D /* libalohalitics.a in Frameworks */,
+				56F0D7341D896A5300045886 /* libmap.a in Frameworks */,
+				56F0D7391D896A5300045886 /* libstorage.a in Frameworks */,
+				56F0D73A1D896A5300045886 /* librouting.a in Frameworks */,
+				56F0D73B1D896A5300045886 /* libosrm.a in Frameworks */,
+				56F0D73C1D896A5300045886 /* libjansson.a in Frameworks */,
+				56F0D73D1D896A5300045886 /* libgeometry.a in Frameworks */,
+				56F0D73E1D896A5300045886 /* libpugixml.a in Frameworks */,
+				56F0D73F1D896A5300045886 /* libtomcrypt.a in Frameworks */,
+				56F0D7401D896A5300045886 /* libcoding.a in Frameworks */,
+				56F0D7411D896A5300045886 /* libbase.a in Frameworks */,
+				56F0D7421D896A5300045886 /* libz.tbd in Frameworks */,
+				56F0D7441D896A5300045886 /* libsearch.a in Frameworks */,
+				56F0D7461D896A5300045886 /* libeditor.a in Frameworks */,
+				56F0D7471D896A5300045886 /* libprotobuf.a in Frameworks */,
+				56F0D7481D896A5300045886 /* libplatform.a in Frameworks */,
+				56F0D7491D896A5300045886 /* libindexer.a in Frameworks */,
+				56F0D74A1D896A5300045886 /* libsuccinct.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6742AD0B1C68A91B009CB89E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56F0D7631D896DAF00045886 /* libopening_hours.a in Frameworks */,
 				6742AD4D1C68AA59009CB89E /* librouting.a in Frameworks */,
 				6742AD401C68AA04009CB89E /* libosrm.a in Frameworks */,
 				6742AD3B1C68AA04009CB89E /* libjansson.a in Frameworks */,
@@ -385,7 +454,6 @@
 				67BD35E51C69F198003AA26F /* libdrape_frontend.a in Frameworks */,
 				67BD35E61C69F198003AA26F /* libdrape.a in Frameworks */,
 				67BD35E71C69F198003AA26F /* libexpat.a in Frameworks */,
-				67BD35E81C69F198003AA26F /* libfreetype.a in Frameworks */,
 				67BD35E91C69F198003AA26F /* libfribidi.a in Frameworks */,
 				67BD35EA1C69F198003AA26F /* liblodepng.a in Frameworks */,
 				67BD35EB1C69F198003AA26F /* libmap.a in Frameworks */,
@@ -418,6 +486,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		56F0D7611D896DAF00045886 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				56F0D7621D896DAF00045886 /* libopening_hours.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		671F58BA1B874EA20032311E /* base */ = {
 			isa = PBXGroup;
 			children = (
@@ -529,6 +605,7 @@
 		675343EF1A3F640D00A0A8C3 = {
 			isa = PBXGroup;
 			children = (
+				56F0D7651D89720900045886 /* pedestrian_routing_tests.cpp */,
 				56099E2C1CC8FBDA00A7772A /* osrm_path_segment_factory.cpp */,
 				56099E2D1CC8FBDA00A7772A /* osrm_path_segment_factory.hpp */,
 				670D05A61B0E02560013A7AC /* defaults.xcconfig */,
@@ -539,6 +616,7 @@
 				6742AD511C68BAEE009CB89E /* Resources */,
 				6742AD501C68BAC3009CB89E /* Support files */,
 				675343F91A3F640D00A0A8C3 /* Products */,
+				56F0D7611D896DAF00045886 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -548,6 +626,7 @@
 				675343F81A3F640D00A0A8C3 /* librouting.a */,
 				6742AD0E1C68A91B009CB89E /* routing_tests.app */,
 				67BD35951C69F03E003AA26F /* routing_integration_tests.app */,
+				56F0D75F1D896A5300045886 /* routing_benchmarks.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -702,6 +781,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		56F0D7221D896A5300045886 /* routing_benchmarks */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 56F0D75C1D896A5300045886 /* Build configuration list for PBXNativeTarget "routing_benchmarks" */;
+			buildPhases = (
+				56F0D7231D896A5300045886 /* Sources */,
+				56F0D72B1D896A5300045886 /* Frameworks */,
+				56F0D74C1D896A5300045886 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = routing_benchmarks;
+			productName = routing_benchmarks;
+			productReference = 56F0D75F1D896A5300045886 /* routing_benchmarks.app */;
+			productType = "com.apple.product-type.application";
+		};
 		6742AD0D1C68A91B009CB89E /* routing_tests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6742AD221C68A91B009CB89E /* Build configuration list for PBXNativeTarget "routing_tests" */;
@@ -789,11 +885,34 @@
 				675343F71A3F640D00A0A8C3 /* routing */,
 				6742AD0D1C68A91B009CB89E /* routing_tests */,
 				67BD35941C69F03E003AA26F /* routing_integration_tests */,
+				56F0D7221D896A5300045886 /* routing_benchmarks */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		56F0D74C1D896A5300045886 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				56F0D74D1D896A5300045886 /* World.mwm in Resources */,
+				56F0D74E1D896A5300045886 /* WorldCoasts.mwm in Resources */,
+				56F0D74F1D896A5300045886 /* countries.txt in Resources */,
+				56F0D7501D896A5300045886 /* packed_polygons.bin in Resources */,
+				56F0D7511D896A5300045886 /* WorldCoasts_obsolete.mwm in Resources */,
+				56F0D7521D896A5300045886 /* drules_proto_clear.bin in Resources */,
+				56F0D7531D896A5300045886 /* drules_proto_dark.bin in Resources */,
+				56F0D7541D896A5300045886 /* drules_proto_legacy.bin in Resources */,
+				56F0D7551D896A5300045886 /* countries_obsolete.txt in Resources */,
+				56F0D7561D896A5300045886 /* drules_proto-bw.bin in Resources */,
+				56F0D7571D896A5300045886 /* drules_proto.bin in Resources */,
+				56F0D7581D896A5300045886 /* types.txt in Resources */,
+				56F0D7591D896A5300045886 /* packed_polygons_obsolete.bin in Resources */,
+				56F0D75A1D896A5300045886 /* classificator.txt in Resources */,
+				56F0D75B1D896A5300045886 /* sound-strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6742AD0C1C68A91B009CB89E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -834,6 +953,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		56F0D7231D896A5300045886 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				56555E591D897D28009D786D /* testingmain.cpp in Sources */,
+				56555E541D897316009D786D /* pedestrian_routing_tests.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6742AD0A1C68A91B009CB89E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -869,6 +997,7 @@
 				56099E351CC9247E00A7772A /* directions_engine.cpp in Sources */,
 				A1616E2B1B6B60AB003F078E /* router_delegate.cpp in Sources */,
 				6741AA9C1BF35331002C974C /* turns_notification_manager.cpp in Sources */,
+				56F0D7661D89720900045886 /* pedestrian_routing_tests.cpp in Sources */,
 				67C7D42B1B4EB48F00FE41AA /* pedestrian_model.cpp in Sources */,
 				A120B3471B4A7BE5002F3808 /* cross_mwm_router.cpp in Sources */,
 				670EE5731B664796001E8064 /* pedestrian_directions.cpp in Sources */,
@@ -919,6 +1048,42 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		56F0D75D1D896A5300045886 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "mail.ru.routing-benchmarks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.12;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		56F0D75E1D896A5300045886 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "mail.ru.routing-benchmarks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.12;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		6742AD231C68A91B009CB89E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1000,7 +1165,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
-				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
+				SUPPORTED_PLATFORMS = macosx;
 			};
 			name = Debug;
 		};
@@ -1042,7 +1207,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
-				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
+				SUPPORTED_PLATFORMS = macosx;
 			};
 			name = Release;
 		};
@@ -1112,6 +1277,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		56F0D75C1D896A5300045886 /* Build configuration list for PBXNativeTarget "routing_benchmarks" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				56F0D75D1D896A5300045886 /* Debug */,
+				56F0D75E1D896A5300045886 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		6742AD221C68A91B009CB89E /* Build configuration list for PBXNativeTarget "routing_tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
