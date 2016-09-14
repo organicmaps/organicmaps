@@ -24,7 +24,7 @@
       android:theme="@style/MwmWidget.ToolbarTheme"
       android:layout_width="match_parent"
       app:contentInsetLeft="0dp"
-        app:contentInsetStart="0dp"
+      app:contentInsetStart="0dp"
       android:layout_height="?attr/actionBarSize"
       android:elevation="0dp">
 
@@ -54,16 +54,26 @@
           <com.mapswithme.maps.widget.WheelProgressView
               android:id="@+id/progress_vehicle"
               style="@style/MwmWidget.ProgressWheel.RoutingPlan"
+              android:layout_marginLeft="4dp"
+              android:layout_marginTop="4dp"
+              android:layout_marginBottom="4dp"
               tools:visibility="visible" />
 
           <com.mapswithme.maps.widget.WheelProgressView
               android:id="@+id/progress_bicycle"
               style="@style/MwmWidget.ProgressWheel.RoutingPlan"
+              android:layout_marginTop="4dp"
+              android:layout_marginBottom="4dp"
+              android:layout_marginLeft="12dp"
+              android:layout_marginRight="12dp"
               tools:visibility="visible" />
 
           <com.mapswithme.maps.widget.WheelProgressView
               android:id="@+id/progress_pedestrian"
               style="@style/MwmWidget.ProgressWheel.RoutingPlan"
+              android:layout_marginTop="4dp"
+              android:layout_marginBottom="4dp"
+              android:layout_marginRight="4dp"
               tools:visibility="visible" />
 
         </LinearLayout>
@@ -87,6 +97,8 @@
               android:id="@+id/bicycle"
               android:layout_width="@dimen/routing_selector_size"
               android:layout_height="@dimen/routing_selector_size"
+              android:layout_marginRight="4dp"
+              android:layout_marginLeft="4dp"
               tools:button="@drawable/ic_bicycle"
               tools:buttonTint="?iconTintLight" />
 
