@@ -31,6 +31,8 @@ public class MyPositionButton
         AlohaHelper.logClick(AlohaHelper.TOOLBAR_MY_POSITION);
       }
     });
+
+    mIcons.clear();
   }
 
   @SuppressWarnings("deprecation")
@@ -69,10 +71,5 @@ public class MyPositionButton
 
     if (image instanceof AnimationDrawable)
       ((AnimationDrawable) image).start();
-  }
-
-  public static void clearCache()
-  {
-    mIcons.clear();
   }
 }

@@ -57,6 +57,8 @@ public class NavigationController
   private final TextView mDistanceUnits;
   private final FlatProgressView mRouteProgress;
 
+  private final SearchWheel mSearchWheel;
+
   private boolean mShowTimeLeft = true;
 
   private double mNorth;
@@ -103,6 +105,14 @@ public class NavigationController
     mDistanceValue = (TextView) mBottomFrame.findViewById(R.id.distance_value);
     mDistanceUnits = (TextView) mBottomFrame.findViewById(R.id.distance_dimen);
     mRouteProgress = (FlatProgressView) mBottomFrame.findViewById(R.id.navigation_progress);
+
+    mSearchWheel = new SearchWheel(mFrame);
+  }
+
+  public void onResume()
+  {
+    mNavMenu.onResume(null);
+    mSearchWheel.onResume();
   }
 
   private NavMenu createNavMenu()
@@ -120,6 +130,7 @@ public class NavigationController
           Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_CLOSE);
           AlohaHelper.logClick(AlohaHelper.ROUTING_CLOSE);
           parent.refreshFade();
+          mSearchWheel.reset();
           break;
         case SETTINGS:
           parent.closeMenu(Statistics.EventName.ROUTING_SETTINGS, AlohaHelper.MENU_SETTINGS, new Runnable()
@@ -240,7 +251,7 @@ public class NavigationController
       UiUtils.hide(mTimeHourUnits, mTimeHourValue);
       return;
     }
-    UiUtils.setTextAndShow(mTimeHourValue,String.valueOf(hours));
+    UiUtils.setTextAndShow(mTimeHourValue, String.valueOf(hours));
     // TODO set localized text
     UiUtils.setTextAndShow(mTimeHourUnits, "h");
   }

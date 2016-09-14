@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
-           xmlns:tools="http://schemas.android.com/tools">
+  xmlns:tools="http://schemas.android.com/tools">
+
   <style name="MwmWidget"/>
+
   <style name="MwmWidget.ProgressWheel"/>
+
   <style name="MwmWidget.FrameLayout"/>
+
   <style name="MwmWidget.Downloader"/>
 
   <style name="BottomSheet.Icon">
@@ -13,7 +17,7 @@
   </style>
 
   <style name="MwmWidget.MapButton"
-         parent="android:Widget.ImageButton">
+    parent="android:Widget.ImageButton">
     <item name="android:scaleType">center</item>
     <item name="android:layout_height">64dp</item>
     <item name="android:layout_width">64dp</item>
@@ -45,49 +49,73 @@
   </style>
 
   <style name="MwmWidget.Floating">
-    <item name="android:elevation" tools:ignore="NewApi">@dimen/appbar_elevation</item>
+    <item name="android:elevation"
+      tools:ignore="NewApi">@dimen/appbar_elevation
+    </item>
   </style>
 
   <style name="MwmWidget.Floating.Panel">
     <item name="android:background">?panel</item>
   </style>
 
-  <style name="MwmWidget.PlacePage.EditText" parent="Widget.AppCompat.EditText">
+  <style
+    name="MwmWidget.PlacePage.EditText"
+    parent="Widget.AppCompat.EditText">
     <item name="android:imeOptions">actionDone</item>
     <item name="android:textAppearance">@style/MwmTextAppearance.PlacePage</item>
     <item name="android:textColorHint">?secondary</item>
     <item name="android:textCursorDrawable">@null</item>
-    <item name="android:fontFamily" tools:ignore="NewApi">@string/robotoRegular</item>
+    <item name="android:fontFamily"
+      tools:ignore="NewApi">@string/robotoRegular
+    </item>
   </style>
 
-  <style name="MwmWidget.ToolbarStyle" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+  <style
+    name="MwmWidget.ToolbarStyle"
+    parent="ThemeOverlay.AppCompat.Dark.ActionBar">
     <item name="android:background">?colorPrimary</item>
-    <item name="android:elevation" tools:ignore="NewApi">@dimen/appbar_elevation</item>
+    <item name="android:elevation"
+      tools:ignore="NewApi">@dimen/appbar_elevation
+    </item>
     <item name="android:displayOptions">homeAsUp|showTitle</item>
     <item name="contentInsetStart">72dp</item>
-    <item name="android:titleTextAppearance" tools:ignore="NewApi">@style/MwmTextAppearance.Toolbar.Title</item>
+    <item name="android:titleTextAppearance"
+      tools:ignore="NewApi">@style/MwmTextAppearance.Toolbar.Title
+    </item>
     <item name="titleTextAppearance">@style/MwmTextAppearance.Toolbar.Title</item>
     <item name="contentInsetLeft">72dp</item>
-    <item name="android:contentInsetStart" tools:ignore="NewApi">72dp</item>
-    <item name="android:contentInsetLeft" tools:ignore="NewApi">72dp</item>
+    <item name="android:contentInsetStart"
+      tools:ignore="NewApi">72dp
+    </item>
+    <item name="android:contentInsetLeft"
+      tools:ignore="NewApi">72dp
+    </item>
   </style>
 
   <style name="MwmWidget.ToolbarStyle.Light">
-    <item name="android:titleTextAppearance" tools:targetApi="lollipop">@style/MwmTextAppearance.Toolbar.Title.Light</item>
+    <item name="android:titleTextAppearance"
+      tools:targetApi="lollipop">@style/MwmTextAppearance.Toolbar.Title.Light
+    </item>
     <item name="titleTextAppearance">@style/MwmTextAppearance.Toolbar.Title.Light</item>
   </style>
 
-  <style name="MwmWidget.ToolbarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+  <style
+    name="MwmWidget.ToolbarTheme"
+    parent="ThemeOverlay.AppCompat.Dark.ActionBar">
     <item name="android:gravity">center_vertical</item>
     <item name="colorAccent">@android:color/white</item>
   </style>
 
-  <style name="MwmWidget.ToolbarTheme.Light" parent="ThemeOverlay.AppCompat.ActionBar">
+  <style
+    name="MwmWidget.ToolbarTheme.Light"
+    parent="ThemeOverlay.AppCompat.ActionBar">
     <item name="android:gravity">center_vertical</item>
     <item name="colorAccent">@color/bg_window_night</item>
   </style>
 
-  <style name="MwmWidget.ListView" parent="Widget.AppCompat.ListView">
+  <style
+    name="MwmWidget.ListView"
+    parent="Widget.AppCompat.ListView">
     <item name="android:fadingEdge">none</item>
     <item name="android:divider">@color/divider</item>
     <item name="android:background">@null</item>
@@ -97,7 +125,8 @@
     <item name="android:cacheColorHint">@android:color/transparent</item>
   </style>
 
-  <style name="MwmWidget.TextView" parent="android:Widget.TextView">
+  <style name="MwmWidget.TextView"
+    parent="android:Widget.TextView">
     <item name="android:background">@android:color/transparent</item>
   </style>
 
@@ -166,7 +195,8 @@
     <item name="android:foreground">@drawable/shadow_top</item>
   </style>
 
-  <style name="MwmWidget.RatingBar" parent="android:Widget.RatingBar">
+  <style name="MwmWidget.RatingBar"
+    parent="android:Widget.RatingBar">
     <item name="android:progressDrawable">@drawable/rating_bar</item>
     <item name="android:indeterminateDrawable">@drawable/rating_bar</item>
   </style>
@@ -200,5 +230,15 @@
     <item name="android:background">?selectableItemBackgroundBorderless</item>
     <item name="android:padding">@dimen/margin_half</item>
     <item name="android:textAppearance">@style/MwmTextAppearance.Toolbar.Title.Button</item>
+  </style>
+
+  <style
+    name="MwmWidget.SearchNavigationButton"
+    parent="android:Widget.ImageButton">
+    <item name="android:scaleType">center</item>
+    <item name="android:layout_height">44dp</item>
+    <item name="android:layout_width">44dp</item>
+    <item name="android:background">?selectableItemBackgroundBorderless</item>
+    <item name="android:tint">?iconTint</item>
   </style>
 </resources>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:theme="?navButtonsTheme"
+  tools:background="@color/bg_primary"
+  tools:showIn="@layout/layout_nav">
+
+  <Space
+    android:id="@id/anchor_center"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_centerInParent="true"/>
+
+  <View
+    android:id="@+id/touch_interceptor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="gone"/>
+
+  <RelativeLayout
+    android:id="@+id/search_frame"
+    android:layout_width="200dp"
+    android:layout_height="200dp"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_marginTop="-68dp"
+    android:layout_below="@id/anchor_center"
+    android:layout_marginLeft="-70dp"
+    android:layout_marginStart="-70dp"
+    android:background="?searchLayoutBackground"
+    android:visibility="invisible"
+    tools:visibility="visible">
+
+    <ImageView
+      android:id="@+id/search_fuel"
+      style="@style/MwmWidget.SearchNavigationButton"
+      android:layout_alignParentTop="true"
+      android:layout_centerHorizontal="true"
+      android:src="@drawable/ic_routing_fuel_on"/>
+
+    <ImageView
+      android:id="@+id/search_parking"
+      style="@style/MwmWidget.SearchNavigationButton"
+      android:layout_marginTop="30dp"
+      android:layout_toEndOf="@id/search_fuel"
+      android:layout_toRightOf="@id/search_fuel"
+      android:src="@drawable/ic_routing_parking_on"/>
+
+    <ImageView
+      android:id="@+id/search_food"
+      style="@style/MwmWidget.SearchNavigationButton"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentRight="true"
+      android:layout_centerVertical="true"
+      android:src="@drawable/ic_routing_food_on"/>
+
+    <ImageView
+      android:id="@+id/search_shop"
+      style="@style/MwmWidget.SearchNavigationButton"
+      android:layout_alignParentBottom="true"
+      android:layout_marginBottom="30dp"
+      android:layout_toEndOf="@id/search_fuel"
+      android:layout_toRightOf="@id/search_fuel"
+      android:src="@drawable/ic_routing_shop_on"/>
+
+    <ImageView
+      android:id="@+id/search_atm"
+      style="@style/MwmWidget.SearchNavigationButton"
+      android:layout_alignParentBottom="true"
+      android:layout_centerHorizontal="true"
+      android:src="@drawable/ic_routing_atm_on"/>
+
+  </RelativeLayout>
+
+  <ImageButton
+    android:id="@+id/btn_search"
+    style="@style/MwmWidget.SearchNavigationButton"
+    android:layout_width="64dp"
+    android:layout_height="64dp"
+    android:layout_below="@id/anchor_center"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:background="?nav_background"
+    android:src="@drawable/ic_menu_search"
+    android:tint="@null"/>
+
+</RelativeLayout>

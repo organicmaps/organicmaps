@@ -94,14 +94,14 @@ public class UiThread
   }
 
   /**
-   * Executes something on UI thread after a given delay.
+   * Executes something on UI thread after a given delayMillis.
    *
-   * @param task  the code that must be executed on UI thread after given delay.
-   * @param delay The delay (in milliseconds) until the code will be executed.
+   * @param task  the code that must be executed on UI thread after given delayMillis.
+   * @param delayMillis The delayMillis until the code will be executed.
    */
-  public static void runLater(Runnable task, long delay)
+  public static void runLater(Runnable task, long delayMillis)
   {
-    sUiHandler.postDelayed(task, delay);
+    sUiHandler.postDelayed(task, delayMillis);
   }
 
   /**

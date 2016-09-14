@@ -3,24 +3,28 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:layout_marginBottom="@dimen/nav_menu_height"
   android:padding="@dimen/nav_frame_padding"
   android:theme="?navButtonsTheme">
+
+  <Space
+    android:id="@+id/anchor_center"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_centerInParent="true"/>
 
   <ImageButton
     android:id="@+id/nav_zoom_out"
     style="@style/MwmWidget.MapButton"
-    android:layout_alignParentBottom="true"
     android:layout_alignParentEnd="true"
     android:layout_alignParentRight="true"
-    android:layout_marginBottom="@dimen/nav_zoom_bottom"
+    android:layout_below="@id/anchor_center"
     android:background="?nav_background"
     android:src="@drawable/ic_zoom_out"/>
 
   <ImageButton
     android:id="@+id/nav_zoom_in"
     style="@style/MwmWidget.MapButton"
-    android:layout_above="@id/nav_zoom_out"
+    android:layout_above="@id/anchor_center"
     android:layout_alignParentEnd="true"
     android:layout_alignParentRight="true"
     android:background="?nav_background"
@@ -29,10 +33,10 @@
   <ImageButton
     android:id="@+id/my_position"
     style="@style/MwmWidget.MapButton"
-    android:layout_alignParentBottom="true"
     android:layout_alignParentEnd="true"
     android:layout_alignParentRight="true"
-    android:layout_marginBottom="@dimen/margin_base"
+    android:layout_below="@id/nav_zoom_out"
+    android:layout_marginTop="@dimen/margin_double"
     android:background="?nav_background"
     android:contentDescription="@string/my_position"
     android:tint="@null"/>
