@@ -1,21 +1,22 @@
 #import "MWMNoMapsView.h"
 #import "Common.h"
+#import "MWMKeyboard.h"
 
-@interface MWMNoMapsView ()
+@interface MWMNoMapsView ()<MWMKeyboardObserver>
 
-@property (weak, nonatomic) IBOutlet UIImageView * image;
-@property (weak, nonatomic) IBOutlet UILabel * title;
-@property (weak, nonatomic) IBOutlet UILabel * text;
+@property(weak, nonatomic) IBOutlet UIImageView * image;
+@property(weak, nonatomic) IBOutlet UILabel * title;
+@property(weak, nonatomic) IBOutlet UILabel * text;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * containerWidth;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * containerHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * containerTopOffset;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * containerBottomOffset;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * imageMinHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * imageHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * titleImageOffset;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * titleTopOffset;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * textTopOffset;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * containerWidth;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * containerHeight;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * containerTopOffset;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * containerBottomOffset;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * imageMinHeight;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * imageHeight;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * titleImageOffset;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * titleTopOffset;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * textTopOffset;
 
 @end
 
@@ -44,45 +45,7 @@
     else
       self.containerTopOffset.active = NO;
   }
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(keyboardWillShow:)
-                                               name:UIKeyboardWillShowNotification
-                                             object:nil];
-
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(keyboardWillHide:)
-                                               name:UIKeyboardWillHideNotification
-                                             object:nil];
-}
-
-- (void)dealloc
-{
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)keyboardWillShow:(NSNotification *)notification
-{
-  CGSize const keyboardSize = [notification.userInfo[UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-  CGFloat const bottomInset = MIN(keyboardSize.height, keyboardSize.width);
-
-  NSNumber * rate = notification.userInfo[UIKeyboardAnimationDurationUserInfoKey];
-  [self.superview layoutIfNeeded];
-  [UIView animateWithDuration:rate.floatValue animations:^
-   {
-     self.containerBottomOffset.constant = bottomInset;
-     [self.superview layoutIfNeeded];
-   }];
-}
-
-- (void)keyboardWillHide:(NSNotification *)notification
-{
-  NSNumber * rate = notification.userInfo[UIKeyboardAnimationDurationUserInfoKey];
-  [self.superview layoutIfNeeded];
-  [UIView animateWithDuration:rate.floatValue animations:^
-   {
-     self.containerBottomOffset.constant = 0;
-     [self.superview layoutIfNeeded];
-   }];
+  [MWMKeyboard addObserver:self];
 }
 
 - (void)layoutSubviews
@@ -118,4 +81,13 @@
   }
 }
 
+#pragma mark - MWMKeyboard
+
+- (void)onKeyboardAnimation
+{
+  self.containerBottomOffset.constant = [MWMKeyboard keyboardHeight];
+  [self.superview layoutIfNeeded];
+}
+
+- (void)onKeyboardWillAnimate { [self.superview layoutIfNeeded]; }
 @end

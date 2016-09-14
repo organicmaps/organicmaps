@@ -1,10 +1,11 @@
 #import "MWMPlaceDoesntExistAlert.h"
+#import "MWMKeyboard.h"
 
-@interface MWMPlaceDoesntExistAlert ()
+@interface MWMPlaceDoesntExistAlert ()<MWMKeyboardObserver>
 
-@property (weak, nonatomic) IBOutlet UITextField * textField;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * centerHorizontaly;
-@property (copy, nonatomic) MWMStringBlock block;
+@property(weak, nonatomic) IBOutlet UITextField * textField;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * centerHorizontaly;
+@property(copy, nonatomic) MWMStringBlock block;
 
 @end
 
@@ -12,19 +13,12 @@
 
 + (instancetype)alertWithBlock:(MWMStringBlock)block
 {
-  MWMPlaceDoesntExistAlert * alert = [[[NSBundle mainBundle] loadNibNamed:[MWMPlaceDoesntExistAlert className] owner:nil
-                                                                  options:nil] firstObject];
+  MWMPlaceDoesntExistAlert * alert =
+      [[[NSBundle mainBundle] loadNibNamed:[MWMPlaceDoesntExistAlert className]
+                                     owner:nil
+                                   options:nil] firstObject];
   alert.block = block;
-
-  [[NSNotificationCenter defaultCenter] addObserver:alert
-                                           selector:@selector(keyboardWillShow:)
-                                               name:UIKeyboardWillShowNotification
-                                             object:nil];
-
-  [[NSNotificationCenter defaultCenter] addObserver:alert
-                                           selector:@selector(keyboardWillHide:)
-                                               name:UIKeyboardWillHideNotification
-                                             object:nil];
+  [MWMKeyboard addObserver:alert];
   return alert;
 }
 
@@ -41,32 +35,13 @@
   [self close];
 }
 
-- (void)dealloc
+#pragma mark - MWMKeyboard
+
+- (void)onKeyboardAnimation
 {
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
+  self.centerHorizontaly.constant = -[MWMKeyboard keyboardHeight] / 2;
+  [self layoutIfNeeded];
 }
 
-- (void)keyboardWillShow:(NSNotification *)notification
-{
-  CGFloat const keyboardHeight = [notification.userInfo[UIKeyboardFrameBeginUserInfoKey] CGRectValue].size.height;
-  NSNumber * rate = notification.userInfo[UIKeyboardAnimationDurationUserInfoKey];
-  [self setNeedsLayout];
-  self.centerHorizontaly.constant = - keyboardHeight / 2;
-  [UIView animateWithDuration:rate.floatValue animations:^
-  {
-    [self layoutIfNeeded];
-  }];
-}
-
-- (void)keyboardWillHide:(NSNotification *)notification
-{
-  NSNumber * rate = notification.userInfo[UIKeyboardAnimationDurationUserInfoKey];
-  [self setNeedsLayout];
-  self.centerHorizontaly.constant = 0;
-  [UIView animateWithDuration:rate.floatValue animations:^
-  {
-    [self layoutIfNeeded];
-  }];
-}
-
+- (void)onKeyboardWillAnimate { [self setNeedsLayout]; }
 @end

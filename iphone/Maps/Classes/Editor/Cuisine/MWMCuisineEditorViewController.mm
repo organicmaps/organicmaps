@@ -1,9 +1,10 @@
 #import "MWMCuisineEditorViewController.h"
+#import "MWMKeyboard.h"
 #import "MWMTableViewCell.h"
 #import "UIColor+MapsMeColor.h"
 
-#include "indexer/search_string_utils.hpp"
 #include "indexer/cuisines.hpp"
+#include "indexer/search_string_utils.hpp"
 
 #include "std/algorithm.hpp"
 
@@ -18,9 +19,9 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
     res.push_back(kv.first);
   return res;
 }
-} // namespace
+}  // namespace
 
-@interface MWMCuisineEditorViewController () <UISearchBarDelegate>
+@interface MWMCuisineEditorViewController ()<UISearchBarDelegate, MWMKeyboardObserver>
 {
   osm::TAllCuisines m_allCuisines;
   vector<string> m_selectedCuisines;
@@ -28,9 +29,9 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
   vector<string> m_untranslatedKeys;
 }
 
-@property (weak, nonatomic) IBOutlet UITableView * tableView;
-@property (weak, nonatomic) IBOutlet UISearchBar * searchBar;
-@property (nonatomic) BOOL isSearch;
+@property(weak, nonatomic) IBOutlet UITableView * tableView;
+@property(weak, nonatomic) IBOutlet UISearchBar * searchBar;
+@property(nonatomic) BOOL isSearch;
 
 @end
 
@@ -43,51 +44,17 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
   [self configSearchBar];
   [self configData];
   [self configTable];
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(keyboardWillShow:)
-                                               name:UIKeyboardWillShowNotification
-                                             object:nil];
-
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(keyboardWillHide:)
-                                               name:UIKeyboardWillHideNotification
-                                             object:nil];
+  [MWMKeyboard addObserver:self];
 }
 
-- (void)dealloc
+- (UIStatusBarStyle)preferredStatusBarStyle { return UIStatusBarStyleLightContent; }
+#pragma mark - MWMKeyboard
+
+- (void)onKeyboardAnimation
 {
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)keyboardWillShow:(NSNotification *)notification
-{
-  CGSize const keyboardSize = [notification.userInfo[UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-  CGFloat const bottomInset = UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]) ?
-                                                                              keyboardSize.height : keyboardSize.width;
-
-  UIEdgeInsets const contentInsets = {.bottom = bottomInset};
-
-  NSNumber * rate = notification.userInfo[UIKeyboardAnimationDurationUserInfoKey];
-  [UIView animateWithDuration:rate.floatValue animations:^
-   {
-     self.tableView.contentInset = contentInsets;
-     self.tableView.scrollIndicatorInsets = contentInsets;
-   }];
-}
-
-- (void)keyboardWillHide:(NSNotification *)notification
-{
-  NSNumber * rate = notification.userInfo[UIKeyboardAnimationDurationUserInfoKey];
-  [UIView animateWithDuration:rate.floatValue animations:^
-   {
-     self.tableView.contentInset = {};
-     self.tableView.scrollIndicatorInsets = {};
-   }];
-}
-
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-  return UIStatusBarStyleLightContent;
+  UIEdgeInsets const contentInsets = {.bottom = [MWMKeyboard keyboardHeight]};
+  self.tableView.contentInset = contentInsets;
+  self.tableView.scrollIndicatorInsets = contentInsets;
 }
 
 #pragma mark - UISearchBarDelegate
@@ -138,16 +105,8 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
   [self.tableView reloadData];
 }
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
-{
-  [searchBar resignFirstResponder];
-}
-
-- (UIBarPosition)positionForBar:(id<UIBarPositioning>)bar
-{
-  return UIBarPositionTopAttached;
-}
-
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar { [searchBar resignFirstResponder]; }
+- (UIBarPosition)positionForBar:(id<UIBarPositioning>)bar { return UIBarPositionTopAttached; }
 - (void)searchBar:(UISearchBar *)searchBar setActiveState:(BOOL)isActiveState
 {
   [searchBar setShowsCancelButton:isActiveState animated:YES];
@@ -198,16 +157,13 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
 {
   self.tableView.backgroundColor = [UIColor pressBackground];
   self.tableView.separatorColor = [UIColor blackDividers];
-  [self.tableView registerClass:[MWMTableViewCell class] forCellReuseIdentifier:[UITableViewCell className]];
+  [self.tableView registerClass:[MWMTableViewCell class]
+         forCellReuseIdentifier:[UITableViewCell className]];
 }
 
 #pragma mark - Actions
 
-- (void)onCancel
-{
-  [self.navigationController popViewControllerAnimated:YES];
-}
-
+- (void)onCancel { [self.navigationController popViewControllerAnimated:YES]; }
 - (void)onDone
 {
   [self.delegate setSelectedCuisines:m_selectedCuisines];
@@ -226,9 +182,11 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
 
 #pragma mark - UITableViewDataSource
 
-- (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
+- (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView
+                  cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
 {
-  UITableViewCell * cell = [self.tableView dequeueReusableCellWithIdentifier:[UITableViewCell className]];
+  UITableViewCell * cell =
+      [self.tableView dequeueReusableCellWithIdentifier:[UITableViewCell className]];
   NSInteger const index = indexPath.row;
 
   auto const & dataSource = [self dataSourceForSection:indexPath.section];
@@ -244,7 +202,8 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
     cell.textLabel.text = @(key.c_str());
   }
 
-  BOOL const selected = find(m_selectedCuisines.begin(), m_selectedCuisines.end(), key) != m_selectedCuisines.end();
+  BOOL const selected =
+      find(m_selectedCuisines.begin(), m_selectedCuisines.end(), key) != m_selectedCuisines.end();
   cell.accessoryType = selected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
   return cell;
 }
@@ -269,13 +228,16 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
 
 #pragma mark - UITableViewDelegate
 
-- (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
+- (void)tableView:(UITableView * _Nonnull)tableView
+    didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
 {
   UITableViewCell * cell = [tableView cellForRowAtIndexPath:indexPath];
   [cell setSelected:NO animated:YES];
   BOOL const isAlreadySelected = cell.accessoryType == UITableViewCellAccessoryCheckmark;
-  cell.accessoryType = isAlreadySelected ? UITableViewCellAccessoryNone : UITableViewCellAccessoryCheckmark;
-  [self change:[self dataSourceForSection:indexPath.section][indexPath.row] selected:!isAlreadySelected];
+  cell.accessoryType =
+      isAlreadySelected ? UITableViewCellAccessoryNone : UITableViewCellAccessoryCheckmark;
+  [self change:[self dataSourceForSection:indexPath.section][indexPath.row]
+      selected:!isAlreadySelected];
 }
 
 @end
