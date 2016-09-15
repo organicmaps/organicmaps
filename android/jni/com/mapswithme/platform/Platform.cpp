@@ -84,6 +84,11 @@ void Platform::SendPushWooshTag(string const & tag, vector<string> const & value
   android::Platform::Instance().SendPushWooshTag(tag, values);
 }
 
+void Platform::SendMarketingEvent(string const & tag, map<string, string> const & params)
+{
+  // TODO: Add implementation.
+}
+
 Platform::EConnectionType Platform::ConnectionStatus()
 {
   JNIEnv * env = jni::GetEnv();

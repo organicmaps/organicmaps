@@ -1,3 +1,4 @@
+#import <MyTrackerSDK/MRMyTracker.h>
 #import <Pushwoosh/PushNotificationManager.h>
 #import "Common.h"
 #import "MapsAppDelegate.h"
@@ -10,17 +11,9 @@
 #include "platform/platform.hpp"
 #include "platform/settings.hpp"
 
-int main(int argc, char * argv[])
+void setPushWooshSender()
 {
-#ifdef MWM_LOG_TO_FILE
-  my::SetLogMessageFn(LogMessageFile);
-#elif OMIM_PRODUCTION
-  my::SetLogMessageFn(platform::LogMessageFabric);
-#endif
-  auto & p = GetPlatform();
-  LOG(LINFO, ("maps.me started, detected CPU cores:", p.CpuCores()));
-
-  p.SetPushWooshSender([](string const & tag, vector<string> const & values) {
+  GetPlatform().SetPushWooshSender([](string const & tag, vector<string> const & values) {
     if (values.empty() || tag.empty())
       return;
     PushNotificationManager * pushManager = [PushNotificationManager pushManager];
@@ -36,6 +29,32 @@ int main(int argc, char * argv[])
       [pushManager setTags:@{ @(tag.c_str()) : tags }];
     }
   });
+}
+
+void setMarketingSender()
+{
+  GetPlatform().SetMarketingSender([](string const & tag, map<string, string> const & params) {
+    if (tag.empty())
+      return;
+    NSMutableDictionary<NSString *, NSString *> * eventParams = [@{} mutableCopy];
+    for (auto const & param : params)
+      eventParams[@(param.first.c_str())] = @(param.second.c_str());
+    [MRMyTracker trackEvent:@(tag.c_str()) eventParams:eventParams];
+  });
+}
+
+int main(int argc, char * argv[])
+{
+#ifdef MWM_LOG_TO_FILE
+  my::SetLogMessageFn(LogMessageFile);
+#elif OMIM_PRODUCTION
+  my::SetLogMessageFn(platform::LogMessageFabric);
+#endif
+  auto & p = GetPlatform();
+  LOG(LINFO, ("maps.me started, detected CPU cores:", p.CpuCores()));
+
+  setPushWooshSender();
+  setMarketingSender();
 
   int retVal;
   @autoreleasepool

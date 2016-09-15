@@ -261,10 +261,11 @@ void Platform::SetupMeasurementSystem() const
 }
 
 /// @see implementation of methods below in android/jni/com/.../Platform.cpp
-//void Platform::RunOnGuiThread(TFunctor const & fn){}
-//void Platform::SendPushWooshTag(string const & tag){}
-//void Platform::SendPushWooshTag(string const & tag, string const & value){}
-//void Platform::SendPushWooshTag(string const & tag, vector<string> const & values){}
+// void Platform::RunOnGuiThread(TFunctor const & fn){}
+// void Platform::SendPushWooshTag(string const & tag){}
+// void Platform::SendPushWooshTag(string const & tag, string const & value){}
+// void Platform::SendPushWooshTag(string const & tag, vector<string> const & values){}
+// void Platform::SendMarketingEvent(string const & tag, map<string, string> const & params){}
 
 namespace
 {
