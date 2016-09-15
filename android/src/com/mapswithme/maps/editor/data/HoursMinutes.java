@@ -7,16 +7,15 @@ import android.text.format.DateFormat;
 
 import com.mapswithme.maps.MwmApplication;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 public class HoursMinutes implements Parcelable
 {
   public final long hours;
   public final long minutes;
-
-  private final boolean is24HourFormat = DateFormat.is24HourFormat(MwmApplication.get());
 
   public HoursMinutes(@IntRange(from = 0, to = 23) long hours, @IntRange(from = 0, to = 59) long minutes)
   {
@@ -30,24 +29,21 @@ public class HoursMinutes implements Parcelable
     minutes = in.readLong();
   }
 
+  private boolean is24HourFormat() { return DateFormat.is24HourFormat(MwmApplication.get()); }
+
   @Override
   public String toString()
   {
-    final String time = String.format(Locale.US, "%02d:%02d", hours, minutes);
+    if (is24HourFormat())
+      return String.format(Locale.US, "%02d:%02d", hours, minutes);
 
-    if (is24HourFormat)
-      return time;
+    Calendar calendar = new GregorianCalendar();
+    calendar.set(Calendar.HOUR, (int)hours);
+    calendar.set(Calendar.MINUTE, (int)minutes);
 
-    SimpleDateFormat fmt24 = new SimpleDateFormat("HH:mm");
     SimpleDateFormat fmt12 = new SimpleDateFormat("hh:mm a");
-    try
-    {
-      return fmt12.format(fmt24.parse(time));
-    }
-    catch (ParseException e)
-    {
-      return time;
-    }
+
+    return fmt12.format(calendar.getTime());
   }
 
   @Override
