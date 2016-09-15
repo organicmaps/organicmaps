@@ -3,13 +3,20 @@ package com.mapswithme.maps.editor.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.IntRange;
+import android.text.format.DateFormat;
 
+import com.mapswithme.maps.MwmApplication;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 public class HoursMinutes implements Parcelable
 {
   public final long hours;
   public final long minutes;
+
+  private final boolean is24HourFormat = DateFormat.is24HourFormat(MwmApplication.get());
 
   public HoursMinutes(@IntRange(from = 0, to = 23) long hours, @IntRange(from = 0, to = 59) long minutes)
   {
@@ -26,7 +33,21 @@ public class HoursMinutes implements Parcelable
   @Override
   public String toString()
   {
-    return String.format(Locale.US, "%02d:%02d", hours, minutes);
+    final String time = String.format(Locale.US, "%02d:%02d", hours, minutes);
+
+    if (is24HourFormat)
+      return time;
+
+    SimpleDateFormat fmt24 = new SimpleDateFormat("HH:mm");
+    SimpleDateFormat fmt12 = new SimpleDateFormat("hh:mm a");
+    try
+    {
+      return fmt12.format(fmt24.parse(time));
+    }
+    catch (ParseException e)
+    {
+      return time;
+    }
   }
 
   @Override
