@@ -729,13 +729,21 @@ public:
   /// false otherwise.
   bool HasRouteAltitude() const;
   /// \brief Generates 4 bytes per point image (RGBA) and put the data to |imageRGBAData|.
+  /// \param width is width of chart shall be generated in pixels.
+  /// \param height is height of chart shall be generated in pixels.
+  /// \param imageRGBAData is bits of result image in RGBA.
+  /// \param minRouteAltitude is min altitude along the route in altitudeUnits.
+  /// \param maxRouteAltitude is max altitude along the route in altitudeUnits.
+  /// \param altitudeUnits is units (meters or feet) which is used to pass min and max altitudes.
   /// \returns If there is valid route info and the chart was generated returns true
   /// and false otherwise. If the method returns true it is guaranteed that the size of
   /// |imageRGBAData| is not zero.
   /// \note If HasRouteAltitude() method returns true, GenerateRouteAltitudeChart(...)
   /// could return false if route was deleted or rebuilt between the calls.
   bool GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
-                                  vector<uint8_t> & imageRGBAData) const;
+                                  vector<uint8_t> & imageRGBAData,
+                                  int32_t & minRouteAltitude, int32_t & maxRouteAltitude,
+                                  measurement_utils::Units & altitudeUnits) const;
 
 public:
   /// @name Editor interface.

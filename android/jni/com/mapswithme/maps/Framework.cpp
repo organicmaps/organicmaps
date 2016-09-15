@@ -895,17 +895,36 @@ Java_com_mapswithme_maps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jcl
 }
 
 JNIEXPORT jintArray JNICALL
-Java_com_mapswithme_maps_Framework_nativeGenerateRouteAltitudeChartBits(JNIEnv * env, jclass, jint width, jint height)
+Java_com_mapswithme_maps_Framework_nativeGenerateRouteAltitudeChartBits(JNIEnv * env, jclass, jint width, jint height, jobject routeAltitudeLimits)
 {
   ::Framework * fr = frm();
   ASSERT(fr, ());
 
   vector<uint8_t> imageRGBAData;
-  if (!fr->GenerateRouteAltitudeChart(width, height, imageRGBAData))
+  int32_t minRouteAltitude = 0;
+  int32_t maxRouteAltitude = 0;
+  measurement_utils::Units units = measurement_utils::Units::Metric;
+  if (!fr->GenerateRouteAltitudeChart(width, height, imageRGBAData, minRouteAltitude, maxRouteAltitude, units))
   {
     LOG(LWARNING, ("Can't generate route altitude image."));
     return nullptr;
   }
+
+  // Passing route limits.
+  jclass const routeAltitudeLimitsClass = env->GetObjectClass(routeAltitudeLimits);
+  ASSERT(routeAltitudeLimitsClass, ());
+
+  static jfieldID const minRouteAltitudeField = env->GetFieldID(routeAltitudeLimitsClass, "minRouteAltitude", "I");
+  ASSERT(minRouteAltitudeField, ());
+  env->SetIntField(routeAltitudeLimits, minRouteAltitudeField, minRouteAltitude);
+
+  static jfieldID const maxRouteAltitudeField = env->GetFieldID(routeAltitudeLimitsClass, "maxRouteAltitude", "I");
+  ASSERT(maxRouteAltitudeField, ());
+  env->SetIntField(routeAltitudeLimits, maxRouteAltitudeField, maxRouteAltitude);
+
+  static jfieldID const isMetricUnitsField = env->GetFieldID(routeAltitudeLimitsClass, "isMetricUnits", "Z");
+  ASSERT(isMetricUnitsField, ());
+  env->SetBooleanField(routeAltitudeLimits, isMetricUnitsField, units == measurement_utils::Units::Metric);
 
   size_t const imageRGBADataSize = imageRGBAData.size();
   ASSERT_NOT_EQUAL(imageRGBADataSize, 0, ("GenerateRouteAltitudeChart returns true but the vector with altitude image bits is empty."));

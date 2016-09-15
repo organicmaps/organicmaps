@@ -2988,7 +2988,9 @@ bool Framework::OriginalFeatureHasDefaultName(FeatureID const & fid) const
 bool Framework::HasRouteAltitude() const { return m_routingSession.HasRouteAltitude(); }
 
 bool Framework::GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
-                                           vector<uint8_t> & imageRGBAData) const
+                                           vector<uint8_t> & imageRGBAData,
+                                           int32_t & minRouteAltitude, int32_t & maxRouteAltitude,
+                                           measurement_utils::Units & altitudeUnits) const
 {
   feature::TAltitudes altitudes;
   vector<double> segDistance;
@@ -2997,6 +2999,29 @@ bool Framework::GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
     return false;
   segDistance.insert(segDistance.begin(), 0.0);
 
-  return maps::GenerateChart(width, height, segDistance, altitudes,
-                             GetMapStyle(), imageRGBAData);
+  if (altitudes.empty())
+    return false;
+
+  if (!maps::GenerateChart(width, height, segDistance, altitudes, GetMapStyle(), imageRGBAData))
+    return false;
+
+  auto const minMaxIt = minmax_element(altitudes.cbegin(), altitudes.cend());
+  feature::TAltitude const minRouteAltitudeM = *minMaxIt.first;
+  feature::TAltitude const maxRouteAltitudeM = *minMaxIt.second;
+
+  if (!settings::Get(settings::kMeasurementUnits, altitudeUnits))
+    altitudeUnits = measurement_utils::Units::Metric;
+
+  switch (altitudeUnits)
+  {
+  case measurement_utils::Units::Imperial:
+    minRouteAltitude = measurement_utils::MetersToFeet(minRouteAltitudeM);
+    maxRouteAltitude = measurement_utils::MetersToFeet(maxRouteAltitudeM);
+    break;
+  case measurement_utils::Units::Metric:
+    minRouteAltitude = minRouteAltitudeM;
+    maxRouteAltitude = maxRouteAltitudeM;
+    break;
+  }
+  return true;
 }
