@@ -19752,3 +19752,20 @@
     zh-Hant = 拒絕
     el = Διαφωνώ
     sk = Odmietnuť
+
+  [whats_new_route_profile_title]
+    en = Better go about than fall into the ditch
+    en-GB = Better to go about than to fall into the ditch
+    ru = Умный в гору не пойдет
+
+  [whats_new_route_profile_message]
+    ru = На пеших и веломаршрутах отображается профиль рельефа.
+    en = For pedestrian and bike routes we now display the elevation profile.
+
+  [whats_new_booking_improve_title]
+    ru = Экономь на бронировании отеля
+    en = Save when booking hotels
+
+  [whats_new_booking_improve_message]
+    ru = Результаты поиска отелей на карте показывают ценовую категорию.\nОтелей для бронирования стало на 110 000 больше.
+    en = Search results for hotels now contain the price category.\nWe also added more than 110,000 hotels.
