@@ -32,6 +32,7 @@
 
   <color name="divider">#1E000000</color>
   <color name="divider_night">#1EFFFFFF</color>
+  <color name="divider_gallery">#66FFFFFF</color>
 
   <!-- Backgrounds -->
   <color name="bg_window">#FFEEEEEE</color>

@@ -51,6 +51,6 @@ public class GalleryFragment extends BaseMwmFragment implements RecyclerClickLis
 
   @Override
   public void onItemClick(View v, int position) {
-//  TODO show full screen image activity
+    FullScreenGalleryActivity.start(getContext(), mImages, position);
   }
 }

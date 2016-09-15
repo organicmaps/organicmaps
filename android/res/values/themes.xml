@@ -153,4 +153,24 @@
     <item name="newsMarker">@drawable/news_marker_night</item>
   </style>
 
+  <style name="MwmTheme.FullScreenGalleryActivity">
+    <item name="colorPrimary">@android:color/transparent</item>
+    <item name="android:colorPrimaryDark" tools:targetApi="lollipop">@android:color/black</item>
+    <item name="android:timePickerStyle" tools:targetApi="lollipop">@style/MwmWidget.Editor.TimePicker</item>
+    <item name="android:windowBackground">@null</item>
+    <item name="windowActionBar">false</item>
+    <item name="windowActionBarOverlay">true</item>
+    <item name="android:windowActionBarOverlay">true</item>
+  </style>
+
+  <style name="MwmTheme.Night.FullScreenGalleryActivity">
+    <item name="colorPrimary">@android:color/transparent</item>
+    <item name="android:colorPrimaryDark" tools:targetApi="lollipop">@android:color/black</item>
+    <item name="android:timePickerStyle" tools:targetApi="lollipop">@style/MwmWidget.Editor.TimePicker</item>
+    <item name="android:windowBackground">@null</item>
+    <item name="windowActionBar">false</item>
+    <item name="windowActionBarOverlay">true</item>
+    <item name="android:windowActionBarOverlay">true</item>
+  </style>
+
 </resources>

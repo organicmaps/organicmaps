@@ -5,6 +5,11 @@ import android.os.Parcelable;
 
 public class Image implements Parcelable {
   private final String url;
+  private String description;
+  private String userName;
+  private String userAvatar;
+  private String source;
+  private Long date;
 
   public Image(String url) {
     this.url = url;
@@ -12,11 +17,21 @@ public class Image implements Parcelable {
 
   protected Image(Parcel in) {
     url = in.readString();
+    description = in.readString();
+    userName = in.readString();
+    userAvatar = in.readString();
+    source = in.readString();
+    date = (Long) in.readValue(Long.class.getClassLoader());
   }
 
   @Override
   public void writeToParcel(Parcel dest, int flags) {
     dest.writeString(url);
+    dest.writeString(description);
+    dest.writeString(userName);
+    dest.writeString(userAvatar);
+    dest.writeString(source);
+    dest.writeValue(date);
   }
 
   @Override
@@ -38,5 +53,45 @@ public class Image implements Parcelable {
 
   public String getUrl() {
     return url;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public String getUserName() {
+    return userName;
+  }
+
+  public void setUserName(String userName) {
+    this.userName = userName;
+  }
+
+  public String getUserAvatar() {
+    return userAvatar;
+  }
+
+  public void setUserAvatar(String userAvatar) {
+    this.userAvatar = userAvatar;
+  }
+
+  public String getSource() {
+    return source;
+  }
+
+  public void setSource(String source) {
+    this.source = source;
+  }
+
+  public Long getDate() {
+    return date;
+  }
+
+  public void setDate(Long date) {
+    this.date = date;
   }
 }

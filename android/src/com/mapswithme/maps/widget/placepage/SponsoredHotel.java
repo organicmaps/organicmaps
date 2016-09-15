@@ -259,7 +259,13 @@ public final class SponsoredHotel
 
     ArrayList<Image> result = new ArrayList<>();
     for (String url: urls) {
-      result.add(new Image(url));
+      Image image = new Image(url);
+      image.setDescription("Staff, rooftop view, location, free bike…");
+      image.setDate(System.currentTimeMillis());
+      image.setSource("via Booking");
+      image.setUserAvatar("http://www.interdating-ukrainian-women.com/wp-content/uploads/2013/06/avatar.jpg");
+      image.setUserName("Polina");
+      result.add(image);
     }
 
     sImagesCache.put(id, result);

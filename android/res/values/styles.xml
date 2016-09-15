@@ -117,6 +117,13 @@
     <item name="colorAccent">@color/bg_window_night</item>
   </style>
 
+  <style name="MwmWidget.ToolbarTheme.Transparent" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    <item name="android:gravity">center_vertical</item>
+    <item name="colorAccent">@android:color/white</item>
+    <item name="android:windowActionBarOverlay">true</item>
+    <item name="windowActionBarOverlay">true</item>
+  </style>
+
   <style
     name="MwmWidget.ListView"
     parent="Widget.AppCompat.ListView">
