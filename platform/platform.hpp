@@ -6,12 +6,12 @@
 
 #include "base/exception.hpp"
 
-#include "std/string.hpp"
-#include "std/vector.hpp"
-#include "std/map.hpp"
-#include "std/utility.hpp"
-#include "std/function.hpp"
 #include "std/bitset.hpp"
+#include "std/function.hpp"
+#include "std/map.hpp"
+#include "std/string.hpp"
+#include "std/utility.hpp"
+#include "std/vector.hpp"
 
 #include "defines.hpp"
 

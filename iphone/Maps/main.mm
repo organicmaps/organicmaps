@@ -1,7 +1,7 @@
+#import <MyTrackerSDK/MRMyTracker.h>
 #import <Pushwoosh/PushNotificationManager.h>
 #import "Common.h"
 #import "MapsAppDelegate.h"
-#import <MyTrackerSDK/MRMyTracker.h>
 
 #ifdef OMIM_PRODUCTION
 # include "fabric_logging.hpp"
@@ -37,7 +37,7 @@ void setMarketingSender()
     if (tag.empty())
       return;
     NSMutableDictionary<NSString *, NSString *> * eventParams = [@{} mutableCopy];
-    for(auto const & param : params)
+    for (auto const & param : params)
       eventParams[@(param.first.c_str())] = @(param.second.c_str());
     [MRMyTracker trackEvent:@(tag.c_str()) eventParams:eventParams];
   });
