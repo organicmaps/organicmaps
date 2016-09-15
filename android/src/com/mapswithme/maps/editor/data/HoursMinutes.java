@@ -3,7 +3,13 @@ package com.mapswithme.maps.editor.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.IntRange;
+import android.text.format.DateFormat;
 
+import com.mapswithme.maps.MwmApplication;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 public class HoursMinutes implements Parcelable
@@ -23,10 +29,21 @@ public class HoursMinutes implements Parcelable
     minutes = in.readLong();
   }
 
+  private boolean is24HourFormat() { return DateFormat.is24HourFormat(MwmApplication.get()); }
+
   @Override
   public String toString()
   {
-    return String.format(Locale.US, "%02d:%02d", hours, minutes);
+    if (is24HourFormat())
+      return String.format(Locale.US, "%02d:%02d", hours, minutes);
+
+    Calendar calendar = new GregorianCalendar();
+    calendar.set(Calendar.HOUR, (int)hours);
+    calendar.set(Calendar.MINUTE, (int)minutes);
+
+    SimpleDateFormat fmt12 = new SimpleDateFormat("hh:mm a");
+
+    return fmt12.format(calendar.getTime());
   }
 
   @Override
