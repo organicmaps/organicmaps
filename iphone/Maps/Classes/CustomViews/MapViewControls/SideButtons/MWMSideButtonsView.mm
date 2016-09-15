@@ -24,6 +24,7 @@ CGFloat constexpr kZoomOutToLayoutPortraitOffset = 52;
 
 - (void)awakeFromNib
 {
+  [super awakeFromNib];
   self.defaultBounds = self.bounds;
   self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 }

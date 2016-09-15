@@ -38,6 +38,7 @@ CGFloat angleWithProgress(CGFloat progress) { return 2.0 * M_PI * progress - M_P
 
 - (void)awakeFromNib
 {
+  [super awakeFromNib];
   self.images = [NSMutableDictionary dictionary];
   self.suspendRefreshProgress = YES;
   [self setupColors];
