@@ -4,6 +4,8 @@
 
 #include "geometry/mercator.hpp"
 
+#include "std/limits.hpp"
+
 using namespace routing;
 
 namespace
@@ -267,5 +269,16 @@ namespace
     TEST_EQUAL(result, IRouter::NoError, ());
 
     integration::TestRouteTime(route, 900.);
+  }
+
+  UNIT_TEST(USALosAnglesAriaTwentyninePalmsHighwayTimeTest)
+  {
+    TRouteResult const routeResult = integration::CalculateRoute(
+      integration::GetOsrmComponents(), MercatorBounds::FromLatLon(34.0739, -115.3212), {0.0, 0.0},
+      MercatorBounds::FromLatLon(34.0928, -115.5930));
+    Route const & route = *routeResult.first;
+    IRouter::ResultCode const result = routeResult.second;
+    TEST_EQUAL(result, IRouter::NoError, ());
+    TEST_LESS(route.GetTotalTimeSec(), numeric_limits<uint32_t>::max() / 2, ());
   }
 }  // namespace
