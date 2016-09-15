@@ -47,6 +47,8 @@
 
   <dimen name="width_dialog_base">300dp</dimen>
 
+  <dimen name="start_button_width">96dp</dimen>
+
   <!-- direction fragment -->
   <dimen name="margin_direction_small">8dp</dimen>
   <dimen name="margin_direction_big">20dp</dimen>
@@ -140,5 +142,7 @@
   <dimen name="altitude_chart_time_distance_margin_bottom">10dp</dimen>
   <dimen name="altitude_chart_image_height">40dp</dimen>
   <dimen name="altitude_chart_image_width">232dp</dimen>
+
+
 
 </resources>

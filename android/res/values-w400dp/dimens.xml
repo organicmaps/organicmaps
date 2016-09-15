@@ -5,5 +5,5 @@
   <dimen name="routing_turns_padding">12dp</dimen>
 
   <!-- Altitude chart -->
-  <dimen name="altitude_chart_image_width">600dp</dimen>
+  <dimen name="altitude_chart_image_width">400dp</dimen>
 </resources>

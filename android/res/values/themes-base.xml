@@ -65,7 +65,7 @@
     <item name="menuBackgroundOpen">@color/bg_menu_open</item>
 
     <item name="myPositionButtonAnimation">@drawable/anim_myposition_pending</item>
-    <item name="wheelPendingAnimation">@drawable/anim_spinner_pending_night</item>
+    <item name="wheelPendingAnimation">@drawable/anim_spinner_pending</item>
 
     <item name="navButtonsTheme">@style/MwmTheme.NavButtons</item>
     <item name="downloaderTheme">@style/MwmTheme.Downloader</item>
@@ -142,7 +142,7 @@
     <item name="menuBackgroundOpen">@color/bg_menu_open_night</item>
 
     <item name="myPositionButtonAnimation">@drawable/anim_myposition_pending_night</item>
-    <item name="wheelPendingAnimation">@drawable/anim_spinner_pending_night</item>
+    <item name="wheelPendingAnimation">@drawable/anim_spinner_pending</item>
 
     <item name="navButtonsTheme">@style/MwmTheme.NavButtons.Night</item>
     <item name="downloaderTheme">@style/MwmTheme.Downloader.Night</item>

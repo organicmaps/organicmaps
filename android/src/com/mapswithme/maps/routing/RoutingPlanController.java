@@ -115,7 +115,7 @@ public class RoutingPlanController extends ToolbarController
       altitudeChartFrame = mActivity.findViewById(R.id.altitude_chart_panel);
 
     mAltitudeChartFrame = altitudeChartFrame;
-    mAltitudeChartFrame.setVisibility(View.GONE);
+    UiUtils.hide(mAltitudeChartFrame);
 
     mToggle.setImageDrawable(mToggleImage);
     mToggle.setOnClickListener(new View.OnClickListener()
