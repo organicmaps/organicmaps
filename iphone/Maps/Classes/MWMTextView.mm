@@ -11,6 +11,7 @@
 
 - (void)awakeFromNib
 {
+  [super awakeFromNib];
   [self setTextContainerInset:UIEdgeInsetsZero];
 
   [self updatePlaceholderVisibility];

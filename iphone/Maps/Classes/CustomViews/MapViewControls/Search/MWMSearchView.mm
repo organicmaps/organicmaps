@@ -23,6 +23,7 @@ static CGFloat constexpr kWidthForiPad = 320.0;
 
 - (void)awakeFromNib
 {
+  [super awakeFromNib];
   self.autoresizingMask = UIViewAutoresizingFlexibleHeight;
   self.correctMinX = -kWidthForiPad;
   CALayer * sl = self.layer;

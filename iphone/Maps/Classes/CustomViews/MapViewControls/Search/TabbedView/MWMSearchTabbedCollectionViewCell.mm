@@ -13,6 +13,7 @@
 
 - (void)awakeFromNib
 {
+  [super awakeFromNib];
   CALayer * sl = self.layer;
   sl.shouldRasterize = YES;
   sl.rasterizationScale = UIScreen.mainScreen.scale;
