@@ -19,7 +19,7 @@ endif()
 
 get_filename_component(PROJECT_SOURCE_DIR . ABSOLUTE)
 
-include_directories(${CMAKE_HOME_DIRECTORY})
+include_directories(${CMAKE_HOME_DIRECTORY} "${CMAKE_HOME_DIRECTORY}/3party/boost")
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 set(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
