@@ -37,6 +37,9 @@ double const kMinVisibleFontSize = 8.0;
 string const kStarSymbol = "★";
 string const kPriceSymbol = "$";
 
+int const kLineSimplifyLevelStart = 10;
+int const kLineSimplifyLevelEnd = 12;
+
 dp::Color ToDrapeColor(uint32_t src)
 {
   return dp::Extract(src, 255 - (src >> 24));
@@ -107,8 +110,7 @@ private:
 };
 #endif
 
-void Extract(::LineDefProto const * lineRule,
-             df::LineViewParams & params)
+void Extract(::LineDefProto const * lineRule, df::LineViewParams & params)
 {
   float const scale = df::VisualParams::Instance().GetVisualScale();
   params.m_color = ToDrapeColor(lineRule->color());
@@ -612,11 +614,12 @@ void ApplyAreaFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
 ApplyLineFeature::ApplyLineFeature(m2::PointD const & tileCenter, double currentScaleGtoP,
                                    TInsertShapeFn const & insertShape, FeatureID const & id,
                                    m2::RectD const & clipRect, int minVisibleScale, uint8_t rank,
-                                   CaptionDescription const & captions, bool simplify, size_t pointsCount)
+                                   CaptionDescription const & captions, int zoomLevel, size_t pointsCount)
   : TBase(tileCenter, insertShape, id, minVisibleScale, rank, captions)
   , m_currentScaleGtoP(currentScaleGtoP)
   , m_sqrScale(math::sqr(m_currentScaleGtoP))
-  , m_simplify(simplify)
+  , m_simplify(zoomLevel >= kLineSimplifyLevelStart && zoomLevel <= kLineSimplifyLevelEnd)
+  , m_zoomLevel(zoomLevel)
   , m_initialPointsCount(pointsCount)
   , m_shieldDepth(0.0)
   , m_shieldRule(nullptr)
@@ -727,6 +730,7 @@ void ApplyLineFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
       params.m_minVisibleScale = m_minVisibleScale;
       params.m_rank = m_rank;
       params.m_baseGtoPScale = m_currentScaleGtoP;
+      params.m_zoomLevel = m_zoomLevel;
 
       for (auto const & spline : m_clippedSplines)
         m_insertShape(make_unique_dp<LineShape>(spline, params));

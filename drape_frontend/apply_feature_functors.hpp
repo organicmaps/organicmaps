@@ -137,7 +137,7 @@ public:
   ApplyLineFeature(m2::PointD const & tileCenter, double currentScaleGtoP,
                    TInsertShapeFn const & insertShape, FeatureID const & id,
                    m2::RectD const & clipRect, int minVisibleScale, uint8_t rank,
-                   CaptionDescription const & captions, bool simplify, size_t pointsCount);
+                   CaptionDescription const & captions, int zoomLevel, size_t pointsCount);
 
   void operator() (m2::PointD const & point);
   bool HasGeometry() const;
@@ -151,6 +151,7 @@ private:
   double m_sqrScale;
   m2::PointD m_lastAddedPoint;
   bool m_simplify;
+  int m_zoomLevel;
   size_t m_initialPointsCount;
   double m_shieldDepth;
   ShieldRuleProto const * m_shieldRule;

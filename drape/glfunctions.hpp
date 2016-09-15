@@ -40,6 +40,8 @@ public:
 
   static string glGetString(glConst pname);
 
+  static int32_t glGetMaxLineWidth();
+
   static void glEnable(glConst mode);
   static void glDisable(glConst mode);
   static void glClearDepthValue(double depth);
@@ -47,6 +49,8 @@ public:
   static void glDepthFunc(glConst depthFunc);
   static void glBlendEquation(glConst function);
   static void glBlendFunc(glConst srcFactor, glConst dstFactor);
+
+  static void glLineWidth(uint32_t value);
 
   /// VAO support
   static uint32_t glGenVertexArray();

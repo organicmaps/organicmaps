@@ -44,9 +44,6 @@ df::BaseApplyFeature::HotelData ExtractHotelData(FeatureType const & f)
 namespace df
 {
 
-int const kLineSimplifyLevelStart = 10;
-int const kLineSimplifyLevelEnd = 12;
-
 RuleDrawer::RuleDrawer(TDrawerCallback const & fn,
                        TCheckCancelledCallback const & checkCancelled,
                        TIsCountryLoadedByNameFn const & isLoadedFn,
@@ -237,11 +234,9 @@ void RuleDrawer::operator()(FeatureType const & f)
   }
   else if (s.LineStyleExists())
   {
-    ApplyLineFeature apply(m_globalRect.Center(), m_currentScaleGtoP,
-                           insertShape, f.GetID(), m_globalRect, minVisibleScale,
-                           f.GetRank(), s.GetCaptionDescription(),
-                           zoomLevel >= kLineSimplifyLevelStart && zoomLevel <= kLineSimplifyLevelEnd,
-                           f.GetPointsCount());
+    ApplyLineFeature apply(m_globalRect.Center(), m_currentScaleGtoP, insertShape, f.GetID(),
+                           m_globalRect, minVisibleScale, f.GetRank(), s.GetCaptionDescription(),
+                           zoomLevel, f.GetPointsCount());
     f.ForEachPoint(apply, zoomLevel);
 
     if (CheckCancelled())

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "base/math.hpp"
+
 #include "std/cstdint.hpp"
 #include "std/sstream.hpp"
 #include "std/string.hpp"
@@ -26,9 +28,9 @@ struct Color
   bool operator< (Color const & other) const { return m_rgba < other.m_rgba; }
   Color operator*(float s) const
   {
-    return Color(static_cast<uint8_t>(GetRed() * s),
-                 static_cast<uint8_t>(GetGreen() * s),
-                 static_cast<uint8_t>(GetBlue() * s),
+    return Color(my::clamp(static_cast<uint8_t>(GetRed() * s), 0, 255),
+                 my::clamp(static_cast<uint8_t>(GetGreen() * s), 0, 255),
+                 my::clamp(static_cast<uint8_t>(GetBlue() * s), 0, 255),
                  GetAlfa());
   }
 

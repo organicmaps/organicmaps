@@ -7,10 +7,20 @@
 #include "drape/texture_manager.hpp"
 #include "drape/utils/vertex_decl.hpp"
 
+#include "indexer/map_style_reader.hpp"
+
 #include "base/buffer_vector.hpp"
 #include "base/logging.hpp"
 
 #include "std/algorithm.hpp"
+
+namespace
+{
+
+float const kLightOutlineColorFactor = 0.8;
+float const kDarkOutlineColorFactor = 1.4;
+
+} // namespace
 
 namespace df
 {
@@ -24,10 +34,13 @@ AreaShape::AreaShape(vector<m2::PointD> && triangleList, BuildingOutline && buil
 
 void AreaShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
 {
+  auto const style = GetStyleReader().GetCurrentStyle();
+  float const colorFactor = (style == MapStyleDark) ? kDarkOutlineColorFactor : kLightOutlineColorFactor;
+
   dp::TextureManager::ColorRegion region;
   textures->GetColorRegion(m_params.m_color, region);
   dp::TextureManager::ColorRegion outlineRegion;
-  textures->GetColorRegion(m_params.m_color * 0.75, outlineRegion);
+  textures->GetColorRegion(m_params.m_color * colorFactor, outlineRegion);
   ASSERT_EQUAL(region.GetTexture(), outlineRegion.GetTexture(), ());
 
   if (m_params.m_is3D)
@@ -111,7 +124,7 @@ void AreaShape::DrawArea3D(ref_ptr<dp::Batcher> batcher, m2::PointD const & colo
     vertexes.emplace_back(gpu::Area3dVertex(glsl::vec3(endPt, -m_params.m_posZ), normal, uv));
   }
 
-  glsl::vec3 normal(0.0f, 0.0f, -1.0f);
+  glsl::vec3 const normal(0.0f, 0.0f, -1.0f);
   for (auto const & vertex : m_vertexes)
   {
     glsl::vec2 const pt = glsl::ToVec2(ConvertToLocal(vertex, m_params.m_tileCenter, kShapeCoordScalar));

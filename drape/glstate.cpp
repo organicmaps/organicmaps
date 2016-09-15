@@ -53,8 +53,8 @@ GLState::GLState(uint32_t gpuProgramIndex, DepthLayer depthLayer)
   , m_colorTexture(nullptr)
   , m_maskTexture(nullptr)
   , m_drawAsLine(false)
-{
-}
+  , m_lineWidth(1)
+{}
 
 glConst GLState::GetDepthFunction() const
 {
@@ -86,6 +86,16 @@ void GLState::SetDrawAsLine(bool drawAsLine)
   m_drawAsLine = drawAsLine;
 }
 
+int GLState::GetLineWidth() const
+{
+  return m_lineWidth;
+}
+
+void GLState::SetLineWidth(int width)
+{
+  m_lineWidth = width;
+}
+
 bool GLState::operator<(GLState const & other) const
 {
   if (m_depthLayer != other.m_depthLayer)
@@ -104,8 +114,10 @@ bool GLState::operator<(GLState const & other) const
     return m_maskTexture < other.m_maskTexture;
   if (m_textureFilter != other.m_textureFilter)
     return m_textureFilter < other.m_textureFilter;
+  if (m_drawAsLine != other.m_drawAsLine)
+    return m_drawAsLine < other.m_drawAsLine;
 
-  return m_drawAsLine < other.m_drawAsLine;
+  return m_lineWidth < other.m_lineWidth;
 }
 
 bool GLState::operator==(GLState const & other) const
@@ -118,7 +130,8 @@ bool GLState::operator==(GLState const & other) const
          m_maskTexture == other.m_maskTexture &&
          m_textureFilter == other.m_textureFilter &&
          m_depthFunction == other.m_depthFunction &&
-         m_drawAsLine == other.m_drawAsLine;
+         m_drawAsLine == other.m_drawAsLine &&
+         m_lineWidth == other.m_lineWidth;
 }
 
 bool GLState::operator!=(GLState const & other) const
@@ -205,6 +218,7 @@ void ApplyState(GLState state, ref_ptr<GpuProgram> program)
   ApplyTextures(state, program);
   ApplyBlending(state, program);
   GLFunctions::glDepthFunc(state.GetDepthFunction());
+  GLFunctions::glLineWidth(state.GetLineWidth());
 }
 
 }

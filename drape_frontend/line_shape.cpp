@@ -1,14 +1,18 @@
 #include "drape_frontend/line_shape.hpp"
 
 #include "drape_frontend/line_shape_helper.hpp"
+#include "drape_frontend/visual_params.hpp"
 
-#include "drape/utils/vertex_decl.hpp"
+#include "drape/attribute_provider.hpp"
+#include "drape/batcher.hpp"
 #include "drape/glsl_types.hpp"
 #include "drape/glsl_func.hpp"
 #include "drape/shader_def.hpp"
-#include "drape/attribute_provider.hpp"
-#include "drape/batcher.hpp"
+#include "drape/support_manager.hpp"
 #include "drape/texture_manager.hpp"
+#include "drape/utils/vertex_decl.hpp"
+
+#include "indexer/scales.hpp"
 
 #include "base/logging.hpp"
 
@@ -263,6 +267,36 @@ private:
   TCapBuffer m_capGeometry;
 };
 
+class SimpleSolidLineBuilder : public BaseLineBuilder<gpu::AreaVertex>
+{
+  using TBase = BaseLineBuilder<gpu::AreaVertex>;
+
+public:
+  using BuilderParams = BaseBuilderParams;
+
+  SimpleSolidLineBuilder(BuilderParams const & params, size_t pointsInSpline, int lineWidth)
+    : TBase(params, pointsInSpline, 0)
+    , m_lineWidth(lineWidth)
+  {}
+
+  dp::GLState GetState() override
+  {
+    dp::GLState state(gpu::AREA_OUTLINE_PROGRAM, dp::GLState::GeometryLayer);
+    state.SetColorTexture(m_params.m_color.GetTexture());
+    state.SetDrawAsLine(true);
+    state.SetLineWidth(m_lineWidth);
+    return state;
+  }
+
+  void SubmitVertex(glsl::vec3 const & pivot)
+  {
+    m_geometry.emplace_back(V(pivot, m_colorCoord));
+  }
+
+private:
+  int m_lineWidth;
+};
+
 class DashedLineBuilder : public BaseLineBuilder<gpu::DashedLineVertex>
 {
   using TBase = BaseLineBuilder<gpu::DashedLineVertex>;
@@ -313,6 +347,7 @@ private:
 LineShape::LineShape(m2::SharedSpline const & spline, LineViewParams const & params)
   : m_params(params)
   , m_spline(spline)
+  , m_isSimple(false)
 {
   ASSERT_GREATER(m_spline->GetPath().size(), 1, ());
 }
@@ -415,11 +450,44 @@ void LineShape::Construct<SolidLineBuilder>(SolidLineBuilder & builder) const
   }
 }
 
+// Specialization optimized for simple solid lines.
+template <>
+void LineShape::Construct<SimpleSolidLineBuilder>(SimpleSolidLineBuilder & builder) const
+{
+  vector<m2::PointD> const & path = m_spline->GetPath();
+  ASSERT_GREATER(path.size(), 1, ());
+
+  // Build geometry.
+  for (size_t i = 0; i < path.size(); ++i)
+  {
+    glsl::vec2 const p = glsl::ToVec2(ConvertToLocal(path[i], m_params.m_tileCenter, kShapeCoordScalar));
+    builder.SubmitVertex(glsl::vec3(p, m_params.m_depth));
+  }
+}
+
+bool LineShape::CanBeSimplified(int & lineWidth) const
+{
+  // Disable simplification for world map.
+  if (m_params.m_zoomLevel > 0 && m_params.m_zoomLevel <= scales::GetUpperCountryScale())
+    return false;
+
+  static float width = min(2.5f, static_cast<float>(dp::SupportManager::Instance().GetMaxLineWidth()));
+  if (m_params.m_width <= width)
+  {
+    lineWidth = max(1, static_cast<int>(m_params.m_width));
+    return true;
+  }
+
+  lineWidth = 1;
+  return false;
+}
+
 void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
 {
+  float const pxHalfWidth = m_params.m_width / 2.0f;
+
   dp::TextureManager::ColorRegion colorRegion;
   textures->GetColorRegion(m_params.m_color, colorRegion);
-  float const pxHalfWidth = m_params.m_width / 2.0f;
 
   auto commonParamsBuilder = [&](BaseBuilderParams & p)
   {
@@ -432,12 +500,25 @@ void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
 
   if (m_params.m_pattern.empty())
   {
-    SolidLineBuilder::BuilderParams p;
-    commonParamsBuilder(p);
+    int lineWidth = 1;
+    m_isSimple = CanBeSimplified(lineWidth);
+    if (m_isSimple)
+    {
+      SimpleSolidLineBuilder::BuilderParams p;
+      commonParamsBuilder(p);
 
-    auto builder = make_unique<SolidLineBuilder>(p, m_spline->GetPath().size());
-    Construct<SolidLineBuilder>(*builder);
-    m_lineShapeInfo = move(builder);
+      auto builder = make_unique<SimpleSolidLineBuilder>(p, m_spline->GetPath().size(), lineWidth);
+      Construct<SimpleSolidLineBuilder>(*builder);
+      m_lineShapeInfo = move(builder);
+    }
+    else
+    {
+      SolidLineBuilder::BuilderParams p;
+      commonParamsBuilder(p);
+      auto builder = make_unique<SolidLineBuilder>(p, m_spline->GetPath().size());
+      Construct<SolidLineBuilder>(*builder);
+      m_lineShapeInfo = move(builder);
+    }
   }
   else
   {
@@ -463,25 +544,31 @@ void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
 
   ASSERT(m_lineShapeInfo != nullptr, ());
   dp::GLState state = m_lineShapeInfo->GetState();
-
   dp::AttributeProvider provider(1, m_lineShapeInfo->GetLineSize());
   provider.InitStream(0, m_lineShapeInfo->GetBindingInfo(), m_lineShapeInfo->GetLineData());
-  batcher->InsertListOfStrip(state, make_ref(&provider), dp::Batcher::VertexPerQuad);
-
-  size_t joinSize = m_lineShapeInfo->GetJoinSize();
-  if (joinSize > 0)
+  if (!m_isSimple)
   {
-    dp::AttributeProvider joinsProvider(1, joinSize);
-    joinsProvider.InitStream(0, m_lineShapeInfo->GetBindingInfo(), m_lineShapeInfo->GetJoinData());
-    batcher->InsertTriangleList(state, make_ref(&joinsProvider));
+    batcher->InsertListOfStrip(state, make_ref(&provider), dp::Batcher::VertexPerQuad);
+
+    size_t const joinSize = m_lineShapeInfo->GetJoinSize();
+    if (joinSize > 0)
+    {
+      dp::AttributeProvider joinsProvider(1, joinSize);
+      joinsProvider.InitStream(0, m_lineShapeInfo->GetBindingInfo(), m_lineShapeInfo->GetJoinData());
+      batcher->InsertTriangleList(state, make_ref(&joinsProvider));
+    }
+
+    size_t const capSize = m_lineShapeInfo->GetCapSize();
+    if (capSize > 0)
+    {
+      dp::AttributeProvider capProvider(1, capSize);
+      capProvider.InitStream(0, m_lineShapeInfo->GetCapBindingInfo(), m_lineShapeInfo->GetCapData());
+      batcher->InsertListOfStrip(m_lineShapeInfo->GetCapState(), make_ref(&capProvider), dp::Batcher::VertexPerQuad);
+    }
   }
-
-  size_t capSize = m_lineShapeInfo->GetCapSize();
-  if (capSize > 0)
+  else
   {
-    dp::AttributeProvider capProvider(1, capSize);
-    capProvider.InitStream(0, m_lineShapeInfo->GetCapBindingInfo(), m_lineShapeInfo->GetCapData());
-    batcher->InsertListOfStrip(m_lineShapeInfo->GetCapState(), make_ref(&capProvider), dp::Batcher::VertexPerQuad);
+    batcher->InsertLineStrip(state, make_ref(&provider));
   }
 }
 

@@ -63,6 +63,7 @@ struct LineViewParams : CommonViewParams
   dp::LineJoin m_join;
   buffer_vector<uint8_t, 8> m_pattern;
   float m_baseGtoPScale = 1.0f;
+  int m_zoomLevel = -1;
 };
 
 struct TextViewParams : CommonViewParams

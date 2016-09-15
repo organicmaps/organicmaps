@@ -349,7 +349,7 @@ void LineRawBatch::BatchData(ref_ptr<AttributeProvider> streams)
     uint32_t avIndex = GetAvailableIndexCount();
     uint32_t vertexCount = streams->GetVertexCount();
     ASSERT_GREATER_OR_EQUAL(vertexCount, 2, ());
-    uint32_t indexCount = static_cast<uint32_t>(m_indices.size());
+    uint32_t const indexCount = static_cast<uint32_t>(m_indices.size());
 
     if (!IsEnoughMemory(avVertex, vertexCount, avIndex, indexCount))
     {

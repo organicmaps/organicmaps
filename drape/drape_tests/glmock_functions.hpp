@@ -82,6 +82,9 @@ public:
 
   MOCK_METHOD1(glGetInteger, int32_t(glConst));
   MOCK_METHOD1(glGetString, string(glConst));
+  MOCK_METHOD0(glGetMaxLineWidth, int32_t());
+
+  MOCK_METHOD1(glLineWidth, void(uint32_t value));
 
 private:
   static GLMockFunctions * m_mock;

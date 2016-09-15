@@ -45,9 +45,12 @@ private:
   template <typename TBuilder>
   void Construct(TBuilder & builder) const;
 
+  bool CanBeSimplified(int & lineWidth) const;
+
   LineViewParams m_params;
   m2::SharedSpline m_spline;
   mutable unique_ptr<ILineShapeInfo> m_lineShapeInfo;
+  mutable bool m_isSimple;
 };
 
 } // namespace df
