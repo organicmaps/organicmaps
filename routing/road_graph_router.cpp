@@ -96,10 +96,10 @@ bool CheckGraphConnectivity(IRoadGraph const & graph, Junction const & junction,
 void FindClosestEdges(IRoadGraph const & graph, m2::PointD const & point,
                       vector<pair<Edge, Junction>> & vicinity)
 {
-  // WARNING: Take only one vicinity, with, maybe, it's inverse.  It
-  // is an oversimplification that is not as easily solved as tuning
-  // up this constant because if you set it too high you risk to find
-  // a feature that you cannot in fact reach because of an obstacle.
+  // WARNING: Take only one vicinity, with, maybe, its inverse.  It is
+  // an oversimplification that is not as easily solved as tuning up
+  // this constant because if you set it too high you risk to find a
+  // feature that you cannot in fact reach because of an obstacle.
   // Using only the closest feature minimizes (but not eliminates)
   // this risk.
   vector<pair<Edge, Junction>> candidates;

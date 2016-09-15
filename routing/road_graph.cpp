@@ -172,14 +172,14 @@ void IRoadGraph::GetFakeOutgoingEdges(Junction const & junction, TEdgeVector & e
 {
   auto const it = m_fakeOutgoingEdges.find(junction);
   if (it != m_fakeOutgoingEdges.cend())
-    edges.insert(edges.end(), it->second.begin(), it->second.end());
+    edges.insert(edges.end(), it->second.cbegin(), it->second.cend());
 }
 
 void IRoadGraph::GetFakeIngoingEdges(Junction const & junction, TEdgeVector & edges) const
 {
   auto const it = m_fakeIngoingEdges.find(junction);
   if (it != m_fakeIngoingEdges.cend())
-    edges.insert(edges.end(), it->second.begin(), it->second.end());
+    edges.insert(edges.end(), it->second.cbegin(), it->second.cend());
 }
 
 void IRoadGraph::ResetFakes()

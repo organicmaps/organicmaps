@@ -3,6 +3,7 @@
 #include "routing/road_graph.hpp"
 #include "routing/router.hpp"
 #include "routing/vehicle_model.hpp"
+#include "routing/road_graph_router.hpp"
 
 #include "indexer/index.hpp"
 
@@ -11,14 +12,16 @@
 #include "geometry/point2d.hpp"
 
 #include "std/set.hpp"
+#include "std/shared_ptr.hpp"
 #include "std/string.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/utility.hpp"
+#include "std/vector.hpp"
 
 class RoutingTest
 {
 public:
-  RoutingTest(set<string> const & neededMaps);
+  RoutingTest(routing::IRoadGraph::Mode mode, set<string> const & neededMaps);
 
   virtual ~RoutingTest() = default;
 
@@ -26,11 +29,24 @@ public:
   void TestTwoPointsOnFeature(m2::PointD const & startPos, m2::PointD const & finalPos);
 
 protected:
-  virtual unique_ptr<routing::IRouter> CreateAStarRouter() = 0;
-  virtual unique_ptr<routing::IRouter> CreateAStarBidirectionalRouter() = 0;
-  virtual void GetNearestEdges(m2::PointD const & pt,
-                               vector<pair<routing::Edge, routing::Junction>> & edges) = 0;
+  virtual unique_ptr<routing::IDirectionsEngine> CreateDirectionsEngine() = 0;
+  virtual unique_ptr<routing::IVehicleModelFactory> CreateModelFactory() = 0;
 
+  template <typename Algorithm>
+  unique_ptr<routing::IRouter> CreateRouter(string const & name)
+  {
+    auto getter = [&](m2::PointD const & pt) { return m_cig->GetRegionCountryId(pt); };
+    unique_ptr<routing::IRoutingAlgorithm> algorithm(new Algorithm());
+    unique_ptr<routing::IRouter> router(
+        new routing::RoadGraphRouter(name, m_index, getter, m_mode, CreateModelFactory(),
+                                     move(algorithm), CreateDirectionsEngine()));
+    return router;
+  }
+
+  void GetNearestEdges(m2::PointD const & pt,
+                       vector<pair<routing::Edge, routing::Junction>> & edges);
+
+  routing::IRoadGraph::Mode const m_mode;
   Index m_index;
   unique_ptr<storage::CountryInfoGetter> m_cig;
 };

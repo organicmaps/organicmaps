@@ -3,7 +3,7 @@ CONFIG += console warn_on
 CONFIG -= app_bundle
 TEMPLATE = app
 
-ROOT_DIR = ../
+ROOT_DIR = ../../
 DEPENDENCIES = map routing search storage indexer platform editor geometry coding base \
                osrm jansson protobuf tomcrypt stats_client succinct pugixml
 
@@ -14,7 +14,7 @@ include($$ROOT_DIR/common.pri)
 QT *= core
 
 SOURCES += \
-  ../testing/testingmain.cpp \
+  ../../testing/testingmain.cpp \
   bicycle_routing_tests.cpp \
   helpers.cpp \
   pedestrian_routing_tests.cpp \

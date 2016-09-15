@@ -274,10 +274,7 @@ private:
     }
   }
 
-  // Map of ingoing edges for junctions.
   map<Junction, TEdgeVector> m_fakeIngoingEdges;
-
-  // Map of outgoing edges for junctions.
   map<Junction, TEdgeVector> m_fakeOutgoingEdges;
 };
 

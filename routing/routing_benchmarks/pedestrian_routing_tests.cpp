@@ -1,13 +1,10 @@
 #include "testing/testing.hpp"
 
-#include "routing_benchmarks/helpers.hpp"
+#include "routing/routing_benchmarks/helpers.hpp"
 
-#include "routing/base/astar_algorithm.hpp"
-#include "routing/features_road_graph.hpp"
 #include "routing/pedestrian_directions.hpp"
 #include "routing/pedestrian_model.hpp"
 #include "routing/road_graph.hpp"
-#include "routing/road_graph_router.hpp"
 
 #include "std/set.hpp"
 #include "std/string.hpp"
@@ -15,7 +12,7 @@
 namespace
 {
 // Test preconditions: files from the kMapFiles set with '.mwm'
-// extension must be placed in ./omim/data folder.
+// extension must be placed in omim/data folder.
 set<string> const kMapFiles =
 {
   "UK_England_East Midlands",
@@ -33,48 +30,24 @@ set<string> const kMapFiles =
   "UK_England_Yorkshire and the Humber"
 };
 
-unique_ptr<routing::IVehicleModelFactory> MakeFactory()
-{
-  unique_ptr<routing::IVehicleModelFactory> factory(
-      new SimplifiedModelFactory<routing::PedestrianModel>());
-  return factory;
-}
-
 class PedestrianTest : public RoutingTest
 {
 public:
-  PedestrianTest() : RoutingTest(kMapFiles) {}
+  PedestrianTest() : RoutingTest(routing::IRoadGraph::Mode::IgnoreOnewayTag, kMapFiles) {}
 
+protected:
   // RoutingTest overrides:
-  unique_ptr<routing::IRouter> CreateAStarRouter() override
+  unique_ptr<routing::IDirectionsEngine> CreateDirectionsEngine() override
   {
-    auto getter = [&](m2::PointD const & pt) { return m_cig->GetRegionCountryId(pt); };
-    unique_ptr<routing::IRoutingAlgorithm> algorithm(new routing::AStarRoutingAlgorithm());
     unique_ptr<routing::IDirectionsEngine> engine(new routing::PedestrianDirectionsEngine());
-    unique_ptr<routing::IRouter> router(new routing::RoadGraphRouter(
-        "test-astar-pedestrian", m_index, getter, routing::IRoadGraph::Mode::IgnoreOnewayTag,
-        MakeFactory(), move(algorithm), move(engine)));
-    return router;
+    return engine;
   }
 
-  unique_ptr<routing::IRouter> CreateAStarBidirectionalRouter() override
+  unique_ptr<routing::IVehicleModelFactory> CreateModelFactory() override
   {
-    auto getter = [&](m2::PointD const & pt) { return m_cig->GetRegionCountryId(pt); };
-    unique_ptr<routing::IRoutingAlgorithm> algorithm(
-        new routing::AStarBidirectionalRoutingAlgorithm());
-    unique_ptr<routing::IDirectionsEngine> engine(new routing::PedestrianDirectionsEngine());
-    unique_ptr<routing::IRouter> router(new routing::RoadGraphRouter(
-        "test-astar-bidirectional-pedestrian", m_index, getter,
-        routing::IRoadGraph::Mode::IgnoreOnewayTag, MakeFactory(), move(algorithm), move(engine)));
-    return router;
-  }
-
-  void GetNearestEdges(m2::PointD const & pt,
-                       vector<pair<routing::Edge, routing::Junction>> & edges) override
-  {
-    routing::FeaturesRoadGraph graph(m_index, routing::IRoadGraph::Mode::IgnoreOnewayTag,
-                                     MakeFactory());
-    graph.FindClosestEdges(pt, 1 /*count*/, edges);
+    unique_ptr<routing::IVehicleModelFactory> factory(
+        new SimplifiedModelFactory<routing::PedestrianModel>());
+    return factory;
   }
 };
 }  // namespace

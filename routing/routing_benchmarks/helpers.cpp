@@ -1,7 +1,9 @@
-#include "routing_benchmarks/helpers.hpp"
+#include "routing/routing_benchmarks/helpers.hpp"
 
 #include "testing/testing.hpp"
 
+#include "routing/base/astar_algorithm.hpp"
+#include "routing/features_road_graph.hpp"
 #include "routing/route.hpp"
 #include "routing/router_delegate.hpp"
 
@@ -10,6 +12,7 @@
 
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
+#include "platform/platform.hpp"
 
 #include "geometry/polyline2d.hpp"
 
@@ -21,8 +24,8 @@
 
 namespace
 {
-void TestRouter(routing::IRouter & router, m2::PointD const & startPos, m2::PointD const & finalPos,
-                routing::Route & foundRoute)
+void TestRouter(routing::IRouter & router, m2::PointD const & startPos,
+                m2::PointD const & finalPos, routing::Route & foundRoute)
 {
   routing::RouterDelegate delegate;
   LOG(LINFO, ("Calculating routing ...", router.GetName()));
@@ -42,7 +45,7 @@ void TestRouter(routing::IRouter & router, m2::PointD const & startPos, m2::Poin
   foundRoute.Swap(route);
 }
 
-m2::PointD GetPointOnEdge(routing::Edge & e, double posAlong)
+m2::PointD GetPointOnEdge(routing::Edge const & e, double posAlong)
 {
   if (posAlong <= 0.0)
     return e.GetStartJunction().GetPoint();
@@ -53,7 +56,8 @@ m2::PointD GetPointOnEdge(routing::Edge & e, double posAlong)
 }
 }  // namespace
 
-RoutingTest::RoutingTest(set<string> const & neededMaps)
+RoutingTest::RoutingTest(routing::IRoadGraph::Mode mode, set<string> const & neededMaps)
+  : m_mode(mode)
 {
   classificator::Load();
 
@@ -96,14 +100,15 @@ void RoutingTest::TestRouters(m2::PointD const & startPos, m2::PointD const & fi
   // Find route by A*-bidirectional algorithm.
   routing::Route routeFoundByAstarBidirectional("");
   {
-    auto router = CreateAStarBidirectionalRouter();
+    auto router =
+        CreateRouter<routing::AStarBidirectionalRoutingAlgorithm>("test-astar-bidirectional");
     TestRouter(*router, startPos, finalPos, routeFoundByAstarBidirectional);
   }
 
   // Find route by A* algorithm.
   routing::Route routeFoundByAstar("");
   {
-    auto router = CreateAStarRouter();
+    auto router = CreateRouter<routing::AStarRoutingAlgorithm>("test-astar");
     TestRouter(*router, startPos, finalPos, routeFoundByAstar);
   }
 
@@ -129,4 +134,11 @@ void RoutingTest::TestTwoPointsOnFeature(m2::PointD const & startPos, m2::PointD
       GetPointOnEdge(finalEdges.front().first, 1.0 /* the end point of the feature */);
 
   TestRouters(startPosOnFeature, finalPosOnFeature);
+}
+
+void RoutingTest::GetNearestEdges(m2::PointD const & pt,
+                                  vector<pair<routing::Edge, routing::Junction>> & edges)
+{
+  routing::FeaturesRoadGraph graph(m_index, m_mode, CreateModelFactory());
+  graph.FindClosestEdges(pt, 1 /* count */, edges);
 }
