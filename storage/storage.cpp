@@ -1489,7 +1489,7 @@ MapFilesDownloader::TProgress Storage::CalculateProgress(
     }
     else if (m_justDownloaded.count(d) != 0)
     {
-      size_t const localCountryFileSz = GetCountryFile(d).GetRemoteSize(MapOptions::Map);
+      TMwmSize const localCountryFileSz = GetCountryFile(d).GetRemoteSize(MapOptions::Map);
       localAndRemoteBytes.first += localCountryFileSz;
       localAndRemoteBytes.second += localCountryFileSz;
     }
