@@ -8,6 +8,7 @@
 
 #include "std/string.hpp"
 #include "std/vector.hpp"
+#include "std/map.hpp"
 #include "std/utility.hpp"
 #include "std/function.hpp"
 #include "std/bitset.hpp"
@@ -55,6 +56,7 @@ public:
 
   using TFilesWithType = vector<pair<string, EFileType>>;
   using TPushWooshSenderFn = function<void(string const & tag, vector<string> const & values)>;
+  using TMarketingSenderFn = function<void(string const & tag, map<string, string> const & params)>;
 
 protected:
   /// Usually read-only directory for application resources
@@ -89,6 +91,9 @@ protected:
 
   /// Callback fucntion for setting PushWoosh tags.
   TPushWooshSenderFn m_pushwooshSender;
+
+  /// Callback fucntion for sending marketing events.
+  TMarketingSenderFn m_marketingSender;
 
 public:
   Platform();
@@ -232,6 +237,9 @@ public:
   void SendPushWooshTag(string const & tag);
   void SendPushWooshTag(string const & tag, string const & value);
   void SendPushWooshTag(string const & tag, vector<string> const & values);
+
+  void SetMarketingSender(TMarketingSenderFn const & fn) { m_marketingSender = fn; }
+  void SendMarketingEvent(string const & tag, map<string, string> const & params);
 
 private:
   void GetSystemFontNames(FilesList & res) const;

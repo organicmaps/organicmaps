@@ -229,6 +229,12 @@ void Platform::SendPushWooshTag(string const & tag, vector<string> const & value
     m_pushwooshSender(tag, values);
 }
 
+void Platform::SendMarketingEvent(string const & tag, map<string, string> const & params)
+{
+  if (m_marketingSender)
+    m_marketingSender(tag, params);
+}
+
 ////////////////////////////////////////////////////////////////////////
 extern Platform & GetPlatform()
 {
