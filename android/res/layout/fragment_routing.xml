@@ -11,7 +11,7 @@
   <include
       layout="@layout/altitude_chart_panel"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content" />
+      android:layout_height="wrap_content"/>
 
   <Space
     android:layout_width="match_parent"

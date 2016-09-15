@@ -111,14 +111,9 @@ public class RoutingPlanController extends ToolbarController
     mProgressBicycle = (WheelProgressView) progressFrame.findViewById(R.id.progress_bicycle);
 
     View altitudeChartFrame = mFrame.findViewById(R.id.altitude_chart_panel);
-    if (altitudeChartFrame == null) //We are in Phone mode, not tablet
-    {
+    if (altitudeChartFrame == null)
       altitudeChartFrame = mActivity.findViewById(R.id.altitude_chart_panel);
-      if (altitudeChartFrame == null)
-      {
-        throw new AssertionError("The altitude panel must be presented in Phone UI if it's absent in Table UI");
-      }
-    }
+
     mAltitudeChartFrame = altitudeChartFrame;
     mAltitudeChartFrame.setVisibility(View.GONE);
 
@@ -185,12 +180,15 @@ public class RoutingPlanController extends ToolbarController
     TextView numbersDistance = (TextView) numbersFrame.findViewById(R.id.distance);
     TextView numbersArrival = (TextView) numbersFrame.findViewById(R.id.arrival);
     RoutingInfo rinfo = RoutingController.get().getCachedRoutingInfo();
-    numbersTime.setText(RoutingController.formatRoutingTime(mFrame.getContext(), rinfo.totalTimeInSeconds, R.dimen.text_size_routing_number));
+    numbersTime.setText(RoutingController.formatRoutingTime(mFrame.getContext(), rinfo.totalTimeInSeconds,
+                                                            R.dimen.text_size_routing_number));
     numbersDistance.setText(rinfo.distToTarget + " " + rinfo.targetUnits);
 
     if (numbersArrival != null)
-      numbersArrival.setText(MwmApplication.get().getString(R.string.routing_arrive,
-              RoutingController.formatArrivalTime(rinfo.totalTimeInSeconds)));
+    {
+      String arrivalTime = RoutingController.formatArrivalTime(rinfo.totalTimeInSeconds);
+      numbersArrival.setText(arrivalTime);
+    }
 
     UiUtils.show(mAltitudeChartFrame);
     mAltitudeChartShown = true;
@@ -199,15 +197,14 @@ public class RoutingPlanController extends ToolbarController
   private void hideAltitudeChartAndRoutingDetails()
   {
     if (UiUtils.isHidden(mAltitudeChartFrame))
-    {
       return;
-    }
 
     UiUtils.hide(mAltitudeChartFrame);
     mAltitudeChartShown = false;
   }
 
-  protected boolean isAltitudeChartShown() {
+  protected boolean isAltitudeChartShown()
+  {
     return mAltitudeChartShown;
   }
 
@@ -315,20 +312,19 @@ public class RoutingPlanController extends ToolbarController
 
   protected void showRouteAltitudeChartInternal(boolean show, ImageView altitudeChart)
   {
-    if (show)
+    if (!show)
     {
-      int chartWidth = mActivity.getResources().getDimensionPixelSize(R.dimen.altitude_chart_image_width);
-      int chartHeight = mActivity.getResources().getDimensionPixelSize(R.dimen.altitude_chart_image_height);
-      Bitmap bm = Framework.GenerateRouteAltitudeChart(chartWidth, chartHeight);
-      if (bm != null)
-      {
-        altitudeChart.setImageBitmap(bm);
-        altitudeChart.setVisibility(View.VISIBLE);
-      }
+      UiUtils.hide(altitudeChart);
+      return;
     }
-    else
+
+    int chartWidth = UiUtils.dimen(mActivity, R.dimen.altitude_chart_image_width);
+    int chartHeight = UiUtils.dimen(mActivity, R.dimen.altitude_chart_image_height);
+    Bitmap bm = Framework.GenerateRouteAltitudeChart(chartWidth, chartHeight);
+    if (bm != null)
     {
-      altitudeChart.setVisibility(View.GONE);
+      altitudeChart.setImageBitmap(bm);
+      UiUtils.show(altitudeChart);
     }
   }
 }

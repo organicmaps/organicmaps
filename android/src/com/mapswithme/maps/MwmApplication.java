@@ -110,7 +110,7 @@ public class MwmApplication extends Application
     Statistics s = Statistics.INSTANCE;
 
     initHockeyApp();
-//    initCrashlytics();
+    initCrashlytics();
     initPushWoosh();
 
     String settingsPath = getSettingsPath();
@@ -123,7 +123,7 @@ public class MwmApplication extends Application
 
     mPrefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
     mBackgroundTracker = new AppBackgroundTracker();
-//    TrackRecorder.init();
+    TrackRecorder.init();
     Editor.init();
   }
 

@@ -1345,7 +1345,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onRouteBuilt(@Framework.RouterType int router) {
+  public void onRouteBuilt(@Framework.RouterType int router)
+  {
     if (mIsFragmentContainer)
     {
       RoutingPlanFragment fragment = (RoutingPlanFragment) getFragment(RoutingPlanFragment.class);

@@ -73,8 +73,8 @@
 
     <item name="fabAdd">@drawable/ic_fab_add</item>
 
-    <item name="routingButtonHint">@color/routing_button_background</item>
-    <item name="routingButtonPressedHint">@color/routing_button_background_pressed</item>
+    <item name="routingButtonHint">@color/routing_button_tint</item>
+    <item name="routingButtonPressedHint">@color/routing_button_pressed_tint</item>
   </style>
 
   <!-- Night theme -->
@@ -149,5 +149,8 @@
     <item name="navigationTheme">@style/MwmTheme.Navigation.Night</item>
 
     <item name="fabAdd">@drawable/ic_fab_add_night</item>
+
+    <item name="routingButtonHint">@color/routing_button_tint</item>
+    <item name="routingButtonPressedHint">@color/routing_button_pressed_tint</item>
   </style>
 </resources>

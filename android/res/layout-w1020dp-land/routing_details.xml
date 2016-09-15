@@ -10,7 +10,7 @@
         android:id="@+id/time"
         style="@style/MwmWidget.TextView.PlanDetail.Number.Time"
         android:layout_marginBottom="4dp"
-        tools:text="33 min" />
+        tools:text="33 min"/>
 
     <TextView
         style="@style/MwmWidget.TextView.PlanDetail.Number.Secondary"
@@ -21,14 +21,14 @@
         android:layout_toRightOf="@id/time"
         android:layout_toEndOf="@id/time"
         android:text="•"
-        tools:ignore="HardcodedText" />
+        tools:ignore="HardcodedText"/>
 
     <TextView
         android:id="@+id/distance"
         style="@style/MwmWidget.TextView.PlanDetail.Number"
         android:layout_toEndOf="@id/dot"
         android:layout_toRightOf="@id/dot"
-        tools:text="1024 km 324" />
+        tools:text="1024 km 324"/>
 
     <TextView android:id="@+id/arrival"
         android:layout_width="match_parent"

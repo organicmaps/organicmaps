@@ -2,11 +2,11 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:visibility="visible"
     android:layout_height="wrap_content">
 
-  <include layout="@layout/altitude_chart_panel" />
+  <include layout="@layout/altitude_chart_panel"/>
 
-  <include layout="@layout/start_button" />
+  <include layout="@layout/start_button"/>
 </LinearLayout>

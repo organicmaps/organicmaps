@@ -15,11 +15,11 @@
     android:orientation="vertical"
     tools:showIn="@layout/fragment_routing">
 
-    <include layout="@layout/routing_details" />
+    <include layout="@layout/routing_details"/>
 
     <ImageView
         android:id="@+id/altitude_chart"
         android:layout_width="@dimen/altitude_chart_image_width"
         android:layout_height="@dimen/altitude_chart_image_height"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"/>
 </LinearLayout>

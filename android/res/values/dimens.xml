@@ -65,6 +65,7 @@
   <dimen name="routing_info_height">48dp</dimen>
   <dimen name="routing_selector_size">48dp</dimen>
   <dimen name="routing_selector_wheel_size">40dp</dimen>
+  <dimen name="routing_selector_wheel_margin">4dp</dimen>
   <dimen name="routing_slot_height">52dp</dimen>
   <dimen name="routing_slot_overlap_margin">12dp</dimen>
   <dimen name="routing_shadow_top_margin">3dp</dimen>
@@ -139,6 +140,5 @@
   <dimen name="altitude_chart_time_distance_margin_bottom">10dp</dimen>
   <dimen name="altitude_chart_image_height">40dp</dimen>
   <dimen name="altitude_chart_image_width">232dp</dimen>
-  <dimen name="start_button_size">96dp</dimen>
 
 </resources>

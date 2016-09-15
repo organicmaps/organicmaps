@@ -324,5 +324,4 @@ public class MainMenu extends BaseMenu
   {
     UiUtils.showIf(show, mLineFrame);
   }
-
 }
