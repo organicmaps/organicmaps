@@ -63,3 +63,19 @@ UNIT_TEST(Booking_GetMinPrice)
     TEST_EQUAL(currency, "ISK", ());
   }
 }
+
+UNIT_TEST(GetHotelInfo)  // GetHotelInfo is a mockup now.
+{
+  BookingApi api;
+  BookingApi::HotelInfo info;
+
+  api.GetHotelInfo("000", "en", [&info](BookingApi::HotelInfo const & i)
+  {
+    info = i;
+  });
+
+  TEST(!info.m_description.empty(), ());
+  TEST_EQUAL(info.m_photos.size(), 9, ());
+  TEST_EQUAL(info.m_facilities.size(), 3, ());
+  TEST_EQUAL(info.m_reviews.size(), 3, ());
+}
