@@ -102,6 +102,8 @@
   <color name="routing_slot_background_pressed">#FFF0F0F0</color>
   <color name="routing_slot_background_pressed_night">@color/bg_window_night</color>
   <color name="routing_slot_shadow">#3D000000</color>
+  <color name="routing_button_tint">#80FFFFFF</color>
+  <color name="routing_button_pressed_tint">#FFFFFFFF</color>
 
   <color name="bs_divider_color">@color/divider</color>
   <color name="bs_dark_divider_color">@color/divider_night</color>
@@ -128,4 +130,5 @@
   <!-- Brand colors -->
   <color name="bg_brand_booking">#FF19457D</color>
   <color name="bg_brand_booking_pressed">#FF1B549E</color>
+
 </resources>

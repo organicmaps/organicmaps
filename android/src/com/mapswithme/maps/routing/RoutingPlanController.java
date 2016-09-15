@@ -2,7 +2,7 @@ package com.mapswithme.maps.routing;
 
 import android.animation.ValueAnimator;
 import android.app.Activity;
-import android.os.Build;
+import android.graphics.Bitmap;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.view.View;
@@ -35,18 +35,13 @@ public class RoutingPlanController extends ToolbarController
   private final WheelProgressView mProgressVehicle;
   private final WheelProgressView mProgressPedestrian;
   private final WheelProgressView mProgressBicycle;
-  private final View mPlanningLabel;
-  private final View mErrorLabel;
-  private final View mDetailsFrame;
-  private final View mNumbersFrame;
-  private final TextView mNumbersTime;
-  private final TextView mNumbersDistance;
-  private final TextView mNumbersArrival;
+  private final View mAltitudeChartFrame;
 
   private final RotateDrawable mToggleImage = new RotateDrawable(R.drawable.ic_down);
   private int mFrameHeight;
   private int mToolbarHeight;
   private boolean mOpen;
+  private boolean mAltitudeChartShown;
 
   private RadioButton setupRouterButton(@IdRes int buttonId, final @DrawableRes int iconRes, View.OnClickListener clickListener)
   {
@@ -55,8 +50,8 @@ public class RoutingPlanController extends ToolbarController
       @Override
       public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
       {
-        buttonView.setButtonDrawable(Graphics.tint(mActivity, iconRes, isChecked ? R.attr.colorAccent
-                                                                                 : R.attr.iconTint));
+        buttonView.setButtonDrawable(Graphics.tint(mActivity, iconRes, isChecked ? R.attr.routingButtonPressedHint
+                                                                                 : R.attr.routingButtonHint));
       }
     };
 
@@ -75,10 +70,7 @@ public class RoutingPlanController extends ToolbarController
 
     mToggle = (ImageView) mToolbar.findViewById(R.id.toggle);
     mSlotFrame = (SlotFrame) root.findViewById(R.id.slots);
-
-    View planFrame = root.findViewById(R.id.planning_frame);
-
-    mRouterTypes = (RadioGroup) planFrame.findViewById(R.id.route_type);
+    mRouterTypes = (RadioGroup) mToolbar.findViewById(R.id.route_type);
 
     setupRouterButton(R.id.vehicle, R.drawable.ic_drive, new View.OnClickListener()
     {
@@ -113,27 +105,17 @@ public class RoutingPlanController extends ToolbarController
       }
     });
 
-    View progressFrame = planFrame.findViewById(R.id.progress_frame);
+    View progressFrame = mToolbar.findViewById(R.id.progress_frame);
     mProgressVehicle = (WheelProgressView) progressFrame.findViewById(R.id.progress_vehicle);
     mProgressPedestrian = (WheelProgressView) progressFrame.findViewById(R.id.progress_pedestrian);
     mProgressBicycle = (WheelProgressView) progressFrame.findViewById(R.id.progress_bicycle);
 
-    mPlanningLabel = planFrame.findViewById(R.id.planning);
-    mErrorLabel = planFrame.findViewById(R.id.error);
-    mDetailsFrame = planFrame.findViewById(R.id.details_frame);
-    mNumbersFrame = planFrame.findViewById(R.id.numbers);
-    mNumbersTime = (TextView) mNumbersFrame.findViewById(R.id.time);
-    mNumbersDistance = (TextView) mNumbersFrame.findViewById(R.id.distance);
-    mNumbersArrival = (TextView) mNumbersFrame.findViewById(R.id.arrival);
+    View altitudeChartFrame = mFrame.findViewById(R.id.altitude_chart_panel);
+    if (altitudeChartFrame == null)
+      altitudeChartFrame = mActivity.findViewById(R.id.altitude_chart_panel);
 
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-    {
-      View divider = planFrame.findViewById(R.id.details_divider);
-      if (divider != null)
-        UiUtils.invisible(divider);
-    }
-
-    setTitle(R.string.p2p_route_planning);
+    mAltitudeChartFrame = altitudeChartFrame;
+    UiUtils.hide(mAltitudeChartFrame);
 
     mToggle.setImageDrawable(mToggleImage);
     mToggle.setOnClickListener(new View.OnClickListener()
@@ -179,26 +161,51 @@ public class RoutingPlanController extends ToolbarController
   private void updateProgressLabels()
   {
     RoutingController.BuildState buildState = RoutingController.get().getBuildState();
-    boolean idle = (RoutingController.get().isPlanning() &&
-                    buildState == RoutingController.BuildState.NONE);
-    if (mDetailsFrame != null)
-      UiUtils.showIf(!idle, mDetailsFrame);
 
     boolean ready = (buildState == RoutingController.BuildState.BUILT);
-    UiUtils.showIf(ready, mNumbersFrame);
-    UiUtils.showIf(RoutingController.get().isBuilding(), mPlanningLabel);
-    UiUtils.showIf(buildState == RoutingController.BuildState.ERROR, mErrorLabel);
 
-    if (!ready)
+    if (!ready) 
+    {
+      hideAltitudeChartAndRoutingDetails();
+      return;
+    }
+
+    showAltitudeChartAndRoutingDetails();
+  }
+
+  private void showAltitudeChartAndRoutingDetails()
+  {
+    final View numbersFrame = mAltitudeChartFrame.findViewById(R.id.numbers);
+    TextView numbersTime = (TextView) numbersFrame.findViewById(R.id.time);
+    TextView numbersDistance = (TextView) numbersFrame.findViewById(R.id.distance);
+    TextView numbersArrival = (TextView) numbersFrame.findViewById(R.id.arrival);
+    RoutingInfo rinfo = RoutingController.get().getCachedRoutingInfo();
+    numbersTime.setText(RoutingController.formatRoutingTime(mFrame.getContext(), rinfo.totalTimeInSeconds,
+                                                            R.dimen.text_size_routing_number));
+    numbersDistance.setText(rinfo.distToTarget + " " + rinfo.targetUnits);
+
+    if (numbersArrival != null)
+    {
+      String arrivalTime = RoutingController.formatArrivalTime(rinfo.totalTimeInSeconds);
+      numbersArrival.setText(arrivalTime);
+    }
+
+    UiUtils.show(mAltitudeChartFrame);
+    mAltitudeChartShown = true;
+  }
+  
+  private void hideAltitudeChartAndRoutingDetails()
+  {
+    if (UiUtils.isHidden(mAltitudeChartFrame))
       return;
 
-    RoutingInfo rinfo = RoutingController.get().getCachedRoutingInfo();
-    mNumbersTime.setText(RoutingController.formatRoutingTime(mFrame.getContext(), rinfo.totalTimeInSeconds, R.dimen.text_size_routing_number));
-    mNumbersDistance.setText(rinfo.distToTarget + " " + rinfo.targetUnits);
+    UiUtils.hide(mAltitudeChartFrame);
+    mAltitudeChartShown = false;
+  }
 
-    if (mNumbersArrival != null)
-      mNumbersArrival.setText(MwmApplication.get().getString(R.string.routing_arrive,
-                              RoutingController.formatArrivalTime(rinfo.totalTimeInSeconds)));
+  protected boolean isAltitudeChartShown()
+  {
+    return mAltitudeChartShown;
   }
 
   public void updateBuildProgress(int progress, @Framework.RouterType int router)
@@ -281,6 +288,11 @@ public class RoutingPlanController extends ToolbarController
     }
   }
 
+  protected boolean isVehicleRouteChecked()
+  {
+    return mRouterTypes.getCheckedRadioButtonId() == R.id.vehicle;
+  }
+
   public void disableToggle()
   {
     UiUtils.hide(mToggle);
@@ -290,5 +302,29 @@ public class RoutingPlanController extends ToolbarController
   public boolean isOpen()
   {
     return mOpen;
+  }
+
+  public void showRouteAltitudeChart(boolean show)
+  {
+    ImageView altitudeChart = (ImageView) mFrame.findViewById(R.id.altitude_chart);
+    showRouteAltitudeChartInternal(show, altitudeChart);
+  }
+
+  protected void showRouteAltitudeChartInternal(boolean show, ImageView altitudeChart)
+  {
+    if (!show)
+    {
+      UiUtils.hide(altitudeChart);
+      return;
+    }
+
+    int chartWidth = UiUtils.dimen(mActivity, R.dimen.altitude_chart_image_width);
+    int chartHeight = UiUtils.dimen(mActivity, R.dimen.altitude_chart_image_height);
+    Bitmap bm = Framework.GenerateRouteAltitudeChart(chartWidth, chartHeight);
+    if (bm != null)
+    {
+      altitudeChart.setImageBitmap(bm);
+      UiUtils.show(altitudeChart);
+    }
   }
 }

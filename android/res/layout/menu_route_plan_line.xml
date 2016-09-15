@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/menu_line_height"
-    android:layout_marginLeft="@dimen/menu_line_button_width_edge"
-    android:layout_marginRight="@dimen/menu_line_button_width_edge">
-  <Button
-      android:id="@+id/start"
-      android:layout_width="180dp"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center"
-      android:layout_margin="@dimen/margin_quarter_plus"
-      android:text="@string/p2p_start"
-      style="@style/MwmWidget.Button.Accent"
-      android:textAppearance="@style/MwmTextAppearance.Body1"/>
-</FrameLayout>
+    android:layout_height="wrap_content">
+
+  <include layout="@layout/altitude_chart_panel"/>
+
+  <include layout="@layout/start_button"/>
+</LinearLayout>

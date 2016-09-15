@@ -19,9 +19,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 
-import java.io.Serializable;
-import java.util.Stack;
-
 import com.mapswithme.maps.Framework.MapObjectListener;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.maps.ads.LikesManager;
@@ -78,6 +75,8 @@ import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
+import com.mapswithme.util.log.DebugLogger;
+import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.sharing.SharingHelper;
 import com.mapswithme.util.statistics.AlohaHelper;
@@ -85,6 +84,9 @@ import com.mapswithme.util.statistics.MytargetHelper;
 import com.mapswithme.util.statistics.Statistics;
 import ru.mail.android.mytarget.nativeads.NativeAppwallAd;
 import ru.mail.android.mytarget.nativeads.banners.NativeAppwallBanner;
+
+import java.io.Serializable;
+import java.util.Stack;
 
 public class MwmActivity extends BaseMwmFragmentActivity
                       implements MapObjectListener,
@@ -147,6 +149,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   // The first launch of application ever - onboarding screen will be shown.
   private boolean mFirstStart;
+  private final Logger mLogger = new DebugLogger(MwmActivity.class.getSimpleName());
 
   public interface LeftAnimationTrackListener
   {
@@ -1246,6 +1249,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void updateMenu()
   {
+    adjustMenuLineFrameVisibility();
+
     if (RoutingController.get().isNavigating())
     {
       mNavigationController.show(true);
@@ -1266,6 +1271,21 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     mMainMenu.setState(MainMenu.State.MENU, false);
+  }
+
+  private void adjustMenuLineFrameVisibility()
+  {
+    if (RoutingController.get().isBuilt())
+    {
+      mMainMenu.showLineFrame(true);
+      return;
+    }
+
+    if (RoutingController.get().isPlanning() || RoutingController.get().isBuilding()
+        || RoutingController.get().isErrorEncountered())
+    {
+      mMainMenu.showLineFrame(false);
+    }
   }
 
   @Override
@@ -1321,6 +1341,21 @@ public class MwmActivity extends BaseMwmFragmentActivity
     else
     {
       mRoutingPlanInplaceController.updatePoints();
+    }
+  }
+
+  @Override
+  public void onRouteBuilt(@Framework.RouterType int router)
+  {
+    if (mIsFragmentContainer)
+    {
+      RoutingPlanFragment fragment = (RoutingPlanFragment) getFragment(RoutingPlanFragment.class);
+      if (fragment != null)
+        fragment.showRouteAltitudeChart(router != Framework.ROUTER_TYPE_VEHICLE);
+    }
+    else
+    {
+      mRoutingPlanInplaceController.showRouteAltitudeChart(router != Framework.ROUTER_TYPE_VEHICLE);
     }
   }
 

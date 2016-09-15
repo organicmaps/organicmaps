@@ -72,6 +72,9 @@
     <item name="navigationTheme">@style/MwmTheme.Navigation</item>
 
     <item name="fabAdd">@drawable/ic_fab_add</item>
+
+    <item name="routingButtonHint">@color/routing_button_tint</item>
+    <item name="routingButtonPressedHint">@color/routing_button_pressed_tint</item>
   </style>
 
   <!-- Night theme -->
@@ -139,12 +142,15 @@
     <item name="menuBackgroundOpen">@color/bg_menu_open_night</item>
 
     <item name="myPositionButtonAnimation">@drawable/anim_myposition_pending_night</item>
-    <item name="wheelPendingAnimation">@drawable/anim_spinner_pending_night</item>
+    <item name="wheelPendingAnimation">@drawable/anim_spinner_pending</item>
 
     <item name="navButtonsTheme">@style/MwmTheme.NavButtons.Night</item>
     <item name="downloaderTheme">@style/MwmTheme.Downloader.Night</item>
     <item name="navigationTheme">@style/MwmTheme.Navigation.Night</item>
 
     <item name="fabAdd">@drawable/ic_fab_add_night</item>
+
+    <item name="routingButtonHint">@color/routing_button_tint</item>
+    <item name="routingButtonPressedHint">@color/routing_button_pressed_tint</item>
   </style>
 </resources>

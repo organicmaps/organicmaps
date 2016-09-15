@@ -14,9 +14,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.Calendar;
-import java.util.concurrent.TimeUnit;
-
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
@@ -33,6 +30,9 @@ import com.mapswithme.util.log.DebugLogger;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
+
+import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 @android.support.annotation.UiThread
 public class RoutingController
@@ -63,6 +63,7 @@ public class RoutingController
     void showDownloader(boolean openDownloaded);
     void updateMenu();
     void updatePoints();
+    void onRouteBuilt(@Framework.RouterType int router);
 
     /**
      * @param progress progress to be displayed.
@@ -115,6 +116,7 @@ public class RoutingController
             mCachedRoutingInfo = Framework.nativeGetRouteFollowingInfo();
             setBuildState(BuildState.BUILT);
             mLastBuildProgress = 100;
+            mContainer.onRouteBuilt(mLastRouterType);
           }
 
           processRoutingEvent();
@@ -185,6 +187,9 @@ public class RoutingController
 
     if (mBuildState == BuildState.BUILT && !MapObject.isOfType(MapObject.MY_POSITION, mStartPoint))
       Framework.nativeDisableFollowing();
+
+    if (mContainer != null)
+      mContainer.updateMenu();
   }
 
   private void updateProgress()
@@ -487,6 +492,17 @@ public class RoutingController
   {
     return (mState == State.PREPARE && mBuildState == BuildState.BUILDING);
   }
+
+  public boolean isErrorEncountered()
+  {
+    return mBuildState == BuildState.ERROR;
+  }
+
+  public boolean isBuilt()
+  {
+    return mBuildState == BuildState.BUILT;
+  }
+
 
   public boolean isWaitingPoiPick()
   {

@@ -36,15 +36,19 @@
     <item name="android:background">?accentButtonBackground</item>
   </style>
 
+  <style name="MwmWidget.Button.Start">
+    <item name="android:background">@drawable/button_start</item>
+    <item name="android:textSize">14sp</item>
+  </style>
+
   <style name="MwmWidget.ProgressWheel.RoutingPlan">
     <item name="android:layout_width">@dimen/routing_selector_wheel_size</item>
     <item name="android:layout_height">@dimen/routing_selector_wheel_size</item>
-    <item name="android:layout_margin">@dimen/routing_selector_wheel_margin</item>
     <item name="android:visibility">invisible</item>
     <item name="android:background">?selectableItemBackgroundBorderless</item>
     <item name="centerDrawable">@android:color/transparent</item>
-    <item name="wheelProgressColor">?colorAccent</item>
-    <item name="wheelSecondaryColor">?dividerHorizontal</item>
+    <item name="wheelProgressColor">?routingButtonPressedHint</item>
+    <item name="wheelSecondaryColor">@android:color/transparent</item>
     <item name="wheelThickness">@dimen/margin_eighth</item>
   </style>
 
@@ -168,6 +172,10 @@
   <style name="MwmWidget.TextView.PlanDetail.Number">
     <item name="android:textSize">@dimen/text_size_routing_number</item>
     <item name="android:singleLine">true</item>
+  </style>
+
+  <style name="MwmWidget.TextView.PlanDetail.Number.Time">
+    <item name="android:textStyle">bold</item>
   </style>
 
   <style name="MwmWidget.TextView.PlanDetail.Number.Secondary">
