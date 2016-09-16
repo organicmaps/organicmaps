@@ -57,13 +57,19 @@ public:
     time_point<system_clock> m_date;
   };
 
+  struct Facility
+  {
+    string m_id;
+    string m_localizedName;
+  };
+
   struct HotelInfo
   {
     string m_hotelId;
 
     string m_description;
     vector<HotelPhotoUrls> m_photos;
-    vector<string> m_facilities;
+    vector<Facility> m_facilities;
     vector<HotelReview> m_reviews;
   };
 
