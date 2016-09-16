@@ -271,8 +271,6 @@
 	<string name="copied_to_clipboard">クリップボードにコピーしました: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
 	<string name="allow_statistics">統計を送信</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">アプリを向上できるよう、使用状況の統計を収集させてください</string>
 	<!-- place preview title -->
 	<string name="info">情報</string>
 	<!-- Used for bookmark editing -->
@@ -920,4 +918,24 @@
 	<string name="whatsnew_booking_2_message">検索結果にホテルの評価と宿泊料カテゴリーが表示されます。</string>
 	<string name="whatsnew_cycle_navigation_header">バイクナビゲーション（ベータ版）</string>
 	<string name="whatsnew_cycle_navigation_message">新シーズンに向けてバイクナビゲーションをテスト中です。MAPS.MEで、お気に入りのサイクリングルートを試してみませんか。ご感想をお待ちしています。</string>
+	<!-- Rate on Google Play (Android only) -->
+	<string name="rate_gp">Google Play で評価</string>
+	<!-- Share with friends: menu item title -->
+	<string name="tell_friends">友達に教える</string>
+	<!-- Share with friends: sharing text -->
+	<string name="tell_friends_text">こんにちは！MAPS.ME をインストールしましょう！</string>
+	<!-- About short text (below logo) -->
+	<string name="about_description">MAPS.ME は旅に必要不可欠なオフラインアプリケーションです。MAPS.ME は OpenStreetMap データに基づいており、データを編集することができます。</string>
+	<!-- Text in menu -->
+	<string name="blog">ブログ</string>
+	<!-- Hint near allow statictics checkbox -->
+	<string name="allow_statistics_hint">収集した使用統計データは当社がアプリを改善するために役立ちます。</string>
+	<string name="general_settings">一般設定</string>
+	<string name="date">日付 %d</string>
+	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
+	<string name="something_is_not_working">動作が変です</string>
+	<!-- For the first routing -->
+	<string name="accept">了解</string>
+	<!-- For the first routing -->
+	<string name="decline">拒否</string>
 </resources>

@@ -433,9 +433,6 @@
 /* Setting label for statistics turn on/off */
 "allow_statistics" = "Надіслати статистику";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Просимо дозволити нам збирати статистичні дані по використанню, щоб поліпшити застосунок";
-
 /* place preview title */
 "info" = "Досьє";
 
@@ -609,9 +606,6 @@
 "website" = "Вебсайт";
 
 /* Text in menu */
-"blog" = "Blog";
-
-/* Text in menu */
 "maps_me_community" = "Спільнота MAPS.ME";
 
 /* Text in menu */
@@ -635,15 +629,6 @@
 /* Text in menu */
 "rate_the_app" = "Оцінити застосунок";
 
-/* Rate in Google Play (Android only) */
-"rate_gp" = "Rate on Google Play";
-
-/* Share with friends: menu item title */
-"tell_friends" = "Tell a Friend";
-
-/* Share with friends: sharing text */
-"tell_friends_text" = "Hi! Install MAPS.ME!";
-
 /* Text in menu */
 "help" = "Допомога";
 
@@ -658,9 +643,6 @@
 
 /* Email body */
 "subscribe_me_body" = "Я хочу першим дізнаватися про всі новини оновлення програм і акції. Я можу відписатися від розсилки в будь-який момент.";
-
-/* About short text (below logo) */
-"about_description" = "Joined efforts of Mail.Ru Group and OpenStreetMap make the most useful application for travelers!";
 
 /* About text */
 "about_text" = "MAPS.ME пропонує карти всіх міст, всіх країн світу, які працюють без підключення до інтернету. Подорожуйте з впевненістю: де б ви не були, MAPS.ME допоможуть вирішити будь-яку вашу проблему - допоможуть визначити ваше місцезнаходження, знайти ресторан, готель, заправку, банк, туалет і т.д.\n\nМи постійно працюємо над додаванням нових функцій, тому, якщо у вас є ідеї або пропозиції з покращення MAPS.ME, пишіть нам. Якщо у вам виникла проблема з програмою, сповістіть нас, будь ласка, про неї. Наш емейл support@maps.me. Ми відповідаємо на всі листи!\n\nЯкщо вам подобається програма і ви хочете підтримати нас, є декілька простих і абсолютно безкоштовних способів:\n\n- залиште відгук у вашому магазині програм\n- підпишіться на наші новини на сторінці у Facebook http://www.facebook.com/mapswithme\n- або просто розкажіть про MAPS.ME своїй мамі, друзям і колегам :)\n\nДякуємо за вашу підтримку!\n\nP.S. У програмі ми використовуємо картографічні дані проекту OpenStreetMap, який працює за принципом Вікіпедії, надаючи можливість користувачам зі всього світу створювати і редагувати карти. Якщо ви помітили, що на карті щось не відповідає дійсності або відсутнє, ви можете виправити це прямо на сайті http://openstreetmap.org, і ці виправлення з'являться під час наступного оновлення MAPS.ME.";
@@ -1610,3 +1592,34 @@
 "whatsnew_cycle_navigation_header" = "Велонавігація (бета-версія)";
 
 "whatsnew_cycle_navigation_message" = "До відкриття сезону ми тестуємо велонавігацію. Проїдьтесь за своїм улюбленим маршрутом з MAPS.ME та поділіться враженнями з нами.";
+
+/* Rate on Google Play (Android only) */
+"rate_gp" = "Рейтинг на Google Play";
+
+/* Share with friends: menu item title */
+"tell_friends" = "Розповісти другу";
+
+/* Share with friends: sharing text */
+"tell_friends_text" = "Привіт! Встанови MAPS.ME!";
+
+/* About short text (below logo) */
+"about_description" = "MAPS.ME — це додаток must-have для мандрівників. У MAPS.ME використовуються офлайн-дані OpenStreetMap, які можна редагувати.";
+
+/* Text in menu */
+"blog" = "Блог";
+
+/* Hint near allow statictics checkbox */
+"allow_statistics_hint" = "Збір статистичної інформації про використання допомагає нам вдосконалювати наш додаток.";
+
+"general_settings" = "Загальні налаштування";
+
+"date" = "Дата %d";
+
+/* "Report a bug" -> "Generaal Feedback" -> "Something is not working" */
+"something_is_not_working" = "Щось пішло не так";
+
+/* For the first routing */
+"accept" = "Прийняти";
+
+/* For the first routing */
+"decline" = "Відхилити";

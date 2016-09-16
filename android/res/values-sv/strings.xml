@@ -274,8 +274,6 @@
 	<string name="copied_to_clipboard">Kopierat till urklippsbordet: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
 	<string name="allow_statistics">Skicka statistik</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Tillåt oss samla in användningsstatistik för att förbättra appen</string>
 	<!-- place preview title -->
 	<string name="info">Info</string>
 	<!-- Used for bookmark editing -->
@@ -925,4 +923,24 @@
 	<string name="whatsnew_booking_2_message">Sökresultaten visar hotellbetyget och priskategorin.</string>
 	<string name="whatsnew_cycle_navigation_header">Cykelnavigering (betaversion)</string>
 	<string name="whatsnew_cycle_navigation_message">Vi testar cykelnavigeringen för den nya säsongen. Testa din favoritcykelrutt med MAPS.ME och berätta för oss vad du tycker.</string>
+	<!-- Rate on Google Play (Android only) -->
+	<string name="rate_gp">Betygsätt på Google Play</string>
+	<!-- Share with friends: menu item title -->
+	<string name="tell_friends">Tipsa en vän</string>
+	<!-- Share with friends: sharing text -->
+	<string name="tell_friends_text">Hej! Installera MAPS.ME!</string>
+	<!-- About short text (below logo) -->
+	<string name="about_description">MAPS.ME är en offline-applikation som du behöver när du reser. MAPS.ME baseras på OpenStreetMap-data och tillåter redigering i den.</string>
+	<!-- Text in menu -->
+	<string name="blog">Blogg</string>
+	<!-- Hint near allow statictics checkbox -->
+	<string name="allow_statistics_hint">Genom att samla användningsstatistik hjälper du oss att förbättra appen.</string>
+	<string name="general_settings">Allmänna inställningar</string>
+	<string name="date">Datum %d</string>
+	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
+	<string name="something_is_not_working">Något fungerar inte</string>
+	<!-- For the first routing -->
+	<string name="accept">Acceptera</string>
+	<!-- For the first routing -->
+	<string name="decline">Neka</string>
 </resources>

@@ -274,8 +274,6 @@
 	<string name="copied_to_clipboard">클립보드에 복사됨: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
 	<string name="allow_statistics">통계 보내기</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">앱을 개선하기 위해 사용 통계를 수집하도록 허용</string>
 	<!-- place preview title -->
 	<string name="info">정보</string>
 	<!-- Used for bookmark editing -->
@@ -917,4 +915,24 @@
 	<string name="whatsnew_booking_2_message">검색 결과는 호텔 평가 및 가격 범주를 표시합니다.</string>
 	<string name="whatsnew_cycle_navigation_header">자전거 네비게이션 (베타 버전)</string>
 	<string name="whatsnew_cycle_navigation_message">저희는 새로운 시즌을 맞이하여 자전거 네비게이션을 테스트하고 있습니다. MAPS.ME에서 귀하가 자주 이용하는 자전거 경로를 사용해 보고, 사용 소감을 알려주세요.</string>
+	<!-- Rate on Google Play (Android only) -->
+	<string name="rate_gp">Google Play에서 평가</string>
+	<!-- Share with friends: menu item title -->
+	<string name="tell_friends">친구에게 알려주기</string>
+	<!-- Share with friends: sharing text -->
+	<string name="tell_friends_text">안녕하세요! MAPS.ME를 설치하세요!</string>
+	<!-- About short text (below logo) -->
+	<string name="about_description">MAPS.ME는 여행용 필수 오프라인 응용 프로그램입니다. MAPS.ME는 OpenStreetMap 데이터를 기반으로 하며 이 데이터 편집을 허용합니다.</string>
+	<!-- Text in menu -->
+	<string name="blog">블로그</string>
+	<!-- Hint near allow statictics checkbox -->
+	<string name="allow_statistics_hint">사용량 통계 수집을 통해 앱을 개선할 수 있습니다.</string>
+	<string name="general_settings">일반 설정</string>
+	<string name="date">날짜 %d</string>
+	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
+	<string name="something_is_not_working">문제가 발생했습니다.</string>
+	<!-- For the first routing -->
+	<string name="accept">동의</string>
+	<!-- For the first routing -->
+	<string name="decline">거부</string>
 </resources>

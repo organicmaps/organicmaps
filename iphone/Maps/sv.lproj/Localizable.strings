@@ -433,9 +433,6 @@
 /* Setting label for statistics turn on/off */
 "allow_statistics" = "Skicka statistik";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Tillåt oss samla in användningsstatistik för att förbättra appen";
-
 /* place preview title */
 "info" = "Info";
 
@@ -609,9 +606,6 @@
 "website" = "Webbplats";
 
 /* Text in menu */
-"blog" = "Blog";
-
-/* Text in menu */
 "maps_me_community" = "MAPS.ME Gemenskap";
 
 /* Text in menu */
@@ -635,15 +629,6 @@
 /* Text in menu */
 "rate_the_app" = "Ge appen ett betyg";
 
-/* Rate in Google Play (Android only) */
-"rate_gp" = "Rate on Google Play";
-
-/* Share with friends: menu item title */
-"tell_friends" = "Tell a Friend";
-
-/* Share with friends: sharing text */
-"tell_friends_text" = "Hi! Install MAPS.ME!";
-
 /* Text in menu */
 "help" = "Hjälp";
 
@@ -658,9 +643,6 @@
 
 /* Email body */
 "subscribe_me_body" = "Jag vill bli först att veta om de senaste uppdateringarna och erbjudandena. Jag kan avbryta min prenumeration när som helst.";
-
-/* About short text (below logo) */
-"about_description" = "Joined efforts of Mail.Ru Group and OpenStreetMap make the most useful application for travelers!";
 
 /* About text */
 "about_text" = "MAPS.ME erbjuder de snabbaste offline-kartorna över alla städer och länder i hela världen. Res med förtroende: oavsett var du är hjälper MAPS.ME dig att placera dig på kartan, hitta den närmaste restaurangen, hotellet, banken, bensinstationen m.m. Den kräver inte internetanslutning.\n\nVi arbetar ständigt med nya funktioner och vill gärna veta hur du tycker att vi kan förbättra MAPS.ME. Ifall du har problem med appen, tveka inte att kontakta oss på support@maps.me. Vi svarar på alla mail!\n\nGillar du MAPS.ME och vill hjälpa oss? Det finns några enkla och kostnadsfria sätt:\n\n- posta en recension på din Appmarknad\n- gilla vår Facebooksida http://www.facebook.com/mapswithme\n- eller berätta bara om MAPS.ME för din mamma, vänner eller kollegor :)\n\nTack för att du är med oss. Vi uppskattar ditt stöd väldigt mycket!\n\nP.S. Vi använder oss av kartdata från OpenStreetMap, ett kartprojket som liknar Wikipedia och som tillåter användare att skapa och redigera kartor. Ifall du ser något som saknas eller är fel på kartan så kan du korrigera kartan direkt på http://openstreetmap.org och dina ändringar kommer att finns i MAPS.ME appen när nästa version släpps.";
@@ -1610,3 +1592,34 @@
 "whatsnew_cycle_navigation_header" = "Cykelnavigering (betaversion)";
 
 "whatsnew_cycle_navigation_message" = "Vi testar cykelnavigeringen för den nya säsongen. Testa din favoritcykelrutt med MAPS.ME och berätta för oss vad du tycker.";
+
+/* Rate on Google Play (Android only) */
+"rate_gp" = "Betygsätt på Google Play";
+
+/* Share with friends: menu item title */
+"tell_friends" = "Tipsa en vän";
+
+/* Share with friends: sharing text */
+"tell_friends_text" = "Hej! Installera MAPS.ME!";
+
+/* About short text (below logo) */
+"about_description" = "MAPS.ME är en offline-applikation som du behöver när du reser. MAPS.ME baseras på OpenStreetMap-data och tillåter redigering i den.";
+
+/* Text in menu */
+"blog" = "Blogg";
+
+/* Hint near allow statictics checkbox */
+"allow_statistics_hint" = "Genom att samla användningsstatistik hjälper du oss att förbättra appen.";
+
+"general_settings" = "Allmänna inställningar";
+
+"date" = "Datum %d";
+
+/* "Report a bug" -> "Generaal Feedback" -> "Something is not working" */
+"something_is_not_working" = "Något fungerar inte";
+
+/* For the first routing */
+"accept" = "Acceptera";
+
+/* For the first routing */
+"decline" = "Neka";

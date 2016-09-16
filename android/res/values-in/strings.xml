@@ -272,8 +272,6 @@
 	<string name="copied_to_clipboard">Telah Disalin ke Papan Klip: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
 	<string name="allow_statistics">Kirimkan Statistik</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Izinkan kami mengumpulkan statistik penggunaan untuk mengembangkan aplikasi</string>
 	<!-- place preview title -->
 	<string name="info">Info</string>
 	<!-- Used for bookmark editing -->
@@ -920,4 +918,24 @@
 	<string name="whatsnew_booking_2_message">Hasil pencarian menampilkan kategori peringkat dan harga hotel</string>
 	<string name="whatsnew_cycle_navigation_header">Navigasi bersepeda (versi beta)</string>
 	<string name="whatsnew_cycle_navigation_message">Kami sedang menguji navigasi bersepeda untuk musim baru. Coba rute bersepeda favorit Anda dengan MAPS.ME dan sampaikan pendapat Anda.</string>
+	<!-- Rate on Google Play (Android only) -->
+	<string name="rate_gp">Beri nilai di Google Play</string>
+	<!-- Share with friends: menu item title -->
+	<string name="tell_friends">Beri Tahu Teman</string>
+	<!-- Share with friends: sharing text -->
+	<string name="tell_friends_text">Hai! Instal MAPS.ME yuk!</string>
+	<!-- About short text (below logo) -->
+	<string name="about_description">MAPS.ME adalah aplikasi offline yang sangat berguna untuk bepergian. MAPS.ME didasarkan pada data OpenStreetMap dan memungkinkan kita untuk mengeditnya.</string>
+	<!-- Text in menu -->
+	<string name="blog">Blog</string>
+	<!-- Hint near allow statictics checkbox -->
+	<string name="allow_statistics_hint">Pengumpulan statistik penggunaan akan membantu kami meningkatkan aplikasi.</string>
+	<string name="general_settings">Setelan umum</string>
+	<string name="date">Tanggal %d</string>
+	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
+	<string name="something_is_not_working">Ada yang tidak berfungsi</string>
+	<!-- For the first routing -->
+	<string name="accept">Terima</string>
+	<!-- For the first routing -->
+	<string name="decline">Tolak</string>
 </resources>

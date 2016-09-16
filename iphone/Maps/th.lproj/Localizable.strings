@@ -433,9 +433,6 @@
 /* Setting label for statistics turn on/off */
 "allow_statistics" = "ส่งสถิติ";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "อนุญาตให้เราเก็บการใช้สถิติเพื่อปรับปรุงแอป";
-
 /* place preview title */
 "info" = "ข้อมูล";
 
@@ -609,9 +606,6 @@
 "website" = "เว็บไซต์";
 
 /* Text in menu */
-"blog" = "Blog";
-
-/* Text in menu */
 "maps_me_community" = "ชุมชน MAPS.ME";
 
 /* Text in menu */
@@ -635,15 +629,6 @@
 /* Text in menu */
 "rate_the_app" = "ให้คะแนนแอป";
 
-/* Rate in Google Play (Android only) */
-"rate_gp" = "Rate on Google Play";
-
-/* Share with friends: menu item title */
-"tell_friends" = "Tell a Friend";
-
-/* Share with friends: sharing text */
-"tell_friends_text" = "Hi! Install MAPS.ME!";
-
 /* Text in menu */
 "help" = "ความช่วยเหลือ";
 
@@ -658,9 +643,6 @@
 
 /* Email body */
 "subscribe_me_body" = "ฉันอยากเป็นคนแรกที่รู้เกี่ยวกับข่าว อัปเดตและโปรโมชั่นล่าสุด ฉันสามารถยกเลิกการเป็นสมาชิกของฉันได้ตลอดเวลา";
-
-/* About short text (below logo) */
-"about_description" = "Joined efforts of Mail.Ru Group and OpenStreetMap make the most useful application for travelers!";
 
 /* About text */
 "about_text" = "MAPS.ME ขอเสนอแผนที่ออฟไลน์ของทุกเมือง ทุกประเทศในโลกที่รวดเร็วที่สุด เดินทางด้วยความมั่นใจ: ไม่ว่าคุณจะอยู่ที่ไหน MAPS.ME จะช่วยระบุตำแหน่งที่ตั้งของตัวคุณบนแผนที่ ค้นหาร้านอาหาร โรงแรม ธนาคาร ปั๊มน้ำมัน และอื่น ๆ ที่ใกล้ที่สุด โดยไม่จำเป็นต้องใช้การเชื่อมต่ออินเทอร์เน็ต\n\nเราทำงานเพื่อพัฒนาฟีเจอร์ใหม่ ๆ อยู่เสมอและยินดีรับฟังว่าคุณมีความคิดเห็นว่าเราจะพัฒนา MAPS.ME ได้อย่างไร หากคุณมีปัญหาใด ๆ กับแอป อย่าลังเลที่จะติดต่อเราที่ support@maps.me โดยเราจะตอบรับทุกคำขอ!\n\nคุณชอบ MAPS.ME และต้องการสนับสนุนเราหรือไม่? มีวิธีง่าย ๆ และฟรีอยู่บ้าง:\n\n- โพสต์คำวิจารณ์ของคุณที่ ตลาดแอป (App Market)\n- ถูกใจเพจ Facebook ของเรา http://www.facebook.com/mapswithme\n- หรือเพียงแค่บอกแม่ เพื่อน ๆ และเพื่อนร่วมงานของคุณเกี่ยวกับ MAPS.ME :)\n\nขอบคุณที่ใช้บริการของเรา เราซาบซึ้งในการสนับสนุนของคุณมาก!\n\nป.ล. เรานำข้อมูลแผนที่มาจาก OpenStreetMap ซึ่งเป็นโครงการจัดทำแผนที่ที่เหมือนกับ Wikipedia ที่ช่วยให้ผู้ใช้สามารถสร้างและแก้ไขแผนที่ได้ หากคุณเห็นว่ามีสิ่งใดที่ขาดหายหรือไม่ถูกต้องบนแผนที่ คุณสามารถแก้ไขแผนที่ได้โดยตรงที่ http://openstreetmap.org และการเปลี่ยนแปลงของคุณจะปรากฏในแอป MAPS.ME ในการปล่อยเวอร์ชันถัดไป";
@@ -1610,3 +1592,34 @@
 "whatsnew_cycle_navigation_header" = "การนำทางจักรยาน (beta-version)";
 
 "whatsnew_cycle_navigation_message" = "เรากำลังทดสอบการนำทางจักรยานในฤดูกาลใหม่ ลองเส้นทางการขี่จักรยานด้วย MAPS.ME และแชร์ความคิดเห็นของคุณมาให้เรา";
+
+/* Rate on Google Play (Android only) */
+"rate_gp" = "ให้คะแนนบน Google Play";
+
+/* Share with friends: menu item title */
+"tell_friends" = "บอกเพื่อน";
+
+/* Share with friends: sharing text */
+"tell_friends_text" = "สวัสดี! ติดตั้ง MAPS.ME กันเถอะ!";
+
+/* About short text (below logo) */
+"about_description" = "MAPS.ME เป็นแอปพลิเคชั่นออฟไลน์ที่จำเป็นสำหรับการท่องเที่ยว MAPS.ME นั้นใช้งานบนพื้นฐานของข้อมูล OpenStreetMap และใช้แก้ไขได้ด้วย";
+
+/* Text in menu */
+"blog" = "บล็อก";
+
+/* Hint near allow statictics checkbox */
+"allow_statistics_hint" = "การรวบรวมสถิติการใช้งานจะช่วยให้เราปรับปรุงแอปได้ดียิ่งขึ้น";
+
+"general_settings" = "การตั้งค่าทั่วไป";
+
+"date" = "วันที่ %d";
+
+/* "Report a bug" -> "Generaal Feedback" -> "Something is not working" */
+"something_is_not_working" = "มีบางอย่างไม่ทำงาน";
+
+/* For the first routing */
+"accept" = "ยอมรับ";
+
+/* For the first routing */
+"decline" = "ปฏิเสธ";

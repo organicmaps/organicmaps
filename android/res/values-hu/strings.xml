@@ -273,8 +273,6 @@
 	<string name="copied_to_clipboard">A vágólapra másolva: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
 	<string name="allow_statistics">Statisztika küldése</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Használati adatok gyűjtésének jóváhagyása a program továbbfejlesztéséhez.</string>
 	<!-- place preview title -->
 	<string name="info">Info</string>
 	<!-- Used for bookmark editing -->
@@ -921,4 +919,24 @@
 	<string name="whatsnew_booking_2_message">A keresési eredmények megjelenítik a szálloda értékelését és árkategóriáját.</string>
 	<string name="whatsnew_cycle_navigation_header">Kerékpáros navigáció (béta verzió)</string>
 	<string name="whatsnew_cycle_navigation_message">Most teszteljük a kerékpáros navigációt a következő évszakra. Próbáld ki kedvenc kerékpáros útvonalad a MAPS.ME-vel és oszd meg velünk véleményedet.</string>
+	<!-- Rate on Google Play (Android only) -->
+	<string name="rate_gp">Arány a Google Play-n</string>
+	<!-- Share with friends: menu item title -->
+	<string name="tell_friends">Mondja el egy ismerősének</string>
+	<!-- Share with friends: sharing text -->
+	<string name="tell_friends_text">Szia! Telepítsd a MAPS.ME alkalmazást!</string>
+	<!-- About short text (below logo) -->
+	<string name="about_description">A MAPS.ME egy nélkülözhetetlen alkalmazás utazáshoz. A MAPS.ME az OpenStreetMap adataira épül, és lehetővé teszi ezek szerkesztését.</string>
+	<!-- Text in menu -->
+	<string name="blog">Blog</string>
+	<!-- Hint near allow statictics checkbox -->
+	<string name="allow_statistics_hint">A használati statisztika gyűjtésével segít nekünk az alkalmazás tökéletesítésében.</string>
+	<string name="general_settings">Általános beállítások</string>
+	<string name="date">Dátum %d</string>
+	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
+	<string name="something_is_not_working">Valami nem működik</string>
+	<!-- For the first routing -->
+	<string name="accept">Elfogadja</string>
+	<!-- For the first routing -->
+	<string name="decline">Elutasítja</string>
 </resources>

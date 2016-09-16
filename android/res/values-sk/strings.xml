@@ -271,8 +271,6 @@
 	<string name="copied_to_clipboard">Skopírované do schránky: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
 	<string name="allow_statistics">Odosielať štatistiky</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Dovoľte nám, prosím, zhromaždovať štatistické údaje o využívaní pre zlepšenie aplikácie</string>
 	<!-- place preview title -->
 	<string name="info">Viacej informácií</string>
 	<!-- Used for bookmark editing -->
@@ -924,4 +922,24 @@
 	<string name="whatsnew_booking_2_message">Výsledky vyhľadávania ukazujú hodnotenie hotelov a cenové kategórie.</string>
 	<string name="whatsnew_cycle_navigation_header">Navigácia pre cyklistov (beta verzia)</string>
 	<string name="whatsnew_cycle_navigation_message">Testujeme navigáciu pre cyklistov na novú sezónu. Vyskúšajte svoju obľúbenú cyklotrasu s aplikáciou MAPS.ME a podeľte sa s nami o svoj názor.</string>
+	<!-- Rate on Google Play (Android only) -->
+	<string name="rate_gp">Ohodnotiť v službe Google Play</string>
+	<!-- Share with friends: menu item title -->
+	<string name="tell_friends">Povedať priateľovi</string>
+	<!-- Share with friends: sharing text -->
+	<string name="tell_friends_text">Ahoj! Nainštaluj si aplikáciu MAPS.ME</string>
+	<!-- About short text (below logo) -->
+	<string name="about_description">MAPS.ME je offine aplikácia na cestovanie. Základom aplikácie MAPS.ME sú dáta OpenStreetMap, pričom aplikácia nám ich umožňuje upravovať.</string>
+	<!-- Text in menu -->
+	<string name="blog">Blog</string>
+	<!-- Hint near allow statictics checkbox -->
+	<string name="allow_statistics_hint">Zhromažďovanie štatistických údajov o používaní nám umožňuje vylepšovať aplikáciu.</string>
+	<string name="general_settings">Všeobecné nastavenia</string>
+	<string name="date">Dátum %d</string>
+	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
+	<string name="something_is_not_working">Niečo nefunguje</string>
+	<!-- For the first routing -->
+	<string name="accept">Prijať</string>
+	<!-- For the first routing -->
+	<string name="decline">Odmietnuť</string>
 </resources>

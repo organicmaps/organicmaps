@@ -433,9 +433,6 @@
 /* Setting label for statistics turn on/off */
 "allow_statistics" = "Lähetä tilastot";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Salli meidän kerätä tilastotietoja parantaaksemme sovellusta";
-
 /* place preview title */
 "info" = "Tietoa";
 
@@ -609,9 +606,6 @@
 "website" = "Kotisivut";
 
 /* Text in menu */
-"blog" = "Blog";
-
-/* Text in menu */
 "maps_me_community" = "MAPS.ME -yhteisö";
 
 /* Text in menu */
@@ -635,15 +629,6 @@
 /* Text in menu */
 "rate_the_app" = "Arvioi sovellus";
 
-/* Rate in Google Play (Android only) */
-"rate_gp" = "Rate on Google Play";
-
-/* Share with friends: menu item title */
-"tell_friends" = "Tell a Friend";
-
-/* Share with friends: sharing text */
-"tell_friends_text" = "Hi! Install MAPS.ME!";
-
 /* Text in menu */
 "help" = "Ohje";
 
@@ -658,9 +643,6 @@
 
 /* Email body */
 "subscribe_me_body" = "Liittäkää minut MAPS.ME -uutiskirjeen tilaajaksi saadakseni ensimmäisenä tietoa uusista päivityksistä ja TARJOUKSISTA. Voin peruuttaa tilaukseni koska tahansa.";
-
-/* About short text (below logo) */
-"about_description" = "Joined efforts of Mail.Ru Group and OpenStreetMap make the most useful application for travelers!";
 
 /* About text */
 "about_text" = "MAPS.ME tarjoaa nopeimmat offline-kartat kaikista kaupungeista, kaikissa maissa ympäri maailman. Matkusta luottavaisin mielin - missä ikinä oletkin, MAPS.ME auttaa sinua löytämään itsesi kartalta, ohjaamaan sinut lähimpään ravintolaan, hotelliin, pankkiin, huoltoasemalle jne. Internet-yhteyttä ei tarvita.\n\nTyöskentelemme jatkuvasti uusien ominaisuuksien parissa, ja haluammekin kuulla sinulta kuinka voimme parantaa MAPS.me -sovellusta entisestään. Mikäli sinulla on ongelmia sovelluksen kanssa, älä epäröi ottaa yhteyttä asiakaspalveluumme osoitteessa support@maps.me. Vastaamme jokaiseen yhteydenottoon!\n\nTykkäätkö MAPS.ME -sovelluksesta ja haluat tukea meitä? Siihen on muutamia helppoja ja täysin ilmaisia tapoja:\n\n- lisää sovellusarviosi käyttämääsi sovelluskauppaan\n - tykkää Facebook-sivustamme osoitteessa http://www.facebook.com/mapswithme\n- kerro MAPS.me:stä äidillesi, ystävillesi ja kollegoillesi :)\n\nKiitos sovelluksen käytöstä. Arvostamme tukeasi todella paljon!\n\nP.S. Kaikki tiedot noudetaan OpenStreetMap-palvelusta, joka on Wikipedian kaltainen karttaprojekti, jossa kuka tahansa voi lisätä ja muokata karttoja. Mikäli havaitset kartoissa virheitä ja puutteita, voit korjata ne osoitteessa http://openstreetmap.org, ja muutokset näkyvät sovelluksessa seuraavan MAPS.ME -päivityksen jälkeen.";
@@ -1610,3 +1592,34 @@
 "whatsnew_cycle_navigation_header" = "Polkupyöränavigointi (betaversio)";
 
 "whatsnew_cycle_navigation_message" = "Testaamme polkupyöränavigointia uudelle kaudelle. Kokeile suosikkipyöräilyreittiäsi MAPS.ME-sovelluksella ja jaa mielipiteesi kanssamme.";
+
+/* Rate on Google Play (Android only) */
+"rate_gp" = "Arvioi Google Playssa";
+
+/* Share with friends: menu item title */
+"tell_friends" = "Kerro kaverille";
+
+/* Share with friends: sharing text */
+"tell_friends_text" = "Hei, asenna MAPS.ME!";
+
+/* About short text (below logo) */
+"about_description" = "MAPS.ME on ehdoton offline-sovellus matkoja varten. MAPS.ME perustuu OpenStreetMap-dataan ja sallii sen muokkauksen.";
+
+/* Text in menu */
+"blog" = "Blogi";
+
+/* Hint near allow statictics checkbox */
+"allow_statistics_hint" = "Käyttötilastojen kerääminen auttaa meitä parantamaan sovellusta.";
+
+"general_settings" = "Yleiset asetukset";
+
+"date" = "Päivämäärä %d";
+
+/* "Report a bug" -> "Generaal Feedback" -> "Something is not working" */
+"something_is_not_working" = "Jokin ei toimi";
+
+/* For the first routing */
+"accept" = "Hyväksy";
+
+/* For the first routing */
+"decline" = "Hylkää";

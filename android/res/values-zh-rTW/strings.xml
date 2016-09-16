@@ -274,8 +274,6 @@
 	<string name="copied_to_clipboard">已複製到剪貼簿：%1$s</string>
 	<!-- Setting label for statistics turn on/off -->
 	<string name="allow_statistics">啟用匿名使用數據</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">它收集使用數據以幫助我們打造更好的應用程式</string>
 	<!-- place preview title -->
 	<string name="info">簡介</string>
 	<!-- Used for bookmark editing -->
@@ -398,10 +396,6 @@
 	<string name="subscribe_to_news">訂閱我們的新聞</string>
 	<!-- Text in menu -->
 	<string name="rate_the_app">為該應用程式評分</string>
-	<!-- Rate in Google Play (Android only) -->
-	<string name="rate_gp">在 Google Play 評分</string>
-	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">嗨！安裝 MAPS.ME！</string>
 	<!-- Text in menu -->
 	<string name="help">幫助</string>
 	<!-- Text in menu -->
@@ -941,4 +935,24 @@
 	<string name="whatsnew_booking_2_message">該搜索結果顯示酒店星級和價格分類。</string>
 	<string name="whatsnew_cycle_navigation_header">自行車導航（beta 版）</string>
 	<string name="whatsnew_cycle_navigation_message">我們正在為新的一季測試自行車導航功能。請使用 MAPS.ME 嘗試您最喜愛的自行車路徑，並將您的意見與我們分享。</string>
+	<!-- Rate on Google Play (Android only) -->
+	<string name="rate_gp">在 Google Play 評分</string>
+	<!-- Share with friends: menu item title -->
+	<string name="tell_friends">告訴朋友</string>
+	<!-- Share with friends: sharing text -->
+	<string name="tell_friends_text">嗨！安裝 MAPS.ME！</string>
+	<!-- About short text (below logo) -->
+	<string name="about_description">MAPS.ME 是一款基本離線旅遊應用程式。MAPS.ME 以 OpenStreetMap 數據為基礎，並允許對其進行編輯。</string>
+	<!-- Text in menu -->
+	<string name="blog">部落格</string>
+	<!-- Hint near allow statictics checkbox -->
+	<string name="allow_statistics_hint">收集使用量統計資料有助於我們改善應用程式。</string>
+	<string name="general_settings">一般設定</string>
+	<string name="date">日期 %d</string>
+	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
+	<string name="something_is_not_working">某些地方出錯了</string>
+	<!-- For the first routing -->
+	<string name="accept">接受</string>
+	<!-- For the first routing -->
+	<string name="decline">拒絕</string>
 </resources>

@@ -433,9 +433,6 @@
 /* Setting label for statistics turn on/off */
 "allow_statistics" = "ارسال الاحصائيات";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "اسمح لنا بجمع احصائيات الاستخدام من أجل تحسين التطبيق";
-
 /* place preview title */
 "info" = "المعلومات";
 
@@ -609,9 +606,6 @@
 "website" = "الموقع الإلكتروني";
 
 /* Text in menu */
-"blog" = "Blog";
-
-/* Text in menu */
 "maps_me_community" = "مجتمع MAPS.ME";
 
 /* Text in menu */
@@ -635,15 +629,6 @@
 /* Text in menu */
 "rate_the_app" = "تقييم التطبيق";
 
-/* Rate in Google Play (Android only) */
-"rate_gp" = "Rate on Google Play";
-
-/* Share with friends: menu item title */
-"tell_friends" = "Tell a Friend";
-
-/* Share with friends: sharing text */
-"tell_friends_text" = "Hi! Install MAPS.ME!";
-
 /* Text in menu */
 "help" = "مساعدة";
 
@@ -658,9 +643,6 @@
 
 /* Email body */
 "subscribe_me_body" = "أريد أن أكون أول من يعرف آخر الأخبار والتحديثات والترقيات. يمكنني إلغاء اشتراكي في أي وقت.";
-
-/* About short text (below logo) */
-"about_description" = "Joined efforts of Mail.Ru Group and OpenStreetMap make the most useful application for travelers!";
 
 /* About text */
 "about_text" = "توفر لكم MAPS.ME أحدث الخرائط دون الاتصال بالإنترنت لكافة دول وكافة مدن العالم. سافر وتمتع بالثقة التامة: إينما كنت، تساعدك MAPS.ME على تحديد مكانك على الخريطة، والعثور على أقرب مطعم أو فندق أو بنك أو محطة غاز الخ لا يتطلب الاتصال بالإنترنت.\n\nنحن نعمل دوماً على إدخال مزايا جديدة على التطبيق ونود أن نسمع منك رأيك عن الكيفية التي يمكن بها تحسين تطبيق MAPS.ME في رأيك. إذا واجهتك أي مشاكل مع التطبيق، لا تتردد في الاتصال بنا على support@maps.me. نحن نرد على كافة الطلبات.\n\nهل أعجبك تطبيق MAPS.ME وترغب في دعمنا؟ هناك بعض الطرق السهلة والمجانية بالكامل لعمل ذلك.\n\n- انشر رأيك على متجر التطبيقات الخاص بك\n- اعجب بصفحتنا على موقع Facebook http://www.facebook.com/mapswithme\n- أو أخبر والدتك وأصدقائك وزملائك عن تطبيق MAPS.ME :)\n\nشكراً لك على وجودك معنا. نحن نقدر جداً دعمك لنا!\n\nيُرجى ملاحظة نحن نستقي بيانات الخرائط من OpenStreetMap، مشروع خرائط يشبه موسوعة Wikipedia ويتيح هذا المشروع للمستخدمين إنشاء وتحرير الخرائط. إذا كنت ترى أن هناك خطأ ما أو شيء غير موجود على الخريطة، يمكنك تصحيح الخرائط مباشرة على http://openstreetmap.org، وسوف تظهر تغييراتك على تطبيق MAPS.ME في الإصدار القادم للتطبيق.";
@@ -1610,3 +1592,34 @@
 "whatsnew_cycle_navigation_header" = "التوجيه الملاحي مع الدراجات (إصدار تجريبي)";
 
 "whatsnew_cycle_navigation_message" = "نختبر الآن التوجيه الملاحي مع الدراجات للموسم الجديد. جرب طريق الدراجات المفضل لديك باستخدام MAPS.ME، واطلعنا على رأيك.";
+
+/* Rate on Google Play (Android only) */
+"rate_gp" = "تصنيف على Google Play";
+
+/* Share with friends: menu item title */
+"tell_friends" = "أخبر صديق";
+
+/* Share with friends: sharing text */
+"tell_friends_text" = "مرحبًا! تثبيت MAPS.ME!";
+
+/* About short text (below logo) */
+"about_description" = "MAPS.ME هو تطبيق أساسي للسفر بدون اتصال بالإنترنت. يعتمد برنامج MAPS.ME على بيانات OpenStreetMap ويتيح تحريرها.";
+
+/* Text in menu */
+"blog" = "المدونة";
+
+/* Hint near allow statictics checkbox */
+"allow_statistics_hint" = "تجميح إحصائيات الاستخدام يساعد في تحسين التطبيق.";
+
+"general_settings" = "إعدادات عامة";
+
+"date" = "التاريخ %d";
+
+/* "Report a bug" -> "Generaal Feedback" -> "Something is not working" */
+"something_is_not_working" = "شيء ما لا يعمل";
+
+/* For the first routing */
+"accept" = "قبول";
+
+/* For the first routing */
+"decline" = "رفض";

@@ -278,8 +278,6 @@
 	<string name="copied_to_clipboard">คัดลอกไปยังคลิปบอร์ด: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
 	<string name="allow_statistics">ส่งสถิติ</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">อนุญาตให้เราเก็บการใช้สถิติเพื่อปรับปรุงแอป</string>
 	<!-- place preview title -->
 	<string name="info">ข้อมูล</string>
 	<!-- Used for bookmark editing -->
@@ -927,4 +925,24 @@
 	<string name="whatsnew_booking_2_message">ผลการค้นหาจะแสดงการให้คะแนนโรงแรมและหมวดหมู่ราคา</string>
 	<string name="whatsnew_cycle_navigation_header">การนำทางจักรยาน (beta-version)</string>
 	<string name="whatsnew_cycle_navigation_message">เรากำลังทดสอบการนำทางจักรยานในฤดูกาลใหม่ ลองเส้นทางการขี่จักรยานด้วย MAPS.ME และแชร์ความคิดเห็นของคุณมาให้เรา</string>
+	<!-- Rate on Google Play (Android only) -->
+	<string name="rate_gp">ให้คะแนนบน Google Play</string>
+	<!-- Share with friends: menu item title -->
+	<string name="tell_friends">บอกเพื่อน</string>
+	<!-- Share with friends: sharing text -->
+	<string name="tell_friends_text">สวัสดี! ติดตั้ง MAPS.ME กันเถอะ!</string>
+	<!-- About short text (below logo) -->
+	<string name="about_description">MAPS.ME เป็นแอปพลิเคชั่นออฟไลน์ที่จำเป็นสำหรับการท่องเที่ยว MAPS.ME นั้นใช้งานบนพื้นฐานของข้อมูล OpenStreetMap และใช้แก้ไขได้ด้วย</string>
+	<!-- Text in menu -->
+	<string name="blog">บล็อก</string>
+	<!-- Hint near allow statictics checkbox -->
+	<string name="allow_statistics_hint">การรวบรวมสถิติการใช้งานจะช่วยให้เราปรับปรุงแอปได้ดียิ่งขึ้น</string>
+	<string name="general_settings">การตั้งค่าทั่วไป</string>
+	<string name="date">วันที่ %d</string>
+	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
+	<string name="something_is_not_working">มีบางอย่างไม่ทำงาน</string>
+	<!-- For the first routing -->
+	<string name="accept">ยอมรับ</string>
+	<!-- For the first routing -->
+	<string name="decline">ปฏิเสธ</string>
 </resources>

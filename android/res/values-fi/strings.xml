@@ -272,8 +272,6 @@
 	<string name="copied_to_clipboard">Kopioitu leikepöydälle: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
 	<string name="allow_statistics">Lähetä tilastot</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Salli meidän kerätä tilastotietoja parantaaksemme sovellusta</string>
 	<!-- place preview title -->
 	<string name="info">Tietoa</string>
 	<!-- Used for bookmark editing -->
@@ -921,4 +919,24 @@
 	<string name="whatsnew_booking_2_message">Hakutulokset näyttävät hotellin arvostelut ja hintaluokan.</string>
 	<string name="whatsnew_cycle_navigation_header">Polkupyöränavigointi (betaversio)</string>
 	<string name="whatsnew_cycle_navigation_message">Testaamme polkupyöränavigointia uudelle kaudelle. Kokeile suosikkipyöräilyreittiäsi MAPS.ME-sovelluksella ja jaa mielipiteesi kanssamme.</string>
+	<!-- Rate on Google Play (Android only) -->
+	<string name="rate_gp">Arvioi Google Playssa</string>
+	<!-- Share with friends: menu item title -->
+	<string name="tell_friends">Kerro kaverille</string>
+	<!-- Share with friends: sharing text -->
+	<string name="tell_friends_text">Hei, asenna MAPS.ME!</string>
+	<!-- About short text (below logo) -->
+	<string name="about_description">MAPS.ME on ehdoton offline-sovellus matkoja varten. MAPS.ME perustuu OpenStreetMap-dataan ja sallii sen muokkauksen.</string>
+	<!-- Text in menu -->
+	<string name="blog">Blogi</string>
+	<!-- Hint near allow statictics checkbox -->
+	<string name="allow_statistics_hint">Käyttötilastojen kerääminen auttaa meitä parantamaan sovellusta.</string>
+	<string name="general_settings">Yleiset asetukset</string>
+	<string name="date">Päivämäärä %d</string>
+	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
+	<string name="something_is_not_working">Jokin ei toimi</string>
+	<!-- For the first routing -->
+	<string name="accept">Hyväksy</string>
+	<!-- For the first routing -->
+	<string name="decline">Hylkää</string>
 </resources>

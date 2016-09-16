@@ -275,8 +275,6 @@
 	<string name="copied_to_clipboard">Skopiowano do schowka: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
 	<string name="allow_statistics">Przesyłanie statystyk</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Zezwala na zbieranie statystyk używania aplikacji, w celu jej dalszego doskonalenia</string>
 	<!-- place preview title -->
 	<string name="info">Informacje</string>
 	<!-- Used for bookmark editing -->
@@ -393,12 +391,6 @@
 	<string name="subscribe_to_news">Subskrybuj nasze wiadomości</string>
 	<!-- Text in menu -->
 	<string name="rate_the_app">Oceń aplikację</string>
-	<!-- Rate in Google Play (Android only) -->
-	<string name="rate_gp">Oceń w Google Play</string>
-	<!-- Share with friends: menu item title -->
-	<string name="tell_friends">Powiadom znajomego</string>
-	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Cześć! Zainstaluj MAPS.ME!</string>
 	<!-- Text in menu -->
 	<string name="help">Pomoc</string>
 	<!-- Text in menu -->
@@ -409,8 +401,6 @@
 	<string name="subscribe_me_subject">Chcę subskrybować biuletyn MAPS.ME</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">Chcę w pierwszej kolejności otrzymywać powiadomienia o nowościach aktualizacjach i promocjach. Mogę w każdej chwili anulować swoją subskrypcję.</string>
-	<!-- About short text (below logo) -->
-	<string name="about_description">Najbardziej użyteczna aplikacja dla podróżników, powstała przy udziale zespołów Mail.Ru i OpenStreetMap.</string>
 	<!-- About text -->
 	<string name="about_text">MAPS.ME oferuje najszybsze mapy offline wszystkich miast we wszystkich krajach świata. Podróżuj bez obaw: gdziekolwiek jesteś, MAPS.ME pomoże Ci odszukać się na mapie, znaleźć najbliższą restaurację, hotel, bank, stację benzynową itp. Aplikacja nie wymaga połączenia z Internetem.\n\nNieustannie pracujemy nad nowymi funkcjami i chcielibyśmy dowiedzieć się, jak Twoim zdaniem moglibyśmy poprawić MAPS.ME. Jeśli masz jakieś problemy z aplikacją, skontaktuj się z nami, pisząc na adres support@maps.me. Odpowiemy na każde zapytanie!\n\nLubisz aplikację MAPS.ME i chcesz udzielić nam wsparcia? Istnieje kilka prostych i absolutnie darmowych sposobów, jak to zrobić:\n\n- napisz recenzję w swoim sklepie z aplikacjami\n- polub naszą stronę na Facebooku: http://www.facebook.com/mapswithme\n- albo po prostu opowiedz o MAPS.ME swojej mamie, znajomym i kolegom :)\n\nDziękujemy, że jesteś z nami. Jesteśmy bardzo wdzięczni za Twoje wsparcie!\n\nP.S. Dane mapy pochodzą z OpenStreetMap, projektu kartograficznego podobnego do Wikipedii, który umożliwia użytkownikom tworzenie i edytowanie map. Jeśli zauważysz, że na mapie czegoś brakuje albo jest błąd, możesz nanieść poprawki bezpośrednio na stronie http://openstreetmap.org, a Twoje zmiany pojawią się w aplikacji MAPS.ME po wydaniu kolejnej wersji.</string>
 	<!-- Alert text -->
@@ -938,4 +928,24 @@
 	<string name="whatsnew_booking_2_message">Wyniki wyszukiwania pokazują kategorie oceny hoteli i ceny.</string>
 	<string name="whatsnew_cycle_navigation_header">Nawigacja rowerowa (wersja beta)</string>
 	<string name="whatsnew_cycle_navigation_message">Testujemy nawigację rowerową na nowy sezon. Wypróbuj swoją ulubioną trasę z MAPS.ME i napisz nam, co myślisz o naszej nawigacji.</string>
+	<!-- Rate on Google Play (Android only) -->
+	<string name="rate_gp">Oceń w Google Play</string>
+	<!-- Share with friends: menu item title -->
+	<string name="tell_friends">Powiadom znajomego</string>
+	<!-- Share with friends: sharing text -->
+	<string name="tell_friends_text">Cześć! Zainstaluj MAPS.ME!</string>
+	<!-- About short text (below logo) -->
+	<string name="about_description">MAPS.ME to niezbędna aplikacja do podróży działająca w trybie offline. MAPS.ME opiera się o dane OpenStreetMap oraz umożliwia ich edycję.</string>
+	<!-- Text in menu -->
+	<string name="blog">Blog</string>
+	<!-- Hint near allow statictics checkbox -->
+	<string name="allow_statistics_hint">Zbieranie statystyk użytkowania pomaga nam poprawiać aplikację.</string>
+	<string name="general_settings">Ustawienia ogólne</string>
+	<string name="date">Data %d</string>
+	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
+	<string name="something_is_not_working">Coś nie działa</string>
+	<!-- For the first routing -->
+	<string name="accept">Zaakceptuj</string>
+	<!-- For the first routing -->
+	<string name="decline">Odrzuć</string>
 </resources>

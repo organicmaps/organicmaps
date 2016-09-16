@@ -433,9 +433,6 @@
 /* Setting label for statistics turn on/off */
 "allow_statistics" = "統計を送信";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "アプリを向上できるよう、使用状況の統計を収集させてください";
-
 /* place preview title */
 "info" = "情報";
 
@@ -609,9 +606,6 @@
 "website" = "ウェブサイト";
 
 /* Text in menu */
-"blog" = "Blog";
-
-/* Text in menu */
 "maps_me_community" = "MAPS.MEコミュニティ";
 
 /* Text in menu */
@@ -635,15 +629,6 @@
 /* Text in menu */
 "rate_the_app" = "アプリを評価";
 
-/* Rate in Google Play (Android only) */
-"rate_gp" = "Rate on Google Play";
-
-/* Share with friends: menu item title */
-"tell_friends" = "Tell a Friend";
-
-/* Share with friends: sharing text */
-"tell_friends_text" = "Hi! Install MAPS.ME!";
-
 /* Text in menu */
 "help" = "ヘルプ";
 
@@ -658,9 +643,6 @@
 
 /* Email body */
 "subscribe_me_body" = "最新ニュース、アップデートとプロモーションにすいてまず知りたいです。いつでも購読をキャンセル出来ます。";
-
-/* About short text (below logo) */
-"about_description" = "Joined efforts of Mail.Ru Group and OpenStreetMap make the most useful application for travelers!";
 
 /* About text */
 "about_text" = "MAPS.MEは世界の全ての国、全ての都市が載っている最速のオフラインマップ。どこにいてもMAPS.MEの地図上でユーザーの現在地が分かり、付近のレストラン、ホテル、銀行、ガソリンスタンドなどが見つけられるので、自信を持って旅行ができます。インターネット接続は必要ありません。\n\n弊社では常に新機能の開発に取り組んでいるので、MAPS.MEの改善についてユーザーの皆様からのご意見やご感想をお待ちしています。アプリで問題点が見つかった際は、お気軽にsupport@maps.meまでご連絡ください。どのようなリクエストにでも対応いたします!\n\nMAPS.MEが好きでサポートしていただけますか。シンプルで完全無料の方法がいくつかあります。\n\n- お使いのアプリマーケットでレビューを投稿\n- 弊社のFacebookページで「いいね!」をクリック：http://www.facebook.com/mapswithme\n- MAPS.MEのことをお母様、お友達、同僚の皆様に話す (^_^)\n\n弊社アプリをご利用いただきありがとうございます。皆様からのサポートに大変感謝しております!\n\n追伸：ウィキペディアのようにユーザーによる作成や編集が可能なマッピングプロジェクトOpenStreetMapの地図データを使用しています。地図上で欠けているものや誤りを見つけた場合、http://openstreetmap.orgでユーザーが直接修正ができます。このような変更はMAPS.MEのその後のバージョンリリースの際に反映されます。";
@@ -1610,3 +1592,34 @@
 "whatsnew_cycle_navigation_header" = "バイクナビゲーション（ベータ版）";
 
 "whatsnew_cycle_navigation_message" = "新シーズンに向けてバイクナビゲーションをテスト中です。MAPS.MEで、お気に入りのサイクリングルートを試してみませんか。ご感想をお待ちしています。";
+
+/* Rate on Google Play (Android only) */
+"rate_gp" = "Google Play で評価";
+
+/* Share with friends: menu item title */
+"tell_friends" = "友達に教える";
+
+/* Share with friends: sharing text */
+"tell_friends_text" = "こんにちは！MAPS.ME をインストールしましょう！";
+
+/* About short text (below logo) */
+"about_description" = "MAPS.ME は旅に必要不可欠なオフラインアプリケーションです。MAPS.ME は OpenStreetMap データに基づいており、データを編集することができます。";
+
+/* Text in menu */
+"blog" = "ブログ";
+
+/* Hint near allow statictics checkbox */
+"allow_statistics_hint" = "収集した使用統計データは当社がアプリを改善するために役立ちます。";
+
+"general_settings" = "一般設定";
+
+"date" = "日付 %d";
+
+/* "Report a bug" -> "Generaal Feedback" -> "Something is not working" */
+"something_is_not_working" = "動作が変です";
+
+/* For the first routing */
+"accept" = "了解";
+
+/* For the first routing */
+"decline" = "拒否";

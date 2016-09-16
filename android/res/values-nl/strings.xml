@@ -272,8 +272,6 @@
 	<string name="copied_to_clipboard">Op het klembord gekopieerd: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
 	<string name="allow_statistics">Verstuur statistieken</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Sta ons toe om gebruiksstatistieken te verzamelen om de app te verbeteren</string>
 	<!-- place preview title -->
 	<string name="info">Info</string>
 	<!-- Used for bookmark editing -->
@@ -921,4 +919,24 @@
 	<string name="whatsnew_booking_2_message">De zoekresultaten voor hotels tonen de hotelbeoordeling en prijscategorie.</string>
 	<string name="whatsnew_cycle_navigation_header">Fietsnavigatie (bèta-versie)</string>
 	<string name="whatsnew_cycle_navigation_message">We testen de fietsnavigatie voor het nieuwe seizoen. Probeer uw favoriete fietsroute met MAPS.ME en deel uw ervaringen met ons.</string>
+	<!-- Rate on Google Play (Android only) -->
+	<string name="rate_gp">Beoordeel op Google Play</string>
+	<!-- Share with friends: menu item title -->
+	<string name="tell_friends">Vertel een Vriend</string>
+	<!-- Share with friends: sharing text -->
+	<string name="tell_friends_text">Hallo! Installeer MAPS.ME!</string>
+	<!-- About short text (below logo) -->
+	<string name="about_description">MAPS.ME is een essentiële offline applicatie om te reizen. MAPS.ME is gebaseerd op OpenStreetMap gegevens en laat bewerking toe.</string>
+	<!-- Text in menu -->
+	<string name="blog">Blog</string>
+	<!-- Hint near allow statictics checkbox -->
+	<string name="allow_statistics_hint">Verzamelen van gebruiksstatistieken helpt ons de app te verbeteren.</string>
+	<string name="general_settings">Algemene instellingen</string>
+	<string name="date">Datum %d</string>
+	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
+	<string name="something_is_not_working">Er werkt iets niet</string>
+	<!-- For the first routing -->
+	<string name="accept">Aanvaarden</string>
+	<!-- For the first routing -->
+	<string name="decline">Weigeren</string>
 </resources>

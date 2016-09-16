@@ -272,8 +272,6 @@
 	<string name="copied_to_clipboard">Đã sao chép vào Bảng tạm: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
 	<string name="allow_statistics">Gửi thống kê</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Cho phép chúng tôi thu thập thống kê sử dụng để nâng cao ứng dụng</string>
 	<!-- place preview title -->
 	<string name="info">Thông tin</string>
 	<!-- Used for bookmark editing -->
@@ -921,4 +919,24 @@
 	<string name="whatsnew_booking_2_message">Kết quả tìm kiếm cho thấy các đánh giá và mức giá của khách sạn.</string>
 	<string name="whatsnew_cycle_navigation_header">Định vị xe đạp (phiên bản beta)</string>
 	<string name="whatsnew_cycle_navigation_message">Chúng tôi đang thử nghiệm định vị xe đạp cho mùa mới. Hãy thử tuyến đường xe đạp ưa thích của bạn với MAPS.ME, và chia sẻ ý kiến của bạn với chúng tôi.</string>
+	<!-- Rate on Google Play (Android only) -->
+	<string name="rate_gp">Cho điểm trên Google Play</string>
+	<!-- Share with friends: menu item title -->
+	<string name="tell_friends">Giới thiệu với Bạn bè</string>
+	<!-- Share with friends: sharing text -->
+	<string name="tell_friends_text">Xin chào! Hãy cài đặt MAPS.ME!</string>
+	<!-- About short text (below logo) -->
+	<string name="about_description">MAPS.ME là một ứng dụng ngoại tuyến thiết yếu khi đi du lịch. MAPS.ME được dựa trên dữ liệu của OpenStreetMap và cho phép bạn hiệu chỉnh nó.</string>
+	<!-- Text in menu -->
+	<string name="blog">Blog</string>
+	<!-- Hint near allow statictics checkbox -->
+	<string name="allow_statistics_hint">Việc thu thập số liệu sử dụng giúp chúng tôi cải thiện ứng dụng.</string>
+	<string name="general_settings">Thiết lập chung</string>
+	<string name="date">Ngày %d</string>
+	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
+	<string name="something_is_not_working">Có một vấn đề nào đó</string>
+	<!-- For the first routing -->
+	<string name="accept">Chấp nhận</string>
+	<!-- For the first routing -->
+	<string name="decline">Từ chối</string>
 </resources>

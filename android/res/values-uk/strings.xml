@@ -278,8 +278,6 @@
 	<string name="copied_to_clipboard">Скопіювати в буфер обміну: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
 	<string name="allow_statistics">Надіслати статистику</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Просимо дозволити нам збирати статистичні дані по використанню, щоб поліпшити застосунок</string>
 	<!-- place preview title -->
 	<string name="info">Досьє</string>
 	<!-- Used for bookmark editing -->
@@ -925,4 +923,24 @@
 	<string name="whatsnew_booking_2_message">При пошуку відображається рейтинг і цінова категорія готелю.</string>
 	<string name="whatsnew_cycle_navigation_header">Велонавігація (бета-версія)</string>
 	<string name="whatsnew_cycle_navigation_message">До відкриття сезону ми тестуємо велонавігацію. Проїдьтесь за своїм улюбленим маршрутом з MAPS.ME та поділіться враженнями з нами.</string>
+	<!-- Rate on Google Play (Android only) -->
+	<string name="rate_gp">Рейтинг на Google Play</string>
+	<!-- Share with friends: menu item title -->
+	<string name="tell_friends">Розповісти другу</string>
+	<!-- Share with friends: sharing text -->
+	<string name="tell_friends_text">Привіт! Встанови MAPS.ME!</string>
+	<!-- About short text (below logo) -->
+	<string name="about_description">MAPS.ME — це додаток must-have для мандрівників. У MAPS.ME використовуються офлайн-дані OpenStreetMap, які можна редагувати.</string>
+	<!-- Text in menu -->
+	<string name="blog">Блог</string>
+	<!-- Hint near allow statictics checkbox -->
+	<string name="allow_statistics_hint">Збір статистичної інформації про використання допомагає нам вдосконалювати наш додаток.</string>
+	<string name="general_settings">Загальні налаштування</string>
+	<string name="date">Дата %d</string>
+	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
+	<string name="something_is_not_working">Щось пішло не так</string>
+	<!-- For the first routing -->
+	<string name="accept">Прийняти</string>
+	<!-- For the first routing -->
+	<string name="decline">Відхилити</string>
 </resources>
