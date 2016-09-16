@@ -15,6 +15,7 @@ jmethodID g_priceCallback;
 jmethodID g_descriptionCallback;
 jmethodID g_facilitiesCallback;
 jmethodID g_imagesCallback;
+jmethodID g_nearbyCallback;
 
 void PrepareClassRefs(JNIEnv * env, jclass hotelClass)
 {
@@ -33,6 +34,8 @@ void PrepareClassRefs(JNIEnv * env, jclass hotelClass)
   g_facilitiesCallback = jni::GetStaticMethodID(env, g_hotelClass, "onFacilitiesReceived", "(Ljava/lang/String;[I[Ljava/lang/String;)V");
   // static void onImagesReceived(final String id, String[] urls)
   g_imagesCallback = jni::GetStaticMethodID(env, g_hotelClass, "onImagesReceived", "(Ljava/lang/String;[Ljava/lang/String;)V");
+  // static void onNearbyReceived(final String id)
+  g_nearbyCallback = jni::GetStaticMethodID(env, g_hotelClass, "onNearbyReceived", "(Ljava/lang/String;)V");
 }
 
 } // namespace
@@ -128,6 +131,18 @@ Java_com_mapswithme_maps_widget_placepage_SponsoredHotel_nativeRequestImages(JNI
                                                             "http://www.college-hotel.com/client/cache/contenu/_500____college-hotelp1diapo1_718.jpg",
                                                             "http://top10hotelbookingsites.webs.com/besthotelsites-1.jpg",
                                                             "http://www.litorehotel.com/web/en/images/placeholders/1920x1200-0.jpg"}));
+}
+
+// static void nativeRequestNearby(String id, double lat, double lon);
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_widget_placepage_SponsoredHotel_nativeRequestNearby(JNIEnv * env, jclass clazz, jstring id, jdouble lat, jdouble lon)
+{
+  PrepareClassRefs(env, clazz);
+
+  string const hotelId = jni::ToNativeString(env, id);
+
+  //TODO make request
+  env->CallStaticVoidMethod(g_hotelClass, g_nearbyCallback, jni::ToJavaString(env, hotelId));
 }
 
 } // extern "C"

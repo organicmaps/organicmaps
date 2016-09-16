@@ -149,4 +149,8 @@
   <dimen name="placepage_hotel_gallery_width">150dp</dimen>
   <dimen name="gallery_image_height">84dp</dimen>
 
+  <!-- Nearby-->
+  <dimen name="placepage_hotel_nearby_height">64dp</dimen>
+  <dimen name="placepage_hotel_nearby_icon_size">24dp</dimen>
+
 </resources>

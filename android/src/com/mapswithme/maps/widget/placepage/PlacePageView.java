@@ -1,5 +1,7 @@
 package com.mapswithme.maps.widget.placepage;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -91,7 +93,9 @@ public class PlacePageView extends RelativeLayout
                                    LineCountTextView.OnLineCountCalculatedListener,
                                    SponsoredHotel.OnFacilitiesReceivedListener,
                                    SponsoredHotel.OnImagesReceivedListener,
-                                   RecyclerClickListener {
+                                   RecyclerClickListener,
+                                   SponsoredHotel.OnNearbyReceivedListener,
+                                   NearbyAdapter.OnItemClickListener {
   private static final String PREF_USE_DMS = "use_dms";
 
   private boolean mIsDocked;
@@ -147,6 +151,7 @@ public class PlacePageView extends RelativeLayout
   private View mHotelMoreFacilities;
   private View mHotelGallery;
   private RecyclerView mRvHotelGallery;
+  private View mHotelNearby;
 
   // Animations
   private BaseShadowController mShadowController;
@@ -159,6 +164,7 @@ public class PlacePageView extends RelativeLayout
   private boolean mIsLatLonDms;
   private FacilitiesAdapter mFacilitiesAdapter = new FacilitiesAdapter();
   private GalleryAdapter mGalleryAdapter;
+  private NearbyAdapter mNearbyAdapter = new NearbyAdapter(this);
 
   // Downloader`s stuff
   private DownloaderStatusIcon mDownloaderIcon;
@@ -317,6 +323,9 @@ public class PlacePageView extends RelativeLayout
     mGalleryAdapter = new GalleryAdapter(getContext());
     mGalleryAdapter.setListener(this);
     mRvHotelGallery.setAdapter(mGalleryAdapter);
+    mHotelNearby = findViewById(R.id.ll__place_hotel_nearby);
+    GridView gvHotelNearby = (GridView) findViewById(R.id.gv__place_hotel_nearby);
+    gvHotelNearby.setAdapter(mNearbyAdapter);
 
     mButtons = new PlacePageButtons(this, ppButtons, new PlacePageButtons.ItemListener()
     {
@@ -449,6 +458,7 @@ public class PlacePageView extends RelativeLayout
     SponsoredHotel.setDescriptionListener(this);
     SponsoredHotel.setFacilitiesListener(this);
     SponsoredHotel.setImagesListener(this);
+    SponsoredHotel.setNearbyListener(this);
   }
 
   @Override
@@ -514,6 +524,20 @@ public class PlacePageView extends RelativeLayout
   }
 
   @Override
+  public void onNearbyReceived(String id, ArrayList<SponsoredHotel.NearbyObject> objects) {
+    if (mSponsoredHotel == null || !TextUtils.equals(id, mSponsoredHotel.getId())) {
+      return;
+    }
+
+    if (objects == null || objects.isEmpty()) {
+      UiUtils.hide(mHotelNearby);
+      return;
+    }
+    UiUtils.show(mHotelNearby);
+    mNearbyAdapter.setItems(objects);
+  }
+
+  @Override
   public void onLineCountCalculated(boolean grater) {
     mHotelMoreDescription.setVisibility(grater ? VISIBLE : GONE);
   }
@@ -521,6 +545,11 @@ public class PlacePageView extends RelativeLayout
   @Override
   public void onItemClick(View v, int position) {
     GalleryActivity.start(getContext(), mGalleryAdapter.getItems(), mMapObject.getTitle());
+  }
+
+  @Override
+  public void onItemClick(SponsoredHotel.NearbyObject item) {
+//  TODO go to selected object on map
   }
 
   private void onBookingClick(final boolean book)
@@ -662,6 +691,8 @@ public class PlacePageView extends RelativeLayout
         SponsoredHotel.requestDescription(mSponsoredHotel.getId(), locale.toString());
         SponsoredHotel.requestFacilities(mSponsoredHotel.getId(), locale.toString());
         SponsoredHotel.requestImages(mSponsoredHotel.getId(), locale.toString());
+        SponsoredHotel.requestNearby(mSponsoredHotel.getId(), new LatLng(mMapObject.getLat(),
+                mMapObject.getLon()));
       }
 
       String country = MapManager.nativeGetSelectedCountry();
@@ -764,6 +795,7 @@ public class PlacePageView extends RelativeLayout
       UiUtils.hide(mHotelDescription);
       UiUtils.hide(mHotelFacilities);
       UiUtils.hide(mHotelGallery);
+      UiUtils.hide(mHotelNearby);
     }
     else {
       UiUtils.hide(mWebsite);
