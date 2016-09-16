@@ -16,6 +16,7 @@
 
 #include "std/atomic.hpp"
 #include "std/limits.hpp"
+#include "std/shared_ptr.hpp"
 #include "std/unique_ptr.hpp"
 
 namespace location
@@ -36,6 +37,8 @@ struct SpeedCameraRestriction
 
 class RoutingSession
 {
+  friend void UnitTest_TestFollowRoutePercentTest();
+
 public:
   enum State
   {
@@ -104,7 +107,7 @@ public:
 
   inline void SetState(State state) { m_state = state; }
 
-  Route const & GetRoute() const { return m_route; }
+  shared_ptr<Route> const GetRoute() const;
   /// \returns true if altitude information along |m_route| is available and
   /// false otherwise.
   bool HasRouteAltitude() const;
@@ -144,7 +147,6 @@ public:
   void SetTurnNotificationsLocale(string const & locale);
   string GetTurnNotificationsLocale() const;
   void GenerateTurnNotifications(vector<string> & turnNotifications);
-  double GetCompletionPercent() const;
 
   void EmitCloseRoutingEvent() const;
 
@@ -175,10 +177,11 @@ private:
   void RemoveRouteImpl();
 
   bool HasRouteAltitudeImpl() const;
+  double GetCompletionPercent() const;
 
 private:
   unique_ptr<AsyncRouter> m_router;
-  Route m_route;
+  shared_ptr<Route> m_route;
   atomic<State> m_state;
   atomic<bool> m_isFollowing;
   m2::PointD m_endPoint;

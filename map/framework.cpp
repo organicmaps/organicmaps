@@ -1569,7 +1569,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   // In case of the engine reinitialization recover route.
   if (m_routingSession.IsActive())
   {
-    InsertRoute(m_routingSession.GetRoute());
+    InsertRoute(*m_routingSession.GetRoute());
     if (allow3d && m_routingSession.IsFollowing())
       m_drapeEngine->EnablePerspective();
   }
