@@ -121,7 +121,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 + (instancetype)noWiFiAlertWithOkBlock:(TMWMVoidBlock)okBlock
 {
   kStatisticsEvent = @"No WiFi Alert";
-  MWMDefaultAlert * alert = [self defaultAlertWithTitle:@"download_over_mobile_header"
+  MWMDefaultAlert * alert = [self defaultAlertWithTitle:L(@"download_over_mobile_header")
                                                 message:L(@"download_over_mobile_message")
                                        rightButtonTitle:L(@"use_cellular_data")
                                         leftButtonTitle:L(@"cancel")
