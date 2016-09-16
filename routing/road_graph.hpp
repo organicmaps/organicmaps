@@ -145,9 +145,11 @@ public:
       {
         if (!my::AlmostEqualAbs(m_cross.GetPoint(), roadInfo.m_junctions[i].GetPoint(),
                                 kPointsEqualEpsilon))
+        {
           continue;
+        }
 
-        if (i < roadInfo.m_junctions.size() - 1)
+        if (i + 1 < roadInfo.m_junctions.size())
         {
           // Head of the edge.
           // m_cross
@@ -256,12 +258,27 @@ private:
   /// \brief Finds all ingoing fake edges for junction.
   void GetFakeIngoingEdges(Junction const & junction, TEdgeVector & edges) const;
 
-  /// Determines if the edge has been split by fake edges and if yes returns these fake edges.
-  bool HasBeenSplitToFakes(Edge const & edge, vector<Edge> & fakeEdges) const;
+  template <typename Fn>
+  void ForEachFakeEdge(Fn && fn)
+  {
+    for (auto const & m : m_fakeIngoingEdges)
+    {
+      for (auto const & e : m.second)
+        fn(e);
+    }
 
-  // Map of outgoing edges for junction
-  map<Junction, TEdgeVector> m_outgoingEdges;
+    for (auto const & m : m_fakeOutgoingEdges)
+    {
+      for (auto const & e : m.second)
+        fn(e);
+    }
+  }
+
+  map<Junction, TEdgeVector> m_fakeIngoingEdges;
+  map<Junction, TEdgeVector> m_fakeOutgoingEdges;
 };
+
+string DebugPrint(IRoadGraph::Mode mode);
 
 IRoadGraph::RoadInfo MakeRoadInfoForTesting(bool bidirectional, double speedKMPH,
                                             initializer_list<m2::PointD> const & points);

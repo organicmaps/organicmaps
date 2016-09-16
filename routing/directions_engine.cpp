@@ -13,7 +13,7 @@ void IDirectionsEngine::CalculateTimes(IRoadGraph const & graph, vector<Junction
                                        Route::TTimes & times) const
 {
   times.clear();
-  if (path.size() <= 1)
+  if (path.size() < 1)
     return;
 
   // graph.GetMaxSpeedKMPH() below is used on purpose.

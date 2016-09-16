@@ -96,22 +96,38 @@ bool CheckGraphConnectivity(IRoadGraph const & graph, Junction const & junction,
 void FindClosestEdges(IRoadGraph const & graph, m2::PointD const & point,
                       vector<pair<Edge, Junction>> & vicinity)
 {
-  // WARNING: Take only one vicinity
-  // It is an oversimplification that is not as easily
-  // solved as tuning up this constant because if you set it too high
-  // you risk to find a feature that you cannot in fact reach because of
-  // an obstacle.  Using only the closest feature minimizes (but not
-  // eliminates) this risk.
-
+  // WARNING: Take only one vicinity, with, maybe, its inverse.  It is
+  // an oversimplification that is not as easily solved as tuning up
+  // this constant because if you set it too high you risk to find a
+  // feature that you cannot in fact reach because of an obstacle.
+  // Using only the closest feature minimizes (but not eliminates)
+  // this risk.
   vector<pair<Edge, Junction>> candidates;
   graph.FindClosestEdges(point, kMaxRoadCandidates, candidates);
 
   vicinity.clear();
   for (auto const & candidate : candidates)
   {
-    if (CheckGraphConnectivity(graph, candidate.first.GetStartJunction(), kTestConnectivityVisitJunctionsLimit))
+    auto const & edge = candidate.first;
+    if (CheckGraphConnectivity(graph, edge.GetStartJunction(), kTestConnectivityVisitJunctionsLimit))
     {
       vicinity.emplace_back(candidate);
+
+      // Need to add a reverse edge, if exists, because fake edges
+      // must be added for reverse edge too.
+      IRoadGraph::TEdgeVector revEdges;
+      graph.GetOutgoingEdges(edge.GetEndJunction(), revEdges);
+      for (auto const & revEdge : revEdges)
+      {
+        if (revEdge.GetFeatureId() == edge.GetFeatureId() &&
+            revEdge.GetEndJunction() == edge.GetStartJunction() &&
+            revEdge.GetSegId() == edge.GetSegId())
+        {
+          vicinity.emplace_back(revEdge, candidate.second);
+          break;
+        }
+      }
+
       break;
     }
   }
