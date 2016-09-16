@@ -4,5 +4,6 @@
 
 - (void)searchText:(NSString *)text forInputLocale:(NSString *)locale;
 - (void)tapMyPositionFromHistory;
+- (void)dismissKeyboard;
 
 @end

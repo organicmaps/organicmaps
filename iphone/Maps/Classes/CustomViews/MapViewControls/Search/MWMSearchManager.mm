@@ -182,6 +182,7 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
   self.state = MWMSearchManagerStateHidden;
 }
 
+- (void)dismissKeyboard { [self.searchTextField resignFirstResponder]; }
 - (void)processSearchWithResult:(search::Result const &)result
 {
   MapsAppDelegate * a = MapsAppDelegate.theApp;
