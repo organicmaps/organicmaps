@@ -433,9 +433,6 @@
 /* Setting label for statistics turn on/off */
 "allow_statistics" = "Verstuur statistieken";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Sta ons toe om gebruiksstatistieken te verzamelen om de app te verbeteren";
-
 /* place preview title */
 "info" = "Info";
 
@@ -609,9 +606,6 @@
 "website" = "Website";
 
 /* Text in menu */
-"blog" = "Blog";
-
-/* Text in menu */
 "maps_me_community" = "Gemeenschap van MAPS.ME";
 
 /* Text in menu */
@@ -635,15 +629,6 @@
 /* Text in menu */
 "rate_the_app" = "App beoordelen";
 
-/* Rate in Google Play (Android only) */
-"rate_gp" = "Rate on Google Play";
-
-/* Share with friends: menu item title */
-"tell_friends" = "Tell a Friend";
-
-/* Share with friends: sharing text */
-"tell_friends_text" = "Hi! Install MAPS.ME!";
-
 /* Text in menu */
 "help" = "Hulp";
 
@@ -658,9 +643,6 @@
 
 /* Email body */
 "subscribe_me_body" = "Ik wil graag als eerste horen over het laatste nieuws updates en acties. Ik kan mijn abonnement te allen tijde annuleren.";
-
-/* About short text (below logo) */
-"about_description" = "Joined efforts of Mail.Ru Group and OpenStreetMap make the most useful application for travelers!";
 
 /* About text */
 "about_text" = "MAPS.ME biedt de snelste offline kaarten van alle steden en alle landen ter wereld. Reis vol vertrouwen: waar je ook bent,\n\nMAPS.ME zal je helpen om jezelf op de kaart terug te vinden en het dichstbijzijnde restaurant, hotel, bank, benzinestation etc. te vinden. Er is geen internetverbinding voor nodig.\n\nWe werken voortdurend aan nieuwe functies en we zouden graag van je willen horen hoe we MAPS.ME volgens jou zouden kunnen verbeteren. Als je eventueel problemen hebt met de app, aarzel dan niet om contact met ons op te nemen op support@maps.me. We reageren op elke aanvraag!\n\nVindt je MAPS.ME leuk en wil je ons steunen? Dat kan op een aantal simpele en absoluut gratis manieren:\n- plaats een beoordeling op je App Market\n- like onze Facebook-pagina http://www.facebook.com/mapswithme\n- of vertel gewoon je ma, vrienden en collega’s over MAPS.ME :) Dank je dat je ons steunt. Wij waarderen dit heel erg!\n\nP.S. We halen onze kaartgegevens van OpenStreetMap, een kaartproject dat lijkt op Wikipedia, waarbij gebruikers kaarten kunnen maken en aanpassen. Als je ziet dat er iets ontbreekt of een fout ontdekt in een kaart, dan kun je de kaart direct verbeteren op http://openstreetmap.org, en dan zullen je verbeteringen bij het uitbrengen van de volgende versie in MAPS.ME verschijnen.";
@@ -1610,3 +1592,34 @@
 "whatsnew_cycle_navigation_header" = "Fietsnavigatie (bèta-versie)";
 
 "whatsnew_cycle_navigation_message" = "We testen de fietsnavigatie voor het nieuwe seizoen. Probeer uw favoriete fietsroute met MAPS.ME en deel uw ervaringen met ons.";
+
+/* Rate on Google Play (Android only) */
+"rate_gp" = "Beoordeel op Google Play";
+
+/* Share with friends: menu item title */
+"tell_friends" = "Vertel een Vriend";
+
+/* Share with friends: sharing text */
+"tell_friends_text" = "Hallo! Installeer MAPS.ME!";
+
+/* About short text (below logo) */
+"about_description" = "MAPS.ME is een essentiële offline applicatie om te reizen. MAPS.ME is gebaseerd op OpenStreetMap gegevens en laat bewerking toe.";
+
+/* Text in menu */
+"blog" = "Blog";
+
+/* Hint near allow statictics checkbox */
+"allow_statistics_hint" = "Verzamelen van gebruiksstatistieken helpt ons de app te verbeteren.";
+
+"general_settings" = "Algemene instellingen";
+
+"date" = "Datum %d";
+
+/* "Report a bug" -> "Generaal Feedback" -> "Something is not working" */
+"something_is_not_working" = "Er werkt iets niet";
+
+/* For the first routing */
+"accept" = "Aanvaarden";
+
+/* For the first routing */
+"decline" = "Weigeren";

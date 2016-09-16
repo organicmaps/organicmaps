@@ -433,9 +433,6 @@
 /* Setting label for statistics turn on/off */
 "allow_statistics" = "Statisztika küldése";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Használati adatok gyűjtésének jóváhagyása a program továbbfejlesztéséhez.";
-
 /* place preview title */
 "info" = "Info";
 
@@ -609,9 +606,6 @@
 "website" = "Honlap";
 
 /* Text in menu */
-"blog" = "Blog";
-
-/* Text in menu */
 "maps_me_community" = "MAPS.ME közösség";
 
 /* Text in menu */
@@ -635,15 +629,6 @@
 /* Text in menu */
 "rate_the_app" = "Értékeld az alkalmazást";
 
-/* Rate in Google Play (Android only) */
-"rate_gp" = "Rate on Google Play";
-
-/* Share with friends: menu item title */
-"tell_friends" = "Tell a Friend";
-
-/* Share with friends: sharing text */
-"tell_friends_text" = "Hi! Install MAPS.ME!";
-
 /* Text in menu */
 "help" = "Segítség";
 
@@ -658,9 +643,6 @@
 
 /* Email body */
 "subscribe_me_body" = "Elsőként szeretnék értesülni a legújabb hírekről frissítésekről és promóciókról. A feliratkozásom bármikor törölhetem.";
-
-/* About short text (below logo) */
-"about_description" = "Joined efforts of Mail.Ru Group and OpenStreetMap make the most useful application for travelers!";
 
 /* About text */
 "about_text" = "A MAPS.ME kínálja a leggyorsabb offline térképeket, a világ összes városáról és országáról. Utazz magabiztosan: bárhol is vagy, a MAPS.ME segít, hogy megtaláld magad a térképen, valamint segít a legközelebbi étterem, hotel, bank, benzinkút stb. felkutatásában is. Nem igényel internet kapcsolatot.\n\nMindig dolgozunk új fejlesztéseken és örömmel vennénk a te véleményedet is arról, hogyan tudnánk tovább fejleszteni a MAPS.ME-t. Bármely probléma esetén írj nekünk a support@maps.me email címre. Minden levélre válaszolunk!\n\nSzereted a MAPS.ME-t és szeretnél támogatni minket? Van erre pár egyszerű és teljesen ingyenes lehetőséged:\n\n- írj rólunk értékelést az App Market-en\n- kedveld a Facebook oldalunkat: http://www.facebook.com/mapswithme\n- vagy csak mesélj a MAPS.ME-ről anyukádnak, barátaidnak és munkatársaidnak :)\n\nKöszönjük, hogy velünk vagy. Nagyra értékeljük támogatásodat!\n\nU.i: Adatainkat az OpenStreetMap-ről vesszük, ami egy, a Wikipedia-hoz hasonló térképes projekt, ami megengedi felhasználóinak a térképek létrehozását és szerkesztését. Ha bármi hiányzik vagy rossz a térképpel, közvetlenül te is kijavíthatod a http://openstreetmap.org-on és változtatásaid a MAPS.ME következő verziójában már meg fognak jelenni.";
@@ -1610,3 +1592,34 @@
 "whatsnew_cycle_navigation_header" = "Kerékpáros navigáció (béta verzió)";
 
 "whatsnew_cycle_navigation_message" = "Most teszteljük a kerékpáros navigációt a következő évszakra. Próbáld ki kedvenc kerékpáros útvonalad a MAPS.ME-vel és oszd meg velünk véleményedet.";
+
+/* Rate on Google Play (Android only) */
+"rate_gp" = "Arány a Google Play-n";
+
+/* Share with friends: menu item title */
+"tell_friends" = "Mondja el egy ismerősének";
+
+/* Share with friends: sharing text */
+"tell_friends_text" = "Szia! Telepítsd a MAPS.ME alkalmazást!";
+
+/* About short text (below logo) */
+"about_description" = "A MAPS.ME egy nélkülözhetetlen alkalmazás utazáshoz. A MAPS.ME az OpenStreetMap adataira épül, és lehetővé teszi ezek szerkesztését.";
+
+/* Text in menu */
+"blog" = "Blog";
+
+/* Hint near allow statictics checkbox */
+"allow_statistics_hint" = "A használati statisztika gyűjtésével segít nekünk az alkalmazás tökéletesítésében.";
+
+"general_settings" = "Általános beállítások";
+
+"date" = "Dátum %d";
+
+/* "Report a bug" -> "Generaal Feedback" -> "Something is not working" */
+"something_is_not_working" = "Valami nem működik";
+
+/* For the first routing */
+"accept" = "Elfogadja";
+
+/* For the first routing */
+"decline" = "Elutasítja";

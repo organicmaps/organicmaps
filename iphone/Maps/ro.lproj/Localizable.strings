@@ -433,9 +433,6 @@
 /* Setting label for statistics turn on/off */
 "allow_statistics" = "Trimitere statistici";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Permiteți-ne să colectăm statistici de utilizare, pentru a ne îmbunătăți aplicația.";
-
 /* place preview title */
 "info" = "Informații";
 
@@ -609,9 +606,6 @@
 "website" = "Site web";
 
 /* Text in menu */
-"blog" = "Blog";
-
-/* Text in menu */
 "maps_me_community" = "Comunitatea MAPS.ME";
 
 /* Text in menu */
@@ -635,15 +629,6 @@
 /* Text in menu */
 "rate_the_app" = "Votați-ne aplicația";
 
-/* Rate in Google Play (Android only) */
-"rate_gp" = "Rate on Google Play";
-
-/* Share with friends: menu item title */
-"tell_friends" = "Tell a Friend";
-
-/* Share with friends: sharing text */
-"tell_friends_text" = "Hi! Install MAPS.ME!";
-
 /* Text in menu */
 "help" = "Ajutor";
 
@@ -658,9 +643,6 @@
 
 /* Email body */
 "subscribe_me_body" = "Vreau să fiu primul care află despre cele mai recente actualizări și promoții. Îmi pot anula abonamentul în orice moment.";
-
-/* About short text (below logo) */
-"about_description" = "Joined efforts of Mail.Ru Group and OpenStreetMap make the most useful application for travelers!";
 
 /* About text */
 "about_text" = "MAPS.ME oferă cele mai rapide hărți offline ale tuturor orașelor, tuturor țărilor din lume. Călătoriți cu încredere deplină: oriunde v-ați afla, MAPS.ME vă ajută să vă reperați poziția pe hartă, să găsiți cel mai apropiat restaurant sau hotel, cea mai apropiată bancă sau benzinărie etc. Nu necesită conexiune la internet.\n\nLucrăm încontinuu să introducem funcții noi și ne-ar face mare plăcere să ne comunicați cum credeți dvs. că am putea îmbunătăți MAPS.ME. Dacă aveți probleme cu aplicația, nu ezitați să ne contactați la adresa support@maps.me. Răspundem la fiecare solicitare!\n\nVă place MAPS.ME și doriți să ne susțineți? Iată câteva moduri simple și complet gratuite:\n- publicați o recenzie în magazinul de aplicații\n- apreciați-ne pagina de Facebook: http://www.facebook.com/mapswithme\n- sau spuneți și mamei, prietenilor și colegilor despre MAPS.ME. :)\n\nVă mulțumim că ne sunteți alături. Vă apreciem foarte mult susținerea!\n\nP.S. Noi preluăm datele din OpenStreetMap, un proiect de cartografiere similar Wikipediei, ce permite utilizatorilor să creeze și să editeze hărți. Dacă vedeți că ceva lipsește sau este greșit pe hartă, puteți corecta hărțile direct la adresa: http://openstreetmap.org, iar modificările dvs. vor apărea în aplicația MAPS.ME atunci când va fi lansată versiunea următoare.";
@@ -1610,3 +1592,34 @@
 "whatsnew_cycle_navigation_header" = "Navigaţie pentru biciclete (versiune beta)";
 
 "whatsnew_cycle_navigation_message" = "În prezent testăm navigaţia pentru biciclete pentru noul sezon. Încercaţi traseul dvs. favorit cu MAPS.ME şi împărtăşiţi-ne opinia dvs.";
+
+/* Rate on Google Play (Android only) */
+"rate_gp" = "Dați un calificativ pe Google Play";
+
+/* Share with friends: menu item title */
+"tell_friends" = "Spuneți unui prieten";
+
+/* Share with friends: sharing text */
+"tell_friends_text" = "Bună! Instalați MAPS.ME!";
+
+/* About short text (below logo) */
+"about_description" = "MAPS.ME este o aplicație offline esențială când călătoriți. MAPS.ME utilizează datele OpenStreeMap și permite editarea acestora.";
+
+/* Text in menu */
+"blog" = "Blog";
+
+/* Hint near allow statictics checkbox */
+"allow_statistics_hint" = "Colectarea statisticilor privind utilizarea ne ajută să îmbunătățim aplicația.";
+
+"general_settings" = "Setări generale";
+
+"date" = "Data %d";
+
+/* "Report a bug" -> "Generaal Feedback" -> "Something is not working" */
+"something_is_not_working" = "Ceva nu funcționează corect";
+
+/* For the first routing */
+"accept" = "Acceptați";
+
+/* For the first routing */
+"decline" = "Refuzați";

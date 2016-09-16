@@ -433,9 +433,6 @@
 /* Setting label for statistics turn on/off */
 "allow_statistics" = "İstatistikleri Gönder";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Uygulamayı geliştirebilmemiz için kullanım istatistikleri toplamamıza izin ver";
-
 /* place preview title */
 "info" = "Bilgi";
 
@@ -609,9 +606,6 @@
 "website" = "Web Sitesi";
 
 /* Text in menu */
-"blog" = "Blog";
-
-/* Text in menu */
 "maps_me_community" = "MAPS.ME Topluluğu";
 
 /* Text in menu */
@@ -635,15 +629,6 @@
 /* Text in menu */
 "rate_the_app" = "Uygulamayı değerlendir";
 
-/* Rate in Google Play (Android only) */
-"rate_gp" = "Rate on Google Play";
-
-/* Share with friends: menu item title */
-"tell_friends" = "Tell a Friend";
-
-/* Share with friends: sharing text */
-"tell_friends_text" = "Hi! Install MAPS.ME!";
-
 /* Text in menu */
 "help" = "Yardım";
 
@@ -658,9 +643,6 @@
 
 /* Email body */
 "subscribe_me_body" = "En son haberlerden güncellemelerden ve tanıtımlardan ilk önce haberdar olmak istiyorum. Aboneliğimi herhangi bir zaman iptal edebilirim.";
-
-/* About short text (below logo) */
-"about_description" = "Joined efforts of Mail.Ru Group and OpenStreetMap make the most useful application for travelers!";
 
 /* About text */
 "about_text" = "MAPS.ME dünyadaki tüm ülkelerdeki şehirlerin en hızlı çevrimdışı haritalarını sunuyor. Tam güven ile seyahat edin: nerede olursanız olun, MAPS.ME harita üzerinde nerede olduğunuzu belirlemeye, en yakın restoranı, oteli, bankayı, benzin istasyonunu v.b. bulmaya yardımcı olur. İnternet bağlantısı gerektirmez.\n\nHer zaman yeni özellikler üzerinde çalışıyoruz ve sizlerin MAPS.ME'yi nasıl geliştirebileceğimize dair görüşlerinizi almaktan mutluluk duyuyoruz. Eğer uygulama ile ilgili herhangi bir probleminiz varsa, bizimle support@maps.me adresinden temasa geçmekten çekinmeyin. Her talebe cevap veriyoruz!\n\nMAPS.ME'yi beğendiniz ve bize destek olmak ister misiniz? Bunun bazı basit ve tamamıyla ücretsiz yolları var:\n\n- Uygulama Marketinizde bir yorum yazın\n- Facebook sayfamızı beğenin http://www.facebook.com/mapswithme\n- veya sadece annenize, arkadaşlarınıza ve iş arkadaşlarınıza MAPS.ME'den bahsedin :)\n\nBizi tercih ettiğiniz için teşekkür ederiz. Desteğinizden dolayı çok memnuniyet duyarız!\n\nNot: Verileri haritaları kullanıcıların yaratmasına ve düzenlemesine olanak veren Wikipedia benzeri bir proje olan OpenStreetMap'dan almaktayız. Eğer haritada eksik ya da hatalı bir şeyler görürseniz doğrudan haritaları\n\nhttp://openstreetmap.org, adresinden düzeltebilirsiniz ve yaptığınız değişiklikler MAPS.ME'de bir sonraki sürüm yayınlandığında görülebilir olacaktır.";
@@ -1610,3 +1592,34 @@
 "whatsnew_cycle_navigation_header" = "Bisiklet navigasyonu (beta sürüm)";
 
 "whatsnew_cycle_navigation_message" = "Yeni sezon için bisiklet navigasyonu özelliğini test ediyoruz. En sık kullandığınız bisiklet rotasını MAPS.ME ile deneyin ve görüşlerinizi bizimle paylaşın.";
+
+/* Rate on Google Play (Android only) */
+"rate_gp" = "Google Play'de Oy Ver";
+
+/* Share with friends: menu item title */
+"tell_friends" = "Arkadaşınıza söyleyin";
+
+/* Share with friends: sharing text */
+"tell_friends_text" = "Merhaba! MAPS.ME'yi hemen yükle!";
+
+/* About short text (below logo) */
+"about_description" = "MAPS.ME, seyahatler için vazgeçilmez bir çevrimdışı uygulamadır. MAPS.ME, OpenStreetMap verilerine dayanmakta ve bu verilerin düzenlenmesini sağlamaktadır.";
+
+/* Text in menu */
+"blog" = "Blog";
+
+/* Hint near allow statictics checkbox */
+"allow_statistics_hint" = "Kullanım istatistiklerinin toplanması uygulamayı geliştirmemize yardımcı olur.";
+
+"general_settings" = "Genel ayarlar";
+
+"date" = "Tarih %d";
+
+/* "Report a bug" -> "Generaal Feedback" -> "Something is not working" */
+"something_is_not_working" = "Bir şey çalışmıyor";
+
+/* For the first routing */
+"accept" = "Kabul";
+
+/* For the first routing */
+"decline" = "Ret";

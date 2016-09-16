@@ -271,8 +271,6 @@
 	<string name="copied_to_clipboard">Copiato sugli Appunti: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
 	<string name="allow_statistics">Invia statistiche</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Consentici di raccogliere le statistiche di utilizzo al fine di migliorare l\&#39;app</string>
 	<!-- place preview title -->
 	<string name="info">Informazioni</string>
 	<!-- Used for bookmark editing -->
@@ -920,4 +918,24 @@
 	<string name="whatsnew_booking_2_message">I risultati di ricerca mostrano la valutazione dell\&#39;hotel e la categoria del prezzo.</string>
 	<string name="whatsnew_cycle_navigation_header">Navigazione in bici (versione beta)</string>
 	<string name="whatsnew_cycle_navigation_message">Stiamo collaudando la navigazione in bici per la nuova stagione. Prova il tuo itinerario ciclistico preferito con MAPS.ME e condividi con noi le tue opinioni.</string>
+	<!-- Rate on Google Play (Android only) -->
+	<string name="rate_gp">Vota su Google Play</string>
+	<!-- Share with friends: menu item title -->
+	<string name="tell_friends">Dillo a un amico</string>
+	<!-- Share with friends: sharing text -->
+	<string name="tell_friends_text">Ciao! Installa MAPS.ME!</string>
+	<!-- About short text (below logo) -->
+	<string name="about_description">MAPS.ME è un\&#39;applicazione offline essenziale per chi ama viaggiare. MAPS.ME si basa sui dati OpenStreetMap e consente di apportare modifiche.</string>
+	<!-- Text in menu -->
+	<string name="blog">Blog</string>
+	<!-- Hint near allow statictics checkbox -->
+	<string name="allow_statistics_hint">L\&#39;acquisizione dei dati sulle statistiche di utilizzo ci aiuta a migliorare la app.</string>
+	<string name="general_settings">Impostazioni generali</string>
+	<string name="date">Data %d</string>
+	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
+	<string name="something_is_not_working">Qualcosa non funziona</string>
+	<!-- For the first routing -->
+	<string name="accept">Accetta</string>
+	<!-- For the first routing -->
+	<string name="decline">Rifiuta</string>
 </resources>

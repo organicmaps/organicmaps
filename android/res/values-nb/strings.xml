@@ -272,8 +272,6 @@
 	<string name="copied_to_clipboard">Kopiert til utklippstavlen: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
 	<string name="allow_statistics">Send statistikk</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Tillat oss å innhente bruksstatistikk for å forbedre appen</string>
 	<!-- place preview title -->
 	<string name="info">Informasjon</string>
 	<!-- Used for bookmark editing -->
@@ -919,4 +917,24 @@
 	<string name="whatsnew_booking_2_message">Søkeresultatene rangerer hotellene etter omdømme og priskategorier.</string>
 	<string name="whatsnew_cycle_navigation_header">Sykkelnavigering (betaversjon)</string>
 	<string name="whatsnew_cycle_navigation_message">Vi tester sykkelnavigering for den nye sesongen. Prøv din favorittrute med MAPS.ME, og del din vurdering med oss.</string>
+	<!-- Rate on Google Play (Android only) -->
+	<string name="rate_gp">Gi vurdering på Google Play</string>
+	<!-- Share with friends: menu item title -->
+	<string name="tell_friends">Fortell en venn</string>
+	<!-- Share with friends: sharing text -->
+	<string name="tell_friends_text">Hei! Installer MAPS.ME!</string>
+	<!-- About short text (below logo) -->
+	<string name="about_description">MAPS.ME er en offline app for reising. MAPS.ME bygger på OpenStreetMap-data og tillater redigering av den.</string>
+	<!-- Text in menu -->
+	<string name="blog">Blogg</string>
+	<!-- Hint near allow statictics checkbox -->
+	<string name="allow_statistics_hint">Innsamling av brukerstatistikk hjelper oss til å forbedre appen.</string>
+	<string name="general_settings">Generelle innstillinger</string>
+	<string name="date">Dato %d</string>
+	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
+	<string name="something_is_not_working">Noe fungerer ikke som det skal</string>
+	<!-- For the first routing -->
+	<string name="accept">Godta</string>
+	<!-- For the first routing -->
+	<string name="decline">Avvis</string>
 </resources>

@@ -265,8 +265,6 @@
 	<string name="copied_to_clipboard">Copiado al portapapeles: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
 	<string name="allow_statistics">Enviar estadísticas</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Permítenos recopilar estadísticas de uso para mejorar la aplicación</string>
 	<!-- place preview title -->
 	<string name="info">Información</string>
 	<!-- Used for bookmark editing -->
@@ -916,4 +914,24 @@
 	<string name="whatsnew_booking_2_message">Los resultados de búsqueda muestran la valoración del hotel y la categoría de precios.</string>
 	<string name="whatsnew_cycle_navigation_header">Navegación en bici (versión beta)</string>
 	<string name="whatsnew_cycle_navigation_message">Estamos probando la navegación en bici para la nueva temporada. Prueba tu ruta favorita en bicicleta con MAPS.ME y comparte tu opinión con nosotros.</string>
+	<!-- Rate on Google Play (Android only) -->
+	<string name="rate_gp">Valorar en Google Play</string>
+	<!-- Share with friends: menu item title -->
+	<string name="tell_friends">Enviar a un amigo</string>
+	<!-- Share with friends: sharing text -->
+	<string name="tell_friends_text">¡Hola! ¡Instala MAPS.ME!</string>
+	<!-- About short text (below logo) -->
+	<string name="about_description">MAPS.ME es una aplicación esencial offline para viajar. MAPS.ME se basa en datos de OpenStreetMap y permite editarla.</string>
+	<!-- Text in menu -->
+	<string name="blog">Blog</string>
+	<!-- Hint near allow statictics checkbox -->
+	<string name="allow_statistics_hint">La recopilación de estadísticas de uso nos ayuda a mejorar la aplicación.</string>
+	<string name="general_settings">Ajustes generales</string>
+	<string name="date">Fecha %d</string>
+	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
+	<string name="something_is_not_working">Algo no funciona</string>
+	<!-- For the first routing -->
+	<string name="accept">Aceptar</string>
+	<!-- For the first routing -->
+	<string name="decline">Declinar</string>
 </resources>

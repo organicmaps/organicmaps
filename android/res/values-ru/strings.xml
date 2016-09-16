@@ -278,8 +278,6 @@
 	<string name="copied_to_clipboard">Скопировано в буфер обмена: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
 	<string name="allow_statistics">Сбор статистики</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Разрешить сбор статистики. Это помогает нам совершенствовать приложение.</string>
 	<!-- place preview title -->
 	<string name="info">Информация</string>
 	<!-- Used for bookmark editing -->
@@ -389,8 +387,6 @@
 	<!-- Text in menu -->
 	<string name="website">Вебсайт</string>
 	<!-- Text in menu -->
-	<string name="blog">Блог</string>
-	<!-- Text in menu -->
 	<string name="maps_me_community">Сообщество MAPS.ME</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">MAPS.ME в Facebook</string>
@@ -406,12 +402,6 @@
 	<string name="subscribe_to_news">Подписаться на новости</string>
 	<!-- Text in menu -->
 	<string name="rate_the_app">Оценить приложение</string>
-	<!-- Rate in Google Play (Android only) -->
-	<string name="rate_gp">Оценить в Google Play</string>
-	<!-- Share with friends: menu item title -->
-	<string name="tell_friends">Рассказать друзьям</string>
-	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Привет! Установи MAPS.ME!</string>
 	<!-- Text in menu -->
 	<string name="help">Справка</string>
 	<!-- Text in menu -->
@@ -422,8 +412,6 @@
 	<string name="subscribe_me_subject">Подпишите меня на email-рассылку MAPS.ME</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">Я хочу первым узнавать обо всех новостях, обновлениях приложения и акциях. Я могу отписаться от рассылки в любой момент.</string>
-	<!-- About short text (below logo) -->
-	<string name="about_description">Объединив усилия Mail.Ru Group и данные OpenStreetMap, мы создаем незаменимое приложение для путешествий.</string>
 	<!-- About text -->
 	<string name="about_text">MAPS.ME предлагает карты всех городов, всех стран мира, которые работают без подключения к интернету. Путешествуйте с уверенностью: где бы вы ни находились, MAPS.ME помогут решить любую вашу проблему - помогут определить ваше местоположение, найти ресторан, отель, заправку, банк, туалет и т.д.\n\nМы постоянно работаем над добавлением новых функций, поэтому если у вас есть идеи или предложения по улучшению MAPS.ME, пишите нам. Если у вас возникла проблема с приложением, сообщите нам, пожалуйста, о ней. Наш емэйл support@maps.me. Мы отвечаем на все письма! Если вам нравится приложение и вы хотите поддержать нас, есть несколько простых и абсолютно бесплатных способов:\n\n- оставьте отзыв в вашем магазине приложений\n- подпишитесь на наши новости на Facebook странице http://www.facebook.com/mapswithme\n- или просто расскажите о MAPS.ME своей маме, друзьям и коллегам :)\n\nСпасибо за вашу поддержку!\n\nP.S. В приложении мы используем картографические данные проекта OpenStreetMap, который работает по принципу Википедии, давая возможность пользователям со всего мира создавать и редактировать карты. Если вы заметили, что на карте что-то не соответствует действительности либо отсутствует, вы можете откорректировать это прямо на сайте http://openstreetmap.org, и эти исправления появятся во время следующего обновления MAPS.ME.</string>
 	<!-- Alert text -->
@@ -955,4 +943,24 @@
 	<string name="whatsnew_booking_2_message">При поиске отображается рейтинг и ценовая категория отеля.</string>
 	<string name="whatsnew_cycle_navigation_header">Велонавигация (бета-версия)</string>
 	<string name="whatsnew_cycle_navigation_message">К открытию сезона мы тестируем велонавигацию. Прокатитесь по своему любимому веломаршруту с MAPS.ME и поделитесь с нами впечатлениями.</string>
+	<!-- Rate on Google Play (Android only) -->
+	<string name="rate_gp">Оценить в Google Play</string>
+	<!-- Share with friends: menu item title -->
+	<string name="tell_friends">Рассказать друзьям</string>
+	<!-- Share with friends: sharing text -->
+	<string name="tell_friends_text">Привет! Установи MAPS.ME!</string>
+	<!-- About short text (below logo) -->
+	<string name="about_description">MAPS.ME — незаменимое приложение для путешествий, работающее без подключения к интернету. MAPS.ME использует данные OpenStreetMap и позволяет их улучшать.</string>
+	<!-- Text in menu -->
+	<string name="blog">Блог</string>
+	<!-- Hint near allow statictics checkbox -->
+	<string name="allow_statistics_hint">Сбор статистики помогает нам совершенствовать приложение.</string>
+	<string name="general_settings">Общие настройки</string>
+	<string name="date">Дата %d</string>
+	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
+	<string name="something_is_not_working">Что-то не работает</string>
+	<!-- For the first routing -->
+	<string name="accept">Принять</string>
+	<!-- For the first routing -->
+	<string name="decline">Отклонить</string>
 </resources>

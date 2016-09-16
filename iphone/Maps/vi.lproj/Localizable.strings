@@ -433,9 +433,6 @@
 /* Setting label for statistics turn on/off */
 "allow_statistics" = "Gửi thống kê";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Cho phép chúng tôi thu thập thống kê sử dụng để nâng cao ứng dụng";
-
 /* place preview title */
 "info" = "Thông tin";
 
@@ -609,9 +606,6 @@
 "website" = "Trang web";
 
 /* Text in menu */
-"blog" = "Blog";
-
-/* Text in menu */
 "maps_me_community" = "Cộng đồng MAPS.ME";
 
 /* Text in menu */
@@ -635,15 +629,6 @@
 /* Text in menu */
 "rate_the_app" = "Cho điểm ứng dụng";
 
-/* Rate in Google Play (Android only) */
-"rate_gp" = "Rate on Google Play";
-
-/* Share with friends: menu item title */
-"tell_friends" = "Tell a Friend";
-
-/* Share with friends: sharing text */
-"tell_friends_text" = "Hi! Install MAPS.ME!";
-
 /* Text in menu */
 "help" = "Trợ giúp";
 
@@ -658,9 +643,6 @@
 
 /* Email body */
 "subscribe_me_body" = "Tôi muốn là người đầu tiên được biết về các thông tin cập nhật và quảng bá mới nhất. Tôi có thể hủy bỏ đăng ký nhận tin của mình bất cứ lúc nào.";
-
-/* About short text (below logo) */
-"about_description" = "Joined efforts of Mail.Ru Group and OpenStreetMap make the most useful application for travelers!";
 
 /* About text */
 "about_text" = "MAPS.ME cung cấp bản đồ ngoại tuyến của tất cả các thành phố và quốc gia trên thế giới một cách nhanh nhất. Hoàn toàn tự tin đi du lịch: dù bạn ở đâu, MAPS.ME vẫn sẽ giúp bạn định vị bản thân trên bản đồ, tìm các nhà hàng, khách sạn, ngân hàng, trạm xăng, v.v… gần nhất. Ứng dụng này không yêu cầu kết nối Internet.\n\nChúng tôi luôn phát triển các tính năng mới và rất chào đón ý kiến của bạn về cách mà chúng tôi có thể cải thiện MAPS.ME. Nếu bạn có bất cứ vấn đề nào với ứng dụng, hãy liên hệ với chúng tôi qua địa chỉ support@maps.me. Chúng tôi sẽ trả lời mọi yêu cầu!\n\nBạn có thích MAPS.ME và muốn hỗ trợ chúng tôi hay không? Sau đây là một số cách đơn giản và hoàn toàn miễn phí:\n\n- viết đánh giá trên Chợ Ứng dụng mà bạn sử dụng\n- thích trang Facebook của chúng tôi http://www.facebook.com/mapswithme\n- hoặc chỉ đơn giản là kể về MAPS.ME với mẹ, bạn bè và đồng nghiệp của bạn :)\n\nCảm ơn bạn đã ủng hộ chúng tôi. Chúng tôi rất cảm ơn sự giúp đỡ của bạn!\n\nT.B. Chúng tôi lấy dữ liệu bản đồ từ OpenStreetMap, một dự án bản đồ tương đương với Wikipedia, cho phép người dùng có thể tạo và sửa bản đồ. Nếu bạn thấy có thông tin bị thiếu hoặc sai trên bản đồ, bạn có thể sửa trực tiếp tại http://openstreetmap.org, và các thay đổi của bạn sẽ xuất hiện trong ứng dụng MAPS.ME ở phiên bản kế tiếp.";
@@ -1610,3 +1592,34 @@
 "whatsnew_cycle_navigation_header" = "Định vị xe đạp (phiên bản beta)";
 
 "whatsnew_cycle_navigation_message" = "Chúng tôi đang thử nghiệm định vị xe đạp cho mùa mới. Hãy thử tuyến đường xe đạp ưa thích của bạn với MAPS.ME, và chia sẻ ý kiến của bạn với chúng tôi.";
+
+/* Rate on Google Play (Android only) */
+"rate_gp" = "Cho điểm trên Google Play";
+
+/* Share with friends: menu item title */
+"tell_friends" = "Giới thiệu với Bạn bè";
+
+/* Share with friends: sharing text */
+"tell_friends_text" = "Xin chào! Hãy cài đặt MAPS.ME!";
+
+/* About short text (below logo) */
+"about_description" = "MAPS.ME là một ứng dụng ngoại tuyến thiết yếu khi đi du lịch. MAPS.ME được dựa trên dữ liệu của OpenStreetMap và cho phép bạn hiệu chỉnh nó.";
+
+/* Text in menu */
+"blog" = "Blog";
+
+/* Hint near allow statictics checkbox */
+"allow_statistics_hint" = "Việc thu thập số liệu sử dụng giúp chúng tôi cải thiện ứng dụng.";
+
+"general_settings" = "Thiết lập chung";
+
+"date" = "Ngày %d";
+
+/* "Report a bug" -> "Generaal Feedback" -> "Something is not working" */
+"something_is_not_working" = "Có một vấn đề nào đó";
+
+/* For the first routing */
+"accept" = "Chấp nhận";
+
+/* For the first routing */
+"decline" = "Từ chối";

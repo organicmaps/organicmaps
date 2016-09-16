@@ -433,9 +433,6 @@
 /* Setting label for statistics turn on/off */
 "allow_statistics" = "啟用匿名使用數據";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "它收集使用數據以幫助我們打造更好的應用程式";
-
 /* place preview title */
 "info" = "簡介";
 
@@ -609,9 +606,6 @@
 "website" = "網站";
 
 /* Text in menu */
-"blog" = "Blog";
-
-/* Text in menu */
 "maps_me_community" = "MAPS.ME 社群";
 
 /* Text in menu */
@@ -635,15 +629,6 @@
 /* Text in menu */
 "rate_the_app" = "為該應用程式評分";
 
-/* Rate in Google Play (Android only) */
-"rate_gp" = "在 Google Play 評分";
-
-/* Share with friends: menu item title */
-"tell_friends" = "Tell a Friend";
-
-/* Share with friends: sharing text */
-"tell_friends_text" = "嗨！安裝 MAPS.ME！";
-
 /* Text in menu */
 "help" = "幫助";
 
@@ -658,9 +643,6 @@
 
 /* Email body */
 "subscribe_me_body" = "我想搶先了解最新新聞、更新和促銷活動。我可以隨時取消我的訂閱。";
-
-/* About short text (below logo) */
-"about_description" = "Joined efforts of Mail.Ru Group and OpenStreetMap make the most useful application for travelers!";
 
 /* About text */
 "about_text" = "MAPS.ME 提供全球所有國家和所有城市的最快速的離線地圖。充滿自信地出行：無論您在哪，MAPS.ME都能夠幫助您在地圖上找到您自己的位置，找到最近的餐館、酒店、銀行、加油站，等等。無需網路連接。 我們始終在為增加新功能而努力，並希望能夠聽到您對我們應如何改進 MAPS.ME 的想法。若您在使用本應用程式時遇到任何問題，請隨時聯繫我們：support@maps.me。我們會回覆每一條請求！\n\n您喜歡 MAPS.ME 並想支持我們嗎？以下為一些簡單且完全免費的方法：\n- 在您的應用程式商店上發表評論\n- 在我們的 Facebook 頁面 http://www.facebook.com/mapswithme 上按讚\n- 或者向您的母親、朋友，以及同事介紹 MAPS.ME :)\n\n感謝您與我們在一起。非常感謝您的支持。\n\nP.S.：我們從 OpenStreetMap 獲得地圖資訊，這是一個類似維基百科的地圖繪製專案，能夠讓使用者建立並編輯編輯地圖。若您看到地圖上缺少了什麽或者有什麽錯誤，可以直接在 http://openstreetmap.org 上進行糾正。在下一個版本發佈時，您做出的更改便會出現在 MAPS.ME 應用程式中。";
@@ -1610,3 +1592,34 @@
 "whatsnew_cycle_navigation_header" = "自行車導航（beta 版）";
 
 "whatsnew_cycle_navigation_message" = "我們正在為新的一季測試自行車導航功能。請使用 MAPS.ME 嘗試您最喜愛的自行車路徑，並將您的意見與我們分享。";
+
+/* Rate on Google Play (Android only) */
+"rate_gp" = "在 Google Play 評分";
+
+/* Share with friends: menu item title */
+"tell_friends" = "告訴朋友";
+
+/* Share with friends: sharing text */
+"tell_friends_text" = "嗨！安裝 MAPS.ME！";
+
+/* About short text (below logo) */
+"about_description" = "MAPS.ME 是一款基本離線旅遊應用程式。MAPS.ME 以 OpenStreetMap 數據為基礎，並允許對其進行編輯。";
+
+/* Text in menu */
+"blog" = "部落格";
+
+/* Hint near allow statictics checkbox */
+"allow_statistics_hint" = "收集使用量統計資料有助於我們改善應用程式。";
+
+"general_settings" = "一般設定";
+
+"date" = "日期 %d";
+
+/* "Report a bug" -> "Generaal Feedback" -> "Something is not working" */
+"something_is_not_working" = "某些地方出錯了";
+
+/* For the first routing */
+"accept" = "接受";
+
+/* For the first routing */
+"decline" = "拒絕";

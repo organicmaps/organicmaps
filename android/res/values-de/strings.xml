@@ -278,8 +278,6 @@
 	<string name="copied_to_clipboard">In die Zwischenablage kopiert: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
 	<string name="allow_statistics">Statistiken senden</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Erlauben Sie uns das Sammeln von Nutzungsstatistiken zur Verbesserung der App</string>
 	<!-- place preview title -->
 	<string name="info">Info</string>
 	<!-- Used for bookmark editing -->
@@ -404,12 +402,6 @@
 	<string name="subscribe_to_news">Abonnieren Sie unsere News</string>
 	<!-- Text in menu -->
 	<string name="rate_the_app">Bewerten Sie die App</string>
-	<!-- Rate in Google Play (Android only) -->
-	<string name="rate_gp">Bei Google Play bewerten</string>
-	<!-- Share with friends: menu item title -->
-	<string name="tell_friends">Einem Freund empfehlen</string>
-	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Hallo! Installiere dir MAPS.ME!</string>
 	<!-- Text in menu -->
 	<string name="help">Hilfe</string>
 	<!-- Text in menu -->
@@ -420,8 +412,6 @@
 	<string name="subscribe_me_subject">Ich möchte gerne den MAPS.ME-Newsletter abonnieren</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">Gerne möchte ich zu den Ersten gehören, die aktuelle Neuigkeiten erfahren und über neueste Aktualisierungen und Werbeangebote informiert werden. Mein Abo kann ich jederzeit kündigen.</string>
-	<!-- About short text (below logo) -->
-	<string name="about_description">Gemeinsame Bemühungen der Mail.Ru-Gruppe und OpenStreetMap machen die nützlichste Anwendung für Reisende!</string>
 	<!-- About text -->
 	<string name="about_text">MAPS.ME bietet die schnellsten Offline-Karten aller Städte weltweit. Reisen Sie mit Vertrauen: wo immer Sie sind hilft Ihnen MAPS.ME, sich auf der Karte zurecht zu finden. Finden Sie das nächstgelegene Restaurant, Hotel, Bank, Tankstelle usw. Es ist keine Internet-Verbindung erforderlich.\n\nWir arbeiten ständig an neuen Funktionen und freuen uns, von Ihnen zu hören, wie wir MAPS.ME verbessern können. Wenn Sie Probleme mit der App haben, zögern Sie nicht, mit uns über support@maps.me in Verbindung zu treten. Wir reagieren auf jede Anfrage!\n\nMögen Sie MAPS.ME und wollen Sie uns unterstützen? Es gibt einige einfache und absolut kostenlose Möglichkeiten:\n\n- Veröffentlichen Sie eine Bewertung auf Ihrem App-Store\n- Liken Sie unsere Facebook-Seite http://www.facebook.com/mapswithme\n- Oder erzählen einfach nur Ihrer Mutter, Freunden und Kollegen von MAPS.ME:)\n\nDanke, dass Sie bei uns sind. Wir freuen uns sehr über Ihre Unterstützung!\n\nPS: Wir nutzen die Kartendaten von OpenStreetMap, einem Kartierungs-Projekt ähnlich Wikipedia, bei welchem Mitglieder Kartendaten erfassen. Wenn Sie sehen, dass auf der Karte etwas fehlt oder falsch ist, können Sie die Karten direkt auf http://openstreetmap.org korrigieren und die Änderungen erscheinen in der nächsten Version der MAPS.ME-App.</string>
 	<!-- Alert text -->
@@ -951,4 +941,24 @@
 	<string name="whatsnew_booking_2_message">Die Suchergebnisse zeigen die Bewertung und die Preiskategorie des Hotels.</string>
 	<string name="whatsnew_cycle_navigation_header">Fahrradnavigation (Betaversion)</string>
 	<string name="whatsnew_cycle_navigation_message">Wir testen die Fahrradnavigation für die neue Saison. Testen Sie Ihre Lieblings-Fahrradroute mit MAPS.ME und teilen Sie Ihre Meinung mit uns.</string>
+	<!-- Rate on Google Play (Android only) -->
+	<string name="rate_gp">Bei Google Play bewerten</string>
+	<!-- Share with friends: menu item title -->
+	<string name="tell_friends">Einem Freund empfehlen</string>
+	<!-- Share with friends: sharing text -->
+	<string name="tell_friends_text">Hallo! Installiere dir MAPS.ME!</string>
+	<!-- About short text (below logo) -->
+	<string name="about_description">MAPS.ME ist eine wichtige Offline-App zum Reisen. MAPS.ME basiert auf OpenStreetMap-Daten und ermöglicht das Bearbeiten dieser.</string>
+	<!-- Text in menu -->
+	<string name="blog">Blog</string>
+	<!-- Hint near allow statictics checkbox -->
+	<string name="allow_statistics_hint">Das Erfassen von Nutzungsstatistiken hilft uns beim Verbessern der App.</string>
+	<string name="general_settings">Allgemeine Einstellungen</string>
+	<string name="date">Datum %d</string>
+	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
+	<string name="something_is_not_working">Etwas funktioniert nicht</string>
+	<!-- For the first routing -->
+	<string name="accept">Annehmen</string>
+	<!-- For the first routing -->
+	<string name="decline">Ablehnen</string>
 </resources>

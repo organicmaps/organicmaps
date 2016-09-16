@@ -276,8 +276,6 @@
 	<string name="copied_to_clipboard">Kopieret til udklipsholderen: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
 	<string name="allow_statistics">Send statistikker</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Tillad os at indhendte brugsstatistikker for at forbedre vores app</string>
 	<!-- place preview title -->
 	<string name="info">Info</string>
 	<!-- Used for bookmark editing -->
@@ -925,4 +923,24 @@
 	<string name="whatsnew_booking_2_message">Søgeresultaterne viser hotelbedømmelser og priskategori.</string>
 	<string name="whatsnew_cycle_navigation_header">Cykelnavigation (beta-version)</string>
 	<string name="whatsnew_cycle_navigation_message">Vi tester cykelnavigation til den nye sæson. Prøv din favoritcykelrute med MAPS.ME, og del dine kommentarer med os.</string>
+	<!-- Rate on Google Play (Android only) -->
+	<string name="rate_gp">Bedøm på Google Play</string>
+	<!-- Share with friends: menu item title -->
+	<string name="tell_friends">Sig det videre til en ven</string>
+	<!-- Share with friends: sharing text -->
+	<string name="tell_friends_text">Hej! Installer MAPS.ME!</string>
+	<!-- About short text (below logo) -->
+	<string name="about_description">MAPS.ME er en essentiel offline-app for rejsende. MAPS.ME er baseret på data fra OpenStreetMap, og gør det muligt at redigere disse data.</string>
+	<!-- Text in menu -->
+	<string name="blog">Blog</string>
+	<!-- Hint near allow statictics checkbox -->
+	<string name="allow_statistics_hint">Indsamling af anvendelsesstatistik hjælper os med at forbedre appen.</string>
+	<string name="general_settings">Generelle indstillinger</string>
+	<string name="date">Dato %d</string>
+	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
+	<string name="something_is_not_working">Der er noget der ikke fungerer</string>
+	<!-- For the first routing -->
+	<string name="accept">Accepter</string>
+	<!-- For the first routing -->
+	<string name="decline">Afvis</string>
 </resources>

@@ -271,8 +271,6 @@
 	<string name="copied_to_clipboard">Copiado para a Área de Transferência: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
 	<string name="allow_statistics">Enviar Estatísticas</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Permitir que recolhamos estatísticas de utilização para melhorar a aplicação</string>
 	<!-- place preview title -->
 	<string name="info">Info</string>
 	<!-- Used for bookmark editing -->
@@ -920,4 +918,24 @@
 	<string name="whatsnew_booking_2_message">Os resultados de busca mostram a avaliação do hotel e a categoria de preço.</string>
 	<string name="whatsnew_cycle_navigation_header">Navegação para bicicleta (versão beta)</string>
 	<string name="whatsnew_cycle_navigation_message">Estamos a testar a navegação para bicicleta para a nova temporada. Experimente o seu trilho preferido em bicicleta com a MAPS.ME e partilhe a sua opinião connosco.</string>
+	<!-- Rate on Google Play (Android only) -->
+	<string name="rate_gp">Classificar em Google Play</string>
+	<!-- Share with friends: menu item title -->
+	<string name="tell_friends">Indique a um amigo</string>
+	<!-- Share with friends: sharing text -->
+	<string name="tell_friends_text">Olá! Instale o MAPS.ME!</string>
+	<!-- About short text (below logo) -->
+	<string name="about_description">O MAPS.ME é uma aplicação offline essencial para viajar. O MAPS.ME baseia-se nos dados do OpenStreetMap e permite editá-los.</string>
+	<!-- Text in menu -->
+	<string name="blog">Blogue</string>
+	<!-- Hint near allow statictics checkbox -->
+	<string name="allow_statistics_hint">A recolha de estatísticas de utilização ajuda-nos a melhorar a app.</string>
+	<string name="general_settings">Configurações gerais</string>
+	<string name="date">Data %d</string>
+	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
+	<string name="something_is_not_working">Algo não está a funcionar</string>
+	<!-- For the first routing -->
+	<string name="accept">Aceitar</string>
+	<!-- For the first routing -->
+	<string name="decline">Declinar</string>
 </resources>

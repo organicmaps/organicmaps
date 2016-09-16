@@ -433,9 +433,6 @@
 /* Setting label for statistics turn on/off */
 "allow_statistics" = "Send Statistics";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Allow us to collect usage statistics to improve the app";
-
 /* place preview title */
 "info" = "Info";
 
@@ -609,9 +606,6 @@
 "website" = "Website";
 
 /* Text in menu */
-"blog" = "Blog";
-
-/* Text in menu */
 "maps_me_community" = "MAPS.ME Community";
 
 /* Text in menu */
@@ -635,15 +629,6 @@
 /* Text in menu */
 "rate_the_app" = "Rate the app";
 
-/* Rate in Google Play (Android only) */
-"rate_gp" = "Rate on Google Play";
-
-/* Share with friends: menu item title */
-"tell_friends" = "Tell a Friend";
-
-/* Share with friends: sharing text */
-"tell_friends_text" = "Hi! Install MAPS.ME!";
-
 /* Text in menu */
 "help" = "Help";
 
@@ -658,9 +643,6 @@
 
 /* Email body */
 "subscribe_me_body" = "I want to be the first to learn about latest news updates and promotions. I can cancel my subscription at any time.";
-
-/* About short text (below logo) */
-"about_description" = "Joined efforts of Mail.Ru Group and OpenStreetMap make the most useful application for travelers!";
 
 /* About text */
 "about_text" = "MAPS.ME offers the fastest offline maps of all the cities, all countries of the world. Travel with full confidence: wherever you are, MAPS.ME helps to locate yourself on the map, find the nearest restaurant, hotel, bank, petrol station etc. It doesn’t require internet connection.\n\nWe are always working on new features and would love to hear from you on how you think we could improve MAPS.ME. If you have any problems with the app, don't hesitate to contact us at support@maps.me. We respond to every request!\n\nDo you like MAPS.ME and want to support us? There are some simple and absolutely free ways:\n\n- post a review at your App Market\n- like our Facebook page http://www.facebook.com/mapswithme\n- or just tell about MAPS.ME to your mom, friends and colleagues :)\n\nThank you for being with us. We appreciate your support very much!\n\nP.S. We take map data from OpenStreetMap, a mapping project similar to Wikipedia, which allows users to create and edit maps. If you see something is missing or wrong on the map, you can correct the maps directly at http://openstreetmap.org, and your changes will appear in MAPS.ME app with the next version release.";
@@ -1610,3 +1592,34 @@
 "whatsnew_cycle_navigation_header" = "Bike navigation (beta version)";
 
 "whatsnew_cycle_navigation_message" = "We are testing bike navigation for the new season. Try your favorite bike route with MAPS.ME, and share your opinion with us.";
+
+/* Rate on Google Play (Android only) */
+"rate_gp" = "Rate on Google Play";
+
+/* Share with friends: menu item title */
+"tell_friends" = "Tell a Friend";
+
+/* Share with friends: sharing text */
+"tell_friends_text" = "Hi! Install MAPS.ME!";
+
+/* About short text (below logo) */
+"about_description" = "MAPS.ME is an essential offline application for travelling. MAPS.ME is based on OpenStreetMap data and allows editing it.";
+
+/* Text in menu */
+"blog" = "Blog";
+
+/* Hint near allow statictics checkbox */
+"allow_statistics_hint" = "Collecting usage statistics helps us improve the app.";
+
+"general_settings" = "General settings";
+
+"date" = "Date %d";
+
+/* "Report a bug" -> "Generaal Feedback" -> "Something is not working" */
+"something_is_not_working" = "Something is not working";
+
+/* For the first routing */
+"accept" = "Accept";
+
+/* For the first routing */
+"decline" = "Decline";

@@ -272,8 +272,6 @@
 	<string name="copied_to_clipboard">Copiat în clipboard: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
 	<string name="allow_statistics">Trimitere statistici</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Permiteți-ne să colectăm statistici de utilizare, pentru a ne îmbunătăți aplicația.</string>
 	<!-- place preview title -->
 	<string name="info">Informații</string>
 	<!-- Used for bookmark editing -->
@@ -917,4 +915,24 @@
 	<string name="whatsnew_booking_2_message">Rezultatele de căutare indică nota hotelului și categoria de preț.</string>
 	<string name="whatsnew_cycle_navigation_header">Navigaţie pentru biciclete (versiune beta)</string>
 	<string name="whatsnew_cycle_navigation_message">În prezent testăm navigaţia pentru biciclete pentru noul sezon. Încercaţi traseul dvs. favorit cu MAPS.ME şi împărtăşiţi-ne opinia dvs.</string>
+	<!-- Rate on Google Play (Android only) -->
+	<string name="rate_gp">Dați un calificativ pe Google Play</string>
+	<!-- Share with friends: menu item title -->
+	<string name="tell_friends">Spuneți unui prieten</string>
+	<!-- Share with friends: sharing text -->
+	<string name="tell_friends_text">Bună! Instalați MAPS.ME!</string>
+	<!-- About short text (below logo) -->
+	<string name="about_description">MAPS.ME este o aplicație offline esențială când călătoriți. MAPS.ME utilizează datele OpenStreeMap și permite editarea acestora.</string>
+	<!-- Text in menu -->
+	<string name="blog">Blog</string>
+	<!-- Hint near allow statictics checkbox -->
+	<string name="allow_statistics_hint">Colectarea statisticilor privind utilizarea ne ajută să îmbunătățim aplicația.</string>
+	<string name="general_settings">Setări generale</string>
+	<string name="date">Data %d</string>
+	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
+	<string name="something_is_not_working">Ceva nu funcționează corect</string>
+	<!-- For the first routing -->
+	<string name="accept">Acceptați</string>
+	<!-- For the first routing -->
+	<string name="decline">Refuzați</string>
 </resources>

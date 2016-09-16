@@ -278,8 +278,6 @@
 	<string name="copied_to_clipboard">تم النسخ الى الحافظة: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
 	<string name="allow_statistics">ارسال الاحصائيات</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">اسمح لنا بجمع احصائيات الاستخدام من أجل تحسين التطبيق</string>
 	<!-- place preview title -->
 	<string name="info">المعلومات</string>
 	<!-- Used for bookmark editing -->
@@ -927,4 +925,24 @@
 	<string name="whatsnew_booking_2_message">تظهر نتائج البحث التقييم والفئة السعرية للفندق.</string>
 	<string name="whatsnew_cycle_navigation_header">التوجيه الملاحي مع الدراجات (إصدار تجريبي)</string>
 	<string name="whatsnew_cycle_navigation_message">نختبر الآن التوجيه الملاحي مع الدراجات للموسم الجديد. جرب طريق الدراجات المفضل لديك باستخدام MAPS.ME، واطلعنا على رأيك.</string>
+	<!-- Rate on Google Play (Android only) -->
+	<string name="rate_gp">تصنيف على Google Play</string>
+	<!-- Share with friends: menu item title -->
+	<string name="tell_friends">أخبر صديق</string>
+	<!-- Share with friends: sharing text -->
+	<string name="tell_friends_text">مرحبًا! تثبيت MAPS.ME!</string>
+	<!-- About short text (below logo) -->
+	<string name="about_description">MAPS.ME هو تطبيق أساسي للسفر بدون اتصال بالإنترنت. يعتمد برنامج MAPS.ME على بيانات OpenStreetMap ويتيح تحريرها.</string>
+	<!-- Text in menu -->
+	<string name="blog">المدونة</string>
+	<!-- Hint near allow statictics checkbox -->
+	<string name="allow_statistics_hint">تجميح إحصائيات الاستخدام يساعد في تحسين التطبيق.</string>
+	<string name="general_settings">إعدادات عامة</string>
+	<string name="date">التاريخ %d</string>
+	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
+	<string name="something_is_not_working">شيء ما لا يعمل</string>
+	<!-- For the first routing -->
+	<string name="accept">قبول</string>
+	<!-- For the first routing -->
+	<string name="decline">رفض</string>
 </resources>

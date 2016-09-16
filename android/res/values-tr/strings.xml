@@ -278,8 +278,6 @@
 	<string name="copied_to_clipboard">Panoya Kopyalandı: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
 	<string name="allow_statistics">İstatistikleri Gönder</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Uygulamayı geliştirebilmemiz için kullanım istatistikleri toplamamıza izin ver</string>
 	<!-- place preview title -->
 	<string name="info">Bilgi</string>
 	<!-- Used for bookmark editing -->
@@ -927,4 +925,24 @@
 	<string name="whatsnew_booking_2_message">Arama sonuçları otel puan ve fiyat kategorisini gösterir.</string>
 	<string name="whatsnew_cycle_navigation_header">Bisiklet navigasyonu (beta sürüm)</string>
 	<string name="whatsnew_cycle_navigation_message">Yeni sezon için bisiklet navigasyonu özelliğini test ediyoruz. En sık kullandığınız bisiklet rotasını MAPS.ME ile deneyin ve görüşlerinizi bizimle paylaşın.</string>
+	<!-- Rate on Google Play (Android only) -->
+	<string name="rate_gp">Google Play\&#39;de Oy Ver</string>
+	<!-- Share with friends: menu item title -->
+	<string name="tell_friends">Arkadaşınıza söyleyin</string>
+	<!-- Share with friends: sharing text -->
+	<string name="tell_friends_text">Merhaba! MAPS.ME\&#39;yi hemen yükle!</string>
+	<!-- About short text (below logo) -->
+	<string name="about_description">MAPS.ME, seyahatler için vazgeçilmez bir çevrimdışı uygulamadır. MAPS.ME, OpenStreetMap verilerine dayanmakta ve bu verilerin düzenlenmesini sağlamaktadır.</string>
+	<!-- Text in menu -->
+	<string name="blog">Blog</string>
+	<!-- Hint near allow statictics checkbox -->
+	<string name="allow_statistics_hint">Kullanım istatistiklerinin toplanması uygulamayı geliştirmemize yardımcı olur.</string>
+	<string name="general_settings">Genel ayarlar</string>
+	<string name="date">Tarih %d</string>
+	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
+	<string name="something_is_not_working">Bir şey çalışmıyor</string>
+	<!-- For the first routing -->
+	<string name="accept">Kabul</string>
+	<!-- For the first routing -->
+	<string name="decline">Ret</string>
 </resources>

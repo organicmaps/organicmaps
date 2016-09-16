@@ -433,9 +433,6 @@
 /* Setting label for statistics turn on/off */
 "allow_statistics" = "发送数据";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "允许我们收集使用统计数据来提高应用程序";
-
 /* place preview title */
 "info" = "信息";
 
@@ -609,9 +606,6 @@
 "website" = "网站";
 
 /* Text in menu */
-"blog" = "Blog";
-
-/* Text in menu */
 "maps_me_community" = "MAPS.ME社区";
 
 /* Text in menu */
@@ -635,15 +629,6 @@
 /* Text in menu */
 "rate_the_app" = "为该应用打分";
 
-/* Rate in Google Play (Android only) */
-"rate_gp" = "Rate on Google Play";
-
-/* Share with friends: menu item title */
-"tell_friends" = "Tell a Friend";
-
-/* Share with friends: sharing text */
-"tell_friends_text" = "Hi! Install MAPS.ME!";
-
 /* Text in menu */
 "help" = "帮助";
 
@@ -658,9 +643,6 @@
 
 /* Email body */
 "subscribe_me_body" = "我想率先了解最新新闻、更新及促销活动。订阅可随时取消。";
-
-/* About short text (below logo) */
-"about_description" = "Joined efforts of Mail.Ru Group and OpenStreetMap make the most useful application for travelers!";
 
 /* About text */
 "about_text" = "MAPS.ME 提供全球所有国家和所有城市的最快速的离线地图。充满自信地出行：无论您在哪，MAPS.ME都能够帮助您在地图上找到您自己的位置，找到最近的餐馆、酒店、银行、加油站，等等。无需网络连接。\n\n我们始终在为添加新功能而努力，并希望能够听到您对我们应如何改进MAPS.ME的想法。若您在使用本应用时遇到任何问题，请随时联系我们：support@maps.me。我们会回复每一条请求！\n\n您喜欢MAPS.ME并希望支持我们吗？以下为一些简单且完全免费的方法：\n\n- 在您的App Market发表评论\n- 在我们的Facebook页面http://www.facebook.com/mapswithme赞我们\n- 或者向您的母亲、朋友，以及同事介绍MAPS.ME :)\n\n感谢您与我们在一起。非常感谢您的支持。\n\n附言：我们从OpenStreetMap获取地图信息，这是一个类似于Wikipedia的地图绘制项目，能够让用户创建并编辑地图。若您看到地图上缺少了什么或者有什么错误，可以直接在http://openstreetmap.org上进行纠正。在下一个版本发布时，您做出的更改便会出现在MAPS.ME应用中。";
@@ -1610,3 +1592,34 @@
 "whatsnew_cycle_navigation_header" = "自行车导航 (beta 版)";
 
 "whatsnew_cycle_navigation_message" = "正在测试自行车导航。试一下使用 MAPS.ME 寻找您最喜爱的自行车路线并与我们分享您的意见。";
+
+/* Rate on Google Play (Android only) */
+"rate_gp" = "在 Google Play 上的评分";
+
+/* Share with friends: menu item title */
+"tell_friends" = "告诉朋友";
+
+/* Share with friends: sharing text */
+"tell_friends_text" = "您好！安装 MAPS.ME！";
+
+/* About short text (below logo) */
+"about_description" = "MAPS.ME 是一款基本的离线旅行应用。MAPS.ME 基于 OpenStreetMap 数据并且允许对其进行编辑。";
+
+/* Text in menu */
+"blog" = "博客";
+
+/* Hint near allow statictics checkbox */
+"allow_statistics_hint" = "收集使用统计数据有助于我们改进应用。";
+
+"general_settings" = "常规设置";
+
+"date" = "日期 %d";
+
+/* "Report a bug" -> "Generaal Feedback" -> "Something is not working" */
+"something_is_not_working" = "某些地方出错了";
+
+/* For the first routing */
+"accept" = "接受";
+
+/* For the first routing */
+"decline" = "拒绝";

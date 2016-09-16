@@ -433,9 +433,6 @@
 /* Setting label for statistics turn on/off */
 "allow_statistics" = "Kirimkan Statistik";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Izinkan kami mengumpulkan statistik penggunaan untuk mengembangkan aplikasi";
-
 /* place preview title */
 "info" = "Info";
 
@@ -609,9 +606,6 @@
 "website" = "Situs Web";
 
 /* Text in menu */
-"blog" = "Blog";
-
-/* Text in menu */
 "maps_me_community" = "Komunitas MAPS.ME";
 
 /* Text in menu */
@@ -635,15 +629,6 @@
 /* Text in menu */
 "rate_the_app" = "Beri nilai aplikasi";
 
-/* Rate in Google Play (Android only) */
-"rate_gp" = "Rate on Google Play";
-
-/* Share with friends: menu item title */
-"tell_friends" = "Tell a Friend";
-
-/* Share with friends: sharing text */
-"tell_friends_text" = "Hi! Install MAPS.ME!";
-
 /* Text in menu */
 "help" = "Bantuan";
 
@@ -658,9 +643,6 @@
 
 /* Email body */
 "subscribe_me_body" = "Saya ingin menjadi yang pertama untuk mengetahui kabar dan promosi terbaru. Saya dapat membatalkan langganan saya kapan saja.";
-
-/* About short text (below logo) */
-"about_description" = "Joined efforts of Mail.Ru Group and OpenStreetMap make the most useful application for travelers!";
 
 /* About text */
 "about_text" = "MAPS.ME menawarkan peta offline tercepat dari semua kota, semua negara di dunia. Berpergianlah dengan kepercayaan diri yang penuh: di nana pun Anda berada, MAPS.ME akan membantu Anda mengetahui posisi Anda pada peta, menemukan restoran, hotel, bank, stasiun bahan bakar terdekat, dll. Tidak perlu koneksi internet.Kami selalu membuat fitur-fitur baru dan ingin mendengar pendapat Anda mengenai bagaimana kami dapat membuat MAPS.ME menjadi lebih baik. Jika Anda memiliki masalah apa pun dengan aplikasinya, jangan segan untuk menghubungi kami di support@maps.me. Kami akan merespons setiap permintaan!Apakah Anda menyukai MAPS.ME an ingin membantu kami? Terdapat beberapa cara yang mudah dan sepenuhnya gratis:- tulis ulasan di App Market Anda";
@@ -1610,3 +1592,34 @@
 "whatsnew_cycle_navigation_header" = "Navigasi bersepeda (versi beta)";
 
 "whatsnew_cycle_navigation_message" = "Kami sedang menguji navigasi bersepeda untuk musim baru. Coba rute bersepeda favorit Anda dengan MAPS.ME dan sampaikan pendapat Anda.";
+
+/* Rate on Google Play (Android only) */
+"rate_gp" = "Beri nilai di Google Play";
+
+/* Share with friends: menu item title */
+"tell_friends" = "Beri Tahu Teman";
+
+/* Share with friends: sharing text */
+"tell_friends_text" = "Hai! Instal MAPS.ME yuk!";
+
+/* About short text (below logo) */
+"about_description" = "MAPS.ME adalah aplikasi offline yang sangat berguna untuk bepergian. MAPS.ME didasarkan pada data OpenStreetMap dan memungkinkan kita untuk mengeditnya.";
+
+/* Text in menu */
+"blog" = "Blog";
+
+/* Hint near allow statictics checkbox */
+"allow_statistics_hint" = "Pengumpulan statistik penggunaan akan membantu kami meningkatkan aplikasi.";
+
+"general_settings" = "Setelan umum";
+
+"date" = "Tanggal %d";
+
+/* "Report a bug" -> "Generaal Feedback" -> "Something is not working" */
+"something_is_not_working" = "Ada yang tidak berfungsi";
+
+/* For the first routing */
+"accept" = "Terima";
+
+/* For the first routing */
+"decline" = "Tolak";

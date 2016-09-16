@@ -433,9 +433,6 @@
 /* Setting label for statistics turn on/off */
 "allow_statistics" = "Envoyer des statistiques";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Nous permet de collecter des statistiques d'utilisation pour améliorer l'appli";
-
 /* place preview title */
 "info" = "Infos";
 
@@ -609,9 +606,6 @@
 "website" = "Site internet";
 
 /* Text in menu */
-"blog" = "Blog";
-
-/* Text in menu */
 "maps_me_community" = "Communauté MAPS.ME";
 
 /* Text in menu */
@@ -635,15 +629,6 @@
 /* Text in menu */
 "rate_the_app" = "Évaluer l'appli";
 
-/* Rate in Google Play (Android only) */
-"rate_gp" = "Évaluer sur Google Play";
-
-/* Share with friends: menu item title */
-"tell_friends" = "Recommander à un ami";
-
-/* Share with friends: sharing text */
-"tell_friends_text" = "Salut ! Installe MAPS.ME !";
-
 /* Text in menu */
 "help" = "Aide";
 
@@ -658,9 +643,6 @@
 
 /* Email body */
 "subscribe_me_body" = "Informez-moi en priorité des dernières nouvelles, des mises à jour et des promotions. Je peux annuler mon abonnement à tout moment.";
-
-/* About short text (below logo) */
-"about_description" = "L'application la plus utile pour les voyageurs, a été créé avec la participation des équipes Mail.Ru Group et OpenStreetMap.";
 
 /* About text */
 "about_text" = "MAPS.ME offre les cartes hors ligne les plus rapides de toutes les villes, de tous les pays du monde. Voyagez en toute confiance : où que vous soyez, MAPS.ME permet de vous situer sur la carte, de trouver le restaurant, l'hôtel, la banque, la station d'essence, etc. les plus proches. Ceci sans aucune connexion Internet.\n\nNous travaillons toujours sur de nouvelles fonctionnalités et nous aimerions avoir votre avis sur la manière d'améliorer MAPS.ME. Si vous avez quelque problème avec l'appli, n'hésitez pas à nous contacter à support@maps.me. Nous répondons à toutes les demandes !\n\nVous aimez-vous MAPS.ME et souhaitez nous soutenir ? Il existe des moyens simples et tout à fait gratuits :\n\n- Publier une critique sur votre boutique d'applis\n- aimez notre page Facebook http://www.facebook.com/mapswithme\n- ou parlez simplement de MAPS.ME à votre maman, à vos amis et à vos collègues :)\n\nNous vous remercions de votre fidélité. Nous apprécions beaucoup votre soutien !\n\nP.S. : nous prenons les données cartographiques d'OpenStreetMap, un projet de cartographie similaire à Wikipédia, qui permet aux utilisateurs de créer et de modifier des cartes. Si vous voyez une omission ou une erreur sur la carte, vous pouvez corriger les cartes directement sur http://openstreetmap.org, et vos modifications apparaîtront dans l'appli MAPS.ME lors la prochaine version.";
@@ -1610,3 +1592,34 @@
 "whatsnew_cycle_navigation_header" = "Navigation à vélo (version bêta)";
 
 "whatsnew_cycle_navigation_message" = "Nous testons la navigation à vélo pour la nouvelle saison. Essayez votre parcours préféré à vélo avec MAPS.ME, et n'hésitez pas à nous partager vos impressions.";
+
+/* Rate on Google Play (Android only) */
+"rate_gp" = "Noter sur Google Play";
+
+/* Share with friends: menu item title */
+"tell_friends" = "Recommander à un ami";
+
+/* Share with friends: sharing text */
+"tell_friends_text" = "Salut! Installe MAPS.ME!";
+
+/* About short text (below logo) */
+"about_description" = "MAPS.ME est une application hors ligne essentielle pour les voyages. MAPS.ME se base sur les données OpenStreetMap et permet de les modifier.";
+
+/* Text in menu */
+"blog" = "Blog";
+
+/* Hint near allow statictics checkbox */
+"allow_statistics_hint" = "La collecte des statistiques d’utilisation nous permet d’améliorer l’application.";
+
+"general_settings" = "Paramètres généraux";
+
+"date" = "Date %d";
+
+/* "Report a bug" -> "Generaal Feedback" -> "Something is not working" */
+"something_is_not_working" = "Quelque chose ne fonctionne pas";
+
+/* For the first routing */
+"accept" = "Accepter";
+
+/* For the first routing */
+"decline" = "Refuser";
