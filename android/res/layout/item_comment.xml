@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" xmlns:tools="http://schemas.android.com/tools">
+
+  <TextView
+          android:id="@+id/tv__user_name"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/margin_base"
+          android:layout_marginStart="@dimen/margin_base"
+          android:textAppearance="@style/MwmTextAppearance.Body1"
+          tools:text="Аleksey"/>
+  <TextView
+          android:id="@+id/tv__comment_date"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/margin_base"
+          android:layout_marginStart="@dimen/margin_base"
+          android:layout_below="@id/tv__user_name"
+          android:textAppearance="@style/MwmTextAppearance.Body4"
+          tools:text="March 29, 2016"/>
+  <TextView
+          android:id="@+id/tv__user_rating"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginRight="@dimen/margin_base"
+          android:layout_marginEnd="@dimen/margin_base"
+          android:layout_alignParentRight="true"
+          android:layout_alignParentEnd="true"
+          android:textAppearance="@style/MwmTextAppearance.Headline"
+          tools:text="9.2"/>
+</RelativeLayout>

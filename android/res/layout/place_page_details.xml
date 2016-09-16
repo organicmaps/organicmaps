@@ -57,6 +57,8 @@
 
       <include layout="@layout/place_page_hotel_nearby"/>
 
+      <include layout="@layout/place_page_hotel_rating"/>
+
       <include layout="@layout/place_page_more"/>
 
       <include layout="@layout/divider_horizontal"/>

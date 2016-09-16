@@ -23,10 +23,7 @@
           android:id="@+id/gv__place_hotel_nearby"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginLeft="@dimen/margin_base"
-          android:layout_marginRight="@dimen/margin_base"
-          android:layout_marginTop="@dimen/margin_half"
-          android:layout_marginBottom="@dimen/margin_half"
+          android:layout_marginTop="@dimen/margin_quarter"
           android:numColumns="1"
           tools:listitem="@layout/item_nearby"/>
 </LinearLayout>
