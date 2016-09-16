@@ -19,6 +19,7 @@ BookingApi::BookingApi() : m_affiliateId(BOOKING_AFFILIATE_ID)
   ss << BOOKING_KEY << ":" << BOOKING_SECRET;
   m_apiUrl = "https://" + ss.str() + "@distribution-xml.booking.com/json/bookings.";
 }
+
 string BookingApi::GetBookingUrl(string const & baseUrl, string const & /* lang */) const
 {
   return GetDescriptionUrl(baseUrl) + "#availability";
@@ -98,6 +99,87 @@ void BookingApi::GetMinPrice(string const & hotelId, string const & currency,
   };
 
   m_request.reset(downloader::HttpRequest::Get(url, callback));
+}
+
+// TODO(mgsergio): This is just a mockup, make it a real function.
+void BookingApi::GetHotelInfo(string const & hotelId, string const & /* lang */,
+                              function<void(HotelInfo const & hotelInfo)> const & fn)
+{
+  HotelInfo info;
+
+  info.m_hotelId = "000";
+  info.m_description = "Interesting place among SoHo, Little "
+      "Italy and China town. Modern design. "
+      "Great view from roof. Near subway. "
+      "Free refreshment every afternoon. "
+      "The staff was very friendly.";
+
+  info.m_photos.push_back({
+      "http://storage9.static.itmages.ru/i/16/0915/h_1473944906_4427771_63a7c2282b.jpg",
+      "http://storage7.static.itmages.ru/i/16/0915/h_1473945189_5545647_db54564f06.jpg"});
+
+  info.m_photos.push_back({
+      "http://storage9.static.itmages.ru/i/16/0915/h_1473944906_1573275_450fcd78b0.jpg",
+      "http://storage8.static.itmages.ru/i/16/0915/h_1473945194_6402871_b68c63c705.jpg"});
+
+  info.m_photos.push_back({
+      "http://storage1.static.itmages.ru/i/16/0915/h_1473944906_6998375_f1ba6024a5.jpg",
+      "http://storage7.static.itmages.ru/i/16/0915/h_1473945188_9401486_7185c713bc.jpg"});
+
+  info.m_photos.push_back({
+      "http://storage7.static.itmages.ru/i/16/0915/h_1473944904_8294064_035b4328ee.jpg",
+      "http://storage9.static.itmages.ru/i/16/0915/h_1473945189_8999398_d9bfe0d56d.jpg"});
+
+  info.m_photos.push_back({
+      "http://storage6.static.itmages.ru/i/16/0915/h_1473944904_2231876_680171f67f.jpg",
+      "http://storage1.static.itmages.ru/i/16/0915/h_1473945190_2042562_c6cfcccd18.jpg"});
+
+  info.m_photos.push_back({
+      "http://storage7.static.itmages.ru/i/16/0915/h_1473944904_2871576_660e0aad58.jpg",
+           "http://storage1.static.itmages.ru/i/16/0915/h_1473945190_9605355_94164142b7.jpg"});
+
+  info.m_photos.push_back({
+      "http://storage8.static.itmages.ru/i/16/0915/h_1473944905_3578559_d4e95070e9.jpg",
+      "http://storage3.static.itmages.ru/i/16/0915/h_1473945190_3367031_145793d530.jpg"});
+
+  info.m_photos.push_back({
+      "http://storage8.static.itmages.ru/i/16/0915/h_1473944905_5596402_9bdce96ace.jpg",
+      "http://storage4.static.itmages.ru/i/16/0915/h_1473945191_2783367_2440027ece.jpg"});
+
+  info.m_photos.push_back({
+      "http://storage8.static.itmages.ru/i/16/0915/h_1473944905_4312757_433c687f4d.jpg",
+      "http://storage6.static.itmages.ru/i/16/0915/h_1473945191_1817571_b945aa1f3e.jpg"});
+
+  info.m_facilities = {"Non smoking rooms", "Gym", "Pets are allowed"};
+
+  info.m_reviews = {
+    {
+      "Interesting place among SoHo, Little Italy and China town. Modern design. Great view from roof. Near subway. Free refreshment every afternoon. The staff was very friendly.",
+      "Little bit noise from outside",
+      "Anonymous1",
+      "http://storage2.static.itmages.ru/i/16/0915/h_1473945375_5332083_b44af613bd.jpg",
+      9.2,
+      system_clock::now()
+    },
+    {
+      "Interesting place among SoHo, Little Italy and China town. Modern design. Great view from roof. Near subway. Free refreshment every afternoon. The staff was very friendly.",
+      "Little bit noise from outside",
+      "Anonymous2",
+      "http://storage2.static.itmages.ru/i/16/0915/h_1473945375_7504873_be0fe246e3.jpg",
+      9.2,
+      system_clock::now()
+    },
+    {
+      "Interesting place among SoHo, Little Italy and China town. Modern design. Great view from roof. Near subway. Free refreshment every afternoon. The staff was very friendly.",
+      "Little bit noise from outside",
+      "Anonymous2",
+      "http://storage1.static.itmages.ru/i/16/0915/h_1473945374_9397526_996bbca0d7.jpg",
+      9.2,
+      system_clock::now()
+    }
+  };
+
+  fn(info);
 }
 
 string BookingApi::MakeApiUrl(string const & func,
