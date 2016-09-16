@@ -2,6 +2,8 @@
 
 #include "routing/router.hpp"
 
+typedef void (^MWMImageHeightBlock)(UIImage *, NSString *);
+
 @interface MWMRouter : NSObject
 
 + (MWMRouter *)router;
@@ -21,7 +23,7 @@
 - (void)rebuildWithBestRouter:(BOOL)bestRouter;
 - (void)start;
 - (void)stop;
-- (void)routeAltitudeImageForSize:(CGSize)size completion:(MWMImageBlock)block;
+- (void)routeAltitudeImageForSize:(CGSize)size completion:(MWMImageHeightBlock)block;
 
 - (instancetype)init __attribute__((unavailable("call +router instead")));
 - (instancetype)copy __attribute__((unavailable("call +router instead")));

@@ -8,6 +8,7 @@
 #import "UIButton+RuntimeAttributes.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
+#import "UIImageView+Coloring.h"
 #import "UIView+RuntimeAttributes.h"
 
 #include "Framework.h"
@@ -84,6 +85,9 @@ CGFloat constexpr kTimeWidthRegular = 128;
 @property(weak, nonatomic) IBOutlet UILabel * estimateLabel;
 @property(weak, nonatomic) IBOutlet UIView * heightProfileContainer;
 @property(weak, nonatomic) IBOutlet UIImageView * heightProfileImage;
+@property(weak, nonatomic) IBOutlet UIView * heightProfileElevation;
+@property(weak, nonatomic) IBOutlet UIImageView * elevationImage;
+@property(weak, nonatomic) IBOutlet UILabel * elevationHeight;
 
 @property(weak, nonatomic) IBOutlet UIPageControl * pageControl;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * pageControlTopOffset;
@@ -112,6 +116,7 @@ CGFloat constexpr kTimeWidthRegular = 128;
   self.goButton.hidden = YES;
   self.estimateLabel.hidden = YES;
   self.heightProfileContainer.hidden = YES;
+  self.heightProfileElevation.hidden = YES;
   self.toggleInfoButton.hidden = YES;
   self.speedView.hidden = YES;
   self.timeView.hidden = YES;
@@ -123,6 +128,7 @@ CGFloat constexpr kTimeWidthRegular = 128;
   [self.goButton setBackgroundColor:[UIColor linkBlue] forState:UIControlStateNormal];
   [self.goButton setBackgroundColor:[UIColor linkBlueHighlighted]
                            forState:UIControlStateHighlighted];
+  self.elevationImage.mwm_coloring = MWMImageColoringBlue;
 }
 
 - (void)layoutSubviews
@@ -253,8 +259,9 @@ CGFloat constexpr kTimeWidthRegular = 128;
     return;
   dispatch_async(dispatch_get_main_queue(), ^{
     [[MWMRouter router] routeAltitudeImageForSize:self.heightProfileImage.frame.size
-                                       completion:^(UIImage * image) {
+                                       completion:^(UIImage * image, NSString * altitudeElevation) {
                                          self.heightProfileImage.image = image;
+                                         self.elevationHeight.text = altitudeElevation;
                                        }];
   });
 }
@@ -331,6 +338,8 @@ CGFloat constexpr kTimeWidthRegular = 128;
       if (isLandscape)
       {
         self.mainButtonsHeight.constant = kBicyclePlanningMainButtonsHeightLandscape;
+        if ([MWMRouter hasRouteAltitude])
+          self.estimateLabelTopOffset.priority = UILayoutPriorityDefaultHigh;
       }
       else
       {
@@ -611,6 +620,7 @@ CGFloat constexpr kTimeWidthRegular = 128;
     self.goButton.hidden = NO;
     self.estimateLabel.hidden = YES;
     self.heightProfileContainer.hidden = YES;
+    self.heightProfileElevation.hidden = YES;
     self.toggleInfoButton.hidden = YES;
     self.speedView.hidden = YES;
     self.timeView.hidden = YES;
@@ -620,10 +630,13 @@ CGFloat constexpr kTimeWidthRegular = 128;
     self.routingAdditionalView.hidden = YES;
     break;
   case MWMBottomMenuStateGo:
+  {
     self.goButton.enabled = YES;
     self.goButton.hidden = NO;
     self.estimateLabel.hidden = NO;
-    self.heightProfileContainer.hidden = ![MWMRouter hasRouteAltitude];
+    BOOL const hasAltitude = [MWMRouter hasRouteAltitude];
+    self.heightProfileContainer.hidden = !hasAltitude;
+    self.heightProfileElevation.hidden = !hasAltitude;
     self.toggleInfoButton.hidden = YES;
     self.speedView.hidden = YES;
     self.timeView.hidden = YES;
@@ -632,11 +645,13 @@ CGFloat constexpr kTimeWidthRegular = 128;
     self.routingView.hidden = NO;
     self.routingAdditionalView.hidden = YES;
     break;
+  }
   case MWMBottomMenuStateRouting:
     self.menuButton.hidden = NO;
     self.goButton.hidden = YES;
     self.estimateLabel.hidden = YES;
     self.heightProfileContainer.hidden = YES;
+    self.heightProfileElevation.hidden = YES;
     self.toggleInfoButton.hidden = NO;
     self.speedView.hidden = NO;
     self.timeView.hidden = NO;
@@ -650,6 +665,7 @@ CGFloat constexpr kTimeWidthRegular = 128;
     self.goButton.hidden = YES;
     self.estimateLabel.hidden = YES;
     self.heightProfileContainer.hidden = YES;
+    self.heightProfileElevation.hidden = YES;
     self.toggleInfoButton.hidden = NO;
     self.speedView.hidden = NO;
     self.timeView.hidden = NO;

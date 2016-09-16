@@ -7,6 +7,7 @@
 #import "MWMRouter.h"
 #import "Statistics.h"
 #import "UIButton+Orientation.h"
+#import "UIImageView+Coloring.h"
 
 static CGFloat constexpr kAdditionalHeight = 20.;
 
@@ -33,6 +34,9 @@ static CGFloat constexpr kAdditionalHeight = 20.;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * resultsBoxHeight;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * heightBoxHeight;
 @property(weak, nonatomic) IBOutlet UIImageView * heightProfileImage;
+@property(weak, nonatomic) IBOutlet UIView * heightProfileElevation;
+@property(weak, nonatomic) IBOutlet UIImageView * elevationImage;
+@property(weak, nonatomic) IBOutlet UILabel * elevationHeight;
 
 @property(nonatomic) UIImageView * movingCellImage;
 
@@ -57,6 +61,8 @@ static CGFloat constexpr kAdditionalHeight = 20.;
   [self setupProgresses];
 
   [self.backButton matchInterfaceOrientation];
+
+  self.elevationImage.mwm_coloring = MWMImageColoringBlue;
 }
 
 - (void)setupProgresses
@@ -111,6 +117,7 @@ static CGFloat constexpr kAdditionalHeight = 20.;
   self.statusBox.hidden = YES;
   self.resultsBox.hidden = YES;
   self.heightBox.hidden = YES;
+  self.heightProfileElevation.hidden = YES;
   self.planningBox.hidden = YES;
   self.errorBox.hidden = YES;
 }
@@ -123,6 +130,7 @@ static CGFloat constexpr kAdditionalHeight = 20.;
   self.statusBox.hidden = NO;
   self.resultsBox.hidden = YES;
   self.heightBox.hidden = YES;
+  self.heightProfileElevation.hidden = YES;
   self.errorBox.hidden = YES;
   self.planningBox.hidden = NO;
   [self reloadData];
@@ -138,6 +146,7 @@ static CGFloat constexpr kAdditionalHeight = 20.;
   self.planningBox.hidden = YES;
   self.resultsBox.hidden = YES;
   self.heightBox.hidden = YES;
+  self.heightProfileElevation.hidden = YES;
   self.errorBox.hidden = NO;
   if (IPAD)
     [self iPadNotReady];
@@ -151,7 +160,9 @@ static CGFloat constexpr kAdditionalHeight = 20.;
   self.planningBox.hidden = YES;
   self.errorBox.hidden = YES;
   self.resultsBox.hidden = NO;
-  self.heightBox.hidden = ![MWMRouter hasRouteAltitude];
+  BOOL const hasAltitude = [MWMRouter hasRouteAltitude];
+  self.heightBox.hidden = !hasAltitude;
+  self.heightProfileElevation.hidden = !hasAltitude;
   if (IPAD)
     [self iPadReady];
 }
@@ -183,8 +194,9 @@ static CGFloat constexpr kAdditionalHeight = 20.;
     return;
   dispatch_async(dispatch_get_main_queue(), ^{
     [[MWMRouter router] routeAltitudeImageForSize:self.heightProfileImage.frame.size
-                                       completion:^(UIImage * image) {
+                                       completion:^(UIImage * image, NSString * altitudeElevation) {
                                          self.heightProfileImage.image = image;
+                                         self.elevationHeight.text = altitudeElevation;
                                        }];
   });
 }

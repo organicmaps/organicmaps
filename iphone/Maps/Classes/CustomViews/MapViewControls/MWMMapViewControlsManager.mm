@@ -240,8 +240,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   {
     if (!self.searchHidden)
       self.searchManager.state = MWMSearchManagerStateHidden;
-    else if (MapsAppDelegate.theApp.routingPlaneMode != MWMRoutingPlaneModeNone)
-      [[MWMRouter router] stop];
+    [[MWMRouter router] stop];
   }
   else
   {
