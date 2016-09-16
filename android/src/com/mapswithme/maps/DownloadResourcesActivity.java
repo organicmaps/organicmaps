@@ -17,12 +17,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.List;
-
 import com.mapswithme.maps.MwmActivity.MapTask;
 import com.mapswithme.maps.MwmActivity.OpenUrlTask;
 import com.mapswithme.maps.api.Const;
@@ -41,6 +35,12 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.statistics.Statistics;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.List;
 
 @SuppressLint("StringFormatMatches")
 public class DownloadResourcesActivity extends BaseMwmFragmentActivity
@@ -213,19 +213,23 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
   {
     super.onCreate(savedInstanceState);
 
-    Utils.keepScreenOn(true, getWindow());
-    suggestRemoveLiteOrSamsung();
-    dispatchIntent();
-    setContentView(R.layout.activity_download_resources);
-    initViewsAndListeners();
-
-    if (prepareFilesDownload())
+    if (prepareFilesDownload(false))
     {
+      Utils.keepScreenOn(true, getWindow());
+      suggestRemoveLiteOrSamsung();
+      setContentView(R.layout.activity_download_resources);
+      initViewsAndListeners();
+
       setAction(DOWNLOAD);
 
       if (ConnectionState.isWifiConnected())
         onDownloadClicked();
+
+      return;
     }
+
+    dispatchIntent();
+    showMap();
   }
 
   @Override
@@ -244,7 +248,9 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
   protected void onResume()
   {
     super.onResume();
-    LocationHelper.INSTANCE.addListener(mLocationListener, true);
+
+    if (!isFinishing())
+      LocationHelper.INSTANCE.addListener(mLocationListener, true);
   }
 
   @Override
@@ -265,14 +271,15 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
     mTvMessage.setText(getString(R.string.download_resources, StringUtils.getFileSizeString(bytesToDownload)));
   }
 
-  private boolean prepareFilesDownload()
+  private boolean prepareFilesDownload(boolean showMap)
   {
     final int bytes = nativeGetBytesToDownload();
-
     if (bytes == 0)
     {
       mAreResourcesDownloaded = true;
-      showMap();
+      if (showMap)
+        showMap();
+
       return false;
     }
 
@@ -383,7 +390,7 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
 
   private void onTryAgainClicked()
   {
-    if (prepareFilesDownload())
+    if (prepareFilesDownload(true))
     {
       setAction(PAUSE);
       doDownload();
@@ -478,11 +485,8 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
       return false;
 
     for (final IntentProcessor ip : mIntentProcessors)
-      if (ip.isSupported(intent))
-      {
-        ip.process(intent);
+      if (ip.isSupported(intent) && ip.process(intent))
         return true;
-      }
 
     return false;
   }

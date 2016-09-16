@@ -59,6 +59,7 @@ public class MapFragment extends BaseMwmFragment
   interface MapRenderingListener
   {
     void onRenderingInitialized();
+    void onRenderingRestored();
   }
 
   private void setupWidgets(int width, int height)
@@ -117,6 +118,13 @@ public class MapFragment extends BaseMwmFragment
     final Activity activity = getActivity();
     if (isAdded() && activity instanceof MapRenderingListener)
       ((MapRenderingListener) activity).onRenderingInitialized();
+  }
+
+  private void onRenderingRestored()
+  {
+    final Activity activity = getActivity();
+    if (isAdded() && activity instanceof MapRenderingListener)
+      ((MapRenderingListener) activity).onRenderingRestored();
   }
 
   private void reportUnsupported()
@@ -181,6 +189,7 @@ public class MapFragment extends BaseMwmFragment
     mRequireResize = false;
     setupWidgets(width, height);
     nativeApplyWidgets();
+    onRenderingRestored();
   }
 
   @Override
@@ -278,6 +287,11 @@ public class MapFragment extends BaseMwmFragment
     boolean res = mFirstStart;
     mFirstStart = false;
     return res;
+  }
+
+  boolean isContextCreated()
+  {
+    return mContextCreated;
   }
 
   static native void nativeCompassUpdated(double magneticNorth, double trueNorth, boolean forceRedraw);

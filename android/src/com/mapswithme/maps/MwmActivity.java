@@ -183,6 +183,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
     runTasks();
   }
 
+  @Override
+  public void onRenderingRestored()
+  {
+    runTasks();
+  }
+
   private void runTasks()
   {
     while (!mTasks.isEmpty())
@@ -714,7 +720,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mTasks.add(mapTask);
       intent.removeExtra(EXTRA_TASK);
 
-      if (MapFragment.nativeIsEngineCreated())
+      if (MapFragment.nativeIsEngineCreated() && mMapFragment.isContextCreated())
         runTasks();
 
       // mark intent as consumed
@@ -725,7 +731,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void addTask(MapTask task)
   {
     mTasks.add(task);
-    if (MapFragment.nativeIsEngineCreated())
+    if (MapFragment.nativeIsEngineCreated() && mMapFragment.isContextCreated())
       runTasks();
   }
 
@@ -1147,10 +1153,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
       switch (result)
       {
       case ParsedUrlMwmRequest.RESULT_INCORRECT:
-        // TODO handle error
-        break;
+        // TODO: Kernel recognizes "mapsme://", "mwm://" and "mapswithme://" schemas only!!!
+        return MapFragment.nativeShowMapForUrl(mUrl);
+
       case ParsedUrlMwmRequest.RESULT_MAP:
         return MapFragment.nativeShowMapForUrl(mUrl);
+
       case ParsedUrlMwmRequest.RESULT_ROUTE:
         final ParsedRoutingData data = Framework.nativeGetParsedRoutingData();
         RoutingController.get().setRouterType(data.mRouterType);
