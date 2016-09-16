@@ -150,7 +150,11 @@ void BookingApi::GetHotelInfo(string const & hotelId, string const & /* lang */,
       "http://storage8.static.itmages.ru/i/16/0915/h_1473944905_4312757_433c687f4d.jpg",
       "http://storage6.static.itmages.ru/i/16/0915/h_1473945191_1817571_b945aa1f3e.jpg"});
 
-  info.m_facilities = {"Non smoking rooms", "Gym", "Pets are allowed"};
+  info.m_facilities = {
+    {"non_smoking_rooms", "Non smoking rooms"},
+    {"gym", "Training gym"},
+    {"pets_are_allowed", "Pets are allowed"}
+  };
 
   info.m_reviews = {
     {
