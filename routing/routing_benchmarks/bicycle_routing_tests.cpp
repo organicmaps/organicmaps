@@ -44,4 +44,11 @@ UNIT_CLASS_TEST(BicycleTest, Smoke)
   m2::PointD const final = MercatorBounds::FromLatLon(55.79369, 37.56054);
   TestRouters(start, final);
 }
+
+UNIT_CLASS_TEST(BicycleTest, MailRuOfficeToUlSimanova5K2)
+{
+  m2::PointD const start = MercatorBounds::FromLatLon(55.79828, 37.53710);
+  m2::PointD const final = MercatorBounds::FromLatLon(55.79956, 37.54115);
+  TestRouters(start, final);
+}
 }  // namespace
