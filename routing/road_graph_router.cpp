@@ -69,27 +69,28 @@ bool CheckGraphConnectivity(IRoadGraph const & graph, Junction const & junction,
   q.push(junction);
 
   set<Junction> visited;
+  visited.insert(junction);
 
   vector<Edge> edges;
-  while (!q.empty())
+  while (!q.empty() && visited.size() < limit)
   {
-    Junction const node = q.front();
+    Junction const u = q.front();
     q.pop();
 
-    if (visited.find(node) != visited.end())
-      continue;
-    visited.insert(node);
-
-    if (limit == visited.size())
-      return true;
-
     edges.clear();
-    graph.GetOutgoingEdges(node, edges);
-    for (Edge const & e : edges)
-      q.push(e.GetEndJunction());
+    graph.GetOutgoingEdges(u, edges);
+    for (Edge const & edge : edges)
+    {
+      Junction const & v = edge.GetEndJunction();
+      if (visited.count(v) == 0)
+      {
+        q.push(v);
+        visited.insert(v);
+      }
+    }
   }
 
-  return false;
+  return visited.size() >= limit;
 }
 
 // Find closest candidates in the world graph
@@ -109,7 +110,7 @@ void FindClosestEdges(IRoadGraph const & graph, m2::PointD const & point,
   for (auto const & candidate : candidates)
   {
     auto const & edge = candidate.first;
-    if (CheckGraphConnectivity(graph, edge.GetStartJunction(), kTestConnectivityVisitJunctionsLimit))
+    if (CheckGraphConnectivity(graph, edge.GetEndJunction(), kTestConnectivityVisitJunctionsLimit))
     {
       vicinity.emplace_back(candidate);
 
