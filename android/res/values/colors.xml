@@ -63,6 +63,8 @@
   <color name="fg_azimut_arrow">#FFFFFFFF</color>
 
   <color name="bg_placepage_rating">#F1F8E9</color>
+  <color name="bg_placepage_rating_positive">#DCEDC8</color>
+  <color name="bg_placepage_rating_negative">#FFCDD2</color>
 
   <!-- Buttons -->
   <color name="button">@color/button_normal</color>

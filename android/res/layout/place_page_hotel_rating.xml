@@ -36,10 +36,19 @@
   </LinearLayout>
 
   <com.mapswithme.maps.widget.StaticGridView
-          android:id="@+id/gv__place_hotel_nearby"
+          android:id="@+id/gv__place_hotel_review"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/margin_base"
           android:numColumns="1"
           tools:listitem="@layout/item_comment"/>
+
+  <TextView
+          android:id="@+id/tv__place_hotel_reviews_more"
+          style="@style/PlacePageMetadataText.Button"
+          android:layout_marginLeft="@dimen/margin_base"
+          android:layout_marginRight="@dimen/margin_base"
+          android:height="@dimen/height_block_base"
+          android:background="?clickableBackground"
+          android:gravity="center"
+          android:text="@string/placepage_more_reviews_button"/>
 </LinearLayout>

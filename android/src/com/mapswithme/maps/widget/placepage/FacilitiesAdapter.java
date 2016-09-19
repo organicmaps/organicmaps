@@ -13,15 +13,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FacilitiesAdapter extends BaseAdapter {
-  private static final int MAX_SIZE = 6;
+  public static final int MAX_COUNT = 6;
 
   private List<SponsoredHotel.FacilityType> items = new ArrayList<>();
   private boolean isShowAll = false;
 
   @Override
   public int getCount() {
-    if (items.size() > MAX_SIZE && !isShowAll) {
-      return MAX_SIZE;
+    if (items.size() > MAX_COUNT && !isShowAll) {
+      return MAX_COUNT;
     }
     return items.size();
   }

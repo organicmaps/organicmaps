@@ -147,6 +147,10 @@ public class PlacePageView extends RelativeLayout
   private View mHotelGallery;
   private RecyclerView mRvHotelGallery;
   private View mHotelNearby;
+  private View mHotelReview;
+  private TextView mHotelRating;
+  private TextView mHotelRatingBase;
+  private View mHotelMoreReviews;
 
   // Animations
   private BaseShadowController mShadowController;
@@ -160,6 +164,7 @@ public class PlacePageView extends RelativeLayout
   private FacilitiesAdapter mFacilitiesAdapter = new FacilitiesAdapter();
   private GalleryAdapter mGalleryAdapter;
   private NearbyAdapter mNearbyAdapter = new NearbyAdapter(this);
+  private ReviewAdapter mReviewAdapter = new ReviewAdapter();
 
   // Downloader`s stuff
   private DownloaderStatusIcon mDownloaderIcon;
@@ -321,6 +326,13 @@ public class PlacePageView extends RelativeLayout
     mHotelNearby = findViewById(R.id.ll__place_hotel_nearby);
     GridView gvHotelNearby = (GridView) findViewById(R.id.gv__place_hotel_nearby);
     gvHotelNearby.setAdapter(mNearbyAdapter);
+    mHotelReview = findViewById(R.id.ll__place_hotel_rating);
+    GridView gvHotelReview = (GridView) findViewById(R.id.gv__place_hotel_review);
+    gvHotelReview.setAdapter(mReviewAdapter);
+    mHotelRating = (TextView) findViewById(R.id.tv__place_hotel_rating);
+    mHotelRatingBase = (TextView) findViewById(R.id.tv__place_hotel_rating_base);
+    mHotelMoreReviews = findViewById(R.id.tv__place_hotel_reviews_more);
+    mHotelMoreReviews.setOnClickListener(this);
 
     mButtons = new PlacePageButtons(this, ppButtons, new PlacePageButtons.ItemListener()
     {
@@ -485,27 +497,40 @@ public class PlacePageView extends RelativeLayout
 
     if (info.facilities == null || info.facilities.length == 0) {
       UiUtils.hide(mHotelFacilities);
-      return;
+    } else {
+      UiUtils.show(mHotelFacilities);
+      mFacilitiesAdapter.setShowAll(false);
+      mFacilitiesAdapter.setItems(Arrays.asList(info.facilities));
+      mHotelMoreFacilities.setVisibility(info.facilities.length > FacilitiesAdapter.MAX_COUNT
+              ? VISIBLE : GONE);
     }
-    UiUtils.show(mHotelFacilities);
-    mFacilitiesAdapter.setShowAll(false);
-    mFacilitiesAdapter.setItems(Arrays.asList(info.facilities));
-    mHotelMoreFacilities.setVisibility(info.facilities.length > 6 ? VISIBLE : GONE);
 
     if (info.photos == null || info.photos.length == 0) {
       UiUtils.hide(mHotelGallery);
-      return;
+    } else {
+      UiUtils.show(mHotelGallery);
+      mGalleryAdapter.setItems(new ArrayList<>(Arrays.asList(info.photos)));
+      mRvHotelGallery.scrollToPosition(0);
     }
-    UiUtils.show(mHotelGallery);
-    mGalleryAdapter.setItems(new ArrayList<>(Arrays.asList(info.photos)));
-    mRvHotelGallery.scrollToPosition(0);
 
     if (info.nearby == null || info.nearby.length == 0) {
       UiUtils.hide(mHotelNearby);
-      return;
+    } else {
+      UiUtils.show(mHotelNearby);
+      mNearbyAdapter.setItems(Arrays.asList(info.nearby));
     }
-    UiUtils.show(mHotelNearby);
-    mNearbyAdapter.setItems(Arrays.asList(info.nearby));
+
+    if (info.reviews == null || info.reviews.length == 0) {
+      UiUtils.hide(mHotelReview);
+    } else {
+      UiUtils.show(mHotelReview);
+      mReviewAdapter.setItems(Arrays.asList(info.reviews));
+      mHotelRating.setText(mSponsoredHotel.rating);
+      mHotelRatingBase.setText(getResources().getQuantityString(R.plurals.place_page_booking_rating_base,
+              info.reviews.length, info.reviews.length));
+      mHotelMoreReviews.setVisibility(info.reviews.length > ReviewAdapter.MAX_COUNT
+              ? VISIBLE : GONE);
+    }
   }
 
   @Override
@@ -763,6 +788,7 @@ public class PlacePageView extends RelativeLayout
       UiUtils.hide(mHotelFacilities);
       UiUtils.hide(mHotelGallery);
       UiUtils.hide(mHotelNearby);
+      UiUtils.hide(mHotelReview);
     }
     else {
       UiUtils.hide(mWebsite);
@@ -1052,12 +1078,15 @@ public class PlacePageView extends RelativeLayout
                                         getActivity(), getActivity().getSupportFragmentManager());
       break;
     case R.id.tv__place_hotel_more:
-      mHotelMoreDescription.setVisibility(GONE);
+      UiUtils.hide(mHotelMoreDescription);
       mTvHotelDescription.setMaxLines(Integer.MAX_VALUE);
       break;
     case R.id.tv__place_hotel_facilities_more:
-      mHotelMoreFacilities.setVisibility(GONE);
+      UiUtils.hide(mHotelMoreFacilities);
       mFacilitiesAdapter.setShowAll(true);
+      break;
+    case R.id.tv__place_hotel_reviews_more:
+//    TODO go to reviews activity
       break;
     }
   }
