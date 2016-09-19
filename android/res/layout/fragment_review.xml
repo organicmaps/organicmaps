@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
-              android:id="@+id/ll__place_hotel_rating"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
               android:orientation="vertical"
-              android:visibility="gone"
-              tools:visibility="visible">
-
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
   <LinearLayout
           android:orientation="vertical"
           android:layout_width="match_parent"
@@ -35,24 +31,9 @@
             tools:text="Based on 848 hotel reviews"/>
   </LinearLayout>
 
-  <com.mapswithme.maps.widget.StaticGridView
-          android:id="@+id/gv__place_hotel_review"
+  <android.support.v7.widget.RecyclerView
+          android:id="@+id/rv__review"
           android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:numColumns="1"
+          android:layout_height="match_parent"
           tools:listitem="@layout/item_comment"/>
-
-  <View
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:layout_marginLeft="@dimen/margin_base"
-          android:layout_marginRight="@dimen/margin_base"
-          android:background="?dividerHorizontal"/>
-  <TextView
-          android:id="@+id/tv__place_hotel_reviews_more"
-          style="@style/PlacePageMetadataText.Button"
-          android:height="@dimen/height_block_base"
-          android:background="?clickableBackground"
-          android:gravity="center"
-          android:text="@string/placepage_more_reviews_button"/>
 </LinearLayout>

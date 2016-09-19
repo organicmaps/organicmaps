@@ -64,6 +64,7 @@ import com.mapswithme.maps.editor.data.TimeFormatUtils;
 import com.mapswithme.maps.editor.data.Timetable;
 import com.mapswithme.maps.gallery.GalleryActivity;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.review.ReviewActivity;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.widget.ArrowView;
 import com.mapswithme.maps.widget.BaseShadowController;
@@ -150,7 +151,6 @@ public class PlacePageView extends RelativeLayout
   private View mHotelReview;
   private TextView mHotelRating;
   private TextView mHotelRatingBase;
-  private View mHotelMoreReviews;
 
   // Animations
   private BaseShadowController mShadowController;
@@ -331,8 +331,8 @@ public class PlacePageView extends RelativeLayout
     gvHotelReview.setAdapter(mReviewAdapter);
     mHotelRating = (TextView) findViewById(R.id.tv__place_hotel_rating);
     mHotelRatingBase = (TextView) findViewById(R.id.tv__place_hotel_rating_base);
-    mHotelMoreReviews = findViewById(R.id.tv__place_hotel_reviews_more);
-    mHotelMoreReviews.setOnClickListener(this);
+    View hotelMoreReviews = findViewById(R.id.tv__place_hotel_reviews_more);
+    hotelMoreReviews.setOnClickListener(this);
 
     mButtons = new PlacePageButtons(this, ppButtons, new PlacePageButtons.ItemListener()
     {
@@ -524,12 +524,10 @@ public class PlacePageView extends RelativeLayout
       UiUtils.hide(mHotelReview);
     } else {
       UiUtils.show(mHotelReview);
-      mReviewAdapter.setItems(Arrays.asList(info.reviews));
+      mReviewAdapter.setItems(new ArrayList<>(Arrays.asList(info.reviews)));
       mHotelRating.setText(mSponsoredHotel.rating);
       mHotelRatingBase.setText(getResources().getQuantityString(R.plurals.place_page_booking_rating_base,
               info.reviews.length, info.reviews.length));
-      mHotelMoreReviews.setVisibility(info.reviews.length > ReviewAdapter.MAX_COUNT
-              ? VISIBLE : GONE);
     }
   }
 
@@ -1086,7 +1084,8 @@ public class PlacePageView extends RelativeLayout
       mFacilitiesAdapter.setShowAll(true);
       break;
     case R.id.tv__place_hotel_reviews_more:
-//    TODO go to reviews activity
+      ReviewActivity.start(getContext(), mReviewAdapter.getItems(), mMapObject.getTitle(),
+              mSponsoredHotel.rating, mReviewAdapter.getItems().size(), mSponsoredHotel.urlBook);
       break;
     }
   }

@@ -1,6 +1,8 @@
 package com.mapswithme.maps.widget.placepage;
 
 import android.support.annotation.Nullable;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.UiThread;
 import android.text.TextUtils;
 
@@ -81,7 +83,7 @@ public final class SponsoredHotel
     }
   }
 
-  public static class Review {
+  public static class Review implements Parcelable {
     private final String mReviewPositive;
     private final String mReviewNegative;
     private final String mAuthor;
@@ -98,6 +100,42 @@ public final class SponsoredHotel
       mRating = rating;
       mDate = date;
     }
+
+    protected Review(Parcel in) {
+      mReviewPositive = in.readString();
+      mReviewNegative = in.readString();
+      mAuthor = in.readString();
+      mAuthorAvatar = in.readString();
+      mRating = in.readFloat();
+      mDate = in.readLong();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+      dest.writeString(mReviewPositive);
+      dest.writeString(mReviewNegative);
+      dest.writeString(mAuthor);
+      dest.writeString(mAuthorAvatar);
+      dest.writeFloat(mRating);
+      dest.writeLong(mDate);
+    }
+
+    @Override
+    public int describeContents() {
+      return 0;
+    }
+
+    public static final Creator<Review> CREATOR = new Creator<Review>() {
+      @Override
+      public Review createFromParcel(Parcel in) {
+        return new Review(in);
+      }
+
+      @Override
+      public Review[] newArray(int size) {
+        return new Review[size];
+      }
+    };
 
     public String getReviewPositive() {
       return mReviewPositive;

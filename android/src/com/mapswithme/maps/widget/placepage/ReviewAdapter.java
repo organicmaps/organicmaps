@@ -13,13 +13,12 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 public class ReviewAdapter extends BaseAdapter {
   public static final int MAX_COUNT = 3;
 
-  private List<SponsoredHotel.Review> items = new ArrayList<>();
+  private ArrayList<SponsoredHotel.Review> items = new ArrayList<>();
 
   @Override
   public int getCount() {
@@ -57,9 +56,13 @@ public class ReviewAdapter extends BaseAdapter {
   }
 
   public void setItems(
-          List<SponsoredHotel.Review> items) {
+          ArrayList<SponsoredHotel.Review> items) {
     this.items = items;
     notifyDataSetChanged();
+  }
+
+  public ArrayList<SponsoredHotel.Review> getItems() {
+    return items;
   }
 
   private static class ViewHolder {
