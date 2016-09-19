@@ -48,7 +48,7 @@ namespace routing
 {
 RoutingSession::RoutingSession()
   : m_router(nullptr)
-  , m_route(string())
+  , m_route(make_shared<Route>(string()))
   , m_state(RoutingNotActive)
   , m_isFollowing(false)
   , m_endPoint(m2::PointD::Zero())
@@ -104,6 +104,8 @@ void RoutingSession::DoReadyCallback::operator()(Route & route, IRouter::ResultC
   threads::MutexGuard guard(m_routeSessionMutexInner);
   UNUSED_VALUE(guard);
 
+  ASSERT(m_rs.m_route, ());
+
   if (e != IRouter::NeedMoreMaps)
   {
     m_rs.AssignRoute(route, e);
@@ -111,10 +113,10 @@ void RoutingSession::DoReadyCallback::operator()(Route & route, IRouter::ResultC
   else
   {
     for (string const & country : route.GetAbsentCountries())
-      m_rs.m_route.AddAbsentCountry(country);
+      m_rs.m_route->AddAbsentCountry(country);
   }
 
-  m_callback(m_rs.m_route, e);
+  m_callback(*m_rs.m_route, e);
 }
 
 void RoutingSession::RemoveRouteImpl()
@@ -124,7 +126,7 @@ void RoutingSession::RemoveRouteImpl()
   m_moveAwayCounter = 0;
   m_turnNotificationsMgr.Reset();
 
-  Route(string()).Swap(m_route);
+  m_route = make_shared<Route>(string());
 }
 
 void RoutingSession::RemoveRoute()
@@ -166,21 +168,22 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
 
   threads::MutexGuard guard(m_routeSessionMutex);
   UNUSED_VALUE(guard);
-  ASSERT(m_route.IsValid(), ());
+  ASSERT(m_route, ());
+  ASSERT(m_route->IsValid(), ());
 
   m_turnNotificationsMgr.SetSpeedMetersPerSecond(info.m_speed);
 
-  if (m_route.MoveIterator(info))
+  if (m_route->MoveIterator(info))
   {
     m_moveAwayCounter = 0;
     m_lastDistance = 0.0;
 
-    if (m_route.IsCurrentOnEnd())
+    if (m_route->IsCurrentOnEnd())
     {
-      m_passedDistanceOnRouteMeters += m_route.GetTotalDistanceMeters();
+      m_passedDistanceOnRouteMeters += m_route->GetTotalDistanceMeters();
       SetState(RouteFinished);
 
-      alohalytics::TStringMap params = {{"router", m_route.GetRouterId()},
+      alohalytics::TStringMap params = {{"router", m_route->GetRouterId()},
                                         {"passedDistance", strings::to_string(m_passedDistanceOnRouteMeters)},
                                         {"rebuildCount", strings::to_string(m_routingRebuildCount)}};
       alohalytics::LogEvent("RouteTracking_ReachedDestination", params);
@@ -212,7 +215,7 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
   {
     // Distance from the last known projection on route
     // (check if we are moving far from the last known projection).
-    auto const & lastGoodPoint = m_route.GetFollowedPolyline().GetCurrentIter().m_pt;
+    auto const & lastGoodPoint = m_route->GetFollowedPolyline().GetCurrentIter().m_pt;
     double const dist = MercatorBounds::DistanceOnEarth(lastGoodPoint,
                                                         MercatorBounds::FromLatLon(info.m_latitude, info.m_longitude));
     if (my::AlmostEqualAbs(dist, m_lastDistance, kRunawayDistanceSensitivityMeters))
@@ -225,10 +228,10 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
 
     if (m_moveAwayCounter > kOnRouteMissedCount)
     {
-      m_passedDistanceOnRouteMeters += m_route.GetCurrentDistanceFromBeginMeters();
+      m_passedDistanceOnRouteMeters += m_route->GetCurrentDistanceFromBeginMeters();
       SetState(RouteNeedRebuild);
       alohalytics::TStringMap params = {
-          {"router", m_route.GetRouterId()},
+          {"router", m_route->GetRouterId()},
           {"percent", strings::to_string(GetCompletionPercent())},
           {"passedDistance", strings::to_string(m_passedDistanceOnRouteMeters)},
           {"rebuildCount", strings::to_string(m_routingRebuildCount)}};
@@ -258,7 +261,9 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
   threads::MutexGuard guard(m_routeSessionMutex);
   UNUSED_VALUE(guard);
 
-  if (!m_route.IsValid())
+  ASSERT(m_route, ());
+
+  if (!m_route->IsValid())
   {
     // nothing should be displayed on the screen about turns if these lines are executed
     info = FollowingInfo();
@@ -268,16 +273,16 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
   if (!IsNavigable())
   {
     info = FollowingInfo();
-    formatDistFn(m_route.GetTotalDistanceMeters(), info.m_distToTarget, info.m_targetUnitsSuffix);
-    info.m_time = max(kMinimumETASec, m_route.GetCurrentTimeToEndSec());
+    formatDistFn(m_route->GetTotalDistanceMeters(), info.m_distToTarget, info.m_targetUnitsSuffix);
+    info.m_time = max(kMinimumETASec, m_route->GetCurrentTimeToEndSec());
     return;
   }
 
-  formatDistFn(m_route.GetCurrentDistanceToEndMeters(), info.m_distToTarget, info.m_targetUnitsSuffix);
+  formatDistFn(m_route->GetCurrentDistanceToEndMeters(), info.m_distToTarget, info.m_targetUnitsSuffix);
 
   double distanceToTurnMeters = 0.;
   turns::TurnItem turn;
-  m_route.GetCurrentTurn(distanceToTurnMeters, turn);
+  m_route->GetCurrentTurn(distanceToTurnMeters, turn);
   formatDistFn(distanceToTurnMeters, info.m_distToTurn, info.m_turnUnitsSuffix);
   info.m_turn = turn.m_turn;
 
@@ -288,9 +293,9 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
     info.m_nextTurn = routing::turns::TurnDirection::NoTurn;
 
   info.m_exitNum = turn.m_exitNum;
-  info.m_time = max(kMinimumETASec, m_route.GetCurrentTimeToEndSec());
-  m_route.GetCurrentStreetName(info.m_sourceName);
-  m_route.GetStreetNameAfterIdx(turn.m_index, info.m_targetName);
+  info.m_time = max(kMinimumETASec, m_route->GetCurrentTimeToEndSec());
+  m_route->GetCurrentStreetName(info.m_sourceName);
+  m_route->GetStreetNameAfterIdx(turn.m_index, info.m_targetName);
   info.m_completionPercent = GetCompletionPercent();
   // Lane information.
   if (distanceToTurnMeters < kShowLanesDistInMeters)
@@ -315,7 +320,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 
   // Pedestrian info
   m2::PointD pos;
-  m_route.GetCurrentDirectionPoint(pos);
+  m_route->GetCurrentDirectionPoint(pos);
   info.m_pedestrianDirectionPos = MercatorBounds::ToLatLon(pos);
   info.m_pedestrianTurn =
       (distanceToTurnMeters < kShowPedestrianTurnInMeters) ? turn.m_pedestrianTurn : turns::PedestrianDirection::None;
@@ -323,17 +328,19 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 
 double RoutingSession::GetCompletionPercent() const
 {
-  double const denominator = m_passedDistanceOnRouteMeters + m_route.GetTotalDistanceMeters();
-  if (!m_route.IsValid() || denominator == 0.0)
+  ASSERT(m_route, ());
+
+  double const denominator = m_passedDistanceOnRouteMeters + m_route->GetTotalDistanceMeters();
+  if (!m_route->IsValid() || denominator == 0.0)
     return 0;
 
   double const percent = 100.0 *
-    (m_passedDistanceOnRouteMeters + m_route.GetCurrentDistanceFromBeginMeters()) /
+    (m_passedDistanceOnRouteMeters + m_route->GetCurrentDistanceFromBeginMeters()) /
     denominator;
   if (percent - m_lastCompletionPercent > kCompletionPercentAccuracy)
   {
     auto const lastGoodPoint =
-        MercatorBounds::ToLatLon(m_route.GetFollowedPolyline().GetCurrentIter().m_pt);
+        MercatorBounds::ToLatLon(m_route->GetFollowedPolyline().GetCurrentIter().m_pt);
     alohalytics::Stats::Instance().LogEvent(
         "RouteTracking_PercentUpdate", {{"percent", strings::to_string(percent)}},
         alohalytics::Location::FromLatLon(lastGoodPoint.lat, lastGoodPoint.lon));
@@ -348,15 +355,18 @@ void RoutingSession::GenerateTurnNotifications(vector<string> & turnNotification
 
   threads::MutexGuard guard(m_routeSessionMutex);
   UNUSED_VALUE(guard);
+
+  ASSERT(m_route, ());
+
   // Voice turn notifications.
   if (!m_routingSettings.m_soundDirection)
     return;
 
-  if (!m_route.IsValid() || !IsNavigable())
+  if (!m_route->IsValid() || !IsNavigable())
     return;
 
   vector<turns::TurnItemDist> turns;
-  if (m_route.GetNextTurns(turns))
+  if (m_route->GetNextTurns(turns))
     m_turnNotificationsMgr.GenerateTurnNotifications(turns, turnNotifications);
 }
 
@@ -377,8 +387,10 @@ void RoutingSession::AssignRoute(Route & route, IRouter::ResultCode e)
     SetState(RoutingNotActive);
   }
 
+  ASSERT(m_route, ());
+
   route.SetRoutingSettings(m_routingSettings);
-  m_route.Swap(route);
+  m_route->Swap(route);
   m_lastWarnedSpeedCameraIndex = 0;
   m_lastCheckedSpeedCameraIndex = 0;
   m_lastFoundCamera = SpeedCameraRestriction();
@@ -400,7 +412,10 @@ void RoutingSession::MatchLocationToRoute(location::GpsInfo & location,
 
   threads::MutexGuard guard(m_routeSessionMutex);
   UNUSED_VALUE(guard);
-  m_route.MatchLocationToRoute(location, routeMatchingInfo);
+
+  ASSERT(m_route, ());
+
+  m_route->MatchLocationToRoute(location, routeMatchingInfo);
 }
 
 bool RoutingSession::DisableFollowMode()
@@ -481,7 +496,9 @@ string RoutingSession::GetTurnNotificationsLocale() const
 
 double RoutingSession::GetDistanceToCurrentCamM(SpeedCameraRestriction & camera, Index const & index)
 {
-  auto const & m_poly = m_route.GetFollowedPolyline();
+  ASSERT(m_route, ());
+
+  auto const & m_poly = m_route->GetFollowedPolyline();
   auto const & currentIter = m_poly.GetCurrentIter();
   if (currentIter.m_ind < m_lastFoundCamera.m_index &&
       m_lastFoundCamera.m_index < m_poly.GetPolyline().GetSize())
@@ -506,26 +523,31 @@ double RoutingSession::GetDistanceToCurrentCamM(SpeedCameraRestriction & camera,
 
 void RoutingSession::EmitCloseRoutingEvent() const
 {
-  if (!m_route.IsValid())
+  threads::MutexGuard guard(m_routeSessionMutex);
+  ASSERT(m_route, ());
+
+  if (!m_route->IsValid())
   {
     ASSERT(false, ());
     return;
   }
   auto const lastGoodPoint =
-      MercatorBounds::ToLatLon(m_route.GetFollowedPolyline().GetCurrentIter().m_pt);
+      MercatorBounds::ToLatLon(m_route->GetFollowedPolyline().GetCurrentIter().m_pt);
   alohalytics::Stats::Instance().LogEvent(
       "RouteTracking_RouteClosing",
       {{"percent", strings::to_string(GetCompletionPercent())},
        {"distance", strings::to_string(m_passedDistanceOnRouteMeters +
-                                       m_route.GetCurrentDistanceToEndMeters())},
-       {"router", m_route.GetRouterId()},
+                                       m_route->GetCurrentDistanceToEndMeters())},
+       {"router", m_route->GetRouterId()},
        {"rebuildCount", strings::to_string(m_routingRebuildCount)}},
       alohalytics::Location::FromLatLon(lastGoodPoint.lat, lastGoodPoint.lon));
 }
 
 bool RoutingSession::HasRouteAltitudeImpl() const
 {
-  return m_route.GetAltitudes().size() == m_route.GetSegDistanceM().size() + 1;
+  ASSERT(m_route, ());
+
+  return m_route->GetAltitudes().size() == m_route->GetSegDistanceM().size() + 1;
 }
 
 bool RoutingSession::HasRouteAltitude() const
@@ -538,12 +560,21 @@ bool RoutingSession::GetRouteAltitudesAndDistancesM(vector<double> & routeSegDis
                                                     feature::TAltitudes & routeAltitudesM) const
 {
   threads::MutexGuard guard(m_routeSessionMutex);
-  if (!m_route.IsValid() || !HasRouteAltitudeImpl())
+  ASSERT(m_route, ());
+
+  if (!m_route->IsValid() || !HasRouteAltitudeImpl())
     return false;
 
-  routeSegDistanceM = m_route.GetSegDistanceM();
-  routeAltitudesM.assign(m_route.GetAltitudes().cbegin(), m_route.GetAltitudes().cend());
+  routeSegDistanceM = m_route->GetSegDistanceM();
+  routeAltitudesM.assign(m_route->GetAltitudes().cbegin(), m_route->GetAltitudes().cend());
   return true;
+}
+
+shared_ptr<Route> const RoutingSession::GetRoute() const
+{
+  threads::MutexGuard guard(m_routeSessionMutex);
+  ASSERT(m_route, ());
+  return m_route;
 }
 
 string DebugPrint(RoutingSession::State state)
