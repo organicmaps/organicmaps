@@ -62,7 +62,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
     public void bind(Image image, int position) {
       mPosition = position;
       Glide.with(mImage.getContext())
-              .load(image.getUrl())
+              .load(image.getSmallUrl())
               .centerCrop()
               .into(mImage);
     }

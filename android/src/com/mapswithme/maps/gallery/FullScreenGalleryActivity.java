@@ -75,10 +75,18 @@ public class FullScreenGalleryActivity extends BaseMwmFragmentActivity
 
     readParameters();
     mGalleryPageAdapter = new GalleryPageAdapter(getSupportFragmentManager(), mImages);
-    ViewPager viewPager = (ViewPager) findViewById(R.id.vp__image);
-    viewPager.setAdapter(mGalleryPageAdapter);
+    final ViewPager viewPager = (ViewPager) findViewById(R.id.vp__image);
     viewPager.addOnPageChangeListener(this);
+    viewPager.setAdapter(mGalleryPageAdapter);
     viewPager.setCurrentItem(mPosition);
+    viewPager.post(new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        onPageSelected(viewPager.getCurrentItem());
+      }
+    });
   }
 
   @Override

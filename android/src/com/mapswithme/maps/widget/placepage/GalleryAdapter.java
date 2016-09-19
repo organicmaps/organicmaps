@@ -93,7 +93,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
       }
       Image image = mItems.get(i);
       Glide.with(mContext)
-              .load(image.getUrl())
+              .load(image.getSmallUrl())
               .asBitmap()
               .centerCrop()
               .into(new SimpleTarget<Bitmap>(mImageWidth, mImageHeight) {

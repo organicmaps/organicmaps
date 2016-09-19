@@ -1,19 +1,13 @@
 package com.mapswithme.maps.widget.placepage;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import android.support.annotation.Nullable;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.UiThread;
 import android.text.TextUtils;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.Metadata;
 import com.mapswithme.maps.gallery.Image;
@@ -34,18 +28,16 @@ public final class SponsoredHotel
   }
 
   public static class FacilityType {
-    @DrawableRes
-    private final int icon;
+    private final String key;
     private final String name;
 
-    public FacilityType(@DrawableRes int icon, String name) {
-      this.icon = icon;
+    public FacilityType(String key, String name) {
+      this.key = key;
       this.name = name;
     }
 
-    @DrawableRes
-    public int getIcon() {
-      return icon;
+    public String getKey() {
+      return key;
     }
 
     public String getName() {
@@ -57,13 +49,15 @@ public final class SponsoredHotel
     private final String category;
     private final String title;
     private final String distance;
-    private final LatLng location;
+    private final double latitude;
+    private final double longitude;
 
-    public NearbyObject(String category, String title, String distance, LatLng location) {
+    public NearbyObject(String category, String title, String distance, double lat, double lon) {
       this.category = category;
       this.title = title;
       this.distance = distance;
-      this.location = location;
+      this.latitude = lat;
+      this.longitude = lon;
     }
 
     public String getCategory() {
@@ -78,8 +72,73 @@ public final class SponsoredHotel
       return distance;
     }
 
-    public LatLng getLocation() {
-      return location;
+    public double getLatitude() {
+      return latitude;
+    }
+
+    public double getLongitude() {
+      return longitude;
+    }
+  }
+
+  public static class Review {
+    private final String mReviewPositive;
+    private final String mReviewNegative;
+    private final String mAuthor;
+    private final String mAuthorAvatar;
+    private final float mRating;
+    private final long mDate;
+
+    public Review(String reviewPositive, String reviewNegative, String author, String authorAvatar,
+            float rating, long date) {
+      mReviewPositive = reviewPositive;
+      mReviewNegative = reviewNegative;
+      mAuthor = author;
+      mAuthorAvatar = authorAvatar;
+      mRating = rating;
+      mDate = date;
+    }
+
+    public String getReviewPositive() {
+      return mReviewPositive;
+    }
+
+    public String getReviewNegative() {
+      return mReviewNegative;
+    }
+
+    public String getAuthor() {
+      return mAuthor;
+    }
+
+    public String getAuthorAvatar() {
+      return mAuthorAvatar;
+    }
+
+    public float getRating() {
+      return mRating;
+    }
+
+    public long getDate() {
+      return mDate;
+    }
+  }
+
+  public static class HotelInfo {
+    final String description;
+    final Image[] photos;
+    final FacilityType[] facilities;
+    final Review[] reviews;
+    final NearbyObject[] nearby;
+
+    public HotelInfo(String description, Image[] photos,
+            FacilityType[] facilities, Review[] reviews,
+            NearbyObject[] nearby) {
+      this.description = description;
+      this.photos = photos;
+      this.facilities = facilities;
+      this.reviews = reviews;
+      this.nearby = nearby;
     }
   }
 
@@ -88,41 +147,17 @@ public final class SponsoredHotel
     void onPriceReceived(String id, String price, String currency);
   }
 
-  interface OnDescriptionReceivedListener
+  interface OnInfoReceivedListener
   {
-    void onDescriptionReceived(String id, String description);
-  }
-
-  interface OnFacilitiesReceivedListener
-  {
-    void onFacilitiesReceived(String id, List<FacilityType> facilities);
-  }
-
-  interface OnImagesReceivedListener
-  {
-    void onImagesReceived(String id, ArrayList<Image> images);
-  }
-
-  interface OnNearbyReceivedListener
-  {
-    void onNearbyReceived(String id, ArrayList<NearbyObject> images);
+    void onInfoReceived(String id, HotelInfo info);
   }
 
   // Hotel ID -> Price
   private static final Map<String, Price> sPriceCache = new HashMap<>();
   // Hotel ID -> Description
-  private static final Map<String, String> sDescriptionCache = new HashMap<>();
-  // Hotel ID -> Facilities
-  private static final Map<String, List<FacilityType>> sFacilitiesCache = new HashMap<>();
-  // Hotel ID -> Images
-  private static final Map<String, ArrayList<Image>> sImagesCache = new HashMap<>();
-  // Hotel ID -> Nearby
-  private static final Map<String, ArrayList<NearbyObject>> sNearbyCache = new HashMap<>();
+  private static final Map<String, HotelInfo> sInfoCache = new HashMap<>();
   private static WeakReference<OnPriceReceivedListener> sPriceListener;
-  private static WeakReference<OnDescriptionReceivedListener> sDescriptionListener;
-  private static WeakReference<OnFacilitiesReceivedListener> sFacilityListener;
-  private static WeakReference<OnImagesReceivedListener> sImagesListener;
-  private static WeakReference<OnNearbyReceivedListener> sNearbyListener;
+  private static WeakReference<OnInfoReceivedListener> sInfoListener;
 
   private String mId;
 
@@ -174,30 +209,9 @@ public final class SponsoredHotel
     sPriceListener = new WeakReference<>(listener);
   }
 
-  public static void setDescriptionListener(OnDescriptionReceivedListener listener)
+  public static void setInfoListener(OnInfoReceivedListener listener)
   {
-    sDescriptionListener = new WeakReference<>(listener);
-  }
-
-  public static void setFacilitiesListener(OnFacilitiesReceivedListener listener)
-  {
-    sFacilityListener = new WeakReference<>(listener);
-  }
-
-  public static void setImagesListener(OnImagesReceivedListener listener)
-  {
-    sImagesListener = new WeakReference<>(listener);
-  }
-
-  public static void setNearbyListener(OnNearbyReceivedListener listener)
-  {
-    sNearbyListener = new WeakReference<>(listener);
-  }
-
-  @DrawableRes
-  public static int mapFacilityId(int facilityId) {
-//  TODO map facility id to drawable resource
-    return R.drawable.ic_entrance;
+    sInfoListener = new WeakReference<>(listener);
   }
 
   static void requestPrice(String id, String currencyCode)
@@ -209,55 +223,13 @@ public final class SponsoredHotel
     nativeRequestPrice(id, currencyCode);
   }
 
-  static void requestDescription(String id, String locale)
+  static void requestInfo(String id, String locale)
   {
-    String description = sDescriptionCache.get(id);
-    if (description != null)
-      onDescriptionReceived(id, description);
+    HotelInfo info = sInfoCache.get(id);
+    if (info != null)
+      onInfoReceived(id, info);
 
-    nativeRequestDescription(id, locale);
-  }
-
-  static void requestFacilities(String id, String locale)
-  {
-    List<FacilityType> facilities = sFacilitiesCache.get(id);
-    if (facilities != null) {
-      OnFacilitiesReceivedListener listener = sFacilityListener.get();
-      if (listener == null)
-        sFacilityListener = null;
-      else
-        listener.onFacilitiesReceived(id, facilities);
-    }
-
-    nativeRequestFacilities(id, locale);
-  }
-
-  static void requestImages(String id, String locale)
-  {
-    ArrayList<Image> images = sImagesCache.get(id);
-    if (images != null) {
-      OnImagesReceivedListener listener = sImagesListener.get();
-      if (listener == null)
-        sImagesListener = null;
-      else
-        listener.onImagesReceived(id, images);
-    }
-
-    nativeRequestImages(id, locale);
-  }
-
-  static void requestNearby(String id, LatLng position)
-  {
-    ArrayList<NearbyObject> objects = sNearbyCache.get(id);
-    if (objects != null) {
-      OnNearbyReceivedListener listener = sNearbyListener.get();
-      if (listener == null)
-        sNearbyListener = null;
-      else
-        listener.onNearbyReceived(id, objects);
-    }
-
-    nativeRequestNearby(id, position.latitude, position.longitude);
+    nativeRequestInfo(id, locale);
   }
 
   @SuppressWarnings("unused")
@@ -276,88 +248,22 @@ public final class SponsoredHotel
   }
 
   @SuppressWarnings("unused")
-  private static void onDescriptionReceived(String id, String description)
+  private static void onInfoReceived(String id, HotelInfo info)
   {
-    if (TextUtils.isEmpty(description))
+    if (info == null)
       return;
 
-    sDescriptionCache.put(id, description);
+    sInfoCache.put(id, info);
 
-    OnDescriptionReceivedListener listener = sDescriptionListener.get();
+    OnInfoReceivedListener listener = sInfoListener.get();
     if (listener == null)
-      sDescriptionListener = null;
+      sInfoListener = null;
     else
-      listener.onDescriptionReceived(id, description);
-  }
-
-  @SuppressWarnings("unused")
-  private static void onFacilitiesReceived(String id, int[] ids, String[] names)
-  {
-    if (ids.length == 0)
-      return;
-
-    List<FacilityType> result = new ArrayList<>();
-    for (int i = 0; i < ids.length; i++) {
-      result.add(new FacilityType(mapFacilityId(ids[i]), names[i]));
-    }
-
-    sFacilitiesCache.put(id, result);
-
-    OnFacilitiesReceivedListener listener = sFacilityListener.get();
-    if (listener == null)
-      sFacilityListener = null;
-    else
-      listener.onFacilitiesReceived(id, result);
-  }
-
-  @SuppressWarnings("unused")
-  private static void onImagesReceived(String id, String[] urls)
-  {
-    if (urls.length == 0)
-      return;
-
-    ArrayList<Image> result = new ArrayList<>();
-    for (String url: urls) {
-      Image image = new Image(url);
-      image.setDescription("Staff, rooftop view, location, free bike…");
-      image.setDate(System.currentTimeMillis());
-      image.setSource("via Booking");
-      image.setUserAvatar("http://www.interdating-ukrainian-women.com/wp-content/uploads/2013/06/avatar.jpg");
-      image.setUserName("Polina");
-      result.add(image);
-    }
-
-    sImagesCache.put(id, result);
-
-    OnImagesReceivedListener listener = sImagesListener.get();
-    if (listener == null)
-      sImagesListener = null;
-    else
-      listener.onImagesReceived(id, result);
-  }
-
-  @SuppressWarnings("unused")
-  private static void onNearbyReceived(String id)
-  {
-    ArrayList<NearbyObject> result = new ArrayList<>();
-    result.add(new NearbyObject("transport", "Bowery", "800 ft", new LatLng(0, 0)));
-    result.add(new NearbyObject("food", "Egg Shop", "300 ft", new LatLng(0, 0)));
-    result.add(new NearbyObject("shop", "Fay Yee Inc", "200 ft", new LatLng(0, 0)));
-
-    sNearbyCache.put(id, result);
-
-    OnNearbyReceivedListener listener = sNearbyListener.get();
-    if (listener == null)
-      sNearbyListener = null;
-    else
-      listener.onNearbyReceived(id, result);
+      listener.onInfoReceived(id, info);
   }
 
   @Nullable
   public static native SponsoredHotel nativeGetCurrent();
   private static native void nativeRequestPrice(String id, String currencyCode);
-  private static native void nativeRequestDescription(String id, String locale);
-  private static native void nativeRequestFacilities(String id, String locale);
-  private static native void nativeRequestImages(String id, String locale);
-  private static native void nativeRequestNearby(String id, double lat, double lon);
+  private static native void nativeRequestInfo(String id, String locale);
 }

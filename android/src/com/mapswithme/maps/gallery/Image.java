@@ -5,18 +5,21 @@ import android.os.Parcelable;
 
 public class Image implements Parcelable {
   private final String url;
+  private final String smallUrl;
   private String description;
   private String userName;
   private String userAvatar;
   private String source;
   private Long date;
 
-  public Image(String url) {
+  public Image(String url, String smallUrl) {
     this.url = url;
+    this.smallUrl = smallUrl;
   }
 
   protected Image(Parcel in) {
     url = in.readString();
+    smallUrl = in.readString();
     description = in.readString();
     userName = in.readString();
     userAvatar = in.readString();
@@ -27,6 +30,7 @@ public class Image implements Parcelable {
   @Override
   public void writeToParcel(Parcel dest, int flags) {
     dest.writeString(url);
+    dest.writeString(smallUrl);
     dest.writeString(description);
     dest.writeString(userName);
     dest.writeString(userAvatar);
@@ -53,6 +57,10 @@ public class Image implements Parcelable {
 
   public String getUrl() {
     return url;
+  }
+
+  public String getSmallUrl() {
+    return smallUrl;
   }
 
   public String getDescription() {

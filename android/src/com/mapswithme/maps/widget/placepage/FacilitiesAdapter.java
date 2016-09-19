@@ -74,7 +74,8 @@ public class FacilitiesAdapter extends BaseAdapter {
     }
 
     public void bind(SponsoredHotel.FacilityType facility) {
-      mIcon.setImageResource(facility.getIcon());
+//    TODO map facility key to image resource id
+      mIcon.setImageResource(R.drawable.ic_entrance);
       mName.setText(facility.getName());
     }
   }

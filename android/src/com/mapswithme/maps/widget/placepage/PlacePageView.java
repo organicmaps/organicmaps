@@ -1,7 +1,5 @@
 package com.mapswithme.maps.widget.placepage;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -39,6 +37,7 @@ import android.widget.TextView;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Currency;
 import java.util.HashMap;
@@ -64,7 +63,6 @@ import com.mapswithme.maps.editor.OpeningHours;
 import com.mapswithme.maps.editor.data.TimeFormatUtils;
 import com.mapswithme.maps.editor.data.Timetable;
 import com.mapswithme.maps.gallery.GalleryActivity;
-import com.mapswithme.maps.gallery.Image;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.widget.ArrowView;
@@ -89,12 +87,9 @@ public class PlacePageView extends RelativeLayout
                         implements View.OnClickListener,
                                    View.OnLongClickListener,
                                    SponsoredHotel.OnPriceReceivedListener,
-                                   SponsoredHotel.OnDescriptionReceivedListener,
+                                   SponsoredHotel.OnInfoReceivedListener,
                                    LineCountTextView.OnLineCountCalculatedListener,
-                                   SponsoredHotel.OnFacilitiesReceivedListener,
-                                   SponsoredHotel.OnImagesReceivedListener,
                                    RecyclerClickListener,
-                                   SponsoredHotel.OnNearbyReceivedListener,
                                    NearbyAdapter.OnItemClickListener {
   private static final String PREF_USE_DMS = "use_dms";
 
@@ -455,10 +450,7 @@ public class PlacePageView extends RelativeLayout
       mDetails.setBackgroundResource(0);
 
     SponsoredHotel.setPriceListener(this);
-    SponsoredHotel.setDescriptionListener(this);
-    SponsoredHotel.setFacilitiesListener(this);
-    SponsoredHotel.setImagesListener(this);
-    SponsoredHotel.setNearbyListener(this);
+    SponsoredHotel.setInfoListener(this);
   }
 
   @Override
@@ -482,59 +474,38 @@ public class PlacePageView extends RelativeLayout
   }
 
   @Override
-  public void onDescriptionReceived(String id, String description) {
+  public void onInfoReceived(String id, SponsoredHotel.HotelInfo info) {
     if (mSponsoredHotel == null || !TextUtils.equals(id, mSponsoredHotel.getId())) {
       return;
     }
 
     mTvHotelDescription.setMaxLines(5);
-    refreshMetadataOrHide(description, mHotelDescription, mTvHotelDescription);
+    refreshMetadataOrHide(info.description, mHotelDescription, mTvHotelDescription);
     mHotelMoreDescription.setVisibility(GONE);
-  }
 
-  @Override
-  public void onFacilitiesReceived(String id, List<SponsoredHotel.FacilityType> facilities) {
-    if (mSponsoredHotel == null || !TextUtils.equals(id, mSponsoredHotel.getId())) {
-      return;
-    }
-
-    if (facilities == null || facilities.isEmpty()) {
+    if (info.facilities == null || info.facilities.length == 0) {
       UiUtils.hide(mHotelFacilities);
       return;
     }
     UiUtils.show(mHotelFacilities);
     mFacilitiesAdapter.setShowAll(false);
-    mFacilitiesAdapter.setItems(facilities);
-    mHotelMoreFacilities.setVisibility(facilities.size() > 6 ? VISIBLE : GONE);
-  }
+    mFacilitiesAdapter.setItems(Arrays.asList(info.facilities));
+    mHotelMoreFacilities.setVisibility(info.facilities.length > 6 ? VISIBLE : GONE);
 
-  @Override
-  public void onImagesReceived(String id, ArrayList<Image> images) {
-    if (mSponsoredHotel == null || !TextUtils.equals(id, mSponsoredHotel.getId())) {
-      return;
-    }
-
-    if (images == null || images.isEmpty()) {
+    if (info.photos == null || info.photos.length == 0) {
       UiUtils.hide(mHotelGallery);
       return;
     }
     UiUtils.show(mHotelGallery);
-    mGalleryAdapter.setItems(images);
+    mGalleryAdapter.setItems(new ArrayList<>(Arrays.asList(info.photos)));
     mRvHotelGallery.scrollToPosition(0);
-  }
 
-  @Override
-  public void onNearbyReceived(String id, ArrayList<SponsoredHotel.NearbyObject> objects) {
-    if (mSponsoredHotel == null || !TextUtils.equals(id, mSponsoredHotel.getId())) {
-      return;
-    }
-
-    if (objects == null || objects.isEmpty()) {
+    if (info.nearby == null || info.nearby.length == 0) {
       UiUtils.hide(mHotelNearby);
       return;
     }
     UiUtils.show(mHotelNearby);
-    mNearbyAdapter.setItems(objects);
+    mNearbyAdapter.setItems(Arrays.asList(info.nearby));
   }
 
   @Override
@@ -688,11 +659,7 @@ public class PlacePageView extends RelativeLayout
         Locale locale = Locale.getDefault();
         Currency currency = Currency.getInstance(locale);
         SponsoredHotel.requestPrice(mSponsoredHotel.getId(), currency.getCurrencyCode());
-        SponsoredHotel.requestDescription(mSponsoredHotel.getId(), locale.toString());
-        SponsoredHotel.requestFacilities(mSponsoredHotel.getId(), locale.toString());
-        SponsoredHotel.requestImages(mSponsoredHotel.getId(), locale.toString());
-        SponsoredHotel.requestNearby(mSponsoredHotel.getId(), new LatLng(mMapObject.getLat(),
-                mMapObject.getLon()));
+        SponsoredHotel.requestInfo(mSponsoredHotel.getId(), locale.toString());
       }
 
       String country = MapManager.nativeGetSelectedCountry();
