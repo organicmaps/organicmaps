@@ -41,6 +41,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   final static String LAST_INDEX_OF_NAMES_ARRAY = "LastIndexOfNamesArray";
 
   private TextView mCategory;
+  private View mCardName;
   private View mCardAddress;
   private View mCardMetadata;
 
@@ -283,6 +284,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   private void refreshEditableFields()
   {
+    UiUtils.showIf(Editor.nativeIsNameEditable(), mCardName);
     UiUtils.showIf(Editor.nativeIsAddressEditable(), mCardAddress);
     UiUtils.showIf(Editor.nativeIsBuilding(), mBlockLevels);
 
@@ -360,7 +362,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
         View nameItem = lm.findViewByPosition(position);
 
-        int cvNameTop = view.findViewById(R.id.cv__name).getTop();
+        int cvNameTop = mCardName.getTop();
         int nameItemTop = nameItem.getTop();
 
         view.scrollTo(0, cvNameTop + nameItemTop);
@@ -381,6 +383,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     // TODO show icon and fill it when core will implement that
     UiUtils.hide(categoryBlock.findViewById(R.id.icon));
     mCategory = (TextView) categoryBlock.findViewById(R.id.name);
+    mCardName = view.findViewById(R.id.cv__name);
     mCardAddress = view.findViewById(R.id.cv__address);
     mCardMetadata = view.findViewById(R.id.cv__metadata);
     initNamesView(view);
