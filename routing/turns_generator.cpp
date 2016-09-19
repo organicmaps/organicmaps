@@ -668,6 +668,8 @@ size_t CheckUTurnOnRoute(TUnpackedPathSegments const & segments,
   auto const & masterSegment = segments[currentSegment - 1];
   if (masterSegment.m_path.size() < 2)
     return 0;
+  if (segments[currentSegment].m_path.empty())
+    return 0;
   // Roundabout is not the UTurn.
   if (masterSegment.m_onRoundabout)
     return 0;
