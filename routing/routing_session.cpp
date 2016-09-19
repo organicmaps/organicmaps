@@ -574,7 +574,6 @@ shared_ptr<Route> const RoutingSession::GetRoute() const
 {
   threads::MutexGuard guard(m_routeSessionMutex);
   ASSERT(m_route, ());
-
   return m_route;
 }
 
