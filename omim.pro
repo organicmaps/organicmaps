@@ -223,6 +223,10 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
     editor_tests.depends = 3party base coding geometry platform editor
     SUBDIRS *= editor_tests
 
+    osm_auth_tests.subdir = editor/osm_auth_tests
+    osm_auth_tests.depends = 3party base coding geometry platform editor
+    SUBDIRS *= osm_auth_tests
+
     SUBDIRS *= qt_tstfrm
 
     drape_tests.subdir = drape/drape_tests
