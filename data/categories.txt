@@ -678,7 +678,7 @@ sk:Príležitostné potreby|obchod
 sv:Närbutik|butik
 th:ร้านสะดวกซื้อ|ร้านค้า
 tr:Bakkal|mağaza
-uk:4Продуктовий|крамниця
+uk:4Міні-маркет|Продуктовий|крамниця
 vi:Cửa hàng tạp hóa|cửa hàng
 zh-Hans:便利店|商店
 zh-Hant:便利商店|便利超商|購物
