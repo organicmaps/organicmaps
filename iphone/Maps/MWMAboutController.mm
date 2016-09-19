@@ -7,6 +7,8 @@
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
+#include "Framework.h"
+
 #include "platform/platform.hpp"
 
 extern NSString * const kAlohalyticsTapEventKey;
@@ -40,8 +42,8 @@ extern NSString * const kAlohalyticsTapEventKey;
   NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
   dateFormatter.dateStyle = NSDateFormatterShortStyle;
   dateFormatter.timeStyle = NSDateFormatterNoStyle;
-  self.dateLabel.text = [NSString
-      stringWithFormat:@"%@ %@", L(@"date"), [dateFormatter stringFromDate:appInfo.buildDate]];
+  auto const dataVersion = GetFramework().GetCurrentDataVersion();
+  self.dateLabel.text = [NSString stringWithFormat:L(@"date"), dataVersion];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
