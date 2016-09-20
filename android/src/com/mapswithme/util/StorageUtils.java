@@ -5,6 +5,7 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.SimpleLogger;
 
@@ -12,8 +13,6 @@ import java.io.File;
 
 public class StorageUtils
 {
-  private final static Logger LOGGER = SimpleLogger.get(StorageUtils.class.getSimpleName());
-
   /**
    * Checks if external storage is available for read and write
    *
@@ -29,21 +28,20 @@ public class StorageUtils
    * Safely returns the external files directory path with the preliminary
    * checking the availability of the mentioned directory
    *
-   * @param context the application context
-   * @return the absolute path of external files directory or null if directory cannot be gotten
+   * @return the absolute path of external files directory or null if directory can not be obtained
    * @see Context#getExternalFilesDir(String)
    */
   @Nullable
-  public static String getExternalFilesDir(final @NonNull Context context)
+  public static String getExternalFilesDir()
   {
-    if (isExternalStorageWritable())
-    {
-      File dir = context.getExternalFilesDir(null);
-      if (dir != null)
-        return dir.getAbsolutePath();
-      else
-        LOGGER.e("Cannot get the external files directory for some reasons", new Throwable());
-    }
+    if (!isExternalStorageWritable())
+      return null;
+
+    File dir = MwmApplication.get().getExternalFilesDir(null);
+    if (dir != null)
+      return dir.getAbsolutePath();
+
+    SimpleLogger.get().e("Cannot get the external files directory for some reasons", new Throwable());
     return null;
   }
 }

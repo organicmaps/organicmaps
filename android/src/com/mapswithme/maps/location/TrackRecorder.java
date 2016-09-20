@@ -222,7 +222,7 @@ public final class TrackRecorder
     {
       if (sLogger == null)
       {
-        String externalDir = StorageUtils.getExternalFilesDir(MwmApplication.get().getApplicationContext());
+        String externalDir = StorageUtils.getExternalFilesDir();
         if (!TextUtils.isEmpty(externalDir))
           sLogger = new FileLogger(externalDir + "/gps-tracker.log");
       }
