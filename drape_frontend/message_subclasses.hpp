@@ -613,7 +613,7 @@ public:
   df::ColorConstant GetColor() const { return m_color; }
   vector<double> const & GetTurns() const { return m_turns; }
   df::RoutePattern const & GetPattern() const { return m_pattern; }
-  int GetRechacheId() const { return m_recacheId; }
+  int GetRecacheId() const { return m_recacheId; }
 
 private:
   m2::PolylineD m_routePolyline;
@@ -642,7 +642,7 @@ public:
   m2::PointD const & GetPosition() const { return m_position; }
   bool IsStart() const { return m_isStart; }
   bool IsValid() const { return m_isValid; }
-  int GetRechacheId() const { return m_recacheId; }
+  int GetRecacheId() const { return m_recacheId; }
 
 private:
   m2::PointD const m_position;
@@ -668,7 +668,7 @@ public:
 
   int GetRouteIndex() const { return m_routeIndex; }
   vector<ArrowBorders> const & GetBorders() const { return m_borders; }
-  int GetRechacheId() const { return m_recacheId; }
+  int GetRecacheId() const { return m_recacheId; }
 
 private:
   int m_routeIndex;
