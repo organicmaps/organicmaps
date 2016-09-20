@@ -1198,10 +1198,10 @@
 "other_languages" = "Další jazyky";
 
 /* small button to open list with names in different languages */
-"show_more" = "Show More";
+"show_more" = "Zobrazit více";
 
 /* small button to close list with names in different languages */
-"show_less" = "Show Less";
+"show_less" = "Zobrazit méně";
 
 "add_language" = "Přidat jazyk";
 
@@ -1623,3 +1623,11 @@
 
 /* For the first routing */
 "decline" = "Odmítnout";
+
+"whats_new_route_profile_title" = "Nejlepší je vyřešit to jednou pro vždy";
+
+"whats_new_route_profile_message" = "U pěších a cyklistických tras nyní zobrazujeme výškový profil.";
+
+"whats_new_booking_improve_title" = "Ušetřete při rezervaci hotelů";
+
+"whats_new_booking_improve_message" = "Výsledky hledání hotelů nyní obsahují cenové kategorie. \nTaké jsme přidali více než 110 000 hotelů.";

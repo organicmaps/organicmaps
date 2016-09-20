@@ -1198,10 +1198,10 @@
 "other_languages" = "ภาษาอื่น ๆ";
 
 /* small button to open list with names in different languages */
-"show_more" = "Show More";
+"show_more" = "แสดงเพิ่มเติม";
 
 /* small button to close list with names in different languages */
-"show_less" = "Show Less";
+"show_less" = "แสดงน้อยลง";
 
 "add_language" = "เพิ่มภาษา";
 
@@ -1623,3 +1623,11 @@
 
 /* For the first routing */
 "decline" = "ปฏิเสธ";
+
+"whats_new_route_profile_title" = "ทำให้มันจบดีกว่าปล่อยให้มันรบกวนอยู่";
+
+"whats_new_route_profile_message" = "สำหรับเส้นทางคนเดินเท้าและจักรยาน ตอนนี้เราแสดงโปรไฟล์ระดับความสูงแล้ว";
+
+"whats_new_booking_improve_title" = "ประหยัดเมื่อจองโรงแรม";
+
+"whats_new_booking_improve_message" = "การค้นหาโรงแรมตอนนี้มีหมวดหมู่ราคาแล้ว\nเรายังได้เพิ่มโรงแรมเข้ามากว่า 110,000 โรงแรมอีกด้วย";

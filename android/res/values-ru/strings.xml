@@ -963,4 +963,8 @@
 	<string name="accept">Принять</string>
 	<!-- For the first routing -->
 	<string name="decline">Отклонить</string>
+	<string name="whats_new_route_profile_title">Умный в гору не пойдет</string>
+	<string name="whats_new_route_profile_message">На пеших и веломаршрутах отображается профиль рельефа.</string>
+	<string name="whats_new_booking_improve_title">Экономь на бронировании отеля</string>
+	<string name="whats_new_booking_improve_message">Результаты поиска отелей на карте показывают ценовую категорию.\nОтелей для бронирования стало на 110 000 больше.</string>
 </resources>

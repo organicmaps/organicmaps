@@ -1198,10 +1198,10 @@
 "other_languages" = "Autres langues";
 
 /* small button to open list with names in different languages */
-"show_more" = "Voir plus";
+"show_more" = "Afficher plus";
 
 /* small button to close list with names in different languages */
-"show_less" = "Voir moins";
+"show_less" = "Afficher moins";
 
 "add_language" = "Ajouter une langue";
 
@@ -1623,3 +1623,11 @@
 
 /* For the first routing */
 "decline" = "Refuser";
+
+"whats_new_route_profile_title" = "C'est en se bougeant que l'on trouve des solutions";
+
+"whats_new_route_profile_message" = "Pour les routes pédestres et cyclables nous affichons maintenant le profil d'élévation.";
+
+"whats_new_booking_improve_title" = "Économisez de l'argent en réservant des hôtels";
+
+"whats_new_booking_improve_message" = "Les résultats des recherches d'hôtels comprennent maintenant la catégorie de prix.\nNous avons aussi ajouté plus de 110.000 hôtels.";

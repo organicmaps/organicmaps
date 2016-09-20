@@ -1198,10 +1198,10 @@
 "other_languages" = "Altre lingue";
 
 /* small button to open list with names in different languages */
-"show_more" = "Show More";
+"show_more" = "Mostra altro";
 
 /* small button to close list with names in different languages */
-"show_less" = "Show Less";
+"show_less" = "Mostra meno";
 
 "add_language" = "Aggiungi una lingua";
 
@@ -1623,3 +1623,11 @@
 
 /* For the first routing */
 "decline" = "Rifiuta";
+
+"whats_new_route_profile_title" = "Meglio è tornar indietro, che correr male avanti";
+
+"whats_new_route_profile_message" = "Per gli itinerari pedonali e ciclabili, è ora visualizzato il profilo altimetrico.";
+
+"whats_new_booking_improve_title" = "Risparmia alla prenotazione degli hotel";
+
+"whats_new_booking_improve_message" = "I risultati della ricerca per gli hotel contengono ora la categoria di prezzo.\nInoltre, abbiamo aggiunto più di 110.000 hotel.";

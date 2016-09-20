@@ -1198,10 +1198,10 @@
 "other_languages" = "لغات أخرى";
 
 /* small button to open list with names in different languages */
-"show_more" = "Show More";
+"show_more" = "إظهار المزيد";
 
 /* small button to close list with names in different languages */
-"show_less" = "Show Less";
+"show_less" = "إظهار أقل";
 
 "add_language" = "إضافة لغة";
 
@@ -1623,3 +1623,11 @@
 
 /* For the first routing */
 "decline" = "رفض";
+
+"whats_new_route_profile_title" = "الأفضل العثور على حل بدلا من السقوط في خندق";
+
+"whats_new_route_profile_message" = "بالنسبة لمسارات المشاة والدراجات نحن الآن نعرض تشكيل الارتفاع.";
+
+"whats_new_booking_improve_title" = "توفير عند حجز الفنادق";
+
+"whats_new_booking_improve_message" = "تحتوي نتائج البحث عن الفنادق الآن على فئة السعر.\nوأضفنا أيضًا أكثر من 110000 فندق.";

@@ -1198,10 +1198,10 @@
 "other_languages" = "Overige talen";
 
 /* small button to open list with names in different languages */
-"show_more" = "Show More";
+"show_more" = "Meer Tonen";
 
 /* small button to close list with names in different languages */
-"show_less" = "Show Less";
+"show_less" = "Minder Tonen";
 
 "add_language" = "Een taal toevoegen";
 
@@ -1623,3 +1623,11 @@
 
 /* For the first routing */
 "decline" = "Weigeren";
+
+"whats_new_route_profile_title" = "Beter ten halve gekeerd, dan ten hele gedwaald";
+
+"whats_new_route_profile_message" = "Voor wandel- en fietsroutes geven we nu het hoogteprofiel weer.";
+
+"whats_new_booking_improve_title" = "Bespaar op het boeken van hotels";
+
+"whats_new_booking_improve_message" = "Zoekresultaten voor hotels bevatten nu de prijscategorie.\nWe hebben ook meer dan 110.000 hotels toegevoegd.";
