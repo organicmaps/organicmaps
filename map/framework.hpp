@@ -340,12 +340,29 @@ public:
   void SetCurrentCountryChangedListener(TCurrentCountryChanged const & listener);
 
 private:
-  unique_ptr<df::TapInfo> m_lastTapEvent;
+  struct TapEvent
+  {
+    enum class Source
+    {
+      User,
+      Search,
+      Other
+    };
 
-  void OnTapEvent(df::TapInfo const & tapInfo);
+    TapEvent(df::TapInfo const & info, Source source) : m_info(info), m_source(source) {}
+
+    df::TapInfo const m_info;
+    Source const m_source;
+  };
+
+  unique_ptr<TapEvent> m_lastTapEvent;
+
+  void OnTapEvent(TapEvent const & tapEvent);
   /// outInfo is valid only if return value is not df::SelectionShape::OBJECT_EMPTY.
-  df::SelectionShape::ESelectedObject OnTapEventImpl(df::TapInfo const & tapInfo,
+  df::SelectionShape::ESelectedObject OnTapEventImpl(TapEvent const & tapEvent,
                                                      place_page::Info & outInfo) const;
+  unique_ptr<TapEvent> MakeTapEvent(m2::PointD const & center, FeatureID const & fid,
+                                    TapEvent::Source source) const;
   FeatureID FindBuildingAtPoint(m2::PointD const & mercator) const;
   void UpdateMinBuildingsTapZoom();
 
