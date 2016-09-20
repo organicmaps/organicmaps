@@ -281,4 +281,22 @@ namespace
     TEST_EQUAL(result, IRouter::NoError, ());
     TEST_LESS(route.GetTotalTimeSec(), numeric_limits<uint32_t>::max() / 2, ());
   }
+
+// There are road ids in osrm which don't have appropriate features ids in mwm.
+// When the route goes through such osrm id a code line with LOG(LERROR, ... is executed:
+// on route reconstruction stage. As a result some item of |segments| vector could have an empty |m_path|.
+// This test shows such case. It's commented because if to uncomment it debug version of
+// routing_integration_tests would crash.
+//  UNIT_TEST(RussiaSpbPloschadBekhterevaToKomendantskiyProspekt)
+//  {
+//    TRouteResult const routeResult = integration::CalculateRoute(
+//        integration::GetOsrmComponents(), MercatorBounds::FromLatLon(59.90126, 30.39970), {0., 0.},
+//        MercatorBounds::FromLatLon(60.02499, 30.23889));
+
+//    Route const & route = *routeResult.first;
+//    IRouter::ResultCode const result = routeResult.second;
+//    TEST_EQUAL(result, IRouter::NoError, ());
+
+//    integration::TestRouteTime(route, 1364.0);
+//  }
 }  // namespace
