@@ -99,6 +99,8 @@ public class Framework
   public static native void nativeShowTrackRect(int category, int track);
 
   public static native int nativeGetDrawScale();
+  
+  public static native int nativeUpdateUserViewportChanged();
 
   @Size(2)
   public static native double[] nativeGetScreenRectCenter();

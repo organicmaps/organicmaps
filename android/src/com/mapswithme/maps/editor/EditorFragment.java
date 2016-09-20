@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.bookmarks.data.Metadata.MetadataType;
@@ -620,6 +621,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
                                             public void onClick(DialogInterface dialog, int which)
                                             {
                                               Editor.nativeRollbackMapObject();
+                                              Framework.nativeUpdateUserViewportChanged();
                                               mParent.onBackPressed();
                                             }
                                           })
