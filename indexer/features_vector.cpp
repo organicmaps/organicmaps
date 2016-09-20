@@ -14,6 +14,10 @@ void FeaturesVector::GetByIndex(uint32_t index, FeatureType & ft) const
   ft.Deserialize(m_LoadInfo.GetLoader(), &m_buffer[offset]);
 }
 
+size_t FeaturesVector::GetNumFeatures() const
+{
+  return m_table ? m_table->size() : 0;
+}
 
 FeaturesVectorTest::FeaturesVectorTest(string const & filePath)
   : FeaturesVectorTest((FilesContainerR(filePath, READER_CHUNK_LOG_SIZE, READER_CHUNK_LOG_COUNT)))
