@@ -9,7 +9,7 @@
 
 #include "std/cctype.hpp"
 #include "std/cmath.hpp"
-
+#include "std/sstream.hpp"
 
 namespace
 {
@@ -285,6 +285,14 @@ string EditableMapObject::GetWikipedia() const
   return m_metadata.Get(feature::Metadata::FMD_WIKIPEDIA);
 }
 
+uint64_t EditableMapObject::GetTestId() const
+{
+  istringstream iss(m_metadata.Get(feature::Metadata::FMD_TEST_ID));
+  uint64_t id;
+  iss >> id;
+  return id;
+}
+
 void EditableMapObject::SetEditableProperties(osm::EditableProperties const & props)
 {
   m_editableProperties = props;
@@ -496,6 +504,13 @@ void EditableMapObject::SetCuisines(vector<string> const & cuisine)
 void EditableMapObject::SetOpeningHours(string const & openingHours)
 {
   m_metadata.Set(feature::Metadata::FMD_OPEN_HOURS, openingHours);
+}
+
+void EditableMapObject::SetTestId(uint64_t const & id)
+{
+  ostringstream oss;
+  oss << id;
+  m_metadata.Set(feature::Metadata::FMD_TEST_ID, oss.str());
 }
 
 void EditableMapObject::SetPointType() { m_geomType = feature::EGeomType::GEOM_POINT; }

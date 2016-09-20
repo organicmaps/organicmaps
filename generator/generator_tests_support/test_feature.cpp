@@ -3,10 +3,14 @@
 #include "generator/feature_builder.hpp"
 
 #include "indexer/classificator.hpp"
+#include "indexer/editable_map_object.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
+#include "indexer/feature_decl.hpp"
 #include "indexer/feature_meta.hpp"
 #include "indexer/ftypes_matcher.hpp"
+#include "indexer/mwm_set.hpp"
+#include "indexer/osm_editor.hpp"
 
 #include "coding/multilang_utf8_string.hpp"
 
@@ -160,6 +164,25 @@ TestPOI::TestPOI(m2::PointD const & center, string const & name, string const & 
   : TestFeature(center, name, lang)
 {
   m_types = {{"railway", "station"}};
+}
+
+// static
+TestPOI TestPOI::AddWithEditor(osm::Editor & editor, MwmSet::MwmId const & mwmId,
+                               string const & name, m2::PointD const & pt, FeatureID & tmp)
+{
+  TestPOI poi(pt, name, "en");
+
+  osm::EditableMapObject emo;
+  editor.CreatePoint(classif().GetTypeByPath({"shop", "bakery"}), pt, mwmId, emo);
+
+  StringUtf8Multilang names;
+  names.AddString(StringUtf8Multilang::GetLangIndex("en"), name);
+  emo.SetName(names);
+  emo.SetTestId(poi.GetId());
+
+  editor.SaveEditedFeature(emo);
+  tmp = emo.GetID();
+  return poi;
 }
 
 void TestPOI::Serialize(FeatureBuilder1 & fb) const
