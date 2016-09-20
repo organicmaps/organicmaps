@@ -19,7 +19,7 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder> {
+class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder> {
   private static final int MAX_COUNT = 5;
 
   private final Context mContext;
@@ -31,7 +31,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
   private final Object mMutex = new Object();
   private final List<DownloadState> mDownloadStates = new ArrayList<>();
 
-  public GalleryAdapter(Context context) {
+  GalleryAdapter(Context context) {
     mContext = context;
 
     mImageWidth = (int)context.getResources().getDimension(R.dimen.placepage_hotel_gallery_width);
@@ -162,20 +162,20 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
       this.mBitmap = bitmap;
     }
 
-    public Bitmap getBitmap() {
+    Bitmap getBitmap() {
       return mBitmap;
     }
 
-    public void setShowMore(boolean showMore) {
+    void setShowMore(boolean showMore) {
       isShowMore = showMore;
     }
 
-    public boolean isShowMore() {
+    boolean isShowMore() {
       return isShowMore;
     }
   }
 
-  static class DownloadState {
+  private static class DownloadState {
     boolean isCanceled = false;
   }
 }

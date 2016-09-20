@@ -34,14 +34,14 @@ void PrepareClassRefs(JNIEnv * env, jclass hotelClass)
   g_hotelInfoClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/widget/placepage/SponsoredHotel$HotelInfo");
   g_facilityTypeClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/widget/placepage/SponsoredHotel$FacilityType");
   g_nearbyObjectClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/widget/placepage/SponsoredHotel$NearbyObject");
-  g_reviewClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/widget/placepage/SponsoredHotel$Review");
+  g_reviewClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/review/Review");
   g_imageClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/gallery/Image");
 
   g_facilityConstructor = jni::GetConstructorID(env, g_facilityTypeClass, "(Ljava/lang/String;Ljava/lang/String;)V");
   g_nearbyConstructor = jni::GetConstructorID(env, g_nearbyObjectClass, "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;DD)V");
   g_imageConstructor = jni::GetConstructorID(env, g_imageClass, "(Ljava/lang/String;Ljava/lang/String;)V");
   g_reviewConstructor = jni::GetConstructorID(env, g_reviewClass, "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;FJ)V");
-  g_hotelInfoConstructor = jni::GetConstructorID(env, g_hotelInfoClass, "(Ljava/lang/String;[Lcom/mapswithme/maps/gallery/Image;[Lcom/mapswithme/maps/widget/placepage/SponsoredHotel$FacilityType;[Lcom/mapswithme/maps/widget/placepage/SponsoredHotel$Review;[Lcom/mapswithme/maps/widget/placepage/SponsoredHotel$NearbyObject;)V");
+  g_hotelInfoConstructor = jni::GetConstructorID(env, g_hotelInfoClass, "(Ljava/lang/String;[Lcom/mapswithme/maps/gallery/Image;[Lcom/mapswithme/maps/widget/placepage/SponsoredHotel$FacilityType;[Lcom/mapswithme/maps/review/Review;[Lcom/mapswithme/maps/widget/placepage/SponsoredHotel$NearbyObject;)V");
 
   // SponsoredHotel(String rating, String price, String urlBook, String urlDescription)
   g_hotelClassCtor = jni::GetConstructorID(env, g_hotelClass, "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");

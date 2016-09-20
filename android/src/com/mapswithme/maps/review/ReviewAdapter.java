@@ -1,7 +1,6 @@
 package com.mapswithme.maps.review;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.widget.placepage.SponsoredHotel;
 import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
 import com.mapswithme.util.UiUtils;
 
@@ -18,15 +17,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.BaseViewHolder> {
+class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.BaseViewHolder> {
   private static final int MAX_COUNT = 15;
   private static final int VIEW_TYPE_REVIEW = 0;
   private static final int VIEW_TYPE_MORE = 1;
 
-  private final ArrayList<SponsoredHotel.Review> mItems;
+  private final ArrayList<Review> mItems;
   private final RecyclerClickListener mListener;
 
-  public ReviewAdapter(ArrayList<SponsoredHotel.Review> images, RecyclerClickListener listener) {
+  ReviewAdapter(ArrayList<Review> images, RecyclerClickListener listener) {
     mItems = images;
     mListener = listener;
   }
@@ -75,7 +74,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.BaseViewHo
     private final RecyclerClickListener mListener;
     private int mPosition;
 
-    public BaseViewHolder(View itemView, RecyclerClickListener listener) {
+    BaseViewHolder(View itemView, RecyclerClickListener listener) {
       super(itemView);
       mListener = listener;
     }
@@ -88,12 +87,12 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.BaseViewHo
     }
 
     @CallSuper
-    public void bind(SponsoredHotel.Review item, int position) {
+    public void bind(Review item, int position) {
       mPosition = position;
     }
   }
 
-  static class ReviewHolder extends BaseViewHolder {
+  private static class ReviewHolder extends BaseViewHolder {
     final View mDivider;
     final TextView mUserName;
     final TextView mCommentDate;
@@ -103,7 +102,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.BaseViewHo
     final View mNegativeReview;
     final TextView mTvNegativeReview;
 
-    public ReviewHolder(View itemView, RecyclerClickListener listener) {
+    ReviewHolder(View itemView, RecyclerClickListener listener) {
       super(itemView, listener);
       mDivider = itemView.findViewById(R.id.v__divider);
       mUserName = (TextView) itemView.findViewById(R.id.tv__user_name);
@@ -116,7 +115,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.BaseViewHo
     }
 
     @Override
-    public void bind(SponsoredHotel.Review item, int position) {
+    public void bind(Review item, int position) {
       super.bind(item, position);
       UiUtils.showIf(position > 0, mDivider);
       mUserName.setText(item.getAuthor());
@@ -138,9 +137,9 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.BaseViewHo
     }
   }
 
-  static class MoreHolder extends BaseViewHolder {
+  private static class MoreHolder extends BaseViewHolder {
 
-    public MoreHolder(View itemView, RecyclerClickListener listener) {
+    MoreHolder(View itemView, RecyclerClickListener listener) {
       super(itemView, listener);
       itemView.setOnClickListener(this);
     }

@@ -14,13 +14,13 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NearbyAdapter extends BaseAdapter {
+class NearbyAdapter extends BaseAdapter {
 
-  public NearbyAdapter(OnItemClickListener listener) {
+  NearbyAdapter(OnItemClickListener listener) {
     mListener = listener;
   }
 
-  public interface OnItemClickListener {
+  interface OnItemClickListener {
     void onItemClick(SponsoredHotel.NearbyObject item);
   }
 

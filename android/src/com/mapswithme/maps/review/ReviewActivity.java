@@ -2,7 +2,6 @@ package com.mapswithme.maps.review;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
-import com.mapswithme.maps.widget.placepage.SponsoredHotel;
 import com.mapswithme.util.UiUtils;
 
 import android.content.Context;
@@ -20,7 +19,7 @@ public class ReviewActivity extends BaseMwmFragmentActivity {
   static final String EXTRA_RATING_BASE = "review_rating_base";
   static final String EXTRA_RATING_URL = "review_rating_url";
 
-  public static void start(Context context, ArrayList<SponsoredHotel.Review> items, String title,
+  public static void start(Context context, ArrayList<Review> items, String title,
           String rating, int ratingBase, String url)
   {
     final Intent i = new Intent(context, ReviewActivity.class);

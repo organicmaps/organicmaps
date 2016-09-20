@@ -12,6 +12,7 @@ public class Image implements Parcelable {
   private String source;
   private Long date;
 
+  @SuppressWarnings("unused")
   public Image(String url, String smallUrl) {
     this.url = url;
     this.smallUrl = smallUrl;
@@ -71,18 +72,20 @@ public class Image implements Parcelable {
     this.description = description;
   }
 
-  public String getUserName() {
+  String getUserName() {
     return userName;
   }
 
+  @SuppressWarnings("unused")
   public void setUserName(String userName) {
     this.userName = userName;
   }
 
-  public String getUserAvatar() {
+  String getUserAvatar() {
     return userAvatar;
   }
 
+  @SuppressWarnings("unused")
   public void setUserAvatar(String userAvatar) {
     this.userAvatar = userAvatar;
   }

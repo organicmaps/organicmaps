@@ -12,8 +12,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FacilitiesAdapter extends BaseAdapter {
-  public static final int MAX_COUNT = 6;
+class FacilitiesAdapter extends BaseAdapter {
+  static final int MAX_COUNT = 6;
 
   private List<SponsoredHotel.FacilityType> items = new ArrayList<>();
   private boolean isShowAll = false;
@@ -59,7 +59,7 @@ public class FacilitiesAdapter extends BaseAdapter {
     notifyDataSetChanged();
   }
 
-  public void setShowAll(boolean showAll) {
+  void setShowAll(boolean showAll) {
     isShowAll = showAll;
     notifyDataSetChanged();
   }

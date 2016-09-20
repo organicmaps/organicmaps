@@ -12,11 +12,11 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 
-public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> {
+class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> {
   private final ArrayList<Image> mItems;
   private final RecyclerClickListener mListener;
 
-  public ImageAdapter(ArrayList<Image> images, RecyclerClickListener listener) {
+  ImageAdapter(ArrayList<Image> images, RecyclerClickListener listener) {
     mItems = images;
     mListener = listener;
   }

@@ -1,6 +1,7 @@
 package com.mapswithme.maps.widget.placepage;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.review.Review;
 import com.mapswithme.util.UiUtils;
 
 import android.text.TextUtils;
@@ -15,10 +16,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-public class ReviewAdapter extends BaseAdapter {
-  public static final int MAX_COUNT = 3;
+class ReviewAdapter extends BaseAdapter {
+  private static final int MAX_COUNT = 3;
 
-  private ArrayList<SponsoredHotel.Review> items = new ArrayList<>();
+  private ArrayList<Review> items = new ArrayList<>();
 
   @Override
   public int getCount() {
@@ -56,12 +57,12 @@ public class ReviewAdapter extends BaseAdapter {
   }
 
   public void setItems(
-          ArrayList<SponsoredHotel.Review> items) {
+          ArrayList<Review> items) {
     this.items = items;
     notifyDataSetChanged();
   }
 
-  public ArrayList<SponsoredHotel.Review> getItems() {
+  public ArrayList<Review> getItems() {
     return items;
   }
 
@@ -86,7 +87,7 @@ public class ReviewAdapter extends BaseAdapter {
       mTvNegativeReview = (TextView) view.findViewById(R.id.tv__negative_review);
     }
 
-    public void bind(SponsoredHotel.Review item, boolean isShowDivider) {
+    public void bind(Review item, boolean isShowDivider) {
       UiUtils.showIf(isShowDivider, mDivider);
       mUserName.setText(item.getAuthor());
       Date date = new Date(item.getDate());

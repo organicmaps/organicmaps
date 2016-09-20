@@ -7,11 +7,11 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.List;
 
-public class GalleryPageAdapter extends FragmentStatePagerAdapter {
+class GalleryPageAdapter extends FragmentStatePagerAdapter {
 
   private final List<Image> mImages;
 
-  public GalleryPageAdapter(FragmentManager fm, List<Image> images) {
+  GalleryPageAdapter(FragmentManager fm, List<Image> images) {
     super(fm);
     mImages = images;
   }
@@ -30,7 +30,7 @@ public class GalleryPageAdapter extends FragmentStatePagerAdapter {
     return mImages.size();
   }
 
-  public Image getImage(int position) {
+  Image getImage(int position) {
     return mImages.get(position);
   }
 }

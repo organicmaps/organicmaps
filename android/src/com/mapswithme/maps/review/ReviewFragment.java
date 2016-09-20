@@ -2,7 +2,6 @@ package com.mapswithme.maps.review;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
-import com.mapswithme.maps.widget.placepage.SponsoredHotel;
 import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
 
 import android.content.Intent;
@@ -19,7 +18,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class ReviewFragment extends BaseMwmFragment implements RecyclerClickListener {
-  private ArrayList<SponsoredHotel.Review> mItems;
+  private ArrayList<Review> mItems;
   private String mRating;
   private int mRatingBase;
   private String mUrl;

@@ -1,8 +1,6 @@
 package com.mapswithme.maps.widget.placepage;
 
 import android.support.annotation.Nullable;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.annotation.UiThread;
 import android.text.TextUtils;
 
@@ -13,9 +11,10 @@ import java.util.Map;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.Metadata;
 import com.mapswithme.maps.gallery.Image;
+import com.mapswithme.maps.review.Review;
 
 @UiThread
-public final class SponsoredHotel
+final class SponsoredHotel
 {
   private static class Price
   {
@@ -29,7 +28,7 @@ public final class SponsoredHotel
     }
   }
 
-  public static class FacilityType {
+  static class FacilityType {
     private final String key;
     private final String name;
 
@@ -47,7 +46,7 @@ public final class SponsoredHotel
     }
   }
 
-  public static class NearbyObject {
+  static class NearbyObject {
     private final String category;
     private final String title;
     private final String distance;
@@ -83,86 +82,7 @@ public final class SponsoredHotel
     }
   }
 
-  public static class Review implements Parcelable {
-    private final String mReviewPositive;
-    private final String mReviewNegative;
-    private final String mAuthor;
-    private final String mAuthorAvatar;
-    private final float mRating;
-    private final long mDate;
-
-    public Review(String reviewPositive, String reviewNegative, String author, String authorAvatar,
-            float rating, long date) {
-      mReviewPositive = reviewPositive;
-      mReviewNegative = reviewNegative;
-      mAuthor = author;
-      mAuthorAvatar = authorAvatar;
-      mRating = rating;
-      mDate = date;
-    }
-
-    protected Review(Parcel in) {
-      mReviewPositive = in.readString();
-      mReviewNegative = in.readString();
-      mAuthor = in.readString();
-      mAuthorAvatar = in.readString();
-      mRating = in.readFloat();
-      mDate = in.readLong();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-      dest.writeString(mReviewPositive);
-      dest.writeString(mReviewNegative);
-      dest.writeString(mAuthor);
-      dest.writeString(mAuthorAvatar);
-      dest.writeFloat(mRating);
-      dest.writeLong(mDate);
-    }
-
-    @Override
-    public int describeContents() {
-      return 0;
-    }
-
-    public static final Creator<Review> CREATOR = new Creator<Review>() {
-      @Override
-      public Review createFromParcel(Parcel in) {
-        return new Review(in);
-      }
-
-      @Override
-      public Review[] newArray(int size) {
-        return new Review[size];
-      }
-    };
-
-    public String getReviewPositive() {
-      return mReviewPositive;
-    }
-
-    public String getReviewNegative() {
-      return mReviewNegative;
-    }
-
-    public String getAuthor() {
-      return mAuthor;
-    }
-
-    public String getAuthorAvatar() {
-      return mAuthorAvatar;
-    }
-
-    public float getRating() {
-      return mRating;
-    }
-
-    public long getDate() {
-      return mDate;
-    }
-  }
-
-  public static class HotelInfo {
+  static class HotelInfo {
     final String description;
     final Image[] photos;
     final FacilityType[] facilities;
@@ -242,12 +162,12 @@ public final class SponsoredHotel
     return urlDescription;
   }
 
-  public static void setPriceListener(OnPriceReceivedListener listener)
+  static void setPriceListener(OnPriceReceivedListener listener)
   {
     sPriceListener = new WeakReference<>(listener);
   }
 
-  public static void setInfoListener(OnInfoReceivedListener listener)
+  static void setInfoListener(OnInfoReceivedListener listener)
   {
     sInfoListener = new WeakReference<>(listener);
   }
