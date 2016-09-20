@@ -67,6 +67,7 @@ struct RouteData
   double m_length;
   RouteRenderProperty m_route;
   RoutePattern m_pattern;
+  int m_recacheId;
 };
 
 struct RouteSignData
@@ -75,12 +76,14 @@ struct RouteSignData
   bool m_isStart;
   bool m_isValid;
   m2::PointD m_position;
+  int m_recacheId;
 };
 
 struct RouteArrowsData
 {
   RouteRenderProperty m_arrows;
   m2::PointD m_pivot;
+  int m_recacheId;
 };
 
 class RouteShape
