@@ -33,6 +33,8 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.PushwooshHelper;
 import com.mapswithme.util.statistics.Statistics;
+import com.my.tracker.MyTracker;
+import com.my.tracker.MyTrackerParams;
 import com.pushwoosh.PushManager;
 import io.fabric.sdk.android.Fabric;
 import net.hockeyapp.android.CrashManager;
@@ -112,6 +114,7 @@ public class MwmApplication extends Application
     initHockeyApp();
     initCrashlytics();
     initPushWoosh();
+    initTracker();
 
     String settingsPath = getSettingsPath();
     new File(settingsPath).mkdirs();
@@ -285,6 +288,15 @@ public class MwmApplication extends Application
     {
       Log.e("Pushwoosh", e.getLocalizedMessage());
     }
+  }
+
+  private void initTracker()
+  {
+    MyTracker.setDebugMode(BuildConfig.DEBUG);
+    MyTracker.createTracker(PrivateVariables.myTrackerKey(), this);
+    final MyTrackerParams myParams = MyTracker.getTrackerParams();
+    myParams.setDefaultVendorAppPackage();
+    MyTracker.initTracker();
   }
 
   public void initCounters()

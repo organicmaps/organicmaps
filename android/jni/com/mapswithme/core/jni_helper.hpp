@@ -11,6 +11,7 @@
 
 extern jclass g_mapObjectClazz;
 extern jclass g_bookmarkClazz;
+extern jclass g_myTrackerClazz;
 
 namespace jni
 {
