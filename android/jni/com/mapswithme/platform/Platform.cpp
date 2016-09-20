@@ -1,7 +1,6 @@
 #include "Platform.hpp"
 
 #include "../core/jni_helper.hpp"
-#include "../core/ScopedEnv.hpp"
 
 #include "platform/settings.hpp"
 
@@ -87,22 +86,22 @@ void Platform::SendPushWooshTag(string const & tag, vector<string> const & value
 
 void Platform::SendMarketingEvent(string const & tag, map<string, string> const & params)
 {
-  ScopedEnv env(jni::GetJVM());
-  if (!env)
+  JNIEnv * env = jni::GetEnv();
+  if (env == nullptr)
     return;
 
   string eventData = tag;
 
   for (auto const & item : params)
   {
-    eventData.append("_" + item.first + ": " + item.second);
+    eventData.append("_" + item.first + "_" + item.second);
   }
 
   static jmethodID const myTrackerTrackEvent =
       env->GetStaticMethodID(g_myTrackerClazz, "trackEvent", "(Ljava/lang/String;)V");
 
   env->CallStaticVoidMethod(g_myTrackerClazz, myTrackerTrackEvent,
-                            jni::ToJavaString(env.get(), eventData));
+                            jni::ToJavaString(env, eventData));
 }
 
 Platform::EConnectionType Platform::ConnectionStatus()
