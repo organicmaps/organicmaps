@@ -6,11 +6,13 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+import android.os.Environment;
 import android.os.SystemClock;
 
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.background.AppBackgroundTracker;
+import com.mapswithme.util.Constants;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.FileLogger;
 import com.mapswithme.util.log.Logger;
@@ -215,7 +217,7 @@ public final class TrackRecorder
     synchronized (TrackRecorder.class)
     {
       if (sLogger == null)
-        sLogger = new FileLogger("/sdcard/MapsWithMe/gps-tracker.log");
+        sLogger = new FileLogger(Environment.getExternalStorageDirectory().getAbsolutePath() + Constants.MWM_DIR_POSTFIX + "/gps-tracker.log");
 
       sLogger.d(message);
     }
