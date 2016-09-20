@@ -22,6 +22,8 @@ public:
 
   void GetByIndex(uint32_t index, FeatureType & ft) const;
 
+  size_t GetNumFeatures() const;
+
   template <class ToDo> void ForEach(ToDo && toDo) const
   {
     uint32_t index = 0;

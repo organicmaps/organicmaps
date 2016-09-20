@@ -135,3 +135,12 @@ bool Index::FeaturesLoaderGuard::GetOriginalFeatureByIndex(uint32_t index, Featu
   ft.SetID(FeatureID(m_handle.GetId(), index));
   return true;
 }
+
+size_t Index::FeaturesLoaderGuard::GetNumFeatures() const
+{
+  if (!m_handle.IsAlive())
+    return 0;
+
+  ASSERT(m_vector.get(), ());
+  return m_vector->GetNumFeatures();
+}

@@ -285,6 +285,8 @@ public:
     /// Editor core only method, to get 'untouched', original version of feature.
     WARN_UNUSED_RESULT bool GetOriginalFeatureByIndex(uint32_t index, FeatureType & ft) const;
 
+    size_t GetNumFeatures() const;
+
   private:
     MwmHandle m_handle;
     unique_ptr<FeaturesVector> m_vector;
