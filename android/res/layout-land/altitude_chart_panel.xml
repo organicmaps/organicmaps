@@ -12,6 +12,7 @@
     android:paddingStart="@dimen/altitude_chart_container_padding_left"
     android:paddingRight="@dimen/altitude_chart_container_padding_left"
     android:paddingEnd="@dimen/altitude_chart_container_padding_left"
+    android:paddingBottom="@dimen/altitude_chart_container_padding_bottom"
     android:orientation="horizontal"
     tools:showIn="@layout/fragment_routing">
 
@@ -24,6 +25,5 @@
     <ImageView
         android:id="@+id/altitude_chart"
         android:layout_width="@dimen/altitude_chart_image_width"
-        android:layout_height="@dimen/altitude_chart_image_height"
-        android:layout_marginBottom="8dp"/>
+        android:layout_height="@dimen/altitude_chart_image_height"/>
 </LinearLayout>

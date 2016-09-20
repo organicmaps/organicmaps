@@ -135,6 +135,7 @@
 
   <!-- Altitude chart -->
   <dimen name="altitude_chart_container_padding_left">16dp</dimen>
+  <dimen name="altitude_chart_container_padding_bottom">10dp</dimen>
   <dimen name="altitude_chart_margin_bottom">4dp</dimen>
   <dimen name="altitude_chart_margin_top">14dp</dimen>
   <dimen name="altitude_chart_time_distance_height">20dp</dimen>
