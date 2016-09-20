@@ -283,11 +283,9 @@ namespace
   }
 
   // There are road ids in osrm which don't have appropriate features ids in mwm.
-  // When the route goes through such osrm id a code line with LOG(LERROR, ... is executed:
-  // on route reconstruction stage. As a result some item of |segments| vector could have an empty
-  // |m_path|.
-  // This test shows such case. It's commented because if to uncomment it debug version of
-  // routing_integration_tests would crash.
+  // When the route goes through such osrm id a code line with LOG(LERROR, ...) is executed
+  // on route reconstruction stage. As a result some items of |segments| vector could have an empty
+  // |m_path|. This test shows such case.
   //  UNIT_TEST(RussiaSpbPloschadBekhterevaToKomendantskiyProspekt)
   //  {
   //    TRouteResult const routeResult = integration::CalculateRoute(
