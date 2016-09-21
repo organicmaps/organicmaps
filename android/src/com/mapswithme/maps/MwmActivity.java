@@ -75,8 +75,6 @@ import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
-import com.mapswithme.util.log.DebugLogger;
-import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.sharing.SharingHelper;
 import com.mapswithme.util.statistics.AlohaHelper;
@@ -149,7 +147,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   // The first launch of application ever - onboarding screen will be shown.
   private boolean mFirstStart;
-  private final Logger mLogger = new DebugLogger(MwmActivity.class.getSimpleName());
 
   public interface LeftAnimationTrackListener
   {
@@ -674,6 +671,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (!mIsFragmentContainer && RoutingController.get().isPlanning())
       mRoutingPlanInplaceController.onSaveState(outState);
+
+    if (mIsFragmentContainer)
+    {
+      RoutingPlanFragment fragment = (RoutingPlanFragment) getFragment(RoutingPlanFragment.class);
+      if (fragment != null)
+        fragment.saveAltitudeChartState(outState);
+    }
 
     RoutingController.get().onSaveState();
     super.onSaveInstanceState(outState);

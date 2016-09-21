@@ -21,6 +21,9 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
 {
   private final BaseActivityDelegate mBaseDelegate = new BaseActivityDelegate(this);
 
+  @Nullable
+  private Bundle mSavedInstanceState;
+
   @Override
   public Activity get()
   {
@@ -89,6 +92,19 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
   {
     super.onStop();
     mBaseDelegate.onStop();
+  }
+
+  @Override
+  protected void onRestoreInstanceState(Bundle savedInstanceState)
+  {
+    super.onRestoreInstanceState(savedInstanceState);
+    mSavedInstanceState = savedInstanceState;
+  }
+
+  @Nullable
+  public Bundle getSavedInstanceState()
+  {
+    return mSavedInstanceState;
   }
 
   @Override
