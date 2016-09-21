@@ -622,7 +622,6 @@ using namespace osm_auth_ios;
 {
   LOG(LINFO, ("applicationWillResignActive"));
   [self.mapViewController onGetFocus:NO];
-  [self.mapViewController.appWallAd close];
   [MWMRouterSavedState store];
   GetFramework().SetRenderingDisabled(false);
   [MWMLocationManager applicationWillResignActive];
@@ -1105,9 +1104,6 @@ using namespace osm_auth_ios;
       completionHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
         bool const adServerForbidden = (error || [(NSHTTPURLResponse *)response statusCode] != 200);
         [MWMSettings setAdServerForbidden:adServerForbidden];
-        dispatch_async(dispatch_get_main_queue(), ^{
-          [self.mapViewController refreshAd];
-        });
       }];
   [task resume];
 }

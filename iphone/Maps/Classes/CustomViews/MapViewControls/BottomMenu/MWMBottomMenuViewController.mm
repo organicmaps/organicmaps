@@ -49,7 +49,6 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   MWMBottomMenuViewCellDownload,
   MWMBottomMenuViewCellSettings,
   MWMBottomMenuViewCellShare,
-  MWMBottomMenuViewCellAd,
   MWMBottomMenuViewCellCount
 };
 
@@ -219,7 +218,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 {
   MWMBottomMenuLayout * cvLayout =
       (MWMBottomMenuLayout *)self.buttonsCollectionView.collectionViewLayout;
-  cvLayout.buttonsCount = [self additionalButtonsCount];
+  cvLayout.buttonsCount = MWMBottomMenuViewCellCount;
   [self.additionalButtons reloadData];
   [(MWMBottomMenuView *)self.view refreshLayout];
 }
@@ -264,7 +263,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView
      numberOfItemsInSection:(NSInteger)section
 {
-  return [self additionalButtonsCount];
+  return MWMBottomMenuViewCellCount;
 }
 
 - (nonnull UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView
@@ -311,16 +310,6 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
                       badgeCount:0
                        isEnabled:YES];
     break;
-  case MWMBottomMenuViewCellAd:
-  {
-    MTRGNativeAppwallBanner * banner = [self.controller.appWallAd.banners firstObject];
-    [self.controller.appWallAd handleShow:banner];
-    [cell configureWithImageName:@"ic_menu_showcase"
-                           label:L(@"showcase_more_apps")
-                      badgeCount:0
-                       isEnabled:YES];
-  }
-  break;
   case MWMBottomMenuViewCellCount: break;
   }
   return cell;
@@ -341,7 +330,6 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   case MWMBottomMenuViewCellDownload: [self menuActionDownloadMaps]; break;
   case MWMBottomMenuViewCellSettings: [self menuActionOpenSettings]; break;
   case MWMBottomMenuViewCellShare: [self menuActionShareLocation]; break;
-  case MWMBottomMenuViewCellAd: [self menuActionOpenAd]; break;
   case MWMBottomMenuViewCellCount: break;
   }
 }
@@ -392,46 +380,6 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   MWMActivityViewController * shareVC =
       [MWMActivityViewController shareControllerForMyPosition:coord];
   [shareVC presentInParentViewController:self.controller anchorView:cell.icon];
-}
-
-- (void)menuActionOpenAd
-{
-  NSArray<MTRGNativeAppwallBanner *> * banners = self.controller.appWallAd.banners;
-  NSAssert(banners.count != 0, @"Banners collection can not be empty!");
-  [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatMoreApps}];
-  self.state = self.restoreState;
-  [self.controller.appWallAd showWithController:self.controller
-      onComplete:^{
-        [Statistics logEvent:kStatMyTargetAppsDisplayed
-              withParameters:@{
-                kStatCount : @(banners.count)
-              }];
-        NSMutableArray<NSString *> * appNames = [@[] mutableCopy];
-        for (MTRGNativeAppwallBanner * banner in banners)
-        {
-          [Statistics logEvent:kStatMyTargetAppsDisplayed
-                withParameters:@{kStatName : banner.title}];
-          [appNames addObject:banner.title];
-        }
-        NSString * appNamesString = [appNames componentsJoinedByString:@";"];
-        [Alohalytics logEvent:kStatMyTargetAppsDisplayed
-               withDictionary:@{
-                 kStatCount : @(banners.count),
-                 kStatName : appNamesString
-               }];
-      }
-      onError:^(NSError * error) {
-        NSMutableArray<NSString *> * appNames = [@[] mutableCopy];
-        for (MTRGNativeAppwallBanner * banner in banners)
-          [appNames addObject:banner.title];
-        NSString * appNamesString = [appNames componentsJoinedByString:@";"];
-        [Statistics logEvent:kStatMyTargetAppsDisplayed
-              withParameters:@{
-                kStatError : error,
-                kStatCount : @(banners.count),
-                kStatName : appNamesString
-              }];
-      }];
 }
 
 - (IBAction)point2PointButtonTouchUpInside:(UIButton *)sender
@@ -600,10 +548,6 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 }
 
 - (BOOL)searchIsActive { return ((MWMBottomMenuView *)self.view).searchIsActive; }
-- (NSUInteger)additionalButtonsCount
-{
-  return MWMBottomMenuViewCellCount - (self.controller.isAppWallAdActive ? 0 : 1);
-}
 
 - (void)setTtsSoundButton:(MWMButton *)ttsSoundButton
 {
