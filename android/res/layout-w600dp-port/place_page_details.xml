@@ -47,6 +47,12 @@
           android:layout_toLeftOf="@id/anchor_center"
           android:layout_toStartOf="@id/anchor_center"
           android:orientation="vertical">
+          <include layout="@layout/place_page_hotel_gallery"/>
+
+          <include layout="@layout/place_page_hotel_facilities"/>
+
+          <include layout="@layout/place_page_hotel_description"/>
+
           <include layout="@layout/place_page_placename"/>
 
           <include layout="@layout/place_page_entrance"/>
@@ -81,6 +87,10 @@
           <include layout="@layout/place_page_operator"/>
 
           <include layout="@layout/place_page_cuisine"/>
+
+          <include layout="@layout/place_page_hotel_nearby"/>
+
+          <include layout="@layout/place_page_hotel_rating"/>
 
         </LinearLayout>
       </RelativeLayout>
