@@ -132,7 +132,6 @@ public class PlacePageView extends RelativeLayout
   private View mEditPlace;
   private View mAddOrganisation;
   private View mAddPlace;
-  private View mMoreInfo;
   // Bookmark
   private View mBookmarkFrame;
   private TextView mBookmarkNote;
@@ -287,8 +286,6 @@ public class PlacePageView extends RelativeLayout
     mAddOrganisation.setOnClickListener(this);
     mAddPlace = mDetails.findViewById(R.id.ll__place_add);
     mAddPlace.setOnClickListener(this);
-    mMoreInfo = mDetails.findViewById(R.id.ll__more);
-    mMoreInfo.setOnClickListener(this);
     latlon.setOnLongClickListener(this);
     address.setOnLongClickListener(this);
     mPhone.setOnLongClickListener(this);
@@ -818,8 +815,6 @@ public class PlacePageView extends RelativeLayout
       UiUtils.showIf(Editor.nativeShouldShowAddBusiness(), mAddOrganisation);
       UiUtils.showIf(Editor.nativeShouldShowAddPlace(), mAddPlace);
     }
-
-    UiUtils.showIf(mSponsoredHotel != null, mMoreInfo);
   }
 
   private void refreshOpeningHours()

@@ -82,7 +82,6 @@
 
           <include layout="@layout/place_page_cuisine"/>
 
-          <include layout="@layout/place_page_more"/>
         </LinearLayout>
       </RelativeLayout>
 
