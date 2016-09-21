@@ -62,6 +62,7 @@ import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.editor.OpeningHours;
 import com.mapswithme.maps.editor.data.TimeFormatUtils;
 import com.mapswithme.maps.editor.data.Timetable;
+import com.mapswithme.maps.gallery.FullScreenGalleryActivity;
 import com.mapswithme.maps.gallery.GalleryActivity;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.review.ReviewActivity;
@@ -538,7 +539,11 @@ public class PlacePageView extends RelativeLayout
 
   @Override
   public void onItemClick(View v, int position) {
-    GalleryActivity.start(getContext(), mGalleryAdapter.getItems(), mMapObject.getTitle());
+    if (position == GalleryAdapter.MAX_COUNT - 1) {
+      GalleryActivity.start(getContext(), mGalleryAdapter.getItems(), mMapObject.getTitle());
+    } else {
+      FullScreenGalleryActivity.start(getContext(), mGalleryAdapter.getItems(), position);
+    }
   }
 
   @Override

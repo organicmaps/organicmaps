@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder> {
-  private static final int MAX_COUNT = 5;
+  static final int MAX_COUNT = 5;
 
   private final Context mContext;
   private ArrayList<Image> mItems = new ArrayList<>();
@@ -114,7 +114,6 @@ class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder> {
   }
 
   static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    private final View mParentView;
     private ImageView mImage;
     private View mMore;
     private final RecyclerClickListener mListener;
@@ -122,10 +121,10 @@ class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder> {
 
     public ViewHolder(View itemView, RecyclerClickListener listener) {
       super(itemView);
-      mParentView = itemView;
       mListener = listener;
       mImage = (ImageView) itemView.findViewById(R.id.iv__image);
       mMore = itemView.findViewById(R.id.tv__more);
+      itemView.setOnClickListener(this);
     }
 
     @Override
@@ -142,14 +141,8 @@ class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder> {
       mImage.setImageBitmap(item.getBitmap());
       if (item.isShowMore()) {
         UiUtils.show(mMore);
-        mParentView.setClickable(true);
-        mParentView.setFocusable(true);
-        mParentView.setOnClickListener(this);
       } else {
         UiUtils.hide(mMore);
-        mParentView.setOnClickListener(null);
-        mParentView.setClickable(false);
-        mParentView.setFocusable(false);
       }
     }
   }
