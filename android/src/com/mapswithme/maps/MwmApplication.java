@@ -107,12 +107,12 @@ public class MwmApplication extends Application
     super.onCreate();
     mMainLoopHandler = new Handler(getMainLooper());
 
-    // Alohalytics generates installation id,
-    // it should be initialized before Crashlytics.
-    Statistics s = Statistics.INSTANCE;
-
     initHockeyApp();
+
     initCrashlytics();
+    final boolean isInstallationIdFound =
+      setInstallationIdToCrashlytics();
+
     initPushWoosh();
     initTracker();
 
@@ -120,9 +120,15 @@ public class MwmApplication extends Application
     new File(settingsPath).mkdirs();
     new File(getTempPath()).mkdirs();
 
+    // First we need initialize paths and platform to have access to settings and other components.
     nativePreparePlatform(settingsPath);
     nativeInitPlatform(getApkPath(), getStoragePath(settingsPath), getTempPath(), getObbGooglePath(),
                        BuildConfig.FLAVOR, BuildConfig.BUILD_TYPE, UiUtils.isTablet());
+
+    Statistics s = Statistics.INSTANCE;
+
+    if (!isInstallationIdFound)
+      setInstallationIdToCrashlytics();
 
     mPrefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
     mBackgroundTracker = new AppBackgroundTracker();
@@ -189,8 +195,17 @@ public class MwmApplication extends Application
     Fabric.with(this, new Crashlytics(), new CrashlyticsNdk());
 
     nativeInitCrashlytics();
+  }
 
-    Crashlytics.setString("AlohalyticsInstallationId", Utils.getInstallationId());
+  private boolean setInstallationIdToCrashlytics()
+  {
+    final String installationId = Utils.getInstallationId();
+    // If it is a first run.
+    if (TextUtils.isEmpty(installationId))
+      return false;
+
+    Crashlytics.setString("AlohalyticsInstallationId", installationId);
+    return true;
   }
 
   public boolean isFrameworkInitialized()
