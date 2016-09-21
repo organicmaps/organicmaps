@@ -205,6 +205,22 @@ public class PlacePageView extends RelativeLayout
     }
   };
 
+  public boolean isTouchGallery(MotionEvent event) {
+    if (UiUtils.isHidden(mHotelGallery))
+      return false;
+
+    float x = event.getX();
+    float y = event.getY();
+    int[] location = new int[2];
+    mHotelGallery.getLocationOnScreen(location);
+    float viewX = (float) location[0];
+    float viewY = (float) location[1];
+    float width = (float) mHotelGallery.getWidth();
+    float height = (float) mHotelGallery.getHeight();
+
+    return !(x < viewX || x > viewX + width || y < viewY || y > viewY + height);
+  }
+
   public enum State
   {
     HIDDEN,
