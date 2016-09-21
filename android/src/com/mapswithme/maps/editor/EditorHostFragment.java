@@ -1,6 +1,7 @@
 package com.mapswithme.maps.editor;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mapswithme.maps.MwmActivity;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
@@ -55,6 +57,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
    */
   private int mMandatoryNamesCount = 0;
 
+  private static final String NOOB_ALERT_SHOWN = "Alert_for_noob_was_shown";
   /**
    *   Used in MultilanguageAdapter to show, select and remove items.
    */
@@ -281,32 +284,47 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         if (note.length() != 0)
           Editor.nativeCreateNote(note);
         // Save object edits
-        if (Editor.nativeSaveEditedFeature())
+        if (!MwmApplication.get().prefs().contains(NOOB_ALERT_SHOWN))
         {
-          Statistics.INSTANCE.trackEditorSuccess(mIsNewObject);
-          if (OsmOAuth.isAuthorized() || !ConnectionState.isConnected())
-            Utils.navigateToParent(getActivity());
-          else
-          {
-            final Activity parent = getActivity();
-            Intent intent = new Intent(parent, MwmActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-            intent.putExtra(MwmActivity.EXTRA_TASK, new MwmActivity.ShowAuthorizationTask());
-            parent.startActivity(intent);
+          MwmApplication.get().prefs().edit()
+            .putBoolean(NOOB_ALERT_SHOWN, true)
+            .apply();
 
-            if (parent instanceof MwmActivity)
-              ((MwmActivity) parent).customOnNavigateUp();
-            else
-              parent.finish();
-          }
+          showNoobDialog();
         }
         else
-        {
-          Statistics.INSTANCE.trackEditorError(mIsNewObject);
-          UiUtils.showAlertDialog(getActivity(), R.string.downloader_no_space_title);
-        }
+          saveMapObjectEdits();
+
         break;
       }
+    }
+  }
+
+  private void saveMapObjectEdits()
+  {
+    if (Editor.nativeSaveEditedFeature())
+    {
+      Statistics.INSTANCE.trackEditorSuccess(mIsNewObject);
+      if (OsmOAuth.isAuthorized() || !ConnectionState.isConnected())
+        Utils.navigateToParent(getActivity());
+      else
+      {
+        final Activity parent = getActivity();
+        Intent intent = new Intent(parent, MwmActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        intent.putExtra(MwmActivity.EXTRA_TASK, new MwmActivity.ShowAuthorizationTask());
+        parent.startActivity(intent);
+
+        if (parent instanceof MwmActivity)
+          ((MwmActivity) parent).customOnNavigateUp();
+        else
+          parent.finish();
+      }
+    }
+    else
+    {
+      Statistics.INSTANCE.trackEditorError(mIsNewObject);
+      UiUtils.showAlertDialog(getActivity(), R.string.downloader_no_space_title);
     }
   }
 
@@ -316,6 +334,25 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         .setMessage(resId)
         .setPositiveButton(android.R.string.ok, null)
         .show();
+  }
+
+
+  private void showNoobDialog()
+  {
+    new AlertDialog.Builder(getActivity())
+      .setTitle(R.string.editor_share_to_all_dialog_title)
+      .setMessage(getString(R.string.editor_share_to_all_dialog_message_1)
+        + " " + getString(R.string.editor_share_to_all_dialog_message_2))
+      .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
+      {
+        @Override
+        public void onClick(DialogInterface dlg, int which)
+        {
+          saveMapObjectEdits();
+        }
+      })
+      .setNegativeButton(android.R.string.cancel, null)
+      .show();
   }
 
   public void setStreet(LocalizedStreet street)
