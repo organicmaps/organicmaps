@@ -101,7 +101,7 @@ void Platform::SendMarketingEvent(string const & tag, map<string, string> const 
       env->GetStaticMethodID(g_myTrackerClazz, "trackEvent", "(Ljava/lang/String;)V");
 
   env->CallStaticVoidMethod(g_myTrackerClazz, myTrackerTrackEvent,
-                            jni::ToJavaString(env, eventData));
+                            jni::TScopedLocalRef(env, jni::ToJavaString(env, eventData)).get());
 }
 
 Platform::EConnectionType Platform::ConnectionStatus()

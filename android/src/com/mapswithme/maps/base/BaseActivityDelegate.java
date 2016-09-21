@@ -8,6 +8,7 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.ViewServer;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.statistics.Statistics;
+import com.my.tracker.MyTracker;
 
 public class BaseActivityDelegate
 {
@@ -38,11 +39,13 @@ public class BaseActivityDelegate
   public void onStart()
   {
     Statistics.INSTANCE.startActivity(mActivity.get());
+    MyTracker.onStartActivity(mActivity.get());
   }
 
   public void onStop()
   {
     Statistics.INSTANCE.stopActivity(mActivity.get());
+    MyTracker.onStopActivity(mActivity.get());
   }
 
   public void onResume()
