@@ -12,6 +12,7 @@ HEADERS += \
     algos.hpp \
     approximate_string_match.hpp \
     cancel_exception.hpp \
+    categories_cache.hpp \
     categories_set.hpp \
     cbv.hpp \
     common.hpp \
@@ -81,6 +82,7 @@ HEADERS += \
 
 SOURCES += \
     approximate_string_match.cpp \
+    categories_cache.cpp \
     cbv.cpp \
     displayed_categories.cpp \
     downloader_search_callback.cpp \

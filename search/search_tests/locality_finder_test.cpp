@@ -4,6 +4,7 @@
 #include "indexer/index.hpp"
 #include "indexer/classificator_loader.hpp"
 
+#include "search/categories_cache.hpp"
 #include "search/locality_finder.hpp"
 
 #include "platform/country_file.hpp"
@@ -11,21 +12,30 @@
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 
+#include "base/cancellable.hpp"
 
 namespace
 {
+struct TestWithClassifier
+{
+  TestWithClassifier() { classificator::Load(); }
+};
 
-class LocalityFinderTest
+class LocalityFinderTest : public TestWithClassifier
 {
   platform::LocalCountryFile m_worldFile;
+
   Index m_index;
+
+  my::Cancellable m_cancellable;
+  search::VillagesCache m_villagesCache;
+
   search::LocalityFinder m_finder;
   m2::RectD m_worldRect;
 
 public:
-  LocalityFinderTest() : m_finder(m_index)
+  LocalityFinderTest() : m_villagesCache(m_cancellable), m_finder(m_index, m_villagesCache)
   {
-    classificator::Load();
     m_worldFile = platform::LocalCountryFile::MakeForTesting("World");
 
     try

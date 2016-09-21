@@ -10,9 +10,9 @@ include($$ROOT_DIR/common.pri)
 SOURCES += \
     base.cpp \
     condition.cpp \
-    gmtime.cpp \
     deferred_task.cpp \
     exception.cpp \
+    gmtime.cpp \
     internal/message.cpp \
     logging.cpp \
     lower_case.cpp \
@@ -28,6 +28,7 @@ SOURCES += \
     thread_checker.cpp \
     thread_pool.cpp \
     threaded_container.cpp \
+    time_samples.cpp \
     timegm.cpp \
     timer.cpp \
 
@@ -81,6 +82,7 @@ HEADERS += \
     threaded_container.hpp \
     threaded_list.hpp \
     threaded_priority_queue.hpp \
+    time_samples.hpp \
     timegm.hpp \
     timer.hpp \
     worker_thread.hpp \

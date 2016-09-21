@@ -73,4 +73,4 @@ public:
 
 time_t SecondsSinceEpochToTimeT(uint64_t secondsSinceEpoch);
 uint64_t TimeTToSecondsSinceEpoch(time_t time);
-}
+}  // namespace my

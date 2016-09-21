@@ -1,7 +1,8 @@
 #pragma once
 
 #include "search/cancel_exception.hpp"
-#include "search/categories_set.hpp"
+#include "search/categories_cache.hpp"
+#include "search/cbv.hpp"
 #include "search/features_layer.hpp"
 #include "search/features_layer_path_finder.hpp"
 #include "search/geocoder_context.hpp"
@@ -136,7 +137,8 @@ public:
   };
 
   Geocoder(Index const & index, storage::CountryInfoGetter const & infoGetter,
-           PreRanker & preRanker, my::Cancellable const & cancellable);
+           PreRanker & preRanker, VillagesCache & villagesCache,
+           my::Cancellable const & cancellable);
 
   ~Geocoder();
 
@@ -257,12 +259,6 @@ private:
   // UNCLASSIFIED objects that match to all currently unused tokens.
   void MatchUnclassified(BaseContext & ctx, size_t curToken);
 
-  CBV LoadCategories(MwmContext & context, CategoriesSet const & categories);
-
-  CBV LoadStreets(MwmContext & context);
-
-  CBV LoadVillages(MwmContext & context);
-
   // A wrapper around RetrievePostcodeFeatures.
   CBV RetrievePostcodeFeatures(MwmContext const & context, TokenSlice const & slice);
 
@@ -278,10 +274,10 @@ private:
 
   storage::CountryInfoGetter const & m_infoGetter;
 
-  my::Cancellable const & m_cancellable;
+  StreetsCache m_streetsCache;
+  VillagesCache & m_villagesCache;
 
-  CategoriesSet m_streets;
-  CategoriesSet m_villages;
+  my::Cancellable const & m_cancellable;
 
   // Geocoder params.
   Params m_params;
@@ -308,9 +304,6 @@ private:
   // all of them are needed.
   PivotRectsCache m_pivotRectsCache;
   LocalityRectsCache m_localityRectsCache;
-
-  // Cache of street ids in mwms.
-  map<MwmSet::MwmId, CBV> m_streetsCache;
 
   // Postcodes features in the mwm that is currently being processed.
   Postcodes m_postcodes;

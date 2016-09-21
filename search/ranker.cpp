@@ -279,10 +279,11 @@ size_t const Ranker::kBatchSize = 10;
 
 Ranker::Ranker(Index const & index, storage::CountryInfoGetter const & infoGetter,
                Emitter & emitter, CategoriesHolder const & categories,
-               vector<Suggest> const & suggests, my::Cancellable const & cancellable)
+               vector<Suggest> const & suggests, VillagesCache & villagesCache,
+               my::Cancellable const & cancellable)
   : m_reverseGeocoder(index)
   , m_cancellable(cancellable)
-  , m_locality(index)
+  , m_localities(index, villagesCache)
   , m_index(index)
   , m_infoGetter(infoGetter)
   , m_emitter(emitter)
@@ -341,7 +342,7 @@ Result Ranker::MakeResult(PreResult2 const & r) const
   if (ftypes::IsLocalityChecker::Instance().GetType(r.GetTypes()) == ftypes::NONE)
   {
     string city;
-    m_locality.GetLocality(res.GetFeatureCenter(), city);
+    m_localities.GetLocality(res.GetFeatureCenter(), city);
     res.AppendCity(city);
   }
 
@@ -546,6 +547,6 @@ void Ranker::UpdateResults(bool lastUpdate)
 
 void Ranker::ClearCaches()
 {
-  m_locality.ClearCache();
+  m_localities.ClearCache();
 }
 }  // namespace search

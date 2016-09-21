@@ -34,6 +34,7 @@ class CountryInfoGetter;
 
 namespace search
 {
+class VillagesCache;
 class Emitter;
 class PreResult2Maker;
 
@@ -69,7 +70,7 @@ public:
 
   Ranker(Index const & index, storage::CountryInfoGetter const & infoGetter, Emitter & emitter,
          CategoriesHolder const & categories, vector<Suggest> const & suggests,
-         my::Cancellable const & cancellable);
+         VillagesCache & villagesCache, my::Cancellable const & cancellable);
   virtual ~Ranker() = default;
 
   void Init(Params const & params, Geocoder::Params const & geocoderParams);
@@ -93,7 +94,7 @@ public:
 
   void ClearCaches();
 
-  inline void SetLocalityFinderLanguage(int8_t code) { m_locality.SetLanguage(code); }
+  inline void SetLocalityFinderLanguage(int8_t code) { m_localities.SetLanguage(code); }
 
   inline void SetLanguage(pair<int, int> const & ind, int8_t lang)
   {
@@ -127,7 +128,7 @@ private:
   my::Cancellable const & m_cancellable;
   KeywordLangMatcher m_keywordsScorer;
 
-  mutable LocalityFinder m_locality;
+  mutable LocalityFinder m_localities;
 
   Index const & m_index;
   storage::CountryInfoGetter const & m_infoGetter;
