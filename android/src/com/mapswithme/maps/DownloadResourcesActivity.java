@@ -212,13 +212,13 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
   protected void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_download_resources);
+    initViewsAndListeners();
 
     if (prepareFilesDownload(false))
     {
       Utils.keepScreenOn(true, getWindow());
       suggestRemoveLiteOrSamsung();
-      setContentView(R.layout.activity_download_resources);
-      initViewsAndListeners();
 
       setAction(DOWNLOAD);
 
