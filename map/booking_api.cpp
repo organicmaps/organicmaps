@@ -157,30 +157,102 @@ void BookingApi::GetHotelInfo(string const & hotelId, string const & /* lang */,
   };
 
   info.m_reviews = {
-    {
+    HotelReview::CriticReview(
       "Interesting place among SoHo, Little Italy and China town. Modern design. Great view from roof. Near subway. Free refreshment every afternoon. The staff was very friendly.",
       "Little bit noise from outside",
       "Anonymous1",
       "http://storage2.static.itmages.ru/i/16/0915/h_1473945375_5332083_b44af613bd.jpg",
       9.2,
       system_clock::now()
-    },
-    {
+    ),
+    HotelReview::CriticReview(
       "Interesting place among SoHo, Little Italy and China town. Modern design. Great view from roof. Near subway. Free refreshment every afternoon. The staff was very friendly.",
       "Little bit noise from outside",
       "Anonymous2",
       "http://storage2.static.itmages.ru/i/16/0915/h_1473945375_7504873_be0fe246e3.jpg",
       9.2,
       system_clock::now()
-    },
-    {
+    ),
+    HotelReview::CriticReview(
       "Interesting place among SoHo, Little Italy and China town. Modern design. Great view from roof. Near subway. Free refreshment every afternoon. The staff was very friendly.",
       "Little bit noise from outside",
       "Anonymous2",
       "http://storage1.static.itmages.ru/i/16/0915/h_1473945374_9397526_996bbca0d7.jpg",
       9.2,
       system_clock::now()
-    }
+    ),
+    HotelReview::CriticReview(
+      "Interesting place among SoHo, Little Italy and China town. Modern design. Great view from roof. Near subway. Free refreshment every afternoon. The staff was very friendly.",
+      "Little bit noise from outside",
+      "Anonymous1",
+      "http://storage2.static.itmages.ru/i/16/0915/h_1473945375_5332083_b44af613bd.jpg",
+      9.2,
+      system_clock::now()
+    ),
+    HotelReview::CriticReview(
+      "Interesting place among SoHo, Little Italy and China town. Modern design. Great view from roof. Near subway. Free refreshment every afternoon. The staff was very friendly.",
+      "Little bit noise from outside",
+      "Anonymous2",
+      "http://storage2.static.itmages.ru/i/16/0915/h_1473945375_7504873_be0fe246e3.jpg",
+      9.2,
+      system_clock::now()
+    ),
+    HotelReview::CriticReview(
+      "Interesting place among SoHo, Little Italy and China town. Modern design. Great view from roof. Near subway. Free refreshment every afternoon. The staff was very friendly.",
+      "Little bit noise from outside",
+      "Anonymous2",
+      "http://storage1.static.itmages.ru/i/16/0915/h_1473945374_9397526_996bbca0d7.jpg",
+      9.2,
+      system_clock::now()
+    ),
+    HotelReview::CriticReview(
+      "Interesting place among SoHo, Little Italy and China town. Modern design. Great view from roof. Near subway. Free refreshment every afternoon. The staff was very friendly.",
+      "Little bit noise from outside",
+      "Anonymous1",
+      "http://storage2.static.itmages.ru/i/16/0915/h_1473945375_5332083_b44af613bd.jpg",
+      9.2,
+      system_clock::now()
+    ),
+    HotelReview::CriticReview(
+      "Interesting place among SoHo, Little Italy and China town. Modern design. Great view from roof. Near subway. Free refreshment every afternoon. The staff was very friendly.",
+      "Little bit noise from outside",
+      "Anonymous2",
+      "http://storage2.static.itmages.ru/i/16/0915/h_1473945375_7504873_be0fe246e3.jpg",
+      9.2,
+      system_clock::now()
+    ),
+    HotelReview::CriticReview(
+      "Interesting place among SoHo, Little Italy and China town. Modern design. Great view from roof. Near subway. Free refreshment every afternoon. The staff was very friendly.",
+      "Little bit noise from outside",
+      "Anonymous2",
+      "http://storage1.static.itmages.ru/i/16/0915/h_1473945374_9397526_996bbca0d7.jpg",
+      9.2,
+      system_clock::now()
+    ),
+    HotelReview::CriticReview(
+      "Interesting place among SoHo, Little Italy and China town. Modern design. Great view from roof. Near subway. Free refreshment every afternoon. The staff was very friendly.",
+      "Little bit noise from outside",
+      "Anonymous1",
+      "http://storage2.static.itmages.ru/i/16/0915/h_1473945375_5332083_b44af613bd.jpg",
+      9.2,
+      system_clock::now()
+    ),
+    HotelReview::CriticReview(
+      "Interesting place among SoHo, Little Italy and China town. Modern design. Great view from roof. Near subway. Free refreshment every afternoon. The staff was very friendly.",
+      "Little bit noise from outside",
+      "Anonymous2",
+      "http://storage2.static.itmages.ru/i/16/0915/h_1473945375_7504873_be0fe246e3.jpg",
+      9.2,
+      system_clock::now()
+    ),
+    HotelReview::CriticReview(
+      "Interesting place among SoHo, Little Italy and China town. Modern design. Great view from roof. Near subway. Free refreshment every afternoon. The staff was very friendly.",
+      "Little bit noise from outside",
+      "Anonymous2",
+      "http://storage1.static.itmages.ru/i/16/0915/h_1473945374_9397526_996bbca0d7.jpg",
+      9.2,
+      system_clock::now()
+   )
   };
 
   fn(info);
