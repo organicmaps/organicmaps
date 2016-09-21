@@ -183,6 +183,13 @@ public:
   static IsWifiChecker const & Instance();
 };
 
+class IsFoodChecker : public BaseChecker
+{
+  IsFoodChecker();
+public:
+  static IsFoodChecker const & Instance();
+};
+
 /// Type of locality (do not change values and order - they have detalization order)
 /// COUNTRY < STATE < CITY < ...
 enum Type { NONE = -1, COUNTRY = 0, STATE, CITY, TOWN, VILLAGE, LOCALITY_COUNT };

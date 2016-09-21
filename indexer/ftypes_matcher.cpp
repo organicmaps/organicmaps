@@ -456,6 +456,26 @@ IsWifiChecker const & IsWifiChecker::Instance()
   return instance;
 }
 
+IsFoodChecker:: IsFoodChecker()
+{
+  Classificator const & c = classif();
+  char const * const paths[][2] = {
+    {"amenity", "cafe"},
+    {"amenity", "bar"},
+    {"amenity", "pub"},
+    {"amenity", "fast_food"},
+    {"amenity", "restaurant"}
+  };
+  for (auto const & path : paths)
+    m_types.push_back(c.GetTypeByPath({path[0], path[1]}));
+}
+
+IsFoodChecker const & IsFoodChecker::Instance()
+{
+  static const IsFoodChecker instance;
+  return instance;
+}
+
 uint32_t GetPopulation(FeatureType const & ft)
 {
   uint32_t population = ft.GetPopulation();

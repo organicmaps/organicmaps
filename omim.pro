@@ -46,6 +46,11 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
     booking_quality_check.depends = $$SUBDIRS
     SUBDIRS *= booking_quality_check
 
+    # restaraunts_info
+    restaurants_info.subdir = generator/restaurants_info
+    restaurants_info.depends = $$SUBDIRS
+    SUBDIRS *= restaurants_info
+
     routing_integration_tests.subdir = routing/routing_integration_tests
     routing_integration_tests.depends = $$SUBDIRS
     routing_consistency_tests.subdir = routing/routing_consistency_tests
