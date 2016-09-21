@@ -161,6 +161,21 @@ using namespace mwm;
 }
 
 - (void)configMyTarget { [MWMMyTarget manager].delegate = self; }
+
+- (void)backTap
+{
+  // TODO(igrechuhin): In case, when downloaded maps view controller appears after migration
+  // we have trouble with poping view controller. We expect to see map but as result
+  // we see migration controller.
+  // Poping to root controller seems to be helpful in this case, but probably not the best way to determine
+  // how far we should pop from this view controller.
+
+  if (self.dataSource.mode == mwm::DownloaderMode::Downloaded)
+    [self.navigationController popToRootViewControllerAnimated:YES];
+  else
+    [super backTap];
+}
+
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
   [self.cellHeightCache removeAllObjects];
