@@ -13,7 +13,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -37,12 +36,7 @@ public class ReviewFragment extends BaseMwmFragment implements RecyclerClickList
 
     RecyclerView rvGallery = (RecyclerView) view.findViewById(R.id.rv__review);
     rvGallery.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-    rvGallery.setAdapter(new ReviewAdapter(mItems, this));
-    TextView hotelRating = (TextView) view.findViewById(R.id.tv__place_hotel_rating);
-    TextView hotelRatingBase = (TextView) view.findViewById(R.id.tv__place_hotel_rating_base);
-    hotelRating.setText(mRating);
-    hotelRatingBase.setText(getResources().getQuantityString(R.plurals.place_page_booking_rating_base,
-            mRatingBase, mRatingBase));
+    rvGallery.setAdapter(new ReviewAdapter(mItems, this, mRating, mRatingBase));
   }
 
   private void readArguments()

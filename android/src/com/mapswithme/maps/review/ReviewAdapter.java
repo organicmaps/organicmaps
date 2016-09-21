@@ -21,13 +21,19 @@ class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.BaseViewHolder> {
   private static final int MAX_COUNT = 15;
   private static final int VIEW_TYPE_REVIEW = 0;
   private static final int VIEW_TYPE_MORE = 1;
+  private static final int VIEW_TYPE_RATING = 2;
 
   private final ArrayList<Review> mItems;
   private final RecyclerClickListener mListener;
+  private final String mRating;
+  private final int mRatingBase;
 
-  ReviewAdapter(ArrayList<Review> images, RecyclerClickListener listener) {
+  ReviewAdapter(ArrayList<Review> images, RecyclerClickListener listener, String rating,
+          int ratingBase) {
     mItems = images;
     mListener = listener;
+    mRating = rating;
+    mRatingBase = ratingBase;
   }
 
   @Override
@@ -37,33 +43,47 @@ class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.BaseViewHolder> {
               .inflate(R.layout.item_comment, parent, false), mListener);
     }
 
-    return new MoreHolder(LayoutInflater.from(parent.getContext())
-            .inflate(R.layout.item_more_button, parent, false), mListener);
+    if (viewType == VIEW_TYPE_MORE) {
+      return new MoreHolder(LayoutInflater.from(parent.getContext())
+              .inflate(R.layout.item_more_button, parent, false), mListener);
+    }
+
+    return new RatingHolder(LayoutInflater.from(parent.getContext())
+            .inflate(R.layout.item_rating, parent, false), mListener);
   }
 
   @Override
   public void onBindViewHolder(BaseViewHolder holder, int position) {
-    if (position < mItems.size()) {
-      holder.bind(mItems.get(position), position);
+    int positionNoHeader = position - 1;
+
+    if (position == 0) {
+      ((RatingHolder)holder).bind(mRating, mRatingBase);
+    } else if (positionNoHeader < mItems.size()) {
+      holder.bind(mItems.get(positionNoHeader), positionNoHeader);
     } else {
-      holder.bind(null, position);
+      holder.bind(null, positionNoHeader);
     }
   }
 
   @Override
   public int getItemCount() {
     if (mItems == null) {
-      return 0;
+      return 1;
     }
     if (mItems.size() > MAX_COUNT) {
-      return MAX_COUNT + 1;
+      return MAX_COUNT + 2;
     }
-    return mItems.size() + 1;
+    return mItems.size() + 2;
   }
 
   @Override
   public int getItemViewType(int position) {
-    if (position == mItems.size()) {
+    int positionNoHeader = position - 1;
+
+    if (position == 0) {
+      return VIEW_TYPE_RATING;
+    }
+    if (positionNoHeader == mItems.size()) {
       return VIEW_TYPE_MORE;
     }
 
@@ -142,6 +162,24 @@ class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.BaseViewHolder> {
     MoreHolder(View itemView, RecyclerClickListener listener) {
       super(itemView, listener);
       itemView.setOnClickListener(this);
+    }
+  }
+
+  private static class RatingHolder extends BaseViewHolder {
+    final TextView mHotelRating;
+    final TextView mHotelRatingBase;
+
+    RatingHolder(View itemView, RecyclerClickListener listener) {
+      super(itemView, listener);
+      mHotelRating = (TextView) itemView.findViewById(R.id.tv__place_hotel_rating);
+      mHotelRatingBase = (TextView) itemView.findViewById(R.id.tv__place_hotel_rating_base);
+    }
+
+    public void bind(String rating, int ratingBase) {
+      mHotelRating.setText(rating);
+      mHotelRatingBase.setText(mHotelRatingBase.getContext().getResources()
+              .getQuantityString(R.plurals.place_page_booking_rating_base,
+              ratingBase, ratingBase));
     }
   }
 }
