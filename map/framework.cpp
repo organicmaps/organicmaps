@@ -1602,11 +1602,7 @@ void Framework::UpdateDrapeEngine(int width, int height)
 
     InvalidateUserMarks();
 
-    if (m_lastTapEvent)
-    {
-      place_page::Info info;
-      ActivateMapSelection(false, OnTapEventImpl(*m_lastTapEvent, info), info);
-    }
+    UpdatePlacePageInfoForCurrentSelection();
   }
 }
 
