@@ -43,6 +43,8 @@
 		341138811C15B50B002E3B3E /* MWMOpeningHoursModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3411387F1C15B50B002E3B3E /* MWMOpeningHoursModel.mm */; };
 		341223BB1BEB58FA007227E9 /* MWMBaseMapDownloaderViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 341223BA1BEB58FA007227E9 /* MWMBaseMapDownloaderViewController.mm */; };
 		341522BF1B666A550077AA8F /* MWMAPIBarView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 341522BE1B666A550077AA8F /* MWMAPIBarView.mm */; };
+		34170B7E1D93C3C80074117B /* MyTargetSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34170B7D1D93C3C80074117B /* MyTargetSDK.framework */; };
+		34170B7F1D93C3DB0074117B /* MyTargetSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34170B7D1D93C3C80074117B /* MyTargetSDK.framework */; };
 		34181EB91C0ED1C30081B586 /* MWMOpeningHoursSection.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34181EB81C0ED1C30081B586 /* MWMOpeningHoursSection.mm */; };
 		34181EBA1C0ED1C30081B586 /* MWMOpeningHoursSection.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34181EB81C0ED1C30081B586 /* MWMOpeningHoursSection.mm */; };
 		341876B41C28026D005A0C9A /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454040681AD2D8D2007A9B12 /* CoreVideo.framework */; };
@@ -190,8 +192,6 @@
 		3491E7CC1C06F1F10042FE24 /* MWMPlacePageButtonCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3491E7C91C06F1F10042FE24 /* MWMPlacePageButtonCell.mm */; };
 		3491E7CD1C06F1F10042FE24 /* MWMPlacePageButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3491E7CA1C06F1F10042FE24 /* MWMPlacePageButtonCell.xib */; };
 		3491E7CE1C06F1F10042FE24 /* MWMPlacePageButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3491E7CA1C06F1F10042FE24 /* MWMPlacePageButtonCell.xib */; };
-		34921F6A1BFA0CDC00737D6E /* MyTargetSDKCorp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34921F691BFA0CDC00737D6E /* MyTargetSDKCorp.framework */; };
-		34921F6B1BFA0CDC00737D6E /* MyTargetSDKCorp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34921F691BFA0CDC00737D6E /* MyTargetSDKCorp.framework */; };
 		3492CC121C6DF00E0057D8E8 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		3492CC131C6DF00F0057D8E8 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		3497A93A1B5CF8A900F51E55 /* MWMNavigationDashboardManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3497A9371B5CF8A900F51E55 /* MWMNavigationDashboardManager.mm */; };
@@ -915,6 +915,7 @@
 		341223BA1BEB58FA007227E9 /* MWMBaseMapDownloaderViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMBaseMapDownloaderViewController.mm; sourceTree = "<group>"; };
 		341522BD1B666A550077AA8F /* MWMAPIBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAPIBarView.h; sourceTree = "<group>"; };
 		341522BE1B666A550077AA8F /* MWMAPIBarView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAPIBarView.mm; sourceTree = "<group>"; };
+		34170B7D1D93C3C80074117B /* MyTargetSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MyTargetSDK.framework; sourceTree = "<group>"; };
 		34181EB71C0ED1C30081B586 /* MWMOpeningHoursSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMOpeningHoursSection.h; sourceTree = "<group>"; };
 		34181EB81C0ED1C30081B586 /* MWMOpeningHoursSection.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMOpeningHoursSection.mm; sourceTree = "<group>"; };
 		34181EBB1C0ED2680081B586 /* MWMOpeningHoursEditorCells.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMOpeningHoursEditorCells.h; sourceTree = "<group>"; };
@@ -1080,7 +1081,6 @@
 		3491E7C81C06F1F10042FE24 /* MWMPlacePageButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMPlacePageButtonCell.h; sourceTree = "<group>"; };
 		3491E7C91C06F1F10042FE24 /* MWMPlacePageButtonCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPlacePageButtonCell.mm; sourceTree = "<group>"; };
 		3491E7CA1C06F1F10042FE24 /* MWMPlacePageButtonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMPlacePageButtonCell.xib; sourceTree = "<group>"; };
-		34921F691BFA0CDC00737D6E /* MyTargetSDKCorp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MyTargetSDKCorp.framework; sourceTree = "<group>"; };
 		3497A9361B5CF8A900F51E55 /* MWMNavigationDashboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNavigationDashboardManager.h; sourceTree = "<group>"; };
 		3497A9371B5CF8A900F51E55 /* MWMNavigationDashboardManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMNavigationDashboardManager.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		3499C6841D51D3A600A1048A /* UIButton+Orientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Orientation.h"; sourceTree = "<group>"; };
@@ -1646,11 +1646,11 @@
 				B08AA8D51A25E58500810B1C /* PassKit.framework in Frameworks */,
 				F6671C6B1BA2EFD500548008 /* libFlurry_7.1.0.a in Frameworks */,
 				343E8B341D07F84C0046AEEE /* Pushwoosh.framework in Frameworks */,
-				34921F6A1BFA0CDC00737D6E /* MyTargetSDKCorp.framework in Frameworks */,
 				B00511061A1101FC00A61AA4 /* CoreMedia.framework in Frameworks */,
 				B00511041A1101F600A61AA4 /* CoreData.framework in Frameworks */,
 				B00511021A1101E000A61AA4 /* AVFoundation.framework in Frameworks */,
 				B00510FB1A11015900A61AA4 /* CFNetwork.framework in Frameworks */,
+				34170B7F1D93C3DB0074117B /* MyTargetSDK.framework in Frameworks */,
 				349B49BE1D3F58C3005A3C4E /* MyTrackerSDK.framework in Frameworks */,
 				97D807BE18A93C8800D416E0 /* iAd.framework in Frameworks */,
 				34A62D501C903533007FDCB7 /* Crashlytics.framework in Frameworks */,
@@ -1668,11 +1668,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34170B7E1D93C3C80074117B /* MyTargetSDK.framework in Frameworks */,
 				34BF68631D7459E6001752F6 /* CoreSpotlight.framework in Frameworks */,
 				F659FC6A1CF35C24000A06B1 /* SafariServices.framework in Frameworks */,
 				341F09841C20138100F18AC5 /* libpugixml.a in Frameworks */,
 				3411387D1C15AE73002E3B3E /* libeditor.a in Frameworks */,
-				34921F6B1BFA0CDC00737D6E /* MyTargetSDKCorp.framework in Frameworks */,
 				6741AABD1BF356BA002C974C /* libagg.a in Frameworks */,
 				6741AABE1BF356BA002C974C /* libalohalitics.a in Frameworks */,
 				6741AAC01BF356BA002C974C /* libapi.a in Frameworks */,
@@ -1845,6 +1845,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				34170B7D1D93C3C80074117B /* MyTargetSDK.framework */,
 				34BF68621D7459E6001752F6 /* CoreSpotlight.framework */,
 				343E8B361D08004C0046AEEE /* libstdc++.tbd */,
 				343E8B331D07F84C0046AEEE /* Pushwoosh.framework */,
@@ -1863,7 +1864,6 @@
 				674A7E211C0DA55E003D48E1 /* libdrape.a */,
 				674A7E221C0DA55E003D48E1 /* libsdf_image.a */,
 				674A7E231C0DA55E003D48E1 /* libstb_image.a */,
-				34921F691BFA0CDC00737D6E /* MyTargetSDKCorp.framework */,
 				349B49BD1D3F58C3005A3C4E /* MyTrackerSDK.framework */,
 				6741AAA21BF356B9002C974C /* libagg.a */,
 				6741AAA31BF356B9002C974C /* libalohalitics.a */,

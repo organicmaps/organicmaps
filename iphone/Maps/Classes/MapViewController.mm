@@ -1,5 +1,4 @@
 #import "MapViewController.h"
-#import <MyTargetSDKCorp/MTRGManager_Corp.h>
 #import "BookmarksRootVC.h"
 #import "BookmarksVC.h"
 #import "Common.h"
@@ -286,7 +285,6 @@ BOOL gIsFirstMyPositionMode = YES;
 {
   [super viewDidLoad];
   self.view.clipsToBounds = YES;
-  [MTRGManager setMyCom:YES];
   [self processMyPositionStateModeEvent:location::PendingPosition];
 }
 
