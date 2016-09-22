@@ -43,6 +43,8 @@ using namespace storage;
   }
 
   MWMMapDownloaderTableViewCell * tCell = static_cast<MWMMapDownloaderTableViewCell *>(cell);
+  tCell.delegate = self.delegate;
+  tCell.mode = self.mode;
   [tCell setCountryId:countryId searchQuery:[self searchQuery]];
 }
 
@@ -57,8 +59,6 @@ using namespace storage;
 {
   NSString * reuseIdentifier = [self cellIdentifierForIndexPath:indexPath];
   MWMMapDownloaderTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
-  cell.delegate = self.delegate;
-  cell.mode = self.mode;
   [self fillCell:cell atIndexPath:indexPath];
   return cell;
 }

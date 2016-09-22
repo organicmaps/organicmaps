@@ -99,8 +99,8 @@ BOOL gIsFirstMyPositionMode = YES;
 - (BOOL)isEqual:(id)anObject { return [anObject isMemberOfClass:[NSValueWrapper class]]; }
 @end
 
-@interface MapViewController ()<MWMFrameworkDrapeObserver,
-                                MWMFrameworkStorageObserver, MWMPageControllerProtocol>
+@interface MapViewController ()<MWMFrameworkDrapeObserver, MWMFrameworkStorageObserver,
+                                MWMPageControllerProtocol>
 
 @property(nonatomic, readwrite) MWMMapViewControlsManager * controlsManager;
 

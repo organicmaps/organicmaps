@@ -1,4 +1,5 @@
 #import "DownloadIndicatorProtocol.h"
+#import "MWMMyTarget.h"
 #import "MWMNavigationController.h"
 
 #include "indexer/map_style.hpp"
@@ -29,6 +30,8 @@ typedef NS_ENUM(NSUInteger, MWMRoutingPlaneMode) {
 
 @property(nonatomic, readonly) MapViewController * mapViewController;
 @property(nonatomic, readonly) BOOL isDrapeEngineCreated;
+
+@property(nonatomic) MWMMyTarget * myTarget;
 
 + (MapsAppDelegate *)theApp;
 

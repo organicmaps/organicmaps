@@ -128,6 +128,7 @@ static NSString * const kStatMiles = @"Miles";
 static NSString * const kStatMoreApps = @"More apps";
 static NSString * const kStatMyPosition = @"My position";
 static NSString * const kStatMyTargetAppsDisplayed = @"MyTargetAppsDisplayed";
+static NSString * const kStatMyTargetAppsClicked = @"MyTargetAppsClicked";
 static NSString * const kStatName = @"Name";
 static NSString * const kStatNavigationDashboard = @"Navigation dashboard";
 static NSString * const kStatNext = @"Next";

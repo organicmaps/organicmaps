@@ -1,6 +1,6 @@
 #import "MWMMapDownloaderViewController.h"
 #import "Common.h"
-#import "MWMMapDownloaderExtendedDataSource.h"
+#import "MWMMapDownloaderExtendedDataSourceWithAds.h"
 #import "MWMMapDownloaderSearchDataSource.h"
 #import "MWMNoMapsViewController.h"
 #import "UIColor+MapsMeColor.h"
@@ -184,9 +184,10 @@ using namespace storage;
 
 - (void)setParentCountryId:(NSString *)parentId mode:(mwm::DownloaderMode)mode
 {
-  self.defaultDataSource = [[MWMMapDownloaderExtendedDataSource alloc] initForRootCountryId:parentId
-                                                                                   delegate:self
-                                                                                       mode:mode];
+  self.defaultDataSource =
+      [[MWMMapDownloaderExtendedDataSourceWithAds alloc] initForRootCountryId:parentId
+                                                                     delegate:self
+                                                                         mode:mode];
 }
 
 #pragma mark - Helpers
