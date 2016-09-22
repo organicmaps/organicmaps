@@ -40,7 +40,7 @@ void PrepareClassRefs(JNIEnv * env, jclass hotelClass)
   g_facilityConstructor = jni::GetConstructorID(env, g_facilityTypeClass, "(Ljava/lang/String;Ljava/lang/String;)V");
   g_nearbyConstructor = jni::GetConstructorID(env, g_nearbyObjectClass, "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;DD)V");
   g_imageConstructor = jni::GetConstructorID(env, g_imageClass, "(Ljava/lang/String;Ljava/lang/String;)V");
-  g_reviewConstructor = jni::GetConstructorID(env, g_reviewClass, "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;FJ)V");
+  g_reviewConstructor = jni::GetConstructorID(env, g_reviewClass, "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;FJ)V");
   g_hotelInfoConstructor = jni::GetConstructorID(env, g_hotelInfoClass, "(Ljava/lang/String;[Lcom/mapswithme/maps/gallery/Image;[Lcom/mapswithme/maps/widget/placepage/SponsoredHotel$FacilityType;[Lcom/mapswithme/maps/review/Review;[Lcom/mapswithme/maps/widget/placepage/SponsoredHotel$NearbyObject;)V");
 
   // SponsoredHotel(String rating, String price, String urlBook, String urlDescription)
@@ -129,6 +129,7 @@ Java_com_mapswithme_maps_widget_placepage_SponsoredHotel_nativeRequestInfo(JNIEn
                                                  [](JNIEnv * env, BookingApi::HotelReview const & item)
                                                  {
                                                    return env->NewObject(g_reviewClass, g_reviewConstructor,
+                                                        jni::ToJavaString(env, item.m_reviewPositive),
                                                         jni::ToJavaString(env, item.m_reviewPositive),
                                                         jni::ToJavaString(env, item.m_reviewNegative),
                                                         jni::ToJavaString(env, item.m_author),

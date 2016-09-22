@@ -49,6 +49,20 @@
           android:textAppearance="@style/MwmTextAppearance.Headline"
           tools:text="9.2"/>
 
+  <TextView
+          android:id="@+id/tv__review"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/margin_base"
+          android:layout_marginStart="@dimen/margin_base"
+          android:layout_marginRight="@dimen/margin_base"
+          android:layout_marginEnd="@dimen/margin_base"
+          android:layout_marginBottom="@dimen/margin_base"
+          android:layout_below="@id/tv__comment_date"
+          android:textAppearance="@style/MwmTextAppearance.Body3.Primary"
+          android:visibility="gone"
+          tools:text="Interesting place among SoHo, Little Italy and China town. Modern design. Great view from roof. Near subway. Free refreshment every afternoon. The staff was very friendly."/>
+
   <LinearLayout
           android:id="@+id/ll__positive_review"
           android:orientation="horizontal"

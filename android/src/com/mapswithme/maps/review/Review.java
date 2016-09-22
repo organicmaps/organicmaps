@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 public class Review implements Parcelable {
 
+  private final String mReview;
+
   private final String mReviewPositive;
 
   private final String mReviewNegative;
@@ -17,8 +19,10 @@ public class Review implements Parcelable {
 
   private final long mDate;
 
-  public Review(String reviewPositive, String reviewNegative, String author, String authorAvatar,
+  public Review(String review, String reviewPositive, String reviewNegative, String author,
+          String authorAvatar,
           float rating, long date) {
+    mReview = review;
     mReviewPositive = reviewPositive;
     mReviewNegative = reviewNegative;
     mAuthor = author;
@@ -28,6 +32,7 @@ public class Review implements Parcelable {
   }
 
   protected Review(Parcel in) {
+    mReview = in.readString();
     mReviewPositive = in.readString();
     mReviewNegative = in.readString();
     mAuthor = in.readString();
@@ -38,6 +43,7 @@ public class Review implements Parcelable {
 
   @Override
   public void writeToParcel(Parcel dest, int flags) {
+    dest.writeString(mReview);
     dest.writeString(mReviewPositive);
     dest.writeString(mReviewNegative);
     dest.writeString(mAuthor);
@@ -62,6 +68,10 @@ public class Review implements Parcelable {
       return new Review[size];
     }
   };
+
+  public String getReview() {
+    return mReview;
+  }
 
   public String getReviewPositive() {
     return mReviewPositive;

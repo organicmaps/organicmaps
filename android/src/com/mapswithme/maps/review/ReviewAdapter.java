@@ -117,6 +117,7 @@ class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.BaseViewHolder> {
     final TextView mUserName;
     final TextView mCommentDate;
     final TextView mRating;
+    final TextView mReview;
     final View mPositiveReview;
     final TextView mTvPositiveReview;
     final View mNegativeReview;
@@ -128,6 +129,7 @@ class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.BaseViewHolder> {
       mUserName = (TextView) itemView.findViewById(R.id.tv__user_name);
       mCommentDate = (TextView) itemView.findViewById(R.id.tv__comment_date);
       mRating = (TextView) itemView.findViewById(R.id.tv__user_rating);
+      mReview = (TextView) itemView.findViewById(R.id.tv__review);
       mPositiveReview = itemView.findViewById(R.id.ll__positive_review);
       mTvPositiveReview = (TextView) itemView.findViewById(R.id.tv__positive_review);
       mNegativeReview = itemView.findViewById(R.id.ll__negative_review);
@@ -153,6 +155,11 @@ class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.BaseViewHolder> {
       } else {
         UiUtils.show(mNegativeReview);
         mTvNegativeReview.setText(item.getReviewNegative());
+      }
+      if (UiUtils.isHidden(mNegativeReview) && UiUtils.isHidden(mPositiveReview)) {
+        UiUtils.showIf(!TextUtils.isEmpty(item.getReview()), mReview);
+      } else {
+        UiUtils.hide(mReview);
       }
     }
   }
