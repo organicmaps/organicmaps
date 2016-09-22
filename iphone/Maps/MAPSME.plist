@@ -249,5 +249,9 @@
 	<false/>
 	<key>Pushwoosh_LOG_LEVEL</key>
 	<string>WARNING</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Unused by an application</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Unused by an application</string>
 </dict>
 </plist>
