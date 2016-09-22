@@ -227,6 +227,7 @@ class SearchWheel implements View.OnClickListener
     parent.showSearch();
     mIsExpanded = false;
     refreshSearchVisibility();
+    UiThread.cancelDelayedTasks(mCloseRunnable);
   }
 
   private void startSearch(SearchOption searchOption)
