@@ -29,12 +29,14 @@ public:
     // But C++14 does.
     HotelReview(string const & reviewPositive,
                 string const & reviewNegative,
+                string const & reviewNeutral,
                 string const & author,
                 string const & authorPictUrl,
                 float const rating,
                 time_point<system_clock> const date)
       : m_reviewPositive(reviewPositive)
       , m_reviewNegative(reviewNegative)
+      , m_reviewNeutral(reviewNeutral)
       , m_author(author)
       , m_authorPictUrl(authorPictUrl)
       , m_rating(rating)
@@ -42,11 +44,49 @@ public:
     {
     }
 
+
+    static HotelReview CriticReview(string const & reviewPositive,
+                                    string const & reviewNegative,
+                                    string const & author,
+                                    string const & authorPictUrl,
+                                    float const rating,
+                                    time_point<system_clock> const date)
+    {
+      return {
+        reviewPositive,
+        reviewNegative,
+        "",
+        author,
+        authorPictUrl,
+        rating,
+        date
+     };
+    }
+
+    static HotelReview NeutralReview(string const & reviewNeutral,
+                                     string const & author,
+                                     string const & authorPictUrl,
+                                     float const rating,
+                                     time_point<system_clock> const date)
+    {
+      return {
+        "",
+        "",
+        reviewNeutral,
+        author,
+        authorPictUrl,
+        rating,
+        date
+     };
+    }
+
     static auto constexpr kInvalidRating = numeric_limits<float>::max();
 
-    /// Review text.
+    /// Review text. There can be either one or both positive/negative review or
+    /// a neutral one.
     string m_reviewPositive;
     string m_reviewNegative;
+    string m_reviewNeutral;
     /// Review author name.
     string m_author;
     /// Url to a author's picture.
