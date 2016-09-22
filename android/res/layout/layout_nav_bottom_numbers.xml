@@ -31,7 +31,7 @@
       android:layout_marginBottom="@dimen/neg_margin_quarter"
       android:singleLine="true"
       android:includeFontPadding="false"
-      android:textAppearance="@style/MwmTextAppearance.RoutingNumber"
+      android:textAppearance="@style/MwmTextAppearance.RoutingNumber.Navigation"
       tools:text="999"/>
 
     <TextView
@@ -65,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:singleLine="true"
-        android:textAppearance="@style/MwmTextAppearance.RoutingNumber"
+        android:textAppearance="@style/MwmTextAppearance.RoutingNumber.Navigation"
         tools:text="999"/>
 
       <TextView
@@ -75,7 +75,7 @@
         android:layout_marginRight="@dimen/margin_quarter"
         android:layout_marginEnd="@dimen/margin_quarter"
         android:singleLine="true"
-        android:textAppearance="@style/MwmTextAppearance.RoutingDimension.Inline"
+        android:textAppearance="@style/MwmTextAppearance.RoutingDimension"
         tools:text="h"/>
 
       <TextView
@@ -83,7 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:singleLine="true"
-        android:textAppearance="@style/MwmTextAppearance.RoutingNumber"
+        android:textAppearance="@style/MwmTextAppearance.RoutingNumber.Navigation"
         tools:text="99"/>
 
       <TextView
@@ -91,7 +91,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:singleLine="true"
-        android:textAppearance="@style/MwmTextAppearance.RoutingDimension.Inline"
+        android:textAppearance="@style/MwmTextAppearance.RoutingNumber"
         tools:text="m"/>
     </LinearLayout>
 
@@ -101,6 +101,8 @@
       android:orientation="horizontal"
       android:theme="?navigationTheme"
       android:layout_gravity="center_horizontal"
+      android:layout_marginLeft="@dimen/margin_eighth"
+      android:layout_marginStart="@dimen/margin_eighth"
       android:layout_marginTop="30dp">
       <ImageView
         android:id="@+id/dot_left"
@@ -141,7 +143,7 @@
       android:layout_marginBottom="@dimen/neg_margin_quarter"
       android:singleLine="true"
       android:includeFontPadding="false"
-      android:textAppearance="@style/MwmTextAppearance.RoutingNumber"
+      android:textAppearance="@style/MwmTextAppearance.RoutingNumber.Navigation"
       tools:text="99999"/>
 
     <TextView

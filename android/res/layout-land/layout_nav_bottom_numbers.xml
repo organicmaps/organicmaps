@@ -29,7 +29,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:singleLine="true"
-      android:textAppearance="@style/MwmTextAppearance.RoutingNumber"
+      android:textAppearance="@style/MwmTextAppearance.RoutingNumber.Navigation"
       tools:text="999"/>
 
     <TextView
@@ -37,7 +37,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:singleLine="true"
-      android:textAppearance="@style/MwmTextAppearance.RoutingDimension.Inline"
+      android:textAppearance="@style/MwmTextAppearance.RoutingDimension"
       tools:text="km/h"/>
   </LinearLayout>
 
@@ -64,7 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:singleLine="true"
-        android:textAppearance="@style/MwmTextAppearance.RoutingNumber"
+        android:textAppearance="@style/MwmTextAppearance.RoutingNumber.Navigation"
         tools:text="999"/>
 
       <TextView
@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/margin_quarter"
         android:singleLine="true"
-        android:textAppearance="@style/MwmTextAppearance.RoutingDimension.Inline"
+        android:textAppearance="@style/MwmTextAppearance.RoutingDimension"
         tools:text="h"/>
 
       <TextView
@@ -81,7 +81,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:singleLine="true"
-        android:textAppearance="@style/MwmTextAppearance.RoutingNumber"
+        android:textAppearance="@style/MwmTextAppearance.RoutingNumber.Navigation"
         tools:text="99"/>
 
       <TextView
@@ -89,7 +89,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:singleLine="true"
-        android:textAppearance="@style/MwmTextAppearance.RoutingDimension.Inline"
+        android:textAppearance="@style/MwmTextAppearance.RoutingDimension"
         tools:text="m"/>
     </LinearLayout>
 
@@ -137,7 +137,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:singleLine="true"
-      android:textAppearance="@style/MwmTextAppearance.RoutingNumber"
+      android:textAppearance="@style/MwmTextAppearance.RoutingNumber.Navigation"
       tools:text="99999"/>
 
     <TextView
@@ -145,7 +145,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:singleLine="true"
-      android:textAppearance="@style/MwmTextAppearance.RoutingDimension.Inline"
+      android:textAppearance="@style/MwmTextAppearance.RoutingDimension"
       tools:text="km"/>
   </LinearLayout>
 </LinearLayout>

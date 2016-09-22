@@ -106,15 +106,14 @@
     <item name="android:textStyle">bold</item>
   </style>
 
+  <style name="MwmTextAppearance.RoutingNumber.Navigation">
+    <item name="android:textSize">@dimen/text_size_nav_number</item>
+  </style>
+
   <style name="MwmTextAppearance.RoutingDimension">
     <item name="android:textSize">@dimen/text_size_routing_dimension</item>
     <item name="android:textColor">?android:textColorSecondary</item>
     <item name="android:textStyle">bold</item>
-  </style>
-
-  <style name="MwmTextAppearance.RoutingDimension.Inline"
-         parent="MwmTextAppearance.RoutingNumber">
-    <item name="android:textSize">@dimen/text_size_routing_dimension_inline</item>
   </style>
 
   <style name="MwmTextAppearance.RoutingDetail">
