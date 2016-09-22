@@ -39,7 +39,8 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
       @Override
       public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom)
       {
-        if (mState == State.DETAILS && v.getId() == mDetailsFrame.getId() && top != oldTop)
+        if ((mState == State.DETAILS || mState == State.FULLSCREEN)
+                && v.getId() == mDetailsFrame.getId() && top != oldTop)
         {
           mPreview.setTranslationY(-mDetailsContent.getHeight());
           refreshToolbarVisibility();
@@ -121,7 +122,8 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
 
   private boolean isDetailsScrollable()
   {
-    return mDetailsFrame.getHeight() < mDetailsContent.getHeight();
+    return mPlacePage.getState() == State.FULLSCREEN
+            && mDetailsFrame.getHeight() < mDetailsContent.getHeight();
   }
 
   private boolean canScroll(float delta)
@@ -175,7 +177,19 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
       @Override
       public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY)
       {
-        mPlacePage.setState(velocityY > 0 ? State.HIDDEN : State.DETAILS);
+        if (velocityY > 0) {
+          if (mPlacePage.getState() == State.HIDDEN) {
+            mPlacePage.setState(State.DETAILS);
+          } else if (mDetailsFrame.getHeight() < mDetailsContent.getHeight()) {
+            mPlacePage.setState(State.FULLSCREEN);
+          }
+        } else {
+          if (mPlacePage.getState() == State.FULLSCREEN) {
+            mPlacePage.setState(State.DETAILS);
+          } else {
+            mPlacePage.setState(State.HIDDEN);
+          }
+        }
         return super.onFling(e1, e2, velocityX, velocityY);
       }
 
@@ -210,10 +224,21 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
 
     @SuppressWarnings("UnnecessaryLocalVariable")
     final float deltaTop = currentTranslation;
-    final float deltaBottom = mDetailsContent.getHeight() - currentTranslation;
+    final float deltaBottom = mScreenHeight - currentTranslation;
 
-    mPlacePage.setState(deltaBottom > deltaTop ? State.DETAILS
-                                               : State.PREVIEW);
+    if (deltaBottom > deltaTop) {
+      if (mPlacePage.getState() == State.PREVIEW) {
+        mPlacePage.setState(State.DETAILS);
+      } else if (mDetailsFrame.getHeight() < mDetailsContent.getHeight()) {
+        mPlacePage.setState(State.FULLSCREEN);
+      }
+    } else {
+      if (mPlacePage.getState() == State.FULLSCREEN) {
+        mPlacePage.setState(State.DETAILS);
+      } else {
+        mPlacePage.setState(State.PREVIEW);
+      }
+    }
   }
 
   private void translateBy(float distanceY)
@@ -253,6 +278,9 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
         case DETAILS:
           showDetails(currentState);
           break;
+        case FULLSCREEN:
+          showFullscreen(currentState);
+          break;
         }
       }
     });
@@ -286,8 +314,11 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
       }
       break;
     case DETAILS:
-      UiUtils.show(mPlacePage, mPreview, mDetailsFrame);
+      UiUtils.show(mPlacePage, mPreview, mDetailsFrame, mButtons);
       UiUtils.showIf(type == MapObject.BOOKMARK, mBookmarkDetails);
+      break;
+    case FULLSCREEN:
+      UiUtils.invisible(mButtons);
       break;
     }
   }
@@ -344,25 +375,52 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
 
   protected void showDetails(final State currentState)
   {
+    final float previewTranslation = mPreview.getHeight() + mButtons.getHeight();
     final float detailsScreenHeight = mDetailsScroll.getHeight();
+    final float targetTranslation = Math
+            .min(detailsScreenHeight, mDetailMaxHeight - previewTranslation);
 
-    mCurrentAnimator = ValueAnimator.ofFloat(mPreview.getTranslationY(), -detailsScreenHeight);
-    mCurrentAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
-    {
+    mCurrentAnimator = ValueAnimator.ofFloat(mPreview.getTranslationY(), -targetTranslation);
+    mCurrentAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
       @Override
-      public void onAnimationUpdate(ValueAnimator animation)
-      {
+      public void onAnimationUpdate(ValueAnimator animation) {
         float translationY = (Float) animation.getAnimatedValue();
         mPreview.setTranslationY(translationY);
         mDetailsFrame.setTranslationY(translationY + detailsScreenHeight);
         notifyProgress();
       }
     });
-    mCurrentAnimator.addListener(new UiUtils.SimpleAnimatorListener()
-    {
+    mCurrentAnimator.addListener(new UiUtils.SimpleAnimatorListener() {
       @Override
-      public void onAnimationEnd(Animator animation)
-      {
+      public void onAnimationEnd(Animator animation) {
+        refreshToolbarVisibility();
+        notifyVisibilityListener(true, true);
+        mDetailsScroll.scrollTo(0, 0);
+        notifyProgress();
+      }
+    });
+
+    startDefaultAnimator();
+  }
+
+  protected void showFullscreen(final State currentState) {
+    final float detailsScreenHeight = mDetailsScroll.getHeight();
+    final float targetTranslation = mPreview.getTranslationY() + (mButtons.getHeight()
+            - mDetailsFrame.getY());
+
+    mCurrentAnimator = ValueAnimator.ofFloat(mPreview.getTranslationY(), targetTranslation);
+    mCurrentAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+      @Override
+      public void onAnimationUpdate(ValueAnimator animation) {
+        float translationY = (Float) animation.getAnimatedValue();
+        mPreview.setTranslationY(translationY);
+        mDetailsFrame.setTranslationY(translationY + detailsScreenHeight);
+        notifyProgress();
+      }
+    });
+    mCurrentAnimator.addListener(new UiUtils.SimpleAnimatorListener() {
+      @Override
+      public void onAnimationEnd(Animator animation) {
         refreshToolbarVisibility();
         notifyVisibilityListener(true, true);
         mDetailsScroll.scrollTo(0, 0);

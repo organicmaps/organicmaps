@@ -218,7 +218,8 @@ public class PlacePageView extends RelativeLayout
   {
     HIDDEN,
     PREVIEW,
-    DETAILS
+    DETAILS,
+    FULLSCREEN
   }
 
   public PlacePageView(Context context)
