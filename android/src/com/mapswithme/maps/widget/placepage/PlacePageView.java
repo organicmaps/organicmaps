@@ -315,7 +315,7 @@ public class PlacePageView extends RelativeLayout
         case SHARE:
           Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_SHARE);
           AlohaHelper.logClick(AlohaHelper.PP_SHARE);
-          ShareOption.ANY.shareMapObject(getActivity(), mMapObject);
+          ShareOption.ANY.shareMapObject(getActivity(), mMapObject, mSponsoredHotel);
           break;
 
         case BACK:

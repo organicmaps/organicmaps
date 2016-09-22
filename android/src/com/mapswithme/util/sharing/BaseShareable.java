@@ -9,7 +9,7 @@ import android.text.TextUtils;
 
 import com.mapswithme.util.statistics.AlohaHelper;
 
-public abstract class BaseShareable
+abstract class BaseShareable
 {
   private final Activity mActivity;
   protected Intent mBaseIntent;
