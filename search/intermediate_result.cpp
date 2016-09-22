@@ -24,7 +24,6 @@ namespace search
 {
 
 /// All constants in meters.
-double const DIST_EQUAL_RESULTS = 100.0;
 double const DIST_SAME_STREET = 5000.0;
 char const * const kEmptyRatingSymbol = "-";
 char const * const kPricingSymbol = "$";
@@ -241,12 +240,17 @@ Result PreResult2::GenerateFinalResult(storage::CountryInfoGetter const & infoGe
   }
 }
 
-bool PreResult2::StrictEqualF::operator() (PreResult2 const & r) const
+PreResult2::StrictEqualF::StrictEqualF(PreResult2 const & r, double const epsMeters)
+  : m_r(r), m_epsMeters(epsMeters)
+{
+}
+
+bool PreResult2::StrictEqualF::operator()(PreResult2 const & r) const
 {
   if (m_r.m_resultType == r.m_resultType && m_r.m_resultType == RESULT_FEATURE)
   {
     if (m_r.IsEqualCommon(r))
-      return (PointDistance(m_r.GetCenter(), r.GetCenter()) < DIST_EQUAL_RESULTS);
+      return PointDistance(m_r.GetCenter(), r.GetCenter()) < m_epsMeters;
   }
 
   return false;

@@ -209,10 +209,7 @@ void PreRanker::Filter(bool viewportSearch)
     filtered.insert(m_results.begin(), m_results.begin() + n);
   }
 
-  m_results.reserve(filtered.size());
-  m_results.clear();
-
-  copy(filtered.begin(), filtered.end(), back_inserter(m_results));
+  m_results.assign(filtered.begin(), filtered.end());
 }
 
 void PreRanker::UpdateResults(bool lastUpdate)

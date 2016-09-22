@@ -49,7 +49,7 @@ public:
 
   double m_lat, m_lon;
 
-  // A minimum distance between search results in mercator, needed for
+  // A minimum distance between search results in meters, needed for
   // pre-ranking of viewport search results.
   double m_minDistanceOnMapBetweenResults;
 

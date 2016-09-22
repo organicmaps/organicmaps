@@ -27,6 +27,9 @@ public:
   struct Params
   {
     m2::RectD m_viewport;
+
+    // A minimum distance between search results in meters, needed for
+    // filtering of viewport search results.
     double m_minDistanceOnMapBetweenResults = 0.0;
 
     // This is different from geocoder's pivot because pivot is

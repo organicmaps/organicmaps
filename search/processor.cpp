@@ -699,10 +699,12 @@ void Processor::InitRanker(Geocoder::Params const & geocoderParams)
   if (viewportSearch)
   {
     params.m_viewport = GetViewport();
+    params.m_minDistanceOnMapBetweenResults = m_minDistanceOnMapBetweenResults;
     params.m_limit = kPreResultsCount;
   }
   else
   {
+    params.m_minDistanceOnMapBetweenResults = 100.0;
     params.m_limit = kResultsCount;
   }
   params.m_position = GetPosition();
