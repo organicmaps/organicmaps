@@ -284,16 +284,18 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         if (note.length() != 0)
           Editor.nativeCreateNote(note);
         // Save object edits
-        if (!MwmApplication.get().prefs().contains(NOOB_ALERT_SHOWN))
+        if (!MwmApplication.prefs().contains(NOOB_ALERT_SHOWN))
         {
-          MwmApplication.get().prefs().edit()
+          MwmApplication.prefs().edit()
             .putBoolean(NOOB_ALERT_SHOWN, true)
             .apply();
 
           showNoobDialog();
         }
         else
+        {
           saveMapObjectEdits();
+        }
 
         break;
       }
@@ -335,7 +337,6 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         .setPositiveButton(android.R.string.ok, null)
         .show();
   }
-
 
   private void showNoobDialog()
   {
