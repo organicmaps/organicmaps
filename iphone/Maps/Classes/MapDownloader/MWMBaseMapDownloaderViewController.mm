@@ -12,6 +12,7 @@
 #import "MWMMapDownloaderTableViewCell.h"
 #import "MWMMapDownloaderViewController.h"
 #import "MWMMyTarget.h"
+#import "MWMMigrationViewController.h"
 #import "MWMSegue.h"
 #import "MWMStorage.h"
 #import "MapsAppDelegate.h"
@@ -164,14 +165,13 @@ using namespace mwm;
 
 - (void)backTap
 {
-  // TODO(igrechuhin): In case, when downloaded maps view controller appears after migration
-  // we have trouble with poping view controller. We expect to see map but as result
-  // we see migration controller.
-  // Poping to root controller seems to be helpful in this case, but probably not the best way to determine
-  // how far we should pop from this view controller.
-
-  if (self.dataSource.mode == mwm::DownloaderMode::Downloaded)
-    [self.navigationController popToRootViewControllerAnimated:YES];
+  UINavigationController * navVC = self.navigationController;
+  NSArray<UIViewController *> * viewControllers = navVC.viewControllers;
+  NSInteger const viewControllersCount = viewControllers.count;
+  NSInteger const prevVCIndex = viewControllersCount - 2;
+  Class const migrationClass = [MWMMigrationViewController class];
+  if (prevVCIndex < 0 || [viewControllers[prevVCIndex] isKindOfClass:migrationClass])
+    [navVC popToRootViewControllerAnimated:YES];
   else
     [super backTap];
 }
