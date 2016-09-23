@@ -222,30 +222,31 @@ NSString * const kiOSEmail = @"ios@maps.me";
     struct utsname systemInfo;
     uname(&systemInfo);
     NSString * machine =
-    [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
+        [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
     NSString * device = kDeviceNames[machine];
     if (!device)
       device = machine;
     NSString * languageCode = [[NSLocale preferredLanguages] firstObject];
     NSString * language = [[NSLocale localeWithLocaleIdentifier:kLocaleUsedInSupportEmails]
-                           displayNameForKey:NSLocaleLanguageCode
-                           value:languageCode];
+        displayNameForKey:NSLocaleLanguageCode
+                    value:languageCode];
     NSString * locale = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
     NSString * country = [[NSLocale localeWithLocaleIdentifier:kLocaleUsedInSupportEmails]
-                          displayNameForKey:NSLocaleCountryCode
-                          value:locale];
+        displayNameForKey:NSLocaleCountryCode
+                    value:locale];
     NSString * bundleVersion =
-    [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
-    NSString * text = [NSString stringWithFormat:@"\n\n\n\n- %@ (%@)\n- MAPS.ME %@\n- %@/%@", device,
-                       [UIDevice currentDevice].systemVersion,
-                       bundleVersion, language, country];
+        [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
+    NSString * text = [NSString stringWithFormat:@"\n\n\n\n- %@ (%@)\n- MAPS.ME %@\n- %@/%@",
+                                                 device, [UIDevice currentDevice].systemVersion,
+                                                 bundleVersion, language, country];
     NSString * alohalyticsId = [Alohalytics installationId];
     if (alohalyticsId)
       text = [NSString stringWithFormat:@"%@\n- %@", text, alohalyticsId];
 
     MFMailComposeViewController * vc = [[MFMailComposeViewController alloc] init];
     vc.mailComposeDelegate = self;
-    [vc setSubject:[NSString stringWithFormat:@"[%@ iOS] %@", [AppInfo sharedInfo].bundleVersion, subject]];
+    [vc setSubject:[NSString stringWithFormat:@"[%@ iOS] %@", [AppInfo sharedInfo].bundleVersion,
+                                              subject]];
     [vc setMessageBody:text isHTML:NO];
     [vc setToRecipients:@[ email ]];
     [vc.navigationBar setTintColor:[UIColor whitePrimaryText]];
