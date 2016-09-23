@@ -95,6 +95,7 @@ static NSString * const kStatExpandLargeCountry = @"Expand large country";
 static NSString * const kStatExplore = @"Explore";
 static NSString * const kStatExport = @"Export";
 static NSString * const kStatFacebook = @"Facebook";
+static NSString * const kStatFeedback = @"Feedback";
 static NSString * const kStatFrom = @"from";
 static NSString * const kStatFromMyPosition = @"From my position";
 static NSString * const kStatGo = @"Go";
