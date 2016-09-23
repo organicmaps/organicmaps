@@ -815,8 +815,13 @@ void Framework::ShowBookmark(BookmarkAndCategory const & bnc)
 
 void Framework::ShowTrack(Track const & track)
 {
+  double const kPaddingScale = 1.2;
+
   StopLocationFollow();
-  ShowRect(track.GetLimitRect());
+  auto rect = track.GetLimitRect();
+  rect.Scale(kPaddingScale);
+
+  ShowRect(rect);
 }
 
 void Framework::ClearBookmarks()
