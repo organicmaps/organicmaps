@@ -6,6 +6,11 @@
 
 using namespace storage;
 
+namespace
+{
+auto constexpr extraSection = MWMMapDownloaderDataSourceExtraSection::NearMe;
+}  // namespace
+
 @interface MWMMapDownloaderDefaultDataSource ()
 
 @property (nonatomic, readonly) NSInteger downloadedCountrySection;
@@ -16,11 +21,14 @@ using namespace storage;
 
 @interface MWMMapDownloaderExtendedDataSource ()
 
-@property (copy, nonatomic) NSArray<NSString *> * nearmeCountries;
+@property(copy, nonatomic) NSArray<NSString *> * nearmeCountries;
 
 @end
 
 @implementation MWMMapDownloaderExtendedDataSource
+{
+  vector<MWMMapDownloaderDataSourceExtraSection> m_extraSections;
+}
 
 - (void)load
 {
@@ -41,32 +49,48 @@ using namespace storage;
   for (auto const & countryId : closestCoutryIds)
     [nearmeCountries addObject:@(countryId.c_str())];
   self.nearmeCountries = nearmeCountries;
+  if (nearmeCountries.count != 0)
+    [self addExtraSection:extraSection];
+}
+
+- (void)addExtraSection:(MWMMapDownloaderDataSourceExtraSection)extraSection
+{
+  m_extraSections.push_back(extraSection);
+}
+
+- (BOOL)isExtraSection:(MWMMapDownloaderDataSourceExtraSection)extraSection
+               atIndex:(NSInteger)sectionIndex
+{
+  if (sectionIndex >= m_extraSections.size())
+    return NO;
+  return m_extraSections[sectionIndex] == extraSection;
 }
 
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  return [super numberOfSectionsInTableView:tableView] + self.nearmeSectionShift;
+  return [super numberOfSectionsInTableView:tableView] + m_extraSections.size();
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  if (section == self.nearmeSection)
+  if ([self isExtraSection:extraSection atIndex:section])
     return self.nearmeCountries.count;
-  return [super tableView:tableView numberOfRowsInSection:section - self.nearmeSectionShift];
+  return [super tableView:tableView numberOfRowsInSection:section - m_extraSections.size()];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
 {
-  return [super tableView:tableView sectionForSectionIndexTitle:title atIndex:index] + self.nearmeSectionShift;
+  return [super tableView:tableView sectionForSectionIndexTitle:title atIndex:index] +
+         m_extraSections.size();
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-  if (section == self.nearmeSection)
+  if ([self isExtraSection:extraSection atIndex:section])
     return L(@"downloader_near_me_subtitle");
-  return [super tableView:tableView titleForHeaderInSection:section - self.nearmeSectionShift];
+  return [super tableView:tableView titleForHeaderInSection:section - m_extraSections.size()];
 }
 
 #pragma mark - MWMMapDownloaderDataSource
@@ -75,21 +99,12 @@ using namespace storage;
 {
   NSInteger const row = indexPath.row;
   NSInteger const section = indexPath.section;
-  if (section == self.nearmeSection)
+  if ([self isExtraSection:extraSection atIndex:section])
     return self.nearmeCountries[row];
-  return [super countryIdForIndexPath:[NSIndexPath indexPathForRow:row inSection:section - self.nearmeSectionShift]];
-}
-
-#pragma mark - Properties
-
-- (NSInteger)nearmeSectionShift
-{
-  return (self.nearmeCountries.count != 0 ? self.nearmeSection + 1 : 0);
-}
-
-- (NSInteger)nearmeSection
-{
-  return self.nearmeCountries.count != 0 ? 0 : NSNotFound;
+  NSAssert(section >= m_extraSections.size(), @"Invalid section");
+  return
+      [super countryIdForIndexPath:[NSIndexPath indexPathForRow:row
+                                                      inSection:section - m_extraSections.size()]];
 }
 
 @end

@@ -146,7 +146,6 @@ using namespace osm_auth_ios;
 
 @property(nonatomic) NSInteger standbyCounter;
 
-@property(weak, nonatomic) NSTimer * checkAdServerForbiddenTimer;
 @property(weak, nonatomic) NSTimer * mapStyleSwitchTimer;
 
 @property(nonatomic, readwrite) LocationManager * locationManager;
@@ -335,7 +334,7 @@ using namespace osm_auth_ios;
   NSTimeInterval const minimumBackgroundFetchIntervalInSeconds = 6 * 60 * 60;
   [[UIApplication sharedApplication]
       setMinimumBackgroundFetchInterval:minimumBackgroundFetchIntervalInSeconds];
-  [self startAdServerForbiddenCheckTimer];
+  [MWMMyTarget startAdServerForbiddenCheckTimer];
   [self updateApplicationIconBadgeNumber];
 }
 
@@ -622,7 +621,6 @@ using namespace osm_auth_ios;
 {
   LOG(LINFO, ("applicationWillResignActive"));
   [self.mapViewController onGetFocus:NO];
-  [self.mapViewController.appWallAd close];
   [MWMRouterSavedState store];
   GetFramework().SetRenderingDisabled(false);
   [MWMLocationManager applicationWillResignActive];
@@ -1096,32 +1094,11 @@ using namespace osm_auth_ios;
 
 #pragma mark - Showcase
 
-- (void)checkAdServerForbidden
+- (MWMMyTarget *)myTarget
 {
-  NSURLSession * session = [NSURLSession sharedSession];
-  NSURL * url = [NSURL URLWithString:@(AD_PERMISION_SERVER_URL)];
-  NSURLSessionDataTask * task = [session
-        dataTaskWithURL:url
-      completionHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
-        bool const adServerForbidden = (error || [(NSHTTPURLResponse *)response statusCode] != 200);
-        [MWMSettings setAdServerForbidden:adServerForbidden];
-        dispatch_async(dispatch_get_main_queue(), ^{
-          [self.mapViewController refreshAd];
-        });
-      }];
-  [task resume];
-}
-
-- (void)startAdServerForbiddenCheckTimer
-{
-  [self checkAdServerForbidden];
-  [self.checkAdServerForbiddenTimer invalidate];
-  self.checkAdServerForbiddenTimer =
-      [NSTimer scheduledTimerWithTimeInterval:AD_PERMISION_CHECK_DURATION
-                                       target:self
-                                     selector:@selector(checkAdServerForbidden)
-                                     userInfo:nil
-                                      repeats:YES];
+  if (!isIOS7 && !_myTarget)
+    _myTarget = [[MWMMyTarget alloc] init];
+  return _myTarget;
 }
 
 @end

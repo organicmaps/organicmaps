@@ -1,17 +1,20 @@
 #import "Common.h"
-#import "MapsAppDelegate.h"
 #import "MWMAlertViewController.h"
 #import "MWMButton.h"
 #import "MWMFrameworkListener.h"
+#import "MWMMapDownloaderAdsTableViewCell.h"
 #import "MWMMapDownloaderCellHeader.h"
 #import "MWMMapDownloaderDefaultDataSource.h"
+#import "MWMMapDownloaderExtendedDataSourceWithAds.h"
 #import "MWMMapDownloaderLargeCountryTableViewCell.h"
 #import "MWMMapDownloaderPlaceTableViewCell.h"
 #import "MWMMapDownloaderSubplaceTableViewCell.h"
 #import "MWMMapDownloaderTableViewCell.h"
 #import "MWMMapDownloaderViewController.h"
+#import "MWMMyTarget.h"
 #import "MWMSegue.h"
 #import "MWMStorage.h"
+#import "MapsAppDelegate.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIViewController+Navigation.h"
@@ -20,6 +23,7 @@
 
 #include "storage/index.hpp"
 
+extern NSString * const kAdsCellIdentifier = @"MWMMapDownloaderAdsTableViewCell";
 extern NSString * const kButtonCellIdentifier = @"MWMMapDownloaderButtonTableViewCell";
 extern NSString * const kCountryCellIdentifier = @"MWMMapDownloaderTableViewCell";
 extern NSString * const kLargeCountryCellIdentifier = @"MWMMapDownloaderLargeCountryTableViewCell";
@@ -61,7 +65,8 @@ NSString * const kControllerIdentifier = @"MWMMapDownloaderViewController";
 using namespace storage;
 using namespace mwm;
 
-@interface MWMBaseMapDownloaderViewController () <UIActionSheetDelegate, UIScrollViewDelegate, MWMFrameworkStorageObserver>
+@interface MWMBaseMapDownloaderViewController ()<UIActionSheetDelegate, UIScrollViewDelegate,
+                                                 MWMFrameworkStorageObserver, MWMMyTargetDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView * tableView;
 
@@ -78,7 +83,7 @@ using namespace mwm;
 @property (nonatomic) MWMMapDownloaderDataSource * dataSource;
 @property (nonatomic) MWMMapDownloaderDefaultDataSource * defaultDataSource;
 
-@property (nonatomic) NSMutableDictionary * offscreenCells;
+@property(nonatomic) NSMutableDictionary<NSString *, MWMTableViewCell *> * offscreenCells;
 @property (nonatomic) NSMutableDictionary<NSIndexPath *, NSNumber *> * cellHeightCache;
 
 @property (nonatomic) BOOL skipCountryEventProcessing;
@@ -101,6 +106,7 @@ using namespace mwm;
   [super viewDidLoad];
   [self configNavBar];
   [self configTable];
+  [self configMyTarget];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -154,6 +160,7 @@ using namespace mwm;
   }
 }
 
+- (void)configMyTarget { [MWMMyTarget manager].delegate = self; }
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
   [self.cellHeightCache removeAllObjects];
@@ -224,18 +231,19 @@ using namespace mwm;
     self.offscreenCells = [@{} mutableCopy];
     self.cellHeightCache = [@{} mutableCopy];
   }
-  [self registerCellWithIdentifier:kPlaceCellIdentifier];
+  [self registerCellWithIdentifier:kAdsCellIdentifier];
+  [self registerCellWithIdentifier:kButtonCellIdentifier];
   [self registerCellWithIdentifier:kCountryCellIdentifier];
   [self registerCellWithIdentifier:kLargeCountryCellIdentifier];
+  [self registerCellWithIdentifier:kPlaceCellIdentifier];
   [self registerCellWithIdentifier:kSubplaceCellIdentifier];
-  [self registerCellWithIdentifier:kButtonCellIdentifier];
 }
 
 #pragma mark - Offscreen cells
 
-- (MWMMapDownloaderTableViewCell *)offscreenCellForIdentifier:(NSString *)reuseIdentifier
+- (MWMTableViewCell *)offscreenCellForIdentifier:(NSString *)reuseIdentifier
 {
-  MWMMapDownloaderTableViewCell * cell = self.offscreenCells[reuseIdentifier];
+  MWMTableViewCell * cell = self.offscreenCells[reuseIdentifier];
   if (!cell)
   {
     cell = [[[NSBundle mainBundle] loadNibNamed:reuseIdentifier owner:nil options:nil] firstObject];
@@ -244,6 +252,9 @@ using namespace mwm;
   return cell;
 }
 
+#pragma mark - MWMMyTargetDelegate
+
+- (void)onAppWallRefresh { [self reloadTable]; }
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
@@ -422,6 +433,10 @@ using namespace mwm;
     NSAssert(countyId != nil, @"CountryId is nil.");
     [self openNodeSubtree:countyId.UTF8String];
   }
+  else if ([identifier isEqualToString:kAdsCellIdentifier])
+  {
+    [[MWMMyTarget manager] handleBannerClickAtIndex:indexPath.row withController:self];
+  }
   else
   {
     [self showActionSheetForRowAtIndexPath:indexPath];
@@ -430,13 +445,22 @@ using namespace mwm;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  NSString * reuseIdentifier = [self.dataSource cellIdentifierForIndexPath:indexPath];
+  if ([reuseIdentifier isEqualToString:kAdsCellIdentifier])
+  {
+    MWMMapDownloaderExtendedDataSourceWithAds * adDataSource =
+        static_cast<MWMMapDownloaderExtendedDataSourceWithAds *>(self.dataSource);
+    MTRGAppwallBannerAdView * adView = [adDataSource viewForBannerAtIndex:indexPath.row];
+    return [adView sizeThatFits:{CGRectGetWidth(tableView.bounds), 0}].height + 1;
+  }
   if (!isIOS7)
     return UITableViewAutomaticDimension;
   NSNumber * cacheHeight = self.cellHeightCache[indexPath];
   if (cacheHeight)
     return cacheHeight.floatValue;
-  NSString * reuseIdentifier = [self.dataSource cellIdentifierForIndexPath:indexPath];
-  MWMMapDownloaderTableViewCell * cell = [self offscreenCellForIdentifier:reuseIdentifier];
+
+  MWMMapDownloaderTableViewCell * cell = static_cast<MWMMapDownloaderTableViewCell *>(
+      [self offscreenCellForIdentifier:reuseIdentifier]);
   [self.dataSource fillCell:cell atIndexPath:indexPath];
   cell.bounds = {{}, {CGRectGetWidth(tableView.bounds), CGRectGetHeight(cell.bounds)}};
   [cell setNeedsLayout];
@@ -479,8 +503,14 @@ using namespace mwm;
   if (sender.state != UIGestureRecognizerStateBegan)
     return;
   NSIndexPath * indexPath = [self.tableView indexPathForRowAtPoint:[sender locationInView:self.tableView]];
-  if (indexPath && ![self.dataSource isButtonCell:indexPath.section])
-    [self showActionSheetForRowAtIndexPath:indexPath];
+  if (!indexPath)
+    return;
+  if ([self.dataSource isButtonCell:indexPath.section])
+    return;
+  NSString * identifier = [self.dataSource cellIdentifierForIndexPath:indexPath];
+  if ([identifier isEqualToString:kAdsCellIdentifier])
+    return;
+  [self showActionSheetForRowAtIndexPath:indexPath];
 }
 
 #pragma mark - Action Sheet

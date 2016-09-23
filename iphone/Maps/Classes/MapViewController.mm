@@ -1,5 +1,4 @@
 #import "MapViewController.h"
-#import <MyTargetSDKCorp/MTRGManager_Corp.h>
 #import "BookmarksRootVC.h"
 #import "BookmarksVC.h"
 #import "Common.h"
@@ -100,8 +99,8 @@ BOOL gIsFirstMyPositionMode = YES;
 - (BOOL)isEqual:(id)anObject { return [anObject isMemberOfClass:[NSValueWrapper class]]; }
 @end
 
-@interface MapViewController ()<MTRGNativeAppwallAdDelegate, MWMFrameworkDrapeObserver,
-                                MWMFrameworkStorageObserver, MWMPageControllerProtocol>
+@interface MapViewController ()<MWMFrameworkDrapeObserver, MWMFrameworkStorageObserver,
+                                MWMPageControllerProtocol>
 
 @property(nonatomic, readwrite) MWMMapViewControlsManager * controlsManager;
 
@@ -275,8 +274,6 @@ BOOL gIsFirstMyPositionMode = YES;
 
   self.controlsManager.menuState = self.controlsManager.menuRestoreState;
 
-  [self refreshAd];
-
   [self updateStatusBarStyle];
   GetFramework().InvalidateRendering();
   [self showWelcomeScreenIfNeeded];
@@ -288,7 +285,6 @@ BOOL gIsFirstMyPositionMode = YES;
 {
   [super viewDidLoad];
   self.view.clipsToBounds = YES;
-  [MTRGManager setMyCom:YES];
   [self processMyPositionStateModeEvent:location::PendingPosition];
 }
 
@@ -537,41 +533,6 @@ BOOL gIsFirstMyPositionMode = YES;
     [self.controlsManager onRoutePrepare];
 }
 
-#pragma mark - myTarget
-
-- (void)refreshAd
-{
-  if (isIOS7 || [MWMSettings adServerForbidden] || [MWMSettings adForbidden])
-  {
-    self.appWallAd = nil;
-    return;
-  }
-  if (self.isAppWallAdActive)
-    return;
-  self.appWallAd = [[MTRGNativeAppwallAd alloc] initWithSlotId:@(MY_TARGET_KEY)];
-  self.appWallAd.handleLinksInApp = YES;
-  self.appWallAd.closeButtonTitle = L(@"close");
-  self.appWallAd.delegate = self;
-  [self.appWallAd load];
-}
-
-- (void)onLoadWithAppwallBanners:(NSArray *)appwallBanners
-                       appwallAd:(MTRGNativeAppwallAd *)appwallAd
-{
-  if (![appwallAd isEqual:self.appWallAd])
-    return;
-  if (appwallBanners.count == 0)
-    self.appWallAd = nil;
-  [self.controlsManager refreshLayout];
-}
-
-- (void)onNoAdWithReason:(NSString *)reason appwallAd:(MTRGNativeAppwallAd *)appwallAd
-{
-  if (![appwallAd isEqual:self.appWallAd])
-    return;
-  self.appWallAd = nil;
-}
-
 #pragma mark - API bar
 
 - (MWMAPIBar *)apiBar
@@ -637,12 +598,6 @@ BOOL gIsFirstMyPositionMode = YES;
 
 #pragma mark - Properties
 
-- (void)setAppWallAd:(MTRGNativeAppwallAd *)appWallAd
-{
-  _appWallAd = appWallAd;
-  [self.controlsManager refreshLayout];
-}
-
 - (MWMMapViewControlsManager *)controlsManager
 {
   if (!self.isViewLoaded)
@@ -650,13 +605,6 @@ BOOL gIsFirstMyPositionMode = YES;
   if (!_controlsManager)
     _controlsManager = [[MWMMapViewControlsManager alloc] initWithParentController:self];
   return _controlsManager;
-}
-
-- (BOOL)isAppWallAdActive
-{
-  BOOL const haveAppWall = (self.appWallAd != nil);
-  BOOL const haveBanners = (self.appWallAd.banners && self.appWallAd.banners != 0);
-  return haveAppWall && haveBanners;
 }
 
 - (BOOL)hasNavigationBar { return NO; }

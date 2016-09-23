@@ -1,4 +1,3 @@
-#import <MyTargetSDKCorp/MTRGNativeAppwallAd.h>
 #import "MWMMapDownloaderTypes.h"
 #import "MWMViewController.h"
 
@@ -33,12 +32,7 @@ struct AddressInfo;
 - (void)openMapsDownloader:(mwm::DownloaderMode)mode;
 - (void)openEditor;
 
-- (void)refreshAd;
-
 - (void)initialize;
-
-@property(nonatomic) MTRGNativeAppwallAd * appWallAd;
-@property(nonatomic, readonly) BOOL isAppWallAdActive;
 
 @property(nonatomic, readonly) MWMMapViewControlsManager * controlsManager;
 @property(nonatomic) MWMAPIBar * apiBar;
