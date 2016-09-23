@@ -77,5 +77,5 @@ UNIT_TEST(GetHotelInfo)  // GetHotelInfo is a mockup now.
   TEST(!info.m_description.empty(), ());
   TEST_EQUAL(info.m_photos.size(), 9, ());
   TEST_EQUAL(info.m_facilities.size(), 3, ());
-  TEST_EQUAL(info.m_reviews.size(), 3, ());
+  TEST_EQUAL(info.m_reviews.size(), 12, ());
 }
