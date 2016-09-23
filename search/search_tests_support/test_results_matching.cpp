@@ -13,7 +13,7 @@ namespace search
 {
 namespace tests_support
 {
-ExactMatchingRule::ExactMatchingRule(MwmSet::MwmId const & mwmId, TestFeature & feature)
+ExactMatchingRule::ExactMatchingRule(MwmSet::MwmId const & mwmId, TestFeature const & feature)
   : m_mwmId(mwmId), m_feature(feature)
 {
 }

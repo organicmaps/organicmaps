@@ -35,7 +35,8 @@ public:
 class ExactMatchingRule : public MatchingRule
 {
 public:
-  ExactMatchingRule(MwmSet::MwmId const & mwmId, generator::tests_support::TestFeature & feature);
+  ExactMatchingRule(MwmSet::MwmId const & mwmId,
+                    generator::tests_support::TestFeature const & feature);
 
   // MatchingRule overrides:
   bool Matches(FeatureType const & feature) const override;
@@ -43,7 +44,7 @@ public:
 
 private:
   MwmSet::MwmId m_mwmId;
-  generator::tests_support::TestFeature & m_feature;
+  generator::tests_support::TestFeature const & m_feature;
 };
 
 class AlternativesMatchingRule : public MatchingRule

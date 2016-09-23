@@ -109,7 +109,10 @@ public:
   string const & GetHouseNumber() const;
   string GetPostcode() const;
   string GetWikipedia() const;
+
+  // These two methods should only be used in tests.
   uint64_t GetTestId() const;
+  void SetTestId(uint64_t id);
 
   void SetEditableProperties(osm::EditableProperties const & props);
   //  void SetFeatureID(FeatureID const & fid);
@@ -142,8 +145,6 @@ public:
   /// @param[in] cuisine is a vector of osm cuisine ids.
   void SetCuisines(vector<string> const & cuisine);
   void SetOpeningHours(string const & openingHours);
-
-  void SetTestId(uint64_t const & id);
 
   /// Special mark that it's a point feature, not area or line.
   void SetPointType();

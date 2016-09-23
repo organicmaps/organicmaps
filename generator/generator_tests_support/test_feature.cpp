@@ -167,22 +167,21 @@ TestPOI::TestPOI(m2::PointD const & center, string const & name, string const & 
 }
 
 // static
-TestPOI TestPOI::AddWithEditor(osm::Editor & editor, MwmSet::MwmId const & mwmId,
-                               string const & name, m2::PointD const & pt, FeatureID & tmp)
+pair<TestPOI, FeatureID> TestPOI::AddWithEditor(osm::Editor & editor, MwmSet::MwmId const & mwmId,
+                                                string const & enName, m2::PointD const & pt)
 {
-  TestPOI poi(pt, name, "en");
+  TestPOI poi(pt, enName, "en");
 
   osm::EditableMapObject emo;
   editor.CreatePoint(classif().GetTypeByPath({"shop", "bakery"}), pt, mwmId, emo);
 
   StringUtf8Multilang names;
-  names.AddString(StringUtf8Multilang::GetLangIndex("en"), name);
+  names.AddString(StringUtf8Multilang::GetLangIndex("en"), enName);
   emo.SetName(names);
   emo.SetTestId(poi.GetId());
 
   editor.SaveEditedFeature(emo);
-  tmp = emo.GetID();
-  return poi;
+  return {poi, emo.GetID()};
 }
 
 void TestPOI::Serialize(FeatureBuilder1 & fb) const

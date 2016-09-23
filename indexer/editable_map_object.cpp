@@ -293,6 +293,13 @@ uint64_t EditableMapObject::GetTestId() const
   return id;
 }
 
+void EditableMapObject::SetTestId(uint64_t id)
+{
+  ostringstream oss;
+  oss << id;
+  m_metadata.Set(feature::Metadata::FMD_TEST_ID, oss.str());
+}
+
 void EditableMapObject::SetEditableProperties(osm::EditableProperties const & props)
 {
   m_editableProperties = props;
@@ -504,13 +511,6 @@ void EditableMapObject::SetCuisines(vector<string> const & cuisine)
 void EditableMapObject::SetOpeningHours(string const & openingHours)
 {
   m_metadata.Set(feature::Metadata::FMD_OPEN_HOURS, openingHours);
-}
-
-void EditableMapObject::SetTestId(uint64_t const & id)
-{
-  ostringstream oss;
-  oss << id;
-  m_metadata.Set(feature::Metadata::FMD_TEST_ID, oss.str());
 }
 
 void EditableMapObject::SetPointType() { m_geomType = feature::EGeomType::GEOM_POINT; }

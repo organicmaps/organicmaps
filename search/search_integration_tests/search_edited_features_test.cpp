@@ -74,10 +74,16 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, SearchInViewport)
     builder.Add(cornerPost);
   });
 
-  FeatureID id1, id2, id3;
-  auto bakery1 = TestPOI::AddWithEditor(editor, countryId, "bakery1", {1.0, 1.0}, id1);
-  auto bakery2 = TestPOI::AddWithEditor(editor, countryId, "bakery2", {2.0, 2.0}, id2);
-  auto bakery3 = TestPOI::AddWithEditor(editor, countryId, "bakery3", {3.0, 3.0}, id3);
+  auto const tmp1 = TestPOI::AddWithEditor(editor, countryId, "bakery1", {1.0, 1.0});
+  TestPOI const & bakery1 = tmp1.first;
+  FeatureID const & id1 = tmp1.second;
+  auto const tmp2 = TestPOI::AddWithEditor(editor, countryId, "bakery2", {2.0, 2.0});
+  TestPOI const & bakery2 = tmp2.first;
+  FeatureID const & id2 = tmp2.second;
+  auto const tmp3 = TestPOI::AddWithEditor(editor, countryId, "bakery3", {3.0, 3.0});
+  TestPOI const & bakery3 = tmp3.first;
+  FeatureID const & id3 = tmp3.second;
+  UNUSED_VALUE(id2);
 
   SetViewport(m2::RectD(-1.0, -1.0, 4.0, 4.0));
   {

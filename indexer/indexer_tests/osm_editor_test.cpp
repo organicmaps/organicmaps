@@ -167,7 +167,7 @@ void EditorTest::GetFeatureTypeInfoTest()
   auto const mwmId = ConstructTestMwm([](TestMwmBuilder & builder)
   {
     TestCafe cafe(m2::PointD(1.0, 1.0), "London Cafe", "en");
-    builder.Add(cafe);    
+    builder.Add(cafe);
   });
 
   ForEachCafeAtPoint(m_index, m2::PointD(1.0, 1.0), [&editor, &mwmId](FeatureType & ft)

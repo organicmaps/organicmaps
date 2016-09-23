@@ -1054,8 +1054,11 @@ FeatureID Editor::GenerateNewFeatureId(MwmSet::MwmId const & id)
 bool Editor::CreatePoint(uint32_t type, m2::PointD const & mercator, MwmSet::MwmId const & id, EditableMapObject & outFeature)
 {
   ASSERT(id.IsAlive(), ("Please check that feature is created in valid MWM file before calling this method."));
-  CHECK(id.GetInfo()->m_limitRect.IsPointInside(mercator),
-        ("Attempt to create a feature outside of the MWM's bounding box."));
+  if (!id.GetInfo()->m_limitRect.IsPointInside(mercator))
+  {
+    LOG(LERROR, ("Attempt to create a feature outside of the MWM's bounding box."));
+    return false;
+  }
   outFeature.SetMercator(mercator);
   outFeature.SetID(GenerateNewFeatureId(id));
   outFeature.SetType(type);
