@@ -1,6 +1,7 @@
 #import "MWMHelpController.h"
 #import <MessageUI/MFMailComposeViewController.h>
 #import <sys/utsname.h>
+#import "AppInfo.h"
 #import "Common.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
@@ -168,7 +169,7 @@ NSString * const kiOSEmail = @"ios@maps.me";
 - (void)reportRegular
 {
   UIAlertController * alert =
-      [UIAlertController alertControllerWithTitle:L(@"report_a_bug")
+      [UIAlertController alertControllerWithTitle:L(@"feedback")
                                           message:nil
                                    preferredStyle:UIAlertControllerStyleAlert];
 
@@ -198,49 +199,54 @@ NSString * const kiOSEmail = @"ios@maps.me";
 
 - (void)commonReportAction
 {
+  [Statistics logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatFeedback}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"contactUs"];
-  [self sendEmailWithText:nil subject:@"MAPS.ME" toRecipient:kiOSEmail];
+  // Do not localize subject. Support team uses it to filter emails.
+  [self sendEmailWithSubject:@"Feedback from user" toRecipient:kiOSEmail];
 }
 
 - (void)bugReportAction
 {
   [Statistics logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatReport}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"reportABug"];
-  struct utsname systemInfo;
-  uname(&systemInfo);
-  NSString * machine =
-      [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
-  NSString * device = kDeviceNames[machine];
-  if (!device)
-    device = machine;
-  NSString * languageCode = [[NSLocale preferredLanguages] firstObject];
-  NSString * language = [[NSLocale localeWithLocaleIdentifier:kLocaleUsedInSupportEmails]
-      displayNameForKey:NSLocaleLanguageCode
-                  value:languageCode];
-  NSString * locale = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
-  NSString * country = [[NSLocale localeWithLocaleIdentifier:kLocaleUsedInSupportEmails]
-      displayNameForKey:NSLocaleCountryCode
-                  value:locale];
-  NSString * bundleVersion =
-      [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
-  NSString * text = [NSString stringWithFormat:@"\n\n\n\n- %@ (%@)\n- MAPS.ME %@\n- %@/%@", device,
-                                               [UIDevice currentDevice].systemVersion,
-                                               bundleVersion, language, country];
-  NSString * alohalyticsId = [Alohalytics installationId];
-  if (alohalyticsId)
-    text = [NSString stringWithFormat:@"%@\n- %@", text, alohalyticsId];
-  [self sendEmailWithText:text subject:@"MAPS.ME" toRecipient:kiOSEmail];
+  // Do not localize subject. Support team uses it to filter emails.
+  [self sendEmailWithSubject:@"Bug report from user" toRecipient:kiOSEmail];
 }
 
 #pragma mark - Email
 
-- (void)sendEmailWithText:(NSString *)text subject:(NSString *)subject toRecipient:(NSString *)email
+- (void)sendEmailWithSubject:(NSString *)subject toRecipient:(NSString *)email
 {
   if ([MFMailComposeViewController canSendMail])
   {
+    struct utsname systemInfo;
+    uname(&systemInfo);
+    NSString * machine =
+        [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
+    NSString * device = kDeviceNames[machine];
+    if (!device)
+      device = machine;
+    NSString * languageCode = [[NSLocale preferredLanguages] firstObject];
+    NSString * language = [[NSLocale localeWithLocaleIdentifier:kLocaleUsedInSupportEmails]
+        displayNameForKey:NSLocaleLanguageCode
+                    value:languageCode];
+    NSString * locale = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
+    NSString * country = [[NSLocale localeWithLocaleIdentifier:kLocaleUsedInSupportEmails]
+        displayNameForKey:NSLocaleCountryCode
+                    value:locale];
+    NSString * bundleVersion =
+        [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
+    NSString * text = [NSString stringWithFormat:@"\n\n\n\n- %@ (%@)\n- MAPS.ME %@\n- %@/%@",
+                                                 device, [UIDevice currentDevice].systemVersion,
+                                                 bundleVersion, language, country];
+    NSString * alohalyticsId = [Alohalytics installationId];
+    if (alohalyticsId)
+      text = [NSString stringWithFormat:@"%@\n- %@", text, alohalyticsId];
+
     MFMailComposeViewController * vc = [[MFMailComposeViewController alloc] init];
     vc.mailComposeDelegate = self;
-    [vc setSubject:subject];
+    [vc setSubject:[NSString stringWithFormat:@"[%@ iOS] %@", [AppInfo sharedInfo].bundleVersion,
+                                              subject]];
     [vc setMessageBody:text isHTML:NO];
     [vc setToRecipients:@[ email ]];
     [vc.navigationBar setTintColor:[UIColor whitePrimaryText]];

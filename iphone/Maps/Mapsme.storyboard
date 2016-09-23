@@ -3270,7 +3270,7 @@
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="report_a_bug"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="feedback"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="reportBug" destination="f2i-mO-skH" eventType="touchUpInside" id="vzf-gV-Yag"/>
