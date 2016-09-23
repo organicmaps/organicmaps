@@ -36,8 +36,8 @@ public:
     SearchParams params;
     params.m_query = query;
     params.m_inputLocale = "en";
-    params.SetMode(Mode::Everywhere);
-    params.SetSuggestsEnabled(false);
+    params.m_mode = Mode::Everywhere;
+    params.m_suggestsEnabled = false;
 
     auto request = make_unique<TestSearchRequest>(m_engine, params, m_viewport);
     request->Run();
@@ -290,8 +290,8 @@ UNIT_CLASS_TEST(ProcessorTest, DisableSuggests)
     SearchParams params;
     params.m_query = "londo";
     params.m_inputLocale = "en";
-    params.SetMode(Mode::Downloader);
-    params.SetSuggestsEnabled(false);
+    params.m_mode = Mode::Downloader;
+    params.m_suggestsEnabled = false;
 
     TestSearchRequest request(m_engine, params, m_viewport);
     request.Run();

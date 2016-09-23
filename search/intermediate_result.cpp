@@ -22,9 +22,7 @@
 
 namespace search
 {
-
-/// All constants in meters.
-double const DIST_SAME_STREET = 5000.0;
+double const DIST_SAME_STREET_METERS = 5000.0;
 char const * const kEmptyRatingSymbol = "-";
 char const * const kPricingSymbol = "$";
 
@@ -277,9 +275,8 @@ bool PreResult2::EqualLinearTypesF::operator() (PreResult2 const & r1, PreResult
 {
   // Note! Do compare for distance when filtering linear objects.
   // Otherwise we will skip the results for different parts of the map.
-  return (r1.m_geomType == feature::GEOM_LINE &&
-          r1.IsEqualCommon(r2) &&
-          PointDistance(r1.GetCenter(), r2.GetCenter()) < DIST_SAME_STREET);
+  return (r1.m_geomType == feature::GEOM_LINE && r1.IsEqualCommon(r2) &&
+          PointDistance(r1.GetCenter(), r2.GetCenter()) < DIST_SAME_STREET_METERS);
 }
 
 bool PreResult2::IsEqualCommon(PreResult2 const & r) const

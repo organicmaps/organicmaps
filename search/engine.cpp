@@ -227,7 +227,7 @@ void Engine::PostMessage(TArgs &&... args)
 void Engine::DoSearch(SearchParams const & params, m2::RectD const & viewport,
                       shared_ptr<ProcessorHandle> handle, Processor & processor)
 {
-  bool const viewportSearch = params.GetMode() == Mode::Viewport;
+  bool const viewportSearch = params.m_mode == Mode::Viewport;
 
   processor.Reset();
   processor.Init(viewportSearch);

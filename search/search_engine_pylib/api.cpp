@@ -193,9 +193,9 @@ struct SearchEngineProxy
     search::SearchParams sp;
     sp.m_query = params.m_query;
     sp.m_inputLocale = params.m_locale;
-    sp.SetMode(search::Mode::Everywhere);
+    sp.m_mode = search::Mode::Everywhere;
     sp.SetPosition(params.m_latLon.m_lat, params.m_latLon.m_lon);
-    sp.SetSuggestsEnabled(false);
+    sp.m_suggestsEnabled = false;
 
     auto const & bottomLeft = params.m_viewport.m_min;
     auto const & topRight = params.m_viewport.m_max;

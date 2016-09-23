@@ -17,7 +17,7 @@ TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & q
 {
   m_params.m_query = query;
   m_params.m_inputLocale = locale;
-  m_params.SetMode(mode);
+  m_params.m_mode = mode;
   SetUpCallbacks();
 }
 
@@ -36,7 +36,7 @@ TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & q
 {
   m_params.m_query = query;
   m_params.m_inputLocale = locale;
-  m_params.SetMode(mode);
+  m_params.m_mode = mode;
   m_params.m_onStarted = move(onStarted);
   m_params.m_onResults = move(onResults);
 }

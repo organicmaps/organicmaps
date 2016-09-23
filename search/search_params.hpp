@@ -2,6 +2,7 @@
 
 #include "search/mode.hpp"
 
+#include "geometry/latlon.hpp"
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
@@ -18,48 +19,34 @@ public:
   using TOnStarted = function<void()>;
   using TOnResults = function<void(Results const &)>;
 
-  SearchParams();
-
-  /// @name Force run search without comparing with previous search params.
-  //@{
-  void SetForceSearch(bool b) { m_forceSearch = b; }
-  bool IsForceSearch() const { return m_forceSearch; }
-  //@}
-
-  inline void SetMode(Mode mode) { m_mode = mode; }
-  inline Mode GetMode() const { return m_mode; }
   void SetPosition(double lat, double lon);
+  m2::PointD GetPositionMercator() const;
+  ms::LatLon GetPositionLatLon() const;
+
   inline bool IsValidPosition() const { return m_validPos; }
-  inline bool IsSearchAroundPosition() const { return (m_searchRadiusM > 0 && IsValidPosition()); }
-  inline void SetSearchRadiusMeters(double radiusM) { m_searchRadiusM = radiusM; }
-  bool GetSearchRect(m2::RectD & rect) const;
-
-  /// @param[in] locale can be "fr", "en-US", "ru_RU" etc.
-  inline void SetInputLocale(string const & locale) { m_inputLocale = locale; }
-  inline void SetSuggestsEnabled(bool enabled) { m_suggestsEnabled = enabled; }
-  inline bool GetSuggestsEnabled() const { return m_suggestsEnabled; }
   bool IsEqualCommon(SearchParams const & rhs) const;
-
   inline void Clear() { m_query.clear(); }
+
   TOnStarted m_onStarted;
   TOnResults m_onResults;
 
   string m_query;
   string m_inputLocale;
 
-  double m_lat, m_lon;
-
   // A minimum distance between search results in meters, needed for
   // pre-ranking of viewport search results.
-  double m_minDistanceOnMapBetweenResults;
+  double m_minDistanceOnMapBetweenResults = 0.0;
+
+  Mode m_mode = Mode::Everywhere;
+  bool m_forceSearch = false;
+  bool m_suggestsEnabled = true;
 
   friend string DebugPrint(SearchParams const & params);
 
 private:
-  double m_searchRadiusM;
-  Mode m_mode;
-  bool m_forceSearch;
-  bool m_validPos;
-  bool m_suggestsEnabled;
+  double m_lat = 0.0;
+  double m_lon = 0.0;
+
+  bool m_validPos = false;
 };
 }  // namespace search
