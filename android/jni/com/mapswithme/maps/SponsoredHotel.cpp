@@ -129,7 +129,7 @@ Java_com_mapswithme_maps_widget_placepage_SponsoredHotel_nativeRequestInfo(JNIEn
                                                  [](JNIEnv * env, BookingApi::HotelReview const & item)
                                                  {
                                                    return env->NewObject(g_reviewClass, g_reviewConstructor,
-                                                        jni::ToJavaString(env, item.m_reviewPositive),
+                                                        jni::ToJavaString(env, item.m_reviewNeutral),
                                                         jni::ToJavaString(env, item.m_reviewPositive),
                                                         jni::ToJavaString(env, item.m_reviewNegative),
                                                         jni::ToJavaString(env, item.m_author),
