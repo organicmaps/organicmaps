@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:orientation="vertical"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@android:color/black">
+
+  <android.support.v4.view.ViewPager
+    android:id="@+id/vp__image"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
+
+  <include
+    layout="@layout/toolbar_transparent"/>
+
+  <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_half"
+    android:layout_marginEnd="@dimen/margin_base"
+    android:layout_marginLeft="@dimen/margin_base"
+    android:layout_marginRight="@dimen/margin_base"
+    android:layout_marginStart="@dimen/margin_base"
+    android:layout_marginTop="@dimen/margin_base"
+    android:layout_gravity="bottom">
+
+    <TextView
+      android:id="@+id/tv__description"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/margin_half"
+      android:textColor="@color/white_primary"
+      android:textAppearance="@style/MwmTextAppearance.Body1"
+      android:maxLines="1"
+      tools:text="Staff, rooftop view, location, free bike…"/>
+
+    <RelativeLayout
+      android:id="@+id/rl__user_block"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content">
+      <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider_gallery"/>
+      <ImageView
+        android:id="@+id/iv__avatar"
+        android:layout_width="@dimen/track_circle_size"
+        android:layout_height="@dimen/track_circle_size"
+        android:layout_marginTop="@dimen/margin_half"
+        android:layout_below="@id/divider"
+        android:layout_marginRight="@dimen/margin_half"
+        android:layout_marginEnd="@dimen/margin_half"
+        tools:src="@drawable/img_editor_medal"/>
+      <TextView
+        android:id="@+id/tv__name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_half"
+        android:layout_toRightOf="@id/iv__avatar"
+        android:layout_toEndOf="@id/iv__avatar"
+        android:layout_below="@id/divider"
+        android:maxLines="1"
+        android:textColor="@color/white_primary"
+        android:textAppearance="@style/MwmTextAppearance.Body1"
+        tools:text="Polina"/>
+      <TextView
+        android:id="@+id/tv__source"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/iv__avatar"
+        android:layout_toEndOf="@id/iv__avatar"
+        android:layout_below="@id/tv__name"
+        android:maxLines="1"
+        android:textColor="@color/white_primary"
+        android:textAppearance="@style/MwmTextAppearance.Body4"
+        tools:text="via Booking"/>
+      <TextView
+        android:id="@+id/tv__date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/tv__source"
+        android:layout_toEndOf="@id/tv__source"
+        android:layout_alignBaseline="@id/tv__source"
+        android:gravity="end"
+        android:maxLines="1"
+        android:textColor="@color/white_primary"
+        android:textAppearance="@style/MwmTextAppearance.Body4"
+        tools:text="Jule 8, 2016"/>
+    </RelativeLayout>
+  </LinearLayout>
+</FrameLayout>

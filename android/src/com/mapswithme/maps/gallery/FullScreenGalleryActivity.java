@@ -1,17 +1,11 @@
 package com.mapswithme.maps.gallery;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
-import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.BaseMwmFragmentActivity;
-import com.mapswithme.util.ThemeUtils;
-import com.mapswithme.util.UiUtils;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.ViewPager;
@@ -24,12 +18,20 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.mapswithme.maps.R;
+import com.mapswithme.maps.base.BaseMwmFragmentActivity;
+import com.mapswithme.util.ThemeUtils;
+import com.mapswithme.util.UiUtils;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class FullScreenGalleryActivity extends BaseMwmFragmentActivity
-        implements ViewPager.OnPageChangeListener {
+    implements ViewPager.OnPageChangeListener
+{
   public static final String EXTRA_IMAGES = "gallery_images";
   public static final String EXTRA_POSITION = "gallery_position";
 
@@ -53,7 +55,8 @@ public class FullScreenGalleryActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  protected void onCreate(Bundle savedInstanceState) {
+  protected void onCreate(Bundle savedInstanceState)
+  {
     requestWindowFeature(Window.FEATURE_NO_TITLE);
     getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -62,9 +65,8 @@ public class FullScreenGalleryActivity extends BaseMwmFragmentActivity
     toolbar.setTitle("");
     UiUtils.showHomeUpButton(toolbar);
     displayToolbarAsActionBar();
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
       getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-    }
 
     mUserBlock = findViewById(R.id.rl__user_block);
     mDescription = (TextView) findViewById(R.id.tv__description);
@@ -74,19 +76,22 @@ public class FullScreenGalleryActivity extends BaseMwmFragmentActivity
     mAvatar = (ImageView) findViewById(R.id.iv__avatar);
 
     readParameters();
-    mGalleryPageAdapter = new GalleryPageAdapter(getSupportFragmentManager(), mImages);
-    final ViewPager viewPager = (ViewPager) findViewById(R.id.vp__image);
-    viewPager.addOnPageChangeListener(this);
-    viewPager.setAdapter(mGalleryPageAdapter);
-    viewPager.setCurrentItem(mPosition);
-    viewPager.post(new Runnable()
+    if (mImages != null)
     {
-      @Override
-      public void run()
+      mGalleryPageAdapter = new GalleryPageAdapter(getSupportFragmentManager(), mImages);
+      final ViewPager viewPager = (ViewPager) findViewById(R.id.vp__image);
+      viewPager.addOnPageChangeListener(this);
+      viewPager.setAdapter(mGalleryPageAdapter);
+      viewPager.setCurrentItem(mPosition);
+      viewPager.post(new Runnable()
       {
-        onPageSelected(viewPager.getCurrentItem());
-      }
-    });
+        @Override
+        public void run()
+        {
+          onPageSelected(viewPager.getCurrentItem());
+        }
+      });
+    }
   }
 
   @Override
@@ -101,71 +106,93 @@ public class FullScreenGalleryActivity extends BaseMwmFragmentActivity
     throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
   }
 
-
   @Override
-  protected int getContentLayoutResId() {
-    return R.layout.activity_viewpager_transparent_toolbar;
+  protected int getContentLayoutResId()
+  {
+    return R.layout.activity_full_screen_gallery;
   }
 
   @Override
-  public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+  public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
+  {
   }
 
   @Override
-  public void onPageSelected(int position) {
+  public void onPageSelected(int position)
+  {
     updateInformation(mGalleryPageAdapter.getImage(position));
   }
 
   @Override
-  public void onPageScrollStateChanged(int state) {
-
+  public void onPageScrollStateChanged(int state)
+  {
   }
 
-  private void readParameters() {
+  private void readParameters()
+  {
     Bundle extras = getIntent().getExtras();
-    if (extras != null) {
+    if (extras != null)
+    {
       mImages = extras.getParcelableArrayList(EXTRA_IMAGES);
       mPosition = extras.getInt(EXTRA_POSITION);
     }
   }
 
-  private void updateInformation(Image image) {
+  private void updateInformation(@NonNull Image image)
+  {
     UiUtils.setTextAndHideIfEmpty(mDescription, image.getDescription());
     UiUtils.setTextAndHideIfEmpty(mUserName, image.getUserName());
     UiUtils.setTextAndHideIfEmpty(mSource, image.getSource());
-    if (image.getDate() != null) {
+    updateDate(image);
+    updateUserAvatar(image);
+    updateUserBlock();
+  }
+
+  private void updateDate(Image image)
+  {
+    if (image.getDate() != null)
+    {
       Date date = new Date(image.getDate());
       mDate.setText(DateFormat.getMediumDateFormat(this).format(date));
       UiUtils.show(mDate);
-    } else {
-      UiUtils.hide(mDate);
     }
-    if (!TextUtils.isEmpty(image.getUserAvatar())) {
+    else
+      UiUtils.hide(mDate);
+  }
+
+  private void updateUserAvatar(Image image)
+  {
+    if (!TextUtils.isEmpty(image.getUserAvatar()))
+    {
       UiUtils.show(mAvatar);
       Glide.with(this)
-              .load(image.getUserAvatar())
-              .asBitmap()
-              .centerCrop()
-              .into(new BitmapImageViewTarget(mAvatar) {
-                @Override
-                protected void setResource(Bitmap resource) {
-                  RoundedBitmapDrawable circularBitmapDrawable =
-                          RoundedBitmapDrawableFactory.create(getResources(), resource);
-                  circularBitmapDrawable.setCircular(true);
-                  mAvatar.setImageDrawable(circularBitmapDrawable);
-                }
-              });
-    } else {
+           .load(image.getUserAvatar())
+           .asBitmap()
+           .centerCrop()
+           .into(new BitmapImageViewTarget(mAvatar)
+           {
+             @Override
+             protected void setResource(Bitmap resource)
+             {
+               RoundedBitmapDrawable circularBitmapDrawable =
+                   RoundedBitmapDrawableFactory.create(getResources(), resource);
+               circularBitmapDrawable.setCircular(true);
+               mAvatar.setImageDrawable(circularBitmapDrawable);
+             }
+           });
+    }
+    else
       UiUtils.hide(mAvatar);
-    }
+  }
+
+  private void updateUserBlock()
+  {
     if (UiUtils.isHidden(mUserName)
-            && UiUtils.isHidden(mSource)
-            && UiUtils.isHidden(mDate)
-            && UiUtils.isHidden(mAvatar)) {
+        && UiUtils.isHidden(mSource)
+        && UiUtils.isHidden(mDate)
+        && UiUtils.isHidden(mAvatar))
       UiUtils.hide(mUserBlock);
-    } else {
+    else
       UiUtils.show(mUserBlock);
-    }
   }
 }

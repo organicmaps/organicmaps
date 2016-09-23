@@ -35,16 +35,6 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Currency;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
@@ -84,15 +74,25 @@ import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Currency;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class PlacePageView extends RelativeLayout
-                        implements View.OnClickListener,
-                                   View.OnLongClickListener,
-                                   SponsoredHotel.OnPriceReceivedListener,
-                                   SponsoredHotel.OnInfoReceivedListener,
-                                   LineCountTextView.OnLineCountCalculatedListener,
-                                   RecyclerClickListener,
-                                   NearbyAdapter.OnItemClickListener {
+    implements View.OnClickListener,
+               View.OnLongClickListener,
+               SponsoredHotel.OnPriceReceivedListener,
+               SponsoredHotel.OnInfoReceivedListener,
+               LineCountTextView.OnLineCountCalculatedListener,
+               RecyclerClickListener,
+               NearbyAdapter.OnItemClickListener
+{
   private static final String PREF_USE_DMS = "use_dms";
 
   private boolean mIsDocked;
@@ -161,10 +161,14 @@ public class PlacePageView extends RelativeLayout
   private SponsoredHotel mSponsoredHotel;
   private String mSponsoredHotelPrice;
   private boolean mIsLatLonDms;
-  private FacilitiesAdapter mFacilitiesAdapter = new FacilitiesAdapter();
-  private GalleryAdapter mGalleryAdapter;
-  private NearbyAdapter mNearbyAdapter = new NearbyAdapter(this);
-  private ReviewAdapter mReviewAdapter = new ReviewAdapter();
+  @NonNull
+  private final FacilitiesAdapter mFacilitiesAdapter = new FacilitiesAdapter();
+  @NonNull
+  private final GalleryAdapter mGalleryAdapter;
+  @NonNull
+  private final NearbyAdapter mNearbyAdapter = new NearbyAdapter(this);
+  @NonNull
+  private final ReviewAdapter mReviewAdapter = new ReviewAdapter();
 
   // Downloader`s stuff
   private DownloaderStatusIcon mDownloaderIcon;
@@ -205,22 +209,6 @@ public class PlacePageView extends RelativeLayout
     }
   };
 
-  public boolean isTouchGallery(MotionEvent event) {
-    if (UiUtils.isHidden(mHotelGallery))
-      return false;
-
-    float x = event.getX();
-    float y = event.getY();
-    int[] location = new int[2];
-    mHotelGallery.getLocationOnScreen(location);
-    float viewX = (float) location[0];
-    float viewY = (float) location[1];
-    float width = (float) mHotelGallery.getWidth();
-    float height = (float) mHotelGallery.getHeight();
-
-    return !(x < viewX || x > viewX + width || y < viewY || y > viewY + height);
-  }
-
   public enum State
   {
     HIDDEN,
@@ -243,11 +231,16 @@ public class PlacePageView extends RelativeLayout
     super(context, attrs);
 
     mIsLatLonDms = MwmApplication.prefs().getBoolean(PREF_USE_DMS, false);
-
+    mGalleryAdapter = new GalleryAdapter(context);
     init(attrs, defStyleAttr);
   }
 
   public ViewGroup GetPreview() { return mPreview; }
+
+  public boolean isTouchGallery(@NonNull MotionEvent event)
+  {
+    return UiUtils.isViewTouched(event, mHotelGallery);
+  }
 
   private void initViews()
   {
@@ -317,36 +310,11 @@ public class PlacePageView extends RelativeLayout
 
     ViewGroup ppButtons = (ViewGroup) findViewById(R.id.pp__buttons);
 
-    mHotelDescription = findViewById(R.id.ll__place_hotel_description);
-    mTvHotelDescription = (LineCountTextView) findViewById(R.id.tv__place_hotel_details);
-    mHotelMoreDescription = findViewById(R.id.tv__place_hotel_more);
-    mTvHotelDescription.setListener(this);
-    mHotelMoreDescription.setOnClickListener(this);
-    mHotelFacilities = findViewById(R.id.ll__place_hotel_facilities);
-    GridView gvHotelFacilities = (GridView) findViewById(R.id.gv__place_hotel_facilities);
-    mHotelMoreFacilities = findViewById(R.id.tv__place_hotel_facilities_more);
-    gvHotelFacilities.setAdapter(mFacilitiesAdapter);
-    mHotelMoreFacilities.setOnClickListener(this);
-    mHotelGallery = findViewById(R.id.ll__place_hotel_gallery);
-    mRvHotelGallery = (RecyclerView) findViewById(
-            R.id.rv__place_hotel_gallery);
-    mRvHotelGallery.setLayoutManager(new LinearLayoutManager(getContext(),
-            LinearLayoutManager.HORIZONTAL, false));
-    mRvHotelGallery.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getContext(),
-            R.drawable.divider_transparent)));
-    mGalleryAdapter = new GalleryAdapter(getContext());
-    mGalleryAdapter.setListener(this);
-    mRvHotelGallery.setAdapter(mGalleryAdapter);
-    mHotelNearby = findViewById(R.id.ll__place_hotel_nearby);
-    GridView gvHotelNearby = (GridView) findViewById(R.id.gv__place_hotel_nearby);
-    gvHotelNearby.setAdapter(mNearbyAdapter);
-    mHotelReview = findViewById(R.id.ll__place_hotel_rating);
-    GridView gvHotelReview = (GridView) findViewById(R.id.gv__place_hotel_review);
-    gvHotelReview.setAdapter(mReviewAdapter);
-    mHotelRating = (TextView) findViewById(R.id.tv__place_hotel_rating);
-    mHotelRatingBase = (TextView) findViewById(R.id.tv__place_hotel_rating_base);
-    View hotelMoreReviews = findViewById(R.id.tv__place_hotel_reviews_more);
-    hotelMoreReviews.setOnClickListener(this);
+    initHotelDescriptionView();
+    initHotelFacilitiesView();
+    initHotelGalleryView();
+    initHotelNearbyView();
+    initHotelRatingView();
 
     mButtons = new PlacePageButtons(this, ppButtons, new PlacePageButtons.ItemListener()
     {
@@ -357,21 +325,21 @@ public class PlacePageView extends RelativeLayout
 
         switch (item)
         {
-        case BOOKING:
-          frame.setBackgroundResource(R.drawable.button_booking);
-          color = Color.WHITE;
-          break;
+          case BOOKING:
+            frame.setBackgroundResource(R.drawable.button_booking);
+            color = Color.WHITE;
+            break;
 
-        case BOOKMARK:
-          mBookmarkButtonIcon = icon;
-          updateButtons();
-          color = ThemeUtils.getColor(getContext(), R.attr.iconTint);
-          break;
+          case BOOKMARK:
+            mBookmarkButtonIcon = icon;
+            updateButtons();
+            color = ThemeUtils.getColor(getContext(), R.attr.iconTint);
+            break;
 
-        default:
-          color = ThemeUtils.getColor(getContext(), R.attr.iconTint);
-          icon.setColorFilter(color);
-          break;
+          default:
+            color = ThemeUtils.getColor(getContext(), R.attr.iconTint);
+            icon.setColorFilter(color);
+            break;
         }
 
         title.setTextColor(color);
@@ -412,62 +380,63 @@ public class PlacePageView extends RelativeLayout
             hide();
           break;
 
-        case ROUTE_TO:
-          if (RoutingController.get().isPlanning())
-          {
-            if (RoutingController.get().setEndPoint(mMapObject))
-              hide();
-          }
-          else
-          {
-            getActivity().startLocationToPoint(Statistics.EventName.PP_ROUTE, AlohaHelper.PP_ROUTE, getMapObject());
-          }
-          break;
+          case ROUTE_TO:
+            if (RoutingController.get().isPlanning())
+            {
+              if (RoutingController.get().setEndPoint(mMapObject))
+                hide();
+            }
+            else
+            {
+              getActivity().startLocationToPoint(Statistics.EventName.PP_ROUTE, AlohaHelper.PP_ROUTE, getMapObject());
+            }
+            break;
 
-        case BOOKING:
-          onBookingClick(true /* book */);
-          break;
+          case BOOKING:
+            onBookingClick(true /* book */);
+            break;
         }
       }
     });
 
     mDownloaderIcon = new DownloaderStatusIcon(mPreview.findViewById(R.id.downloader_status_frame))
-                          .setOnIconClickListener(new OnClickListener()
-                          {
-                            @Override
-                            public void onClick(View v)
-                            {
-                              MapManager.warn3gAndDownload(getActivity(), mCurrentCountry.id, new Runnable()
-                              {
-                                @Override
-                                public void run()
-                                {
-                                  Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
-                                                                 Statistics.params()
-                                                                           .add(Statistics.EventParam.ACTION, "download")
-                                                                           .add(Statistics.EventParam.FROM, "placepage")
-                                                                           .add("is_auto", "false")
-                                                                           .add("scenario", (mCurrentCountry.isExpandable() ? "download_group"
-                                                                                                                            : "download")));
-                                }
-                              });
-                            }
-                          }).setOnCancelClickListener(new OnClickListener()
-                          {
-                            @Override
-                            public void onClick(View v)
-                            {
-                              MapManager.nativeCancel(mCurrentCountry.id);
-                              Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
-                                                             Statistics.params().add(Statistics.EventParam.FROM, "placepage"));
-                            }
-                          });
+        .setOnIconClickListener(new OnClickListener()
+        {
+          @Override
+          public void onClick(View v)
+          {
+            MapManager.warn3gAndDownload(getActivity(), mCurrentCountry.id, new Runnable()
+            {
+              @Override
+              public void run()
+              {
+                Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
+                                               Statistics.params()
+                                                         .add(Statistics.EventParam.ACTION, "download")
+                                                         .add(Statistics.EventParam.FROM, "placepage")
+                                                         .add("is_auto", "false")
+                                                         .add("scenario", (mCurrentCountry.isExpandable() ? "download_group"
+                                                                                                          : "download")));
+              }
+            });
+          }
+        }).setOnCancelClickListener(new OnClickListener()
+        {
+          @Override
+          public void onClick(View v)
+          {
+            MapManager.nativeCancel(mCurrentCountry.id);
+            Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
+                                           Statistics.params()
+                                                     .add(Statistics.EventParam.FROM, "placepage"));
+          }
+        });
 
     mDownloaderInfo = (TextView) mPreview.findViewById(R.id.tv__downloader_details);
 
     mShadowController = new ScrollViewShadowController((ObservableScrollView) mDetails)
-                            .addBottomShadow()
-                            .attach();
+        .addBottomShadow()
+        .attach();
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
       setElevation(UiUtils.dimen(R.dimen.placepage_elevation));
@@ -479,8 +448,58 @@ public class PlacePageView extends RelativeLayout
     SponsoredHotel.setInfoListener(this);
   }
 
+  private void initHotelRatingView()
+  {
+    mHotelReview = findViewById(R.id.ll__place_hotel_rating);
+    GridView gvHotelReview = (GridView) findViewById(R.id.gv__place_hotel_review);
+    gvHotelReview.setAdapter(mReviewAdapter);
+    mHotelRating = (TextView) findViewById(R.id.tv__place_hotel_rating);
+    mHotelRatingBase = (TextView) findViewById(R.id.tv__place_hotel_rating_base);
+    View hotelMoreReviews = findViewById(R.id.tv__place_hotel_reviews_more);
+    hotelMoreReviews.setOnClickListener(this);
+  }
+
+  private void initHotelNearbyView()
+  {
+    mHotelNearby = findViewById(R.id.ll__place_hotel_nearby);
+    GridView gvHotelNearby = (GridView) findViewById(R.id.gv__place_hotel_nearby);
+    gvHotelNearby.setAdapter(mNearbyAdapter);
+  }
+
+  private void initHotelGalleryView()
+  {
+    mHotelGallery = findViewById(R.id.ll__place_hotel_gallery);
+    mRvHotelGallery = (RecyclerView) findViewById(
+        R.id.rv__place_hotel_gallery);
+    mRvHotelGallery.setLayoutManager(new LinearLayoutManager(getContext(),
+                                                             LinearLayoutManager.HORIZONTAL, false));
+    mRvHotelGallery.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getContext(),
+                                                                                          R.drawable.divider_transparent)));
+    mGalleryAdapter.setListener(this);
+    mRvHotelGallery.setAdapter(mGalleryAdapter);
+  }
+
+  private void initHotelFacilitiesView()
+  {
+    mHotelFacilities = findViewById(R.id.ll__place_hotel_facilities);
+    GridView gvHotelFacilities = (GridView) findViewById(R.id.gv__place_hotel_facilities);
+    mHotelMoreFacilities = findViewById(R.id.tv__place_hotel_facilities_more);
+    gvHotelFacilities.setAdapter(mFacilitiesAdapter);
+    mHotelMoreFacilities.setOnClickListener(this);
+  }
+
+  private void initHotelDescriptionView()
+  {
+    mHotelDescription = findViewById(R.id.ll__place_hotel_description);
+    mTvHotelDescription = (LineCountTextView) findViewById(R.id.tv__place_hotel_details);
+    mHotelMoreDescription = findViewById(R.id.tv__place_hotel_more);
+    mTvHotelDescription.setListener(this);
+    mHotelMoreDescription.setOnClickListener(this);
+  }
+
   @Override
-  public void onPriceReceived(String id, String price, String currencyCode)
+  public void onPriceReceived(@NonNull String id, @NonNull String price,
+                              @NonNull String currencyCode)
   {
     if (mSponsoredHotel == null || !TextUtils.equals(id, mSponsoredHotel.getId()))
       return;
@@ -500,67 +519,98 @@ public class PlacePageView extends RelativeLayout
   }
 
   @Override
-  public void onInfoReceived(String id, SponsoredHotel.HotelInfo info) {
-    if (mSponsoredHotel == null || !TextUtils.equals(id, mSponsoredHotel.getId())) {
+  public void onInfoReceived(@NonNull String id, @NonNull SponsoredHotel.HotelInfo info)
+  {
+    if (mSponsoredHotel == null || !TextUtils.equals(id, mSponsoredHotel.getId()))
       return;
-    }
 
-    mTvHotelDescription.setMaxLines(5);
-    refreshMetadataOrHide(info.description, mHotelDescription, mTvHotelDescription);
-    mHotelMoreDescription.setVisibility(GONE);
+    updateHotelDetails(info);
+    updateHotelFacilities(info);
+    updateHotelGallery(info);
+    updateHotelNearby(info);
+    updateHotelRating(info);
+  }
 
-    if (info.facilities == null || info.facilities.length == 0) {
-      UiUtils.hide(mHotelFacilities);
-    } else {
-      UiUtils.show(mHotelFacilities);
-      mFacilitiesAdapter.setShowAll(false);
-      mFacilitiesAdapter.setItems(Arrays.asList(info.facilities));
-      mHotelMoreFacilities.setVisibility(info.facilities.length > FacilitiesAdapter.MAX_COUNT
-              ? VISIBLE : GONE);
-    }
-
-    if (info.photos == null || info.photos.length == 0) {
-      UiUtils.hide(mHotelGallery);
-    } else {
-      UiUtils.show(mHotelGallery);
-      mGalleryAdapter.setItems(new ArrayList<>(Arrays.asList(info.photos)));
-      mRvHotelGallery.scrollToPosition(0);
-    }
-
-    if (info.nearby == null || info.nearby.length == 0) {
-      UiUtils.hide(mHotelNearby);
-    } else {
-      UiUtils.show(mHotelNearby);
-      mNearbyAdapter.setItems(Arrays.asList(info.nearby));
-    }
-
-    if (info.reviews == null || info.reviews.length == 0) {
+  private void updateHotelRating(@NonNull SponsoredHotel.HotelInfo info)
+  {
+    if (info.mReviews == null || info.mReviews.length == 0)
       UiUtils.hide(mHotelReview);
-    } else {
+    else
+    {
       UiUtils.show(mHotelReview);
-      mReviewAdapter.setItems(new ArrayList<>(Arrays.asList(info.reviews)));
-      mHotelRating.setText(mSponsoredHotel.rating);
+      mReviewAdapter.setItems(new ArrayList<>(Arrays.asList(info.mReviews)));
+      mHotelRating.setText(mSponsoredHotel.mRating);
       mHotelRatingBase.setText(getResources().getQuantityString(R.plurals.place_page_booking_rating_base,
-              info.reviews.length, info.reviews.length));
+                                                                info.mReviews.length, info.mReviews.length));
     }
   }
 
+  private void updateHotelNearby(@NonNull SponsoredHotel.HotelInfo info)
+  {
+    if (info.mNearby == null || info.mNearby.length == 0)
+      UiUtils.hide(mHotelNearby);
+    else
+    {
+      UiUtils.show(mHotelNearby);
+      mNearbyAdapter.setItems(Arrays.asList(info.mNearby));
+    }
+  }
+
+  private void updateHotelGallery(@NonNull SponsoredHotel.HotelInfo info)
+  {
+    if (info.mPhotos == null || info.mPhotos.length == 0)
+      UiUtils.hide(mHotelGallery);
+    else
+    {
+      UiUtils.show(mHotelGallery);
+      mGalleryAdapter.setItems(new ArrayList<>(Arrays.asList(info.mPhotos)));
+      mRvHotelGallery.scrollToPosition(0);
+    }
+  }
+
+  private void updateHotelFacilities(@NonNull SponsoredHotel.HotelInfo info)
+  {
+    if (info.mFacilities == null || info.mFacilities.length == 0)
+      UiUtils.hide(mHotelFacilities);
+    else
+    {
+      UiUtils.show(mHotelFacilities);
+      mFacilitiesAdapter.setShowAll(false);
+      mFacilitiesAdapter.setItems(Arrays.asList(info.mFacilities));
+      mHotelMoreFacilities.setVisibility(info.mFacilities.length > FacilitiesAdapter.MAX_COUNT
+                                         ? VISIBLE : GONE);
+    }
+  }
+
+  private void updateHotelDetails(@NonNull SponsoredHotel.HotelInfo info)
+  {
+    mTvHotelDescription.setMaxLines(getResources().getInteger(R.integer.pp_hotel_description_lines));
+    refreshMetadataOrHide(info.mDescription, mHotelDescription, mTvHotelDescription);
+    mHotelMoreDescription.setVisibility(GONE);
+  }
+
   @Override
-  public void onLineCountCalculated(boolean grater) {
+  public void onLineCountCalculated(boolean grater)
+  {
     mHotelMoreDescription.setVisibility(grater ? VISIBLE : GONE);
   }
 
   @Override
-  public void onItemClick(View v, int position) {
-    if (position == GalleryAdapter.MAX_COUNT - 1) {
+  public void onItemClick(View v, int position)
+  {
+    if (position == GalleryAdapter.MAX_COUNT - 1)
+    {
       GalleryActivity.start(getContext(), mGalleryAdapter.getItems(), mMapObject.getTitle());
-    } else {
+    }
+    else
+    {
       FullScreenGalleryActivity.start(getContext(), mGalleryAdapter.getItems(), position);
     }
   }
 
   @Override
-  public void onItemClick(SponsoredHotel.NearbyObject item) {
+  public void onItemClick(@NonNull SponsoredHotel.NearbyObject item)
+  {
 //  TODO go to selected object on map
   }
 
@@ -593,7 +643,7 @@ public class PlacePageView extends RelativeLayout
 
         try
         {
-          followUrl(book ? info.urlBook : info.urlDescription);
+          followUrl(book ? info.mUrlBook : info.mUrlDescription);
         } catch (ActivityNotFoundException e)
         {
           AlohaHelper.logException(e);
@@ -622,7 +672,7 @@ public class PlacePageView extends RelativeLayout
   public void restore()
   {
 //    if (mMapObject != null)
-      // FIXME query map object again
+    // FIXME query map object again
   }
 
   @Override
@@ -679,7 +729,7 @@ public class PlacePageView extends RelativeLayout
 
   /**
    * @param mapObject new MapObject
-   * @param force if true, new object'll be set without comparison with the old one
+   * @param force     if true, new object'll be set without comparison with the old one
    */
   public void setMapObject(MapObject mapObject, boolean force)
   {
@@ -695,7 +745,7 @@ public class PlacePageView extends RelativeLayout
       if (mSponsoredHotel != null)
       {
         mSponsoredHotel.updateId(mMapObject);
-        mSponsoredHotelPrice = mSponsoredHotel.price;
+        mSponsoredHotelPrice = mSponsoredHotel.mPrice;
 
         Locale locale = Locale.getDefault();
         Currency currency = Currency.getInstance(locale);
@@ -722,27 +772,27 @@ public class PlacePageView extends RelativeLayout
 
     switch (mMapObject.getMapObjectType())
     {
-    case MapObject.BOOKMARK:
-      refreshDistanceToObject(loc);
-      showBookmarkDetails();
-      setButtons(false, true);
-      break;
-    case MapObject.POI:
-    case MapObject.SEARCH:
-      refreshDistanceToObject(loc);
-      hideBookmarkDetails();
-      setButtons(false, true);
-      break;
-    case MapObject.API_POINT:
-      refreshDistanceToObject(loc);
-      hideBookmarkDetails();
-      setButtons(true, true);
-      break;
-    case MapObject.MY_POSITION:
-      refreshMyPosition(loc);
-      hideBookmarkDetails();
-      setButtons(false, false);
-      break;
+      case MapObject.BOOKMARK:
+        refreshDistanceToObject(loc);
+        showBookmarkDetails();
+        setButtons(false, true);
+        break;
+      case MapObject.POI:
+      case MapObject.SEARCH:
+        refreshDistanceToObject(loc);
+        hideBookmarkDetails();
+        setButtons(false, true);
+        break;
+      case MapObject.API_POINT:
+        refreshDistanceToObject(loc);
+        hideBookmarkDetails();
+        setButtons(true, true);
+        break;
+      case MapObject.MY_POSITION:
+        refreshMyPosition(loc);
+        hideBookmarkDetails();
+        setButtons(false, false);
+        break;
     }
 
     UiThread.runLater(new Runnable()
@@ -787,7 +837,7 @@ public class PlacePageView extends RelativeLayout
     UiUtils.showIf(sponsored, mHotelInfo);
     if (sponsored)
     {
-      mTvHotelRating.setText(mSponsoredHotel.rating);
+      mTvHotelRating.setText(mSponsoredHotel.mRating);
       UiUtils.setTextAndHideIfEmpty(mTvHotelPrice, mSponsoredHotelPrice);
     }
   }
@@ -806,7 +856,8 @@ public class PlacePageView extends RelativeLayout
       UiUtils.hide(mHotelNearby);
       UiUtils.hide(mHotelReview);
     }
-    else {
+    else
+    {
       UiUtils.hide(mWebsite);
     }
 
@@ -970,8 +1021,11 @@ public class PlacePageView extends RelativeLayout
       return;
 
     mTvDistance.setVisibility(View.VISIBLE);
-    DistanceAndAzimut distanceAndAzimuth = Framework.nativeGetDistanceAndAzimuthFromLatLon(mMapObject.getLat(), mMapObject.getLon(),
-                                                                                           l.getLatitude(), l.getLongitude(), 0.0);
+    DistanceAndAzimut distanceAndAzimuth = Framework.nativeGetDistanceAndAzimuthFromLatLon(mMapObject
+                                                                                               .getLat(), mMapObject
+                                                                                               .getLon(),
+                                                                                           l.getLatitude(), l
+                                                                                               .getLongitude(), 0.0);
     mTvDistance.setText(distanceAndAzimuth.getDistance());
   }
 
@@ -999,16 +1053,18 @@ public class PlacePageView extends RelativeLayout
   public void refreshAzimuth(double northAzimuth)
   {
     if (isHidden() ||
-            mMapObject == null ||
-            MapObject.isOfType(MapObject.MY_POSITION, mMapObject))
+        mMapObject == null ||
+        MapObject.isOfType(MapObject.MY_POSITION, mMapObject))
       return;
 
     final Location location = LocationHelper.INSTANCE.getSavedLocation();
     if (location == null)
       return;
 
-    final double azimuth = Framework.nativeGetDistanceAndAzimuthFromLatLon(mMapObject.getLat(), mMapObject.getLon(),
-                                                                           location.getLatitude(), location.getLongitude(),
+    final double azimuth = Framework.nativeGetDistanceAndAzimuthFromLatLon(mMapObject.getLat(), mMapObject
+                                                                               .getLon(),
+                                                                           location.getLatitude(), location
+                                                                               .getLongitude(),
                                                                            northAzimuth)
                                     .getAzimuth();
     if (azimuth >= 0)
@@ -1026,7 +1082,8 @@ public class PlacePageView extends RelativeLayout
   private void addOrganisation()
   {
     Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_ADD_CLICK,
-                                   Statistics.params().add(Statistics.EventParam.FROM, "placepage"));
+                                   Statistics.params()
+                                             .add(Statistics.EventParam.FROM, "placepage"));
     getActivity().showPositionChooser(true, false);
   }
 
@@ -1041,68 +1098,69 @@ public class PlacePageView extends RelativeLayout
   {
     switch (v.getId())
     {
-    case R.id.ll__place_editor:
-      getActivity().showEditor();
-      break;
-    case R.id.ll__add_organisation:
-      addOrganisation();
-      break;
-    case R.id.ll__place_add:
-      addPlace();
-      break;
-    case R.id.ll__more:
-      onBookingClick(false /* book */);
-      break;
-    case R.id.ll__place_latlon:
-      mIsLatLonDms = !mIsLatLonDms;
-      MwmApplication.prefs().edit().putBoolean(PREF_USE_DMS, mIsLatLonDms).commit();
-      refreshLatLon();
-      break;
-    case R.id.ll__place_phone:
-      Intent intent = new Intent(Intent.ACTION_DIAL);
-      intent.setData(Uri.parse("tel:" + mTvPhone.getText()));
-      try
-      {
+      case R.id.ll__place_editor:
+        getActivity().showEditor();
+        break;
+      case R.id.ll__add_organisation:
+        addOrganisation();
+        break;
+      case R.id.ll__place_add:
+        addPlace();
+        break;
+      case R.id.ll__more:
+        onBookingClick(false /* book */);
+        break;
+      case R.id.ll__place_latlon:
+        mIsLatLonDms = !mIsLatLonDms;
+        MwmApplication.prefs().edit().putBoolean(PREF_USE_DMS, mIsLatLonDms).commit();
+        refreshLatLon();
+        break;
+      case R.id.ll__place_phone:
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:" + mTvPhone.getText()));
+        try
+        {
+          getContext().startActivity(intent);
+        } catch (ActivityNotFoundException e)
+        {
+          AlohaHelper.logException(e);
+        }
+        break;
+      case R.id.ll__place_website:
+        followUrl(mTvWebsite.getText().toString());
+        break;
+      case R.id.ll__place_wiki:
+        // TODO: Refactor and use separate getters for Wiki and all other PP meta info too.
+        followUrl(mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA));
+        break;
+      case R.id.direction_frame:
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_DIRECTION_ARROW);
+        AlohaHelper.logClick(AlohaHelper.PP_DIRECTION_ARROW);
+        showBigDirection();
+        break;
+      case R.id.ll__place_email:
+        intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Utils.buildMailUri(mTvEmail.getText().toString(), "", ""));
         getContext().startActivity(intent);
-      } catch (ActivityNotFoundException e)
-      {
-        AlohaHelper.logException(e);
-      }
-      break;
-    case R.id.ll__place_website:
-      followUrl(mTvWebsite.getText().toString());
-      break;
-    case R.id.ll__place_wiki:
-      // TODO: Refactor and use separate getters for Wiki and all other PP meta info too.
-      followUrl(mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA));
-      break;
-    case R.id.direction_frame:
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_DIRECTION_ARROW);
-      AlohaHelper.logClick(AlohaHelper.PP_DIRECTION_ARROW);
-      showBigDirection();
-      break;
-    case R.id.ll__place_email:
-      intent = new Intent(Intent.ACTION_SENDTO);
-      intent.setData(Utils.buildMailUri(mTvEmail.getText().toString(), "", ""));
-      getContext().startActivity(intent);
-      break;
-    case R.id.tv__bookmark_edit:
-      Bookmark bookmark = (Bookmark) mMapObject;
-      EditBookmarkFragment.editBookmark(bookmark.getCategoryId(), bookmark.getBookmarkId(),
-                                        getActivity(), getActivity().getSupportFragmentManager());
-      break;
-    case R.id.tv__place_hotel_more:
-      UiUtils.hide(mHotelMoreDescription);
-      mTvHotelDescription.setMaxLines(Integer.MAX_VALUE);
-      break;
-    case R.id.tv__place_hotel_facilities_more:
-      UiUtils.hide(mHotelMoreFacilities);
-      mFacilitiesAdapter.setShowAll(true);
-      break;
-    case R.id.tv__place_hotel_reviews_more:
-      ReviewActivity.start(getContext(), mReviewAdapter.getItems(), mMapObject.getTitle(),
-              mSponsoredHotel.rating, mReviewAdapter.getItems().size(), mSponsoredHotel.urlBook);
-      break;
+        break;
+      case R.id.tv__bookmark_edit:
+        Bookmark bookmark = (Bookmark) mMapObject;
+        EditBookmarkFragment.editBookmark(bookmark.getCategoryId(), bookmark.getBookmarkId(),
+                                          getActivity(), getActivity().getSupportFragmentManager());
+        break;
+      case R.id.tv__place_hotel_more:
+        UiUtils.hide(mHotelMoreDescription);
+        mTvHotelDescription.setMaxLines(Integer.MAX_VALUE);
+        break;
+      case R.id.tv__place_hotel_facilities_more:
+        UiUtils.hide(mHotelMoreFacilities);
+        mFacilitiesAdapter.setShowAll(true);
+        break;
+      case R.id.tv__place_hotel_reviews_more:
+        ReviewActivity.start(getContext(), mReviewAdapter.getItems(), mMapObject.getTitle(),
+                             mSponsoredHotel.mRating, mReviewAdapter.getItems()
+                                                                    .size(), mSponsoredHotel.mUrlBook);
+        break;
     }
   }
 
@@ -1134,7 +1192,8 @@ public class PlacePageView extends RelativeLayout
 
   private void showBigDirection()
   {
-    final DirectionFragment fragment = (DirectionFragment) Fragment.instantiate(getActivity(), DirectionFragment.class.getName(), null);
+    final DirectionFragment fragment = (DirectionFragment) Fragment.instantiate(getActivity(), DirectionFragment.class
+        .getName(), null);
     fragment.setMapObject(mMapObject);
     fragment.show(getActivity().getSupportFragmentManager(), null);
   }
@@ -1151,30 +1210,30 @@ public class PlacePageView extends RelativeLayout
     final List<String> items = new ArrayList<>();
     switch (v.getId())
     {
-    case R.id.ll__place_latlon:
-      final double lat = mMapObject.getLat();
-      final double lon = mMapObject.getLon();
-      items.add(Framework.nativeFormatLatLon(lat, lon, false));
-      items.add(Framework.nativeFormatLatLon(lat, lon, true));
-      break;
-    case R.id.ll__place_website:
-      items.add(mTvWebsite.getText().toString());
-      break;
-    case R.id.ll__place_email:
-      items.add(mTvEmail.getText().toString());
-      break;
-    case R.id.ll__place_phone:
-      items.add(mTvPhone.getText().toString());
-      break;
-    case R.id.ll__place_schedule:
-      items.add(mFullOpeningHours.getText().toString());
-      break;
-    case R.id.ll__place_operator:
-      items.add(mTvOperator.getText().toString());
-      break;
-    case R.id.ll__place_wiki:
-      items.add(mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA));
-      break;
+      case R.id.ll__place_latlon:
+        final double lat = mMapObject.getLat();
+        final double lon = mMapObject.getLon();
+        items.add(Framework.nativeFormatLatLon(lat, lon, false));
+        items.add(Framework.nativeFormatLatLon(lat, lon, true));
+        break;
+      case R.id.ll__place_website:
+        items.add(mTvWebsite.getText().toString());
+        break;
+      case R.id.ll__place_email:
+        items.add(mTvEmail.getText().toString());
+        break;
+      case R.id.ll__place_phone:
+        items.add(mTvPhone.getText().toString());
+        break;
+      case R.id.ll__place_schedule:
+        items.add(mFullOpeningHours.getText().toString());
+        break;
+      case R.id.ll__place_operator:
+        items.add(mTvOperator.getText().toString());
+        break;
+      case R.id.ll__place_wiki:
+        items.add(mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA));
+        break;
     }
 
     final String copyText = getResources().getString(android.R.string.copy);

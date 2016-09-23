@@ -1,26 +1,24 @@
 package com.mapswithme.maps.review;
 
-import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.BaseMwmFragmentActivity;
-import com.mapswithme.util.UiUtils;
-
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
+
+import com.mapswithme.maps.base.BaseMwmExtraTitleActivity;
 
 import java.util.ArrayList;
 
-public class ReviewActivity extends BaseMwmFragmentActivity {
+public class ReviewActivity extends BaseMwmExtraTitleActivity
+{
   static final String EXTRA_REVIEWS = "review_items";
-  static final String EXTRA_TITLE = "review_title";
   static final String EXTRA_RATING = "review_rating";
   static final String EXTRA_RATING_BASE = "review_rating_base";
   static final String EXTRA_RATING_URL = "review_rating_url";
 
-  public static void start(Context context, ArrayList<Review> items, String title,
-          String rating, int ratingBase, String url)
+  public static void start(Context context, @NonNull ArrayList<Review> items,
+                           @NonNull String title, @NonNull String rating, int ratingBase,
+                           @NonNull String url)
   {
     final Intent i = new Intent(context, ReviewActivity.class);
     i.putParcelableArrayListExtra(EXTRA_REVIEWS, items);
@@ -32,32 +30,8 @@ public class ReviewActivity extends BaseMwmFragmentActivity {
   }
 
   @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-
-    String title = "";
-    Bundle bundle = getIntent().getExtras();
-    if (bundle != null) {
-      title = bundle.getString(EXTRA_TITLE);
-    }
-    Toolbar toolbar = getToolbar();
-    toolbar.setTitle(title);
-    UiUtils.showHomeUpButton(toolbar);
-    displayToolbarAsActionBar();
-  }
-
-  @Override
-  protected Class<? extends Fragment> getFragmentClass() {
+  protected Class<? extends Fragment> getFragmentClass()
+  {
     return ReviewFragment.class;
-  }
-
-  @Override
-  protected int getContentLayoutResId() {
-    return R.layout.activity_fragment_and_toolbar;
-  }
-
-  @Override
-  protected int getFragmentContentResId() {
-    return R.id.fragment_container;
   }
 }

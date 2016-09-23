@@ -2,26 +2,30 @@ package com.mapswithme.maps.review;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
-public class Review implements Parcelable {
+public class Review implements Parcelable
+{
 
+  @Nullable
   private final String mReview;
-
+  @Nullable
   private final String mReviewPositive;
-
+  @Nullable
   private final String mReviewNegative;
-
+  @NonNull
   private final String mAuthor;
-
+  @NonNull
   private final String mAuthorAvatar;
-
   private final float mRating;
-
   private final long mDate;
 
-  public Review(String review, String reviewPositive, String reviewNegative, String author,
-          String authorAvatar,
-          float rating, long date) {
+  public Review(@Nullable String review, @Nullable String reviewPositive,
+                @Nullable String reviewNegative, @NonNull String author,
+                @NonNull String authorAvatar,
+                float rating, long date)
+  {
     mReview = review;
     mReviewPositive = reviewPositive;
     mReviewNegative = reviewNegative;
@@ -31,7 +35,8 @@ public class Review implements Parcelable {
     mDate = date;
   }
 
-  protected Review(Parcel in) {
+  protected Review(Parcel in)
+  {
     mReview = in.readString();
     mReviewPositive = in.readString();
     mReviewNegative = in.readString();
@@ -42,7 +47,8 @@ public class Review implements Parcelable {
   }
 
   @Override
-  public void writeToParcel(Parcel dest, int flags) {
+  public void writeToParcel(Parcel dest, int flags)
+  {
     dest.writeString(mReview);
     dest.writeString(mReviewPositive);
     dest.writeString(mReviewNegative);
@@ -53,48 +59,64 @@ public class Review implements Parcelable {
   }
 
   @Override
-  public int describeContents() {
+  public int describeContents()
+  {
     return 0;
   }
 
-  public static final Creator<Review> CREATOR = new Creator<Review>() {
+  public static final Creator<Review> CREATOR = new Creator<Review>()
+  {
     @Override
-    public Review createFromParcel(Parcel in) {
+    public Review createFromParcel(Parcel in)
+    {
       return new Review(in);
     }
 
     @Override
-    public Review[] newArray(int size) {
+    public Review[] newArray(int size)
+    {
       return new Review[size];
     }
   };
 
-  public String getReview() {
+  @Nullable
+  public String getReview()
+  {
     return mReview;
   }
 
-  public String getReviewPositive() {
+  @Nullable
+  public String getReviewPositive()
+  {
     return mReviewPositive;
   }
 
-  public String getReviewNegative() {
+  @Nullable
+  public String getReviewNegative()
+  {
     return mReviewNegative;
   }
 
-  public String getAuthor() {
+  @NonNull
+  public String getAuthor()
+  {
     return mAuthor;
   }
 
   @SuppressWarnings("unused")
-  public String getAuthorAvatar() {
+  @NonNull
+  public String getAuthorAvatar()
+  {
     return mAuthorAvatar;
   }
 
-  public float getRating() {
+  public float getRating()
+  {
     return mRating;
   }
 
-  public long getDate() {
+  public long getDate()
+  {
     return mDate;
   }
 }

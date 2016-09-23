@@ -11,32 +11,32 @@
               tools:visibility="visible">
 
   <TextView
-          android:layout_marginLeft="@dimen/margin_base"
-          android:layout_marginRight="@dimen/margin_base"
-          android:layout_marginTop="@dimen/margin_base"
-          style="@style/PlacePageTitleText"
-          android:text="@string/placepage_hotel_facilities"/>
+    android:layout_marginLeft="@dimen/margin_base"
+    android:layout_marginRight="@dimen/margin_base"
+    android:layout_marginTop="@dimen/margin_base"
+    style="@style/PlacePageTitleText"
+    android:text="@string/placepage_hotel_facilities"/>
 
   <com.mapswithme.maps.widget.StaticGridView
-          android:id="@+id/gv__place_hotel_facilities"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginLeft="@dimen/margin_base"
-          android:layout_marginRight="@dimen/margin_base"
-          android:layout_marginTop="@dimen/margin_base"
-          android:layout_marginBottom="@dimen/margin_base"
-          android:numColumns="2"
-          tools:listitem="@layout/item_facility"/>
+    android:id="@+id/gv__place_hotel_facilities"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/margin_base"
+    android:layout_marginRight="@dimen/margin_base"
+    android:layout_marginTop="@dimen/margin_base"
+    android:layout_marginBottom="@dimen/margin_base"
+    android:numColumns="2"
+    tools:listitem="@layout/item_facility"/>
 
   <TextView
-          android:id="@+id/tv__place_hotel_facilities_more"
-          style="@style/PlacePageMetadataText.Button"
-          android:layout_marginLeft="@dimen/margin_base"
-          android:layout_marginRight="@dimen/margin_base"
-          android:height="@dimen/height_block_base"
-          android:background="?clickableBackground"
-          android:gravity="center"
-          android:text="@string/placepage_more_button"/>
+    android:id="@+id/tv__place_hotel_facilities_more"
+    style="@style/PlacePageMetadataText.Button"
+    android:layout_marginLeft="@dimen/margin_base"
+    android:layout_marginRight="@dimen/margin_base"
+    android:height="@dimen/height_block_base"
+    android:background="?clickableBackground"
+    android:gravity="center"
+    android:text="@string/placepage_more_button"/>
 
   <include layout="@layout/divider_horizontal"/>
 </LinearLayout>

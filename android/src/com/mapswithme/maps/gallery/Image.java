@@ -2,107 +2,143 @@ package com.mapswithme.maps.gallery;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
-public class Image implements Parcelable {
-  private final String url;
-  private final String smallUrl;
-  private String description;
-  private String userName;
-  private String userAvatar;
-  private String source;
-  private Long date;
+public class Image implements Parcelable
+{
+  @NonNull
+  private final String mUrl;
+  @NonNull
+  private final String mSmallUrl;
+  @Nullable
+  private String mDescription;
+  @Nullable
+  private String mUserName;
+  @Nullable
+  private String mUserAvatar;
+  @Nullable
+  private String mSource;
+  @Nullable
+  private Long mDate;
 
   @SuppressWarnings("unused")
-  public Image(String url, String smallUrl) {
-    this.url = url;
-    this.smallUrl = smallUrl;
+  public Image(@NonNull String url, @NonNull String smallUrl)
+  {
+    this.mUrl = url;
+    this.mSmallUrl = smallUrl;
   }
 
-  protected Image(Parcel in) {
-    url = in.readString();
-    smallUrl = in.readString();
-    description = in.readString();
-    userName = in.readString();
-    userAvatar = in.readString();
-    source = in.readString();
-    date = (Long) in.readValue(Long.class.getClassLoader());
-  }
-
-  @Override
-  public void writeToParcel(Parcel dest, int flags) {
-    dest.writeString(url);
-    dest.writeString(smallUrl);
-    dest.writeString(description);
-    dest.writeString(userName);
-    dest.writeString(userAvatar);
-    dest.writeString(source);
-    dest.writeValue(date);
+  protected Image(Parcel in)
+  {
+    mUrl = in.readString();
+    mSmallUrl = in.readString();
+    mDescription = in.readString();
+    mUserName = in.readString();
+    mUserAvatar = in.readString();
+    mSource = in.readString();
+    mDate = (Long) in.readValue(Long.class.getClassLoader());
   }
 
   @Override
-  public int describeContents() {
+  public void writeToParcel(Parcel dest, int flags)
+  {
+    dest.writeString(mUrl);
+    dest.writeString(mSmallUrl);
+    dest.writeString(mDescription);
+    dest.writeString(mUserName);
+    dest.writeString(mUserAvatar);
+    dest.writeString(mSource);
+    dest.writeValue(mDate);
+  }
+
+  @Override
+  public int describeContents()
+  {
     return 0;
   }
 
-  public static final Creator<Image> CREATOR = new Creator<Image>() {
+  public static final Creator<Image> CREATOR = new Creator<Image>()
+  {
     @Override
-    public Image createFromParcel(Parcel in) {
+    public Image createFromParcel(Parcel in)
+    {
       return new Image(in);
     }
 
     @Override
-    public Image[] newArray(int size) {
+    public Image[] newArray(int size)
+    {
       return new Image[size];
     }
   };
 
-  public String getUrl() {
-    return url;
+  @NonNull
+  public String getUrl()
+  {
+    return mUrl;
   }
 
-  public String getSmallUrl() {
-    return smallUrl;
+  @NonNull
+  public String getSmallUrl()
+  {
+    return mSmallUrl;
   }
 
-  public String getDescription() {
-    return description;
+  @Nullable
+  public String getDescription()
+  {
+    return mDescription;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
+  public void setDescription(@Nullable String description)
+  {
+    this.mDescription = description;
   }
 
-  String getUserName() {
-    return userName;
+  @Nullable
+  String getUserName()
+  {
+    return mUserName;
   }
 
   @SuppressWarnings("unused")
-  public void setUserName(String userName) {
-    this.userName = userName;
+  public void setUserName(@Nullable String userName)
+  {
+    this.mUserName = userName;
   }
 
-  String getUserAvatar() {
-    return userAvatar;
+  @Nullable
+  String getUserAvatar()
+  {
+    return mUserAvatar;
   }
 
   @SuppressWarnings("unused")
-  public void setUserAvatar(String userAvatar) {
-    this.userAvatar = userAvatar;
+  public void setUserAvatar(@Nullable String userAvatar)
+  {
+    this.mUserAvatar = userAvatar;
   }
 
-  public String getSource() {
-    return source;
+  @Nullable
+  public String getSource()
+  {
+    return mSource;
   }
 
-  public void setSource(String source) {
-    this.source = source;
+  public void setSource(@Nullable String source)
+  {
+    this.mSource = source;
   }
 
-  public Long getDate() {
-    return date;
+  @Nullable
+  public Long getDate()
+  {
+    return mDate;
   }
 
-  public void setDate(Long date) {
-    this.date = date;
+  public void setDate(@Nullable Long date)
+  {
+    this.mDate = date;
   }
 }

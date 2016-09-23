@@ -20,10 +20,10 @@
     tools:text="Rating: 8.7 (Excellent)"/>
 
   <TextView
-          android:id="@+id/tv__place_hotel_rating_base"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/margin_half"
-          android:textAppearance="@style/MwmTextAppearance.Body3"
-          tools:text="Based on 848 hotel reviews"/>
+    android:id="@+id/tv__place_hotel_rating_base"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_half"
+    android:textAppearance="@style/MwmTextAppearance.Body3"
+    tools:text="Based on 848 hotel reviews"/>
 </LinearLayout>

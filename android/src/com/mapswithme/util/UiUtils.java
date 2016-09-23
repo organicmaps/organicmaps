@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.AnyRes;
@@ -19,6 +20,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -337,6 +339,24 @@ public final class UiUtils
   public static boolean isLandscape(Context context)
   {
     return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+  }
+
+  public static boolean isViewTouched(@NonNull MotionEvent event, @NonNull View view)
+  {
+    if (UiUtils.isHidden(view))
+      return false;
+
+    int x = (int) event.getX();
+    int y = (int) event.getY();
+    int[] location = new int[2];
+    view.getLocationOnScreen(location);
+    int viewX = location[0];
+    int viewY = location[1];
+    int width = view.getWidth();
+    int height = view.getHeight();
+    Rect viewRect = new Rect(viewX, viewY, viewX + width, viewY + height);
+
+    return viewRect.contains(x, y);
   }
 
   // utility class

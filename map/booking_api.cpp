@@ -90,7 +90,7 @@ void BookingApi::GetMinPrice(string const & hotelId, string const & currency,
     }
     catch (my::Json::Exception const & e)
     {
-//      LOG(LERROR, (e.Msg()));
+      LOG(LERROR, (e.Msg()));
       minPrice.clear();
       priceCurrency.clear();
     }

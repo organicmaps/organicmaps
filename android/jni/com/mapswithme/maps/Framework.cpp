@@ -476,7 +476,8 @@ void Framework::RequestBookingMinPrice(string const & hotelId, string const & cu
   return m_work.GetBookingApi().GetMinPrice(hotelId, currencyCode, callback);
 }
 
-void Framework::RequestBookingInfo(string const & hotelId, string const & lang, function<void(BookingApi::HotelInfo const &)> const & callback)
+void Framework::RequestBookingInfo(string const & hotelId, string const & lang,
+                                   function<void(BookingApi::HotelInfo const &)> const & callback)
 {
   return m_work.GetBookingApi().GetHotelInfo(hotelId, lang, callback);
 }

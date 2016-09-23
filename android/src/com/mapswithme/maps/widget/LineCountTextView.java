@@ -6,44 +6,52 @@ import android.text.Layout;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-public class LineCountTextView extends TextView {
+public class LineCountTextView extends TextView
+{
 
-  public interface OnLineCountCalculatedListener {
+  public interface OnLineCountCalculatedListener
+  {
 
     void onLineCountCalculated(boolean grater);
   }
 
   private OnLineCountCalculatedListener mListener;
 
-  public LineCountTextView(Context context) {
+  public LineCountTextView(Context context)
+  {
     super(context);
   }
 
-  public LineCountTextView(Context context, AttributeSet attrs) {
+  public LineCountTextView(Context context, AttributeSet attrs)
+  {
     super(context, attrs);
   }
 
-  public LineCountTextView(Context context, AttributeSet attrs, int defStyleAttr) {
+  public LineCountTextView(Context context, AttributeSet attrs, int defStyleAttr)
+  {
     super(context, attrs, defStyleAttr);
   }
 
   @Override
-  protected void onDraw(Canvas canvas) {
+  protected void onDraw(Canvas canvas)
+  {
     super.onDraw(canvas);
     Layout layout = getLayout();
 
-    if (layout != null) {
+    if (layout != null)
+    {
       int textHeight = layout.getHeight();
       int viewHeight = getHeight();
 
-      if (mListener != null) {
+      if (mListener != null)
+      {
         mListener.onLineCountCalculated(textHeight > viewHeight);
       }
     }
   }
 
-  public void setListener(
-          OnLineCountCalculatedListener listener) {
+  public void setListener(OnLineCountCalculatedListener listener)
+  {
     mListener = listener;
   }
 }

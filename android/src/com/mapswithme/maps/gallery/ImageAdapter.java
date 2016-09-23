@@ -1,51 +1,59 @@
 package com.mapswithme.maps.gallery;
 
-import com.bumptech.glide.Glide;
-import com.mapswithme.maps.R;
-import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
-
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.mapswithme.maps.R;
+import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
+
 import java.util.ArrayList;
 
-class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> {
+class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder>
+{
+  @NonNull
   private final ArrayList<Image> mItems;
+  @Nullable
   private final RecyclerClickListener mListener;
 
-  ImageAdapter(ArrayList<Image> images, RecyclerClickListener listener) {
+  ImageAdapter(@NonNull ArrayList<Image> images, @Nullable RecyclerClickListener listener)
+  {
     mItems = images;
     mListener = listener;
   }
 
   @Override
-  public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+  public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+  {
     return new ViewHolder(LayoutInflater.from(parent.getContext())
-            .inflate(R.layout.item_image, parent, false), mListener);
+                                        .inflate(R.layout.item_image, parent, false), mListener);
   }
 
   @Override
-  public void onBindViewHolder(ViewHolder holder, int position) {
+  public void onBindViewHolder(ViewHolder holder, int position)
+  {
     holder.bind(mItems.get(position), position);
   }
 
   @Override
-  public int getItemCount() {
-    if (mItems == null) {
-      return 0;
-    }
+  public int getItemCount()
+  {
     return mItems.size();
   }
 
-  static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+  static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
+  {
     private ImageView mImage;
     private final RecyclerClickListener mListener;
     private int mPosition;
 
-    public ViewHolder(View itemView, RecyclerClickListener listener) {
+    public ViewHolder(View itemView, RecyclerClickListener listener)
+    {
       super(itemView);
       mListener = listener;
       itemView.setOnClickListener(this);
@@ -53,18 +61,19 @@ class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> {
     }
 
     @Override
-    public void onClick(View v) {
-      if (mListener != null) {
+    public void onClick(View v)
+    {
+      if (mListener != null)
         mListener.onItemClick(v, mPosition);
-      }
     }
 
-    public void bind(Image image, int position) {
+    public void bind(Image image, int position)
+    {
       mPosition = position;
       Glide.with(mImage.getContext())
-              .load(image.getSmallUrl())
-              .centerCrop()
-              .into(mImage);
+           .load(image.getSmallUrl())
+           .centerCrop()
+           .into(mImage);
     }
   }
 }
