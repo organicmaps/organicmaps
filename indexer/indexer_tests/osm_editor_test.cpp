@@ -167,7 +167,7 @@ void EditorTest::GetFeatureTypeInfoTest()
   auto const mwmId = ConstructTestMwm([](TestMwmBuilder & builder)
   {
     TestCafe cafe(m2::PointD(1.0, 1.0), "London Cafe", "en");
-    builder.Add(cafe);
+    builder.Add(cafe);    
   });
 
   ForEachCafeAtPoint(m_index, m2::PointD(1.0, 1.0), [&editor, &mwmId](FeatureType & ft)
@@ -403,8 +403,8 @@ void EditorTest::GetFeatureStatusTest()
     TEST_EQUAL(editor.GetFeatureStatus(ft.GetID()), osm::Editor::FeatureStatus::Deleted, ());
   });
 
-  osm::EditableMapObject emo;  
-  CreateCafeAtPoint({3.0, 3.0}, mwmId, emo);
+  osm::EditableMapObject emo;
+  CreateCafeAtPoint({1.5, 1.5}, mwmId, emo);
 
   TEST_EQUAL(editor.GetFeatureStatus(emo.GetID()), osm::Editor::FeatureStatus::Created, ());
 }
@@ -417,6 +417,8 @@ void EditorTest::IsFeatureUploadedTest()
   {
     TestCafe cafe(m2::PointD(1.0, 1.0), "London Cafe", "en");
     builder.Add(cafe);
+
+    builder.Add(TestPOI(m2::PointD(10, 10), "Corner Post", "default"));
   });
 
   ForEachCafeAtPoint(m_index, m2::PointD(1.0, 1.0), [&editor](FeatureType & ft)
@@ -445,6 +447,8 @@ void EditorTest::DeleteFeatureTest()
   {
     TestCafe cafe(m2::PointD(1.0, 1.0), "London Cafe", "en");
     builder.Add(cafe);
+
+    builder.Add(TestPOI(m2::PointD(10, 10), "Corner Post", "default"));
   });
 
   osm::EditableMapObject emo;
@@ -471,6 +475,8 @@ void EditorTest::ClearAllLocalEditsTest()
   {
     TestCafe cafe(m2::PointD(1.0, 1.0), "London Cafe", "en");
     builder.Add(cafe);
+
+    builder.Add(TestPOI(m2::PointD(10, 10), "Corner Post", "default"));
   });
 
   osm::EditableMapObject emo;
@@ -500,6 +506,8 @@ void EditorTest::GetFeaturesByStatusTest()
     builder.Add(cafe);
     builder.Add(unnamedCafe);
     builder.Add(someCafe);
+
+    builder.Add(TestPOI(m2::PointD(10, 10), "Corner Post", "default"));
   });
 
   FeatureID modifiedId, deletedId, obsoleteId, createdId;
@@ -700,6 +708,8 @@ void EditorTest::GetStatsTest()
     builder.Add(TestCafe(m2::PointD(3.0, 3.0), "London Cafe", "en"));
     builder.Add(TestCafe(m2::PointD(4.0, 4.0), "London Cafe", "en"));
     builder.Add(TestCafe(m2::PointD(5.0, 5.0), "London Cafe", "en"));
+
+    builder.Add(TestPOI(m2::PointD(10, 10), "Corner Post", "default"));
   });
 
   auto stats = editor.GetStats();
@@ -754,6 +764,8 @@ void EditorTest::IsCreatedFeatureTest()
   auto const mwmId = ConstructTestMwm([](TestMwmBuilder & builder)
   {
     builder.Add(TestCafe(m2::PointD(1.0, 1.0), "London Cafe", "en"));
+
+    builder.Add(TestPOI(m2::PointD(10, 10), "Corner Post", "default"));
   });
 
   ForEachCafeAtPoint(m_index, m2::PointD(1.0, 1.0), [&editor](FeatureType & ft)
@@ -774,6 +786,8 @@ void EditorTest::ForEachFeatureInMwmRectAndScaleTest()
   auto const mwmId = ConstructTestMwm([](TestMwmBuilder & builder)
   {
     builder.Add(TestCafe(m2::PointD(1.0, 1.0), "London Cafe", "en"));
+
+    builder.Add(TestPOI(m2::PointD(100, 100), "Corner Post", "default"));
   });
 
   {
@@ -850,6 +864,8 @@ void EditorTest::LoadMapEditsTest()
   {
     builder.Add(TestCafe(m2::PointD(0.0, 0.0), "London Cafe", "en"));
     builder.Add(TestCafe(m2::PointD(1.0, 1.0), "London Cafe", "en"));
+
+    builder.Add(TestPOI(m2::PointD(100, 100), "Corner Post", "default"));
   });
 
   auto const rfMwmId = BuildMwm("RF", [](TestMwmBuilder & builder)
@@ -858,6 +874,8 @@ void EditorTest::LoadMapEditsTest()
     builder.Add(TestCafe(m2::PointD(7.0, 7.0), "Moscow Cafe2", "en"));
     builder.Add(TestCafe(m2::PointD(4.0, 4.0), "Moscow Cafe3", "en"));
     builder.Add(TestCafe(m2::PointD(6.0, 6.0), "Moscow Cafe4", "en"));
+
+    builder.Add(TestPOI(m2::PointD(100, 100), "Corner Post", "default"));    
   });
 
   vector<FeatureID> features;
@@ -984,6 +1002,8 @@ void EditorTest::SaveEditedFeatureTest()
   auto const mwmId = ConstructTestMwm([](TestMwmBuilder & builder)
   {
     builder.Add(TestCafe(m2::PointD(1.0, 1.0), "London Cafe1", "en"));
+
+    builder.Add(TestPOI(m2::PointD(10, 10), "Corner Post", "default"));    
   });
 
   osm::EditableMapObject emo;
@@ -1127,12 +1147,7 @@ UNIT_CLASS_TEST(EditorTest, CreateNoteTest)
 {
   EditorTest::CreateNoteTest();
 }
-
-UNIT_CLASS_TEST(EditorTest, LoadMapEditstest)
-{
-  EditorTest::LoadMapEditsTest();
-}
-
+UNIT_CLASS_TEST(EditorTest, LoadMapEditsTest) { EditorTest::LoadMapEditsTest(); }
 UNIT_CLASS_TEST(EditorTest, SaveEditedFeatureTest)
 {
   EditorTest::SaveEditedFeatureTest();
