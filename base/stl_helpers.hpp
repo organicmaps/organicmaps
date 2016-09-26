@@ -87,8 +87,8 @@ void SortUnique(Cont & c)
   c.erase(unique(c.begin(), c.end()), c.end());
 }
 
-// Sorts according to |comp| and removes duplicate entries according to |pred| from |c|.
-// Note. If several entries are equal according to |pred| an arbitrary entry of them
+// Sorts according to |less| and removes duplicate entries according to |equals| from |c|.
+// Note. If several entries are equal according to |less| an arbitrary entry of them
 // is left in |c| after a call of this function.
 template <class Cont, typename Less, typename Equals>
 void SortUnique(Cont & c, Less && less, Equals && equals)

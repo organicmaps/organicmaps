@@ -30,29 +30,29 @@ void TestSortUnique()
     TEST_EQUAL(actual, expected, ());
   }
   {
-    using TValue = int;
-    using TPair = pair<TValue, int>;
-    Cont<TPair> d =
+    using Value = int;
+    using Pair = pair<Value, int>;
+    Cont<Pair> d =
         {{1, 22}, {2, 33}, {1, 23}, {4, 54}, {3, 34}, {5, 23}, {2, 23}, {7, 32}, {1, 12}};
 
-    my::SortUnique(d, my::LessBy(&TPair::first), my::EqualsBy(&TPair::first));
+    my::SortUnique(d, my::LessBy(&Pair::first), my::EqualsBy(&Pair::first));
 
-    Cont<TValue> const expected = {1, 2, 3, 4, 5, 7};
+    Cont<Value> const expected = {1, 2, 3, 4, 5, 7};
     TEST_EQUAL(d.size(), expected.size(), ());
-    for (int i = 0; i < d.size(); ++i)
+    for (size_t i = 0; i < d.size(); ++i)
       TEST_EQUAL(d[i].first, expected[i], (i));
   }
   {
-    using TValue = double;
-    using TPair = pair<TValue, int>;
-    Cont<TPair> d =
+    using Value = double;
+    using Pair = pair<Value, int>;
+    Cont<Pair> d =
         {{0.5, 11}, {1000.99, 234}, {0.5, 23}, {1234.56789, 54}, {1000.99, 34}};
 
-    my::SortUnique(d, my::LessBy(&TPair::first), my::EqualsBy(&TPair::first));
+    my::SortUnique(d, my::LessBy(&Pair::first), my::EqualsBy(&Pair::first));
 
-    Cont<TValue> const expected = {0.5, 1000.99, 1234.56789};
+    Cont<Value> const expected = {0.5, 1000.99, 1234.56789};
     TEST_EQUAL(d.size(), expected.size(), ());
-    for (int i = 0; i < d.size(); ++i)
+    for (size_t i = 0; i < d.size(); ++i)
       TEST_EQUAL(d[i].first, expected[i], (i));
   }
 }
@@ -61,9 +61,9 @@ template <template <typename...> class Cont>
 void TestEqualsBy()
 {
   {
-    using TValue = pair<int, int>;
-    Cont<TValue> actual = {{1, 2}, {1, 3}, {2, 100}, {3, 7}, {3, 8}, {2, 500}};
-    actual.erase(unique(actual.begin(), actual.end(), my::EqualsBy(&TValue::first)), actual.end());
+    using Value = pair<int, int>;
+    Cont<Value> actual = {{1, 2}, {1, 3}, {2, 100}, {3, 7}, {3, 8}, {2, 500}};
+    actual.erase(unique(actual.begin(), actual.end(), my::EqualsBy(&Value::first)), actual.end());
 
     Cont<int> const expected = {{1, 2, 3, 2}};
     TEST_EQUAL(expected.size(), actual.size(), ());
@@ -87,18 +87,18 @@ void TestEqualsBy()
 UNIT_TEST(LessBy)
 {
   {
-    using TValue = pair<int, int>;
+    using Value = pair<int, int>;
 
-    vector<TValue> v = {{2, 2}, {0, 4}, {3, 1}, {4, 0}, {1, 3}};
-    sort(v.begin(), v.end(), my::LessBy(&TValue::first));
+    vector<Value> v = {{2, 2}, {0, 4}, {3, 1}, {4, 0}, {1, 3}};
+    sort(v.begin(), v.end(), my::LessBy(&Value::first));
     for (size_t i = 0; i < v.size(); ++i)
       TEST_EQUAL(i, v[i].first, ());
 
-    vector<TValue const *> pv;
+    vector<Value const *> pv;
     for (auto const & p : v)
       pv.push_back(&p);
 
-    sort(pv.begin(), pv.end(), my::LessBy(&TValue::second));
+    sort(pv.begin(), pv.end(), my::LessBy(&Value::second));
     for (size_t i = 0; i < pv.size(); ++i)
       TEST_EQUAL(i, pv[i]->second, ());
   }
