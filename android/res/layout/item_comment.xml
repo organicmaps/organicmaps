@@ -70,11 +70,11 @@
           android:layout_height="wrap_content"
           android:layout_below="@id/tv__comment_date">
     <ImageView
-            android:layout_width="@dimen/margin_base_plus"
-            android:layout_height="@dimen/margin_base_plus"
-            android:layout_marginLeft="@dimen/margin_base"
-            android:layout_marginStart="@dimen/margin_base"
-            android:src="@drawable/ic_positive_review"/>
+      android:layout_width="@dimen/margin_base_plus"
+      android:layout_height="@dimen/margin_base_plus"
+      android:layout_marginLeft="@dimen/margin_base"
+      android:layout_marginStart="@dimen/margin_base"
+      android:src="?ppPositive"/>
 
     <TextView
             android:id="@+id/tv__positive_review"
@@ -97,13 +97,13 @@
           android:layout_height="wrap_content"
           android:layout_below="@id/ll__positive_review">
     <ImageView
-            android:id="@+id/iv__negative_review"
-            android:layout_width="@dimen/margin_base_plus"
-            android:layout_height="@dimen/margin_base_plus"
-            android:layout_marginBottom="@dimen/margin_base"
-            android:layout_marginLeft="@dimen/margin_base"
-            android:layout_marginStart="@dimen/margin_base"
-            android:src="@drawable/ic_negative_review"/>
+      android:id="@+id/iv__negative_review"
+      android:layout_width="@dimen/margin_base_plus"
+      android:layout_height="@dimen/margin_base_plus"
+      android:layout_marginBottom="@dimen/margin_base"
+      android:layout_marginLeft="@dimen/margin_base"
+      android:layout_marginStart="@dimen/margin_base"
+      android:src="?ppNegative"/>
 
     <TextView
             android:id="@+id/tv__negative_review"

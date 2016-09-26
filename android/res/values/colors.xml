@@ -35,6 +35,7 @@
   <color name="divider_gallery">#66FFFFFF</color>
 
   <color name="text_placepage_rating">#568B2E</color>
+  <color name="text_placepage_rating_night">#46A046</color>
 
   <!-- Backgrounds -->
   <color name="bg_window">#FFEEEEEE</color>
@@ -63,8 +64,11 @@
   <color name="fg_azimut_arrow">#FFFFFFFF</color>
 
   <color name="bg_placepage_rating">#F1F8E9</color>
+  <color name="bg_placepage_rating_night">#1EF0FAEB</color>
   <color name="bg_placepage_rating_positive">#DCEDC8</color>
+  <color name="bg_placepage_rating_positive_night">#1EF0FAEB</color>
   <color name="bg_placepage_rating_negative">#FFCDD2</color>
+  <color name="bg_placepage_rating_negative_night">#1EFFEBF0</color>
 
   <!-- Buttons -->
   <color name="button">@color/button_normal</color>

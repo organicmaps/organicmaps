@@ -154,6 +154,6 @@
   <dimen name="placepage_hotel_nearby_icon_size">24dp</dimen>
 
   <!-- Rating-->
-  <dimen name="margin_placepage_rating">20dp</dimen>
+  <dimen name="placepage_margin_rating">20dp</dimen>
 
 </resources>

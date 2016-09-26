@@ -9,22 +9,22 @@
               tools:visibility="visible">
 
   <LinearLayout
-          android:orientation="vertical"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:paddingTop="@dimen/margin_placepage_rating"
-          android:paddingBottom="@dimen/margin_base"
-          android:paddingLeft="@dimen/margin_base"
-          android:paddingRight="@dimen/margin_base"
-          android:background="@color/bg_placepage_rating">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/placepage_margin_rating"
+    android:paddingBottom="@dimen/margin_base"
+    android:paddingLeft="@dimen/margin_base"
+    android:paddingRight="@dimen/margin_base"
+    android:background="?ppRatingBackground">
 
     <TextView
-            android:id="@+id/tv__place_hotel_rating"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/MwmTextAppearance.Body1"
-            android:textColor="@color/text_placepage_rating"
-            tools:text="Rating: 8.7 (Excellent)"/>
+      android:id="@+id/tv__place_hotel_rating"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textAppearance="@style/MwmTextAppearance.Body1"
+      android:textColor="?ppRatingText"
+      tools:text="Rating: 8.7 (Excellent)"/>
 
     <TextView
             android:id="@+id/tv__place_hotel_rating_base"
