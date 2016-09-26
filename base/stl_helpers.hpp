@@ -1,11 +1,9 @@
 #pragma once
 
 #include "std/algorithm.hpp"
-#include "std/auto_ptr.hpp"
 #include "std/functional.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
-
 
 namespace my
 {
@@ -82,8 +80,8 @@ struct Equals<false, T, C>
 }  // namespace impl
 
 // Sorts and removes duplicate entries from |c|.
-template <typename T, template <typename, typename = allocator<T>> class Cont>
-void SortUnique(Cont<T> & c)
+template <typename Cont>
+void SortUnique(Cont & c)
 {
   sort(c.begin(), c.end());
   c.erase(unique(c.begin(), c.end()), c.end());

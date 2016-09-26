@@ -5,7 +5,6 @@
 #endif
 
 #include <memory>
-using std::allocator;
 using std::auto_ptr;
 
 #ifdef DEBUG_NEW
