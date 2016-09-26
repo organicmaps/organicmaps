@@ -263,14 +263,25 @@ unique_ptr<coding::CompressedBitVector> RetrievePostcodeFeaturesImpl(
 // Retrieves from the geometry index corresponding to handle all
 // features from |coverage|.
 unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeaturesImpl(
-    MwmContext const & context, my::Cancellable const & cancellable,
-    covering::IntervalsT const & coverage, int scale)
+    MwmContext const & context, my::Cancellable const & cancellable, m2::RectD const & rect,
+    int scale)
 {
+  EditedFeaturesHolder holder(context.GetId());
+
+  covering::IntervalsT coverage;
+  CoverRect(rect, scale, coverage);
+
   vector<uint64_t> features;
 
   FeaturesCollector collector(cancellable, features);
 
   context.ForEachIndex(coverage, scale, collector);
+
+  holder.ForEachModifiedOrCreated([&](FeatureType & ft, uint64_t index) {
+    auto const center = feature::GetCenter(ft);
+    if (rect.IsPointInside(center))
+      features.push_back(index);
+  });
   return SortFeaturesAndBuildCBV(move(features));
 }
 
@@ -338,8 +349,6 @@ unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeatures(
     MwmContext const & context, my::Cancellable const & cancellable, m2::RectD const & rect,
     int scale)
 {
-  covering::IntervalsT coverage;
-  CoverRect(rect, scale, coverage);
-  return RetrieveGeometryFeaturesImpl(context, cancellable, coverage, scale);
+  return RetrieveGeometryFeaturesImpl(context, cancellable, rect, scale);
 }
 } // namespace search

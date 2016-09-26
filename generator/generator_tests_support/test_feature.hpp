@@ -1,12 +1,21 @@
 #pragma once
 
+#include "indexer/feature_decl.hpp"
+#include "indexer/mwm_set.hpp"
+
 #include "geometry/point2d.hpp"
 
 #include "std/string.hpp"
+#include "std/utility.hpp"
 #include "std/vector.hpp"
 
 class FeatureBuilder1;
 class FeatureType;
+
+namespace osm
+{
+class Editor;
+}
 
 namespace generator
 {
@@ -90,6 +99,9 @@ class TestPOI : public TestFeature
 {
 public:
   TestPOI(m2::PointD const & center, string const & name, string const & lang);
+
+  static pair<TestPOI, FeatureID> AddWithEditor(osm::Editor & editor, MwmSet::MwmId const & mwmId,
+                                                string const & enName, m2::PointD const & pt);
 
   // TestFeature overrides:
   void Serialize(FeatureBuilder1 & fb) const override;

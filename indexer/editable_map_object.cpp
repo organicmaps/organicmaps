@@ -9,7 +9,7 @@
 
 #include "std/cctype.hpp"
 #include "std/cmath.hpp"
-
+#include "std/sstream.hpp"
 
 namespace
 {
@@ -283,6 +283,21 @@ string EditableMapObject::GetPostcode() const
 string EditableMapObject::GetWikipedia() const
 {
   return m_metadata.Get(feature::Metadata::FMD_WIKIPEDIA);
+}
+
+uint64_t EditableMapObject::GetTestId() const
+{
+  istringstream iss(m_metadata.Get(feature::Metadata::FMD_TEST_ID));
+  uint64_t id;
+  iss >> id;
+  return id;
+}
+
+void EditableMapObject::SetTestId(uint64_t id)
+{
+  ostringstream oss;
+  oss << id;
+  m_metadata.Set(feature::Metadata::FMD_TEST_ID, oss.str());
 }
 
 void EditableMapObject::SetEditableProperties(osm::EditableProperties const & props)

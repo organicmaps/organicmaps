@@ -110,6 +110,10 @@ public:
   string GetPostcode() const;
   string GetWikipedia() const;
 
+  // These two methods should only be used in tests.
+  uint64_t GetTestId() const;
+  void SetTestId(uint64_t id);
+
   void SetEditableProperties(osm::EditableProperties const & props);
   //  void SetFeatureID(FeatureID const & fid);
   void SetName(StringUtf8Multilang const & name);

@@ -713,6 +713,12 @@ Java_com_mapswithme_maps_Framework_nativeGetDrawScale(JNIEnv * env, jclass)
   return static_cast<jint>(frm()->GetDrawScale());
 }
 
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeUpdateUserViewportChanged(JNIEnv * env, jclass)
+{
+  frm()->UpdateUserViewportChanged();
+}
+
 JNIEXPORT jdoubleArray JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetScreenRectCenter(JNIEnv * env, jclass)
 {

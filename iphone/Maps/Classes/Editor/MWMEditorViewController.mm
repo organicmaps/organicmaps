@@ -992,6 +992,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
     if (!f.RollBackChanges(fid))
       NSAssert(false, @"We shouldn't call this if we can't roll back!");
 
+    f.UpdateUserViewportChanged();
     [self backTap];
   };
 
