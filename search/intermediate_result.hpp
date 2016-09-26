@@ -84,10 +84,14 @@ public:
   /// Filter equal features for different mwm's.
   class StrictEqualF
   {
-    PreResult2 const & m_r;
   public:
-    StrictEqualF(PreResult2 const & r) : m_r(r) {}
-    bool operator() (PreResult2 const & r) const;
+    StrictEqualF(PreResult2 const & r, double const epsMeters);
+
+    bool operator()(PreResult2 const & r) const;
+
+  private:
+    PreResult2 const & m_r;
+    double const m_epsMeters;
   };
 
   /// To filter equal linear objects.

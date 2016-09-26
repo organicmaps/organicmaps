@@ -4,20 +4,10 @@
 
 #include "coding/multilang_utf8_string.hpp"
 
+#include "base/assert.hpp"
+
 namespace search
 {
-SearchParams::SearchParams()
-  : m_lat(0.0)
-  , m_lon(0.0)
-  , m_minDistanceOnMapBetweenResults(0.0)
-  , m_searchRadiusM(-1.0)
-  , m_mode(Mode::Everywhere)
-  , m_forceSearch(false)
-  , m_validPos(false)
-  , m_suggestsEnabled(true)
-{
-}
-
 void SearchParams::SetPosition(double lat, double lon)
 {
   m_lat = lat;
@@ -25,21 +15,22 @@ void SearchParams::SetPosition(double lat, double lon)
   m_validPos = true;
 }
 
-bool SearchParams::GetSearchRect(m2::RectD & rect) const
+m2::PointD SearchParams::GetPositionMercator() const
 {
-  if (IsSearchAroundPosition())
-  {
-    rect = MercatorBounds::MetresToXY(m_lon, m_lat, m_searchRadiusM);
-    return true;
-  }
-  return false;
+  ASSERT(IsValidPosition(), ());
+  return MercatorBounds::FromLatLon(m_lat, m_lon);
+}
+
+ms::LatLon SearchParams::GetPositionLatLon() const
+{
+  ASSERT(IsValidPosition(), ());
+  return ms::LatLon(m_lat, m_lon);
 }
 
 bool SearchParams::IsEqualCommon(SearchParams const & rhs) const
 {
-  return (m_query == rhs.m_query && m_inputLocale == rhs.m_inputLocale &&
-          m_validPos == rhs.m_validPos && m_mode == rhs.m_mode &&
-          m_searchRadiusM == rhs.m_searchRadiusM);
+  return m_query == rhs.m_query && m_inputLocale == rhs.m_inputLocale &&
+         m_validPos == rhs.m_validPos && m_mode == rhs.m_mode;
 }
 
 string DebugPrint(SearchParams const & params)

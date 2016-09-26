@@ -120,5 +120,53 @@ UNIT_CLASS_TEST(InteractiveSearchTest, Smoke)
     TEST(MatchResults(m_engine, rules, request.Results()), ());
   }
 }
+
+UNIT_CLASS_TEST(InteractiveSearchTest, NearbyFeaturesInViewport)
+{
+  double const kEps = 1e-5;
+  TestCafe cafe1(m2::PointD(0.0, 0.0));
+  TestCafe cafe2(m2::PointD(0.0, kEps));
+  TestCafe cafe3(m2::PointD(kEps, kEps));
+  TestCafe cafe4(m2::PointD(kEps, 0.0));
+
+  auto const id = BuildCountry("Wonderland", [&](TestMwmBuilder & builder) {
+    builder.Add(cafe1);
+    builder.Add(cafe2);
+    builder.Add(cafe3);
+    builder.Add(cafe4);
+  });
+
+  SearchParams params;
+  params.m_query = "cafe";
+  params.m_mode = Mode::Viewport;
+  params.m_inputLocale = "en";
+  params.m_minDistanceOnMapBetweenResults = 0.5;
+  params.m_forceSearch = true;
+  params.m_suggestsEnabled = false;
+
+  m2::RectD const viewport(m2::PointD(-0.5, -0.5), m2::PointD(0.5, 0.5));
+
+  {
+    TestSearchRequest request(m_engine, params, viewport);
+    request.Run();
+
+    TEST(MatchResults(m_engine, TRules{ExactMatch(id, cafe1), ExactMatch(id, cafe2),
+                                       ExactMatch(id, cafe3), ExactMatch(id, cafe4)},
+                      request.Results()),
+         ());
+  }
+
+  params.m_minDistanceOnMapBetweenResults = 1.0;
+
+  {
+    TestSearchRequest request(m_engine, params, viewport);
+    request.Run();
+
+    auto const & results = request.Results();
+
+    TEST(MatchResults(m_engine, TRules{ExactMatch(id, cafe1), ExactMatch(id, cafe3)}, results) ||
+         MatchResults(m_engine, TRules{ExactMatch(id, cafe2), ExactMatch(id, cafe4)}, results), ());
+  }
+}
 }  // namespace
 }  // namespace search

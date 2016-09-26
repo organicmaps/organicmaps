@@ -110,8 +110,9 @@ void SendStatistics(SearchParams const & params, m2::RectD const & viewport, Res
   string posX, posY;
   if (params.IsValidPosition())
   {
-    posX = strings::to_string(MercatorBounds::LonToX(params.m_lon));
-    posY = strings::to_string(MercatorBounds::LatToY(params.m_lat));
+    auto const position = params.GetPositionMercator();
+    posX = strings::to_string(position.x);
+    posY = strings::to_string(position.y);
   }
 
   alohalytics::TStringMap const stats = {
@@ -380,7 +381,7 @@ void Processor::Search(SearchParams const & params, m2::RectD const & viewport)
   bool rankPivotIsSet = false;
   if (!viewportSearch && params.IsValidPosition())
   {
-    m2::PointD const pos = MercatorBounds::FromLatLon(params.m_lat, params.m_lon);
+    m2::PointD const pos = params.GetPositionMercator();
     if (m2::Inflate(viewport, viewport.SizeX() / 4.0, viewport.SizeY() / 4.0).IsPointInside(pos))
     {
       SetRankPivot(pos);
@@ -391,14 +392,14 @@ void Processor::Search(SearchParams const & params, m2::RectD const & viewport)
     SetRankPivot(viewport.Center());
 
   if (params.IsValidPosition())
-    SetPosition(MercatorBounds::FromLatLon(params.m_lat, params.m_lon));
+    SetPosition(params.GetPositionMercator());
   else
     SetPosition(viewport.Center());
 
   SetMinDistanceOnMapBetweenResults(params.m_minDistanceOnMapBetweenResults);
 
-  SetMode(params.GetMode());
-  SetSuggestsEnabled(params.GetSuggestsEnabled());
+  SetMode(params.m_mode);
+  SetSuggestsEnabled(params.m_suggestsEnabled);
   SetInputLocale(params.m_inputLocale);
 
   ASSERT(!params.m_query.empty(), ());
@@ -699,10 +700,12 @@ void Processor::InitRanker(Geocoder::Params const & geocoderParams)
   if (viewportSearch)
   {
     params.m_viewport = GetViewport();
+    params.m_minDistanceOnMapBetweenResults = m_minDistanceOnMapBetweenResults;
     params.m_limit = kPreResultsCount;
   }
   else
   {
+    params.m_minDistanceOnMapBetweenResults = 100.0;
     params.m_limit = kResultsCount;
   }
   params.m_position = GetPosition();

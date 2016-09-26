@@ -301,7 +301,8 @@ void Ranker::Init(Params const & params, Geocoder::Params const & geocoderParams
 
 bool Ranker::IsResultExists(PreResult2 const & p, vector<IndexedValue> const & values)
 {
-  PreResult2::StrictEqualF equalCmp(p);
+  PreResult2::StrictEqualF equalCmp(p, m_params.m_minDistanceOnMapBetweenResults);
+
   // Do not insert duplicating results.
   return values.end() != find_if(values.begin(), values.end(), [&equalCmp](IndexedValue const & iv)
                                  {
@@ -509,8 +510,8 @@ void Ranker::UpdateResults(bool lastUpdate)
 
   // Emit feature results.
   size_t count = m_emitter.GetResults().GetCount();
-  size_t i;
-  for (i = 0; i < m_tentativeResults.size(); ++i)
+  size_t i = 0;
+  for (; i < m_tentativeResults.size(); ++i)
   {
     if (!lastUpdate && i >= kBatchSize && !m_params.m_viewportSearch)
       break;

@@ -129,9 +129,9 @@ private:
     search::SearchParams p;
     p.m_query = query;
     p.m_inputLocale = "en";
-    p.SetMode(search::Mode::Downloader);
-    p.SetSuggestsEnabled(false);
-    p.SetForceSearch(true);
+    p.m_mode = search::Mode::Downloader;
+    p.m_forceSearch = true;
+    p.m_suggestsEnabled = false;
     return p;
   }
 

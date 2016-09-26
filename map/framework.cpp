@@ -117,7 +117,7 @@ char const kAllow3dKey[] = "Allow3d";
 char const kAllow3dBuildingsKey[] = "Buildings3d";
 char const kAllowAutoZoom[] = "AutoZoom";
 
-double const kDistEqualQuery = 100.0;
+double const kDistEqualQueryMeters = 100.0;
 
 // Must correspond SearchMarkType.
 vector<string> kSearchMarks =
@@ -1100,10 +1100,10 @@ bool Framework::SearchEverywhere(search::EverywhereSearchParams const & params)
 {
   search::SearchParams p;
   p.m_query = params.m_query;
-  p.SetInputLocale(params.m_inputLocale);
-  p.SetForceSearch(true);
-  p.SetMode(search::Mode::Everywhere);
-  p.SetSuggestsEnabled(true);
+  p.m_inputLocale = params.m_inputLocale;
+  p.m_mode = search::Mode::Everywhere;
+  p.m_forceSearch = true;
+  p.m_suggestsEnabled = true;
   p.m_onResults = [params](search::Results const & results) {
     if (params.m_onResults)
       GetPlatform().RunOnGuiThread([params, results]() { params.m_onResults(results); });
@@ -1117,10 +1117,10 @@ bool Framework::SearchInViewport(search::ViewportSearchParams const & params)
 {
   search::SearchParams p;
   p.m_query = params.m_query;
-  p.SetInputLocale(params.m_inputLocale);
-  p.SetForceSearch(false);
-  p.SetMode(search::Mode::Viewport);
-  p.SetSuggestsEnabled(false);
+  p.m_inputLocale = params.m_inputLocale;
+  p.m_mode = search::Mode::Viewport;
+  p.m_forceSearch = false;
+  p.m_suggestsEnabled = false;
 
   p.m_onStarted = [params]() {
     if (params.m_onStarted)
@@ -1143,9 +1143,9 @@ bool Framework::SearchInDownloader(DownloaderSearchParams const & params)
   search::SearchParams p;
   p.m_query = params.m_query;
   p.m_inputLocale = params.m_inputLocale;
-  p.SetMode(search::Mode::Downloader);
-  p.SetSuggestsEnabled(false);
-  p.SetForceSearch(true);
+  p.m_mode = search::Mode::Downloader;
+  p.m_forceSearch = true;
+  p.m_suggestsEnabled = false;
   p.m_onResults = search::DownloaderSearchCallback(
       static_cast<search::DownloaderSearchCallback::Delegate &>(*this), m_model.GetIndex(),
       GetCountryInfoGetter(), GetStorage(), params);
@@ -1262,7 +1262,7 @@ string Framework::GetCountryName(m2::PointD const & pt) const
 
 bool Framework::Search(search::SearchParams const & params)
 {
-  auto const mode = params.GetMode();
+  auto const mode = params.m_mode;
   auto & intent = m_searchIntents[static_cast<size_t>(mode)];
 
 #ifdef FIXED_LOCATION
@@ -1318,18 +1318,26 @@ bool Framework::QueryMayBeSkipped(SearchIntent const & intent, search::SearchPar
   auto const & lastParams = intent.m_params;
   auto const & lastViewport = intent.m_viewport;
 
-  if (params.IsForceSearch())
+  if (params.m_forceSearch)
     return false;
   if (!lastParams.IsEqualCommon(params))
     return false;
-  if (!lastViewport.IsValid() || !search::IsEqualMercator(lastViewport, viewport, kDistEqualQuery))
-    return false;
-  if (!lastParams.IsSearchAroundPosition() ||
-      ms::DistanceOnEarth(lastParams.m_lat, lastParams.m_lon, params.m_lat, params.m_lon) <=
-          kDistEqualQuery)
+  if (!lastViewport.IsValid() ||
+      !search::IsEqualMercator(lastViewport, viewport, kDistEqualQueryMeters))
   {
     return false;
   }
+
+  if (lastParams.IsValidPosition() && params.IsValidPosition() &&
+      ms::DistanceOnEarth(lastParams.GetPositionLatLon(), params.GetPositionLatLon()) >
+          kDistEqualQueryMeters)
+  {
+    return false;
+  }
+
+  if (lastParams.IsValidPosition() != params.IsValidPosition())
+    return false;
+
   return true;
 }
 

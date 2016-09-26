@@ -60,6 +60,10 @@ public:
 
     m2::PointD m_accuratePivotCenter = m2::PointD(0, 0);
 
+    // A minimum distance between search results in meters, needed for
+    // filtering of indentical search results.
+    double m_minDistanceOnMapBetweenResults = 0.0;
+
     TLocales m_categoryLocales;
 
     size_t m_limit = 0;
