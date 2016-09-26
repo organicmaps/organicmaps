@@ -1297,7 +1297,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
         || RoutingController.get().isErrorEncountered())
     {
       mMainMenu.showLineFrame(false);
+      return;
     }
+
+    mMainMenu.showLineFrame(true);
   }
 
   @Override

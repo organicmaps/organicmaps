@@ -44,7 +44,8 @@ public class ToolbarController
     }
   }
 
-  protected @IdRes int getToolbarId()
+  @IdRes
+  private int getToolbarId()
   {
     return R.id.toolbar;
   }
