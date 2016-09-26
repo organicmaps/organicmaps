@@ -376,7 +376,7 @@ void Processor::ForEachCategoryType(StringSliceBase const & slice, ToDo && todo)
 
 void Processor::Search(SearchParams const & params, m2::RectD const & viewport)
 {
-  SetMode(params.GetMode());
+  SetMode(params.m_mode);
   bool const viewportSearch = m_mode == Mode::Viewport;
 
   bool rankPivotIsSet = false;
