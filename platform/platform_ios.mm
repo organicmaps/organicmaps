@@ -37,8 +37,6 @@
 
 Platform::Platform()
 {
-  NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-
   m_isTablet = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
 
   NSBundle * bundle = [NSBundle mainBundle];
@@ -65,8 +63,6 @@ Platform::Platform()
   UIDevice * device = [UIDevice currentDevice];
   NSLog(@"Device: %@, SystemName: %@, SystemVersion: %@", device.model, device.systemName,
         device.systemVersion);
-
-  [pool release];
 }
 
 Platform::EError Platform::MkDir(string const & dirName) const

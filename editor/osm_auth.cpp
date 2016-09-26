@@ -1,5 +1,7 @@
 #include "editor/osm_auth.hpp"
 
+#include "platform/http_client.hpp"
+
 #include "coding/url_encode.hpp"
 
 #include "base/assert.hpp"
@@ -12,9 +14,8 @@
 #include "private.h"
 
 #include "3party/liboauthcpp/include/liboauthcpp/liboauthcpp.h"
-#include "3party/Alohalytics/src/http_client.h"
 
-using alohalytics::HTTPClientPlatformWrapper;
+using platform::HttpClient;
 
 namespace osm
 {
@@ -54,7 +55,7 @@ string BuildPostRequest(map<string, string> const & params)
 }
 
 // TODO(AlexZ): DebugPrint doesn't detect this overload. Fix it.
-string DP(alohalytics::HTTPClientPlatformWrapper const & request)
+string DP(HttpClient const & request)
 {
   string str = "HTTP " + strings::to_string(request.error_code()) + " url [" + request.url_requested() + "]";
   if (request.was_redirected())
@@ -132,8 +133,8 @@ bool OsmOAuth::IsAuthorized() const noexcept{ return IsValid(m_tokenKeySecret); 
 OsmOAuth::SessionID OsmOAuth::FetchSessionId(string const & subUrl) const
 {
   string const url = m_baseUrl + subUrl + "?cookie_test=true";
-  HTTPClientPlatformWrapper request(url);
-  if (!request.RunHTTPRequest())
+  HttpClient request(url);
+  if (!request.RunHttpRequest())
     MYTHROW(NetworkError, ("FetchSessionId Network error while connecting to", url));
   if (request.was_redirected())
     MYTHROW(UnexpectedRedirect, ("Redirected to", request.url_received(), "from", url));
@@ -148,9 +149,9 @@ OsmOAuth::SessionID OsmOAuth::FetchSessionId(string const & subUrl) const
 
 void OsmOAuth::LogoutUser(SessionID const & sid) const
 {
-  HTTPClientPlatformWrapper request(m_baseUrl + "/logout");
+  HttpClient request(m_baseUrl + "/logout");
   request.set_cookies(sid.m_cookies);
-  if (!request.RunHTTPRequest())
+  if (!request.RunHttpRequest())
     MYTHROW(NetworkError, ("LogoutUser Network error while connecting to", request.url_requested()));
   if (request.error_code() != HTTP::OK)
     MYTHROW(LogoutUserError, (DP(request)));
@@ -166,11 +167,11 @@ bool OsmOAuth::LoginUserPassword(string const & login, string const & password, 
     {"commit", "Login"},
     {"authenticity_token", sid.m_token}
   };
-  HTTPClientPlatformWrapper request(m_baseUrl + "/login");
+  HttpClient request(m_baseUrl + "/login");
   request.set_body_data(BuildPostRequest(params), "application/x-www-form-urlencoded")
          .set_cookies(sid.m_cookies)
          .set_handle_redirects(false);
-  if (!request.RunHTTPRequest())
+  if (!request.RunHttpRequest())
     MYTHROW(NetworkError, ("LoginUserPassword Network error while connecting to", request.url_requested()));
 
   // At the moment, automatic redirects handling is buggy on Androids < 4.4.
@@ -193,10 +194,10 @@ bool OsmOAuth::LoginUserPassword(string const & login, string const & password, 
 bool OsmOAuth::LoginSocial(string const & callbackPart, string const & socialToken, SessionID const & sid) const
 {
   string const url = m_baseUrl + callbackPart + socialToken;
-  HTTPClientPlatformWrapper request(url);
+  HttpClient request(url);
   request.set_cookies(sid.m_cookies)
          .set_handle_redirects(false);
-  if (!request.RunHTTPRequest())
+  if (!request.RunHttpRequest())
     MYTHROW(NetworkError, ("LoginSocial Network error while connecting to", request.url_requested()));
   if (request.error_code() != HTTP::OK && request.error_code() != HTTP::Found)
     MYTHROW(LoginSocialServerError, (DP(request)));
@@ -227,11 +228,11 @@ string OsmOAuth::SendAuthRequest(string const & requestTokenKey, SessionID const
     {"allow_write_notes", "yes"},
     {"commit", "Save changes"}
   };
-  HTTPClientPlatformWrapper request(m_baseUrl + "/oauth/authorize");
+  HttpClient request(m_baseUrl + "/oauth/authorize");
   request.set_body_data(BuildPostRequest(params), "application/x-www-form-urlencoded")
          .set_cookies(sid.m_cookies)
          .set_handle_redirects(false);
-  if (!request.RunHTTPRequest())
+  if (!request.RunHttpRequest())
     MYTHROW(NetworkError, ("SendAuthRequest Network error while connecting to", request.url_requested()));
 
   string const callbackURL = request.url_received();
@@ -250,8 +251,8 @@ TRequestToken OsmOAuth::FetchRequestToken() const
   OAuth::Client oauth(&consumer);
   string const requestTokenUrl = m_baseUrl + "/oauth/request_token";
   string const requestTokenQuery = oauth.getURLQueryString(OAuth::Http::Get, requestTokenUrl + "?oauth_callback=oob");
-  HTTPClientPlatformWrapper request(requestTokenUrl + "?" + requestTokenQuery);
-  if (!request.RunHTTPRequest())
+  HttpClient request(requestTokenUrl + "?" + requestTokenQuery);
+  if (!request.RunHttpRequest())
     MYTHROW(NetworkError, ("FetchRequestToken Network error while connecting to", request.url_requested()));
   if (request.error_code() != HTTP::OK)
     MYTHROW(FetchRequestTokenServerError, (DP(request)));
@@ -270,8 +271,8 @@ TKeySecret OsmOAuth::FinishAuthorization(TRequestToken const & requestToken, str
   OAuth::Client oauth(&consumer, &reqToken);
   string const accessTokenUrl = m_baseUrl + "/oauth/access_token";
   string const queryString = oauth.getURLQueryString(OAuth::Http::Get, accessTokenUrl, "", true);
-  HTTPClientPlatformWrapper request(accessTokenUrl + "?" + queryString);
-  if (!request.RunHTTPRequest())
+  HttpClient request(accessTokenUrl + "?" + queryString);
+  if (!request.RunHttpRequest())
     MYTHROW(NetworkError, ("FinishAuthorization Network error while connecting to", request.url_requested()));
   if (request.error_code() != HTTP::OK)
     MYTHROW(FinishAuthorizationServerError, (DP(request)));
@@ -350,11 +351,11 @@ bool OsmOAuth::ResetPassword(string const & email) const
     {"authenticity_token", sid.m_token},
     {"commit", "Reset password"}
   };
-  HTTPClientPlatformWrapper request(m_baseUrl + kForgotPasswordUrlPart);
+  HttpClient request(m_baseUrl + kForgotPasswordUrlPart);
   request.set_body_data(BuildPostRequest(params), "application/x-www-form-urlencoded");
   request.set_cookies(sid.m_cookies);
 
-  if (!request.RunHTTPRequest())
+  if (!request.RunHttpRequest())
     MYTHROW(NetworkError, ("ResetPassword Network error while connecting to", request.url_requested()));
   if (request.error_code() != HTTP::OK)
     MYTHROW(ResetPasswordServerError, (DP(request)));
@@ -391,10 +392,10 @@ OsmOAuth::Response OsmOAuth::Request(string const & method, string const & httpM
   if (qPos != string::npos)
     url = url.substr(0, qPos);
 
-  HTTPClientPlatformWrapper request(url + "?" + query);
+  HttpClient request(url + "?" + query);
   if (httpMethod != "GET")
     request.set_body_data(body, "application/xml", httpMethod);
-  if (!request.RunHTTPRequest())
+  if (!request.RunHttpRequest())
     MYTHROW(NetworkError, ("Request Network error while connecting to", url));
   if (request.was_redirected())
     MYTHROW(UnexpectedRedirect, ("Redirected to", request.url_received(), "from", url));
@@ -405,8 +406,8 @@ OsmOAuth::Response OsmOAuth::Request(string const & method, string const & httpM
 OsmOAuth::Response OsmOAuth::DirectRequest(string const & method, bool api) const
 {
   string const url = api ? m_apiUrl + kApiVersion + method : m_baseUrl + method;
-  HTTPClientPlatformWrapper request(url);
-  if (!request.RunHTTPRequest())
+  HttpClient request(url);
+  if (!request.RunHttpRequest())
     MYTHROW(NetworkError, ("DirectRequest Network error while connecting to", url));
   if (request.was_redirected())
     MYTHROW(UnexpectedRedirect, ("Redirected to", request.url_received(), "from", url));

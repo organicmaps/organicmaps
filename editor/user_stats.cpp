@@ -1,5 +1,6 @@
 #include "editor/user_stats.hpp"
 
+#include "platform/http_client.hpp"
 #include "platform/platform.hpp"
 #include "platform/settings.hpp"
 
@@ -9,10 +10,9 @@
 #include "base/thread.hpp"
 #include "base/timer.hpp"
 
-#include "3party/Alohalytics/src/http_client.h"
 #include "3party/pugixml/src/pugixml.hpp"
 
-using TRequest = alohalytics::HTTPClientPlatformWrapper;
+using TRequest = platform::HttpClient;
 
 namespace
 {
@@ -93,7 +93,7 @@ bool UserStatsLoader::Update(string const & userName)
   auto const url = kUserStatsUrl + "&name=" + UrlEncode(userName);
   TRequest request(url);
 
-  if (!request.RunHTTPRequest())
+  if (!request.RunHttpRequest())
   {
     LOG(LWARNING, ("Network error while connecting to", url));
     return false;

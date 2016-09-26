@@ -62,7 +62,7 @@ OnlineCrossFetcher::OnlineCrossFetcher(string const & serverURL, ms::LatLon cons
 void OnlineCrossFetcher::Do()
 {
   m_mwmPoints.clear();
-  if (m_request.RunHTTPRequest() && m_request.error_code() == 200 && !m_request.was_redirected())
+  if (m_request.RunHttpRequest() && m_request.error_code() == 200 && !m_request.was_redirected())
     ParseResponse(m_request.server_response(), m_mwmPoints);
   else
     LOG(LWARNING, ("Can't get OSRM server response. Code: ", m_request.error_code()));

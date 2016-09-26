@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D30587D1D8320E4004AC712 /* http_client.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D30587B1D8320E4004AC712 /* http_client.hpp */; };
+		3D30587F1D880910004AC712 /* http_client_apple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D30587E1D880910004AC712 /* http_client_apple.mm */; };
 		56EB1EDC1C6B6E6C0022D831 /* file_logging.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56EB1ED81C6B6E6C0022D831 /* file_logging.cpp */; };
 		56EB1EDD1C6B6E6C0022D831 /* file_logging.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56EB1ED91C6B6E6C0022D831 /* file_logging.hpp */; };
 		56EB1EDE1C6B6E6C0022D831 /* mwm_traits.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56EB1EDA1C6B6E6C0022D831 /* mwm_traits.cpp */; };
@@ -95,6 +97,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3D30587B1D8320E4004AC712 /* http_client.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = http_client.hpp; sourceTree = "<group>"; };
+		3D30587E1D880910004AC712 /* http_client_apple.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = http_client_apple.mm; sourceTree = "<group>"; };
 		56EB1ED81C6B6E6C0022D831 /* file_logging.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file_logging.cpp; sourceTree = "<group>"; };
 		56EB1ED91C6B6E6C0022D831 /* file_logging.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = file_logging.hpp; sourceTree = "<group>"; };
 		56EB1EDA1C6B6E6C0022D831 /* mwm_traits.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mwm_traits.cpp; sourceTree = "<group>"; };
@@ -296,6 +300,8 @@
 		6753437A1A3F5CF500A0A8C3 /* platform */ = {
 			isa = PBXGroup;
 			children = (
+				3D30587E1D880910004AC712 /* http_client_apple.mm */,
+				3D30587B1D8320E4004AC712 /* http_client.hpp */,
 				56EB1ED81C6B6E6C0022D831 /* file_logging.cpp */,
 				56EB1ED91C6B6E6C0022D831 /* file_logging.hpp */,
 				56EB1EDA1C6B6E6C0022D831 /* mwm_traits.cpp */,
@@ -406,6 +412,7 @@
 				675343D81A3F5D5A00A0A8C3 /* video_timer.hpp in Headers */,
 				6741250F1B4C00CC00A3E828 /* local_country_file.hpp in Headers */,
 				675343CF1A3F5D5A00A0A8C3 /* preferred_languages.hpp in Headers */,
+				3D30587D1D8320E4004AC712 /* http_client.hpp in Headers */,
 				56EB1EDD1C6B6E6C0022D831 /* file_logging.hpp in Headers */,
 				6741250D1B4C00CC00A3E828 /* local_country_file_utils.hpp in Headers */,
 				675343DA1A3F5D5A00A0A8C3 /* wifi_info.hpp in Headers */,
@@ -549,6 +556,7 @@
 				67A2526A1BB40E100063F8A8 /* platform_qt.cpp in Sources */,
 				675343D91A3F5D5A00A0A8C3 /* wifi_info_windows.cpp in Sources */,
 				56EB1EDE1C6B6E6C0022D831 /* mwm_traits.cpp in Sources */,
+				3D30587F1D880910004AC712 /* http_client_apple.mm in Sources */,
 				67247FFD1C60BD6500EDE56A /* writable_dir_changer.cpp in Sources */,
 				6741250C1B4C00CC00A3E828 /* local_country_file_utils.cpp in Sources */,
 				67AB92EA1B7B3E9100AB5194 /* get_text_by_id.cpp in Sources */,
@@ -725,7 +733,7 @@
 		675343841A3F5CF500A0A8C3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_PREFIX = lib;
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
@@ -739,7 +747,7 @@
 		675343851A3F5CF500A0A8C3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_PREFIX = lib;
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;

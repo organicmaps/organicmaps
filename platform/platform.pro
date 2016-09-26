@@ -47,7 +47,15 @@ INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
 
 macx-*|iphone* {
   HEADERS += http_thread_apple.h
-  OBJECTIVE_SOURCES += http_thread_apple.mm
+  OBJECTIVE_SOURCES += \
+    http_thread_apple.mm \
+    http_client_apple.mm \
+
+  QMAKE_OBJECTIVE_CFLAGS += -fobjc-arc
+}
+
+linux*|win* {
+  SOURCES += http_client_curl.cpp
 }
 
 !win32* {
@@ -66,6 +74,7 @@ HEADERS += \
     get_text_by_id.hpp \
     http_request.hpp \
     http_thread_callback.hpp \
+    http_client.hpp \
     local_country_file.hpp \
     local_country_file_utils.hpp \
     location.hpp \
