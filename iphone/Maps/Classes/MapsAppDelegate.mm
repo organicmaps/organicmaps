@@ -670,7 +670,7 @@ using namespace osm_auth_ios;
 {
   if (![userActivity.activityType isEqualToString:CSSearchableItemActionType])
     return NO;
-  NSString * searchString = userActivity.title;
+  NSString * searchString = L(userActivity.userInfo[CSSearchableItemActivityIdentifier]);
   if (!searchString)
     return NO;
 

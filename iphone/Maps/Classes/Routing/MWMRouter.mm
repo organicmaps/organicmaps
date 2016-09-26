@@ -19,6 +19,7 @@
 #include "Framework.h"
 
 #include "platform/local_country_file_utils.hpp"
+#include "platform/measurement_utils.hpp"
 
 using namespace routing;
 
@@ -41,6 +42,7 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
 @property(nonatomic, readwrite) MWMRoutePoint finishPoint;
 
 @property(nonatomic) NSMutableDictionary<NSValue *, NSData *> * altitudeImagesData;
+@property(nonatomic) NSString * altitudeElevation;
 @property(nonatomic) dispatch_queue_t renderAltitudeImagesQueue;
 
 @end
@@ -270,7 +272,7 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
     [[MWMNavigationDashboardManager manager] updateFollowingInfo:info];
 }
 
-- (void)routeAltitudeImageForSize:(CGSize)size completion:(MWMImageBlock)block
+- (void)routeAltitudeImageForSize:(CGSize)size completion:(MWMImageHeightBlock)block
 {
   dispatch_async(self.renderAltitudeImagesQueue, ^{
     if (![MWMRouter hasRouteAltitude])
@@ -300,13 +302,17 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
         return;
       imageData = [NSData dataWithBytes:imageRGBAData.data() length:imageRGBAData.size()];
       self.altitudeImagesData[sizeValue] = imageData;
+
+      string heightString;
+      measurement_utils::FormatDistance(maxRouteAltitude - minRouteAltitude, heightString);
+      self.altitudeElevation = @(heightString.c_str());
     }
 
     UIImage * altitudeImage = [UIImage imageWithRGBAData:imageData width:width height:height];
     if (altitudeImage)
     {
       dispatch_async(dispatch_get_main_queue(), ^{
-        block(altitudeImage);
+        block(altitudeImage, self.altitudeElevation);
       });
     }
   });
@@ -316,6 +322,7 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
 {
   dispatch_async(self.renderAltitudeImagesQueue, ^{
     [self.altitudeImagesData removeAllObjects];
+    self.altitudeElevation = nil;
   });
 }
 

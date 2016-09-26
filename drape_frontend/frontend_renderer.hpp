@@ -309,6 +309,8 @@ private:
   uint64_t m_maxGeneration;
   int m_mergeBucketsCounter = 0;
 
+  int m_lastRecacheRouteId = 0;
+
   struct FollowRouteData
   {
     FollowRouteData(int preferredZoomLevel,

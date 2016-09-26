@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="HelveticaNeue.ttc">
+        <array key="HelveticaNeue.ttc">
             <string>HelveticaNeue-Medium</string>
-            <string>HelveticaNeue-Medium</string>
-            <string>HelveticaNeue-Medium</string>
-            <string>HelveticaNeue-Medium</string>
-            <string>HelveticaNeue-Medium</string>
-            <string>HelveticaNeue-Medium</string>
-        </mutableArray>
+        </array>
     </customFonts>
     <scenes>
         <!--Whats New Night Mode Controller-->
@@ -26,20 +22,16 @@
                         <viewControllerLayoutGuide type="bottom" id="jfD-hq-SOU"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="7pp-pP-9ZU" customClass="SolidTouchView">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aly-IM-2KF" userLabel="Container">
-                                <rect key="frame" x="40" y="0.0" width="520" height="600"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jh4-I1-edQ" userLabel="BoundsView">
-                                        <rect key="frame" x="16" y="40" width="488" height="456"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KYa-do-R0L" userLabel="CenteredView">
-                                                <rect key="frame" x="44" y="59" width="400" height="337"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="ic_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="9EX-CE-PRs">
-                                                        <rect key="frame" x="90" y="0.0" width="220" height="220"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="800" constant="120" id="Vf0-P1-t3t"/>
                                                             <constraint firstAttribute="width" secondItem="9EX-CE-PRs" secondAttribute="height" multiplier="1:1" id="pgq-ox-chU"/>
@@ -47,9 +39,8 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MAPS.ME подскажет куда поворачивать" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="geS-K2-Efv" userLabel="Title">
-                                                        <rect key="frame" x="0.0" y="240" width="400" height="48"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
-                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium18"/>
@@ -57,9 +48,8 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Мы разделили большие карты на части. И теперь они будут быстрее загружаться. Попробуйте." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cK0-L8-zCK" userLabel="Text">
-                                                        <rect key="frame" x="0.0" y="304" width="400" height="33"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
@@ -67,7 +57,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="CenteredView"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="400" id="4o0-Yx-Cbo"/>
@@ -84,7 +74,7 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <accessibility key="accessibilityConfiguration" identifier="BoundsView"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="KYa-do-R0L" secondAttribute="trailing" priority="999" id="01i-JX-qNi"/>
@@ -95,16 +85,15 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D1s-fA-Vvv" userLabel="NotNow">
-                                        <rect key="frame" x="140" y="516" width="240" height="44"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="240" id="2yq-4Q-fEn"/>
                                             <constraint firstAttribute="height" constant="44" id="Jir-CF-Nzd"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                         <state key="normal" title="Next">
-                                            <color key="titleColor" red="0.01176470588" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" red="0.01176470588" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="white"/>
@@ -122,7 +111,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="D1s-fA-Vvv" secondAttribute="bottom" constant="40" id="5x8-vK-Ldc"/>
                                     <constraint firstItem="9EX-CE-PRs" firstAttribute="height" secondItem="Aly-IM-2KF" secondAttribute="height" multiplier="0.3" priority="750" id="Ox3-ge-rJ4"/>
@@ -179,20 +168,16 @@
                         <viewControllerLayoutGuide type="bottom" id="f75-9I-74y"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="RNH-dF-vbJ" customClass="SolidTouchView">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x7d-CC-QbG" userLabel="Container">
-                                <rect key="frame" x="40" y="0.0" width="520" height="600"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X71-ep-Kwb" userLabel="BoundsView">
-                                        <rect key="frame" x="16" y="40" width="488" height="456"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y7O-d8-Zqv" userLabel="CenteredView">
-                                                <rect key="frame" x="44" y="59" width="400" height="337"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="ic_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="3yX-3O-NmI">
-                                                        <rect key="frame" x="90" y="0.0" width="220" height="220"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="lessThanOrEqual" priority="800" constant="220" id="0jq-yV-Ew3"/>
                                                             <constraint firstAttribute="width" secondItem="3yX-3O-NmI" secondAttribute="height" multiplier="1:1" id="OJT-CV-liK"/>
@@ -200,9 +185,8 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MAPS.ME подскажет куда поворачивать" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dbU-5I-7cc" userLabel="Title">
-                                                        <rect key="frame" x="0.0" y="240" width="400" height="48"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
-                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium18"/>
@@ -210,9 +194,8 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Мы разделили большие карты на части. И теперь они будут быстрее загружаться. Попробуйте." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qXz-kN-Ik2" userLabel="Text">
-                                                        <rect key="frame" x="0.0" y="304" width="400" height="33"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
@@ -220,7 +203,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="CenteredView"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="400" id="7na-4a-yyW"/>
@@ -237,7 +220,7 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <accessibility key="accessibilityConfiguration" identifier="BoundsView"/>
                                         <constraints>
                                             <constraint firstItem="y7O-d8-Zqv" firstAttribute="height" relation="lessThanOrEqual" secondItem="X71-ep-Kwb" secondAttribute="height" id="0hu-C0-WoD"/>
@@ -248,16 +231,15 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UqX-Ni-ms1" userLabel="NotNow">
-                                        <rect key="frame" x="140" y="516" width="240" height="44"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="240" id="66G-KS-XdJ"/>
                                             <constraint firstAttribute="height" constant="44" id="iFJ-VB-wRd"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                         <state key="normal" title="Next">
-                                            <color key="titleColor" red="0.01176470588" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" red="0.01176470588" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="white"/>
@@ -271,7 +253,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="3yX-3O-NmI" firstAttribute="height" secondItem="x7d-CC-QbG" secondAttribute="height" multiplier="0.3" priority="750" id="1bZ-xW-y9r"/>
                                     <constraint firstAttribute="width" constant="520" id="7CX-xf-4jo"/>
@@ -320,20 +302,16 @@
                         <viewControllerLayoutGuide type="bottom" id="ZGH-fX-kmZ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="oVB-IG-dvL" customClass="SolidTouchView">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yss-Sh-6Az" userLabel="Container">
-                                <rect key="frame" x="40" y="0.0" width="520" height="600"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x7x-NE-mqP" userLabel="BoundsView">
-                                        <rect key="frame" x="16" y="40" width="488" height="456"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3e1-HO-MaJ" userLabel="CenteredView">
-                                                <rect key="frame" x="44" y="59" width="400" height="337"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="ic_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="mm5-FP-Hug">
-                                                        <rect key="frame" x="90" y="0.0" width="220" height="220"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="800" constant="120" id="bky-HI-LEh"/>
                                                             <constraint firstAttribute="height" relation="lessThanOrEqual" priority="800" constant="220" id="dic-5i-JP2"/>
@@ -341,9 +319,8 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MAPS.ME подскажет куда поворачивать" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9lh-sL-HGk" userLabel="Title">
-                                                        <rect key="frame" x="0.0" y="240" width="400" height="48"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
-                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium18"/>
@@ -351,9 +328,8 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Мы разделили большие карты на части. И теперь они будут быстрее загружаться. Попробуйте." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FYP-Wb-Mbo" userLabel="Text">
-                                                        <rect key="frame" x="0.0" y="304" width="400" height="33"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
@@ -361,7 +337,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="CenteredView"/>
                                                 <constraints>
                                                     <constraint firstItem="FYP-Wb-Mbo" firstAttribute="top" secondItem="9lh-sL-HGk" secondAttribute="bottom" constant="16" id="0Q8-gv-OIt"/>
@@ -378,7 +354,7 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <accessibility key="accessibilityConfiguration" identifier="BoundsView"/>
                                         <constraints>
                                             <constraint firstItem="3e1-HO-MaJ" firstAttribute="centerY" secondItem="x7x-NE-mqP" secondAttribute="centerY" id="4Mm-5L-pn2"/>
@@ -389,16 +365,15 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lkc-EG-p2i" userLabel="NotNow">
-                                        <rect key="frame" x="140" y="516" width="240" height="44"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="GGc-uG-5F4"/>
                                             <constraint firstAttribute="width" constant="240" id="jn3-7K-EtC"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                         <state key="normal" title="Next">
-                                            <color key="titleColor" red="0.01176470588" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" red="0.01176470588" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="white"/>
@@ -412,7 +387,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="lkc-EG-p2i" secondAttribute="bottom" constant="40" id="2nR-yP-ini"/>
                                     <constraint firstItem="x7x-NE-mqP" firstAttribute="top" secondItem="yss-Sh-6Az" secondAttribute="top" constant="40" id="3Re-Fs-3VQ"/>
@@ -461,20 +436,16 @@
                         <viewControllerLayoutGuide type="bottom" id="gVU-zj-hS0"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="3Yj-pM-DlR" customClass="SolidTouchView">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rBz-ID-Sy9" userLabel="Container">
-                                <rect key="frame" x="40" y="0.0" width="520" height="600"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BrI-By-UIb" userLabel="BoundsView">
-                                        <rect key="frame" x="16" y="40" width="488" height="396"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Gz-UC-6ew" userLabel="CenteredView">
-                                                <rect key="frame" x="44" y="29" width="400" height="337"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="ic_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="eWf-84-GDx">
-                                                        <rect key="frame" x="90" y="0.0" width="220" height="220"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="800" constant="148" id="OXy-WB-moM"/>
                                                             <constraint firstAttribute="width" secondItem="eWf-84-GDx" secondAttribute="height" multiplier="1:1" id="fOX-NS-jxP"/>
@@ -482,9 +453,8 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MAPS.ME подскажет куда поворачивать" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="96w-J9-bFX" userLabel="Title">
-                                                        <rect key="frame" x="0.0" y="240" width="400" height="48"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
-                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium18"/>
@@ -492,9 +462,8 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Мы разделили большие карты на части. И теперь они будут быстрее загружаться. Попробуйте." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gsi-YU-atq" userLabel="Text">
-                                                        <rect key="frame" x="0.0" y="304" width="400" height="33"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
@@ -502,7 +471,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="CenteredView"/>
                                                 <constraints>
                                                     <constraint firstItem="eWf-84-GDx" firstAttribute="top" secondItem="0Gz-UC-6ew" secondAttribute="top" id="60o-zd-ZuM"/>
@@ -519,7 +488,7 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <accessibility key="accessibilityConfiguration" identifier="BoundsView"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="0Gz-UC-6ew" secondAttribute="trailing" priority="999" id="HLH-DL-CaP"/>
@@ -530,16 +499,15 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qHU-Xd-EGJ">
-                                        <rect key="frame" x="140" y="456" width="240" height="44"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="240" id="YCf-8M-mYT"/>
                                             <constraint firstAttribute="height" constant="44" id="pyV-xm-J00"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                         <state key="normal" title="Primary Button">
-                                            <color key="titleColor" red="0.01176470588" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" red="0.01176470588" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="white"/>
@@ -553,16 +521,15 @@
                                         </userDefinedRuntimeAttributes>
                                     </button>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4A6-uZ-BH2">
-                                        <rect key="frame" x="140" y="516" width="240" height="44"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="ftd-8e-0Zy"/>
                                             <constraint firstAttribute="width" constant="240" id="p6M-gw-U3P"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                         <state key="normal" title="SecondaryButton">
-                                            <color key="titleColor" red="0.01176470588" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" red="0.01176470588" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
@@ -571,7 +538,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="4A6-uZ-BH2" firstAttribute="top" secondItem="qHU-Xd-EGJ" secondAttribute="bottom" priority="950" constant="16" id="0WY-iW-bMe"/>
                                     <constraint firstAttribute="width" constant="520" id="Efn-mX-d9a"/>
@@ -633,20 +600,16 @@
                         <viewControllerLayoutGuide type="bottom" id="G04-nM-BBb"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ieA-8N-47A" customClass="SolidTouchView">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Lu-4U-pEI" userLabel="Container">
-                                <rect key="frame" x="40" y="0.0" width="520" height="600"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kj0-gQ-Qse" userLabel="BoundsView">
-                                        <rect key="frame" x="16" y="40" width="488" height="456"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JYu-ab-gCF" userLabel="CenteredView">
-                                                <rect key="frame" x="44" y="71" width="400" height="313"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="ic_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="Rmo-sR-xof">
-                                                        <rect key="frame" x="90" y="0.0" width="220" height="220"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="Rmo-sR-xof" secondAttribute="height" multiplier="1:1" id="29n-nP-gF1"/>
                                                             <constraint firstAttribute="height" relation="lessThanOrEqual" priority="800" constant="220" id="SVq-tV-14M"/>
@@ -654,9 +617,8 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Бронируй отель из приложения" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rkh-Km-3rn" userLabel="Title">
-                                                        <rect key="frame" x="0.0" y="240" width="400" height="24"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
-                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium18"/>
@@ -664,9 +626,8 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="При выборе отелей на карте будут отображаться ценовая категория и рейтинг заведения." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tnj-ab-WNV" userLabel="Text">
-                                                        <rect key="frame" x="0.0" y="280" width="400" height="33"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
@@ -674,7 +635,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="CenteredView"/>
                                                 <constraints>
                                                     <constraint firstItem="rkh-Km-3rn" firstAttribute="width" secondItem="JYu-ab-gCF" secondAttribute="width" id="0a4-d1-maV"/>
@@ -691,7 +652,7 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <accessibility key="accessibilityConfiguration" identifier="BoundsView"/>
                                         <constraints>
                                             <constraint firstItem="JYu-ab-gCF" firstAttribute="leading" secondItem="Kj0-gQ-Qse" secondAttribute="leading" priority="999" id="9FF-PA-D8J"/>
@@ -702,16 +663,15 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GIi-E6-KZS" userLabel="NotNow">
-                                        <rect key="frame" x="140" y="516" width="240" height="44"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="240" id="OJi-1g-t3j"/>
                                             <constraint firstAttribute="height" constant="44" id="Qrh-dE-IE7"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                         <state key="normal" title="Next">
-                                            <color key="titleColor" red="0.01176470588" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" red="0.01176470588" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="white"/>
@@ -725,7 +685,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="GIi-E6-KZS" firstAttribute="top" secondItem="Kj0-gQ-Qse" secondAttribute="bottom" constant="20" id="Avw-5R-pyb"/>
                                     <constraint firstItem="Kj0-gQ-Qse" firstAttribute="leading" secondItem="6Lu-4U-pEI" secondAttribute="leading" constant="16" id="GZu-4x-w0N"/>
@@ -739,12 +699,11 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="It2-Pc-pmy">
-                                <rect key="frame" x="556" y="32" width="28" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="NTX-xi-YHj"/>
                                     <constraint firstAttribute="width" constant="28" id="vUu-hA-NR3"/>
                                 </constraints>
-                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" image="ic_close_spinner"/>
                                 <connections>
                                     <action selector="close" destination="P7f-MJ-gwN" eventType="touchUpInside" id="7tT-eB-g60"/>
@@ -788,20 +747,16 @@
                         <viewControllerLayoutGuide type="bottom" id="nJa-Wo-CTG"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="eTO-jl-C1f" customClass="SolidTouchView">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vGW-bq-fH5" userLabel="Container">
-                                <rect key="frame" x="40" y="0.0" width="520" height="600"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ITl-q8-Byo" userLabel="BoundsView">
-                                        <rect key="frame" x="16" y="40" width="488" height="456"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tbk-TZ-Cly" userLabel="CenteredView">
-                                                <rect key="frame" x="44" y="71" width="400" height="313"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="ic_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="SZx-R6-NGK">
-                                                        <rect key="frame" x="90" y="0.0" width="220" height="220"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="lessThanOrEqual" priority="800" constant="220" id="3pQ-h3-lDE"/>
                                                             <constraint firstAttribute="width" secondItem="SZx-R6-NGK" secondAttribute="height" multiplier="1:1" id="JHG-qN-jGY"/>
@@ -809,9 +764,8 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Бронируй отель из приложения" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="snm-YK-UES" userLabel="Title">
-                                                        <rect key="frame" x="0.0" y="240" width="400" height="24"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
-                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium18"/>
@@ -819,9 +773,8 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="При выборе отелей на карте будут отображаться ценовая категория и рейтинг заведения." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fz1-S6-6eL" userLabel="Text">
-                                                        <rect key="frame" x="0.0" y="280" width="400" height="33"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
@@ -829,7 +782,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="CenteredView"/>
                                                 <constraints>
                                                     <constraint firstItem="snm-YK-UES" firstAttribute="top" secondItem="tbk-TZ-Cly" secondAttribute="top" priority="740" constant="40" id="5yw-bh-sO5"/>
@@ -846,7 +799,7 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <accessibility key="accessibilityConfiguration" identifier="BoundsView"/>
                                         <constraints>
                                             <constraint firstItem="tbk-TZ-Cly" firstAttribute="centerX" secondItem="ITl-q8-Byo" secondAttribute="centerX" id="E6w-Lj-l2a"/>
@@ -857,16 +810,15 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OjW-xF-Iie" userLabel="NotNow">
-                                        <rect key="frame" x="140" y="516" width="240" height="44"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="82z-pQ-KWZ"/>
                                             <constraint firstAttribute="width" constant="240" id="xE7-iY-0ku"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                         <state key="normal" title="Next">
-                                            <color key="titleColor" red="0.01176470588" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" red="0.01176470588" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="white"/>
@@ -880,7 +832,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="600" id="7zL-gy-PCa"/>
                                     <constraint firstItem="ITl-q8-Byo" firstAttribute="top" secondItem="vGW-bq-fH5" secondAttribute="top" constant="40" id="8t4-fD-AEI"/>
@@ -894,12 +846,11 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ZS-Cx-eDt">
-                                <rect key="frame" x="556" y="32" width="28" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="28" id="AJQ-MR-2Nc"/>
                                     <constraint firstAttribute="height" constant="28" id="SPS-2W-vgR"/>
                                 </constraints>
-                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" image="ic_close_spinner"/>
                                 <connections>
                                     <action selector="close" destination="J6A-Up-KBC" eventType="touchUpInside" id="UNP-oR-xPv"/>
@@ -933,6 +884,153 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cxu-aX-Emu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3916" y="1932"/>
+        </scene>
+        <!--Whats New Profile Booking Controller-->
+        <scene sceneID="bvJ-qv-pLh">
+            <objects>
+                <viewController storyboardIdentifier="MWMWhatsNewProfileBookingController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="D0Q-aQ-soO" customClass="MWMWhatsNewProfileBookingController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ykz-7Y-P5F"/>
+                        <viewControllerLayoutGuide type="bottom" id="HDv-2P-rpo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="wKa-6r-SbD" customClass="SolidTouchView">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tEt-Eb-3MY" userLabel="Container">
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ijb-HU-C52" userLabel="BoundsView">
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TPe-nO-YIS" userLabel="CenteredView">
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="ic_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="9Kf-gP-xXN">
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="800" constant="120" id="Hp2-f3-Ba4"/>
+                                                            <constraint firstAttribute="width" secondItem="9Kf-gP-xXN" secondAttribute="height" multiplier="1:1" id="Tpz-CT-wzN"/>
+                                                            <constraint firstAttribute="height" relation="lessThanOrEqual" priority="800" constant="220" id="jUo-PM-UZA"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Бронируй отель из приложения" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gQf-dx-QkP" userLabel="Title">
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium18"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="При выборе отелей на карте будут отображаться ценовая категория и рейтинг заведения." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K1V-YA-EyH" userLabel="Text">
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="CenteredView"/>
+                                                <constraints>
+                                                    <constraint firstItem="9Kf-gP-xXN" firstAttribute="top" secondItem="TPe-nO-YIS" secondAttribute="top" id="0t1-iU-vUW"/>
+                                                    <constraint firstItem="9Kf-gP-xXN" firstAttribute="centerX" secondItem="TPe-nO-YIS" secondAttribute="centerX" id="1Ku-Uf-gka"/>
+                                                    <constraint firstItem="K1V-YA-EyH" firstAttribute="top" secondItem="gQf-dx-QkP" secondAttribute="bottom" constant="16" id="B22-RU-Du5"/>
+                                                    <constraint firstItem="K1V-YA-EyH" firstAttribute="width" secondItem="TPe-nO-YIS" secondAttribute="width" id="DKm-6r-nvs"/>
+                                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="400" id="OjB-Dq-4eC"/>
+                                                    <constraint firstItem="gQf-dx-QkP" firstAttribute="width" secondItem="TPe-nO-YIS" secondAttribute="width" id="QCC-34-Wpl"/>
+                                                    <constraint firstAttribute="bottom" secondItem="K1V-YA-EyH" secondAttribute="bottom" id="VMN-Oj-FFw"/>
+                                                    <constraint firstItem="K1V-YA-EyH" firstAttribute="centerX" secondItem="TPe-nO-YIS" secondAttribute="centerX" id="X2u-eu-WOy"/>
+                                                    <constraint firstItem="gQf-dx-QkP" firstAttribute="top" secondItem="TPe-nO-YIS" secondAttribute="top" priority="740" constant="40" id="b9J-q4-ksP"/>
+                                                    <constraint firstItem="gQf-dx-QkP" firstAttribute="top" secondItem="9Kf-gP-xXN" secondAttribute="bottom" priority="750" constant="20" id="e8L-B4-IM6"/>
+                                                    <constraint firstItem="gQf-dx-QkP" firstAttribute="centerX" secondItem="TPe-nO-YIS" secondAttribute="centerX" id="gx2-nU-h1g"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="BoundsView"/>
+                                        <constraints>
+                                            <constraint firstItem="TPe-nO-YIS" firstAttribute="leading" secondItem="Ijb-HU-C52" secondAttribute="leading" priority="999" id="BCw-2h-SFs"/>
+                                            <constraint firstItem="TPe-nO-YIS" firstAttribute="centerY" secondItem="Ijb-HU-C52" secondAttribute="centerY" id="ez4-HU-1M6"/>
+                                            <constraint firstAttribute="trailing" secondItem="TPe-nO-YIS" secondAttribute="trailing" priority="999" id="nwk-Ge-uLd"/>
+                                            <constraint firstItem="TPe-nO-YIS" firstAttribute="height" relation="lessThanOrEqual" secondItem="Ijb-HU-C52" secondAttribute="height" id="pn8-Y4-KUr"/>
+                                            <constraint firstItem="TPe-nO-YIS" firstAttribute="centerX" secondItem="Ijb-HU-C52" secondAttribute="centerX" id="sb1-6l-pkl"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DOC-GL-XE3" userLabel="NotNow">
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="E6P-sq-QNp"/>
+                                            <constraint firstAttribute="width" constant="240" id="sF1-aJ-hh9"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                        <state key="normal" title="Next">
+                                            <color key="titleColor" red="0.01176470588" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="white"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="white"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlueHighlighted"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="DOC-GL-XE3" secondAttribute="bottom" constant="40" id="2Di-cK-wcY"/>
+                                    <constraint firstItem="9Kf-gP-xXN" firstAttribute="height" secondItem="tEt-Eb-3MY" secondAttribute="height" multiplier="0.3" priority="750" id="6kI-LR-9t9"/>
+                                    <constraint firstItem="DOC-GL-XE3" firstAttribute="top" secondItem="Ijb-HU-C52" secondAttribute="bottom" constant="20" id="IiB-UZ-7sb"/>
+                                    <constraint firstAttribute="width" constant="520" id="LhG-2j-IgC"/>
+                                    <constraint firstAttribute="height" constant="600" id="QaY-l6-crt"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ijb-HU-C52" secondAttribute="trailing" constant="16" id="WM5-se-bnN"/>
+                                    <constraint firstItem="Ijb-HU-C52" firstAttribute="leading" secondItem="tEt-Eb-3MY" secondAttribute="leading" constant="16" id="eNl-bG-heb"/>
+                                    <constraint firstItem="Ijb-HU-C52" firstAttribute="top" secondItem="tEt-Eb-3MY" secondAttribute="top" constant="40" id="hrO-ye-EyW"/>
+                                    <constraint firstItem="DOC-GL-XE3" firstAttribute="centerX" secondItem="tEt-Eb-3MY" secondAttribute="centerX" id="yIm-ju-0St"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="63Z-Dp-kPv">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="28" id="dqY-MR-itL"/>
+                                    <constraint firstAttribute="height" constant="28" id="vgo-Ks-ho5"/>
+                                </constraints>
+                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" image="ic_close_spinner"/>
+                                <connections>
+                                    <action selector="close" destination="D0Q-aQ-soO" eventType="touchUpInside" id="njH-59-dyC"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="tEt-Eb-3MY" firstAttribute="centerY" secondItem="wKa-6r-SbD" secondAttribute="centerY" id="4SN-fY-s0Z"/>
+                            <constraint firstAttribute="trailing" secondItem="63Z-Dp-kPv" secondAttribute="trailing" constant="16" id="AEC-eh-01G"/>
+                            <constraint firstItem="63Z-Dp-kPv" firstAttribute="top" secondItem="ykz-7Y-P5F" secondAttribute="bottom" constant="12" id="Ewa-1T-I9n"/>
+                            <constraint firstItem="tEt-Eb-3MY" firstAttribute="centerX" secondItem="wKa-6r-SbD" secondAttribute="centerX" id="cRJ-wu-7na"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <connections>
+                        <outlet property="alertText" destination="K1V-YA-EyH" id="o7a-dS-fiG"/>
+                        <outlet property="alertTitle" destination="gQf-dx-QkP" id="ult-qw-ApT"/>
+                        <outlet property="containerHeight" destination="QaY-l6-crt" id="UWK-bc-KnQ"/>
+                        <outlet property="containerView" destination="tEt-Eb-3MY" id="wCF-U7-rRn"/>
+                        <outlet property="containerWidth" destination="LhG-2j-IgC" id="kp4-Gk-mT7"/>
+                        <outlet property="image" destination="9Kf-gP-xXN" id="F9d-1Q-Cvh"/>
+                        <outlet property="imageHeight" destination="6kI-LR-9t9" id="Q8C-J6-vla"/>
+                        <outlet property="imageMinHeight" destination="Hp2-f3-Ba4" id="Hfw-uv-oro"/>
+                        <outlet property="nextPageButton" destination="DOC-GL-XE3" id="v4G-yf-z2p"/>
+                        <outlet property="titleImageOffset" destination="e8L-B4-IM6" id="qFe-dJ-fzR"/>
+                        <outlet property="titleTopOffset" destination="b9J-q4-ksP" id="mH1-B1-uhq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Uc-f0-gGu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2562" y="1932"/>
         </scene>
     </scenes>
     <resources>

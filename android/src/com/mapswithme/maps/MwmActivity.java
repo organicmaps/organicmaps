@@ -75,8 +75,6 @@ import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
-import com.mapswithme.util.log.DebugLogger;
-import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.sharing.SharingHelper;
 import com.mapswithme.util.statistics.AlohaHelper;
@@ -149,7 +147,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   // The first launch of application ever - onboarding screen will be shown.
   private boolean mFirstStart;
-  private final Logger mLogger = new DebugLogger(MwmActivity.class.getSimpleName());
 
   public interface LeftAnimationTrackListener
   {
@@ -180,6 +177,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
     checkKitkatMigrationMove();
 
     LocationHelper.INSTANCE.attach(this);
+    runTasks();
+  }
+
+  @Override
+  public void onRenderingRestored()
+  {
     runTasks();
   }
 
@@ -669,6 +672,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (!mIsFragmentContainer && RoutingController.get().isPlanning())
       mRoutingPlanInplaceController.onSaveState(outState);
 
+    if (mIsFragmentContainer)
+    {
+      RoutingPlanFragment fragment = (RoutingPlanFragment) getFragment(RoutingPlanFragment.class);
+      if (fragment != null)
+        fragment.saveAltitudeChartState(outState);
+    }
+
     RoutingController.get().onSaveState();
     super.onSaveInstanceState(outState);
   }
@@ -714,7 +724,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mTasks.add(mapTask);
       intent.removeExtra(EXTRA_TASK);
 
-      if (MapFragment.nativeIsEngineCreated())
+      if (MapFragment.nativeIsEngineCreated() && mMapFragment.isContextCreated())
         runTasks();
 
       // mark intent as consumed
@@ -725,7 +735,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void addTask(MapTask task)
   {
     mTasks.add(task);
-    if (MapFragment.nativeIsEngineCreated())
+    if (MapFragment.nativeIsEngineCreated() && mMapFragment.isContextCreated())
       runTasks();
   }
 
@@ -1147,10 +1157,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
       switch (result)
       {
       case ParsedUrlMwmRequest.RESULT_INCORRECT:
-        // TODO handle error
-        break;
+        // TODO: Kernel recognizes "mapsme://", "mwm://" and "mapswithme://" schemas only!!!
+        return MapFragment.nativeShowMapForUrl(mUrl);
+
       case ParsedUrlMwmRequest.RESULT_MAP:
         return MapFragment.nativeShowMapForUrl(mUrl);
+
       case ParsedUrlMwmRequest.RESULT_ROUTE:
         final ParsedRoutingData data = Framework.nativeGetParsedRoutingData();
         RoutingController.get().setRouterType(data.mRouterType);
@@ -1285,7 +1297,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
         || RoutingController.get().isErrorEncountered())
     {
       mMainMenu.showLineFrame(false);
+      return;
     }
+
+    mMainMenu.showLineFrame(true);
   }
 
   @Override

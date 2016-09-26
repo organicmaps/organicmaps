@@ -595,10 +595,16 @@ class AddRouteMessage : public Message
 public:
   AddRouteMessage(m2::PolylineD const & routePolyline, vector<double> const & turns,
                   df::ColorConstant color, df::RoutePattern const & pattern)
+    : AddRouteMessage(routePolyline, turns, color, pattern, -1 /* invalid recache id */)
+  {}
+
+  AddRouteMessage(m2::PolylineD const & routePolyline, vector<double> const & turns,
+                  df::ColorConstant color, df::RoutePattern const & pattern, int recacheId)
     : m_routePolyline(routePolyline)
     , m_color(color)
     , m_turns(turns)
     , m_pattern(pattern)
+    , m_recacheId(recacheId)
   {}
 
   Type GetType() const override { return Message::AddRoute; }
@@ -607,21 +613,28 @@ public:
   df::ColorConstant GetColor() const { return m_color; }
   vector<double> const & GetTurns() const { return m_turns; }
   df::RoutePattern const & GetPattern() const { return m_pattern; }
+  int GetRecacheId() const { return m_recacheId; }
 
 private:
   m2::PolylineD m_routePolyline;
   df::ColorConstant m_color;
   vector<double> m_turns;
   df::RoutePattern m_pattern;
+  int const m_recacheId;
 };
 
 class CacheRouteSignMessage : public Message
 {
 public:
   CacheRouteSignMessage(m2::PointD const & pos, bool isStart, bool isValid)
+    : CacheRouteSignMessage(pos, isStart, isValid, -1 /* invalid recache id */)
+  {}
+
+  CacheRouteSignMessage(m2::PointD const & pos, bool isStart, bool isValid, int recacheId)
     : m_position(pos)
     , m_isStart(isStart)
     , m_isValid(isValid)
+    , m_recacheId(recacheId)
   {}
 
   Type GetType() const override { return Message::CacheRouteSign; }
@@ -629,29 +642,38 @@ public:
   m2::PointD const & GetPosition() const { return m_position; }
   bool IsStart() const { return m_isStart; }
   bool IsValid() const { return m_isValid; }
+  int GetRecacheId() const { return m_recacheId; }
 
 private:
   m2::PointD const m_position;
   bool const m_isStart;
   bool const m_isValid;
+  int const m_recacheId;
 };
 
 class CacheRouteArrowsMessage : public Message
 {
 public:
   CacheRouteArrowsMessage(int routeIndex, vector<ArrowBorders> const & borders)
+    : CacheRouteArrowsMessage(routeIndex, borders, -1 /* invalid recache id */)
+  {}
+
+  CacheRouteArrowsMessage(int routeIndex, vector<ArrowBorders> const & borders, int recacheId)
     : m_routeIndex(routeIndex)
     , m_borders(borders)
+    , m_recacheId(recacheId)
   {}
 
   Type GetType() const override { return Message::CacheRouteArrows; }
 
   int GetRouteIndex() const { return m_routeIndex; }
   vector<ArrowBorders> const & GetBorders() const { return m_borders; }
+  int GetRecacheId() const { return m_recacheId; }
 
 private:
   int m_routeIndex;
   vector<ArrowBorders> m_borders;
+  int const m_recacheId;
 };
 
 class RemoveRouteMessage : public Message

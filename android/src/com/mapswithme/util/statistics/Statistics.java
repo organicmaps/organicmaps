@@ -26,8 +26,6 @@ import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.editor.OsmOAuth;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.ConnectionState;
-import com.my.tracker.MyTracker;
-import com.my.tracker.MyTrackerParams;
 
 public enum Statistics
 {
@@ -232,13 +230,6 @@ public enum Statistics
       FlurryAgent.setVersionName(BuildConfig.VERSION_NAME);
       FlurryAgent.setCaptureUncaughtExceptions(false);
       FlurryAgent.init(context, PrivateVariables.flurryKey());
-
-      MyTracker.setDebugMode(BuildConfig.DEBUG);
-      MyTracker.createTracker(PrivateVariables.myTrackerKey(), context);
-      final MyTrackerParams myParams = MyTracker.getTrackerParams();
-      myParams.setDefaultVendorAppPackage();
-      myParams.setTrackingLaunchEnabled(true);
-      MyTracker.initTracker();
     }
     // At the moment, need to always initialize engine for correct JNI http part reusing.
     // Statistics is still enabled/disabled separately and never sent anywhere if turned off.
@@ -295,7 +286,6 @@ public enum Statistics
     {
       FlurryAgent.onStartSession(activity);
       AppEventsLogger.activateApp(activity);
-      MyTracker.onStartActivity(activity);
       org.alohalytics.Statistics.onStart(activity);
     }
   }
@@ -306,7 +296,6 @@ public enum Statistics
     {
       FlurryAgent.onEndSession(activity);
       AppEventsLogger.deactivateApp(activity);
-      MyTracker.onStopActivity(activity);
       org.alohalytics.Statistics.onStop(activity);
     }
   }
@@ -377,7 +366,6 @@ public enum Statistics
     if (mEnabled)
     {
       final ParameterBuilder params = params().add(EventParam.COUNT, String.valueOf(MapManager.nativeGetDownloadedCount()));
-      MyTracker.trackEvent(event, params.get());
       trackEvent(event, params);
     }
   }

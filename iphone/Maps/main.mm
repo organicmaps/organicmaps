@@ -37,9 +37,15 @@ void setMarketingSender()
     if (tag.empty())
       return;
     NSMutableDictionary<NSString *, NSString *> * eventParams = [@{} mutableCopy];
+    NSMutableString * myTrackerEvent = [@(tag.c_str()) mutableCopy];
     for (auto const & param : params)
-      eventParams[@(param.first.c_str())] = @(param.second.c_str());
-    [MRMyTracker trackEvent:@(tag.c_str()) eventParams:eventParams];
+    {
+      NSString * key = @(param.first.c_str());
+      NSString * value = @(param.second.c_str());
+      eventParams[key] = value;
+      [myTrackerEvent appendString:[NSString stringWithFormat:@"_%@_%@", key, value]];
+    }
+    [MRMyTracker trackEvent:myTrackerEvent eventParams:nil];
   });
 }
 

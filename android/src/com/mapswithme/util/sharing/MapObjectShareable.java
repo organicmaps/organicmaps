@@ -1,32 +1,62 @@
 package com.mapswithme.util.sharing;
 
 import android.app.Activity;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.widget.placepage.SponsoredHotel;
 import com.mapswithme.util.statistics.Statistics;
 
-public class MapObjectShareable extends BaseShareable
+class MapObjectShareable extends BaseShareable
 {
-  protected final MapObject mMapObject;
-
-  public MapObjectShareable(Activity context, MapObject mapObject)
+  MapObjectShareable(Activity context, @NonNull MapObject mapObject, @Nullable SponsoredHotel sponsoredHotel)
   {
     super(context);
-    mMapObject = mapObject;
 
     final Activity activity = getActivity();
-    final String ge0Url = Framework.nativeGetGe0Url(mMapObject.getLat(), mMapObject.getLon(), mMapObject.getScale(), mMapObject.getTitle());
-    final String httpUrl = Framework.getHttpGe0Url(mMapObject.getLat(), mMapObject.getLon(), mMapObject.getScale(), mMapObject.getTitle());
-    final String address = Framework.nativeGetNameAndAddress(mMapObject.getLat(), mMapObject.getLon());
-    final int textId = MapObject.isOfType(MapObject.MY_POSITION, mMapObject) ? R.string.my_position_share_email
-                                                                             : R.string.bookmark_share_email;
-    final int subjectId = MapObject.isOfType(MapObject.MY_POSITION, mMapObject) ? R.string.my_position_share_email_subject
-                                                                                : R.string.bookmark_share_email_subject;
+    final String ge0Url = Framework.nativeGetGe0Url(mapObject.getLat(), mapObject.getLon(), mapObject.getScale(), mapObject.getTitle());
 
-    setText(activity.getString(textId, address, ge0Url, httpUrl));
-    setSubject(activity.getString(subjectId));
+    final String subject;
+    String text;
+    if (MapObject.isOfType(MapObject.MY_POSITION, mapObject))
+    {
+      subject = activity.getString(R.string.my_position_share_email_subject);
+      text = activity.getString(R.string.my_position_share_email,
+                                Framework.nativeGetNameAndAddress(mapObject.getLat(), mapObject.getLon()),
+                                ge0Url,
+                                Framework.getHttpGe0Url(mapObject.getLat(), mapObject.getLon(), mapObject.getScale(), mapObject.getTitle()));
+    }
+    else
+    {
+      subject = activity.getString(R.string.bookmark_share_email_subject);
+
+      text = lineWithBreak(activity.getString(R.string.sharing_call_action_look)) +
+                 lineWithBreak(mapObject.getTitle()) +
+                 lineWithBreak(mapObject.getSubtitle()) +
+                 lineWithBreak(mapObject.getAddress()) +
+                 lineWithBreak(ge0Url);
+
+      if (sponsoredHotel != null)
+      {
+        text += lineWithBreak(activity.getString(R.string.sharing_booking)) +
+                    sponsoredHotel.getUrlBook();
+      }
+    }
+
+    setSubject(subject);
+    setText(text);
+  }
+
+  private String lineWithBreak(String title)
+  {
+    if (!TextUtils.isEmpty(title))
+      return title + "\n";
+
+    return "";
   }
 
   @Override

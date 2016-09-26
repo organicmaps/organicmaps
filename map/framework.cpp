@@ -375,6 +375,7 @@ Framework::Framework()
   auto const routingStatisticsFn = [](map<string, string> const & statistics)
   {
     alohalytics::LogEvent("Routing_CalculatingRoute", statistics);
+    GetPlatform().SendMarketingEvent("Routing_CalculatingRoute", {});
   };
 #ifdef DEBUG
   auto const routingVisualizerFn = [this](m2::PointD const & pt)
@@ -636,6 +637,7 @@ void Framework::LoadBookmarks()
 
 size_t Framework::AddBookmark(size_t categoryIndex, const m2::PointD & ptOrg, BookmarkData & bm)
 {
+  GetPlatform().SendMarketingEvent("Bookmarks_Bookmark_action", {{"action", "create"}});
   return m_bmManager.AddBookmark(categoryIndex, ptOrg, bm);
 }
 
@@ -1600,11 +1602,7 @@ void Framework::UpdateDrapeEngine(int width, int height)
 
     InvalidateUserMarks();
 
-    if (m_lastTapEvent)
-    {
-      place_page::Info info;
-      ActivateMapSelection(false, OnTapEventImpl(*m_lastTapEvent, info), info);
-    }
+    UpdatePlacePageInfoForCurrentSelection();
   }
 }
 
@@ -1985,6 +1983,9 @@ void Framework::OnTapEvent(TapEvent const & tapEvent)
         kv["types"] = DebugPrint(info.GetTypes());
       // Older version of statistics used "$GetUserMark" event.
       alohalytics::Stats::Instance().LogEvent("$SelectMapObject", kv, alohalytics::Location::FromLatLon(ll.lat, ll.lon));
+
+      if (info.IsHotel())
+        GetPlatform().SendMarketingEvent("Placepage_Hotel_book", {{"provider", "booking.com"}});
     }
 
     ActivateMapSelection(true, selection, info);
@@ -2787,6 +2788,8 @@ bool Framework::CreateMapObject(m2::PointD const & mercator, uint32_t const feat
   if (!mwmId.IsAlive())
     return false;
 
+  GetPlatform().SendMarketingEvent("EditorAdd_start", {});
+
   search::ReverseGeocoder const coder(m_model.GetIndex());
   vector<search::ReverseGeocoder::Street> streets;
 
@@ -2807,6 +2810,8 @@ bool Framework::GetEditableMapObject(FeatureID const & fid, osm::EditableMapObje
   FeatureType ft;
   if (!GetFeatureByID(fid, ft))
     return false;
+
+  GetPlatform().SendMarketingEvent("EditorEdit_start", {});
 
   emo.SetFromFeatureType(ft);
   emo.SetHouseNumber(ft.GetHouseNumber());

@@ -1623,3 +1623,11 @@
 
 /* For the first routing */
 "decline" = "Ablehnen";
+
+"whats_new_route_profile_title" = "Am besten den leichtesten Weg gehen";
+
+"whats_new_route_profile_message" = "Für Fußgänger- und Fahrradrouten zeigen wir nun das Höhenprofil an.";
+
+"whats_new_booking_improve_title" = "Beim Buchen von Hotels sparen";
+
+"whats_new_booking_improve_message" = "Suchergebnisse für Hotels enthalten jetzt die Kategorie Preis.\nAußerdem haben wir über 110.000 Hotels hinzugefügt.";

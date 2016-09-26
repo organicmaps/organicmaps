@@ -830,6 +830,7 @@ void Storage::OnMapDownloadFinished(TCountryId const & countryId, bool success, 
                                  {"status", success ? "ok" : "failed"},
                                  {"version", strings::to_string(GetCurrentDataVersion())},
                                  {"option", DebugPrint(files)}}));
+    GetPlatform().SendMarketingEvent("Downloader_Map_action_finished", {{"action", "download"}});
   }
 
   success = success && RegisterDownloadedFiles(countryId, files);

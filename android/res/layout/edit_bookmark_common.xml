@@ -79,7 +79,7 @@
 
   <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="@dimen/height_item_edit_bookmark"
+    android:layout_height="wrap_content"
     android:layout_below="@id/rl__bookmark_set"
     android:layout_margin="@dimen/margin_half"
     android:orientation="vertical"
@@ -94,8 +94,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/edit_description_hint"
-        android:inputType="text"
-        android:singleLine="false"/>
+        android:inputType="textMultiLine"/>
     </com.mapswithme.maps.widget.CustomTextInputLayout>
   </LinearLayout>
 </RelativeLayout>

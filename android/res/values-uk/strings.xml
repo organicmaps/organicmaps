@@ -719,6 +719,10 @@
 	<string name="place_name">Назва</string>
 	<!-- title above languages list cells in the editor, below editable name text field. -->
 	<string name="other_languages">Інші мови</string>
+	<!-- small button to open list with names in different languages -->
+	<string name="show_more">Показати більше</string>
+	<!-- small button to close list with names in different languages -->
+	<string name="show_less">Показати менше</string>
 	<string name="add_language">Додати мову</string>
 	<string name="street">Вулиця</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -943,4 +947,8 @@
 	<string name="accept">Прийняти</string>
 	<!-- For the first routing -->
 	<string name="decline">Відхилити</string>
+	<string name="whats_new_route_profile_title">Мудрий в гори б не звернув, мудрий гори б обминув</string>
+	<string name="whats_new_route_profile_message">Для пішохідних і велосипедних маршрутів тепер відображається профіль рельєфу.</string>
+	<string name="whats_new_booking_improve_title">Заощаджуйте на бронюванні готелів</string>
+	<string name="whats_new_booking_improve_message">В результатах пошуку готелів на карті відображається цінова категорія.\nКрім того, тепер у нашій базі даних з\&#39;явилося 110 000 нових готелів.</string>
 </resources>

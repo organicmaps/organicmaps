@@ -1,5 +1,6 @@
 package com.mapswithme.maps.widget.placepage;
 
+import android.support.annotation.Nullable;
 import android.support.annotation.UiThread;
 import android.text.TextUtils;
 
@@ -11,7 +12,7 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.Metadata;
 
 @UiThread
-final class SponsoredHotel
+public final class SponsoredHotel
 {
   private static class Price
   {
@@ -59,6 +60,26 @@ final class SponsoredHotel
     return mId;
   }
 
+  public String getRating()
+  {
+    return rating;
+  }
+
+  public String getPrice()
+  {
+    return price;
+  }
+
+  public String getUrlBook()
+  {
+    return urlBook;
+  }
+
+  public String getUrlDescription()
+  {
+    return urlDescription;
+  }
+
   public static void setListener(OnPriceReceivedListener listener)
   {
     sListener = new WeakReference<>(listener);
@@ -88,6 +109,7 @@ final class SponsoredHotel
       listener.onPriceReceived(id, price, currency);
   }
 
+  @Nullable
   public static native SponsoredHotel nativeGetCurrent();
   private static native void nativeRequestPrice(String id, String currencyCode);
 }

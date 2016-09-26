@@ -95,7 +95,9 @@ void GpsTrackRenderer::AddRenderData(ref_ptr<dp::GpuProgramManager> mng,
 void GpsTrackRenderer::ClearRenderData()
 {
   m_renderData.clear();
+  m_handlesCache.clear();
   m_waitForRenderData = false;
+  m_needUpdate = true;
 }
 
 void GpsTrackRenderer::UpdatePoints(vector<GpsTrackPoint> const & toAdd, vector<uint32_t> const & toRemove)

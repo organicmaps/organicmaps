@@ -217,6 +217,8 @@
 		349C3AED1D33A933002AC7A9 /* MWMNavigationInfoView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349C3AEB1D33A933002AC7A9 /* MWMNavigationInfoView.mm */; };
 		349C3AEF1D33A96B002AC7A9 /* MWMNavigationInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349C3AEE1D33A96B002AC7A9 /* MWMNavigationInfoView.xib */; };
 		349C3AF01D33A96B002AC7A9 /* MWMNavigationInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349C3AEE1D33A96B002AC7A9 /* MWMNavigationInfoView.xib */; };
+		349CCECE1D8BCA5400C89395 /* MWMWhatsNewProfileBookingController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349CCECD1D8BCA5400C89395 /* MWMWhatsNewProfileBookingController.mm */; };
+		349CCECF1D8BCA5400C89395 /* MWMWhatsNewProfileBookingController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349CCECD1D8BCA5400C89395 /* MWMWhatsNewProfileBookingController.mm */; };
 		34A62D4E1C903533007FDCB7 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34A62D4C1C903533007FDCB7 /* Fabric.framework */; };
 		34A62D4F1C903533007FDCB7 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34A62D4C1C903533007FDCB7 /* Fabric.framework */; };
 		34A62D501C903533007FDCB7 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34A62D4D1C903533007FDCB7 /* Crashlytics.framework */; };
@@ -274,8 +276,8 @@
 		34BF0CC71C31304A00D097EB /* MWMAuthorizationCommon.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BF0CC51C31304A00D097EB /* MWMAuthorizationCommon.mm */; };
 		34BF68601D74585D001752F6 /* MWMSearch+CoreSpotlight.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BF685F1D74585D001752F6 /* MWMSearch+CoreSpotlight.mm */; };
 		34BF68611D74585D001752F6 /* MWMSearch+CoreSpotlight.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BF685F1D74585D001752F6 /* MWMSearch+CoreSpotlight.mm */; };
-		34BF68631D7459E6001752F6 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34BF68621D7459E6001752F6 /* CoreSpotlight.framework */; };
-		34BF68641D7459EF001752F6 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34BF68621D7459E6001752F6 /* CoreSpotlight.framework */; };
+		34BF68631D7459E6001752F6 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34BF68621D7459E6001752F6 /* CoreSpotlight.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		34BF68641D7459EF001752F6 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34BF68621D7459E6001752F6 /* CoreSpotlight.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		34C2431B1CEDBDBA0006B7DC /* MWMEditorAdditionalNamesTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34C2431A1CEDBDBA0006B7DC /* MWMEditorAdditionalNamesTableViewController.mm */; };
 		34C2431C1CEDBDBA0006B7DC /* MWMEditorAdditionalNamesTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34C2431A1CEDBDBA0006B7DC /* MWMEditorAdditionalNamesTableViewController.mm */; };
 		34C659471BD12A77009DC20A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 34C659451BD12A77009DC20A /* InfoPlist.strings */; };
@@ -1116,6 +1118,8 @@
 		349C3AEB1D33A933002AC7A9 /* MWMNavigationInfoView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNavigationInfoView.mm; sourceTree = "<group>"; };
 		349C3AEE1D33A96B002AC7A9 /* MWMNavigationInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMNavigationInfoView.xib; sourceTree = "<group>"; };
 		349C3AF11D33C6EE002AC7A9 /* MWMNavigationDashboardInfoProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMNavigationDashboardInfoProtocol.h; sourceTree = "<group>"; };
+		349CCECC1D8BCA5400C89395 /* MWMWhatsNewProfileBookingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWMWhatsNewProfileBookingController.h; path = Welcome/MWMWhatsNewProfileBookingController.h; sourceTree = "<group>"; };
+		349CCECD1D8BCA5400C89395 /* MWMWhatsNewProfileBookingController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MWMWhatsNewProfileBookingController.mm; path = Welcome/MWMWhatsNewProfileBookingController.mm; sourceTree = "<group>"; };
 		34A62D4C1C903533007FDCB7 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		34A62D4D1C903533007FDCB7 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		34AA7D9D1D63543E00254037 /* MWMRouterSavedState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRouterSavedState.h; sourceTree = "<group>"; };
@@ -2932,6 +2936,8 @@
 				345A2DCA1D0B0EB600A7DD39 /* MWMWhatsNewBookingBicycleRoutingController.mm */,
 				34664CF81D4A0262003D7096 /* MWMWhatsNewNavigationController.h */,
 				34664CF91D4A0262003D7096 /* MWMWhatsNewNavigationController.mm */,
+				349CCECC1D8BCA5400C89395 /* MWMWhatsNewProfileBookingController.h */,
+				349CCECD1D8BCA5400C89395 /* MWMWhatsNewProfileBookingController.mm */,
 			);
 			name = Welcome;
 			sourceTree = "<group>";
@@ -3271,6 +3277,7 @@
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
 						DevelopmentTeam = 3T6FSDE8C7;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 0;
@@ -3285,6 +3292,7 @@
 					};
 					6741A93D1BF340DE002C974C = {
 						DevelopmentTeam = 3T6FSDE8C7;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -3867,6 +3875,7 @@
 				348C26051D701B9F00813924 /* MWMHelpController.mm in Sources */,
 				348868EB1D8721650069BBA3 /* MWMSearchNoResults.mm in Sources */,
 				341F99D91C6B1165001C67B8 /* MWMMapDownloaderPlaceTableViewCell.mm in Sources */,
+				349CCECE1D8BCA5400C89395 /* MWMWhatsNewProfileBookingController.mm in Sources */,
 				345FD7E71CEC7D8400F58045 /* MWMEditorAdditionalNamesHeader.mm in Sources */,
 				341F99D51C6B1165001C67B8 /* MWMMapDownloaderLargeCountryTableViewCell.mm in Sources */,
 				347FD86F1C60B2CE002FB65E /* MWMOpeningHoursAllDayTableViewCell.mm in Sources */,
@@ -4101,6 +4110,7 @@
 				348C26061D701B9F00813924 /* MWMHelpController.mm in Sources */,
 				348868EC1D8721650069BBA3 /* MWMSearchNoResults.mm in Sources */,
 				6741AA1E1BF340DE002C974C /* LinkCell.mm in Sources */,
+				349CCECF1D8BCA5400C89395 /* MWMWhatsNewProfileBookingController.mm in Sources */,
 				345FD7E81CEC7D8400F58045 /* MWMEditorAdditionalNamesHeader.mm in Sources */,
 				347FD8701C60B2CE002FB65E /* MWMOpeningHoursAllDayTableViewCell.mm in Sources */,
 				6741AA1F1BF340DE002C974C /* MWMSearchBookmarksCell.mm in Sources */,
@@ -4226,7 +4236,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/me.maps.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PushNotifications",
@@ -4254,6 +4265,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PushNotifications",
@@ -4282,6 +4295,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PushNotifications",
@@ -4313,6 +4328,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PushNotifications",
@@ -4341,6 +4358,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PushNotifications",
@@ -4372,6 +4391,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PushNotifications",
@@ -4414,7 +4435,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 6.3;
+				CURRENT_PROJECT_VERSION = 6.4.2;
 				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Statistics";
@@ -4442,7 +4463,7 @@
 					../../3party/glm,
 					../../,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../../omim-iphone-debug-i386/out/debug\"",
 					"$(PROJECT_DIR)/Statistics",
@@ -4494,6 +4515,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PushNotifications",
@@ -4532,7 +4555,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 6.3;
+				CURRENT_PROJECT_VERSION = 6.4.2;
 				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -4561,7 +4584,7 @@
 					../../3party/glm,
 					../../,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../../omim-iphone-debug-$(CURRENT_ARCH)/out/debug\"",
 					"$(PROJECT_DIR)/Statistics",
@@ -4613,6 +4636,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PushNotifications",
@@ -4651,7 +4676,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 6.3;
+				CURRENT_PROJECT_VERSION = 6.4.2;
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -4684,7 +4709,7 @@
 					../../3party/glm,
 					../../,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../../omim-iphone-production-$(CURRENT_ARCH)/out/production\"",
 					"$(PROJECT_DIR)/Statistics",
@@ -4736,6 +4761,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PushNotifications",
@@ -4774,7 +4801,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 6.3;
+				CURRENT_PROJECT_VERSION = 6.4.2;
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -4807,7 +4834,7 @@
 					../../3party/glm,
 					../../,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../../omim-iphone-production-$(CURRENT_ARCH)/out/production\"",
 					"$(PROJECT_DIR)/Statistics",
@@ -4859,6 +4886,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PushNotifications",
@@ -4897,7 +4926,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 6.3;
+				CURRENT_PROJECT_VERSION = 6.4.2;
 				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Statistics";
@@ -4928,7 +4957,7 @@
 					../../3party/glm,
 					../../,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../../omim-iphone-release-$(CURRENT_ARCH)/out/release\"",
 					"$(PROJECT_DIR)/Statistics",
@@ -4980,6 +5009,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PushNotifications",
@@ -5018,7 +5049,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 6.3;
+				CURRENT_PROJECT_VERSION = 6.4.2;
 				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Statistics";
@@ -5049,7 +5080,7 @@
 					../../3party/glm,
 					../../,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../../omim-iphone-release-i386/out/release\"",
 					"$(PROJECT_DIR)/Statistics",
@@ -5101,6 +5132,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PushNotifications",

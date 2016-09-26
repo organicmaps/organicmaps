@@ -722,6 +722,10 @@
 	<string name="place_name">Název místa</string>
 	<!-- title above languages list cells in the editor, below editable name text field. -->
 	<string name="other_languages">Další jazyky</string>
+	<!-- small button to open list with names in different languages -->
+	<string name="show_more">Zobrazit více</string>
+	<!-- small button to close list with names in different languages -->
+	<string name="show_less">Zobrazit méně</string>
 	<string name="add_language">Přidat jazyk</string>
 	<string name="street">Ulice</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -946,4 +950,8 @@
 	<string name="accept">Přijmout</string>
 	<!-- For the first routing -->
 	<string name="decline">Odmítnout</string>
+	<string name="whats_new_route_profile_title">Nejlepší je vyřešit to jednou pro vždy</string>
+	<string name="whats_new_route_profile_message">U pěších a cyklistických tras nyní zobrazujeme výškový profil.</string>
+	<string name="whats_new_booking_improve_title">Ušetřete při rezervaci hotelů</string>
+	<string name="whats_new_booking_improve_message">Výsledky hledání hotelů nyní obsahují cenové kategorie. \nTaké jsme přidali více než 110 000 hotelů.</string>
 </resources>

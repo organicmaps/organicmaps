@@ -1198,10 +1198,10 @@
 "other_languages" = "다른 언어";
 
 /* small button to open list with names in different languages */
-"show_more" = "Show More";
+"show_more" = "자세히 표시";
 
 /* small button to close list with names in different languages */
-"show_less" = "Show Less";
+"show_less" = "간단히 표시";
 
 "add_language" = "언어 추가";
 
@@ -1623,3 +1623,11 @@
 
 /* For the first routing */
 "decline" = "거부";
+
+"whats_new_route_profile_title" = "문제가 있으면 계속 어려움을 겪는 것보다 그만두는 게 낫습니다.";
+
+"whats_new_route_profile_message" = "보행자 및 자전거 도로를 위해 이제 고도 단면을 표시합니다.";
+
+"whats_new_booking_improve_title" = "호텔 예약 시 절약";
+
+"whats_new_booking_improve_message" = "이제 가격 범주를 포함하는 호텔에 대한 결과를 검색하세요.\n또한 110,000곳 이상의 호텔이 추가되었습니다.";

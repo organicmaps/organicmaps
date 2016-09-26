@@ -3,8 +3,10 @@ package com.mapswithme.maps.routing;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
@@ -27,6 +29,7 @@ import com.mapswithme.util.statistics.Statistics;
 public class RoutingPlanController extends ToolbarController
 {
   static final int ANIM_TOGGLE = MwmApplication.get().getResources().getInteger(R.integer.anim_slots_toggle);
+  private static final String STATE_ALTITUDE_CHART_SHOWN = "altitude chart shown";
 
   protected final View mFrame;
   private final ImageView mToggle;
@@ -203,11 +206,6 @@ public class RoutingPlanController extends ToolbarController
     mAltitudeChartShown = false;
   }
 
-  protected boolean isAltitudeChartShown()
-  {
-    return mAltitudeChartShown;
-  }
-
   public void updateBuildProgress(int progress, @Framework.RouterType int router)
   {
     updateProgressLabels();
@@ -326,5 +324,16 @@ public class RoutingPlanController extends ToolbarController
       altitudeChart.setImageBitmap(bm);
       UiUtils.show(altitudeChart);
     }
+  }
+
+  public void saveAltitudeChartState(@NonNull Bundle outState)
+  {
+    outState.putBoolean(STATE_ALTITUDE_CHART_SHOWN, mAltitudeChartShown);
+  }
+
+  public void restoreAltitudeChartState(@NonNull Bundle state)
+  {
+    if (state.getBoolean(STATE_ALTITUDE_CHART_SHOWN))
+      showRouteAltitudeChart(!isVehicleRouteChecked());
   }
 }

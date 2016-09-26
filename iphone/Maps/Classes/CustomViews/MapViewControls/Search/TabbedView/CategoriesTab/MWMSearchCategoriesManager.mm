@@ -70,6 +70,7 @@ static NSString * const kCellIdentifier = @"MWMSearchCategoryCell";
         withParameters:@{kStatValue : string, kStatScreen : kStatCategories}];
   [self.delegate searchText:[L(string) stringByAppendingString:@" "]
              forInputLocale:[[AppInfo sharedInfo] languageId]];
+  [self.delegate dismissKeyboard];
 }
 
 @end

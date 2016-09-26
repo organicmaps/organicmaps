@@ -476,6 +476,10 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<FlushRouteMessage> msg = message;
       drape_ptr<RouteData> routeData = msg->AcceptRouteData();
+
+      if (routeData->m_recacheId > 0 && routeData->m_recacheId < m_lastRecacheRouteId)
+        break;
+
       m2::PointD const finishPoint = routeData->m_sourcePolyline.Back();
       m_routeRenderer->SetRouteData(move(routeData), make_ref(m_gpuProgramManager));
       if (!m_routeRenderer->GetFinishPoint())
@@ -499,6 +503,10 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<FlushRouteSignMessage> msg = message;
       drape_ptr<RouteSignData> routeSignData = msg->AcceptRouteSignData();
+
+      if (routeSignData->m_recacheId > 0 && routeSignData->m_recacheId < m_lastRecacheRouteId)
+        break;
+
       m_routeRenderer->SetRouteSign(move(routeSignData), make_ref(m_gpuProgramManager));
       break;
     }
@@ -507,6 +515,10 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<FlushRouteArrowsMessage> msg = message;
       drape_ptr<RouteArrowsData> routeArrowsData = msg->AcceptRouteArrowsData();
+
+      if (routeArrowsData->m_recacheId > 0 && routeArrowsData->m_recacheId < m_lastRecacheRouteId)
+        break;
+
       m_routeRenderer->SetRouteArrows(move(routeArrowsData), make_ref(m_gpuProgramManager));
       break;
     }
@@ -515,6 +527,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<RemoveRouteMessage> msg = message;
       m_routeRenderer->Clear();
+      ++m_lastRecacheRouteId;
       if (msg->NeedDeactivateFollowing())
       {
         m_myPositionController->DeactivateRouting();
@@ -724,13 +737,15 @@ unique_ptr<threads::IRoutine> FrontendRenderer::CreateRoutine()
 
 void FrontendRenderer::UpdateGLResources()
 {
+  ++m_lastRecacheRouteId;
+
   // Invalidate route.
   if (m_routeRenderer->GetStartPoint())
   {
     m2::PointD const & position = m_routeRenderer->GetStartPoint()->m_position;
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                               make_unique_dp<CacheRouteSignMessage>(position, true /* isStart */,
-                                                                    true /* isValid */),
+                                                                    true /* isValid */, m_lastRecacheRouteId),
                               MessagePriority::High);
   }
 
@@ -739,7 +754,7 @@ void FrontendRenderer::UpdateGLResources()
     m2::PointD const & position = m_routeRenderer->GetFinishPoint()->m_position;
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                               make_unique_dp<CacheRouteSignMessage>(position, false /* isStart */,
-                                                                    true /* isValid */),
+                                                                    true /* isValid */, m_lastRecacheRouteId),
                               MessagePriority::High);
   }
 
@@ -749,7 +764,8 @@ void FrontendRenderer::UpdateGLResources()
     auto recacheRouteMsg = make_unique_dp<AddRouteMessage>(routeData->m_sourcePolyline,
                                                            routeData->m_sourceTurns,
                                                            routeData->m_color,
-                                                           routeData->m_pattern);
+                                                           routeData->m_pattern,
+                                                           m_lastRecacheRouteId);
     m_routeRenderer->ClearGLDependentResources();
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, move(recacheRouteMsg),
                               MessagePriority::Normal);

@@ -1198,10 +1198,10 @@
 "other_languages" = "Andre sprog";
 
 /* small button to open list with names in different languages */
-"show_more" = "Show More";
+"show_more" = "Vis mere";
 
 /* small button to close list with names in different languages */
-"show_less" = "Show Less";
+"show_less" = "Vis mindre";
 
 "add_language" = "Tilføj et sprog";
 
@@ -1623,3 +1623,11 @@
 
 /* For the first routing */
 "decline" = "Afvis";
+
+"whats_new_route_profile_title" = "Spring over hvor gærdet er lavest";
+
+"whats_new_route_profile_message" = "Vi viser nu højdeprofilen for fodgænger- og cykelruter.";
+
+"whats_new_booking_improve_title" = "Spar penge når du bestiller hotelværelser";
+
+"whats_new_booking_improve_message" = "Søgeresultater for hoteller viser nu også priskategorien.\nVi har desuden tilføjet mere end 110.000 hoteller.";

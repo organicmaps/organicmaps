@@ -1198,10 +1198,10 @@
 "other_languages" = "Övriga språk";
 
 /* small button to open list with names in different languages */
-"show_more" = "Show More";
+"show_more" = "Visa mer";
 
 /* small button to close list with names in different languages */
-"show_less" = "Show Less";
+"show_less" = "Visa mindre";
 
 "add_language" = "Lägg till ett språk";
 
@@ -1623,3 +1623,11 @@
 
 /* For the first routing */
 "decline" = "Neka";
+
+"whats_new_route_profile_title" = "Genvägar är senvägar";
+
+"whats_new_route_profile_message" = "För gångvägar och cykelturer visar vi nu höjdprofilen.";
+
+"whats_new_booking_improve_title" = "Spara pengar när du bokar hotell";
+
+"whats_new_booking_improve_message" = "Sökresultat för hotell innehåller nu priskategorin.\nVi har även lagt till över 110 000 hotell.";

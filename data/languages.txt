@@ -1,4 +1,4 @@
-default|Native for each country
+default|Native for the country
 en|English
 ja|日本語
 fr|Français

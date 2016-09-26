@@ -225,6 +225,7 @@ CGAffineTransform rotation(UIInterfaceOrientation orientation)
 {
   [super layoutSubviews];
   self.frame = self.superview.bounds;
+  [super layoutSubviews];
 }
 
 @end

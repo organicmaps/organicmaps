@@ -15,7 +15,7 @@ RouteBuilder::RouteBuilder(TFlushRouteFn const & flushRouteFn,
 
 void RouteBuilder::Build(m2::PolylineD const & routePolyline, vector<double> const & turns,
                          df::ColorConstant color, df::RoutePattern const & pattern,
-                         ref_ptr<dp::TextureManager> textures)
+                         ref_ptr<dp::TextureManager> textures, int recacheId)
 {
   drape_ptr<RouteData> routeData = make_unique_dp<RouteData>();
   routeData->m_routeIndex = m_routeIndex++;
@@ -24,6 +24,7 @@ void RouteBuilder::Build(m2::PolylineD const & routePolyline, vector<double> con
   routeData->m_sourceTurns = turns;
   routeData->m_pattern = pattern;
   routeData->m_pivot = routePolyline.GetLimitRect().Center();
+  routeData->m_recacheId = recacheId;
   RouteShape::CacheRoute(textures, *routeData.get());
   m_routeCache.insert(make_pair(routeData->m_routeIndex, routePolyline));
 
@@ -40,12 +41,13 @@ void RouteBuilder::ClearRouteCache()
 }
 
 void RouteBuilder::BuildSign(m2::PointD const & pos, bool isStart, bool isValid,
-                             ref_ptr<dp::TextureManager> textures)
+                             ref_ptr<dp::TextureManager> textures, int recacheId)
 {
   drape_ptr<RouteSignData> routeSignData = make_unique_dp<RouteSignData>();
   routeSignData->m_isStart = isStart;
   routeSignData->m_position = pos;
   routeSignData->m_isValid = isValid;
+  routeSignData->m_recacheId = recacheId;
   if (isValid)
     RouteShape::CacheRouteSign(textures, *routeSignData.get());
 
@@ -57,7 +59,7 @@ void RouteBuilder::BuildSign(m2::PointD const & pos, bool isStart, bool isValid,
 }
 
 void RouteBuilder::BuildArrows(int routeIndex, vector<ArrowBorders> const & borders,
-                               ref_ptr<dp::TextureManager> textures)
+                               ref_ptr<dp::TextureManager> textures, int recacheId)
 {
   auto it = m_routeCache.find(routeIndex);
   if (it == m_routeCache.end())
@@ -65,6 +67,7 @@ void RouteBuilder::BuildArrows(int routeIndex, vector<ArrowBorders> const & bord
 
   drape_ptr<RouteArrowsData> routeArrowsData = make_unique_dp<RouteArrowsData>();
   routeArrowsData->m_pivot = it->second.GetLimitRect().Center();
+  routeArrowsData->m_recacheId = recacheId;
   RouteShape::CacheRouteArrows(textures, it->second, borders, *routeArrowsData.get());
 
   // Flush route arrows geometry.

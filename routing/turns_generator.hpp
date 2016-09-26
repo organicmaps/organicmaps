@@ -130,9 +130,10 @@ TurnDirection GetRoundaboutDirection(bool isIngoingEdgeRoundabout, bool isOutgoi
 void GetTurnDirection(IRoutingResult const & result, turns::TurnInfo & turnInfo, TurnItem & turn);
 
 /*!
- * \brief Finds an UTurn that starts from current segment and returns how many segments it lasts.
- * Returns 0 if there is no UTurn.
- * Warning! currentSegment must be greater than 0.
+ * \brief Finds an U-turn that starts from master segment and returns how many segments it lasts.
+ * \returns an index in |segments| that has the opposite direction with master segment
+ * (|segments[currentSegment - 1]|) and 0 if there is no UTurn.
+ * \warning |currentSegment| must be greater than 0.
  */
 size_t CheckUTurnOnRoute(TUnpackedPathSegments const & segments,
                          size_t currentSegment, TurnItem & turn);

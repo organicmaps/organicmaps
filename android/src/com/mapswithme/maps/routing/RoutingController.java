@@ -116,7 +116,8 @@ public class RoutingController
             mCachedRoutingInfo = Framework.nativeGetRouteFollowingInfo();
             setBuildState(BuildState.BUILT);
             mLastBuildProgress = 100;
-            mContainer.onRouteBuilt(mLastRouterType);
+            if (mContainer != null)
+              mContainer.onRouteBuilt(mLastRouterType);
           }
 
           processRoutingEvent();

@@ -27,13 +27,13 @@ public:
 
   void Build(m2::PolylineD const & routePolyline, vector<double> const & turns,
              df::ColorConstant color, df::RoutePattern const & pattern,
-             ref_ptr<dp::TextureManager> textures);
+             ref_ptr<dp::TextureManager> textures, int recacheId);
 
   void BuildArrows(int routeIndex, vector<ArrowBorders> const & borders,
-                   ref_ptr<dp::TextureManager> textures);
+                   ref_ptr<dp::TextureManager> textures, int recacheId);
 
   void BuildSign(m2::PointD const & pos, bool isStart, bool isValid,
-                 ref_ptr<dp::TextureManager> textures);
+                 ref_ptr<dp::TextureManager> textures, int recacheId);
 
   void ClearRouteCache();
 

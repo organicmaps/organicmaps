@@ -4,8 +4,9 @@
 #include "routing/turns.hpp"
 #include "routing/turns_generator.hpp"
 
-#include "geometry/mercator.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
+#include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
 #include "std/cmath.hpp"
@@ -321,5 +322,41 @@ UNIT_TEST(TestCalculateMercatorDistanceAlongRoute)
   TEST_EQUAL(CalculateMercatorDistanceAlongPath(1, 1, points), 0., ());
   TEST_EQUAL(CalculateMercatorDistanceAlongPath(1, 2, points), 0., ());
   TEST_EQUAL(CalculateMercatorDistanceAlongPath(0, 1, points), 1., ());
+}
+
+UNIT_TEST(TestCheckUTurnOnRoute)
+{
+  TUnpackedPathSegments pathSegments(4);
+  pathSegments[0].m_name = "A road";
+  pathSegments[0].m_weight = 1;
+  pathSegments[0].m_nodeId = 0;
+  pathSegments[0].m_highwayClass = ftypes::HighwayClass::Trunk;
+  pathSegments[0].m_onRoundabout = false;
+  pathSegments[0].m_isLink = false;
+  pathSegments[0].m_path = {{{0, 0}, 0}, {{0, 1}, 0}};
+
+  pathSegments[1] = pathSegments[0];
+  pathSegments[1].m_nodeId = 1;
+  pathSegments[1].m_path = {{{0, 1}, 0}, {{0, 0}, 0}};
+
+  pathSegments[2] = pathSegments[0];
+  pathSegments[2].m_nodeId = 2;
+  pathSegments[2].m_path = {{{0, 0}, 0}, {{0, 1}, 0}};
+
+  pathSegments[3] = pathSegments[0];
+  pathSegments[3].m_nodeId = 3;
+  pathSegments[3].m_path.clear();
+
+  // Zigzag test.
+  TurnItem turn1;
+  TEST_EQUAL(CheckUTurnOnRoute(pathSegments, 1, turn1), 1, ());
+  TEST_EQUAL(turn1.m_turn, TurnDirection::UTurnLeft, ());
+  TurnItem turn2;
+  TEST_EQUAL(CheckUTurnOnRoute(pathSegments, 2, turn2), 1, ());
+  TEST_EQUAL(turn2.m_turn, TurnDirection::UTurnLeft, ());
+
+  // Empty path test.
+  TurnItem turn3;
+  TEST_EQUAL(CheckUTurnOnRoute(pathSegments, 3, turn3), 0, ());
 }
 }  // namespace

@@ -668,12 +668,16 @@ size_t CheckUTurnOnRoute(TUnpackedPathSegments const & segments,
   auto const & masterSegment = segments[currentSegment - 1];
   if (masterSegment.m_path.size() < 2)
     return 0;
+
   // Roundabout is not the UTurn.
   if (masterSegment.m_onRoundabout)
     return 0;
   for (size_t i = 0; i < kUTurnLookAhead && i + currentSegment < segments.size(); ++i)
   {
     auto const & checkedSegment = segments[currentSegment + i];
+    if (checkedSegment.m_path.size() < 2)
+      return 0;
+
     if (checkedSegment.m_name == masterSegment.m_name &&
         checkedSegment.m_highwayClass == masterSegment.m_highwayClass &&
         checkedSegment.m_isLink == masterSegment.m_isLink && !checkedSegment.m_onRoundabout)

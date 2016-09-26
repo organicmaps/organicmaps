@@ -967,4 +967,8 @@
 	<string name="accept">Accept</string>
 	<!-- For the first routing -->
 	<string name="decline">Decline</string>
+	<string name="whats_new_route_profile_title">Better go about than fall into the ditch</string>
+	<string name="whats_new_route_profile_message">For pedestrian and bike routes we now display the elevation profile.</string>
+	<string name="whats_new_booking_improve_title">Save when booking hotels</string>
+	<string name="whats_new_booking_improve_message">Search results for hotels now contain the price category.\nWe also added more than 110,000 hotels.</string>
 </resources>

@@ -12,6 +12,7 @@
 #import "MWMMapDownloaderTableViewCell.h"
 #import "MWMMapDownloaderViewController.h"
 #import "MWMMyTarget.h"
+#import "MWMMigrationViewController.h"
 #import "MWMSegue.h"
 #import "MWMStorage.h"
 #import "MapsAppDelegate.h"
@@ -161,6 +162,20 @@ using namespace mwm;
 }
 
 - (void)configMyTarget { [MWMMyTarget manager].delegate = self; }
+
+- (void)backTap
+{
+  UINavigationController * navVC = self.navigationController;
+  NSArray<UIViewController *> * viewControllers = navVC.viewControllers;
+  NSInteger const viewControllersCount = viewControllers.count;
+  NSInteger const prevVCIndex = viewControllersCount - 2;
+  Class const migrationClass = [MWMMigrationViewController class];
+  if (prevVCIndex < 0 || [viewControllers[prevVCIndex] isKindOfClass:migrationClass])
+    [navVC popToRootViewControllerAnimated:YES];
+  else
+    [super backTap];
+}
+
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
   [self.cellHeightCache removeAllObjects];
