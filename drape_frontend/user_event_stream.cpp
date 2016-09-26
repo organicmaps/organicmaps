@@ -180,7 +180,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
       {
         ref_ptr<ResizeEvent> resizeEvent = make_ref(e);
         m_navigator.OnSize(resizeEvent->GetWidth(), resizeEvent->GetHeight());
-        if (m_visibleViewport.IsEmptyInterior())
+        if (!m_visibleViewport.IsValid())
           m_visibleViewport = m2::RectD(0, 0, resizeEvent->GetWidth(), resizeEvent->GetHeight());
         viewportChanged = true;
         breakAnim = true;
@@ -241,7 +241,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
     case UserEvent::EventType::VisibleViewport:
       {
         ref_ptr<SetVisibleViewportEvent> viewportEvent = make_ref(e);
-        m2::RectD prevVisibleViewport = m_visibleViewport;
+        m2::RectD const prevVisibleViewport = m_visibleViewport;
         m_visibleViewport = viewportEvent->GetRect();
         m2::PointD gOffset;
         if (m_listener->OnNewVisibleViewport(prevVisibleViewport, m_visibleViewport, gOffset))

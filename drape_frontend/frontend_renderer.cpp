@@ -1485,7 +1485,6 @@ bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport, m2::R
         pOffset.y = newViewport.maxY() - rect.maxY() - kOffset;
 
       gOffset = screen.PtoG(screen.P3dtoP(pos + pOffset)) - screen.PtoG(screen.P3dtoP(pos));
-
     }
     return true;
   }
