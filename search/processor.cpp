@@ -110,7 +110,7 @@ void SendStatistics(SearchParams const & params, m2::RectD const & viewport, Res
   string posX, posY;
   if (params.IsValidPosition())
   {
-    m2::PointD const position = params.GetPositionMercator();
+    auto const position = params.GetPositionMercator();
     posX = strings::to_string(position.x);
     posY = strings::to_string(position.y);
   }

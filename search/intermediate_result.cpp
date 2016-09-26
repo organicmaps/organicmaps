@@ -22,7 +22,7 @@
 
 namespace search
 {
-double const DIST_SAME_STREET_METERS = 5000.0;
+double const kDistSameStreetMeters = 5000.0;
 char const * const kEmptyRatingSymbol = "-";
 char const * const kPricingSymbol = "$";
 
@@ -268,28 +268,25 @@ bool PreResult2::LessLinearTypesF::operator() (PreResult2 const & r1, PreResult2
     return (t1 < t2);
 
   // Should stay the best feature, after unique, so add this criteria:
-  return (r1.m_distance < r2.m_distance);
+  return r1.m_distance < r2.m_distance;
 }
 
 bool PreResult2::EqualLinearTypesF::operator() (PreResult2 const & r1, PreResult2 const & r2) const
 {
   // Note! Do compare for distance when filtering linear objects.
   // Otherwise we will skip the results for different parts of the map.
-  return (r1.m_geomType == feature::GEOM_LINE && r1.IsEqualCommon(r2) &&
-          PointDistance(r1.GetCenter(), r2.GetCenter()) < DIST_SAME_STREET_METERS);
+  return r1.m_geomType == feature::GEOM_LINE && r1.IsEqualCommon(r2) &&
+         PointDistance(r1.GetCenter(), r2.GetCenter()) < kDistSameStreetMeters;
 }
 
 bool PreResult2::IsEqualCommon(PreResult2 const & r) const
 {
-  return (m_geomType == r.m_geomType &&
-          GetBestType() == r.GetBestType() &&
-          m_str == r.m_str);
+  return m_geomType == r.m_geomType && GetBestType() == r.GetBestType() && m_str == r.m_str;
 }
 
 bool PreResult2::IsStreet() const
 {
-  return (m_geomType == feature::GEOM_LINE &&
-          ftypes::IsStreetChecker::Instance()(m_types));
+  return m_geomType == feature::GEOM_LINE && ftypes::IsStreetChecker::Instance()(m_types);
 }
 
 string PreResult2::DebugPrint() const
