@@ -1,5 +1,6 @@
 #pragma once
 #include "std/array.hpp"
+#include "std/deque.hpp"
 #include "std/functional.hpp"
 #include "std/initializer_list.hpp"
 #include "std/iterator.hpp"
@@ -98,6 +99,11 @@ template <typename T, size_t N> inline string DebugPrint(array<T, N> const & v)
 template <typename T> inline string DebugPrint(vector<T> const & v)
 {
   return ::my::impl::DebugPrintSequence(v.begin(), v.end());
+}
+
+template <typename T> inline string DebugPrint(deque<T> const & d)
+{
+  return ::my::impl::DebugPrintSequence(d.begin(), d.end());
 }
 
 template <typename T> inline string DebugPrint(list<T> const & v)

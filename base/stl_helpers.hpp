@@ -5,7 +5,6 @@
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 
-
 namespace my
 {
 namespace impl
@@ -80,28 +79,28 @@ struct Equals<false, T, C>
 };
 }  // namespace impl
 
-// Sorts and removes duplicate entries from |v|.
-template <typename T>
-void SortUnique(vector<T> & v)
+// Sorts and removes duplicate entries from |c|.
+template <typename Cont>
+void SortUnique(Cont & c)
 {
-  sort(v.begin(), v.end());
-  v.erase(unique(v.begin(), v.end()), v.end());
+  sort(c.begin(), c.end());
+  c.erase(unique(c.begin(), c.end()), c.end());
 }
 
-// Sorts according to |comp| and removes duplicate entries according to |pred| from |v|.
-// Note. If several entries are equal according to |pred| an arbitrary entry of them
-// is left in |v| after a call of this function.
-template <typename T, typename TLess, typename TEquals>
-void SortUnique(vector<T> & v, TLess && less, TEquals && equals)
+// Sorts according to |less| and removes duplicate entries according to |equals| from |c|.
+// Note. If several entries are equal according to |less| an arbitrary entry of them
+// is left in |c| after a call of this function.
+template <class Cont, typename Less, typename Equals>
+void SortUnique(Cont & c, Less && less, Equals && equals)
 {
-  sort(v.begin(), v.end(), forward<TLess>(less));
-  v.erase(unique(v.begin(), v.end(), forward<TEquals>(equals)), v.end());
+  sort(c.begin(), c.end(), forward<Less>(less));
+  c.erase(unique(c.begin(), c.end(), forward<Equals>(equals)), c.end());
 }
 
-template <typename T, class TFn>
-void EraseIf(vector<T> & v, TFn && fn)
+template <class Cont, class Fn>
+void EraseIf(Cont & c, Fn && fn)
 {
-  v.erase(remove_if(v.begin(), v.end(), forward<TFn>(fn)), v.end());
+  c.erase(remove_if(c.begin(), c.end(), forward<Fn>(fn)), c.end());
 }
 
 // Creates a comparer being able to compare two instances of class C
