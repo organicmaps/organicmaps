@@ -1479,6 +1479,8 @@
 
 "placepage_more_button" = "更多";
 
+"placepage_more_reviews_button" = "More Reviews";
+
 "bookingcom_book_button" = "预約";
 
 "placepage_call_button" = "呼叫";
@@ -1631,3 +1633,9 @@
 "whats_new_booking_improve_title" = "优惠预订酒店";
 
 "whats_new_booking_improve_message" = "酒店的搜索结果现在包含价格类别。\n我们还添加了超过 110,000 家酒店。";
+
+/* For place page hotel facilities block */
+"placepage_hotel_facilities" = "Facilities";
+
+/* For place page hotel nearby block */
+"placepage_hotel_nearby" = "Nearby";

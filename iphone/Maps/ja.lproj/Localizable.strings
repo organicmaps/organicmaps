@@ -1479,6 +1479,8 @@
 
 "placepage_more_button" = "さらに詳しく";
 
+"placepage_more_reviews_button" = "More Reviews";
+
 "bookingcom_book_button" = "予約";
 
 "placepage_call_button" = "コール";
@@ -1631,3 +1633,9 @@
 "whats_new_booking_improve_title" = "ホテル予約時に節約しましょう";
 
 "whats_new_booking_improve_message" = "ホテルの検索結果に価格のカテゴリーが表示されるようになりました。\nさらに、 110,000 軒を超えるホテルを追加しました。";
+
+/* For place page hotel facilities block */
+"placepage_hotel_facilities" = "Facilities";
+
+/* For place page hotel nearby block */
+"placepage_hotel_nearby" = "Nearby";

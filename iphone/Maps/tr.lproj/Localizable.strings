@@ -1479,6 +1479,8 @@
 
 "placepage_more_button" = "Diğer";
 
+"placepage_more_reviews_button" = "More Reviews";
+
 "bookingcom_book_button" = "Rezervasyon";
 
 "placepage_call_button" = "Çağrı";
@@ -1631,3 +1633,9 @@
 "whats_new_booking_improve_title" = "Otel rezervasyonlarınızdan tasarruf edin";
 
 "whats_new_booking_improve_message" = "Artık otel arama sonuçlarında fiyat kategorisi de gösteriliyor.\nVe 110,000'den fazla oteli sistemimize ekledik.";
+
+/* For place page hotel facilities block */
+"placepage_hotel_facilities" = "Facilities";
+
+/* For place page hotel nearby block */
+"placepage_hotel_nearby" = "Nearby";

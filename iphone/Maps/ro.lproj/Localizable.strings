@@ -1479,6 +1479,8 @@
 
 "placepage_more_button" = "Mai multe";
 
+"placepage_more_reviews_button" = "More Reviews";
+
 "bookingcom_book_button" = "Rezervare";
 
 "placepage_call_button" = "Apel";
@@ -1631,3 +1633,9 @@
 "whats_new_booking_improve_title" = "Economisiți bani când rezervați hoteluri";
 
 "whats_new_booking_improve_message" = "Rezultatele de căutare pentru hoteluri conțin acum categoria de preț. \nAm mai adăugat și peste 110.000 de hoteluri.";
+
+/* For place page hotel facilities block */
+"placepage_hotel_facilities" = "Facilities";
+
+/* For place page hotel nearby block */
+"placepage_hotel_nearby" = "Nearby";

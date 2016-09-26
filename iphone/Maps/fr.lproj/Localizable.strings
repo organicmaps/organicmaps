@@ -1479,6 +1479,8 @@
 
 "placepage_more_button" = "Plus";
 
+"placepage_more_reviews_button" = "More Reviews";
+
 "bookingcom_book_button" = "Réserver";
 
 "placepage_call_button" = "Appeler";
@@ -1631,3 +1633,9 @@
 "whats_new_booking_improve_title" = "Économisez de l'argent en réservant des hôtels";
 
 "whats_new_booking_improve_message" = "Les résultats des recherches d'hôtels comprennent maintenant la catégorie de prix.\nNous avons aussi ajouté plus de 110.000 hôtels.";
+
+/* For place page hotel facilities block */
+"placepage_hotel_facilities" = "Facilities";
+
+/* For place page hotel nearby block */
+"placepage_hotel_nearby" = "Nearby";

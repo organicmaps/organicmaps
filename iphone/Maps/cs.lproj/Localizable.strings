@@ -1479,6 +1479,8 @@
 
 "placepage_more_button" = "Více";
 
+"placepage_more_reviews_button" = "More Reviews";
+
 "bookingcom_book_button" = "Rezervace";
 
 "placepage_call_button" = "Volat";
@@ -1631,3 +1633,9 @@
 "whats_new_booking_improve_title" = "Ušetřete při rezervaci hotelů";
 
 "whats_new_booking_improve_message" = "Výsledky hledání hotelů nyní obsahují cenové kategorie. \nTaké jsme přidali více než 110 000 hotelů.";
+
+/* For place page hotel facilities block */
+"placepage_hotel_facilities" = "Facilities";
+
+/* For place page hotel nearby block */
+"placepage_hotel_nearby" = "Nearby";

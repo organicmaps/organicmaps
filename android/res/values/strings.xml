@@ -886,7 +886,7 @@
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Description</string>
 	<string name="placepage_more_button">More</string>
-    <string name="placepage_more_reviews_button">More Reviews</string>
+	<string name="placepage_more_reviews_button">More Reviews</string>
 	<string name="bookingcom_book_button">Book</string>
 	<string name="placepage_call_button">Call</string>
 	<string name="placepage_edit_bookmark_button">Edit Bookmark</string>
@@ -968,19 +968,8 @@
 	<string name="accept">Accept</string>
 	<!-- For the first routing -->
 	<string name="decline">Decline</string>
-	<string name="whats_new_route_profile_title">Better go about than fall into the ditch</string>
-	<string name="whats_new_route_profile_message">For pedestrian and bike routes we now display the elevation profile.</string>
-	<string name="whats_new_booking_improve_title">Save when booking hotels</string>
-	<string name="whats_new_booking_improve_message">Search results for hotels now contain the price category.\nWe also added more than 110,000 hotels.</string>
+	<!-- For place page hotel facilities block -->
 	<string name="placepage_hotel_facilities">Facilities</string>
+	<!-- For place page hotel nearby block -->
 	<string name="placepage_hotel_nearby">Nearby</string>
-
-	<plurals name="place_page_booking_rating_base">
-      <item quantity="zero">Based on %1$d hotel reviews</item>
-      <item quantity="one">Based on %1$d hotel reviews</item>
-      <item quantity="two">Based on %1$d hotel reviews</item>
-      <item quantity="few">Based on %1$d hotel reviews</item>
-      <item quantity="many">Based on %1$d hotel reviews</item>
-      <item quantity="other">Based on %1$d hotel reviews</item>
-	</plurals>
 </resources>
