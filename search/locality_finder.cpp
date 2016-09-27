@@ -50,20 +50,23 @@ private:
   CBV m_cbv;
 };
 
-class DoLoader
+class LocalitiesLoader
 {
 public:
-  DoLoader(MwmContext const & ctx, Filter const & filter, int8_t lang,
-           m4::Tree<LocalityFinder::Item> & localities,
-           map<MwmSet::MwmId, unordered_set<uint32_t>> & loadedIds)
-    : m_ctx(ctx), m_filter(filter), m_lang(lang), m_localities(localities), m_loadedIds(loadedIds)
+  LocalitiesLoader(MwmContext const & ctx, Filter const & filter, int8_t lang,
+                   m4::Tree<LocalityFinder::Item> & localities,
+                   map<MwmSet::MwmId, unordered_set<uint32_t>> & loadedIds)
+    : m_ctx(ctx)
+    , m_filter(filter)
+    , m_lang(lang)
+    , m_localities(localities)
+    , m_loadedIds(loadedIds[m_ctx.GetId()])
   {
   }
 
   void operator()(uint32_t id) const
   {
-    auto const & mwmId = m_ctx.GetId();
-    if (m_loadedIds[mwmId].count(id) != 0)
+    if (m_loadedIds.count(id) != 0)
       return;
 
     if (!m_filter.IsGood(id))
@@ -83,7 +86,7 @@ public:
     case TOWN:
     case VILLAGE:
       break;
-    default:  // cache only cities and towns at this moment
+    default:
       return;
     }
 
@@ -91,18 +94,16 @@ public:
     if (population == 0)
       return;
 
-    auto const center = ft.GetCenter();
-    double const radius = ftypes::GetRadiusByPopulation(population);
-    m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(center, radius);
-
     // read item
     string name;
     if (!ft.GetName(m_lang, name) && !ft.GetName(0, name))
       return;
 
+    auto const center = ft.GetCenter();
+
     LocalityFinder::Item item(name, center, population);
-    m_localities.Add(item, rect);
-    m_loadedIds[mwmId].insert(id);
+    m_localities.Add(item, m2::RectD(center, center));
+    m_loadedIds.insert(id);
   }
 
 private:
@@ -111,7 +112,7 @@ private:
   int8_t const m_lang;
 
   m4::Tree<LocalityFinder::Item> & m_localities;
-  map<MwmSet::MwmId, unordered_set<uint32_t>> & m_loadedIds;
+  unordered_set<uint32_t> & m_loadedIds;
 };
 }  // namespace
 
@@ -184,16 +185,16 @@ void LocalityFinder::LoadVicinity(m2::PointD const & pt)
         m_ranks = make_unique<DummyRankTable>();
 
       MwmContext ctx(move(handle));
-      ctx.ForEachIndex(drect,
-                       DoLoader(ctx, CityFilter(*m_ranks), m_lang, m_localities, m_loadedIds));
+      ctx.ForEachIndex(
+          drect, LocalitiesLoader(ctx, CityFilter(*m_ranks), m_lang, m_localities, m_loadedIds));
       break;
     }
     case feature::DataHeader::country:
       if (header.GetBounds().IsPointInside(pt))
       {
         MwmContext ctx(move(handle));
-        ctx.ForEachIndex(drect, DoLoader(ctx, VillageFilter(ctx, m_villagesCache), m_lang,
-                                         m_localities, m_loadedIds));
+        ctx.ForEachIndex(drect, LocalitiesLoader(ctx, VillageFilter(ctx, m_villagesCache), m_lang,
+                                                 m_localities, m_loadedIds));
       }
       break;
     case feature::DataHeader::worldcoasts: break;

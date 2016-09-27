@@ -16,12 +16,12 @@
 
 namespace
 {
-struct TestWithClassifier
+struct TestWithClassificator
 {
-  TestWithClassifier() { classificator::Load(); }
+  TestWithClassificator() { classificator::Load(); }
 };
 
-class LocalityFinderTest : public TestWithClassifier
+class LocalityFinderTest : public TestWithClassificator
 {
   platform::LocalCountryFile m_worldFile;
 
