@@ -63,7 +63,8 @@ public:
     SetDisplacementMode,
     AllowAutoZoom,
     RequestSymbolsSize,
-    RecoverGLResources
+    RecoverGLResources,
+    SetVisibleViewport
   };
 
   virtual ~Message() {}

@@ -38,6 +38,11 @@ public:
   void OnScaleEnded() override {}
   void OnTouchMapAction() override {}
   void OnAnimatedScaleEnded() override {}
+  bool OnNewVisibleViewport(m2::RectD const & oldViewport, m2::RectD const & newViewport,
+                            m2::PointD & gOffset) override
+  {
+    return false;
+  }
 
   void AddUserEvent(df::TouchEvent const & event)
   {

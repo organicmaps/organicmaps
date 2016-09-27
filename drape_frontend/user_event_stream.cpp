@@ -180,6 +180,8 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
       {
         ref_ptr<ResizeEvent> resizeEvent = make_ref(e);
         m_navigator.OnSize(resizeEvent->GetWidth(), resizeEvent->GetHeight());
+        if (!m_visibleViewport.IsValid())
+          m_visibleViewport = m2::RectD(0, 0, resizeEvent->GetWidth(), resizeEvent->GetHeight());
         viewportChanged = true;
         breakAnim = true;
         TouchCancel(m_touches);
@@ -236,6 +238,21 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
         SetAutoPerspective(perspectiveEvent->IsAutoPerspective());
       }
       break;
+    case UserEvent::EventType::VisibleViewport:
+      {
+        ref_ptr<SetVisibleViewportEvent> viewportEvent = make_ref(e);
+        m2::RectD const prevVisibleViewport = m_visibleViewport;
+        m_visibleViewport = viewportEvent->GetRect();
+        m2::PointD gOffset;
+        if (m_listener->OnNewVisibleViewport(prevVisibleViewport, m_visibleViewport, gOffset))
+        {
+          ScreenBase screen = GetCurrentScreen();
+          screen.MoveG(gOffset);
+          SetScreen(screen, true /* isAnim */);
+        }
+      }
+      break;
+
     default:
       ASSERT(false, ());
       break;
@@ -282,6 +299,11 @@ void UserEventStream::ApplyAnimations()
 ScreenBase const & UserEventStream::GetCurrentScreen() const
 {
   return m_navigator.Screen();
+}
+
+m2::RectD const & UserEventStream::GetVisibleViewport() const
+{
+  return m_visibleViewport;
 }
 
 bool UserEventStream::OnSetScale(ref_ptr<ScaleEvent> scaleEvent)
@@ -359,12 +381,12 @@ bool UserEventStream::OnSetCenter(ref_ptr<SetCenterEvent> centerEvent)
   if (zoom == kDoNotChangeZoom)
   {
     GetTargetScreen(screen);
-    screen.MatchGandP3d(center, screen.PixelRectIn3d().Center());
+    screen.MatchGandP3d(center, m_visibleViewport.Center());
   }
   else
   {
     screen.SetFromParams(center, screen.GetAngle(), GetScale(zoom));
-    screen.MatchGandP3d(center, screen.PixelRectIn3d().Center());
+    screen.MatchGandP3d(center, m_visibleViewport.Center());
   }
 
   ShrinkAndScaleInto(screen, df::GetWorldRect());
@@ -381,16 +403,19 @@ bool UserEventStream::SetAngle(double azimuth, TAnimationCreator const & paralle
 {
   ScreenBase screen;
   GetTargetScreen(screen);
+  m2::PointD pt = m_visibleViewport.Center();
+  m2::PointD gPt = screen.PtoG(screen.P3dtoP(pt));
+  
   if (screen.isPerspective())
   {
-    m2::PointD pt = screen.PixelRectIn3d().Center();
-    return SetFollowAndRotate(screen.PtoG(screen.P3dtoP(pt)), pt,
+    return SetFollowAndRotate(gPt, pt,
                               azimuth, kDoNotChangeZoom, kDoNotAutoZoom,
                               true /* isAnim */, false /* isAutoScale */,
                               parallelAnimCreator);
   }
 
   screen.SetAngle(azimuth);
+  screen.MatchGandP3d(gPt, pt);
   return SetScreen(screen, true /* isAnim */, parallelAnimCreator);
 }
 

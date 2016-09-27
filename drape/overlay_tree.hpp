@@ -66,6 +66,7 @@ public:
   void SetDisplacementMode(int displacementMode);
 
   void SetSelectedFeature(FeatureID const & featureID);
+  bool GetSelectedFeatureRect(ScreenBase const & screen, m2::RectD & featureRect);
 
 #ifdef COLLECT_DISPLACEMENT_INFO
   struct DisplacementData

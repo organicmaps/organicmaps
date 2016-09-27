@@ -794,6 +794,20 @@ public:
   bool IsGLContextDependent() const override { return true; }
 };
 
+class SetVisibleViewportMessage : public Message
+{
+public:
+  SetVisibleViewportMessage(m2::RectD const & rect)
+    : m_rect(rect)
+  {}
+
+  Type GetType() const override { return Message::SetVisibleViewport;  }
+  m2::RectD const &  GetRect() const { return m_rect; }
+
+private:
+  m2::RectD m_rect;
+};
+
 class DeactivateRouteFollowingMessage : public Message
 {
 public:

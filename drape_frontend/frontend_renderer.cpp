@@ -387,6 +387,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       {
         ProcessSelection(make_ref(m_selectObjectMessage));
         m_selectObjectMessage.reset();
+        AddUserEvent(make_unique_dp<SetVisibleViewportEvent>(m_userEventStream.GetVisibleViewport()));
       }
     }
     break;
@@ -452,6 +453,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         break;
       }
       ProcessSelection(msg);
+      AddUserEvent(make_unique_dp<SetVisibleViewportEvent>(m_userEventStream.GetVisibleViewport()));
+
       break;
     }
 
@@ -718,6 +721,15 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::SetVisibleViewport:
+    {
+      ref_ptr<SetVisibleViewportMessage> msg = message;
+      AddUserEvent(make_unique_dp<SetVisibleViewportEvent>(msg->GetRect()));
+      m_myPositionController->SetVisibleViewport(msg->GetRect());
+      m_myPositionController->UpdatePosition();
+      break;
+    }
+
   case Message::Invalidate:
     {
       m_myPositionController->ResetRoutingNotFollowTimer();
@@ -843,11 +855,11 @@ void FrontendRenderer::OnResize(ScreenBase const & screen)
   double const kEps = 1e-5;
   bool const viewportChanged = !m2::IsEqualSize(m_lastReadedModelView.PixelRectIn3d(), viewportRect, kEps, kEps);
 
-  m_myPositionController->UpdatePixelPosition(screen);
+  m_myPositionController->OnUpdateScreen(screen);
 
   if (viewportChanged)
   {
-    m_myPositionController->OnNewViewportRect();
+    m_myPositionController->UpdatePosition();
     m_viewport.SetViewport(0, 0, viewportRect.SizeX(), viewportRect.SizeY());
   }
 
@@ -1438,6 +1450,47 @@ void FrontendRenderer::OnTouchMapAction()
   m_myPositionController->ResetRoutingNotFollowTimer();
 }
 
+bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport, m2::RectD const & newViewport, m2::PointD & gOffset)
+{
+  gOffset = m2::PointD(0, 0);
+  if (m_myPositionController->IsModeChangeViewport() || m_selectionShape == nullptr)
+    return false;
+
+  ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
+  m2::PointD pos;
+
+  double const vs = VisualParams::Instance().GetVisualScale();
+  if (m_selectionShape->IsVisible(screen, pos))
+  {
+    m2::RectD rect(pos, pos);
+    if (!(m_selectionShape->GetSelectedObject() == SelectionShape::OBJECT_POI &&
+        m_overlayTree->GetSelectedFeatureRect(screen, rect)))
+    {
+      double const r = m_selectionShape->GetRadius();
+      rect.Inflate(r, r);
+    }
+
+    if (oldViewport.IsIntersect(rect) && !newViewport.IsRectInside(rect))
+    {
+      double const kOffset = 50 * vs;
+      m2::PointD pOffset(0.0, 0.0);
+      if (rect.minX() < newViewport.minX())
+        pOffset.x = newViewport.minX() - rect.minX() + kOffset;
+      else if (rect.maxX() > newViewport.maxX())
+        pOffset.x = newViewport.maxX() - rect.maxX() - kOffset;
+
+      if (rect.minY() < newViewport.minY())
+        pOffset.y = newViewport.minY() - rect.minY() + kOffset;
+      else if (rect.maxY() > newViewport.maxY())
+        pOffset.y = newViewport.maxY() - rect.maxY() - kOffset;
+
+      gOffset = screen.PtoG(screen.P3dtoP(pos + pOffset)) - screen.PtoG(screen.P3dtoP(pos));
+    }
+    return true;
+  }
+  return false;
+}
+
 TTilesCollection FrontendRenderer::ResolveTileKeys(ScreenBase const & screen)
 {
   m2::RectD const & rect = screen.ClipRect();
@@ -1726,7 +1779,7 @@ void FrontendRenderer::PrepareScene(ScreenBase const & modelView)
   RefreshZScale(modelView);
   RefreshPivotTransform(modelView);
 
-  m_myPositionController->UpdatePixelPosition(modelView);
+  m_myPositionController->OnUpdateScreen(modelView);
   m_routeRenderer->UpdateRoute(modelView, bind(&FrontendRenderer::OnCacheRouteArrows, this, _1, _2));
 }
 

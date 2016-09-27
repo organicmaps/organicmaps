@@ -104,10 +104,10 @@ SelectionShape::SelectionShape(ref_ptr<dp::TextureManager> mng)
     batcher.InsertTriangleList(state, make_ref(&provider), nullptr);
   }
 
-  double r = 15.0f * VisualParams::Instance().GetVisualScale();
-  m_mapping.AddRangePoint(0.6, 1.3 * r);
-  m_mapping.AddRangePoint(0.85, 0.8 * r);
-  m_mapping.AddRangePoint(1.0, r);
+  m_radius = 15.0f * VisualParams::Instance().GetVisualScale();
+  m_mapping.AddRangePoint(0.6, 1.3 * m_radius);
+  m_mapping.AddRangePoint(0.85, 0.8 * m_radius);
+  m_mapping.AddRangePoint(1.0, m_radius);
 }
 
 void SelectionShape::Show(ESelectedObject obj, m2::PointD const & position, double positionZ, bool isAnimate)
@@ -126,6 +126,20 @@ void SelectionShape::Hide()
 {
   m_animation.Hide();
   m_selectedObject = OBJECT_EMPTY;
+}
+
+bool SelectionShape::IsVisible(ScreenBase const & screen, m2::PointD & pxPos) const
+{
+  m2::PointD const pt = screen.GtoP(m_position);
+  ShowHideAnimation::EState state = m_animation.GetState();
+
+  if ((state == ShowHideAnimation::STATE_VISIBLE || state == ShowHideAnimation::STATE_SHOW_DIRECTION) &&
+      !screen.IsReverseProjection3d(pt))
+  {
+    pxPos = screen.PtoP3d(pt, -m_positionZ);
+    return true;
+  }
+  return false;
 }
 
 void SelectionShape::Render(ScreenBase const & screen, int zoomLevel, ref_ptr<dp::GpuProgramManager> mng,

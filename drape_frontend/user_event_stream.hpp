@@ -38,7 +38,8 @@ public:
     Resize,
     Rotate,
     FollowAndRotate,
-    AutoPerspective
+    AutoPerspective,
+    VisibleViewport
   };
 
   virtual ~UserEvent() {}
@@ -306,6 +307,21 @@ private:
   uint32_t m_height;
 };
 
+class SetVisibleViewportEvent : public UserEvent
+{
+public:
+  SetVisibleViewportEvent(m2::RectD const & rect)
+    : m_rect(rect)
+  {}
+
+  EventType GetType() const override { return UserEvent::EventType::VisibleViewport; }
+
+  m2::RectD const & GetRect() const { return m_rect; }
+
+private:
+  m2::RectD m_rect;
+};
+
 class UserEventStream
 {
 public:
@@ -331,12 +347,15 @@ public:
     virtual void OnAnimatedScaleEnded() = 0;
 
     virtual void OnTouchMapAction() = 0;
+
+    virtual bool OnNewVisibleViewport(m2::RectD const & oldViewport, m2::RectD const & newViewport, m2::PointD & gOffset) = 0;
   };
 
   UserEventStream();
   void AddEvent(drape_ptr<UserEvent> && event);
   ScreenBase const & ProcessEvents(bool & modelViewChanged, bool & viewportChanged);
   ScreenBase const & GetCurrentScreen() const;
+  m2::RectD const & GetVisibleViewport() const;
 
   void GetTargetScreen(ScreenBase & screen);
   m2::AnyRectD GetTargetRect();
@@ -443,6 +462,8 @@ private:
   using TEventsList = list<drape_ptr<UserEvent>>;
   TEventsList m_events;
   mutable mutex m_lock;
+
+  m2::RectD m_visibleViewport;
 
   Navigator m_navigator;
   my::Timer m_touchTimer;

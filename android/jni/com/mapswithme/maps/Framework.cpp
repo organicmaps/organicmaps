@@ -1168,4 +1168,10 @@ Java_com_mapswithme_maps_Framework_nativeGetActiveObjectFormattedCuisine(JNIEnv 
   return jni::ToJavaString(env, g_framework->GetPlacePageInfo().FormatCuisines());
 }
 
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeSetVisibleRect(JNIEnv * env, jclass, jint left, jint top, jint right, jint bottom)
+{
+  frm()->SetVisibleViewport(m2::RectD(left, top, right, bottom));
+}
+
 } // extern "C"
