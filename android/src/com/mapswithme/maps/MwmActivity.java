@@ -521,7 +521,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mNavMyPosition = new MyPositionButton(frame.findViewById(R.id.my_position));
   }
 
-  private boolean closePlacePage()
+  public boolean closePlacePage()
   {
     if (mPlacePage.isHidden())
       return false;

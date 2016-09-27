@@ -23,24 +23,24 @@ import com.mapswithme.util.UiUtils;
  */
 public abstract class BasePlacePageAnimationController
 {
-  protected static final int DURATION = MwmApplication.get().getResources().getInteger(R.integer.anim_placepage);
-  protected static final TimeInterpolator INTERPOLATOR = new AccelerateInterpolator();
-  protected State mState = State.HIDDEN;
+  private static final int DURATION = MwmApplication.get().getResources().getInteger(R.integer.anim_placepage);
+  private static final TimeInterpolator INTERPOLATOR = new AccelerateInterpolator();
+  State mState = State.HIDDEN;
 
-  protected PlacePageView mPlacePage;
-  protected ViewGroup mPreview;
-  protected ViewGroup mDetailsFrame;
-  protected ScrollView mDetailsScroll;
-  protected View mDetailsContent;
-  protected ViewGroup mBookmarkDetails;
-  protected ViewGroup mButtons;
+  PlacePageView mPlacePage;
+  ViewGroup mPreview;
+  ViewGroup mDetailsFrame;
+  ScrollView mDetailsScroll;
+  View mDetailsContent;
+  ViewGroup mBookmarkDetails;
+  ViewGroup mButtons;
   // Gestures
-  protected GestureDetectorCompat mGestureDetector;
-  protected boolean mIsDragging;
-  protected float mDownCoord;
-  protected float mTouchSlop;
+  GestureDetectorCompat mGestureDetector;
+  boolean mIsDragging;
+  float mDownCoord;
+  float mTouchSlop;
 
-  protected OnVisibilityChangedListener mVisibilityListener;
+  private OnVisibilityChangedListener mVisibilityListener;
 
   public interface OnVisibilityChangedListener
   {
@@ -48,15 +48,15 @@ public abstract class BasePlacePageAnimationController
     void onPreviewVisibilityChanged(boolean isVisible);
     void onPlacePageVisibilityChanged(boolean isVisible);
   }
-  protected OnAnimationListener mProgressListener;
+  private OnAnimationListener mProgressListener;
 
-  public interface OnAnimationListener
+  interface OnAnimationListener
   {
     void onProgress(float translationX, float translationY);
   }
   protected abstract void initGestureDetector();
 
-  public BasePlacePageAnimationController(@NonNull PlacePageView placePage)
+  BasePlacePageAnimationController(@NonNull PlacePageView placePage)
   {
     mPlacePage = placePage;
     mPreview = (ViewGroup) placePage.findViewById(R.id.pp__preview);
@@ -93,7 +93,7 @@ public abstract class BasePlacePageAnimationController
     return mState;
   }
 
-  public void setState(final State state, @MapObject.MapObjectType final int type)
+  void setState(final State state, @MapObject.MapObjectType final int type)
   {
     mPlacePage.post(new Runnable() {
       @Override
@@ -107,7 +107,7 @@ public abstract class BasePlacePageAnimationController
 
   protected abstract void onStateChanged(State currentState, State newState, int type);
 
-  public void setOnVisibilityChangedListener(OnVisibilityChangedListener listener)
+  void setOnVisibilityChangedListener(OnVisibilityChangedListener listener)
   {
     mVisibilityListener = listener;
   }
@@ -124,7 +124,7 @@ public abstract class BasePlacePageAnimationController
     return mGestureDetector.onTouchEvent(event);
   }
 
-  protected void notifyVisibilityListener(boolean previewShown, boolean ppShown)
+  void notifyVisibilityListener(boolean previewShown, boolean ppShown)
   {
     if (mVisibilityListener != null)
     {
@@ -133,7 +133,7 @@ public abstract class BasePlacePageAnimationController
     }
   }
 
-  protected void notifyProgress(float translationX, float translationY)
+  void notifyProgress(float translationX, float translationY)
   {
     if (mProgressListener == null)
       return;
@@ -141,15 +141,29 @@ public abstract class BasePlacePageAnimationController
     mProgressListener.onProgress(translationX, translationY);
   }
 
-  protected void startDefaultAnimator(ValueAnimator animator)
+  void startDefaultAnimator(ValueAnimator animator)
   {
     startDefaultAnimator(animator, new AccelerateInterpolator());
   }
 
-  protected void startDefaultAnimator(ValueAnimator animator, Interpolator interpolator)
+  void startDefaultAnimator(ValueAnimator animator, Interpolator interpolator)
   {
     animator.setDuration(DURATION);
     animator.setInterpolator(interpolator == null ? INTERPOLATOR : interpolator);
     animator.start();
+  }
+
+  void initPreviewState() {
+    UiUtils.invisible(mDetailsFrame);
+    mPlacePage.post(new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        mPreview.setTranslationY(0);
+        mDetailsFrame.setTranslationY(mDetailsFrame.getHeight());
+        UiUtils.show(mDetailsFrame);
+      }
+    });
   }
 }

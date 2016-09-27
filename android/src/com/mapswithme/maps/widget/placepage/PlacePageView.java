@@ -816,6 +816,9 @@ public class PlacePageView extends RelativeLayout
         break;
     }
 
+    if (!isDocked() && !isFloating())
+      mAnimationController.initPreviewState();
+
     UiThread.runLater(new Runnable()
     {
       @Override
