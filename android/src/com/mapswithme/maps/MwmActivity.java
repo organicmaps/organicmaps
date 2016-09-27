@@ -419,13 +419,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
     processIntent(getIntent());
     SharingHelper.prepare();
 
-    mVisibleRectMeasurer = new VisibleRectMeasurer(new VisibleRectListener() {
-      @Override
-      public void onVisibleRectChanged(Rect rect) {
-        Framework.nativeSetVisibleRect(rect.left, rect.top, rect.right, rect.bottom);
-      }
-    });
-    getWindow().getDecorView().addOnLayoutChangeListener(mVisibleRectMeasurer);
+    //TODO: uncomment after correct visible rect calculation.
+    //mVisibleRectMeasurer = new VisibleRectMeasurer(new VisibleRectListener() {
+    //  @Override
+    //  public void onVisibleRectChanged(Rect rect) {
+    //    Framework.nativeSetVisibleRect(rect.left, rect.top, rect.right, rect.bottom);
+    //  }
+    //});
+    //getWindow().getDecorView().addOnLayoutChangeListener(mVisibleRectMeasurer);
   }
 
   private void initViews()
@@ -1158,7 +1159,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onPreviewVisibilityChanged(boolean isVisible)
   {
-    mVisibleRectMeasurer.setPreviewVisible(isVisible);
+    if (mVisibleRectMeasurer != null)
+      mVisibleRectMeasurer.setPreviewVisible(isVisible);
 
     if (isVisible)
     {
@@ -1183,7 +1185,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onPlacePageVisibilityChanged(boolean isVisible)
   {
-    mVisibleRectMeasurer.setPlacePageVisible(isVisible);
+    if (mVisibleRectMeasurer != null)
+      mVisibleRectMeasurer.setPlacePageVisible(isVisible);
 
     Statistics.INSTANCE.trackEvent(isVisible ? Statistics.EventName.PP_OPEN
                                              : Statistics.EventName.PP_CLOSE);
