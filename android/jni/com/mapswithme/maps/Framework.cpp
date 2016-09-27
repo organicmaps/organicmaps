@@ -162,6 +162,9 @@ void Framework::Resize(int w, int h)
 {
   m_contextFactory->CastFactory<AndroidOGLContextFactory>()->UpdateSurfaceSize();
   m_work.OnSize(w, h);
+
+  //TODO: remove after correct visible rect calculation.
+  frm()->SetVisibleViewport(m2::RectD(0, 0, w, h));
 }
 
 void Framework::DetachSurface(bool destroyContext)
