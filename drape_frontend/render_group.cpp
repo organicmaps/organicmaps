@@ -242,6 +242,11 @@ size_t UserMarkRenderGroup::GetLayerId() const
   return m_layerId;
 }
 
+bool UserMarkRenderGroup::CanBeClipped() const
+{
+  return m_state.GetProgramIndex() != gpu::LINE_PROGRAM;
+}
+
 string DebugPrint(RenderGroup const & group)
 {
   ostringstream out;

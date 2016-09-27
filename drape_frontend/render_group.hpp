@@ -105,6 +105,8 @@ public:
 
   size_t GetLayerId() const;
 
+  bool CanBeClipped() const;
+
 private:
   drape_ptr<dp::RenderBucket> m_renderBucket;
   unique_ptr<OpacityAnimation> m_animation;
