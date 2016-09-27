@@ -24,6 +24,8 @@ import com.mapswithme.util.concurrency.UiThread;
 class BottomPlacePageAnimationController extends BasePlacePageAnimationController
 {
   private static final String TAG = BottomPlacePageAnimationController.class.getSimpleName();
+  private static final float DETAIL_RATIO = 0.7f;
+  private static final float SWIPE_RATIO = 0.15f;
   private final ViewGroup mLayoutToolbar;
 
   private final AnimationHelper mAnimationHelper = new AnimationHelper();
@@ -32,6 +34,9 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
   private boolean mIsGestureStartedInsideView;
   private boolean mIsGestureFinished;
 
+  private float mDetailMaxHeight;
+  private float mSwipeHeight;
+
   private class AnimationHelper
   {
     final View.OnLayoutChangeListener mListener = new View.OnLayoutChangeListener()
@@ -39,7 +44,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
       @Override
       public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom)
       {
-        if ((mState == State.DETAILS || mState == State.FULLSCREEN)
+        if ((mState == State.DETAILS || mState == State.FULLSCREEN || mState == State.SCROLL)
                 && v.getId() == mDetailsFrame.getId() && top != oldTop)
         {
           mPreview.setTranslationY(-mDetailsContent.getHeight());
@@ -69,6 +74,10 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
         }
       });
     }
+
+    float screenHeight = placePage.getResources().getDisplayMetrics().heightPixels;
+    mDetailMaxHeight = screenHeight * DETAIL_RATIO;
+    mSwipeHeight = screenHeight * SWIPE_RATIO;
   }
 
   @Override
@@ -122,7 +131,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
 
   private boolean isDetailsScrollable()
   {
-    return mPlacePage.getState() == State.FULLSCREEN
+    return mPlacePage.getState() == State.SCROLL
             && isDetailContentScrollable();
   }
 
@@ -145,7 +154,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
         finishedDrag)
     {
       mIsGestureFinished = true;
-      finishDrag();
+      finishDrag(mDownCoord - event.getY());
       return false;
     }
 
@@ -168,7 +177,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
         if (isVertical)
         {
           mIsDragging = true;
-          translateBy(-distanceY);
+          translateBy(-distanceY, e1.getY() - e2.getY());
         }
 
         return true;
@@ -220,7 +229,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
                && y < (mPreview.getBottom() + mPreview.getTranslationY());
   }
 
-  private void finishDrag()
+  private void finishDrag(float distance)
   {
     final float currentTranslation = mDetailsFrame.getTranslationY();
     if (currentTranslation > mDetailsScroll.getHeight())
@@ -229,27 +238,34 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
       return;
     }
 
-    @SuppressWarnings("UnnecessaryLocalVariable")
-    final float deltaTop = currentTranslation;
-    float deltaBottom = mScreenHeight - currentTranslation;
-    if(mDetailsFrame.getHeight() >= mDetailsContent.getHeight()) {
-      deltaBottom = mDetailsFrame.getHeight() - currentTranslation;
+    boolean isSwipe = Math.abs(distance) > mSwipeHeight;
+    if (!isDetailContentScrollable()
+        && Math.abs(distance) >= mDetailsFrame.getHeight() * SWIPE_RATIO)
+    {
+      isSwipe = true;
     }
 
-    if (deltaBottom > deltaTop) {
+    if (distance >= 0.0f && isSwipe) {
       if (mPlacePage.getState() == State.PREVIEW) {
         if (isDetailContentScrollable()) {
           mPlacePage.setState(State.DETAILS);
         } else {
-          mPlacePage.setState(State.FULLSCREEN);
+          mPlacePage.setState(State.SCROLL);
         }
       } else if (isDetailContentScrollable()) {
-        mPlacePage.setState(State.FULLSCREEN);
+        if (mPlacePage.getState() == State.FULLSCREEN)
+        {
+          mPlacePage.setState(State.SCROLL);
+        } else
+        {
+          mPlacePage.setState(State.FULLSCREEN);
+        }
       } else if (mDetailsFrame.getTranslationY() > 0) {
         mPlacePage.setState(State.DETAILS);
       }
-    } else {
-      if (mPlacePage.getState() == State.FULLSCREEN) {
+    } else if (isSwipe) {
+      if (mPlacePage.getState() == State.SCROLL
+          || mPlacePage.getState() == State.FULLSCREEN) {
         if (isDetailContentScrollable()) {
           mPlacePage.setState(State.DETAILS);
         } else {
@@ -258,6 +274,8 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
       } else {
         mPlacePage.setState(State.PREVIEW);
       }
+    } else {
+      mPlacePage.setState(mPlacePage.getState());
     }
   }
 
@@ -265,7 +283,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
     return mDetailsFrame.getHeight() < mDetailsContent.getHeight();
   }
 
-  private void translateBy(float distanceY)
+  private void translateBy(float distanceY, float distanceFromBegin)
   {
     final float detailsHeight = mDetailsScroll.getHeight();
     float detailsTranslation = mDetailsFrame.getTranslationY() + distanceY;
@@ -274,11 +292,14 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
     {
       detailsTranslation = 0;
       previewTranslation = -detailsHeight;
-      mPlacePage.setState(State.FULLSCREEN);
+      mIsDragging = false;
+      mIsGestureFinished = true;
+      finishDrag(distanceFromBegin);
     }
 
     mPreview.setTranslationY(previewTranslation);
     mDetailsFrame.setTranslationY(detailsTranslation);
+    refreshToolbarVisibility();
   }
 
   @Override
@@ -305,6 +326,9 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
           break;
         case FULLSCREEN:
           showFullscreen(currentState);
+          break;
+        case SCROLL:
+          showScroll(currentState);
           break;
         }
       }
@@ -339,13 +363,8 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
       }
       break;
     case DETAILS:
-      UiUtils.show(mPlacePage, mPreview, mDetailsFrame, mButtons);
+      UiUtils.show(mPlacePage, mPreview, mDetailsFrame);
       UiUtils.showIf(type == MapObject.BOOKMARK, mBookmarkDetails);
-      break;
-    case FULLSCREEN:
-      if(isDetailContentScrollable()) {
-        UiUtils.invisible(mButtons);
-      }
       break;
     }
   }
@@ -432,14 +451,39 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
 
   protected void showFullscreen(final State currentState) {
     final float detailsScreenHeight = mDetailsScroll.getHeight();
-    final float targetTranslation = mPreview.getTranslationY() + (mButtons.getHeight()
-            - mDetailsFrame.getY());
+    final float targetTranslation = -mPreview.getTop();
 
     if(!isDetailContentScrollable()) {
       mCurrentAnimator = ValueAnimator.ofFloat(mPreview.getTranslationY(), -detailsScreenHeight);
     } else {
       mCurrentAnimator = ValueAnimator.ofFloat(mPreview.getTranslationY(), targetTranslation);
     }
+    mCurrentAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+      @Override
+      public void onAnimationUpdate(ValueAnimator animation) {
+        float translationY = (Float) animation.getAnimatedValue();
+        mPreview.setTranslationY(translationY);
+        mDetailsFrame.setTranslationY(translationY + detailsScreenHeight);
+        notifyProgress();
+      }
+    });
+    mCurrentAnimator.addListener(new UiUtils.SimpleAnimatorListener() {
+      @Override
+      public void onAnimationEnd(Animator animation) {
+        refreshToolbarVisibility();
+        notifyVisibilityListener(true, true);
+        mDetailsScroll.scrollTo(0, 0);
+        notifyProgress();
+      }
+    });
+
+    startDefaultAnimator();
+  }
+
+  protected void showScroll(final State currentState) {
+    final float detailsScreenHeight = mDetailsScroll.getHeight();
+
+    mCurrentAnimator = ValueAnimator.ofFloat(mPreview.getTranslationY(), -detailsScreenHeight);
     mCurrentAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
       @Override
       public void onAnimationUpdate(ValueAnimator animation) {

@@ -1025,9 +1025,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     setFullscreen(false);
 
     mPlacePage.setMapObject(object, true);
-    if (mPlacePage.getState() == State.HIDDEN) {
-      mPlacePage.setState(State.PREVIEW);
-    }
+    mPlacePage.setState(State.PREVIEW);
 
     if (UiUtils.isVisible(mFadeView))
       mFadeView.fadeOut();

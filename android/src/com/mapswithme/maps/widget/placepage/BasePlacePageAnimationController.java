@@ -23,7 +23,6 @@ import com.mapswithme.util.UiUtils;
  */
 public abstract class BasePlacePageAnimationController
 {
-  private static final float DETAIL_RATIO = 0.7f;
   protected static final int DURATION = MwmApplication.get().getResources().getInteger(R.integer.anim_placepage);
   protected static final TimeInterpolator INTERPOLATOR = new AccelerateInterpolator();
   protected State mState = State.HIDDEN;
@@ -40,9 +39,6 @@ public abstract class BasePlacePageAnimationController
   protected boolean mIsDragging;
   protected float mDownCoord;
   protected float mTouchSlop;
-
-  protected float mScreenHeight;
-  protected float mDetailMaxHeight;
 
   protected OnVisibilityChangedListener mVisibilityListener;
 
@@ -83,9 +79,6 @@ public abstract class BasePlacePageAnimationController
       lp.height = ViewGroup.LayoutParams.MATCH_PARENT;
       mDetailsFrame.setLayoutParams(lp);
     }
-
-    mScreenHeight = placePage.getResources().getDisplayMetrics().heightPixels;
-    mDetailMaxHeight = mScreenHeight * DETAIL_RATIO;
 
     initialVisibility();
   }
