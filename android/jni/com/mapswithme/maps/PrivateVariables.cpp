@@ -22,10 +22,10 @@ extern "C"
     return env->NewStringUTF(MY_TRACKER_KEY);
   }
 
-  JNIEXPORT jstring JNICALL
+  JNIEXPORT jint JNICALL
   Java_com_mapswithme_maps_PrivateVariables_myTargetSlot(JNIEnv * env, jclass clazz)
   {
-    return env->NewStringUTF(MY_TARGET_KEY);
+    return MY_TARGET_KEY;
   }
 
   JNIEXPORT jstring JNICALL
