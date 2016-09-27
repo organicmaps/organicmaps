@@ -1161,9 +1161,11 @@ void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView)
   for (auto const & group : m_userMarkRenderGroups)
   {
     ASSERT(group.get() != nullptr, ());
-    if (m_userMarkVisibility.find(group->GetLayerId()) != m_userMarkVisibility.end() &&
-        screenRect.IsIntersect(group->GetTileKey().GetGlobalRect()))
-      RenderSingleGroup(modelView, make_ref(group));
+    if (m_userMarkVisibility.find(group->GetLayerId()) != m_userMarkVisibility.end())
+    {
+      if (!group->CanBeClipped() || screenRect.IsIntersect(group->GetTileKey().GetGlobalRect()))
+        RenderSingleGroup(modelView, make_ref(group));
+    }
   }
 }
   
