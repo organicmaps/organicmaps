@@ -8,7 +8,7 @@
       style="@style/MwmWidget.ToolbarStyle"
       android:layout_width="match_parent"
       android:layout_height="?attr/actionBarSize"
-      android:theme="@style/MwmWidget.ToolbarTheme"/>
+      android:theme="@style/MwmWidget.ToolbarTheme.DownButton"/>
 
   <FrameLayout
       style="@style/MwmWidget.FrameLayout.Elevation"

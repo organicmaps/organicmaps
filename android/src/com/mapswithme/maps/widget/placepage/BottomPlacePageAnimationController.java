@@ -23,6 +23,7 @@ import com.mapswithme.util.concurrency.UiThread;
 
 class BottomPlacePageAnimationController extends BasePlacePageAnimationController
 {
+  @SuppressWarnings("unused")
   private static final String TAG = BottomPlacePageAnimationController.class.getSimpleName();
   private static final float DETAIL_RATIO = 0.7f;
   private static final float SWIPE_RATIO = 0.15f;
@@ -54,7 +55,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
     };
   }
 
-  public BottomPlacePageAnimationController(@NonNull PlacePageView placePage)
+  BottomPlacePageAnimationController(@NonNull PlacePageView placePage)
   {
     super(placePage);
     mLayoutToolbar = (LinearLayout) mPlacePage.findViewById(R.id.toolbar_layout);
@@ -212,7 +213,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
           if (isDetailContentScrollable()) {
             mPlacePage.setState(State.DETAILS);
           } else {
-            mPlacePage.setState(State.FULLSCREEN);
+            mPlacePage.setState(State.SCROLL);
           }
         } else {
           mPlacePage.setState(State.PREVIEW);
@@ -305,7 +306,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
   @Override
   protected void onStateChanged(final State currentState, final State newState, @MapObject.MapObjectType int type)
   {
-    prepareYTranslations(currentState, newState, type);
+    prepareYTranslations(newState, type);
 
     mPlacePage.post(new Runnable()
     {
@@ -322,13 +323,13 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
           showPreview(currentState);
           break;
         case DETAILS:
-          showDetails(currentState);
+          showDetails();
           break;
         case FULLSCREEN:
-          showFullscreen(currentState);
+          showFullscreen();
           break;
         case SCROLL:
-          showScroll(currentState);
+          showScroll();
           break;
         }
       }
@@ -338,7 +339,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
   /**
    * Prepares widgets for animating, places them vertically accordingly to their supposed positions.
    */
-  private void prepareYTranslations(State currentState, State newState, @MapObject.MapObjectType int type)
+  private void prepareYTranslations(State newState, @MapObject.MapObjectType int type)
   {
     switch (newState)
     {
@@ -369,7 +370,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
     }
   }
 
-  protected void showPreview(final State currentState)
+  private void showPreview(final State currentState)
   {
     if (mLayoutToolbar != null)
       UiUtils.hide(mLayoutToolbar);
@@ -378,17 +379,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
 
     mCurrentAnimator = ValueAnimator.ofFloat(mPreview.getTranslationY(), 0f);
     final float detailsHeight = mDetailsFrame.getHeight();
-    mCurrentAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
-    {
-      @Override
-      public void onAnimationUpdate(ValueAnimator animation)
-      {
-        float translationY = (Float) animation.getAnimatedValue();
-        mPreview.setTranslationY(translationY);
-        mDetailsFrame.setTranslationY(translationY + detailsHeight);
-        notifyProgress();
-      }
-    });
+    mCurrentAnimator.addUpdateListener(new UpdateListener(detailsHeight));
     Interpolator interpolator;
     if (currentState == State.HIDDEN)
     {
@@ -419,7 +410,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
     startDefaultAnimator(mCurrentAnimator, interpolator);
   }
 
-  protected void showDetails(final State currentState)
+  private void showDetails()
   {
     final float previewTranslation = mPreview.getHeight() + mButtons.getHeight();
     final float detailsScreenHeight = mDetailsScroll.getHeight();
@@ -427,29 +418,13 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
             .min(detailsScreenHeight, mDetailMaxHeight - previewTranslation);
 
     mCurrentAnimator = ValueAnimator.ofFloat(mPreview.getTranslationY(), -targetTranslation);
-    mCurrentAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-      @Override
-      public void onAnimationUpdate(ValueAnimator animation) {
-        float translationY = (Float) animation.getAnimatedValue();
-        mPreview.setTranslationY(translationY);
-        mDetailsFrame.setTranslationY(translationY + detailsScreenHeight);
-        notifyProgress();
-      }
-    });
-    mCurrentAnimator.addListener(new UiUtils.SimpleAnimatorListener() {
-      @Override
-      public void onAnimationEnd(Animator animation) {
-        refreshToolbarVisibility();
-        notifyVisibilityListener(true, true);
-        mDetailsScroll.scrollTo(0, 0);
-        notifyProgress();
-      }
-    });
+    mCurrentAnimator.addUpdateListener(new UpdateListener(detailsScreenHeight));
+    mCurrentAnimator.addListener(new AnimationListener());
 
     startDefaultAnimator();
   }
 
-  protected void showFullscreen(final State currentState) {
+  private void showFullscreen() {
     final float detailsScreenHeight = mDetailsScroll.getHeight();
     final float targetTranslation = -mPreview.getTop();
 
@@ -458,56 +433,24 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
     } else {
       mCurrentAnimator = ValueAnimator.ofFloat(mPreview.getTranslationY(), targetTranslation);
     }
-    mCurrentAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-      @Override
-      public void onAnimationUpdate(ValueAnimator animation) {
-        float translationY = (Float) animation.getAnimatedValue();
-        mPreview.setTranslationY(translationY);
-        mDetailsFrame.setTranslationY(translationY + detailsScreenHeight);
-        notifyProgress();
-      }
-    });
-    mCurrentAnimator.addListener(new UiUtils.SimpleAnimatorListener() {
-      @Override
-      public void onAnimationEnd(Animator animation) {
-        refreshToolbarVisibility();
-        notifyVisibilityListener(true, true);
-        mDetailsScroll.scrollTo(0, 0);
-        notifyProgress();
-      }
-    });
+    mCurrentAnimator.addUpdateListener(new UpdateListener(detailsScreenHeight));
+    mCurrentAnimator.addListener(new AnimationListener());
 
     startDefaultAnimator();
   }
 
-  protected void showScroll(final State currentState) {
+  private void showScroll() {
     final float detailsScreenHeight = mDetailsScroll.getHeight();
 
     mCurrentAnimator = ValueAnimator.ofFloat(mPreview.getTranslationY(), -detailsScreenHeight);
-    mCurrentAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-      @Override
-      public void onAnimationUpdate(ValueAnimator animation) {
-        float translationY = (Float) animation.getAnimatedValue();
-        mPreview.setTranslationY(translationY);
-        mDetailsFrame.setTranslationY(translationY + detailsScreenHeight);
-        notifyProgress();
-      }
-    });
-    mCurrentAnimator.addListener(new UiUtils.SimpleAnimatorListener() {
-      @Override
-      public void onAnimationEnd(Animator animation) {
-        refreshToolbarVisibility();
-        notifyVisibilityListener(true, true);
-        mDetailsScroll.scrollTo(0, 0);
-        notifyProgress();
-      }
-    });
+    mCurrentAnimator.addUpdateListener(new UpdateListener(detailsScreenHeight));
+    mCurrentAnimator.addListener(new AnimationListener());
 
     startDefaultAnimator();
   }
 
   @SuppressLint("NewApi")
-  protected void hidePlacePage()
+  private void hidePlacePage()
   {
     if (mLayoutToolbar != null)
       UiUtils.hide(mLayoutToolbar);
@@ -556,7 +499,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
     }
   }
 
-  protected void refreshToolbarVisibility()
+  private void refreshToolbarVisibility()
   {
     if (mLayoutToolbar != null)
       UiThread.runLater(new Runnable()
@@ -572,5 +515,35 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
   private void notifyProgress()
   {
     notifyProgress(0, mPreview.getTranslationY());
+  }
+
+  private class UpdateListener implements ValueAnimator.AnimatorUpdateListener
+  {
+    private final float mDetailsHeight;
+
+    UpdateListener(float detailsHeight)
+    {
+      mDetailsHeight = detailsHeight;
+    }
+
+    @Override
+    public void onAnimationUpdate(ValueAnimator animation)
+    {
+      float translationY = (Float) animation.getAnimatedValue();
+      mPreview.setTranslationY(translationY);
+      mDetailsFrame.setTranslationY(translationY + mDetailsHeight);
+      notifyProgress();
+    }
+  }
+
+  private class AnimationListener extends UiUtils.SimpleAnimatorListener {
+    @Override
+    public void onAnimationEnd(Animator animation)
+    {
+      refreshToolbarVisibility();
+      notifyVisibilityListener(true, true);
+      mDetailsScroll.scrollTo(0, 0);
+      notifyProgress();
+    }
   }
 }

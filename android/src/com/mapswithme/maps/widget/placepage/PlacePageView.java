@@ -1318,7 +1318,9 @@ public class PlacePageView extends RelativeLayout
     if (mIsDocked || mIsFloating)
       return false;
 
-    if (getState() == State.DETAILS)
+    if (getState() == State.DETAILS
+        || getState() == State.FULLSCREEN
+        || getState() == State.SCROLL)
     {
       hide();
       return true;
