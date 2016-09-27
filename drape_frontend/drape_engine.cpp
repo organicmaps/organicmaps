@@ -95,7 +95,14 @@ DrapeEngine::~DrapeEngine()
 
 void DrapeEngine::Update(int w, int h)
 {
+  if (m_choosePositionMode)
+  {
+    m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                    make_unique_dp<ShowChoosePositionMarkMessage>(),
+                                    MessagePriority::High);
+  }
   RecacheGui(false);
+
   RecacheMapShapes();
 
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
