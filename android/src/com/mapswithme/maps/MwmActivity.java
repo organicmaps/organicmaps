@@ -16,7 +16,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -87,6 +86,7 @@ import ru.mail.android.mytarget.nativeads.NativeAppwallAd;
 import ru.mail.android.mytarget.nativeads.banners.NativeAppwallBanner;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Stack;
 
 public class MwmActivity extends BaseMwmFragmentActivity
@@ -956,7 +956,41 @@ public class MwmActivity extends BaseMwmFragmentActivity
       @Override
       public void onDismissDialog(NativeAppwallAd nativeAppwallAd) {}
     };
-    mMytargetHelper = new MytargetHelper(listener, this);
+
+
+    mMytargetHelper = new MytargetHelper(new MytargetHelper.Listener<Void>()
+    {
+      private void onNoAdsInternal()
+      {
+        mMainMenu.setVisible(MainMenu.Item.SHOWCASE, false);
+      }
+
+      @Override
+      public void onNoAds()
+      {
+        onNoAdsInternal();
+      }
+
+      @Override
+      public void onDataReady(Void data)
+      {
+        mMytargetHelper.loadShowcase(new MytargetHelper.Listener<List<NativeAppwallBanner>>()
+        {
+          @Override
+          public void onNoAds()
+          {
+            onNoAdsInternal();
+          }
+
+          @Override
+          public void onDataReady(List<NativeAppwallBanner> banners)
+          {
+            mMainMenu.setShowcaseText(banners.get(0).getTitle());
+            mMainMenu.setVisible(MainMenu.Item.SHOWCASE, true);
+          }
+        }, MwmActivity.this);
+      }
+    });
   }
 
   @Override
