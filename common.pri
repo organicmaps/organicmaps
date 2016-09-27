@@ -2,6 +2,9 @@
 #
 # To use it, define ROOT_DIR variable and include($$ROOT_DIR/common.pri)
 
+# We use some library features that were introduced in Mac OS X 10.8.
+# Qt5.6.x sets target OS X version to 10.7 which leads to compile errors.
+QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.9
 
 CONFIG(map_designer) {
   DEFINES *= STANDALONE_APP
