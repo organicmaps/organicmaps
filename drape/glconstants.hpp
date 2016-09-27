@@ -153,6 +153,7 @@ extern const glConst GLAlways;
 extern const glConst GLActiveUniforms;
 
 /// Draw primitives
+extern const glConst GLLines;
 extern const glConst GLLineStrip;
 extern const glConst GLTriangles;
 extern const glConst GLTriangleStrip;

@@ -11,7 +11,6 @@ using namespace emul;
 
 void GLFunctions::glFlush()
 {
-
 }
 
 uint32_t GLFunctions::glGenVertexArray()
@@ -111,7 +110,6 @@ int8_t GLFunctions::glGetAttribLocation(uint32_t programID, string const & name)
 
 void GLFunctions::glBindAttribLocation(uint32_t programID, uint8_t index, string const & name)
 {
-
 }
 
 /// enable vertex attribute binding. To get attributeLocation need to call glGetAttributeLocation
@@ -246,6 +244,16 @@ string GLFunctions::glGetString(glConst pname)
   return MOCK_CALL(glGetString(pname));
 }
 
+int32_t GLFunctions::glGetMaxLineWidth()
+{
+  return MOCK_CALL(glGetMaxLineWidth());
+}
+
+void GLFunctions::glLineWidth(uint32_t value)
+{
+  return MOCK_CALL(glLineWidth(value));
+}
+
 void CheckGLError(my::SrcPoint const & /*srcPt*/) {}
 
 void GLFunctions::glEnable(glConst mode) {}
@@ -264,7 +272,8 @@ void * GLFunctions::glMapBuffer(glConst, glConst) { return 0; }
 
 void GLFunctions::glUnmapBuffer(glConst target) {}
 
-void GLFunctions::glDrawElements(uint32_t sizeOfIndex, uint32_t indexCount, uint32_t startIndex) {}
+void GLFunctions::glDrawElements(glConst primitive, uint32_t sizeOfIndex,
+                                 uint32_t indexCount, uint32_t startIndex) {}
 
 void GLFunctions::glDrawArrays(glConst mode, int32_t first, uint32_t count) {}
 

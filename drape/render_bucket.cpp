@@ -77,7 +77,7 @@ void RenderBucket::RemoveOverlayHandles(ref_ptr<OverlayTree> tree)
     tree->Remove(make_ref(overlayHandle));
 }
 
-void RenderBucket::Render()
+void RenderBucket::Render(bool drawAsLine)
 {
   ASSERT(m_buffer != nullptr, ());
 
@@ -105,7 +105,7 @@ void RenderBucket::Render()
 
     m_buffer->ApplyMutation(hasIndexMutation ? rfpIndex : nullptr, rfpAttrib);
   }
-  m_buffer->Render();
+  m_buffer->Render(drawAsLine);
 }
 
 void RenderBucket::SetFeatureMinZoom(int minZoom)

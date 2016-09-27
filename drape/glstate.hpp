@@ -67,6 +67,11 @@ public:
   glConst GetTextureFilter() const;
   void SetTextureFilter(glConst filter);
 
+  bool GetDrawAsLine() const;
+  void SetDrawAsLine(bool drawAsLine);
+  int GetLineWidth() const;
+  void SetLineWidth(int width);
+
   bool operator<(GLState const & other) const;
   bool operator==(GLState const & other) const;
   bool operator!=(GLState const & other) const;
@@ -81,6 +86,9 @@ private:
 
   ref_ptr<Texture> m_colorTexture;
   ref_ptr<Texture> m_maskTexture;
+
+  bool m_drawAsLine;
+  int m_lineWidth;
 };
 
 void ApplyUniforms(UniformValuesStorage const & uniforms, ref_ptr<GpuProgram> program);

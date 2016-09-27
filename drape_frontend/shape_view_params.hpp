@@ -13,6 +13,7 @@ namespace df
 {
 
 double const kShapeCoordScalar = 1000;
+int constexpr kBuildingOutlineSize = 16;
 
 struct CommonViewParams
 {
@@ -51,6 +52,7 @@ struct AreaViewParams : CommonViewParams
   dp::Color m_color;
   float m_minPosZ = 0.0f;
   float m_posZ = 0.0f;
+  bool m_is3D = false;
 };
 
 struct LineViewParams : CommonViewParams
@@ -61,6 +63,7 @@ struct LineViewParams : CommonViewParams
   dp::LineJoin m_join;
   buffer_vector<uint8_t, 8> m_pattern;
   float m_baseGtoPScale = 1.0f;
+  int m_zoomLevel = -1;
 };
 
 struct TextViewParams : CommonViewParams

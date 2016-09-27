@@ -113,6 +113,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       }
       break;
     }
+
   case Message::InvalidateReadManagerRect:
     {
       ref_ptr<InvalidateReadManagerRectMessage> msg = message;
@@ -122,11 +123,13 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
         m_readManager->Invalidate(msg->GetTilesForInvalidate());
       break;
     }
+
   case Message::ShowChoosePositionMark:
     {
       RecacheChoosePositionMark();
       break;
     }
+
   case Message::GuiRecache:
     {
       ref_ptr<GuiRecacheMessage> msg = message;
@@ -137,6 +140,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
 #endif
       break;
     }
+
   case Message::GuiLayerLayout:
     {
       ref_ptr<GuiLayerLayoutMessage> msg = message;
@@ -145,17 +149,21 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
                                 MessagePriority::Normal);
       break;
     }
+
   case Message::TileReadStarted:
     {
-      m_batchersPool->ReserveBatcher(static_cast<ref_ptr<BaseTileMessage>>(message)->GetKey());
+      ref_ptr<TileReadStartMessage> msg = message;
+      m_batchersPool->ReserveBatcher(msg->GetKey());
       break;
     }
+
   case Message::TileReadEnded:
     {
       ref_ptr<TileReadEndMessage> msg = message;
       m_batchersPool->ReleaseBatcher(msg->GetKey());
       break;
     }
+
   case Message::FinishTileRead:
     {
       ref_ptr<FinishTileReadMessage> msg = message;
@@ -164,6 +172,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
                                 MessagePriority::Normal);
       break;
     }
+
   case Message::FinishReading:
     {
       TOverlaysRenderData overlays;
@@ -176,11 +185,13 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       }
       break;
     }
+
   case Message::MapShapesRecache:
     {
       RecacheMapShapes();
       break;
     }
+
   case Message::MapShapeReaded:
     {
       ref_ptr<MapShapeReadedMessage> msg = message;
@@ -196,6 +207,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       }
       break;
     }
+
   case Message::OverlayMapShapeReaded:
     {
       ref_ptr<OverlayMapShapeReadedMessage> msg = message;
@@ -218,6 +230,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       }
       break;
     }
+
   case Message::UpdateUserMarkLayer:
     {
       ref_ptr<UpdateUserMarkLayerMessage> msg = message;
@@ -238,6 +251,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       msg->EndProcess();
       break;
     }
+
   case Message::AddRoute:
     {
       ref_ptr<AddRouteMessage> msg = message;
@@ -245,18 +259,21 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
                             msg->GetColor(), msg->GetPattern(), m_texMng, msg->GetRecacheId());
       break;
     }
+
   case Message::CacheRouteSign:
     {
       ref_ptr<CacheRouteSignMessage> msg = message;
       m_routeBuilder->BuildSign(msg->GetPosition(), msg->IsStart(), msg->IsValid(), m_texMng, msg->GetRecacheId());
       break;
     }
+
   case Message::CacheRouteArrows:
     {
       ref_ptr<CacheRouteArrowsMessage> msg = message;
       m_routeBuilder->BuildArrows(msg->GetRouteIndex(), msg->GetBorders(), m_texMng, msg->GetRecacheId());
       break;
     }
+
   case Message::RemoveRoute:
     {
       ref_ptr<RemoveRouteMessage> msg = message;
@@ -268,12 +285,14 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
                                 MessagePriority::Normal);
       break;
     }
+
   case Message::InvalidateTextures:
     {
       m_texMng->Invalidate(VisualParams::Instance().GetResourcePostfix());
       RecacheMapShapes();
       break;
     }
+
   case Message::CacheGpsTrackPoints:
     {
       ref_ptr<CacheGpsTrackPointsMessage> msg = message;
@@ -285,12 +304,14 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
                                 MessagePriority::Normal);
       break;
     }
+
   case Message::Allow3dBuildings:
     {
       ref_ptr<Allow3dBuildingsMessage> msg = message;
       m_readManager->Allow3dBuildings(msg->Allow3dBuildings());
       break;
     }
+
   case Message::RequestSymbolsSize:
     {
       ref_ptr<RequestSymbolsSizeMessage> msg = message;
@@ -307,6 +328,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
 
       break;
     }
+
   default:
     ASSERT(false, ());
     break;
@@ -366,8 +388,8 @@ void BackendRenderer::Routine::Do()
 
 void BackendRenderer::InitGLDependentResource()
 {
-  m_batchersPool = make_unique_dp<BatchersPool>(ReadManager::ReadCount(), bind(&BackendRenderer::FlushGeometry, this, _1));
-
+  m_batchersPool = make_unique_dp<BatchersPool>(ReadManager::ReadCount(),
+                                                bind(&BackendRenderer::FlushGeometry, this, _1));
   dp::TextureManager::Params params;
   params.m_resPostfix = VisualParams::Instance().GetResourcePostfix();
   params.m_visualScale = df::VisualParams::Instance().GetVisualScale();

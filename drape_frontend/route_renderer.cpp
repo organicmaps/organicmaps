@@ -262,7 +262,7 @@ void RouteRenderer::RenderRoute(ScreenBase const & screen, ref_ptr<dp::GpuProgra
 
     // Render buckets.
     for (drape_ptr<dp::RenderBucket> const & bucket : m_routeData->m_route.m_buckets)
-      bucket->Render();
+      bucket->Render(state.GetDrawAsLine());
   }
 
   // Render arrows.
@@ -282,7 +282,7 @@ void RouteRenderer::RenderRoute(ScreenBase const & screen, ref_ptr<dp::GpuProgra
     dp::ApplyState(state, prg);
     dp::ApplyUniforms(uniforms, prg);
     for (drape_ptr<dp::RenderBucket> const & bucket : m_routeArrows->m_arrows.m_buckets)
-      bucket->Render();
+      bucket->Render(state.GetDrawAsLine());
   }
 }
 
@@ -319,13 +319,13 @@ void RouteRenderer::RenderRouteSign(drape_ptr<RouteSignData> const & sign, Scree
                                                            : mng->GetProgram(state.GetProgramIndex());
   program->Bind();
 
-  dp::ApplyState(sign->m_sign.m_state, program);
+  dp::ApplyState(state, program);
   dp::ApplyUniforms(uniforms, program);
 
   for (auto const & bucket : sign->m_sign.m_buckets)
   {
     bucket->GetBuffer()->Build(program);
-    bucket->Render();
+    bucket->Render(state.GetDrawAsLine());
   }
 }
 

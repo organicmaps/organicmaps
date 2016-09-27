@@ -53,10 +53,12 @@ public:
       return m_indexStorage.GetRaw();
     }
     else
+    {
       return m_overlay->IndexStorage(size);
+    }
   }
 
-  void SubmitIndeces() override
+  void SubmitIndices() override
   {
     if (m_overlay == nullptr || !m_overlay->IndexesRequired())
       m_buffer->UploadIndexes(m_indexStorage.GetRawConst(), m_indexStorage.Size());
@@ -123,7 +125,7 @@ void Batcher::InsertTriangleList(GLState const & state, ref_ptr<AttributeProvide
 IndicesRange Batcher::InsertTriangleList(GLState const & state, ref_ptr<AttributeProvider> params,
                                          drape_ptr<OverlayHandle> && handle)
 {
-  return InsertTriangles<TriangleListBatch>(state, params, move(handle));
+  return InsertPrimitives<TriangleListBatch>(state, params, move(handle), 0 /* vertexStride */);
 }
 
 void Batcher::InsertTriangleStrip(GLState const & state, ref_ptr<AttributeProvider> params)
@@ -134,7 +136,7 @@ void Batcher::InsertTriangleStrip(GLState const & state, ref_ptr<AttributeProvid
 IndicesRange Batcher::InsertTriangleStrip(GLState const & state, ref_ptr<AttributeProvider> params,
                                           drape_ptr<OverlayHandle> && handle)
 {
-  return InsertTriangles<TriangleStripBatch>(state, params, move(handle));
+  return InsertPrimitives<TriangleStripBatch>(state, params, move(handle), 0 /* vertexStride */);
 }
 
 void Batcher::InsertTriangleFan(GLState const & state, ref_ptr<AttributeProvider> params)
@@ -145,7 +147,7 @@ void Batcher::InsertTriangleFan(GLState const & state, ref_ptr<AttributeProvider
 IndicesRange Batcher::InsertTriangleFan(GLState const & state, ref_ptr<AttributeProvider> params,
                                         drape_ptr<OverlayHandle> && handle)
 {
-  return InsertTriangles<TriangleFanBatch>(state, params, move(handle));
+  return InsertPrimitives<TriangleFanBatch>(state, params, move(handle), 0 /* vertexStride */);
 }
 
 void Batcher::InsertListOfStrip(GLState const & state, ref_ptr<AttributeProvider> params,
@@ -157,7 +159,30 @@ void Batcher::InsertListOfStrip(GLState const & state, ref_ptr<AttributeProvider
 IndicesRange Batcher::InsertListOfStrip(GLState const & state, ref_ptr<AttributeProvider> params,
                                         drape_ptr<OverlayHandle> && handle, uint8_t vertexStride)
 {
-  return InsertTriangles<TriangleListOfStripBatch>(state, params, move(handle), vertexStride);
+  return InsertPrimitives<TriangleListOfStripBatch>(state, params, move(handle), vertexStride);
+}
+
+void Batcher::InsertLineStrip(GLState const & state, ref_ptr<AttributeProvider> params)
+{
+  InsertLineStrip(state, params, nullptr);
+}
+
+IndicesRange Batcher::InsertLineStrip(GLState const & state, ref_ptr<AttributeProvider> params,
+                                      drape_ptr<OverlayHandle> && handle)
+{
+  return InsertPrimitives<LineStripBatch>(state, params, move(handle), 0 /* vertexStride */);
+}
+
+void Batcher::InsertLineRaw(GLState const & state, ref_ptr<AttributeProvider> params,
+                            vector<int> const & indices)
+{
+  InsertLineRaw(state, params, indices, nullptr);
+}
+
+IndicesRange Batcher::InsertLineRaw(GLState const & state, ref_ptr<AttributeProvider> params,
+                                    vector<int> const & indices, drape_ptr<OverlayHandle> && handle)
+{
+  return InsertPrimitives<LineRawBatch>(state, params, move(handle), 0 /* vertexStride */, indices);
 }
 
 void Batcher::StartSession(TFlushFn const & flusher)
@@ -228,9 +253,10 @@ void Batcher::Flush()
   m_buckets.clear();
 }
 
-template <typename TBatcher>
-IndicesRange Batcher::InsertTriangles(GLState const & state, ref_ptr<AttributeProvider> params,
-                                      drape_ptr<OverlayHandle> && transferHandle, uint8_t vertexStride)
+template <typename TBatcher, typename ... TArgs>
+IndicesRange Batcher::InsertPrimitives(GLState const & state, ref_ptr<AttributeProvider> params,
+                                       drape_ptr<OverlayHandle> && transferHandle, uint8_t vertexStride,
+                                       TArgs ... batcherArgs)
 {
   ref_ptr<VertexArrayBuffer> vao = GetBucket(state)->GetBuffer();
   IndicesRange range;
@@ -241,8 +267,8 @@ IndicesRange Batcher::InsertTriangles(GLState const & state, ref_ptr<AttributePr
     Batcher::CallbacksWrapper wrapper(state, make_ref(handle), make_ref(this));
     wrapper.SetVAO(vao);
 
-    TBatcher batch(wrapper);
-    batch.SetIsCanDevideStreams(handle == nullptr);
+    TBatcher batch(wrapper, batcherArgs ...);
+    batch.SetCanDevideStreams(handle == nullptr);
     batch.SetVertexStride(vertexStride);
     batch.BatchData(params);
 

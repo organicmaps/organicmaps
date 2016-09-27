@@ -190,6 +190,7 @@ public:
     m_glBindTextureCache = CachedParam<uint32_t>();
     m_glActiveTextureCache = CachedParam<glConst>();
     m_glUseProgramCache = CachedParam<uint32_t>();
+    m_glLineWidthCache = CachedParam<uint32_t>();
     m_glStateCache.clear();
     m_uniformsCache.clear();
   }
@@ -247,6 +248,14 @@ public:
       ASSERT(glUniform1fFn != nullptr, ());
       ASSERT(location != -1, ());
       GLCHECK(glUniform1fFn(location, v));
+    }
+  }
+
+  void glLineWidth(uint32_t value)
+  {
+    if (!IsCachedThread() || m_glLineWidthCache.Assign(value))
+    {
+      GLCHECK(::glLineWidth(static_cast<float>(value)));
     }
   }
 
@@ -326,6 +335,7 @@ private:
   CachedParam<glConst> m_glActiveTextureCache;
   CachedParam<uint32_t> m_glUseProgramCache;
   StateParams m_glStateCache;
+  CachedParam<uint32_t> m_glLineWidthCache;
 
   map<uint32_t, UniformsCache> m_uniformsCache;
 
@@ -571,6 +581,13 @@ string GLFunctions::glGetString(glConst pname)
     return "";
 
   return string(str);
+}
+
+int32_t GLFunctions::glGetMaxLineWidth()
+{
+  GLint range[2];
+  GLCHECK(::glGetIntegerv(GL_ALIASED_LINE_WIDTH_RANGE, range));
+  return max(range[0], range[1]);
 }
 
 int32_t GLFunctions::glGetBufferParameter(glConst target, glConst name)
@@ -994,9 +1011,9 @@ void GLFunctions::glTexParameter(glConst param, glConst value)
   GLCHECK(::glTexParameteri(GL_TEXTURE_2D, param, value));
 }
 
-void GLFunctions::glDrawElements(uint32_t sizeOfIndex, uint32_t indexCount, uint32_t startIndex)
+void GLFunctions::glDrawElements(glConst primitive, uint32_t sizeOfIndex, uint32_t indexCount, uint32_t startIndex)
 {
-  GLCHECK(::glDrawElements(GL_TRIANGLES, indexCount, sizeOfIndex == sizeof(uint32_t) ? GL_UNSIGNED_INT : GL_UNSIGNED_SHORT,
+  GLCHECK(::glDrawElements(primitive, indexCount, sizeOfIndex == sizeof(uint32_t) ? GL_UNSIGNED_INT : GL_UNSIGNED_SHORT,
                            reinterpret_cast<GLvoid *>(startIndex * sizeOfIndex)));
 }
 
@@ -1035,6 +1052,11 @@ uint32_t GLFunctions::glCheckFramebufferStatus()
   uint32_t const result = glCheckFramebufferStatusFn(GL_FRAMEBUFFER);
   GLCHECKCALL();
   return result;
+}
+
+void GLFunctions::glLineWidth(uint32_t value)
+{
+  s_cache.glLineWidth(value);
 }
 
 namespace

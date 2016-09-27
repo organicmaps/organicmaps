@@ -44,9 +44,6 @@ df::BaseApplyFeature::HotelData ExtractHotelData(FeatureType const & f)
 namespace df
 {
 
-int const kLineSimplifyLevelStart = 10;
-int const kLineSimplifyLevelEnd = 12;
-
 RuleDrawer::RuleDrawer(TDrawerCallback const & fn,
                        TCheckCancelledCallback const & checkCancelled,
                        TIsCountryLoadedByNameFn const & isLoadedFn,
@@ -155,16 +152,17 @@ void RuleDrawer::operator()(FeatureType const & f)
 
   if (s.AreaStyleExists())
   {
-    bool is3dBuilding = false;
-    if (m_is3dBuidings && f.GetLayer() >= 0)
+    bool isBuilding = false;
+    if (f.GetLayer() >= 0)
     {
       // Looks like nonsense, but there are some osm objects with types
       // highway-path-bridge and building (sic!) at the same time (pedestrian crossing).
-      is3dBuilding = (ftypes::IsBuildingChecker::Instance()(f) ||
-                      ftypes::IsBuildingPartChecker::Instance()(f)) &&
-                      !ftypes::IsBridgeChecker::Instance()(f) &&
-                      !ftypes::IsTunnelChecker::Instance()(f);
+      isBuilding = (ftypes::IsBuildingChecker::Instance()(f) ||
+                    ftypes::IsBuildingPartChecker::Instance()(f)) &&
+                    !ftypes::IsBridgeChecker::Instance()(f) &&
+                    !ftypes::IsTunnelChecker::Instance()(f);
     }
+    bool const is3dBuilding = m_is3dBuidings && isBuilding;
 
     m2::PointD featureCenter;
 
@@ -221,8 +219,8 @@ void RuleDrawer::operator()(FeatureType const & f)
       minVisibleScale = feature::GetMinDrawableScale(f);
 
     ApplyAreaFeature apply(m_globalRect.Center(), insertShape, f.GetID(), m_globalRect,
-                           areaMinHeight, areaHeight, minVisibleScale, f.GetRank(),
-                           s.GetCaptionDescription());
+                           isBuilding, areaMinHeight, areaHeight, minVisibleScale,
+                           f.GetRank(), s.GetCaptionDescription());
     f.ForEachTriangle(apply, zoomLevel);
     apply.SetHotelData(ExtractHotelData(f));
     if (applyPointStyle)
@@ -236,11 +234,9 @@ void RuleDrawer::operator()(FeatureType const & f)
   }
   else if (s.LineStyleExists())
   {
-    ApplyLineFeature apply(m_globalRect.Center(), m_currentScaleGtoP,
-                           insertShape, f.GetID(), m_globalRect, minVisibleScale,
-                           f.GetRank(), s.GetCaptionDescription(),
-                           zoomLevel >= kLineSimplifyLevelStart && zoomLevel <= kLineSimplifyLevelEnd,
-                           f.GetPointsCount());
+    ApplyLineFeature apply(m_globalRect.Center(), m_currentScaleGtoP, insertShape, f.GetID(),
+                           m_globalRect, minVisibleScale, f.GetRank(), s.GetCaptionDescription(),
+                           zoomLevel, f.GetPointsCount());
     f.ForEachPoint(apply, zoomLevel);
 
     if (CheckCancelled())

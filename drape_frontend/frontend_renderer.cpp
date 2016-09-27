@@ -1774,7 +1774,7 @@ FrontendRenderer::RenderLayer::RenderLayerID FrontendRenderer::RenderLayer::GetL
   if (state.GetDepthLayer() == dp::GLState::OverlayLayer)
     return OverlayID;
 
-  if (state.GetProgram3dIndex() == gpu::AREA_3D_PROGRAM)
+  if (state.GetProgram3dIndex() == gpu::AREA_3D_PROGRAM || state.GetProgram3dIndex() == gpu::AREA_3D_OUTLINE_PROGRAM)
     return Geometry3dID;
 
   return Geometry2dID;

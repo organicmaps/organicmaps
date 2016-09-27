@@ -201,6 +201,7 @@ const glConst GLAlways              = GL_ALWAYS;
 
 const glConst GLActiveUniforms      = GL_ACTIVE_UNIFORMS;
 
+const glConst GLLines               = GL_LINES;
 const glConst GLLineStrip           = GL_LINE_STRIP;
 const glConst GLTriangles           = GL_TRIANGLES;
 const glConst GLTriangleStrip       = GL_TRIANGLE_STRIP;

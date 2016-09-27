@@ -296,6 +296,7 @@ void MutableLabel::SetMaxLength(uint16_t maxLength)
 ref_ptr<dp::Texture> MutableLabel::SetAlphabet(string const & alphabet, ref_ptr<dp::TextureManager> mng)
 {
   strings::UniString str = strings::MakeUniString(alphabet + ".");
+  sort(str.begin(), str.end());
   strings::UniString::iterator it = unique(str.begin(), str.end());
   str.resize(distance(str.begin(), it));
 

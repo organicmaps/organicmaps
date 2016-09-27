@@ -308,12 +308,13 @@ void GpsTrackRenderer::RenderTrack(ScreenBase const & screen, int zoomLevel,
   program->Bind();
 
   ASSERT_GREATER(m_renderData.size(), 0, ());
-  dp::ApplyState(m_renderData.front()->m_state, program);
+  dp::GLState const & state = m_renderData.front()->m_state;
+  dp::ApplyState(state, program);
   dp::ApplyUniforms(uniforms, program);
 
   for (size_t i = 0; i < m_renderData.size(); i++)
     if (m_handlesCache[i].second != 0)
-      m_renderData[i]->m_bucket->Render();
+      m_renderData[i]->m_bucket->Render(state.GetDrawAsLine());
 }
 
 void GpsTrackRenderer::Update()

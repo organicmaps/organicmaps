@@ -1,5 +1,4 @@
 #include "drape_frontend/apply_feature_functors.hpp"
-#include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "drape_frontend/area_shape.hpp"
@@ -37,6 +36,9 @@ double const kMinVisibleFontSize = 8.0;
 
 string const kStarSymbol = "★";
 string const kPriceSymbol = "$";
+
+int const kLineSimplifyLevelStart = 10;
+int const kLineSimplifyLevelEnd = 12;
 
 dp::Color ToDrapeColor(uint32_t src)
 {
@@ -108,8 +110,7 @@ private:
 };
 #endif
 
-void Extract(::LineDefProto const * lineRule,
-             df::LineViewParams & params)
+void Extract(::LineDefProto const * lineRule, df::LineViewParams & params)
 {
   float const scale = df::VisualParams::Instance().GetVisualScale();
   params.m_color = ToDrapeColor(lineRule->color());
@@ -424,12 +425,12 @@ void ApplyPointFeature::Finish()
 
 ApplyAreaFeature::ApplyAreaFeature(m2::PointD const & tileCenter,
                                    TInsertShapeFn const & insertShape, FeatureID const & id,
-                                   m2::RectD const & clipRect, float minPosZ,
+                                   m2::RectD const & clipRect, bool isBuilding, float minPosZ,
                                    float posZ, int minVisibleScale, uint8_t rank,
                                    CaptionDescription const & captions)
   : TBase(tileCenter, insertShape, id, minVisibleScale, rank, captions, posZ)
   , m_minPosZ(minPosZ)
-  , m_isBuilding(posZ > 0.0f)
+  , m_isBuilding(isBuilding)
   , m_clipRect(clipRect)
 {}
 
@@ -497,19 +498,13 @@ void ApplyAreaFeature::ProcessBuildingPolygon(m2::PointD const & p1, m2::PointD 
 
 int ApplyAreaFeature::GetIndex(m2::PointD const & pt)
 {
-  int maxIndex = -1;
-  for (auto it = m_indices.begin(); it != m_indices.end(); ++it)
+  for (size_t i = 0; i < m_points.size(); i++)
   {
-    if (it->first > maxIndex)
-      maxIndex = it->first;
-
-    if (pt.EqualDxDy(it->second, 1e-7))
-      return it->first;
+    if (pt.EqualDxDy(m_points[i], 1e-7))
+      return static_cast<int>(i);
   }
-
-  int const newIndex = maxIndex + 1;
-  m_indices.insert(make_pair(newIndex, pt));
-  return newIndex;
+  m_points.push_back(pt);
+  return static_cast<int>(m_points.size()) - 1;
 }
 
 bool ApplyAreaFeature::EqualEdges(TEdge const & edge1, TEdge const & edge2) const
@@ -561,17 +556,27 @@ void ApplyAreaFeature::BuildEdges(int vertexIndex1, int vertexIndex2, int vertex
     m_edges.push_back(make_pair(move(edge3), vertexIndex2));
 }
 
-void ApplyAreaFeature::CalculateBuildingEdges(vector<BuildingEdge> & edges)
+void ApplyAreaFeature::CalculateBuildingOutline(bool calculateNormals, BuildingOutline & outline)
 {
+  outline.m_vertices = move(m_points);
+  outline.m_indices.reserve(m_edges.size() * 2);
+  if (calculateNormals)
+    outline.m_normals.reserve(m_edges.size());
+
   for (auto & e : m_edges)
   {
     if (e.second < 0)
       continue;
-    BuildingEdge edge;
-    edge.m_startVertex = m_indices[e.first.first];
-    edge.m_endVertex = m_indices[e.first.second];
-    edge.m_normal = CalculateNormal(edge.m_startVertex, edge.m_endVertex, m_indices[e.second]);
-    edges.push_back(move(edge));
+
+    outline.m_indices.push_back(e.first.first);
+    outline.m_indices.push_back(e.first.second);
+
+    if (calculateNormals)
+    {
+      outline.m_normals.emplace_back(CalculateNormal(outline.m_vertices[e.first.first],
+                                                     outline.m_vertices[e.first.second],
+                                                     outline.m_vertices[e.second]));
+    }
   }
 }
 
@@ -592,27 +597,29 @@ void ApplyAreaFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
     params.m_minPosZ = m_minPosZ;
     params.m_posZ = m_posZ;
 
-    vector<BuildingEdge> edges;
+    BuildingOutline outline;
+    bool const calculateNormals = m_posZ > 0.0;
     if (m_isBuilding)
-    {
-      edges.reserve(m_edges.size());
-      CalculateBuildingEdges(edges);
-    }
+      CalculateBuildingOutline(calculateNormals, outline);
+    params.m_is3D = !outline.m_indices.empty() && calculateNormals;
 
-    m_insertShape(make_unique_dp<AreaShape>(move(m_triangles), move(edges), params));
+    m_insertShape(make_unique_dp<AreaShape>(move(m_triangles), move(outline), params));
   }
   else
+  {
     TBase::ProcessRule(rule);
+  }
 }
 
 ApplyLineFeature::ApplyLineFeature(m2::PointD const & tileCenter, double currentScaleGtoP,
                                    TInsertShapeFn const & insertShape, FeatureID const & id,
                                    m2::RectD const & clipRect, int minVisibleScale, uint8_t rank,
-                                   CaptionDescription const & captions, bool simplify, size_t pointsCount)
+                                   CaptionDescription const & captions, int zoomLevel, size_t pointsCount)
   : TBase(tileCenter, insertShape, id, minVisibleScale, rank, captions)
   , m_currentScaleGtoP(currentScaleGtoP)
   , m_sqrScale(math::sqr(m_currentScaleGtoP))
-  , m_simplify(simplify)
+  , m_simplify(zoomLevel >= kLineSimplifyLevelStart && zoomLevel <= kLineSimplifyLevelEnd)
+  , m_zoomLevel(zoomLevel)
   , m_initialPointsCount(pointsCount)
   , m_shieldDepth(0.0)
   , m_shieldRule(nullptr)
@@ -723,6 +730,7 @@ void ApplyLineFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
       params.m_minVisibleScale = m_minVisibleScale;
       params.m_rank = m_rank;
       params.m_baseGtoPScale = m_currentScaleGtoP;
+      params.m_zoomLevel = m_zoomLevel;
 
       for (auto const & spline : m_clippedSplines)
         m_insertShape(make_unique_dp<LineShape>(spline, params));
