@@ -5,7 +5,7 @@
   android:layout_width="match_parent"
   android:layout_height="@dimen/height_block_base"
   android:background="?clickableBackground"
-  android:fontFamily="@string/robotoLight"
+  android:fontFamily="@string/robotoMedium"
   android:gravity="center_vertical"
   android:paddingLeft="@dimen/margin_base"
   android:paddingRight="@dimen/margin_base"
