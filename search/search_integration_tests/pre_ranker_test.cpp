@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "search/categories_cache.hpp"
 #include "search/emitter.hpp"
 #include "search/intermediate_result.hpp"
 #include "search/model.hpp"
@@ -44,9 +45,10 @@ class TestRanker : public Ranker
 {
 public:
   TestRanker(TestSearchEngine & engine, Emitter & emitter, vector<Suggest> const & suggests,
-             my::Cancellable const & cancellable, vector<PreResult1> & results)
+             VillagesCache & villagesCache, my::Cancellable const & cancellable,
+             vector<PreResult1> & results)
     : Ranker(static_cast<Index const &>(engine), engine.GetCountryInfoGetter(), emitter,
-             GetDefaultCategories(), suggests, cancellable)
+             GetDefaultCategories(), suggests, villagesCache, cancellable)
     , m_results(results)
   {
   }
@@ -111,7 +113,8 @@ UNIT_CLASS_TEST(PreRankerTest, Smoke)
 
   vector<PreResult1> results;
   Emitter emitter;
-  TestRanker ranker(m_engine, emitter, m_suggests, m_cancellable, results);
+  VillagesCache villagesCache(m_cancellable);
+  TestRanker ranker(m_engine, emitter, m_suggests, villagesCache, m_cancellable, results);
 
   PreRanker preRanker(m_engine, ranker, pois.size());
   PreRanker::Params params;

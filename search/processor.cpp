@@ -147,10 +147,14 @@ Processor::Processor(Index const & index, CategoriesHolder const & categories,
   , m_minDistanceOnMapBetweenResults(0.0)
   , m_mode(Mode::Everywhere)
   , m_suggestsEnabled(true)
-  , m_ranker(index, infoGetter, m_emitter, categories, suggests,
+  , m_supportOldFormat(false)
+  , m_viewportSearch(false)
+  , m_villagesCache(static_cast<my::Cancellable const &>(*this))
+  , m_ranker(index, infoGetter, m_emitter, categories, suggests, m_villagesCache,
              static_cast<my::Cancellable const &>(*this))
   , m_preRanker(index, m_ranker, kPreResultsCount)
-  , m_geocoder(index, infoGetter, m_preRanker, static_cast<my::Cancellable const &>(*this))
+  , m_geocoder(index, infoGetter, m_preRanker, m_villagesCache,
+               static_cast<my::Cancellable const &>(*this))
 {
   // Initialize keywords scorer.
   // Note! This order should match the indexes arrays above.

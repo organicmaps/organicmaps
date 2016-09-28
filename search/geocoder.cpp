@@ -205,10 +205,6 @@ WARN_UNUSED_RESULT bool GetAffiliationName(FeatureType const & ft, string & affi
   return false;
 }
 
-bool HasSearchIndex(MwmValue const & value) { return value.m_cont.IsExist(SEARCH_INDEX_FILE_TAG); }
-
-bool HasGeometryIndex(MwmValue & value) { return value.m_cont.IsExist(INDEX_FILE_TAG); }
-
 MwmSet::MwmHandle FindWorld(Index const & index, vector<shared_ptr<MwmInfo>> const & infos)
 {
   MwmSet::MwmHandle handle;
@@ -335,22 +331,6 @@ size_t OrderCountries(m2::RectD const & pivot, vector<shared_ptr<MwmInfo>> & inf
   auto const sep = stable_partition(infos.begin(), infos.end(), intersects);
   return distance(infos.begin(), sep);
 }
-
-// Performs pairwise union of adjacent bit vectors
-// until at most one bit vector is left.
-void UniteCBVs(vector<CBV> & cbvs)
-{
-  while (cbvs.size() > 1)
-  {
-    size_t i = 0;
-    size_t j = 0;
-    for (; j + 1 < cbvs.size(); j += 2)
-      cbvs[i++] = cbvs[j].Union(cbvs[j + 1]);
-    for (; j < cbvs.size(); ++j)
-      cbvs[i++] = move(cbvs[j]);
-    cbvs.resize(i);
-  }
-}
 }  // namespace
 
 // Geocoder::Params --------------------------------------------------------------------------------
@@ -358,9 +338,12 @@ Geocoder::Params::Params() : m_mode(Mode::Everywhere) {}
 
 // Geocoder::Geocoder ------------------------------------------------------------------------------
 Geocoder::Geocoder(Index const & index, storage::CountryInfoGetter const & infoGetter,
-                   PreRanker & preRanker, my::Cancellable const & cancellable)
+                   PreRanker & preRanker, VillagesCache & villagesCache,
+                   my::Cancellable const & cancellable)
   : m_index(index)
   , m_infoGetter(infoGetter)
+  , m_streetsCache(cancellable)
+  , m_villagesCache(villagesCache)
   , m_cancellable(cancellable)
   , m_model(SearchModel::Instance())
   , m_pivotRectsCache(kPivotRectsCacheSize, m_cancellable, Processor::kMaxViewportRadiusM)
@@ -371,8 +354,6 @@ Geocoder::Geocoder(Index const & index, storage::CountryInfoGetter const & infoG
   , m_lastMatchedRegion(nullptr)
   , m_preRanker(preRanker)
 {
-  ftypes::IsStreetChecker::Instance().ForEachType([this](uint32_t type) { m_streets.Add(type); });
-  ftypes::IsVillageChecker::Instance().ForEachType([this](uint32_t type) { m_villages.Add(type); });
 }
 
 Geocoder::~Geocoder() {}
@@ -398,7 +379,7 @@ void Geocoder::SetParams(Params const & params)
   m_retrievalParams = m_params;
 
   // Remove all category synonyms for streets, as they're extracted
-  // individually via LoadStreets.
+  // individually.
   for (size_t i = 0; i < m_params.GetNumTokens(); ++i)
   {
     auto & synonyms = m_params.GetTokens(i);
@@ -410,7 +391,7 @@ void Geocoder::SetParams(Params const & params)
       auto e = synonyms.end();
       synonyms.erase(remove_if(b + 1, e,
                                [this](strings::UniString const & synonym) {
-                                 return m_streets.HasKey(synonym);
+                                 return m_streetsCache.HasCategory(synonym);
                                }),
                      e);
     }
@@ -481,7 +462,7 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
         m_worldId = handle.GetId();
         m_context = make_unique<MwmContext>(move(handle));
 
-        if (HasSearchIndex(value))
+        if (value.HasSearchIndex())
         {
           BaseContext ctx;
           InitBaseContext(ctx);
@@ -540,7 +521,7 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
           features = features.Intersect(viewportCBV);
       }
 
-      ctx.m_villages = LoadVillages(*m_context);
+      ctx.m_villages = m_villagesCache.Get(*m_context);
 
       auto citiesFromWorld = m_cities;
       FillVillageLocalities(ctx);
@@ -576,7 +557,8 @@ void Geocoder::ClearCaches()
   m_localityRectsCache.Clear();
 
   m_matchersCache.clear();
-  m_streetsCache.clear();
+  m_streetsCache.Clear();
+  m_villagesCache.Clear();
   m_postcodes.Clear();
 }
 
@@ -809,7 +791,7 @@ void Geocoder::ForEachCountry(vector<shared_ptr<MwmInfo>> const & infos, TFn && 
     if (!handle.IsAlive())
       continue;
     auto & value = *handle.GetValue<MwmValue>();
-    if (!HasSearchIndex(value) || !HasGeometryIndex(value))
+    if (!value.HasSearchIndex() || !value.HasGeometryIndex())
       continue;
     fn(i, make_unique<MwmContext>(move(handle)));
   }
@@ -950,7 +932,7 @@ void Geocoder::LimitedSearch(BaseContext & ctx, FeaturesFilter const & filter)
                  });
 
   if (!ctx.m_streets)
-    ctx.m_streets = LoadStreets(*m_context);
+    ctx.m_streets = m_streetsCache.Get(*m_context);
 
   MatchUnclassified(ctx, 0 /* curToken */);
 
@@ -1362,59 +1344,6 @@ void Geocoder::MatchUnclassified(BaseContext & ctx, size_t curToken)
       EmitResult(m_context->GetId(), featureId, searchType, startToken, curToken);
   };
   allFeatures.ForEach(emitUnclassified);
-}
-
-CBV Geocoder::LoadCategories(MwmContext & context, CategoriesSet const & categories)
-{
-  ASSERT(context.m_handle.IsAlive(), ());
-  ASSERT(HasSearchIndex(context.m_value), ());
-
-  m_retrievalParams.m_tokens.resize(1);
-  m_retrievalParams.m_tokens[0].resize(1);
-
-  m_retrievalParams.m_prefixTokens.clear();
-
-  m_retrievalParams.m_types.resize(1);
-  m_retrievalParams.m_types[0].resize(1);
-
-  vector<CBV> cbvs;
-
-  categories.ForEach([&](strings::UniString const & key, uint32_t const type) {
-    m_retrievalParams.m_tokens[0][0] = key;
-    m_retrievalParams.m_types[0][0] = type;
-
-    CBV cbv(RetrieveAddressFeatures(context, m_cancellable, m_retrievalParams));
-    if (!cbv.IsEmpty())
-      cbvs.push_back(move(cbv));
-  });
-
-  UniteCBVs(cbvs);
-  if (cbvs.empty())
-    cbvs.emplace_back();
-
-  return move(cbvs[0]);
-}
-
-CBV Geocoder::LoadStreets(MwmContext & context)
-{
-  if (!context.m_handle.IsAlive() || !HasSearchIndex(context.m_value))
-    return CBV();
-
-  auto mwmId = context.m_handle.GetId();
-  auto const it = m_streetsCache.find(mwmId);
-  if (it != m_streetsCache.cend())
-    return it->second;
-
-  auto streets = LoadCategories(context, m_streets);
-  m_streetsCache[mwmId] = streets;
-  return streets;
-}
-
-CBV Geocoder::LoadVillages(MwmContext & context)
-{
-  if (!context.m_handle.IsAlive() || !HasSearchIndex(context.m_value))
-    return CBV();
-  return LoadCategories(context, m_villages);
 }
 
 CBV Geocoder::RetrievePostcodeFeatures(MwmContext const & context, TokenSlice const & slice)

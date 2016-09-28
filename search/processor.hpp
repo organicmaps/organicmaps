@@ -1,4 +1,6 @@
 #pragma once
+#include "search/categories_cache.hpp"
+#include "search/categories_set.hpp"
 #include "search/emitter.hpp"
 #include "search/geocoder.hpp"
 #include "search/mode.hpp"
@@ -175,6 +177,8 @@ protected:
 
 protected:
   bool m_viewportSearch;
+
+  VillagesCache m_villagesCache;
 
   Emitter m_emitter;
   Ranker m_ranker;
