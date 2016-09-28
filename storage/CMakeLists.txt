@@ -1,4 +1,4 @@
-include_directories(${PROJECT_SOURCE_DIR}/3party/jansson/src)
+include_directories(${OMIM_DIR}/3party/jansson/src)
 
 set(
     SRC

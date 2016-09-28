@@ -10,4 +10,4 @@ set(
     writable_dir_changer.hpp
 )
 
-omim_add_library(platform_tests_support ${SRC})
+add_library(platform_tests_support ${SRC})

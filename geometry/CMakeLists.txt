@@ -48,4 +48,4 @@ set(
     region2d/boost_concept.hpp
 )
 
-omim_add_library(geometry ${SRC})
+add_library(geometry ${SRC})
