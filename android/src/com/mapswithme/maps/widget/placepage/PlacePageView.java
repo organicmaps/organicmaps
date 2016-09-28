@@ -20,6 +20,7 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
+import android.text.util.Linkify;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -981,6 +982,7 @@ public class PlacePageView extends RelativeLayout
     mBookmarkSet = true;
     UiUtils.show(mBookmarkFrame);
     UiUtils.setTextAndHideIfEmpty(mBookmarkNote, ((Bookmark) mMapObject).getBookmarkDescription());
+    Linkify.addLinks(mBookmarkNote, Linkify.ALL);
     updateButtons();
   }
 
