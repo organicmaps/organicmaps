@@ -210,6 +210,13 @@ android {
       android.sourceSets.blackberry.assets.srcDirs = ['flavors/mwm-ttf-assets']
       buildConfigField 'String', 'REVIEW_URL', '"https://appworld.blackberry.com/webstore/content/51013892"'
     }
+
+    nineStore {
+      versionName = android.defaultConfig.versionName + '-NineStore'
+      android.sourceSets.blackberry.assets.srcDirs = ['flavors/mwm-ttf-assets']
+      buildConfigField 'String', 'SUPPORT_MAIL', '"ninestore@mapswithme.com"'
+      buildConfigField 'String', 'REVIEW_URL', '"http://www.ninestore.ru/android-apps/mapswithme-maps-pro"'
+    }
   }
 
   // Currently (as of 1.2.3 gradle plugin) ABI filters aren't supported inside of product flavors, so we cannot generate splitted builds only for Google build.
