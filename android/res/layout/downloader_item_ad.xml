@@ -10,14 +10,6 @@
   android:background="?clickableBackground"
   android:clipToPadding="false"
   tools:background="#200000FF">
-  <Button
-    android:id="@+id/downloader_ad_action"
-    style="@style/MwmWidget.Button.Accent"
-    android:layout_width="wrap_content"
-    android:layout_alignParentRight="true"
-    android:layout_centerVertical="true"
-    tools:text="Install"/>
-
   <ImageView
     android:id="@+id/downloader_ad_icon"
     android:layout_width="@dimen/downloader_ad_icon_size"
@@ -29,9 +21,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginLeft="@dimen/margin_base"
-                android:layout_marginRight="@dimen/margin_half"
                 android:layout_toRightOf="@id/downloader_ad_icon"
-                android:layout_toLeftOf="@id/downloader_ad_action"
                 android:layout_centerVertical="true"
                 tools:background="#20FF0000">
     <TextView

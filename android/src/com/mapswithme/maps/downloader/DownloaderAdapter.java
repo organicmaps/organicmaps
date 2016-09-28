@@ -3,7 +3,6 @@ package com.mapswithme.maps.downloader;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.location.Location;
 import android.support.annotation.DrawableRes;
@@ -21,7 +20,6 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -39,7 +37,6 @@ import com.mapswithme.util.statistics.MytargetHelper;
 import com.mapswithme.util.statistics.Statistics;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
-import ru.mail.android.mytarget.core.models.banners.AbstractBanner;
 import ru.mail.android.mytarget.nativeads.banners.NativeAppwallBanner;
 
 import java.util.ArrayList;
@@ -622,7 +619,6 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     private final ImageView mIcon;
     private final TextView mTitle;
     private final TextView mSubtitle;
-    private final Button mAction;
 
     private NativeAppwallBanner mData;
 
@@ -631,17 +627,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       @Override
       public void onClick(View v)
       {
-        if (mData == null)
-          return;
-
-        String packageId = ((AbstractBanner)mData).getBundleId();
-        if (mData.isAppInstalled())
-        {
-          PackageManager pm = MwmApplication.get().getPackageManager();
-          Intent intent = pm.getLaunchIntentForPackage(packageId);
-          if (intent != null)
-            mActivity.startActivity(intent);
-        } else
+        if (mData != null)
           mMytargetHelper.onBannerClick(mData);
       }
     };
@@ -651,10 +637,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       mIcon = (ImageView)frame.findViewById(R.id.downloader_ad_icon);
       mTitle = (TextView)frame.findViewById(R.id.downloader_ad_title);
       mSubtitle = (TextView)frame.findViewById(R.id.downloader_ad_subtitle);
-      mAction = (Button)frame.findViewById(R.id.downloader_ad_action);
 
-      UiUtils.updateAccentButton(mAction);
-      mAction.setOnClickListener(mClickListener);
       frame.setOnClickListener(mClickListener);
     }
 
@@ -667,9 +650,6 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       mIcon.setImageBitmap(item.getIcon().getBitmap());
       mTitle.setText(item.getTitle());
       mSubtitle.setText(item.getDescription());
-
-      // TODO: Texts?
-      mAction.setText(item.isAppInstalled() ? "Run" : "Install");
     }
   }
 
@@ -1014,7 +994,10 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
             int oldSize = mAds.size();
             mAds.clear();
-            mAds.addAll(banners);
+
+            for (NativeAppwallBanner banner: banners)
+              if (!banner.isAppInstalled())
+                mAds.add(banner);
 
             mHeadersDecoration.invalidateHeaders();
             if (oldSize == 0)
