@@ -11556,45 +11556,6 @@
     zh-Hant = 顯示優惠
     sk = Zobraziť akcie
 
-  [showcase_plan_your_trip]
-    comment = Showcase menu item.
-    tags = ios
-    en = Plan your trip
-    ru = Подготовься к путешествию
-    fr = Planifiez votre voyage
-    pl = Zaplanuj podróż
-    es = Planifica tu viaje
-
-  [showcase_more_apps]
-    tags = ios, android
-    en = More My.com Apps
-    ru = Другие приложения My.com
-    ar = المزيد من تطبيقات My.com
-    cs = Více aplikací My.com
-    da = Flere My.com apps
-    nl = Meer My.com apps
-    fi = Lisää My.com sovelluksia
-    fr = Plus d'applications My.com
-    de = Weitere Apps von My.com
-    hu = Több My.com alkalmazás
-    id = Lebih Banyak Aplikasi My.com
-    it = Altre app su My.com
-    ja = 他のMy.comアプリ
-    ko = 기타 My.com 앱
-    nb = Flere apper fra My.com
-    pl = Więcej aplikacji My.com
-    pt = Mais aplicativos do My.com
-    ro = Mai multe aplicații My.com
-    es = Más apps de My.com
-    sv = Mai multe aplicații My.com
-    th = แอป My.com เพิ่มเติม
-    tr = Daha fazla My.com uygulamaları
-    uk = Інші додатки My.com
-    vi = Thêm Ứng dụng My.com
-    zh-Hans = 更多My.com应用
-    zh-Hant = 更多 My.com 應用程式
-    sk = Ďalšie My.com aplikácie
-
   [read_in_wikipedia]
     comment = Place Page link to Wikipedia article (if map object has it).
     tags = ios, android
