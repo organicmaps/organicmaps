@@ -171,12 +171,6 @@ public final class MytargetHelper
     mShowcase.handleBannerClick(banner);
   }
 
-  public void displayShowcase()
-  {
-    if (!mShowcase.getBanners().isEmpty())
-      onBannerClick(mShowcase.getBanners().get(0));
-  }
-
   private static boolean isShowcaseSwitchedOnLocal()
   {
     return PreferenceManager.getDefaultSharedPreferences(MwmApplication.get())

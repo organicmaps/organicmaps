@@ -9,11 +9,6 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.facebook.appevents.AppEventsLogger;
 import com.flurry.android.FlurryAgent;
 import com.mapswithme.maps.BuildConfig;
@@ -26,6 +21,11 @@ import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.editor.OsmOAuth;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.ConnectionState;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public enum Statistics
 {
@@ -82,7 +82,6 @@ public enum Statistics
     public static final String MENU_DOWNLOADER = "Menu. Downloader";
     public static final String MENU_SETTINGS = "Menu. SettingsAndMore";
     public static final String MENU_SHARE = "Menu. Share";
-    public static final String MENU_SHOWCASE = "Menu. Showcase";
     public static final String MENU_P2P = "Menu. Point to point.";
     public static final String MENU_ADD_PLACE = "Menu. Add place.";
     // dialogs

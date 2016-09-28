@@ -37,11 +37,6 @@
     style="@style/MwmTheme.Menu.Line.Button"
     android:src="@drawable/ic_menu_share"/>
 
-  <ImageView
-    android:id="@+id/showcase"
-    style="@style/MwmTheme.Menu.Line.Button"
-    android:src="@drawable/ic_menu_showcase"/>
-
   <Space
     android:layout_width="0dp"
     android:layout_height="match_parent"
