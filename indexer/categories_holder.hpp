@@ -1,6 +1,7 @@
 #pragma once
 #include "base/string_utils.hpp"
 
+#include "std/deque.hpp"
 #include "std/iostream.hpp"
 #include "std/map.hpp"
 #include "std/shared_ptr.hpp"
@@ -28,7 +29,7 @@ public:
       uint8_t m_prefixLengthToSuggest;
     };
 
-    vector<Name> m_synonyms;
+    deque<Name> m_synonyms;
 
     inline void Swap(Category & r)
     {
