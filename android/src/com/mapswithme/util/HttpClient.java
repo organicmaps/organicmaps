@@ -24,6 +24,8 @@
 
 package com.mapswithme.util;
 
+import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 
@@ -48,10 +50,10 @@ public final class HttpClient
   // Globally accessible for faster unit-testing
   public static int TIMEOUT_IN_MILLISECONDS = 30000;
 
-  public static Params run(final Params p) throws IOException, NullPointerException
+  public static Params run(@NonNull final Params p) throws IOException, NullPointerException
   {
-    if (p.httpMethod == null)
-      throw new NullPointerException("Please set valid HTTP method for request at Params.httpMethod field.");
+    if (TextUtils.isEmpty(p.httpMethod))
+      throw new IllegalArgumentException("Please set valid HTTP method for request at Params.httpMethod field.");
 
     HttpURLConnection connection = null;
     if (p.debugMode)
@@ -79,21 +81,21 @@ public final class HttpClient
       connection.setReadTimeout(TIMEOUT_IN_MILLISECONDS);
       connection.setUseCaches(false);
       connection.setRequestMethod(p.httpMethod);
-      if (p.basicAuthUser != null)
+      if (!TextUtils.isEmpty(p.basicAuthUser))
       {
         final String encoded = Base64.encodeToString((p.basicAuthUser + ":" + p.basicAuthPassword).getBytes(), Base64.NO_WRAP);
         connection.setRequestProperty("Authorization", "Basic " + encoded);
       }
-      if (p.userAgent != null)
+      if (!TextUtils.isEmpty(p.userAgent))
         connection.setRequestProperty("User-Agent", p.userAgent);
 
-      if (p.cookies != null)
+      if (!TextUtils.isEmpty(p.cookies))
         connection.setRequestProperty("Cookie", p.cookies);
 
-      if (p.inputFilePath != null || p.data != null)
+      if (!TextUtils.isEmpty(p.inputFilePath) || p.data != null)
       {
         // Send (POST, PUT...) data to the server.
-        if (p.contentType == null)
+        if (TextUtils.isEmpty(p.contentType))
           throw new NullPointerException("Please set Content-Type for request.");
 
         // Work-around for situation when more than one consequent POST requests can lead to stable
@@ -101,7 +103,7 @@ public final class HttpClient
         // The only found reference to this bug is http://stackoverflow.com/a/24303115/1209392
         connection.setRequestProperty("Connection", "close");
         connection.setRequestProperty("Content-Type", p.contentType);
-        if (p.contentEncoding != null)
+        if (!TextUtils.isEmpty(p.contentEncoding))
           connection.setRequestProperty("Content-Encoding", p.contentEncoding);
 
         connection.setDoOutput(true);
@@ -153,19 +155,14 @@ public final class HttpClient
       final Map<String, List<String>> headers = connection.getHeaderFields();
       if (headers != null && headers.containsKey("Set-Cookie"))
       {
-        p.cookies = "";
-        for (final String value : headers.get("Set-Cookie"))
-        {
-          // Multiple Set-Cookie headers are normalized in C++ code.
-          if (value != null)
-            p.cookies += value + ", ";
-        }
+        // Multiple Set-Cookie headers are normalized in C++ code.
+        android.text.TextUtils.join(", ", headers.get("Set-Cookie"));
       }
       // This implementation receives any data only if we have HTTP::OK (200).
       if (p.httpResponseCode == HttpURLConnection.HTTP_OK)
       {
         OutputStream ostream;
-        if (p.outputFilePath != null)
+        if (!TextUtils.isEmpty(p.outputFilePath))
           ostream = new BufferedOutputStream(new FileOutputStream(p.outputFilePath), STREAM_BUFFER_SIZE);
         else
           ostream = new ByteArrayOutputStream(STREAM_BUFFER_SIZE);
@@ -196,26 +193,26 @@ public final class HttpClient
 
   public static class Params
   {
-    public String url = null;
+    public String url;
     // Can be different from url in case of redirects.
-    public String receivedUrl = null;
-    public String httpMethod = null;
+    public String receivedUrl;
+    public String httpMethod;
     // Should be specified for any request whose method allows non-empty body.
     // On return, contains received Content-Type or null.
-    public String contentType = null;
+    public String contentType;
     // Can be specified for any request whose method allows non-empty body.
     // On return, contains received Content-Encoding or null.
-    public String contentEncoding = null;
-    public byte[] data = null;
+    public String contentEncoding;
+    public byte[] data;
     // Send from input file if specified instead of data.
-    public String inputFilePath = null;
+    public String inputFilePath;
     // Received data is stored here if not null or in data otherwise.
-    public String outputFilePath = null;
+    public String outputFilePath;
     // Optionally client can override default HTTP User-Agent.
-    public String userAgent = null;
-    public String basicAuthUser = null;
-    public String basicAuthPassword = null;
-    public String cookies = null;
+    public String userAgent;
+    public String basicAuthUser;
+    public String basicAuthPassword;
+    public String cookies;
     public int httpResponseCode = -1;
     public boolean debugMode = false;
     public boolean followRedirects = true;

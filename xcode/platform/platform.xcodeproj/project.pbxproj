@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3D30587D1D8320E4004AC712 /* http_client.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D30587B1D8320E4004AC712 /* http_client.hpp */; };
 		3D30587F1D880910004AC712 /* http_client_apple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D30587E1D880910004AC712 /* http_client_apple.mm */; };
+		3D97F64B1D9C05E800380945 /* http_client.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D97F64A1D9C05E800380945 /* http_client.cpp */; };
 		56EB1EDC1C6B6E6C0022D831 /* file_logging.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56EB1ED81C6B6E6C0022D831 /* file_logging.cpp */; };
 		56EB1EDD1C6B6E6C0022D831 /* file_logging.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56EB1ED91C6B6E6C0022D831 /* file_logging.hpp */; };
 		56EB1EDE1C6B6E6C0022D831 /* mwm_traits.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56EB1EDA1C6B6E6C0022D831 /* mwm_traits.cpp */; };
@@ -99,6 +100,7 @@
 /* Begin PBXFileReference section */
 		3D30587B1D8320E4004AC712 /* http_client.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = http_client.hpp; sourceTree = "<group>"; };
 		3D30587E1D880910004AC712 /* http_client_apple.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = http_client_apple.mm; sourceTree = "<group>"; };
+		3D97F64A1D9C05E800380945 /* http_client.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = http_client.cpp; sourceTree = "<group>"; };
 		56EB1ED81C6B6E6C0022D831 /* file_logging.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file_logging.cpp; sourceTree = "<group>"; };
 		56EB1ED91C6B6E6C0022D831 /* file_logging.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = file_logging.hpp; sourceTree = "<group>"; };
 		56EB1EDA1C6B6E6C0022D831 /* mwm_traits.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mwm_traits.cpp; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 		6753437A1A3F5CF500A0A8C3 /* platform */ = {
 			isa = PBXGroup;
 			children = (
+				3D97F64A1D9C05E800380945 /* http_client.cpp */,
 				3D30587E1D880910004AC712 /* http_client_apple.mm */,
 				3D30587B1D8320E4004AC712 /* http_client.hpp */,
 				56EB1ED81C6B6E6C0022D831 /* file_logging.cpp */,
@@ -559,6 +562,7 @@
 				3D30587F1D880910004AC712 /* http_client_apple.mm in Sources */,
 				67247FFD1C60BD6500EDE56A /* writable_dir_changer.cpp in Sources */,
 				6741250C1B4C00CC00A3E828 /* local_country_file_utils.cpp in Sources */,
+				3D97F64B1D9C05E800380945 /* http_client.cpp in Sources */,
 				67AB92EA1B7B3E9100AB5194 /* get_text_by_id.cpp in Sources */,
 				671C62061AE9014C00076BD0 /* measurement_utils.cpp in Sources */,
 				675343B61A3F5D5A00A0A8C3 /* http_request.cpp in Sources */,

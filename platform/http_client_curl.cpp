@@ -53,15 +53,15 @@ DECLARE_EXCEPTION(PipeCallError, RootException);
 struct ScopedRemoveFile
 {
   ScopedRemoveFile() = default;
-  explicit ScopedRemoveFile(string const & fileName) : m_file(fileName) {}
+  explicit ScopedRemoveFile(string const & fileName) : m_fileName(fileName) {}
 
   ~ScopedRemoveFile()
   {
-    if (!m_file.empty())
-      std::remove(m_file.c_str());
+    if (!m_fileName.empty())
+      std::remove(m_fileName.c_str());
   }
 
-  std::string m_file;
+  std::string m_fileName;
 };
 
 static string ReadFileAsString(string const & filePath)
@@ -111,9 +111,9 @@ string GetTmpFileName()
   return GetPlatform().TmpPathForFile(ss.str());
 }
 
-typedef vector<pair<string, string>> HeadersT;
+typedef vector<pair<string, string>> Headers;
 
-HeadersT ParseHeaders(string const & raw)
+Headers ParseHeaders(string const & raw)
 {
   istringstream stream(raw);
   HeadersT headers;
@@ -130,6 +130,19 @@ HeadersT ParseHeaders(string const & raw)
   }
   return headers;
 }
+
+bool WriteToFile(string const & fileName, string const & data)
+{
+  ofstream ofs(fileName);
+  if(!ofs.is_open())
+  {
+    LOG(LERROR, ("Failed to write into a temporary file."));
+    return false;
+  }
+
+  ofs << data;
+  return true;
+}
 }  // namespace
 // Used as a test stub for basic HTTP client implementation.
 // Make sure that you have curl installed in the PATH.
@@ -145,7 +158,7 @@ bool HttpClient::RunHttpRequest()
   ScopedRemoveFile body_deleter;
   ScopedRemoveFile received_file_deleter;
 
-  string cmd = "curl -s -w '%{http_code}' -X " + m_httpMethod + " -D '" + headers_deleter.m_file + "' ";
+  string cmd = "curl -s -w '%{http_code}' -X " + m_httpMethod + " -D '" + headers_deleter.m_fileName + "' ";
 
   if (!m_contentType.empty())
     cmd += "-H 'Content-Type: " + m_contentType + "' ";
@@ -161,27 +174,25 @@ bool HttpClient::RunHttpRequest()
 
   if (!m_bodyData.empty())
   {
-    body_deleter.m_file = GetTmpFileName();
+    body_deleter.m_fileName = GetTmpFileName();
     // POST body through tmp file to avoid breaking command line.
-    if (!(ofstream(body_deleter.m_file) << m_bodyData).good())
-    {
-      LOG(LERROR, ("Failed to write into a temporary file."));
+    if (!WriteToFile(body_deleter.m_fileName, m_bodyData))
       return false;
-    }
+
     // TODO(AlexZ): Correctly clean up this internal var to avoid client confusion.
-    m_bodyFile = body_deleter.m_file;
+    m_inputFile = body_deleter.m_fileName;
   }
   // Content-Length is added automatically by curl.
-  if (!m_bodyFile.empty())
-    cmd += "--data-binary '@" + m_bodyFile + "' ";
+  if (!m_inputFile.empty())
+    cmd += "--data-binary '@" + m_inputFile + "' ";
 
   // Use temporary file to receive data from server.
   // If user has specified file name to save data, it is not temporary and is not deleted automatically.
-  string rfile = m_receivedFile;
+  string rfile = m_outputFile;
   if (rfile.empty())
   {
     rfile = GetTmpFileName();
-    received_file_deleter.m_file = rfile;
+    received_file_deleter.m_fileName = rfile;
   }
 
   cmd += "-o " + rfile + strings::to_string(" ") + "'" + m_urlRequested + "'";
@@ -202,7 +213,7 @@ bool HttpClient::RunHttpRequest()
     return false;
   }
 
-  HeadersT const headers = ParseHeaders(ReadFileAsString(headers_deleter.m_file));
+  HeadersT const headers = ParseHeaders(ReadFileAsString(headers_deleter.m_fileName));
   for (auto const & header : headers)
   {
     if (header.first == "Set-Cookie")
@@ -222,14 +233,14 @@ bool HttpClient::RunHttpRequest()
       m_urlReceived = header.second;
     }
   }
-  m_serverCookies = normalize_server_cookies(move(m_serverCookies));
+  m_serverCookies = NormalizeServerCookies(move(m_serverCookies));
 
   if (m_urlReceived.empty())
   {
     m_urlReceived = m_urlRequested;
     // Load body contents in final request only (skip redirects).
     // Sometimes server can reply with empty body, and it's ok.
-    if (m_receivedFile.empty())
+    if (m_outputFile.empty())
       m_serverResponse = ReadFileAsString(rfile);
   }
   else
@@ -240,7 +251,7 @@ bool HttpClient::RunHttpRequest()
       LOG(LINFO, ("HTTP redirect", m_errorCode, "to", m_urlReceived));
 
     HttpClient redirect(m_urlReceived);
-    redirect.set_cookies(combined_cookies());
+    redirect.SetCookies(CombinedCookies());
 
     if (!redirect.RunHttpRequest())
     {
@@ -248,8 +259,8 @@ bool HttpClient::RunHttpRequest()
       return false;
     }
 
-    m_errorCode = redirect.error_code();
-    m_urlReceived = redirect.url_received();
+    m_errorCode = redirect.ErrorCode();
+    m_urlReceived = redirect.UrlReceived();
     m_serverCookies = move(redirect.m_serverCookies);
     m_serverResponse = move(redirect.m_serverResponse);
     m_contentTypeReceived = move(redirect.m_contentTypeReceived);

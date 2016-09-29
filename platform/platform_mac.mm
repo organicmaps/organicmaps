@@ -19,8 +19,6 @@
 
 Platform::Platform()
 {
-  @autoreleasepool
-  {
   // get resources directory path
   string const resourcesPath = [[[NSBundle mainBundle] resourcePath] UTF8String];
   string const bundlePath = [[[NSBundle mainBundle] bundlePath] UTF8String];
@@ -78,7 +76,6 @@ Platform::Platform()
   LOG(LDEBUG, ("Writable Directory:", m_writableDir));
   LOG(LDEBUG, ("Tmp Directory:", m_tmpDir));
   LOG(LDEBUG, ("Settings Directory:", m_settingsDir));
-  }  // @autoreleasepool
 }
 
 string Platform::UniqueClientId() const

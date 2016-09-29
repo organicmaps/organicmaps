@@ -62,6 +62,7 @@ LOCAL_HEADER_FILES := \
 	../../private.h \
 	com/mapswithme/core/jni_helper.hpp \
 	com/mapswithme/core/logging.hpp \
+	com/mapswithme/core/ScopedEnv.hpp \
 	com/mapswithme/core/ScopedLocalRef.hpp \
 	com/mapswithme/maps/Framework.hpp \
 	com/mapswithme/opengl/android_gl_utils.hpp \

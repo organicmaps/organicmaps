@@ -39,9 +39,9 @@ string RunSimpleHttpRequest(string const & url)
      LOG(LWARNING, ("Exception from HttpClient::RunHttpRequest, message: ", ex.what()));
   }
 
-  if (result && !request.was_redirected() && request.error_code() == 200)  // 200 - http status OK
+  if (result && !request.WasRedirected() && request.ErrorCode() == 200)  // 200 - http status OK
   {
-    return request.server_response();
+    return request.ServerResponse();
   }
 
   return {};

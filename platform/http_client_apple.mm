@@ -54,112 +54,105 @@ static const double kTimeoutInSeconds = 24.0;
 // TODO(AlexZ): Rewrite to use async implementation for better redirects handling and ability to cancel request from destructor.
 bool HttpClient::RunHttpRequest()
 {
-  @autoreleasepool
-  {
-    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:
-        [NSURL URLWithString:[NSString stringWithUTF8String:m_urlRequested.c_str()]]
-        cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:kTimeoutInSeconds];
-    // We handle cookies manually.
-    request.HTTPShouldHandleCookies = NO;
+  NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:
+      [NSURL URLWithString:[NSString stringWithUTF8String:m_urlRequested.c_str()]]
+      cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:kTimeoutInSeconds];
+  // We handle cookies manually.
+  request.HTTPShouldHandleCookies = NO;
 
-    request.HTTPMethod = [NSString stringWithUTF8String:m_httpMethod.c_str()];
-    if (!m_contentType.empty())
-      [request setValue:[NSString stringWithUTF8String:m_contentType.c_str()] forHTTPHeaderField:@"Content-Type"];
+  request.HTTPMethod = [NSString stringWithUTF8String:m_httpMethod.c_str()];
+  if (!m_contentType.empty())
+    [request setValue:[NSString stringWithUTF8String:m_contentType.c_str()] forHTTPHeaderField:@"Content-Type"];
 
-    if (!m_contentEncoding.empty())
-      [request setValue:[NSString stringWithUTF8String:m_contentEncoding.c_str()] forHTTPHeaderField:@"Content-Encoding"];
+  if (!m_contentEncoding.empty())
+    [request setValue:[NSString stringWithUTF8String:m_contentEncoding.c_str()] forHTTPHeaderField:@"Content-Encoding"];
 
-    if (!m_userAgent.empty())
-      [request setValue:[NSString stringWithUTF8String:m_userAgent.c_str()] forHTTPHeaderField:@"User-Agent"];
+  if (!m_userAgent.empty())
+    [request setValue:[NSString stringWithUTF8String:m_userAgent.c_str()] forHTTPHeaderField:@"User-Agent"];
 
-    if (!m_cookies.empty())
-      [request setValue:[NSString stringWithUTF8String:m_cookies.c_str()] forHTTPHeaderField:@"Cookie"];
+  if (!m_cookies.empty())
+    [request setValue:[NSString stringWithUTF8String:m_cookies.c_str()] forHTTPHeaderField:@"Cookie"];
 #if (TARGET_OS_IPHONE > 0)
-    else if (gBrowserUserAgent)
-      [request setValue:gBrowserUserAgent forHTTPHeaderField:@"User-Agent"];
+  else if (gBrowserUserAgent)
+    [request setValue:gBrowserUserAgent forHTTPHeaderField:@"User-Agent"];
 #endif // TARGET_OS_IPHONE
 
-    if (!m_basicAuthUser.empty())
-    {
-      NSData * loginAndPassword = [[NSString stringWithUTF8String:(m_basicAuthUser + ":" + m_basicAuthPassword).c_str()] dataUsingEncoding:NSUTF8StringEncoding];
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-      // base64Encoding selector below was deprecated in iOS 7+, but we still need it to support 5.1+ versions.
-      [request setValue:[NSString stringWithFormat:@"Basic %@", [loginAndPassword base64Encoding]] forHTTPHeaderField:@"Authorization"];
-#pragma clang diagnostic pop
-    }
+  if (!m_basicAuthUser.empty())
+  {
+    NSData * loginAndPassword = [[NSString stringWithUTF8String:(m_basicAuthUser + ":" + m_basicAuthPassword).c_str()] dataUsingEncoding:NSUTF8StringEncoding];
+    [request setValue:[NSString stringWithFormat:@"Basic %@", [loginAndPassword base64EncodedStringWithOptions:0]] forHTTPHeaderField:@"Authorization"];
+  }
 
-    if (!m_bodyData.empty())
-    {
-      request.HTTPBody = [NSData dataWithBytes:m_bodyData.data() length:m_bodyData.size()];
-      if (m_debugMode)
-        LOG(LINFO, ("Uploading buffer of size", m_bodyData.size(), "bytes"));
-    }
-    else if (!m_bodyFile.empty())
-    {
-      NSError * err = nil;
-      NSString * path = [NSString stringWithUTF8String:m_bodyFile.c_str()];
-      const unsigned long long file_size = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:&err].fileSize;
-      if (err)
-      {
-        m_errorCode = static_cast<int>(err.code);
-        if (m_debugMode)
-          LOG(LERROR, ("Error: ", m_errorCode, [err.localizedDescription UTF8String]));
-
-        return false;
-      }
-      request.HTTPBodyStream = [NSInputStream inputStreamWithFileAtPath:path];
-      [request setValue:[NSString stringWithFormat:@"%llu", file_size] forHTTPHeaderField:@"Content-Length"];
-      if (m_debugMode)
-        LOG(LINFO, ("Uploading file", m_bodyFile, file_size, "bytes"));
-    }
-
-    NSHTTPURLResponse * response = nil;
-    NSError * err = nil;
-    NSData * url_data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&err];
-
-    if (response)
-    {
-      m_errorCode = static_cast<int>(response.statusCode);
-      m_urlReceived = [response.URL.absoluteString UTF8String];
-
-      NSString * content = [response.allHeaderFields objectForKey:@"Content-Type"];
-      if (content)
-        m_contentTypeReceived = std::move([content UTF8String]);
-
-      NSString * encoding = [response.allHeaderFields objectForKey:@"Content-Encoding"];
-      if (encoding)
-        m_contentEncodingReceived = std::move([encoding UTF8String]);
-
-      // Apple merges all Set-Cookie fields into one NSDictionary key delimited by commas.
-      NSString * cookies = [response.allHeaderFields objectForKey:@"Set-Cookie"];
-      if (cookies)
-        m_serverCookies = normalize_server_cookies(std::move([cookies UTF8String]));
-
-      if (url_data)
-      {
-        if (m_receivedFile.empty())
-          m_serverResponse.assign(reinterpret_cast<char const *>(url_data.bytes), url_data.length);
-        else
-          [url_data writeToFile:[NSString stringWithUTF8String:m_receivedFile.c_str()] atomically:YES];
-
-      }
-      return true;
-    }
-    // Request has failed if we are here.
-    // MacOSX/iOS-specific workaround for HTTP 401 error bug.
-    // @see bit.ly/1TrHlcS for more details.
-    if (err.code == NSURLErrorUserCancelledAuthentication)
-    {
-      m_errorCode = 401;
-      return true;
-    }
-
-    m_errorCode = static_cast<int>(err.code);
+  if (!m_bodyData.empty())
+  {
+    request.HTTPBody = [NSData dataWithBytes:m_bodyData.data() length:m_bodyData.size()];
     if (m_debugMode)
-      LOG(LERROR, ("Error: ", m_errorCode, ':', [err.localizedDescription UTF8String], "while connecting to", m_urlRequested));
+      LOG(LINFO, ("Uploading buffer of size", m_bodyData.size(), "bytes"));
+  }
+  else if (!m_inputFile.empty())
+  {
+    NSError * err = nil;
+    NSString * path = [NSString stringWithUTF8String:m_inputFile.c_str()];
+    const unsigned long long file_size = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:&err].fileSize;
+    if (err)
+    {
+      m_errorCode = static_cast<int>(err.code);
+      if (m_debugMode)
+        LOG(LERROR, ("Error: ", m_errorCode, [err.localizedDescription UTF8String]));
 
-    return false;
-  } // @autoreleasepool
+      return false;
+    }
+    request.HTTPBodyStream = [NSInputStream inputStreamWithFileAtPath:path];
+    [request setValue:[NSString stringWithFormat:@"%llu", file_size] forHTTPHeaderField:@"Content-Length"];
+    if (m_debugMode)
+      LOG(LINFO, ("Uploading file", m_inputFile, file_size, "bytes"));
+  }
+
+  NSHTTPURLResponse * response = nil;
+  NSError * err = nil;
+  NSData * url_data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&err];
+
+  if (response)
+  {
+    m_errorCode = static_cast<int>(response.statusCode);
+    m_urlReceived = [response.URL.absoluteString UTF8String];
+
+    NSString * content = [response.allHeaderFields objectForKey:@"Content-Type"];
+    if (content)
+      m_contentTypeReceived = std::move([content UTF8String]);
+
+    NSString * encoding = [response.allHeaderFields objectForKey:@"Content-Encoding"];
+    if (encoding)
+      m_contentEncodingReceived = std::move([encoding UTF8String]);
+
+    // Apple merges all Set-Cookie fields into one NSDictionary key delimited by commas.
+    NSString * cookies = [response.allHeaderFields objectForKey:@"Set-Cookie"];
+    if (cookies)
+      m_serverCookies = NormalizeServerCookies(std::move([cookies UTF8String]));
+
+    if (url_data)
+    {
+      if (m_outputFile.empty())
+        m_serverResponse.assign(reinterpret_cast<char const *>(url_data.bytes), url_data.length);
+      else
+        [url_data writeToFile:[NSString stringWithUTF8String:m_outputFile.c_str()] atomically:YES];
+
+    }
+    return true;
+  }
+  // Request has failed if we are here.
+  // MacOSX/iOS-specific workaround for HTTP 401 error bug.
+  // @see bit.ly/1TrHlcS for more details.
+  if (err.code == NSURLErrorUserCancelledAuthentication)
+  {
+    m_errorCode = 401;
+    return true;
+  }
+
+  m_errorCode = static_cast<int>(err.code);
+  if (m_debugMode)
+    LOG(LERROR, ("Error: ", m_errorCode, ':', [err.localizedDescription UTF8String], "while connecting to", m_urlRequested));
+
+  return false;
 }
 } // namespace platform

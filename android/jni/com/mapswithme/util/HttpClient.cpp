@@ -24,66 +24,96 @@ SOFTWARE.
 #include <jni.h>
 
 #include "../core/jni_helper.hpp"
+#include "../core/ScopedEnv.hpp"
+#include "../core/ScopedLocalRef.hpp"
 
 #include "platform/http_client.hpp"
 
-#include "base/logging.hpp"
 #include "base/assert.hpp"
+#include "base/exception.hpp"
+#include "base/logging.hpp"
 
 #include "std/string.hpp"
+#include "std/unordered_map.hpp"
 
-namespace
-{
-template <typename T, typename D>
-unique_ptr<T, D> MakeScopedPointer(T * ptr, D deleter)
-{
-  return unique_ptr<T, D>(ptr, deleter);
-}
-
-// Scoped environment which can attach to any thread and automatically detach
-class ScopedEnv final
-{
-public:
-  ScopedEnv(JavaVM * vm)
-  {
-    JNIEnv * env;
-    auto result = vm->GetEnv(reinterpret_cast<void **>(&env), JNI_VERSION_1_6);
-    if (result == JNI_EDETACHED)
-    {
-      result = vm->AttachCurrentThread(&env, nullptr);
-      m_needToDetach = (result == JNI_OK);
-    }
-
-    if (result == JNI_OK)
-    {
-      m_env = env;
-      m_vm = vm;
-    }
-  }
-
-  ~ScopedEnv()
-  {
-    if (m_vm != nullptr && m_needToDetach)
-      m_vm->DetachCurrentThread();
-  }
-
-  JNIEnv * operator->() { return m_env; }
-  operator bool() const { return m_env != nullptr; }
-  JNIEnv * get() { return m_env; }
-
-private:
-  bool m_needToDetach = false;
-  JNIEnv * m_env = nullptr;
-  JavaVM * m_vm = nullptr;
-};
-}  // namespace
+DECLARE_EXCEPTION(JniException, RootException);
 
 #define CLEAR_AND_RETURN_FALSE_ON_EXCEPTION \
-  if (env->ExceptionCheck()) {              \
+  if (env->ExceptionCheck())                \
+  {                                         \
     env->ExceptionDescribe();               \
     env->ExceptionClear();                  \
     return false;                           \
   }
+
+namespace
+{
+void RethrowOnJniException(ScopedEnv & env)
+{
+  if (!env->ExceptionCheck())
+    return;
+
+  env->ExceptionDescribe();
+  env->ExceptionClear();
+  MYTHROW(JniException, ());
+}
+
+jfieldID GetHttpParamsFieldId(ScopedEnv & env, const char * name)
+{
+  return env->GetFieldID(g_httpParamsClazz, name, "Ljava/lang/String;");
+}
+
+// Set string value to HttpClient.Params object, throws JniException and
+void SetString(ScopedEnv & env, jobject params, jfieldID const fieldId, string const & value)
+{
+  if (value.empty())
+    return;
+
+  jni::ScopedLocalRef<jstring> const wrappedValue(env.get(), jni::ToJavaString(env.get(), value));
+  RethrowOnJniException(env);
+
+  env->SetObjectField(params, fieldId, wrappedValue.get());
+  RethrowOnJniException(env);
+}
+
+// Get string value from HttpClient.Params object, throws JniException.
+void GetString(ScopedEnv & env, jobject const params, jfieldID const fieldId, string & result)
+{
+  jni::ScopedLocalRef<jstring> const wrappedValue(
+      env.get(), static_cast<jstring>(env->GetObjectField(params, fieldId)));
+  RethrowOnJniException(env);
+  if (wrappedValue)
+    result = jni::ToNativeString(env.get(), wrappedValue.get());
+}
+
+class Ids
+{
+public:
+  explicit Ids(ScopedEnv & env)
+  {
+    m_fieldIds =
+    {{"httpMethod", GetHttpParamsFieldId(env, "httpMethod")},
+    {"contentType", GetHttpParamsFieldId(env, "contentType")},
+    {"contentEncoding", GetHttpParamsFieldId(env, "contentEncoding")},
+    {"userAgent", GetHttpParamsFieldId(env, "userAgent")},
+    {"inputFilePath", GetHttpParamsFieldId(env, "inputFilePath")},
+    {"basicAuthUser", GetHttpParamsFieldId(env, "basicAuthUser")},
+    {"basicAuthPassword", GetHttpParamsFieldId(env, "basicAuthPassword")},
+    {"cookies", GetHttpParamsFieldId(env, "cookies")},
+    {"receivedUrl", GetHttpParamsFieldId(env, "receivedUrl")}};
+  }
+
+  jfieldID GetId(string const & fieldName) const
+  {
+    auto const it = m_fieldIds.find(fieldName);
+    CHECK(it != m_fieldIds.end(), ("Incorrect field name:", fieldName));
+    return it->second;
+  }
+
+private:
+  unordered_map<string, jfieldID> m_fieldIds;
+};
+}  // namespace
 
 //***********************************************************************
 // Exported functions implementation
@@ -97,24 +127,26 @@ bool HttpClient::RunHttpRequest()
   if (!env)
     return false;
 
-  auto const deleter = [&env](jobject o) { env->DeleteLocalRef(o); };
+  static Ids ids(env);
 
   // Create and fill request params.
-  auto const jniUrl = MakeScopedPointer(jni::ToJavaString(env.get(), m_urlRequested), deleter);
+  jni::ScopedLocalRef<jstring> const jniUrl(env.get(),
+                                            jni::ToJavaString(env.get(), m_urlRequested));
   CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
 
   static jmethodID const httpParamsConstructor =
       env->GetMethodID(g_httpParamsClazz, "<init>", "(Ljava/lang/String;)V");
 
-  auto const httpParamsObject =
-      MakeScopedPointer(env->NewObject(g_httpParamsClazz, httpParamsConstructor, jniUrl.get()), deleter);
+  jni::ScopedLocalRef<jobject> const httpParamsObject(
+      env.get(), env->NewObject(g_httpParamsClazz, httpParamsConstructor, jniUrl.get()));
   CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
 
   // Cache it on the first call.
   static jfieldID const dataField = env->GetFieldID(g_httpParamsClazz, "data", "[B");
   if (!m_bodyData.empty())
   {
-    auto const jniPostData = MakeScopedPointer(env->NewByteArray(m_bodyData.size()), deleter);
+    jni::ScopedLocalRef<jbyteArray> const jniPostData(env.get(),
+                                                      env->NewByteArray(m_bodyData.size()));
     CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
 
     env->SetByteArrayRegion(jniPostData.get(), 0, m_bodyData.size(),
@@ -126,108 +158,22 @@ bool HttpClient::RunHttpRequest()
   }
 
   ASSERT(!m_httpMethod.empty(), ("Http method type can not be empty."));
-  static jfieldID const httpMethodField =
-      env->GetFieldID(g_httpParamsClazz, "httpMethod", "Ljava/lang/String;");
-  {
-    const auto jniHttpMethod = MakeScopedPointer(jni::ToJavaString(env.get(), m_httpMethod), deleter);
-    CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
 
-    env->SetObjectField(httpParamsObject.get(), httpMethodField, jniHttpMethod.get());
-    CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
+  try
+  {
+    SetString(env, httpParamsObject.get(), ids.GetId("httpMethod"), m_httpMethod);
+    SetString(env, httpParamsObject.get(), ids.GetId("contentType"), m_contentType);
+    SetString(env, httpParamsObject.get(), ids.GetId("contentEncoding"), m_contentEncoding);
+    SetString(env, httpParamsObject.get(), ids.GetId("userAgent"), m_userAgent);
+    SetString(env, httpParamsObject.get(), ids.GetId("inputFilePath"), m_inputFile);
+    SetString(env, httpParamsObject.get(), ids.GetId("outputFilePath"), m_outputFile);
+    SetString(env, httpParamsObject.get(), ids.GetId("basicAuthUser"), m_basicAuthUser);
+    SetString(env, httpParamsObject.get(), ids.GetId("basicAuthPassword"), m_basicAuthPassword);
+    SetString(env, httpParamsObject.get(), ids.GetId("cookies"), m_cookies);
   }
-
-  static jfieldID const contentTypeField =
-      env->GetFieldID(g_httpParamsClazz, "contentType", "Ljava/lang/String;");
-  if (!m_contentType.empty())
+  catch (JniException const & ex)
   {
-    auto const jniContentType = MakeScopedPointer(jni::ToJavaString(env.get(), m_contentType), deleter);
-    CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
-
-    env->SetObjectField(httpParamsObject.get(), contentTypeField, jniContentType.get());
-    CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
-  }
-
-  static jfieldID const contentEncodingField =
-      env->GetFieldID(g_httpParamsClazz, "contentEncoding", "Ljava/lang/String;");
-  if (!m_contentEncoding.empty())
-  {
-    auto const jniContentEncoding = MakeScopedPointer(jni::ToJavaString(env.get(), m_contentEncoding), deleter);
-    CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
-
-    env->SetObjectField(httpParamsObject.get(), contentEncodingField, jniContentEncoding.get());
-    CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
-  }
-
-  if (!m_userAgent.empty())
-  {
-    static jfieldID const userAgentField =
-        env->GetFieldID(g_httpParamsClazz, "userAgent", "Ljava/lang/String;");
-
-    auto const jniUserAgent = MakeScopedPointer(jni::ToJavaString(env.get(), m_userAgent), deleter);
-    CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
-
-    env->SetObjectField(httpParamsObject.get(), userAgentField, jniUserAgent.get());
-    CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
-  }
-
-  if (!m_bodyFile.empty())
-  {
-    static jfieldID const inputFilePathField =
-        env->GetFieldID(g_httpParamsClazz, "inputFilePath", "Ljava/lang/String;");
-
-    auto const jniInputFilePath = MakeScopedPointer(jni::ToJavaString(env.get(), m_bodyFile), deleter);
-    CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
-
-    env->SetObjectField(httpParamsObject.get(), inputFilePathField, jniInputFilePath.get());
-    CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
-  }
-
-  if (!m_receivedFile.empty())
-  {
-    static jfieldID const outputFilePathField =
-        env->GetFieldID(g_httpParamsClazz, "outputFilePath", "Ljava/lang/String;");
-
-    auto const jniOutputFilePath = MakeScopedPointer(jni::ToJavaString(env.get(), m_receivedFile), deleter);
-    CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
-
-    env->SetObjectField(httpParamsObject.get(), outputFilePathField, jniOutputFilePath.get());
-    CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
-  }
-
-  if (!m_basicAuthUser.empty())
-  {
-    static jfieldID const basicAuthUserField =
-        env->GetFieldID(g_httpParamsClazz, "basicAuthUser", "Ljava/lang/String;");
-
-    auto const jniBasicAuthUser = MakeScopedPointer(jni::ToJavaString(env.get(), m_basicAuthUser), deleter);
-    CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
-
-    env->SetObjectField(httpParamsObject.get(), basicAuthUserField, jniBasicAuthUser.get());
-    CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
-  }
-
-  if (!m_basicAuthPassword.empty())
-  {
-    static jfieldID const basicAuthPasswordField =
-        env->GetFieldID(g_httpParamsClazz, "basicAuthPassword", "Ljava/lang/String;");
-
-    auto const jniBasicAuthPassword =
-       MakeScopedPointer(jni::ToJavaString(env.get(), m_basicAuthPassword), deleter);
-    CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
-
-    env->SetObjectField(httpParamsObject.get(), basicAuthPasswordField, jniBasicAuthPassword.get());
-    CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
-  }
-
-  static jfieldID const cookiesField =
-      env->GetFieldID(g_httpParamsClazz, "cookies", "Ljava/lang/String;");
-  if (!m_cookies.empty())
-  {
-    const auto jniCookies = MakeScopedPointer(jni::ToJavaString(env.get(), m_cookies), deleter);
-    CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
-
-    env->SetObjectField(httpParamsObject.get(), cookiesField, jniCookies.get());
-    CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
+    return false;
   }
 
   static jfieldID const debugModeField = env->GetFieldID(g_httpParamsClazz, "debugMode", "Z");
@@ -254,40 +200,31 @@ bool HttpClient::RunHttpRequest()
   m_errorCode = env->GetIntField(response, httpResponseCodeField);
   CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
 
-  static jfieldID const receivedUrlField =
-      env->GetFieldID(g_httpParamsClazz, "receivedUrl", "Ljava/lang/String;");
-  auto const jniReceivedUrl =
-      MakeScopedPointer(static_cast<jstring>(env->GetObjectField(response, receivedUrlField)), deleter);
-  CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
-  if (jniReceivedUrl)
-    m_urlReceived = jni::ToNativeString(env.get(), jniReceivedUrl.get());
-
-  // contentTypeField is already cached above.
-  auto const jniContentType =
-      MakeScopedPointer(static_cast<jstring>(env->GetObjectField(response, contentTypeField)), deleter);
-  CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
-  if (jniContentType)
-    m_contentTypeReceived = jni::ToNativeString(env.get(), jniContentType.get());
-
-  // contentEncodingField is already cached above.
-  auto const jniContentEncoding =
-      MakeScopedPointer(static_cast<jstring>(env->GetObjectField(response, contentEncodingField)), deleter);
-  CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
-  if (jniContentEncoding)
-    m_contentEncodingReceived = jni::ToNativeString(env.get(), jniContentEncoding.get());
+  try
+  {
+    GetString(env, response, ids.GetId("receivedUrl"), m_urlReceived);
+    GetString(env, response, ids.GetId("contentType"), m_contentTypeReceived);
+    GetString(env, response, ids.GetId("contentEncoding"), m_contentEncodingReceived);
+  }
+  catch (JniException const & ex)
+  {
+    return false;
+  }
 
   // Note: cookies field is used not only to send Cookie header, but also to receive back
   // Server-Cookie header. CookiesField is already cached above.
-  auto const jniServerCookies =
-      MakeScopedPointer(static_cast<jstring>(env->GetObjectField(response, cookiesField)), deleter);
+  jni::ScopedLocalRef<jstring> const jniServerCookies(
+      env.get(), static_cast<jstring>(env->GetObjectField(response, ids.GetId("cookies"))));
   CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
   if (jniServerCookies)
+  {
     m_serverCookies =
-        normalize_server_cookies(std::move(jni::ToNativeString(env.get(), jniServerCookies.get())));
+        NormalizeServerCookies(jni::ToNativeString(env.get(), jniServerCookies.get()));
+  }
 
   // dataField is already cached above.
-  auto const jniData =
-      MakeScopedPointer(static_cast<jbyteArray>(env->GetObjectField(response, dataField)), deleter);
+  jni::ScopedLocalRef<jbyteArray> const jniData(
+      env.get(), static_cast<jbyteArray>(env->GetObjectField(response, dataField)));
   CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
   if (jniData)
   {

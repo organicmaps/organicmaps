@@ -12,8 +12,6 @@
 
 #include "3party/pugixml/src/pugixml.hpp"
 
-using TRequest = platform::HttpClient;
-
 namespace
 {
 string const kUserStatsUrl = "https://editor-api.maps.me/user?format=xml";
@@ -91,7 +89,7 @@ bool UserStatsLoader::Update(string const & userName)
   }
 
   auto const url = kUserStatsUrl + "&name=" + UrlEncode(userName);
-  TRequest request(url);
+  platform::HttpClient request(url);
 
   if (!request.RunHttpRequest())
   {
@@ -99,13 +97,13 @@ bool UserStatsLoader::Update(string const & userName)
     return false;
   }
 
-  if (request.error_code() != 200)
+  if (request.ErrorCode() != 200)
   {
-    LOG(LWARNING, ("Server returned", request.error_code(), "for url", url));
+    LOG(LWARNING, ("Server returned", request.ErrorCode(), "for url", url));
     return false;
   }
 
-  auto const response = request.server_response();
+  auto const response = request.ServerResponse();
 
   pugi::xml_document document;
   if (!document.load_buffer(response.data(), response.size()))

@@ -92,6 +92,7 @@ SOURCES += \
     country_file.cpp \
     file_logging.cpp \
     get_text_by_id.cpp \
+    http_client.cpp \
     http_request.cpp \
     local_country_file.cpp \
     local_country_file_utils.cpp \
