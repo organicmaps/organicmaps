@@ -16,3 +16,4 @@ HEADERS += \
 SOURCES += \
     $$ROOT_DIR/testing/testingmain.cpp \
     osm_auth_tests.cpp \
+    server_api_test.cpp \
