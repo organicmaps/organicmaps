@@ -39,6 +39,8 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
   private float mDetailMaxHeight;
   private float mScrollDelta;
 
+  private MotionEvent mLastMoveEvent;
+
   private class AnimationHelper
   {
     final View.OnLayoutChangeListener mListener = new View.OnLayoutChangeListener()
@@ -47,7 +49,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
       public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom)
       {
         if ((mState == State.DETAILS || mState == State.FULLSCREEN || mState == State.SCROLL)
-                && v.getId() == mDetailsFrame.getId() && top != oldTop)
+            && v.getId() == mDetailsFrame.getId() && top != oldTop)
         {
           mPreview.setTranslationY(-mDetailsContent.getHeight());
           refreshToolbarVisibility();
@@ -88,30 +90,55 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
   {
     switch (event.getAction())
     {
-    case MotionEvent.ACTION_DOWN:
-      if (!isInsideView(event.getY()))
-      {
-        mIsGestureStartedInsideView = false;
+      case MotionEvent.ACTION_DOWN:
+        if (!isInsideView(event.getY()))
+        {
+          mIsGestureStartedInsideView = false;
+          break;
+        }
+
+        mIsGestureStartedInsideView = true;
+        mIsDragging = false;
+        mIsGestureFinished = false;
+        mDownCoord = event.getY();
         break;
-      }
+      case MotionEvent.ACTION_MOVE:
+        if (!mIsGestureStartedInsideView)
+          break;
 
-      mIsGestureStartedInsideView = true;
-      mIsDragging = false;
-      mIsGestureFinished = false;
-      mDownCoord = event.getY();
-      break;
-    case MotionEvent.ACTION_MOVE:
-      if (!mIsGestureStartedInsideView)
+        final float delta = mDownCoord - event.getY();
+        if (Math.abs(delta) > mTouchSlop && !isDetailsScroll(mDownCoord, delta))
+          return true;
+
+        mLastMoveEvent = MotionEvent.obtain(event);
+
         break;
-
-      final float delta = mDownCoord - event.getY();
-      if (Math.abs(delta) > mTouchSlop && !isDetailsScroll(mDownCoord, delta))
-        return true;
-
-      break;
     }
 
     return false;
+  }
+
+  @Override
+  public void onScroll(int left, int top)
+  {
+    super.onScroll(left, top);
+
+    if (mPlacePage.getState() == State.SCROLL && mCurrentScrollY == 0)
+    {
+      mPlacePage.dispatchTouchEvent(MotionEvent.obtain(mLastMoveEvent.getDownTime(),
+                                                       mLastMoveEvent.getEventTime(),
+                                                       MotionEvent.ACTION_UP,
+                                                       mLastMoveEvent.getX(),
+                                                       mLastMoveEvent.getY(),
+                                                       mLastMoveEvent.getMetaState()));
+      mPlacePage.dispatchTouchEvent(MotionEvent.obtain(mLastMoveEvent.getDownTime(),
+                                                       mLastMoveEvent.getEventTime(),
+                                                       MotionEvent.ACTION_DOWN,
+                                                       mLastMoveEvent.getX(),
+                                                       mLastMoveEvent.getY(),
+                                                       mLastMoveEvent.getMetaState()));
+      mPlacePage.dispatchTouchEvent(mLastMoveEvent);
+    }
   }
 
   private boolean isInsideView(float y)
@@ -135,7 +162,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
   private boolean isDetailsScrollable()
   {
     return mPlacePage.getState() == State.SCROLL
-            && isDetailContentScrollable();
+           && isDetailContentScrollable();
   }
 
   private boolean canScroll(float delta)
@@ -150,8 +177,8 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
       return false;
 
     final boolean finishedDrag = (mIsDragging &&
-                                      (event.getAction() == MotionEvent.ACTION_UP ||
-                                       event.getAction() == MotionEvent.ACTION_CANCEL));
+                                  (event.getAction() == MotionEvent.ACTION_UP ||
+                                   event.getAction() == MotionEvent.ACTION_CANCEL));
     if (!mIsGestureStartedInsideView ||
         !isInsideView(event.getY()) ||
         finishedDrag)
@@ -204,16 +231,26 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
       @Override
       public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY)
       {
-        if (velocityY > 0) {
-          if (mPlacePage.getState() == State.HIDDEN) {
+        if (velocityY > 0)
+        {
+          if (mPlacePage.getState() == State.HIDDEN)
+          {
             mPlacePage.setState(State.DETAILS);
-          } else if (isDetailContentScrollable()) {
+          } else if (isDetailContentScrollable())
+          {
             mPlacePage.setState(State.FULLSCREEN);
           }
-        } else {
-          if (mPlacePage.getState() == State.FULLSCREEN) {
-            mPlacePage.setState(State.DETAILS);
-          } else {
+        } else
+        {
+          if (mPlacePage.getState() == State.SCROLL
+              || mPlacePage.getState() == State.FULLSCREEN)
+          {
+            if (isDetailContentScrollable())
+              mPlacePage.setState(State.DETAILS);
+            else
+              mPlacePage.setState(State.HIDDEN);
+          } else
+          {
             mPlacePage.setState(State.HIDDEN);
           }
         }
@@ -226,13 +263,17 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
         if (!isInPreview(e.getY()))
           return false;
 
-        if (mPlacePage.getState() == State.PREVIEW) {
-          if (isDetailContentScrollable()) {
+        if (mPlacePage.getState() == State.PREVIEW)
+        {
+          if (isDetailContentScrollable())
+          {
             mPlacePage.setState(State.DETAILS);
-          } else {
+          } else
+          {
             mPlacePage.setState(State.SCROLL);
           }
-        } else {
+        } else
+        {
           mPlacePage.setState(State.PREVIEW);
         }
 
@@ -244,7 +285,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
   private boolean isInPreview(float y)
   {
     return y > (mPreview.getTop() + mPreview.getTranslationY())
-               && y < (mPreview.getBottom() + mPreview.getTranslationY());
+           && y < (mPreview.getBottom() + mPreview.getTranslationY());
   }
 
   private void finishDrag(float distance)
@@ -263,20 +304,17 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
         if (isDetailContentScrollable())
         {
           mPlacePage.setState(State.DETAILS);
-        }
-        else
+        } else
         {
           mPlacePage.setState(State.SCROLL);
         }
-      }
-      else if (isDetailContentScrollable()
-          && mPlacePage.getState() != State.FULLSCREEN
-          && mDetailsFrame.getTranslationY() > 0)
+      } else if (isDetailContentScrollable()
+                 && mPlacePage.getState() != State.FULLSCREEN
+                 && mDetailsFrame.getTranslationY() > 0)
       {
         mPlacePage.setState(State.FULLSCREEN);
       }
-    }
-    else
+    } else
     {
       if (mPlacePage.getState() == State.SCROLL
           || mPlacePage.getState() == State.FULLSCREEN)
@@ -284,20 +322,19 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
         if (isDetailContentScrollable())
         {
           mPlacePage.setState(State.DETAILS);
-        }
-        else
+        } else
         {
           mPlacePage.setState(State.PREVIEW);
         }
-      }
-      else
+      } else
       {
         mPlacePage.setState(State.PREVIEW);
       }
     }
   }
 
-  private boolean isDetailContentScrollable() {
+  private boolean isDetailContentScrollable()
+  {
     return mDetailsFrame.getHeight() < mDetailsContent.getHeight();
   }
 
@@ -336,57 +373,58 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
         endRunningAnimation();
         switch (newState)
         {
-        case HIDDEN:
-          hidePlacePage();
-          break;
-        case PREVIEW:
-          showPreview(currentState);
-          break;
-        case DETAILS:
-          showDetails();
-          break;
-        case FULLSCREEN:
-          showFullscreen();
-          break;
-        case SCROLL:
-          showScroll();
-          break;
+          case HIDDEN:
+            hidePlacePage();
+            break;
+          case PREVIEW:
+            showPreview(currentState);
+            break;
+          case DETAILS:
+            showDetails();
+            break;
+          case FULLSCREEN:
+            showFullscreen();
+            break;
+          case SCROLL:
+            showScroll();
+            break;
         }
       }
     });
   }
 
   /**
-   * Prepares widgets for animating, places them vertically accordingly to their supposed positions.
+   * Prepares widgets for animating, places them vertically accordingly to their supposed
+   * positions.
    */
   private void prepareYTranslations(State newState, @MapObject.MapObjectType int type)
   {
     switch (newState)
     {
-    case PREVIEW:
-      if (mState == State.HIDDEN)
-      {
-        UiUtils.invisible(mPlacePage, mPreview, mDetailsFrame, mButtons);
-        UiUtils.showIf(type == MapObject.BOOKMARK, mBookmarkDetails);
-        mPlacePage.post(new Runnable()
+      case PREVIEW:
+        if (mState == State.HIDDEN)
         {
-          @Override
-          public void run()
+          UiUtils.invisible(mPlacePage, mPreview, mDetailsFrame, mButtons);
+          UiUtils.showIf(type == MapObject.BOOKMARK, mBookmarkDetails);
+          mPlacePage.post(new Runnable()
           {
-            final float previewTranslation = mPreview.getHeight() + mButtons.getHeight();
-            mPreview.setTranslationY(previewTranslation);
-            mDetailsFrame.setTranslationY(mDetailsFrame.getHeight());
-            mButtons.setTranslationY(previewTranslation);
+            @Override
+            public void run()
+            {
+              final float previewTranslation = mPreview.getHeight() + mButtons.getHeight();
+              mPreview.setTranslationY(previewTranslation);
+              mDetailsFrame.setTranslationY(mDetailsFrame.getHeight());
+              mButtons.setTranslationY(previewTranslation);
 
-            UiUtils.show(mPlacePage, mPreview, mButtons, mDetailsFrame);
-          }
-        });
-      }
-      break;
-    case DETAILS:
-      UiUtils.show(mPlacePage, mPreview, mDetailsFrame);
-      UiUtils.showIf(type == MapObject.BOOKMARK, mBookmarkDetails);
-      break;
+              UiUtils.show(mPlacePage, mPreview, mButtons, mDetailsFrame);
+            }
+          });
+        }
+        break;
+      case DETAILS:
+        UiUtils.show(mPlacePage, mPreview, mDetailsFrame);
+        UiUtils.showIf(type == MapObject.BOOKMARK, mBookmarkDetails);
+        break;
     }
   }
 
@@ -412,8 +450,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
           mButtons.setTranslationY((Float) animation.getAnimatedValue());
         }
       });
-    }
-    else
+    } else
     {
       interpolator = new AccelerateInterpolator();
     }
@@ -435,7 +472,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
     final float previewTranslation = mPreview.getHeight() + mButtons.getHeight();
     final float detailsScreenHeight = mDetailsScroll.getHeight();
     final float targetTranslation = Math
-            .min(detailsScreenHeight, mDetailMaxHeight - previewTranslation);
+        .min(detailsScreenHeight, mDetailMaxHeight - previewTranslation);
 
     mCurrentAnimator = ValueAnimator.ofFloat(mPreview.getTranslationY(), -targetTranslation);
     mCurrentAnimator.addUpdateListener(new UpdateListener(detailsScreenHeight));
@@ -444,13 +481,16 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
     startDefaultAnimator();
   }
 
-  private void showFullscreen() {
+  private void showFullscreen()
+  {
     final float detailsScreenHeight = mDetailsScroll.getHeight();
     final float targetTranslation = -mPreview.getTop();
 
-    if(!isDetailContentScrollable()) {
+    if (!isDetailContentScrollable())
+    {
       mCurrentAnimator = ValueAnimator.ofFloat(mPreview.getTranslationY(), -detailsScreenHeight);
-    } else {
+    } else
+    {
       mCurrentAnimator = ValueAnimator.ofFloat(mPreview.getTranslationY(), targetTranslation);
     }
     mCurrentAnimator.addUpdateListener(new UpdateListener(detailsScreenHeight));
@@ -459,7 +499,8 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
     startDefaultAnimator();
   }
 
-  private void showScroll() {
+  private void showScroll()
+  {
     if (isDetailContentScrollable())
       return;
 
@@ -559,7 +600,8 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
     }
   }
 
-  private class AnimationListener extends UiUtils.SimpleAnimatorListener {
+  private class AnimationListener extends UiUtils.SimpleAnimatorListener
+  {
     @Override
     public void onAnimationEnd(Animator animation)
     {

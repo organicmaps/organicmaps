@@ -10,18 +10,18 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Interpolator;
-import android.widget.ScrollView;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.widget.ObservableScrollView;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
 import com.mapswithme.util.UiUtils;
 
 /**
  * Class is responsible for animations of PP(place page) and PPP(place page preview).
  */
-public abstract class BasePlacePageAnimationController
+public abstract class BasePlacePageAnimationController implements ObservableScrollView.ScrollListener
 {
   private static final int DURATION = MwmApplication.get().getResources().getInteger(R.integer.anim_placepage);
   private static final TimeInterpolator INTERPOLATOR = new AccelerateInterpolator();
@@ -30,7 +30,7 @@ public abstract class BasePlacePageAnimationController
   PlacePageView mPlacePage;
   ViewGroup mPreview;
   ViewGroup mDetailsFrame;
-  ScrollView mDetailsScroll;
+  ObservableScrollView mDetailsScroll;
   View mDetailsContent;
   ViewGroup mBookmarkDetails;
   ViewGroup mButtons;
@@ -39,6 +39,7 @@ public abstract class BasePlacePageAnimationController
   boolean mIsDragging;
   float mDownCoord;
   float mTouchSlop;
+  int mCurrentScrollY;
 
   private OnVisibilityChangedListener mVisibilityListener;
 
@@ -61,7 +62,8 @@ public abstract class BasePlacePageAnimationController
     mPlacePage = placePage;
     mPreview = (ViewGroup) placePage.findViewById(R.id.pp__preview);
     mDetailsFrame = (ViewGroup) placePage.findViewById(R.id.pp__details_frame);
-    mDetailsScroll = (ScrollView) placePage.findViewById(R.id.pp__details);
+    mDetailsScroll = (ObservableScrollView) placePage.findViewById(R.id.pp__details);
+    mDetailsScroll.setScrollListener(this);
     mDetailsContent = mDetailsScroll.getChildAt(0);
     mBookmarkDetails = (ViewGroup) mDetailsFrame.findViewById(R.id.bookmark_frame);
     mButtons = (ViewGroup) placePage.findViewById(R.id.pp__buttons);
@@ -81,6 +83,17 @@ public abstract class BasePlacePageAnimationController
     }
 
     initialVisibility();
+  }
+
+  @Override
+  public void onScroll(int left, int top)
+  {
+    mCurrentScrollY = top;
+  }
+
+  @Override
+  public void onScrollEnd()
+  {
   }
 
   protected void initialVisibility()
