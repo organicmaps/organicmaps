@@ -4,8 +4,8 @@ include_directories(${PROJECT_SOURCE_DIR})
 
 
 set(
-    SRC
-    opening_hours_tests.cpp
+  SRC
+  opening_hours_tests.cpp
 )
 
 add_executable(opening_hours_tests ${SRC})
