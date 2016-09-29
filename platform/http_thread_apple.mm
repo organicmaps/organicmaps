@@ -23,12 +23,10 @@ static id<DownloadIndicatorProtocol> downloadIndicator = nil;
 {
   LOG(LDEBUG, ("ID:", [self hash], "Connection is destroyed"));
   [m_connection cancel];
-  [m_connection release];
 #ifdef OMIM_OS_IPHONE
   [downloadIndicator enableStandby];
   [downloadIndicator disableDownloadIndicator];
 #endif
-  [super dealloc];
 }
 
 - (void) cancel
@@ -66,7 +64,6 @@ static id<DownloadIndicatorProtocol> downloadIndicator = nil;
 			val = [[NSString alloc] initWithFormat: @"bytes=%qi-", beg];
 		}
 		[request addValue:val forHTTPHeaderField:@"Range"];
-		[val release];
 	}
 
 	if (!pb.empty())
@@ -94,7 +91,6 @@ static id<DownloadIndicatorProtocol> downloadIndicator = nil;
   if (m_connection == 0)
   {
     LOG(LERROR, ("Can't create connection for", url));
-    [self release];
     return nil;
   }
   else
@@ -226,7 +222,6 @@ HttpThread * CreateNativeHttpThread(string const & url,
 void DeleteNativeHttpThread(HttpThread * request)
 {
   [request cancel];
-  [request release];
 }
 
 } // namespace downloader

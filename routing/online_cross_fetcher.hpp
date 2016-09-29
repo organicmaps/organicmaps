@@ -1,6 +1,6 @@
 #pragma once
 
-#include "3party/Alohalytics/src/http_client.h"
+#include "platform/http_client.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/latlon.hpp"
@@ -47,7 +47,7 @@ public:
   vector<m2::PointD> const & GetMwmPoints() { return m_mwmPoints; }
 
 private:
-  alohalytics::HTTPClientPlatformWrapper m_request;
+  platform::HttpClient m_request;
   vector<m2::PointD> m_mwmPoints;
 };
 }

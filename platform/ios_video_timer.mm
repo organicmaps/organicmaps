@@ -52,7 +52,6 @@ public:
       // So we should check EStopped flag in 'perform' to skip pending call.
       m_state = EStopped;
       [m_displayLink invalidate];
-      [m_objCppWrapper release];
       m_displayLink = 0;
     }
   }
@@ -87,11 +86,6 @@ public:
     m_timer = timer;
   }
   return self;
-}
-
-- (void)dealloc
-{
-  [super dealloc];
 }
 
 - (void)perform

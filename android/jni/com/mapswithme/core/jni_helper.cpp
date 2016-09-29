@@ -13,10 +13,12 @@ extern JavaVM * GetJVM()
   return g_jvm;
 }
 
-// caching is necessary to create class from native threads
+// Caching is necessary to create class from native threads.
 jclass g_mapObjectClazz;
 jclass g_bookmarkClazz;
 jclass g_myTrackerClazz;
+jclass g_httpClientClazz;
+jclass g_httpParamsClazz;
 
 extern "C"
 {
@@ -31,6 +33,8 @@ JNI_OnLoad(JavaVM * jvm, void *)
   g_mapObjectClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/bookmarks/data/MapObject");
   g_bookmarkClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/bookmarks/data/Bookmark");
   g_myTrackerClazz = jni::GetGlobalClassRef(env, "com/my/tracker/MyTracker");
+  g_httpClientClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/HttpClient");
+  g_httpParamsClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/HttpClient$Params");
 
   return JNI_VERSION_1_6;
 }
@@ -43,6 +47,8 @@ JNI_OnUnload(JavaVM *, void *)
   env->DeleteGlobalRef(g_mapObjectClazz);
   env->DeleteGlobalRef(g_bookmarkClazz);
   env->DeleteGlobalRef(g_myTrackerClazz);
+  env->DeleteGlobalRef(g_httpClientClazz);
+  env->DeleteGlobalRef(g_httpParamsClazz);
 }
 } // extern "C"
 

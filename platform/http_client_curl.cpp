@@ -1,0 +1,272 @@
+/*******************************************************************************
+ The MIT License (MIT)
+
+ Copyright (c) 2014 Alexander Zolotarev <me@alex.bio> from Minsk, Belarus
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+ *******************************************************************************/
+#include "platform/http_client.hpp"
+#include "platform/platform.hpp"
+
+#include "base/assert.hpp"
+#include "base/exception.hpp"
+#include "base/logging.hpp"
+#include "base/string_utils.hpp"
+
+#include "boost/uuid/uuid_generators.hpp"
+#include "boost/uuid/uuid_io.hpp"
+
+#include "std/array.hpp"
+#include "std/fstream.hpp"
+#include "std/sstream.hpp"
+#include "std/vector.hpp"
+
+#include <cstdio>    // popen, tmpnam
+
+#ifdef _MSC_VER
+#define popen _popen
+#define pclose _pclose
+#else
+#include <unistd.h>  // close
+#endif
+
+namespace
+{
+DECLARE_EXCEPTION(PipeCallError, RootException);
+
+struct ScopedRemoveFile
+{
+  ScopedRemoveFile() = default;
+  explicit ScopedRemoveFile(string const & fileName) : m_fileName(fileName) {}
+
+  ~ScopedRemoveFile()
+  {
+    if (!m_fileName.empty())
+      std::remove(m_fileName.c_str());
+  }
+
+  std::string m_fileName;
+};
+
+static string ReadFileAsString(string const & filePath)
+{
+  ifstream ifs(filePath, ifstream::in);
+  if (!ifs.is_open())
+    return {};
+
+  return {istreambuf_iterator<char>(ifs), istreambuf_iterator<char>()};
+}
+
+
+string RunCurl(string const & cmd)
+{
+  FILE * pipe = ::popen(cmd.c_str(), "r");
+  ASSERT(pipe, ());
+  array<char, 8 * 1024> arr;
+  string result;
+  size_t read;
+  do
+  {
+    read = ::fread(arr.data(), 1, arr.size(), pipe);
+    if (read > 0)
+    {
+      result.append(arr.data(), read);
+    }
+  } while (read == arr.size());
+
+  auto const err = ::pclose(pipe);
+  // Exception will be cought in RunHTTPRequest
+  if (err)
+    throw PipeCallError("", "Error " + strings::to_string(err) + " while calling " + cmd);
+
+  return result;
+}
+
+string GetTmpFileName()
+{  
+  boost::uuids::random_generator gen;
+  boost::uuids::uuid u = gen();
+
+  stringstream ss;
+  ss << u;
+
+  ASSERT(!ss.str().empty(), ());
+
+  return GetPlatform().TmpPathForFile(ss.str());
+}
+
+typedef vector<pair<string, string>> Headers;
+
+Headers ParseHeaders(string const & raw)
+{
+  istringstream stream(raw);
+  HeadersT headers;
+  string line;
+  while (getline(stream, line))
+  {
+    auto const cr = line.rfind('\r');
+    if (cr != string::npos)
+      line.erase(cr);
+
+    auto const delims = line.find(": ");
+    if (delims != string::npos)
+      headers.push_back(make_pair(line.substr(0, delims), line.substr(delims + 2)));
+  }
+  return headers;
+}
+
+bool WriteToFile(string const & fileName, string const & data)
+{
+  ofstream ofs(fileName);
+  if(!ofs.is_open())
+  {
+    LOG(LERROR, ("Failed to write into a temporary file."));
+    return false;
+  }
+
+  ofs << data;
+  return true;
+}
+}  // namespace
+// Used as a test stub for basic HTTP client implementation.
+// Make sure that you have curl installed in the PATH.
+// TODO(AlexZ): Not a production-ready implementation.
+namespace platform
+{
+// Extract HTTP headers via temporary file with -D switch.
+// HTTP status code is extracted from curl output (-w switches).
+// Redirects are handled recursively. TODO(AlexZ): avoid infinite redirects loop.
+bool HttpClient::RunHttpRequest()
+{
+  ScopedRemoveFile headers_deleter(GetTmpFileName());
+  ScopedRemoveFile body_deleter;
+  ScopedRemoveFile received_file_deleter;
+
+  string cmd = "curl -s -w '%{http_code}' -X " + m_httpMethod + " -D '" + headers_deleter.m_fileName + "' ";
+
+  if (!m_contentType.empty())
+    cmd += "-H 'Content-Type: " + m_contentType + "' ";
+
+  if (!m_contentEncoding.empty())
+    cmd += "-H 'Content-Encoding: " + m_contentEncoding + "' ";
+
+  if (!m_basicAuthUser.empty())
+    cmd += "-u '" + m_basicAuthUser + ":" + m_basicAuthPassword + "' ";
+
+  if (!m_cookies.empty())
+    cmd += "-b '" + m_cookies + "' ";
+
+  if (!m_bodyData.empty())
+  {
+    body_deleter.m_fileName = GetTmpFileName();
+    // POST body through tmp file to avoid breaking command line.
+    if (!WriteToFile(body_deleter.m_fileName, m_bodyData))
+      return false;
+
+    // TODO(AlexZ): Correctly clean up this internal var to avoid client confusion.
+    m_inputFile = body_deleter.m_fileName;
+  }
+  // Content-Length is added automatically by curl.
+  if (!m_inputFile.empty())
+    cmd += "--data-binary '@" + m_inputFile + "' ";
+
+  // Use temporary file to receive data from server.
+  // If user has specified file name to save data, it is not temporary and is not deleted automatically.
+  string rfile = m_outputFile;
+  if (rfile.empty())
+  {
+    rfile = GetTmpFileName();
+    received_file_deleter.m_fileName = rfile;
+  }
+
+  cmd += "-o " + rfile + strings::to_string(" ") + "'" + m_urlRequested + "'";
+
+
+  if (m_debugMode)
+  {
+    LOG(LINFO, ("Executing", cmd));
+  }
+
+  try
+  {
+    m_errorCode = stoi(RunCurl(cmd));
+  }
+  catch (RootException const & ex)
+  {
+    LOG(LERROR, (ex.Msg()));
+    return false;
+  }
+
+  HeadersT const headers = ParseHeaders(ReadFileAsString(headers_deleter.m_fileName));
+  for (auto const & header : headers)
+  {
+    if (header.first == "Set-Cookie")
+    {
+      m_serverCookies += header.second + ", ";
+    }
+    else if (header.first == "Content-Type")
+    {
+      m_contentTypeReceived = header.second;
+    }
+    else if (header.first == "Content-Encoding")
+    {
+      m_contentEncodingReceived = header.second;
+    }
+    else if (header.first == "Location")
+    {
+      m_urlReceived = header.second;
+    }
+  }
+  m_serverCookies = NormalizeServerCookies(move(m_serverCookies));
+
+  if (m_urlReceived.empty())
+  {
+    m_urlReceived = m_urlRequested;
+    // Load body contents in final request only (skip redirects).
+    // Sometimes server can reply with empty body, and it's ok.
+    if (m_outputFile.empty())
+      m_serverResponse = ReadFileAsString(rfile);
+  }
+  else
+  {
+    // Handle HTTP redirect.
+    // TODO(AlexZ): Should we check HTTP redirect code here?
+    if (m_debugMode)
+      LOG(LINFO, ("HTTP redirect", m_errorCode, "to", m_urlReceived));
+
+    HttpClient redirect(m_urlReceived);
+    redirect.SetCookies(CombinedCookies());
+
+    if (!redirect.RunHttpRequest())
+    {
+      m_errorCode = -1;
+      return false;
+    }
+
+    m_errorCode = redirect.ErrorCode();
+    m_urlReceived = redirect.UrlReceived();
+    m_serverCookies = move(redirect.m_serverCookies);
+    m_serverResponse = move(redirect.m_serverResponse);
+    m_contentTypeReceived = move(redirect.m_contentTypeReceived);
+    m_contentEncodingReceived = move(redirect.m_contentEncodingReceived);
+  }
+
+  return true;
+}
+}  // namespace platform

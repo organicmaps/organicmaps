@@ -34,12 +34,6 @@ public:
     m_locationManager.desiredAccuracy = kCLLocationAccuracyBest;
   }
 
-  virtual ~AppleLocationService()
-  {
-    [m_locationManager release];
-    [m_objCppWrapper release];
-  }
-
   void OnLocationUpdate(GpsInfo const & info)
   {
     m_observer.OnLocationUpdated(info);

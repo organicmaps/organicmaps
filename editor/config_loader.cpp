@@ -9,12 +9,12 @@
 #include "std/fstream.hpp"
 #include "std/iterator.hpp"
 
-#include "3party/Alohalytics/src/http_client.h"
+#include "platform/http_client.hpp"
 #include "3party/pugixml/src/pugixml.hpp"
 
 namespace
 {
-using alohalytics::HTTPClientPlatformWrapper;
+using platform::HttpClient;
 
 auto const kConfigFileName = "editor.config";
 auto const kHashFileName = "editor.config.hash";
@@ -28,20 +28,20 @@ string GetHashFilePath() { return GetPlatform().WritablePathForFile(kHashFileNam
 
 string RunSimpleHttpRequest(string const & url)
 {
-  HTTPClientPlatformWrapper request(url);
+  HttpClient request(url);
   bool result = false;
   try
   {
-    result = request.RunHTTPRequest();
+    result = request.RunHttpRequest();
   }
   catch (runtime_error const & ex)
   {
-     LOG(LWARNING, ("Exception from HTTPClientPlatformWrapper::RunHTTPRequest, message: ", ex.what()));
+     LOG(LWARNING, ("Exception from HttpClient::RunHttpRequest, message: ", ex.what()));
   }
 
-  if (result && !request.was_redirected() && request.error_code() == 200)  // 200 - http status OK
+  if (result && !request.WasRedirected() && request.ErrorCode() == 200)  // 200 - http status OK
   {
-    return request.server_response();
+    return request.ServerResponse();
   }
 
   return {};

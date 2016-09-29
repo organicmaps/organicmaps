@@ -1,5 +1,7 @@
 #include "editor/osm_auth.hpp"
 
+#include "platform/http_client.hpp"
+
 #include "coding/url_encode.hpp"
 
 #include "base/assert.hpp"
@@ -12,9 +14,8 @@
 #include "private.h"
 
 #include "3party/liboauthcpp/include/liboauthcpp/liboauthcpp.h"
-#include "3party/Alohalytics/src/http_client.h"
 
-using alohalytics::HTTPClientPlatformWrapper;
+using platform::HttpClient;
 
 namespace osm
 {
@@ -52,18 +53,6 @@ string BuildPostRequest(map<string, string> const & params)
   }
   return result;
 }
-
-// TODO(AlexZ): DebugPrint doesn't detect this overload. Fix it.
-string DP(alohalytics::HTTPClientPlatformWrapper const & request)
-{
-  string str = "HTTP " + strings::to_string(request.error_code()) + " url [" + request.url_requested() + "]";
-  if (request.was_redirected())
-    str += " was redirected to [" + request.url_received() + "]";
-  if (!request.server_response().empty())
-    str += " response: " + request.server_response();
-  return str;
-}
-
 }  // namespace
 
 // static
@@ -132,28 +121,28 @@ bool OsmOAuth::IsAuthorized() const noexcept{ return IsValid(m_tokenKeySecret); 
 OsmOAuth::SessionID OsmOAuth::FetchSessionId(string const & subUrl) const
 {
   string const url = m_baseUrl + subUrl + "?cookie_test=true";
-  HTTPClientPlatformWrapper request(url);
-  if (!request.RunHTTPRequest())
+  HttpClient request(url);
+  if (!request.RunHttpRequest())
     MYTHROW(NetworkError, ("FetchSessionId Network error while connecting to", url));
-  if (request.was_redirected())
-    MYTHROW(UnexpectedRedirect, ("Redirected to", request.url_received(), "from", url));
-  if (request.error_code() != HTTP::OK)
-    MYTHROW(FetchSessionIdError, (DP(request)));
+  if (request.WasRedirected())
+    MYTHROW(UnexpectedRedirect, ("Redirected to", request.UrlReceived(), "from", url));
+  if (request.ErrorCode() != HTTP::OK)
+    MYTHROW(FetchSessionIdError, (DebugPrint(request)));
 
-  SessionID const sid = { request.combined_cookies(), FindAuthenticityToken(request.server_response()) };
+  SessionID const sid = { request.CombinedCookies(), FindAuthenticityToken(request.ServerResponse()) };
   if (sid.m_cookies.empty() || sid.m_token.empty())
-    MYTHROW(FetchSessionIdError, ("Cookies and/or token are empty for request", DP(request)));
+    MYTHROW(FetchSessionIdError, ("Cookies and/or token are empty for request", DebugPrint(request)));
   return sid;
 }
 
 void OsmOAuth::LogoutUser(SessionID const & sid) const
 {
-  HTTPClientPlatformWrapper request(m_baseUrl + "/logout");
-  request.set_cookies(sid.m_cookies);
-  if (!request.RunHTTPRequest())
-    MYTHROW(NetworkError, ("LogoutUser Network error while connecting to", request.url_requested()));
-  if (request.error_code() != HTTP::OK)
-    MYTHROW(LogoutUserError, (DP(request)));
+  HttpClient request(m_baseUrl + "/logout");
+  request.SetCookies(sid.m_cookies);
+  if (!request.RunHttpRequest())
+    MYTHROW(NetworkError, ("LogoutUser Network error while connecting to", request.UrlRequested()));
+  if (request.ErrorCode() != HTTP::OK)
+    MYTHROW(LogoutUserError, (DebugPrint(request)));
 }
 
 bool OsmOAuth::LoginUserPassword(string const & login, string const & password, SessionID const & sid) const
@@ -166,51 +155,51 @@ bool OsmOAuth::LoginUserPassword(string const & login, string const & password, 
     {"commit", "Login"},
     {"authenticity_token", sid.m_token}
   };
-  HTTPClientPlatformWrapper request(m_baseUrl + "/login");
-  request.set_body_data(BuildPostRequest(params), "application/x-www-form-urlencoded")
-         .set_cookies(sid.m_cookies)
-         .set_handle_redirects(false);
-  if (!request.RunHTTPRequest())
-    MYTHROW(NetworkError, ("LoginUserPassword Network error while connecting to", request.url_requested()));
+  HttpClient request(m_baseUrl + "/login");
+  request.SetBodyData(BuildPostRequest(params), "application/x-www-form-urlencoded")
+         .SetCookies(sid.m_cookies)
+         .SetHandleRedirects(false);
+  if (!request.RunHttpRequest())
+    MYTHROW(NetworkError, ("LoginUserPassword Network error while connecting to", request.UrlRequested()));
 
   // At the moment, automatic redirects handling is buggy on Androids < 4.4.
   // set_handle_redirects(false) works only for Android code, iOS one (and curl) still automatically follow all redirects.
-  if (request.error_code() != HTTP::OK && request.error_code() != HTTP::Found)
-    MYTHROW(LoginUserPasswordServerError, (DP(request)));
+  if (request.ErrorCode() != HTTP::OK && request.ErrorCode() != HTTP::Found)
+    MYTHROW(LoginUserPasswordServerError, (DebugPrint(request)));
 
   // Not redirected page is a 100% signal that login and/or password are invalid.
-  if (!request.was_redirected())
+  if (!request.WasRedirected())
     return false;
 
   // Check if we were redirected to some 3rd party site.
-  if (request.url_received().find(m_baseUrl) != 0)
-    MYTHROW(UnexpectedRedirect, (DP(request)));
+  if (request.UrlReceived().find(m_baseUrl) != 0)
+    MYTHROW(UnexpectedRedirect, (DebugPrint(request)));
 
   // m_baseUrl + "/login" means login and/or password are invalid.
-  return request.server_response().find("/login") == string::npos;
+  return request.ServerResponse().find("/login") == string::npos;
 }
 
 bool OsmOAuth::LoginSocial(string const & callbackPart, string const & socialToken, SessionID const & sid) const
 {
   string const url = m_baseUrl + callbackPart + socialToken;
-  HTTPClientPlatformWrapper request(url);
-  request.set_cookies(sid.m_cookies)
-         .set_handle_redirects(false);
-  if (!request.RunHTTPRequest())
-    MYTHROW(NetworkError, ("LoginSocial Network error while connecting to", request.url_requested()));
-  if (request.error_code() != HTTP::OK && request.error_code() != HTTP::Found)
-    MYTHROW(LoginSocialServerError, (DP(request)));
+  HttpClient request(url);
+  request.SetCookies(sid.m_cookies)
+         .SetHandleRedirects(false);
+  if (!request.RunHttpRequest())
+    MYTHROW(NetworkError, ("LoginSocial Network error while connecting to", request.UrlRequested()));
+  if (request.ErrorCode() != HTTP::OK && request.ErrorCode() != HTTP::Found)
+    MYTHROW(LoginSocialServerError, (DebugPrint(request)));
 
   // Not redirected page is a 100% signal that social login has failed.
-  if (!request.was_redirected())
+  if (!request.WasRedirected())
     return false;
 
   // Check if we were redirected to some 3rd party site.
-  if (request.url_received().find(m_baseUrl) != 0)
-    MYTHROW(UnexpectedRedirect, (DP(request)));
+  if (request.UrlReceived().find(m_baseUrl) != 0)
+    MYTHROW(UnexpectedRedirect, (DebugPrint(request)));
 
   // m_baseUrl + "/login" means login and/or password are invalid.
-  return request.server_response().find("/login") == string::npos;
+  return request.ServerResponse().find("/login") == string::npos;
 }
 
 // Fakes a buttons press to automatically accept requested permissions.
@@ -227,18 +216,18 @@ string OsmOAuth::SendAuthRequest(string const & requestTokenKey, SessionID const
     {"allow_write_notes", "yes"},
     {"commit", "Save changes"}
   };
-  HTTPClientPlatformWrapper request(m_baseUrl + "/oauth/authorize");
-  request.set_body_data(BuildPostRequest(params), "application/x-www-form-urlencoded")
-         .set_cookies(sid.m_cookies)
-         .set_handle_redirects(false);
-  if (!request.RunHTTPRequest())
-    MYTHROW(NetworkError, ("SendAuthRequest Network error while connecting to", request.url_requested()));
+  HttpClient request(m_baseUrl + "/oauth/authorize");
+  request.SetBodyData(BuildPostRequest(params), "application/x-www-form-urlencoded")
+         .SetCookies(sid.m_cookies)
+         .SetHandleRedirects(false);
+  if (!request.RunHttpRequest())
+    MYTHROW(NetworkError, ("SendAuthRequest Network error while connecting to", request.UrlRequested()));
 
-  string const callbackURL = request.url_received();
+  string const callbackURL = request.UrlReceived();
   string const vKey = "oauth_verifier=";
   auto const pos = callbackURL.find(vKey);
   if (pos == string::npos)
-    MYTHROW(SendAuthRequestError, ("oauth_verifier is not found", DP(request)));
+    MYTHROW(SendAuthRequestError, ("oauth_verifier is not found", DebugPrint(request)));
 
   auto const end = callbackURL.find("&", pos);
   return callbackURL.substr(pos + vKey.length(), end == string::npos ? end : end - pos - vKey.length());
@@ -250,16 +239,16 @@ TRequestToken OsmOAuth::FetchRequestToken() const
   OAuth::Client oauth(&consumer);
   string const requestTokenUrl = m_baseUrl + "/oauth/request_token";
   string const requestTokenQuery = oauth.getURLQueryString(OAuth::Http::Get, requestTokenUrl + "?oauth_callback=oob");
-  HTTPClientPlatformWrapper request(requestTokenUrl + "?" + requestTokenQuery);
-  if (!request.RunHTTPRequest())
-    MYTHROW(NetworkError, ("FetchRequestToken Network error while connecting to", request.url_requested()));
-  if (request.error_code() != HTTP::OK)
-    MYTHROW(FetchRequestTokenServerError, (DP(request)));
-  if (request.was_redirected())
-    MYTHROW(UnexpectedRedirect, ("Redirected to", request.url_received(), "from", request.url_requested()));
+  HttpClient request(requestTokenUrl + "?" + requestTokenQuery);
+  if (!request.RunHttpRequest())
+    MYTHROW(NetworkError, ("FetchRequestToken Network error while connecting to", request.UrlRequested()));
+  if (request.ErrorCode() != HTTP::OK)
+    MYTHROW(FetchRequestTokenServerError, (DebugPrint(request)));
+  if (request.WasRedirected())
+    MYTHROW(UnexpectedRedirect, ("Redirected to", request.UrlReceived(), "from", request.UrlRequested()));
 
   // Throws std::runtime_error.
-  OAuth::Token const reqToken = OAuth::Token::extract(request.server_response());
+  OAuth::Token const reqToken = OAuth::Token::extract(request.ServerResponse());
   return { reqToken.key(), reqToken.secret() };
 }
 
@@ -270,15 +259,15 @@ TKeySecret OsmOAuth::FinishAuthorization(TRequestToken const & requestToken, str
   OAuth::Client oauth(&consumer, &reqToken);
   string const accessTokenUrl = m_baseUrl + "/oauth/access_token";
   string const queryString = oauth.getURLQueryString(OAuth::Http::Get, accessTokenUrl, "", true);
-  HTTPClientPlatformWrapper request(accessTokenUrl + "?" + queryString);
-  if (!request.RunHTTPRequest())
-    MYTHROW(NetworkError, ("FinishAuthorization Network error while connecting to", request.url_requested()));
-  if (request.error_code() != HTTP::OK)
-    MYTHROW(FinishAuthorizationServerError, (DP(request)));
-  if (request.was_redirected())
-    MYTHROW(UnexpectedRedirect, ("Redirected to", request.url_received(), "from", request.url_requested()));
+  HttpClient request(accessTokenUrl + "?" + queryString);
+  if (!request.RunHttpRequest())
+    MYTHROW(NetworkError, ("FinishAuthorization Network error while connecting to", request.UrlRequested()));
+  if (request.ErrorCode() != HTTP::OK)
+    MYTHROW(FinishAuthorizationServerError, (DebugPrint(request)));
+  if (request.WasRedirected())
+    MYTHROW(UnexpectedRedirect, ("Redirected to", request.UrlReceived(), "from", request.UrlRequested()));
 
-  OAuth::KeyValuePairs const responseData = OAuth::ParseKeyValuePairs(request.server_response());
+  OAuth::KeyValuePairs const responseData = OAuth::ParseKeyValuePairs(request.ServerResponse());
   // Throws std::runtime_error.
   OAuth::Token const accessToken = OAuth::Token::extract(responseData);
   return { accessToken.key(), accessToken.secret() };
@@ -350,16 +339,16 @@ bool OsmOAuth::ResetPassword(string const & email) const
     {"authenticity_token", sid.m_token},
     {"commit", "Reset password"}
   };
-  HTTPClientPlatformWrapper request(m_baseUrl + kForgotPasswordUrlPart);
-  request.set_body_data(BuildPostRequest(params), "application/x-www-form-urlencoded");
-  request.set_cookies(sid.m_cookies);
+  HttpClient request(m_baseUrl + kForgotPasswordUrlPart);
+  request.SetBodyData(BuildPostRequest(params), "application/x-www-form-urlencoded");
+  request.SetCookies(sid.m_cookies);
 
-  if (!request.RunHTTPRequest())
-    MYTHROW(NetworkError, ("ResetPassword Network error while connecting to", request.url_requested()));
-  if (request.error_code() != HTTP::OK)
-    MYTHROW(ResetPasswordServerError, (DP(request)));
+  if (!request.RunHttpRequest())
+    MYTHROW(NetworkError, ("ResetPassword Network error while connecting to", request.UrlRequested()));
+  if (request.ErrorCode() != HTTP::OK)
+    MYTHROW(ResetPasswordServerError, (DebugPrint(request)));
 
-  if (request.was_redirected() && request.url_received().find(m_baseUrl) != string::npos)
+  if (request.WasRedirected() && request.UrlReceived().find(m_baseUrl) != string::npos)
     return true;
   return false;
 }
@@ -391,27 +380,27 @@ OsmOAuth::Response OsmOAuth::Request(string const & method, string const & httpM
   if (qPos != string::npos)
     url = url.substr(0, qPos);
 
-  HTTPClientPlatformWrapper request(url + "?" + query);
+  HttpClient request(url + "?" + query);
   if (httpMethod != "GET")
-    request.set_body_data(body, "application/xml", httpMethod);
-  if (!request.RunHTTPRequest())
+    request.SetBodyData(body, "application/xml", httpMethod);
+  if (!request.RunHttpRequest())
     MYTHROW(NetworkError, ("Request Network error while connecting to", url));
-  if (request.was_redirected())
-    MYTHROW(UnexpectedRedirect, ("Redirected to", request.url_received(), "from", url));
+  if (request.WasRedirected())
+    MYTHROW(UnexpectedRedirect, ("Redirected to", request.UrlReceived(), "from", url));
 
-  return Response(request.error_code(), request.server_response());
+  return Response(request.ErrorCode(), request.ServerResponse());
 }
 
 OsmOAuth::Response OsmOAuth::DirectRequest(string const & method, bool api) const
 {
   string const url = api ? m_apiUrl + kApiVersion + method : m_baseUrl + method;
-  HTTPClientPlatformWrapper request(url);
-  if (!request.RunHTTPRequest())
+  HttpClient request(url);
+  if (!request.RunHttpRequest())
     MYTHROW(NetworkError, ("DirectRequest Network error while connecting to", url));
-  if (request.was_redirected())
-    MYTHROW(UnexpectedRedirect, ("Redirected to", request.url_received(), "from", url));
+  if (request.WasRedirected())
+    MYTHROW(UnexpectedRedirect, ("Redirected to", request.UrlReceived(), "from", url));
 
-  return Response(request.error_code(), request.server_response());
+  return Response(request.ErrorCode(), request.ServerResponse());
 }
 
 string DebugPrint(OsmOAuth::Response const & code)

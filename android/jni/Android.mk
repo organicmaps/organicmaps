@@ -61,48 +61,51 @@ TARGET_PLATFORM := android-15
 LOCAL_HEADER_FILES := \
 	../../private.h \
 	com/mapswithme/core/jni_helper.hpp \
-	com/mapswithme/core/ScopedLocalRef.hpp \
 	com/mapswithme/core/logging.hpp \
+	com/mapswithme/core/ScopedEnv.hpp \
+	com/mapswithme/core/ScopedLocalRef.hpp \
 	com/mapswithme/maps/Framework.hpp \
-	com/mapswithme/platform/Platform.hpp \
 	com/mapswithme/opengl/android_gl_utils.hpp \
 	com/mapswithme/opengl/androidoglcontext.hpp \
 	com/mapswithme/opengl/androidoglcontextfactory.hpp \
+	com/mapswithme/platform/Platform.hpp \
 
 LOCAL_SRC_FILES := \
 	com/mapswithme/core/jni_helper.cpp \
 	com/mapswithme/core/logging.cpp \
-	com/mapswithme/maps/DisplayedCategories.cpp \
-	com/mapswithme/maps/Framework.cpp \
 	com/mapswithme/maps/bookmarks/data/Bookmark.cpp \
 	com/mapswithme/maps/bookmarks/data/BookmarkManager.cpp \
 	com/mapswithme/maps/bookmarks/data/BookmarkCategory.cpp \
-	com/mapswithme/maps/sound/tts.cpp \
-	com/mapswithme/maps/MapFragment.cpp \
-	com/mapswithme/maps/MwmApplication.cpp \
+	com/mapswithme/maps/DisplayedCategories.cpp \
+	com/mapswithme/maps/DownloadResourcesActivity.cpp \
+	com/mapswithme/maps/editor/OpeningHours.cpp \
+	com/mapswithme/maps/editor/Editor.cpp \
+	com/mapswithme/maps/editor/OsmOAuth.cpp \
+	com/mapswithme/maps/Framework.cpp \
 	com/mapswithme/maps/LocationState.cpp \
 	com/mapswithme/maps/LocationHelper.cpp \
-	com/mapswithme/maps/TrackRecorder.cpp \
+	com/mapswithme/maps/MapFragment.cpp \
 	com/mapswithme/maps/MapManager.cpp \
-	com/mapswithme/maps/DownloadResourcesActivity.cpp \
+	com/mapswithme/maps/MwmApplication.cpp \
 	com/mapswithme/maps/PrivateVariables.cpp \
 	com/mapswithme/maps/SearchEngine.cpp \
 	com/mapswithme/maps/SearchRecents.cpp \
-	com/mapswithme/maps/UserMarkHelper.cpp \
-	com/mapswithme/maps/SponsoredHotel.cpp \
 	com/mapswithme/maps/settings/UnitLocale.cpp \
-	com/mapswithme/platform/Platform.cpp \
-	com/mapswithme/platform/HttpThread.cpp \
-	com/mapswithme/platform/Language.cpp \
-	com/mapswithme/platform/PThreadImpl.cpp \
-	com/mapswithme/util/StringUtils.cpp \
-	com/mapswithme/util/Config.cpp \
+	com/mapswithme/maps/sound/tts.cpp \
+	com/mapswithme/maps/SponsoredHotel.cpp \
+	com/mapswithme/maps/TrackRecorder.cpp \
+	com/mapswithme/maps/UserMarkHelper.cpp \
 	com/mapswithme/opengl/android_gl_utils.cpp \
 	com/mapswithme/opengl/androidoglcontext.cpp \
 	com/mapswithme/opengl/androidoglcontextfactory.cpp \
-	com/mapswithme/maps/editor/OpeningHours.cpp \
-	com/mapswithme/maps/editor/Editor.cpp \
-	com/mapswithme/maps/editor/OsmOAuth.cpp
+	com/mapswithme/platform/HttpThread.cpp \
+	com/mapswithme/platform/Language.cpp \
+	com/mapswithme/platform/Platform.cpp \
+	com/mapswithme/platform/PThreadImpl.cpp \
+	com/mapswithme/util/Config.cpp \
+	com/mapswithme/util/HttpClient.cpp \
+	com/mapswithme/util/StringUtils.cpp \
+
 
 LOCAL_LDLIBS := -llog -landroid -lEGL -lGLESv2 -latomic -lz
 
