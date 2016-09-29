@@ -4,9 +4,6 @@ project(omim C CXX)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-# Add third-party subdirectories
-
-
 # Find installed packages
 
 find_package(Threads)
@@ -26,7 +23,7 @@ if (LIBZ STREQUAL "LIBZ-NOTFOUND")
 endif()
 
 
-get_filename_component(PROJECT_SOURCE_DIR . ABSOLUTE)
+get_filename_component(OMIM_DIR . ABSOLUTE)
 
 include_directories(
     ${CMAKE_HOME_DIRECTORY}
@@ -94,22 +91,17 @@ omim_set_platform_var(PL_LINUX "linux-.*" ${LINUX_DETECTED})
 
 # Functions for using in subdirectories
 
-function(omim_add_library library)
-    add_library(${library} ${ARGN})
-endfunction()
-
-
-function(omim_add_executable executable)
-    add_executable(${executable} ${ARGN})
-endfunction()
-
-
 function(omim_add_test executable)
     if (NOT ${NO_TESTS})
-        omim_add_executable(${executable} ${PROJECT_SOURCE_DIR}/testing/testingmain.cpp ${ARGN})
+        add_executable(${executable} ${OMIM_DIR}/testing/testingmain.cpp ${ARGN})
     endif()
 endfunction()
 
+function(omim_add_test_subdirectory subdir)
+    if (NOT ${NO_TESTS})
+        add_subdirectory(${subdir})
+    endif()
+endfunction()
 
 function(omim_link_libraries target)
     if (TARGET ${target})
@@ -122,10 +114,10 @@ endfunction()
 # End of functions for subdirectories
 
 # Include subdirectories
+add_subdirectory(3party/jansson)
 add_subdirectory(3party/minizip)
 add_subdirectory(3party/succinct)
 add_subdirectory(3party/tomcrypt)
-add_subdirectory(3party/jansson)
 
 add_compile_options(
     "-Wall"
@@ -137,4 +129,5 @@ add_subdirectory(coding)
 #add_subdirectory(editor)
 add_subdirectory(geometry)
 add_subdirectory(platform)
+add_subdirectory(3party/opening_hours)
 #add_subdirectory(storage)

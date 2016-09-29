@@ -77,6 +77,6 @@ set(
     internal/message.cpp
 )
 
-omim_add_library(base ${SRC})
+add_library(base ${SRC})
 
-add_subdirectory(base_tests)
+omim_add_test_subdirectory(base_tests)

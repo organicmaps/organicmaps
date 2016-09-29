@@ -1,4 +1,4 @@
-include_directories(${PROJECT_SOURCE_DIR}/3party/tomcrypt/src/headers  ${PROJECT_SOURCE_DIR}/coding)
+include_directories(${OMIM_DIR}/3party/tomcrypt/src/headers  ${OMIM_DIR}/coding)
 
 set(
     SRC
@@ -80,6 +80,6 @@ set(
     zip_reader.hpp
 )
 
-omim_add_library(coding ${SRC})
+add_library(coding ${SRC})
 
-add_subdirectory(coding_tests)
+omim_add_test_subdirectory(coding_tests)

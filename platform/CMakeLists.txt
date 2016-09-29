@@ -1,4 +1,4 @@
-include_directories(${CMAKE_HOME_DIRECTORY}/3party/jansson/src ${PROJECT_SOURCE_DIR}/platform)
+include_directories(${CMAKE_HOME_DIRECTORY}/3party/jansson/src ${OMIM_DIR}/platform)
 
 set(
     SRC
@@ -103,6 +103,6 @@ endif()
 
 add_subdirectory(platform_tests_support)
 
-omim_add_library(platform ${SRC})
+add_library(platform ${SRC})
 
-add_subdirectory(platform_tests)
+omim_add_test_subdirectory(platform_tests)
