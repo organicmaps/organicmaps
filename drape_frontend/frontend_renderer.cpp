@@ -1455,7 +1455,7 @@ void FrontendRenderer::OnTouchMapAction()
 bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport, m2::RectD const & newViewport, m2::PointD & gOffset)
 {
   gOffset = m2::PointD(0, 0);
-  if (m_myPositionController->IsModeChangeViewport() || m_selectionShape == nullptr)
+  if (m_myPositionController->IsModeChangeViewport() || m_selectionShape == nullptr || oldViewport == newViewport)
     return false;
 
   ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
@@ -1487,8 +1487,8 @@ bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport, m2::R
         pOffset.y = newViewport.maxY() - rect.maxY() - kOffset;
 
       gOffset = screen.PtoG(screen.P3dtoP(pos + pOffset)) - screen.PtoG(screen.P3dtoP(pos));
+      return true;
     }
-    return true;
   }
   return false;
 }
