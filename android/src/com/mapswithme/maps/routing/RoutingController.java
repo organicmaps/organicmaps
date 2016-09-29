@@ -92,6 +92,7 @@ public class RoutingController
   private boolean mContainsCachedResult;
   private int mLastResultCode;
   private String[] mLastMissingMaps;
+  @Nullable
   private RoutingInfo mCachedRoutingInfo;
 
   @SuppressWarnings("FieldCanBeLocal")
@@ -525,6 +526,7 @@ public class RoutingController
     return mEndPoint;
   }
 
+  @Nullable
   RoutingInfo getCachedRoutingInfo()
   {
     return mCachedRoutingInfo;

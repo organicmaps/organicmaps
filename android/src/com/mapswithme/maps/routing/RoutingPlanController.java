@@ -178,11 +178,24 @@ public class RoutingPlanController extends ToolbarController
 
   private void showAltitudeChartAndRoutingDetails()
   {
+    UiUtils.show(mAltitudeChartFrame);
+    mAltitudeChartShown = true;
+    showRoutingDetails();
+  }
+
+  private void showRoutingDetails()
+  {
     final View numbersFrame = mAltitudeChartFrame.findViewById(R.id.numbers);
+    final RoutingInfo rinfo = RoutingController.get().getCachedRoutingInfo();
+    if (rinfo == null)
+    {
+      UiUtils.hide(numbersFrame);
+      return;
+    }
+
     TextView numbersTime = (TextView) numbersFrame.findViewById(R.id.time);
     TextView numbersDistance = (TextView) numbersFrame.findViewById(R.id.distance);
     TextView numbersArrival = (TextView) numbersFrame.findViewById(R.id.arrival);
-    RoutingInfo rinfo = RoutingController.get().getCachedRoutingInfo();
     numbersTime.setText(RoutingController.formatRoutingTime(mFrame.getContext(), rinfo.totalTimeInSeconds,
                                                             R.dimen.text_size_routing_number));
     numbersDistance.setText(rinfo.distToTarget + " " + rinfo.targetUnits);
@@ -192,11 +205,8 @@ public class RoutingPlanController extends ToolbarController
       String arrivalTime = RoutingController.formatArrivalTime(rinfo.totalTimeInSeconds);
       numbersArrival.setText(arrivalTime);
     }
-
-    UiUtils.show(mAltitudeChartFrame);
-    mAltitudeChartShown = true;
   }
-  
+
   private void hideAltitudeChartAndRoutingDetails()
   {
     if (UiUtils.isHidden(mAltitudeChartFrame))
