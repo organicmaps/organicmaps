@@ -3,6 +3,7 @@ package com.mapswithme.util.statistics;
 import android.app.Activity;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
 
 import com.mapswithme.maps.MwmApplication;
@@ -39,7 +40,7 @@ public final class MytargetHelper
   public interface Listener<T>
   {
     void onNoAds();
-    void onDataReady(T data);
+    void onDataReady(@Nullable T data);
   }
 
   static

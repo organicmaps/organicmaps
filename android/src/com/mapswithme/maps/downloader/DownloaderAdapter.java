@@ -52,9 +52,10 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 {
   private static final String HEADER_ADVERTISMENT_TITLE = "MY.COM";
   private static final int HEADER_ADVERTISMENT_ID = CountryItem.CATEGORY__LAST + 1;
+  private static final int HEADER_ADS_OFFSET = 10;
 
-  private static final int KIND_COUNTRY = 0;
-  private static final int KIND_ADVERTISMENT = 1;
+  private static final int TYPE_COUNTRY = 0;
+  private static final int TYPE_ADVERTISMENT = 1;
 
   private final RecyclerView mRecycler;
   private final Activity mActivity;
@@ -77,6 +78,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   private int mNearMeCount;
 
   private int mListenerSlot;
+  @Nullable
   private MytargetHelper mMytargetHelper;
 
   private enum MenuItem
@@ -264,8 +266,8 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
       for (int i = first; i <= last; i++)
       {
-        ViewHolderWrapper vh = (ViewHolderWrapper)mRecycler.findViewHolderForAdapterPosition(i);
-        if (vh != null && vh.mKind == KIND_COUNTRY && ((CountryItem)vh.mHolder.mItem).id.equals(countryId))
+        ViewHolderWrapper vh = (ViewHolderWrapper) mRecycler.findViewHolderForAdapterPosition(i);
+        if (vh != null && vh.mKind == TYPE_COUNTRY && ((CountryItem) vh.mHolder.mItem).id.equals(countryId))
           vh.mHolder.rebind();
       }
     }
@@ -302,21 +304,22 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
   private View createViewHolderFrame(ViewGroup parent, int kind)
   {
-    return inflate(parent, (kind == KIND_ADVERTISMENT ? R.layout.downloader_item_ad
+    return inflate(parent, (kind == TYPE_ADVERTISMENT ? R.layout.downloader_item_ad
                                                       : R.layout.downloader_item));
   }
 
   class ViewHolderWrapper extends RecyclerView.ViewHolder
   {
     private final int mKind;
+    @NonNull
     private final BaseInnerViewHolder mHolder;
 
-    ViewHolderWrapper(ViewGroup parent, int kind)
+    ViewHolderWrapper(@NonNull ViewGroup parent, int kind)
     {
       super(createViewHolderFrame(parent, kind));
 
       mKind = kind;
-      mHolder = (kind == KIND_ADVERTISMENT) ? new AdViewHolder(itemView)
+      mHolder = (kind == TYPE_ADVERTISMENT) ? new AdViewHolder(itemView)
                                             : new ItemViewHolder(itemView);
     }
 
@@ -324,7 +327,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     void bind(int position)
     {
       int kind = DownloaderAdapter.this.getItemViewType(position);
-      if (kind == KIND_ADVERTISMENT)
+      if (kind == TYPE_ADVERTISMENT)
       {
         mHolder.bind(mAds.get(position - mNearMeCount));
         return;
@@ -597,9 +600,10 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
   class HeaderViewHolder extends RecyclerView.ViewHolder
   {
+    @NonNull
     private final TextView mTitle;
 
-    HeaderViewHolder(View frame)
+    HeaderViewHolder(@NonNull View frame)
     {
       super(frame);
       mTitle = (TextView) frame.findViewById(R.id.title);
@@ -614,7 +618,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     }
   }
 
-  class AdViewHolder extends BaseInnerViewHolder<NativeAppwallBanner>
+  private class AdViewHolder extends BaseInnerViewHolder<NativeAppwallBanner>
   {
     private final ImageView mIcon;
     private final TextView mTitle;
@@ -622,13 +626,15 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
     private NativeAppwallBanner mData;
 
+    @NonNull
     private final View.OnClickListener mClickListener = new View.OnClickListener()
     {
       @Override
       public void onClick(View v)
       {
         if (mData != null)
-          mMytargetHelper.onBannerClick(mData);
+          if (mMytargetHelper != null)
+            mMytargetHelper.onBannerClick(mData);
       }
     };
 
@@ -688,7 +694,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
       default:
         int prevHeader = headerId;
-        headerId = CountryItem.CATEGORY_AVAILABLE * 10 + ci.name.charAt(0);
+        headerId = CountryItem.CATEGORY_AVAILABLE * HEADER_ADS_OFFSET + ci.name.charAt(0);
 
         if (headerId != prevHeader)
           mHeaders.put(headerId, ci.name.substring(0, 1).toUpperCase());
@@ -771,6 +777,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     mRecycler.addItemDecoration(mHeadersDecoration);
   }
 
+  @NonNull
   private View inflate(ViewGroup parent, @LayoutRes int layoutId)
   {
     return LayoutInflater.from(mActivity).inflate(layoutId, parent, false);
@@ -780,12 +787,12 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   public int getItemViewType(int position)
   {
     if (position < mNearMeCount)
-      return KIND_COUNTRY;
+      return TYPE_COUNTRY;
 
     if (position < mNearMeCount + getAdsCount())
-      return KIND_ADVERTISMENT;
+      return TYPE_ADVERTISMENT;
 
-    return KIND_COUNTRY;
+    return TYPE_COUNTRY;
   }
 
   @Override
@@ -976,8 +983,9 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       }
 
       @Override
-      public void onDataReady(Void data)
+      public void onDataReady(@Nullable Void data)
       {
+        //noinspection ConstantConditions
         mMytargetHelper.loadShowcase(new MytargetHelper.Listener<List<NativeAppwallBanner>>()
         {
           @Override
@@ -987,7 +995,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
           }
 
           @Override
-          public void onDataReady(List<NativeAppwallBanner> banners)
+          public void onDataReady(@Nullable List<NativeAppwallBanner> banners)
           {
             mAdsLoading = false;
             mAdsLoaded = true;
@@ -995,9 +1003,10 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
             int oldSize = mAds.size();
             mAds.clear();
 
-            for (NativeAppwallBanner banner: banners)
-              if (!banner.isAppInstalled())
-                mAds.add(banner);
+            if (banners != null)
+              for (NativeAppwallBanner banner: banners)
+                if (!banner.isAppInstalled())
+                  mAds.add(banner);
 
             mHeadersDecoration.invalidateHeaders();
             if (oldSize == 0)
