@@ -2,14 +2,13 @@
 
 #include "std/cstdint.hpp"
 
-#if defined(DEBUG) || defined(_DEBUG) || defined(NRELEASE) || defined(QT_DEBUG)
+#if defined(DEBUG) || defined(_DEBUG) || defined(NRELEASE)
 #define MY_DEBUG_DEFINED 1
 #else
 #define MY_DEBUG_DEFINED 0
 #endif
 
-#if defined(RELEASE) || defined(_RELEASE) || defined(NDEBUG) || defined(_NDEBUG) || \
-    defined(QT_NO_DEBUG)
+#if defined(RELEASE) || defined(_RELEASE) || defined(NDEBUG) || defined(_NDEBUG)
 #define MY_RELEASE_DEFINED 1
 #else
 #define MY_RELEASE_DEFINED 0

@@ -4,7 +4,6 @@ project(succinct C CXX)
 
 add_compile_options(
     "-Wall"
-    "-pedantic"
     "-std=c++11"
 )
 

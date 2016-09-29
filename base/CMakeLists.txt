@@ -1,5 +1,3 @@
-add_subdirectory(base_tests)
-
 set(
     SRC
     SRC_FIRST.hpp
@@ -80,3 +78,5 @@ set(
 )
 
 omim_add_library(base ${SRC})
+
+add_subdirectory(base_tests)
