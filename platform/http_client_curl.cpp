@@ -116,7 +116,7 @@ typedef vector<pair<string, string>> Headers;
 Headers ParseHeaders(string const & raw)
 {
   istringstream stream(raw);
-  HeadersT headers;
+  Headers headers;
   string line;
   while (getline(stream, line))
   {
@@ -213,7 +213,7 @@ bool HttpClient::RunHttpRequest()
     return false;
   }
 
-  HeadersT const headers = ParseHeaders(ReadFileAsString(headers_deleter.m_fileName));
+  Headers const headers = ParseHeaders(ReadFileAsString(headers_deleter.m_fileName));
   for (auto const & header : headers)
   {
     if (header.first == "Set-Cookie")
