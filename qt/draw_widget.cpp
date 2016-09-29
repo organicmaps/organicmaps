@@ -364,6 +364,7 @@ void DrawWidget::resizeGL(int width, int height)
   float w = m_ratio * width;
   float h = m_ratio * height;
   m_framework->OnSize(w, h);
+  m_framework->SetVisibleViewport(m2::RectD(0, 0, w, h));
   if (m_skin)
   {
     m_skin->Resize(w, h);
