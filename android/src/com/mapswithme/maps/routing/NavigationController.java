@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Pair;
 import android.view.View;
@@ -31,6 +33,8 @@ import com.mapswithme.util.statistics.Statistics;
 
 public class NavigationController
 {
+  private static final String STATE_SHOW_TIME_LEFT = "ShowTimeLeft";
+
   private final View mFrame;
   private final View mBottomFrame;
   private final NavMenu mNavMenu;
@@ -281,4 +285,15 @@ public class NavigationController
   {
     return mNavMenu;
   }
+
+  public void onSaveState(@NonNull Bundle outState)
+  {
+    outState.putBoolean(STATE_SHOW_TIME_LEFT, mShowTimeLeft);
+  }
+
+  public void onRestoreState(@NonNull Bundle savedInstanceState)
+  {
+    mShowTimeLeft = savedInstanceState.getBoolean(STATE_SHOW_TIME_LEFT);
+  }
+
 }
