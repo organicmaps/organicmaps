@@ -16,8 +16,10 @@
 #
 # BNF:
 # <category>           ::= <category_title> '\n' <category_item_list> '\n'
-# <category_title>     ::= <osm_type> '|' <group_title>
+# <category_title>     ::= <osm_type_list> '|' <group_title_list>
 # <group_translations> ::= <group_title> '\n' <category_item_list>
+# <osm_type_list>      ::= <osm_type> ['|' <osm_type_list>]
+# <group_title_list>   ::= <group_title> ['|' <group_title_list>]
 # <group_title>        ::= '@' <group_name>
 # <category_item_list> ::= <category_item> '\n' [category_item_list]
 # <category_item>      ::= <lang> ':' <translation_list>
@@ -5444,7 +5446,7 @@ id:3^Internet
 ro:3^Internet
 nb:3^Internet
 fi:3^Internet
-sw:^intaneti
+sw:^Intaneti
 
 natural-beach
 en:Beach|U+1F459
@@ -6108,13 +6110,13 @@ nl:^Dierentuin
 pl:^Ogród zoologiczny
 pt:^Jardim zoológico
 ro:^Grădină zoologică
-sk:^zoologická záhrada
+sk:^Zoologická záhrada
 sv:^Zoo
 sw:^Zoo
 th:^สวนสัตว์
 tr:^Hayvanat bahçesi
 uk:^Зоопарк
-vi:^vườn bách thú
+vi:^Vườn bách thú
 zh-Hans:^动物园
 zh-Hant:^動物園
 

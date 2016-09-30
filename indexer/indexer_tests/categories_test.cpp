@@ -119,15 +119,14 @@ UNIT_TEST(CategoriesHolder_Smoke)
   }
 }
 
-UNIT_TEST(CategoriesHolder_ReadableNameSmoke)
+UNIT_TEST(CategoriesHolder_DisplayedNameSmoke)
 {
   classificator::Load();
 
   auto const & categoriesHolder = GetDefaultCategories();
   auto const & groupTranslations = categoriesHolder.GetGroupTranslations();
 
-  categoriesHolder.ForEachCategory([](CategoriesHolder::Category const & cat)
-  {
+  categoriesHolder.ForEachCategory([](CategoriesHolder::Category const & cat) {
     for (auto const & synonym : cat.m_synonyms)
     {
       TEST_NOT_EQUAL(synonym.m_name[0], '^', ("symbol ^ is used incorrectly in categories.txt "
@@ -145,7 +144,7 @@ UNIT_TEST(CategoriesHolder_ReadableNameSmoke)
   }
 }
 
-UNIT_TEST(CategoriesHolder_ReadableName)
+UNIT_TEST(CategoriesHolder_DisplayedName)
 {
   char const kCategories[] =
       "@shop\n"
@@ -176,20 +175,18 @@ UNIT_TEST(CategoriesHolder_ReadableName)
       "";
 
   classificator::Load();
-  CategoriesHolder holder(make_unique<MemReader>(kCategories, sizeof(kCategories) - 1));
+  CategoriesHolder holder(make_unique<MemReader>(kCategories, ARRAY_SIZE(kCategories) - 1));
 
-  size_t count = 0;
-  holder.ForEachCategory([&count](CategoriesHolder::Category const & cat)
-  {
-    if (count == 0)
+  holder.ForEachTypeAndCategory([](uint32_t const type, CategoriesHolder::Category const & cat) {
+    auto const readableTypeName = classif().GetReadableObjectName(type);
+    if (readableTypeName == "shop")
     {
       TEST_EQUAL(cat.m_synonyms.size(), 3, ());
       TEST_EQUAL(cat.m_synonyms[0].m_name, "Mагазин", ());
       TEST_EQUAL(cat.m_synonyms[1].m_name, "Shop", ());
       TEST_EQUAL(cat.m_synonyms[2].m_name, "market", ());
     }
-
-    if (count == 1)
+    else if (readableTypeName == "shop-alcohol")
     {
       TEST_EQUAL(cat.m_synonyms.size(), 4, ());
       TEST_EQUAL(cat.m_synonyms[0].m_name, "Alcostore", ());
@@ -197,16 +194,14 @@ UNIT_TEST(CategoriesHolder_ReadableName)
       TEST_EQUAL(cat.m_synonyms[2].m_name, "Shop", ());
       TEST_EQUAL(cat.m_synonyms[3].m_name, "Liquor Store", ());
     }
-
-    if (count == 2)
+    else if (readableTypeName == "shop-bakery")
     {
       TEST_EQUAL(cat.m_synonyms.size(), 3, ());
       TEST_EQUAL(cat.m_synonyms[0].m_name, "buns", ());
       TEST_EQUAL(cat.m_synonyms[1].m_name, "Mагазин", ());
       TEST_EQUAL(cat.m_synonyms[2].m_name, "Shop", ());
     }
-
-    if (count == 3)
+    else if (readableTypeName == "shop-butcher")
     {
       TEST_EQUAL(cat.m_synonyms.size(), 9, ());
       TEST_EQUAL(cat.m_synonyms[0].m_name, "Мясная лавка", ());
@@ -219,7 +214,10 @@ UNIT_TEST(CategoriesHolder_ReadableName)
       TEST_EQUAL(cat.m_synonyms[7].m_name, "Geschäft", ());
       TEST_EQUAL(cat.m_synonyms[8].m_name, "Laden", ());
     }
-    ++count;
+    else
+    {
+      TEST(false, ("Unexpected group name:", readableTypeName));
+    }
   });
 }
 

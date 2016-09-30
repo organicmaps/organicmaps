@@ -19,7 +19,7 @@ enum State
 
 void ProcessSynonym(CategoriesHolder::Category::Name const & name,
                     deque<CategoriesHolder::Category::Name> & synonyms)
-{  
+{
   if (name.m_name[0] != '^')
   {
     synonyms.push_back(name);
@@ -47,7 +47,7 @@ void GroupTranslationsToSynonyms(vector<string> const & groups,
 
 void TrimGroupTranslations(CategoriesHolder::GroupTranslations & translations)
 {
-  for(auto & translation : translations)
+  for (auto & translation : translations)
   {
     for (auto & synonym : translation.second)
     {
