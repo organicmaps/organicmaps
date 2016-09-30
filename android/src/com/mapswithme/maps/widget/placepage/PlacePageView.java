@@ -220,8 +220,7 @@ public class PlacePageView extends RelativeLayout
     HIDDEN,
     PREVIEW,
     DETAILS,
-    FULLSCREEN,
-    SCROLL
+    FULLSCREEN
   }
 
   public PlacePageView(Context context)
@@ -817,8 +816,8 @@ public class PlacePageView extends RelativeLayout
         break;
     }
 
-    if (!isDocked() && !isFloating())
-      mAnimationController.initPreviewState();
+//    if (!isDocked() && !isFloating())
+//      mAnimationController.initPreviewState();
 
     UiThread.runLater(new Runnable()
     {
@@ -1324,8 +1323,7 @@ public class PlacePageView extends RelativeLayout
       return false;
 
     if (getState() == State.DETAILS
-        || getState() == State.FULLSCREEN
-        || getState() == State.SCROLL)
+        || getState() == State.FULLSCREEN)
     {
       hide();
       return true;
