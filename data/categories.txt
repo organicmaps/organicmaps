@@ -1,4 +1,37 @@
 # Category groups referenced in many categories, should be defined before being referenced.
+#
+# Syntax:
+# @   - string that starts with this symbol indicates the beginning of the group translations 
+#       which are used for the search.
+# :   - symbol that is used to separate the name of the language and translation (or group of translated synonyms). 
+#       Language name is located on the left side of ':', and the translation on the right.
+# |   - symbol that is used to separate several translated synonyms.
+# 1-9 - digits in front of a word indicate the number of symbols than need to be typed in a search query to make 
+#       this word appear in the list of suggestions. Located immediately after the separating characters ':' or '|'. 
+#       Acceptable use only one digit for one word.
+# ^   - symbol that indicates that the translation should be used in the user interface to identify the category in 
+#       PP and editor. If not specified, the first name in the synonym list is used. Located either immediately 
+#       after the separating characters ':', '|' or after a digit if one is present.    
+# Each category must end with an empty line.
+#
+# BNF:
+# <category>           ::= <category_title> '\n' <category_item_list> '\n'
+# <category_title>     ::= <osm_type_list> '|' <group_title_list>
+# <group_translations> ::= <group_title> '\n' <category_item_list>
+# <osm_type_list>      ::= <osm_type> ['|' <osm_type_list>]
+# <group_title_list>   ::= <group_title> ['|' <group_title_list>]
+# <group_title>        ::= '@' <group_name>
+# <category_item_list> ::= <category_item> '\n' [category_item_list]
+# <category_item>      ::= <lang> ':' <translation_list>
+# <translation_list>   ::= <translation_item> ['|' <translation_list>]
+# <translation_item>   ::= [prefix_length] [ux_identifier] <translation>
+# <prefix_length>      ::= '1'|'2'|'3'|'4'|'5'|'6'|'7'|'8'|'9'
+# <ux_identifier>      ::= '^'
+# <osm_type>           ::= OpenStreetMap object type
+# <group_name>         ::= any name of group
+# <translation>        ::= translation into corresponding language
+# <lang>               ::= 'en'|'cs'|'sk'|'de'|'es'|'fr'|'it'|'ja' etc. 
+#
 @food
 en:Food
 cs:Jídlo
@@ -61,9 +94,9 @@ fi:Liikenne
 
 @fuel
 en:2Gas
-ru:3Заправка
+ru:3^Заправка
 ar:1الغاز
-cs:2Čerpací stanice
+cs:2^Čerpací stanice
 da:Brændstof|Benzin
 de:3Tankstelle
 es:3Gasolinera
@@ -77,14 +110,14 @@ ja:1ガソリンスタンド
 ko:연료
 nb:Drivstoff
 nl:3Benzine
-pl:3Stacja benzynowa
+pl:3^Stacja benzynowa
 pt:3Combustível
 ro:Benzină
-sk:3Čerpacia stanica
+sk:3^Čerpacia stanica
 sv:3Bensin
 th:ก๊าซ
 tr:Benzin
-uk:Заправка
+uk:^Заправка
 vi:Khí đốt
 zh-Hans:汽油
 zh-Hant:加油站
@@ -242,35 +275,35 @@ nb:Underholdning
 fi:Viihde
 
 @atm
-en:ATM
-ru:3Банкомат
-ar:ماكينةالصرافالآلي
-cs:3Bankomat
-da:3Hæveautomat
-nl:3Geldautomaat
-fi:Pankkiautomaatti
-fr:GAB
-de:3Geldautomat
-hu:4Pénzautomata
-id:2ATM
-it:3Bancomat
-ja:1ATM
-ko:ATM
-nb:Minibank
-pl:5Bankomat
-pt:3Multibanco
-ro:3Bancomat
-es:ATM
-sv:3Bankomat
-th:2เอทีเอ็ม
-tr:3Bankamatik
-uk:3Банкомат
-vi:ATM
-zh-Hans:自动取款机
-zh-Hant:1自動櫃員機
-he:כספומט
-sk:3Bankomat
-sw:Benki|fedha
+en:^ATM
+ru:3^Банкомат
+ar:^ماكينةالصرافالآلي
+cs:3^Bankomat
+da:3^Hæveautomat
+nl:3^Geldautomaat
+fi:^Pankkiautomaatti
+fr:^GAB
+de:3^Geldautomat
+hu:4^Pénzautomata
+id:2^ATM
+it:3^Bancomat
+ja:1^ATM
+ko:^ATM
+nb:^Minibank
+pl:5^Bankomat
+pt:3^Multibanco
+ro:3^Bancomat
+es:^ATM
+sv:3^Bankomat
+th:2^เอทีเอ็ม
+tr:3^Bankamatik
+uk:3^Банкомат
+vi:^ATM
+zh-Hans:^自动取款机
+zh-Hant:1^自動櫃員機
+he:^כספומט
+sk:3^Bankomat
+sw:^Benki|fedha
 
 amenity-atm|@atm
 en:money|U+1F3E7|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
@@ -302,35 +335,35 @@ nb:2Penger
 fi:2Raha
 
 @bank
-en:3Bank
-ru:3Банк
-ar:البنك
-cs:3Banka
-da:3Bank
-nl:3Bank
-fi:3Pankki
-fr:3Banque
-de:3Bank
-hu:3Bank
-id:3Bank
-it:3Banca
-ja:1銀行
-ko:1은행
-nb:3Bank
-pl:3Bank
-pt:3Banco
-ro:3Bancă
-es:3Banco
-sv:3Bank
-th:3ธนาคาร
-tr:3Banka
-uk:3Банк
-vi:3Ngânhàng
-zh-Hans:1银行
-zh-Hant:1銀行
-he:בנק
-sk:3Banka
-sw:Benki|fedha
+en:3^Bank
+ru:3^Банк
+ar:^البنك
+cs:3^Banka
+da:3^Bank
+nl:3^Bank
+fi:3^Pankki
+fr:3^Banque
+de:3^Bank
+hu:3^Bank
+id:3^Bank
+it:3^Banca
+ja:1^銀行
+ko:1^은행
+nb:3^Bank
+pl:3^Bank
+pt:3^Banco
+ro:3^Bancă
+es:3^Banco
+sv:3^Bank
+th:3^ธนาคาร
+tr:3^Banka
+uk:3^Банк
+vi:3^Ngânhàng
+zh-Hans:1^银行
+zh-Hant:1^銀行
+he:^בנק
+sk:3^Banka
+sw:^Benki|fedha
 
 amenity-bank|@bank
 en:money|U+1F3E6|U+1F4B0|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
@@ -537,31 +570,31 @@ fi:3Ravintola|ruoka
 sw:Hoteli|restorenti|mgahawa|chakula
 
 amenity-fuel|@fuel
-en:Gas Station|3fuel|petrol|petrol station|U+26FD
+en:^Gas Station|3fuel|petrol|petrol station|U+26FD
 ru:Бензин|топливо|азс
-ar:محطة وقود|وقود|غاز
+ar:^محطة وقود|وقود|غاز
 cs:2pumpa
-da:3Tankstation|benzin|brændstof
-de:Tankstation
-fr:Station-service|3carburant
-hu:3Benzinkút|benzin
-id:Pompa bensin|bahan bakar
-ja:ガスステーション|ガス|燃料|軽油|給油
-ko:1가스가 역|가스
-nb:3Bensinstasjon
-nl:3Tankstation|3brandstof
+da:3^Tankstation|benzin|brændstof
+de:^Tankstation
+fr:^Station-service|3carburant
+hu:3^Benzinkút|benzin
+id:^Pompa bensin|bahan bakar
+ja:^ガスステーション|ガス|燃料|軽油|給油
+ko:1^가스가 역|가스
+nb:3^Bensinstasjon
+nl:3^Tankstation|3brandstof
 pl:3Benzyna|4paliwo
-pt:gás
-ro:3Benzinărie
-sk:3benzínová pumpa
-sv:3Bensinstation|3bränsle|2gas
-sw:Sheli|mafuta
-th:3ปั๊มน้ำมัน|เชื้อเพลิง
-tr:3Benzin istasyonu|2gaz
+pt:^Gás
+ro:3^Benzinărie
+sk:3^Benzínová pumpa
+sv:3^Bensinstation|3bränsle|2gas
+sw:^Sheli|mafuta
+th:3^ปั๊มน้ำมัน|เชื้อเพลิง
+tr:3^Benzin istasyonu|2gaz
 uk:3бензин|газ
-vi:Trạm xăng
-zh-Hans:1加油站|燃料
-zh-Hant:2加氣站|汽油|加油|天然氣
+vi:^Trạm xăng
+zh-Hans:1^加油站|燃料
+zh-Hant:2^加氣站|汽油|加油|天然氣
 
 shop-bakery
 en:3Bakery|shop|U+1F35E
@@ -2785,36 +2818,36 @@ fi:Hautausmaa
 sw:Makabulini
 
 @hospital
-en:4Hospital
-ru:4Больница
-ar:المستشفى
-cs:4Nemocnice
-da:4Hospital
-nl:4Ziekenhuis
-fi:Sairaala
-fr:4Hôpital
-de:4Krankenhaus
-hu:4Kórház
-id:Rumahsakit|Rumah sakit
-it:4Ospedale
-ja:病院
-ko:병원
-nb:Sykehus
-pl:4Szpital
-pt:3Hospital
-ro:Spital
-es:4Hospital
-sv:4Sjukhus
-th:3คลินิก
-tr:4Hastane
-uk:4Лікарня
-vi:Bệnhviện|Bệnh viện
-zh-Hans:医院
-zh-Hant:1醫院
-el:Νοσοκομείο
-he:ביתחולים
-sk:4Nemocnica
-sw:Hospitali
+en:4^Hospital
+ru:4^Больница
+ar:^المستشفى
+cs:4^Nemocnice
+da:4^Hospital
+nl:4^Ziekenhuis
+fi:^Sairaala
+fr:4^Hôpital
+de:4^Krankenhaus
+hu:4^Kórház
+id:^Rumahsakit|Rumah sakit
+it:4^Ospedale
+ja:^病院
+ko:^병원
+nb:^Sykehus
+pl:4^Szpital
+pt:3^Hospital
+ro:^Spital
+es:4^Hospital
+sv:4^Sjukhus
+th:3^คลินิก
+tr:4^Hastane
+uk:4^Лікарня
+vi:^Bệnhviện|Bệnh viện
+zh-Hans:^医院
+zh-Hant:1^醫院
+el:^Νοσοκομείο
+he:^ביתחולים
+sk:4^Nemocnica
+sw:^Hospitali
 
 amenity-hospital|@hospital
 en:clinic|3doctor|U+1F691|U+1F3E5|U+1F489|U+1F48A
@@ -3046,35 +3079,35 @@ fi:3Parkkipaikka
 sw:Maegesho
 
 @pharmacy
-en:3Pharmacy
-ru:3Аптека
-ar:الصيدلية
-cs:3Lékárna
-da:3Apotek
-nl:3Apotheek
-fi:Apteekki
-fr:3Pharmacie
-de:3Apotheke
-hu:3Gyógyszertár
-id:3Apotek
-it:3Farmacia
-ja:1薬局
-ko:1약국
-nb:3Apotek
-pl:3Apteka
-pt:3Farmácia
-ro:3Farmacie
-es:Farmacia
-sv:3Apotek
-th:3ร้านขายยา
-tr:3Eczane
-uk:3Аптека
-vi:Hiệuthuốc
-zh-Hans:1药店
-zh-Hant:1藥局
-he:ביתמרקחת
-sk:3Lekáreň
-sw:Duka la dawa
+en:3^Pharmacy
+ru:3^Аптека
+ar:^الصيدلية
+cs:3^Lékárna
+da:3^Apotek
+nl:3^Apotheek
+fi:^Apteekki
+fr:3^Pharmacie
+de:3^Apotheke
+hu:3^Gyógyszertár
+id:3^Apotek
+it:3^Farmacia
+ja:1^薬局
+ko:1^약국
+nb:3^Apotek
+pl:3^Apteka
+pt:3^Farmácia
+ro:3^Farmacie
+es:^Farmacia
+sv:3^Apotek
+th:3^ร้านขายยา
+tr:3^Eczane
+uk:3^Аптека
+vi:^Hiệuthuốc
+zh-Hans:1^药店
+zh-Hant:1^藥局
+he:^ביתמרקחת
+sk:3^Lekáreň
+sw:^Duka la dawa
 
 amenity-pharmacy|@pharmacy
 en:3drugstore|apothecary|dispensary|U+1F489|U+1F48A
@@ -3124,35 +3157,35 @@ fi:Postilaatikko
 sw:Sanduku la posta
 
 @post
-en:3Post
-ru:3Почта
-ar:البريد
-cs:3Pošta
-da:Post
-nl:Post
-fi:Posti
-fr:3Poste
-de:3Post
-hu:3Posta
-id:Pos
-it:3Posta
-ja:1郵便局
-ko:1우편
-nb:Post
-pl:4Poczta
-pt:3Correios
-ro:Poştă
-es:Oficinadecorreos
-sv:3Post
-th:3ไปรษณีย์
-tr:Posta
-uk:3Пошта
-vi:Bưuđiện
-zh-Hans:1邮政
-zh-Hant:1郵局
-he:דואר
-sk:3Pošta
-sw:Posta
+en:3^Post
+ru:3^Почта
+ar:^البريد
+cs:3^Pošta
+da:^Post
+nl:^Post
+fi:^Posti
+fr:3^Poste
+de:3^Post
+hu:3^Posta
+id:^Pos
+it:3^Posta
+ja:1^郵便局
+ko:1^우편
+nb:^Post
+pl:4^Poczta
+pt:3^Correios
+ro:^Poştă
+es:^Oficinadecorreos
+sv:3^Post
+th:3^ไปรษณีย์
+tr:^Posta
+uk:3^Пошта
+vi:^Bưuđiện
+zh-Hans:1^邮政
+zh-Hant:1^郵局
+he:^דואר
+sk:3^Pošta
+sw:^Posta
 
 amenity-post_office|@post
 en:U+2709|U+1F3E3|U+1F4E8|U+1F4E9|U+1F3E4|U+1F4EF
@@ -3321,35 +3354,35 @@ fi:Puhelin
 sw:Simu
 
 @toilet
-en:3Toilet
-ru:3Туалет
-ar:الحمام
-cs:3Záchody
-da:3Toilet
-nl:3Toilet
-fi:WC
-fr:3Toilettes
-de:3Toilette
-hu:3Mosdó
-id:Toilet
-it:3Toilette
-ja:1トイレ
-ko:1화장실
-nb:Toalett
-pl:3Toaleta
-pt:WC
-ro:Toaletă
-es:Serviciossanitario
-sv:3Toalett
-th:3ห้องน้ำ
-tr:3Tuvalet
-uk:3Туалет
-vi:Nhàvệsinh
-zh-Hans:1厕所
-zh-Hant:1廁所
-he:שירותים
-sk:Záchody
-sw:Choo
+en:3^Toilet
+ru:3^Туалет
+ar:^الحمام
+cs:3^Záchody
+da:3^Toilet
+nl:3^Toilet
+fi:^WC
+fr:3^Toilettes
+de:3^Toilette
+hu:3^Mosdó
+id:^Toilet
+it:3^Toilette
+ja:1^トイレ
+ko:1^화장실
+nb:^Toalett
+pl:3^Toaleta
+pt:^WC
+ro:^Toaletă
+es:^Serviciossanitario
+sv:3^Toalett
+th:3^ห้องน้ำ
+tr:3^Tuvalet
+uk:3^Туалет
+vi:^Nhàvệsinh
+zh-Hans:1^厕所
+zh-Hant:1^廁所
+he:^שירותים
+sk:^Záchody
+sw:^Choo
 
 amenity-toilets|@toilet
 en:wc|5restroom|4bathroom|loo|lavatory|U+1F6BD|U+1F6BE|U+1F4A9|U+1F6BB|U+1F6B9|U+1F6BA
@@ -4590,35 +4623,35 @@ fi:Rakennus
 sw:Jengo
 
 @police
-en:4Police
-ru:4Полиция
-ar:الشرطة
-cs:4Policie
-da:4Politi
-nl:4Politie
-fi:Poliisi
-fr:4Police|4gendarmerie
-de:4Polizeistation
-hu:4Rendőrség
-id:Polisi
-it:4Polizia
-ja:警察
-ko:1치안대
-nb:Politi
-pl:4Policja
-pt:4Polícia
-ro:Poliție
-es:4Policía
-sv:4Polis
-th:4ตำรวจ
-tr:3Polis
-uk:4Міліція
-vi:Cảnhsát
-zh-Hans:2警察
-zh-Hant:1警察局
-he:משטרה
-sk:3Polícia
-sw:Polisi
+en:4^Police
+ru:4^Полиция
+ar:^الشرطة
+cs:4^Policie
+da:4^Politi
+nl:4^Politie
+fi:^Poliisi
+fr:4^Police|4gendarmerie
+de:4^Polizeistation
+hu:4^Rendőrség
+id:^Polisi
+it:4^Polizia
+ja:^警察
+ko:1^치안대
+nb:^Politi
+pl:4^Policja
+pt:4^Polícia
+ro:^Poliție
+es:4^Policía
+sv:4^Polis
+th:4^ตำรวจ
+tr:3^Polis
+uk:4^Міліція
+vi:^Cảnhsát
+zh-Hans:2^警察
+zh-Hant:1^警察局
+he:^משטרה
+sk:3^Polícia
+sw:^Polisi
 
 amenity-police|@police
 en:U+1F693|U+1F46E|U+1F694|U+1F482|U+1F6A8
@@ -5386,34 +5419,34 @@ sv:WiFi
 sw:WiFi
 
 internet_access|internet_access-wlan|@wifi
-en:3Internet|U+1F4F6
-cs:3Internet
-sk:3Internet
-de:3Internet|Internetzugang
-es:3Internet
-fr:3Internet
-it:3Internet
-ja:3インターネット|WiFi|3Internet
-ko:3인터넷|3Internet
-nl:3Internet
-ru:3Интернет|вайфай|Internet
-uk:3Інтернет|Internet
-zh-Hant:3互聯網|WiFi|3Internet
-pl:3Internet
-pt:3Internet
-hu:WiFi|3Internet
-th:3อินเทอร์เน็ต|3Internet
-zh-Hans:3互联网|WiFi|3Internet
-ar:واي فاي|الإنترنت|WiFi|3Internet
-da:3Internet
-tr:3Internet
-sv:3Internet
-vi:3Internet
-id:3Internet
-ro:3Internet
-nb:3Internet
-fi:3Internet
-sw:intaneti
+en:3^Internet|U+1F4F6
+cs:3^Internet
+sk:3^Internet
+de:3^Internet|Internetzugang
+es:3^Internet
+fr:3^Internet
+it:3^Internet
+ja:3^インターネット|WiFi|3Internet
+ko:3^인터넷|3Internet
+nl:3^Internet
+ru:3^Интернет|вайфай|Internet
+uk:3^Інтернет|Internet
+zh-Hant:3^互聯網|WiFi|3Internet
+pl:3^Internet
+pt:3^Internet
+hu:WiFi|3^Internet
+th:3^อินเทอร์เน็ต|3Internet
+zh-Hans:3^互联网|WiFi|3Internet
+ar:^واي فاي|الإنترنت|WiFi|3Internet
+da:3^Internet
+tr:3^Internet
+sv:3^Internet
+vi:3^Internet
+id:3^Internet
+ro:3^Internet
+nb:3^Internet
+fi:3^Internet
+sw:^Intaneti
 
 natural-beach
 en:Beach|U+1F459
@@ -5998,123 +6031,123 @@ zh-Hans:轮胎修理
 zh-Hant:輪胎修補
 
 shop-chemist|@shop
-en:Chemist Shop
-ru:Бытовая химия
-ar:صيدلية
-cs:Drogerie
-da:Materialist|Drugstore
-de:Drogerie
-es:Droguería
-fi:Apteekki
-fr:Droguerie
-hu:Drogéria
-id:Toko bahan kimia
-it:Farmacia
-ja:化学薬品店
-ko:화학자 상점
-nl:Drogisterij
-nb:Dagligvareforretning
-pl:Drogeria
-pt:Farmácia
-ro:Mercerie
-sk:Drogéria
-sv:Apotek
-th:ร้านขายผลิตภัณฑ์ทางเคมี
-tr:Zincir eczane
-uk:Магазин побутової хімії
-vi:Cửa hàng Dược phẩm
-zh-Hant:藥妝店
-zh-Hans:药妆店
+en:^Chemist Shop
+ru:^Бытовая химия
+ar:^صيدلية
+cs:^Drogerie
+da:^Materialist|Drugstore
+de:^Drogerie
+es:^Droguería
+fi:^Apteekki
+fr:^Droguerie
+hu:^Drogéria
+id:^Toko bahan kimia
+it:^Farmacia
+ja:^化学薬品店
+ko:^화학자 상점
+nl:^Drogisterij
+nb:^Dagligvareforretning
+pl:^Drogeria
+pt:^Farmácia
+ro:^Mercerie
+sk:^Drogéria
+sv:^Apotek
+th:^ร้านขายผลิตภัณฑ์ทางเคมี
+tr:^Zincir eczane
+uk:^Магазин побутової хімії
+vi:^Cửa hàng Dược phẩm
+zh-Hant:^藥妝店
+zh-Hans:^药妆店
 
 shop-pet|@shop
-en:Petshop
-ru:Зоотовары
-ar:متجر للحيوانات الأليفة
-cs:Zverimex
-da:Dyrehandel
-de:Tierhandlung
-es:Tienda de mascotas
-fi:Eläinkauppa
-fr:Animalerie
-hu:Házikedvenc-üzlet
-id:Toko hewan
-it:Negozio di animali
-ja:ペットショップ
-ko:애완동물점
-nl:Dierenwinkel
-nb:Dyrebutikk
-pl:Sklep zoologiczny
-pt:Loja de animais
-ro:Pet shop
-sk:Obchod zo zvieratami
-sv:Djuraffär
-th:เพ็ทชอป
-tr:Animalerie
-uk:Зоотовари
-vi:Cửa Hàng Vật Nuôi
-zh-Hans:宠物店
-zh-Hant:寵物店
+en:^Petshop
+ru:^Зоотовары
+ar:^متجر للحيوانات الأليفة
+cs:^Zverimex
+da:^Dyrehandel
+de:^Tierhandlung
+es:^Tienda de mascotas
+fi:^Eläinkauppa
+fr:^Animalerie
+hu:^Házikedvenc-üzlet
+id:^Toko hewan
+it:^Negozio di animali
+ja:^ペットショップ
+ko:^애완동물점
+nl:^Dierenwinkel
+nb:^Dyrebutikk
+pl:^Sklep zoologiczny
+pt:^Loja de animais
+ro:^Pet shop
+sk:^Obchod zo zvieratami
+sv:^Djuraffär
+th:^เพ็ทชอป
+tr:^Animalerie
+uk:^Зоотовари
+vi:^Cửa Hàng Vật Nuôi
+zh-Hans:^宠物店
+zh-Hant:^寵物店
 
 tourism-zoo|@tourism
-en:2Zoo
-ru:2Зоопарк
-ar:حديقة حيوان
-cs:zoologická zahrada
-da:Zoo
-de:Zoo
-el:Ζωολογικός κήπος
-es:Zoo
-fi:Eläintarha
-fr:Zoo
-he:גַן חַיוֹת
-hu:Állatkert
-id:Kebun binatang
-it:Zoo
-ja:動物園
-ko:동물원
-nb:Dyrehage
-nl:Dierentuin
-pl:Ogród zoologiczny
-pt:Jardim zoológico
-ro:Grădină zoologică
-sk:zoologická záhrada
-sv:Zoo
-sw:Zoo
-th:สวนสัตว์
-tr:Hayvanat bahçesi
-uk:Зоопарк
-vi:vườn bách thú
-zh-Hans:动物园
-zh-Hant:動物園
+en:2^Zoo
+ru:2^Зоопарк
+ar:^حديقة حيوان
+cs:^zoologická zahrada
+da:^Zoo
+de:^Zoo
+el:^Ζωολογικός κήπος
+es:^Zoo
+fi:^Eläintarha
+fr:^Zoo
+he:^גַן חַיוֹת
+hu:^Állatkert
+id:^Kebun binatang
+it:^Zoo
+ja:^動物園
+ko:^동물원
+nb:^Dyrehage
+nl:^Dierentuin
+pl:^Ogród zoologiczny
+pt:^Jardim zoológico
+ro:^Grădină zoologică
+sk:^Zoologická záhrada
+sv:^Zoo
+sw:^Zoo
+th:^สวนสัตว์
+tr:^Hayvanat bahçesi
+uk:^Зоопарк
+vi:^Vườn bách thú
+zh-Hans:^动物园
+zh-Hant:^動物園
 
 tourism-information-office|@tourism
-en:Tourist Office
-ru:Туристический офис
-ar:مكتب سياحة
-cs:Informační centrum
-da:Turistkontor
-de:Reisebüro
-es:Oficina de turismo
-fi:Turistitoimisto
-fr:Office de tourisme
-hu:Idegenforgalmi iroda
-id:Kantor wisata
-it:Ufficio turistico
-ja:観光案内所
-ko:관광정보센터
-nl:Toeristische informatie
-nb:Turistkontor
-pl:Biuro podróży
-pt:Gabinete de turismo
-ro:Birou de informații turistice
-sk:Turistické informačné centrum
-sv:Turistcenter
-th:ศูนย์บริการนักท่องเที่ยว
-tr:Office de tourisme
-uk:Туристичний офіс
-vi:Văn Phòng Du Lịch
-zh-Hans:旅游服务处
-zh-Hant:旅遊辦事處
+en:^Tourist Office
+ru:^Туристический офис
+ar:^مكتب سياحة
+cs:^Informační centrum
+da:^Turistkontor
+de:^Reisebüro
+es:^Oficina de turismo
+fi:^Turistitoimisto
+fr:^Office de tourisme
+hu:^Idegenforgalmi iroda
+id:^Kantor wisata
+it:^Ufficio turistico
+ja:^観光案内所
+ko:^관광정보센터
+nl:^Toeristische informatie
+nb:^Turistkontor
+pl:^Biuro podróży
+pt:^Gabinete de turismo
+ro:^Birou de informații turistice
+sk:^Turistické informačné centrum
+sv:^Turistcenter
+th:^ศูนย์บริการนักท่องเที่ยว
+tr:^Office de tourisme
+uk:^Туристичний офіс
+vi:^Văn Phòng Du Lịch
+zh-Hans:^旅游服务处
+zh-Hant:^旅遊辦事處
 
 amenity-community_centre
 en:Community Centre
@@ -6436,210 +6469,210 @@ zh-Hans:做书店
 zh-Hant:賭博業者
 
 shop-seafood|@shop
-en:Seafood Shop
-ru:Рыбный магазин
-ar:سماك
-cs:Prodej ryb
-da:Fiskehandler
-de:Fischhändler
-es:Pescadería
-fi:Kalakauppias
-fr:Poissonnier
-hu:Halüzlet
-id:Penjual Ikan
-it:Pescivendolo
-ja:魚屋
-ko:생선가게
-nl:Visboer
-nb:Fiskehandler
-pl:Sklep rybny
-pt:Peixaria
-ro:Pescărie
-sk:Obchodník s rybami
-sv:Fiskhandlare
-th:ร้านขายปลา
-tr:Poissonnier
-uk:Рибна крамниця
-vi:Người bán cá
-zh-Hans:鱼商
-zh-Hant:魚販
+en:^Seafood Shop
+ru:^Рыбный магазин
+ar:^سماك
+cs:^Prodej ryb
+da:^Fiskehandler
+de:^Fischhändler
+es:^Pescadería
+fi:^Kalakauppias
+fr:^Poissonnier
+hu:^Halüzlet
+id:^Penjual Ikan
+it:^Pescivendolo
+ja:^魚屋
+ko:^생선가게
+nl:^Visboer
+nb:^Fiskehandler
+pl:^Sklep rybny
+pt:^Peixaria
+ro:^Pescărie
+sk:^Obchodník s rybami
+sv:^Fiskhandlare
+th:^ร้านขายปลา
+tr:^Poissonnier
+uk:^Рибна крамниця
+vi:^Người bán cá
+zh-Hans:^鱼商
+zh-Hant:^魚販
 
 shop-ticket|@shop
-en:Ticket Shop
-ru:Билетная касса
-ar:مكتب تذاكر
-cs:Prodej vstupenek
-da:Billetkontor
-de:Fahrkartenschalter
-es:Oficina de venta de entradas
-fi:Lippumyymälä
-fr:Billetterie
-hu:Jegyiroda
-id:Tempat penjualan karcis
-it:Biglietteria
-ja:チケット売り場
-ko:매표소
-nl:Kaartjesverkoop
-nb:Billettkontor
-pl:Kasa biletowa
-pt:Bilheteira
-ro:Casă de bilete
-sk:Pokladnica
-sv:Biljettkontor
-th:จุดจำหน่ายตั๋ว
-tr:Billetterie
-uk:Білетна каса
-vi:Phòng vé
-zh-Hans:售票处
-zh-Hant:售票處
+en:^Ticket Shop
+ru:^Билетная касса
+ar:^مكتب تذاكر
+cs:^Prodej vstupenek
+da:^Billetkontor
+de:^Fahrkartenschalter
+es:^Oficina de venta de entradas
+fi:^Lippumyymälä
+fr:^Billetterie
+hu:^Jegyiroda
+id:^Tempat penjualan karcis
+it:^Biglietteria
+ja:^チケット売り場
+ko:^매표소
+nl:^Kaartjesverkoop
+nb:^Billettkontor
+pl:^Kasa biletowa
+pt:^Bilheteira
+ro:^Casă de bilete
+sk:^Pokladnica
+sv:^Biljettkontor
+th:^จุดจำหน่ายตั๋ว
+tr:^Billetterie
+uk:^Білетна каса
+vi:^Phòng vé
+zh-Hans:^售票处
+zh-Hant:^售票處
 
 shop-wine|@shop
-en:Wine Shop
-ru:Винный магазин
-ar:متجر مشروبات روحية
-cs:Vinařství
-da:Vinhandel
-de:Wein- und Spirituosengeschäft
-es:Establecimiento de bebidas alcohólicas
-fi:Alkoholimyymälä
-fr:Hors licence
-hu:Szeszesital-üzlet
-id:Toko anggur
-it:Negozio di alcolici
-ja:ワイン|酒屋|ワインショップ
-ko:와인 샵
-nl:Wijn|Slijterij
-nb:Alkoholutsalg
-pl:Sklep monopolowy
-pt:Vinho|Loja de Vinhos
-ro:Magazin de băuturi alcolice
-sk:Vinotéka
-sv:Spritförsäljning
-th:ร้านขายไวน์
-tr:Caviste
-uk:Винна крамниця
-vi:Rượu|Cửa hàng rượu
-zh-Hans:酒店
-zh-Hant:販酒處
+en:^Wine Shop
+ru:^Винный магазин
+ar:^متجر مشروبات روحية
+cs:^Vinařství
+da:^Vinhandel
+de:^Wein- und Spirituosengeschäft
+es:^Establecimiento de bebidas alcohólicas
+fi:^Alkoholimyymälä
+fr:^Hors licence
+hu:^Szeszesital-üzlet
+id:^Toko anggur
+it:^Negozio di alcolici
+ja:^ワイン|酒屋|ワインショップ
+ko:^와인 샵
+nl:^Wijn|Slijterij
+nb:^Alkoholutsalg
+pl:^Sklep monopolowy
+pt:^Vinho|Loja de Vinhos
+ro:^Magazin de băuturi alcolice
+sk:^Vinotéka
+sv:^Spritförsäljning
+th:^ร้านขายไวน์
+tr:^Caviste
+uk:^Винна крамниця
+vi:^Rượu|Cửa hàng rượu
+zh-Hans:^酒店
+zh-Hant:^販酒處
 
 shop-car_parts|@shop
-en:Car Parts
-ar:ﺓﺭﺎﻴﺴﻟﺍ ءﺍﺰﺟﺃ
-cs:Autodíly
-da:Bildele
-de:Autoteile
-el:Εξαρτήματα αυτοκινήτου
-es:Piezas de automóvil
-fi:Auton osat
-fr:Pièces de voiture
-he:תינוכמ יקלח
-hu:Autó alkatrészek
-id:Bagian mobil
-it:Ricambi auto
-ja:車両部品
-ko:자동차 부품
-nb:Bildeler
-nl:Auto onderdelen
-pl:Części samochodowe
-pt:Peças do carro
-ro:Piese auto
-ru:Автомобильные запчасти|Автозапчасти
-sk:Autodiely
-sv:Bildelar
-sw:Vipuri vya magari
-th:อะไหล่รถยนต์
-tr:Araba parçaları
-uk:Автозапчастини
-vi:Những bộ phận xe hơi
-zh-Hans:汽车零件
-zh-Hant:汽車零件
+en:^Car Parts
+ar:^ﺓﺭﺎﻴﺴﻟﺍ ءﺍﺰﺟﺃ
+cs:^Autodíly
+da:^Bildele
+de:^Autoteile
+el:^Εξαρτήματα αυτοκινήτου
+es:^Piezas de automóvil
+fi:^Auton osat
+fr:^Pièces de voiture
+he:^תינוכמ יקלח
+hu:^Autó alkatrészek
+id:^Bagian mobil
+it:^Ricambi auto
+ja:^車両部品
+ko:^자동차 부품
+nb:^Bildeler
+nl:^Auto onderdelen
+pl:^Części samochodowe
+pt:^Peças do carro
+ro:^Piese auto
+ru:^Автомобильные запчасти|Автозапчасти
+sk:^Autodiely
+sv:^Bildelar
+sw:^Vipuri vya magari
+th:^อะไหล่รถยนต์
+tr:^Araba parçaları
+uk:^Автозапчастини
+vi:^Những bộ phận xe hơi
+zh-Hans:^汽车零件
+zh-Hant:^汽車零件
 
 tourism-chalet|@hotel
-en:Chalet
-ru:Шале
-ar:شاليه
-cs:Chalet|Horská chata
-da:Hytte
-de:Hütte
-es:Chalé
-fi:Alppimaja
-fr:Chalet
-hu:Turistaház
-id:Chalet
-it:Chalet
-ja:シャレー|山小屋
-ko:별장
-nl:Chalet
-nb:Chalet
-pl:Domek letniskowy
-pt:Chalé
-ro:Cabană
-sk:Chata
-sv:Stuga
-th:ชาเลต์
-tr:Chalet
-uk:Шале
-vi:Nhà vệ sinh công cộng
-zh-Hans:木屋
-zh-Hant:木屋
+en:^Chalet
+ru:^Шале
+ar:^شاليه
+cs:^Chalet|Horská chata
+da:^Hytte
+de:^Hütte
+es:^Chalé
+fi:^Alppimaja
+fr:^Chalet
+hu:^Turistaház
+id:^Chalet
+it:^Chalet
+ja:^シャレー|山小屋
+ko:^별장
+nl:^Chalet
+nb:^Chalet
+pl:^Domek letniskowy
+pt:^Chalé
+ro:^Cabană
+sk:^Chata
+sv:^Stuga
+th:^ชาเลต์
+tr:^Chalet
+uk:^Шале
+vi:^Nhà vệ sinh công cộng
+zh-Hans:^木屋
+zh-Hant:^木屋
 
 tourism-information-board|@tourism
-en:Information Board
-ru:Информационный щит
-ar:لوحة معلومات
-cs:Nástěnka
-da:Informationstavle
-de:Informationstafel
-es:Tablón de información
-fi:Informaatio
-fr:Panneau d'informations
-hu:Információs tábla
-id:Papan informasi
-it:Tabellone informativo
-ja:案内板
-ko:안내소
-nl:Informatiebord
-nb:Informasjonstavle
-pl:Tablica informacyjna
-pt:Painel de informações
-ro:Panou de informații
-sk:Informačné centrum
-sv:Anslagstavla
-th:บอร์ดประชาสัมพันธ์
-tr:Panneau d'informations
-uk:Інформаційний щит
-vi:Bảng Thông Tin
-zh-Hans:公告板
-zh-Hant:資訊中心
+en:^Information Board
+ru:^Информационный щит
+ar:^لوحة معلومات
+cs:^Nástěnka
+da:^Informationstavle
+de:^Informationstafel
+es:^Tablón de información
+fi:^Informaatio
+fr:^Panneau d'informations
+hu:^Információs tábla
+id:^Papan informasi
+it:^Tabellone informativo
+ja:^案内板
+ko:^안내소
+nl:^Informatiebord
+nb:^Informasjonstavle
+pl:^Tablica informacyjna
+pt:^Painel de informações
+ro:^Panou de informații
+sk:^Informačné centrum
+sv:^Anslagstavla
+th:^บอร์ดประชาสัมพันธ์
+tr:^Panneau d'informations
+uk:^Інформаційний щит
+vi:^Bảng Thông Tin
+zh-Hans:^公告板
+zh-Hant:^資訊中心
 
 tourism-information-map|@tourism
-en:Tourist Map
-ru:Карта
-ar:خريطة سياحية
-cs:Turistická mapa
-da:Turistkort
-de:Touristenkarte
-es:Mapa turístico
-fi:Turistikartta
-fr:Carte touristique
-hu:Turistatérkép
-id:Peta wisata
-it:Mappa turistica
-ja:観光マップ
-ko:관광안내도
-nl:Toeristische kaart
-nb:Turistkart
-pl:Mapa turystyczna
-pt:Mapa turístico
-ro:Hartă turistică
-sk:Turistická mapa
-sv:Turistkarta
-th:แผนที่ท่องเที่ยว
-tr:Carte touristique
-uk:Мапа
-vi:Bản Đồ Du Lịch
-zh-Hans:旅游地图
-zh-Hant:旅遊地圖
+en:^Tourist Map
+ru:^Карта
+ar:^خريطة سياحية
+cs:^Turistická mapa
+da:^Turistkort
+de:^Touristenkarte
+es:^Mapa turístico
+fi:^Turistikartta
+fr:^Carte touristique
+hu:^Turistatérkép
+id:^Peta wisata
+it:^Mappa turistica
+ja:^観光マップ
+ko:^관광안내도
+nl:^Toeristische kaart
+nb:^Turistkart
+pl:^Mapa turystyczna
+pt:^Mapa turístico
+ro:^Hartă turistică
+sk:^Turistická mapa
+sv:^Turistkarta
+th:^แผนที่ท่องเที่ยว
+tr:^Carte touristique
+uk:^Мапа
+vi:^Bản Đồ Du Lịch
+zh-Hans:^旅游地图
+zh-Hant:^旅遊地圖
 
 aerialway-station
 en:Aerialway Station|Cable Car Station
@@ -7399,7 +7432,7 @@ leisure-sports_centre-yoga
 en:Yoga Studio
 ru:Йога-центр|Студия йоги
 fr:Yoga
-da: Yoga center
+da:Yoga center
 id:Studio Yoga
 ko:요가 스튜디오
 sv:Yogastudio
@@ -7425,59 +7458,59 @@ nl:Yogastudio
 pt:Estúdio de ioga
 
 tourism-apartment|@hotel
-en:Apartments
-ru:Апартаменты
-ar:شُقَق
-cs:Byty
-da:Lejligheder
-nl:Appartementen
-fi:Loma-asunnot
-fr:Appart'hôtel
-de:Appartements
-hu:Apartmanok
-id:Apartemen
-it:Residence
-ja:アパート
-ko:아파트
-nb:Leiligheter
-pl:Apartamenty
-pt:Apartamentos
-ro:Apartamente
-es:Apartamentos
-sv:Lägenheter
-th:อพาร์ตเมนต์
-tr:Apart otel
-uk:Апартаменти
-vi:Căn hộ
-zh-Hans:公寓
-zh-Hant:公寓
-sk:Apartmány
+en:^Apartments
+ru:^Апартаменты
+ar:^شُقَق
+cs:^Byty
+da:^Lejligheder
+nl:^Appartementen
+fi:^Loma-asunnot
+fr:^Appart'hôtel
+de:^Appartements
+hu:^Apartmanok
+id:^Apartemen
+it:^Residence
+ja:^アパート
+ko:^아파트
+nb:^Leiligheter
+pl:^Apartamenty
+pt:^Apartamentos
+ro:^Apartamente
+es:^Apartamentos
+sv:^Lägenheter
+th:^อพาร์ตเมนต์
+tr:^Apart otel
+uk:^Апартаменти
+vi:^Căn hộ
+zh-Hans:^公寓
+zh-Hant:^公寓
+sk:^Apartmány
 
 tourism-resort|@hotel
-en:Resort
-ru:Дом отдыха
-ar:منتج
-cs:Letovisko
-da:Resort
-nl:Complex
-fi:Lomakohteet
-fr:Complexe touristique
-de:Resort
-hu:Resort hotel
-id:Sanggraloka
-it:Resort
-ja:リゾート
-ko:리조트
-nb:Ferieresort
-pl:Dom wczasowy
-pt:Resort
-ro:Stațiuni
-es:Resort
-sv:Resorter
-th:รีสอร์ต
-tr:Tatil köyü
-uk:Будинок відпочинку
-vi:Khu nghỉ dưỡng
-zh-Hans:度假村
-zh-Hant:度假酒店
-sk:Rezort
+en:^Resort
+ru:^Дом отдыха
+ar:^منتج
+cs:^Letovisko
+da:^Resort
+nl:^Complex
+fi:^Lomakohteet
+fr:^Complexe touristique
+de:^Resort
+hu:^Resort hotel
+id:^Sanggraloka
+it:^Resort
+ja:^リゾート
+ko:^리조트
+nb:^Ferieresort
+pl:^Dom wczasowy
+pt:^Resort
+ro:^Stațiuni
+es:^Resort
+sv:^Resorter
+th:^รีสอร์ต
+tr:^Tatil köyü
+uk:^Будинок відпочинку
+vi:^Khu nghỉ dưỡng
+zh-Hans:^度假村
+zh-Hant:^度假酒店
+sk:^Rezort

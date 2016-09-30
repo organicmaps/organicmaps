@@ -25,7 +25,7 @@ using namespace indexer;
 char const g_testCategoriesTxt[] =
     "amenity-bench\n"
     "en:1bench|sit down|to sit\n"
-    "de:0bank|auf die strafbank schicken\n"
+    "de:2bank|auf die strafbank schicken\n"
     "zh-Hans:长凳\n"
     "zh-Hant:長板凳\n"
     "da:bænk\n"
@@ -55,7 +55,7 @@ struct Checker
         TEST_EQUAL(cat.m_synonyms[2].m_name, "to sit", ());
         TEST_EQUAL(cat.m_synonyms[3].m_locale, CategoriesHolder::MapLocaleToInteger("de"), ());
         TEST_EQUAL(cat.m_synonyms[3].m_name, "bank", ());
-        TEST_EQUAL(cat.m_synonyms[3].m_prefixLengthToSuggest, 0, ());
+        TEST_EQUAL(cat.m_synonyms[3].m_prefixLengthToSuggest, 2, ());
         TEST_EQUAL(cat.m_synonyms[4].m_locale, CategoriesHolder::MapLocaleToInteger("de"), ());
         TEST_EQUAL(cat.m_synonyms[4].m_name, "auf die strafbank schicken", ());
         TEST_EQUAL(cat.m_synonyms[5].m_locale, CategoriesHolder::MapLocaleToInteger("zh_CN"), ());
@@ -117,6 +117,108 @@ UNIT_TEST(CategoriesHolder_Smoke)
     TEST_EQUAL(i + 1, CategoriesHolder::MapLocaleToInteger(mapping.m_name), ());
     TEST_EQUAL(CategoriesHolder::MapIntegerToLocale(i + 1), mapping.m_name, ());
   }
+}
+
+UNIT_TEST(CategoriesHolder_DisplayedNameSmoke)
+{
+  classificator::Load();
+
+  auto const & categoriesHolder = GetDefaultCategories();
+  auto const & groupTranslations = categoriesHolder.GetGroupTranslations();
+
+  categoriesHolder.ForEachCategory([](CategoriesHolder::Category const & cat) {
+    for (auto const & synonym : cat.m_synonyms)
+    {
+      TEST_NOT_EQUAL(synonym.m_name[0], '^', ("symbol ^ is used incorrectly in categories.txt "
+                                              "and loaded to synonyms."));
+    }
+  });
+
+  for (auto const & group : groupTranslations)
+  {
+    for (auto const & translation : group.second)
+    {
+      TEST_NOT_EQUAL(translation.m_name[0], '^', ("symbol ^ is used incorrectly in categories.txt "
+                                                  "and loaded to group translations"));
+    }
+  }
+}
+
+UNIT_TEST(CategoriesHolder_DisplayedName)
+{
+  char const kCategories[] =
+      "@shop\n"
+      "en:^Shop\n"
+      "ru:^Mагазин\n"
+      "\n"
+      "@meat\n"
+      "en:Beef|^Meat\n"
+      "ru:мясо\n"
+      "de:Schlachter\n"
+      "\n"
+      "@butcher\n"
+      "de:^Metzgerei\n"
+      "\n"
+      "shop|@shop\n"
+      "en:market\n"
+      "\n"
+      "shop-alcohol|@shop\n"
+      "en:Liquor Store|2^Alcostore\n"
+      "\n"
+      "shop-bakery|@shop\n"
+      "en:^buns\n"
+      "\n"
+      "shop-butcher|@meat|@butcher\n"
+      "en:2butcher\n"
+      "ru:3^Мясная лавка\n"
+      "de:Geschäft|2Laden\n"
+      "";
+
+  classificator::Load();
+  CategoriesHolder holder(make_unique<MemReader>(kCategories, ARRAY_SIZE(kCategories) - 1));
+
+  holder.ForEachTypeAndCategory([](uint32_t const type, CategoriesHolder::Category const & cat) {
+    auto const readableTypeName = classif().GetReadableObjectName(type);
+    if (readableTypeName == "shop")
+    {
+      TEST_EQUAL(cat.m_synonyms.size(), 3, ());
+      TEST_EQUAL(cat.m_synonyms[0].m_name, "Mагазин", ());
+      TEST_EQUAL(cat.m_synonyms[1].m_name, "Shop", ());
+      TEST_EQUAL(cat.m_synonyms[2].m_name, "market", ());
+    }
+    else if (readableTypeName == "shop-alcohol")
+    {
+      TEST_EQUAL(cat.m_synonyms.size(), 4, ());
+      TEST_EQUAL(cat.m_synonyms[0].m_name, "Alcostore", ());
+      TEST_EQUAL(cat.m_synonyms[1].m_name, "Mагазин", ());
+      TEST_EQUAL(cat.m_synonyms[2].m_name, "Shop", ());
+      TEST_EQUAL(cat.m_synonyms[3].m_name, "Liquor Store", ());
+    }
+    else if (readableTypeName == "shop-bakery")
+    {
+      TEST_EQUAL(cat.m_synonyms.size(), 3, ());
+      TEST_EQUAL(cat.m_synonyms[0].m_name, "buns", ());
+      TEST_EQUAL(cat.m_synonyms[1].m_name, "Mагазин", ());
+      TEST_EQUAL(cat.m_synonyms[2].m_name, "Shop", ());
+    }
+    else if (readableTypeName == "shop-butcher")
+    {
+      TEST_EQUAL(cat.m_synonyms.size(), 9, ());
+      TEST_EQUAL(cat.m_synonyms[0].m_name, "Мясная лавка", ());
+      TEST_EQUAL(cat.m_synonyms[1].m_name, "Metzgerei", ());
+      TEST_EQUAL(cat.m_synonyms[2].m_name, "Meat", ());
+      TEST_EQUAL(cat.m_synonyms[3].m_name, "Beef", ());
+      TEST_EQUAL(cat.m_synonyms[4].m_name, "мясо", ());
+      TEST_EQUAL(cat.m_synonyms[5].m_name, "Schlachter", ());
+      TEST_EQUAL(cat.m_synonyms[6].m_name, "butcher", ());
+      TEST_EQUAL(cat.m_synonyms[7].m_name, "Geschäft", ());
+      TEST_EQUAL(cat.m_synonyms[8].m_name, "Laden", ());
+    }
+    else
+    {
+      TEST(false, ("Unexpected group name:", readableTypeName));
+    }
+  });
 }
 
 UNIT_TEST(CategoriesIndex_Smoke)

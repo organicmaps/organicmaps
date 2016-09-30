@@ -17,7 +17,128 @@ enum State
   EParseLanguages
 };
 
-}  // unnamed namespace
+void ProcessSynonym(CategoriesHolder::Category::Name const & name,
+                    deque<CategoriesHolder::Category::Name> & synonyms)
+{
+  if (name.m_name[0] != '^')
+  {
+    synonyms.push_back(name);
+    return;
+  }
+
+  // Name which starts with '^' is readable name for UI and it should be in the beginning.
+  synonyms.push_front(name);
+  synonyms.front().m_name = name.m_name.substr(1);
+}
+
+void GroupTranslationsToSynonyms(vector<string> const & groups,
+                                 CategoriesHolder::GroupTranslations const & translations,
+                                 deque<CategoriesHolder::Category::Name> & synonyms)
+{
+  for (string const & group : groups)
+  {
+    auto it = translations.find(group);
+    if (it == translations.end())
+      continue;
+    for (auto & synonym : it->second)
+      ProcessSynonym(synonym, synonyms);
+  }
+}
+
+void TrimGroupTranslations(CategoriesHolder::GroupTranslations & translations)
+{
+  for (auto & translation : translations)
+  {
+    for (auto & synonym : translation.second)
+    {
+      if (synonym.m_name[0] == '^')
+        synonym.m_name = synonym.m_name.substr(1);
+    }
+  }
+}
+
+bool ParseEmoji(CategoriesHolder::Category::Name & name)
+{
+  using namespace strings;
+
+  auto const code = name.m_name;
+  int c;
+  if (!to_int(name.m_name.c_str() + 2, c, 16))
+  {
+    LOG(LWARNING, ("Bad emoji code:", code));
+    return false;
+  }
+
+  name.m_name = ToUtf8(UniString(1, static_cast<UniChar>(c)));
+
+  if (IsASCIIString(ToUtf8(search::NormalizeAndSimplifyString(name.m_name))))
+  {
+    LOG(LWARNING, ("Bad emoji code:", code));
+    return false;
+  }
+
+  return true;
+}
+
+void FillPrefixLengthToSuggest(CategoriesHolder::Category::Name & name)
+{
+  if (isdigit(name.m_name.front()) && name.m_name.front() != '0')
+  {
+    name.m_prefixLengthToSuggest = name.m_name[0] - '0';
+    name.m_name = name.m_name.substr(1);
+  }
+  else
+  {
+    name.m_prefixLengthToSuggest = CategoriesHolder::Category::kEmptyPrefixLength;
+  }
+}
+
+void ProcessName(CategoriesHolder::Category::Name name, vector<string> const & groups,
+                 vector<uint32_t> const & types, CategoriesHolder::GroupTranslations & translations,
+                 deque<CategoriesHolder::Category::Name> & synonyms)
+{
+  if (name.m_name.empty())
+  {
+    LOG(LWARNING, ("Incorrect name for category:", groups));
+    return;
+  }
+
+  FillPrefixLengthToSuggest(name);
+
+  if (strings::StartsWith(name.m_name, "U+") && !ParseEmoji(name))
+    return;
+
+  if (groups.size() == 1 && types.empty())
+    translations[groups[0]].push_back(name);  // not a translation, but a category group definition
+  else
+    ProcessSynonym(name, synonyms);
+}
+
+void ProcessCategory(string const & line, vector<string> & groups, vector<uint32_t> & types)
+{
+  // Check if category is a group reference.
+  if (line[0] == '@')
+  {
+    CHECK((groups.empty() || !types.empty()), ("Two groups in a group definition, line:", line));
+    groups.push_back(line);
+    return;
+  }
+
+  // Split category to subcategories for classificator.
+  vector<string> v;
+  strings::Tokenize(line, "-", MakeBackInsertFunctor(v));
+
+  // Get classificator type.
+  uint32_t const type = classif().GetTypeByPathSafe(v);
+  if (type == 0)
+  {
+    LOG(LWARNING, ("Invalid type:", v, "; during parcing the line:", line));
+    return;
+  }
+
+  types.push_back(type);
+}
+}  // namespace
 
 // static
 int8_t const CategoriesHolder::kEnglishCode = 1;
@@ -119,12 +240,9 @@ void CategoriesHolder::LoadFromStream(istream & s)
 
   State state = EParseTypes;
   string line;
-
   Category cat;
   vector<uint32_t> types;
   vector<string> currentGroups;
-
-  Classificator const & c = classif();
 
   int lineNumber = 0;
   while (s.good())
@@ -138,64 +256,29 @@ void CategoriesHolder::LoadFromStream(istream & s)
 
     strings::SimpleTokenizer iter(line, state == EParseTypes ? "|" : ":|");
 
-    switch (state)
-    {
-    case EParseTypes:
+    if (state == EParseTypes)
     {
       AddCategory(cat, types);
       currentGroups.clear();
 
       while (iter)
       {
-        // Check if category is a group reference.
-        if ((*iter)[0] == '@')
-        {
-          CHECK((currentGroups.empty() || !types.empty()),
-                ("Two groups in a group definition at line", lineNumber));
-          currentGroups.push_back(*iter);
-        }
-        else
-        {
-          // Split category to subcategories for classificator.
-          vector<string> v;
-          strings::Tokenize(*iter, "-", MakeBackInsertFunctor(v));
-
-          // Get classificator type.
-          uint32_t const type = c.GetTypeByPathSafe(v);
-          if (type != 0)
-            types.push_back(type);
-          else
-            LOG(LWARNING, ("Invalid type:", v, "at line:", lineNumber));
-        }
-
+        ProcessCategory(*iter, currentGroups, types);
         ++iter;
       }
 
       if (!types.empty() || currentGroups.size() == 1)
+      {
+        // Add translations into synonyms first, it will allow to override
+        // translations for UI by concrete category translation.
+        GroupTranslationsToSynonyms(currentGroups, m_groupTranslations, cat.m_synonyms);
         state = EParseLanguages;
+      }
     }
-    break;
-
-    case EParseLanguages:
+    else if (state == EParseLanguages)
     {
       if (!iter)
       {
-        // If the category groups are specified, add translations from them.
-
-        ///@todo According to the current logic, categories.txt should have
-        /// the blank string at the end of file.
-        if (!types.empty())
-        {
-          for (string const & group : currentGroups)
-          {
-            auto it = m_groupTranslations.find(group);
-            if (it == m_groupTranslations.end())
-              continue;
-            for (auto const & synonym : it->second)
-              cat.m_synonyms.push_back(synonym);
-          }
-        }
-
         state = EParseTypes;
         continue;
       }
@@ -210,56 +293,13 @@ void CategoriesHolder::LoadFromStream(istream & s)
         name.m_locale = langCode;
         name.m_name = *iter;
 
-        if (name.m_name.empty())
-        {
-          LOG(LWARNING, ("Empty category name at line:", lineNumber));
-          continue;
-        }
-
-        if (name.m_name[0] >= '0' && name.m_name[0] <= '9')
-        {
-          name.m_prefixLengthToSuggest = name.m_name[0] - '0';
-          name.m_name = name.m_name.substr(1);
-        }
-        else
-          name.m_prefixLengthToSuggest = Category::kEmptyPrefixLength;
-
-        // Process emoji symbols.
-        using namespace strings;
-        if (StartsWith(name.m_name, "U+"))
-        {
-          auto const code = name.m_name;
-          int c;
-          if (!to_int(name.m_name.c_str() + 2, c, 16))
-          {
-            LOG(LWARNING, ("Bad emoji code:", code));
-            continue;
-          }
-
-          name.m_name = ToUtf8(UniString(1, static_cast<UniChar>(c)));
-
-          if (IsASCIIString(ToUtf8(search::NormalizeAndSimplifyString(name.m_name))))
-          {
-            LOG(LWARNING, ("Bad emoji code:", code));
-            continue;
-          }
-        }
-
-        if (currentGroups.size() == 1 && types.empty())
-        {
-          // Not a translation, but a category group definition
-          m_groupTranslations[currentGroups[0]].push_back(name);
-        }
-        else
-          cat.m_synonyms.push_back(name);
+        ProcessName(name, currentGroups, types, m_groupTranslations, cat.m_synonyms);
       }
     }
-    break;
-    }
   }
-
   // add last category
   AddCategory(cat, types);
+  TrimGroupTranslations(m_groupTranslations);
 }
 
 bool CategoriesHolder::GetNameByType(uint32_t type, int8_t locale, string & name) const
