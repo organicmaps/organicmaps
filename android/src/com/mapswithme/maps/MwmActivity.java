@@ -124,6 +124,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private PlacePageView mPlacePage;
 
   private RoutingPlanInplaceController mRoutingPlanInplaceController;
+  @Nullable
   private NavigationController mNavigationController;
 
   private MainMenu mMainMenu;
@@ -768,6 +769,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
         fragment.saveAltitudeChartState(outState);
     }
 
+    if (mNavigationController != null)
+      mNavigationController.onSaveState(outState);
+
     RoutingController.get().onSaveState();
     super.onSaveInstanceState(outState);
   }
@@ -782,6 +786,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (!mIsFragmentContainer && RoutingController.get().isPlanning())
       mRoutingPlanInplaceController.restoreState(savedInstanceState);
+
+    if (mNavigationController != null)
+      mNavigationController.onRestoreState(savedInstanceState);
   }
 
   @Override
