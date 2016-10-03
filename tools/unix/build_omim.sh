@@ -135,14 +135,13 @@ build_osrm()
   mkdir -p "$OSRM_TARGET"
   # First, build omim libraries
   build_conf_osrm $OSRM_OMIM_CONF "$OSRM_TARGET/omim-build"
-  OSRM_OMIM_LIBS="omim-build/out/$OSRM_OMIM_CONF"
+  OSRM_OMIM_LIBS="$(cd "$OSRM_TARGET/omim-build/out/$OSRM_OMIM_CONF"; pwd)"
   (
     cd "$OSRM_TARGET"
     "$CMAKE" "-DBOOST_ROOT=$BOOST_PATH" -DCMAKE_BUILD_TYPE=$OSRM_CONF "-DOMIM_BUILD_PATH=$OSRM_OMIM_LIBS" "$BACKEND"
     make clean
     make
   )
-  rm -r "$OSRM_TARGET/$OSRM_OMIM_LIBS"
 }
 
 build()
