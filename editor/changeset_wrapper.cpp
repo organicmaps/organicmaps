@@ -34,6 +34,8 @@ bool OsmFeatureHasTags(pugi::xml_node const & osmFt)
   return osmFt.child("tag");
 }
 
+string const static kVowels = "aeiouy";
+
 vector<string> const static kMainTags = {"amenity",   "shop",    "tourism", "historic", "craft",
                                          "emergency", "barrier", "highway", "office",   "leisure",
                                          "waterway",  "natural", "place",   "entrance", "building"};
@@ -306,15 +308,10 @@ string ChangesetWrapper::TypeCountToString(TTypeCount const & typeCount)
     // Format a count: "a shop" for single shop, "4 shops" for multiple.
     if (currentPair.second == 1)
     {
-      switch (currentPair.first.front())
-      {
-      case 'a':
-      case 'e':
-      case 'i':
-      case 'y':
-      case 'o': ss << "an"; break;
-      default: ss << "a";
-      }
+      if (kVowels.find(currentPair.first.front()) != string::npos)
+        ss << "an";
+      else
+        ss << "a";
     }
     else
     {
@@ -322,7 +319,25 @@ string ChangesetWrapper::TypeCountToString(TTypeCount const & typeCount)
     }
     ss << ' ' << currentPair.first;
     if (currentPair.second > 1)
+    {
+      if (currentPair.first.size() >= 2)
+      {
+        string const lastTwo = currentPair.first.substr(currentPair.first.size() - 2);
+        // "bench" -> "benches", "marsh" -> "marshes", etc.
+        if (lastTwo.back() == 'x' || lastTwo == "sh" || lastTwo == "ch" || lastTwo == "ss")
+        {
+          ss << 'e';
+        }
+        // "library" -> "libraries"
+        else if (lastTwo.back() == 'y' && kVowels.find(lastTwo.front()) == string::npos)
+        {
+          long const pos = ss.tellp();
+          ss.seekp(pos - 1);
+          ss << "ie";
+        }
+      }
       ss << 's';
+    }
   }
   return ss.str();
 }
