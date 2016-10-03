@@ -21,26 +21,22 @@ logging.basicConfig(level=logging.DEBUG, format='[%(asctime)s] %(levelname)s: %(
 
 
 def load_binary_list(path):
-    """
-    Loads reference binary classifier output.
-    """
+    """Loads reference binary classifier output. """
     bits = []
     with open(path, 'r') as fd:
         for line in fd:
-            if (not line.strip()) or line[0] == '#':
+            if (not line.strip()) or line.startswith('#'):
                 continue
-            bits.append(1 if line[0] == 'y' else 0)
+            bits.append(1 if line.startswith('y') else 0)
     return bits
 
 
 def load_score_list(path):
-    """
-    Loads list of matching scores.
-    """
+    """Loads list of matching scores. """
     scores = []
     with open(path, 'r') as fd:
         for line in fd:
-            if (not line.strip()) or line[0] == '#':
+            if (not line.strip()) or line.startswith('#'):
                 continue
             scores.append(float(re.search(r'result score: (\d*\.\d+)', line).group(1)))
     return scores
