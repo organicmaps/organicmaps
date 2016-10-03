@@ -1,5 +1,7 @@
 #pragma once
 
+#include "geometry/latlon.hpp"
+
 #include "base/math.hpp"
 
 #include "std/string.hpp"

@@ -23,7 +23,7 @@ HEADERS += defines.hpp
   CONFIG *= desktop
 }
 
-SUBDIRS = 3party base coding geometry editor indexer routing search
+SUBDIRS = 3party base coding geometry editor indexer partners_api routing search
 
 !CONFIG(osrm) {
   SUBDIRS *= platform stats storage
@@ -241,5 +241,9 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
     drape_frontend_tests.subdir = drape_frontend/drape_frontend_tests
     drape_frontend_tests.depends = 3party base coding platform drape drape_frontend
     SUBDIRS *= drape_frontend_tests
+
+    partners_api_tests.subdir = partners_api/partners_api_tests
+    partners_api_tests.depends = base platform partners_api
+    SUBDIRS *= partners_api_tests
   } # !no-tests
 } # !gtool

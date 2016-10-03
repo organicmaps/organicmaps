@@ -12,7 +12,6 @@ include($$ROOT_DIR/common.pri)
 
 HEADERS += \
     api_mark_point.hpp \
-    booking_api.hpp \
     bookmark.hpp \
     bookmark_manager.hpp \
     chart_generator.hpp \
@@ -36,7 +35,6 @@ SOURCES += \
     ../api/src/c/api-client.c \
     address_finder.cpp \
     api_mark_point.cpp \
-    booking_api.cpp \
     bookmark.cpp \
     bookmark_manager.cpp \
     chart_generator.cpp \

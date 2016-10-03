@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "map/booking_api.hpp"
+#include "partners_api/booking_api.hpp"
 
 UNIT_TEST(Booking_SmokeTest)
 {
