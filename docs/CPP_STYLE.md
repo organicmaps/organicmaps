@@ -1,6 +1,6 @@
 # C++ Style Guide
 
-In general, [Google's coding standard](http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml) is used, and we strongly encourage to read it.
+In general, [Google's coding standard](https://google.github.io/styleguide/cppguide.html) is used, and we strongly encourage to read it.
 
 Below are our specific (but not all!) exceptions to the Google's coding standard:
 
