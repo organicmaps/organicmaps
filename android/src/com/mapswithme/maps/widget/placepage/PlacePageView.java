@@ -95,6 +95,9 @@ public class PlacePageView extends RelativeLayout
 {
   private static final String PREF_USE_DMS = "use_dms";
 
+//TODO: remove this after booking_api.cpp will be done
+  private static final boolean USE_OLD_BOOKING = true;
+
   private boolean mIsDocked;
   private boolean mIsFloating;
 
@@ -151,6 +154,8 @@ public class PlacePageView extends RelativeLayout
   private View mHotelReview;
   private TextView mHotelRating;
   private TextView mHotelRatingBase;
+//TODO: remove this after booking_api.cpp will be done
+  private View mHotelMore;
 
   // Animations
   private BaseShadowController mShadowController;
@@ -309,6 +314,10 @@ public class PlacePageView extends RelativeLayout
     mBookmarkFrame.findViewById(R.id.tv__bookmark_edit).setOnClickListener(this);
 
     ViewGroup ppButtons = (ViewGroup) findViewById(R.id.pp__buttons);
+
+//  TODO: remove this after booking_api.cpp will be done
+    mHotelMore = findViewById(R.id.ll__more);
+    mHotelMore.setOnClickListener(this);
 
     initHotelDescriptionView();
     initHotelFacilitiesView();
@@ -750,7 +759,9 @@ public class PlacePageView extends RelativeLayout
         Locale locale = Locale.getDefault();
         Currency currency = Currency.getInstance(locale);
         SponsoredHotel.requestPrice(mSponsoredHotel.getId(), currency.getCurrencyCode());
-        SponsoredHotel.requestInfo(mSponsoredHotel.getId(), locale.toString());
+//      TODO: remove this after booking_api.cpp will be done
+        if (!USE_OLD_BOOKING)
+          SponsoredHotel.requestInfo(mSponsoredHotel.getId(), locale.toString());
       }
 
       String country = MapManager.nativeGetSelectedCountry();
@@ -855,10 +866,15 @@ public class PlacePageView extends RelativeLayout
       UiUtils.hide(mHotelGallery);
       UiUtils.hide(mHotelNearby);
       UiUtils.hide(mHotelReview);
+//    TODO: remove this after booking_api.cpp will be done
+      UiUtils.hide(mHotelMore);
     }
     else
     {
       UiUtils.hide(mWebsite);
+//    TODO: remove this after booking_api.cpp will be done
+      if (!USE_OLD_BOOKING)
+        UiUtils.hide(mHotelMore);
     }
 
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER), mPhone, mTvPhone);

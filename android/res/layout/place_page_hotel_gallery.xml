@@ -6,6 +6,7 @@
               android:layout_height="@dimen/placepage_hotel_gallery_height"
               android:orientation="horizontal"
               android:minHeight="@dimen/placepage_hotel_gallery_height"
+              android:visibility="gone"
               tools:background="#20FF0000"
               tools:visibility="visible">
 
