@@ -13,7 +13,7 @@ SUBDIRS = freetype fribidi minizip jansson tomcrypt protobuf osrm expat succinct
 # See https://trello.com/c/tWYSnXSS/22-opening-hours-3party-boost-test-framework.
 SUBDIRS *= opening_hours
 # Disable tests for gtool profile, since it needs only routing tests.
-CONFIG(desktop):!CONFIG(no-tests):!CONFIG(gtool) {
+CONFIG(desktop):!CONFIG(no-tests):!CONFIG(gtool):!CONFIG(osrm) {
   opening_hours_tests.subdir = opening_hours/opening_hours_tests
   opening_hours_tests.depends = opening_hours
   SUBDIRS *= opening_hours_tests
