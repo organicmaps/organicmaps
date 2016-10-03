@@ -40,7 +40,6 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
 
   private MotionEvent mLastMoveEvent;
 
-
   BottomPlacePageAnimationController(@NonNull PlacePageView placePage)
   {
     super(placePage);
@@ -77,11 +76,13 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
           if (isDetailContentScrollable())
           {
             mPlacePage.setState(State.DETAILS);
-          } else
+          }
+          else
           {
             mPlacePage.setState(State.FULLSCREEN);
           }
-        } else
+        }
+        else
         {
           mPlacePage.setState(State.PREVIEW);
         }
@@ -149,22 +150,25 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
   {
     super.onScroll(left, top);
 
-    if (mPlacePage.getState() == State.FULLSCREEN && mCurrentScrollY == 0)
+//    if (mPlacePage.getState() == State.FULLSCREEN && mCurrentScrollY == 0)
+//    {
+//      mDownCoord = mLastMoveEvent.getY();
+//      mPlacePage.dispatchTouchEvent(MotionEvent.obtain(mLastMoveEvent.getDownTime(),
+//                                                       mLastMoveEvent.getEventTime(),
+//                                                       MotionEvent.ACTION_UP,
+//                                                       mLastMoveEvent.getX(),
+//                                                       mLastMoveEvent.getY(),
+//                                                       mLastMoveEvent.getMetaState()));
+//      mPlacePage.dispatchTouchEvent(MotionEvent.obtain(mLastMoveEvent.getDownTime(),
+//                                                       mLastMoveEvent.getEventTime(),
+//                                                       MotionEvent.ACTION_DOWN,
+//                                                       mLastMoveEvent.getX(),
+//                                                       mLastMoveEvent.getY(),
+//                                                       mLastMoveEvent.getMetaState()));
+//    }
+    if (mCurrentScrollY > 0 && mDetailsScroll.getTranslationY() > 0)
     {
-      mDownCoord = mLastMoveEvent.getY();
-      mPlacePage.dispatchTouchEvent(MotionEvent.obtain(mLastMoveEvent.getDownTime(),
-                                                       mLastMoveEvent.getEventTime(),
-                                                       MotionEvent.ACTION_UP,
-                                                       mLastMoveEvent.getX(),
-                                                       mLastMoveEvent.getY(),
-                                                       mLastMoveEvent.getMetaState()));
-      mPlacePage.dispatchTouchEvent(MotionEvent.obtain(mLastMoveEvent.getDownTime(),
-                                                       mLastMoveEvent.getEventTime(),
-                                                       MotionEvent.ACTION_DOWN,
-                                                       mLastMoveEvent.getX(),
-                                                       mLastMoveEvent.getY(),
-                                                       mLastMoveEvent.getMetaState()));
-      mPlacePage.dispatchTouchEvent(mLastMoveEvent);
+      mPlacePage.setState(State.HIDDEN);
     }
     refreshToolbarVisibility();
   }
@@ -220,20 +224,28 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
           mIsDragging = true;
           if (!translateBy(-distanceY))
           {
-            mDownCoord = e2.getY();
-            mPlacePage.dispatchTouchEvent(MotionEvent.obtain(e1.getDownTime(),
-                                                             e1.getEventTime(),
-                                                             MotionEvent.ACTION_UP,
-                                                             e2.getX(),
-                                                             e2.getY(),
-                                                             e1.getMetaState()));
-            mPlacePage.dispatchTouchEvent(MotionEvent.obtain(e1.getDownTime(),
-                                                             e1.getEventTime(),
-                                                             MotionEvent.ACTION_DOWN,
-                                                             e2.getX(),
-                                                             e2.getY(),
-                                                             e1.getMetaState()));
-            mPlacePage.dispatchTouchEvent(e2);
+//            mDownCoord = e2.getY();
+//            mPlacePage.dispatchTouchEvent(MotionEvent.obtain(e2.getDownTime(),
+//                                                             e2.getEventTime(),
+//                                                             MotionEvent.ACTION_UP,
+//                                                             e2.getX(),
+//                                                             e2.getY(),
+//                                                             e2.getMetaState()));
+//            mPlacePage.dispatchTouchEvent(MotionEvent.obtain(e2.getDownTime(),
+//                                                             e2.getEventTime(),
+//                                                             MotionEvent.ACTION_DOWN,
+//                                                             e2.getX(),
+//                                                             e2.getY(),
+//                                                             e2.getMetaState()));
+            if (mDetailsScroll.getTranslationY() == 0)
+            {
+              mDetailsScroll.scrollBy((int) distanceX, (int) distanceY);
+              mState = State.FULLSCREEN;
+            }
+            else
+            {
+              mPlacePage.setState(State.HIDDEN);
+            }
           }
         }
 
@@ -243,7 +255,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
       @Override
       public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY)
       {
-        if (velocityY < 0)
+        /*if (velocityY < 0)
         {
           if (mPlacePage.getState() == State.PREVIEW)
           {
@@ -265,11 +277,12 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
               mPlacePage.setState(State.DETAILS);
             else
               mPlacePage.setState(State.HIDDEN);
-          } else
+          }
+          else
           {
             mPlacePage.setState(State.HIDDEN);
           }
-        }
+        }*/
         return super.onFling(e1, e2, velocityX, velocityY);
       }
     });
@@ -302,6 +315,10 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
       {
         mPlacePage.setState(State.FULLSCREEN);
       }
+      else if (mCurrentScrollY == 0 || mDetailsScroll.getTranslationY() > 0)
+      {
+        mPlacePage.setState(State.DETAILS);
+      }
     }
     else
     {
@@ -329,6 +346,8 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
 
   private boolean translateBy(float distanceY)
   {
+    if (mCurrentScrollY > 0)
+      return false;
     if (Math.abs(distanceY) > mScrollDelta)
       distanceY = 0.0f;
     float detailsTranslation = mDetailsScroll.getTranslationY() + distanceY;
@@ -350,6 +369,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
     }
 
     mDetailsScroll.setTranslationY(detailsTranslation);
+    refreshToolbarVisibility();
     return consumeEvent;
   }
 
@@ -441,7 +461,8 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
         }
       });
       startDefaultAnimator(buttonAnimator, interpolator);
-    } else
+    }
+    else
     {
       interpolator = new AccelerateInterpolator();
     }
@@ -462,7 +483,8 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
   {
     if (isDetailContentScrollable())
       mCurrentAnimator = ValueAnimator.ofFloat(mDetailsScroll.getTranslationY(),
-                                               mDetailsScroll.getHeight() - mDetailMaxHeight + mButtons.getHeight());
+                                               mDetailsScroll.getHeight() - mDetailMaxHeight + mButtons
+                                                   .getHeight());
     else
       mCurrentAnimator = ValueAnimator.ofFloat(mDetailsScroll.getTranslationY(),
                                                mDetailsScroll.getHeight() - mDetailsContent.getHeight());
