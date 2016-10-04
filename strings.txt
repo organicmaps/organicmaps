@@ -1912,7 +1912,7 @@
 
   [downloading_country_can_proceed]
     en = Downloading %@. You can now\nproceed to the map.
-    ru = Пока загружается %@\nвы можете пользоваться картой.
+    ru = Пока загружается %@,\nвы можете пользоваться картой.
     ar = تنزيل %@. يمكنك الآن\nالمتابعة الى الخريطة.
     cs = Stahování %@. Nyní můžete\npřejít na mapu.
     da = Downloader %@. Du kan nu\nfortsætte til kortet.
@@ -3807,7 +3807,7 @@
   [share_bookmarks_email_body]
     comment = Email text when sharing bookmarks category
     tags = ios,android
-    en = Greetings,\n\nAttached are my bookmarks from MAPS.ME offline maps. Please open it if you have MAPS.ME installed. If not, download the app for your iOS or Android device by following this link: http://maps.me/get?kmz\n\nEnjoy traveling with MAPS.ME!
+    en = Hello!\n\nAttached are my bookmarks from MAPS.ME offline maps. Please open them if you have MAPS.ME installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://maps.me/get?kmz\n\nEnjoy traveling with MAPS.ME!
     ru = Здравствуйте!\n\nВ прикрепленном файле "%@.kmz" мои метки из офлайновых карт MAPS.ME. Для того, чтобы открыть этот файл, вам потребуется приложение MAPS.ME, которое можно установить по ссылке: http://maps.me/get?kmz\n\nСпасибо!
     ar = مرحباً،\n\nمرفق طياً اشاراتي المرجعية من خرائط MAPS.ME المتوافرة بدون الاتصال مع الانترنت. الرجاء فتحها اذا كان لديك تطبيق MAPS.ME مثبت على جهازك. اذا لم يكن التطبيق مثبت لديك، قم بتنزيله على جهازك أندرويد أو آي او إس من خلال الرابط التالي: http://maps.me/get?kmz\n\nاستمتع بالسفر مع MAPS.ME!
     cs = Ahoj!\n\nZde jsou mé záložky z offline map aplikace MAPS.ME v přiloženém souboru „%@.kmz“. Pokud máš již aplikaci MAPS.ME nainstalovanou, otevři si, prosím, tento soubor. V opačném případě si nejprve nainstaluj aplikaci pro své iOS nebo Android zařízení z tohoto odkazu http://maps.me/get?kmz\n\nSkvěle se bav s MAPS.ME!
@@ -12085,7 +12085,7 @@
 
   [editor_time_add_closed]
     tags = ios, android
-    en = Add Hours When Closed
+    en = Add Non-Business Hours
     ru = Добавить перерыв
     ar = إضافة ساعات راحة
     cs = Přidat dobu, kdy je zavřeno
@@ -12205,7 +12205,7 @@
 
   [editor_hours_closed]
     tags = ios, android
-    en = Hours When Closed
+    en = Non-Business Hours
     ru = Перерыв
     ar = ساعات الراحة
     cs = Doba, kdy je zavřeno
