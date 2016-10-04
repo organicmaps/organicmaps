@@ -1215,7 +1215,7 @@ public class PlacePageView extends RelativeLayout
       @Override
       public void run()
       {
-        setState(State.DETAILS);
+        setState(mBookmarkSet ? State.DETAILS : State.PREVIEW);
       }
     });
   }
