@@ -42,6 +42,9 @@ struct GenerateInfo
 
   string m_bookingDatafileName;
   string m_bookingReferenceDir;
+  string m_opentableDataFile;
+  // TODO(mgsergio): Uncomment when I need this.
+  // string m_opentableReferenceDir;
 
   uint32_t m_versionDate = 0;
 

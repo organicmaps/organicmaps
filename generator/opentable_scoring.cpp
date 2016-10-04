@@ -1,6 +1,6 @@
 #include "generator/sponsored_scoring.hpp"
 
-#include "generator/booking_dataset.hpp"
+#include "generator/opentable_dataset.hpp"
 #include "generator/feature_builder.hpp"
 
 namespace
@@ -14,30 +14,28 @@ namespace generator
 namespace sponsored_scoring
 {
 template <>
-double MatchStats<BookingHotel>::GetMatchingScore() const
+double MatchStats<OpentableRestaurant>::GetMatchingScore() const
 {
   // TODO(mgsergio): Use tuner to get optimal function.
   return m_linearNormDistanceScore * m_nameSimilarityScore;
 }
 
 template <>
-bool MatchStats<BookingHotel>::IsMatched() const
+bool MatchStats<OpentableRestaurant>::IsMatched() const
 {
   return GetMatchingScore() > kOptimalThreshold;
 }
 
-// TODO(mgsergio): Do I need to spesialize this method?
 template <>
-MatchStats<BookingHotel> Match(BookingHotel const & h, FeatureBuilder1 const & fb)
+MatchStats<OpentableRestaurant> Match(OpentableRestaurant const & h, FeatureBuilder1 const & fb)
 {
-  MatchStats<BookingHotel> score;
+  MatchStats<OpentableRestaurant> score;
 
   auto const fbCenter = MercatorBounds::ToLatLon(fb.GetKeyPoint());
   auto const distance = ms::DistanceOnEarth(fbCenter.lat, fbCenter.lon, h.m_lat, h.m_lon);
   score.m_linearNormDistanceScore =
-      impl::GetLinearNormDistanceScore(distance, BookingDataset::kDistanceLimitInMeters);
+      impl::GetLinearNormDistanceScore(distance, OpentableDataset::kDistanceLimitInMeters);
 
-  // TODO(mgsergio): Check all translations and use the best one.
   score.m_nameSimilarityScore =
       impl::GetNameSimilarityScore(h.m_name, fb.GetName(StringUtf8Multilang::kDefaultCode));
 

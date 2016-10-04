@@ -1,7 +1,7 @@
 #include "generator/booking_dataset.hpp"
 
-#include "generator/booking_scoring.hpp"
 #include "generator/feature_builder.hpp"
+#include "generator/sponsored_scoring.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/ftypes_matcher.hpp"
@@ -72,6 +72,7 @@ bool BookingDataset::NecessaryMatchingConditionHolds(FeatureBuilder1 const & fb)
   return ftypes::IsHotelChecker::Instance()(fb.GetTypes());
 }
 
+// TODO(mgsergio): Try to eliminate as much code duplication as possible. (See opentable_dataset.cpp)
 template <>
 void BookingDataset::BuildObject(Object const & hotel,
                                  function<void(FeatureBuilder1 &)> const & fn) const
@@ -82,7 +83,6 @@ void BookingDataset::BuildObject(Object const & hotel,
   fb.SetCenter(MercatorBounds::FromLatLon(hotel.m_lat, hotel.m_lon));
 
   auto & metadata = params.GetMetadata();
-  // TODO(mgsergio): Rename FMD_SPONSORED_ID to FMD_BOOKING_ID.
   metadata.Set(feature::Metadata::FMD_SPONSORED_ID, strings::to_string(hotel.m_id.Get()));
   metadata.Set(feature::Metadata::FMD_WEBSITE, hotel.m_descUrl);
   metadata.Set(feature::Metadata::FMD_RATING, strings::to_string(hotel.m_ratingUser));
@@ -186,7 +186,7 @@ BookingDataset::ObjectId BookingDataset::FindMatchingObjectIdImpl(FeatureBuilder
 
   for (auto const j : bookingIndexes)
   {
-    if (booking_scoring::Match(GetObjectById(j), fb).IsMatched())
+    if (sponsored_scoring::Match(GetObjectById(j), fb).IsMatched())
       return j;
   }
 

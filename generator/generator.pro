@@ -29,6 +29,8 @@ SOURCES += \
     feature_generator.cpp \
     feature_merger.cpp \
     feature_sorter.cpp \
+    opentable_dataset.cpp \
+    opentable_scoring.cpp \
     osm2meta.cpp \
     osm2type.cpp \
     osm_element.cpp \
@@ -37,6 +39,7 @@ SOURCES += \
     region_meta.cpp \
     routing_generator.cpp \
     search_index_builder.cpp \
+    sponsored_scoring.cpp \
     srtm_parser.cpp \
     statistics.cpp \
     tesselator.cpp \
@@ -47,7 +50,6 @@ HEADERS += \
     aggregating_sponsored_dataset.hpp \
     altitude_generator.hpp \
     booking_dataset.hpp \
-    booking_scoring.hpp \
     borders_generator.hpp \
     borders_loader.hpp \
     centers_table_builder.hpp \
@@ -63,6 +65,7 @@ HEADERS += \
     generate_info.hpp \
     intermediate_data.hpp\
     intermediate_elements.hpp\
+    opentable_datatset.hpp \
     osm2meta.hpp \
     osm2type.hpp \
     osm_element.hpp \
@@ -76,6 +79,7 @@ HEADERS += \
     search_index_builder.hpp \
     sponsored_dataset.hpp \
     sponsored_dataset_inl.hpp \
+    sponsored_scoring.hpp \
     srtm_parser.hpp \
     statistics.hpp \
     tag_admixer.hpp \

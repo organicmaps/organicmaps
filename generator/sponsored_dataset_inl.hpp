@@ -7,7 +7,6 @@
 
 #include "std/fstream.hpp"
 #include "std/iostream.hpp"
-#include "std/limits.hpp"
 
 namespace generator
 {
@@ -137,7 +136,7 @@ void SponsoredDataset<SponsoredObject>::LoadData(istream & src, string const & a
 
   if (!addressReferencePath.empty())
   {
-    LOG(LINFO, ("Reference addresses for booking objects", addressReferencePath));
+    LOG(LINFO, ("Reference addresses for sponsored objects", addressReferencePath));
     Platform & platform = GetPlatform();
     string const backupPath = platform.WritableDir();
     // TODO(mgsergio): What is this for?
