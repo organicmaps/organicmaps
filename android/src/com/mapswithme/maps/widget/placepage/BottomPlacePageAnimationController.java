@@ -418,10 +418,9 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
     final float translation = mDetailsScroll.getHeight() - mPreview.getHeight();
     mCurrentAnimator = ValueAnimator.ofFloat(mDetailsScroll.getTranslationY(), translation);
     mCurrentAnimator.addUpdateListener(new UpdateListener());
-    Interpolator interpolator;
+    Interpolator interpolator = new AccelerateInterpolator();
     if (currentState == State.HIDDEN)
     {
-      interpolator = new OvershootInterpolator();
       ValueAnimator buttonAnimator = ValueAnimator.ofFloat(mButtons.getTranslationY(), 0);
       buttonAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
       {
@@ -432,10 +431,6 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
         }
       });
       startDefaultAnimator(buttonAnimator, interpolator);
-    }
-    else
-    {
-      interpolator = new AccelerateInterpolator();
     }
 
     mCurrentAnimator.addListener(new UiUtils.SimpleAnimatorListener()
