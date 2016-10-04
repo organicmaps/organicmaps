@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Interpolator;
-import android.view.animation.OvershootInterpolator;
 import android.widget.LinearLayout;
 
 import com.mapswithme.maps.R;
@@ -37,8 +36,6 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
 
   private float mDetailMaxHeight;
   private float mScrollDelta;
-
-  private MotionEvent mLastMoveEvent;
 
   BottomPlacePageAnimationController(@NonNull PlacePageView placePage)
   {
@@ -114,8 +111,6 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
         final float delta = mDownCoord - event.getY();
         if (Math.abs(delta) > mTouchSlop && !isDetailsScroll(delta))
           return true;
-
-        mLastMoveEvent = MotionEvent.obtain(event);
 
         break;
     }
@@ -220,40 +215,6 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
         }
 
         return true;
-      }
-
-      @Override
-      public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY)
-      {
-        /*if (velocityY < 0)
-        {
-          if (mPlacePage.getState() == State.PREVIEW)
-          {
-            if (isDetailContentScrollable())
-              mPlacePage.setState(State.DETAILS);
-            else
-              mPlacePage.setState(State.FULLSCREEN);
-          }
-          else if (mPlacePage.getState() == State.DETAILS)
-          {
-            mPlacePage.setState(State.FULLSCREEN);
-          }
-        }
-        else
-        {
-          if (mPlacePage.getState() == State.FULLSCREEN)
-          {
-            if (isDetailContentScrollable())
-              mPlacePage.setState(State.DETAILS);
-            else
-              mPlacePage.setState(State.HIDDEN);
-          }
-          else
-          {
-            mPlacePage.setState(State.HIDDEN);
-          }
-        }*/
-        return super.onFling(e1, e2, velocityX, velocityY);
       }
     });
     mDetailsScroll.useGestureDetector(mGestureDetector);

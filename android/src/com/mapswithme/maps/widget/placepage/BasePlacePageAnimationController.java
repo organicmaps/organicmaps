@@ -23,7 +23,9 @@ import com.mapswithme.util.UiUtils;
  */
 public abstract class BasePlacePageAnimationController implements ObservableScrollView.ScrollListener
 {
-  private static final int DURATION = MwmApplication.get().getResources().getInteger(R.integer.anim_placepage);
+  private static final int DURATION = MwmApplication.get()
+                                                    .getResources()
+                                                    .getInteger(R.integer.anim_placepage);
   private static final TimeInterpolator INTERPOLATOR = new AccelerateInterpolator();
   State mState = State.HIDDEN;
 
@@ -47,14 +49,17 @@ public abstract class BasePlacePageAnimationController implements ObservableScro
   {
 
     void onPreviewVisibilityChanged(boolean isVisible);
+
     void onPlacePageVisibilityChanged(boolean isVisible);
   }
+
   private OnAnimationListener mProgressListener;
 
   interface OnAnimationListener
   {
     void onProgress(float translationX, float translationY);
   }
+
   protected abstract void initGestureDetector();
 
   BasePlacePageAnimationController(@NonNull PlacePageView placePage)
@@ -72,7 +77,8 @@ public abstract class BasePlacePageAnimationController implements ObservableScro
     mTouchSlop = ViewConfiguration.get(mPlacePage.getContext()).getScaledTouchSlop();
 
     if (mPlacePage.isFloating() || mPlacePage.isDocked())
-      mDetailsFrame.setPadding(mDetailsFrame.getPaddingLeft(), mDetailsFrame.getPaddingTop(), mDetailsFrame.getPaddingRight(),
+      mDetailsFrame.setPadding(mDetailsFrame.getPaddingLeft(), mDetailsFrame.getPaddingTop(), mDetailsFrame
+                                   .getPaddingRight(),
                                UiUtils.dimen(R.dimen.place_page_buttons_height));
 
     if (mPlacePage.isDocked())
@@ -108,7 +114,8 @@ public abstract class BasePlacePageAnimationController implements ObservableScro
 
   void setState(final State state, @MapObject.MapObjectType final int type)
   {
-    mPlacePage.post(new Runnable() {
+    mPlacePage.post(new Runnable()
+    {
       @Override
       public void run()
       {
@@ -166,7 +173,8 @@ public abstract class BasePlacePageAnimationController implements ObservableScro
     animator.start();
   }
 
-  void initPreviewState() {
+  void initPreviewState()
+  {
     UiUtils.invisible(mDetailsFrame);
     mPlacePage.post(new Runnable()
     {
