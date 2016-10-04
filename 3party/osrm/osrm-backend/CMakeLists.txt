@@ -238,6 +238,10 @@ set(OMIM_LIBRARIES
   "${OMIM_BUILD_PATH}/libjansson.a"
 )
 
+if(APPLE)
+  SET(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} -dead_strip")
+endif()
+
 target_link_libraries(OSRM ${Boost_LIBRARIES})
 target_link_libraries(osrm-extract ${Boost_LIBRARIES})
 target_link_libraries(osrm-prepare ${Boost_LIBRARIES})
