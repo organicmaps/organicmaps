@@ -1,0 +1,16 @@
+food
+hotel
+tourism
+wifi
+transport
+fuel
+parking
+shop
+atm
+bank
+entertainment
+hospital
+pharmacy
+police
+toilet
+post
