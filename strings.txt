@@ -316,7 +316,7 @@
 
   [download_has_failed]
     comment = Settings/Downloader - info for country when download fails
-    en = Download has failed, touch again for one more try
+    en = Download has failed. Touch to try again.
     ru = Ошибка загрузки. Нажмите, чтобы повторить попытку
     ar = فشلت عملية التنزيل، انقر مرة أخرى لإعداة المحاولة
     cs = Stahování selhalo, zkuste to znovu.
@@ -1212,7 +1212,7 @@
 
   [country_status_added_to_queue]
     comment = Message to display at the center of the screen when the country is added to the downloading queue
-    en = ^\nis added to the downloading queue.
+    en = ^\nis added to the download queue.
     ru = ^\nдобавлено в очередь загрузки
     ar = ^\nقد تم إضافته الى صف الانتظار لعملية التنزيل
     cs = ^\npřidáno do fronty stahování
@@ -1367,7 +1367,7 @@
 
   [country_status_download_failed]
     comment = Message to display at the center of the screen when the country download has failed
-    en = Downloading has failed
+    en = Download has failed
     ru = Ошибка загрузки
     ar = فشلت عملية تنزيل
     cs = Stahování selhalo
@@ -1611,7 +1611,7 @@
     sk = Zavrieť
 
   [unsupported_phone]
-    en = A hardware accelerated OpenGL is required. Unfortunately, your device is not supported.
+    en = The app requires hardware accelerated OpenGL. Unfortunately, your device is not supported.
     ru = Для работы приложения необходим аппаратно ускоренный OpenGL. К сожалению, ваше устройство не поддерживается.
     ar = أنت بحاجة الى OpenGL بأجهزة تسريع. لسوء الحظ جهازك لا يدعم هذه الخاصية.
     cs = Je vyžadována hardwarová akcelerace OpenGL. Bohužel, vaše zařízení není podporováno.
@@ -1731,7 +1731,7 @@
     sk = Prosím, odpojte USB kábel alebo vložte pamäťovú kartu pre použitie s MAPS.ME
 
   [not_enough_free_space_on_sdcard]
-    en = Please free some space on SD card/USB storage first in order to use the app
+    en = Please free up some space on the SD card/USB storage first in order to use the app
     ru = Недостаточно свободного места на SD карте/в памяти устройства для использования программы
     ar = الرجاء إخلاء بعض المساحة في تخزين البطاقة الرقمية الآمنة\الناقل التسلسلي الشامل أولا من أجل استخدام هذا التطبيق.
     cs = Prosím, uvolněte nejprve místo na SD kartě/USB uložišti
@@ -1821,7 +1821,7 @@
     sk = Prosím, uvoľnite najprv %1$@ vo vašom zariadení, abyste mohol/a stiahnuť %2$@
 
   [download_resources]
-    en = Before you start let us download general world map into your device.\nIt needs %@ of data.
+    en = Before you start using the app, allow us to download the general world map to your device.\nIt will use %@ of storage.
     ru = Перед началом работы разрешите нам загрузить общую карту мира на ваше устройство.\nЭто потребует %@ данных.
     ar = قبل أن تبدأ، دعنا نقوم بتنزيل خريطة العالم العامة على جهازك.\nانها بحاجة الى %@ من البيانات.
     cs = Ještě než začnete, bude třeba stáhnout obecnou mapu světa.\nZabere to %@.
@@ -1912,7 +1912,7 @@
 
   [downloading_country_can_proceed]
     en = Downloading %@. You can now\nproceed to the map.
-    ru = Пока загружается %@\nвы можете пользоваться приложением.
+    ru = Пока загружается %@,\nвы можете пользоваться картой.
     ar = تنزيل %@. يمكنك الآن\nالمتابعة الى الخريطة.
     cs = Stahování %@. Nyní můžete\npřejít na mapu.
     da = Downloader %@. Du kan nu\nfortsætte til kortet.
@@ -2064,7 +2064,7 @@
 
   [download_location_map_up_to_date]
     comment = REMOVE THIS STRING AFTER REFACTORING
-    en = The map of your current\nlocation (%@) is up-to-date
+    en = The map of your current\nlocation (%@) is up-to-date.
     ru = Карта местности, в которой\nвы находитесь (%@), уже загружена.
     ar = خريطة موقعك\nالحالي (%@) مُحَدَثَة
     cs = Mapa vaší současné\npolohy (%@) je aktuální.
@@ -2250,7 +2250,7 @@
   [advise_update_maps]
     comment = Show popup notification on app start when we have out-of-date maps
     tags = android
-    en = Update available for these maps:
+    en = Update available for the following maps:
     ru = Доступно обновление для следующих карт:
     ar = هناك تحديثات متوافرة للخرائط التالية:
     cs = Je k dispozici aktualizace pro tyto mapy:
@@ -2794,7 +2794,7 @@
   [bookmarks_usage_hint_import_only]
     comment = Text hint in Bookmarks dialog when at least one bookmark is added
     tags = ios,android
-    en = Bookmarks from other sources can be imported and displayed in MAPS.ME. Open KML/KMZ file with saved bookmarks from mail, Dropbox or weblink.
+    en = Bookmarks from other sources can be imported and displayed in MAPS.ME. Open a KML/KMZ file with saved bookmarks from email, Dropbox or a weblink.
     ru = Метки можно импортировать из MAPS.ME либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб-ссылке.
     ar = يمكن استيراد الإشارات المرجعية من المصادر الأخرى و عرضها على MAPS.ME. افتح ملف KML/KMZ الذي يحتوي على الإشارات المرجعية المحفوظة من البريد الالكتروني، دروب بوكس أو ويب لينك.
     cs = V MAPS.ME mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami lze otevřít např. z emailu, Dropboxu nebo webového odkazu.
@@ -3775,7 +3775,7 @@
   [share_bookmarks_email_subject]
     comment = Email Subject when sharing bookmarks category
     tags = ios,android
-    en = Shared MAPS.ME bookmarks
+    en = MAPS.ME bookmarks were shared with you
     ru = С вами поделились метками MAPS.ME
     ar = تم مشاركة اشارات MAPS.ME المرجعية معك
     cs = Sdílené záložky MAPS.ME
@@ -3807,7 +3807,7 @@
   [share_bookmarks_email_body]
     comment = Email text when sharing bookmarks category
     tags = ios,android
-    en = Greetings,\n\nAttached are my bookmarks from MAPS.ME offline maps. Please open it if you have MAPS.ME installed. If not, download the app for your iOS or Android device following this link: http://maps.me/get?kmz\n\nEnjoy traveling with MAPS.ME!
+    en = Hello!\n\nAttached are my bookmarks from MAPS.ME offline maps. Please open them if you have MAPS.ME installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://maps.me/get?kmz\n\nEnjoy traveling with MAPS.ME!
     ru = Здравствуйте!\n\nВ прикрепленном файле "%@.kmz" мои метки из офлайновых карт MAPS.ME. Для того, чтобы открыть этот файл, вам потребуется приложение MAPS.ME, которое можно установить по ссылке: http://maps.me/get?kmz\n\nСпасибо!
     ar = مرحباً،\n\nمرفق طياً اشاراتي المرجعية من خرائط MAPS.ME المتوافرة بدون الاتصال مع الانترنت. الرجاء فتحها اذا كان لديك تطبيق MAPS.ME مثبت على جهازك. اذا لم يكن التطبيق مثبت لديك، قم بتنزيله على جهازك أندرويد أو آي او إس من خلال الرابط التالي: http://maps.me/get?kmz\n\nاستمتع بالسفر مع MAPS.ME!
     cs = Ahoj!\n\nZde jsou mé záložky z offline map aplikace MAPS.ME v přiloženém souboru „%@.kmz“. Pokud máš již aplikaci MAPS.ME nainstalovanou, otevři si, prosím, tento soubor. V opačném případě si nejprve nainstaluj aplikaci pro své iOS nebo Android zařízení z tohoto odkazu http://maps.me/get?kmz\n\nSkvěle se bav s MAPS.ME!
@@ -3997,7 +3997,7 @@
   [download_location_country]
     comment = Warning message when location country isn't downloaded during search (see also download_location_map_proposal).
     tags = ios,android
-    en = Download the country of your current location (%@)
+    en = Download the map of your current location (%@)
     ru = Скачайте страну вашего текущего местоположения (%@)
     ar = تنزيل دولة (%@) موقعك الحالي
     cs = Stahování země vaší aktuální polohy (%@)
@@ -4093,7 +4093,7 @@
   [downloading_is_active]
     comment = Alert message that downloading is in progress.
     tags = android
-    en = Country download is in progress now.
+    en = Map download is in progress now.
     ru = Идет процесс загрузки карт.
     ar = جاري الآن تنزيل الدولة
     cs = Právě probíhá stahování země.
@@ -4219,7 +4219,7 @@
   [my_position_share_sms]
     comment = Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140
     tags = ios,android,tizen
-    en = Hey, check out my current location at MAPS.ME! %1$@ or %2$@ Don't have offline maps? Download here: http://maps.me/get
+    en = Hey, check out my current location in MAPS.ME! %1$@ or %2$@ Don't have offline maps? Download here: http://maps.me/get
     ru = Смотри где я сейчас. Жми %1$@ или %2$@
     ar = هاي، تفقد الموقع الخاص بي على MAPS.ME! %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: http://maps.me/get
     cs = Koukni kde jsem. Otevři odkaz: %1$@ nebo %2$@
@@ -4251,7 +4251,7 @@
   [bookmark_share_email_subject]
     comment = Subject for emailed bookmark
     tags = ios,android,tizen
-    en = Hey, check out my pin at MAPS.ME map!
+    en = Hey, check out my pin in MAPS.ME!
     ru = Смотри мою метку на карте MAPS.ME
     ar = هاي، تفقد الدبوس الخاص بي على خريطة MAPS.ME!
     cs = Koukni na moji značku na mapě v MAPS.ME
@@ -4283,7 +4283,7 @@
   [bookmark_share_email]
     comment = Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me
     tags = tizen
-    en = Hi,\n\nI pinned: %1$@ at MAPS.ME, world offline maps. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.
+    en = Hi,\n\nI pinned: %1$@ on the MAPS.ME offline map of the world. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.
     ru = Привет!\n\nОткрой эту ссылку %2$@ либо эту %3$@, для того, чтобы увидеть мою метку %1$@ на карте MAPS.ME.\n\nСпасибо.
     ar = مرحبا،\n\nقمت بوضع دبوس: %1$@ على MAPS.ME، خرائط العالم بدون الاتصال مع الانترنت. انقر على هذا الرابط %2$@ أو الرابط التالي %3$@ لمشاهدة الموقع على الخريطة.\n\nشكرا لك.
     cs = Ahoj,\n\noznačil/a jsem %1$@ v MAPS.ME, offline mapách celého světa. Klepni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDíky.
@@ -4315,7 +4315,7 @@
   [my_position_share_email_subject]
     comment = Subject for emailed position
     tags = ios,android,tizen
-    en = Hey, check out my current location at MAPS.ME map!
+    en = Hey, check out my current location on the MAPS.ME map!
     ru = Посмотри на карте MAPS.ME, где я сейчас нахожусь
     ar = يا هلا، تحقق من موقعي الحالي على خريطة MAPS.ME!
     cs = Podívej se na mou aktuální polohu na mapě na MAPS.ME
@@ -4570,7 +4570,7 @@
   [copied_to_clipboard]
     comment = Text for message when used successfully copied something
     tags = ios,android
-    en = Copied to Clipboard: %1$@
+    en = Copied to clipboard: %1$@
     ru = Скопировано в буфер обмена: %1$@
     ar = تم النسخ الى الحافظة: %1$@
     cs = Zkopírováno do schránky: %1$@
@@ -5106,7 +5106,7 @@
 
   [pref_zoom_summary]
     tags = android,tizen
-    en = Display on the screen
+    en = Display on the map
     ru = Показать на карте
     ar = عرض على الشاشة
     cs = Zobrazit na obrazovce
@@ -5958,7 +5958,7 @@
   [kitkat_migrate_ok]
     comment = Used to warn user when fixing KitKat issue
     tags = android
-    en = Map data storage has been optimized. Please restart the app.\n\nMapsWithMe folder in the root of SD card is not needed anymore, you can delete it.
+    en = Map data storage has been optimized. Please restart the app.\n\nThe MapsWithMe folder in the SD card root folder is not needed anymore. You can delete it.
     ru = Мы оптимизировали хранение данных. Для дальнейшей работы, пожалуйста, перезагрузите приложение.\n\nПапка MapsWithMe, которая находится в корне SD-карты, уже больше не нужна, вы можете её удалить.
     ar = تم تحسين وسيلة تخزين بيانات الخريطة. الرجاء اعادة تشغيل التطبيق .\n\nلا حاجة بعد الآن لمجلد MAPS.ME في البطاقة الرقمية الآمنة، يمكنك حذفه.
     cs = Uložiště map bylo optimalizováno. Prosím, restartujte aplikaci.\n\nAdresář MapsWithMe v kořenové složce SD karty již není potřeba, můžete ho smazat.
@@ -5989,7 +5989,7 @@
   [kitkat_migrate_failed]
     comment = Used to warn user when fixing KitKat issue
     tags = android
-    en = Due to changes in Android 4.4, we need to optimize map data storage, but there is no enough space to copy map data.\n\nPlease free up the memory, otherwise maps will be available in read-only mode.
+    en = Due to changes in Android 4.4, we need to optimize the map data storage, but there is not enough space to copy map data.\n\nPlease free up some memory, otherwise maps will only be available in read-only mode.
     ru = В связи с изменениями на Android 4.4 нам нужно оптимизировать хранение данных. Но сейчас не хватает места ни во внутренней памяти, ни на SD-карте.\n\nПожалуйста, освободите место для переноса карт, иначе карты будут доступны только для просмотра.
     ar = بسبب التغييرات في نظام أندرويد4.4 ، نحن بحاجة لتحسين وسيلة تخزين بيانات الخريطة، لكن لا يوجد حيز كافٍ لنسخ بيانات الخريطة.\n\nالرجاء إخلاء الذاكرة، وإلا ستتوافر الخرائط في وضع القراءة فقط.
     cs = Kvůli změnám v Androidu 4.4 musíme optimalizovat uložiště map, ale není dostatek prostoru pro jejich zkopírování.\n\nProsím, uvolněte paměť, jinak budou mapy dostupné pouze v režimu pro čtení.
@@ -6051,7 +6051,7 @@
   [kitkat_optimization_in_progress]
     comment = Used to warn user when fixing KitKat issue
     tags = android
-    en = Your map storage is being optimized now. Please wait, it may take a few minutes.
+    en = Your map storage is being optimized now. Please wait. It may take a few minutes.
     ru = Мы сейчас оптимизируем хранение данных. Это может занять несколько минут, подождите, пожалуйста.
     ar = لقد تم الآن تحسين وسيلة تخزين الخرائط. الرجاء الانتظار، سيستغرق الأمر دقائق قليلة.
     cs = Úložiště map se právě optimalizuje. Může to trvat i pár minut. Prosíme o chvilku strpení.
@@ -6710,7 +6710,7 @@
   [feedback_general]
     comment = Settings: "Send general feedback" button
     tags = android
-    en = General feedback
+    en = General Feedback
     ru = Отправить отзыв
     fr = Avis général
     de = Allgemeine Rückmeldung
@@ -6720,7 +6720,7 @@
   [subscribe_to_news]
     comment = Text in menu
     tags = ios, android
-    en = Subscribe to our news
+    en = Subscribe to our newsletter
     ru = Подписаться на новости
     ar = أشترك في نشرتنا الإخبارية
     cs = Přihlásit se k odběru novinek
@@ -6912,7 +6912,7 @@
   [subscribe_me_body]
     comment = Email body
     tags = ios, android
-    en = I want to be the first to learn about latest news updates and promotions. I can cancel my subscription at any time.
+    en = I want to be the first to learn about the latest news, app updates, and promotions. I understand that I can cancel my subscription at any time.
     ru = Я хочу первым узнавать обо всех новостях, обновлениях приложения и акциях. Я могу отписаться от рассылки в любой момент.
     ar = أريد أن أكون أول من يعرف آخر الأخبار والتحديثات والترقيات. يمكنني إلغاء اشتراكي في أي وقت.
     cs = Chci se vždy jako první dozvídat o nejnovějších zprávách, aktualizacích a akčních nabídkách. Své přihlášení k odběru mohu kdykoli zrušit.
@@ -7073,7 +7073,7 @@
   [wifi]
     comment = Search Suggestion
     tags = ios,android,tizen
-    en = WiFi
+    en = Wi-Fi
     ru = WiFi
     ar = واي فاي
     cs = WiFi
@@ -7632,7 +7632,7 @@
   [downloader_delete_map_while_routing_dialog]
     comment = Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode
     tags = android, ios
-    en = To delete map please stop navigation.
+    en = To delete map, please stop navigation.
     ru = Чтобы удалить карту, пожалуйста, остановите навигацию.
     ar = لحذف الخريطة يرجى إيقاف الملاحة.
     cs = Chcete-li odstranit mapu, pak prosím zastavte navigaci.
@@ -7791,7 +7791,7 @@
   [routing_failed_cross_mwm_building]
     comment = PointsInDifferentMWM
     tags = android, ios
-    en = Routes can only be created that are fully contained within a single map.
+    en = Routes can only be created that are fully contained within a map of a single region.
     ru = Маршрут может быть проложен только внутри карты одного региона.
     ar = يمكن فقط إنشاء المسارات التي توجد بشكل كامل ضمن خريطة واحدة.
     cs = Lze vytvářet jen takové trasy, které se nachází na území jediné mapy.
@@ -7855,7 +7855,7 @@
   [routing_failed_internal_error]
     comment = InternalError
     tags = android, ios
-    en = Internal error occurred. Please try to delete and download the map again. If problem persist please contact us at support@maps.me.
+    en = Internal error occurred. Please try to delete and download the map again. If the problem persists, please contact us at support@maps.me.
     ru = Внутренняя ошибка. Пожалуйста, удалите карту и скачайте её еще раз. Если это не помогло, напишите нам на support@maps.me
     ar = حدث خطأ داخلي. يرجى محاولة حذف الخريطة وإعادة تنزيلها مرة أخرى. إذا استمرت المشكلة يرجى الاتصال بنا على support@maps.me.
     cs = Došlo k vnitřní chybě. Zkuste, prosím, mapu smazat a znovu stáhnout. Jestliže problém přetrvává, kontaktujte nás na support@maps.me.
@@ -8299,7 +8299,7 @@
   [pref_use_google_play]
     comment = Preference text
     tags = android
-    en = Use Google Play Services to get your current location
+    en = Use Google Play Services to determine your current location
     ru = Использовать Google Play Services для определения позиции
     ar = استخدم خدمات جوجل بلاي لتتعرف على موقعك الحالي
     cs = Používat služby Google Play pro získání aktuální polohy
@@ -8362,7 +8362,7 @@
   [rating_user_since]
     comment = Text for rating dialog
     tags = android
-    en = I’ve been MAPS.ME user since %@
+    en = I’ve been a MAPS.ME user since %@
     ru = Я пользуюсь MAPS.ME c %@
     ar = أنا مستخدم لتطبيق MAPS.ME منذ %@
     cs = Uživatelem MAPS.ME jsem od roku %@
@@ -8586,7 +8586,7 @@
   [routing_download_maps_along]
     comment = Text for routing error dialog
     tags = android, ios
-    en = Download maps along route
+    en = Download all of the maps along your route
     ru = Загрузите все карты по пути следования
     ar = تنزيل الخرائط على طول الطريق
     cs = Stahovat mapy podél cesty
@@ -8746,7 +8746,7 @@
   [routing_requires_all_map]
     comment = Text for routing error dialog
     tags = android, ios
-    en = Creating a route requires all the maps from your location to destination downloaded and updated.
+    en = In order to create a route, we need to download and update all the maps from your location to your destination.
     ru = Для создания маршрута необходимо загрузить и обновить все карты на пути следования.
     ar = Creare un percorso necessita la presenza di tutte le mappe scaricate e aggiornate dalla tua posizione alla destinazione.
     cs = Naplánování trasy vyžaduje stažení a aktualizaci všech map z vašeho umístění do cílového umístění.
@@ -9652,7 +9652,7 @@
 
   [dialog_routing_disclaimer_priority]
     tags = ios,android
-    en = — Road conditions, traffic laws and road signs always take priority over the navigational advice;
+    en = — Road conditions, traffic laws, and road signs always take priority over the navigation hints;
     ru = — Дорожная обстановка, ПДД и знаки приоритетнее советов приложения;
     ar = — دائمًا ما يكون لظروف الطريق وقوانين وإشارات المرور الأولوية على المشورة الملاحية;
     cs = • Situace na silnici, dopravní předpisy a dopravní značení mají vždy prioritu před pokyny navigace.
@@ -9683,7 +9683,7 @@
 
   [dialog_routing_disclaimer_precision]
     tags = ios,android
-    en = — The map might be inaccurate and the suggested route might not always be the most optimal way to reach the destination;
+    en = — The map might be inaccurate, and the suggested route might not always be the most optimal way to reach the destination;
     ru = — Карта может быть неточной, а предложенный маршрут не всегда оптимален;
     ar = — قد تكون الخريطة غير دقيقة وقد لا يكون المسار المقترح هو المسار الأمثل دائمًا للوصول إلى الوجهة.;
     cs = — Mapa může být nepřesná a navrhovaná trasa nemusí být vždy optimální cestou, jak dojet do cíle;
@@ -9714,7 +9714,7 @@
 
   [dialog_routing_disclaimer_recommendations]
     tags = ios,android
-    en = — Suggested routes are to be taken only as recommendations;
+    en = — Suggested routes should only be understood as recommendations;
     ru = — Предлагаемые маршруты — лишь рекомендации;
     ar = — يتم التعامل مع المسارات المقترحة كتوصيات فقط;
     cs = — Navrhované trasy je třeba brát pouze jako doporučení;
@@ -9745,7 +9745,7 @@
 
   [dialog_routing_disclaimer_borders]
     tags = ios,android
-    en = — Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorized places;
+    en = — Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorized places.
     ru = — Будьте внимательны с маршрутами в приграничных зонах: в построенных программой маршрутах иногда возможны пересечения границ в неположенных местах;
     ar = — تحذير بشأن مسارات في منطقة حدودية: المسارات التي تم إنشاؤها بواسطة تطبيقنا قد تعبر حدود الدولة في أماكن غير مصرح بها في بعض الأحيان;
     cs = — U tratí v hraničních zónách buďte opatrní: trasy vytvořené naší aplikací občas překračují hranice zemí na nepovolených místech;
@@ -10643,7 +10643,7 @@
 
   [dialog_routing_download_cross_route]
     tags = ios,android
-    en = Download the map to create a more optimal route that crosses the edge of this map.
+    en = Download additional maps to create a better route that crosses the boundaries of this map.
     ru = Для построения более оптимального маршрута с пересечением границы требуется загрузить карту.
     ar = تنزيل الخريطة لإنشاء مسار أفضل يعبر حافة هذه الخريطة.
     cs = Stáhnout mapu a vytvořit optimálnější trasu, která překračuje hranice této mapy.
@@ -10707,7 +10707,7 @@
 
   [search_without_internet_advertisement]
     tags = ios,android
-    en = To start searching and creating routes, please download the map, and you will not need Internet connection anymore.
+    en = To start searching and creating routes, please download the map. After that you will no longer need an Internet connection.
     ru = Для поиска мест и построения маршрутов скачайте карту, и интернет вам больше не понадобится.
     ar = لبدء البحث وإنشاء الطرق، يرجى تنزيل الخريطة، وسوف لن تحتاج إلى اتصال بالإنترنت بعد الآن.
     cs = Chcete-li začít hledat a vytvářet trasy, pak si prosím stáhněte mapu a nebudete již potřebovat připojení.
@@ -12085,7 +12085,7 @@
 
   [editor_time_add_closed]
     tags = ios, android
-    en = Add Hours Closed
+    en = Add Non-Business Hours
     ru = Добавить перерыв
     ar = إضافة ساعات راحة
     cs = Přidat dobu, kdy je zavřeno
@@ -12115,7 +12115,7 @@
 
   [editor_time_title]
     tags = ios, android
-    en = Opening hours
+    en = Business Hours
     ru = Время работы
     ar = ساعات العمل
     cs = Otevírací doba
@@ -12205,7 +12205,7 @@
 
   [editor_hours_closed]
     tags = ios, android
-    en = Hours Closed
+    en = Non-Business Hours
     ru = Перерыв
     ar = ساعات الراحة
     cs = Doba, kdy je zavřeno
@@ -12353,7 +12353,7 @@
     sk = Poloha
 
   [editor_done_dialog_1]
-    en = You’ve changed the world map. Do not hide this! Tell your friends, and edit it together.
+    en = You’ve changed the world map. Do not keep it to yourself! Tell your friends, and edit it together.
     ru = Вы изменили карту мира. Не скрывайте это, расскажите друзьям и редактируйте вместе.
     ar = لقد غيرت خريطة العالم. لا تخفي ذلك! اخبر أصدقاءك، وغيروها معا.
     cs = Změnili jste světovou mapu. Neskrývejte to! Řekněte o tom svým kamarádům a upravujte ji společně.
@@ -12382,7 +12382,7 @@
     sk = Zmenili ste mapu sveta. Nemusíte to skrývať! Povedzte o tom svojim priateľom a začnite ju spolu upravovať.
 
   [editor_done_dialog_2]
-    en = This is your second map improvement. Now you are number %d in the map editors rating. Tell your friends about it.
+    en = This is the second time you edited the map. Now you are number %d in the map editors ranking. Tell your friends about it.
     ru = Вы улучшили карту уже два раза. Вы теперь %d в рейтинге редакторов карты. Расскажите друзьям.
     ar = هذا هو تعديلك الثاني بالخريطة. أنت الآن في الترتيب رقم %d في قائمة محرري الخريطة. اخبر أصدقاءك عن ذلك.
     cs = Toto je vaše druhé vylepšení mapy. Nyní jste na %d. místě na seznamu editorů map. Řekněte o tom svým kamarádům.
@@ -12556,7 +12556,7 @@
     sk = Odoslať
 
   [editor_report_problem_title]
-    en = Problem
+    en = Issue
     ru = Проблема
     ar = مشكلة
     cs = Problém
@@ -13156,7 +13156,7 @@
 
   [edit_opening_hours]
     tags = ios, android
-    en = Edit opening hours
+    en = Edit business hours
     ru = Редактировать время работы
     ar = حرر ساعات عمل
     cs = Upravit otevírací dobu
@@ -13216,7 +13216,7 @@
 
   [no_osm_account]
     tags = ios, android
-    en = Don't have OpenStreetMap account?
+    en = Don't have an OpenStreetMap account?
     ru = Не зарегистрированы в OpenStreetMap?
     ar = ليس لديك حساب في OpenStreetMap؟
     cs = Nemáte účet u OpenStreetMap?
@@ -13396,7 +13396,7 @@
 
   [forgot_password]
     tags = ios, android
-    en = Forgot password?
+    en = Forgot your password?
     ru = Забыли пароль?
     ar = هل نسيت كلمة المرور؟
     cs = Zapomenuté heslo?
@@ -14035,7 +14035,7 @@
   [house_number]
     comment = Editable House Number text field (in address block).
     tags = ios, android
-    en = House number
+    en = Building number
     ru = Номер дома
     ar = رقم المنزل
     cs = Číslo domu
@@ -14246,7 +14246,7 @@
 
   [select_cuisine]
     tags = ios, android
-    en = Select Cuisine
+    en = Select cuisine
     ru = Выбрать кухню
     ar = اختر المطبخ
     cs = Vybrat kuchyni
@@ -14397,7 +14397,7 @@
 
   [downloader_delete_map_dialog]
     tags = ios, android
-    en = All map edits will be deleted together with the map.
+    en = All of your map edits will be deleted together with the map.
     ru = Вместе с картой удалятся и внесенные вами правки на этой карте.
     ar = سيتم حذف جميع التغييرات بالخريطة بالإضافة إلى حذف الخريطة نفسها.
     cs = Zároveň s touto mapou budou odstraněny také všechny změny na této mapě.
@@ -14487,7 +14487,7 @@
 
   [downloader_search_field_hint]
     tags = ios, android
-    en = Find the map
+    en = Find map
     ru = Найти карту
     ar = اعثر على الخريطة
     cs = Najít mapu
@@ -14547,7 +14547,7 @@
 
   [migration_delete_all_download_current_button]
     tags = ios, android
-    en = Download current map and delete the old ones
+    en = Download the current map and delete all of the old ones
     ru = Скачать текущую и удалить все старые карты
     ar = تنزيل الخريطة الحالية وحذف الخرائط القديمة
     cs = Stáhněte si aktuální mapu a odstraňte staré
@@ -14607,7 +14607,7 @@
 
   [common_check_internet_connection_dialog]
     tags = ios, android
-    en = Please check your settings and make sure your device is connected to the internet.
+    en = Please check your settings and make sure your device is connected to the Internet.
     ru = Проверьте настройки и убедитесь, что устройство подключено к интернету.
     ar = يرجى التحقق من الإعدادات والتأكد من اتصال جهازك بالإنترنت.
     cs = Zkontrolujte prosím své nastavení a ujistěte se, že je vaše zařízení připojeno k internetu.
@@ -14667,7 +14667,7 @@
 
   [downloader_no_space_message]
     tags = ios, android
-    en = Please, remove unnecessary data
+    en = Please delete any unnecessary data
     ru = Удалите ненужные данные
     ar = من فضلك، قم بإزالة البيانات غير الضرورية
     cs = Odstraňte prosím nepotřebná data
@@ -14937,7 +14937,7 @@
 
   [editor_focus_map_on_location]
     tags = ios, android
-    en = Pull the map to select the correct location of the object.
+    en = Drag the map to select the correct location of the object.
     ru = Потяните карту, чтобы выбрать правильное местоположение объекта.
     ar = اسحب الخريطة لتحدد الموقع الصحيح للهدف.
     cs = Táhněte mapu, abyste vybrali správné umístění objektu.
@@ -15176,7 +15176,7 @@
     sk = Kategória
 
   [detailed_problem_description]
-    en = Detailed description of a problem
+    en = Detailed description of the issue
     ru = Подробное описание проблемы
     ar = وصف مفصل للمشكلة
     cs = Detailní popis problému
@@ -15205,7 +15205,7 @@
     sk = Podrobný popis problému
 
   [editor_report_problem_other_title]
-    en = A different problem
+    en = Different problem
     ru = Другая проблема
     ar = مشكلة مختلفة
     cs = Jiný problém
@@ -15295,7 +15295,7 @@
 
   [whatsnew_smallmwm_header]
     tags = ios, android
-    en = You've been asking for it and we've done it
+    en = You've long requested it, and we finally added it
     ru = Вы долго просили — мы наконец сделали
     ar = لقد طلبتم ذلك، وها نحن قد لبينا طلبكم
     cs = Říkali jste si o to, a my to udělali
@@ -15325,7 +15325,7 @@
 
   [whatsnew_smallmwm_message]
     tags = ios, android
-    en = We have split maps into parts. Now you can download separate regions, not whole countries.
+    en = We have split large maps into parts. Now you can download just the regions that you need as opposed to the maps for entire countries.
     ru = Мы разрезали большие карты на части: загружайте только нужные области, а не целые страны.
     ar = لقد قسمنا الخرائط إلى أجزاء. الآن يمكنك تنزيل مناطق منفصلة، وليس البلد بأكمله.
     cs = Rozdělili jsme mapy na části. Nyní si můžete stáhnout jednotlivé regiony namísto celé země.
@@ -15535,7 +15535,7 @@
 
   [onboarding_offline_navigation_message]
     tags = ios, android
-    en = Plan optimal car and pedestrian routes, even if there is no internet connection!
+    en = Plan optimal car and pedestrian routes, even when there is no Internet connection!
     ru = Прокладывайте самые оптимальные автомобильные и пешеходные маршруты даже там, где нет связи!
     ar = قم بتخطيط أفضل طرق السيارات والمشاة، حتى مع عدم وجود اتصال بالإنترنت!
     cs = Naplánujte si optimální trasy pro auto nebo pěší chůzi, i když tam nebude připojení k internetu!
@@ -15625,7 +15625,7 @@
 
   [onboarding_offline_maps_title]
     tags = ios, android
-    en = MAPS.ME — use the maps of the entire world without an internet connection
+    en = MAPS.ME — use the maps of the entire world without an Internet connection
     ru = MAPS.ME — используй карты всего мира без интернета
     ar = MAPS.ME — وصول إلى الخرائط على مستوى العالم دون إنترنت
     cs = MAPS.ME — přistupte k celosvětovým mapám bez internetu
@@ -15655,7 +15655,7 @@
 
   [onboarding_offline_maps_message]
     tags = ios, android
-    en = Download the maps for the desired area once, and use the navigation and search functions without an internet connection.
+    en = Download the maps for the desired area once, and use the navigation and search functions without an Internet connection.
     ru = Загрузите карты необходимого региона один раз и пользуйтесь навигацией и поиском без подключения к интернету.
     ar = قم بتنزيل خرائط للمنطقة المطلوب مرة واحدة، واستخدم وظائف الملاحة والبحث دون الحاجة للاتصال بالإنترنت.
     cs = Stáhněte si jednou mapy požadované oblasti a poté používejte navigaci a vyhledávací funkce bez připojení k internetu.
@@ -15833,7 +15833,7 @@
     sk = Zmeniť polohu
 
   [message_invalid_feature_position]
-    en = An object can't be located here
+    en = No object can be located here
     ru = Объект не может находиться в этом месте
     ar = لا يمكن تحديد موقع الكائن هنا
     cs = Objekt zde nemůže být umístěn
@@ -15862,7 +15862,7 @@
     sk = Objekt sa tu nedá umiestniť
 
   [login_to_make_edits_visible]
-    en = Log in so other users can see the changes you have made
+    en = Log in so other users can see the changes that you have made
     ru = Войдите, чтобы ваши изменения увидели другие пользователи.
     ar = قم بتسجيل الدخول حتى يتمكن باقي المستخدمين من رؤية التغييرات التي قمت بها.
     cs = Přihlaste se, aby ostatní uživatelé mohli vidět změny, které jste provedli.
@@ -15921,7 +15921,7 @@
 
   [migration_no_space_message]
     comment = Error dialog no space
-    en = To download, you need more space. Please, delete unnecessary data.
+    en = To download, you need more space. Please delete any unnecessary data.
     ru = Для загрузки требуется больше свободного места. Пожалуйста, удалите ненужные данные.
     ar = للتنزيل، فأنت تحتاج إلى توفير مساحة أكبر. من فضلك، احذف البيانات غير الضرورية.
     cs = Ke stažení potřebujete více volného místa. Odstraňte prosím nepotřebná data.
@@ -16067,7 +16067,7 @@
     sk = %1$d z %2$d
 
   [download_over_mobile_header]
-    en = Download by using a cellular network connection?
+    en = Download over a cellular network connection?
     ru = Загрузить через сотовую связь?
     ar = تنزيل باستخدام اتصال الشبكة الخلوية؟
     cs = Stáhnout pomocí připojení přes mobilní síť?
@@ -16123,7 +16123,7 @@
     sk = V prípade niektorých plánov alebo použitím roamingu by to mohlo byť značne nákladné.
 
   [error_enter_correct_house_number]
-    en = Enter correct house number
+    en = Enter a valid building number
     ru = Введите корректный номер дома
     ar = أدخل رقم منزل صحيح
     cs = Zadejte správné číslo domu
@@ -16153,7 +16153,7 @@
 
   [editor_storey_number]
     tags = ios, android
-    en = Building levels (max %d)
+    en = Number of floors (maximum of %d)
     ru = Количество этажей (максимум %d)
     ar = عدد الطوابق (بحد أقصى %d)
     cs = Počet poschodí (max. %d)
@@ -16182,9 +16182,10 @@
     sk = Počet poschodí (max %d)
 
   [error_enter_correct_storey_number]
+    comment = Error message in Editor when a user tries to set the number of floors for a building higher than 25
     tags = ios, android
-    en = Buildings at highest of 25 levels can be edited
-    ru = Редактируйте здания высотой максимум 25 этажей
+    en = The number of floors must non exceed 25
+    ru = Количество этажей не должно превышать 25
     ar = تحرير المبنى بحد أقصى 25 طابقًا
     cs = Opravte počet poschodí, max. 25
     da = Rediger bygningen med maksimum 25 etager
@@ -16243,7 +16244,7 @@
 
   [error_enter_correct_zip_code]
     tags = ios, android
-    en = Enter the correct ZIP Code
+    en = Enter a valid ZIP code
     ru = Введите корректный почтовый индекс
     ar = أدخل الرمز البريدي الصحيح
     cs = Zadejte správné PSČ
@@ -16364,7 +16365,7 @@
 
   [editor_detailed_description]
     tags = ios, android
-    en = Your suggested changes will be sent to the OpenStreetMap community. Describe the details which cannot be edited in MAPS.ME.
+    en = Your suggested map changes will be sent to the OpenStreetMap community. Describe any additional details that cannot be edited in MAPS.ME.
     ru = Предложенные вами изменения на карте будут отправлены в OpenStreetMap. Опишите дополнительные сведения об объекте, которые MAPS.ME не позволяет отредактировать.
     ar = سيتم إرسال التغييرات التي اقترحتها إلى مجتمع OpenStreetMap. اذكر التفاصيل التي لا يمكن تحريرها في MAPS.ME
     cs = Vámi navržené změny odešleme do komunity OpenStreetMap. Popište podrobnosti, které nelze upravit v MAPS.ME.
@@ -16423,7 +16424,7 @@
     sk = Viac o OpenStreetMap
 
   [editor_operator]
-    en = Operator
+    en = Owner
     ru = Владелец
     ar = معامل
     cs = Operátor
@@ -16655,7 +16656,7 @@
     sk = Neprevzali ste žiadne mapy
 
   [downloader_no_downloaded_maps_message]
-    en = Download maps to search location and use navigation offline.
+    en = Download maps to search for a location and use navigation offline.
     ru = Загрузите необходимые карты, чтобы находить места и пользоваться навигацией без интернета.
     ar = قم بتنزيل خرائط للبحث عن مكان والتنقل بدون اتصال بالإنترنت.
     cs = Stáhněte si mapy a hledejte cestu a její cíl, i když jste offline.
@@ -16917,7 +16918,7 @@
     sk = Aktualizovali sme program na úpravu máp
 
   [whatsnew_update_editor_message]
-    en = MAPS.ME users have made 200 000 map changes. Together we are making the most detailed maps in the World. Join us!
+    en = MAPS.ME users have already made 200,000 map changes. Together we are making the most detailed maps in the world. Join us!
     ru = Пользователи MAPS.ME внесли уже 200 000 правок на карту. Вместе мы сделаем карты самыми подробными в мире. Присоединяйся!
     ar = قام مستخدمو MAPS.ME بإجراء 200000 تغيير على الخرائط. معًا سنحصل على الخرائط الأكثر تفصيلاً في العالم. انضم إلينا!
     cs = Uživatelé aplikace MAPS.ME už provedli na 200 000 změn map. Přidejte se k nám a pomozte nám vytvořit nejpodrobnější mapy světa!
@@ -18142,7 +18143,7 @@
     sk = Poznámka…
 
   [editor_reset_edits_message]
-    en = Reset all local changes?
+    en = Discard all local changes?
     ru = Сбросить все локальные правки?
     ar = هل تريد مسح كافة التغييرات المحلية؟
     cs = Vymazat všechny místní změny?
@@ -18171,7 +18172,7 @@
     sk = Resetovať všetky miestne časy?
 
   [editor_reset_edits_button]
-    en = Reset
+    en = Discard
     ru = Сбросить
     ar = مسح
     cs = Vymazat
@@ -18200,7 +18201,7 @@
     sk = Resetovať
 
   [editor_remove_place_message]
-    en = Remove an added place?
+    en = Delete added place?
     ru = Удалить добавленный вами объект?
     ar = إزالة مكان تمت إضافته؟
     cs = Odstranit přidané místo?
@@ -18229,7 +18230,7 @@
     sk = Odstrániť pridané miesto?
 
   [editor_remove_place_button]
-    en = Remove
+    en = Delete
     ru = Удалить
     ar = إزالة
     cs = Odstranit
@@ -18491,7 +18492,7 @@
     sk = Zmeny pre ďalšie miesto: %d
 
   [editor_profile_rating_place]
-    en = Ranking position
+    en = Position in the ranking
     ru = Место в рейтинге
     ar = المركز في التصنيف
     cs = Pořadí v hodnocení
