@@ -62,6 +62,8 @@ set(
   streams_common.hpp
   streams_sink.hpp
   succinct_mapper.hpp
+  traffic.cpp
+  traffic.hpp  
   uri.cpp
   uri.hpp
   url_encode.hpp

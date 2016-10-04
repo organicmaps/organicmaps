@@ -4,6 +4,11 @@
 
 namespace ms
 {
+// static
+double const LatLon::kMinLat = -90;
+double const LatLon::kMaxLat = 90;
+double const LatLon::kMinLon = -180;
+double const LatLon::kMaxLon = 180;
 
 string DebugPrint(LatLon const & t)
 {

@@ -73,6 +73,13 @@ inline bool AlmostEqualRel(TFloat x, TFloat y, TFloat eps)
   return fabs(x - y) < eps * max(fabs(x), fabs(y));
 }
 
+// Returns true if x and y are equal up to the absolute or relative difference eps.
+template <typename TFloat>
+inline bool AlmostEqualAbsOrRel(TFloat x, TFloat y, TFloat eps)
+{
+  return AlmostEqualAbs(x, y, eps) || AlmostEqualRel(x, y, eps);
+}
+
 template <typename TFloat> inline TFloat DegToRad(TFloat deg)
 {
   return deg * TFloat(math::pi) / TFloat(180);

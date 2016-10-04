@@ -6,7 +6,7 @@ TEMPLATE = app
 
 ROOT_DIR = ../..
 
-DEPENDENCIES = coding base minizip tomcrypt succinct
+DEPENDENCIES = coding base geometry minizip tomcrypt succinct
 
 include($$ROOT_DIR/common.pri)
 
@@ -39,6 +39,7 @@ SOURCES += ../../testing/testingmain.cpp \
     simple_dense_coding_test.cpp \
     sha2_test.cpp \
     succinct_mapper_test.cpp \
+    traffic_test.cpp \
     uri_test.cpp \
     url_encode_test.cpp \
     value_opt_string_test.cpp \
