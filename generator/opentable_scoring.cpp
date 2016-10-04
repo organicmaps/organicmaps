@@ -6,7 +6,7 @@
 namespace
 {
 // Calculated with tools/python/booking_hotels_quality.py.
-double constexpr kOptimalThreshold = 0.304875;
+double constexpr kOptimalThreshold = 0.312887;
 }  // namespace
 
 namespace generator
