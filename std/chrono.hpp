@@ -17,6 +17,7 @@ using std::chrono::seconds;
 using std::chrono::steady_clock;
 using std::chrono::system_clock;
 using std::chrono::time_point;
+using std::chrono::time_point_cast;
 
 #ifdef DEBUG_NEW
 #define new DEBUG_NEW

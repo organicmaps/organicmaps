@@ -57,7 +57,7 @@ class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder>
   public void onBindViewHolder(ViewHolder holder, int position)
   {
     Item item = mLoadedItems.get(position);
-    item.setShowMore(position == MAX_COUNT - 1);
+    item.setShowMore(position == MAX_COUNT - 1 && mItems.size() > MAX_COUNT);
     holder.bind(item, position);
   }
 

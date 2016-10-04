@@ -6,8 +6,7 @@
 #include "map/place_page_info.hpp"
 
 #include "std/bind.hpp"
-
-using namespace std::chrono;
+#include "std/chrono.hpp"
 
 namespace
 {
