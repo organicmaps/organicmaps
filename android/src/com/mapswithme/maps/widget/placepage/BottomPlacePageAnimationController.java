@@ -150,22 +150,6 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
   {
     super.onScroll(left, top);
 
-//    if (mPlacePage.getState() == State.FULLSCREEN && mCurrentScrollY == 0)
-//    {
-//      mDownCoord = mLastMoveEvent.getY();
-//      mPlacePage.dispatchTouchEvent(MotionEvent.obtain(mLastMoveEvent.getDownTime(),
-//                                                       mLastMoveEvent.getEventTime(),
-//                                                       MotionEvent.ACTION_UP,
-//                                                       mLastMoveEvent.getX(),
-//                                                       mLastMoveEvent.getY(),
-//                                                       mLastMoveEvent.getMetaState()));
-//      mPlacePage.dispatchTouchEvent(MotionEvent.obtain(mLastMoveEvent.getDownTime(),
-//                                                       mLastMoveEvent.getEventTime(),
-//                                                       MotionEvent.ACTION_DOWN,
-//                                                       mLastMoveEvent.getX(),
-//                                                       mLastMoveEvent.getY(),
-//                                                       mLastMoveEvent.getMetaState()));
-//    }
     if (mCurrentScrollY > 0 && mDetailsScroll.getTranslationY() > 0)
     {
       mPlacePage.setState(State.HIDDEN);
@@ -175,7 +159,6 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
 
   private boolean isInsideView(float y)
   {
-//    return y > mPreview.getY() && y < mButtons.getY();
     int[] location = new int[2];
     mDetailsScroll.getLocationOnScreen(location);
     float top = (float) location[1];
@@ -224,19 +207,6 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
           mIsDragging = true;
           if (!translateBy(-distanceY))
           {
-//            mDownCoord = e2.getY();
-//            mPlacePage.dispatchTouchEvent(MotionEvent.obtain(e2.getDownTime(),
-//                                                             e2.getEventTime(),
-//                                                             MotionEvent.ACTION_UP,
-//                                                             e2.getX(),
-//                                                             e2.getY(),
-//                                                             e2.getMetaState()));
-//            mPlacePage.dispatchTouchEvent(MotionEvent.obtain(e2.getDownTime(),
-//                                                             e2.getEventTime(),
-//                                                             MotionEvent.ACTION_DOWN,
-//                                                             e2.getX(),
-//                                                             e2.getY(),
-//                                                             e2.getMetaState()));
             if (mDetailsScroll.getTranslationY() == 0)
             {
               mDetailsScroll.scrollBy((int) distanceX, (int) distanceY);
@@ -432,8 +402,9 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
           });
         }
         break;
+      case FULLSCREEN:
       case DETAILS:
-        UiUtils.show(mPlacePage, mPreview, mDetailsFrame);
+        UiUtils.show(mPlacePage, mPreview, mButtons, mDetailsFrame);
         UiUtils.showIf(type == MapObject.BOOKMARK, mBookmarkDetails);
         break;
     }

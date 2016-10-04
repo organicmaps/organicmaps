@@ -760,7 +760,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onRestoreInstanceState(savedInstanceState);
 
-    mPlacePage.setState(State.values()[savedInstanceState.getInt(STATE_PP, 0)]);
+    State state = State.values()[savedInstanceState.getInt(STATE_PP, 0)];
+    if (state != State.HIDDEN)
+    {
+      mPlacePage.setMapObject((MapObject) savedInstanceState.getParcelable(STATE_MAP_OBJECT), true);
+      mPlacePage.setState(state);
+    }
 
     if (!mIsFragmentContainer && RoutingController.get().isPlanning())
       mRoutingPlanInplaceController.restoreState(savedInstanceState);
