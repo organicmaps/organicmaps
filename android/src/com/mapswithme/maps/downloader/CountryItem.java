@@ -15,6 +15,7 @@ public final class CountryItem implements Comparable<CountryItem>
   static final int CATEGORY_NEAR_ME = 0;
   static final int CATEGORY_DOWNLOADED = 1;
   static final int CATEGORY_AVAILABLE = 2;
+  static final int CATEGORY__LAST = CATEGORY_AVAILABLE;
 
   // Must correspond to NodeStatus in storage_defines.hpp
   public static final int STATUS_UNKNOWN = 0;

@@ -1027,11 +1027,6 @@
 /* Title for settings to enable/disable showcase menu button */
 "showcase_settings_title" = "顯示優惠";
 
-/* Showcase menu item. */
-"showcase_plan_your_trip" = "Plan your trip";
-
-"showcase_more_apps" = "更多 My.com 應用程式";
-
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "維基百科";
 

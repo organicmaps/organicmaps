@@ -13,8 +13,6 @@ import com.mapswithme.maps.downloader.UpdateInfo;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.log.DebugLogger;
-import com.mapswithme.util.log.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -123,8 +121,7 @@ public class MainMenu extends BaseMenu
     BOOKMARKS(R.id.bookmarks),
     SHARE(R.id.share),
     DOWNLOADER(R.id.download_maps),
-    SETTINGS(R.id.settings),
-    SHOWCASE(R.id.showcase);
+    SETTINGS(R.id.settings);
 
     private final int mViewId;
 
@@ -216,7 +213,6 @@ public class MainMenu extends BaseMenu
     mapItem(Item.SHARE);
     mapItem(Item.DOWNLOADER);
     mapItem(Item.SETTINGS);
-    mapItem(Item.SHOWCASE);
 
     adjustCollapsedItems();
     setState(State.MENU, false);
@@ -308,11 +304,6 @@ public class MainMenu extends BaseMenu
   public MwmActivity.LeftAnimationTrackListener getLeftAnimationTrackListener()
   {
     return mAnimationTrackListener;
-  }
-
-  public void setShowcaseText(String text)
-  {
-    ((TextView) mItemViews.get(Item.SHOWCASE)).setText(text);
   }
 
   public Button getRouteStartButton()

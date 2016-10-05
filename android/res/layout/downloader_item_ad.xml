@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:minHeight="@dimen/height_item_multiline"
+  android:paddingLeft="@dimen/margin_base"
+  android:paddingRight="@dimen/margin_base"
+  android:background="?clickableBackground"
+  android:clipToPadding="false"
+  tools:background="#200000FF">
+  <ImageView
+    android:id="@+id/downloader_ad_icon"
+    android:layout_width="@dimen/downloader_ad_icon_size"
+    android:layout_height="@dimen/downloader_ad_icon_size"
+    android:layout_centerVertical="true"
+    tools:background="#8000FF00"/>
+
+  <LinearLayout android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="@dimen/margin_base"
+                android:layout_toRightOf="@id/downloader_ad_icon"
+                android:layout_centerVertical="true"
+                tools:background="#20FF0000">
+    <TextView
+      android:id="@+id/downloader_ad_title"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textAppearance="@style/MwmTextAppearance.Body1"
+      android:maxLines="2"
+      android:ellipsize="end"
+      tools:text="This is the coolest advertisment ever!!!"
+      tools:background="#40FF0000"/>
+
+    <TextView
+      android:id="@+id/downloader_ad_subtitle"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textAppearance="@style/MwmTextAppearance.Body4"
+      android:maxLines="2"
+      android:ellipsize="end"
+      tools:text="Buy me now\nCan you hear me?"
+      tools:background="#60FFFF00"/>
+  </LinearLayout>
+</RelativeLayout>

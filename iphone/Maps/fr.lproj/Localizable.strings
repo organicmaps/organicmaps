@@ -1027,11 +1027,6 @@
 /* Title for settings to enable/disable showcase menu button */
 "showcase_settings_title" = "Afficher les offres";
 
-/* Showcase menu item. */
-"showcase_plan_your_trip" = "Planifiez votre voyage";
-
-"showcase_more_apps" = "Plus d'applications My.com";
-
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipédia";
 

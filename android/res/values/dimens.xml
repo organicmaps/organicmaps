@@ -39,6 +39,7 @@
   <dimen name="place_page_buttons_height">56dp</dimen>
 
   <dimen name="downloader_status_size">40dp</dimen>
+  <dimen name="downloader_ad_icon_size">@dimen/downloader_status_size</dimen>
   <dimen name="search_progress_size">32dp</dimen>
 
   <dimen name="panel_width">360dp</dimen>

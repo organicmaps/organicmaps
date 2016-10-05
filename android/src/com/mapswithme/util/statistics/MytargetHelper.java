@@ -3,12 +3,8 @@ package com.mapswithme.util.statistics;
 import android.app.Activity;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
-
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.PrivateVariables;
@@ -18,6 +14,15 @@ import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.concurrency.UiThread;
 import ru.mail.android.mytarget.core.net.Hosts;
 import ru.mail.android.mytarget.nativeads.NativeAppwallAd;
+import ru.mail.android.mytarget.nativeads.banners.NativeAppwallBanner;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.List;
+
+import static com.mapswithme.maps.MwmApplication.prefs;
 
 public final class MytargetHelper
 {
@@ -30,23 +35,24 @@ public final class MytargetHelper
   private static final int TIMEOUT = 1000;
 
   private NativeAppwallAd mShowcase;
-  private Activity mActivity;
-  private NativeAppwallAd.AppwallAdListener mListener;
+  private boolean mCancelled;
+
+  public interface Listener<T>
+  {
+    void onNoAds();
+    void onDataReady(@Nullable T data);
+  }
 
   static
   {
     Hosts.setMyComHost();
   }
 
-  public MytargetHelper(@NonNull NativeAppwallAd.AppwallAdListener listener, @NonNull Activity activity)
+  public MytargetHelper(final @NonNull Listener<Void> listener)
   {
-    mListener = listener;
-    mActivity = activity;
-
-    if (!ConnectionState.isConnected() ||
-        !isShowcaseSwitchedOnLocal())
+    if (!ConnectionState.isConnected() || !isShowcaseSwitchedOnLocal())
     {
-      listener.onNoAd("Switched off", null);
+      listener.onNoAds();
       return;
     }
 
@@ -56,21 +62,22 @@ public final class MytargetHelper
       public void run()
       {
         final boolean showShowcase = getShowcaseSetting();
+
+        if (mCancelled)
+          return;
+
         UiThread.run(new Runnable()
         {
           @Override
           public void run()
           {
-            if (mListener == null || mActivity == null)
+            if (mCancelled)
               return;
 
-            if (!showShowcase)
-            {
-              mListener.onNoAd("Switched off on server", null);
-              return;
-            }
-
-            loadShowcase(mListener, mActivity);
+            if (showShowcase)
+              listener.onDataReady(null);
+            else
+              listener.onNoAds();
           }
         });
       }
@@ -79,14 +86,13 @@ public final class MytargetHelper
 
   public void cancel()
   {
-    mListener = null;
-    mActivity = null;
+    mCancelled = true;
   }
 
   @WorkerThread
   private static boolean getShowcaseSetting()
   {
-    final long lastCheckMillis = MwmApplication.prefs().getLong(PREF_CHECK_MILLIS, 0);
+    final long lastCheckMillis = prefs().getLong(PREF_CHECK_MILLIS, 0);
     final long currentMillis = System.currentTimeMillis();
     if (currentMillis - lastCheckMillis < CHECK_INTERVAL_MILLIS)
       return isShowcaseSwitchedOnServer();
@@ -121,20 +127,52 @@ public final class MytargetHelper
     return false;
   }
 
-  private void loadShowcase(NativeAppwallAd.AppwallAdListener listener, Activity activity)
+  public void loadShowcase(final @NonNull Listener<List<NativeAppwallBanner>> listener, Activity activity)
   {
-    mShowcase = new NativeAppwallAd(Integer.parseInt(PrivateVariables.myTargetSlot()), activity);
-    mShowcase.setListener(listener);
-    mShowcase.load();
+    if (mShowcase == null)
+      mShowcase = loadAds(listener, activity);
   }
 
-  public void displayShowcase()
+  private NativeAppwallAd loadAds(final @NonNull Listener<List<NativeAppwallBanner>> listener, Activity activity)
   {
-    if (!mShowcase.getBanners().isEmpty())
-      mShowcase.handleBannerClick(mShowcase.getBanners().get(0));
+    NativeAppwallAd res = new NativeAppwallAd(PrivateVariables.myTargetSlot(), activity);
+    res.setListener(new NativeAppwallAd.AppwallAdListener()
+    {
+      @Override
+      public void onLoad(NativeAppwallAd ad)
+      {
+        if (mCancelled)
+          return;
+
+        if (ad.getBanners().isEmpty())
+          listener.onNoAds();
+        else
+          listener.onDataReady(ad.getBanners());
+      }
+
+      @Override
+      public void onNoAd(String s, NativeAppwallAd nativeAppwallAd)
+      {
+        listener.onNoAds();
+      }
+
+      @Override
+      public void onClick(NativeAppwallBanner nativeAppwallBanner, NativeAppwallAd nativeAppwallAd) {}
+
+      @Override
+      public void onDismissDialog(NativeAppwallAd nativeAppwallAd) {}
+    });
+
+    res.load();
+    return res;
   }
 
-  public static boolean isShowcaseSwitchedOnLocal()
+  public void onBannerClick(NativeAppwallBanner banner)
+  {
+    mShowcase.handleBannerClick(banner);
+  }
+
+  private static boolean isShowcaseSwitchedOnLocal()
   {
     return PreferenceManager.getDefaultSharedPreferences(MwmApplication.get())
                             .getBoolean(MwmApplication.get().getString(R.string.pref_showcase_switched_on), false);
@@ -142,12 +180,14 @@ public final class MytargetHelper
 
   public static boolean isShowcaseSwitchedOnServer()
   {
-    return MwmApplication.prefs().getBoolean(PREF_CHECK, false);
+    return prefs().getBoolean(PREF_CHECK, true);
   }
 
   private static void setShowcaseSwitchedOnServer(boolean switchedOn)
   {
-    MwmApplication.prefs().edit().putLong(PREF_CHECK_MILLIS, System.currentTimeMillis())
-                                 .putBoolean(PREF_CHECK, switchedOn).apply();
+    prefs().edit()
+           .putLong(PREF_CHECK_MILLIS, System.currentTimeMillis())
+           .putBoolean(PREF_CHECK, switchedOn)
+           .apply();
   }
 }
