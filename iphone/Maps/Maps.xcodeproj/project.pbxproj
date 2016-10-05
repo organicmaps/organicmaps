@@ -774,6 +774,7 @@
 		F6AD57BD1C870A3C00CED368 /* MWMEditorCategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6AD57BC1C870A3C00CED368 /* MWMEditorCategoryCell.xib */; };
 		F6AD57BE1C870A3C00CED368 /* MWMEditorCategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6AD57BC1C870A3C00CED368 /* MWMEditorCategoryCell.xib */; };
 		F6B2E61F1C3D5F31005562DF /* MWMNightModeController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6B2E61E1C3D5F31005562DF /* MWMNightModeController.mm */; };
+		F6B5364B1DA5222F0067EEA5 /* libpartners_api.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B5364A1DA5222F0067EEA5 /* libpartners_api.a */; };
 		F6B97B261CD0CA990009B612 /* MWMBookmarkNameCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6B97B251CD0CA990009B612 /* MWMBookmarkNameCell.mm */; };
 		F6B97B271CD0CA990009B612 /* MWMBookmarkNameCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6B97B251CD0CA990009B612 /* MWMBookmarkNameCell.mm */; };
 		F6B97B291CD0CB170009B612 /* MWMBookmarkNameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6B97B281CD0CB170009B612 /* MWMBookmarkNameCell.xib */; };
@@ -1513,6 +1514,7 @@
 		F6AD57BC1C870A3C00CED368 /* MWMEditorCategoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMEditorCategoryCell.xib; sourceTree = "<group>"; };
 		F6B2E61D1C3D5F31005562DF /* MWMNightModeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNightModeController.h; sourceTree = "<group>"; };
 		F6B2E61E1C3D5F31005562DF /* MWMNightModeController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNightModeController.mm; sourceTree = "<group>"; };
+		F6B5364A1DA5222F0067EEA5 /* libpartners_api.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpartners_api.a; path = "/Users/v.mikhaylenko/mapsme/omim/xcode/partners_api/../../../omim-xcode-build/Debug/libpartners_api.a"; sourceTree = "<absolute>"; };
 		F6B97B241CD0CA990009B612 /* MWMBookmarkNameCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMBookmarkNameCell.h; sourceTree = "<group>"; };
 		F6B97B251CD0CA990009B612 /* MWMBookmarkNameCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMBookmarkNameCell.mm; sourceTree = "<group>"; };
 		F6B97B281CD0CB170009B612 /* MWMBookmarkNameCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMBookmarkNameCell.xib; sourceTree = "<group>"; };
@@ -1688,6 +1690,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6B5364B1DA5222F0067EEA5 /* libpartners_api.a in Frameworks */,
 				34170B7E1D93C3C80074117B /* MyTargetSDK.framework in Frameworks */,
 				34BF68631D7459E6001752F6 /* CoreSpotlight.framework in Frameworks */,
 				F659FC6A1CF35C24000A06B1 /* SafariServices.framework in Frameworks */,
@@ -1866,6 +1869,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F6B5364A1DA5222F0067EEA5 /* libpartners_api.a */,
 				34170B7D1D93C3C80074117B /* MyTargetSDK.framework */,
 				34BF68621D7459E6001752F6 /* CoreSpotlight.framework */,
 				343E8B361D08004C0046AEEE /* libstdc++.tbd */,

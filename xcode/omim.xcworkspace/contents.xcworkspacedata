@@ -121,6 +121,9 @@
       location = "group:mapshot/mapshot.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:partners_api/partners_api.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:editor/editor.xcodeproj">
    </FileRef>
 </Workspace>

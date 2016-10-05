@@ -1,0 +1,452 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F6B536401DA520E40067EEA5 /* booking_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6B5363C1DA520E40067EEA5 /* booking_api.cpp */; };
+		F6B536411DA520E40067EEA5 /* booking_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6B5363D1DA520E40067EEA5 /* booking_api.hpp */; };
+		F6B536421DA520E40067EEA5 /* uber_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6B5363E1DA520E40067EEA5 /* uber_api.cpp */; };
+		F6B536431DA520E40067EEA5 /* uber_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6B5363F1DA520E40067EEA5 /* uber_api.hpp */; };
+		F6B536471DA5213D0067EEA5 /* booking_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6B536451DA5213D0067EEA5 /* booking_tests.cpp */; };
+		F6B536481DA5213D0067EEA5 /* uber_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6B536461DA5213D0067EEA5 /* uber_tests.cpp */; };
+		F6B536671DA522D90067EEA5 /* booking_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6B536451DA5213D0067EEA5 /* booking_tests.cpp */; };
+		F6B536681DA522D90067EEA5 /* uber_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6B536461DA5213D0067EEA5 /* uber_tests.cpp */; };
+		F6B5366A1DA523060067EEA5 /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6B536691DA523060067EEA5 /* testingmain.cpp */; };
+		F6B5366B1DA5230C0067EEA5 /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6B536691DA523060067EEA5 /* testingmain.cpp */; };
+		F6B5366C1DA523430067EEA5 /* libpartners_api.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B536341DA5209F0067EEA5 /* libpartners_api.a */; };
+		F6B5366F1DA523A70067EEA5 /* MAPSME.plist in Resources */ = {isa = PBXBuildFile; fileRef = F6B5366D1DA523A70067EEA5 /* MAPSME.plist */; };
+		F6B536741DA523D60067EEA5 /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B536711DA523D60067EEA5 /* libbase.a */; };
+		F6B536751DA523D60067EEA5 /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B536721DA523D60067EEA5 /* libjansson.a */; };
+		F6B536761DA523D60067EEA5 /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B536731DA523D60067EEA5 /* libplatform.a */; };
+		F6B536781DA523EF0067EEA5 /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B536771DA523EF0067EEA5 /* libindexer.a */; };
+		F6B5367B1DA524030067EEA5 /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B536791DA524030067EEA5 /* libalohalitics.a */; };
+		F6B5367C1DA524030067EEA5 /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B5367A1DA524030067EEA5 /* libtomcrypt.a */; };
+		F6B5367E1DA5242A0067EEA5 /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B5367D1DA5242A0067EEA5 /* libcoding.a */; };
+		F6B536801DA5243B0067EEA5 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B5367F1DA5243B0067EEA5 /* libz.tbd */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F6B536341DA5209F0067EEA5 /* libpartners_api.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libpartners_api.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6B5363C1DA520E40067EEA5 /* booking_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = booking_api.cpp; sourceTree = "<group>"; };
+		F6B5363D1DA520E40067EEA5 /* booking_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = booking_api.hpp; sourceTree = "<group>"; };
+		F6B5363E1DA520E40067EEA5 /* uber_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = uber_api.cpp; sourceTree = "<group>"; };
+		F6B5363F1DA520E40067EEA5 /* uber_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = uber_api.hpp; sourceTree = "<group>"; };
+		F6B536451DA5213D0067EEA5 /* booking_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = booking_tests.cpp; sourceTree = "<group>"; };
+		F6B536461DA5213D0067EEA5 /* uber_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = uber_tests.cpp; sourceTree = "<group>"; };
+		F6B536491DA521530067EEA5 /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
+		F6B536501DA522BB0067EEA5 /* partnes_api_test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = partnes_api_test.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6B536691DA523060067EEA5 /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
+		F6B5366D1DA523A70067EEA5 /* MAPSME.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = MAPSME.plist; path = ../../iphone/Maps/MAPSME.plist; sourceTree = "<group>"; };
+		F6B536711DA523D60067EEA5 /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = "../../../omim-xcode-build/Debug/libbase.a"; sourceTree = "<group>"; };
+		F6B536721DA523D60067EEA5 /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjansson.a; path = "../../../omim-xcode-build/Debug/libjansson.a"; sourceTree = "<group>"; };
+		F6B536731DA523D60067EEA5 /* libplatform.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform.a; path = "../../../omim-xcode-build/Debug/libplatform.a"; sourceTree = "<group>"; };
+		F6B536771DA523EF0067EEA5 /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libindexer.a; path = "../../../omim-xcode-build/Debug/libindexer.a"; sourceTree = "<group>"; };
+		F6B536791DA524030067EEA5 /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "../../../omim-xcode-build/Debug/libalohalitics.a"; sourceTree = "<group>"; };
+		F6B5367A1DA524030067EEA5 /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtomcrypt.a; path = "../../../omim-xcode-build/Debug/libtomcrypt.a"; sourceTree = "<group>"; };
+		F6B5367D1DA5242A0067EEA5 /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = "../../../omim-xcode-build/Debug/libcoding.a"; sourceTree = "<group>"; };
+		F6B5367F1DA5243B0067EEA5 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F6B536311DA5209F0067EEA5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F6B5364D1DA522BB0067EEA5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6B536801DA5243B0067EEA5 /* libz.tbd in Frameworks */,
+				F6B5367E1DA5242A0067EEA5 /* libcoding.a in Frameworks */,
+				F6B5367B1DA524030067EEA5 /* libalohalitics.a in Frameworks */,
+				F6B5367C1DA524030067EEA5 /* libtomcrypt.a in Frameworks */,
+				F6B536781DA523EF0067EEA5 /* libindexer.a in Frameworks */,
+				F6B536741DA523D60067EEA5 /* libbase.a in Frameworks */,
+				F6B536751DA523D60067EEA5 /* libjansson.a in Frameworks */,
+				F6B536761DA523D60067EEA5 /* libplatform.a in Frameworks */,
+				F6B5366C1DA523430067EEA5 /* libpartners_api.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F6B5362B1DA5209F0067EEA5 = {
+			isa = PBXGroup;
+			children = (
+				F6B5366E1DA523A70067EEA5 /* Support files */,
+				F6B536491DA521530067EEA5 /* defaults.xcconfig */,
+				F6B536441DA521060067EEA5 /* partners_api_tests */,
+				F6B5363B1DA520B20067EEA5 /* partners_api */,
+				F6B536351DA5209F0067EEA5 /* Products */,
+				F6B536701DA523D60067EEA5 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		F6B536351DA5209F0067EEA5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F6B536341DA5209F0067EEA5 /* libpartners_api.a */,
+				F6B536501DA522BB0067EEA5 /* partnes_api_test.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F6B5363B1DA520B20067EEA5 /* partners_api */ = {
+			isa = PBXGroup;
+			children = (
+				F6B5363C1DA520E40067EEA5 /* booking_api.cpp */,
+				F6B5363D1DA520E40067EEA5 /* booking_api.hpp */,
+				F6B5363E1DA520E40067EEA5 /* uber_api.cpp */,
+				F6B5363F1DA520E40067EEA5 /* uber_api.hpp */,
+			);
+			name = partners_api;
+			path = ../../partners_api;
+			sourceTree = SOURCE_ROOT;
+		};
+		F6B536441DA521060067EEA5 /* partners_api_tests */ = {
+			isa = PBXGroup;
+			children = (
+				F6B536691DA523060067EEA5 /* testingmain.cpp */,
+				F6B536451DA5213D0067EEA5 /* booking_tests.cpp */,
+				F6B536461DA5213D0067EEA5 /* uber_tests.cpp */,
+			);
+			name = partners_api_tests;
+			path = ../../partners_api/partners_api_tests;
+			sourceTree = SOURCE_ROOT;
+		};
+		F6B5366E1DA523A70067EEA5 /* Support files */ = {
+			isa = PBXGroup;
+			children = (
+				F6B5366D1DA523A70067EEA5 /* MAPSME.plist */,
+			);
+			name = "Support files";
+			path = ../routing;
+			sourceTree = "<group>";
+		};
+		F6B536701DA523D60067EEA5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F6B5367F1DA5243B0067EEA5 /* libz.tbd */,
+				F6B5367D1DA5242A0067EEA5 /* libcoding.a */,
+				F6B536791DA524030067EEA5 /* libalohalitics.a */,
+				F6B5367A1DA524030067EEA5 /* libtomcrypt.a */,
+				F6B536771DA523EF0067EEA5 /* libindexer.a */,
+				F6B536711DA523D60067EEA5 /* libbase.a */,
+				F6B536721DA523D60067EEA5 /* libjansson.a */,
+				F6B536731DA523D60067EEA5 /* libplatform.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		F6B536321DA5209F0067EEA5 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6B536411DA520E40067EEA5 /* booking_api.hpp in Headers */,
+				F6B536431DA520E40067EEA5 /* uber_api.hpp in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		F6B536331DA5209F0067EEA5 /* partners_api */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F6B536381DA5209F0067EEA5 /* Build configuration list for PBXNativeTarget "partners_api" */;
+			buildPhases = (
+				F6B536301DA5209F0067EEA5 /* Sources */,
+				F6B536311DA5209F0067EEA5 /* Frameworks */,
+				F6B536321DA5209F0067EEA5 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = partners_api;
+			productName = partners_api;
+			productReference = F6B536341DA5209F0067EEA5 /* libpartners_api.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		F6B5364F1DA522BB0067EEA5 /* partnes_api_test */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F6B536641DA522BB0067EEA5 /* Build configuration list for PBXNativeTarget "partnes_api_test" */;
+			buildPhases = (
+				F6B5364C1DA522BB0067EEA5 /* Sources */,
+				F6B5364D1DA522BB0067EEA5 /* Frameworks */,
+				F6B5364E1DA522BB0067EEA5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = partnes_api_test;
+			productName = partnes_api_test;
+			productReference = F6B536501DA522BB0067EEA5 /* partnes_api_test.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F6B5362C1DA5209F0067EEA5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0800;
+				ORGANIZATIONNAME = v.mikhaylenko;
+				TargetAttributes = {
+					F6B536331DA5209F0067EEA5 = {
+						CreatedOnToolsVersion = 8.0;
+						ProvisioningStyle = Automatic;
+					};
+					F6B5364F1DA522BB0067EEA5 = {
+						CreatedOnToolsVersion = 8.0;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = F6B5362F1DA5209F0067EEA5 /* Build configuration list for PBXProject "partners_api" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F6B5362B1DA5209F0067EEA5;
+			productRefGroup = F6B536351DA5209F0067EEA5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F6B536331DA5209F0067EEA5 /* partners_api */,
+				F6B5364F1DA522BB0067EEA5 /* partnes_api_test */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F6B5364E1DA522BB0067EEA5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6B5366F1DA523A70067EEA5 /* MAPSME.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F6B536301DA5209F0067EEA5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6B536421DA520E40067EEA5 /* uber_api.cpp in Sources */,
+				F6B536471DA5213D0067EEA5 /* booking_tests.cpp in Sources */,
+				F6B5366A1DA523060067EEA5 /* testingmain.cpp in Sources */,
+				F6B536401DA520E40067EEA5 /* booking_api.cpp in Sources */,
+				F6B536481DA5213D0067EEA5 /* uber_tests.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F6B5364C1DA522BB0067EEA5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6B5366B1DA5230C0067EEA5 /* testingmain.cpp in Sources */,
+				F6B536671DA522D90067EEA5 /* booking_tests.cpp in Sources */,
+				F6B536681DA522D90067EEA5 /* uber_tests.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		F6B536361DA5209F0067EEA5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F6B536491DA521530067EEA5 /* defaults.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(OMIM_ROOT)",
+					"$(BOOST_ROOT)",
+					"$(OMIM_ROOT)/3party/jansson/src",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
+			};
+			name = Debug;
+		};
+		F6B536371DA5209F0067EEA5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F6B536491DA521530067EEA5 /* defaults.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(OMIM_ROOT)",
+					"$(BOOST_ROOT)",
+					"$(OMIM_ROOT)/3party/jansson/src",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
+			};
+			name = Release;
+		};
+		F6B536391DA5209F0067EEA5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F6B5363A1DA5209F0067EEA5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		F6B536651DA522BB0067EEA5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = "$(SRCROOT)/../../iphone/Maps/MAPSME.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "V.partnes-api-test";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F6B536661DA522BB0067EEA5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = "$(SRCROOT)/../../iphone/Maps/MAPSME.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "V.partnes-api-test";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F6B5362F1DA5209F0067EEA5 /* Build configuration list for PBXProject "partners_api" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6B536361DA5209F0067EEA5 /* Debug */,
+				F6B536371DA5209F0067EEA5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F6B536381DA5209F0067EEA5 /* Build configuration list for PBXNativeTarget "partners_api" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6B536391DA5209F0067EEA5 /* Debug */,
+				F6B5363A1DA5209F0067EEA5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		F6B536641DA522BB0067EEA5 /* Build configuration list for PBXNativeTarget "partnes_api_test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6B536651DA522BB0067EEA5 /* Debug */,
+				F6B536661DA522BB0067EEA5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F6B5362C1DA5209F0067EEA5 /* Project object */;
+}
