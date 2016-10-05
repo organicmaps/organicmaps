@@ -543,7 +543,9 @@ public class PlacePageView extends RelativeLayout
   private void updateHotelRating(@NonNull SponsoredHotel.HotelInfo info)
   {
     if (info.mReviews == null || info.mReviews.length == 0)
+    {
       UiUtils.hide(mHotelReview);
+    }
     else
     {
       UiUtils.show(mHotelReview);
@@ -557,7 +559,9 @@ public class PlacePageView extends RelativeLayout
   private void updateHotelNearby(@NonNull SponsoredHotel.HotelInfo info)
   {
     if (info.mNearby == null || info.mNearby.length == 0)
+    {
       UiUtils.hide(mHotelNearby);
+    }
     else
     {
       UiUtils.show(mHotelNearby);
@@ -568,7 +572,9 @@ public class PlacePageView extends RelativeLayout
   private void updateHotelGallery(@NonNull SponsoredHotel.HotelInfo info)
   {
     if (info.mPhotos == null || info.mPhotos.length == 0)
+    {
       UiUtils.hide(mHotelGallery);
+    }
     else
     {
       UiUtils.show(mHotelGallery);
@@ -580,7 +586,9 @@ public class PlacePageView extends RelativeLayout
   private void updateHotelFacilities(@NonNull SponsoredHotel.HotelInfo info)
   {
     if (info.mFacilities == null || info.mFacilities.length == 0)
+    {
       UiUtils.hide(mHotelFacilities);
+    }
     else
     {
       UiUtils.show(mHotelFacilities);
@@ -601,7 +609,7 @@ public class PlacePageView extends RelativeLayout
   @Override
   public void onLineCountCalculated(boolean grater)
   {
-    mHotelMoreDescription.setVisibility(grater ? VISIBLE : GONE);
+    UiUtils.showIf(grater, mHotelMoreDescription);
   }
 
   @Override

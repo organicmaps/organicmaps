@@ -157,21 +157,27 @@ class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.BaseViewHolder>
       mCommentDate.setText(DateFormat.getMediumDateFormat(mCommentDate.getContext()).format(date));
       mRating.setText(String.format(Locale.getDefault(), "%.1f", item.getRating()));
       if (TextUtils.isEmpty(item.getReviewPositive()))
+      {
         UiUtils.hide(mPositiveReview);
+      }
       else
       {
         UiUtils.show(mPositiveReview);
         mTvPositiveReview.setText(item.getReviewPositive());
       }
       if (TextUtils.isEmpty(item.getReviewNegative()))
+      {
         UiUtils.hide(mNegativeReview);
+      }
       else
       {
         UiUtils.show(mNegativeReview);
         mTvNegativeReview.setText(item.getReviewNegative());
       }
       if (UiUtils.isHidden(mNegativeReview) && UiUtils.isHidden(mPositiveReview))
+      {
         UiUtils.showIf(!TextUtils.isEmpty(item.getReview()), mReview);
+      }
       else
       {
         UiUtils.hide(mReview);
@@ -181,7 +187,6 @@ class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.BaseViewHolder>
 
   private static class MoreHolder extends BaseViewHolder
   {
-
     MoreHolder(View itemView, RecyclerClickListener listener)
     {
       super(itemView, listener);

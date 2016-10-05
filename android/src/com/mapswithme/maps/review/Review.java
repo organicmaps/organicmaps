@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 
 public class Review implements Parcelable
 {
-
   @Nullable
   private final String mReview;
   @Nullable

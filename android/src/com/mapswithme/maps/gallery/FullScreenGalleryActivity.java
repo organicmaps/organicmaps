@@ -157,7 +157,9 @@ public class FullScreenGalleryActivity extends BaseMwmFragmentActivity
       UiUtils.show(mDate);
     }
     else
+    {
       UiUtils.hide(mDate);
+    }
   }
 
   private void updateUserAvatar(Image image)
@@ -191,8 +193,12 @@ public class FullScreenGalleryActivity extends BaseMwmFragmentActivity
         && UiUtils.isHidden(mSource)
         && UiUtils.isHidden(mDate)
         && UiUtils.isHidden(mAvatar))
+    {
       UiUtils.hide(mUserBlock);
+    }
     else
+    {
       UiUtils.show(mUserBlock);
+    }
   }
 }

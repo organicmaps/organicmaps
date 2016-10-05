@@ -13,5 +13,4 @@
     android:paddingRight="@dimen/margin_half"
     android:paddingTop="@dimen/margin_half_plus"
     tools:listitem="@layout/item_image"/>
-
 </LinearLayout>

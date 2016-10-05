@@ -94,7 +94,7 @@ class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder>
 
   private void loadImages()
   {
-    int size = mItems.size() > MAX_COUNT ? MAX_COUNT : mItems.size();
+    int size = Math.min(mItems.size(), MAX_COUNT);
 
     for (int i = 0; i < size; i++)
     {
@@ -155,14 +155,7 @@ class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder>
     {
       mPosition = position;
       mImage.setImageBitmap(item.getBitmap());
-      if (item.isShowMore())
-      {
-        UiUtils.show(mMore);
-      }
-      else
-      {
-        UiUtils.hide(mMore);
-      }
+      UiUtils.showIf(item.isShowMore(), mMore);
     }
   }
 

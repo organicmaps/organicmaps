@@ -27,7 +27,7 @@ class ReviewAdapter extends BaseAdapter
   @Override
   public int getCount()
   {
-    return mItems.size() > MAX_COUNT ? MAX_COUNT : mItems.size();
+    return Math.min(mItems.size(), MAX_COUNT);
   }
 
   @Override

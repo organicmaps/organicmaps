@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 public class LineCountTextView extends TextView
 {
-
   public interface OnLineCountCalculatedListener
   {
 

@@ -6,7 +6,6 @@ import android.widget.GridView;
 
 public class StaticGridView extends GridView
 {
-
   public StaticGridView(Context context)
   {
     super(context);
