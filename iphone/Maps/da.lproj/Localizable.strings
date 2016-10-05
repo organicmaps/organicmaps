@@ -1474,6 +1474,8 @@
 
 "placepage_more_button" = "Mere";
 
+"placepage_more_reviews_button" = "More Reviews";
+
 "bookingcom_book_button" = "Bog";
 
 "placepage_call_button" = "Ring";
@@ -1626,3 +1628,9 @@
 "whats_new_booking_improve_title" = "Spar penge når du bestiller hotelværelser";
 
 "whats_new_booking_improve_message" = "Søgeresultater for hoteller viser nu også priskategorien.\nVi har desuden tilføjet mere end 110.000 hoteller.";
+
+/* For place page hotel facilities block */
+"placepage_hotel_facilities" = "Facilities";
+
+/* For place page hotel nearby block */
+"placepage_hotel_nearby" = "Nearby";

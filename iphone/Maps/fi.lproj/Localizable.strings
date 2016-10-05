@@ -1474,6 +1474,8 @@
 
 "placepage_more_button" = "Lisää";
 
+"placepage_more_reviews_button" = "More Reviews";
+
 "bookingcom_book_button" = "Varaa";
 
 "placepage_call_button" = "Soita";
@@ -1626,3 +1628,9 @@
 "whats_new_booking_improve_title" = "Säästä hotellivarauksissa";
 
 "whats_new_booking_improve_message" = "Hotellien hakutuloksissa näkyy nyt hintakategoria.\nLisäsimme myös yli 110 000 hotellia.";
+
+/* For place page hotel facilities block */
+"placepage_hotel_facilities" = "Facilities";
+
+/* For place page hotel nearby block */
+"placepage_hotel_nearby" = "Nearby";

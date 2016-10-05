@@ -24,6 +24,10 @@
     <attr name="ppPreviewHeadOpen" format="reference"/>
     <attr name="ppPreviewHeadClosed" format="reference"/>
     <attr name="ppArrowDrawable" format="reference"/>
+    <attr name="ppRatingBackground" format="color"/>
+    <attr name="ppRatingText" format="color"/>
+    <attr name="ppPositive" format="reference"/>
+    <attr name="ppNegative" format="reference"/>
 
     <attr name="routingSlot" format="reference"/>
     <attr name="routingSlotPressed" format="reference"/>

@@ -1474,6 +1474,8 @@
 
 "placepage_more_button" = "Lainnya";
 
+"placepage_more_reviews_button" = "More Reviews";
+
 "bookingcom_book_button" = "Pesan";
 
 "placepage_call_button" = "Hubungi";
@@ -1626,3 +1628,9 @@
 "whats_new_booking_improve_title" = "Berhemat saat memesan hotel";
 
 "whats_new_booking_improve_message" = "Hasil pencarian untuk hotel kini disertai kategori harga.\nKami juga menambahkan lebih dari 110.000 hotel.";
+
+/* For place page hotel facilities block */
+"placepage_hotel_facilities" = "Facilities";
+
+/* For place page hotel nearby block */
+"placepage_hotel_nearby" = "Nearby";

@@ -145,6 +145,16 @@
   <dimen name="altitude_chart_image_height">40dp</dimen>
   <dimen name="altitude_chart_image_width">232dp</dimen>
 
+  <!-- Gallery-->
+  <dimen name="placepage_hotel_gallery_height">100dp</dimen>
+  <dimen name="placepage_hotel_gallery_width">150dp</dimen>
+  <dimen name="gallery_image_height">84dp</dimen>
 
+  <!-- Nearby-->
+  <dimen name="placepage_hotel_nearby_height">64dp</dimen>
+  <dimen name="placepage_hotel_nearby_icon_size">24dp</dimen>
+
+  <!-- Rating-->
+  <dimen name="placepage_margin_rating">20dp</dimen>
 
 </resources>

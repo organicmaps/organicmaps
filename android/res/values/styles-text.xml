@@ -53,6 +53,11 @@
     <item name="android:textColor">?android:textColorSecondary</item>
   </style>
 
+  <style name="MwmTextAppearance.Body3.Primary">
+    <item name="android:textSize">@dimen/text_size_body_3</item>
+    <item name="android:textColor">?android:textColorPrimary</item>
+  </style>
+
   <style name="MwmTextAppearance.Body3.Light">
     <item name="android:textColor">?android:textColorPrimaryInverse</item>
   </style>
@@ -116,6 +121,10 @@
     <item name="android:textStyle">bold</item>
   </style>
 
+  <style name="MwmTextAppearance.RoutingDimension.Inline" parent="MwmTextAppearance.RoutingNumber">
+    <item name="android:textSize">@dimen/text_size_routing_dimension_inline</item>
+  </style>
+
   <style name="MwmTextAppearance.RoutingDetail">
     <item name="android:textSize">@dimen/text_size_routing_plan_detail</item>
     <item name="android:fontFamily" tools:ignore="NewApi">@string/robotoMedium</item>
@@ -143,12 +152,13 @@
     <item name="android:textSize">@dimen/text_size_nav_circle_exit</item>
   </style>
 
-  <style name="MwmTextAppearance.PlacePage"
-         parent="MwmTextAppearance.Body1"/>
+  <style name="MwmTextAppearance.PlacePage" parent="MwmTextAppearance.Body1"/>
 
   <style name="MwmTextAppearance.PlacePage.Accent">
     <item name="android:textColor">?colorAccent</item>
   </style>
+
+  <style name="MwmTextAppearance.PlacePage.Title" parent="MwmTextAppearance.Body3"/>
 
   <style name="MwmTextAppearance.Editor">
   </style>

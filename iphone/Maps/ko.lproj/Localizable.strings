@@ -1474,6 +1474,8 @@
 
 "placepage_more_button" = "자세히";
 
+"placepage_more_reviews_button" = "More Reviews";
+
 "bookingcom_book_button" = "예약";
 
 "placepage_call_button" = "전화";
@@ -1626,3 +1628,9 @@
 "whats_new_booking_improve_title" = "호텔 예약 시 절약";
 
 "whats_new_booking_improve_message" = "이제 가격 범주를 포함하는 호텔에 대한 결과를 검색하세요.\n또한 110,000곳 이상의 호텔이 추가되었습니다.";
+
+/* For place page hotel facilities block */
+"placepage_hotel_facilities" = "Facilities";
+
+/* For place page hotel nearby block */
+"placepage_hotel_nearby" = "Nearby";

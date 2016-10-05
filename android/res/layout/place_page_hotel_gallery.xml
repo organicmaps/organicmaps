@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/ll__place_hotel_gallery"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/placepage_hotel_gallery_height"
+              android:orientation="horizontal"
+              android:minHeight="@dimen/placepage_hotel_gallery_height"
+              android:visibility="gone"
+              tools:background="#20FF0000"
+              tools:visibility="visible">
+
+  <android.support.v7.widget.RecyclerView
+    android:id="@+id/rv__place_hotel_gallery"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:listitem="@layout/item_gallery"/>
+</LinearLayout>

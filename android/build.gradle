@@ -57,6 +57,8 @@ dependencies {
   // TODO remove this library when default LinearLayoutManager will be fixed.
   compile 'org.solovyev.android.views:linear-layout-manager:0.5@aar'
   compile 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
+  //Glide
+  compile 'com.github.bumptech.glide:glide:3.7.0'
 }
 
 def getDate() {
@@ -93,15 +95,15 @@ android {
     // Crashlytics API key
     Properties props = new Properties()
     props.load(new FileInputStream("${projectDir}/fabric.properties"));
-    manifestPlaceholders = [ 'FABRIC_API_KEY': props['apiKey'] ]
+    manifestPlaceholders = ['FABRIC_API_KEY': props['apiKey']]
     buildConfigField 'String', 'FABRIC_API_KEY', /"${props['apiKey']}"/
 
     // PushWoosh keys
     Properties pwProps = new Properties()
     pwProps.load(new FileInputStream("${projectDir}/pushwoosh.properties"));
-    manifestPlaceholders += [ 'PW_APPID': pwProps['pwAppId'] ]
+    manifestPlaceholders += ['PW_APPID': pwProps['pwAppId']]
     buildConfigField 'String', 'PW_APPID', /"${pwProps['pwAppId']}"/
-    manifestPlaceholders += [ 'PW_PROJECT_ID': pwProps['pwProjectId'] ]
+    manifestPlaceholders += ['PW_PROJECT_ID': pwProps['pwProjectId']]
   }
 
   sourceSets.main {
@@ -209,13 +211,6 @@ android {
       versionName = android.defaultConfig.versionName + '-Blackberry'
       android.sourceSets.blackberry.assets.srcDirs = ['flavors/mwm-ttf-assets']
       buildConfigField 'String', 'REVIEW_URL', '"https://appworld.blackberry.com/webstore/content/51013892"'
-    }
-
-    nineStore {
-      versionName = android.defaultConfig.versionName + '-NineStore'
-      android.sourceSets.blackberry.assets.srcDirs = ['flavors/mwm-ttf-assets']
-      buildConfigField 'String', 'SUPPORT_MAIL', '"ninestore@mapswithme.com"'
-      buildConfigField 'String', 'REVIEW_URL', '"http://www.ninestore.ru/android-apps/mapswithme-maps-pro"'
     }
   }
 
@@ -331,7 +326,7 @@ if (System.properties['os.name'].toLowerCase().contains('windows'))
   project.ext.NDK_BUILD += ".cmd"
 
 def archs = ['x86', 'armeabi-v7a-hard']
-def buildTypes = [[ndkType: 'release', cppType: "production", flags : propReleaseNdkFlags], [ndkType: 'debug', cppType: "debug", flags : propDebugNdkFlags]]
+def buildTypes = [[ndkType: 'release', cppType: "production", flags: propReleaseNdkFlags], [ndkType: 'debug', cppType: "debug", flags: propDebugNdkFlags]]
 
 buildTypes.each { type ->
   def suffix = type.ndkType.capitalize()
@@ -408,14 +403,14 @@ obbGenerate.dependsOn obbClean, obbMainGenerate, obbPatchGenerate, obbMainAlign,
 
 def createObbGenerateTask(type, data, name) {
   return tasks.create(name: "obb${type}Generate", type: Exec, description: 'Generate obb files') {
-    commandLine ((['zip', '-0', '-j', name, data]).flatten())
+    commandLine((['zip', '-0', '-j', name, data]).flatten())
   }
 }
 
 def createObbAlignTask(type, rawObb, alignedObb) {
   def sdkDir = "${android.getSdkDirectory().getAbsolutePath()}"
   def zipalignPath = sdkDir + File.separator + "build-tools" + File.separator +
-                     propBuildToolsVersion + File.separator + "zipalign";
+          propBuildToolsVersion + File.separator + "zipalign";
 
   return tasks.create(name: "obb${type}Align", dependsOn: "obb${type}Generate", type: Exec, description: 'Align obb files') {
     commandLine zipalignPath, '-v', '8', rawObb, alignedObb

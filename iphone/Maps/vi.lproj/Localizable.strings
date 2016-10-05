@@ -1474,6 +1474,8 @@
 
 "placepage_more_button" = "Bổ sung";
 
+"placepage_more_reviews_button" = "More Reviews";
+
 "bookingcom_book_button" = "Đặt trước";
 
 "placepage_call_button" = "Gọi";
@@ -1626,3 +1628,9 @@
 "whats_new_booking_improve_title" = "Tiết kiệm khi đặt khách sạn";
 
 "whats_new_booking_improve_message" = "Kết quả tìm kiếm cho khách sạn giờ đã có bậc giá cả.\nChúng tôi cũng đã bổ sung hơn 110.000 khách sạn.";
+
+/* For place page hotel facilities block */
+"placepage_hotel_facilities" = "Facilities";
+
+/* For place page hotel nearby block */
+"placepage_hotel_nearby" = "Nearby";

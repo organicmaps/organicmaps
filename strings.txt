@@ -17871,6 +17871,10 @@
     zh-Hant = 更多
     sk = Viac
 
+  [placepage_more_reviews_button]
+    en = More Reviews
+    ru = Ещё отзывы
+
   [bookingcom_book_button]
     en = Book
     ru = Забронировать
@@ -19881,3 +19885,13 @@
     zh-Hant = 飯店搜尋結果現在還包含價格類別。\n我們還加入了超過 110,000 間飯店。
     el = Τα αποτελέσματα αναζήτησης για ξενοδοχεία περιέχουν πλέον κατηγορία τιμής. \nΠροσθέσαμε επίσης περισσότερα από 110.000 ξενοδοχεία.
     sk = Výsledky vyhľadávania hotelov odteraz obsahujú aj cenové kategórie. \nTiež sme pridali viac ako 110 000 hotelov.
+
+  [placepage_hotel_facilities]
+    comment = For place page hotel facilities block
+    en = Facilities
+    ru = Удобства
+
+  [placepage_hotel_nearby]
+    comment = For place page hotel nearby block
+    en = Nearby
+    ru = Рядом

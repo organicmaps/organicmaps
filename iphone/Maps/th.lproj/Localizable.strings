@@ -1474,6 +1474,8 @@
 
 "placepage_more_button" = "เพิ่มเติม";
 
+"placepage_more_reviews_button" = "More Reviews";
+
 "bookingcom_book_button" = "จอง";
 
 "placepage_call_button" = "โทร";
@@ -1626,3 +1628,9 @@
 "whats_new_booking_improve_title" = "ประหยัดเมื่อจองโรงแรม";
 
 "whats_new_booking_improve_message" = "การค้นหาโรงแรมตอนนี้มีหมวดหมู่ราคาแล้ว\nเรายังได้เพิ่มโรงแรมเข้ามากว่า 110,000 โรงแรมอีกด้วย";
+
+/* For place page hotel facilities block */
+"placepage_hotel_facilities" = "Facilities";
+
+/* For place page hotel nearby block */
+"placepage_hotel_nearby" = "Nearby";

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="@dimen/placepage_hotel_gallery_width"
+             android:layout_height="@dimen/placepage_hotel_gallery_height"
+             android:clickable="true"
+             android:focusable="true"
+             android:foreground="?attr/selectableItemBackground">
+
+  <ImageView
+    android:id="@+id/iv__image"
+    android:layout_width="@dimen/placepage_hotel_gallery_width"
+    android:layout_height="@dimen/placepage_hotel_gallery_height"
+    tools:src="@color/base_green"/>
+
+  <TextView
+    android:id="@+id/tv__more"
+    style="@style/PlacePageGalleryText"
+    android:text="@string/placepage_more_button"
+    android:visibility="gone"
+    tools:visibility="visible"/>
+</FrameLayout>

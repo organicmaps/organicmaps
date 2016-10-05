@@ -71,11 +71,11 @@
 
     <meta-data
         android:name="PW_APPID"
-        android:value="${PW_APPID}" />
+        android:value="${PW_APPID}"/>
 
     <meta-data
         android:name="PW_PROJECT_ID"
-        android:value="${PW_PROJECT_ID}" />
+        android:value="${PW_PROJECT_ID}"/>
 
     <!--meta-data
         android:name="PW_LOG_LEVEL"
@@ -241,52 +241,79 @@
     </activity>
 
     <activity
-      android:name="com.mapswithme.maps.editor.EditorActivity"
-      android:configChanges="orientation|screenLayout|screenSize"
-      android:label="@string/edit_place"
-      android:theme="@style/MwmTheme.EditorActivity"
-      android:windowSoftInputMode="adjustResize|stateHidden"
-      android:parentActivityName="com.mapswithme.maps.MwmActivity">
+        android:name="com.mapswithme.maps.editor.EditorActivity"
+        android:configChanges="orientation|screenLayout|screenSize"
+        android:label="@string/edit_place"
+        android:theme="@style/MwmTheme.EditorActivity"
+        android:windowSoftInputMode="adjustResize|stateHidden"
+        android:parentActivityName="com.mapswithme.maps.MwmActivity">
       <!-- The meta-data element is needed for versions lower than 4.1 -->
       <meta-data
-        android:name="android.support.PARENT_ACTIVITY"
-        android:value="com.mapswithme.maps.MwmActivity"/>
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value="com.mapswithme.maps.MwmActivity"/>
     </activity>
 
     <activity
-      android:name="com.mapswithme.maps.editor.ProfileActivity"
-      android:parentActivityName="com.mapswithme.maps.settings.SettingsActivity">
+        android:name="com.mapswithme.maps.editor.ProfileActivity"
+        android:parentActivityName="com.mapswithme.maps.settings.SettingsActivity">
       <!-- The meta-data element is needed for versions lower than 4.1 -->
       <meta-data
-        android:name="android.support.PARENT_ACTIVITY"
-        android:value="com.mapswithme.maps.settings.SettingsActivity"/>
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value="com.mapswithme.maps.settings.SettingsActivity"/>
     </activity>
 
     <activity
-      android:name="com.mapswithme.maps.editor.FeatureCategoryActivity"
-      android:parentActivityName="com.mapswithme.maps.MwmActivity">
+        android:name="com.mapswithme.maps.editor.FeatureCategoryActivity"
+        android:parentActivityName="com.mapswithme.maps.MwmActivity">
       <!-- The meta-data element is needed for versions lower than 4.1 -->
       <meta-data
-        android:name="android.support.PARENT_ACTIVITY"
-        android:value="com.mapswithme.maps.MwmActivity"/>
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value="com.mapswithme.maps.MwmActivity"/>
     </activity>
 
     <activity
-      android:name="com.mapswithme.maps.editor.ReportActivity"
-      android:parentActivityName="com.mapswithme.maps.MwmActivity">
+        android:name="com.mapswithme.maps.editor.ReportActivity"
+        android:parentActivityName="com.mapswithme.maps.MwmActivity">
       <!-- The meta-data element is needed for versions lower than 4.1 -->
       <meta-data
-        android:name="android.support.PARENT_ACTIVITY"
-        android:value="com.mapswithme.maps.MwmActivity"/>
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value="com.mapswithme.maps.MwmActivity"/>
     </activity>
 
     <activity
-      android:name="com.mapswithme.maps.editor.OsmAuthActivity"
-      android:parentActivityName="com.mapswithme.maps.MwmActivity">
+        android:name="com.mapswithme.maps.editor.OsmAuthActivity"
+        android:parentActivityName="com.mapswithme.maps.MwmActivity">
       <!-- The meta-data element is needed for versions lower than 4.1 -->
       <meta-data
-        android:name="android.support.PARENT_ACTIVITY"
-        android:value="com.mapswithme.maps.MwmActivity"/>
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value="com.mapswithme.maps.MwmActivity"/>
+    </activity>
+
+    <activity
+        android:name="com.mapswithme.maps.gallery.GalleryActivity"
+        android:parentActivityName="com.mapswithme.maps.MwmActivity">
+      <!-- The meta-data element is needed for versions lower than 4.1 -->
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value="com.mapswithme.maps.MwmActivity"/>
+    </activity>
+
+    <activity
+        android:name="com.mapswithme.maps.gallery.FullScreenGalleryActivity"
+        android:parentActivityName="com.mapswithme.maps.MwmActivity">
+      <!-- The meta-data element is needed for versions lower than 4.1 -->
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value="com.mapswithme.maps.MwmActivity"/>
+    </activity>
+
+    <activity
+        android:name="com.mapswithme.maps.review.ReviewActivity"
+        android:parentActivityName="com.mapswithme.maps.MwmActivity">
+      <!-- The meta-data element is needed for versions lower than 4.1 -->
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value="com.mapswithme.maps.MwmActivity"/>
     </activity>
 
     <!-- facebook -->
@@ -346,17 +373,17 @@
     </receiver>
 
     <!-- PushWoosh -->
-    <activity android:name="com.pushwoosh.richpages.RichPageActivity" />
-    <activity android:name="com.pushwoosh.MessageActivity" />
-    <activity android:name="com.pushwoosh.PushHandlerActivity" />
+    <activity android:name="com.pushwoosh.richpages.RichPageActivity"/>
+    <activity android:name="com.pushwoosh.MessageActivity"/>
+    <activity android:name="com.pushwoosh.PushHandlerActivity"/>
 
     <receiver
         android:name="com.google.android.gms.gcm.GcmReceiver"
         android:exported="true"
-        android:permission="com.google.android.c2dm.permission.SEND" >
+        android:permission="com.google.android.c2dm.permission.SEND">
       <intent-filter>
-        <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-        <category android:name="${applicationId}" />
+        <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+        <category android:name="${applicationId}"/>
       </intent-filter>
     </receiver>
 
@@ -378,10 +405,10 @@
 
     <service
         android:name="com.pushwoosh.GCMRegistrationService"
-        android:exported="false" />
+        android:exported="false"/>
 
     <service
-        android:name="com.pushwoosh.location.GeoLocationService" />
+        android:name="com.pushwoosh.location.GeoLocationService"/>
 
     <!-- Catches app upgraded intent -->
     <receiver android:name=".background.UpgradeReceiver">

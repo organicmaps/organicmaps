@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:paddingTop="@dimen/margin_half_plus"
+                android:paddingBottom="@dimen/margin_half_plus"
+                android:paddingRight="@dimen/margin_base"
+                android:paddingEnd="@dimen/margin_base"
+                android:paddingLeft="@dimen/margin_base"
+                android:paddingStart="@dimen/margin_base"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground"
+                tools:background="#4000FFFF">
+
+  <ImageView
+    android:id="@+id/iv__icon"
+    android:layout_width="@dimen/placepage_hotel_nearby_icon_size"
+    android:layout_height="@dimen/placepage_hotel_nearby_icon_size"
+    android:layout_centerVertical="true"
+    tools:src="@color/base_green"/>
+
+  <LinearLayout
+    android:id="@+id/ll__info"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/margin_double"
+    android:layout_marginStart="@dimen/margin_double"
+    android:layout_centerVertical="true"
+    android:layout_toRightOf="@id/iv__icon"
+    android:layout_toEndOf="@id/iv__icon"
+    android:gravity="center_vertical">
+
+    <TextView
+      android:id="@+id/tv__title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:maxLines="1"
+      android:textAppearance="@style/MwmTextAppearance.Body1"
+      tools:text="Bowery"/>
+    <TextView
+      android:id="@+id/tv__type"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin_quarter"
+      android:maxLines="1"
+      android:textAppearance="@style/MwmTextAppearance.Body3"
+      tools:text="Subway Station"/>
+  </LinearLayout>
+
+  <TextView
+    android:id="@+id/tv__distance"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true"
+    android:layout_centerVertical="true"
+    android:layout_toRightOf="@id/ll__info"
+    android:layout_toEndOf="@id/ll__info"
+    android:maxLines="1"
+    android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent"
+    android:gravity="end"
+    tools:text="800 ft"/>
+</RelativeLayout>

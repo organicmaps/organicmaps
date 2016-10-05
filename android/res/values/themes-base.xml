@@ -75,6 +75,11 @@
 
     <item name="routingButtonHint">@color/routing_button_tint</item>
     <item name="routingButtonPressedHint">@color/routing_button_pressed_tint</item>
+
+    <item name="ppRatingBackground">@color/bg_placepage_rating</item>
+    <item name="ppRatingText">@color/text_placepage_rating</item>
+    <item name="ppPositive">@drawable/ic_positive_review</item>
+    <item name="ppNegative">@drawable/ic_negative_review</item>
   </style>
 
   <!-- Night theme -->
@@ -152,5 +157,10 @@
 
     <item name="routingButtonHint">@color/routing_button_tint</item>
     <item name="routingButtonPressedHint">@color/routing_button_pressed_tint</item>
+
+    <item name="ppRatingBackground">@color/bg_placepage_rating_night</item>
+    <item name="ppRatingText">@color/text_placepage_rating_night</item>
+    <item name="ppPositive">@drawable/ic_positive_review_night</item>
+    <item name="ppNegative">@drawable/ic_negative_review_night</item>
   </style>
 </resources>

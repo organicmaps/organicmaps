@@ -2,6 +2,7 @@
 <resources>
   <integer name="pp_title_lines">5</integer>
   <integer name="pp_buttons_max">4</integer>
+  <integer name="pp_hotel_description_lines">5</integer>
 
   <integer name="sharing_initial_rows">2</integer>
 </resources>

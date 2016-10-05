@@ -1474,6 +1474,8 @@
 
 "placepage_more_button" = "Viac";
 
+"placepage_more_reviews_button" = "More Reviews";
+
 "bookingcom_book_button" = "Rezervovať";
 
 "placepage_call_button" = "Zavolať";
@@ -1626,3 +1628,9 @@
 "whats_new_booking_improve_title" = "Ušetriť pri rezervácii hotelov";
 
 "whats_new_booking_improve_message" = "Výsledky vyhľadávania hotelov odteraz obsahujú aj cenové kategórie. \nTiež sme pridali viac ako 110 000 hotelov.";
+
+/* For place page hotel facilities block */
+"placepage_hotel_facilities" = "Facilities";
+
+/* For place page hotel nearby block */
+"placepage_hotel_nearby" = "Nearby";

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/ll__place_hotel_nearby"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:minHeight="@dimen/height_block_base"
+              android:visibility="gone"
+              tools:background="#4000FFFF"
+              tools:visibility="visible">
+
+  <include layout="@layout/divider_horizontal"/>
+
+  <TextView
+    android:layout_marginLeft="@dimen/margin_base"
+    android:layout_marginRight="@dimen/margin_base"
+    android:layout_marginTop="@dimen/margin_base"
+    style="@style/PlacePageTitleText"
+    android:text="@string/placepage_hotel_nearby"/>
+
+  <com.mapswithme.maps.widget.StaticGridView
+    android:id="@+id/gv__place_hotel_nearby"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_quarter"
+    android:numColumns="1"
+    tools:listitem="@layout/item_nearby"/>
+</LinearLayout>

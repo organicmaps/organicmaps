@@ -879,6 +879,7 @@
 	<string name="minute">мин</string>
 	<string name="placepage_place_description">Описание</string>
 	<string name="placepage_more_button">Ещё</string>
+	<string name="placepage_more_reviews_button">Ещё отзывы</string>
 	<string name="bookingcom_book_button">Забронировать</string>
 	<string name="placepage_call_button">Позвонить</string>
 	<string name="placepage_edit_bookmark_button">Редактировать метку</string>
@@ -964,4 +965,8 @@
 	<string name="whats_new_route_profile_message">На пеших и веломаршрутах отображается профиль рельефа.</string>
 	<string name="whats_new_booking_improve_title">Экономь на бронировании отеля</string>
 	<string name="whats_new_booking_improve_message">Результаты поиска отелей на карте показывают ценовую категорию.\nОтелей для бронирования стало на 110 000 больше.</string>
+	<!-- For place page hotel facilities block -->
+	<string name="placepage_hotel_facilities">Удобства</string>
+	<!-- For place page hotel nearby block -->
+	<string name="placepage_hotel_nearby">Рядом</string>
 </resources>

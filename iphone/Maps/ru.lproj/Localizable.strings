@@ -1474,6 +1474,8 @@
 
 "placepage_more_button" = "Ещё";
 
+"placepage_more_reviews_button" = "Ещё отзывы";
+
 "bookingcom_book_button" = "Забронировать";
 
 "placepage_call_button" = "Позвонить";
@@ -1626,3 +1628,9 @@
 "whats_new_booking_improve_title" = "Экономь на бронировании отеля";
 
 "whats_new_booking_improve_message" = "Результаты поиска отелей на карте показывают ценовую категорию.\nОтелей для бронирования стало на 110 000 больше.";
+
+/* For place page hotel facilities block */
+"placepage_hotel_facilities" = "Удобства";
+
+/* For place page hotel nearby block */
+"placepage_hotel_nearby" = "Рядом";

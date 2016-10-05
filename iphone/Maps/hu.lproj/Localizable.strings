@@ -1474,6 +1474,8 @@
 
 "placepage_more_button" = "Még";
 
+"placepage_more_reviews_button" = "More Reviews";
+
 "bookingcom_book_button" = "Foglalás";
 
 "placepage_call_button" = "Hívás";
@@ -1626,3 +1628,9 @@
 "whats_new_booking_improve_title" = "Takarékoskodjon szálláshely foglalásakor";
 
 "whats_new_booking_improve_message" = "A szálláshely keresési eredménye már tartalmazza az árkategóriát. \nEmellett kiegészítettük több mint 110.000 szálláshellyel.";
+
+/* For place page hotel facilities block */
+"placepage_hotel_facilities" = "Facilities";
+
+/* For place page hotel nearby block */
+"placepage_hotel_nearby" = "Nearby";

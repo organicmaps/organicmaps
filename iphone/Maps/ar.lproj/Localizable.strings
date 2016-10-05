@@ -1474,6 +1474,8 @@
 
 "placepage_more_button" = "المزيد";
 
+"placepage_more_reviews_button" = "More Reviews";
+
 "bookingcom_book_button" = "حجز";
 
 "placepage_call_button" = "اتصال";
@@ -1626,3 +1628,9 @@
 "whats_new_booking_improve_title" = "توفير عند حجز الفنادق";
 
 "whats_new_booking_improve_message" = "تحتوي نتائج البحث عن الفنادق الآن على فئة السعر.\nوأضفنا أيضًا أكثر من 110000 فندق.";
+
+/* For place page hotel facilities block */
+"placepage_hotel_facilities" = "Facilities";
+
+/* For place page hotel nearby block */
+"placepage_hotel_nearby" = "Nearby";

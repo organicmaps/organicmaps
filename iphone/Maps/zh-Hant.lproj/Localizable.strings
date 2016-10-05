@@ -1474,6 +1474,8 @@
 
 "placepage_more_button" = "更多";
 
+"placepage_more_reviews_button" = "More Reviews";
+
 "bookingcom_book_button" = "預約";
 
 "placepage_call_button" = "呼叫";
@@ -1626,3 +1628,9 @@
 "whats_new_booking_improve_title" = "優惠預訂飯店";
 
 "whats_new_booking_improve_message" = "飯店搜尋結果現在還包含價格類別。\n我們還加入了超過 110,000 間飯店。";
+
+/* For place page hotel facilities block */
+"placepage_hotel_facilities" = "Facilities";
+
+/* For place page hotel nearby block */
+"placepage_hotel_nearby" = "Nearby";
