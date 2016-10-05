@@ -180,14 +180,14 @@ protected:
   UserMark * AllocateUserMark(m2::PointD const & ptOrg) override;
 };
 
-/// <category index, bookmark index>
-typedef pair<int, int> BookmarkAndCategory;
-inline BookmarkAndCategory MakeEmptyBookmarkAndCategory()
+struct BookmarkAndCategory
 {
-  return BookmarkAndCategory(int(-1), int(-1));
-}
+  BookmarkAndCategory() = default;
+  BookmarkAndCategory(int bookmarkIndex, int categoryIndex) : m_bookmarkIndex(bookmarkIndex),
+                                                              m_categoryIndex(categoryIndex) {}
 
-inline bool IsValid(BookmarkAndCategory const & bmc)
-{
-  return (bmc.first >= 0 && bmc.second >= 0);
-}
+  bool IsValid() const { return m_bookmarkIndex >= 0 && m_categoryIndex >= 0; };
+
+  int m_bookmarkIndex = -1;
+  int m_categoryIndex = -1;
+};
