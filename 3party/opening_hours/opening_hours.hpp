@@ -680,6 +680,7 @@ public:
   bool HasYearSelector() const;
 
   TRuleSequences const & GetRule() const { return m_rule; }
+
 private:
   TRuleSequences m_rule;
   bool const m_valid;
