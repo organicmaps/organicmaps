@@ -19895,3 +19895,103 @@
     comment = For place page hotel nearby block
     en = Nearby
     ru = Рядом
+
+  [taxi_order]
+    comment = For ordering a taxi (as opposed to hotels or other things)
+    en = Order
+    ru = Заказать
+
+  [taxi_wait]
+    comment = How long it is until the taxi arrives
+    en = Expected in %d min
+    ru = Ожидание %d мин
+
+  [taxi_not_found]
+    comment = When there are no available taxis nearby
+    en = Couldn't find a taxi nearby
+    ru = Не удалось найти такси поблизости
+
+  [install_app]
+    en = Install
+    ru = Установить
+
+  [booking_filters]
+    comment = `Filter` is a noun here
+    en = Filter
+    ru = Фильтр
+
+  [booking_filters_reset]
+    en = Reset 
+    ru = Сбросить
+
+  [booking_filters_rating]
+    en = Rating
+    ru = Рейтинг
+
+  [booking_filters_rating_any]
+    en = Any
+    ru = Любой
+
+  [booking_filters_ragting_good]
+    en = Good
+    ru = Хорошо
+
+  [booking_filters_rating_very_good]
+    en = Very Good
+    ru = Очень хорошо
+
+  [booking_filters_rating_excellent]
+    en = Excellent
+    ru = Отлично
+
+  [booking_filters_price_category]
+    en = Price Category
+    ru = Ценовая категория
+
+  [booking_filters_no_results]
+    en = No Results Found
+    ru = Поиск не дал результатов
+
+  [booking_filters_nores_message]
+    en = Try a more general search term, zoom out or reset the filter.
+    ru = Попробуйте задать более общий запрос, уменьшить масштаб карты или сбросить фильтр.
+
+  [booking_filters_expand_area]
+    en = Zoom out
+    ru = Уменьшить масштаб карты
+
+  [booking_filters_reset]
+    en = Reset Filter
+    ru = Сбросить фильтр
+
+  [booking_list]
+    en = List
+    ru = Список
+
+  [booking_based_on_reviews]
+    en = Based on %d hotel reviews
+    ru = По %d отзывам об отеле
+
+  [booking_show_more]
+    en = Show more
+    ru = Показать еще
+
+  [booking_reviews]
+    en = Reviews
+    ru = Отзывы
+
+  [booking_hotel]
+    en = Hotel
+    ru = Отель
+
+  [booking_hotel_room]
+    en = Room 
+    ru = Номер
+
+  [chat]
+    en = Geochat
+    ru = Геочат
+
+  [chat_open]
+    en = Open
+    ru = Открыть
