@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MWMBookmarkCell" id="45K-kk-B2o" customClass="MWMBookmarkCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="240"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="45K-kk-B2o" id="wdW-iu-3p9">
+                <frame key="frameInset" width="320" height="239"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Fsd-1g-BiQ">
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="161" id="9oh-yS-fXg"/>
+                            <constraint firstAttribute="height" priority="750" id="Fzu-Vb-HiG"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular16"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <outlet property="delegate" destination="45K-kk-B2o" id="Uxb-zy-JaE"/>
+                        </connections>
+                    </textView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradient_light" translatesAutoresizingMaskIntoConstraints="NO" id="nxK-lC-JqY">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="lxX-KK-ccK"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="mwm_name" value="gradient"/>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZiC-VG-fs0">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="33" id="I3z-10-2aB"/>
+                        </constraints>
+                        <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="9" maxY="0.0"/>
+                        <state key="normal" title="more"/>
+                        <state key="highlighted" backgroundImage="dialog_btn_press"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular16"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="linkBlueHighlighted"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="text_more_button"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="moreTap" destination="45K-kk-B2o" eventType="touchUpInside" id="OVi-Cl-kDK"/>
+                        </connections>
+                    </button>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_image" translatesAutoresizingMaskIntoConstraints="NO" id="ZHb-qS-nFh">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="Nie-DF-2Ki"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMSeparator"/>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fKp-HW-1bX">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="44" id="GrP-Iw-EEG"/>
+                        </constraints>
+                        <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="9" maxY="0.0"/>
+                        <state key="normal" title="Edit Bookmark"/>
+                        <state key="highlighted" backgroundImage="dialog_btn_press"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="linkBlueHighlighted"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="placepage_edit_bookmark_button"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="editTap" destination="45K-kk-B2o" eventType="touchUpInside" id="Ikn-Gw-zfT"/>
+                        </connections>
+                    </button>
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xqf-Fb-Ojj">
+                        <constraints>
+                            <constraint firstAttribute="width" constant="36" id="gj2-Tn-x6I"/>
+                            <constraint firstAttribute="height" constant="36" id="rzU-50-2nS"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Xqf-Fb-Ojj" firstAttribute="centerX" secondItem="fKp-HW-1bX" secondAttribute="centerX" id="3SE-at-on8"/>
+                    <constraint firstItem="fKp-HW-1bX" firstAttribute="top" secondItem="ZHb-qS-nFh" secondAttribute="bottom" id="5GI-iV-NcW"/>
+                    <constraint firstItem="nxK-lC-JqY" firstAttribute="leading" secondItem="wdW-iu-3p9" secondAttribute="leadingMargin" constant="8" id="7aJ-6Q-edO"/>
+                    <constraint firstItem="Xqf-Fb-Ojj" firstAttribute="centerY" secondItem="fKp-HW-1bX" secondAttribute="centerY" id="Bjg-lo-TFI"/>
+                    <constraint firstAttribute="bottom" secondItem="fKp-HW-1bX" secondAttribute="bottom" constant="0.5" id="Lni-kV-hFB"/>
+                    <constraint firstItem="ZHb-qS-nFh" firstAttribute="leading" secondItem="wdW-iu-3p9" secondAttribute="leading" constant="16" id="MNZ-uJ-rat"/>
+                    <constraint firstAttribute="trailing" secondItem="Fsd-1g-BiQ" secondAttribute="trailing" constant="16" id="Oli-Wc-XEw"/>
+                    <constraint firstItem="Fsd-1g-BiQ" firstAttribute="leading" secondItem="wdW-iu-3p9" secondAttribute="leading" constant="16" id="Sf7-Sm-qjx"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="nxK-lC-JqY" secondAttribute="trailing" constant="8" id="XVC-is-HpN"/>
+                    <constraint firstAttribute="trailing" secondItem="ZiC-VG-fs0" secondAttribute="trailing" id="YnE-ZS-uvq"/>
+                    <constraint firstItem="Fsd-1g-BiQ" firstAttribute="top" secondItem="wdW-iu-3p9" secondAttribute="top" id="eq7-sX-Xmu"/>
+                    <constraint firstItem="ZiC-VG-fs0" firstAttribute="top" secondItem="nxK-lC-JqY" secondAttribute="bottom" id="fzw-Ku-ogi"/>
+                    <constraint firstItem="ZHb-qS-nFh" firstAttribute="top" secondItem="ZiC-VG-fs0" secondAttribute="bottom" id="lhB-Bz-I7t"/>
+                    <constraint firstItem="ZiC-VG-fs0" firstAttribute="top" secondItem="Fsd-1g-BiQ" secondAttribute="bottom" priority="750" id="ljR-q8-Ogv"/>
+                    <constraint firstItem="ZiC-VG-fs0" firstAttribute="leading" secondItem="wdW-iu-3p9" secondAttribute="leading" id="o7K-ik-8fC"/>
+                    <constraint firstAttribute="trailing" secondItem="ZHb-qS-nFh" secondAttribute="trailing" id="s0h-Qw-irP"/>
+                    <constraint firstItem="nxK-lC-JqY" firstAttribute="bottom" secondItem="Fsd-1g-BiQ" secondAttribute="bottom" id="vF4-nA-hcQ"/>
+                    <constraint firstAttribute="trailing" secondItem="fKp-HW-1bX" secondAttribute="trailing" id="x31-Te-nkc"/>
+                    <constraint firstItem="fKp-HW-1bX" firstAttribute="leading" secondItem="wdW-iu-3p9" secondAttribute="leading" id="xUk-eO-3jw"/>
+                </constraints>
+            </tableViewCellContentView>
+            <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+            <connections>
+                <outlet property="editButton" destination="fKp-HW-1bX" id="Rgx-Ve-h8A"/>
+                <outlet property="gradientView" destination="nxK-lC-JqY" id="YhF-GP-daD"/>
+                <outlet property="moreButtonHeight" destination="I3z-10-2aB" id="qrJ-gd-leK"/>
+                <outlet property="spinner" destination="Xqf-Fb-Ojj" id="7Ke-6f-72t"/>
+                <outlet property="textView" destination="Fsd-1g-BiQ" id="YNE-YF-QNS"/>
+                <outlet property="textViewHeight" destination="9oh-yS-fXg" id="wSI-K7-3Sn"/>
+                <outlet property="textViewZeroHeight" destination="Fzu-Vb-HiG" id="F1e-1k-Ip3"/>
+            </connections>
+            <point key="canvasLocation" x="291" y="429"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="dialog_btn_press" width="280" height="44"/>
+        <image name="gradient_light" width="1" height="24"/>
+        <image name="separator_image" width="1" height="1"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
+    </simulatedMetricsContainer>
+</document>
