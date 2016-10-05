@@ -6,8 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 
@@ -35,8 +39,34 @@ public class FullScreenGalleryFragment extends BaseMwmFragment
     if (mImage != null)
     {
       ImageView imageView = (ImageView) view.findViewById(R.id.iv__image);
+      final View progress = view.findViewById(R.id.pb__loading_image);
       Glide.with(view.getContext())
            .load(mImage.getUrl())
+           .listener(new RequestListener<String, GlideDrawable>()
+           {
+             @Override
+             public boolean onException(Exception e, String model, Target<GlideDrawable> target,
+                                        boolean isFirstResource)
+             {
+               if (isVisible())
+               {
+                 progress.setVisibility(View.GONE);
+                 Toast.makeText(getContext(), getString(R.string.download_failed),
+                                Toast.LENGTH_LONG).show();
+               }
+               return false;
+             }
+
+             @Override
+             public boolean onResourceReady(GlideDrawable resource, String model,
+                                            Target<GlideDrawable> target, boolean isFromMemoryCache,
+                                            boolean isFirstResource)
+             {
+               if (isVisible())
+                progress.setVisibility(View.GONE);
+               return false;
+             }
+           })
            .into(imageView);
     }
   }

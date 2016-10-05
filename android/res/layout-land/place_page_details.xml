@@ -59,6 +59,9 @@
 
       <include layout="@layout/place_page_hotel_rating"/>
 
+      <!--TODO: remove this after booking_api.cpp will be done-->
+      <include layout="@layout/place_page_more"/>
+
       <include layout="@layout/divider_horizontal"/>
 
       <include layout="@layout/place_page_editor"/>
