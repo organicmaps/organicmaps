@@ -2,16 +2,16 @@
 
 #include "Framework.h"
 
+#include "MWMPlacePageProtocol.h"
+
 @class MWMPlacePageEntity, MWMPlacePageNavigationBar, MWMViewController;
 
-@interface MWMPlacePageViewManager : NSObject
+@interface MWMPlacePageViewManager : NSObject <MWMPlacePageProtocol>
 
 @property(weak, nonatomic, readonly) MWMViewController * ownerViewController;
 @property(nonatomic, readonly) MWMPlacePageEntity * entity;
-@property(nonatomic) MWMPlacePageNavigationBar * iPhoneNavigationBar;
 @property(nonatomic) CGFloat topBound;
 @property(nonatomic) CGFloat leftBound;
-@property(nonatomic, readonly) BOOL isDirectionViewShown;
 
 - (instancetype)initWithViewController:(MWMViewController *)viewController;
 - (void)showPlacePage:(place_page::Info const &)info;
@@ -37,7 +37,6 @@
 - (void)reloadBookmark;
 - (void)dragPlacePage:(CGRect)frame;
 - (void)showDirectionViewWithTitle:(NSString *)title type:(NSString *)type;
-- (void)hideDirectionView;
 - (void)addSubviews:(NSArray *)views withNavigationController:(UINavigationController *)controller;
 - (void)changeHeight:(CGFloat)height;
 

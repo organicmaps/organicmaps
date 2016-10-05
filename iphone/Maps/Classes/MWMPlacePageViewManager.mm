@@ -70,6 +70,11 @@ extern NSString * const kBookmarksChangedNotification;
   [self configPlacePage];
 }
 
+- (FeatureID const &)featureId
+{
+  return self.entity.featureID;
+}
+
 #pragma mark - Layout
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
@@ -211,7 +216,7 @@ extern NSString * const kBookmarksChangedNotification;
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppShare"];
   MWMPlacePageEntity * entity = self.entity;
   MWMActivityViewController * shareVC =
-      [MWMActivityViewController shareControllerForPlacePageObject:entity];
+      [MWMActivityViewController shareControllerForPlacePageObject:static_cast<id<MWMPlacePageObject>>(entity)];
   [shareVC presentInParentViewController:self.ownerViewController
                               anchorView:self.placePage.actionBar.shareAnchor];
 }
@@ -220,7 +225,7 @@ extern NSString * const kBookmarksChangedNotification;
 {
   NSMutableDictionary * stat = [@{ kStatProvider : kStatBooking } mutableCopy];
   MWMPlacePageEntity * en = self.entity;
-  auto const latLon = en.latlon;
+  auto const latLon = en.latLon;
   stat[kStatHotel] = en.hotelId;
   stat[kStatHotelLat] = @(latLon.lat);
   stat[kStatHotelLon] = @(latLon.lon);
@@ -229,7 +234,7 @@ extern NSString * const kBookmarksChangedNotification;
             atLocation:[MWMLocationManager lastLocation]];
 
   UIViewController * vc = static_cast<UIViewController *>([MapViewController controller]);
-  NSURL * url = isDescription ? self.entity.bookingDescriptionUrl : self.entity.bookingUrl;
+  NSURL * url = isDescription ? self.entity.bookingDescriptionURL : self.entity.bookingURL;
   NSAssert(url, @"Booking url can't be nil!");
   [vc openUrl:url];
 }
@@ -276,10 +281,10 @@ extern NSString * const kBookmarksChangedNotification;
         withParameters:@{kStatValue : kStatAdd}];
   Framework & f = GetFramework();
   BookmarkData bmData = {self.entity.titleForNewBookmark, f.LastEditedBMType()};
-  size_t const categoryIndex = f.LastEditedBMCategory();
-  size_t const bookmarkIndex =
-      f.GetBookmarkManager().AddBookmark(categoryIndex, self.entity.mercator, bmData);
-  self.entity.bac = {categoryIndex, bookmarkIndex};
+  auto const categoryIndex = static_cast<int>(f.LastEditedBMCategory());
+  auto const bookmarkIndex =
+      static_cast<int>(f.GetBookmarkManager().AddBookmark(categoryIndex, self.entity.mercator, bmData));
+  self.entity.bac = {bookmarkIndex, categoryIndex};
   self.entity.bookmarkTitle = @(bmData.GetName().c_str());
   self.entity.bookmarkCategory = @(f.GetBmCategory(categoryIndex)->GetName().c_str());
   [NSNotificationCenter.defaultCenter postNotificationName:kBookmarksChangedNotification
@@ -294,16 +299,16 @@ extern NSString * const kBookmarksChangedNotification;
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatBookmarks)
         withParameters:@{kStatValue : kStatRemove}];
   Framework & f = GetFramework();
-  BookmarkCategory * bookmarkCategory = f.GetBookmarkManager().GetBmCategory(self.entity.bac.first);
+  BookmarkCategory * bookmarkCategory = f.GetBookmarkManager().GetBmCategory(self.entity.bac.m_categoryIndex);
   if (bookmarkCategory)
   {
     {
       BookmarkCategory::Guard guard(*bookmarkCategory);
-      guard.m_controller.DeleteUserMark(self.entity.bac.second);
+      guard.m_controller.DeleteUserMark(self.entity.bac.m_bookmarkIndex);
     }
     bookmarkCategory->SaveToKMLFile();
   }
-  self.entity.bac = MakeEmptyBookmarkAndCategory();
+  self.entity.bac = {};
   self.entity.bookmarkTitle = nil;
   self.entity.bookmarkCategory = nil;
   [NSNotificationCenter.defaultCenter postNotificationName:kBookmarksChangedNotification
@@ -335,7 +340,7 @@ extern NSString * const kBookmarksChangedNotification;
     return @"";
   string distance;
   CLLocationCoordinate2D const coord = lastLocation.coordinate;
-  ms::LatLon const target = self.entity.latlon;
+  ms::LatLon const target = self.entity.latLon;
   measurement_utils::FormatDistance(
       ms::DistanceOnEarth(coord.latitude, coord.longitude, target.lat, target.lon), distance);
   return @(distance.c_str());
@@ -344,24 +349,10 @@ extern NSString * const kBookmarksChangedNotification;
 - (void)showDirectionViewWithTitle:(NSString *)title type:(NSString *)type
 {
   MWMDirectionView * directionView = self.directionView;
-  UIView * ownerView = self.ownerViewController.view;
   directionView.titleLabel.text = title;
   directionView.typeLabel.text = type;
-  [ownerView addSubview:directionView];
-  [ownerView endEditing:YES];
-  [directionView setNeedsLayout];
-  MapsAppDelegate * app = [MapsAppDelegate theApp];
-  [app.mapViewController updateStatusBarStyle];
-  [app disableStandby];
+  [directionView show];
   [self updateDistance];
-}
-
-- (void)hideDirectionView
-{
-  [self.directionView removeFromSuperview];
-  MapsAppDelegate * app = [MapsAppDelegate theApp];
-  [app.mapViewController updateStatusBarStyle];
-  [app enableStandby];
 }
 
 - (void)changeHeight:(CGFloat)height
@@ -399,7 +390,7 @@ extern NSString * const kBookmarksChangedNotification;
   return _directionView;
 }
 
-- (BOOL)isDirectionViewShown { return self.directionView.superview != nil; }
 - (void)setTopBound:(CGFloat)topBound { _topBound = self.placePage.topBound = topBound; }
 - (void)setLeftBound:(CGFloat)leftBound { _leftBound = self.placePage.leftBound = leftBound; }
+- (void)editBookmark {}
 @end

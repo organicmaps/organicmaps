@@ -12,6 +12,7 @@ struct AddressInfo;
 
 @class MWMMapViewControlsManager;
 @class MWMAPIBar;
+@class MWMPlacePageData;
 
 @interface MapViewController : MWMViewController
 
@@ -31,6 +32,7 @@ struct AddressInfo;
 - (void)openBookmarks;
 - (void)openMapsDownloader:(mwm::DownloaderMode)mode;
 - (void)openEditor;
+- (void)openBookmarkEditorWithData:(MWMPlacePageData *)data;
 
 - (void)initialize;
 

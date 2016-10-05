@@ -1,4 +1,4 @@
-@class MWMPlacePageEntity;
+@protocol MWMPlacePageObject;
 
 @interface MWMActivityViewController : UIActivityViewController
 
@@ -6,7 +6,7 @@
 
 + (instancetype)shareControllerForMyPosition:(CLLocationCoordinate2D const &)location;
 
-+ (instancetype)shareControllerForPlacePageObject:(MWMPlacePageEntity *)entity;
++ (instancetype)shareControllerForPlacePageObject:(id<MWMPlacePageObject>)object;
 
 - (void)presentInParentViewController:(UIViewController *)parentVC anchorView:(UIView *)anchorView;
 

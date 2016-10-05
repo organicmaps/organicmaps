@@ -32,10 +32,10 @@
   return [[self alloc] initWithActivityItem:item];
 }
 
-+ (instancetype)shareControllerForPlacePageObject:(MWMPlacePageEntity *)entity
++ (instancetype)shareControllerForPlacePageObject:(id<MWMPlacePageObject>)object;
 {
   MWMShareActivityItem * item =
-      [[MWMShareActivityItem alloc] initForPlacePageObjectWithEntity:entity];
+      [[MWMShareActivityItem alloc] initForPlacePageObject:object];
   return [[self alloc] initWithActivityItem:item];
 }
 

@@ -6,6 +6,7 @@
 #import "MWMPlacePage.h"
 #import "MWMPlacePageActionBar.h"
 #import "MWMPlacePageBookmarkCell.h"
+#import "MWMPlacePageBookmarkDelegate.h"
 #import "MWMPlacePageButtonCell.h"
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageInfoCell.h"

@@ -1,3 +1,4 @@
+#import "Common.h"
 #import "MWMActionBarButton.h"
 #import "MWMButton.h"
 #import "UIColor+MapsMeColor.h"
@@ -95,7 +96,8 @@ NSString * titleForButton(EButton type, BOOL isSelected)
   button.delegate = delegate;
   button.type = type;
   [view addSubview:button];
-  button.autoresizingMask = UIViewAutoresizingNone;
+  if (isIOS7)
+    button.autoresizingMask = UIViewAutoresizingNone;
   [button configButton:isSelected];
 }
 

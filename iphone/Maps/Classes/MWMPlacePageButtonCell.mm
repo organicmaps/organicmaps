@@ -1,7 +1,9 @@
+#import "Common.h"
 #import "MWMPlacePageButtonCell.h"
 #import "MWMFrameworkListener.h"
 #import "MWMPlacePageViewManager.h"
 #import "UIColor+MapsMeColor.h"
+#import "MWMPlacePageProtocol.h"
 
 @interface MWMPlacePageButtonCell ()<MWMFrameworkStorageObserver>
 
@@ -10,6 +12,8 @@
 @property(nonatomic) MWMPlacePageCellType type;
 @property(nonatomic) storage::TCountryId countryId;
 
+@property(weak, nonatomic) id<MWMPlacePageButtonsProtocol> delegate;
+@property(nonatomic) place_page::ButtonsRows rowType;
 @end
 
 @implementation MWMPlacePageButtonCell
@@ -22,16 +26,59 @@
   [self refreshButtonEnabledState];
 }
 
+- (void)setEnabled:(BOOL)enabled
+{
+  self.titleButton.enabled = enabled;
+}
+
+- (BOOL)isEnabled
+{
+  return self.titleButton.isEnabled;
+}
+
+- (void)configForRow:(place_page::ButtonsRows)row withDelegate:(id<MWMPlacePageButtonsProtocol>)delegate
+{
+  self.delegate = delegate;
+  self.rowType = row;
+  switch(row)
+  {
+  case place_page::ButtonsRows::AddPlace:
+    [self.titleButton setTitle:L(@"placepage_add_place_button") forState:UIControlStateNormal];
+    break;
+  case place_page::ButtonsRows::EditPlace:
+    [self.titleButton setTitle:L(@"edit_place") forState:UIControlStateNormal];
+    break;
+  case place_page::ButtonsRows::AddBusiness:
+    [self.titleButton setTitle:L(@"placepage_add_business_button") forState:UIControlStateNormal];
+    break;
+  case place_page::ButtonsRows::HotelDescription:
+    [self.titleButton setTitle:L(@"details") forState:UIControlStateNormal];
+    break;
+  }
+}
+
 - (IBAction)buttonTap
 {
-  MWMPlacePageViewManager * manager = self.manager;
-  switch (self.type)
+  if (IPAD)
   {
-  case MWMPlacePageCellTypeEditButton: [manager editPlace]; break;
-  case MWMPlacePageCellTypeAddBusinessButton: [manager addBusiness]; break;
-  case MWMPlacePageCellTypeAddPlaceButton: [manager addPlace]; break;
-  case MWMPlacePageCellTypeBookingMore: [manager book:YES]; break;
-  default: NSAssert(false, @"Incorrect cell type!"); break;
+    switch (self.type)
+    {
+    case MWMPlacePageCellTypeEditButton: [self.manager editPlace]; break;
+    case MWMPlacePageCellTypeAddBusinessButton: [self.manager addBusiness]; break;
+    case MWMPlacePageCellTypeAddPlaceButton: [self.manager addPlace]; break;
+    case MWMPlacePageCellTypeBookingMore: [self.manager book:YES]; break;
+    default: NSAssert(false, @"Incorrect cell type!"); break;
+    }
+    return;
+  }
+
+  using namespace place_page;
+  switch (self.rowType)
+  {
+  case ButtonsRows::AddPlace: [self.delegate addPlace]; break;
+  case ButtonsRows::EditPlace: [self.delegate editPlace]; break;
+  case ButtonsRows::AddBusiness: [self.delegate addBusiness]; break;
+  case ButtonsRows::HotelDescription: [self.delegate book:YES]; break;
   }
 }
 

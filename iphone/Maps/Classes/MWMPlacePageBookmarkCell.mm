@@ -1,4 +1,5 @@
 #import "MWMPlacePageBookmarkCell.h"
+#import "MWMPlacePageBookmarkDelegate.h"
 #import "Common.h"
 #import "MapViewController.h"
 #import "Statistics.h"

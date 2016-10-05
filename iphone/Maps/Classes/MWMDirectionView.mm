@@ -1,3 +1,6 @@
+#import "MapsAppDelegate.h"
+#import "MapViewController.h"
+#import "MWMMapViewControlsManager.h"
 #import "MWMDirectionView.h"
 #import "MWMPlacePageViewManager.h"
 #import "UIFont+MapsMeFonts.h"
@@ -32,6 +35,36 @@ static CGFloat const kDirectionArrowSide = IPAD ? 260. : 160.;
 
   self.autoresizingMask = self.contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
   self.directionArrow.autoresizingMask = UIViewAutoresizingNone;
+}
+
+- (void)show
+{
+  UIView * superview = [MapsAppDelegate theApp].mapViewController.view;
+  [superview addSubview:self];
+  [superview endEditing:YES];
+  [self setNeedsLayout];
+}
+
+- (void)didMoveToSuperview
+{
+  [super didMoveToSuperview];
+
+  MapsAppDelegate * app = [MapsAppDelegate theApp];
+
+  MWMMapViewControlsManager * manager = [MWMMapViewControlsManager manager];
+
+  if (self.superview)
+  {
+    [app disableStandby];
+    manager.isDirectionViewHidden = NO;
+  }
+  else
+  {
+    [app enableStandby];
+    manager.isDirectionViewHidden = YES;
+  }
+
+  [app.mapViewController updateStatusBarStyle];
 }
 
 - (void)layoutSubviews
@@ -122,7 +155,7 @@ static CGFloat const kDirectionArrowSide = IPAD ? 260. : 160.;
 {
   // Prevent super call to stop event propagation
   // [super touchesBegan:touches withEvent:event];
-  [self.manager hideDirectionView];
+  [self removeFromSuperview];
 }
 
 @end

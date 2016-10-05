@@ -10,6 +10,7 @@
 #import "MWMFrameworkListener.h"
 #import "MWMObjectsCategorySelectorController.h"
 #import "MWMPlacePageEntity.h"
+#import "MWMPlacePageManager.h"
 #import "MWMPlacePageViewManager.h"
 #import "MWMRoutePreview.h"
 #import "MWMRouter.h"
@@ -42,7 +43,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 @property(nonatomic) MWMSideButtons * sideButtons;
 @property(nonatomic) MWMBottomMenuViewController * menuController;
-@property(nonatomic) MWMPlacePageViewManager * placePageManager;
+@property(nonatomic) id<MWMPlacePageProtocol> placePageManager;
 @property(nonatomic) MWMNavigationDashboardManager * navigationManager;
 @property(nonatomic) MWMSearchManager * searchManager;
 
@@ -84,7 +85,7 @@ extern NSString * const kAlohalyticsTapEventKey;
                         searchManagerState != MWMSearchManagerStateHidden) ||
                        self.navigationState == MWMNavigationDashboardStatePlanning ||
                        self.navigationState == MWMNavigationDashboardStateReady ||
-                       self.menuState == MWMBottomMenuStateActive || self.isDirectionViewShown ||
+                       self.menuState == MWMBottomMenuStateActive || !self.isDirectionViewHidden ||
                        (isNightMode && self.navigationState != MWMNavigationDashboardStateHidden) ||
                        MapsAppDelegate.theApp.routingPlaneMode != MWMRoutingPlaneModeNone;
   return (isLight || (!isLight && isNightMode)) ? UIStatusBarStyleLightContent
@@ -292,12 +293,19 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   if (IPAD)
     return;
-  CGSize const ownerViewSize = self.ownerController.view.size;
-  if (ownerViewSize.width > ownerViewSize.height)
+  if (isIOS7)
   {
-    CGFloat const leftBound = frame.origin.x + frame.size.width;
-    self.menuController.leftBound = leftBound;
-    [MWMNavigationDashboardManager manager].leftBound = leftBound;
+    CGSize const ownerViewSize = self.ownerController.view.size;
+    if (ownerViewSize.width > ownerViewSize.height)
+    {
+      CGFloat const leftBound = frame.origin.x + frame.size.width;
+      self.menuController.leftBound = leftBound;
+      [MWMNavigationDashboardManager manager].leftBound = leftBound;
+    }
+    else
+    {
+      [self.sideButtons setBottomBound:frame.origin.y];
+    }
   }
   else
   {
@@ -459,11 +467,13 @@ extern NSString * const kAlohalyticsTapEventKey;
   return _menuController;
 }
 
-- (MWMPlacePageViewManager *)placePageManager
+- (id)placePageManager
 {
+  auto const PlacePageClass = isIOS7 || IPAD ? [MWMPlacePageViewManager class] : [MWMPlacePageManager class];
+
   if (!_placePageManager)
     _placePageManager =
-        [[MWMPlacePageViewManager alloc] initWithViewController:self.ownerController];
+        [[PlacePageClass alloc] initWithViewController:self.ownerController];
   return _placePageManager;
 }
 
@@ -526,12 +536,6 @@ extern NSString * const kAlohalyticsTapEventKey;
 }
 
 - (MWMNavigationDashboardState)navigationState { return self.navigationManager.state; }
-- (MWMPlacePageEntity *)placePageEntity { return self.placePageManager.entity; }
-- (BOOL)isDirectionViewShown
-{
-  return _placePageManager ? _placePageManager.isDirectionViewShown : NO;
-}
-
 - (void)setTopBound:(CGFloat)topBound
 {
   if (IPAD)
@@ -556,6 +560,13 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   self.searchManager.state =
       searchHidden ? MWMSearchManagerStateHidden : MWMSearchManagerStateDefault;
+}
+
+#pragma mark - MWMFeatureHolder
+
+- (id<MWMFeatureHolder>)featureHolder
+{
+  return self.placePageManager;
 }
 
 @end

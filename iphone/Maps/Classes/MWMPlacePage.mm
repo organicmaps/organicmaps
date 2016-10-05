@@ -10,7 +10,7 @@
 
 static NSString * const kPlacePageNibIdentifier = @"PlacePageView";
 static NSString * const kPlacePageViewCenterKeyPath = @"center";
-extern NSString * const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
+static NSString * const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 extern NSString * const kPP2BookmarkEditingIPADSegue = @"PP2BookmarkEditingIPAD";
 
 @interface MWMPlacePage ()
