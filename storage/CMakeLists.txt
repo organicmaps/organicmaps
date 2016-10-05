@@ -1,4 +1,4 @@
-include_directories(${OMIM_DIR}/3party/jansson/src)
+include_directories(${OMIM_ROOT}/3party/jansson/src)
 
 set(
   SRC
@@ -31,6 +31,6 @@ set(
   storage_helpers.hpp
 )
 
-omim_add_library(storage ${SRC})
+add_library(storage ${SRC})
 
 #add_subdirectory(storage_tests)

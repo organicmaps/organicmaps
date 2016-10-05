@@ -6,7 +6,6 @@ include_directories(src ../../)
 
 add_compile_options(
   "-Wall"
-  "-Wno-unused-function"
   "-std=c++11"
 )
 

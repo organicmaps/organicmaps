@@ -23,7 +23,7 @@ if (LIBZ STREQUAL "LIBZ-NOTFOUND")
 endif()
 
 
-get_filename_component(OMIM_DIR . ABSOLUTE)
+get_filename_component(OMIM_ROOT . ABSOLUTE)
 
 include_directories(
   ${CMAKE_HOME_DIRECTORY}
@@ -74,18 +74,18 @@ function(omim_set_platform_var PLATFORM_VAR pattern)
   endif()
 endfunction()
 
-omim_set_platform_var(PL_IPHONE "iphone-.*")
-omim_set_platform_var(PL_ANDROID "android-.*")
-omim_set_platform_var(PL_MAC "macx-.*" ${APPLE})
-omim_set_platform_var(PL_WIN "win32-.*" ${WIN32})
+omim_set_platform_var(PLATFORM_IPHONE "iphone-.*")
+omim_set_platform_var(PLATFORM_ANDROID "android-.*")
+omim_set_platform_var(PLATFORM_MAC "macx-.*" ${APPLE})
+omim_set_platform_var(PLATFORM_WIN "win32-.*" ${WIN32})
 
-if (UNIX AND (NOT PL_MAC))
+if (UNIX AND (NOT PLATFORM_MAC))
   set(LINUX_DETECTED TRUE)
 else()
   set(LINUX_DETECTED FALSE)
 endif()
 
-omim_set_platform_var(PL_LINUX "linux-.*" ${LINUX_DETECTED})
+omim_set_platform_var(PLATFORM_LINUX "linux-.*" ${LINUX_DETECTED})
 
 # End of setting the target platform
 
@@ -93,7 +93,7 @@ omim_set_platform_var(PL_LINUX "linux-.*" ${LINUX_DETECTED})
 
 function(omim_add_test executable)
   if (NOT NO_TESTS)
-    add_executable(${executable} ${OMIM_DIR}/testing/testingmain.cpp ${ARGN})
+    add_executable(${executable} ${OMIM_ROOT}/testing/testingmain.cpp ${ARGN})
   endif()
 endfunction()
 
@@ -116,8 +116,11 @@ endfunction()
 # Include subdirectories
 add_subdirectory(3party/jansson)
 add_subdirectory(3party/minizip)
+add_subdirectory(3party/liboauthcpp)
+add_subdirectory(3party/pugixml)
 add_subdirectory(3party/succinct)
 add_subdirectory(3party/tomcrypt)
+
 
 add_compile_options(
   "-Wall"
@@ -126,9 +129,9 @@ add_compile_options(
 
 add_subdirectory(base)
 add_subdirectory(coding)
-#add_subdirectory(editor)
 add_subdirectory(geometry)
 add_subdirectory(platform)
 add_subdirectory(3party/opening_hours)
 add_subdirectory(stats)
-#add_subdirectory(storage)
+add_subdirectory(storage)
+add_subdirectory(editor)

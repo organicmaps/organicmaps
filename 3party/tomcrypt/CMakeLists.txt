@@ -21,4 +21,3 @@ set(
 )
 
 add_library(tomcrypt ${SRC})
-set_target_properties(tomcrypt PROPERTIES ENABLE_EXPORTS ON)

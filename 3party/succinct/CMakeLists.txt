@@ -39,4 +39,3 @@ set(
 )
 
 add_library(succinct ${SRC})
-set_target_properties(succinct PROPERTIES ENABLE_EXPORTS ON)

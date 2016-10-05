@@ -1,55 +1,54 @@
-include_directories(${OMIM_DIR} ${OMIM_DIR}/3party/Alohalytics/src)
+include_directories(${OMIM_ROOT} ${OMIM_ROOT}/3party/Alohalytics/src)
 
 set(
   SRC
-  ${OMIM_DIR}/3party/Alohalytics/src/cpp/alohalytics.cc
-  ${OMIM_DIR}/3party/Alohalytics/src/alohalytics.h
-  ${OMIM_DIR}/3party/Alohalytics/src/event_base.h
-  ${OMIM_DIR}/3party/Alohalytics/src/file_manager.h
-  ${OMIM_DIR}/3party/Alohalytics/src/http_client.h
-  ${OMIM_DIR}/3party/Alohalytics/src/logger.h
+  ${OMIM_ROOT}/3party/Alohalytics/src/cpp/alohalytics.cc
+  ${OMIM_ROOT}/3party/Alohalytics/src/alohalytics.h
+  ${OMIM_ROOT}/3party/Alohalytics/src/event_base.h
+  ${OMIM_ROOT}/3party/Alohalytics/src/file_manager.h
+  ${OMIM_ROOT}/3party/Alohalytics/src/http_client.h
+  ${OMIM_ROOT}/3party/Alohalytics/src/logger.h
 )
 
-if (${PL_WIN})
+if (${PLATFORM_WIN})
   set(
     SRC
     ${SRC}
-    ${OMIM_DIR}/3party/Alohalytics/src/windows/file_manager_windows_impl.cc
+    ${OMIM_ROOT}/3party/Alohalytics/src/windows/file_manager_windows_impl.cc
   )
 else()
   set(
     SRC
     ${SRC}
-    ${OMIM_DIR}/3party/Alohalytics/src/posix/file_manager_posix_impl.cc
+    ${OMIM_ROOT}/3party/Alohalytics/src/posix/file_manager_posix_impl.cc
   )
 endif()
 
-
-if (${PL_IPHONE} OR ${PL_MAC})
+if (${PLATFORM_IPHONE} OR ${PLATFORM_MAC})
   set(
     SRC
     ${SRC}
-    ${OMIM_DIR}/3party/Alohalytics/src/alohalytics_objc.h
-    ${OMIM_DIR}/3party/Alohalytics/src/apple/http_client_apple.mm
-    ${OMIM_DIR}/3party/Alohalytics/src/apple/alohalytics_objc.mm
+    ${OMIM_ROOT}/3party/Alohalytics/src/alohalytics_objc.h
+    ${OMIM_ROOT}/3party/Alohalytics/src/apple/http_client_apple.mm
+    ${OMIM_ROOT}/3party/Alohalytics/src/apple/alohalytics_objc.mm
   )
-elseif(${PL_LINUX} OR ${PL_WIN})
+elseif(${PLATFORM_LINUX} OR ${PLATFORM_WIN})
   set(
     SRC
     ${SRC}
-    ${OMIM_DIR}/3party/Alohalytics/src/posix/http_client_curl.cc
+    ${OMIM_ROOT}/3party/Alohalytics/src/posix/http_client_curl.cc
   )
-elseif(${PL_ANDROID})
+elseif(${PLATFORM_ANDROID})
   set(
     SRC
     ${SRC}
-    ${OMIM_DIR}/3party/Alohalytics/src/android/jni/jni_alohalytics.cc
+    ${OMIM_ROOT}/3party/Alohalytics/src/android/jni/jni_alohalytics.cc
   )
 
 endif()
 
 add_library(stats_client ${SRC})
 
-if (${PL_IPHONE} OR ${PL_MAC})
+if (${PLATFORM_IPHONE} OR ${PLATFORM_MAC})
   target_compile_options(stats_client PUBLIC "-fobjc-arc")
 endif()

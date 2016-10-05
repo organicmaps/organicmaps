@@ -36,4 +36,3 @@ set(
 )
 
 add_library(jansson ${SRC})
-set_target_properties(jansson PROPERTIES ENABLE_EXPORTS ON)
