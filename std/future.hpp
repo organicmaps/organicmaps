@@ -7,6 +7,7 @@
 #include <future>
 
 using std::async;
+using std::future;
 using std::future_status;
 using std::launch;
 

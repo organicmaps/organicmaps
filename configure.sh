@@ -50,6 +50,8 @@ else
 #define BOOKING_AFFILIATE_ID ""
 #define BOOKING_KEY ""
 #define BOOKING_SECRET ""
+#define UBER_SERVER_TOKEN ""
+#define UBER_CLIENT_ID ""
 ' > "$PRIVATE_HEADER"
     echo 'ext {
   spropStoreFile = "../tools/android/debug.keystore"

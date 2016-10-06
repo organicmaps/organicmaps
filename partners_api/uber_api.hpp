@@ -2,6 +2,7 @@
 
 #include "base/thread.hpp"
 
+#include "std/atomic.hpp"
 #include "std/function.hpp"
 #include "std/mutex.hpp"
 #include "std/string.hpp"
@@ -46,7 +47,8 @@ struct Product
   string m_productId;
   string m_name;
   string m_time;
-  string m_price;
+  string m_price;     // for some currencies this field contains symbol of currency but not always
+  string m_currency;  // currency can be empty, for ex. when m_price equal to Metered
 };
 /// @products - vector of available products for requested route.
 /// @requestId - identificator which was provided to GetAvailableProducts to identify request.
@@ -55,18 +57,20 @@ using ProductsCallback = function<void(vector<Product> const & products, size_t 
 class Api
 {
 public:
+  ~Api();
   /// Requests list of available products from Uber. Returns request identificator immediately.
   size_t GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
                              ProductsCallback const & fn);
 
   /// Returns link which allows you to launch the Uber app.
-  static string GetRideRequestLink(string const & m_productId, ms::LatLon const & from, ms::LatLon const & to);
+  static string GetRideRequestLink(string const & productId, ms::LatLon const & from,
+                                   ms::LatLon const & to);
 
 private:
-  using threadDeleter = function<void(threads::SimpleThread *)>;
-  unique_ptr<threads::SimpleThread, threadDeleter> m_thread;
+  void ResetThread();
+  unique_ptr<threads::SimpleThread> m_thread;
 
-  mutex m_mutex;
+  atomic<bool> m_runFlag;
 };
 }  // namespace uber
 
