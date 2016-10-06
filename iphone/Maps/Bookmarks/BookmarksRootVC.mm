@@ -219,7 +219,7 @@
   }
   else
   {
-    BookmarksVC * bvc = [[BookmarksVC alloc] initWithCategory:static_cast<int>(indexPath.row)];
+    BookmarksVC * bvc = [[BookmarksVC alloc] initWithCategory:indexPath.row];
     [self.navigationController pushViewController:bvc animated:YES];
   }
 }

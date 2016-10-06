@@ -788,6 +788,14 @@
 		F67517A31D76FC46008FE34F /* MWMPlacePageLayout.mm in Sources */ = {isa = PBXBuildFile; fileRef = F67517A11D76FC46008FE34F /* MWMPlacePageLayout.mm */; };
 		F6791B131C43DEA7007A8A6E /* MWMStartButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6791B121C43DEA7007A8A6E /* MWMStartButton.mm */; };
 		F6791B141C43DF0B007A8A6E /* MWMStartButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6791B121C43DEA7007A8A6E /* MWMStartButton.mm */; };
+		F67E751C1DB635FE00D6741F /* MWMPPView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F67E751B1DB635FE00D6741F /* MWMPPView.xib */; };
+		F67E751D1DB635FE00D6741F /* MWMPPView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F67E751B1DB635FE00D6741F /* MWMPPView.xib */; };
+		F68FCB851DA7BBA6007CC7D7 /* MWMTaxiPreviewDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = F68FCB841DA7BBA6007CC7D7 /* MWMTaxiPreviewDataSource.mm */; };
+		F68FCB861DA7BBA6007CC7D7 /* MWMTaxiPreviewDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = F68FCB841DA7BBA6007CC7D7 /* MWMTaxiPreviewDataSource.mm */; };
+		F68FCB8A1DA7BD20007CC7D7 /* MWMTaxiPreviewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F68FCB881DA7BD20007CC7D7 /* MWMTaxiPreviewCell.mm */; };
+		F68FCB8B1DA7BD20007CC7D7 /* MWMTaxiPreviewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F68FCB881DA7BD20007CC7D7 /* MWMTaxiPreviewCell.mm */; };
+		F68FCB8C1DA7BD20007CC7D7 /* MWMTaxiPreviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F68FCB891DA7BD20007CC7D7 /* MWMTaxiPreviewCell.xib */; };
+		F68FCB8D1DA7BD20007CC7D7 /* MWMTaxiPreviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F68FCB891DA7BD20007CC7D7 /* MWMTaxiPreviewCell.xib */; };
 		F69E911C1D994CF000D7A778 /* MWMOpeningHoursCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F69E911B1D994CF000D7A778 /* MWMOpeningHoursCell.mm */; };
 		F69E911D1D994CF000D7A778 /* MWMOpeningHoursCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F69E911B1D994CF000D7A778 /* MWMOpeningHoursCell.mm */; };
 		F69E91201D994D1A00D7A778 /* MWMOpeningHoursCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F69E911F1D994D1A00D7A778 /* MWMOpeningHoursCell.xib */; };
@@ -798,12 +806,6 @@
 		F69E91271D99513100D7A778 /* _MWMOHSubCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F69E91251D99513100D7A778 /* _MWMOHSubCell.xib */; };
 		F69E912A1D9A877A00D7A778 /* MWMOpeningHours.mm in Sources */ = {isa = PBXBuildFile; fileRef = F69E91291D9A877A00D7A778 /* MWMOpeningHours.mm */; };
 		F69E912B1D9A877A00D7A778 /* MWMOpeningHours.mm in Sources */ = {isa = PBXBuildFile; fileRef = F69E91291D9A877A00D7A778 /* MWMOpeningHours.mm */; };
-		F68FCB851DA7BBA6007CC7D7 /* MWMTaxiPreviewDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = F68FCB841DA7BBA6007CC7D7 /* MWMTaxiPreviewDataSource.mm */; };
-		F68FCB861DA7BBA6007CC7D7 /* MWMTaxiPreviewDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = F68FCB841DA7BBA6007CC7D7 /* MWMTaxiPreviewDataSource.mm */; };
-		F68FCB8A1DA7BD20007CC7D7 /* MWMTaxiPreviewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F68FCB881DA7BD20007CC7D7 /* MWMTaxiPreviewCell.mm */; };
-		F68FCB8B1DA7BD20007CC7D7 /* MWMTaxiPreviewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F68FCB881DA7BD20007CC7D7 /* MWMTaxiPreviewCell.mm */; };
-		F68FCB8C1DA7BD20007CC7D7 /* MWMTaxiPreviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F68FCB891DA7BD20007CC7D7 /* MWMTaxiPreviewCell.xib */; };
-		F68FCB8D1DA7BD20007CC7D7 /* MWMTaxiPreviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F68FCB891DA7BD20007CC7D7 /* MWMTaxiPreviewCell.xib */; };
 		F6A218491CA3F26800BE2CC6 /* MWMEditorViralActivityItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6A218481CA3F26800BE2CC6 /* MWMEditorViralActivityItem.mm */; };
 		F6A2184A1CA3F26800BE2CC6 /* MWMEditorViralActivityItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6A218481CA3F26800BE2CC6 /* MWMEditorViralActivityItem.mm */; };
 		F6A750B91BE8C74400981B41 /* MWMSearchHistoryMyPositionCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6A750B81BE8C74400981B41 /* MWMSearchHistoryMyPositionCell.mm */; };
@@ -874,7 +876,6 @@
 		F6F533A31B3C248900C1940B /* UIColor+MapsMeColor.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6F533A21B3C248900C1940B /* UIColor+MapsMeColor.mm */; };
 		F6F6ACFC1C15C1010060FDD0 /* MWMRecentTrackSettingsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6C641AF1C15BBE6008FCAF3 /* MWMRecentTrackSettingsController.mm */; };
 		F6F722F81AE1572400DA3DA1 /* MWMiPhonePortraitPlacePage.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6F722F71AE1572400DA3DA1 /* MWMiPhonePortraitPlacePage.mm */; };
-		F6F78B551D770F97008A1A9A /* MWMPPView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6F78B541D770F97008A1A9A /* MWMPPView.xib */; };
 		F6F7787A1DABC6D800B603E7 /* MWMTaxiCollectionLayout.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6F778791DABC6D800B603E7 /* MWMTaxiCollectionLayout.mm */; };
 		F6FE2C0F1B03A006009814AA /* MWMPlacePageNavigationBar.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6FE2C0E1B03A006009814AA /* MWMPlacePageNavigationBar.mm */; };
 		F6FE2C111B03A016009814AA /* PlacePageNavigationBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6FE2C101B03A015009814AA /* PlacePageNavigationBar.xib */; };
@@ -1569,6 +1570,12 @@
 		F67517A11D76FC46008FE34F /* MWMPlacePageLayout.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPlacePageLayout.mm; sourceTree = "<group>"; };
 		F6791B111C43DEA7007A8A6E /* MWMStartButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMStartButton.h; sourceTree = "<group>"; };
 		F6791B121C43DEA7007A8A6E /* MWMStartButton.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMStartButton.mm; sourceTree = "<group>"; };
+		F67E751B1DB635FE00D6741F /* MWMPPView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMPPView.xib; sourceTree = "<group>"; };
+		F68FCB831DA7BBA6007CC7D7 /* MWMTaxiPreviewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWMTaxiPreviewDataSource.h; path = Views/RoutePreview/MWMTaxiPreviewDataSource.h; sourceTree = "<group>"; };
+		F68FCB841DA7BBA6007CC7D7 /* MWMTaxiPreviewDataSource.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MWMTaxiPreviewDataSource.mm; path = Views/RoutePreview/MWMTaxiPreviewDataSource.mm; sourceTree = "<group>"; };
+		F68FCB871DA7BD20007CC7D7 /* MWMTaxiPreviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMTaxiPreviewCell.h; sourceTree = "<group>"; };
+		F68FCB881DA7BD20007CC7D7 /* MWMTaxiPreviewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTaxiPreviewCell.mm; sourceTree = "<group>"; };
+		F68FCB891DA7BD20007CC7D7 /* MWMTaxiPreviewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMTaxiPreviewCell.xib; sourceTree = "<group>"; };
 		F69E911A1D994CF000D7A778 /* MWMOpeningHoursCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMOpeningHoursCell.h; sourceTree = "<group>"; };
 		F69E911B1D994CF000D7A778 /* MWMOpeningHoursCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMOpeningHoursCell.mm; sourceTree = "<group>"; };
 		F69E911F1D994D1A00D7A778 /* MWMOpeningHoursCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMOpeningHoursCell.xib; sourceTree = "<group>"; };
@@ -1576,11 +1583,6 @@
 		F69E91251D99513100D7A778 /* _MWMOHSubCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = _MWMOHSubCell.xib; sourceTree = "<group>"; };
 		F69E91281D9A877A00D7A778 /* MWMOpeningHours.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMOpeningHours.h; sourceTree = "<group>"; };
 		F69E91291D9A877A00D7A778 /* MWMOpeningHours.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMOpeningHours.mm; sourceTree = "<group>"; };
-		F68FCB831DA7BBA6007CC7D7 /* MWMTaxiPreviewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWMTaxiPreviewDataSource.h; path = Views/RoutePreview/MWMTaxiPreviewDataSource.h; sourceTree = "<group>"; };
-		F68FCB841DA7BBA6007CC7D7 /* MWMTaxiPreviewDataSource.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MWMTaxiPreviewDataSource.mm; path = Views/RoutePreview/MWMTaxiPreviewDataSource.mm; sourceTree = "<group>"; };
-		F68FCB871DA7BD20007CC7D7 /* MWMTaxiPreviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMTaxiPreviewCell.h; sourceTree = "<group>"; };
-		F68FCB881DA7BD20007CC7D7 /* MWMTaxiPreviewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTaxiPreviewCell.mm; sourceTree = "<group>"; };
-		F68FCB891DA7BD20007CC7D7 /* MWMTaxiPreviewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMTaxiPreviewCell.xib; sourceTree = "<group>"; };
 		F6A218471CA3F26800BE2CC6 /* MWMEditorViralActivityItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMEditorViralActivityItem.h; sourceTree = "<group>"; };
 		F6A218481CA3F26800BE2CC6 /* MWMEditorViralActivityItem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMEditorViralActivityItem.mm; sourceTree = "<group>"; };
 		F6A750B71BE8C74400981B41 /* MWMSearchHistoryMyPositionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchHistoryMyPositionCell.h; sourceTree = "<group>"; };
@@ -1666,7 +1668,6 @@
 		F6F533A21B3C248900C1940B /* UIColor+MapsMeColor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIColor+MapsMeColor.mm"; sourceTree = "<group>"; };
 		F6F722F61AE1572400DA3DA1 /* MWMiPhonePortraitPlacePage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMiPhonePortraitPlacePage.h; sourceTree = "<group>"; };
 		F6F722F71AE1572400DA3DA1 /* MWMiPhonePortraitPlacePage.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMiPhonePortraitPlacePage.mm; sourceTree = "<group>"; };
-		F6F78B541D770F97008A1A9A /* MWMPPView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMPPView.xib; sourceTree = "<group>"; };
 		F6F778781DABC6D800B603E7 /* MWMTaxiCollectionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMTaxiCollectionLayout.h; sourceTree = "<group>"; };
 		F6F778791DABC6D800B603E7 /* MWMTaxiCollectionLayout.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTaxiCollectionLayout.mm; sourceTree = "<group>"; };
 		F6F9BD221AD3C3A600308C33 /* Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Macros.h; path = ../Macros.h; sourceTree = "<group>"; };
@@ -3186,11 +3187,11 @@
 		F6E2B0051D9E815100793C36 /* Layout */ = {
 			isa = PBXGroup;
 			children = (
-				F6F78B541D770F97008A1A9A /* MWMPPView.xib */,
 				F67517A01D76FC46008FE34F /* MWMPlacePageLayout.h */,
 				F67517A11D76FC46008FE34F /* MWMPlacePageLayout.mm */,
 				F6E2B00B1D9E944600793C36 /* MWMPPView.h */,
 				F6E2B00C1D9E944600793C36 /* MWMPPView.mm */,
+				F67E751B1DB635FE00D6741F /* MWMPPView.xib */,
 			);
 			name = Layout;
 			sourceTree = "<group>";
@@ -3550,6 +3551,7 @@
 				4A23D15F1B8B4DD700D4EB6F /* resources-xxhdpi_clear in Resources */,
 				F64F199E1AB81A00006EAF7E /* MWMDefaultAlert.xib in Resources */,
 				EEFE7C1512F8C9E1006AF8C3 /* fonts_whitelist.txt in Resources */,
+				F67E751C1DB635FE00D6741F /* MWMPPView.xib in Resources */,
 				F64F4B711B4A41D40081A24A /* MWMDownloaderDialogHeader.xib in Resources */,
 				FAFF422A1347F101009BBB14 /* World.mwm in Resources */,
 				F607C1891C032A8800B53A87 /* resources-hdpi_dark in Resources */,
@@ -3656,7 +3658,6 @@
 				F634C8F31D79996D00BE04E2 /* _MWMPPPExternalTitle.xib in Resources */,
 				F6CB21621AEE902B00FB8963 /* PlacePageLinkCell.xib in Resources */,
 				3401CD781C3CED1E0028C6F8 /* MWMEditorSelectTableViewCell.xib in Resources */,
-				F6F78B551D770F97008A1A9A /* MWMPPView.xib in Resources */,
 				34B82AD11B846B2C00180497 /* MWMSearchBookmarksCell.xib in Resources */,
 				F64D9CA21C899C760063FA30 /* MWMEditorViralAlert.xib in Resources */,
 				4A7D89C61B2EBF3B00AC843E /* resources-mdpi_dark in Resources */,
@@ -3727,7 +3728,6 @@
 				9DA46A0F1C47E92100EF52BA /* resources-xxhdpi_legacy in Resources */,
 				6741A9571BF340DE002C974C /* 03_jomolhari-id-a3d.ttf in Resources */,
 				6741A9581BF340DE002C974C /* 04_padauk.ttf in Resources */,
-				F6F78B561D770F97008A1A9A /* MWMPPView.xib in Resources */,
 				F634C8F41D79996D00BE04E2 /* _MWMPPPExternalTitle.xib in Resources */,
 				6741A9591BF340DE002C974C /* 05_khmeros.ttf in Resources */,
 				677A2DE21C0DD50900635A00 /* resources-default in Resources */,
@@ -3806,6 +3806,7 @@
 				6741A9841BF340DE002C974C /* MWMSearchShowOnMapCell.xib in Resources */,
 				6741A9851BF340DE002C974C /* MWMBottomMenuCollectionViewPortraitCell.xib in Resources */,
 				9DA46A131C47E95700EF52BA /* drules_proto_legacy.bin in Resources */,
+				F67E751D1DB635FE00D6741F /* MWMPPView.xib in Resources */,
 				6741A9871BF340DE002C974C /* drules_proto_clear.bin in Resources */,
 				6741A9881BF340DE002C974C /* MWMAPIBarView.xib in Resources */,
 				671182E41C7F0DD800CB8177 /* WorldCoasts_obsolete.mwm in Resources */,
@@ -4306,7 +4307,6 @@
 				34CE8A681C7740E100F4351A /* MWMStorage.mm in Sources */,
 				6741AA141BF340DE002C974C /* MWMMultilineLabel.mm in Sources */,
 				6741AA151BF340DE002C974C /* Statistics.mm in Sources */,
-				F6F7787B1DABC6D800B603E7 /* MWMTaxiCollectionLayout.mm in Sources */,
 				34C9BD051C6DB693000DC38D /* MWMViewController.mm in Sources */,
 				F69E912B1D9A877A00D7A778 /* MWMOpeningHours.mm in Sources */,
 				6741AA161BF340DE002C974C /* MWMCustomFacebookEvents.mm in Sources */,

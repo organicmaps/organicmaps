@@ -98,6 +98,8 @@ enum class OpeningHours
 // Coordinates
 - (m2::PointD const &)mercator;
 - (ms::LatLon)latLon;
+
+// TODO(Vlad): Use MWMSettings to store coordinate format.
 + (void)toggleCoordinateSystem;
 
 @end

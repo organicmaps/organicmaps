@@ -214,10 +214,7 @@ void initFieldsMap()
   return haveField ? @(it->second.c_str()) : nil;
 }
 
-- (NSURL *)bookingURL
-{
-  return [self sponsoredUrl:NO];
-}
+- (NSURL *)bookingURL { return [self sponsoredUrl:NO]; }
 - (NSURL *)bookingDescriptionURL { return [self sponsoredUrl:YES]; }
 - (NSURL *)sponsoredUrl:(BOOL)isDescription
 {
@@ -238,11 +235,7 @@ void initFieldsMap()
   return self.isBooking ? @(m_info.GetMetadata().Get(Metadata::FMD_SPONSORED_ID).c_str()) : nil;
 }
 
-- (NSString *)phoneNumber
-{
-  return [self getCellValue:MWMPlacePageCellTypePhoneNumber];
-}
-
+- (NSString *)phoneNumber { return [self getCellValue:MWMPlacePageCellTypePhoneNumber]; }
 - (ms::LatLon)latLon { return m_info.GetLatLon(); }
 - (m2::PointD const &)mercator { return m_info.GetMercator(); }
 - (NSString *)apiURL { return @(m_info.GetApiUrl().c_str()); }
@@ -251,7 +244,7 @@ void initFieldsMap()
 {
   BOOL const useDMSFormat =
       [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLatLonAsDMSKey];
-  ms::LatLon const latlon = self.latLon;
+  ms::LatLon const & latlon = self.latLon;
   return @((useDMSFormat ? measurement_utils::FormatLatLon(latlon.lat, latlon.lon)
                          : measurement_utils::FormatLatLonAsDMS(latlon.lat, latlon.lon, 2))
                .c_str());

@@ -1,8 +1,8 @@
+#import "MWMEditBookmarkController.h"
 #import "Common.h"
+#import "MWMBookmarkColorViewController.h"
 #import "MWMBookmarkTitleCell.h"
 #import "MWMButtonCell.h"
-#import "MWMBookmarkColorViewController.h"
-#import "MWMEditBookmarkController.h"
 #import "MWMNoteCell.h"
 #import "MWMPlacePageData.h"
 #import "MWMPlacePageEntity.h"
@@ -52,8 +52,9 @@ enum RowInMetaInfo
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  NSAssert(self.manager || self.data, @"Entity and data can't be nil both!");
-  if (isIOS7 || IPAD)
+  auto data = self.data;
+  NSAssert(self.manager || data, @"Entity and data can't be nil both!");
+  if (IPAD)
   {
     MWMPlacePageEntity * en = self.manager.entity;
     self.cachedDescription = en.bookmarkDescription;
@@ -64,10 +65,10 @@ enum RowInMetaInfo
   }
   else
   {
-    self.cachedDescription = self.data.bookmarkDescription;
-    self.cachedTitle = self.data.externalTitle ? self.data.externalTitle : self.data.title;
-    self.cachedCategory = self.data.bookmarkCategory;
-    self.cachedColor = self.data.bookmarkColor;
+    self.cachedDescription = data.bookmarkDescription;
+    self.cachedTitle = data.externalTitle ? data.externalTitle : data.title;
+    self.cachedCategory = data.bookmarkCategory;
+    self.cachedColor = data.bookmarkColor;
   }
 
   [self configNavBar];
@@ -107,7 +108,7 @@ enum RowInMetaInfo
 - (void)onSave
 {
   [self.view endEditing:YES];
-  if (isIOS7 || IPAD)
+  if (IPAD)
   {
     MWMPlacePageEntity * en = self.manager.entity;
     en.bookmarkDescription = self.cachedDescription;
@@ -121,7 +122,7 @@ enum RowInMetaInfo
   else
   {
     Framework & f = GetFramework();
-    auto const bac = self.data.bac;
+    auto const & bac = self.data.bac;
     BookmarkCategory * category = f.GetBmCategory(bac.m_categoryIndex);
     if (!category)
       return;
@@ -129,7 +130,7 @@ enum RowInMetaInfo
     {
       BookmarkCategory::Guard guard(*category);
       Bookmark * bookmark =
-      static_cast<Bookmark *>(guard.m_controller.GetUserMarkForEdit(bac.m_bookmarkIndex));
+          static_cast<Bookmark *>(guard.m_controller.GetUserMarkForEdit(bac.m_bookmarkIndex));
       if (!bookmark)
         return;
 
@@ -137,7 +138,7 @@ enum RowInMetaInfo
       bookmark->SetDescription(self.cachedDescription.UTF8String);
       bookmark->SetName(self.cachedTitle.UTF8String);
     }
-    
+
     category->SaveToKMLFile();
     f.UpdatePlacePageInfoForCurrentSelection();
   }

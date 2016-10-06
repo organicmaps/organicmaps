@@ -1,8 +1,8 @@
-#import "MapsAppDelegate.h"
-#import "MapViewController.h"
-#import "MWMMapViewControlsManager.h"
 #import "MWMDirectionView.h"
+#import "MWMMapViewControlsManager.h"
 #import "MWMPlacePageViewManager.h"
+#import "MapViewController.h"
+#import "MapsAppDelegate.h"
 #import "UIFont+MapsMeFonts.h"
 
 static NSString * const kDirectionViewNibName = @"MWMDirectionView";

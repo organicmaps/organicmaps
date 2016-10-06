@@ -4,7 +4,7 @@
 
 @class MWMPlacePageEntity, MWMViewController;
 
-@protocol MWMActionBarProtocol <NSObject>
+@protocol MWMActionBarProtocol<NSObject>
 
 - (void)routeFrom;
 - (void)routeTo;
@@ -21,7 +21,7 @@
 
 @end
 
-@protocol MWMPlacePageButtonsProtocol <NSObject>
+@protocol MWMPlacePageButtonsProtocol<NSObject>
 
 - (void)editPlace;
 - (void)addPlace;
@@ -33,19 +33,17 @@
 
 struct FeatureID;
 
-@protocol MWMFeatureHolder <NSObject>
+@protocol MWMFeatureHolder<NSObject>
 
 - (FeatureID const &)featureId;
 
 @end
 
-@protocol MWMPlacePageProtocol <MWMActionBarProtocol, MWMPlacePageButtonsProtocol, MWMFeatureHolder>
+@protocol MWMPlacePageProtocol<MWMActionBarProtocol, MWMPlacePageButtonsProtocol, MWMFeatureHolder>
 
-@property(weak, nonatomic, readonly) MWMViewController * ownerViewController;
 @property(nonatomic) CGFloat topBound;
 @property(nonatomic) CGFloat leftBound;
 
-- (instancetype)initWithViewController:(MWMViewController *)viewController;
 - (void)showPlacePage:(place_page::Info const &)info;
 - (void)mwm_refreshUI;
 - (void)dismissPlacePage;

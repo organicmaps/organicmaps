@@ -5,7 +5,7 @@
 
 @interface MWMEditBookmarkController : MWMTableViewController
 
-@property (weak, nonatomic) MWMPlacePageData * data;
+@property(weak, nonatomic) MWMPlacePageData * data;
 @property (nonatomic) MWMPlacePageViewManager * manager;
 
 @end

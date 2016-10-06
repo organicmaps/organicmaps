@@ -22,7 +22,6 @@ CGFloat constexpr kAdditionalHeight = 20.;
 @property(weak, nonatomic) IBOutlet UIView * pedestrian;
 @property(weak, nonatomic) IBOutlet UIView * vehicle;
 @property(weak, nonatomic) IBOutlet UIView * bicycle;
-@property(weak, nonatomic) IBOutlet UIView * taxi;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * planningRouteViewHeight;
 @property(weak, nonatomic) IBOutlet UIButton * extendButton;
 @property(weak, nonatomic) IBOutlet UIButton * goButton;
@@ -80,7 +79,6 @@ CGFloat constexpr kAdditionalHeight = 20.;
   [self addProgress:self.vehicle imageName:@"ic_drive" routerType:type::Vehicle];
   [self addProgress:self.pedestrian imageName:@"ic_walk" routerType:type::Pedestrian];
   [self addProgress:self.bicycle imageName:@"ic_bike_route" routerType:type::Bicycle];
-  [self addProgress:self.taxi imageName:@"ic_taxi" routerType:type::Taxi];
 }
 
 - (void)addProgress:(UIView *)parentView

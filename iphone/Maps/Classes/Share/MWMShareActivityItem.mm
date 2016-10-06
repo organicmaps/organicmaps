@@ -66,9 +66,10 @@ NSString * httpGe0Url(NSString * shortUrl)
       return @"";
   };
 
-  ms::LatLon const ll = self.object ? self.object.latLon : ms::LatLon(self.location.latitude, self.location.longitude);
-  string const s = f.CodeGe0url(ll.lat, ll.lon, f.GetDrawScale(), title(self.object).UTF8String);
-  
+  ms::LatLon const ll = self.object ? self.object.latLon
+                                    : ms::LatLon(self.location.latitude, self.location.longitude);
+  string const & s = f.CodeGe0url(ll.lat, ll.lon, f.GetDrawScale(), title(self.object).UTF8String);
+
   NSString * url = @(s.c_str());
   if (!isShort)
     return url;

@@ -57,7 +57,7 @@
 
 - (IBAction)openBookmarks
 {
-  BookmarksVC * bvc = [[BookmarksVC alloc] initWithCategory:static_cast<int>(self.index)];
+  BookmarksVC * bvc = [[BookmarksVC alloc] initWithCategory:self.index];
   UINavigationController * rootVC = (UINavigationController *)UIApplication.sharedApplication.delegate.window.rootViewController;
   [rootVC pushViewController:bvc animated:YES];
 }

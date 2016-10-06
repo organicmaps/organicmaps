@@ -85,11 +85,13 @@
 - (void)moveBookmarkToSetWithIndex:(int)setIndex
 {
   BookmarkAndCategory bac;
-  bac.m_bookmarkIndex = static_cast<int>(GetFramework().MoveBookmark(m_bac.m_bookmarkIndex, m_bac.m_categoryIndex, setIndex));
+  bac.m_bookmarkIndex = static_cast<size_t>(
+      GetFramework().MoveBookmark(m_bac.m_bookmarkIndex, m_bac.m_categoryIndex, setIndex));
   bac.m_categoryIndex = setIndex;
   m_bac = bac;
 
-  BookmarkCategory const * category = GetFramework().GetBookmarkManager().GetBmCategory(bac.m_categoryIndex);
+  BookmarkCategory const * category =
+      GetFramework().GetBookmarkManager().GetBmCategory(bac.m_categoryIndex);
   self.category = @(category->GetName().c_str());
 }
 

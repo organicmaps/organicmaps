@@ -34,8 +34,7 @@
 
 + (instancetype)shareControllerForPlacePageObject:(id<MWMPlacePageObject>)object;
 {
-  MWMShareActivityItem * item =
-      [[MWMShareActivityItem alloc] initForPlacePageObject:object];
+  MWMShareActivityItem * item = [[MWMShareActivityItem alloc] initForPlacePageObject:object];
   return [[self alloc] initWithActivityItem:item];
 }
 

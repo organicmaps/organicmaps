@@ -34,8 +34,8 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 + (MWMPlacePageActionBar *)actionBarWithDelegate:(id<MWMActionBarProtocol>)delegate
 {
-  MWMPlacePageActionBar * bar = [[NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil]
-                                 firstObject];
+  MWMPlacePageActionBar * bar =
+      [[NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil] firstObject];
   bar.delegate = delegate;
   return bar;
 }
@@ -52,8 +52,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 + (MWMPlacePageActionBar *)actionBarForPlacePageManager:(MWMPlacePageViewManager *)placePageManager
 {
   MWMPlacePageActionBar * bar =
-      [[NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil]
-          firstObject];
+      [[NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil] firstObject];
   [bar configureWithPlacePageManager:placePageManager];
   return bar;
 }
@@ -71,7 +70,8 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   m_visibleButtons.clear();
   m_additionalButtons.clear();
-  auto data = static_cast<id<MWMActionBarSharedData>>(isIOS7 ? self.placePageManager.entity : self.data);
+  auto data =
+      static_cast<id<MWMActionBarSharedData>>(IPAD ? self.placePageManager.entity : self.data);
   NSString * phone = data.phoneNumber;
 
   BOOL const isIphone = [[UIDevice currentDevice].model isEqualToString:@"iPhone"];
@@ -214,7 +214,8 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)showActionSheet
 {
   NSString * cancel = L(@"cancel");
-  auto data = static_cast<id<MWMActionBarSharedData>>(IPAD ? self.placePageManager.entity : self.data);
+  auto data =
+      static_cast<id<MWMActionBarSharedData>>(IPAD ? self.placePageManager.entity : self.data);
   BOOL const isTitleNotEmpty = data.title.length > 0;
   NSString * title = isTitleNotEmpty ? data.title : data.subtitle;
   NSString * subtitle = isTitleNotEmpty ? data.subtitle : nil;
@@ -266,7 +267,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   [super layoutSubviews];
   self.width = self.superview.width;
   if (IPAD)
-    self.origin = {0, self.superview.height - 48};
+    self.origin = {0, self.superview.height - self.height};
 
   self.separator.width = self.width;
   CGFloat const buttonWidth = self.width / self.buttons.count;
@@ -275,11 +276,6 @@ extern NSString * const kAlohalyticsTapEventKey;
     button.minX = buttonWidth * (button.tag - 1);
     button.width = buttonWidth;
   }
-}
-
-- (void)setFrame:(CGRect)frame
-{
-  [super setFrame:frame];
 }
 
 #pragma mark - Properties

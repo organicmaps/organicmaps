@@ -74,7 +74,6 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
 NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
 NSString * const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 
-
 // The first launch after process started. Used to skip "Not follow, no position" state and to run
 // locator.
 BOOL gIsFirstMyPositionMode = YES;

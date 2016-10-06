@@ -1,6 +1,6 @@
 #pragma mark - MWMPPScrollView
 
-@protocol MWMPlacePageViewUpdateProtocol <NSObject>
+@protocol MWMPlacePageViewUpdateProtocol<NSObject>
 
 - (void)updateWithHeight:(CGFloat)height;
 
@@ -28,4 +28,3 @@
 - (void)hideTableView:(BOOL)isHidden;
 
 @end
-

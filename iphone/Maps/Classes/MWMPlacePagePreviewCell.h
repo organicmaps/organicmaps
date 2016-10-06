@@ -15,9 +15,8 @@
 - (void)setDownloadingProgress:(CGFloat)progress;
 
 - (void)configure:(MWMPlacePageData *)data
-         updateLayoutDelegate:(id<MWMPlacePageCellUpdateProtocol>)delegate
-                   dataSource:(id<MWMPlacePageLayoutDataSource>)dataSource;
-
+    updateLayoutDelegate:(id<MWMPlacePageCellUpdateProtocol>)delegate
+              dataSource:(id<MWMPlacePageLayoutDataSource>)dataSource;
 
 - (MWMCircularProgress *)mapDownloadProgress;
 

@@ -1,13 +1,13 @@
 #include "storage/storage_defines.hpp"
 
-@protocol MWMPlacePageLayoutDelegate <NSObject>
+@protocol MWMPlacePageLayoutDelegate<NSObject>
 
 - (void)onTopBoundChanged:(CGFloat)bound;
 - (void)shouldDestroyLayout;
 
 @end
 
-@protocol MWMPlacePageLayoutDataSource <NSObject>
+@protocol MWMPlacePageLayoutDataSource<NSObject>
 
 - (NSString *)distanceToObject;
 - (void)downloadSelectedArea;
@@ -21,7 +21,8 @@
 @interface MWMPlacePageLayout : NSObject
 
 - (instancetype)initWithOwnerView:(UIView *)view
-                         delegate:(id<MWMPlacePageLayoutDelegate, MWMPlacePageButtonsProtocol, MWMActionBarProtocol>)delegate
+                         delegate:(id<MWMPlacePageLayoutDelegate, MWMPlacePageButtonsProtocol,
+                                      MWMActionBarProtocol>)delegate
                        dataSource:(id<MWMPlacePageLayoutDataSource>)dataSource;
 
 - (void)layoutWithSize:(CGSize const &)size;

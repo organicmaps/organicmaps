@@ -1,10 +1,9 @@
 namespace ms
 {
 class LatLon;
-
 }  // namespace ms
 
-@protocol MWMPlacePageObject <NSObject>
+@protocol MWMPlacePageObject<NSObject>
 
 - (BOOL)isMyPosition;
 - (BOOL)isBooking;

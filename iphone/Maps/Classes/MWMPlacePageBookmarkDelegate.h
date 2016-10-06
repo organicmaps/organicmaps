@@ -1,4 +1,4 @@
-@protocol MWMPlacePageBookmarkDelegate <NSObject>
+@protocol MWMPlacePageBookmarkDelegate<NSObject>
 
 @required
 - (void)editBookmarkTap;

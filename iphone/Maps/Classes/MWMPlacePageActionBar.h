@@ -1,7 +1,7 @@
 @class MWMPlacePageViewManager;
 @class MWMPlacePageData;
 
-@protocol MWMActionBarSharedData <NSObject>
+@protocol MWMActionBarSharedData<NSObject>
 
 - (BOOL)isBookmark;
 - (BOOL)isBooking;

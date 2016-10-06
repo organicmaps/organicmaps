@@ -1,12 +1,15 @@
+#import "Common.h"
 #import "MWMPPView.h"
 #import "UIColor+MapsMeColor.h"
 
 namespace
 {
+// https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueObserving/Articles/KVOBasics.html
 void * kContext = &kContext;
 NSString * const kTableViewContentSizeKeyPath = @"contentSize";
+CGFloat const kTableViewTopInset = -36;
 
-} // namespace
+}  // namespace
 
 #pragma mark - MWMPPScrollView
 
@@ -22,9 +25,8 @@ NSString * const kTableViewContentSizeKeyPath = @"contentSize";
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
 {
-  if (point.y > [self convertRect:self.inactiveView.bounds fromView:self.inactiveView].origin.y)
-    return YES;
-  return NO;
+  UIView * v = self.inactiveView;
+  return point.y > [self convertRect:v.bounds fromView:v].origin.y;
 }
 
 @end
@@ -58,7 +60,7 @@ NSString * const kTableViewContentSizeKeyPath = @"contentSize";
   {
     NSValue * s = change[@"new"];
     CGFloat const height = s.CGSizeValue.height;
-    if (fabs(height - self.currentContentHeight) > 0.5)
+    if (!equalScreenDimensions(height, self.currentContentHeight))
     {
       self.currentContentHeight = height;
       self.height = height + self.top.height;
@@ -74,18 +76,22 @@ NSString * const kTableViewContentSizeKeyPath = @"contentSize";
 - (void)awakeFromNib
 {
   [super awakeFromNib];
-  [self.tableView addObserver:self forKeyPath:kTableViewContentSizeKeyPath options:NSKeyValueObservingOptionNew context:kContext];
+  [self.tableView addObserver:self
+                   forKeyPath:kTableViewContentSizeKeyPath
+                      options:NSKeyValueObservingOptionNew
+                      context:kContext];
 
   self.tableView.estimatedRowHeight = 44.;
   self.tableView.rowHeight = UITableViewAutomaticDimension;
 
-  self.tableView.contentInset = {.top = -36};
+  self.tableView.contentInset = {.top = kTableViewTopInset};
 
-  NSUInteger const animationImagesCount = 12;
+  NSUInteger constexpr animationImagesCount = 12;
   NSMutableArray * animationImages = [NSMutableArray arrayWithCapacity:animationImagesCount];
   NSString * postfix = [UIColor isNightMode] ? @"dark" : @"light";
   for (NSUInteger i = 0; i < animationImagesCount; ++i)
-    animationImages[i] = [UIImage imageNamed:[NSString stringWithFormat:@"Spinner_%@_%@", @(i+1), postfix]];
+    animationImages[i] =
+        [UIImage imageNamed:[NSString stringWithFormat:@"Spinner_%@_%@", @(i + 1), postfix]];
 
   self.spinner.animationDuration = 0.8;
   self.spinner.animationImages = animationImages;
@@ -98,4 +104,3 @@ NSString * const kTableViewContentSizeKeyPath = @"contentSize";
 }
 
 @end
-

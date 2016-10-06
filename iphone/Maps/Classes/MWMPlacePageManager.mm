@@ -1,28 +1,27 @@
-#import "MapViewController.h"
-#import "MWMActivityViewController.h"
-#import "MWMAPIBar.h"
-#import "MWMCircularProgress.h"
 #import "MWMPlacePageManager.h"
-#import "MWMViewController.h"
-#import "MWMPlacePageLayout.h"
-#import "MWMPlacePageData.h"
+#import <Pushwoosh/PushNotificationManager.h>
+#import "MWMAPIBar.h"
+#import "MWMActivityViewController.h"
+#import "MWMCircularProgress.h"
+#import "MWMEditBookmarkController.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
 #import "MWMLocationManager.h"
+#import "MWMPlacePageData.h"
+#import "MWMPlacePageLayout.h"
 #import "MWMRouter.h"
 #import "MWMStorage.h"
-#import "MWMEditBookmarkController.h"
+#import "MWMViewController.h"
+#import "MapViewController.h"
 #import "Statistics.h"
-#import <Pushwoosh/PushNotificationManager.h>
 
 #include "geometry/distance_on_sphere.hpp"
 
 #include "platform/measurement_utils.hpp"
 
-@interface MWMPlacePageManager() <MWMFrameworkStorageObserver, MWMPlacePageLayoutDelegate,
+@interface MWMPlacePageManager ()<MWMFrameworkStorageObserver, MWMPlacePageLayoutDelegate,
                                   MWMPlacePageLayoutDataSource, MWMLocationObserver>
 
-@property(weak, nonatomic) MWMViewController * ownerViewController;
 @property(nonatomic) MWMPlacePageEntity * entity;
 
 @property(nonatomic) MWMPlacePageLayout * layout;
@@ -34,27 +33,24 @@
 
 @implementation MWMPlacePageManager
 
-- (instancetype)initWithViewController:(MWMViewController *)viewController
-{
-  self = [super init];
-  if (self)
-    _ownerViewController = viewController;
-  return self;
-}
-
 - (void)showPlacePage:(place_page::Info const &)info
 {
   self.currentDownloaderStatus = storage::NodeStatus::Undefined;
   [MWMFrameworkListener addObserver:self];
-  
+
   self.data = [[MWMPlacePageData alloc] initWithPlacePageInfo:info];
+
+  if (!self.layout)
+  {
+    self.layout = [[MWMPlacePageLayout alloc] initWithOwnerView:self.ownerViewController.view
+                                                       delegate:self
+                                                     dataSource:self];
+  }
+
   [self.layout showWithData:self.data];
 
   // Call for the first time to produce changes
   [self processCountryEvent:self.data.countryId];
-
-  if (![MWMLocationManager lastHeading])
-    return;
 
   [MWMLocationManager addObserver:self];
   [self.layout setDistanceToObject:self.distanceToObject];
@@ -62,7 +58,7 @@
 
 - (void)closePlacePage
 {
-  [_layout close];
+  [self.layout close];
   [MWMLocationManager removeObserver:self];
   [MWMFrameworkListener removeObserver:self];
 }
@@ -77,16 +73,14 @@
   MWMAlertViewController * avc = [MapViewController controller].alertController;
   switch (nodeAttrs.m_status)
   {
-    case NodeStatus::NotDownloaded:
-    case NodeStatus::Partly:
-      [MWMStorage downloadNode:countryId alertController:avc onSuccess:nil];
-      break;
-    case NodeStatus::Undefined:
-    case NodeStatus::Error: [MWMStorage retryDownloadNode:countryId]; break;
-    case NodeStatus::OnDiskOutOfDate: [MWMStorage updateNode:countryId alertController:avc]; break;
-    case NodeStatus::Downloading:
-    case NodeStatus::InQueue: [MWMStorage cancelDownloadNode:countryId]; break;
-    case NodeStatus::OnDisk: break;
+  case NodeStatus::NotDownloaded:
+  case NodeStatus::Partly: [MWMStorage downloadNode:countryId alertController:avc onSuccess:nil]; break;
+  case NodeStatus::Undefined:
+  case NodeStatus::Error: [MWMStorage retryDownloadNode:countryId]; break;
+  case NodeStatus::OnDiskOutOfDate: [MWMStorage updateNode:countryId alertController:avc]; break;
+  case NodeStatus::Downloading:
+  case NodeStatus::InQueue: [MWMStorage cancelDownloadNode:countryId]; break;
+  case NodeStatus::OnDisk: break;
   }
 }
 
@@ -96,10 +90,10 @@
   if (!lastLocation)
     return @"";
   string distance;
-  CLLocationCoordinate2D const coord = lastLocation.coordinate;
-  ms::LatLon const target = self.data.latLon;
+  CLLocationCoordinate2D const & coord = lastLocation.coordinate;
+  ms::LatLon const & target = self.data.latLon;
   measurement_utils::FormatDistance(
-                                    ms::DistanceOnEarth(coord.latitude, coord.longitude, target.lat, target.lon), distance);
+      ms::DistanceOnEarth(coord.latitude, coord.longitude, target.lat, target.lon), distance);
   return @(distance.c_str());
 }
 
@@ -109,7 +103,7 @@
 {
   if (countryId == kInvalidCountryId)
   {
-    [_layout processDownloaderEventWithStatus:storage::NodeStatus::Undefined progress:0];
+    [self.layout processDownloaderEventWithStatus:storage::NodeStatus::Undefined progress:0];
     return;
   }
 
@@ -124,35 +118,26 @@
     return;
 
   self.currentDownloaderStatus = status;
-  [_layout processDownloaderEventWithStatus:status progress:0];
+  [self.layout processDownloaderEventWithStatus:status progress:0];
 }
 
-- (void)processCountry:(TCountryId const  &)countryId progress:(MapFilesDownloader::TProgress const &)progress
+- (void)processCountry:(TCountryId const &)countryId
+              progress:(MapFilesDownloader::TProgress const &)progress
 {
   if (countryId == kInvalidCountryId || self.data.countryId != countryId)
     return;
 
-  [_layout processDownloaderEventWithStatus:storage::NodeStatus::Downloading
-                                   progress:static_cast<CGFloat>(progress.first) / progress.second];
+  [self.layout
+      processDownloaderEventWithStatus:storage::NodeStatus::Downloading
+                              progress:static_cast<CGFloat>(progress.first) / progress.second];
 }
 
 #pragma mark - MWMPlacePageLayout
 
-- (MWMPlacePageLayout *)layout
-{
-  if (!_layout)
-  {
-    _layout = [[MWMPlacePageLayout alloc] initWithOwnerView:self.ownerViewController.view
-                                                   delegate:self
-                                                 dataSource:self];
-  }
-
-  return _layout;
-}
-
 - (void)onTopBoundChanged:(CGFloat)bound
 {
-  [[MWMMapViewControlsManager manager] dragPlacePage:{{0, self.ownerViewController.view.height - bound}, {}}];
+  [[MWMMapViewControlsManager manager]
+      dragPlacePage:{{0, self.ownerViewController.view.height - bound}, {}}];
 }
 
 - (void)shouldDestroyLayout
@@ -170,29 +155,17 @@
     return;
 
   CGFloat const angle = ang::AngleTo(lastLocation.mercator, self.data.mercator) + info.m_bearing;
-  [_layout rotateDirectionArrowToAngle:angle];
+  [self.layout rotateDirectionArrowToAngle:angle];
 }
 
 - (void)onLocationUpdate:(location::GpsInfo const &)locationInfo
 {
-  [_layout setDistanceToObject:self.distanceToObject];
+  [self.layout setDistanceToObject:self.distanceToObject];
 }
 
-- (void)mwm_refreshUI
-{
-  [_layout mwm_refreshUI];
-}
-
-- (void)dismissPlacePage
-{
-  [self closePlacePage];
-}
-
-- (void)hidePlacePage
-{
-  [self closePlacePage];
-}
-
+- (void)mwm_refreshUI { [self.layout mwm_refreshUI]; }
+- (void)dismissPlacePage { [self closePlacePage]; }
+- (void)hidePlacePage { [self closePlacePage]; }
 - (void)routeFrom
 {
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatBuildRoute)
@@ -212,14 +185,15 @@
 - (MWMRoutePoint)target
 {
   NSString * name = nil;
-  if (self.data.title.length > 0)
-    name = self.data.title;
-  else if (self.data.address.length > 0)
-    name = self.data.address;
-  else if (self.data.subtitle.length > 0)
-    name = self.data.subtitle;
-  else if (self.data.isBookmark)
-    name = self.data.externalTitle;
+  auto d = self.data;
+  if (d.title.length > 0)
+    name = d.title;
+  else if (d.address.length > 0)
+    name = d.address;
+  else if (d.subtitle.length > 0)
+    name = d.subtitle;
+  else if (d.isBookmark)
+    name = d.externalTitle;
   else
     name = L(@"placepage_unknown_place");
 
@@ -230,8 +204,8 @@
 - (void)share
 {
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatShare)];
-  MWMActivityViewController * shareVC =
-  [MWMActivityViewController shareControllerForPlacePageObject:static_cast<id<MWMPlacePageObject>>(self.data)];
+  MWMActivityViewController * shareVC = [MWMActivityViewController
+      shareControllerForPlacePageObject:static_cast<id<MWMPlacePageObject>>(self.data)];
   [shareVC presentInParentViewController:self.ownerViewController
                               anchorView:self.layout.shareAnchor];
 }
@@ -256,7 +230,6 @@
   [[MWMMapViewControlsManager manager] addPlace:NO hasPoint:YES point:self.data.mercator];
 }
 
-
 - (void)addBookmark
 {
   [self.data updateBookmarkStatus:YES];
@@ -271,16 +244,12 @@
   [self.layout reloadBookmarkSection:NO];
 }
 
-- (void)editBookmark
-{
-  [[MapViewController controller] openBookmarkEditorWithData:self.data];
-}
-
+- (void)editBookmark { [[MapViewController controller] openBookmarkEditorWithData:self.data]; }
 - (void)book:(BOOL)isDescription
 {
   NSMutableDictionary * stat = [@{ kStatProvider : kStatBooking } mutableCopy];
   MWMPlacePageData * data = self.data;
-  auto const latLon = data.latLon;
+  auto const & latLon = data.latLon;
   stat[kStatHotel] = data.hotelId;
   stat[kStatHotelLat] = @(latLon.lat);
   stat[kStatHotelLon] = @(latLon.lon);
@@ -298,7 +267,7 @@
 {
   NSAssert(self.data.phoneNumber, @"Phone number can't be nil!");
   NSString * phoneNumber = [[@"telprompt:" stringByAppendingString:self.data.phoneNumber]
-                            stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+      stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
   [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
 }
 
@@ -309,27 +278,31 @@
   [[MapViewController controller].apiBar back];
 }
 
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+- (void)viewWillTransitionToSize:(CGSize)size
+       withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
-  [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-    [self->_layout layoutWithSize:size];
-  } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) { }];
+  [coordinator
+      animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        [self.layout layoutWithSize:size];
+      }
+                      completion:^(id<UIViewControllerTransitionCoordinatorContext> context){
+                      }];
 }
 
 #pragma mark - MWMFeatureHolder
 
-- (FeatureID const &)featureId
-{
-  return self.data.featureId;
-}
+- (FeatureID const &)featureId { return self.data.featureId; }
+#pragma mark - Owner
 
+- (MapViewController *)ownerViewController { return [MapViewController controller]; }
 #pragma mark - Deprecated
 
 @synthesize leftBound = _leftBound;
 @synthesize topBound = _topBound;
-- (void)setTopBound:(CGFloat)topBound {_topBound = 0;}
-- (void)setLeftBound:(CGFloat)leftBound {_leftBound = 0;}
-- (void)addSubviews:(NSArray *)views withNavigationController:(UINavigationController *)controller {}
+- (void)setTopBound:(CGFloat)topBound { _topBound = 0; }
+- (void)setLeftBound:(CGFloat)leftBound { _leftBound = 0; }
+- (void)addSubviews:(NSArray *)views withNavigationController:(UINavigationController *)controller
+{
+}
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation {}
-
 @end

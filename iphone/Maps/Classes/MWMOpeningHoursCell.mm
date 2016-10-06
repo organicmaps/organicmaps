@@ -1,13 +1,13 @@
+#import "MWMOpeningHoursCell.h"
 #import "Common.h"
 #import "MWMOpeningHours.h"
-#import "MWMOpeningHoursCell.h"
 #import "MWMPlacePageCellUpdateProtocol.h"
 
 #include "std/array.hpp"
 
 namespace
 {
-array<NSString *, 2> kOHClasses =  {{@"_MWMOHHeaderCell", @"_MWMOHSubCell"}};
+array<NSString *, 2> kOHClasses = {{@"_MWMOHHeaderCell", @"_MWMOHSubCell"}};
 void * kContext = &kContext;
 NSString * const kTableViewContentSizeKeyPath = @"contentSize";
 
@@ -35,19 +35,20 @@ NSString * const kTableViewContentSizeKeyPath = @"contentSize";
     return;
 
   self.tapAction();
-  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
-  {
-    self.arrowIcon.transform = CGAffineTransformIsIdentity(self.arrowIcon.transform) ?
-                                                          CGAffineTransformMakeRotation(M_PI) :
-                                                          CGAffineTransformIdentity;
-  }];
+  [UIView animateWithDuration:kDefaultAnimationDuration
+                   animations:^{
+                     self.arrowIcon.transform =
+                         CGAffineTransformIsIdentity(self.arrowIcon.transform)
+                             ? CGAffineTransformMakeRotation(M_PI)
+                             : CGAffineTransformIdentity;
+                   }];
 }
 
 @end
 
 #pragma mark - _MWMOHSubCell
 
-@interface _MWMOHSubCell :MWMTableViewCell
+@interface _MWMOHSubCell : MWMTableViewCell
 
 @property(weak, nonatomic) IBOutlet UILabel * days;
 @property(weak, nonatomic) IBOutlet UILabel * schedule;
@@ -60,7 +61,7 @@ NSString * const kTableViewContentSizeKeyPath = @"contentSize";
 
 @end
 
-@interface MWMOpeningHoursCell () <UITableViewDelegate, UITableViewDataSource>
+@interface MWMOpeningHoursCell ()<UITableViewDelegate, UITableViewDataSource>
 
 @property(weak, nonatomic) IBOutlet UITableView * tableView;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * tableViewHeight;
@@ -94,14 +95,13 @@ NSString * const kTableViewContentSizeKeyPath = @"contentSize";
 {
   self.tableView.delegate = nil;
   self.tableView.dataSource = nil;
+  self.isExtended = NO;
   self.delegate = delegate;
   self.isClosedNow = isClosedNow;
 
-  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^
-  {
+  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
     self->m_days = [MWMOpeningHours processRawString:openningHours];
-    dispatch_async(dispatch_get_main_queue(), ^
-    {
+    dispatch_async(dispatch_get_main_queue(), ^{
       self.tableView.delegate = self;
       self.tableView.dataSource = self;
       [self.tableView reloadData];
@@ -116,20 +116,22 @@ NSString * const kTableViewContentSizeKeyPath = @"contentSize";
   return self.isExtended ? m_days.size() : 1;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   auto const & day = m_days[indexPath.row];
-  BOOL const isSeparatorHidden = self.isExtended ? indexPath.row == 0 : indexPath.row == m_days.size() - 1;
+  BOOL const isSeparatorHidden =
+      self.isExtended ? indexPath.row == 0 : indexPath.row == m_days.size() - 1;
   if (indexPath.row == 0)
   {
-    _MWMOHHeaderCell * cell = [tableView dequeueReusableCellWithIdentifier:[_MWMOHHeaderCell className]];
+    _MWMOHHeaderCell * cell =
+        [tableView dequeueReusableCellWithIdentifier:[_MWMOHHeaderCell className]];
     cell.today.text = day.TodayTime();
     cell.breaks.text = day.m_breaks;
-    cell.closedNow.text = self.isClosedNow ? L(@"closed_now") : nil;;
+    cell.closedNow.text = self.isClosedNow ? L(@"closed_now") : nil;
     if (m_days.size() > 1)
     {
-      cell.tapAction = ^
-      {
+      cell.tapAction = ^{
         self.isExtended = !self.isExtended;
 
         NSMutableArray<NSIndexPath *> * ip = [@[] mutableCopy];
@@ -138,9 +140,11 @@ NSString * const kTableViewContentSizeKeyPath = @"contentSize";
           [ip addObject:[NSIndexPath indexPathForRow:i inSection:0]];
 
         if (self.isExtended)
-          [self.tableView insertRowsAtIndexPaths:ip withRowAnimation:UITableViewRowAnimationAutomatic];
+          [self.tableView insertRowsAtIndexPaths:ip
+                                withRowAnimation:UITableViewRowAnimationAutomatic];
         else
-          [self.tableView deleteRowsAtIndexPaths:ip withRowAnimation:UITableViewRowAnimationAutomatic];
+          [self.tableView deleteRowsAtIndexPaths:ip
+                                withRowAnimation:UITableViewRowAnimationAutomatic];
       };
       cell.arrowIcon.hidden = NO;
     }
@@ -165,11 +169,7 @@ NSString * const kTableViewContentSizeKeyPath = @"contentSize";
 
 #pragma mark - Observer's methods
 
-- (void)dealloc
-{
-  [self unregisterObserver];
-}
-
+- (void)dealloc { [self unregisterObserver]; }
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
                         change:(NSDictionary *)change
@@ -195,6 +195,9 @@ NSString * const kTableViewContentSizeKeyPath = @"contentSize";
 
 - (void)registerObserver
 {
-  [self.tableView addObserver:self forKeyPath:kTableViewContentSizeKeyPath options:NSKeyValueObservingOptionNew context:kContext];
+  [self.tableView addObserver:self
+                   forKeyPath:kTableViewContentSizeKeyPath
+                      options:NSKeyValueObservingOptionNew
+                      context:kContext];
 }
 @end

@@ -1,7 +1,6 @@
 #import "MWMOpeningHours.h"
 #import "MWMOpeningHoursCommon.h"
 
-
 #include "3party/opening_hours/opening_hours.hpp"
 #include "editor/opening_hours_ui.hpp"
 #include "editor/ui2oh.hpp"
@@ -14,16 +13,18 @@ namespace
 NSString * stringFromTimeSpan(Timespan const & timeSpan)
 {
   return [NSString stringWithFormat:@"%@ - %@", stringFromTime(timeSpan.GetStart()),
-          stringFromTime(timeSpan.GetEnd())];
+                                    stringFromTime(timeSpan.GetEnd())];
 }
 
 NSString * breaksFromClosedTime(TTimespans const & closedTimes)
 {
   NSMutableString * breaks = [@"" mutableCopy];
-  for (auto & ct : closedTimes)
+  auto const size = closedTimes.size();
+  for (size_t i = 0; i < size; i++)
   {
-    [breaks appendString:@"\n"];
-    [breaks appendString:stringFromTimeSpan(ct)];
+    if (i)
+      [breaks appendString:@"\n"];
+    [breaks appendString:stringFromTimeSpan(closedTimes[i])];
   }
   return breaks.copy;
 }
@@ -63,7 +64,7 @@ void addDay(ui::TimeTable const & tt, vector<Day> & allDays)
   NSString * breaks;
   if (tt.IsTwentyFourHours())
   {
-    workingTimes = L(@"twentyfour_seven");
+    workingTimes = L(@"editor_time_allday");
   }
   else
   {
@@ -75,10 +76,8 @@ void addDay(ui::TimeTable const & tt, vector<Day> & allDays)
 
 void addUnhandledDays(ui::TOpeningDays const & days, vector<Day> & allDays)
 {
-  if (days.empty())
-    return;
-  
-  allDays.emplace_back(stringFromOpeningDays(days));
+  if (!days.empty())
+    allDays.emplace_back(stringFromOpeningDays(days));
 }
 
 }  // namespace
@@ -98,7 +97,8 @@ void addUnhandledDays(ui::TOpeningDays const & days, vector<Day> & allDays)
   cal.locale = [NSLocale currentLocale];
 
   auto const timeTablesSize = timeTableSet.Size();
-  auto const today = static_cast<Weekday>([cal components:NSCalendarUnitWeekday fromDate:[NSDate date]].weekday);
+  auto const today =
+      static_cast<Weekday>([cal components:NSCalendarUnitWeekday fromDate:[NSDate date]].weekday);
   auto const unhandledDays = timeTableSet.GetUnhandledDays();
 
   /// Schedule contains more than one rule for all days or unhandled days.

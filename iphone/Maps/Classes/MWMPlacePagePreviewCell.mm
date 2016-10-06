@@ -1,10 +1,10 @@
+#import "MWMPlacePagePreviewCell.h"
 #import "Common.h"
+#import "MWMCircularProgress.h"
 #import "MWMDirectionView.h"
 #import "MWMPlacePageCellUpdateProtocol.h"
 #import "MWMPlacePageData.h"
 #import "MWMPlacePageLayout.h"
-#import "MWMPlacePagePreviewCell.h"
-#import "MWMCircularProgress.h"
 #import "UIColor+MapsmeColor.h"
 
 #include "std/array.hpp"
@@ -12,12 +12,8 @@
 
 namespace
 {
-array<NSString *, 6> kPPPClasses = {{@"_MWMPPPTitle",
-                                     @"_MWMPPPExternalTitle",
-                                     @"_MWMPPPSubtitle",
-                                     @"_MWMPPPSchedule",
-                                     @"_MWMPPPBooking",
-                                     @"_MWMPPPAddress"}};
+array<NSString *, 6> kPPPClasses = {{@"_MWMPPPTitle", @"_MWMPPPExternalTitle", @"_MWMPPPSubtitle",
+                                     @"_MWMPPPSchedule", @"_MWMPPPBooking", @"_MWMPPPAddress"}};
 
 enum class Labels
 {
@@ -128,7 +124,8 @@ CGFloat const kCompressedTableViewLeading = 56;
 
 #pragma mark - Public
 
-@interface MWMPlacePagePreviewCell () <UITableViewDelegate, UITableViewDataSource, MWMCircularProgressProtocol>
+@interface MWMPlacePagePreviewCell ()<UITableViewDelegate, UITableViewDataSource,
+                                      MWMCircularProgressProtocol>
 {
   vector<Labels> m_cells;
 }
@@ -170,11 +167,7 @@ CGFloat const kCompressedTableViewLeading = 56;
   [self registerObserver];
 }
 
-- (void)dealloc
-{
-  [self unregisterObserver];
-}
-
+- (void)dealloc { [self unregisterObserver]; }
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
                         change:(NSDictionary *)change
@@ -184,7 +177,7 @@ CGFloat const kCompressedTableViewLeading = 56;
   {
     NSValue * s = change[@"new"];
     CGFloat const height = s.CGSizeValue.height;
-    if (abs(height - self.currentContentHeight) > 0.5)
+    if (!equalScreenDimensions(height, self.currentContentHeight))
     {
       self.currentContentHeight = height;
       self.tableViewHeight.constant = height;
@@ -214,8 +207,9 @@ CGFloat const kCompressedTableViewLeading = 56;
 
 - (void)rotateDirectionArrowToAngle:(CGFloat)angle
 {
-  self.compass.layer.transform = CATransform3DMakeRotation(M_PI_2 - angle, 0, 0, 1);
-  self.directionView.directionArrow.layer.transform = CATransform3DMakeRotation(M_PI_2 - angle, 0, 0, 1);
+  auto const t = CATransform3DMakeRotation(M_PI_2 - angle, 0, 0, 1);
+  self.compass.layer.transform = t;
+  self.directionView.directionArrow.layer.transform = t;
 }
 
 - (void)setDistanceToObject:(NSString *)distance
@@ -242,18 +236,18 @@ CGFloat const kCompressedTableViewLeading = 56;
 
 - (void)registerObserver
 {
-  [self.tableView addObserver:self forKeyPath:kTableViewContentSizeKeyPath options:NSKeyValueObservingOptionNew context:kContext];
+  [self.tableView addObserver:self
+                   forKeyPath:kTableViewContentSizeKeyPath
+                      options:NSKeyValueObservingOptionNew
+                      context:kContext];
 }
 
-- (void)setDownloadingProgress:(CGFloat)progress
-{
-  self.mapDownloadProgress.progress = progress;
-}
-
+- (void)setDownloadingProgress:(CGFloat)progress { self.mapDownloadProgress.progress = progress; }
 - (void)setDownloaderViewHidden:(BOOL)isHidden animated:(BOOL)isAnimated
 {
   self.downloaderParentView.hidden = isHidden;
-  self.tableViewLeading.constant = isHidden ? kDefaultTableViewLeading : kCompressedTableViewLeading;
+  self.tableViewLeading.constant =
+      isHidden ? kDefaultTableViewLeading : kCompressedTableViewLeading;
   [self setNeedsLayout];
 
   if (!isHidden)
@@ -261,15 +255,16 @@ CGFloat const kCompressedTableViewLeading = 56;
 
   if (!isAnimated)
     return;
-  
-  [UIView animateWithDuration:kDefaultAnimationDuration animations:^{
-    [self layoutIfNeeded];
-  }];
+
+  [UIView animateWithDuration:kDefaultAnimationDuration
+                   animations:^{
+                     [self layoutIfNeeded];
+                   }];
 }
 
 - (void)configure:(MWMPlacePageData *)data
-         updateLayoutDelegate:(id<MWMPlacePageCellUpdateProtocol>)delegate
-                   dataSource:(id<MWMPlacePageLayoutDataSource>)dataSource
+    updateLayoutDelegate:(id<MWMPlacePageCellUpdateProtocol>)delegate
+              dataSource:(id<MWMPlacePageLayoutDataSource>)dataSource
 {
   self.data = data;
   self.delegate = delegate;
@@ -304,11 +299,13 @@ CGFloat const kCompressedTableViewLeading = 56;
   return m_cells.size();
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   auto data = self.data;
   _MWMPPPCellBase * c = nil;
-  BOOL const isNeedToShowDistance = self.isDirectionViewAvailable && (indexPath.row == m_cells.size() - 1);
+  BOOL const isNeedToShowDistance =
+      self.isDirectionViewAvailable && (indexPath.row == m_cells.size() - 1);
 
   switch (m_cells[indexPath.row])
   {
@@ -334,7 +331,7 @@ CGFloat const kCompressedTableViewLeading = 56;
   {
     c = [tableView dequeueReusableCellWithIdentifier:[_MWMPPPSchedule className]];
     auto castedCell = static_cast<_MWMPPPSchedule *>(c);
-    switch(data.schedule)
+    switch (data.schedule)
     {
     case place_page::OpeningHours::AllDay:
       castedCell.schedule.text = L(@"twentyfour_seven");
@@ -348,9 +345,7 @@ CGFloat const kCompressedTableViewLeading = 56;
       castedCell.schedule.text = L(@"closed_now");
       castedCell.schedule.textColor = [UIColor red];
       break;
-    case place_page::OpeningHours::Unknown:
-      NSAssert(false, @"Incorrect schedule!");
-      break;
+    case place_page::OpeningHours::Unknown: NSAssert(false, @"Incorrect schedule!"); break;
     }
     break;
   }
@@ -382,7 +377,9 @@ CGFloat const kCompressedTableViewLeading = 56;
 {
   cell.trailing.priority = UILayoutPriorityDefaultLow;
   cell.distance.text = self.distance;
-  cell.tapOnDistance = ^{ [self.directionView show]; };
+  cell.tapOnDistance = ^{
+    [self.directionView show];
+  };
   [cell.contentView setNeedsLayout];
   self.compass = cell.compass;
   self.trailing = cell.trailing;
@@ -411,12 +408,12 @@ CGFloat const kCompressedTableViewLeading = 56;
   if (!_mapDownloadProgress)
   {
     _mapDownloadProgress =
-    [MWMCircularProgress downloaderProgressForParentView:self.downloaderParentView];
+        [MWMCircularProgress downloaderProgressForParentView:self.downloaderParentView];
     _mapDownloadProgress.delegate = self;
 
     MWMCircularProgressStateVec const affectedStates = {MWMCircularProgressStateNormal,
-      MWMCircularProgressStateSelected};
-    
+                                                        MWMCircularProgressStateSelected};
+
     [_mapDownloadProgress setImage:[UIImage imageNamed:@"ic_download"] forStates:affectedStates];
     [_mapDownloadProgress setColoring:MWMButtonColoringBlue forStates:affectedStates];
   }

@@ -6,14 +6,13 @@
 
 @class MWMPlacePageEntity, MWMPlacePageNavigationBar, MWMViewController;
 
-@interface MWMPlacePageViewManager : NSObject <MWMPlacePageProtocol>
+@interface MWMPlacePageViewManager : NSObject<MWMPlacePageProtocol>
 
 @property(weak, nonatomic, readonly) MWMViewController * ownerViewController;
 @property(nonatomic, readonly) MWMPlacePageEntity * entity;
 @property(nonatomic) CGFloat topBound;
 @property(nonatomic) CGFloat leftBound;
 
-- (instancetype)initWithViewController:(MWMViewController *)viewController;
 - (void)showPlacePage:(place_page::Info const &)info;
 - (void)refreshPlacePage;
 - (void)mwm_refreshUI;
@@ -39,7 +38,5 @@
 - (void)showDirectionViewWithTitle:(NSString *)title type:(NSString *)type;
 - (void)addSubviews:(NSArray *)views withNavigationController:(UINavigationController *)controller;
 - (void)changeHeight:(CGFloat)height;
-
-- (instancetype)init __attribute__((unavailable("call initWithViewController: instead")));
 
 @end

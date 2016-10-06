@@ -1,6 +1,7 @@
 #import "MWMTableViewCell.h"
 
-@protocol MWMPlacePageButtonsProtocol, MWMPlacePageCellUpdateProtocol;
+@protocol MWMPlacePageButtonsProtocol
+, MWMPlacePageCellUpdateProtocol;
 
 @interface MWMBookmarkCell : MWMTableViewCell
 

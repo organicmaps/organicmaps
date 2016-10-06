@@ -69,6 +69,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.ownerController = controller;
   self.hidden = NO;
   self.sideButtonsHidden = NO;
+  self.isDirectionViewHidden = YES;
   self.menuState = MWMBottomMenuStateInactive;
   self.menuRestoreState = MWMBottomMenuStateInactive;
   return self;
@@ -293,24 +294,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   if (IPAD)
     return;
-  if (isIOS7)
-  {
-    CGSize const ownerViewSize = self.ownerController.view.size;
-    if (ownerViewSize.width > ownerViewSize.height)
-    {
-      CGFloat const leftBound = frame.origin.x + frame.size.width;
-      self.menuController.leftBound = leftBound;
-      [MWMNavigationDashboardManager manager].leftBound = leftBound;
-    }
-    else
-    {
-      [self.sideButtons setBottomBound:frame.origin.y];
-    }
-  }
-  else
-  {
-    [self.sideButtons setBottomBound:frame.origin.y];
-  }
+  [self.sideButtons setBottomBound:frame.origin.y];
 }
 
 - (void)addPlacePageViews:(NSArray *)views
@@ -467,13 +451,12 @@ extern NSString * const kAlohalyticsTapEventKey;
   return _menuController;
 }
 
-- (id)placePageManager
+- (id<MWMPlacePageProtocol>)placePageManager
 {
-  auto const PlacePageClass = isIOS7 || IPAD ? [MWMPlacePageViewManager class] : [MWMPlacePageManager class];
+  auto const PlacePageClass = IPAD ? [MWMPlacePageViewManager class] : [MWMPlacePageManager class];
 
   if (!_placePageManager)
-    _placePageManager =
-        [[PlacePageClass alloc] initWithViewController:self.ownerController];
+    _placePageManager = [[PlacePageClass alloc] init];
   return _placePageManager;
 }
 
@@ -564,9 +547,5 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 #pragma mark - MWMFeatureHolder
 
-- (id<MWMFeatureHolder>)featureHolder
-{
-  return self.placePageManager;
-}
-
+- (id<MWMFeatureHolder>)featureHolder { return self.placePageManager; }
 @end
