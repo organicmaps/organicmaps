@@ -62,6 +62,8 @@ public:
   bool NecessaryMatchingConditionHolds(FeatureBuilder1 const & fb) const;
   ObjectId FindMatchingObjectId(FeatureBuilder1 const & e) const;
 
+  void PreprocessMatchedOsmObject(ObjectId matchedObjId, FeatureBuilder1 & fb,
+                                  function<void(FeatureBuilder1 &)> const fn) const;
   void BuildOsmObjects(function<void(FeatureBuilder1 &)> const & fn) const;
 
 protected:

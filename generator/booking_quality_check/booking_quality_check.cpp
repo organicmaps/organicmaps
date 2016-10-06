@@ -134,7 +134,7 @@ feature::GenerateInfo GetGenerateInfo()
 {
   feature::GenerateInfo info;
   info.m_bookingDatafileName = FLAGS_booking;
-  info.m_opentableDataFile = FLAGS_opentable;
+  info.m_opentableDatafileName = FLAGS_opentable;
   info.m_osmFileName = FLAGS_osm;
   info.SetNodeStorageType("map");
   info.SetOsmFileType("o5m");
@@ -345,7 +345,7 @@ string GetDatasetFilePath<BookingDataset>(feature::GenerateInfo const & info)
 template <>
 string GetDatasetFilePath<OpentableDataset>(feature::GenerateInfo const & info)
 {
-  return info.m_opentableDataFile;
+  return info.m_opentableDatafileName;
 }
 
 template <typename Dataset, typename Object = typename Dataset::Object>

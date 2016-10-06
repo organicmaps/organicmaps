@@ -72,7 +72,34 @@ bool BookingDataset::NecessaryMatchingConditionHolds(FeatureBuilder1 const & fb)
   return ftypes::IsHotelChecker::Instance()(fb.GetTypes());
 }
 
-// TODO(mgsergio): Try to eliminate as much code duplication as possible. (See opentable_dataset.cpp)
+template <>
+void BookingDataset::PreprocessMatchedOsmObject(ObjectId, FeatureBuilder1 & fb,
+                                                function<void(FeatureBuilder1 &)> const fn) const
+{
+  // Turn a hotel into a simple building.
+  if (fb.GetGeomType() == feature::GEOM_AREA)
+  {
+    // Remove all information about a hotel.
+    auto params = fb.GetParams();
+    params.ClearName();
+    auto & meta = params.GetMetadata();
+    meta.Drop(feature::Metadata::EType::FMD_STARS);
+    meta.Drop(feature::Metadata::EType::FMD_WEBSITE);
+    meta.Drop(feature::Metadata::EType::FMD_PHONE_NUMBER);
+
+    auto const & c = classif();
+    auto const tourism = c.GetTypeByPath({"tourism"});
+    my::EraseIf(params.m_Types, [&c, tourism](uint32_t type)
+                {
+                  ftype::TruncValue(type, 1);
+                  return type == tourism;
+                });
+    fb.SetParams(params);
+  }
+
+  fn(fb);
+}
+
 template <>
 void BookingDataset::BuildObject(Object const & hotel,
                                  function<void(FeatureBuilder1 &)> const & fn) const

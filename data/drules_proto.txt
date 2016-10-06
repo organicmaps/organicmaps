@@ -76690,6 +76690,16 @@ cont {
   }
 }
 cont {
+  name: "sponsored-opentable"
+  element {
+    scale: 18
+    symbol {
+      name: "hotel"
+      priority: 16000
+    }
+  }
+}
+cont {
   name: "sport-american_football"
   element {
     scale: 17

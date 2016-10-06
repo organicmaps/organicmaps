@@ -33,7 +33,7 @@ class OpentableDownloader(object):
 
     def download(self):
         headers = self._add_auth_header({'Content-Type': 'application/json'})
-        url = 'https://platform.otqa.com/sync/listings'
+        url = 'https://platform.opentable.com/sync/listings'
 
         with open(self.opentable_filename, 'w') as f:
             offset = 0
@@ -57,7 +57,7 @@ class OpentableDownloader(object):
                 offset += items_count
 
     def _get_token(self):
-        url = 'https://oauth-pp.opentable.com/api/v2/oauth/token?grant_type=client_credentials'
+        url = 'https://oauth.opentable.com/api/v2/oauth/token?grant_type=client_credentials'
         headers = self._add_auth_header({})
         request = urllib2.Request(url, headers=headers)
         logging.debug('Fetching token with headers %s', str(headers))
@@ -111,7 +111,7 @@ if __name__ == '__main__':
         loader.download()
     if args.tsv is not None:
         data = open(args.opentable_data)
-        tsv = open(args.tsv) if args.tsv else sys.stdout
+        tsv = open(args.tsv, 'w') if args.tsv else sys.stdout
         try:
             make_tsv(data, tsv)
         finally:

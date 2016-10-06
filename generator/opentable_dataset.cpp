@@ -1,7 +1,7 @@
 #include "generator/opentable_dataset.hpp"
 
-//#include "generator/openatble_scoring.hpp" // or just sonsored scoring
 #include "generator/feature_builder.hpp"
+#include "generator/sponsored_scoring.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/ftypes_matcher.hpp"
@@ -60,41 +60,28 @@ bool OpentableDataset::NecessaryMatchingConditionHolds(FeatureBuilder1 const & f
   if (fb.GetName(StringUtf8Multilang::kDefaultCode).empty())
     return false;
 
-  // TODO(mgsergio): Handle all types of restaurants:
-  // bar cafe (fast_food ??) pub restaurant
-  // return ftypes::IsRestaurantChecker::Instance()(fb.GetTypes());
-  return true;
+  return ftypes::IsFoodChecker::Instance()(fb.GetTypes());
 }
 
-// TODO(mgsergio): Try to eliminate as much code duplication as possible. (See booking_dataset.cpp)
 template <>
-void OpentableDataset::BuildObject(Object const & restaurant,
-                                 function<void(FeatureBuilder1 &)> const & fn) const
+void OpentableDataset::PreprocessMatchedOsmObject(ObjectId const matchedObjId, FeatureBuilder1 & fb,
+                                                  function<void(FeatureBuilder1 &)> const fn) const
 {
-  FeatureBuilder1 fb;
-  FeatureParams params;
+  FeatureParams params = fb.GetParams();
 
-  fb.SetCenter(MercatorBounds::FromLatLon(restaurant.m_lat, restaurant.m_lon));
-
+  auto restaurant = GetObjectById(matchedObjId);
   auto & metadata = params.GetMetadata();
-  // TODO(mgsergio): Rename FMD_SPONSORED_ID to FMD_BOOKING_ID.
   metadata.Set(feature::Metadata::FMD_SPONSORED_ID, strings::to_string(restaurant.m_id.Get()));
   metadata.Set(feature::Metadata::FMD_WEBSITE, restaurant.m_descUrl);
 
   // params.AddAddress(restaurant.address);
   // TODO(mgsergio): addr:full ???
 
-  if (!restaurant.m_street.empty())
-    fb.AddStreet(restaurant.m_street);
-
-  if (!restaurant.m_houseNumber.empty())
-    fb.AddHouseNumber(restaurant.m_houseNumber);
-
   params.AddName(StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kDefaultCode),
                  restaurant.m_name);
 
   auto const & clf = classif();
-  params.AddType(clf.GetTypeByPath({"sponsored", "booking"}));
+  params.AddType(clf.GetTypeByPath({"sponsored", "opentable"}));
 
   fb.SetParams(params);
 
@@ -110,15 +97,14 @@ OpentableDataset::ObjectId OpentableDataset::FindMatchingObjectIdImpl(FeatureBui
     return Object::InvalidObjectId();
 
   // Find |kMaxSelectedElements| nearest values to a point.
-  auto const bookingIndexes = GetNearestObjects(MercatorBounds::ToLatLon(fb.GetKeyPoint()),
-                                                kMaxSelectedElements, kDistanceLimitInMeters);
+  auto const nearbyIds = GetNearestObjects(MercatorBounds::ToLatLon(fb.GetKeyPoint()),
+                                           kMaxSelectedElements, kDistanceLimitInMeters);
 
-  CHECK(false, ("Not implemented yet"));
-  // for (auto const j : bookingIndexes)
-  // {
-  //   if (booking_scoring::Match(GetObjectById(j), fb).IsMatched())
-  //     return j;
-  // }
+  for (auto const objId : nearbyIds)
+  {
+    if (sponsored_scoring::Match(GetObjectById(objId), fb).IsMatched())
+      return objId;
+  }
 
   return Object::InvalidObjectId();
 }

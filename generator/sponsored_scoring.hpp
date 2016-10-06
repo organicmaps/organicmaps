@@ -1,6 +1,6 @@
 #pragma once
 
-#include "generator/booking_dataset.hpp"
+#include "std/string.hpp"
 
 class FeatureBuilder1;
 

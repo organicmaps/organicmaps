@@ -143,7 +143,9 @@ Can be empty. Example: `$(ls ../../data/borders/{UK*,Ireland}.poly)`.
 * `SRTM_PATH`: a path to `*.zip` files with SRTM data.
 * `OSC`: a path to an osmChange file to apply after updating the planet.
 * `BOOKING_FILE`: a path to hotels.csv with booking data.
-* `BOOKING_USER` and `BOOKING_PATH`: user name and password for booking.com API
+* `BOOKING_USER` and `BOOKING_PASS`: user name and password for booking.com API
+* `OPENTABLE_FILE`: a path to restaurants.csv with opentable data.
+* `OPENTABLE_USER` and `OPENTABLE_PASS`: user name and password for opentable.com API
 to download hotels data.
 
 ### Testing

@@ -134,12 +134,16 @@ void SponsoredDataset<SponsoredObject>::LoadData(istream & src, string const & a
     m_objects.emplace(hotel.m_id, hotel);
   }
 
+  // Try to get object address from existing MWMs.
   if (!addressReferencePath.empty())
   {
     LOG(LINFO, ("Reference addresses for sponsored objects", addressReferencePath));
     Platform & platform = GetPlatform();
     string const backupPath = platform.WritableDir();
-    // TODO(mgsergio): What is this for?
+
+    // MWMs can be loaded only from a writebledir or from a resourcedir,
+    // changig resourcedir can lead to probles with classificator, so
+    // we change writebledir.
     platform.SetWritableDirForTests(addressReferencePath);
 
     AddressMatcher addressMatcher;
@@ -156,18 +160,16 @@ void SponsoredDataset<SponsoredObject>::LoadData(istream & src, string const & a
       if (object.IsAddressPartsFilled())
         ++matchedNum;
     }
-    // TODO(mgsergio): Fix names.
     LOG(LINFO,
         ("Num of hotels:", m_objects.size(), "matched:", matchedNum, "empty addresses:", emptyAddr));
-    // TODO(mgsergio): What is this for?
     platform.SetWritableDirForTests(backupPath);
   }
 
   for (auto const & item : m_objects)
   {
-    auto const & hotel = item.second;
-    TBox b(TPoint(hotel.m_lat, hotel.m_lon), TPoint(hotel.m_lat, hotel.m_lon));
-    m_rtree.insert(make_pair(b, hotel.m_id));
+    auto const & object = item.second;
+    TBox b(TPoint(object.m_lat, object.m_lon), TPoint(object.m_lat, object.m_lon));
+    m_rtree.insert(make_pair(b, object.m_id));
   }
 }
 }  // namespace generator
