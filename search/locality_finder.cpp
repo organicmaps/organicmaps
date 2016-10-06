@@ -5,8 +5,8 @@
 #include "search/dummy_rank_table.hpp"
 #include "search/mwm_context.hpp"
 
-#include "indexer/ftypes_matcher.hpp"
 #include "indexer/feature_algo.hpp"
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/index.hpp"
 
 #include "base/assert.hpp"
