@@ -85,6 +85,8 @@ SOURCES += \
     tile_info.cpp \
     tile_key.cpp \
     tile_utils.cpp \
+    traffic_generator.cpp \
+    traffic_renderer.cpp \
     transparent_layer.cpp \
     user_event_stream.cpp \
     user_mark_shapes.cpp \
@@ -185,6 +187,8 @@ HEADERS += \
     tile_info.hpp \
     tile_key.hpp \
     tile_utils.hpp \
+    traffic_generator.hpp \
+    traffic_renderer.hpp \
     transparent_layer.hpp \
     user_event_stream.hpp \
     user_mark_shapes.hpp \

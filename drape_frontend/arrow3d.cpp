@@ -183,10 +183,7 @@ math::Matrix<float, 4, 4> Arrow3d::CalculateTransform(ScreenBase const & screen,
   double arrowScale = VisualParams::Instance().GetVisualScale() * kArrowSize;
   if (screen.isPerspective())
   {
-    static double const kLog2 = log(2.0);
-    double const kMaxZoom = scales::UPPER_STYLE_SCALE + 1.0;
-    double const zoomLevel = my::clamp(fabs(log(screen.GetScale()) / kLog2), kArrow3dMinZoom, kMaxZoom);
-    double const t = (zoomLevel - kArrow3dMinZoom) / (kMaxZoom - kArrow3dMinZoom);
+    double const t = GetNormalizedZoomLevel(screen.GetScale(), kArrow3dMinZoom);
     arrowScale *= (kArrow3dScaleMin * (1.0 - t) + kArrow3dScaleMax * t);
   }
 

@@ -1,6 +1,7 @@
 #include "drape/texture_manager.hpp"
 #include "drape/symbols_texture.hpp"
 #include "drape/font_texture.hpp"
+#include "drape/static_texture.hpp"
 #include "drape/stipple_pen_resource.hpp"
 #include "drape/texture_of_colors.hpp"
 #include "drape/glfunctions.hpp"
@@ -210,6 +211,8 @@ void TextureManager::Release()
   m_stipplePenTexture.reset();
   m_colorTexture.reset();
 
+  m_trafficArrowTexture.reset();
+
   m_glyphTextures.clear();
 
   m_glyphManager.reset();
@@ -379,6 +382,9 @@ void TextureManager::Init(Params const & params)
 
   m_symbolTexture = make_unique_dp<SymbolsTexture>(params.m_resPostfix, make_ref(m_textureAllocator));
 
+  m_trafficArrowTexture = make_unique_dp<StaticTexture>("traffic-arrow", params.m_resPostfix,
+                                                        make_ref(m_textureAllocator));
+
   // initialize patterns
   buffer_vector<buffer_vector<uint8_t, 8>, 64> patterns;
   double const visualScale = params.m_visualScale;
@@ -450,6 +456,10 @@ void TextureManager::Invalidate(string const & resPostfix)
   ASSERT(m_symbolTexture != nullptr, ());
   ref_ptr<SymbolsTexture> symbolsTexture = make_ref(m_symbolTexture);
   symbolsTexture->Invalidate(resPostfix, make_ref(m_textureAllocator));
+
+  ASSERT(m_trafficArrowTexture != nullptr, ());
+  ref_ptr<StaticTexture> staticTexture = make_ref(m_trafficArrowTexture);
+  staticTexture->Invalidate(resPostfix, make_ref(m_textureAllocator));
 }
 
 void TextureManager::GetSymbolRegion(string const & symbolName, SymbolRegion & region)
@@ -505,6 +515,11 @@ bool TextureManager::AreGlyphsReady(strings::UniString const & str) const
 ref_ptr<Texture> TextureManager::GetSymbolsTexture() const
 {
   return make_ref(m_symbolTexture);
+}
+
+ref_ptr<Texture> TextureManager::GetTrafficArrowTexture() const
+{
+  return make_ref(m_trafficArrowTexture);
 }
 
 constexpr size_t TextureManager::GetInvalidGlyphGroup()

@@ -27,6 +27,7 @@ BackendRenderer::BackendRenderer(Params const & params)
   : BaseRenderer(ThreadsCommutator::ResourceUploadThread, params)
   , m_model(params.m_model)
   , m_readManager(make_unique_dp<ReadManager>(params.m_commutator, m_model, params.m_allow3dBuildings))
+  , m_trafficGenerator(make_unique_dp<TrafficGenerator>())
   , m_requestedTiles(params.m_requestedTiles)
   , m_updateCurrentCountryFn(params.m_updateCurrentCountryFn)
 {
@@ -329,6 +330,42 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::AddTrafficSegments:
+    {
+      ref_ptr<AddTrafficSegmentsMessage> msg = message;
+      for (auto const & segment : msg->GetSegments())
+        m_trafficGenerator->AddSegment(segment.first, segment.second);
+      break;
+    }
+  case Message::UpdateTraffic:
+    {
+      ref_ptr<UpdateTrafficMessage> msg = message;
+      auto segments = m_trafficGenerator->GetSegmentsToUpdate(msg->GetSegmentsData());
+      if (!segments.empty())
+      {
+        m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<UpdateTrafficMessage>(segments),
+                                  MessagePriority::Normal);
+      }
+
+      if (segments.size() < msg->GetSegmentsData().size())
+      {
+        vector<TrafficRenderData> data;
+        m_trafficGenerator->GetTrafficGeom(m_texMng, msg->GetSegmentsData(), data);
+        m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<FlushTrafficDataMessage>(move(data)),
+                                  MessagePriority::Normal);
+
+        if (m_trafficGenerator->IsColorsCacheRefreshed())
+        {
+          auto texCoords = m_trafficGenerator->ProcessCacheRefreshing();
+          m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                    make_unique_dp<SetTrafficTexCoordsMessage>(move(texCoords)),
+                                    MessagePriority::Normal);
+        }
+      }
+      break;
+    }
   default:
     ASSERT(false, ());
     break;
@@ -366,6 +403,7 @@ void BackendRenderer::OnContextDestroy()
   m_batchersPool.reset();
   m_texMng->Release();
   m_overlays.clear();
+  m_trafficGenerator->ClearCache();
 
   m_contextFactory->getResourcesUploadContext()->doneCurrent();
 }

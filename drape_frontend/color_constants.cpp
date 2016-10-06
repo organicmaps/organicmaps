@@ -24,6 +24,9 @@ unordered_map<int, unordered_map<int, dp::Color>> kColorConstants =
       { TrackCarSpeed, dp::Color(21, 121, 244, 255) },
       { TrackPlaneSpeed, dp::Color(10, 196, 255, 255) },
       { TrackUnknownDistance, dp::Color(97, 97, 97, 255) },
+      { TrafficNormal, dp::Color(60, 170, 60, 255) },
+      { TrafficSlow, dp::Color(255, 219, 88, 255) },
+      { TrafficVerySlow, dp::Color(227, 38, 54, 255) },
     }
   },
   { MapStyleDark,
@@ -40,6 +43,9 @@ unordered_map<int, unordered_map<int, dp::Color>> kColorConstants =
       { TrackCarSpeed, dp::Color(255, 202, 40, 255) },
       { TrackPlaneSpeed, dp::Color(255, 245, 160, 255) },
       { TrackUnknownDistance, dp::Color(150, 150, 150, 255) },
+      { TrafficNormal, dp::Color(60, 170, 60, 255) },
+      { TrafficSlow, dp::Color(255, 219, 88, 255) },
+      { TrafficVerySlow, dp::Color(227, 38, 54, 255) },
     }
   },
 };

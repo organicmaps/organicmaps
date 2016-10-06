@@ -54,6 +54,8 @@ OTHER_FILES += \
     shaders/texturing_vertex_shader.vsh \
     shaders/trackpoint_vertex_shader.vsh \
     shaders/trackpoint_fragment_shader.fsh \
+    shaders/traffic_fragment_shader.fsh \
+    shaders/traffic_vertex_shader.vsh \
     shaders/transparent_layer_fragment_shader.fsh \
     shaders/transparent_layer_vertex_shader.vsh \
     shaders/user_mark.vsh \

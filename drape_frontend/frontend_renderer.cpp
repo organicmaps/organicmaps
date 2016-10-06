@@ -114,6 +114,7 @@ FrontendRenderer::FrontendRenderer(Params const & params)
   : BaseRenderer(ThreadsCommutator::RenderThread, params)
   , m_gpuProgramManager(new dp::GpuProgramManager())
   , m_routeRenderer(new RouteRenderer())
+  , m_trafficRenderer(new TrafficRenderer())
   , m_framebuffer(new Framebuffer())
   , m_transparentLayer(new TransparentLayer())
   , m_gpsTrackRenderer(new GpsTrackRenderer(bind(&FrontendRenderer::PrepareGpsTrackPoints, this, _1)))
@@ -737,6 +738,27 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::UpdateTraffic:
+    {
+      ref_ptr<UpdateTrafficMessage> msg = message;
+      m_trafficRenderer->UpdateTraffic(msg->GetSegmentsData());
+      break;
+    }
+
+  case Message::SetTrafficTexCoords:
+    {
+      ref_ptr<SetTrafficTexCoordsMessage> msg = message;
+      m_trafficRenderer->SetTexCoords(move(msg->AcceptTexCoords()));
+      break;
+    }
+
+  case Message::FlushTrafficData:
+    {
+      ref_ptr<FlushTrafficDataMessage> msg = message;
+      m_trafficRenderer->AddRenderData(make_ref(m_gpuProgramManager), msg->AcceptTrafficData());
+      break;
+    }
+
   default:
     ASSERT(false, ());
   }
@@ -796,7 +818,6 @@ void FrontendRenderer::UpdateGLResources()
 
 void FrontendRenderer::FollowRoute(int preferredZoomLevel, int preferredZoomLevelIn3d, bool enableAutoZoom)
 {
-
   m_myPositionController->ActivateRouting(!m_enablePerspectiveInNavigation ? preferredZoomLevel : preferredZoomLevelIn3d,
                                           enableAutoZoom);
 
@@ -1086,11 +1107,11 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
     Render3dLayer(modelView);
   }
 
+  GLFunctions::glDisable(gl_const::GLDepthTest);
   if (hasSelectedPOI)
-  {
-    GLFunctions::glDisable(gl_const::GLDepthTest);
     m_selectionShape->Render(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager), m_generalUniforms);
-  }
+
+  m_trafficRenderer->RenderTraffic(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager), m_generalUniforms);
 
   GLFunctions::glEnable(gl_const::GLDepthTest);
   GLFunctions::glClearDepth();
@@ -1168,7 +1189,7 @@ void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView)
     }
   }
 }
-  
+
 void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)
 {
   RenderLayer & overlay = m_layers[RenderLayer::OverlayID];
@@ -1558,6 +1579,7 @@ void FrontendRenderer::OnContextDestroy()
   m_myPositionController->ResetRenderShape();
   m_routeRenderer->ClearGLDependentResources();
   m_gpsTrackRenderer->ClearRenderData();
+  m_trafficRenderer->Clear();
 
 #ifdef RENDER_DEBUG_RECTS
   dp::DebugRectRenderer::Instance().Destroy();

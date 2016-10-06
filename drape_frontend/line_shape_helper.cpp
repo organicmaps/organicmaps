@@ -207,7 +207,8 @@ void GenerateJoinNormals(dp::LineJoin joinType, glsl::vec2 const & normal1, glsl
 }
 
 void GenerateCapNormals(dp::LineCap capType, glsl::vec2 const & normal1, glsl::vec2 const & normal2,
-                        glsl::vec2 const & direction, float halfWidth, bool isStart, vector<glsl::vec2> & normals)
+                        glsl::vec2 const & direction, float halfWidth, bool isStart, vector<glsl::vec2> & normals,
+                        int segmentsCount)
 {
   if (capType == dp::ButtCap)
     return;
@@ -229,7 +230,6 @@ void GenerateCapNormals(dp::LineCap capType, glsl::vec2 const & normal1, glsl::v
   }
   else
   {
-    int const segmentsCount = 8;
     double const segmentSize = math::pi / segmentsCount * (isStart ? -1.0 : 1.0);
     glsl::vec2 const normalizedNormal = glsl::normalize(normal2);
     m2::PointD const startNormal(normalizedNormal.x, normalizedNormal.y);

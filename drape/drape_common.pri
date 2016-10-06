@@ -36,6 +36,7 @@ SOURCES += \
     $$DRAPE_DIR/render_bucket.cpp \
     $$DRAPE_DIR/shader.cpp \
     $$DRAPE_DIR/shader_def.cpp \
+    $$DRAPE_DIR/static_texture.cpp \
     $$DRAPE_DIR/stipple_pen_resource.cpp \
     $$DRAPE_DIR/support_manager.cpp \
     $$DRAPE_DIR/symbols_texture.cpp \
@@ -93,6 +94,7 @@ HEADERS += \
     $$DRAPE_DIR/render_bucket.hpp \
     $$DRAPE_DIR/shader.hpp \
     $$DRAPE_DIR/shader_def.hpp \
+    $$DRAPE_DIR/static_texture.hpp \
     $$DRAPE_DIR/stipple_pen_resource.hpp \
     $$DRAPE_DIR/support_manager.hpp \
     $$DRAPE_DIR/symbols_texture.hpp \

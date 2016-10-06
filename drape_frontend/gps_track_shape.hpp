@@ -61,7 +61,7 @@ public:
 
 private:
   vector<GpsTrackDynamicVertex> m_buffer;
-  bool m_needUpdate;
+  mutable bool m_needUpdate;
 };
 
 class GpsTrackShape

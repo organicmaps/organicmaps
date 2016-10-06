@@ -17,11 +17,7 @@ double const kKineticMaxSpeedEnd = 10000.0; // pixels per second
 
 double CalculateKineticMaxSpeed(ScreenBase const & modelView)
 {
-  double const kMinZoom = 1.0;
-  double const kMaxZoom = scales::UPPER_STYLE_SCALE + 1.0;
-  double const zoomLevel = my::clamp(fabs(log(modelView.GetScale()) / log(2.0)), kMinZoom, kMaxZoom);
-  double const lerpCoef = 1.0 - ((zoomLevel - kMinZoom) / (kMaxZoom - kMinZoom));
-
+  double const lerpCoef = 1.0 - GetNormalizedZoomLevel(modelView.GetScale());
   return (kKineticMaxSpeedStart * lerpCoef + kKineticMaxSpeedEnd * (1.0 - lerpCoef)) * VisualParams::Instance().GetVisualScale();
 }
 

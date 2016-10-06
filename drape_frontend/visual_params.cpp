@@ -274,7 +274,14 @@ int GetDrawTileScale(m2::RectD const & r)
 
 double GetZoomLevel(double scale)
 {
-  return my::clamp(fabs(log(scale) / log(2.0)), 1, scales::GetUpperStyleScale());
+  static double const kLog2 = log(2.0);
+  return my::clamp(fabs(log(scale) / kLog2), 1, scales::GetUpperStyleScale() + 1.0);
+}
+
+double GetNormalizedZoomLevel(double scale, int minZoom)
+{
+  double const kMaxZoom = scales::GetUpperStyleScale() + 1.0;
+  return my::clamp((GetZoomLevel(scale) - minZoom) / (kMaxZoom - minZoom), 0.0, 1.0);
 }
 
 double GetScale(double zoomLevel)

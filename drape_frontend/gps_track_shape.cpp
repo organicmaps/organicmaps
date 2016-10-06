@@ -85,6 +85,8 @@ void GpsTrackHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mu
   mutateNode.m_region = node.second;
   mutateNode.m_data = make_ref(buffer);
   mutator->AddMutation(node.first, mutateNode);
+
+  m_needUpdate = false;
 }
 
 bool GpsTrackHandle::Update(ScreenBase const & screen)

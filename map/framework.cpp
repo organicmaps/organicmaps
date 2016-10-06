@@ -1623,6 +1623,8 @@ void Framework::UpdateDrapeEngine(int width, int height)
     InvalidateUserMarks();
 
     UpdatePlacePageInfoForCurrentSelection();
+
+    //TODO: update traffic data
   }
 }
 

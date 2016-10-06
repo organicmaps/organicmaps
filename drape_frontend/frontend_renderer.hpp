@@ -20,6 +20,7 @@
 #include "drape_frontend/route_renderer.hpp"
 #include "drape_frontend/threads_commutator.hpp"
 #include "drape_frontend/tile_info.hpp"
+#include "drape_frontend/traffic_renderer.hpp"
 #include "drape_frontend/user_event_stream.hpp"
 
 #include "drape/pointers.hpp"
@@ -279,6 +280,7 @@ private:
   drape_ptr<MyPositionController> m_myPositionController;
   drape_ptr<SelectionShape> m_selectionShape;
   drape_ptr<RouteRenderer> m_routeRenderer;
+  drape_ptr<TrafficRenderer> m_trafficRenderer;
   drape_ptr<Framebuffer> m_framebuffer;
   drape_ptr<TransparentLayer> m_transparentLayer;
   drape_ptr<GpsTrackRenderer> m_gpsTrackRenderer;
