@@ -403,6 +403,7 @@ void BackendRenderer::OnContextDestroy()
   m_batchersPool.reset();
   m_texMng->Release();
   m_overlays.clear();
+  m_trafficGenerator->ClearCache();
 
   m_contextFactory->getResourcesUploadContext()->doneCurrent();
 }

@@ -79,8 +79,7 @@ class TrafficHandle : public dp::OverlayHandle
   using TBase = dp::OverlayHandle;
 
 public:
-  TrafficHandle(uint64_t segmentId, m2::RectD const & bbox,
-                glsl::vec2 const & texCoord, size_t verticesCount);
+  TrafficHandle(uint64_t segmentId, glsl::vec2 const & texCoord, size_t verticesCount);
 
   void GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator) const override;
   bool Update(ScreenBase const & screen) override;
@@ -90,11 +89,9 @@ public:
 
   void SetTexCoord(glsl::vec2 const & texCoord);
   uint64_t GetSegmentId() const;
-  m2::RectD const & GetBoundingBox() const;
 
 private:
   uint64_t m_segmentId;
-  m2::RectD m_bbox;
   vector<glsl::vec2> m_buffer;
   mutable bool m_needUpdate;
 };

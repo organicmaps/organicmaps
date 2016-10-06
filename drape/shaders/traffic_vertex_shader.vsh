@@ -22,7 +22,8 @@ void main(void)
   if (halfWidth != 0.0)
   {
     vec2 norm = normal * u_trafficParams.x;
-    if (a_normal.z < 0.0) norm = normal * u_trafficParams.y;
+    if (a_normal.z < 0.0)
+      norm = normal * u_trafficParams.y;
     halfWidth = length(norm);
 
     vec4 glbShiftPos = vec4(a_position.xy + norm, 0.0, 1.0);

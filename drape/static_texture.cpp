@@ -1,5 +1,4 @@
 #include "drape/static_texture.hpp"
-#include "3party/stb_image/stb_image.h"
 
 #include "indexer/map_style_reader.hpp"
 
@@ -9,6 +8,8 @@
 #include "coding/parse_xml.hpp"
 
 #include "base/string_utils.hpp"
+
+#include "3party/stb_image/stb_image.h"
 
 namespace dp
 {

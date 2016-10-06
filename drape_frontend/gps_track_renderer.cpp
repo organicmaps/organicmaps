@@ -66,8 +66,7 @@ GpsTrackRenderer::GpsTrackRenderer(TRenderDataRequestFn const & dataRequestFn)
 
 float GpsTrackRenderer::CalculateRadius(ScreenBase const & screen) const
 {
-  double const kLog2 = log(2.0);
-  double const zoomLevel = my::clamp(fabs(log(screen.GetScale()) / kLog2), 1.0, scales::UPPER_STYLE_SCALE + 1.0);
+  double const zoomLevel = GetZoomLevel(screen.GetScale());
   double zoom = trunc(zoomLevel);
   int const index = zoom - 1.0;
   float const lerpCoef = zoomLevel - zoom;

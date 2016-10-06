@@ -42,8 +42,7 @@ float const kRightWidthInPixel[] =
 
 float CalculateHalfWidth(ScreenBase const & screen, bool left)
 {
-  double const kLog2 = log(2.0);
-  double const zoomLevel = my::clamp(fabs(log(screen.GetScale()) / kLog2), 1.0, scales::UPPER_STYLE_SCALE + 1.0);
+  double const zoomLevel = GetZoomLevel(screen.GetScale());
   double zoom = trunc(zoomLevel);
   int const index = zoom - 1.0;
   float const lerpCoef = zoomLevel - zoom;
@@ -89,16 +88,11 @@ void TrafficRenderer::UpdateTraffic(vector<TrafficSegmentData> const & trafficDa
     auto it = m_texCoords.find(segment.m_speedBucket);
     if (it == m_texCoords.end())
       continue;
-    TrafficHandle * handle = FindHandle(segment.m_id);
-    if (handle != nullptr)
-      handle->SetTexCoord(it->second);
-  }
-}
 
-TrafficHandle * TrafficRenderer::FindHandle(uint64_t segmentId) const
-{
-  auto it = m_handles.find(segmentId);
-  return it != m_handles.end() ? it->second : nullptr;
+    auto handleIt = m_handles.find(segment.m_id);
+    if (handleIt != m_handles.end())
+      handleIt->second->SetTexCoord(it->second);
+  }
 }
 
 void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel,
@@ -119,7 +113,7 @@ void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel,
     dp::ApplyState(renderData.m_state, program);
 
     dp::UniformValuesStorage uniforms = commonUniforms;
-    math::Matrix<float, 4, 4> mv = renderData.m_tileKey.GetTileBasedModelView(screen);
+    math::Matrix<float, 4, 4> const mv = renderData.m_tileKey.GetTileBasedModelView(screen);
     uniforms.SetMatrix4x4Value("modelView", mv.m_data);
     uniforms.SetFloatValue("u_opacity", 1.0f);
     uniforms.SetFloatValue("u_trafficParams", pixelHalfWidth, CalculateHalfWidth(screen, false /* left */),

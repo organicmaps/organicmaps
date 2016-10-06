@@ -1,6 +1,7 @@
 #include "drape_frontend/route_renderer.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/message_subclasses.hpp"
+#include "drape_frontend/visual_params.hpp"
 
 #include "drape/glsl_func.hpp"
 #include "drape/shader_def.hpp"
@@ -121,7 +122,7 @@ RouteRenderer::RouteRenderer()
 
 void RouteRenderer::InterpolateByZoom(ScreenBase const & screen, float & halfWidth, float & alpha, double & zoom) const
 {
-  double const zoomLevel = my::clamp(fabs(log(screen.GetScale()) / log(2.0)), 1.0, scales::UPPER_STYLE_SCALE + 1.0);
+  double const zoomLevel = GetZoomLevel(screen.GetScale());
   zoom = trunc(zoomLevel);
   int const index = zoom - 1.0;
   float const lerpCoef = zoomLevel - zoom;

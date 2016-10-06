@@ -1579,6 +1579,7 @@ void FrontendRenderer::OnContextDestroy()
   m_myPositionController->ResetRenderShape();
   m_routeRenderer->ClearGLDependentResources();
   m_gpsTrackRenderer->ClearRenderData();
+  m_trafficRenderer->Clear();
 
 #ifdef RENDER_DEBUG_RECTS
   dp::DebugRectRenderer::Instance().Destroy();

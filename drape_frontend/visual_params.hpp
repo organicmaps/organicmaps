@@ -76,6 +76,7 @@ m2::RectD GetRectForDrawScale(double drawScale, m2::PointD const & center);
 int CalculateTileSize(int screenWidth, int screenHeight);
 
 double GetZoomLevel(double scale);
+double GetNormalizedZoomLevel(double scale, int minZoom = 1);
 double GetScale(double zoomLevel);
 
 } // namespace df

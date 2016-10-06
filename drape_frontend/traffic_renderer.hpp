@@ -35,8 +35,6 @@ public:
   void Clear();
 
 private:
-  TrafficHandle * FindHandle(uint64_t segmentId) const;
-
   vector<TrafficRenderData> m_renderData;
   unordered_map<int, glsl::vec2> m_texCoords;
   unordered_map<uint64_t, TrafficHandle *> m_handles;
