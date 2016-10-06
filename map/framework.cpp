@@ -2379,7 +2379,8 @@ void Framework::InsertRoute(Route const & route)
   }
 
   vector<double> turns;
-  if (m_currentRouterType == RouterType::Vehicle || m_currentRouterType == RouterType::Bicycle)
+  if (m_currentRouterType == RouterType::Vehicle || m_currentRouterType == RouterType::Bicycle ||
+      m_currentRouterType == RouterType::Uber)
     route.GetTurnsDistances(turns);
 
   df::ColorConstant routeColor = df::Route;
@@ -2481,6 +2482,7 @@ RouterType Framework::GetBestRouter(m2::PointD const & startPoint, m2::PointD co
       case RouterType::Bicycle:
         return lastUsedRouter;
       case RouterType::Vehicle:
+      case RouterType::Uber:
         ; // fall through
     }
 
@@ -2557,8 +2559,9 @@ bool Framework::LoadAutoZoom()
 void Framework::AllowAutoZoom(bool allowAutoZoom)
 {
   bool const isPedestrianRoute = m_currentRouterType == RouterType::Pedestrian;
+  bool const isUberRoute = m_currentRouterType == RouterType::Uber;
 
-  CallDrapeFunction(bind(&df::DrapeEngine::AllowAutoZoom, _1, allowAutoZoom && !isPedestrianRoute));
+  CallDrapeFunction(bind(&df::DrapeEngine::AllowAutoZoom, _1, allowAutoZoom && !isPedestrianRoute && !isUberRoute));
 }
 
 void Framework::SaveAutoZoom(bool allowAutoZoom)
