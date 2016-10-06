@@ -6,7 +6,7 @@ using namespace search;
 
 namespace
 {
-string GetMatchedCity(m2::PointD const & point, vector<LocalityFinder::Item> const & items)
+string GetMatchedCity(m2::PointD const & point, vector<LocalityItem> const & items)
 {
   string name;
   LocalitySelector selector(name, point);
@@ -30,7 +30,7 @@ string GetMatchedCity(m2::PointD const & point, vector<LocalityFinder::Item> con
 
 UNIT_TEST(LocalitySelector_Test2)
 {
-  vector<LocalityFinder::Item> const localities = {
+  vector<LocalityItem> const localities = {
       {"Moscow", m2::PointD(37.617513849438893203, 67.45398133444564337), 11971516},
       {"Krasnogorsk", m2::PointD(37.340409438658895169, 67.58036703829372982), 135735},
       {"Khimki", m2::PointD(37.444994145035053634, 67.700701677882875629), 240463},

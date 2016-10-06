@@ -6,6 +6,7 @@
 #include "search/mwm_context.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
+#include "indexer/feature_algo.hpp"
 #include "indexer/index.hpp"
 
 #include "base/assert.hpp"
@@ -18,6 +19,7 @@ namespace search
 namespace
 {
 double const kMaxCityRadiusMeters = 30000.0;
+double const kMaxVillageRadiusMeters = 2000.0;
 
 struct Filter
 {
@@ -54,22 +56,22 @@ class LocalitiesLoader
 {
 public:
   LocalitiesLoader(MwmContext const & ctx, Filter const & filter, int8_t lang,
-                   m4::Tree<LocalityFinder::Item> & localities,
+                   LocalityFinder::Holder & holder,
                    map<MwmSet::MwmId, unordered_set<uint32_t>> & loadedIds)
     : m_ctx(ctx)
     , m_filter(filter)
     , m_lang(lang)
-    , m_localities(localities)
+    , m_holder(holder)
     , m_loadedIds(loadedIds[m_ctx.GetId()])
   {
   }
 
   void operator()(uint32_t id) const
   {
-    if (m_loadedIds.count(id) != 0)
+    if (!m_filter.IsGood(id))
       return;
 
-    if (!m_filter.IsGood(id))
+    if (m_loadedIds.count(id) != 0)
       return;
 
     FeatureType ft;
@@ -101,8 +103,7 @@ public:
 
     auto const center = ft.GetCenter();
 
-    LocalityFinder::Item item(name, center, population);
-    m_localities.Add(item, m2::RectD(center, center));
+    m_holder.Add(LocalityItem(name, center, population));
     m_loadedIds.insert(id);
   }
 
@@ -111,21 +112,97 @@ private:
   Filter const & m_filter;
   int8_t const m_lang;
 
-  m4::Tree<LocalityFinder::Item> & m_localities;
+  LocalityFinder::Holder & m_holder;
   unordered_set<uint32_t> & m_loadedIds;
 };
 }  // namespace
 
-// LocalityFinder::Item
-// ------------------------------------------------------------------------------------
-LocalityFinder::Item::Item(string const & name, m2::PointD const & center, uint32_t population)
+// LocalityItem ------------------------------------------------------------------------------------
+LocalityItem::LocalityItem(string const & name, m2::PointD const & center, uint32_t population)
   : m_name(name), m_center(center), m_population(population)
 {
 }
 
+string DebugPrint(LocalityItem const & item)
+{
+  stringstream ss;
+  ss << "Name = " << item.m_name << ", Center = " << DebugPrint(item.m_center)
+     << ", Population = " << item.m_population;
+  return ss.str();
+}
+
+// LocalitySelector --------------------------------------------------------------------------------
+LocalitySelector::LocalitySelector(string & name, m2::PointD const & p)
+  : m_name(name)
+  , m_p(p)
+  , m_bestScore(numeric_limits<double>::max())
+{
+}
+
+void LocalitySelector::operator()(LocalityItem const & item)
+{
+  // TODO (@y, @m): replace this naive score by p-values on
+  // multivariate Gaussian.
+  double const distance = MercatorBounds::DistanceOnEarth(item.m_center, m_p);
+
+  double const score =
+      ftypes::GetPopulationByRadius(distance) / static_cast<double>(item.m_population);
+  if (score < m_bestScore)
+  {
+    m_bestScore = score;
+    m_name = item.m_name;
+  }
+}
+
+// LocalityFinder::Holder --------------------------------------------------------------------------
+LocalityFinder::Holder::Holder(double radiusMeters) : m_radiusMeters(radiusMeters) {}
+
+bool LocalityFinder::Holder::IsCovered(m2::RectD const & rect) const
+{
+  bool covered = false;
+  m_coverage.ForEachInRect(rect, [&covered](bool) { covered = true; });
+  return covered;
+}
+
+void LocalityFinder::Holder::SetCovered(m2::PointD const & p)
+{
+  m_coverage.Add(true, m2::RectD(p, p));
+}
+
+void LocalityFinder::Holder::Add(LocalityItem const & item)
+{
+  m_localities.Add(item, m2::RectD(item.m_center, item.m_center));
+}
+
+void LocalityFinder::Holder::ForEachInVicinity(m2::RectD const & rect,
+                                               LocalitySelector & selector) const
+{
+  m_localities.ForEachInRect(rect, selector);
+}
+
+m2::RectD LocalityFinder::Holder::GetRect(m2::PointD const & p) const
+{
+  return MercatorBounds::RectByCenterXYAndSizeInMeters(p, m_radiusMeters);
+}
+
+m2::RectD LocalityFinder::Holder::GetDRect(m2::PointD const & p) const
+{
+  return MercatorBounds::RectByCenterXYAndSizeInMeters(p, 2 * m_radiusMeters);
+}
+
+void LocalityFinder::Holder::Clear()
+{
+  m_coverage.Clear();
+  m_localities.Clear();
+}
+
 // LocalityFinder ----------------------------------------------------------------------------------
 LocalityFinder::LocalityFinder(Index const & index, VillagesCache & villagesCache)
-  : m_index(index), m_villagesCache(villagesCache), m_lang(0)
+  : m_index(index)
+  , m_villagesCache(villagesCache)
+  , m_lang(0)
+  , m_cities(kMaxCityRadiusMeters)
+  , m_villages(kMaxVillageRadiusMeters)
 {
 }
 
@@ -138,30 +215,34 @@ void LocalityFinder::SetLanguage(int8_t lang)
   m_lang = lang;
 }
 
-void LocalityFinder::GetLocality(m2::PointD const & pt, string & name)
+void LocalityFinder::GetLocality(m2::PointD const & p, string & name)
 {
-  m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(pt, kMaxCityRadiusMeters);
+  m2::RectD const crect = m_cities.GetRect(p);
+  m2::RectD const vrect = m_villages.GetRect(p);
 
-  bool covered = false;
-  m_coverage.ForEachInRect(rect, [&covered](bool) { covered = true; });
-  if (!covered)
-    LoadVicinity(pt);
+  LoadVicinity(p, !m_cities.IsCovered(crect) /* loadCities */,
+               !m_villages.IsCovered(vrect) /* loadVillages */);
 
-  m_localities.ForEachInRect(rect, LocalitySelector(name, pt));
+  LocalitySelector selector(name, p);
+  m_cities.ForEachInVicinity(crect, selector);
+  m_villages.ForEachInVicinity(vrect, selector);
 }
 
 void LocalityFinder::ClearCache()
 {
   m_ranks.reset();
-  m_coverage.Clear();
-  m_localities.Clear();
+  m_cities.Clear();
+  m_villages.Clear();
   m_loadedIds.clear();
 }
 
-void LocalityFinder::LoadVicinity(m2::PointD const & pt)
+void LocalityFinder::LoadVicinity(m2::PointD const & p, bool loadCities, bool loadVillages)
 {
-  m2::RectD const drect =
-      MercatorBounds::RectByCenterXYAndSizeInMeters(pt, 2 * kMaxCityRadiusMeters);
+  if (!loadCities && !loadVillages)
+    return;
+
+  m2::RectD const crect = m_cities.GetDRect(p);
+  m2::RectD const vrect = m_villages.GetDRect(p);
 
   vector<shared_ptr<MwmInfo>> mwmsInfo;
   m_index.GetMwmsInfo(mwmsInfo);
@@ -179,57 +260,34 @@ void LocalityFinder::LoadVicinity(m2::PointD const & pt)
     {
     case feature::DataHeader::world:
     {
+      if (!loadCities)
+        break;
+
       if (!m_ranks)
         m_ranks = RankTable::Load(value.m_cont);
       if (!m_ranks)
         m_ranks = make_unique<DummyRankTable>();
 
       MwmContext ctx(move(handle));
-      ctx.ForEachIndex(
-          drect, LocalitiesLoader(ctx, CityFilter(*m_ranks), m_lang, m_localities, m_loadedIds));
+      ctx.ForEachIndex(crect,
+                       LocalitiesLoader(ctx, CityFilter(*m_ranks), m_lang, m_cities, m_loadedIds));
       break;
     }
     case feature::DataHeader::country:
-      if (header.GetBounds().IsPointInside(pt))
+      if (loadVillages && header.GetBounds().IsPointInside(p))
       {
         MwmContext ctx(move(handle));
-        ctx.ForEachIndex(drect, LocalitiesLoader(ctx, VillageFilter(ctx, m_villagesCache), m_lang,
-                                                 m_localities, m_loadedIds));
+        ctx.ForEachIndex(vrect, LocalitiesLoader(ctx, VillageFilter(ctx, m_villagesCache), m_lang,
+                                                 m_villages, m_loadedIds));
       }
       break;
     case feature::DataHeader::worldcoasts: break;
     }
   }
 
-  m_coverage.Add(true, m2::RectD(pt, pt));
-}
-
-// LocalitySelector --------------------------------------------------------------------------------
-LocalitySelector::LocalitySelector(string & name, m2::PointD const & pt)
-  : m_name(name), m_pt(pt), m_bestScore(numeric_limits<double>::max())
-{
-}
-
-void LocalitySelector::operator()(LocalityFinder::Item const & item)
-{
-  // TODO (@y, @m): replace this naive score by p-values on
-  // multivariate Gaussian.
-  double const distance = MercatorBounds::DistanceOnEarth(item.m_center, m_pt);
-
-  double const score =
-      ftypes::GetPopulationByRadius(distance) / static_cast<double>(item.m_population);
-  if (score < m_bestScore)
-  {
-    m_bestScore = score;
-    m_name = item.m_name;
-  }
-}
-
-string DebugPrint(LocalityFinder::Item const & item)
-{
-  stringstream ss;
-  ss << "Name = " << item.m_name << ", Center = " << DebugPrint(item.m_center)
-     << ", Population = " << item.m_population;
-  return ss.str();
+  if (loadCities)
+    m_cities.SetCovered(p);
+  if (loadVillages)
+    m_villages.SetCovered(p);
 }
 }  // namespace search
