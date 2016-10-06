@@ -1,6 +1,7 @@
 #pragma once
 
 #include "search/cbv.hpp"
+#include "search/hotels_filter.hpp"
 
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
@@ -37,5 +38,7 @@ struct BaseContext
 
   // Number of tokens in the query.
   size_t m_numTokens = 0;
+
+  unique_ptr<hotels_filter::HotelsFilter::ScopedFilter> m_hotelsFilter;
 };
 }  // namespace search

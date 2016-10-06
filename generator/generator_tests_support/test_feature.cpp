@@ -15,6 +15,7 @@
 #include "coding/multilang_utf8_string.hpp"
 
 #include "base/assert.hpp"
+#include "base/string_utils.hpp"
 
 #include "std/atomic.hpp"
 #include "std/sstream.hpp"
@@ -53,7 +54,9 @@ bool TestFeature::Matches(FeatureType const & feature) const
 
 void TestFeature::Serialize(FeatureBuilder1 & fb) const
 {
-  fb.SetTestId(m_id);
+  auto & metadata = fb.GetMetadataForTesting();
+  metadata.Set(feature::Metadata::FMD_TEST_ID, strings::to_string(m_id));
+
   if (m_hasCenter)
     fb.SetCenter(m_center);
   if (!m_name.empty())

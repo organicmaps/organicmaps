@@ -96,6 +96,13 @@ bool to_int64(char const * s, int64_t & i)
   return *stop == 0 && s != stop;
 }
 
+bool to_float(char const * s, float & f)
+{
+  char * stop;
+  f = strtof(s, &stop);
+  return *stop == 0 && s != stop && isfinite(f);
+}
+
 bool to_double(char const * s, double & d)
 {
   char * stop;

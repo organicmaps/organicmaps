@@ -9,9 +9,12 @@
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
 
 #include "indexer/classificator.hpp"
+#include "indexer/feature_meta.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
+
+#include "base/string_utils.hpp"
 
 #include "std/shared_ptr.hpp"
 #include "std/vector.hpp"
@@ -34,7 +37,7 @@ public:
   // TestFeature overrides:
   void Serialize(FeatureBuilder1 & fb) const override
   {
-    fb.SetTestId(m_id);
+    fb.GetMetadataForTesting().Set(feature::Metadata::FMD_TEST_ID, strings::to_string(m_id));
     fb.SetCenter(m_center);
 
     if (!m_name.empty())

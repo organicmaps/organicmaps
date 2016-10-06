@@ -3,6 +3,7 @@
 #include "search/categories_set.hpp"
 #include "search/emitter.hpp"
 #include "search/geocoder.hpp"
+#include "search/hotels_filter.hpp"
 #include "search/mode.hpp"
 #include "search/pre_ranker.hpp"
 #include "search/rank_table_cache.hpp"
@@ -26,9 +27,10 @@
 
 #include "std/function.hpp"
 #include "std/map.hpp"
+#include "std/shared_ptr.hpp"
 #include "std/string.hpp"
-#include "std/unordered_set.hpp"
 #include "std/unique_ptr.hpp"
+#include "std/unordered_set.hpp"
 #include "std/vector.hpp"
 
 class FeatureType;
@@ -162,6 +164,7 @@ protected:
   double m_minDistanceOnMapBetweenResults;
   Mode m_mode;
   bool m_suggestsEnabled;
+  shared_ptr<hotels_filter::Rule> m_hotelsFilter;
   SearchParams::TOnResults m_onResults;
 
   /// @name Get ranking params.

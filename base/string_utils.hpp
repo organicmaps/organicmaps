@@ -341,6 +341,7 @@ bool to_int(char const * s, int & i, int base = 10);
 bool to_uint(char const * s, unsigned int & i, int base = 10);
 bool to_uint64(char const * s, uint64_t & i);
 bool to_int64(char const * s, int64_t & i);
+bool to_float(char const * s, float & f);
 bool to_double(char const * s, double & d);
 
 inline bool is_number(string const & s)
@@ -356,6 +357,7 @@ inline bool to_uint(string const & s, unsigned int & i, int base = 10)
 }
 inline bool to_uint64(string const & s, uint64_t & i) { return to_uint64(s.c_str(), i); }
 inline bool to_int64(string const & s, int64_t & i) { return to_int64(s.c_str(), i); }
+inline bool to_float(string const & s, float & f) { return to_float(s.c_str(), f); }
 inline bool to_double(string const & s, double & d) { return to_double(s.c_str(), d); }
 //@}
 

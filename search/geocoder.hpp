@@ -7,6 +7,7 @@
 #include "search/features_layer_path_finder.hpp"
 #include "search/geocoder_context.hpp"
 #include "search/geometry_cache.hpp"
+#include "search/hotels_filter.hpp"
 #include "search/mode.hpp"
 #include "search/model.hpp"
 #include "search/mwm_context.hpp"
@@ -78,6 +79,7 @@ public:
 
     Mode m_mode;
     m2::RectD m_pivot;
+    shared_ptr<hotels_filter::Rule> m_hotelsFilter;
   };
 
   enum RegionType
@@ -246,13 +248,14 @@ private:
 
   // Finds all paths through layers and emits reachable features from
   // the lowest layer.
-  void FindPaths();
+  void FindPaths(BaseContext const & ctx);
 
   // Forms result and feeds it to |m_preRanker|.
-  void EmitResult(MwmSet::MwmId const & mwmId, uint32_t ftId, SearchModel::SearchType type,
-                  size_t startToken, size_t endToken);
-  void EmitResult(Region const & region, size_t startToken, size_t endToken);
-  void EmitResult(City const & city, size_t startToken, size_t endToken);
+  void EmitResult(BaseContext const & ctx, MwmSet::MwmId const & mwmId, uint32_t ftId,
+                  SearchModel::SearchType type, size_t startToken, size_t endToken);
+  void EmitResult(BaseContext const & ctx, Region const & region, size_t startToken,
+                  size_t endToken);
+  void EmitResult(BaseContext const & ctx, City const & city, size_t startToken, size_t endToken);
 
   // Tries to match unclassified objects from lower layers, like
   // parks, forests, lakes, rivers, etc. This method finds all
@@ -276,6 +279,8 @@ private:
 
   StreetsCache m_streetsCache;
   VillagesCache & m_villagesCache;
+  HotelsCache m_hotelsCache;
+  hotels_filter::HotelsFilter m_hotelsFilter;
 
   my::Cancellable const & m_cancellable;
 

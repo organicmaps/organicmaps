@@ -33,6 +33,7 @@ HEADERS += \
     geometry_cache.hpp \
     geometry_utils.hpp \
     hotels_classifier.hpp \
+    hotels_filter.hpp \
     house_detector.hpp \
     house_numbers_matcher.hpp \
     house_to_street_table.hpp \
@@ -98,6 +99,7 @@ SOURCES += \
     geometry_cache.cpp \
     geometry_utils.cpp \
     hotels_classifier.cpp \
+    hotels_filter.cpp \
     house_detector.cpp \
     house_numbers_matcher.cpp \
     house_to_street_table.cpp \

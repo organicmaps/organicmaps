@@ -32,12 +32,6 @@ void UniteCBVs(vector<CBV> & cbvs)
 }  // namespace
 
 // CategoriesCache ---------------------------------------------------------------------------------
-CategoriesCache::CategoriesCache(CategoriesSet const & categories,
-                                 my::Cancellable const & cancellable)
-  : m_categories(categories), m_cancellable(cancellable)
-{
-}
-
 CBV CategoriesCache::Get(MwmContext const & context)
 {
   if (!context.m_handle.IsAlive() || !context.m_value.HasSearchIndex())
@@ -85,17 +79,19 @@ CBV CategoriesCache::Load(MwmContext const & context)
 
 // StreetsCache ------------------------------------------------------------------------------------
 StreetsCache::StreetsCache(my::Cancellable const & cancellable)
-  : m_cache(m_categories, cancellable)
+  : CategoriesCache(ftypes::IsStreetChecker::Instance(), cancellable)
 {
-  ftypes::IsStreetChecker::Instance().ForEachType(
-      [this](uint32_t type) { m_categories.Add(type); });
 }
 
 // VillagesCache -----------------------------------------------------------------------------------
 VillagesCache::VillagesCache(my::Cancellable const & cancellable)
-  : m_cache(m_categories, cancellable)
+  : CategoriesCache(ftypes::IsVillageChecker::Instance(), cancellable)
 {
-  ftypes::IsVillageChecker::Instance().ForEachType(
-      [this](uint32_t type) { m_categories.Add(type); });
+}
+
+// HotelsCache -------------------------------------------------------------------------------------
+HotelsCache::HotelsCache(my::Cancellable const & cancellable)
+  : CategoriesCache(ftypes::IsHotelChecker::Instance(), cancellable)
+{
 }
 }  // namespace search

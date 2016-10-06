@@ -1,5 +1,6 @@
 #pragma once
 
+#include "search/hotels_filter.hpp"
 #include "search/mode.hpp"
 
 #include "geometry/latlon.hpp"
@@ -40,6 +41,8 @@ public:
   Mode m_mode = Mode::Everywhere;
   bool m_forceSearch = false;
   bool m_suggestsEnabled = true;
+
+  shared_ptr<hotels_filter::Rule> m_hotelsFilter;
 
   friend string DebugPrint(SearchParams const & params);
 

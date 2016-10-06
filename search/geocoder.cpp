@@ -344,6 +344,8 @@ Geocoder::Geocoder(Index const & index, storage::CountryInfoGetter const & infoG
   , m_infoGetter(infoGetter)
   , m_streetsCache(cancellable)
   , m_villagesCache(villagesCache)
+  , m_hotelsCache(cancellable)
+  , m_hotelsFilter(m_hotelsCache)
   , m_cancellable(cancellable)
   , m_model(SearchModel::Instance())
   , m_pivotRectsCache(kPivotRectsCacheSize, m_cancellable, Processor::kMaxViewportRadiusM)
@@ -558,7 +560,8 @@ void Geocoder::ClearCaches()
 
   m_matchersCache.clear();
   m_streetsCache.Clear();
-  m_villagesCache.Clear();
+  m_hotelsCache.Clear();
+  m_hotelsFilter.ClearCaches();
   m_postcodes.Clear();
 }
 
@@ -595,6 +598,7 @@ void Geocoder::InitBaseContext(BaseContext & ctx)
     PrepareRetrievalParams(i, i + 1);
     ctx.m_features[i] = RetrieveAddressFeatures(*m_context, m_cancellable, m_retrievalParams);
   }
+  ctx.m_hotelsFilter = m_hotelsFilter.MakeScopedFilter(*m_context, m_params.m_hotelsFilter);
 }
 
 void Geocoder::InitLayer(SearchModel::SearchType type, size_t startToken, size_t endToken,
@@ -854,7 +858,7 @@ void Geocoder::MatchRegions(BaseContext & ctx, RegionType type)
       if (ctx.AllTokensUsed())
       {
         // Region matches to search query, we need to emit it as is.
-        EmitResult(region, startToken, endToken);
+        EmitResult(ctx, region, startToken, endToken);
         continue;
       }
 
@@ -897,7 +901,7 @@ void Geocoder::MatchCities(BaseContext & ctx)
       if (ctx.AllTokensUsed())
       {
         // City matches to search query, we need to emit it as is.
-        EmitResult(city, startToken, endToken);
+        EmitResult(ctx, city, startToken, endToken);
         continue;
       }
 
@@ -1027,7 +1031,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
     // All tokens were consumed, find paths through layers, emit
     // features.
     if (m_postcodes.m_features.IsEmpty())
-      return FindPaths();
+      return FindPaths(ctx);
 
     // When there are no layers but user entered a postcode, we have
     // to emit all features matching to the postcode.
@@ -1041,15 +1045,15 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
                          SearchModel::SearchType searchType;
                          if (GetSearchTypeInGeocoding(ctx, id, searchType))
                          {
-                           EmitResult(m_context->GetId(), id, searchType, m_postcodes.m_startToken,
-                                      m_postcodes.m_endToken);
+                           EmitResult(ctx, m_context->GetId(), id, searchType,
+                                      m_postcodes.m_startToken, m_postcodes.m_endToken);
                          }
                        });
       return;
     }
 
     if (!(m_layers.size() == 1 && m_layers[0].m_type == SearchModel::SEARCH_TYPE_STREET))
-      return FindPaths();
+      return FindPaths(ctx);
 
     // If there're only one street layer but user also entered a
     // postcode, we need to emit all features matching to postcode on
@@ -1063,7 +1067,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
       {
         if (!m_postcodes.m_features.HasBit(id))
           continue;
-        EmitResult(m_context->GetId(), id, SearchModel::SEARCH_TYPE_STREET,
+        EmitResult(ctx, m_context->GetId(), id, SearchModel::SEARCH_TYPE_STREET,
                    m_layers.back().m_startToken, m_layers.back().m_endToken);
       }
     }
@@ -1080,7 +1084,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
     vector<uint32_t> features;
     m_postcodes.m_features.ForEach(MakeBackInsertFunctor(features));
     layer.m_sortedFeatures = &features;
-    return FindPaths();
+    return FindPaths(ctx);
   }
 
   m_layers.emplace_back();
@@ -1244,7 +1248,7 @@ bool Geocoder::IsLayerSequenceSane() const
   return true;
 }
 
-void Geocoder::FindPaths()
+void Geocoder::FindPaths(BaseContext const & ctx)
 {
   if (m_layers.empty())
     return;
@@ -1263,20 +1267,23 @@ void Geocoder::FindPaths()
   else
     m_matcher->SetPostcodes(nullptr);
   m_finder.ForEachReachableVertex(
-      *m_matcher, sortedLayers, [this, &innermostLayer](IntersectionResult const & result)
+      *m_matcher, sortedLayers, [this, &ctx, &innermostLayer](IntersectionResult const & result)
       {
         ASSERT(result.IsValid(), ());
         // TODO(@y, @m, @vng): use rest fields of IntersectionResult for
         // better scoring.
-        EmitResult(m_context->GetId(), result.InnermostResult(), innermostLayer.m_type,
+        EmitResult(ctx, m_context->GetId(), result.InnermostResult(), innermostLayer.m_type,
                    innermostLayer.m_startToken, innermostLayer.m_endToken);
       });
 }
 
-void Geocoder::EmitResult(MwmSet::MwmId const & mwmId, uint32_t ftId, SearchModel::SearchType type,
-                          size_t startToken, size_t endToken)
+void Geocoder::EmitResult(BaseContext const & ctx, MwmSet::MwmId const & mwmId, uint32_t ftId,
+                          SearchModel::SearchType type, size_t startToken, size_t endToken)
 {
   FeatureID id(mwmId, ftId);
+
+  if (ctx.m_hotelsFilter && !ctx.m_hotelsFilter->Matches(id))
+      return;
 
   // Distance and rank will be filled at the end, for all results at once.
   //
@@ -1291,7 +1298,8 @@ void Geocoder::EmitResult(MwmSet::MwmId const & mwmId, uint32_t ftId, SearchMode
   m_preRanker.Emplace(id, info);
 }
 
-void Geocoder::EmitResult(Region const & region, size_t startToken, size_t endToken)
+void Geocoder::EmitResult(BaseContext const & ctx, Region const & region, size_t startToken,
+                          size_t endToken)
 {
   SearchModel::SearchType type;
   switch (region.m_type)
@@ -1300,12 +1308,13 @@ void Geocoder::EmitResult(Region const & region, size_t startToken, size_t endTo
   case REGION_TYPE_COUNTRY: type = SearchModel::SEARCH_TYPE_COUNTRY; break;
   case REGION_TYPE_COUNT: type = SearchModel::SEARCH_TYPE_COUNT; break;
   }
-  EmitResult(m_worldId, region.m_featureId, type, startToken, endToken);
+  EmitResult(ctx, m_worldId, region.m_featureId, type, startToken, endToken);
 }
 
-void Geocoder::EmitResult(City const & city, size_t startToken, size_t endToken)
+void Geocoder::EmitResult(BaseContext const & ctx, City const & city, size_t startToken,
+                          size_t endToken)
 {
-  EmitResult(city.m_countryId, city.m_featureId, city.m_type, startToken, endToken);
+  EmitResult(ctx, city.m_countryId, city.m_featureId, city.m_type, startToken, endToken);
 }
 
 void Geocoder::MatchUnclassified(BaseContext & ctx, size_t curToken)
@@ -1341,7 +1350,7 @@ void Geocoder::MatchUnclassified(BaseContext & ctx, size_t curToken)
     if (!GetSearchTypeInGeocoding(ctx, featureId, searchType))
       return;
     if (searchType == SearchModel::SEARCH_TYPE_UNCLASSIFIED)
-      EmitResult(m_context->GetId(), featureId, searchType, startToken, curToken);
+      EmitResult(ctx, m_context->GetId(), featureId, searchType, startToken, curToken);
   };
   allFeatures.ForEach(emitUnclassified);
 }

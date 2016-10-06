@@ -405,6 +405,7 @@ void Processor::Search(SearchParams const & params, m2::RectD const & viewport)
   SetMinDistanceOnMapBetweenResults(params.m_minDistanceOnMapBetweenResults);
 
   SetSuggestsEnabled(params.m_suggestsEnabled);
+  m_hotelsFilter = params.m_hotelsFilter;
 
   SetInputLocale(params.m_inputLocale);
 
@@ -676,6 +677,7 @@ void Processor::InitGeocoder(Geocoder::Params & params)
     params.m_pivot = m_viewport[CURRENT_V];
   else
     params.m_pivot = GetPivotRect();
+  params.m_hotelsFilter = m_hotelsFilter;
   m_geocoder.SetParams(params);
 }
 
@@ -735,6 +737,7 @@ void Processor::ClearCaches()
     ClearCache(i);
 
   m_geocoder.ClearCaches();
+  m_villagesCache.Clear();
   m_preRanker.ClearCaches();
   m_ranker.ClearCaches();
 }
