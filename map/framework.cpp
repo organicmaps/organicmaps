@@ -1595,6 +1595,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   Allow3dMode(allow3d, allow3dBuildings);
   LoadViewport();
 
+  SetVisibleViewport(m2::RectD(0, 0, params.m_surfaceWidth, params.m_surfaceHeight));
+
   // In case of the engine reinitialization recover route.
   if (m_routingSession.IsActive())
   {
