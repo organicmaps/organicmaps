@@ -27,6 +27,7 @@ set(
   yes_no_unknown.hpp
 )
 
-omim_add_library(editor ${SRC})
+add_library(editor ${SRC})
 
-#add_subdirectory(editor_tests)
+omim_add_test_subdirectory(editor_tests)
+omim_add_test_subdirectory(osm_auth_tests)

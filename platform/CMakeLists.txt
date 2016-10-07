@@ -1,4 +1,4 @@
-include_directories(${CMAKE_HOME_DIRECTORY}/3party/jansson/src ${OMIM_DIR}/platform)
+include_directories(${OMIM_ROOT}/3party/jansson/src ${OMIM_ROOT}/platform)
 
 set(
   SRC
@@ -13,6 +13,8 @@ set(
   file_logging.hpp
   get_text_by_id.cpp
   get_text_by_id.hpp
+  http_client.cpp
+  http_client.hpp
   http_request.cpp
   http_request.hpp
   http_thread_callback.hpp
@@ -38,17 +40,18 @@ set(
 )
 
 
-if(${PL_IPHONE})
+if(${PLATFORM_IPHONE})
   set(
     SRC
     ${SRC}
     http_thread_apple.h
     http_thread_apple.mm
+    http_client_apple.mm
     platform_ios.mm
     platform_unix_impl.cpp
     platform_unix_impl.hpp
   )
-elseif(${PL_ANDROID})
+elseif(${PLATFORM_ANDROID})
   set(
     SRC
     ${SRC}
@@ -67,30 +70,33 @@ else() # neither iPhone nor Android
     wifi_location_service.cpp
   )
 
-  if (${PL_WIN})
+  if (${PLATFORM_WIN})
     set(
       SRC
       ${SRC}
+      http_client_curl.cpp
       http_thread_qt.cpp
       http_thread_qt.hpp
       platform_win.cpp
       wifi_info_windows.cpp
     )
-  elseif(${PL_MAC})
+  elseif(${PLATFORM_MAC})
     set(
       SRC
       ${SRC}
       apple_location_service.mm
+      http_client_apple.mm
       http_thread_apple.h
       http_thread_apple.mm
       platform_mac.mm
       platform_unix_impl.cpp
       platform_unix_impl.hpp
     )
-  elseif(${PL_LINUX})
+  elseif(${PLATFORM_LINUX})
     set(
       SRC
       ${SRC}
+      http_client_curl.cpp
       http_thread_qt.cpp
       http_thread_qt.hpp
       platform_linux.cpp
@@ -101,8 +107,13 @@ else() # neither iPhone nor Android
 endif()
 
 
+
 add_subdirectory(platform_tests_support)
 
 add_library(platform ${SRC})
+
+if (APPLE)
+  target_compile_options(platform PUBLIC "-fobjc-arc")
+endif()
 
 omim_add_test_subdirectory(platform_tests)

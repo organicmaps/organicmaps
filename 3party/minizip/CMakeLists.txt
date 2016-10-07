@@ -19,4 +19,3 @@ set(
 )
 
 add_library(minizip ${SRC})
-set_target_properties(minizip PROPERTIES ENABLE_EXPORTS ON)

@@ -1,4 +1,4 @@
-include_directories(${OMIM_DIR}/3party/tomcrypt/src/headers  ${OMIM_DIR}/coding)
+include_directories(${OMIM_ROOT}/3party/tomcrypt/src/headers  ${OMIM_ROOT}/coding)
 
 set(
   SRC
