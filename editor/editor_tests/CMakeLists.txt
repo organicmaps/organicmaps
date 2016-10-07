@@ -27,13 +27,13 @@ omim_link_libraries(
   tomcrypt
 )
 
-target_link_libraries(
+omim_link_libraries(
   editor_tests
   ${Qt5Widgets_LIBRARIES}
 )
 
 if (${PLATFORM_MAC})
-  target_link_libraries(
+  omim_link_libraries(
     editor_tests
     "-framework Cocoa"
     "-framework IOKit"

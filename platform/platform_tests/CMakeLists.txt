@@ -19,8 +19,8 @@ omim_add_test(platform_tests ${SRC})
 omim_link_libraries(platform_tests platform_tests_support platform coding base jansson minizip tomcrypt ${LIBZ})
 
 
-if (${PLATFORM_MAC})
-  target_link_libraries(platform_tests ${Qt5Widgets_LIBRARIES}
+if (PLATFORM_MAC)
+  omim_link_libraries(platform_tests ${Qt5Widgets_LIBRARIES}
     "-framework Cocoa"
     "-framework IOKit"
     "-framework QuartzCore"
@@ -28,6 +28,6 @@ if (${PLATFORM_MAC})
   )
 endif()
 
-if (${PLATFORM_WIN} OR ${PLATFORM_LINUX})
-  target_link_libraries(platform_tests ${Qt5Network_LIBRARIES})
+if (PLATFORM_WIN OR PLATFORM_LINUX)
+  omim_link_libraries(platform_tests ${Qt5Network_LIBRARIES})
 endif()

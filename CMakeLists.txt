@@ -124,7 +124,7 @@ add_subdirectory(3party/liboauthcpp)
 add_subdirectory(3party/pugixml)
 add_subdirectory(3party/succinct)
 add_subdirectory(3party/tomcrypt)
-
+add_subdirectory(3party/protobuf)
 
 add_compile_options(
   "-Wall"
@@ -139,4 +139,6 @@ add_subdirectory(3party/opening_hours)
 add_subdirectory(stats)
 add_subdirectory(storage)
 add_subdirectory(editor)
+add_subdirectory(indexer)
+add_subdirectory(search)
 add_subdirectory(tracking)
