@@ -1,18 +1,43 @@
 package com.mapswithme.maps.api.uber;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.google.android.gms.analytics.ecommerce.Product;
+
 import java.util.Arrays;
 
-public class UberInfo
+public class UberInfo implements Parcelable
 {
+  public static final Parcelable.Creator<UberInfo> CREATOR = new Parcelable.Creator<UberInfo>()
+  {
+
+    @Override
+    public UberInfo createFromParcel(Parcel source)
+    {
+      return new UberInfo(source);
+    }
+
+    @Override
+    public UberInfo[] newArray(int size)
+    {
+      return new UberInfo[0];
+    }
+  };
+
   @Nullable
   private final Product[] mProducts;
 
-  public UberInfo(@Nullable Product[] products)
+  private UberInfo(@Nullable Product[] products)
   {
     mProducts = products;
+  }
+
+  private UberInfo(@NonNull Parcel parcel)
+  {
+    mProducts = (Product[]) parcel.readParcelableArray(Product.class.getClassLoader());
   }
 
   @Nullable
@@ -29,8 +54,36 @@ public class UberInfo
            '}';
   }
 
-  public static class Product
+  @Override
+  public int describeContents()
   {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(Parcel dest, int flags)
+  {
+    dest.writeParcelableArray(mProducts, 0);
+  }
+
+  public static class Product implements Parcelable
+  {
+    public static final Parcelable.Creator<Product> CREATOR = new Parcelable.Creator<Product>()
+    {
+
+      @Override
+      public Product createFromParcel(Parcel source)
+      {
+        return new Product(source);
+      }
+
+      @Override
+      public Product[] newArray(int size)
+      {
+        return new Product[size];
+      }
+    };
+
     @NonNull
     private final String mProductId;
     @NonNull
@@ -40,12 +93,20 @@ public class UberInfo
     @NonNull
     private final String mPrice;
 
-    public Product(@NonNull String productId, @NonNull String name, @NonNull String time, @NonNull String price)
+    private Product(@NonNull String productId, @NonNull String name, @NonNull String time, @NonNull String price)
     {
       mProductId = productId;
       mName = name;
       mTime = time;
       mPrice = price;
+    }
+
+    private Product(@NonNull Parcel parcel)
+    {
+      mProductId = parcel.readString();
+      mName = parcel.readString();
+      mTime = parcel.readString();
+      mPrice = parcel.readString();
     }
 
     @NonNull
@@ -81,6 +142,21 @@ public class UberInfo
              ", mTime='" + mTime + '\'' +
              ", mPrice='" + mPrice + '\'' +
              '}';
+    }
+
+    @Override
+    public int describeContents()
+    {
+      return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags)
+    {
+      dest.writeString(mProductId);
+      dest.writeString(mName);
+      dest.writeString(mTime);
+      dest.writeString(mPrice);
     }
   }
 }

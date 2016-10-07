@@ -746,7 +746,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       RoutingPlanFragment fragment = (RoutingPlanFragment) getFragment(RoutingPlanFragment.class);
       if (fragment != null)
-        fragment.saveAltitudeChartState(outState);
+        fragment.saveRoutingPanelState(outState);
     }
 
     if (mNavigationController != null)

@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.api.uber.UberInfo;
@@ -39,7 +40,9 @@ import com.mapswithme.util.statistics.Statistics;
 public class RoutingPlanController extends ToolbarController
 {
   static final int ANIM_TOGGLE = MwmApplication.get().getResources().getInteger(R.integer.anim_slots_toggle);
-  private static final String STATE_ALTITUDE_CHART_SHOWN = "altitude chart shown";
+  private static final String STATE_ALTITUDE_CHART_SHOWN = "altitude_chart_shown";
+  private static final String STATE_TAXI_INFO = "taxi_info";
+
 
   protected final View mFrame;
   private final ImageView mToggle;
@@ -56,7 +59,8 @@ public class RoutingPlanController extends ToolbarController
   private int mFrameHeight;
   private int mToolbarHeight;
   private boolean mOpen;
-  private boolean mAltitudeChartShown;
+  @Nullable
+  private UberInfo mUberInfo;
 
   @Nullable
   private UberInfo.Product mUberProduct;
@@ -218,7 +222,6 @@ public class RoutingPlanController extends ToolbarController
 
     UiUtils.hide(mUberFrame);
     UiUtils.show(mAltitudeChartFrame);
-    mAltitudeChartShown = true;
     showRoutingDetails();
   }
 
@@ -252,7 +255,6 @@ public class RoutingPlanController extends ToolbarController
       return;
 
     UiUtils.hide(mAltitudeChartFrame);
-    mAltitudeChartShown = false;
   }
 
   public void updateBuildProgress(int progress, @Framework.RouterType int router)
@@ -393,7 +395,7 @@ public class RoutingPlanController extends ToolbarController
       //TOOD: show the panel "There is no taxi here"
       return;
     }
-
+    mUberInfo = info;
     mUberProduct = products[0];
     final PagerAdapter adapter = new UberAdapter(mActivity, products);
     DotPager pager = new DotPager.Builder(mActivity, (ViewPager) mUberFrame.findViewById(R.id.pager), adapter)
@@ -412,15 +414,20 @@ public class RoutingPlanController extends ToolbarController
     UiUtils.show(mUberFrame);
   }
 
-  void saveAltitudeChartState(@NonNull Bundle outState)
+  void saveRoutingPanelState(@NonNull Bundle outState)
   {
-    outState.putBoolean(STATE_ALTITUDE_CHART_SHOWN, mAltitudeChartShown);
+    outState.putBoolean(STATE_ALTITUDE_CHART_SHOWN, UiUtils.isVisible(mAltitudeChartFrame));
+    outState.putParcelable(STATE_TAXI_INFO, mUberInfo);
   }
 
-  void restoreAltitudeChartState(@NonNull Bundle state)
+  void restoreRoutingPanelState(@NonNull Bundle state)
   {
     if (state.getBoolean(STATE_ALTITUDE_CHART_SHOWN))
       showRouteAltitudeChart();
+
+    UberInfo info = state.getParcelable(STATE_TAXI_INFO);
+    if (info != null)
+      showUberInfo(info);
   }
 
   public void setStartButton()
@@ -453,7 +460,14 @@ public class RoutingPlanController extends ToolbarController
         @Override
         public void onClick(View v)
         {
-          RoutingController.get().start();
+          ((MwmActivity)mActivity).closeMenu(Statistics.EventName.ROUTING_START, AlohaHelper.ROUTING_START, new Runnable()
+          {
+            @Override
+            public void run()
+            {
+              RoutingController.get().start();
+            }
+          });
         }
       });
     }

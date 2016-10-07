@@ -55,7 +55,7 @@ public class RoutingPlanInplaceController extends RoutingPlanController
   public void onSaveState(@NonNull Bundle outState)
   {
     outState.putBoolean(STATE_OPEN, isOpen());
-    saveAltitudeChartState(outState);
+    saveRoutingPanelState(outState);
   }
 
   public void restoreState(@NonNull Bundle state)
@@ -63,7 +63,7 @@ public class RoutingPlanInplaceController extends RoutingPlanController
     if (state.containsKey(STATE_OPEN))
       mSlotsRestoredState = state.getBoolean(STATE_OPEN);
 
-    restoreAltitudeChartState(state);
+    restoreRoutingPanelState(state);
   }
 
   @Override
