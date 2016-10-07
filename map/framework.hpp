@@ -33,6 +33,8 @@
 #include "storage/downloading_policy.hpp"
 #include "storage/storage.hpp"
 
+#include "tracking/reporter.hpp"
+
 #include "partners_api/booking_api.hpp"
 #include "partners_api/uber_api.hpp"
 
@@ -161,6 +163,7 @@ protected:
   uber::Api m_uberApi;
 
   bool m_isRenderingEnabled;
+  tracking::Reporter m_trackingReporter;
 
   /// This function will be called by m_storage when latest local files
   /// is downloaded.
@@ -398,6 +401,7 @@ public:
   void SetMyPositionModeListener(location::TMyPositionModeChanged && fn);
 
 private:
+  bool IsTrackingReporterEnabled() const;
   void OnUserPositionChanged(m2::PointD const & position);
   //@}
 

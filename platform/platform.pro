@@ -105,3 +105,4 @@ SOURCES += \
     preferred_languages.cpp \
     servers_list.cpp \
     settings.cpp \
+    socket.cpp \

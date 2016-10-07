@@ -60,6 +60,7 @@
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
+#include "platform/socket.hpp"
 
 #include "coding/internal/file_data.hpp"
 #include "coding/zip_reader.hpp"
@@ -200,6 +201,8 @@ void Framework::OnLocationUpdate(GpsInfo const & info)
 
   CallDrapeFunction(bind(&df::DrapeEngine::SetGpsInfo, _1, rInfo,
                          m_routingSession.IsNavigable(), routeMatchingInfo));
+  if (IsTrackingReporterEnabled())
+    m_trackingReporter.AddLocation(info);
 }
 
 void Framework::OnCompassUpdate(CompassInfo const & info)
@@ -222,6 +225,19 @@ void Framework::SwitchMyPositionNextMode()
 void Framework::SetMyPositionModeListener(TMyPositionModeChanged && fn)
 {
   m_myPositionListener = move(fn);
+}
+
+bool Framework::IsTrackingReporterEnabled() const
+{
+  if (m_currentRouterType != routing::RouterType::Vehicle)
+    return false;
+
+  if (!m_routingSession.IsOnRoute())
+    return false;
+
+  bool allowStat = false;
+  settings::Get(tracking::Reporter::kAllowKey, allowStat);
+  return allowStat;
 }
 
 void Framework::OnUserPositionChanged(m2::PointD const & position)
@@ -314,6 +330,7 @@ Framework::Framework()
   , m_storage(platform::migrate::NeedMigrate() ? COUNTRIES_OBSOLETE_FILE : COUNTRIES_FILE)
   , m_bmManager(*this)
   , m_isRenderingEnabled(true)
+  , m_trackingReporter(platform::createMockSocket(), tracking::Reporter::kPushDelayMs)
   , m_displacementModeManager([this](bool show) {
     int const mode = show ? dp::displacement::kHotelMode : dp::displacement::kDefaultMode;
     CallDrapeFunction(bind(&df::DrapeEngine::SetDisplacementMode, _1, mode));

@@ -26,7 +26,7 @@ HEADERS += defines.hpp
 SUBDIRS = 3party base coding geometry editor indexer routing search
 
 !CONFIG(osrm) {
-  SUBDIRS *= platform stats storage
+  SUBDIRS *= platform stats storage tracking
 
   CONFIG(desktop) {
     SUBDIRS *= generator
@@ -248,5 +248,10 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
     partners_api_tests.subdir = partners_api/partners_api_tests
     partners_api_tests.depends = base platform partners_api
     SUBDIRS *= partners_api_tests
+
+    tracking_tests.subdir = tracking/tracking_tests
+    tracking_tests.depends = base platform tracking
+    SUBDIRS *= tracking_tests
+
   } # !no-tests
 } # !gtool

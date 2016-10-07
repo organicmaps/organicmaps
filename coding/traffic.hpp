@@ -37,9 +37,9 @@ public:
   // Version 0:
   //   Coordinates are truncated and stored as integers. All integers
   //   are written as varints.
-  template <typename Writer>
+  template <typename Writer, typename Collection>
   static size_t SerializeDataPoints(uint32_t version, Writer & writer,
-                                    vector<DataPoint> const & points)
+                                    Collection const & points)
   {
     ASSERT_LESS_OR_EQUAL(version, kLatestVersion, ());
 
@@ -78,8 +78,8 @@ public:
   }
 
   // Deserializes the points from |source| and appends them to |result|.
-  template <typename Source>
-  static void DeserializeDataPoints(uint32_t version, Source & src, vector<DataPoint> & result)
+  template <typename Source, typename Collection>
+  static void DeserializeDataPoints(uint32_t version, Source & src, Collection & result)
   {
     ASSERT_LESS_OR_EQUAL(version, kLatestVersion, ());
 
