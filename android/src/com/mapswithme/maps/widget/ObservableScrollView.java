@@ -69,6 +69,12 @@ public class ObservableScrollView extends ScrollView
     super(context, attrs, defStyle);
   }
 
+  /**
+   * Translate all {@link MotionEvent}s to specified  {@link GestureDetectorCompat}
+   * all consuming flags from GestureDetectorCompat.onTouchEvent are ignored.
+   *
+   * @param gestureDetector {@link GestureDetectorCompat} to use.
+   */
   public void useGestureDetector(@Nullable GestureDetectorCompat gestureDetector)
   {
     mGestureDetector = gestureDetector;

@@ -172,19 +172,4 @@ public abstract class BasePlacePageAnimationController implements ObservableScro
     animator.setInterpolator(interpolator == null ? INTERPOLATOR : interpolator);
     animator.start();
   }
-
-  void initPreviewState()
-  {
-    UiUtils.invisible(mDetailsFrame);
-    mPlacePage.post(new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        mPreview.setTranslationY(0);
-        mDetailsFrame.setTranslationY(mDetailsFrame.getHeight());
-        UiUtils.show(mDetailsFrame);
-      }
-    });
-  }
 }

@@ -190,9 +190,4 @@ class LeftPlacePageAnimationController extends BasePlacePageAnimationController
 
     startDefaultAnimator(animator);
   }
-
-  @Override
-  void initPreviewState()
-  {
-  }
 }

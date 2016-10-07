@@ -284,8 +284,9 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
     float detailsTranslation = mDetailsScroll.getTranslationY() + distanceY;
     final boolean isScrollable = isDetailContentScrollable();
     boolean consumeEvent = true;
+    final float maxTranslationY = mDetailsScroll.getHeight() - mDetailsContent.getHeight();
     if ((isScrollable && detailsTranslation < 0.0f)
-        || detailsTranslation < mDetailsScroll.getHeight() - mDetailsContent.getHeight())
+        || detailsTranslation < maxTranslationY)
     {
       if (isScrollable)
       {
@@ -293,7 +294,9 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
         mDetailsScroll.useGestureDetector(null);
       }
       else
-        detailsTranslation = mDetailsScroll.getHeight() - mDetailsContent.getHeight();
+      {
+        detailsTranslation = maxTranslationY;
+      }
 
       mState = State.FULLSCREEN;
       consumeEvent = false;
