@@ -57,7 +57,6 @@ public class MainMenu extends BaseMenu
   private final List<View> mCollapseViews = new ArrayList<>();
 
   private final MenuToggle mToggle;
-  private Button mRouteStartButton;
 
   // Maps Item into button view placed on mContentFrame
   private final Map<Item, View> mItemViews = new HashMap<>();
@@ -234,9 +233,6 @@ public class MainMenu extends BaseMenu
     mNewsMarker = mButtonsFrame.findViewById(R.id.marker);
     mNewsCounter = (TextView) mContentFrame.findViewById(R.id.counter);
 
-    if (mRoutePlanFrame != null)
-      mRouteStartButton = (Button) mRoutePlanFrame.findViewById(R.id.start);
-
     init();
   }
 
@@ -304,11 +300,6 @@ public class MainMenu extends BaseMenu
   public MwmActivity.LeftAnimationTrackListener getLeftAnimationTrackListener()
   {
     return mAnimationTrackListener;
-  }
-
-  public Button getRouteStartButton()
-  {
-    return mRouteStartButton;
   }
 
   public void showLineFrame(boolean show)

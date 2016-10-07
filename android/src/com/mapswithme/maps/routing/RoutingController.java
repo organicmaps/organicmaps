@@ -5,25 +5,26 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.DimenRes;
 import android.support.annotation.IntRange;
+import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.api.uber.UberInfo;
+import com.mapswithme.maps.api.uber.UberLinks;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.ThemeSwitcher;
-import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.DebugLogger;
@@ -63,7 +64,8 @@ public class RoutingController
     void showDownloader(boolean openDownloaded);
     void updateMenu();
     void updatePoints();
-    void onRouteBuilt(@Framework.RouterType int router);
+    void onRouteBuilt();
+    void onUberInfoReceived(@NonNull UberInfo info);
 
     /**
      * @param progress progress to be displayed.
@@ -72,10 +74,9 @@ public class RoutingController
   }
 
   private static final RoutingController sInstance = new RoutingController();
-  private final Logger mLogger = new DebugLogger("RCSTATE");
-
+  private static final Logger mLogger = new DebugLogger("RCSTATE");
+  @Nullable
   private Container mContainer;
-  private Button mStartButton;
 
   private BuildState mBuildState = BuildState.NONE;
   private State mState = State.NONE;
@@ -118,7 +119,7 @@ public class RoutingController
             setBuildState(BuildState.BUILT);
             mLastBuildProgress = 100;
             if (mContainer != null)
-              mContainer.onRouteBuilt(mLastRouterType);
+              mContainer.onRouteBuilt();
           }
 
           processRoutingEvent();
@@ -227,7 +228,6 @@ public class RoutingController
   public void detach()
   {
     mContainer = null;
-    mStartButton = null;
   }
 
   public void restore()
@@ -400,25 +400,6 @@ public class RoutingController
   private void updatePlan()
   {
     updateProgress();
-    updateStartButton();
-  }
-
-  private void updateStartButton()
-  {
-    mLogger.d("updateStartButton" + (mStartButton == null ? ": SKIP" : ""));
-
-    if (mStartButton == null)
-      return;
-
-    mStartButton.setEnabled(mState == State.PREPARE && mBuildState == BuildState.BUILT);
-    UiUtils.updateAccentButton(mStartButton);
-  }
-
-  void setStartButton(@Nullable Button button)
-  {
-    mLogger.d("setStartButton");
-    mStartButton = button;
-    updateStartButton();
   }
 
   private void cancelInternal()
@@ -766,5 +747,32 @@ public class RoutingController
         .show();
 
     return true;
+  }
+
+  void requestUberInfo()
+  {
+    MapObject start = RoutingController.get().getStartPoint();
+    MapObject end = RoutingController.get().getEndPoint();
+    Framework.nativeRequestUberProducts(start.getLat(), start.getLon(), end.getLat(), end.getLon());
+  }
+
+  @NonNull
+  UberLinks getUberLink(@NonNull String productId)
+  {
+    MapObject start = RoutingController.get().getStartPoint();
+    MapObject end = RoutingController.get().getEndPoint();
+    return Framework.nativeGetUberLinks(productId, start.getLat(), start.getLon(), end.getLat(), end.getLon());
+  }
+
+  /**
+   * Called from the native code
+   * @param info this object contains information about Uber products
+   */
+  @MainThread
+  private void onUberInfoReceived(@NonNull UberInfo info)
+  {
+    mLogger.d("onUberInfoReceived uberInfo = " + info);
+    if (mContainer != null)
+      mContainer.onUberInfoReceived(info);
   }
 }

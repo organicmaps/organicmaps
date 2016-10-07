@@ -12,6 +12,7 @@ import java.lang.annotation.RetentionPolicy;
 
 import com.mapswithme.maps.api.ParsedRoutingData;
 import com.mapswithme.maps.api.ParsedUrlMwmRequest;
+import com.mapswithme.maps.api.uber.UberLinks;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.routing.RoutingInfo;
@@ -28,12 +29,14 @@ public class Framework
   public static final int MAP_STYLE_CLEAR = 2;
 
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ROUTER_TYPE_VEHICLE, ROUTER_TYPE_PEDESTRIAN, ROUTER_TYPE_BICYCLE})
+  @IntDef({ROUTER_TYPE_VEHICLE, ROUTER_TYPE_PEDESTRIAN, ROUTER_TYPE_BICYCLE, ROUTER_TYPE_TAXI})
+
   public @interface RouterType {}
 
   public static final int ROUTER_TYPE_VEHICLE = 0;
   public static final int ROUTER_TYPE_PEDESTRIAN = 1;
   public static final int ROUTER_TYPE_BICYCLE = 2;
+  public static final int ROUTER_TYPE_TAXI = 3;
 
   @SuppressWarnings("unused")
   public interface MapObjectListener
@@ -258,4 +261,10 @@ public class Framework
   public static native String nativeGetActiveObjectFormattedCuisine();
 
   public static native void nativeSetVisibleRect(int left, int top, int right, int bottom);
+
+  public static native void nativeRequestUberProducts(double srcLat, double srcLon, double dstLat, double dstLon);
+
+  @NonNull
+  public static native UberLinks nativeGetUberLinks(@NonNull String productId, double srcLon, double srcLat,
+                                                    double dstLat, double dstLon);
 }

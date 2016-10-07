@@ -7,22 +7,32 @@ import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.api.uber.UberInfo;
+import com.mapswithme.maps.api.uber.UberLinks;
+import com.mapswithme.maps.uber.UberAdapter;
+import com.mapswithme.maps.widget.DotPager;
 import com.mapswithme.maps.widget.RotateDrawable;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.maps.widget.WheelProgressView;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -38,13 +48,18 @@ public class RoutingPlanController extends ToolbarController
   private final WheelProgressView mProgressVehicle;
   private final WheelProgressView mProgressPedestrian;
   private final WheelProgressView mProgressBicycle;
+  private final WheelProgressView mProgressTaxi;
   private final View mAltitudeChartFrame;
+  private final View mUberFrame;
 
   private final RotateDrawable mToggleImage = new RotateDrawable(R.drawable.ic_down);
   private int mFrameHeight;
   private int mToolbarHeight;
   private boolean mOpen;
   private boolean mAltitudeChartShown;
+
+  @Nullable
+  private UberInfo.Product mUberProduct;
 
   private RadioButton setupRouterButton(@IdRes int buttonId, final @DrawableRes int iconRes, View.OnClickListener clickListener)
   {
@@ -66,7 +81,7 @@ public class RoutingPlanController extends ToolbarController
     return rb;
   }
 
-  public RoutingPlanController(View root, Activity activity)
+  RoutingPlanController(View root, Activity activity)
   {
     super(root, activity);
     mFrame = root;
@@ -108,10 +123,23 @@ public class RoutingPlanController extends ToolbarController
       }
     });
 
+    setupRouterButton(R.id.taxi, R.drawable.ic_taxi, new View.OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        RoutingController.get().requestUberInfo();
+        AlohaHelper.logClick(AlohaHelper.ROUTING_TAXI_SET);
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_TAXI_SET);
+        RoutingController.get().setRouterType(Framework.ROUTER_TYPE_TAXI);
+      }
+    });
+
     View progressFrame = mToolbar.findViewById(R.id.progress_frame);
     mProgressVehicle = (WheelProgressView) progressFrame.findViewById(R.id.progress_vehicle);
     mProgressPedestrian = (WheelProgressView) progressFrame.findViewById(R.id.progress_pedestrian);
     mProgressBicycle = (WheelProgressView) progressFrame.findViewById(R.id.progress_bicycle);
+    mProgressTaxi = (WheelProgressView) progressFrame.findViewById(R.id.progress_taxi);
 
     View altitudeChartFrame = mFrame.findViewById(R.id.altitude_chart_panel);
     if (altitudeChartFrame == null)
@@ -119,6 +147,13 @@ public class RoutingPlanController extends ToolbarController
 
     mAltitudeChartFrame = altitudeChartFrame;
     UiUtils.hide(mAltitudeChartFrame);
+
+    View uberFrame = mFrame.findViewById(R.id.uber_panel);
+    if (uberFrame == null)
+      uberFrame = mActivity.findViewById(R.id.uber_panel);
+
+    mUberFrame = uberFrame;
+    UiUtils.hide(mUberFrame);
 
     mToggle.setImageDrawable(mToggleImage);
     mToggle.setOnClickListener(new View.OnClickListener()
@@ -178,6 +213,10 @@ public class RoutingPlanController extends ToolbarController
 
   private void showAltitudeChartAndRoutingDetails()
   {
+    if (isTaxiRouteChecked())
+      return;
+
+    UiUtils.hide(mUberFrame);
     UiUtils.show(mAltitudeChartFrame);
     mAltitudeChartShown = true;
     showRoutingDetails();
@@ -219,7 +258,7 @@ public class RoutingPlanController extends ToolbarController
   public void updateBuildProgress(int progress, @Framework.RouterType int router)
   {
     updateProgressLabels();
-    UiUtils.invisible(mProgressVehicle, mProgressPedestrian, mProgressBicycle);
+    UiUtils.invisible(mProgressVehicle, mProgressPedestrian, mProgressBicycle, mProgressTaxi);
     WheelProgressView progressView;
     if (router == Framework.ROUTER_TYPE_VEHICLE)
     {
@@ -230,6 +269,11 @@ public class RoutingPlanController extends ToolbarController
     {
       mRouterTypes.check(R.id.pedestrian);
       progressView = mProgressPedestrian;
+    }
+    else if (router == Framework.ROUTER_TYPE_TAXI)
+    {
+      mRouterTypes.check(R.id.taxi);
+      progressView = mProgressTaxi;
     }
     else
     {
@@ -253,7 +297,7 @@ public class RoutingPlanController extends ToolbarController
     showSlots(!mOpen, true);
   }
 
-  protected void showSlots(final boolean show, final boolean animate)
+  void showSlots(final boolean show, final boolean animate)
   {
     if (!checkFrameHeight())
     {
@@ -296,12 +340,17 @@ public class RoutingPlanController extends ToolbarController
     }
   }
 
-  protected boolean isVehicleRouteChecked()
+  private boolean isVehicleRouteChecked()
   {
     return mRouterTypes.getCheckedRadioButtonId() == R.id.vehicle;
   }
 
-  public void disableToggle()
+  private boolean isTaxiRouteChecked()
+  {
+    return mRouterTypes.getCheckedRadioButtonId() == R.id.taxi;
+  }
+
+  void disableToggle()
   {
     UiUtils.hide(mToggle);
     showSlots(true, false);
@@ -312,15 +361,15 @@ public class RoutingPlanController extends ToolbarController
     return mOpen;
   }
 
-  public void showRouteAltitudeChart(boolean show)
+  public void showRouteAltitudeChart()
   {
     ImageView altitudeChart = (ImageView) mFrame.findViewById(R.id.altitude_chart);
-    showRouteAltitudeChartInternal(show, altitudeChart);
+    showRouteAltitudeChartInternal(altitudeChart);
   }
 
-  protected void showRouteAltitudeChartInternal(boolean show, ImageView altitudeChart)
+  void showRouteAltitudeChartInternal(@NonNull ImageView altitudeChart)
   {
-    if (!show)
+    if (isVehicleRouteChecked())
     {
       UiUtils.hide(altitudeChart);
       return;
@@ -336,14 +385,80 @@ public class RoutingPlanController extends ToolbarController
     }
   }
 
-  public void saveAltitudeChartState(@NonNull Bundle outState)
+  public void showUberInfo(@NonNull UberInfo info)
+  {
+    final UberInfo.Product[] products = info.getProducts();
+    if (products == null || info.getProducts().length == 0)
+    {
+      //TOOD: show the panel "There is no taxi here"
+      return;
+    }
+
+    mUberProduct = products[0];
+    final PagerAdapter adapter = new UberAdapter(mActivity, products);
+    DotPager pager = new DotPager.Builder(mActivity, (ViewPager) mUberFrame.findViewById(R.id.pager), adapter)
+        .setIndicatorContainer((ViewGroup) mUberFrame.findViewById(R.id.indicator))
+        .setPageChangedListener(new DotPager.OnPageChangedListener()
+        {
+          @Override
+          public void onPageChanged(int position)
+          {
+            mUberProduct = products[position];
+          }
+        }).build();
+    pager.show();
+    UiUtils.hide(mAltitudeChartFrame);
+    setStartButton();
+    UiUtils.show(mUberFrame);
+  }
+
+  void saveAltitudeChartState(@NonNull Bundle outState)
   {
     outState.putBoolean(STATE_ALTITUDE_CHART_SHOWN, mAltitudeChartShown);
   }
 
-  public void restoreAltitudeChartState(@NonNull Bundle state)
+  void restoreAltitudeChartState(@NonNull Bundle state)
   {
     if (state.getBoolean(STATE_ALTITUDE_CHART_SHOWN))
-      showRouteAltitudeChart(!isVehicleRouteChecked());
+      showRouteAltitudeChart();
   }
+
+  public void setStartButton()
+  {
+    Button start = (Button) mFrame.findViewById(R.id.start);
+    if (start == null)
+      start = (Button) mActivity.findViewById(R.id.start);
+
+    if (isTaxiRouteChecked())
+    {
+      //TODO: use localized string!!!
+      start.setText("Заказать");
+      start.setOnClickListener(new View.OnClickListener()
+      {
+        @Override
+        public void onClick(View v)
+        {
+          if (mUberProduct != null)
+          {
+            UberLinks links = RoutingController.get().getUberLink(mUberProduct.getProductId());
+            Utils.launchUber(mActivity, links);
+          }
+        }
+      });
+    } else
+    {
+      start.setText(mActivity.getText(R.string.p2p_start));
+      start.setOnClickListener(new View.OnClickListener()
+      {
+        @Override
+        public void onClick(View v)
+        {
+          RoutingController.get().start();
+        }
+      });
+    }
+
+    UiUtils.updateAccentButton(start);
+  }
+
 }

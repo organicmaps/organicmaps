@@ -133,3 +133,7 @@ android/fabric.properties
 android/pushwoosh.properties
 android/res/values/google-service.xml
 server
+
+*.li
+
+*.autosave

@@ -6,7 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-  <include layout="@layout/altitude_chart_panel"/>
+  <include layout="@layout/altitude_chart_panel"
+           tools:visibility="gone"/>
+
+  <include layout="@layout/uber_panel"/>
 
   <include layout="@layout/start_button"/>
 </LinearLayout>

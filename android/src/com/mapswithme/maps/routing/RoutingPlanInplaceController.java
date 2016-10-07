@@ -3,8 +3,6 @@ package com.mapswithme.maps.routing;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import com.mapswithme.maps.MwmActivity;
@@ -12,8 +10,6 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.statistics.AlohaHelper;
-import com.mapswithme.util.statistics.Statistics;
 
 public class RoutingPlanInplaceController extends RoutingPlanController
 {
@@ -56,29 +52,6 @@ public class RoutingPlanInplaceController extends RoutingPlanController
       updatePoints();
   }
 
-  public void setStartButton()
-  {
-    final MwmActivity activity = (MwmActivity) mActivity;
-
-    Button start = activity.getMainMenu().getRouteStartButton();
-    RoutingController.get().setStartButton(start);
-    start.setOnClickListener(new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        activity.closeMenu(Statistics.EventName.ROUTING_START, AlohaHelper.ROUTING_START, new Runnable()
-        {
-          @Override
-          public void run()
-          {
-            RoutingController.get().start();
-          }
-        });
-      }
-    });
-  }
-
   public void onSaveState(@NonNull Bundle outState)
   {
     outState.putBoolean(STATE_OPEN, isOpen());
@@ -94,9 +67,9 @@ public class RoutingPlanInplaceController extends RoutingPlanController
   }
 
   @Override
-  public void showRouteAltitudeChart(boolean show)
+  public void showRouteAltitudeChart()
   {
     ImageView altitudeChart = (ImageView) mActivity.findViewById(R.id.altitude_chart);
-    showRouteAltitudeChartInternal(show, altitudeChart);
+    showRouteAltitudeChartInternal(altitudeChart);
   }
 }

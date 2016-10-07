@@ -2,9 +2,7 @@
 
 #include "../core/jni_helper.hpp"
 #include "../platform/Platform.hpp"
-
 #include "map/place_page_info.hpp"
-
 #include "partners_api/booking_api.hpp"
 
 #include "std/bind.hpp"

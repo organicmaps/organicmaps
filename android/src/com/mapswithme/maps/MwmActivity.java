@@ -28,6 +28,7 @@ import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.api.ParsedRoutingData;
 import com.mapswithme.maps.api.ParsedUrlMwmRequest;
 import com.mapswithme.maps.api.RoutePoint;
+import com.mapswithme.maps.api.uber.UberInfo;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
@@ -904,8 +905,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onStart();
     RoutingController.get().attach(this);
-    if (!mIsFragmentContainer)
-      mRoutingPlanInplaceController.setStartButton();
 
     if (MapFragment.nativeIsEngineCreated())
       LocationHelper.INSTANCE.attach(this);
@@ -1406,17 +1405,21 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onRouteBuilt(@Framework.RouterType int router)
+  public void onRouteBuilt()
   {
     if (mIsFragmentContainer)
     {
       RoutingPlanFragment fragment = (RoutingPlanFragment) getFragment(RoutingPlanFragment.class);
       if (fragment != null)
-        fragment.showRouteAltitudeChart(router != Framework.ROUTER_TYPE_VEHICLE);
+      {
+        fragment.showRouteAltitudeChart();
+        fragment.setStartButton();
+      }
     }
     else
     {
-      mRoutingPlanInplaceController.showRouteAltitudeChart(router != Framework.ROUTER_TYPE_VEHICLE);
+      mRoutingPlanInplaceController.showRouteAltitudeChart();
+      mRoutingPlanInplaceController.setStartButton();
     }
   }
 
@@ -1433,6 +1436,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       mRoutingPlanInplaceController.updateBuildProgress(progress, router);
     }
+  }
+
+  @Override
+  public void onUberInfoReceived(@NonNull UberInfo info)
+  {
+    mRoutingPlanInplaceController.showUberInfo(info);
   }
 
   boolean isFirstStart()

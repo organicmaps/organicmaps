@@ -16,6 +16,7 @@ import com.mapswithme.maps.base.OnBackPressListener;
 public class RoutingPlanFragment extends BaseMwmFragment
                               implements OnBackPressListener
 {
+
   private RoutingPlanController mPlanController;
 
   @Override
@@ -25,17 +26,6 @@ public class RoutingPlanFragment extends BaseMwmFragment
 
     mPlanController = new RoutingPlanController(res, getActivity());
     updatePoints();
-
-    Button start = (Button) res.findViewById(R.id.start);
-    RoutingController.get().setStartButton(start);
-    start.setOnClickListener(new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        RoutingController.get().start();
-      }
-    });
 
     Bundle activityState = getMwmActivity().getSavedInstanceState();
     if (activityState != null)
@@ -48,13 +38,6 @@ public class RoutingPlanFragment extends BaseMwmFragment
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
   {
     mPlanController.disableToggle();
-  }
-
-  @Override
-  public void onDestroyView()
-  {
-    super.onDestroyView();
-    RoutingController.get().setStartButton(null);
   }
 
   public void updatePoints()
@@ -73,9 +56,14 @@ public class RoutingPlanFragment extends BaseMwmFragment
     return RoutingController.get().cancelPlanning();
   }
 
-  public void showRouteAltitudeChart(boolean show)
+  public void showRouteAltitudeChart()
   {
-    mPlanController.showRouteAltitudeChart(show);
+    mPlanController.showRouteAltitudeChart();
+  }
+
+  public void setStartButton()
+  {
+    mPlanController.setStartButton();
   }
 
   public void restoreAltitudeChartState(@NonNull Bundle state)

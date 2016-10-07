@@ -513,6 +513,17 @@ void Framework::EnableDownloadOn3g()
   m_work.GetDownloadingPolicy().EnableCellularDownload(true);
 }
 
+void Framework::RequestUberProducts(ms::LatLon const & from, ms::LatLon const & to,
+                                                             uber::ProductsCallback const & callback)
+{
+  m_work.GetUberApi().GetAvailableProducts(from, to, callback);
+}
+
+uber::RideRequestLinks Framework::GetUberLinks(string const & productId, ms::LatLon const & from, ms::LatLon const & to)
+{
+  return uber::Api::GetRideRequestLinks(productId, from, to);
+}
+
 
 }  // namespace android
 
@@ -1183,4 +1194,64 @@ Java_com_mapswithme_maps_Framework_nativeSetVisibleRect(JNIEnv * env, jclass, ji
   frm()->SetVisibleViewport(m2::RectD(left, top, right, bottom));
 }
 
-} // extern "C"
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeRequestUberProducts(JNIEnv * env, jclass, jdouble srcLat, jdouble srcLon,
+                                                                                   jdouble dstLat, jdouble dstLon)
+{
+    ms::LatLon const from(srcLat, srcLon);
+    ms::LatLon const to(dstLat, dstLon);
+
+    g_framework->RequestUberProducts(from, to, [](vector<uber::Product> const & products, size_t const requestId)
+    {
+      GetPlatform().RunOnGuiThread([=]()
+      {
+        JNIEnv * env = jni::GetEnv();
+        jclass const productClass = env->FindClass("com/mapswithme/maps/api/uber/UberInfo$Product");
+        jmethodID const productConstructor = jni::GetConstructorID(env, productClass,
+                                      "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+
+        auto uberProducts = jni::ToJavaArray(env, productClass, products,
+                                          [productClass, productConstructor](JNIEnv * env, uber::Product const & item)
+                                          {
+                                            return env->NewObject(productClass, productConstructor,
+                                                                  jni::ToJavaString(env, item.m_productId),
+                                                                  jni::ToJavaString(env, item.m_name),
+                                                                  jni::ToJavaString(env, item.m_time),
+                                                                  jni::ToJavaString(env, item.m_price));
+                                          });
+
+        jclass const routingControllerClass = env->FindClass("com/mapswithme/maps/routing/RoutingController");
+        jmethodID const routingControllerGetMethod = jni::GetStaticMethodID(env, routingControllerClass, "get",
+                                                                   "()Lcom/mapswithme/maps/routing/RoutingController;");
+        jobject const routingControllerInstance = env->CallStaticObjectMethod(routingControllerClass, routingControllerGetMethod);
+
+        jmethodID const uberInfoCallbackMethod = jni::GetMethodID(env, routingControllerInstance, "onUberInfoReceived",
+                                                                  "(Lcom/mapswithme/maps/api/uber/UberInfo;)V");
+
+        jclass const uberInfoClass = env->FindClass("com/mapswithme/maps/api/uber/UberInfo");
+        jmethodID const uberInfoConstructor = jni::GetConstructorID(env, uberInfoClass,
+                                                     "([Lcom/mapswithme/maps/api/uber/UberInfo$Product;)V");
+
+        env->CallVoidMethod(routingControllerInstance, uberInfoCallbackMethod, env->NewObject(uberInfoClass,
+                            uberInfoConstructor, uberProducts));
+      });
+    });
+}
+
+JNIEXPORT jobject JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetUberLinks(JNIEnv * env, jclass, jstring productId, jdouble srcLat,
+                                                     jdouble srcLon, jdouble dstLat, jdouble dstLon)
+{
+  ms::LatLon const from(srcLat, srcLon);
+  ms::LatLon const to(dstLat, dstLon);
+
+  uber::RideRequestLinks const links = android::Framework::GetUberLinks(jni::ToNativeString(env, productId), from, to);
+
+  jclass const uberLinksClass = env->FindClass("com/mapswithme/maps/api/uber/UberLinks");
+  jmethodID const uberLinksConstructor = jni::GetConstructorID(env, uberLinksClass,
+                                                              "(Ljava/lang/String;Ljava/lang/String;)V");
+  return env->NewObject(uberLinksClass, uberLinksConstructor, jni::ToJavaString(env, links.m_deepLink),
+                        jni::ToJavaString(env, links.m_universalLink));
+}
+}// extern "C"
+

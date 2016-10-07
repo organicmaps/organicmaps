@@ -166,6 +166,9 @@ namespace android
     bool IsAutoRetryDownloadFailed();
     bool IsDownloadOn3gEnabled();
     void EnableDownloadOn3g();
+
+    void RequestUberProducts(ms::LatLon const & from, ms::LatLon const & to, uber::ProductsCallback const & callback);
+    static uber::RideRequestLinks GetUberLinks(string const & productId, ms::LatLon const & from, ms::LatLon const & to);
   };
 }
 

@@ -31,6 +31,7 @@ import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
+import com.mapswithme.maps.api.uber.UberLinks;
 import com.mapswithme.util.statistics.AlohaHelper;
 
 import java.io.Closeable;
@@ -398,5 +399,23 @@ public class Utils
       return "";
 
     return installationId;
+  }
+
+  public static void launchUber(@NonNull Activity context, @NonNull UberLinks links)
+  {
+    try
+    {
+      PackageManager pm = context.getPackageManager();
+      pm.getPackageInfo("com.ubercab", PackageManager.GET_ACTIVITIES);
+      Intent intent = new Intent(Intent.ACTION_VIEW);
+      intent.setData(Uri.parse(links.getDeepLink()));
+      context.startActivity(intent);
+    } catch (PackageManager.NameNotFoundException e)
+    {
+      // No Uber app! Open mobile website.
+      Intent i = new Intent(Intent.ACTION_VIEW);
+      i.setData(Uri.parse(links.getUniversalLink()));
+      context.startActivity(i);
+    }
   }
 }
