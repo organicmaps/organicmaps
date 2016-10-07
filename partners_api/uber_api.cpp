@@ -6,6 +6,7 @@
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
+#include "base/thread.hpp"
 
 #include "std/chrono.hpp"
 #include "std/future.hpp"
@@ -18,8 +19,6 @@ using namespace platform;
 
 namespace
 {
-uint32_t const kHttpMinWait = 10;
-
 string RunSimpleHttpRequest(string const & url)
 {
   HttpClient request(url);
@@ -98,49 +97,6 @@ void FillProducts(json_t const * time, json_t const * price, vector<uber::Produc
                           p.m_price.empty();
                  }), products.end());
 }
-
-void GetAvailableProductsAsync(ms::LatLon const from, ms::LatLon const to,
-                               size_t const requestId, atomic<bool> const & runFlag,
-                               uber::ProductsCallback const fn)
-{
-  auto time = async(launch::async, uber::RawApi::GetEstimatedTime, ref(from));
-  auto price = async(launch::async, uber::RawApi::GetEstimatedPrice, ref(from), ref(to));
-
-  vector<uber::Product> products;
-
-  if (!WaitForFeature(time, kHttpMinWait, runFlag) || !WaitForFeature(price, kHttpMinWait, runFlag))
-  {
-    return;
-  }
-
-  try
-  {
-    string timeStr = time.get();
-    string priceStr = price.get();
-
-    if (timeStr.empty() || priceStr.empty())
-    {
-      LOG(LWARNING, ("Time or price is empty, time:", timeStr, "; price:", priceStr));
-      return;
-    }
-
-    my::Json timeRoot(timeStr.c_str());
-    my::Json priceRoot(priceStr.c_str());
-    auto const timesArray = json_object_get(timeRoot.get(), "times");
-    auto const pricesArray = json_object_get(priceRoot.get(), "prices");
-    if (CheckUberAnswer(timesArray) && CheckUberAnswer(pricesArray))
-    {
-      FillProducts(timesArray, pricesArray, products);
-    }
-  }
-  catch (my::Json::Exception const & e)
-  {
-    LOG(LERROR, (e.Msg()));
-    products.clear();
-  }
-
-  fn(products, requestId);
-}
 }  // namespace
 
 namespace uber
@@ -176,21 +132,92 @@ string RawApi::GetEstimatedPrice(ms::LatLon const & from, ms::LatLon const & to)
   return RunSimpleHttpRequest(url.str());
 }
 
-Api::~Api()
+void ProductMaker::Reset(size_t const requestId)
 {
-  ResetThread();
+  lock_guard<mutex> lock(m_mutex);
+
+  m_requestId = requestId;
+  m_times.reset();
+  m_prices.reset();
+}
+
+void ProductMaker::SetTimes(size_t const requestId, string const & times)
+{
+  lock_guard<mutex> lock(m_mutex);
+
+  if (requestId != m_requestId)
+    return;
+
+  m_times = make_unique<string>(times);
+}
+
+void ProductMaker::SetPrices(size_t const requestId, string const & prices)
+{
+  lock_guard<mutex> lock(m_mutex);
+
+  if (requestId != m_requestId)
+    return;
+
+  m_prices = make_unique<string>(prices);
+}
+
+void ProductMaker::MakeProducts(size_t const requestId, ProductsCallback const & fn)
+{
+  lock_guard<mutex> lock(m_mutex);
+
+  if (requestId != m_requestId || !m_times || !m_prices)
+    return;
+
+  vector<uber::Product> products;
+
+  if (m_times->empty() || m_prices->empty())
+  {
+    LOG(LWARNING, ("Time or price is empty, time:", *m_times, "; price:", *m_prices));
+    fn(products, m_requestId);
+    return;
+  }
+
+  try
+  {
+    my::Json timesRoot(m_times->c_str());
+    my::Json pricesRoot(m_prices->c_str());
+    auto const timesArray = json_object_get(timesRoot.get(), "times");
+    auto const pricesArray = json_object_get(pricesRoot.get(), "prices");
+    if (CheckUberAnswer(timesArray) && CheckUberAnswer(pricesArray))
+    {
+      FillProducts(timesArray, pricesArray, products);
+    }
+  }
+  catch (my::Json::Exception const & e)
+  {
+    LOG(LERROR, (e.Msg()));
+    products.clear();
+  }
+
+  fn(products, requestId);
 }
 
 size_t Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
                                 ProductsCallback const & fn)
 {
   static size_t requestId = 0;
-  ResetThread();
-  m_runFlag = true;
-  m_thread = make_unique<threads::SimpleThread>(GetAvailableProductsAsync, from, to,
-                                                ++requestId, ref(m_runFlag), fn);
+  size_t reqId = ++requestId;
 
-  return requestId;
+  m_maker->Reset(reqId);
+
+  threads::SimpleThread([this, from, reqId, fn]()
+  {
+    m_maker->SetTimes(reqId, uber::RawApi::GetEstimatedTime(from));
+    m_maker->MakeProducts(reqId, fn);
+  }).detach();
+
+  threads::SimpleThread([this, from, to, reqId, fn]()
+  {
+    m_maker->SetPrices(reqId, uber::RawApi::GetEstimatedPrice(from, to));
+    m_maker->MakeProducts(reqId, fn);
+  }).detach();
+
+  return reqId;
 }
 
 // static
@@ -199,22 +226,9 @@ string Api::GetRideRequestLink(string const & productId, ms::LatLon const & from
 {
   stringstream url;
   url << "uber://?client_id=" << UBER_CLIENT_ID << "&action=setPickup&product_id=" << productId
-      << "&pickup[latitude]=" << static_cast<float>(from.lat)
-      << "&pickup[longitude]=" << static_cast<float>(from.lon)
-      << "&dropoff[latitude]=" << static_cast<float>(to.lat)
-      << "&dropoff[longitude]=" << static_cast<float>(to.lon);
+      << "&pickup[latitude]=" << from.lat << "&pickup[longitude]=" << from.lon
+      << "&dropoff[latitude]=" << to.lat << "&dropoff[longitude]=" << to.lon;
 
   return url.str();
-}
-
-void Api::ResetThread()
-{
-  m_runFlag = false;
-
-  if (m_thread)
-  {
-    m_thread->join();
-    m_thread.reset();
-  }
 }
 }  // namespace uber

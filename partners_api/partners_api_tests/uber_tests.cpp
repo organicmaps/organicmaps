@@ -1,10 +1,8 @@
 #include "testing/testing.hpp"
 
-#include "geometry/latlon.hpp"
-
 #include "partners_api/uber_api.hpp"
 
-#include "base/logging.hpp"
+#include "geometry/latlon.hpp"
 
 #include "3party/jansson/myjansson.hpp"
 
@@ -23,7 +21,7 @@ UNIT_TEST(Uber_GetTimes)
   auto const timesArray = json_object_get(timeRoot.get(), "times");
 
   TEST(json_is_array(timesArray), ());
-  TEST(json_array_size(timesArray) > 0, ());
+  TEST_GREATER(json_array_size(timesArray), 0, ());
 
   auto const timeSize = json_array_size(timesArray);
   for (size_t i = 0; i < timeSize; ++i)
@@ -39,7 +37,7 @@ UNIT_TEST(Uber_GetTimes)
     }
     catch (my::Json::Exception const & e)
     {
-      LOG(LERROR, (e.Msg()));
+      TEST(false, (e.Msg()));
     }
 
     string estimated = strings::to_string(estimatedTime);
@@ -58,7 +56,7 @@ UNIT_TEST(Uber_GetPrices)
   auto const pricesArray = json_object_get(priceRoot.get(), "prices");
 
   TEST(json_is_array(pricesArray), ());
-  TEST(json_array_size(pricesArray) > 0, ());
+  TEST_GREATER(json_array_size(pricesArray), 0, ());
 
   auto const pricesSize = json_array_size(pricesArray);
   for (size_t i = 0; i < pricesSize; ++i)
@@ -85,7 +83,7 @@ UNIT_TEST(Uber_GetPrices)
     }
     catch (my::Json::Exception const & e)
     {
-      LOG(LERROR, (e.Msg()));
+      TEST(false, (e.Msg()));
     }
 
     TEST(!productId.empty(), ());
@@ -94,34 +92,39 @@ UNIT_TEST(Uber_GetPrices)
   }
 }
 
-UNIT_TEST(Uber_SmokeTest)
+UNIT_TEST(Uber_ProductMaker)
 {
+  size_t reqId = 1;
   ms::LatLon from(38.897724, -77.036531);
   ms::LatLon to(38.862416, -76.883316);
 
-  uber::Api uberApi;
-  size_t reqId = 0;
-  size_t returnedId = 0;
-  vector<uber::Product> returnedProducts;
-  reqId = uberApi.GetAvailableProducts(
-        from, to, [&returnedId, &returnedProducts](vector<uber::Product> const & products, size_t const requestId)
-  {
-    returnedId = requestId;
-    returnedProducts = products;
+  uber::ProductMaker maker;
 
-    testing::StopEventLoop();
+  maker.Reset(reqId);
+  maker.SetTimes(reqId, uber::RawApi::GetEstimatedTime(from));
+  maker.SetPrices(reqId, uber::RawApi::GetEstimatedPrice(from, to));
+  maker.MakeProducts(reqId, [reqId](vector<uber::Product> const & products, size_t const requestId)
+  {
+    TEST(!products.empty(), ());
+    TEST_EQUAL(requestId, reqId, ());
+
+    for (auto const & product : products)
+    {
+      TEST(!product.m_productId.empty() &&
+           !product.m_name.empty() &&
+           !product.m_time.empty() &&
+           !product.m_price.empty(),());
+    }
   });
 
-  testing::RunEventLoop();
+  ++reqId;
 
-  TEST(!returnedProducts.empty(), ());
-  TEST_EQUAL(returnedId, reqId, ());
+  maker.Reset(reqId);
+  maker.SetTimes(reqId, uber::RawApi::GetEstimatedTime(from));
+  maker.SetPrices(reqId, uber::RawApi::GetEstimatedPrice(from, to));
 
-  for (auto const & product : returnedProducts)
+  maker.MakeProducts(reqId + 1, [reqId](vector<uber::Product> const & products, size_t const requestId)
   {
-    TEST(!product.m_productId.empty() &&
-         !product.m_name.empty() &&
-         !product.m_time.empty() &&
-         !product.m_price.empty(),());
-  }
+    TEST(false, ());
+  });
 }

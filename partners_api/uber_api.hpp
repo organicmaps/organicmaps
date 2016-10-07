@@ -1,22 +1,20 @@
 #pragma once
 
-#include "base/thread.hpp"
-
-#include "std/atomic.hpp"
 #include "std/function.hpp"
 #include "std/mutex.hpp"
+#include "std/shared_ptr.hpp"
 #include "std/string.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 
 namespace ms
 {
-  class LatLon;
+class LatLon;
 }  // namespace ms
 
 namespace downloader
 {
-  class HttpRequest;
+class HttpRequest;
 }  // namespace downloader
 
 namespace uber
@@ -54,25 +52,34 @@ struct Product
 /// @requestId - identificator which was provided to GetAvailableProducts to identify request.
 using ProductsCallback = function<void(vector<Product> const & products, size_t const requestId)>;
 
+/// Class which used for making products from http requests results.
+class ProductMaker
+{
+public:
+  void Reset(size_t const requestId);
+  void SetTimes(size_t const requestId, string const & times);
+  void SetPrices(size_t const requestId, string const & prices);
+  void MakeProducts(size_t const requestId, ProductsCallback const & fn);
+
+private:
+  size_t m_requestId;
+  unique_ptr<string> m_times;
+  unique_ptr<string> m_prices;
+  mutex m_mutex;
+};
+
 class Api
 {
 public:
-  ~Api();
   /// Requests list of available products from Uber. Returns request identificator immediately.
   size_t GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
-                             ProductsCallback const & fn);
+                              ProductsCallback const & fn);
 
   /// Returns link which allows you to launch the Uber app.
   static string GetRideRequestLink(string const & productId, ms::LatLon const & from,
                                    ms::LatLon const & to);
 
 private:
-  void ResetThread();
-  unique_ptr<threads::SimpleThread> m_thread;
-
-  atomic<bool> m_runFlag;
+  shared_ptr<ProductMaker> m_maker = make_shared<ProductMaker>();
 };
 }  // namespace uber
-
-
-

@@ -2561,7 +2561,8 @@ void Framework::AllowAutoZoom(bool allowAutoZoom)
   bool const isPedestrianRoute = m_currentRouterType == RouterType::Pedestrian;
   bool const isUberRoute = m_currentRouterType == RouterType::Uber;
 
-  CallDrapeFunction(bind(&df::DrapeEngine::AllowAutoZoom, _1, allowAutoZoom && !isPedestrianRoute && !isUberRoute));
+  CallDrapeFunction(bind(&df::DrapeEngine::AllowAutoZoom, _1,
+                         allowAutoZoom && !isPedestrianRoute && !isUberRoute));
 }
 
 void Framework::SaveAutoZoom(bool allowAutoZoom)
