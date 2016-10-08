@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:id="@+id/uber_panel"
-                android:paddingLeft="@dimen/margin_base"
-                android:paddingStart="@dimen/margin_base"
-                android:paddingEnd="@dimen/margin_base"
-                android:paddingRight="@dimen/margin_base"
-                android:paddingTop="@dimen/margin_base"
-                android:paddingBottom="@dimen/margin_half"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content">
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/uber_panel"
+  android:paddingLeft="@dimen/margin_base"
+  android:paddingStart="@dimen/margin_base"
+  android:paddingEnd="@dimen/margin_base"
+  android:paddingRight="@dimen/margin_base"
+  android:paddingTop="@dimen/margin_base"
+  android:paddingBottom="@dimen/margin_half"
+  android:layout_width="0dp"
+  android:layout_weight="1"
+  android:layout_height="wrap_content">
   <ImageView
     android:id="@+id/icon"
     android:layout_width="wrap_content"
@@ -29,14 +30,15 @@
     android:layout_width="wrap_content"
     android:layout_height="64dp"/>
 
-  <LinearLayout android:id="@+id/indicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/pager"
-                android:layout_marginTop="@dimen/margin_half"
-                tools:background="?secondary"
-                tools:layout_height="4dp"
-                tools:layout_width="16dp"/>
+  <LinearLayout
+    android:id="@+id/indicator"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_centerHorizontal="true"
+    android:layout_below="@id/pager"
+    android:layout_marginTop="@dimen/margin_half"
+    tools:background="?secondary"
+    tools:layout_height="4dp"
+    tools:layout_width="16dp"/>
 </RelativeLayout>

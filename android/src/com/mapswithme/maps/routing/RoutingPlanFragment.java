@@ -60,11 +60,6 @@ public class RoutingPlanFragment extends BaseMwmFragment
     mPlanController.showRouteAltitudeChart();
   }
 
-  public void setStartButton()
-  {
-    mPlanController.setStartButton();
-  }
-
   public void restoreRoutingPanelState(@NonNull Bundle state)
   {
     mPlanController.restoreRoutingPanelState(state);

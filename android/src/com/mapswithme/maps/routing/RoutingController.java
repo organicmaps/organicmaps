@@ -64,7 +64,6 @@ public class RoutingController
     void showDownloader(boolean openDownloaded);
     void updateMenu();
     void updatePoints();
-    void onRouteBuilt();
     void onUberInfoReceived(@NonNull UberInfo info);
 
     /**
@@ -118,8 +117,6 @@ public class RoutingController
             mCachedRoutingInfo = Framework.nativeGetRouteFollowingInfo();
             setBuildState(BuildState.BUILT);
             mLastBuildProgress = 100;
-            if (mContainer != null)
-              mContainer.onRouteBuilt();
           }
 
           processRoutingEvent();

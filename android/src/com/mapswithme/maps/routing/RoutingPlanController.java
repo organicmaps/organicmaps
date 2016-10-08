@@ -8,6 +8,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -18,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
@@ -145,18 +145,10 @@ public class RoutingPlanController extends ToolbarController
     mProgressBicycle = (WheelProgressView) progressFrame.findViewById(R.id.progress_bicycle);
     mProgressTaxi = (WheelProgressView) progressFrame.findViewById(R.id.progress_taxi);
 
-    View altitudeChartFrame = mFrame.findViewById(R.id.altitude_chart_panel);
-    if (altitudeChartFrame == null)
-      altitudeChartFrame = mActivity.findViewById(R.id.altitude_chart_panel);
-
-    mAltitudeChartFrame = altitudeChartFrame;
+    mAltitudeChartFrame = getViewById(R.id.altitude_chart_panel);
     UiUtils.hide(mAltitudeChartFrame);
 
-    View uberFrame = mFrame.findViewById(R.id.uber_panel);
-    if (uberFrame == null)
-      uberFrame = mActivity.findViewById(R.id.uber_panel);
-
-    mUberFrame = uberFrame;
+    mUberFrame = getViewById(R.id.uber_panel);
     UiUtils.hide(mUberFrame);
 
     mToggle.setImageDrawable(mToggleImage);
@@ -212,6 +204,8 @@ public class RoutingPlanController extends ToolbarController
       return;
     }
 
+    if (!isTaxiRouteChecked())
+      setStartButton();
     showAltitudeChartAndRoutingDetails();
   }
 
@@ -220,9 +214,12 @@ public class RoutingPlanController extends ToolbarController
     if (isTaxiRouteChecked())
       return;
 
+    UiUtils.hide(getViewById(R.id.error));
     UiUtils.hide(mUberFrame);
-    UiUtils.show(mAltitudeChartFrame);
+
+    showRouteAltitudeChart();
     showRoutingDetails();
+    UiUtils.show(mAltitudeChartFrame);
   }
 
   private void showRoutingDetails()
@@ -390,11 +387,13 @@ public class RoutingPlanController extends ToolbarController
   public void showUberInfo(@NonNull UberInfo info)
   {
     final UberInfo.Product[] products = info.getProducts();
-    if (products == null || info.getProducts().length == 0)
+    if (products == null || products.length == 0)
     {
-      //TOOD: show the panel "There is no taxi here"
+      showError(R.string.taxi_not_found);
       return;
     }
+
+    UiUtils.hide(getViewById(R.id.error));
     mUberInfo = info;
     mUberProduct = products[0];
     final PagerAdapter adapter = new UberAdapter(mActivity, products);
@@ -409,9 +408,28 @@ public class RoutingPlanController extends ToolbarController
           }
         }).build();
     pager.show();
-    UiUtils.hide(mAltitudeChartFrame);
+
     setStartButton();
+
+    UiUtils.hide(mAltitudeChartFrame);
     UiUtils.show(mUberFrame);
+  }
+
+  private void showError(@StringRes int message)
+  {
+    TextView error = (TextView) getViewById(R.id.error);
+    error.setText(message);
+    error.setVisibility(View.VISIBLE);
+    getViewById(R.id.start).setVisibility(View.GONE);
+  }
+
+  @NonNull
+  private View getViewById(@IdRes int resourceId)
+  {
+    View view = mFrame.findViewById(resourceId);
+    if (view == null)
+      view = mActivity.findViewById(resourceId);
+    return view;
   }
 
   void saveRoutingPanelState(@NonNull Bundle outState)
@@ -430,16 +448,13 @@ public class RoutingPlanController extends ToolbarController
       showUberInfo(info);
   }
 
-  public void setStartButton()
+  private void setStartButton()
   {
-    Button start = (Button) mFrame.findViewById(R.id.start);
-    if (start == null)
-      start = (Button) mActivity.findViewById(R.id.start);
+    Button start = (Button) getViewById(R.id.start);
 
     if (isTaxiRouteChecked())
     {
-      //TODO: use localized string!!!
-      start.setText("Заказать");
+      start.setText(R.string.taxi_order);
       start.setOnClickListener(new View.OnClickListener()
       {
         @Override
@@ -473,6 +488,7 @@ public class RoutingPlanController extends ToolbarController
     }
 
     UiUtils.updateAccentButton(start);
+    UiUtils.show(start);
   }
 
 }

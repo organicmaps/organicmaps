@@ -13,6 +13,7 @@ import com.mapswithme.maps.downloader.UpdateInfo;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
+import ru.mail.android.mytarget.core.models.Stat;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,15 +25,22 @@ public class MainMenu extends BaseMenu
   public enum State
   {
     MENU
-    {
-      @Override
-      boolean showToggle()
-      {
-        return false;
-      }
-    },
+        {
+          @Override
+          boolean showToggle()
+          {
+            return false;
+          }
+        },
     NAVIGATION,
-    ROUTE_PREPARE;
+    ROUTE_PREPARE
+        {
+          @Override
+          boolean showToggle()
+          {
+            return false;
+          }
+        };
 
     boolean showToggle()
     {
@@ -257,8 +265,11 @@ public class MainMenu extends BaseMenu
         expandContent = false;
       } else
       {
+
         UiUtils.showIf(state == State.MENU, mButtonsFrame);
-        UiUtils.showIf(state == State.ROUTE_PREPARE, mRoutePlanFrame);
+        UiUtils.showIf(isRouting, mRoutePlanFrame);
+        if (isRouting)
+          mToggle.hide();
         expandContent = isRouting;
       }
 

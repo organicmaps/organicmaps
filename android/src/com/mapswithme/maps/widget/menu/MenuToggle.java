@@ -26,7 +26,7 @@ class MenuToggle
     this(frame, heightRes, R.drawable.ic_menu_open, R.drawable.ic_menu_close);
   }
 
-  MenuToggle(View frame, @DimenRes int heightRes, @DrawableRes int src, @DrawableRes int dst)
+  private MenuToggle(View frame, @DimenRes int heightRes, @DrawableRes int src, @DrawableRes int dst)
   {
     mButton = (ImageView) frame.findViewById(R.id.toggle);
     mAlwaysShow = (frame.findViewById(R.id.disable_toggle) == null);
@@ -67,7 +67,15 @@ class MenuToggle
 
   void show(boolean show)
   {
+    //TODO: refactor mAlwaysShow logic, because now we shouldn't display
+    // the toggle button when we are in prepare routing state (create JIRA item for that)
+    // A temporary solution is the hide() method.
     UiUtils.showIf(mAlwaysShow || show, mButton);
+  }
+
+  void hide()
+  {
+    UiUtils.hide(mButton);
   }
 
   void setOpen(boolean open, boolean animate)

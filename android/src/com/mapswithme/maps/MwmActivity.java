@@ -1405,25 +1405,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onRouteBuilt()
-  {
-    if (mIsFragmentContainer)
-    {
-      RoutingPlanFragment fragment = (RoutingPlanFragment) getFragment(RoutingPlanFragment.class);
-      if (fragment != null)
-      {
-        fragment.showRouteAltitudeChart();
-        fragment.setStartButton();
-      }
-    }
-    else
-    {
-      mRoutingPlanInplaceController.showRouteAltitudeChart();
-      mRoutingPlanInplaceController.setStartButton();
-    }
-  }
-
-  @Override
   public void updateBuildProgress(int progress, @Framework.RouterType int router)
   {
     if (mIsFragmentContainer)

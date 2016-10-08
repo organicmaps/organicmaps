@@ -42,7 +42,7 @@ public class UberAdapter extends PagerAdapter
   {
     UberInfo.Product product = mProducts[position];
 
-    View v = LayoutInflater.from(mContext).inflate(R.layout.uber_pager_item, null);
+    View v = LayoutInflater.from(mContext).inflate(R.layout.uber_pager_item, container, false);
     TextView name = (TextView) v.findViewById(R.id.product_name);
     name.setText(product.getName());
     TextView timeAndPrice = (TextView) v.findViewById(R.id.arrival_time_price);

@@ -55,9 +55,9 @@
               android:id="@+id/progress_vehicle"
               style="@style/MwmWidget.ProgressWheel.RoutingPlan"
               android:layout_marginLeft="@dimen/routing_selector_wheel_margin"
+              android:layout_marginStart="@dimen/routing_selector_wheel_margin"
               android:layout_marginTop="@dimen/routing_selector_wheel_margin"
-              android:layout_marginBottom="@dimen/routing_selector_wheel_margin"
-              tools:visibility="visible" />
+              android:layout_marginBottom="@dimen/routing_selector_wheel_margin"/>
 
           <com.mapswithme.maps.widget.WheelProgressView
               android:id="@+id/progress_bicycle"
@@ -65,8 +65,7 @@
               android:layout_marginTop="@dimen/routing_selector_wheel_margin"
               android:layout_marginBottom="@dimen/routing_selector_wheel_margin"
               android:layout_marginLeft="12dp"
-              android:layout_marginRight="12dp"
-              tools:visibility="visible" />
+              android:layout_marginRight="12dp"/>
 
           <com.mapswithme.maps.widget.WheelProgressView
               android:id="@+id/progress_pedestrian"
@@ -74,7 +73,7 @@
               android:layout_marginTop="@dimen/routing_selector_wheel_margin"
               android:layout_marginBottom="@dimen/routing_selector_wheel_margin"
               android:layout_marginRight="12dp"
-              tools:visibility="visible" />
+              android:layout_marginEnd="12dp"/>
 
           <com.mapswithme.maps.widget.WheelProgressView
             android:id="@+id/progress_taxi"
@@ -82,7 +81,7 @@
             android:layout_marginTop="@dimen/routing_selector_wheel_margin"
             android:layout_marginBottom="@dimen/routing_selector_wheel_margin"
             android:layout_marginRight="@dimen/routing_selector_wheel_margin"
-            tools:visibility="visible" />
+            android:layout_marginEnd="@dimen/routing_selector_wheel_margin"/>
 
         </LinearLayout>
 

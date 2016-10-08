@@ -1196,7 +1196,7 @@ Java_com_mapswithme_maps_Framework_nativeSetVisibleRect(JNIEnv * env, jclass, ji
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeRequestUberProducts(JNIEnv * env, jclass, jdouble srcLat, jdouble srcLon,
-                                                                                   jdouble dstLat, jdouble dstLon)
+                                                             jdouble dstLat, jdouble dstLon)
 {
     ms::LatLon const from(srcLat, srcLon);
     ms::LatLon const to(dstLat, dstLon);
