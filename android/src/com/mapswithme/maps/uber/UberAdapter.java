@@ -46,7 +46,8 @@ public class UberAdapter extends PagerAdapter
     TextView name = (TextView) v.findViewById(R.id.product_name);
     name.setText(product.getName());
     TextView timeAndPrice = (TextView) v.findViewById(R.id.arrival_time_price);
-    timeAndPrice.setText(product.getTime() + " • " + product.getPrice());
+    timeAndPrice.setText(mContext.getString(R.string.taxi_wait, Integer.valueOf(product.getTime()) / 60)
+                         + " • " + product.getPrice());
     container.addView(v, 0);
     return v;
   }
