@@ -132,7 +132,6 @@ public class RoutingPlanController extends ToolbarController
       @Override
       public void onClick(View v)
       {
-        RoutingController.get().requestUberInfo();
         AlohaHelper.logClick(AlohaHelper.ROUTING_TAXI_SET);
         Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_TAXI_SET);
         RoutingController.get().setRouterType(Framework.ROUTER_TYPE_TAXI);

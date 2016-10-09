@@ -1423,6 +1423,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onUberInfoReceived(@NonNull UberInfo info)
   {
     mRoutingPlanInplaceController.showUberInfo(info);
+    mMainMenu.showLineFrame(true);
   }
 
   boolean isFirstStart()

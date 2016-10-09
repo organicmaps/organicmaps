@@ -256,6 +256,8 @@ public class RoutingController
     org.alohalytics.Statistics.logEvent(AlohaHelper.ROUTING_BUILD, new String[] {Statistics.EventParam.FROM, Statistics.getPointType(mStartPoint),
                                                                                  Statistics.EventParam.TO, Statistics.getPointType(mEndPoint)});
     Framework.nativeBuildRoute(mStartPoint.getLat(), mStartPoint.getLon(), mEndPoint.getLat(), mEndPoint.getLon());
+    if (mLastRouterType == Framework.ROUTER_TYPE_TAXI)
+      requestUberInfo();
   }
 
   private void showDisclaimer(final MapObject startPoint, final MapObject endPoint)
@@ -746,11 +748,9 @@ public class RoutingController
     return true;
   }
 
-  void requestUberInfo()
+  private void requestUberInfo()
   {
-    MapObject start = RoutingController.get().getStartPoint();
-    MapObject end = RoutingController.get().getEndPoint();
-    Framework.nativeRequestUberProducts(start.getLat(), start.getLon(), end.getLat(), end.getLon());
+    Framework.nativeRequestUberProducts(mStartPoint.getLat(), mStartPoint.getLon(), mEndPoint.getLat(), mEndPoint.getLon());
   }
 
   @NonNull
