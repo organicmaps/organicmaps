@@ -28,7 +28,7 @@ import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.api.ParsedRoutingData;
 import com.mapswithme.maps.api.ParsedUrlMwmRequest;
 import com.mapswithme.maps.api.RoutePoint;
-import com.mapswithme.maps.api.uber.UberInfo;
+import com.mapswithme.maps.uber.UberInfo;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;

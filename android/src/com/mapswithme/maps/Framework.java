@@ -7,16 +7,15 @@ import android.support.annotation.Nullable;
 import android.support.annotation.Size;
 import android.support.annotation.UiThread;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
 import com.mapswithme.maps.api.ParsedRoutingData;
 import com.mapswithme.maps.api.ParsedUrlMwmRequest;
-import com.mapswithme.maps.api.uber.UberLinks;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.routing.RoutingInfo;
 import com.mapswithme.util.Constants;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
  * This class wraps android::Framework.cpp class
@@ -261,10 +260,4 @@ public class Framework
   public static native String nativeGetActiveObjectFormattedCuisine();
 
   public static native void nativeSetVisibleRect(int left, int top, int right, int bottom);
-
-  public static native void nativeRequestUberProducts(double srcLat, double srcLon, double dstLat, double dstLon);
-
-  @NonNull
-  public static native UberLinks nativeGetUberLinks(@NonNull String productId, double srcLon, double srcLat,
-                                                    double dstLat, double dstLon);
 }

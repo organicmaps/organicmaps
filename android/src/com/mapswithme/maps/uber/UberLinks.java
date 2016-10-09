@@ -1,4 +1,4 @@
-package com.mapswithme.maps.api.uber;
+package com.mapswithme.maps.uber;
 
 import android.support.annotation.NonNull;
 

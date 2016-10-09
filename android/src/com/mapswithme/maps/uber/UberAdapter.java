@@ -9,11 +9,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.api.uber.UberInfo;
 
 public class UberAdapter extends PagerAdapter
 {
-
   @NonNull
   private final Context mContext;
   @NonNull

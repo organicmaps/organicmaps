@@ -1,10 +1,12 @@
 package com.mapswithme.maps.widget;
 
 import android.content.Context;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,6 +15,24 @@ import com.mapswithme.maps.R;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 
+/**
+ * This widget allows the user to flip left and right through pages of data.
+ * Also it can be configured with indicator view that will be placed below of pages.
+ * The indicator will be drawn as the gray dots. A dots count will be equal page count.
+ * The bold dot corresponds the current page.
+ * <p>
+ * There are few dependencies that should be provided to get this
+ * widget work:
+ * <p>
+ * <ul>
+ * <li>@see {@link ViewPager}</li>
+ * <li>@see {@link PagerAdapter}</li>
+ * <li>An indicator. It's a {@link ViewGroup} which will consist dots. If the indicator
+ * is not needed this dependency can be missed or <code>null</code></li>
+ * <li>@see {@link Context}</li>
+ * <li>A page listener is an observable mechanism for listening page changing. It can be missed or null</li>
+ * </ul>
+ */
 public class DotPager implements ViewPager.OnPageChangeListener
 {
   @NonNull
@@ -44,7 +64,6 @@ public class DotPager implements ViewPager.OnPageChangeListener
     updateIndicator();
   }
 
-
   private void configure()
   {
     configurePager();
@@ -54,6 +73,7 @@ public class DotPager implements ViewPager.OnPageChangeListener
   private void configurePager()
   {
     mPager.setAdapter(mAdapter);
+    mPager.clearOnPageChangeListeners();
     mPager.addOnPageChangeListener(this);
   }
 
@@ -89,13 +109,19 @@ public class DotPager implements ViewPager.OnPageChangeListener
 
   private void updateIndicator()
   {
+    if (mAdapter.getCount() == 1)
+      return;
+
     int currentPage = mPager.getCurrentItem();
     for (int i = 0; i < mAdapter.getCount(); i++)
     {
-      mDots[i].setImageResource(ThemeUtils.isNightTheme() ? i == currentPage ? R.drawable.news_marker_active_night
-                                                                             : R.drawable.news_marker_inactive_night
-                                                          : i == currentPage ? R.drawable.news_marker_active
-                                                                             : R.drawable.news_marker_inactive);
+      boolean isCurPage = i == currentPage;
+      @DrawableRes int dotDrawable;
+      if (ThemeUtils.isNightTheme())
+        dotDrawable = isCurPage ? R.drawable.news_marker_active_night : R.drawable.news_marker_inactive_night;
+      else
+        dotDrawable = isCurPage ? R.drawable.news_marker_active : R.drawable.news_marker_inactive;
+      mDots[i].setImageResource(dotDrawable);
     }
   }
 
@@ -120,8 +146,6 @@ public class DotPager implements ViewPager.OnPageChangeListener
     @Nullable
     private ViewGroup mIndicatorContainer;
     @NonNull
-    private final ImageView[] mDots;
-    @NonNull
     private final Context mContext;
     @Nullable
     private OnPageChangedListener mListener;
@@ -131,7 +155,6 @@ public class DotPager implements ViewPager.OnPageChangeListener
       mContext = context;
       mPager = pager;
       mAdapter = adapter;
-      mDots = new ImageView[mAdapter.getCount()];
     }
 
     public Builder setIndicatorContainer(@NonNull ViewGroup indicatorContainer)

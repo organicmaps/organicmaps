@@ -24,9 +24,9 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.api.uber.UberInfo;
-import com.mapswithme.maps.api.uber.UberLinks;
 import com.mapswithme.maps.uber.UberAdapter;
+import com.mapswithme.maps.uber.UberInfo;
+import com.mapswithme.maps.uber.UberLinks;
 import com.mapswithme.maps.widget.DotPager;
 import com.mapswithme.maps.widget.RotateDrawable;
 import com.mapswithme.maps.widget.ToolbarController;
@@ -389,6 +389,7 @@ public class RoutingPlanController extends ToolbarController
     final UberInfo.Product[] products = info.getProducts();
     if (products == null || products.length == 0)
     {
+      UiUtils.hide(mUberFrame);
       showError(R.string.taxi_not_found);
       return;
     }

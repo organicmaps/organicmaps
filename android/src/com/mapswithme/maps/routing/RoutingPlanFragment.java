@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.api.uber.UberInfo;
+import com.mapswithme.maps.uber.UberInfo;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
 

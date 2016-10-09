@@ -17,8 +17,9 @@ import android.widget.TextView;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.api.uber.UberInfo;
-import com.mapswithme.maps.api.uber.UberLinks;
+import com.mapswithme.maps.uber.Uber;
+import com.mapswithme.maps.uber.UberInfo;
+import com.mapswithme.maps.uber.UberLinks;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.location.LocationHelper;
@@ -73,7 +74,7 @@ public class RoutingController
   }
 
   private static final RoutingController sInstance = new RoutingController();
-  private static final Logger mLogger = new DebugLogger("RCSTATE");
+  private final Logger mLogger = new DebugLogger("RCSTATE");
   @Nullable
   private Container mContainer;
 
@@ -81,7 +82,9 @@ public class RoutingController
   private State mState = State.NONE;
   private int mWaitingPoiPickSlot = NO_SLOT;
 
+  @Nullable
   private MapObject mStartPoint;
+  @Nullable
   private MapObject mEndPoint;
 
   private int mLastBuildProgress;
@@ -750,15 +753,13 @@ public class RoutingController
 
   private void requestUberInfo()
   {
-    Framework.nativeRequestUberProducts(mStartPoint.getLat(), mStartPoint.getLon(), mEndPoint.getLat(), mEndPoint.getLon());
+    Uber.nativeRequestUberProducts(mStartPoint.getLat(), mStartPoint.getLon(), mEndPoint.getLat(), mEndPoint.getLon());
   }
 
   @NonNull
   UberLinks getUberLink(@NonNull String productId)
   {
-    MapObject start = RoutingController.get().getStartPoint();
-    MapObject end = RoutingController.get().getEndPoint();
-    return Framework.nativeGetUberLinks(productId, start.getLat(), start.getLon(), end.getLat(), end.getLon());
+    return Uber.nativeGetUberLinks(productId, mStartPoint.getLat(), mStartPoint.getLon(), mStartPoint.getLat(), mEndPoint.getLon());
   }
 
   /**
