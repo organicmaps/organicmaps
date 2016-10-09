@@ -252,16 +252,20 @@ if [ "$MODE" == "coast" ]; then
 
   # Download booking.com hotels. This takes around 3 hours, just like coastline processing.
   if [ ! -f "$BOOKING_FILE" -a -n "${BOOKING_USER-}" -a -n "${BOOKING_PASS-}" ]; then
-    log "STATUS" "Step B: Starting background hotels downloading"
-    $PYTHON $BOOKING_SCRIPT --user $BOOKING_USER --password $BOOKING_PASS --path "$INTDIR" --download --translate --output "$BOOKING_FILE" 2>"$LOG_PATH"/booking.log &
-    echo "Hotels have been downloaded. Please ensure this line is before Step 4." >> "$PLANET_LOG"
+    log "STATUS" "Step S1: Starting background hotels downloading"
+    (
+        $PYTHON $BOOKING_SCRIPT --user $BOOKING_USER --password $BOOKING_PASS --path "$INTDIR" --download --translate --output "$BOOKING_FILE" 2>"$LOG_PATH"/booking.log &
+        echo "Hotels have been downloaded. Please ensure this line is before Step 4." >> "$PLANET_LOG"
+    ) &
   fi
 
   # Download opentable.com restaurants. This takes around 30 minutes.
   if [ ! -f "$OPENTABLE_FILE" -a -n "${OPENTABLE_USER-}" -a -n "${OPENTABLE_PASS-}" ]; then
-    log "STATUS" "Step C: Starting background restaurants downloading"
-    $PYTHON $OPENTABLE_SCRIPT --client $OPENTABLE_USER --secrete $OPENTABLE_PASS --opentable_data "$INTDIR"/opentable.json --download --tsv "$OPENTABLE_FILE" 2>"$LOG_PATH"/opentable.log &
-    echo "Hotels have been downloaded. Please ensure this line is before Step 4." >> "$PLANET_LOG"
+    log "STATUS" "Step S2: Starting background restaurants downloading"
+    (
+        $PYTHON $OPENTABLE_SCRIPT --client $OPENTABLE_USER --secrete $OPENTABLE_PASS --opentable_data "$INTDIR"/opentable.json --download --tsv "$OPENTABLE_FILE" 2>"$LOG_PATH"/opentable.log &
+        echo "Restaurants have been downloaded. Please ensure this line is before Step 4." >> "$PLANET_LOG"
+    ) &
   fi
 
   [ ! -x "$OSMCTOOLS/osmupdate"  ] && cc -x c     "$OMIM_PATH/tools/osmctools/osmupdate.c"  -o "$OSMCTOOLS/osmupdate"

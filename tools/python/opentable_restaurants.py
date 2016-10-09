@@ -1,4 +1,4 @@
-#! /usr/bin/env python2
+#! /usr/bin/env python2.7
 # coding: utf-8
 
 from __future__ import print_function
@@ -28,7 +28,7 @@ class OpentableDownloader(object):
         self.opentable_filename  = opentable_filename
         self.tsv_filename = tsv_filename
 
-        # TODO(mgsergio): Check if toke is atual in functions.
+        # TODO(mgsergio): Check if token is actual in functions.
         self._get_token()
 
     def download(self):
@@ -101,19 +101,15 @@ if __name__ == '__main__':
 
     # TODO(mgsergio): Allow config instead.
     parser.add_argument('--client', required=True, help='Opentable client id')
-    parser.add_argument('--secrete', required=True, help="Opentable client's secrete")
+    parser.add_argument('--secret', required=True, help="Opentable client's secret")
 
     args = parser.parse_args(sys.argv[1:])
 
     if args.download:
         print('Downloading')
-        loader = OpentableDownloader(args.client, args.secrete, args.opentable_data)
+        loader = OpentableDownloader(args.client, args.secret, args.opentable_data)
         loader.download()
     if args.tsv is not None:
         data = open(args.opentable_data)
         tsv = open(args.tsv, 'w') if args.tsv else sys.stdout
-        try:
-            make_tsv(data, tsv)
-        finally:
-            data.close()
-            tsv.close()
+        make_tsv(data, tsv)

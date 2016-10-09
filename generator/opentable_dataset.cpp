@@ -8,52 +8,35 @@
 
 #include "base/string_utils.hpp"
 
+#include "boost/algorithm/string/replace.hpp"
+
 namespace generator
 {
-namespace
-{
-string EscapeTabs(string const & str)
-{
-  stringstream ss;
-  for (char c : str)
-  {
-    if (c == '\t')
-      ss << "\\t";
-    else
-      ss << c;
-  }
-  return ss.str();
-}
-}  // namespace
-
 // OpentableRestaurant ------------------------------------------------------------------------------
-
 OpentableRestaurant::OpentableRestaurant(string const & src)
 {
   vector<string> rec;
   strings::ParseCSVRow(src, '\t', rec);
-  CHECK_EQUAL(rec.size(), FieldsCount(), ("Error parsing restaurants.tsv line:", EscapeTabs(src)));
+  CHECK_EQUAL(rec.size(), FieldsCount(), ("Error parsing restaurants.tsv line:",
+                                          boost::replace_all_copy(src, "\t", "\\t")));
 
-  strings::to_uint(rec[Index(Fields::Id)], m_id.Get());
-  // TODO(mgsergio): Use ms::LatLon.
-  strings::to_double(rec[Index(Fields::Latitude)], m_lat);
-  strings::to_double(rec[Index(Fields::Longtitude)], m_lon);
+  strings::to_uint(rec[FieldIndex(Fields::Id)], m_id.Get());
+  strings::to_double(rec[FieldIndex(Fields::Latitude)], m_latLon.lat);
+  strings::to_double(rec[FieldIndex(Fields::Longtitude)], m_latLon.lon);
 
-  m_name = rec[Index(Fields::Name)];
-  m_address = rec[Index(Fields::Address)];
-
-  m_descUrl = rec[Index(Fields::DescUrl)];
+  m_name = rec[FieldIndex(Fields::Name)];
+  m_address = rec[FieldIndex(Fields::Address)];
+  m_descUrl = rec[FieldIndex(Fields::DescUrl)];
 }
 
 ostream & operator<<(ostream & s, OpentableRestaurant const & h)
 {
   s << fixed << setprecision(7);
   return s << "Id: " << h.m_id << "\t Name: " << h.m_name << "\t Address: " << h.m_address
-           << "\t lat: " << h.m_lat << " lon: " << h.m_lon;
+           << "\t lat: " << h.m_latLon.lat << " lon: " << h.m_latLon.lon;
 }
 
 // OpentableDataset ---------------------------------------------------------------------------------
-
 template <>
 bool OpentableDataset::NecessaryMatchingConditionHolds(FeatureBuilder1 const & fb) const
 {

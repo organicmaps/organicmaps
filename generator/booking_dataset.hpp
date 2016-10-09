@@ -2,6 +2,8 @@
 
 #include "generator/sponsored_dataset.hpp"
 
+#include "geometry/latlon.hpp"
+
 #include "base/newtype.hpp"
 
 #include "std/limits.hpp"
@@ -9,7 +11,7 @@
 
 namespace generator
 {
-// TODO(mgsergio): Try to get rid of code deuplication. (See OpenTableRestaurant)
+// TODO(mgsergio): Try to get rid of code duplication. (See OpenTableRestaurant)
 struct BookingHotel
 {
   NEWTYPE(uint32_t, ObjectId);
@@ -38,13 +40,13 @@ struct BookingHotel
 
   explicit BookingHotel(string const & src);
 
-  static constexpr size_t Index(Fields field) { return static_cast<size_t>(field); }
+  static constexpr size_t FieldIndex(Fields field) { return static_cast<size_t>(field); }
   static constexpr size_t FieldsCount() { return static_cast<size_t>(Fields::Counter); }
-  bool IsAddressPartsFilled() const { return !m_street.empty() || !m_houseNumber.empty(); }
+
+  bool HasAddresParts() const { return !m_street.empty() || !m_houseNumber.empty(); }
 
   ObjectId m_id{InvalidObjectId()};
-  double m_lat = 0.0;
-  double m_lon = 0.0;
+  ms::LatLon m_latLon = ms::LatLon::Zero();
   string m_name;
   string m_street;
   string m_houseNumber;

@@ -5,8 +5,6 @@
 
 #include "geometry/distance_on_sphere.hpp"
 
-// #include "base/stl_iterator.hpp"
-
 #include "std/algorithm.hpp"
 #include "std/vector.hpp"
 
@@ -14,7 +12,7 @@ namespace
 {
 using WeightedBagOfWords = vector<pair<strings::UniString, double>>;
 
-vector<strings::UniString> StringToSetOfWords(string const & str)
+vector<strings::UniString> StringToWords(string const & str)
 {
   vector<strings::UniString> result;
   search::NormalizeAndTokenizeString(str, result, search::Delimiters{});
@@ -28,7 +26,7 @@ WeightedBagOfWords MakeWeightedBagOfWords(vector<strings::UniString> const & wor
   auto constexpr kTfIdfScorePlaceholder = 1;
 
   WeightedBagOfWords result;
-  for (auto i = 0; i < words.size(); ++i)
+  for (size_t i = 0; i < words.size(); ++i)
   {
     result.emplace_back(words[i], kTfIdfScorePlaceholder);
     while (i + 1 < words.size() && words[i] == words[i + 1])
@@ -74,6 +72,8 @@ double WeightedBagOfWordsCos(WeightedBagOfWords const & lhs, WeightedBagOfWords 
   auto const lhsLength = sqrt(WeightedBagsDotProduct(lhs, lhs));
   auto const rhsLength = sqrt(WeightedBagsDotProduct(rhs, rhs));
 
+  // WeightedBagsDotProduct returns 0.0 if lhs.empty() || rhs.empty() or
+  // if every element of either lhs or rhs is 0.0.
   if (product == 0.0)
     return 0.0;
 
@@ -87,14 +87,15 @@ namespace impl
 {
 double GetLinearNormDistanceScore(double distance, double const maxDistance)
 {
+  CHECK_NOT_EQUAL(maxDistance, 0.0, ("maxDistance cannot be 0."));
   distance = my::clamp(distance, 0, maxDistance);
   return 1.0 - distance / maxDistance;
 }
 
 double GetNameSimilarityScore(string const & booking_name, string const & osm_name)
 {
-  auto const aws = MakeWeightedBagOfWords(StringToSetOfWords(booking_name));
-  auto const bws = MakeWeightedBagOfWords(StringToSetOfWords(osm_name));
+  auto const aws = MakeWeightedBagOfWords(StringToWords(booking_name));
+  auto const bws = MakeWeightedBagOfWords(StringToWords(osm_name));
 
   if (aws.empty() && bws.empty())
     return 1.0;

@@ -362,9 +362,10 @@ public:
     auto const bookingObjId = m_bookingDataset.FindMatchingObjectId(fb);
     if (bookingObjId != generator::BookingHotel::InvalidObjectId())
     {
-      m_bookingDataset.PreprocessMatchedOsmObject(bookingObjId, fb, [this](FeatureBuilder1 & fb)
+      m_bookingDataset.PreprocessMatchedOsmObject(bookingObjId, fb, [this, bookingObjId](FeatureBuilder1 & fb)
       {
-        m_skippedElements << "BOOKING\t" << DebugPrint(fb.GetMostGenericOsmId()) << endl;
+        m_skippedElements << "BOOKING\t" << DebugPrint(fb.GetMostGenericOsmId())
+                          << '\t' << bookingObjId.Get() << endl;
         Emit(fb);
       });
       return;
@@ -375,13 +376,13 @@ public:
     {
       m_opentableDataset.PreprocessMatchedOsmObject(opentableObjId, fb, [this, opentableObjId](FeatureBuilder1 & fb)
       {
-        m_skippedElements << "OPENTABLE\t" << opentableObjId.Get() << endl;
+        m_skippedElements << "OPENTABLE\t" << DebugPrint(fb.GetMostGenericOsmId())
+                          << '\t' << opentableObjId.Get() << endl;
         Emit(fb);
       });
       return;
     }
 
-    LOG(LDEBUG, ("JUST EMIT"));
     Emit(fb);
   }
 
@@ -390,9 +391,9 @@ public:
   {
     DumpSkippedElements();
 
-    // Emit all required booking objecs to the map.
+    // Emit all required booking objects to the map.
     m_bookingDataset.BuildOsmObjects([this](FeatureBuilder1 & fb) { Emit(fb); });
-    // No opentable objects should be emitted. Opentable data enriches som data
+    // No opentable objects should be emitted. Opentable data enriches some data
     // with a link to a restaurant's reservation page.
 
     m_places.ForEach([this](Place const & p)

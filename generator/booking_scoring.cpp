@@ -33,7 +33,7 @@ MatchStats<BookingHotel> Match(BookingHotel const & h, FeatureBuilder1 const & f
   MatchStats<BookingHotel> score;
 
   auto const fbCenter = MercatorBounds::ToLatLon(fb.GetKeyPoint());
-  auto const distance = ms::DistanceOnEarth(fbCenter.lat, fbCenter.lon, h.m_lat, h.m_lon);
+  auto const distance = ms::DistanceOnEarth(fbCenter, h.m_latLon);
   score.m_linearNormDistanceScore =
       impl::GetLinearNormDistanceScore(distance, BookingDataset::kDistanceLimitInMeters);
 

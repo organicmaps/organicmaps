@@ -27,21 +27,7 @@ template <typename SponsoredObject>
 class SponsoredDataset
 {
 public:
-    using Object = SponsoredObject;
-
-private:
-  class AddressMatcher
-  {
-  public:
-    AddressMatcher();
-    void operator()(Object & object);
-
-  private:
-    Index m_index;
-    unique_ptr<search::ReverseGeocoder> m_coder;
-  };
-
-public:
+  using Object = SponsoredObject;
   using ObjectId = typename Object::ObjectId;
 
   static double constexpr kDistanceLimitInMeters = 150;
@@ -57,7 +43,7 @@ public:
   vector<ObjectId> GetNearestObjects(ms::LatLon const & latLon, size_t limit,
                                      double maxDistance = 0.0) const;
 
-  /// @return true if |fb| satisfies some necesary conditions to match one or serveral
+  /// @return true if |fb| satisfies some necessary conditions to match one or serveral
   /// objects from dataset.
   bool NecessaryMatchingConditionHolds(FeatureBuilder1 const & fb) const;
   ObjectId FindMatchingObjectId(FeatureBuilder1 const & e) const;
@@ -67,14 +53,26 @@ public:
   void BuildOsmObjects(function<void(FeatureBuilder1 &)> const & fn) const;
 
 protected:
-  map<ObjectId, Object> m_objects;
+  class AddressMatcher
+  {
+  public:
+    AddressMatcher();
+    void operator()(Object & object);
 
-  using TPoint = boost::geometry::model::point<float, 2, boost::geometry::cs::cartesian>;
-  using TBox = boost::geometry::model::box<TPoint>;
-  using TValue = pair<TBox, ObjectId>;
+  private:
+    Index m_index;
+    unique_ptr<search::ReverseGeocoder> m_coder;
+  };
+
+  // TODO(mgsergio): Get rid of Box since boost::rtree supports point as value type.
+  // TODO(mgsergio): Use mercator instead of latlon or boost::geometry::cs::spherical_equatorial
+  // instead of boost::geometry::cs::cartesian.
+  using Point = boost::geometry::model::point<float, 2, boost::geometry::cs::cartesian>;
+  using Box = boost::geometry::model::box<Point>;
+  using Value = pair<Box, ObjectId>;
 
   // Create the rtree using default constructor.
-  boost::geometry::index::rtree<TValue, boost::geometry::index::quadratic<16>> m_rtree;
+  boost::geometry::index::rtree<Value, boost::geometry::index::quadratic<16>> m_rtree;
 
   void BuildObject(Object const & object,
                    function<void(FeatureBuilder1 &)> const & fn) const;
@@ -83,6 +81,8 @@ protected:
 
   /// @return an id of a matched object or kInvalidObjectId on failure.
   ObjectId FindMatchingObjectIdImpl(FeatureBuilder1 const & fb) const;
+
+  map<ObjectId, Object> m_objects;
 };
 }  // namespace generator
 

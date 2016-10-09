@@ -65017,6 +65017,22 @@ cont {
 cont {
   name: "sponsored-opentable"
   element {
+    scale: 16
+    symbol {
+      name: "restaurant"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "restaurant"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
     scale: 18
     symbol {
       name: "hotel"

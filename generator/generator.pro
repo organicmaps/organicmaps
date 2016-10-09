@@ -63,7 +63,7 @@ HEADERS += \
     generate_info.hpp \
     intermediate_data.hpp\
     intermediate_elements.hpp\
-    opentable_datatset.hpp \
+    opentable_dataset.hpp \
     osm2meta.hpp \
     osm2type.hpp \
     osm_element.hpp \

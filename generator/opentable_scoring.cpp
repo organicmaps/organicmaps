@@ -27,17 +27,17 @@ bool MatchStats<OpentableRestaurant>::IsMatched() const
 }
 
 template <>
-MatchStats<OpentableRestaurant> Match(OpentableRestaurant const & h, FeatureBuilder1 const & fb)
+MatchStats<OpentableRestaurant> Match(OpentableRestaurant const & r, FeatureBuilder1 const & fb)
 {
   MatchStats<OpentableRestaurant> score;
 
   auto const fbCenter = MercatorBounds::ToLatLon(fb.GetKeyPoint());
-  auto const distance = ms::DistanceOnEarth(fbCenter.lat, fbCenter.lon, h.m_lat, h.m_lon);
+  auto const distance = ms::DistanceOnEarth(fbCenter, r.m_latLon);
   score.m_linearNormDistanceScore =
       impl::GetLinearNormDistanceScore(distance, OpentableDataset::kDistanceLimitInMeters);
 
   score.m_nameSimilarityScore =
-      impl::GetNameSimilarityScore(h.m_name, fb.GetName(StringUtf8Multilang::kDefaultCode));
+      impl::GetNameSimilarityScore(r.m_name, fb.GetName(StringUtf8Multilang::kDefaultCode));
 
   return score;
 }

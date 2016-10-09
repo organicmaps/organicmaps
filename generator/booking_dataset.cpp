@@ -8,61 +8,47 @@
 
 #include "base/string_utils.hpp"
 
+#include "boost/algorithm/string/replace.hpp"
+
 namespace generator
 {
-namespace
-{
-string EscapeTabs(string const & str)
-{
-  stringstream ss;
-  for (char c : str)
-  {
-    if (c == '\t')
-      ss << "\\t";
-    else
-      ss << c;
-  }
-  return ss.str();
-}
-}  // namespace
-
 // BookingHotel ------------------------------------------------------------------------------------
-
 BookingHotel::BookingHotel(string const & src)
 {
   vector<string> rec;
   strings::ParseCSVRow(src, '\t', rec);
-  CHECK(rec.size() == FieldsCount(), ("Error parsing hotels.tsv line:", EscapeTabs(src)));
+  CHECK_EQUAL(rec.size(), FieldsCount(), ("Error parsing hotels.tsv line:",
+                                          boost::replace_all_copy(src, "\t", "\\t")));
 
-  strings::to_uint(rec[Index(Fields::Id)], m_id.Get());
+  strings::to_uint(rec[FieldIndex(Fields::Id)], m_id.Get());
   // TODO(mgsergio): Use ms::LatLon.
-  strings::to_double(rec[Index(Fields::Latitude)], m_lat);
-  strings::to_double(rec[Index(Fields::Longtitude)], m_lon);
+  strings::to_double(rec[FieldIndex(Fields::Latitude)], m_latLon.lat);
+  strings::to_double(rec[FieldIndex(Fields::Longtitude)], m_latLon.lon);
 
-  m_name = rec[Index(Fields::Name)];
-  m_address = rec[Index(Fields::Address)];
+  m_name = rec[FieldIndex(Fields::Name)];
+  m_address = rec[FieldIndex(Fields::Address)];
 
-  strings::to_uint(rec[Index(Fields::Stars)], m_stars);
-  strings::to_uint(rec[Index(Fields::PriceCategory)], m_priceCategory);
-  strings::to_double(rec[Index(Fields::RatingBooking)], m_ratingBooking);
-  strings::to_double(rec[Index(Fields::RatingUsers)], m_ratingUser);
+  strings::to_uint(rec[FieldIndex(Fields::Stars)], m_stars);
+  strings::to_uint(rec[FieldIndex(Fields::PriceCategory)], m_priceCategory);
+  strings::to_double(rec[FieldIndex(Fields::RatingBooking)], m_ratingBooking);
+  strings::to_double(rec[FieldIndex(Fields::RatingUsers)], m_ratingUser);
 
-  m_descUrl = rec[Index(Fields::DescUrl)];
+  m_descUrl = rec[FieldIndex(Fields::DescUrl)];
 
-  strings::to_uint(rec[Index(Fields::Type)], m_type);
+  strings::to_uint(rec[FieldIndex(Fields::Type)], m_type);
 
-  m_translations = rec[Index(Fields::Translations)];
+  m_translations = rec[FieldIndex(Fields::Translations)];
 }
 
 ostream & operator<<(ostream & s, BookingHotel const & h)
 {
   s << fixed << setprecision(7);
-  return s << "Id: " << h.m_id << "\t Name: " << h.m_name << "\t Address: " << h.m_address
-           << "\t lat: " << h.m_lat << " lon: " << h.m_lon;
+  s << "Id: " << h.m_id << "\t Name: " << h.m_name << "\t Address: " << h.m_address
+    << "\t lat: " << h.m_latLon.lat << " lon: " << h.m_latLon.lon;
+  return s;
 }
 
 // BookingDataset ----------------------------------------------------------------------------------
-
 template <>
 bool BookingDataset::NecessaryMatchingConditionHolds(FeatureBuilder1 const & fb) const
 {
@@ -79,7 +65,7 @@ void BookingDataset::PreprocessMatchedOsmObject(ObjectId, FeatureBuilder1 & fb,
   // Turn a hotel into a simple building.
   if (fb.GetGeomType() == feature::GEOM_AREA)
   {
-    // Remove all information about a hotel.
+    // Remove all information about the hotel.
     auto params = fb.GetParams();
     params.ClearName();
     auto & meta = params.GetMetadata();
@@ -87,13 +73,12 @@ void BookingDataset::PreprocessMatchedOsmObject(ObjectId, FeatureBuilder1 & fb,
     meta.Drop(feature::Metadata::EType::FMD_WEBSITE);
     meta.Drop(feature::Metadata::EType::FMD_PHONE_NUMBER);
 
-    auto const & c = classif();
-    auto const tourism = c.GetTypeByPath({"tourism"});
-    my::EraseIf(params.m_Types, [&c, tourism](uint32_t type)
-                {
-                  ftype::TruncValue(type, 1);
-                  return type == tourism;
-                });
+    auto const tourism = classif().GetTypeByPath({"tourism"});
+    my::EraseIf(params.m_Types, [tourism](uint32_t type)
+    {
+      ftype::TruncValue(type, 1);
+      return type == tourism;
+    });
     fb.SetParams(params);
   }
 
@@ -107,7 +92,7 @@ void BookingDataset::BuildObject(Object const & hotel,
   FeatureBuilder1 fb;
   FeatureParams params;
 
-  fb.SetCenter(MercatorBounds::FromLatLon(hotel.m_lat, hotel.m_lon));
+  fb.SetCenter(MercatorBounds::FromLatLon(hotel.m_latLon.lat, hotel.m_latLon.lon));
 
   auto & metadata = params.GetMetadata();
   metadata.Set(feature::Metadata::FMD_SPONSORED_ID, strings::to_string(hotel.m_id.Get()));

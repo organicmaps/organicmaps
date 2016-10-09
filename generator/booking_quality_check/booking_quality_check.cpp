@@ -214,7 +214,7 @@ vector<SampleItem<Object>> ReadSample(istream & ist)
   }
   catch (ParseError const & e)
   {
-    LOG(LERROR, ("Wrong format: line", lineNumber, e.Msg()));
+    LOG_SHORT(LERROR, ("Wrong format: line", lineNumber, e.Msg()));
     exit(1);
   }
 
@@ -242,8 +242,7 @@ void GenerateFactors(Dataset const & dataset,
     auto const score = generator::sponsored_scoring::Match(object, feature);
 
     auto const center = MercatorBounds::ToLatLon(feature.GetKeyPoint());
-    double const distanceMeters = ms::DistanceOnEarth(center.lat, center.lon,
-                                                      object.m_lat, object.m_lon);
+    double const distanceMeters = ms::DistanceOnEarth(center, object.m_latLon);
     auto const matched = score.IsMatched();
 
     ost << "# ------------------------------------------" << fixed << setprecision(6)
@@ -257,8 +256,9 @@ void GenerateFactors(Dataset const & dataset,
         << endl;
     ost << "# " << PrintBuilder(feature) << endl;
     ost << "# " << object << endl;
-    ost << "# URL: https://www.openstreetmap.org/?mlat=" << object.m_lat
-        << "&mlon=" << object.m_lon << "#map=18/" << object.m_lat << "/" << object.m_lon << endl;
+    ost << "# URL: https://www.openstreetmap.org/?mlat="
+        << object.m_latLon.lat << "&mlon=" << object.m_latLon.lon << "#map=18/"
+        << object.m_latLon.lat << "/" << object.m_latLon.lon << endl;
   }
 }
 
@@ -277,6 +277,7 @@ void GenerateSample(Dataset const & dataset,
   vector<osm::Id> elementIndexes(features.size());
   boost::copy(features | boost::adaptors::map_keys, begin(elementIndexes));
 
+  // TODO(mgsergio): Try RandomSample (from search:: at the moment of writing).
   shuffle(elementIndexes.begin(), elementIndexes.end(), minstd_rand(FLAGS_seed));
   if (FLAGS_selection_size < elementIndexes.size())
     elementIndexes.resize(FLAGS_selection_size);
@@ -297,8 +298,7 @@ void GenerateSample(Dataset const & dataset,
       auto const score = sponsored_scoring::Match(object, fb);
 
       auto const center = MercatorBounds::ToLatLon(fb.GetKeyPoint());
-      double const distanceMeters = ms::DistanceOnEarth(center.lat, center.lon,
-                                                        object.m_lat, object.m_lon);
+      double const distanceMeters = ms::DistanceOnEarth(center, object.m_latLon);
       auto const matched = score.IsMatched();
 
       outStream << "# ------------------------------------------" << fixed << setprecision(6)
@@ -312,8 +312,8 @@ void GenerateSample(Dataset const & dataset,
       outStream << "# " << PrintBuilder(fb) << endl;
       outStream << "# " << object << endl;
       outStream << "# URL: https://www.openstreetmap.org/?mlat="
-                << object.m_lat << "&mlon=" << object.m_lon
-                << "#map=18/" << object.m_lat << "/" << object.m_lon << endl;
+                << object.m_latLon.lat << "&mlon=" << object.m_latLon.lon
+                << "#map=18/" << object.m_latLon.lat << "/" << object.m_latLon.lon << endl;
     }
     if (!sponsoredIndexes.empty())
       outStream << endl << endl;
@@ -329,7 +329,7 @@ void GenerateSample(Dataset const & dataset,
     if (file.is_open())
       file << outStream.str();
     else
-      LOG(LERROR, ("Can't output into", FLAGS_sample, strerror(errno)));
+      LOG_SHORT(LERROR, ("Can't output into", FLAGS_sample, strerror(errno)));
   }
 }
 
@@ -369,7 +369,7 @@ void RunImpl(feature::GenerateInfo & info)
   else
   {
     auto const sample = ReadSampleFromFile<Object>(FLAGS_sample);
-    LOG(LINFO, ("Sample size is", sample.size()));
+    LOG_SHORT(LINFO, ("Sample size is", sample.size()));
     ofstream ost(FLAGS_factors);
     CHECK(ost.is_open(), ("Can't open file", FLAGS_factors, strerror(errno)));
     GenerateFactors<Dataset>(dataset, features, sample, ost);

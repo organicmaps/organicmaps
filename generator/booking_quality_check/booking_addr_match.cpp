@@ -87,7 +87,7 @@ int main(int argc, char * argv[])
     if (hotel.address.empty())
       ++emptyAddr;
 
-    if (hotel.IsAddressPartsFilled())
+    if (hotel.HasAddresParts())
     {
       ++matchedNum;
       cout << "[" << i << "/" << bookingDataset.Size() << "] Hotel: " << hotel.address
