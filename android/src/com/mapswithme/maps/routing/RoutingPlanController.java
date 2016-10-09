@@ -255,7 +255,6 @@ public class RoutingPlanController extends ToolbarController
 
   public void updateBuildProgress(int progress, @Framework.RouterType int router)
   {
-    updateProgressLabels();
     UiUtils.invisible(mProgressVehicle, mProgressPedestrian, mProgressBicycle, mProgressTaxi);
     WheelProgressView progressView;
     if (router == Framework.ROUTER_TYPE_VEHICLE)
@@ -278,6 +277,8 @@ public class RoutingPlanController extends ToolbarController
       mRouterTypes.check(R.id.bicycle);
       progressView = mProgressBicycle;
     }
+
+    updateProgressLabels();
 
     if (!RoutingController.get().isBuilding())
       return;

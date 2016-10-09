@@ -1422,8 +1422,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onUberInfoReceived(@NonNull UberInfo info)
   {
-    mRoutingPlanInplaceController.showUberInfo(info);
-    mMainMenu.showLineFrame(true);
+    if (mIsFragmentContainer)
+    {
+      RoutingPlanFragment fragment = (RoutingPlanFragment) getFragment(RoutingPlanFragment.class);
+      if (fragment != null)
+        fragment.showUberInfo(info);
+    }
+    else
+    {
+      mRoutingPlanInplaceController.showUberInfo(info);
+      mMainMenu.showLineFrame(true);
+    }
   }
 
   boolean isFirstStart()
