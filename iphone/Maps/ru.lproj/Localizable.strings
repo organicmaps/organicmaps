@@ -180,7 +180,7 @@
 
 "download_resources_continue" = "Перейти на карту";
 
-"downloading_country_can_proceed" = "Пока загружается %@\nвы можете пользоваться приложением.";
+"downloading_country_can_proceed" = "Пока загружается %@,\nвы можете пользоваться картой.";
 
 "download_country_ask" = "Загрузить %@?";
 
@@ -1351,7 +1351,8 @@
 
 "editor_storey_number" = "Количество этажей (максимум %d)";
 
-"error_enter_correct_storey_number" = "Редактируйте здания высотой максимум 25 этажей";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
+"error_enter_correct_storey_number" = "Количество этажей не должно превышать 25";
 
 "editor_zip_code" = "Почтовый индекс";
 
@@ -1634,3 +1635,55 @@
 
 /* For place page hotel nearby block */
 "placepage_hotel_nearby" = "Рядом";
+
+/* For ordering a taxi (as opposed to hotels or other things) */
+"taxi_order" = "Заказать";
+
+/* How long it is until the taxi arrives */
+"taxi_wait" = "Ожидание %d мин";
+
+/* When there are no available taxis nearby */
+"taxi_not_found" = "Не удалось найти такси поблизости";
+
+"install_app" = "Установить";
+
+/* `Filter` is a noun here */
+"booking_filters" = "Фильтр";
+
+"booking_filters_reset" = "Сбросить";
+
+"booking_filters_rating" = "Рейтинг";
+
+"booking_filters_rating_any" = "Любой";
+
+"booking_filters_ragting_good" = "Хорошо";
+
+"booking_filters_rating_very_good" = "Очень хорошо";
+
+"booking_filters_rating_excellent" = "Отлично";
+
+"booking_filters_price_category" = "Ценовая категория";
+
+"booking_filters_no_results" = "Поиск не дал результатов";
+
+"booking_filters_nores_message" = "Попробуйте задать более общий запрос, уменьшить масштаб карты или сбросить фильтр.";
+
+"booking_filters_expand_area" = "Уменьшить масштаб карты";
+
+"booking_filters_reset" = "Сбросить фильтр";
+
+"booking_list" = "Список";
+
+"booking_based_on_reviews" = "По %d отзывам об отеле";
+
+"booking_show_more" = "Показать еще";
+
+"booking_reviews" = "Отзывы";
+
+"booking_hotel" = "Отель";
+
+"booking_hotel_room" = "Номер";
+
+"chat" = "Геочат";
+
+"chat_open" = "Открыть";

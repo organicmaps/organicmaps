@@ -226,7 +226,7 @@
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Signets MAPS.ME partagés</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Bonjour,\n\nVous trouverez ci-joints mes signets de MAPS.ME - cartes hors ligne. Veuillez ouvrir le ficher si vous avez MAPS.ME d\&#39;installé. Sinon, téléchargez l\&#39;appli pour votre appareil iOS ou Android en suivant ce lien http://maps.me/get?kmz\n\nAppréciez vos voyages avec MAPS.ME !</string>
+	<string name="share_bookmarks_email_body">Bonjour,\n\nVous trouverez ci-joints mes signets de MAPS.ME - cartes hors ligne. Veuillez ouvrir le fichier si vous avez MAPS.ME d\&#39;installé. Sinon, téléchargez l\&#39;appli pour votre appareil iOS ou Android en suivant ce lien http://maps.me/get?kmz\n\nAppréciez vos voyages avec MAPS.ME !</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Chargement des signets</string>
 	<!-- Kmz file successful loading -->
@@ -814,6 +814,7 @@
 	<string name="download_over_mobile_message">Cela pourrait être très cher avec certains abonnements ou si vous êtes en déplacement.</string>
 	<string name="error_enter_correct_house_number">Saisir un numéro de maison correct</string>
 	<string name="editor_storey_number">Nombre d\&#39;étages (max %d)</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
 	<string name="error_enter_correct_storey_number">Modifier l\&#39;immeuble avec un maximum de 25 étages</string>
 	<string name="editor_zip_code">Code postal</string>
 	<string name="error_enter_correct_zip_code">Entrer le code postal correct</string>

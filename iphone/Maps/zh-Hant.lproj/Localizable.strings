@@ -1351,6 +1351,7 @@
 
 "editor_storey_number" = "樓號（最大 %d）";
 
+/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
 "error_enter_correct_storey_number" = "編輯最多 25 層的建築";
 
 "editor_zip_code" = "郵遞區號";
@@ -1634,3 +1635,55 @@
 
 /* For place page hotel nearby block */
 "placepage_hotel_nearby" = "Nearby";
+
+/* For ordering a taxi (as opposed to hotels or other things) */
+"taxi_order" = "Order";
+
+/* How long it is until the taxi arrives */
+"taxi_wait" = "Expected in %d min";
+
+/* When there are no available taxis nearby */
+"taxi_not_found" = "Couldn't find a taxi nearby";
+
+"install_app" = "Install";
+
+/* `Filter` is a noun here */
+"booking_filters" = "Filter";
+
+"booking_filters_reset" = "Reset";
+
+"booking_filters_rating" = "Rating";
+
+"booking_filters_rating_any" = "Any";
+
+"booking_filters_ragting_good" = "Good";
+
+"booking_filters_rating_very_good" = "Very Good";
+
+"booking_filters_rating_excellent" = "Excellent";
+
+"booking_filters_price_category" = "Price Category";
+
+"booking_filters_no_results" = "No Results Found";
+
+"booking_filters_nores_message" = "Try a more general search term, zoom out or reset the filter.";
+
+"booking_filters_expand_area" = "Zoom out";
+
+"booking_filters_reset" = "Reset Filter";
+
+"booking_list" = "List";
+
+"booking_based_on_reviews" = "Based on %d hotel reviews";
+
+"booking_show_more" = "Show more";
+
+"booking_reviews" = "Reviews";
+
+"booking_hotel" = "Hotel";
+
+"booking_hotel_room" = "Room";
+
+"chat" = "Geochat";
+
+"chat_open" = "Open";

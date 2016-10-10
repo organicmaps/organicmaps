@@ -803,6 +803,7 @@
 	<string name="download_over_mobile_message">قد يكون هذا مكلفا جدا لبعض الخطط أو عند التجوال.</string>
 	<string name="error_enter_correct_house_number">أدخل رقم منزل صحيح</string>
 	<string name="editor_storey_number">عدد الطوابق (بحد أقصى %d)</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
 	<string name="error_enter_correct_storey_number">تحرير المبنى بحد أقصى 25 طابقًا</string>
 	<string name="editor_zip_code">الرمز البريدي</string>
 	<string name="error_enter_correct_zip_code">أدخل الرمز البريدي الصحيح</string>
