@@ -35,6 +35,7 @@ double const kMaxBlockAutoZoomTimeSec = 10.0;
 int const kZoomThreshold = 10;
 int const kMaxScaleZoomLevel = 16;
 int const kDefaultAutoZoom = 16;
+double const kUnknownAutoZoom = -1.0;
 
 string LocationModeStatisticsName(location::EMyPositionMode mode)
 {
@@ -73,20 +74,20 @@ double CalculateZoomBySpeed(double speed, bool isPerspectiveAllowed)
   using TSpeedScale = pair<double, double>;
   static vector<TSpeedScale> const scales3d = {
     make_pair(20.0, 0.25),
-    make_pair(40.0, 0.5),
-    make_pair(60.0, 1.0),
-    make_pair(75.0, 1.75),
-    make_pair(85.0, 3.5),
-    make_pair(90.0, 7.0),
+    make_pair(40.0, 0.75),
+    make_pair(60.0, 1.5),
+    make_pair(75.0, 2.5),
+    make_pair(85.0, 3.75),
+    make_pair(95.0, 6.0),
   };
 
   static vector<TSpeedScale> const scales2d = {
     make_pair(20.0, 0.7),
-    make_pair(40.0, 1.0),
-    make_pair(60.0, 1.5),
-    make_pair(75.0, 1.75),
-    make_pair(85.0, 3.5),
-    make_pair(90.0, 7.0),
+    make_pair(40.0, 1.25),
+    make_pair(60.0, 2.25),
+    make_pair(75.0, 3.0),
+    make_pair(85.0, 3.75),
+    make_pair(95.0, 6.0),
   };
 
   vector<TSpeedScale> const & scales = isPerspectiveAllowed ? scales3d : scales2d;
@@ -369,9 +370,16 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
   m_position = MercatorBounds::FromLatLon(info.m_latitude, info.m_longitude);
   m_errorRadius = rect.SizeX() * 0.5;
 
-  double const mercatorPerMeter = m_errorRadius / info.m_horizontalAccuracy;
-  m_autoScale2d = mercatorPerMeter * CalculateZoomBySpeed(info.m_speed, false /* isPerspectiveAllowed */);
-  m_autoScale3d = mercatorPerMeter * CalculateZoomBySpeed(info.m_speed, true /* isPerspectiveAllowed */);
+  if (info.m_speed > 0.0)
+  {
+    double const mercatorPerMeter = m_errorRadius / info.m_horizontalAccuracy;
+    m_autoScale2d = mercatorPerMeter * CalculateZoomBySpeed(info.m_speed, false /* isPerspectiveAllowed */);
+    m_autoScale3d = mercatorPerMeter * CalculateZoomBySpeed(info.m_speed, true /* isPerspectiveAllowed */);
+  }
+  else
+  {
+    m_autoScale2d = m_autoScale3d = kUnknownAutoZoom;
+  }
 
   bool const hasBearing = info.HasBearing();
   if ((isNavigable && hasBearing) ||
@@ -497,11 +505,11 @@ bool MyPositionController::IsInStateWithPosition() const
 
 bool MyPositionController::UpdateViewportWithAutoZoom()
 {
-  if (m_mode == location::FollowAndRotate &&
+  double autoScale = m_enablePerspectiveInRouting ? m_autoScale3d : m_autoScale2d;
+  if (autoScale > 0.0 && m_mode == location::FollowAndRotate &&
       m_isInRouting && m_enableAutoZoomInRouting && !m_needBlockAutoZoom)
   {
-    ChangeModelView(m_enablePerspectiveInRouting ? m_autoScale3d : m_autoScale2d,
-                    m_position, m_drawDirection, GetRoutingRotationPixelCenter());
+    ChangeModelView(autoScale, m_position, m_drawDirection, GetRoutingRotationPixelCenter());
     return true;
   }
   return false;
@@ -537,8 +545,7 @@ void MyPositionController::Render(ScreenBase const & screen, int zoomLevel,
         m_updateLocationTimer.ElapsedSeconds() >= kMaxUpdateLocationInvervalSec)
     {
       m_positionIsObsolete = true;
-      m_autoScale2d = m_autoScale3d = GetScale(kDefaultAutoZoom);
-      m_isDirtyAutoZoom = true;
+      m_autoScale2d = m_autoScale3d = kUnknownAutoZoom;
     }
 
     if ((m_isDirtyViewport || m_isDirtyAutoZoom) && !m_needBlockAnimation)
