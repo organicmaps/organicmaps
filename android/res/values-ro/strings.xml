@@ -794,6 +794,7 @@
 	<string name="download_over_mobile_message">Aceasta poate fi destul de costisitoare în cazul unor abonamente sau dacă sunteți pe roaming.</string>
 	<string name="error_enter_correct_house_number">Introduceți numărul corect al casei</string>
 	<string name="editor_storey_number">Număr de etaje (max %d)</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
 	<string name="error_enter_correct_storey_number">Editare clădire cu maximum 25 de etaje</string>
 	<string name="editor_zip_code">Cod poștal</string>
 	<string name="error_enter_correct_zip_code">Introduceți codul poștal corect</string>

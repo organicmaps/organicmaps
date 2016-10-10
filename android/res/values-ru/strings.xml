@@ -111,7 +111,7 @@
 	<string name="download_resources">Перед началом работы разрешите нам загрузить общую карту мира на ваше устройство.\nЭто потребует %s данных.</string>
 	<string name="getting_position">Получаем местоположение</string>
 	<string name="download_resources_continue">Перейти на карту</string>
-	<string name="downloading_country_can_proceed">Пока загружается %s\nвы можете пользоваться приложением.</string>
+	<string name="downloading_country_can_proceed">Пока загружается %s,\nвы можете пользоваться картой.</string>
 	<string name="download_country_ask">Загрузить %s?</string>
 	<string name="update_country_ask">Обновить %s?</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -815,7 +815,8 @@
 	<string name="download_over_mobile_message">На некоторых тарифных планах или в роуминге это может привести к значительным расходам.</string>
 	<string name="error_enter_correct_house_number">Введите корректный номер дома</string>
 	<string name="editor_storey_number">Количество этажей (максимум %d)</string>
-	<string name="error_enter_correct_storey_number">Редактируйте здания высотой максимум 25 этажей</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
+	<string name="error_enter_correct_storey_number">Количество этажей не должно превышать 25</string>
 	<string name="editor_zip_code">Почтовый индекс</string>
 	<string name="error_enter_correct_zip_code">Введите корректный почтовый индекс</string>
 	<!-- Place Page title for long tap -->
@@ -969,4 +970,32 @@
 	<string name="placepage_hotel_facilities">Удобства</string>
 	<!-- For place page hotel nearby block -->
 	<string name="placepage_hotel_nearby">Рядом</string>
+	<!-- For ordering a taxi (as opposed to hotels or other things) -->
+	<string name="taxi_order">Заказать</string>
+	<!-- How long it is until the taxi arrives -->
+	<string name="taxi_wait">Ожидание %d мин</string>
+	<!-- When there are no available taxis nearby -->
+	<string name="taxi_not_found">Не удалось найти такси поблизости</string>
+	<string name="install_app">Установить</string>
+	<!-- `Filter` is a noun here -->
+	<string name="booking_filters">Фильтр</string>
+	<string name="booking_filters_reset">Сбросить</string>
+	<string name="booking_filters_rating">Рейтинг</string>
+	<string name="booking_filters_rating_any">Любой</string>
+	<string name="booking_filters_ragting_good">Хорошо</string>
+	<string name="booking_filters_rating_very_good">Очень хорошо</string>
+	<string name="booking_filters_rating_excellent">Отлично</string>
+	<string name="booking_filters_price_category">Ценовая категория</string>
+	<string name="booking_filters_no_results">Поиск не дал результатов</string>
+	<string name="booking_filters_nores_message">Попробуйте задать более общий запрос, уменьшить масштаб карты или сбросить фильтр.</string>
+	<string name="booking_filters_expand_area">Уменьшить масштаб карты</string>
+	<string name="booking_filters_reset">Сбросить фильтр</string>
+	<string name="booking_list">Список</string>
+	<string name="booking_based_on_reviews">По %d отзывам об отеле</string>
+	<string name="booking_show_more">Показать еще</string>
+	<string name="booking_reviews">Отзывы</string>
+	<string name="booking_hotel">Отель</string>
+	<string name="booking_hotel_room">Номер</string>
+	<string name="chat">Геочат</string>
+	<string name="chat_open">Открыть</string>
 </resources>
