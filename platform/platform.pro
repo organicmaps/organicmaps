@@ -50,6 +50,7 @@ macx-*|iphone* {
   OBJECTIVE_SOURCES += \
     http_thread_apple.mm \
     http_client_apple.mm \
+    socket_apple.mm \
 
   QMAKE_OBJECTIVE_CFLAGS += -fobjc-arc
 }
@@ -85,6 +86,7 @@ HEADERS += \
     preferred_languages.hpp \
     servers_list.hpp \
     settings.hpp \
+    socket.hpp \
 
 SOURCES += \
     chunks_download_strategy.cpp \
