@@ -1,4 +1,3 @@
-#include "generator/booking_dataset.hpp"
 #include "generator/coastlines_generator.hpp"
 #include "generator/feature_generator.hpp"
 #include "generator/intermediate_data.hpp"
@@ -12,6 +11,9 @@
 #include "generator/tag_admixer.hpp"
 #include "generator/towns_dumper.hpp"
 #include "generator/world_map_generator.hpp"
+
+#include "generator/booking_dataset.hpp"
+#include "generator/opentable_dataset.hpp"
 
 #include "indexer/classificator.hpp"
 
@@ -278,6 +280,7 @@ class MainFeaturesEmitter : public EmitterBase
   bool m_failOnCoasts;
 
   generator::BookingDataset m_bookingDataset;
+  generator::OpentableDataset m_opentableDataset;
 
   /// Used to prepare a list of cities to serve as a list of nodes
   /// for building a highway graph with OSRM for low zooms.
@@ -301,6 +304,8 @@ public:
     : m_skippedElementsPath(info.GetIntermediateFileName("skipped_elements", ".lst"))
     , m_failOnCoasts(info.m_failOnCoasts)
     , m_bookingDataset(info.m_bookingDatafileName, info.m_bookingReferenceDir)
+    , m_opentableDataset(info.m_opentableDatafileName, info.m_opentableReferenceDir)
+
   {
     Classificator const & c = classif();
 
@@ -342,47 +347,43 @@ public:
     static uint32_t const placeType = classif().GetTypeByPath({"place"});
     uint32_t const type = fb.GetParams().FindType(placeType, 1);
 
-    auto hotelIndex = generator::BookingDataset::kInvalidHotelIndex;
-
+    // TODO(mgserigio): Would it be better to have objects that store callback
+    // and can be piped: action-if-cond1 | action-if-cond-2 | ... ?
+    // The first object which perform action terminates the cahin.
     if (type != ftype::GetEmptyValue() && !fb.GetName().empty())
     {
       m_places.ReplaceEqualInRect(
           Place(fb, type),
           [](Place const & p1, Place const & p2) { return p1.IsEqual(p2); },
           [](Place const & p1, Place const & p2) { return p1.IsBetterThan(p2); });
+      return;
     }
-    else if ((hotelIndex = m_bookingDataset.GetMatchingHotelIndex(fb)) !=
-             generator::BookingDataset::kInvalidHotelIndex)
-    {
-      m_skippedElements << DebugPrint(fb.GetMostGenericOsmId()) << endl;
 
-      // Turn a hotel into a simple building.
-      if (fb.GetGeomType() == feature::GEOM_AREA)
+    auto const bookingObjId = m_bookingDataset.FindMatchingObjectId(fb);
+    if (bookingObjId != generator::BookingHotel::InvalidObjectId())
+    {
+      m_bookingDataset.PreprocessMatchedOsmObject(bookingObjId, fb, [this, bookingObjId](FeatureBuilder1 & fb)
       {
-        // Remove all information about a hotel.
-        auto params = fb.GetParams();
-        params.ClearName();
-        auto & meta = params.GetMetadata();
-        meta.Drop(feature::Metadata::EType::FMD_STARS);
-        meta.Drop(feature::Metadata::EType::FMD_WEBSITE);
-        meta.Drop(feature::Metadata::EType::FMD_PHONE_NUMBER);
-
-        auto const & c = classif();
-        auto const tourism = c.GetTypeByPath({"tourism"});
-        my::EraseIf(params.m_Types, [&c, tourism](uint32_t type)
-        {
-          ftype::TruncValue(type, 1);
-          return type == tourism;
-        });
-        fb.SetParams(params);
-
+        m_skippedElements << "BOOKING\t" << DebugPrint(fb.GetMostGenericOsmId())
+                          << '\t' << bookingObjId.Get() << endl;
         Emit(fb);
-      }
+      });
+      return;
     }
-    else
+
+    auto const opentableObjId = m_opentableDataset.FindMatchingObjectId(fb);
+    if (opentableObjId != generator::OpentableRestaurant::InvalidObjectId())
     {
-      Emit(fb);
+      m_opentableDataset.PreprocessMatchedOsmObject(opentableObjId, fb, [this, opentableObjId](FeatureBuilder1 & fb)
+      {
+        m_skippedElements << "OPENTABLE\t" << DebugPrint(fb.GetMostGenericOsmId())
+                          << '\t' << opentableObjId.Get() << endl;
+        Emit(fb);
+      });
+      return;
     }
+
+    Emit(fb);
   }
 
   /// @return false if coasts are not merged and FLAG_fail_on_coasts is set
@@ -390,8 +391,10 @@ public:
   {
     DumpSkippedElements();
 
-    // Emit all booking objecs to the map.
-    m_bookingDataset.BuildHotels([this](FeatureBuilder1 & fb) { Emit(fb); });
+    // Emit all required booking objects to the map.
+    m_bookingDataset.BuildOsmObjects([this](FeatureBuilder1 & fb) { Emit(fb); });
+    // No opentable objects should be emitted. Opentable data enriches some data
+    // with a link to a restaurant's reservation page.
 
     m_places.ForEach([this](Place const & p)
     {

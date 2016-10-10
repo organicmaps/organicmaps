@@ -1,7 +1,8 @@
 #include "generator/booking_dataset.hpp"
-#include "generator/booking_scoring.hpp"
 #include "generator/feature_builder.hpp"
+#include "generator/opentable_dataset.hpp"
 #include "generator/osm_source.hpp"
+#include "generator/sponsored_scoring.hpp"
 
 #include "indexer/classificator_loader.hpp"
 
@@ -21,12 +22,19 @@
 
 #include "3party/gflags/src/gflags/gflags.h"
 
+#include "boost/range/adaptor/map.hpp"
+#include "boost/range/algorithm/copy.hpp"
+
+
 DEFINE_string(osm, "", "Input .o5m file");
 DEFINE_string(booking, "", "Path to booking data in .tsv format");
+DEFINE_string(opentable, "", "Path to opentable data in .tsv format");
 DEFINE_string(factors, "", "Factors output path");
 DEFINE_string(sample, "", "Path so sample file");
-DEFINE_uint64(selection_size, 1000, "Selection size");
+
 DEFINE_uint64(seed, minstd_rand::default_seed, "Seed for random shuffle");
+DEFINE_uint64(selection_size, 1000, "Selection size");
+DEFINE_bool(generate, false, "Generate unmarked sample");
 
 using namespace generator;
 
@@ -89,11 +97,12 @@ osm::Id ReadDebuggedPrintedOsmId(string const & str)
   MYTHROW(ParseError, ("Can't make osmId from string", str));
 }
 
+template <typename Dataset>
 class Emitter : public EmitterBase
 {
 public:
-  Emitter(BookingDataset const & booking, map<osm::Id, FeatureBuilder1> & features)
-    : m_bookingDataset(booking)
+  Emitter(Dataset const & dataset, map<osm::Id, FeatureBuilder1> & features)
+    : m_dataset(dataset)
     , m_features(features)
   {
     LOG_SHORT(LINFO, ("OSM data:", FLAGS_osm));
@@ -101,7 +110,7 @@ public:
 
   void operator()(FeatureBuilder1 & fb) override
   {
-    if (m_bookingDataset.CanBeBooking(fb))
+    if (m_dataset.NecessaryMatchingConditionHolds(fb))
       m_features.emplace(fb.GetMostGenericOsmId(), fb);
   }
 
@@ -117,7 +126,7 @@ public:
   }
 
 private:
-  BookingDataset const & m_bookingDataset;
+  Dataset const & m_dataset;
   map<osm::Id, FeatureBuilder1> & m_features;
 };
 
@@ -125,6 +134,7 @@ feature::GenerateInfo GetGenerateInfo()
 {
   feature::GenerateInfo info;
   info.m_bookingDatafileName = FLAGS_booking;
+  info.m_opentableDatafileName = FLAGS_opentable;
   info.m_osmFileName = FLAGS_osm;
   info.SetNodeStorageType("map");
   info.SetOsmFileType("o5m");
@@ -136,111 +146,242 @@ feature::GenerateInfo GetGenerateInfo()
   return info;
 }
 
+template <typename Object>
 struct SampleItem
 {
   enum MatchStatus {Uninitialized, Yes, No};
+  using ObjectId = typename Object::ObjectId;
 
   SampleItem() = default;
 
-  SampleItem(osm::Id const & osmId, uint32_t const bookingId, MatchStatus const match = Uninitialized)
+  SampleItem(osm::Id const & osmId, ObjectId const sponsoredId, MatchStatus const match = Uninitialized)
    : m_osmId(osmId)
-   , m_bookingId(bookingId)
+   , m_sponsoredId(sponsoredId)
    , m_match(match)
   {
   }
 
   osm::Id m_osmId;
-  uint32_t m_bookingId = BookingDataset::kInvalidHotelIndex;
+  ObjectId m_sponsoredId = Object::InvalidObjectId();
 
   MatchStatus m_match = Uninitialized;
 };
 
-SampleItem::MatchStatus ReadMatchStatus(string const & str)
+template <typename Object>
+typename SampleItem<Object>::MatchStatus ReadMatchStatus(string const & str)
 {
   if (str == "Yes")
-    return SampleItem::Yes;
+    return SampleItem<Object>::Yes;
 
   if (str == "No")
-    return SampleItem::No;
+    return SampleItem<Object>::No;
 
   if (str == "Uninitialized")
-    return SampleItem::Uninitialized;
+    return SampleItem<Object>::Uninitialized;
 
   MYTHROW(ParseError, ("Can't make SampleItem::MatchStatus from string:", str));
 }
 
-SampleItem ReadSampleItem(string const & str)
+template <typename Object>
+SampleItem<Object> ReadSampleItem(string const & str)
 {
-  SampleItem item;
+  SampleItem<Object> item;
 
   auto const parts = strings::Tokenize(str, "\t");
   CHECK_EQUAL(parts.size(), 3, ("Cant't make SampleItem from string:", str,
                                 "due to wrong number of fields."));
 
   item.m_osmId = ReadDebuggedPrintedOsmId(parts[0]);
-  if (!strings::to_uint(parts[1], item.m_bookingId))
+  if (!strings::to_uint(parts[1], item.m_sponsoredId.Get()))
     MYTHROW(ParseError, ("Can't make uint32 from string:", parts[1]));
-  item.m_match = ReadMatchStatus(parts[2]);
+  item.m_match = ReadMatchStatus<Object>(parts[2]);
 
   return item;
 }
 
-vector<SampleItem> ReadSample(istream & ist)
+template <typename Object>
+vector<SampleItem<Object>> ReadSample(istream & ist)
 {
-  vector<SampleItem> result;
+  vector<SampleItem<Object>> result;
 
   size_t lineNumber = 1;
   try
   {
     for (string line; getline(ist, line); ++lineNumber)
     {
-      result.emplace_back(ReadSampleItem(line));
+      result.emplace_back(ReadSampleItem<Object>(line));
     }
   }
   catch (ParseError const & e)
   {
-    LOG(LERROR, ("Wrong format: line", lineNumber, e.Msg()));
+    LOG_SHORT(LERROR, ("Wrong format: line", lineNumber, e.Msg()));
     exit(1);
   }
 
   return result;
 }
 
-vector<SampleItem> ReadSampleFromFile(string const & name)
+template <typename Object>
+vector<SampleItem<Object>> ReadSampleFromFile(string const & name)
 {
   ifstream ist(name);
   CHECK(ist.is_open(), ("Can't open file:", name, strerror(errno)));
-  return ReadSample(ist);
+  return ReadSample<Object>(ist);
 }
 
-void GenerateFactors(BookingDataset const & booking, map<osm::Id, FeatureBuilder1> const & features,
-                     vector<SampleItem> const & sampleItems, ostream & ost)
+template <typename Dataset, typename Object = typename Dataset::Object>
+void GenerateFactors(Dataset const & dataset,
+                     map<osm::Id, FeatureBuilder1> const & features,
+                     vector<SampleItem<Object>> const & sampleItems, ostream & ost)
 {
   for (auto const & item : sampleItems)
   {
-    auto const & hotel = booking.GetHotelById(item.m_bookingId);
+    auto const & object = dataset.GetObjectById(item.m_sponsoredId);
     auto const & feature = features.at(item.m_osmId);
 
-    auto const score = booking_scoring::Match(hotel, feature);
+    auto const score = generator::sponsored_scoring::Match(object, feature);
 
     auto const center = MercatorBounds::ToLatLon(feature.GetKeyPoint());
-    double const distanceMeters = ms::DistanceOnEarth(center.lat, center.lon,
-                                                      hotel.lat, hotel.lon);
+    double const distanceMeters = ms::DistanceOnEarth(center, object.m_latLon);
     auto const matched = score.IsMatched();
 
     ost << "# ------------------------------------------" << fixed << setprecision(6)
         << endl;
     ost << (matched ? 'y' : 'n') << " \t" << DebugPrint(feature.GetMostGenericOsmId())
-        << "\t " << hotel.id
+        << "\t " << object.m_id
         << "\tdistance: " << distanceMeters
         << "\tdistance score: " << score.m_linearNormDistanceScore
         << "\tname score: " << score.m_nameSimilarityScore
         << "\tresult score: " << score.GetMatchingScore()
         << endl;
     ost << "# " << PrintBuilder(feature) << endl;
-    ost << "# " << hotel << endl;
-    ost << "# URL: https://www.openstreetmap.org/?mlat=" << hotel.lat
-        << "&mlon=" << hotel.lon << "#map=18/" << hotel.lat << "/" << hotel.lon << endl;
+    ost << "# " << object << endl;
+    ost << "# URL: https://www.openstreetmap.org/?mlat="
+        << object.m_latLon.lat << "&mlon=" << object.m_latLon.lon << "#map=18/"
+        << object.m_latLon.lat << "/" << object.m_latLon.lon << endl;
+  }
+}
+
+enum class DatasetType
+{
+  Booking,
+  Opentable
+};
+
+template <typename Dataset, typename Object = typename Dataset::Object>
+void GenerateSample(Dataset const & dataset,
+                    map<osm::Id, FeatureBuilder1> const & features,
+                    ostream & ost)
+{
+  LOG_SHORT(LINFO, ("Num of elements:", features.size()));
+  vector<osm::Id> elementIndexes(features.size());
+  boost::copy(features | boost::adaptors::map_keys, begin(elementIndexes));
+
+  // TODO(mgsergio): Try RandomSample (from search:: at the moment of writing).
+  shuffle(elementIndexes.begin(), elementIndexes.end(), minstd_rand(FLAGS_seed));
+  if (FLAGS_selection_size < elementIndexes.size())
+    elementIndexes.resize(FLAGS_selection_size);
+
+  stringstream outStream;
+
+  for (auto osmId : elementIndexes)
+  {
+    auto const & fb = features.at(osmId);
+    auto const sponsoredIndexes = dataset.GetNearestObjects(
+        MercatorBounds::ToLatLon(fb.GetKeyPoint()),
+        Dataset::kMaxSelectedElements,
+        Dataset::kDistanceLimitInMeters);
+
+    for (auto const sponsoredId : sponsoredIndexes)
+    {
+      auto const & object = dataset.GetObjectById(sponsoredId);
+      auto const score = sponsored_scoring::Match(object, fb);
+
+      auto const center = MercatorBounds::ToLatLon(fb.GetKeyPoint());
+      double const distanceMeters = ms::DistanceOnEarth(center, object.m_latLon);
+      auto const matched = score.IsMatched();
+
+      outStream << "# ------------------------------------------" << fixed << setprecision(6)
+                << endl;
+      outStream << (matched ? 'y' : 'n') << " \t" << DebugPrint(osmId) << "\t " << sponsoredId
+                << "\tdistance: " << distanceMeters
+                << "\tdistance score: " << score.m_linearNormDistanceScore
+                << "\tname score: " << score.m_nameSimilarityScore
+                << "\tresult score: " << score.GetMatchingScore()
+                << endl;
+      outStream << "# " << PrintBuilder(fb) << endl;
+      outStream << "# " << object << endl;
+      outStream << "# URL: https://www.openstreetmap.org/?mlat="
+                << object.m_latLon.lat << "&mlon=" << object.m_latLon.lon
+                << "#map=18/" << object.m_latLon.lat << "/" << object.m_latLon.lon << endl;
+    }
+    if (!sponsoredIndexes.empty())
+      outStream << endl << endl;
+  }
+
+  if (FLAGS_sample.empty())
+  {
+    cout << outStream.str();
+  }
+  else
+  {
+    ofstream file(FLAGS_sample);
+    if (file.is_open())
+      file << outStream.str();
+    else
+      LOG_SHORT(LERROR, ("Can't output into", FLAGS_sample, strerror(errno)));
+  }
+}
+
+template <typename Dataset>
+string GetDatasetFilePath(feature::GenerateInfo const & info);
+
+template <>
+string GetDatasetFilePath<BookingDataset>(feature::GenerateInfo const & info)
+{
+  return info.m_bookingDatafileName;
+}
+
+template <>
+string GetDatasetFilePath<OpentableDataset>(feature::GenerateInfo const & info)
+{
+  return info.m_opentableDatafileName;
+}
+
+template <typename Dataset, typename Object = typename Dataset::Object>
+void RunImpl(feature::GenerateInfo & info)
+{
+  // TODO(mgsergio): Log correctly LOG_SHORT(LINFO, ("Booking data:", FLAGS_booking));
+  Dataset dataset(GetDatasetFilePath<Dataset>(info));
+  LOG_SHORT(LINFO, (dataset.Size(), "objects are loaded from a Dataset."));
+
+  map<osm::Id, FeatureBuilder1> features;
+  GenerateFeatures(info, [&dataset, &features](feature::GenerateInfo const & /* info */)
+  {
+    return make_unique<Emitter<Dataset>>(dataset, features);
+  });
+
+  if (FLAGS_generate)
+  {
+    ofstream ost(FLAGS_sample);
+    GenerateSample(dataset, features, ost);
+  }
+  else
+  {
+    auto const sample = ReadSampleFromFile<Object>(FLAGS_sample);
+    LOG_SHORT(LINFO, ("Sample size is", sample.size()));
+    ofstream ost(FLAGS_factors);
+    CHECK(ost.is_open(), ("Can't open file", FLAGS_factors, strerror(errno)));
+    GenerateFactors<Dataset>(dataset, features, sample, ost);
+  }
+}
+
+void Run(DatasetType const datasetType, feature::GenerateInfo & info)
+{
+  switch (datasetType)
+  {
+  case DatasetType::Booking: RunImpl<BookingDataset>(info); break;
+  case DatasetType::Opentable: RunImpl<OpentableDataset>(info); break;
   }
 }
 }  // namespace
@@ -259,31 +400,19 @@ int main(int argc, char * argv[])
 
   CHECK(!FLAGS_sample.empty(), ("Please specify sample path."));
   CHECK(!FLAGS_osm.empty(), ("Please specify osm path."));
-  CHECK(!FLAGS_booking.empty(), ("Please specify booking path."));
-  CHECK(!FLAGS_factors.empty(), ("Please specify factors path."));
+  CHECK(!FLAGS_booking.empty() ^ !FLAGS_opentable.empty(),
+        ("Please specify either booking or opentable path."));
+  CHECK(!FLAGS_factors.empty() ^ FLAGS_generate, ("Please either specify factors path"
+                                                  "or use -generate."));
+
+  auto const datasetType = FLAGS_booking.empty() ? DatasetType::Opentable : DatasetType::Booking;
 
   classificator::Load();
 
   auto info = GetGenerateInfo();
   GenerateIntermediateData(info);
 
-  LOG_SHORT(LINFO, ("Booking data:", FLAGS_booking));
-  BookingDataset booking(info.m_bookingDatafileName);
-  LOG_SHORT(LINFO, (booking.Size(), "hotels are loaded from Booking."));
-
-  map<osm::Id, FeatureBuilder1> features;
-  GenerateFeatures(info, [&booking, &features](feature::GenerateInfo const & /* info */)
-  {
-    return make_unique<Emitter>(booking, features);
-  });
-
-  auto const sample = ReadSampleFromFile(FLAGS_sample);
-  LOG(LINFO, ("Sample size is", sample.size()));
-  {
-    ofstream ost(FLAGS_factors);
-    CHECK(ost.is_open(), ("Can't open file", FLAGS_factors, strerror(errno)));
-    GenerateFactors(booking, features, sample, ost);
-  }
+  Run(datasetType, info);
 
   return 0;
 }

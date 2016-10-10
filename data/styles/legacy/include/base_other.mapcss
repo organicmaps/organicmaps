@@ -602,7 +602,8 @@ line|z16[man_made=pipeline][location=overground]
   linecap: butt;
 }
 area|z16-[amenity=restaurant],
-node|z16-[amenity=restaurant]
+node|z16-[amenity=restaurant],
+node|z16-[sponsored=opentable]
 {
   icon-image: restaurant.svg;
 }

@@ -74,7 +74,9 @@ DEFINE_string(osm_file_name, "", "Input osm area file.");
 DEFINE_string(osm_file_type, "xml", "Input osm area file type [xml, o5m].");
 DEFINE_string(user_resource_path, "", "User defined resource path for classificator.txt and etc.");
 DEFINE_string(booking_data, "", "Path to booking data in .tsv format.");
-DEFINE_string(booking_reference_path, "", "Path to mwm dataset for match booking addresses.");
+DEFINE_string(booking_reference_path, "", "Path to mwm dataset for booking addresses matching.");
+DEFINE_string(opentable_data, "", "Path to opentable data in .tsv format.");
+DEFINE_string(opentable_reference_path, "", "Path to mwm dataset for opentable addresses matching.");
 DEFINE_uint64(planet_version, my::SecondsSinceEpoch(),
               "Version as seconds since epoch, by default - now.");
 DEFINE_string(srtm_path, "",
@@ -114,6 +116,8 @@ int main(int argc, char ** argv)
   genInfo.m_preloadCache = FLAGS_preload_cache;
   genInfo.m_bookingDatafileName = FLAGS_booking_data;
   genInfo.m_bookingReferenceDir = FLAGS_booking_reference_path;
+  genInfo.m_opentableDatafileName = FLAGS_opentable_data;
+  genInfo.m_opentableReferenceDir = FLAGS_opentable_reference_path;
 
   genInfo.m_versionDate = static_cast<uint32_t>(FLAGS_planet_version);
 

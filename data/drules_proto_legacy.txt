@@ -65015,6 +65015,39 @@ cont {
   }
 }
 cont {
+  name: "sponsored-opentable"
+  element {
+    scale: 16
+    symbol {
+      name: "restaurant"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "restaurant"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "hotel"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "hotel"
+      priority: 16000
+    }
+  }
+}
+cont {
   name: "sport-american_football"
   element {
     scale: 17
