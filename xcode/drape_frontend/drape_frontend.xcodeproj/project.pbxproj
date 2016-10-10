@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		3492DA0E1CA2D9BF00C1F3B3 /* animation_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3492DA0C1CA2D9BF00C1F3B3 /* animation_utils.cpp */; };
 		3492DA0F1CA2D9BF00C1F3B3 /* animation_utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3492DA0D1CA2D9BF00C1F3B3 /* animation_utils.hpp */; };
+		34C624C31DABDB0400510300 /* traffic_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34C624BF1DABDB0400510300 /* traffic_generator.cpp */; };
+		34C624C41DABDB0400510300 /* traffic_generator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34C624C01DABDB0400510300 /* traffic_generator.hpp */; };
+		34C624C51DABDB0400510300 /* traffic_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34C624C11DABDB0400510300 /* traffic_renderer.cpp */; };
+		34C624C61DABDB0400510300 /* traffic_renderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34C624C21DABDB0400510300 /* traffic_renderer.hpp */; };
 		3D489BC51D3D21FC0052AA38 /* libdrape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D489BC41D3D21FC0052AA38 /* libdrape.a */; };
 		452C9ED41CEDCF3200A55E57 /* animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452C9EC21CEDCF3200A55E57 /* animation.cpp */; };
 		452C9ED51CEDCF3200A55E57 /* animation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 452C9EC31CEDCF3200A55E57 /* animation.hpp */; };
@@ -207,6 +211,10 @@
 /* Begin PBXFileReference section */
 		3492DA0C1CA2D9BF00C1F3B3 /* animation_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = animation_utils.cpp; sourceTree = "<group>"; };
 		3492DA0D1CA2D9BF00C1F3B3 /* animation_utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = animation_utils.hpp; sourceTree = "<group>"; };
+		34C624BF1DABDB0400510300 /* traffic_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = traffic_generator.cpp; sourceTree = "<group>"; };
+		34C624C01DABDB0400510300 /* traffic_generator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = traffic_generator.hpp; sourceTree = "<group>"; };
+		34C624C11DABDB0400510300 /* traffic_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = traffic_renderer.cpp; sourceTree = "<group>"; };
+		34C624C21DABDB0400510300 /* traffic_renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = traffic_renderer.hpp; sourceTree = "<group>"; };
 		3D489BC41D3D21FC0052AA38 /* libdrape.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape.a; path = "../../../omim-xcode-build/Debug/libdrape.a"; sourceTree = "<group>"; };
 		452C9EC21CEDCF3200A55E57 /* animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = animation.cpp; sourceTree = "<group>"; };
 		452C9EC31CEDCF3200A55E57 /* animation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = animation.hpp; sourceTree = "<group>"; };
@@ -438,6 +446,10 @@
 		670947411BDF9B99005014C0 /* drape_frontend */ = {
 			isa = PBXGroup;
 			children = (
+				34C624BF1DABDB0400510300 /* traffic_generator.cpp */,
+				34C624C01DABDB0400510300 /* traffic_generator.hpp */,
+				34C624C11DABDB0400510300 /* traffic_renderer.cpp */,
+				34C624C21DABDB0400510300 /* traffic_renderer.hpp */,
 				45B4B8C71CF5C16B00A54761 /* screen_animations.cpp */,
 				45B4B8C81CF5C16B00A54761 /* screen_animations.hpp */,
 				45B4B8C91CF5C16B00A54761 /* screen_operations.cpp */,
@@ -694,6 +706,7 @@
 				670947BC1BDF9BE1005014C0 /* route_shape.hpp in Headers */,
 				F6B283121C1B04680081957A /* gps_track_renderer.hpp in Headers */,
 				670E393D1C46C59000E9C0A6 /* color_constants.hpp in Headers */,
+				34C624C41DABDB0400510300 /* traffic_generator.hpp in Headers */,
 				670948721BDF9C7F005014C0 /* feature_styler.hpp in Headers */,
 				6709484E1BDF9C48005014C0 /* shape.hpp in Headers */,
 				452C9EE31CEDCF3200A55E57 /* scale_animation.hpp in Headers */,
@@ -769,6 +782,7 @@
 				670947A61BDF9BE1005014C0 /* my_position.hpp in Headers */,
 				675D21901BFB871D00717E4F /* software_renderer.hpp in Headers */,
 				670947A81BDF9BE1005014C0 /* navigator.hpp in Headers */,
+				34C624C61DABDB0400510300 /* traffic_renderer.hpp in Headers */,
 				670947A21BDF9BE1005014C0 /* message.hpp in Headers */,
 				6709487B1BDF9C7F005014C0 /* path_info.hpp in Headers */,
 				6709486D1BDF9C7F005014C0 /* cpu_drawer.hpp in Headers */,
@@ -880,7 +894,9 @@
 				45B4B8CB1CF5C16B00A54761 /* screen_animations.cpp in Sources */,
 				6709483D1BDF9C48005014C0 /* copyright_label.cpp in Sources */,
 				670947C81BDF9BE1005014C0 /* text_shape.cpp in Sources */,
+				34C624C31DABDB0400510300 /* traffic_generator.cpp in Sources */,
 				670947CC1BDF9BE1005014C0 /* tile_info.cpp in Sources */,
+				34C624C51DABDB0400510300 /* traffic_renderer.cpp in Sources */,
 				670947961BDF9BE1005014C0 /* line_shape.cpp in Sources */,
 				670948681BDF9C7F005014C0 /* agg_curves.cpp in Sources */,
 				670947A91BDF9BE1005014C0 /* path_symbol_shape.cpp in Sources */,
