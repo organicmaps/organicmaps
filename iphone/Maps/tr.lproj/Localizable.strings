@@ -1668,9 +1668,9 @@
 
 "booking_filters_nores_message" = "Try a more general search term, zoom out or reset the filter.";
 
-"booking_filters_expand_area" = "Zoom out";
+"booking_filters_expand_area_button" = "Zoom out";
 
-"booking_filters_reset" = "Reset Filter";
+"booking_filters_reset_button" = "Reset Filter";
 
 "booking_list" = "List";
 

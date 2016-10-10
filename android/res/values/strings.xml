@@ -992,8 +992,8 @@
 	<string name="booking_filters_price_category">Price Category</string>
 	<string name="booking_filters_no_results">No Results Found</string>
 	<string name="booking_filters_nores_message">Try a more general search term, zoom out or reset the filter.</string>
-	<string name="booking_filters_expand_area">Zoom out</string>
-	<string name="booking_filters_reset">Reset Filter</string>
+	<string name="booking_filters_expand_area_button">Zoom out</string>
+	<string name="booking_filters_reset_button">Reset Filter</string>
 	<string name="booking_list">List</string>
 	<string name="booking_based_on_reviews">Based on %d hotel reviews</string>
 	<string name="booking_show_more">Show more</string>

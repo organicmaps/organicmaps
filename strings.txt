@@ -19921,7 +19921,7 @@
     ru = Фильтр
 
   [booking_filters_reset]
-    en = Reset 
+    en = Reset
     ru = Сбросить
 
   [booking_filters_rating]
@@ -19956,11 +19956,11 @@
     en = Try a more general search term, zoom out or reset the filter.
     ru = Попробуйте задать более общий запрос, уменьшить масштаб карты или сбросить фильтр.
 
-  [booking_filters_expand_area]
+  [booking_filters_expand_area_button]
     en = Zoom out
     ru = Уменьшить масштаб карты
 
-  [booking_filters_reset]
+  [booking_filters_reset_button]
     en = Reset Filter
     ru = Сбросить фильтр
 
