@@ -203,6 +203,7 @@ LocalityFinder::LocalityFinder(Index const & index, VillagesCache & villagesCach
   , m_lang(0)
   , m_cities(kMaxCityRadiusMeters)
   , m_villages(kMaxVillageRadiusMeters)
+  , m_mapsLoaded(false)
 {
 }
 
@@ -233,36 +234,25 @@ void LocalityFinder::ClearCache()
   m_ranks.reset();
   m_cities.Clear();
   m_villages.Clear();
+
+  m_maps.Clear();
+  m_worldId.Reset();
+  m_mapsLoaded = false;
+
   m_loadedIds.clear();
 }
 
 void LocalityFinder::LoadVicinity(m2::PointD const & p, bool loadCities, bool loadVillages)
 {
-  if (!loadCities && !loadVillages)
-    return;
+  UpdateMaps();
 
-  m2::RectD const crect = m_cities.GetDRect(p);
-  m2::RectD const vrect = m_villages.GetDRect(p);
-
-  vector<shared_ptr<MwmInfo>> mwmsInfo;
-  m_index.GetMwmsInfo(mwmsInfo);
-  for (auto const & info : mwmsInfo)
+  if (loadCities)
   {
-    MwmSet::MwmId id(info);
-    Index::MwmHandle handle = m_index.GetMwmHandleById(id);
-
-    if (!handle.IsAlive())
-      continue;
-
-    MwmValue const & value = *handle.GetValue<MwmValue>();
-    auto const & header = value.GetHeader();
-    switch (header.GetType())
+    m2::RectD const crect = m_cities.GetDRect(p);
+    auto handle = m_index.GetMwmHandleById(m_worldId);
+    if (handle.IsAlive())
     {
-    case feature::DataHeader::world:
-    {
-      if (!loadCities)
-        break;
-
+      auto const & value = *handle.GetValue<MwmValue>();
       if (!m_ranks)
         m_ranks = RankTable::Load(value.m_cont);
       if (!m_ranks)
@@ -271,23 +261,50 @@ void LocalityFinder::LoadVicinity(m2::PointD const & p, bool loadCities, bool lo
       MwmContext ctx(move(handle));
       ctx.ForEachIndex(crect,
                        LocalitiesLoader(ctx, CityFilter(*m_ranks), m_lang, m_cities, m_loadedIds));
-      break;
     }
-    case feature::DataHeader::country:
-      if (loadVillages && header.GetBounds().IsPointInside(p))
-      {
-        MwmContext ctx(move(handle));
-        ctx.ForEachIndex(vrect, LocalitiesLoader(ctx, VillageFilter(ctx, m_villagesCache), m_lang,
-                                                 m_villages, m_loadedIds));
-      }
-      break;
-    case feature::DataHeader::worldcoasts: break;
-    }
+
+    m_cities.SetCovered(p);
   }
 
-  if (loadCities)
-    m_cities.SetCovered(p);
   if (loadVillages)
+  {
+    m2::RectD const vrect = m_villages.GetDRect(p);
+    m_maps.ForEachInRect(m2::RectD(p, p), [&](MwmSet::MwmId const & id) {
+      auto handle = m_index.GetMwmHandleById(id);
+      if (!handle.IsAlive())
+        return;
+
+      MwmContext ctx(move(handle));
+      ctx.ForEachIndex(vrect, LocalitiesLoader(ctx, VillageFilter(ctx, m_villagesCache), m_lang,
+                                               m_villages, m_loadedIds));
+    });
+
     m_villages.SetCovered(p);
+  }
+}
+
+void LocalityFinder::UpdateMaps()
+{
+  if (m_mapsLoaded)
+    return;
+
+  vector<shared_ptr<MwmInfo>> mwmsInfo;
+  m_index.GetMwmsInfo(mwmsInfo);
+  for (auto const & info : mwmsInfo)
+  {
+    MwmSet::MwmId id(info);
+
+    switch (info->GetType())
+    {
+    case MwmInfo::WORLD:
+      m_worldId = id;
+      break;
+    case MwmInfo::COUNTRY:
+      m_maps.Add(id, info->m_limitRect);
+      break;
+    case MwmInfo::COASTS: break;
+    }
+  }
+  m_mapsLoaded = true;
 }
 }  // namespace search
