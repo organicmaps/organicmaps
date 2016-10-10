@@ -47,6 +47,8 @@
     <attr name="redButtonTextColor" format="color"/>
     <attr name="redButtonTextColorDisabled" format="color"/>
 
+    <attr name="startButtonBackground" format="reference"/>
+
     <attr name="circleAccent" format="reference"/>
 
     <attr name="menuBackground" format="color"/>
