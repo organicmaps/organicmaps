@@ -9,6 +9,7 @@ typedef void (^MWMImageHeightBlock)(UIImage *, NSString *);
 + (MWMRouter *)router;
 
 + (BOOL)hasRouteAltitude;
++ (BOOL)isTaxi;
 
 @property(nonatomic, readonly) MWMRoutePoint startPoint;
 @property(nonatomic, readonly) MWMRoutePoint finishPoint;

@@ -181,7 +181,9 @@ extern NSString * const kBookmarksChangedNotification;
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatBuildRoute)
         withParameters:@{kStatValue : kStatDestination}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppRoute"];
-  [[MWMRouter router] buildToPoint:self.target bestRouter:YES];
+  // Taxi can't be best router.
+  auto r = [MWMRouter router];
+  [r buildToPoint:self.target bestRouter:r.type != routing::RouterType::Taxi];
   [self hidePlacePage];
 }
 

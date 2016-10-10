@@ -16,6 +16,7 @@
 #import "MWMSearchManager.h"
 #import "MWMSearchView.h"
 #import "MWMSideButtons.h"
+#import "MWMTaxiPreviewDataSource.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
@@ -285,6 +286,16 @@ extern NSString * const kAlohalyticsTapEventKey;
       }];
 }
 
+- (void)startRouting
+{
+  if ([MWMRouter isTaxi])
+    [[UIApplication sharedApplication] openURL:[MWMNavigationDashboardManager manager].taxiDataSource.taxiURL];
+  else
+    [[MWMRouter router] start];
+}
+
+#pragma mark - MWMPlacePageManager
+
 - (void)dragPlacePage:(CGRect)frame
 {
   if (IPAD)
@@ -378,6 +389,11 @@ extern NSString * const kAlohalyticsTapEventKey;
     [[MapsAppDelegate theApp] disableStandby];
   else
     [[MapsAppDelegate theApp] enableStandby];
+}
+
+- (MWMTaxiCollectionView *)taxiCollectionView
+{
+  return self.menuController.taxiCollectionView;
 }
 
 #pragma mark - Routing

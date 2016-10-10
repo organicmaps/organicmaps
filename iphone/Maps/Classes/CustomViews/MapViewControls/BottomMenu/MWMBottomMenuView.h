@@ -1,14 +1,17 @@
-
-typedef NS_ENUM(NSUInteger, MWMBottomMenuState) {
+typedef NS_ENUM(NSUInteger, MWMBottomMenuState)
+{
   MWMBottomMenuStateHidden,
   MWMBottomMenuStateInactive,
   MWMBottomMenuStateActive,
   MWMBottomMenuStateCompact,
   MWMBottomMenuStatePlanning,
   MWMBottomMenuStateGo,
+  MWMBottomMenuStateRoutingError,
   MWMBottomMenuStateRouting,
   MWMBottomMenuStateRoutingExpanded
 };
+
+@class MWMTaxiCollectionView;
 
 @interface MWMBottomMenuView : SolidTouchView
 
@@ -17,6 +20,8 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuState) {
 
 @property(nonatomic) CGFloat leftBound;
 @property(nonatomic) CGFloat layoutThreshold;
+
+@property(weak, nonatomic, readonly) IBOutlet MWMTaxiCollectionView * taxiCollectionView;
 
 @property(nonatomic) BOOL searchIsActive;
 

@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -49,16 +48,25 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VhE-hA-Leo">
-                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="VhE-hA-Leo" secondAttribute="height" multiplier="1:1" id="V4H-0m-WCy"/>
                                     </constraints>
                                 </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f6i-lw-K3R" userLabel="Taxi">
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="38" id="OgG-Kd-9xU"/>
+                                        <constraint firstAttribute="height" constant="38" id="PHb-wf-Y8y"/>
+                                    </constraints>
+                                </view>
                             </subviews>
-                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="jDl-pu-eov" firstAttribute="leading" secondItem="sXu-tl-a0m" secondAttribute="leading" constant="6" id="4B3-wd-Hli"/>
                                 <constraint firstItem="VhE-hA-Leo" firstAttribute="leading" secondItem="yiM-fM-sSS" secondAttribute="trailing" constant="16" id="5aG-G0-kVn"/>
+                                <constraint firstItem="f6i-lw-K3R" firstAttribute="centerY" secondItem="sXu-tl-a0m" secondAttribute="centerY" id="8bO-5b-sWI"/>
+                                <constraint firstAttribute="trailing" secondItem="f6i-lw-K3R" secondAttribute="trailing" constant="6" id="Cd3-ev-uFS"/>
                                 <constraint firstItem="VhE-hA-Leo" firstAttribute="top" secondItem="sXu-tl-a0m" secondAttribute="top" constant="3" id="HM9-PQ-ys1"/>
                                 <constraint firstAttribute="bottom" secondItem="jDl-pu-eov" secondAttribute="bottom" id="Icg-Vj-GvT"/>
                                 <constraint firstItem="yiM-fM-sSS" firstAttribute="leading" secondItem="jDl-pu-eov" secondAttribute="trailing" constant="16" id="Ig8-ez-IpI"/>
@@ -66,7 +74,7 @@
                                 <constraint firstItem="yiM-fM-sSS" firstAttribute="top" secondItem="sXu-tl-a0m" secondAttribute="top" id="f3J-LS-7YL"/>
                                 <constraint firstAttribute="bottom" secondItem="yiM-fM-sSS" secondAttribute="bottom" id="ipg-GT-aKH"/>
                                 <constraint firstItem="jDl-pu-eov" firstAttribute="top" secondItem="sXu-tl-a0m" secondAttribute="top" id="kzv-U2-zJG"/>
-                                <constraint firstAttribute="trailing" secondItem="VhE-hA-Leo" secondAttribute="trailing" constant="6" id="u9b-RO-eMG"/>
+                                <constraint firstItem="f6i-lw-K3R" firstAttribute="leading" secondItem="VhE-hA-Leo" secondAttribute="trailing" constant="16" id="oon-pL-3br"/>
                             </constraints>
                         </view>
                         <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="TC0-58-PO9">
@@ -232,14 +240,44 @@
                                 <constraint firstItem="Apa-nH-KWJ" firstAttribute="leading" secondItem="6iM-A6-4JK" secondAttribute="leading" constant="16" id="cR5-Kq-pEJ"/>
                             </constraints>
                         </view>
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xAP-RW-zvp" userLabel="Taxi Box">
+                            <subviews>
+                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="none" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t6d-gI-JcN" customClass="MWMTaxiCollectionView">
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="100" id="TGC-wp-JtU"/>
+                                    </constraints>
+                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="9nw-pA-D89" customClass="MWMTaxiCollectionLayout">
+                                        <size key="itemSize" width="320" height="100"/>
+                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    </collectionViewFlowLayout>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                    </userDefinedRuntimeAttributes>
+                                </collectionView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="t6d-gI-JcN" firstAttribute="top" secondItem="xAP-RW-zvp" secondAttribute="top" id="Q7e-1w-LMz"/>
+                                <constraint firstItem="t6d-gI-JcN" firstAttribute="leading" secondItem="xAP-RW-zvp" secondAttribute="leading" id="TYJ-1W-jS1"/>
+                                <constraint firstAttribute="bottom" secondItem="t6d-gI-JcN" secondAttribute="bottom" id="ecY-4e-IOw"/>
+                                <constraint firstAttribute="height" constant="100" id="omI-i2-fRh"/>
+                                <constraint firstAttribute="trailing" secondItem="t6d-gI-JcN" secondAttribute="trailing" id="wfq-F4-Ftw"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="tdV-a8-fmG" firstAttribute="leading" secondItem="Rqr-bu-crx" secondAttribute="leading" id="1s7-bh-347"/>
+                        <constraint firstItem="xAP-RW-zvp" firstAttribute="top" secondItem="87p-Qg-8f3" secondAttribute="top" id="4Zu-Ow-GQe"/>
                         <constraint firstAttribute="height" constant="64" id="4qT-ha-p75"/>
                         <constraint firstItem="QEP-6s-YTM" firstAttribute="top" secondItem="Rqr-bu-crx" secondAttribute="top" id="7qG-zS-yqf"/>
+                        <constraint firstItem="xAP-RW-zvp" firstAttribute="centerX" secondItem="87p-Qg-8f3" secondAttribute="centerX" id="BGb-OV-lAF"/>
                         <constraint firstItem="6iM-A6-4JK" firstAttribute="trailing" secondItem="Rqr-bu-crx" secondAttribute="trailing" id="BdC-p6-tnB"/>
                         <constraint firstItem="Rqr-bu-crx" firstAttribute="leading" secondItem="87p-Qg-8f3" secondAttribute="leading" id="Fkj-U2-xyQ"/>
+                        <constraint firstItem="xAP-RW-zvp" firstAttribute="width" secondItem="87p-Qg-8f3" secondAttribute="width" id="GaY-U1-jNg"/>
                         <constraint firstItem="6iM-A6-4JK" firstAttribute="leading" secondItem="Rqr-bu-crx" secondAttribute="leading" id="K40-dq-JmP"/>
                         <constraint firstItem="Rqr-bu-crx" firstAttribute="top" secondItem="87p-Qg-8f3" secondAttribute="top" id="N7H-ZL-K7y"/>
                         <constraint firstAttribute="trailing" secondItem="Rqr-bu-crx" secondAttribute="trailing" id="QH4-pv-oKn"/>
@@ -339,6 +377,7 @@
                 <outlet property="elevationHeight" destination="JtS-om-arD" id="Dah-Ui-zNW"/>
                 <outlet property="elevationImage" destination="Ac5-gf-3tf" id="Gka-BR-4ZM"/>
                 <outlet property="errorBox" destination="QEP-6s-YTM" id="kH0-yP-1Gk"/>
+                <outlet property="errorLabel" destination="VNi-4g-9gz" id="L8Q-MT-bnO"/>
                 <outlet property="goButton" destination="4IJ-pR-Ztp" id="48a-At-Nqq"/>
                 <outlet property="heightBox" destination="6iM-A6-4JK" id="cav-Cj-Aqr"/>
                 <outlet property="heightBoxHeight" destination="Fl4-Tb-OER" id="MEr-ms-WF4"/>
@@ -352,6 +391,9 @@
                 <outlet property="resultsBoxHeight" destination="bHW-iR-rAA" id="gtD-94-xk7"/>
                 <outlet property="statusBox" destination="87p-Qg-8f3" id="mSF-4e-CPU"/>
                 <outlet property="statusBoxHeight" destination="4qT-ha-p75" id="e6i-4p-0cu"/>
+                <outlet property="taxi" destination="f6i-lw-K3R" id="s0G-le-Kbz"/>
+                <outlet property="taxiBox" destination="xAP-RW-zvp" id="ikQ-lE-jLs"/>
+                <outlet property="taxiCollectionView" destination="t6d-gI-JcN" id="vyv-dZ-Sv3"/>
                 <outlet property="vehicle" destination="jDl-pu-eov" id="awM-KI-2xO"/>
             </connections>
             <point key="canvasLocation" x="448" y="574"/>

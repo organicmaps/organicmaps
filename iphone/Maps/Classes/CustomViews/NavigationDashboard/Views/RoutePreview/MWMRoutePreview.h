@@ -6,14 +6,15 @@
 
 @class MWMNavigationDashboardEntity;
 @class MWMNavigationDashboardManager;
+@class MWMTaxiCollectionView;
 
 @interface MWMRoutePreview : MWMNavigationView<MWMNavigationDashboardInfoProtocol>
 
 @property(weak, nonatomic, readonly) IBOutlet UIButton * extendButton;
+@property(weak, nonatomic, readonly) IBOutlet MWMTaxiCollectionView * taxiCollectionView;
 @property(weak, nonatomic) MWMNavigationDashboardManager * dashboardManager;
 
 - (void)statePrepare;
-- (void)statePlanning;
 - (void)stateError;
 - (void)stateReady;
 - (void)reloadData;

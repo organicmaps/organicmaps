@@ -4,7 +4,7 @@
 
 #include "platform/location.hpp"
 
-@class MapViewController, MWMButton;
+@class MapViewController, MWMButton, MWMTaxiCollectionView;
 
 @protocol MWMBottomMenuControllerProtocol<NSObject>
 
@@ -12,6 +12,7 @@
 - (void)closeInfoScreens;
 - (void)addPlace:(BOOL)isBusiness hasPoint:(BOOL)hasPoint point:(m2::PointD const &)point;
 - (void)didFinishAddingPlace;
+- (void)startRouting;
 
 @end
 
@@ -27,5 +28,6 @@
 
 - (void)mwm_refreshUI;
 - (void)refreshLayout;
+- (MWMTaxiCollectionView *)taxiCollectionView;
 
 @end

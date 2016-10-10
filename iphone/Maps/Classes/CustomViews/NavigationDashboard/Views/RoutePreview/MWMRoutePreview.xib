@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -45,23 +44,32 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6D3-QF-6wm">
-                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="38" id="815-LJ-2tk"/>
                                         <constraint firstAttribute="height" constant="38" id="hXi-E7-GUb"/>
                                     </constraints>
                                 </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="15Q-ZN-NzE" userLabel="Taxi">
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="38" id="ibp-pJ-TuK"/>
+                                        <constraint firstAttribute="height" constant="38" id="zPC-M0-Jo1"/>
+                                    </constraints>
+                                </view>
                             </subviews>
-                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="FuO-c6-y9C" firstAttribute="centerY" secondItem="oQc-l8-sZH" secondAttribute="centerY" id="1De-4s-V8t"/>
                                 <constraint firstItem="6D3-QF-6wm" firstAttribute="leading" secondItem="FuO-c6-y9C" secondAttribute="trailing" constant="16" id="91z-iC-oKp"/>
                                 <constraint firstItem="cZF-Ha-2tB" firstAttribute="centerY" secondItem="oQc-l8-sZH" secondAttribute="centerY" id="MQh-op-cpN"/>
                                 <constraint firstItem="cZF-Ha-2tB" firstAttribute="leading" secondItem="oQc-l8-sZH" secondAttribute="leading" constant="6" id="MjU-UA-Kax"/>
                                 <constraint firstAttribute="height" constant="44" id="Mws-KZ-ghs"/>
+                                <constraint firstItem="15Q-ZN-NzE" firstAttribute="leading" secondItem="6D3-QF-6wm" secondAttribute="trailing" constant="16" id="Td5-UQ-kzj"/>
+                                <constraint firstAttribute="trailing" secondItem="15Q-ZN-NzE" secondAttribute="trailing" constant="6" id="WHK-N0-dCc"/>
                                 <constraint firstItem="FuO-c6-y9C" firstAttribute="leading" secondItem="cZF-Ha-2tB" secondAttribute="trailing" constant="16" id="Z6M-UV-6x2"/>
-                                <constraint firstAttribute="trailing" secondItem="6D3-QF-6wm" secondAttribute="trailing" constant="6" id="bZ7-zn-TAn"/>
                                 <constraint firstItem="6D3-QF-6wm" firstAttribute="centerY" secondItem="oQc-l8-sZH" secondAttribute="centerY" id="vXO-6g-q4L"/>
+                                <constraint firstItem="15Q-ZN-NzE" firstAttribute="centerY" secondItem="oQc-l8-sZH" secondAttribute="centerY" id="zvc-uG-Izm"/>
                             </constraints>
                         </view>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_arrow_up_and_down" translatesAutoresizingMaskIntoConstraints="NO" id="y8P-JL-riK">
@@ -131,6 +139,7 @@
                 <outlet property="layout" destination="R9u-Qo-R0Y" id="cqs-S1-d4J"/>
                 <outlet property="pedestrian" destination="6D3-QF-6wm" id="bdh-zx-9LW"/>
                 <outlet property="planningRouteViewHeight" destination="2SX-TZ-tS3" id="IwX-TA-FxL"/>
+                <outlet property="taxi" destination="15Q-ZN-NzE" id="RaD-7N-ZE2"/>
                 <outlet property="vehicle" destination="cZF-Ha-2tB" id="QP3-tU-nfO"/>
             </connections>
             <point key="canvasLocation" x="448" y="341"/>
