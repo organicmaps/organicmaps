@@ -60,4 +60,10 @@ public class FileLogger extends Logger
   {
     write("Error: " + message + join(args));
   }
+
+  @Override
+  public void e(String message, Throwable throwable, Object... args)
+  {
+    e(message, args);
+  }
 }

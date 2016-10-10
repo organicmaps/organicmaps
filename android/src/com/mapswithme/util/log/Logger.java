@@ -25,4 +25,6 @@ public abstract class Logger
   public abstract void d(String message, Object... args);
 
   public abstract void e(String message, Object... args);
+
+  public abstract void e(String message, Throwable throwable, Object... args);
 }
