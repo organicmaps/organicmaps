@@ -16,13 +16,14 @@ jmethodID g_routingControllerGetMethod;
 jmethodID g_uberInfoCallbackMethod;
 jclass g_uberLinksClass;
 jmethodID g_uberLinksConstructor;
+jlong lastRequestId;
 
-void PrepareClassRefs(JNIEnv * env, jclass uberClass)
+void PrepareClassRefs(JNIEnv * env)
 {
   if (g_uberClass)
     return;
 
-  g_uberClass = static_cast<jclass>(env->NewGlobalRef(uberClass));
+  g_uberClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/uber/UberInfo");
   g_productClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/uber/UberInfo$Product");
   g_routingControllerClass =
       jni::GetGlobalClassRef(env, "com/mapswithme/maps/routing/RoutingController");
@@ -43,7 +44,6 @@ void PrepareClassRefs(JNIEnv * env, jclass uberClass)
   g_uberLinksConstructor =
       jni::GetConstructorID(env, g_uberLinksClass, "(Ljava/lang/String;Ljava/lang/String;)V");
 }
-
 }  // namespace
 
 extern "C" {
@@ -51,14 +51,18 @@ extern "C" {
 JNIEXPORT void JNICALL Java_com_mapswithme_maps_uber_Uber_nativeRequestUberProducts(
     JNIEnv * env, jclass clazz, jdouble srcLat, jdouble srcLon, jdouble dstLat, jdouble dstLon)
 {
-  PrepareClassRefs(env, clazz);
+  PrepareClassRefs(env);
 
   ms::LatLon const from(srcLat, srcLon);
   ms::LatLon const to(dstLat, dstLon);
 
-  g_framework->RequestUberProducts(
-      from, to, [](vector<uber::Product> const & products, size_t const requestId) {
+  lastRequestId = static_cast<jlong>(g_framework->RequestUberProducts(
+      from, to, [](vector<uber::Product> const & products, uint64_t const requestId) {
         GetPlatform().RunOnGuiThread([=]() {
+
+          if (lastRequestId != requestId)
+            return;
+
           JNIEnv * env = jni::GetEnv();
 
           auto uberProducts = jni::ToJavaArray(
@@ -74,14 +78,14 @@ JNIEXPORT void JNICALL Java_com_mapswithme_maps_uber_Uber_nativeRequestUberProdu
           env->CallVoidMethod(routingControllerInstance, g_uberInfoCallbackMethod,
                               env->NewObject(g_uberInfoClass, g_uberInfoConstructor, uberProducts));
         });
-      });
+      }));
 }
 
 JNIEXPORT jobject JNICALL Java_com_mapswithme_maps_uber_Uber_nativeGetUberLinks(
     JNIEnv * env, jclass clazz, jstring productId, jdouble srcLat, jdouble srcLon, jdouble dstLat,
     jdouble dstLon)
 {
-  PrepareClassRefs(env, clazz);
+  PrepareClassRefs(env);
 
   ms::LatLon const from(srcLat, srcLon);
   ms::LatLon const to(dstLat, dstLon);

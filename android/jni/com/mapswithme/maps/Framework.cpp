@@ -513,10 +513,10 @@ void Framework::EnableDownloadOn3g()
   m_work.GetDownloadingPolicy().EnableCellularDownload(true);
 }
 
-void Framework::RequestUberProducts(ms::LatLon const & from, ms::LatLon const & to,
+uint64_t Framework::RequestUberProducts(ms::LatLon const & from, ms::LatLon const & to,
                                     uber::ProductsCallback const & callback)
 {
-  m_work.GetUberApi().GetAvailableProducts(from, to, callback);
+  return m_work.GetUberApi().GetAvailableProducts(from, to, callback);
 }
 
 uber::RideRequestLinks Framework::GetUberLinks(string const & productId, ms::LatLon const & from, ms::LatLon const & to)
@@ -1193,4 +1193,4 @@ Java_com_mapswithme_maps_Framework_nativeSetVisibleRect(JNIEnv * env, jclass, ji
 {
   frm()->SetVisibleViewport(m2::RectD(left, top, right, bottom));
 }
-}// extern "C"
+}  // extern "C"
