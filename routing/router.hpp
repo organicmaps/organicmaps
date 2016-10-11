@@ -22,6 +22,7 @@ enum class RouterType
   Vehicle = 0,  /// For OSRM vehicle routing
   Pedestrian,   /// For A star pedestrian routing
   Bicycle,      /// For A star bicycle routing
+  Taxi,         /// For taxi route calculation Vehicle routing is used.
 };
 
 string ToString(RouterType type);

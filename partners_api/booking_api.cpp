@@ -1,4 +1,4 @@
-#include "map/booking_api.hpp"
+#include "partners_api/booking_api.hpp"
 
 #include "base/gmtime.hpp"
 #include "base/logging.hpp"
