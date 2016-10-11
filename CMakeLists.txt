@@ -9,8 +9,9 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 find_package(Threads)
 
 find_package(Qt5Core REQUIRED)
-find_package(Qt5Network REQUIRED)
 find_package(Qt5Gui REQUIRED)
+find_package(Qt5Network REQUIRED)
+find_package(Qt5OpenGL REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 
 if (APPLE)
@@ -132,6 +133,7 @@ endmacro()
 add_subdirectory(3party/jansson)
 add_subdirectory(3party/minizip)
 add_subdirectory(3party/tomcrypt)
+add_subdirectory(map)
 
 add_compile_options(
   "-Wall"
