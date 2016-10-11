@@ -1640,7 +1640,7 @@
 "taxi_order" = "Заказать";
 
 /* How long it is until the taxi arrives */
-"taxi_wait" = "Ожидание %d мин";
+"taxi_wait" = "Ожидание %s";
 
 /* When there are no available taxis nearby */
 "taxi_not_found" = "Не удалось найти такси поблизости";
