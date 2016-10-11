@@ -23,23 +23,16 @@
 namespace platform
 {
 PlatformSocket::PlatformSocket() {}
-PlatformSocket::~PlatformSocket()
-{
-  Close();
-}
 
-bool PlatformSocket::Open(string const & host, uint16_t port)
-{
-  return false;
-}
+PlatformSocket::~PlatformSocket() { Close(); }
+
+bool PlatformSocket::Open(string const & host, uint16_t port) { return false; }
 
 void PlatformSocket::Close() {}
+
 bool PlatformSocket::Read(uint8_t * data, uint32_t count) { return false; }
-bool PlatformSocket::Write(uint8_t const * data, uint32_t count)
-{
-  return false;
-}
-void PlatformSocket::SetTimeout(uint32_t milliseconds)
-{
-}
+
+bool PlatformSocket::Write(uint8_t const * data, uint32_t count) { return false; }
+
+void PlatformSocket::SetTimeout(uint32_t milliseconds) {}
 }  // namespace platform
