@@ -1,27 +1,30 @@
+#!/usr/bin/env python2.7
+
 from __future__ import print_function
 
 from collections import defaultdict
 from argparse import ArgumentParser
 from os import listdir
 from os.path import isfile, join
+from find_untranslated_strings import StringsTxt
 
 
 TRANSFORMATION_TABLE = {
-    "zh_CN": "zh_Hans",
-    "zh_TW": "zh_Hant",
-    "no_NO": "no",
-    "en_GB": "en_GB"
+    "zh_CN": "zh-Hans",
+    "zh_TW": "zh-Hant",
+    "no_NO": "nb",
+    "en_GB": "en-GB"
 }
 
 
 #msgid
 #msgstr
 class PoParser:
-    def __init__(self, folder_path):
+    def __init__(self):
         args = self.parse_args()
         self.folder_path = args.folder
-
-        all_po_files = self.find_all_po_files()
+        self.all_po_files = self.find_all_po_files()
+        self.strings_txt = StringsTxt(args.strings_txt)
 
 
     def find_all_po_files(self):
@@ -32,16 +35,22 @@ class PoParser:
 
 
     def parse_files(self):
-        for key, tr in self.translations.iteritems():
-            print("  [{}]\n    en = {}".format(key, tr))
+        for po_file in self.all_po_files:
+            self._parse_one_file(
+                join(self.folder_path, po_file),
+                self.lang_from_filename(po_file)
+            )
 
 
     def lang_from_filename(self, filename):
-        # strings_ru_RU.po
+        # file names are in this format: strings_ru_RU.po
         lang = filename[len("strings_"):-len(".po")]
+        if lang in TRANSFORMATION_TABLE:
+            return TRANSFORMATION_TABLE[lang]
+        return lang[:2]
 
 
-    def _parse_one_file(self, filepath):
+    def _parse_one_file(self, filepath, lang):
         self.translations = defaultdict(str)
         current_key = None
         string_started = False
@@ -54,19 +63,22 @@ class PoParser:
                         continue
                     translation = self.clean_line(line, "msgstr")
                     if not translation:
-                        print("No translation for key {}".format(current_key))
+                        print("No translation for key {} in file {}".format(current_key, filepath))
                         continue
-                    self.translations[current_key] = translation
+                    self.strings_txt.add_translation(
+                        translation,
+                        key="[{}]".format(current_key),
+                        lang=lang
+                    )
                     string_started = True
+
                 elif not line or line.startswith("#"):
                     string_started = False
                     current_key = None
                 else:
                     if not string_started:
                         continue
-                    self.translations[current_key] = "{}{}".format(self.translations[current_key], self.clean_line(line))
-
-
+                    self.strings_txt.append_to_translation(current_key, lang, self.clean_line(line))
 
 
     def clean_line(self, line, prefix=""):
@@ -87,13 +99,20 @@ class PoParser:
             help="""Path to the folder where the PO files are. Required."""
         )
 
+        parser.add_argument(
+            "-s", "--strings-txt",
+            dest="strings_txt", required=True,
+            help="""The path to the strings.txt file. The strings from the po
+            files will be added to that strings.txt file."""
+        )
+
+        return parser.parse_args()
 
 
 def main():
-    # parser = PoParser("en.po", "en")
-    # for key, tr in parser.translations.iteritems():
-    #     print("  [{}]\n    en = {}".format(key, tr))
-    pass
+    parser = PoParser()
+    parser.parse_files()
+    parser.strings_txt.write_formatted()
 
 if __name__ == "__main__":
     main()

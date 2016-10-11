@@ -27,7 +27,7 @@ class StringsTxt:
         else:
             self.strings_path = strings_path
 
-        self.translations = defaultdict(dict) # dict<key, dict<lang, translation>>
+        self.translations = defaultdict(lambda: defaultdict(str)) # dict<key, dict<lang, translation>>
         self.translations_by_language = defaultdict(dict) # dict<lang, dict<key, translation>>
         self.comments_and_tags = defaultdict(dict)
         self.with_english = []
@@ -36,6 +36,7 @@ class StringsTxt:
         self.keys_in_order = []
         self._read_file()
 
+
     def process_file(self):
         self._populate_translations_by_langs()
         self._find_duplicates()
@@ -43,6 +44,19 @@ class StringsTxt:
         self._find_most_duplicated()
         self.similarity_indices = []
         self._find_most_similar()
+
+
+    def add_translation(self, translation, key=None, lang=None):
+        if not key or not lang:
+            raise UnboundLocalError("You must provide the key and language for the translation")
+        if key not in self.keys_in_order:
+            self.keys_in_order.append(key)
+        self.translations[key][lang] = translation
+        self.all_langs.add(lang)
+
+
+    def append_to_translation(self, key, lang, tail):
+        self.translations[key][lang] = self.translations[key][lang] + tail
 
 
     def _read_file(self):
