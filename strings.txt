@@ -19903,8 +19903,8 @@
 
   [taxi_wait]
     comment = How long it is until the taxi arrives
-    en = Expected in %d min
-    ru = Ожидание %d мин
+    en = Expected in %s
+    ru = Ожидание %s
 
   [taxi_not_found]
     comment = When there are no available taxis nearby
