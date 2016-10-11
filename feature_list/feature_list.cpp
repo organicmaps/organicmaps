@@ -177,11 +177,12 @@ public:
                          ? addr.GetStreetName() + ", " + addr.GetHouseNumber()
                          : "";
     string phone = f.GetMetadata().Get(feature::Metadata::FMD_PHONE_NUMBER);
+    string website = f.GetMetadata().Get(feature::Metadata::FMD_WEBSITE);
     string cuisine = strings::JoinStrings(obj.GetLocalizedCuisines(), ", ");
     string opening_hours = f.GetMetadata().Get(feature::Metadata::FMD_OPEN_HOURS);
 
-    vector<string> columns = {uid,  lat,     lon,   mwmName, category,     name,
-                              city, address, phone, cuisine, opening_hours};
+    vector<string> columns = {uid,  lat,     lon,   mwmName, category, name,
+                              city, address, phone, website, cuisine,  opening_hours};
     AppendNames(f, columns);
     PrintAsCSV(columns, cout, ';');
   }
@@ -189,8 +190,8 @@ public:
 
 void PrintHeader()
 {
-  vector<string> columns = {"id",   "lat",     "lon",   "mwm",     "category",     "name",
-                            "city", "address", "phone", "cuisine", "opening_hours"};
+  vector<string> columns = {"id",   "lat",     "lon",   "mwm",     "category", "name",
+                            "city", "address", "phone", "website", "cuisine",  "opening_hours"};
   // Append all supported name languages in order.
   for (uint8_t idx = 1; idx < kLangCount; idx++)
     columns.push_back("name_" + string(StringUtf8Multilang::GetLangByCode(idx)));
