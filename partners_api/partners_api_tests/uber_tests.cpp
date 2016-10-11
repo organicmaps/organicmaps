@@ -4,18 +4,31 @@
 
 #include "geometry/latlon.hpp"
 
+#include "std/algorithm.hpp"
+#include "std/atomic.hpp"
+#include "std/mutex.hpp"
+
 #include "3party/jansson/myjansson.hpp"
+
+namespace
+{
+bool IsComplete(uber::Product const & product)
+{
+  return !product.m_productId.empty() && !product.m_name.empty() && !product.m_time.empty() &&
+         !product.m_price.empty();
+}
+}  // namespace
 
 UNIT_TEST(Uber_GetProducts)
 {
-  ms::LatLon pos(38.897724, -77.036531);
+  ms::LatLon const pos(38.897724, -77.036531);
 
   TEST(!uber::RawApi::GetProducts(pos).empty(), ());
 }
 
 UNIT_TEST(Uber_GetTimes)
 {
-  ms::LatLon pos(38.897724, -77.036531);
+  ms::LatLon const pos(38.897724, -77.036531);
 
   my::Json timeRoot(uber::RawApi::GetEstimatedTime(pos).c_str());
   auto const timesArray = json_object_get(timeRoot.get(), "times");
@@ -40,7 +53,7 @@ UNIT_TEST(Uber_GetTimes)
       TEST(false, (e.Msg()));
     }
 
-    string estimated = strings::to_string(estimatedTime);
+    string const estimated = strings::to_string(estimatedTime);
 
     TEST(!name.empty(), ());
     TEST(!estimated.empty(), ());
@@ -49,8 +62,8 @@ UNIT_TEST(Uber_GetTimes)
 
 UNIT_TEST(Uber_GetPrices)
 {
-  ms::LatLon from(38.897724, -77.036531);
-  ms::LatLon to(38.862416, -76.883316);
+  ms::LatLon const from(38.897724, -77.036531);
+  ms::LatLon const to(38.862416, -76.883316);
 
   my::Json priceRoot(uber::RawApi::GetEstimatedPrice(from, to).c_str());
   auto const pricesArray = json_object_get(priceRoot.get(), "prices");
@@ -95,27 +108,29 @@ UNIT_TEST(Uber_GetPrices)
 UNIT_TEST(Uber_ProductMaker)
 {
   size_t reqId = 1;
-  ms::LatLon from(38.897724, -77.036531);
-  ms::LatLon to(38.862416, -76.883316);
+  ms::LatLon const from(38.897724, -77.036531);
+  ms::LatLon const to(38.862416, -76.883316);
+
+  size_t returnedId = 0;
+  vector<uber::Product> returnedProducts;
 
   uber::ProductMaker maker;
 
   maker.Reset(reqId);
   maker.SetTimes(reqId, uber::RawApi::GetEstimatedTime(from));
   maker.SetPrices(reqId, uber::RawApi::GetEstimatedPrice(from, to));
-  maker.MakeProducts(reqId, [reqId](vector<uber::Product> const & products, size_t const requestId)
+  maker.MakeProducts(reqId, [&returnedId, &returnedProducts]
+                            (vector<uber::Product> const & products, size_t const requestId)
   {
-    TEST(!products.empty(), ());
-    TEST_EQUAL(requestId, reqId, ());
-
-    for (auto const & product : products)
-    {
-      TEST(!product.m_productId.empty() &&
-           !product.m_name.empty() &&
-           !product.m_time.empty() &&
-           !product.m_price.empty(),());
-    }
+    returnedId = requestId;
+    returnedProducts = products;
   });
+
+  TEST(!returnedProducts.empty(), ());
+  TEST_EQUAL(returnedId, reqId, ());
+
+  for (auto const & product : returnedProducts)
+    TEST(IsComplete(product),());
 
   ++reqId;
 
@@ -123,8 +138,84 @@ UNIT_TEST(Uber_ProductMaker)
   maker.SetTimes(reqId, uber::RawApi::GetEstimatedTime(from));
   maker.SetPrices(reqId, uber::RawApi::GetEstimatedPrice(from, to));
 
-  maker.MakeProducts(reqId + 1, [reqId](vector<uber::Product> const & products, size_t const requestId)
+  maker.MakeProducts(reqId + 1, [](vector<uber::Product> const & products, size_t const requestId)
   {
     TEST(false, ());
   });
+}
+
+UNIT_TEST(Uber_Smoke)
+{
+  // Used to synchronize access into GetAvailableProducts callback method.
+  mutex resultsMutex;
+  size_t reqId = 1;
+  vector<uber::Product> productsContainer;
+  ms::LatLon const from(38.897724, -77.036531);
+  ms::LatLon const to(38.862416, -76.883316);
+
+  auto const standardCallback =
+      [&reqId, &productsContainer, &resultsMutex](vector<uber::Product> const & products, size_t const requestId)
+  {
+    lock_guard<mutex> lock(resultsMutex);
+
+    if (reqId == requestId)
+      productsContainer = products;
+  };
+
+  auto const lastCallback =
+      [&standardCallback](vector<uber::Product> const & products, size_t const requestId)
+  {
+    standardCallback(products, requestId);
+    testing::StopEventLoop();
+  };
+
+  uber::ProductMaker maker;
+
+  maker.Reset(reqId);
+  maker.SetTimes(reqId, uber::RawApi::GetEstimatedTime(from));
+  maker.SetPrices(reqId, uber::RawApi::GetEstimatedPrice(from, to));
+  maker.MakeProducts(reqId, standardCallback);
+
+  reqId = 0;
+
+  auto const synchronousProducts = productsContainer;
+  productsContainer.clear();
+
+  uber::Api uberApi;
+
+  {
+    lock_guard<mutex> lock(resultsMutex);
+    reqId = uberApi.GetAvailableProducts(ms::LatLon(55.753960, 37.624513),
+                                         ms::LatLon(55.765866, 37.661270), standardCallback);
+  }
+  {
+    lock_guard<mutex> lock(resultsMutex);
+    reqId = uberApi.GetAvailableProducts(ms::LatLon(59.922445, 30.367201),
+                                         ms::LatLon(59.943675, 30.361123), standardCallback);
+  }
+  {
+    lock_guard<mutex> lock(resultsMutex);
+    reqId = uberApi.GetAvailableProducts(ms::LatLon(52.509621, 13.450067),
+                                         ms::LatLon(52.510811, 13.409490), standardCallback);
+  }
+  {
+    lock_guard<mutex> lock(resultsMutex);
+    reqId = uberApi.GetAvailableProducts(from, to, lastCallback);
+  }
+
+  testing::RunEventLoop();
+
+  TEST_EQUAL(synchronousProducts.size(), productsContainer.size(), ());
+
+  for (auto const & product : synchronousProducts)
+  {
+    auto const it = find_if(
+        productsContainer.begin(), productsContainer.end(), [&product](uber::Product const & item)
+        {
+          return product.m_productId == item.m_productId && product.m_name == item.m_name &&
+                 product.m_price == item.m_price;
+        });
+
+    TEST(it != productsContainer.end(), ());
+  }
 }

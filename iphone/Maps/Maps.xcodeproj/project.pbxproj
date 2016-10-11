@@ -1274,6 +1274,7 @@
 		34FED54F1D21121000183B1B /* CLLocation+Mercator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "CLLocation+Mercator.mm"; sourceTree = "<group>"; };
 		34FED5521D2123CE00183B1B /* MWMLocationHelpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMLocationHelpers.h; sourceTree = "<group>"; };
 		3D443C9C19E421EE0025C2FC /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
+		3DDB4BC31DAB98F000F4D021 /* libpartners_api.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpartners_api.a; path = "../../../omim-xcode-build/Debug-iphonesimulator/libpartners_api.a"; sourceTree = "<group>"; };
 		451950391B7A3E070085DA05 /* patterns.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = patterns.txt; path = ../../data/patterns.txt; sourceTree = "<group>"; };
 		452FCA3A1B6A3DF7007019AB /* colors.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = colors.txt; path = ../../data/colors.txt; sourceTree = "<group>"; };
 		454040681AD2D8D2007A9B12 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
@@ -1869,6 +1870,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3DDB4BC31DAB98F000F4D021 /* libpartners_api.a */,
 				F6B5364A1DA5222F0067EEA5 /* libpartners_api.a */,
 				34170B7D1D93C3C80074117B /* MyTargetSDK.framework */,
 				34BF68621D7459E6001752F6 /* CoreSpotlight.framework */,
@@ -4487,6 +4489,7 @@
 					"-lrouting",
 					"-lindexer",
 					"-lplatform",
+					"-lpartners_api",
 					"-lgeometry",
 					"-lcoding",
 					"-lbase",
@@ -4609,6 +4612,7 @@
 					"-lrouting",
 					"-lindexer",
 					"-lplatform",
+					"-lpartners_api",
 					"-lgeometry",
 					"-lcoding",
 					"-lbase",
@@ -4733,6 +4737,7 @@
 					"-lrouting",
 					"-lindexer",
 					"-lplatform",
+					"-lpartners_api",
 					"-lgeometry",
 					"-lcoding",
 					"-lbase",
@@ -4858,6 +4863,7 @@
 					"-lrouting",
 					"-lindexer",
 					"-lplatform",
+					"-lpartners_api",
 					"-lgeometry",
 					"-lcoding",
 					"-lbase",
@@ -4982,6 +4988,7 @@
 					"-lrouting",
 					"-lindexer",
 					"-lplatform",
+					"-lpartners_api",
 					"-lgeometry",
 					"-lcoding",
 					"-lbase",
@@ -5104,6 +5111,7 @@
 					"-lrouting",
 					"-lindexer",
 					"-lplatform",
+					"-lpartners_api",
 					"-lgeometry",
 					"-lcoding",
 					"-lbase",

@@ -81,11 +81,11 @@
 		F6B5362B1DA5209F0067EEA5 = {
 			isa = PBXGroup;
 			children = (
-				F6B5366E1DA523A70067EEA5 /* Support files */,
 				F6B536491DA521530067EEA5 /* defaults.xcconfig */,
 				F6B536441DA521060067EEA5 /* partners_api_tests */,
 				F6B5363B1DA520B20067EEA5 /* partners_api */,
 				F6B536351DA5209F0067EEA5 /* Products */,
+				F6B5366E1DA523A70067EEA5 /* Support files */,
 				F6B536701DA523D60067EEA5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -202,7 +202,6 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0800;
-				ORGANIZATIONNAME = v.mikhaylenko;
 				TargetAttributes = {
 					F6B536331DA5209F0067EEA5 = {
 						CreatedOnToolsVersion = 8.0;

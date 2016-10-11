@@ -737,6 +737,9 @@ public:
   /// GenerateTurnNotifications shall be called by the client when a new position is available.
   inline void GenerateTurnNotifications(vector<string> & turnNotifications)
   {
+    if (m_currentRouterType == routing::RouterType::Taxi)
+      return;
+
     return m_routingSession.GenerateTurnNotifications(turnNotifications);
   }
 

@@ -10,12 +10,12 @@
 namespace ms
 {
 class LatLon;
-}  // namespace ms
+}
 
 namespace downloader
 {
 class HttpRequest;
-}  // namespace downloader
+}
 
 namespace uber
 {
@@ -62,10 +62,16 @@ public:
   void MakeProducts(size_t const requestId, ProductsCallback const & fn);
 
 private:
-  size_t m_requestId;
+  size_t m_requestId = 0;
   unique_ptr<string> m_times;
   unique_ptr<string> m_prices;
   mutex m_mutex;
+};
+
+struct RideRequestLinks
+{
+  string m_deepLink;
+  string m_universalLink;
 };
 
 class Api
@@ -76,10 +82,11 @@ public:
                               ProductsCallback const & fn);
 
   /// Returns link which allows you to launch the Uber app.
-  static string GetRideRequestLink(string const & productId, ms::LatLon const & from,
-                                   ms::LatLon const & to);
+  static RideRequestLinks GetRideRequestLinks(string const & productId, ms::LatLon const & from,
+                                              ms::LatLon const & to);
 
 private:
   shared_ptr<ProductMaker> m_maker = make_shared<ProductMaker>();
+  size_t m_requestId = 0;
 };
 }  // namespace uber

@@ -305,6 +305,13 @@
 		674A2A341B2700B2001A525C /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				F6DA2A981CCE252600F087B5 /* libeditor.a */,
+				F6DA2A991CCE252600F087B5 /* liboauthcpp.a */,
+				F6DA2A9A1CCE252600F087B5 /* libplatform_tests_support.a */,
+				F6DA2A9B1CCE252600F087B5 /* libpugixml.a */,
+				F6DA2A9C1CCE252600F087B5 /* libsdf_image.a */,
+				F6DA2A9D1CCE252600F087B5 /* libstb_image.a */,
+				F6DA2A961CCE24DB00F087B5 /* libdrape_frontend.a */,
 				678850831D071E34004201E1 /* libdrape_frontend.a */,
 				678850841D071E34004201E1 /* libeditor.a */,
 				678850851D071E34004201E1 /* liboauthcpp.a */,
@@ -354,13 +361,6 @@
 		675345B21A4054AD00A0A8C3 = {
 			isa = PBXGroup;
 			children = (
-				F6DA2A981CCE252600F087B5 /* libeditor.a */,
-				F6DA2A991CCE252600F087B5 /* liboauthcpp.a */,
-				F6DA2A9A1CCE252600F087B5 /* libplatform_tests_support.a */,
-				F6DA2A9B1CCE252600F087B5 /* libpugixml.a */,
-				F6DA2A9C1CCE252600F087B5 /* libsdf_image.a */,
-				F6DA2A9D1CCE252600F087B5 /* libstb_image.a */,
-				F6DA2A961CCE24DB00F087B5 /* libdrape_frontend.a */,
 				670D05A41B0DF4250013A7AC /* defaults.xcconfig */,
 				674A2A341B2700B2001A525C /* libs */,
 				675345BD1A4054AD00A0A8C3 /* map */,

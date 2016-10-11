@@ -20,6 +20,10 @@ macx-* {
   LIBS *= "-framework IOKit" "-framework SystemConfiguration"
 }
 
+win*|linux* {
+  QT *= network
+}
+
 SOURCES += \
     $$ROOT_DIR/testing/testingmain.cpp \
     booking_tests.cpp \

@@ -15,4 +15,3 @@ SOURCES += \
 HEADERS += \
     booking_api.hpp \
     uber_api.hpp \
-

@@ -97,6 +97,7 @@ public:
     {"contentEncoding", GetHttpParamsFieldId(env, "contentEncoding")},
     {"userAgent", GetHttpParamsFieldId(env, "userAgent")},
     {"inputFilePath", GetHttpParamsFieldId(env, "inputFilePath")},
+    {"outputFilePath", GetHttpParamsFieldId(env, "outputFilePath")},
     {"basicAuthUser", GetHttpParamsFieldId(env, "basicAuthUser")},
     {"basicAuthPassword", GetHttpParamsFieldId(env, "basicAuthPassword")},
     {"cookies", GetHttpParamsFieldId(env, "cookies")},

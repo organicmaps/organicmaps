@@ -1,15 +1,11 @@
-#include "uber_api.hpp"
+#include "partners_api/uber_api.hpp"
 
 #include "platform/http_client.hpp"
 
 #include "geometry/latlon.hpp"
 
-#include "base/assert.hpp"
 #include "base/logging.hpp"
 #include "base/thread.hpp"
-
-#include "std/chrono.hpp"
-#include "std/future.hpp"
 
 #include "3party/jansson/myjansson.hpp"
 
@@ -29,21 +25,11 @@ string RunSimpleHttpRequest(string const & url)
   return {};
 }
 
-/// Feature should refers to a shared state.
-template <typename T>
-bool WaitForFeature(future<T> const & f, uint32_t waitMillisec, atomic<bool> const & runFlag)
-{
-  future_status status = future_status::deferred;
-  while (runFlag && status != future_status::ready)
-  {
-    status = f.wait_for(milliseconds(waitMillisec));
-  }
-
-  return runFlag;
-}
-
 bool CheckUberAnswer(json_t const * answer)
 {
+  if (answer == nullptr)
+    return false;
+
   // Uber products are not available at this point.
   if (!json_is_array(answer))
     return false;
@@ -52,6 +38,11 @@ bool CheckUberAnswer(json_t const * answer)
     return false;
 
   return true;
+}
+
+bool IsIncomplete(uber::Product const & p)
+{
+  return p.m_name.empty() || p.m_productId.empty() || p.m_time.empty() || p.m_price.empty();
 }
 
 void FillProducts(json_t const * time, json_t const * price, vector<uber::Product> & products)
@@ -66,7 +57,7 @@ void FillProducts(json_t const * time, json_t const * price, vector<uber::Produc
     my::FromJSONObject(item, "display_name", product.m_name);
     my::FromJSONObject(item, "estimate", estimatedTime);
     product.m_time = strings::to_string(estimatedTime);
-    products.push_back(product);
+    products.push_back(move(product));
   }
 
   // Fill data from price.
@@ -77,9 +68,11 @@ void FillProducts(json_t const * time, json_t const * price, vector<uber::Produc
     auto const item = json_array_get(price, i);
 
     my::FromJSONObject(item, "display_name", name);
-    auto const it = find_if(products.begin(), products.end(), [&name](uber::Product const & product){
+    auto const it = find_if(products.begin(), products.end(), [&name](uber::Product const & product)
+    {
       return product.m_name == name;
     });
+
     if (it == products.end())
       continue;
 
@@ -92,10 +85,28 @@ void FillProducts(json_t const * time, json_t const * price, vector<uber::Produc
       it->m_currency = json_string_value(currency);
   }
 
-  products.erase(remove_if(products.begin(), products.end(), [](uber::Product const & p){
-                   return p.m_name.empty() || p.m_productId.empty() || p.m_time.empty() ||
-                          p.m_price.empty();
-                 }), products.end());
+  products.erase(remove_if(products.begin(), products.end(), IsIncomplete), products.end());
+}
+
+void MakeFromJson(char const * times, char const * prices, vector<uber::Product> & products)
+{
+  products.clear();
+  try
+  {
+    my::Json timesRoot(times);
+    my::Json pricesRoot(prices);
+    auto const timesArray = json_object_get(timesRoot.get(), "times");
+    auto const pricesArray = json_object_get(pricesRoot.get(), "prices");
+    if (CheckUberAnswer(timesArray) && CheckUberAnswer(pricesArray))
+    {
+      FillProducts(timesArray, pricesArray, products);
+    }
+  }
+  catch (my::Json::Exception const & e)
+  {
+    LOG(LERROR, (e.Msg()));
+    products.clear();
+  }
 }
 }  // namespace
 
@@ -163,45 +174,25 @@ void ProductMaker::SetPrices(size_t const requestId, string const & prices)
 
 void ProductMaker::MakeProducts(size_t const requestId, ProductsCallback const & fn)
 {
-  lock_guard<mutex> lock(m_mutex);
-
-  if (requestId != m_requestId || !m_times || !m_prices)
-    return;
-
   vector<uber::Product> products;
-
-  if (m_times->empty() || m_prices->empty())
   {
-    LOG(LWARNING, ("Time or price is empty, time:", *m_times, "; price:", *m_prices));
-    fn(products, m_requestId);
-    return;
-  }
+    lock_guard<mutex> lock(m_mutex);
 
-  try
-  {
-    my::Json timesRoot(m_times->c_str());
-    my::Json pricesRoot(m_prices->c_str());
-    auto const timesArray = json_object_get(timesRoot.get(), "times");
-    auto const pricesArray = json_object_get(pricesRoot.get(), "prices");
-    if (CheckUberAnswer(timesArray) && CheckUberAnswer(pricesArray))
-    {
-      FillProducts(timesArray, pricesArray, products);
-    }
-  }
-  catch (my::Json::Exception const & e)
-  {
-    LOG(LERROR, (e.Msg()));
-    products.clear();
-  }
+    if (requestId != m_requestId || !m_times || !m_prices)
+      return;
 
+    if (!m_times->empty() && !m_prices->empty())
+      MakeFromJson(m_times->c_str(), m_prices->c_str(), products);
+    else
+      LOG(LWARNING, ("Time or price is empty, time:", *m_times, "; price:", *m_prices));
+  }
   fn(products, requestId);
 }
 
 size_t Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
-                                ProductsCallback const & fn)
+                                 ProductsCallback const & fn)
 {
-  static size_t requestId = 0;
-  size_t reqId = ++requestId;
+  size_t const reqId = ++m_requestId;
 
   m_maker->Reset(reqId);
 
@@ -221,14 +212,14 @@ size_t Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
 }
 
 // static
-string Api::GetRideRequestLink(string const & productId, ms::LatLon const & from,
-                               ms::LatLon const & to)
+RideRequestLinks Api::GetRideRequestLinks(string const & productId, ms::LatLon const & from,
+                                          ms::LatLon const & to)
 {
   stringstream url;
-  url << "uber://?client_id=" << UBER_CLIENT_ID << "&action=setPickup&product_id=" << productId
+  url << "?client_id=" << UBER_CLIENT_ID << "&action=setPickup&product_id=" << productId
       << "&pickup[latitude]=" << from.lat << "&pickup[longitude]=" << from.lon
       << "&dropoff[latitude]=" << to.lat << "&dropoff[longitude]=" << to.lon;
 
-  return url.str();
+  return {"uber://" + url.str(), "https://m.uber.com/ul" + url.str()};
 }
 }  // namespace uber
