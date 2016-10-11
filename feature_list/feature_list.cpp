@@ -155,31 +155,31 @@ public:
   void Process(FeatureType const & f)
   {
     f.ParseBeforeStatistic();
-    string category = GetReadableType(f);
+    string const & category = GetReadableType(f);
     if (!f.HasName() || f.GetFeatureType() == feature::GEOM_LINE || category.empty())
       return;
-    m2::PointD center = FindCenter(f);
-    ms::LatLon ll = MercatorBounds::ToLatLon(center);
+    m2::PointD const & center = FindCenter(f);
+    ms::LatLon const & ll = MercatorBounds::ToLatLon(center);
     osm::MapObject obj;
     obj.SetFromFeatureType(f);
 
     string city;
     m_finder.GetLocality(center, city);
 
-    string mwmName = f.GetID().GetMwmName();
+    string const & mwmName = f.GetID().GetMwmName();
     string name, secondary;
     f.GetPreferredNames(name, secondary);
-    string uid = BuildUniqueId(ll, name);
-    string lat = strings::to_string_dac(ll.lat, 6);
-    string lon = strings::to_string_dac(ll.lon, 6);
+    string const & uid = BuildUniqueId(ll, name);
+    string const & lat = strings::to_string_dac(ll.lat, 6);
+    string const & lon = strings::to_string_dac(ll.lon, 6);
     search::ReverseGeocoder::Address addr;
-    string address = m_geocoder.GetExactAddress(f, addr)
-                         ? addr.GetStreetName() + ", " + addr.GetHouseNumber()
-                         : "";
-    string phone = f.GetMetadata().Get(feature::Metadata::FMD_PHONE_NUMBER);
-    string website = f.GetMetadata().Get(feature::Metadata::FMD_WEBSITE);
-    string cuisine = strings::JoinStrings(obj.GetLocalizedCuisines(), ", ");
-    string opening_hours = f.GetMetadata().Get(feature::Metadata::FMD_OPEN_HOURS);
+    string const & address = m_geocoder.GetExactAddress(f, addr)
+                                 ? addr.GetStreetName() + ", " + addr.GetHouseNumber()
+                                 : "";
+    string const & phone = f.GetMetadata().Get(feature::Metadata::FMD_PHONE_NUMBER);
+    string const & website = f.GetMetadata().Get(feature::Metadata::FMD_WEBSITE);
+    string const & cuisine = strings::JoinStrings(obj.GetLocalizedCuisines(), ", ");
+    string const & opening_hours = f.GetMetadata().Get(feature::Metadata::FMD_OPEN_HOURS);
 
     vector<string> columns = {uid,  lat,     lon,   mwmName, category, name,
                               city, address, phone, website, cuisine,  opening_hours};
