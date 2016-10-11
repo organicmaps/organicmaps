@@ -2835,6 +2835,7 @@ bool Framework::GetEditableMapObject(FeatureID const & fid, osm::EditableMapObje
 
   GetPlatform().SendMarketingEvent("EditorEdit_start", {});
 
+  emo = {};
   emo.SetFromFeatureType(ft);
   emo.SetHouseNumber(ft.GetHouseNumber());
   auto const & editor = osm::Editor::Instance();
