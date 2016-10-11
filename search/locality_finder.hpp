@@ -78,6 +78,7 @@ public:
 
 private:
   void LoadVicinity(m2::PointD const & p, bool loadCities, bool loadVillages);
+  void UpdateMaps();
 
   Index const & m_index;
   VillagesCache & m_villagesCache;
@@ -85,6 +86,10 @@ private:
 
   Holder m_cities;
   Holder m_villages;
+
+  m4::Tree<MwmSet::MwmId> m_maps;
+  MwmSet::MwmId m_worldId;
+  bool m_mapsLoaded;
 
   unique_ptr<RankTable> m_ranks;
 
