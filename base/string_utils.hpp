@@ -434,6 +434,7 @@ inline string to_string(uint64_t i) { return impl::to_string_unsigned(i); }
 /// Use this function to get string with fixed count of
 /// "Digits after comma".
 string to_string_dac(double d, int dac);
+inline string to_string_with_digits_after_comma(double d, int dac) { return to_string_dac(d, dac); }
 //@}
 
 bool StartsWith(UniString const & s, UniString const & p);

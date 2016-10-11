@@ -86,8 +86,8 @@ string GetReadableType(FeatureType const & f)
 string BuildUniqueId(ms::LatLon const & coords, string const & name)
 {
   ostringstream ss;
-  ss << strings::to_string_dac(coords.lat, 6) << ','
-     << strings::to_string_dac(coords.lon, 6) << ','
+  ss << strings::to_string_with_digits_after_comma(coords.lat, 6) << ','
+     << strings::to_string_with_digits_after_comma(coords.lon, 6) << ','
      << name;
   uint32_t hash = 0;
   for (char const c : ss.str())
@@ -170,8 +170,8 @@ public:
     string name, secondary;
     f.GetPreferredNames(name, secondary);
     string const & uid = BuildUniqueId(ll, name);
-    string const & lat = strings::to_string_dac(ll.lat, 6);
-    string const & lon = strings::to_string_dac(ll.lon, 6);
+    string const & lat = strings::to_string_with_digits_after_comma(ll.lat, 6);
+    string const & lon = strings::to_string_with_digits_after_comma(ll.lon, 6);
     search::ReverseGeocoder::Address addr;
     string const & address = m_geocoder.GetExactAddress(f, addr)
                                  ? addr.GetStreetName() + ", " + addr.GetHouseNumber()
