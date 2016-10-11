@@ -1640,7 +1640,7 @@
 "taxi_order" = "Order";
 
 /* How long it is until the taxi arrives */
-"taxi_wait" = "Expected in %d min";
+"taxi_wait" = "Expected in %s";
 
 /* When there are no available taxis nearby */
 "taxi_not_found" = "Couldn't find a taxi nearby";

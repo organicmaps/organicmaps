@@ -973,7 +973,7 @@
 	<!-- For ordering a taxi (as opposed to hotels or other things) -->
 	<string name="taxi_order">Заказать</string>
 	<!-- How long it is until the taxi arrives -->
-	<string name="taxi_wait">Ожидание %d мин</string>
+	<string name="taxi_wait">Ожидание %s</string>
 	<!-- When there are no available taxis nearby -->
 	<string name="taxi_not_found">Не удалось найти такси поблизости</string>
 	<string name="install_app">Установить</string>
