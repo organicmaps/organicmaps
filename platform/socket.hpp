@@ -1,31 +1,78 @@
 #pragma once
 
+#include "std/mutex.hpp"
 #include "std/string.hpp"
 #include "std/target_os.hpp"
-
-#if defined(OMIM_OS_IPHONE) || defined(OMIM_OS_MAC)
-@class SocketImpl;
-#else
-class SocketImpl;
-#endif
+#include "std/vector.hpp"
 
 namespace platform
 {
 class Socket
 {
 public:
-  Socket();
-  ~Socket();
+  virtual ~Socket() {}
 
-  bool Open(string const & host, uint16_t port);
-  void Close();
+  virtual bool Open(string const & host, uint16_t port) = 0;
+  virtual void Close() = 0;
 
-  bool Read(uint8_t * data, uint32_t count);
-  bool Write(uint8_t const * data, uint32_t count);
+  virtual bool Read(uint8_t * data, uint32_t count) = 0;
+  virtual bool Write(uint8_t const * data, uint32_t count) = 0;
 
-  void SetTimeout(uint32_t milliseconds);
+  virtual void SetTimeout(uint32_t milliseconds) = 0;
+};
+
+class PlatformSocket final : public Socket
+{
+  PlatformSocket();
+  virtual ~PlatformSocket();
+  virtual bool Open(string const & host, uint16_t port) override;
+  virtual void Close() override;
+  virtual bool Read(uint8_t * data, uint32_t count) override;
+  virtual bool Write(uint8_t const * data, uint32_t count) override;
+  virtual void SetTimeout(uint32_t milliseconds) override;
+};
+
+class MockSocket final : public Socket
+{
+public:
+  virtual bool Open(string const & host, uint16_t port) override { return false; }
+  virtual void Close() override {}
+
+  virtual bool Read(uint8_t * data, uint32_t count) override { return false; }
+  virtual bool Write(uint8_t const * data, uint32_t count) override { return false; }
+
+  virtual void SetTimeout(uint32_t milliseconds) override {}
+};
+
+class TestSocket final : public Socket
+{
+public:
+  TestSocket();
+  virtual ~TestSocket();
+  virtual bool Open(string const & host, uint16_t port) override;
+  virtual void Close() override;
+  virtual bool Read(uint8_t * data, uint32_t count) override;
+  virtual bool Write(uint8_t const * data, uint32_t count) override;
+  virtual void SetTimeout(uint32_t milliseconds) override;
+
+  bool HasInput() const;
+  bool HasOutput() const;
+
+  // Simulate server writing
+  void AddInput(uint8_t const * data, uint32_t count);
+
+  // Simulate server reading
+  // returns size of read data
+  size_t FetchOutput(vector<uint8_t> & destination);
 
 private:
-  SocketImpl * m_socketImpl = nullptr;
+  bool m_isConnected;
+
+  vector<uint8_t> m_input;
+  mutable mutex m_inputMutex;
+
+  vector<uint8_t> m_output;
+  mutable mutex m_outputMutex;
 };
+
 }  // namespace platform

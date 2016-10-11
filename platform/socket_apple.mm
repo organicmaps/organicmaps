@@ -22,22 +22,24 @@
 
 namespace platform
 {
-Socket::Socket() { m_socketImpl = [[SocketImpl alloc] init]; }
-Socket::~Socket()
+PlatformSocket::PlatformSocket() {}
+PlatformSocket::~PlatformSocket()
 {
   Close();
-  m_socketImpl = nil;
 }
 
-bool Socket::Open(string const & host, uint16_t port)
+bool PlatformSocket::Open(string const & host, uint16_t port)
 {
-  return [m_socketImpl open:@(host.c_str()) port:port];
+  return false;
 }
 
-void Socket::Close() { [m_socketImpl close]; }
-bool Socket::Read(uint8_t * data, uint32_t count) { return [m_socketImpl read:data count:count]; }
-bool Socket::Write(uint8_t const * data, uint32_t count)
+void PlatformSocket::Close() {}
+bool PlatformSocket::Read(uint8_t * data, uint32_t count) { return false; }
+bool PlatformSocket::Write(uint8_t const * data, uint32_t count)
 {
-  return [m_socketImpl write:data count:count];
+  return false;
+}
+void PlatformSocket::SetTimeout(uint32_t milliseconds)
+{
 }
 }  // namespace platform
