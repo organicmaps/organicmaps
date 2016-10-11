@@ -86,8 +86,8 @@ string GetReadableType(FeatureType const & f)
 string BuildUniqueId(ms::LatLon const & coords, string const & name)
 {
   ostringstream ss;
-  ss << strings::to_string_dac(coords.lat, 6) << ','
-     << strings::to_string_dac(coords.lon, 6) << ','
+  ss << strings::to_string_with_digits_after_comma(coords.lat, 6) << ','
+     << strings::to_string_with_digits_after_comma(coords.lon, 6) << ','
      << name;
   uint32_t hash = 0;
   for (char const c : ss.str())
@@ -155,33 +155,34 @@ public:
   void Process(FeatureType const & f)
   {
     f.ParseBeforeStatistic();
-    string category = GetReadableType(f);
+    string const & category = GetReadableType(f);
     if (!f.HasName() || f.GetFeatureType() == feature::GEOM_LINE || category.empty())
       return;
-    m2::PointD center = FindCenter(f);
-    ms::LatLon ll = MercatorBounds::ToLatLon(center);
+    m2::PointD const & center = FindCenter(f);
+    ms::LatLon const & ll = MercatorBounds::ToLatLon(center);
     osm::MapObject obj;
     obj.SetFromFeatureType(f);
 
     string city;
     m_finder.GetLocality(center, city);
 
-    string mwmName = f.GetID().GetMwmName();
+    string const & mwmName = f.GetID().GetMwmName();
     string name, secondary;
     f.GetPreferredNames(name, secondary);
-    string uid = BuildUniqueId(ll, name);
-    string lat = strings::to_string_dac(ll.lat, 6);
-    string lon = strings::to_string_dac(ll.lon, 6);
+    string const & uid = BuildUniqueId(ll, name);
+    string const & lat = strings::to_string_with_digits_after_comma(ll.lat, 6);
+    string const & lon = strings::to_string_with_digits_after_comma(ll.lon, 6);
     search::ReverseGeocoder::Address addr;
-    string address = m_geocoder.GetExactAddress(f, addr)
-                         ? addr.GetStreetName() + ", " + addr.GetHouseNumber()
-                         : "";
-    string phone = f.GetMetadata().Get(feature::Metadata::FMD_PHONE_NUMBER);
-    string cuisine = strings::JoinStrings(obj.GetLocalizedCuisines(), ", ");
-    string opening_hours = f.GetMetadata().Get(feature::Metadata::FMD_OPEN_HOURS);
+    string const & address = m_geocoder.GetExactAddress(f, addr)
+                                 ? addr.GetStreetName() + ", " + addr.GetHouseNumber()
+                                 : "";
+    string const & phone = f.GetMetadata().Get(feature::Metadata::FMD_PHONE_NUMBER);
+    string const & website = f.GetMetadata().Get(feature::Metadata::FMD_WEBSITE);
+    string const & cuisine = strings::JoinStrings(obj.GetLocalizedCuisines(), ", ");
+    string const & opening_hours = f.GetMetadata().Get(feature::Metadata::FMD_OPEN_HOURS);
 
-    vector<string> columns = {uid,  lat,     lon,   mwmName, category,     name,
-                              city, address, phone, cuisine, opening_hours};
+    vector<string> columns = {uid,  lat,     lon,   mwmName, category, name,
+                              city, address, phone, website, cuisine,  opening_hours};
     AppendNames(f, columns);
     PrintAsCSV(columns, cout, ';');
   }
@@ -189,8 +190,8 @@ public:
 
 void PrintHeader()
 {
-  vector<string> columns = {"id",   "lat",     "lon",   "mwm",     "category",     "name",
-                            "city", "address", "phone", "cuisine", "opening_hours"};
+  vector<string> columns = {"id",   "lat",     "lon",   "mwm",     "category", "name",
+                            "city", "address", "phone", "website", "cuisine",  "opening_hours"};
   // Append all supported name languages in order.
   for (uint8_t idx = 1; idx < kLangCount; idx++)
     columns.push_back("name_" + string(StringUtf8Multilang::GetLangByCode(idx)));
