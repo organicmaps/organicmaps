@@ -107,6 +107,7 @@ def writeDefinitionFile(programIndex):
 
     result += "\n"
     result += "void InitGpuProgramsLib(map<int, ProgramInfo> & gpuIndex);\n\n"
+    result += "uint8_t GetTextureSlotsCount(int gpuIndex);\n\n"
     result += "#if defined(COMPILER_TESTS)\n"
     result += "extern vector<string> VertexEnum;\n"
     result += "extern vector<string> FragmentEnum;\n\n"
@@ -135,6 +136,18 @@ def writeShader(outputFile, shaderFile, shaderDir):
             outputFile.write("  %s \\n\\\n" % (outputLine))
     outputFile.write("  \";\n\n")
 
+def calcTextureSlots(vertexShaderFile, fragmentShaderFile, shaderDir):
+    slots = set()
+    for line in open(os.path.join(shaderDir, vertexShaderFile)):
+        line = line.replace(" ", "")
+        if (line.find("uniformsampler") != -1):
+            slots.add(line)
+    for line in open(os.path.join(shaderDir, fragmentShaderFile)):
+        line = line.replace(" ", "")
+        if (line.find("uniformsampler") != -1):
+            slots.add(line)
+    return len(slots)
+
 def writeShadersIndex(outputFile, shaderIndex):
     for shader in shaderIndex:
         outputFile.write("#define %s %s\n" % (formatShaderIndexName(shader), shaderIndex[shader]))
@@ -145,6 +158,7 @@ def writeImplementationFile(programsDef, shaderIndex, shaderDir, implFile, defFi
     file = open(formatOutFilePath(shaderDir, implFile), 'w')
     file.write("#include \"%s\"\n\n" % (defFile))
     file.write("#include \"std/utility.hpp\"\n\n")
+    file.write("#include \"std/unordered_map.hpp\"\n\n")
 
     file.write("namespace gpu\n")
     file.write("{\n\n")
@@ -191,6 +205,20 @@ def writeImplementationFile(programsDef, shaderIndex, shaderDir, implFile, defFi
 
         file.write("  gpuIndex.insert(make_pair(%s, ProgramInfo(%s, %s, %s, %s)));\n" % (program, vertexIndexName, fragmentIndexName, vertexSourceName, fragmentSourceName))
     file.write("}\n\n")
+    
+    file.write("uint8_t GetTextureSlotsCount(int gpuIndex)\n")
+    file.write("{\n")
+    file.write("  static unordered_map<int, uint8_t> textureSlots;\n")
+    file.write("  if (textureSlots.empty())\n")
+    file.write("  {\n")
+    for program in programsDef.keys():
+        vertexShader = programsDef[program][0]
+        fragmentShader = programsDef[program][1]
+        file.write("    textureSlots[%s] = %d;\n" % (programsDef[program][2], calcTextureSlots(vertexShader, fragmentShader, shaderDir)))
+    file.write("  }\n")
+    file.write("  return textureSlots[gpuIndex];\n")
+    file.write("}\n\n")
+
     file.write("#if defined(COMPILER_TESTS)\n")
     file.write("void InitEnumeration()\n")
     file.write("{\n")

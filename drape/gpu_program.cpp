@@ -1,5 +1,7 @@
 #include "drape/gpu_program.hpp"
 #include "drape/glfunctions.hpp"
+#include "drape/glstate.hpp"
+#include "drape/shader_def.hpp"
 #include "drape/support_manager.hpp"
 
 #include "base/assert.hpp"
@@ -12,9 +14,10 @@
 namespace dp
 {
 
-GpuProgram::GpuProgram(ref_ptr<Shader> vertexShader, ref_ptr<Shader> fragmentShader)
+GpuProgram::GpuProgram(int programIndex, ref_ptr<Shader> vertexShader, ref_ptr<Shader> fragmentShader)
   : m_vertexShader(vertexShader)
   , m_fragmentShader(fragmentShader)
+  , m_textureSlotsCount(gpu::GetTextureSlotsCount(programIndex))
 {
   m_programID = GLFunctions::glCreateProgram();
   GLFunctions::glAttachShader(m_programID, m_vertexShader->GetID());
@@ -52,6 +55,14 @@ GpuProgram::~GpuProgram()
 
 void GpuProgram::Bind()
 {
+  // Deactivate all unused textures.
+  uint8_t const usedSlots = TextureState::GetLastUsedSlots();
+  for (uint8_t i = m_textureSlotsCount; i < usedSlots; i++)
+  {
+    GLFunctions::glActiveTexture(gl_const::GLTexture0 + i);
+    GLFunctions::glBindTexture(0);
+  }
+
   GLFunctions::glUseProgram(m_programID);
 }
 

@@ -155,16 +155,12 @@ struct UniformApplyer
 
 } // namespace
 
-void ApplyUniforms(UniformValuesStorage const & uniforms, ref_ptr<GpuProgram> program)
-{
-  static UniformApplyer applyer;
-  applyer.m_program = program;
-  uniforms.ForeachValue(applyer);
-  applyer.m_program = nullptr;
-}
+uint8_t TextureState::m_usedSlots = 0;
 
-void ApplyTextures(GLState state, ref_ptr<GpuProgram> program)
+void TextureState::ApplyTextures(GLState state, ref_ptr<GpuProgram> program)
 {
+  m_usedSlots = 0;
+
   ref_ptr<Texture> tex = state.GetColorTexture();
   int8_t colorTexLoc = -1;
   if (tex != nullptr && (colorTexLoc = program->GetUniformLocation("u_colorTex")) >= 0)
@@ -173,19 +169,7 @@ void ApplyTextures(GLState state, ref_ptr<GpuProgram> program)
     tex->Bind();
     GLFunctions::glUniformValuei(colorTexLoc, 0);
     tex->SetFilter(state.GetTextureFilter());
-  }
-  else
-  {
-    // Some Android devices (Galaxy Nexus) require to reset texture state explicitly.
-    // It's caused by a bug in OpenGL driver (for Samsung Nexus, maybe others). Normally 
-    // we don't need to explicitly call glBindTexture(GL_TEXTURE2D, 0) after glUseProgram
-    // in case of the GPU-program doesn't use textures. Here we have to do it to work around
-    // graphics artefacts. The overhead isn't significant, we don't know on which devices 
-    // it may happen so do it for all Android devices.
-#ifdef OMIM_OS_ANDROID
-    GLFunctions::glActiveTexture(gl_const::GLTexture0);
-    GLFunctions::glBindTexture(0);
-#endif
+    m_usedSlots++;
   }
 
   tex = state.GetMaskTexture();
@@ -196,16 +180,21 @@ void ApplyTextures(GLState state, ref_ptr<GpuProgram> program)
     tex->Bind();
     GLFunctions::glUniformValuei(maskTexLoc, 1);
     tex->SetFilter(state.GetTextureFilter());
+    m_usedSlots++;
   }
-  else
-  {
-    // Some Android devices (Galaxy Nexus) require to reset texture state explicitly.
-    // See detailed description above.
-#ifdef OMIM_OS_ANDROID
-    GLFunctions::glActiveTexture(gl_const::GLTexture0 + 1);
-    GLFunctions::glBindTexture(0);
-#endif
-  }
+}
+
+uint8_t TextureState::GetLastUsedSlots()
+{
+  return m_usedSlots;
+}
+
+void ApplyUniforms(UniformValuesStorage const & uniforms, ref_ptr<GpuProgram> program)
+{
+  static UniformApplyer applyer;
+  applyer.m_program = program;
+  uniforms.ForeachValue(applyer);
+  applyer.m_program = nullptr;
 }
 
 void ApplyBlending(GLState state, ref_ptr<GpuProgram> program)
@@ -215,7 +204,7 @@ void ApplyBlending(GLState state, ref_ptr<GpuProgram> program)
 
 void ApplyState(GLState state, ref_ptr<GpuProgram> program)
 {
-  ApplyTextures(state, program);
+  TextureState::ApplyTextures(state, program);
   ApplyBlending(state, program);
   GLFunctions::glDepthFunc(state.GetDepthFunction());
   GLFunctions::glLineWidth(state.GetLineWidth());
