@@ -6,7 +6,7 @@ interface PlatformSocket
 {
   boolean open(@NonNull String host, int port);
 
-  boolean close();
+  void close();
 
   void setTimeout(int millis);
 

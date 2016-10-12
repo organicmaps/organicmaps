@@ -33,7 +33,7 @@ public class SimpleLogger extends Logger
   }
 
   @Override
-  public void e(String message, Throwable throwable, Object... args)
+  public void e(Throwable throwable, String message, Object... args)
   {
     Log.e(tag, message + join(args), throwable);
   }

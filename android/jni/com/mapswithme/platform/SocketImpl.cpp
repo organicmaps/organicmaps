@@ -3,7 +3,7 @@
 #include "base/logging.hpp"
 
 
-class SocketImpl
+/*class SocketImpl
 {
 public:
   SocketImpl()
@@ -46,4 +46,4 @@ bool Socket::Read(uint8_t * data, uint32_t count) { return m_socketImpl->Read(da
 bool Socket::Write(uint8_t const * data, uint32_t count) { return m_socketImpl->Write(data, count); }
 
 void Socket::SetTimeout(uint32_t milliseconds) { m_socketImpl->SetTimeout(milliseconds); }
-}  // namespace platform
+}  // namespace platform */

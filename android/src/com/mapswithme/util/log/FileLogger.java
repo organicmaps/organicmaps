@@ -62,7 +62,7 @@ public class FileLogger extends Logger
   }
 
   @Override
-  public void e(String message, Throwable throwable, Object... args)
+  public void e(Throwable throwable, String message, Object... args)
   {
     e(message, args);
   }
