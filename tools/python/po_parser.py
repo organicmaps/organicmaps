@@ -75,6 +75,7 @@ class PoParser:
                 elif not line or line.startswith("#"):
                     string_started = False
                     current_key = None
+
                 else:
                     if not string_started:
                         continue

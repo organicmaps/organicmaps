@@ -46,9 +46,7 @@ class StringsTxt:
         self._find_most_similar()
 
 
-    def add_translation(self, translation, key=None, lang=None):
-        if not key or not lang:
-            raise UnboundLocalError("You must provide the key and language for the translation")
+    def add_translation(self, translation, key, lang):
         if key not in self.keys_in_order:
             self.keys_in_order.append(key)
         self.translations[key][lang] = translation
