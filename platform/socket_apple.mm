@@ -50,7 +50,7 @@
     NSStreamStatus const outputStreamStatus = self.outputStream.streamStatus;
     if (inputStreamStatus == NSStreamStatusError || outputStreamStatus == NSStreamStatusError)
       return NO;
-    else if (inputStreamStatus == NSStreamStatusOpen && outputStreamStatus == NSStreamStatusOpen)
+    if (inputStreamStatus == NSStreamStatusOpen && outputStreamStatus == NSStreamStatusOpen)
       return YES;
   }
 
@@ -77,27 +77,35 @@
   if (!self.inputStream || self.inputStream.streamStatus != NSStreamStatusOpen)
     return NO;
 
-  NSInteger const readCount = [self.inputStream read:data maxLength:count];
+  NSDate * readStart = [NSDate date];
+  uint8_t * readPtr = data;
+  while (count != 0 && [[NSDate date] timeIntervalSinceDate:readStart] < self.timeout)
+  {
+    NSInteger const readCount = [self.inputStream read:readPtr maxLength:count];
 
-  if (readCount > 0)
-  {
-    LOG(LDEBUG, ("Stream has read ", readCount, " bytes."));
-  }
-  else if (readCount == 0)
-  {
-    LOG(LDEBUG, ("The end of the read buffer was reached."));
-  }
-  else
-  {
-    LOG(LERROR, ("An error has occurred on the read stream."));
+    if (readCount > 0)
+    {
+      LOG(LDEBUG, ("Stream has read ", readCount, " bytes."));
+      count -= readCount;
+      readPtr += readCount;
+    }
+    else if (readCount == 0)
+    {
+      LOG(LDEBUG, ("The end of the read buffer was reached."));
+    }
+    else
+    {
+      LOG(LERROR, ("An error has occurred on the read stream."));
 #ifdef OMIN_PRODUCTION
-    LOG(LERROR, (self.inputStream.streamError));
+      LOG(LERROR, (self.inputStream.streamError));
 #else
-    NSLog(@"%@", self.inputStream.streamError);
+      NSLog(@"%@", self.inputStream.streamError);
 #endif
+      return NO;
+    }
   }
 
-  return readCount == count;
+  return count == 0;
 }
 
 - (BOOL)write:(uint8_t const *)data count:(NSUInteger)count
@@ -105,27 +113,35 @@
   if (!self.outputStream || self.outputStream.streamStatus != NSStreamStatusOpen)
     return NO;
 
-  NSInteger const writeCount = [self.outputStream write:data maxLength:count];
+  NSDate * writeStart = [NSDate date];
+  uint8_t const * writePtr = data;
+  while (count != 0 && [[NSDate date] timeIntervalSinceDate:writeStart] < self.timeout)
+  {
+    NSInteger const writeCount = [self.outputStream write:writePtr maxLength:count];
 
-  if (writeCount > 0)
-  {
-    LOG(LDEBUG, ("Stream has written ", writeCount, " bytes."));
-  }
-  else if (writeCount == 0)
-  {
-    LOG(LDEBUG, ("The end of the write stream has been reached."));
-  }
-  else
-  {
-    LOG(LERROR, ("An error has occurred on the write stream."));
+    if (writeCount > 0)
+    {
+      LOG(LDEBUG, ("Stream has written ", writeCount, " bytes."));
+      count -= writeCount;
+      writePtr += writeCount;
+    }
+    else if (writeCount == 0)
+    {
+      LOG(LDEBUG, ("The end of the write stream has been reached."));
+    }
+    else
+    {
+      LOG(LERROR, ("An error has occurred on the write stream."));
 #ifdef OMIN_PRODUCTION
-    LOG(LERROR, (self.outputStream.streamError));
+      LOG(LERROR, (self.outputStream.streamError));
 #else
-    NSLog(@"%@", self.outputStream.streamError);
+      NSLog(@"%@", self.outputStream.streamError);
 #endif
+      return NO;
+    }
   }
 
-  return writeCount == count;
+  return count == 0;
 }
 
 @end
@@ -155,7 +171,11 @@ unique_ptr<Socket> createSocket()
 
 PlatformSocket::PlatformSocket() { m_socketImpl = [[SocketImpl alloc] init]; }
 
-PlatformSocket::~PlatformSocket() { Close(); }
+PlatformSocket::~PlatformSocket()
+{
+  Close();
+  m_socketImpl = nullptr;
+}
 
 bool PlatformSocket::Open(string const & host, uint16_t port)
 {
