@@ -713,7 +713,7 @@ public class RoutingController
       mContainer.updatePoints();
   }
 
-  static CharSequence formatRoutingTime(Context context, int seconds, @DimenRes int unitsSize)
+  public static CharSequence formatRoutingTime(Context context, int seconds, @DimenRes int unitsSize)
   {
     long minutes = TimeUnit.SECONDS.toMinutes(seconds) % 60;
     long hours = TimeUnit.SECONDS.toHours(seconds);

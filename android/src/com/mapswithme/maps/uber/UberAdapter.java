@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.routing.RoutingController;
 
 public class UberAdapter extends PagerAdapter
 {
@@ -44,8 +45,9 @@ public class UberAdapter extends PagerAdapter
     TextView name = (TextView) v.findViewById(R.id.product_name);
     name.setText(product.getName());
     TextView timeAndPrice = (TextView) v.findViewById(R.id.arrival_time_price);
-    timeAndPrice.setText(mContext.getString(R.string.taxi_wait, Integer.valueOf(product.getTime()) / 60)
-                         + " • " + product.getPrice());
+    int time = Integer.parseInt(product.getTime());
+    CharSequence waitTime = RoutingController.formatRoutingTime(mContext, time, R.dimen.text_size_body_3);
+    timeAndPrice.setText(mContext.getString(R.string.taxi_wait, waitTime + " • " + product.getPrice()));
     container.addView(v, 0);
     return v;
   }
