@@ -16,7 +16,7 @@ namespace dp
 class GpuProgram
 {
 public:
-  GpuProgram(ref_ptr<Shader> vertexShader,
+  GpuProgram(int programIndex, ref_ptr<Shader> vertexShader,
              ref_ptr<Shader> fragmentShader);
   ~GpuProgram();
 
@@ -37,6 +37,8 @@ private:
 
   using TUniformLocations = map<string, int8_t>;
   TUniformLocations m_uniforms;
+
+  uint8_t const m_textureSlotsCount;
 };
 
 } // namespace dp

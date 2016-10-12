@@ -91,9 +91,18 @@ private:
   int m_lineWidth;
 };
 
+class TextureState
+{
+public:
+  static void ApplyTextures(GLState state, ref_ptr<GpuProgram> program);
+  static uint8_t GetLastUsedSlots();
+
+private:
+  static uint8_t m_usedSlots;
+};
+
 void ApplyUniforms(UniformValuesStorage const & uniforms, ref_ptr<GpuProgram> program);
 void ApplyState(GLState state, ref_ptr<GpuProgram> program);
-void ApplyTextures(GLState state, ref_ptr<GpuProgram> program);
 void ApplyBlending(GLState state, ref_ptr<GpuProgram> program);
 
 } // namespace dp

@@ -71,7 +71,7 @@ ref_ptr<GpuProgram> GpuProgramManager::GetProgram(int index)
                                              programInfo.m_fragmentSource,
                                              Shader::FragmentShader);
 
-  drape_ptr<GpuProgram> program = make_unique_dp<GpuProgram>(vertexShader, fragmentShader);
+  drape_ptr<GpuProgram> program = make_unique_dp<GpuProgram>(index, vertexShader, fragmentShader);
   ref_ptr<GpuProgram> result = make_ref(program);
   m_programs.emplace(index, move(program));
 
