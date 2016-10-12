@@ -7,15 +7,15 @@ import android.support.annotation.Nullable;
 import android.support.annotation.Size;
 import android.support.annotation.UiThread;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
 import com.mapswithme.maps.api.ParsedRoutingData;
 import com.mapswithme.maps.api.ParsedUrlMwmRequest;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.routing.RoutingInfo;
 import com.mapswithme.util.Constants;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
  * This class wraps android::Framework.cpp class
@@ -28,12 +28,14 @@ public class Framework
   public static final int MAP_STYLE_CLEAR = 2;
 
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ROUTER_TYPE_VEHICLE, ROUTER_TYPE_PEDESTRIAN, ROUTER_TYPE_BICYCLE})
+  @IntDef({ROUTER_TYPE_VEHICLE, ROUTER_TYPE_PEDESTRIAN, ROUTER_TYPE_BICYCLE, ROUTER_TYPE_TAXI})
+
   public @interface RouterType {}
 
   public static final int ROUTER_TYPE_VEHICLE = 0;
   public static final int ROUTER_TYPE_PEDESTRIAN = 1;
   public static final int ROUTER_TYPE_BICYCLE = 2;
+  public static final int ROUTER_TYPE_TAXI = 3;
 
   @SuppressWarnings("unused")
   public interface MapObjectListener

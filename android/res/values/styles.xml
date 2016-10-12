@@ -36,7 +36,8 @@
   </style>
 
   <style name="MwmWidget.Button.Start">
-    <item name="android:background">@drawable/button_start</item>
+    <item name="android:background">?startButtonBackground</item>
+    <item name="android:textColor">?accentButtonTextColor</item>
     <item name="android:textSize">14sp</item>
   </style>
 

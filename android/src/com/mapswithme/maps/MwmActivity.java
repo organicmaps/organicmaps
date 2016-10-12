@@ -28,6 +28,7 @@ import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.api.ParsedRoutingData;
 import com.mapswithme.maps.api.ParsedUrlMwmRequest;
 import com.mapswithme.maps.api.RoutePoint;
+import com.mapswithme.maps.uber.UberInfo;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
@@ -745,7 +746,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       RoutingPlanFragment fragment = (RoutingPlanFragment) getFragment(RoutingPlanFragment.class);
       if (fragment != null)
-        fragment.saveAltitudeChartState(outState);
+        fragment.saveRoutingPanelState(outState);
     }
 
     if (mNavigationController != null)
@@ -904,8 +905,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onStart();
     RoutingController.get().attach(this);
-    if (!mIsFragmentContainer)
-      mRoutingPlanInplaceController.setStartButton();
 
     if (MapFragment.nativeIsEngineCreated())
       LocationHelper.INSTANCE.attach(this);
@@ -1406,21 +1405,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onRouteBuilt(@Framework.RouterType int router)
-  {
-    if (mIsFragmentContainer)
-    {
-      RoutingPlanFragment fragment = (RoutingPlanFragment) getFragment(RoutingPlanFragment.class);
-      if (fragment != null)
-        fragment.showRouteAltitudeChart(router != Framework.ROUTER_TYPE_VEHICLE);
-    }
-    else
-    {
-      mRoutingPlanInplaceController.showRouteAltitudeChart(router != Framework.ROUTER_TYPE_VEHICLE);
-    }
-  }
-
-  @Override
   public void updateBuildProgress(int progress, @Framework.RouterType int router)
   {
     if (mIsFragmentContainer)
@@ -1432,6 +1416,22 @@ public class MwmActivity extends BaseMwmFragmentActivity
     else
     {
       mRoutingPlanInplaceController.updateBuildProgress(progress, router);
+    }
+  }
+
+  @Override
+  public void onUberInfoReceived(@NonNull UberInfo info)
+  {
+    if (mIsFragmentContainer)
+    {
+      RoutingPlanFragment fragment = (RoutingPlanFragment) getFragment(RoutingPlanFragment.class);
+      if (fragment != null)
+        fragment.showUberInfo(info);
+    }
+    else
+    {
+      mRoutingPlanInplaceController.showUberInfo(info);
+      mMainMenu.showLineFrame(true);
     }
   }
 

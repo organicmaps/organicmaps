@@ -9,9 +9,14 @@
   <include layout="@layout/routing_plan"/>
 
   <include
-      layout="@layout/altitude_chart_panel"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
+    layout="@layout/altitude_chart_panel"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+
+  <include
+    layout="@layout/uber_panel"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
 
   <Space
     android:layout_width="match_parent"
@@ -23,7 +28,9 @@
     android:layout_height="1dp"
     android:background="?dividerHorizontal"/>
 
-  <include layout="@layout/start_button"
-      android:layout_width="match_parent"
-      android:layout_height="48dp"/>
+  <include
+    layout="@layout/start_button"
+    android:visibility="gone"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"/>
 </LinearLayout>

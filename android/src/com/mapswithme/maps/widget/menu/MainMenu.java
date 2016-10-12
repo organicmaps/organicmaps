@@ -13,6 +13,7 @@ import com.mapswithme.maps.downloader.UpdateInfo;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
+import ru.mail.android.mytarget.core.models.Stat;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,15 +25,22 @@ public class MainMenu extends BaseMenu
   public enum State
   {
     MENU
-    {
-      @Override
-      boolean showToggle()
-      {
-        return false;
-      }
-    },
+        {
+          @Override
+          boolean showToggle()
+          {
+            return false;
+          }
+        },
     NAVIGATION,
-    ROUTE_PREPARE;
+    ROUTE_PREPARE
+        {
+          @Override
+          boolean showToggle()
+          {
+            return false;
+          }
+        };
 
     boolean showToggle()
     {
@@ -57,7 +65,6 @@ public class MainMenu extends BaseMenu
   private final List<View> mCollapseViews = new ArrayList<>();
 
   private final MenuToggle mToggle;
-  private Button mRouteStartButton;
 
   // Maps Item into button view placed on mContentFrame
   private final Map<Item, View> mItemViews = new HashMap<>();
@@ -234,9 +241,6 @@ public class MainMenu extends BaseMenu
     mNewsMarker = mButtonsFrame.findViewById(R.id.marker);
     mNewsCounter = (TextView) mContentFrame.findViewById(R.id.counter);
 
-    if (mRoutePlanFrame != null)
-      mRouteStartButton = (Button) mRoutePlanFrame.findViewById(R.id.start);
-
     init();
   }
 
@@ -261,8 +265,11 @@ public class MainMenu extends BaseMenu
         expandContent = false;
       } else
       {
+
         UiUtils.showIf(state == State.MENU, mButtonsFrame);
-        UiUtils.showIf(state == State.ROUTE_PREPARE, mRoutePlanFrame);
+        UiUtils.showIf(isRouting, mRoutePlanFrame);
+        if (isRouting)
+          mToggle.hide();
         expandContent = isRouting;
       }
 
@@ -304,11 +311,6 @@ public class MainMenu extends BaseMenu
   public MwmActivity.LeftAnimationTrackListener getLeftAnimationTrackListener()
   {
     return mAnimationTrackListener;
-  }
-
-  public Button getRouteStartButton()
-  {
-    return mRouteStartButton;
   }
 
   public void showLineFrame(boolean show)

@@ -6,16 +6,17 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.uber.UberInfo;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
 
 public class RoutingPlanFragment extends BaseMwmFragment
                               implements OnBackPressListener
 {
+
   private RoutingPlanController mPlanController;
 
   @Override
@@ -26,20 +27,9 @@ public class RoutingPlanFragment extends BaseMwmFragment
     mPlanController = new RoutingPlanController(res, getActivity());
     updatePoints();
 
-    Button start = (Button) res.findViewById(R.id.start);
-    RoutingController.get().setStartButton(start);
-    start.setOnClickListener(new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        RoutingController.get().start();
-      }
-    });
-
     Bundle activityState = getMwmActivity().getSavedInstanceState();
     if (activityState != null)
-      restoreAltitudeChartState(activityState);
+      restoreRoutingPanelState(activityState);
 
     return res;
   }
@@ -48,13 +38,6 @@ public class RoutingPlanFragment extends BaseMwmFragment
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
   {
     mPlanController.disableToggle();
-  }
-
-  @Override
-  public void onDestroyView()
-  {
-    super.onDestroyView();
-    RoutingController.get().setStartButton(null);
   }
 
   public void updatePoints()
@@ -67,24 +50,24 @@ public class RoutingPlanFragment extends BaseMwmFragment
     mPlanController.updateBuildProgress(progress, router);
   }
 
+  public void showUberInfo(@NonNull UberInfo info)
+  {
+    mPlanController.showUberInfo(info);
+  }
+
   @Override
   public boolean onBackPressed()
   {
     return RoutingController.get().cancelPlanning();
   }
 
-  public void showRouteAltitudeChart(boolean show)
+  public void restoreRoutingPanelState(@NonNull Bundle state)
   {
-    mPlanController.showRouteAltitudeChart(show);
+    mPlanController.restoreRoutingPanelState(state);
   }
 
-  public void restoreAltitudeChartState(@NonNull Bundle state)
+  public void saveRoutingPanelState(@NonNull Bundle outState)
   {
-    mPlanController.restoreAltitudeChartState(state);
-  }
-
-  public void saveAltitudeChartState(@NonNull Bundle outState)
-  {
-    mPlanController.saveAltitudeChartState(outState);
+    mPlanController.saveRoutingPanelState(outState);
   }
 }

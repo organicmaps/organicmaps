@@ -55,9 +55,9 @@
               android:id="@+id/progress_vehicle"
               style="@style/MwmWidget.ProgressWheel.RoutingPlan"
               android:layout_marginLeft="@dimen/routing_selector_wheel_margin"
+              android:layout_marginStart="@dimen/routing_selector_wheel_margin"
               android:layout_marginTop="@dimen/routing_selector_wheel_margin"
-              android:layout_marginBottom="@dimen/routing_selector_wheel_margin"
-              tools:visibility="visible" />
+              android:layout_marginBottom="@dimen/routing_selector_wheel_margin"/>
 
           <com.mapswithme.maps.widget.WheelProgressView
               android:id="@+id/progress_bicycle"
@@ -65,16 +65,23 @@
               android:layout_marginTop="@dimen/routing_selector_wheel_margin"
               android:layout_marginBottom="@dimen/routing_selector_wheel_margin"
               android:layout_marginLeft="12dp"
-              android:layout_marginRight="12dp"
-              tools:visibility="visible" />
+              android:layout_marginRight="12dp"/>
 
           <com.mapswithme.maps.widget.WheelProgressView
               android:id="@+id/progress_pedestrian"
               style="@style/MwmWidget.ProgressWheel.RoutingPlan"
               android:layout_marginTop="@dimen/routing_selector_wheel_margin"
               android:layout_marginBottom="@dimen/routing_selector_wheel_margin"
-              android:layout_marginRight="@dimen/routing_selector_wheel_margin"
-              tools:visibility="visible" />
+              android:layout_marginRight="12dp"
+              android:layout_marginEnd="12dp"/>
+
+          <com.mapswithme.maps.widget.WheelProgressView
+            android:id="@+id/progress_taxi"
+            style="@style/MwmWidget.ProgressWheel.RoutingPlan"
+            android:layout_marginTop="@dimen/routing_selector_wheel_margin"
+            android:layout_marginBottom="@dimen/routing_selector_wheel_margin"
+            android:layout_marginRight="@dimen/routing_selector_wheel_margin"
+            android:layout_marginEnd="@dimen/routing_selector_wheel_margin"/>
 
         </LinearLayout>
 
@@ -106,8 +113,16 @@
               android:id="@+id/pedestrian"
               android:layout_width="@dimen/routing_selector_size"
               android:layout_height="@dimen/routing_selector_size"
+              android:layout_marginRight="@dimen/routing_selector_wheel_margin"
               tools:button="@drawable/ic_walk"
               tools:buttonTint="?iconTintLight" />
+
+          <RadioButton
+            android:id="@+id/taxi"
+            android:layout_width="@dimen/routing_selector_size"
+            android:layout_height="@dimen/routing_selector_size"
+            tools:button="@drawable/ic_route_type_taxi"
+            tools:buttonTint="?iconTintLight" />
         </RadioGroup>
 
         <ImageView
