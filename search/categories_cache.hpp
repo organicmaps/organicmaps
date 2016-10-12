@@ -16,46 +16,47 @@ class MwmContext;
 class CategoriesCache
 {
 public:
-  CategoriesCache(CategoriesSet const & categories, my::Cancellable const & cancellable);
+  template <typename TypesSource>
+  CategoriesCache(TypesSource const & source, my::Cancellable const & cancellable)
+    : m_cancellable(cancellable)
+  {
+    source.ForEachType([this](uint32_t type) { m_categories.Add(type); });
+  }
+
+  virtual ~CategoriesCache() = default;
 
   CBV Get(MwmContext const & context);
-  inline void Clear() { m_cache.clear(); }
 
-private:
-  CBV Load(MwmContext const & context);
-
-  CategoriesSet const & m_categories;
-  my::Cancellable const & m_cancellable;
-  map<MwmSet::MwmId, CBV> m_cache;
-};
-
-class StreetsCache
-{
- public:
-  StreetsCache(my::Cancellable const & cancellable);
-
-  inline CBV Get(MwmContext const & context) { return m_cache.Get(context); }
-  inline void Clear() { m_cache.Clear(); }
   inline bool HasCategory(strings::UniString const & category) const
   {
     return m_categories.HasKey(category);
   }
 
- private:
-  CategoriesSet m_categories;
-  CategoriesCache m_cache;
-};
-
-class VillagesCache
-{
- public:
-  VillagesCache(my::Cancellable const & cancellable);
-
-  inline CBV Get(MwmContext const & context) { return m_cache.Get(context); }
-  inline void Clear() { m_cache.Clear(); }
+  inline void Clear() { m_cache.clear(); }
 
 private:
+  CBV Load(MwmContext const & context);
+
   CategoriesSet m_categories;
-  CategoriesCache m_cache;
+  my::Cancellable const & m_cancellable;
+  map<MwmSet::MwmId, CBV> m_cache;
+};
+
+class StreetsCache : public CategoriesCache
+{
+public:
+  StreetsCache(my::Cancellable const & cancellable);
+};
+
+class VillagesCache : public CategoriesCache
+{
+public:
+  VillagesCache(my::Cancellable const & cancellable);
+};
+
+class HotelsCache : public CategoriesCache
+{
+public:
+  HotelsCache(my::Cancellable const & cancellable);
 };
 }  // namespace search

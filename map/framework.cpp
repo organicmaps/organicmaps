@@ -1124,6 +1124,8 @@ bool Framework::SearchEverywhere(search::EverywhereSearchParams const & params)
   p.m_mode = search::Mode::Everywhere;
   p.m_forceSearch = true;
   p.m_suggestsEnabled = true;
+  p.m_hotelsFilter = params.m_hotelsFilter;
+
   p.m_onResults = [params](search::Results const & results) {
     if (params.m_onResults)
       GetPlatform().RunOnGuiThread([params, results]() { params.m_onResults(results); });
@@ -1141,6 +1143,7 @@ bool Framework::SearchInViewport(search::ViewportSearchParams const & params)
   p.m_mode = search::Mode::Viewport;
   p.m_forceSearch = false;
   p.m_suggestsEnabled = false;
+  p.m_hotelsFilter = params.m_hotelsFilter;
 
   p.m_onStarted = [params]() {
     if (params.m_onStarted)

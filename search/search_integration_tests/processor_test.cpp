@@ -6,6 +6,7 @@
 #include "search/search_tests_support/test_search_request.hpp"
 #include "search/token_slice.hpp"
 
+#include "generator/feature_builder.hpp"
 #include "generator/generator_tests_support/test_feature.hpp"
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
 
@@ -16,6 +17,7 @@
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
+#include "base/assert.hpp"
 #include "base/math.hpp"
 
 #include "std/shared_ptr.hpp"
@@ -28,6 +30,37 @@ namespace search
 {
 namespace
 {
+class TestHotel : public TestPOI
+{
+public:
+  TestHotel(m2::PointD const & center, string const & name, string const & lang, float rating,
+            int priceRate)
+    : TestPOI(center, name, lang), m_rating(rating), m_priceRate(priceRate)
+  {
+    CHECK_GREATER_OR_EQUAL(m_rating, 0.0, ());
+    CHECK_LESS_OR_EQUAL(m_rating, 10.0, ());
+
+    CHECK_GREATER_OR_EQUAL(m_priceRate, 0, ());
+    CHECK_LESS_OR_EQUAL(m_priceRate, 5, ());
+
+    SetTypes({{"tourism", "hotel"}});
+  }
+
+  // TestPOI overrides:
+  void Serialize(FeatureBuilder1 & fb) const override
+  {
+    TestPOI::Serialize(fb);
+
+    auto & metadata = fb.GetMetadataForTesting();
+    metadata.Set(feature::Metadata::FMD_RATING, strings::to_string(m_rating));
+    metadata.Set(feature::Metadata::FMD_PRICE_RATE, strings::to_string(m_priceRate));
+  }
+
+private:
+  float const m_rating;
+  int const m_priceRate;
+};
+
 class ProcessorTest : public SearchTest
 {
 public:
@@ -659,6 +692,63 @@ UNIT_CLASS_TEST(ProcessorTest, TestCoords)
   m2::PointD const expected = MercatorBounds::FromLatLon(51.681644, 39.183481);
   auto const actual = result.GetFeatureCenter();
   TEST(MercatorBounds::DistanceOnEarth(expected, actual) <= 1.0, ());
+}
+
+UNIT_CLASS_TEST(ProcessorTest, HotelsFiltering)
+{
+  char const countryName[] = "Wonderland";
+
+  TestHotel h1(m2::PointD(0, 0), "h1", "en", 8.0 /* rating */, 2 /* priceRate */);
+  TestHotel h2(m2::PointD(0, 1), "h2", "en", 7.0 /* rating */, 5 /* priceRate */);
+  TestHotel h3(m2::PointD(1, 0), "h3", "en", 9.0 /* rating */, 0 /* priceRate */);
+  TestHotel h4(m2::PointD(1, 1), "h4", "en", 2.0 /* rating */, 4 /* priceRate */);
+
+  auto id = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(h1);
+    builder.Add(h2);
+    builder.Add(h3);
+    builder.Add(h4);
+  });
+
+  SearchParams params;
+  params.m_query = "hotel";
+  params.m_inputLocale = "en";
+  params.m_mode = Mode::Everywhere;
+  params.m_suggestsEnabled = false;
+
+  SetViewport(m2::RectD(m2::PointD(-1, -1), m2::PointD(2, 2)));
+  {
+    TestSearchRequest request(m_engine, params, m_viewport);
+    request.Run();
+    TRules rules = {ExactMatch(id, h1), ExactMatch(id, h2), ExactMatch(id, h3), ExactMatch(id, h4)};
+    TEST(MatchResults(rules, request.Results()), ());
+  }
+
+  using namespace hotels_filter;
+
+  params.m_hotelsFilter = And(Gt<Rating>(7.0), Le<PriceRate>(2));
+  {
+    TestSearchRequest request(m_engine, params, m_viewport);
+    request.Run();
+    TRules rules = {ExactMatch(id, h1), ExactMatch(id, h3)};
+    TEST(MatchResults(rules, request.Results()), ());
+  }
+
+  params.m_hotelsFilter = Or(Eq<Rating>(9.0), Le<PriceRate>(4));
+  {
+    TestSearchRequest request(m_engine, params, m_viewport);
+    request.Run();
+    TRules rules = {ExactMatch(id, h1), ExactMatch(id, h3), ExactMatch(id, h4)};
+    TEST(MatchResults(rules, request.Results()), ());
+  }
+
+  params.m_hotelsFilter = Or(And(Eq<Rating>(7.0), Eq<PriceRate>(5)), Eq<PriceRate>(4));
+  {
+    TestSearchRequest request(m_engine, params, m_viewport);
+    request.Run();
+    TRules rules = {ExactMatch(id, h2), ExactMatch(id, h4)};
+    TEST(MatchResults(rules, request.Results()), ());
+  }
 }
 }  // namespace
 }  // namespace search

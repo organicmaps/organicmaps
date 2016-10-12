@@ -33,8 +33,6 @@ public:
 
   void SetRank(uint8_t rank);
 
-  void SetTestId(uint64_t id);
-
   void AddHouseNumber(string const & houseNumber);
 
   void AddStreet(string const & streetName);
@@ -61,6 +59,7 @@ public:
 
 
   inline feature::Metadata const & GetMetadata() const { return m_params.GetMetadata(); }
+  inline feature::Metadata & GetMetadataForTesting() { return m_params.GetMetadata(); }
   inline TGeometry const & GetGeometry() const { return m_polygons; }
   inline TPointSeq const & GetOuterGeometry() const { return m_polygons.front(); }
   inline feature::EGeomType GetGeomType() const { return m_params.GetGeomType(); }
