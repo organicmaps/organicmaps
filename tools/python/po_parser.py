@@ -101,7 +101,7 @@ class PoParser:
         )
 
         parser.add_argument(
-            "-s", "--strings-txt",
+            "-s", "--strings",
             dest="strings_txt", required=True,
             help="""The path to the strings.txt file. The strings from the po
             files will be added to that strings.txt file."""
