@@ -56,13 +56,13 @@ using ProductsCallback = function<void(vector<Product> const & products, size_t 
 class ProductMaker
 {
 public:
-  void Reset(size_t const requestId);
-  void SetTimes(size_t const requestId, string const & times);
-  void SetPrices(size_t const requestId, string const & prices);
-  void MakeProducts(size_t const requestId, ProductsCallback const & fn);
+  void Reset(uint64_t const requestId);
+  void SetTimes(uint64_t const requestId, string const & times);
+  void SetPrices(uint64_t const requestId, string const & prices);
+  void MakeProducts(uint64_t const requestId, ProductsCallback const & fn);
 
 private:
-  size_t m_requestId = 0;
+  uint64_t m_requestId = 0;
   unique_ptr<string> m_times;
   unique_ptr<string> m_prices;
   mutex m_mutex;
@@ -78,8 +78,8 @@ class Api
 {
 public:
   /// Requests list of available products from Uber. Returns request identificator immediately.
-  size_t GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
-                              ProductsCallback const & fn);
+  uint64_t GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
+                                ProductsCallback const & fn);
 
   /// Returns link which allows you to launch the Uber app.
   static RideRequestLinks GetRideRequestLinks(string const & productId, ms::LatLon const & from,
@@ -87,6 +87,6 @@ public:
 
 private:
   shared_ptr<ProductMaker> m_maker = make_shared<ProductMaker>();
-  size_t m_requestId = 0;
+  uint64_t m_requestId = 0;
 };
 }  // namespace uber

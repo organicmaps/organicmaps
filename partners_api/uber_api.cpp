@@ -143,7 +143,7 @@ string RawApi::GetEstimatedPrice(ms::LatLon const & from, ms::LatLon const & to)
   return RunSimpleHttpRequest(url.str());
 }
 
-void ProductMaker::Reset(size_t const requestId)
+void ProductMaker::Reset(uint64_t const requestId)
 {
   lock_guard<mutex> lock(m_mutex);
 
@@ -152,7 +152,7 @@ void ProductMaker::Reset(size_t const requestId)
   m_prices.reset();
 }
 
-void ProductMaker::SetTimes(size_t const requestId, string const & times)
+void ProductMaker::SetTimes(uint64_t const requestId, string const & times)
 {
   lock_guard<mutex> lock(m_mutex);
 
@@ -162,7 +162,7 @@ void ProductMaker::SetTimes(size_t const requestId, string const & times)
   m_times = make_unique<string>(times);
 }
 
-void ProductMaker::SetPrices(size_t const requestId, string const & prices)
+void ProductMaker::SetPrices(uint64_t const requestId, string const & prices)
 {
   lock_guard<mutex> lock(m_mutex);
 
@@ -172,7 +172,7 @@ void ProductMaker::SetPrices(size_t const requestId, string const & prices)
   m_prices = make_unique<string>(prices);
 }
 
-void ProductMaker::MakeProducts(size_t const requestId, ProductsCallback const & fn)
+void ProductMaker::MakeProducts(uint64_t const requestId, ProductsCallback const & fn)
 {
   vector<uber::Product> products;
   {
@@ -189,23 +189,24 @@ void ProductMaker::MakeProducts(size_t const requestId, ProductsCallback const &
   fn(products, requestId);
 }
 
-size_t Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
-                                 ProductsCallback const & fn)
+uint64_t Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
+                                   ProductsCallback const & fn)
 {
-  size_t const reqId = ++m_requestId;
+  auto const reqId = ++m_requestId;
+  auto const maker = m_maker;
 
-  m_maker->Reset(reqId);
+  maker->Reset(reqId);
 
-  threads::SimpleThread([this, from, reqId, fn]()
+  threads::SimpleThread([maker, from, reqId, fn]()
   {
-    m_maker->SetTimes(reqId, uber::RawApi::GetEstimatedTime(from));
-    m_maker->MakeProducts(reqId, fn);
+    maker->SetTimes(reqId, uber::RawApi::GetEstimatedTime(from));
+    maker->MakeProducts(reqId, fn);
   }).detach();
 
-  threads::SimpleThread([this, from, to, reqId, fn]()
+  threads::SimpleThread([maker, from, to, reqId, fn]()
   {
-    m_maker->SetPrices(reqId, uber::RawApi::GetEstimatedPrice(from, to));
-    m_maker->MakeProducts(reqId, fn);
+    maker->SetPrices(reqId, uber::RawApi::GetEstimatedPrice(from, to));
+    maker->MakeProducts(reqId, fn);
   }).detach();
 
   return reqId;
