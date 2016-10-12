@@ -6,6 +6,7 @@
 
 #include "geometry/latlon.hpp"
 
+#include "std/limits.hpp"
 #include "std/vector.hpp"
 
 namespace coding
@@ -25,32 +26,24 @@ public:
     DataPoint() = default;
 
     DataPoint(uint64_t timestamp, ms::LatLon latLon) : m_timestamp(timestamp), m_latLon(latLon) {}
+    // Uint64 should be enough for all our use cases.
+    // It is expected that |m_timestamp| stores time since epoch in seconds.
     uint64_t m_timestamp = 0;
     ms::LatLon m_latLon = ms::LatLon::Zero();
   };
 
-  // Serializes |points| to |writer| by first writing
-  // a header of 4 bytes and then writing the payload
-  // encoded according to |version|.
+  // Serializes |points| to |writer| by storing delta-encoded points.
+  // Returns the number of bytes written.
   // Version 0:
-  //   * header contains the size of the payload in bytes
-  //     in its top 29 (little-endian) bits and version number
-  //     in its 3 low bits.
-  //   * payload stores delta-encoded points. Coordinates
-  //     are truncated and stored as integers. All integers
-  //     are written as varints.
+  //   Coordinates are truncated and stored as integers. All integers
+  //   are written as varints.
   template <typename Writer>
-  static void SerializeDataPoints(uint32_t version, Writer & writer,
-                                  vector<DataPoint> const & points)
+  static size_t SerializeDataPoints(uint32_t version, Writer & writer,
+                                    vector<DataPoint> const & points)
   {
-    vector<uint8_t> buf;
-    MemWriter<decltype(buf)> bufWriter(buf);
+    ASSERT_LESS_OR_EQUAL(version, kLatestVersion, ());
 
-    auto const startPos = bufWriter.Pos();
-    uint32_t header = 0;
-    // We will fill the header later.
-    bufWriter.Write(&header, sizeof(header));
-    auto const payloadStartPos = bufWriter.Pos();
+    auto const startPos = writer.Pos();
 
     if (!points.empty())
     {
@@ -59,9 +52,9 @@ public:
           DoubleToUint32(points[0].m_latLon.lat, ms::LatLon::kMinLat, ms::LatLon::kMaxLat);
       uint32_t const firstLon =
           DoubleToUint32(points[0].m_latLon.lon, ms::LatLon::kMinLon, ms::LatLon::kMaxLon);
-      WriteVarUint(bufWriter, firstTimestamp);
-      WriteVarUint(bufWriter, firstLat);
-      WriteVarUint(bufWriter, firstLon);
+      WriteVarUint(writer, firstTimestamp);
+      WriteVarUint(writer, firstLat);
+      WriteVarUint(writer, firstLon);
     }
 
     for (size_t i = 1; i < points.size(); ++i)
@@ -74,30 +67,22 @@ public:
       uint32_t deltaLon = DoubleToUint32(points[i].m_latLon.lon - points[i - 1].m_latLon.lon,
                                          kMinDeltaLon, kMaxDeltaLon);
 
-      WriteVarUint(bufWriter, deltaTimestamp);
-      WriteVarUint(bufWriter, deltaLat);
-      WriteVarUint(bufWriter, deltaLon);
+      WriteVarUint(writer, deltaTimestamp);
+      WriteVarUint(writer, deltaLat);
+      WriteVarUint(writer, deltaLon);
     }
 
-    auto const endPos = bufWriter.Pos();
-    ASSERT_LESS(endPos - payloadStartPos, static_cast<uint32_t>(1) << 29, ("Payload too big."));
-    ASSERT_LESS(version, static_cast<uint32_t>(1) << 3, ("Version too big."));
-    uint32_t size = static_cast<uint32_t>(endPos - payloadStartPos);
-    header = (size << 3) | version;
-    bufWriter.Seek(startPos);
-    bufWriter.Write(&header, sizeof(header));
-    bufWriter.Seek(endPos);
-
-    writer.Write(buf.data(), buf.size());
+    ASSERT_LESS_OR_EQUAL(writer.Pos() - startPos, numeric_limits<size_t>::max(),
+                         ("Too much data."));
+    return static_cast<size_t>(writer.Pos() - startPos);
   }
 
   // Deserializes the points from |source| and appends them to |result|.
-  // Version 0:
-  //   The source must contain the encoded payload and nothing more (i.e.,
-  //   the header must be read separately).
   template <typename Source>
   static void DeserializeDataPoints(uint32_t version, Source & src, vector<DataPoint> & result)
   {
+    ASSERT_LESS_OR_EQUAL(version, kLatestVersion, ());
+
     bool first = true;
     uint64_t lastTimestamp = 0;
     double lastLat = 0.0;

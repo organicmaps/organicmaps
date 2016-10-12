@@ -30,16 +30,11 @@ void Test(vector<TrafficGPSEncoder::DataPoint> & points)
   {
     vector<uint8_t> buf;
     MemWriter<decltype(buf)> memWriter(buf);
-    TrafficGPSEncoder::SerializeDataPoints(version, memWriter, points);
+    UNUSED_VALUE(TrafficGPSEncoder::SerializeDataPoints(version, memWriter, points));
 
     vector<TrafficGPSEncoder::DataPoint> result;
     MemReader memReader(buf.data(), buf.size());
     ReaderSource<MemReader> src(memReader);
-    uint32_t const header = ReadPrimitiveFromSource<uint32_t>(src);
-    uint32_t const size = header >> 3;
-    TEST_EQUAL(version, header & 7, ());
-    TEST_EQUAL(src.Size(), size, ());
-    src = ReaderSource<MemReader>(size);
     TrafficGPSEncoder::DeserializeDataPoints(version, src, result);
 
     TEST_EQUAL(points.size(), result.size(), ());
