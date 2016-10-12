@@ -55,8 +55,8 @@ if [ -n "$DELTA_WITH" ]; then
   echo "### SIZE DIFFERENCE WITH $DELTA_WITH"
   python "$SCRIPT_PATH/diff_size.py" "$TARGET" "$DELTA_WITH" 5
   echo
-  echo "Size of old data: $(ls -l "$DELTA_WITH/*.mwm" | awk '{ total += $5 }; END { print total/1024/1024/1024 }') GB"
-  echo "Size of new data: $(ls -l     "$TARGET/*.mwm" | awk '{ total += $5 }; END { print total/1024/1024/1024 }') GB"
+  echo "Size of old data: $(ls -l "$DELTA_WITH"/*.mwm | awk '{ total += $5 }; END { print total/1024/1024/1024 }') GB"
+  echo "Size of new data: $(ls -l     "$TARGET"/*.mwm | awk '{ total += $5 }; END { print total/1024/1024/1024 }') GB"
 fi
 
 # For generator_tool, we create a temporary directory with symlinks to all maps
