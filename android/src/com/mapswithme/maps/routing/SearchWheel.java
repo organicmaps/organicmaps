@@ -233,7 +233,7 @@ class SearchWheel implements View.OnClickListener
   private void startSearch(SearchOption searchOption)
   {
     mCurrentOption = searchOption;
-    SearchEngine.searchInteractive(searchOption.mSearchQuery, System.nanoTime(), false /* isMapAndTable */);
+    SearchEngine.searchInteractive(searchOption.mSearchQuery, System.nanoTime(), false /* isMapAndTable */, null /* hotelsFilter */);
     refreshSearchButtonImage();
 
     toggleSearchLayout();

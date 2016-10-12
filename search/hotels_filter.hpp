@@ -8,6 +8,7 @@
 
 #include "std/map.hpp"
 #include "std/shared_ptr.hpp"
+#include "std/string.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
@@ -33,6 +34,8 @@ struct Rating
   {
     return d.m_rating;
   }
+
+  static char const * Name() { return "Rating"; }
 };
 
 struct PriceRate
@@ -50,6 +53,8 @@ struct PriceRate
   {
     return d.m_priceRate;
   }
+
+  static char const * Name() { return "PriceRate"; }
 };
 
 struct Description
@@ -64,6 +69,7 @@ struct Rule
 {
   virtual ~Rule() = default;
   virtual bool Matches(Description const & d) const = 0;
+  virtual string ToString() const = 0;
 };
 
 template <typename Field>
@@ -77,6 +83,13 @@ struct EqRule : public Rule
   bool Matches(Description const & d) const override
   {
     return Field::Eq(Field::Select(d), m_value);
+  }
+
+  string ToString() const override
+  {
+    ostringstream os;
+    os << "[ " << Field::Name() << " == " << m_value << " ]";
+    return os.str();
   }
 
   Value const m_value;
@@ -95,6 +108,13 @@ struct LtRule : public Rule
     return Field::Lt(Field::Select(d), m_value);
   }
 
+  string ToString() const override
+  {
+    ostringstream os;
+    os << "[ " << Field::Name() << " < " << m_value << " ]";
+    return os.str();
+  }
+
   Value const m_value;
 };
 
@@ -109,6 +129,13 @@ struct GtRule : public Rule
   bool Matches(Description const & d) const override
   {
     return Field::Gt(Field::Select(d), m_value);
+  }
+
+  string ToString() const override
+  {
+    ostringstream os;
+    os << "[ " << Field::Name() << " > " << m_value << " ]";
+    return os.str();
   }
 
   Value const m_value;
@@ -129,6 +156,17 @@ struct AndRule : public Rule
     return matches;
   }
 
+  string ToString() const override
+  {
+    ostringstream os;
+    os << "[";
+    os << (m_lhs ? m_lhs->ToString() : "<none>");
+    os << " && ";
+    os << (m_rhs ? m_rhs->ToString() : "<none>");
+    os << "]";
+    return os.str();
+  }
+
   shared_ptr<Rule> m_lhs;
   shared_ptr<Rule> m_rhs;
 };
@@ -146,6 +184,17 @@ struct OrRule : public Rule
     if (m_rhs)
       matches = matches || m_rhs->Matches(d);
     return matches;
+  }
+
+  string ToString() const override
+  {
+    ostringstream os;
+    os << "[";
+    os << (m_lhs ? m_lhs->ToString() : "<none>");
+    os << " || ";
+    os << (m_rhs ? m_rhs->ToString() : "<none>");
+    os << "]";
+    return os.str();
   }
 
   shared_ptr<Rule> m_lhs;

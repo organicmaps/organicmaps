@@ -22,3 +22,8 @@ NamespaceIndentation: None
 PointerAlignment: Middle
 SortIncludes: true
 Standard: Cpp11
+
+---
+Language: Java
+BreakBeforeBraces: Allman
+ColumnLimit: 100
