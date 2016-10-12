@@ -1,5 +1,5 @@
 #!/usr/bin/env python2.7
-
+#coding: utf8
 from __future__ import print_function
 
 from collections import defaultdict
@@ -113,6 +113,7 @@ def main():
     parser = PoParser()
     parser.parse_files()
     parser.strings_txt.write_formatted()
+
 
 if __name__ == "__main__":
     main()
