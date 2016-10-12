@@ -22,22 +22,35 @@
 
 namespace platform
 {
-Socket::Socket() { m_socketImpl = [[SocketImpl alloc] init]; }
-Socket::~Socket()
+class PlatformSocket final : public Socket
 {
-  Close();
-  m_socketImpl = nil;
+public:
+  PlatformSocket();
+  // Socket overrides
+  ~PlatformSocket();
+  bool Open(string const & host, uint16_t port) override;
+  void Close() override;
+  bool Read(uint8_t * data, uint32_t count) override;
+  bool Write(uint8_t const * data, uint32_t count) override;
+  void SetTimeout(uint32_t milliseconds) override;
+};
+
+unique_ptr<Socket> createSocket()
+{
+  return make_unique<PlatformSocket>();
 }
 
-bool Socket::Open(string const & host, uint16_t port)
-{
-  return [m_socketImpl open:@(host.c_str()) port:port];
-}
+PlatformSocket::PlatformSocket() {}
 
-void Socket::Close() { [m_socketImpl close]; }
-bool Socket::Read(uint8_t * data, uint32_t count) { return [m_socketImpl read:data count:count]; }
-bool Socket::Write(uint8_t const * data, uint32_t count)
-{
-  return [m_socketImpl write:data count:count];
-}
+PlatformSocket::~PlatformSocket() { Close(); }
+
+bool PlatformSocket::Open(string const & host, uint16_t port) { return false; }
+
+void PlatformSocket::Close() {}
+
+bool PlatformSocket::Read(uint8_t * data, uint32_t count) { return false; }
+
+bool PlatformSocket::Write(uint8_t const * data, uint32_t count) { return false; }
+
+void PlatformSocket::SetTimeout(uint32_t milliseconds) {}
 }  // namespace platform
