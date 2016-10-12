@@ -22,6 +22,24 @@
 
 namespace platform
 {
+class PlatformSocket final : public Socket
+{
+public:
+  PlatformSocket();
+  // Socket overrides
+  ~PlatformSocket();
+  bool Open(string const & host, uint16_t port) override;
+  void Close() override;
+  bool Read(uint8_t * data, uint32_t count) override;
+  bool Write(uint8_t const * data, uint32_t count) override;
+  void SetTimeout(uint32_t milliseconds) override;
+};
+
+unique_ptr<Socket> createSocket()
+{
+  return make_unique<PlatformSocket>();
+}
+
 PlatformSocket::PlatformSocket() {}
 
 PlatformSocket::~PlatformSocket() { Close(); }

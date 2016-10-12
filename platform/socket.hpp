@@ -2,6 +2,7 @@
 
 #include "std/string.hpp"
 #include "std/target_os.hpp"
+#include "std/unique_ptr.hpp"
 
 namespace platform
 {
@@ -25,15 +26,5 @@ public:
   virtual void SetTimeout(uint32_t milliseconds) = 0;
 };
 
-class PlatformSocket final : public Socket
-{
-  PlatformSocket();
-  // Socket overrides
-  ~PlatformSocket();
-  bool Open(string const & host, uint16_t port) override;
-  void Close() override;
-  bool Read(uint8_t * data, uint32_t count) override;
-  bool Write(uint8_t const * data, uint32_t count) override;
-  void SetTimeout(uint32_t milliseconds) override;
-};
+unique_ptr<Socket> createSocket();
 }  // namespace platform
