@@ -142,13 +142,15 @@ BOOL isOffsetInButton(CGFloat offset, MWMSearchTabButtonsView * button)
 
 - (void)updateScrollPosition:(CGFloat)position
 {
-  CGFloat const btnMid = position + 0.5 * self.scrollIndicator.width;
+  CGFloat const scrollIndicatorWidth = self.scrollIndicator.width;
+  CGFloat const btnMid = position + 0.5 * scrollIndicatorWidth;
   if (isInterfaceRightToLeft())
-    position = self.scrollIndicator.width - position;
+    position = scrollIndicatorWidth - position;
   runAsyncOnMainQueue(^{
     self.scrollIndicatorOffset.constant = nearbyint(position);
   });
-  if (self.selectedButton && isOffsetInButton(btnMid, self.selectedButton))
+  MWMSearchTabButtonsView * selectedButton = self.selectedButton;
+  if (selectedButton && isOffsetInButton(btnMid, selectedButton))
     return;
   [self.tabButtons
       enumerateObjectsUsingBlock:^(MWMSearchTabButtonsView * btn, NSUInteger idx, BOOL * stop) {
@@ -174,8 +176,9 @@ BOOL isOffsetInButton(CGFloat offset, MWMSearchTabButtonsView * button)
 
 - (void)refreshScrollPosition
 {
-  self.scrollIndicatorOffset.constant = nearbyint(self.selectedButton.minX);
-  [self tabButtonPressed:self.selectedButton];
+  MWMSearchTabButtonsView * selectedButton = self.selectedButton;
+  self.scrollIndicatorOffset.constant = nearbyint(selectedButton.minX);
+  [self tabButtonPressed:selectedButton];
 }
 
 #pragma mark - UICollectionViewDataSource

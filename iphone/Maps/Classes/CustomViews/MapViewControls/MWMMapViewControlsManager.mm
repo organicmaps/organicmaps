@@ -213,6 +213,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)actionDownloadMaps:(mwm::DownloaderMode)mode
 {
+  MapViewController * ownerController = self.ownerController;
   if (platform::migrate::NeedMigrate())
   {
     if (GetFramework().IsRoutingActive())
@@ -225,12 +226,12 @@ extern NSString * const kAlohalyticsTapEventKey;
     {
       [Statistics logEvent:kStatDownloaderMigrationDialogue
             withParameters:@{kStatFrom : kStatDownloader}];
-      [self.ownerController openMigration];
+      [ownerController openMigration];
     }
   }
   else
   {
-    [self.ownerController openMapsDownloader:mode];
+    [ownerController openMapsDownloader:mode];
   }
 }
 
@@ -259,11 +260,12 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)addPlace:(BOOL)isBusiness hasPoint:(BOOL)hasPoint point:(m2::PointD const &)point
 {
   self.menuState = MWMBottomMenuStateHidden;
-  static_cast<EAGLView *>(self.ownerController.view).widgetsManager.fullScreen = YES;
+  MapViewController * ownerController = self.ownerController;
+  static_cast<EAGLView *>(ownerController.view).widgetsManager.fullScreen = YES;
   [self.placePageManager dismissPlacePage];
   self.searchManager.state = MWMSearchManagerStateHidden;
 
-  [MWMAddPlaceNavigationBar showInSuperview:self.ownerController.view
+  [MWMAddPlaceNavigationBar showInSuperview:ownerController.view
       isBusiness:isBusiness
       applyPosition:hasPoint
       position:point
@@ -272,9 +274,9 @@ extern NSString * const kAlohalyticsTapEventKey;
 
         if (IsPointCoveredByDownloadedMaps(f.GetViewportCenter(), f.GetStorage(),
                                            f.GetCountryInfoGetter()))
-          [self.ownerController performSegueWithIdentifier:kMapToCategorySelectorSegue sender:nil];
+          [ownerController performSegueWithIdentifier:kMapToCategorySelectorSegue sender:nil];
         else
-          [self.ownerController.alertController presentIncorrectFeauturePositionAlert];
+          [ownerController.alertController presentIncorrectFeauturePositionAlert];
 
         [self didFinishAddingPlace];
       }

@@ -123,11 +123,12 @@ WeekDayView getWeekDayView()
   }
   if (!haveCurrentDay)
     [self addEmptyCurrentDay];
+  id<MWMPlacePageOpeningHoursCellProtocol> delegate = self.delegate;
   if (self.haveExpandSchedule)
   {
     self.toggleButton.hidden = NO;
     self.expandImage.hidden = NO;
-    if (self.delegate.forcedButton)
+    if (delegate.forcedButton)
       self.expandImage.image = [UIImage imageNamed:@"ic_arrow_gray_right"];
     else if (self.isExpanded)
       self.expandImage.image = [UIImage imageNamed:@"ic_arrow_gray_up"];
@@ -142,7 +143,7 @@ WeekDayView getWeekDayView()
       [self addClosedDays];
   }
   self.openTimeTrailingOffset.priority =
-      self.delegate.forcedButton ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow;
+      delegate.forcedButton ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow;
   self.weekDaysViewHeight.constant = ceil(self.weekDaysViewEstimatedHeight);
   [self alignTimeOffsets];
 }

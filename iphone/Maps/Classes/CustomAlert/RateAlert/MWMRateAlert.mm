@@ -142,7 +142,8 @@ static NSString * const kStatisticsEvent = @"Rate Alert";
   [Statistics logEvent:kStatEventName(kStatisticsEvent, kStatSendEmail)];
   [Alohalytics logEvent:kRateAlertEventName withValue:@"sendFeedback"];
   self.alpha = 0.;
-  self.alertController.view.alpha = 0.;
+  MWMAlertViewController * alertController = self.alertController;
+  alertController.view.alpha = 0.;
   if ([MFMailComposeViewController canSendMail])
   {
     struct utsname systemInfo;
@@ -170,9 +171,9 @@ static NSString * const kStatisticsEvent = @"Rate Alert";
     [mailController setToRecipients:@[ kRateEmail ]];
     [mailController setMessageBody:text isHTML:NO];
     mailController.navigationBar.tintColor = [UIColor blackColor];
-    [self.alertController.ownerViewController presentViewController:mailController
-                                                           animated:YES
-                                                         completion:nil];
+    [alertController.ownerViewController presentViewController:mailController
+                                                      animated:YES
+                                                    completion:nil];
   }
   else
   {

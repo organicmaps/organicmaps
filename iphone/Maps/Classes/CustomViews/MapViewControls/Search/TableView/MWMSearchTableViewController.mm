@@ -203,11 +203,12 @@ NSString * identifierForType(MWMSearchTableCellType type)
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   MWMSearchTableCellType cellType = [self cellTypeForIndexPath:indexPath];
+  id<MWMSearchTableViewProtocol> delegate = self.delegate;
   if (cellType == MWMSearchTableCellTypeOnMap)
   {
-    MWMSearchTextField * textField = self.delegate.searchTextField;
+    MWMSearchTextField * textField = delegate.searchTextField;
     [MWMSearch saveQuery:textField.text forInputLocale:textField.textInputMode.primaryLanguage];
-    self.delegate.state = MWMSearchManagerStateMapSearch;
+    delegate.state = MWMSearchManagerStateMapSearch;
   }
   else
   {
@@ -217,13 +218,13 @@ NSString * identifierForType(MWMSearchTableCellType type)
       NSString * suggestionString = @(result.GetSuggestionString());
       [Statistics logEvent:kStatEventName(kStatSearch, kStatSelectResult)
             withParameters:@{kStatValue : suggestionString, kStatScreen : kStatSearch}];
-      [self.delegate searchText:suggestionString forInputLocale:nil];
+      [delegate searchText:suggestionString forInputLocale:nil];
     }
     else
     {
-      MWMSearchTextField * textField = self.delegate.searchTextField;
+      MWMSearchTextField * textField = delegate.searchTextField;
       [MWMSearch saveQuery:textField.text forInputLocale:textField.textInputMode.primaryLanguage];
-      [self.delegate processSearchWithResult:result];
+      [delegate processSearchWithResult:result];
     }
   }
 }

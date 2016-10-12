@@ -64,18 +64,19 @@ using namespace osmoh;
   timeTableSet.Remove(index);
   [self.sections removeObjectAtIndex:index];
   [self refreshSectionsIndexes];
+  UITableView * tableView = self.tableView;
   if (needRealDelete)
   {
-    [self.tableView deleteSections:[[NSIndexSet alloc] initWithIndex:index]
-                  withRowAnimation:kMWMOpeningHoursEditorRowAnimation];
-    [self.tableView reloadSections:[[NSIndexSet alloc] initWithIndex:self.count]
-                  withRowAnimation:kMWMOpeningHoursEditorRowAnimation];
+    [tableView deleteSections:[[NSIndexSet alloc] initWithIndex:index]
+             withRowAnimation:kMWMOpeningHoursEditorRowAnimation];
+    [tableView reloadSections:[[NSIndexSet alloc] initWithIndex:self.count]
+             withRowAnimation:kMWMOpeningHoursEditorRowAnimation];
   }
   else
   {
     NSRange reloadRange = {index, self.count - index + 1};
-    [self.tableView reloadSections:[[NSIndexSet alloc] initWithIndexesInRange:reloadRange]
-                  withRowAnimation:kMWMOpeningHoursEditorRowAnimation];
+    [tableView reloadSections:[[NSIndexSet alloc] initWithIndexesInRange:reloadRange]
+             withRowAnimation:kMWMOpeningHoursEditorRowAnimation];
   }
 }
 

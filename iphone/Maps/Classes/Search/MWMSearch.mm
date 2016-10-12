@@ -61,44 +61,52 @@ using TObservers = NSHashTable<__kindof TObserver>;
 {
   NSTimeInterval const timestamp = [NSDate date].timeIntervalSince1970;
   self.lastSearchTimestamp = timestamp;
-  __weak auto weakSelf = self;
-  m_everywhereParams.m_onResults = [weakSelf, timestamp](search::Results const & results) {
-    __strong auto self = weakSelf;
-    if (!self)
-      return;
-    if (timestamp != self.lastSearchTimestamp)
-      return;
-    if (results.IsEndMarker())
-    {
-      self.everywhereSearchActive = NO;
+  {
+    __weak auto weakSelf = self;
+    m_everywhereParams.m_onResults = [weakSelf, timestamp](search::Results const & results) {
+      __strong auto self = weakSelf;
+      if (!self)
+        return;
+      if (timestamp != self.lastSearchTimestamp)
+        return;
+      if (results.IsEndMarker())
+      {
+        self.everywhereSearchActive = NO;
+        [self onSearchCompleted];
+      }
+      else
+      {
+        self->m_results = results;
+        self.suggestionsCount = results.GetSuggestsCount();
+        [self onSearchResultsUpdated];
+      }
+    };
+  }
+  {
+    __weak auto weakSelf = self;
+    m_viewportParams.m_onStarted = [weakSelf] {
+      __strong auto self = weakSelf;
+      if (!self)
+        return;
+      if (IPAD)
+      {
+        GetFramework().SearchEverywhere(self->m_everywhereParams);
+        self.everywhereSearchActive = YES;
+      }
+      self.viewportSearchActive = YES;
+      [self onSearchStarted];
+    };
+  }
+  {
+    __weak auto weakSelf = self;
+    m_viewportParams.m_onCompleted = [weakSelf] {
+      __strong auto self = weakSelf;
+      if (!self)
+        return;
+      self.viewportSearchActive = NO;
       [self onSearchCompleted];
-    }
-    else
-    {
-      self->m_results = results;
-      self.suggestionsCount = results.GetSuggestsCount();
-      [self onSearchResultsUpdated];
-    }
-  };
-  m_viewportParams.m_onStarted = [weakSelf] {
-    __strong auto self = weakSelf;
-    if (!self)
-      return;
-    if (IPAD)
-    {
-      GetFramework().SearchEverywhere(self->m_everywhereParams);
-      self.everywhereSearchActive = YES;
-    }
-    self.viewportSearchActive = YES;
-    [self onSearchStarted];
-  };
-  m_viewportParams.m_onCompleted = [weakSelf] {
-    __strong auto self = weakSelf;
-    if (!self)
-      return;
-    self.viewportSearchActive = NO;
-    [self onSearchCompleted];
-  };
+    };
+  }
 }
 
 - (void)update

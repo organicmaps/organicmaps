@@ -82,15 +82,16 @@ static NSString * const kKeyPath = @"subviews";
   if (_isVisible == isVisible)
     return;
   _isVisible = isVisible;
+  UIViewController * controller = self.controller;
   if (isVisible)
   {
     self.backLabel.text = [NSString
         stringWithFormat:L(@"back_to"), @(GetFramework().GetApiDataHolder().GetAppTitle().c_str())];
-    [self.controller.view addSubview:self.rootView];
-    [self.controller.view addObserver:self
-                           forKeyPath:kKeyPath
-                              options:NSKeyValueObservingOptionNew
-                              context:nullptr];
+    [controller.view addSubview:self.rootView];
+    [controller.view addObserver:self
+                      forKeyPath:kKeyPath
+                         options:NSKeyValueObservingOptionNew
+                         context:nullptr];
     [self timerUpdate];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
                                                   target:self
@@ -104,7 +105,7 @@ static NSString * const kKeyPath = @"subviews";
     [self.rootView removeFromSuperview];
     [self.timer invalidate];
   }
-  [self.controller setNeedsStatusBarAppearanceUpdate];
+  [controller setNeedsStatusBarAppearanceUpdate];
 }
 
 @end

@@ -33,10 +33,11 @@ static void * kContext = &kContext;
 
 - (void)updateTextViewForHeight:(CGFloat)height
 {
+  id<MWMNoteCelLDelegate> delegate = self.delegate;
   if (height > kMinimalTextViewHeight)
   {
     self.textViewHeight.constant = height;
-    [self.delegate cellShouldChangeSize:self text:self.textView.text];
+    [delegate cellShouldChangeSize:self text:self.textView.text];
   }
   else
   {
@@ -44,7 +45,7 @@ static void * kContext = &kContext;
     if (currentHeight > kMinimalTextViewHeight)
     {
       self.textViewHeight.constant = kMinimalTextViewHeight;
-      [self.delegate cellShouldChangeSize:self text:self.textView.text];
+      [delegate cellShouldChangeSize:self text:self.textView.text];
     }
   }
 

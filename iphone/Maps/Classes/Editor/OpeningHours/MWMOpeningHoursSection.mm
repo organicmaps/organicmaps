@@ -266,12 +266,13 @@ using namespace osmoh;
 
 - (void)refresh:(BOOL)force
 {
+  UITableView * tableView = self.delegate.tableView;
   if (force)
   {
-    [self.delegate.tableView reloadData];
+    [tableView reloadData];
     return;
   }
-  for (MWMOpeningHoursTableViewCell * cell in self.delegate.tableView.visibleCells)
+  for (MWMOpeningHoursTableViewCell * cell in tableView.visibleCells)
   {
     [cell refresh];
   }
@@ -344,14 +345,15 @@ using namespace osmoh;
   NSUInteger const newInd = selectedRow.unsignedIntegerValue;
   NSUInteger const oldInd = oldSelectedRow.unsignedIntegerValue;
 
-  UITableView * tableView = self.delegate.tableView;
+  id<MWMOpeningHoursSectionProtocol> delegate = self.delegate;
+  UITableView * tableView = delegate.tableView;
   [tableView beginUpdates];
 
   if (!oldSelectedRow)
   {
     _selectedRow = selectedRow;
     [self insertRow:newInd + 1];
-    [self.delegate updateActiveSection:self.index];
+    [delegate updateActiveSection:self.index];
   }
   else if (selectedRow)
   {

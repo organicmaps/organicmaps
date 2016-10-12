@@ -125,8 +125,9 @@ using namespace storage;
     case NodeStatus::NotDownloaded:
     case NodeStatus::Partly:
     {
+      MapViewController * controller = self.controller;
       BOOL const isMapVisible =
-          [self.controller.navigationController.topViewController isEqual:self.controller];
+          [controller.navigationController.topViewController isEqual:controller];
       if (isMapVisible && !self.isAutoDownloadCancelled && canAutoDownload(m_countryId))
       {
         [Statistics logEvent:kStatDownloaderMapAction
@@ -138,7 +139,7 @@ using namespace storage;
               }];
         m_autoDownloadCountryId = m_countryId;
         [MWMStorage downloadNode:m_countryId
-                 alertController:self.controller.alertController
+                 alertController:controller.alertController
                        onSuccess:^{
                          [self showInQueue];
                        }];
@@ -313,10 +314,11 @@ using namespace storage;
 
 - (IBAction)downloadAction
 {
+  MapViewController * controller = self.controller;
   if (platform::migrate::NeedMigrate())
   {
     [Statistics logEvent:kStatDownloaderMigrationDialogue withParameters:@{kStatFrom : kStatMap}];
-    [self.controller openMigration];
+    [controller openMigration];
   }
   else
   {
@@ -328,7 +330,7 @@ using namespace storage;
             kStatScenario : kStatDownload
           }];
     [MWMStorage downloadNode:m_countryId
-             alertController:self.controller.alertController
+             alertController:controller.alertController
                    onSuccess:^{
                      [self showInQueue];
                    }];

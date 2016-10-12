@@ -142,6 +142,7 @@ static NSString * const kMyPositionCellIdentifier = @"MWMSearchHistoryMyPosition
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   BOOL const isRouteSearch = self.isRouteSearchMode;
+  id<MWMSearchTabbedViewProtocol> delegate = self.delegate;
   if ([self isRequestCell:indexPath])
   {
     search::QuerySaver::TSearchRequest const & query =
@@ -149,7 +150,7 @@ static NSString * const kMyPositionCellIdentifier = @"MWMSearchHistoryMyPosition
     NSString * queryText = @(query.second.c_str());
     [Statistics logEvent:kStatEventName(kStatSearch, kStatSelectResult)
           withParameters:@{kStatValue : queryText, kStatScreen : kStatHistory}];
-    [self.delegate searchText:queryText forInputLocale:@(query.first.c_str())];
+    [delegate searchText:queryText forInputLocale:@(query.first.c_str())];
   }
   else
   {
@@ -157,7 +158,7 @@ static NSString * const kMyPositionCellIdentifier = @"MWMSearchHistoryMyPosition
     {
       [Statistics logEvent:kStatEventName(kStatSearch, kStatSelectResult)
             withParameters:@{kStatValue : kStatMyPosition, kStatScreen : kStatHistory}];
-      [self.delegate tapMyPositionFromHistory];
+      [delegate tapMyPositionFromHistory];
       return;
     }
     [Statistics logEvent:kStatEventName(kStatSearch, kStatSelectResult)

@@ -152,8 +152,9 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
 
 - (void)setMenuState:(MWMBottomMenuState)menuState
 {
-  [self.delegate setMenuState:menuState];
-  [self.delegate setMenuRestoreState:menuState];
+  id<MWMNavigationDashboardManagerProtocol> delegate = self.delegate;
+  [delegate setMenuState:menuState];
+  [delegate setMenuRestoreState:menuState];
 }
 
 - (void)mwm_refreshUI

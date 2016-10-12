@@ -91,8 +91,8 @@ BOOL isCompactForCellWidth(CGFloat width)
 
   self.timeSpanLabel.text = [NSString stringWithFormat:@"%@-%@", openString, closeString];
 
-  self.timeSpanLabel.textColor =
-      [self.section isRowSelected:row] ? [UIColor linkBlue] : [UIColor blackSecondaryText];
+  BOOL const isRowSelected = [section isRowSelected:row];
+  self.timeSpanLabel.textColor = isRowSelected ? [UIColor linkBlue] : [UIColor blackSecondaryText];
 }
 
 #pragma mark - Actions
@@ -103,8 +103,9 @@ BOOL isCompactForCellWidth(CGFloat width)
   if (!self.isVisible)
     return;
   NSUInteger const row = self.row;
-  self.section.selectedRow = [self.section isRowSelected:row] ? nil : @(row);
-  [self.section refresh:NO];
+  MWMOpeningHoursSection * section = self.section;
+  section.selectedRow = [section isRowSelected:row] ? nil : @(row);
+  [section refresh:NO];
 }
 
 @end

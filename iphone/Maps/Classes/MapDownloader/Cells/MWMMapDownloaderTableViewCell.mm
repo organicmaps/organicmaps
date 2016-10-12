@@ -147,20 +147,21 @@
 {
   storage::NodeAttrs nodeAttrs;
   GetFramework().GetStorage().GetNodeAttrs(m_countryId, nodeAttrs);
+  id<MWMMapDownloaderProtocol> delegate = self.delegate;
   switch (nodeAttrs.m_status)
   {
   case NodeStatus::NotDownloaded:
   case NodeStatus::Partly:
     if ([self isKindOfClass:[MWMMapDownloaderLargeCountryTableViewCell class]])
-      [self.delegate openNodeSubtree:m_countryId];
+      [delegate openNodeSubtree:m_countryId];
     else
-      [self.delegate downloadNode:m_countryId];
+      [delegate downloadNode:m_countryId];
     break;
   case NodeStatus::Undefined:
-  case NodeStatus::Error: [self.delegate retryDownloadNode:m_countryId]; break;
-  case NodeStatus::OnDiskOutOfDate: [self.delegate updateNode:m_countryId]; break;
+  case NodeStatus::Error: [delegate retryDownloadNode:m_countryId]; break;
+  case NodeStatus::OnDiskOutOfDate: [delegate updateNode:m_countryId]; break;
   case NodeStatus::Downloading:
-  case NodeStatus::InQueue: [self.delegate cancelNode:m_countryId]; break;
+  case NodeStatus::InQueue: [delegate cancelNode:m_countryId]; break;
   case NodeStatus::OnDisk: break;
   }
 }

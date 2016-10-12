@@ -171,20 +171,21 @@ NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 
 - (void)tapOnButtonWithType:(EButton)type
 {
+  MWMPlacePageViewManager * placePageManager = self.placePageManager;
   switch (type)
   {
-  case EButton::Api: [self.placePageManager apiBack]; break;
-  case EButton::Booking: [self.placePageManager book:NO]; break;
-  case EButton::Call: [self.placePageManager call]; break;
+  case EButton::Api: [placePageManager apiBack]; break;
+  case EButton::Booking: [placePageManager book:NO]; break;
+  case EButton::Call: [placePageManager call]; break;
   case EButton::Bookmark:
     if (self.isBookmark)
-      [self.placePageManager removeBookmark];
+      [placePageManager removeBookmark];
     else
-      [self.placePageManager addBookmark];
+      [placePageManager addBookmark];
     break;
-  case EButton::RouteFrom: [self.placePageManager routeFrom]; break;
-  case EButton::RouteTo: [self.placePageManager routeTo]; break;
-  case EButton::Share: [self.placePageManager share]; break;
+  case EButton::RouteFrom: [placePageManager routeFrom]; break;
+  case EButton::RouteTo: [placePageManager routeTo]; break;
+  case EButton::Share: [placePageManager share]; break;
   case EButton::More: [self showActionSheet]; break;
   case EButton::Spacer: break;
   }

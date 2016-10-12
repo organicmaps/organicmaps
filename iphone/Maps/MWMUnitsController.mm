@@ -27,13 +27,14 @@
 
 - (void)setSelectedCell:(SelectableCell *)cell
 {
-  if ([_selectedCell isEqual:cell])
+  SelectableCell * selectedCell = _selectedCell;
+  if (selectedCell == cell)
     return;
 
-  _selectedCell.accessoryType = UITableViewCellAccessoryNone;
+  selectedCell.accessoryType = UITableViewCellAccessoryNone;
+  cell.accessoryType = UITableViewCellAccessoryCheckmark;
+  cell.selected = NO;
   _selectedCell = cell;
-  _selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
-  _selectedCell.selected = NO;
   if (cell == self.kilometers)
   {
     [Statistics logEvent:kStatEventName(kStatSettings, kStatChangeMeasureUnits)

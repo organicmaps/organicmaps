@@ -63,11 +63,12 @@
   [Statistics logEvent:kStatEventName(kStatWhatsNew, [self.welcomeClass udWelcomeWasShownKey])
         withParameters:@{kStatAction : kStatOpen}];
   [self configure];
+  UIViewController<MWMPageControllerProtocol> * parent = self.parent;
   if (IPAD)
-    [self.parent.view addSubview:self.iPadBackgroundView];
-  [self.parent addChildViewController:self];
-  [self.parent.view addSubview:self.view];
-  [self didMoveToParentViewController:self.parent];
+    [parent.view addSubview:self.iPadBackgroundView];
+  [parent addChildViewController:self];
+  [parent.view addSubview:self.view];
+  [self didMoveToParentViewController:parent];
 }
 
 #pragma mark - Private methods
