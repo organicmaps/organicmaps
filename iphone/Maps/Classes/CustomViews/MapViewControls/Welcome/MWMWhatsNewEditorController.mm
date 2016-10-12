@@ -32,6 +32,7 @@ NSArray<TMWMWelcomeConfigBlock> * pagesConfigBlocks = @[
   [^(MWMWhatsNewEditorController * controller) {
     controller.image.image = [UIImage imageNamed:@"img_editor_upd"];
     controller.alertTitle.text = L(@"whatsnew_update_editor_title");
+    MWMPageController * pageController = controller.pageController;
     if (platform::migrate::NeedMigrate())
     {
       controller.alertText.text =
@@ -44,7 +45,7 @@ NSArray<TMWMWelcomeConfigBlock> * pagesConfigBlocks = @[
                          forControlEvents:UIControlEventTouchUpInside];
       [controller.secondaryButton setTitle:L(@"not_now")
                                   forState:UIControlStateNormal];
-      [controller.secondaryButton addTarget:controller.pageController
+      [controller.secondaryButton addTarget:pageController
                                      action:@selector(close)
                            forControlEvents:UIControlEventTouchUpInside];
     }
@@ -55,7 +56,7 @@ NSArray<TMWMWelcomeConfigBlock> * pagesConfigBlocks = @[
       controller.buttonsSpacing.priority = UILayoutPriorityDefaultLow;
       [controller.primaryButton setTitle:L(@"done")
                                 forState:UIControlStateNormal];
-      [controller.primaryButton addTarget:controller.pageController
+      [controller.primaryButton addTarget:pageController
                                    action:@selector(close)
                          forControlEvents:UIControlEventTouchUpInside];
     }

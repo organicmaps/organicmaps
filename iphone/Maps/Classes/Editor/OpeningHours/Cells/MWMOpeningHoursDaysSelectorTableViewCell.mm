@@ -55,10 +55,11 @@ using namespace osmoh;
   if (refresh)
   {
     Weekday const wd = [self tag2Weekday:tag];
+    MWMOpeningHoursSection * section = self.section;
     if (selected)
-      [self.section addSelectedDay:wd];
+      [section addSelectedDay:wd];
     else
-      [self.section removeSelectedDay:wd];
+      [section removeSelectedDay:wd];
   }
   for (UIButton * btn in self.buttons)
   {

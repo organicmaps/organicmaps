@@ -26,5 +26,4 @@
 {
   [UIPasteboard generalPasteboard].string = self.text;
 }
-
 @end

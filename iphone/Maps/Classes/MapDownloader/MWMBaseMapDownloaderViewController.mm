@@ -850,7 +850,7 @@ using namespace mwm;
 - (void)setTableView:(UITableView *)tableView
 {
   _tableView = tableView;
-  _tableView.tableFooterView = [[UIView alloc] initWithFrame:{}];
+  tableView.tableFooterView = [[UIView alloc] initWithFrame:{}];
   self.dataSource = self.defaultDataSource;
 }
 

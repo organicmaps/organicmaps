@@ -91,10 +91,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  self.selectedCell.accessoryType = UITableViewCellAccessoryNone;
-  self.selectedCell = [tableView cellForRowAtIndexPath:indexPath];
-  self.selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
-  self.selectedCell.selected = NO;
+  SelectableCell * selectedCell = self.selectedCell;
+  selectedCell.accessoryType = UITableViewCellAccessoryNone;
+  selectedCell = [tableView cellForRowAtIndexPath:indexPath];
+  selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
+  selectedCell.selected = NO;
+  self.selectedCell = selectedCell;
 }
 
 @end

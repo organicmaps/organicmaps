@@ -45,8 +45,9 @@ namespace
 
 - (void)configData
 {
-  m_streets = self.delegate.nearbyStreets;
-  auto const & currentStreet = self.delegate.currentStreet;
+  id<MWMStreetEditorProtocol> delegate = self.delegate;
+  m_streets = delegate.nearbyStreets;
+  auto const & currentStreet = delegate.currentStreet;
 
   BOOL const haveCurrentStreet = !currentStreet.m_defaultName.empty();
   if (haveCurrentStreet)
@@ -88,10 +89,11 @@ namespace
 
 - (void)onDone
 {
+  id<MWMStreetEditorProtocol> delegate = self.delegate;
   if (self.selectedStreet == NSNotFound)
-    [self.delegate setNearbyStreet:{m_editedStreetName, ""}];
+    [delegate setNearbyStreet:{m_editedStreetName, ""}];
   else
-    [self.delegate setNearbyStreet:m_streets[self.selectedStreet]];
+    [delegate setNearbyStreet:m_streets[self.selectedStreet]];
 
   [self onCancel];
 }

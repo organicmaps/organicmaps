@@ -212,11 +212,11 @@ CGAffineTransform rotation(UIInterfaceOrientation orientation)
 {
   _alertController = alertController;
   UIView * view = alertController.view;
-  UIView * ownerView = alertController.ownerViewController.view;
-  view.frame = ownerView.bounds;
-  [alertController.ownerViewController.view addSubview:view];
+  UIViewController * ownerViewController = alertController.ownerViewController;
+  view.frame = ownerViewController.view.bounds;
+  [ownerViewController.view addSubview:view];
   [self addControllerViewToWindow];
-  [self rotate:alertController.ownerViewController.interfaceOrientation duration:0.0];
+  [self rotate:ownerViewController.interfaceOrientation duration:0.0];
   [view addSubview:self];
   self.frame = view.bounds;
 }

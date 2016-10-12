@@ -24,12 +24,13 @@
 
 - (IBAction)buttonTap
 {
+  MWMPlacePageViewManager * manager = self.manager;
   switch (self.type)
   {
-  case MWMPlacePageCellTypeEditButton: [self.manager editPlace]; break;
-  case MWMPlacePageCellTypeAddBusinessButton: [self.manager addBusiness]; break;
-  case MWMPlacePageCellTypeAddPlaceButton: [self.manager addPlace]; break;
-  case MWMPlacePageCellTypeBookingMore: [self.manager book:YES]; break;
+  case MWMPlacePageCellTypeEditButton: [manager editPlace]; break;
+  case MWMPlacePageCellTypeAddBusinessButton: [manager addBusiness]; break;
+  case MWMPlacePageCellTypeAddPlaceButton: [manager addPlace]; break;
+  case MWMPlacePageCellTypeBookingMore: [manager book:YES]; break;
   default: NSAssert(false, @"Incorrect cell type!"); break;
   }
 }

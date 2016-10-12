@@ -85,10 +85,11 @@ string locale()
 
 - (void)backTap
 {
-  if (self.delegate)
+  id<MWMObjectsCategorySelectorDelegate> delegate = self.delegate;
+  if (delegate)
   {
     auto const object = self.createdObject;
-    [self.delegate reloadObject:object];
+    [delegate reloadObject:object];
   }
   [super backTap];
 }

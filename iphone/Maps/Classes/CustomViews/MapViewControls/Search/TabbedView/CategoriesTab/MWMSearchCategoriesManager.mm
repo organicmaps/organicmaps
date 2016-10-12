@@ -68,9 +68,10 @@ static NSString * const kCellIdentifier = @"MWMSearchCategoryCell";
   NSString * string = @(m_categories[indexPath.row].c_str());
   [Statistics logEvent:kStatEventName(kStatSearch, kStatSelectResult)
         withParameters:@{kStatValue : string, kStatScreen : kStatCategories}];
-  [self.delegate searchText:[L(string) stringByAppendingString:@" "]
-             forInputLocale:[[AppInfo sharedInfo] languageId]];
-  [self.delegate dismissKeyboard];
+  id<MWMSearchTabbedViewProtocol> delegate = self.delegate;
+  [delegate searchText:[L(string) stringByAppendingString:@" "]
+        forInputLocale:[[AppInfo sharedInfo] languageId]];
+  [delegate dismissKeyboard];
 }
 
 @end

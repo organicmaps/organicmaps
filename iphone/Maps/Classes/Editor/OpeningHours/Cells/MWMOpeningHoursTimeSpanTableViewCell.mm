@@ -35,7 +35,7 @@
   self.openTimeLabel.text = [dateFormatter stringFromDate:openDate];
   self.closeTimeLabel.text = [dateFormatter stringFromDate:closeDate];
 
-  UIColor * clr = [self.section isRowSelected:row] ? [UIColor linkBlue] : [UIColor blackSecondaryText];
+  UIColor * clr = [section isRowSelected:row] ? [UIColor linkBlue] : [UIColor blackSecondaryText];
   self.openTimeLabel.textColor = clr;
   self.closeTimeLabel.textColor = clr;
 }
@@ -48,8 +48,8 @@
   {
     MWMOpeningHoursSection * section = self.section;
     NSUInteger const row = self.row;
-    section.selectedRow = [self.section isRowSelected:row] ? nil : @(row);
-    [self.section refresh:NO];
+    section.selectedRow = [section isRowSelected:row] ? nil : @(row);
+    [section refresh:NO];
   }
 }
 

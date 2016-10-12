@@ -54,17 +54,18 @@ extern NSString * const kPP2BookmarkEditingIPADSegue = @"PP2BookmarkEditingIPAD"
 
 - (void)configure
 {
-  MWMPlacePageEntity * entity = self.manager.entity;
+  MWMPlacePageViewManager * manager = self.manager;
+  MWMPlacePageEntity * entity = manager.entity;
   [self.basePlacePageView configureWithEntity:entity];
   BOOL const isPrepareRouteMode = MapsAppDelegate.theApp.routingPlaneMode != MWMRoutingPlaneModeNone;
   if (self.actionBar.isPrepareRouteMode == isPrepareRouteMode)
   {
-    [self.actionBar configureWithPlacePageManager:self.manager];
+    [self.actionBar configureWithPlacePageManager:manager];
   }
   else
   {
     [self.actionBar removeFromSuperview];
-    self.actionBar = [MWMPlacePageActionBar actionBarForPlacePageManager:self.manager];
+    self.actionBar = [MWMPlacePageActionBar actionBarForPlacePageManager:manager];
   }
 }
 
@@ -128,8 +129,10 @@ extern NSString * const kPP2BookmarkEditingIPADSegue = @"PP2BookmarkEditingIPAD"
 
 - (void)editBookmark
 {
-  [self.manager.ownerViewController performSegueWithIdentifier:IPAD ? kPP2BookmarkEditingIPADSegue :
-                                                              kPP2BookmarkEditingSegue sender:self.manager];
+  MWMPlacePageViewManager * manager = self.manager;
+  [manager.ownerViewController
+      performSegueWithIdentifier:IPAD ? kPP2BookmarkEditingIPADSegue : kPP2BookmarkEditingSegue
+                          sender:manager];
 }
 
 - (void)reloadBookmark

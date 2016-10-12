@@ -674,7 +674,7 @@ using namespace storage;
   default:
   {
     MWMPlacePageInfoCell * tCell = (MWMPlacePageInfoCell *)cell;
-    tCell.currentEntity = self.entity;
+    tCell.currentEntity = entity;
     [tCell configureWithType:cellType info:[entity getCellValue:cellType]];
     break;
   }

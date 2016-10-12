@@ -552,10 +552,10 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 - (void)setTtsSoundButton:(MWMButton *)ttsSoundButton
 {
   _ttsSoundButton = ttsSoundButton;
-  [_ttsSoundButton setImage:[UIImage imageNamed:@"ic_voice_on"] forState:UIControlStateNormal];
-  [_ttsSoundButton setImage:[UIImage imageNamed:@"ic_voice_off"] forState:UIControlStateSelected];
-  [_ttsSoundButton setImage:[UIImage imageNamed:@"ic_voice_off"]
-                   forState:UIControlStateSelected | UIControlStateHighlighted];
+  [ttsSoundButton setImage:[UIImage imageNamed:@"ic_voice_on"] forState:UIControlStateNormal];
+  [ttsSoundButton setImage:[UIImage imageNamed:@"ic_voice_off"] forState:UIControlStateSelected];
+  [ttsSoundButton setImage:[UIImage imageNamed:@"ic_voice_off"]
+                  forState:UIControlStateSelected | UIControlStateHighlighted];
   [self ttsButtonStatusChanged:nil];
 }
 
