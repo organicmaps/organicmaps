@@ -14,7 +14,7 @@ public:
   // 1. You can call Open+Close pair multiple times for the same Socket instance.
   // 2. There are should be Close call after each Open call.
   // 3. Open+Open: second Open does nothing and returns false.
-  // 4. Close+Close: second Close does nothing,
+  // 4. Close+Close: second Close does nothing.
   virtual bool Open(string const & host, uint16_t port) = 0;
   virtual void Close() = 0;
 
