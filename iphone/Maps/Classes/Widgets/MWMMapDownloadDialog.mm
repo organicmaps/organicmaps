@@ -87,13 +87,6 @@ using namespace storage;
                      [self layoutIfNeeded];
                    }];
   [super layoutSubviews];
-  if (isIOS7)
-  {
-    self.parentNode.preferredMaxLayoutWidth = floor(self.parentNode.width);
-    self.node.preferredMaxLayoutWidth = floor(self.node.width);
-    self.nodeSize.preferredMaxLayoutWidth = floor(self.nodeSize.width);
-    [super layoutSubviews];
-  }
 }
 
 - (void)configDialog

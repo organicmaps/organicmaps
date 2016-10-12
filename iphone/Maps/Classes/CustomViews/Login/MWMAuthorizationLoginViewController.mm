@@ -30,7 +30,7 @@ NSString * const kRefresh = L(@"refresh");
 using namespace osm;
 using namespace osm_auth_ios;
 
-@interface MWMAuthorizationLoginViewController () <UIActionSheetDelegate>
+@interface MWMAuthorizationLoginViewController ()
 
 @property (weak, nonatomic) IBOutlet UIView * authView;
 @property (weak, nonatomic) IBOutlet UIView * accountView;
@@ -217,41 +217,30 @@ using namespace osm_auth_ios;
 
 - (void)showActionSheet
 {
-  if (isIOS7)
+  UIAlertController * alertController =
+      [UIAlertController alertControllerWithTitle:nil
+                                          message:nil
+                                   preferredStyle:UIAlertControllerStyleActionSheet];
+  [alertController addAction:[UIAlertAction actionWithTitle:kRefresh
+                                                      style:UIAlertActionStyleDefault
+                                                    handler:^(UIAlertAction * action) {
+                                                      [self refresh:YES];
+                                                    }]];
+  [alertController addAction:[UIAlertAction actionWithTitle:kLogout
+                                                      style:UIAlertActionStyleDestructive
+                                                    handler:^(UIAlertAction * action) {
+                                                      [self logout];
+                                                    }]];
+  [alertController
+      addAction:[UIAlertAction actionWithTitle:kCancel style:UIAlertActionStyleCancel handler:nil]];
+
+  if (IPAD)
   {
-    UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:kCancel destructiveButtonTitle:kLogout otherButtonTitles:kRefresh, nil];
-    [actionSheet showInView:self.view];
+    UIPopoverPresentationController * popPresenter =
+        [alertController popoverPresentationController];
+    popPresenter.barButtonItem = self.navigationItem.rightBarButtonItem;
   }
-  else
-  {
-    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    [alertController addAction:[UIAlertAction actionWithTitle:kRefresh style:UIAlertActionStyleDefault handler:^(UIAlertAction * action)
-    {
-      [self refresh:YES];
-    }]];
-    [alertController addAction:[UIAlertAction actionWithTitle:kLogout style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action)
-    {
-      [self logout];
-    }]];
-    [alertController addAction:[UIAlertAction actionWithTitle:kCancel style:UIAlertActionStyleCancel handler:nil]];
-
-    if (IPAD)
-    {
-      UIPopoverPresentationController * popPresenter = [alertController popoverPresentationController];
-      popPresenter.barButtonItem = self.navigationItem.rightBarButtonItem;
-    }
-    [self presentViewController:alertController animated:YES completion:nil];
-  }
-}
-
-#pragma mark - UIActionSheetDelegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-  if (actionSheet.destructiveButtonIndex == buttonIndex)
-    [self logout];
-  else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:kRefresh])
-    [self refresh:YES];
+  [self presentViewController:alertController animated:YES completion:nil];
 }
 
 #pragma mark - Segue

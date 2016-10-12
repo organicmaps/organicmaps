@@ -36,17 +36,6 @@
   m_countryId = kInvalidCountryId;
 }
 
-- (void)layoutSubviews
-{
-  [super layoutSubviews];
-  if (isIOS7)
-  {
-    self.title.preferredMaxLayoutWidth = floor(self.title.width);
-    self.downloadSize.preferredMaxLayoutWidth = floor(self.downloadSize.width);
-    [super layoutSubviews];
-  }
-}
-
 #pragma mark - Search matching
 
 - (NSAttributedString *)matchedString:(NSString *)str

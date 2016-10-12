@@ -41,12 +41,7 @@ static NSString * const kStatisticsEvent = @"Routing Disclaimer Alert";
                                       }];
   [alert.textView sizeToFit];
   UIWindow * window = UIApplication.sharedApplication.keyWindow;
-  CGFloat height;
-  if (isIOS7)
-    height = UIInterfaceOrientationIsLandscape(orientation) ? window.width : window.height;
-  else
-    height = window.height;
-  [alert invalidateTextViewHeight:alert.textView.height withHeight:height];
+  [alert invalidateTextViewHeight:alert.textView.height withHeight:window.height];
   alert.okBlock = block;
   return alert;
 }
@@ -83,7 +78,7 @@ static NSString * const kStatisticsEvent = @"Routing Disclaimer Alert";
 - (CGFloat)bounded:(CGFloat)f withHeight:(CGFloat)h
 {
   CGFloat const currentHeight = [self.subviews.firstObject height];
-  CGFloat const maximumHeight = h - (isIOS7 ? 4. : 2.) * kMinimumOffset;
+  CGFloat const maximumHeight = h - 2. * kMinimumOffset;
   CGFloat const availableHeight = maximumHeight - currentHeight;
   return MIN(f, availableHeight + self.textViewHeight.constant);
 }

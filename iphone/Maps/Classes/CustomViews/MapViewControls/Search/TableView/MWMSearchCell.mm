@@ -64,16 +64,6 @@
   [self.titleLabel sizeToFit];
 }
 
-- (void)layoutSubviews
-{
-  [super layoutSubviews];
-  if (isIOS7)
-  {
-    self.titleLabel.preferredMaxLayoutWidth = floor(self.titleLabel.width);
-    [super layoutSubviews];
-  }
-}
-
 - (NSDictionary *)selectedTitleAttributes
 {
   return nil;

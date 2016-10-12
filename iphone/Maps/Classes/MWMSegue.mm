@@ -12,17 +12,7 @@
 {
   UINavigationController * nc = self.sourceViewController.navigationController;
   UIViewController * dvc = self.destinationViewController;
-  if (isIOS7)
-  {
-    if ([dvc isMemberOfClass:[UINavigationController class]])
-      [nc presentViewController:dvc animated:YES completion:nil];
-    else
-      [nc pushViewController:dvc animated:YES];
-  }
-  else
-  {
-    [nc showViewController:dvc sender:nil];
-  }
+  [nc showViewController:dvc sender:nil];
 }
 
 @end

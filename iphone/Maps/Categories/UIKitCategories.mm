@@ -105,12 +105,9 @@
 - (void)rateVersionFrom:(NSString *)launchPlaceName
 {
   NSString * urlString =
-      isIOS7 ? [NSString stringWithFormat:
-                             @"itms-apps://itunes.apple.com/app/id510623322?mt=8&at=1l3v7ya&ct=%@",
-                             launchPlaceName]
-             : @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/"
-               @"viewContentsUserReviews?id=510623322&onlyLatestVersion=true&pageNumber=0&"
-               @"sortOrdering=1&type=Purple+Software";
+      @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/"
+      @"viewContentsUserReviews?id=510623322&onlyLatestVersion=true&pageNumber=0&"
+      @"sortOrdering=1&type=Purple+Software";
   [self openURL:[NSURL URLWithString:urlString]];
 }
 
@@ -271,16 +268,6 @@
 
 @end
 
-@implementation UIImageView (IOS7Workaround)
-
-- (void)makeImageAlwaysTemplate
-{
-  if (isIOS7)
-    self.image = [self.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-}
-
-@end
-
 @implementation SolidTouchImageView
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {}
@@ -320,7 +307,7 @@
   NSString * scheme = url.scheme;
   NSAssert(([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]), @"Incorrect
   url's scheme!");
-  if ((isIOS7 || isIOS8))
+  if (isIOS8)
   {
     UIApplication * app = [UIApplication sharedApplication];
     if ([app canOpenURL:url])

@@ -26,8 +26,6 @@ namespace
 - (void)setColoring:(MWMButtonColoring)coloring
 {
   _coloring = coloring;
-  if (isIOS7)
-    [self.imageView makeImageAlwaysTemplate];
   [self setDefaultTintColor];
 }
 
@@ -61,8 +59,6 @@ namespace
 - (void)setHighlighted:(BOOL)highlighted
 {
   [super setHighlighted:highlighted];
-  if (isIOS7)
-    [self.imageView makeImageAlwaysTemplate];
   if (highlighted)
   {
     switch (self.coloring)
@@ -96,8 +92,6 @@ namespace
 - (void)setSelected:(BOOL)selected
 {
   [super setSelected:selected];
-  if (isIOS7)
-    [self.imageView makeImageAlwaysTemplate];
   if (selected)
   {
     switch (self.coloring)

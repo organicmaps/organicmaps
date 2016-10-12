@@ -72,21 +72,6 @@
       self.distanceLabel.text = @(distanceStr.c_str());
     }
   }
-  if (isIOS7)
-    [self layoutIfNeeded];
-}
-
-- (void)layoutSubviews
-{
-  [super layoutSubviews];
-  if (isIOS7)
-  {
-    self.typeLabel.preferredMaxLayoutWidth = floor(self.typeLabel.width);
-    self.infoLabel.preferredMaxLayoutWidth = floor(self.infoLabel.width);
-    self.locationLabel.preferredMaxLayoutWidth = floor(self.locationLabel.width);
-    self.distanceLabel.preferredMaxLayoutWidth = floor(self.distanceLabel.width);
-    [super layoutSubviews];
-  }
 }
 
 - (void)setInfoText:(NSString *)infoText

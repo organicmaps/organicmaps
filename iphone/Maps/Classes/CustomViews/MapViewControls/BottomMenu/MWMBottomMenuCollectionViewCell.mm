@@ -24,8 +24,6 @@
                  isEnabled:(BOOL)isEnabled
 {
   self.icon.image = [UIImage imageNamed:imageName];
-  if (isIOS7)
-    [self.icon makeImageAlwaysTemplate];
   self.label.text = label;
   if (badgeCount > 0)
   {

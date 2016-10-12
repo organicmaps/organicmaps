@@ -25,18 +25,6 @@
 {
   self.title.text = title;
   [self.title sizeToFit];
-  if (isIOS7)
-    [self layoutIfNeeded];
-}
-
-- (void)layoutSubviews
-{
-  [super layoutSubviews];
-  if (isIOS7)
-  {
-    self.title.preferredMaxLayoutWidth = floor(self.title.width);
-    [super layoutSubviews];
-  }
 }
 
 + (CGFloat)defaultCellHeight

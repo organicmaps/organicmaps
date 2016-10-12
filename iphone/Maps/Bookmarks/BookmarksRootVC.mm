@@ -95,8 +95,6 @@
     [Statistics logEvent:kStatEventName(kStatBookmarks, kStatToggleVisibility)
                      withParameters:@{kStatValue : visible ? kStatVisible : kStatHidden}];
     cell.imageView.image = [UIImage imageNamed:(visible ? @"ic_show" : @"ic_hide")];
-    if (isIOS7)
-      [cell.imageView makeImageAlwaysTemplate];
     cell.imageView.mwm_coloring = visible ? MWMImageColoringBlue : MWMImageColoringBlack;
     {
       BookmarkCategory::Guard guard(*cat);
@@ -130,8 +128,6 @@
     BOOL const isVisible = cat->IsVisible();
     cell.imageView.image = [UIImage imageNamed:(isVisible ? @"ic_show" : @"ic_hide")];
     cell.imageView.mwm_coloring = isVisible ? MWMImageColoringBlue : MWMImageColoringBlack;
-    if (isIOS7)
-      [cell.imageView makeImageAlwaysTemplate];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld", cat->GetUserMarkCount() + cat->GetTracksCount()];
   }
   cell.backgroundColor = [UIColor white];

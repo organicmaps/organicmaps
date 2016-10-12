@@ -15,18 +15,9 @@ namespace
 {
 NSString * const kVerifierKey = @"oauth_verifier";
 
-BOOL checkURLHasVerifierKey(NSString * urlString)
-{
-  return isIOS7 ? [urlString rangeOfString:kVerifierKey].location != NSNotFound
-                : [urlString containsString:kVerifierKey];
-}
-
 BOOL checkURLNeedsReload(NSString * urlString)
 {
-  BOOL const hasSlashSuffix = [urlString hasSuffix:@"/"];
-  if (!isIOS7)
-    return hasSlashSuffix || [urlString containsString:@"/welcome"];
-  return hasSlashSuffix || ([urlString rangeOfString:@"/welcome"].location != NSNotFound);
+  return [urlString hasSuffix:@"/"] || [urlString containsString:@"/welcome"];
 }
 
 NSString * getVerifier(NSString * urlString)
@@ -203,7 +194,7 @@ NSString * getVerifier(NSString * urlString)
   {
     [self loadAuthorizationPage];
   }
-  else if (checkURLHasVerifierKey(urlString))
+  else if ([urlString containsString:kVerifierKey])
   {
     webView.hidden = YES;
     NSString * verifier = getVerifier(urlString);

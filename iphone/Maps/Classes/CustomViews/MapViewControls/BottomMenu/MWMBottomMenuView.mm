@@ -509,8 +509,6 @@ CGFloat constexpr kTimeWidthRegular = 128;
       case MWMBottomMenuStateCompact: name = @"ic_menu_left"; break;
       }
       UIImage * image = [UIImage imageNamed:name];
-      if (isIOS7)
-        image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
       [btn setImage:image forState:UIControlStateNormal];
       if (self.state == MWMBottomMenuStateInactive)
       {
@@ -531,7 +529,6 @@ CGFloat constexpr kTimeWidthRegular = 128;
 
 - (void)refreshOnOrientationChange
 {
-  [self refreshButtonsColor];
   if (IPAD || self.state != MWMBottomMenuStateCompact)
     return;
   BOOL const isPortrait = self.superview.width < self.superview.height;
@@ -543,19 +540,8 @@ CGFloat constexpr kTimeWidthRegular = 128;
 {
   self.layoutDuration = kDefaultAnimationDuration;
   [self setNeedsLayout];
-  [self refreshButtonsColor];
   if (self.state == MWMBottomMenuStateInactive)
     [self updateBadge];
-}
-
-- (void)refreshButtonsColor
-{
-  if (!isIOS7)
-    return;
-  auto const coloring = self.p2pButton.coloring;
-  self.p2pButton.coloring = coloring;
-  self.bookmarksButton.coloring = coloring;
-  self.searchButton.coloring = self.searchButton.coloring;
 }
 
 - (void)updateBadge

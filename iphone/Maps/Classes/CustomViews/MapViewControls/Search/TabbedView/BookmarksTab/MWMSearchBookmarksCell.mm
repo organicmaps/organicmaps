@@ -44,17 +44,6 @@
   self.titleLabel.text = @(cat->GetName().c_str());
 }
 
-- (void)layoutSubviews
-{
-  [super layoutSubviews];
-  if (isIOS7)
-  {
-    self.titleLabel.preferredMaxLayoutWidth = floor(self.titleLabel.width);
-    self.countLabel.preferredMaxLayoutWidth = floor(self.countLabel.width);
-    [super layoutSubviews];
-  }
-}
-
 - (IBAction)toggleVisibility
 {
   self.isVisible = !self.isVisible;
