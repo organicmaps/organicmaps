@@ -22,7 +22,7 @@ using MWMCircularProgressStateVec = vector<MWMCircularProgressState>;
 
 @end
 
-@interface MWMCircularProgress : NSObject
+@interface MWMCircularProgress : NSObject <CAAnimationDelegate>
 
 + (nonnull instancetype)downloaderProgressForParentView:(nonnull UIView *)parentView;
 
