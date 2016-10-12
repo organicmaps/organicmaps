@@ -16,7 +16,7 @@ jmethodID g_routingControllerGetMethod;
 jmethodID g_uberInfoCallbackMethod;
 jclass g_uberLinksClass;
 jmethodID g_uberLinksConstructor;
-jlong lastRequestId;
+uint64_t g_lastRequestId;
 
 void PrepareClassRefs(JNIEnv * env)
 {
@@ -56,11 +56,11 @@ JNIEXPORT void JNICALL Java_com_mapswithme_maps_uber_Uber_nativeRequestUberProdu
   ms::LatLon const from(srcLat, srcLon);
   ms::LatLon const to(dstLat, dstLon);
 
-  lastRequestId = static_cast<jlong>(g_framework->RequestUberProducts(
+  g_lastRequestId = g_framework->RequestUberProducts(
       from, to, [](vector<uber::Product> const & products, uint64_t const requestId) {
         GetPlatform().RunOnGuiThread([=]() {
 
-          if (lastRequestId != requestId)
+          if (g_lastRequestId != requestId)
             return;
 
           JNIEnv * env = jni::GetEnv();
@@ -78,7 +78,7 @@ JNIEXPORT void JNICALL Java_com_mapswithme_maps_uber_Uber_nativeRequestUberProdu
           env->CallVoidMethod(routingControllerInstance, g_uberInfoCallbackMethod,
                               env->NewObject(g_uberInfoClass, g_uberInfoConstructor, uberProducts));
         });
-      }));
+      });
 }
 
 JNIEXPORT jobject JNICALL Java_com_mapswithme_maps_uber_Uber_nativeGetUberLinks(

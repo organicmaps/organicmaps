@@ -11,7 +11,6 @@ public class UberInfo implements Parcelable
 {
   public static final Parcelable.Creator<UberInfo> CREATOR = new Parcelable.Creator<UberInfo>()
   {
-
     @Override
     public UberInfo createFromParcel(Parcel source)
     {
@@ -21,7 +20,7 @@ public class UberInfo implements Parcelable
     @Override
     public UberInfo[] newArray(int size)
     {
-      return new UberInfo[0];
+      return new UberInfo[size];
     }
   };
 
@@ -68,7 +67,6 @@ public class UberInfo implements Parcelable
   {
     public static final Parcelable.Creator<Product> CREATOR = new Parcelable.Creator<Product>()
     {
-
       @Override
       public Product createFromParcel(Parcel source)
       {
