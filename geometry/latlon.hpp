@@ -11,6 +11,11 @@ namespace ms
 class LatLon
 {
 public:
+  static double const kMinLat;
+  static double const kMaxLat;
+  static double const kMinLon;
+  static double const kMaxLon;
+
   double lat, lon;
 
   /// Does NOT initialize lat and lon. Allows to use it as a property of an ObjC class.

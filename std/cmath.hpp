@@ -12,7 +12,9 @@
 #endif
 
 using std::abs;
+using std::cos;
 using std::isfinite;
+using std::sin;
 using std::log10;
 
 namespace math

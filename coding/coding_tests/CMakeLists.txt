@@ -30,6 +30,7 @@ set(
   sha2_test.cpp
   simple_dense_coding_test.cpp
   succinct_mapper_test.cpp
+  traffic_test.cpp
   uri_test.cpp
   url_encode_test.cpp
   value_opt_string_test.cpp
@@ -44,4 +45,4 @@ set(
 
 omim_add_test(coding_tests ${SRC})
 
-omim_link_libraries(coding_tests coding base minizip tomcrypt succinct ${LIBZ})
+omim_link_libraries(coding_tests coding base geometry minizip tomcrypt succinct ${LIBZ})
