@@ -130,7 +130,7 @@ UNIT_TEST(Uber_ProductMaker)
   TEST_EQUAL(returnedId, reqId, ());
 
   for (auto const & product : returnedProducts)
-    TEST(IsComplete(product),());
+    TEST(IsComplete(product), ());
 
   ++reqId;
 
@@ -181,26 +181,28 @@ UNIT_TEST(Uber_Smoke)
   auto const synchronousProducts = productsContainer;
   productsContainer.clear();
 
-  uber::Api uberApi;
+  {
+    uber::Api uberApi;
 
-  {
-    lock_guard<mutex> lock(resultsMutex);
-    reqId = uberApi.GetAvailableProducts(ms::LatLon(55.753960, 37.624513),
-                                         ms::LatLon(55.765866, 37.661270), standardCallback);
-  }
-  {
-    lock_guard<mutex> lock(resultsMutex);
-    reqId = uberApi.GetAvailableProducts(ms::LatLon(59.922445, 30.367201),
-                                         ms::LatLon(59.943675, 30.361123), standardCallback);
-  }
-  {
-    lock_guard<mutex> lock(resultsMutex);
-    reqId = uberApi.GetAvailableProducts(ms::LatLon(52.509621, 13.450067),
-                                         ms::LatLon(52.510811, 13.409490), standardCallback);
-  }
-  {
-    lock_guard<mutex> lock(resultsMutex);
-    reqId = uberApi.GetAvailableProducts(from, to, lastCallback);
+    {
+      lock_guard<mutex> lock(resultsMutex);
+      reqId = uberApi.GetAvailableProducts(ms::LatLon(55.753960, 37.624513),
+                                           ms::LatLon(55.765866, 37.661270), standardCallback);
+    }
+    {
+      lock_guard<mutex> lock(resultsMutex);
+      reqId = uberApi.GetAvailableProducts(ms::LatLon(59.922445, 30.367201),
+                                           ms::LatLon(59.943675, 30.361123), standardCallback);
+    }
+    {
+      lock_guard<mutex> lock(resultsMutex);
+      reqId = uberApi.GetAvailableProducts(ms::LatLon(52.509621, 13.450067),
+                                           ms::LatLon(52.510811, 13.409490), standardCallback);
+    }
+    {
+      lock_guard<mutex> lock(resultsMutex);
+      reqId = uberApi.GetAvailableProducts(from, to, lastCallback);
+    }
   }
 
   testing::RunEventLoop();
