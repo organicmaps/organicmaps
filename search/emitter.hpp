@@ -31,8 +31,9 @@ public:
 
   inline void Finish(bool cancelled)
   {
+    m_results.SetEndMarker(cancelled);
     if (m_onResults)
-      m_onResults(Results::GetEndMarker(cancelled));
+      m_onResults(m_results);
     else
       LOG(LERROR, ("OnResults is not set."));
   }

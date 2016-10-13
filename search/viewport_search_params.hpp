@@ -8,10 +8,12 @@
 
 namespace search
 {
+class Results;
+
 struct ViewportSearchParams
 {
   using TOnStarted = function<void()>;
-  using TOnCompleted = function<void()>;
+  using TOnCompleted = function<void(Results const & results)>;
 
   string m_query;
   string m_inputLocale;

@@ -37,8 +37,10 @@ private:
   Delegate & m_delegate;
   TOnResults m_onResults;
 
-  HotelsClassifier m_hotelsClassif;
   bool m_hotelsModeSet;
   bool m_firstCall;
+
+  HotelsClassifier m_hotelsClassif;
+  size_t m_lastResultsSize;
 };
 }  // namespace search

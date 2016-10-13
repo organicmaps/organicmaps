@@ -391,6 +391,8 @@ extern "C"
     vparams.m_inputLocale = ReplaceDeprecatedLanguageCode(jni::ToNativeString(env, lang));
     vparams.m_hotelsFilter = g_hotelsFilterBuilder.Build(env, hotelsFilter);
 
+    // TODO (@alexzatsepin): set up vparams.m_onCompleted here and use
+    // HotelsClassifier for hotel queries detection.
     g_framework->NativeFramework()->SearchInViewport(vparams);
 
     if (isMapAndTable)

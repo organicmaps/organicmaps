@@ -2,18 +2,26 @@
 
 #include "search/result.hpp"
 
+#include "base/assert.hpp"
+
 namespace search
 {
 ViewportSearchCallback::ViewportSearchCallback(Delegate & delegate, TOnResults onResults)
-  : m_delegate(delegate), m_onResults(move(onResults)), m_hotelsModeSet(false), m_firstCall(true)
+  : m_delegate(delegate)
+  , m_onResults(move(onResults))
+  , m_hotelsModeSet(false)
+  , m_firstCall(true)
+  , m_lastResultsSize(0)
 {
 }
 
 void ViewportSearchCallback::operator()(Results const & results)
 {
-  m_hotelsClassif.AddBatch(results);
+  ASSERT_LESS_OR_EQUAL(m_lastResultsSize, results.GetCount(), ());
+  m_hotelsClassif.Add(results.begin() + m_lastResultsSize, results.end());
+  m_lastResultsSize = results.GetCount();
 
-  if (!m_hotelsModeSet && m_hotelsClassif.IsHotelQuery())
+  if (!m_hotelsModeSet && m_hotelsClassif.IsHotelResults())
   {
     m_delegate.SetHotelDisplacementMode();
     m_hotelsModeSet = true;
