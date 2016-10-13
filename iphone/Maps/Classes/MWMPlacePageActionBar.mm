@@ -19,7 +19,7 @@ NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 
 }  // namespace
 
-@interface MWMPlacePageActionBar ()<MWMActionBarButtonDelegate, UIActionSheetDelegate>
+@interface MWMPlacePageActionBar ()<MWMActionBarButtonDelegate>
 {
   vector<EButton> m_visibleButtons;
   vector<EButton> m_additionalButtons;
@@ -212,61 +212,33 @@ NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
       NSAssert(false, @"Title can't be nil!");
   }
 
-  if (isIOS7)
+  UIAlertController * alertController =
+      [UIAlertController alertControllerWithTitle:title
+                                          message:subtitle
+                                   preferredStyle:UIAlertControllerStyleActionSheet];
+  UIAlertAction * cancelAction =
+      [UIAlertAction actionWithTitle:cancel style:UIAlertActionStyleCancel handler:nil];
+
+  for (auto i = 0; i < titles.count; i++)
   {
-    UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:title
-                                                              delegate:self
-                                                     cancelButtonTitle:cancel
-                                                destructiveButtonTitle:nil
-                                                     otherButtonTitles:nil];
-
-    for (NSString * title in titles)
-      [actionSheet addButtonWithTitle:title];
-
-    [actionSheet showInView:vc.view];
+    UIAlertAction * commonAction =
+        [UIAlertAction actionWithTitle:titles[i]
+                                 style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction * action) {
+                                 [self tapOnButtonWithType:self->m_additionalButtons[i]];
+                               }];
+    [alertController addAction:commonAction];
   }
-  else
+  [alertController addAction:cancelAction];
+
+  if (IPAD)
   {
-    UIAlertController * alertController =
-        [UIAlertController alertControllerWithTitle:title
-                                            message:subtitle
-                                     preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction * cancelAction =
-        [UIAlertAction actionWithTitle:cancel style:UIAlertActionStyleCancel handler:nil];
-
-    for (auto i = 0; i < titles.count; i++)
-    {
-      UIAlertAction * commonAction =
-          [UIAlertAction actionWithTitle:titles[i]
-                                   style:UIAlertActionStyleDefault
-                                 handler:^(UIAlertAction * action) {
-                                   [self tapOnButtonWithType:self->m_additionalButtons[i]];
-                                 }];
-      [alertController addAction:commonAction];
-    }
-    [alertController addAction:cancelAction];
-
-    if (IPAD)
-    {
-      UIPopoverPresentationController * popPresenter =
-          [alertController popoverPresentationController];
-      popPresenter.sourceView = self.shareAnchor;
-      popPresenter.sourceRect = self.shareAnchor.bounds;
-    }
-    [vc presentViewController:alertController animated:YES completion:nil];
+    UIPopoverPresentationController * popPresenter =
+        [alertController popoverPresentationController];
+    popPresenter.sourceView = self.shareAnchor;
+    popPresenter.sourceRect = self.shareAnchor.bounds;
   }
-}
-
-#pragma mark - UIActionSheetDelegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-  [actionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
-
-  // Using buttonIndex - 1 because there is cancel button at index 0
-  // Only iOS7
-  if (buttonIndex > 0)
-    [self tapOnButtonWithType:m_additionalButtons[buttonIndex - 1]];
+  [vc presentViewController:alertController animated:YES completion:nil];
 }
 
 #pragma mark - Layout

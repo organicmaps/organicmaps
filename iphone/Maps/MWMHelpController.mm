@@ -79,7 +79,7 @@ NSString * const kCancelActionTitle = L(@"cancel");
 NSString * const kiOSEmail = @"ios@maps.me";
 }
 
-@interface MWMHelpController ()<UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
+@interface MWMHelpController ()<MFMailComposeViewControllerDelegate>
 
 @property(nonatomic) WebViewController * aboutViewController;
 
@@ -148,25 +148,6 @@ NSString * const kiOSEmail = @"ios@maps.me";
 }
 
 - (IBAction)reportBug
-{
-  if (isIOS7)
-    [self reportIOS7];
-  else
-    [self reportRegular];
-}
-
-- (void)reportIOS7
-{
-  UIActionSheet * actionSheet =
-      [[UIActionSheet alloc] initWithTitle:nil
-                                  delegate:self
-                         cancelButtonTitle:kCancelActionTitle
-                    destructiveButtonTitle:nil
-                         otherButtonTitles:kCommonReportActionTitle, kBugReportActionTitle, nil];
-  [actionSheet showInView:self.view];
-}
-
-- (void)reportRegular
 {
   UIAlertController * alert =
       [UIAlertController alertControllerWithTitle:L(@"feedback")
@@ -268,23 +249,6 @@ NSString * const kiOSEmail = @"ios@maps.me";
                         error:(NSError *)error
 {
   [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - UIActionSheetDelegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-  if (actionSheet.numberOfButtons == 0 || buttonIndex >= actionSheet.numberOfButtons ||
-      buttonIndex < 0)
-  {
-    [actionSheet dismissWithClickedButtonIndex:0 animated:NO];
-    return;
-  }
-  NSString * btnTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
-  if ([btnTitle isEqualToString:kCommonReportActionTitle])
-    [self commonReportAction];
-  else if ([btnTitle isEqualToString:kBugReportActionTitle])
-    [self bugReportAction];
 }
 
 @end

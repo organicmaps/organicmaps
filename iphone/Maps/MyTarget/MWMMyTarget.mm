@@ -48,7 +48,7 @@
   if (self.bannersCount != 0)
     return;
   [self.appWallAd close];
-  if (isIOS7 || [MWMSettings adServerForbidden] || [MWMSettings adForbidden])
+  if ([MWMSettings adServerForbidden] || [MWMSettings adForbidden])
     return;
   self.appWallAd = [[MTRGNativeAppwallAd alloc] initWithSlotId:MY_TARGET_KEY];
   self.appWallAd.closeButtonTitle = L(@"close");
@@ -74,8 +74,6 @@
 
 + (void)startAdServerForbiddenCheckTimer
 {
-  if (isIOS7)
-    return;
   MWMMyTarget * manager = [self manager];
   [manager checkAdServerForbidden];
   [manager.checkAdServerForbiddenTimer invalidate];

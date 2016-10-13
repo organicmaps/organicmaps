@@ -185,8 +185,6 @@ BOOL defaultOrientation(CGSize const & size)
   {
     self.turnsView.hidden = NO;
     self.nextTurnImageView.image = info.turnImage;
-    if (isIOS7)
-      [self.nextTurnImageView makeImageAlwaysTemplate];
     self.nextTurnImageView.mwm_coloring = MWMImageColoringWhite;
 
     if (info.roundExitNumber == 0)
@@ -221,8 +219,6 @@ BOOL defaultOrientation(CGSize const & size)
     {
       self.secondTurnView.hidden = NO;
       self.secondTurnImageView.image = info.nextTurnImage;
-      if (isIOS7)
-        [self.secondTurnImageView makeImageAlwaysTemplate];
       self.secondTurnImageView.mwm_coloring = MWMImageColoringBlack;
     }
     else

@@ -99,13 +99,6 @@
   self.bounds = {{}, {width, height}};
 }
 
-- (void)setBounds:(CGRect)bounds
-{
-  if (isIOS7)
-    [self updateForSize:bounds.size];
-  super.bounds = bounds;
-}
-
 #pragma mark - Properties
 
 - (void)setState:(MWMMigrationViewState)state

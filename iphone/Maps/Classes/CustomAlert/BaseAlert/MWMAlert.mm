@@ -177,13 +177,6 @@
 
 - (void)rotate:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-  if (isIOS7 && [self respondsToSelector:@selector(setTransform:)])
-  {
-    [UIView animateWithDuration:duration
-                     animations:^{
-                       self.transform = rotation(toInterfaceOrientation);
-                     }];
-  }
   if ([self respondsToSelector:@selector(willRotateToInterfaceOrientation:)])
     [self willRotateToInterfaceOrientation:toInterfaceOrientation];
 }

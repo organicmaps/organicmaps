@@ -14,16 +14,6 @@
   return 62.0;
 }
 
-- (void)layoutSubviews
-{
-  [super layoutSubviews];
-  if (isIOS7)
-  {
-    self.mapsCount.preferredMaxLayoutWidth = self.mapsCount.width;
-    [super layoutSubviews];
-  }
-}
-
 #pragma mark - Config
 
 - (void)config:(storage::NodeAttrs const &)nodeAttrs

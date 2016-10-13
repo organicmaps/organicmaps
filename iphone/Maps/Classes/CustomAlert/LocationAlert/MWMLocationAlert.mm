@@ -19,16 +19,13 @@ static NSString * const kStatisticsEvent = @"Location Alert";
   [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatOpen}];
   MWMLocationAlert * alert = [[[NSBundle mainBundle] loadNibNamed:kLocationAlertNibName owner:nil options:nil] firstObject];
   [alert setNeedsCloseAlertAfterEnterBackground];
-  if (isIOS7)
-    [alert.rightButton setTitle:L(@"ok") forState:UIControlStateNormal];
   return alert;
 }
 
 - (IBAction)settingsTap
 {
   [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatApply}];
-  if (!isIOS7)
-    [self openSettings];
+  [self openSettings];
   [self close];
 }
 

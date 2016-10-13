@@ -27,23 +27,12 @@
   [super awakeFromNib];
   if (!IPAD)
   {
-    if (isIOS7)
-    {
-      self.containerWidth.priority = UILayoutPriorityFittingSizeLevel;
-      self.containerHeight.priority = UILayoutPriorityFittingSizeLevel;
-    }
-    else
-    {
-      self.containerWidth.active = NO;
-      self.containerHeight.active = NO;
-    }
+    self.containerWidth.active = NO;
+    self.containerHeight.active = NO;
   }
   else
   {
-    if (isIOS7)
-      self.containerTopOffset.priority = UILayoutPriorityFittingSizeLevel;
-    else
-      self.containerTopOffset.active = NO;
+    self.containerTopOffset.active = NO;
   }
   [MWMKeyboard addObserver:self];
 }

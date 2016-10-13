@@ -66,8 +66,8 @@ NSString * const kControllerIdentifier = @"MWMMapDownloaderViewController";
 using namespace storage;
 using namespace mwm;
 
-@interface MWMBaseMapDownloaderViewController ()<UIActionSheetDelegate, UIScrollViewDelegate,
-                                                 MWMFrameworkStorageObserver, MWMMyTargetDelegate>
+@interface MWMBaseMapDownloaderViewController ()<UIScrollViewDelegate, MWMFrameworkStorageObserver,
+                                                 MWMMyTargetDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView * tableView;
 
@@ -83,9 +83,6 @@ using namespace mwm;
 
 @property (nonatomic) MWMMapDownloaderDataSource * dataSource;
 @property (nonatomic) MWMMapDownloaderDefaultDataSource * defaultDataSource;
-
-@property(nonatomic) NSMutableDictionary<NSString *, MWMTableViewCell *> * offscreenCells;
-@property (nonatomic) NSMutableDictionary<NSIndexPath *, NSNumber *> * cellHeightCache;
 
 @property (nonatomic) BOOL skipCountryEventProcessing;
 @property (nonatomic) BOOL forceFullReload;
@@ -176,11 +173,6 @@ using namespace mwm;
     [super backTap];
 }
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
-  [self.cellHeightCache removeAllObjects];
-}
-
 - (void)notifyParentController
 {
   NSArray<MWMViewController *> * viewControllers = [self.navigationController viewControllers];
@@ -241,30 +233,12 @@ using namespace mwm;
 - (void)configTable
 {
   self.tableView.separatorColor = [UIColor blackDividers];
-  if (isIOS7)
-  {
-    self.offscreenCells = [@{} mutableCopy];
-    self.cellHeightCache = [@{} mutableCopy];
-  }
   [self registerCellWithIdentifier:kAdsCellIdentifier];
   [self registerCellWithIdentifier:kButtonCellIdentifier];
   [self registerCellWithIdentifier:kCountryCellIdentifier];
   [self registerCellWithIdentifier:kLargeCountryCellIdentifier];
   [self registerCellWithIdentifier:kPlaceCellIdentifier];
   [self registerCellWithIdentifier:kSubplaceCellIdentifier];
-}
-
-#pragma mark - Offscreen cells
-
-- (MWMTableViewCell *)offscreenCellForIdentifier:(NSString *)reuseIdentifier
-{
-  MWMTableViewCell * cell = self.offscreenCells[reuseIdentifier];
-  if (!cell)
-  {
-    cell = [[[NSBundle mainBundle] loadNibNamed:reuseIdentifier owner:nil options:nil] firstObject];
-    self.offscreenCells[reuseIdentifier] = cell;
-  }
-  return cell;
 }
 
 #pragma mark - MWMMyTargetDelegate
@@ -468,22 +442,7 @@ using namespace mwm;
     MTRGAppwallBannerAdView * adView = [adDataSource viewForBannerAtIndex:indexPath.row];
     return [adView sizeThatFits:{CGRectGetWidth(tableView.bounds), 0}].height + 1;
   }
-  if (!isIOS7)
-    return UITableViewAutomaticDimension;
-  NSNumber * cacheHeight = self.cellHeightCache[indexPath];
-  if (cacheHeight)
-    return cacheHeight.floatValue;
-
-  MWMMapDownloaderTableViewCell * cell = static_cast<MWMMapDownloaderTableViewCell *>(
-      [self offscreenCellForIdentifier:reuseIdentifier]);
-  [self.dataSource fillCell:cell atIndexPath:indexPath];
-  cell.bounds = {{}, {CGRectGetWidth(tableView.bounds), CGRectGetHeight(cell.bounds)}};
-  [cell setNeedsLayout];
-  [cell layoutIfNeeded];
-  CGSize const size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-  CGFloat const height = ceil(size.height + 0.5);
-  self.cellHeightCache[indexPath] = @(height);
-  return height;
+  return UITableViewAutomaticDimension;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -584,45 +543,23 @@ using namespace mwm;
   NSString * title = @(nodeAttrs.m_nodeLocalName.c_str());
   BOOL const isMultiParent = (nodeAttrs.m_parentInfo.size() > 1);
   NSString * message = (self.dataSource.isParentRoot || isMultiParent)
-  ? nil
-  : @(nodeAttrs.m_parentInfo[0].m_localName.c_str());
+                           ? nil
+                           : @(nodeAttrs.m_parentInfo[0].m_localName.c_str());
 
-  if (isIOS7)
-  {
-    UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:title
-                                                              delegate:self
-                                                     cancelButtonTitle:nil
-                                                destructiveButtonTitle:nil
-                                                     otherButtonTitles:nil];
-    [self addButtons:buttons toActionComponent:actionSheet];
-    [actionSheet showFromRect:cell.frame inView:cellSuperView animated:YES];
-  }
-  else
-  {
-    UIAlertController * alertController =
-    [UIAlertController alertControllerWithTitle:title
-                                        message:message
-                                 preferredStyle:UIAlertControllerStyleActionSheet];
-    UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    alertController.popoverPresentationController.sourceView = cell;
-    alertController.popoverPresentationController.sourceRect = cell.bounds;
-    [self addButtons:buttons toActionComponent:alertController];
-    [self presentViewController:alertController animated:YES completion:nil];
-  }
+  UIAlertController * alertController =
+      [UIAlertController alertControllerWithTitle:title
+                                          message:message
+                                   preferredStyle:UIAlertControllerStyleActionSheet];
+  alertController.popoverPresentationController.sourceView = cell;
+  alertController.popoverPresentationController.sourceRect = cell.bounds;
+  [self addButtons:buttons toActionComponent:alertController];
+  [self presentViewController:alertController animated:YES completion:nil];
 }
 
-- (void)addButtons:(ActionButtons)buttons toActionComponent:(id)component
+- (void)addButtons:(ActionButtons)buttons toActionComponent:(UIAlertController *)alertController
 {
-  UIActionSheet * actionSheet = nil;
-  UIAlertController * alertController = nil;
-  if ([component isKindOfClass:[UIActionSheet class]])
-    actionSheet = component;
-  else if ([component isKindOfClass:[UIAlertController class]])
-    alertController = component;
-
   if (buttons & ShowOnMapAction)
   {
-    [actionSheet addButtonWithTitle:kShowOnMapActionTitle];
     UIAlertAction * action = [UIAlertAction actionWithTitle:kShowOnMapActionTitle
                                                       style:UIAlertActionStyleDefault
                                                     handler:^(UIAlertAction * action)
@@ -638,7 +575,6 @@ using namespace mwm;
     NSString * prefix = nodeAttrs.m_mwmCounter == 1 ? kDownloadActionTitle : kDownloadAllActionTitle;
     NSString * title = [NSString stringWithFormat:kAllMapsLabelFormat, prefix,
                         formattedSize(nodeAttrs.m_mwmSize - nodeAttrs.m_localMwmSize)];
-    [actionSheet addButtonWithTitle:title];
     UIAlertAction * action = [UIAlertAction actionWithTitle:title
                                                       style:UIAlertActionStyleDefault
                                                     handler:^(UIAlertAction * action)
@@ -652,7 +588,6 @@ using namespace mwm;
     s.GetUpdateInfo(m_actionSheetId, updateInfo);
     NSString * title = [NSString stringWithFormat:kAllMapsLabelFormat, kUpdateActionTitle,
                         formattedSize(updateInfo.m_totalUpdateSizeInBytes)];
-    [actionSheet addButtonWithTitle:title];
     UIAlertAction * action = [UIAlertAction actionWithTitle:title
                                                       style:UIAlertActionStyleDefault
                                                     handler:^(UIAlertAction * action)
@@ -662,8 +597,6 @@ using namespace mwm;
 
   if (buttons & CancelDownloadAction)
   {
-    [actionSheet addButtonWithTitle:kCancelDownloadActionTitle];
-    actionSheet.destructiveButtonIndex = actionSheet.numberOfButtons - 1;
     UIAlertAction * action = [UIAlertAction actionWithTitle:kCancelDownloadActionTitle
                                                       style:UIAlertActionStyleDestructive
                                                     handler:^(UIAlertAction * action)
@@ -673,7 +606,6 @@ using namespace mwm;
 
   if (buttons & RetryDownloadAction)
   {
-    [actionSheet addButtonWithTitle:kRetryActionTitle];
     UIAlertAction * action = [UIAlertAction actionWithTitle:kRetryActionTitle
                                                       style:UIAlertActionStyleDestructive
                                                     handler:^(UIAlertAction * action)
@@ -683,8 +615,6 @@ using namespace mwm;
 
   if (buttons & DeleteAction)
   {
-    [actionSheet addButtonWithTitle:kDeleteActionTitle];
-    actionSheet.destructiveButtonIndex = actionSheet.numberOfButtons - 1;
     UIAlertAction * action = [UIAlertAction actionWithTitle:kDeleteActionTitle
                                                       style:UIAlertActionStyleDestructive
                                                     handler:^(UIAlertAction * action)
@@ -692,41 +622,10 @@ using namespace mwm;
     [alertController addAction:action];
   }
 
-  if (!IPAD)
-  {
-    [actionSheet addButtonWithTitle:kCancelActionTitle];
-    actionSheet.cancelButtonIndex = actionSheet.numberOfButtons - 1;
-  }
   UIAlertAction * action = [UIAlertAction actionWithTitle:kCancelActionTitle
                                                     style:UIAlertActionStyleCancel
                                                   handler:nil];
   [alertController addAction:action];
-}
-
-#pragma mark - UIActionSheetDelegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-  if (actionSheet.numberOfButtons == 0 || buttonIndex >= actionSheet.numberOfButtons || buttonIndex < 0)
-  {
-    [actionSheet dismissWithClickedButtonIndex:0 animated:NO];
-    return;
-  }
-  NSString * btnTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
-  if ([btnTitle rangeOfString:kShowOnMapActionTitle].location != NSNotFound)
-    [self showNode:m_actionSheetId];
-  else if ([btnTitle rangeOfString:kDownloadAllActionTitle].location != NSNotFound)
-    [self downloadNode:m_actionSheetId];
-  else if ([btnTitle rangeOfString:kDownloadActionTitle].location != NSNotFound)
-    [self downloadNode:m_actionSheetId];
-  else if ([btnTitle rangeOfString:kUpdateActionTitle].location != NSNotFound)
-    [self updateNode:m_actionSheetId];
-  else if ([btnTitle rangeOfString:kCancelDownloadActionTitle].location != NSNotFound)
-    [self cancelNode:m_actionSheetId];
-  else if ([btnTitle rangeOfString:kRetryActionTitle].location != NSNotFound)
-    [self retryDownloadNode:m_actionSheetId];
-  else if ([btnTitle rangeOfString:kDeleteActionTitle].location != NSNotFound)
-    [self deleteNode:m_actionSheetId];
 }
 
 #pragma mark - Countries tree(s) navigation
@@ -892,8 +791,6 @@ using namespace mwm;
 
 - (void)reloadTable
 {
-  [self.cellHeightCache removeAllObjects];
-
   UITableView * tableView = self.tableView;
   // If these methods are not called, tableView will not call tableView:cellForRowAtIndexPath:
   [tableView setNeedsLayout];

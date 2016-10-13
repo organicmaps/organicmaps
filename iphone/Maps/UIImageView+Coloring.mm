@@ -21,8 +21,6 @@
                            OBJC_ASSOCIATION_RETAIN_NONATOMIC);
   if (mwm_coloring == MWMImageColoringOther)
     return;
-  if (isIOS7)
-    [self makeImageAlwaysTemplate];
   [self applyColoring];
 }
 
@@ -37,8 +35,6 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
   self.tintColor = [[UIColor class] performSelector:self.coloringSelector];
-  if (isIOS7 && self.mwm_coloring == MWMImageColoringSeparator)
-    self.backgroundColor = [[UIColor class] performSelector:self.coloringSelector];
 #pragma clang diagnostic pop
 }
 
@@ -52,8 +48,6 @@
                                                 [UIColor isNightMode] ? @"dark" : @"light"]];
     return;
   }
-  if (isIOS7)
-    [self makeImageAlwaysTemplate];
   [self applyColoring];
 }
 

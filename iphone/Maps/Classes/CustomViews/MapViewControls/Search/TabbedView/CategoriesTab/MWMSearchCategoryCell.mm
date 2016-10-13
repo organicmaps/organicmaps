@@ -23,16 +23,6 @@
   sl.rasterizationScale = UIScreen.mainScreen.scale;
 }
 
-- (void)layoutSubviews
-{
-  [super layoutSubviews];
-  if (isIOS7)
-  {
-    self.label.preferredMaxLayoutWidth = floor(self.label.width);
-    [super layoutSubviews];
-  }
-}
-
 - (void)setCategory:(NSString *)category
 {
   self.label.text = L(category);

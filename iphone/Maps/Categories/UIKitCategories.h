@@ -60,12 +60,6 @@ static inline CGFloat LengthCGPoint(CGPoint point)
 
 @end
 
-@interface UIImageView (IOS7Workaround)
-
-- (void)makeImageAlwaysTemplate;
-
-@end
-
 @interface UIApplication (URLs)
 
 - (void)rateVersionFrom:(NSString *)launchPlaceName;

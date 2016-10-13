@@ -19,15 +19,6 @@
 @implementation MWMMapDownloaderSubplaceTableViewCell
 
 + (CGFloat)estimatedHeight { return 82.0; }
-- (void)layoutSubviews
-{
-  [super layoutSubviews];
-  if (isIOS7)
-  {
-    self.subPlace.preferredMaxLayoutWidth = floor(self.subPlace.width);
-    [super layoutSubviews];
-  }
-}
 
 - (void)setSubplaceText:(NSString *)text
 {

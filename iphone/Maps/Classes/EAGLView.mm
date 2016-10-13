@@ -22,17 +22,6 @@
 
 namespace
 {
-// Returns native scale if it's possible.
-double correctContentScale()
-{
-  UIScreen * uiScreen = [UIScreen mainScreen];
-  
-  if (isIOS7)
-    return [uiScreen respondsToSelector:@selector(scale)] ? [uiScreen scale] : 1.f;
-  else
-    return [uiScreen respondsToSelector:@selector(nativeScale)] ? [uiScreen nativeScale] : 1.f;
-}
-
 // Returns DPI as exact as possible. It works for iPhone, iPad and iWatch.
 double getExactDPI(double contentScaleFactor)
 {
@@ -82,7 +71,7 @@ double getExactDPI(double contentScaleFactor)
                                    kEAGLDrawablePropertyColorFormat : kEAGLColorFormatRGBA8};
 
   // Correct retina display support in opengl renderbuffer
-  self.contentScaleFactor = correctContentScale();
+  self.contentScaleFactor = [[UIScreen mainScreen] nativeScale];
 
   m_factory = make_unique_dp<dp::ThreadSafeFactory>(new iosOGLContextFactory(eaglLayer));
 }

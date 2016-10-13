@@ -22,15 +22,6 @@
 @implementation MWMMapDownloaderPlaceTableViewCell
 
 + (CGFloat)estimatedHeight { return 62.0; }
-- (void)layoutSubviews
-{
-  [super layoutSubviews];
-  if (isIOS7)
-  {
-    self.descriptionLabel.preferredMaxLayoutWidth = self.descriptionLabel.width;
-    [super layoutSubviews];
-  }
-}
 
 #pragma mark - Config
 

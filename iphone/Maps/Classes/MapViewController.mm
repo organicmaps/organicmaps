@@ -206,7 +206,7 @@ BOOL gIsFirstMyPositionMode = YES;
 
 - (BOOL)hasForceTouch
 {
-  if (isIOS7 || isIOS8)
+  if (isIOS8)
     return NO;
   return self.view.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable;
 }
@@ -298,9 +298,6 @@ BOOL gIsFirstMyPositionMode = YES;
 
 - (void)showWelcomeScreenIfNeeded
 {
-  if (isIOS7)
-    return;
-
   Class<MWMWelcomeControllerProtocol> whatsNewClass = [MWMWhatsNewProfileBookingController class];
   BOOL const isFirstSession = [Alohalytics isFirstSession];
   Class<MWMWelcomeControllerProtocol> welcomeClass =
@@ -354,15 +351,6 @@ BOOL gIsFirstMyPositionMode = YES;
                                            selector:@selector(orientationChanged:)
                                                name:UIDeviceOrientationDidChangeNotification
                                              object:nil];
-}
-
-- (void)presentViewController:(UIViewController *)viewControllerToPresent
-                     animated:(BOOL)flag
-                   completion:(TMWMVoidBlock)completion
-{
-  if (isIOS7)
-    self.controlsManager.menuRestoreState = self.controlsManager.menuState;
-  [super presentViewController:viewControllerToPresent animated:flag completion:completion];
 }
 
 - (void)orientationChanged:(NSNotification *)notification

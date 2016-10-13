@@ -762,9 +762,7 @@ using namespace osm_auth_ios;
   [navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
   navigationBar.shadowImage = [UIImage imageWithColor:[UIColor fadeBackground]];
   navigationBar.titleTextAttributes = [self navigationBarTextAttributes];
-  // Workaround for ios 7 crash.
-  if (!isIOS7)
-    navigationBar.translucent = NO;
+  navigationBar.translucent = NO;
 }
 
 + (void)customizeAppearance
@@ -790,7 +788,7 @@ using namespace osm_auth_ios;
   UISearchBar * searchBar = [UISearchBar appearance];
   searchBar.barTintColor = [UIColor primary];
   UITextField * textFieldInSearchBar = nil;
-  if (isIOS7 || isIOS8)
+  if (isIOS8)
     textFieldInSearchBar = [UITextField appearanceWhenContainedIn:[UISearchBar class], nil];
   else
     textFieldInSearchBar =
@@ -1096,7 +1094,7 @@ using namespace osm_auth_ios;
 
 - (MWMMyTarget *)myTarget
 {
-  if (!isIOS7 && !_myTarget)
+  if (!_myTarget)
     _myTarget = [[MWMMyTarget alloc] init];
   return _myTarget;
 }
