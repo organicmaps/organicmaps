@@ -25,5 +25,6 @@ Standard: Cpp11
 
 ---
 Language: Java
+BreakAfterJavaFieldAnnotations: true
 BreakBeforeBraces: Allman
 ColumnLimit: 100

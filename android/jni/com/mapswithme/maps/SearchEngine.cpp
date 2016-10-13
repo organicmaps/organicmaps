@@ -135,10 +135,8 @@ private:
 
     switch (field)
     {
-    case FIELD_RATING:
-      return BuildRatingOp(env, op, filter);
-    case FIELD_PRICE_RATE:
-      return BuildPriceRateOp(env, op, filter);
+    case FIELD_RATING: return BuildRatingOp(env, op, filter);
+    case FIELD_PRICE_RATE: return BuildPriceRateOp(env, op, filter);
     }
 
     LOG(LERROR, ("Unknown field:", field));
@@ -153,11 +151,11 @@ private:
 
     switch (op)
     {
-      case OP_LT: return Lt<Rating>(rating);
-      case OP_LE: return Le<Rating>(rating);
-      case OP_GT: return Gt<Rating>(rating);
-      case OP_GE: return Ge<Rating>(rating);
-      case OP_EQ: return Eq<Rating>(rating);
+    case OP_LT: return Lt<Rating>(rating);
+    case OP_LE: return Le<Rating>(rating);
+    case OP_GT: return Gt<Rating>(rating);
+    case OP_GE: return Ge<Rating>(rating);
+    case OP_EQ: return Eq<Rating>(rating);
     }
 
     LOG(LERROR, ("Unknown op:", op));
@@ -172,11 +170,11 @@ private:
 
     switch (op)
     {
-      case OP_LT: return Lt<PriceRate>(priceRate);
-      case OP_LE: return Le<PriceRate>(priceRate);
-      case OP_GT: return Gt<PriceRate>(priceRate);
-      case OP_GE: return Ge<PriceRate>(priceRate);
-      case OP_EQ: return Eq<PriceRate>(priceRate);
+    case OP_LT: return Lt<PriceRate>(priceRate);
+    case OP_LE: return Le<PriceRate>(priceRate);
+    case OP_GT: return Gt<PriceRate>(priceRate);
+    case OP_GE: return Ge<PriceRate>(priceRate);
+    case OP_EQ: return Eq<PriceRate>(priceRate);
     }
 
     LOG(LERROR, ("Unknown op:", op));
@@ -368,9 +366,9 @@ extern "C"
     g_hotelsFilterBuilder.Init(env);
   }
 
-  JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_search_SearchEngine_nativeRunSearch(JNIEnv * env, jclass clazz, jbyteArray bytes, jstring lang,
-                                                               jlong timestamp, jboolean hasPosition, jdouble lat, jdouble lon, jobject hotelsFilter)
+  JNIEXPORT jboolean JNICALL Java_com_mapswithme_maps_search_SearchEngine_nativeRunSearch(
+      JNIEnv * env, jclass clazz, jbyteArray bytes, jstring lang, jlong timestamp,
+      jboolean hasPosition, jdouble lat, jdouble lon, jobject hotelsFilter)
   {
     search::EverywhereSearchParams params;
     params.m_query = jni::ToNativeString(env, bytes);
@@ -384,9 +382,9 @@ extern "C"
     return searchStarted;
   }
 
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_search_SearchEngine_nativeRunInteractiveSearch(JNIEnv * env, jclass clazz, jbyteArray bytes,
-                                                                          jstring lang, jlong timestamp, jboolean isMapAndTable, jobject hotelsFilter)
+  JNIEXPORT void JNICALL Java_com_mapswithme_maps_search_SearchEngine_nativeRunInteractiveSearch(
+      JNIEnv * env, jclass clazz, jbyteArray bytes, jstring lang, jlong timestamp,
+      jboolean isMapAndTable, jobject hotelsFilter)
   {
     search::ViewportSearchParams vparams;
     vparams.m_query = jni::ToNativeString(env, bytes);
@@ -408,8 +406,8 @@ extern "C"
     }
   }
 
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_search_SearchEngine_nativeRunSearchMaps(JNIEnv * env, jclass clazz, jbyteArray bytes, jstring lang, jlong timestamp)
+  JNIEXPORT void JNICALL Java_com_mapswithme_maps_search_SearchEngine_nativeRunSearchMaps(
+      JNIEnv * env, jclass clazz, jbyteArray bytes, jstring lang, jlong timestamp)
   {
     storage::DownloaderSearchParams params;
     params.m_query = jni::ToNativeString(env, bytes);

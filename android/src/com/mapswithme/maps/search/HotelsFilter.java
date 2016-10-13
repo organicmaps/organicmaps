@@ -18,8 +18,10 @@ public class HotelsFilter
 
   public static class And extends HotelsFilter
   {
-    @NonNull public final HotelsFilter mLhs;
-    @NonNull public final HotelsFilter mRhs;
+    @NonNull
+    public final HotelsFilter mLhs;
+    @NonNull
+    public final HotelsFilter mRhs;
 
     public And(@NonNull HotelsFilter lhs, @NonNull HotelsFilter rhs)
     {
@@ -31,8 +33,10 @@ public class HotelsFilter
 
   public static class Or extends HotelsFilter
   {
-    @NonNull public final HotelsFilter mLhs;
-    @NonNull public final HotelsFilter mRhs;
+    @NonNull
+    public final HotelsFilter mLhs;
+    @NonNull
+    public final HotelsFilter mRhs;
 
     public Or(@NonNull HotelsFilter lhs, @NonNull HotelsFilter rhs)
     {
