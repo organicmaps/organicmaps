@@ -2,11 +2,12 @@
 #coding: utf8
 from __future__ import print_function
 
-from collections import defaultdict
 from argparse import ArgumentParser
+from categories_converter import CategoriesTxt
+from collections import defaultdict
+from find_untranslated_strings import StringsTxt
 from os import listdir
 from os.path import isfile, join
-from find_untranslated_strings import StringsTxt
 
 
 TRANSFORMATION_TABLE = {
@@ -24,7 +25,13 @@ class PoParser:
         args = self.parse_args()
         self.folder_path = args.folder
         self.all_po_files = self.find_all_po_files()
-        self.strings_txt = StringsTxt(args.strings_txt)
+
+        if (args.strings_txt):
+            self.dest_file = StringsTxt(args.strings_txt)
+        elif (args.categories_txt):
+            self.dest_file = CategoriesTxt(args.categories_txt)
+        else:
+            raise RuntimeError("You must specify either -s or -c")
 
 
     def find_all_po_files(self):
@@ -65,7 +72,7 @@ class PoParser:
                     if not translation:
                         print("No translation for key {} in file {}".format(current_key, filepath))
                         continue
-                    self.strings_txt.add_translation(
+                    self.dest_file.add_translation(
                         translation,
                         key="[{}]".format(current_key),
                         lang=lang
@@ -79,7 +86,7 @@ class PoParser:
                 else:
                     if not string_started:
                         continue
-                    self.strings_txt.append_to_translation(current_key, lang, self.clean_line(line))
+                    self.dest_file.append_to_translation(current_key, lang, self.clean_line(line))
 
 
     def clean_line(self, line, prefix=""):
@@ -89,8 +96,9 @@ class PoParser:
     def parse_args(self):
         parser = ArgumentParser(
             description="""
-            A script for parsing stirngs in the PO format, which is used by our
-            translation partners.
+            A script for parsing strings in the PO format, which is used by our
+            translation partners. The script can pull strings from .po files into
+            categories.txt or strings.txt.
             """
         )
 
@@ -102,18 +110,24 @@ class PoParser:
 
         parser.add_argument(
             "-s", "--strings",
-            dest="strings_txt", required=True,
+            dest="strings_txt",
             help="""The path to the strings.txt file. The strings from the po
             files will be added to that strings.txt file."""
         )
 
+        parser.add_argument(
+            "-c", "--categories",
+            dest="categories_txt",
+            help="""The path to the categories.txt file. The strings from the po
+            files will be added to that categories.txt file."""
+        )
         return parser.parse_args()
 
 
 def main():
     parser = PoParser()
     parser.parse_files()
-    parser.strings_txt.write_formatted()
+    parser.dest_file.write_formatted()
 
 
 if __name__ == "__main__":
