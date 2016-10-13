@@ -10,6 +10,7 @@ import javax.net.SocketFactory;
 import javax.net.ssl.SSLSocketFactory;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
@@ -27,7 +28,6 @@ import java.net.SocketTimeoutException;
 class SocketWrapper implements PlatformSocket
 {
   private final static Logger sLogger = new DebugLogger(SocketWrapper.class.getSimpleName());
-  private final static int SYSTEM_SOCKET_TIMEOUT = 30 * 1000;
   @Nullable
   private Socket mSocket;
   @Nullable
@@ -107,17 +107,17 @@ class SocketWrapper implements PlatformSocket
   @Override
   public boolean read(@NonNull byte[] data, int count)
   {
-    if (mSocket == null)
-    {
-      sLogger.e("Socket must be opened before reading");
+    if (!checkSocketAndArguments(data, count))
       return false;
-    }
 
-    sLogger.d("Read method has started, data.length = " + data.length, ", count = " + count);
+    sLogger.d("Reading has started, data.length = " + data.length, ", count = " + count);
     long startTime = System.nanoTime();
     int readBytes = 0;
     try
     {
+      if (mSocket == null)
+        throw new AssertionError("mSocket cannot be null");
+
       InputStream in = mSocket.getInputStream();
       while (readBytes != count && (System.nanoTime() - startTime) < mTimeout)
       {
@@ -128,9 +128,7 @@ class SocketWrapper implements PlatformSocket
 
           if (read == -1)
           {
-            //TODO: end of socket stream!? This moment needs to be investigated more
-            // (what it means, this should be considered as error or normal situation?)
-            sLogger.d("All data have been read, read bytes count = ", readBytes);
+            sLogger.d("All data have been read from the stream, read bytes count = ", readBytes);
             break;
           }
 
@@ -165,21 +163,44 @@ class SocketWrapper implements PlatformSocket
   @Override
   public boolean write(@NonNull byte[] data, int count)
   {
+    if (!checkSocketAndArguments(data, count))
+      return false;
+
+    sLogger.d("Writing method has started, data.length = " + data.length, ", count = " + count);
+    long startTime = System.nanoTime();
+    try
+    {
+      if (mSocket == null)
+        throw new AssertionError("mSocket cannot be null");
+
+      OutputStream out = mSocket.getOutputStream();
+      out.write(data, 0, count);
+      return true;
+    } catch (SocketTimeoutException e)
+    {
+      long writingTime = System.nanoTime() - startTime;
+      sLogger.e(e, "Socked timeout has occurred after ", writingTime, " (ms) ");
+    } catch (IOException e)
+    {
+      sLogger.e(e, "Failed to write data from socket: ", this);
+    }
+    return false;
+  }
+
+  private boolean checkSocketAndArguments(@NonNull byte[] data, int count)
+  {
     if (mSocket == null)
     {
-      sLogger.e("Socket must be opened before writing");
+      sLogger.e("Socket must be opened before reading/writing");
       return false;
     }
 
-    try
+    if (data.length < 0 || count < 0)
     {
-      mSocket.getOutputStream().write(data);
-      return true;
-    } catch (IOException e)
-    {
-      sLogger.e("Failed to write data to socket: ", this);
+      sLogger.e("Arguments must be non-negative, data.length = ", data.length, ", count = " + count);
+      return false;
     }
-    return false;
+    return true;
   }
 
   @Override
@@ -193,10 +214,10 @@ class SocketWrapper implements PlatformSocket
 
     try
     {
-      mSocket.setSoTimeout(SYSTEM_SOCKET_TIMEOUT);
+      mSocket.setSoTimeout(millis);
     } catch (SocketException e)
     {
-      sLogger.e("Failed to set socket timeout: ", millis, "ms, ", this, e);
+      sLogger.e("Failed to set system socket timeout: ", millis, "ms, ", this, e);
     }
   }
 
