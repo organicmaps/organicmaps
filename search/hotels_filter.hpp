@@ -68,12 +68,18 @@ struct Description
 struct Rule
 {
   virtual ~Rule() = default;
+
+  static bool IsIdentical(shared_ptr<Rule> const & lhs, shared_ptr<Rule> const & rhs);
+
   virtual bool Matches(Description const & d) const = 0;
+  virtual bool IdenticalTo(Rule const & rhs) const = 0;
   virtual string ToString() const = 0;
 };
 
+string DebugPrint(Rule const & rule);
+
 template <typename Field>
-struct EqRule : public Rule
+struct EqRule final : public Rule
 {
   using Value = typename Field::Value;
 
@@ -83,6 +89,12 @@ struct EqRule : public Rule
   bool Matches(Description const & d) const override
   {
     return Field::Eq(Field::Select(d), m_value);
+  }
+
+  bool IdenticalTo(Rule const & rhs) const override
+  {
+    auto const * r = dynamic_cast<EqRule const *>(&rhs);
+    return r && Field::Eq(r->m_value, m_value);
   }
 
   string ToString() const override
@@ -96,7 +108,7 @@ struct EqRule : public Rule
 };
 
 template <typename Field>
-struct LtRule : public Rule
+struct LtRule final : public Rule
 {
   using Value = typename Field::Value;
 
@@ -106,6 +118,12 @@ struct LtRule : public Rule
   bool Matches(Description const & d) const override
   {
     return Field::Lt(Field::Select(d), m_value);
+  }
+
+  bool IdenticalTo(Rule const & rhs) const override
+  {
+    auto const * r = dynamic_cast<LtRule const *>(&rhs);
+    return r && Field::Eq(r->m_value, m_value);
   }
 
   string ToString() const override
@@ -119,7 +137,37 @@ struct LtRule : public Rule
 };
 
 template <typename Field>
-struct GtRule : public Rule
+struct LeRule final : public Rule
+{
+  using Value = typename Field::Value;
+
+  LeRule(Value value) : m_value(value) {}
+
+  // Rule overrides:
+  bool Matches(Description const & d) const override
+  {
+    auto const value = Field::Select(d);
+    return Field::Lt(value, m_value) || Field::Eq(value, m_value);
+  }
+
+  bool IdenticalTo(Rule const & rhs) const override
+  {
+    auto const * r = dynamic_cast<LeRule const *>(&rhs);
+    return r && Field::Eq(r->m_value, m_value);
+  }
+
+  string ToString() const override
+  {
+    ostringstream os;
+    os << "[ " << Field::Name() << " <= " << m_value << " ]";
+    return os.str();
+  }
+
+  Value const m_value;
+};
+
+template <typename Field>
+struct GtRule final : public Rule
 {
   using Value = typename Field::Value;
 
@@ -129,6 +177,12 @@ struct GtRule : public Rule
   bool Matches(Description const & d) const override
   {
     return Field::Gt(Field::Select(d), m_value);
+  }
+
+  bool IdenticalTo(Rule const & rhs) const override
+  {
+    auto const * r = dynamic_cast<GtRule const *>(&rhs);
+    return r && Field::Eq(r->m_value, m_value);
   }
 
   string ToString() const override
@@ -141,7 +195,37 @@ struct GtRule : public Rule
   Value const m_value;
 };
 
-struct AndRule : public Rule
+template <typename Field>
+struct GeRule final : public Rule
+{
+  using Value = typename Field::Value;
+
+  GeRule(Value value) : m_value(value) {}
+
+  // Rule overrides:
+  bool Matches(Description const & d) const override
+  {
+    auto const value = Field::Select(d);
+    return Field::Gt(value, m_value) || Field::Eq(value, m_value);
+  }
+
+  bool IdenticalTo(Rule const & rhs) const override
+  {
+    auto const * r = dynamic_cast<GeRule const *>(&rhs);
+    return r && Field::Eq(r->m_value, m_value);
+  }
+
+  string ToString() const override
+  {
+    ostringstream os;
+    os << "[ " << Field::Name() << " >= " << m_value << " ]";
+    return os.str();
+  }
+
+  Value const m_value;
+};
+
+struct AndRule final : public Rule
 {
   AndRule(shared_ptr<Rule> lhs, shared_ptr<Rule> rhs) : m_lhs(move(lhs)), m_rhs(move(rhs)) {}
 
@@ -154,6 +238,12 @@ struct AndRule : public Rule
     if (m_rhs)
       matches = matches && m_rhs->Matches(d);
     return matches;
+  }
+
+  bool IdenticalTo(Rule const & rhs) const override
+  {
+    auto const * r = dynamic_cast<AndRule const *>(&rhs);
+    return r && IsIdentical(m_lhs, r->m_lhs) && IsIdentical(m_rhs, r->m_rhs);
   }
 
   string ToString() const override
@@ -171,7 +261,7 @@ struct AndRule : public Rule
   shared_ptr<Rule> m_rhs;
 };
 
-struct OrRule : public Rule
+struct OrRule final : public Rule
 {
   OrRule(shared_ptr<Rule> lhs, shared_ptr<Rule> rhs) : m_lhs(move(lhs)), m_rhs(move(rhs)) {}
 
@@ -184,6 +274,12 @@ struct OrRule : public Rule
     if (m_rhs)
       matches = matches || m_rhs->Matches(d);
     return matches;
+  }
+
+  bool IdenticalTo(Rule const & rhs) const override
+  {
+    auto const * r = dynamic_cast<OrRule const *>(&rhs);
+    return r && IsIdentical(m_lhs, r->m_lhs) && IsIdentical(m_rhs, r->m_rhs);
   }
 
   string ToString() const override
@@ -214,9 +310,21 @@ shared_ptr<Rule> Lt(typename Field::Value value)
 }
 
 template <typename Field>
+shared_ptr<Rule> Le(typename Field::Value value)
+{
+  return make_shared<LeRule<Field>>(value);
+}
+
+template <typename Field>
 inline shared_ptr<Rule> Gt(typename Field::Value value)
 {
   return make_shared<GtRule<Field>>(value);
+}
+
+template <typename Field>
+shared_ptr<Rule> Ge(typename Field::Value value)
+{
+  return make_shared<GeRule<Field>>(value);
 }
 
 inline shared_ptr<Rule> And(shared_ptr<Rule> lhs, shared_ptr<Rule> rhs)
@@ -227,18 +335,6 @@ inline shared_ptr<Rule> And(shared_ptr<Rule> lhs, shared_ptr<Rule> rhs)
 inline shared_ptr<Rule> Or(shared_ptr<Rule> lhs, shared_ptr<Rule> rhs)
 {
   return make_shared<OrRule>(lhs, rhs);
-}
-
-template <typename Field>
-shared_ptr<Rule> Le(typename Field::Value value)
-{
-  return Or(Lt<Field>(value), Eq<Field>(value));
-}
-
-template <typename Field>
-shared_ptr<Rule> Ge(typename Field::Value value)
-{
-  return Or(Gt<Field>(value), Eq<Field>(value));
 }
 
 class HotelsFilter

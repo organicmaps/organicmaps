@@ -19,6 +19,7 @@ macx-*: LIBS *= "-framework IOKit"
 SOURCES += \
     ../../testing/testingmain.cpp \
     algos_tests.cpp \
+    hotels_filter_test.cpp \
     house_detector_tests.cpp \
     house_numbers_matcher_test.cpp \
     interval_set_test.cpp \
