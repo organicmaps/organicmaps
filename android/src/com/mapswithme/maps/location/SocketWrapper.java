@@ -28,12 +28,13 @@ import java.net.SocketTimeoutException;
 class SocketWrapper implements PlatformSocket
 {
   private final static Logger sLogger = new DebugLogger(SocketWrapper.class.getSimpleName());
+  private final static int DEFAULT_TIMEOUT = 30*1000;
   @Nullable
   private Socket mSocket;
   @Nullable
   private String mHost;
   private int mPort;
-  private int mTimeout;
+  private int mTimeout = DEFAULT_TIMEOUT;
 
   @Override
   public boolean open(@NonNull String host, int port)
@@ -88,7 +89,7 @@ class SocketWrapper implements PlatformSocket
   {
     if (mSocket == null)
     {
-      sLogger.e("Socket is already closed or it wasn't opened before");
+      sLogger.d("Socket is already closed or it wasn't opened yet");
       return;
     }
 
@@ -184,6 +185,7 @@ class SocketWrapper implements PlatformSocket
     {
       sLogger.e(e, "Failed to write data from socket: ", this);
     }
+
     return false;
   }
 
@@ -195,11 +197,12 @@ class SocketWrapper implements PlatformSocket
       return false;
     }
 
-    if (data.length < 0 || count < 0)
+    if (data.length < 0 || count < 0 || count > data.length)
     {
-      sLogger.e("Arguments must be non-negative, data.length = ", data.length, ", count = " + count);
+      sLogger.e("Illegal arguments, data.length = ", data.length, ", count = " + count);
       return false;
     }
+
     return true;
   }
 
