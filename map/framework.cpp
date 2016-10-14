@@ -2398,7 +2398,8 @@ void Framework::SetRouterImpl(RouterType type)
       return m_model.GetIndex().GetMwmIdByCountryFile(CountryFile(countryFile)).IsAlive();
     };
 
-    router.reset(new OsrmRouter(&m_model.GetIndex(), countryFileGetter));
+    router.reset(new OsrmRouter(&m_model.GetIndex(), countryFileGetter,
+                                CreateCarAStarBidirectionalRouter(m_model.GetIndex(), countryFileGetter)));
     fetcher.reset(new OnlineAbsentCountriesFetcher(countryFileGetter, localFileChecker));
     m_routingSession.SetRoutingSettings(routing::GetCarRoutingSettings());
   }

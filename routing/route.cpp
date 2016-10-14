@@ -354,6 +354,60 @@ void Route::Update()
   m_currentTime = 0.0;
 }
 
+void Route::AppendRoute(Route const & route)
+{
+  if (!route.IsValid())
+    return;
+
+  if (m_poly.GetPolyline().GetSize() != 0)
+  {
+    ASSERT(!m_turns.empty(), ());
+    ASSERT(!m_times.empty(), ());
+
+    // Remove road end point and turn instruction.
+    m_poly.PopBack();
+    m_turns.pop_back();
+    m_times.pop_back();
+    // Streets might not point to the last point of the path.
+  }
+
+  size_t const polySize = m_poly.GetPolyline().GetSize();
+
+  // Appending turns.
+  for (turns::TurnItem t : route.m_turns)
+  {
+    if (t.m_index == 0)
+      continue;
+    t.m_index += polySize;
+    m_turns.push_back(move(t));
+  }
+
+  // Appending street names.
+  for (TStreetItem s : route.m_streets)
+  {
+    if (s.first == 0)
+      continue;
+    s.first += polySize;
+    m_streets.push_back(move(s));
+  }
+
+  // @TODO Implement altitude appending.
+
+  // Appending times.
+  double const estimationTime = m_times.empty() ? 0.0 : m_times.back().second;
+  for (TTimeItem t : route.m_times)
+  {
+    if (t.first == 0)
+      continue;
+    t.first += polySize;
+    t.second += estimationTime;
+    m_times.push_back(move(t));
+  }
+
+  m_poly.Append(route.m_poly);
+  Update();
+}
+
 string DebugPrint(Route const & r)
 {
   return DebugPrint(r.m_poly.GetPolyline());

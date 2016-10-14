@@ -56,4 +56,6 @@ private:
 unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index, TCountryFileFn const & countryFileFn);
 unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(Index & index, TCountryFileFn const & countryFileFn);
 unique_ptr<IRouter> CreateBicycleAStarBidirectionalRouter(Index & index, TCountryFileFn const & countryFileFn);
+
+unique_ptr<RoadGraphRouter> CreateCarAStarBidirectionalRouter(Index & index, TCountryFileFn const & countryFileFn);
 }  // namespace routing

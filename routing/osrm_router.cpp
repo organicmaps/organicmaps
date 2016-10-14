@@ -5,6 +5,7 @@
 #include "routing/osrm_helpers.hpp"
 #include "routing/osrm_path_segment_factory.hpp"
 #include "routing/osrm_router.hpp"
+#include "routing/road_graph_router.hpp"
 #include "routing/turns_generator.hpp"
 
 #include "platform/country_file.hpp"
@@ -15,8 +16,10 @@
 #include "geometry/distance_on_sphere.hpp"
 #include "geometry/mercator.hpp"
 
+#include "indexer/feature_altitude.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/index.hpp"
+#include "indexer/mwm_set.hpp"
 #include "indexer/scales.hpp"
 
 #include "coding/reader_wrapper.hpp"
@@ -205,8 +208,9 @@ bool OsrmRouter::CheckRoutingAbility(m2::PointD const & startPoint, m2::PointD c
          manager.GetMappingByPoint(finalPoint)->IsValid();
 }
 
-OsrmRouter::OsrmRouter(Index * index, TCountryFileFn const & countryFileFn)
-    : m_pIndex(index), m_indexManager(countryFileFn, *index)
+OsrmRouter::OsrmRouter(Index * index, TCountryFileFn const & countryFileFn,
+                       unique_ptr<RoadGraphRouter> roadGraphRouter)
+    : m_pIndex(index), m_indexManager(countryFileFn, *index), m_roadGraphRouter(move(roadGraphRouter))
 {
 }
 
@@ -222,14 +226,17 @@ void OsrmRouter::ClearState()
   m_indexManager.Clear();
 }
 
-bool OsrmRouter::FindRouteFromCases(TFeatureGraphNodeVec const & source,
-                                    TFeatureGraphNodeVec const & target, TDataFacade & facade,
-                                    RawRoutingResult & rawRoutingResult)
+bool OsrmRouter::FindRouteFromCases(TFeatureGraphNodeVec const & source, TFeatureGraphNodeVec const & target,
+                                    RouterDelegate const & delegate, TRoutingMappingPtr & mapping, Route & route)
 {
+  ASSERT(mapping, ());
+
+  Route emptyRoute(GetName());
+  route.Swap(emptyRoute);
   /// @todo (ldargunov) make more complex nearest edge turnaround
   for (auto const & targetEdge : target)
     for (auto const & sourceEdge : source)
-      if (FindSingleRoute(sourceEdge, targetEdge, facade, rawRoutingResult))
+      if (FindSingleRouteDispatcher(sourceEdge, targetEdge, delegate, mapping, route))
         return true;
   return false;
 }
@@ -279,7 +286,7 @@ void FindGraphNodeOffsets(uint32_t const nodeId, m2::PointD const & point,
 }
 
 void CalculatePhantomNodeForCross(TRoutingMappingPtr & mapping, FeatureGraphNode & graphNode,
-                         Index const * pIndex, bool forward)
+                                  Index const * pIndex, bool forward)
 {
   if (graphNode.segment.IsValid())
     return;
@@ -301,85 +308,22 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
                                                             RouterDelegate const & delegate,
                                                             Route & route)
 {
-  Route::TTurns turnsDir;
-  Route::TTimes times;
-  Route::TStreets streets;
-  vector<m2::PointD> points;
+  Route emptyRoute(GetName());
+  route.Swap(emptyRoute);
+
   for (RoutePathCross cross : path)
   {
     ASSERT_EQUAL(cross.startNode.mwmId, cross.finalNode.mwmId, ());
-    RawRoutingResult routingResult;
     TRoutingMappingPtr mwmMapping = m_indexManager.GetMappingById(cross.startNode.mwmId);
     ASSERT(mwmMapping->IsValid(), ());
     MappingGuard mwmMappingGuard(mwmMapping);
     UNUSED_VALUE(mwmMappingGuard);
     CalculatePhantomNodeForCross(mwmMapping, cross.startNode, m_pIndex, true /* forward */);
     CalculatePhantomNodeForCross(mwmMapping, cross.finalNode, m_pIndex, false /* forward */);
-    if (!FindSingleRoute(cross.startNode, cross.finalNode, mwmMapping->m_dataFacade, routingResult))
+    if (!FindSingleRouteDispatcher(cross.startNode, cross.finalNode, delegate, mwmMapping, route))
       return RouteNotFound;
-
-    if (!points.empty())
-    {
-      // Remove road end point and turn instruction.
-      points.pop_back();
-      turnsDir.pop_back();
-      times.pop_back();
-      // Streets might not point to the last point of the path.
-    }
-
-    // Get annotated route.
-    Route::TTurns mwmTurnsDir;
-    Route::TTimes mwmTimes;
-    Route::TStreets mwmStreets;
-    vector<Junction> mwmJunctions;
-
-    OSRMRoutingResult resultGraph(*m_pIndex, *mwmMapping, routingResult);
-    if (MakeTurnAnnotation(resultGraph, delegate, mwmJunctions, mwmTurnsDir, mwmTimes, mwmStreets) != NoError)
-    {
-      LOG(LWARNING, ("Can't load road path data from disk for", mwmMapping->GetCountryName()));
-      return RouteNotFound;
-    }
-
-    vector<m2::PointD> mwmPoints;
-    JunctionsToPoints(mwmJunctions, mwmPoints);
-
-    // Connect annotated route.
-    auto const pSize = static_cast<uint32_t>(points.size());
-    for (auto turn : mwmTurnsDir)
-    {
-      if (turn.m_index == 0)
-        continue;
-      turn.m_index += pSize;
-      turnsDir.push_back(turn);
-    }
-
-    if (!mwmStreets.empty() && !streets.empty() && mwmStreets.front().second == streets.back().second)
-      mwmStreets.erase(mwmStreets.begin());
-    for (auto street : mwmStreets)
-    {
-      if (street.first == 0)
-        continue;
-      street.first += pSize;
-      streets.push_back(street);
-    }
-
-    double const estimationTime = times.size() ? times.back().second : 0.0;
-    for (auto time : mwmTimes)
-    {
-      if (time.first == 0)
-        continue;
-      time.first += pSize;
-      time.second += estimationTime;
-      times.push_back(time);
-    }
-
-    points.insert(points.end(), mwmPoints.begin(), mwmPoints.end());
   }
 
-  route.SetGeometry(points.begin(), points.end());
-  route.SetTurnInstructions(move(turnsDir));
-  route.SetSectionTimes(move(times));
-  route.SetStreetNames(move(streets));
   return NoError;
 }
 
@@ -456,8 +400,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
   delegate.OnProgress(kPointsFoundProgress);
 
   // 4. Find route.
-  RawRoutingResult routingResult;
-  double crossCost = 0;
+  double crossCostM = 0;
   TCheckedPath finalPath;
 
   // Manually load facade to avoid unmaping files we routing on.
@@ -471,11 +414,10 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
                                   {
                                     indexPair.second->FreeCrossContext();
                                   });
-    ResultCode crossCode = CalculateCrossMwmPath(startTask, m_cachedTargets, m_indexManager, crossCost,
+    ResultCode crossCode = CalculateCrossMwmPath(startTask, m_cachedTargets, m_indexManager, crossCostM,
                                                  delegate, finalPath);
     LOG(LINFO, ("Found cross path in", timer.ElapsedNano(), "ns."));
-    if (!FindRouteFromCases(startTask, m_cachedTargets, startMapping->m_dataFacade,
-                            routingResult))
+    if (!FindRouteFromCases(startTask, m_cachedTargets, delegate, startMapping, route))
     {
       if (crossCode == NoError)
       {
@@ -488,9 +430,9 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
     }
     INTERRUPT_WHEN_CANCELLED(delegate);
 
-    if (crossCode == NoError && crossCost < routingResult.shortestPathLength)
+    if (crossCode == NoError && crossCostM < route.GetTotalDistanceMeters())
     {
-      LOG(LINFO, ("Cross mwm path shorter. Cross cost:", crossCost, "single cost:", routingResult.shortestPathLength));
+      LOG(LINFO, ("Cross mwm path shorter. Cross cost:", crossCostM, "single cost:", route.GetTotalDistanceMeters()));
       auto code = MakeRouteFromCrossesPath(finalPath, delegate, route);
       LOG(LINFO, ("Made final route in", timer.ElapsedNano(), "ns."));
       timer.Reset();
@@ -500,34 +442,12 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
     INTERRUPT_WHEN_CANCELLED(delegate);
     delegate.OnProgress(kPathFoundProgress);
 
-    // 5. Restore route.
-
-    Route::TTurns turnsDir;
-    Route::TTimes times;
-    Route::TStreets streets;
-    vector<Junction> junctions;
-
-    OSRMRoutingResult resultGraph(*m_pIndex, *startMapping, routingResult);
-    if (MakeTurnAnnotation(resultGraph, delegate, junctions, turnsDir, times, streets) != NoError)
-    {
-      LOG(LWARNING, ("Can't load road path data from disk!"));
-      return RouteNotFound;
-    }
-
-    vector<m2::PointD> points;
-    JunctionsToPoints(junctions, points);
-
-    route.SetGeometry(points.begin(), points.end());
-    route.SetTurnInstructions(move(turnsDir));
-    route.SetSectionTimes(move(times));
-    route.SetStreetNames(move(streets));
-
     return NoError;
   }
   else //4.2 Multiple mwm case
   {
     LOG(LINFO, ("Multiple mwm routing case"));
-    ResultCode code = CalculateCrossMwmPath(startTask, m_cachedTargets, m_indexManager, crossCost,
+    ResultCode code = CalculateCrossMwmPath(startTask, m_cachedTargets, m_indexManager, crossCostM,
                                             delegate, finalPath);
     timer.Reset();
     INTERRUPT_WHEN_CANCELLED(delegate);
@@ -568,5 +488,84 @@ IRouter::ResultCode OsrmRouter::FindPhantomNodes(m2::PointD const & point,
 
   getter.MakeResult(res, maxCount);
   return NoError;
+}
+
+bool OsrmRouter::IsEdgeIndexExisting(Index::MwmId const & mwmId)
+{
+  MwmSet::MwmHandle const handle = m_pIndex->GetMwmHandleById(mwmId);
+  if (!handle.IsAlive())
+  {
+    ASSERT(false, ("m_mwmHandle is not alive."));
+    return false;
+  }
+
+  MwmValue const * value = handle.GetValue<MwmValue>();
+  ASSERT(value, ());
+  if (value->GetHeader().GetFormat() < version::Format::v8)
+    return false;
+
+  // @TODO Remove this string before merge.
+  string const EDGE_INDEX_FILE_TAG = "edgeidx";
+  if (value->m_cont.IsExist(EDGE_INDEX_FILE_TAG.c_str()))
+    return true;
+  return false;
+}
+
+bool OsrmRouter::FindSingleRouteDispatcher(FeatureGraphNode const & source, FeatureGraphNode const & target,
+                                           RouterDelegate const & delegate, TRoutingMappingPtr & mapping,
+                                           Route & route)
+{
+  ASSERT_EQUAL(source.mwmId, target.mwmId, ());
+  ASSERT(m_pIndex, ());
+  ASSERT(m_roadGraphRouter, ());
+
+  Route mwmRoute(GetName());
+
+  // @TODO It's not the best place for checking availability of edge index section in mwm.
+  // Probably it's better to keep if mwm had edge index section in mwmId.
+  if (IsEdgeIndexExisting(source.mwmId) && m_roadGraphRouter)
+  {
+    LOG(LINFO, ("A* route form", MercatorBounds::ToLatLon(source.segmentPoint),
+                "to", MercatorBounds::ToLatLon(target.segmentPoint)));
+
+    if (m_roadGraphRouter->CalculateRoute(source.segmentPoint, m2::PointD(0, 0), target.segmentPoint,
+                                          delegate, mwmRoute) != IRouter::NoError)
+    {
+      return false;
+    }
+
+  }
+  else
+  {
+    vector<Junction> mwmRouteGeometry;
+    Route::TTurns mwmTurns;
+    Route::TTimes mwmTimes;
+    Route::TStreets mwmStreets;
+
+    LOG(LINFO, ("OSRM route form", MercatorBounds::ToLatLon(source.segmentPoint),
+                "to", MercatorBounds::ToLatLon(target.segmentPoint)));
+
+    RawRoutingResult routingResult;
+    if (!FindSingleRoute(source, target, mapping->m_dataFacade, routingResult))
+      return false;
+
+    OSRMRoutingResult resultGraph(*m_pIndex, *mapping, routingResult);
+    if (MakeTurnAnnotation(resultGraph, delegate, mwmRouteGeometry, mwmTurns, mwmTimes, mwmStreets) != NoError)
+    {
+      LOG(LWARNING, ("Can't load road path data from disk for", mapping->GetCountryName()));
+      return false;
+    }
+
+    mwmRoute.SetTurnInstructions(move(mwmTurns));
+    mwmRoute.SetSectionTimes(move(mwmTimes));
+    mwmRoute.SetStreetNames(move(mwmStreets));
+
+    vector<m2::PointD> mwmPoints;
+    JunctionsToPoints(mwmRouteGeometry, mwmPoints);
+    mwmRoute.SetGeometry(mwmPoints.cbegin(), mwmPoints.cend());
+  }
+
+  route.AppendRoute(mwmRoute);
+  return true;
 }
 }  // namespace routing

@@ -310,4 +310,16 @@ unique_ptr<IRouter> CreateBicycleAStarBidirectionalRouter(Index & index, TCountr
       move(vehicleModelFactory), move(algorithm), move(directionsEngine)));
   return router;
 }
+
+unique_ptr<RoadGraphRouter> CreateCarAStarBidirectionalRouter(Index & index, TCountryFileFn const & countryFileFn)
+{
+  // @TODO It's necessary to use car classes instead of bicycle ones.
+  unique_ptr<IVehicleModelFactory> vehicleModelFactory = make_unique<BicycleModelFactory>();
+  unique_ptr<IRoutingAlgorithm> algorithm = make_unique<AStarBidirectionalRoutingAlgorithm>();
+  unique_ptr<IDirectionsEngine> directionsEngine = make_unique<BicycleDirectionsEngine>(index);
+  unique_ptr<RoadGraphRouter> router = make_unique<RoadGraphRouter>(
+      "astar-bidirectional-bicycle", index, countryFileFn, IRoadGraph::Mode::ObeyOnewayTag,
+      move(vehicleModelFactory), move(algorithm), move(directionsEngine));
+  return router;
+}
 }  // namespace routing

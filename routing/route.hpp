@@ -59,6 +59,10 @@ public:
   inline void SetSectionTimes(TTimes && v) { m_times = move(v); }
   inline void SetStreetNames(TStreets && v) { m_streets = move(v); }
   inline void SetAltitudes(feature::TAltitudes && v) { m_altitudes = move(v); }
+
+  /// \brief Appends all |route| attributes except for altitude.
+  void AppendRoute(Route const & route);
+
   uint32_t GetTotalTimeSec() const;
   uint32_t GetCurrentTimeToEndSec() const;
 

@@ -20,6 +20,18 @@ public:
 
   void Swap(FollowedPolyline & rhs);
 
+  void Append(FollowedPolyline const & poly)
+  {
+    m_poly.Append(poly.m_poly);
+    Update();
+  }
+
+  void PopBack()
+  {
+    m_poly.PopBack();
+    Update();
+  }
+
   bool IsValid() const { return (m_current.IsValid() && m_poly.GetSize() > 1); }
 
   m2::PolylineD const & GetPolyline() const { return m_poly; }

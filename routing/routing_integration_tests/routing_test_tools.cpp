@@ -77,10 +77,12 @@ namespace integration
   unique_ptr<OsrmRouter> CreateOsrmRouter(Index & index,
                                           storage::CountryInfoGetter const & infoGetter)
   {
-    unique_ptr<OsrmRouter> osrmRouter(new OsrmRouter(&index, [&infoGetter](m2::PointD const & pt)
+    auto const countryFileGetter = [&infoGetter](m2::PointD const & pt)
     {
       return infoGetter.GetRegionCountryId(pt);
-    }));
+    };
+    unique_ptr<OsrmRouter> osrmRouter(new OsrmRouter(&index, countryFileGetter,
+                                      CreateCarAStarBidirectionalRouter(index, countryFileGetter)));
     return osrmRouter;
   }
 
