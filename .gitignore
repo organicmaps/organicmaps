@@ -18,7 +18,7 @@ data/*.mwmmeta
 data/[!W]*.mwm
 
 # Compiled Python
-crawler/*.pyc
+*.pyc
 
 # Symbian
 .obj/*
