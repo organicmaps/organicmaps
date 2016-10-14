@@ -57,6 +57,16 @@ uint32_t VisualParams::GetGlyphBaseSize() const
   return 22;
 }
 
+double VisualParams::GetFontScale() const
+{
+  return m_fontScale;
+}
+
+void VisualParams::SetFontScale(double fontScale)
+{
+  m_fontScale = fontScale;
+}
+
 VisualParams & VisualParams::Instance()
 {
   ASSERT_INITED;
@@ -133,6 +143,7 @@ VisualParams::GlyphVisualParams const & VisualParams::GetGlyphVisualParams() con
 VisualParams::VisualParams()
   : m_tileSize(0)
   , m_visualScale(0.0)
+  , m_fontScale(1.0)
 {
 }
 

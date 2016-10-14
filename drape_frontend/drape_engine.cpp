@@ -12,12 +12,21 @@
 
 #include "std/bind.hpp"
 
+namespace
+{
+  char const kFontScale[] = "FontScale";
+}
+
 namespace df
 {
 DrapeEngine::DrapeEngine(Params && params)
   : m_viewport(params.m_viewport)
 {
   VisualParams::Init(params.m_vs, df::CalculateTileSize(m_viewport.GetWidth(), m_viewport.GetHeight()));
+
+  double scaleFactor = 1.0;
+  if (settings::Get(kFontScale, scaleFactor))
+    df::VisualParams::Instance().SetFontScale(scaleFactor);
 
   gui::DrapeGui & guiSubsystem = gui::DrapeGui::Instance();
   guiSubsystem.SetLocalizator(bind(&StringsBundle::GetString, params.m_stringsBundle.get(), _1));
@@ -536,6 +545,17 @@ void DrapeEngine::UpdateTraffic(vector<TrafficSegmentData> const & segmentsData)
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                   make_unique_dp<UpdateTrafficMessage>(segmentsData),
                                   MessagePriority::Normal);
+}
+
+void DrapeEngine::SetFontScaleFactor(double scaleFactor)
+{
+  double const kMinScaleFactor = 0.5;
+  double const kMaxScaleFactor = 2.0;
+
+  scaleFactor = my::clamp(scaleFactor, kMinScaleFactor, kMaxScaleFactor);
+
+  settings::Set(kFontScale, scaleFactor);
+  VisualParams::Instance().SetFontScale(scaleFactor);
 }
 
 } // namespace df
