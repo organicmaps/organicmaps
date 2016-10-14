@@ -75,10 +75,24 @@ CarModel::CarModel()
 }
 
 // static
-CarModel const & CarModel::Instance()
+CarModel const & CarModel::AllLimitsInstance()
 {
   static CarModel const instance;
   return instance;
 }
 
+CarModelFactory::CarModelFactory()
+{
+  m_model = make_shared<CarModel>();
+}
+
+shared_ptr<IVehicleModel> CarModelFactory::GetVehicleModel() const
+{
+  return m_model;
+}
+
+shared_ptr<IVehicleModel> CarModelFactory::GetVehicleModelForCountry(string const & /* country */) const
+{
+  return m_model;
+}
 }  // namespace routing

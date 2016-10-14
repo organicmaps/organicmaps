@@ -1,5 +1,6 @@
 #include "routing/bicycle_directions.hpp"
 #include "routing/bicycle_model.hpp"
+#include "routing/car_model.hpp"
 #include "routing/features_road_graph.hpp"
 #include "routing/nearest_edge_finder.hpp"
 #include "routing/pedestrian_directions.hpp"
@@ -314,7 +315,7 @@ unique_ptr<IRouter> CreateBicycleAStarBidirectionalRouter(Index & index, TCountr
 unique_ptr<RoadGraphRouter> CreateCarAStarBidirectionalRouter(Index & index, TCountryFileFn const & countryFileFn)
 {
   // @TODO It's necessary to use car classes instead of bicycle ones.
-  unique_ptr<IVehicleModelFactory> vehicleModelFactory = make_unique<BicycleModelFactory>();
+  unique_ptr<IVehicleModelFactory> vehicleModelFactory = make_unique<CarModelFactory>();
   unique_ptr<IRoutingAlgorithm> algorithm = make_unique<AStarBidirectionalRoutingAlgorithm>();
   unique_ptr<IDirectionsEngine> directionsEngine = make_unique<BicycleDirectionsEngine>(index);
   unique_ptr<RoadGraphRouter> router = make_unique<RoadGraphRouter>(

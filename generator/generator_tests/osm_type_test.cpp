@@ -593,7 +593,7 @@ UNIT_TEST(OsmType_Surface)
 
 UNIT_TEST(OsmType_Ferry)
 {
-  routing::CarModel const & carModel = routing::CarModel::Instance();
+  routing::CarModel const & carModel = routing::CarModel::AllLimitsInstance();
 
   char const * arr[][2] = {
     { "motorcar", "yes" },

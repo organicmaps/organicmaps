@@ -10,7 +10,7 @@ namespace routing
 template <class TTypes>
 bool IsRoad(TTypes const & types)
 {
-  return CarModel::Instance().HasRoadType(types) ||
+  return CarModel::AllLimitsInstance().HasRoadType(types) ||
          PedestrianModel::AllLimitsInstance().HasRoadType(types) ||
          BicycleModel::AllLimitsInstance().HasRoadType(types);
 }
