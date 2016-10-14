@@ -140,7 +140,8 @@ void CacheUserPoints(UserMarksProvider const * provider, ref_ptr<dp::TextureMana
     state.SetColorTexture(region.GetTexture());
     state.SetTextureFilter(gl_const::GLNearest);
 
-    dp::Batcher batcher(indicesCount, vertexCount);
+    uint32_t const kMaxSize = 65000;
+    dp::Batcher batcher(min(indicesCount, kMaxSize), min(vertexCount, kMaxSize));
     dp::SessionGuard guard(batcher, [&key, &outShapes](dp::GLState const & state,
                                                        drape_ptr<dp::RenderBucket> && b)
     {
