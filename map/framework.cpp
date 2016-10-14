@@ -8,8 +8,8 @@
 #include "defines.hpp"
 #include "private.h"
 
+#include "routing/car_router.hpp"
 #include "routing/online_absent_fetcher.hpp"
-#include "routing/osrm_router.hpp"
 #include "routing/road_graph_router.hpp"
 #include "routing/route.hpp"
 #include "routing/routing_algorithm.hpp"
@@ -2398,8 +2398,8 @@ void Framework::SetRouterImpl(RouterType type)
       return m_model.GetIndex().GetMwmIdByCountryFile(CountryFile(countryFile)).IsAlive();
     };
 
-    router.reset(new OsrmRouter(&m_model.GetIndex(), countryFileGetter,
-                                CreateCarAStarBidirectionalRouter(m_model.GetIndex(), countryFileGetter)));
+    router.reset(new CarRouter(&m_model.GetIndex(), countryFileGetter,
+                               CreateCarAStarBidirectionalRouter(m_model.GetIndex(), countryFileGetter)));
     fetcher.reset(new OnlineAbsentCountriesFetcher(countryFileGetter, localFileChecker));
     m_routingSession.SetRoutingSettings(routing::GetCarRoutingSettings());
   }
@@ -2551,8 +2551,8 @@ RouterType Framework::GetBestRouter(m2::PointD const & startPoint, m2::PointD co
     {
       return m_infoGetter->GetRegionCountryId(pt);
     };
-    if (!OsrmRouter::CheckRoutingAbility(startPoint, finalPoint, countryFileGetter,
-                                         &m_model.GetIndex()))
+    if (!CarRouter::CheckRoutingAbility(startPoint, finalPoint, countryFileGetter,
+                                        &m_model.GetIndex()))
     {
       return RouterType::Pedestrian;
     }

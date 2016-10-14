@@ -74,16 +74,16 @@ namespace integration
     return storage::CountryInfoReader::CreateCountryInfoReader(platform);
   }
 
-  unique_ptr<OsrmRouter> CreateOsrmRouter(Index & index,
-                                          storage::CountryInfoGetter const & infoGetter)
+  unique_ptr<CarRouter> CreateCarRouter(Index & index,
+                                        storage::CountryInfoGetter const & infoGetter)
   {
     auto const countryFileGetter = [&infoGetter](m2::PointD const & pt)
     {
       return infoGetter.GetRegionCountryId(pt);
     };
-    unique_ptr<OsrmRouter> osrmRouter(new OsrmRouter(&index, countryFileGetter,
-                                      CreateCarAStarBidirectionalRouter(index, countryFileGetter)));
-    return osrmRouter;
+    unique_ptr<CarRouter> carRouter(new CarRouter(&index, countryFileGetter,
+                                    CreateCarAStarBidirectionalRouter(index, countryFileGetter)));
+    return carRouter;
   }
 
   unique_ptr<IRouter> CreateAStarRouter(Index & index,
@@ -105,14 +105,14 @@ namespace integration
   public:
     OsrmRouterComponents(vector<LocalCountryFile> const & localFiles)
       : IRouterComponents(localFiles)
-      , m_osrmRouter(CreateOsrmRouter(m_featuresFetcher->GetIndex(), *m_infoGetter))
+      , m_carRouter(CreateCarRouter(m_featuresFetcher->GetIndex(), *m_infoGetter))
     {
     }
 
-    IRouter * GetRouter() const override { return m_osrmRouter.get(); }
+    IRouter * GetRouter() const override { return m_carRouter.get(); }
 
   private:
-    unique_ptr<OsrmRouter> m_osrmRouter;
+    unique_ptr<CarRouter> m_carRouter;
   };
 
   class PedestrianRouterComponents : public IRouterComponents

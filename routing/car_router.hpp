@@ -25,13 +25,13 @@ using TCheckedPath = vector<RoutePathCross>;
 
 typedef vector<FeatureGraphNode> TFeatureGraphNodeVec;
 
-class OsrmRouter : public IRouter
+class CarRouter : public IRouter
 {
 public:
   typedef vector<double> GeomTurnCandidateT;
 
-  OsrmRouter(Index * index, TCountryFileFn const & countryFileFn,
-             unique_ptr<RoadGraphRouter> roadGraphRouter);
+  CarRouter(Index * index, TCountryFileFn const & countryFileFn,
+            unique_ptr<RoadGraphRouter> roadGraphRouter);
 
   virtual string GetName() const override;
 

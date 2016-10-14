@@ -1,10 +1,10 @@
+#include "routing/car_router.hpp"
 #include "routing/cross_mwm_router.hpp"
 #include "routing/loaded_path_segment.hpp"
 #include "routing/online_cross_fetcher.hpp"
 #include "routing/osrm2feature_map.hpp"
 #include "routing/osrm_helpers.hpp"
 #include "routing/osrm_path_segment_factory.hpp"
-#include "routing/osrm_router.hpp"
 #include "routing/road_graph_router.hpp"
 #include "routing/turns_generator.hpp"
 
@@ -200,34 +200,35 @@ private:
 };
 
 // static
-bool OsrmRouter::CheckRoutingAbility(m2::PointD const & startPoint, m2::PointD const & finalPoint,
-                                     TCountryFileFn const & countryFileFn, Index * index)
+bool CarRouter::CheckRoutingAbility(m2::PointD const & startPoint, m2::PointD const & finalPoint,
+                                    TCountryFileFn const & countryFileFn, Index * index)
 {
   RoutingIndexManager manager(countryFileFn, *index);
   return manager.GetMappingByPoint(startPoint)->IsValid() &&
          manager.GetMappingByPoint(finalPoint)->IsValid();
 }
 
-OsrmRouter::OsrmRouter(Index * index, TCountryFileFn const & countryFileFn,
-                       unique_ptr<RoadGraphRouter> roadGraphRouter)
+CarRouter::CarRouter(Index * index, TCountryFileFn const & countryFileFn,
+                     unique_ptr<RoadGraphRouter> roadGraphRouter)
     : m_pIndex(index), m_indexManager(countryFileFn, *index), m_roadGraphRouter(move(roadGraphRouter))
 {
 }
 
-string OsrmRouter::GetName() const
+string CarRouter::GetName() const
 {
   return "vehicle";
 }
 
-void OsrmRouter::ClearState()
+void CarRouter::ClearState()
 {
   m_cachedTargets.clear();
   m_cachedTargetPoint = m2::PointD::Zero();
   m_indexManager.Clear();
+  m_roadGraphRouter->ClearState();
 }
 
-bool OsrmRouter::FindRouteFromCases(TFeatureGraphNodeVec const & source, TFeatureGraphNodeVec const & target,
-                                    RouterDelegate const & delegate, TRoutingMappingPtr & mapping, Route & route)
+bool CarRouter::FindRouteFromCases(TFeatureGraphNodeVec const & source, TFeatureGraphNodeVec const & target,
+                                   RouterDelegate const & delegate, TRoutingMappingPtr & mapping, Route & route)
 {
   ASSERT(mapping, ());
 
@@ -304,9 +305,9 @@ void CalculatePhantomNodeForCross(TRoutingMappingPtr & mapping, FeatureGraphNode
 
 // TODO (ldragunov) move this function to cross mwm router
 // TODO (ldragunov) process case when the start and the finish points are placed on the same edge.
-OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const & path,
-                                                            RouterDelegate const & delegate,
-                                                            Route & route)
+CarRouter::ResultCode CarRouter::MakeRouteFromCrossesPath(TCheckedPath const & path,
+                                                          RouterDelegate const & delegate,
+                                                          Route & route)
 {
   Route emptyRoute(GetName());
   route.Swap(emptyRoute);
@@ -327,10 +328,10 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
   return NoError;
 }
 
-OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
-                                                  m2::PointD const & startDirection,
-                                                  m2::PointD const & finalPoint,
-                                                  RouterDelegate const & delegate, Route & route)
+CarRouter::ResultCode CarRouter::CalculateRoute(m2::PointD const & startPoint,
+                                                m2::PointD const & startDirection,
+                                                m2::PointD const & finalPoint,
+                                                RouterDelegate const & delegate, Route & route)
 {
   my::HighResTimer timer(true);
 
@@ -466,14 +467,14 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
       timer.Reset();
       return code;
     }
-    return OsrmRouter::RouteNotFound;
+    return CarRouter::RouteNotFound;
   }
 }
 
-IRouter::ResultCode OsrmRouter::FindPhantomNodes(m2::PointD const & point,
-                                                 m2::PointD const & direction,
-                                                 TFeatureGraphNodeVec & res, size_t maxCount,
-                                                 TRoutingMappingPtr const & mapping)
+IRouter::ResultCode CarRouter::FindPhantomNodes(m2::PointD const & point,
+                                                m2::PointD const & direction,
+                                                TFeatureGraphNodeVec & res, size_t maxCount,
+                                                TRoutingMappingPtr const & mapping)
 {
   ASSERT(mapping, ());
   helpers::Point2PhantomNode getter(*mapping, *m_pIndex, direction);
@@ -490,7 +491,7 @@ IRouter::ResultCode OsrmRouter::FindPhantomNodes(m2::PointD const & point,
   return NoError;
 }
 
-bool OsrmRouter::IsEdgeIndexExisting(Index::MwmId const & mwmId)
+bool CarRouter::IsEdgeIndexExisting(Index::MwmId const & mwmId)
 {
   MwmSet::MwmHandle const handle = m_pIndex->GetMwmHandleById(mwmId);
   if (!handle.IsAlive())
@@ -504,16 +505,17 @@ bool OsrmRouter::IsEdgeIndexExisting(Index::MwmId const & mwmId)
   if (value->GetHeader().GetFormat() < version::Format::v8)
     return false;
 
-  // @TODO Remove this string before merge.
+  // @TODO This section name will be defined in another PR.
+  // This const should be removed.
   string const EDGE_INDEX_FILE_TAG = "edgeidx";
   if (value->m_cont.IsExist(EDGE_INDEX_FILE_TAG.c_str()))
     return true;
   return false;
 }
 
-bool OsrmRouter::FindSingleRouteDispatcher(FeatureGraphNode const & source, FeatureGraphNode const & target,
-                                           RouterDelegate const & delegate, TRoutingMappingPtr & mapping,
-                                           Route & route)
+bool CarRouter::FindSingleRouteDispatcher(FeatureGraphNode const & source, FeatureGraphNode const & target,
+                                          RouterDelegate const & delegate, TRoutingMappingPtr & mapping,
+                                          Route & route)
 {
   ASSERT_EQUAL(source.mwmId, target.mwmId, ());
   ASSERT(m_pIndex, ());
@@ -525,6 +527,7 @@ bool OsrmRouter::FindSingleRouteDispatcher(FeatureGraphNode const & source, Feat
   // Probably it's better to keep if mwm had edge index section in mwmId.
   if (IsEdgeIndexExisting(source.mwmId) && m_roadGraphRouter)
   {
+    // A* routing
     LOG(LINFO, ("A* route form", MercatorBounds::ToLatLon(source.segmentPoint),
                 "to", MercatorBounds::ToLatLon(target.segmentPoint)));
 
@@ -533,10 +536,10 @@ bool OsrmRouter::FindSingleRouteDispatcher(FeatureGraphNode const & source, Feat
     {
       return false;
     }
-
   }
   else
   {
+    // OSRM Routing
     vector<Junction> mwmRouteGeometry;
     Route::TTurns mwmTurns;
     Route::TTimes mwmTimes;
