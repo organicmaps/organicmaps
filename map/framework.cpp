@@ -1361,6 +1361,9 @@ bool Framework::QueryMayBeSkipped(SearchIntent const & intent, search::SearchPar
   if (lastParams.IsValidPosition() != params.IsValidPosition())
     return false;
 
+  if (!search::hotels_filter::Rule::IsIdentical(lastParams.m_hotelsFilter, params.m_hotelsFilter))
+    return false;
+
   return true;
 }
 

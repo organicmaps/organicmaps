@@ -380,7 +380,10 @@ public class SearchFragment extends BaseMwmFragment
     final String query = getQuery();
     SearchRecents.add(query);
     mLastQueryTimestamp = System.nanoTime();
-    SearchEngine.searchInteractive(query, mLastQueryTimestamp, false /* isMapAndTable */);
+
+    // TODO (@alexzatsepin): set up hotelsFilter correctly.
+    SearchEngine.searchInteractive(
+        query, mLastQueryTimestamp, false /* isMapAndTable */, null /* hotelsFilter */);
     SearchEngine.showAllResults(query);
     Utils.navigateToParent(getActivity());
 
@@ -408,12 +411,17 @@ public class SearchFragment extends BaseMwmFragment
     // TODO @yunitsky Implement more elegant solution.
     if (getActivity() instanceof MwmActivity)
     {
-      SearchEngine.searchInteractive(getQuery(), mLastQueryTimestamp, true /* isMapAndTable */);
+      SearchEngine.searchInteractive(
+          getQuery(), mLastQueryTimestamp, true /* isMapAndTable */, null /* hotelsFilter */);
     }
     else
     {
-      if (!SearchEngine.search(getQuery(), mLastQueryTimestamp, mLastPosition.valid, mLastPosition.lat, mLastPosition.lon))
+      // TODO (@alexzatsepin): set up hotelsFilter correctly.
+      if (!SearchEngine.search(getQuery(), mLastQueryTimestamp, mLastPosition.valid,
+              mLastPosition.lat, mLastPosition.lon, null /* hotelsFilter */))
+      {
         return;
+      }
     }
 
     mSearchRunning = true;

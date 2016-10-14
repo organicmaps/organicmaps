@@ -42,6 +42,23 @@ void Description::FromFeature(FeatureType & ft)
   }
 }
 
+// Rule --------------------------------------------------------------------------------------------
+// static
+bool Rule::IsIdentical(shared_ptr<Rule> const & lhs, shared_ptr<Rule> const & rhs)
+{
+  if (lhs && !rhs)
+    return false;
+  if (!lhs && rhs)
+    return false;
+
+  if (lhs && rhs && !lhs->IdenticalTo(*rhs))
+    return false;
+
+  return true;
+}
+
+string DebugPrint(Rule const & rule) { return rule.ToString(); }
+
 // HotelsFilter::ScopedFilter ----------------------------------------------------------------------
 HotelsFilter::ScopedFilter::ScopedFilter(MwmSet::MwmId const & mwmId,
                                          Descriptions const & descriptions, shared_ptr<Rule> rule)
