@@ -1706,6 +1706,14 @@ void Framework::OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::Gps
   m_drapeEngine->UpdateGpsTrackPoints(move(pointsAdd), move(indicesRemove));
 }
 
+void Framework::SetFontScaleFactor(double scaleFactor)
+{
+  ASSERT(m_drapeEngine.get() != nullptr, ());
+  m_drapeEngine->SetFontScaleFactor(scaleFactor);
+
+  InvalidateRect(GetCurrentViewport());
+}
+
 void Framework::MarkMapStyle(MapStyle mapStyle)
 {
   // Store current map style before classificator reloading

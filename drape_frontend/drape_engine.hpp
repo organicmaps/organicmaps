@@ -165,6 +165,8 @@ public:
   void AddTrafficSegments(vector<pair<uint64_t, m2::PolylineD>> const & segments);
   void UpdateTraffic(vector<TrafficSegmentData> const & segmentsData);
 
+  void SetFontScaleFactor(double scaleFactor);
+
 private:
   void AddUserEvent(drape_ptr<UserEvent> && e);
   void ModelViewChanged(ScreenBase const & screen);

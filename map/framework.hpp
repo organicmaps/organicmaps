@@ -427,6 +427,8 @@ public:
 
   void UpdateDrapeEngine(int width, int height);
 
+  void SetFontScaleFactor(double scaleFactor);
+
 private:
   /// Depends on initialized Drape engine.
   void SaveViewport();

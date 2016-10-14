@@ -3,8 +3,8 @@
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 
+#include "std/atomic.hpp"
 #include "std/cstdint.hpp"
-
 #include "std/noncopyable.hpp"
 
 namespace df
@@ -43,11 +43,14 @@ public:
   GlyphVisualParams const & GetGlyphVisualParams() const;
   uint32_t GetGlyphSdfScale() const;
   uint32_t GetGlyphBaseSize() const;
+  double GetFontScale() const;
+  void SetFontScale(double fontScale);
 
 private:
   int m_tileSize;
   double m_visualScale;
   GlyphVisualParams m_glyphVisualParams;
+  atomic<double> m_fontScale;
 };
 
 m2::RectD const & GetWorldRect();

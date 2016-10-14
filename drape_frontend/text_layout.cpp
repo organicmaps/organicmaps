@@ -343,7 +343,7 @@ void TextLayout::Init(strings::UniString const & text, float fontSize,
                       ref_ptr<dp::TextureManager> textures)
 {
   m_text = text;
-  m_textSizeRatio = fontSize / VisualParams::Instance().GetGlyphBaseSize();
+  m_textSizeRatio = fontSize * VisualParams::Instance().GetFontScale() / VisualParams::Instance().GetGlyphBaseSize();
   textures->GetGlyphRegions(text, m_metrics);
 }
 
