@@ -191,7 +191,7 @@ void Results::AddResultNoChecks(Result && result)
 void Results::Clear()
 {
   m_results.clear();
-  m_status = STATUS_NONE;
+  m_status = Status::None;
 }
 
 size_t Results::GetSuggestsCount() const

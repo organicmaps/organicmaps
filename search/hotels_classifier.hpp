@@ -4,9 +4,9 @@
 
 namespace search
 {
-// A binary classifier that can be used in conjunction with search		
-// engine to decide whether the majority of results are hotels or not.		
-//		
+// A binary classifier that can be used in conjunction with search
+// engine to decide whether the majority of results are hotels or not.
+//
 // *NOTE* This class is NOT thread safe.
 class HotelsClassifier
 {

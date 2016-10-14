@@ -138,18 +138,18 @@ public:
 
   Results();
 
-  inline bool IsEndMarker() const { return m_status != STATUS_NONE; }
-  inline bool IsEndedNormal() const { return m_status == STATUS_ENDED_NORMAL; }
-  inline bool IsEndedCancelled() const { return m_status == STATUS_ENDED_CANCELLED; }
+  inline bool IsEndMarker() const { return m_status != Status::None; }
+  inline bool IsEndedNormal() const { return m_status == Status::EndedNormal; }
+  inline bool IsEndedCancelled() const { return m_status == Status::EndedCancelled; }
 
   void SetEndMarker(bool cancelled)
   {
-    m_status = cancelled ? STATUS_ENDED_CANCELLED : STATUS_ENDED_NORMAL;
+    m_status = cancelled ? Status::EndedCancelled : Status::EndedNormal;
   }
 
   bool AddResult(Result && result);
 
-  // Fast version of AddResult() that don't do any duplicates checks.
+  // Fast version of AddResult() that doesn't do any duplicates checks.
   void AddResultNoChecks(Result && result);
 
   void Clear();
@@ -175,11 +175,11 @@ public:
   inline void Swap(Results & rhs) { m_results.swap(rhs.m_results); }
 
 private:
-  enum Status
+  enum class Status
   {
-    STATUS_NONE,
-    STATUS_ENDED_CANCELLED,
-    STATUS_ENDED_NORMAL
+    None,
+    EndedCancelled,
+    EndedNormal
   };
 
   // Inserts |result| in |m_results| at position denoted by |where|.
