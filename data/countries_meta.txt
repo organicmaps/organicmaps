@@ -434,7 +434,7 @@
  "languages": ["lt"]
 },
 "Luxembourg": {
- "languages": ["fr", "lb", "de", "en"]
+ "languages": ["fr"]
 },
 "Macedonia": {
  "languages": ["mk"]
