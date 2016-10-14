@@ -9,15 +9,11 @@ uint32_t constexpr kSocketTimeoutMs = 10000;
 
 namespace tracking
 {
-// static
-const char Connection::kHost[] = "gps.host";  // TODO change to real host value
-uint16_t Connection::kPort = 666;             // TODO change to real port value
-
 Connection::Connection(unique_ptr<platform::Socket> socket, string const & host, uint16_t port,
                        bool isHistorical)
-  : m_socket(move(socket)), m_host(host), m_port(port)
+  : m_socket(move(socket)), m_host(host), m_port(port), m_isHistorical(isHistorical)
 {
-  ASSERT(m_socket.get() != nullptr, ());
+  ASSERT(m_socket.get(), ());
 
   m_socket->SetTimeout(kSocketTimeoutMs);
 }
@@ -35,9 +31,9 @@ bool Connection::Send(boost::circular_buffer<DataPoint> const & points)
   ASSERT(m_buffer.empty(), ());
 
   MemWriter<decltype(m_buffer)> writer(m_buffer);
-  coding::TrafficGPSEncoder::SerializeDataPoints(coding::TrafficGPSEncoder::kLatestVersion, writer,
-                                                 points);
-  bool isSuccess = m_socket->Write(m_buffer.data(), m_buffer.size());
+  using coding::TrafficGPSEncoder;
+  TrafficGPSEncoder::SerializeDataPoints(TrafficGPSEncoder::kLatestVersion, writer, points);
+  bool const isSuccess = m_socket->Write(m_buffer.data(), m_buffer.size());
   m_buffer.clear();
   return isSuccess;
 }

@@ -7,7 +7,7 @@ ROOT_DIR = ../..
 
 INCLUDEPATH *= $$ROOT_DIR/3party/jansson/src
 
-DEPENDENCIES = base coding geometry platform routing stats_client tracking
+DEPENDENCIES = routing tracking platform_tests_support platform coding geometry base stats_client
 
 include($$ROOT_DIR/common.pri)
 
@@ -26,4 +26,4 @@ win*|linux* {
 
 SOURCES += \
     $$ROOT_DIR/testing/testingmain.cpp \
-    reporter_tests.cpp \
+    reporter_test.cpp

@@ -2,7 +2,6 @@
 
 #include "std/string.hpp"
 #include "std/unique_ptr.hpp"
-#include "std/vector.hpp"
 
 namespace platform
 {
@@ -26,21 +25,5 @@ public:
   virtual void SetTimeout(uint32_t milliseconds) = 0;
 };
 
-class TestSocket : public Socket
-{
-public:
-  virtual bool HasInput() const = 0;
-  virtual bool HasOutput() const = 0;
-
-  // Simulate server writing
-  virtual void WriteServer(uint8_t const * data, uint32_t count) = 0;
-
-  // Simulate server reading
-  // returns size of read data
-  virtual size_t ReadServer(vector<uint8_t> & destination) = 0;
-};
-
 unique_ptr<Socket> createSocket();
-unique_ptr<Socket> createMockSocket();
-unique_ptr<TestSocket> createTestSocket();
 }  // namespace platform

@@ -52,6 +52,10 @@ else
 #define BOOKING_SECRET ""
 #define UBER_SERVER_TOKEN ""
 #define UBER_CLIENT_ID ""
+#define TRACKING_REALTIME_HOST ""
+#define TRACKING_REALTIME_PORT 0
+#define TRACKING_HISTORICAL_HOST ""
+#define TRACKING_HISTORICAL_PORT 0
 ' > "$PRIVATE_HEADER"
     echo 'ext {
   spropStoreFile = "../tools/android/debug.keystore"

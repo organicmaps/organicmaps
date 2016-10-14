@@ -156,6 +156,17 @@ void CancelQuery(weak_ptr<search::ProcessorHandle> & handle)
     queryHandle->Cancel();
   handle.reset();
 }
+
+class StubSocket final : public platform::Socket
+{
+public:
+  // Socket overrides
+  bool Open(string const & host, uint16_t port) override { return false; }
+  void Close() override {}
+  bool Read(uint8_t * data, uint32_t count) override { return false; }
+  bool Write(uint8_t const * data, uint32_t count) override { return false; }
+  void SetTimeout(uint32_t milliseconds) override {}
+};
 }  // namespace
 
 pair<MwmSet::MwmId, MwmSet::RegResult> Framework::RegisterMap(
@@ -236,7 +247,7 @@ bool Framework::IsTrackingReporterEnabled() const
     return false;
 
   bool allowStat = false;
-  settings::Get(tracking::Reporter::kAllowKey, allowStat);
+  UNUSED_VALUE(settings::Get(tracking::Reporter::kEnabledSettingsKey, allowStat));
   return allowStat;
 }
 
@@ -330,7 +341,7 @@ Framework::Framework()
   , m_storage(platform::migrate::NeedMigrate() ? COUNTRIES_OBSOLETE_FILE : COUNTRIES_FILE)
   , m_bmManager(*this)
   , m_isRenderingEnabled(true)
-  , m_trackingReporter(platform::createMockSocket(), tracking::Reporter::kPushDelayMs)
+  , m_trackingReporter(make_unique<StubSocket>(), tracking::Reporter::kPushDelayMs)
   , m_displacementModeManager([this](bool show) {
     int const mode = show ? dp::displacement::kHotelMode : dp::displacement::kDefaultMode;
     CallDrapeFunction(bind(&df::DrapeEngine::SetDisplacementMode, _1, mode));
