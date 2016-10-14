@@ -133,67 +133,63 @@ public:
 
 class Results
 {
-  vector<Result> m_vec;
-
-  enum StatusT
-  {
-    NONE,             // default status
-    ENDED_CANCELLED,  // search ended with canceling
-    ENDED             // search ended itself
-  };
-  StatusT m_status;
-
-  explicit Results(bool isCancelled)
-  {
-    m_status = (isCancelled ? ENDED_CANCELLED : ENDED);
-  }
-
 public:
-  Results() : m_status(NONE) {}
+  using Iter = vector<Result>::const_iterator;
 
-  static Results GetEndMarker(bool isCancelled) { return Results(isCancelled); }
+  Results();
 
-  bool IsEndMarker() const { return (m_status != NONE); }
-  bool IsEndedNormal() const { return (m_status == ENDED); }
-  bool IsEndedCancelled() const { return m_status == ENDED_CANCELLED; }
+  inline bool IsEndMarker() const { return m_status != Status::None; }
+  inline bool IsEndedNormal() const { return m_status == Status::EndedNormal; }
+  inline bool IsEndedCancelled() const { return m_status == Status::EndedCancelled; }
 
-  bool AddResult(Result && res);
-
-  /// Fast function that don't do any duplicates checks.
-  /// Used in viewport search only.
-  void AddResultNoChecks(Result && res)
+  void SetEndMarker(bool cancelled)
   {
-    ASSERT_LESS(m_vec.size(), numeric_limits<int32_t>::max(), ());
-    res.SetPositionInResults(static_cast<int32_t>(m_vec.size()));
-    m_vec.push_back(move(res));
+    m_status = cancelled ? Status::EndedCancelled : Status::EndedNormal;
   }
 
-  inline void Clear() { m_vec.clear(); }
+  bool AddResult(Result && result);
 
-  typedef vector<Result>::const_iterator IterT;
+  // Fast version of AddResult() that doesn't do any duplicates checks.
+  void AddResultNoChecks(Result && result);
 
-  inline IterT begin() const { return m_vec.begin(); }
-  inline IterT end() const { return m_vec.end(); }
+  void Clear();
 
-  inline size_t GetCount() const { return m_vec.size(); }
+  inline Iter begin() const { return m_results.begin(); }
+  inline Iter end() const { return m_results.end(); }
+
+  inline size_t GetCount() const { return m_results.size(); }
   size_t GetSuggestsCount() const;
 
   inline Result & GetResult(size_t i)
   {
-    ASSERT_LESS(i, m_vec.size(), ());
-    return m_vec[i];
+    ASSERT_LESS(i, m_results.size(), ());
+    return m_results[i];
   }
 
   inline Result const & GetResult(size_t i) const
   {
-    ASSERT_LESS(i, m_vec.size(), ());
-    return m_vec[i];
+    ASSERT_LESS(i, m_results.size(), ());
+    return m_results[i];
   }
 
-  inline void Swap(Results & rhs)
+  inline void Swap(Results & rhs) { m_results.swap(rhs.m_results); }
+
+private:
+  enum class Status
   {
-    m_vec.swap(rhs.m_vec);
-  }
+    None,
+    EndedCancelled,
+    EndedNormal
+  };
+
+  // Inserts |result| in |m_results| at position denoted by |where|.
+  //
+  // *NOTE* all iterators, references and pointers to |m_results| are
+  // invalid after the call.
+  void InsertResult(vector<Result>::iterator where, Result && result);
+
+  vector<Result> m_results;
+  Status m_status;
 };
 
 struct AddressInfo

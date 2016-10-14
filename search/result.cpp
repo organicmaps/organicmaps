@@ -5,6 +5,7 @@
 
 namespace search
 {
+// Result ------------------------------------------------------------------------------------------
 Result::Result(FeatureID const & id, m2::PointD const & pt, string const & str,
                string const & address, string const & type, uint32_t featureType,
                Metadata const & meta)
@@ -139,10 +140,16 @@ string Result::ToStringForStats() const
   return s;
 }
 
-bool Results::AddResult(Result && res)
+// Results -----------------------------------------------------------------------------------------
+Results::Results()
+{
+  Clear();
+}
+
+bool Results::AddResult(Result && result)
 {
   // Find first feature result.
-  auto it = find_if(m_vec.begin(), m_vec.end(), [](Result const & r)
+  auto it = find_if(m_results.begin(), m_results.end(), [](Result const & r)
   {
     switch (r.GetResultType())
     {
@@ -153,35 +160,38 @@ bool Results::AddResult(Result && res)
     }
   });
 
-  if (res.IsSuggest())
+  if (result.IsSuggest())
   {
-    if (distance(m_vec.begin(), it) >= MAX_SUGGESTS_COUNT)
+    if (distance(m_results.begin(), it) >= MAX_SUGGESTS_COUNT)
       return false;
 
-    for (auto i = m_vec.begin(); i != it; ++i)
-      if (res.IsEqualSuggest(*i))
+    for (auto i = m_results.begin(); i != it; ++i)
+      if (result.IsEqualSuggest(*i))
         return false;
-
-    for (auto i = it; i != m_vec.end(); ++i)
-    {
-      auto & r = *i;
-      auto const oldPos = r.GetPositionInResults();
-      r.SetPositionInResults(oldPos + 1);
-    }
-    res.SetPositionInResults(distance(m_vec.begin(), it));
-    m_vec.insert(it, move(res));
+    InsertResult(it, move(result));
   }
   else
   {
-    for (; it != m_vec.end(); ++it)
-      if (res.IsEqualFeature(*it))
+    for (; it != m_results.end(); ++it)
+    {
+      if (result.IsEqualFeature(*it))
         return false;
-
-    res.SetPositionInResults(m_vec.size());
-    m_vec.push_back(move(res));
+    }
+    InsertResult(m_results.end(), move(result));
   }
 
   return true;
+}
+
+void Results::AddResultNoChecks(Result && result)
+{
+  InsertResult(m_results.end(), move(result));
+}
+
+void Results::Clear()
+{
+  m_results.clear();
+  m_status = Status::None;
 }
 
 size_t Results::GetSuggestsCount() const
@@ -189,7 +199,7 @@ size_t Results::GetSuggestsCount() const
   size_t res = 0;
   for (size_t i = 0; i < GetCount(); i++)
   {
-    if (m_vec[i].IsSuggest())
+    if (m_results[i].IsSuggest())
       ++res;
     else
     {
@@ -200,10 +210,22 @@ size_t Results::GetSuggestsCount() const
   return res;
 }
 
-////////////////////////////////////////////////////////////////////////////////////
-// AddressInfo implementation
-////////////////////////////////////////////////////////////////////////////////////
+void Results::InsertResult(vector<Result>::iterator where, Result && result)
+{
+  ASSERT_LESS(m_results.size(), numeric_limits<int32_t>::max(), ());
 
+  for (auto it = where; it != m_results.end(); ++it)
+  {
+    auto & r = *it;
+    auto const position = r.GetPositionInResults();
+    r.SetPositionInResults(position + 1);
+  }
+
+  result.SetPositionInResults(distance(m_results.begin(), where));
+  m_results.insert(where, move(result));
+}
+
+// AddressInfo -------------------------------------------------------------------------------------
 bool AddressInfo::IsEmptyName() const
 {
   return m_name.empty() && m_house.empty();
@@ -324,5 +346,4 @@ string DebugPrint(Result const & result)
   return "Result { Name: " + result.GetString() + "; Type: " + result.GetFeatureType() +
          "; Info: " + DebugPrint(result.GetRankingInfo()) + " }";
 }
-
 }  // namespace search

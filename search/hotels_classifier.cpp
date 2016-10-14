@@ -1,23 +1,27 @@
 #include "search/hotels_classifier.hpp"
 
-#include "search/result.hpp"
+#include "std/cstdint.hpp"
 
 namespace search
 {
-void HotelsClassifier::AddBatch(Results const & results)
+// static
+bool HotelsClassifier::IsHotelResults(Results const & results)
 {
-  if (results.IsEndMarker())
-    return;
+  HotelsClassifier classifier;
+  classifier.Add(results.begin(), results.end());
+  return classifier.IsHotelResults();
+}
 
-  for (auto const & result : results)
+void HotelsClassifier::Add(Results::Iter begin, Results::Iter end)
+{
+  for (; begin != end; ++begin)
   {
+    m_numHotels += (*begin).m_metadata.m_isHotel;
     ++m_numResults;
-    if (result.m_metadata.m_isHotel)
-      ++m_numHotels;
   }
 }
 
-bool HotelsClassifier::IsHotelQuery() const
+bool HotelsClassifier::IsHotelResults() const
 {
   // Threshold used to activate hotels mode. Probably is too strict,
   // but we don't have statistics now.

@@ -240,7 +240,9 @@ void Engine::DoSearch(SearchParams const & params, m2::RectD const & viewport,
   // Early exit when query processing is cancelled.
   if (processor.IsCancelled())
   {
-    params.m_onResults(Results::GetEndMarker(true /* isCancelled */));
+    Results results;
+    results.SetEndMarker(true /* isCancelled */);
+    params.m_onResults(results);
     return;
   }
 

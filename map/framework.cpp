@@ -1154,7 +1154,7 @@ bool Framework::SearchInViewport(search::ViewportSearchParams const & params)
       static_cast<search::ViewportSearchCallback::Delegate &>(*this),
       [params](search::Results const & results) {
         if (results.IsEndMarker() && params.m_onCompleted)
-          GetPlatform().RunOnGuiThread([params]() { params.m_onCompleted(); });
+          GetPlatform().RunOnGuiThread([params, results]() { params.m_onCompleted(results); });
       });
   SetCurrentPositionIfPossible(p);
 
@@ -2673,7 +2673,9 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
                                                DebugPrint(types), types.GetBestType(), smd));
     }
     params.m_onResults(results);
-    params.m_onResults(search::Results::GetEndMarker(false));
+
+    results.SetEndMarker(false /* isCancelled */);
+    params.m_onResults(results);
     return true;
   }
   else if (params.m_query == "?eclear")

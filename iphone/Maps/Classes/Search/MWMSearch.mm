@@ -99,7 +99,8 @@ using TObservers = NSHashTable<__kindof TObserver>;
   }
   {
     __weak auto weakSelf = self;
-    m_viewportParams.m_onCompleted = [weakSelf] {
+    m_viewportParams.m_onCompleted = [weakSelf](search::Results const & results) {
+      // TODO (@igrechuhin): do something useful with |results|.
       __strong auto self = weakSelf;
       if (!self)
         return;
