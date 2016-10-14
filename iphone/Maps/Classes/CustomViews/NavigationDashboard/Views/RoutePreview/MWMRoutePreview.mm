@@ -177,19 +177,21 @@ CGFloat constexpr kAdditionalHeight = 20.;
     self.statusBoxHeight.constant =
         self.resultsBoxHeight.constant +
         ([MWMRouter hasRouteAltitude] ? self.heightBoxHeight.constant : 0);
-    [UIView animateWithDuration:kDefaultAnimationDuration
-        animations:^{
-          [self layoutIfNeeded];
-        }
-        completion:^(BOOL finished) {
-          [UIView animateWithDuration:kDefaultAnimationDuration
-              animations:^{
-                self.arriveLabel.alpha = 1.;
-              }
-              completion:^(BOOL finished) {
-                [self updateHeightProfile];
-              }];
-        }];
+    [UIView animateWithDuration:kDefaultAnimationDuration animations:^
+    {
+      [self layoutIfNeeded];
+    }
+    completion:^(BOOL finished)
+    {
+      [UIView animateWithDuration:kDefaultAnimationDuration animations:^
+      {
+        self.arriveLabel.alpha = 1.;
+      }
+      completion:^(BOOL finished)
+      {
+        [self updateHeightProfile];
+      }];
+    }];
   }
 }
 

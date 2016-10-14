@@ -6,7 +6,10 @@
 
 #include "partners_api/uber_api.hpp"
 
-static CGFloat const kPageControlHeight = 6;
+namespace
+{
+  CGFloat const kPageControlHeight = 6;
+}  // namespace
 
 @interface MWMTaxiCollectionView ()
 
@@ -18,7 +21,6 @@ static CGFloat const kPageControlHeight = 6;
 
 - (void)setNumberOfPages:(NSUInteger)numberOfPages
 {
-  _numberOfPages = numberOfPages;
   [self.pageControl setNumberOfPages:numberOfPages];
   [self.pageControl setCurrentPage:0];
 }
@@ -57,6 +59,7 @@ using namespace uber;
   vector<Product> m_products;
   ms::LatLon m_from;
   ms::LatLon m_to;
+  uint64_t m_requestId;
 }
 
 @property(weak, nonatomic) MWMTaxiCollectionView * collectionView;
@@ -92,24 +95,27 @@ using namespace uber;
   m_from = MercatorBounds::ToLatLon(from.Point());
   m_to = MercatorBounds::ToLatLon(to.Point());
   self.collectionView.hidden = YES;
-  m_api.GetAvailableProducts(m_from, m_to, [self, completion, failure](vector<Product> const & products,
-                                                                  size_t const requestId)
+  m_requestId = m_api.GetAvailableProducts(m_from, m_to, [self, completion, failure](vector<Product> const & products,
+                                                                  uint64_t const requestId)
   {
-    if (products.empty())
+    dispatch_async(dispatch_get_main_queue(), ^
     {
-      dispatch_async(dispatch_get_main_queue(), ^{
-        failure();
-      });
-      return;
-    }
+      if (self->m_requestId != requestId)
+        return;
 
-    m_products = products;
-    dispatch_async(dispatch_get_main_queue(), ^{
+      if (products.empty())
+      {
+        failure();
+        return;
+      }
+
+      self->m_products = products;
       auto cv = self.collectionView;
       cv.hidden = NO;
       cv.numberOfPages = self->m_products.size();
       [cv reloadData];
       cv.contentOffset = {};
+      cv.currentPage = 0;
       completion();
     });
   });
@@ -156,7 +162,7 @@ using namespace uber;
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
   auto const offset = MAX(0, scrollView.contentOffset.x);
-  NSUInteger const itemIndex = offset / scrollView.width;
+  auto const itemIndex = static_cast<size_t>(offset / scrollView.width);
   [self.collectionView setCurrentPage:itemIndex];
 }
 

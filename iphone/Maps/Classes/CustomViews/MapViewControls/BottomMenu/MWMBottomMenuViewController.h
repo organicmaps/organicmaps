@@ -12,7 +12,6 @@
 - (void)closeInfoScreens;
 - (void)addPlace:(BOOL)isBusiness hasPoint:(BOOL)hasPoint point:(m2::PointD const &)point;
 - (void)didFinishAddingPlace;
-- (void)startRouting;
 
 @end
 

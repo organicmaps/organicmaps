@@ -61,6 +61,13 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
 
 + (BOOL)hasRouteAltitude { return GetFramework().HasRouteAltitude(); }
 + (BOOL)isTaxi { return GetFramework().GetRouter() == routing::RouterType::Taxi; }
++ (void)startRouting
+{
+  if ([self isTaxi])
+    [[UIApplication sharedApplication] openURL:[MWMNavigationDashboardManager manager].taxiDataSource.taxiURL];
+  else
+    [[self router] start];
+}
 
 - (instancetype)initRouter
 {
@@ -135,24 +142,25 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
 {
   [self clearAltitudeImagesData];
 
-  auto const setTags = ^(RouterType t)
+  auto const setTags = ^(RouterType t, BOOL isP2P)
   {
-    auto m = [PushNotificationManager pushManager];
+    NSMutableString * tag = (isP2P ? @"routing_p2p_" : @"routing_").mutableCopy;
     switch (t)
     {
     case RouterType::Vehicle:
-      [m setTags:@{ @"routing_p2p_vehicle_discovered" : @YES }];
+      [tag appendString:@"vehicle_discovered"];
       break;
     case RouterType::Pedestrian:
-      [m setTags:@{ @"routing_p2p_pedestrian_discovered" : @YES }];
+      [tag appendString:@"pedestrian_discovered"];
       break;
     case RouterType::Bicycle:
-      [m setTags:@{ @"routing_p2p_bicycle_discovered" : @YES }];
+      [tag appendString:@"bicycle_discovered"];
       break;
     case RouterType::Taxi:
-      [m setTags:@{ @"routing_p2p_uber_discovered" : @YES }];
+      [tag appendString:@"uber_discovered"];
       break;
     }
+    [[PushNotificationManager pushManager] setTags:@{ tag : @YES }];
   };
 
   if (self.startPoint.IsMyPosition())
@@ -171,7 +179,7 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
   {
     [Statistics logEvent:kStatPointToPoint
           withParameters:@{kStatAction : kStatBuildRoute, kStatValue : kStatPointToPoint}];
-    setTags(self.type);
+    setTags(self.type, YES);
   }
 
   if (![self arePointsValidForRouting])
@@ -185,7 +193,7 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
   f.SetRouteStartPoint(startPoint, isMarkerPoint(self.startPoint));
   f.SetRouteFinishPoint(finishPoint, isMarkerPoint(self.finishPoint));
   [[MWMMapViewControlsManager manager] onRouteRebuild];
-  setTags(self.type);
+  setTags(self.type, NO);
 }
 
 - (void)start

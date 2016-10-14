@@ -2,7 +2,8 @@ class MWMRoutePoint;
 
 @interface MWMTaxiCollectionView : UICollectionView
 
-@property(nonatomic) NSUInteger numberOfPages;
+- (void)setNumberOfPages:(NSUInteger)numberOfPages;
+- (void)setCurrentPage:(NSUInteger)currentPage;
 
 @end
 
@@ -16,6 +17,5 @@ class MWMRoutePoint;
                              failure:(TMWMVoidBlock)failure;
 
 - (NSURL *)taxiURL;
-- (BOOL)isTaxiInstalled;
 
 @end

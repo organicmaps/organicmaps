@@ -201,7 +201,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   [self refreshRoutingDiminishTimer];
 }
 
-- (IBAction)routingStartTouchUpInside { [self.delegate startRouting]; }
+- (IBAction)routingStartTouchUpInside { [MWMRouter startRouting]; }
 - (IBAction)routingStopTouchUpInside { [[MWMRouter router] stop]; }
 - (IBAction)soundTouchUpInside:(MWMButton *)sender
 {

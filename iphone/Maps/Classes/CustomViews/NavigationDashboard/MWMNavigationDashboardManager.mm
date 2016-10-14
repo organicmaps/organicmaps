@@ -124,7 +124,7 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
 
 #pragma mark - MWMNavigationGo
 
-- (IBAction)routingStartTouchUpInside { [self.delegate startRouting]; }
+- (IBAction)routingStartTouchUpInside { [MWMRouter startRouting]; }
 
 #pragma mark - State changes
 

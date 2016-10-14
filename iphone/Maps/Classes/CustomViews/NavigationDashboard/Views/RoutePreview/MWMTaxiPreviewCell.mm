@@ -1,9 +1,9 @@
 #import "MWMTaxiPreviewCell.h"
 #import "TimeUtils.h"
 
-#include "base/string_utils.hpp"
-
 #include "partners_api/uber_api.hpp"
+
+#include "base/string_utils.hpp"
 
 @interface MWMTaxiPreviewCell ()
 
@@ -19,8 +19,8 @@
 - (void)configWithProduct:(uber::Product const &)product;
 {
   self.product.text = @(product.m_name.c_str());
-  int time;
-  if (!strings::to_int(product.m_time, time))
+  NSTimeInterval time;
+  if (!strings::to_double(product.m_time, time))
     NSAssert(false, @"Incorrect time");
 
   auto formatted = [NSDateFormatter estimatedArrivalTimeWithSeconds:time].UTF8String;

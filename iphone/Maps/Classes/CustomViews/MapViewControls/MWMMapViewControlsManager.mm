@@ -286,14 +286,6 @@ extern NSString * const kAlohalyticsTapEventKey;
       }];
 }
 
-- (void)startRouting
-{
-  if ([MWMRouter isTaxi])
-    [[UIApplication sharedApplication] openURL:[MWMNavigationDashboardManager manager].taxiDataSource.taxiURL];
-  else
-    [[MWMRouter router] start];
-}
-
 #pragma mark - MWMPlacePageManager
 
 - (void)dragPlacePage:(CGRect)frame
