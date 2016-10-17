@@ -60,7 +60,14 @@ public:
   inline void SetStreetNames(TStreets && v) { m_streets = move(v); }
   inline void SetAltitudes(feature::TAltitudes && v) { m_altitudes = move(v); }
 
-  /// \brief Appends all |route| attributes except for altitude.
+  /// \brief Glues all |route| attributes to |this| except for |m_altitudes|.
+  // @TODO In the future this method should append |m_altitudes| as well.
+  // It's not implemented now because it's not easy to do it and it'll not be used in
+  // the short future. The problem is routes genetated by osrm have empty |m_altitudes|.
+  // So |m_altitudes| should be filled (with correnct or default values) on osrm route
+  // reconstruction stage to be added with this method. On the other
+  // hand it seems this method'll not be not used for bicycle and pedestrian routing
+  // in short future. And altitude is not used for car routing.
   void AppendRoute(Route const & route);
 
   uint32_t GetTotalTimeSec() const;

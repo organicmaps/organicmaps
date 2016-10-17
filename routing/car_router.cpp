@@ -505,10 +505,7 @@ bool CarRouter::IsEdgeIndexExisting(Index::MwmId const & mwmId)
   if (value->GetHeader().GetFormat() < version::Format::v8)
     return false;
 
-  // @TODO This section name will be defined in another PR.
-  // This const should be removed.
-  string const EDGE_INDEX_FILE_TAG = "edgeidx";
-  if (value->m_cont.IsExist(EDGE_INDEX_FILE_TAG.c_str()))
+  if (value->m_cont.IsExist(EDGE_INDEX_FILE_TAG))
     return true;
   return false;
 }
@@ -524,7 +521,7 @@ bool CarRouter::FindSingleRouteDispatcher(FeatureGraphNode const & source, Featu
   Route mwmRoute(GetName());
 
   // @TODO It's not the best place for checking availability of edge index section in mwm.
-  // Probably it's better to keep if mwm had edge index section in mwmId.
+  // Probably it's better to keep if mwm has an edge index section in mwmId.
   if (IsEdgeIndexExisting(source.mwmId) && m_roadGraphRouter)
   {
     // A* routing

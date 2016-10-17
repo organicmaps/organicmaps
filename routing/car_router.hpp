@@ -86,8 +86,6 @@ private:
    * \param route The found route is added the the |route| if the method returns true.
    * \return true if route is build and false otherwise.
    */
-  // @TODO. The behavior of the method should be changed. This method should check if osrm section
-  // available and if so use them. If not, RoadGraphRouter and A* should be used.
   bool FindSingleRouteDispatcher(FeatureGraphNode const & source, FeatureGraphNode const & target,
                                  RouterDelegate const & delegate, TRoutingMappingPtr & mapping,
                                  Route & route);

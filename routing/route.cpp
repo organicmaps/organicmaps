@@ -391,8 +391,6 @@ void Route::AppendRoute(Route const & route)
     m_streets.push_back(move(s));
   }
 
-  // @TODO Implement altitude appending.
-
   // Appending times.
   double const estimationTime = m_times.empty() ? 0.0 : m_times.back().second;
   for (TTimeItem t : route.m_times)
