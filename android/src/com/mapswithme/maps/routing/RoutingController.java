@@ -770,7 +770,7 @@ public class RoutingController
   private void onUberInfoReceived(@NonNull UberInfo info)
   {
     mLogger.d("onUberInfoReceived uberInfo = " + info);
-    if (mContainer != null)
+    if (mLastRouterType == Framework.ROUTER_TYPE_TAXI && mContainer != null)
       mContainer.onUberInfoReceived(info);
   }
 }
