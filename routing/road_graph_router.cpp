@@ -316,7 +316,7 @@ unique_ptr<RoadGraphRouter> CreateCarAStarBidirectionalRouter(Index & index, TCo
 {
   unique_ptr<IVehicleModelFactory> vehicleModelFactory = make_unique<CarModelFactory>();
   unique_ptr<IRoutingAlgorithm> algorithm = make_unique<AStarBidirectionalRoutingAlgorithm>();
-  // @TODO Bycycle turn generation engine is used now. It's ok for the time being.
+  // @TODO Bicycle turn generation engine is used now. It's ok for the time being.
   // But later a special car turn generation engine should be implemented.
   unique_ptr<IDirectionsEngine> directionsEngine = make_unique<BicycleDirectionsEngine>(index);
   unique_ptr<RoadGraphRouter> router = make_unique<RoadGraphRouter>(

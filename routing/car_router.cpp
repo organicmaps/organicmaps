@@ -537,6 +537,8 @@ bool CarRouter::FindSingleRouteDispatcher(FeatureGraphNode const & source, Featu
   else
   {
     // OSRM Routing
+    // @TODO This branch is implemented to support old maps with osrm section. When osrm
+    // section is not supported this branch should be removed.
     vector<Junction> mwmRouteGeometry;
     Route::TTurns mwmTurns;
     Route::TTimes mwmTimes;
