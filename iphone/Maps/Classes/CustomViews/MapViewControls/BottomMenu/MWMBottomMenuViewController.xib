@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -266,6 +265,26 @@
                                         <action selector="toggleInfoTouchUpInside" destination="-1" eventType="touchUpInside" id="kuP-Ue-Syq"/>
                                     </connections>
                                 </button>
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iYj-za-A2N" userLabel="Taxi View">
+                                    <subviews>
+                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="pUj-hX-AzZ" customClass="MWMTaxiCollectionView">
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="7nN-GY-zbW" customClass="MWMTaxiCollectionLayout">
+                                                <size key="itemSize" width="50" height="50"/>
+                                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                            </collectionViewFlowLayout>
+                                        </collectionView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="pUj-hX-AzZ" firstAttribute="top" secondItem="iYj-za-A2N" secondAttribute="top" id="BBS-8B-zgK"/>
+                                        <constraint firstItem="pUj-hX-AzZ" firstAttribute="leading" secondItem="iYj-za-A2N" secondAttribute="leading" id="jpM-ZK-R3N"/>
+                                        <constraint firstAttribute="trailing" secondItem="pUj-hX-AzZ" secondAttribute="trailing" id="pgB-jZ-CDF"/>
+                                        <constraint firstAttribute="bottom" secondItem="pUj-hX-AzZ" secondAttribute="bottom" id="pt8-Js-FpC"/>
+                                    </constraints>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
@@ -296,8 +315,10 @@
                                 <constraint firstItem="pLD-sZ-ejH" firstAttribute="leading" secondItem="4Xc-Kl-hAm" secondAttribute="trailing" constant="16" id="h3c-E6-aX6"/>
                                 <constraint firstItem="nD5-wx-7Ui" firstAttribute="centerY" secondItem="EQy-vz-gyi" secondAttribute="centerY" priority="250" id="h5a-LJ-T8H"/>
                                 <constraint firstItem="P9v-a6-EaA" firstAttribute="centerY" secondItem="7hO-Gk-BGJ" secondAttribute="centerY" priority="500" id="hEB-H2-4WJ"/>
+                                <constraint firstItem="pLD-sZ-ejH" firstAttribute="leading" secondItem="iYj-za-A2N" secondAttribute="trailing" id="i2q-jR-ekX"/>
                                 <constraint firstItem="4Xc-Kl-hAm" firstAttribute="leading" secondItem="c75-ZF-hKn" secondAttribute="leading" priority="250" constant="12" id="mac-YL-Cyx"/>
                                 <constraint firstItem="3oJ-Rv-JS7" firstAttribute="top" secondItem="c75-ZF-hKn" secondAttribute="top" id="plc-KQ-Bxg"/>
+                                <constraint firstItem="iYj-za-A2N" firstAttribute="top" secondItem="c75-ZF-hKn" secondAttribute="top" id="sel-y0-6g8"/>
                                 <constraint firstAttribute="bottom" secondItem="UhW-en-7qq" secondAttribute="bottom" id="tF2-H2-VBe"/>
                                 <constraint firstItem="4Xc-Kl-hAm" firstAttribute="top" secondItem="c75-ZF-hKn" secondAttribute="top" priority="500" constant="12" id="vt3-dc-Ngf"/>
                                 <constraint firstAttribute="trailing" secondItem="mab-rl-ueg" secondAttribute="trailing" id="w4c-fR-znA"/>
@@ -341,6 +362,7 @@
                         <constraint firstItem="WLn-2O-Ivv" firstAttribute="centerY" secondItem="YLY-C4-SBu" secondAttribute="centerY" constant="-8" id="CjF-ja-g56"/>
                         <constraint firstItem="YLY-C4-SBu" firstAttribute="centerY" secondItem="kbJ-If-gUR" secondAttribute="centerY" id="Hly-tK-GHj"/>
                         <constraint firstAttribute="height" constant="48" id="HtR-j8-Qpc"/>
+                        <constraint firstItem="iYj-za-A2N" firstAttribute="leading" secondItem="kbJ-If-gUR" secondAttribute="leading" id="JCb-W7-rfR"/>
                         <constraint firstItem="IzQ-aQ-aPH" firstAttribute="height" secondItem="kbJ-If-gUR" secondAttribute="height" id="JFI-3b-72w"/>
                         <constraint firstAttribute="trailing" secondItem="c75-ZF-hKn" secondAttribute="trailing" priority="500" id="L0y-Zo-LJu"/>
                         <constraint firstItem="c75-ZF-hKn" firstAttribute="top" secondItem="kbJ-If-gUR" secondAttribute="top" id="OyE-mG-Zi1"/>
@@ -349,6 +371,7 @@
                         <constraint firstItem="xQ0-ZK-UXk" firstAttribute="height" secondItem="kbJ-If-gUR" secondAttribute="height" id="WRQ-HY-d1P"/>
                         <constraint firstItem="qVh-dm-DDH" firstAttribute="centerX" secondItem="kbJ-If-gUR" secondAttribute="centerX" multiplier="385:300" id="Wda-vl-hB4"/>
                         <constraint firstItem="qVh-dm-DDH" firstAttribute="height" secondItem="kbJ-If-gUR" secondAttribute="height" id="d2K-hv-PmH"/>
+                        <constraint firstItem="iYj-za-A2N" firstAttribute="height" secondItem="kbJ-If-gUR" secondAttribute="height" id="erS-UF-ESy"/>
                         <constraint firstAttribute="bottom" secondItem="c75-ZF-hKn" secondAttribute="bottom" id="f6U-e7-mij"/>
                         <constraint firstItem="WLn-2O-Ivv" firstAttribute="centerX" secondItem="YLY-C4-SBu" secondAttribute="centerX" constant="8" id="lUQ-gw-psA"/>
                         <constraint firstItem="IzQ-aQ-aPH" firstAttribute="centerY" secondItem="kbJ-If-gUR" secondAttribute="centerY" id="nbW-x7-1M5"/>
@@ -501,6 +524,8 @@
                 <outlet property="speedLegendLabel" destination="P9v-a6-EaA" id="oIZ-cZ-BPO"/>
                 <outlet property="speedView" destination="UhW-en-7qq" id="DOS-6a-5Lq"/>
                 <outlet property="speedWithLegendLabel" destination="azs-RS-4KE" id="IKs-sU-2y7"/>
+                <outlet property="taxiCollectionView" destination="pUj-hX-AzZ" id="PoM-nO-aCN"/>
+                <outlet property="taxiContainer" destination="iYj-za-A2N" id="CHw-td-MRB"/>
                 <outlet property="timeLabel" destination="jSU-Ns-SpQ" id="FVG-3M-FUa"/>
                 <outlet property="timeView" destination="Z68-6z-5Ph" id="x9I-5l-x9o"/>
                 <outlet property="timeWidth" destination="GYP-RF-12U" id="kyM-Ym-X1y"/>

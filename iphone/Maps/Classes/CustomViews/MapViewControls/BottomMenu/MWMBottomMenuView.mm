@@ -21,6 +21,7 @@ CGFloat constexpr kAdditionalHeight = 64;
 CGFloat constexpr kDefaultMainButtonsHeight = 48;
 CGFloat constexpr kBicyclePlanningMainButtonsHeightLandscape = 62;
 CGFloat constexpr kBicyclePlanningMainButtonsHeightRegular = 94;
+CGFloat constexpr kTaxiPreviewMainButtonHeight = 100.;
 CGFloat constexpr kDefaultMenuButtonWidth = 60;
 CGFloat constexpr kRoutingAdditionalButtonsOffsetCompact = 0;
 CGFloat constexpr kRoutingAdditionalButtonsOffsetRegular = 48;
@@ -50,6 +51,7 @@ CGFloat constexpr kTimeWidthRegular = 128;
 @property(weak, nonatomic) IBOutlet UIView * mainButtons;
 @property(weak, nonatomic) IBOutlet UIView * separator;
 @property(weak, nonatomic) IBOutlet UICollectionView * additionalButtons;
+@property(weak, nonatomic) IBOutlet MWMTaxiCollectionView * taxiCollectionView;
 
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * mainButtonsHeight;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * additionalButtonsHeight;
@@ -84,6 +86,7 @@ CGFloat constexpr kTimeWidthRegular = 128;
 @property(weak, nonatomic) IBOutlet UILabel * distanceWithLegendLabel;
 @property(weak, nonatomic) IBOutlet UILabel * estimateLabel;
 @property(weak, nonatomic) IBOutlet UIView * heightProfileContainer;
+@property(weak, nonatomic) IBOutlet UIView * taxiContainer;
 @property(weak, nonatomic) IBOutlet UIImageView * heightProfileImage;
 @property(weak, nonatomic) IBOutlet UIView * heightProfileElevation;
 @property(weak, nonatomic) IBOutlet UIImageView * elevationImage;
@@ -218,6 +221,23 @@ CGFloat constexpr kTimeWidthRegular = 128;
     self.p2pButton.alpha = 0.0;
     self.searchButton.alpha = 0.0;
     break;
+  case MWMBottomMenuStateRoutingError:
+    self.backgroundColor = [UIColor white];
+    self.menuButton.alpha = 0.0;
+    self.downloadBadge.alpha = 1.0;
+    self.bookmarksButton.alpha = 0.0;
+    self.routingView.alpha = 1.0;
+    self.goButton.alpha = 0.0;
+    self.estimateLabel.alpha = 1.0;
+    self.heightProfileContainer.alpha = 0.0;
+    self.speedView.alpha = 0.0;
+    self.timeView.alpha = 0.0;
+    self.distanceView.alpha = 0.0;
+    self.progressView.alpha = 0.0;
+    self.routingAdditionalView.alpha = 0.0;
+    self.p2pButton.alpha = 0.0;
+    self.searchButton.alpha = 0.0;
+    break;
   case MWMBottomMenuStateRouting:
   case MWMBottomMenuStateRoutingExpanded:
     self.backgroundColor = [UIColor white];
@@ -275,11 +295,13 @@ CGFloat constexpr kTimeWidthRegular = 128;
     self.additionalButtons.hidden = YES;
     self.routingView.hidden = YES;
     self.routingAdditionalView.hidden = YES;
+    self.taxiContainer.hidden = YES;
     break;
   case MWMBottomMenuStateActive:
     self.downloadBadge.hidden = YES;
     self.routingView.hidden = YES;
     self.routingAdditionalView.hidden = YES;
+    self.taxiContainer.hidden = YES;
     break;
   case MWMBottomMenuStateCompact:
     if (!IPAD)
@@ -291,15 +313,31 @@ CGFloat constexpr kTimeWidthRegular = 128;
     self.downloadBadge.hidden = YES;
     self.routingView.hidden = YES;
     self.routingAdditionalView.hidden = YES;
+    self.taxiContainer.hidden = YES;
     break;
   case MWMBottomMenuStatePlanning:
   case MWMBottomMenuStateGo:
+  {
     self.downloadBadge.hidden = YES;
     self.menuButton.hidden = YES;
     self.bookmarksButton.hidden = YES;
     self.p2pButton.hidden = YES;
     self.searchButton.hidden = YES;
     self.routingAdditionalView.hidden = YES;
+    BOOL const isNeedToShowTaxi = [MWMRouter isTaxi];
+    self.estimateLabel.hidden = isNeedToShowTaxi;
+    self.taxiContainer.hidden = !isNeedToShowTaxi || IPAD;
+    break;
+  }
+  case MWMBottomMenuStateRoutingError:
+    self.downloadBadge.hidden = YES;
+    self.menuButton.hidden = YES;
+    self.bookmarksButton.hidden = YES;
+    self.p2pButton.hidden = YES;
+    self.searchButton.hidden = YES;
+    self.routingAdditionalView.hidden = YES;
+    self.estimateLabel.hidden = NO;
+    self.taxiContainer.hidden = YES;
     break;
   case MWMBottomMenuStateRouting:
   case MWMBottomMenuStateRoutingExpanded:
@@ -309,6 +347,7 @@ CGFloat constexpr kTimeWidthRegular = 128;
     self.routingAdditionalView.hidden = NO;
     self.p2pButton.hidden = YES;
     self.searchButton.hidden = YES;
+    self.taxiContainer.hidden = YES;
     break;
   }
 }
@@ -331,6 +370,7 @@ CGFloat constexpr kTimeWidthRegular = 128;
     break;
   case MWMBottomMenuStateGo:
   {
+    [[MWMNavigationDashboardManager manager] updateStartButtonTitle:self.goButton];
     [self layoutPlanningGeometry];
     if ([MWMRouter hasRouteAltitude])
     {
@@ -338,8 +378,7 @@ CGFloat constexpr kTimeWidthRegular = 128;
       if (isLandscape)
       {
         self.mainButtonsHeight.constant = kBicyclePlanningMainButtonsHeightLandscape;
-        if ([MWMRouter hasRouteAltitude])
-          self.estimateLabelTopOffset.priority = UILayoutPriorityDefaultHigh;
+        self.estimateLabelTopOffset.priority = UILayoutPriorityDefaultHigh;
       }
       else
       {
@@ -349,8 +388,15 @@ CGFloat constexpr kTimeWidthRegular = 128;
         self.mainButtonsHeight.constant = kBicyclePlanningMainButtonsHeightRegular;
       }
     }
+    else if ([MWMRouter isTaxi])
+    {
+      self.mainButtonsHeight.constant = kTaxiPreviewMainButtonHeight;
+    }
     break;
   }
+  case MWMBottomMenuStateRoutingError:
+    self.mainButtonsHeight.constant = kDefaultMainButtonsHeight;
+    break;
   case MWMBottomMenuStateCompact:
     if (self.restoreState == MWMBottomMenuStateRouting && !IPAD &&
         UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation))
@@ -502,6 +548,7 @@ CGFloat constexpr kTimeWidthRegular = 128;
       case MWMBottomMenuStateHidden:
       case MWMBottomMenuStateInactive:
       case MWMBottomMenuStatePlanning:
+      case MWMBottomMenuStateRoutingError:
       case MWMBottomMenuStateGo: name = @"ic_menu"; break;
       case MWMBottomMenuStateActive:
       case MWMBottomMenuStateRouting:
@@ -632,6 +679,20 @@ CGFloat constexpr kTimeWidthRegular = 128;
     self.routingAdditionalView.hidden = YES;
     break;
   }
+  case MWMBottomMenuStateRoutingError:
+    self.goButton.hidden = YES;
+    self.estimateLabel.hidden = NO;
+    self.heightProfileContainer.hidden = YES;
+    self.heightProfileElevation.hidden = YES;
+    self.toggleInfoButton.hidden = YES;
+    self.speedView.hidden = YES;
+    self.timeView.hidden = YES;
+    self.distanceView.hidden = YES;
+    self.progressView.hidden = YES;
+    self.routingView.hidden = NO;
+    self.routingAdditionalView.hidden = YES;
+    self.estimateLabel.text = [MWMRouter isTaxi] ? L(@"taxi_not_found") : L(@"routing_planning_error");
+    break;
   case MWMBottomMenuStateRouting:
     self.menuButton.hidden = NO;
     self.goButton.hidden = YES;

@@ -201,7 +201,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   [self refreshRoutingDiminishTimer];
 }
 
-- (IBAction)routingStartTouchUpInside { [[MWMRouter router] start]; }
+- (IBAction)routingStartTouchUpInside { [MWMRouter startRouting]; }
 - (IBAction)routingStopTouchUpInside { [[MWMRouter router] stop]; }
 - (IBAction)soundTouchUpInside:(MWMButton *)sender
 {
@@ -426,6 +426,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   case MWMBottomMenuStateInactive:
   case MWMBottomMenuStatePlanning:
   case MWMBottomMenuStateGo:
+  case MWMBottomMenuStateRoutingError:
     [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatExpand}];
     self.state = MWMBottomMenuStateActive;
     break;
@@ -497,6 +498,11 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
     [_dimBackground addGestureRecognizer:tap];
   }
   return _dimBackground;
+}
+
+- (MWMTaxiCollectionView *)taxiCollectionView
+{
+  return static_cast<MWMBottomMenuView *>(self.view).taxiCollectionView;
 }
 
 - (void)setState:(MWMBottomMenuState)state

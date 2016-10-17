@@ -50,7 +50,7 @@ struct Product
 };
 /// @products - vector of available products for requested route.
 /// @requestId - identificator which was provided to GetAvailableProducts to identify request.
-using ProductsCallback = function<void(vector<Product> const & products, size_t const requestId)>;
+using ProductsCallback = function<void(vector<Product> const & products, uint64_t const requestId)>;
 
 /// Class which used for making products from http requests results.
 class ProductMaker

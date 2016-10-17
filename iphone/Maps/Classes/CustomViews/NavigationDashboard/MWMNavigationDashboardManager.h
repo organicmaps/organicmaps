@@ -5,6 +5,7 @@
 #import "MWMNavigationDashboardInfoProtocol.h"
 #import "MWMNavigationViewProtocol.h"
 #import "MWMRoutePreview.h"
+#import "MWMTaxiPreviewDataSource.h"
 
 #include "Framework.h"
 #include "platform/location.hpp"
@@ -23,6 +24,7 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState) {
 - (void)didStartEditingRoutePoint:(BOOL)isSource;
 - (void)setMenuState:(MWMBottomMenuState)menuState;
 - (void)setMenuRestoreState:(MWMBottomMenuState)menuState;
+- (MWMTaxiCollectionView *)taxiCollectionView;
 
 @end
 
@@ -33,6 +35,7 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState) {
 @property(nonatomic, readonly) MWMNavigationDashboardEntity * entity;
 @property(nonatomic, readonly) MWMRoutePreview * routePreview;
 @property(nonatomic) MWMNavigationDashboardState state;
+@property(nonatomic, readonly) MWMTaxiPreviewDataSource * taxiDataSource;
 @property(weak, nonatomic, readonly) id<MWMNavigationDashboardManagerProtocol> delegate;
 @property(nonatomic) CGFloat topBound;
 @property(nonatomic) CGFloat leftBound;
@@ -50,5 +53,7 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState) {
 - (void)setMapSearch;
 
 - (void)addInfoDisplay:(id<MWMNavigationDashboardInfoProtocol>)infoDisplay;
+
+- (void)updateStartButtonTitle:(UIButton *)startButton;
 
 @end

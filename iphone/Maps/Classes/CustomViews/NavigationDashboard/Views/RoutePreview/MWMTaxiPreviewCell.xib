@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MWMTaxiPreviewCell" id="gTV-IL-0wX" customClass="MWMTaxiPreviewCell">
+            <rect key="frame" x="0.0" y="0.0" width="270" height="90"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="270" height="90"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_logo_uber" translatesAutoresizingMaskIntoConstraints="NO" id="fMe-7t-K8o">
+                        <constraints>
+                            <constraint firstAttribute="width" constant="24" id="J9j-o7-oft"/>
+                            <constraint firstAttribute="height" constant="24" id="xNw-pd-Htk"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UberX" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="til-vK-WGY">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="Kwx-o0-Puh"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ожидание 9 мин" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TWl-RV-DGe">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="17" id="2g1-aI-YC5"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular13"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="350-400 Р" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYn-L4-OCN">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="17" id="l0a-ey-rLi"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular13"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="til-vK-WGY" secondAttribute="trailing" constant="8" id="1cv-9U-a5B"/>
+                <constraint firstItem="eYn-L4-OCN" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="60" id="Chh-39-eZi"/>
+                <constraint firstItem="til-vK-WGY" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="60" id="LGg-QV-aJQ"/>
+                <constraint firstItem="til-vK-WGY" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="12" id="QhC-IF-2Jo"/>
+                <constraint firstItem="eYn-L4-OCN" firstAttribute="top" secondItem="TWl-RV-DGe" secondAttribute="bottom" constant="8" id="TNd-rY-ikb"/>
+                <constraint firstAttribute="trailing" secondItem="TWl-RV-DGe" secondAttribute="trailing" constant="8" id="Xa0-US-hvk"/>
+                <constraint firstItem="TWl-RV-DGe" firstAttribute="leading" secondItem="fMe-7t-K8o" secondAttribute="trailing" constant="20" id="hwo-HA-HnY"/>
+                <constraint firstItem="fMe-7t-K8o" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="16" id="jWP-zf-PQ0"/>
+                <constraint firstItem="TWl-RV-DGe" firstAttribute="top" secondItem="til-vK-WGY" secondAttribute="bottom" constant="4" id="mnd-bi-Pll"/>
+                <constraint firstItem="fMe-7t-K8o" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="nik-kR-M40"/>
+                <constraint firstAttribute="bottom" secondItem="eYn-L4-OCN" secondAttribute="bottom" constant="12" id="uKf-F5-jLb"/>
+                <constraint firstAttribute="trailing" secondItem="eYn-L4-OCN" secondAttribute="trailing" constant="8" id="zEO-OX-nTr"/>
+            </constraints>
+            <size key="customSize" width="251" height="50"/>
+            <connections>
+                <outlet property="icon" destination="fMe-7t-K8o" id="Q6r-Xu-ubl"/>
+                <outlet property="price" destination="eYn-L4-OCN" id="fbl-b4-YcH"/>
+                <outlet property="product" destination="til-vK-WGY" id="niL-a9-azs"/>
+                <outlet property="waitingTime" destination="TWl-RV-DGe" id="a9L-QW-Ekf"/>
+            </connections>
+            <point key="canvasLocation" x="-46" y="78"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="ic_logo_uber" width="24" height="24"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
+    </simulatedMetricsContainer>
+</document>

@@ -199,6 +199,7 @@ static NSString * const kStatToggleStatistics = @"Toggle statistics";
 static NSString * const kStatToggleVisibility = @"Toggle visibility";
 static NSString * const kStatToggleZoomButtonsVisibility = @"Toggle zoom buttons visibility";
 static NSString * const kStatType = @"type";
+static NSString * const kStatUber = @"Uber";
 static NSString * const kStatUnknownError = @"unknown_error";
 static NSString * const kStatUpdate = @"update";
 static NSString * const kStatUpdateAll = @"update_all";

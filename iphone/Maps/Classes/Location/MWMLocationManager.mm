@@ -344,6 +344,7 @@ void setPermissionRequested()
     case routing::RouterType::Vehicle: manager.geoMode = GeoMode::VehicleRouting; break;
     case routing::RouterType::Pedestrian: manager.geoMode = GeoMode::PedestrianRouting; break;
     case routing::RouterType::Bicycle: manager.geoMode = GeoMode::BicycleRouting; break;
+    case routing::RouterType::Taxi: break;
     }
   }
   else

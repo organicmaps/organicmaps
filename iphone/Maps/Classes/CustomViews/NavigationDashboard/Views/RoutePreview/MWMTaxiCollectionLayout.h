@@ -1,0 +1,3 @@
+@interface MWMTaxiCollectionLayout : UICollectionViewFlowLayout
+
+@end

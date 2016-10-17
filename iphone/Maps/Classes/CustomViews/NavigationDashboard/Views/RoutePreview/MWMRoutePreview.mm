@@ -5,11 +5,16 @@
 #import "MWMRoutePointCell.h"
 #import "MWMRoutePointLayout.h"
 #import "MWMRouter.h"
+#import "MWMTaxiPreviewDataSource.h"
 #import "Statistics.h"
 #import "UIButton+Orientation.h"
 #import "UIImageView+Coloring.h"
 
-static CGFloat constexpr kAdditionalHeight = 20.;
+namespace
+{
+CGFloat constexpr kAdditionalHeight = 20.;
+
+}  // namespace
 
 @interface MWMRoutePreview ()<MWMRoutePointCellDelegate, MWMCircularProgressProtocol>
 
@@ -17,8 +22,9 @@ static CGFloat constexpr kAdditionalHeight = 20.;
 @property(weak, nonatomic) IBOutlet UIView * pedestrian;
 @property(weak, nonatomic) IBOutlet UIView * vehicle;
 @property(weak, nonatomic) IBOutlet UIView * bicycle;
+@property(weak, nonatomic) IBOutlet UIView * taxi;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * planningRouteViewHeight;
-@property(weak, nonatomic, readwrite) IBOutlet UIButton * extendButton;
+@property(weak, nonatomic) IBOutlet UIButton * extendButton;
 @property(weak, nonatomic) IBOutlet UIButton * goButton;
 @property(weak, nonatomic) IBOutlet UICollectionView * collectionView;
 @property(weak, nonatomic) IBOutlet MWMRoutePointLayout * layout;
@@ -27,7 +33,9 @@ static CGFloat constexpr kAdditionalHeight = 20.;
 @property(weak, nonatomic) IBOutlet UIView * planningBox;
 @property(weak, nonatomic) IBOutlet UIView * resultsBox;
 @property(weak, nonatomic) IBOutlet UIView * heightBox;
+@property(weak, nonatomic) IBOutlet UIView * taxiBox;
 @property(weak, nonatomic) IBOutlet UIView * errorBox;
+@property(weak, nonatomic) IBOutlet UILabel * errorLabel;
 @property(weak, nonatomic) IBOutlet UILabel * resultLabel;
 @property(weak, nonatomic) IBOutlet UILabel * arriveLabel;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * statusBoxHeight;
@@ -37,6 +45,7 @@ static CGFloat constexpr kAdditionalHeight = 20.;
 @property(weak, nonatomic) IBOutlet UIView * heightProfileElevation;
 @property(weak, nonatomic) IBOutlet UIImageView * elevationImage;
 @property(weak, nonatomic) IBOutlet UILabel * elevationHeight;
+@property(weak, nonatomic) IBOutlet MWMTaxiCollectionView * taxiCollectionView;
 
 @property(nonatomic) UIImageView * movingCellImage;
 
@@ -67,13 +76,11 @@ static CGFloat constexpr kAdditionalHeight = 20.;
 
 - (void)setupProgresses
 {
-  [self addProgress:self.vehicle imageName:@"ic_drive" routerType:routing::RouterType::Vehicle];
-  [self addProgress:self.pedestrian
-          imageName:@"ic_walk"
-         routerType:routing::RouterType::Pedestrian];
-  [self addProgress:self.bicycle
-          imageName:@"ic_bike_route"
-         routerType:routing::RouterType::Bicycle];
+  using type = routing::RouterType;
+  [self addProgress:self.vehicle imageName:@"ic_drive" routerType:type::Vehicle];
+  [self addProgress:self.pedestrian imageName:@"ic_walk" routerType:type::Pedestrian];
+  [self addProgress:self.bicycle imageName:@"ic_bike_route" routerType:type::Bicycle];
+  [self addProgress:self.taxi imageName:@"ic_taxi" routerType:type::Taxi];
 }
 
 - (void)addProgress:(UIView *)parentView
@@ -105,8 +112,10 @@ static CGFloat constexpr kAdditionalHeight = 20.;
 - (void)didMoveToSuperview { [self setupActualHeight]; }
 - (void)statePrepare
 {
+  [[MWMNavigationDashboardManager manager] updateStartButtonTitle:self.goButton];
   for (auto const & progress : m_progresses)
     progress.second.state = MWMCircularProgressStateNormal;
+
   self.arrowImageView.transform = CGAffineTransformMakeRotation(M_PI);
   self.goButton.hidden = NO;
   self.goButton.enabled = NO;
@@ -120,32 +129,19 @@ static CGFloat constexpr kAdditionalHeight = 20.;
   self.heightProfileElevation.hidden = YES;
   self.planningBox.hidden = YES;
   self.errorBox.hidden = YES;
-}
-
-- (void)statePlanning
-{
-  self.goButton.hidden = NO;
-  self.goButton.enabled = NO;
-  self.goButton.enabled = NO;
-  self.statusBox.hidden = NO;
-  self.resultsBox.hidden = YES;
-  self.heightBox.hidden = YES;
-  self.heightProfileElevation.hidden = YES;
-  self.errorBox.hidden = YES;
-  self.planningBox.hidden = NO;
-  [self reloadData];
-  if (IPAD)
-    [self iPadNotReady];
+  self.taxiBox.hidden = YES;
 }
 
 - (void)stateError
 {
+  [[MWMNavigationDashboardManager manager] updateStartButtonTitle:self.goButton];
   self.goButton.hidden = NO;
   self.goButton.enabled = NO;
   self.statusBox.hidden = NO;
   self.planningBox.hidden = YES;
   self.resultsBox.hidden = YES;
   self.heightBox.hidden = YES;
+  self.taxiBox.hidden = YES;
   self.heightProfileElevation.hidden = YES;
   self.errorBox.hidden = NO;
   if (IPAD)
@@ -154,6 +150,7 @@ static CGFloat constexpr kAdditionalHeight = 20.;
 
 - (void)stateReady
 {
+  [[MWMNavigationDashboardManager manager] updateStartButtonTitle:self.goButton];
   self.goButton.hidden = NO;
   self.goButton.enabled = YES;
   self.statusBox.hidden = NO;
@@ -170,22 +167,32 @@ static CGFloat constexpr kAdditionalHeight = 20.;
 - (void)iPadReady
 {
   [self layoutIfNeeded];
-  self.statusBoxHeight.constant =
-      self.resultsBoxHeight.constant +
-      ([MWMRouter hasRouteAltitude] ? self.heightBoxHeight.constant : 0);
-  [UIView animateWithDuration:kDefaultAnimationDuration
-      animations:^{
-        [self layoutIfNeeded];
+  if ([MWMRouter isTaxi])
+  {
+    self.statusBoxHeight.constant = self.taxiBox.height;
+    self.taxiBox.hidden = NO;
+  }
+  else
+  {
+    self.statusBoxHeight.constant =
+        self.resultsBoxHeight.constant +
+        ([MWMRouter hasRouteAltitude] ? self.heightBoxHeight.constant : 0);
+    [UIView animateWithDuration:kDefaultAnimationDuration animations:^
+    {
+      [self layoutIfNeeded];
+    }
+    completion:^(BOOL finished)
+    {
+      [UIView animateWithDuration:kDefaultAnimationDuration animations:^
+      {
+        self.arriveLabel.alpha = 1.;
       }
-      completion:^(BOOL finished) {
-        [UIView animateWithDuration:kDefaultAnimationDuration
-            animations:^{
-              self.arriveLabel.alpha = 1.;
-            }
-            completion:^(BOOL finished) {
-              [self updateHeightProfile];
-            }];
+      completion:^(BOOL finished)
+      {
+        [self updateHeightProfile];
       }];
+    }];
+  }
 }
 
 - (void)updateHeightProfile
@@ -203,6 +210,8 @@ static CGFloat constexpr kAdditionalHeight = 20.;
 
 - (void)iPadNotReady
 {
+  self.taxiBox.hidden = YES;
+  self.errorLabel.text = [MWMRouter isTaxi] ? L(@"taxi_not_found") : L(@"routing_planning_error");
   self.arriveLabel.alpha = 0.;
   [self layoutIfNeeded];
   self.statusBoxHeight.constant = self.resultsBoxHeight.constant;
@@ -271,6 +280,10 @@ static CGFloat constexpr kAdditionalHeight = 20.;
       [Statistics logEvent:kStatPointToPoint
             withParameters:@{kStatAction : kStatChangeRoutingMode, kStatValue : kStatBicycle}];
       break;
+    case routing::RouterType::Taxi:
+      [Statistics logEvent:kStatPointToPoint
+            withParameters:@{kStatAction : kStatChangeRoutingMode, kStatValue : kStatUber}];
+        break;
     }
   }
 }
