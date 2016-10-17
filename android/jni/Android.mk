@@ -100,6 +100,7 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/opengl/androidoglcontext.cpp \
 	com/mapswithme/opengl/androidoglcontextfactory.cpp \
 	com/mapswithme/platform/HttpThread.cpp \
+	com/mapswithme/platform/SocketImpl.cpp \
 	com/mapswithme/platform/Language.cpp \
 	com/mapswithme/platform/Platform.cpp \
 	com/mapswithme/platform/PThreadImpl.cpp \

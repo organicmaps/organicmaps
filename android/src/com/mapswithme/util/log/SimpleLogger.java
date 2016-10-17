@@ -32,6 +32,12 @@ public class SimpleLogger extends Logger
     Log.e(tag, message + join(args));
   }
 
+  @Override
+  public void e(Throwable throwable, String message, Object... args)
+  {
+    Log.e(tag, message + join(args), throwable);
+  }
+
   private SimpleLogger() {}
 
   private SimpleLogger(String tag) { super(tag); }

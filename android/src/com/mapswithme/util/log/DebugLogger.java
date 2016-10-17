@@ -38,4 +38,11 @@ public class DebugLogger extends Logger
     if (mLogger != null)
       mLogger.e(message, args);
   }
+
+  @Override
+  public void e(Throwable throwable, String message, Object... args)
+  {
+    if (mLogger != null)
+      mLogger.e(message, throwable, args);
+  }
 }
