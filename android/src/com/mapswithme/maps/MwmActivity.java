@@ -142,6 +142,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   // The first launch of application ever - onboarding screen will be shown.
   private boolean mFirstStart;
+  private boolean isPlacePageRestored;
 
   public interface LeftAnimationTrackListener
   {
@@ -763,6 +764,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     State state = State.values()[savedInstanceState.getInt(STATE_PP, 0)];
     if (state != State.HIDDEN)
     {
+      isPlacePageRestored = true;
       mPlacePage.setMapObject((MapObject) savedInstanceState.getParcelable(STATE_MAP_OBJECT), true);
       mPlacePage.setState(state);
     }
@@ -823,6 +825,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onResume();
 
+    isPlacePageRestored = mPlacePage.getState() != State.HIDDEN;
     mSearchController.refreshToolbar();
     mMainMenu.onResume(new Runnable()
     {
@@ -1030,7 +1033,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     setFullscreen(false);
 
     mPlacePage.setMapObject(object, true);
-    mPlacePage.setState(State.PREVIEW);
+    if (!isPlacePageRestored)
+      mPlacePage.setState(State.PREVIEW);
+    isPlacePageRestored = false;
 
     if (UiUtils.isVisible(mFadeView))
       mFadeView.fadeOut();

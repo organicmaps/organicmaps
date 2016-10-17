@@ -62,29 +62,6 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
     float screenHeight = dm.heightPixels;
     mDetailMaxHeight = screenHeight * DETAIL_RATIO;
     mScrollDelta = SCROLL_DELTA * dm.density;
-
-    mPreview.setOnClickListener(new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        if (mPlacePage.getState() == State.PREVIEW)
-        {
-          if (isDetailContentScrollable())
-          {
-            mPlacePage.setState(State.DETAILS);
-          }
-          else
-          {
-            mPlacePage.setState(State.FULLSCREEN);
-          }
-        }
-        else
-        {
-          mPlacePage.setState(State.PREVIEW);
-        }
-      }
-    });
   }
 
   @Override
@@ -214,6 +191,43 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
           }
         }
 
+        return true;
+      }
+
+      @Override
+      public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY)
+      {
+        finishDrag(-velocityY);
+        return true;
+      }
+
+      @Override
+      public boolean onSingleTapConfirmed(MotionEvent e)
+      {
+        MotionEvent evt = MotionEvent.obtain(e.getDownTime(),
+                                             e.getEventTime(),
+                                             e.getAction(),
+                                             e.getX(),
+                                             mDownCoord,
+                                             e.getMetaState());
+        if (UiUtils.isViewTouched(evt, mPreview))
+        {
+          if (mPlacePage.getState() == State.PREVIEW)
+          {
+            if (isDetailContentScrollable())
+            {
+              mPlacePage.setState(State.DETAILS);
+            }
+            else
+            {
+              mPlacePage.setState(State.FULLSCREEN);
+            }
+          }
+          else
+          {
+            mPlacePage.setState(State.PREVIEW);
+          }
+        }
         return true;
       }
     });
