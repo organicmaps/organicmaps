@@ -7,6 +7,8 @@
 #include "base/logging.hpp"
 #include "base/thread.hpp"
 
+#include "std/iomanip.hpp"
+
 #include "3party/jansson/myjansson.hpp"
 
 #include "private.h"
@@ -116,7 +118,8 @@ namespace uber
 string RawApi::GetProducts(ms::LatLon const & pos)
 {
   stringstream url;
-  url << "https://api.uber.com/v1/products?server_token=" << UBER_SERVER_TOKEN
+  url << fixed << setprecision(6)
+      << "https://api.uber.com/v1/products?server_token=" << UBER_SERVER_TOKEN
       << "&latitude=" << pos.lat << "&longitude=" << pos.lon;
 
   return RunSimpleHttpRequest(url.str());
@@ -126,7 +129,8 @@ string RawApi::GetProducts(ms::LatLon const & pos)
 string RawApi::GetEstimatedTime(ms::LatLon const & pos)
 {
   stringstream url;
-  url << "https://api.uber.com/v1/estimates/time?server_token=" << UBER_SERVER_TOKEN
+  url << fixed << setprecision(6)
+      << "https://api.uber.com/v1/estimates/time?server_token=" << UBER_SERVER_TOKEN
       << "&start_latitude=" << pos.lat << "&start_longitude=" << pos.lon;
 
   return RunSimpleHttpRequest(url.str());
@@ -136,7 +140,8 @@ string RawApi::GetEstimatedTime(ms::LatLon const & pos)
 string RawApi::GetEstimatedPrice(ms::LatLon const & from, ms::LatLon const & to)
 {
   stringstream url;
-  url << "https://api.uber.com/v1/estimates/price?server_token=" << UBER_SERVER_TOKEN
+  url << fixed << setprecision(6)
+      << "https://api.uber.com/v1/estimates/price?server_token=" << UBER_SERVER_TOKEN
       << "&start_latitude=" << from.lat << "&start_longitude=" << from.lon
       << "&end_latitude=" << to.lat << "&end_longitude=" << to.lon;
 
@@ -217,7 +222,8 @@ RideRequestLinks Api::GetRideRequestLinks(string const & productId, ms::LatLon c
                                           ms::LatLon const & to)
 {
   stringstream url;
-  url << "?client_id=" << UBER_CLIENT_ID << "&action=setPickup&product_id=" << productId
+  url << fixed << setprecision(6)
+      << "?client_id=" << UBER_CLIENT_ID << "&action=setPickup&product_id=" << productId
       << "&pickup[latitude]=" << from.lat << "&pickup[longitude]=" << from.lon
       << "&dropoff[latitude]=" << to.lat << "&dropoff[longitude]=" << to.lon;
 
