@@ -45,6 +45,12 @@ class SocketWrapper implements PlatformSocket
       return false;
     }
 
+    if (!isPortAllowed(port))
+    {
+      sLogger.e("A wrong port number, it must be within (0-65535) range", port);
+      return false;
+    }
+
     mHost = host;
     mPort = port;
 
@@ -55,6 +61,11 @@ class SocketWrapper implements PlatformSocket
     }
 
     return mSocket != null;
+  }
+
+  private static boolean isPortAllowed(int port)
+  {
+    return port >= 0 && port <= 65535;
   }
 
   @Nullable
