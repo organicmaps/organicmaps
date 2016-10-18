@@ -263,7 +263,7 @@ if [ "$MODE" == "coast" ]; then
   if [ ! -f "$OPENTABLE_FILE" -a -n "${OPENTABLE_USER-}" -a -n "${OPENTABLE_PASS-}" ]; then
     log "STATUS" "Step S2: Starting background restaurants downloading"
     (
-        $PYTHON $OPENTABLE_SCRIPT --client $OPENTABLE_USER --secrete $OPENTABLE_PASS --opentable_data "$INTDIR"/opentable.json --download --tsv "$OPENTABLE_FILE" 2>"$LOG_PATH"/opentable.log &
+        $PYTHON $OPENTABLE_SCRIPT --client $OPENTABLE_USER --secret $OPENTABLE_PASS --opentable_data "$INTDIR"/opentable.json --download --tsv "$OPENTABLE_FILE" 2>"$LOG_PATH"/opentable.log &
         echo "Restaurants have been downloaded. Please ensure this line is before Step 4." >> "$PLANET_LOG"
     ) &
   fi

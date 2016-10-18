@@ -106,7 +106,7 @@ if __name__ == '__main__':
     args = parser.parse_args(sys.argv[1:])
 
     if args.download:
-        print('Downloading')
+        logging.info('Downloading')
         loader = OpentableDownloader(args.client, args.secret, args.opentable_data)
         loader.download()
     if args.tsv is not None:
