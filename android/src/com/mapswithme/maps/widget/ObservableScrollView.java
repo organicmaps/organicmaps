@@ -75,7 +75,7 @@ public class ObservableScrollView extends ScrollView
    *
    * @param gestureDetector {@link GestureDetectorCompat} to use.
    */
-  public void useGestureDetector(@Nullable GestureDetectorCompat gestureDetector)
+  public void setGestureDetector(@Nullable GestureDetectorCompat gestureDetector)
   {
     mGestureDetector = gestureDetector;
   }
