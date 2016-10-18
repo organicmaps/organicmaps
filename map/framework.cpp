@@ -789,17 +789,22 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
   if (ftypes::IsAddressObjectChecker::Instance()(ft))
     info.m_address = GetAddressInfoAtPoint(feature::GetCenter(ft)).FormatHouseAndStreet();
 
-  info.m_isHotel = ftypes::IsHotelChecker::Instance()(ft);
   if (ftypes::IsBookingChecker::Instance()(ft))
   {
-    info.m_isSponsoredHotel = true;
+    info.m_sponsoredType = SponsoredType::Booking;
     string const & baseUrl = info.GetMetadata().Get(feature::Metadata::FMD_WEBSITE);
-    info.m_sponsoredBookingUrl = GetBookingApi().GetBookingUrl(baseUrl);
+    info.m_sponsoredUrl = GetBookingApi().GetBookingUrl(baseUrl);
     info.m_sponsoredDescriptionUrl = GetBookingApi().GetDescriptionUrl(baseUrl);
   }
+  else if (ftypes::IsOpentableChecker::Instance()(ft))
+  {
+    info.m_sponsoredType = SponsoredType::Opentable;
+    info.m_sponsoredUrl = info.GetMetadata().Get(feature::Metadata::FMD_WEBSITE);
+  }
+
 
   info.m_canEditOrAdd = featureStatus != osm::Editor::FeatureStatus::Obsolete && CanEditMap() &&
-                        !info.IsSponsoredHotel();
+                        !info.IsSponsored();
 
   info.m_localizedWifiString = m_stringsBundle.GetString("wifi");
   info.m_localizedRatingString = m_stringsBundle.GetString("place_page_booking_rating");
@@ -1979,7 +1984,7 @@ void Framework::ActivateMapSelection(bool needAnimation, df::SelectionShape::ESe
   CallDrapeFunction(bind(&df::DrapeEngine::SelectObject, _1, selectionType, info.GetMercator(), info.GetID(),
                          needAnimation));
 
-  SetDisplacementMode(DisplacementModeManager::SLOT_MAP_SELECTION, info.IsHotel() /* show */);
+  SetDisplacementMode(DisplacementModeManager::SLOT_MAP_SELECTION, ftypes::IsHotelChecker::Instance()(info.GetTypes()) /* show */);
 
   if (m_activateMapSelectionFn)
     m_activateMapSelectionFn(info);
@@ -2055,7 +2060,7 @@ void Framework::OnTapEvent(TapEvent const & tapEvent)
       // Older version of statistics used "$GetUserMark" event.
       alohalytics::Stats::Instance().LogEvent("$SelectMapObject", kv, alohalytics::Location::FromLatLon(ll.lat, ll.lon));
 
-      if (info.IsHotel())
+      if (info.m_sponsoredType == SponsoredType::Booking)
         GetPlatform().SendMarketingEvent("Placepage_Hotel_book", {{"provider", "booking.com"}});
     }
 
