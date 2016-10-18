@@ -19,7 +19,9 @@
 @property(weak, nonatomic) IBOutlet UIButton * upperButton;
 @property(weak, nonatomic) IBOutlet UIImageView * toggleImage;
 
-@property(nonatomic) MWMPlacePageCellType type;
+@property(nonatomic) MWMPlacePageCellType type NS_DEPRECATED_IOS(7_0, 8_0, "Use rowType instead");
+@property(nonatomic) place_page::MetainfoRows rowType NS_AVAILABLE_IOS(8_0);
+@property(weak, nonatomic) MWMPlacePageData * data NS_AVAILABLE_IOS(8_0);
 
 @end
 
@@ -37,8 +39,53 @@
   }
 }
 
+- (void)configWithRow:(place_page::MetainfoRows)row data:(MWMPlacePageData *)data;
+{
+  self.rowType = row;
+  self.data = data;
+  NSString * name;
+  switch (row)
+  {
+  case place_page::MetainfoRows::Address:
+    self.toggleImage.hidden = YES;
+    name = @"address";
+    break;
+  case place_page::MetainfoRows::Phone:
+    self.toggleImage.hidden = YES;
+    name = @"phone_number";
+    break;
+  case place_page::MetainfoRows::Website:
+    self.toggleImage.hidden = YES;
+    name = @"website";
+    break;
+  case place_page::MetainfoRows::Email:
+    self.toggleImage.hidden = YES;
+    name = @"email";
+    break;
+  case place_page::MetainfoRows::Cuisine:
+    self.toggleImage.hidden = YES;
+    name = @"cuisine";
+    break;
+  case place_page::MetainfoRows::Operator:
+    self.toggleImage.hidden = YES;
+    name = @"operator";
+    break;
+  case place_page::MetainfoRows::Internet:
+    self.toggleImage.hidden = YES;
+    name = @"wifi";
+    break;
+  case place_page::MetainfoRows::Coordinate:
+    self.toggleImage.hidden = NO;
+    name = @"coordinate";
+    break;
+  case place_page::MetainfoRows::OpeningHours: NSAssert(false, @"Incorrect cell type!"); break;
+  }
+  [self configWithIconName:name data:[data stringForRow:row]];
+}
+
 - (void)configureWithType:(MWMPlacePageCellType)type info:(NSString *)info;
 {
+  self.type = type;
   NSString * typeName;
   switch (type)
   {
@@ -70,14 +117,18 @@
   default: NSAssert(false, @"Incorrect type!"); break;
   }
 
+  [self configWithIconName:typeName data:info];
+}
+
+- (void)configWithIconName:(NSString *)name data:(NSString *)data
+{
   UIImage * image =
-      [UIImage imageNamed:[NSString stringWithFormat:@"%@%@", @"ic_placepage_", typeName]];
-  self.type = type;
+      [UIImage imageNamed:[NSString stringWithFormat:@"%@%@", @"ic_placepage_", name]];
   self.icon.image = image;
   self.icon.mwm_coloring = [self.textContainer isKindOfClass:[UITextView class]]
                                ? MWMImageColoringBlue
                                : MWMImageColoringBlack;
-  [self changeText:info];
+  [self changeText:data];
   UILongPressGestureRecognizer * longTap =
       [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longTap:)];
   longTap.minimumPressDuration = 0.3;
@@ -123,24 +174,52 @@
 
 - (IBAction)cellTap
 {
-  switch (self.type)
+  if (IPAD)
   {
-  case MWMPlacePageCellTypeURL:
-  case MWMPlacePageCellTypeWebsite:
-    [Statistics logEvent:kStatEventName(kStatPlacePage, kStatOpenSite)];
-    break;
-  case MWMPlacePageCellTypeEmail:
-    [Statistics logEvent:kStatEventName(kStatPlacePage, kStatSendEmail)];
-    break;
-  case MWMPlacePageCellTypePhoneNumber:
+    switch (self.type)
+    {
+    case MWMPlacePageCellTypeURL:
+    case MWMPlacePageCellTypeWebsite:
+      [Statistics logEvent:kStatEventName(kStatPlacePage, kStatOpenSite)];
+      break;
+    case MWMPlacePageCellTypeEmail:
+      [Statistics logEvent:kStatEventName(kStatPlacePage, kStatSendEmail)];
+      break;
+    case MWMPlacePageCellTypePhoneNumber:
+      [Statistics logEvent:kStatEventName(kStatPlacePage, kStatCallPhoneNumber)];
+      break;
+    case MWMPlacePageCellTypeCoordinate:
+      [Statistics logEvent:kStatEventName(kStatPlacePage, kStatToggleCoordinates)];
+      [self.currentEntity toggleCoordinateSystem];
+      [self changeText:[self.currentEntity getCellValue:MWMPlacePageCellTypeCoordinate]];
+      break;
+    default: break;
+    }
+    return;
+  }
+
+  switch (self.rowType)
+  {
+  case place_page::MetainfoRows::Phone:
     [Statistics logEvent:kStatEventName(kStatPlacePage, kStatCallPhoneNumber)];
     break;
-  case MWMPlacePageCellTypeCoordinate:
-    [Statistics logEvent:kStatEventName(kStatPlacePage, kStatToggleCoordinates)];
-    [self.currentEntity toggleCoordinateSystem];
-    [self changeText:[self.currentEntity getCellValue:MWMPlacePageCellTypeCoordinate]];
+  case place_page::MetainfoRows::Website:
+    [Statistics logEvent:kStatEventName(kStatPlacePage, kStatOpenSite)];
     break;
-  default: break;
+  case place_page::MetainfoRows::Email:
+    [Statistics logEvent:kStatEventName(kStatPlacePage, kStatSendEmail)];
+    break;
+  case place_page::MetainfoRows::Coordinate:
+    [Statistics logEvent:kStatEventName(kStatPlacePage, kStatToggleCoordinates)];
+    [MWMPlacePageData toggleCoordinateSystem];
+    [self changeText:[self.data stringForRow:self.rowType]];
+    break;
+
+  case place_page::MetainfoRows::Cuisine:
+  case place_page::MetainfoRows::Operator:
+  case place_page::MetainfoRows::OpeningHours:
+  case place_page::MetainfoRows::Address:
+  case place_page::MetainfoRows::Internet: break;
   }
 }
 

@@ -1,0 +1,30 @@
+#pragma mark - MWMPPScrollView
+
+@protocol MWMPlacePageViewUpdateProtocol<NSObject>
+
+- (void)updateWithHeight:(CGFloat)height;
+
+@end
+
+@interface MWMPPScrollView : UIScrollView
+
+- (instancetype)initWithFrame:(CGRect)frame inactiveView:(UIView *)inactiveView;
+
+@property(weak, nonatomic) UIView * inactiveView;
+
+@end
+
+#pragma mark - MWMPPView
+
+@interface MWMPPView : UIView
+
+@property(weak, nonatomic) IBOutlet UIImageView * top;
+@property(weak, nonatomic) IBOutlet UIImageView * spinner;
+@property(weak, nonatomic) IBOutlet UITableView * tableView;
+
+@property(nonatomic) CGFloat currentContentHeight;
+@property(nonatomic) id<MWMPlacePageViewUpdateProtocol> delegate;
+
+- (void)hideTableView:(BOOL)isHidden;
+
+@end

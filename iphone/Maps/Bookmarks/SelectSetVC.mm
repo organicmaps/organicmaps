@@ -35,7 +35,7 @@
   [super viewDidLoad];
   NSAssert(self.category, @"Category can't be nil!");
   NSAssert(self.delegate, @"Delegate can't be nil!");
-  NSAssert(IsValid(m_bac), @"Invalid BookmarkAndCategory's instance!");
+  NSAssert(m_bac.IsValid(), @"Invalid BookmarkAndCategory's instance!");
   self.title = L(@"bookmark_sets");
 }
 
@@ -67,7 +67,7 @@
     if (cat)
       cell.textLabel.text = @(cat->GetName().c_str());
 
-    if (m_bac.first == indexPath.row)
+    if (m_bac.m_categoryIndex == indexPath.row)
       cell.accessoryType = UITableViewCellAccessoryCheckmark;
     else
       cell.accessoryType = UITableViewCellAccessoryNone;
@@ -85,11 +85,13 @@
 - (void)moveBookmarkToSetWithIndex:(int)setIndex
 {
   BookmarkAndCategory bac;
-  bac.second = static_cast<int>(GetFramework().MoveBookmark(m_bac.second, m_bac.first, setIndex));
-  bac.first = setIndex;
+  bac.m_bookmarkIndex = static_cast<size_t>(
+      GetFramework().MoveBookmark(m_bac.m_bookmarkIndex, m_bac.m_categoryIndex, setIndex));
+  bac.m_categoryIndex = setIndex;
   m_bac = bac;
 
-  BookmarkCategory const * category = GetFramework().GetBookmarkManager().GetBmCategory(bac.first);
+  BookmarkCategory const * category =
+      GetFramework().GetBookmarkManager().GetBmCategory(bac.m_categoryIndex);
   self.category = @(category->GetName().c_str());
 }
 

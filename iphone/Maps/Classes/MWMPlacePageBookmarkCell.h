@@ -1,13 +1,6 @@
 #import "MWMTableViewCell.h"
 
-@protocol MWMPlacePageBookmarkDelegate <NSObject>
-
-- (void)reloadBookmark;
-- (void)editBookmarkTap;
-- (void)moreTap;
-
-@end
-
+@protocol MWMPlacePageBookmarkDelegate;
 @class MWMPlacePage;
 
 @interface MWMPlacePageBookmarkCell : MWMTableViewCell

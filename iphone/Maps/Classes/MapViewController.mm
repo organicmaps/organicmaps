@@ -19,7 +19,9 @@
 #import "MWMMapDownloaderViewController.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMPageController.h"
+#import "MWMPlacePageData.h"
 #import "MWMPlacePageEntity.h"
+#import "MWMPlacePageProtocol.h"
 #import "MWMRouter.h"
 #import "MWMRouterSavedState.h"
 #import "MWMSettings.h"
@@ -70,6 +72,7 @@ NSString * const kDownloaderSegue = @"Map2MapDownloaderSegue";
 NSString * const kMigrationSegue = @"Map2MigrationSegue";
 NSString * const kEditorSegue = @"Map2EditorSegue";
 NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
+NSString * const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 
 // The first launch after process started. Used to skip "Not follow, no position" state and to run
 // locator.
@@ -416,7 +419,8 @@ BOOL gIsFirstMyPositionMode = YES;
 - (void)openEditor
 {
   using namespace osm_auth_ios;
-  auto const & featureID = self.controlsManager.placePageEntity.info.GetID();
+
+  auto const & featureID = self.controlsManager.featureHolder.featureId;
 
   [Statistics logEvent:kStatEditorEditStart
         withParameters:@{
@@ -425,7 +429,12 @@ BOOL gIsFirstMyPositionMode = YES;
           kStatEditorMWMName : @(featureID.GetMwmName().c_str()),
           kStatEditorMWMVersion : @(featureID.GetMwmVersion())
         }];
-  [self performSegueWithIdentifier:kEditorSegue sender:self.controlsManager.placePageEntity];
+  [self performSegueWithIdentifier:kEditorSegue sender:self.controlsManager.featureHolder];
+}
+
+- (void)openBookmarkEditorWithData:(MWMPlacePageData *)data
+{
+  [self performSegueWithIdentifier:kPP2BookmarkEditingSegue sender:data];
 }
 
 - (void)processMyPositionStateModeEvent:(location::EMyPositionMode)mode
@@ -552,7 +561,12 @@ BOOL gIsFirstMyPositionMode = YES;
   if ([segue.identifier isEqualToString:kEditorSegue])
   {
     MWMEditorViewController * dvc = segue.destinationViewController;
-    [dvc setFeatureToEdit:static_cast<MWMPlacePageEntity *>(sender).featureID];
+    [dvc setFeatureToEdit:static_cast<id<MWMFeatureHolder>>(sender).featureId];
+  }
+  else if ([segue.identifier isEqualToString:kPP2BookmarkEditingSegue])
+  {
+    MWMEditBookmarkController * dvc = segue.destinationViewController;
+    dvc.data = static_cast<MWMPlacePageData *>(sender);
   }
   else if ([segue.identifier isEqualToString:kDownloaderSegue])
   {

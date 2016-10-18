@@ -15,7 +15,7 @@ NSString * httpGe0Url(NSString * shortUrl)
 
 @interface MWMShareActivityItem ()
 
-@property(nonatomic) MWMPlacePageEntity * entity;
+@property(nonatomic) id<MWMPlacePageObject> object;
 @property(nonatomic) CLLocationCoordinate2D location;
 @property(nonatomic) BOOL isMyPosition;
 
@@ -34,16 +34,16 @@ NSString * httpGe0Url(NSString * shortUrl)
   return self;
 }
 
-- (instancetype)initForPlacePageObjectWithEntity:(MWMPlacePageEntity *)entity
+- (instancetype)initForPlacePageObject:(id<MWMPlacePageObject>)object
 {
   self = [super init];
   if (self)
   {
-    NSAssert(entity, @"Entity can't be nil!");
-    BOOL const isMyPosition = entity.isMyPosition;
+    NSAssert(object, @"Entity can't be nil!");
+    BOOL const isMyPosition = object.isMyPosition;
     _isMyPosition = isMyPosition;
     if (!isMyPosition)
-      _entity = entity;
+      _object = object;
   }
   return self;
 }
@@ -52,23 +52,24 @@ NSString * httpGe0Url(NSString * shortUrl)
 {
   auto & f = GetFramework();
 
-  auto const title = ^NSString *(MWMPlacePageEntity * entity)
+  auto const title = ^NSString *(id<MWMPlacePageObject> obj)
   {
-    if (!entity || entity.isMyPosition)
+    if (!obj || obj.isMyPosition)
       return L(@"my_position");
-    else if (entity.title.length)
-      return entity.title;
-    else if (entity.subtitle.length)
-      return entity.subtitle;
-    else if (entity.address.length)
-      return entity.address;
+    else if (obj.title.length)
+      return obj.title;
+    else if (obj.subtitle.length)
+      return obj.subtitle;
+    else if (obj.address.length)
+      return obj.address;
     else
       return @"";
   };
 
-  ms::LatLon const ll = self.entity ? self.entity.latlon : ms::LatLon(self.location.latitude, self.location.longitude);
-  string const s = f.CodeGe0url(ll.lat, ll.lon, f.GetDrawScale(), title(self.entity).UTF8String);
-  
+  ms::LatLon const ll = self.object ? self.object.latLon
+                                    : ms::LatLon(self.location.latitude, self.location.longitude);
+  string const & s = f.CodeGe0url(ll.lat, ll.lon, f.GetDrawScale(), title(self.object).UTF8String);
+
   NSString * url = @(s.c_str());
   if (!isShort)
     return url;
@@ -108,7 +109,7 @@ NSString * httpGe0Url(NSString * shortUrl)
   NSString * shortUrl = [self url:YES];
   return [NSString stringWithFormat:@"%@\n%@", httpGe0Url(shortUrl),
                                     self.isMyPosition ? L(@"my_position_share_email_subject")
-                                                      : self.entity.title];
+                                                      : self.object.title];
 }
 
 - (NSString *)itemDefaultWithActivityType:(NSString *)activityType
@@ -123,13 +124,13 @@ NSString * httpGe0Url(NSString * shortUrl)
   }
 
   NSMutableString * result = [L(@"sharing_call_action_look") mutableCopy];
-  vector<NSString *> strings{self.entity.title, self.entity.subtitle, self.entity.address,
-                             [self.entity getCellValue:MWMPlacePageCellTypePhoneNumber], url};
+  vector<NSString *> strings{self.object.title, self.object.subtitle, self.object.address,
+                             self.object.phoneNumber, url};
 
-  if (self.entity.isBooking)
+  if (self.object.isBooking)
   {
     strings.push_back(L(@"sharing_booking"));
-    strings.push_back(self.entity.bookingDescriptionUrl.absoluteString);
+    strings.push_back(self.object.bookingDescriptionURL.absoluteString);
   }
 
   for (auto const str : strings)

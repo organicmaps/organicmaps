@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="_MWMOHHeaderCell" rowHeight="100" id="LXG-cP-akO" customClass="_MWMOHHeaderCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LXG-cP-akO" id="WuT-dc-opP">
+                <frame key="frameInset" width="375" height="99.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_placepage_open_hours" translatesAutoresizingMaskIntoConstraints="NO" id="nwH-Nj-buF">
+                        <constraints>
+                            <constraint firstAttribute="width" constant="24" id="LjC-Sp-k5X"/>
+                            <constraint firstAttribute="height" constant="24" id="gWH-Yu-u9h"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlack"/>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сегодня 8:00 – 18:00" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qDh-SU-MHG" userLabel="Today">
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Перерыв 12:00 – 13:00" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SUY-kO-lcA" userLabel="Break">
+                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular13"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сейчас закрыто" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VBz-au-4xa" userLabel="Closed now">
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="red"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular13"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_arrow_gray_down" translatesAutoresizingMaskIntoConstraints="NO" id="VHY-FB-giE">
+                        <constraints>
+                            <constraint firstAttribute="width" constant="28" id="OgV-so-hOI"/>
+                            <constraint firstAttribute="height" constant="28" id="dBd-ZI-bu4"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlack"/>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_image" translatesAutoresizingMaskIntoConstraints="NO" id="byE-X8-YBC">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="FoK-zb-Rvr"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMSeparator"/>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mvv-gY-euE">
+                        <connections>
+                            <action selector="extendTap" destination="LXG-cP-akO" eventType="touchUpInside" id="yMy-04-GCs"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Mvv-gY-euE" firstAttribute="leading" secondItem="WuT-dc-opP" secondAttribute="leading" id="0K0-8b-LPL"/>
+                    <constraint firstItem="byE-X8-YBC" firstAttribute="leading" secondItem="WuT-dc-opP" secondAttribute="leading" constant="60" id="1lE-nc-fFl"/>
+                    <constraint firstItem="Mvv-gY-euE" firstAttribute="top" secondItem="WuT-dc-opP" secondAttribute="top" id="9LV-xR-rNC"/>
+                    <constraint firstItem="SUY-kO-lcA" firstAttribute="top" secondItem="qDh-SU-MHG" secondAttribute="bottom" constant="4" id="F8Z-l6-buM"/>
+                    <constraint firstItem="SUY-kO-lcA" firstAttribute="top" secondItem="qDh-SU-MHG" secondAttribute="bottom" constant="4" id="FDA-zq-wb6"/>
+                    <constraint firstItem="qDh-SU-MHG" firstAttribute="leading" secondItem="nwH-Nj-buF" secondAttribute="trailing" constant="20" id="GdL-ps-Aya"/>
+                    <constraint firstAttribute="trailing" secondItem="VHY-FB-giE" secondAttribute="trailing" constant="8" id="JLG-1w-IGN"/>
+                    <constraint firstItem="nwH-Nj-buF" firstAttribute="leading" secondItem="WuT-dc-opP" secondAttribute="leading" constant="16" id="N1J-dg-rdb"/>
+                    <constraint firstItem="VHY-FB-giE" firstAttribute="leading" secondItem="qDh-SU-MHG" secondAttribute="trailing" constant="8" id="SeW-Tz-hIt"/>
+                    <constraint firstAttribute="trailing" secondItem="byE-X8-YBC" secondAttribute="trailing" id="THx-yW-0Pg"/>
+                    <constraint firstAttribute="trailing" secondItem="Mvv-gY-euE" secondAttribute="trailing" id="VO5-tR-Gb5"/>
+                    <constraint firstAttribute="bottom" secondItem="Mvv-gY-euE" secondAttribute="bottom" id="XA5-h1-bvn"/>
+                    <constraint firstItem="nwH-Nj-buF" firstAttribute="centerY" secondItem="WuT-dc-opP" secondAttribute="centerY" id="YyY-wo-k3r"/>
+                    <constraint firstItem="byE-X8-YBC" firstAttribute="top" secondItem="VBz-au-4xa" secondAttribute="bottom" constant="14" id="bCS-Xw-0sP"/>
+                    <constraint firstItem="VHY-FB-giE" firstAttribute="leading" secondItem="SUY-kO-lcA" secondAttribute="trailing" constant="8" id="cJk-pF-MWB"/>
+                    <constraint firstItem="VHY-FB-giE" firstAttribute="centerY" secondItem="WuT-dc-opP" secondAttribute="centerY" id="dF7-VZ-wCm"/>
+                    <constraint firstAttribute="bottom" secondItem="byE-X8-YBC" secondAttribute="bottom" id="eyh-D3-PL4"/>
+                    <constraint firstItem="VBz-au-4xa" firstAttribute="top" secondItem="SUY-kO-lcA" secondAttribute="bottom" constant="4" id="fam-HS-q2G"/>
+                    <constraint firstItem="qDh-SU-MHG" firstAttribute="top" secondItem="WuT-dc-opP" secondAttribute="top" constant="14" id="rgx-8A-sEE"/>
+                    <constraint firstItem="VHY-FB-giE" firstAttribute="leading" secondItem="VBz-au-4xa" secondAttribute="trailing" constant="8" id="rsi-Hp-ORw"/>
+                    <constraint firstItem="SUY-kO-lcA" firstAttribute="leading" secondItem="nwH-Nj-buF" secondAttribute="trailing" constant="20" id="sNc-db-hOj"/>
+                    <constraint firstItem="VBz-au-4xa" firstAttribute="leading" secondItem="nwH-Nj-buF" secondAttribute="trailing" constant="20" id="vEF-OR-sIn"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="arrowIcon" destination="VHY-FB-giE" id="j5m-f3-Wv6"/>
+                <outlet property="breaks" destination="SUY-kO-lcA" id="hEd-dx-xLq"/>
+                <outlet property="closedNow" destination="VBz-au-4xa" id="5b6-WK-hzS"/>
+                <outlet property="separator" destination="byE-X8-YBC" id="oyA-s8-BPp"/>
+                <outlet property="today" destination="qDh-SU-MHG" id="jYZ-La-UfJ"/>
+            </connections>
+            <point key="canvasLocation" x="45.5" y="71"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ic_arrow_gray_down" width="28" height="28"/>
+        <image name="ic_placepage_open_hours" width="28" height="28"/>
+        <image name="separator_image" width="1" height="1"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
+    </simulatedMetricsContainer>
+</document>

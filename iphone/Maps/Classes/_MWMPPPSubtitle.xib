@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <dependencies>
+        <deployment version="2048" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="_MWMPPPSubtitle" id="uPP-a7-pwR" customClass="_MWMPPPSubtitle">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="27"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uPP-a7-pwR" id="32Q-dS-DC0">
+                <frame key="frameInset" width="320" height="26"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eHp-si-h1T" userLabel="Distance Box">
+                        <subviews>
+                            <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_direction_light" translatesAutoresizingMaskIntoConstraints="NO" id="620-0b-Nbi">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="18" id="EYu-Yt-Z9j"/>
+                                    <constraint firstAttribute="height" constant="18" id="xku-Qh-If4"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="mwm_name" value="img_direction"/>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3iA-1v-7Ro" userLabel="Distance">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="linkBlue"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gea-it-ngb">
+                                <connections>
+                                    <action selector="tap" destination="uPP-a7-pwR" eventType="touchUpInside" id="iJ2-82-TB8"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="gea-it-ngb" secondAttribute="trailing" constant="-5" id="2bl-36-wVj"/>
+                            <constraint firstAttribute="bottom" secondItem="gea-it-ngb" secondAttribute="bottom" constant="-5" id="AHo-pE-crR"/>
+                            <constraint firstAttribute="bottom" secondItem="3iA-1v-7Ro" secondAttribute="bottom" id="BDf-VH-ERD"/>
+                            <constraint firstItem="3iA-1v-7Ro" firstAttribute="top" secondItem="eHp-si-h1T" secondAttribute="top" id="BqN-QD-e2T"/>
+                            <constraint firstItem="620-0b-Nbi" firstAttribute="leading" secondItem="eHp-si-h1T" secondAttribute="leading" id="Fbr-4r-1to"/>
+                            <constraint firstAttribute="trailing" secondItem="3iA-1v-7Ro" secondAttribute="trailing" id="GcL-d4-XIf"/>
+                            <constraint firstItem="3iA-1v-7Ro" firstAttribute="leading" secondItem="620-0b-Nbi" secondAttribute="trailing" constant="2" id="I3D-KF-sGs"/>
+                            <constraint firstItem="620-0b-Nbi" firstAttribute="centerY" secondItem="3iA-1v-7Ro" secondAttribute="centerY" id="Llr-8J-cpe"/>
+                            <constraint firstItem="gea-it-ngb" firstAttribute="top" secondItem="eHp-si-h1T" secondAttribute="top" constant="-5" id="Xj2-JZ-0NR"/>
+                            <constraint firstItem="gea-it-ngb" firstAttribute="leading" secondItem="eHp-si-h1T" secondAttribute="leading" constant="-5" id="YQf-DD-Sp6"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="900" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7eI-u4-YYe">
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="7eI-u4-YYe" secondAttribute="bottom" constant="0.5" id="0so-Rm-Uaw"/>
+                    <constraint firstItem="eHp-si-h1T" firstAttribute="top" secondItem="32Q-dS-DC0" secondAttribute="top" constant="3" id="XCo-E2-dlj"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="7eI-u4-YYe" secondAttribute="trailing" priority="750" id="Xy5-rf-Gp5"/>
+                    <constraint firstItem="7eI-u4-YYe" firstAttribute="top" secondItem="32Q-dS-DC0" secondAttribute="top" constant="4" id="d6c-V2-5sp"/>
+                    <constraint firstAttribute="bottom" secondItem="eHp-si-h1T" secondAttribute="bottom" id="fVo-GO-rno"/>
+                    <constraint firstItem="7eI-u4-YYe" firstAttribute="leading" secondItem="32Q-dS-DC0" secondAttribute="leading" id="t4R-SJ-7gL"/>
+                    <constraint firstAttribute="trailing" secondItem="eHp-si-h1T" secondAttribute="trailing" id="xVy-Vw-zeg"/>
+                    <constraint firstItem="eHp-si-h1T" firstAttribute="leading" secondItem="7eI-u4-YYe" secondAttribute="trailing" priority="500" constant="8" id="zrW-8g-wwY"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="compass" destination="620-0b-Nbi" id="gSX-oP-Ze7"/>
+                <outlet property="distance" destination="3iA-1v-7Ro" id="h7r-fe-Pbd"/>
+                <outlet property="distanceView" destination="eHp-si-h1T" id="bO9-zc-uMf"/>
+                <outlet property="subtitle" destination="7eI-u4-YYe" id="2s6-pr-1Lx"/>
+                <outlet property="trailing" destination="Xy5-rf-Gp5" id="lIU-PA-ux0"/>
+            </connections>
+            <point key="canvasLocation" x="327" y="571"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="img_direction_light" width="32" height="32"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
+    </simulatedMetricsContainer>
+</document>

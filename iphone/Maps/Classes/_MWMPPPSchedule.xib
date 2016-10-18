@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <dependencies>
+        <deployment version="2048" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="_MWMPPPSchedule" id="HVA-4K-8ma" customClass="_MWMPPPSchedule">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="24"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HVA-4K-8ma" id="Vj6-NH-gE1">
+                <frame key="frameInset" width="320" height="23"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BQA-1t-HxB" userLabel="Distance Box">
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AH1-ti-uSf" userLabel="Distance">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="linkBlue"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_direction_light" translatesAutoresizingMaskIntoConstraints="NO" id="Mh6-ds-8hz">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="18" id="mDC-c5-T3v"/>
+                                    <constraint firstAttribute="height" constant="18" id="pxH-l7-BCW"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="mwm_name" value="img_direction"/>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yNm-lW-0oC">
+                                <connections>
+                                    <action selector="tap" destination="HVA-4K-8ma" eventType="touchUpInside" id="hq0-gd-ARQ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Mh6-ds-8hz" firstAttribute="centerY" secondItem="AH1-ti-uSf" secondAttribute="centerY" id="6W7-A1-jK3"/>
+                            <constraint firstAttribute="trailing" secondItem="yNm-lW-0oC" secondAttribute="trailing" constant="-5" id="7jv-2b-lKY"/>
+                            <constraint firstItem="AH1-ti-uSf" firstAttribute="leading" secondItem="Mh6-ds-8hz" secondAttribute="trailing" constant="2" id="Jwp-Be-UCL"/>
+                            <constraint firstItem="AH1-ti-uSf" firstAttribute="top" secondItem="BQA-1t-HxB" secondAttribute="top" id="NcP-TC-qLA"/>
+                            <constraint firstItem="Mh6-ds-8hz" firstAttribute="leading" secondItem="BQA-1t-HxB" secondAttribute="leading" id="WXc-bH-oiv"/>
+                            <constraint firstAttribute="bottom" secondItem="yNm-lW-0oC" secondAttribute="bottom" constant="-5" id="Y9v-we-ry2"/>
+                            <constraint firstAttribute="trailing" secondItem="AH1-ti-uSf" secondAttribute="trailing" id="YpE-Xo-exd"/>
+                            <constraint firstAttribute="bottom" secondItem="AH1-ti-uSf" secondAttribute="bottom" id="iDh-ma-QJ2"/>
+                            <constraint firstItem="yNm-lW-0oC" firstAttribute="leading" secondItem="BQA-1t-HxB" secondAttribute="leading" constant="-5" id="jVF-e2-OdH"/>
+                            <constraint firstItem="yNm-lW-0oC" firstAttribute="top" secondItem="BQA-1t-HxB" secondAttribute="top" constant="-5" id="mjC-h8-pm4"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="900" text="Schedule" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fDX-g2-0au">
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="BQA-1t-HxB" secondAttribute="bottom" id="JlE-1h-DrI"/>
+                    <constraint firstItem="fDX-g2-0au" firstAttribute="leading" secondItem="Vj6-NH-gE1" secondAttribute="leading" id="KgC-ae-UIS"/>
+                    <constraint firstAttribute="bottom" secondItem="fDX-g2-0au" secondAttribute="bottom" constant="0.5" id="NJW-Tu-wrB"/>
+                    <constraint firstItem="fDX-g2-0au" firstAttribute="top" secondItem="Vj6-NH-gE1" secondAttribute="top" constant="4" id="NzT-aJ-MUo"/>
+                    <constraint firstAttribute="trailing" secondItem="BQA-1t-HxB" secondAttribute="trailing" id="TxV-7f-VK5"/>
+                    <constraint firstItem="BQA-1t-HxB" firstAttribute="leading" secondItem="fDX-g2-0au" secondAttribute="trailing" priority="500" constant="8" id="V72-o8-GUw"/>
+                    <constraint firstItem="BQA-1t-HxB" firstAttribute="top" secondItem="Vj6-NH-gE1" secondAttribute="top" constant="3" id="dG3-Rs-qKT"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="fDX-g2-0au" secondAttribute="trailing" priority="750" id="mdD-gF-WZW"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="compass" destination="Mh6-ds-8hz" id="EOq-V0-C03"/>
+                <outlet property="distance" destination="AH1-ti-uSf" id="M8q-Lj-nBc"/>
+                <outlet property="distanceView" destination="BQA-1t-HxB" id="Ej2-pp-WRH"/>
+                <outlet property="schedule" destination="fDX-g2-0au" id="rW6-nt-fFa"/>
+                <outlet property="trailing" destination="mdD-gF-WZW" id="ded-ot-J3q"/>
+            </connections>
+            <point key="canvasLocation" x="327" y="645"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="img_direction_light" width="32" height="32"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
+    </simulatedMetricsContainer>
+</document>

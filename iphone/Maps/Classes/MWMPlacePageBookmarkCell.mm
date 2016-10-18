@@ -1,5 +1,6 @@
 #import "MWMPlacePageBookmarkCell.h"
 #import "Common.h"
+#import "MWMPlacePageBookmarkDelegate.h"
 #import "MapViewController.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"

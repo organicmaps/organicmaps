@@ -63,8 +63,7 @@ static inline BOOL isIOSVersionLessThan(NSUInteger version)
   return isIOSVersionLessThan([NSString stringWithFormat:@"%@", @(version)]);
 }
 
-static BOOL const isIOS7 = isIOSVersionLessThan(8);
-static BOOL const isIOS8 = !isIOS7 && isIOSVersionLessThan(9);
+static BOOL const isIOS8 = isIOSVersionLessThan(9);
 
 static inline BOOL isInterfaceRightToLeft()
 {

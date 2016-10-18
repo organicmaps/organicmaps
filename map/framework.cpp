@@ -683,8 +683,15 @@ bool Framework::DeleteBmCategory(size_t index)
 void Framework::FillBookmarkInfo(Bookmark const & bmk, BookmarkAndCategory const & bac, place_page::Info & info) const
 {
   FillPointInfo(bmk.GetPivot(), string(), info);
+  info.m_countryId = m_infoGetter->GetRegionCountryId(info.GetMercator());
+
   info.m_bac = bac;
-  info.m_bookmarkCategoryName = GetBmCategory(bac.first)->GetName();
+  BookmarkCategory * cat = GetBmCategory(bac.m_categoryIndex);
+  info.m_bookmarkCategoryName = cat->GetName();
+  BookmarkData const & data = static_cast<Bookmark const *>(cat->GetUserMark(bac.m_bookmarkIndex))->GetData();
+  info.m_bookmarkTitle = data.GetName();
+  info.m_bookmarkColorName = data.GetType();
+  info.m_bookmarkDescription = data.GetDescription();
 }
 
 void Framework::FillFeatureInfo(FeatureID const & fid, place_page::Info & info) const
@@ -801,7 +808,7 @@ void Framework::ShowBookmark(BookmarkAndCategory const & bnc)
 {
   StopLocationFollow();
 
-  Bookmark const * mark = static_cast<Bookmark const *>(GetBmCategory(bnc.first)->GetUserMark(bnc.second));
+  Bookmark const * mark = static_cast<Bookmark const *>(GetBmCategory(bnc.m_categoryIndex)->GetUserMark(bnc.m_bookmarkIndex));
 
   double scale = mark->GetScale();
   if (scale == -1.0)
@@ -1901,31 +1908,31 @@ bool Framework::GetFeatureByID(FeatureID const & fid, FeatureType & ft) const
 
 BookmarkAndCategory Framework::FindBookmark(UserMark const * mark) const
 {
-  BookmarkAndCategory empty = MakeEmptyBookmarkAndCategory();
-  BookmarkAndCategory result = empty;
+  BookmarkAndCategory empty;
+  BookmarkAndCategory result;
   ASSERT_LESS_OR_EQUAL(GetBmCategoriesCount(), numeric_limits<int>::max(), ());
   for (size_t i = 0; i < GetBmCategoriesCount(); ++i)
   {
     if (mark->GetContainer() == GetBmCategory(i))
     {
-      result.first = static_cast<int>(i);
+      result.m_categoryIndex = static_cast<int>(i);
       break;
     }
   }
 
-  ASSERT(result.first != empty.first, ());
-  BookmarkCategory const * cat = GetBmCategory(result.first);
+  ASSERT(result.m_categoryIndex != empty.m_categoryIndex, ());
+  BookmarkCategory const * cat = GetBmCategory(result.m_categoryIndex);
   ASSERT_LESS_OR_EQUAL(cat->GetUserMarkCount(), numeric_limits<int>::max(), ());
   for (size_t i = 0; i < cat->GetUserMarkCount(); ++i)
   {
     if (mark == cat->GetUserMark(i))
     {
-      result.second = static_cast<int>(i);
+      result.m_bookmarkIndex = static_cast<int>(i);
       break;
     }
   }
 
-  ASSERT(result != empty, ());
+  ASSERT(result.IsValid(), ());
   return result;
 }
 

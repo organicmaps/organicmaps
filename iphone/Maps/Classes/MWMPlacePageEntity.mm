@@ -14,7 +14,7 @@
 
 using feature::Metadata;
 
-extern NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
+static NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 
 namespace
 {
@@ -162,9 +162,9 @@ void initFieldsMap()
 - (void)configureBookmark
 {
   auto const bac = m_info.GetBookmarkAndCategory();
-  BookmarkCategory * cat = GetFramework().GetBmCategory(bac.first);
+  BookmarkCategory * cat = GetFramework().GetBmCategory(bac.m_categoryIndex);
   BookmarkData const & data =
-      static_cast<Bookmark const *>(cat->GetUserMark(bac.second))->GetData();
+      static_cast<Bookmark const *>(cat->GetUserMark(bac.m_bookmarkIndex))->GetData();
 
   self.bookmarkTitle = @(data.GetName().c_str());
   self.bookmarkCategory = @(m_info.GetBookmarkCategoryName().c_str());
@@ -214,11 +214,8 @@ void initFieldsMap()
   return haveField ? @(it->second.c_str()) : nil;
 }
 
-- (NSURL *)bookingUrl
-{
-  return [self sponsoredUrl:NO];
-}
-- (NSURL *)bookingDescriptionUrl { return [self sponsoredUrl:YES]; }
+- (NSURL *)bookingURL { return [self sponsoredUrl:NO]; }
+- (NSURL *)bookingDescriptionURL { return [self sponsoredUrl:YES]; }
 - (NSURL *)sponsoredUrl:(BOOL)isDescription
 {
   auto const & url =
@@ -238,7 +235,8 @@ void initFieldsMap()
   return self.isBooking ? @(m_info.GetMetadata().Get(Metadata::FMD_SPONSORED_ID).c_str()) : nil;
 }
 
-- (ms::LatLon)latlon { return m_info.GetLatLon(); }
+- (NSString *)phoneNumber { return [self getCellValue:MWMPlacePageCellTypePhoneNumber]; }
+- (ms::LatLon)latLon { return m_info.GetLatLon(); }
 - (m2::PointD const &)mercator { return m_info.GetMercator(); }
 - (NSString *)apiURL { return @(m_info.GetApiUrl().c_str()); }
 - (string)titleForNewBookmark { return m_info.FormatNewBookmarkName(); }
@@ -246,7 +244,7 @@ void initFieldsMap()
 {
   BOOL const useDMSFormat =
       [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLatLonAsDMSKey];
-  ms::LatLon const latlon = self.latlon;
+  ms::LatLon const & latlon = self.latLon;
   return @((useDMSFormat ? measurement_utils::FormatLatLon(latlon.lat, latlon.lon)
                          : measurement_utils::FormatLatLonAsDMS(latlon.lat, latlon.lon, 2))
                .c_str());
@@ -295,14 +293,14 @@ void initFieldsMap()
 - (void)synchronize
 {
   Framework & f = GetFramework();
-  BookmarkCategory * category = f.GetBmCategory(self.bac.first);
+  BookmarkCategory * category = f.GetBmCategory(self.bac.m_categoryIndex);
   if (!category)
     return;
 
   {
     BookmarkCategory::Guard guard(*category);
     Bookmark * bookmark =
-        static_cast<Bookmark *>(guard.m_controller.GetUserMarkForEdit(self.bac.second));
+        static_cast<Bookmark *>(guard.m_controller.GetUserMarkForEdit(self.bac.m_bookmarkIndex));
     if (!bookmark)
       return;
 

@@ -54,6 +54,9 @@ public:
   /// @returns empty string or GetStars() count of ★ symbol.
   string FormatStars() const;
 
+  /// @returns coordinate in DMS format if isDMS is true
+  string GetFormattedCoordinate(bool isDMS) const;
+
   string GetCustomName() const;
   BookmarkAndCategory GetBookmarkAndCategory() const;
   string GetBookmarkCategoryName() const;
@@ -72,9 +75,15 @@ public:
   /// Comes from API, shared links etc.
   string m_customName;
   /// If not empty, bookmark is bound to this place page.
-  BookmarkAndCategory m_bac = MakeEmptyBookmarkAndCategory();
+  BookmarkAndCategory m_bac;
   /// Bookmark category name. Empty, if it's not bookmark;
   string m_bookmarkCategoryName;
+  /// Bookmark title. Empty, if it's not bookmark;
+  string m_bookmarkTitle;
+  /// Bookmark color name. Empty, if it's not bookmark;
+  string m_bookmarkColorName;
+  /// Bookmark description. Empty, if it's not bookmark;
+  string m_bookmarkDescription;
   /// Api ID passed for the selected object. It's automatically included in api url below.
   string m_apiId;
   /// [Deep] link to open when "Back" button is pressed in a Place Page.

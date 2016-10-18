@@ -3,6 +3,8 @@
 #include "indexer/feature_utils.hpp"
 #include "indexer/osm_editor.hpp"
 
+#include "platform/measurement_utils.hpp"
+
 namespace place_page
 {
 char const * const Info::kSubtitleSeparator = " • ";
@@ -12,7 +14,7 @@ char const * const Info::kEmptyRatingSymbol = "-";
 char const * const Info::kPricingSymbol = "$";
 
 bool Info::IsFeature() const { return m_featureID.IsValid(); }
-bool Info::IsBookmark() const { return m_bac != MakeEmptyBookmarkAndCategory(); }
+bool Info::IsBookmark() const { return m_bac.IsValid(); }
 bool Info::IsMyPosition() const { return m_isMyPosition; }
 bool Info::IsSponsoredHotel() const { return m_isSponsoredHotel; }
 bool Info::IsHotel() const { return m_isHotel; }
@@ -101,6 +103,12 @@ string Info::FormatStars() const
   for (int i = 0; i < GetStars(); ++i)
     stars.append(kStarSymbol);
   return stars;
+}
+
+string Info::GetFormattedCoordinate(bool isDMS) const
+{
+  auto const & ll = GetLatLon();
+  return isDMS ? measurement_utils::FormatLatLon(ll.lat, ll.lon) : measurement_utils::FormatLatLonAsDMS(ll.lat, ll.lon, 2);
 }
 
 string Info::GetCustomName() const { return m_customName; }

@@ -1,8 +1,24 @@
-@class MWMPlacePageEntity;
+namespace ms
+{
+class LatLon;
+}  // namespace ms
+
+@protocol MWMPlacePageObject<NSObject>
+
+- (BOOL)isMyPosition;
+- (BOOL)isBooking;
+- (NSString *)title;
+- (NSString *)subtitle;
+- (NSString *)address;
+- (NSURL *)bookingDescriptionURL;
+- (NSString *)phoneNumber;
+- (ms::LatLon)latLon;
+
+@end
 
 @interface MWMShareActivityItem : NSObject<UIActivityItemSource>
 
 - (instancetype)initForMyPositionAtLocation:(CLLocationCoordinate2D const &)location;
-- (instancetype)initForPlacePageObjectWithEntity:(MWMPlacePageEntity *)entity;
+- (instancetype)initForPlacePageObject:(id<MWMPlacePageObject>)object;
 
 @end

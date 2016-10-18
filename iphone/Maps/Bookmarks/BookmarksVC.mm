@@ -38,7 +38,7 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
 
 @implementation BookmarksVC
 
-- (instancetype)initWithCategory:(size_t)index
+- (instancetype)initWithCategory:(NSUInteger)index
 {
   self = [super initWithStyle:UITableViewStyleGrouped];
   if (self)
@@ -236,7 +236,7 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
         // Same as "Close".
         MapViewController * mapVC = self.navigationController.viewControllers.firstObject;
         mapVC.controlsManager.searchHidden = YES;
-        f.ShowBookmark(BookmarkAndCategory(m_categoryIndex, indexPath.row));
+        f.ShowBookmark({static_cast<size_t>(indexPath.row), m_categoryIndex});
         [self.navigationController popToRootViewControllerAnimated:YES];
       }
     }
@@ -294,7 +294,7 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
         }
         else
         {
-          BookmarkAndCategory bookmarkAndCategory = BookmarkAndCategory(m_categoryIndex, indexPath.row);
+          BookmarkAndCategory bookmarkAndCategory{static_cast<size_t>(indexPath.row), m_categoryIndex};
           NSValue * value = [NSValue valueWithBytes:&bookmarkAndCategory objCType:@encode(BookmarkAndCategory)];
           [[NSNotificationCenter defaultCenter] postNotificationName:BOOKMARK_DELETED_NOTIFICATION object:value];
           BookmarkCategory::Guard guard(*cat);

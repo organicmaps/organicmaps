@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="_MWMOHSubCell" id="QJs-zE-xfN" customClass="_MWMOHSubCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="75"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QJs-zE-xfN" id="n1O-q5-zmj">
+                <frame key="frameInset" width="375" height="74"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="251" text="Sun-Wed, Fri-Sat" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YIs-LL-j77" userLabel="Days">
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular15"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All Day (24 hours)" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vjg-UU-FVu" userLabel="Schedule">
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular15"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Перерыв 12:00 – 13:00" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iYw-fc-mKi">
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular13"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_image" translatesAutoresizingMaskIntoConstraints="NO" id="Qi6-29-xXe">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="5vM-VX-4hL"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMSeparator"/>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="Qi6-29-xXe" secondAttribute="bottom" id="1Cs-EO-9rW"/>
+                    <constraint firstItem="iYw-fc-mKi" firstAttribute="top" secondItem="vjg-UU-FVu" secondAttribute="bottom" constant="4" id="LaC-Fj-SGw"/>
+                    <constraint firstItem="Qi6-29-xXe" firstAttribute="leading" secondItem="n1O-q5-zmj" secondAttribute="leading" constant="60" id="LqT-6i-l9O"/>
+                    <constraint firstAttribute="trailing" secondItem="Qi6-29-xXe" secondAttribute="trailing" id="Mlw-ei-y2k"/>
+                    <constraint firstItem="YIs-LL-j77" firstAttribute="leading" secondItem="n1O-q5-zmj" secondAttribute="leading" constant="60" id="Pqu-1L-AJT"/>
+                    <constraint firstItem="vjg-UU-FVu" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="YIs-LL-j77" secondAttribute="trailing" constant="10" id="S0j-ZD-Yzm"/>
+                    <constraint firstAttribute="trailing" secondItem="vjg-UU-FVu" secondAttribute="trailing" constant="16" id="Y3R-u7-9vy"/>
+                    <constraint firstItem="iYw-fc-mKi" firstAttribute="top" secondItem="YIs-LL-j77" secondAttribute="bottom" constant="4" id="c2Y-bD-pvv"/>
+                    <constraint firstAttribute="trailing" secondItem="iYw-fc-mKi" secondAttribute="trailing" constant="16" id="fDs-dk-Fok"/>
+                    <constraint firstItem="YIs-LL-j77" firstAttribute="top" secondItem="n1O-q5-zmj" secondAttribute="top" constant="14" id="hto-60-gvp"/>
+                    <constraint firstItem="Qi6-29-xXe" firstAttribute="top" secondItem="iYw-fc-mKi" secondAttribute="bottom" constant="14" id="jzQ-NL-iE4"/>
+                    <constraint firstItem="iYw-fc-mKi" firstAttribute="leading" secondItem="n1O-q5-zmj" secondAttribute="leading" constant="60" id="qgW-Wu-maW"/>
+                    <constraint firstItem="vjg-UU-FVu" firstAttribute="top" secondItem="n1O-q5-zmj" secondAttribute="top" constant="14" id="qzM-8s-sDR"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="breaks" destination="iYw-fc-mKi" id="2ez-hw-xaw"/>
+                <outlet property="days" destination="YIs-LL-j77" id="dqM-WD-2NN"/>
+                <outlet property="schedule" destination="vjg-UU-FVu" id="Xdv-dH-NPZ"/>
+                <outlet property="separator" destination="Qi6-29-xXe" id="0Zl-dQ-Kmw"/>
+            </connections>
+            <point key="canvasLocation" x="-66.5" y="24.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="separator_image" width="1" height="1"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
+    </simulatedMetricsContainer>
+</document>

@@ -1,8 +1,10 @@
+#import "MWMEditBookmarkController.h"
+#import "Common.h"
+#import "MWMBookmarkColorViewController.h"
 #import "MWMBookmarkTitleCell.h"
 #import "MWMButtonCell.h"
-#import "MWMBookmarkColorViewController.h"
-#import "MWMEditBookmarkController.h"
 #import "MWMNoteCell.h"
+#import "MWMPlacePageData.h"
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageViewManager.h"
 #import "SelectSetVC.h"
@@ -50,13 +52,24 @@ enum RowInMetaInfo
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  NSAssert(self.manager, @"Entity can't be nil!");
-  MWMPlacePageEntity * en = self.manager.entity;
-  self.cachedDescription = en.bookmarkDescription;
-  self.cachedTitle = en.bookmarkTitle;
-  self.cachedCategory = en.bookmarkCategory;
-  self.cachedColor = en.bookmarkColor;
-  m_cachedBac = en.bac;
+  auto data = self.data;
+  NSAssert(self.manager || data, @"Entity and data can't be nil both!");
+  if (IPAD)
+  {
+    MWMPlacePageEntity * en = self.manager.entity;
+    self.cachedDescription = en.bookmarkDescription;
+    self.cachedTitle = en.bookmarkTitle;
+    self.cachedCategory = en.bookmarkCategory;
+    self.cachedColor = en.bookmarkColor;
+    m_cachedBac = en.bac;
+  }
+  else
+  {
+    self.cachedDescription = data.bookmarkDescription;
+    self.cachedTitle = data.externalTitle ? data.externalTitle : data.title;
+    self.cachedCategory = data.bookmarkCategory;
+    self.cachedColor = data.bookmarkColor;
+  }
 
   [self configNavBar];
   [self registerCells];
@@ -95,14 +108,40 @@ enum RowInMetaInfo
 - (void)onSave
 {
   [self.view endEditing:YES];
-  MWMPlacePageEntity * en = self.manager.entity;
-  en.bookmarkDescription = self.cachedDescription;
-  en.bookmarkColor = self.cachedColor;
-  en.bookmarkCategory = self.cachedCategory;
-  en.bookmarkTitle = self.cachedTitle;
-  en.bac = m_cachedBac;
-  [en synchronize];
-  [self.manager reloadBookmark];
+  if (IPAD)
+  {
+    MWMPlacePageEntity * en = self.manager.entity;
+    en.bookmarkDescription = self.cachedDescription;
+    en.bookmarkColor = self.cachedColor;
+    en.bookmarkCategory = self.cachedCategory;
+    en.bookmarkTitle = self.cachedTitle;
+    en.bac = m_cachedBac;
+    [en synchronize];
+    [self.manager reloadBookmark];
+  }
+  else
+  {
+    Framework & f = GetFramework();
+    auto const & bac = self.data.bac;
+    BookmarkCategory * category = f.GetBmCategory(bac.m_categoryIndex);
+    if (!category)
+      return;
+
+    {
+      BookmarkCategory::Guard guard(*category);
+      Bookmark * bookmark =
+          static_cast<Bookmark *>(guard.m_controller.GetUserMarkForEdit(bac.m_bookmarkIndex));
+      if (!bookmark)
+        return;
+
+      bookmark->SetType(self.cachedColor.UTF8String);
+      bookmark->SetDescription(self.cachedDescription.UTF8String);
+      bookmark->SetName(self.cachedTitle.UTF8String);
+    }
+
+    category->SaveToKMLFile();
+    f.UpdatePlacePageInfoForCurrentSelection();
+  }
   [self backTap];
 }
 

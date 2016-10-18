@@ -9,6 +9,7 @@
 
 @class MapViewController;
 @class MWMPlacePageEntity;
+@protocol MWMFeatureHolder;
 
 @interface MWMMapViewControlsManager : NSObject
 
@@ -20,8 +21,8 @@
 @property(nonatomic) MWMBottomMenuState menuState;
 @property(nonatomic) MWMBottomMenuState menuRestoreState;
 @property(nonatomic, readonly) MWMNavigationDashboardState navigationState;
-@property(nonatomic, readonly) MWMPlacePageEntity * placePageEntity;
 @property(nonatomic) BOOL searchHidden;
+@property(nonatomic) BOOL isDirectionViewHidden;
 
 - (instancetype)init __attribute__((unavailable("init is not available")));
 - (instancetype)initWithParentController:(MapViewController *)controller;
@@ -39,8 +40,6 @@
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator;
 
 #pragma mark - MWMPlacePageViewManager
-
-@property(nonatomic, readonly) BOOL isDirectionViewShown;
 
 - (void)dismissPlacePage;
 - (void)showPlacePage:(place_page::Info const &)info;
@@ -67,5 +66,9 @@
 - (void)actionDownloadMaps:(mwm::DownloaderMode)mode;
 - (void)searchFrameUpdated:(CGRect)frame;
 - (void)searchText:(NSString *)text forInputLocale:(NSString *)locale;
+
+#pragma mark - MWMFeatureHolder
+
+- (id<MWMFeatureHolder>)featureHolder;
 
 @end
