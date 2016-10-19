@@ -105,6 +105,9 @@
       location = "container:storage/storage.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:tracking/tracking.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "container:generator_tool/generator_tool.xcodeproj">
    </FileRef>
    <FileRef

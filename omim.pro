@@ -26,7 +26,7 @@ HEADERS += defines.hpp
 SUBDIRS = 3party base coding geometry editor indexer routing search
 
 !CONFIG(osrm) {
-  SUBDIRS *= platform stats storage tracking
+  SUBDIRS *= platform stats storage
 
   CONFIG(desktop) {
     SUBDIRS *= generator
@@ -64,7 +64,7 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
 }
 
 !CONFIG(gtool):!CONFIG(osrm) {
-  SUBDIRS *= drape drape_frontend partners_api map
+  SUBDIRS *= drape drape_frontend partners_api tracking map
 
   CONFIG(map_designer):CONFIG(desktop) {
     SUBDIRS *= skin_generator
