@@ -74,6 +74,8 @@
 #include "geometry/rect2d.hpp"
 #include "geometry/triangle2d.hpp"
 
+#include "partners_api/opentable_api.hpp"
+
 #include "base/logging.hpp"
 #include "base/math.hpp"
 #include "base/scope_guard.hpp"
@@ -792,14 +794,17 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
   if (ftypes::IsBookingChecker::Instance()(ft))
   {
     info.m_sponsoredType = SponsoredType::Booking;
-    string const & baseUrl = info.GetMetadata().Get(feature::Metadata::FMD_WEBSITE);
-    info.m_sponsoredUrl = GetBookingApi().GetBookingUrl(baseUrl);
+    auto const & baseUrl = info.GetMetadata().Get(feature::Metadata::FMD_WEBSITE);
+    info.m_sponsoredUrl = GetBookingApi().GetBookHotelUrl(baseUrl);
     info.m_sponsoredDescriptionUrl = GetBookingApi().GetDescriptionUrl(baseUrl);
   }
   else if (ftypes::IsOpentableChecker::Instance()(ft))
   {
     info.m_sponsoredType = SponsoredType::Opentable;
-    info.m_sponsoredUrl = info.GetMetadata().Get(feature::Metadata::FMD_WEBSITE);
+    auto const & sponsoredId = info.GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
+    auto const & url = opentable::Api::GetBookTableUrl(sponsoredId);
+    info.m_sponsoredUrl = url;
+    info.m_sponsoredDescriptionUrl = url;
   }
 
 

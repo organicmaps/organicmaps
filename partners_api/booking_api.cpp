@@ -20,7 +20,7 @@ BookingApi::BookingApi() : m_affiliateId(BOOKING_AFFILIATE_ID), m_testingMode(fa
   m_apiUrl = "https://" + ss.str() + "@distribution-xml.booking.com/json/bookings.";
 }
 
-string BookingApi::GetBookingUrl(string const & baseUrl, string const & /* lang */) const
+string BookingApi::GetBookHotelUrl(string const & baseUrl, string const & /* lang */) const
 {
   return GetDescriptionUrl(baseUrl) + "#availability";
 }
