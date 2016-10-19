@@ -14,6 +14,7 @@ class BookingApi
 {
   string m_affiliateId;
   string m_apiUrl;
+  bool m_testingMode;
 
 public:
   struct HotelPhotoUrls
@@ -118,6 +119,7 @@ public:
   BookingApi();
   string GetBookingUrl(string const & baseUrl, string const & lang = string()) const;
   string GetDescriptionUrl(string const & baseUrl, string const & lang = string()) const;
+  inline void SetTestingMode(bool testing) { m_testingMode = testing; }
 
   // Real-time information methods (used for retriving rapidly changing information).
   // These methods send requests directly to Booking.
