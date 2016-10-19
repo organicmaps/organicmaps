@@ -37,6 +37,8 @@ static unordered_map<string, EType> const kNamesToFMD= {
   // description
 };
 
+unordered_map<string, int> const kPriorityWeights = {{"high", 0}, {"", 1}, {"low", 2}};
+
 bool TypeDescriptionFromXml(pugi::xml_node const & root, pugi::xml_node const & node,
                             editor::TypeAggregatedDescription & outDesc)
 {
@@ -96,14 +98,16 @@ vector<pugi::xml_node> GetPrioritizedTypes(pugi::xml_node const & node)
   vector<pugi::xml_node> result;
   for (auto const xNode : node.select_nodes("/mapsme/editor/types/type[@id]"))
     result.push_back(xNode.node());
-  stable_sort(begin(result), end(result),
-              [](pugi::xml_node const & a, pugi::xml_node const & b)
-              {
-                if (strcmp(a.attribute("priority").value(), "high") != 0 &&
-                    strcmp(b.attribute("priority").value(), "high") == 0)
-                  return true;
-                return false;
-              });
+  stable_sort(begin(result), end(result), [](pugi::xml_node const & lhs, pugi::xml_node const & rhs)
+  {
+    auto const lhsWeight = kPriorityWeights.find(lhs.attribute("priority").value());
+    auto const rhsWeight = kPriorityWeights.find(rhs.attribute("priority").value());
+
+    CHECK(lhsWeight != kPriorityWeights.end(), (""));
+    CHECK(rhsWeight != kPriorityWeights.end(), (""));
+
+    return lhsWeight->second < rhsWeight->second;
+  });
   return result;
 }
 }  // namespace
