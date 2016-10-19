@@ -97,6 +97,7 @@ public class RoutingController
   private String[] mLastMissingMaps;
   @Nullable
   private RoutingInfo mCachedRoutingInfo;
+  private boolean mUberInfoObtained;
 
   @SuppressWarnings("FieldCanBeLocal")
   private final Framework.RoutingListener mRoutingListener = new Framework.RoutingListener()
@@ -250,7 +251,7 @@ public class RoutingController
   private void build()
   {
     mLogger.d("build");
-
+    mUberInfoObtained = false;
     mLastBuildProgress = 0;
     setBuildState(BuildState.BUILDING);
     updatePlan();
@@ -259,6 +260,7 @@ public class RoutingController
     org.alohalytics.Statistics.logEvent(AlohaHelper.ROUTING_BUILD, new String[] {Statistics.EventParam.FROM, Statistics.getPointType(mStartPoint),
                                                                                  Statistics.EventParam.TO, Statistics.getPointType(mEndPoint)});
     Framework.nativeBuildRoute(mStartPoint.getLat(), mStartPoint.getLon(), mEndPoint.getLat(), mEndPoint.getLon());
+
     if (mLastRouterType == Framework.ROUTER_TYPE_TAXI)
       requestUberInfo();
   }
@@ -492,6 +494,11 @@ public class RoutingController
   public boolean isWaitingPoiPick()
   {
     return (mWaitingPoiPickSlot != NO_SLOT);
+  }
+
+  public boolean isUberInfoObtained()
+  {
+    return mUberInfoObtained;
   }
 
   BuildState getBuildState()
@@ -771,6 +778,10 @@ public class RoutingController
   {
     mLogger.d("onUberInfoReceived uberInfo = " + info);
     if (mLastRouterType == Framework.ROUTER_TYPE_TAXI && mContainer != null)
+    {
       mContainer.onUberInfoReceived(info);
+      mUberInfoObtained = true;
+      mContainer.updateMenu();
+    }
   }
 }

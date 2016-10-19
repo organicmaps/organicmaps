@@ -1332,14 +1332,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void adjustMenuLineFrameVisibility()
   {
-    if (RoutingController.get().isBuilt())
+    final RoutingController controller = RoutingController.get();
+
+    if (controller.isBuilt() || controller.isUberInfoObtained())
     {
       mMainMenu.showLineFrame(true);
       return;
     }
 
-    if (RoutingController.get().isPlanning() || RoutingController.get().isBuilding()
-        || RoutingController.get().isErrorEncountered())
+    if (controller.isPlanning() || controller.isBuilding() || controller.isErrorEncountered())
     {
       mMainMenu.showLineFrame(false);
       return;
@@ -1431,7 +1432,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     else
     {
       mRoutingPlanInplaceController.showUberInfo(info);
-      mMainMenu.showLineFrame(true);
     }
   }
 
