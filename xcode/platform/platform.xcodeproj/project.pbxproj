@@ -65,6 +65,8 @@
 		675343D91A3F5D5A00A0A8C3 /* wifi_info_windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675343AE1A3F5D5A00A0A8C3 /* wifi_info_windows.cpp */; };
 		675343DA1A3F5D5A00A0A8C3 /* wifi_info.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675343AF1A3F5D5A00A0A8C3 /* wifi_info.hpp */; };
 		675343DB1A3F5D5A00A0A8C3 /* wifi_location_service.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675343B01A3F5D5A00A0A8C3 /* wifi_location_service.cpp */; };
+		675E88A01DB7B0F200F8EBDA /* test_socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675E889E1DB7B0F200F8EBDA /* test_socket.cpp */; };
+		675E88A11DB7B0F200F8EBDA /* test_socket.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675E889F1DB7B0F200F8EBDA /* test_socket.hpp */; };
 		676C84211C64CD3300DC9603 /* mwm_traits.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 676C841F1C64CD3300DC9603 /* mwm_traits.hpp */; };
 		678338951C6DE59200FD6263 /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675341141C58C4D8002CF0D9 /* testingmain.cpp */; };
 		678338961C6DE59200FD6263 /* apk_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675341001C58C4C9002CF0D9 /* apk_test.cpp */; };
@@ -184,6 +186,8 @@
 		675343AE1A3F5D5A00A0A8C3 /* wifi_info_windows.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wifi_info_windows.cpp; sourceTree = "<group>"; };
 		675343AF1A3F5D5A00A0A8C3 /* wifi_info.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = wifi_info.hpp; sourceTree = "<group>"; };
 		675343B01A3F5D5A00A0A8C3 /* wifi_location_service.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wifi_location_service.cpp; sourceTree = "<group>"; };
+		675E889E1DB7B0F200F8EBDA /* test_socket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test_socket.cpp; sourceTree = "<group>"; };
+		675E889F1DB7B0F200F8EBDA /* test_socket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = test_socket.hpp; sourceTree = "<group>"; };
 		676C841F1C64CD3300DC9603 /* mwm_traits.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mwm_traits.hpp; sourceTree = "<group>"; };
 		6783387E1C6DE54700FD6263 /* platform_tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = platform_tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		678338AA1C6DF4F200FD6263 /* resources-ldpi_legacy */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources-ldpi_legacy"; sourceTree = "<group>"; };
@@ -253,6 +257,8 @@
 		675340E41C58C43A002CF0D9 /* platform_tests_support */ = {
 			isa = PBXGroup;
 			children = (
+				675E889E1DB7B0F200F8EBDA /* test_socket.cpp */,
+				675E889F1DB7B0F200F8EBDA /* test_socket.hpp */,
 				67247FFB1C60BD6500EDE56A /* writable_dir_changer.cpp */,
 				67247FFC1C60BD6500EDE56A /* writable_dir_changer.hpp */,
 				675340F41C58C4B3002CF0D9 /* scoped_dir.cpp */,
@@ -421,6 +427,7 @@
 				675343CD1A3F5D5A00A0A8C3 /* platform.hpp in Headers */,
 				675343D81A3F5D5A00A0A8C3 /* video_timer.hpp in Headers */,
 				6741250F1B4C00CC00A3E828 /* local_country_file.hpp in Headers */,
+				675E88A11DB7B0F200F8EBDA /* test_socket.hpp in Headers */,
 				675343CF1A3F5D5A00A0A8C3 /* preferred_languages.hpp in Headers */,
 				3D30587D1D8320E4004AC712 /* http_client.hpp in Headers */,
 				56EB1EDD1C6B6E6C0022D831 /* file_logging.hpp in Headers */,
@@ -563,6 +570,7 @@
 				674125081B4C00CC00A3E828 /* country_defines.cpp in Sources */,
 				6741250E1B4C00CC00A3E828 /* local_country_file.cpp in Sources */,
 				670E8C761BB318AB00094197 /* platform_ios.mm in Sources */,
+				675E88A01DB7B0F200F8EBDA /* test_socket.cpp in Sources */,
 				67A2526A1BB40E100063F8A8 /* platform_qt.cpp in Sources */,
 				675343D91A3F5D5A00A0A8C3 /* wifi_info_windows.cpp in Sources */,
 				56EB1EDE1C6B6E6C0022D831 /* mwm_traits.cpp in Sources */,

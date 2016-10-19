@@ -571,12 +571,6 @@
 		6753414F1A3F54D800A0A8C3 = {
 			isa = PBXGroup;
 			children = (
-				E9502E2E1D2BD5BE00CAB86B /* libminizip.a */,
-				E9502E2B1D2BD44E00CAB86B /* libprotobuf.a */,
-				E9502E291D2BD34A00CAB86B /* libsearch.a */,
-				E9502E271D2BD2CC00CAB86B /* libopening_hours.a */,
-				E9502E251D2BD28C00CAB86B /* liboauthcpp.a */,
-				E9502E231D2BD26C00CAB86B /* libalohalitics.a */,
 				670D05AD1B0E08260013A7AC /* defaults.xcconfig */,
 				6737465A1CF46324005E6D1F /* booking_quality_check */,
 				670B84C41A9F73AB00CE4492 /* std */,
@@ -610,6 +604,12 @@
 		6753453F1A3F6FA600A0A8C3 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				E9502E2E1D2BD5BE00CAB86B /* libminizip.a */,
+				E9502E2B1D2BD44E00CAB86B /* libprotobuf.a */,
+				E9502E291D2BD34A00CAB86B /* libsearch.a */,
+				E9502E271D2BD2CC00CAB86B /* libopening_hours.a */,
+				E9502E251D2BD28C00CAB86B /* liboauthcpp.a */,
+				E9502E231D2BD26C00CAB86B /* libalohalitics.a */,
 				679624CE1D11779700AE4E3C /* OpenGL.framework */,
 				679624CC1D11775F00AE4E3C /* libagg.a */,
 				679624B61D11775300AE4E3C /* libapi.a */,

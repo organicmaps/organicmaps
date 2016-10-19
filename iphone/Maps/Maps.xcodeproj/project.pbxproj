@@ -626,6 +626,7 @@
 		676507611C10559B00830BB3 /* colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = 452FCA3A1B6A3DF7007019AB /* colors.txt */; };
 		676507631C1055BB00830BB3 /* MWMTTSLanguageViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F63BA3701BCD5B520044C504 /* MWMTTSLanguageViewController.mm */; };
 		677A2DE21C0DD50900635A00 /* resources-default in Resources */ = {isa = PBXBuildFile; fileRef = A367C93A1B17334800E2B6E7 /* resources-default */; };
+		677B1AB31DB7B70800CFBE36 /* libtracking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 677B1AB21DB7B70800CFBE36 /* libtracking.a */; };
 		6B653B941C7F2DE4007BEFC5 /* cuisine-strings in Resources */ = {isa = PBXBuildFile; fileRef = 6B653B931C7F2DE4007BEFC5 /* cuisine-strings */; };
 		6B653B951C7F2DE4007BEFC5 /* cuisine-strings in Resources */ = {isa = PBXBuildFile; fileRef = 6B653B931C7F2DE4007BEFC5 /* cuisine-strings */; };
 		6B9978351C89A316003B8AA0 /* editor.config in Resources */ = {isa = PBXBuildFile; fileRef = 6B9978341C89A316003B8AA0 /* editor.config */; };
@@ -1378,6 +1379,7 @@
 		674A7E211C0DA55E003D48E1 /* libdrape.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape.a; path = "../../../omim-xcode-build/Debug/libdrape.a"; sourceTree = "<group>"; };
 		674A7E221C0DA55E003D48E1 /* libsdf_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsdf_image.a; path = "../../../omim-xcode-build/Debug/libsdf_image.a"; sourceTree = "<group>"; };
 		674A7E231C0DA55E003D48E1 /* libstb_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libstb_image.a; path = "../../../omim-xcode-build/Debug/libstb_image.a"; sourceTree = "<group>"; };
+		677B1AB21DB7B70800CFBE36 /* libtracking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtracking.a; path = "/Users/darkserj/mapsme/omim/xcode/tracking/../../../omim-xcode-build/Debug/libtracking.a"; sourceTree = "<absolute>"; };
 		6B653B931C7F2DE4007BEFC5 /* cuisine-strings */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "cuisine-strings"; path = "../../data/cuisine-strings"; sourceTree = "<group>"; };
 		6B9978341C89A316003B8AA0 /* editor.config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = editor.config; path = ../../data/editor.config; sourceTree = "<group>"; };
 		6BA0BCCF1B74DDBA00CC9969 /* MWMCustomFacebookEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCustomFacebookEvents.h; sourceTree = "<group>"; };
@@ -1776,6 +1778,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				677B1AB31DB7B70800CFBE36 /* libtracking.a in Frameworks */,
 				F6B5364B1DA5222F0067EEA5 /* libpartners_api.a in Frameworks */,
 				34170B7E1D93C3C80074117B /* MyTargetSDK.framework in Frameworks */,
 				34BF68631D7459E6001752F6 /* CoreSpotlight.framework in Frameworks */,
@@ -1954,6 +1957,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				677B1AB21DB7B70800CFBE36 /* libtracking.a */,
 				3DDB4BC31DAB98F000F4D021 /* libpartners_api.a */,
 				F6B5364A1DA5222F0067EEA5 /* libpartners_api.a */,
 				34170B7D1D93C3C80074117B /* MyTargetSDK.framework */,
@@ -4713,6 +4717,7 @@
 					"-lindexer",
 					"-lplatform",
 					"-lpartners_api",
+					"-ltracking",
 					"-lgeometry",
 					"-lcoding",
 					"-lbase",
@@ -4846,6 +4851,7 @@
 					"-lindexer",
 					"-lplatform",
 					"-lpartners_api",
+					"-ltracking",
 					"-lgeometry",
 					"-lcoding",
 					"-lbase",
@@ -4981,6 +4987,7 @@
 					"-lindexer",
 					"-lplatform",
 					"-lpartners_api",
+					"-ltracking",
 					"-lgeometry",
 					"-lcoding",
 					"-lbase",
@@ -5117,6 +5124,7 @@
 					"-lindexer",
 					"-lplatform",
 					"-lpartners_api",
+					"-ltracking",
 					"-lgeometry",
 					"-lcoding",
 					"-lbase",
@@ -5252,6 +5260,7 @@
 					"-lindexer",
 					"-lplatform",
 					"-lpartners_api",
+					"-ltracking",
 					"-lgeometry",
 					"-lcoding",
 					"-lbase",
@@ -5385,6 +5394,7 @@
 					"-lindexer",
 					"-lplatform",
 					"-lpartners_api",
+					"-ltracking",
 					"-lgeometry",
 					"-lcoding",
 					"-lbase",
