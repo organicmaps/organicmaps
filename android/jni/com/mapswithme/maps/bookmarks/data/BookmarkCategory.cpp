@@ -86,7 +86,8 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_nativeGetBookmark(
 {
   BookmarkCategory * category = getBmCategory(catId);
   place_page::Info info;
-  frm()->FillBookmarkInfo(*static_cast<Bookmark const *>(category->GetUserMark(bmkId)), {catId, bmkId}, info);
+  frm()->FillBookmarkInfo(*static_cast<Bookmark const *>(category->GetUserMark(bmkId)),
+                          {static_cast<size_t>(bmkId), static_cast<size_t>(catId)}, info);
   return usermark_helper::CreateMapObject(env, info);
 }
 

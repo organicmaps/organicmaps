@@ -36,7 +36,7 @@ JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeShowBookmarkOnMap(
     JNIEnv * env, jobject thiz, jint c, jint b)
 {
-  BookmarkAndCategory bnc = BookmarkAndCategory(c,b);
+  BookmarkAndCategory bnc = BookmarkAndCategory(b,c);
   frm()->ShowBookmark(bnc);
 }
 

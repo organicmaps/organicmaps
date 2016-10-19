@@ -355,12 +355,12 @@ void Framework::RemoveLocalMaps()
 
 void Framework::ReplaceBookmark(BookmarkAndCategory const & ind, BookmarkData & bm)
 {
-  m_work.ReplaceBookmark(ind.first, ind.second, bm);
+  m_work.ReplaceBookmark(ind.m_categoryIndex, ind.m_bookmarkIndex, bm);
 }
 
 size_t Framework::ChangeBookmarkCategory(BookmarkAndCategory const & ind, size_t newCat)
 {
-  return m_work.MoveBookmark(ind.second, ind.first, newCat);
+  return m_work.MoveBookmark(ind.m_bookmarkIndex, ind.m_categoryIndex, newCat);
 }
 
 bool Framework::ShowMapForURL(string const & url)
@@ -1144,8 +1144,8 @@ JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_Framework_nativeDeleteBookmarkFromMapObject(JNIEnv * env, jclass)
 {
   place_page::Info & info = g_framework->GetPlacePageInfo();
-  bookmarks_helper::RemoveBookmark(info.m_bac.first, info.m_bac.second);
-  info.m_bac = MakeEmptyBookmarkAndCategory();
+  bookmarks_helper::RemoveBookmark(info.m_bac.m_categoryIndex, info.m_bac.m_bookmarkIndex);
+  info.m_bac = {};
   return usermark_helper::CreateMapObject(env, info);
 }
 
@@ -1153,8 +1153,8 @@ JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeOnBookmarkCategoryChanged(JNIEnv * env, jclass, jint cat, jint bmk)
 {
   place_page::Info & info = g_framework->GetPlacePageInfo();
-  info.m_bac.first = cat;
-  info.m_bac.second = bmk;
+  info.m_bac.m_categoryIndex = cat;
+  info.m_bac.m_bookmarkIndex = bmk;
 }
 
 JNIEXPORT void JNICALL

@@ -49,13 +49,13 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
     static jmethodID const ctorId = jni::GetConstructorID(env, g_bookmarkClazz, "(IILjava/lang/String;)V");
 
     auto const & bac = info.GetBookmarkAndCategory();
-    BookmarkCategory * cat = g_framework->NativeFramework()->GetBmCategory(bac.first);
-    BookmarkData const & data = static_cast<Bookmark const *>(cat->GetUserMark(bac.second))->GetData();
+    BookmarkCategory * cat = g_framework->NativeFramework()->GetBmCategory(bac.m_categoryIndex);
+    BookmarkData const & data = static_cast<Bookmark const *>(cat->GetUserMark(bac.m_bookmarkIndex))->GetData();
 
     jni::TScopedLocalRef jName(env, jni::ToJavaString(env, data.GetName()));
     jobject mapObject = env->NewObject(g_bookmarkClazz, ctorId,
-                                       static_cast<jint>(info.m_bac.first),
-                                       static_cast<jint>(info.m_bac.second),
+                                       static_cast<jint>(info.m_bac.m_categoryIndex),
+                                       static_cast<jint>(info.m_bac.m_bookmarkIndex),
                                        jName.get());
     if (info.IsFeature())
       InjectMetadata(env, g_mapObjectClazz, mapObject, info.GetMetadata());
