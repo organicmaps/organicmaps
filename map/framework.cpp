@@ -60,6 +60,7 @@
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
+#include "platform/socket.hpp"
 
 #include "coding/internal/file_data.hpp"
 #include "coding/zip_reader.hpp"
@@ -155,6 +156,17 @@ void CancelQuery(weak_ptr<search::ProcessorHandle> & handle)
     queryHandle->Cancel();
   handle.reset();
 }
+
+class StubSocket final : public platform::Socket
+{
+public:
+  // Socket overrides
+  bool Open(string const & host, uint16_t port) override { return false; }
+  void Close() override {}
+  bool Read(uint8_t * data, uint32_t count) override { return false; }
+  bool Write(uint8_t const * data, uint32_t count) override { return false; }
+  void SetTimeout(uint32_t milliseconds) override {}
+};
 }  // namespace
 
 pair<MwmSet::MwmId, MwmSet::RegResult> Framework::RegisterMap(
@@ -200,6 +212,8 @@ void Framework::OnLocationUpdate(GpsInfo const & info)
 
   CallDrapeFunction(bind(&df::DrapeEngine::SetGpsInfo, _1, rInfo,
                          m_routingSession.IsNavigable(), routeMatchingInfo));
+  if (IsTrackingReporterEnabled())
+    m_trackingReporter.AddLocation(info);
 }
 
 void Framework::OnCompassUpdate(CompassInfo const & info)
@@ -222,6 +236,19 @@ void Framework::SwitchMyPositionNextMode()
 void Framework::SetMyPositionModeListener(TMyPositionModeChanged && fn)
 {
   m_myPositionListener = move(fn);
+}
+
+bool Framework::IsTrackingReporterEnabled() const
+{
+  if (m_currentRouterType != routing::RouterType::Vehicle)
+    return false;
+
+  if (!m_routingSession.IsOnRoute())
+    return false;
+
+  bool allowStat = false;
+  UNUSED_VALUE(settings::Get(tracking::Reporter::kEnabledSettingsKey, allowStat));
+  return allowStat;
 }
 
 void Framework::OnUserPositionChanged(m2::PointD const & position)
@@ -314,6 +341,7 @@ Framework::Framework()
   , m_storage(platform::migrate::NeedMigrate() ? COUNTRIES_OBSOLETE_FILE : COUNTRIES_FILE)
   , m_bmManager(*this)
   , m_isRenderingEnabled(true)
+  , m_trackingReporter(make_unique<StubSocket>(), tracking::Reporter::kPushDelayMs)
   , m_displacementModeManager([this](bool show) {
     int const mode = show ? dp::displacement::kHotelMode : dp::displacement::kDefaultMode;
     CallDrapeFunction(bind(&df::DrapeEngine::SetDisplacementMode, _1, mode));

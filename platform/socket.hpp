@@ -1,7 +1,6 @@
 #pragma once
 
 #include "std/string.hpp"
-#include "std/target_os.hpp"
 #include "std/unique_ptr.hpp"
 
 namespace platform
