@@ -94,11 +94,14 @@ using namespace uber;
   m_products.clear();
   m_from = MercatorBounds::ToLatLon(from.Point());
   m_to = MercatorBounds::ToLatLon(to.Point());
-  self.collectionView.hidden = YES;
+  auto cv = self.collectionView;
+  cv.hidden = YES;
+  cv.pageControl.hidden = YES;
+  
   m_requestId = m_api.GetAvailableProducts(m_from, m_to, [self, completion, failure](vector<Product> const & products,
                                                                   uint64_t const requestId)
   {
-    dispatch_async(dispatch_get_main_queue(), ^
+    dispatch_async(dispatch_get_main_queue(), [products, requestId, self, completion, failure]
     {
       if (self->m_requestId != requestId)
         return;
@@ -112,6 +115,7 @@ using namespace uber;
       self->m_products = products;
       auto cv = self.collectionView;
       cv.hidden = NO;
+      cv.pageControl.hidden = NO;
       cv.numberOfPages = self->m_products.size();
       [cv reloadData];
       cv.contentOffset = {};
