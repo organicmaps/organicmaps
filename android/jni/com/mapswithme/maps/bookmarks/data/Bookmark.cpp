@@ -51,14 +51,14 @@ Java_com_mapswithme_maps_bookmarks_data_Bookmark_nativeSetBookmarkParams(
   bm.SetDescription(descr ? jni::ToNativeString(env, descr)
                           : p->GetDescription());
 
-  g_framework->ReplaceBookmark(BookmarkAndCategory(cat, bmk), bm);
+  g_framework->ReplaceBookmark(BookmarkAndCategory(bmk, cat), bm);
 }
 
 JNIEXPORT jint JNICALL
 Java_com_mapswithme_maps_bookmarks_data_Bookmark_nativeChangeCategory(
        JNIEnv * env, jobject thiz, jint oldCat, jint newCat, jlong bmk)
 {
-  return g_framework->ChangeBookmarkCategory(BookmarkAndCategory(oldCat, bmk), newCat);
+  return g_framework->ChangeBookmarkCategory(BookmarkAndCategory(bmk, oldCat), newCat);
 }
 
 JNIEXPORT jobject JNICALL
