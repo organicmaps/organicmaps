@@ -38,7 +38,7 @@ public class HoursMinutes implements Parcelable
       return String.format(Locale.US, "%02d:%02d", hours, minutes);
 
     Calendar calendar = new GregorianCalendar();
-    calendar.set(Calendar.HOUR, (int)hours);
+    calendar.set(Calendar.HOUR_OF_DAY, (int)hours);
     calendar.set(Calendar.MINUTE, (int)minutes);
 
     SimpleDateFormat fmt12 = new SimpleDateFormat("hh:mm a");
