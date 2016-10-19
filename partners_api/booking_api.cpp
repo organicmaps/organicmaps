@@ -13,7 +13,7 @@
 
 char const BookingApi::kDefaultCurrency[1];
 
-BookingApi::BookingApi() : m_affiliateId(BOOKING_AFFILIATE_ID)
+BookingApi::BookingApi() : m_affiliateId(BOOKING_AFFILIATE_ID), m_testingMode(false)
 {
   stringstream ss;
   ss << BOOKING_KEY << ":" << BOOKING_SECRET;
@@ -266,6 +266,8 @@ string BookingApi::MakeApiUrl(string const & func,
   bool firstRun = true;
   for (auto const & param : params)
     ss << (firstRun ? firstRun = false, "" : "&") << param.first << "=" << param.second;
+  if (m_testingMode)
+    ss << "&show_test=1";
 
   return ss.str();
 }

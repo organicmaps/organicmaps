@@ -13,7 +13,8 @@ UNIT_TEST(Booking_SmokeTest)
 UNIT_TEST(Booking_GetMinPrice)
 {
   BookingApi api;
-  constexpr string kHotelId = "245721"; // Izmailovo Gamma, 996 rooms
+  api.SetTestingMode(true);
+  string const kHotelId = "98251"; // Special hotel id for testing.
 
   {
     string price;
@@ -29,13 +30,13 @@ UNIT_TEST(Booking_GetMinPrice)
 
     TEST(!price.empty(), ());
     TEST(!currency.empty(), ());
-    TEST_EQUAL(currency, "RUB", ());
+    TEST_EQUAL(currency, "USD", ());
   }
 
   {
     string price;
     string currency;
-    api.GetMinPrice(kHotelId, "EUR", [&price, &currency](string const & val, string const & curr)
+    api.GetMinPrice(kHotelId, "RUB", [&price, &currency](string const & val, string const & curr)
                     {
                       price = val;
                       currency = curr;
@@ -45,7 +46,7 @@ UNIT_TEST(Booking_GetMinPrice)
 
     TEST(!price.empty(), ());
     TEST(!currency.empty(), ());
-    TEST_EQUAL(currency, "EUR", ());
+    TEST_EQUAL(currency, "RUB", ());
   }
 
   {
