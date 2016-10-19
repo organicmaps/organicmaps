@@ -13,28 +13,13 @@ UNIT_TEST(Booking_SmokeTest)
 UNIT_TEST(Booking_GetMinPrice)
 {
   BookingApi api;
+  constexpr string kHotelId = "245721"; // Izmailovo Gamma, 996 rooms
 
   {
     string price;
     string currency;
-    api.GetMinPrice("10340", BookingApi::kDefaultCurrency,
+    api.GetMinPrice(kHotelId, BookingApi::kDefaultCurrency,
                     [&price, &currency](string const & val, string const & curr)
-                    {
-                      price = val;
-                      currency = curr;
-                      testing::StopEventLoop();
-                    });
-    testing::RunEventLoop();
-
-    TEST(!price.empty(), ());
-    TEST(!currency.empty(), ());
-    TEST_EQUAL(currency, "EUR", ());
-  }
-
-  {
-    string price;
-    string currency;
-    api.GetMinPrice("10340", "RUB", [&price, &currency](string const & val, string const & curr)
                     {
                       price = val;
                       currency = curr;
@@ -50,7 +35,23 @@ UNIT_TEST(Booking_GetMinPrice)
   {
     string price;
     string currency;
-    api.GetMinPrice("10340", "ISK", [&price, &currency](string const & val, string const & curr)
+    api.GetMinPrice(kHotelId, "EUR", [&price, &currency](string const & val, string const & curr)
+                    {
+                      price = val;
+                      currency = curr;
+                      testing::StopEventLoop();
+                    });
+    testing::RunEventLoop();
+
+    TEST(!price.empty(), ());
+    TEST(!currency.empty(), ());
+    TEST_EQUAL(currency, "EUR", ());
+  }
+
+  {
+    string price;
+    string currency;
+    api.GetMinPrice(kHotelId, "ISK", [&price, &currency](string const & val, string const & curr)
                     {
                       price = val;
                       currency = curr;
