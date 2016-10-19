@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -724,13 +725,15 @@ public class RoutingController
   {
     long minutes = TimeUnit.SECONDS.toMinutes(seconds) % 60;
     long hours = TimeUnit.SECONDS.toHours(seconds);
-
-    return hours == 0 ? Utils.formatUnitsText(context, R.dimen.text_size_routing_number, unitsSize,
-                                              String.valueOf(minutes), "min")
-                      : TextUtils.concat(Utils.formatUnitsText(context, R.dimen.text_size_routing_number, unitsSize,
-                                                               String.valueOf(hours), "h "),
-                                         Utils.formatUnitsText(context, R.dimen.text_size_routing_number, unitsSize,
-                                                               String.valueOf(minutes), "min"));
+    String min = context.getString(R.string.minute);
+    String hour = context.getString(R.string.hour);
+    @DimenRes
+    int textSize = R.dimen.text_size_routing_number;
+    SpannableStringBuilder displayedH = Utils.formatUnitsText(context, textSize, unitsSize,
+                                                              String.valueOf(hours), hour);
+    SpannableStringBuilder displayedM = Utils.formatUnitsText(context, textSize, unitsSize,
+                                                              String.valueOf(minutes), min);
+    return hours == 0 ? displayedM : TextUtils.concat(displayedH + " ", displayedM);
   }
 
   static String formatArrivalTime(int seconds)
