@@ -790,6 +790,7 @@
 		F6791B141C43DF0B007A8A6E /* MWMStartButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6791B121C43DEA7007A8A6E /* MWMStartButton.mm */; };
 		F67E751C1DB635FE00D6741F /* MWMPPView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F67E751B1DB635FE00D6741F /* MWMPPView.xib */; };
 		F67E751D1DB635FE00D6741F /* MWMPPView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F67E751B1DB635FE00D6741F /* MWMPPView.xib */; };
+		F67E751E1DB76DFC00D6741F /* MWMTaxiCollectionLayout.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6F778791DABC6D800B603E7 /* MWMTaxiCollectionLayout.mm */; };
 		F68FCB851DA7BBA6007CC7D7 /* MWMTaxiPreviewDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = F68FCB841DA7BBA6007CC7D7 /* MWMTaxiPreviewDataSource.mm */; };
 		F68FCB861DA7BBA6007CC7D7 /* MWMTaxiPreviewDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = F68FCB841DA7BBA6007CC7D7 /* MWMTaxiPreviewDataSource.mm */; };
 		F68FCB8A1DA7BD20007CC7D7 /* MWMTaxiPreviewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F68FCB881DA7BD20007CC7D7 /* MWMTaxiPreviewCell.mm */; };
@@ -4126,6 +4127,7 @@
 				34FED5511D21121000183B1B /* CLLocation+Mercator.mm in Sources */,
 				6741A9A31BF340DE002C974C /* main.mm in Sources */,
 				6741A9A41BF340DE002C974C /* MWMSearchTabbedViewController.mm in Sources */,
+				F67E751E1DB76DFC00D6741F /* MWMTaxiCollectionLayout.mm in Sources */,
 				6741A9A51BF340DE002C974C /* MWMShareActivityItem.mm in Sources */,
 				34BF68611D74585D001752F6 /* MWMSearch+CoreSpotlight.mm in Sources */,
 				34F9FB911C43AF2400F71201 /* MWMStreetEditorEditTableViewCell.mm in Sources */,
