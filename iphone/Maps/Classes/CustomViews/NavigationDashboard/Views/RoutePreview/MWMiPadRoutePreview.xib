@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -245,7 +246,7 @@
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="none" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t6d-gI-JcN" customClass="MWMTaxiCollectionView">
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="100" id="TGC-wp-JtU"/>
+                                        <constraint firstAttribute="height" constant="84" id="TGC-wp-JtU"/>
                                     </constraints>
                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="9nw-pA-D89" customClass="MWMTaxiCollectionLayout">
                                         <size key="itemSize" width="320" height="100"/>
@@ -263,7 +264,7 @@
                                 <constraint firstItem="t6d-gI-JcN" firstAttribute="top" secondItem="xAP-RW-zvp" secondAttribute="top" id="Q7e-1w-LMz"/>
                                 <constraint firstItem="t6d-gI-JcN" firstAttribute="leading" secondItem="xAP-RW-zvp" secondAttribute="leading" id="TYJ-1W-jS1"/>
                                 <constraint firstAttribute="bottom" secondItem="t6d-gI-JcN" secondAttribute="bottom" id="ecY-4e-IOw"/>
-                                <constraint firstAttribute="height" constant="100" id="omI-i2-fRh"/>
+                                <constraint firstAttribute="height" constant="84" id="omI-i2-fRh"/>
                                 <constraint firstAttribute="trailing" secondItem="t6d-gI-JcN" secondAttribute="trailing" id="wfq-F4-Ftw"/>
                             </constraints>
                         </view>

@@ -8,7 +8,8 @@
 
 namespace
 {
-  CGFloat const kPageControlHeight = 6;
+CGFloat const kPageControlHeight = 6;
+
 }  // namespace
 
 @interface MWMTaxiCollectionView ()
