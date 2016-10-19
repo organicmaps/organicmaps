@@ -45,6 +45,7 @@
 
     <!-- Gap for menu open/close button -->
     <View
+      android:id="@+id/menu"
       android:layout_width="@dimen/menu_line_button_width_edge"
       android:layout_height="match_parent"/>
   </LinearLayout>
