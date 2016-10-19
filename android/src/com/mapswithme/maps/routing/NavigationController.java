@@ -248,16 +248,16 @@ public class NavigationController
     final long hours = TimeUnit.SECONDS.toHours(seconds);
     final long minutes = TimeUnit.SECONDS.toMinutes(seconds) % 60;
     UiUtils.setTextAndShow(mTimeMinuteValue, String.valueOf(minutes));
-    // TODO set localized text
-    UiUtils.setTextAndShow(mTimeMinuteUnits, "min");
+    String min = mFrame.getResources().getString(R.string.minute);
+    UiUtils.setTextAndShow(mTimeMinuteUnits, min);
     if (hours == 0)
     {
       UiUtils.hide(mTimeHourUnits, mTimeHourValue);
       return;
     }
     UiUtils.setTextAndShow(mTimeHourValue, String.valueOf(hours));
-    // TODO set localized text
-    UiUtils.setTextAndShow(mTimeHourUnits, "h");
+    String hour = mFrame.getResources().getString(R.string.hour);
+    UiUtils.setTextAndShow(mTimeHourUnits, hour);
   }
 
   private void updateTimeEstimate(int seconds)
