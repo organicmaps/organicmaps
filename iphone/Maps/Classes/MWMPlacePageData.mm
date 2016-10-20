@@ -53,7 +53,7 @@ using namespace place_page;
 
   // There is at least one of these buttons.
   if (m_info.ShouldShowAddPlace() || m_info.ShouldShowEditPlace() ||
-      m_info.ShouldShowAddBusiness() || m_info.IsSponsoredHotel())
+      m_info.ShouldShowAddBusiness() || m_info.IsSponsored())
   {
     m_sections.push_back(Sections::Buttons);
     [self fillButtonsSection];
@@ -97,7 +97,7 @@ using namespace place_page;
 - (void)fillButtonsSection
 {
   // We don't have to show edit, add place or business if it's booking object.
-  if (m_info.IsSponsoredHotel())
+  if (self.isBooking)
   {
     m_buttonsRows.push_back(ButtonsRows::HotelDescription);
     return;
@@ -177,30 +177,30 @@ using namespace place_page;
 
 - (NSString *)bookingRating
 {
-  return m_info.IsSponsoredHotel() ? @(m_info.GetRatingFormatted().c_str()) : nil;
+  return self.isBooking ? @(m_info.GetRatingFormatted().c_str()) : nil;
 }
 
 - (NSString *)bookingApproximatePricing
 {
-  return m_info.IsSponsoredHotel() ? @(m_info.GetApproximatePricing().c_str()) : nil;
+  return self.isBooking ? @(m_info.GetApproximatePricing().c_str()) : nil;
 }
 
-- (NSURL *)bookingURL
+- (NSURL *)sponsoredURL
 {
-  return m_info.IsSponsoredHotel() ? [NSURL URLWithString:@(m_info.m_sponsoredBookingUrl.c_str())]
+  return m_info.IsSponsored() ? [NSURL URLWithString:@(m_info.GetSponsoredUrl().c_str())]
                                    : nil;
 }
 
-- (NSURL *)bookingDescriptionURL
+- (NSURL *)sponsoredDescriptionURL
 {
-  return m_info.IsSponsoredHotel()
-             ? [NSURL URLWithString:@(m_info.m_sponsoredDescriptionUrl.c_str())]
+  return m_info.IsSponsored()
+             ? [NSURL URLWithString:@(m_info.GetSponsoredDescriptionUrl().c_str())]
              : nil;
 }
 
-- (NSString *)hotelId
+- (NSString *)sponsoredId
 {
-  return m_info.IsSponsoredHotel()
+  return m_info.IsSponsored()
              ? @(m_info.GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID).c_str())
              : nil;
 }
@@ -208,7 +208,7 @@ using namespace place_page;
 - (void)assignOnlinePriceToLabel:(UILabel *)label
 {
   // TODO(Vlad): Remove similar code from MWMPlacePageEntity.mm when new iPAD place page will be finished.
-  NSAssert(m_info.IsSponsoredHotel(), @"Online price must be assigned to booking object!");
+  NSAssert(self.isBooking, @"Online price must be assigned to booking object!");
   if (Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
     return;
 
@@ -247,7 +247,7 @@ using namespace place_page;
     });
   };
 
-  api.GetMinPrice(self.hotelId.UTF8String, currency, func);
+  api.GetMinPrice(self.sponsoredId.UTF8String, currency, func);
 }
 
 - (NSString *)address { return @(m_info.GetAddress().c_str()); }
@@ -310,7 +310,8 @@ using namespace place_page;
 - (NSString *)phoneNumber { return @(m_info.GetPhone().c_str()); }
 - (BOOL)isBookmark { return m_info.IsBookmark(); }
 - (BOOL)isApi { return m_info.HasApiUrl(); }
-- (BOOL)isBooking { return m_info.IsSponsoredHotel(); }
+- (BOOL)isBooking { return m_info.m_sponsoredType == SponsoredType::Booking; }
+- (BOOL)isOpentable { return m_info.m_sponsoredType == SponsoredType::Opentable; }
 - (BOOL)isMyPosition { return m_info.IsMyPosition(); }
 - (BOOL)isHTMLDescription { return strings::IsHTML(m_info.m_bookmarkDescription); }
 

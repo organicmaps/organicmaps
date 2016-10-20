@@ -130,7 +130,7 @@ NSString * httpGe0Url(NSString * shortUrl)
   if (self.object.isBooking)
   {
     strings.push_back(L(@"sharing_booking"));
-    strings.push_back(self.object.bookingDescriptionURL.absoluteString);
+    strings.push_back(self.object.sponsoredDescriptionURL.absoluteString);
   }
 
   for (auto const str : strings)

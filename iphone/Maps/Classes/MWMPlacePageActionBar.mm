@@ -77,10 +77,14 @@ extern NSString * const kAlohalyticsTapEventKey;
   BOOL const isIphone = [[UIDevice currentDevice].model isEqualToString:@"iPhone"];
   BOOL const isPhoneNotEmpty = phone.length > 0;
   BOOL const isBooking = data.isBooking;
+  BOOL const isOpentable = data.isOpentable;
+  BOOL const isSponsored = isBooking || isOpentable;
   BOOL const itHasPhoneNumber = isIphone && isPhoneNotEmpty;
   BOOL const isApi = data.isApi;
   BOOL const isP2P = self.isPrepareRouteMode;
   BOOL const isMyPosition = data.isMyPosition;
+
+  EButton const sponsoredButton = isBooking ? EButton::Booking : EButton::Opentable;
 
   if (isMyPosition)
   {
@@ -89,10 +93,10 @@ extern NSString * const kAlohalyticsTapEventKey;
     m_visibleButtons.push_back(EButton::Share);
     m_visibleButtons.push_back(EButton::Spacer);
   }
-  else if (isApi && isBooking)
+  else if (isApi && isSponsored)
   {
     m_visibleButtons.push_back(EButton::Api);
-    m_visibleButtons.push_back(EButton::Booking);
+    m_visibleButtons.push_back(sponsoredButton);
     m_additionalButtons.push_back(EButton::Bookmark);
     m_additionalButtons.push_back(EButton::RouteFrom);
     m_additionalButtons.push_back(EButton::Share);
@@ -119,11 +123,11 @@ extern NSString * const kAlohalyticsTapEventKey;
     m_additionalButtons.push_back(EButton::RouteFrom);
     m_additionalButtons.push_back(EButton::Share);
   }
-  else if (isBooking && isP2P)
+  else if (isSponsored && isP2P)
   {
     m_visibleButtons.push_back(EButton::Bookmark);
     m_visibleButtons.push_back(EButton::RouteFrom);
-    m_additionalButtons.push_back(EButton::Booking);
+    m_additionalButtons.push_back(sponsoredButton);
     m_additionalButtons.push_back(EButton::Share);
   }
   else if (itHasPhoneNumber && isP2P)
@@ -133,9 +137,9 @@ extern NSString * const kAlohalyticsTapEventKey;
     m_additionalButtons.push_back(EButton::Call);
     m_additionalButtons.push_back(EButton::Share);
   }
-  else if (isBooking)
+  else if (isSponsored)
   {
-    m_visibleButtons.push_back(EButton::Booking);
+    m_visibleButtons.push_back(sponsoredButton);
     m_visibleButtons.push_back(EButton::Bookmark);
     m_additionalButtons.push_back(EButton::RouteFrom);
     m_additionalButtons.push_back(EButton::Share);
@@ -191,6 +195,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   switch (type)
   {
   case EButton::Api: [delegate apiBack]; break;
+  case EButton::Opentable:
   case EButton::Booking: [delegate book:NO]; break;
   case EButton::Call: [delegate call]; break;
   case EButton::Bookmark:

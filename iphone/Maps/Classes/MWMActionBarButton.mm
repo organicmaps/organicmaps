@@ -10,6 +10,7 @@ NSString * titleForButton(EButton type, BOOL isSelected)
   case EButton::Api:
     return L(@"back");
   case EButton::Booking:
+  case EButton::Opentable:
     return L(@"bookingcom_book_button");
   case EButton::Call:
     return L(@"placepage_call_button");
@@ -59,6 +60,11 @@ NSString * titleForButton(EButton type, BOOL isSelected)
     [self.button setImage:[UIImage imageNamed:@"ic_booking_logo"] forState:UIControlStateNormal];
     self.label.textColor = [UIColor whiteColor];
     self.backgroundColor = [UIColor bookingBackground];
+    break;
+  case EButton::Opentable:
+    [self.button setImage:[UIImage imageNamed:@"ic_opentable"] forState:UIControlStateNormal];
+    self.label.textColor = [UIColor whiteColor];
+    self.backgroundColor = [UIColor opentableBackground];
     break;
   case EButton::Call:
     [self.button setImage:[UIImage imageNamed:@"ic_placepage_phone_number"] forState:UIControlStateNormal];

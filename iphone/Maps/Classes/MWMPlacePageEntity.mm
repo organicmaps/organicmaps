@@ -200,9 +200,9 @@ void initFieldsMap()
   case MWMPlacePageCellTypeAddBusinessButton:
     return navigationIsHidden && m_info.ShouldShowAddBusiness() ? @"" : nil;
   case MWMPlacePageCellTypeWebsite:
-    return m_info.IsSponsoredHotel() ? nil : [self getDefaultField:cellType];
+    return self.isBooking ? nil : [self getDefaultField:cellType];
   case MWMPlacePageCellTypeBookingMore:
-    return m_info.IsSponsoredHotel() ? @(m_info.GetSponsoredDescriptionUrl().c_str()) : nil;
+    return self.isBooking ? @(m_info.GetSponsoredDescriptionUrl().c_str()) : nil;
   default: return [self getDefaultField:cellType];
   }
 }
@@ -214,12 +214,12 @@ void initFieldsMap()
   return haveField ? @(it->second.c_str()) : nil;
 }
 
-- (NSURL *)bookingURL { return [self sponsoredUrl:NO]; }
-- (NSURL *)bookingDescriptionURL { return [self sponsoredUrl:YES]; }
+- (NSURL *)sponsoredURL { return [self sponsoredUrl:NO]; }
+- (NSURL *)sponsoredDescriptionURL { return [self sponsoredUrl:YES]; }
 - (NSURL *)sponsoredUrl:(BOOL)isDescription
 {
   auto const & url =
-      isDescription ? m_info.GetSponsoredDescriptionUrl() : m_info.GetSponsoredBookingUrl();
+      isDescription ? m_info.GetSponsoredDescriptionUrl() : m_info.GetSponsoredUrl();
   return url.empty() ? nil : [NSURL URLWithString:@(url.c_str())];
 }
 
@@ -229,10 +229,12 @@ void initFieldsMap()
 - (BOOL)isMyPosition { return m_info.IsMyPosition(); }
 - (BOOL)isBookmark { return m_info.IsBookmark(); }
 - (BOOL)isApi { return m_info.HasApiUrl(); }
-- (BOOL)isBooking { return m_info.IsSponsoredHotel(); }
-- (NSString *)hotelId
+- (BOOL)isBooking { return m_info.m_sponsoredType == SponsoredType::Booking; }
+- (BOOL)isOpentable { return m_info.m_sponsoredType == SponsoredType::Opentable; }
+- (BOOL)isSponsored { return m_info.IsSponsored(); }
+- (NSString *)sponsoredId
 {
-  return self.isBooking ? @(m_info.GetMetadata().Get(Metadata::FMD_SPONSORED_ID).c_str()) : nil;
+  return self.isSponsored ? @(m_info.GetMetadata().Get(Metadata::FMD_SPONSORED_ID).c_str()) : nil;
 }
 
 - (NSString *)phoneNumber { return [self getCellValue:MWMPlacePageCellTypePhoneNumber]; }
