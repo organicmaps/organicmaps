@@ -20,6 +20,7 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
+import android.text.util.Linkify;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -96,7 +97,7 @@ public class PlacePageView extends RelativeLayout
   private static final String PREF_USE_DMS = "use_dms";
 
 //TODO: remove this after booking_api.cpp will be done
-  private static final boolean USE_OLD_BOOKING = true;
+  private static final boolean USE_OLD_BOOKING = false;
 
   private boolean mIsDocked;
   private boolean mIsFloating;
@@ -218,7 +219,8 @@ public class PlacePageView extends RelativeLayout
   {
     HIDDEN,
     PREVIEW,
-    DETAILS
+    DETAILS,
+    FULLSCREEN
   }
 
   public PlacePageView(Context context)
@@ -976,6 +978,7 @@ public class PlacePageView extends RelativeLayout
     mBookmarkSet = true;
     UiUtils.show(mBookmarkFrame);
     UiUtils.setTextAndHideIfEmpty(mBookmarkNote, ((Bookmark) mMapObject).getBookmarkDescription());
+    Linkify.addLinks(mBookmarkNote, Linkify.ALL);
     updateButtons();
   }
 
@@ -1209,7 +1212,7 @@ public class PlacePageView extends RelativeLayout
       @Override
       public void run()
       {
-        setState(State.DETAILS);
+        setState(mBookmarkSet ? State.DETAILS : State.PREVIEW);
       }
     });
   }
@@ -1316,7 +1319,7 @@ public class PlacePageView extends RelativeLayout
     if (mIsDocked || mIsFloating)
       return false;
 
-    if (getState() == State.DETAILS)
+    if (getState() == State.DETAILS || getState() == State.FULLSCREEN)
     {
       hide();
       return true;

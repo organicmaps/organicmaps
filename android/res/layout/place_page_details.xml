@@ -5,74 +5,66 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content">
 
-  <com.mapswithme.maps.widget.ObservableScrollView
-    android:id="@+id/pp__details"
+  <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="?ppBackground"
-    android:overScrollMode="never">
+    android:orientation="vertical">
 
-    <LinearLayout
+    <include
+      layout="@layout/divider_horizontal"/>
+
+    <include
+      layout="@layout/place_page_bookmark_details"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:orientation="vertical">
+      android:layout_marginBottom="@dimen/margin_half"
+      tools:visibility="gone"/>
 
-      <include
-        layout="@layout/divider_horizontal"/>
+    <include layout="@layout/place_page_hotel_gallery"/>
 
-      <include
-        layout="@layout/place_page_bookmark_details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_half"
-        tools:visibility="gone"/>
+    <include layout="@layout/place_page_hotel_facilities"/>
 
-      <include layout="@layout/place_page_hotel_gallery"/>
+    <include layout="@layout/place_page_hotel_description"/>
 
-      <include layout="@layout/place_page_hotel_facilities"/>
+    <include layout="@layout/place_page_placename"/>
 
-      <include layout="@layout/place_page_hotel_description"/>
+    <include layout="@layout/place_page_opening_hours"/>
 
-      <include layout="@layout/place_page_placename"/>
+    <include layout="@layout/place_page_entrance"/>
 
-      <include layout="@layout/place_page_opening_hours"/>
+    <include layout="@layout/place_page_phone"/>
 
-      <include layout="@layout/place_page_entrance"/>
+    <include layout="@layout/place_page_website"/>
 
-      <include layout="@layout/place_page_phone"/>
+    <include layout="@layout/place_page_wiki"/>
 
-      <include layout="@layout/place_page_website"/>
+    <include layout="@layout/place_page_email"/>
 
-      <include layout="@layout/place_page_wiki"/>
+    <include layout="@layout/place_page_latlon"/>
 
-      <include layout="@layout/place_page_email"/>
+    <include layout="@layout/place_page_wifi"/>
 
-      <include layout="@layout/place_page_latlon"/>
+    <include layout="@layout/place_page_operator"/>
 
-      <include layout="@layout/place_page_wifi"/>
+    <include layout="@layout/place_page_cuisine"/>
 
-      <include layout="@layout/place_page_operator"/>
+    <include layout="@layout/place_page_hotel_nearby"/>
 
-      <include layout="@layout/place_page_cuisine"/>
+    <include layout="@layout/place_page_hotel_rating"/>
 
-      <include layout="@layout/place_page_hotel_nearby"/>
+    <!--TODO: remove this after booking_api.cpp will be done-->
+    <include layout="@layout/place_page_more"/>
 
-      <include layout="@layout/place_page_hotel_rating"/>
+    <include layout="@layout/divider_horizontal"/>
 
-      <!--TODO: remove this after booking_api.cpp will be done-->
-      <include layout="@layout/place_page_more"/>
+    <include layout="@layout/place_page_editor"/>
 
-      <include layout="@layout/divider_horizontal"/>
+    <include layout="@layout/place_page_add_business"/>
 
-      <include layout="@layout/place_page_editor"/>
+    <include layout="@layout/place_page_add"/>
 
-      <include layout="@layout/place_page_add_business"/>
-
-      <include layout="@layout/place_page_add"/>
-
-    </LinearLayout>
-
-  </com.mapswithme.maps.widget.ObservableScrollView>
+  </LinearLayout>
 
   <include layout="@layout/shadow_top"/>
 

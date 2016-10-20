@@ -22,7 +22,6 @@ import com.mapswithme.maps.bookmarks.ChooseBookmarkCategoryFragment.Listener;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.Icon;
-import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -171,11 +170,11 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
 
   private void refreshBookmark()
   {
-    mEtName.setText(mBookmark.getTitle());
-    mEtName.selectAll();
-    InputUtils.showKeyboard(mEtName);
+    if (TextUtils.isEmpty(mEtName.getText()))
+      mEtName.setText(mBookmark.getTitle());
 
-    mEtDescription.setText(mBookmark.getBookmarkDescription());
+    if (TextUtils.isEmpty(mEtDescription.getText()))
+      mEtDescription.setText(mBookmark.getBookmarkDescription());
     mTvBookmarkGroup.setText(mBookmark.getCategoryName());
     refreshColorMarker();
   }

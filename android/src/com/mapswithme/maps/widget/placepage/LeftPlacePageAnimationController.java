@@ -96,6 +96,7 @@ class LeftPlacePageAnimationController extends BasePlacePageAnimationController
       case HIDDEN:
         hidePlacePage();
         break;
+      case FULLSCREEN:
       case DETAILS:
       case PREVIEW:
         showPlacePage(currentState);

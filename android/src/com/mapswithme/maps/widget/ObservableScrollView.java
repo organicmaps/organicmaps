@@ -2,6 +2,8 @@ package com.mapswithme.maps.widget;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.view.GestureDetectorCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ScrollView;
@@ -48,6 +50,8 @@ public class ObservableScrollView extends ScrollView
   private ScrollListener mScrollListener;
   private int mPrevScroll;
   private boolean mTouched;
+  @Nullable
+  private GestureDetectorCompat mGestureDetector;
 
 
   public ObservableScrollView(Context context)
@@ -63,6 +67,17 @@ public class ObservableScrollView extends ScrollView
   public ObservableScrollView(Context context, AttributeSet attrs, int defStyle)
   {
     super(context, attrs, defStyle);
+  }
+
+  /**
+   * Translate all {@link MotionEvent}s to specified  {@link GestureDetectorCompat}
+   * all consuming flags from GestureDetectorCompat.onTouchEvent are ignored.
+   *
+   * @param gestureDetector {@link GestureDetectorCompat} to use.
+   */
+  public void setGestureDetector(@Nullable GestureDetectorCompat gestureDetector)
+  {
+    mGestureDetector = gestureDetector;
   }
 
   private boolean shouldSkipEvent(MotionEvent ev)
@@ -83,6 +98,9 @@ public class ObservableScrollView extends ScrollView
   @Override
   public boolean onTouchEvent(@NonNull MotionEvent ev)
   {
+    if (mGestureDetector != null)
+      mGestureDetector.onTouchEvent(ev);
+
     if (!super.onTouchEvent(ev))
       return false;
 

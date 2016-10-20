@@ -102,6 +102,14 @@
     <item name="windowActionBarOverlay">true</item>
   </style>
 
+  <style
+    name="MwmWidget.ToolbarTheme.DownButton"
+    parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    <item name="android:gravity">center_vertical</item>
+    <item name="colorAccent">@android:color/white</item>
+    <item name="android:homeAsUpIndicator">@drawable/ic_down</item>
+  </style>
+
   <style name="MwmWidget.ListView" parent="Widget.AppCompat.ListView">
     <item name="android:fadingEdge">none</item>
     <item name="android:divider">@color/divider</item>

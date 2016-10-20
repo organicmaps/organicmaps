@@ -1,20 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <include
-    android:id="@+id/pp__preview"
-    layout="@layout/place_page_preview"
+  <com.mapswithme.maps.widget.ObservableScrollView
+    android:id="@+id/pp__details"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_above="@+id/pp__buttons"/>
+    android:layout_height="match_parent"
+    android:overScrollMode="never"
+    android:layout_above="@+id/pp__buttons">
 
-  <include
-    android:id="@+id/pp__details_frame"
-    layout="@layout/place_page_details"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_above="@+id/pp__buttons"
-    android:background="?panel"/>
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+      <include
+        android:id="@+id/pp__preview"
+        layout="@layout/place_page_preview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+      <include
+        android:id="@+id/pp__details_frame"
+        layout="@layout/place_page_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?panel"/>
+    </LinearLayout>
+  </com.mapswithme.maps.widget.ObservableScrollView>
 
   <include
     android:id="@+id/pp__buttons"

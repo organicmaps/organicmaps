@@ -6,13 +6,13 @@ import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Interpolator;
-import android.view.animation.OvershootInterpolator;
 import android.widget.LinearLayout;
 
 import com.mapswithme.maps.R;
@@ -23,32 +23,21 @@ import com.mapswithme.util.concurrency.UiThread;
 
 class BottomPlacePageAnimationController extends BasePlacePageAnimationController
 {
+  @SuppressWarnings("unused")
   private static final String TAG = BottomPlacePageAnimationController.class.getSimpleName();
+  private static final float DETAIL_RATIO = 0.7f;
+  private static final float SCROLL_DELTA = 50.0f;
   private final ViewGroup mLayoutToolbar;
 
-  private final AnimationHelper mAnimationHelper = new AnimationHelper();
   private ValueAnimator mCurrentAnimator;
 
   private boolean mIsGestureStartedInsideView;
   private boolean mIsGestureFinished;
 
-  private class AnimationHelper
-  {
-    final View.OnLayoutChangeListener mListener = new View.OnLayoutChangeListener()
-    {
-      @Override
-      public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom)
-      {
-        if (mState == State.DETAILS && v.getId() == mDetailsFrame.getId() && top != oldTop)
-        {
-          mPreview.setTranslationY(-mDetailsContent.getHeight());
-          refreshToolbarVisibility();
-        }
-      }
-    };
-  }
+  private float mDetailMaxHeight;
+  private float mScrollDelta;
 
-  public BottomPlacePageAnimationController(@NonNull PlacePageView placePage)
+  BottomPlacePageAnimationController(@NonNull PlacePageView placePage)
   {
     super(placePage);
     mLayoutToolbar = (LinearLayout) mPlacePage.findViewById(R.id.toolbar_layout);
@@ -68,6 +57,11 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
         }
       });
     }
+
+    DisplayMetrics dm = placePage.getResources().getDisplayMetrics();
+    float screenHeight = dm.heightPixels;
+    mDetailMaxHeight = screenHeight * DETAIL_RATIO;
+    mScrollDelta = SCROLL_DELTA * dm.density;
   }
 
   @Override
@@ -75,58 +69,30 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
   {
     switch (event.getAction())
     {
-    case MotionEvent.ACTION_DOWN:
-      if (!isInsideView(event.getY()))
-      {
-        mIsGestureStartedInsideView = false;
+      case MotionEvent.ACTION_DOWN:
+        if (!UiUtils.isViewTouched(event, mDetailsScroll))
+        {
+          mIsGestureStartedInsideView = false;
+          break;
+        }
+
+        mIsGestureStartedInsideView = true;
+        mIsDragging = false;
+        mIsGestureFinished = false;
+        mDownCoord = event.getY();
         break;
-      }
+      case MotionEvent.ACTION_MOVE:
+        if (!mIsGestureStartedInsideView)
+          break;
 
-      mIsGestureStartedInsideView = true;
-      mIsDragging = false;
-      mIsGestureFinished = false;
-      mDownCoord = event.getY();
-      break;
-    case MotionEvent.ACTION_MOVE:
-      if (!mIsGestureStartedInsideView)
+        final float delta = mDownCoord - event.getY();
+        if (Math.abs(delta) > mTouchSlop && !isDetailsScroll(delta))
+          return true;
+
         break;
-
-      final float delta = mDownCoord - event.getY();
-      if (Math.abs(delta) > mTouchSlop && !isDetailsScroll(mDownCoord, delta))
-        return true;
-
-      break;
     }
 
     return false;
-  }
-
-  private boolean isInsideView(float y)
-  {
-    return y > mPreview.getY() && y < mButtons.getY();
-  }
-
-  /**
-   * @return whether gesture is scrolling of details content(and not dragging PP itself).
-   */
-  private boolean isDetailsScroll(float y, float delta)
-  {
-    return isOnDetails(y) && isDetailsScrollable() && canScroll(delta);
-  }
-
-  private boolean isOnDetails(float y)
-  {
-    return y > mDetailsFrame.getY() && y < mButtons.getY();
-  }
-
-  private boolean isDetailsScrollable()
-  {
-    return mDetailsFrame.getHeight() < mDetailsContent.getHeight();
-  }
-
-  private boolean canScroll(float delta)
-  {
-    return mDetailsScroll.getScrollY() != 0 || delta > 0;
   }
 
   @Override
@@ -136,19 +102,53 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
       return false;
 
     final boolean finishedDrag = (mIsDragging &&
-                                      (event.getAction() == MotionEvent.ACTION_UP ||
-                                       event.getAction() == MotionEvent.ACTION_CANCEL));
-    if (!mIsGestureStartedInsideView ||
-        !isInsideView(event.getY()) ||
-        finishedDrag)
+                                  (event.getAction() == MotionEvent.ACTION_UP ||
+                                   event.getAction() == MotionEvent.ACTION_CANCEL));
+    if (!mIsGestureStartedInsideView || !UiUtils.isViewTouched(event, mDetailsScroll)
+        || finishedDrag)
     {
       mIsGestureFinished = true;
-      finishDrag();
+      finishDrag(mDownCoord - event.getY());
       return false;
     }
 
     super.onTouchEvent(event);
     return true;
+  }
+
+  @Override
+  public void onScroll(int left, int top)
+  {
+    super.onScroll(left, top);
+
+    if (mCurrentScrollY > 0 && mDetailsScroll.getTranslationY() > 0)
+    {
+      mPlacePage.setState(State.HIDDEN);
+    }
+    refreshToolbarVisibility();
+  }
+
+  /**
+   * @return whether gesture is scrolling of details content(and not dragging PP itself).
+   */
+  private boolean isDetailsScroll(float delta)
+  {
+    return isDetailsScrollable() && canScroll(delta);
+  }
+
+  private boolean isDetailsScrollable()
+  {
+    return mPlacePage.getState() == State.FULLSCREEN && isDetailContentScrollable();
+  }
+
+  private boolean isDetailContentScrollable()
+  {
+    return mDetailsScroll.getHeight() < mDetailsContent.getHeight();
+  }
+
+  private boolean canScroll(float delta)
+  {
+    return mDetailsScroll.getScrollY() != 0 || delta > 0;
   }
 
   @Override
@@ -166,7 +166,18 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
         if (isVertical)
         {
           mIsDragging = true;
-          translateBy(-distanceY);
+          if (!translateBy(-distanceY))
+          {
+            if (mDetailsScroll.getTranslationY() == 0)
+            {
+              mDetailsScroll.scrollBy((int) distanceX, (int) distanceY);
+              mState = State.FULLSCREEN;
+            }
+            else
+            {
+              mPlacePage.setState(State.HIDDEN);
+            }
+          }
         }
 
         return true;
@@ -175,67 +186,136 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
       @Override
       public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY)
       {
-        mPlacePage.setState(velocityY > 0 ? State.HIDDEN : State.DETAILS);
-        return super.onFling(e1, e2, velocityX, velocityY);
+        finishDrag(-velocityY);
+        return true;
       }
 
       @Override
       public boolean onSingleTapConfirmed(MotionEvent e)
       {
-        if (!isInPreview(e.getY()))
-          return false;
-
-        mPlacePage.setState(mPlacePage.getState() == State.PREVIEW ? State.DETAILS
-                                                                   : State.PREVIEW);
-
+        MotionEvent evt = MotionEvent.obtain(e.getDownTime(),
+                                             e.getEventTime(),
+                                             e.getAction(),
+                                             e.getX(),
+                                             mDownCoord,
+                                             e.getMetaState());
+        if (UiUtils.isViewTouched(evt, mPreview))
+        {
+          if (mPlacePage.getState() == State.PREVIEW)
+          {
+            if (isDetailContentScrollable())
+            {
+              mPlacePage.setState(State.DETAILS);
+            }
+            else
+            {
+              mPlacePage.setState(State.FULLSCREEN);
+            }
+          }
+          else
+          {
+            mPlacePage.setState(State.PREVIEW);
+          }
+        }
         return true;
       }
     });
+    mDetailsScroll.setGestureDetector(mGestureDetector);
   }
 
-  private boolean isInPreview(float y)
+  private void finishDrag(float distance)
   {
-    return y > (mPreview.getTop() + mPreview.getTranslationY())
-               && y < (mPreview.getBottom() + mPreview.getTranslationY());
-  }
-
-  private void finishDrag()
-  {
-    final float currentTranslation = mDetailsFrame.getTranslationY();
+    final float currentTranslation = mDetailsScroll.getTranslationY();
     if (currentTranslation > mDetailsScroll.getHeight())
     {
       mPlacePage.setState(State.HIDDEN);
       return;
     }
 
-    @SuppressWarnings("UnnecessaryLocalVariable")
-    final float deltaTop = currentTranslation;
-    final float deltaBottom = mDetailsContent.getHeight() - currentTranslation;
-
-    mPlacePage.setState(deltaBottom > deltaTop ? State.DETAILS
-                                               : State.PREVIEW);
+    if (distance >= 0.0f) // drag up
+    {
+      if (mPlacePage.getState() == State.PREVIEW)
+      {
+        if (isDetailContentScrollable())
+        {
+          mPlacePage.setState(State.DETAILS);
+        }
+        else
+        {
+          mPlacePage.setState(State.FULLSCREEN);
+        }
+      }
+      else if (mPlacePage.getState() != State.FULLSCREEN)
+      {
+        mPlacePage.setState(State.FULLSCREEN);
+      }
+      else if (mCurrentScrollY == 0 || mDetailsScroll.getTranslationY() > 0)
+      {
+        mPlacePage.setState(State.DETAILS);
+      }
+    }
+    else // drag down
+    {
+      if (mPlacePage.getState() == State.FULLSCREEN)
+      {
+        if (isDetailContentScrollable())
+        {
+          mPlacePage.setState(State.DETAILS);
+        }
+        else
+        {
+          mPlacePage.setState(State.PREVIEW);
+        }
+      }
+      else if (mPlacePage.getState() == State.DETAILS)
+      {
+        mPlacePage.setState(State.PREVIEW);
+      }
+      else
+      {
+        mPlacePage.setState(State.HIDDEN);
+      }
+    }
   }
 
-  private void translateBy(float distanceY)
+  private boolean translateBy(float distanceY)
   {
-    final float detailsHeight = mDetailsScroll.getHeight();
-    float detailsTranslation = mDetailsFrame.getTranslationY() + distanceY;
-    float previewTranslation = mPreview.getTranslationY() + distanceY;
-    if (detailsTranslation < 0)
+    if (mCurrentScrollY > 0)
+      return false;
+
+    if (Math.abs(distanceY) > mScrollDelta)
+      distanceY = 0.0f;
+    float detailsTranslation = mDetailsScroll.getTranslationY() + distanceY;
+    final boolean isScrollable = isDetailContentScrollable();
+    boolean consumeEvent = true;
+    final float maxTranslationY = mDetailsScroll.getHeight() - mDetailsContent.getHeight();
+    if ((isScrollable && detailsTranslation < 0.0f) || detailsTranslation < maxTranslationY)
     {
-      detailsTranslation = 0;
-      previewTranslation = -detailsHeight;
+      if (isScrollable)
+      {
+        detailsTranslation = 0.0f;
+        mDetailsScroll.setGestureDetector(null);
+      }
+      else
+      {
+        detailsTranslation = maxTranslationY;
+      }
+
+      mState = State.FULLSCREEN;
+      consumeEvent = false;
     }
 
-    mPreview.setTranslationY(previewTranslation);
-    mDetailsFrame.setTranslationY(detailsTranslation);
+    mDetailsScroll.setTranslationY(detailsTranslation);
+    refreshToolbarVisibility();
+    return consumeEvent;
   }
 
   @Override
   protected void onStateChanged(final State currentState, final State newState, @MapObject.MapObjectType int type)
   {
-    prepareYTranslations(currentState, newState, type);
+    prepareYTranslations(newState, type);
 
+    mDetailsScroll.setGestureDetector(mGestureDetector);
     mPlacePage.post(new Runnable()
     {
       @Override
@@ -244,79 +324,72 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
         endRunningAnimation();
         switch (newState)
         {
-        case HIDDEN:
-          hidePlacePage();
-          break;
-        case PREVIEW:
-          showPreview(currentState);
-          break;
-        case DETAILS:
-          showDetails(currentState);
-          break;
+          case HIDDEN:
+            hidePlacePage();
+            break;
+          case PREVIEW:
+            showPreview(currentState);
+            break;
+          case DETAILS:
+            showDetails();
+            break;
+          case FULLSCREEN:
+            if (isDetailContentScrollable())
+              mDetailsScroll.setGestureDetector(null);
+            showFullscreen();
+            break;
         }
       }
     });
   }
 
   /**
-   * Prepares widgets for animating, places them vertically accordingly to their supposed positions.
+   * Prepares widgets for animating, places them vertically accordingly to their supposed
+   * positions.
    */
-  private void prepareYTranslations(State currentState, State newState, @MapObject.MapObjectType int type)
+  private void prepareYTranslations(State newState, @MapObject.MapObjectType int type)
   {
     switch (newState)
     {
-    case PREVIEW:
-      if (mState == State.HIDDEN)
-      {
-        UiUtils.invisible(mPlacePage, mPreview, mDetailsFrame, mButtons);
-        UiUtils.showIf(type == MapObject.BOOKMARK, mBookmarkDetails);
-        mPlacePage.post(new Runnable()
+      case PREVIEW:
+        if (mState == State.HIDDEN)
         {
-          @Override
-          public void run()
+          UiUtils.invisible(mPlacePage, mPreview, mDetailsFrame, mButtons);
+          UiUtils.showIf(type == MapObject.BOOKMARK, mBookmarkDetails);
+          mPlacePage.post(new Runnable()
           {
-            final float previewTranslation = mPreview.getHeight() + mButtons.getHeight();
-            mPreview.setTranslationY(previewTranslation);
-            mDetailsFrame.setTranslationY(mDetailsFrame.getHeight());
-            mButtons.setTranslationY(previewTranslation);
+            @Override
+            public void run()
+            {
+              mDetailsScroll.setTranslationY(mDetailsScroll.getHeight());
+              mButtons.setTranslationY(mPreview.getHeight() + mButtons.getHeight());
 
-            UiUtils.show(mPlacePage, mPreview, mButtons, mDetailsFrame);
-          }
-        });
-      }
-      break;
-    case DETAILS:
-      UiUtils.show(mPlacePage, mPreview, mDetailsFrame);
-      UiUtils.showIf(type == MapObject.BOOKMARK, mBookmarkDetails);
-      break;
+              UiUtils.show(mPlacePage, mPreview, mButtons, mDetailsFrame);
+            }
+          });
+        }
+        break;
+      case FULLSCREEN:
+      case DETAILS:
+        UiUtils.show(mPlacePage, mPreview, mButtons, mDetailsFrame);
+        UiUtils.showIf(type == MapObject.BOOKMARK, mBookmarkDetails);
+        break;
     }
   }
 
-  protected void showPreview(final State currentState)
+  private void showPreview(final State currentState)
   {
     if (mLayoutToolbar != null)
       UiUtils.hide(mLayoutToolbar);
 
-    mDetailsFrame.addOnLayoutChangeListener(mAnimationHelper.mListener);
-
-    mCurrentAnimator = ValueAnimator.ofFloat(mPreview.getTranslationY(), 0f);
-    final float detailsHeight = mDetailsFrame.getHeight();
-    mCurrentAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
-    {
-      @Override
-      public void onAnimationUpdate(ValueAnimator animation)
-      {
-        float translationY = (Float) animation.getAnimatedValue();
-        mPreview.setTranslationY(translationY);
-        mDetailsFrame.setTranslationY(translationY + detailsHeight);
-        notifyProgress();
-      }
-    });
-    Interpolator interpolator;
+    final float translation = mDetailsScroll.getHeight() - mPreview.getHeight();
+    mCurrentAnimator = ValueAnimator.ofFloat(mDetailsScroll.getTranslationY(), translation);
+    mCurrentAnimator.addUpdateListener(new UpdateListener());
+    Interpolator interpolator = new AccelerateInterpolator();
     if (currentState == State.HIDDEN)
     {
-      interpolator = new OvershootInterpolator();
-      mCurrentAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
+      ValueAnimator buttonAnimator = ValueAnimator.ofFloat(mButtons.getTranslationY(), 0);
+      buttonAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
       {
         @Override
         public void onAnimationUpdate(ValueAnimator animation)
@@ -324,10 +397,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
           mButtons.setTranslationY((Float) animation.getAnimatedValue());
         }
       });
-    }
-    else
-    {
-      interpolator = new AccelerateInterpolator();
+      startDefaultAnimator(buttonAnimator, interpolator);
     }
 
     mCurrentAnimator.addListener(new UiUtils.SimpleAnimatorListener()
@@ -342,44 +412,47 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
     startDefaultAnimator(mCurrentAnimator, interpolator);
   }
 
-  protected void showDetails(final State currentState)
+  private void showDetails()
   {
-    final float detailsScreenHeight = mDetailsScroll.getHeight();
+    if (isDetailContentScrollable())
+    {
+      mCurrentAnimator = ValueAnimator.ofFloat(mDetailsScroll.getTranslationY(),
+                                               mDetailsScroll.getHeight() - mDetailMaxHeight + mButtons
+                                                   .getHeight());
+    }
+    else
+    {
+      mCurrentAnimator = ValueAnimator.ofFloat(mDetailsScroll.getTranslationY(),
+                                               mDetailsScroll.getHeight() - mDetailsContent.getHeight());
+    }
+    mCurrentAnimator.addUpdateListener(new UpdateListener());
+    mCurrentAnimator.addListener(new AnimationListener());
 
-    mCurrentAnimator = ValueAnimator.ofFloat(mPreview.getTranslationY(), -detailsScreenHeight);
-    mCurrentAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
+    startDefaultAnimator();
+  }
+
+  private void showFullscreen()
+  {
+    if (isDetailContentScrollable())
     {
-      @Override
-      public void onAnimationUpdate(ValueAnimator animation)
-      {
-        float translationY = (Float) animation.getAnimatedValue();
-        mPreview.setTranslationY(translationY);
-        mDetailsFrame.setTranslationY(translationY + detailsScreenHeight);
-        notifyProgress();
-      }
-    });
-    mCurrentAnimator.addListener(new UiUtils.SimpleAnimatorListener()
+      mCurrentAnimator = ValueAnimator.ofFloat(mDetailsScroll.getTranslationY(), 0);
+    }
+    else
     {
-      @Override
-      public void onAnimationEnd(Animator animation)
-      {
-        refreshToolbarVisibility();
-        notifyVisibilityListener(true, true);
-        mDetailsScroll.scrollTo(0, 0);
-        notifyProgress();
-      }
-    });
+      mCurrentAnimator = ValueAnimator.ofFloat(mDetailsScroll.getTranslationY(),
+                                               mDetailsScroll.getHeight() - mDetailsContent.getHeight());
+    }
+    mCurrentAnimator.addUpdateListener(new UpdateListener());
+    mCurrentAnimator.addListener(new AnimationListener());
 
     startDefaultAnimator();
   }
 
   @SuppressLint("NewApi")
-  protected void hidePlacePage()
+  private void hidePlacePage()
   {
     if (mLayoutToolbar != null)
       UiUtils.hide(mLayoutToolbar);
-
-    mDetailsFrame.removeOnLayoutChangeListener(mAnimationHelper.mListener);
 
     final float animHeight = mPlacePage.getHeight() - mPreview.getY();
     mCurrentAnimator = ValueAnimator.ofFloat(0f, animHeight);
@@ -423,7 +496,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
     }
   }
 
-  protected void refreshToolbarVisibility()
+  private void refreshToolbarVisibility()
   {
     if (mLayoutToolbar != null)
       UiThread.runLater(new Runnable()
@@ -431,7 +504,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
         @Override
         public void run()
         {
-          UiUtils.showIf(mPreview.getY() < 0, mLayoutToolbar);
+          UiUtils.showIf(mCurrentScrollY > 0, mLayoutToolbar);
         }
       });
   }
@@ -439,5 +512,28 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
   private void notifyProgress()
   {
     notifyProgress(0, mPreview.getTranslationY());
+  }
+
+  private class UpdateListener implements ValueAnimator.AnimatorUpdateListener
+  {
+    @Override
+    public void onAnimationUpdate(ValueAnimator animation)
+    {
+      float translationY = (Float) animation.getAnimatedValue();
+      mDetailsScroll.setTranslationY(translationY);
+      notifyProgress();
+    }
+  }
+
+  private class AnimationListener extends UiUtils.SimpleAnimatorListener
+  {
+    @Override
+    public void onAnimationEnd(Animator animation)
+    {
+      refreshToolbarVisibility();
+      notifyVisibilityListener(true, true);
+      mDetailsScroll.scrollTo(0, 0);
+      notifyProgress();
+    }
   }
 }

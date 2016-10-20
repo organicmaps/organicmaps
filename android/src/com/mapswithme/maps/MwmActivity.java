@@ -108,7 +108,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                                      EditorHostFragment.class.getName(),
                                                      ReportFragment.class.getName() };
   // Instance state
-  private static final String STATE_PP_OPENED = "PpOpened";
+  private static final String STATE_PP = "PpState";
   private static final String STATE_MAP_OBJECT = "MapObject";
 
   // Map tasks that we run AFTER rendering initialized
@@ -143,6 +143,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   // The first launch of application ever - onboarding screen will be shown.
   private boolean mFirstStart;
+  private boolean mPlacePageRestored;
 
   public interface LeftAnimationTrackListener
   {
@@ -522,7 +523,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mNavMyPosition = new MyPositionButton(frame.findViewById(R.id.my_position));
   }
 
-  private boolean closePlacePage()
+  public boolean closePlacePage()
   {
     if (mPlacePage.isHidden())
       return false;
@@ -735,7 +736,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (!mPlacePage.isHidden())
     {
-      outState.putBoolean(STATE_PP_OPENED, true);
+      outState.putInt(STATE_PP, mPlacePage.getState().ordinal());
       outState.putParcelable(STATE_MAP_OBJECT, mPlacePage.getMapObject());
     }
 
@@ -761,8 +762,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onRestoreInstanceState(savedInstanceState);
 
-    if (savedInstanceState.getBoolean(STATE_PP_OPENED))
-      mPlacePage.setState(State.PREVIEW);
+    State state = State.values()[savedInstanceState.getInt(STATE_PP, 0)];
+    if (state != State.HIDDEN)
+    {
+      mPlacePageRestored = true;
+      mPlacePage.setMapObject((MapObject) savedInstanceState.getParcelable(STATE_MAP_OBJECT), true);
+      mPlacePage.setState(state);
+    }
 
     if (!mIsFragmentContainer && RoutingController.get().isPlanning())
       mRoutingPlanInplaceController.restoreState(savedInstanceState);
@@ -820,6 +826,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onResume();
 
+    mPlacePageRestored = mPlacePage.getState() != State.HIDDEN;
     mSearchController.refreshToolbar();
     mMainMenu.onResume(new Runnable()
     {
@@ -1025,7 +1032,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     setFullscreen(false);
 
     mPlacePage.setMapObject(object, true);
-    mPlacePage.setState(State.PREVIEW);
+    if (!mPlacePageRestored)
+      mPlacePage.setState(State.PREVIEW);
+    mPlacePageRestored = false;
 
     if (UiUtils.isVisible(mFadeView))
       mFadeView.fadeOut();

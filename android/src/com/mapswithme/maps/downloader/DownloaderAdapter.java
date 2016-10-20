@@ -120,7 +120,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       }
 
       @Override
-      void invoke(final CountryItem item, DownloaderAdapter adapter)
+      void invoke(final CountryItem item, final DownloaderAdapter adapter)
       {
         if (RoutingController.get().isNavigating())
         {
@@ -134,7 +134,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
         if (!MapManager.nativeHasUnsavedEditorChanges(item.id))
         {
-          deleteNode(item);
+          deleteNode(item, adapter);
           return;
         }
 
@@ -147,9 +147,18 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
                          @Override
                          public void onClick(DialogInterface dialog, int which)
                          {
-                           deleteNode(item);
+                           deleteNode(item, adapter);
                          }
                        }).show();
+      }
+
+      private void deleteNode(CountryItem item, DownloaderAdapter adapter)
+      {
+        if (adapter.mActivity instanceof MwmActivity)
+        {
+          ((MwmActivity) adapter.mActivity).closePlacePage();
+        }
+        deleteNode(item);
       }
     },
 
