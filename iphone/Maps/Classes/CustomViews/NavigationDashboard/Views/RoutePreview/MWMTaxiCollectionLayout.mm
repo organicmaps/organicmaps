@@ -7,10 +7,12 @@
 - (CGFloat)minimumLineSpacing { return 0; }
 - (CGFloat)minimumInteritemSpacing { return 0; }
 - (UICollectionViewScrollDirection)scrollDirection { return UICollectionViewScrollDirectionHorizontal; }
-
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds
 {
   auto const size = self.collectionView.bounds.size;
+  if (newBounds.size.height == 0)
+    return NO;
+  
   if (!CGSizeEqualToSize(size, newBounds.size))
   {
     dispatch_async(dispatch_get_main_queue(), ^{
