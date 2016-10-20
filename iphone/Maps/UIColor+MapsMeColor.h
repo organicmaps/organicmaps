@@ -33,6 +33,7 @@
 + (UIColor *)alertBackground;
 + (UIColor *)blackOpaque;
 + (UIColor *)bookingBackground;
++ (UIColor *)opentableBackground;
 
 + (UIColor *)colorWithName:(NSString *)colorName;
 

@@ -297,6 +297,11 @@ UIColor * color(SEL cmd)
   return [UIColor colorWithRed:scaled(25.) green:scaled(69.) blue:scaled(125.) alpha:alpha100];
 }
 
++ (UIColor *)opentableBackground
+{
+  return [UIColor colorWithRed:scaled(218.) green:scaled(55) blue:scaled(67) alpha:alpha100];
+}
+
 + (UIColor *)colorWithName:(NSString *)colorName
 {
 #pragma clang diagnostic push
