@@ -88,8 +88,8 @@ import java.util.Map;
 public class PlacePageView extends RelativeLayout
     implements View.OnClickListener,
                View.OnLongClickListener,
-               SponsoredHotel.OnPriceReceivedListener,
-               SponsoredHotel.OnInfoReceivedListener,
+               Sponsored.OnPriceReceivedListener,
+               Sponsored.OnInfoReceivedListener,
                LineCountTextView.OnLineCountCalculatedListener,
                RecyclerClickListener,
                NearbyAdapter.OnItemClickListener
@@ -164,8 +164,8 @@ public class PlacePageView extends RelativeLayout
   private MwmActivity.LeftAnimationTrackListener mLeftAnimationTrackListener;
   // Data
   private MapObject mMapObject;
-  private SponsoredHotel mSponsoredHotel;
-  private String mSponsoredHotelPrice;
+  private Sponsored mSponsored;
+  private String mSponsoredPrice;
   private boolean mIsLatLonDms;
   @NonNull
   private final FacilitiesAdapter mFacilitiesAdapter = new FacilitiesAdapter();
@@ -341,6 +341,11 @@ public class PlacePageView extends RelativeLayout
             color = Color.WHITE;
             break;
 
+          case OPENTABLE:
+            frame.setBackgroundResource(R.drawable.button_opentable);
+            color = Color.WHITE;
+            break;
+
           case BOOKMARK:
             mBookmarkButtonIcon = icon;
             updateButtons();
@@ -370,7 +375,7 @@ public class PlacePageView extends RelativeLayout
         case SHARE:
           Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_SHARE);
           AlohaHelper.logClick(AlohaHelper.PP_SHARE);
-          ShareOption.ANY.shareMapObject(getActivity(), mMapObject, mSponsoredHotel);
+          ShareOption.ANY.shareMapObject(getActivity(), mMapObject, mSponsored);
           break;
 
         case BACK:
@@ -404,6 +409,7 @@ public class PlacePageView extends RelativeLayout
             break;
 
           case BOOKING:
+          case OPENTABLE:
             onBookingClick(true /* book */);
             break;
         }
@@ -455,8 +461,8 @@ public class PlacePageView extends RelativeLayout
     if (UiUtils.isLandscape(getContext()))
       mDetails.setBackgroundResource(0);
 
-    SponsoredHotel.setPriceListener(this);
-    SponsoredHotel.setInfoListener(this);
+    Sponsored.setPriceListener(this);
+    Sponsored.setInfoListener(this);
   }
 
   private void initHotelRatingView()
@@ -512,7 +518,7 @@ public class PlacePageView extends RelativeLayout
   public void onPriceReceived(@NonNull String id, @NonNull String price,
                               @NonNull String currencyCode)
   {
-    if (mSponsoredHotel == null || !TextUtils.equals(id, mSponsoredHotel.getId()))
+    if (mSponsored == null || !TextUtils.equals(id, mSponsored.getId()))
       return;
 
     String text;
@@ -525,14 +531,14 @@ public class PlacePageView extends RelativeLayout
       text = (price + " " + currencyCode);
     }
 
-    mSponsoredHotelPrice = getContext().getString(R.string.place_page_starting_from, text);
+    mSponsoredPrice = getContext().getString(R.string.place_page_starting_from, text);
     refreshPreview();
   }
 
   @Override
-  public void onInfoReceived(@NonNull String id, @NonNull SponsoredHotel.HotelInfo info)
+  public void onInfoReceived(@NonNull String id, @NonNull Sponsored.HotelInfo info)
   {
-    if (mSponsoredHotel == null || !TextUtils.equals(id, mSponsoredHotel.getId()))
+    if (mSponsored == null || !TextUtils.equals(id, mSponsored.getId()))
       return;
 
     updateHotelDetails(info);
@@ -542,7 +548,7 @@ public class PlacePageView extends RelativeLayout
     updateHotelRating(info);
   }
 
-  private void updateHotelRating(@NonNull SponsoredHotel.HotelInfo info)
+  private void updateHotelRating(@NonNull Sponsored.HotelInfo info)
   {
     if (info.mReviews == null || info.mReviews.length == 0)
     {
@@ -552,13 +558,13 @@ public class PlacePageView extends RelativeLayout
     {
       UiUtils.show(mHotelReview);
       mReviewAdapter.setItems(new ArrayList<>(Arrays.asList(info.mReviews)));
-      mHotelRating.setText(mSponsoredHotel.mRating);
+      mHotelRating.setText(mSponsored.mRating);
       mHotelRatingBase.setText(getResources().getQuantityString(R.plurals.place_page_booking_rating_base,
                                                                 info.mReviews.length, info.mReviews.length));
     }
   }
 
-  private void updateHotelNearby(@NonNull SponsoredHotel.HotelInfo info)
+  private void updateHotelNearby(@NonNull Sponsored.HotelInfo info)
   {
     if (info.mNearby == null || info.mNearby.length == 0)
     {
@@ -571,7 +577,7 @@ public class PlacePageView extends RelativeLayout
     }
   }
 
-  private void updateHotelGallery(@NonNull SponsoredHotel.HotelInfo info)
+  private void updateHotelGallery(@NonNull Sponsored.HotelInfo info)
   {
     if (info.mPhotos == null || info.mPhotos.length == 0)
     {
@@ -585,7 +591,7 @@ public class PlacePageView extends RelativeLayout
     }
   }
 
-  private void updateHotelFacilities(@NonNull SponsoredHotel.HotelInfo info)
+  private void updateHotelFacilities(@NonNull Sponsored.HotelInfo info)
   {
     if (info.mFacilities == null || info.mFacilities.length == 0)
     {
@@ -601,7 +607,7 @@ public class PlacePageView extends RelativeLayout
     }
   }
 
-  private void updateHotelDetails(@NonNull SponsoredHotel.HotelInfo info)
+  private void updateHotelDetails(@NonNull Sponsored.HotelInfo info)
   {
     mTvHotelDescription.setMaxLines(getResources().getInteger(R.integer.pp_hotel_description_lines));
     refreshMetadataOrHide(info.mDescription, mHotelDescription, mTvHotelDescription);
@@ -628,7 +634,7 @@ public class PlacePageView extends RelativeLayout
   }
 
   @Override
-  public void onItemClick(@NonNull SponsoredHotel.NearbyObject item)
+  public void onItemClick(@NonNull Sponsored.NearbyObject item)
   {
 //  TODO go to selected object on map
   }
@@ -644,25 +650,41 @@ public class PlacePageView extends RelativeLayout
         if (!result)
           return;
 
-        SponsoredHotel info = mSponsoredHotel;
+        Sponsored info = mSponsored;
         if (info == null)
           return;
 
+        String event = Statistics.EventName.PP_SPONSORED_BOOK;
         Map<String, String> params = new HashMap<>();
-        params.put("provider", "Booking.Com");
-        params.put("hotel_lat", (mMapObject == null ? "N/A" : String.valueOf(mMapObject.getLat())));
-        params.put("hotel_lon", (mMapObject == null ? "N/A" : String.valueOf(mMapObject.getLon())));
-        params.put("hotel", info.getId());
-
-        String event = (book ? Statistics.EventName.PP_SPONSORED_BOOK
-                             : Statistics.EventName.PP_SPONSORED_DETAILS);
+        switch (info.getType())
+        {
+          case Sponsored.TYPE_BOOKING:
+            params.put("provider", "Booking.Com");
+            params.put("hotel_lat", (mMapObject == null ? "N/A" : String.valueOf(mMapObject.getLat())));
+            params.put("hotel_lon", (mMapObject == null ? "N/A" : String.valueOf(mMapObject.getLon())));
+            params.put("hotel", info.getId());
+            event = (book ? Statistics.EventName.PP_SPONSORED_BOOK
+                          : Statistics.EventName.PP_SPONSORED_DETAILS);
+            break;
+          case Sponsored.TYPE_GEOCHAT:
+            break;
+          case Sponsored.TYPE_OPENTABLE:
+            params.put("provider", "Opentable.Com");
+            params.put("restaurant_lat", (mMapObject == null ? "N/A" : String.valueOf(mMapObject.getLat())));
+            params.put("restaurant_lon", (mMapObject == null ? "N/A" : String.valueOf(mMapObject.getLon())));
+            params.put("restaurant", info.getId());
+            event = Statistics.EventName.PP_SPONSORED_OPENTABLE;
+            break;
+          case Sponsored.TYPE_NONE:
+            break;
+        }
 
         final Location location = LocationHelper.INSTANCE.getLastKnownLocation();
         Statistics.INSTANCE.trackEvent(event, location, params);
 
         try
         {
-          followUrl(book ? info.mUrlBook : info.mUrlDescription);
+          followUrl(book ? info.mUrl : info.mUrlDescription);
         } catch (ActivityNotFoundException e)
         {
           AlohaHelper.logException(e);
@@ -756,22 +778,23 @@ public class PlacePageView extends RelativeLayout
       return;
 
     mMapObject = mapObject;
-    mSponsoredHotel = (mMapObject == null ? null : SponsoredHotel.nativeGetCurrent());
+    mSponsored = (mMapObject == null ? null : Sponsored.nativeGetCurrent());
 
     detachCountry();
     if (mMapObject != null)
     {
-      if (mSponsoredHotel != null)
+      if (mSponsored != null)
       {
-        mSponsoredHotel.updateId(mMapObject);
-        mSponsoredHotelPrice = mSponsoredHotel.mPrice;
+        mSponsored.updateId(mMapObject);
+        mSponsoredPrice = mSponsored.mPrice;
 
         Locale locale = Locale.getDefault();
         Currency currency = Currency.getInstance(locale);
-        SponsoredHotel.requestPrice(mSponsoredHotel.getId(), currency.getCurrencyCode());
+        if (mSponsored.getType() == Sponsored.TYPE_BOOKING)
+          Sponsored.requestPrice(mSponsored.getId(), currency.getCurrencyCode());
 //      TODO: remove this after booking_api.cpp will be done
         if (!USE_OLD_BOOKING)
-          SponsoredHotel.requestInfo(mSponsoredHotel.getId(), locale.toString());
+          Sponsored.requestInfo(mSponsored, locale.toString());
       }
 
       String country = MapManager.nativeGetSelectedCountry();
@@ -854,12 +877,12 @@ public class PlacePageView extends RelativeLayout
     UiUtils.hide(mAvDirection);
     UiUtils.setTextAndHideIfEmpty(mTvAddress, mMapObject.getAddress());
 
-    boolean sponsored = (mSponsoredHotel != null);
+    boolean sponsored = (mSponsored != null);
     UiUtils.showIf(sponsored, mHotelInfo);
     if (sponsored)
     {
-      mTvHotelRating.setText(mSponsoredHotel.mRating);
-      UiUtils.setTextAndHideIfEmpty(mTvHotelPrice, mSponsoredHotelPrice);
+      mTvHotelRating.setText(mSponsored.mRating);
+      UiUtils.setTextAndHideIfEmpty(mTvHotelPrice, mSponsoredPrice);
     }
   }
 
@@ -867,7 +890,7 @@ public class PlacePageView extends RelativeLayout
   {
     refreshLatLon();
 
-    if (mSponsoredHotel == null)
+    if (mSponsored == null)
     {
       final String website = mMapObject.getMetadata(Metadata.MetadataType.FMD_WEBSITE);
       refreshMetadataOrHide(TextUtils.isEmpty(website) ? mMapObject.getMetadata(Metadata.MetadataType.FMD_URL) : website, mWebsite, mTvWebsite);
@@ -884,6 +907,9 @@ public class PlacePageView extends RelativeLayout
       UiUtils.hide(mWebsite);
 //    TODO: remove this after booking_api.cpp will be done
       if (!USE_OLD_BOOKING)
+        UiUtils.hide(mHotelMore);
+
+      if (mSponsored.getType() != Sponsored.TYPE_BOOKING)
         UiUtils.hide(mHotelMore);
     }
 
@@ -989,8 +1015,23 @@ public class PlacePageView extends RelativeLayout
     if (showBackButton || ParsedMwmRequest.isPickPointMode())
       buttons.add(PlacePageButtons.Item.BACK);
 
-    if (mSponsoredHotel != null)
-      buttons.add(PlacePageButtons.Item.BOOKING);
+    if (mSponsored != null)
+    {
+      switch (mSponsored.getType())
+      {
+
+        case Sponsored.TYPE_BOOKING:
+          buttons.add(PlacePageButtons.Item.BOOKING);
+          break;
+        case Sponsored.TYPE_GEOCHAT:
+          break;
+        case Sponsored.TYPE_OPENTABLE:
+          buttons.add(PlacePageButtons.Item.OPENTABLE);
+          break;
+        case Sponsored.TYPE_NONE:
+          break;
+      }
+    }
 
     buttons.add(PlacePageButtons.Item.BOOKMARK);
 
@@ -1185,8 +1226,8 @@ public class PlacePageView extends RelativeLayout
         break;
       case R.id.tv__place_hotel_reviews_more:
         ReviewActivity.start(getContext(), mReviewAdapter.getItems(), mMapObject.getTitle(),
-                             mSponsoredHotel.mRating, mReviewAdapter.getItems()
-                                                                    .size(), mSponsoredHotel.mUrlBook);
+                             mSponsored.mRating, mReviewAdapter.getItems()
+                                                               .size(), mSponsored.mUrl);
         break;
     }
   }

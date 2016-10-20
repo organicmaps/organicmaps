@@ -18,7 +18,7 @@ class FacilitiesAdapter extends BaseAdapter
   static final int MAX_COUNT = 6;
 
   @NonNull
-  private List<SponsoredHotel.FacilityType> mItems = new ArrayList<>();
+  private List<Sponsored.FacilityType> mItems = new ArrayList<>();
   private boolean isShowAll = false;
 
   @Override
@@ -64,7 +64,7 @@ class FacilitiesAdapter extends BaseAdapter
     return convertView;
   }
 
-  public void setItems(@NonNull List<SponsoredHotel.FacilityType> items)
+  public void setItems(@NonNull List<Sponsored.FacilityType> items)
   {
     this.mItems = items;
     notifyDataSetChanged();
@@ -87,7 +87,7 @@ class FacilitiesAdapter extends BaseAdapter
       mName = (TextView) view.findViewById(R.id.tv__facility);
     }
 
-    public void bind(SponsoredHotel.FacilityType facility)
+    public void bind(Sponsored.FacilityType facility)
     {
 //    TODO map facility key to image resource id
       mIcon.setImageResource(R.drawable.ic_entrance);

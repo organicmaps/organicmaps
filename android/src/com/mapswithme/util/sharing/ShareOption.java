@@ -10,7 +10,7 @@ import android.support.annotation.StringRes;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
-import com.mapswithme.maps.widget.placepage.SponsoredHotel;
+import com.mapswithme.maps.widget.placepage.Sponsored;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -35,9 +35,9 @@ public abstract class ShareOption
     return Utils.isIntentSupported(context, mBaseIntent);
   }
 
-  public void shareMapObject(Activity activity, @NonNull MapObject mapObject, @Nullable SponsoredHotel sponsoredHotel)
+  public void shareMapObject(Activity activity, @NonNull MapObject mapObject, @Nullable Sponsored sponsored)
   {
-    SharingHelper.shareOutside(new MapObjectShareable(activity, mapObject, sponsoredHotel)
+    SharingHelper.shareOutside(new MapObjectShareable(activity, mapObject, sponsored)
                  .setBaseIntent(new Intent(mBaseIntent)), mNameResId);
   }
 
@@ -57,7 +57,7 @@ public abstract class ShareOption
     }
 
     @Override
-    public void shareMapObject(Activity activity, MapObject mapObject, SponsoredHotel sponsoredHotel)
+    public void shareMapObject(Activity activity, MapObject mapObject, Sponsored sponsored)
     {
       final String ge0Url = Framework.nativeGetGe0Url(mapObject.getLat(), mapObject.getLon(), mapObject.getScale(), "");
       final String httpUrl = Framework.getHttpGe0Url(mapObject.getLat(), mapObject.getLon(), mapObject.getScale(), "");

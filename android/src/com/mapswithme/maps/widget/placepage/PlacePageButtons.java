@@ -47,6 +47,21 @@ final class PlacePageButtons
       }
     },
 
+    OPENTABLE
+    {
+      @Override
+      int getTitle()
+      {
+        return R.string.bookingcom_book_button;
+      }
+
+      @Override
+      int getIcon()
+      {
+        return R.drawable.img_logo_opentable;
+      }
+    },
+
     BACK
     {
       @Override

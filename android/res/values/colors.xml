@@ -141,5 +141,7 @@
   <!-- Brand colors -->
   <color name="bg_brand_booking">#FF19457D</color>
   <color name="bg_brand_booking_pressed">#FF1B549E</color>
+  <color name="bg_brand_opentable">#FFDA3743</color>
+  <color name="bg_brand_opentable_pressed">#FFFC5965</color>
 
 </resources>

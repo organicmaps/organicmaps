@@ -19,7 +19,7 @@ import java.util.List;
 class NearbyAdapter extends BaseAdapter
 {
   @NonNull
-  private List<SponsoredHotel.NearbyObject> mItems = new ArrayList<>();
+  private List<Sponsored.NearbyObject> mItems = new ArrayList<>();
   @Nullable
   private final OnItemClickListener mListener;
 
@@ -30,7 +30,7 @@ class NearbyAdapter extends BaseAdapter
 
   interface OnItemClickListener
   {
-    void onItemClick(@NonNull SponsoredHotel.NearbyObject item);
+    void onItemClick(@NonNull Sponsored.NearbyObject item);
   }
 
   @Override
@@ -71,7 +71,7 @@ class NearbyAdapter extends BaseAdapter
     return convertView;
   }
 
-  public void setItems(@NonNull List<SponsoredHotel.NearbyObject> items)
+  public void setItems(@NonNull List<Sponsored.NearbyObject> items)
   {
     this.mItems = items;
     notifyDataSetChanged();
@@ -90,7 +90,7 @@ class NearbyAdapter extends BaseAdapter
     @NonNull
     TextView mDistance;
     @Nullable
-    SponsoredHotel.NearbyObject mItem;
+    Sponsored.NearbyObject mItem;
 
     public ViewHolder(View view, @Nullable OnItemClickListener listener)
     {
@@ -109,7 +109,7 @@ class NearbyAdapter extends BaseAdapter
         mListener.onItemClick(mItem);
     }
 
-    public void bind(@NonNull SponsoredHotel.NearbyObject item)
+    public void bind(@NonNull Sponsored.NearbyObject item)
     {
       mItem = item;
       String packageName = mType.getContext().getPackageName();

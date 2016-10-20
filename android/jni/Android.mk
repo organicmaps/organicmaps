@@ -92,7 +92,7 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/maps/SearchRecents.cpp \
 	com/mapswithme/maps/settings/UnitLocale.cpp \
 	com/mapswithme/maps/sound/tts.cpp \
-	com/mapswithme/maps/SponsoredHotel.cpp \
+	com/mapswithme/maps/Sponsored.cpp \
 	com/mapswithme/maps/uber/Uber.cpp \
 	com/mapswithme/maps/TrackRecorder.cpp \
 	com/mapswithme/maps/UserMarkHelper.cpp \
