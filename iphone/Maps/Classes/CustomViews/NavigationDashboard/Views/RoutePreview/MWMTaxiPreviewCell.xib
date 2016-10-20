@@ -17,11 +17,14 @@
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_logo_uber" translatesAutoresizingMaskIntoConstraints="NO" id="fMe-7t-K8o">
                         <constraints>
-                            <constraint firstAttribute="width" constant="24" id="C7d-2c-Pq4"/>
-                            <constraint firstAttribute="height" constant="24" id="LbA-X8-FRW"/>
+                            <constraint firstAttribute="width" constant="24" id="RdA-cX-VRi"/>
+                            <constraint firstAttribute="height" constant="24" id="uri-90-2qt"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UberX" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="til-vK-WGY">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="MxN-03-m1e"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name=".SFNSText" family=".SF NS Text" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -31,6 +34,9 @@
                         </userDefinedRuntimeAttributes>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ожидание 9 мин" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TWl-RV-DGe">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="18" id="BrQ-ay-buz"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -40,6 +46,9 @@
                         </userDefinedRuntimeAttributes>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="350-400 Р" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYn-L4-OCN">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="18" id="rAL-Ax-Ysl"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -51,18 +60,17 @@
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="til-vK-WGY" firstAttribute="leading" secondItem="fMe-7t-K8o" secondAttribute="trailing" constant="20" id="Cje-Qm-Pss"/>
-                <constraint firstAttribute="trailing" secondItem="til-vK-WGY" secondAttribute="trailing" constant="8" id="EZh-mj-09c"/>
-                <constraint firstItem="eYn-L4-OCN" firstAttribute="top" secondItem="TWl-RV-DGe" secondAttribute="bottom" constant="4" id="GfX-Rt-Aw4"/>
-                <constraint firstItem="TWl-RV-DGe" firstAttribute="leading" secondItem="til-vK-WGY" secondAttribute="leading" id="KPO-tk-GkR"/>
-                <constraint firstItem="TWl-RV-DGe" firstAttribute="trailing" secondItem="til-vK-WGY" secondAttribute="trailing" id="M4U-cs-QZl"/>
-                <constraint firstItem="eYn-L4-OCN" firstAttribute="leading" secondItem="TWl-RV-DGe" secondAttribute="leading" id="d66-sm-6xF"/>
-                <constraint firstItem="til-vK-WGY" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="eSW-9j-whp"/>
-                <constraint firstAttribute="bottom" secondItem="eYn-L4-OCN" secondAttribute="bottom" constant="10" id="go1-qL-Es7"/>
-                <constraint firstItem="TWl-RV-DGe" firstAttribute="top" secondItem="til-vK-WGY" secondAttribute="bottom" id="p5e-Zi-2Ps"/>
-                <constraint firstItem="fMe-7t-K8o" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="16" id="tAa-Eh-klM"/>
-                <constraint firstItem="fMe-7t-K8o" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="ub5-Gb-FnW"/>
-                <constraint firstItem="eYn-L4-OCN" firstAttribute="trailing" secondItem="TWl-RV-DGe" secondAttribute="trailing" id="zE3-K0-4GI"/>
+                <constraint firstItem="eYn-L4-OCN" firstAttribute="top" secondItem="TWl-RV-DGe" secondAttribute="bottom" constant="4" id="0YJ-Lg-yEw"/>
+                <constraint firstAttribute="trailing" secondItem="eYn-L4-OCN" secondAttribute="trailing" constant="10" id="2r2-HX-UnE"/>
+                <constraint firstAttribute="trailing" secondItem="til-vK-WGY" secondAttribute="trailing" constant="10" id="38l-q4-z1d"/>
+                <constraint firstItem="til-vK-WGY" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="7NZ-Z6-aZ6"/>
+                <constraint firstAttribute="trailing" secondItem="TWl-RV-DGe" secondAttribute="trailing" constant="10" id="8bt-hC-Tuj"/>
+                <constraint firstItem="fMe-7t-K8o" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="16" id="Mkd-eB-WZt"/>
+                <constraint firstItem="TWl-RV-DGe" firstAttribute="leading" secondItem="fMe-7t-K8o" secondAttribute="trailing" constant="20" id="OYA-eN-WkZ"/>
+                <constraint firstItem="fMe-7t-K8o" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="XJt-oc-jnH"/>
+                <constraint firstItem="eYn-L4-OCN" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="60" id="do5-VC-wsa"/>
+                <constraint firstItem="til-vK-WGY" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="60" id="hJO-IB-Vm7"/>
+                <constraint firstItem="TWl-RV-DGe" firstAttribute="top" secondItem="til-vK-WGY" secondAttribute="bottom" constant="4" id="nPU-Y1-NJP"/>
             </constraints>
             <size key="customSize" width="251" height="44"/>
             <connections>

@@ -68,7 +68,6 @@
 				<string>geo</string>
 				<string>fb185237551520383</string>
 				<string>mapswithmepro</string>
-				<string>uber</string>
 			</array>
 		</dict>
 	</array>
@@ -98,6 +97,7 @@
 		<string>fb-messenger-api</string>
 		<string>fbauth2</string>
 		<string>fbshareextension</string>
+		<string>uber</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
