@@ -2,16 +2,16 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:defaults.xcconfig">
+      location = "container:defaults.xcconfig">
    </FileRef>
    <Group
       location = "container:"
       name = "3party">
       <FileRef
-         location = "group:agg/agg.xcodeproj">
+         location = "container:agg/agg.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:lodepng/lodepng.xcodeproj">
+         location = "container:lodepng/lodepng.xcodeproj">
       </FileRef>
       <FileRef
          location = "container:gflags/gflags.xcodeproj">
@@ -41,28 +41,28 @@
          location = "container:alohalitics/alohalitics.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:protobuf/protobuf.xcodeproj">
+         location = "container:protobuf/protobuf.xcodeproj">
       </FileRef>
       <FileRef
          location = "container:expat/expat.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:minizip/minizip.xcodeproj">
+         location = "container:minizip/minizip.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:tess2/tess2.xcodeproj">
+         location = "container:tess2/tess2.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:sdf_image/sdf_image.xcodeproj">
+         location = "container:sdf_image/sdf_image.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:stb_image/stb_image.xcodeproj">
+         location = "container:stb_image/stb_image.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:pugixml/pugixml.xcodeproj">
+         location = "container:pugixml/pugixml.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:oauthcpp/oauthcpp.xcodeproj">
+         location = "container:oauthcpp/oauthcpp.xcodeproj">
       </FileRef>
    </Group>
    <FileRef
@@ -78,7 +78,7 @@
       location = "container:drape/drape.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:drape_frontend/drape_frontend.xcodeproj">
+      location = "container:drape_frontend/drape_frontend.xcodeproj">
    </FileRef>
    <FileRef
       location = "container:geometry/geometry.xcodeproj">
@@ -105,7 +105,7 @@
       location = "container:storage/storage.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:tracking/tracking.xcodeproj">
+      location = "container:tracking/tracking.xcodeproj">
    </FileRef>
    <FileRef
       location = "container:generator_tool/generator_tool.xcodeproj">
@@ -117,16 +117,16 @@
       location = "container:"
       name = "iOS">
       <FileRef
-         location = "group:../iphone/Maps/Maps.xcodeproj">
+         location = "container:../iphone/Maps/Maps.xcodeproj">
       </FileRef>
    </Group>
    <FileRef
-      location = "group:mapshot/mapshot.xcodeproj">
+      location = "container:mapshot/mapshot.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:partners_api/partners_api.xcodeproj">
+      location = "container:partners_api/partners_api.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:editor/editor.xcodeproj">
+      location = "container:editor/editor.xcodeproj">
    </FileRef>
 </Workspace>
