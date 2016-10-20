@@ -25,6 +25,7 @@ void TransferLocation(Reporter & reporter, TestSocket & testSocket, double times
   gpsInfo.m_timestamp = timestamp;
   gpsInfo.m_latitude = latidute;
   gpsInfo.m_longitude = longtitude;
+  gpsInfo.m_horizontalAccuracy = 1.0;
   reporter.AddLocation(gpsInfo);
 
   vector<uint8_t> buffer;
