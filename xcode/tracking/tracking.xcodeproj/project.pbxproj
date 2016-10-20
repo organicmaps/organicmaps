@@ -176,7 +176,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0800;
-				ORGANIZATIONNAME = Mail.Ru;
+				ORGANIZATIONNAME = maps.me;
 				TargetAttributes = {
 					675E884F1DB7AC0300F8EBDA = {
 						CreatedOnToolsVersion = 8.0;
@@ -400,6 +400,7 @@
 				675E885D1DB7AC0300F8EBDA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		675E88801DB7ACD900F8EBDA /* Build configuration list for PBXNativeTarget "tracking_tests" */ = {
 			isa = XCConfigurationList;
@@ -408,6 +409,7 @@
 				675E88821DB7ACD900F8EBDA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
