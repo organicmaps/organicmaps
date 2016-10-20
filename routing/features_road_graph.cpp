@@ -46,7 +46,7 @@ FeaturesRoadGraph::Value::Value(MwmSet::MwmHandle handle) : m_mwmHandle(move(han
   m_altitudeLoader = make_unique<feature::AltitudeLoader>(*m_mwmHandle.GetValue<MwmValue>());
 }
 
-FeaturesRoadGraph::CrossCountryVehicleModel::CrossCountryVehicleModel(unique_ptr<IVehicleModelFactory> && vehicleModelFactory)
+FeaturesRoadGraph::CrossCountryVehicleModel::CrossCountryVehicleModel(unique_ptr<VehicleModelFactory> && vehicleModelFactory)
   : m_vehicleModelFactory(move(vehicleModelFactory))
   , m_maxSpeedKMPH(m_vehicleModelFactory->GetVehicleModel()->GetMaxSpeed())
 {
@@ -108,7 +108,7 @@ void FeaturesRoadGraph::RoadInfoCache::Clear()
 }
 
 FeaturesRoadGraph::FeaturesRoadGraph(Index const & index, IRoadGraph::Mode mode,
-                                     unique_ptr<IVehicleModelFactory> && vehicleModelFactory)
+                                     unique_ptr<VehicleModelFactory> && vehicleModelFactory)
   : m_index(index)
   , m_mode(mode)
   , m_vehicleModel(move(vehicleModelFactory))

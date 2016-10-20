@@ -78,21 +78,23 @@ private:
   ResultCode MakeRouteFromCrossesPath(TCheckedPath const & path, RouterDelegate const & delegate,
                                       Route & route);
 
+  // @TODO(bykoianko) When edgeidx section implementation is merged to master
+  // this method should be moved to edge index loader.
   bool IsEdgeIndexExisting(Index::MwmId const & mwmId);
 
   /*!
    * \brief Builds a route within one mwm using A* if edge index section is available and osrm otherwise.
-   * Then reconstructs the route and restore all route attributes.
-   * \param route The found route is added the the |route| if the method returns true.
-   * \return true if route is build and false otherwise.
+   * Then reconstructs the route and restores all route attributes.
+   * \param route The found route is added to the |route| if the method returns true.
+   * \return true if route is built and false otherwise.
    */
   bool FindSingleRouteDispatcher(FeatureGraphNode const & source, FeatureGraphNode const & target,
                                  RouterDelegate const & delegate, TRoutingMappingPtr & mapping,
                                  Route & route);
 
-  /*! Find single shortest path in a single MWM between 2 sets of edges
+  /*! Finds single shortest path in a single MWM between 2 sets of edges
      * \param source: vector of source edges to make path
-     * \param taget: vector of target edges to make path
+     * \param target: vector of target edges to make path
      * \param facade: OSRM routing data facade to recover graph information
      * \param rawRoutingResult: routing result store
      * \return true when path exists, false otherwise.

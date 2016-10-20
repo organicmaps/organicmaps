@@ -236,9 +236,13 @@ bool CarRouter::FindRouteFromCases(TFeatureGraphNodeVec const & source, TFeature
   route.Swap(emptyRoute);
   /// @todo (ldargunov) make more complex nearest edge turnaround
   for (auto const & targetEdge : target)
+  {
     for (auto const & sourceEdge : source)
+    {
       if (FindSingleRouteDispatcher(sourceEdge, targetEdge, delegate, mapping, route))
         return true;
+    }
+  }
   return false;
 }
 
@@ -496,7 +500,7 @@ bool CarRouter::IsEdgeIndexExisting(Index::MwmId const & mwmId)
   MwmSet::MwmHandle const handle = m_pIndex->GetMwmHandleById(mwmId);
   if (!handle.IsAlive())
   {
-    ASSERT(false, ("m_mwmHandle is not alive."));
+    ASSERT(false, ("Mwm handle is not alive."));
     return false;
   }
 
@@ -525,7 +529,7 @@ bool CarRouter::FindSingleRouteDispatcher(FeatureGraphNode const & source, Featu
   if (IsEdgeIndexExisting(source.mwmId) && m_roadGraphRouter)
   {
     // A* routing
-    LOG(LINFO, ("A* route form", MercatorBounds::ToLatLon(source.segmentPoint),
+    LOG(LINFO, ("A* route from", MercatorBounds::ToLatLon(source.segmentPoint),
                 "to", MercatorBounds::ToLatLon(target.segmentPoint)));
 
     if (m_roadGraphRouter->CalculateRoute(source.segmentPoint, m2::PointD(0, 0), target.segmentPoint,
@@ -544,7 +548,7 @@ bool CarRouter::FindSingleRouteDispatcher(FeatureGraphNode const & source, Featu
     Route::TTimes mwmTimes;
     Route::TStreets mwmStreets;
 
-    LOG(LINFO, ("OSRM route form", MercatorBounds::ToLatLon(source.segmentPoint),
+    LOG(LINFO, ("OSRM route from", MercatorBounds::ToLatLon(source.segmentPoint),
                 "to", MercatorBounds::ToLatLon(target.segmentPoint)));
 
     RawRoutingResult routingResult;

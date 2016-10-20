@@ -93,6 +93,9 @@ shared_ptr<IVehicleModel> CarModelFactory::GetVehicleModel() const
 
 shared_ptr<IVehicleModel> CarModelFactory::GetVehicleModelForCountry(string const & /* country */) const
 {
+  // @TODO(bykoianko) Different vehicle model for different country should be supported
+  // according to http://wiki.openstreetmap.org/wiki/OSM_tags_for_routing/Access-Restrictions.
+  // See pedestrian_model.cpp and bicycle_model.cpp for example.
   return m_model;
 }
 }  // namespace routing

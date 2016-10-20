@@ -14,12 +14,12 @@ public:
   static CarModel const & AllLimitsInstance();
 };
 
-class CarModelFactory : public IVehicleModelFactory
+class CarModelFactory : public VehicleModelFactory
 {
 public:
   CarModelFactory();
 
-  // IVehicleModelFactory overrides:
+  // VehicleModelFactory overrides:
   shared_ptr<IVehicleModel> GetVehicleModel() const override;
   shared_ptr<IVehicleModel> GetVehicleModelForCountry(string const & country) const override;
 

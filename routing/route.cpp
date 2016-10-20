@@ -374,7 +374,7 @@ void Route::AppendRoute(Route const & route)
   size_t const polySize = m_poly.GetPolyline().GetSize();
 
   // Appending turns.
-  for (turns::TurnItem t : route.m_turns)
+  for (auto t : route.m_turns)
   {
     if (t.m_index == 0)
       continue;

@@ -88,7 +88,7 @@ using TRawDataFacade = OsrmRawDataFacade<QueryEdge::EdgeData>;
 void FindWeightsMatrix(TRoutingNodes const & sources, TRoutingNodes const & targets,
                        TRawDataFacade & facade, vector<EdgeWeight> & result);
 
-/*! Find single shortest path in a single MWM between 2 OSRM nodes
+/*! Finds single shortest path in a single MWM between 2 OSRM nodes
    * \param source Source OSRM graph node to make path.
    * \param taget Target OSRM graph node to make path.
    * \param facade OSRM routing data facade to recover graph information.

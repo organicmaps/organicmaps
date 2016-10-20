@@ -30,7 +30,7 @@ public:
 
 protected:
   virtual unique_ptr<routing::IDirectionsEngine> CreateDirectionsEngine() = 0;
-  virtual unique_ptr<routing::IVehicleModelFactory> CreateModelFactory() = 0;
+  virtual unique_ptr<routing::VehicleModelFactory> CreateModelFactory() = 0;
 
   template <typename Algorithm>
   unique_ptr<routing::IRouter> CreateRouter(string const & name)
@@ -52,7 +52,7 @@ protected:
 };
 
 template <typename Model>
-class SimplifiedModelFactory : public routing::IVehicleModelFactory
+class SimplifiedModelFactory : public routing::VehicleModelFactory
 {
 public:
   // Since for test purposes we compare routes lengths to check
@@ -79,7 +79,7 @@ public:
 
   SimplifiedModelFactory() : m_model(make_shared<SimplifiedModel>()) {}
 
-  // IVehicleModelFactory overrides:
+  // VehicleModelFactory overrides:
   shared_ptr<routing::IVehicleModel> GetVehicleModel() const override { return m_model; }
   shared_ptr<routing::IVehicleModel> GetVehicleModelForCountry(
       string const & /*country*/) const override
