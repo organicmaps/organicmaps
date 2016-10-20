@@ -19,6 +19,7 @@
 		675E88981DB7B08500F8EBDA /* libplatform_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675E88961DB7B08500F8EBDA /* libplatform_tests_support.a */; };
 		675E88991DB7B08500F8EBDA /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675E88971DB7B08500F8EBDA /* libtomcrypt.a */; };
 		675E88A21DB7B10300F8EBDA /* libtracking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675E88501DB7AC0300F8EBDA /* libtracking.a */; };
+		67B6E7B81DB8BBA900745F8A /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67B6E7B71DB8BBA900745F8A /* testingmain.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		675E88911DB7B03400F8EBDA /* libplatform.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform.a; path = "/Users/darkserj/mapsme/omim/xcode/platform/../../../omim-xcode-build/Debug/libplatform.a"; sourceTree = "<absolute>"; };
 		675E88961DB7B08500F8EBDA /* libplatform_tests_support.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform_tests_support.a; path = "/Users/darkserj/mapsme/omim/xcode/platform/../../../omim-xcode-build/Debug/libplatform_tests_support.a"; sourceTree = "<absolute>"; };
 		675E88971DB7B08500F8EBDA /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtomcrypt.a; path = "/Users/darkserj/mapsme/omim/xcode/tomcrypt/../../../omim-xcode-build/Debug/libtomcrypt.a"; sourceTree = "<absolute>"; };
+		67B6E7B71DB8BBA900745F8A /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 		675E88831DB7ACEA00F8EBDA /* tracking_tests */ = {
 			isa = PBXGroup;
 			children = (
+				67B6E7B71DB8BBA900745F8A /* testingmain.cpp */,
 				675E88841DB7AD1000F8EBDA /* reporter_test.cpp */,
 			);
 			name = tracking_tests;
@@ -220,6 +223,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				675E88661DB7AC9000F8EBDA /* reporter.cpp in Sources */,
+				67B6E7B81DB8BBA900745F8A /* testingmain.cpp in Sources */,
 				675E88641DB7AC9000F8EBDA /* connection.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
