@@ -23,8 +23,9 @@
   if (!strings::to_double(product.m_time, time))
     NSAssert(false, @"Incorrect time");
 
-  auto formatted = [NSDateFormatter estimatedArrivalTimeWithSeconds:time].UTF8String;
-  self.waitingTime.text = [NSString stringWithFormat:L(@"taxi_wait"), formatted];
+  NSString * formatted = [NSDateFormatter estimatedArrivalTimeWithSeconds:time];
+  NSString * pattern = [L(@"taxi_wait") stringByReplacingOccurrencesOfString:@"%s" withString:@"%@"];
+  self.waitingTime.text = [NSString stringWithFormat:pattern, formatted];
   self.price.text = @(product.m_price.c_str());
 }
 
