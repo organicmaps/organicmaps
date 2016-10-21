@@ -33,7 +33,7 @@
   if ([self.textContainer isKindOfClass:[UITextView class]])
   {
     UITextView * textView = (UITextView *)self.textContainer;
-    [textView setTextContainerInset:{.top = 12}];
+    textView.textContainerInset = {.left = -5, .top = 12};
     textView.keyboardAppearance =
         [UIColor isNightMode] ? UIKeyboardAppearanceDark : UIKeyboardAppearanceDefault;
   }
