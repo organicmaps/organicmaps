@@ -17875,7 +17875,7 @@
     en = More Reviews
     ru = Ещё отзывы
 
-  [bookingcom_book_button]
+  [book_button]
     en = Book
     ru = Забронировать
     ar = حجز

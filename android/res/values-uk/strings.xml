@@ -866,7 +866,7 @@
 	<string name="minute">хв</string>
 	<string name="placepage_place_description">Опис</string>
 	<string name="placepage_more_button">Ще</string>
-	<string name="bookingcom_book_button">Забронювати</string>
+	<string name="book_button">Забронювати</string>
 	<string name="placepage_call_button">Подзвонити</string>
 	<string name="placepage_edit_bookmark_button">Редагувати мiтку</string>
 	<string name="placepage_bookmark_name_hint">Назва мiтки</string>

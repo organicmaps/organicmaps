@@ -64,9 +64,9 @@ enum class OpeningHours
 // Booking
 - (NSString *)bookingRating;
 - (NSString *)bookingApproximatePricing;
-- (NSURL *)bookingURL;
-- (NSURL *)bookingDescriptionURL;
-- (NSString *)hotelId;
+- (NSURL *)sponsoredURL;
+- (NSURL *)sponsoredDescriptionURL;
+- (NSString *)sponsoredId;
 - (void)assignOnlinePriceToLabel:(UILabel *)label;
 
 // API
@@ -92,6 +92,7 @@ enum class OpeningHours
 - (BOOL)isBookmark;
 - (BOOL)isApi;
 - (BOOL)isBooking;
+- (BOOL)isOpentable;
 - (BOOL)isHTMLDescription;
 - (BOOL)isMyPosition;
 

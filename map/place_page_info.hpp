@@ -14,6 +14,14 @@
 
 #include "std/string.hpp"
 
+enum class SponsoredType
+{
+  None,
+  Booking,
+  Opentable,
+  Geochat
+};
+
 namespace place_page
 {
 class Info : public osm::MapObject
@@ -28,8 +36,7 @@ public:
   bool IsFeature() const;
   bool IsBookmark() const;
   bool IsMyPosition() const;
-  bool IsSponsoredHotel() const;
-  bool IsHotel() const;
+  bool IsSponsored() const;
 
   bool ShouldShowAddPlace() const;
   bool ShouldShowAddBusiness() const;
@@ -62,7 +69,7 @@ public:
   string GetBookmarkCategoryName() const;
   string const & GetApiUrl() const;
 
-  string const & GetSponsoredBookingUrl() const;
+  string const & GetSponsoredUrl() const;
   string const & GetSponsoredDescriptionUrl() const;
 
   /// @returns formatted rating string for booking object, or empty if it isn't booking object
@@ -90,12 +97,11 @@ public:
   string m_apiUrl;
   /// Formatted feature address.
   string m_address;
-  /// Feature is a hotel.
-  bool m_isHotel = false;
-  /// Feature is a sponsored hotel.
-  bool m_isSponsoredHotel = false;
+  /// Sponsored type or None.
+  SponsoredType m_sponsoredType = SponsoredType::None;
+
   /// Sponsored feature urls.
-  string m_sponsoredBookingUrl;
+  string m_sponsoredUrl;
   string m_sponsoredDescriptionUrl;
 
   /// Which country this MapObject is in.

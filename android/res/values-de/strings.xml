@@ -880,7 +880,7 @@
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Beschreibung</string>
 	<string name="placepage_more_button">Mehr</string>
-	<string name="bookingcom_book_button">Buchen</string>
+	<string name="book_button">Buchen</string>
 	<string name="placepage_call_button">Anruf</string>
 	<string name="placepage_edit_bookmark_button">Lesezeichen bearbeiten</string>
 	<string name="placepage_bookmark_name_hint">Name des Lesezeichens</string>

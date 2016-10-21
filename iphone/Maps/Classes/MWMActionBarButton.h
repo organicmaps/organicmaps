@@ -2,6 +2,7 @@ enum class EButton  // Required button's order
 {
   Api,
   Booking,
+  Opentable,
   Call,
   Bookmark,
   RouteFrom,

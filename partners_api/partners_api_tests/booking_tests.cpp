@@ -6,7 +6,7 @@ UNIT_TEST(Booking_SmokeTest)
 {
   BookingApi api;
 
-  string url = api.GetBookingUrl("http://someurl.com");
+  string url = api.GetBookHotelUrl("http://someurl.com");
   TEST(!url.empty(), ());
 }
 

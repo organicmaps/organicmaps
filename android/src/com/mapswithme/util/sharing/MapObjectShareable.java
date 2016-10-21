@@ -8,12 +8,12 @@ import android.text.TextUtils;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
-import com.mapswithme.maps.widget.placepage.SponsoredHotel;
+import com.mapswithme.maps.widget.placepage.Sponsored;
 import com.mapswithme.util.statistics.Statistics;
 
 class MapObjectShareable extends BaseShareable
 {
-  MapObjectShareable(Activity context, @NonNull MapObject mapObject, @Nullable SponsoredHotel sponsoredHotel)
+  MapObjectShareable(Activity context, @NonNull MapObject mapObject, @Nullable Sponsored sponsored)
   {
     super(context);
 
@@ -40,10 +40,10 @@ class MapObjectShareable extends BaseShareable
                  lineWithBreak(mapObject.getAddress()) +
                  lineWithBreak(ge0Url);
 
-      if (sponsoredHotel != null)
+      if (sponsored != null)
       {
         text += lineWithBreak(activity.getString(R.string.sharing_booking)) +
-                    sponsoredHotel.getUrlBook();
+                sponsored.getUrl();
       }
     }
 

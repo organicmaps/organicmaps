@@ -1,5 +1,6 @@
 package com.mapswithme.maps.widget.placepage;
 
+import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.UiThread;
@@ -10,13 +11,24 @@ import com.mapswithme.maps.bookmarks.data.Metadata;
 import com.mapswithme.maps.gallery.Image;
 import com.mapswithme.maps.review.Review;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 
 @UiThread
-public final class SponsoredHotel
+public final class Sponsored
 {
+  static final int TYPE_NONE = 0;
+  static final int TYPE_BOOKING = 1;
+  static final int TYPE_OPENTABLE = 2;
+  static final int TYPE_GEOCHAT = 3;
+
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({TYPE_NONE, TYPE_BOOKING, TYPE_OPENTABLE, TYPE_GEOCHAT})
+  @interface SponsoredType {}
+
   private static class Price
   {
     @NonNull
@@ -146,7 +158,7 @@ public final class SponsoredHotel
     void onPriceReceived(@NonNull String id, @NonNull String price, @NonNull String currency);
   }
 
-  interface OnInfoReceivedListener
+  interface OnHotelInfoReceivedListener
   {
     /**
      * This method is called from the native core on the UI thread
@@ -156,7 +168,7 @@ public final class SponsoredHotel
      * @param info A hotel info
      */
     @UiThread
-    void onInfoReceived(@NonNull String id, @NonNull HotelInfo info);
+    void onHotelInfoReceived(@NonNull String id, @NonNull HotelInfo info);
   }
 
   // Hotel ID -> Price
@@ -168,7 +180,7 @@ public final class SponsoredHotel
   @NonNull
   private static WeakReference<OnPriceReceivedListener> sPriceListener = new WeakReference<>(null);
   @NonNull
-  private static WeakReference<OnInfoReceivedListener> sInfoListener = new WeakReference<>(null);
+  private static WeakReference<OnHotelInfoReceivedListener> sInfoListener = new WeakReference<>(null);
 
   @Nullable
   private String mId;
@@ -178,17 +190,20 @@ public final class SponsoredHotel
   @NonNull
   final String mPrice;
   @NonNull
-  final String mUrlBook;
+  final String mUrl;
   @NonNull
   final String mUrlDescription;
+  @SponsoredType
+  private final int mType;
 
-  public SponsoredHotel(@NonNull String rating, @NonNull String price, @NonNull String urlBook,
-                        @NonNull String urlDescription)
+  public Sponsored(@NonNull String rating, @NonNull String price, @NonNull String url,
+                   @NonNull String urlDescription, @SponsoredType int type)
   {
     mRating = rating;
     mPrice = price;
-    mUrlBook = urlBook;
+    mUrl = url;
     mUrlDescription = urlDescription;
+    mType = type;
   }
 
   void updateId(MapObject point)
@@ -215,9 +230,9 @@ public final class SponsoredHotel
   }
 
   @NonNull
-  public String getUrlBook()
+  public String getUrl()
   {
-    return mUrlBook;
+    return mUrl;
   }
 
   @NonNull
@@ -226,12 +241,18 @@ public final class SponsoredHotel
     return mUrlDescription;
   }
 
+  @SponsoredType
+  public int getType()
+  {
+    return mType;
+  }
+
   static void setPriceListener(@NonNull OnPriceReceivedListener listener)
   {
     sPriceListener = new WeakReference<>(listener);
   }
 
-  static void setInfoListener(@NonNull OnInfoReceivedListener listener)
+  static void setInfoListener(@NonNull OnHotelInfoReceivedListener listener)
   {
     sInfoListener = new WeakReference<>(listener);
   }
@@ -253,21 +274,44 @@ public final class SponsoredHotel
     nativeRequestPrice(id, currencyCode);
   }
 
+
+  static void requestInfo(Sponsored sponsored, String locale)
+  {
+    String id = sponsored.getId();
+    if (id == null)
+      return;
+
+    switch (sponsored.getType())
+    {
+      case TYPE_BOOKING:
+        requestHotelInfo(id, locale);
+        break;
+      case TYPE_GEOCHAT:
+//        TODO: request geochat info
+        break;
+      case TYPE_OPENTABLE:
+//        TODO: request opentable info
+        break;
+      case TYPE_NONE:
+        break;
+    }
+  }
+
   /**
    * Make request to obtain hotel information.
    * This method also checks cache for requested hotel id
-   * and if cache exists - call {@link #onInfoReceived(String, HotelInfo) onInfoReceived} immediately
+   * and if cache exists - call {@link #onHotelInfoReceived(String, HotelInfo) onHotelInfoReceived} immediately
    *
    * @param id A Hotel id
    * @param locale A user locale
    */
-  static void requestInfo(String id, String locale)
+  private static void requestHotelInfo(String id, String locale)
   {
     HotelInfo info = sInfoCache.get(id);
     if (info != null)
-      onInfoReceived(id, info);
+      onHotelInfoReceived(id, info);
 
-    nativeRequestInfo(id, locale);
+    nativeRequestHotelInfo(id, locale);
   }
 
   private static void onPriceReceived(@NonNull String id, @NonNull String price,
@@ -284,19 +328,19 @@ public final class SponsoredHotel
       listener.onPriceReceived(id, price, currency);
   }
 
-  private static void onInfoReceived(@NonNull String id, @NonNull HotelInfo info)
+  private static void onHotelInfoReceived(@NonNull String id, @NonNull HotelInfo info)
   {
     sInfoCache.put(id, info);
 
-    OnInfoReceivedListener listener = sInfoListener.get();
+    OnHotelInfoReceivedListener listener = sInfoListener.get();
     if (listener != null)
-      listener.onInfoReceived(id, info);
+      listener.onHotelInfoReceived(id, info);
   }
 
   @Nullable
-  public static native SponsoredHotel nativeGetCurrent();
+  public static native Sponsored nativeGetCurrent();
 
   private static native void nativeRequestPrice(@NonNull String id, @NonNull String currencyCode);
 
-  private static native void nativeRequestInfo(@NonNull String id, @NonNull String locale);
+  private static native void nativeRequestHotelInfo(@NonNull String id, @NonNull String locale);
 }

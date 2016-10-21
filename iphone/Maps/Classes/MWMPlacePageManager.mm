@@ -247,19 +247,34 @@
 - (void)editBookmark { [[MapViewController controller] openBookmarkEditorWithData:self.data]; }
 - (void)book:(BOOL)isDescription
 {
-  NSMutableDictionary * stat = [@{ kStatProvider : kStatBooking } mutableCopy];
+  // TODO(Vlad): remove the same code from MWMPlacePageViewManager.mm
   MWMPlacePageData * data = self.data;
+  BOOL const isBooking = data.isBooking;
   auto const & latLon = data.latLon;
-  stat[kStatHotel] = data.hotelId;
-  stat[kStatHotelLat] = @(latLon.lat);
-  stat[kStatHotelLon] = @(latLon.lon);
-  [Statistics logEvent:isDescription ? kPlacePageHotelDetails : kPlacePageHotelBook
+  NSMutableDictionary * stat = [@{} mutableCopy];
+  if (isBooking)
+  {
+    stat[kStatProvider] = kStatBooking;
+    stat[kStatHotel] = data.sponsoredId;
+    stat[kStatHotelLat] = @(latLon.lat);
+    stat[kStatHotelLon] = @(latLon.lon);
+  }
+  else
+  {
+    stat[kStatProvider] = kStatOpentable;
+    stat[kStatRestaurant] = data.sponsoredId;
+    stat[kStatRestaurantLat] = @(latLon.lat);
+    stat[kStatRestaurantLon] = @(latLon.lon);
+  }
+
+  NSString * eventName = isBooking ? kPlacePageHotelBook : kPlacePageRestaurantBook;
+  [Statistics logEvent:isDescription ? kPlacePageHotelDetails : eventName
         withParameters:stat
             atLocation:[MWMLocationManager lastLocation]];
 
   UIViewController * vc = static_cast<UIViewController *>([MapViewController controller]);
-  NSURL * url = isDescription ? self.data.bookingDescriptionURL : self.data.bookingURL;
-  NSAssert(url, @"Booking url can't be nil!");
+  NSURL * url = isDescription ? self.data.sponsoredDescriptionURL : self.data.sponsoredURL;
+  NSAssert(url, @"Sponsored url can't be nil!");
   [vc openUrl:url];
 }
 

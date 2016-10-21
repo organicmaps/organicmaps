@@ -858,7 +858,7 @@
 	<string name="minute">min</string>
 	<string name="placepage_place_description">설명</string>
 	<string name="placepage_more_button">자세히</string>
-	<string name="bookingcom_book_button">예약</string>
+	<string name="book_button">예약</string>
 	<string name="placepage_call_button">전화</string>
 	<string name="placepage_edit_bookmark_button">즐겨찾기 편집</string>
 	<string name="placepage_bookmark_name_hint">즐겨찾기 이름</string>

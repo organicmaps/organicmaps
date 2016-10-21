@@ -55,7 +55,6 @@ void OpentableDataset::PreprocessMatchedOsmObject(ObjectId const matchedObjId, F
   auto restaurant = GetObjectById(matchedObjId);
   auto & metadata = params.GetMetadata();
   metadata.Set(feature::Metadata::FMD_SPONSORED_ID, strings::to_string(restaurant.m_id.Get()));
-  metadata.Set(feature::Metadata::FMD_WEBSITE, restaurant.m_descUrl);
 
   // params.AddAddress(restaurant.address);
   // TODO(mgsergio): addr:full ???

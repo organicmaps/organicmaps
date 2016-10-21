@@ -865,7 +865,7 @@
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Popis</string>
 	<string name="placepage_more_button">Viac</string>
-	<string name="bookingcom_book_button">Rezervovať</string>
+	<string name="book_button">Rezervovať</string>
 	<string name="placepage_call_button">Zavolať</string>
 	<string name="placepage_edit_bookmark_button">Upraviť záložku</string>
 	<string name="placepage_bookmark_name_hint">Názov záložky</string>

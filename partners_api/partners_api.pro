@@ -10,8 +10,10 @@ include($$ROOT_DIR/common.pri)
 
 SOURCES += \
     booking_api.cpp \
+    opentable_api.cpp \
     uber_api.cpp \
 
 HEADERS += \
     booking_api.hpp \
+    opentable_api.hpp \
     uber_api.hpp \

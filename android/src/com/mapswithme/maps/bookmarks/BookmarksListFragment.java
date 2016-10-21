@@ -22,7 +22,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.Track;
 import com.mapswithme.maps.widget.placepage.EditBookmarkFragment;
-import com.mapswithme.maps.widget.placepage.SponsoredHotel;
+import com.mapswithme.maps.widget.placepage.Sponsored;
 import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.sharing.SharingHelper;
@@ -162,15 +162,15 @@ public class BookmarksListFragment extends BaseMwmListFragment
     switch (menuItem.getItemId())
     {
     case R.id.share_message:
-      ShareOption.SMS.shareMapObject(getActivity(), item, SponsoredHotel.nativeGetCurrent());
+      ShareOption.SMS.shareMapObject(getActivity(), item, Sponsored.nativeGetCurrent());
       break;
 
     case R.id.share_email:
-      ShareOption.EMAIL.shareMapObject(getActivity(), item, SponsoredHotel.nativeGetCurrent());
+      ShareOption.EMAIL.shareMapObject(getActivity(), item, Sponsored.nativeGetCurrent());
       break;
 
     case R.id.share:
-      ShareOption.ANY.shareMapObject(getActivity(), item, SponsoredHotel.nativeGetCurrent());
+      ShareOption.ANY.shareMapObject(getActivity(), item, Sponsored.nativeGetCurrent());
       break;
 
     case R.id.edit:

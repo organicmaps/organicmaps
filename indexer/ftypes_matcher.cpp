@@ -476,6 +476,18 @@ IsFoodChecker const & IsFoodChecker::Instance()
   return instance;
 }
 
+IsOpentableChecker::IsOpentableChecker()
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"sponsored", "opentable"}));
+}
+
+IsOpentableChecker const & IsOpentableChecker::Instance()
+{
+  static IsOpentableChecker const inst;
+  return inst;
+}
+
 uint32_t GetPopulation(FeatureType const & ft)
 {
   uint32_t population = ft.GetPopulation();

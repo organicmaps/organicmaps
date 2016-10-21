@@ -860,7 +860,7 @@
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Beskrivelse</string>
 	<string name="placepage_more_button">Mer</string>
-	<string name="bookingcom_book_button">Bestill</string>
+	<string name="book_button">Bestill</string>
 	<string name="placepage_call_button">Ring</string>
 	<string name="placepage_edit_bookmark_button">Rediger bokmerke</string>
 	<string name="placepage_bookmark_name_hint">Bokmerkenavn</string>

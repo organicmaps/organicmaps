@@ -16,8 +16,7 @@ char const * const Info::kPricingSymbol = "$";
 bool Info::IsFeature() const { return m_featureID.IsValid(); }
 bool Info::IsBookmark() const { return m_bac.IsValid(); }
 bool Info::IsMyPosition() const { return m_isMyPosition; }
-bool Info::IsSponsoredHotel() const { return m_isSponsoredHotel; }
-bool Info::IsHotel() const { return m_isHotel; }
+bool Info::IsSponsored() const { return m_sponsoredType != SponsoredType::None; }
 bool Info::ShouldShowAddPlace() const
 {
   auto const isPointOrBuilding = IsPointType() || IsBuilding();
@@ -116,12 +115,12 @@ BookmarkAndCategory Info::GetBookmarkAndCategory() const { return m_bac; }
 string Info::GetBookmarkCategoryName() const { return m_bookmarkCategoryName; }
 string const & Info::GetApiUrl() const { return m_apiUrl; }
 
-string const & Info::GetSponsoredBookingUrl() const { return m_sponsoredBookingUrl; }
+string const & Info::GetSponsoredUrl() const { return m_sponsoredUrl; }
 string const & Info::GetSponsoredDescriptionUrl() const {return m_sponsoredDescriptionUrl; }
 
 string Info::GetRatingFormatted() const
 {
-  if (!IsSponsoredHotel())
+  if (!IsSponsored())
     return string();
 
   auto const r = GetMetadata().Get(feature::Metadata::FMD_RATING);
@@ -140,7 +139,7 @@ string Info::GetRatingFormatted() const
 
 string Info::GetApproximatePricing() const
 {
-  if (!IsSponsoredHotel())
+  if (!IsSponsored())
     return string();
 
   int pricing;

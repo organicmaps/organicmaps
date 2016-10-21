@@ -70,6 +70,8 @@ public enum Statistics
     public static final String PP_ROUTE = "PP. Route";
     public static final String PP_SPONSORED_DETAILS = "Placepage_Hotel_details";
     public static final String PP_SPONSORED_BOOK = "Placepage_Hotel_book";
+    public static final String PP_SPONSORED_OPENTABLE = "Placepage_Restaurant_book";
+    public static final String PP_SPONSORED_NONE = "Placepage_Sponsored_none";
     public static final String PP_DIRECTION_ARROW = "PP. DirectionArrow";
     public static final String PP_DIRECTION_ARROW_CLOSE = "PP. DirectionArrowClose";
     public static final String PP_METADATA_COPY = "PP. CopyMetadata";
