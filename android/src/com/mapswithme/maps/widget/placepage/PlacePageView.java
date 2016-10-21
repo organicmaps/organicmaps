@@ -654,7 +654,7 @@ public class PlacePageView extends RelativeLayout
             if (info == null)
               return;
 
-            String event = Statistics.EventName.PP_SPONSORED_BOOK;
+            String event = Statistics.EventName.PP_SPONSORED_NONE;
             Map<String, String> params = new HashMap<>();
             switch (info.getType())
             {
@@ -882,7 +882,7 @@ public class PlacePageView extends RelativeLayout
     UiUtils.hide(mAvDirection);
     UiUtils.setTextAndHideIfEmpty(mTvAddress, mMapObject.getAddress());
 
-    boolean sponsored = (mSponsored != null);
+    boolean sponsored = (mSponsored != null && mSponsored.getType() != Sponsored.TYPE_NONE);
     UiUtils.showIf(sponsored, mSponsoredInfo);
     if (sponsored)
     {
