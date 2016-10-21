@@ -862,7 +862,7 @@
 	<string name="minute">phút</string>
 	<string name="placepage_place_description">Mô tả</string>
 	<string name="placepage_more_button">Bổ sung</string>
-	<string name="bookingcom_book_button">Đặt trước</string>
+	<string name="book_button">Đặt trước</string>
 	<string name="placepage_call_button">Gọi</string>
 	<string name="placepage_edit_bookmark_button">Sửa Dấu Trang</string>
 	<string name="placepage_bookmark_name_hint">Tên Dấu Trang</string>

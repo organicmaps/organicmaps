@@ -879,7 +879,7 @@
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Description</string>
 	<string name="placepage_more_button">Plus</string>
-	<string name="bookingcom_book_button">Réserver</string>
+	<string name="book_button">Réserver</string>
 	<string name="placepage_call_button">Appeler</string>
 	<string name="placepage_edit_bookmark_button">Éditer les signets</string>
 	<string name="placepage_bookmark_name_hint">Nom du signet</string>

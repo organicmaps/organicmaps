@@ -881,7 +881,7 @@
 	<string name="placepage_place_description">Описание</string>
 	<string name="placepage_more_button">Ещё</string>
 	<string name="placepage_more_reviews_button">Ещё отзывы</string>
-	<string name="bookingcom_book_button">Забронировать</string>
+	<string name="book_button">Забронировать</string>
 	<string name="placepage_call_button">Позвонить</string>
 	<string name="placepage_edit_bookmark_button">Редактировать метку</string>
 	<string name="placepage_bookmark_name_hint">Название метки</string>

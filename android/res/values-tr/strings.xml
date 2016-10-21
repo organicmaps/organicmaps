@@ -868,7 +868,7 @@
 	<string name="minute">dk</string>
 	<string name="placepage_place_description">Açıklama</string>
 	<string name="placepage_more_button">Diğer</string>
-	<string name="bookingcom_book_button">Rezervasyon</string>
+	<string name="book_button">Rezervasyon</string>
 	<string name="placepage_call_button">Çağrı</string>
 	<string name="placepage_edit_bookmark_button">Yer İmini Düzenle</string>
 	<string name="placepage_bookmark_name_hint">Yer İmi Adı</string>

@@ -862,7 +862,7 @@
 	<string name="minute">p</string>
 	<string name="placepage_place_description">Leírás</string>
 	<string name="placepage_more_button">Még</string>
-	<string name="bookingcom_book_button">Foglalás</string>
+	<string name="book_button">Foglalás</string>
 	<string name="placepage_call_button">Hívás</string>
 	<string name="placepage_edit_bookmark_button">Könyvjelző szerkesztése</string>
 	<string name="placepage_bookmark_name_hint">Könyvjelző neve</string>

@@ -862,7 +862,7 @@
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Kuvaus</string>
 	<string name="placepage_more_button">Lisää</string>
-	<string name="bookingcom_book_button">Varaa</string>
+	<string name="book_button">Varaa</string>
 	<string name="placepage_call_button">Soita</string>
 	<string name="placepage_edit_bookmark_button">Muokkaa kirjanmerkkiä</string>
 	<string name="placepage_bookmark_name_hint">Kirjanmerkin nimi</string>
