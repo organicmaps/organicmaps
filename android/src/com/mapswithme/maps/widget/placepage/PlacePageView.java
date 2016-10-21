@@ -642,56 +642,60 @@ public class PlacePageView extends RelativeLayout
   private void onSponsoredClick(final boolean book)
   {
     // TODO (trashkalmar): Set correct text
-    Utils.checkConnection(getActivity(), R.string.common_check_internet_connection_dialog, new Utils.Proc<Boolean>()
-    {
-      @Override
-      public void invoke(Boolean result)
-      {
-        if (!result)
-          return;
+    Utils.checkConnection(
+        getActivity(), R.string.common_check_internet_connection_dialog, new Utils.Proc<Boolean>() {
+          @Override
+          public void invoke(Boolean result)
+          {
+            if (!result)
+              return;
 
-        Sponsored info = mSponsored;
-        if (info == null)
-          return;
+            Sponsored info = mSponsored;
+            if (info == null)
+              return;
 
-        String event = Statistics.EventName.PP_SPONSORED_BOOK;
-        Map<String, String> params = new HashMap<>();
-        switch (info.getType())
-        {
-          case Sponsored.TYPE_BOOKING:
-            params.put("provider", "Booking.Com");
-            params.put("hotel_lat", (mMapObject == null ? "N/A" : String.valueOf(mMapObject.getLat())));
-            params.put("hotel_lon", (mMapObject == null ? "N/A" : String.valueOf(mMapObject.getLon())));
-            params.put("hotel", info.getId());
-            event = (book ? Statistics.EventName.PP_SPONSORED_BOOK
-                          : Statistics.EventName.PP_SPONSORED_DETAILS);
-            break;
-          case Sponsored.TYPE_GEOCHAT:
-            break;
-          case Sponsored.TYPE_OPENTABLE:
-            params.put("provider", "Opentable.Com");
-            params.put("restaurant_lat", (mMapObject == null ? "N/A" : String.valueOf(mMapObject.getLat())));
-            params.put("restaurant_lon", (mMapObject == null ? "N/A" : String.valueOf(mMapObject.getLon())));
-            params.put("restaurant", info.getId());
-            event = Statistics.EventName.PP_SPONSORED_OPENTABLE;
-            break;
-          case Sponsored.TYPE_NONE:
-            break;
-        }
+            String event = Statistics.EventName.PP_SPONSORED_BOOK;
+            Map<String, String> params = new HashMap<>();
+            switch (info.getType())
+            {
+              case Sponsored.TYPE_BOOKING:
+                params.put("provider", "Booking.Com");
+                params.put("hotel_lat",
+                    (mMapObject == null ? "N/A" : String.valueOf(mMapObject.getLat())));
+                params.put("hotel_lon",
+                    (mMapObject == null ? "N/A" : String.valueOf(mMapObject.getLon())));
+                params.put("hotel", info.getId());
+                event = (book ? Statistics.EventName.PP_SPONSORED_BOOK
+                              : Statistics.EventName.PP_SPONSORED_DETAILS);
+                break;
+              case Sponsored.TYPE_GEOCHAT:
+                break;
+              case Sponsored.TYPE_OPENTABLE:
+                params.put("provider", "Opentable.Com");
+                params.put("restaurant_lat",
+                    (mMapObject == null ? "N/A" : String.valueOf(mMapObject.getLat())));
+                params.put("restaurant_lon",
+                    (mMapObject == null ? "N/A" : String.valueOf(mMapObject.getLon())));
+                params.put("restaurant", info.getId());
+                event = Statistics.EventName.PP_SPONSORED_OPENTABLE;
+                break;
+              case Sponsored.TYPE_NONE:
+                break;
+            }
 
-        final Location location = LocationHelper.INSTANCE.getLastKnownLocation();
-        Statistics.INSTANCE.trackEvent(event, location, params);
+            final Location location = LocationHelper.INSTANCE.getLastKnownLocation();
+            Statistics.INSTANCE.trackEvent(event, location, params);
 
-        try
-        {
-          followUrl(book ? info.mUrl : info.mUrlDescription);
-        }
-        catch (ActivityNotFoundException e)
-        {
-          AlohaHelper.logException(e);
-        }
-      }
-    });
+            try
+            {
+              followUrl(book ? info.mUrl : info.mUrlDescription);
+            }
+            catch (ActivityNotFoundException e)
+            {
+              AlohaHelper.logException(e);
+            }
+          }
+        });
   }
 
   private void init(AttributeSet attrs, int defStyleAttr)
