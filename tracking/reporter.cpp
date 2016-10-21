@@ -12,6 +12,7 @@
 
 namespace
 {
+double constexpr kRequiredHorizontalAccuracy = 10.0;
 double constexpr kMinDelaySeconds = 1.0;
 double constexpr kReconnectDelaySeconds = 60.0;
 size_t constexpr kRealTimeBufferSize = 60;
@@ -55,6 +56,9 @@ Reporter::~Reporter()
 void Reporter::AddLocation(location::GpsInfo const & info)
 {
   lock_guard<mutex> lg(m_mutex);
+
+  if (info.m_horizontalAccuracy > kRequiredHorizontalAccuracy)
+    return;
 
   if (info.m_timestamp < m_lastGpsTime + kMinDelaySeconds)
     return;
