@@ -16,7 +16,8 @@
 
 - (void)configure:(MWMPlacePageData *)data
     updateLayoutDelegate:(id<MWMPlacePageCellUpdateProtocol>)delegate
-              dataSource:(id<MWMPlacePageLayoutDataSource>)dataSource;
+              dataSource:(id<MWMPlacePageLayoutDataSource>)dataSource
+               tapAction:(TMWMVoidBlock)tapAction;
 
 - (MWMCircularProgress *)mapDownloadProgress;
 

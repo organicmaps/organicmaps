@@ -383,8 +383,7 @@ void animate(TMWMVoidBlock animate, TMWMVoidBlock completion = nil)
               targetContentOffset:(inout CGPoint *)targetContentOffset
 {
   auto const actualOffset = scrollView.contentOffset.y;
-  auto const openOffset =
-      self.isPortrait ? self.portraitOpenContentOffset : self.landscapeOpenContentOffset;
+  auto const openOffset = self.openContentOffset;
   auto const targetOffset = (*targetContentOffset).y;
 
   if (actualOffset > self.expandedContentOffset && actualOffset < openOffset)
@@ -418,8 +417,7 @@ void animate(TMWMVoidBlock animate, TMWMVoidBlock completion = nil)
     return;
 
   auto const actualOffset = scrollView.contentOffset.y;
-  auto const openOffset =
-      self.isPortrait ? self.portraitOpenContentOffset : self.landscapeOpenContentOffset;
+  auto const openOffset = self.openContentOffset;
 
   if (actualOffset < self.expandedContentOffset + kLuftDraggingOffset)
   {
@@ -448,6 +446,11 @@ void animate(TMWMVoidBlock animate, TMWMVoidBlock completion = nil)
   _state = state;
   self.placePageView.anchorImage.transform = state == State::Top ? CGAffineTransformMakeRotation(M_PI)
                                                                  : CGAffineTransformIdentity;
+}
+
+- (CGFloat)openContentOffset
+{
+  return self.isPortrait ? self.portraitOpenContentOffset : self.landscapeOpenContentOffset;
 }
 
 #pragma mark - UITableViewDelegate & UITableViewDataSource
@@ -489,7 +492,22 @@ void animate(TMWMVoidBlock animate, TMWMVoidBlock completion = nil)
       self.ppPreviewCell =
           [tableView dequeueReusableCellWithIdentifier:[MWMPlacePagePreviewCell className]];
 
-    [self.ppPreviewCell configure:data updateLayoutDelegate:self dataSource:self.dataSource];
+    [self.ppPreviewCell configure:data updateLayoutDelegate:self dataSource:self.dataSource tapAction:^
+    {
+      CGFloat offset = 0;
+      if (self.state == State::Top)
+      {
+        self.state = State::Bottom;
+        offset = self.expandedContentOffset;
+      }
+      else
+      {
+        self.state = State::Top;
+        offset = self.openContentOffset;
+      }
+      animate(^{ [self.scrollView setContentOffset:{0, offset} animated:YES]; });
+    }];
+
     [self.ppPreviewCell setDownloaderViewHidden:!self.isDownloaderViewShown animated:NO];
 
     return self.ppPreviewCell;
