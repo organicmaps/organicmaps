@@ -27,8 +27,9 @@ bool TestSocket::Read(uint8_t * data, uint32_t count)
   if (!m_isConnected)
     return false;
 
-  lock_guard<mutex> lg(m_inputMutex);
+  unique_lock<mutex> lock(m_inputMutex);
 
+  m_inputCondition.wait_for(lock, milliseconds(m_timeoutMs), [this]() { return !m_input.empty(); });
   if (m_input.size() < count)
     return false;
 
@@ -51,7 +52,6 @@ bool TestSocket::Write(uint8_t const * data, uint32_t count)
 }
 
 void TestSocket::SetTimeout(uint32_t milliseconds) { m_timeoutMs = milliseconds; }
-
 size_t TestSocket::ReadServer(vector<uint8_t> & destination)
 {
   unique_lock<mutex> lock(m_outputMutex);

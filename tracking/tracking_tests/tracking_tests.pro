@@ -26,4 +26,5 @@ win*|linux* {
 
 SOURCES += \
     $$ROOT_DIR/testing/testingmain.cpp \
-    reporter_test.cpp
+    protocol_test.cpp \
+    reporter_test.cpp \

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "std/cstdint.hpp"
 #include "std/string.hpp"
 #include "std/unique_ptr.hpp"
 
@@ -23,6 +24,17 @@ public:
   virtual bool Write(uint8_t const * data, uint32_t count) = 0;
 
   virtual void SetTimeout(uint32_t milliseconds) = 0;
+};
+
+class StubSocket final : public Socket
+{
+public:
+  // Socket overrides:
+  bool Open(string const & host, uint16_t port) override { return false; }
+  void Close() override {}
+  bool Read(uint8_t * data, uint32_t count) override { return false; }
+  bool Write(uint8_t const * data, uint32_t count) override { return false; }
+  void SetTimeout(uint32_t milliseconds) override {}
 };
 
 unique_ptr<Socket> CreateSocket();

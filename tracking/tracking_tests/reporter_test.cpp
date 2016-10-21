@@ -1,12 +1,13 @@
+#include "testing/testing.hpp"
+
 #include "tracking/reporter.hpp"
+#include "tracking/protocol.hpp"
 
 #include "coding/traffic.hpp"
 
 #include "platform/location.hpp"
 #include "platform/platform_tests_support/test_socket.hpp"
 #include "platform/socket.hpp"
-
-#include "testing/testing.hpp"
 
 #include "base/math.hpp"
 #include "base/thread.hpp"
@@ -28,13 +29,36 @@ void TransferLocation(Reporter & reporter, TestSocket & testSocket, double times
   gpsInfo.m_horizontalAccuracy = 1.0;
   reporter.AddLocation(gpsInfo);
 
+  using Packet = tracking::Protocol::PacketType;
   vector<uint8_t> buffer;
-  size_t const readSize = testSocket.ReadServer(buffer);
-  TEST_GREATER(readSize, 0, ());
+  size_t readSize = 0;
+  size_t attempts = 3;
+  do
+  {
+    readSize = testSocket.ReadServer(buffer);
+    if (attempts-- && readSize == 0)
+      continue;
+    switch (Packet(buffer[0]))
+    {
+    case Packet::CurrentAuth:
+    {
+      buffer.clear();
+      testSocket.WriteServer(tracking::Protocol::kOk);
+      break;
+    }
+    case Packet::CurrentData:
+    {
+      readSize = 0;
+      break;
+    }
+    }
+  } while (readSize);
 
+  TEST(!buffer.empty(), ());
   vector<coding::TrafficGPSEncoder::DataPoint> points;
   MemReader memReader(buffer.data(), buffer.size());
   ReaderSource<MemReader> src(memReader);
+  src.Skip(sizeof(uint32_t /* header */));
   coding::TrafficGPSEncoder::DeserializeDataPoints(coding::TrafficGPSEncoder::kLatestVersion, src,
                                                    points);
 
@@ -51,7 +75,7 @@ UNIT_TEST(Reporter_TransferLocations)
   auto socket = make_unique<TestSocket>();
   TestSocket & testSocket = *socket.get();
 
-  Reporter reporter(move(socket), milliseconds(10) /* pushDelay */);
+  Reporter reporter(move(socket), "localhost", 0, milliseconds(10) /* pushDelay */);
   TransferLocation(reporter, testSocket, 1.0, 2.0, 3.0);
   TransferLocation(reporter, testSocket, 4.0, 5.0, 6.0);
   TransferLocation(reporter, testSocket, 7.0, 8.0, 9.0);

@@ -31,6 +31,5 @@ private:
   string const m_host;
   uint16_t const m_port;
   bool const m_isHistorical;
-  vector<uint8_t> m_buffer;
 };
 }  // namespace tracking

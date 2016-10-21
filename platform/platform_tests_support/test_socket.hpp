@@ -28,6 +28,13 @@ public:
   // Waits for some data or timeout.
   // Returns size of read data.
   size_t ReadServer(vector<uint8_t> & destination);
+  template <typename Container>
+  void WriteServer(Container const & answer)
+  {
+    lock_guard<mutex> lg(m_inputMutex);
+    m_input.insert(m_input.begin(), begin(answer), end(answer));
+    m_inputCondition.notify_one();
+  }
 
 private:
   atomic<bool> m_isConnected = {false};
@@ -35,6 +42,7 @@ private:
 
   deque<uint8_t> m_input;
   mutex m_inputMutex;
+  condition_variable m_inputCondition;
 
   vector<uint8_t> m_output;
   mutex m_outputMutex;

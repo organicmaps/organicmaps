@@ -19,7 +19,10 @@
 		675E88981DB7B08500F8EBDA /* libplatform_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675E88961DB7B08500F8EBDA /* libplatform_tests_support.a */; };
 		675E88991DB7B08500F8EBDA /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675E88971DB7B08500F8EBDA /* libtomcrypt.a */; };
 		675E88A21DB7B10300F8EBDA /* libtracking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675E88501DB7AC0300F8EBDA /* libtracking.a */; };
-		67B6E7B81DB8BBA900745F8A /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67B6E7B71DB8BBA900745F8A /* testingmain.cpp */; };
+		6772590D1DB90F8F00BF54EE /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67B6E7B71DB8BBA900745F8A /* testingmain.cpp */; };
+		6772592D1DBA26FD00BF54EE /* protocol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6772592B1DBA26FD00BF54EE /* protocol.cpp */; };
+		6772592E1DBA26FD00BF54EE /* protocol.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6772592C1DBA26FD00BF54EE /* protocol.hpp */; };
+		67EC0CB71DBE4A320021F484 /* protocol_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67EC0CB61DBE4A320021F484 /* protocol_test.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,7 +40,10 @@
 		675E88911DB7B03400F8EBDA /* libplatform.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform.a; path = "/Users/darkserj/mapsme/omim/xcode/platform/../../../omim-xcode-build/Debug/libplatform.a"; sourceTree = "<absolute>"; };
 		675E88961DB7B08500F8EBDA /* libplatform_tests_support.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform_tests_support.a; path = "/Users/darkserj/mapsme/omim/xcode/platform/../../../omim-xcode-build/Debug/libplatform_tests_support.a"; sourceTree = "<absolute>"; };
 		675E88971DB7B08500F8EBDA /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtomcrypt.a; path = "/Users/darkserj/mapsme/omim/xcode/tomcrypt/../../../omim-xcode-build/Debug/libtomcrypt.a"; sourceTree = "<absolute>"; };
+		6772592B1DBA26FD00BF54EE /* protocol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = protocol.cpp; sourceTree = "<group>"; };
+		6772592C1DBA26FD00BF54EE /* protocol.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = protocol.hpp; sourceTree = "<group>"; };
 		67B6E7B71DB8BBA900745F8A /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
+		67EC0CB61DBE4A320021F484 /* protocol_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = protocol_test.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +98,8 @@
 				675E88611DB7AC9000F8EBDA /* connection.hpp */,
 				675E88621DB7AC9000F8EBDA /* reporter.cpp */,
 				675E88631DB7AC9000F8EBDA /* reporter.hpp */,
+				6772592B1DBA26FD00BF54EE /* protocol.cpp */,
+				6772592C1DBA26FD00BF54EE /* protocol.hpp */,
 			);
 			name = tracking;
 			path = ../../tracking;
@@ -102,6 +110,7 @@
 			children = (
 				67B6E7B71DB8BBA900745F8A /* testingmain.cpp */,
 				675E88841DB7AD1000F8EBDA /* reporter_test.cpp */,
+				67EC0CB61DBE4A320021F484 /* protocol_test.cpp */,
 			);
 			name = tracking_tests;
 			path = ../../tracking/tracking_tests;
@@ -127,6 +136,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6772592E1DBA26FD00BF54EE /* protocol.hpp in Headers */,
 				675E88651DB7AC9000F8EBDA /* connection.hpp in Headers */,
 				675E88671DB7AC9000F8EBDA /* reporter.hpp in Headers */,
 			);
@@ -223,8 +233,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				675E88661DB7AC9000F8EBDA /* reporter.cpp in Sources */,
-				67B6E7B81DB8BBA900745F8A /* testingmain.cpp in Sources */,
 				675E88641DB7AC9000F8EBDA /* connection.cpp in Sources */,
+				6772592D1DBA26FD00BF54EE /* protocol.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,7 +242,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67EC0CB71DBE4A320021F484 /* protocol_test.cpp in Sources */,
 				675E88891DB7AD3100F8EBDA /* reporter_test.cpp in Sources */,
+				6772590D1DB90F8F00BF54EE /* testingmain.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,6 +364,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP=1",
+				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/../../iphone/Maps/MAPSME.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -369,6 +385,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = "OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP=1";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/../../iphone/Maps/MAPSME.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;

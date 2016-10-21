@@ -1,5 +1,8 @@
-#include "connection.hpp"
+#include "tracking/connection.hpp"
 
+#include "tracking/protocol.hpp"
+
+#include "platform/platform.hpp"
 #include "platform/socket.hpp"
 
 namespace
@@ -22,19 +25,27 @@ Connection::Connection(unique_ptr<platform::Socket> socket, string const & host,
 bool Connection::Reconnect()
 {
   m_socket->Close();
-  return m_socket->Open(m_host, m_port);
+
+  if (!m_socket->Open(m_host, m_port))
+    return false;
+
+  auto packet = Protocol::CreateAuthPacket(GetPlatform().UniqueClientId());
+  if (!m_socket->Write(packet.data(), static_cast<uint32_t>(packet.size())))
+    return false;
+
+  string check(begin(Protocol::kFail), end(Protocol::kFail));
+  bool const isSuccess =
+      m_socket->Read(reinterpret_cast<uint8_t *>(&check[0]), static_cast<uint32_t>(check.size()));
+  if (!isSuccess || check != string(begin(Protocol::kOk), end(Protocol::kOk)))
+    return false;
+
+  return true;
 }
 
 // TODO: implement historical
 bool Connection::Send(boost::circular_buffer<DataPoint> const & points)
 {
-  ASSERT(m_buffer.empty(), ());
-
-  MemWriter<decltype(m_buffer)> writer(m_buffer);
-  using coding::TrafficGPSEncoder;
-  TrafficGPSEncoder::SerializeDataPoints(TrafficGPSEncoder::kLatestVersion, writer, points);
-  bool const isSuccess = m_socket->Write(m_buffer.data(), m_buffer.size());
-  m_buffer.clear();
-  return isSuccess;
+  auto packet = Protocol::CreateDataPacket(points);
+  return m_socket->Write(packet.data(), static_cast<uint32_t>(packet.size()));
 }
 }  // namespace tracking
