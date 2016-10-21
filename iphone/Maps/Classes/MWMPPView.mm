@@ -19,7 +19,11 @@ CGFloat const kTableViewTopInset = -36;
 {
   self = [super initWithFrame:frame];
   if (self)
+  {
+    self.decelerationRate = UIScrollViewDecelerationRateFast;
+    self.showsVerticalScrollIndicator = NO;
     _inactiveView = inactiveView;
+  }
   return self;
 }
 
@@ -40,12 +44,14 @@ CGFloat const kTableViewTopInset = -36;
   if (isHidden)
   {
     self.tableView.alpha = 0.;
+    self.anchorImage.hidden = YES;
     self.spinner.hidden = NO;
     [self.spinner startAnimating];
   }
   else
   {
     self.tableView.alpha = 1.;
+    self.anchorImage.hidden = NO;
     self.spinner.hidden = YES;
     [self.spinner stopAnimating];
   }

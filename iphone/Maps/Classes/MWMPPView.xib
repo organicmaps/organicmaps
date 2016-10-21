@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,15 +16,29 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="V1F-KA-EKn">
-                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bcQ-R1-NdK">
+                    <subviews>
+                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_anchor_up" translatesAutoresizingMaskIntoConstraints="NO" id="V1F-KA-EKn">
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="22" id="2IP-ZM-0Oi"/>
+                                <constraint firstAttribute="height" constant="5.9999999999999964" id="VvK-iM-g12"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlack"/>
+                            </userDefinedRuntimeAttributes>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="22" id="ZGB-be-yL4"/>
+                        <constraint firstItem="V1F-KA-EKn" firstAttribute="centerY" secondItem="bcQ-R1-NdK" secondAttribute="centerY" id="OF2-Te-cyR"/>
+                        <constraint firstAttribute="height" constant="22" id="PHu-B8-NCa"/>
+                        <constraint firstItem="V1F-KA-EKn" firstAttribute="centerX" secondItem="bcQ-R1-NdK" secondAttribute="centerX" id="Zvg-X0-928"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
                     </userDefinedRuntimeAttributes>
-                </imageView>
+                </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Spinner_1_light" translatesAutoresizingMaskIntoConstraints="NO" id="Wyo-4H-R6c">
                     <constraints>
                         <constraint firstAttribute="height" constant="36" id="6hU-Qs-xIL"/>
@@ -44,30 +59,32 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="V1F-KA-EKn" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="2JW-QM-hBX"/>
-                <constraint firstAttribute="trailing" secondItem="V1F-KA-EKn" secondAttribute="trailing" id="9iq-Mg-WDt"/>
+                <constraint firstItem="Taj-ne-CBp" firstAttribute="top" secondItem="bcQ-R1-NdK" secondAttribute="bottom" id="0kd-ul-ZAB"/>
                 <constraint firstAttribute="trailing" secondItem="Taj-ne-CBp" secondAttribute="trailing" id="Ezh-nM-Lms"/>
                 <constraint firstItem="Taj-ne-CBp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="FBa-eg-ae8"/>
+                <constraint firstItem="bcQ-R1-NdK" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="JJA-g8-U9d"/>
+                <constraint firstItem="bcQ-R1-NdK" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Kcc-bP-Mbu"/>
                 <constraint firstItem="Wyo-4H-R6c" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="RvW-CN-nou"/>
                 <constraint firstItem="Wyo-4H-R6c" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="UFy-Dk-RbA"/>
-                <constraint firstItem="V1F-KA-EKn" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="US1-XV-Y4q"/>
-                <constraint firstItem="Taj-ne-CBp" firstAttribute="top" secondItem="V1F-KA-EKn" secondAttribute="bottom" id="YD2-Nx-Wa7"/>
                 <constraint firstAttribute="bottom" secondItem="Taj-ne-CBp" secondAttribute="bottom" id="pAf-8q-58V"/>
+                <constraint firstAttribute="trailing" secondItem="bcQ-R1-NdK" secondAttribute="trailing" id="zrS-z7-cab"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
             </userDefinedRuntimeAttributes>
             <connections>
+                <outlet property="anchorImage" destination="V1F-KA-EKn" id="fNo-v2-XOU"/>
                 <outlet property="spinner" destination="Wyo-4H-R6c" id="WK2-IU-x4H"/>
                 <outlet property="tableView" destination="Taj-ne-CBp" id="rdn-7z-2dz"/>
-                <outlet property="top" destination="V1F-KA-EKn" id="3zd-bh-aBG"/>
+                <outlet property="top" destination="bcQ-R1-NdK" id="3bW-Kf-gmH"/>
             </connections>
             <point key="canvasLocation" x="139" y="308"/>
         </view>
     </objects>
     <resources>
         <image name="Spinner_1_light" width="36" height="36"/>
+        <image name="ic_anchor_up" width="22" height="6"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
