@@ -874,7 +874,7 @@
 	<string name="minute">分鐘</string>
 	<string name="placepage_place_description">說明</string>
 	<string name="placepage_more_button">更多</string>
-	<string name="bookingcom_book_button">預約</string>
+	<string name="book_button">預約</string>
 	<string name="placepage_call_button">呼叫</string>
 	<string name="placepage_edit_bookmark_button">編輯書籤</string>
 	<string name="placepage_bookmark_name_hint">書籤名稱</string>

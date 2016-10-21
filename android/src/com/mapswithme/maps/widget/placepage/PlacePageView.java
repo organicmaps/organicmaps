@@ -683,9 +683,11 @@ public class PlacePageView extends RelativeLayout
                 break;
             }
 
-            final Location location = LocationHelper.INSTANCE.getLastKnownLocation();
             if (!TextUtils.isEmpty(event))
+            {
+              Location location = LocationHelper.INSTANCE.getLastKnownLocation();
               Statistics.INSTANCE.trackEvent(event, location, params);
+            }
 
             try
             {

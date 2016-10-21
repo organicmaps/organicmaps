@@ -861,7 +861,7 @@
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Descrizione</string>
 	<string name="placepage_more_button">Altro</string>
-	<string name="bookingcom_book_button">Prenota</string>
+	<string name="book_button">Prenota</string>
 	<string name="placepage_call_button">Chiama</string>
 	<string name="placepage_edit_bookmark_button">Modifica segnalibro</string>
 	<string name="placepage_bookmark_name_hint">Nome segnalibro</string>
