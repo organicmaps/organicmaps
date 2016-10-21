@@ -25,5 +25,5 @@ public:
   virtual void SetTimeout(uint32_t milliseconds) = 0;
 };
 
-unique_ptr<Socket> createSocket();
+unique_ptr<Socket> CreateSocket();
 }  // namespace platform

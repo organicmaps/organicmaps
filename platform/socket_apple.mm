@@ -30,16 +30,18 @@
   CFReadStreamRef readStream;
   CFWriteStreamRef writeStream;
 
-  CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)(host), port, &readStream,
+  CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)(host), (UInt32)port, &readStream,
                                      &writeStream);
+
+  NSDictionary * settings = @{(id)kCFStreamSSLValidatesCertificateChain : @NO,
+                              (id)kCFStreamSSLLevel : (id)kCFStreamSocketSecurityLevelTLSv1,
+                              };
+
+  CFReadStreamSetProperty(readStream, kCFStreamPropertySSLSettings, (CFTypeRef)settings);
+  CFWriteStreamSetProperty(writeStream, kCFStreamPropertySSLSettings, (CFTypeRef)settings);
 
   self.inputStream = (__bridge_transfer NSInputStream *)readStream;
   self.outputStream = (__bridge_transfer NSOutputStream *)writeStream;
-
-  [self.inputStream setProperty:NSStreamSocketSecurityLevelNegotiatedSSL
-                         forKey:NSStreamSocketSecurityLevelKey];
-  [self.outputStream setProperty:NSStreamSocketSecurityLevelNegotiatedSSL
-                          forKey:NSStreamSocketSecurityLevelKey];
 
   [self.inputStream open];
   [self.outputStream open];
@@ -113,8 +115,9 @@
   if (!self.outputStream || self.outputStream.streamStatus != NSStreamStatusOpen)
     return NO;
 
-  NSDate * writeStart = [NSDate date];
   uint8_t const * writePtr = data;
+
+  NSDate * writeStart = [NSDate date];
   while (count != 0 && [[NSDate date] timeIntervalSinceDate:writeStart] < self.timeout)
   {
     NSInteger const writeCount = [self.outputStream write:writePtr maxLength:count];
@@ -164,7 +167,7 @@ private:
   SocketImpl * m_socketImpl = nullptr;
 };
 
-unique_ptr<Socket> createSocket()
+unique_ptr<Socket> CreateSocket()
 {
   return make_unique<PlatformSocket>();
 }
