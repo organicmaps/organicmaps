@@ -441,6 +441,13 @@ void animate(TMWMVoidBlock animate, TMWMVoidBlock completion = nil)
   }
 }
 
+- (void)setState:(State)state
+{
+  _state = state;
+  self.placePageView.anchorImage.transform = state == State::Top ? CGAffineTransformMakeRotation(M_PI)
+                                                                 : CGAffineTransformIdentity;
+}
+
 #pragma mark - UITableViewDelegate & UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

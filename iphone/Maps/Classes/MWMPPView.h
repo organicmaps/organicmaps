@@ -18,7 +18,8 @@
 
 @interface MWMPPView : UIView
 
-@property(weak, nonatomic) IBOutlet UIImageView * top;
+@property(weak, nonatomic) IBOutlet UIView * top;
+@property(weak, nonatomic) IBOutlet UIImageView * anchorImage;
 @property(weak, nonatomic) IBOutlet UIImageView * spinner;
 @property(weak, nonatomic) IBOutlet UITableView * tableView;
 
