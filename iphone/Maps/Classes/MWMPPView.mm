@@ -21,6 +21,7 @@ CGFloat const kTableViewTopInset = -36;
   if (self)
   {
     self.decelerationRate = UIScrollViewDecelerationRateFast;
+    self.showsVerticalScrollIndicator = NO;
     _inactiveView = inactiveView;
   }
   return self;
