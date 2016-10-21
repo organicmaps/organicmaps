@@ -30,7 +30,6 @@ public:
   static char const * const kSubtitleSeparator;
   static char const * const kStarSymbol;
   static char const * const kMountainSymbol;
-  static char const * const kEmptyRatingSymbol;
   static char const * const kPricingSymbol;
 
   bool IsFeature() const;
