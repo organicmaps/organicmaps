@@ -152,6 +152,8 @@ CGFloat const kCompressedTableViewLeading = 56;
 
 @property(nonatomic) MWMDirectionView * directionView;
 
+@property(copy, nonatomic) TMWMVoidBlock tapAction;
+
 @end
 
 @implementation MWMPlacePagePreviewCell
@@ -165,6 +167,9 @@ CGFloat const kCompressedTableViewLeading = 56;
   self.tableView.estimatedRowHeight = 20;
   self.tableView.rowHeight = UITableViewAutomaticDimension;
   [self registerObserver];
+
+  UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)];
+  [self addGestureRecognizer:tap];
 }
 
 - (void)dealloc { [self unregisterObserver]; }
@@ -265,6 +270,7 @@ CGFloat const kCompressedTableViewLeading = 56;
 - (void)configure:(MWMPlacePageData *)data
     updateLayoutDelegate:(id<MWMPlacePageCellUpdateProtocol>)delegate
               dataSource:(id<MWMPlacePageLayoutDataSource>)dataSource
+               tapAction:(TMWMVoidBlock)tapAction
 {
   self.data = data;
   self.delegate = delegate;
@@ -292,6 +298,9 @@ CGFloat const kCompressedTableViewLeading = 56;
     m_cells.push_back(Labels::Address);
 
   [self.tableView reloadData];
+
+  NSAssert(tapAction, @"Cell must be tappable!");
+  self.tapAction = tapAction;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -418,6 +427,14 @@ CGFloat const kCompressedTableViewLeading = 56;
     [_mapDownloadProgress setColoring:MWMButtonColoringBlue forStates:affectedStates];
   }
   return _mapDownloadProgress;
+}
+
+#pragma mark - Tap
+
+- (void)tap
+{
+  if (self.tapAction)
+    self.tapAction();
 }
 
 @end
