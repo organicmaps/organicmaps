@@ -58,7 +58,7 @@ final class PlacePageButtons
       @Override
       int getIcon()
       {
-        return R.drawable.img_logo_opentable;
+        return R.drawable.ic_opentable;
       }
     },
 

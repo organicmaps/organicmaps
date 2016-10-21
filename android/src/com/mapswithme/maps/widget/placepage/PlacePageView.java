@@ -110,9 +110,9 @@ public class PlacePageView extends RelativeLayout
   private ArrowView mAvDirection;
   private TextView mTvDistance;
   private TextView mTvAddress;
-  private View mHotelInfo;
-  private TextView mTvHotelRating;
-  private TextView mTvHotelPrice;
+  private View mSponsoredInfo;
+  private TextView mTvSponsoredRating;
+  private TextView mTvSponsoredPrice;
   // Details.
   private ScrollView mDetails;
   private View mPhone;
@@ -265,9 +265,9 @@ public class PlacePageView extends RelativeLayout
 
     mTvAddress = (TextView) mPreview.findViewById(R.id.tv__address);
 
-    mHotelInfo = mPreview.findViewById(R.id.hotel_info_frame);
-    mTvHotelRating = (TextView) mHotelInfo.findViewById(R.id.tv__hotel_rating);
-    mTvHotelPrice = (TextView) mHotelInfo.findViewById(R.id.tv__hotel_price);
+    mSponsoredInfo = mPreview.findViewById(R.id.hotel_info_frame);
+    mTvSponsoredRating = (TextView) mSponsoredInfo.findViewById(R.id.tv__hotel_rating);
+    mTvSponsoredPrice = (TextView) mSponsoredInfo.findViewById(R.id.tv__hotel_price);
 
     mDetails = (ScrollView) findViewById(R.id.pp__details);
     RelativeLayout address = (RelativeLayout) mDetails.findViewById(R.id.ll__place_name);
@@ -410,7 +410,7 @@ public class PlacePageView extends RelativeLayout
 
           case BOOKING:
           case OPENTABLE:
-            onBookingClick(true /* book */);
+            onSponsoredClick(true /* book */);
             break;
         }
       }
@@ -639,7 +639,7 @@ public class PlacePageView extends RelativeLayout
 //  TODO go to selected object on map
   }
 
-  private void onBookingClick(final boolean book)
+  private void onSponsoredClick(final boolean book)
   {
     // TODO (trashkalmar): Set correct text
     Utils.checkConnection(getActivity(), R.string.common_check_internet_connection_dialog, new Utils.Proc<Boolean>()
@@ -685,7 +685,8 @@ public class PlacePageView extends RelativeLayout
         try
         {
           followUrl(book ? info.mUrl : info.mUrlDescription);
-        } catch (ActivityNotFoundException e)
+        }
+        catch (ActivityNotFoundException e)
         {
           AlohaHelper.logException(e);
         }
@@ -878,11 +879,11 @@ public class PlacePageView extends RelativeLayout
     UiUtils.setTextAndHideIfEmpty(mTvAddress, mMapObject.getAddress());
 
     boolean sponsored = (mSponsored != null);
-    UiUtils.showIf(sponsored, mHotelInfo);
+    UiUtils.showIf(sponsored, mSponsoredInfo);
     if (sponsored)
     {
-      mTvHotelRating.setText(mSponsored.mRating);
-      UiUtils.setTextAndHideIfEmpty(mTvHotelPrice, mSponsoredPrice);
+      UiUtils.setTextAndHideIfEmpty(mTvSponsoredRating, mSponsored.mRating);
+      UiUtils.setTextAndHideIfEmpty(mTvSponsoredPrice, mSponsoredPrice);
     }
   }
 
@@ -1176,7 +1177,7 @@ public class PlacePageView extends RelativeLayout
         addPlace();
         break;
       case R.id.ll__more:
-        onBookingClick(false /* book */);
+        onSponsoredClick(false /* book */);
         break;
       case R.id.ll__place_latlon:
         mIsLatLonDms = !mIsLatLonDms;
