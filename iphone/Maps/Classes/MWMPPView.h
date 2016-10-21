@@ -20,7 +20,6 @@
 
 @property(weak, nonatomic) IBOutlet UIView * top;
 @property(weak, nonatomic) IBOutlet UIImageView * anchorImage;
-@property(weak, nonatomic) IBOutlet UIImageView * spinner;
 @property(weak, nonatomic) IBOutlet UITableView * tableView;
 
 @property(nonatomic) CGFloat currentContentHeight;

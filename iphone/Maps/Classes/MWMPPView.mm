@@ -45,15 +45,11 @@ CGFloat const kTableViewTopInset = -36;
   {
     self.tableView.alpha = 0.;
     self.anchorImage.hidden = YES;
-    self.spinner.hidden = NO;
-    [self.spinner startAnimating];
   }
   else
   {
     self.tableView.alpha = 1.;
     self.anchorImage.hidden = NO;
-    self.spinner.hidden = YES;
-    [self.spinner stopAnimating];
   }
 }
 
@@ -89,19 +85,7 @@ CGFloat const kTableViewTopInset = -36;
 
   self.tableView.estimatedRowHeight = 44.;
   self.tableView.rowHeight = UITableViewAutomaticDimension;
-
   self.tableView.contentInset = {.top = kTableViewTopInset};
-
-  NSUInteger constexpr animationImagesCount = 12;
-  NSMutableArray * animationImages = [NSMutableArray arrayWithCapacity:animationImagesCount];
-  NSString * postfix = [UIColor isNightMode] ? @"dark" : @"light";
-  for (NSUInteger i = 0; i < animationImagesCount; ++i)
-    animationImages[i] =
-        [UIImage imageNamed:[NSString stringWithFormat:@"Spinner_%@_%@", @(i + 1), postfix]];
-
-  self.spinner.animationDuration = 0.8;
-  self.spinner.animationImages = animationImages;
-  [self.spinner startAnimating];
 }
 
 - (void)dealloc

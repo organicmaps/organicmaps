@@ -30,7 +30,7 @@ enum class State
   Top
 };
 
-CGFloat const kMinOffset = 48;
+CGFloat const kMinOffset = 0;
 CGFloat const kOpenPlacePageStopValue = 0.7;
 CGFloat const kLuftDraggingOffset = 30;
 

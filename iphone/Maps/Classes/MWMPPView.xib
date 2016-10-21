@@ -39,12 +39,6 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Spinner_1_light" translatesAutoresizingMaskIntoConstraints="NO" id="Wyo-4H-R6c">
-                    <constraints>
-                        <constraint firstAttribute="height" constant="36" id="6hU-Qs-xIL"/>
-                        <constraint firstAttribute="width" constant="36" id="v5J-Hs-nSv"/>
-                    </constraints>
-                </imageView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Taj-ne-CBp">
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -64,8 +58,6 @@
                 <constraint firstItem="Taj-ne-CBp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="FBa-eg-ae8"/>
                 <constraint firstItem="bcQ-R1-NdK" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="JJA-g8-U9d"/>
                 <constraint firstItem="bcQ-R1-NdK" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Kcc-bP-Mbu"/>
-                <constraint firstItem="Wyo-4H-R6c" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="RvW-CN-nou"/>
-                <constraint firstItem="Wyo-4H-R6c" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="UFy-Dk-RbA"/>
                 <constraint firstAttribute="bottom" secondItem="Taj-ne-CBp" secondAttribute="bottom" id="pAf-8q-58V"/>
                 <constraint firstAttribute="trailing" secondItem="bcQ-R1-NdK" secondAttribute="trailing" id="zrS-z7-cab"/>
             </constraints>
@@ -75,7 +67,6 @@
             </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="anchorImage" destination="V1F-KA-EKn" id="fNo-v2-XOU"/>
-                <outlet property="spinner" destination="Wyo-4H-R6c" id="WK2-IU-x4H"/>
                 <outlet property="tableView" destination="Taj-ne-CBp" id="rdn-7z-2dz"/>
                 <outlet property="top" destination="bcQ-R1-NdK" id="3bW-Kf-gmH"/>
             </connections>
@@ -83,7 +74,6 @@
         </view>
     </objects>
     <resources>
-        <image name="Spinner_1_light" width="36" height="36"/>
         <image name="ic_anchor_up" width="22" height="6"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
