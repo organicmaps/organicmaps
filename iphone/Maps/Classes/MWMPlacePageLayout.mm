@@ -250,8 +250,12 @@ void animate(TMWMVoidBlock animate, TMWMVoidBlock completion = nil)
   animate(^{
     [self.placePageView hideTableView:NO];
     self.actionBar.minY = self.actionBar.superview.height - self.actionBar.height;
+
+    // We decrease expanded offset for 2 pixels because it looks more clear.
+    auto constexpr designOffset = 2;
     self.expandedContentOffset =
-        self.ppPreviewCell.height + self.placePageView.top.height + self.actionBar.height;
+        self.ppPreviewCell.height + self.placePageView.top.height + self.actionBar.height - designOffset;
+
     auto const targetOffset =
         self.state == State::Bottom ? self.expandedContentOffset : self.topContentOffset;
     [self.scrollView setContentOffset:{ 0, targetOffset } animated:YES];
