@@ -30,7 +30,7 @@ enum class State
   Top
 };
 
-CGFloat const kMinOffset = 64;
+CGFloat const kMinOffset = 48;
 CGFloat const kOpenPlacePageStopValue = 0.7;
 CGFloat const kLuftDraggingOffset = 30;
 
@@ -45,7 +45,7 @@ array<NSString *, 9> kMetaInfoCells = {
 
 array<NSString *, 1> kButtonsCells = {{@"MWMPlacePageButtonCell"}};
 
-NSTimeInterval const kAnimationDuration = 0.15;
+NSTimeInterval const kAnimationDuration = 0.25;
 
 void animate(TMWMVoidBlock animate, TMWMVoidBlock completion = nil)
 {
@@ -231,13 +231,11 @@ void animate(TMWMVoidBlock animate, TMWMVoidBlock completion = nil)
 }
 
 - (void)collapse
-{
-  self.actionBar.hidden = YES;
+{;
   self.scrollView.scrollEnabled = NO;
   [self.placePageView hideTableView:YES];
 
   animate(^{
-    self.actionBar.origin = {0., self.ownerView.height};
     [self.scrollView setContentOffset:{ 0., kMinOffset } animated:YES];
   });
 }
@@ -555,7 +553,7 @@ void animate(TMWMVoidBlock animate, TMWMVoidBlock completion = nil)
 {
   auto const update = isForceReposition ? @selector(updateWithExpand) : @selector(update);
   [NSObject cancelPreviousPerformRequestsWithTarget:self selector:update object:nil];
-  [self performSelector:update withObject:nil afterDelay:0.5];
+  [self performSelector:update withObject:nil afterDelay:0.1];
 }
 
 - (void)update
