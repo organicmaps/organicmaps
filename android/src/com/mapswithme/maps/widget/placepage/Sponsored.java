@@ -158,7 +158,7 @@ public final class Sponsored
     void onPriceReceived(@NonNull String id, @NonNull String price, @NonNull String currency);
   }
 
-  interface OnInfoReceivedListener
+  interface OnHotelInfoReceivedListener
   {
     /**
      * This method is called from the native core on the UI thread
@@ -168,7 +168,7 @@ public final class Sponsored
      * @param info A hotel info
      */
     @UiThread
-    void onInfoReceived(@NonNull String id, @NonNull HotelInfo info);
+    void onHotelInfoReceived(@NonNull String id, @NonNull HotelInfo info);
   }
 
   // Hotel ID -> Price
@@ -180,7 +180,7 @@ public final class Sponsored
   @NonNull
   private static WeakReference<OnPriceReceivedListener> sPriceListener = new WeakReference<>(null);
   @NonNull
-  private static WeakReference<OnInfoReceivedListener> sInfoListener = new WeakReference<>(null);
+  private static WeakReference<OnHotelInfoReceivedListener> sInfoListener = new WeakReference<>(null);
 
   @Nullable
   private String mId;
@@ -252,7 +252,7 @@ public final class Sponsored
     sPriceListener = new WeakReference<>(listener);
   }
 
-  static void setInfoListener(@NonNull OnInfoReceivedListener listener)
+  static void setInfoListener(@NonNull OnHotelInfoReceivedListener listener)
   {
     sInfoListener = new WeakReference<>(listener);
   }
@@ -284,7 +284,7 @@ public final class Sponsored
     switch (sponsored.getType())
     {
       case TYPE_BOOKING:
-        requestHotelInfo(locale, id);
+        requestHotelInfo(id, locale);
         break;
       case TYPE_GEOCHAT:
 //        TODO: request geochat info
@@ -300,7 +300,7 @@ public final class Sponsored
   /**
    * Make request to obtain hotel information.
    * This method also checks cache for requested hotel id
-   * and if cache exists - call {@link #onInfoReceived(String, HotelInfo) onInfoReceived} immediately
+   * and if cache exists - call {@link #onHotelInfoReceived(String, HotelInfo) onHotelInfoReceived} immediately
    *
    * @param id A Hotel id
    * @param locale A user locale
@@ -309,7 +309,7 @@ public final class Sponsored
   {
     HotelInfo info = sInfoCache.get(id);
     if (info != null)
-      onInfoReceived(id, info);
+      onHotelInfoReceived(id, info);
 
     nativeRequestHotelInfo(id, locale);
   }
@@ -328,13 +328,13 @@ public final class Sponsored
       listener.onPriceReceived(id, price, currency);
   }
 
-  private static void onInfoReceived(@NonNull String id, @NonNull HotelInfo info)
+  private static void onHotelInfoReceived(@NonNull String id, @NonNull HotelInfo info)
   {
     sInfoCache.put(id, info);
 
-    OnInfoReceivedListener listener = sInfoListener.get();
+    OnHotelInfoReceivedListener listener = sInfoListener.get();
     if (listener != null)
-      listener.onInfoReceived(id, info);
+      listener.onHotelInfoReceived(id, info);
   }
 
   @Nullable

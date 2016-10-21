@@ -65,7 +65,7 @@ void PrepareClassRefs(JNIEnv * env, jclass sponsoredClass)
                              "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
   // static void onDescriptionReceived(final String id, final String description)
   g_infoCallback = jni::GetStaticMethodID(
-      env, g_sponsoredClass, "onInfoReceived",
+      env, g_sponsoredClass, "onHotelInfoReceived",
       "(Ljava/lang/String;Lcom/mapswithme/maps/widget/placepage/Sponsored$HotelInfo;)V");
 }
 
