@@ -10,6 +10,7 @@ namespace place_page
 char const * const Info::kSubtitleSeparator = " • ";
 char const * const Info::kStarSymbol = "★";
 char const * const Info::kMountainSymbol = "▲";
+char const * const Info::kEmptyRatingSymbol = "-";
 char const * const Info::kPricingSymbol = "$";
 
 bool Info::IsFeature() const { return m_featureID.IsValid(); }
@@ -122,11 +123,9 @@ string Info::GetRatingFormatted() const
   if (!IsSponsored())
     return string();
 
-  auto const rating = GetMetadata().Get(feature::Metadata::FMD_RATING);
-  if (rating.empty())
-    return rating;
-
-  int const size = snprintf(nullptr, 0, m_localizedRatingString.c_str(), rating.c_str());
+  auto const r = GetMetadata().Get(feature::Metadata::FMD_RATING);
+  char const * rating = r.empty() ? kEmptyRatingSymbol : r.c_str();
+  int const size = snprintf(nullptr, 0, m_localizedRatingString.c_str(), rating);
   if (size < 0)
   {
     LOG(LERROR, ("Incorrect size for string:", m_localizedRatingString, ", rating:", rating));
@@ -134,7 +133,7 @@ string Info::GetRatingFormatted() const
   }
 
   vector<char> buf(size + 1);
-  snprintf(buf.data(), buf.size(), m_localizedRatingString.c_str(), rating.c_str());
+  snprintf(buf.data(), buf.size(), m_localizedRatingString.c_str(), rating);
   return string(buf.begin(), buf.end());
 }
 
