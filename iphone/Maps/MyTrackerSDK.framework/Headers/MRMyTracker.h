@@ -1,49 +1,57 @@
 //
 //  MRMyTracker.h
-//  myTrackerSDK 1.4.9
+//  myTrackerSDK 1.5.3
 //
-//  Created by Igor Glotov on 22.07.14.
-//  Copyright © 2014 Mail.ru Group. All rights reserved.
+//  Created by Timur Voloshin on 17.06.16.
+//  Copyright © 2016 Mail.ru Group. All rights reserved.
 //
-
 
 #import <Foundation/Foundation.h>
-#import <MyTrackerSDK/MRTracker.h>
 
-extern NSString * const MYTRACKER_VERSION_STRING;
-
-@class MRTracker;
-@class MRTrackerParams;
+@class MRMyTrackerParams;
 
 @interface MRMyTracker : NSObject
 
-+ (BOOL)debugMode;
-+ (void)setDebugMode:(BOOL)enable;
++ (void)setDebugMode:(BOOL)enabled;
 
-+ (MRTracker *)createTracker:(NSString *)trackerId;
++ (BOOL)isDebugMode;
+
++ (void)setEnabled:(BOOL)enabled;
+
++ (BOOL)isEnabled;
+
++ (NSString *)trackerVersion;
+
++ (MRMyTrackerParams *)trackerParams;
+
++ (void)createTracker:(NSString *)trackerId;
+
 + (void)setupTracker;
 
-+ (MRTrackerParams *)getTrackerParams;
++ (void)trackEventWithName:(NSString *)name;
+
++ (void)trackEventWithName:(NSString *)name eventParams:(NSDictionary<NSString *, NSString *> *)eventParams;
 
 + (void)trackLoginEvent;
-+ (void)trackLoginEventWithParams:(NSDictionary *)eventParams;
+
++ (void)trackLoginEventWithParams:(NSDictionary<NSString *, NSString *> *)eventParams;
 
 + (void)trackInviteEvent;
-+ (void)trackInviteEventWithParams:(NSDictionary *)eventParams;
+
++ (void)trackInviteEventWithParams:(NSDictionary<NSString *, NSString *> *)eventParams;
 
 + (void)trackRegistrationEvent;
-+ (void)trackRegistrationEventWithParams:(NSDictionary *)eventParams;
 
-//SKProduct*
-//SKPaymentTransaction*
-+ (void) trackPurchaseWithProduct:(id)product transaction:(id)transaction;
-+ (void) trackPurchaseWithProduct:(id)product transaction:(id)transaction eventParams:(NSDictionary *)eventParams;
++ (void)trackRegistrationEventWithParams:(NSDictionary<NSString *, NSString *> *)eventParams;
 
-+ (void) trackLevelAchieved;
-+ (void) trackLevelAchieved:(NSNumber*)level;
-+ (void) trackLevelAchieved:(NSNumber*)level eventParams:(NSDictionary *)eventParams;
++ (void)trackPurchaseWithProduct:(id)product transaction:(id)transaction;
 
-+ (void)trackEvent:(NSString*)name;
-+ (void)trackEvent:(NSString*)name eventParams:(NSDictionary*)eventParams;
++ (void)trackPurchaseWithProduct:(id)product transaction:(id)transaction eventParams:(NSDictionary<NSString *, NSString *> *)eventParams;
+
++ (void)trackLevelAchieved;
+
++ (void)trackLevelAchievedWithLevel:(NSNumber *)level;
+
++ (void)trackLevelAchievedWithLevel:(NSNumber *)level eventParams:(NSDictionary<NSString *, NSString *> *)eventParams;
 
 @end

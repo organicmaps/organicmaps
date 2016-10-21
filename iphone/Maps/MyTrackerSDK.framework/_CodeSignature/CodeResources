@@ -6,23 +6,19 @@
 	<dict>
 		<key>Headers/MRMyTracker.h</key>
 		<data>
-		zBrY/xfaNRJi9DP6cLiU0O3xNqs=
+		ZOJNkS8uvXgAzimS1mVsBQ0ri6o=
 		</data>
-		<key>Headers/MRTracker.h</key>
+		<key>Headers/MRMyTrackerParams.h</key>
 		<data>
-		MSR6pNKgWiTe6zhIyVh3IsxZgtU=
-		</data>
-		<key>Headers/MRTrackerParams.h</key>
-		<data>
-		/EZZih95Fe5mtFc4bQvFYvTfea8=
+		THlgCnIUz+flAkADF975uc+PUrw=
 		</data>
 		<key>Headers/MyTrackerSDK.h</key>
 		<data>
-		nGrp/FOp6eCYWbXeLQIn/fIKxBY=
+		V8VSjw5+CRFiXm9cZuPBKQ4ZGTc=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		IHUAm0q1yJVCnxK6P/RfCIe89Ow=
+		0+aacR2gDEd9r3S+djeRYSsnebg=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -35,44 +31,33 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			zBrY/xfaNRJi9DP6cLiU0O3xNqs=
+			ZOJNkS8uvXgAzimS1mVsBQ0ri6o=
 			</data>
 			<key>hash2</key>
 			<data>
-			vq7pAKiRXh76Yd/wPTJOAdM7S8ANLEX2tbMk7ejOvLQ=
+			6i2d3PnRb+OMTl4NQL9EMepX1+W5CZ4A1kUAXUVjR84=
 			</data>
 		</dict>
-		<key>Headers/MRTracker.h</key>
+		<key>Headers/MRMyTrackerParams.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			MSR6pNKgWiTe6zhIyVh3IsxZgtU=
+			THlgCnIUz+flAkADF975uc+PUrw=
 			</data>
 			<key>hash2</key>
 			<data>
-			vCSyzVxl7hyPhl9DRMHIFI8WYEWDlHZKiRDXQPsU9+I=
-			</data>
-		</dict>
-		<key>Headers/MRTrackerParams.h</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			/EZZih95Fe5mtFc4bQvFYvTfea8=
-			</data>
-			<key>hash2</key>
-			<data>
-			qIC0Sq2/OcuhHYemFKaUFWAZeMugy04GSDauvRJKsSQ=
+			aByBumFVsYvUSWvWauvVs/ZjNk6zdQqMR9UR+wZpqmo=
 			</data>
 		</dict>
 		<key>Headers/MyTrackerSDK.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			nGrp/FOp6eCYWbXeLQIn/fIKxBY=
+			V8VSjw5+CRFiXm9cZuPBKQ4ZGTc=
 			</data>
 			<key>hash2</key>
 			<data>
-			ZBoJhnbSQWKcScYG7YXVvYQ3ZaEQLofkcdMNKfehif0=
+			LVha2tT3k8QUkDevr5W/7+24+Dtbf0YjUmkt8cRZyHc=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

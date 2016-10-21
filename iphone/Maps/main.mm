@@ -45,7 +45,7 @@ void setMarketingSender()
       eventParams[key] = value;
       [myTrackerEvent appendString:[NSString stringWithFormat:@"_%@_%@", key, value]];
     }
-    [MRMyTracker trackEvent:myTrackerEvent eventParams:nil];
+    [MRMyTracker trackEventWithName:myTrackerEvent];
   });
 }
 

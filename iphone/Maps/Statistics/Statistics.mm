@@ -5,7 +5,7 @@
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 #import "Flurry.h"
 #import <MyTrackerSDK/MRMyTracker.h>
-#import <MyTrackerSDK/MRTrackerParams.h>
+#import <MyTrackerSDK/MRMyTrackerParams.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 #include "platform/settings.hpp"
@@ -90,7 +90,7 @@ char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled";
 #ifdef DEBUG
     [MRMyTracker setDebugMode:YES];
 #endif
-    [MRMyTracker getTrackerParams].trackAppLaunch = YES;
+    [MRMyTracker trackerParams].trackLaunch = YES;
     [MRMyTracker setupTracker];
 
     [Alohalytics setup:@(ALOHALYTICS_URL) withLaunchOptions:launchOptions];
