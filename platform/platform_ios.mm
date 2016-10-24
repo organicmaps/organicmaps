@@ -23,6 +23,8 @@
 
 #import "../iphone/Maps/Classes/Common.h"
 
+#import "3party/Alohalytics/src/alohalytics_objc.h"
+
 #import <Foundation/NSAutoreleasePool.h>
 #import <Foundation/NSBundle.h>
 #import <Foundation/NSPathUtilities.h>
@@ -131,7 +133,7 @@ static string GetMacAddress()
   return result;
 }
 
-string Platform::UniqueClientId() const { return HashUniqueID(GetMacAddress() + GetDeviceUid()); }
+string Platform::UniqueClientId() const { return [Alohalytics installationId].UTF8String; }
 static void PerformImpl(void * obj)
 {
   Platform::TFunctor * f = reinterpret_cast<Platform::TFunctor *>(obj);
