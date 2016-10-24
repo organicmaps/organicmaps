@@ -72,6 +72,11 @@ string Info::GetSubtitle() const
   // Type.
   values.push_back(GetLocalizedType());
 
+  // Flats.
+  string const flats = GetFlats();
+  if (!flats.empty())
+    values.push_back(flats);
+
   // Cuisines.
   for (string const & cuisine : GetLocalizedCuisines())
     values.push_back(cuisine);

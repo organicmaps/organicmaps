@@ -2,6 +2,8 @@
 #import "Common.h"
 #import "MWMOpeningHours.h"
 #import "MWMPlacePageCellUpdateProtocol.h"
+#import "UIColor+MapsMeColor.h"
+#import "UIFont+MapsMeFonts.h"
 
 #include "std/array.hpp"
 
@@ -11,17 +13,49 @@ array<NSString *, 2> kOHClasses = {{@"_MWMOHHeaderCell", @"_MWMOHSubCell"}};
 void * kContext = &kContext;
 NSString * const kTableViewContentSizeKeyPath = @"contentSize";
 
+NSAttributedString * richStringFromDay(osmoh::Day const & day, BOOL isClosedNow)
+{
+  auto const richString = ^NSMutableAttributedString * (NSString * str, UIFont * font, UIColor * color)
+  {
+    return [[NSMutableAttributedString alloc] initWithString:str
+                                           attributes:@{NSFontAttributeName : font,
+                                                        NSForegroundColorAttributeName : color}];
+  };
+
+  auto str = richString(day.TodayTime(), [UIFont regular17], day.m_isOpen ? [UIColor blackPrimaryText] :
+                                                                            [UIColor red]);
+  if (day.m_isOpen)
+  {
+    auto lineBreak = [[NSAttributedString alloc] initWithString:@"\n"];
+
+    if (day.m_breaks.length)
+    {
+      [str appendAttributedString:lineBreak];
+      [str appendAttributedString:richString(day.m_breaks, [UIFont regular13], [UIColor blackSecondaryText])];
+    }
+
+    if (isClosedNow)
+    {
+      [str appendAttributedString:lineBreak];
+      [str appendAttributedString:richString(L(@"closed_now"), [UIFont regular13], [UIColor red])];
+    }
+
+    auto paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineSpacing = 4;
+
+    [str addAttributes:@{NSParagraphStyleAttributeName : paragraphStyle} range:{0, str.length}];
+  }
+  return str;
+}
+
 }  // namespace
 
 #pragma mark - _MWMOHHeaderCell
 
 @interface _MWMOHHeaderCell : MWMTableViewCell
 
-@property(weak, nonatomic) IBOutlet UILabel * today;
-@property(weak, nonatomic) IBOutlet UILabel * breaks;
-@property(weak, nonatomic) IBOutlet UILabel * closedNow;
+@property(weak, nonatomic) IBOutlet UILabel * text;
 @property(weak, nonatomic) IBOutlet UIImageView * arrowIcon;
-@property(weak, nonatomic) IBOutlet UIImageView * separator;
 
 @property(copy, nonatomic) TMWMVoidBlock tapAction;
 
@@ -120,15 +154,13 @@ NSString * const kTableViewContentSizeKeyPath = @"contentSize";
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   auto const & day = m_days[indexPath.row];
-  BOOL const isSeparatorHidden =
-      self.isExtended ? indexPath.row == 0 : indexPath.row == m_days.size() - 1;
+
   if (indexPath.row == 0)
   {
     _MWMOHHeaderCell * cell =
         [tableView dequeueReusableCellWithIdentifier:[_MWMOHHeaderCell className]];
-    cell.today.text = day.TodayTime();
-    cell.breaks.text = day.m_breaks;
-    cell.closedNow.text = self.isClosedNow ? L(@"closed_now") : nil;
+    cell.text.attributedText = richStringFromDay(day, self.isClosedNow);
+
     if (m_days.size() > 1)
     {
       cell.tapAction = ^{
@@ -153,7 +185,6 @@ NSString * const kTableViewContentSizeKeyPath = @"contentSize";
       cell.tapAction = nil;
       cell.arrowIcon.hidden = YES;
     }
-    cell.separator.hidden = isSeparatorHidden;
     return cell;
   }
   else
@@ -162,7 +193,7 @@ NSString * const kTableViewContentSizeKeyPath = @"contentSize";
     cell.days.text = day.m_workingDays;
     cell.schedule.text = day.m_workingTimes ? day.m_workingTimes : L(@"closed");
     cell.breaks.text = day.m_breaks;
-    cell.separator.hidden = isSeparatorHidden;
+    cell.separator.hidden = indexPath.row == m_days.size() - 1;
     return cell;
   }
 }
