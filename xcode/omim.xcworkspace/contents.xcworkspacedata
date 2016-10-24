@@ -4,6 +4,15 @@
    <FileRef
       location = "container:defaults.xcconfig">
    </FileRef>
+   <FileRef
+      location = "container:common-debug.xcconfig">
+   </FileRef>
+   <FileRef
+      location = "container:common-release.xcconfig">
+   </FileRef>
+   <FileRef
+      location = "container:common.xcconfig">
+   </FileRef>
    <Group
       location = "container:"
       name = "3party">

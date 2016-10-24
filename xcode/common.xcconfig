@@ -1,0 +1,48 @@
+// Paths
+OMIM_ROOT=$(PROJECT_DIR)/../..
+BUILD_DIR=$(OMIM_ROOT)/../omim-xcode-build
+QT_PATH=/usr/local/opt/qt5
+BOOST_ROOT=$(OMIM_ROOT)/3party/boost
+
+HEADER_SEARCH_PATHS = $(inherited) $(OMIM_ROOT) $(BOOST_ROOT)
+LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/Frameworks
+FRAMEWORK_SEARCH_PATHS[sdk=macosx*] = $(QT_PATH)/lib
+
+// Deployment target
+IPHONEOS_DEPLOYMENT_TARGET = 8.0
+MACOSX_DEPLOYMENT_TARGET = 10.10
+
+// Supported platforms
+SUPPORTED_PLATFORMS = macosx iphonesimulator iphoneos
+
+// Linked frameworks
+OTHER_LDFLAGS[sdk=macosx*] = -framework Cocoa -framework IOKit -framework OpenGL -framework QtCore -framework QtGui -framework QtNetwork -framework QtOpenGL -framework QtWidgets -framework SystemConfiguration
+OTHER_LDFLAGS[sdk=iphone*] = -framework AdSupport -framework CoreGraphics -framework Foundation -framework IOKit -framework OpenGLES -framework SystemConfiguration -framework UIKit
+
+// Warnings settings
+CLANG_WARN__DUPLICATE_METHOD_MATCH = YES
+CLANG_WARN_BOOL_CONVERSION = YES
+CLANG_WARN_CONSTANT_CONVERSION = YES
+CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR
+CLANG_WARN_EMPTY_BODY = YES
+CLANG_WARN_ENUM_CONVERSION = YES
+CLANG_WARN_INT_CONVERSION = YES
+CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR
+CLANG_WARN_UNREACHABLE_CODE = YES
+GCC_WARN_64_TO_32_BIT_CONVERSION = YES
+GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR
+GCC_WARN_UNDECLARED_SELECTOR = YES
+GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE
+GCC_WARN_UNUSED_FUNCTION = YES
+GCC_WARN_UNUSED_VARIABLE = YES
+
+// Build options
+CLANG_CXX_LANGUAGE_STANDARD = c++0x
+CLANG_ENABLE_MODULES = YES
+CLANG_ENABLE_OBJC_ARC = YES
+CODE_SIGN_IDENTITY[sdk=iphoneos*] = iPhone Developer
+DEBUG_INFORMATION_FORMAT = dwarf-with-dsym
+ENABLE_STRICT_OBJC_MSGSEND = YES
+GCC_NO_COMMON_BLOCKS = YES
+ONLY_ACTIVE_ARCH = YES
+PRODUCT_NAME = $(TARGET_NAME)
