@@ -208,21 +208,21 @@ private:
 public:
 
   template <typename F>
-  void ForEachInRect(F & f, m2::RectD const & rect, uint32_t scale) const
+  void ForEachInRect(F && f, m2::RectD const & rect, uint32_t scale) const
   {
     ReadMWMFunctor<F> implFunctor(f);
     ForEachInIntervals(implFunctor, covering::ViewportWithLowLevels, rect, scale);
   }
 
   template <typename F>
-  void ForEachFeatureIDInRect(F & f, m2::RectD const & rect, uint32_t scale) const
+  void ForEachFeatureIDInRect(F && f, m2::RectD const & rect, uint32_t scale) const
   {
     ReadFeatureIndexFunctor<F> implFunctor(f);
     ForEachInIntervals(implFunctor, covering::LowLevelsOnly, rect, scale);
   }
 
   template <typename F>
-  void ForEachInScale(F & f, uint32_t scale) const
+  void ForEachInScale(F && f, uint32_t scale) const
   {
     ReadMWMFunctor<F> implFunctor(f);
     ForEachInIntervals(implFunctor, covering::FullCover, m2::RectD::GetInfiniteRect(), scale);
@@ -230,7 +230,7 @@ public:
 
   // "features" must be sorted using FeatureID::operator< as predicate.
   template <typename F>
-  void ReadFeatures(F & f, vector<FeatureID> const & features) const
+  void ReadFeatures(F && f, vector<FeatureID> const & features) const
   {
     auto fidIter = features.begin();
     auto const endIter = features.end();
@@ -297,7 +297,7 @@ public:
   };
 
   template <typename F>
-  void ForEachInRectForMWM(F & f, m2::RectD const & rect, uint32_t scale, MwmId const & id) const
+  void ForEachInRectForMWM(F && f, m2::RectD const & rect, uint32_t scale, MwmId const & id) const
   {
     MwmHandle const handle = GetMwmHandleById(id);
     if (handle.IsAlive())
@@ -311,7 +311,7 @@ public:
 private:
 
   template <typename F>
-  void ForEachInIntervals(F & f, covering::CoveringMode mode, m2::RectD const & rect,
+  void ForEachInIntervals(F && f, covering::CoveringMode mode, m2::RectD const & rect,
                           uint32_t scale) const
   {
     vector<shared_ptr<MwmInfo>> mwms;

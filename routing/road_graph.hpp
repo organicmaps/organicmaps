@@ -25,6 +25,7 @@ public:
   Junction & operator=(Junction const &) = default;
 
   inline bool operator==(Junction const & r) const { return m_point == r.m_point; }
+  inline bool operator!=(Junction const & r) const { return !(*this == r); }
   inline bool operator<(Junction const & r) const { return m_point < r.m_point; }
 
   inline m2::PointD const & GetPoint() const { return m_point; }
@@ -52,10 +53,12 @@ inline bool AlmostEqualAbs(Junction const & lhs, Junction const & rhs)
 class Edge
 {
 public:
-  static Edge MakeFake(Junction const & startJunction, Junction const & endJunction);
+  static Edge MakeFake(Junction const & startJunction, Junction const & endJunction,
+                       bool partOfReal);
 
-  Edge() : m_forward(true), m_segId(0) {}
-  Edge(FeatureID const & featureId, bool forward, uint32_t segId, Junction const & startJunction, Junction const & endJunction);
+  Edge();
+  Edge(FeatureID const & featureId, bool forward, uint32_t segId, Junction const & startJunction,
+       Junction const & endJunction);
   Edge(Edge const &) = default;
   Edge & operator=(Edge const &) = default;
 
@@ -65,6 +68,7 @@ public:
   inline Junction const & GetStartJunction() const { return m_startJunction; }
   inline Junction const & GetEndJunction() const { return m_endJunction; }
   inline bool IsFake() const { return !m_featureId.IsValid(); }
+  inline bool IsPartOfReal() const { return m_partOfReal; }
 
   Edge GetReverseEdge() const;
 
@@ -81,6 +85,9 @@ private:
 
   // Is the feature along the road.
   bool m_forward;
+
+  // This flag is set for edges that are parts of some real edges.
+  bool m_partOfReal;
 
   // Ordinal number of the segment on the road.
   uint32_t m_segId;
@@ -261,7 +268,6 @@ public:
   /// Clear all temporary buffers.
   virtual void ClearState() {}
 
-private:
   /// \brief Finds all outgoing regular (non-fake) edges for junction.
   void GetRegularOutgoingEdges(Junction const & junction, TEdgeVector & edges) const;
   /// \brief Finds all ingoing regular (non-fake) edges for junction.
@@ -271,6 +277,7 @@ private:
   /// \brief Finds all ingoing fake edges for junction.
   void GetFakeIngoingEdges(Junction const & junction, TEdgeVector & edges) const;
 
+private:
   template <typename Fn>
   void ForEachFakeEdge(Fn && fn)
   {

@@ -32,7 +32,7 @@ private:
   class exception_name : public base_exception \
   { \
   public: \
-    exception_name(char const * what, string const & msg) : base_exception(what, msg) {} \
+    exception_name(char const * what, std::string const & msg) : base_exception(what, msg) {} \
   }
 
 // TODO: Use SRC_LOGGING macro.

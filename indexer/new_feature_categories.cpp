@@ -17,7 +17,7 @@ NewFeatureCategories::NewFeatureCategories(editor::EditorConfig const & config)
   // TODO(mgsergio): Load types user can create from XML file.
   // TODO: Not every editable type can be created by user.
   // TODO(mgsergio): Store in Settings:: recent history of created types and use them here.
-  // Max history items count shoud be set in the config.
+  // Max history items count should be set in the config.
   Classificator const & cl = classif();
   for (auto const & classificatorType : config.GetTypesThatCanBeAdded())
   {

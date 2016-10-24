@@ -276,6 +276,8 @@ public:
   storage::CountryInfoGetter & GetCountryInfoGetter() { return *m_infoGetter; }
   StorageDownloadingPolicy & GetDownloadingPolicy() { return m_storageDownloadingPolicy; }
 
+  Index const & GetIndex() const { return m_model.GetIndex(); }
+
   /// @name Bookmarks, Tracks and other UserMarks
   //@{
   /// Scans and loads all kml files with bookmarks in WritableDir.
@@ -313,7 +315,7 @@ public:
   m2::PointD GetSearchMarkSize(SearchMarkType searchMarkType);
 
   // Utilities
-  void VizualizeRoadsInRect(m2::RectD const & rect);
+  void VisualizeRoadsInRect(m2::RectD const & rect);
 
 protected:
   // search::ViewportSearchCallback::Delegate overrides:
@@ -655,7 +657,7 @@ public:
   }
   /// Set parse to false if you don't need all feature fields ready.
   /// TODO(AlexZ): Refactor code which uses this method to get rid of it.
-  /// FeatureType instances shoud not be used outside ForEach* core methods.
+  /// FeatureType instances should not be used outside ForEach* core methods.
   WARN_UNUSED_RESULT bool GetFeatureByID(FeatureID const & fid, FeatureType & ft) const;
 
   void MemoryWarning();

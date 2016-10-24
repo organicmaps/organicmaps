@@ -1,6 +1,6 @@
 # Main application in qt.
 ROOT_DIR = ..
-DEPENDENCIES = map drape_frontend routing search storage tracking traffic indexer drape partners_api platform editor geometry \
+DEPENDENCIES = map drape_frontend openlr routing search storage tracking traffic indexer drape partners_api platform editor geometry \
                coding base freetype expat fribidi jansson protobuf osrm stats_client \
                minizip succinct pugixml oauthcpp
 
@@ -116,6 +116,9 @@ SOURCES += \
     qtoglcontextfactory.cpp \
     search_panel.cpp \
     slider_ctrl.cpp \
+    traffic_mode.cpp \
+    traffic_panel.cpp \
+    trafficmodeinitdlg.cpp \
     update_dialog.cpp \
 
 HEADERS += \
@@ -133,6 +136,12 @@ HEADERS += \
     qtoglcontextfactory.hpp \
     search_panel.hpp \
     slider_ctrl.hpp \
+    traffic_mode.hpp \
+    traffic_panel.hpp \
+    trafficmodeinitdlg.h \
     update_dialog.hpp \
 
 RESOURCES += res/resources.qrc
+
+FORMS += \
+    trafficmodeinitdlg.ui

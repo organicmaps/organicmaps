@@ -3307,7 +3307,7 @@ namespace
                                 };
 } // namespace
 
-void Framework::VizualizeRoadsInRect(m2::RectD const & rect)
+void Framework::VisualizeRoadsInRect(m2::RectD const & rect)
 {
   int constexpr kScale = scales::GetUpperScale();
   size_t counter = 0;

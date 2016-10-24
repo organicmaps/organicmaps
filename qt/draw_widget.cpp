@@ -434,7 +434,7 @@ void DrawWidget::mouseReleaseEvent(QMouseEvent * e)
     m2::RectD rect;
     rect.Add(m_framework->PtoG(m2::PointD(L2D(lt.x()), L2D(lt.y()))));
     rect.Add(m_framework->PtoG(m2::PointD(L2D(rb.x()), L2D(rb.y()))));
-    m_framework->VizualizeRoadsInRect(rect);
+    m_framework->VisualizeRoadsInRect(rect);
     m_rubberBand->hide();
   }
 }

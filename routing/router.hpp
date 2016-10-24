@@ -6,13 +6,13 @@
 
 #include "base/cancellable.hpp"
 
-#include "std/function.hpp"
-#include "std/string.hpp"
+#include <functional>
+#include <string>
 
 namespace routing
 {
 
-using TCountryFileFn = function<string(m2::PointD const &)>;
+using TCountryFileFn = std::function<std::string(m2::PointD const &)>;
 
 class Route;
 
@@ -26,8 +26,8 @@ enum class RouterType
   Taxi,         /// For taxi route calculation Vehicle routing is used.
 };
 
-string ToString(RouterType type);
-RouterType FromString(string const & str);
+std::string ToString(RouterType type);
+RouterType FromString(std::string const & str);
 
 class IRouter
 {
@@ -55,7 +55,7 @@ public:
   virtual ~IRouter() {}
 
   /// Return unique name of a router implementation.
-  virtual string GetName() const = 0;
+  virtual std::string GetName() const = 0;
 
   /// Clear all temporary buffers.
   virtual void ClearState() {}

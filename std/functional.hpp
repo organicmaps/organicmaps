@@ -5,12 +5,13 @@
 #endif
 
 #include <functional>
+using std::equal_to;
+using std::function;
+using std::greater;
+using std::hash;
 using std::less;
 using std::less_equal;
-using std::greater;
-using std::equal_to;
-using std::hash;
-using std::function;
+using std::mem_fn;
 using std::ref;
 
 #ifdef DEBUG_NEW
