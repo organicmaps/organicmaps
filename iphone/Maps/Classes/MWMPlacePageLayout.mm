@@ -266,10 +266,14 @@ void animate(TMWMVoidBlock animate, TMWMVoidBlock completion = nil)
   return s.height > s.width;
 }
 
+- (CGFloat)openContentOffset
+{
+  return self.isPortrait ? self.portraitOpenContentOffset : self.landscapeOpenContentOffset;
+}
+
 - (CGFloat)topContentOffset
 {
-  auto const target =
-      self.isPortrait ? self.portraitOpenContentOffset : self.landscapeOpenContentOffset;
+  auto const target = self.openContentOffset;
   if (target > self.placePageView.height)
     return self.placePageView.height;
 
@@ -448,11 +452,6 @@ void animate(TMWMVoidBlock animate, TMWMVoidBlock completion = nil)
                                                                  : CGAffineTransformIdentity;
 }
 
-- (CGFloat)openContentOffset
-{
-  return self.isPortrait ? self.portraitOpenContentOffset : self.landscapeOpenContentOffset;
-}
-
 #pragma mark - UITableViewDelegate & UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -503,7 +502,7 @@ void animate(TMWMVoidBlock animate, TMWMVoidBlock completion = nil)
       else
       {
         self.state = State::Top;
-        offset = self.openContentOffset;
+        offset = self.topContentOffset;
       }
       animate(^{ [self.scrollView setContentOffset:{0, offset} animated:YES]; });
     }];
