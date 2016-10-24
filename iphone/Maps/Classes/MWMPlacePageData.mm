@@ -294,7 +294,7 @@ using namespace place_page;
   case MetainfoRows::Website: return @(m_info.GetWebsite().c_str());
   case MetainfoRows::Email: return @(m_info.GetEmail().c_str());
   case MetainfoRows::Cuisine:
-    return @(strings::JoinStrings(m_info.GetCuisines(), Info::kSubtitleSeparator).c_str());
+    return @(strings::JoinStrings(m_info.GetLocalizedCuisines(), Info::kSubtitleSeparator).c_str());
   case MetainfoRows::Operator: return @(m_info.GetOperator().c_str());
   case MetainfoRows::Internet: return L(@"WiFi_available");
   case MetainfoRows::Coordinate:
