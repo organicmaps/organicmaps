@@ -14,6 +14,8 @@
 		348AB57C1D7EE0C6009F8301 /* chart_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 348AB57A1D7EE0C6009F8301 /* chart_generator.cpp */; };
 		348AB57D1D7EE0C6009F8301 /* chart_generator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 348AB57B1D7EE0C6009F8301 /* chart_generator.hpp */; };
 		34921F661BFA0A6900737D6E /* api_mark_point.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34921F611BFA0A6900737D6E /* api_mark_point.hpp */; };
+		34DDA1811DBE5DF40088A609 /* libpartners_api.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34DDA17F1DBE5DF40088A609 /* libpartners_api.a */; };
+		34DDA1821DBE5DF40088A609 /* libtracking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34DDA1801DBE5DF40088A609 /* libtracking.a */; };
 		45201E931CE4AC90008A4842 /* api_mark_point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45201E921CE4AC90008A4842 /* api_mark_point.cpp */; };
 		670E39401C46C5C700E9C0A6 /* gps_tracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670E393E1C46C5C700E9C0A6 /* gps_tracker.cpp */; };
 		670E39411C46C5C700E9C0A6 /* gps_tracker.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670E393F1C46C5C700E9C0A6 /* gps_tracker.hpp */; };
@@ -38,11 +40,7 @@
 		674A2A251B26FE62001A525C /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A2A091B26FE62001A525C /* libstorage.a */; };
 		674A2A261B26FE62001A525C /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A2A0A1B26FE62001A525C /* libsuccinct.a */; };
 		674A2A271B26FE62001A525C /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A2A0B1B26FE62001A525C /* libtomcrypt.a */; };
-		674A2A2A1B26FF24001A525C /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A2A291B26FF24001A525C /* CoreFoundation.framework */; };
-		674A2A2C1B26FF38001A525C /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A2A2B1B26FF38001A525C /* IOKit.framework */; };
-		674A2A2E1B26FF4F001A525C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A2A2D1B26FF4F001A525C /* Cocoa.framework */; };
 		674A2A2F1B26FF7B001A525C /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675345BB1A4054AD00A0A8C3 /* libmap.a */; };
-		674A2A331B26FFE9001A525C /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A2A321B26FFE9001A525C /* OpenGL.framework */; };
 		674A2A361B27011A001A525C /* working_time_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674A2A351B27011A001A525C /* working_time_tests.cpp */; };
 		674A2A381B2715FB001A525C /* osm_opening_hours.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 674A2A371B2715FB001A525C /* osm_opening_hours.hpp */; };
 		674C38621BFF3095000D603B /* user_mark.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674C385F1BFF3095000D603B /* user_mark.cpp */; };
@@ -66,7 +64,6 @@
 		6753469D1A4054E800A0A8C3 /* user_mark_container.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753462E1A4054E800A0A8C3 /* user_mark_container.cpp */; };
 		6753469E1A4054E800A0A8C3 /* user_mark_container.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753462F1A4054E800A0A8C3 /* user_mark_container.hpp */; };
 		675346A21A4054E800A0A8C3 /* user_mark.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675346331A4054E800A0A8C3 /* user_mark.hpp */; };
-		678850811D06F588004201E1 /* booking_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 678850801D06F588004201E1 /* booking_tests.cpp */; };
 		678850821D071E33004201E1 /* libdrape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29F61B26FE62001A525C /* libdrape.a */; };
 		6788508A1D071E34004201E1 /* libdrape_frontend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 678850831D071E34004201E1 /* libdrape_frontend.a */; };
 		6788508B1D071E34004201E1 /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 678850841D071E34004201E1 /* libeditor.a */; };
@@ -91,7 +88,6 @@
 		67F183821BD5049500AB1840 /* liblodepng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67F1837E1BD5049500AB1840 /* liblodepng.a */; };
 		67F183831BD5049500AB1840 /* libminizip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67F1837F1BD5049500AB1840 /* libminizip.a */; };
 		67F183841BD5049500AB1840 /* libtess2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67F183801BD5049500AB1840 /* libtess2.a */; };
-		67F183881BD5050900AB1840 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67F183871BD5050900AB1840 /* SystemConfiguration.framework */; };
 		F6B283031C1B03320081957A /* gps_track_collection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6B282FB1C1B03320081957A /* gps_track_collection.cpp */; };
 		F6B283041C1B03320081957A /* gps_track_collection.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6B282FC1C1B03320081957A /* gps_track_collection.hpp */; };
 		F6B283051C1B03320081957A /* gps_track_filter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6B282FD1C1B03320081957A /* gps_track_filter.cpp */; };
@@ -122,8 +118,11 @@
 		348AB57A1D7EE0C6009F8301 /* chart_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chart_generator.cpp; sourceTree = "<group>"; };
 		348AB57B1D7EE0C6009F8301 /* chart_generator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = chart_generator.hpp; sourceTree = "<group>"; };
 		34921F611BFA0A6900737D6E /* api_mark_point.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = api_mark_point.hpp; sourceTree = "<group>"; };
+		34AF87E91DBE5AD000E5E7DC /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
+		34AF87EA1DBE5AD000E5E7DC /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
+		34DDA17F1DBE5DF40088A609 /* libpartners_api.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpartners_api.a; path = "/Users/igrechuhin/Repo/omim/xcode/partners_api/../../../omim-xcode-build/Debug/libpartners_api.a"; sourceTree = "<absolute>"; };
+		34DDA1801DBE5DF40088A609 /* libtracking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtracking.a; path = "/Users/igrechuhin/Repo/omim/xcode/tracking/../../../omim-xcode-build/Debug/libtracking.a"; sourceTree = "<absolute>"; };
 		45201E921CE4AC90008A4842 /* api_mark_point.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = api_mark_point.cpp; sourceTree = "<group>"; };
-		670D05A41B0DF4250013A7AC /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
 		670E393E1C46C5C700E9C0A6 /* gps_tracker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gps_tracker.cpp; sourceTree = "<group>"; };
 		670E393F1C46C5C700E9C0A6 /* gps_tracker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gps_tracker.hpp; sourceTree = "<group>"; };
 		674A29CB1B26FCFE001A525C /* bookmarks_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bookmarks_test.cpp; sourceTree = "<group>"; };
@@ -131,7 +130,7 @@
 		674A29CD1B26FCFE001A525C /* geourl_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = geourl_test.cpp; sourceTree = "<group>"; };
 		674A29CE1B26FCFE001A525C /* kmz_unarchive_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kmz_unarchive_test.cpp; sourceTree = "<group>"; };
 		674A29CF1B26FCFE001A525C /* mwm_url_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mwm_url_tests.cpp; sourceTree = "<group>"; };
-		674A29DF1B26FD1C001A525C /* map_tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = map_tests; sourceTree = BUILT_PRODUCTS_DIR; };
+		674A29DF1B26FD1C001A525C /* map_tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = map_tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		674A29EE1B26FD5F001A525C /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
 		674A29F11B26FE62001A525C /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "../../../omim-xcode-build/Debug/libalohalitics.a"; sourceTree = "<group>"; };
 		674A29F31B26FE62001A525C /* libapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libapi.a; path = "../../../omim-xcode-build/Debug/libapi.a"; sourceTree = "<group>"; };
@@ -152,11 +151,9 @@
 		674A2A041B26FE62001A525C /* libprotobuf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libprotobuf.a; path = "../../../omim-xcode-build/Debug/libprotobuf.a"; sourceTree = "<group>"; };
 		674A2A061B26FE62001A525C /* librouting.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librouting.a; path = "../../../omim-xcode-build/Debug/librouting.a"; sourceTree = "<group>"; };
 		674A2A071B26FE62001A525C /* libsearch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsearch.a; path = "../../../omim-xcode-build/Debug/libsearch.a"; sourceTree = "<group>"; };
-		674A2A081B26FE62001A525C /* libsgitess.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsgitess.a; path = "../../../omim-xcode-build/Debug/libsgitess.a"; sourceTree = "<group>"; };
 		674A2A091B26FE62001A525C /* libstorage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libstorage.a; path = "../../../omim-xcode-build/Debug/libstorage.a"; sourceTree = "<group>"; };
 		674A2A0A1B26FE62001A525C /* libsuccinct.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsuccinct.a; path = "../../../omim-xcode-build/Debug/libsuccinct.a"; sourceTree = "<group>"; };
 		674A2A0B1B26FE62001A525C /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtomcrypt.a; path = "../../../omim-xcode-build/Debug/libtomcrypt.a"; sourceTree = "<group>"; };
-		674A2A0C1B26FE62001A525C /* libzlib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libzlib.a; path = "../../../omim-xcode-build/Debug/libzlib.a"; sourceTree = "<group>"; };
 		674A2A291B26FF24001A525C /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		674A2A2B1B26FF38001A525C /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		674A2A2D1B26FF4F001A525C /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -185,7 +182,6 @@
 		6753462E1A4054E800A0A8C3 /* user_mark_container.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = user_mark_container.cpp; sourceTree = "<group>"; };
 		6753462F1A4054E800A0A8C3 /* user_mark_container.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = user_mark_container.hpp; sourceTree = "<group>"; };
 		675346331A4054E800A0A8C3 /* user_mark.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = user_mark.hpp; sourceTree = "<group>"; };
-		678850801D06F588004201E1 /* booking_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = booking_tests.cpp; sourceTree = "<group>"; };
 		678850831D071E34004201E1 /* libdrape_frontend.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape_frontend.a; path = "../../../omim-xcode-build/Debug/libdrape_frontend.a"; sourceTree = "<group>"; };
 		678850841D071E34004201E1 /* libeditor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libeditor.a; path = "../../../omim-xcode-build/Debug/libeditor.a"; sourceTree = "<group>"; };
 		678850851D071E34004201E1 /* liboauthcpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liboauthcpp.a; path = "../../../omim-xcode-build/Debug/liboauthcpp.a"; sourceTree = "<group>"; };
@@ -228,6 +224,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34DDA1811DBE5DF40088A609 /* libpartners_api.a in Frameworks */,
+				34DDA1821DBE5DF40088A609 /* libtracking.a in Frameworks */,
 				6788508A1D071E34004201E1 /* libdrape_frontend.a in Frameworks */,
 				6788508B1D071E34004201E1 /* libeditor.a in Frameworks */,
 				6788508C1D071E34004201E1 /* liboauthcpp.a in Frameworks */,
@@ -236,17 +234,12 @@
 				6788508F1D071E34004201E1 /* libsdf_image.a in Frameworks */,
 				678850901D071E34004201E1 /* libstb_image.a in Frameworks */,
 				678850821D071E33004201E1 /* libdrape.a in Frameworks */,
-				67F183881BD5050900AB1840 /* SystemConfiguration.framework in Frameworks */,
 				67F183811BD5049500AB1840 /* libagg.a in Frameworks */,
 				67F183821BD5049500AB1840 /* liblodepng.a in Frameworks */,
 				67F183831BD5049500AB1840 /* libminizip.a in Frameworks */,
 				67F183841BD5049500AB1840 /* libtess2.a in Frameworks */,
 				67F183751BD5041700AB1840 /* libz.tbd in Frameworks */,
-				674A2A331B26FFE9001A525C /* OpenGL.framework in Frameworks */,
 				674A2A2F1B26FF7B001A525C /* libmap.a in Frameworks */,
-				674A2A2E1B26FF4F001A525C /* Cocoa.framework in Frameworks */,
-				674A2A2C1B26FF38001A525C /* IOKit.framework in Frameworks */,
-				674A2A2A1B26FF24001A525C /* CoreFoundation.framework in Frameworks */,
 				674A2A0D1B26FE62001A525C /* libalohalitics.a in Frameworks */,
 				674A2A0F1B26FE62001A525C /* libapi.a in Frameworks */,
 				674A2A101B26FE62001A525C /* libbase.a in Frameworks */,
@@ -280,6 +273,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		34DDA17E1DBE5DF40088A609 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				34DDA17F1DBE5DF40088A609 /* libpartners_api.a */,
+				34DDA1801DBE5DF40088A609 /* libtracking.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		674A29CA1B26FCC0001A525C /* map_tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -296,7 +298,6 @@
 				674A29CE1B26FCFE001A525C /* kmz_unarchive_test.cpp */,
 				674A29CF1B26FCFE001A525C /* mwm_url_tests.cpp */,
 				674A2A351B27011A001A525C /* working_time_tests.cpp */,
-				678850801D06F588004201E1 /* booking_tests.cpp */,
 			);
 			name = map_tests;
 			path = ../../map/map_tests;
@@ -349,11 +350,9 @@
 				674A2A041B26FE62001A525C /* libprotobuf.a */,
 				674A2A061B26FE62001A525C /* librouting.a */,
 				674A2A071B26FE62001A525C /* libsearch.a */,
-				674A2A081B26FE62001A525C /* libsgitess.a */,
 				674A2A091B26FE62001A525C /* libstorage.a */,
 				674A2A0A1B26FE62001A525C /* libsuccinct.a */,
 				674A2A0B1B26FE62001A525C /* libtomcrypt.a */,
-				674A2A0C1B26FE62001A525C /* libzlib.a */,
 			);
 			name = libs;
 			sourceTree = "<group>";
@@ -361,11 +360,13 @@
 		675345B21A4054AD00A0A8C3 = {
 			isa = PBXGroup;
 			children = (
-				670D05A41B0DF4250013A7AC /* defaults.xcconfig */,
+				34AF87E91DBE5AD000E5E7DC /* common-debug.xcconfig */,
+				34AF87EA1DBE5AD000E5E7DC /* common-release.xcconfig */,
 				674A2A341B2700B2001A525C /* libs */,
 				675345BD1A4054AD00A0A8C3 /* map */,
 				674A29CA1B26FCC0001A525C /* map_tests */,
 				675345BC1A4054AD00A0A8C3 /* Products */,
+				34DDA17E1DBE5DF40088A609 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -373,7 +374,7 @@
 			isa = PBXGroup;
 			children = (
 				675345BB1A4054AD00A0A8C3 /* libmap.a */,
-				674A29DF1B26FD1C001A525C /* map_tests */,
+				674A29DF1B26FD1C001A525C /* map_tests.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -473,8 +474,8 @@
 			);
 			name = map_tests;
 			productName = map_tests;
-			productReference = 674A29DF1B26FD1C001A525C /* map_tests */;
-			productType = "com.apple.product-type.tool";
+			productReference = 674A29DF1B26FD1C001A525C /* map_tests.app */;
+			productType = "com.apple.product-type.application";
 		};
 		675345BA1A4054AD00A0A8C3 /* map */ = {
 			isa = PBXNativeTarget;
@@ -543,7 +544,6 @@
 				67F1837A1BD5045700AB1840 /* mwm_url_tests.cpp in Sources */,
 				679624AF1D1017DB00AE4E3C /* gps_track_collection_test.cpp in Sources */,
 				679624B01D1017DB00AE4E3C /* gps_track_storage_test.cpp in Sources */,
-				678850811D06F588004201E1 /* booking_tests.cpp in Sources */,
 				674A29F01B26FD6F001A525C /* testingmain.cpp in Sources */,
 				674A2A361B27011A001A525C /* working_time_tests.cpp in Sources */,
 				679624B11D1017DB00AE4E3C /* gps_track_test.cpp in Sources */,
@@ -583,29 +583,12 @@
 		674A29E41B26FD1C001A525C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				FRAMEWORK_SEARCH_PATHS = "$(QT_PATH)/lib";
-				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
 					"OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP=1",
-					"$(inherited)",
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SDKROOT)/usr/lib/system",
-				);
-				OTHER_LDFLAGS = (
-					"-framework",
-					QtCore,
-					"-framework",
-					QtNetwork,
-					"-framework",
-					QtWidgets,
-					"-framework",
-					QtOpenGL,
-					"-framework",
-					QtGui,
-				);
+				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = maps.me.map_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -613,68 +596,23 @@
 		674A29E51B26FD1C001A525C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(QT_PATH)/lib";
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = "OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP=1";
-				LIBRARY_SEARCH_PATHS = (
+				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"$(SDKROOT)/usr/lib/system",
+					"OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP=1",
 				);
-				OTHER_LDFLAGS = (
-					"-framework",
-					QtCore,
-					"-framework",
-					QtNetwork,
-					"-framework",
-					QtWidgets,
-					"-framework",
-					QtOpenGL,
-					"-framework",
-					QtGui,
-				);
+				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = maps.me.map_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
 		675345C41A4054AD00A0A8C3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 670D05A41B0DF4250013A7AC /* defaults.xcconfig */;
+			baseConfigurationReference = 34AF87E91DBE5AD000E5E7DC /* common-debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
 				EXCLUDED_SOURCE_FILE_NAMES = "";
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphoneos*]" = "qgl_render_context.*";
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = "qgl_render_context.*";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(QT_PATH)/include",
@@ -683,46 +621,16 @@
 					"$(OMIM_ROOT)/3party/glm",
 					"$(OMIM_ROOT)/3party/jansson/src",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
-				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 			};
 			name = Debug;
 		};
 		675345C51A4054AD00A0A8C3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 670D05A41B0DF4250013A7AC /* defaults.xcconfig */;
+			baseConfigurationReference = 34AF87EA1DBE5AD000E5E7DC /* common-release.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				EXCLUDED_SOURCE_FILE_NAMES = "";
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphoneos*]" = "qgl_render_context.*";
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = "qgl_render_context.*";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(QT_PATH)/include",
@@ -731,22 +639,13 @@
 					"$(OMIM_ROOT)/3party/glm",
 					"$(OMIM_ROOT)/3party/jansson/src",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = macosx;
-				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 			};
 			name = Release;
 		};
 		675345C71A4054AD00A0A8C3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_PREFIX = lib;
-				GCC_ENABLE_CPP_EXCEPTIONS = YES;
-				GCC_ENABLE_CPP_RTTI = YES;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WARNING_CFLAGS = "-Wno-deprecated-register ";
 			};
@@ -755,13 +654,7 @@
 		675345C81A4054AD00A0A8C3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_PREFIX = lib;
-				GCC_ENABLE_CPP_EXCEPTIONS = YES;
-				GCC_ENABLE_CPP_RTTI = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WARNING_CFLAGS = "-Wno-deprecated-register ";
 			};
