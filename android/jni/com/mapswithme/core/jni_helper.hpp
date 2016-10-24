@@ -15,6 +15,7 @@ extern jclass g_myTrackerClazz;
 extern jclass g_httpClientClazz;
 extern jclass g_httpParamsClazz;
 extern jclass g_socketWrapperClazz;
+extern jclass g_utilsClazz;
 
 namespace jni
 {
