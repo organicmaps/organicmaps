@@ -12,6 +12,7 @@
 
 #include "drape_frontend/backend_renderer.hpp"
 #include "drape_frontend/base_renderer.hpp"
+#include "drape_frontend/drape_api_renderer.hpp"
 #include "drape_frontend/gps_track_renderer.hpp"
 #include "drape_frontend/my_position_controller.hpp"
 #include "drape_frontend/navigator.hpp"
@@ -284,6 +285,7 @@ private:
   drape_ptr<Framebuffer> m_framebuffer;
   drape_ptr<TransparentLayer> m_transparentLayer;
   drape_ptr<GpsTrackRenderer> m_gpsTrackRenderer;
+  drape_ptr<DrapeApiRenderer> m_drapeApiRenderer;
 
   drape_ptr<dp::OverlayTree> m_overlayTree;
 

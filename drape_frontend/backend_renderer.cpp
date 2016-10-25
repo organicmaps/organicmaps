@@ -2,6 +2,7 @@
 
 #include "drape_frontend/backend_renderer.hpp"
 #include "drape_frontend/batchers_pool.hpp"
+#include "drape_frontend/drape_api_builder.hpp"
 #include "drape_frontend/gps_track_shape.hpp"
 #include "drape_frontend/map_shape.hpp"
 #include "drape_frontend/message_subclasses.hpp"
@@ -337,6 +338,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
         m_trafficGenerator->AddSegment(segment.first, segment.second);
       break;
     }
+
   case Message::UpdateTraffic:
     {
       ref_ptr<UpdateTrafficMessage> msg = message;
@@ -366,6 +368,27 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       }
       break;
     }
+
+  case Message::DrapeApiAddLines:
+    {
+      ref_ptr<DrapeApiAddLinesMessage> msg = message;
+      vector<drape_ptr<DrapeApiRenderProperty>> properties;
+      m_drapeApiBuilder->BuildLines(msg->GetLines(), m_texMng, properties);
+      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                make_unique_dp<DrapeApiFlushMessage>(move(properties)),
+                                MessagePriority::Normal);
+      break;
+    }
+
+  case Message::DrapeApiRemove:
+    {
+      ref_ptr<DrapeApiRemoveMessage> msg = message;
+      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                make_unique_dp<DrapeApiRemoveMessage>(msg->GetId(), msg->NeedRemoveAll()),
+                                MessagePriority::Normal);
+      break;
+    }
+
   default:
     ASSERT(false, ());
     break;

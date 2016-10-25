@@ -440,6 +440,7 @@ Framework::Framework()
 
 Framework::~Framework()
 {
+  m_drapeApi.SetEngine(nullptr);
   m_drapeEngine.reset();
 
   m_model.SetOnMapDeregisteredCallback(nullptr);
@@ -1653,6 +1654,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   {
     GetPlatform().RunOnGuiThread([this, sizes](){ m_searchMarksSizes = sizes; });
   });
+
+  m_drapeApi.SetEngine(make_ref(m_drapeEngine));
 }
 
 void Framework::UpdateDrapeEngine(int width, int height)
@@ -1664,6 +1667,8 @@ void Framework::UpdateDrapeEngine(int width, int height)
     InvalidateUserMarks();
 
     UpdatePlacePageInfoForCurrentSelection();
+
+    m_drapeApi.Invalidate();
 
     //TODO: update traffic data
   }

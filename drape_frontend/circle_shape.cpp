@@ -11,11 +11,11 @@
 namespace df
 {
 
-CircleShape::CircleShape(m2::PointF const & mercatorPt, CircleViewParams const & params)
+CircleShape::CircleShape(m2::PointF const & mercatorPt, CircleViewParams const & params, bool needOverlay)
   : m_pt(mercatorPt)
   , m_params(params)
-{
-}
+  , m_needOverlay(needOverlay)
+{}
 
 void CircleShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
 {
@@ -51,15 +51,20 @@ void CircleShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager>
   dp::GLState state(gpu::TEXTURING_PROGRAM, dp::GLState::OverlayLayer);
   state.SetColorTexture(region.GetTexture());
 
-  double const handleSize = 2 * m_params.m_radius;
-
-  drape_ptr<dp::OverlayHandle> overlay = make_unique_dp<dp::SquareHandle>(m_params.m_id, dp::Center, m_pt,
-                                                                          m2::PointD(handleSize, handleSize),
-                                                                          GetOverlayPriority(), false /* isBound */, "");
-
   dp::AttributeProvider provider(1, TriangleCount + 2);
   provider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), make_ref(vertexes.data()));
-  batcher->InsertTriangleFan(state, make_ref(&provider), move(overlay));
+  batcher->InsertTriangleFan(state, make_ref(&provider), CreateOverlay());
+}
+
+drape_ptr<dp::OverlayHandle> CircleShape::CreateOverlay() const
+{
+  if (!m_needOverlay)
+    return nullptr;
+
+  double const handleSize = 2 * m_params.m_radius;
+  return make_unique_dp<dp::SquareHandle>(m_params.m_id, dp::Center, m_pt,
+                                          m2::PointD(handleSize, handleSize),
+                                          GetOverlayPriority(), false /* isBound */, "");
 }
 
 uint64_t CircleShape::GetOverlayPriority() const

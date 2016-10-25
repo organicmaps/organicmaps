@@ -10,6 +10,7 @@
 #include "map/track.hpp"
 
 #include "drape_frontend/gui/skin.hpp"
+#include "drape_frontend/drape_api.hpp"
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/user_event_stream.hpp"
 #include "drape_frontend/watch/frame_image.hpp"
@@ -162,6 +163,8 @@ protected:
 
   uber::Api m_uberApi;
 
+  df::DrapeApi m_drapeApi;
+
   bool m_isRenderingEnabled;
   tracking::Reporter m_trackingReporter;
 
@@ -191,6 +194,8 @@ public:
   /// Get access to booking api helpers
   BookingApi & GetBookingApi() { return m_bookingApi; }
   BookingApi const & GetBookingApi() const { return m_bookingApi; }
+
+  df::DrapeApi & GetDrapeApi() { return m_drapeApi; }
 
   uber::Api & GetUberApi() { return m_uberApi;}
 

@@ -4,6 +4,8 @@
 #include "drape_frontend/gui/skin.hpp"
 
 #include "drape_frontend/color_constants.hpp"
+#include "drape_frontend/drape_api.hpp"
+#include "drape_frontend/drape_api_builder.hpp"
 #include "drape_frontend/gps_track_point.hpp"
 #include "drape_frontend/gps_track_shape.hpp"
 #include "drape_frontend/message.hpp"
@@ -1020,7 +1022,7 @@ private:
 class FlushTrafficDataMessage : public Message
 {
 public:
-  FlushTrafficDataMessage(vector<TrafficRenderData> && trafficData)
+  explicit FlushTrafficDataMessage(vector<TrafficRenderData> && trafficData)
     : m_trafficData(move(trafficData))
   {}
 
@@ -1029,6 +1031,56 @@ public:
 
 private:
   vector<TrafficRenderData> m_trafficData;
+};
+
+class DrapeApiAddLinesMessage : public Message
+{
+public:
+  explicit DrapeApiAddLinesMessage(DrapeApi::TLines const & lines)
+    : m_lines(lines)
+  {}
+
+  Type GetType() const override { return Message::DrapeApiAddLines; }
+
+  DrapeApi::TLines const & GetLines() const { return m_lines; }
+
+private:
+  DrapeApi::TLines m_lines;
+};
+
+class DrapeApiRemoveMessage : public Message
+{
+public:
+  explicit DrapeApiRemoveMessage(string const & id, bool removeAll = false)
+    : m_id(id)
+    , m_removeAll(removeAll)
+  {}
+
+  Type GetType() const override { return Message::DrapeApiRemove; }
+
+  string const & GetId() const { return m_id; }
+  bool NeedRemoveAll() const { return m_removeAll; }
+
+private:
+  string m_id;
+  bool m_removeAll;
+};
+
+class DrapeApiFlushMessage : public Message
+{
+public:
+  using TProperties = vector<drape_ptr<DrapeApiRenderProperty>>;
+
+  explicit DrapeApiFlushMessage(TProperties && properties)
+    : m_properties(move(properties))
+  {}
+
+  Type GetType() const override { return Message::DrapeApiFlush; }
+
+  TProperties && AcceptProperties() { return move(m_properties); }
+
+private:
+  TProperties m_properties;
 };
 
 } // namespace df

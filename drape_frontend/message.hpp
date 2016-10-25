@@ -68,7 +68,10 @@ public:
     AddTrafficSegments,
     SetTrafficTexCoords,
     UpdateTraffic,
-    FlushTrafficData
+    FlushTrafficData,
+    DrapeApiAddLines,
+    DrapeApiRemove,
+    DrapeApiFlush,
   };
 
   virtual ~Message() {}

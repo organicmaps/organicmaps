@@ -198,6 +198,8 @@ private:
 
   bool m_choosePositionMode = false;
   bool m_kineticScrollEnabled = true;
+
+  friend class DrapeApi;
 };
 
 } // namespace df
