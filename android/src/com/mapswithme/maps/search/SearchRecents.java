@@ -12,11 +12,6 @@ public final class SearchRecents
 {
   private static final List<String> sRecents = new ArrayList<>();
 
-  static
-  {
-    refresh();
-  }
-
   private SearchRecents() {}
 
   public static void refresh()

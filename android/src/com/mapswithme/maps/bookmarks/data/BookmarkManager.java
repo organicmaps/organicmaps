@@ -39,11 +39,6 @@ public enum BookmarkManager
     return ICONS.get(0);
   }
 
-  BookmarkManager()
-  {
-    nativeLoadBookmarks();
-  }
-
   public void deleteBookmark(Bookmark bmk)
   {
     nativeDeleteBookmark(bmk.getCategoryId(), bmk.getBookmarkId());

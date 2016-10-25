@@ -1,6 +1,8 @@
 package com.mapswithme.maps.base;
 
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
@@ -10,10 +12,11 @@ import com.mapswithme.util.UiUtils;
 
 public abstract class BaseToolbarActivity extends BaseMwmFragmentActivity
 {
+  @CallSuper
   @Override
-  protected void onCreate(Bundle state)
+  protected void safeOnCreate(@Nullable Bundle savedInstanceState)
   {
-    super.onCreate(state);
+    super.safeOnCreate(savedInstanceState);
 
     Toolbar toolbar = getToolbar();
     UiUtils.extendViewWithStatusBar(toolbar);

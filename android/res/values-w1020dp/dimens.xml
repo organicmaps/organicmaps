@@ -6,4 +6,6 @@
 
   <!-- Compass offset-->
   <dimen name="compass_navigation_landscape_offset">-72dp</dimen>
+
+  <dimen name="settings_width">560dp</dimen>
 </resources>

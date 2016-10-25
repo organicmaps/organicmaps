@@ -1,10 +1,10 @@
 package com.mapswithme.maps.base;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
+import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
@@ -16,17 +16,38 @@ import android.view.MenuItem;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Config;
+import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.Manifest.permission.GET_ACCOUNTS;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
+
 public class BaseMwmFragmentActivity extends AppCompatActivity
                                   implements BaseActivity
 {
+  private static final int REQUEST_PERMISSIONS_START = 1;
+  private static final int REQUEST_PERMISSIONS_RESUME = 2;
+
+  private static final String[] START_PERMISSIONS = new String[]
+      {
+        WRITE_EXTERNAL_STORAGE,
+        ACCESS_COARSE_LOCATION,
+        ACCESS_FINE_LOCATION,
+        GET_ACCOUNTS
+      };
+  private static final String[] RESUME_PERMISSIONS = new String[] {WRITE_EXTERNAL_STORAGE};
+
   private final BaseActivityDelegate mBaseDelegate = new BaseActivityDelegate(this);
 
   @Nullable
   private Bundle mSavedInstanceState;
+  private boolean mRequestedFromOnCreate = false;
+  private boolean mFromInstanceState = false;
 
   @Override
   public Activity get()
@@ -48,21 +69,37 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
   }
 
   @Override
-  protected void onCreate(Bundle savedInstanceState)
+  protected void onCreate(@Nullable Bundle savedInstanceState)
   {
+    mFromInstanceState = savedInstanceState != null;
+    if (!Utils.checkPermissions(this, MwmApplication.get().isPlatformInitialized()
+                                      ? RESUME_PERMISSIONS : START_PERMISSIONS,
+                                REQUEST_PERMISSIONS_START))
+    {
+      mRequestedFromOnCreate = true;
+      super.onCreate(savedInstanceState);
+      return;
+    }
+
+    MwmApplication.get().initNativePlatform();
     mBaseDelegate.onCreate();
 
     super.onCreate(savedInstanceState);
+    safeOnCreate(savedInstanceState);
+  }
+
+  @CallSuper
+  protected void safeOnCreate(@Nullable Bundle savedInstanceState)
+  {
+    setVolumeControlStream(AudioManager.STREAM_MUSIC);
+    final int layoutId = getContentLayoutResId();
+    if (layoutId != 0)
+      setContentView(layoutId);
 
     if (useTransparentStatusBar())
       UiUtils.setupStatusBar(this);
     if (useColorStatusBar())
       UiUtils.setupColorStatusBar(this, getStatusBarColor());
-
-    setVolumeControlStream(AudioManager.STREAM_MUSIC);
-    final int layoutId = getContentLayoutResId();
-    if (layoutId != 0)
-      setContentView(layoutId);
 
     // Use full-screen on Kindle Fire only
     if (Utils.isAmazonDevice())
@@ -73,6 +110,8 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
 
     MwmApplication.get().initNativeCore();
     MwmApplication.get().initCounters();
+
+    LocationHelper.INSTANCE.init();
 
     attachDefaultFragment();
   }
@@ -119,6 +158,12 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
   {
     super.onStart();
     mBaseDelegate.onStart();
+    if (MwmApplication.get().isPlatformInitialized())
+      safeOnStart();
+  }
+
+  protected void safeOnStart()
+  {
   }
 
   @Override
@@ -133,6 +178,12 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
   {
     super.onRestoreInstanceState(savedInstanceState);
     mSavedInstanceState = savedInstanceState;
+    if (MwmApplication.get().isPlatformInitialized() && Utils.isWriteExternalGranted(this))
+      safeOnRestoreInstanceState(savedInstanceState);
+  }
+
+  protected void safeOnRestoreInstanceState(@NonNull Bundle savedInstanceState)
+  {
   }
 
   @Nullable
@@ -156,13 +207,39 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
   protected void onResume()
   {
     super.onResume();
+    if (!mRequestedFromOnCreate && !Utils.checkPermissions(this, RESUME_PERMISSIONS,
+                                                           REQUEST_PERMISSIONS_RESUME))
+    {
+      return;
+    }
+
     mBaseDelegate.onResume();
+    if (MwmApplication.get().isPlatformInitialized() && Utils.isWriteExternalGranted(this))
+      safeOnResume();
+  }
+
+  protected void safeOnResume()
+  {
   }
 
   @Override
-  protected void onPostResume() {
+  protected void onPostResume()
+  {
     super.onPostResume();
     mBaseDelegate.onPostResume();
+  }
+
+  @CallSuper
+  @Override
+  protected void onResumeFragments()
+  {
+    super.onResumeFragments();
+    if (MwmApplication.get().isPlatformInitialized() && Utils.isWriteExternalGranted(this))
+      safeOnResumeFragments();
+  }
+
+  protected void safeOnResumeFragments()
+  {
   }
 
   @Override
@@ -170,6 +247,48 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
   {
     super.onPause();
     mBaseDelegate.onPause();
+  }
+
+  @Override
+  public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+  {
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    if (grantResults.length == 0)
+      return;
+
+    boolean isWriteGranted = false;
+    for (int i = 0; i < permissions.length; ++i)
+    {
+      int result = grantResults[i];
+      String permission = permissions[i];
+      if (permission.equals(WRITE_EXTERNAL_STORAGE) && result == PERMISSION_GRANTED)
+        isWriteGranted = true;
+    }
+    if (isWriteGranted)
+    {
+      if (requestCode == REQUEST_PERMISSIONS_START)
+      {
+        MwmApplication.get().initNativePlatform();
+        mBaseDelegate.onCreate();
+        safeOnCreate(mSavedInstanceState);
+        mBaseDelegate.onStart();
+        if (mSavedInstanceState != null)
+          safeOnRestoreInstanceState(mSavedInstanceState);
+        mBaseDelegate.onResume();
+        safeOnResume();
+        if (!mFromInstanceState)
+          safeOnResumeFragments();
+      }
+      else if (requestCode == REQUEST_PERMISSIONS_RESUME)
+      {
+        safeOnResume();
+        safeOnResumeFragments();
+      }
+    }
+    else
+    {
+      finish();
+    }
   }
 
   protected Toolbar getToolbar()

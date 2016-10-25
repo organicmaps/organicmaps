@@ -128,11 +128,19 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
     if (!mGoogleApiClient.isConnected())
       return;
 
-    LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, mListener);
-    LocationHelper.INSTANCE.startSensors();
-    Location last = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-    if (last != null)
-      mListener.onLocationChanged(last);
+    try
+    {
+      LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, mListener);
+      LocationHelper.INSTANCE.startSensors();
+      Location last = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+      if (last != null)
+        mListener.onLocationChanged(last);
+      }
+    catch (SecurityException e)
+    {
+      e.printStackTrace();
+      stop();
+    }
   }
 
   @Override

@@ -159,7 +159,7 @@ public enum LocationHelper
   };
 
 
-  LocationHelper()
+  public void init()
   {
     mLogger.d(LocationHelper.class.getSimpleName(), "ctor()");
   }
@@ -167,9 +167,12 @@ public enum LocationHelper
   @UiThread
   public void initialize()
   {
-    initProvider();
-    LocationState.nativeSetListener(mMyPositionModeListener);
-    MwmApplication.backgroundTracker().addListener(mOnTransition);
+    if (MwmApplication.get().isFrameworkInitialized())
+    {
+      initProvider();
+      LocationState.nativeSetListener(mMyPositionModeListener);
+      MwmApplication.backgroundTracker().addListener(mOnTransition);
+    }
   }
 
   private void initProvider()

@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -114,6 +115,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   private EditorHostFragment mParent;
 
+  private boolean mIsViewCreated = false;
+
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
@@ -121,10 +124,11 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     return inflater.inflate(R.layout.fragment_editor, container, false);
   }
 
+  @CallSuper
   @Override
-  public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
+  protected void safeOnViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
-    super.onViewCreated(view, savedInstanceState);
+    mIsViewCreated = true;
 
     mParent = (EditorHostFragment) getParentFragment();
 
@@ -206,7 +210,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   public void onSaveInstanceState(Bundle outState)
   {
     super.onSaveInstanceState(outState);
-    setEdits();
+    if (mIsViewCreated)
+      setEdits();
   }
 
   boolean setEdits()

@@ -1,6 +1,9 @@
 package com.mapswithme.maps.editor;
 
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,10 +32,11 @@ public class FeatureCategoryFragment extends BaseMwmRecyclerFragment
     return inflater.inflate(R.layout.fragment_categories, container, false);
   }
 
+  @CallSuper
   @Override
-  public void onViewCreated(View view, Bundle savedInstanceState)
+  protected void safeOnViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
-    super.onViewCreated(view, savedInstanceState);
+    super.safeOnViewCreated(view, savedInstanceState);
 
     if (getArguments() != null && getArguments().containsKey(FeatureCategoryActivity.EXTRA_FEATURE_CATEGORY))
       mSelectedCategory = getArguments().getParcelable(FeatureCategoryActivity.EXTRA_FEATURE_CATEGORY);

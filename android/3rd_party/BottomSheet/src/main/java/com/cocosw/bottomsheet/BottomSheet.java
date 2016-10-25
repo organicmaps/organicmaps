@@ -115,7 +115,7 @@ public class BottomSheet extends Dialog implements DialogInterface {
         super(context, theme);
 
         TypedArray a = getContext()
-                .obtainStyledAttributes(null, R.styleable.BottomSheet, R.attr.bottomSheetStyle, 0);
+                .obtainStyledAttributes(null, R.styleable.BottomSheet, R.attr.customBottomSheetStyle, 0);
         try {
             more = a.getDrawable(R.styleable.BottomSheet_bs_moreDrawable);
             close = a.getDrawable(R.styleable.BottomSheet_bs_closeDrawable);
@@ -625,7 +625,7 @@ public class BottomSheet extends Dialog implements DialogInterface {
          */
         public Builder(@NonNull Activity context) {
             this(context, R.style.BottomSheet_Dialog);
-            TypedArray ta = context.getTheme().obtainStyledAttributes(new int[]{R.attr.bottomSheetStyle});
+            TypedArray ta = context.getTheme().obtainStyledAttributes(new int[]{R.attr.customBottomSheetStyle });
             try {
                 theme = ta.getResourceId(0, R.style.BottomSheet_Dialog);
             } finally {

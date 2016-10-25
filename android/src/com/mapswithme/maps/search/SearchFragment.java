@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.annotation.CallSuper;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -19,7 +20,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
@@ -286,10 +286,11 @@ public class SearchFragment extends BaseMwmFragment
     return inflater.inflate(R.layout.fragment_search, container, false);
   }
 
+  @CallSuper
   @Override
-  public void onViewCreated(View view, Bundle savedInstanceState)
+  protected void safeOnViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
-    super.onViewCreated(view, savedInstanceState);
+    super.safeOnViewCreated(view, savedInstanceState);
     readArguments();
 
     ViewGroup root = (ViewGroup) view;
@@ -388,10 +389,9 @@ public class SearchFragment extends BaseMwmFragment
       mFilterController.onSaveState(outState);
   }
 
-  @Override
-  public void onResume()
+
+  protected void safeOnResume()
   {
-    super.onResume();
     LocationHelper.INSTANCE.addListener(mLocationListener, true);
     mAppBarLayout.addOnOffsetChangedListener(mOffsetListener);
   }

@@ -14,6 +14,7 @@ import android.support.annotation.DimenRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.text.SpannableStringBuilder;
@@ -39,6 +40,8 @@ import java.lang.ref.WeakReference;
 import java.util.Currency;
 import java.util.Locale;
 import java.util.Map;
+
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class Utils
 {
@@ -400,12 +403,48 @@ public class Utils
           try
           {
             activity.startActivity(intent);
-          } catch (ActivityNotFoundException e)
+          }
+          catch (ActivityNotFoundException e)
           {
             AlohaHelper.logException(e);
           }
         }
       });
     }
+  }
+
+  public static boolean checkPermissions(@NonNull Activity activity, @NonNull String[] permissions,
+                                        int requestCode)
+  {
+    if (Build.VERSION.SDK_INT >= 23)
+    {
+      boolean isGranted = false;
+      for (String permission: permissions)
+      {
+        isGranted = activity.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED;
+        if (!isGranted)
+          break;
+      }
+      if (isGranted)
+      {
+        return true;
+      }
+      else
+      {
+        ActivityCompat.requestPermissions(activity, permissions, requestCode);
+        return false;
+      }
+    }
+
+    //permission is automatically granted on sdk<23 upon installation
+    return true;
+  }
+
+  public static boolean isWriteExternalGranted(@NonNull Activity activity)
+  {
+    if (Build.VERSION.SDK_INT >= 23)
+      return activity.checkSelfPermission(WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+
+    return true;
   }
 }

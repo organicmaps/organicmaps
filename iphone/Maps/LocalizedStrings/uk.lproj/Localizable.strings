@@ -467,6 +467,18 @@
 
 "menu_search" = "Пошук";
 
+/* Settings general group in settings screen */
+"prefs_group_general" = "General settings";
+
+/* Settings information group in settings screen */
+"prefs_group_information" = "Information";
+
+/* Settings languages information in voice instructions screen */
+"prefs_languages_information" = "Написать о том когда вообще ничего не установлено\n\nНа Android голосовые подсказки доступны на 24 языках: русский, английский, арабский, венгерский, голландский, греческий, датский, индонезийский, испанский, итальянский, китайский (традиционный и упрощенный), корейский, немецкий, польский, португальский, румынский, тайский, турецкий, финский, французский, хинди, чешский, японский.\n\nВозможно, для некоторых языков вам необходимо будет установить сторонний синтезатор речи и дополнительный языковой пакет из магазина приложений (Google Play Маркет, Samsung Apps и др.).";
+
+/* Settings languages off information in voice instructions screen */
+"prefs_languages_information_off" = "For some languages, you will need to install a other speech synthesizer or an additional language pack from the app store (Google Play Market, Samsung Apps).\n\nOpen your device's settings –> Language and input –> Speech –> Text to speech output.*\n\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.";
+
 /* Settings screen: "Map" category title */
 "prefs_group_map" = "Карта";
 
@@ -1870,3 +1882,7 @@
 "search_hotel_filter_resort" = "Будинок відпочинку";
 
 "search_hotel_filter_motel" = "Motel";
+
+"on" = "On";
+
+"off" = "Off";

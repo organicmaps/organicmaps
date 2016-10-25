@@ -51,7 +51,14 @@ class AndroidNativeProvider extends BaseLocationProvider
       long interval = LocationHelper.INSTANCE.getInterval();
       LOGGER.d(TAG, "Request Android native provider '" + provider
                     + "' to get locations at this interval = " + interval + " ms");
-      mLocationManager.requestLocationUpdates(provider, interval, 0, listener);
+      try
+      {
+        mLocationManager.requestLocationUpdates(provider, interval, 0, listener);
+      }
+      catch (SecurityException e)
+      {
+        e.printStackTrace();
+      }
       mListeners.add(listener);
     }
 
@@ -110,14 +117,21 @@ class AndroidNativeProvider extends BaseLocationProvider
   private static Location findBestNotExpiredLocation(LocationManager manager, List<String> providers, long expirationMillis)
   {
     Location res = null;
-    for (final String pr : providers)
+    try
     {
-      final Location last = manager.getLastKnownLocation(pr);
-      if (last == null || LocationUtils.isExpired(last, last.getTime(), expirationMillis))
-        continue;
+      for (final String pr : providers)
+      {
+        final Location last = manager.getLastKnownLocation(pr);
+        if (last == null || LocationUtils.isExpired(last, last.getTime(), expirationMillis))
+          continue;
 
-      if (res == null || res.getAccuracy() > last.getAccuracy())
-        res = last;
+        if (res == null || res.getAccuracy() > last.getAccuracy())
+          res = last;
+      }
+    }
+    catch (SecurityException e)
+    {
+      e.printStackTrace();
     }
     return res;
   }

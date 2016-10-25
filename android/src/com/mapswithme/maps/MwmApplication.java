@@ -7,10 +7,10 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.UiThread;
 import android.support.multidex.MultiDex;
+import android.support.v7.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -58,6 +58,7 @@ public class MwmApplication extends Application
 
   private boolean mAreCountersInitialized;
   private boolean mIsFrameworkInitialized;
+  private boolean mIsPlatformInitialized;
 
   private Handler mMainLoopHandler;
   private final Object mMainQueueToken = new Object();
@@ -147,10 +148,20 @@ public class MwmApplication extends Application
     mMainLoopHandler = new Handler(getMainLooper());
 
     initCrashlytics();
-    final boolean isInstallationIdFound =
-      setInstallationIdToCrashlytics();
 
     initPushWoosh();
+
+    mPrefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
+    mBackgroundTracker = new AppBackgroundTracker();
+  }
+
+  public void initNativePlatform()
+  {
+    if (mIsPlatformInitialized)
+      return;
+
+    final boolean isInstallationIdFound = setInstallationIdToCrashlytics();
+
     initTracker();
 
     String settingsPath = getSettingsPath();
@@ -174,6 +185,8 @@ public class MwmApplication extends Application
     mBackgroundTracker.addListener(mBackgroundListener);
     TrackRecorder.init();
     Editor.init();
+
+    mIsPlatformInitialized = true;
   }
 
   public void initNativeCore()
@@ -249,6 +262,11 @@ public class MwmApplication extends Application
   public boolean isFrameworkInitialized()
   {
     return mIsFrameworkInitialized;
+  }
+
+  public boolean isPlatformInitialized()
+  {
+    return mIsPlatformInitialized;
   }
 
   public String getApkPath()
@@ -358,7 +376,7 @@ public class MwmApplication extends Application
     {
       mAreCountersInitialized = true;
       Config.updateLaunchCounter();
-      PreferenceManager.setDefaultValues(this, R.xml.prefs_misc, false);
+      PreferenceManager.setDefaultValues(this, R.xml.prefs_main, false);
     }
   }
 
