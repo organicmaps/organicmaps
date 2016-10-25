@@ -99,6 +99,7 @@ public class RoutingController
   @Nullable
   private RoutingInfo mCachedRoutingInfo;
   private boolean mUberInfoObtained;
+  private boolean mUberPlanning;
 
   @SuppressWarnings("FieldCanBeLocal")
   private final Framework.RoutingListener mRoutingListener = new Framework.RoutingListener()
@@ -199,6 +200,9 @@ public class RoutingController
 
   private void updateProgress()
   {
+    if (isUberPlanning())
+      return;
+
     if (mContainer != null)
       mContainer.updateBuildProgress(mLastBuildProgress, mLastRouterType);
   }
@@ -232,15 +236,22 @@ public class RoutingController
     mContainer = null;
   }
 
+  @MainThread
   public void restore()
   {
     mHasContainerSavedState = false;
     if (isPlanning())
       showRoutePlan();
 
-    mContainer.showNavigation(isNavigating());
-    mContainer.updateMenu();
-    mContainer.updatePoints();
+    if (mContainer != null)
+    {
+      if (isUberPlanning())
+        mContainer.updateBuildProgress(0, mLastRouterType);
+
+      mContainer.showNavigation(isNavigating());
+      mContainer.updateMenu();
+      mContainer.updatePoints();
+    }
     processRoutingEvent();
   }
 
@@ -468,17 +479,22 @@ public class RoutingController
 
   public boolean isPlanning()
   {
-    return (mState == State.PREPARE);
+    return mState == State.PREPARE;
+  }
+
+  private boolean isUberPlanning()
+  {
+    return mLastRouterType == Framework.ROUTER_TYPE_TAXI && mUberPlanning;
   }
 
   public boolean isNavigating()
   {
-    return (mState == State.NAVIGATION);
+    return mState == State.NAVIGATION;
   }
 
   public boolean isBuilding()
   {
-    return (mState == State.PREPARE && mBuildState == BuildState.BUILDING);
+    return mState == State.PREPARE && mBuildState == BuildState.BUILDING;
   }
 
   public boolean isErrorEncountered()
@@ -763,7 +779,10 @@ public class RoutingController
 
   private void requestUberInfo()
   {
+    mUberPlanning = true;
     Uber.nativeRequestUberProducts(mStartPoint.getLat(), mStartPoint.getLon(), mEndPoint.getLat(), mEndPoint.getLon());
+    if (mContainer != null)
+      mContainer.updateBuildProgress(0, mLastRouterType);
   }
 
   @NonNull
@@ -779,11 +798,13 @@ public class RoutingController
   @MainThread
   private void onUberInfoReceived(@NonNull UberInfo info)
   {
+    mUberPlanning = false;
     mLogger.d("onUberInfoReceived uberInfo = " + info);
     if (mLastRouterType == Framework.ROUTER_TYPE_TAXI && mContainer != null)
     {
       mContainer.onUberInfoReceived(info);
       mUberInfoObtained = true;
+      mContainer.updateBuildProgress(100, mLastRouterType);
       mContainer.updateMenu();
     }
   }

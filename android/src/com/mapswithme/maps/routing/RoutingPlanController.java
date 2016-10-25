@@ -280,7 +280,7 @@ public class RoutingPlanController extends ToolbarController
 
     updateProgressLabels();
 
-    if (!RoutingController.get().isBuilding())
+    if (!RoutingController.get().isBuilding() || RoutingController.get().isUberInfoObtained())
       return;
 
     UiUtils.show(progressView);
