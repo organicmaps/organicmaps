@@ -516,7 +516,8 @@ void Framework::EnableDownloadOn3g()
 uint64_t Framework::RequestUberProducts(ms::LatLon const & from, ms::LatLon const & to,
                                     uber::ProductsCallback const & callback)
 {
-  return m_work.GetUberApi().GetAvailableProducts(from, to, callback);
+  auto const errorCallback = [](uber::ErrorCode const code, uint64_t const requestId) {};
+  return m_work.GetUberApi().GetAvailableProducts(from, to, callback, errorCallback);
 }
 
 uber::RideRequestLinks Framework::GetUberLinks(string const & productId, ms::LatLon const & from, ms::LatLon const & to)

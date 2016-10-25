@@ -22,15 +22,20 @@ bool IsComplete(uber::Product const & product)
 UNIT_TEST(Uber_GetProducts)
 {
   ms::LatLon const pos(38.897724, -77.036531);
-
-  TEST(!uber::RawApi::GetProducts(pos).empty(), ());
+  string result;
+  TEST(uber::RawApi::GetProducts(pos, result), ());
+  TEST(!result.empty(), ());
 }
 
 UNIT_TEST(Uber_GetTimes)
 {
   ms::LatLon const pos(38.897724, -77.036531);
+  string result;
 
-  my::Json timeRoot(uber::RawApi::GetEstimatedTime(pos).c_str());
+  TEST(uber::RawApi::GetEstimatedTime(pos, result), ());
+  TEST(!result.empty(), ());
+
+  my::Json timeRoot(result.c_str());
   auto const timesArray = json_object_get(timeRoot.get(), "times");
 
   TEST(json_is_array(timesArray), ());
@@ -64,8 +69,12 @@ UNIT_TEST(Uber_GetPrices)
 {
   ms::LatLon const from(38.897724, -77.036531);
   ms::LatLon const to(38.862416, -76.883316);
+  string result;
 
-  my::Json priceRoot(uber::RawApi::GetEstimatedPrice(from, to).c_str());
+  TEST(uber::RawApi::GetEstimatedPrice(from, to, result), ());
+  TEST(!result.empty(), ());
+
+  my::Json priceRoot(result.c_str());
   auto const pricesArray = json_object_get(priceRoot.get(), "prices");
 
   TEST(json_is_array(pricesArray), ());
@@ -116,15 +125,27 @@ UNIT_TEST(Uber_ProductMaker)
 
   uber::ProductMaker maker;
 
-  maker.Reset(reqId);
-  maker.SetTimes(reqId, uber::RawApi::GetEstimatedTime(from));
-  maker.SetPrices(reqId, uber::RawApi::GetEstimatedPrice(from, to));
-  maker.MakeProducts(reqId, [&returnedId, &returnedProducts]
-                            (vector<uber::Product> const & products, size_t const requestId)
+  string times;
+  string prices;
+
+  auto const errorCallback = [](uber::ErrorCode const code, uint64_t const requestId)
   {
-    returnedId = requestId;
-    returnedProducts = products;
-  });
+    TEST(false, ());
+  };
+
+  TEST(uber::RawApi::GetEstimatedTime(from, times), ());
+  TEST(uber::RawApi::GetEstimatedPrice(from, to, prices), ());
+
+  maker.Reset(reqId);
+  maker.SetTimes(reqId, times);
+  maker.SetPrices(reqId, prices);
+  maker.MakeProducts(reqId,
+                     [&returnedId, &returnedProducts](vector<uber::Product> const & products,
+                                                      size_t const requestId) {
+                       returnedId = requestId;
+                       returnedProducts = products;
+                     },
+                     errorCallback);
 
   TEST(!returnedProducts.empty(), ());
   TEST_EQUAL(returnedId, reqId, ());
@@ -134,14 +155,17 @@ UNIT_TEST(Uber_ProductMaker)
 
   ++reqId;
 
+  TEST(uber::RawApi::GetEstimatedTime(from, times), ());
+  TEST(uber::RawApi::GetEstimatedPrice(from, to, prices), ());
+
   maker.Reset(reqId);
-  maker.SetTimes(reqId, uber::RawApi::GetEstimatedTime(from));
-  maker.SetPrices(reqId, uber::RawApi::GetEstimatedPrice(from, to));
+  maker.SetTimes(reqId, times);
+  maker.SetPrices(reqId, prices);
 
   maker.MakeProducts(reqId + 1, [](vector<uber::Product> const & products, size_t const requestId)
   {
     TEST(false, ());
-  });
+  }, errorCallback);
 }
 
 UNIT_TEST(Uber_Smoke)
@@ -152,6 +176,16 @@ UNIT_TEST(Uber_Smoke)
   vector<uber::Product> productsContainer;
   ms::LatLon const from(38.897724, -77.036531);
   ms::LatLon const to(38.862416, -76.883316);
+
+  auto const errorCallback = [](uber::ErrorCode const code, uint64_t const requestId)
+  {
+    TEST(false, ());
+  };
+
+  auto const errorPossibleCallback = [](uber::ErrorCode const code, uint64_t const requestId)
+  {
+    TEST(code == uber::ErrorCode::NoProducts, ());
+  };
 
   auto const standardCallback =
       [&reqId, &productsContainer, &resultsMutex](vector<uber::Product> const & products, size_t const requestId)
@@ -169,12 +203,18 @@ UNIT_TEST(Uber_Smoke)
     testing::StopEventLoop();
   };
 
+  string times;
+  string prices;
+
+  TEST(uber::RawApi::GetEstimatedTime(from, times), ());
+  TEST(uber::RawApi::GetEstimatedPrice(from, to, prices), ());
+
   uber::ProductMaker maker;
 
   maker.Reset(reqId);
-  maker.SetTimes(reqId, uber::RawApi::GetEstimatedTime(from));
-  maker.SetPrices(reqId, uber::RawApi::GetEstimatedPrice(from, to));
-  maker.MakeProducts(reqId, standardCallback);
+  maker.SetTimes(reqId, times);
+  maker.SetPrices(reqId, prices);
+  maker.MakeProducts(reqId, standardCallback, errorCallback);
 
   reqId = 0;
 
@@ -187,21 +227,24 @@ UNIT_TEST(Uber_Smoke)
     {
       lock_guard<mutex> lock(resultsMutex);
       reqId = uberApi.GetAvailableProducts(ms::LatLon(55.753960, 37.624513),
-                                           ms::LatLon(55.765866, 37.661270), standardCallback);
+                                           ms::LatLon(55.765866, 37.661270), standardCallback,
+                                           errorPossibleCallback);
     }
     {
       lock_guard<mutex> lock(resultsMutex);
       reqId = uberApi.GetAvailableProducts(ms::LatLon(59.922445, 30.367201),
-                                           ms::LatLon(59.943675, 30.361123), standardCallback);
+                                           ms::LatLon(59.943675, 30.361123), standardCallback,
+                                           errorPossibleCallback);
     }
     {
       lock_guard<mutex> lock(resultsMutex);
       reqId = uberApi.GetAvailableProducts(ms::LatLon(52.509621, 13.450067),
-                                           ms::LatLon(52.510811, 13.409490), standardCallback);
+                                           ms::LatLon(52.510811, 13.409490), standardCallback,
+                                           errorPossibleCallback);
     }
     {
       lock_guard<mutex> lock(resultsMutex);
-      reqId = uberApi.GetAvailableProducts(from, to, lastCallback);
+      reqId = uberApi.GetAvailableProducts(from, to, lastCallback, errorCallback);
     }
   }
 

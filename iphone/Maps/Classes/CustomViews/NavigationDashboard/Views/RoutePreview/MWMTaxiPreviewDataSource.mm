@@ -99,6 +99,8 @@ using namespace uber;
   cv.hidden = YES;
   cv.pageControl.hidden = YES;
   
+  auto const errorCallback = [](uber::ErrorCode const code, uint64_t const requestId) {};
+  
   m_requestId = m_api.GetAvailableProducts(m_from, m_to, [self, completion, failure](vector<Product> const & products,
                                                                   uint64_t const requestId)
   {
@@ -123,7 +125,7 @@ using namespace uber;
       cv.currentPage = 0;
       completion();
     });
-  });
+  }, errorCallback);
 }
 
 - (BOOL)isTaxiInstalled
