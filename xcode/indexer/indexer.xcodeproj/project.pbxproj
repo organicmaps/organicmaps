@@ -602,9 +602,9 @@
 		675340911A3F53CB00A0A8C3 = {
 			isa = PBXGroup;
 			children = (
-				34AF87E21DBE562300E5E7DC /* indexer_tests_support */,
 				34AF87D11DBE540700E5E7DC /* common-debug.xcconfig */,
 				34AF87D21DBE540700E5E7DC /* common-release.xcconfig */,
+				34AF87E21DBE562300E5E7DC /* indexer_tests_support */,
 				670BAACC1D0B0F0A000302DA /* libs */,
 				670C60F81AB0657700C38A8C /* indexer_tests */,
 				6753409C1A3F53CB00A0A8C3 /* indexer */,
