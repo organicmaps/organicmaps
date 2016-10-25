@@ -1,12 +1,12 @@
 package com.mapswithme.maps.location;
 
+import android.net.SSLCertificateSocketFactory;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.mapswithme.util.log.DebugLogger;
 import com.mapswithme.util.log.Logger;
 
-import javax.net.SocketFactory;
 import javax.net.ssl.SSLSocketFactory;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,7 +28,7 @@ import java.net.SocketTimeoutException;
 class SocketWrapper implements PlatformSocket
 {
   private final static Logger sLogger = new DebugLogger(SocketWrapper.class.getSimpleName());
-  private final static int DEFAULT_TIMEOUT = 30*1000;
+  private final static int DEFAULT_TIMEOUT = 30 * 1000;
   @Nullable
   private Socket mSocket;
   @Nullable
@@ -57,6 +57,7 @@ class SocketWrapper implements PlatformSocket
     Socket socket = createSocket(host, port, true);
     if (socket != null && socket.isConnected())
     {
+      setReadSocketTimeout(socket, mTimeout);
       mSocket = socket;
     }
 
@@ -73,13 +74,15 @@ class SocketWrapper implements PlatformSocket
   {
     if (ssl)
     {
-      SocketFactory sf = SSLSocketFactory.getDefault();
+      //TODO: use a boolean flag about using the secure or insecure ssl socket (must be done before release!)
+      //https://jira.mail.ru/browse/MAPSME-2786
+      SSLSocketFactory sf = SSLCertificateSocketFactory.getInsecure(0, null);
       try
       {
         return sf.createSocket(host, port);
       } catch (IOException e)
       {
-        sLogger.e("Failed to create the ssl socket, mHost", host, " mPort = ", port, e);
+        sLogger.e("Failed to create the ssl socket, mHost = ", host, " mPort = ", port, e);
       }
     } else
     {
@@ -194,7 +197,7 @@ class SocketWrapper implements PlatformSocket
       sLogger.e(e, "Socked timeout has occurred after ", writingTime, " (ms) ");
     } catch (IOException e)
     {
-      sLogger.e(e, "Failed to write data from socket: ", this);
+      sLogger.e(e, "Failed to write data to socket: ", this);
     }
 
     return false;
@@ -220,15 +223,15 @@ class SocketWrapper implements PlatformSocket
   @Override
   public void setTimeout(int millis)
   {
-    if (mSocket == null)
-      throw new IllegalStateException("Socket must be initialized before setting the timeout");
-
     mTimeout = millis;
-    sLogger.d("Set socket wrapper timeout = ", millis, " ms");
+    sLogger.d("Setting the socket wrapper timeout = ", millis, " ms");
+  }
 
+  private void setReadSocketTimeout(@NonNull Socket socket, int millis)
+  {
     try
     {
-      mSocket.setSoTimeout(millis);
+      socket.setSoTimeout(millis);
     } catch (SocketException e)
     {
       sLogger.e("Failed to set system socket timeout: ", millis, "ms, ", this, e);

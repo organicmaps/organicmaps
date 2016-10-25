@@ -12,40 +12,12 @@
 
 string Platform::UniqueClientId() const
 {
-  string res;
-  if (!settings::Get("UniqueClientID", res))
-  {
-    JNIEnv * env = jni::GetEnv();
-    if (!env)
-      return string();
-
-    jclass uuidClass = env->FindClass("java/util/UUID");
-    ASSERT(uuidClass, ("Can't find java class java/util/UUID"));
-
-    jmethodID randomUUIDId = jni::GetStaticMethodID(env, uuidClass, "randomUUID", "()Ljava/util/UUID;");
-    jobject uuidInstance = env->CallStaticObjectMethod(uuidClass, randomUUIDId);
-    ASSERT(uuidInstance, ("UUID.randomUUID() returned NULL"));
-
-    jmethodID toStringId = env->GetMethodID(uuidClass, "toString", "()Ljava/lang/String;");
-    ASSERT(toStringId, ("Can't find java/util/UUID.toString() method"));
-
-    jstring uuidString = (jstring)env->CallObjectMethod(uuidInstance, toStringId);
-    ASSERT(uuidString, ("UUID.toString() returned NULL"));
-
-    char const * uuidUtf8 = env->GetStringUTFChars(uuidString, 0);
-
-    if (uuidUtf8 != 0)
-    {
-      res = uuidUtf8;
-      env->ReleaseStringUTFChars(uuidString, uuidUtf8);
-    }
-
-    res = HashUniqueID(res);
-
-    settings::Set("UniqueClientID", res);
-  }
-
-  return res;
+  JNIEnv * env = jni::GetEnv();
+  static jmethodID const getInstallationId = jni::GetStaticMethodID(env, g_utilsClazz, "getInstallationId",
+                                                                    "()Ljava/lang/String;");
+  static jstring const installationId = (jstring)env->CallStaticObjectMethod(g_utilsClazz, getInstallationId);
+  static string const result = jni::ToNativeString(env, installationId);
+  return result;
 }
 
 string Platform::GetMemoryInfo() const
