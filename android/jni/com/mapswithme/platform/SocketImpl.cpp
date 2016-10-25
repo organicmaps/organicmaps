@@ -71,5 +71,5 @@ private:
   jobject m_self;
 };
 
-unique_ptr<Socket> createSocket() { return make_unique<SocketImpl>(); }
+unique_ptr<Socket> CreateSocket() { return make_unique<SocketImpl>(); }
 }

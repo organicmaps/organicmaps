@@ -6,6 +6,7 @@
 #include "map/user_mark.hpp"
 
 #include "defines.hpp"
+#include "private.h"
 
 #include "routing/online_absent_fetcher.hpp"
 #include "routing/osrm_router.hpp"
@@ -158,17 +159,6 @@ void CancelQuery(weak_ptr<search::ProcessorHandle> & handle)
     queryHandle->Cancel();
   handle.reset();
 }
-
-class StubSocket final : public platform::Socket
-{
-public:
-  // Socket overrides
-  bool Open(string const & host, uint16_t port) override { return false; }
-  void Close() override {}
-  bool Read(uint8_t * data, uint32_t count) override { return false; }
-  bool Write(uint8_t const * data, uint32_t count) override { return false; }
-  void SetTimeout(uint32_t milliseconds) override {}
-};
 }  // namespace
 
 pair<MwmSet::MwmId, MwmSet::RegResult> Framework::RegisterMap(
@@ -248,9 +238,9 @@ bool Framework::IsTrackingReporterEnabled() const
   if (!m_routingSession.IsOnRoute())
     return false;
 
-  bool allowStat = false;
-  UNUSED_VALUE(settings::Get(tracking::Reporter::kEnabledSettingsKey, allowStat));
-  return allowStat;
+  bool enableTracking = false;
+  UNUSED_VALUE(settings::Get(tracking::Reporter::kEnableTrackingKey, enableTracking));
+  return enableTracking;
 }
 
 void Framework::OnUserPositionChanged(m2::PointD const & position)
@@ -343,7 +333,8 @@ Framework::Framework()
   , m_storage(platform::migrate::NeedMigrate() ? COUNTRIES_OBSOLETE_FILE : COUNTRIES_FILE)
   , m_bmManager(*this)
   , m_isRenderingEnabled(true)
-  , m_trackingReporter(make_unique<StubSocket>(), tracking::Reporter::kPushDelayMs)
+  , m_trackingReporter(platform::CreateSocket(), TRACKING_REALTIME_HOST, TRACKING_REALTIME_PORT,
+                       tracking::Reporter::kPushDelayMs)
   , m_displacementModeManager([this](bool show) {
     int const mode = show ? dp::displacement::kHotelMode : dp::displacement::kDefaultMode;
     CallDrapeFunction(bind(&df::DrapeEngine::SetDisplacementMode, _1, mode));
