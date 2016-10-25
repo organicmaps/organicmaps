@@ -12,8 +12,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		34EBB47E1DBF52D3005BE9B8 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
+		34EBB47F1DBF52D3005BE9B8 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
 		675D21BA1BFB8DBA00717E4F /* libstb_image.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libstb_image.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		675D21C11BFB8DC900717E4F /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
 		675D21C31BFB8F2B00717E4F /* stb_image.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stb_image.c; sourceTree = "<group>"; };
 		675D21C41BFB8F2B00717E4F /* stb_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -32,8 +33,9 @@
 		675D21B11BFB8DBA00717E4F = {
 			isa = PBXGroup;
 			children = (
+				34EBB47E1DBF52D3005BE9B8 /* common-debug.xcconfig */,
+				34EBB47F1DBF52D3005BE9B8 /* common-release.xcconfig */,
 				675D21C21BFB8F1000717E4F /* stb_image */,
-				675D21C11BFB8DC900717E4F /* defaults.xcconfig */,
 				675D21BB1BFB8DBA00717E4F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -132,84 +134,15 @@
 /* Begin XCBuildConfiguration section */
 		675D21BC1BFB8DBA00717E4F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 675D21C11BFB8DC900717E4F /* defaults.xcconfig */;
+			baseConfigurationReference = 34EBB47E1DBF52D3005BE9B8 /* common-debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
 			};
 			name = Debug;
 		};
 		675D21BD1BFB8DBA00717E4F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 675D21C11BFB8DC900717E4F /* defaults.xcconfig */;
+			baseConfigurationReference = 34EBB47F1DBF52D3005BE9B8 /* common-release.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = macosx;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
 			};
 			name = Release;
 		};
