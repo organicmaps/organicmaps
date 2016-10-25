@@ -20,6 +20,7 @@
 + (void)setCompassCalibrationEnabled:(BOOL)compassCalibrationEnabled;
 
 + (BOOL)statisticsEnabled;
++ (void)setStatisticsEnabled:(BOOL)statisticsEnabled;
 
 + (BOOL)autoNightModeEnabled;
 + (void)setAutoNightModeEnabled:(BOOL)autoNightModeEnabled;

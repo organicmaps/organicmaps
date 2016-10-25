@@ -191,10 +191,7 @@ extern NSString * const kAlohalyticsTapEventKey;
             kStatAction : kStatToggleStatistics,
             kStatValue : (value ? kStatOn : kStatOff)
           }];
-    if (value)
-      [[Statistics instance] enableOnNextAppLaunch];
-    else
-      [[Statistics instance] disableOnNextAppLaunch];
+    [MWMSettings setStatisticsEnabled:value];
   }
   else if (cell == self.perspectiveViewCell)
   {

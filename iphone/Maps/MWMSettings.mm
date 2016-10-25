@@ -1,11 +1,11 @@
 #import "MWMSettings.h"
 #import "MWMMapViewControlsManager.h"
 
+#import "3party/Alohalytics/src/alohalytics_objc.h"
+
 #include "Framework.h"
 
 #include "platform/settings.hpp"
-
-extern char const * kStatisticsEnabledSettingsKey;
 
 namespace
 {
@@ -15,6 +15,7 @@ char const * kAutoDownloadEnabledKey = "AutoDownloadEnabled";
 char const * kZoomButtonsEnabledKey = "ZoomButtonsEnabled";
 char const * kCompassCalibrationEnabledKey = "CompassCalibrationEnabled";
 char const * kRoutingDisclaimerApprovedKey = "IsDisclaimerApproved";
+char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled";
 
 NSString * const kUDAutoNightModeOff = @"AutoNightModeOff";
 NSString * const kSpotlightLocaleLanguageId = @"SpotlightLocaleLanguageId";
@@ -96,6 +97,20 @@ NSString * const kSpotlightLocaleLanguageId = @"SpotlightLocaleLanguageId";
   bool enabled = true;
   UNUSED_VALUE(settings::Get(kStatisticsEnabledSettingsKey, enabled));
   return enabled;
+}
+
++ (void)setStatisticsEnabled:(BOOL)statisticsEnabled
+{
+  if (statisticsEnabled)
+  {
+    [Alohalytics enable];
+  }
+  else
+  {
+    [Alohalytics logEvent:@"statisticsDisabled"];
+    [Alohalytics disable];
+  }
+  settings::Set(kStatisticsEnabledSettingsKey, static_cast<bool>(statisticsEnabled));
 }
 
 + (BOOL)autoNightModeEnabled
