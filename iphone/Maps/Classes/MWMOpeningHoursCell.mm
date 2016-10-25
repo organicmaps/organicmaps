@@ -99,6 +99,7 @@ NSAttributedString * richStringFromDay(osmoh::Day const & day, BOOL isClosedNow)
 
 @property(weak, nonatomic) IBOutlet UITableView * tableView;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * tableViewHeight;
+@property(copy, nonatomic) NSString * rawString;
 
 @property(weak, nonatomic) id<MWMPlacePageCellUpdateProtocol> delegate;
 
@@ -123,7 +124,7 @@ NSAttributedString * richStringFromDay(osmoh::Day const & day, BOOL isClosedNow)
   [self registerObserver];
 }
 
-- (void)configureWithOpeningHours:(NSString *)openningHours
+- (void)configureWithOpeningHours:(NSString *)openingHours
              updateLayoutDelegate:(id<MWMPlacePageCellUpdateProtocol>)delegate
                       isClosedNow:(BOOL)isClosedNow;
 {
@@ -132,9 +133,11 @@ NSAttributedString * richStringFromDay(osmoh::Day const & day, BOOL isClosedNow)
   self.isExtended = NO;
   self.delegate = delegate;
   self.isClosedNow = isClosedNow;
+  // If we can't parse opening hours string then leave it as is.
+  self.rawString = openingHours;
 
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-    self->m_days = [MWMOpeningHours processRawString:openningHours];
+    self->m_days = [MWMOpeningHours processRawString:openingHours];
     dispatch_async(dispatch_get_main_queue(), ^{
       self.tableView.delegate = self;
       self.tableView.dataSource = self;
@@ -147,7 +150,7 @@ NSAttributedString * richStringFromDay(osmoh::Day const & day, BOOL isClosedNow)
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  return self.isExtended ? m_days.size() : 1;
+  return self.isExtended && !m_days.empty() ? m_days.size() : 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -159,7 +162,6 @@ NSAttributedString * richStringFromDay(osmoh::Day const & day, BOOL isClosedNow)
   {
     _MWMOHHeaderCell * cell =
         [tableView dequeueReusableCellWithIdentifier:[_MWMOHHeaderCell className]];
-    cell.text.attributedText = richStringFromDay(day, self.isClosedNow);
 
     if (m_days.size() > 1)
     {
@@ -185,6 +187,13 @@ NSAttributedString * richStringFromDay(osmoh::Day const & day, BOOL isClosedNow)
       cell.tapAction = nil;
       cell.arrowIcon.hidden = YES;
     }
+
+    // This means that we couldn't parse opening hours string.
+    if (m_days.empty())
+      cell.text.text = self.rawString;
+    else
+      cell.text.attributedText = richStringFromDay(day, self.isClosedNow);
+
     return cell;
   }
   else

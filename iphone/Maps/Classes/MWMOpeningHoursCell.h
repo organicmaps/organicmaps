@@ -4,7 +4,7 @@
 
 @interface MWMOpeningHoursCell : MWMTableViewCell
 
-- (void)configureWithOpeningHours:(NSString *)openningHours
+- (void)configureWithOpeningHours:(NSString *)openingHours
              updateLayoutDelegate:(id<MWMPlacePageCellUpdateProtocol>)delegate
                       isClosedNow:(BOOL)isClosedNow;
 @end
