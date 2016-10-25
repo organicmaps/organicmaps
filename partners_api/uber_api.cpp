@@ -17,14 +17,15 @@ using namespace platform;
 
 namespace
 {
-string RunSimpleHttpRequest(string const & url)
+bool RunSimpleHttpRequest(string const & url, string & result)
 {
   HttpClient request(url);
   if (request.RunHttpRequest() && !request.WasRedirected() && request.ErrorCode() == 200)
   {
-    return request.ServerResponse();
+    result = request.ServerResponse();
+    return true;
   }
-  return {};
+  return false;
 }
 
 bool CheckUberAnswer(json_t const * answer)
@@ -115,29 +116,29 @@ void MakeFromJson(char const * times, char const * prices, vector<uber::Product>
 namespace uber
 {
 // static
-string RawApi::GetProducts(ms::LatLon const & pos)
+bool RawApi::GetProducts(ms::LatLon const & pos, string & result)
 {
   stringstream url;
   url << fixed << setprecision(6)
       << "https://api.uber.com/v1/products?server_token=" << UBER_SERVER_TOKEN
       << "&latitude=" << pos.lat << "&longitude=" << pos.lon;
 
-  return RunSimpleHttpRequest(url.str());
+  return RunSimpleHttpRequest(url.str(), result);
 }
 
 // static
-string RawApi::GetEstimatedTime(ms::LatLon const & pos)
+bool RawApi::GetEstimatedTime(ms::LatLon const & pos, string & result)
 {
   stringstream url;
   url << fixed << setprecision(6)
       << "https://api.uber.com/v1/estimates/time?server_token=" << UBER_SERVER_TOKEN
       << "&start_latitude=" << pos.lat << "&start_longitude=" << pos.lon;
 
-  return RunSimpleHttpRequest(url.str());
+  return RunSimpleHttpRequest(url.str(), result);
 }
 
 // static
-string RawApi::GetEstimatedPrice(ms::LatLon const & from, ms::LatLon const & to)
+bool RawApi::GetEstimatedPrice(ms::LatLon const & from, ms::LatLon const & to, string & result)
 {
   stringstream url;
   url << fixed << setprecision(6)
@@ -145,7 +146,7 @@ string RawApi::GetEstimatedPrice(ms::LatLon const & from, ms::LatLon const & to)
       << "&start_latitude=" << from.lat << "&start_longitude=" << from.lon
       << "&end_latitude=" << to.lat << "&end_longitude=" << to.lon;
 
-  return RunSimpleHttpRequest(url.str());
+  return RunSimpleHttpRequest(url.str(), result);
 }
 
 void ProductMaker::Reset(uint64_t const requestId)
@@ -177,7 +178,8 @@ void ProductMaker::SetPrices(uint64_t const requestId, string const & prices)
   m_prices = make_unique<string>(prices);
 }
 
-void ProductMaker::MakeProducts(uint64_t const requestId, ProductsCallback const & fn)
+void ProductMaker::MakeProducts(uint64_t const requestId, ProductsCallback const & successFn,
+                                ErrorCallback const & errorFn)
 {
   vector<uber::Product> products;
   {
@@ -191,27 +193,45 @@ void ProductMaker::MakeProducts(uint64_t const requestId, ProductsCallback const
     else
       LOG(LWARNING, ("Time or price is empty, time:", *m_times, "; price:", *m_prices));
   }
-  fn(products, requestId);
+
+  if (products.empty())
+    errorFn(ErrorCode::NoProducts, requestId);
+  else
+    successFn(products, requestId);
 }
 
 uint64_t Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
-                                   ProductsCallback const & fn)
+                                   ProductsCallback const & successFn, ErrorCallback const & errorFn)
 {
   auto const reqId = ++m_requestId;
   auto const maker = m_maker;
 
   maker->Reset(reqId);
 
-  threads::SimpleThread([maker, from, reqId, fn]()
+  threads::SimpleThread([maker, from, reqId, successFn, errorFn]()
   {
-    maker->SetTimes(reqId, uber::RawApi::GetEstimatedTime(from));
-    maker->MakeProducts(reqId, fn);
+    string result;
+    if (!RawApi::GetEstimatedTime(from, result))
+    {
+      errorFn(ErrorCode::RemoteError, reqId);
+      return;
+    }
+
+    maker->SetTimes(reqId, result);
+    maker->MakeProducts(reqId, successFn, errorFn);
   }).detach();
 
-  threads::SimpleThread([maker, from, to, reqId, fn]()
+  threads::SimpleThread([maker, from, to, reqId, successFn, errorFn]()
   {
-    maker->SetPrices(reqId, uber::RawApi::GetEstimatedPrice(from, to));
-    maker->MakeProducts(reqId, fn);
+    string result;
+    if (!RawApi::GetEstimatedPrice(from, to, result))
+    {
+      errorFn(ErrorCode::RemoteError, reqId);
+      return;
+    }
+
+    maker->SetPrices(reqId, result);
+    maker->MakeProducts(reqId, successFn, errorFn);
   }).detach();
 
   return reqId;
