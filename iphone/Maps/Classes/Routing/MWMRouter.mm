@@ -401,7 +401,8 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
 
 - (void)processRouteBuilderProgress:(CGFloat)progress
 {
-  [[MWMNavigationDashboardManager manager] setRouteBuilderProgress:progress];
+  if (![MWMRouter isTaxi])
+    [[MWMNavigationDashboardManager manager] setRouteBuilderProgress:progress];
 }
 
 #pragma mark - Alerts

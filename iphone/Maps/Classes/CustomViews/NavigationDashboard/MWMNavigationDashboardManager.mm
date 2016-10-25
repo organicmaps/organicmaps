@@ -164,6 +164,7 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
     {
       [self setMenuState:MWMBottomMenuStateGo];
       [self.routePreview stateReady];
+      [self setRouteBuilderProgress:100.];
     }
     failure:^
     {
