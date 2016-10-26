@@ -71,6 +71,8 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 
 @property(weak, nonatomic) MWMNavigationDashboardEntity * navigationInfo;
 
+@property(copy, nonatomic) NSString * routingErrorMessage;
+
 @property(weak, nonatomic) IBOutlet UILabel * speedLabel;
 @property(weak, nonatomic) IBOutlet UILabel * timeLabel;
 @property(weak, nonatomic) IBOutlet UILabel * distanceLabel;
@@ -140,6 +142,9 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 
 - (void)updateNavigationInfo:(MWMNavigationDashboardEntity *)info
 {
+  if ([MWMRouter isTaxi])
+    return;
+
   NSDictionary * routingNumberAttributes = @{
     NSForegroundColorAttributeName : [UIColor blackPrimaryText],
     NSFontAttributeName : [UIFont bold24]
@@ -532,6 +537,9 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
     self.restoreState = state;
   else
     view.state = state;
+
+  if (state == MWMBottomMenuStateRoutingError)
+    self.estimateLabel.text = self.routingErrorMessage;
 }
 
 - (MWMBottomMenuState)state { return ((MWMBottomMenuView *)self.view).state; }

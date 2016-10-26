@@ -510,6 +510,11 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.menuController.state = self.hidden ? MWMBottomMenuStateHidden : menuState;
 }
 
+- (void)setRoutingErrorMessage:(NSString *)message
+{
+  [self.menuController setRoutingErrorMessage:message];
+}
+
 - (MWMBottomMenuState)menuState
 {
   MWMBottomMenuState const state = self.menuController.state;
