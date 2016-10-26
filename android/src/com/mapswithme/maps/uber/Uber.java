@@ -9,4 +9,9 @@ public class Uber
   @NonNull
   public static native UberLinks nativeGetUberLinks(@NonNull String productId, double srcLon, double srcLat,
                                                     double dstLat, double dstLon);
+
+  public enum ErrorCode
+  {
+    NoProducts, RemoteError
+  }
 }

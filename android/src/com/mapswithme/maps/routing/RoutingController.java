@@ -808,4 +808,14 @@ public class RoutingController
       mContainer.updateMenu();
     }
   }
+
+  /**
+   * Called from the native code
+   * @param errorCode must match the one of the values in {@link com.mapswithme.maps.uber.Uber.ErrorCode}
+   */
+  @MainThread
+  private void onUberError(@NonNull String errorCode)
+  {
+    mLogger.e("onUberError error = " + Uber.ErrorCode.valueOf(errorCode));
+  }
 }

@@ -44,6 +44,51 @@ void PrepareClassRefs(JNIEnv * env)
   g_uberLinksConstructor =
       jni::GetConstructorID(env, g_uberLinksClass, "(Ljava/lang/String;Ljava/lang/String;)V");
 }
+
+void OnUberInfoReceived(vector<uber::Product> const & products, uint64_t const requestId)
+{
+  GetPlatform().RunOnGuiThread([=]() {
+    if (g_lastRequestId != requestId)
+      return;
+
+    CHECK(!products.empty(), ("List of the products cannot be empty"));
+
+    JNIEnv * env = jni::GetEnv();
+
+    auto const uberProducts = jni::ToJavaArray(
+        env, g_productClass, products, [](JNIEnv * env, uber::Product const & item) {
+          return env->NewObject(
+              g_productClass, g_productConstructor, jni::ToJavaString(env, item.m_productId),
+              jni::ToJavaString(env, item.m_name), jni::ToJavaString(env, item.m_time),
+              jni::ToJavaString(env, item.m_price));
+        });
+    jobject const routingControllerInstance =
+        env->CallStaticObjectMethod(g_routingControllerClass, g_routingControllerGetMethod);
+    env->CallVoidMethod(routingControllerInstance, g_uberInfoCallbackMethod,
+                        env->NewObject(g_uberInfoClass, g_uberInfoConstructor, uberProducts));
+  });
+}
+
+void OnUberError(uber::ErrorCode const code, uint64_t const requestId)
+{
+  GetPlatform().RunOnGuiThread([=]() {
+    if (g_lastRequestId != requestId)
+      return;
+
+    JNIEnv * env = jni::GetEnv();
+
+    static jclass const errCodeClass = env->FindClass("com/mapswithme/maps/uber/Uber$ErrorCode");
+    ASSERT(errCodeClass, ());
+
+    jobject const routingControllerInstance =
+        env->CallStaticObjectMethod(g_routingControllerClass, g_routingControllerGetMethod);
+    static jmethodID const uberErrorMethod =
+        jni::GetMethodID(env, routingControllerInstance, "onUberError", "(Ljava/lang/String;)V");
+
+    env->CallVoidMethod(routingControllerInstance, uberErrorMethod,
+                        jni::ToJavaString(env, uber::DebugPrint(code)));
+  });
+}
 }  // namespace
 
 extern "C" {
@@ -56,29 +101,7 @@ JNIEXPORT void JNICALL Java_com_mapswithme_maps_uber_Uber_nativeRequestUberProdu
   ms::LatLon const from(srcLat, srcLon);
   ms::LatLon const to(dstLat, dstLon);
 
-  g_lastRequestId = g_framework->RequestUberProducts(
-      from, to, [](vector<uber::Product> const & products, uint64_t const requestId) {
-        GetPlatform().RunOnGuiThread([=]() {
-
-          if (g_lastRequestId != requestId)
-            return;
-
-          JNIEnv * env = jni::GetEnv();
-
-          auto uberProducts = jni::ToJavaArray(
-              env, g_productClass, products, [](JNIEnv * env, uber::Product const & item) {
-                return env->NewObject(
-                    g_productClass, g_productConstructor, jni::ToJavaString(env, item.m_productId),
-                    jni::ToJavaString(env, item.m_name), jni::ToJavaString(env, item.m_time),
-                    jni::ToJavaString(env, item.m_price));
-              });
-
-          jobject const routingControllerInstance =
-              env->CallStaticObjectMethod(g_routingControllerClass, g_routingControllerGetMethod);
-          env->CallVoidMethod(routingControllerInstance, g_uberInfoCallbackMethod,
-                              env->NewObject(g_uberInfoClass, g_uberInfoConstructor, uberProducts));
-        });
-      });
+  g_lastRequestId = g_framework->RequestUberProducts(from, to, &OnUberInfoReceived, &OnUberError);
 }
 
 JNIEXPORT jobject JNICALL Java_com_mapswithme_maps_uber_Uber_nativeGetUberLinks(
