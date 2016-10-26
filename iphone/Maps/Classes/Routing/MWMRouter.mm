@@ -142,8 +142,8 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
 {
   [self clearAltitudeImagesData];
   // Taxi can't be used as best router.
-  if (bestRouter)
-    bestRouter = ![MWMRouter isTaxi];
+  if ([MWMRouter isTaxi])
+    bestRouter = NO;
 
   auto const setTags = ^(RouterType t, BOOL isP2P)
   {
@@ -260,6 +260,10 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
 
 - (void)doStop
 {
+  // Don't save taxi routing type as default.
+  if ([MWMRouter isTaxi])
+    GetFramework().SetRouter(routing::RouterType::Vehicle);
+
   [self clearAltitudeImagesData];
   GetFramework().CloseRouting();
   MapsAppDelegate * app = [MapsAppDelegate theApp];

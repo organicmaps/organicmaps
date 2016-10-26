@@ -30,7 +30,8 @@ enum class State
   Top
 };
 
-CGFloat const kMinOffset = 0;
+// Minimal offset for collapse. If place page offset is below this value we should hide place page.
+CGFloat const kMinOffset = 1;
 CGFloat const kOpenPlacePageStopValue = 0.7;
 CGFloat const kLuftDraggingOffset = 30;
 
@@ -154,7 +155,7 @@ void animate(TMWMVoidBlock animate, TMWMVoidBlock completion = nil)
 - (void)showWithData:(MWMPlacePageData *)data
 {
   self.isPlacePageButtonsEnabled = YES;
-  self.data = nil;
+  self.data = data;
   self.ppPreviewCell = nil;
   self.bookmarkCell = nil;
 
@@ -163,7 +164,6 @@ void animate(TMWMVoidBlock animate, TMWMVoidBlock completion = nil)
 
   [self collapse];
 
-  self.data = data;
   [self.actionBar configureWithData:static_cast<id<MWMActionBarSharedData>>(data)];
   [self.placePageView.tableView reloadData];
 }
