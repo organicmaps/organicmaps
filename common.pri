@@ -190,7 +190,7 @@ win32-g++ {
 
 macx-* {
   QMAKE_LFLAGS *= -dead_strip
-  LIBS *= "-framework Foundation"
+  LIBS *= "-framework Foundation" "-framework CFNetwork"
 
 #  macx-clang {
 #    QMAKE_CFLAGS_RELEASE -= -O3
