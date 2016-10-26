@@ -12,7 +12,7 @@ export PATH=$DEV_ROOT/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin
 export CC="gcc-4.2"
 export CXX="g++-4.2"
 
-C_AND_CXX_FLAGS="-arch i386 -fmessage-length=0 -pipe -fpascal-strings -fasm-blocks -Wall \
+C_AND_CXX_FLAGS="-arch i386 x86_64 -fmessage-length=0 -pipe -fpascal-strings -fasm-blocks -Wall \
   -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 \
   -D__IPHONE_OS_VERSION_MIN_REQUIRED=$IOS_VERSION \
   -isysroot $SDK_ROOT -isystem $SDK_ROOT/usr/include"
@@ -23,5 +23,5 @@ export CXXFLAGS="$C_AND_CXX_FLAGS -fvisibility-inlines-hidden"
 # linker settings
 export MACOSX_DEPLOYMENT_TARGET=10.6
 # just to mention - this flag is passed to libtool, not to gcc
-LIBTOOL_FLAGS="-arch_only i386 -syslibroot $SDK_ROOT"
+LIBTOOL_FLAGS="-syslibroot $SDK_ROOT"
 LDFLAGS="-L$SDK_ROOT/usr/lib"
