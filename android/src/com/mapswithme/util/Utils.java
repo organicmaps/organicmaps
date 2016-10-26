@@ -408,6 +408,7 @@ public class Utils
       PackageManager pm = context.getPackageManager();
       pm.getPackageInfo("com.ubercab", PackageManager.GET_ACTIVITIES);
       Intent intent = new Intent(Intent.ACTION_VIEW);
+      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
       intent.setData(Uri.parse(links.getDeepLink()));
       context.startActivity(intent);
     } catch (PackageManager.NameNotFoundException e)
