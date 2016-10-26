@@ -374,7 +374,9 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
     else
       [[MWMMapViewControlsManager manager] onRouteReady];
     [self updateFollowingInfo];
-    [[MWMNavigationDashboardManager manager] setRouteBuilderProgress:100];
+    if (![MWMRouter isTaxi])
+      [[MWMNavigationDashboardManager manager] setRouteBuilderProgress:100];
+
     [MWMMapViewControlsManager manager].searchHidden = YES;
     break;
   }

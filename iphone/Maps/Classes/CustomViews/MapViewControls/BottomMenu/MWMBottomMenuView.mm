@@ -691,7 +691,6 @@ CGFloat constexpr kTimeWidthRegular = 128;
     self.progressView.hidden = YES;
     self.routingView.hidden = NO;
     self.routingAdditionalView.hidden = YES;
-    self.estimateLabel.text = [MWMRouter isTaxi] ? L(@"taxi_not_found") : L(@"routing_planning_error");
     break;
   case MWMBottomMenuStateRouting:
     self.menuButton.hidden = NO;
