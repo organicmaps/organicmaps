@@ -170,7 +170,7 @@
 {
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatBuildRoute)
         withParameters:@{kStatValue : kStatSource}];
-  [[MWMRouter router] buildFromPoint:self.target bestRouter:![MWMRouter isTaxi]];
+  [[MWMRouter router] buildFromPoint:self.target bestRouter:YES];
   [self closePlacePage];
 }
 
@@ -178,7 +178,7 @@
 {
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatBuildRoute)
         withParameters:@{kStatValue : kStatDestination}];
-  [[MWMRouter router] buildToPoint:self.target bestRouter:![MWMRouter isTaxi]];
+  [[MWMRouter router] buildToPoint:self.target bestRouter:YES];
   [self closePlacePage];
 }
 

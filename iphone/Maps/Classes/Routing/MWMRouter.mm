@@ -141,6 +141,9 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
 - (void)rebuildWithBestRouter:(BOOL)bestRouter
 {
   [self clearAltitudeImagesData];
+  // Taxi can't be used as best router.
+  if (bestRouter)
+    bestRouter = ![MWMRouter isTaxi];
 
   auto const setTags = ^(RouterType t, BOOL isP2P)
   {
