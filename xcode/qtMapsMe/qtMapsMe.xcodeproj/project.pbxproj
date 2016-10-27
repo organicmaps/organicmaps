@@ -282,7 +282,7 @@
 		6753409C1C5289E0002CF0D9 /* editor_dialog.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = editor_dialog.hpp; sourceTree = "<group>"; };
 		6753409D1C5289E0002CF0D9 /* osm_auth_dialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osm_auth_dialog.cpp; sourceTree = "<group>"; };
 		6753409E1C5289E0002CF0D9 /* osm_auth_dialog.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = osm_auth_dialog.hpp; sourceTree = "<group>"; };
-		675345491A404C6100A0A8C3 /* MapsMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapsMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		675345491A404C6100A0A8C3 /* qtMapsMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = qtMapsMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6753454D1A404C6100A0A8C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6753456C1A404CB200A0A8C3 /* about.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = about.cpp; sourceTree = "<group>"; };
 		6753456D1A404CB200A0A8C3 /* about.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = about.hpp; sourceTree = "<group>"; };
@@ -501,7 +501,7 @@
 				34EBB4831DBF53D8005BE9B8 /* common-release.xcconfig */,
 				6729A5C91A693045007D5872 /* Resources */,
 				6729A4591A684401007D5872 /* Libs */,
-				6753454B1A404C6100A0A8C3 /* MapsMe */,
+				6753454B1A404C6100A0A8C3 /* qtMapsMe */,
 				6753454A1A404C6100A0A8C3 /* Products */,
 				3475E0DC1DBF5772004C7E69 /* Frameworks */,
 			);
@@ -510,12 +510,12 @@
 		6753454A1A404C6100A0A8C3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				675345491A404C6100A0A8C3 /* MapsMe.app */,
+				675345491A404C6100A0A8C3 /* qtMapsMe.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6753454B1A404C6100A0A8C3 /* MapsMe */ = {
+		6753454B1A404C6100A0A8C3 /* qtMapsMe */ = {
 			isa = PBXGroup;
 			children = (
 				45B5B5861CA4216B00D93E36 /* create_feature_dialog.cpp */,
@@ -552,7 +552,7 @@
 				675345841A404CB200A0A8C3 /* update_dialog.hpp */,
 				6753454C1A404C6100A0A8C3 /* Supporting Files */,
 			);
-			name = MapsMe;
+			name = qtMapsMe;
 			path = ../../qt;
 			sourceTree = "<group>";
 		};
@@ -568,9 +568,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		675345481A404C6100A0A8C3 /* MapsMe */ = {
+		675345481A404C6100A0A8C3 /* qtMapsMe */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 675345661A404C6100A0A8C3 /* Build configuration list for PBXNativeTarget "MapsMe" */;
+			buildConfigurationList = 675345661A404C6100A0A8C3 /* Build configuration list for PBXNativeTarget "qtMapsMe" */;
 			buildPhases = (
 				675345451A404C6100A0A8C3 /* Sources */,
 				675345461A404C6100A0A8C3 /* Frameworks */,
@@ -583,9 +583,9 @@
 			);
 			dependencies = (
 			);
-			name = MapsMe;
+			name = qtMapsMe;
 			productName = MapsMe;
-			productReference = 675345491A404C6100A0A8C3 /* MapsMe.app */;
+			productReference = 675345491A404C6100A0A8C3 /* qtMapsMe.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -602,7 +602,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 675345441A404C6100A0A8C3 /* Build configuration list for PBXProject "MapsMe" */;
+			buildConfigurationList = 675345441A404C6100A0A8C3 /* Build configuration list for PBXProject "qtMapsMe" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -615,7 +615,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				675345481A404C6100A0A8C3 /* MapsMe */,
+				675345481A404C6100A0A8C3 /* qtMapsMe */,
 			);
 		};
 /* End PBXProject section */
@@ -735,7 +735,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = MapsMe/Info.plist;
+				INFOPLIST_FILE = Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = "mail.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -751,7 +751,7 @@
 					"_NDEBUG=1",
 					"QT_NO_DEBUG=1",
 				);
-				INFOPLIST_FILE = MapsMe/Info.plist;
+				INFOPLIST_FILE = Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = "mail.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -760,7 +760,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		675345441A404C6100A0A8C3 /* Build configuration list for PBXProject "MapsMe" */ = {
+		675345441A404C6100A0A8C3 /* Build configuration list for PBXProject "qtMapsMe" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				675345641A404C6100A0A8C3 /* Debug */,
@@ -769,7 +769,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		675345661A404C6100A0A8C3 /* Build configuration list for PBXNativeTarget "MapsMe" */ = {
+		675345661A404C6100A0A8C3 /* Build configuration list for PBXNativeTarget "qtMapsMe" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				675345671A404C6100A0A8C3 /* Debug */,

@@ -292,7 +292,7 @@
       location = "container:tracking/tracking.xcodeproj">
    </FileRef>
    <FileRef
-      location = "container:MapsMe/MapsMe.xcodeproj">
+      location = "container:qtMapsMe/qtMapsMe.xcodeproj">
    </FileRef>
    <FileRef
       location = "container:../iphone/Maps/Maps.xcodeproj">
