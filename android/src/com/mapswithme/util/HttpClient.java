@@ -156,7 +156,7 @@ public final class HttpClient
       if (headers != null && headers.containsKey("Set-Cookie"))
       {
         // Multiple Set-Cookie headers are normalized in C++ code.
-        android.text.TextUtils.join(", ", headers.get("Set-Cookie"));
+        p.cookies = android.text.TextUtils.join(", ", headers.get("Set-Cookie"));
       }
       // This implementation receives any data only if we have HTTP::OK (200).
       if (p.httpResponseCode == HttpURLConnection.HTTP_OK)
