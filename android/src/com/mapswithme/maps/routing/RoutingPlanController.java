@@ -19,11 +19,13 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.uber.Uber;
 import com.mapswithme.maps.uber.UberAdapter;
 import com.mapswithme.maps.uber.UberInfo;
 import com.mapswithme.maps.uber.UberLinks;
@@ -31,6 +33,7 @@ import com.mapswithme.maps.widget.DotPager;
 import com.mapswithme.maps.widget.RotateDrawable;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.maps.widget.WheelProgressView;
+import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -134,6 +137,12 @@ public class RoutingPlanController extends ToolbarController
       {
         AlohaHelper.logClick(AlohaHelper.ROUTING_TAXI_SET);
         Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_TAXI_SET);
+        if (!ConnectionState.isConnected())
+        {
+          //TODO: show uber error about offline mode showUberError(R.id.no_internet_connection);
+          Toast.makeText(mActivity, "Заказ такси недоступен в оффлайн-режиме", Toast.LENGTH_LONG).show();
+          return;
+        }
         RoutingController.get().setRouterType(Framework.ROUTER_TYPE_TAXI);
       }
     });
@@ -280,7 +289,7 @@ public class RoutingPlanController extends ToolbarController
 
     updateProgressLabels();
 
-    if (!RoutingController.get().isBuilding() || RoutingController.get().isUberInfoObtained())
+    if (!RoutingController.get().isBuilding() || RoutingController.get().isUberRequestHandled())
       return;
 
     UiUtils.show(progressView);
@@ -386,15 +395,10 @@ public class RoutingPlanController extends ToolbarController
 
   public void showUberInfo(@NonNull UberInfo info)
   {
-    final UberInfo.Product[] products = info.getProducts();
-    if (products == null || products.length == 0)
-    {
-      UiUtils.hide(mUberFrame);
-      showError(R.string.taxi_not_found);
-      return;
-    }
-
     UiUtils.hide(getViewById(R.id.error));
+    UiUtils.hide(mAltitudeChartFrame);
+
+    final UberInfo.Product[] products = info.getProducts();
     mUberInfo = info;
     mUberProduct = products[0];
     final PagerAdapter adapter = new UberAdapter(mActivity, products);
@@ -411,9 +415,22 @@ public class RoutingPlanController extends ToolbarController
     pager.show();
 
     setStartButton();
-
-    UiUtils.hide(mAltitudeChartFrame);
     UiUtils.show(mUberFrame);
+  }
+
+  public void showUberError(@NonNull Uber.ErrorCode code)
+  {
+    switch (code)
+    {
+      case NoProducts:
+        showError(R.string.taxi_not_found);
+        break;
+      case RemoteError:
+        //TODO:showError(R.string.remote_error);
+        break;
+      default:
+        throw new AssertionError("Unsupported uber error: " + code);
+    }
   }
 
   private void showError(@StringRes int message)

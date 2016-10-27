@@ -67,6 +67,7 @@ public class RoutingController
     void updateMenu();
     void updatePoints();
     void onUberInfoReceived(@NonNull UberInfo info);
+    void onUberError(@NonNull Uber.ErrorCode code);
 
     /**
      * @param progress progress to be displayed.
@@ -98,7 +99,7 @@ public class RoutingController
   private String[] mLastMissingMaps;
   @Nullable
   private RoutingInfo mCachedRoutingInfo;
-  private boolean mUberInfoObtained;
+  private boolean mUberRequestHandled;
   private boolean mUberPlanning;
 
   @SuppressWarnings("FieldCanBeLocal")
@@ -263,7 +264,7 @@ public class RoutingController
   private void build()
   {
     mLogger.d("build");
-    mUberInfoObtained = false;
+    mUberRequestHandled = false;
     mLastBuildProgress = 0;
     setBuildState(BuildState.BUILDING);
     updatePlan();
@@ -513,9 +514,9 @@ public class RoutingController
     return (mWaitingPoiPickSlot != NO_SLOT);
   }
 
-  public boolean isUberInfoObtained()
+  public boolean isUberRequestHandled()
   {
-    return mUberInfoObtained;
+    return mUberRequestHandled;
   }
 
   BuildState getBuildState()
@@ -803,7 +804,7 @@ public class RoutingController
     if (mLastRouterType == Framework.ROUTER_TYPE_TAXI && mContainer != null)
     {
       mContainer.onUberInfoReceived(info);
-      mUberInfoObtained = true;
+      mUberRequestHandled = true;
       mContainer.updateBuildProgress(100, mLastRouterType);
       mContainer.updateMenu();
     }
@@ -816,6 +817,15 @@ public class RoutingController
   @MainThread
   private void onUberError(@NonNull String errorCode)
   {
-    mLogger.e("onUberError error = " + Uber.ErrorCode.valueOf(errorCode));
+    mUberPlanning = false;
+    Uber.ErrorCode code = Uber.ErrorCode.valueOf(errorCode);
+    mLogger.e("onUberError error = " + code);
+    if (mLastRouterType == Framework.ROUTER_TYPE_TAXI && mContainer != null)
+    {
+      mContainer.onUberError(code);
+      mUberRequestHandled = true;
+      mContainer.updateBuildProgress(100, mLastRouterType);
+      mContainer.updateMenu();
+    }
   }
 }

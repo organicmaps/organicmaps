@@ -24,10 +24,10 @@ public class UberInfo implements Parcelable
     }
   };
 
-  @Nullable
+  @NonNull
   private final Product[] mProducts;
 
-  private UberInfo(@Nullable Product[] products)
+  private UberInfo(@NonNull Product[] products)
   {
     mProducts = products;
   }
@@ -37,7 +37,7 @@ public class UberInfo implements Parcelable
     mProducts = (Product[]) parcel.readParcelableArray(Product.class.getClassLoader());
   }
 
-  @Nullable
+  @NonNull
   public Product[] getProducts()
   {
     return mProducts;
