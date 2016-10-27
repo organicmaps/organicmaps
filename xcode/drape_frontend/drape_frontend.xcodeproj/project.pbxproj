@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		347F520D1DC2334A0064B273 /* drape_api_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 347F52071DC2334A0064B273 /* drape_api_builder.cpp */; };
+		347F520E1DC2334A0064B273 /* drape_api_builder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 347F52081DC2334A0064B273 /* drape_api_builder.hpp */; };
+		347F520F1DC2334A0064B273 /* drape_api_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 347F52091DC2334A0064B273 /* drape_api_renderer.cpp */; };
+		347F52101DC2334A0064B273 /* drape_api_renderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 347F520A1DC2334A0064B273 /* drape_api_renderer.hpp */; };
+		347F52111DC2334A0064B273 /* drape_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 347F520B1DC2334A0064B273 /* drape_api.cpp */; };
+		347F52121DC2334A0064B273 /* drape_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 347F520C1DC2334A0064B273 /* drape_api.hpp */; };
 		3492DA0E1CA2D9BF00C1F3B3 /* animation_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3492DA0C1CA2D9BF00C1F3B3 /* animation_utils.cpp */; };
 		3492DA0F1CA2D9BF00C1F3B3 /* animation_utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3492DA0D1CA2D9BF00C1F3B3 /* animation_utils.hpp */; };
 		34C624C31DABDB0400510300 /* traffic_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34C624BF1DABDB0400510300 /* traffic_generator.cpp */; };
@@ -209,6 +215,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		347F52071DC2334A0064B273 /* drape_api_builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = drape_api_builder.cpp; sourceTree = "<group>"; };
+		347F52081DC2334A0064B273 /* drape_api_builder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drape_api_builder.hpp; sourceTree = "<group>"; };
+		347F52091DC2334A0064B273 /* drape_api_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = drape_api_renderer.cpp; sourceTree = "<group>"; };
+		347F520A1DC2334A0064B273 /* drape_api_renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drape_api_renderer.hpp; sourceTree = "<group>"; };
+		347F520B1DC2334A0064B273 /* drape_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = drape_api.cpp; sourceTree = "<group>"; };
+		347F520C1DC2334A0064B273 /* drape_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drape_api.hpp; sourceTree = "<group>"; };
 		3492DA0C1CA2D9BF00C1F3B3 /* animation_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = animation_utils.cpp; sourceTree = "<group>"; };
 		3492DA0D1CA2D9BF00C1F3B3 /* animation_utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = animation_utils.hpp; sourceTree = "<group>"; };
 		34AF87CB1DBE508400E5E7DC /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
@@ -448,6 +460,12 @@
 		670947411BDF9B99005014C0 /* drape_frontend */ = {
 			isa = PBXGroup;
 			children = (
+				347F52071DC2334A0064B273 /* drape_api_builder.cpp */,
+				347F52081DC2334A0064B273 /* drape_api_builder.hpp */,
+				347F52091DC2334A0064B273 /* drape_api_renderer.cpp */,
+				347F520A1DC2334A0064B273 /* drape_api_renderer.hpp */,
+				347F520B1DC2334A0064B273 /* drape_api.cpp */,
+				347F520C1DC2334A0064B273 /* drape_api.hpp */,
 				34C624BF1DABDB0400510300 /* traffic_generator.cpp */,
 				34C624C01DABDB0400510300 /* traffic_generator.hpp */,
 				34C624C11DABDB0400510300 /* traffic_renderer.cpp */,
@@ -690,6 +708,7 @@
 				675D218E1BFB871D00717E4F /* rect.h in Headers */,
 				670948191BDF9C39005014C0 /* interpolations.hpp in Headers */,
 				670947CB1BDF9BE1005014C0 /* threads_commutator.hpp in Headers */,
+				347F52121DC2334A0064B273 /* drape_api.hpp in Headers */,
 				670948701BDF9C7F005014C0 /* feature_processor.hpp in Headers */,
 				452C9EDF1CEDCF3200A55E57 /* parallel_animation.hpp in Headers */,
 				670947A41BDF9BE1005014C0 /* my_position_controller.hpp in Headers */,
@@ -709,6 +728,7 @@
 				F6B283121C1B04680081957A /* gps_track_renderer.hpp in Headers */,
 				670E393D1C46C59000E9C0A6 /* color_constants.hpp in Headers */,
 				34C624C41DABDB0400510300 /* traffic_generator.hpp in Headers */,
+				347F520E1DC2334A0064B273 /* drape_api_builder.hpp in Headers */,
 				670948721BDF9C7F005014C0 /* feature_styler.hpp in Headers */,
 				6709484E1BDF9C48005014C0 /* shape.hpp in Headers */,
 				452C9EE31CEDCF3200A55E57 /* scale_animation.hpp in Headers */,
@@ -737,6 +757,7 @@
 				6709487D1BDF9C7F005014C0 /* point.h in Headers */,
 				6709479A1BDF9BE1005014C0 /* map_shape.hpp in Headers */,
 				670948731BDF9C7F005014C0 /* frame_image.hpp in Headers */,
+				347F52101DC2334A0064B273 /* drape_api_renderer.hpp in Headers */,
 				3492DA0F1CA2D9BF00C1F3B3 /* animation_utils.hpp in Headers */,
 				670947FB1BDF9BF5005014C0 /* backend_renderer.hpp in Headers */,
 				452C9ED71CEDCF3200A55E57 /* arrow_animation.hpp in Headers */,
@@ -924,6 +945,9 @@
 				45B4B8CD1CF5C16B00A54761 /* screen_operations.cpp in Sources */,
 				670947B31BDF9BE1005014C0 /* render_group.cpp in Sources */,
 				675D21911BFB871D00717E4F /* text_engine.cpp in Sources */,
+				347F52111DC2334A0064B273 /* drape_api.cpp in Sources */,
+				347F520F1DC2334A0064B273 /* drape_api_renderer.cpp in Sources */,
+				347F520D1DC2334A0064B273 /* drape_api_builder.cpp in Sources */,
 				670947FE1BDF9BF5005014C0 /* batchers_pool.cpp in Sources */,
 				670947DC1BDF9BE1005014C0 /* viewport.cpp in Sources */,
 				670947CA1BDF9BE1005014C0 /* threads_commutator.cpp in Sources */,
