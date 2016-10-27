@@ -13,6 +13,8 @@
 
 #include "defines.hpp"
 
+class RestrictionCollector;
+
 namespace
 {
 class WaterBoundaryChecker
@@ -314,10 +316,10 @@ class CountryMapGenerator
 public:
   explicit CountryMapGenerator(feature::GenerateInfo const & info) : m_bucket(info) {}
 
-  void operator()(FeatureBuilder1 fb)
+  void operator()(FeatureBuilder1 fb, RestrictionCollector & restrictions)
   {
     if (feature::PreprocessForCountryMap(fb))
-      m_bucket(fb);
+      m_bucket(fb, restrictions);
   }
 
   inline FeatureOutT & Parent() { return m_bucket; }

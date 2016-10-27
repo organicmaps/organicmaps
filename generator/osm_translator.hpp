@@ -3,6 +3,7 @@
 #include "generator/feature_builder.hpp"
 #include "generator/osm2type.hpp"
 #include "generator/osm_element.hpp"
+#include "generator/restrictions.hpp"
 #include "generator/ways_merger.hpp"
 
 #include "indexer/classificator.hpp"
@@ -19,6 +20,7 @@
 #include "std/list.hpp"
 #include "std/type_traits.hpp"
 #include "std/unordered_set.hpp"
+#include "std/vector.hpp"
 
 namespace
 {
@@ -27,7 +29,8 @@ namespace
 class RelationTagsBase
 {
 public:
-  RelationTagsBase() : m_cache(14) {}
+  RelationTagsBase(RestrictionCollector & restrictionCollector)
+    : m_restrictionCollector(restrictionCollector), m_cache(14) {}
 
   void Reset(uint64_t fID, OsmElement * p)
   {
@@ -51,7 +54,7 @@ protected:
   static bool IsSkipRelation(string const & type)
   {
     /// @todo Skip special relation types.
-    return (type == "multipolygon" || type == "bridge" || type == "restriction");
+    return (type == "multipolygon" || type == "bridge");
   }
 
   bool IsKeyTagExists(string const & key) const
@@ -72,6 +75,7 @@ protected:
 protected:
   uint64_t m_featureID;
   OsmElement * m_current;
+  RestrictionCollector & m_restrictionCollector;
 
 private:
   my::Cache<uint64_t, RelationElement> m_cache;
@@ -81,12 +85,19 @@ class RelationTagsNode : public RelationTagsBase
 {
   using TBase = RelationTagsBase;
 
+public:
+  RelationTagsNode(RestrictionCollector & restrictionCollector)
+    : RelationTagsBase(restrictionCollector) {}
+
 protected:
   void Process(RelationElement const & e) override
   {
     string const & type = e.GetType();
     if (TBase::IsSkipRelation(type))
       return;
+
+    if (type == "restriction")
+      m_restrictionCollector.AddRestriction(e);
 
     bool const processAssociatedStreet = type == "associatedStreet" &&
         TBase::IsKeyTagExists("addr:housenumber") && !TBase::IsKeyTagExists("addr:street");
@@ -112,6 +123,11 @@ protected:
 
 class RelationTagsWay : public RelationTagsBase
 {
+public:
+  RelationTagsWay(RestrictionCollector & restrictionCollector)
+    : RelationTagsBase(restrictionCollector) {}
+
+private:
   using TBase = RelationTagsBase;
   using TNameKeys = unordered_set<string>;
 
@@ -133,6 +149,9 @@ protected:
     string const & type = e.GetType();
     if (TBase::IsSkipRelation(type) || type == "route")
       return;
+
+    if (type == "restriction")
+      m_restrictionCollector.AddRestriction(e);
 
     if (type == "building")
     {
@@ -289,11 +308,12 @@ class OsmToFeatureTranslator
     }
   }
 
-  void EmitLine(FeatureBuilder1 & ft, FeatureParams params, bool isCoastLine) const
+  void EmitLine(FeatureBuilder1 & ft, FeatureParams params, bool isCoastLine, osm::Id id) const
   {
     if (isCoastLine || feature::RemoveNoDrawableTypes(params.m_Types, feature::GEOM_LINE))
     {
       ft.SetLinear(params.m_reverseGeometry);
+      ft.AddOsmId(id);
       EmitFeatureBase(ft, params);
     }
   }
@@ -400,7 +420,7 @@ public:
           ft.SetAreaAddHoles(processor.GetHoles());
         });
 
-        EmitLine(ft, params, isCoastLine);
+        EmitLine(ft, params, isCoastLine, osm::Id::Node(p->id));
         state = FeatureState::Ok;
         break;
       }
@@ -485,7 +505,8 @@ public:
 public:
   OsmToFeatureTranslator(TEmitter & emitter, TCache & holder, uint32_t coastType,
                          string const & addrFilePath = {})
-    : m_emitter(emitter), m_holder(holder), m_coastType(coastType)
+    : m_emitter(emitter), m_holder(holder), m_coastType(coastType),
+      m_nodeRelations(m_emitter.GetRestrictionCollector()), m_wayRelations(m_emitter.GetRestrictionCollector())
   {
     if (!addrFilePath.empty())
       m_addrWriter.reset(new FileWriter(addrFilePath));

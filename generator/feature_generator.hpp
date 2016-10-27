@@ -40,6 +40,8 @@ public:
 
   string const & GetFilePath() const { return m_datFile.GetName(); }
 
+  uint32_t GetNextFeatureId() const { return m_featureID; }
+
   virtual void operator()(FeatureBuilder1 const & f);
 };
 

@@ -108,7 +108,7 @@ void RestrictionCollector::AddRestriction(RelationElement const & relationElemen
   if (tagIt == relationElement.tags.end())
     return; // Type of the element is different from "restriction".
 
-  auto typeResult = TagToType(tagIt->second);
+  auto const typeResult = TagToType(tagIt->second);
   if (typeResult.second == false)
     return; // Unsupported restriction type.
 

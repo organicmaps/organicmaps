@@ -24,6 +24,7 @@
 
 #include "base/stl_helpers.hpp"
 
+#include "coding/file_name_utils.hpp"
 #include "coding/parse_xml.hpp"
 
 #include "std/fstream.hpp"
@@ -140,8 +141,10 @@ public:
     string const & relationType = e.GetType();
     if (!(relationType == "multipolygon" || relationType == "route" ||
           relationType == "boundary" || relationType == "associatedStreet" ||
-          relationType == "building"))
+          relationType == "building" || relationType == "restriction"))
+    {
       return;
+    }
 
     m_relations.Write(id, e);
     AddToIndex(m_nodeToRelations, id, e.nodes);
@@ -440,7 +443,7 @@ public:
         auto & emitter = m_countries->Parent();
 
         emitter.Start();
-        (*m_countries)(fb);
+        (*m_countries)(fb, GetRestrictionCollector());
         emitter.Finish();
 
         if (m_coastsHolder)
@@ -497,7 +500,7 @@ private:
       (*m_world)(fb);
 
     if (m_countries)
-      (*m_countries)(fb);
+      (*m_countries)(fb, GetRestrictionCollector());
   }
 
   void DumpSkippedElements()
@@ -722,6 +725,8 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info, EmitterBase & emitter)
     if (!emitter.Finish())
       return false;
 
+    emitter.GetRestrictionCollector().ComposeRestrictionsAndSave(
+        info.GetIntermediateFileName("restrictions", ".csv"));
     emitter.GetNames(info.m_bucketNames);
   }
   catch (Reader::Exception const & ex)
