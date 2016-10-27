@@ -321,13 +321,11 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
       self.altitudeElevation = @(heightString.c_str());
     }
 
-    UIImage * altitudeImage = [UIImage imageWithRGBAData:imageData width:width height:height];
-    if (altitudeImage)
-    {
-      dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
+      UIImage * altitudeImage = [UIImage imageWithRGBAData:imageData width:width height:height];
+      if (altitudeImage)
         block(altitudeImage, self.altitudeElevation);
-      });
-    }
+    });
   });
 }
 
