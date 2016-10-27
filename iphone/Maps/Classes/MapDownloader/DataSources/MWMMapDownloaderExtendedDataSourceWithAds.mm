@@ -17,6 +17,7 @@ auto constexpr extraSection = MWMMapDownloaderDataSourceExtraSection::Ads;
 
 - (void)load;
 - (void)addExtraSection:(MWMMapDownloaderDataSourceExtraSection)extraSection;
+- (void)removeExtraSection:(MWMMapDownloaderDataSourceExtraSection)extraSection;
 - (BOOL)isExtraSection:(MWMMapDownloaderDataSourceExtraSection)extraSection
                atIndex:(NSInteger)sectionIndex;
 
@@ -33,6 +34,7 @@ auto constexpr extraSection = MWMMapDownloaderDataSourceExtraSection::Ads;
 
 - (void)configAdsSection
 {
+  [self removeExtraSection:extraSection];
   if ([UIColor isNightMode] || !GetFramework().GetStorage().HaveDownloadedCountries())
     return;
   if ([MWMMyTarget manager].bannersCount != 0)
