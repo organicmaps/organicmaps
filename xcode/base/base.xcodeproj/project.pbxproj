@@ -600,7 +600,7 @@
 					"OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT=1",
 				);
 				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "maps.me.base-tests";
+				PRODUCT_BUNDLE_IDENTIFIER = maps.me.base_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -614,7 +614,7 @@
 					"OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT=1",
 				);
 				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "maps.me.base-tests";
+				PRODUCT_BUNDLE_IDENTIFIER = maps.me.base_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALIDATE_PRODUCT = YES;
 			};

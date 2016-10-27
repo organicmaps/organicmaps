@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		346B76D11DC1ED0B00C7C87E /* libpartners_api.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 346B76D01DC1ED0B00C7C87E /* libpartners_api.a */; };
+		346B76D31DC1ED3A00C7C87E /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 346B76D21DC1ED3A00C7C87E /* libeditor.a */; };
+		346B76D51DC1ED4D00C7C87E /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 346B76D41DC1ED4D00C7C87E /* libpugixml.a */; };
+		346B76D71DC1ED5D00C7C87E /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 346B76D61DC1ED5D00C7C87E /* liboauthcpp.a */; };
+		346B76D91DC1ED7A00C7C87E /* libtracking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 346B76D81DC1ED7A00C7C87E /* libtracking.a */; };
 		675D213D1BFB717400717E4F /* mapshot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675D213C1BFB717400717E4F /* mapshot.cpp */; };
 		675D21411BFB76B000717E4F /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D213E1BFB76B000717E4F /* libbase.a */; };
 		675D21431BFB76B000717E4F /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D21401BFB76B000717E4F /* libmap.a */; };
@@ -56,8 +61,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		346B76D01DC1ED0B00C7C87E /* libpartners_api.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpartners_api.a; path = "../../../omim-build/xcode/Debug/libpartners_api.a"; sourceTree = "<group>"; };
+		346B76D21DC1ED3A00C7C87E /* libeditor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libeditor.a; path = "../../../omim-build/xcode/Debug/libeditor.a"; sourceTree = "<group>"; };
+		346B76D41DC1ED4D00C7C87E /* libpugixml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpugixml.a; path = "../../../omim-build/xcode/Debug/libpugixml.a"; sourceTree = "<group>"; };
+		346B76D61DC1ED5D00C7C87E /* liboauthcpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liboauthcpp.a; path = "../../../omim-build/xcode/Debug/liboauthcpp.a"; sourceTree = "<group>"; };
+		346B76D81DC1ED7A00C7C87E /* libtracking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtracking.a; path = "../../../omim-build/xcode/Debug/libtracking.a"; sourceTree = "<group>"; };
+		3475E0DF1DBF57AC004C7E69 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
+		3475E0E01DBF57AC004C7E69 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
 		675D21311BFB6F3D00717E4F /* mapshot */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = mapshot; sourceTree = BUILT_PRODUCTS_DIR; };
-		675D213B1BFB6F7E00717E4F /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
 		675D213C1BFB717400717E4F /* mapshot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mapshot.cpp; sourceTree = "<group>"; };
 		675D213E1BFB76B000717E4F /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = "../../../omim-xcode-build/Debug/libbase.a"; sourceTree = "<group>"; };
 		675D21401BFB76B000717E4F /* libmap.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmap.a; path = "../../../omim-xcode-build/Debug/libmap.a"; sourceTree = "<group>"; };
@@ -99,6 +110,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				346B76D91DC1ED7A00C7C87E /* libtracking.a in Frameworks */,
+				346B76D71DC1ED5D00C7C87E /* liboauthcpp.a in Frameworks */,
+				346B76D51DC1ED4D00C7C87E /* libpugixml.a in Frameworks */,
+				346B76D31DC1ED3A00C7C87E /* libeditor.a in Frameworks */,
+				346B76D11DC1ED0B00C7C87E /* libpartners_api.a in Frameworks */,
 				675D21CF1BFDDF9300717E4F /* libgflags.a in Frameworks */,
 				675D21CC1BFB907F00717E4F /* liblodepng.a in Frameworks */,
 				675D21C91BFB8F7C00717E4F /* libsdf_image.a in Frameworks */,
@@ -138,13 +154,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		346B76CF1DC1ED0B00C7C87E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				346B76D81DC1ED7A00C7C87E /* libtracking.a */,
+				346B76D61DC1ED5D00C7C87E /* liboauthcpp.a */,
+				346B76D41DC1ED4D00C7C87E /* libpugixml.a */,
+				346B76D21DC1ED3A00C7C87E /* libeditor.a */,
+				346B76D01DC1ED0B00C7C87E /* libpartners_api.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		675D21281BFB6F3D00717E4F = {
 			isa = PBXGroup;
 			children = (
+				3475E0DF1DBF57AC004C7E69 /* common-debug.xcconfig */,
+				3475E0E01DBF57AC004C7E69 /* common-release.xcconfig */,
 				675D21CD1BFB90AD00717E4F /* Libs */,
-				675D213B1BFB6F7E00717E4F /* defaults.xcconfig */,
 				675D21331BFB6F3D00717E4F /* mapshot */,
 				675D21321BFB6F3D00717E4F /* Products */,
+				346B76CF1DC1ED0B00C7C87E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -270,122 +300,25 @@
 /* Begin XCBuildConfiguration section */
 		675D21361BFB6F3D00717E4F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 675D213B1BFB6F7E00717E4F /* defaults.xcconfig */;
+			baseConfigurationReference = 3475E0DF1DBF57AC004C7E69 /* common-debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(QT_PATH)/lib";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					"$(OMIM_ROOT)",
-					"$(BOOST_ROOT)",
+					"$(inherited)",
 					"$(OMIM_ROOT)/3party/glm",
 					"$(OMIM_ROOT)/3party/gflags/src/",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = (
-					"-framework",
-					QtCore,
-					"-framework",
-					QtNetwork,
-					"-framework",
-					QtWidgets,
-					"-framework",
-					QtOpenGL,
-					"-framework",
-					QtGui,
-					"-framework",
-					SystemConfiguration,
-				);
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
 		675D21371BFB6F3D00717E4F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 675D213B1BFB6F7E00717E4F /* defaults.xcconfig */;
+			baseConfigurationReference = 3475E0E01DBF57AC004C7E69 /* common-release.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(QT_PATH)/lib";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					"$(OMIM_ROOT)",
-					"$(BOOST_ROOT)",
+					"$(inherited)",
 					"$(OMIM_ROOT)/3party/glm",
 					"$(OMIM_ROOT)/3party/gflags/src/",
 				);
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = (
-					"-framework",
-					QtCore,
-					"-framework",
-					QtNetwork,
-					"-framework",
-					QtWidgets,
-					"-framework",
-					QtOpenGL,
-					"-framework",
-					QtGui,
-					"-framework",
-					SystemConfiguration,
-				);
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};

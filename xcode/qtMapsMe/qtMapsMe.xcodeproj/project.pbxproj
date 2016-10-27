@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3462FD891DC1DE4600906FD7 /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FD881DC1DE4600906FD7 /* libeditor.a */; };
+		3462FD8D1DC1E03300906FD7 /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FD8C1DC1E03300906FD7 /* libpugixml.a */; };
+		3462FD8F1DC1E05D00906FD7 /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FD8E1DC1E05D00906FD7 /* liboauthcpp.a */; };
+		3475E0DE1DBF5772004C7E69 /* libpartners_api.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3475E0DD1DBF5772004C7E69 /* libpartners_api.a */; };
+		3475E0E41DBF593D004C7E69 /* libtracking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3475E0E31DBF593D004C7E69 /* libtracking.a */; };
 		45B5B58A1CA4216B00D93E36 /* create_feature_dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B5B5861CA4216B00D93E36 /* create_feature_dialog.cpp */; };
 		45B5B58B1CA4216B00D93E36 /* place_page_dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B5B5881CA4216B00D93E36 /* place_page_dialog.cpp */; };
 		45B5B58C1CA4219C00D93E36 /* create_feature_dialog.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B5B5871CA4216B00D93E36 /* create_feature_dialog.hpp */; };
@@ -93,9 +98,6 @@
 		674A7E391C0DB727003D48E1 /* libstb_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E351C0DB727003D48E1 /* libstb_image.a */; };
 		674A7E411C0DB7D6003D48E1 /* qtoglcontext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674A7E3C1C0DB7D6003D48E1 /* qtoglcontext.cpp */; };
 		674A7E421C0DB7D6003D48E1 /* qtoglcontextfactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674A7E3E1C0DB7D6003D48E1 /* qtoglcontextfactory.cpp */; };
-		675340981C5289AC002CF0D9 /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675340951C5289AC002CF0D9 /* libeditor.a */; };
-		675340991C5289AC002CF0D9 /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675340961C5289AC002CF0D9 /* liboauthcpp.a */; };
-		6753409A1C5289AC002CF0D9 /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675340971C5289AC002CF0D9 /* libpugixml.a */; };
 		6753409F1C5289E0002CF0D9 /* editor_dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753409B1C5289E0002CF0D9 /* editor_dialog.cpp */; };
 		675340A01C5289E0002CF0D9 /* osm_auth_dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753409D1C5289E0002CF0D9 /* osm_auth_dialog.cpp */; };
 		675340A11C528A1C002CF0D9 /* editor_dialog.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753409C1C5289E0002CF0D9 /* editor_dialog.hpp */; };
@@ -191,6 +193,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3462FD881DC1DE4600906FD7 /* libeditor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libeditor.a; path = "../../../omim-build/xcode/Release/libeditor.a"; sourceTree = "<group>"; };
+		3462FD8C1DC1E03300906FD7 /* libpugixml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpugixml.a; path = "../../../omim-build/xcode/Release/libpugixml.a"; sourceTree = "<group>"; };
+		3462FD8E1DC1E05D00906FD7 /* liboauthcpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liboauthcpp.a; path = "../../../omim-build/xcode/Release/liboauthcpp.a"; sourceTree = "<group>"; };
+		3475E0DD1DBF5772004C7E69 /* libpartners_api.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpartners_api.a; path = "../../../omim-xcode-build/Debug/libpartners_api.a"; sourceTree = "<group>"; };
+		3475E0E31DBF593D004C7E69 /* libtracking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtracking.a; path = "../../../omim-xcode-build/Debug/libtracking.a"; sourceTree = "<group>"; };
+		34EBB4821DBF53D8005BE9B8 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
+		34EBB4831DBF53D8005BE9B8 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
 		45B5B5861CA4216B00D93E36 /* create_feature_dialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = create_feature_dialog.cpp; sourceTree = "<group>"; };
 		45B5B5871CA4216B00D93E36 /* create_feature_dialog.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = create_feature_dialog.hpp; sourceTree = "<group>"; };
 		45B5B5881CA4216B00D93E36 /* place_page_dialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = place_page_dialog.cpp; sourceTree = "<group>"; };
@@ -207,7 +216,6 @@
 		45B5B59F1CA422EE00D93E36 /* resources-ldpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources-ldpi_dark"; sourceTree = "<group>"; };
 		45B5B5A01CA422EE00D93E36 /* resources-xhdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources-xhdpi_dark"; sourceTree = "<group>"; };
 		45B5B5A11CA422EE00D93E36 /* resources-xxhdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources-xxhdpi_dark"; sourceTree = "<group>"; };
-		670D05BC1B0E10640013A7AC /* defaults.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
 		671182D81C7F0D8C00CB8177 /* countries_obsolete.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = countries_obsolete.txt; sourceTree = "<group>"; };
 		671182D91C7F0D8C00CB8177 /* packed_polygons_obsolete.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = packed_polygons_obsolete.bin; sourceTree = "<group>"; };
 		671182DA1C7F0D8C00CB8177 /* WorldCoasts_obsolete.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; path = WorldCoasts_obsolete.mwm; sourceTree = "<group>"; };
@@ -262,7 +270,6 @@
 		674A29A71B26F0AE001A525C /* libstorage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libstorage.a; path = "../../../omim-xcode-build/Debug/libstorage.a"; sourceTree = "<group>"; };
 		674A29A81B26F0AE001A525C /* libsuccinct.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsuccinct.a; path = "../../../omim-xcode-build/Debug/libsuccinct.a"; sourceTree = "<group>"; };
 		674A29A91B26F0AE001A525C /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtomcrypt.a; path = "../../../omim-xcode-build/Debug/libtomcrypt.a"; sourceTree = "<group>"; };
-		674A29AA1B26F0AE001A525C /* libzlib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libzlib.a; path = "../../../omim-xcode-build/Debug/libzlib.a"; sourceTree = "<group>"; };
 		674A7E321C0DB727003D48E1 /* libdrape_frontend.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape_frontend.a; path = "../../../omim-xcode-build/Debug/libdrape_frontend.a"; sourceTree = "<group>"; };
 		674A7E331C0DB727003D48E1 /* libdrape.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape.a; path = "../../../omim-xcode-build/Debug/libdrape.a"; sourceTree = "<group>"; };
 		674A7E341C0DB727003D48E1 /* libsdf_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsdf_image.a; path = "../../../omim-xcode-build/Debug/libsdf_image.a"; sourceTree = "<group>"; };
@@ -271,14 +278,11 @@
 		674A7E3D1C0DB7D6003D48E1 /* qtoglcontext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = qtoglcontext.hpp; sourceTree = "<group>"; };
 		674A7E3E1C0DB7D6003D48E1 /* qtoglcontextfactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = qtoglcontextfactory.cpp; sourceTree = "<group>"; };
 		674A7E3F1C0DB7D6003D48E1 /* qtoglcontextfactory.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = qtoglcontextfactory.hpp; sourceTree = "<group>"; };
-		675340951C5289AC002CF0D9 /* libeditor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libeditor.a; path = "/Users/darkserj/mapsme/omim/xcode/editor/../../../omim-xcode-build/Release/libeditor.a"; sourceTree = "<absolute>"; };
-		675340961C5289AC002CF0D9 /* liboauthcpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liboauthcpp.a; path = "/Users/darkserj/mapsme/omim/xcode/oauthcpp/../../../omim-xcode-build/Release/liboauthcpp.a"; sourceTree = "<absolute>"; };
-		675340971C5289AC002CF0D9 /* libpugixml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpugixml.a; path = "/Users/darkserj/mapsme/omim/xcode/pugixml/../../../omim-xcode-build/Release/libpugixml.a"; sourceTree = "<absolute>"; };
 		6753409B1C5289E0002CF0D9 /* editor_dialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = editor_dialog.cpp; sourceTree = "<group>"; };
 		6753409C1C5289E0002CF0D9 /* editor_dialog.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = editor_dialog.hpp; sourceTree = "<group>"; };
 		6753409D1C5289E0002CF0D9 /* osm_auth_dialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osm_auth_dialog.cpp; sourceTree = "<group>"; };
 		6753409E1C5289E0002CF0D9 /* osm_auth_dialog.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = osm_auth_dialog.hpp; sourceTree = "<group>"; };
-		675345491A404C6100A0A8C3 /* MapsMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapsMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		675345491A404C6100A0A8C3 /* qtMapsMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = qtMapsMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6753454D1A404C6100A0A8C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6753456C1A404CB200A0A8C3 /* about.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = about.cpp; sourceTree = "<group>"; };
 		6753456D1A404CB200A0A8C3 /* about.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = about.hpp; sourceTree = "<group>"; };
@@ -323,9 +327,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				675340981C5289AC002CF0D9 /* libeditor.a in Frameworks */,
-				675340991C5289AC002CF0D9 /* liboauthcpp.a in Frameworks */,
-				6753409A1C5289AC002CF0D9 /* libpugixml.a in Frameworks */,
+				3462FD8F1DC1E05D00906FD7 /* liboauthcpp.a in Frameworks */,
+				3462FD8D1DC1E03300906FD7 /* libpugixml.a in Frameworks */,
+				3462FD891DC1DE4600906FD7 /* libeditor.a in Frameworks */,
+				3475E0E41DBF593D004C7E69 /* libtracking.a in Frameworks */,
+				3475E0DE1DBF5772004C7E69 /* libpartners_api.a in Frameworks */,
 				674A7E361C0DB727003D48E1 /* libdrape_frontend.a in Frameworks */,
 				674A7E371C0DB727003D48E1 /* libdrape.a in Frameworks */,
 				674A7E381C0DB727003D48E1 /* libsdf_image.a in Frameworks */,
@@ -367,6 +373,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3475E0DC1DBF5772004C7E69 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3462FD8E1DC1E05D00906FD7 /* liboauthcpp.a */,
+				3462FD8C1DC1E03300906FD7 /* libpugixml.a */,
+				3462FD881DC1DE4600906FD7 /* libeditor.a */,
+				3475E0E31DBF593D004C7E69 /* libtracking.a */,
+				3475E0DD1DBF5772004C7E69 /* libpartners_api.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		670D055E1B0C9A900013A7AC /* res */ = {
 			isa = PBXGroup;
 			children = (
@@ -378,9 +396,6 @@
 		6729A4591A684401007D5872 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
-				675340951C5289AC002CF0D9 /* libeditor.a */,
-				675340961C5289AC002CF0D9 /* liboauthcpp.a */,
-				675340971C5289AC002CF0D9 /* libpugixml.a */,
 				674A7E321C0DB727003D48E1 /* libdrape_frontend.a */,
 				674A7E331C0DB727003D48E1 /* libdrape.a */,
 				674A7E341C0DB727003D48E1 /* libsdf_image.a */,
@@ -411,7 +426,6 @@
 				674A29A71B26F0AE001A525C /* libstorage.a */,
 				674A29A81B26F0AE001A525C /* libsuccinct.a */,
 				674A29A91B26F0AE001A525C /* libtomcrypt.a */,
-				674A29AA1B26F0AE001A525C /* libzlib.a */,
 				67534D261A40AA4300A0A8C3 /* CoreLocation.framework */,
 				67534C411A4097D000A0A8C3 /* OpenGL.framework */,
 				675345A71A40535E00A0A8C3 /* Cocoa.framework */,
@@ -483,23 +497,25 @@
 		675345401A404C6100A0A8C3 = {
 			isa = PBXGroup;
 			children = (
-				670D05BC1B0E10640013A7AC /* defaults.xcconfig */,
+				34EBB4821DBF53D8005BE9B8 /* common-debug.xcconfig */,
+				34EBB4831DBF53D8005BE9B8 /* common-release.xcconfig */,
 				6729A5C91A693045007D5872 /* Resources */,
 				6729A4591A684401007D5872 /* Libs */,
-				6753454B1A404C6100A0A8C3 /* MapsMe */,
+				6753454B1A404C6100A0A8C3 /* qtMapsMe */,
 				6753454A1A404C6100A0A8C3 /* Products */,
+				3475E0DC1DBF5772004C7E69 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		6753454A1A404C6100A0A8C3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				675345491A404C6100A0A8C3 /* MapsMe.app */,
+				675345491A404C6100A0A8C3 /* qtMapsMe.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6753454B1A404C6100A0A8C3 /* MapsMe */ = {
+		6753454B1A404C6100A0A8C3 /* qtMapsMe */ = {
 			isa = PBXGroup;
 			children = (
 				45B5B5861CA4216B00D93E36 /* create_feature_dialog.cpp */,
@@ -536,7 +552,7 @@
 				675345841A404CB200A0A8C3 /* update_dialog.hpp */,
 				6753454C1A404C6100A0A8C3 /* Supporting Files */,
 			);
-			name = MapsMe;
+			name = qtMapsMe;
 			path = ../../qt;
 			sourceTree = "<group>";
 		};
@@ -552,9 +568,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		675345481A404C6100A0A8C3 /* MapsMe */ = {
+		675345481A404C6100A0A8C3 /* qtMapsMe */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 675345661A404C6100A0A8C3 /* Build configuration list for PBXNativeTarget "MapsMe" */;
+			buildConfigurationList = 675345661A404C6100A0A8C3 /* Build configuration list for PBXNativeTarget "qtMapsMe" */;
 			buildPhases = (
 				675345451A404C6100A0A8C3 /* Sources */,
 				675345461A404C6100A0A8C3 /* Frameworks */,
@@ -567,9 +583,9 @@
 			);
 			dependencies = (
 			);
-			name = MapsMe;
+			name = qtMapsMe;
 			productName = MapsMe;
-			productReference = 675345491A404C6100A0A8C3 /* MapsMe.app */;
+			productReference = 675345491A404C6100A0A8C3 /* qtMapsMe.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -586,7 +602,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 675345441A404C6100A0A8C3 /* Build configuration list for PBXProject "MapsMe" */;
+			buildConfigurationList = 675345441A404C6100A0A8C3 /* Build configuration list for PBXProject "qtMapsMe" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -599,7 +615,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				675345481A404C6100A0A8C3 /* MapsMe */,
+				675345481A404C6100A0A8C3 /* qtMapsMe */,
 			);
 		};
 /* End PBXProject section */
@@ -685,64 +701,15 @@
 /* Begin XCBuildConfiguration section */
 		675345641A404C6100A0A8C3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 670D05BC1B0E10640013A7AC /* defaults.xcconfig */;
+			baseConfigurationReference = 34EBB4821DBF53D8005BE9B8 /* common-debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
-				COPY_PHASE_STRIP = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/freetype/include",
 					"$(QT_PATH)/include",
 					"$(OMIM_ROOT)/3party/glm",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = (
-					"-framework",
-					QtCore,
-					"-framework",
-					QtNetwork,
-					"-framework",
-					QtWidgets,
-					"-framework",
-					QtOpenGL,
-					"-framework",
-					QtGui,
-					"-framework",
-					SystemConfiguration,
-				);
-				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
 				SYMROOT = build;
 				WARNING_CFLAGS = "-Wno-inconsistent-missing-override";
 			};
@@ -750,58 +717,15 @@
 		};
 		675345651A404C6100A0A8C3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 670D05BC1B0E10640013A7AC /* defaults.xcconfig */;
+			baseConfigurationReference = 34EBB4831DBF53D8005BE9B8 /* common-release.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/freetype/include",
 					"$(QT_PATH)/include",
 					"$(OMIM_ROOT)/3party/glm",
 				);
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = (
-					"-framework",
-					QtCore,
-					"-framework",
-					QtNetwork,
-					"-framework",
-					QtWidgets,
-					"-framework",
-					QtOpenGL,
-					"-framework",
-					QtGui,
-					"-framework",
-					SystemConfiguration,
-				);
-				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
 				SYMROOT = build;
 				WARNING_CFLAGS = "-Wno-inconsistent-missing-override";
 			};
@@ -811,12 +735,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = MapsMe/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = "";
+				INFOPLIST_FILE = Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = "mail.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -826,17 +745,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
 					"NDEBUG=1",
 					"_NDEBUG=1",
 					"QT_NO_DEBUG=1",
 				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = MapsMe/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = "";
+				INFOPLIST_FILE = Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = "mail.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -845,7 +760,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		675345441A404C6100A0A8C3 /* Build configuration list for PBXProject "MapsMe" */ = {
+		675345441A404C6100A0A8C3 /* Build configuration list for PBXProject "qtMapsMe" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				675345641A404C6100A0A8C3 /* Debug */,
@@ -854,7 +769,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		675345661A404C6100A0A8C3 /* Build configuration list for PBXNativeTarget "MapsMe" */ = {
+		675345661A404C6100A0A8C3 /* Build configuration list for PBXNativeTarget "qtMapsMe" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				675345671A404C6100A0A8C3 /* Debug */,

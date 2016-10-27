@@ -13,6 +13,7 @@
 		347F333A1C4540F0009758CC /* simple_dense_coding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 347F33341C4540F0009758CC /* simple_dense_coding.cpp */; };
 		347F333B1C4540F0009758CC /* simple_dense_coding.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 347F33351C4540F0009758CC /* simple_dense_coding.hpp */; };
 		347F333C1C4540F0009758CC /* succinct_mapper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 347F33361C4540F0009758CC /* succinct_mapper.hpp */; };
+		3496AB6E1DC1F53500C5DDBA /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3496AB6D1DC1F53500C5DDBA /* libalohalitics.a */; };
 		394916E41BAC3ACF002A8C4F /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6753421B1A3F586300A0A8C3 /* libcoding.a */; };
 		394917201BAC3BE0002A8C4F /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3949171F1BAC3BE0002A8C4F /* testingmain.cpp */; };
 		3949172B1BAC3CAC002A8C4F /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 394917271BAC3CAC002A8C4F /* libbase.a */; };
@@ -148,7 +149,10 @@
 		347F33341C4540F0009758CC /* simple_dense_coding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = simple_dense_coding.cpp; sourceTree = "<group>"; };
 		347F33351C4540F0009758CC /* simple_dense_coding.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = simple_dense_coding.hpp; sourceTree = "<group>"; };
 		347F33361C4540F0009758CC /* succinct_mapper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = succinct_mapper.hpp; sourceTree = "<group>"; };
-		3949168F1BAC3A5F002A8C4F /* coding_tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = coding_tests; sourceTree = BUILT_PRODUCTS_DIR; };
+		3496AB6D1DC1F53500C5DDBA /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "../../../omim-build/xcode/Debug-iphonesimulator/libalohalitics.a"; sourceTree = "<group>"; };
+		34A72A431DBE4989003D1F5F /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
+		34A72A441DBE4989003D1F5F /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
+		3949168F1BAC3A5F002A8C4F /* coding_tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = coding_tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3949171F1BAC3BE0002A8C4F /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
 		394917221BAC3C2F002A8C4F /* huffman.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = huffman.cpp; sourceTree = "<group>"; };
 		394917231BAC3C2F002A8C4F /* huffman.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = huffman.hpp; sourceTree = "<group>"; };
@@ -167,7 +171,6 @@
 		670D04B51B0BA9050013A7AC /* file_data.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = file_data.cpp; sourceTree = "<group>"; };
 		670D04B61B0BA9050013A7AC /* file_data.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = file_data.hpp; sourceTree = "<group>"; };
 		670D04B71B0BA9050013A7AC /* xmlparser.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = xmlparser.hpp; sourceTree = "<group>"; };
-		670D05A91B0E05200013A7AC /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
 		6753421B1A3F586300A0A8C3 /* libcoding.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcoding.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6753422B1A3F588B00A0A8C3 /* base64.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = base64.cpp; sourceTree = "<group>"; };
 		6753422C1A3F588B00A0A8C3 /* base64.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = base64.hpp; sourceTree = "<group>"; };
@@ -274,6 +277,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3496AB6E1DC1F53500C5DDBA /* libalohalitics.a in Frameworks */,
 				3D489BB61D3D21510052AA38 /* libplatform.a in Frameworks */,
 				394917301BAC3CC9002A8C4F /* libz.tbd in Frameworks */,
 				3949172B1BAC3CAC002A8C4F /* libbase.a in Frameworks */,
@@ -294,6 +298,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3496AB6C1DC1F53500C5DDBA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3496AB6D1DC1F53500C5DDBA /* libalohalitics.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		394916901BAC3A5F002A8C4F /* coding_tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -357,10 +369,12 @@
 		675342121A3F586300A0A8C3 = {
 			isa = PBXGroup;
 			children = (
-				670D05A91B0E05200013A7AC /* defaults.xcconfig */,
+				34A72A431DBE4989003D1F5F /* common-debug.xcconfig */,
+				34A72A441DBE4989003D1F5F /* common-release.xcconfig */,
 				6753421D1A3F586300A0A8C3 /* coding */,
 				394916901BAC3A5F002A8C4F /* coding_tests */,
 				6753421C1A3F586300A0A8C3 /* Products */,
+				3496AB6C1DC1F53500C5DDBA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -368,7 +382,7 @@
 			isa = PBXGroup;
 			children = (
 				6753421B1A3F586300A0A8C3 /* libcoding.a */,
-				3949168F1BAC3A5F002A8C4F /* coding_tests */,
+				3949168F1BAC3A5F002A8C4F /* coding_tests.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -548,8 +562,8 @@
 			);
 			name = coding_tests;
 			productName = coding_tests;
-			productReference = 3949168F1BAC3A5F002A8C4F /* coding_tests */;
-			productType = "com.apple.product-type.tool";
+			productReference = 3949168F1BAC3A5F002A8C4F /* coding_tests.app */;
+			productType = "com.apple.product-type.application";
 		};
 		6753421A1A3F586300A0A8C3 /* coding */ = {
 			isa = PBXNativeTarget;
@@ -683,9 +697,8 @@
 		394916941BAC3A5F002A8C4F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_TESTABILITY = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = maps.me.coding_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -693,109 +706,38 @@
 		394916951BAC3A5F002A8C4F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = maps.me.coding_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
 		675342241A3F586300A0A8C3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 670D05A91B0E05200013A7AC /* defaults.xcconfig */;
+			baseConfigurationReference = 34A72A431DBE4989003D1F5F /* common-debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/tomcrypt/src/headers",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
-				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 			};
 			name = Debug;
 		};
 		675342251A3F586300A0A8C3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 670D05A91B0E05200013A7AC /* defaults.xcconfig */;
+			baseConfigurationReference = 34A72A441DBE4989003D1F5F /* common-release.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/tomcrypt/src/headers",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = macosx;
-				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 			};
 			name = Release;
 		};
 		675342271A3F586300A0A8C3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_PREFIX = lib;
-				GCC_ENABLE_CPP_EXCEPTIONS = YES;
-				GCC_ENABLE_CPP_RTTI = YES;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -803,12 +745,7 @@
 		675342281A3F586300A0A8C3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_PREFIX = lib;
-				GCC_ENABLE_CPP_EXCEPTIONS = YES;
-				GCC_ENABLE_CPP_RTTI = YES;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

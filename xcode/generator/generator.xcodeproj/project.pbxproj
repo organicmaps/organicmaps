@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		34F558791DBF4C7800A4FC11 /* booking_quality_check.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34F558771DBF4C7800A4FC11 /* booking_quality_check.cpp */; };
+		34F5587B1DBF4C8300A4FC11 /* feature_segments_checker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34F5587A1DBF4C8300A4FC11 /* feature_segments_checker.cpp */; };
+		34F558871DBF4C9600A4FC11 /* opentable_dataset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34F5587E1DBF4C9600A4FC11 /* opentable_dataset.cpp */; };
+		34F558881DBF4C9600A4FC11 /* opentable_dataset.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34F5587F1DBF4C9600A4FC11 /* opentable_dataset.hpp */; };
+		34F558891DBF4C9600A4FC11 /* opentable_scoring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34F558801DBF4C9600A4FC11 /* opentable_scoring.cpp */; };
+		34F5588A1DBF4C9600A4FC11 /* sponsored_dataset_inl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34F558811DBF4C9600A4FC11 /* sponsored_dataset_inl.hpp */; };
+		34F5588B1DBF4C9600A4FC11 /* sponsored_dataset.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34F558821DBF4C9600A4FC11 /* sponsored_dataset.hpp */; };
+		34F5588C1DBF4C9600A4FC11 /* sponsored_scoring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34F558831DBF4C9600A4FC11 /* sponsored_scoring.cpp */; };
+		34F5588D1DBF4C9600A4FC11 /* sponsored_scoring.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34F558841DBF4C9600A4FC11 /* sponsored_scoring.hpp */; };
+		34F5588F1DBF4C9F00A4FC11 /* restaurants_info.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34F5588E1DBF4C9F00A4FC11 /* restaurants_info.cpp */; };
+		34F558911DBF4CC300A4FC11 /* srtm_coverage_checker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34F558901DBF4CC300A4FC11 /* srtm_coverage_checker.cpp */; };
 		3D51BC481D5E50F700F1FA8D /* centers_table_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D51BC461D5E50F700F1FA8D /* centers_table_builder.cpp */; };
 		3D51BC491D5E50F700F1FA8D /* centers_table_builder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D51BC471D5E50F700F1FA8D /* centers_table_builder.hpp */; };
 		3D51BC521D5E512500F1FA8D /* altitude_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D51BC4A1D5E512500F1FA8D /* altitude_generator.cpp */; };
@@ -72,10 +83,22 @@
 		67BC92E41D1A9ED800A4A378 /* test_mwm_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BC92DA1D1A9E9800A4A378 /* test_mwm_builder.cpp */; };
 		67BC92E51D1A9ED800A4A378 /* test_mwm_builder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67BC92DB1D1A9E9800A4A378 /* test_mwm_builder.hpp */; };
 		E9502E331D34012200CAB86B /* booking_scoring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9502E311D34012200CAB86B /* booking_scoring.cpp */; };
-		E9502E341D34012200CAB86B /* booking_scoring.hpp in Headers */ = {isa = PBXBuildFile; fileRef = E9502E321D34012200CAB86B /* booking_scoring.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		34AF87CF1DBE52DC00E5E7DC /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
+		34AF87D01DBE52DC00E5E7DC /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
+		34F558771DBF4C7800A4FC11 /* booking_quality_check.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = booking_quality_check.cpp; path = booking_quality_check/booking_quality_check.cpp; sourceTree = "<group>"; };
+		34F5587A1DBF4C8300A4FC11 /* feature_segments_checker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = feature_segments_checker.cpp; path = feature_segments_checker/feature_segments_checker.cpp; sourceTree = "<group>"; };
+		34F5587E1DBF4C9600A4FC11 /* opentable_dataset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = opentable_dataset.cpp; sourceTree = "<group>"; };
+		34F5587F1DBF4C9600A4FC11 /* opentable_dataset.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = opentable_dataset.hpp; sourceTree = "<group>"; };
+		34F558801DBF4C9600A4FC11 /* opentable_scoring.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = opentable_scoring.cpp; sourceTree = "<group>"; };
+		34F558811DBF4C9600A4FC11 /* sponsored_dataset_inl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sponsored_dataset_inl.hpp; sourceTree = "<group>"; };
+		34F558821DBF4C9600A4FC11 /* sponsored_dataset.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sponsored_dataset.hpp; sourceTree = "<group>"; };
+		34F558831DBF4C9600A4FC11 /* sponsored_scoring.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sponsored_scoring.cpp; sourceTree = "<group>"; };
+		34F558841DBF4C9600A4FC11 /* sponsored_scoring.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sponsored_scoring.hpp; sourceTree = "<group>"; };
+		34F5588E1DBF4C9F00A4FC11 /* restaurants_info.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = restaurants_info.cpp; path = restaurants_info/restaurants_info.cpp; sourceTree = "<group>"; };
+		34F558901DBF4CC300A4FC11 /* srtm_coverage_checker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = srtm_coverage_checker.cpp; path = srtm_coverage_checker/srtm_coverage_checker.cpp; sourceTree = "<group>"; };
 		3D51BC461D5E50F700F1FA8D /* centers_table_builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = centers_table_builder.cpp; sourceTree = "<group>"; };
 		3D51BC471D5E50F700F1FA8D /* centers_table_builder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = centers_table_builder.hpp; sourceTree = "<group>"; };
 		3D51BC4A1D5E512500F1FA8D /* altitude_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = altitude_generator.cpp; sourceTree = "<group>"; };
@@ -86,7 +109,6 @@
 		3D51BC511D5E512500F1FA8D /* srtm_parser.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = srtm_parser.hpp; sourceTree = "<group>"; };
 		670B84BA1A8CDB0000CE4492 /* osm_source.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osm_source.cpp; sourceTree = "<group>"; };
 		670B84BB1A8CDB0000CE4492 /* osm_source.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = osm_source.hpp; sourceTree = "<group>"; };
-		670D05AC1B0E07C30013A7AC /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
 		6726C1D31A4AFEF4005EEA39 /* osm2meta.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osm2meta.cpp; sourceTree = "<group>"; };
 		6726C1D41A4AFEF4005EEA39 /* osm2meta.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = osm2meta.hpp; sourceTree = "<group>"; };
 		6753401B1A3F2A1B00A0A8C3 /* libgenerator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libgenerator.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -146,7 +168,6 @@
 		67BC92DB1D1A9E9800A4A378 /* test_mwm_builder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = test_mwm_builder.hpp; sourceTree = "<group>"; };
 		67F0F6761B8C9DCE003F52FF /* osm_xml_source.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = osm_xml_source.hpp; sourceTree = "<group>"; };
 		E9502E311D34012200CAB86B /* booking_scoring.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = booking_scoring.cpp; sourceTree = "<group>"; };
-		E9502E321D34012200CAB86B /* booking_scoring.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = booking_scoring.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,7 +191,8 @@
 		675340121A3F2A1B00A0A8C3 = {
 			isa = PBXGroup;
 			children = (
-				670D05AC1B0E07C30013A7AC /* defaults.xcconfig */,
+				34AF87CF1DBE52DC00E5E7DC /* common-debug.xcconfig */,
+				34AF87D01DBE52DC00E5E7DC /* common-release.xcconfig */,
 				6753401D1A3F2A1B00A0A8C3 /* generator */,
 				67BC92D71D1A9E6A00A4A378 /* generator_tests_support */,
 				6753401C1A3F2A1B00A0A8C3 /* Products */,
@@ -189,6 +211,17 @@
 		6753401D1A3F2A1B00A0A8C3 /* generator */ = {
 			isa = PBXGroup;
 			children = (
+				34F558901DBF4CC300A4FC11 /* srtm_coverage_checker.cpp */,
+				34F5588E1DBF4C9F00A4FC11 /* restaurants_info.cpp */,
+				34F5587E1DBF4C9600A4FC11 /* opentable_dataset.cpp */,
+				34F5587F1DBF4C9600A4FC11 /* opentable_dataset.hpp */,
+				34F558801DBF4C9600A4FC11 /* opentable_scoring.cpp */,
+				34F558811DBF4C9600A4FC11 /* sponsored_dataset_inl.hpp */,
+				34F558821DBF4C9600A4FC11 /* sponsored_dataset.hpp */,
+				34F558831DBF4C9600A4FC11 /* sponsored_scoring.cpp */,
+				34F558841DBF4C9600A4FC11 /* sponsored_scoring.hpp */,
+				34F5587A1DBF4C8300A4FC11 /* feature_segments_checker.cpp */,
+				34F558771DBF4C7800A4FC11 /* booking_quality_check.cpp */,
 				3D51BC4A1D5E512500F1FA8D /* altitude_generator.cpp */,
 				3D51BC4B1D5E512500F1FA8D /* altitude_generator.hpp */,
 				3D51BC4E1D5E512500F1FA8D /* region_meta.cpp */,
@@ -198,7 +231,6 @@
 				3D51BC461D5E50F700F1FA8D /* centers_table_builder.cpp */,
 				3D51BC471D5E50F700F1FA8D /* centers_table_builder.hpp */,
 				E9502E311D34012200CAB86B /* booking_scoring.cpp */,
-				E9502E321D34012200CAB86B /* booking_scoring.hpp */,
 				677E2A111CAACC5F001DC42A /* tag_admixer.hpp */,
 				677E2A121CAACC5F001DC42A /* towns_dumper.cpp */,
 				677E2A131CAACC5F001DC42A /* towns_dumper.hpp */,
@@ -277,13 +309,13 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34F558881DBF4C9600A4FC11 /* opentable_dataset.hpp in Headers */,
 				675340881A3F2A7400A0A8C3 /* unpack_mwm.hpp in Headers */,
 				6753405D1A3F2A7400A0A8C3 /* borders_generator.hpp in Headers */,
 				6753408B1A3F2A7400A0A8C3 /* ways_merger.hpp in Headers */,
 				6753407F1A3F2A7400A0A8C3 /* osm2type.hpp in Headers */,
 				670B84BD1A8CDB0000CE4492 /* osm_source.hpp in Headers */,
 				675340631A3F2A7400A0A8C3 /* coastlines_generator.hpp in Headers */,
-				E9502E341D34012200CAB86B /* booking_scoring.hpp in Headers */,
 				675340641A3F2A7400A0A8C3 /* intermediate_data.hpp in Headers */,
 				675340781A3F2A7400A0A8C3 /* intermediate_elements.hpp in Headers */,
 				6753406B1A3F2A7400A0A8C3 /* feature_emitter_iface.hpp in Headers */,
@@ -296,6 +328,7 @@
 				677E2A161CAACC5F001DC42A /* tag_admixer.hpp in Headers */,
 				675340861A3F2A7400A0A8C3 /* tesselator.hpp in Headers */,
 				67A0FEBF1CEB467F008F2A61 /* booking_dataset.hpp in Headers */,
+				34F5588B1DBF4C9600A4FC11 /* sponsored_dataset.hpp in Headers */,
 				6753405F1A3F2A7400A0A8C3 /* borders_loader.hpp in Headers */,
 				675340801A3F2A7400A0A8C3 /* polygonizer.hpp in Headers */,
 				675340941C5231BA002CF0D9 /* search_index_builder.hpp in Headers */,
@@ -307,8 +340,10 @@
 				675340681A3F2A7400A0A8C3 /* dumper.hpp in Headers */,
 				675340791A3F2A7400A0A8C3 /* osm_translator.hpp in Headers */,
 				675340711A3F2A7400A0A8C3 /* feature_sorter.hpp in Headers */,
+				34F5588A1DBF4C9600A4FC11 /* sponsored_dataset_inl.hpp in Headers */,
 				675340611A3F2A7400A0A8C3 /* check_model.hpp in Headers */,
 				6726C1D61A4AFEF4005EEA39 /* osm2meta.hpp in Headers */,
+				34F5588D1DBF4C9600A4FC11 /* sponsored_scoring.hpp in Headers */,
 				3D51BC491D5E50F700F1FA8D /* centers_table_builder.hpp in Headers */,
 				6753407B1A3F2A7400A0A8C3 /* osm_id.hpp in Headers */,
 				3D51BC531D5E512500F1FA8D /* altitude_generator.hpp in Headers */,
@@ -414,17 +449,24 @@
 				675340811A3F2A7400A0A8C3 /* routing_generator.cpp in Sources */,
 				675340931C5231BA002CF0D9 /* search_index_builder.cpp in Sources */,
 				6753406E1A3F2A7400A0A8C3 /* feature_merger.cpp in Sources */,
+				34F5587B1DBF4C8300A4FC11 /* feature_segments_checker.cpp in Sources */,
 				67A0FEBE1CEB467F008F2A61 /* booking_dataset.cpp in Sources */,
 				6753408D1A3F2A7400A0A8C3 /* osm_element.cpp in Sources */,
 				6726C1D51A4AFEF4005EEA39 /* osm2meta.cpp in Sources */,
+				34F5588C1DBF4C9600A4FC11 /* sponsored_scoring.cpp in Sources */,
+				34F558911DBF4CC300A4FC11 /* srtm_coverage_checker.cpp in Sources */,
 				6753405E1A3F2A7400A0A8C3 /* borders_loader.cpp in Sources */,
 				675340691A3F2A7400A0A8C3 /* feature_builder.cpp in Sources */,
 				677E2A171CAACC5F001DC42A /* towns_dumper.cpp in Sources */,
+				34F558891DBF4C9600A4FC11 /* opentable_scoring.cpp in Sources */,
+				34F5588F1DBF4C9F00A4FC11 /* restaurants_info.cpp in Sources */,
 				6753405C1A3F2A7400A0A8C3 /* borders_generator.cpp in Sources */,
 				3D51BC481D5E50F700F1FA8D /* centers_table_builder.cpp in Sources */,
 				675340671A3F2A7400A0A8C3 /* dumper.cpp in Sources */,
 				E9502E331D34012200CAB86B /* booking_scoring.cpp in Sources */,
 				675340831A3F2A7400A0A8C3 /* statistics.cpp in Sources */,
+				34F558871DBF4C9600A4FC11 /* opentable_dataset.cpp in Sources */,
+				34F558791DBF4C7800A4FC11 /* booking_quality_check.cpp in Sources */,
 				6753407E1A3F2A7400A0A8C3 /* osm2type.cpp in Sources */,
 				675340601A3F2A7400A0A8C3 /* check_model.cpp in Sources */,
 				675340851A3F2A7400A0A8C3 /* tesselator.cpp in Sources */,
@@ -445,38 +487,8 @@
 /* Begin XCBuildConfiguration section */
 		675340241A3F2A1B00A0A8C3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 670D05AC1B0E07C30013A7AC /* defaults.xcconfig */;
+			baseConfigurationReference = 34AF87CF1DBE52DC00E5E7DC /* common-debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/gflags/src",
@@ -485,42 +497,13 @@
 					"$(OMIM_ROOT)/3party/glm",
 					"$(OMIM_ROOT)/3party/jansson/src",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
 		675340251A3F2A1B00A0A8C3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 670D05AC1B0E07C30013A7AC /* defaults.xcconfig */;
+			baseConfigurationReference = 34AF87D01DBE52DC00E5E7DC /* common-release.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/gflags/src",
@@ -529,53 +512,29 @@
 					"$(OMIM_ROOT)/3party/glm",
 					"$(OMIM_ROOT)/3party/jansson/src",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};
 		675340271A3F2A1B00A0A8C3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_PREFIX = lib;
-				GCC_ENABLE_CPP_EXCEPTIONS = YES;
-				GCC_ENABLE_CPP_RTTI = YES;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
 		675340281A3F2A1B00A0A8C3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_PREFIX = lib;
-				GCC_ENABLE_CPP_EXCEPTIONS = YES;
-				GCC_ENABLE_CPP_RTTI = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};
 		67BC92D41D1A9E5F00A4A378 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CODE_SIGN_IDENTITY = "-";
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_TESTABILITY = YES;
 				EXECUTABLE_PREFIX = lib;
-				GCC_ENABLE_CPP_EXCEPTIONS = YES;
-				GCC_ENABLE_CPP_RTTI = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -583,14 +542,7 @@
 		67BC92D51D1A9E5F00A4A378 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CODE_SIGN_IDENTITY = "-";
-				COPY_PHASE_STRIP = NO;
 				EXECUTABLE_PREFIX = lib;
-				GCC_ENABLE_CPP_EXCEPTIONS = YES;
-				GCC_ENABLE_CPP_RTTI = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

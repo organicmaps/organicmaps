@@ -49,7 +49,6 @@
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 
-using namespace generator::tests_support;
 using namespace platform::tests_support;
 using namespace platform;
 
@@ -1393,6 +1392,7 @@ UNIT_TEST(StorageTest_GetUpdateInfoSingleMwm)
   LocalCountryFile country1(kVersion1Dir, CountryFile("OutdatedCountry1"), 1);
   LocalCountryFile country2(kVersion1Dir, CountryFile("OutdatedCountry2"), 1);
 
+  using namespace generator::tests_support;
   {
     TestMwmBuilder builder(country1, feature::DataHeader::country);
   }

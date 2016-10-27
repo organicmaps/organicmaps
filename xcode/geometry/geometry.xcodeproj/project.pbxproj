@@ -101,11 +101,12 @@
 		345C55F41C93140A00B6783F /* clipping.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = clipping.hpp; sourceTree = "<group>"; };
 		347F336E1C454205009758CC /* triangle2d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = triangle2d.cpp; sourceTree = "<group>"; };
 		347F336F1C454205009758CC /* triangle2d.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = triangle2d.hpp; sourceTree = "<group>"; };
+		34AF87CD1DBE517700E5E7DC /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
+		34AF87CE1DBE517700E5E7DC /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
 		56D545681C74A46D00E3719C /* algorithm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = algorithm.cpp; sourceTree = "<group>"; };
 		56D545691C74A46D00E3719C /* algorithm.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = algorithm.hpp; sourceTree = "<group>"; };
 		56EB1ECE1C6B6DF30022D831 /* segment2d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = segment2d.cpp; sourceTree = "<group>"; };
 		56EB1ECF1C6B6DF30022D831 /* segment2d.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = segment2d.hpp; sourceTree = "<group>"; };
-		670D05A51B0E01FF0013A7AC /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
 		670F29221BA9D2E700F2ABF4 /* angle_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = angle_test.cpp; sourceTree = "<group>"; };
 		670F29231BA9D2E700F2ABF4 /* anyrect_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = anyrect_test.cpp; sourceTree = "<group>"; };
 		670F29241BA9D2E700F2ABF4 /* cellid_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cellid_test.cpp; sourceTree = "<group>"; };
@@ -133,7 +134,7 @@
 		670F293A1BA9D2E700F2ABF4 /* transformations_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transformations_test.cpp; sourceTree = "<group>"; };
 		670F293B1BA9D2E700F2ABF4 /* tree_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tree_test.cpp; sourceTree = "<group>"; };
 		670F293C1BA9D2E700F2ABF4 /* vector_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vector_test.cpp; sourceTree = "<group>"; };
-		670F295C1BA9D39A00F2ABF4 /* geometry_tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = geometry_tests; sourceTree = BUILT_PRODUCTS_DIR; };
+		670F295C1BA9D39A00F2ABF4 /* geometry_tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = geometry_tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		670F297E1BA9D41E00F2ABF4 /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
 		670F29811BA9D46F00F2ABF4 /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = "../../../omim-xcode-build/Debug/libbase.a"; sourceTree = "<group>"; };
 		670F29821BA9D46F00F2ABF4 /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libindexer.a; path = "../../../omim-xcode-build/Debug/libindexer.a"; sourceTree = "<group>"; };
@@ -247,7 +248,8 @@
 		675344881A3F684600A0A8C3 = {
 			isa = PBXGroup;
 			children = (
-				670D05A51B0E01FF0013A7AC /* defaults.xcconfig */,
+				34AF87CD1DBE517700E5E7DC /* common-debug.xcconfig */,
+				34AF87CE1DBE517700E5E7DC /* common-release.xcconfig */,
 				670F29211BA9D25D00F2ABF4 /* geometry_tests */,
 				675344931A3F684600A0A8C3 /* geometry */,
 				675344921A3F684600A0A8C3 /* Products */,
@@ -258,7 +260,7 @@
 			isa = PBXGroup;
 			children = (
 				675344911A3F684600A0A8C3 /* libgeometry.a */,
-				670F295C1BA9D39A00F2ABF4 /* geometry_tests */,
+				670F295C1BA9D39A00F2ABF4 /* geometry_tests.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -379,8 +381,8 @@
 			);
 			name = geometry_tests;
 			productName = geometry_tests;
-			productReference = 670F295C1BA9D39A00F2ABF4 /* geometry_tests */;
-			productType = "com.apple.product-type.tool";
+			productReference = 670F295C1BA9D39A00F2ABF4 /* geometry_tests.app */;
+			productType = "com.apple.product-type.application";
 		};
 		675344901A3F684600A0A8C3 /* geometry */ = {
 			isa = PBXNativeTarget;
@@ -497,13 +499,12 @@
 		670F29611BA9D39A00F2ABF4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
 					"$(inherited)",
+					"OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT=1",
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = maps.me.geometry_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -511,103 +512,34 @@
 		670F29621BA9D39A00F2ABF4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT=1",
+				);
+				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = maps.me.geometry_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
 		6753449A1A3F684600A0A8C3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 670D05A51B0E01FF0013A7AC /* defaults.xcconfig */;
+			baseConfigurationReference = 34AF87CD1DBE517700E5E7DC /* common-debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
-				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 			};
 			name = Debug;
 		};
 		6753449B1A3F684600A0A8C3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 670D05A51B0E01FF0013A7AC /* defaults.xcconfig */;
+			baseConfigurationReference = 34AF87CE1DBE517700E5E7DC /* common-release.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = macosx;
-				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 			};
 			name = Release;
 		};
 		6753449D1A3F684600A0A8C3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_PREFIX = lib;
-				GCC_ENABLE_CPP_EXCEPTIONS = YES;
-				GCC_ENABLE_CPP_RTTI = YES;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -615,12 +547,7 @@
 		6753449E1A3F684600A0A8C3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_PREFIX = lib;
-				GCC_ENABLE_CPP_EXCEPTIONS = YES;
-				GCC_ENABLE_CPP_RTTI = YES;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

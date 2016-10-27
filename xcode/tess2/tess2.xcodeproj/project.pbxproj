@@ -24,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		34F5585A1DBF3DC500A4FC11 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
+		34F5585B1DBF3DC500A4FC11 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
 		6719DD381B95A8E70018166F /* libtess2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtess2.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6719DD401B95A9440018166F /* bucketalloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = bucketalloc.c; path = Source/bucketalloc.c; sourceTree = "<group>"; };
 		6719DD411B95A9440018166F /* bucketalloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bucketalloc.h; path = Source/bucketalloc.h; sourceTree = "<group>"; };
@@ -39,7 +41,6 @@
 		6719DD4B1B95A9440018166F /* sweep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sweep.h; path = Source/sweep.h; sourceTree = "<group>"; };
 		6719DD4C1B95A9440018166F /* tess.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = tess.c; path = Source/tess.c; sourceTree = "<group>"; };
 		6719DD4D1B95A9440018166F /* tess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tess.h; path = Source/tess.h; sourceTree = "<group>"; };
-		6719DD5C1B95A9500018166F /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +57,8 @@
 		6719DD2F1B95A8E70018166F = {
 			isa = PBXGroup;
 			children = (
-				6719DD5C1B95A9500018166F /* defaults.xcconfig */,
+				34F5585A1DBF3DC500A4FC11 /* common-debug.xcconfig */,
+				34F5585B1DBF3DC500A4FC11 /* common-release.xcconfig */,
 				6719DD3F1B95A8F80018166F /* tess2 */,
 				6719DD391B95A8E70018166F /* Products */,
 			);
@@ -180,92 +182,27 @@
 /* Begin XCBuildConfiguration section */
 		6719DD3A1B95A8E70018166F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6719DD5C1B95A9500018166F /* defaults.xcconfig */;
+			baseConfigurationReference = 34F5585A1DBF3DC500A4FC11 /* common-debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
 					"$(OMIM_ROOT)",
 					"$(BOOST_ROOT)",
 					"$(OMIM_ROOT)/3party/libtess2/Include",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
-				SUPPORTED_PLATFORMS = "macosx iphonesimulator";
 			};
 			name = Debug;
 		};
 		6719DD3B1B95A8E70018166F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6719DD5C1B95A9500018166F /* defaults.xcconfig */;
+			baseConfigurationReference = 34F5585B1DBF3DC500A4FC11 /* common-release.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
 					"$(OMIM_ROOT)",
 					"$(BOOST_ROOT)",
 					"$(OMIM_ROOT)/3party/libtess2/Include",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = macosx;
-				SUPPORTED_PLATFORMS = "macosx iphonesimulator";
 			};
 			name = Release;
 		};
@@ -274,7 +211,6 @@
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 			};
 			name = Debug;
 		};
@@ -283,7 +219,6 @@
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 			};
 			name = Release;
 		};
