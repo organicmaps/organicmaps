@@ -1,4 +1,5 @@
 #include "platform/platform.hpp"
+#include "platform/socket.hpp"
 
 #include "coding/file_reader.hpp"
 #include "coding/file_name_utils.hpp"
@@ -40,6 +41,14 @@ bool IsEulaExist(string const & directory)
   return Platform::IsFileExistsByFullPath(my::JoinFoldersToPath(directory, "eula.html"));
 }
 }  // namespace
+
+namespace platform
+{
+unique_ptr<Socket> CreateSocket()
+{
+  return unique_ptr<Socket>();
+}
+}
 
 Platform::Platform()
 {
