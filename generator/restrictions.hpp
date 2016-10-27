@@ -10,16 +10,13 @@
 
 class RelationElement;
 
-namespace std
+template <> struct hash<osm::Id>
 {
-  template <> struct hash<osm::Id>
+  size_t operator()(osm::Id const & id) const
   {
-    size_t operator()(osm::Id const & id) const
-    {
-      return hash<double>()(id.OsmId());
-    }
-  };
-}  // namespace std
+    return hash<uint64_t>()(id.OsmId());
+  }
+};
 
 /// This class collects all relations with type restriction and save feature ids of
 /// their road feature in text file for using later.
@@ -28,10 +25,8 @@ class RestrictionCollector
   friend void UnitTest_RestrictionTest_ValidCase();
   friend void UnitTest_RestrictionTest_InvalidCase();
 public:
-  using FeatureId = uint64_t;
+  using FeatureId = uint32_t;
   static FeatureId const kInvalidFeatureId;
-
-  ~RestrictionCollector();
 
   /// \brief Types of road graph restrictions.
   /// \note Despite the fact more that 10 restriction tags are present in osm all of them
@@ -116,5 +111,6 @@ private:
   unordered_multimap<osm::Id, FeatureId> m_osmIds2FeatureId;
 };
 
+string ToString(RestrictionCollector::Type const & type);
 string DebugPrint(RestrictionCollector::Type const & type);
 string DebugPrint(RestrictionCollector::Restriction const & restriction);

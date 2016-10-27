@@ -6,22 +6,24 @@
 
 #include "std/algorithm.hpp"
 #include "std/fstream.hpp"
+#include "std/string.hpp"
+#include "std/vector.hpp"
 
 namespace
 {
+vector<string> const kRestrictionTypesNo = {"no_right_turn", "no_left_turn", "no_u_turn",
+                                            "no_straight_on", "no_entry", "no_exit"};
+vector<string> const kRestrictionTypesOnly = {"only_right_turn", "only_left_turn", "only_straight_on"};
+
 /// \brief Converts restriction type form string to RestrictionCollector::Type.
 /// \returns Fisrt item is a result of conversion. Second item is true
 /// if convertion was successful and false otherwise.
 pair<RestrictionCollector::Type, bool> TagToType(string const & type)
 {
-  vector<string> const restrictionTypesNo = {"no_right_turn", "no_left_turn", "no_u_turn",
-                                             "no_straight_on", "no_entry", "no_exit"};
-  vector<string> const restrictionTypesOnly = {"only_right_turn", "only_left_turn", "only_straight_on"};
-
-  if (find(restrictionTypesNo.cbegin(), restrictionTypesNo.cend(), type) != restrictionTypesNo.cend())
+  if (find(kRestrictionTypesNo.cbegin(), kRestrictionTypesNo.cend(), type) != kRestrictionTypesNo.cend())
     return make_pair(RestrictionCollector::Type::No, true);
 
-  if (find(restrictionTypesOnly.cbegin(), restrictionTypesOnly.cend(), type) != restrictionTypesOnly.cend())
+  if (find(kRestrictionTypesOnly.cbegin(), kRestrictionTypesOnly.cend(), type) != kRestrictionTypesOnly.cend())
     return make_pair(RestrictionCollector::Type::Only, true);
 
   // Unsupported restriction type.
@@ -44,12 +46,7 @@ RestrictionCollector::Restriction::Restriction(Type type, vector<FeatureId> cons
 
 bool RestrictionCollector::Restriction::IsValid() const
 {
-  for (auto fid : m_links)
-  {
-    if (fid == kInvalidFeatureId)
-      return false;
-  }
-  return true;
+  return find(begin(m_links), end(m_links), kInvalidFeatureId) == end(m_links);
 }
 
 bool RestrictionCollector::Restriction::operator==(Restriction const & restriction) const
@@ -64,8 +61,6 @@ bool RestrictionCollector::Restriction::operator<(Restriction const & restrictio
 
   return m_links < restriction.m_links;
 }
-
-RestrictionCollector::~RestrictionCollector() {}
 
 void RestrictionCollector::AddRestriction(vector<osm::Id> const & links, Type type)
 {
@@ -129,13 +124,10 @@ void RestrictionCollector::AddFeatureId(vector<osm::Id> const & osmIds, FeatureI
 }
 
 bool RestrictionCollector::CheckCorrectness() const
-{
-  for (Restriction const & restriction : m_restrictions)
-  {
-    if (!restriction.IsValid())
-      return false;
-  }
-  return true;
+{  
+  return find_if(begin(m_restrictions), end(m_restrictions),
+                                            [](Restriction const & r){ return !r.IsValid(); })
+      == end(m_restrictions);
 }
 
 void RestrictionCollector::RemoveInvalidRestrictions()
@@ -151,7 +143,7 @@ void RestrictionCollector::ComposeRestrictions()
   size_t const restrictionSz = m_restrictions.size();
   for (pair<osm::Id, Index> const & osmIdAndIndex : m_restrictionIndex)
   {
-    Index const index = osmIdAndIndex.second;
+    Index const & index = osmIdAndIndex.second;
     CHECK_LESS(index.m_restrictionNumber, restrictionSz, ());
     Restriction & restriction = m_restrictions[index.m_restrictionNumber];
     CHECK_LESS(index.m_linkNumber, restriction.m_links.size(), ());
@@ -191,16 +183,22 @@ void RestrictionCollector::ComposeRestrictionsAndSave(string const & fullPath)
 
   LOG(LINFO, ("Saving intermediate file with restrictions to", fullPath));
   ofstream ofs(fullPath, std::ofstream::out);
+  if (ofs.fail())
+  {
+    LOG(LERROR, ("Cannot open", fullPath, "while saving road restrictions in intermediate format."));
+    return;
+  }
+
   for (Restriction const & r : m_restrictions)
   {
-    ofs << DebugPrint(r.m_type) << ", ";
+    ofs << ToString(r.m_type) << ", ";
     for (FeatureId fid : r.m_links)
       ofs << fid << ", ";
     ofs << endl;
   }
 }
 
-string DebugPrint(RestrictionCollector::Type const & type)
+string ToString(RestrictionCollector::Type const & type)
 {
   switch (type)
   {
@@ -210,6 +208,11 @@ string DebugPrint(RestrictionCollector::Type const & type)
     return "Only";
   }
   return "Unknown";
+}
+
+string DebugPrint(RestrictionCollector::Type const & type)
+{
+  return ToString(type);
 }
 
 string DebugPrint(RestrictionCollector::Restriction const & restriction)

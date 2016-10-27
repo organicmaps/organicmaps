@@ -97,7 +97,10 @@ protected:
       return;
 
     if (type == "restriction")
+    {
       m_restrictionCollector.AddRestriction(e);
+      return;
+    }
 
     bool const processAssociatedStreet = type == "associatedStreet" &&
         TBase::IsKeyTagExists("addr:housenumber") && !TBase::IsKeyTagExists("addr:street");
@@ -151,7 +154,10 @@ protected:
       return;
 
     if (type == "restriction")
+    {
       m_restrictionCollector.AddRestriction(e);
+      return;
+    }
 
     if (type == "building")
     {
@@ -308,12 +314,11 @@ class OsmToFeatureTranslator
     }
   }
 
-  void EmitLine(FeatureBuilder1 & ft, FeatureParams params, bool isCoastLine, osm::Id id) const
+  void EmitLine(FeatureBuilder1 & ft, FeatureParams params, bool isCoastLine) const
   {
     if (isCoastLine || feature::RemoveNoDrawableTypes(params.m_Types, feature::GEOM_LINE))
     {
       ft.SetLinear(params.m_reverseGeometry);
-      ft.AddOsmId(id);
       EmitFeatureBase(ft, params);
     }
   }
@@ -420,7 +425,7 @@ public:
           ft.SetAreaAddHoles(processor.GetHoles());
         });
 
-        EmitLine(ft, params, isCoastLine, osm::Id::Node(p->id));
+        EmitLine(ft, params, isCoastLine);
         state = FeatureState::Ok;
         break;
       }

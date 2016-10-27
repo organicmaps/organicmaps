@@ -169,8 +169,10 @@ namespace feature
         m_currentNames += ';';
       m_currentNames += country->m_name;
 
-      (*(m_Buckets[country->m_index]))(fb);
-      uint32_t const nextFeatureId = m_Buckets[country->m_index]->GetNextFeatureId();
+      auto & bucket = *(m_Buckets[country->m_index]);
+      bucket(fb);
+      uint32_t const nextFeatureId = bucket.GetNextFeatureId();
+
       CHECK_LESS(0, nextFeatureId, ("GetNextFeatureId() is called before WriteFeatureBase(...)"));
       if (fb.IsLine())
         restriction.AddFeatureId(fb.GetOsmIds(), nextFeatureId - 1 /* feature id of |fb| */);
