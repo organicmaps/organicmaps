@@ -394,7 +394,7 @@ void ApplyPointFeature::Finish()
     params.m_radius = m_circleRule->radius();
     params.m_hasArea = m_hasArea;
     params.m_createdByEditor = m_createdByEditor;
-    m_insertShape(make_unique_dp<CircleShape>(m_centerPoint, params));
+    m_insertShape(make_unique_dp<CircleShape>(m_centerPoint, params, true /* need overlay */));
   }
   else if (m_symbolRule)
   {
