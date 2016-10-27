@@ -253,16 +253,28 @@
       location = "container:drape_frontend/drape_frontend.xcodeproj">
    </FileRef>
    <FileRef
+      location = "container:editor/editor.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "container:geometry/geometry.xcodeproj">
    </FileRef>
    <FileRef
       location = "container:generator/generator.xcodeproj">
    </FileRef>
    <FileRef
+      location = "container:generator_tool/generator_tool.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "container:indexer/indexer.xcodeproj">
    </FileRef>
    <FileRef
       location = "container:map/map.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:mapshot/mapshot.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:partners_api/partners_api.xcodeproj">
    </FileRef>
    <FileRef
       location = "container:platform/platform.xcodeproj">
@@ -280,25 +292,9 @@
       location = "container:tracking/tracking.xcodeproj">
    </FileRef>
    <FileRef
-      location = "container:generator_tool/generator_tool.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "container:MapsMe/MapsMe.xcodeproj">
    </FileRef>
-   <Group
-      location = "container:"
-      name = "iOS">
-      <FileRef
-         location = "container:../iphone/Maps/Maps.xcodeproj">
-      </FileRef>
-   </Group>
    <FileRef
-      location = "container:mapshot/mapshot.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "container:partners_api/partners_api.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "container:editor/editor.xcodeproj">
+      location = "container:../iphone/Maps/Maps.xcodeproj">
    </FileRef>
 </Workspace>
