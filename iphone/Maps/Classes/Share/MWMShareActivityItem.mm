@@ -42,8 +42,7 @@ NSString * httpGe0Url(NSString * shortUrl)
     NSAssert(object, @"Entity can't be nil!");
     BOOL const isMyPosition = object.isMyPosition;
     _isMyPosition = isMyPosition;
-    if (!isMyPosition)
-      _object = object;
+    _object = object;
   }
   return self;
 }
