@@ -46,7 +46,6 @@
 
 namespace routing
 {
-
 namespace
 {
 size_t constexpr kMaxNodeCandidatesCount = 10;
@@ -55,7 +54,6 @@ double constexpr kMwmLoadedProgress = 10.0f;
 double constexpr kPointsFoundProgress = 15.0f;
 double constexpr kCrossPathFoundProgress = 50.0f;
 double constexpr kPathFoundProgress = 70.0f;
-} //  namespace
 
 using RawRouteData = InternalRouteResult;
 
@@ -199,6 +197,42 @@ private:
   RoutingMapping & m_routingMapping;
 };
 
+bool FindSingleOsrmRoute(FeatureGraphNode const & source, FeatureGraphNode const & target,
+                         RouterDelegate const & delegate, TRoutingMappingPtr & mapping, Index const & index,
+                         Route & mwmRoute)
+{
+  vector<Junction> mwmRouteGeometry;
+  Route::TTurns mwmTurns;
+  Route::TTimes mwmTimes;
+  Route::TStreets mwmStreets;
+
+  LOG(LINFO, ("OSRM route from", MercatorBounds::ToLatLon(source.segmentPoint),
+              "to", MercatorBounds::ToLatLon(target.segmentPoint)));
+
+  RawRoutingResult routingResult;
+  if (!FindSingleRoute(source, target, mapping->m_dataFacade, routingResult))
+    return false;
+
+  OSRMRoutingResult resultGraph(index, *mapping, routingResult);
+  if (MakeTurnAnnotation(resultGraph, delegate, mwmRouteGeometry, mwmTurns, mwmTimes, mwmStreets)
+      != routing::IRouter::NoError)
+  {
+    LOG(LWARNING, ("Can't load road path data from disk for", mapping->GetCountryName()));
+    return false;
+  }
+
+  mwmRoute.SetTurnInstructions(move(mwmTurns));
+  mwmRoute.SetSectionTimes(move(mwmTimes));
+  mwmRoute.SetStreetNames(move(mwmStreets));
+
+  vector<m2::PointD> mwmPoints;
+  JunctionsToPoints(mwmRouteGeometry, mwmPoints);
+  mwmRoute.SetGeometry(mwmPoints.cbegin(), mwmPoints.cend());
+
+  return true;
+}
+} //  namespace
+
 // static
 bool CarRouter::CheckRoutingAbility(m2::PointD const & startPoint, m2::PointD const & finalPoint,
                                     TCountryFileFn const & countryFileFn, Index * index)
@@ -209,8 +243,8 @@ bool CarRouter::CheckRoutingAbility(m2::PointD const & startPoint, m2::PointD co
 }
 
 CarRouter::CarRouter(Index * index, TCountryFileFn const & countryFileFn,
-                     unique_ptr<RoadGraphRouter> roadGraphRouter)
-    : m_pIndex(index), m_indexManager(countryFileFn, *index), m_roadGraphRouter(move(roadGraphRouter))
+                     unique_ptr<IRouter> roadGraphRouter)
+    : m_pIndex(index), m_indexManager(countryFileFn, *index), m_aStarRouter(move(roadGraphRouter))
 {
 }
 
@@ -224,7 +258,7 @@ void CarRouter::ClearState()
   m_cachedTargets.clear();
   m_cachedTargetPoint = m2::PointD::Zero();
   m_indexManager.Clear();
-  m_roadGraphRouter->ClearState();
+  m_aStarRouter->ClearState();
 }
 
 bool CarRouter::FindRouteFromCases(TFeatureGraphNodeVec const & source, TFeatureGraphNodeVec const & target,
@@ -520,20 +554,20 @@ bool CarRouter::FindSingleRouteDispatcher(FeatureGraphNode const & source, Featu
 {
   ASSERT_EQUAL(source.mwmId, target.mwmId, ());
   ASSERT(m_pIndex, ());
-  ASSERT(m_roadGraphRouter, ());
+  ASSERT(m_aStarRouter, ());
 
   Route mwmRoute(GetName());
 
   // @TODO It's not the best place for checking availability of edge index section in mwm.
   // Probably it's better to keep if mwm has an edge index section in mwmId.
-  if (IsEdgeIndexExisting(source.mwmId) && m_roadGraphRouter)
+  if (IsEdgeIndexExisting(source.mwmId) && m_aStarRouter)
   {
     // A* routing
     LOG(LINFO, ("A* route from", MercatorBounds::ToLatLon(source.segmentPoint),
                 "to", MercatorBounds::ToLatLon(target.segmentPoint)));
 
-    if (m_roadGraphRouter->CalculateRoute(source.segmentPoint, m2::PointD(0, 0), target.segmentPoint,
-                                          delegate, mwmRoute) != IRouter::NoError)
+    if (m_aStarRouter->CalculateRoute(source.segmentPoint, m2::PointD(0, 0), target.segmentPoint,
+                                      delegate, mwmRoute) != IRouter::NoError)
     {
       return false;
     }
@@ -543,32 +577,8 @@ bool CarRouter::FindSingleRouteDispatcher(FeatureGraphNode const & source, Featu
     // OSRM Routing
     // @TODO This branch is implemented to support old maps with osrm section. When osrm
     // section is not supported this branch should be removed.
-    vector<Junction> mwmRouteGeometry;
-    Route::TTurns mwmTurns;
-    Route::TTimes mwmTimes;
-    Route::TStreets mwmStreets;
-
-    LOG(LINFO, ("OSRM route from", MercatorBounds::ToLatLon(source.segmentPoint),
-                "to", MercatorBounds::ToLatLon(target.segmentPoint)));
-
-    RawRoutingResult routingResult;
-    if (!FindSingleRoute(source, target, mapping->m_dataFacade, routingResult))
+    if (!FindSingleOsrmRoute(source, target, delegate, mapping, *m_pIndex, mwmRoute))
       return false;
-
-    OSRMRoutingResult resultGraph(*m_pIndex, *mapping, routingResult);
-    if (MakeTurnAnnotation(resultGraph, delegate, mwmRouteGeometry, mwmTurns, mwmTimes, mwmStreets) != NoError)
-    {
-      LOG(LWARNING, ("Can't load road path data from disk for", mapping->GetCountryName()));
-      return false;
-    }
-
-    mwmRoute.SetTurnInstructions(move(mwmTurns));
-    mwmRoute.SetSectionTimes(move(mwmTimes));
-    mwmRoute.SetStreetNames(move(mwmStreets));
-
-    vector<m2::PointD> mwmPoints;
-    JunctionsToPoints(mwmRouteGeometry, mwmPoints);
-    mwmRoute.SetGeometry(mwmPoints.cbegin(), mwmPoints.cend());
   }
 
   route.AppendRoute(mwmRoute);

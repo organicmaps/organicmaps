@@ -31,7 +31,7 @@ public:
   typedef vector<double> GeomTurnCandidateT;
 
   CarRouter(Index * index, TCountryFileFn const & countryFileFn,
-            unique_ptr<RoadGraphRouter> roadGraphRouter);
+            unique_ptr<IRouter> roadGraphRouter);
 
   virtual string GetName() const override;
 
@@ -109,6 +109,6 @@ private:
 
   RoutingIndexManager m_indexManager;
 
-  unique_ptr<RoadGraphRouter> m_roadGraphRouter;
+  unique_ptr<IRouter> m_aStarRouter;
 };
 }  // namespace routing
