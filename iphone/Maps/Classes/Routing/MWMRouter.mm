@@ -63,10 +63,24 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
 + (BOOL)isTaxi { return GetFramework().GetRouter() == routing::RouterType::Taxi; }
 + (void)startRouting
 {
-  if ([self isTaxi])
-    [[UIApplication sharedApplication] openURL:[MWMNavigationDashboardManager manager].taxiDataSource.taxiURL];
-  else
-    [[self router] start];
+  auto router = [MWMRouter router];
+  if (![self isTaxi])
+  {
+    [router start];
+    return;
+  }
+
+  auto taxiDataSource = [MWMNavigationDashboardManager manager].taxiDataSource;
+  auto eventName = taxiDataSource.isTaxiInstalled ? kStatRoutingTaxiOrder : kStatRoutingTaxiInstall;
+  auto const & sLatLon = MercatorBounds::ToLatLon(router.startPoint.Point());
+  auto const & fLatLon = MercatorBounds::ToLatLon(router.finishPoint.Point());
+
+  [Statistics logEvent:eventName
+        withParameters:@{kStatProvider : kStatUber, kStatFromLat : @(sLatLon.lat), kStatFromLon : @(sLatLon.lon),
+                            kStatToLat : @(fLatLon.lat), kStatToLon : @(fLatLon.lon)}
+            atLocation:[MWMLocationManager lastLocation]];
+
+  [[UIApplication sharedApplication] openURL:taxiDataSource.taxiURL];
 }
 
 - (instancetype)initRouter

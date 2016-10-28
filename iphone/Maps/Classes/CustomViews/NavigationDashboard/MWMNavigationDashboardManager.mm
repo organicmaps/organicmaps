@@ -306,7 +306,9 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
 - (void)addInfoDisplay:(TInfoDisplay)infoDisplay { [self.infoDisplays addObject:infoDisplay]; }
 - (NSString *)startButtonTitle
 {
-  return [MWMRouter isTaxi] ? L(@"taxi_order") : L(@"p2p_start");
+  if (![MWMRouter isTaxi])
+    return L(@"p2p_start");
+  return self.taxiDataSource.isTaxiInstalled ? L(@"taxi_order") : L(@"taxi_install");
 }
 #pragma mark - Properties
 
