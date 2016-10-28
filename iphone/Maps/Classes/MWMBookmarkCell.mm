@@ -66,7 +66,7 @@ NSString * const kTextViewContentSizeKeyPath = @"contentSize";
     auto const height = s.CGSizeValue.height;
     auto const boundedHeight = self.textViewHeight.constant;
 
-    if (height <= boundedHeight || self.isOpen)
+    if (height < boundedHeight || self.isOpen)
       [self stateOpen:YES];
     else
       [self stateOpen:NO];
