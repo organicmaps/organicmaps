@@ -250,7 +250,7 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
     SUBDIRS *= partners_api_tests
 
     tracking_tests.subdir = tracking/tracking_tests
-    tracking_tests.depends = base platform tracking
+    tracking_tests.depends = base platform tracking routing
     SUBDIRS *= tracking_tests
 
   } # !no-tests
