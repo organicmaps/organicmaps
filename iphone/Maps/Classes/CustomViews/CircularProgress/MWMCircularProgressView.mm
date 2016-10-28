@@ -20,7 +20,6 @@ CGFloat angleWithProgress(CGFloat progress) { return 2.0 * M_PI * progress - M_P
 @property(nonatomic) UIColor * spinnerBackgroundColor;
 @property(nonatomic, readonly) CGColorRef progressLayerColor;
 
-@property(nonatomic) NSMutableDictionary * images;
 @property(nonatomic) NSMutableDictionary * colors;
 
 @property(weak, nonatomic) IBOutlet MWMCircularProgress * owner;
@@ -34,12 +33,12 @@ CGFloat angleWithProgress(CGFloat progress) { return 2.0 * M_PI * progress - M_P
 @implementation MWMCircularProgressView
 {
   map<MWMCircularProgressState, MWMButtonColoring> m_buttonColoring;
+  map<MWMCircularProgressState, NSString *> m_images;
 }
 
 - (void)awakeFromNib
 {
   [super awakeFromNib];
-  self.images = [NSMutableDictionary dictionary];
   self.suspendRefreshProgress = YES;
   [self setupColors];
   [self setupButtonColoring];
@@ -99,9 +98,9 @@ CGFloat angleWithProgress(CGFloat progress) { return 2.0 * M_PI * progress - M_P
 }
 
 - (void)setSpinnerColoring:(MWMImageColoring)coloring { self.spinner.mwm_coloring = coloring; }
-- (void)setImage:(nonnull UIImage *)image forState:(MWMCircularProgressState)state
+- (void)setImageName:(nonnull NSString *)imageName forState:(MWMCircularProgressState)state
 {
-  self.images[@(state)] = image;
+  m_images[state] = imageName;
   [self refreshProgress];
 }
 
@@ -129,7 +128,11 @@ CGFloat angleWithProgress(CGFloat progress) { return 2.0 * M_PI * progress - M_P
   self.progressLayer.strokeColor = self.progressLayerColor;
   CGRect rect = CGRectInset(self.bounds, kLineWidth, kLineWidth);
   self.backgroundLayer.path = [UIBezierPath bezierPathWithOvalInRect:rect].CGPath;
-  [self.button setImage:self.images[@(self.state)] forState:UIControlStateNormal];
+  auto imageName = m_images[self.state];
+  [self.button setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+  if (UIImage * hl = [UIImage imageNamed:[imageName stringByAppendingString:@"_highlighted"]])
+    [self.button setImage:hl forState:UIControlStateHighlighted];
+
   self.button.coloring = m_buttonColoring[self.state];
 }
 

@@ -32,7 +32,7 @@ using MWMCircularProgressStateVec = vector<MWMCircularProgressState>;
 
 - (void)setSpinnerColoring:(MWMImageColoring)coloring;
 - (void)setSpinnerBackgroundColor:(nonnull UIColor *)backgroundColor;
-- (void)setImage:(nonnull UIImage *)image forStates:(MWMCircularProgressStateVec const &)states;
+- (void)setImageName:(nonnull NSString *)imageName forStates:(MWMCircularProgressStateVec const &)states;
 - (void)setColor:(nonnull UIColor *)color forStates:(MWMCircularProgressStateVec const &)states;
 - (void)setColoring:(MWMButtonColoring)coloring
           forStates:(MWMCircularProgressStateVec const &)states;

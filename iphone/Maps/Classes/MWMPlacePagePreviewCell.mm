@@ -423,7 +423,7 @@ CGFloat const kCompressedTableViewLeading = 56;
     MWMCircularProgressStateVec const affectedStates = {MWMCircularProgressStateNormal,
                                                         MWMCircularProgressStateSelected};
 
-    [_mapDownloadProgress setImage:[UIImage imageNamed:@"ic_download"] forStates:affectedStates];
+    [_mapDownloadProgress setImageName:@"ic_download" forStates:affectedStates];
     [_mapDownloadProgress setColoring:MWMButtonColoringBlue forStates:affectedStates];
   }
   return _mapDownloadProgress;

@@ -13,7 +13,6 @@
 namespace
 {
 CGFloat constexpr kAdditionalHeight = 20.;
-
 }  // namespace
 
 @interface MWMRoutePreview ()<MWMRoutePointCellDelegate, MWMCircularProgressProtocol>
@@ -77,9 +76,9 @@ CGFloat constexpr kAdditionalHeight = 20.;
 - (void)setupProgresses
 {
   using type = routing::RouterType;
-  [self addProgress:self.vehicle imageName:@"ic_drive" routerType:type::Vehicle];
-  [self addProgress:self.pedestrian imageName:@"ic_walk" routerType:type::Pedestrian];
-  [self addProgress:self.bicycle imageName:@"ic_bike_route" routerType:type::Bicycle];
+  [self addProgress:self.vehicle imageName:@"ic_car" routerType:type::Vehicle];
+  [self addProgress:self.pedestrian imageName:@"ic_pedestrian" routerType:type::Pedestrian];
+  [self addProgress:self.bicycle imageName:@"ic_bike" routerType:type::Bicycle];
   [self addProgress:self.taxi imageName:@"ic_taxi" routerType:type::Taxi];
 }
 
@@ -88,13 +87,12 @@ CGFloat constexpr kAdditionalHeight = 20.;
          routerType:(routing::RouterType)routerType
 {
   MWMCircularProgress * progress = [[MWMCircularProgress alloc] initWithParentView:parentView];
-  MWMCircularProgressStateVec const imageStates = {
-      MWMCircularProgressStateNormal,   MWMCircularProgressStateFailed,
-      MWMCircularProgressStateSelected, MWMCircularProgressStateProgress,
-      MWMCircularProgressStateSpinner,  MWMCircularProgressStateCompleted};
-  [progress setImage:[UIImage imageNamed:imageName] forStates:imageStates];
+  MWMCircularProgressStateVec const imageStates = {MWMCircularProgressStateNormal,
+    MWMCircularProgressStateProgress, MWMCircularProgressStateSpinner};
 
-  [progress setColoring:MWMButtonColoringGray forStates:{MWMCircularProgressStateNormal}];
+  [progress setImageName:imageName forStates:imageStates];
+  [progress setImageName:[imageName stringByAppendingString:@"_selected"] forStates:{MWMCircularProgressStateSelected, MWMCircularProgressStateCompleted}];
+  [progress setImageName:@"ic_error" forStates:{MWMCircularProgressStateFailed}];
 
   [progress setColoring:MWMButtonColoringWhiteText
               forStates:{MWMCircularProgressStateFailed, MWMCircularProgressStateSelected,
