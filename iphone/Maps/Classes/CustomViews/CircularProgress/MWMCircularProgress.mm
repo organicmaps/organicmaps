@@ -28,13 +28,13 @@ UINib * const progressViewNib =
 
   progress.rootView.suspendRefreshProgress = YES;
 
-  [progress setImage:[UIImage imageNamed:@"ic_download"]
+  [progress setImageName:@"ic_download"
            forStates:{MWMCircularProgressStateNormal, MWMCircularProgressStateSelected}];
-  [progress setImage:[UIImage imageNamed:@"ic_close_spinner"]
+  [progress setImageName:@"ic_close_spinner"
            forStates:{MWMCircularProgressStateProgress, MWMCircularProgressStateSpinner}];
-  [progress setImage:[UIImage imageNamed:@"ic_download_error"]
+  [progress setImageName:@"ic_download_error"
            forStates:{MWMCircularProgressStateFailed}];
-  [progress setImage:[UIImage imageNamed:@"ic_check"]
+  [progress setImageName:@"ic_check"
            forStates:{MWMCircularProgressStateCompleted}];
 
   [progress setColoring:MWMButtonColoringBlack
@@ -79,10 +79,10 @@ UINib * const progressViewNib =
   [self.rootView setSpinnerBackgroundColor:backgroundColor];
 }
 
-- (void)setImage:(nonnull UIImage *)image forStates:(MWMCircularProgressStateVec const &)states
+- (void)setImageName:(nonnull NSString *)imageName forStates:(MWMCircularProgressStateVec const &)states
 {
   for (auto const & state : states)
-    [self.rootView setImage:image forState:state];
+    [self.rootView setImageName:imageName forState:state];
 }
 
 - (void)setColor:(nonnull UIColor *)color forStates:(MWMCircularProgressStateVec const &)states

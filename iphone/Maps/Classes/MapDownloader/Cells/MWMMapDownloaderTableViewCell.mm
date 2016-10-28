@@ -81,10 +81,9 @@
   {
     MWMCircularProgressStateVec const affectedStates = {MWMCircularProgressStateNormal,
                                                         MWMCircularProgressStateSelected};
-    UIImage * image = [self isKindOfClass:[MWMMapDownloaderLargeCountryTableViewCell class]]
-                          ? [UIImage imageNamed:@"ic_folder"]
-                          : [UIImage imageNamed:@"ic_download"];
-    [progress setImage:image forStates:affectedStates];
+    NSString * imageName = [self isKindOfClass:[MWMMapDownloaderLargeCountryTableViewCell class]]
+                          ? @"ic_folder" : @"ic_download";
+    [progress setImageName:imageName forStates:affectedStates];
     [progress setColoring:coloring forStates:affectedStates];
     progress.state = MWMCircularProgressStateNormal;
     break;
@@ -103,7 +102,7 @@
   {
     MWMCircularProgressStateVec const affectedStates = {MWMCircularProgressStateNormal,
                                                         MWMCircularProgressStateSelected};
-    [progress setImage:[UIImage imageNamed:@"ic_update"] forStates:affectedStates];
+    [progress setImageName:@"ic_update" forStates:affectedStates];
     [progress setColoring:MWMButtonColoringOther forStates:affectedStates];
     progress.state = MWMCircularProgressStateNormal;
     break;
