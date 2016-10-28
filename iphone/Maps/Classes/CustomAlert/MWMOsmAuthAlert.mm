@@ -19,36 +19,43 @@ extern NSString * const kMap2GoogleLoginSegue;
 - (IBAction)facebookTap
 {
   [Statistics logEvent:kStatEditorAuthRequets withParameters:@{kStatValue : kStatFacebook, kStatFrom : kStatEdit}];
-  [self close];
-  [self.alertController.ownerViewController performSegueWithIdentifier:kMap2FBLoginSegue sender:nil];
+  [self close:^{
+    [self.alertController.ownerViewController performSegueWithIdentifier:kMap2FBLoginSegue
+                                                                  sender:nil];
+  }];
 }
 
 - (IBAction)googleTap
 {
   [Statistics logEvent:kStatEditorAuthRequets withParameters:@{kStatValue : kStatGoogle, kStatFrom : kStatEdit}];
-  [self close];
-  [self.alertController.ownerViewController performSegueWithIdentifier:kMap2GoogleLoginSegue sender:nil];
+  [self close:^{
+    [self.alertController.ownerViewController performSegueWithIdentifier:kMap2GoogleLoginSegue
+                                                                  sender:nil];
+  }];
 }
 
 - (IBAction)osmTap
 {
   [Statistics logEvent:kStatEditorAuthRequets withParameters:@{kStatValue : kStatOSM, kStatFrom : kStatEdit}];
-  [self close];
-  [self.alertController.ownerViewController performSegueWithIdentifier:kMap2OsmLoginSegue sender:nil];
+  [self close:^{
+    [self.alertController.ownerViewController performSegueWithIdentifier:kMap2OsmLoginSegue
+                                                                  sender:nil];
+  }];
 }
 
 - (IBAction)signUpTap
 {
-  [self close];
-  [Statistics logEvent:kStatEditorRegRequest withParameters:@{kStatFrom : kStatEdit}];
-  NSURL * url = [NSURL URLWithString:@(osm::OsmOAuth::ServerAuth().GetRegistrationURL().c_str())];
-  [self.alertController.ownerViewController openUrl:url];
+  [self close:^{
+    [Statistics logEvent:kStatEditorRegRequest withParameters:@{kStatFrom : kStatEdit}];
+    NSURL * url = [NSURL URLWithString:@(osm::OsmOAuth::ServerAuth().GetRegistrationURL().c_str())];
+    [self.alertController.ownerViewController openUrl:url];
+  }];
 }
 
 - (IBAction)closeTap
 {
   [Statistics logEvent:kStatEditorAuthDeclinedByUser];
-  [self close];
+  [self close:nil];
 }
 
 @end

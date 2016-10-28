@@ -49,7 +49,7 @@
 - (void)presentOsmAuthAlert;
 - (void)presentPersonalInfoWarningAlertWithBlock:(nonnull TMWMVoidBlock)block;
 - (void)presentTrackWarningAlertWithCancelBlock:(nonnull TMWMVoidBlock)block;
-- (void)closeAlert;
+- (void)closeAlert:(nullable TMWMVoidBlock)completion;
 
 - (nonnull instancetype)init __attribute__((unavailable("call -initWithViewController: instead!")));
 + (nonnull instancetype) new __attribute__((unavailable("call -initWithViewController: instead!")));

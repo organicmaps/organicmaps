@@ -139,16 +139,13 @@ CGFloat const kAnimationDuration = .05;
   if (s.CheckFailedCountries(m_countries))
   {
     if (p.IsAutoRetryDownloadFailed())
-      [self close];
+      [self close:nil];
     return;
   }
   auto const overallProgress = s.GetOverallProgress(m_countries);
   // Test if downloading has finished by comparing downloaded and total sizes.
   if (overallProgress.first == overallProgress.second)
-  {
-    self.downloadCompleteBlock();
-    [self close];
-  }
+    [self close:self.downloadCompleteBlock];
 }
 
 - (void)processCountry:(TCountryId const &)countryId progress:(MapFilesDownloader::TProgress const &)progress
@@ -164,8 +161,7 @@ CGFloat const kAnimationDuration = .05;
 - (IBAction)cancelButtonTap
 {
   [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatClose}];
-  self.cancelBlock();
-  [self close];
+  [self close:self.cancelBlock];
 }
 
 - (IBAction)downloadButtonTap

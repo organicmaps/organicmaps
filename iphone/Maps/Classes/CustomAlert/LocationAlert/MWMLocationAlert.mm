@@ -25,22 +25,18 @@ static NSString * const kStatisticsEvent = @"Location Alert";
 - (IBAction)settingsTap
 {
   [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatApply}];
-  [self openSettings];
-  [self close];
+  [self close:^{
+    NSURL * url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+    UIApplication * a = [UIApplication sharedApplication];
+    if ([a canOpenURL:url])
+      [a openURL:url];
+  }];
 }
 
 - (IBAction)closeTap
 {
   [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatClose}];
-  [self close];
-}
-
-- (void)openSettings
-{
-  NSURL * url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-  UIApplication * a = [UIApplication sharedApplication];
-  if ([a canOpenURL:url])
-    [a openURL:url];
+  [self close:nil];
 }
 
 @end

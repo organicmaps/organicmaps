@@ -46,14 +46,16 @@ namespace
 - (IBAction)shareTap
 {
   [Statistics logEvent:kStatEditorSecondTimeShareClick withParameters:@{kStatValue : self.statMessage}];
-  MWMActivityViewController * shareVC = [MWMActivityViewController shareControllerForEditorViral];
-  [self close];
-  [shareVC presentInParentViewController:self.alertController.ownerViewController anchorView:self.shareButton];
+  [self close:^{
+    MWMActivityViewController * shareVC = [MWMActivityViewController shareControllerForEditorViral];
+    [shareVC presentInParentViewController:self.alertController.ownerViewController
+                                anchorView:self.shareButton];
+  }];
 }
 
 - (IBAction)cancelTap
 {
-  [self close];
+  [self close:nil];
 }
 
 - (NSString *)statMessage

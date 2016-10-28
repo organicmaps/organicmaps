@@ -49,14 +49,13 @@ static NSString * const kStatisticsEvent = @"Routing Disclaimer Alert";
 - (IBAction)okTap
 {
   [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatApply}];
-  self.okBlock();
-  [self close];
+  [self close:self.okBlock];
 }
 
 - (IBAction)cancelTap
 {
   [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatCancel}];
-  [self close];
+  [self close:nil];
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation

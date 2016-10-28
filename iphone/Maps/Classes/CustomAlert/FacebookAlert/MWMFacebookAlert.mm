@@ -32,7 +32,7 @@ static NSString * const kStatisticsEvent = @"Facebook Alert";
 {
   [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatApply}];
   [Alohalytics logEvent:kFacebookInviteEventName withValue:@"shareTap"];
-  [self close];
+  [self close:nil];
   [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kUDAlreadySharedKey];
   [[NSUserDefaults standardUserDefaults] synchronize];
 
@@ -46,7 +46,7 @@ static NSString * const kStatisticsEvent = @"Facebook Alert";
 {
   [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatClose}];
   [Alohalytics logEvent:kFacebookInviteEventName withValue:@"notNowTap"];
-  [self close];
+  [self close:nil];
 }
 
 @end

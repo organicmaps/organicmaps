@@ -107,7 +107,7 @@ static NSString * const kStatisticsEvent = @"Rate Alert";
 {
   [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatClose}];
   [Alohalytics logEvent:kRateAlertEventName withValue:@"notNowTap"];
-  [self close];
+  [self close:nil];
 }
 
 - (IBAction)rateTap
@@ -121,20 +121,16 @@ static NSString * const kStatisticsEvent = @"Rate Alert";
   {
     [[UIApplication sharedApplication] rateVersionFrom:@"ios_pro_popup"];
     [Alohalytics logEvent:kRateAlertEventName withValue:@"fiveStar"];
-    [self close];
-    [self setupAlreadyRatedInUserDefaults];
+    [self close:^{
+      auto ud = [NSUserDefaults standardUserDefaults];
+      [ud setBool:YES forKey:kUDAlreadyRatedKey];
+      [ud synchronize];
+    }];
   }
   else
   {
     [self sendFeedback];
   }
-}
-
-- (void)setupAlreadyRatedInUserDefaults
-{
-  auto ud = [NSUserDefaults standardUserDefaults];
-  [ud setBool:YES forKey:kUDAlreadyRatedKey];
-  [ud synchronize];
 }
 
 - (void)sendFeedback
@@ -196,7 +192,7 @@ static NSString * const kStatisticsEvent = @"Rate Alert";
       dismissViewControllerAnimated:YES
                          completion:^{
                            [Statistics logEvent:kStatEventName(kStatisticsEvent, kStatClose)];
-                           [self close];
+                           [self close:nil];
                          }];
 }
 

@@ -219,7 +219,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [MapsAppDelegate.theApp.window endEditing:YES];
 }
 
-- (void)closeAlert
+- (void)closeAlert:(nullable TMWMVoidBlock)completion
 {
   NSArray * subviews = self.view.subviews;
   MWMAlert * closeAlert = subviews.lastObject;
@@ -241,6 +241,8 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
           [self.view removeFromSuperview];
           [self removeFromParentViewController];
         }
+        if (completion)
+          completion();
       }];
 }
 

@@ -159,7 +159,7 @@
   // Should override this method if you want custom relayout after rotation.
 }
 
-- (void)close { [self.alertController closeAlert]; }
+- (void)close:(TMWMVoidBlock)completion { [self.alertController closeAlert:completion]; }
 - (void)setNeedsCloseAlertAfterEnterBackground
 {
   [[NSNotificationCenter defaultCenter] addObserver:self
@@ -172,7 +172,7 @@
 - (void)applicationDidEnterBackground
 {
   // Should close alert when application entered background.
-  [self close];
+  [self close:nil];
 }
 
 - (void)rotate:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration

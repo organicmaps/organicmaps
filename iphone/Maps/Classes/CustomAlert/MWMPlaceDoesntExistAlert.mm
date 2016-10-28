@@ -25,14 +25,15 @@
 - (IBAction)rightButtonTap
 {
   [self.textField resignFirstResponder];
-  [self close];
-  self.block(self.textField.text);
+  [self close:^{
+    self.block(self.textField.text);
+  }];
 }
 
 - (IBAction)leftButtonTap
 {
   [self.textField resignFirstResponder];
-  [self close];
+  [self close:nil];
 }
 
 #pragma mark - MWMKeyboard

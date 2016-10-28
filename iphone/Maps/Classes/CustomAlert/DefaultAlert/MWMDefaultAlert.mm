@@ -424,17 +424,13 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 - (IBAction)rightButtonTap
 {
   [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatApply}];
-  if (self.rightButtonAction)
-    self.rightButtonAction();
-  [self close];
+  [self close:self.rightButtonAction];
 }
 
 - (IBAction)leftButtonTap
 {
   [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatClose}];
-  if (self.leftButtonAction)
-    self.leftButtonAction();
-  [self close];
+  [self close:self.leftButtonAction];
 }
 
 @end
