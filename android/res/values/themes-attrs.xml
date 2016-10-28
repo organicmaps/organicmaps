@@ -65,6 +65,7 @@
 
     <attr name="routingButtonHint" format="color"/>
     <attr name="routingButtonPressedHint" format="color"/>
+    <attr name="routingButtonActivatedHint" format="color"/>
   </declare-styleable>
 
   <declare-styleable name="ThemeAttrs.NavButtons">

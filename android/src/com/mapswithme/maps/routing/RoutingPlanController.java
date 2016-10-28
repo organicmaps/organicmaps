@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.AppCompatRadioButton;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -19,7 +20,6 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
@@ -31,10 +31,10 @@ import com.mapswithme.maps.uber.UberInfo;
 import com.mapswithme.maps.uber.UberLinks;
 import com.mapswithme.maps.widget.DotPager;
 import com.mapswithme.maps.widget.RotateDrawable;
+import com.mapswithme.maps.widget.RoutingToolbarButton;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.maps.widget.WheelProgressView;
 import com.mapswithme.util.ConnectionState;
-import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.AlohaHelper;
@@ -55,6 +55,7 @@ public class RoutingPlanController extends ToolbarController
   private final WheelProgressView mProgressPedestrian;
   private final WheelProgressView mProgressBicycle;
   private final WheelProgressView mProgressTaxi;
+
   private final View mAltitudeChartFrame;
   private final View mUberFrame;
 
@@ -75,16 +76,19 @@ public class RoutingPlanController extends ToolbarController
       @Override
       public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
       {
-        buttonView.setButtonDrawable(Graphics.tint(mActivity, iconRes, isChecked ? R.attr.routingButtonPressedHint
-                                                                                 : R.attr.routingButtonHint));
+        RoutingToolbarButton button = (RoutingToolbarButton) buttonView;
+        if (isChecked)
+          button.activate();
+        else
+          button.deactivate();
       }
     };
 
-    RadioButton rb = (RadioButton) mRouterTypes.findViewById(buttonId);
+    RoutingToolbarButton rb = (RoutingToolbarButton) mRouterTypes.findViewById(buttonId);
+    rb.setButtonDrawable(iconRes);
     listener.onCheckedChanged(rb, false);
     rb.setOnCheckedChangeListener(listener);
     rb.setOnClickListener(clickListener);
-
     return rb;
   }
 
@@ -97,7 +101,7 @@ public class RoutingPlanController extends ToolbarController
     mSlotFrame = (SlotFrame) root.findViewById(R.id.slots);
     mRouterTypes = (RadioGroup) mToolbar.findViewById(R.id.route_type);
 
-    setupRouterButton(R.id.vehicle, R.drawable.ic_drive, new View.OnClickListener()
+    setupRouterButton(R.id.vehicle, R.drawable.ic_car, new View.OnClickListener()
     {
       @Override
       public void onClick(View v)
@@ -108,7 +112,7 @@ public class RoutingPlanController extends ToolbarController
       }
     });
 
-    setupRouterButton(R.id.pedestrian, R.drawable.ic_walk, new View.OnClickListener()
+    setupRouterButton(R.id.pedestrian, R.drawable.ic_pedestrian, new View.OnClickListener()
     {
       @Override
       public void onClick(View v)
@@ -119,7 +123,7 @@ public class RoutingPlanController extends ToolbarController
       }
     });
 
-    setupRouterButton(R.id.bicycle, R.drawable.ic_bicycle, new View.OnClickListener()
+    setupRouterButton(R.id.bicycle, R.drawable.ic_bike, new View.OnClickListener()
     {
       @Override
       public void onClick(View v)
@@ -139,8 +143,7 @@ public class RoutingPlanController extends ToolbarController
         Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_TAXI_SET);
         if (!ConnectionState.isConnected())
         {
-          //TODO: show uber error about offline mode showUberError(R.id.no_internet_connection);
-          Toast.makeText(mActivity, "Заказ такси недоступен в оффлайн-режиме", Toast.LENGTH_LONG).show();
+          ((RoutingToolbarButton) v).error();
           return;
         }
         RoutingController.get().setRouterType(Framework.ROUTER_TYPE_TAXI);
@@ -287,10 +290,18 @@ public class RoutingPlanController extends ToolbarController
       progressView = mProgressBicycle;
     }
 
+    RoutingToolbarButton button = (RoutingToolbarButton)mRouterTypes
+        .findViewById(mRouterTypes.getCheckedRadioButtonId());
+    button.progress();
+
     updateProgressLabels();
 
     if (!RoutingController.get().isBuilding() || RoutingController.get().isUberRequestHandled())
+    {
+      button.setProgress(false);
+      button.activate();
       return;
+    }
 
     UiUtils.show(progressView);
     progressView.setPending(progress == 0);
