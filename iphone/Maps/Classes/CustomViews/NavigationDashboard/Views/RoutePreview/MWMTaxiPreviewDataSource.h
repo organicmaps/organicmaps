@@ -17,5 +17,6 @@ class MWMRoutePoint;
                              failure:(MWMStringBlock)failure;
 
 - (NSURL *)taxiURL;
+- (BOOL)isTaxiInstalled;
 
 @end
