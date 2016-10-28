@@ -11,6 +11,9 @@
         <file>minus.png</file>
         <file>location-search.png</file>
         <file>location.png</file>
+        <file>select.png</file>
+        <file>selectmode.png</file>
+        <file>clear.png</file>
     </qresource>
     <qresource prefix="/ui">
         <file>logo.png</file>

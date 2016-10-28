@@ -44,8 +44,7 @@ bool IsLeftButton(Qt::MouseButtons buttons)
 {
   return buttons & Qt::LeftButton;
 }
-
-bool IsLeftButton(QMouseEvent * e)
+bool IsLeftButton(QMouseEvent const * const e)
 {
   return IsLeftButton(e->button()) || IsLeftButton(e->buttons());
 }
@@ -54,37 +53,25 @@ bool IsRightButton(Qt::MouseButtons buttons)
 {
   return buttons & Qt::RightButton;
 }
-
-bool IsRightButton(QMouseEvent * e)
+bool IsRightButton(QMouseEvent const * const e)
 {
   return IsRightButton(e->button()) || IsRightButton(e->buttons());
 }
 
-bool IsRotation(QMouseEvent * e)
-{
-  return e->modifiers() & Qt::ControlModifier;
-}
-
-bool IsRouting(QMouseEvent * e)
-{
-  return e->modifiers() & Qt::ShiftModifier;
-}
-
-bool IsLocationEmulation(QMouseEvent * e)
-{
-  return e->modifiers() & Qt::AltModifier;
-}
-
+bool IsCommandModifier(QMouseEvent const * const e) { return e->modifiers() & Qt::ControlModifier; }
+bool IsShiftModifier(QMouseEvent const * const e) { return e->modifiers() & Qt::ShiftModifier; }
+bool IsAltModifier(QMouseEvent const * const e) { return e->modifiers() & Qt::AltModifier; }
 } // namespace
 
 DrawWidget::DrawWidget(QWidget * parent)
-  : TBase(parent),
-    m_contextFactory(nullptr),
-    m_framework(new Framework()),
-    m_ratio(1.0),
-    m_pScale(nullptr),
-    m_enableScaleUpdate(true),
-    m_emulatingLocation(false)
+  : TBase(parent)
+  , m_contextFactory(nullptr)
+  , m_framework(new Framework())
+  , m_ratio(1.0)
+  , m_pScale(nullptr)
+  , m_rubberBand(nullptr)
+  , m_enableScaleUpdate(true)
+  , m_emulatingLocation(false)
 {
   m_framework->SetMapSelectionListeners([this](place_page::Info const & info)
   {
@@ -115,6 +102,8 @@ DrawWidget::DrawWidget(QWidget * parent)
 
 DrawWidget::~DrawWidget()
 {
+  delete m_rubberBand;
+
   m_framework->EnterBackground();
   m_framework.reset();
 }
@@ -387,15 +376,28 @@ void DrawWidget::mousePressEvent(QMouseEvent * e)
 
   if (IsLeftButton(e))
   {
-    if (IsRouting(e))
+    if (IsShiftModifier(e))
       SubmitRoutingPoint(pt);
-    else if (IsLocationEmulation(e))
+    else if (IsAltModifier(e))
       SubmitFakeLocationPoint(pt);
     else
       m_framework->TouchEvent(GetTouchEvent(e, df::TouchEvent::TOUCH_DOWN));
   }
   else if (IsRightButton(e))
-    ShowInfoPopup(e, pt);
+  {
+    if (!m_selectionMode || IsCommandModifier(e))
+    {
+      ShowInfoPopup(e, pt);
+    }
+    else
+    {
+      m_rubberBandOrigin = e->pos();
+      if (m_rubberBand == nullptr)
+        m_rubberBand = new QRubberBand(QRubberBand::Rectangle, this);
+      m_rubberBand->setGeometry(QRect(m_rubberBandOrigin, QSize()));
+      m_rubberBand->show();
+    }
+  }
 }
 
 void DrawWidget::mouseDoubleClickEvent(QMouseEvent * e)
@@ -408,15 +410,33 @@ void DrawWidget::mouseDoubleClickEvent(QMouseEvent * e)
 void DrawWidget::mouseMoveEvent(QMouseEvent * e)
 {
   TBase::mouseMoveEvent(e);
-  if (IsLeftButton(e) && !IsLocationEmulation(e))
+  if (IsLeftButton(e) && !IsAltModifier(e))
     m_framework->TouchEvent(GetTouchEvent(e, df::TouchEvent::TOUCH_MOVE));
+
+  if (m_selectionMode && m_rubberBand != nullptr && m_rubberBand->isVisible())
+  {
+    m_rubberBand->setGeometry(QRect(m_rubberBandOrigin, e->pos()).normalized());
+  }
 }
 
 void DrawWidget::mouseReleaseEvent(QMouseEvent * e)
 {
   TBase::mouseReleaseEvent(e);
-  if (IsLeftButton(e) && !IsLocationEmulation(e))
+  if (IsLeftButton(e) && !IsAltModifier(e))
+  {
     m_framework->TouchEvent(GetTouchEvent(e, df::TouchEvent::TOUCH_UP));
+  }
+  else if (m_selectionMode && IsRightButton(e) && m_rubberBand != nullptr &&
+           m_rubberBand->isVisible())
+  {
+    QPoint const lt = m_rubberBand->geometry().topLeft();
+    QPoint const rb = m_rubberBand->geometry().bottomRight();
+    m2::RectD rect;
+    rect.Add(m_framework->PtoG(m2::PointD(L2D(lt.x()), L2D(lt.y()))));
+    rect.Add(m_framework->PtoG(m2::PointD(L2D(rb.x()), L2D(rb.y()))));
+    m_framework->VizualizeRoadsInRect(rect);
+    m_rubberBand->hide();
+  }
 }
 
 void DrawWidget::keyPressEvent(QKeyEvent * e)
@@ -652,7 +672,7 @@ df::TouchEvent DrawWidget::GetTouchEvent(QMouseEvent * e, df::TouchEvent::ETouch
   df::TouchEvent event;
   event.SetTouchType(type);
   event.SetFirstTouch(GetTouch(e));
-  if (IsRotation(e))
+  if (IsCommandModifier(e))
     event.SetSecondTouch(GetSymmetrical(event.GetFirstTouch()));
 
   return event;
@@ -667,5 +687,5 @@ void DrawWidget::SetRouter(routing::RouterType routerType)
 {
   m_framework->SetRouter(routerType);
 }
-
+void DrawWidget::SetSelectionMode(bool mode) { m_selectionMode = mode; }
 }
