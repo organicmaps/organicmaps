@@ -28,6 +28,8 @@ namespace qt
   {
     QAction * m_pMyPositionAction;
     QAction * m_pCreateFeatureAction;
+    QAction * m_selectionMode;
+    QAction * m_clearSelection;
     QAction * m_pSearchAction;
     DrawWidget * m_pDrawWidget;
 
@@ -84,5 +86,8 @@ namespace qt
 
     void OnDownloadClicked();
     void OnRetryDownloadClicked();
+
+    void OnSwitchSelectionMode();
+    void OnClearSelection();
   };
 }

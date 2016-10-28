@@ -15,6 +15,7 @@
 #include "std/unique_ptr.hpp"
 
 #include <QtWidgets/QOpenGLWidget>
+#include <QtWidgets/QRubberBand>
 
 class QQuickWindow;
 
@@ -82,6 +83,8 @@ namespace qt
     void DownloadCountry(storage::TCountryId const & countryId);
     void RetryToDownloadCountry(storage::TCountryId const & countryId);
 
+    void SetSelectionMode(bool mode);
+
   protected:
     void initializeGL() override;
     void paintGL() override;
@@ -115,6 +118,8 @@ namespace qt
     void UpdateCountryStatus(storage::TCountryId const & countryId);
 
     QScaleSlider * m_pScale;
+    QRubberBand * m_rubberBand;
+    QPoint m_rubberBandOrigin;
     bool m_enableScaleUpdate;
 
     bool m_emulatingLocation;
@@ -125,5 +130,7 @@ namespace qt
 
     TCurrentCountryChanged m_currentCountryChanged;
     storage::TCountryId m_countryId;
+
+    bool m_selectionMode = false;
   };
 }
