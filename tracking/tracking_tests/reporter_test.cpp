@@ -70,6 +70,22 @@ void TransferLocation(Reporter & reporter, TestSocket & testSocket, double times
 }
 }
 
+UNIT_TEST(Reporter_Smoke)
+{
+  {
+    unique_ptr<platform::Socket> socket;
+    Reporter reporter(move(socket), "localhost", 0, milliseconds(10) /* pushDelay */);
+  }
+  {
+    auto socket = make_unique<TestSocket>();
+    Reporter reporter(move(socket), "localhost", 0, milliseconds(10) /* pushDelay */);
+  }
+  {
+    auto socket = platform::CreateSocket();
+    Reporter reporter(move(socket), "localhost", 0, milliseconds(10) /* pushDelay */);
+  }
+}
+
 UNIT_TEST(Reporter_TransferLocations)
 {
   auto socket = make_unique<TestSocket>();

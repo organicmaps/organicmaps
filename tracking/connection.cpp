@@ -16,7 +16,8 @@ Connection::Connection(unique_ptr<platform::Socket> socket, string const & host,
                        bool isHistorical)
   : m_socket(move(socket)), m_host(host), m_port(port), m_isHistorical(isHistorical)
 {
-  ASSERT(m_socket.get(), ());
+  if (!m_socket)
+    return;
 
   m_socket->SetTimeout(kSocketTimeoutMs);
 }
@@ -24,6 +25,9 @@ Connection::Connection(unique_ptr<platform::Socket> socket, string const & host,
 // TODO: implement handshake
 bool Connection::Reconnect()
 {
+  if (!m_socket)
+    return false;
+
   m_socket->Close();
 
   if (!m_socket->Open(m_host, m_port))
@@ -45,6 +49,9 @@ bool Connection::Reconnect()
 // TODO: implement historical
 bool Connection::Send(boost::circular_buffer<DataPoint> const & points)
 {
+  if (!m_socket)
+    return false;
+
   auto packet = Protocol::CreateDataPacket(points);
   return m_socket->Write(packet.data(), static_cast<uint32_t>(packet.size()));
 }
