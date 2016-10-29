@@ -11,7 +11,6 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.AppCompatRadioButton;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -34,7 +33,6 @@ import com.mapswithme.maps.widget.RotateDrawable;
 import com.mapswithme.maps.widget.RoutingToolbarButton;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.maps.widget.WheelProgressView;
-import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.AlohaHelper;
@@ -77,6 +75,7 @@ public class RoutingPlanController extends ToolbarController
       public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
       {
         RoutingToolbarButton button = (RoutingToolbarButton) buttonView;
+        button.setIcon(iconRes);
         if (isChecked)
           button.activate();
         else
@@ -85,7 +84,6 @@ public class RoutingPlanController extends ToolbarController
     };
 
     RoutingToolbarButton rb = (RoutingToolbarButton) mRouterTypes.findViewById(buttonId);
-    rb.setButtonDrawable(iconRes);
     listener.onCheckedChanged(rb, false);
     rb.setOnCheckedChangeListener(listener);
     rb.setOnClickListener(clickListener);
@@ -141,11 +139,6 @@ public class RoutingPlanController extends ToolbarController
       {
         AlohaHelper.logClick(AlohaHelper.ROUTING_TAXI_SET);
         Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_TAXI_SET);
-        if (!ConnectionState.isConnected())
-        {
-          ((RoutingToolbarButton) v).error();
-          return;
-        }
         RoutingController.get().setRouterType(Framework.ROUTER_TYPE_TAXI);
       }
     });
@@ -296,10 +289,20 @@ public class RoutingPlanController extends ToolbarController
 
     updateProgressLabels();
 
-    if (!RoutingController.get().isBuilding() || RoutingController.get().isUberRequestHandled())
+    if (RoutingController.get().isUberRequestHandled())
     {
-      button.setProgress(false);
-      button.activate();
+      if (!RoutingController.get().isUberInternetConnected())
+      {
+        showNoInternetError();
+        return;
+      }
+      button.complete();
+      return;
+    }
+
+    if (!RoutingController.get().isBuilding() && !RoutingController.get().isUberPlanning())
+    {
+      button.complete();
       return;
     }
 
@@ -406,8 +409,7 @@ public class RoutingPlanController extends ToolbarController
 
   public void showUberInfo(@NonNull UberInfo info)
   {
-    UiUtils.hide(getViewById(R.id.error));
-    UiUtils.hide(mAltitudeChartFrame);
+    UiUtils.hide(getViewById(R.id.error), mAltitudeChartFrame);
 
     final UberInfo.Product[] products = info.getProducts();
     mUberInfo = info;
@@ -437,15 +439,23 @@ public class RoutingPlanController extends ToolbarController
         showError(R.string.taxi_not_found);
         break;
       case RemoteError:
-        //TODO:showError(R.string.remote_error);
+        showError(R.string.uber_remote_error);
         break;
       default:
         throw new AssertionError("Unsupported uber error: " + code);
     }
   }
 
+  private void showNoInternetError()
+  {
+    RoutingToolbarButton rb = (RoutingToolbarButton) mRouterTypes.findViewById(mRouterTypes.getCheckedRadioButtonId());
+    rb.error();
+    showError(R.string.uber_no_internet);
+  }
+
   private void showError(@StringRes int message)
   {
+    UiUtils.hide(mUberFrame, mAltitudeChartFrame);
     TextView error = (TextView) getViewById(R.id.error);
     error.setText(message);
     error.setVisibility(View.VISIBLE);

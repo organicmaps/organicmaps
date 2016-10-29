@@ -25,6 +25,7 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.Config;
+import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.Utils;
@@ -101,6 +102,7 @@ public class RoutingController
   private RoutingInfo mCachedRoutingInfo;
   private boolean mUberRequestHandled;
   private boolean mUberPlanning;
+  private boolean mUberInternetConnected;
 
   @SuppressWarnings("FieldCanBeLocal")
   private final Framework.RoutingListener mRoutingListener = new Framework.RoutingListener()
@@ -266,6 +268,23 @@ public class RoutingController
     mLogger.d("build");
     mUberRequestHandled = false;
     mLastBuildProgress = 0;
+    mUberInternetConnected = ConnectionState.isConnected();
+
+    if (mLastRouterType == Framework.ROUTER_TYPE_TAXI)
+    {
+      if (!mUberInternetConnected)
+      {
+        if (mContainer != null)
+        {
+          mUberRequestHandled = true;
+          mContainer.updateBuildProgress(100, mLastRouterType);
+          mContainer.updateMenu();
+          return;
+        }
+      }
+      requestUberInfo();
+    }
+
     setBuildState(BuildState.BUILDING);
     updatePlan();
 
@@ -273,9 +292,6 @@ public class RoutingController
     org.alohalytics.Statistics.logEvent(AlohaHelper.ROUTING_BUILD, new String[] {Statistics.EventParam.FROM, Statistics.getPointType(mStartPoint),
                                                                                  Statistics.EventParam.TO, Statistics.getPointType(mEndPoint)});
     Framework.nativeBuildRoute(mStartPoint.getLat(), mStartPoint.getLon(), mEndPoint.getLat(), mEndPoint.getLon());
-
-    if (mLastRouterType == Framework.ROUTER_TYPE_TAXI)
-      requestUberInfo();
   }
 
   private void showDisclaimer(final MapObject startPoint, final MapObject endPoint)
@@ -483,7 +499,7 @@ public class RoutingController
     return mState == State.PREPARE;
   }
 
-  private boolean isUberPlanning()
+  boolean isUberPlanning()
   {
     return mLastRouterType == Framework.ROUTER_TYPE_TAXI && mUberPlanning;
   }
@@ -517,6 +533,11 @@ public class RoutingController
   public boolean isUberRequestHandled()
   {
     return mUberRequestHandled;
+  }
+
+  boolean isUberInternetConnected()
+  {
+    return mUberInternetConnected;
   }
 
   BuildState getBuildState()
@@ -691,7 +712,9 @@ public class RoutingController
   {
     mLogger.d("setRouterType: " + mLastRouterType + " -> " + router);
 
-    if (router == mLastRouterType)
+    //Repeating tap on Uber icon should trigger the route building always,
+    //because it may be "No internet connection, try later" case
+    if (router == mLastRouterType && router != Framework.ROUTER_TYPE_TAXI)
       return;
 
     mLastRouterType = router;

@@ -3,6 +3,7 @@ package com.mapswithme.maps.widget;
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.util.AttributeSet;
 
@@ -12,6 +13,8 @@ import com.mapswithme.util.ThemeUtils;
 public class RoutingToolbarButton extends AppCompatRadioButton
 {
   private boolean mProgress;
+  @DrawableRes
+  private int mIcon;
 
   public RoutingToolbarButton(Context context, AttributeSet attrs, int defStyleAttr)
   {
@@ -44,18 +47,17 @@ public class RoutingToolbarButton extends AppCompatRadioButton
     if (mProgress)
       return;
 
+    setButtonDrawable(mIcon);
     mProgress = true;
     setActivated(false);
     setSelected(true);
   }
 
-  public void setProgress(boolean progress)
-  {
-    mProgress = progress;
-  }
-
   public void error()
   {
+    mProgress = false;
+    setSelected(false);
+    setButtonDrawable(R.drawable.ic_reload);
     setActivated(true);
   }
 
@@ -63,9 +65,16 @@ public class RoutingToolbarButton extends AppCompatRadioButton
   {
     if (!mProgress)
     {
+      setButtonDrawable(mIcon);
       setSelected(false);
       setActivated(true);
     }
+  }
+
+  public void complete()
+  {
+    mProgress = false;
+    activate();
   }
 
   public void deactivate()
@@ -80,5 +89,11 @@ public class RoutingToolbarButton extends AppCompatRadioButton
       setSupportButtonTintList(getResources().getColorStateList(color));
     else
       setButtonTintList(getResources().getColorStateList(color));
+  }
+
+  public void setIcon(@DrawableRes int icon)
+  {
+    mIcon = icon;
+    setButtonDrawable(icon);
   }
 }
