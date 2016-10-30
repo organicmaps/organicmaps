@@ -274,13 +274,8 @@ public class RoutingController
     {
       if (!mUberInternetConnected)
       {
-        if (mContainer != null)
-        {
-          mUberRequestHandled = true;
-          mContainer.updateBuildProgress(100, mLastRouterType);
-          mContainer.updateMenu();
-          return;
-        }
+        completeUberRequest();
+        return;
       }
       requestUberInfo();
     }
@@ -292,6 +287,16 @@ public class RoutingController
     org.alohalytics.Statistics.logEvent(AlohaHelper.ROUTING_BUILD, new String[] {Statistics.EventParam.FROM, Statistics.getPointType(mStartPoint),
                                                                                  Statistics.EventParam.TO, Statistics.getPointType(mEndPoint)});
     Framework.nativeBuildRoute(mStartPoint.getLat(), mStartPoint.getLon(), mEndPoint.getLat(), mEndPoint.getLon());
+  }
+
+  private void completeUberRequest()
+  {
+    mUberRequestHandled = true;
+    if (mContainer != null)
+    {
+      mContainer.updateBuildProgress(100, mLastRouterType);
+      mContainer.updateMenu();
+    }
   }
 
   private void showDisclaimer(final MapObject startPoint, final MapObject endPoint)
@@ -443,6 +448,7 @@ public class RoutingController
     mEndPoint = null;
     setPointsInternal();
     mWaitingPoiPickSlot = NO_SLOT;
+    mUberRequestHandled = false;
 
     setBuildState(BuildState.NONE);
     setState(State.NONE);
@@ -827,9 +833,7 @@ public class RoutingController
     if (mLastRouterType == Framework.ROUTER_TYPE_TAXI && mContainer != null)
     {
       mContainer.onUberInfoReceived(info);
-      mUberRequestHandled = true;
-      mContainer.updateBuildProgress(100, mLastRouterType);
-      mContainer.updateMenu();
+      completeUberRequest();
     }
   }
 
@@ -846,9 +850,7 @@ public class RoutingController
     if (mLastRouterType == Framework.ROUTER_TYPE_TAXI && mContainer != null)
     {
       mContainer.onUberError(code);
-      mUberRequestHandled = true;
-      mContainer.updateBuildProgress(100, mLastRouterType);
-      mContainer.updateMenu();
+      completeUberRequest();
     }
   }
 }
