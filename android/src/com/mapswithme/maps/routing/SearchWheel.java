@@ -116,6 +116,7 @@ class SearchWheel implements View.OnClickListener
     mIsExpanded = false;
     mCurrentOption = null;
     SearchEngine.cancelSearch();
+    resetSearchButtonImage();
   }
 
   public void onResume()
