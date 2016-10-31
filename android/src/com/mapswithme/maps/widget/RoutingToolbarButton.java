@@ -12,7 +12,7 @@ import com.mapswithme.util.ThemeUtils;
 
 public class RoutingToolbarButton extends AppCompatRadioButton
 {
-  private boolean mProgress;
+  private boolean mInProgress;
   @DrawableRes
   private int mIcon;
 
@@ -44,18 +44,18 @@ public class RoutingToolbarButton extends AppCompatRadioButton
 
   public void progress()
   {
-    if (mProgress)
+    if (mInProgress)
       return;
 
     setButtonDrawable(mIcon);
-    mProgress = true;
+    mInProgress = true;
     setActivated(false);
     setSelected(true);
   }
 
   public void error()
   {
-    mProgress = false;
+    mInProgress = false;
     setSelected(false);
     setButtonDrawable(R.drawable.ic_reload);
     setActivated(true);
@@ -63,7 +63,7 @@ public class RoutingToolbarButton extends AppCompatRadioButton
 
   public void activate()
   {
-    if (!mProgress)
+    if (!mInProgress)
     {
       setButtonDrawable(mIcon);
       setSelected(false);
@@ -73,14 +73,14 @@ public class RoutingToolbarButton extends AppCompatRadioButton
 
   public void complete()
   {
-    mProgress = false;
+    mInProgress = false;
     activate();
   }
 
   public void deactivate()
   {
     setActivated(false);
-    mProgress = false;
+    mInProgress = false;
   }
 
   public void setButtonTintList(@ColorRes int color)

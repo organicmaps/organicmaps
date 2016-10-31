@@ -102,7 +102,7 @@ public class RoutingController
   private RoutingInfo mCachedRoutingInfo;
   private boolean mUberRequestHandled;
   private boolean mUberPlanning;
-  private boolean mUberInternetConnected;
+  private boolean mInternetConnected;
 
   @SuppressWarnings("FieldCanBeLocal")
   private final Framework.RoutingListener mRoutingListener = new Framework.RoutingListener()
@@ -268,11 +268,11 @@ public class RoutingController
     mLogger.d("build");
     mUberRequestHandled = false;
     mLastBuildProgress = 0;
-    mUberInternetConnected = ConnectionState.isConnected();
+    mInternetConnected = ConnectionState.isConnected();
 
     if (mLastRouterType == Framework.ROUTER_TYPE_TAXI)
     {
-      if (!mUberInternetConnected)
+      if (!mInternetConnected)
       {
         completeUberRequest();
         return;
@@ -541,9 +541,9 @@ public class RoutingController
     return mUberRequestHandled;
   }
 
-  boolean isUberInternetConnected()
+  boolean isInternetConnected()
   {
-    return mUberInternetConnected;
+    return mInternetConnected;
   }
 
   BuildState getBuildState()
@@ -718,8 +718,8 @@ public class RoutingController
   {
     mLogger.d("setRouterType: " + mLastRouterType + " -> " + router);
 
-    //Repeating tap on Uber icon should trigger the route building always,
-    //because it may be "No internet connection, try later" case
+    // Repeating tap on Uber icon should trigger the route building always,
+    // because it may be "No internet connection, try later" case
     if (router == mLastRouterType && router != Framework.ROUTER_TYPE_TAXI)
       return;
 

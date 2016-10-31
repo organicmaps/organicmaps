@@ -416,7 +416,7 @@ public class Utils
 
   public static void launchUber(@NonNull Activity context, @NonNull UberLinks links)
   {
-    Intent intent = new Intent(Intent.ACTION_VIEW);
+    final Intent intent = new Intent(Intent.ACTION_VIEW);
     if (isUberInstalled(context))
     {
 

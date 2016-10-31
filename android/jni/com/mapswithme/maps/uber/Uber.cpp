@@ -14,6 +14,7 @@ jobject g_routingControllerInstance;
 jmethodID g_productConstructor;
 jmethodID g_routingControllerGetMethod;
 jmethodID g_uberInfoCallbackMethod;
+jmethodID g_uberErrorCallbackMethod;
 jclass g_uberLinksClass;
 jmethodID g_uberLinksConstructor;
 uint64_t g_lastRequestId;
@@ -38,6 +39,8 @@ void PrepareClassRefs(JNIEnv * env)
   g_uberInfoCallbackMethod =
       jni::GetMethodID(env, g_routingControllerInstance, "onUberInfoReceived",
                        "(Lcom/mapswithme/maps/uber/UberInfo;)V");
+  g_uberErrorCallbackMethod = jni::GetMethodID(env, g_routingControllerInstance,
+                                               "onUberError", "(Ljava/lang/String;)V");
   g_uberInfoConstructor = jni::GetConstructorID(env, g_uberInfoClass,
                                                 "([Lcom/mapswithme/maps/uber/UberInfo$Product;)V");
   g_uberLinksClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/uber/UberLinks");
@@ -82,10 +85,8 @@ void OnUberError(uber::ErrorCode const code, uint64_t const requestId)
 
     jobject const routingControllerInstance =
         env->CallStaticObjectMethod(g_routingControllerClass, g_routingControllerGetMethod);
-    static jmethodID const uberErrorMethod =
-        jni::GetMethodID(env, routingControllerInstance, "onUberError", "(Ljava/lang/String;)V");
 
-    env->CallVoidMethod(routingControllerInstance, uberErrorMethod,
+    env->CallVoidMethod(routingControllerInstance, g_uberErrorCallbackMethod,
                         jni::ToJavaString(env, uber::DebugPrint(code)));
   });
 }

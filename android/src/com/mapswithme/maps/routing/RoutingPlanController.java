@@ -291,7 +291,7 @@ public class RoutingPlanController extends ToolbarController
 
     if (RoutingController.get().isUberRequestHandled())
     {
-      if (!RoutingController.get().isUberInternetConnected())
+      if (!RoutingController.get().isInternetConnected())
       {
         showNoInternetError();
         return;
@@ -448,7 +448,9 @@ public class RoutingPlanController extends ToolbarController
 
   private void showNoInternetError()
   {
-    RoutingToolbarButton rb = (RoutingToolbarButton) mRouterTypes.findViewById(mRouterTypes.getCheckedRadioButtonId());
+    @IdRes
+    int checkedId = mRouterTypes.getCheckedRadioButtonId();
+    RoutingToolbarButton rb = (RoutingToolbarButton) mRouterTypes.findViewById(checkedId);
     rb.error();
     showError(R.string.uber_no_internet);
   }
