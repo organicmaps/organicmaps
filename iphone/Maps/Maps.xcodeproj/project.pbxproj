@@ -227,6 +227,8 @@
 		34A62D4F1C903533007FDCB7 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34A62D4C1C903533007FDCB7 /* Fabric.framework */; };
 		34A62D501C903533007FDCB7 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34A62D4D1C903533007FDCB7 /* Crashlytics.framework */; };
 		34A62D511C903533007FDCB7 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34A62D4D1C903533007FDCB7 /* Crashlytics.framework */; };
+		34AA09D71DC3A14A002E8083 /* MWMAboutControllerHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34AA09D61DC3A14A002E8083 /* MWMAboutControllerHeader.xib */; };
+		34AA09D81DC3A14A002E8083 /* MWMAboutControllerHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34AA09D61DC3A14A002E8083 /* MWMAboutControllerHeader.xib */; };
 		34AA7D9F1D63543E00254037 /* MWMRouterSavedState.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34AA7D9E1D63543E00254037 /* MWMRouterSavedState.mm */; };
 		34AA7DA01D63543E00254037 /* MWMRouterSavedState.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34AA7D9E1D63543E00254037 /* MWMRouterSavedState.mm */; };
 		34AB04B71CEC95B500CE8B36 /* MWMEditorAdditionalNamePlaceholderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34AB04B61CEC95B500CE8B36 /* MWMEditorAdditionalNamePlaceholderTableViewCell.xib */; };
@@ -1171,6 +1173,7 @@
 		349CCECD1D8BCA5400C89395 /* MWMWhatsNewProfileBookingController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MWMWhatsNewProfileBookingController.mm; path = Welcome/MWMWhatsNewProfileBookingController.mm; sourceTree = "<group>"; };
 		34A62D4C1C903533007FDCB7 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = Frameworks/Fabric.framework; sourceTree = "<group>"; };
 		34A62D4D1C903533007FDCB7 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = Frameworks/Crashlytics.framework; sourceTree = "<group>"; };
+		34AA09D61DC3A14A002E8083 /* MWMAboutControllerHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMAboutControllerHeader.xib; sourceTree = "<group>"; };
 		34AA7D9D1D63543E00254037 /* MWMRouterSavedState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRouterSavedState.h; sourceTree = "<group>"; };
 		34AA7D9E1D63543E00254037 /* MWMRouterSavedState.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRouterSavedState.mm; sourceTree = "<group>"; };
 		34AB04B61CEC95B500CE8B36 /* MWMEditorAdditionalNamePlaceholderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMEditorAdditionalNamePlaceholderTableViewCell.xib; sourceTree = "<group>"; };
@@ -3364,6 +3367,7 @@
 				34B104211D6EE45700C8B577 /* MWMUnitsController.mm */,
 				34B104241D6F040E00C8B577 /* MWMAboutController.h */,
 				34B104251D6F040E00C8B577 /* MWMAboutController.mm */,
+				34AA09D61DC3A14A002E8083 /* MWMAboutControllerHeader.xib */,
 				348C26031D701B9F00813924 /* MWMHelpController.h */,
 				348C26041D701B9F00813924 /* MWMHelpController.mm */,
 			);
@@ -3579,6 +3583,7 @@
 				34F9FB921C43AF2400F71201 /* MWMStreetEditorEditTableViewCell.xib in Resources */,
 				F634C8F01D79994900BE04E2 /* _MWMPPPTitle.xib in Resources */,
 				6B653B941C7F2DE4007BEFC5 /* cuisine-strings in Resources */,
+				34AA09D71DC3A14A002E8083 /* MWMAboutControllerHeader.xib in Resources */,
 				34B6CF5D1BBBFC6B009203C6 /* LaunchScreen.storyboard in Resources */,
 				3476B8DC1BFDD30B00874594 /* tts-how-to-set-up-voice.html in Resources */,
 				978D4A31199A11E600D72CA7 /* faq.html in Resources */,
@@ -3737,6 +3742,7 @@
 				345FD7E41CEC7B0C00F58045 /* MWMEditorAddAdditionalNameTableViewCell.xib in Resources */,
 				6B9978361C89A316003B8AA0 /* editor.config in Resources */,
 				9DA46A151C47E95700EF52BA /* resources-6plus_legacy in Resources */,
+				34AA09D81DC3A14A002E8083 /* MWMAboutControllerHeader.xib in Resources */,
 				347FD8721C60B2CE002FB65E /* MWMOpeningHoursAllDayTableViewCell.xib in Resources */,
 				34F9FB931C43AF2400F71201 /* MWMStreetEditorEditTableViewCell.xib in Resources */,
 				6741A9651BF340DE002C974C /* LocalNotifications.plist in Resources */,

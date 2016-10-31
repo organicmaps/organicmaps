@@ -26,6 +26,8 @@ extern NSString * const kAlohalyticsTapEventKey;
 @property(weak, nonatomic) IBOutlet LinkCell * rateCell;
 @property(weak, nonatomic) IBOutlet LinkCell * copyrightCell;
 
+@property(nonatomic) IBOutlet UIView * headerView;
+
 @end
 
 @implementation MWMAboutController
@@ -34,6 +36,9 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   [super viewDidLoad];
   self.title = L(@"about_menu_title");
+
+  [[NSBundle mainBundle] loadNibNamed:@"MWMAboutControllerHeader" owner:self options:nil];
+  self.tableView.tableHeaderView = self.headerView;
 
   AppInfo * appInfo = [AppInfo sharedInfo];
 
