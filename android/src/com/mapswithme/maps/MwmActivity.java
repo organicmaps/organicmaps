@@ -28,6 +28,7 @@ import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.api.ParsedRoutingData;
 import com.mapswithme.maps.api.ParsedUrlMwmRequest;
 import com.mapswithme.maps.api.RoutePoint;
+import com.mapswithme.maps.uber.Uber;
 import com.mapswithme.maps.uber.UberInfo;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.base.OnBackPressListener;
@@ -1343,7 +1344,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     final RoutingController controller = RoutingController.get();
 
-    if (controller.isBuilt() || controller.isUberInfoObtained())
+    if (controller.isBuilt() || controller.isUberRequestHandled())
     {
       mMainMenu.showLineFrame(true);
       return;
@@ -1441,6 +1442,21 @@ public class MwmActivity extends BaseMwmFragmentActivity
     else
     {
       mRoutingPlanInplaceController.showUberInfo(info);
+    }
+  }
+
+  @Override
+  public void onUberError(@NonNull Uber.ErrorCode code)
+  {
+    if (mIsFragmentContainer)
+    {
+      RoutingPlanFragment fragment = (RoutingPlanFragment) getFragment(RoutingPlanFragment.class);
+      if (fragment != null)
+        fragment.showUberError(code);
+    }
+    else
+    {
+      mRoutingPlanInplaceController.showUberError(code);
     }
   }
 

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.uber.Uber;
 import com.mapswithme.maps.uber.UberInfo;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
@@ -53,6 +54,11 @@ public class RoutingPlanFragment extends BaseMwmFragment
   public void showUberInfo(@NonNull UberInfo info)
   {
     mPlanController.showUberInfo(info);
+  }
+
+  public void showUberError(@NonNull Uber.ErrorCode code)
+  {
+    mPlanController.showUberError(code);
   }
 
   @Override

@@ -101,4 +101,6 @@ private:
   shared_ptr<ProductMaker> m_maker = make_shared<ProductMaker>();
   uint64_t m_requestId = 0;
 };
+
+string DebugPrint(ErrorCode error);
 }  // namespace uber

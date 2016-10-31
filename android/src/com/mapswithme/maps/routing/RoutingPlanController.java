@@ -24,14 +24,15 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.uber.Uber;
 import com.mapswithme.maps.uber.UberAdapter;
 import com.mapswithme.maps.uber.UberInfo;
 import com.mapswithme.maps.uber.UberLinks;
 import com.mapswithme.maps.widget.DotPager;
 import com.mapswithme.maps.widget.RotateDrawable;
+import com.mapswithme.maps.widget.RoutingToolbarButton;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.maps.widget.WheelProgressView;
-import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.AlohaHelper;
@@ -52,6 +53,7 @@ public class RoutingPlanController extends ToolbarController
   private final WheelProgressView mProgressPedestrian;
   private final WheelProgressView mProgressBicycle;
   private final WheelProgressView mProgressTaxi;
+
   private final View mAltitudeChartFrame;
   private final View mUberFrame;
 
@@ -72,16 +74,19 @@ public class RoutingPlanController extends ToolbarController
       @Override
       public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
       {
-        buttonView.setButtonDrawable(Graphics.tint(mActivity, iconRes, isChecked ? R.attr.routingButtonPressedHint
-                                                                                 : R.attr.routingButtonHint));
+        RoutingToolbarButton button = (RoutingToolbarButton) buttonView;
+        button.setIcon(iconRes);
+        if (isChecked)
+          button.activate();
+        else
+          button.deactivate();
       }
     };
 
-    RadioButton rb = (RadioButton) mRouterTypes.findViewById(buttonId);
+    RoutingToolbarButton rb = (RoutingToolbarButton) mRouterTypes.findViewById(buttonId);
     listener.onCheckedChanged(rb, false);
     rb.setOnCheckedChangeListener(listener);
     rb.setOnClickListener(clickListener);
-
     return rb;
   }
 
@@ -94,7 +99,7 @@ public class RoutingPlanController extends ToolbarController
     mSlotFrame = (SlotFrame) root.findViewById(R.id.slots);
     mRouterTypes = (RadioGroup) mToolbar.findViewById(R.id.route_type);
 
-    setupRouterButton(R.id.vehicle, R.drawable.ic_drive, new View.OnClickListener()
+    setupRouterButton(R.id.vehicle, R.drawable.ic_car, new View.OnClickListener()
     {
       @Override
       public void onClick(View v)
@@ -105,7 +110,7 @@ public class RoutingPlanController extends ToolbarController
       }
     });
 
-    setupRouterButton(R.id.pedestrian, R.drawable.ic_walk, new View.OnClickListener()
+    setupRouterButton(R.id.pedestrian, R.drawable.ic_pedestrian, new View.OnClickListener()
     {
       @Override
       public void onClick(View v)
@@ -116,7 +121,7 @@ public class RoutingPlanController extends ToolbarController
       }
     });
 
-    setupRouterButton(R.id.bicycle, R.drawable.ic_bicycle, new View.OnClickListener()
+    setupRouterButton(R.id.bicycle, R.drawable.ic_bike, new View.OnClickListener()
     {
       @Override
       public void onClick(View v)
@@ -278,10 +283,28 @@ public class RoutingPlanController extends ToolbarController
       progressView = mProgressBicycle;
     }
 
+    RoutingToolbarButton button = (RoutingToolbarButton)mRouterTypes
+        .findViewById(mRouterTypes.getCheckedRadioButtonId());
+    button.progress();
+
     updateProgressLabels();
 
-    if (!RoutingController.get().isBuilding() || RoutingController.get().isUberInfoObtained())
+    if (RoutingController.get().isUberRequestHandled())
+    {
+      if (!RoutingController.get().isInternetConnected())
+      {
+        showNoInternetError();
+        return;
+      }
+      button.complete();
       return;
+    }
+
+    if (!RoutingController.get().isBuilding() && !RoutingController.get().isUberPlanning())
+    {
+      button.complete();
+      return;
+    }
 
     UiUtils.show(progressView);
     progressView.setPending(progress == 0);
@@ -386,15 +409,9 @@ public class RoutingPlanController extends ToolbarController
 
   public void showUberInfo(@NonNull UberInfo info)
   {
-    final UberInfo.Product[] products = info.getProducts();
-    if (products == null || products.length == 0)
-    {
-      UiUtils.hide(mUberFrame);
-      showError(R.string.taxi_not_found);
-      return;
-    }
+    UiUtils.hide(getViewById(R.id.error), mAltitudeChartFrame);
 
-    UiUtils.hide(getViewById(R.id.error));
+    final UberInfo.Product[] products = info.getProducts();
     mUberInfo = info;
     mUberProduct = products[0];
     final PagerAdapter adapter = new UberAdapter(mActivity, products);
@@ -411,13 +428,36 @@ public class RoutingPlanController extends ToolbarController
     pager.show();
 
     setStartButton();
-
-    UiUtils.hide(mAltitudeChartFrame);
     UiUtils.show(mUberFrame);
+  }
+
+  public void showUberError(@NonNull Uber.ErrorCode code)
+  {
+    switch (code)
+    {
+      case NoProducts:
+        showError(R.string.taxi_not_found);
+        break;
+      case RemoteError:
+        showError(R.string.uber_remote_error);
+        break;
+      default:
+        throw new AssertionError("Unsupported uber error: " + code);
+    }
+  }
+
+  private void showNoInternetError()
+  {
+    @IdRes
+    int checkedId = mRouterTypes.getCheckedRadioButtonId();
+    RoutingToolbarButton rb = (RoutingToolbarButton) mRouterTypes.findViewById(checkedId);
+    rb.error();
+    showError(R.string.uber_no_internet);
   }
 
   private void showError(@StringRes int message)
   {
+    UiUtils.hide(mUberFrame, mAltitudeChartFrame);
     TextView error = (TextView) getViewById(R.id.error);
     error.setText(message);
     error.setVisibility(View.VISIBLE);
@@ -455,7 +495,7 @@ public class RoutingPlanController extends ToolbarController
 
     if (isTaxiRouteChecked())
     {
-      start.setText(R.string.taxi_order);
+      start.setText(Utils.isUberInstalled(mActivity) ? R.string.taxi_order : R.string.install_app);
       start.setOnClickListener(new View.OnClickListener()
       {
         @Override

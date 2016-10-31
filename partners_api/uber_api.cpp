@@ -249,4 +249,13 @@ RideRequestLinks Api::GetRideRequestLinks(string const & productId, ms::LatLon c
 
   return {"uber://" + url.str(), "https://m.uber.com/ul" + url.str()};
 }
+
+string DebugPrint(ErrorCode error)
+{
+  switch (error)
+  {
+    case ErrorCode::NoProducts: return "NoProducts";
+    case ErrorCode::RemoteError: return "RemoteError";
+  }
+}
 }  // namespace uber

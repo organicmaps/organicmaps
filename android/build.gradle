@@ -31,8 +31,8 @@ apply plugin: 'io.fabric'
 
 dependencies {
   // android support libs
-  compile 'com.android.support:support-v4:22.2.1'
-  compile 'com.android.support:appcompat-v7:22.2.1'
+  compile 'com.android.support:support-v4:23.0.0'
+  compile 'com.android.support:appcompat-v7:23.0.0'
   compile 'com.android.support:recyclerview-v7:22.2.1'
   compile 'com.android.support:design:22.2.1'
   compile 'com.android.support:cardview-v7:22.2.1'
@@ -78,7 +78,7 @@ crashlytics {
 
 android {
   // All properties are read from gradle.properties file
-  compileSdkVersion propTargetSdkVersion.toInteger()
+  compileSdkVersion propCompileSdkVersion.toInteger()
   buildToolsVersion propBuildToolsVersion
 
   defaultConfig {

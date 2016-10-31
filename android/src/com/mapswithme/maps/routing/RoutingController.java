@@ -25,6 +25,7 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.Config;
+import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.Utils;
@@ -67,6 +68,7 @@ public class RoutingController
     void updateMenu();
     void updatePoints();
     void onUberInfoReceived(@NonNull UberInfo info);
+    void onUberError(@NonNull Uber.ErrorCode code);
 
     /**
      * @param progress progress to be displayed.
@@ -98,8 +100,9 @@ public class RoutingController
   private String[] mLastMissingMaps;
   @Nullable
   private RoutingInfo mCachedRoutingInfo;
-  private boolean mUberInfoObtained;
+  private boolean mUberRequestHandled;
   private boolean mUberPlanning;
+  private boolean mInternetConnected;
 
   @SuppressWarnings("FieldCanBeLocal")
   private final Framework.RoutingListener mRoutingListener = new Framework.RoutingListener()
@@ -263,8 +266,20 @@ public class RoutingController
   private void build()
   {
     mLogger.d("build");
-    mUberInfoObtained = false;
+    mUberRequestHandled = false;
     mLastBuildProgress = 0;
+    mInternetConnected = ConnectionState.isConnected();
+
+    if (mLastRouterType == Framework.ROUTER_TYPE_TAXI)
+    {
+      if (!mInternetConnected)
+      {
+        completeUberRequest();
+        return;
+      }
+      requestUberInfo();
+    }
+
     setBuildState(BuildState.BUILDING);
     updatePlan();
 
@@ -272,9 +287,16 @@ public class RoutingController
     org.alohalytics.Statistics.logEvent(AlohaHelper.ROUTING_BUILD, new String[] {Statistics.EventParam.FROM, Statistics.getPointType(mStartPoint),
                                                                                  Statistics.EventParam.TO, Statistics.getPointType(mEndPoint)});
     Framework.nativeBuildRoute(mStartPoint.getLat(), mStartPoint.getLon(), mEndPoint.getLat(), mEndPoint.getLon());
+  }
 
-    if (mLastRouterType == Framework.ROUTER_TYPE_TAXI)
-      requestUberInfo();
+  private void completeUberRequest()
+  {
+    mUberRequestHandled = true;
+    if (mContainer != null)
+    {
+      mContainer.updateBuildProgress(100, mLastRouterType);
+      mContainer.updateMenu();
+    }
   }
 
   private void showDisclaimer(final MapObject startPoint, final MapObject endPoint)
@@ -426,6 +448,7 @@ public class RoutingController
     mEndPoint = null;
     setPointsInternal();
     mWaitingPoiPickSlot = NO_SLOT;
+    mUberRequestHandled = false;
 
     setBuildState(BuildState.NONE);
     setState(State.NONE);
@@ -482,7 +505,7 @@ public class RoutingController
     return mState == State.PREPARE;
   }
 
-  private boolean isUberPlanning()
+  boolean isUberPlanning()
   {
     return mLastRouterType == Framework.ROUTER_TYPE_TAXI && mUberPlanning;
   }
@@ -513,9 +536,14 @@ public class RoutingController
     return (mWaitingPoiPickSlot != NO_SLOT);
   }
 
-  public boolean isUberInfoObtained()
+  public boolean isUberRequestHandled()
   {
-    return mUberInfoObtained;
+    return mUberRequestHandled;
+  }
+
+  boolean isInternetConnected()
+  {
+    return mInternetConnected;
   }
 
   BuildState getBuildState()
@@ -690,7 +718,9 @@ public class RoutingController
   {
     mLogger.d("setRouterType: " + mLastRouterType + " -> " + router);
 
-    if (router == mLastRouterType)
+    // Repeating tap on Uber icon should trigger the route building always,
+    // because it may be "No internet connection, try later" case
+    if (router == mLastRouterType && router != Framework.ROUTER_TYPE_TAXI)
       return;
 
     mLastRouterType = router;
@@ -803,9 +833,24 @@ public class RoutingController
     if (mLastRouterType == Framework.ROUTER_TYPE_TAXI && mContainer != null)
     {
       mContainer.onUberInfoReceived(info);
-      mUberInfoObtained = true;
-      mContainer.updateBuildProgress(100, mLastRouterType);
-      mContainer.updateMenu();
+      completeUberRequest();
+    }
+  }
+
+  /**
+   * Called from the native code
+   * @param errorCode must match the one of the values in {@link com.mapswithme.maps.uber.Uber.ErrorCode}
+   */
+  @MainThread
+  private void onUberError(@NonNull String errorCode)
+  {
+    mUberPlanning = false;
+    Uber.ErrorCode code = Uber.ErrorCode.valueOf(errorCode);
+    mLogger.e("onUberError error = " + code);
+    if (mLastRouterType == Framework.ROUTER_TYPE_TAXI && mContainer != null)
+    {
+      mContainer.onUberError(code);
+      completeUberRequest();
     }
   }
 }

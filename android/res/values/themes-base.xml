@@ -76,6 +76,7 @@
     <item name="fabAdd">@drawable/ic_fab_add</item>
 
     <item name="routingButtonHint">@color/routing_button_tint</item>
+    <item name="routingButtonActivatedHint">?statusBar</item>
     <item name="routingButtonPressedHint">@color/routing_button_pressed_tint</item>
 
     <item name="ppRatingBackground">@color/bg_placepage_rating</item>
@@ -160,6 +161,7 @@
     <item name="fabAdd">@drawable/ic_fab_add_night</item>
 
     <item name="routingButtonHint">@color/routing_button_tint</item>
+    <item name="routingButtonActivatedHint">?statusBar</item>
     <item name="routingButtonPressedHint">@color/routing_button_pressed_tint</item>
 
     <item name="ppRatingBackground">@color/bg_placepage_rating_night</item>
