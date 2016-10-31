@@ -525,7 +525,10 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 
   if (state == MWMBottomMenuStateInactive || state == MWMBottomMenuStateRouting)
   {
-    self.p2pButton.selected = NO;
+    dispatch_async(dispatch_get_main_queue(), ^{
+      self.p2pButton.selected =
+          ([MWMNavigationDashboardManager manager].state == MWMNavigationDashboardStatePrepare);
+    });
     view.state = self.restoreState = state;
     return;
   }
