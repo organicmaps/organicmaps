@@ -16,6 +16,12 @@
 
 @implementation MWMTaxiPreviewCell
 
+- (void)awakeFromNib
+{
+  [super awakeFromNib];
+  [self.icon layoutIfNeeded];
+}
+
 - (void)configWithProduct:(uber::Product const &)product;
 {
   self.product.text = @(product.m_name.c_str());
