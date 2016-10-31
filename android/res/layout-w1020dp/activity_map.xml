@@ -23,6 +23,10 @@
     android:id="@+id/navigation_buttons"
     layout="@layout/map_navigation_buttons"/>
 
+  <include layout="@layout/layout_nav_search"
+    android:visibility="gone"
+    tools:visibility="invisible"/>
+
   <com.mapswithme.maps.widget.FadeView
     android:id="@+id/fade_view"
     android:layout_width="match_parent"

@@ -2,12 +2,13 @@
 <RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/search_button_frame"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:theme="?navButtonsTheme"
   android:layout_marginBottom="@dimen/nav_menu_height"
   tools:background="@color/bg_primary"
-  tools:showIn="@layout/layout_nav">
+  tools:showIn="@layout/activity_map">
 
   <View
     android:id="@+id/touch_interceptor"
