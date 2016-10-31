@@ -55,10 +55,20 @@ CGFloat constexpr kZoomOutToLayoutPortraitOffset = 52;
 
 - (void)layoutXPosition:(BOOL)hidden
 {
-  if (hidden)
-    self.minX = self.superview.width;
+  if ([UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionRightToLeft)
+  {
+    if (hidden)
+      self.maxX = 0;
+    else
+      self.minX = kViewControlsOffsetToBounds;
+  }
   else
-    self.maxX = self.superview.width - kViewControlsOffsetToBounds;
+  {
+    if (hidden)
+      self.minX = self.superview.width;
+    else
+      self.maxX = self.superview.width - kViewControlsOffsetToBounds;
+  }
 }
 
 - (void)layoutYPosition { self.maxY = self.bottomBound; }
