@@ -690,18 +690,13 @@ using namespace storage;
   {
   case MWMPlacePageCellTypeBookmark: return ((MWMPlacePageBookmarkCell *)cell).cellHeight;
   case MWMPlacePageCellTypeOpenHours: return ((MWMPlacePageOpeningHoursCell *)cell).cellHeight;
-  default:
-  {
-    [cell setNeedsUpdateConstraints];
-    [cell updateConstraintsIfNeeded];
-    cell.bounds = {{}, {CGRectGetWidth(tableView.bounds), CGRectGetHeight(cell.bounds)}};
-    [cell setNeedsLayout];
-    [cell layoutIfNeeded];
-    CGSize const size =
-        [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    return size.height;
+  default: return UITableViewAutomaticDimension;
   }
-  }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  return UITableViewAutomaticDimension;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

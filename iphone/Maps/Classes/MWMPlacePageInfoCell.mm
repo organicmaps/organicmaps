@@ -14,7 +14,6 @@
 
 @property(weak, nonatomic, readwrite) IBOutlet UIImageView * icon;
 @property(weak, nonatomic, readwrite) IBOutlet id textContainer;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint * textContainerHeight;
 
 @property(weak, nonatomic) IBOutlet UIButton * upperButton;
 @property(weak, nonatomic) IBOutlet UIImageView * toggleImage;
@@ -33,10 +32,11 @@
   if ([self.textContainer isKindOfClass:[UITextView class]])
   {
     UITextView * textView = (UITextView *)self.textContainer;
-    textView.textContainerInset = {.left = -5, .top = 12};
+    textView.textContainerInset = {.left = -5, .top = 12, .bottom = 12};
     textView.keyboardAppearance =
         [UIColor isNightMode] ? UIKeyboardAppearanceDark : UIKeyboardAppearanceDefault;
   }
+  [self.icon layoutIfNeeded];
 }
 
 - (void)configWithRow:(place_page::MetainfoRows)row data:(MWMPlacePageData *)data;
@@ -143,19 +143,11 @@
     [tv setAttributedText:[[NSAttributedString alloc]
                               initWithString:text
                                   attributes:@{NSFontAttributeName : [UIFont regular16]}]];
-    [tv sizeToIntegralFit];
-    CGFloat const minTextContainerHeight = 42.0;
-    CGFloat const bottomOffset = 8.0;
-    self.textContainerHeight.constant =
-        MAX(ceil(tv.contentSize.height) + bottomOffset, minTextContainerHeight);
   }
   else
   {
     UILabel * lb = (UILabel *)self.textContainer;
     [lb setText:text];
-    [lb sizeToIntegralFit];
-    CGFloat const trailingOffset = self.width - lb.maxX;
-    lb.font = trailingOffset < 32 ? [UIFont regular15] : [UIFont regular16];
   }
 }
 
