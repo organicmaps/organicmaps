@@ -114,7 +114,7 @@ UNIT_CLASS_TEST(LocalityFinderTest, Smoke)
     "Minsk",
     "Minsk",
     "Budva",
-    "Rome",
+    "Vatican City",
     "Zurich"
   };
 
