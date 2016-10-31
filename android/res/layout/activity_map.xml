@@ -30,6 +30,10 @@
     android:visibility="gone"
     tools:visibility="visible"/>
 
+  <include layout="@layout/layout_nav_search"
+    android:visibility="gone"
+    tools:visibility="invisible"/>
+
   <com.mapswithme.maps.widget.FadeView
     android:id="@+id/fade_view"
     android:layout_width="match_parent"

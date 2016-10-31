@@ -2,11 +2,13 @@ package com.mapswithme.maps.routing;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
+import android.content.Context;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
@@ -223,7 +225,14 @@ class SearchWheel implements View.OnClickListener
 
   private void showSearchInParent()
   {
-    final MwmActivity parent = (MwmActivity) mFrame.getContext();
+    Context context = mFrame.getContext();
+    final MwmActivity parent;
+    if (context instanceof ContextThemeWrapper)
+      parent = (MwmActivity)((ContextThemeWrapper)context).getBaseContext();
+    else if (context instanceof android.support.v7.internal.view.ContextThemeWrapper)
+      parent = (MwmActivity)((android.support.v7.internal.view.ContextThemeWrapper)context).getBaseContext();
+    else
+      parent = (MwmActivity) context;
     parent.showSearch();
     mIsExpanded = false;
     refreshSearchVisibility();
