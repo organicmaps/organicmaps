@@ -291,7 +291,7 @@ void animate(TMWMVoidBlock animate, TMWMVoidBlock completion = nil)
   {
   case NodeStatus::Undefined:
   {
-    self.isPlacePageButtonsEnabled = YES;
+    self.isPlacePageButtonsEnabled = NO;
     auto const it = find(sections.begin(), sections.end(), place_page::Sections::Buttons);
     if (it != sections.end())
     {
