@@ -308,7 +308,7 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
 {
   if (![MWMRouter isTaxi])
     return L(@"p2p_start");
-  return self.taxiDataSource.isTaxiInstalled ? L(@"taxi_order") : L(@"taxi_install");
+  return self.taxiDataSource.isTaxiInstalled ? L(@"taxi_order") : L(@"install_app");
 }
 #pragma mark - Properties
 
