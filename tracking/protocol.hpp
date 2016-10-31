@@ -13,7 +13,8 @@ class Protocol
 {
 public:
   using Encoder = coding::TrafficGPSEncoder;
-  using DataElements = boost::circular_buffer<Encoder::DataPoint>;
+  using DataElementsCirc = boost::circular_buffer<Encoder::DataPoint>;
+  using DataElementsVec = vector<Encoder::DataPoint>;
 
   static uint8_t const kOk[4];
   static uint8_t const kFail[4];
@@ -27,8 +28,14 @@ public:
     CurrentData = DataV0
   };
 
+  static vector<uint8_t> CreateHeader(PacketType type, uint32_t payloadSize);
   static vector<uint8_t> CreateAuthPacket(string const & clientId);
-  static vector<uint8_t> CreateDataPacket(DataElements const & points);
+  static vector<uint8_t> CreateDataPacket(DataElementsCirc const & points);
+  static vector<uint8_t> CreateDataPacket(DataElementsVec const & points);
+
+  static pair<PacketType, size_t> DecodeHeader(vector<uint8_t> const & data);
+  static string DecodeAuthPacket(PacketType type, vector<uint8_t> const & data);
+  static DataElementsVec DecodeDataPacket(PacketType type, vector<uint8_t> const & data);
 
 private:
   static void InitHeader(vector<uint8_t> & packet, PacketType type, uint32_t payloadSize);
