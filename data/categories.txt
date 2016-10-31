@@ -2970,7 +2970,7 @@ nl:Jaagplek
 fi:Metsästyspaikka
 fr:Mirador
 de:Hochsitz|Anstand
-hu:Céllövölde
+hu:Vadászles
 id:Lokasi berburu
 it:Torre di caccio
 ja:1狩猟スタンド
