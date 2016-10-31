@@ -493,7 +493,7 @@ public class RoutingPlanController extends ToolbarController
 
     if (isTaxiRouteChecked())
     {
-      start.setText(R.string.taxi_order);
+      start.setText(Utils.isUberInstalled(mActivity) ? R.string.taxi_order : R.string.install_app);
       start.setOnClickListener(new View.OnClickListener()
       {
         @Override

@@ -401,22 +401,32 @@ public class Utils
     return installationId;
   }
 
-  public static void launchUber(@NonNull Activity context, @NonNull UberLinks links)
+  public static boolean isUberInstalled(@NonNull Activity context)
   {
     try
     {
       PackageManager pm = context.getPackageManager();
       pm.getPackageInfo("com.ubercab", PackageManager.GET_ACTIVITIES);
-      Intent intent = new Intent(Intent.ACTION_VIEW);
-      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-      intent.setData(Uri.parse(links.getDeepLink()));
-      context.startActivity(intent);
+      return true;
     } catch (PackageManager.NameNotFoundException e)
     {
-      // No Uber app! Open mobile website.
-      Intent i = new Intent(Intent.ACTION_VIEW);
-      i.setData(Uri.parse(links.getUniversalLink()));
-      context.startActivity(i);
+      return false;
     }
+  }
+
+  public static void launchUber(@NonNull Activity context, @NonNull UberLinks links)
+  {
+    Intent intent = new Intent(Intent.ACTION_VIEW);
+    if (isUberInstalled(context))
+    {
+
+      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      intent.setData(Uri.parse(links.getDeepLink()));
+    } else
+    {
+      // No Uber app! Open mobile website.
+      intent.setData(Uri.parse(links.getUniversalLink()));
+    }
+    context.startActivity(intent);
   }
 }
