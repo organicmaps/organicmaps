@@ -119,7 +119,6 @@ using namespace storage;
 {
   vector<PlacePageSection> m_sections;
   map<PlacePageSection, vector<MWMPlacePageCellType>> m_cells;
-  map<MWMPlacePageCellType, UITableViewCell *> m_offscreenCells;
 }
 
 @property(weak, nonatomic) MWMPlacePageEntity * entity;
@@ -130,6 +129,9 @@ using namespace storage;
 
 @property(nonatomic) MWMCircularProgress * mapDownloadProgress;
 @property(nonatomic) TMwmSize downloadMapSize;
+
+@property(nonatomic) MWMPlacePageBookmarkCell * bookmarkCell;
+@property(nonatomic) MWMPlacePageOpeningHoursCell * openingHoursCell;
 
 @end
 
@@ -164,7 +166,8 @@ using namespace storage;
 {
   m_sections.clear();
   m_cells.clear();
-  m_offscreenCells.clear();
+  self.openingHoursCell = nil;
+  self.bookmarkCell = nil;
   for (auto const cellSection : kCellTypesSectionMap)
   {
     for (auto const cellType : cellSection.first)
@@ -327,8 +330,7 @@ using namespace storage;
 
 - (void)configureCurrentShedule
 {
-  MWMPlacePageOpeningHoursCell * cell =
-      static_cast<MWMPlacePageOpeningHoursCell *>(m_offscreenCells[MWMPlacePageCellTypeOpenHours]);
+  MWMPlacePageOpeningHoursCell * cell = self.openingHoursCell;
   if (cell)
   {
     self.placeScheduleLabel.text = cell.isClosed ? L(@"closed_now") : L(@"editor_time_open");
@@ -557,7 +559,7 @@ using namespace storage;
     m_cells.erase(PlacePageSection::Bookmark);
   }
 
-  m_offscreenCells.erase(MWMPlacePageCellTypeBookmark);
+  self.bookmarkCell = nil;
 
   [self configure];
 }
@@ -565,7 +567,7 @@ using namespace storage;
 - (void)reloadBookmarkCell
 {
   MWMPlacePageCellType const type = MWMPlacePageCellTypeBookmark;
-  [self fillCell:m_offscreenCells[type] withType:type];
+  [self fillCell:self.bookmarkCell withType:type];
   [self configure];
   [CATransaction begin];
   [CATransaction setCompletionBlock:^{
@@ -610,7 +612,7 @@ using namespace storage;
   _openingHoursCellExpanded = openingHoursCellExpanded;
   UITableView * tv = self.featureTable;
   MWMPlacePageCellType const type = MWMPlacePageCellTypeOpenHours;
-  [self fillCell:m_offscreenCells[MWMPlacePageCellTypeOpenHours] withType:type];
+  [self fillCell:self.openingHoursCell withType:type];
   [tv beginUpdates];
   [CATransaction begin];
   [CATransaction setCompletionBlock:^{
@@ -621,19 +623,6 @@ using namespace storage;
   }];
   [tv endUpdates];
   [CATransaction commit];
-}
-
-- (UITableViewCell *)offscreenCellForCellType:(MWMPlacePageCellType)type
-{
-  UITableViewCell * cell = m_offscreenCells[type];
-  if (!cell)
-  {
-    NSString * identifier = reuseIdentifier(type);
-    cell = [[[NSBundle mainBundle] loadNibNamed:identifier owner:nil options:nil] firstObject];
-    [self fillCell:cell withType:type];
-    m_offscreenCells[type] = cell;
-  }
-  return cell;
 }
 
 #pragma mark - UITableView
@@ -685,12 +674,11 @@ using namespace storage;
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   MWMPlacePageCellType const cellType = [self cellTypeForIndexPath:indexPath];
-  UITableViewCell * cell = [self offscreenCellForCellType:cellType];
   switch (cellType)
   {
-  case MWMPlacePageCellTypeBookmark: return ((MWMPlacePageBookmarkCell *)cell).cellHeight;
-  case MWMPlacePageCellTypeOpenHours: return ((MWMPlacePageOpeningHoursCell *)cell).cellHeight;
-  default: return UITableViewAutomaticDimension;
+    case MWMPlacePageCellTypeBookmark: return self.bookmarkCell.cellHeight;
+    case MWMPlacePageCellTypeOpenHours: return self.openingHoursCell.cellHeight;
+    default: return UITableViewAutomaticDimension;
   }
 }
 
@@ -710,10 +698,24 @@ using namespace storage;
 {
   MWMPlacePageCellType const type = [self cellTypeForIndexPath:indexPath];
   NSString * identifier = reuseIdentifier(type);
-  UITableViewCell * cell = m_offscreenCells[type];
-  if (!cell)
-    cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+  UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+  switch (type)
+  {
+    case MWMPlacePageCellTypeBookmark:
+      if (self.bookmarkCell)
+        return self.bookmarkCell;
 
+      self.bookmarkCell = static_cast<MWMPlacePageBookmarkCell *>(cell);
+      break;
+    case MWMPlacePageCellTypeOpenHours:
+      if (self.openingHoursCell)
+        return self.openingHoursCell;
+
+      self.openingHoursCell = static_cast<MWMPlacePageOpeningHoursCell *>(cell);
+      break;
+    default: break;
+  }
+  [self fillCell:cell withType:type];
   return cell;
 }
 

@@ -278,7 +278,15 @@ enum RowInMetaInfo
 
 - (void)cellSelect:(UITableViewCell *)cell
 {
-  [self.manager removeBookmark];
+  if (IPAD)
+  {
+    [self.manager removeBookmark];
+  }
+  else
+  {
+    [self.data updateBookmarkStatus:NO];
+    GetFramework().UpdatePlacePageInfoForCurrentSelection();
+  }
   [self backTap];
 }
 
