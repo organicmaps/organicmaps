@@ -282,6 +282,8 @@ public class NavigationController
     UiUtils.showIf(show, mFrame);
     UiUtils.showIf(show, mSearchButtonFrame);
     mNavMenu.show(show);
+    if (!show)
+      mSearchWheel.reset();
   }
 
   public NavMenu getNavMenu()
