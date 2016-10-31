@@ -3,7 +3,7 @@
 #include "generator/feature_builder.hpp"
 #include "generator/osm2type.hpp"
 #include "generator/osm_element.hpp"
-#include "generator/restrictions.hpp"
+#include "generator/restriction_dumper.hpp"
 #include "generator/ways_merger.hpp"
 
 #include "indexer/classificator.hpp"
@@ -29,8 +29,8 @@ namespace
 class RelationTagsBase
 {
 public:
-  RelationTagsBase(RestrictionCollector & restrictionCollector)
-    : m_restrictionCollector(restrictionCollector), m_cache(14) {}
+  RelationTagsBase(RestrictionDumper & restrictionDumper)
+    : m_restrictionDumper(restrictionDumper), m_cache(14) {}
 
   void Reset(uint64_t fID, OsmElement * p)
   {
@@ -75,7 +75,7 @@ protected:
 protected:
   uint64_t m_featureID;
   OsmElement * m_current;
-  RestrictionCollector & m_restrictionCollector;
+  RestrictionDumper & m_restrictionDumper;
 
 private:
   my::Cache<uint64_t, RelationElement> m_cache;
@@ -86,8 +86,8 @@ class RelationTagsNode : public RelationTagsBase
   using TBase = RelationTagsBase;
 
 public:
-  RelationTagsNode(RestrictionCollector & restrictionCollector)
-    : RelationTagsBase(restrictionCollector) {}
+  RelationTagsNode(RestrictionDumper & restrictionDumper)
+    : RelationTagsBase(restrictionDumper) {}
 
 protected:
   void Process(RelationElement const & e) override
@@ -98,7 +98,7 @@ protected:
 
     if (type == "restriction")
     {
-      m_restrictionCollector.AddRestriction(e);
+      m_restrictionDumper.Write(e);
       return;
     }
 
@@ -127,8 +127,8 @@ protected:
 class RelationTagsWay : public RelationTagsBase
 {
 public:
-  RelationTagsWay(RestrictionCollector & restrictionCollector)
-    : RelationTagsBase(restrictionCollector) {}
+  RelationTagsWay(RestrictionDumper & restrictionDumper)
+    : RelationTagsBase(restrictionDumper) {}
 
 private:
   using TBase = RelationTagsBase;
@@ -155,7 +155,7 @@ protected:
 
     if (type == "restriction")
     {
-      m_restrictionCollector.AddRestriction(e);
+      m_restrictionDumper.Write(e);
       return;
     }
 
@@ -206,6 +206,8 @@ class OsmToFeatureTranslator
   TCache & m_holder;
   uint32_t m_coastType;
   unique_ptr<FileWriter> m_addrWriter;
+
+  RestrictionDumper m_restrictionDumper;
 
   RelationTagsNode m_nodeRelations;
   RelationTagsWay m_wayRelations;
@@ -509,11 +511,14 @@ public:
 
 public:
   OsmToFeatureTranslator(TEmitter & emitter, TCache & holder, uint32_t coastType,
-                         string const & addrFilePath = {})
+                         string const & addrFilePath = {}, string const & restrictionsFilePath = {})
     : m_emitter(emitter), m_holder(holder), m_coastType(coastType),
-      m_nodeRelations(m_emitter.GetRestrictionCollector()), m_wayRelations(m_emitter.GetRestrictionCollector())
+      m_nodeRelations(m_restrictionDumper), m_wayRelations(m_restrictionDumper)
   {
     if (!addrFilePath.empty())
       m_addrWriter.reset(new FileWriter(addrFilePath));
+
+    if (!restrictionsFilePath.empty())
+      m_restrictionDumper.Open(restrictionsFilePath);
   }
 };

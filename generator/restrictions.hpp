@@ -2,6 +2,7 @@
 
 #include "generator/osm_id.hpp"
 
+#include "std/functional.hpp"
 #include "std/limits.hpp"
 #include "std/mutex.hpp"
 #include "std/unordered_map.hpp"
@@ -64,13 +65,6 @@ public:
     size_t m_linkNumber; // Link number for a restriction. It's equal to zero or one for most cases.
   };
 
-  /// \brief Coverts |relationElement| to Restriction and adds it to |m_restrictions| and
-  /// |m_restrictionIndex| if |relationElement| is a restriction.
-  /// \note For the time being only line-point-line restritions are processed. The other restrictions
-  /// are ignored.
-  // @TODO(bykoianko) It's necessary to process all kind of restrictions.
-  void AddRestriction(RelationElement const & relationElement);
-
   /// \brief Adds feature id and corresponding vector of |osmIds| to |m_osmId2FeatureId|.
   /// \note One feature id (|featureId|) may correspond to several osm ids (|osmIds|).
   void AddFeatureId(vector<osm::Id> const & osmIds, FeatureId featureId);
@@ -112,5 +106,6 @@ private:
 };
 
 string ToString(RestrictionCollector::Type const & type);
+bool FromString(string const & str, RestrictionCollector::Type & type);
 string DebugPrint(RestrictionCollector::Type const & type);
 string DebugPrint(RestrictionCollector::Restriction const & restriction);

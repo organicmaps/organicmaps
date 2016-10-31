@@ -27,8 +27,6 @@
 #include "coding/file_name_utils.hpp"
 #include "coding/parse_xml.hpp"
 
-#include "std/fstream.hpp"
-
 #include "defines.hpp"
 
 SourceReader::SourceReader()
@@ -55,7 +53,6 @@ uint64_t SourceReader::Read(char * buffer, uint64_t bufferSize)
   m_file->read(buffer, bufferSize);
   return m_file->gcount();
 }
-
 
 namespace
 {
@@ -302,13 +299,14 @@ class MainFeaturesEmitter : public EmitterBase
 
   inline uint32_t Type(TypeIndex i) const { return m_types[i]; }
 
+  SyncOfstream m_featureId2osmIds;
+
 public:
   MainFeaturesEmitter(feature::GenerateInfo const & info)
     : m_skippedElementsPath(info.GetIntermediateFileName("skipped_elements", ".lst"))
     , m_failOnCoasts(info.m_failOnCoasts)
     , m_bookingDataset(info.m_bookingDatafileName, info.m_bookingReferenceDir)
     , m_opentableDataset(info.m_opentableDatafileName, info.m_opentableReferenceDir)
-
   {
     Classificator const & c = classif();
 
@@ -343,6 +341,13 @@ public:
 
     if (info.m_createWorld)
       m_world.reset(new TWorldGenerator(info));
+
+    // Feature id osm id to map.
+    string const featureId2OsmIdsFile = info.GetIntermediateFileName("feature_id_to_osm_ids", ".csv");
+    LOG(LINFO, ("Saving osm ids to feature ids map to", featureId2OsmIdsFile));
+    m_featureId2osmIds.Open(featureId2OsmIdsFile);
+    if (!m_featureId2osmIds.IsOpened())
+      LOG(LWARNING, ("Cannot open", featureId2OsmIdsFile, ". Feature id to osm ids to map won't be saved."));
   }
 
   void operator()(FeatureBuilder1 & fb) override
@@ -443,7 +448,7 @@ public:
         auto & emitter = m_countries->Parent();
 
         emitter.Start();
-        (*m_countries)(fb, GetRestrictionCollector());
+        (*m_countries)(fb, m_featureId2osmIds);
         emitter.Finish();
 
         if (m_coastsHolder)
@@ -500,7 +505,7 @@ private:
       (*m_world)(fb);
 
     if (m_countries)
-      (*m_countries)(fb, GetRestrictionCollector());
+      (*m_countries)(fb, m_featureId2osmIds);
   }
 
   void DumpSkippedElements()
@@ -526,6 +531,30 @@ private:
   }
 };
 }  // anonymous namespace
+
+void SyncOfstream::Open(string const & fullPath)
+{
+  lock_guard<mutex> gard(m_mutex);
+  m_stream.open(fullPath, std::ofstream::out);
+}
+
+bool SyncOfstream::IsOpened()
+{
+  lock_guard<mutex> gard(m_mutex);
+  return m_stream.is_open() && !m_stream.fail();
+}
+
+void SyncOfstream::Write(uint32_t featureId, vector<osm::Id> const & osmIds)
+{
+  if (!IsOpened())
+    return;
+
+  lock_guard<mutex> gard(m_mutex);
+  m_stream << featureId << ", ";
+  for (osm::Id const & osmId : osmIds)
+    m_stream << osmId.OsmId() << ", ";
+  m_stream << endl;
+}
 
 unique_ptr<EmitterBase> MakeMainFeatureEmitter(feature::GenerateInfo const & info)
 {
@@ -691,7 +720,7 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info, EmitterBase & emitter)
     // TODO(mgsergio): Get rid of EmitterBase template parameter.
     OsmToFeatureTranslator<EmitterBase, TDataCache> parser(
         emitter, cache, info.m_makeCoasts ? classif().GetCoastType() : 0,
-        info.GetAddressesFileName());
+        info.GetAddressesFileName(), info.GetIntermediateFileName("restrictions_in_osm_ids", ".csv"));
 
     TagAdmixer tagAdmixer(info.GetIntermediateFileName("ways", ".csv"),
                           info.GetIntermediateFileName("towns", ".csv"));
@@ -725,8 +754,6 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info, EmitterBase & emitter)
     if (!emitter.Finish())
       return false;
 
-    emitter.GetRestrictionCollector().ComposeRestrictionsAndSave(
-        info.GetIntermediateFileName("restrictions", ".csv"));
     emitter.GetNames(info.m_bucketNames);
   }
   catch (Reader::Exception const & ex)

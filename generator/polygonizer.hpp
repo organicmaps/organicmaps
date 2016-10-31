@@ -3,7 +3,7 @@
 #include "generator/borders_loader.hpp"
 #include "generator/feature_builder.hpp"
 #include "generator/generate_info.hpp"
-#include "generator/restrictions.hpp"
+#include "generator/osm_source.hpp"
 
 #include "indexer/feature_visibility.hpp"
 #include "indexer/cell_id.hpp"
@@ -29,8 +29,6 @@
 #include <QtCore/QMutex>
 #include <QtCore/QMutexLocker>
 #endif
-
-class RestrictionCollector;
 
 namespace feature
 {
@@ -112,7 +110,7 @@ namespace feature
       }
     };
 
-    void operator () (FeatureBuilder1 & fb, RestrictionCollector & restrictions)
+    void operator () (FeatureBuilder1 & fb, SyncOfstream & featureId2osmIds)
     {
       buffer_vector<borders::CountryPolygons const *, 32> vec;
       m_countries.ForEachInRect(fb.GetLimitRect(), InsertCountriesPtr(vec));
@@ -122,15 +120,15 @@ namespace feature
       case 0:
         break;
       case 1:
-        EmitFeature(vec[0], fb, restrictions);
+        EmitFeature(vec[0], fb, featureId2osmIds);
         break;
       default:
         {
 #if PARALLEL_POLYGONIZER
           m_ThreadPoolSemaphore.acquire();
-          m_ThreadPool.start(new PolygonizerTask(this, vec, fb, restrictions));
+          m_ThreadPool.start(new PolygonizerTask(this, vec, fb, featureId2osmIds));
 #else
-          PolygonizerTask task(this, vec, fb, restrictions);
+          PolygonizerTask task(this, vec, fb, featureId2osmIds);
           task.RunBase();
 #endif
         }
@@ -152,7 +150,7 @@ namespace feature
     }
 
     void EmitFeature(borders::CountryPolygons const * country, FeatureBuilder1 const & fb,
-                     RestrictionCollector & restriction)
+                     SyncOfstream & featureId2osmIds)
     {
 #if PARALLEL_POLYGONIZER
       QMutexLocker mutexLocker(&m_EmitFeatureMutex);
@@ -175,7 +173,7 @@ namespace feature
 
       CHECK_LESS(0, nextFeatureId, ("GetNextFeatureId() is called before WriteFeatureBase(...)"));
       if (fb.IsLine())
-        restriction.AddFeatureId(fb.GetOsmIds(), nextFeatureId - 1 /* feature id of |fb| */);
+        featureId2osmIds.Write(nextFeatureId - 1 /* feature id of |fb| */, fb.GetOsmIds());
     }
 
     vector<string> const & Names() const
@@ -194,8 +192,8 @@ namespace feature
     public:
       PolygonizerTask(Polygonizer * pPolygonizer,
                       buffer_vector<borders::CountryPolygons const *, 32> const & countries,
-                      FeatureBuilder1 const & fb, RestrictionCollector & restrictions)
-        : m_pPolygonizer(pPolygonizer), m_Countries(countries), m_FB(fb), m_restrictions(restrictions) {}
+                      FeatureBuilder1 const & fb, SyncOfstream & featureId2osmIds)
+        : m_pPolygonizer(pPolygonizer), m_Countries(countries), m_FB(fb), m_featureId2osmIds(featureId2osmIds) {}
 
       void RunBase()
       {
@@ -205,7 +203,7 @@ namespace feature
           m_FB.ForEachGeometryPoint(doCheck);
 
           if (doCheck.m_belongs)
-            m_pPolygonizer->EmitFeature(m_Countries[i], m_FB, m_restrictions);
+            m_pPolygonizer->EmitFeature(m_Countries[i], m_FB, m_featureId2osmIds);
         }
       }
 
@@ -222,7 +220,7 @@ namespace feature
       Polygonizer * m_pPolygonizer;
       buffer_vector<borders::CountryPolygons const *, 32> m_Countries;
       FeatureBuilder1 m_FB;
-      RestrictionCollector & m_restrictions;
+      SyncOfstream & m_featureId2osmIds;
     };
   };
 }

@@ -1,6 +1,6 @@
-#include "generator/intermediate_elements.hpp"
 #include "generator/restrictions.hpp"
 
+#include "base/assert.hpp"
 #include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
 
@@ -11,24 +11,8 @@
 
 namespace
 {
-vector<string> const kRestrictionTypesNo = {"no_right_turn", "no_left_turn", "no_u_turn",
-                                            "no_straight_on", "no_entry", "no_exit"};
-vector<string> const kRestrictionTypesOnly = {"only_right_turn", "only_left_turn", "only_straight_on"};
-
-/// \brief Converts restriction type form string to RestrictionCollector::Type.
-/// \returns Fisrt item is a result of conversion. Second item is true
-/// if convertion was successful and false otherwise.
-pair<RestrictionCollector::Type, bool> TagToType(string const & type)
-{
-  if (find(kRestrictionTypesNo.cbegin(), kRestrictionTypesNo.cend(), type) != kRestrictionTypesNo.cend())
-    return make_pair(RestrictionCollector::Type::No, true);
-
-  if (find(kRestrictionTypesOnly.cbegin(), kRestrictionTypesOnly.cend(), type) != kRestrictionTypesOnly.cend())
-    return make_pair(RestrictionCollector::Type::Only, true);
-
-  // Unsupported restriction type.
-  return make_pair(RestrictionCollector::Type::No, false);
-}
+string const kNoStr = "No";
+string const kOnlyStr = "Only";
 }  // namespace
 
 RestrictionCollector::FeatureId const RestrictionCollector::kInvalidFeatureId =
@@ -68,50 +52,7 @@ void RestrictionCollector::AddRestriction(vector<osm::Id> const & links, Type ty
   m_restrictions.emplace_back(type, links.size());
   size_t const restrictionCount = m_restrictions.size() - 1;
   for (size_t i = 0; i < links.size(); ++i)
-    m_restrictionIndex.push_back(make_pair(links[i], Index({restrictionCount, i})));
-}
-
-void RestrictionCollector::AddRestriction(RelationElement const & relationElement)
-{
-  CHECK_EQUAL(relationElement.GetType(), "restriction", ());
-
-  // Note. For the time being only line-point-line road restriction is supported.
-  if (relationElement.nodes.size() != 1 || relationElement.ways.size() != 2)
-    return; // Unsupported restriction. For example line-line-line.
-
-  // Extracting osm ids of lines and points of the restriction.
-  auto const findTag = [&relationElement](vector<pair<uint64_t, string>> const & members, string const & tag)
-  {
-    auto const it = find_if(members.cbegin(), members.cend(),
-                            [&tag](pair<uint64_t, string> const & p) { return p.second == tag; });
-    return it;
-  };
-
-  auto const fromIt = findTag(relationElement.ways, "from");
-  if (fromIt == relationElement.ways.cend())
-    return; // No tag |from| in |relationElement.ways|.
-
-  auto const toIt = findTag(relationElement.ways, "to");
-  if (toIt == relationElement.ways.cend())
-    return; // No tag |to| in |relationElement.ways|.
-
-  if (findTag(relationElement.nodes,"via") == relationElement.nodes.cend())
-    return; // No tag |via| in |relationElement.nodes|.
-
-  // Extracting type of restriction.
-  auto const tagIt = relationElement.tags.find("restriction");
-  if (tagIt == relationElement.tags.end())
-    return; // Type of the element is different from "restriction".
-
-  auto const typeResult = TagToType(tagIt->second);
-  if (typeResult.second == false)
-    return; // Unsupported restriction type.
-
-  // Adding restriction.
-  Type const type = typeResult.first;
-  osm::Id const fromOsmId = osm::Id::Way(fromIt->first);
-  osm::Id const toOsmId = osm::Id::Way(toIt->first);
-  AddRestriction({fromOsmId, toOsmId}, type);
+    m_restrictionIndex.emplace_back(links[i], Index({restrictionCount, i}));
 }
 
 void RestrictionCollector::AddFeatureId(vector<osm::Id> const & osmIds, FeatureId featureId)
@@ -148,7 +89,7 @@ void RestrictionCollector::ComposeRestrictions()
     Restriction & restriction = m_restrictions[index.m_restrictionNumber];
     CHECK_LESS(index.m_linkNumber, restriction.m_links.size(), ());
 
-    osm::Id const osmId = osmIdAndIndex.first;
+    osm::Id const & osmId = osmIdAndIndex.first;
     // Checking if there's an osm id belongs to a restriction is saved only once as feature id.
     auto const rangeId = m_osmIds2FeatureId.equal_range(osmId);
     if (rangeId.first == rangeId.second)
@@ -161,7 +102,7 @@ void RestrictionCollector::ComposeRestrictions()
     if (distance(rangeId.first, rangeId.second) != 1)
       continue; // |osmId| mentioned in restrictions was included in more than one feature.
 
-    FeatureId const featureId = rangeId.first->second;
+    FeatureId const & featureId = rangeId.first->second;
     // Adding feature id to restriction coresponded to the osm id.
     restriction.m_links[index.m_linkNumber] = featureId;
   }
@@ -203,11 +144,27 @@ string ToString(RestrictionCollector::Type const & type)
   switch (type)
   {
   case RestrictionCollector::Type::No:
-    return "No";
+    return kNoStr;
   case RestrictionCollector::Type::Only:
-    return "Only";
+    return kOnlyStr;
   }
   return "Unknown";
+}
+
+bool FromString(string const & str, RestrictionCollector::Type & type)
+{
+  if (str == kNoStr)
+  {
+    type = RestrictionCollector::Type::No;
+    return true;
+  }
+  if (str == kOnlyStr)
+  {
+    type = RestrictionCollector::Type::Only;
+    return true;
+  }
+
+  return false;
 }
 
 string DebugPrint(RestrictionCollector::Type const & type)
@@ -218,6 +175,6 @@ string DebugPrint(RestrictionCollector::Type const & type)
 string DebugPrint(RestrictionCollector::Restriction const & restriction)
 {
   ostringstream out;
-  out << "m_links:[" << restriction.m_links << "] m_type:" << DebugPrint(restriction.m_type) << " ";
+  out << "m_links:[" << DebugPrint(restriction.m_links) << "] m_type:" << DebugPrint(restriction.m_type) << " ";
   return out.str();
 }

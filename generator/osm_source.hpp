@@ -2,10 +2,12 @@
 
 #include "generator/generate_info.hpp"
 #include "generator/osm_element.hpp"
-#include "generator/restrictions.hpp"
+#include "generator/osm_id.hpp"
 
+#include "std/fstream.hpp"
 #include "std/function.hpp"
 #include "std/iostream.hpp"
+#include "std/mutex.hpp"
 #include "std/unique_ptr.hpp"
 
 class SourceReader
@@ -36,8 +38,6 @@ class FeatureBuilder1;
 // Emitter is used in OsmElemen to FeatureBuilder translation process.
 class EmitterBase
 {
-  RestrictionCollector m_restrictions;
-
 public:
   virtual ~EmitterBase() = default;
 
@@ -49,11 +49,17 @@ public:
   /// Sets buckets (mwm names).
   // TODO(syershov): Make this topic clear.
   virtual void GetNames(vector<string> & names) const = 0;
+};
 
-  RestrictionCollector & GetRestrictionCollector()
-  {
-    return m_restrictions;
-  }
+class SyncOfstream
+{
+  ofstream m_stream;
+  mutex m_mutex;
+
+public:
+  void Open(string const & fullPath);
+  bool IsOpened();
+  void Write(uint32_t featureId, vector<osm::Id> const & osmIds);
 };
 
 unique_ptr<EmitterBase> MakeMainFeatureEmitter(feature::GenerateInfo const & info);

@@ -36,6 +36,7 @@ SOURCES += \
     osm_id.cpp \
     osm_source.cpp \
     region_meta.cpp \
+    restriction_dumper.cpp \
     restrictions.cpp \
     routing_generator.cpp \
     search_index_builder.cpp \
@@ -74,6 +75,7 @@ HEADERS += \
     osm_xml_source.hpp \
     polygonizer.hpp \
     region_meta.hpp \
+    restriction_dumper.hpp \
     restrictions.hpp \
     routing_generator.hpp \
     search_index_builder.hpp \
