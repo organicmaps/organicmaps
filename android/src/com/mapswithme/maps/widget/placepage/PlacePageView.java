@@ -889,8 +889,12 @@ public class PlacePageView extends RelativeLayout
     UiUtils.showIf(sponsored, mSponsoredInfo);
     if (sponsored)
     {
-      UiUtils.setTextAndHideIfEmpty(mTvSponsoredRating, mSponsored.mRating);
-      UiUtils.setTextAndHideIfEmpty(mTvSponsoredPrice, mSponsoredPrice);
+      boolean isPriceEmpty = TextUtils.isEmpty(mSponsoredPrice);
+      boolean isRatingEmpty = TextUtils.isEmpty(mSponsored.mRating);
+      mTvSponsoredRating.setText(mSponsored.mRating);
+      UiUtils.showIf(!isPriceEmpty && !isRatingEmpty, mTvSponsoredRating);
+      mTvSponsoredPrice.setText(mSponsoredPrice);
+      UiUtils.showIf(!isPriceEmpty, mTvSponsoredPrice);
     }
   }
 
