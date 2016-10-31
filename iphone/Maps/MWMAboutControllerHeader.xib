@@ -11,7 +11,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMAboutController">
             <connections>
+                <outlet property="dateLabel" destination="2UY-CN-bbR" id="0ad-Y1-yZq"/>
                 <outlet property="headerView" destination="nNn-As-qvg" id="kwi-x5-YnF"/>
+                <outlet property="versionLabel" destination="eX4-Y6-p2e" id="4Kf-ae-nY1"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
