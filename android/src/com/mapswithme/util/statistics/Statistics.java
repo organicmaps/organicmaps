@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.facebook.appevents.AppEventsLogger;
@@ -57,11 +58,13 @@ public enum Statistics
     public static final String BMK_GROUP_CHANGED = "Bookmark. Group changed";
     public static final String BMK_COLOR_CHANGED = "Bookmark. Color changed";
     public static final String BMK_CREATED = "Bookmark. Bookmark created";
+
     // search
     public static final String SEARCH_CAT_CLICKED = "Search. Category clicked";
     public static final String SEARCH_ITEM_CLICKED = "Search. Key clicked";
     public static final String SEARCH_ON_MAP_CLICKED = "Search. View on map clicked.";
     public static final String SEARCH_CANCEL = "Search. Cancel.";
+
     // place page
     public static final String PP_OPEN = "PP. Open";
     public static final String PP_CLOSE = "PP. Close";
@@ -75,23 +78,27 @@ public enum Statistics
     public static final String PP_DIRECTION_ARROW = "PP. DirectionArrow";
     public static final String PP_DIRECTION_ARROW_CLOSE = "PP. DirectionArrowClose";
     public static final String PP_METADATA_COPY = "PP. CopyMetadata";
+
     // toolbar actions
     public static final String TOOLBAR_MY_POSITION = "Toolbar. MyPosition";
     public static final String TOOLBAR_SEARCH = "Toolbar. Search";
     public static final String TOOLBAR_MENU = "Toolbar. Menu";
     public static final String TOOLBAR_BOOKMARKS = "Toolbar. Bookmarks";
+
     // menu actions
     public static final String MENU_DOWNLOADER = "Menu. Downloader";
     public static final String MENU_SETTINGS = "Menu. SettingsAndMore";
     public static final String MENU_SHARE = "Menu. Share";
     public static final String MENU_P2P = "Menu. Point to point.";
     public static final String MENU_ADD_PLACE = "Menu. Add place.";
+
     // dialogs
     public static final String PLUS_DIALOG_LATER = "GPlus dialog cancelled.";
     public static final String RATE_DIALOG_LATER = "GPlay dialog cancelled.";
     public static final String FACEBOOK_INVITE_LATER = "Facebook invites dialog cancelled.";
     public static final String FACEBOOK_INVITE_INVITED = "Facebook invites dialog accepted.";
     public static final String RATE_DIALOG_RATED = "GPlay dialog. Rating set";
+
     // misc
     public static final String ZOOM_IN = "Zoom. In";
     public static final String ZOOM_OUT = "Zoom. Out";
@@ -103,6 +110,7 @@ public enum Statistics
     public static final String ACTIVE_CONNECTION = "Connection";
     public static final String STATISTICS_STATUS_CHANGED = "Statistics status changed";
     public static final String TTS_FAILURE_LOCATION = "TTS failure location";
+
     // routing
     public static final String ROUTING_BUILD = "Routing. Build";
     public static final String ROUTING_START_SUGGEST_REBUILD = "Routing. Suggest rebuild";
@@ -118,6 +126,9 @@ public enum Statistics
     public static final String ROUTING_SEARCH_POINT = "Routing. Search point";
     public static final String ROUTING_SETTINGS = "Routing. Settings";
     public static final String ROUTING_TTS_SWITCH = "Routing. Switch tts";
+    public static final String ROUTING_TAXI_ORDER = "Routing_Taxi_order";
+    public static final String ROUTING_TAXI_INSTALL = "Routing_Taxi_install";
+
     // editor
     public static final String EDITOR_START_CREATE = "Editor_Add_start";
     public static final String EDITOR_ADD_CLICK = "Editor_Add_click";
@@ -203,6 +214,11 @@ public enum Statistics
     public static final String GOOGLE = "Google";
     public static final String UID = "uid";
     public static final String SHOWN = "shown";
+    public static final String PROVIDER = "provider";
+    public static final String FROM_LAT = "from_lat";
+    public static final String FROM_LON = "from_lon";
+    public static final String TO_LAT = "to_lat";
+    public static final String TO_LON = "to_lon";
     private EventParam() {}
   }
 
@@ -258,7 +274,7 @@ public enum Statistics
     }
   }
 
-  public void trackEvent(@NonNull String name, Location location, @NonNull Map<String, String> params)
+  public void trackEvent(@NonNull String name, @Nullable Location location, @NonNull Map<String, String> params)
   {
     if (mEnabled)
     {
@@ -407,6 +423,23 @@ public enum Statistics
   public void trackAuthRequest(OsmOAuth.AuthType type)
   {
     trackEvent(EventName.EDITOR_AUTH_REQUEST, Statistics.params().add(Statistics.EventParam.TYPE, type.name));
+  }
+
+  public void trackUber(@Nullable MapObject from, @Nullable MapObject to,
+                        @Nullable Location location, boolean isUberInstalled)
+  {
+    Statistics.ParameterBuilder params = Statistics.params();
+    params.add(Statistics.EventParam.PROVIDER, "Uber");
+
+    params.add(Statistics.EventParam.FROM_LAT, from != null ? String.valueOf(from.getLat()) : "N/A")
+          .add(Statistics.EventParam.FROM_LON, from != null ? String.valueOf(from.getLon()) : "N/A");
+
+    params.add(Statistics.EventParam.TO_LAT, to != null ? String.valueOf(to.getLat()) : "N/A")
+          .add(Statistics.EventParam.TO_LON, to != null ? String.valueOf(to.getLon()) : "N/A");
+
+    String event = isUberInstalled ? Statistics.EventName.ROUTING_TAXI_ORDER
+                                   : Statistics.EventName.ROUTING_TAXI_INSTALL;
+    trackEvent(event, location, params.get());
   }
 
   public static ParameterBuilder params()

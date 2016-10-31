@@ -3,6 +3,7 @@ package com.mapswithme.maps.routing;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
@@ -24,6 +25,8 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.uber.Uber;
 import com.mapswithme.maps.uber.UberAdapter;
 import com.mapswithme.maps.uber.UberInfo;
@@ -495,7 +498,8 @@ public class RoutingPlanController extends ToolbarController
 
     if (isTaxiRouteChecked())
     {
-      start.setText(Utils.isUberInstalled(mActivity) ? R.string.taxi_order : R.string.install_app);
+      final boolean isUberInstalled = Utils.isUberInstalled(mActivity);
+      start.setText(isUberInstalled ? R.string.taxi_order : R.string.install_app);
       start.setOnClickListener(new View.OnClickListener()
       {
         @Override
@@ -505,6 +509,7 @@ public class RoutingPlanController extends ToolbarController
           {
             UberLinks links = RoutingController.get().getUberLink(mUberProduct.getProductId());
             Utils.launchUber(mActivity, links);
+            trackUberStatistics(isUberInstalled);
           }
         }
       });
@@ -532,4 +537,11 @@ public class RoutingPlanController extends ToolbarController
     UiUtils.show(start);
   }
 
+  private static void trackUberStatistics(boolean isUberInstalled)
+  {
+    MapObject from = RoutingController.get().getStartPoint();
+    MapObject to = RoutingController.get().getEndPoint();
+    Location location = LocationHelper.INSTANCE.getLastKnownLocation();
+    Statistics.INSTANCE.trackUber(from, to, location, isUberInstalled);
+  }
 }

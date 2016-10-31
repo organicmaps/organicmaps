@@ -551,11 +551,13 @@ public class RoutingController
     return mBuildState;
   }
 
+  @Nullable
   MapObject getStartPoint()
   {
     return mStartPoint;
   }
 
+  @Nullable
   MapObject getEndPoint()
   {
     return mEndPoint;
