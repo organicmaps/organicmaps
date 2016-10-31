@@ -1,12 +1,15 @@
 package com.mapswithme.maps.location;
 
+import android.annotation.SuppressLint;
 import android.net.SSLCertificateSocketFactory;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.util.log.DebugLogger;
 import com.mapswithme.util.log.Logger;
 
+import javax.net.SocketFactory;
 import javax.net.ssl.SSLSocketFactory;
 import java.io.IOException;
 import java.io.InputStream;
@@ -74,11 +77,9 @@ class SocketWrapper implements PlatformSocket
   {
     if (ssl)
     {
-      //TODO: use a boolean flag about using the secure or insecure ssl socket (must be done before release!)
-      //https://jira.mail.ru/browse/MAPSME-2786
-      SSLSocketFactory sf = SSLCertificateSocketFactory.getInsecure(0, null);
       try
       {
+        SocketFactory sf = getSocketFactory();
         return sf.createSocket(host, port);
       } catch (IOException e)
       {
@@ -96,6 +97,20 @@ class SocketWrapper implements PlatformSocket
     }
 
     return null;
+  }
+
+
+  @SuppressLint("SSLCertificateSocketFactoryGetInsecure")
+  @NonNull
+  private static SocketFactory getSocketFactory()
+  {
+    // Trusting to any ssl certificate factory that will be used in
+    // debug mode, for testing purposes only.
+    if (BuildConfig.DEBUG)
+      //TODO: implement the custom KeyStore to make the self-signed certificates work
+      return SSLCertificateSocketFactory.getInsecure(0, null);
+
+    return SSLSocketFactory.getDefault();
   }
 
   @Override

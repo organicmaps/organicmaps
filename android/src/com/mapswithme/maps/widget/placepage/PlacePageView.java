@@ -97,7 +97,7 @@ public class PlacePageView extends RelativeLayout
   private static final String PREF_USE_DMS = "use_dms";
 
 //TODO: remove this after booking_api.cpp will be done
-  private static final boolean USE_OLD_BOOKING = false;
+  private static final boolean USE_OLD_BOOKING = true;
 
   private boolean mIsDocked;
   private boolean mIsFloating;
