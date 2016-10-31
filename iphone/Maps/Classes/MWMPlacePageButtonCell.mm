@@ -18,6 +18,13 @@
 
 @implementation MWMPlacePageButtonCell
 
+- (void)awakeFromNib
+{
+  [super awakeFromNib];
+  [self.titleButton setTitleColor:[UIColor linkBlueHighlighted] forState:UIControlStateDisabled];
+  [self.titleButton setTitleColor:[UIColor linkBlue] forState:UIControlStateNormal];
+}
+
 - (void)config:(MWMPlacePageViewManager *)manager forType:(MWMPlacePageCellType)type
 {
   self.countryId = GetFramework().GetCountryInfoGetter().GetRegionCountryId(manager.entity.mercator);
@@ -49,7 +56,9 @@
     title = L(@"details");
     break;
   }
+
   [self.titleButton setTitle:title forState:UIControlStateNormal];
+  [self.titleButton setTitle:title forState:UIControlStateDisabled];
 }
 
 - (IBAction)buttonTap
@@ -106,25 +115,29 @@
 - (void)setType:(MWMPlacePageCellType)type
 {
   _type = type;
+  NSString * title;
   switch (type)
   {
   case MWMPlacePageCellTypeAddBusinessButton:
-    [self.titleButton setTitle:L(@"placepage_add_business_button") forState:UIControlStateNormal];
+    title = L(@"placepage_add_business_button");
     [MWMFrameworkListener addObserver:self];
     break;
   case MWMPlacePageCellTypeEditButton:
-    [self.titleButton setTitle:L(@"edit_place") forState:UIControlStateNormal];
+    title = L(@"edit_place");
     [MWMFrameworkListener addObserver:self];
     break;
   case MWMPlacePageCellTypeAddPlaceButton:
-    [self.titleButton setTitle:L(@"placepage_add_place_button") forState:UIControlStateNormal];
+    title = L(@"placepage_add_place_button");
     [MWMFrameworkListener addObserver:self];
     break;
   case MWMPlacePageCellTypeBookingMore:
-    [self.titleButton setTitle:L(@"details") forState:UIControlStateNormal];
+    title = L(@"details");
     break;
   default: NSAssert(false, @"Invalid place page cell type!"); break;
   }
+
+  [self.titleButton setTitle:title forState:UIControlStateNormal];
+  [self.titleButton setTitle:title forState:UIControlStateDisabled];
 }
 
 @end
