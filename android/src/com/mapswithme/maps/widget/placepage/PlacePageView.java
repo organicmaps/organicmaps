@@ -1082,11 +1082,15 @@ public class PlacePageView extends RelativeLayout
 
     final StringBuilder builder = new StringBuilder();
     if (l.hasAltitude())
-      builder.append(Framework.nativeFormatAltitude(l.getAltitude()));
+    {
+      double altitude = l.getAltitude();
+      builder.append(altitude >= 0 ? "▲" : "▼");
+      builder.append(Framework.nativeFormatAltitude(altitude));
+    }
     if (l.hasSpeed())
       builder.append("   ")
              .append(Framework.nativeFormatSpeed(l.getSpeed()));
-    mTvSubtitle.setText(builder.toString());
+    UiUtils.setTextAndHideIfEmpty(mTvSubtitle, builder.toString());
 
     mMapObject.setLat(l.getLatitude());
     mMapObject.setLon(l.getLongitude());
