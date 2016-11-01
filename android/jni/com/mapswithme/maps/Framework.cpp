@@ -670,8 +670,9 @@ Java_com_mapswithme_maps_Framework_nativeGetDistanceAndAzimuthFromLatLon(
 JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_Framework_nativeFormatLatLon(JNIEnv * env, jclass, jdouble lat, jdouble lon, jboolean useDMSFormat)
 {
-  return jni::ToJavaString(env, (useDMSFormat ? measurement_utils::FormatLatLonAsDMS(lat, lon, 2)
-                                              : measurement_utils::FormatLatLon(lat, lon, 6)));
+  return jni::ToJavaString(env,
+                           (useDMSFormat ? measurement_utils::FormatLatLonAsDMS(lat, lon, 2)
+                                         : measurement_utils::FormatLatLon(lat, lon, true, 6)));
 }
 
 JNIEXPORT jobjectArray JNICALL

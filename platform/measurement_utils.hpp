@@ -52,6 +52,7 @@ void FormatMercatorAsDMS(m2::PointD const & mercator, string & lat, string & lon
 
 /// Default dac == 6 for the simple decimal formatting.
 string FormatLatLon(double lat, double lon, int dac = 6);
+string FormatLatLon(double lat, double lon, bool withSemicolon, int dac = 6);
 void FormatLatLon(double lat, double lon, string & latText, string & lonText, int dac = 6);
 string FormatMercator(m2::PointD const & mercator, int dac = 6);
 void FormatMercator(m2::PointD const & mercator, string & lat, string & lon, int dac = 6);

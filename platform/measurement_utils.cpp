@@ -138,6 +138,11 @@ string FormatLatLon(double lat, double lon, int dac)
   return to_string_dac(lat, dac) + " " + to_string_dac(lon, dac);
 }
 
+string FormatLatLon(double lat, double lon, bool withSemicolon, int dac)
+{
+  return to_string_dac(lat, dac) + (withSemicolon ? ", " : " ") + to_string_dac(lon, dac);
+}
+
 void FormatLatLon(double lat, double lon, string & latText, string & lonText, int dac)
 {
   latText = to_string_dac(lat, dac);
