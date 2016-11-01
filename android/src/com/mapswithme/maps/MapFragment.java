@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.statistics.PushwooshHelper;
 
 public class MapFragment extends BaseMwmFragment
                       implements View.OnTouchListener,
@@ -167,6 +168,9 @@ public class MapFragment extends BaseMwmFragment
     final float exactDensityDpi = metrics.densityDpi;
 
     mFirstStart = ((MwmActivity) getMwmActivity()).isFirstStart();
+    if (mFirstStart)
+      PushwooshHelper.nativeProcessFirstLaunch();
+
     if (!nativeCreateEngine(surface, (int) exactDensityDpi, mFirstStart))
     {
       reportUnsupported();

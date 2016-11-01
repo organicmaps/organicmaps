@@ -832,10 +832,12 @@ Java_com_mapswithme_maps_Framework_nativeCloseRouting(JNIEnv * env, jclass)
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeBuildRoute(JNIEnv * env, jclass,
                                                     jdouble startLat,  jdouble startLon,
-                                                    jdouble finishLat, jdouble finishLon)
+                                                    jdouble finishLat, jdouble finishLon,
+                                                    jboolean isP2P)
 {
   frm()->BuildRoute(MercatorBounds::FromLatLon(startLat, startLon),
-                    MercatorBounds::FromLatLon(finishLat, finishLon), 0 /* timeoutSec */);
+                    MercatorBounds::FromLatLon(finishLat, finishLon),
+                    isP2P, 0 /* timeoutSec */);
 
 }
 

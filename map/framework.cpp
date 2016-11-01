@@ -397,7 +397,7 @@ Framework::Framework()
   auto const routingStatisticsFn = [](map<string, string> const & statistics)
   {
     alohalytics::LogEvent("Routing_CalculatingRoute", statistics);
-    GetPlatform().SendMarketingEvent("Routing_CalculatingRoute", {});
+    GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kRoutingCalculatingRoute, {});
   };
 #ifdef DEBUG
   auto const routingVisualizerFn = [this](m2::PointD const & pt)
@@ -660,7 +660,8 @@ void Framework::LoadBookmarks()
 
 size_t Framework::AddBookmark(size_t categoryIndex, const m2::PointD & ptOrg, BookmarkData & bm)
 {
-  GetPlatform().SendMarketingEvent("Bookmarks_Bookmark_action", {{"action", "create"}});
+  GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kBookmarksBookmarkAction,
+                                                         {{"action", "create"}});
   return m_bmManager.AddBookmark(categoryIndex, ptOrg, bm);
 }
 
@@ -2063,7 +2064,7 @@ void Framework::OnTapEvent(TapEvent const & tapEvent)
       alohalytics::Stats::Instance().LogEvent("$SelectMapObject", kv, alohalytics::Location::FromLatLon(ll.lat, ll.lon));
 
       if (info.m_sponsoredType == SponsoredType::Booking)
-        GetPlatform().SendMarketingEvent("Placepage_Hotel_book", {{"provider", "booking.com"}});
+        GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kPlacepageHotelBook, {{"provider", "booking.com"}});
     }
 
     ActivateMapSelection(true, selection, info);
@@ -2268,6 +2269,7 @@ void Framework::UpdateSavedDataVersion()
 }
 
 int64_t Framework::GetCurrentDataVersion() const { return m_storage.GetCurrentDataVersion(); }
+
 void Framework::BuildRoute(m2::PointD const & finish, uint32_t timeoutSec)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ("BuildRoute"));
@@ -2279,13 +2281,34 @@ void Framework::BuildRoute(m2::PointD const & finish, uint32_t timeoutSec)
     CallRouteBuilded(IRouter::NoCurrentPosition, storage::TCountriesVec());
     return;
   }
-  BuildRoute(start, finish, timeoutSec);
+  BuildRoute(start, finish, false /* isP2P */, timeoutSec);
 }
 
-void Framework::BuildRoute(m2::PointD const & start, m2::PointD const & finish, uint32_t timeoutSec)
+void Framework::BuildRoute(m2::PointD const & start, m2::PointD const & finish, bool isP2P, uint32_t timeoutSec)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ("BuildRoute"));
   ASSERT(m_drapeEngine != nullptr, ());
+
+  // Send tag to Push Woosh.
+  {
+    string tag;
+    switch (m_currentRouterType)
+    {
+    case RouterType::Vehicle:
+      tag = isP2P ? marketing::kRoutingP2PVehicleDiscovered : marketing::kRoutingVehicleDiscovered;
+      break;
+    case RouterType::Pedestrian:
+      tag = isP2P ? marketing::kRoutingP2PPedestrianDiscovered : marketing::kRoutingPedestrianDiscovered;
+      break;
+    case RouterType::Bicycle:
+      tag = isP2P ? marketing::kRoutingP2PBicycleDiscovered : marketing::kRoutingBicycleDiscovered;
+      break;
+    case RouterType::Taxi:
+      tag = isP2P ? marketing::kRoutingP2PTaxiDiscovered : marketing::kRoutingTaxiDiscovered;
+      break;
+    }
+    GetPlatform().GetMarketingService().SendPushWooshTag(tag);
+  }
 
   if (IsRoutingActive())
     CloseRouting();
@@ -2875,7 +2898,7 @@ bool Framework::CreateMapObject(m2::PointD const & mercator, uint32_t const feat
   if (!mwmId.IsAlive())
     return false;
 
-  GetPlatform().SendMarketingEvent("EditorAdd_start", {});
+  GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kEditorAddStart, {});
 
   search::ReverseGeocoder const coder(m_model.GetIndex());
   vector<search::ReverseGeocoder::Street> streets;
@@ -2898,7 +2921,7 @@ bool Framework::GetEditableMapObject(FeatureID const & fid, osm::EditableMapObje
   if (!GetFeatureByID(fid, ft))
     return false;
 
-  GetPlatform().SendMarketingEvent("EditorEdit_start", {});
+  GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kEditorEditStart, {});
 
   emo = {};
   emo.SetFromFeatureType(ft);

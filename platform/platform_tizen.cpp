@@ -109,18 +109,6 @@ void Platform::GetSystemFontNames(FilesList & res) const
 {
 }
 
-void Platform::SendPushWooshTag(string const & tag)
-{
-}
-
-void Platform::SendPushWooshTag(string const & tag, string const & value)
-{
-}
-
-void Platform::SendPushWooshTag(string const & tag, vector<string> const & values)
-{
-}
-
 extern Platform & GetPlatform()
 {
   static Platform platform;

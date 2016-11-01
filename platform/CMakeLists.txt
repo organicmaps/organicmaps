@@ -23,6 +23,8 @@ set(
   local_country_file_utils.cpp
   local_country_file_utils.hpp
   location.hpp
+  marketing_service.cpp
+  marketing_service.hpp
   measurement_utils.cpp
   measurement_utils.hpp
   mwm_traits.cpp
@@ -47,6 +49,7 @@ if(${PLATFORM_IPHONE})
     http_thread_apple.h
     http_thread_apple.mm
     http_client_apple.mm
+    marketing_service_ios.mm
     platform_ios.mm
     platform_unix_impl.cpp
     platform_unix_impl.hpp
@@ -65,6 +68,7 @@ else() # neither iPhone nor Android
     ${SRC}
     location_service.cpp
     location_service.hpp
+    marketing_service_dummy.cpp
     platform_qt.cpp
     wifi_info.hpp
     wifi_location_service.cpp
@@ -77,6 +81,7 @@ else() # neither iPhone nor Android
       http_client_curl.cpp
       http_thread_qt.cpp
       http_thread_qt.hpp
+      marketing_service_dummy.cpp
       platform_win.cpp
       wifi_info_windows.cpp
     )
@@ -88,6 +93,7 @@ else() # neither iPhone nor Android
       http_client_apple.mm
       http_thread_apple.h
       http_thread_apple.mm
+      marketing_service_dummy.cpp
       platform_mac.mm
       platform_unix_impl.cpp
       platform_unix_impl.hpp
@@ -99,6 +105,7 @@ else() # neither iPhone nor Android
       http_client_curl.cpp
       http_thread_qt.cpp
       http_thread_qt.hpp
+      marketing_service_dummy.cpp
       platform_linux.cpp
       platform_unix_impl.cpp
       platform_unix_impl.hpp

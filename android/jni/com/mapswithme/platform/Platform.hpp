@@ -30,6 +30,7 @@ namespace android
     void RunOnGuiThread(TFunctor const & fn);
 
     void SendPushWooshTag(string const & tag, vector<string> const & values);
+    void SendMarketingEvent(string const & tag, map<string, string> const & params);
 
     static Platform & Instance();
 
@@ -37,5 +38,6 @@ namespace android
     jobject m_functorProcessObject;
     jmethodID m_functorProcessMethod;
     jmethodID m_sendPushWooshTagsMethod;
+    jmethodID m_myTrackerTrackMethod;
   };
 } // namespace android

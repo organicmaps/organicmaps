@@ -309,7 +309,7 @@ BOOL gIsFirstMyPositionMode = YES;
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
   if ([ud boolForKey:[welcomeClass udWelcomeWasShownKey]])
     return;
-
+  
   self.pageViewController =
       [MWMPageController pageControllerWithParent:self welcomeClass:welcomeClass];
   [self.pageViewController show];

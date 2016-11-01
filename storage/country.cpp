@@ -327,7 +327,7 @@ int64_t LoadCountries(string const & jsonBuffer, TCountryTree & countries,
   }
   stringstream ss;
   ss << version;
-  GetPlatform().SendPushWooshTag("map_version", ss.str());
+  GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kMapVersion, ss.str());
   return version;
 }
 

@@ -560,9 +560,9 @@ void Storage::DownloadNextCountryFromQueue()
     });
     TCountriesVec localMaps;
     GetLocalRealMaps(localMaps);
-    GetPlatform().SendPushWooshTag("map_listing", localMaps);
+    GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kMapListing, localMaps);
     if (!localMaps.empty())
-      GetPlatform().SendPushWooshTag("map_download_discovered");
+      GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kMapDownloadDiscovered);
     return;
   }
 
@@ -830,7 +830,8 @@ void Storage::OnMapDownloadFinished(TCountryId const & countryId, bool success, 
                                  {"status", success ? "ok" : "failed"},
                                  {"version", strings::to_string(GetCurrentDataVersion())},
                                  {"option", DebugPrint(files)}}));
-    GetPlatform().SendMarketingEvent("Downloader_Map_action_finished", {{"action", "download"}});
+    GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kDownloaderMapActionFinished,
+                                                           {{"action", "download"}});
   }
 
   success = success && RegisterDownloadedFiles(countryId, files);

@@ -283,10 +283,12 @@ public class RoutingController
     setBuildState(BuildState.BUILDING);
     updatePlan();
 
+    boolean isP2P = !MapObject.isOfType(MapObject.MY_POSITION, mStartPoint) && !MapObject.isOfType(MapObject.MY_POSITION, mEndPoint);
+
     Statistics.INSTANCE.trackRouteBuild(mLastRouterType, mStartPoint, mEndPoint);
-    org.alohalytics.Statistics.logEvent(AlohaHelper.ROUTING_BUILD, new String[] {Statistics.EventParam.FROM, Statistics.getPointType(mStartPoint),
-                                                                                 Statistics.EventParam.TO, Statistics.getPointType(mEndPoint)});
-    Framework.nativeBuildRoute(mStartPoint.getLat(), mStartPoint.getLon(), mEndPoint.getLat(), mEndPoint.getLon());
+    org.alohalytics.Statistics.logEvent(AlohaHelper.ROUTING_BUILD, new String[]{Statistics.EventParam.FROM, Statistics.getPointType(mStartPoint),
+                                                                                Statistics.EventParam.TO, Statistics.getPointType(mEndPoint)});
+    Framework.nativeBuildRoute(mStartPoint.getLat(), mStartPoint.getLon(), mEndPoint.getLat(), mEndPoint.getLon(), isP2P);
   }
 
   private void completeUberRequest()
