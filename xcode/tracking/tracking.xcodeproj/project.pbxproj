@@ -45,6 +45,7 @@
 		675E88841DB7AD1000F8EBDA /* reporter_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = reporter_test.cpp; sourceTree = "<group>"; };
 		6772592B1DBA26FD00BF54EE /* protocol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = protocol.cpp; sourceTree = "<group>"; };
 		6772592C1DBA26FD00BF54EE /* protocol.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = protocol.hpp; sourceTree = "<group>"; };
+		67A7144D1DC2524E005FF350 /* bindings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bindings.cpp; sourceTree = "<group>"; };
 		67B6E7B71DB8BBA900745F8A /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
 		67EC0CB61DBE4A320021F484 /* protocol_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = protocol_test.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -82,6 +83,7 @@
 				34F558521DBF38A000A4FC11 /* common-release.xcconfig */,
 				675E885F1DB7AC4A00F8EBDA /* tracking */,
 				675E88831DB7ACEA00F8EBDA /* tracking_tests */,
+				67A7144C1DC25222005FF350 /* pytracking */,
 				675E88511DB7AC0300F8EBDA /* Products */,
 				675E888D1DB7B03400F8EBDA /* Frameworks */,
 			);
@@ -133,6 +135,15 @@
 				349756261DC1EBEE0058742A /* libcoding.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		67A7144C1DC25222005FF350 /* pytracking */ = {
+			isa = PBXGroup;
+			children = (
+				67A7144D1DC2524E005FF350 /* bindings.cpp */,
+			);
+			name = pytracking;
+			path = ../../tracking/pytracking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -30,6 +30,11 @@ public:
     // It is expected that |m_timestamp| stores time since epoch in seconds.
     uint64_t m_timestamp = 0;
     ms::LatLon m_latLon = ms::LatLon::Zero();
+
+    bool operator==(DataPoint const & p) const
+    {
+      return m_timestamp == p.m_timestamp && m_latLon == p.m_latLon;
+    }
   };
 
   // Serializes |points| to |writer| by storing delta-encoded points.
@@ -97,7 +102,7 @@ public:
             Uint32ToDouble(ReadVarUint<uint32_t>(src), ms::LatLon::kMinLat, ms::LatLon::kMaxLat);
         lastLon =
             Uint32ToDouble(ReadVarUint<uint32_t>(src), ms::LatLon::kMinLon, ms::LatLon::kMaxLon);
-        result.emplace_back(lastTimestamp, ms::LatLon(lastLat, lastLon));
+        result.push_back(DataPoint(lastTimestamp, ms::LatLon(lastLat, lastLon)));
         first = false;
       }
       else
@@ -105,7 +110,7 @@ public:
         lastTimestamp += ReadVarUint<uint64_t>(src);
         lastLat += Uint32ToDouble(ReadVarUint<uint32_t>(src), kMinDeltaLat, kMaxDeltaLat);
         lastLon += Uint32ToDouble(ReadVarUint<uint32_t>(src), kMinDeltaLon, kMaxDeltaLon);
-        result.emplace_back(lastTimestamp, ms::LatLon(lastLat, lastLon));
+        result.push_back(DataPoint(lastTimestamp, ms::LatLon(lastLat, lastLon)));
       }
     }
   }
