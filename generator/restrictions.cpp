@@ -35,6 +35,8 @@ bool ParseLineOfNumbers(istringstream & stream, vector<uint64_t> & numbers)
 }
 }  // namespace
 
+namespace routing
+{
 RestrictionCollector::FeatureId const RestrictionCollector::kInvalidFeatureId =
     numeric_limits<RestrictionCollector::FeatureId>::max();
 
@@ -245,6 +247,8 @@ string DebugPrint(RestrictionCollector::Index const & index)
 string DebugPrint(RestrictionCollector::Restriction const & restriction)
 {
   ostringstream out;
-  out << "m_links:[" << DebugPrint(restriction.m_links) << "] m_type:" << DebugPrint(restriction.m_type) << " ";
+  out << "m_links:[" << ::DebugPrint(restriction.m_links) << "] m_type:"
+      << DebugPrint(restriction.m_type) << " ";
   return out.str();
 }
+}  // namespace routing

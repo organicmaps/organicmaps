@@ -12,6 +12,8 @@
 
 namespace
 {
+using namespace routing;
+
 vector<string> const kRestrictionTypesNo = {"no_right_turn", "no_left_turn", "no_u_turn",
                                             "no_straight_on", "no_entry", "no_exit"};
 vector<string> const kRestrictionTypesOnly = {"only_right_turn", "only_left_turn", "only_straight_on"};
@@ -32,6 +34,8 @@ pair<RestrictionCollector::Type, bool> TagToType(string const & type)
 }
 }  // namespace
 
+namespace routing
+{
 void RestrictionDumper::Open(string const & fullPath)
 {
   LOG(LINFO, ("Saving road restrictions in osm id terms to", fullPath));
@@ -90,3 +94,4 @@ void RestrictionDumper::Write(RelationElement const & relationElement)
            << fromIt->first << ", "
            << toIt->first << "," << endl;
 }
+}  // namespace routing

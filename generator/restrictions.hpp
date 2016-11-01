@@ -9,6 +9,8 @@
 
 class RelationElement;
 
+namespace routing
+{
 /// This class collects all relations with type restriction and save feature ids of
 /// their road feature in text file for using later.
 class RestrictionCollector
@@ -125,3 +127,4 @@ bool FromString(string str, RestrictionCollector::Type & type);
 string DebugPrint(RestrictionCollector::Type const & type);
 string DebugPrint(RestrictionCollector::Index const & index);
 string DebugPrint(RestrictionCollector::Restriction const & restriction);
+}  // namespace routing

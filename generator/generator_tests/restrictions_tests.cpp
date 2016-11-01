@@ -16,6 +16,8 @@
 using namespace platform;
 using namespace platform::tests_support;
 
+namespace routing
+{
 string const kRestrictionTestDir = "test-restrictions";
 
 UNIT_TEST(RestrictionTest_ValidCase)
@@ -156,3 +158,4 @@ UNIT_TEST(RestrictionTest_RestrictionCollectorWholeClassTest)
        {RestrictionCollector::Type::Only, {3, 4}}};
   TEST_EQUAL(restrictionCollector.GetRestriction(), expectedRestrictions, ());
 }
+}  // namespace routing

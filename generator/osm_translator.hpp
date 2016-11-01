@@ -29,7 +29,7 @@ namespace
 class RelationTagsBase
 {
 public:
-  RelationTagsBase(RestrictionDumper & restrictionDumper)
+  RelationTagsBase(routing::RestrictionDumper & restrictionDumper)
     : m_restrictionDumper(restrictionDumper), m_cache(14) {}
 
   void Reset(uint64_t fID, OsmElement * p)
@@ -75,7 +75,7 @@ protected:
 protected:
   uint64_t m_featureID;
   OsmElement * m_current;
-  RestrictionDumper & m_restrictionDumper;
+  routing::RestrictionDumper & m_restrictionDumper;
 
 private:
   my::Cache<uint64_t, RelationElement> m_cache;
@@ -86,7 +86,7 @@ class RelationTagsNode : public RelationTagsBase
   using TBase = RelationTagsBase;
 
 public:
-  RelationTagsNode(RestrictionDumper & restrictionDumper)
+  RelationTagsNode(routing::RestrictionDumper & restrictionDumper)
     : RelationTagsBase(restrictionDumper) {}
 
 protected:
@@ -127,7 +127,7 @@ protected:
 class RelationTagsWay : public RelationTagsBase
 {
 public:
-  RelationTagsWay(RestrictionDumper & restrictionDumper)
+  RelationTagsWay(routing::RestrictionDumper & restrictionDumper)
     : RelationTagsBase(restrictionDumper) {}
 
 private:
@@ -207,7 +207,7 @@ class OsmToFeatureTranslator
   uint32_t m_coastType;
   unique_ptr<FileWriter> m_addrWriter;
 
-  RestrictionDumper m_restrictionDumper;
+  routing::RestrictionDumper m_restrictionDumper;
 
   RelationTagsNode m_nodeRelations;
   RelationTagsWay m_wayRelations;

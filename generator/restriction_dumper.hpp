@@ -5,6 +5,8 @@
 
 class RelationElement;
 
+namespace routing
+{
 class RestrictionDumper
 {
   ofstream m_stream;
@@ -19,3 +21,4 @@ public:
   // @TODO(bykoianko) It's necessary to process all kind of restrictions.
   void Write(RelationElement const & relationElement);
 };
+}  // namespace routing
