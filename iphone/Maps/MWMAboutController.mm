@@ -1,7 +1,7 @@
 #import "MWMAboutController.h"
-#import <MessageUI/MFMailComposeViewController.h>
 #import "AppInfo.h"
 #import "LinkCell.h"
+#import "MWMMailViewController.h"
 #import "Statistics.h"
 #import "WebViewController.h"
 
@@ -104,9 +104,9 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)sendEmailWithText:(NSString *)text subject:(NSString *)subject toRecipient:(NSString *)email
 {
-  if ([MFMailComposeViewController canSendMail])
+  if ([MWMMailViewController canSendMail])
   {
-    MFMailComposeViewController * vc = [[MFMailComposeViewController alloc] init];
+    MWMMailViewController * vc = [[MWMMailViewController alloc] init];
     vc.mailComposeDelegate = self;
     [vc setSubject:subject];
     [vc setMessageBody:text isHTML:NO];

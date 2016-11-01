@@ -1,8 +1,8 @@
 #import "MWMHelpController.h"
-#import <MessageUI/MFMailComposeViewController.h>
 #import <sys/utsname.h>
 #import "AppInfo.h"
 #import "Common.h"
+#import "MWMMailViewController.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
 #import "WebViewController.h"
@@ -198,7 +198,7 @@ NSString * const kiOSEmail = @"ios@maps.me";
 
 - (void)sendEmailWithSubject:(NSString *)subject toRecipient:(NSString *)email
 {
-  if ([MFMailComposeViewController canSendMail])
+  if ([MWMMailViewController canSendMail])
   {
     struct utsname systemInfo;
     uname(&systemInfo);
@@ -224,7 +224,7 @@ NSString * const kiOSEmail = @"ios@maps.me";
     if (alohalyticsId)
       text = [NSString stringWithFormat:@"%@\n- %@", text, alohalyticsId];
 
-    MFMailComposeViewController * vc = [[MFMailComposeViewController alloc] init];
+    MWMMailViewController * vc = [[MWMMailViewController alloc] init];
     vc.mailComposeDelegate = self;
     [vc setSubject:[NSString stringWithFormat:@"[%@ iOS] %@", [AppInfo sharedInfo].bundleVersion,
                                               subject]];

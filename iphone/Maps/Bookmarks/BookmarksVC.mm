@@ -2,15 +2,15 @@
 #import "CircleView.h"
 #import "ColorPickerView.h"
 #import "Common.h"
-#import "MapsAppDelegate.h"
-#import "MapViewController.h"
 #import "MWMBookmarkNameCell.h"
 #import "MWMLocationHelpers.h"
 #import "MWMLocationManager.h"
+#import "MWMMailViewController.h"
 #import "MWMMapViewControlsManager.h"
+#import "MapViewController.h"
+#import "MapsAppDelegate.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
-#import <MessageUI/MFMailComposeViewController.h>
 
 #include "Framework.h"
 
@@ -405,7 +405,7 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
 
 - (void)sendBookmarksWithExtension:(NSString *)fileExtension andType:(NSString *)mimeType andFile:(NSString *)filePath andCategory:(NSString *)catName
 {
-  MFMailComposeViewController * mailVC = [[MFMailComposeViewController alloc] init];
+  MWMMailViewController * mailVC = [[MWMMailViewController alloc] init];
   mailVC.mailComposeDelegate = self;
   [mailVC setSubject:L(@"share_bookmarks_email_subject")];
   NSData * myData = [[NSData alloc] initWithContentsOfFile:filePath];
@@ -426,7 +426,7 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
     m_bookmarkSection = index++;
   else
     m_bookmarkSection = EMPTY_SECTION;
-  if ([MFMailComposeViewController canSendMail])
+  if ([MWMMailViewController canSendMail])
     m_shareSection = index++;
   else
     m_shareSection = EMPTY_SECTION;

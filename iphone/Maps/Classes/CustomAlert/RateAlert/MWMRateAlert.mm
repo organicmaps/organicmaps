@@ -1,8 +1,8 @@
 #import "MWMRateAlert.h"
-#import <MessageUI/MFMailComposeViewController.h>
 #import <sys/utsname.h>
 #import "AppInfo.h"
 #import "MWMAlertViewController.h"
+#import "MWMMailViewController.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
 
@@ -140,7 +140,7 @@ static NSString * const kStatisticsEvent = @"Rate Alert";
   self.alpha = 0.;
   MWMAlertViewController * alertController = self.alertController;
   alertController.view.alpha = 0.;
-  if ([MFMailComposeViewController canSendMail])
+  if ([MWMMailViewController canSendMail])
   {
     struct utsname systemInfo;
     uname(&systemInfo);
@@ -160,7 +160,7 @@ static NSString * const kStatisticsEvent = @"Rate Alert";
     NSString * text = [NSString stringWithFormat:@"\n\n\n\n- %@ (%@)\n- MAPS.ME %@\n- %@/%@",
                                                  device, [UIDevice currentDevice].systemVersion,
                                                  bundleVersion, language, country];
-    MFMailComposeViewController * mailController = [[MFMailComposeViewController alloc] init];
+    MWMMailViewController * mailController = [[MWMMailViewController alloc] init];
     mailController.mailComposeDelegate = self;
     [mailController setSubject:[NSString stringWithFormat:@"%@ : %@", L(@"rating_just_rated"),
                                                           @(self.selectedTag)]];
