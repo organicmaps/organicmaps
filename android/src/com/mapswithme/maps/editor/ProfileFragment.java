@@ -1,11 +1,13 @@
 package com.mapswithme.maps.editor;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v7.app.AlertDialog;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -37,10 +39,22 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
     LOGOUT(R.drawable.ic_logout, R.string.logout)
     {
       @Override
-      void invoke(ProfileFragment fragment)
+      void invoke(final ProfileFragment fragment)
       {
-        OsmOAuth.clearAuthorization();
-        fragment.refreshViews();
+        new AlertDialog.Builder(fragment.getContext())
+            .setMessage(R.string.are_you_sure)
+            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
+            {
+              @Override
+              public void onClick(DialogInterface dialog, int which)
+              {
+                OsmOAuth.clearAuthorization();
+                fragment.refreshViews();
+              }
+            })
+            .setNegativeButton(android.R.string.no, null)
+            .create()
+            .show();
       }
     },
 
