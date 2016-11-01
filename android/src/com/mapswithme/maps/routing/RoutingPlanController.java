@@ -442,7 +442,7 @@ public class RoutingPlanController extends ToolbarController
         showError(R.string.taxi_not_found);
         break;
       case RemoteError:
-        showError(R.string.uber_remote_error);
+        showError(R.string.dialog_taxi_error);
         break;
       default:
         throw new AssertionError("Unsupported uber error: " + code);
@@ -455,7 +455,7 @@ public class RoutingPlanController extends ToolbarController
     int checkedId = mRouterTypes.getCheckedRadioButtonId();
     RoutingToolbarButton rb = (RoutingToolbarButton) mRouterTypes.findViewById(checkedId);
     rb.error();
-    showError(R.string.uber_no_internet);
+    showError(R.string.dialog_taxi_offline);
   }
 
   private void showError(@StringRes int message)
