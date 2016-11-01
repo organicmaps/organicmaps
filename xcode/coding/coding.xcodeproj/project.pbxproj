@@ -97,6 +97,7 @@
 		675342D41A3F588C00A0A8C3 /* zip_reader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753427F1A3F588C00A0A8C3 /* zip_reader.hpp */; };
 		675E889C1DB7B0D000F8EBDA /* traffic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675E889A1DB7B0D000F8EBDA /* traffic.cpp */; };
 		675E889D1DB7B0D000F8EBDA /* traffic.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675E889B1DB7B0D000F8EBDA /* traffic.hpp */; };
+		676818201DC3ABD80094C0AC /* traffic_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6768181F1DC3ABD80094C0AC /* traffic_test.cpp */; };
 		67E8DB551BBC17490053C5BA /* base64_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E8DB081BBC16C70053C5BA /* base64_test.cpp */; };
 		67E8DB561BBC17490053C5BA /* bit_streams_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E8DB091BBC16C70053C5BA /* bit_streams_test.cpp */; };
 		67E8DB581BBC17490053C5BA /* coder_util_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E8DB0C1BBC16C70053C5BA /* coder_util_test.cpp */; };
@@ -234,6 +235,7 @@
 		6753427F1A3F588C00A0A8C3 /* zip_reader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = zip_reader.hpp; sourceTree = "<group>"; };
 		675E889A1DB7B0D000F8EBDA /* traffic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = traffic.cpp; sourceTree = "<group>"; };
 		675E889B1DB7B0D000F8EBDA /* traffic.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = traffic.hpp; sourceTree = "<group>"; };
+		6768181F1DC3ABD80094C0AC /* traffic_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = traffic_test.cpp; sourceTree = "<group>"; };
 		67D1C81A1AE541C300A239E3 /* png_memory_encoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = png_memory_encoder.cpp; sourceTree = "<group>"; };
 		67D1C81B1AE541C300A239E3 /* png_memory_encoder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = png_memory_encoder.hpp; sourceTree = "<group>"; };
 		67E8DB071BBC16C70053C5BA /* base64_for_user_id_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = base64_for_user_id_test.cpp; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 			children = (
 				67E8DB7A1BBC18720053C5BA /* libs */,
 				3D489BB71D3D217E0052AA38 /* elias_coder_test.cpp */,
+				6768181F1DC3ABD80094C0AC /* traffic_test.cpp */,
 				3D489BB81D3D217E0052AA38 /* fixed_bits_ddvector_test.cpp */,
 				3D489BB91D3D217E0052AA38 /* simple_dense_coding_test.cpp */,
 				3D489BBA1D3D217E0052AA38 /* succinct_mapper_test.cpp */,
@@ -674,6 +677,7 @@
 				675342D31A3F588C00A0A8C3 /* zip_reader.cpp in Sources */,
 				347F33371C4540F0009758CC /* compressed_bit_vector.cpp in Sources */,
 				6753429F1A3F588C00A0A8C3 /* file_reader.cpp in Sources */,
+				676818201DC3ABD80094C0AC /* traffic_test.cpp in Sources */,
 				675342C51A3F588C00A0A8C3 /* uri.cpp in Sources */,
 				675342BB1A3F588C00A0A8C3 /* reader.cpp in Sources */,
 				670BAACB1D0B0C1E000302DA /* huffman.cpp in Sources */,
