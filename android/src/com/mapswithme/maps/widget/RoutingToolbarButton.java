@@ -57,7 +57,7 @@ public class RoutingToolbarButton extends AppCompatRadioButton
   {
     mInProgress = false;
     setSelected(false);
-    setButtonDrawable(R.drawable.ic_reload);
+    setButtonDrawable(R.drawable.ic_routing_error);
     setActivated(true);
   }
 
