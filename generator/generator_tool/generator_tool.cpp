@@ -8,6 +8,7 @@
 #include "generator/feature_sorter.hpp"
 #include "generator/generate_info.hpp"
 #include "generator/osm_source.hpp"
+#include "generator/restriction_generator.hpp"
 #include "generator/routing_generator.hpp"
 #include "generator/search_index_builder.hpp"
 #include "generator/statistics.hpp"
@@ -82,6 +83,9 @@ DEFINE_uint64(planet_version, my::SecondsSinceEpoch(),
 DEFINE_string(srtm_path, "",
               "Path to srtm directory. If it is set, generates section with altitude information "
               "about roads.");
+DEFINE_string(restriction_name, "", "Name of file with relation restriction in osm id term.");
+DEFINE_string(feature_id_to_osm_ids_name, "", "Name of to file with mapping from feature id to osm ids.");
+DEFINE_bool(generate_outgoing_edge_index, false, "Generates section with outgoing edges");
 
 int main(int argc, char ** argv)
 {
@@ -112,6 +116,8 @@ int main(int argc, char ** argv)
   }
 
   genInfo.m_osmFileName = FLAGS_osm_file_name;
+  genInfo.m_restrictions = FLAGS_restriction_name;
+  genInfo.m_featureId2OsmIds = FLAGS_feature_id_to_osm_ids_name;
   genInfo.m_failOnCoasts = FLAGS_fail_on_coasts;
   genInfo.m_preloadCache = FLAGS_preload_cache;
   genInfo.m_bookingDatafileName = FLAGS_booking_data;
@@ -143,7 +149,8 @@ int main(int argc, char ** argv)
   if (FLAGS_make_coasts || FLAGS_generate_features || FLAGS_generate_geometry ||
       FLAGS_generate_index || FLAGS_generate_search_index || FLAGS_calc_statistics ||
       FLAGS_type_statistics || FLAGS_dump_types || FLAGS_dump_prefixes ||
-      FLAGS_dump_feature_names != "" || FLAGS_check_mwm || FLAGS_srtm_path != "")
+      FLAGS_dump_feature_names != "" || FLAGS_check_mwm || FLAGS_srtm_path != "" ||
+      FLAGS_generate_outgoing_edge_index)
   {
     classificator::Load();
     classif().SortClassificator();
@@ -154,6 +161,8 @@ int main(int argc, char ** argv)
   {
     LOG(LINFO, ("Generating final data ..."));
 
+    genInfo.m_restrictions = FLAGS_restriction_name;
+    genInfo.m_featureId2OsmIds = FLAGS_feature_id_to_osm_ids_name;
     genInfo.m_splitByPolygons = FLAGS_split_by_polygons;
     genInfo.m_createWorld = FLAGS_generate_world;
     genInfo.m_makeCoasts = FLAGS_make_coasts;
@@ -228,6 +237,12 @@ int main(int argc, char ** argv)
 
     if (!FLAGS_srtm_path.empty())
       routing::BuildRoadAltitudes(datFile, FLAGS_srtm_path);
+
+    if (FLAGS_generate_outgoing_edge_index)
+    {
+      routing::BuildRoadRestrictions(datFile, genInfo.GetIntermediateFileName(genInfo.m_restrictions, ""),
+                                     genInfo.GetIntermediateFileName(genInfo.m_featureId2OsmIds, ""));
+    }
   }
 
   string const datFile = my::JoinFoldersToPath(path, FLAGS_output + DATA_FILE_EXTENSION);

@@ -3,16 +3,36 @@
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
+#include "base/string_utils.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/fstream.hpp"
-#include "std/string.hpp"
-#include "std/vector.hpp"
+#include "std/sstream.hpp"
 
 namespace
 {
 string const kNoStr = "No";
 string const kOnlyStr = "Only";
+
+bool ParseLineOfNumbers(istringstream & stream, vector<uint64_t> & numbers)
+{
+  string numberStr;
+  uint64_t number;
+
+  while (stream)
+  {
+    if (!getline(stream, numberStr, ',' ))
+      return true;
+    if (numberStr.empty())
+      return true;
+
+    if (!strings::to_uint64(numberStr, number))
+        return false;
+
+    numbers.push_back(number);
+  }
+  return true;
+}
 }  // namespace
 
 RestrictionCollector::FeatureId const RestrictionCollector::kInvalidFeatureId =
@@ -46,50 +66,95 @@ bool RestrictionCollector::Restriction::operator<(Restriction const & restrictio
   return m_links < restriction.m_links;
 }
 
-void RestrictionCollector::AddRestriction(vector<osm::Id> const & links, Type type)
+RestrictionCollector::RestrictionCollector(string const & restrictionPath,
+                                           string const & featureId2OsmIdsPath)
 {
-  lock_guard<mutex> lock(m_mutex);
-  m_restrictions.emplace_back(type, links.size());
-  size_t const restrictionCount = m_restrictions.size() - 1;
-  for (size_t i = 0; i < links.size(); ++i)
-    m_restrictionIndex.emplace_back(links[i], Index({restrictionCount, i}));
+  if (!ParseFeatureId2OsmIdsMapping(featureId2OsmIdsPath))
+    return;
+
+  if (!ParseRestrictions(restrictionPath))
+  {
+    m_restrictions.clear();
+    return;
+  }
+  ComposeRestrictions();
+  RemoveInvalidRestrictions();
+  LOG(LINFO, ("m_restrictions.size() =", m_restrictions.size()));
 }
 
-void RestrictionCollector::AddFeatureId(vector<osm::Id> const & osmIds, FeatureId featureId)
+bool RestrictionCollector::IsValid() const
 {
-  // Note. One |featureId| could correspond to several osm ids.
-  // but for road feature |featureId| corresponds exactly one osm id.
-  lock_guard<mutex> lock(m_mutex);
-  for (osm::Id const & osmId : osmIds)
-    m_osmIds2FeatureId.insert(make_pair(osmId, featureId));
+  return !m_restrictions.empty()
+      && find_if(begin(m_restrictions), end(m_restrictions),
+                 [](Restriction const & r){ return !r.IsValid(); }) == end(m_restrictions);
 }
 
-bool RestrictionCollector::CheckCorrectness() const
-{  
-  return find_if(begin(m_restrictions), end(m_restrictions),
-                                            [](Restriction const & r){ return !r.IsValid(); })
-      == end(m_restrictions);
+bool RestrictionCollector::ParseFeatureId2OsmIdsMapping(string const & featureId2OsmIdsPath)
+{
+  ifstream featureId2OsmIdsStream(featureId2OsmIdsPath);
+  if (featureId2OsmIdsStream.fail())
+    return false;
+
+  while (featureId2OsmIdsStream)
+  {
+    string line;
+    if (!getline(featureId2OsmIdsStream, line))
+      return true;
+
+    istringstream lineStream(line);
+    vector<uint64_t> ids;
+    if (!ParseLineOfNumbers(lineStream, ids))
+      return false;
+
+    if (ids.size() <= 1)
+      return false; // Every line should contain at least feature id and osm id.
+
+    FeatureId const featureId = static_cast<FeatureId>(ids.front());
+    ids.erase(ids.begin());
+    AddFeatureId(featureId, ids);
+  }
+  return true;
 }
 
-void RestrictionCollector::RemoveInvalidRestrictions()
+bool RestrictionCollector::ParseRestrictions(string const & restrictionPath)
 {
-  m_restrictions.erase(remove_if(m_restrictions.begin(), m_restrictions.end(),
-                                 [](Restriction const & r){ return !r.IsValid(); }),
-      m_restrictions.end());
+  ifstream restrictionsStream(restrictionPath);
+  if (restrictionsStream.fail())
+    return false;
+
+  while (restrictionsStream)
+  {
+    string line;
+    if (!getline(restrictionsStream, line))
+      return true;
+    istringstream lineStream(line);
+    string typeStr;
+    getline(lineStream, typeStr, ',' );
+    Type type;
+    if (!FromString(typeStr, type))
+      return false;
+
+    vector<uint64_t> osmIds;
+    if (!ParseLineOfNumbers(lineStream, osmIds))
+      return false;
+
+    AddRestriction(type, osmIds);
+  }
+  return true;
 }
 
 void RestrictionCollector::ComposeRestrictions()
 {
   // Going throught all osm id saved in |m_restrictionIndex| (mentioned in restrictions).
   size_t const restrictionSz = m_restrictions.size();
-  for (pair<osm::Id, Index> const & osmIdAndIndex : m_restrictionIndex)
+  for (pair<uint64_t, Index> const & osmIdAndIndex : m_restrictionIndex)
   {
     Index const & index = osmIdAndIndex.second;
     CHECK_LESS(index.m_restrictionNumber, restrictionSz, ());
     Restriction & restriction = m_restrictions[index.m_restrictionNumber];
     CHECK_LESS(index.m_linkNumber, restriction.m_links.size(), ());
 
-    osm::Id const & osmId = osmIdAndIndex.first;
+    uint64_t const & osmId = osmIdAndIndex.first;
     // Checking if there's an osm id belongs to a restriction is saved only once as feature id.
     auto const rangeId = m_osmIds2FeatureId.equal_range(osmId);
     if (rangeId.first == rangeId.second)
@@ -112,31 +177,27 @@ void RestrictionCollector::ComposeRestrictions()
   m_restrictionIndex.clear();
 }
 
-void RestrictionCollector::ComposeRestrictionsAndSave(string const & fullPath)
+void RestrictionCollector::RemoveInvalidRestrictions()
 {
-  lock_guard<mutex> lock(m_mutex);
+  m_restrictions.erase(remove_if(m_restrictions.begin(), m_restrictions.end(),
+                                 [](Restriction const & r){ return !r.IsValid(); }),
+      m_restrictions.end());
+}
 
-  ComposeRestrictions();
-  RemoveInvalidRestrictions();
+void RestrictionCollector::AddRestriction(Type type, vector<uint64_t> const & osmIds)
+{
+  m_restrictions.emplace_back(type, osmIds.size());
+  size_t const restrictionCount = m_restrictions.size() - 1;
+  for (size_t i = 0; i < osmIds.size(); ++i)
+    m_restrictionIndex.emplace_back(osmIds[i], Index({restrictionCount, i}));
+}
 
-  if (m_restrictions.empty())
-    return;
-
-  LOG(LINFO, ("Saving intermediate file with restrictions to", fullPath));
-  ofstream ofs(fullPath, std::ofstream::out);
-  if (ofs.fail())
-  {
-    LOG(LERROR, ("Cannot open", fullPath, "while saving road restrictions in intermediate format."));
-    return;
-  }
-
-  for (Restriction const & r : m_restrictions)
-  {
-    ofs << ToString(r.m_type) << ", ";
-    for (FeatureId fid : r.m_links)
-      ofs << fid << ", ";
-    ofs << endl;
-  }
+void RestrictionCollector::AddFeatureId(FeatureId featureId, vector<uint64_t> const & osmIds)
+{
+  // Note. One |featureId| could correspond to several osm ids.
+  // but for road feature |featureId| corresponds exactly one osm id.
+  for (uint64_t const & osmId : osmIds)
+    m_osmIds2FeatureId.insert(make_pair(osmId, featureId));
 }
 
 string ToString(RestrictionCollector::Type const & type)
@@ -151,8 +212,9 @@ string ToString(RestrictionCollector::Type const & type)
   return "Unknown";
 }
 
-bool FromString(string const & str, RestrictionCollector::Type & type)
+bool FromString(string str, RestrictionCollector::Type & type)
 {
+  str.erase(remove_if(str.begin(), str.end(), isspace), str.end());
   if (str == kNoStr)
   {
     type = RestrictionCollector::Type::No;
@@ -170,6 +232,14 @@ bool FromString(string const & str, RestrictionCollector::Type & type)
 string DebugPrint(RestrictionCollector::Type const & type)
 {
   return ToString(type);
+}
+
+string DebugPrint(RestrictionCollector::Index const & index)
+{
+  ostringstream out;
+  out << "m_restrictionNumber:" << index.m_restrictionNumber
+      << " m_linkNumber:" << index.m_linkNumber << " ";
+  return out.str();
 }
 
 string DebugPrint(RestrictionCollector::Restriction const & restriction)

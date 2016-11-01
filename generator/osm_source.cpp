@@ -343,7 +343,7 @@ public:
       m_world.reset(new TWorldGenerator(info));
 
     // Feature id osm id to map.
-    string const featureId2OsmIdsFile = info.GetIntermediateFileName("feature_id_to_osm_ids", ".csv");
+    string const featureId2OsmIdsFile = info.GetIntermediateFileName(info.m_featureId2OsmIds, "");
     LOG(LINFO, ("Saving osm ids to feature ids map to", featureId2OsmIdsFile));
     m_featureId2osmIds.Open(featureId2OsmIdsFile);
     if (!m_featureId2osmIds.IsOpened())
@@ -550,9 +550,9 @@ void SyncOfstream::Write(uint32_t featureId, vector<osm::Id> const & osmIds)
     return;
 
   lock_guard<mutex> gard(m_mutex);
-  m_stream << featureId << ", ";
+  m_stream << featureId << ",";
   for (osm::Id const & osmId : osmIds)
-    m_stream << osmId.OsmId() << ", ";
+    m_stream << osmId.OsmId() << ",";
   m_stream << endl;
 }
 
@@ -720,7 +720,7 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info, EmitterBase & emitter)
     // TODO(mgsergio): Get rid of EmitterBase template parameter.
     OsmToFeatureTranslator<EmitterBase, TDataCache> parser(
         emitter, cache, info.m_makeCoasts ? classif().GetCoastType() : 0,
-        info.GetAddressesFileName(), info.GetIntermediateFileName("restrictions_in_osm_ids", ".csv"));
+        info.GetAddressesFileName(), info.GetIntermediateFileName(info.m_restrictions, ""));
 
     TagAdmixer tagAdmixer(info.GetIntermediateFileName("ways", ".csv"),
                           info.GetIntermediateFileName("towns", ".csv"));

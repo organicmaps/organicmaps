@@ -86,7 +86,7 @@ void RestrictionDumper::Write(RelationElement const & relationElement)
     return; // Unsupported restriction type.
 
   // Adding restriction.
-  m_stream << ToString(typeResult.first) << ", " // Restriction type
+  m_stream << ToString(typeResult.first) << "," // Restriction type
            << fromIt->first << ", "
            << toIt->first << "," << endl;
 }

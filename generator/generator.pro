@@ -37,6 +37,7 @@ SOURCES += \
     osm_source.cpp \
     region_meta.cpp \
     restriction_dumper.cpp \
+    restriction_generator.cpp \
     restrictions.cpp \
     routing_generator.cpp \
     search_index_builder.cpp \
@@ -76,6 +77,7 @@ HEADERS += \
     polygonizer.hpp \
     region_meta.hpp \
     restriction_dumper.hpp \
+    restriction_generator.hpp \
     restrictions.hpp \
     routing_generator.hpp \
     search_index_builder.hpp \
@@ -90,3 +92,4 @@ HEADERS += \
     unpack_mwm.hpp \
     ways_merger.hpp \
     world_map_generator.hpp \
+
