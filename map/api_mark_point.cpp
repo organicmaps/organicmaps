@@ -5,9 +5,9 @@
 namespace style
 {
 
-char const * kSupportedColors[] = {"placemark-red",    "placemark-blue",  "placemark-purple",
-                                   "placemark-yellow", "placemark-pink",  "placemark-brown",
-                                   "placemark-green",  "placemark-orange"};
+char const * kSupportedColors[] = {"placemark-red",    "placemark-blue",    "placemark-purple",
+                                   "placemark-yellow", "placemark-pink",    "placemark-brown",
+                                   "placemark-green",  "placemark-orange",  "placemark-hotel"};
 
 string GetSupportedStyle(string const & s, string const & context, string const & fallback)
 {
