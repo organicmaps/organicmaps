@@ -89,6 +89,7 @@ public:
       { "psurface" },
       { "internet_access" },
       { "wheelchair" },
+      { "sponsored" },
     };
 
     AddTypes(arr1);
@@ -101,7 +102,6 @@ public:
       { "amenity", "shelter" },
       { "building", "address" },
       { "building", "has_parts" },
-      { "sponsored", "booking" },
     };
 
     AddTypes(arr2);
