@@ -44,8 +44,13 @@
     return;
 
   self.noResultsBottomOffset.constant = keyboardHeight;
-  [self layoutIfNeeded];
+  if (self.superview)
+    [self layoutIfNeeded];
 }
 
-- (void)onKeyboardWillAnimate { [self layoutIfNeeded]; }
+- (void)onKeyboardWillAnimate
+{
+  if (self.superview)
+    [self layoutIfNeeded];
+}
 @end
