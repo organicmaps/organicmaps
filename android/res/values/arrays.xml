@@ -29,18 +29,15 @@
 
   <!-- What's new -->
   <integer-array name="news_images">
-    <item>@drawable/ic_img_whatsnew_route_profile</item>
-    <item>@drawable/ic_img_whatsnew_booking_improve</item>
+    <item>@drawable/img_whatsnew_uber</item>
   </integer-array>
 
   <string-array name="news_titles">
-    <item>@string/whats_new_route_profile_title</item>
-    <item>@string/whats_new_booking_improve_title</item>
+    <item>@string/whatsnew_uber_header</item>
   </string-array>
 
   <string-array name="news_messages_1">
-    <item>@string/whats_new_route_profile_message</item>
-    <item>@string/whats_new_booking_improve_message</item>
+    <item>@string/whatsnew_uber_message</item>
   </string-array>
 
   <string-array name="news_messages_2">
