@@ -1,4 +1,5 @@
 #include "routing/car_router.hpp"
+
 #include "routing/cross_mwm_router.hpp"
 #include "routing/loaded_path_segment.hpp"
 #include "routing/online_cross_fetcher.hpp"
@@ -197,54 +198,56 @@ private:
   RoutingMapping & m_routingMapping;
 };
 
-bool FindSingleOsrmRoute(FeatureGraphNode const & source, FeatureGraphNode const & target,
-                         RouterDelegate const & delegate, TRoutingMappingPtr & mapping, Index const & index,
-                         Route & mwmRoute)
+IRouter::ResultCode FindSingleOsrmRoute(FeatureGraphNode const & source, FeatureGraphNode const & target,
+                                        RouterDelegate const & delegate, Index const & index, TRoutingMappingPtr & mapping,
+                                        Route & route)
 {
-  vector<Junction> mwmRouteGeometry;
-  Route::TTurns mwmTurns;
-  Route::TTimes mwmTimes;
-  Route::TStreets mwmStreets;
+  vector<Junction> geometry;
+  Route::TTurns turns;
+  Route::TTimes times;
+  Route::TStreets streets;
 
   LOG(LINFO, ("OSRM route from", MercatorBounds::ToLatLon(source.segmentPoint),
               "to", MercatorBounds::ToLatLon(target.segmentPoint)));
 
   RawRoutingResult routingResult;
   if (!FindSingleRoute(source, target, mapping->m_dataFacade, routingResult))
-    return false;
+    return routing::IRouter::RouteNotFound;
 
   OSRMRoutingResult resultGraph(index, *mapping, routingResult);
-  if (MakeTurnAnnotation(resultGraph, delegate, mwmRouteGeometry, mwmTurns, mwmTimes, mwmStreets)
-      != routing::IRouter::NoError)
+  routing::IRouter::ResultCode const result =
+      MakeTurnAnnotation(resultGraph, delegate, geometry, turns, times, streets);
+  if (result != routing::IRouter::NoError)
   {
-    LOG(LWARNING, ("Can't load road path data from disk for", mapping->GetCountryName()));
-    return false;
+    LOG(LWARNING, ("Can't load road path data from disk for", mapping->GetCountryName(),
+                   ". result code =", result));
+    return result;
   }
 
-  mwmRoute.SetTurnInstructions(move(mwmTurns));
-  mwmRoute.SetSectionTimes(move(mwmTimes));
-  mwmRoute.SetStreetNames(move(mwmStreets));
+  route.SetTurnInstructions(move(turns));
+  route.SetSectionTimes(move(times));
+  route.SetStreetNames(move(streets));
 
   vector<m2::PointD> mwmPoints;
-  JunctionsToPoints(mwmRouteGeometry, mwmPoints);
-  mwmRoute.SetGeometry(mwmPoints.cbegin(), mwmPoints.cend());
+  JunctionsToPoints(geometry, mwmPoints);
+  route.SetGeometry(mwmPoints.cbegin(), mwmPoints.cend());
 
-  return true;
+  return routing::IRouter::NoError;
 }
 } //  namespace
 
 // static
 bool CarRouter::CheckRoutingAbility(m2::PointD const & startPoint, m2::PointD const & finalPoint,
-                                    TCountryFileFn const & countryFileFn, Index * index)
+                                    TCountryFileFn const & countryFileFn, Index & index)
 {
-  RoutingIndexManager manager(countryFileFn, *index);
+  RoutingIndexManager manager(countryFileFn, index);
   return manager.GetMappingByPoint(startPoint)->IsValid() &&
          manager.GetMappingByPoint(finalPoint)->IsValid();
 }
 
-CarRouter::CarRouter(Index * index, TCountryFileFn const & countryFileFn,
-                     unique_ptr<IRouter> roadGraphRouter)
-    : m_pIndex(index), m_indexManager(countryFileFn, *index), m_aStarRouter(move(roadGraphRouter))
+CarRouter::CarRouter(Index & index, TCountryFileFn const & countryFileFn,
+                     unique_ptr<IRouter> router)
+    : m_index(index), m_indexManager(countryFileFn, index), m_router(move(router))
 {
 }
 
@@ -258,22 +261,22 @@ void CarRouter::ClearState()
   m_cachedTargets.clear();
   m_cachedTargetPoint = m2::PointD::Zero();
   m_indexManager.Clear();
-  m_aStarRouter->ClearState();
+  m_router->ClearState();
 }
 
-bool CarRouter::FindRouteFromCases(TFeatureGraphNodeVec const & source, TFeatureGraphNodeVec const & target,
-                                   RouterDelegate const & delegate, TRoutingMappingPtr & mapping, Route & route)
+bool CarRouter::FindRouteMsmt(TFeatureGraphNodeVec const & sources, TFeatureGraphNodeVec const & targets,
+                              RouterDelegate const & delegate, TRoutingMappingPtr & mapping, Route & route)
 {
   ASSERT(mapping, ());
 
   Route emptyRoute(GetName());
   route.Swap(emptyRoute);
   /// @todo (ldargunov) make more complex nearest edge turnaround
-  for (auto const & targetEdge : target)
+  for (auto const & targetEdge : targets)
   {
-    for (auto const & sourceEdge : source)
+    for (auto const & sourceEdge : sources)
     {
-      if (FindSingleRouteDispatcher(sourceEdge, targetEdge, delegate, mapping, route))
+      if (FindSingleRouteDispatcher(sourceEdge, targetEdge, delegate, mapping, route) == NoError)
         return true;
     }
   }
@@ -357,10 +360,12 @@ CarRouter::ResultCode CarRouter::MakeRouteFromCrossesPath(TCheckedPath const & p
     ASSERT(mwmMapping->IsValid(), ());
     MappingGuard mwmMappingGuard(mwmMapping);
     UNUSED_VALUE(mwmMappingGuard);
-    CalculatePhantomNodeForCross(mwmMapping, cross.startNode, m_pIndex, true /* forward */);
-    CalculatePhantomNodeForCross(mwmMapping, cross.finalNode, m_pIndex, false /* forward */);
-    if (!FindSingleRouteDispatcher(cross.startNode, cross.finalNode, delegate, mwmMapping, route))
-      return RouteNotFound;
+    CalculatePhantomNodeForCross(mwmMapping, cross.startNode, &m_index, true /* forward */);
+    CalculatePhantomNodeForCross(mwmMapping, cross.finalNode, &m_index, false /* forward */);
+    IRouter::ResultCode const result =
+        FindSingleRouteDispatcher(cross.startNode, cross.finalNode, delegate, mwmMapping, route);
+    if (result != NoError)
+      return result;
   }
 
   return NoError;
@@ -439,7 +444,7 @@ CarRouter::ResultCode CarRouter::CalculateRoute(m2::PointD const & startPoint,
   delegate.OnProgress(kPointsFoundProgress);
 
   // 4. Find route.
-  double crossCostM = 0;
+  double crossDistanceM = 0;
   TCheckedPath finalPath;
 
   // Manually load facade to avoid unmaping files we routing on.
@@ -453,10 +458,10 @@ CarRouter::ResultCode CarRouter::CalculateRoute(m2::PointD const & startPoint,
                                   {
                                     indexPair.second->FreeCrossContext();
                                   });
-    ResultCode crossCode = CalculateCrossMwmPath(startTask, m_cachedTargets, m_indexManager, crossCostM,
+    ResultCode crossCode = CalculateCrossMwmPath(startTask, m_cachedTargets, m_indexManager, crossDistanceM,
                                                  delegate, finalPath);
     LOG(LINFO, ("Found cross path in", timer.ElapsedNano(), "ns."));
-    if (!FindRouteFromCases(startTask, m_cachedTargets, delegate, startMapping, route))
+    if (!FindRouteMsmt(startTask, m_cachedTargets, delegate, startMapping, route))
     {
       if (crossCode == NoError)
       {
@@ -469,9 +474,9 @@ CarRouter::ResultCode CarRouter::CalculateRoute(m2::PointD const & startPoint,
     }
     INTERRUPT_WHEN_CANCELLED(delegate);
 
-    if (crossCode == NoError && crossCostM < route.GetTotalDistanceMeters())
+    if (crossCode == NoError && crossDistanceM < route.GetTotalDistanceMeters())
     {
-      LOG(LINFO, ("Cross mwm path shorter. Cross cost:", crossCostM, "single cost:", route.GetTotalDistanceMeters()));
+      LOG(LINFO, ("Cross mwm path shorter. Cross cost:", crossDistanceM, "single cost:", route.GetTotalDistanceMeters()));
       auto code = MakeRouteFromCrossesPath(finalPath, delegate, route);
       LOG(LINFO, ("Made final route in", timer.ElapsedNano(), "ns."));
       timer.Reset();
@@ -486,7 +491,7 @@ CarRouter::ResultCode CarRouter::CalculateRoute(m2::PointD const & startPoint,
   else //4.2 Multiple mwm case
   {
     LOG(LINFO, ("Multiple mwm routing case"));
-    ResultCode code = CalculateCrossMwmPath(startTask, m_cachedTargets, m_indexManager, crossCostM,
+    ResultCode code = CalculateCrossMwmPath(startTask, m_cachedTargets, m_indexManager, crossDistanceM,
                                             delegate, finalPath);
     timer.Reset();
     INTERRUPT_WHEN_CANCELLED(delegate);
@@ -515,12 +520,11 @@ IRouter::ResultCode CarRouter::FindPhantomNodes(m2::PointD const & point,
                                                 TRoutingMappingPtr const & mapping)
 {
   ASSERT(mapping, ());
-  helpers::Point2PhantomNode getter(*mapping, *m_pIndex, direction);
+  helpers::Point2PhantomNode getter(*mapping, m_index, direction);
   getter.SetPoint(point);
 
-  m_pIndex->ForEachInRectForMWM(getter, MercatorBounds::RectByCenterXYAndSizeInMeters(
-                                            point, kFeatureFindingRectSideRadiusMeters),
-                                scales::GetUpperScale(), mapping->GetMwmId());
+  m_index.ForEachInRectForMWM(getter, MercatorBounds::RectByCenterXYAndSizeInMeters(
+      point, kFeatureFindingRectSideRadiusMeters), scales::GetUpperScale(), mapping->GetMwmId());
 
   if (!getter.HasCandidates())
     return RouteNotFound;
@@ -529,9 +533,9 @@ IRouter::ResultCode CarRouter::FindPhantomNodes(m2::PointD const & point,
   return NoError;
 }
 
-bool CarRouter::IsEdgeIndexExisting(Index::MwmId const & mwmId)
+bool CarRouter::DoesEdgeIndexExist(Index::MwmId const & mwmId)
 {
-  MwmSet::MwmHandle const handle = m_pIndex->GetMwmHandleById(mwmId);
+  MwmSet::MwmHandle const handle = m_index.GetMwmHandleById(mwmId);
   if (!handle.IsAlive())
   {
     ASSERT(false, ("Mwm handle is not alive."));
@@ -539,49 +543,47 @@ bool CarRouter::IsEdgeIndexExisting(Index::MwmId const & mwmId)
   }
 
   MwmValue const * value = handle.GetValue<MwmValue>();
-  ASSERT(value, ());
+  CHECK(value, ());
   if (value->GetHeader().GetFormat() < version::Format::v8)
     return false;
 
-  if (value->m_cont.IsExist(EDGE_INDEX_FILE_TAG))
-    return true;
-  return false;
+  if (!value->m_cont.IsExist(EDGE_INDEX_FILE_TAG))
+    return false;
+
+  return true;
 }
 
-bool CarRouter::FindSingleRouteDispatcher(FeatureGraphNode const & source, FeatureGraphNode const & target,
-                                          RouterDelegate const & delegate, TRoutingMappingPtr & mapping,
-                                          Route & route)
+IRouter::ResultCode  CarRouter::FindSingleRouteDispatcher(FeatureGraphNode const & source, FeatureGraphNode const & target,
+                                                          RouterDelegate const & delegate, TRoutingMappingPtr & mapping,
+                                                          Route & route)
 {
   ASSERT_EQUAL(source.mwmId, target.mwmId, ());
-  ASSERT(m_pIndex, ());
-  ASSERT(m_aStarRouter, ());
+  ASSERT(m_router, ());
 
+  IRouter::ResultCode result = IRouter::NoError;
   Route mwmRoute(GetName());
 
   // @TODO It's not the best place for checking availability of edge index section in mwm.
   // Probably it's better to keep if mwm has an edge index section in mwmId.
-  if (IsEdgeIndexExisting(source.mwmId) && m_aStarRouter)
+  if (DoesEdgeIndexExist(source.mwmId) && m_router)
   {
     // A* routing
     LOG(LINFO, ("A* route from", MercatorBounds::ToLatLon(source.segmentPoint),
                 "to", MercatorBounds::ToLatLon(target.segmentPoint)));
-
-    if (m_aStarRouter->CalculateRoute(source.segmentPoint, m2::PointD(0, 0), target.segmentPoint,
-                                      delegate, mwmRoute) != IRouter::NoError)
-    {
-      return false;
-    }
+    result = m_router->CalculateRoute(source.segmentPoint, m2::PointD(0, 0) /* direction */,
+                                      target.segmentPoint, delegate, mwmRoute);
   }
   else
   {
     // OSRM Routing
     // @TODO This branch is implemented to support old maps with osrm section. When osrm
     // section is not supported this branch should be removed.
-    if (!FindSingleOsrmRoute(source, target, delegate, mapping, *m_pIndex, mwmRoute))
-      return false;
+    result = FindSingleOsrmRoute(source, target, delegate, m_index, mapping, mwmRoute);
   }
 
-  route.AppendRoute(mwmRoute);
-  return true;
+  if (result == IRouter::NoError)
+    route.AppendRoute(mwmRoute);
+
+  return result;
 }
 }  // namespace routing

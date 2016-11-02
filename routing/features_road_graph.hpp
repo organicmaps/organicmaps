@@ -26,7 +26,7 @@ private:
   class CrossCountryVehicleModel : public IVehicleModel
   {
   public:
-    CrossCountryVehicleModel(unique_ptr<VehicleModelFactory> && vehicleModelFactory);
+    CrossCountryVehicleModel(unique_ptr<VehicleModelFactory> vehicleModelFactory);
 
     // IVehicleModel overrides:
     double GetSpeed(FeatureType const & f) const override;
@@ -59,7 +59,7 @@ private:
 
 public:
   FeaturesRoadGraph(Index const & index, IRoadGraph::Mode mode,
-                    unique_ptr<VehicleModelFactory> && vehicleModelFactory);
+                    unique_ptr<VehicleModelFactory> vehicleModelFactory);
 
   static uint32_t GetStreetReadScale();
 

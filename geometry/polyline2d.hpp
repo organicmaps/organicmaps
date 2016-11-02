@@ -129,5 +129,5 @@ public:
   }
 };
 
-typedef Polyline<double> PolylineD;
+using PolylineD = Polyline<double>;
 }  // namespace m2

@@ -81,8 +81,9 @@ namespace integration
     {
       return infoGetter.GetRegionCountryId(pt);
     };
-    unique_ptr<CarRouter> carRouter(new CarRouter(&index, countryFileGetter,
-                                    CreateCarAStarBidirectionalRouter(index, countryFileGetter)));
+
+    auto carRouter = make_unique<CarRouter>(index, countryFileGetter,
+                                            CreateCarAStarBidirectionalRouter(index, countryFileGetter));
     return carRouter;
   }
 

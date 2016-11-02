@@ -30,7 +30,7 @@ class CarRouter : public IRouter
 public:
   typedef vector<double> GeomTurnCandidateT;
 
-  CarRouter(Index * index, TCountryFileFn const & countryFileFn,
+  CarRouter(Index & index, TCountryFileFn const & countryFileFn,
             unique_ptr<IRouter> roadGraphRouter);
 
   virtual string GetName() const override;
@@ -49,7 +49,7 @@ public:
    *  @returns true if we can start routing process with a given data.
    */
   static bool CheckRoutingAbility(m2::PointD const & startPoint, m2::PointD const & finalPoint,
-                                  TCountryFileFn const & countryFileFn, Index * index);
+                                  TCountryFileFn const & countryFileFn, Index & index);
 
 protected:
   /*!
@@ -80,35 +80,35 @@ private:
 
   // @TODO(bykoianko) When edgeidx section implementation is merged to master
   // this method should be moved to edge index loader.
-  bool IsEdgeIndexExisting(Index::MwmId const & mwmId);
+  bool DoesEdgeIndexExist(Index::MwmId const & mwmId);
 
   /*!
    * \brief Builds a route within one mwm using A* if edge index section is available and osrm otherwise.
    * Then reconstructs the route and restores all route attributes.
    * \param route The found route is added to the |route| if the method returns true.
-   * \return true if route is built and false otherwise.
    */
-  bool FindSingleRouteDispatcher(FeatureGraphNode const & source, FeatureGraphNode const & target,
-                                 RouterDelegate const & delegate, TRoutingMappingPtr & mapping,
-                                 Route & route);
+  IRouter::ResultCode FindSingleRouteDispatcher(FeatureGraphNode const & source, FeatureGraphNode const & target,
+                                                RouterDelegate const & delegate, TRoutingMappingPtr & mapping,
+                                                Route & route);
 
-  /*! Finds single shortest path in a single MWM between 2 sets of edges
+  /*! Finds single shortest path in a single MWM between 2 sets of edges.
+     * It's a route from multiple sources to multiple targets.
      * \param source: vector of source edges to make path
      * \param target: vector of target edges to make path
      * \param facade: OSRM routing data facade to recover graph information
      * \param rawRoutingResult: routing result store
      * \return true when path exists, false otherwise.
      */
-  bool FindRouteFromCases(TFeatureGraphNodeVec const & source, TFeatureGraphNodeVec const & target,
-                          RouterDelegate const & delegate, TRoutingMappingPtr & mapping, Route & route);
+  bool FindRouteMsmt(TFeatureGraphNodeVec const & source, TFeatureGraphNodeVec const & target,
+                     RouterDelegate const & delegate, TRoutingMappingPtr & mapping, Route & route);
 
-  Index const * m_pIndex;
+  Index & m_index;
 
   TFeatureGraphNodeVec m_cachedTargets;
   m2::PointD m_cachedTargetPoint;
 
   RoutingIndexManager m_indexManager;
 
-  unique_ptr<IRouter> m_aStarRouter;
+  unique_ptr<IRouter> m_router;
 };
 }  // namespace routing
