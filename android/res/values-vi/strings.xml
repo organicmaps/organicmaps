@@ -947,4 +947,9 @@
 	<string name="whats_new_route_profile_message">Đối với các đường đi bộ và đi xe đạp, chúng tôi hiện đã hiển thị mặt cắt tầng.</string>
 	<string name="whats_new_booking_improve_title">Tiết kiệm khi đặt khách sạn</string>
 	<string name="whats_new_booking_improve_message">Kết quả tìm kiếm cho khách sạn giờ đã có bậc giá cả.\nChúng tôi cũng đã bổ sung hơn 110.000 khách sạn.</string>
+	<string name="install">Cài đặt</string>
+	<string name="whatsnew_uber_header">MAPS.ME &amp; Uber</string>
+	<string name="whatsnew_uber_message">Đặt taxi Uber trực tiếp từ ứng dụng!</string>
+	<string name="dialog_taxi_offline">Gọi taxi không khả dụng trong chế độ ngoại tuyến.</string>
+	<string name="dialog_taxi_error">Gọi taxi tạm thời không khả dụng.</string>
 </resources>

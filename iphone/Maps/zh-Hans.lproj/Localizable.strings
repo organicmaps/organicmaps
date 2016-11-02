@@ -1477,7 +1477,7 @@
 
 "placepage_more_reviews_button" = "More Reviews";
 
-"bookingcom_book_button" = "预約";
+"book_button" = "预約";
 
 "placepage_call_button" = "呼叫";
 
@@ -1687,3 +1687,13 @@
 "chat" = "Geochat";
 
 "chat_open" = "Open";
+
+"install" = "安装";
+
+"whatsnew_uber_header" = "优步和MAPS.ME";
+
+"whatsnew_uber_message" = "从应用直接叫优步出租车！";
+
+"dialog_taxi_offline" = "叫出租车服务在离线模式下无法使用。";
+
+"dialog_taxi_error" = "叫出租车服务暂时无法使用。";

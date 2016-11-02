@@ -1477,7 +1477,7 @@
 
 "placepage_more_reviews_button" = "More Reviews";
 
-"bookingcom_book_button" = "Book";
+"book_button" = "Book";
 
 "placepage_call_button" = "Call";
 
@@ -1687,3 +1687,13 @@
 "chat" = "Geochat";
 
 "chat_open" = "Open";
+
+"install" = "Install";
+
+"whatsnew_uber_header" = "MAPS.ME & Uber";
+
+"whatsnew_uber_message" = "Book a taxi directly from the app!";
+
+"dialog_taxi_offline" = "Taxi booking is unavailable in offline mode.";
+
+"dialog_taxi_error" = "Taxi booking is temporarily unavailable.";

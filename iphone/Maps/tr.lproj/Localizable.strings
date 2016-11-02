@@ -1193,10 +1193,10 @@
 "other_languages" = "Diğer Diller";
 
 /* small button to open list with names in different languages */
-"show_more" = "Daha fazla göster";
+"show_more" = "Daha fazlasını göster";
 
 /* small button to close list with names in different languages */
-"show_less" = "Daha az göster";
+"show_less" = "Daha azını göster";
 
 "add_language" = "Bir dil ekle";
 
@@ -1477,7 +1477,7 @@
 
 "placepage_more_reviews_button" = "More Reviews";
 
-"bookingcom_book_button" = "Rezervasyon";
+"book_button" = "Rezervasyon";
 
 "placepage_call_button" = "Çağrı";
 
@@ -1687,3 +1687,13 @@
 "chat" = "Geochat";
 
 "chat_open" = "Open";
+
+"install" = "Kur";
+
+"whatsnew_uber_header" = "MAPS.ME ve Uber";
+
+"whatsnew_uber_message" = "Doğrudan uygulamadan Uber taksi isteyin!";
+
+"dialog_taxi_offline" = "Taksi çağırma çevrimdışı modda kullanılamıyor.";
+
+"dialog_taxi_error" = "Taksi çağırma geçici olarak kullanılamıyor.";

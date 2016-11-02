@@ -716,7 +716,7 @@
 	<!-- small button to open list with names in different languages -->
 	<string name="show_more">Mostrar mais</string>
 	<!-- small button to close list with names in different languages -->
-	<string name="show_less">Mostrar Menos</string>
+	<string name="show_less">Mostrar menos</string>
 	<string name="add_language">Adicionar um idioma</string>
 	<string name="street">Rua</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -946,4 +946,9 @@
 	<string name="whats_new_route_profile_message">Nas rotas para peões e ciclovias apresentamos agora o perfil de elevação.</string>
 	<string name="whats_new_booking_improve_title">Poupe nas reservas de hotéis</string>
 	<string name="whats_new_booking_improve_message">Agora, os resultados da pesquisa de hotéis contêm a categoria de preços.\nAdicinámos mais de 110.000 hotéis.</string>
+	<string name="install">Instalar</string>
+	<string name="whatsnew_uber_header">MAPS.ME &amp; Uber</string>
+	<string name="whatsnew_uber_message">Chame um táxi Uber diretamente do aplicativo!</string>
+	<string name="dialog_taxi_offline">O serviço de táxi não está disponível no modo off-line.</string>
+	<string name="dialog_taxi_error">O serviço de táxi está temporariamente indisponível.</string>
 </resources>

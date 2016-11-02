@@ -1193,10 +1193,10 @@
 "other_languages" = "다른 언어";
 
 /* small button to open list with names in different languages */
-"show_more" = "자세히 표시";
+"show_more" = "더 많이 표시";
 
 /* small button to close list with names in different languages */
-"show_less" = "간단히 표시";
+"show_less" = "더 적게 표시";
 
 "add_language" = "언어 추가";
 
@@ -1477,7 +1477,7 @@
 
 "placepage_more_reviews_button" = "More Reviews";
 
-"bookingcom_book_button" = "예약";
+"book_button" = "예약";
 
 "placepage_call_button" = "전화";
 
@@ -1687,3 +1687,13 @@
 "chat" = "Geochat";
 
 "chat_open" = "Open";
+
+"install" = "설치";
+
+"whatsnew_uber_header" = "MAPS.ME & Uber";
+
+"whatsnew_uber_message" = "Uber 택시를 직접 앱에서 예약하세요.";
+
+"dialog_taxi_offline" = "오프라인 모드에서는 택시를 예약할 수 없습니다.";
+
+"dialog_taxi_error" = "일시적으로 택시를 예약할 수 없습니다.";

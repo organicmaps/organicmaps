@@ -1477,7 +1477,7 @@
 
 "placepage_more_reviews_button" = "More Reviews";
 
-"bookingcom_book_button" = "Boka";
+"book_button" = "Boka";
 
 "placepage_call_button" = "Ring";
 
@@ -1687,3 +1687,13 @@
 "chat" = "Geochat";
 
 "chat_open" = "Open";
+
+"install" = "Installera";
+
+"whatsnew_uber_header" = "MAPS.ME och Uber";
+
+"whatsnew_uber_message" = "Beställ en Uber direkt från appen!";
+
+"dialog_taxi_offline" = "Du kan inte beställa en taxi i offlineläge.";
+
+"dialog_taxi_error" = "Du kan inte beställa en taxi just nu.";

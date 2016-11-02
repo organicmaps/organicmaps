@@ -721,7 +721,7 @@
 	<!-- title above languages list cells in the editor, below editable name text field. -->
 	<string name="other_languages">ภาษาอื่น ๆ</string>
 	<!-- small button to open list with names in different languages -->
-	<string name="show_more">แสดงเพิ่มเติม</string>
+	<string name="show_more">แสดงมากขึ้น</string>
 	<!-- small button to close list with names in different languages -->
 	<string name="show_less">แสดงน้อยลง</string>
 	<string name="add_language">เพิ่มภาษา</string>
@@ -953,4 +953,9 @@
 	<string name="whats_new_route_profile_message">สำหรับเส้นทางคนเดินเท้าและจักรยาน ตอนนี้เราแสดงโปรไฟล์ระดับความสูงแล้ว</string>
 	<string name="whats_new_booking_improve_title">ประหยัดเมื่อจองโรงแรม</string>
 	<string name="whats_new_booking_improve_message">การค้นหาโรงแรมตอนนี้มีหมวดหมู่ราคาแล้ว\nเรายังได้เพิ่มโรงแรมเข้ามากว่า 110,000 โรงแรมอีกด้วย</string>
+	<string name="install">ติดตั้ง</string>
+	<string name="whatsnew_uber_header">MAPS.ME &amp; Uber</string>
+	<string name="whatsnew_uber_message">เรียกแท็กซี่ Uber โดยตรงจากแอป!</string>
+	<string name="dialog_taxi_offline">ไม่สามารถทำการจองแท็กซี่ได้ในโหมดออฟไลน์</string>
+	<string name="dialog_taxi_error">ไม่สามารถทำการจองแท็กซี่ได้ชั่วคราว</string>
 </resources>

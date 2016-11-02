@@ -1196,7 +1196,7 @@
 "show_more" = "Mostrar mais";
 
 /* small button to close list with names in different languages */
-"show_less" = "Mostrar Menos";
+"show_less" = "Mostrar menos";
 
 "add_language" = "Adicionar um idioma";
 
@@ -1477,7 +1477,7 @@
 
 "placepage_more_reviews_button" = "More Reviews";
 
-"bookingcom_book_button" = "Livro";
+"book_button" = "Livro";
 
 "placepage_call_button" = "Chamada";
 
@@ -1687,3 +1687,13 @@
 "chat" = "Geochat";
 
 "chat_open" = "Open";
+
+"install" = "Instalar";
+
+"whatsnew_uber_header" = "MAPS.ME & Uber";
+
+"whatsnew_uber_message" = "Chame um táxi Uber diretamente do aplicativo!";
+
+"dialog_taxi_offline" = "O serviço de táxi não está disponível no modo off-line.";
+
+"dialog_taxi_error" = "O serviço de táxi está temporariamente indisponível.";

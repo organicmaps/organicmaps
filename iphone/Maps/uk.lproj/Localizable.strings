@@ -1477,7 +1477,7 @@
 
 "placepage_more_reviews_button" = "More Reviews";
 
-"bookingcom_book_button" = "Забронювати";
+"book_button" = "Забронювати";
 
 "placepage_call_button" = "Подзвонити";
 
@@ -1687,3 +1687,13 @@
 "chat" = "Geochat";
 
 "chat_open" = "Open";
+
+"install" = "Встановити";
+
+"whatsnew_uber_header" = "MAPS.ME і Uber";
+
+"whatsnew_uber_message" = "Замовляйте таксі прямо з додатку!";
+
+"dialog_taxi_offline" = "Замовлення таксі неможливе в автономному режимі.";
+
+"dialog_taxi_error" = "Замовлення таксі тимчасово недоступне.";

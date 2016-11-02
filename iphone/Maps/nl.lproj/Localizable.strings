@@ -1193,10 +1193,10 @@
 "other_languages" = "Overige talen";
 
 /* small button to open list with names in different languages */
-"show_more" = "Meer Tonen";
+"show_more" = "Laat meer zien";
 
 /* small button to close list with names in different languages */
-"show_less" = "Minder Tonen";
+"show_less" = "Laat minder zien";
 
 "add_language" = "Een taal toevoegen";
 
@@ -1477,7 +1477,7 @@
 
 "placepage_more_reviews_button" = "More Reviews";
 
-"bookingcom_book_button" = "Boeken";
+"book_button" = "Boeken";
 
 "placepage_call_button" = "Bellen";
 
@@ -1687,3 +1687,13 @@
 "chat" = "Geochat";
 
 "chat_open" = "Open";
+
+"install" = "Installeer";
+
+"whatsnew_uber_header" = "MAPS.ME en Uber";
+
+"whatsnew_uber_message" = "Bestel een Uber-taxi rechtstreeks vanuit de app!";
+
+"dialog_taxi_offline" = "Het bestellen van een taxi is niet beschikbaar in de offline modus.";
+
+"dialog_taxi_error" = "Het bestellen van een taxi is tijdelijk niet beschikbaar.";

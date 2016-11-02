@@ -1477,7 +1477,7 @@
 
 "placepage_more_reviews_button" = "More Reviews";
 
-"bookingcom_book_button" = "Bestill";
+"book_button" = "Bestill";
 
 "placepage_call_button" = "Ring";
 
@@ -1687,3 +1687,13 @@
 "chat" = "Geochat";
 
 "chat_open" = "Open";
+
+"install" = "Installer";
+
+"whatsnew_uber_header" = "MAPS.ME og Uber";
+
+"whatsnew_uber_message" = "Bestill en Uber-drosje direkte fra appen!";
+
+"dialog_taxi_offline" = "Bestilling av taxi er ikke mulig i offlinemodus.";
+
+"dialog_taxi_error" = "Bestilling av taxi er ikke tilgjengelig for øyeblikket.";

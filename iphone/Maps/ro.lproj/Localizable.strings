@@ -1193,10 +1193,10 @@
 "other_languages" = "Alte limbi";
 
 /* small button to open list with names in different languages */
-"show_more" = "Arată mai multe";
+"show_more" = "Afișează mai mult";
 
 /* small button to close list with names in different languages */
-"show_less" = "Arată mai puține";
+"show_less" = "Afișează mai puțin";
 
 "add_language" = "Adăugare limbă";
 
@@ -1477,7 +1477,7 @@
 
 "placepage_more_reviews_button" = "More Reviews";
 
-"bookingcom_book_button" = "Rezervare";
+"book_button" = "Rezervare";
 
 "placepage_call_button" = "Apel";
 
@@ -1687,3 +1687,13 @@
 "chat" = "Geochat";
 
 "chat_open" = "Open";
+
+"install" = "Instalați";
+
+"whatsnew_uber_header" = "MAPS.ME și Uber";
+
+"whatsnew_uber_message" = "Comandați un taxi Uber direct din aplicație!";
+
+"dialog_taxi_offline" = "Comandarea unui taxi nu se poate face în modul offline.";
+
+"dialog_taxi_error" = "Comandarea unui taxi este momentan indisponibilă.";

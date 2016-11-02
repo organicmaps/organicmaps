@@ -1193,7 +1193,7 @@
 "other_languages" = "ภาษาอื่น ๆ";
 
 /* small button to open list with names in different languages */
-"show_more" = "แสดงเพิ่มเติม";
+"show_more" = "แสดงมากขึ้น";
 
 /* small button to close list with names in different languages */
 "show_less" = "แสดงน้อยลง";
@@ -1477,7 +1477,7 @@
 
 "placepage_more_reviews_button" = "More Reviews";
 
-"bookingcom_book_button" = "จอง";
+"book_button" = "จอง";
 
 "placepage_call_button" = "โทร";
 
@@ -1687,3 +1687,13 @@
 "chat" = "Geochat";
 
 "chat_open" = "Open";
+
+"install" = "ติดตั้ง";
+
+"whatsnew_uber_header" = "MAPS.ME & Uber";
+
+"whatsnew_uber_message" = "เรียกแท็กซี่ Uber โดยตรงจากแอป!";
+
+"dialog_taxi_offline" = "ไม่สามารถทำการจองแท็กซี่ได้ในโหมดออฟไลน์";
+
+"dialog_taxi_error" = "ไม่สามารถทำการจองแท็กซี่ได้ชั่วคราว";

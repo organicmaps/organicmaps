@@ -722,9 +722,9 @@
 	<!-- title above languages list cells in the editor, below editable name text field. -->
 	<string name="other_languages">Další jazyky</string>
 	<!-- small button to open list with names in different languages -->
-	<string name="show_more">Zobrazit více</string>
+	<string name="show_more">Zobrazit méně</string>
 	<!-- small button to close list with names in different languages -->
-	<string name="show_less">Zobrazit méně</string>
+	<string name="show_less">Zobrazit více</string>
 	<string name="add_language">Přidat jazyk</string>
 	<string name="street">Ulice</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -954,4 +954,9 @@
 	<string name="whats_new_route_profile_message">U pěších a cyklistických tras nyní zobrazujeme výškový profil.</string>
 	<string name="whats_new_booking_improve_title">Ušetřete při rezervaci hotelů</string>
 	<string name="whats_new_booking_improve_message">Výsledky hledání hotelů nyní obsahují cenové kategorie. \nTaké jsme přidali více než 110 000 hotelů.</string>
+	<string name="install">Instalovat</string>
+	<string name="whatsnew_uber_header">MAPS.ME a Uber</string>
+	<string name="whatsnew_uber_message">Objednejte si taxi Uber přímo z aplikace!</string>
+	<string name="dialog_taxi_offline">Objednání taxi není v režimu offline k dispozici.</string>
+	<string name="dialog_taxi_error">Objednání taxi není dočasně k dispozici.</string>
 </resources>

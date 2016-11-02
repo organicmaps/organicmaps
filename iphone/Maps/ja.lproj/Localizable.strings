@@ -1193,10 +1193,10 @@
 "other_languages" = "その他の言語";
 
 /* small button to open list with names in different languages */
-"show_more" = "表示を増やす";
+"show_more" = "もっと表示";
 
 /* small button to close list with names in different languages */
-"show_less" = "表示を減らす";
+"show_less" = "少なく表示";
 
 "add_language" = "言語を追加";
 
@@ -1477,7 +1477,7 @@
 
 "placepage_more_reviews_button" = "More Reviews";
 
-"bookingcom_book_button" = "予約";
+"book_button" = "予約";
 
 "placepage_call_button" = "コール";
 
@@ -1687,3 +1687,13 @@
 "chat" = "Geochat";
 
 "chat_open" = "Open";
+
+"install" = "インストール";
+
+"whatsnew_uber_header" = "MAPS.ME & Uber";
+
+"whatsnew_uber_message" = "アプリから直接Uberの配車リクエストができます！";
+
+"dialog_taxi_offline" = "タクシーの予約がオフラインモードでは使用できません。";
+
+"dialog_taxi_error" = "タクシーの予約が一時的に使用できません。";

@@ -1002,7 +1002,9 @@
 	<string name="booking_hotel_room">Room</string>
 	<string name="chat">Geochat</string>
 	<string name="chat_open">Open</string>
-	<!-- TODO: it's temporary -->
-	<string name="uber_no_internet">Internet connection is required to order taxi</string>
-	<string name="uber_remote_error">Uber is unavailable</string>
+	<string name="install">Install</string>
+	<string name="whatsnew_uber_header">MAPS.ME &amp; Uber</string>
+	<string name="whatsnew_uber_message">Order a taxi directly from the app!</string>
+	<string name="dialog_taxi_offline">Taxi ordering is unavailable in offline mode.</string>
+	<string name="dialog_taxi_error">Taxi ordering is temporarily unavailable.</string>
 </resources>

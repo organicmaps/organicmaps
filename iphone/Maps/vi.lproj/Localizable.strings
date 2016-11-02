@@ -1477,7 +1477,7 @@
 
 "placepage_more_reviews_button" = "More Reviews";
 
-"bookingcom_book_button" = "Đặt trước";
+"book_button" = "Đặt trước";
 
 "placepage_call_button" = "Gọi";
 
@@ -1687,3 +1687,13 @@
 "chat" = "Geochat";
 
 "chat_open" = "Open";
+
+"install" = "Cài đặt";
+
+"whatsnew_uber_header" = "MAPS.ME & Uber";
+
+"whatsnew_uber_message" = "Đặt taxi Uber trực tiếp từ ứng dụng!";
+
+"dialog_taxi_offline" = "Gọi taxi không khả dụng trong chế độ ngoại tuyến.";
+
+"dialog_taxi_error" = "Gọi taxi tạm thời không khả dụng.";

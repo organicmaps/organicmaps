@@ -1196,7 +1196,7 @@
 "show_more" = "顯示更多";
 
 /* small button to close list with names in different languages */
-"show_less" = "顯示更少";
+"show_less" = "顯示較少";
 
 "add_language" = "新增語言";
 
@@ -1477,7 +1477,7 @@
 
 "placepage_more_reviews_button" = "More Reviews";
 
-"bookingcom_book_button" = "預約";
+"book_button" = "預約";
 
 "placepage_call_button" = "呼叫";
 
@@ -1687,3 +1687,13 @@
 "chat" = "Geochat";
 
 "chat_open" = "Open";
+
+"install" = "安裝";
+
+"whatsnew_uber_header" = "優步 & MAPS.ME離綫地圖";
+
+"whatsnew_uber_message" = "直接從應用程序預訂計程車！";
+
+"dialog_taxi_offline" = "叫計程車服務在離線模式下無法使用。";
+
+"dialog_taxi_error" = "叫計程車服務暫時無法使用。";

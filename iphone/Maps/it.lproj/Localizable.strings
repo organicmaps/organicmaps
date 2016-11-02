@@ -1193,7 +1193,7 @@
 "other_languages" = "Altre lingue";
 
 /* small button to open list with names in different languages */
-"show_more" = "Mostra altro";
+"show_more" = "Mostra più";
 
 /* small button to close list with names in different languages */
 "show_less" = "Mostra meno";
@@ -1477,7 +1477,7 @@
 
 "placepage_more_reviews_button" = "More Reviews";
 
-"bookingcom_book_button" = "Prenota";
+"book_button" = "Prenota";
 
 "placepage_call_button" = "Chiama";
 
@@ -1687,3 +1687,13 @@
 "chat" = "Geochat";
 
 "chat_open" = "Open";
+
+"install" = "Installa";
+
+"whatsnew_uber_header" = "MAPS.ME e Uber";
+
+"whatsnew_uber_message" = "Prenota un taxi Uber direttamente dalla app!";
+
+"dialog_taxi_offline" = "La chiamata taxi non è disponibile in modalità offline.";
+
+"dialog_taxi_error" = "La chiamata taxi è temporaneamente non disponibile.";

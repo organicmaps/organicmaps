@@ -965,4 +965,9 @@
 	<string name="whats_new_route_profile_message">Für Fußgänger- und Fahrradrouten zeigen wir nun das Höhenprofil an.</string>
 	<string name="whats_new_booking_improve_title">Beim Buchen von Hotels sparen</string>
 	<string name="whats_new_booking_improve_message">Suchergebnisse für Hotels enthalten jetzt die Kategorie Preis.\nAußerdem haben wir über 110.000 Hotels hinzugefügt.</string>
+	<string name="install">Installieren</string>
+	<string name="whatsnew_uber_header">MAPS.ME und Uber</string>
+	<string name="whatsnew_uber_message">Uber-Taxi direkt über die App bestellen!</string>
+	<string name="dialog_taxi_offline">Das Bestellen eines Taxis ist im Offline-Modus nicht verfügbar.</string>
+	<string name="dialog_taxi_error">Das Bestellen eines Taxis ist vorübergehend nicht verfügbar.</string>
 </resources>

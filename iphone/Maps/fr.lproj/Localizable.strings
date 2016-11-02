@@ -1193,10 +1193,10 @@
 "other_languages" = "Autres langues";
 
 /* small button to open list with names in different languages */
-"show_more" = "Afficher plus";
+"show_more" = "Montrer plus";
 
 /* small button to close list with names in different languages */
-"show_less" = "Afficher moins";
+"show_less" = "Montrer moins";
 
 "add_language" = "Ajouter une langue";
 
@@ -1477,7 +1477,7 @@
 
 "placepage_more_reviews_button" = "More Reviews";
 
-"bookingcom_book_button" = "Réserver";
+"book_button" = "Réserver";
 
 "placepage_call_button" = "Appeler";
 
@@ -1687,3 +1687,13 @@
 "chat" = "Geochat";
 
 "chat_open" = "Open";
+
+"install" = "Installer";
+
+"whatsnew_uber_header" = "MAPS.ME & Uber";
+
+"whatsnew_uber_message" = "Commandez un taxi directement depuis l'appli !";
+
+"dialog_taxi_offline" = "La commande d'un taxi n'est pas disponible en mode hors ligne.";
+
+"dialog_taxi_error" = "La commande d'un taxi est temporairement indisponible.";

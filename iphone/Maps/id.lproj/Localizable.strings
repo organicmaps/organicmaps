@@ -1193,10 +1193,10 @@
 "other_languages" = "Bahasa lainnya";
 
 /* small button to open list with names in different languages */
-"show_more" = "Selengkapnya";
+"show_more" = "Tampilkan lebih banyak";
 
 /* small button to close list with names in different languages */
-"show_less" = "Kurangi";
+"show_less" = "Tampilkan lebih sedikit";
 
 "add_language" = "Tambahkan bahasa";
 
@@ -1477,7 +1477,7 @@
 
 "placepage_more_reviews_button" = "More Reviews";
 
-"bookingcom_book_button" = "Pesan";
+"book_button" = "Pesan";
 
 "placepage_call_button" = "Hubungi";
 
@@ -1687,3 +1687,13 @@
 "chat" = "Geochat";
 
 "chat_open" = "Open";
+
+"install" = "Pasang";
+
+"whatsnew_uber_header" = "MAPS.ME & Uber";
+
+"whatsnew_uber_message" = "Pesan taksi Uber langsung dari aplikasi!";
+
+"dialog_taxi_offline" = "Memesan taksi tidak tersedia dalam modus offline.";
+
+"dialog_taxi_error" = "Memesan taksi untuk sementara tidak tersedia.";

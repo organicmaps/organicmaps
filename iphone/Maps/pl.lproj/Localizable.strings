@@ -1477,7 +1477,7 @@
 
 "placepage_more_reviews_button" = "More Reviews";
 
-"bookingcom_book_button" = "Zarezerwuj";
+"book_button" = "Zarezerwuj";
 
 "placepage_call_button" = "Zadzwoń";
 
@@ -1687,3 +1687,13 @@
 "chat" = "Geochat";
 
 "chat_open" = "Open";
+
+"install" = "Zainstaluj";
+
+"whatsnew_uber_header" = "MAPS.ME i Uber";
+
+"whatsnew_uber_message" = "Zamów taksówkę Uber bezpośrednio z aplikacji!";
+
+"dialog_taxi_offline" = "Zamawianie taksówek nie jest dostępne w trybie offline.";
+
+"dialog_taxi_error" = "Zamawianie taksówek jest tymczasowo niedostępne.";

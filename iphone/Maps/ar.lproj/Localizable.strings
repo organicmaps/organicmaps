@@ -1193,7 +1193,7 @@
 "other_languages" = "لغات أخرى";
 
 /* small button to open list with names in different languages */
-"show_more" = "إظهار المزيد";
+"show_more" = "إظهار أكثر";
 
 /* small button to close list with names in different languages */
 "show_less" = "إظهار أقل";
@@ -1477,7 +1477,7 @@
 
 "placepage_more_reviews_button" = "More Reviews";
 
-"bookingcom_book_button" = "حجز";
+"book_button" = "حجز";
 
 "placepage_call_button" = "اتصال";
 
@@ -1687,3 +1687,13 @@
 "chat" = "Geochat";
 
 "chat_open" = "Open";
+
+"install" = "تثبيت";
+
+"whatsnew_uber_header" = "MAPS.ME وUber";
+
+"whatsnew_uber_message" = "اطلب تاكسي Uber مباشرة من التطبيق!";
+
+"dialog_taxi_offline" = "طلب تاكسي غير متاح في وضع الطيران.";
+
+"dialog_taxi_error" = "طلب تاكسي غير متاح مؤقتا.";

@@ -1193,10 +1193,10 @@
 "other_languages" = "Iné jazyky";
 
 /* small button to open list with names in different languages */
-"show_more" = "Ukázať viac";
+"show_more" = "Zobraziť viac";
 
 /* small button to close list with names in different languages */
-"show_less" = "Ukázať menej";
+"show_less" = "Zobraziť menej";
 
 "add_language" = "Pridať jazyk";
 
@@ -1477,7 +1477,7 @@
 
 "placepage_more_reviews_button" = "More Reviews";
 
-"bookingcom_book_button" = "Rezervovať";
+"book_button" = "Rezervovať";
 
 "placepage_call_button" = "Zavolať";
 
@@ -1687,3 +1687,13 @@
 "chat" = "Geochat";
 
 "chat_open" = "Open";
+
+"install" = "Nainštalovať";
+
+"whatsnew_uber_header" = "MAPS.ME & Uber";
+
+"whatsnew_uber_message" = "Objednajte si Uber priamo z aplikácie!";
+
+"dialog_taxi_offline" = "Objednanie taxíka nie je k dispozícii v režime offline.";
+
+"dialog_taxi_error" = "Objednanie taxíka je dočasne nedostupné.";

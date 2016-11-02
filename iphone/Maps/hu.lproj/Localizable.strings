@@ -1193,10 +1193,10 @@
 "other_languages" = "Más nyelv";
 
 /* small button to open list with names in different languages */
-"show_more" = "Továbbiak megjelenítése";
+"show_more" = "Több mutatása";
 
 /* small button to close list with names in different languages */
-"show_less" = "Kevesebb megjelenítése";
+"show_less" = "Kevesebb mutatása";
 
 "add_language" = "Nyelv hozzáadása";
 
@@ -1477,7 +1477,7 @@
 
 "placepage_more_reviews_button" = "More Reviews";
 
-"bookingcom_book_button" = "Foglalás";
+"book_button" = "Foglalás";
 
 "placepage_call_button" = "Hívás";
 
@@ -1687,3 +1687,13 @@
 "chat" = "Geochat";
 
 "chat_open" = "Open";
+
+"install" = "Telepítés";
+
+"whatsnew_uber_header" = "MAPS.ME és Uber";
+
+"whatsnew_uber_message" = "Hívj Uber-taxit közvetlenül az alkalmazásból!";
+
+"dialog_taxi_offline" = "Taxirendelés offline módban nem lehetséges.";
+
+"dialog_taxi_error" = "A taxirendelés átmenetileg nem elérhető.";

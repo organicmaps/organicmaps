@@ -1193,7 +1193,7 @@
 "other_languages" = "Muut Kielet";
 
 /* small button to open list with names in different languages */
-"show_more" = "Näytä lisää";
+"show_more" = "Näytä enemmän";
 
 /* small button to close list with names in different languages */
 "show_less" = "Näytä vähemmän";
@@ -1477,7 +1477,7 @@
 
 "placepage_more_reviews_button" = "More Reviews";
 
-"bookingcom_book_button" = "Varaa";
+"book_button" = "Varaa";
 
 "placepage_call_button" = "Soita";
 
@@ -1687,3 +1687,13 @@
 "chat" = "Geochat";
 
 "chat_open" = "Open";
+
+"install" = "Asenna";
+
+"whatsnew_uber_header" = "MAPS.ME & Uber";
+
+"whatsnew_uber_message" = "Tilaa Uber -taksi suoraan sovelluksesta!";
+
+"dialog_taxi_offline" = "Taksin tilaaminen ei ole mahdollista ilman verkkoyhteyttä.";
+
+"dialog_taxi_error" = "Taksin tilaaminen ei ole tällä hetkellä mahdollista.";

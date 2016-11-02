@@ -1477,7 +1477,7 @@
 
 "placepage_more_reviews_button" = "More Reviews";
 
-"bookingcom_book_button" = "Reservar";
+"book_button" = "Reservar";
 
 "placepage_call_button" = "Llamar";
 
@@ -1687,3 +1687,13 @@
 "chat" = "Geochat";
 
 "chat_open" = "Open";
+
+"install" = "Instalar";
+
+"whatsnew_uber_header" = "MAPS.ME & Uber";
+
+"whatsnew_uber_message" = "¡Pide un taxi Uber directamente desde la aplicación!";
+
+"dialog_taxi_offline" = "La opción para solicitar un taxi no se encuentra disponible en el modo sin conexión.";
+
+"dialog_taxi_error" = "La opción para solicitar un taxi se encuentra temporalmente no disponible.";
