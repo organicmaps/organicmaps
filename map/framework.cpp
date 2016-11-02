@@ -236,7 +236,7 @@ bool Framework::IsTrackingReporterEnabled() const
   if (m_currentRouterType != routing::RouterType::Vehicle)
     return false;
 
-  if (!m_routingSession.IsOnRoute())
+  if (!m_routingSession.IsFollowing())
     return false;
 
   bool enableTracking = false;
