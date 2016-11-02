@@ -606,6 +606,17 @@ public enum LocationHelper
     }
   }
 
+  public void forceRestart()
+  {
+    mActive = !mListeners.isEmpty();
+    if (mActive)
+    {
+      calcParams();
+      stopInternal();
+      startInternal();
+    }
+  }
+
   /**
    * Actually starts location polling.
    */
