@@ -947,7 +947,7 @@
 	<string name="whats_new_route_profile_message">A gyalogos és kerékpáros utakat most már emelkedési profillal jelenítjük meg.</string>
 	<string name="whats_new_booking_improve_title">Takarékoskodjon szálláshely foglalásakor</string>
 	<string name="whats_new_booking_improve_message">A szálláshely keresési eredménye már tartalmazza az árkategóriát. \nEmellett kiegészítettük több mint 110.000 szálláshellyel.</string>
-	<string name="install">Telepítés</string>
+	<string name="install_app">Telepítés</string>
 	<string name="whatsnew_uber_header">MAPS.ME és Uber</string>
 	<string name="whatsnew_uber_message">Hívj Uber-taxit közvetlenül az alkalmazásból!</string>
 	<string name="dialog_taxi_offline">Taxirendelés offline módban nem lehetséges.</string>

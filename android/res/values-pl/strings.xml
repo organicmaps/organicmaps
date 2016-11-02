@@ -954,7 +954,7 @@
 	<string name="whats_new_route_profile_message">Dla tras pieszych i rowerowych pokazujemy teraz też profil wysokościowy.</string>
 	<string name="whats_new_booking_improve_title">Oszczędzaj przy rezerwacji hotelów</string>
 	<string name="whats_new_booking_improve_message">Wyniki wyszukiwania hoteli zawierają teraz kategorię cenową. \nDodaliśmy też ponad 110 000 hoteli.</string>
-	<string name="install">Zainstaluj</string>
+	<string name="install_app">Zainstaluj</string>
 	<string name="whatsnew_uber_header">MAPS.ME i Uber</string>
 	<string name="whatsnew_uber_message">Zamów taksówkę Uber bezpośrednio z aplikacji!</string>
 	<string name="dialog_taxi_offline">Zamawianie taksówek nie jest dostępne w trybie offline.</string>

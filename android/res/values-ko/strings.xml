@@ -943,7 +943,7 @@
 	<string name="whats_new_route_profile_message">보행자 및 자전거 도로를 위해 이제 고도 단면을 표시합니다.</string>
 	<string name="whats_new_booking_improve_title">호텔 예약 시 절약</string>
 	<string name="whats_new_booking_improve_message">이제 가격 범주를 포함하는 호텔에 대한 결과를 검색하세요.\n또한 110,000곳 이상의 호텔이 추가되었습니다.</string>
-	<string name="install">설치</string>
+	<string name="install_app">설치</string>
 	<string name="whatsnew_uber_header">MAPS.ME &amp; Uber</string>
 	<string name="whatsnew_uber_message">Uber 택시를 직접 앱에서 예약하세요.</string>
 	<string name="dialog_taxi_offline">오프라인 모드에서는 택시를 예약할 수 없습니다.</string>

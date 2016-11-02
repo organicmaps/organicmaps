@@ -947,7 +947,7 @@
 	<string name="whats_new_route_profile_message">Näytämme nyt maaston korkeuden kävely- ja pyöräilyreittejä varten.</string>
 	<string name="whats_new_booking_improve_title">Säästä hotellivarauksissa</string>
 	<string name="whats_new_booking_improve_message">Hotellien hakutuloksissa näkyy nyt hintakategoria.\nLisäsimme myös yli 110 000 hotellia.</string>
-	<string name="install">Asenna</string>
+	<string name="install_app">Asenna</string>
 	<string name="whatsnew_uber_header">MAPS.ME &amp; Uber</string>
 	<string name="whatsnew_uber_message">Tilaa Uber -taksi suoraan sovelluksesta!</string>
 	<string name="dialog_taxi_offline">Taksin tilaaminen ei ole mahdollista ilman verkkoyhteyttä.</string>

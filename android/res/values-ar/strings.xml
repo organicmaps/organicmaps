@@ -953,7 +953,7 @@
 	<string name="whats_new_route_profile_message">بالنسبة لمسارات المشاة والدراجات نحن الآن نعرض تشكيل الارتفاع.</string>
 	<string name="whats_new_booking_improve_title">توفير عند حجز الفنادق</string>
 	<string name="whats_new_booking_improve_message">تحتوي نتائج البحث عن الفنادق الآن على فئة السعر.\nوأضفنا أيضًا أكثر من 110000 فندق.</string>
-	<string name="install">تثبيت</string>
+	<string name="install_app">تثبيت</string>
 	<string name="whatsnew_uber_header">MAPS.ME وUber</string>
 	<string name="whatsnew_uber_message">اطلب تاكسي Uber مباشرة من التطبيق!</string>
 	<string name="dialog_taxi_offline">طلب تاكسي غير متاح في وضع الطيران.</string>

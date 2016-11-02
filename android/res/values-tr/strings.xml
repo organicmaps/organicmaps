@@ -953,7 +953,7 @@
 	<string name="whats_new_route_profile_message">Yürüyüş ve bisiklet yolları şimdi yükseklik profilli olarak görüntüleniyor.</string>
 	<string name="whats_new_booking_improve_title">Otel rezervasyonlarınızdan tasarruf edin</string>
 	<string name="whats_new_booking_improve_message">Artık otel arama sonuçlarında fiyat kategorisi de gösteriliyor.\nVe 110,000\&#39;den fazla oteli sistemimize ekledik.</string>
-	<string name="install">Kur</string>
+	<string name="install_app">Kur</string>
 	<string name="whatsnew_uber_header">MAPS.ME ve Uber</string>
 	<string name="whatsnew_uber_message">Doğrudan uygulamadan Uber taksi isteyin!</string>
 	<string name="dialog_taxi_offline">Taksi çağırma çevrimdışı modda kullanılamıyor.</string>

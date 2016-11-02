@@ -947,7 +947,7 @@
 	<string name="whats_new_route_profile_message">Voor wandel- en fietsroutes geven we nu het hoogteprofiel weer.</string>
 	<string name="whats_new_booking_improve_title">Bespaar op het boeken van hotels</string>
 	<string name="whats_new_booking_improve_message">Zoekresultaten voor hotels bevatten nu de prijscategorie.\nWe hebben ook meer dan 110.000 hotels toegevoegd.</string>
-	<string name="install">Installeer</string>
+	<string name="install_app">Installeer</string>
 	<string name="whatsnew_uber_header">MAPS.ME en Uber</string>
 	<string name="whatsnew_uber_message">Bestel een Uber-taxi rechtstreeks vanuit de app!</string>
 	<string name="dialog_taxi_offline">Het bestellen van een taxi is niet beschikbaar in de offline modus.</string>

@@ -951,7 +951,7 @@
 	<string name="whats_new_route_profile_message">För gångvägar och cykelturer visar vi nu höjdprofilen.</string>
 	<string name="whats_new_booking_improve_title">Spara pengar när du bokar hotell</string>
 	<string name="whats_new_booking_improve_message">Sökresultat för hotell innehåller nu priskategorin.\nVi har även lagt till över 110 000 hotell.</string>
-	<string name="install">Installera</string>
+	<string name="install_app">Installera</string>
 	<string name="whatsnew_uber_header">MAPS.ME och Uber</string>
 	<string name="whatsnew_uber_message">Beställ en Uber direkt från appen!</string>
 	<string name="dialog_taxi_offline">Du kan inte beställa en taxi i offlineläge.</string>

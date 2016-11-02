@@ -953,7 +953,7 @@
 	<string name="whats_new_route_profile_message">对于行人和自行车路线，我们现在显示纵剖面。</string>
 	<string name="whats_new_booking_improve_title">优惠预订酒店</string>
 	<string name="whats_new_booking_improve_message">酒店的搜索结果现在包含价格类别。\n我们还添加了超过 110,000 家酒店。</string>
-	<string name="install">安装</string>
+	<string name="install_app">安装</string>
 	<string name="whatsnew_uber_header">优步和MAPS.ME</string>
 	<string name="whatsnew_uber_message">从应用直接叫优步出租车！</string>
 	<string name="dialog_taxi_offline">叫出租车服务在离线模式下无法使用。</string>

@@ -950,7 +950,7 @@
 	<string name="whats_new_route_profile_message">Pre pešie trasy a cyklotrasy sa odteraz zobrazuje aj výškový profil.</string>
 	<string name="whats_new_booking_improve_title">Ušetriť pri rezervácii hotelov</string>
 	<string name="whats_new_booking_improve_message">Výsledky vyhľadávania hotelov odteraz obsahujú aj cenové kategórie. \nTiež sme pridali viac ako 110 000 hotelov.</string>
-	<string name="install">Nainštalovať</string>
+	<string name="install_app">Nainštalovať</string>
 	<string name="whatsnew_uber_header">MAPS.ME &amp; Uber</string>
 	<string name="whatsnew_uber_message">Objednajte si Uber priamo z aplikácie!</string>
 	<string name="dialog_taxi_offline">Objednanie taxíka nie je k dispozícii v režime offline.</string>

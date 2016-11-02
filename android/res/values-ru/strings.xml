@@ -998,7 +998,6 @@
 	<string name="booking_hotel_room">Номер</string>
 	<string name="chat">Геочат</string>
 	<string name="chat_open">Открыть</string>
-	<string name="install">Установить</string>
 	<string name="whatsnew_uber_header">MAPS.ME и Uber</string>
 	<string name="whatsnew_uber_message">Закажите такси прямо из приложения!</string>
 	<string name="dialog_taxi_offline">Заказ такси недоступен офлайн.</string>

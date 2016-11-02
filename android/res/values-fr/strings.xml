@@ -964,7 +964,7 @@
 	<string name="whats_new_route_profile_message">Pour les routes pédestres et cyclables nous affichons maintenant le profil d\&#39;élévation.</string>
 	<string name="whats_new_booking_improve_title">Économisez de l\&#39;argent en réservant des hôtels</string>
 	<string name="whats_new_booking_improve_message">Les résultats des recherches d\&#39;hôtels comprennent maintenant la catégorie de prix.\nNous avons aussi ajouté plus de 110.000 hôtels.</string>
-	<string name="install">Installer</string>
+	<string name="install_app">Installer</string>
 	<string name="whatsnew_uber_header">MAPS.ME &amp; Uber</string>
 	<string name="whatsnew_uber_message">Commandez un taxi directement depuis l\&#39;appli !</string>
 	<string name="dialog_taxi_offline">La commande d\&#39;un taxi n\&#39;est pas disponible en mode hors ligne.</string>

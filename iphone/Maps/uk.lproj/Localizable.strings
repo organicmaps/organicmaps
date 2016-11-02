@@ -1645,7 +1645,7 @@
 /* When there are no available taxis nearby */
 "taxi_not_found" = "Couldn't find a taxi nearby";
 
-"install_app" = "Install";
+"install_app" = "Встановити";
 
 /* `Filter` is a noun here */
 "booking_filters" = "Filter";
@@ -1687,8 +1687,6 @@
 "chat" = "Geochat";
 
 "chat_open" = "Open";
-
-"install" = "Встановити";
 
 "whatsnew_uber_header" = "MAPS.ME і Uber";
 

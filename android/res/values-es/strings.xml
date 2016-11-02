@@ -940,7 +940,7 @@
 	<string name="whats_new_route_profile_message">Ahora se muestra el perfil de elevación en los itinerarios pedestres y en bicicleta.</string>
 	<string name="whats_new_booking_improve_title">Ahorrar al reservar hoteles</string>
 	<string name="whats_new_booking_improve_message">La búsqueda de resultados de hoteles ahora contiene la categoría de precios.\nHemos añadido más de 110 000 hoteles.</string>
-	<string name="install">Instalar</string>
+	<string name="install_app">Instalar</string>
 	<string name="whatsnew_uber_header">MAPS.ME &amp; Uber</string>
 	<string name="whatsnew_uber_message">¡Pide un taxi Uber directamente desde la aplicación!</string>
 	<string name="dialog_taxi_offline">La opción para solicitar un taxi no se encuentra disponible en el modo sin conexión.</string>

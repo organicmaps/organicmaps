@@ -1002,7 +1002,6 @@
 	<string name="booking_hotel_room">Room</string>
 	<string name="chat">Geochat</string>
 	<string name="chat_open">Open</string>
-	<string name="install">Install</string>
 	<string name="whatsnew_uber_header">MAPS.ME &amp; Uber</string>
 	<string name="whatsnew_uber_message">Order a taxi directly from the app!</string>
 	<string name="dialog_taxi_offline">Taxi ordering is unavailable in offline mode.</string>

@@ -953,7 +953,7 @@
 	<string name="whats_new_route_profile_message">สำหรับเส้นทางคนเดินเท้าและจักรยาน ตอนนี้เราแสดงโปรไฟล์ระดับความสูงแล้ว</string>
 	<string name="whats_new_booking_improve_title">ประหยัดเมื่อจองโรงแรม</string>
 	<string name="whats_new_booking_improve_message">การค้นหาโรงแรมตอนนี้มีหมวดหมู่ราคาแล้ว\nเรายังได้เพิ่มโรงแรมเข้ามากว่า 110,000 โรงแรมอีกด้วย</string>
-	<string name="install">ติดตั้ง</string>
+	<string name="install_app">ติดตั้ง</string>
 	<string name="whatsnew_uber_header">MAPS.ME &amp; Uber</string>
 	<string name="whatsnew_uber_message">เรียกแท็กซี่ Uber โดยตรงจากแอป!</string>
 	<string name="dialog_taxi_offline">ไม่สามารถทำการจองแท็กซี่ได้ในโหมดออฟไลน์</string>

@@ -946,7 +946,7 @@
 	<string name="whats_new_route_profile_message">歩行者とバイク用のルートに高度プロファイルが表示されるようになりました。</string>
 	<string name="whats_new_booking_improve_title">ホテル予約時に節約しましょう</string>
 	<string name="whats_new_booking_improve_message">ホテルの検索結果に価格のカテゴリーが表示されるようになりました。\nさらに、 110,000 軒を超えるホテルを追加しました。</string>
-	<string name="install">インストール</string>
+	<string name="install_app">インストール</string>
 	<string name="whatsnew_uber_header">MAPS.ME &amp; Uber</string>
 	<string name="whatsnew_uber_message">アプリから直接Uberの配車リクエストができます！</string>
 	<string name="dialog_taxi_offline">タクシーの予約がオフラインモードでは使用できません。</string>

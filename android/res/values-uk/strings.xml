@@ -951,7 +951,7 @@
 	<string name="whats_new_route_profile_message">Для пішохідних і велосипедних маршрутів тепер відображається профіль рельєфу.</string>
 	<string name="whats_new_booking_improve_title">Заощаджуйте на бронюванні готелів</string>
 	<string name="whats_new_booking_improve_message">В результатах пошуку готелів на карті відображається цінова категорія.\nКрім того, тепер у нашій базі даних з\&#39;явилося 110 000 нових готелів.</string>
-	<string name="install">Встановити</string>
+	<string name="install_app">Встановити</string>
 	<string name="whatsnew_uber_header">MAPS.ME і Uber</string>
 	<string name="whatsnew_uber_message">Замовляйте таксі прямо з додатку!</string>
 	<string name="dialog_taxi_offline">Замовлення таксі неможливе в автономному режимі.</string>

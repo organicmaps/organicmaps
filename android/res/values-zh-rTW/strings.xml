@@ -959,7 +959,7 @@
 	<string name="whats_new_route_profile_message">對於行人和自行車路線，我們現在顯示海拔剖面圖。</string>
 	<string name="whats_new_booking_improve_title">優惠預訂飯店</string>
 	<string name="whats_new_booking_improve_message">飯店搜尋結果現在還包含價格類別。\n我們還加入了超過 110,000 間飯店。</string>
-	<string name="install">安裝</string>
+	<string name="install_app">安裝</string>
 	<string name="whatsnew_uber_header">優步 &amp; MAPS.ME離綫地圖</string>
 	<string name="whatsnew_uber_message">直接從應用程序預訂計程車！</string>
 	<string name="dialog_taxi_offline">叫計程車服務在離線模式下無法使用。</string>

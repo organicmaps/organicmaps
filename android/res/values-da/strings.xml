@@ -951,7 +951,7 @@
 	<string name="whats_new_route_profile_message">Vi viser nu højdeprofilen for fodgænger- og cykelruter.</string>
 	<string name="whats_new_booking_improve_title">Spar penge når du bestiller hotelværelser</string>
 	<string name="whats_new_booking_improve_message">Søgeresultater for hoteller viser nu også priskategorien.\nVi har desuden tilføjet mere end 110.000 hoteller.</string>
-	<string name="install">Installer</string>
+	<string name="install_app">Installer</string>
 	<string name="whatsnew_uber_header">MAPS.ME &amp; Uber</string>
 	<string name="whatsnew_uber_message">Bestil Uber taxi direkte fra app\&#39;en!</string>
 	<string name="dialog_taxi_offline">Det er ikke muligt at bestille en taxi i offlinetilstand.</string>
