@@ -19,7 +19,7 @@ import java.net.SocketException;
 import java.net.SocketTimeoutException;
 
 /**
- * Implements {@link PlatformSocket} interface that will be used by the core for
+ * Implements interface that will be used by the core for
  * sending/receiving the raw data trough platform socket interface.
  * <p>
  * The instance of this class is supposed to be created in JNI layer
@@ -28,7 +28,7 @@ import java.net.SocketTimeoutException;
  * <p>
  * <b>All public methods are blocking and shouldn't be called from the main thread.</b>
  */
-class SocketWrapper implements PlatformSocket
+class SocketWrapper
 {
   private final static Logger sLogger = new DebugLogger(SocketWrapper.class.getSimpleName());
   private final static int DEFAULT_TIMEOUT = 30 * 1000;
@@ -39,7 +39,6 @@ class SocketWrapper implements PlatformSocket
   private int mPort;
   private int mTimeout = DEFAULT_TIMEOUT;
 
-  @Override
   public boolean open(@NonNull String host, int port)
   {
     if (mSocket != null)
@@ -113,7 +112,6 @@ class SocketWrapper implements PlatformSocket
     return SSLSocketFactory.getDefault();
   }
 
-  @Override
   public void close()
   {
     if (mSocket == null)
@@ -125,6 +123,7 @@ class SocketWrapper implements PlatformSocket
     try
     {
       mSocket.close();
+      sLogger.d("Socket has been closed: ", this);
     } catch (IOException e)
     {
       sLogger.e("Failed to close socket: ", this, e);
@@ -134,7 +133,6 @@ class SocketWrapper implements PlatformSocket
     }
   }
 
-  @Override
   public boolean read(@NonNull byte[] data, int count)
   {
     if (!checkSocketAndArguments(data, count))
@@ -190,7 +188,6 @@ class SocketWrapper implements PlatformSocket
     return count == readBytes;
   }
 
-  @Override
   public boolean write(@NonNull byte[] data, int count)
   {
     if (!checkSocketAndArguments(data, count))
@@ -205,6 +202,7 @@ class SocketWrapper implements PlatformSocket
 
       OutputStream out = mSocket.getOutputStream();
       out.write(data, 0, count);
+      sLogger.d(count + " bytes have been written");
       return true;
     } catch (SocketTimeoutException e)
     {
@@ -235,7 +233,6 @@ class SocketWrapper implements PlatformSocket
     return true;
   }
 
-  @Override
   public void setTimeout(int millis)
   {
     mTimeout = millis;

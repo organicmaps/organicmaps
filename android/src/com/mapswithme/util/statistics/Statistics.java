@@ -230,6 +230,7 @@ public enum Statistics
   Statistics()
   {
     mEnabled = Config.isStatisticsEnabled();
+    Config.setStatisticsEnabled(mEnabled);
     final Context context = MwmApplication.get();
     // At the moment we need special handling for Alohalytics to enable/disable logging of events in core C++ code.
     if (mEnabled)
