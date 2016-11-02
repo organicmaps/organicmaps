@@ -945,7 +945,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     if (!closePlacePage() && !closeSidePanel() &&
-        !RoutingController.get().cancel() && !closePositionChooser())
+        (mNavigationController != null && !mNavigationController.cancel()) && !closePositionChooser())
     {
       try
       {
