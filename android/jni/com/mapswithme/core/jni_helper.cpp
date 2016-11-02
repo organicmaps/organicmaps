@@ -19,7 +19,7 @@ jclass g_bookmarkClazz;
 jclass g_myTrackerClazz;
 jclass g_httpClientClazz;
 jclass g_httpParamsClazz;
-jclass g_socketWrapperClazz;
+jclass g_platformSocketClazz;
 jclass g_utilsClazz;
 
 extern "C"
@@ -37,7 +37,7 @@ JNI_OnLoad(JavaVM * jvm, void *)
   g_myTrackerClazz = jni::GetGlobalClassRef(env, "com/my/tracker/MyTracker");
   g_httpClientClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/HttpClient");
   g_httpParamsClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/HttpClient$Params");
-  g_socketWrapperClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/location/SocketWrapper");
+  g_platformSocketClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/location/PlatformSocket");
   g_utilsClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/Utils");
 
   return JNI_VERSION_1_6;
@@ -53,7 +53,7 @@ JNI_OnUnload(JavaVM *, void *)
   env->DeleteGlobalRef(g_myTrackerClazz);
   env->DeleteGlobalRef(g_httpClientClazz);
   env->DeleteGlobalRef(g_httpParamsClazz);
-  env->DeleteGlobalRef(g_socketWrapperClazz);
+  env->DeleteGlobalRef(g_platformSocketClazz);
   env->DeleteGlobalRef(g_utilsClazz);
 }
 } // extern "C"

@@ -28,9 +28,9 @@ import java.net.SocketTimeoutException;
  * <p>
  * <b>All public methods are blocking and shouldn't be called from the main thread.</b>
  */
-class SocketWrapper
+class PlatformSocket
 {
-  private final static Logger sLogger = new DebugLogger(SocketWrapper.class.getSimpleName());
+  private final static Logger sLogger = new DebugLogger(PlatformSocket.class.getSimpleName());
   private final static int DEFAULT_TIMEOUT = 30 * 1000;
   @Nullable
   private Socket mSocket;
@@ -253,7 +253,7 @@ class SocketWrapper
   @Override
   public String toString()
   {
-    return "SocketWrapper{" +
+    return "PlatformSocket{" +
            "mSocket=" + mSocket +
            ", mHost='" + mHost + '\'' +
            ", mPort=" + mPort +
