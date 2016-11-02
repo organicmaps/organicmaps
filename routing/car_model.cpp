@@ -81,17 +81,10 @@ CarModel const & CarModel::AllLimitsInstance()
   return instance;
 }
 
-CarModelFactory::CarModelFactory()
-{
-  m_model = make_shared<CarModel>();
-}
-
-shared_ptr<IVehicleModel> CarModelFactory::GetVehicleModel() const
-{
-  return m_model;
-}
-
-shared_ptr<IVehicleModel> CarModelFactory::GetVehicleModelForCountry(string const & /* country */) const
+CarModelFactory::CarModelFactory() { m_model = make_shared<CarModel>(); }
+shared_ptr<IVehicleModel> CarModelFactory::GetVehicleModel() const { return m_model; }
+shared_ptr<IVehicleModel> CarModelFactory::GetVehicleModelForCountry(
+    string const & /* country */) const
 {
   // @TODO(bykoianko) Different vehicle model for different country should be supported
   // according to http://wiki.openstreetmap.org/wiki/OSM_tags_for_routing/Access-Restrictions.

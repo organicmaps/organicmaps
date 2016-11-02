@@ -9,7 +9,10 @@
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 
-namespace feature { class TypesHolder; }
+namespace feature
+{
+class TypesHolder;
+}
 
 class Index;
 struct RawRouteData;
@@ -62,9 +65,9 @@ protected:
    * \param mapping Reference to routing indexes.
    * \return NoError if there are any nodes in res. RouteNotFound otherwise.
    */
-  IRouter::ResultCode FindPhantomNodes(m2::PointD const & point,
-                                       m2::PointD const & direction, TFeatureGraphNodeVec & res,
-                                       size_t maxCount, TRoutingMappingPtr const & mapping);
+  IRouter::ResultCode FindPhantomNodes(m2::PointD const & point, m2::PointD const & direction,
+                                       TFeatureGraphNodeVec & res, size_t maxCount,
+                                       TRoutingMappingPtr const & mapping);
 
 private:
   /*!
@@ -83,13 +86,15 @@ private:
   bool DoesEdgeIndexExist(Index::MwmId const & mwmId);
 
   /*!
-   * \brief Builds a route within one mwm using A* if edge index section is available and osrm otherwise.
+   * \brief Builds a route within one mwm using A* if edge index section is available and osrm
+   * otherwise.
    * Then reconstructs the route and restores all route attributes.
    * \param route The found route is added to the |route| if the method returns true.
    */
-  IRouter::ResultCode FindSingleRouteDispatcher(FeatureGraphNode const & source, FeatureGraphNode const & target,
-                                                RouterDelegate const & delegate, TRoutingMappingPtr & mapping,
-                                                Route & route);
+  IRouter::ResultCode FindSingleRouteDispatcher(FeatureGraphNode const & source,
+                                                FeatureGraphNode const & target,
+                                                RouterDelegate const & delegate,
+                                                TRoutingMappingPtr & mapping, Route & route);
 
   /*! Finds single shortest path in a single MWM between 2 sets of edges.
      * It's a route from multiple sources to multiple targets.

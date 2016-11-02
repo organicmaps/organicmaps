@@ -44,7 +44,6 @@ class VehicleModelFactory
 {
 public:
   virtual ~VehicleModelFactory() {}
-
   /// @return Default vehicle model which corresponds for all countrines,
   /// but it may be non optimal for some countries
   virtual shared_ptr<IVehicleModel> GetVehicleModel() const = 0;

@@ -11,7 +11,6 @@
 
 namespace m2
 {
-
 template <typename T>
 class Polyline
 {
@@ -19,15 +18,16 @@ class Polyline
 
 public:
   Polyline() {}
-  Polyline(initializer_list<Point<T> > points) : m_points(points)
+  Polyline(initializer_list<Point<T>> points) : m_points(points)
   {
     ASSERT_GREATER(m_points.size(), 1, ());
   }
-  explicit Polyline(vector<Point<T> > const & points) : m_points(points)
+  explicit Polyline(vector<Point<T>> const & points) : m_points(points)
   {
     ASSERT_GREATER(m_points.size(), 1, ());
   }
-  template <class IterT> Polyline(IterT beg, IterT end) : m_points(beg, end)
+  template <class IterT>
+  Polyline(IterT beg, IterT end) : m_points(beg, end)
   {
     ASSERT_GREATER(m_points.size(), 1, ());
   }
@@ -67,7 +67,6 @@ public:
 
   void Clear() { m_points.clear(); }
   void Add(Point<T> const & pt) { m_points.push_back(pt); }
-
   void Append(Polyline const & poly)
   {
     m_points.insert(m_points.end(), poly.m_points.cbegin(), poly.m_points.cend());
@@ -79,15 +78,9 @@ public:
     m_points.pop_back();
   }
 
-  void Swap(Polyline & rhs)
-  {
-    m_points.swap(rhs.m_points);
-  }
-
+  void Swap(Polyline & rhs) { m_points.swap(rhs.m_points); }
   size_t GetSize() const { return m_points.size(); }
-
   bool operator==(Polyline<T> const & rhs) const { return m_points == rhs.m_points; }
-
   typedef vector<Point<T> > TContainer;
   typedef typename TContainer::const_iterator TIter;
   TIter Begin() const { return m_points.begin(); }
@@ -122,11 +115,7 @@ public:
   }
 
   vector<Point<T> > const & GetPoints() const { return m_points; }
-
-  friend string DebugPrint(Polyline<T> const & p)
-  {
-    return ::DebugPrint(p.m_points);
-  }
+  friend string DebugPrint(Polyline<T> const & p) { return ::DebugPrint(p.m_points); }
 };
 
 using PolylineD = Polyline<double>;

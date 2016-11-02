@@ -1,3 +1,4 @@
+#include "routing/road_graph_router.hpp"
 #include "routing/bicycle_directions.hpp"
 #include "routing/bicycle_model.hpp"
 #include "routing/car_model.hpp"
@@ -5,7 +6,6 @@
 #include "routing/nearest_edge_finder.hpp"
 #include "routing/pedestrian_directions.hpp"
 #include "routing/pedestrian_model.hpp"
-#include "routing/road_graph_router.hpp"
 #include "routing/route.hpp"
 
 #include "coding/reader_wrapper.hpp"
@@ -137,7 +137,6 @@ void FindClosestEdges(IRoadGraph const & graph, m2::PointD const & point,
 }  // namespace
 
 RoadGraphRouter::~RoadGraphRouter() {}
-
 RoadGraphRouter::RoadGraphRouter(string const & name, Index const & index,
                                  TCountryFileFn const & countryFileFn, IRoadGraph::Mode mode,
                                  unique_ptr<VehicleModelFactory> && vehicleModelFactory,
@@ -312,7 +311,8 @@ unique_ptr<IRouter> CreateBicycleAStarBidirectionalRouter(Index & index, TCountr
   return router;
 }
 
-unique_ptr<IRouter> CreateCarAStarBidirectionalRouter(Index & index, TCountryFileFn const & countryFileFn)
+unique_ptr<IRouter> CreateCarAStarBidirectionalRouter(Index & index,
+                                                      TCountryFileFn const & countryFileFn)
 {
   unique_ptr<VehicleModelFactory> vehicleModelFactory = make_unique<CarModelFactory>();
   unique_ptr<IRoutingAlgorithm> algorithm = make_unique<AStarBidirectionalRoutingAlgorithm>();

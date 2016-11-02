@@ -77,13 +77,12 @@ namespace integration
   unique_ptr<CarRouter> CreateCarRouter(Index & index,
                                         storage::CountryInfoGetter const & infoGetter)
   {
-    auto const countryFileGetter = [&infoGetter](m2::PointD const & pt)
-    {
+    auto const countryFileGetter = [&infoGetter](m2::PointD const & pt) {
       return infoGetter.GetRegionCountryId(pt);
     };
 
-    auto carRouter = make_unique<CarRouter>(index, countryFileGetter,
-                                            CreateCarAStarBidirectionalRouter(index, countryFileGetter));
+    auto carRouter = make_unique<CarRouter>(
+        index, countryFileGetter, CreateCarAStarBidirectionalRouter(index, countryFileGetter));
     return carRouter;
   }
 
@@ -111,7 +110,6 @@ namespace integration
     }
 
     IRouter * GetRouter() const override { return m_carRouter.get(); }
-
   private:
     unique_ptr<CarRouter> m_carRouter;
   };

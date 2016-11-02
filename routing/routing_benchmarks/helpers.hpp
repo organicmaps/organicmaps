@@ -78,7 +78,6 @@ public:
   };
 
   SimplifiedModelFactory() : m_model(make_shared<SimplifiedModel>()) {}
-
   // VehicleModelFactory overrides:
   shared_ptr<routing::IVehicleModel> GetVehicleModel() const override { return m_model; }
   shared_ptr<routing::IVehicleModel> GetVehicleModelForCountry(

@@ -34,15 +34,15 @@
 #include "std/limits.hpp"
 #include "std/string.hpp"
 
-#include "3party/osrm/osrm-backend/data_structures/query_edge.hpp"
 #include "3party/osrm/osrm-backend/data_structures/internal_route_result.hpp"
+#include "3party/osrm/osrm-backend/data_structures/query_edge.hpp"
 #include "3party/osrm/osrm-backend/descriptors/description_factory.hpp"
 
 #define INTERRUPT_WHEN_CANCELLED(DELEGATE) \
-  do                               \
-  {                                \
-    if (DELEGATE.IsCancelled())    \
-      return Cancelled;            \
+  do                                       \
+  {                                        \
+    if (DELEGATE.IsCancelled())            \
+      return Cancelled;                    \
   } while (false)
 
 namespace routing
@@ -63,7 +63,6 @@ class OSRMRoutingResult : public turns::IRoutingResult
 public:
   // turns::IRoutingResult overrides:
   TUnpackedPathSegments const & GetSegments() const override { return m_loadedSegments; }
-
   void GetPossibleTurns(TNodeId node, m2::PointD const & ingoingPoint,
                         m2::PointD const & junctionPoint, size_t & ingoingCount,
                         turns::TurnCandidates & outgoingTurns) const override
@@ -147,14 +146,12 @@ public:
     }
 
     sort(outgoingTurns.candidates.begin(), outgoingTurns.candidates.end(),
-         [](turns::TurnCandidate const & t1, turns::TurnCandidate const & t2)
-    {
-      return t1.angle < t2.angle;
-    });
+         [](turns::TurnCandidate const & t1, turns::TurnCandidate const & t2) {
+           return t1.angle < t2.angle;
+         });
   }
 
   double GetPathLength() const override { return m_rawResult.shortestPathLength; }
-
   Junction GetStartPoint() const override
   {
     return Junction(m_rawResult.sourceEdge.segmentPoint, feature::kDefaultAltitudeMeters);
@@ -178,14 +175,14 @@ public:
         bool isEndNode = (segmentIndex == numSegments - 1);
         if (isStartNode || isEndNode)
         {
-          OsrmPathSegmentFactory(m_routingMapping, m_index,
-                                 pathSegments[segmentIndex], m_rawResult.sourceEdge,
-                                 m_rawResult.targetEdge, isStartNode, isEndNode, m_loadedSegments[segmentIndex]);
+          OsrmPathSegmentFactory(m_routingMapping, m_index, pathSegments[segmentIndex],
+                                 m_rawResult.sourceEdge, m_rawResult.targetEdge, isStartNode,
+                                 isEndNode, m_loadedSegments[segmentIndex]);
         }
         else
         {
-          OsrmPathSegmentFactory(m_routingMapping, m_index,
-                                 pathSegments[segmentIndex], m_loadedSegments[segmentIndex]);
+          OsrmPathSegmentFactory(m_routingMapping, m_index, pathSegments[segmentIndex],
+                                 m_loadedSegments[segmentIndex]);
         }
       }
     }
@@ -198,17 +195,18 @@ private:
   RoutingMapping & m_routingMapping;
 };
 
-IRouter::ResultCode FindSingleOsrmRoute(FeatureGraphNode const & source, FeatureGraphNode const & target,
-                                        RouterDelegate const & delegate, Index const & index, TRoutingMappingPtr & mapping,
-                                        Route & route)
+IRouter::ResultCode FindSingleOsrmRoute(FeatureGraphNode const & source,
+                                        FeatureGraphNode const & target,
+                                        RouterDelegate const & delegate, Index const & index,
+                                        TRoutingMappingPtr & mapping, Route & route)
 {
   vector<Junction> geometry;
   Route::TTurns turns;
   Route::TTimes times;
   Route::TStreets streets;
 
-  LOG(LINFO, ("OSRM route from", MercatorBounds::ToLatLon(source.segmentPoint),
-              "to", MercatorBounds::ToLatLon(target.segmentPoint)));
+  LOG(LINFO, ("OSRM route from", MercatorBounds::ToLatLon(source.segmentPoint), "to",
+              MercatorBounds::ToLatLon(target.segmentPoint)));
 
   RawRoutingResult routingResult;
   if (!FindSingleRoute(source, target, mapping->m_dataFacade, routingResult))
@@ -234,7 +232,7 @@ IRouter::ResultCode FindSingleOsrmRoute(FeatureGraphNode const & source, Feature
 
   return routing::IRouter::NoError;
 }
-} //  namespace
+}  //  namespace
 
 // static
 bool CarRouter::CheckRoutingAbility(m2::PointD const & startPoint, m2::PointD const & finalPoint,
@@ -247,15 +245,11 @@ bool CarRouter::CheckRoutingAbility(m2::PointD const & startPoint, m2::PointD co
 
 CarRouter::CarRouter(Index & index, TCountryFileFn const & countryFileFn,
                      unique_ptr<IRouter> router)
-    : m_index(index), m_indexManager(countryFileFn, index), m_router(move(router))
+  : m_index(index), m_indexManager(countryFileFn, index), m_router(move(router))
 {
 }
 
-string CarRouter::GetName() const
-{
-  return "vehicle";
-}
-
+string CarRouter::GetName() const { return "vehicle"; }
 void CarRouter::ClearState()
 {
   m_cachedTargets.clear();
@@ -264,8 +258,9 @@ void CarRouter::ClearState()
   m_router->ClearState();
 }
 
-bool CarRouter::FindRouteMsmt(TFeatureGraphNodeVec const & sources, TFeatureGraphNodeVec const & targets,
-                              RouterDelegate const & delegate, TRoutingMappingPtr & mapping, Route & route)
+bool CarRouter::FindRouteMsmt(TFeatureGraphNodeVec const & sources,
+                              TFeatureGraphNodeVec const & targets, RouterDelegate const & delegate,
+                              TRoutingMappingPtr & mapping, Route & route)
 {
   ASSERT(mapping, ());
 
@@ -283,9 +278,8 @@ bool CarRouter::FindRouteMsmt(TFeatureGraphNodeVec const & sources, TFeatureGrap
   return false;
 }
 
-void FindGraphNodeOffsets(uint32_t const nodeId, m2::PointD const & point,
-                          Index const * pIndex, TRoutingMappingPtr & mapping,
-                          FeatureGraphNode & graphNode)
+void FindGraphNodeOffsets(uint32_t const nodeId, m2::PointD const & point, Index const * pIndex,
+                          TRoutingMappingPtr & mapping, FeatureGraphNode & graphNode)
 {
   graphNode.segmentPoint = point;
 
@@ -421,17 +415,16 @@ CarRouter::ResultCode CarRouter::CalculateRoute(m2::PointD const & startPoint,
   TFeatureGraphNodeVec startTask;
 
   {
-    ResultCode const code = FindPhantomNodes(startPoint, startDirection,
-                                             startTask, kMaxNodeCandidatesCount, startMapping);
+    ResultCode const code = FindPhantomNodes(startPoint, startDirection, startTask,
+                                             kMaxNodeCandidatesCount, startMapping);
     if (code != NoError)
       return code;
   }
   {
     if (finalPoint != m_cachedTargetPoint)
     {
-      ResultCode const code =
-          FindPhantomNodes(finalPoint, m2::PointD::Zero(),
-                           m_cachedTargets, kMaxNodeCandidatesCount, targetMapping);
+      ResultCode const code = FindPhantomNodes(finalPoint, m2::PointD::Zero(), m_cachedTargets,
+                                               kMaxNodeCandidatesCount, targetMapping);
       if (code != NoError)
         return code;
       m_cachedTargetPoint = finalPoint;
@@ -454,12 +447,11 @@ CarRouter::ResultCode CarRouter::CalculateRoute(m2::PointD const & startPoint,
   if (startMapping->GetMwmId() == targetMapping->GetMwmId())
   {
     LOG(LINFO, ("Single mwm routing case"));
-    m_indexManager.ForEachMapping([](pair<string, TRoutingMappingPtr> const & indexPair)
-                                  {
-                                    indexPair.second->FreeCrossContext();
-                                  });
-    ResultCode crossCode = CalculateCrossMwmPath(startTask, m_cachedTargets, m_indexManager, crossDistanceM,
-                                                 delegate, finalPath);
+    m_indexManager.ForEachMapping([](pair<string, TRoutingMappingPtr> const & indexPair) {
+      indexPair.second->FreeCrossContext();
+    });
+    ResultCode crossCode = CalculateCrossMwmPath(startTask, m_cachedTargets, m_indexManager,
+                                                 crossDistanceM, delegate, finalPath);
     LOG(LINFO, ("Found cross path in", timer.ElapsedNano(), "ns."));
     if (!FindRouteMsmt(startTask, m_cachedTargets, delegate, startMapping, route))
     {
@@ -476,7 +468,8 @@ CarRouter::ResultCode CarRouter::CalculateRoute(m2::PointD const & startPoint,
 
     if (crossCode == NoError && crossDistanceM < route.GetTotalDistanceMeters())
     {
-      LOG(LINFO, ("Cross mwm path shorter. Cross cost:", crossDistanceM, "single cost:", route.GetTotalDistanceMeters()));
+      LOG(LINFO, ("Cross mwm path shorter. Cross distance:", crossDistanceM, "single distance:",
+                  route.GetTotalDistanceMeters()));
       auto code = MakeRouteFromCrossesPath(finalPath, delegate, route);
       LOG(LINFO, ("Made final route in", timer.ElapsedNano(), "ns."));
       timer.Reset();
@@ -488,11 +481,11 @@ CarRouter::ResultCode CarRouter::CalculateRoute(m2::PointD const & startPoint,
 
     return NoError;
   }
-  else //4.2 Multiple mwm case
+  else  // 4.2 Multiple mwm case
   {
     LOG(LINFO, ("Multiple mwm routing case"));
-    ResultCode code = CalculateCrossMwmPath(startTask, m_cachedTargets, m_indexManager, crossDistanceM,
-                                            delegate, finalPath);
+    ResultCode code = CalculateCrossMwmPath(startTask, m_cachedTargets, m_indexManager,
+                                            crossDistanceM, delegate, finalPath);
     timer.Reset();
     INTERRUPT_WHEN_CANCELLED(delegate);
     delegate.OnProgress(kCrossPathFoundProgress);
@@ -502,10 +495,9 @@ CarRouter::ResultCode CarRouter::CalculateRoute(m2::PointD const & startPoint,
     {
       auto code = MakeRouteFromCrossesPath(finalPath, delegate, route);
       // Manually free all cross context allocations before geometry unpacking.
-      m_indexManager.ForEachMapping([](pair<string, TRoutingMappingPtr> const & indexPair)
-                                    {
-                                      indexPair.second->FreeCrossContext();
-                                    });
+      m_indexManager.ForEachMapping([](pair<string, TRoutingMappingPtr> const & indexPair) {
+        indexPair.second->FreeCrossContext();
+      });
       LOG(LINFO, ("Made final route in", timer.ElapsedNano(), "ns."));
       timer.Reset();
       return code;
@@ -524,7 +516,8 @@ IRouter::ResultCode CarRouter::FindPhantomNodes(m2::PointD const & point,
   getter.SetPoint(point);
 
   m_index.ForEachInRectForMWM(getter, MercatorBounds::RectByCenterXYAndSizeInMeters(
-      point, kFeatureFindingRectSideRadiusMeters), scales::GetUpperScale(), mapping->GetMwmId());
+                                          point, kFeatureFindingRectSideRadiusMeters),
+                              scales::GetUpperScale(), mapping->GetMwmId());
 
   if (!getter.HasCandidates())
     return RouteNotFound;
@@ -553,9 +546,11 @@ bool CarRouter::DoesEdgeIndexExist(Index::MwmId const & mwmId)
   return true;
 }
 
-IRouter::ResultCode  CarRouter::FindSingleRouteDispatcher(FeatureGraphNode const & source, FeatureGraphNode const & target,
-                                                          RouterDelegate const & delegate, TRoutingMappingPtr & mapping,
-                                                          Route & route)
+IRouter::ResultCode CarRouter::FindSingleRouteDispatcher(FeatureGraphNode const & source,
+                                                         FeatureGraphNode const & target,
+                                                         RouterDelegate const & delegate,
+                                                         TRoutingMappingPtr & mapping,
+                                                         Route & route)
 {
   ASSERT_EQUAL(source.mwmId, target.mwmId, ());
   ASSERT(m_router, ());
@@ -568,8 +563,8 @@ IRouter::ResultCode  CarRouter::FindSingleRouteDispatcher(FeatureGraphNode const
   if (DoesEdgeIndexExist(source.mwmId) && m_router)
   {
     // A* routing
-    LOG(LINFO, ("A* route from", MercatorBounds::ToLatLon(source.segmentPoint),
-                "to", MercatorBounds::ToLatLon(target.segmentPoint)));
+    LOG(LINFO, ("A* route from", MercatorBounds::ToLatLon(source.segmentPoint), "to",
+                MercatorBounds::ToLatLon(target.segmentPoint)));
     result = m_router->CalculateRoute(source.segmentPoint, m2::PointD(0, 0) /* direction */,
                                       target.segmentPoint, delegate, mwmRoute);
   }

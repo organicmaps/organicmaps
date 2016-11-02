@@ -59,7 +59,6 @@ public:
   inline void SetSectionTimes(TTimes && v) { m_times = move(v); }
   inline void SetStreetNames(TStreets && v) { m_streets = move(v); }
   inline void SetAltitudes(feature::TAltitudes && v) { m_altitudes = move(v); }
-
   /// \brief Glues all |route| attributes to |this| except for |m_altitudes|.
   // @TODO In the future this method should append |m_altitudes| as well.
   // It's not implemented now because it's not easy to do it and it'll not be used in
