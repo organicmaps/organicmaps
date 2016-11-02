@@ -8,6 +8,8 @@
 #include "indexer/feature_visibility.hpp"
 #include "indexer/osm_editor.hpp"
 
+#include "platform/preferred_languages.hpp"
+
 #include "geometry/distance.hpp"
 #include "geometry/robust_orientation.hpp"
 
@@ -487,13 +489,19 @@ FeatureType::geom_stat_t FeatureType::GetTrianglesSize(int scale) const
   return geom_stat_t(sz, m_triangles.size());
 }
 
-void FeatureType::GetPreferredNames(string & defaultName, string & intName) const
+void FeatureType::GetPreferredNames(string & primary, string & secondary) const
 {
   if (!HasName())
     return;
 
+  auto const mwmInfo = GetID().m_mwmId.GetInfo();
+
+  if (!mwmInfo)
+    return;
+
   ParseCommon();
-  ::GetPreferredNames(GetID(), GetNames(), defaultName, intName);
+  auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
+  ::GetPreferredNames(mwmInfo->GetRegionData(), GetNames(), deviceLang, primary, secondary);
 }
 
 void FeatureType::GetReadableName(string & name) const
@@ -501,8 +509,14 @@ void FeatureType::GetReadableName(string & name) const
   if (!HasName())
     return;
 
+  auto const mwmInfo = GetID().m_mwmId.GetInfo();
+
+  if (!mwmInfo)
+    return;
+
   ParseCommon();
-  ::GetReadableName(GetID(), GetNames(), name);
+  auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
+  ::GetReadableName(mwmInfo->GetRegionData(), GetNames(), deviceLang, name);
 }
 
 string FeatureType::GetHouseNumber() const

@@ -18,12 +18,10 @@ namespace df
 struct CaptionDescription
 {
   void Init(FeatureType const & f,
-            int const zoomLevel);
-
-  void FormatCaptions(FeatureType const & f,
-                      feature::EGeomType type,
-                      drule::text_type_t mainTextType,
-                      bool auxCaptionExists);
+            int const zoomLevel,
+            feature::EGeomType const type,
+            drule::text_type_t const mainTextType,
+            bool const auxCaptionExists);
 
   string const & GetMainText() const;
   string const & GetAuxText() const;
@@ -32,10 +30,11 @@ struct CaptionDescription
   bool IsNameExists() const;
 
 private:
-  void SwapCaptions(int const zoomLevel);
-  void DiscardLongCaption(int const zoomLevel);
+  /// Clear aux name on high zoom and clear long main name on low zoom.
+  void ProcessZoomLevel(int const zoomLevel);
+  /// Try to use house number as name of the object.
+  void ProcessMainTextType(drule::text_type_t const & mainTextType);
 
-private:
   string m_mainText;
   string m_auxText;
   string m_roadNumber;

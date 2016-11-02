@@ -4,6 +4,7 @@
 #include "indexer/osm_editor.hpp"
 
 #include "platform/measurement_utils.hpp"
+#include "platform/preferred_languages.hpp"
 
 namespace place_page
 {
@@ -49,7 +50,12 @@ string Info::GetTitle() const
     return m_customName;
 
   string name;
-  feature::GetReadableName(GetID(), m_name, name);
+  auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
+
+  auto const mwmInfo = GetID().m_mwmId.GetInfo();
+
+  if (mwmInfo)
+    feature::GetReadableName(mwmInfo->GetRegionData(), m_name, deviceLang, name);
 
   return name;
 }
