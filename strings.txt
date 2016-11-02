@@ -19914,6 +19914,31 @@
   [install_app]
     en = Install
     ru = Установить
+    ar = تثبيت
+    cs = Instalovat
+    da = Installer
+    nl = Installeer
+    fi = Asenna
+    fr = Installer
+    de = Installieren
+    hu = Telepítés
+    id = Pasang
+    it = Installa
+    ja = インストール
+    ko = 설치
+    nb = Installer
+    pl = Zainstaluj
+    pt = Instalar
+    ro = Instalați
+    es = Instalar
+    sv = Installera
+    th = ติดตั้ง
+    tr = Kur
+    uk = Встановити
+    vi = Cài đặt
+    zh-Hans = 安装
+    zh-Hant = 安裝
+    sk = Nainštalovať
 
   [booking_filters]
     comment = `Filter` is a noun here
@@ -19995,35 +20020,6 @@
   [chat_open]
     en = Open
     ru = Открыть
-
-  [install]
-    en = Install
-    ru = Установить
-    ar = تثبيت
-    cs = Instalovat
-    da = Installer
-    nl = Installeer
-    fi = Asenna
-    fr = Installer
-    de = Installieren
-    hu = Telepítés
-    id = Pasang
-    it = Installa
-    ja = インストール
-    ko = 설치
-    nb = Installer
-    pl = Zainstaluj
-    pt = Instalar
-    ro = Instalați
-    es = Instalar
-    sv = Installera
-    th = ติดตั้ง
-    tr = Kur
-    uk = Встановити
-    vi = Cài đặt
-    zh-Hans = 安装
-    zh-Hant = 安裝
-    sk = Nainštalovať
 
   [whatsnew_uber_header]
     en = MAPS.ME & Uber
