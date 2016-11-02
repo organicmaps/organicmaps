@@ -37,6 +37,7 @@ set(
   servers_list.hpp
   settings.cpp
   settings.hpp
+  socket.hpp
 )
 
 
@@ -50,6 +51,7 @@ if(${PLATFORM_IPHONE})
     platform_ios.mm
     platform_unix_impl.cpp
     platform_unix_impl.hpp
+    socket_apple.mm
   )
 elseif(${PLATFORM_ANDROID})
   set(
@@ -91,6 +93,7 @@ else() # neither iPhone nor Android
       platform_mac.mm
       platform_unix_impl.cpp
       platform_unix_impl.hpp
+      socket_apple.mm
     )
   elseif(${PLATFORM_LINUX})
     set(
