@@ -466,6 +466,10 @@ using namespace osm_auth_ios;
   }
   else
   {
+    if ([MWMSettings statisticsEnabled])
+      [Alohalytics enable];
+    else
+      [Alohalytics disable];
     [self incrementSessionsCountAndCheckForAlert];
     [MapsAppDelegate initPushNotificationsWithLaunchOptions:launchOptions];
   }
@@ -936,6 +940,7 @@ using namespace osm_auth_ios;
 
 - (void)firstLaunchSetup
 {
+  [MWMSettings setStatisticsEnabled:YES];
   NSString * currentVersion =
       [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
   NSUserDefaults * standartDefaults = [NSUserDefaults standardUserDefaults];
