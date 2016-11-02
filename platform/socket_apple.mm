@@ -33,8 +33,11 @@
   CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)(host), (UInt32)port, &readStream,
                                      &writeStream);
 
-  NSDictionary * settings = @{(id)kCFStreamSSLValidatesCertificateChain : @NO,
-                              (id)kCFStreamSSLLevel : (id)kCFStreamSocketSecurityLevelTLSv1,
+  NSDictionary * settings = @{
+#ifndef OMIM_PRODUCTION
+                              (id)kCFStreamSSLValidatesCertificateChain : @NO,
+#endif
+                              (id)kCFStreamSSLLevel : (id)kCFStreamSocketSecurityLevelNegotiatedSSL
                               };
 
   CFReadStreamSetProperty(readStream, kCFStreamPropertySSLSettings, (CFTypeRef)settings);
