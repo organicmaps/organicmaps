@@ -136,6 +136,8 @@ vector<pair<string, string>> availableLanguages()
   [[NSNotificationCenter defaultCenter] postNotificationName:[self ttsStatusNotificationKey]
                                                       object:nil
                                                     userInfo:nil];
+  if (enabled)
+    [[MWMTextToSpeech tts] setActive:YES];
 }
 
 - (void)setActive:(BOOL)active
@@ -241,7 +243,6 @@ vector<pair<string, string>> availableLanguages()
   vector<string> notifications;
   frm.GenerateTurnNotifications(notifications);
 
-  [self setActive:YES];
   if (![self isValid])
     return;
 
