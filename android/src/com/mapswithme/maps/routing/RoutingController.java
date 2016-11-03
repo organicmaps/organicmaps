@@ -18,12 +18,12 @@ import android.widget.TextView;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.uber.Uber;
-import com.mapswithme.maps.uber.UberInfo;
-import com.mapswithme.maps.uber.UberLinks;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.uber.Uber;
+import com.mapswithme.maps.uber.UberInfo;
+import com.mapswithme.maps.uber.UberLinks;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.StringUtils;
@@ -270,7 +270,7 @@ public class RoutingController
     mLastBuildProgress = 0;
     mInternetConnected = ConnectionState.isConnected();
 
-    if (mLastRouterType == Framework.ROUTER_TYPE_TAXI)
+    if (isTaxiRouterType())
     {
       if (!mInternetConnected)
       {
@@ -509,7 +509,17 @@ public class RoutingController
 
   boolean isUberPlanning()
   {
-    return mLastRouterType == Framework.ROUTER_TYPE_TAXI && mUberPlanning;
+    return isTaxiRouterType() && mUberPlanning;
+  }
+
+  boolean isTaxiRouterType()
+  {
+    return mLastRouterType == Framework.ROUTER_TYPE_TAXI;
+  }
+
+  boolean isVehicleRouterType()
+  {
+    return mLastRouterType == Framework.ROUTER_TYPE_VEHICLE;
   }
 
   public boolean isNavigating()
@@ -724,7 +734,7 @@ public class RoutingController
 
     // Repeating tap on Uber icon should trigger the route building always,
     // because it may be "No internet connection, try later" case
-    if (router == mLastRouterType && router != Framework.ROUTER_TYPE_TAXI)
+    if (router == mLastRouterType && !isTaxiRouterType())
       return;
 
     mLastRouterType = router;
@@ -814,7 +824,8 @@ public class RoutingController
   private void requestUberInfo()
   {
     mUberPlanning = true;
-    Uber.nativeRequestUberProducts(mStartPoint.getLat(), mStartPoint.getLon(), mEndPoint.getLat(), mEndPoint.getLon());
+    Uber.nativeRequestUberProducts(mStartPoint.getLat(), mStartPoint.getLon(),
+                                   mEndPoint.getLat(), mEndPoint.getLon());
     if (mContainer != null)
       mContainer.updateBuildProgress(0, mLastRouterType);
   }
@@ -822,7 +833,8 @@ public class RoutingController
   @NonNull
   UberLinks getUberLink(@NonNull String productId)
   {
-    return Uber.nativeGetUberLinks(productId, mStartPoint.getLat(), mStartPoint.getLon(), mEndPoint.getLat(), mEndPoint.getLon());
+    return Uber.nativeGetUberLinks(productId, mStartPoint.getLat(), mStartPoint.getLon(),
+                                   mEndPoint.getLat(), mEndPoint.getLon());
   }
 
   /**
@@ -834,7 +846,7 @@ public class RoutingController
   {
     mUberPlanning = false;
     mLogger.d("onUberInfoReceived uberInfo = " + info);
-    if (mLastRouterType == Framework.ROUTER_TYPE_TAXI && mContainer != null)
+    if (isTaxiRouterType() && mContainer != null)
     {
       mContainer.onUberInfoReceived(info);
       completeUberRequest();
@@ -851,7 +863,7 @@ public class RoutingController
     mUberPlanning = false;
     Uber.ErrorCode code = Uber.ErrorCode.valueOf(errorCode);
     mLogger.e("onUberError error = " + code);
-    if (mLastRouterType == Framework.ROUTER_TYPE_TAXI && mContainer != null)
+    if (isTaxiRouterType() && mContainer != null)
     {
       mContainer.onUberError(code);
       completeUberRequest();

@@ -211,14 +211,14 @@ public class RoutingPlanController extends ToolbarController
       return;
     }
 
-    if (!isTaxiRouteChecked())
+    if (!isTaxiRouterType())
       setStartButton();
     showAltitudeChartAndRoutingDetails();
   }
 
   private void showAltitudeChartAndRoutingDetails()
   {
-    if (isTaxiRouteChecked())
+    if (isTaxiRouterType())
       return;
 
     UiUtils.hide(getViewById(R.id.error));
@@ -365,14 +365,14 @@ public class RoutingPlanController extends ToolbarController
     }
   }
 
-  private boolean isVehicleRouteChecked()
+  private boolean isVehicleRouterType()
   {
-    return mRouterTypes.getCheckedRadioButtonId() == R.id.vehicle;
+    return RoutingController.get().isVehicleRouterType();
   }
 
-  private boolean isTaxiRouteChecked()
+  private boolean isTaxiRouterType()
   {
-    return mRouterTypes.getCheckedRadioButtonId() == R.id.taxi;
+    return RoutingController.get().isTaxiRouterType();
   }
 
   void disableToggle()
@@ -394,7 +394,7 @@ public class RoutingPlanController extends ToolbarController
 
   void showRouteAltitudeChartInternal(@NonNull ImageView altitudeChart)
   {
-    if (isVehicleRouteChecked())
+    if (isVehicleRouterType())
     {
       UiUtils.hide(altitudeChart);
       return;
@@ -496,7 +496,7 @@ public class RoutingPlanController extends ToolbarController
   {
     Button start = (Button) getViewById(R.id.start);
 
-    if (isTaxiRouteChecked())
+    if (isTaxiRouterType())
     {
       final boolean isUberInstalled = Utils.isUberInstalled(mActivity);
       start.setText(isUberInstalled ? R.string.taxi_order : R.string.install_app);
