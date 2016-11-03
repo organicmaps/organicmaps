@@ -79,11 +79,10 @@ pair<Protocol::PacketType, size_t> Protocol::DecodeHeader(vector<uint8_t> const 
 //  static
 string Protocol::DecodeAuthPacket(Protocol::PacketType type, vector<uint8_t> const & data)
 {
-  ASSERT_GREATER_OR_EQUAL(data.size(), sizeof(uint32_t /* header */), ());
   switch (type)
   {
   case Protocol::PacketType::AuthV0:
-    return string(begin(data) + sizeof(uint32_t /* header */), end(data));
+    return string(begin(data), end(data));
   case Protocol::PacketType::DataV0: break;
   }
   return string();
@@ -92,11 +91,9 @@ string Protocol::DecodeAuthPacket(Protocol::PacketType type, vector<uint8_t> con
 //  static
 Protocol::DataElementsVec Protocol::DecodeDataPacket(PacketType type, vector<uint8_t> const & data)
 {
-  ASSERT_GREATER_OR_EQUAL(data.size(), sizeof(uint32_t /* header */), ());
   DataElementsVec points;
   MemReader memReader(data.data(), data.size());
   ReaderSource<MemReader> src(memReader);
-  src.Skip(sizeof(uint32_t /* header */));
   switch (type)
   {
   case Protocol::PacketType::DataV0:
