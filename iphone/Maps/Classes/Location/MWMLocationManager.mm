@@ -287,7 +287,7 @@ void setPermissionRequested()
 
 - (void)processLocationUpdate:(CLLocation *)locationInfo
 {
-  if (!locationInfo)
+  if (!locationInfo || self.lastLocationStatus != location::TLocationError::ENoError)
     return;
   location::GpsInfo const gpsInfo = gpsInfoFromLocation(locationInfo);
   [self onLocationUpdate:gpsInfo];
