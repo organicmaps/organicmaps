@@ -57,6 +57,7 @@ else
 #define TRACKING_REALTIME_PORT 0
 #define TRACKING_HISTORICAL_HOST ""
 #define TRACKING_HISTORICAL_PORT 0
+#define TRAFFIC_DATA_BASE_URL ""
 ' > "$PRIVATE_HEADER"
     echo 'ext {
   spropStoreFile = "../tools/android/debug.keystore"
