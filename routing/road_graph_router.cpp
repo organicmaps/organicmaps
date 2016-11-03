@@ -1,10 +1,12 @@
+#include "routing/road_graph_router.hpp"
+
 #include "routing/bicycle_directions.hpp"
 #include "routing/bicycle_model.hpp"
+#include "routing/car_model.hpp"
 #include "routing/features_road_graph.hpp"
 #include "routing/nearest_edge_finder.hpp"
 #include "routing/pedestrian_directions.hpp"
 #include "routing/pedestrian_model.hpp"
-#include "routing/road_graph_router.hpp"
 #include "routing/route.hpp"
 
 #include "coding/reader_wrapper.hpp"
@@ -136,10 +138,9 @@ void FindClosestEdges(IRoadGraph const & graph, m2::PointD const & point,
 }  // namespace
 
 RoadGraphRouter::~RoadGraphRouter() {}
-
 RoadGraphRouter::RoadGraphRouter(string const & name, Index const & index,
                                  TCountryFileFn const & countryFileFn, IRoadGraph::Mode mode,
-                                 unique_ptr<IVehicleModelFactory> && vehicleModelFactory,
+                                 unique_ptr<VehicleModelFactory> && vehicleModelFactory,
                                  unique_ptr<IRoutingAlgorithm> && algorithm,
                                  unique_ptr<IDirectionsEngine> && directionsEngine)
   : m_name(name)
@@ -280,7 +281,7 @@ void RoadGraphRouter::ReconstructRoute(vector<Junction> && path, Route & route,
 
 unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index, TCountryFileFn const & countryFileFn)
 {
-  unique_ptr<IVehicleModelFactory> vehicleModelFactory(new PedestrianModelFactory());
+  unique_ptr<VehicleModelFactory> vehicleModelFactory(new PedestrianModelFactory());
   unique_ptr<IRoutingAlgorithm> algorithm(new AStarRoutingAlgorithm());
   unique_ptr<IDirectionsEngine> directionsEngine(new PedestrianDirectionsEngine());
   unique_ptr<IRouter> router(new RoadGraphRouter(
@@ -291,7 +292,7 @@ unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index, TCountryFileFn co
 
 unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(Index & index, TCountryFileFn const & countryFileFn)
 {
-  unique_ptr<IVehicleModelFactory> vehicleModelFactory(new PedestrianModelFactory());
+  unique_ptr<VehicleModelFactory> vehicleModelFactory(new PedestrianModelFactory());
   unique_ptr<IRoutingAlgorithm> algorithm(new AStarBidirectionalRoutingAlgorithm());
   unique_ptr<IDirectionsEngine> directionsEngine(new PedestrianDirectionsEngine());
   unique_ptr<IRouter> router(new RoadGraphRouter(
@@ -302,12 +303,26 @@ unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(Index & index, TCou
 
 unique_ptr<IRouter> CreateBicycleAStarBidirectionalRouter(Index & index, TCountryFileFn const & countryFileFn)
 {
-  unique_ptr<IVehicleModelFactory> vehicleModelFactory(new BicycleModelFactory());
+  unique_ptr<VehicleModelFactory> vehicleModelFactory(new BicycleModelFactory());
   unique_ptr<IRoutingAlgorithm> algorithm(new AStarBidirectionalRoutingAlgorithm());
   unique_ptr<IDirectionsEngine> directionsEngine(new BicycleDirectionsEngine(index));
   unique_ptr<IRouter> router(new RoadGraphRouter(
       "astar-bidirectional-bicycle", index, countryFileFn, IRoadGraph::Mode::ObeyOnewayTag,
       move(vehicleModelFactory), move(algorithm), move(directionsEngine)));
+  return router;
+}
+
+unique_ptr<IRouter> CreateCarAStarBidirectionalRouter(Index & index,
+                                                      TCountryFileFn const & countryFileFn)
+{
+  unique_ptr<VehicleModelFactory> vehicleModelFactory = make_unique<CarModelFactory>();
+  unique_ptr<IRoutingAlgorithm> algorithm = make_unique<AStarBidirectionalRoutingAlgorithm>();
+  // @TODO Bicycle turn generation engine is used now. It's ok for the time being.
+  // But later a special car turn generation engine should be implemented.
+  unique_ptr<IDirectionsEngine> directionsEngine = make_unique<BicycleDirectionsEngine>(index);
+  unique_ptr<IRouter> router = make_unique<RoadGraphRouter>(
+      "astar-bidirectional-car", index, countryFileFn, IRoadGraph::Mode::ObeyOnewayTag,
+      move(vehicleModelFactory), move(algorithm), move(directionsEngine));
   return router;
 }
 }  // namespace routing

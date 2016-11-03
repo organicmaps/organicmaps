@@ -1,6 +1,6 @@
 #pragma once
 
-#include "routing/osrm_router.hpp"
+#include "routing/car_router.hpp"
 
 #include "storage/country_info_getter.hpp"
 

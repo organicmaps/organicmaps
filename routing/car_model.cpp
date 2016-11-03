@@ -75,10 +75,20 @@ CarModel::CarModel()
 }
 
 // static
-CarModel const & CarModel::Instance()
+CarModel const & CarModel::AllLimitsInstance()
 {
   static CarModel const instance;
   return instance;
 }
 
+CarModelFactory::CarModelFactory() { m_model = make_shared<CarModel>(); }
+shared_ptr<IVehicleModel> CarModelFactory::GetVehicleModel() const { return m_model; }
+shared_ptr<IVehicleModel> CarModelFactory::GetVehicleModelForCountry(
+    string const & /* country */) const
+{
+  // @TODO(bykoianko) Different vehicle model for different country should be supported
+  // according to http://wiki.openstreetmap.org/wiki/OSM_tags_for_routing/Access-Restrictions.
+  // See pedestrian_model.cpp and bicycle_model.cpp for example.
+  return m_model;
+}
 }  // namespace routing

@@ -19,7 +19,8 @@ class Route;
 /// Routing engine type.
 enum class RouterType
 {
-  Vehicle = 0,  /// For OSRM vehicle routing
+  // @TODO It's necessary to rename Vehicle value to Car.
+  Vehicle = 0,  /// For Car routing (OSRM or AStar)
   Pedestrian,   /// For A star pedestrian routing
   Bicycle,      /// For A star bicycle routing
   Taxi,         /// For taxi route calculation Vehicle routing is used.

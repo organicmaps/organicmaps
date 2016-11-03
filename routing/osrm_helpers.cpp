@@ -38,7 +38,7 @@ void Point2PhantomNode::FindNearestSegment(FeatureType const & ft, m2::PointD co
 
 void Point2PhantomNode::operator()(FeatureType const & ft)
 {
-  if (!CarModel::Instance().IsRoad(ft))
+  if (!CarModel::AllLimitsInstance().IsRoad(ft))
     return;
 
   Candidate res;
@@ -280,7 +280,7 @@ void Point2PhantomNode::CalculateWeights(FeatureGraphNode & node) const
 
 void Point2Node::operator()(FeatureType const & ft)
 {
-  if (!CarModel::Instance().IsRoad(ft))
+  if (!CarModel::AllLimitsInstance().IsRoad(ft))
     return;
   uint32_t const featureId = ft.GetID().m_index;
   for (auto const & n : m_routingMapping.m_segMapping.GetNodeIdByFid(featureId))

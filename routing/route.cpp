@@ -354,6 +354,64 @@ void Route::Update()
   m_currentTime = 0.0;
 }
 
+void Route::AppendRoute(Route const & route)
+{
+  if (!route.IsValid())
+    return;
+
+  double const estimatedTime = m_times.empty() ? 0.0 : m_times.back().second;
+  if (m_poly.GetPolyline().GetSize() != 0)
+  {
+    ASSERT(!m_turns.empty(), ());
+    ASSERT(!m_times.empty(), ());
+    if (!m_streets.empty())
+      ASSERT_LESS(m_streets.back().first + 1, m_poly.GetPolyline().GetSize(), ());
+
+    // Remove road end point and turn instruction.
+    ASSERT_LESS(MercatorBounds::DistanceOnEarth(m_poly.End().m_pt, route.m_poly.Begin().m_pt),
+                2 /* meters */, ());
+    m_poly.PopBack();
+    CHECK(!m_turns.empty(), ());
+    ASSERT_EQUAL(m_turns.back().m_turn, turns::TurnDirection::ReachedYourDestination, ());
+    m_turns.pop_back();
+    CHECK(!m_times.empty(), ());
+    m_times.pop_back();
+  }
+
+  size_t const indexOffset = m_poly.GetPolyline().GetSize();
+
+  // Appending turns.
+  for (auto t : route.m_turns)
+  {
+    if (t.m_index == 0)
+      continue;
+    t.m_index += indexOffset;
+    m_turns.push_back(move(t));
+  }
+
+  // Appending street names.
+  for (auto s : route.m_streets)
+  {
+    if (s.first == 0)
+      continue;
+    s.first += indexOffset;
+    m_streets.push_back(move(s));
+  }
+
+  // Appending times.
+  for (auto t : route.m_times)
+  {
+    if (t.first == 0)
+      continue;
+    t.first += indexOffset;
+    t.second += estimatedTime;
+    m_times.push_back(move(t));
+  }
+
+  m_poly.Append(route.m_poly);
+  Update();
+}
+
 string DebugPrint(Route const & r)
 {
   return DebugPrint(r.m_poly.GetPolyline());

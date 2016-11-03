@@ -27,6 +27,7 @@
 #define METADATA_FILE_TAG "meta"
 #define METADATA_INDEX_FILE_TAG "metaidx"
 #define ALTITUDES_FILE_TAG "altitudes"
+#define ROUTING_FILE_TAG "routing"
 #define FEATURE_OFFSETS_FILE_TAG "offs"
 #define RANKS_FILE_TAG "ranks"
 #define REGION_INFO_FILE_TAG "rgninfo"

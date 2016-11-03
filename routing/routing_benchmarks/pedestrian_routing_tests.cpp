@@ -43,9 +43,9 @@ protected:
     return engine;
   }
 
-  unique_ptr<routing::IVehicleModelFactory> CreateModelFactory() override
+  unique_ptr<routing::VehicleModelFactory> CreateModelFactory() override
   {
-    unique_ptr<routing::IVehicleModelFactory> factory(
+    unique_ptr<routing::VehicleModelFactory> factory(
         new SimplifiedModelFactory<routing::PedestrianModel>());
     return factory;
   }

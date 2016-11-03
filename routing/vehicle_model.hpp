@@ -40,11 +40,10 @@ public:
   virtual bool IsRoad(FeatureType const & f) const = 0;
 };
 
-class IVehicleModelFactory
+class VehicleModelFactory
 {
 public:
-  virtual ~IVehicleModelFactory() {}
-
+  virtual ~VehicleModelFactory() {}
   /// @return Default vehicle model which corresponds for all countrines,
   /// but it may be non optimal for some countries
   virtual shared_ptr<IVehicleModel> GetVehicleModel() const = 0;

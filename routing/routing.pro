@@ -18,6 +18,7 @@ SOURCES += \
     bicycle_directions.cpp \
     bicycle_model.cpp \
     car_model.cpp \
+    car_router.cpp \
     cross_mwm_road_graph.cpp \
     cross_mwm_router.cpp \
     cross_routing_context.cpp \
@@ -30,7 +31,6 @@ SOURCES += \
     osrm_engine.cpp \
     osrm_helpers.cpp \
     osrm_path_segment_factory.cpp \
-    osrm_router.cpp \
     pedestrian_directions.cpp \
     pedestrian_model.cpp \
     road_graph.cpp \
@@ -57,6 +57,7 @@ HEADERS += \
     bicycle_directions.hpp \
     bicycle_model.hpp \
     car_model.hpp \
+    car_router.hpp \
     cross_mwm_road_graph.hpp \
     cross_mwm_router.hpp \
     cross_routing_context.hpp \
@@ -71,7 +72,6 @@ HEADERS += \
     osrm_engine.hpp \
     osrm_helpers.hpp \
     osrm_path_segment_factory.hpp \
-    osrm_router.hpp \
     pedestrian_directions.hpp \
     pedestrian_model.hpp \
     road_graph.hpp \

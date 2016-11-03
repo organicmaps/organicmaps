@@ -27,7 +27,7 @@ double Track::GetLengthMeters() const
 {
   double res = 0.0;
 
-  PolylineD::TIter i = m_polyline.Begin();
+  auto i = m_polyline.Begin();
   double lat1 = MercatorBounds::YToLat(i->y);
   double lon1 = MercatorBounds::XToLon(i->x);
   for (++i; i != m_polyline.End(); ++i)

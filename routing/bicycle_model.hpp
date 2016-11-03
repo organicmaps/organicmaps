@@ -33,12 +33,12 @@ private:
   uint32_t m_bidirBicycleType = 0;
 };
 
-class BicycleModelFactory : public IVehicleModelFactory
+class BicycleModelFactory : public VehicleModelFactory
 {
 public:
   BicycleModelFactory();
 
-  /// @name Overrides from IVehicleModelFactory.
+  /// @name Overrides from VehicleModelFactory.
   //@{
   shared_ptr<IVehicleModel> GetVehicleModel() const override;
   shared_ptr<IVehicleModel> GetVehicleModelForCountry(string const & country) const override;
