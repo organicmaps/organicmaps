@@ -13,9 +13,9 @@
     <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
     <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
     <item name="android:colorBackgroundCacheHint">@null</item>
+    <item name="android:windowActionBarOverlay">true</item>
     <item name="clickableBackground">?selectableItemBackground</item>
     <item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/transparent</item>
-
     <item name="alertDialogTheme">@style/MwmTheme.DialogFragment</item>
     <item name="windowBackgroundForced">@color/bg_window</item>
     <item name="cardFrame">@drawable/card_frame</item>
@@ -97,6 +97,7 @@
     <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
     <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
     <item name="android:colorBackgroundCacheHint">@null</item>
+    <item name="android:windowActionBarOverlay">true</item>
     <item name="clickableBackground">?selectableItemBackground</item>
     <item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/transparent</item>
 
