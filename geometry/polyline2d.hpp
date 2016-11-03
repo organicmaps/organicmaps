@@ -17,8 +17,11 @@ class Polyline
   vector<Point<T> > m_points;
 
 public:
+  using Container = vector<Point<T>>;
+  using Iter = typename Container::const_iterator;
+
   Polyline() {}
-  Polyline(initializer_list<Point<T>> points) : m_points(points)
+  Polyline(initializer_list<Point<T>> const & points) : m_points(points)
   {
     ASSERT_GREATER(m_points.size(), 1, ());
   }
@@ -26,8 +29,8 @@ public:
   {
     ASSERT_GREATER(m_points.size(), 1, ());
   }
-  template <class IterT>
-  Polyline(IterT beg, IterT end) : m_points(beg, end)
+  template <class Iter>
+  Polyline(Iter beg, Iter end) : m_points(beg, end)
   {
     ASSERT_GREATER(m_points.size(), 1, ());
   }
@@ -46,8 +49,8 @@ public:
     double res = numeric_limits<double>::max();
     m2::DistanceToLineSquare<m2::Point<T> > d;
 
-    TIter i = Begin();
-    for (TIter j = i + 1; j != End(); ++i, ++j)
+    Iter i = Begin();
+    for (Iter j = i + 1; j != End(); ++i, ++j)
     {
       d.SetBounds(*i, *j);
       res = min(res, d(point));
@@ -80,11 +83,9 @@ public:
 
   void Swap(Polyline & rhs) { m_points.swap(rhs.m_points); }
   size_t GetSize() const { return m_points.size(); }
-  bool operator==(Polyline<T> const & rhs) const { return m_points == rhs.m_points; }
-  typedef vector<Point<T> > TContainer;
-  typedef typename TContainer::const_iterator TIter;
-  TIter Begin() const { return m_points.begin(); }
-  TIter End() const { return m_points.end(); }
+  bool operator==(Polyline const & rhs) const { return m_points == rhs.m_points; }
+  Iter Begin() const { return m_points.begin(); }
+  Iter End() const { return m_points.end(); }
   Point<T> const & Front() const { return m_points.front(); }
   Point<T> const & Back() const { return m_points.back(); }
 
@@ -115,7 +116,7 @@ public:
   }
 
   vector<Point<T> > const & GetPoints() const { return m_points; }
-  friend string DebugPrint(Polyline<T> const & p) { return ::DebugPrint(p.m_points); }
+  friend string DebugPrint(Polyline const & p) { return ::DebugPrint(p.m_points); }
 };
 
 using PolylineD = Polyline<double>;

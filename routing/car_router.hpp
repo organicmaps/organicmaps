@@ -81,8 +81,8 @@ private:
   ResultCode MakeRouteFromCrossesPath(TCheckedPath const & path, RouterDelegate const & delegate,
                                       Route & route);
 
-  // @TODO(bykoianko) When edgeidx section implementation is merged to master
-  // this method should be moved to edge index loader.
+  // @TODO(bykoianko) When routing section implementation is merged to master
+  // this method should be moved to routing loader.
   bool DoesEdgeIndexExist(Index::MwmId const & mwmId);
 
   /*!
@@ -97,14 +97,14 @@ private:
                                                 TRoutingMappingPtr & mapping, Route & route);
 
   /*! Finds single shortest path in a single MWM between 2 sets of edges.
-     * It's a route from multiple sources to multiple targets.
+     * It's a route from multiple sources to multiple targets (MSMT).
      * \param source: vector of source edges to make path
      * \param target: vector of target edges to make path
      * \param facade: OSRM routing data facade to recover graph information
      * \param rawRoutingResult: routing result store
      * \return true when path exists, false otherwise.
      */
-  bool FindRouteMsmt(TFeatureGraphNodeVec const & source, TFeatureGraphNodeVec const & target,
+  bool FindRouteMSMT(TFeatureGraphNodeVec const & source, TFeatureGraphNodeVec const & target,
                      RouterDelegate const & delegate, TRoutingMappingPtr & mapping, Route & route);
 
   Index & m_index;

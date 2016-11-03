@@ -1,4 +1,5 @@
 #include "routing/road_graph_router.hpp"
+
 #include "routing/bicycle_directions.hpp"
 #include "routing/bicycle_model.hpp"
 #include "routing/car_model.hpp"

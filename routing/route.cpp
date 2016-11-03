@@ -359,10 +359,13 @@ void Route::AppendRoute(Route const & route)
   if (!route.IsValid())
     return;
 
+  double const estimatedTime = m_times.empty() ? 0.0 : m_times.back().second;
   if (m_poly.GetPolyline().GetSize() != 0)
   {
     ASSERT(!m_turns.empty(), ());
     ASSERT(!m_times.empty(), ());
+    if (!m_streets.empty())
+      ASSERT_LESS(m_streets.back().first, m_poly.GetPolyline().GetSize(), ());
 
     // Remove road end point and turn instruction.
     ASSERT_LESS(MercatorBounds::DistanceOnEarth(m_poly.End().m_pt, route.m_poly.Begin().m_pt),
@@ -373,7 +376,6 @@ void Route::AppendRoute(Route const & route)
     m_turns.pop_back();
     CHECK(!m_times.empty(), ());
     m_times.pop_back();
-    // Streets might not point to the last point of the path.
   }
 
   size_t const indexOffset = m_poly.GetPolyline().GetSize();
@@ -397,13 +399,12 @@ void Route::AppendRoute(Route const & route)
   }
 
   // Appending times.
-  double const estimationTime = m_times.empty() ? 0.0 : m_times.back().second;
   for (auto t : route.m_times)
   {
     if (t.first == 0)
       continue;
     t.first += indexOffset;
-    t.second += estimationTime;
+    t.second += estimatedTime;
     m_times.push_back(move(t));
   }
 

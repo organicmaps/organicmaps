@@ -208,17 +208,17 @@ IRouter::ResultCode FindSingleOsrmRoute(FeatureGraphNode const & source,
   LOG(LINFO, ("OSRM route from", MercatorBounds::ToLatLon(source.segmentPoint), "to",
               MercatorBounds::ToLatLon(target.segmentPoint)));
 
-  RawRoutingResult routingResult;
-  if (!FindSingleRoute(source, target, mapping->m_dataFacade, routingResult))
+  RawRoutingResult rawRoutingResult;
+  if (!FindSingleRoute(source, target, mapping->m_dataFacade, rawRoutingResult))
     return routing::IRouter::RouteNotFound;
 
-  OSRMRoutingResult resultGraph(index, *mapping, routingResult);
+  OSRMRoutingResult routingResult(index, *mapping, rawRoutingResult);
   routing::IRouter::ResultCode const result =
-      MakeTurnAnnotation(resultGraph, delegate, geometry, turns, times, streets);
+      MakeTurnAnnotation(routingResult, delegate, geometry, turns, times, streets);
   if (result != routing::IRouter::NoError)
   {
     LOG(LWARNING, ("Can't load road path data from disk for", mapping->GetCountryName(),
-                   ". result code =", result));
+                   ". Result code =", result));
     return result;
   }
 
@@ -249,16 +249,21 @@ CarRouter::CarRouter(Index & index, TCountryFileFn const & countryFileFn,
 {
 }
 
-string CarRouter::GetName() const { return "vehicle"; }
+string CarRouter::GetName() const { return "mixed-car"; }
+
 void CarRouter::ClearState()
 {
   m_cachedTargets.clear();
   m_cachedTargetPoint = m2::PointD::Zero();
   m_indexManager.Clear();
-  m_router->ClearState();
+
+  if (m_router)
+    m_router->ClearState();
+  else
+    LOG(LERROR, ("m_router is not initialized."));
 }
 
-bool CarRouter::FindRouteMsmt(TFeatureGraphNodeVec const & sources,
+bool CarRouter::FindRouteMSMT(TFeatureGraphNodeVec const & sources,
                               TFeatureGraphNodeVec const & targets, RouterDelegate const & delegate,
                               TRoutingMappingPtr & mapping, Route & route)
 {
@@ -453,7 +458,7 @@ CarRouter::ResultCode CarRouter::CalculateRoute(m2::PointD const & startPoint,
     ResultCode crossCode = CalculateCrossMwmPath(startTask, m_cachedTargets, m_indexManager,
                                                  crossDistanceM, delegate, finalPath);
     LOG(LINFO, ("Found cross path in", timer.ElapsedNano(), "ns."));
-    if (!FindRouteMsmt(startTask, m_cachedTargets, delegate, startMapping, route))
+    if (!FindRouteMSMT(startTask, m_cachedTargets, delegate, startMapping, route))
     {
       if (crossCode == NoError)
       {
@@ -468,8 +473,8 @@ CarRouter::ResultCode CarRouter::CalculateRoute(m2::PointD const & startPoint,
 
     if (crossCode == NoError && crossDistanceM < route.GetTotalDistanceMeters())
     {
-      LOG(LINFO, ("Cross mwm path shorter. Cross distance:", crossDistanceM, "single distance:",
-                  route.GetTotalDistanceMeters()));
+      LOG(LINFO, ("Cross mwm path is shorter than single mwm path. Cross distance:",
+                  crossDistanceM, "single distance:", route.GetTotalDistanceMeters()));
       auto code = MakeRouteFromCrossesPath(finalPath, delegate, route);
       LOG(LINFO, ("Made final route in", timer.ElapsedNano(), "ns."));
       timer.Reset();
@@ -540,7 +545,7 @@ bool CarRouter::DoesEdgeIndexExist(Index::MwmId const & mwmId)
   if (value->GetHeader().GetFormat() < version::Format::v8)
     return false;
 
-  if (!value->m_cont.IsExist(EDGE_INDEX_FILE_TAG))
+  if (!value->m_cont.IsExist(ROUTING_FILE_TAG))
     return false;
 
   return true;
@@ -553,17 +558,19 @@ IRouter::ResultCode CarRouter::FindSingleRouteDispatcher(FeatureGraphNode const 
                                                          Route & route)
 {
   ASSERT_EQUAL(source.mwmId, target.mwmId, ());
-  ASSERT(m_router, ());
-
-  IRouter::ResultCode result = IRouter::NoError;
+  IRouter::ResultCode result = IRouter::InternalError;
   Route mwmRoute(GetName());
 
   // @TODO It's not the best place for checking availability of edge index section in mwm.
   // Probably it's better to keep if mwm has an edge index section in mwmId.
-  if (DoesEdgeIndexExist(source.mwmId) && m_router)
+  if (DoesEdgeIndexExist(source.mwmId))
   {
-    // A* routing
-    LOG(LINFO, ("A* route from", MercatorBounds::ToLatLon(source.segmentPoint), "to",
+    if (!m_router)
+    {
+      LOG(LERROR, ("m_router is not initialized."));
+      return IRouter::InternalError;
+    }
+    LOG(LINFO, (m_router->GetName(), "route from", MercatorBounds::ToLatLon(source.segmentPoint), "to",
                 MercatorBounds::ToLatLon(target.segmentPoint)));
     result = m_router->CalculateRoute(source.segmentPoint, m2::PointD(0, 0) /* direction */,
                                       target.segmentPoint, delegate, mwmRoute);
