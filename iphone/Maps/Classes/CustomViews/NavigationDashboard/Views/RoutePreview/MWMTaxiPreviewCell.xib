@@ -73,6 +73,9 @@
                 <constraint firstItem="TWl-RV-DGe" firstAttribute="top" secondItem="til-vK-WGY" secondAttribute="bottom" constant="4" id="nPU-Y1-NJP"/>
             </constraints>
             <size key="customSize" width="251" height="44"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="icon" destination="fMe-7t-K8o" id="Q6r-Xu-ubl"/>
                 <outlet property="price" destination="eYn-L4-OCN" id="fbl-b4-YcH"/>

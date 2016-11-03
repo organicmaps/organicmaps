@@ -275,6 +275,9 @@
                                                 <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                 <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             </collectionViewFlowLayout>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                            </userDefinedRuntimeAttributes>
                                         </collectionView>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -284,6 +287,9 @@
                                         <constraint firstAttribute="trailing" secondItem="pUj-hX-AzZ" secondAttribute="trailing" id="pgB-jZ-CDF"/>
                                         <constraint firstAttribute="bottom" secondItem="pUj-hX-AzZ" secondAttribute="bottom" id="pt8-Js-FpC"/>
                                     </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                    </userDefinedRuntimeAttributes>
                                 </view>
                             </subviews>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -324,6 +330,9 @@
                                 <constraint firstAttribute="trailing" secondItem="mab-rl-ueg" secondAttribute="trailing" id="w4c-fR-znA"/>
                                 <constraint firstItem="nD5-wx-7Ui" firstAttribute="bottom" secondItem="4Xc-Kl-hAm" secondAttribute="bottom" priority="500" id="wq2-oV-MOH"/>
                             </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                            </userDefinedRuntimeAttributes>
                         </view>
                         <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YLY-C4-SBu" userLabel="Menu" customClass="MWMButton">
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
