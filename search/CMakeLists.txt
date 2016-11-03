@@ -1,3 +1,5 @@
+project(search)
+
 add_compile_options(
   "-Wall"
   "-std=c++11"
@@ -131,7 +133,7 @@ set(
   viewport_search_params.hpp
 )
 
-add_library(search ${SRC})
+add_library(${PROJECT_NAME} ${SRC})
 
 omim_add_test_subdirectory(search_tests_support)
 omim_add_test_subdirectory(search_tests)

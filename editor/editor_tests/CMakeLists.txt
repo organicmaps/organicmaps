@@ -1,3 +1,5 @@
+project(editor_tests)
+
 set(
   SRC
   config_loader_test.cpp
@@ -10,10 +12,10 @@ set(
   xml_feature_test.cpp
 )
 
-omim_add_test(editor_tests ${SRC})
+omim_add_test(${PROJECT_NAME} ${SRC})
 
 omim_link_libraries(
-  editor_tests
+  ${PROJECT_NAME}
   editor
   platform_tests_support
   platform
@@ -25,16 +27,12 @@ omim_link_libraries(
   pugixml
   oauthcpp
   tomcrypt
-)
-
-omim_link_libraries(
-  editor_tests
   ${Qt5Widgets_LIBRARIES}
 )
 
 if (${PLATFORM_MAC})
   omim_link_libraries(
-    editor_tests
+    ${PROJECT_NAME}
     "-framework Cocoa"
     "-framework IOKit"
     "-framework SystemConfiguration"

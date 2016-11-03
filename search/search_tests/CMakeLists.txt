@@ -1,3 +1,5 @@
+project(search_tests)
+
 include_directories(${OMIM_ROOT}/3party/jansson/src)
 
 set(
@@ -20,10 +22,10 @@ set(
   string_match_test.cpp
 )
 
-omim_add_test(search_tests ${SRC})
+omim_add_test(${PROJECT_NAME} ${SRC})
 
 omim_link_libraries(
-  search_tests
+  ${PROJECT_NAME}
   search
   indexer
   editor
@@ -45,7 +47,7 @@ omim_link_libraries(
 
 if (PLATFORM_MAC)
   omim_link_libraries(
-    search_tests
+    ${PROJECT_NAME}
     "-framework Cocoa"
     "-framework IOKit"
     "-framework SystemConfiguration"

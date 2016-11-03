@@ -1,3 +1,5 @@
+project(search_tests_support)
+
 add_compile_options(
   "-Wall"
   "-std=c++11"
@@ -13,4 +15,4 @@ set(
   test_search_request.hpp
 )
 
-add_library(search_tests_support ${SRC})
+add_library(${PROJECT_NAME} ${SRC})

@@ -1,3 +1,5 @@
+project(editor)
+
 set(
   SRC
   changeset_wrapper.cpp
@@ -27,7 +29,7 @@ set(
   yes_no_unknown.hpp
 )
 
-add_library(editor ${SRC})
+add_library(${PROJECT_NAME} ${SRC})
 
 omim_add_test_subdirectory(editor_tests)
 omim_add_test_subdirectory(osm_auth_tests)

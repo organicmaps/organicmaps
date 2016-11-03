@@ -115,6 +115,17 @@ function(omim_link_libraries target)
   endif()
 endfunction()
 
+function(append VAR)
+  set(${VAR} ${${VAR}} ${ARGN} PARENT_SCOPE)
+endfunction()
+
+macro(check_pybindings)
+  if (NOT PYBINDINGS)
+    message("Skipping " + ${PROJECT_NAME} + " because the PYBINDINGS variale is not set or is set to FALSE")
+    return()
+  endif()
+endmacro()
+
 # End of functions for subdirectories
 
 # Include subdirectories

@@ -1,3 +1,5 @@
+project(platform_tests_support)
+
 set(
   SRC
   scoped_dir.cpp
@@ -12,4 +14,4 @@ set(
   writable_dir_changer.hpp
 )
 
-add_library(platform_tests_support ${SRC})
+add_library(${PROJECT_NAME} ${SRC})

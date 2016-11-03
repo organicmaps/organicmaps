@@ -1,3 +1,5 @@
+project(coding_tests)
+
 add_definitions(-DOMIM_UNIT_TEST_DISABLE_PLATFORM_INIT)
 
 set(
@@ -43,6 +45,6 @@ set(
   zip_reader_test.cpp
 )
 
-omim_add_test(coding_tests ${SRC})
+omim_add_test(${PROJECT_NAME} ${SRC})
 
-omim_link_libraries(coding_tests coding base geometry minizip tomcrypt succinct ${LIBZ})
+omim_link_libraries(${PROJECT_NAME} coding base geometry minizip tomcrypt succinct ${LIBZ})

@@ -1,9 +1,6 @@
-include_directories(${OMIM_ROOT}/3party/protobuf/src)
+project(indexer)
 
-add_compile_options(
-  "-Wall"
-  "-std=c++11"
-)
+include_directories(${OMIM_ROOT}/3party/protobuf/src)
 
 set(
   SRC
@@ -139,6 +136,6 @@ set(
 
 file(COPY ${OTHER_FILES} DESTINATION ${CMAKE_BINARY_DIR})
 
-add_library(indexer ${SRC})
+add_library(${PROJECT_NAME} ${SRC})
 
 #omim_add_test_subdirectory(indexer_tests)
