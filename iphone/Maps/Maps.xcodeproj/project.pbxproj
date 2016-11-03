@@ -3505,7 +3505,7 @@
 				ORGANIZATIONNAME = MapsWithMe;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = 3T6FSDE8C7;
+						DevelopmentTeam = L2QFT5NA2Q;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -4786,7 +4786,7 @@
 				BUNDLE_IDENTIFIER = "com.my.maps-beta-enterprise";
 				CURRENT_PROJECT_VERSION = 6.5.0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 3T6FSDE8C7;
+				DEVELOPMENT_TEAM = L2QFT5NA2Q;
 				ENABLE_BITCODE = NO;
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
