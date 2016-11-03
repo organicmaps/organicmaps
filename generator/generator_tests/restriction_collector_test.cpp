@@ -12,6 +12,8 @@
 
 #include "platform/platform.hpp"
 
+#include "base/stl_helpers.hpp"
+
 #include "std/string.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
@@ -76,7 +78,7 @@ UNIT_TEST(RestrictionTest_ParseRestrictions)
   string const kRestrictionContent = R"(No, 1, 1,
                                         Only, 0, 2,
                                         Only, 2, 3,
-                                        No, 38028428, 38028428,
+                                        No, 38028428, 38028428
                                         No, 4, 5,)";
 
   ScopedDir const scopedDir(kRestrictionTestDir);
@@ -108,7 +110,7 @@ UNIT_TEST(RestrictionTest_ParseFeatureId2OsmIdsMapping)
   string const kFeatureIdToOsmIdsPath =
       my::JoinFoldersToPath(kRestrictionTestDir, kFeatureIdToOsmIdsName);
   string const kFeatureIdToOsmIdsContent = R"(1, 10,
-                                              2, 20,
+                                              2, 20
                                               779703, 5423239545,
                                               3, 30)";
 
@@ -122,10 +124,12 @@ UNIT_TEST(RestrictionTest_ParseFeatureId2OsmIdsMapping)
       my::JoinFoldersToPath(platform.WritableDir(), kFeatureIdToOsmIdsPath));
 
   vector<pair<uint64_t, Restriction::FeatureId>> const expectedOsmIds2FeatureId = {
-      {10, 1}, {20, 2}, {5423239545, 779703}, {30, 3}};
-  vector<pair<uint64_t, Restriction::FeatureId>> const osmIds2FeatureId(
+      {10, 1}, {20, 2}, {30, 3}, {5423239545, 779703}};
+  vector<pair<uint64_t, Restriction::FeatureId>> osmIds2FeatureId(
       restrictionCollector.m_osmIds2FeatureId.cbegin(),
       restrictionCollector.m_osmIds2FeatureId.cend());
+  sort(osmIds2FeatureId.begin(), osmIds2FeatureId.end(),
+       my::LessBy(&pair<uint64_t, Restriction::FeatureId>::first));
   TEST_EQUAL(osmIds2FeatureId, expectedOsmIds2FeatureId, ());
 }
 
