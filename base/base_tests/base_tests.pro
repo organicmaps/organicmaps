@@ -22,6 +22,7 @@ SOURCES += \
   condition_test.cpp \
   const_helper.cpp \
   containers_test.cpp \
+  levenshtein_dfa_test.cpp \
   logging_test.cpp \
   newtype_test.cpp \
   math_test.cpp \
