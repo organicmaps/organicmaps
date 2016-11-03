@@ -52,7 +52,8 @@ UNIT_TEST(Protocol_DecodeAuthPacket)
   TEST_EQUAL(packet.size(), 7, ());
   TEST_EQUAL(Protocol::PacketType(packet[0]), Protocol::PacketType::CurrentAuth, ());
 
-  auto result = Protocol::DecodeAuthPacket(Protocol::PacketType::CurrentAuth, packet);
+  auto payload = vector<uint8_t>(begin(packet) + sizeof(uint32_t /* header */), end(packet));
+  auto result = Protocol::DecodeAuthPacket(Protocol::PacketType::CurrentAuth, payload);
   TEST_EQUAL(result, "ABC", ());
 }
 
@@ -69,7 +70,8 @@ UNIT_TEST(Protocol_DecodeDataPacket)
   TEST_EQUAL(packet.size(), 26, ());
   TEST_EQUAL(Protocol::PacketType(packet[0]), Protocol::PacketType::CurrentData, ());
 
-  Container result = Protocol::DecodeDataPacket(Protocol::PacketType::CurrentData, packet);
+  auto payload = vector<uint8_t>(begin(packet) + sizeof(uint32_t /* header */), end(packet));
+  Container result = Protocol::DecodeDataPacket(Protocol::PacketType::CurrentData, payload);
 
   TEST_EQUAL(points.size(), result.size(), ());
   for (size_t i = 0; i < points.size(); ++i)
