@@ -446,7 +446,7 @@ namespace feature
     bool IsCountry() const { return m_header.GetType() == feature::DataHeader::country; }
 
   public:
-    void operator() (FeatureBuilder2 & fb)
+    uint32_t operator() (FeatureBuilder2 & fb)
     {
       GeometryHolder holder(*this, fb, m_header);
 
@@ -542,7 +542,10 @@ namespace feature
         uint64_t const osmID = fb.GetWayIDForRouting();
         if (osmID != 0)
           m_osm2ft.Add(make_pair(osmID, ftID));
-      }
+      };
+      // Note. GetNextFeatureId() returns 0 in the first call of
+      // fb.PreSerialize(holder.m_buffer) returns false.
+      return GetNextFeatureId() == 0 ? 0 : GetNextFeatureId();
     }
   };
 

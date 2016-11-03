@@ -22,6 +22,8 @@ protected:
   FileWriter m_datFile;
   m2::RectD m_bounds;
 
+  uint32_t GetNextFeatureId() const { return m_featureID; }
+
 private:
   void Write(char const * src, size_t size);
   void FlushBuffer();
@@ -40,9 +42,9 @@ public:
 
   string const & GetFilePath() const { return m_datFile.GetName(); }
 
-  uint32_t GetNextFeatureId() const { return m_featureID; }
-
-  virtual void operator()(FeatureBuilder1 const & f);
+  /// \brief Serializes |f|.
+  /// \returns feature id of serialized feature.
+  virtual uint32_t operator()(FeatureBuilder1 const & f);
 };
 
 class FeaturesAndRawGeometryCollector : public FeaturesCollector
@@ -55,6 +57,6 @@ public:
                                   string const & rawGeometryFileName);
   ~FeaturesAndRawGeometryCollector();
 
-  void operator()(FeatureBuilder1 const & f) override;
+  uint32_t operator()(FeatureBuilder1 const & f) override;
 };
 }

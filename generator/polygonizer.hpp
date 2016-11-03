@@ -168,8 +168,7 @@ namespace feature
       m_currentNames += country->m_name;
 
       auto & bucket = *(m_Buckets[country->m_index]);
-      bucket(fb);
-      uint32_t const nextFeatureId = bucket.GetNextFeatureId();
+      uint32_t const nextFeatureId = bucket(fb);
 
       CHECK_LESS(0, nextFeatureId, ("GetNextFeatureId() is called before WriteFeatureBase(...)"));
       if (fb.IsLine())

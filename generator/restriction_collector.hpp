@@ -24,8 +24,10 @@ public:
   /// \brief Addresses a link in vector<Restriction>.
   struct Index
   {
-    size_t m_restrictionNumber; // Restriction number in restriction vector.
-    size_t m_linkNumber; // Link number for a restriction. It's equal to zero or one for most cases.
+    Index(size_t restrictionNumber, size_t linkNumber)
+      : m_restrictionNumber(restrictionNumber), m_linkNumber(linkNumber) {}
+    size_t m_restrictionNumber = 0; // Restriction number in restriction vector.
+    size_t m_linkNumber = 0; // Link number for a restriction. It's equal to zero or one for most cases.
 
     bool operator==(Index const & index) const
     {

@@ -109,10 +109,10 @@ UNIT_TEST(RestrictionGenerationTest_OneRestriction)
 UNIT_TEST(RestrictionGenerationTest_ThreeRestriction)
 {
   string const restrictionContent = R"(No, 10, 10,
-                                       Only, 10, 20,
+                                       Only, 10, 20
                                        Only, 30, 40)";
   string const featureIdToOsmIdsContent = R"(1, 10,
-                                             2, 20,
+                                             2, 20
                                              3, 30,
                                              4, 40)";
   TestRestrictionBuilding(restrictionContent, featureIdToOsmIdsContent);

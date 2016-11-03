@@ -11,8 +11,8 @@
 
 namespace
 {
-string const kNoStr = "No";
-string const kOnlyStr = "Only";
+char const kNo[] = "No";
+char const kOnly[] = "Only";
 
 bool ParseLineOfNumbers(istringstream & stream, vector<uint64_t> & numbers)
 {
@@ -116,7 +116,7 @@ bool RestrictionCollector::ParseRestrictions(string const & restrictionPath)
 
 void RestrictionCollector::ComposeRestrictions()
 {
-  // Going throught all osm id saved in |m_restrictionIndex| (mentioned in restrictions).
+  // Going through all osm id saved in |m_restrictionIndex| (mentioned in restrictions).
   size_t const restrictionSz = m_restrictions.size();
   for (pair<uint64_t, Index> const & osmIdAndIndex : m_restrictionIndex)
   {
@@ -176,9 +176,9 @@ string ToString(Restriction::Type const & type)
   switch (type)
   {
   case Restriction::Type::No:
-    return kNoStr;
+    return kNo;
   case Restriction::Type::Only:
-    return kOnlyStr;
+    return kOnly;
   }
   return "Unknown";
 }
@@ -186,12 +186,12 @@ string ToString(Restriction::Type const & type)
 bool FromString(string str, Restriction::Type & type)
 {
   str.erase(remove_if(str.begin(), str.end(), isspace), str.end());
-  if (str == kNoStr)
+  if (str == kNo)
   {
     type = Restriction::Type::No;
     return true;
   }
-  if (str == kOnlyStr)
+  if (str == kOnly)
   {
     type = Restriction::Type::Only;
     return true;
