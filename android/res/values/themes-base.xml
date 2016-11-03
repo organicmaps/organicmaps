@@ -10,11 +10,13 @@
     <item name="android:textColorSecondary">@color/text_dark_subtitle</item>
     <item name="android:windowBackground">?windowBackgroundForced</item>
     <item name="android:colorPrimaryDark" tools:targetApi="lollipop">@color/bg_statusbar</item>
-    <item name="android:windowDrawsSystemBarBackgrounds" tools:targetApi="lollipop">true</item>
     <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
     <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
     <item name="android:colorBackgroundCacheHint">@null</item>
+    <item name="android:windowActionBarOverlay">true</item>
     <item name="clickableBackground">?selectableItemBackground</item>
+    <item name="windowActionBar">false</item>
+    <item name="windowActionBarOverlay">true</item>
 
     <item name="alertDialogTheme">@style/MwmTheme.DialogFragment</item>
     <item name="windowBackgroundForced">@color/bg_window</item>
@@ -22,7 +24,6 @@
     <item name="cardBackground">@color/bg_cards</item>
     <item name="fullscreenDialogTheme">@style/MwmTheme.DialogFragment.Fullscreen</item>
 
-    <item name="statusBar">@color/bg_statusbar</item>
     <item name="colorPrimary">@color/bg_primary</item>
     <item name="colorControlNormal">?secondary</item>
     <item name="colorAccent">@color/base_accent</item>
@@ -95,11 +96,13 @@
     <item name="android:textColorSecondary">@color/text_light_subtitle</item>
     <item name="android:windowBackground">?windowBackgroundForced</item>
     <item name="android:colorPrimaryDark" tools:targetApi="lollipop">?statusBar</item>
-    <item name="android:windowDrawsSystemBarBackgrounds" tools:targetApi="lollipop">true</item>
     <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
     <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
     <item name="android:colorBackgroundCacheHint">@null</item>
+    <item name="android:windowActionBarOverlay">true</item>
     <item name="clickableBackground">?selectableItemBackground</item>
+    <item name="windowActionBar">false</item>
+    <item name="windowActionBarOverlay">true</item>
 
     <item name="alertDialogTheme">@style/MwmTheme.Night.DialogFragment</item>
     <item name="windowBackgroundForced">@color/bg_window_night</item>
@@ -107,7 +110,6 @@
     <item name="cardBackground">@color/bg_cards_night</item>
     <item name="fullscreenDialogTheme">@style/MwmTheme.DialogFragment.Fullscreen.Night</item>
 
-    <item name="statusBar">@color/bg_statusbar_night</item>
     <item name="colorPrimary">@color/bg_primary_night</item>
     <item name="colorControlNormal">?secondary</item>
     <item name="colorAccent">@color/base_accent_night</item>

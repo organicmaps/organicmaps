@@ -23,6 +23,7 @@ import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
@@ -357,6 +358,56 @@ public final class UiUtils
     Rect viewRect = new Rect(viewX, viewY, viewX + width, viewY + height);
 
     return viewRect.contains(x, y);
+  }
+
+  private static int getStatusBarHeight(Context context)
+  {
+    int result = 0;
+    Resources res = context.getResources();
+    int resourceId = res.getIdentifier("status_bar_height", "dimen", "android");
+    if (resourceId > 0)
+      result = res.getDimensionPixelSize(resourceId);
+
+    return result;
+  }
+
+  public static void extendViewWithStatusBar(View view)
+  {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
+      return;
+
+    int statusBarHeight = getStatusBarHeight(view.getContext());
+    ViewGroup.LayoutParams lp = view.getLayoutParams();
+    lp.height += statusBarHeight;
+    view.setLayoutParams(lp);
+    extendViewPaddingTop(view, statusBarHeight);
+  }
+
+  public static void extendViewPaddingWithStatusBar(View view)
+  {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
+      return;
+
+    int statusBarHeight = getStatusBarHeight(view.getContext());
+    extendViewPaddingTop(view, statusBarHeight);
+  }
+
+  private static void extendViewPaddingTop(View view, int statusBarHeight)
+  {
+    view.setPadding(view.getPaddingLeft(), view.getPaddingTop() + statusBarHeight,
+                    view.getPaddingRight(), view.getPaddingBottom());
+  }
+
+  public static void extendViewMarginWithStatusBar(View view)
+  {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
+      return;
+
+    int statusBarHeight = getStatusBarHeight(view.getContext());
+    ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+    int margin = lp.getMarginStart();
+    lp.setMargins(margin, margin + statusBarHeight, margin, margin);
+    view.setLayoutParams(lp);
   }
 
   // utility class

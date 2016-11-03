@@ -98,6 +98,9 @@ public class NavigationController
     View shadow = topFrame.findViewById(R.id.shadow_top);
     UiUtils.showIf(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP, shadow);
 
+    UiUtils.extendViewWithStatusBar(mStreetFrame);
+    UiUtils.extendViewMarginWithStatusBar(turnFrame);
+
     // Bottom frame
     mSpeedValue = (TextView) mBottomFrame.findViewById(R.id.speed_value);
     mSpeedUnits = (TextView) mBottomFrame.findViewById(R.id.speed_dimen);

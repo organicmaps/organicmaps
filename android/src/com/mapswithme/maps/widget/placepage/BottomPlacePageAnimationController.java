@@ -47,6 +47,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
     final Toolbar toolbar = (Toolbar) mLayoutToolbar.findViewById(R.id.toolbar);
     if (toolbar != null)
     {
+      UiUtils.extendViewWithStatusBar(toolbar);
       UiUtils.showHomeUpButton(toolbar);
       toolbar.setNavigationOnClickListener(new View.OnClickListener()
       {

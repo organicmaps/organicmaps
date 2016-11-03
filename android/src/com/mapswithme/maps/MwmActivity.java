@@ -451,6 +451,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     mPositionChooser = findViewById(R.id.position_chooser);
     final Toolbar toolbar = (Toolbar) mPositionChooser.findViewById(R.id.toolbar_position_chooser);
+    UiUtils.extendViewWithStatusBar(toolbar);
     UiUtils.showHomeUpButton(toolbar);
     toolbar.setNavigationOnClickListener(new OnClickListener()
     {

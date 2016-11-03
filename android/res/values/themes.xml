@@ -78,6 +78,7 @@
     <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
     <item name="android:colorBackgroundCacheHint">@null</item>
     <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
+    <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
   </style>
 
   <style name="MwmTheme.DialogFragment.Fullscreen.Night" parent="Theme.AppCompat">
@@ -91,6 +92,7 @@
     <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
     <item name="android:colorBackgroundCacheHint">@null</item>
     <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
+    <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
   </style>
 
   <style name="MwmTheme.DialogFragment.Fullscreen.Translucent">
@@ -169,9 +171,6 @@
     <item name="android:colorPrimaryDark" tools:targetApi="lollipop">@android:color/black</item>
     <item name="android:timePickerStyle" tools:targetApi="lollipop">@style/MwmWidget.Editor.TimePicker</item>
     <item name="android:windowBackground">@null</item>
-    <item name="windowActionBar">false</item>
-    <item name="windowActionBarOverlay">true</item>
-    <item name="android:windowActionBarOverlay">true</item>
   </style>
 
   <style name="MwmTheme.Night.FullScreenGalleryActivity">
@@ -179,9 +178,6 @@
     <item name="android:colorPrimaryDark" tools:targetApi="lollipop">@android:color/black</item>
     <item name="android:timePickerStyle" tools:targetApi="lollipop">@style/MwmWidget.Editor.TimePicker</item>
     <item name="android:windowBackground">@null</item>
-    <item name="windowActionBar">false</item>
-    <item name="windowActionBarOverlay">true</item>
-    <item name="android:windowActionBarOverlay">true</item>
   </style>
 
 </resources>

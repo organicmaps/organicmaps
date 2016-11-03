@@ -1,6 +1,5 @@
 package com.mapswithme.maps.routing;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.widget.ImageView;
@@ -8,7 +7,6 @@ import android.widget.ImageView;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
-import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 
 public class RoutingPlanInplaceController extends RoutingPlanController
@@ -17,17 +15,9 @@ public class RoutingPlanInplaceController extends RoutingPlanController
 
   private Boolean mSlotsRestoredState;
 
-  private void updateStatusBarColor()
-  {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-      mActivity.getWindow().setStatusBarColor(ThemeUtils.getColor(mActivity, UiUtils.isVisible(mFrame) ? R.attr.statusBar
-                                                                                                       : android.R.attr.colorPrimaryDark));
-  }
-
   public RoutingPlanInplaceController(MwmActivity activity)
   {
     super(activity.findViewById(R.id.routing_plan_frame), activity);
-    updateStatusBarColor();
   }
 
   public void show(boolean show)
@@ -47,7 +37,6 @@ public class RoutingPlanInplaceController extends RoutingPlanController
     }
 
     UiUtils.showIf(show, mFrame);
-    updateStatusBarColor();
     if (show)
       updatePoints();
   }

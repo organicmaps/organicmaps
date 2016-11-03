@@ -24,6 +24,7 @@ public class BaseMwmExtraTitleActivity extends BaseMwmFragmentActivity
       title = bundle.getString(EXTRA_TITLE);
     }
     Toolbar toolbar = getToolbar();
+    UiUtils.extendViewWithStatusBar(toolbar);
     toolbar.setTitle(title);
     UiUtils.showHomeUpButton(toolbar);
     displayToolbarAsActionBar();
