@@ -1,13 +1,16 @@
 #include "generator/intermediate_elements.hpp"
 #include "generator/osm_id.hpp"
 #include "generator/restriction_dumper.hpp"
-#include "generator/restrictions.hpp"
+#include "generator/restriction_collector.hpp"
+
+#include "indexer/routing.hpp"
 
 #include "base/logging.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/fstream.hpp"
 #include "std/string.hpp"
+#include "std/utility.hpp"
 #include "std/vector.hpp"
 
 namespace
@@ -21,16 +24,16 @@ vector<string> const kRestrictionTypesOnly = {"only_right_turn", "only_left_turn
 /// \brief Converts restriction type form string to RestrictionCollector::Type.
 /// \returns Fisrt item is a result of conversion. Second item is true
 /// if convertion was successful and false otherwise.
-pair<RestrictionCollector::Type, bool> TagToType(string const & type)
+pair<Restriction::Type, bool> TagToType(string const & type)
 {
   if (find(kRestrictionTypesNo.cbegin(), kRestrictionTypesNo.cend(), type) != kRestrictionTypesNo.cend())
-    return make_pair(RestrictionCollector::Type::No, true);
+    return make_pair(Restriction::Type::No, true);
 
   if (find(kRestrictionTypesOnly.cbegin(), kRestrictionTypesOnly.cend(), type) != kRestrictionTypesOnly.cend())
-    return make_pair(RestrictionCollector::Type::Only, true);
+    return make_pair(Restriction::Type::Only, true);
 
   // Unsupported restriction type.
-  return make_pair(RestrictionCollector::Type::No, false);
+  return make_pair(Restriction::Type::No, false);
 }
 }  // namespace
 

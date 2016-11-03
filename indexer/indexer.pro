@@ -56,6 +56,8 @@ SOURCES += \
     point_to_int64.cpp \
     postcodes_matcher.cpp \  # it's in indexer due to editor wich is in indexer and depends on postcodes_marcher
     rank_table.cpp \
+    restriction_loader.cpp \
+    routing.cpp \
     scales.cpp \
     search_delimiters.cpp \    # it's in indexer because of CategoriesHolder dependency.
     search_string_utils.cpp \  # it's in indexer because of CategoriesHolder dependency.
@@ -117,6 +119,8 @@ HEADERS += \
     point_to_int64.hpp \
     postcodes_matcher.hpp \   # it's in indexer due to editor wich is in indexer and depends on postcodes_marcher
     rank_table.hpp \
+    restriction_loader.hpp \
+    routing.hpp \
     scale_index.hpp \
     scale_index_builder.hpp \
     scales.hpp \

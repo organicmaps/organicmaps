@@ -40,6 +40,8 @@
 #define ROUTING_SHORTCUTS_FILE_TAG  "skoda"
 #define ROUTING_CROSS_CONTEXT_TAG "chrysler"
 
+#define ROUTING_FILE_TAG "routing"
+
 #define ROUTING_FTSEG_FILE_TAG  "ftseg"
 #define ROUTING_NODEIND_TO_FTSEGIND_FILE_TAG  "node2ftseg"
 

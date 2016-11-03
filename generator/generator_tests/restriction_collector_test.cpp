@@ -1,7 +1,9 @@
 #include "testing/testing.hpp"
 
 #include "generator/osm_id.hpp"
-#include "generator/restrictions.hpp"
+#include "generator/restriction_collector.hpp"
+
+#include "indexer/routing.hpp"
 
 #include "coding/file_name_utils.hpp"
 
@@ -11,6 +13,7 @@
 #include "platform/platform.hpp"
 
 #include "std/string.hpp"
+#include "std/utility.hpp"
 #include "std/vector.hpp"
 
 using namespace platform;
@@ -24,12 +27,12 @@ UNIT_TEST(RestrictionTest_ValidCase)
 {
   RestrictionCollector restrictionCollector("", "");
   // Adding restrictions and feature ids to restrictionCollector in mixed order.
-  restrictionCollector.AddRestriction(RestrictionCollector::Type::No, {1, 2} /* osmIds */);
+  restrictionCollector.AddRestriction(Restriction::Type::No, {1, 2} /* osmIds */);
   restrictionCollector.AddFeatureId(30 /* featureId */, {3} /* osmIds */);
-  restrictionCollector.AddRestriction(RestrictionCollector::Type::No, {2, 3} /* osmIds */);
+  restrictionCollector.AddRestriction(Restriction::Type::No, {2, 3} /* osmIds */);
   restrictionCollector.AddFeatureId(10 /* featureId */, {1} /* osmIds */);
   restrictionCollector.AddFeatureId(50 /* featureId */, {5} /* osmIds */);
-  restrictionCollector.AddRestriction(RestrictionCollector::Type::Only, {5, 7} /* osmIds */);
+  restrictionCollector.AddRestriction(Restriction::Type::Only, {5, 7} /* osmIds */);
   restrictionCollector.AddFeatureId(70 /* featureId */, {7} /* osmIds */);
   restrictionCollector.AddFeatureId(20 /* featureId */, {2} /* osmIds */);
 
@@ -40,10 +43,10 @@ UNIT_TEST(RestrictionTest_ValidCase)
   // Checking the result.
   TEST(restrictionCollector.IsValid(), ());
 
-  vector<RestrictionCollector::Restriction> const expectedRestrictions =
-  {{RestrictionCollector::Type::No, {10, 20}},
-   {RestrictionCollector::Type::No, {20, 30}},
-   {RestrictionCollector::Type::Only, {50, 70}}};
+  RestrictionVec const expectedRestrictions =
+  {{Restriction::Type::No, {10, 20}},
+   {Restriction::Type::No, {20, 30}},
+   {Restriction::Type::Only, {50, 70}}};
   TEST_EQUAL(restrictionCollector.m_restrictions, expectedRestrictions, ());
 }
 
@@ -51,15 +54,15 @@ UNIT_TEST(RestrictionTest_InvalidCase)
 {
   RestrictionCollector restrictionCollector("", "");
   restrictionCollector.AddFeatureId(0 /* featureId */, {0} /* osmIds */);
-  restrictionCollector.AddRestriction(RestrictionCollector::Type::No, {0, 1} /* osmIds */);
+  restrictionCollector.AddRestriction(Restriction::Type::No, {0, 1} /* osmIds */);
   restrictionCollector.AddFeatureId(20 /* featureId */, {2} /* osmIds */);
 
   restrictionCollector.ComposeRestrictions();
 
   TEST(!restrictionCollector.IsValid(), ());
 
-  vector<RestrictionCollector::Restriction> const expectedRestrictions =
-      {{RestrictionCollector::Type::No, {0, RestrictionCollector::kInvalidFeatureId}}};
+  RestrictionVec const expectedRestrictions =
+      {{Restriction::Type::No, {0, Restriction::kInvalidFeatureId}}};
   TEST_EQUAL(restrictionCollector.m_restrictions, expectedRestrictions, ());
 
   restrictionCollector.RemoveInvalidRestrictions();
@@ -86,12 +89,12 @@ UNIT_TEST(RestrictionTest_ParseRestrictions)
 
   TEST(restrictionCollector.ParseRestrictions(my::JoinFoldersToPath(platform.WritableDir(),
                                                                     kRestrictionPath)), ());
-  vector<RestrictionCollector::Restriction> expectedRestrictions =
-      {{RestrictionCollector::Type::No, 2},
-       {RestrictionCollector::Type::Only, 2},
-       {RestrictionCollector::Type::Only, 2},
-       {RestrictionCollector::Type::No, 2},
-       {RestrictionCollector::Type::No, 2}};
+  RestrictionVec expectedRestrictions =
+      {{Restriction::Type::No, 2},
+       {Restriction::Type::Only, 2},
+       {Restriction::Type::Only, 2},
+       {Restriction::Type::No, 2},
+       {Restriction::Type::No, 2}};
   TEST_EQUAL(restrictionCollector.m_restrictions, expectedRestrictions, ());
 
   vector<pair<uint64_t, RestrictionCollector::Index>> const expectedRestrictionIndex =
@@ -121,10 +124,10 @@ UNIT_TEST(RestrictionTest_ParseFeatureId2OsmIdsMapping)
   restrictionCollector.ParseFeatureId2OsmIdsMapping(my::JoinFoldersToPath(platform.WritableDir(),
                                                                           kFeatureIdToOsmIdsPath));
 
-  vector<pair<uint64_t, RestrictionCollector::FeatureId>> const expectedOsmIds2FeatureId =
-     {{10, 1}, {20, 2}, {5423239545, 779703}, {30, 3}};
-  vector<pair<uint64_t, RestrictionCollector::FeatureId>> const osmIds2FeatureId(
-        restrictionCollector.m_osmIds2FeatureId.cbegin(), restrictionCollector.m_osmIds2FeatureId.cend());
+  vector<pair<uint64_t, Restriction::FeatureId>> const expectedOsmIds2FeatureId =
+      {{10, 1}, {20, 2}, {5423239545, 779703}, {30, 3}};
+  vector<pair<uint64_t, Restriction::FeatureId>> const osmIds2FeatureId(
+      restrictionCollector.m_osmIds2FeatureId.cbegin(), restrictionCollector.m_osmIds2FeatureId.cend());
   TEST_EQUAL(osmIds2FeatureId, expectedOsmIds2FeatureId, ());
 }
 
@@ -152,10 +155,13 @@ UNIT_TEST(RestrictionTest_RestrictionCollectorWholeClassTest)
                                             my::JoinFoldersToPath(platform.WritableDir(), kFeatureIdToOsmIdsPath));
   TEST(restrictionCollector.IsValid(), ());
 
-  vector<RestrictionCollector::Restriction> const expectedRestrictions =
-      {{RestrictionCollector::Type::No, {1, 1}},
-       {RestrictionCollector::Type::Only, {1, 2}},
-       {RestrictionCollector::Type::Only, {3, 4}}};
-  TEST_EQUAL(restrictionCollector.GetRestriction(), expectedRestrictions, ());
+  RestrictionVec const & restrictions = restrictionCollector.GetRestrictions();
+  TEST(is_sorted(restrictions.cbegin(), restrictions.cend()), ());
+
+  RestrictionVec const expectedRestrictions =
+      {{Restriction::Type::No, {1, 1}},
+       {Restriction::Type::Only, {1, 2}},
+       {Restriction::Type::Only, {3, 4}}};
+  TEST_EQUAL(restrictions, expectedRestrictions, ());
 }
 }  // namespace routing

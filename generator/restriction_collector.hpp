@@ -1,13 +1,13 @@
 #pragma once
 
+#include "indexer/routing.hpp"
+
 #include "std/functional.hpp"
 #include "std/limits.hpp"
 #include "std/string.hpp"
 #include "std/unordered_map.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
-
-class RelationElement;
 
 namespace routing
 {
@@ -19,39 +19,8 @@ class RestrictionCollector
   friend void UnitTest_RestrictionTest_InvalidCase();
   friend void UnitTest_RestrictionTest_ParseRestrictions();
   friend void UnitTest_RestrictionTest_ParseFeatureId2OsmIdsMapping();
+
 public:
-  using FeatureId = uint32_t;
-  static FeatureId const kInvalidFeatureId;
-
-  /// \brief Types of road graph restrictions.
-  /// \note Despite the fact more that 10 restriction tags are present in osm all of them
-  /// could be split into two categories.
-  /// * no_left_turn, no_right_turn, no_u_turn and so on go to "No" category.
-  /// * only_left_turn, only_right_turn and so on go to "Only" category.
-  /// That's enough to rememeber if
-  /// * there's only way to pass the junction is driving along the restriction (Only)
-  /// * driving along the restriction is prohibited (No)
-  enum class Type
-  {
-    No, // Going according such restriction is prohibited.
-    Only, // Only going according such restriction is permitted
-  };
-
-  /// \brief Restriction to modify road graph.
-  struct Restriction
-  {
-    Restriction(Type type, size_t linkNumber);
-    // Constructor for testing.
-    Restriction(Type type, vector<FeatureId> const & links);
-
-    bool IsValid() const;
-    bool operator==(Restriction const & restriction) const;
-    bool operator<(Restriction const & restriction) const;
-
-    vector<FeatureId> m_links;
-    Type m_type;
-  };
-
   /// \brief Addresses a link in vector<Restriction>.
   struct Index
   {
@@ -75,7 +44,8 @@ public:
   /// \note Complexity of the method is up to linear in the size of |m_restrictions|.
   bool IsValid() const;
 
-  vector<Restriction> const & GetRestriction() { return m_restrictions; }
+  /// \returns Sorted vector of restrictions.
+  RestrictionVec const & GetRestrictions() const { return m_restrictions; }
 
 private:
   /// \brief Parses comma separated text file with line in following format:
@@ -107,24 +77,24 @@ private:
 
   /// \brief Adds feature id and corresponding vector of |osmIds| to |m_osmId2FeatureId|.
   /// \note One feature id (|featureId|) may correspond to several osm ids (|osmIds|).
-  void AddFeatureId(FeatureId featureId, vector<uint64_t> const & osmIds);
+  void AddFeatureId(Restriction::FeatureId featureId, vector<uint64_t> const & osmIds);
 
   /// \brief Adds a restriction (vector of osm id).
   /// \param type is a type of restriction
   /// \param osmIds is osm ids of restriction links
   /// \note This method should be called to add a restriction when feature ids of the restriction
   /// are unknown. The feature ids should be set later with a call of |SetFeatureId(...)| method.
-  void AddRestriction(Type type, vector<uint64_t> const & osmIds);
+  void AddRestriction(Restriction::Type type, vector<uint64_t> const & osmIds);
 
-  vector<Restriction> m_restrictions;
+  RestrictionVec m_restrictions;
   vector<pair<uint64_t, Index>> m_restrictionIndex;
 
-  unordered_multimap<uint64_t, FeatureId> m_osmIds2FeatureId;
+  unordered_multimap<uint64_t, Restriction::FeatureId> m_osmIds2FeatureId;
 };
 
-string ToString(RestrictionCollector::Type const & type);
-bool FromString(string str, RestrictionCollector::Type & type);
-string DebugPrint(RestrictionCollector::Type const & type);
+string ToString(Restriction::Type const & type);
+bool FromString(string str, Restriction::Type & type);
+string DebugPrint(Restriction::Type const & type);
 string DebugPrint(RestrictionCollector::Index const & index);
-string DebugPrint(RestrictionCollector::Restriction const & restriction);
+string DebugPrint(Restriction const & restriction);
 }  // namespace routing

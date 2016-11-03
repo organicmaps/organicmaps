@@ -1,4 +1,4 @@
-#include "generator/restrictions.hpp"
+#include "generator/restriction_collector.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
@@ -37,37 +37,6 @@ bool ParseLineOfNumbers(istringstream & stream, vector<uint64_t> & numbers)
 
 namespace routing
 {
-RestrictionCollector::FeatureId const RestrictionCollector::kInvalidFeatureId =
-    numeric_limits<RestrictionCollector::FeatureId>::max();
-
-RestrictionCollector::Restriction::Restriction(Type type, size_t linkNumber) : m_type(type)
-{
-  m_links.resize(linkNumber, kInvalidFeatureId);
-}
-
-RestrictionCollector::Restriction::Restriction(Type type, vector<FeatureId> const & links)
-  : m_links(links), m_type(type)
-{
-}
-
-bool RestrictionCollector::Restriction::IsValid() const
-{
-  return find(begin(m_links), end(m_links), kInvalidFeatureId) == end(m_links);
-}
-
-bool RestrictionCollector::Restriction::operator==(Restriction const & restriction) const
-{
-  return m_links == restriction.m_links && m_type == restriction.m_type;
-}
-
-bool RestrictionCollector::Restriction::operator<(Restriction const & restriction) const
-{
-  if (m_type != restriction.m_type)
-    return m_type < restriction.m_type;
-
-  return m_links < restriction.m_links;
-}
-
 RestrictionCollector::RestrictionCollector(string const & restrictionPath,
                                            string const & featureId2OsmIdsPath)
 {
@@ -111,7 +80,7 @@ bool RestrictionCollector::ParseFeatureId2OsmIdsMapping(string const & featureId
     if (ids.size() <= 1)
       return false; // Every line should contain at least feature id and osm id.
 
-    FeatureId const featureId = static_cast<FeatureId>(ids.front());
+    Restriction::FeatureId const featureId = static_cast<Restriction::FeatureId>(ids.front());
     ids.erase(ids.begin());
     AddFeatureId(featureId, ids);
   }
@@ -132,7 +101,7 @@ bool RestrictionCollector::ParseRestrictions(string const & restrictionPath)
     istringstream lineStream(line);
     string typeStr;
     getline(lineStream, typeStr, ',' );
-    Type type;
+    Restriction::Type type;
     if (!FromString(typeStr, type))
       return false;
 
@@ -169,7 +138,7 @@ void RestrictionCollector::ComposeRestrictions()
     if (distance(rangeId.first, rangeId.second) != 1)
       continue; // |osmId| mentioned in restrictions was included in more than one feature.
 
-    FeatureId const & featureId = rangeId.first->second;
+    Restriction::FeatureId const & featureId = rangeId.first->second;
     // Adding feature id to restriction coresponded to the osm id.
     restriction.m_links[index.m_linkNumber] = featureId;
   }
@@ -186,7 +155,7 @@ void RestrictionCollector::RemoveInvalidRestrictions()
       m_restrictions.end());
 }
 
-void RestrictionCollector::AddRestriction(Type type, vector<uint64_t> const & osmIds)
+void RestrictionCollector::AddRestriction(Restriction::Type type, vector<uint64_t> const & osmIds)
 {
   m_restrictions.emplace_back(type, osmIds.size());
   size_t const restrictionCount = m_restrictions.size() - 1;
@@ -194,7 +163,7 @@ void RestrictionCollector::AddRestriction(Type type, vector<uint64_t> const & os
     m_restrictionIndex.emplace_back(osmIds[i], Index({restrictionCount, i}));
 }
 
-void RestrictionCollector::AddFeatureId(FeatureId featureId, vector<uint64_t> const & osmIds)
+void RestrictionCollector::AddFeatureId(Restriction::FeatureId featureId, vector<uint64_t> const & osmIds)
 {
   // Note. One |featureId| could correspond to several osm ids.
   // but for road feature |featureId| corresponds exactly one osm id.
@@ -202,36 +171,36 @@ void RestrictionCollector::AddFeatureId(FeatureId featureId, vector<uint64_t> co
     m_osmIds2FeatureId.insert(make_pair(osmId, featureId));
 }
 
-string ToString(RestrictionCollector::Type const & type)
+string ToString(Restriction::Type const & type)
 {
   switch (type)
   {
-  case RestrictionCollector::Type::No:
+  case Restriction::Type::No:
     return kNoStr;
-  case RestrictionCollector::Type::Only:
+  case Restriction::Type::Only:
     return kOnlyStr;
   }
   return "Unknown";
 }
 
-bool FromString(string str, RestrictionCollector::Type & type)
+bool FromString(string str, Restriction::Type & type)
 {
   str.erase(remove_if(str.begin(), str.end(), isspace), str.end());
   if (str == kNoStr)
   {
-    type = RestrictionCollector::Type::No;
+    type = Restriction::Type::No;
     return true;
   }
   if (str == kOnlyStr)
   {
-    type = RestrictionCollector::Type::Only;
+    type = Restriction::Type::Only;
     return true;
   }
 
   return false;
 }
 
-string DebugPrint(RestrictionCollector::Type const & type)
+string DebugPrint(Restriction::Type const & type)
 {
   return ToString(type);
 }
@@ -244,7 +213,7 @@ string DebugPrint(RestrictionCollector::Index const & index)
   return out.str();
 }
 
-string DebugPrint(RestrictionCollector::Restriction const & restriction)
+string DebugPrint(Restriction const & restriction)
 {
   ostringstream out;
   out << "m_links:[" << ::DebugPrint(restriction.m_links) << "] m_type:"
