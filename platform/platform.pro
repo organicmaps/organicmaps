@@ -26,16 +26,14 @@ INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
   }
 
   win32* {
-    SOURCES += marketing_service_dummy.cpp \
-               platform_win.cpp \
+    SOURCES += platform_win.cpp \
                wifi_info_windows.cpp
   } else:macx-* {
     OBJECTIVE_SOURCES += marketing_service_dummy.cpp \
                          platform_mac.mm \
                          apple_location_service.mm
   } else:linux* {
-    SOURCES += marketing_service_dummy.cpp \
-               platform_linux.cpp
+    SOURCES += platform_linux.cpp
   }
 } else:iphone* {
   OBJECTIVE_SOURCES += marketing_service_ios.mm \
@@ -67,8 +65,7 @@ linux*|win* {
 
 !win32* {
   HEADERS += platform_unix_impl.hpp
-  SOURCES += marketing_service_dummy.cpp \
-             platform_unix_impl.cpp
+  SOURCES += platform_unix_impl.cpp
 }
 
 # common sources for all platforms
