@@ -157,27 +157,7 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
   if ([MWMRouter isTaxi])
     bestRouter = NO;
 
-  auto const setTags = ^(RouterType t, BOOL isP2P)
-  {
-    NSMutableString * tag = (isP2P ? @"routing_p2p_" : @"routing_").mutableCopy;
-    switch (t)
-    {
-    case RouterType::Vehicle:
-      [tag appendString:@"vehicle_discovered"];
-      break;
-    case RouterType::Pedestrian:
-      [tag appendString:@"pedestrian_discovered"];
-      break;
-    case RouterType::Bicycle:
-      [tag appendString:@"bicycle_discovered"];
-      break;
-    case RouterType::Taxi:
-      [tag appendString:@"uber_discovered"];
-      break;
-    }
-    [[PushNotificationManager pushManager] setTags:@{ tag : @YES }];
-  };
-
+  bool isP2P = false;
   if (self.startPoint.IsMyPosition())
   {
     [Statistics logEvent:kStatPointToPoint
@@ -194,7 +174,7 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
   {
     [Statistics logEvent:kStatPointToPoint
           withParameters:@{kStatAction : kStatBuildRoute, kStatValue : kStatPointToPoint}];
-    setTags(self.type, YES);
+    isP2P = true;
   }
 
   MWMMapViewControlsManager * mapViewControlsManager = [MWMMapViewControlsManager manager];
@@ -206,11 +186,10 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
   auto const & finishPoint = self.finishPoint.Point();
   if (bestRouter)
     self.type = GetFramework().GetBestRouter(startPoint, finishPoint);
-  f.BuildRoute(startPoint, finishPoint, 0 /* timeoutSec */);
+  f.BuildRoute(startPoint, finishPoint, isP2P, 0 /* timeoutSec */);
   f.SetRouteStartPoint(startPoint, isMarkerPoint(self.startPoint));
   f.SetRouteFinishPoint(finishPoint, isMarkerPoint(self.finishPoint));
   [mapViewControlsManager onRouteRebuild];
-  setTags(self.type, NO);
 }
 
 - (void)start

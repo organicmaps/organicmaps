@@ -943,6 +943,8 @@ using namespace osm_auth_ios;
   [standartDefaults setInteger:1 forKey:kUDSessionsCountKey];
   [standartDefaults setObject:NSDate.date forKey:kUDLastLaunchDateKey];
   [standartDefaults synchronize];
+  
+  GetPlatform().GetMarketingService().ProcessFirstLaunch();
 }
 
 - (void)incrementSessionCount

@@ -41,41 +41,6 @@ void Platform::RunOnGuiThread(TFunctor const & fn)
   android::Platform::Instance().RunOnGuiThread(fn);
 }
 
-void Platform::SendPushWooshTag(string const & tag)
-{
-  SendPushWooshTag(tag, vector<string>{ "1" });
-}
-
-void Platform::SendPushWooshTag(string const & tag, string const & value)
-{
-  SendPushWooshTag(tag, vector<string>{ value });
-}
-
-void Platform::SendPushWooshTag(string const & tag, vector<string> const & values)
-{
-  android::Platform::Instance().SendPushWooshTag(tag, values);
-}
-
-void Platform::SendMarketingEvent(string const & tag, map<string, string> const & params)
-{
-  JNIEnv * env = jni::GetEnv();
-  if (env == nullptr)
-    return;
-
-  string eventData = tag;
-
-  for (auto const & item : params)
-  {
-    eventData.append("_" + item.first + "_" + item.second);
-  }
-
-  static jmethodID const myTrackerTrackEvent =
-      env->GetStaticMethodID(g_myTrackerClazz, "trackEvent", "(Ljava/lang/String;)V");
-
-  env->CallStaticVoidMethod(g_myTrackerClazz, myTrackerTrackEvent,
-                            jni::TScopedLocalRef(env, jni::ToJavaString(env, eventData)).get());
-}
-
 Platform::EConnectionType Platform::ConnectionStatus()
 {
   JNIEnv * env = jni::GetEnv();
@@ -102,6 +67,7 @@ namespace android
     jclass const functorProcessClass = env->GetObjectClass(functorProcessObject);
     m_functorProcessMethod = env->GetMethodID(functorProcessClass, "forwardToMainThread", "(J)V");
     m_sendPushWooshTagsMethod = env->GetMethodID(functorProcessClass, "sendPushWooshTags", "(Ljava/lang/String;[Ljava/lang/String;)V");
+    m_myTrackerTrackMethod = env->GetStaticMethodID(g_myTrackerClazz, "trackEvent", "(Ljava/lang/String;)V");
 
     string const flavor = jni::ToNativeString(env, flavorName);
     string const build = jni::ToNativeString(env, buildType);
@@ -202,6 +168,18 @@ namespace android
                         jni::TScopedLocalRef(env, jni::ToJavaString(env, tag)).get(),
                         jni::TScopedLocalObjectArrayRef(env, jni::ToJavaStringArray(env, values)).get());
   }
+
+  void Platform::SendMarketingEvent(string const & tag, map<string, string> const & params)
+  {
+    JNIEnv * env = jni::GetEnv();
+    string eventData = tag;
+    for (auto const & item : params)
+      eventData.append("_" + item.first + "_" + item.second);
+
+    env->CallStaticVoidMethod(g_myTrackerClazz, m_myTrackerTrackMethod,
+                              jni::TScopedLocalRef(env, jni::ToJavaString(env, eventData)).get());
+  }
+
 } // namespace android
 
 Platform & GetPlatform()

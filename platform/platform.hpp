@@ -1,6 +1,7 @@
 #pragma once
 
 #include "platform/country_defines.hpp"
+#include "platform/marketing_service.hpp"
 
 #include "coding/reader.hpp"
 
@@ -55,8 +56,6 @@ public:
   };
 
   using TFilesWithType = vector<pair<string, EFileType>>;
-  using TPushWooshSenderFn = function<void(string const & tag, vector<string> const & values)>;
-  using TMarketingSenderFn = function<void(string const & tag, map<string, string> const & params)>;
 
 protected:
   /// Usually read-only directory for application resources
@@ -89,11 +88,8 @@ protected:
   /// Returns last system call error as EError.
   static EError ErrnoToError();
 
-  /// Callback fucntion for setting PushWoosh tags.
-  TPushWooshSenderFn m_pushwooshSender;
-
-  /// Callback fucntion for sending marketing events.
-  TMarketingSenderFn m_marketingSender;
+  /// Platform-dependent marketing services.
+  MarketingService m_marketingService;
 
 public:
   Platform();
@@ -233,13 +229,7 @@ public:
 
   void SetupMeasurementSystem() const;
 
-  void SetPushWooshSender(TPushWooshSenderFn const & fn) { m_pushwooshSender = fn; }
-  void SendPushWooshTag(string const & tag);
-  void SendPushWooshTag(string const & tag, string const & value);
-  void SendPushWooshTag(string const & tag, vector<string> const & values);
-
-  void SetMarketingSender(TMarketingSenderFn const & fn) { m_marketingSender = fn; }
-  void SendMarketingEvent(string const & tag, map<string, string> const & params);
+  MarketingService & GetMarketingService() { return m_marketingService; }
 
 private:
   void GetSystemFontNames(FilesList & res) const;

@@ -13,7 +13,8 @@
 
 void setPushWooshSender()
 {
-  GetPlatform().SetPushWooshSender([](string const & tag, vector<string> const & values) {
+  GetPlatform().GetMarketingService().SetPushWooshSender([](string const & tag, vector<string> const & values)
+  {
     if (values.empty() || tag.empty())
       return;
     PushNotificationManager * pushManager = [PushNotificationManager pushManager];
@@ -33,7 +34,8 @@ void setPushWooshSender()
 
 void setMarketingSender()
 {
-  GetPlatform().SetMarketingSender([](string const & tag, map<string, string> const & params) {
+  GetPlatform().GetMarketingService().SetMarketingSender([](string const & tag, map<string, string> const & params)
+  {
     if (tag.empty())
       return;
     NSMutableDictionary<NSString *, NSString *> * eventParams = [@{} mutableCopy];

@@ -258,7 +258,7 @@ extern NSString * const kBookmarksChangedNotification;
 - (void)editPlace
 {
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatEdit)];
-  [[PushNotificationManager pushManager] setTags:@{ @"editor_edit_discovered" : @YES }];
+  GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kEditorEditDiscovered);
   [(MapViewController *)self.ownerViewController openEditor];
 }
 

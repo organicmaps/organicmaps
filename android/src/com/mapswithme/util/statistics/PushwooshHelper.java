@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
-import com.mapswithme.maps.Framework;
 import com.pushwoosh.PushManager;
 import com.pushwoosh.SendPushTagsCallBack;
 
@@ -18,9 +17,6 @@ import java.util.Map;
 
 public final class PushwooshHelper implements SendPushTagsCallBack
 {
-  public final static String ADD_MAP_OBJECT = "editor_add_discovered";
-  public final static String EDIT_MAP_OBJECT = "editor_edit_discovered";
-
   private static final PushwooshHelper sInstance = new PushwooshHelper();
 
   private WeakReference<Context> mContext;
@@ -144,22 +140,7 @@ public final class PushwooshHelper implements SendPushTagsCallBack
     return mContext != null && mTask == null;
   }
 
-  public static String getRoutingTag(int routerType, boolean isP2P)
-  {
-    String result = "routing_";
-    if (isP2P)
-      result += "p2p_";
-
-    if (routerType == Framework.ROUTER_TYPE_VEHICLE)
-      result += "vehicle";
-    else if (routerType == Framework.ROUTER_TYPE_PEDESTRIAN)
-      result += "pedestrian";
-    else if (routerType == Framework.ROUTER_TYPE_BICYCLE)
-      result += "bicycle";
-    else
-      result += "unknown";
-
-    result += "_discovered";
-    return result;
-  }
+  public static native void nativeProcessFirstLaunch();
+  public static native void nativeSendEditorAddObjectTag();
+  public static native void nativeSendEditorEditObjectTag();
 }

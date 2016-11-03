@@ -127,7 +127,7 @@ void SendStatistics(SearchParams const & params, m2::RectD const & viewport, Res
       {"results", resultString},
   };
   alohalytics::LogEvent("searchEmitResultsAndCoords", stats);
-  GetPlatform().SendMarketingEvent("searchEmitResultsAndCoords", {});
+  GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kSearchEmitResultsAndCoords, {});
 }
 }  // namespace
 
