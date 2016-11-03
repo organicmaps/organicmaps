@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		34513AFA1DCB37C100471BDA /* marketing_service_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34513AF71DCB37C100471BDA /* marketing_service_ios.mm */; };
+		34513AFB1DCB37C100471BDA /* marketing_service.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34513AF81DCB37C100471BDA /* marketing_service.cpp */; };
+		34513AFC1DCB37C100471BDA /* marketing_service.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34513AF91DCB37C100471BDA /* marketing_service.hpp */; };
 		3496AB711DC1F5AB00C5DDBA /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3496AB701DC1F5AB00C5DDBA /* libalohalitics.a */; };
 		34C624BD1DABCCD100510300 /* socket_apple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34C624BB1DABCCD100510300 /* socket_apple.mm */; };
 		34C624BE1DABCCD100510300 /* socket.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34C624BC1DABCCD100510300 /* socket.hpp */; };
@@ -103,6 +106,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		34513AF71DCB37C100471BDA /* marketing_service_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = marketing_service_ios.mm; sourceTree = "<group>"; };
+		34513AF81DCB37C100471BDA /* marketing_service.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = marketing_service.cpp; sourceTree = "<group>"; };
+		34513AF91DCB37C100471BDA /* marketing_service.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = marketing_service.hpp; sourceTree = "<group>"; };
 		3496AB701DC1F5AB00C5DDBA /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "../../../omim-build/xcode/Debug-iphonesimulator/libalohalitics.a"; sourceTree = "<group>"; };
 		34C624BB1DABCCD100510300 /* socket_apple.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = socket_apple.mm; sourceTree = "<group>"; };
 		34C624BC1DABCCD100510300 /* socket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = socket.hpp; sourceTree = "<group>"; };
@@ -326,6 +332,9 @@
 		6753437A1A3F5CF500A0A8C3 /* platform */ = {
 			isa = PBXGroup;
 			children = (
+				34513AF71DCB37C100471BDA /* marketing_service_ios.mm */,
+				34513AF81DCB37C100471BDA /* marketing_service.cpp */,
+				34513AF91DCB37C100471BDA /* marketing_service.hpp */,
 				34C624BB1DABCCD100510300 /* socket_apple.mm */,
 				34C624BC1DABCCD100510300 /* socket.hpp */,
 				3D97F64A1D9C05E800380945 /* http_client.cpp */,
@@ -431,6 +440,7 @@
 				34C624BE1DABCCD100510300 /* socket.hpp in Headers */,
 				675343C11A3F5D5A00A0A8C3 /* location_service.hpp in Headers */,
 				67AB92DD1B7B3D7300AB5194 /* mwm_version.hpp in Headers */,
+				34513AFC1DCB37C100471BDA /* marketing_service.hpp in Headers */,
 				675343CA1A3F5D5A00A0A8C3 /* platform_unix_impl.hpp in Headers */,
 				675343D21A3F5D5A00A0A8C3 /* servers_list.hpp in Headers */,
 				675343BA1A3F5D5A00A0A8C3 /* http_thread_callback.hpp in Headers */,
@@ -590,6 +600,7 @@
 				56EB1EDE1C6B6E6C0022D831 /* mwm_traits.cpp in Sources */,
 				3D30587F1D880910004AC712 /* http_client_apple.mm in Sources */,
 				67247FFD1C60BD6500EDE56A /* writable_dir_changer.cpp in Sources */,
+				34513AFB1DCB37C100471BDA /* marketing_service.cpp in Sources */,
 				6741250C1B4C00CC00A3E828 /* local_country_file_utils.cpp in Sources */,
 				3D97F64B1D9C05E800380945 /* http_client.cpp in Sources */,
 				67AB92EA1B7B3E9100AB5194 /* get_text_by_id.cpp in Sources */,
@@ -602,6 +613,7 @@
 				675343D01A3F5D5A00A0A8C3 /* pthread_video_timer.cpp in Sources */,
 				675343B11A3F5D5A00A0A8C3 /* apple_location_service.mm in Sources */,
 				675343B31A3F5D5A00A0A8C3 /* chunks_download_strategy.cpp in Sources */,
+				34513AFA1DCB37C100471BDA /* marketing_service_ios.mm in Sources */,
 				670E8C911BB31A2F00094197 /* ios_video_timer.mm in Sources */,
 				675343D71A3F5D5A00A0A8C3 /* video_timer.cpp in Sources */,
 				675343C01A3F5D5A00A0A8C3 /* location_service.cpp in Sources */,
