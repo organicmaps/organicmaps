@@ -12,9 +12,11 @@ namespace routing
 /// For example:
 /// Only, 335049632, 49356687,
 /// No, 157616940, 157616940,
-/// \param featureId2OsmIdsPath comma separated (csv like) file with mapping from feature id to osm ids
+/// \param featureId2OsmIdsPath comma separated (csv like) file with mapping from feature id to osm
+/// ids
 /// in following format:
-/// <feature id>, <osm id 1 corresponding feature id>, <osm id 2 corresponding feature id>, and so on
+/// <feature id>, <osm id 1 corresponding feature id>, <osm id 2 corresponding feature id>, and so
+/// on
 /// For example:
 /// 137999, 5170186,
 /// 138000, 5170209,

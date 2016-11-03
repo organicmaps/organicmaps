@@ -23,7 +23,6 @@ protected:
   m2::RectD m_bounds;
 
   uint32_t GetNextFeatureId() const { return m_featureID; }
-
 private:
   void Write(char const * src, size_t size);
   void FlushBuffer();
@@ -41,7 +40,6 @@ public:
   virtual ~FeaturesCollector();
 
   string const & GetFilePath() const { return m_datFile.GetName(); }
-
   /// \brief Serializes |f|.
   /// \returns feature id of serialized feature.
   virtual uint32_t operator()(FeatureBuilder1 const & f);

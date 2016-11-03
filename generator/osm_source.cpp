@@ -136,9 +136,9 @@ public:
   void AddRelation(TKey id, RelationElement const & e)
   {
     string const & relationType = e.GetType();
-    if (!(relationType == "multipolygon" || relationType == "route" ||
-          relationType == "boundary" || relationType == "associatedStreet" ||
-          relationType == "building" || relationType == "restriction"))
+    if (!(relationType == "multipolygon" || relationType == "route" || relationType == "boundary" ||
+          relationType == "associatedStreet" || relationType == "building" ||
+          relationType == "restriction"))
     {
       return;
     }
@@ -298,7 +298,6 @@ class MainFeaturesEmitter : public EmitterBase
   uint32_t m_types[TYPES_COUNT];
 
   inline uint32_t Type(TypeIndex i) const { return m_types[i]; }
-
   SyncOfstream m_featureId2osmIds;
 
 public:
@@ -347,7 +346,10 @@ public:
     LOG(LINFO, ("Saving osm ids to feature ids map to", featureId2OsmIdsFile));
     m_featureId2osmIds.Open(featureId2OsmIdsFile);
     if (!m_featureId2osmIds.IsOpened())
-      LOG(LWARNING, ("Cannot open", featureId2OsmIdsFile, ". Feature id to osm ids to map won't be saved."));
+    {
+      LOG(LWARNING,
+          ("Cannot open", featureId2OsmIdsFile, ". Feature id to osm ids to map won't be saved."));
+    }
   }
 
   void operator()(FeatureBuilder1 & fb) override

@@ -30,7 +30,9 @@ class RelationTagsBase
 {
 public:
   RelationTagsBase(routing::RestrictionDumper & restrictionDumper)
-    : m_restrictionDumper(restrictionDumper), m_cache(14) {}
+    : m_restrictionDumper(restrictionDumper), m_cache(14)
+  {
+  }
 
   void Reset(uint64_t fID, OsmElement * p)
   {
@@ -87,7 +89,9 @@ class RelationTagsNode : public RelationTagsBase
 
 public:
   RelationTagsNode(routing::RestrictionDumper & restrictionDumper)
-    : RelationTagsBase(restrictionDumper) {}
+    : RelationTagsBase(restrictionDumper)
+  {
+  }
 
 protected:
   void Process(RelationElement const & e) override
@@ -128,7 +132,9 @@ class RelationTagsWay : public RelationTagsBase
 {
 public:
   RelationTagsWay(routing::RestrictionDumper & restrictionDumper)
-    : RelationTagsBase(restrictionDumper) {}
+    : RelationTagsBase(restrictionDumper)
+  {
+  }
 
 private:
   using TBase = RelationTagsBase;
@@ -512,8 +518,11 @@ public:
 public:
   OsmToFeatureTranslator(TEmitter & emitter, TCache & holder, uint32_t coastType,
                          string const & addrFilePath = {}, string const & restrictionsFilePath = {})
-    : m_emitter(emitter), m_holder(holder), m_coastType(coastType),
-      m_nodeRelations(m_restrictionDumper), m_wayRelations(m_restrictionDumper)
+    : m_emitter(emitter)
+    , m_holder(holder)
+    , m_coastType(coastType)
+    , m_nodeRelations(m_restrictionDumper)
+    , m_wayRelations(m_restrictionDumper)
   {
     if (!addrFilePath.empty())
       m_addrWriter.reset(new FileWriter(addrFilePath));

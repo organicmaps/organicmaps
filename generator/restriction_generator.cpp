@@ -45,7 +45,8 @@ namespace routing
 bool BuildRoadRestrictions(string const & mwmPath, string const & restrictionPath,
                            string const & featureId2OsmIdsPath)
 {
-  LOG(LINFO, ("BuildRoadRestrictions(", mwmPath, ", ", restrictionPath, ", ", featureId2OsmIdsPath, ");"));
+  LOG(LINFO,
+      ("BuildRoadRestrictions(", mwmPath, ", ", restrictionPath, ", ", featureId2OsmIdsPath, ");"));
   RestrictionCollector restrictionCollector(restrictionPath, featureId2OsmIdsPath);
   if (!restrictionCollector.IsValid())
   {
@@ -56,13 +57,14 @@ bool BuildRoadRestrictions(string const & mwmPath, string const & restrictionPat
 
   RestrictionVec const & restrictions = restrictionCollector.GetRestrictions();
 
-  auto const firstOnlyIt = upper_bound(restrictions.cbegin(), restrictions.cend(),
-                                       Restriction(Restriction::Type::No, 0), my::LessBy(&Restriction::m_type));
+  auto const firstOnlyIt =
+      upper_bound(restrictions.cbegin(), restrictions.cend(), Restriction(Restriction::Type::No, 0),
+                  my::LessBy(&Restriction::m_type));
   RoutingHeader header;
   header.m_noRestrictionCount = distance(restrictions.cbegin(), firstOnlyIt);
   header.m_onlyRestrictionCount = restrictions.size() - header.m_noRestrictionCount;
-  LOG(LINFO, ("Header info. There are", header.m_noRestrictionCount, "and", header.m_onlyRestrictionCount,
-              "only restrictions"));
+  LOG(LINFO, ("Header info. There are", header.m_noRestrictionCount, "and",
+              header.m_onlyRestrictionCount, "only restrictions"));
 
   FilesContainerW cont(mwmPath, FileWriter::OP_WRITE_EXISTING);
   FileWriter w = cont.GetWriter(ROUTING_FILE_TAG);

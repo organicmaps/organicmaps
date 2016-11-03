@@ -29,8 +29,8 @@ struct Restriction
   /// * driving along the restriction is prohibited (No)
   enum class Type
   {
-    No, // Going according such restriction is prohibited.
-    Only, // Only going according such restriction is permitted
+    No,    // Going according such restriction is prohibited.
+    Only,  // Only going according such restriction is permitted
   };
 
   Restriction(Type type, size_t linkNumber);
@@ -52,7 +52,6 @@ namespace feature
 struct RoutingHeader
 {
   RoutingHeader() { Reset(); }
-
   template <class TSink>
   void Serialize(TSink & sink) const
   {
@@ -91,7 +90,10 @@ class RestrictionSerializer
 {
 public:
   RestrictionSerializer() : m_restriction(routing::Restriction::Type::No, 0) {}
-  explicit RestrictionSerializer(routing::Restriction const & restriction) : m_restriction(restriction) {}
+  explicit RestrictionSerializer(routing::Restriction const & restriction)
+    : m_restriction(restriction)
+  {
+  }
 
   template <class TSink>
   void Serialize(routing::Restriction const & prevRestriction, TSink & sink) const
@@ -125,15 +127,13 @@ public:
         return false;
       }
       uint32_t const delta = biasedDelta - 1;
-      m_restriction.m_links[i] =
-          static_cast<routing::Restriction::FeatureId>(bits::ZigZagDecode(delta) +
-                                                       prevRestriction.m_links[i]);
+      m_restriction.m_links[i] = static_cast<routing::Restriction::FeatureId>(
+          bits::ZigZagDecode(delta) + prevRestriction.m_links[i]);
     }
     return true;
   }
 
   routing::Restriction const & GetRestriction() const { return m_restriction; }
-
   static size_t const kSupportedLinkNumber;
 
 private:

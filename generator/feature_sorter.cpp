@@ -446,7 +446,7 @@ namespace feature
     bool IsCountry() const { return m_header.GetType() == feature::DataHeader::country; }
 
   public:
-    uint32_t operator() (FeatureBuilder2 & fb)
+    uint32_t operator()(FeatureBuilder2 & fb)
     {
       GeometryHolder holder(*this, fb, m_header);
 

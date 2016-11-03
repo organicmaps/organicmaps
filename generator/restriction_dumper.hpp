@@ -16,7 +16,8 @@ public:
   bool IsOpened();
 
   /// \brief Writes |relationElement| to |m_stream| if |relationElement| is a supported restriction.
-  /// \note For the time being only line-point-line restritions are processed. The other restrictions
+  /// \note For the time being only line-point-line restritions are processed. The other
+  /// restrictions
   /// are ignored.
   // @TODO(bykoianko) It's necessary to process all kind of restrictions.
   void Write(RelationElement const & relationElement);

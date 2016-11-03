@@ -110,7 +110,7 @@ namespace feature
       }
     };
 
-    void operator () (FeatureBuilder1 & fb, SyncOfstream & featureId2osmIds)
+    void operator()(FeatureBuilder1 & fb, SyncOfstream & featureId2osmIds)
     {
       buffer_vector<borders::CountryPolygons const *, 32> vec;
       m_countries.ForEachInRect(fb.GetLimitRect(), InsertCountriesPtr(vec));
@@ -119,17 +119,15 @@ namespace feature
       {
       case 0:
         break;
-      case 1:
-        EmitFeature(vec[0], fb, featureId2osmIds);
-        break;
+      case 1: EmitFeature(vec[0], fb, featureId2osmIds); break;
       default:
         {
 #if PARALLEL_POLYGONIZER
           m_ThreadPoolSemaphore.acquire();
           m_ThreadPool.start(new PolygonizerTask(this, vec, fb, featureId2osmIds));
 #else
-          PolygonizerTask task(this, vec, fb, featureId2osmIds);
-          task.RunBase();
+        PolygonizerTask task(this, vec, fb, featureId2osmIds);
+        task.RunBase();
 #endif
         }
       }
@@ -192,7 +190,12 @@ namespace feature
       PolygonizerTask(Polygonizer * pPolygonizer,
                       buffer_vector<borders::CountryPolygons const *, 32> const & countries,
                       FeatureBuilder1 const & fb, SyncOfstream & featureId2osmIds)
-        : m_pPolygonizer(pPolygonizer), m_Countries(countries), m_FB(fb), m_featureId2osmIds(featureId2osmIds) {}
+        : m_pPolygonizer(pPolygonizer)
+        , m_Countries(countries)
+        , m_FB(fb)
+        , m_featureId2osmIds(featureId2osmIds)
+      {
+      }
 
       void RunBase()
       {

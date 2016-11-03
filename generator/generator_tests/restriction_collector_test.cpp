@@ -43,10 +43,9 @@ UNIT_TEST(RestrictionTest_ValidCase)
   // Checking the result.
   TEST(restrictionCollector.IsValid(), ());
 
-  RestrictionVec const expectedRestrictions =
-  {{Restriction::Type::No, {10, 20}},
-   {Restriction::Type::No, {20, 30}},
-   {Restriction::Type::Only, {50, 70}}};
+  RestrictionVec const expectedRestrictions = {{Restriction::Type::No, {10, 20}},
+                                               {Restriction::Type::No, {20, 30}},
+                                               {Restriction::Type::Only, {50, 70}}};
   TEST_EQUAL(restrictionCollector.m_restrictions, expectedRestrictions, ());
 }
 
@@ -61,8 +60,8 @@ UNIT_TEST(RestrictionTest_InvalidCase)
 
   TEST(!restrictionCollector.IsValid(), ());
 
-  RestrictionVec const expectedRestrictions =
-      {{Restriction::Type::No, {0, Restriction::kInvalidFeatureId}}};
+  RestrictionVec const expectedRestrictions = {
+      {Restriction::Type::No, {0, Restriction::kInvalidFeatureId}}};
   TEST_EQUAL(restrictionCollector.m_restrictions, expectedRestrictions, ());
 
   restrictionCollector.RemoveInvalidRestrictions();
@@ -87,29 +86,27 @@ UNIT_TEST(RestrictionTest_ParseRestrictions)
 
   Platform const & platform = Platform();
 
-  TEST(restrictionCollector.ParseRestrictions(my::JoinFoldersToPath(platform.WritableDir(),
-                                                                    kRestrictionPath)), ());
-  RestrictionVec expectedRestrictions =
-      {{Restriction::Type::No, 2},
-       {Restriction::Type::Only, 2},
-       {Restriction::Type::Only, 2},
-       {Restriction::Type::No, 2},
-       {Restriction::Type::No, 2}};
+  TEST(restrictionCollector.ParseRestrictions(
+           my::JoinFoldersToPath(platform.WritableDir(), kRestrictionPath)),
+       ());
+  RestrictionVec expectedRestrictions = {{Restriction::Type::No, 2},
+                                         {Restriction::Type::Only, 2},
+                                         {Restriction::Type::Only, 2},
+                                         {Restriction::Type::No, 2},
+                                         {Restriction::Type::No, 2}};
   TEST_EQUAL(restrictionCollector.m_restrictions, expectedRestrictions, ());
 
-  vector<pair<uint64_t, RestrictionCollector::Index>> const expectedRestrictionIndex =
-      {{1, {0, 0}}, {1, {0, 1}},
-       {0, {1, 0}}, {2, {1, 1}},
-       {2, {2, 0}}, {3, {2, 1}},
-       {38028428, {3, 0}}, {38028428, {3, 1}},
-       {4, {4, 0}}, {5, {4, 1}}};
+  vector<pair<uint64_t, RestrictionCollector::Index>> const expectedRestrictionIndex = {
+      {1, {0, 0}}, {1, {0, 1}},        {0, {1, 0}},        {2, {1, 1}}, {2, {2, 0}},
+      {3, {2, 1}}, {38028428, {3, 0}}, {38028428, {3, 1}}, {4, {4, 0}}, {5, {4, 1}}};
   TEST_EQUAL(restrictionCollector.m_restrictionIndex, expectedRestrictionIndex, ());
 }
 
 UNIT_TEST(RestrictionTest_ParseFeatureId2OsmIdsMapping)
 {
   string const kFeatureIdToOsmIdsName = "feature_id_to_osm_ids.csv";
-  string const kFeatureIdToOsmIdsPath = my::JoinFoldersToPath(kRestrictionTestDir, kFeatureIdToOsmIdsName);
+  string const kFeatureIdToOsmIdsPath =
+      my::JoinFoldersToPath(kRestrictionTestDir, kFeatureIdToOsmIdsName);
   string const kFeatureIdToOsmIdsContent = R"(1, 10,
                                               2, 20,
                                               779703, 5423239545,
@@ -121,13 +118,14 @@ UNIT_TEST(RestrictionTest_ParseFeatureId2OsmIdsMapping)
   RestrictionCollector restrictionCollector("", "");
 
   Platform const & platform = Platform();
-  restrictionCollector.ParseFeatureId2OsmIdsMapping(my::JoinFoldersToPath(platform.WritableDir(),
-                                                                          kFeatureIdToOsmIdsPath));
+  restrictionCollector.ParseFeatureId2OsmIdsMapping(
+      my::JoinFoldersToPath(platform.WritableDir(), kFeatureIdToOsmIdsPath));
 
-  vector<pair<uint64_t, Restriction::FeatureId>> const expectedOsmIds2FeatureId =
-      {{10, 1}, {20, 2}, {5423239545, 779703}, {30, 3}};
+  vector<pair<uint64_t, Restriction::FeatureId>> const expectedOsmIds2FeatureId = {
+      {10, 1}, {20, 2}, {5423239545, 779703}, {30, 3}};
   vector<pair<uint64_t, Restriction::FeatureId>> const osmIds2FeatureId(
-      restrictionCollector.m_osmIds2FeatureId.cbegin(), restrictionCollector.m_osmIds2FeatureId.cend());
+      restrictionCollector.m_osmIds2FeatureId.cbegin(),
+      restrictionCollector.m_osmIds2FeatureId.cend());
   TEST_EQUAL(osmIds2FeatureId, expectedOsmIds2FeatureId, ());
 }
 
@@ -140,7 +138,8 @@ UNIT_TEST(RestrictionTest_RestrictionCollectorWholeClassTest)
                                         Only, 30, 40,)";
 
   string const kFeatureIdToOsmIdsName = "feature_id_to_osm_ids.csv";
-  string const kFeatureIdToOsmIdsPath = my::JoinFoldersToPath(kRestrictionTestDir, kFeatureIdToOsmIdsName);
+  string const kFeatureIdToOsmIdsPath =
+      my::JoinFoldersToPath(kRestrictionTestDir, kFeatureIdToOsmIdsName);
   string const kFeatureIdToOsmIdsContent = R"(1, 10,
                                               2, 20,
                                               3, 30,
@@ -151,17 +150,17 @@ UNIT_TEST(RestrictionTest_RestrictionCollectorWholeClassTest)
   ScopedFile mappingScopedFile(kFeatureIdToOsmIdsPath, kFeatureIdToOsmIdsContent);
 
   Platform const & platform = Platform();
-  RestrictionCollector restrictionCollector(my::JoinFoldersToPath(platform.WritableDir(), kRestrictionPath),
-                                            my::JoinFoldersToPath(platform.WritableDir(), kFeatureIdToOsmIdsPath));
+  RestrictionCollector restrictionCollector(
+      my::JoinFoldersToPath(platform.WritableDir(), kRestrictionPath),
+      my::JoinFoldersToPath(platform.WritableDir(), kFeatureIdToOsmIdsPath));
   TEST(restrictionCollector.IsValid(), ());
 
   RestrictionVec const & restrictions = restrictionCollector.GetRestrictions();
   TEST(is_sorted(restrictions.cbegin(), restrictions.cend()), ());
 
-  RestrictionVec const expectedRestrictions =
-      {{Restriction::Type::No, {1, 1}},
-       {Restriction::Type::Only, {1, 2}},
-       {Restriction::Type::Only, {3, 4}}};
+  RestrictionVec const expectedRestrictions = {{Restriction::Type::No, {1, 1}},
+                                               {Restriction::Type::Only, {1, 2}},
+                                               {Restriction::Type::Only, {3, 4}}};
   TEST_EQUAL(restrictions, expectedRestrictions, ());
 }
 }  // namespace routing

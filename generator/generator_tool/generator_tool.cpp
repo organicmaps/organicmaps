@@ -84,7 +84,8 @@ DEFINE_string(srtm_path, "",
               "Path to srtm directory. If it is set, generates section with altitude information "
               "about roads.");
 DEFINE_string(restriction_name, "", "Name of file with relation restriction in osm id term.");
-DEFINE_string(feature_id_to_osm_ids_name, "", "Name of to file with mapping from feature id to osm ids.");
+DEFINE_string(feature_id_to_osm_ids_name, "",
+              "Name of to file with mapping from feature id to osm ids.");
 DEFINE_bool(generate_outgoing_edge_index, false, "Generates section with outgoing edges");
 
 int main(int argc, char ** argv)
@@ -240,8 +241,9 @@ int main(int argc, char ** argv)
 
     if (FLAGS_generate_outgoing_edge_index)
     {
-      routing::BuildRoadRestrictions(datFile, genInfo.GetIntermediateFileName(genInfo.m_restrictions, ""),
-                                     genInfo.GetIntermediateFileName(genInfo.m_featureId2OsmIds, ""));
+      routing::BuildRoadRestrictions(
+          datFile, genInfo.GetIntermediateFileName(genInfo.m_restrictions, ""),
+          genInfo.GetIntermediateFileName(genInfo.m_featureId2OsmIds, ""));
     }
   }
 

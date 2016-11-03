@@ -7,7 +7,8 @@ using namespace routing;
 namespace
 {
 template <class TSource>
-void DeserializeRestrictions(Restriction::Type type, uint32_t count, TSource & src, RestrictionVec & restrictions)
+void DeserializeRestrictions(Restriction::Type type, uint32_t count, TSource & src,
+                             RestrictionVec & restrictions)
 {
   feature::RestrictionSerializer serializer(Restriction(type, 0));
   Restriction prevRestriction(type, 0);
@@ -35,13 +36,16 @@ RestrictionLoader::RestrictionLoader(MwmValue const & mwmValue)
     ReaderSource<FilesContainerR::TReader> src(*m_reader);
     m_header.Deserialize(src);
 
-    DeserializeRestrictions(Restriction::Type::No, m_header.m_noRestrictionCount, src, m_restrictions);
-    DeserializeRestrictions(Restriction::Type::Only, m_header.m_onlyRestrictionCount, src, m_restrictions);
+    DeserializeRestrictions(Restriction::Type::No, m_header.m_noRestrictionCount, src,
+                            m_restrictions);
+    DeserializeRestrictions(Restriction::Type::Only, m_header.m_onlyRestrictionCount, src,
+                            m_restrictions);
   }
   catch (Reader::OpenException const & e)
   {
     m_header.Reset();
-    LOG(LERROR, ("File", m_countryFileName, "Error while reading", ROUTING_FILE_TAG, "section.", e.Msg()));
+    LOG(LERROR,
+        ("File", m_countryFileName, "Error while reading", ROUTING_FILE_TAG, "section.", e.Msg()));
   }
 }
 }  // namespace feature

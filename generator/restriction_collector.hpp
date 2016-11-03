@@ -25,14 +25,16 @@ public:
   struct Index
   {
     Index(size_t restrictionNumber, size_t linkNumber)
-      : m_restrictionNumber(restrictionNumber), m_linkNumber(linkNumber) {}
-    size_t m_restrictionNumber = 0; // Restriction number in restriction vector.
-    size_t m_linkNumber = 0; // Link number for a restriction. It's equal to zero or one for most cases.
+      : m_restrictionNumber(restrictionNumber), m_linkNumber(linkNumber)
+    {
+    }
+    size_t m_restrictionNumber = 0;  // Restriction number in restriction vector.
+    size_t m_linkNumber =
+        0;  // Link number for a restriction. It's equal to zero or one for most cases.
 
     bool operator==(Index const & index) const
     {
-      return m_restrictionNumber == index.m_restrictionNumber
-          && m_linkNumber == index.m_linkNumber;
+      return m_restrictionNumber == index.m_restrictionNumber && m_linkNumber == index.m_linkNumber;
     }
   };
 
@@ -48,10 +50,10 @@ public:
 
   /// \returns Sorted vector of restrictions.
   RestrictionVec const & GetRestrictions() const { return m_restrictions; }
-
 private:
   /// \brief Parses comma separated text file with line in following format:
-  /// <feature id>, <osm id 1 corresponding feature id>, <osm id 2 corresponding feature id>, and so on
+  /// <feature id>, <osm id 1 corresponding feature id>, <osm id 2 corresponding feature id>, and so
+  /// on
   /// For example:
   /// 137999, 5170186,
   /// 138000, 5170209,

@@ -10,8 +10,7 @@ Restriction::Restriction(Type type, size_t linkNumber) : m_type(type)
   m_links.resize(linkNumber, kInvalidFeatureId);
 }
 
-Restriction::Restriction(Type type, vector<FeatureId> const & links)
-  : m_links(links), m_type(type)
+Restriction::Restriction(Type type, vector<FeatureId> const & links) : m_links(links), m_type(type)
 {
 }
 

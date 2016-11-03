@@ -15,8 +15,8 @@
 #include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/platform_tests_support/scoped_file.hpp"
 
-#include "platform/platform.hpp"
 #include "platform/country_file.hpp"
+#include "platform/platform.hpp"
 
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"

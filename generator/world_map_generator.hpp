@@ -313,7 +313,6 @@ class CountryMapGenerator
 
 public:
   explicit CountryMapGenerator(feature::GenerateInfo const & info) : m_bucket(info) {}
-
   void operator()(FeatureBuilder1 fb, SyncOfstream & featureId2osmIds)
   {
     if (feature::PreprocessForCountryMap(fb))
