@@ -365,7 +365,7 @@ void Route::AppendRoute(Route const & route)
     ASSERT(!m_turns.empty(), ());
     ASSERT(!m_times.empty(), ());
     if (!m_streets.empty())
-      ASSERT_LESS(m_streets.back().first, m_poly.GetPolyline().GetSize(), ());
+      ASSERT_LESS(m_streets.back().first + 1, m_poly.GetPolyline().GetSize(), ());
 
     // Remove road end point and turn instruction.
     ASSERT_LESS(MercatorBounds::DistanceOnEarth(m_poly.End().m_pt, route.m_poly.Begin().m_pt),
