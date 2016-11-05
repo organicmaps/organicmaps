@@ -25,7 +25,7 @@ bool HotelsClassifier::IsHotelResults() const
 {
   // Threshold used to activate hotels mode. Probably is too strict,
   // but we don't have statistics now.
-  double const kThreshold = 0.95;
+  double const kThreshold = 0.75;
 
   return m_numResults == 0 ? false : m_numHotels >= kThreshold * m_numResults;
 }
