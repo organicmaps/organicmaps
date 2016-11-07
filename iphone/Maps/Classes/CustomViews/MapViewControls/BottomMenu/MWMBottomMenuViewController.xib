@@ -122,10 +122,10 @@
                                         <constraint firstItem="dVz-cc-LUM" firstAttribute="centerY" secondItem="FpX-u9-FuR" secondAttribute="centerY" id="yEP-oH-4ti"/>
                                     </constraints>
                                 </view>
-                                <button hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pLD-sZ-ejH" userLabel="Go" customClass="MWMStartButton">
+                                <button hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="501" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pLD-sZ-ejH" userLabel="Go" customClass="MWMStartButton">
                                     <accessibility key="accessibilityConfiguration" identifier="goButton"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="96" id="ZHw-Ha-INX"/>
+                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="96" id="ZHw-Ha-INX"/>
                                     </constraints>
                                     <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
                                     <state key="normal" title="Start"/>
