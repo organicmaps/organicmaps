@@ -95,6 +95,8 @@
     self.mwm_coloring = MWMImageColoringGray;
   else if ([coloring isEqualToString:@"MWMSeparator"])
     self.mwm_coloring = MWMImageColoringSeparator;
+  else if ([coloring isEqualToString:@"MWMWhite"])
+    self.mwm_coloring = MWMImageColoringWhite;
   else
     NSAssert(false, @"Incorrect UIImageView's coloring");
 }
