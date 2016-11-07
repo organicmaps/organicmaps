@@ -7,22 +7,36 @@
 
 namespace strings
 {
-// This class represends a DFA recognizing a language consisting of
+// This class represents a DFA recognizing a language consisting of
 // all words that are close enough to a given string, in terms of
-// Levenshtein distance. The code is based on the work "Fast String
-// Correction with Levenshtein-Automata" by Klaus U. Schulz and Stoyan
-// Mihov.
+// Levenshtein distance. Levenshtein distance treats deletions,
+// insertions and replacements as errors, transpositions are not
+// handled now. The code is based on the work "Fast String Correction
+// with Levenshtein-Automata" by Klaus U. Schulz and Stoyan Mihov.
+// For a fixed number of allowed errors and fixed alphabet the
+// construction time and size of automata is O(length of the pattern),
+// but the size grows exponentially with the number of errors, so be
+// reasonable and don't use this class when the number of errors is
+// too high.
 //
 // *NOTE* The class *IS* thread-safe.
+//
+// TODO (@y): add support for transpositions.
+//
+// TODO (@y): consider to implement a factory of automata, that will
+// be able to construct them quickly for a fixed number of errors.
 class LevenshteinDFA
 {
 public:
+  static size_t const kStartingState;
+  static size_t const kRejectingState;
+  
   struct Position
   {
     Position() = default;
     Position(size_t offset, uint8_t numErrors);
 
-    bool SumsumedBy(Position const & rhs) const;
+    bool SubsumedBy(Position const & rhs) const;
 
     bool operator<(Position const & rhs) const;
     bool operator==(Position const & rhs) const;
@@ -34,6 +48,7 @@ public:
   struct State
   {
     static State MakeStart();
+    static State MakeRejecting();
 
     void Normalize();
     inline void Clear() { m_positions.clear(); }
@@ -78,9 +93,9 @@ public:
   private:
     friend class LevenshteinDFA;
 
-    Iterator(LevenshteinDFA const & dfa) : m_s(0), m_dfa(dfa) {}
+    Iterator(LevenshteinDFA const & dfa) : m_s(kStartingState), m_dfa(dfa) {}
 
-    size_t m_s = 0;
+    size_t m_s;
     LevenshteinDFA const & m_dfa;
   };
 
@@ -105,7 +120,7 @@ private:
   inline bool IsAccepting(size_t s) const { return m_accepting.count(s) != 0; }
 
   inline bool IsRejecting(State const & s) const { return s.m_positions.empty(); }
-  inline bool IsRejecting(size_t s) const { return s == m_rejecting; }
+  inline bool IsRejecting(size_t s) const { return s == kRejectingState; }
 
   size_t Move(size_t s, UniChar c) const;
 
@@ -116,7 +131,6 @@ private:
 
   vector<vector<size_t>> m_transitions;
   unordered_set<size_t> m_accepting;
-  size_t m_rejecting;
 };
 
 string DebugPrint(LevenshteinDFA::Position const & p);

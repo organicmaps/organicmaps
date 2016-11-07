@@ -1,7 +1,6 @@
 #include "base/levenshtein_dfa.hpp"
 
 #include "base/assert.hpp"
-#include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
 
 #include "std/algorithm.hpp"
@@ -35,50 +34,28 @@ private:
   {
     auto & ps = t.m_positions;
 
-    if (p.m_numErrors < m_maxErrors)
-    {
-      if (p.m_offset + 1 < m_size)
-      {
-        size_t i;
-        if (FindRelevant(p, c, i))
-        {
-          if (i == 0)
-          {
-            ps.emplace_back(p.m_offset + 1, p.m_numErrors);
-          }
-          else
-          {
-            ps.emplace_back(p.m_offset, p.m_numErrors + 1);
-            ps.emplace_back(p.m_offset + 1, p.m_numErrors + 1);
-            ps.emplace_back(p.m_offset + i + 1, p.m_numErrors + i);
-          }
-        }
-        else
-        {
-          ps.emplace_back(p.m_offset, p.m_numErrors + 1);
-          ps.emplace_back(p.m_offset + 1, p.m_numErrors + 1);
-        }
-      }
-      else if (p.m_offset + 1 == m_size)
-      {
-        if (m_s[p.m_offset] == c)
-        {
-          ps.emplace_back(p.m_offset + 1, p.m_numErrors);
-        }
-        else
-        {
-          ps.emplace_back(p.m_offset, p.m_numErrors + 1);
-          ps.emplace_back(p.m_offset + 1, p.m_numErrors + 1);
-        }
-      }
-      else
-      {
-        ps.emplace_back(p.m_offset, p.m_numErrors + 1);
-      }
-    }
-    else if (p.m_offset < m_size && m_s[p.m_offset] == c)
+    if (p.m_offset < m_size && m_s[p.m_offset] == c)
     {
       ps.emplace_back(p.m_offset + 1, p.m_numErrors);
+      return;
+    }
+
+    if (p.m_numErrors == m_maxErrors)
+      return;
+
+    ps.emplace_back(p.m_offset, p.m_numErrors + 1);
+
+    if (p.m_offset == m_size)
+      return;
+
+    ps.emplace_back(p.m_offset + 1, p.m_numErrors + 1);
+
+    size_t i;
+    if (FindRelevant(p, c, i))
+    {
+      ASSERT_GREATER(i, 0, (i));
+      ASSERT_LESS_OR_EQUAL(p.m_offset + i + 1, m_size, ());
+      ps.emplace_back(p.m_offset + i + 1, p.m_numErrors + i);
     }
   }
 
@@ -101,23 +78,26 @@ private:
 };
 }  // namespace
 
+// LevenshteinDFA ----------------------------------------------------------------------------------
+// static
+size_t const LevenshteinDFA::kStartingState = 0;
+size_t const LevenshteinDFA::kRejectingState = 1;
+
 // LevenshteinDFA::Position ------------------------------------------------------------------------
 LevenshteinDFA::Position::Position(size_t offset, uint8_t numErrors)
   : m_offset(offset), m_numErrors(numErrors)
 {
 }
 
-bool LevenshteinDFA::Position::SumsumedBy(Position const & rhs) const
+bool LevenshteinDFA::Position::SubsumedBy(Position const & rhs) const
 {
   if (m_numErrors <= rhs.m_numErrors)
     return false;
 
-  size_t const delta = m_numErrors - rhs.m_numErrors;
-  if (m_offset + delta < delta)
-    return true;
-  if (rhs.m_offset + delta < delta)
-    return true;
-  return m_offset + delta >= rhs.m_offset || m_offset <= rhs.m_offset + delta;
+  size_t const u = m_offset < rhs.m_offset ? rhs.m_offset - m_offset : m_offset - rhs.m_offset;
+  size_t const v = m_numErrors - rhs.m_numErrors;
+
+  return u <= v;
 }
 
 bool LevenshteinDFA::Position::operator<(Position const & rhs) const
@@ -141,6 +121,12 @@ LevenshteinDFA::State LevenshteinDFA::State::MakeStart()
   return state;
 }
 
+// static
+LevenshteinDFA::State LevenshteinDFA::State::MakeRejecting()
+{
+  return State();
+}
+
 void LevenshteinDFA::State::Normalize()
 {
   size_t j = m_positions.size();
@@ -149,7 +135,7 @@ void LevenshteinDFA::State::Normalize()
     auto const & cur = m_positions[i];
 
     auto it = find_if(m_positions.begin(), m_positions.begin() + j,
-                      [&](Position const & rhs) { return cur.SumsumedBy(rhs); });
+                      [&](Position const & rhs) { return cur.SubsumedBy(rhs); });
     if (it != m_positions.begin() + j)
     {
       ASSERT_GREATER(j, 0, ());
@@ -163,8 +149,9 @@ void LevenshteinDFA::State::Normalize()
 }
 
 // LevenshteinDFA ----------------------------------------------------------------------------------
+// static
 LevenshteinDFA::LevenshteinDFA(UniString const & s, uint8_t maxErrors)
-  : m_size(s.size()), m_maxErrors(maxErrors), m_rejecting(0)
+  : m_size(s.size()), m_maxErrors(maxErrors)
 {
   m_alphabet.assign(s.begin(), s.end());
   my::SortUnique(m_alphabet);
@@ -177,35 +164,36 @@ LevenshteinDFA::LevenshteinDFA(UniString const & s, uint8_t maxErrors)
   }
   m_alphabet.push_back(missed);
 
-  TransitionTable table(s, maxErrors);
-  queue<pair<State, size_t>> states;
-  states.emplace(State::MakeStart(), 0);
-
+  queue<State> states;
   map<State, size_t> visited;
-  visited[states.front().first] = states.front().second;
 
-  m_transitions.emplace_back(m_alphabet.size());
+  auto pushState = [&states, &visited, this](State const & state, size_t id)
+  {
+    ASSERT_EQUAL(id, m_transitions.size(), ());
+    ASSERT_EQUAL(visited.count(state), 0, (state, id));
+
+    states.emplace(state);
+    visited[state] = id;
+    m_transitions.emplace_back(m_alphabet.size());
+  };
+
+  pushState(State::MakeStart(), kStartingState);
+  pushState(State::MakeRejecting(), kRejectingState);
+
+  TransitionTable table(s, maxErrors);
 
   while (!states.empty())
   {
-    auto const p = states.front();
+    auto const curr = states.front();
     states.pop();
-
-    auto const & curr = p.first;
-    auto const id = p.second;
-
     ASSERT(IsValid(curr), (curr));
+
+    ASSERT_GREATER(visited.count(curr), 0, (curr));
+    auto const id = visited[curr];
+    ASSERT_LESS(id, m_transitions.size(), ());
 
     if (IsAccepting(curr))
       m_accepting.insert(id);
-    if (IsRejecting(curr))
-    {
-      ASSERT(m_rejecting == 0 || m_rejecting == id,
-             ("Rejecting state must be set once:", m_rejecting, id));
-      m_rejecting = id;
-    }
-
-    ASSERT_LESS(id, m_transitions.size(), ());
 
     for (size_t i = 0; i < m_alphabet.size(); ++i)
     {
@@ -213,15 +201,12 @@ LevenshteinDFA::LevenshteinDFA(UniString const & s, uint8_t maxErrors)
       table.Move(curr, m_alphabet[i], next);
 
       size_t nid;
+
       auto const it = visited.find(next);
       if (it == visited.end())
       {
         nid = visited.size();
-        visited[next] = nid;
-        m_transitions.emplace_back(m_alphabet.size());
-        states.emplace(next, nid);
-
-        ASSERT_EQUAL(visited.size(), m_transitions.size(), ());
+        pushState(next, nid);
       }
       else
       {
@@ -231,8 +216,6 @@ LevenshteinDFA::LevenshteinDFA(UniString const & s, uint8_t maxErrors)
       m_transitions[id][i] = nid;
     }
   }
-
-  ASSERT(m_rejecting != 0, ("Rejecting state is not set"));
 }
 
 LevenshteinDFA::LevenshteinDFA(string const & s, uint8_t maxErrors)
