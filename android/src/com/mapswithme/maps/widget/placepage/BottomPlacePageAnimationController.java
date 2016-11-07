@@ -326,7 +326,16 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
             hidePlacePage();
             break;
           case PREVIEW:
-            showPreview(currentState);
+            mPreview.addOnLayoutChangeListener(new View.OnLayoutChangeListener()
+            {
+              @Override
+              public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom)
+              {
+                mPreview.removeOnLayoutChangeListener(this);
+                showPreview(currentState);
+              }
+            });
+            mPreview.requestLayout();
             break;
           case DETAILS:
             showDetails();
