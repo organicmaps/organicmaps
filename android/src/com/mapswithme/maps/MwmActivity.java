@@ -894,7 +894,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void adjustZoomButtons()
   {
-    UiUtils.showIf(showZoomButtons(), mNavZoomIn, mNavZoomOut);
+    UiUtils.showIf(showZoomButtons() && !mIsFullscreen, mNavZoomIn, mNavZoomOut);
     // TODO animate zoom buttons & myposition
   }
 
@@ -1334,7 +1334,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       mNavigationController.show(true);
       mSearchController.hide();
-      mMainMenu.setState(MainMenu.State.NAVIGATION, false);
+      mMainMenu.setState(MainMenu.State.NAVIGATION, false, mIsFullscreen);
       return;
     }
 
@@ -1345,11 +1345,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
     else if (RoutingController.get().isPlanning())
     {
-      mMainMenu.setState(MainMenu.State.ROUTE_PREPARE, false);
+      mMainMenu.setState(MainMenu.State.ROUTE_PREPARE, false, mIsFullscreen);
       return;
     }
 
-    mMainMenu.setState(MainMenu.State.MENU, false);
+    mMainMenu.setState(MainMenu.State.MENU, false, mIsFullscreen);
   }
 
   private void adjustMenuLineFrameVisibility()

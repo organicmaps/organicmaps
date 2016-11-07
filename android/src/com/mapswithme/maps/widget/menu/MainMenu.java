@@ -222,7 +222,7 @@ public class MainMenu extends BaseMenu
     mapItem(Item.SETTINGS);
 
     adjustCollapsedItems();
-    setState(State.MENU, false);
+    setState(State.MENU, false, false);
   }
 
   public MainMenu(View frame, ItemClickListener<Item> itemClickListener)
@@ -250,7 +250,7 @@ public class MainMenu extends BaseMenu
     return R.dimen.menu_line_height;
   }
 
-  public void setState(State state, boolean animateToggle)
+  public void setState(State state, boolean animateToggle, boolean isFullScreen)
   {
     if (state != State.NAVIGATION)
     {
@@ -281,7 +281,7 @@ public class MainMenu extends BaseMenu
 
     if (mLayoutMeasured)
     {
-      show(state != State.NAVIGATION);
+      show(state != State.NAVIGATION && !isFullScreen);
       mContentFrame.measure(ViewGroup.LayoutParams.MATCH_PARENT,
                             ViewGroup.LayoutParams.WRAP_CONTENT);
       mContentHeight = mContentFrame.getMeasuredHeight();
