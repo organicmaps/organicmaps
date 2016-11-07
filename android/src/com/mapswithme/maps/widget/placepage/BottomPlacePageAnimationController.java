@@ -169,14 +169,11 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
           mIsDragging = true;
           if (!translateBy(-distanceY))
           {
-            if (mDetailsScroll.getTranslationY() == 0)
+            if ((isDetailContentScrollable() && mDetailsScroll.getTranslationY() == 0)
+                || (!isDetailContentScrollable() && mDetailsScroll.getTranslationY() <= mDetailsScroll.getHeight() - mDetailsContent.getHeight()))
             {
               mDetailsScroll.scrollBy((int) distanceX, (int) distanceY);
               mState = State.FULLSCREEN;
-            }
-            else
-            {
-              mPlacePage.setState(State.HIDDEN);
             }
           }
         }
