@@ -1,3 +1,4 @@
+#import "MWMSearch.h"
 #import "MWMSearchManager.h"
 #import "MWMSearchTabbedViewProtocol.h"
 #import "MWMSearchTextField.h"
@@ -8,7 +9,7 @@
 namespace search
 {
 class Result;
-}
+}  // search
 
 @protocol MWMSearchTableViewProtocol<MWMSearchTabbedViewProtocol>
 
@@ -20,9 +21,11 @@ class Result;
 
 @end
 
-@interface MWMSearchTableViewController : MWMViewController
+@interface MWMSearchTableViewController : MWMViewController<MWMSearchObserver>
 
 - (nonnull instancetype)init __attribute__((unavailable("init is not available")));
 - (nonnull instancetype)initWithDelegate:(nonnull id<MWMSearchTableViewProtocol>)delegate;
+
+- (void)reloadData;
 
 @end

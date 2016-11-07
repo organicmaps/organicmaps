@@ -1,3 +1,4 @@
+#import "MWMSearchFilterViewController.h"
 #import "MWMSearchObserver.h"
 
 #include "search/result.hpp"
@@ -13,6 +14,7 @@
 + (void)showResult:(search::Result const &)result;
 
 + (search::Result &)resultAtIndex:(NSUInteger)index;
++ (void)update;
 + (void)clear;
 
 + (BOOL)isSearchOnMap;
@@ -20,6 +22,12 @@
 
 + (NSUInteger)suggestionsCount;
 + (NSUInteger)resultsCount;
+
++ (BOOL)isHotelResults;
+
++ (BOOL)hasFilter;
++ (MWMSearchFilterViewController *)getFilter;
++ (void)clearFilter;
 
 - (instancetype)init __attribute__((unavailable("unavailable")));
 - (instancetype)copy __attribute__((unavailable("unavailable")));

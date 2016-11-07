@@ -2,10 +2,13 @@
 #import <Crashlytics/Crashlytics.h>
 #import "Common.h"
 #import "MWMLocationManager.h"
+#import "MWMSearchHotelsFilterViewController.h"
+#import "ToastView.h"
 
 #include "Framework.h"
 
 #include "search/everywhere_search_params.hpp"
+#include "search/hotels_classifier.hpp"
 #include "search/query_saver.hpp"
 #include "search/viewport_search_params.hpp"
 
@@ -21,12 +24,13 @@ using TObservers = NSHashTable<__kindof TObserver>;
 @property(nonatomic) BOOL searchOnMap;
 
 @property(nonatomic) BOOL textChanged;
-@property(nonatomic) BOOL everywhereSearchActive;
-@property(nonatomic) BOOL viewportSearchActive;
 
 @property(nonatomic) TObservers * observers;
 
 @property(nonatomic) NSTimeInterval lastSearchTimestamp;
+
+@property(nonatomic) BOOL isHotelResults;
+@property(nonatomic) MWMSearchFilterViewController * filter;
 
 @end
 
@@ -35,6 +39,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
   search::EverywhereSearchParams m_everywhereParams;
   search::ViewportSearchParams m_viewportParams;
   search::Results m_results;
+  string m_filterQuery;
 }
 
 #pragma mark - Instance
@@ -71,7 +76,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
         return;
       if (results.IsEndMarker())
       {
-        self.everywhereSearchActive = NO;
+        [self checkIsHotelResults:results];
         [self onSearchCompleted];
       }
       else
@@ -89,25 +94,42 @@ using TObservers = NSHashTable<__kindof TObserver>;
       if (!self)
         return;
       if (IPAD)
-      {
         GetFramework().SearchEverywhere(self->m_everywhereParams);
-        self.everywhereSearchActive = YES;
-      }
-      self.viewportSearchActive = YES;
       [self onSearchStarted];
     };
   }
   {
     __weak auto weakSelf = self;
     m_viewportParams.m_onCompleted = [weakSelf](search::Results const & results) {
-      // TODO (@igrechuhin): do something useful with |results|.
       __strong auto self = weakSelf;
       if (!self)
         return;
-      self.viewportSearchActive = NO;
+      if (results.IsEndedNormal())
+        [self checkIsHotelResults:results];
       [self onSearchCompleted];
     };
   }
+}
+
+- (void)checkIsHotelResults:(search::Results const &)results
+{
+  self.isHotelResults = search::HotelsClassifier::IsHotelResults(results);
+  m_filterQuery = m_everywhereParams.m_query;
+}
+
+- (void)updateFilters
+{
+  shared_ptr<search::hotels_filter::Rule> hotelsRules;
+
+  if (self.filter)
+  {
+    hotelsRules = [self.filter rules];
+    if (!hotelsRules)
+      self.filter = nil;
+  }
+
+  m_viewportParams.m_hotelsFilter = hotelsRules;
+  m_everywhereParams.m_hotelsFilter = hotelsRules;
 }
 
 - (void)update
@@ -116,25 +138,19 @@ using TObservers = NSHashTable<__kindof TObserver>;
   if (m_everywhereParams.m_query.empty())
     return;
   [self updateCallbacks];
+  [self updateFilters];
   auto & f = GetFramework();
   if (IPAD)
   {
     f.SearchEverywhere(m_everywhereParams);
     f.SearchInViewport(m_viewportParams);
-
-    self.everywhereSearchActive = YES;
   }
   else
   {
     if (self.searchOnMap)
-    {
       f.SearchInViewport(m_viewportParams);
-    }
     else
-    {
       f.SearchEverywhere(m_everywhereParams);
-      self.everywhereSearchActive = YES;
-    }
   }
   [self onSearchStarted];
 }
@@ -185,31 +201,62 @@ using TObservers = NSHashTable<__kindof TObserver>;
 }
 
 + (void)showResult:(search::Result const &)result { GetFramework().ShowSearchResult(result); }
+
 + (search::Result &)resultAtIndex:(NSUInteger)index
 {
   return [MWMSearch manager]->m_results.GetResult(index);
 }
+
++ (void)update { [[MWMSearch manager] update]; }
 
 + (void)clear
 {
   GetFramework().CancelAllSearches();
   MWMSearch * manager = [MWMSearch manager];
   manager->m_results.Clear();
+  if (manager->m_filterQuery != manager->m_everywhereParams.m_query)
+    manager.isHotelResults = NO;
   manager.suggestionsCount = 0;
   [manager onSearchResultsUpdated];
 }
 
 + (BOOL)isSearchOnMap { return [MWMSearch manager].searchOnMap; }
+
 + (void)setSearchOnMap:(BOOL)searchOnMap
 {
   MWMSearch * manager = [MWMSearch manager];
+  if (manager.searchOnMap == searchOnMap)
+    return;
   manager.searchOnMap = searchOnMap;
   if (!IPAD)
     [manager update];
 }
 
 + (NSUInteger)suggestionsCount { return [MWMSearch manager].suggestionsCount; }
+
 + (NSUInteger)resultsCount { return [MWMSearch manager]->m_results.GetCount(); }
+
++ (BOOL)isHotelResults { return [MWMSearch manager].isHotelResults; }
+
+#pragma mark - Filters
+
++ (BOOL)hasFilter { return [[MWMSearch manager].filter rules] != nullptr; }
+
++ (MWMSearchFilterViewController *)getFilter
+{
+  MWMSearch * manager = [MWMSearch manager];
+  if (!manager.filter && manager.isHotelResults)
+    manager.filter = [MWMSearchHotelsFilterViewController controller];
+  return manager.filter;
+}
+
++ (void)clearFilter
+{
+  MWMSearch * manager = [MWMSearch manager];
+  manager.filter = nil;
+  [manager update];
+}
+
 #pragma mark - Notifications
 
 - (void)onSearchStarted
@@ -223,9 +270,8 @@ using TObservers = NSHashTable<__kindof TObserver>;
 
 - (void)onSearchCompleted
 {
-  if (self.everywhereSearchActive || self.viewportSearchActive)
-    return;
-
+  if (self.searchOnMap && m_results.GetCount() == 0)
+    [[[ToastView alloc] initWithMessage:L(@"search_not_found_query")] show];
   for (TObserver observer in self.observers)
   {
     if ([observer respondsToSelector:@selector(onSearchCompleted)])

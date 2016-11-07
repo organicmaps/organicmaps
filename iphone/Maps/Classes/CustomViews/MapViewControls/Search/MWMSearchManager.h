@@ -1,7 +1,6 @@
 #import "MWMAlertViewController.h"
 #import "MWMMapDownloaderTypes.h"
 #import "MWMSearchTextField.h"
-#import "MWMSearchView.h"
 
 typedef NS_ENUM(NSUInteger, MWMSearchManagerState)
 {
@@ -17,10 +16,7 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerState)
 
 @property (nonatomic) MWMSearchManagerState state;
 
-@property (nonnull, nonatomic, readonly) UIView * view;
-
-- (nullable instancetype)init __attribute__((unavailable("init is not available")));
-- (nullable instancetype)initWithParentView:(nonnull UIView *)view;
+@property(nonatomic) IBOutletCollection(UIView) NSArray * topViews;
 
 - (void)mwm_refreshUI;
 
@@ -28,8 +24,6 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerState)
 
 #pragma mark - Layout
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-                                duration:(NSTimeInterval)duration;
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator;
 

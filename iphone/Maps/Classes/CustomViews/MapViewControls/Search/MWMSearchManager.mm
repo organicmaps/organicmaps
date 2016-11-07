@@ -1,4 +1,5 @@
 #import "MWMSearchManager.h"
+#import "Common.h"
 #import "MWMConsole.h"
 #import "MWMFrameworkListener.h"
 #import "MWMLocationManager.h"
@@ -6,11 +7,18 @@
 #import "MWMNoMapsViewController.h"
 #import "MWMRouter.h"
 #import "MWMSearch.h"
+#import "MWMSearchChangeModeView.h"
+#import "MWMSearchFilterTransitioningDelegate.h"
+#import "MWMSearchManager+Filter.h"
+#import "MWMSearchManager+Layout.h"
 #import "MWMSearchTabButtonsView.h"
 #import "MWMSearchTabbedViewController.h"
 #import "MWMSearchTableViewController.h"
+#import "MapViewController.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
+#import "UIColor+MapsMeColor.h"
+#import "UIFont+MapsMeFonts.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
@@ -24,13 +32,37 @@ extern NSString * const kAlohalyticsTapEventKey;
 extern NSString * const kSearchStateWillChangeNotification = @"SearchStateWillChangeNotification";
 extern NSString * const kSearchStateKey = @"SearchStateKey";
 
+namespace
+{
+typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
+  MWMSearchManagerActionBarStateHidden,
+  MWMSearchManagerActionBarStateTabBar,
+  MWMSearchManagerActionBarStateModeFilter
+};
+}  // namespace
+
 @interface MWMSearchManager ()<MWMSearchTableViewProtocol, MWMSearchTabbedViewProtocol,
                                MWMSearchTabButtonsViewProtocol, UITextFieldDelegate,
-                               MWMFrameworkStorageObserver>
+                               MWMFrameworkStorageObserver, MWMSearchObserver>
 
-@property(weak, nonatomic) UIView * parentView;
-@property(nonatomic) IBOutlet MWMSearchView * rootView;
-@property(weak, nonatomic) IBOutlet UIView * contentView;
+@property(weak, nonatomic, readonly) UIViewController * ownerController;
+
+@property(nonatomic) IBOutlet UIView * searchBarView;
+
+@property(nonatomic) IBOutlet UIView * actionBarView;
+
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * actionBarViewHeight;
+@property(nonatomic) MWMSearchManagerActionBarState actionBarState;
+@property(weak, nonatomic) IBOutlet UIButton * actionBarViewFilterButton;
+@property(nonatomic) IBOutlet UIView * tabBarView;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * tabBarViewHeight;
+@property(nonatomic) IBOutlet MWMSearchChangeModeView * changeModeView;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * changeModeViewHeight;
+@property(weak, nonatomic) IBOutlet UIButton * filterButton;
+
+@property(nonatomic) IBOutlet UIView * contentView;
+
+@property(nonatomic) NSLayoutConstraint * actionBarViewBottom;
 
 @property(nonatomic) IBOutletCollection(MWMSearchTabButtonsView) NSArray * tabButtons;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * scrollIndicatorOffset;
@@ -41,34 +73,40 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 @property(nonatomic) MWMSearchTableViewController * tableViewController;
 @property(nonatomic) MWMNoMapsViewController * noMapsController;
 
+@property(nonatomic) MWMSearchFilterTransitioningDelegate * filterTransitioningDelegate;
+
 @end
 
 @implementation MWMSearchManager
 
-- (nullable instancetype)initWithParentView:(nonnull UIView *)view
+- (nullable instancetype)init
 {
   self = [super init];
   if (self)
   {
     [NSBundle.mainBundle loadNibNamed:@"MWMSearchView" owner:self options:nil];
-    self.parentView = view;
     self.state = MWMSearchManagerStateHidden;
+    [MWMSearch addObserver:self];
   }
   return self;
 }
 
 - (void)mwm_refreshUI
 {
-  [self.rootView mwm_refreshUI];
-  if (self.state == MWMSearchManagerStateHidden)
-    return;
+  [self.searchBarView mwm_refreshUI];
+  [self.actionBarView mwm_refreshUI];
+  [self.contentView mwm_refreshUI];
+  [self.tabBarView mwm_refreshUI];
   [self.tabbedController mwm_refreshUI];
   [self.tableViewController mwm_refreshUI];
+  [self.noMapsController mwm_refreshUI];
+  if ([MWMSearch hasFilter])
+    [[MWMSearch getFilter] mwm_refreshUI];
 }
 
 - (void)beginSearch
 {
-  if (self.state == MWMSearchManagerStateDefault)
+  if (self.state != MWMSearchManagerStateHidden)
     self.state = MWMSearchManagerStateTableSearch;
 }
 
@@ -77,26 +115,22 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
   if (self.state != MWMSearchManagerStateHidden)
     self.state = MWMSearchManagerStateDefault;
   self.searchTextField.text = @"";
+  [self clearFilter];
   [MWMSearch clear];
 }
 
 #pragma mark - Actions
 
-- (IBAction)textFieldDidBeginEditing:(UITextField *)textField
-{
-  if (self.state == MWMSearchManagerStateMapSearch)
-    self.state = MWMSearchManagerStateTableSearch;
-}
-
 - (IBAction)textFieldDidEndEditing:(UITextField *)textField
 {
-  if (textField.text.length == 0 && self.state != MWMSearchManagerStateHidden)
+  if (textField.text.length == 0)
     [self endSearch];
 }
 
 - (IBAction)textFieldTextDidChange:(UITextField *)textField
 {
   NSString * text = textField.text;
+  [self clearFilter];
   if (text.length > 0)
   {
     if ([MWMConsole performCommand:text])
@@ -134,13 +168,6 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 
 #pragma mark - Layout
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-                                duration:(NSTimeInterval)duration
-{
-  [self.navigationController willRotateToInterfaceOrientation:toInterfaceOrientation
-                                                     duration:duration];
-}
-
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
@@ -149,11 +176,15 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 
 #pragma mark - UITextFieldDelegate
 
-- (BOOL)textFieldShouldReturn:(nonnull UITextField *)textField
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+  BOOL const isEmpty = (textField.text.length == 0);
+  self.state = isEmpty ? MWMSearchManagerStateDefault : MWMSearchManagerStateTableSearch;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
   [textField resignFirstResponder];
-  if (textField.text.length != 0)
-    self.state = MWMSearchManagerStateMapSearch;
   return YES;
 }
 
@@ -231,8 +262,6 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 - (void)updateTopController
 {
   UIViewController * selfTopVC = self.topController;
-  self.rootView.tabBarIsVisible =
-      self.state == MWMSearchManagerStateDefault && [selfTopVC isEqual:self.tabbedController];
   if ([selfTopVC isEqual:self.navigationController.topViewController])
     return;
   NSMutableArray * viewControllers = [self.navigationController.viewControllers mutableCopy];
@@ -244,48 +273,102 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 {
   [self endSearch];
   [self.tabbedController resetSelectedTab];
-  self.tableViewController = nil;
-  self.noMapsController = nil;
-  self.rootView.isVisible = NO;
+
+  [self viewHidden:YES];
 }
 
 - (void)changeToDefaultState
 {
-  self.view.alpha = 1.;
   [self updateTopController];
   [self.navigationController popToRootViewControllerAnimated:NO];
-  [self.parentView addSubview:self.rootView];
-  self.rootView.compact = NO;
-  self.rootView.isVisible = YES;
+
+  self.actionBarState = MWMSearchManagerActionBarStateTabBar;
+  [self animateConstraints:^{
+    self.actionBarViewBottom.priority = UILayoutPriorityDefaultLow;
+  }];
+  [self viewHidden:NO];
+
   if (self.topController != self.noMapsController)
     [self.searchTextField becomeFirstResponder];
 }
 
 - (void)changeToTableSearchState
 {
-  [self changeToDefaultState];
-  self.rootView.compact = NO;
-  self.rootView.tabBarIsVisible = NO;
+  [self updateTopController];
+  [self.navigationController popToRootViewControllerAnimated:NO];
+
+  self.actionBarState = MWMSearchManagerActionBarStateHidden;
+  [self animateConstraints:^{
+    self.actionBarViewBottom.priority = UILayoutPriorityDefaultLow;
+  }];
+  [self viewHidden:NO];
   [MWMSearch setSearchOnMap:NO];
+  [self.tableViewController reloadData];
+
   if (![self.navigationController.viewControllers containsObject:self.tableViewController])
     [self.navigationController pushViewController:self.tableViewController animated:NO];
 }
 
 - (void)changeToMapSearchState
 {
-  [self changeToDefaultState];
+  [self updateTopController];
+  [self.navigationController popToRootViewControllerAnimated:NO];
+
+  self.actionBarState = MWMSearchManagerActionBarStateModeFilter;
+  [self animateConstraints:^{
+    self.actionBarViewBottom.priority = UILayoutPriorityDefaultHigh;
+  }];
+  [self viewHidden:NO];
+  [MWMSearch setSearchOnMap:YES];
+  [self.tableViewController reloadData];
+
   GetFramework().DeactivateMapSelection(true);
   [self.searchTextField resignFirstResponder];
-  self.rootView.compact = YES;
-  [MWMSearch setSearchOnMap:YES];
 
   if ([MWMNavigationDashboardManager manager].state == MWMNavigationDashboardStateNavigation)
   {
     self.searchTextField.text = @"";
     [self.tabbedController resetSelectedTab];
-    self.tableViewController = nil;
-    self.noMapsController = nil;
-    self.rootView.isVisible = NO;
+  }
+}
+
+- (void)animateConstraints:(TMWMVoidBlock)block
+{
+  UIView * parentView = self.ownerController.view;
+  [parentView layoutIfNeeded];
+  block();
+  [UIView animateWithDuration:kDefaultAnimationDuration
+                   animations:^{
+                     [parentView layoutIfNeeded];
+                   }];
+}
+
+#pragma mark - MWMSearchObserver
+
+- (void)onSearchCompleted
+{
+  if (self.state != MWMSearchManagerStateTableSearch)
+    return;
+  [self animateConstraints:^{
+    BOOL hideActionBar = false;
+    if (IPAD)
+      hideActionBar = !([MWMSearch isHotelResults] || [MWMSearch hasFilter]);
+    else
+      hideActionBar = ([MWMSearch suggestionsCount] != 0);
+    self.actionBarState = hideActionBar ? MWMSearchManagerActionBarStateHidden
+                                        : MWMSearchManagerActionBarStateModeFilter;
+  }];
+}
+
+#pragma mark - Filters
+
+- (IBAction)changeMode
+{
+  switch (self.state)
+  {
+  case MWMSearchManagerStateTableSearch: self.state = MWMSearchManagerStateMapSearch; break;
+  case MWMSearchManagerStateMapSearch: self.state = MWMSearchManagerStateTableSearch;
+  default: break;
   }
 }
 
@@ -305,31 +388,23 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 
 - (UIViewController *)topController
 {
-  if (self.state == MWMSearchManagerStateHidden ||
-      GetFramework().GetStorage().HaveDownloadedCountries())
+  [MWMFrameworkListener removeObserver:self];
+  [MWMSearch removeObserver:self.tableViewController];
+  self.noMapsController = nil;
+  switch (self.state)
   {
-    return self.tabbedController;
-  }
-  else
-  {
-    if (!self.noMapsController)
-    {
-      UIStoryboard * storyboard =
-          [UIStoryboard storyboardWithName:@"Mapsme" bundle:[NSBundle mainBundle]];
-      self.noMapsController =
-          [storyboard instantiateViewControllerWithIdentifier:@"MWMNoMapsViewController"];
-    }
-    return self.noMapsController;
-  }
-}
-
-- (void)setNoMapsController:(MWMNoMapsViewController *)noMapsController
-{
-  _noMapsController = noMapsController;
-  if (noMapsController)
+  case MWMSearchManagerStateHidden: return self.tabbedController;
+  case MWMSearchManagerStateDefault:
+    if (GetFramework().GetStorage().HaveDownloadedCountries())
+      return self.tabbedController;
+    self.noMapsController = [MWMNoMapsViewController controller];
     [MWMFrameworkListener addObserver:self];
-  else
-    [MWMFrameworkListener removeObserver:self];
+    return self.noMapsController;
+  case MWMSearchManagerStateTableSearch:
+    [MWMSearch addObserver:self.tableViewController];
+    return self.tableViewController;
+  case MWMSearchManagerStateMapSearch: return self.tableViewController;
+  }
 }
 
 - (MWMSearchTabbedViewController *)tabbedController
@@ -399,5 +474,79 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
   [[MWMMapViewControlsManager manager] searchViewDidEnterState:state];
 }
 
-- (UIView *)view { return self.rootView; }
+- (void)viewHidden:(BOOL)hidden
+{
+  UIView * searchBarView = self.searchBarView;
+  UIView * actionBarView = self.actionBarView;
+  UIView * contentView = self.contentView;
+  UIView * parentView = self.ownerController.view;
+
+  if (hidden)
+  {
+    [[MWMMapViewControlsManager manager] searchFrameUpdated:{}];
+  }
+  else
+  {
+    if (searchBarView.superview == parentView)
+      return;
+    [parentView addSubview:searchBarView];
+    [parentView addSubview:actionBarView];
+    [parentView addSubview:contentView];
+    [self layoutTopViews];
+    [[MWMMapViewControlsManager manager] searchFrameUpdated:self.searchBarView.frame];
+  }
+  [UIView animateWithDuration:kDefaultAnimationDuration
+      animations:^{
+        CGFloat const alpha = hidden ? 0 : 1;
+        searchBarView.alpha = alpha;
+        actionBarView.alpha = alpha;
+        contentView.alpha = alpha;
+      }
+      completion:^(BOOL finished) {
+        if (!hidden)
+          return;
+        [searchBarView removeFromSuperview];
+        [actionBarView removeFromSuperview];
+        [contentView removeFromSuperview];
+      }];
+}
+
+- (void)setChangeModeView:(MWMSearchChangeModeView *)changeModeView
+{
+  _changeModeView = changeModeView;
+  [changeModeView updateForState:self.state];
+}
+
+- (void)setActionBarState:(MWMSearchManagerActionBarState)actionBarState
+{
+  if (_actionBarState == actionBarState)
+    return;
+  _actionBarState = actionBarState;
+  switch (actionBarState)
+  {
+  case MWMSearchManagerActionBarStateHidden:
+    self.tabBarView.hidden = YES;
+    self.changeModeView.hidden = YES;
+    self.actionBarViewHeight.priority = UILayoutPriorityDefaultHigh;
+    self.tabBarViewHeight.priority = UILayoutPriorityDefaultLow;
+    self.changeModeViewHeight.priority = UILayoutPriorityDefaultLow;
+    break;
+  case MWMSearchManagerActionBarStateTabBar:
+    self.tabBarView.hidden = NO;
+    self.changeModeView.hidden = YES;
+    self.actionBarViewHeight.priority = UILayoutPriorityDefaultLow;
+    self.tabBarViewHeight.priority = UILayoutPriorityDefaultHigh;
+    self.changeModeViewHeight.priority = UILayoutPriorityDefaultLow;
+    break;
+  case MWMSearchManagerActionBarStateModeFilter:
+    self.tabBarView.hidden = YES;
+    self.changeModeView.hidden = NO;
+    self.actionBarViewHeight.priority = UILayoutPriorityDefaultLow;
+    self.tabBarViewHeight.priority = UILayoutPriorityDefaultLow;
+    self.changeModeViewHeight.priority = UILayoutPriorityDefaultHigh;
+    break;
+  }
+}
+
+- (UIViewController *)ownerController { return [MapViewController controller]; }
 @end
