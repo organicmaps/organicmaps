@@ -360,7 +360,7 @@ public final class UiUtils
     return viewRect.contains(x, y);
   }
 
-  private static int getStatusBarHeight(Context context)
+  private static int getStatusBarHeight(@NonNull Context context)
   {
     int result = 0;
     Resources res = context.getResources();
@@ -371,7 +371,7 @@ public final class UiUtils
     return result;
   }
 
-  public static void extendViewWithStatusBar(View view)
+  public static void extendViewWithStatusBar(@NonNull View view)
   {
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
       return;
@@ -383,7 +383,7 @@ public final class UiUtils
     extendViewPaddingTop(view, statusBarHeight);
   }
 
-  public static void extendViewPaddingWithStatusBar(View view)
+  public static void extendViewPaddingWithStatusBar(@NonNull View view)
   {
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
       return;
@@ -392,13 +392,13 @@ public final class UiUtils
     extendViewPaddingTop(view, statusBarHeight);
   }
 
-  private static void extendViewPaddingTop(View view, int statusBarHeight)
+  private static void extendViewPaddingTop(@NonNull View view, int statusBarHeight)
   {
     view.setPadding(view.getPaddingLeft(), view.getPaddingTop() + statusBarHeight,
                     view.getPaddingRight(), view.getPaddingBottom());
   }
 
-  public static void extendViewMarginWithStatusBar(View view)
+  public static void extendViewMarginWithStatusBar(@NonNull View view)
   {
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
       return;
