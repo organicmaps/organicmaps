@@ -103,7 +103,7 @@ UNIT_CLASS_TEST(LocalityFinderTest, Smoke)
   input.emplace_back(53.883931, 27.69341);     // Parking Minsk (near MKAD)
   input.emplace_back(53.917306, 27.707875);    // Lipki airport (Minsk)
   input.emplace_back(42.285901, 18.834407);    // Budva (Montenegro)
-  input.emplace_back(41.903479, 12.452854);    // Vaticano (Rome)
+  input.emplace_back(43.9363996, 12.4466991);  // City of San Marino
   input.emplace_back(47.3345002, 8.531262);    // Zurich
 
   char const * results3[] =
@@ -114,7 +114,7 @@ UNIT_CLASS_TEST(LocalityFinderTest, Smoke)
     "Minsk",
     "Minsk",
     "Budva",
-    "Vatican City",
+    "City of San Marino",
     "Zurich"
   };
 
