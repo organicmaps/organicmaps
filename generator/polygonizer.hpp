@@ -166,11 +166,10 @@ namespace feature
       m_currentNames += country->m_name;
 
       auto & bucket = *(m_Buckets[country->m_index]);
-      uint32_t const nextFeatureId = bucket(fb);
+      uint32_t const featureId = bucket(fb);
 
-      CHECK_LESS(0, nextFeatureId, ("GetNextFeatureId() is called before WriteFeatureBase(...)"));
       if (fb.IsLine())
-        featureId2osmIds.Write(nextFeatureId - 1 /* feature id of |fb| */, fb.GetOsmIds());
+        featureId2osmIds.Write(featureId /* feature id of |fb| */, fb.GetOsmIds());
     }
 
     vector<string> const & Names() const

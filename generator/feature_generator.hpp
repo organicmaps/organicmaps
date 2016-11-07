@@ -22,7 +22,6 @@ protected:
   FileWriter m_datFile;
   m2::RectD m_bounds;
 
-  uint32_t GetNextFeatureId() const { return m_featureID; }
 private:
   void Write(char const * src, size_t size);
   void FlushBuffer();
@@ -41,7 +40,10 @@ public:
 
   string const & GetFilePath() const { return m_datFile.GetName(); }
   /// \brief Serializes |f|.
-  /// \returns feature id of serialized feature.
+  /// \returns feature id of serialized feature if |f| is serialized after the call
+  /// and numeric_limits<uint32_t>::max() if not.
+  /// \note See implementation operator() in derived class for cases when |f| cannot be
+  /// serialized.
   virtual uint32_t operator()(FeatureBuilder1 const & f);
 };
 

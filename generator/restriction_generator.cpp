@@ -63,7 +63,7 @@ bool BuildRoadRestrictions(string const & mwmPath, string const & restrictionPat
   RoutingHeader header;
   header.m_noRestrictionCount = distance(restrictions.cbegin(), firstOnlyIt);
   header.m_onlyRestrictionCount = restrictions.size() - header.m_noRestrictionCount;
-  LOG(LINFO, ("Header info. There are", header.m_noRestrictionCount, "and",
+  LOG(LINFO, ("Header info. There are", header.m_noRestrictionCount, "no restrictions and",
               header.m_onlyRestrictionCount, "only restrictions"));
 
   FilesContainerW cont(mwmPath, FileWriter::OP_WRITE_EXISTING);
