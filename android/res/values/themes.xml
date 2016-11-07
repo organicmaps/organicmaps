@@ -79,6 +79,7 @@
     <item name="android:colorBackgroundCacheHint">@null</item>
     <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
     <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
+    <item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/transparent</item>
   </style>
 
   <style name="MwmTheme.DialogFragment.Fullscreen.Night" parent="Theme.AppCompat">
@@ -93,6 +94,7 @@
     <item name="android:colorBackgroundCacheHint">@null</item>
     <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
     <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
+    <item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/transparent</item>
   </style>
 
   <style name="MwmTheme.DialogFragment.Fullscreen.Translucent">
