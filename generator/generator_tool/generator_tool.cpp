@@ -86,7 +86,7 @@ DEFINE_string(srtm_path, "",
 DEFINE_string(restriction_name, "", "Name of file with relation restriction in osm id term.");
 DEFINE_string(feature_id_to_osm_ids_name, "",
               "Name of to file with mapping from feature id to osm ids.");
-DEFINE_bool(generate_outgoing_edge_index, false, "Generates section with outgoing edges");
+DEFINE_bool(generate_routing, false, "Generates section with routing information");
 
 int main(int argc, char ** argv)
 {
@@ -151,7 +151,7 @@ int main(int argc, char ** argv)
       FLAGS_generate_index || FLAGS_generate_search_index || FLAGS_calc_statistics ||
       FLAGS_type_statistics || FLAGS_dump_types || FLAGS_dump_prefixes ||
       FLAGS_dump_feature_names != "" || FLAGS_check_mwm || FLAGS_srtm_path != "" ||
-      FLAGS_generate_outgoing_edge_index)
+      FLAGS_generate_routing)
   {
     classificator::Load();
     classif().SortClassificator();
@@ -239,7 +239,7 @@ int main(int argc, char ** argv)
     if (!FLAGS_srtm_path.empty())
       routing::BuildRoadAltitudes(datFile, FLAGS_srtm_path);
 
-    if (FLAGS_generate_outgoing_edge_index)
+    if (FLAGS_generate_routing)
     {
       routing::BuildRoadRestrictions(
           datFile, genInfo.GetIntermediateFileName(genInfo.m_restrictions, ""),
