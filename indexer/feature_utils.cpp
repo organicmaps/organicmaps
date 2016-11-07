@@ -102,6 +102,12 @@ class FeatureEstimator
     return false;
   }
 
+  static bool InSubtree(uint32_t t, uint32_t const orig)
+  {
+    ftype::TruncValue(t, ftype::GetLevel(orig));
+    return t == orig;
+  }
+
 public:
 
   FeatureEstimator()
@@ -114,7 +120,6 @@ public:
     m_TypeCounty[1]   = GetType("place", "county");
 
     m_TypeCity        = GetType("place", "city");
-    m_TypeCityCapital = GetType("place", "city", "capital");
     m_TypeTown        = GetType("place", "town");
 
     m_TypeVillage[0]  = GetType("place", "village");
@@ -171,7 +176,7 @@ private:
     if (IsEqual(type, m_TypeCounty))
       return 7;
 
-    if (type == m_TypeCity || type == m_TypeCityCapital)
+    if (InSubtree(type, m_TypeCity))
       return 9;
 
     if (type == m_TypeTown)
@@ -202,7 +207,6 @@ private:
   uint32_t m_TypeState;
   uint32_t m_TypeCounty[2];
   uint32_t m_TypeCity;
-  uint32_t m_TypeCityCapital;
   uint32_t m_TypeTown;
   uint32_t m_TypeVillage[2];
   uint32_t m_TypeSmallVillage[3];
