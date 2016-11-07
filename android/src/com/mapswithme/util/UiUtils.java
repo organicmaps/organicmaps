@@ -421,10 +421,15 @@ public final class UiUtils
       return;
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+    {
       activity.getWindow().getDecorView().setSystemUiVisibility(
           View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+    }
     else
+    {
       activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+    }
+
     View statusBarTintView = new View(activity);
     FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, getStatusBarHeight(activity));
     params.gravity = Gravity.TOP;
