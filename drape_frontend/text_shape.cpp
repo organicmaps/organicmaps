@@ -28,10 +28,11 @@ public:
   StraightTextHandle(FeatureID const & id, strings::UniString const & text,
                      dp::Anchor anchor, glsl::vec2 const & pivot,
                      glsl::vec2 const & pxSize, glsl::vec2 const & offset,
-                     uint64_t priority, ref_ptr<dp::TextureManager> textureManager,
+                     uint64_t priority, int fixedHeight,
+                     ref_ptr<dp::TextureManager> textureManager,
                      bool isOptional, bool affectedByZoomPriority,
                      gpu::TTextDynamicVertexBuffer && normals, bool isBillboard = false)
-    : TextHandle(id, text, anchor, priority, textureManager, move(normals), isBillboard)
+    : TextHandle(id, text, anchor, priority, fixedHeight, textureManager, move(normals), isBillboard)
     , m_pivot(glsl::ToPoint(pivot))
     , m_offset(glsl::ToPoint(offset))
     , m_size(glsl::ToPoint(pxSize))
@@ -138,13 +139,15 @@ void TextShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
 {
   ASSERT(!m_params.m_primaryText.empty(), ());
   StraightTextLayout primaryLayout(strings::MakeUniString(m_params.m_primaryText),
-                                   m_params.m_primaryTextFont.m_size, textures, m_params.m_anchor);
+                                   m_params.m_primaryTextFont.m_size, m_params.m_primaryTextFont.m_isSdf,
+                                   textures, m_params.m_anchor);
   glsl::vec2 primaryOffset = glsl::ToVec2(m_params.m_primaryOffset);
 
   if (!m_params.m_secondaryText.empty())
   {
     StraightTextLayout secondaryLayout(strings::MakeUniString(m_params.m_secondaryText),
-                                       m_params.m_secondaryTextFont.m_size, textures, m_params.m_anchor);
+                                       m_params.m_secondaryTextFont.m_size, m_params.m_secondaryTextFont.m_isSdf,
+                                       textures, m_params.m_anchor);
 
     glsl::vec2 secondaryOffset = primaryOffset;
 
@@ -201,11 +204,13 @@ void TextShape::DrawSubStringPlain(StraightTextLayout const & layout, dp::FontDe
   layout.Cache(glsl::vec4(pt, m_params.m_depth, -m_params.m_posZ),
                baseOffset, color, staticBuffer, dynamicBuffer);
 
-  dp::GLState state(gpu::TEXT_PROGRAM, dp::GLState::OverlayLayer);
-  state.SetProgram3dIndex(gpu::TEXT_BILLBOARD_PROGRAM);
+  dp::GLState state(layout.GetFixedHeight() > 0 ? gpu::TEXT_FIXED_PROGRAM : gpu::TEXT_PROGRAM, dp::GLState::OverlayLayer);
+  state.SetProgram3dIndex(layout.GetFixedHeight() > 0 ? gpu::TEXT_FIXED_BILLBOARD_PROGRAM : gpu::TEXT_BILLBOARD_PROGRAM);
+
   ASSERT(color.GetTexture() == outline.GetTexture(), ());
   state.SetColorTexture(color.GetTexture());
   state.SetMaskTexture(layout.GetMaskTexture());
+  state.SetTextureFilter(gl_const::GLNearest);
 
   gpu::TTextDynamicVertexBuffer initialDynBuffer(dynamicBuffer.size());
 
@@ -218,6 +223,7 @@ void TextShape::DrawSubStringPlain(StraightTextLayout const & layout, dp::FontDe
                                                                            glsl::vec2(pixelSize.x, pixelSize.y),
                                                                            baseOffset,
                                                                            GetOverlayPriority(),
+                                                                           layout.GetFixedHeight(),
                                                                            textures,
                                                                            isOptional,
                                                                            m_affectedByZoomPriority,
@@ -266,6 +272,7 @@ void TextShape::DrawSubStringOutlined(StraightTextLayout const & layout, dp::Fon
                                                                            glsl::vec2(pixelSize.x, pixelSize.y),
                                                                            baseOffset,
                                                                            GetOverlayPriority(),
+                                                                           layout.GetFixedHeight(),
                                                                            textures,
                                                                            isOptional,
                                                                            m_affectedByZoomPriority,

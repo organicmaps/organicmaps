@@ -33,10 +33,10 @@ public:
                  df::SharedTextLayout const & layout,
                  float mercatorOffset, float depth,
                  uint32_t textIndex, uint64_t priority,
-                 uint64_t priorityFollowingMode,
+                 uint64_t priorityFollowingMode, int fixedHeight,
                  ref_ptr<dp::TextureManager> textureManager,
                  bool isBillboard)
-    : TextHandle(id, layout->GetText(), dp::Center, priority, textureManager, isBillboard)
+    : TextHandle(id, layout->GetText(), dp::Center, priority, fixedHeight, textureManager, isBillboard)
     , m_spline(spl)
     , m_layout(layout)
     , m_textIndex(textIndex)
@@ -250,8 +250,8 @@ void PathTextShape::DrawPathTextPlain(ref_ptr<dp::TextureManager> textures,
   dp::TextureManager::ColorRegion color;
   textures->GetColorRegion(m_params.m_textFont.m_color, color);
 
-  dp::GLState state(gpu::TEXT_PROGRAM, dp::GLState::OverlayLayer);
-  state.SetProgram3dIndex(gpu::TEXT_BILLBOARD_PROGRAM);
+  dp::GLState state(layout->GetFixedHeight() > 0 ? gpu::TEXT_FIXED_PROGRAM : gpu::TEXT_PROGRAM, dp::GLState::OverlayLayer);
+  state.SetProgram3dIndex(layout->GetFixedHeight() > 0 ? gpu::TEXT_FIXED_BILLBOARD_PROGRAM : gpu::TEXT_BILLBOARD_PROGRAM);
   state.SetColorTexture(color.GetTexture());
   state.SetMaskTexture(layout->GetMaskTexture());
 
@@ -276,6 +276,7 @@ void PathTextShape::DrawPathTextPlain(ref_ptr<dp::TextureManager> textures,
                                                                          m_params.m_depth, textIndex,
                                                                          GetOverlayPriority(textIndex, false /* followingMode */),
                                                                          GetOverlayPriority(textIndex, true /* followingMode */),
+                                                                         layoutPtr->GetFixedHeight(),
                                                                          textures, true);
     batcher->InsertListOfStrip(state, make_ref(&provider), move(handle), 4);
   }
@@ -317,6 +318,7 @@ void PathTextShape::DrawPathTextOutlined(ref_ptr<dp::TextureManager> textures,
                                                                          m_params.m_depth, textIndex,
                                                                          GetOverlayPriority(textIndex, false /* followingMode */),
                                                                          GetOverlayPriority(textIndex, true /* followingMode */),
+                                                                         layoutPtr->GetFixedHeight(),
                                                                          textures, true);
     batcher->InsertListOfStrip(state, make_ref(&provider), move(handle), 4);
   }
@@ -325,7 +327,7 @@ void PathTextShape::DrawPathTextOutlined(ref_ptr<dp::TextureManager> textures,
 void PathTextShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
 {
   auto layout = make_unique<PathTextLayout>(m_params.m_tileCenter, strings::MakeUniString(m_params.m_text),
-                                            m_params.m_textFont.m_size, textures);
+                                            m_params.m_textFont.m_size,  m_params.m_textFont.m_isSdf, textures);
 
   uint32_t glyphCount = layout->GetGlyphCount();
   if (glyphCount == 0)

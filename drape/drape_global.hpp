@@ -63,16 +63,18 @@ enum LineJoin
 struct FontDecl
 {
   FontDecl() = default;
-  FontDecl(Color const & color, float size, Color const & outlineColor = Color::Transparent())
+  FontDecl(Color const & color, float size, bool isSdf = true, Color const & outlineColor = Color::Transparent())
     : m_color(color)
     , m_outlineColor(outlineColor)
     , m_size(size)
+    , m_isSdf(isSdf)
   {
   }
 
   Color m_color = Color::Transparent();
   Color m_outlineColor = Color::Transparent();
   float m_size = 0;
+  bool m_isSdf = true;
 };
 
 }

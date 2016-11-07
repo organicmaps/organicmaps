@@ -182,9 +182,11 @@ public:
     return FT_Get_Char_Index(m_fontFace, unicodePoint) != 0;
   }
 
-  GlyphManager::Glyph GetGlyph(strings::UniChar unicodePoint, uint32_t baseHeight) const
+  GlyphManager::Glyph GetGlyph(strings::UniChar unicodePoint, uint32_t baseHeight, bool isSdf) const
   {
-    FREETYPE_CHECK(FT_Set_Pixel_Sizes(m_fontFace, m_sdfScale * baseHeight, m_sdfScale * baseHeight));
+    uint32_t glyphHeight = isSdf ? baseHeight * m_sdfScale : baseHeight;
+
+    FREETYPE_CHECK(FT_Set_Pixel_Sizes(m_fontFace, glyphHeight, glyphHeight));
     FREETYPE_CHECK(FT_Load_Glyph(m_fontFace, FT_Get_Char_Index(m_fontFace, unicodePoint), FT_LOAD_RENDER));
 
     FT_Glyph glyph;
@@ -195,17 +197,20 @@ public:
 
     FT_Bitmap bitmap = m_fontFace->glyph->bitmap;
 
-    float const scale = 1.0f / m_sdfScale;
+    float const scale = isSdf ? 1.0f / m_sdfScale : 1.0;
+
 
     SharedBufferManager::shared_buffer_ptr_t data;
     int imageWidth = bitmap.width;
     int imageHeight = bitmap.rows;
     if (bitmap.buffer != nullptr)
     {
-      sdf_image::SdfImage img(bitmap.rows, bitmap.pitch, bitmap.buffer, m_sdfScale * kSdfBorder);
-      imageWidth = img.GetWidth() * scale;
-      imageHeight = img.GetHeight() * scale;
-
+      if (isSdf)
+      {
+        sdf_image::SdfImage img(bitmap.rows, bitmap.pitch, bitmap.buffer, m_sdfScale * kSdfBorder);
+        imageWidth = img.GetWidth() * scale;
+        imageHeight = img.GetHeight() * scale;
+      }
       size_t bufferSize = bitmap.rows * bitmap.pitch;
       data = SharedBufferManager::instance().reserveSharedBuffer(bufferSize);
       memcpy(&(*data)[0], bitmap.buffer, bufferSize);
@@ -229,6 +234,7 @@ public:
     };
 
     result.m_code = unicodePoint;
+    result.m_fixedSize = isSdf ? GlyphManager::kDynamicGlyphSize : baseHeight;
 
     FT_Done_Glyph(glyph);
 
@@ -243,23 +249,35 @@ public:
       resultGlyph.m_metrics = glyph.m_metrics;
       resultGlyph.m_fontIndex = glyph.m_fontIndex;
       resultGlyph.m_code = glyph.m_code;
+      resultGlyph.m_fixedSize = glyph.m_fixedSize;
 
-      sdf_image::SdfImage img(glyph.m_image.m_bitmapRows, glyph.m_image.m_bitmapPitch,
-                              glyph.m_image.m_data->data(), m_sdfScale * kSdfBorder);
+      if (glyph.m_fixedSize < 0)
+      {
+        sdf_image::SdfImage img(glyph.m_image.m_bitmapRows, glyph.m_image.m_bitmapPitch,
+                                glyph.m_image.m_data->data(), m_sdfScale * kSdfBorder);
 
-      img.GenerateSDF(1.0f / (float)m_sdfScale);
+        img.GenerateSDF(1.0f / (float)m_sdfScale);
 
-      ASSERT(img.GetWidth() == glyph.m_image.m_width, ());
-      ASSERT(img.GetHeight() == glyph.m_image.m_height, ());
+        ASSERT(img.GetWidth() == glyph.m_image.m_width, ());
+        ASSERT(img.GetHeight() == glyph.m_image.m_height, ());
 
-      size_t bufferSize = my::NextPowOf2(glyph.m_image.m_width * glyph.m_image.m_height);
+        size_t bufferSize = my::NextPowOf2(glyph.m_image.m_width * glyph.m_image.m_height);
+        resultGlyph.m_image.m_data = SharedBufferManager::instance().reserveSharedBuffer(bufferSize);
+
+        img.GetData(*resultGlyph.m_image.m_data);
+      }
+      else
+      {
+        size_t bufferSize = my::NextPowOf2(glyph.m_image.m_width * glyph.m_image.m_height);
+        resultGlyph.m_image.m_data = SharedBufferManager::instance().reserveSharedBuffer(bufferSize);
+        resultGlyph.m_image.m_data->assign(glyph.m_image.m_data->begin(), glyph.m_image.m_data->end());
+      }
+
       resultGlyph.m_image.m_width = glyph.m_image.m_width;
       resultGlyph.m_image.m_height = glyph.m_image.m_height;
       resultGlyph.m_image.m_bitmapRows = 0;
       resultGlyph.m_image.m_bitmapPitch = 0;
-      resultGlyph.m_image.m_data = SharedBufferManager::instance().reserveSharedBuffer(bufferSize);
 
-      img.GetData(*resultGlyph.m_image.m_data);
       return resultGlyph;
     }
     return glyph;
@@ -289,14 +307,14 @@ public:
 
   static void Close(FT_Stream){}
 
-  void MarkGlyphReady(strings::UniChar code)
+  void MarkGlyphReady(strings::UniChar code, int fixedHeight)
   {
-    m_readyGlyphs.insert(code);
+    m_readyGlyphs.insert(make_pair(code, fixedHeight));
   }
 
-  bool IsGlyphReady(strings::UniChar code) const
+  bool IsGlyphReady(strings::UniChar code, int fixedHeight) const
   {
-    return m_readyGlyphs.find(code) != m_readyGlyphs.end();
+    return m_readyGlyphs.find(make_pair(code, fixedHeight)) != m_readyGlyphs.end();
   }
 
 private:
@@ -305,7 +323,7 @@ private:
   FT_Face m_fontFace;
   uint32_t m_sdfScale;
 
-  unordered_set<strings::UniChar> m_readyGlyphs;
+  set<pair<strings::UniChar, int>> m_readyGlyphs;
 };
 
 }
@@ -358,6 +376,8 @@ struct UnicodeBlock
 
 typedef vector<UnicodeBlock> TUniBlocks;
 typedef TUniBlocks::const_iterator TUniBlockIter;
+
+const int GlyphManager::kDynamicGlyphSize = -1;
 
 struct GlyphManager::Impl
 {
@@ -561,14 +581,15 @@ int GlyphManager::FindFontIndexInBlock(UnicodeBlock const & block, strings::UniC
   return kInvalidFont;
 }
 
-GlyphManager::Glyph GlyphManager::GetGlyph(strings::UniChar unicodePoint)
+GlyphManager::Glyph GlyphManager::GetGlyph(strings::UniChar unicodePoint, int fixedHeight)
 {
   int const fontIndex = GetFontIndex(unicodePoint);
   if (fontIndex == kInvalidFont)
-    return GetInvalidGlyph();
+    return GetInvalidGlyph(fixedHeight);
 
   auto const & f = m_impl->m_fonts[fontIndex];
-  Glyph glyph = f->GetGlyph(unicodePoint, m_impl->m_baseGlyphHeight);
+  bool const isSdf = fixedHeight < 0;
+  Glyph glyph = f->GetGlyph(unicodePoint, isSdf ? m_impl->m_baseGlyphHeight : fixedHeight, isSdf);
   glyph.m_fontIndex = fontIndex;
   return glyph;
 }
@@ -591,10 +612,10 @@ void GlyphManager::MarkGlyphReady(Glyph const & glyph)
 {
   ASSERT_GREATER_OR_EQUAL(glyph.m_fontIndex, 0, ());
   ASSERT_LESS(glyph.m_fontIndex, m_impl->m_fonts.size(), ());
-  m_impl->m_fonts[glyph.m_fontIndex]->MarkGlyphReady(glyph.m_code);
+  m_impl->m_fonts[glyph.m_fontIndex]->MarkGlyphReady(glyph.m_code, glyph.m_fixedSize);
 }
 
-bool GlyphManager::AreGlyphsReady(strings::UniString const & str) const
+bool GlyphManager::AreGlyphsReady(strings::UniString const & str, int fixedSize) const
 {
   for (auto const & code : str)
   {
@@ -602,14 +623,14 @@ bool GlyphManager::AreGlyphsReady(strings::UniString const & str) const
     if (fontIndex == kInvalidFont)
       continue;
 
-    if (!m_impl->m_fonts[fontIndex]->IsGlyphReady(code))
+    if (!m_impl->m_fonts[fontIndex]->IsGlyphReady(code, fixedSize))
       return false;
   }
 
   return true;
 }
 
-GlyphManager::Glyph GlyphManager::GetInvalidGlyph() const
+GlyphManager::Glyph GlyphManager::GetInvalidGlyph(int fixedSize) const
 {
   strings::UniChar const kInvalidGlyphCode = 0x9;
   int const kFontId = 0;
@@ -620,7 +641,10 @@ GlyphManager::Glyph GlyphManager::GetInvalidGlyph() const
   if (!s_inited)
   {
     ASSERT(!m_impl->m_fonts.empty(), ());
-    s_glyph = m_impl->m_fonts[kFontId]->GetGlyph(kInvalidGlyphCode, m_impl->m_baseGlyphHeight);
+    bool const isSdf = fixedSize < 0 ;
+    s_glyph = m_impl->m_fonts[kFontId]->GetGlyph(kInvalidGlyphCode,
+                                                 isSdf ? m_impl->m_baseGlyphHeight : fixedSize,
+                                                 isSdf);
     s_glyph.m_metrics.m_isValid = false;
     s_glyph.m_fontIndex = kFontId;
     s_glyph.m_code = kInvalidGlyphCode;

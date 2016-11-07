@@ -17,6 +17,8 @@ struct UnicodeBlock;
 class GlyphManager
 {
 public:
+  static const int kDynamicGlyphSize;
+
   struct Params
   {
     string m_uniBlocks;
@@ -69,21 +71,22 @@ public:
     GlyphImage m_image;
     int m_fontIndex;
     strings::UniChar m_code;
+    int m_fixedSize;
   };
 
   GlyphManager(Params const & params);
   ~GlyphManager();
 
-  Glyph GetGlyph(strings::UniChar unicodePoints);
+  Glyph GetGlyph(strings::UniChar unicodePoints, int fixedHeight);
   Glyph GenerateGlyph(Glyph const & glyph) const;
 
   void MarkGlyphReady(Glyph const & glyph);
-  bool AreGlyphsReady(strings::UniString const & str) const;
+  bool AreGlyphsReady(strings::UniString const & str, int fixedSize) const;
 
   typedef function<void (strings::UniChar start, strings::UniChar end)> TUniBlockCallback;
   void ForEachUnicodeBlock(TUniBlockCallback const & fn) const;
 
-  Glyph GetInvalidGlyph() const;
+  Glyph GetInvalidGlyph(int fixedSize) const;
 
   uint32_t GetBaseGlyphHeight() const;
 

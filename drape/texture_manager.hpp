@@ -90,8 +90,8 @@ public:
   typedef buffer_vector<GlyphRegion, 128> TGlyphsBuffer;
   typedef buffer_vector<TGlyphsBuffer, 4> TMultilineGlyphsBuffer;
 
-  void GetGlyphRegions(TMultilineText const & text, TMultilineGlyphsBuffer & buffers);
-  void GetGlyphRegions(strings::UniString const & text, TGlyphsBuffer & regions);
+  void GetGlyphRegions(TMultilineText const & text, int fixedHeight, TMultilineGlyphsBuffer & buffers);
+  void GetGlyphRegions(strings::UniString const & text, int fixedHeight, TGlyphsBuffer & regions);
 
   /// On some devices OpenGL driver can't resolve situation when we upload on texture from one thread
   /// and use this texture to render on other thread. By this we move UpdateDynamicTextures call into render thread
@@ -99,7 +99,7 @@ public:
   bool UpdateDynamicTextures();
 
   /// This method must be called only on Frontend renderer's thread.
-  bool AreGlyphsReady(strings::UniString const & str) const;
+  bool AreGlyphsReady(strings::UniString const & str, int fixedHeight) const;
 
   ref_ptr<Texture> GetSymbolsTexture() const;
   ref_ptr<Texture> GetTrafficArrowTexture() const;
@@ -126,7 +126,7 @@ private:
       : m_texture(nullptr)
     {}
 
-    unordered_set<strings::UniChar> m_glyphs;
+    set<pair<strings::UniChar, int> > m_glyphs;
     ref_ptr<Texture> m_texture;
   };
 
@@ -140,17 +140,17 @@ private:
   size_t FindGlyphsGroup(strings::UniString const & text) const;
   size_t FindGlyphsGroup(TMultilineText const & text) const;
 
-  size_t FindHybridGlyphsGroup(strings::UniString const & text);
-  size_t FindHybridGlyphsGroup(TMultilineText const & text);
+  size_t FindHybridGlyphsGroup(strings::UniString const & text, int fixedHeight);
+  size_t FindHybridGlyphsGroup(TMultilineText const & text, int fixedHeight);
 
-  size_t GetNumberOfUnfoundCharacters(strings::UniString const & text, HybridGlyphGroup const & group) const;
+  size_t GetNumberOfUnfoundCharacters(strings::UniString const & text, int fixedHeight, HybridGlyphGroup const & group) const;
 
-  void MarkCharactersUsage(strings::UniString const & text, HybridGlyphGroup & group);
+  void MarkCharactersUsage(strings::UniString const & text, int fixedHeight, HybridGlyphGroup & group);
   /// it's a dummy method to support generic code
-  void MarkCharactersUsage(strings::UniString const &, GlyphGroup &) {}
+  void MarkCharactersUsage(strings::UniString const & text, int fixedHeight, GlyphGroup & group) {}
 
   template<typename TGlyphGroup>
-  void FillResultBuffer(strings::UniString const & text, TGlyphGroup & group, TGlyphsBuffer & regions)
+  void FillResultBuffer(strings::UniString const & text, int fixedHeight, TGlyphGroup & group, TGlyphsBuffer & regions)
   {
     if (group.m_texture == nullptr)
       group.m_texture = AllocateGlyphTexture();
@@ -159,41 +159,41 @@ private:
     for (strings::UniChar const & c : text)
     {
       GlyphRegion reg;
-      GetRegionBase(group.m_texture, reg, GlyphKey(c));
+      GetRegionBase(group.m_texture, reg, GlyphKey(c, fixedHeight));
       regions.push_back(reg);
     }
   }
 
   template<typename TGlyphGroup>
-  void FillResults(strings::UniString const & text, TGlyphsBuffer & buffers, TGlyphGroup & group)
+  void FillResults(strings::UniString const & text, int fixedHeight, TGlyphsBuffer & buffers, TGlyphGroup & group)
   {
-    MarkCharactersUsage(text, group);
-    FillResultBuffer<TGlyphGroup>(text, group, buffers);
+    MarkCharactersUsage(text, fixedHeight, group);
+    FillResultBuffer<TGlyphGroup>(text, fixedHeight, group, buffers);
   }
 
   template<typename TGlyphGroup>
-  void FillResults(TMultilineText const & text, TMultilineGlyphsBuffer & buffers, TGlyphGroup & group)
+  void FillResults(TMultilineText const & text, int fixedHeight, TMultilineGlyphsBuffer & buffers, TGlyphGroup & group)
   {
      buffers.resize(text.size());
      for (size_t i = 0; i < text.size(); ++i)
      {
        strings::UniString const & str = text[i];
        TGlyphsBuffer & buffer = buffers[i];
-       FillResults<TGlyphGroup>(str, buffer, group);
+       FillResults<TGlyphGroup>(str, fixedHeight, buffer, group);
      }
   }
 
   template<typename TText, typename TBuffer>
-  void CalcGlyphRegions(TText const & text, TBuffer & buffers)
+  void CalcGlyphRegions(TText const & text, int fixedHeight, TBuffer & buffers)
   {
     size_t const groupIndex = FindGlyphsGroup(text);
     bool useHybridGroup = false;
-    if (groupIndex != GetInvalidGlyphGroup())
+    if (fixedHeight < 0 && groupIndex != GetInvalidGlyphGroup())
     {
       GlyphGroup & group = m_glyphGroups[groupIndex];
-      uint32_t const absentGlyphs = GetAbsentGlyphsCount(group.m_texture, text);
+      uint32_t const absentGlyphs = GetAbsentGlyphsCount(group.m_texture, text, fixedHeight);
       if (group.m_texture == nullptr || group.m_texture->HasEnoughSpace(absentGlyphs))
-        FillResults<GlyphGroup>(text, buffers, group);
+        FillResults<GlyphGroup>(text, fixedHeight, buffers, group);
       else
         useHybridGroup = true;
     }
@@ -204,15 +204,15 @@ private:
 
     if (useHybridGroup)
     {
-      size_t const hybridGroupIndex = FindHybridGlyphsGroup(text);
+      size_t const hybridGroupIndex = FindHybridGlyphsGroup(text, fixedHeight);
       ASSERT(hybridGroupIndex != GetInvalidGlyphGroup(), ());
       HybridGlyphGroup & group = m_hybridGlyphGroups[hybridGroupIndex];
-      FillResults<HybridGlyphGroup>(text, buffers, group);
+      FillResults<HybridGlyphGroup>(text, fixedHeight, buffers, group);
     }
   }
 
-  uint32_t GetAbsentGlyphsCount(ref_ptr<Texture> texture, strings::UniString const & text);
-  uint32_t GetAbsentGlyphsCount(ref_ptr<Texture> texture, TMultilineText const & text);
+  uint32_t GetAbsentGlyphsCount(ref_ptr<Texture> texture, strings::UniString const & text, int fixedHeight);
+  uint32_t GetAbsentGlyphsCount(ref_ptr<Texture> texture, TMultilineText const & text, int fixedHeight);
 
   template<typename TGlyphGroups>
   void UpdateGlyphTextures(TGlyphGroups & groups)

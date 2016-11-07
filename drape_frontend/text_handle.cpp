@@ -8,7 +8,7 @@ namespace df
 {
 
 TextHandle::TextHandle(FeatureID const & id, strings::UniString const & text,
-                       dp::Anchor anchor, uint64_t priority,
+                       dp::Anchor anchor, uint64_t priority, int fixedHeight,
                        ref_ptr<dp::TextureManager> textureManager,
                        bool isBillboard)
   : OverlayHandle(id, anchor, priority, isBillboard)
@@ -17,10 +17,11 @@ TextHandle::TextHandle(FeatureID const & id, strings::UniString const & text,
   , m_text(text)
   , m_textureManager(textureManager)
   , m_glyphsReady(false)
+  , m_fixedHeight(fixedHeight)
 {}
 
 TextHandle::TextHandle(FeatureID const & id, strings::UniString const & text,
-                       dp::Anchor anchor, uint64_t priority,
+                       dp::Anchor anchor, uint64_t priority, int fixedHeight,
                        ref_ptr<dp::TextureManager> textureManager,
                        gpu::TTextDynamicVertexBuffer && normals,
                        bool isBillboard)
@@ -31,6 +32,7 @@ TextHandle::TextHandle(FeatureID const & id, strings::UniString const & text,
   , m_text(text)
   , m_textureManager(textureManager)
   , m_glyphsReady(false)
+  , m_fixedHeight(fixedHeight)
 {}
 
 void TextHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator) const
@@ -61,7 +63,7 @@ void TextHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutato
 bool TextHandle::Update(ScreenBase const & screen)
 {
   if (!m_glyphsReady)
-    m_glyphsReady = m_textureManager->AreGlyphsReady(m_text);
+    m_glyphsReady = m_textureManager->AreGlyphsReady(m_text, m_fixedHeight);
 
   return m_glyphsReady;
 }

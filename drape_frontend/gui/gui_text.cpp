@@ -127,7 +127,7 @@ void StaticLabel::CacheStaticText(string const & text, char const * delim,
     result.m_alphabet.insert(str.begin(), str.end());
 
   dp::TextureManager::TMultilineGlyphsBuffer buffers;
-  mng->GetGlyphRegions(textParts, buffers);
+  mng->GetGlyphRegions(textParts, dp::GlyphManager::kDynamicGlyphSize, buffers);
 
 #ifdef DEBUG
   ASSERT_EQUAL(textParts.size(), buffers.size(), ());
@@ -301,7 +301,7 @@ ref_ptr<dp::Texture> MutableLabel::SetAlphabet(string const & alphabet, ref_ptr<
   str.resize(distance(str.begin(), it));
 
   dp::TextureManager::TGlyphsBuffer buffer;
-  mng->GetGlyphRegions(str, buffer);
+  mng->GetGlyphRegions(str, dp::GlyphManager::kDynamicGlyphSize, buffer);
   m_alphabet.reserve(buffer.size());
 
   ASSERT_EQUAL(str.size(), buffer.size(), ());
@@ -489,7 +489,7 @@ bool MutableLabelHandle::Update(ScreenBase const & screen)
     for (auto const & node : m_textView->GetAlphabet())
       alphabetStr.push_back(node.first);
 
-    m_glyphsReady = m_textureManager->AreGlyphsReady(alphabetStr);
+    m_glyphsReady = m_textureManager->AreGlyphsReady(alphabetStr, dp::GlyphManager::kDynamicGlyphSize);
   }
 
   if (!m_glyphsReady)
@@ -581,7 +581,7 @@ StaticLabelHandle::StaticLabelHandle(uint32_t id, ref_ptr<dp::TextureManager> te
 bool StaticLabelHandle::Update(ScreenBase const & screen)
 {
   if (!m_glyphsReady)
-    m_glyphsReady = m_textureManager->AreGlyphsReady(m_alphabet);
+    m_glyphsReady = m_textureManager->AreGlyphsReady(m_alphabet, dp::GlyphManager::kDynamicGlyphSize);
 
   if (!m_glyphsReady)
     return false;

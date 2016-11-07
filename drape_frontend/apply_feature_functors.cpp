@@ -159,6 +159,8 @@ void CaptionDefProtoToFontDecl(CaptionDefProto const * capRule, dp::FontDecl &pa
 
   if (capRule->has_stroke_color())
     params.m_outlineColor = ToDrapeColor(capRule->stroke_color());
+  else
+    params.m_isSdf = false;
 }
 
 void ShieldRuleProtoToFontDecl(ShieldRuleProto const * shieldRule, dp::FontDecl &params)

@@ -39,7 +39,7 @@ namespace
       vector<dp::GlyphManager::Glyph> glyphs;
       auto generateGlyph = [this, &glyphs](strings::UniChar c)
       {
-        dp::GlyphManager::Glyph g = m_mng->GetGlyph(c);
+        dp::GlyphManager::Glyph g = m_mng->GetGlyph(c, dp::GlyphManager::kDynamicGlyphSize);
         glyphs.push_back(m_mng->GenerateGlyph(g));
         g.m_image.Destroy();
       };
