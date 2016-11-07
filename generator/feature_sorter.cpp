@@ -27,8 +27,6 @@
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/limits.hpp"
-
 namespace
 {
   typedef pair<uint64_t, uint64_t> CellAndOffsetT;
@@ -522,7 +520,7 @@ namespace feature
         }
       }
 
-      uint32_t featureId = numeric_limits<uint32_t>::max();
+      uint32_t featureId = kInvalidFeatureId;
       if (fb.PreSerialize(holder.m_buffer))
       {
         fb.Serialize(holder.m_buffer, m_header.GetDefCodingParams());

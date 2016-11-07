@@ -118,7 +118,7 @@ int main(int argc, char ** argv)
 
   genInfo.m_osmFileName = FLAGS_osm_file_name;
   genInfo.m_restrictions = FLAGS_restriction_name;
-  genInfo.m_featureId2OsmIds = FLAGS_feature_id_to_osm_ids_name;
+  genInfo.m_featureIdToOsmIds = FLAGS_feature_id_to_osm_ids_name;
   genInfo.m_failOnCoasts = FLAGS_fail_on_coasts;
   genInfo.m_preloadCache = FLAGS_preload_cache;
   genInfo.m_bookingDatafileName = FLAGS_booking_data;
@@ -163,7 +163,7 @@ int main(int argc, char ** argv)
     LOG(LINFO, ("Generating final data ..."));
 
     genInfo.m_restrictions = FLAGS_restriction_name;
-    genInfo.m_featureId2OsmIds = FLAGS_feature_id_to_osm_ids_name;
+    genInfo.m_featureIdToOsmIds = FLAGS_feature_id_to_osm_ids_name;
     genInfo.m_splitByPolygons = FLAGS_split_by_polygons;
     genInfo.m_createWorld = FLAGS_generate_world;
     genInfo.m_makeCoasts = FLAGS_make_coasts;
@@ -239,11 +239,12 @@ int main(int argc, char ** argv)
     if (!FLAGS_srtm_path.empty())
       routing::BuildRoadAltitudes(datFile, FLAGS_srtm_path);
 
+    // @TODO(bykoianko) generate_routing flag should be used for all routing information.
     if (FLAGS_generate_routing)
     {
       routing::BuildRoadRestrictions(
-          datFile, genInfo.GetIntermediateFileName(genInfo.m_restrictions, ""),
-          genInfo.GetIntermediateFileName(genInfo.m_featureId2OsmIds, ""));
+          datFile, genInfo.GetIntermediateFileName(genInfo.m_restrictions, "" /* extention */),
+          genInfo.GetIntermediateFileName(genInfo.m_featureIdToOsmIds, "" /* extention */));
     }
   }
 

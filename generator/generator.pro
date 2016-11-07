@@ -92,4 +92,3 @@ HEADERS += \
     unpack_mwm.hpp \
     ways_merger.hpp \
     world_map_generator.hpp \
-

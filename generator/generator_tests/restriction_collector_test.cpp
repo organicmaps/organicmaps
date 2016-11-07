@@ -5,12 +5,12 @@
 
 #include "indexer/routing.hpp"
 
-#include "coding/file_name_utils.hpp"
-
 #include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/platform_tests_support/scoped_file.hpp"
 
 #include "platform/platform.hpp"
+
+#include "coding/file_name_utils.hpp"
 
 #include "base/stl_helpers.hpp"
 
@@ -27,7 +27,7 @@ string const kRestrictionTestDir = "test-restrictions";
 
 UNIT_TEST(RestrictionTest_ValidCase)
 {
-  RestrictionCollector restrictionCollector("", "");
+  RestrictionCollector restrictionCollector("" /* restrictionPath */, "" /* featureId2OsmIdsPath */);
   // Adding restrictions and feature ids to restrictionCollector in mixed order.
   restrictionCollector.AddRestriction(Restriction::Type::No, {1, 2} /* osmIds */);
   restrictionCollector.AddFeatureId(30 /* featureId */, {3} /* osmIds */);
@@ -53,7 +53,7 @@ UNIT_TEST(RestrictionTest_ValidCase)
 
 UNIT_TEST(RestrictionTest_InvalidCase)
 {
-  RestrictionCollector restrictionCollector("", "");
+  RestrictionCollector restrictionCollector("" /* restrictionPath */, "" /* featureId2OsmIdsPath */);
   restrictionCollector.AddFeatureId(0 /* featureId */, {0} /* osmIds */);
   restrictionCollector.AddRestriction(Restriction::Type::No, {0, 1} /* osmIds */);
   restrictionCollector.AddFeatureId(20 /* featureId */, {2} /* osmIds */);
@@ -84,21 +84,21 @@ UNIT_TEST(RestrictionTest_ParseRestrictions)
   ScopedDir const scopedDir(kRestrictionTestDir);
   ScopedFile const scopedFile(kRestrictionPath, kRestrictionContent);
 
-  RestrictionCollector restrictionCollector("", "");
+  RestrictionCollector restrictionCollector("" /* restrictionPath */, "" /* featureId2OsmIdsPath */);
 
   Platform const & platform = Platform();
 
   TEST(restrictionCollector.ParseRestrictions(
            my::JoinFoldersToPath(platform.WritableDir(), kRestrictionPath)),
        ());
-  RestrictionVec expectedRestrictions = {{Restriction::Type::No, 2},
-                                         {Restriction::Type::Only, 2},
-                                         {Restriction::Type::Only, 2},
-                                         {Restriction::Type::No, 2},
-                                         {Restriction::Type::No, 2}};
+  RestrictionVec expectedRestrictions = {{Restriction::Type::No, 2 /* linkNumber */},
+                                         {Restriction::Type::Only, 2 /* linkNumber */},
+                                         {Restriction::Type::Only, 2 /* linkNumber */},
+                                         {Restriction::Type::No, 2 /* linkNumber */},
+                                         {Restriction::Type::No, 2 /* linkNumber */}};
   TEST_EQUAL(restrictionCollector.m_restrictions, expectedRestrictions, ());
 
-  vector<pair<uint64_t, RestrictionCollector::Index>> const expectedRestrictionIndex = {
+  vector<pair<uint64_t, RestrictionCollector::LinkIndex>> const expectedRestrictionIndex = {
       {1, {0, 0}}, {1, {0, 1}},        {0, {1, 0}},        {2, {1, 1}}, {2, {2, 0}},
       {3, {2, 1}}, {38028428, {3, 0}}, {38028428, {3, 1}}, {4, {4, 0}}, {5, {4, 1}}};
   TEST_EQUAL(restrictionCollector.m_restrictionIndex, expectedRestrictionIndex, ());
@@ -117,7 +117,7 @@ UNIT_TEST(RestrictionTest_ParseFeatureId2OsmIdsMapping)
   ScopedDir const scopedDir(kRestrictionTestDir);
   ScopedFile const scopedFile(kFeatureIdToOsmIdsPath, kFeatureIdToOsmIdsContent);
 
-  RestrictionCollector restrictionCollector("", "");
+  RestrictionCollector restrictionCollector("" /* restrictionPath */, "" /* featureId2OsmIdsPath */);
 
   Platform const & platform = Platform();
   restrictionCollector.ParseFeatureId2OsmIdsMapping(

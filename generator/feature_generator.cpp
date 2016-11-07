@@ -107,9 +107,9 @@ uint32_t FeaturesCollector::operator()(FeatureBuilder1 const & fb)
 {
   FeatureBuilder1::TBuffer bytes;
   fb.Serialize(bytes);
-  (void)WriteFeatureBase(bytes, fb);
+  uint32_t const featureId = WriteFeatureBase(bytes, fb);
   CHECK_LESS(0, m_featureID, ());
-  return m_featureID - 1;
+  return featureId;
 }
 
 FeaturesAndRawGeometryCollector::FeaturesAndRawGeometryCollector(string const & featuresFileName,

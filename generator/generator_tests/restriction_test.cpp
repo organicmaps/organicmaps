@@ -25,9 +25,9 @@
 
 using namespace feature;
 using namespace generator;
+using namespace platform::tests_support;
 using namespace platform;
 using namespace routing;
-using namespace platform::tests_support;
 
 namespace
 {
@@ -50,10 +50,10 @@ void BuildEmptyMwm(LocalCountryFile & country)
 void TestRestrictionBuilding(string const & restrictionContent, string const & mappingContent)
 {
   Platform & platform = GetPlatform();
-  string const writeableDir = platform.WritableDir();
+  string const writableDir = platform.WritableDir();
 
   // Building empty mwm.
-  LocalCountryFile country(my::JoinFoldersToPath(writeableDir, kTestDir), CountryFile(kTestMwm), 1);
+  LocalCountryFile country(my::JoinFoldersToPath(writableDir, kTestDir), CountryFile(kTestMwm), 1);
   ScopedDir const scopedDir(kTestDir);
   string const mwmRelativePath = my::JoinFoldersToPath(kTestDir, kTestMwm + DATA_FILE_EXTENSION);
   ScopedFile const scopedMwm(mwmRelativePath);
@@ -67,9 +67,9 @@ void TestRestrictionBuilding(string const & restrictionContent, string const & m
   ScopedFile const mappingScopedFile(mappingRelativePath, mappingContent);
 
   // Adding restriction section to mwm.
-  string const restrictionFullPath = my::JoinFoldersToPath(writeableDir, restrictionRelativePath);
-  string const mappingFullPath = my::JoinFoldersToPath(writeableDir, mappingRelativePath);
-  string const mwmFullPath = my::JoinFoldersToPath(writeableDir, mwmRelativePath);
+  string const restrictionFullPath = my::JoinFoldersToPath(writableDir, restrictionRelativePath);
+  string const mappingFullPath = my::JoinFoldersToPath(writableDir, mappingRelativePath);
+  string const mwmFullPath = my::JoinFoldersToPath(writableDir, mwmRelativePath);
   BuildRoadRestrictions(mwmFullPath, restrictionFullPath, mappingFullPath);
 
   // Reading from mwm section and testing restrictions.

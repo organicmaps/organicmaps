@@ -35,8 +35,8 @@ bool Restriction::operator<(Restriction const & restriction) const
 
 namespace feature
 {
-// For the time being only one kind of restrictions is support. It's line-point-line
-// restrictions in osm ids term. Such restrictions reflects to two feature ids
+// For the time being only one kind of restrictions is supported. It's line-point-line
+// restrictions in osm ids term. Such restrictions correspond to two feature ids
 // restrictions in feature id terms. Because of it supported number of links is two.
 size_t const RestrictionSerializer::kSupportedLinkNumber = 2;
 }

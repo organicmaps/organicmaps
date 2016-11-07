@@ -22,17 +22,19 @@ class RestrictionCollector
 
 public:
   /// \brief Addresses a link in vector<Restriction>.
-  struct Index
+  struct LinkIndex
   {
-    Index(size_t restrictionNumber, size_t linkNumber)
+    LinkIndex(size_t restrictionNumber, size_t linkNumber)
       : m_restrictionNumber(restrictionNumber), m_linkNumber(linkNumber)
     {
     }
-    size_t m_restrictionNumber = 0;  // Restriction number in restriction vector.
-    size_t m_linkNumber =
-        0;  // Link number for a restriction. It's equal to zero or one for most cases.
 
-    bool operator==(Index const & index) const
+    // Restriction number in restriction vector.
+    size_t m_restrictionNumber = 0;
+    // Link number for a restriction. It's equal to zero or one for most cases.
+    size_t m_linkNumber = 0;
+
+    bool operator==(LinkIndex const & index) const
     {
       return m_restrictionNumber == index.m_restrictionNumber && m_linkNumber == index.m_linkNumber;
     }
@@ -56,11 +58,11 @@ private:
   /// on
   /// For example:
   /// 137999, 5170186,
-  /// 138000, 5170209,
+  /// 138000, 5170209, 5143342,
   /// 138001, 5170228,
   /// \param featureId2OsmIdsPath path to the text file.
   /// \note Most restrictions consist of type and two linear(road) features.
-  /// \note For the time being only line-point-line restritions are supported.
+  /// \note For the time being only line-point-line restrictions are supported.
   bool ParseFeatureId2OsmIdsMapping(string const & featureId2OsmIdsPath);
 
   /// \brief Parses comma separated text file with line in following format:
@@ -91,7 +93,7 @@ private:
   void AddRestriction(Restriction::Type type, vector<uint64_t> const & osmIds);
 
   RestrictionVec m_restrictions;
-  vector<pair<uint64_t, Index>> m_restrictionIndex;
+  vector<pair<uint64_t, LinkIndex>> m_restrictionIndex;
 
   unordered_multimap<uint64_t, Restriction::FeatureId> m_osmIds2FeatureId;
 };
@@ -99,6 +101,6 @@ private:
 string ToString(Restriction::Type const & type);
 bool FromString(string str, Restriction::Type & type);
 string DebugPrint(Restriction::Type const & type);
-string DebugPrint(RestrictionCollector::Index const & index);
+string DebugPrint(RestrictionCollector::LinkIndex const & index);
 string DebugPrint(Restriction const & restriction);
 }  // namespace routing

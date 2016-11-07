@@ -78,14 +78,14 @@ void RestrictionDumper::Write(RelationElement const & relationElement)
 
   auto const fromIt = findTag(relationElement.ways, "from");
   if (fromIt == relationElement.ways.cend())
-    return;  // No tag |from| in |relationElement.ways|.
+    return;
 
   auto const toIt = findTag(relationElement.ways, "to");
   if (toIt == relationElement.ways.cend())
-    return;  // No tag |to| in |relationElement.ways|.
+    return;
 
   if (findTag(relationElement.nodes, "via") == relationElement.nodes.cend())
-    return;  // No tag |via| in |relationElement.nodes|.
+    return;
 
   // Extracting type of restriction.
   auto const tagIt = relationElement.tags.find("restriction");

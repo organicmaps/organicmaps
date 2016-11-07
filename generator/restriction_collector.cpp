@@ -117,11 +117,11 @@ bool RestrictionCollector::ParseRestrictions(string const & restrictionPath)
 void RestrictionCollector::ComposeRestrictions()
 {
   // Going through all osm id saved in |m_restrictionIndex| (mentioned in restrictions).
-  size_t const restrictionSz = m_restrictions.size();
-  for (pair<uint64_t, Index> const & osmIdAndIndex : m_restrictionIndex)
+  size_t const numRestrictions = m_restrictions.size();
+  for (auto const & osmIdAndIndex : m_restrictionIndex)
   {
-    Index const & index = osmIdAndIndex.second;
-    CHECK_LESS(index.m_restrictionNumber, restrictionSz, ());
+    LinkIndex const & index = osmIdAndIndex.second;
+    CHECK_LESS(index.m_restrictionNumber, numRestrictions, ());
     Restriction & restriction = m_restrictions[index.m_restrictionNumber];
     CHECK_LESS(index.m_linkNumber, restriction.m_links.size(), ());
 
@@ -157,10 +157,10 @@ void RestrictionCollector::RemoveInvalidRestrictions()
 
 void RestrictionCollector::AddRestriction(Restriction::Type type, vector<uint64_t> const & osmIds)
 {
+  size_t const restrictionCount = m_restrictions.size();
   m_restrictions.emplace_back(type, osmIds.size());
-  size_t const restrictionCount = m_restrictions.size() - 1;
   for (size_t i = 0; i < osmIds.size(); ++i)
-    m_restrictionIndex.emplace_back(osmIds[i], Index({restrictionCount, i}));
+    m_restrictionIndex.emplace_back(osmIds[i], LinkIndex({restrictionCount, i}));
 }
 
 void RestrictionCollector::AddFeatureId(Restriction::FeatureId featureId,
@@ -200,7 +200,8 @@ bool FromString(string str, Restriction::Type & type)
 }
 
 string DebugPrint(Restriction::Type const & type) { return ToString(type); }
-string DebugPrint(RestrictionCollector::Index const & index)
+
+string DebugPrint(RestrictionCollector::LinkIndex const & index)
 {
   ostringstream out;
   out << "m_restrictionNumber:" << index.m_restrictionNumber

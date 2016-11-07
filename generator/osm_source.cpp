@@ -341,9 +341,8 @@ public:
     if (info.m_createWorld)
       m_world.reset(new TWorldGenerator(info));
 
-    // Feature id osm id to map.
-    string const featureId2OsmIdsFile = info.GetIntermediateFileName(info.m_featureId2OsmIds, "");
-    LOG(LINFO, ("Saving osm ids to feature ids map to", featureId2OsmIdsFile));
+    string const featureId2OsmIdsFile = info.GetIntermediateFileName(info.m_featureIdToOsmIds, "");
+    LOG(LINFO, ("Saving mapping from feature id osm ids to file", featureId2OsmIdsFile));
     m_featureId2osmIds.Open(featureId2OsmIdsFile);
     if (!m_featureId2osmIds.IsOpened())
     {
@@ -552,9 +551,9 @@ void SyncOfstream::Write(uint32_t featureId, vector<osm::Id> const & osmIds)
     return;
 
   lock_guard<mutex> guard(m_mutex);
-  m_stream << featureId << ",";
+  m_stream << featureId;
   for (osm::Id const & osmId : osmIds)
-    m_stream << osmId.OsmId() << ",";
+    m_stream << "," << osmId.OsmId();
   m_stream << endl;
 }
 
