@@ -1916,6 +1916,9 @@
 		772923C9184E0440008C1EDC /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7794829519A4E66A005F57B9 /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		77DDA9A116D504F900804BDB /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
+		842D9AD11DD1F14E00D22520 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = el; path = el.lproj/LocalNotifications.plist; sourceTree = "<group>"; };
+		842D9AD21DD1F14E00D22520 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		842D9AD31DD1F14F00D22520 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Localizable.strings; sourceTree = "<group>"; };
 		845C89301C89837900940D7F /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		845C89331C8983F300940D7F /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		845C89341C8983F300940D7F /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
@@ -4104,6 +4107,7 @@
 				vi,
 				id,
 				"en-GB",
+				el,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Maps */;
 			projectDirPath = "";
@@ -5467,6 +5471,7 @@
 				3434D7811BD12B2000C77E44 /* de */,
 				3434D7821BD12B2000C77E44 /* fr */,
 				84DBC4C11D81B1B100CC1804 /* en-GB */,
+				842D9AD21DD1F14E00D22520 /* el */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -5476,6 +5481,7 @@
 			children = (
 				B0DFE6301A1B78A200B6C35E /* en */,
 				84DBC4C01D81B1B000CC1804 /* en-GB */,
+				842D9AD11DD1F14E00D22520 /* el */,
 			);
 			name = LocalNotifications.plist;
 			sourceTree = "<group>";
@@ -5511,6 +5517,7 @@
 				F60699011B429D08002BECBB /* vi */,
 				F60699021B429D23002BECBB /* id */,
 				84DBC4C21D81B1B100CC1804 /* en-GB */,
+				842D9AD31DD1F14F00D22520 /* el */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
