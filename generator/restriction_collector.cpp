@@ -7,29 +7,21 @@
 
 #include "std/algorithm.hpp"
 #include "std/fstream.hpp"
-#include "std/sstream.hpp"
 
 namespace
 {
 char const kNo[] = "No";
 char const kOnly[] = "Only";
 
-bool ParseLineOfNumbers(istringstream & stream, vector<uint64_t> & numbers)
+bool ParseLineOfNumbers(strings::SimpleTokenizer & iter, vector<uint64_t> & numbers)
 {
-  string numberStr;
-  uint64_t number;
-
-  while (stream)
+  uint64_t number = 0;
+  while (iter)
   {
-    if (!getline(stream, numberStr, ','))
-      return true;
-    if (numberStr.empty())
-      return true;
-
-    if (!strings::to_uint64(numberStr, number))
+    if (!strings::to_uint64(*iter, number))
       return false;
-
     numbers.push_back(number);
+    ++iter;
   }
   return true;
 }
@@ -72,17 +64,17 @@ bool RestrictionCollector::ParseFeatureId2OsmIdsMapping(string const & featureId
     if (!getline(featureId2OsmIdsStream, line))
       return true;
 
-    istringstream lineStream(line);
-    vector<uint64_t> ids;
-    if (!ParseLineOfNumbers(lineStream, ids))
+    vector<uint64_t> osmIds;
+    strings::SimpleTokenizer iter(line, ",");
+    if (!ParseLineOfNumbers(iter, osmIds))
       return false;
 
-    if (ids.size() <= 1)
+    if (osmIds.size() < 2)
       return false;  // Every line should contain at least feature id and osm id.
 
-    Restriction::FeatureId const featureId = static_cast<Restriction::FeatureId>(ids.front());
-    ids.erase(ids.begin());
-    AddFeatureId(featureId, ids);
+    uint32_t const featureId = static_cast<uint32_t>(osmIds.front());
+    osmIds.erase(osmIds.begin());
+    AddFeatureId(featureId, osmIds);
   }
   return true;
 }
@@ -98,15 +90,15 @@ bool RestrictionCollector::ParseRestrictions(string const & restrictionPath)
     string line;
     if (!getline(restrictionsStream, line))
       return true;
-    istringstream lineStream(line);
-    string typeStr;
-    getline(lineStream, typeStr, ',');
+
+    strings::SimpleTokenizer iter(line, ",");
     Restriction::Type type;
-    if (!FromString(typeStr, type))
+    if (!FromString(*iter, type))
       return false;
 
+    ++iter;
     vector<uint64_t> osmIds;
-    if (!ParseLineOfNumbers(lineStream, osmIds))
+    if (!ParseLineOfNumbers(iter, osmIds))
       return false;
 
     AddRestriction(type, osmIds);
@@ -116,7 +108,7 @@ bool RestrictionCollector::ParseRestrictions(string const & restrictionPath)
 
 void RestrictionCollector::ComposeRestrictions()
 {
-  // Going through all osm id saved in |m_restrictionIndex| (mentioned in restrictions).
+  // Going through all osm ids saved in |m_restrictionIndex| (mentioned in restrictions).
   size_t const numRestrictions = m_restrictions.size();
   for (auto const & osmIdAndIndex : m_restrictionIndex)
   {
@@ -138,7 +130,7 @@ void RestrictionCollector::ComposeRestrictions()
     if (distance(rangeId.first, rangeId.second) != 1)
       continue;  // |osmId| mentioned in restrictions was included in more than one feature.
 
-    Restriction::FeatureId const & featureId = rangeId.first->second;
+    uint32_t const & featureId = rangeId.first->second;
     // Adding feature id to restriction coresponded to the osm id.
     restriction.m_links[index.m_linkNumber] = featureId;
   }
@@ -163,8 +155,7 @@ void RestrictionCollector::AddRestriction(Restriction::Type type, vector<uint64_
     m_restrictionIndex.emplace_back(osmIds[i], LinkIndex({restrictionCount, i}));
 }
 
-void RestrictionCollector::AddFeatureId(Restriction::FeatureId featureId,
-                                        vector<uint64_t> const & osmIds)
+void RestrictionCollector::AddFeatureId(uint32_t featureId, vector<uint64_t> const & osmIds)
 {
   // Note. One |featureId| could correspond to several osm ids.
   // but for road feature |featureId| corresponds exactly one osm id.

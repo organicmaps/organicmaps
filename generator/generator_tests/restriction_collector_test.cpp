@@ -123,13 +123,13 @@ UNIT_TEST(RestrictionTest_ParseFeatureId2OsmIdsMapping)
   restrictionCollector.ParseFeatureId2OsmIdsMapping(
       my::JoinFoldersToPath(platform.WritableDir(), kFeatureIdToOsmIdsPath));
 
-  vector<pair<uint64_t, Restriction::FeatureId>> const expectedOsmIds2FeatureId = {
+  vector<pair<uint64_t, uint32_t>> const expectedOsmIds2FeatureId = {
       {10, 1}, {20, 2}, {30, 3}, {5423239545, 779703}};
-  vector<pair<uint64_t, Restriction::FeatureId>> osmIds2FeatureId(
+  vector<pair<uint64_t, uint32_t>> osmIds2FeatureId(
       restrictionCollector.m_osmIds2FeatureId.cbegin(),
       restrictionCollector.m_osmIds2FeatureId.cend());
   sort(osmIds2FeatureId.begin(), osmIds2FeatureId.end(),
-       my::LessBy(&pair<uint64_t, Restriction::FeatureId>::first));
+       my::LessBy(&pair<uint64_t, uint32_t>::first));
   TEST_EQUAL(osmIds2FeatureId, expectedOsmIds2FeatureId, ());
 }
 

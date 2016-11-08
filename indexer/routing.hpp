@@ -16,8 +16,7 @@ namespace routing
 /// \brief Restriction to modify road graph.
 struct Restriction
 {
-  using FeatureId = uint32_t;
-  static FeatureId const kInvalidFeatureId;
+  static uint32_t const kInvalidFeatureId;
 
   /// \brief Types of road graph restrictions.
   /// \note Despite the fact more that 10 restriction tags are present in osm all of them
@@ -34,13 +33,13 @@ struct Restriction
   };
 
   Restriction(Type type, size_t linkNumber);
-  Restriction(Type type, vector<FeatureId> const & links);
+  Restriction(Type type, vector<uint32_t> const & links);
 
   bool IsValid() const;
   bool operator==(Restriction const & restriction) const;
   bool operator<(Restriction const & restriction) const;
 
-  vector<FeatureId> m_links;
+  vector<uint32_t> m_links;
   Type m_type;
 };
 
@@ -127,7 +126,7 @@ public:
         return false;
       }
       uint32_t const delta = biasedDelta - 1;
-      m_restriction.m_links[i] = static_cast<routing::Restriction::FeatureId>(
+      m_restriction.m_links[i] = static_cast<uint32_t>(
           bits::ZigZagDecode(delta) + prevRestriction.m_links[i]);
     }
     return true;

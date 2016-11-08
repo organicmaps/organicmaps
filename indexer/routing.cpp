@@ -2,15 +2,14 @@
 
 namespace routing
 {
-Restriction::FeatureId const Restriction::kInvalidFeatureId =
-    numeric_limits<Restriction::FeatureId>::max();
+uint32_t const Restriction::kInvalidFeatureId = numeric_limits<uint32_t>::max();
 
 Restriction::Restriction(Type type, size_t linkNumber) : m_type(type)
 {
   m_links.resize(linkNumber, kInvalidFeatureId);
 }
 
-Restriction::Restriction(Type type, vector<FeatureId> const & links) : m_links(links), m_type(type)
+Restriction::Restriction(Type type, vector<uint32_t> const & links) : m_links(links), m_type(type)
 {
 }
 

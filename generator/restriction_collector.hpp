@@ -83,7 +83,7 @@ private:
 
   /// \brief Adds feature id and corresponding vector of |osmIds| to |m_osmId2FeatureId|.
   /// \note One feature id (|featureId|) may correspond to several osm ids (|osmIds|).
-  void AddFeatureId(Restriction::FeatureId featureId, vector<uint64_t> const & osmIds);
+  void AddFeatureId(uint32_t featureId, vector<uint64_t> const & osmIds);
 
   /// \brief Adds a restriction (vector of osm id).
   /// \param type is a type of restriction
@@ -95,7 +95,7 @@ private:
   RestrictionVec m_restrictions;
   vector<pair<uint64_t, LinkIndex>> m_restrictionIndex;
 
-  unordered_multimap<uint64_t, Restriction::FeatureId> m_osmIds2FeatureId;
+  unordered_multimap<uint64_t, uint32_t> m_osmIds2FeatureId;
 };
 
 string ToString(Restriction::Type const & type);
