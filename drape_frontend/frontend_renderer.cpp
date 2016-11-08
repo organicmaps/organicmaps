@@ -742,7 +742,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::UpdateTraffic:
     {
       ref_ptr<UpdateTrafficMessage> msg = message;
-      m_trafficRenderer->UpdateTraffic(msg->GetSegmentsData());
+      m_trafficRenderer->UpdateTraffic(msg->GetSegmentsColoring());
       break;
     }
 

@@ -21,6 +21,11 @@ public:
 
     RoadSegmentId(uint32_t fid, uint16_t idx, uint8_t dir);
 
+    bool operator==(RoadSegmentId const & o) const
+    {
+      return m_fid == o.m_fid && m_idx == o.m_idx && m_dir == o.m_dir;
+    }
+
     bool operator<(RoadSegmentId const & o) const
     {
       if (m_fid != o.m_fid)
@@ -57,6 +62,9 @@ public:
 
   // Returns the latest known speed group by a feature segment's id.
   SpeedGroup GetSpeedGroup(RoadSegmentId const & id) const;
+
+  MwmSet::MwmId const & GetMwmId() const { return m_mwmId; }
+  Coloring const & GetColoring() const { return m_coloring; }
 
   static void SerializeTrafficData(Coloring const & coloring, vector<uint8_t> & result);
 

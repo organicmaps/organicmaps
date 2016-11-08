@@ -65,7 +65,7 @@ public:
     RequestSymbolsSize,
     RecoverGLResources,
     SetVisibleViewport,
-    AddTrafficSegments,
+    CacheTrafficSegments,
     SetTrafficTexCoords,
     UpdateTraffic,
     FlushTrafficData,

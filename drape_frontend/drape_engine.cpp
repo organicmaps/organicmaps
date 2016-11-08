@@ -533,18 +533,29 @@ void DrapeEngine::RequestSymbolsSize(vector<string> const & symbols,
                                   MessagePriority::Normal);
 }
 
-void DrapeEngine::AddTrafficSegments(vector<pair<uint64_t, m2::PolylineD>> const & segments)
+void DrapeEngine::CacheTrafficSegmentsGeometry(TrafficSegmentsGeometry const & segments)
 {
+  if (segments.empty())
+    return;
+
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<AddTrafficSegmentsMessage>(segments),
+                                  make_unique_dp<CacheTrafficSegmentsMessage>(segments),
                                   MessagePriority::Normal);
 }
 
-void DrapeEngine::UpdateTraffic(vector<TrafficSegmentData> const & segmentsData)
+void DrapeEngine::UpdateTraffic(TrafficSegmentsColoring const & segmentsColoring)
 {
+  if (segmentsColoring.empty())
+    return;
+
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<UpdateTrafficMessage>(segmentsData),
+                                  make_unique_dp<UpdateTrafficMessage>(segmentsColoring),
                                   MessagePriority::Normal);
+}
+
+void DrapeEngine::ClearTrafficCache(MwmSet::MwmId const & mwmId)
+{
+  // TODO(@rokuz): implement
 }
 
 void DrapeEngine::SetFontScaleFactor(double scaleFactor)

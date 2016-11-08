@@ -171,6 +171,7 @@ pair<MwmSet::MwmId, MwmSet::RegResult> Framework::RegisterMap(
 
 void Framework::OnLocationError(TLocationError /*error*/)
 {
+  m_trafficManager.UpdateMyPosition(TrafficManager::MyPosition());
   CallDrapeFunction(bind(&df::DrapeEngine::LoseLocation, _1));
 }
 
@@ -251,6 +252,8 @@ void Framework::OnUserPositionChanged(m2::PointD const & position)
 
   if (IsRoutingActive())
     m_routingSession.SetUserCurrentPosition(position);
+
+  m_trafficManager.UpdateMyPosition(TrafficManager::MyPosition(position));
 }
 
 void Framework::OnViewportChanged(ScreenBase const & screen)
@@ -260,6 +263,8 @@ void Framework::OnViewportChanged(ScreenBase const & screen)
     UpdateUserViewportChanged();
 
   m_currentModelView = screen;
+
+  m_trafficManager.UpdateViewport(m_currentModelView);
 
   if (m_viewportChanged != nullptr)
     m_viewportChanged(screen);
@@ -336,6 +341,7 @@ Framework::Framework()
   , m_isRenderingEnabled(true)
   , m_trackingReporter(platform::CreateSocket(), TRACKING_REALTIME_HOST, TRACKING_REALTIME_PORT,
                        tracking::Reporter::kPushDelayMs)
+  , m_trafficManager(m_model.GetIndex())
   , m_displacementModeManager([this](bool show) {
     int const mode = show ? dp::displacement::kHotelMode : dp::displacement::kDefaultMode;
     CallDrapeFunction(bind(&df::DrapeEngine::SetDisplacementMode, _1, mode));
@@ -434,6 +440,7 @@ Framework::Framework()
 
 Framework::~Framework()
 {
+  m_trafficManager.SetDrapeEngine(nullptr);
   m_drapeApi.SetEngine(nullptr);
   m_drapeEngine.reset();
 
@@ -1659,6 +1666,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   });
 
   m_drapeApi.SetEngine(make_ref(m_drapeEngine));
+  m_trafficManager.SetDrapeEngine(make_ref(m_drapeEngine));
 }
 
 void Framework::UpdateDrapeEngine(int width, int height)

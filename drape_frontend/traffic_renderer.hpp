@@ -11,7 +11,6 @@
 
 #include "std/map.hpp"
 #include "std/vector.hpp"
-#include "std/unordered_map.hpp"
 
 namespace df
 {
@@ -24,9 +23,9 @@ public:
   void AddRenderData(ref_ptr<dp::GpuProgramManager> mng,
                      vector<TrafficRenderData> && renderData);
 
-  void SetTexCoords(unordered_map<int, glsl::vec2> && texCoords);
+  void SetTexCoords(TrafficTexCoords && texCoords);
 
-  void UpdateTraffic(vector<TrafficSegmentData> const & trafficData);
+  void UpdateTraffic(TrafficSegmentsColoring const & trafficColoring);
 
   void RenderTraffic(ScreenBase const & screen, int zoomLevel,
                      ref_ptr<dp::GpuProgramManager> mng,
@@ -36,8 +35,8 @@ public:
 
 private:
   vector<TrafficRenderData> m_renderData;
-  unordered_map<int, glsl::vec2> m_texCoords;
-  unordered_map<uint64_t, TrafficHandle *> m_handles;
+  TrafficTexCoords m_texCoords;
+  map<TrafficSegmentID, TrafficHandle *> m_handles;
 };
 
 } // namespace df

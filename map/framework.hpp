@@ -8,6 +8,7 @@
 #include "map/mwm_url.hpp"
 #include "map/place_page_info.hpp"
 #include "map/track.hpp"
+#include "map/traffic_manager.hpp"
 
 #include "drape_frontend/gui/skin.hpp"
 #include "drape_frontend/drape_api.hpp"
@@ -167,6 +168,8 @@ protected:
 
   bool m_isRenderingEnabled;
   tracking::Reporter m_trackingReporter;
+
+  TrafficManager m_trafficManager;
 
   /// This function will be called by m_storage when latest local files
   /// is downloaded.
