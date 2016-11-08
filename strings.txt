@@ -60,6 +60,7 @@
     vi = Quay lại
     zh-Hans = 返回
     zh-Hant = 返回
+    el = Πίσω
     he = חזור
     sk = Späť
 
@@ -92,6 +93,7 @@
     vi = Huỷ bỏ
     zh-Hans = 取消
     zh-Hant = 取消
+    el = Άκυρο
     he = בטל
     sk = Zrušiť
 
@@ -124,6 +126,7 @@
     vi = Huỷ bỏ Tải xuống
     zh-Hans = 取消下载
     zh-Hant = 取消下載
+    el = Ακύρωση λήψης
     he = בטל  הורדת הקובץ
     sk = Zrušiť sťahovanie
 
@@ -156,6 +159,7 @@
     vi = Xóa
     zh-Hans = 删除
     zh-Hant = 刪除
+    el = Διαγραφή
     he = מחק
     sk = Zmazať
 
@@ -249,6 +253,7 @@
     vi = Tải xuống Bản đồ
     zh-Hans = 下载地图
     zh-Hant = 下載地圖
+    el = Λήψη χαρτών
     he = הורד קבצי מפות
     sk = Stiahnuť mapy
 
@@ -342,6 +347,7 @@
     vi = Tải xuống thất bại, hãy chạm lại để thử một lần nữa
     zh-Hans = 下载失败，重新轻触再试一次
     zh-Hant = 下載失敗，輕觸以再試一次
+    el = Η λήψη απέτυχε. Αγγίξτε για να προσπαθήσετε ξανά.
     he = הורדת הקובץ נכשלה. לחץ שוב לניסיון נוסף
     sk = Sťahovanie zlyhalo, skúste to znova.
 
@@ -435,6 +441,7 @@
     vi = Đang tải xuống…
     zh-Hans = 下载…
     zh-Hant = 下載中…
+    el = Λήψη…
     he = מוריד….
     sk = Sťahovanie…
 
@@ -496,6 +503,7 @@
     vi = Cám ơn bạn đã sử dụng MAPS.ME! Bạn thích ứng dụng chứ? Kể cho bạn bè về ứng dụng này! Đây sẽ là sự biết ơn tuyệt vời nhất đối với chúng tôi.
     zh-Hans = 感谢您使用 MAPS.ME！您喜欢此应用吗？告诉您的好友们吧！这会是对我们最好的感谢。
     zh-Hant = 感謝您使用 MAPS.ME！您喜歡此應用程式嗎？告訴好友們吧！這會是對我們最好的感謝。
+    el = Σας ευχαριστούμε που χρησιμοποιείτε το MAPS.ME! Σας αρέσει η εφαρμογή; Πείτε το στους φίλους σας! Είναι ότι καλύτερο μπορείτε να κάνετε για εμάς.
     sk = Ďakujeme, že používate MAPS.ME! Páči sa vám táto aplikácia? Povedzte o nej svojim priateľom! Bude to pre nás najlepšia odmena.
 
   [kb]
@@ -546,6 +554,7 @@
     vi = Kilômét
     zh-Hans = 千米
     zh-Hant = 公里
+    el = Χιλιόμετρα
     he = ק"מ
     sk = Kilometre
 
@@ -577,6 +586,7 @@
     vi = Để lại Đánh giá
     zh-Hans = 发表评论
     zh-Hant = 撰寫評論
+    el = Αφήστε μια κριτική
     he = הבע דעתך
     sk = Spätná väzba
 
@@ -608,6 +618,7 @@
     vi = Bản đồ
     zh-Hans = 地图
     zh-Hant = 地圖
+    el = Χάρτες
     he = מפות
     sk = Mapy
 
@@ -639,6 +650,7 @@
     vi = Bản đồ:
     zh-Hans = 地图：
     zh-Hant = 地圖：
+    el = Χάρτες:
     he = מפות:
     sk = Mapy:
 
@@ -690,12 +702,14 @@
     tr = MB
     uk = МБ
     vi = MB
+    el = MB
 
   [gb]
     tags = ios, android
     en = GB
     ru = ГБ
     uk = ГБ
+    el = GB
 
   [miles]
     comment = Choose measurement on first launch alert - choose imperial system button
@@ -726,6 +740,7 @@
     vi = Dặm
     zh-Hans = 英里
     zh-Hant = 英哩
+    el = Μίλια
     he = מ"ב
     sk = Míle
 
@@ -757,6 +772,7 @@
     vi = Vị trí của Tôi
     zh-Hans = 我的位置
     zh-Hant = 我的位置
+    el = Η θέση μου
     he = מיקומי
     sk = Moja poloha
 
@@ -776,6 +792,7 @@
     vi = OK
     zh-Hans = 确定
     zh-Hant = 確定
+    el = OK
     he = אשר
 
   [free_disk_space_for_country_x]
@@ -838,6 +855,7 @@
     vi = Nhắc tôi sau
     zh-Hans = 稍后提醒我
     zh-Hant = 稍後提醒我
+    el = Υπενθύμιση αργότερα
     he = הזכר לי מאוחר יותר
     sk = Upozorniť ma neskôr
 
@@ -868,6 +886,7 @@
     vi = Để sau
     zh-Hans = 稍后
     zh-Hant = 稍後
+    el = Αργότερα
     he = מאוחר יותר
     sk = Neskôr
 
@@ -960,6 +979,7 @@
     vi = Tìm kiếm
     zh-Hans = 搜索
     zh-Hant = 搜尋
+    el = Αναζήτηση
     sk = Hľadať
 
   [search_map]
@@ -990,6 +1010,7 @@
     vi = Tìm kiếm Bản đồ
     zh-Hans = 搜索地图
     zh-Hant = 搜尋地圖
+    el = Αναζήτηση χάρτη
     he = חפש במפה
     sk = Prehľadať mapu
 
@@ -1052,6 +1073,7 @@
     vi = Có
     zh-Hans = 是
     zh-Hant = 是
+    el = Ναι
     he = כן
     sk = Áno
 
@@ -1146,6 +1168,7 @@
     vi = Bạn hiện đang tắt tất cả Dịch vụ Định vị cho thiết bị hoặc ứng dụng này. Bạn vui lòng bật lại chúng trong Thiết lập.
     zh-Hans = 您目前有此设备的所有位置服务或应用已禁用。请在设置中启用它们。
     zh-Hant = 您目前裝置所有的定位服務或相關應用程式是處於停用的狀態，請從系統設定中選擇啟用。
+    el = Οι υπηρεσίες εντοπισμού τοποθεσίας είναι προς το παρόν απενεργοποιημένες σε αυτή τη συσκευή ή για αυτή την εφαρμογή. Ενεργοποιήστε τις από τις Ρυθμίσεις.
     he = שרותי המיקום של מכשיר או ישום זה זה כבויים. הכנס ל "הגדרות" Settings)) כדי להדליקם.
     sk = Aktuálne máte všetky možnosti pre určovanie polohy vypnuté. Prosím, povoľte ich v Nastaveniach.
 
@@ -1208,6 +1231,7 @@
     vi = Hiển thị trên bản đồ
     zh-Hans = 在地图上显示
     zh-Hant = 在地圖上顯示
+    el = Εμφάνιση στο χάρτη
     sk = Ukázať na mape
 
   [country_status_added_to_queue]
@@ -1238,6 +1262,7 @@
     vi = ^\nđã được thêm vào danh sách đợi tải xuống.
     zh-Hans = ^\n添加至下载序列
     zh-Hant = ^\n已加入到下載佇列中
+    el = ^\nis προστέθηκε στην ουρά λήψης.
     he = ^\nנוסף לתור ההורדה
     sk = ^\npridané do zoznamu sťahovania
 
@@ -1269,6 +1294,7 @@
     vi = Đang tải xuống\n^\n^
     zh-Hans = 下载 \n^\n^中
     zh-Hant = 下載中\n^\n^
+    el = Λήψη\n^\n^
     he = מוריד\n^\n^
     sk = Sťahovanie\n^\n^
 
@@ -1300,6 +1326,7 @@
     vi = Tải xuống Bản đồ\n(^ ^)
     zh-Hans = 下载地图\n(^ ^)
     zh-Hant = 下載地圖\n(^ ^)
+    el = Λήψη Χάρτη\n(^ ^)
     he = (^ ^)\nהורידו מפה
     sk = Stiahnite si Mapu\n(^ ^)
 
@@ -1331,6 +1358,7 @@
     vi = Tải xuống Bản đồ
     zh-Hans = 下载地图
     zh-Hant = 下載地圖
+    el = Λήψη χάρτη
     he = הורידו מפה
     sk = Stiahnite si Mapu
 
@@ -1362,6 +1390,7 @@
     vi = Tải về bản đồ không\ncó chỉ đường (^ ^)
     zh-Hans = 下载不带路线的地图\n(^ ^)
     zh-Hant = 下載不帶路線的地圖\n(^ ^)
+    el = Λήχη χάρτη\nχωρίς δρομολόγηση (^ ^)
     he = (^ ^)\nהורד מפה בלי לקבוע מסלול
     sk = Stiahnite si mapu\nbez smerovania (^ ^)
 
@@ -1393,6 +1422,7 @@
     vi = Tải xuống đã thất bại
     zh-Hans = 下载失败了
     zh-Hant = 下載失敗
+    el = Η λήψη απέτυχε
     he = הורדנכשלה
     sk = Sťahovanie zlyhalo
 
@@ -1424,11 +1454,13 @@
     vi = Thử lại
     zh-Hans = 重试
     zh-Hant = 再試一次
+    el = Δοκιμάστε ξανά
     he = נסה שוב
     sk = Skúsiť znova
 
   [app_name]
     en = MAPS.ME
+    el = MAPS.ME
 
   [about_menu_title]
     en = About MAPS.ME
@@ -1457,6 +1489,7 @@
     vi = Giới thiệu về MAPS.ME
     zh-Hans = 关于 MAPS.ME
     zh-Hant = 關於 MAPS.ME
+    el = Σχετικά με το MAPS.ME
     he = MAPS.ME אודות
     sk = O aplikácii MAPS.ME
 
@@ -1547,6 +1580,7 @@
     vi = Thiết lập Kết nối
     zh-Hans = 连接设置
     zh-Hant = 連線設定
+    el = Ρυθμίσεις σύνδεσης
     he = הגדרות תקשורת
     sk = Nastavenie pripojenia
 
@@ -1607,6 +1641,7 @@
     vi = Đóng
     zh-Hans = 关闭
     zh-Hant = 關閉
+    el = Κλείσιμο
     he = סגור
     sk = Zavrieť
 
@@ -1637,6 +1672,7 @@
     vi = Cần có OpenGL được tăng tốc phần cứng. Thật không may, thiết bị của bạn không được hỗ trợ.
     zh-Hans = 硬件加速的 OpenGL 是必需的。遗憾的是您 的设备不支持。
     zh-Hant = 需要 OpenGL 硬體加速功能的支援。但很不幸的，您的裝置並不支援此功能！
+    el = Η εφαρμογή απαιτεί OpenGL με επιτάχυνση υλικού. Δυστυχώς, η συσκευή σας δεν το υποστηρίζει.
     he = נדרש מאיץ חומרה OpenGL. לצערינו מכשיר זה אינו נתמך.
     sk = Je vyžadovaná hardwarová akcelerácia OpenGL. Bohužial, vaše zariadenie nie je podporované.
 
@@ -1667,6 +1703,7 @@
     vi = Tải xuống
     zh-Hans = 下载
     zh-Hant = 下載
+    el = Λήψη
     he = הורד
     sk = Stiahnuť
 
@@ -1727,6 +1764,7 @@
     vi = Bạn vui lòng tháo cáp USB hoặc lắp thẻ nhớ vào để sử dụng MAPS.ME
     zh-Hans = 请断开 USB 线或插入存储卡以使用 MAPS.ME
     zh-Hant = 請拔除 USB 線或插入 SD 卡以使用 MAPS.ME
+    el = Αποσυνδέστε το καλώδιο USB ή τοποθετήστε την κάρτα μνήμης για να χρησιμοποιήσετε το MAPS.ME
     he = אנא נתק כבל USB או הכנס כרטיס זכרון כדי להשתמש  ב MAPS.ME.
     sk = Prosím, odpojte USB kábel alebo vložte pamäťovú kartu pre použitie s MAPS.ME
 
@@ -1757,6 +1795,7 @@
     vi = Bạn vui lòng giải phóng dung lượng trên ổ lưu trữ thẻ SD/USB để có thể sử dụng ứng dụng
     zh-Hans = 请在 SD 卡/ USB 储存设备上释放一些空间以 使用此应用
     zh-Hant = 如要繼續使用，請先釋放一些 SD 卡/ USB 儲存空間
+    el = Ελευθερώσετε  χώρο αποθήκευσης στην SD κάρτα/USB πρώτα προκειμένου να χρησιμοποιήσετε την εφαρμογή
     he = אנא פנה שטח אחסון על ה SD card/USB כדי להשתמש בישום
     sk = Prosím, uvoľnite najprv miesto na SD karte/USB úložisku
 
@@ -1787,6 +1826,7 @@
     vi = Không đủ bộ nhớ để chạy ứng dụng
     zh-Hans = 没有足够的内存来启动应用程序
     zh-Hant = 沒有足夠的記憶體以啟動應用程式
+    el = Δεν υπάρχει αρκετή μνήμη για την έναρξη εφαρμογής
     he = אין מספיק זכרון כדי להפעיל הישום
     sk = Nedostatok pamäti k spusteniu aplikácie
 
@@ -1847,6 +1887,7 @@
     vi = Trước khi bạn bắt đầu, hãy để chúng tôi tải bản đồ thế giới vào thiết bị của bạn.\nBản đồ này cần %@ dữ liệu.
     zh-Hans = 在您开始前请让我们下载通用世界地 图至您的设备中。\n它需要%@的 数据。
     zh-Hant = 在您開始之前，先讓我們下載世界地圖到您的裝置中以便瀏覽。\n這需要資料的 %@。
+    el = Πριν ξεκινήσετε τη χρήση της εφαρμογής, επιτρέψτε μας να κατεβάσουμε το γενικό παγκόσμιο χάρτη στη συσκευή σας. \nIt θα χρησιμοποιήσει %@ αποθηκευτικού χώρου.
     he = תחילה, נוריד למכשירך מפה כללית של העולם.\nדורש %@ של נתונים.
     sk = Skôr ako začnete, bude treba stiahnuť základnú mapu sveta.\nZaberie to %@.
 
@@ -1877,6 +1918,7 @@
     vi = Đang tìm vị trí hiện tại
     zh-Hans = 获取当前位置
     zh-Hant = 取得目前所在位置
+    el = Λήψη τρέχουσας τοποθεσίας
     he = מאתר  מיקום נוכחי
     sk = Získavanie aktuálnej polohy
 
@@ -1907,6 +1949,7 @@
     vi = Đến Bản đồ
     zh-Hans = 前往地图
     zh-Hant = 跳到地圖
+    el = Μετάβαση στο χάρτη
     he = עבור למפה
     sk = Prejsť na mapu
 
@@ -1937,6 +1980,7 @@
     vi = Đang tải xuống %@. Bây giờ bạn đã có thể\nvào bản đồ.
     zh-Hans = 下载 %@。您现在可\n前往地图。
     zh-Hant = 正在下載 %@。您現在 可以繼續使用地圖了
+    el = Λήψη %@. Μπορείτε τώρα να\nμεταβείτε στο χάρτη.
     he = מוריד %@. תוכל עתה\nלהמשיך למפה.
     sk = Sťahovanie %@. Teraz môžete\nprejsť na mapu.
 
@@ -1967,6 +2011,7 @@
     vi = Tải xuống %@?
     zh-Hans = 下载 %@?
     zh-Hant = 下載 %@?
+    el = Να γίνει λήψη %@;
     he = להוריד %@?
     sk = Stiahnuť %@?
 
@@ -1997,6 +2042,7 @@
     vi = Cập nhật %@?
     zh-Hans = 更新 %@?
     zh-Hant = 更新 %@？
+    el = Να γίνει ενημέρωση %@;
     he = לעדכן %@?
     sk = Aktualizovať %@?
 
@@ -2028,6 +2074,7 @@
     vi = Bạn có thể tải xuống bản đồ\ncủa địa điểm hiện tại của bạn.
     zh-Hans = 您可下载您目前位置的地图。
     zh-Hant = 您可以下載目前所在位置的地圖。
+    el = Μπορείτε να κατεβάσετε το χάρτη\nτης τρέχουσας τοποθεσίας σας.
     he = אתה יכול להוריד המפה\nשל מקומך הנוכחי.
     sk = Môžete stiahnuť mapu\npre svoju aktuálnu polohu.
 
@@ -2059,6 +2106,7 @@
     vi = Bạn có thể cập nhật bản đồ\ncủa địa điểm hiện tại của bạn.
     zh-Hans = 您可更新您目前位置的地图。
     zh-Hant = 您可以更新目前所在位置的地圖。
+    el = Μπορείτε να ενημερώσετε το χάρτη\nτης τρέχουσας τοποθεσίας σας.
     he = אתה יכול לעדכן את מיקומך הנוכחי במפה.
     sk = Môžete aktualizovať mapu\nsvojej aktuálnej polohy.
 
@@ -2090,6 +2138,7 @@
     vi = Bản đồ của địa điểm\nhiện tại của bạn (%@) là bản mới nhất
     zh-Hans = 您目前\n位置(%@) 的地图是最新的。
     zh-Hant = 您目前所在位置 (%@)\n的地圖已是最新圖資!
+    el = Ο χάρτης της τρέχουσας\nτοποθεσίας σας (%@) είναι ενημερωμένος.
     he = אתה יכול לעדכן את מיקומך הנוכחי במפה.
     sk = Mapa vašej aktuálnej\npolohy (%@) je aktuálna.
 
@@ -2121,6 +2170,7 @@
     vi = Tạm dừng
     zh-Hans = 暂停
     zh-Hant = 暫停
+    el = Παύση
     he = הפסק
     sk = Pauza
 
@@ -2152,6 +2202,7 @@
     vi = Tiếp tục
     zh-Hans = 继续
     zh-Hant = 繼續
+    el = Συνέχεια
     he = המשך
     sk = Pokračovať
 
@@ -2276,6 +2327,7 @@
     vi = Bạn cần bản đồ được cập nhật cho chức năng tìm kiếm:
     zh-Hans = 这些地图有更新版本:
     zh-Hant = 以下為可更新的地圖：
+    el = Υπάρχει διαθέσιμη ενημέρωση για τους παρακάτω χάρτες:
     he = קיים עידכון למפות הבאות:
     sk = K dispozícii je aktualizácia pre tieto mapy:
 
@@ -2308,6 +2360,7 @@
     vi = Bạn không cần MAPS.ME Lite nữa, vì vậy bạn có thể gỡ cài đặt nó.
     zh-Hans = 您不再需要MAPS.ME Lite ，所以，您可以卸载它。
     zh-Hant = 你再也不需要 MAPS.ME Lite 了，所以您可以移除它！
+    el = Δε χρειάζεστε το MAPS.ME Lite πλέον, μπορείτε να το απεγκαταστήσετε.
     he = אינך צריך עוד את  MAPS.ME Lite. תוכל להסיר את ההתקנה.
     sk = Aplikáciu MAPS.ME Lite uz teraz nepotrebujete, takže si ju môžete kľudne odinštalovať.
 
@@ -2372,6 +2425,7 @@
     vi = %@ - descărcarea a eșuat
     zh-Hans = %@下载失败
     zh-Hant = %@ 下載失敗
+    el = η λήψη %@ απέτυχε
     he = %@ ההורדה  נכשלה
     sk = Sťahovanie zlyhalo: %@
 
@@ -2404,6 +2458,7 @@
     vi = Thêm Bộ Mới
     zh-Hans = 添加新的集合
     zh-Hant = 新增收藏夾
+    el = Προσθέστε νέο σύνολο
     he = הוסף קבוצה חדשה
     sk = Pridať novú skupinu záložiek
 
@@ -2468,6 +2523,7 @@
     vi = Đánh dấu Màu sắc
     zh-Hans = 书签颜色
     zh-Hant = 書籤顏色
+    el = Χρώμα αγαπημένου
     he = צבע רשימת האתרים
     sk = Farba záložky
 
@@ -2500,6 +2556,7 @@
     vi = Đánh dấu Tên Bộ
     zh-Hans = 书签集名称
     zh-Hant = 收藏夾名稱
+    el = Όνομα συνόλου αγαπημένων
     he = שם רשימת האתרים
     sk = Meno záložky
 
@@ -2532,6 +2589,7 @@
     vi = Đánh dấu Bộ
     zh-Hans = 书签集
     zh-Hant = 收藏夾
+    el = Σύνολα αγαπημένων
     he = רשימות אתרים
     sk = Skupiny záložiek
 
@@ -2564,6 +2622,7 @@
     vi = Đánh dấu
     zh-Hans = 书签
     zh-Hant = 書籤
+    el = Αγαπημένα
     he = רשימות אתרים
     sk = Záložky
 
@@ -2628,6 +2687,7 @@
     vi = Các Địa chỉ của Tôi
     zh-Hans = 我的位置
     zh-Hant = 我的地點
+    el = Οι τοποθεσίες μου
     he = המקומות שלי
     sk = Moje miesta
 
@@ -2659,6 +2719,7 @@
     vi = Tên
     zh-Hans = 名字
     zh-Hant = 名稱
+    el = Όνομα
     he = שם
     if = Nome
     sk = Názov
@@ -2692,6 +2753,7 @@
     vi = Địa chỉ
     zh-Hans = 地址
     zh-Hant = 位址
+    el = Διεύθυνση
     he = כתובת
     sk = Adresa
 
@@ -2756,6 +2818,7 @@
     vi = Đặt
     zh-Hans = 集合
     zh-Hant = 收藏夾
+    el = Σύνολο
     he = קבוצה
     sk = Skupina
 
@@ -2788,6 +2851,7 @@
     vi = Bạn chưa có điểm đánh dấu.\nChạm vào bất kỳ địa điểm nào trên bản đồ để thêm một điểm đánh dấu.\nĐiểm đánh dấu từ các nguồn khác cũng có thể được nhập và hiển thị trong MAPS.ME. Mở tập tin KML/KMZ với các điểm đánh dấu được lưu từ email, Dropbox hoặc liên kết web.
     zh-Hans = 您还没有书签。\n在地图任何位置轻触以添 加一个书签。\n其他来源的书签也可载入并 显示在 MAPS.ME 中。从邮件、 Dropbox 或 weblink 中打开存储有图钉的 KML/KMZ 文 件。
     zh-Hant = 您還沒有任何書籤。\n點擊地圖上的任何地方以新增書籤。\n其他來源的書籤也可導入在 MAPS.ME 中顯示。從電子郵件、Dropbox 或網站連結開啟有著已儲存書籤的 KML/KMZ 檔案。
+    el = Δεν έχετε αγαπημένα ακόμα.\nΠατήστε σε οποιοδήποτε σημείο στο χάρτη για να προσθέσετε αγαπημένο.\nΜπορείτε επίσης να εισάγετε αγαπημένα από άλλες πηγές και να τα εμφανίσετε στο MAPS.ME. Ανοίξτε το αρχείο KML/KMZ με τα αποθηκευμένα αγαπημένα από το email, το Dropbox ή τους υπερσυνδέσμους.
     he = לא יצרת רשימת אתרים עדיין. \n הקש במקום כלשהו על המפה כדי להוסיפה לרשימת האתרים.ניתן ליבא ולהציג ב MAPS.ME רשימות אתרים ממקורות אחרים. פתח קובץ  KML/KMZ באמצעות סיכות שמורות ממייל, Dropbox, או קישור לרשת.
     sk = Zatiaľ nemáte žiadne záložky.\nZáložku môžete pridať pridržaním ľubovolného miesta na mape.\nV MAPS.ME môžu byť tiež zobrazené importované záložky z iných zdrojov. Súbor vo formáte KML/KMZ s uloženými záložkami môžete otvoriť napr. z emailu, Dropboxu alebo z webového odkazu.
 
@@ -2820,6 +2884,7 @@
     vi = Điểm đánh dấu từ các nguồn khác có thể được nhập và hiển thị trong MAPS.ME. Mở tập tin KML/KMZ với các điểm đánh dấu được lưu từ thư, Dropbox hoặc liên kết web.
     zh-Hans = 其他来源的书签也可载入并显示在 MAPS.ME中。从邮件、Dropbox 或 weblink 中打开存储有图钉的 KML/KMZ 文件。
     zh-Hant = 其他來源的書籤也可導入在 MAPS.ME 中顯示。從電子郵件、Dropbox 或網站連結開啟有著已儲存書籤的 KML/KMZ 檔案。
+    el = Μπορείτε επίσης να εισάγετε αγαπημένα από άλλες πηγές και να τα εμφανίσετε στο MAPS.ME. Ανοίξτε το αρχείο KML/KMZ με τα αποθηκευμένα αγαπημένα από το email, το Dropbox ή τους υπερσυνδέσμους.
     he = ניתן ליבא ולהציג ב MAPS.ME רשימות אתרים ממקורות אחרים. פתח קובץ  KML/KMZ באמצעות סיכות שמורות ממייל, Dropbox, או קישור לרשת.
     sk = V MAPS.ME môžu byť tiež zobrazené importované záložky z iných zdrojov. Súbor vo formáte KML/KMZ s uloženými záložkami môžete otvoriť napr. z emailu, Dropboxu alebo z webového odkazu.
 
@@ -2852,6 +2917,7 @@
     vi = Thiết lập
     zh-Hans = 设置
     zh-Hant = 設定
+    el = Ρυθμίσεις
     he = הגדרות
     sk = Nastavenia
 
@@ -2884,6 +2950,7 @@
     vi = Lưu trữ bản đồ
     zh-Hans = 地图存储
     zh-Hant = 地圖儲存
+    el = Αποθηκευτικό χώρος χαρτών
     he = שמירת מפות
     sk = Úložisko máp
 
@@ -2916,6 +2983,7 @@
     vi = Chọn vị trí nơi bản đồ sẽ được tải về
     zh-Hans = 选取地图应该下载的位置
     zh-Hant = 請選擇下載地圖後要放的位置
+    el = Επιλέξτε από που θα γίνει λήψη χαρτών
     he = בחר הכתובת במחשבך לשמירת המפות שתוריד
     sk = Vyberte miesto, kam by mali byť mapy sťahované
 
@@ -2948,6 +3016,7 @@
     vi = Di chuyển bản đồ?
     zh-Hans = 移动地图?
     zh-Hant = 移動地圖？
+    el = Να γίνει μετακίνηση χαρτών;
     he = להעביר המפות?
     sk = Presunúť mapy?
 
@@ -2980,6 +3049,7 @@
     vi = Việc này có thể mất vài phút.\nVui lòng đợi…
     zh-Hans = 这可能需要几分钟的时间。\n请稍候…
     zh-Hant = 這可能需要幾分鐘\n請稍候…
+    el = Αυτό μπορεί να διαρκέσει αρκετά λεπτά. \nΠαρακαλώ περιμένετε…
     he = פעולה זו יכולה להמשך מספר דקות.\nהמתן בבקשה…
     sk = Táto akcia môže trvať niekoľko minút.\nProsím čakajte…
 
@@ -3011,6 +3081,7 @@
     vi = Hiện
     zh-Hans = 可见
     zh-Hant = 可見
+    el = Ορατό
     he = נראה
     sk = Viditeľné
 
@@ -3075,6 +3146,7 @@
     vi = Đơn vị đo
     zh-Hans = 测量单位
     zh-Hant = 測量單位
+    el = Μονάδες μέτρησης
     he = יחידות  מדידה
     sk = Meracie jednotky
 
@@ -3108,6 +3180,7 @@
     vi = Chọn giữa dặm và kilômét
     zh-Hans = 选择英里或公里
     zh-Hant = 請選擇公里或英哩
+    el = Επιλέξετε ανάμεσα σε μίλια και χιλιόμετρα
     he = בחר בין מיילים לקילומטרים
     sk = Vyberte si míle alebo kilometre
 
@@ -3221,6 +3294,7 @@
     vi = ẩm thực
     zh-Hans = 食物
     zh-Hant = 飲食
+    el = Φαγητό
     he = אוכל
     sk = Jedlo
 
@@ -3253,6 +3327,7 @@
     vi = Giao thông
     zh-Hans = 交通
     zh-Hant = 運輸
+    el = Συγκοινωνία
     he = תחבורה
     sk = Doprava
 
@@ -3286,6 +3361,7 @@
     vi = Khí đốt
     zh-Hans = 汽油
     zh-Hant = 加油站
+    el = Βενζίνη
     he = גז
     sk = Čerpacia stanica
 
@@ -3318,6 +3394,7 @@
     vi = đỗ xe
     zh-Hans = 停车
     zh-Hant = 停車場
+    el = Χώρος στάθμευσης
     he = חניה
     sk = Parkovisko
 
@@ -3350,7 +3427,7 @@
     vi = Cửa hàng
     zh-Hans = 商店
     zh-Hant = 購物
-    el = Μαγαζί
+    el = Κατάστημα
     he = חנות
     sk = Obchod
     sw = Duka
@@ -3384,6 +3461,7 @@
     vi = Khách sạn
     zh-Hans = 旅店
     zh-Hant = 飯店
+    el = Ξενοδοχείο
     he = מלון
     sk = Hotel
 
@@ -3416,6 +3494,7 @@
     vi = Diểm tham quan
     zh-Hans = 景点
     zh-Hant = 旅遊景點
+    el = Αξιοθέατα
     he = נקודות עיניין
     sk = Pamätihodnosť
 
@@ -3448,6 +3527,7 @@
     vi = Giải trí
     zh-Hans = 娱乐
     zh-Hant = 娛樂
+    el = Ψυχαγωγία
     he = בידור
     sk = Zábava
 
@@ -3480,6 +3560,7 @@
     vi = ATM
     zh-Hans = 自动取款机
     zh-Hant = 自動櫃員機
+    el = ATM
     he = כספומט
     sk = Bankomat
 
@@ -3512,6 +3593,7 @@
     vi = Ngân hàng
     zh-Hans = 银行
     zh-Hant = 銀行
+    el = Τράπεζα
     he = בנק
     sk = Banka
 
@@ -3544,6 +3626,7 @@
     vi = Hiệu thuốc
     zh-Hans = 药店
     zh-Hant = 藥局
+    el = Φαρμακείο
     he = בית מרקחת
     sk = Lekáreň
 
@@ -3610,6 +3693,7 @@
     vi = Nhà vệ sinh
     zh-Hans = 厕所
     zh-Hant = 廁所
+    el = Τουαλέτα
     he = שירותים
     sk = Záchody
 
@@ -3642,6 +3726,7 @@
     vi = Bưu điện
     zh-Hans = 邮政
     zh-Hant = 郵局
+    el = Ταχυδρομείο
     he = דואר
     sk = Pošta
 
@@ -3674,6 +3759,7 @@
     vi = Cảnh sát
     zh-Hans = 警察
     zh-Hant = 警察局
+    el = Αστυνομία
     he = משטרה
     sk = Polícia
 
@@ -3738,6 +3824,7 @@
     vi = Ghi chú
     zh-Hans = 注释
     zh-Hant = 描述說明
+    el = Σημειώσεις
     he = הערות
     sk = Poznámky
 
@@ -3770,6 +3857,7 @@
     vi = Chia sẻ bằng email
     zh-Hans = 邮件分享
     zh-Hant = 以電子郵件分享
+    el = Κοινοποίηση μέσω ηλεκτρονικού ταχυδρομείου
     he = שתף  במייל
 
   [share_bookmarks_email_subject]
@@ -3801,6 +3889,7 @@
     vi = Điểm đánh dấu MAPS.ME được chia sẻ
     zh-Hans = MAPS.ME 书签已与您共享
     zh-Hant = 已分享 MAPS.ME 書籤
+    el = Κοινοποιήθηκαν αγαπημένα MAPS.ME με σας
     he = משותפתMAPS.ME רשימת אתרי
     sk = Zdielané záložky MAPS.ME
 
@@ -3833,6 +3922,7 @@
     vi = Xin chào,\n\nPhần đính kèm là các điểm đánh dấu của tôi từ bản đồ ngoại tuyến MAPS.ME. Vui lòng mở nó nếu bạn đã cài đặt MAPS.ME. Nếu không, hãy tải xuống ứng dụng này cho thiết bị iOS hoặc Android của bạn theo liên kết sau: http://maps.me/get?kmz\n\nChúc bạn du lịch vui vẻ cùng MAPS.ME!
     zh-Hans = 欢迎,\n\n附件是 MAPS.ME 离线地图中我 的书签。如果您已安装 MAPS.ME, 请打开它。若没有,请为您的 iOS 或安卓设 备下载此应用。下载链接: http://maps.me/get?kmz\n\n享 受 和 MAPS.ME 的旅行吧!
     zh-Hant = 哈囉！\n\n這是我的 MAPS.ME 離線地圖中所夾帶的「%@.kmz」書籤檔案。若您已安裝 MAPS.ME 的話請開啟它，否則請先從 http://maps.me/get?kmz 這個連結下載 iOS 或 Android 平台的應用程式。\n\n祝您使用MAPS.ME愉快!
+    el = Γεια!\n\nΕπισυνάπτω τα αγαπημένα μου MAPS.ME από τους χάρτες εκτός σύνδεσης. Μπορείς να τους ανοίξεις εάν έχεςις MAPS.ME. Εάν δεν έχεις, μπορείς να κεταβάσεις την εφαρμογή για συσκευές iOS ή Android από αυτό το σύνδεσμο: http://maps.me/get?kmz\n\nΑπόλαυσε τα ταξίδια με το MAPS.ME!
     he = . פתח אותה אם התקנת MAPS.ME מצ"ב רשימת האתרים שלי ממפות לא מקוונות שלברכות, או האנדרויד שלך מהאתר הבא: iOS. אם לא, הורד הישום למכשיר ה MAPS.ME! MAPS.ME נסיעה מהנה עם http://maps.me/get?kmz
     sk = Ahoj!\n\nTu sú moje záložky z offline map aplikácie MAPS.ME v priloženom súbore "%@.kmz". Pokiaľ máte už podobnú aplikáciu MAPS.ME nainštalovanú, otvorte si, prosím tento súbor. V opačnom prípade si najprv nainštalujte aplikáciu pre svoje iOS alebo Android zariadenie z tohto odkazu http://maps.me/get?kmz\n\nPríjemnú zábavu s MAPS.ME!
 
@@ -3865,6 +3955,7 @@
     vi = Tải Điểm đánh dấu
     zh-Hans = 加载书签
     zh-Hant = 正在載入書籤…
+    el = Φόρτωση αγαπημένων
     he = טוען רשימות אתרים
     sk = Načítavanie záložiek
 
@@ -3897,6 +3988,7 @@
     vi = Đã tải điểm đánh dấu thành công! Bạn có thể tìm chúng trên bản đồ hoặc màn hình Trình quản lý Điểm đánh dấu.
     zh-Hans = 书签加载成功!您可以在地图或书签管理窗 口中找到它们。
     zh-Hant = 書籤上傳成功！ 您可以在地圖上或是書籤管理畫面中找到書籤。
+    el = Τα αγαπημένα φορτώθηκαν με επιτυχία! Μπορείτε να τα βρείτε στο χάρτη ή στην οθόνη Διαχείριση αγαπημένων.
     he = רשימת האתרים הועלתה בהצלחה! תוכל למצוא אותה על המפה או במסך נהול רשימות האתרים.
     sk = Záložky boli úspešne načítané! Môžete ich nájst na mape alebo na obrazovke Správca záložiek.
 
@@ -3929,6 +4021,7 @@
     vi = Không tải lên được điểm đánh dấu. Tập tin có thể bị hỏng hoặc lỗi.
     zh-Hans = 书签上传失败。该文件可能已损坏或有缺陷。
     zh-Hant = 書籤上傳失敗。 檔案可能有毀損或是不完全。
+    el = Η μεταφόρτωση των αγαπημένων απέτυχε. Το αρχείο μπορεί να είναι κατεστραμμένο ή ελαττωματικό.
     he = טעינת רשימת האתרים נכשלה. יתכן שהקובץ פגום.
     sk = Načítavanie záložiek sa nepodarilo. Súbor môže byť poškodený alebo chybný.
 
@@ -3959,6 +4052,7 @@
     vi = Sửa
     zh-Hans = 编辑
     zh-Hant = 編輯
+    el = Επεξεργασία
     he = ערוך
     sk = Upraviť
 
@@ -3991,6 +4085,7 @@
     vi = Chưa xác định được vị trí của bạn
     zh-Hans = 您的位置尚未确定
     zh-Hant = 您的位置尚未定位完成
+    el = Η τοποθεσία σας δεν έχει καθοριστεί ακόμη
     he = מיקומך לא אותר עדיין
     sk = Vaša poloha zatiaľ nebola určená
 
@@ -4023,6 +4118,7 @@
     vi = Tải xuống quốc gia của vị trí hiện tại của bạn (%@)
     zh-Hans = 下载您所在位置的国家 (%@)
     zh-Hant = 下載您目前所在位置的國家 地圖 (%@)
+    el = Κατεβάστε τον χάρτη για την τρέχουσα τοποθεσία σας (%@)
     he = הורד המדינה (%@) בה אתה נמצא כעת
     sk = Sťahovanie krajiny vašej aktuálnej polohy (%@)
 
@@ -4087,6 +4183,7 @@
     vi = Rất tiếc, cài đặt Lưu trữ Bản đồ hiện đã bị tắt.
     zh-Hans = 抱歉,地图存储设置目前被禁用
     zh-Hant = 很抱歉，地圖儲存設定目前已停用。
+    el = Λυπούμαστε, η αποθήκευση του χάρτη είναι προς το παρόν απενεργοποιημένη.
     he = . פעילה כרגע מצטערים, הגדרת "שמירת מפה" אינה
     sk = Prepáčte, nastavenie uloženia máp je dočasne nedostupné.
 
@@ -4119,6 +4216,7 @@
     vi = Hiện đang tải xuống quốc gia.
     zh-Hans = 国家下载进行中。
     zh-Hant = 國家地圖正在進行下載
+    el = Λήψη χάρτη σε εξέλιξη.
     he = הודת מפת המדינה מתבצעת כרגע.
     sk = Práve prebieha sťahovanie krajiny.
 
@@ -4214,6 +4312,7 @@
     vi = Này, hãy xem ghim của tôi tại MAPS.ME! %1$@ hoặc %2$@ Bạn chưa cài đặt bản đồ ngoại tuyến? Tải xuống tại đây: http://maps.me/get
     zh-Hans = 嘿,在 MAPS.ME 上查看我标注的图钉吧! %1$@ 或%2$@ 未安装离线地图?在此下 载: http://maps.me/get
     zh-Hant = 嘿，看看我在 MAPS.ME 標記的圖釘吧！ %1$@ 或%2$@ 沒安裝離線地圖？在此下載: http://maps.me/get
+    el = Έλεγξε τις τοποθεσίες που έχω καρφιτσώσει στο MAPS.ME! %1$@ ή %2$@ εάν δεν έχεις εγκαταστήσει χάρτες εκτός σύνδεσης, μπορείς να τους κατεβάσεις εδώ: http://maps.me/get
     sk = Pozrite na moju značku na mape. Otvoriť odkaz: %1$@ alebo %2$@
 
   [my_position_share_sms]
@@ -4245,6 +4344,7 @@
     vi = Này, hãy xem vị trí hiện tại của tôi tại MAPS.ME! %1$@ hoặc %2$@ Bạn không có bản đồ ngoại tuyến? Tải xuống tại đây: http://maps.me/get
     zh-Hans = 嘿,在 MAPS.ME 上查看我目前的位置 吧!%1$@ 或%2$@ 未安装离线地图?在此 下载: http://maps.me/get
     zh-Hant = 嘿，在 MAPS.ME 查看我的目前位置吧！ %1$@ 或%2$@ 沒安裝離線地圖？在此下載: http://maps.me/get
+    el = Έλεγξε την τρέχουσα τοποθεσία μου στο MAPS.ME! %1$@ ή %2$@ στην περίπτωση που δεν έχεις εγκαταστήσει χάρτες εκτός σύνδεσης, μπορείς να τους κατεβάσεις εδώ: http://maps.me/get
     he = . אין ברשותך מפות לא מקוונות? הורד MAPS.ME! %1$@ or %2$@ הי, בדוק את מיקומי הנוכחי ב. http://maps.me/get הורד אותן מ:
     sk = Pozri kde som. Otvor odkaz: %1$@ alebo %2$@
 
@@ -4277,6 +4377,7 @@
     vi = Này, hãy xem ghim của tôi tại MAPS.ME map
     zh-Hans = 嘿,在 MAPS.ME 上查看我标注的图钉吧!
     zh-Hant = 嘿，看看我在 MAPS.ME 地圖上的圖釘！
+    el = Έλεγξε τις τοποθεσίες που έχω καρφιτσώσει στο MAPS.ME!
     he = הי, בדוק את הסיכה שלי במפה של MAPS.ME!
     sk = Pozri na moju značku na mape MAPS.ME
 
@@ -4341,6 +4442,7 @@
     vi = Này, hãy xem vị trí hiện tại của tôi tại MAPS.ME map!
     zh-Hans = 嗨，到 MAPS.ME 查看我的当前位置！
     zh-Hant = 嗨，到 MAPS.ME 地圖查看我的目前位置！
+    el = Έλεγξε την τρέχουσα τοποθεσία μου στο χάρτη MAPS.ME!
     he = היי, בדקו את המיקום הנוכחי שלי במפה של MAPS.ME!
     sk = Pozrite si moju aktuálnu polohu na mape MAPS.ME
 
@@ -4373,6 +4475,7 @@
     vi = Chào,\n\nTôi hiện đang ở đây: %1$@. Hãy nhấn vào liên kết này %2$@ hoặc liên kết này %3$@ để xem địa điểm trên bản đồ.\n\nCám ơn.
     zh-Hans = 嗨,\n\n我现在在这:%1$@。点击此链 接%2$@或此链接 %3$@来查看在地图上的 位置。\n\n谢谢。
     zh-Hant = 嗨，\n\n我現在在這：%1$@。點擊此連結 %2$@ 或此連結 %3$@ 來查看在地圖上的位置。\n\n謝謝。
+    el = Γεια,\n\nείμαι εδώ τώρα: %1$@. Κάνε κλικ σε αυτό το σύνδεσμο %2$@ ή σε αυτόν %3$@ για να δεις την τοποθεσία στο χάρτη.\n\nΕυχαριστώ.
     he = הי, n\nI\ אני כאן: %1$@. הקש על הלינק %2$@ או על %3$@ כדי לראות את המקום על המפה. \n\n תודה.
     sk = Ahoj,\n\nPráve som tu: %1$@. Stlačte jeden z týchto odkazov %2$@, %3$@ a uvidíte toto miesto na mape.\n\nVďaka
 
@@ -4405,6 +4508,7 @@
     vi = Chia sẻ bằng tin nhắn
     zh-Hans = 通过消息分享
     zh-Hant = 透過訊息分享
+    el = Κοινοποίηση μέσω μηνύματος
     he = שתף באמצעות הודעה
     sk = Zdielať pomocou správy
 
@@ -4437,6 +4541,7 @@
     vi = Chia sẻ
     zh-Hans = 分享
     zh-Hant = 分享
+    el = Κοινοποίηση
     he = הפץ
     sk = Zdielať
 
@@ -4501,6 +4606,7 @@
     vi = Email
     zh-Hans = 邮件
     zh-Hant = 電子郵件
+    el = Email
     sk = Email
 
   [copy_link]
@@ -4596,6 +4702,7 @@
     vi = Đã sao chép vào Bảng tạm: %1$@
     zh-Hans = 复制到剪贴板:%1$@
     zh-Hant = 已複製到剪貼簿：%1$@
+    el = Αντιγράφηκε στο Πρόχειρο: %1$@
     he = הועתקו לזכרון זמני %1$@
     sk = Skopírované do schránky: %1$@
 
@@ -4628,6 +4735,7 @@
     vi = Gửi thống kê
     zh-Hans = 发送数据
     zh-Hant = 啟用匿名使用數據
+    el = Αποστολή στατιστικών
     he = שלח סטטיסטיקה
     sk = Odosielať štatistiky
 
@@ -4660,6 +4768,7 @@
     vi = Thông tin
     zh-Hans = 信息
     zh-Hant = 簡介
+    el = Πληροφορίες
     he = מידע
     sk = Viacej informácií
 
@@ -4692,6 +4801,7 @@
     vi = Xong
     zh-Hans = 完成
     zh-Hant = 完成
+    el = Ολοκληρώθηκε
     he = בוצע
     sk = Hotovo
 
@@ -4814,6 +4924,7 @@
     vi = Phiên bản: %@
     zh-Hans = 版本:%@
     zh-Hant = 版本： %@
+    el = Έκδοση: %@
     he = %@ וורסיה
     sk = Verzia: %@
 
@@ -4824,6 +4935,7 @@
     ru = Версия данных: %d
     de = Datenversion: %d
     zh-Hant = 資料版本： %d
+    el = Ημερομηνία έκδοσης: %d
 
   [are_you_sure]
     comment = Confirmation in downloading countries dialog
@@ -4887,6 +4999,7 @@
     vi = Dấu vết
     zh-Hans = 轨迹
     zh-Hant = 軌跡
+    el = Διαδρομές
     he = נתיבים
     sk = Stopy
 
@@ -4919,6 +5032,7 @@
     vi = Độ dài
     zh-Hans = 长度
     zh-Hant = 長度
+    el = Μήκος
     he = אורך
     sk = Diaľka
 
@@ -4950,6 +5064,7 @@
     vi = Chia sẻ Vị trí của tôi
     zh-Hans = 共享我的位置
     zh-Hant = 分享我的位置
+    el = Κοινοποίηση της τοποθεσίας μου
     he = שתף את מקומי
     sk = Zdielať moje umiestnenie
 
@@ -5012,6 +5127,7 @@
     vi = Bản đồ
     zh-Hans = 地图
     zh-Hant = 地圖
+    el = Χάρτης
     sk = Mapa
 
   [prefs_group_misc]
@@ -5043,6 +5159,7 @@
     vi = Khác
     zh-Hans = 其他
     zh-Hant = 其他
+    el = Διάφορα
     sk = Iné
 
   [prefs_group_route]
@@ -5072,6 +5189,7 @@
     vi = Điều hướng
     zh-Hans = 导航
     zh-Hant = 導航
+    el = Πλοήγηση
     sk = Navigácia
 
   [pref_zoom_title]
@@ -5102,6 +5220,7 @@
     vi = Nút Phóng to/Thu nhỏ
     zh-Hans = 缩放按钮
     zh-Hant = 縮放按鈕
+    el = Πλήκτρα μεγέθυνσης
     he = כפתורי זום
     sk = Tlačítka priblíženia/oddialenia
 
@@ -5133,6 +5252,7 @@
     vi = Hiển thị trên màn hình
     zh-Hans = 在屏幕上显示
     zh-Hant = 在螢幕上顯示
+    el = Εμφάνιση στο χάρτη
     he = הצג על המסך
     sk = Zobraziť na obrazovke
 
@@ -5165,6 +5285,7 @@
     vi = Chế độ ban đêm
     zh-Hans = 夜间模式
     zh-Hant = 夜間模式
+    el = Νυχτερινή λειτουργία
     sk = Nočný režim
 
   [pref_map_style_default]
@@ -5196,6 +5317,7 @@
     vi = Tắt
     zh-Hans = 关闭
     zh-Hant = 關閉
+    el = Απενεργ.
     sk = Vypnúť
 
   [pref_map_style_night]
@@ -5227,6 +5349,7 @@
     vi = Bật
     zh-Hans = 开启
     zh-Hant = 開啟
+    el = Ενεργ.
     sk = Zapnúť
 
   [pref_map_style_auto]
@@ -5258,6 +5381,7 @@
     vi = Tự động
     zh-Hans = 自动
     zh-Hant = 自動
+    el = Αυτόματα
     sk = Automaticky
 
   [pref_map_3d_title]
@@ -5289,6 +5413,7 @@
     vi = Góc nhìn phối cảnh
     zh-Hans = 透视图
     zh-Hant = 透視圖
+    el = Προβολή προοπτικής
     sk = Perspektívne zobrazenie
 
   [pref_map_3d_buildings_title]
@@ -5320,6 +5445,7 @@
     vi = Nhà cửa 3D
     zh-Hans = 3D 建筑
     zh-Hant = 3D 建築
+    el = Τρισδιάστατα κτίρια
     sk = 3D budovy
 
   [pref_map_3d_buildings_subtitle]
@@ -5382,6 +5508,7 @@
     vi = Hướng dẫn bằng Giọng nói
     zh-Hans = 语音指导
     zh-Hant = 語音指示
+    el = Φωνητικές οδηγίες
     sk = Hlasové povely
 
   [pref_tts_language_title]
@@ -5413,6 +5540,7 @@
     vi = Ngôn ngữ Giọng nói
     zh-Hans = 语音语言
     zh-Hant = 語音語言
+    el = Γλώσσα φωνής
     sk = Nastavenia jazyka povelov
 
   [pref_tts_unavailable]
@@ -5444,6 +5572,7 @@
     vi = Không có sẵn
     zh-Hans = 无法使用
     zh-Hant = 無法使用
+    el = Δεν είναι διαθέσιμη
     sk = Nie je k dispozícii
 
   [pref_tts_other_section_title]
@@ -5475,6 +5604,7 @@
     vi = Khác
     zh-Hans = 其他
     zh-Hant = 其他
+    el = Άλλα
     sk = Iný
 
   [pref_tts_how_to_set_up_voice]
@@ -5505,6 +5635,7 @@
     vi = Làm thế nào để thiết lập tiếng nói
     zh-Hans = 如何设置语音
     zh-Hant = 如何設定語音
+    el = Ρύθμιση φωνής
     sk = Ako nastaviť hlas
 
   [pref_track_record_title]
@@ -5536,6 +5667,7 @@
     vi = Tìm kiếm gần đây
     zh-Hans = 最近的路径
     zh-Hant = 最近的軌跡
+    el = Πρόσφατη διαδρομή
     sk = Posledná trasa
 
   [pref_map_auto_zoom]
@@ -5565,6 +5697,7 @@
     vi = Ống dòm tự động
     zh-Hans = 自动缩放
     zh-Hant = 自動縮放
+    el = Αυτόματη μεγέθυνση
     sk = Automatický zoom
 
   [duration_disabled]
@@ -5595,6 +5728,7 @@
     vi = Tắt
     zh-Hans = 关闭
     zh-Hant = 關閉
+    el = Απενεργ.
     sk = Vypnúť
 
   [duration_1_hour]
@@ -5625,6 +5759,7 @@
     vi = 1 giờ
     zh-Hans = 1小时
     zh-Hant = 1小時
+    el = 1 ώρα
     sk = 1 hodina
 
   [duration_2_hours]
@@ -5655,6 +5790,7 @@
     vi = 2 giờ
     zh-Hans = 2小时
     zh-Hant = 2小時
+    el = 2 ώρες
     sk = 2 hodiny
 
   [duration_6_hours]
@@ -5685,6 +5821,7 @@
     vi = 6 giờ
     zh-Hans = 6小时
     zh-Hant = 6小時
+    el = 6 ώρες
     sk = 6 hodín
 
   [duration_12_hours]
@@ -5715,6 +5852,7 @@
     vi = 12 giờ
     zh-Hans = 12小时
     zh-Hant = 12小時
+    el = 12 ώρες
     sk = 12 hodín
 
   [duration_1_day]
@@ -5745,6 +5883,7 @@
     vi = 1 ngày
     zh-Hans = 1天
     zh-Hant = 1天
+    el = 1 ημέρα
     sk = 1 deň
 
   [recent_track_help_text]
@@ -5774,6 +5913,7 @@
     vi = Xin lưu ý: kích hoạt chức năng này làm tăng việc sử dụng pin.
     zh-Hans = 请注意：激活此功能会导致用电量增加。
     zh-Hant = 請注意：啟動此功能會導致用電量增加。
+    el = Σημείωση: η ενεργοποίηση αυτής της λειτουργίας κάνει έντονη χρήση της μπαταρίας.
     sk = Upozornenie: aktivovanie tejto funkcie zvyšuje spotrebu energie.
 
   [pref_track_ios_caption]
@@ -5953,6 +6093,7 @@
     vi = Xem trên bản đồ
     zh-Hans = 在地图上查看
     zh-Hant = 在地圖上查看
+    el = Προβολή στο χάρτη
     he = ראה במפה
     sk = Zobraziť na mape
 
@@ -5985,6 +6126,7 @@
     vi = Lưu trữ dữ liệu bản đồ đã được tối ưu hóa. Vui lòng khởi động lại ứng dụng.\n\nKhông cần thư mục MapsWithMe trong thẻ SD nữa, bạn có thể xóa thư mục này.
     zh-Hans = 地图数据存储已优化。请重启应用。\n\nSD 卡根目录中的 MAPS.ME 文件夹已不再需要, 您可以删除它了。
     zh-Hant = 地圖數據存儲已被最佳化。請重啟應用程式。\n\n不再需要 SD 卡根目錄中的 MapsWithMe 資料夾，您可以將它刪除。
+    el = Ο αποθηκευτικός χώρος του χάρτη έχει βελτιστοποιηθεί. Κάντε επανεκκίνηση της εφαρμογής.\n\nΟ φάκελος MapsWithMe στο ριζικό κατάλογο της κάρτας SD δε χρειάζεται πλέον. Μπορείτε να το διαγράψετε.
     sk = Úložisko máp bolo optimalizované. Prosím, reštartujte aplikáciu.\n\nAdresár MapsWithMe v koreňovej zložke SD karty už nie je potrebný, môžete ho zmazať.
 
   [kitkat_migrate_failed]
@@ -6015,6 +6157,7 @@
     vi = Do các thay đổi trong Android 4.4, chúng tôi cần tối ưu hóa lưu trữ dữ liệu bản đồ nhưng không có đủ dung lượng còn trống để sao chép dữ liệu bản đồ.\n\nVui lòng giải phóng bộ nhớ nếu không bản đồ sẽ ở chế độ chỉ đọc.
     zh-Hans = 由于安卓 4.4 的更改,我们需要优化地图的数 据存储,但现在没有足够的空间用于拷贝地 图数据。\n\n请释放存储空间,否则地图将 在只读模式中提供。
     zh-Hant = 由於 Android 4.4 版本有所更改，我們需要對地圖數據存儲進行最佳化，但沒有足夠的空間複製地圖數據。\n\n請釋放一些記憶體，否則將只能以唯讀模式使用地圖。
+    el = Εξαιτίας αλλαγών στο Android 4.4, χρειάζεται να βελτιώσουμε τον αποθηκευτικό χώρο του χάρτη, αλλά δεν υπάρχει αρκετός χώρος για την αντιγραφή των δεδομένων του χάρτη.\n\nΕλευθερώστε μνήμη αλλιώς οι χάρτες θα είναι διαθέσιμοι στη λειτουργία μόνο ανάγνωσης.
     he = לאור שינויים ב אנדרויד 4.4, נחוץ לבצע אופטימיזציה של אחסון נתוני המפה אולם אין מספיק שטח אנא פנה שטח בזכרון אחרת המפות תהינה זמינות לקריאה בלבד. \n\n להעתקת נתוני המפה.
     sk = Kvôli zmenám v Androide 4.4 musíme optimalizovať úložisko máp, lenže nie je dostatok priestoru pre ich skopírovanie.\n\nProsím, uvoľnite pamäť, inak budú mapy dostupné iba v režime na čítanie.
 
@@ -6078,6 +6221,7 @@
     vi = Lưu trữ bản đồ của bạn đang được tối ưu hóa. Vui lòng chờ, việc này có thể mất vài phút.
     zh-Hans = 您的地图存储正在被优化。请稍后,它可能 需要几分钟的时间。
     zh-Hant = 正在最佳化您的地圖存儲。請等待，這可能需要幾分鐘的時間。
+    el = Ο αποθηκευτικός χώρος του χάρτη σας βελτιστοποιείται. Παρακαλώ περιμένετε. Ίσως χρειαστούν μερικά λεπτά.
     he = מבוצעת אופטימיזציה של אחסון המפה. אנא המתן, התהליך נמשך מספר דקות.
     sk = Úložisko máp sa práve optimalizuje. Môže to trvať aj pár minút. Prosíme o chvíľku strpenia.
 
@@ -6164,6 +6308,7 @@
     vi = Tìm trên bản đồ
     zh-Hans = 在地图上搜索
     zh-Hant = 在地圖上搜尋
+    el = Αναζήτηση στο χάρτη
     he = חפש במפה
     sk = Hľadať na mape
 
@@ -6383,6 +6528,7 @@
     vi = Tải xuống bản đồ của vị trí của bạn
     zh-Hans = 下载您所在地方的地图
     zh-Hant = 下載您所在地方的地圖
+    el = Κατεβάστε τον χάρτη της τοποθεσίας που βρίσκεστε
     he = הורד המפה של המקום בו אתה נמצא
     sk = Stiahnite si mapu miesta, kde sa práve nachádzate
 
@@ -6569,6 +6715,7 @@
     vi = Trang web
     zh-Hans = 网站
     zh-Hant = 網站
+    el = Ιστότοπος
     sk = Webové stránky
 
   [maps_me_community]
@@ -6600,6 +6747,7 @@
     vi = Cộng đồng MAPS.ME
     zh-Hans = MAPS.ME社区
     zh-Hant = MAPS.ME 社群
+    el = `Κοινότητα MAPS.ME `
     he = קהילת MAPS.ME
     sk = Komunita MAPS.ME
 
@@ -6632,6 +6780,7 @@
     vi = Thích trên Facebook
     zh-Hans = 在Facebook 上点赞
     zh-Hant = 在 Facebook 上按讚
+    el = Κάντε Like στο Facebook
     he = עשו 'לייק' בפייסבוק
     sk = Označiť pomocou Páči sa mi to na Facebooku
 
@@ -6664,6 +6813,7 @@
     vi = Theo dõi trên Twitter
     zh-Hans = 在Twitter 上关注
     zh-Hant = 在Twitter 上關注
+    el = Ακολουθήστε στο Twitter
     he = עקבו בטוויטר
     sk = Sledovať na Twitteri
 
@@ -6696,6 +6846,7 @@
     vi = Liên hệ với chúng tôi
     zh-Hans = 联系我们
     zh-Hant = 聯絡我們
+    el = Επικοινωνήστε μαζί μας
     he = יצירת קשר
     sk = Kontaktovať nás
 
@@ -6707,6 +6858,7 @@
     fr = Avis
     de = Rückmeldung
     pl = Zgłoś opinię
+    el = Σχόλιο
 
   [feedback_general]
     comment = Settings: "Send general feedback" button
@@ -6717,6 +6869,7 @@
     de = Allgemeine Rückmeldung
     pl = Ogólne opinie
     zh-Hant = 一般意見反應
+    el = Γενικάό σχόλιο
 
   [subscribe_to_news]
     comment = Text in menu
@@ -6747,6 +6900,7 @@
     vi = Đăng ký nhận tin tức của chúng tôi
     zh-Hans = 订阅我们的新闻
     zh-Hant = 訂閱我們的新聞
+    el = Εγγραφή στο ενημερωτικό μας δελτίο
     he = הירשמו לקבלת חדשות מאיתנו
     sk = Prihlásiť sa k našim novinkám
 
@@ -6779,6 +6933,7 @@
     vi = Cho điểm ứng dụng
     zh-Hans = 为该应用打分
     zh-Hant = 為該應用程式評分
+    el = Βαθμολογήστε την εφαρμογή
     he = דרגו את האפליקציה
     sk = Ohodnotiť aplikáciu
 
@@ -6811,6 +6966,7 @@
     vi = Trợ giúp
     zh-Hans = 帮助
     zh-Hant = 幫助
+    el = Βοήθεια
     he = עזרה
     sk = Nápoveda
 
@@ -6843,6 +6999,7 @@
     vi = Bản quyền
     zh-Hans = 版权
     zh-Hant = 版權
+    el = Πνευματικά δικαιώματα
     he = זכויות יוצרים
     sk = Autorské práva
 
@@ -6875,6 +7032,7 @@
     vi = Báo cáo lỗi
     zh-Hans = 报告漏洞
     zh-Hant = 報告錯誤
+    el = Αναφορά σφάλματος
     he = דווחו על באג
     sk = Nahlásiť chybu
 
@@ -6907,6 +7065,7 @@
     vi = Vui lòng đăng ký tôi vào danh sách nhận thư định kỳ MAPS.ME
     zh-Hans = 请帮我订阅MAPS.ME简报
     zh-Hant = 請幫我訂閱 MAPS.ME 新聞郵件、
+    el = Εγγράψτε με στο ενημερωτικό δελτίο MAPS.ME
     he = אנא רשמו אותי לניוזלטר של MAPS.ME
     sk = Prihláste ma prosím k odberu spravodaja MAPS.ME
 
@@ -6939,6 +7098,7 @@
     vi = Tôi muốn là người đầu tiên được biết về các thông tin cập nhật và quảng bá mới nhất. Tôi có thể hủy bỏ đăng ký nhận tin của mình bất cứ lúc nào.
     zh-Hans = 我想率先了解最新新闻、更新及促销活动。订阅可随时取消。
     zh-Hant = 我想搶先了解最新新聞、更新和促銷活動。我可以隨時取消我的訂閱。
+    el = Θέλω να μαθαίνω πρώτος(η) τις τελευταίες ειδήσεις, ενημερώσεις εφαρμογών και προωθητικές ενέργειεςς. Καταλαβαίνω ότι μπορώ να ακυρώσω τη συνδρομή μου ανά πάσα στιγμή.
     he = אני מעוניין להיות הראשון שיקבל עדכונים על חדשות ומבצעים. אני יכול לבטל את המינוי שלי בכל עת.
     sk = Chcem sa vždy ako prvý dozvedať o najnovších správach, aktualizáciách a akčných ponukách. Svoje prihlásenie k odberu môžem kedykoľvek zrušiť.
 
@@ -7004,6 +7164,7 @@
     vi = Trình khách email này chưa được thiết lập. Bạn vui lòng cấu hình nó hoặc sử dụng một cách khác để liên hệ với chúng tôi tại %@
     zh-Hans = 电子邮件客户端尚未建立。请配置或使用任何其他方式与我们联系%@
     zh-Hant = 電子郵件客戶端尚未建立。請設定或使用任何其他方式與我們聯絡%@
+    el = Το πρόγραμμα-client ηλεκτρονικού ταχυδρομείου έχει δεν έχει ρυθμιστεί. Ρυθμίστε το ή χρησιμοποιήστε άλλο τρόπο να επικοινωνήσετε μαζί μας στη διεύθυνση %@
     he = יישום הדוא"ל לא הוגדר. אנא קבעו את תצורתו או השתמשו בכל דרך אחרת על מנת ליצור עמנו קשר בכתובת %@
     sk = Emailový klient nebol nastavený. Nakonfigurujte ho prosím alebo použite iný spôsob k tomu, abyste nás kontaktovali na %@
 
@@ -7036,6 +7197,7 @@
     vi = Lỗi gửi thư
     zh-Hans = 电子邮件发送错误
     zh-Hant = 電子郵件發送錯誤
+    el = Αποστολή σφάλματος αλληλογραφίας
     he = שגיאה בשליחת דוא"ל
     sk = Chyba pri odosielaní emailu
 
@@ -7068,6 +7230,7 @@
     vi = Chuẩn hóa la bàn
     zh-Hans = 指南针校准
     zh-Hant = 指南針校準
+    el = Βαθμονόμηση πυξίδας
     he = כיול המצפן
     sk = Compass kalibrácia
 
@@ -7099,6 +7262,7 @@
     vi = WiFi
     zh-Hans = 无线网络
     zh-Hant = 無線網路
+    el = WiFi
     sk = WiFi
 
   [routing_map_outdated]
@@ -7194,6 +7358,7 @@
     vi = Cập nhật tất cả
     zh-Hans = 更新全部
     zh-Hant = 更新全部
+    el = Ενημέρωση όλων
     sk = Aktualizovať všetko
 
   [downloader_cancel_all]
@@ -7225,6 +7390,7 @@
     vi = Hủy tất cả
     zh-Hans = 全部取消
     zh-Hant = 全部取消
+    el = Ακύρωση όλων
     he = בטל הכול
     sk = Zrušiť všetko
 
@@ -7257,6 +7423,7 @@
     vi = Đã tải xuống
     zh-Hans = 已下载
     zh-Hant = 已下載
+    el = Έγινε λήψη
     sk = Stiahnuté
 
   [downloader_available_maps]
@@ -7287,6 +7454,7 @@
     vi = Đã có
     zh-Hans = 可用
     zh-Hant = 可用
+    el = Διαθέσιμη
     sk = Dostupné
 
   [downloader_queued]
@@ -7318,6 +7486,7 @@
     vi = đã xếp hàng chờ
     zh-Hans = 已排队
     zh-Hant = 已佇列
+    el = στην ουρά
     he = נוסף/ו לתור
     sk = V rade
 
@@ -7349,6 +7518,7 @@
     vi = Gần tôi
     zh-Hans = 在我附近
     zh-Hant = 在我附近
+    el = Κοντά μου
     sk = Neďaleko mňa
 
   [downloader_status_maps]
@@ -7379,6 +7549,7 @@
     vi = Bản đồ
     zh-Hans = 地图
     zh-Hant = 地圖
+    el = Χάρτες
     sk = Mapy
 
   [downloader_download_all_button]
@@ -7409,6 +7580,7 @@
     vi = Tải xuống tất cả
     zh-Hans = 下载全部
     zh-Hant = 下載全部
+    el = Λήψη όλων
     sk = Stiahnuť všetko
 
   [downloader_downloading]
@@ -7439,6 +7611,7 @@
     vi = Đang tải về:
     zh-Hans = 正在下载：
     zh-Hant = 正在下載：
+    el = Λήψη:
     sk = Sťahovanie:
 
   [downloader_search_results]
@@ -7468,6 +7641,7 @@
     vi = Đã tìm thấy
     zh-Hans = 找到
     zh-Hant = 已找到
+    el = Βρέθηκαν
     sk = Nájdených
 
   [routing_disclaimer]
@@ -7595,6 +7769,7 @@
     vi = Cập nhật
     zh-Hans = 下载
     zh-Hant = 更新
+    el = Ενημέρωση
     he = לְעַדְכֵּן
     sk = Aktualizácia
 
@@ -7627,6 +7802,7 @@
     vi = Thất bại
     zh-Hans = 下载失败
     zh-Hant = 失敗
+    el = Απέτυχε
     he = נכשלה
     sk = Zlyhalo
 
@@ -7659,6 +7835,7 @@
     vi = Để xóa bản đồ, vui lòng dừng điều hướng.
     zh-Hans = 要删除地图，请停止导航。
     zh-Hant = 如欲刪除地圖，請停止導航。
+    el = Για να διαγράψετε το χάρτη, σταματήστε την πλοήγηση.
     sk = Ak chcete odstrániť mapy, prosím, zastavte navigáciu.
 
   [routing_failed_unknown_my_position]
@@ -7690,6 +7867,7 @@
     vi = Không xác định được vị trí hiện tại. Vui lòng xác định vị trí để tạo tuyến đường.
     zh-Hans = 当前地点未定。请明确地点以创建路线。
     zh-Hant = 目前地點未定。請等待明確地點以建立路線。
+    el = Η τρέχουσα τοποθεσία δεν έχει οριστεί. Προσδιορίστε τοποθεσίας για να δημιουργήσετε διαδρομή.
     he = לא הוגדר המיקום הנוכחי. נא לציין מיקום כדי ליצור מסלול.
     sk = Aktuálna lokácia nie je definovaná. Prosím, špecifikujte lokáciu pre vytvorenie trasy.
 
@@ -7722,6 +7900,7 @@
     vi = số liệu bổ sung cần thiết để tạo ra các tuyến đường đi từ vị trí của bạn.
     zh-Hans = 需要额外的数据才能创建路线。开始下载吗？
     zh-Hant = 需要額外的數據才能建立路線。開始下載嗎？
+    el = Απαιτούνται πρόσθετα δεδομένα για να δημιουργήσετε τη διαδρομή. Λήψη δεδομένων τώρα;
     he = נתונים נוספים נחוצים ליצירת נתיב. להתחיל בהורדה?
     sk = Na vytvorenie trasy sú potrebné ďalšie dáta. Začať sťahovanie?
 
@@ -7754,6 +7933,7 @@
     vi = Không thể tính toán tuyến đường. Không có con đường nào gần điểm bắt đầu của bạn.
     zh-Hans = 无法计算路线。没有在您起点附近的路。
     zh-Hant = 無法計算路線。沒有路在您的起點附近。
+    el = Δεν μπορεί να υπολογιστεί η διαδρομή. Δεν υπάρχουν δρόμοι κοντά στο σημείο εκκίνησης.
     he = לא ניתן לחשב את המסלול. אין כבישים ליד נקודת ההתחלה שלך.
     sk = Nedá sa vypočítať trasa. Žiadne cesty v blízkosti východiskového bodu.
 
@@ -7786,6 +7966,7 @@
     vi = Không thể tính toán tuyến đường. Không có con đường nào gần điểm đến của bạn.
     zh-Hans = 无法计算路线。没有在您终点附近的路。
     zh-Hant = 無法計算路線。沒有路在您的終點附近。
+    el = Δεν μπορεί να υπολογιστεί η διαδρομή. Δεν υπάρχουν δρόμοι κοντά στον προορισμό σας.
     he = לא ניתן לחשב את המסלול. אין כבישים ליד היעד שלך.
     sk = Nedá sa vypočítať trasa. Žiadne cesty v blízkosti cieľa.
 
@@ -7818,6 +7999,7 @@
     vi = Tuyến đường chỉ có thể được tạo hoàn toàn được chứa trong một bản đồ.
     zh-Hans = 路程只能完全处在同一地图里时才能被创建。
     zh-Hant = 路程只能完全處在同一地圖裡時才能被建立。
+    el = Μπορούν να δημιουργηθούν μόνο διαδρομές που περιέχονται πλήρως μέσα σε ένα χάρτη σε μια ενιαία περιοχή.
     he = ניתן ליצור רק מסלולים שמוכלים במלואם בתוך מפה אחת.
     sk = Cesty môžu byť vytvorené len tak, že sú plne obsiahnuté v jednej mape.
 
@@ -7850,6 +8032,7 @@
     vi = Không tìm thấy tuyến đường nào giữa điểm gốc và điểm đến được chọn. Vui lòng chọn điểm bắt đầu hoặc điểm cuối khác.
     zh-Hans = 找不到所选起点和终点间的路程。请选择不同的起点或终点。
     zh-Hant = 找不到所選起點和終點間的路程。請選擇不同的起點或終點。
+    el = Δεν βρέθηκε καμία διαδρομή μεταξύ της επιλεγμένης προέλευσης και προορισμού. Επιλέξτε ένα διαφορετικό σημείο έναρξης ή λήξης.
     he = אין מסלול בין המוצא והיעד שנבחרו. נא לבחור נקודת התחלה או יעד שונה.
     sk = Nebol nájdená trasa medzi vybraným východiskom a cieľom. Prosím vyberte iný počiatočný a koncový bod.
 
@@ -7882,6 +8065,7 @@
     vi = Đã xảy ra lỗi nội bộ. Vui lòng thử xóa và tải lại xuống bản đồ. Nếu vấn đề vẫn còn tồn tại, vui lòng liên hệ với chúng tôi tại support@maps.me.
     zh-Hans = 出现内部错误。请尝试删除并再次下载地图。如果还有问题请联系我们：support@maps.me。
     zh-Hant = 出現內部錯誤。請嘗試刪除並再次下載地圖。如果還有問題請聯絡我們：support@maps.me。
+    el = Παρουσιάστηκε εσωτερικό σφάλμα. Δοκιμάστε να διαγράψετε και να κατεβάσετε το χάρτη ξανά. Εάν το πρόβλημα παραμένει, επικοινωνήστε μαζί μας στη διεύθυνση support@maps.me.
     he = אירעה שגיאה פנימית. נא לנסות למחוק את המפה להוריד אותה מחדש. אם הבעיה נמשכת, נא לפנות אלינו בכתובת support@maps.me.
     sk = Došlo k vnútornej chybe. Prosím, skúste zmazať a znovu stiahnuť mapu. Ak problém pretrvá, prosím, kontaktujte nás na support@maps.me.
 
@@ -8010,6 +8194,7 @@
     vi = Tải về bản đồ
     zh-Hans = 下载地图
     zh-Hant = 下載地圖
+    el = Λήψη χάρτη
     he = הורידו את המפה
     sk = Stiahnuť mapu
 
@@ -8105,6 +8290,7 @@
     vi = Lặp lại
     zh-Hans = 重复
     zh-Hant = 重試
+    el = Επανάληψη
     sk = Zopakovať
 
   [downloader_map_and_routing]
@@ -8168,6 +8354,7 @@
     vi = Xóa Bản đồ
     zh-Hans = 删除地图
     zh-Hant = 刪除地圖
+    el = Διαγραφή χάρτη
     he = מחק מפה
     sk = Zmazať mapu
 
@@ -8200,6 +8387,7 @@
     vi = Cập nhật Bản đồ
     zh-Hans = 更新地图
     zh-Hant = 更新地圖
+    el = Ενημέρωση χάρτη
     he = עדכן מפה
     sk = Aktualizovať mapu
 
@@ -8326,6 +8514,7 @@
     vi = Sử dụng Dịch vụ Google Play để có được vị trí hiện tại của bạn
     zh-Hans = 使用Google Play服务以获取您的当前位置。
     zh-Hant = 使用 Google Play 服務來獲得您的目前位置
+    el = Χρησιμοποιήστε υπηρεσίες Google Play για να προσδιορίσετε την τρέχουσα τοποθεσία σας
     sk = Pomocou Google Play služieb získajte svoju aktuálnu polohu
 
   [rating_just_rated]
@@ -8389,7 +8578,7 @@
     vi = Tôi là người dùng MAPS.ME từ năm %@
     zh-Hans = 我是从%@年起的MAPS.ME用户
     zh-Hant = 我是從 %@ 年起的 MAPS.ME 使用者
-    el = Είμαι χρήστης του MAPS.ME από το %@
+    el = Χρησιμοποιώ το MAPS.ME από τις %@
     sk = Som používateľ MAPS.ME od roku %@
 
   [rating_do_like_maps]
@@ -8453,7 +8642,7 @@
     vi = Chạm vào một ngôi sao để đánh giá ứng dụng của chúng tôi.
     zh-Hans = 点击星星给我们应用评分。
     zh-Hant = 點擊星星給我們應用程式評分。
-    el = Πατήστε ένα αστέρι για να βαθμολογήστε την εφαρμογή μας.
+    el = Πατήστε ένα αστέρι να βαθμολογήσετε την εφαρμογή μας.
     sk = Kliknutím na hviezdu ohodnotíte našu aplikáciu.
 
   [rating_thanks]
@@ -8517,7 +8706,7 @@
     vi = Hãy chia sẻ bất kỳ ý tưởng hay vấn đề nào, để chúng tôi cải tiến ứng dụng tốt hơn.
     zh-Hans = 分享任何主意或问题，这样我们可以为您改善应用。
     zh-Hant = 分享任何主意或問題，這樣我們可以為您改善應用程式。
-    el = Μοιραστείτε οποιεσδήποτε ιδέες ή προβλήματα, ώστε να μπορέσουμε να βελτιώσουμε την εφαρμογή για εσάς.
+    el = Μοιραστείτε ιδέες ή προβλήματα για να βελτιώσουμε την εφαρμογή.
     sk = Podeľte sa o svoje nápady alebo problémy, aby sme pre vás mohli vylepšiť aplikáciu.
 
   [rating_send_feedback]
@@ -8581,7 +8770,7 @@
     vi = Nhấp vào g+ để nói với bạn bè của bạn về ứng dụng.
     zh-Hans = 点击g+向您的朋友们告知这款应用。
     zh-Hant = 點擊g+向您的朋友們告知這款應用程式。
-    el = Πατήστε g+ για να πείτε στους φίλους σας για την εφαρμογή.
+    el = Κάντε κλικ στο g+ να ενημερώσετε τους φίλους σας σχετικά με την εφαρμογή.
     sk = Kliknutím na tlačidlo g + povedzte o aplikácii svojim priateľom.
 
   [routing_download_maps_along]
@@ -8613,7 +8802,7 @@
     vi = Tải xuống bản đồ theo tuyến đường
     zh-Hans = 下载沿线地图
     zh-Hant = 下載沿線地圖
-    el = Λήψη χαρτών πάνω στην διαδρομή
+    el = Κατεβάστε όλους τους χάρτες για ολόκληρο το μήκος της διαδρομής σας
     sk = Stiahnite si mapy pozdĺž trasy
 
   [routing_download_map]
@@ -8773,7 +8962,7 @@
     vi = Tạo một tuyến đường đòi hỏi tất cả các bản đồ từ vị trí của bạn đến điểm đến phải được tải xuống và cập nhật.
     zh-Hans = 创建路线需要下载并更新好所有从您的位置到目的地的地图。
     zh-Hant = 建立路線需要下載並更新好所有從您的位置到目的地的地圖。
-    el = Η δημιουργία μιας διαδρομής απαιτεί όλους τους χάρτες από την τοποθεσία σας προς τον προορισμό σας κατεβασμένους και ενημερωμένους.
+    el = Για να δημιουργήσετε μια διαδρομή, πρέπει να κατεβάσετε και να ενημερώσετε όλους τους χάρτες από τη θέση σας στον προορισμό σας.
 
   [routing_not_enough_space]
     comment = Text for routing error dialog
@@ -8900,7 +9089,7 @@
     vi = yer i̇mi
     zh-Hans = 书签
     zh-Hant = 書籤
-    el = σελιδοδείκτης
+    el = αγαπημένο
     he = סימניה
     in = bookmark
     sk = záložka
@@ -8965,6 +9154,7 @@
     vi = Bạn vui lòng bật Dịch vụ Định vị
     zh-Hans = 请启用位置服务
     zh-Hant = 請啟用定位服務
+    el = Ενεργοποιήστε τις υπηρεσίες εντοπισμού τοποθεσίας
     sk = Prosím, povoľte Služby určovania polohy
 
   [download_map]
@@ -9273,6 +9463,7 @@
     vi = Mô tả của bạn (chữ hoặc html)
     zh-Hans = 您的描述（文本或html）
     zh-Hant = 您的描述（文字或 html）
+    el = Οι περιγραφές σας (κείμενο ή html)
     in = Deskripsi Anda (teks atau html)
     sk = Váš popis (text alebo html)
 
@@ -9367,6 +9558,7 @@
     vi = Đỏ
     zh-Hans = 红色
     zh-Hant = 紅色
+    el = Κόκκινο
     sk = červená
 
   [yellow]
@@ -9398,6 +9590,7 @@
     vi = Vàng
     zh-Hans = 黄色
     zh-Hant = 黃色
+    el = Κίτρινο
     sk = žltá
 
   [blue]
@@ -9429,6 +9622,7 @@
     vi = Xanh dương
     zh-Hans = 蓝色
     zh-Hant = 藍色
+    el = Μπλε
     sk = modrá
 
   [green]
@@ -9460,6 +9654,7 @@
     vi = Xanh lục
     zh-Hans = 绿色
     zh-Hant = 綠色
+    el = Πράσινο
     sk = zelená
 
   [purple]
@@ -9491,6 +9686,7 @@
     vi = Tím
     zh-Hans = 紫色
     zh-Hant = 紫色
+    el = Μωβ
     sk = purpurová
 
   [orange]
@@ -9522,6 +9718,7 @@
     vi = Cam
     zh-Hans = 橘红色
     zh-Hant = 橘色
+    el = Πορτοκαλί
     sk = oranžová
 
   [brown]
@@ -9553,6 +9750,7 @@
     vi = Nâu
     zh-Hans = 棕色
     zh-Hant = 棕色
+    el = Καφέ
     sk = hnedá
 
   [pink]
@@ -9584,6 +9782,7 @@
     vi = Hồng
     zh-Hans = 粉色
     zh-Hant = 粉色
+    el = Ροζ
     sk = ružová
 
   [WiFi_available]
@@ -9615,6 +9814,7 @@
     vi = Có
     zh-Hans = 是
     zh-Hant = 是
+    el = Ναι
     he = כן
     sk = Áno
 
@@ -9648,6 +9848,7 @@
     vi = Khi đi theo tuyến đường, hãy lưu ý:
     zh-Hans = 按照路线行进时，请谨记：
     zh-Hant = 依照路線行進時，請牢記：
+    el = Όταν ακολουθείτε την διαδρομή, να θυμάστε:
     he = בעת נסיעה לאורך המסלול, שים לב לדברים הבאים:
     sk = Pri sledovaní trasy majte na pamäti nasledujúce:
 
@@ -9679,6 +9880,7 @@
     vi = — Điều kiện đường, luật giao thông và biển báo đường bộ luôn được ưu tiên hơn lời khuyên định hướng;
     zh-Hans = — 路况、交通法规和路标始终优先于导航建议；
     zh-Hant = — 路況、交通規則及號誌優先於導航意見；
+    el = — Οι οδικές συνθήκες, ο κώδικας οδικής κυκλοφορίας και οι σημάνσεις στο δρόμο έχουν πάντα μεγαλύτερη προτεραιότητα από τις συμβουλές πλοήγησης,
     he = — תנאי הכביש, חוקי התנועה והתמרורים תמיד מקבלים עדיפות על פני הנחיות הניווט;
     sk = — Podmienky na ceste, dopravné predpisy a značenie majú vždy prednosť pred pokynmi z navigácie;
 
@@ -9710,6 +9912,7 @@
     vi = — Bản đồ có thể không chính xác và tuyến đường được đề xuất có thể không luôn là cách tối ưu nhất để đi đến đích;
     zh-Hans = — 地图可能不准确，建议的路线可能并非总是去往目的地的最佳路径；
     zh-Hant = — 地圖可能不準確，建議的路線不盡然是最佳選擇；
+    el = — Ο Χάρτης μπορεί να είναι ανακριβής, και η προτεινόμενη διαδρομή μπορεί να μην είναι πάντα ο βέλτιστος τρόπος να φτάσετε στον προορισμό,
     he = — ייתכנו אי-דיוקים במפה, וייתכן כי המסלול המוצע אינו תמיד הדרך המיטבית להגעה אל היעד;
     sk = — Mapa nemusí byť presná a navrhovaná trasa nemusí byť vždy optimálna na dosiahnutie cieľa;
 
@@ -9741,6 +9944,7 @@
     vi = — Các tuyến đường được đề nghị chỉ nên được coi là các khuyến nghị;
     zh-Hans = — 建议的路线仅作为推荐路线供您采纳。；
     zh-Hant = — 建議的路線僅供推薦參考；
+    el = — Οι προτεινόμενες διαδρομές πρέπει να ερμηνεύονται μόνο ως συστάσεις·
     he = — יש לראות במסלולים המוצעים המלצה בלבד;
     sk = — Navrhované trasy by sa mali brať len ako odporúčania;
 
@@ -9772,6 +9976,7 @@
     vi = — Chú ý khi thể dục theo những con đường gần đường biên giới: những con đường do ứng dụng của chúng tôi tạo ra đôi khi có khả năng vượt ra khỏi biên giới vào những địa điểm không được phép;
     zh-Hans = — 小心对待国界区的路线：我们应用创造的路线有时会在未经授权的地方跨越国界;
     zh-Hant = — 小心對待國界區的路線：我們應用程式建立的路線有時會在未經授權的地方跨越國界；
+    el = — Προσέχετε τις διαδρομές στις παραμεθόριες ζώνες: οι διαδρομές που δημιουργούνται από την εφαρμογή μας μπορεί μερικές φορές να διαπερνούν τα εθνικά σύνορα σε απαγορευμένες περιοχές.
     sk = — Buďte opatrní na cestách v pohraničných oblastiach: trasy vytvorené aplikáciou môžu prekročiť hranice štátov na nepovolených miestach;
 
   [dialog_routing_disclaimer_beware]
@@ -9802,6 +10007,7 @@
     vi = Hãy cảnh giác và giữ an toàn trên đường!
     zh-Hans = 上路时请当心，祝您一路平安！
     zh-Hant = 請保持警戒，一路平安！
+    el = Να είστε πάντα σε εγρήγορση και να οδηγείτε με ασφάλεια στους δρόμους!
     he = שמור על ערנות ועל הבטיחות בכביש!
     sk = Na cestách buďte vždy ostražitý a dbajte na bezpečnosť!
 
@@ -9833,6 +10039,7 @@
     vi = Kiểm tra tín hiệu GPS
     zh-Hans = 检查 GPS 信号
     zh-Hant = 查看 GPS 訊號
+    el = Ελέγξτε το σήμα GPS
     he = בדוק אות GPS
     sk = Skontrolujte signál GPS
 
@@ -9864,6 +10071,7 @@
     vi = Không thể tạo tuyến đường. Không xác định được tọa độ GPS hiện tại.
     zh-Hans = 无法创建路线。当前 GPS 坐标无法识别。
     zh-Hant = 無法產生路線。 無法定位目前 GPS 座標。
+    el = Δεν είναι δυνατή η δημιουργία διαδρομής. Οι τρέχουσες συντεταγμένες GPS δεν μπορούν να προσδιοριστούν.
     he = לא ניתן ליצור מסלול. לא ניתן לזהות את קואורדינטות ה-GPS הנוכחיות.
     sk = Nedá sa vytvoriť trasa. Aktuálne súradnice GPS sa nedajú identifikovať.
 
@@ -9895,6 +10103,7 @@
     vi = Hãy kiểm tra tín hiệu GPS của bạn. Việc kích hoạt Wi-Fi sẽ cải thiện độ chính xác vị trí của bạn.
     zh-Hans = 请检查您的 GPS 信号。启用 Wi-Fi 将改善您的定位精度。
     zh-Hant = 請確認您的 GPS 訊號。啟用 Wi-Fi 將提升地理位置定位準確度。
+    el = Ελέγξτε το σήμα GPS. Η ενεργοποίηση του Wi-Fi θα βελτιώσει την ακρίβεια της τοποθεσίας σας.
     he = בדוק את אות ה-GPS שלך. הפעלת ה-Wi-Fi תשפר את הדיוק בזיהוי המיקום שלך.
     sk = Skontrolujte signál GPS. Zapnutie Wi-Fi zlepší presnosť vašej lokalizácie.
 
@@ -9926,6 +10135,7 @@
     vi = Bật các dịch vụ định vị
     zh-Hans = 启用定位服务
     zh-Hant = 啟用定位服務
+    el = Ενεργοποιήστε τις υπηρεσίες εντοπισμού τοποθεσίας
     he = הפעל שירותי מיקום
     sk = Zapnite lokalizačné služby
 
@@ -9957,6 +10167,7 @@
     vi = Không thể xác định vị trí tọa độ GPS hiện tại. Bật các dịch vụ định vị để tính toán tuyến đường.
     zh-Hans = 无法定位当前 GPS 坐标。请启用定位服务以计算路线。
     zh-Hant = 無法定位目前 GPS 座標。請啟用定位服務以產生路線。
+    el = Δεν είναι δυνατός ο εντοπισμός των τρεχουσών συντεταγμένων GPS. Ενεργοποιήστε τις υπηρεσίες εντοπισμού τοποθεσίας για τον υπολογισμό της διαδρομής.
     he = לא ניתן לאתר קואורדינטות GPS נוכחיות. הפעל שירותי מיקום כדי לחשב מסלול.
     sk = Aktuálne súradnice GPS sa nedajú lokalizovať. Aktivujte lokalizačné služby na výpočet trasy.
 
@@ -10019,6 +10230,7 @@
     vi = Tải xuống các tệp yêu cầu
     zh-Hans = 下载所需文件
     zh-Hant = 下載所需檔案
+    el = Κατεβάστε τα απαιτούμενα αρχεία
     he = הורד את הקבצים הדרושים
     sk = Prevezmite si požadované súbory
 
@@ -10050,6 +10262,7 @@
     vi = Tải về và cập nhật tất cả các bản đồ và các thông tin tuyến đường dọc theo lộ trình dự kiến để tính toán tuyến đường.
     zh-Hans = 下载和更新所有地图和预定路径沿途的路线信息，以计算路线。
     zh-Hant = 若要產生路線，請下載並更新所有地圖及沿路線的路線檔案。
+    el = Κατεβάσετε και να ενημερώσετε όλους τους χάρτες και τις πληροφορίες δρομολόγησης για όλη την απόσταση της προβαλλόμενης διαδρομής για τον υπολογισμό της.
     he = הורד ועדכן את כל מידע המפות ויצירת המסלולים לאורך הנתיב הצפוי, כדי לחשב מסלול.
     sk = Prevezmite si a aktualizujte všetky mapy a informácie o trase pozdĺž naplánovanej trasy na výpočet trasy.
 
@@ -10112,6 +10325,7 @@
     vi = Không thể xác định tuyến đường
     zh-Hans = 无法定位路线
     zh-Hant = 路線未找到
+    el = Δε μπορεί να εντοπιστεί η διαδρομή
     he = לא ניתן לאתר מסלול
     sk = Trasa sa nedá lokalizovať
 
@@ -10143,6 +10357,7 @@
     vi = Không thể tạo tuyến đường.
     zh-Hans = 无法创建路线。
     zh-Hant = 無法產生路線。
+    el = Δε μπορεί να δημιουργηθεί η διαδρομή.
     he = לא ניתן ליצור מסלול.
     sk = Trasa sa nedá vytvoriť.
 
@@ -10174,6 +10389,7 @@
     vi = Hãy điều chỉnh điểm bắt đầu hoặc điểm đến của bạn.
     zh-Hans = 请调整您的起点或目的地。
     zh-Hant = 請變更起點或最終目的地。
+    el = Ρυθμίστε το σημείο εκκίνησης ή τον προορισμό σας.
     he = כוונן את נקודת ההתחלה או היעד שלך.
     sk = Prosím, upravte váš východiskový bod alebo cieľové miesto.
 
@@ -10205,6 +10421,7 @@
     vi = Điều chỉnh điểm bắt đầu
     zh-Hans = 调整出发点
     zh-Hant = 變更起點
+    el = Ρυθμίστε το σημείο εκκίνησης
     he = כוונן נקודת התחלה
     sk = Nastavte východiskový bod
 
@@ -10236,6 +10453,7 @@
     vi = Tuyến đường chưa được tạo. Không thể xác định vị trí điểm bắt đầu.
     zh-Hans = 路线未创建。无法定位起点。
     zh-Hant = 此路線尚未產生。無法定位起點。
+    el = Δεν δημιουργήθηκε διαδρομή. Δεν είναι δυνατός ο εντοπισμός του σημείου εκκίνησης.
     he = לא נוצר מסלול. לא ניתן לאתר את נקודת ההתחלה.
     sk = Trasa nebola vytvorená. Nedá sa lokalizovať východiskový bod.
 
@@ -10267,6 +10485,7 @@
     vi = Hãy chọn điểm bắt đầu gần với một con đường hơn.
     zh-Hans = 请选择更靠近公路的起点。
     zh-Hant = 請選擇更接近道路的起點。
+    el = Επιλέξτε σημείο εκκίνησης πιο κοντά σε ένα δρόμο.
     he = בחר נקודת התחלה הקרובה יותר לכביש כלשהו.
     sk = Vyberte východiskový bod bližšie k ceste.
 
@@ -10298,6 +10517,7 @@
     vi = Điều chỉnh điểm đến
     zh-Hans = 调整目的地
     zh-Hant = 變更目的地
+    el = Ρύθμιση προορισμού
     he = כוונן יעד
     sk = Nastavte cieľové miesto
 
@@ -10329,6 +10549,7 @@
     vi = Tuyến đường chưa được tạo. Không thể xác định vị trí điểm đến.
     zh-Hans = 路线未创建。无法定位目的地。
     zh-Hant = 未產生路線。無法定位目的地。
+    el = Δεν δημιουργήθηκε διαδρομή. Δεν είναι δυνατός ο εντοπισμός του προορισμού.
     he = לא נוצר מסלול. לא ניתן לאתר את היעד.
     sk = Trasa nebola vytvorená. Nedá sa lokalizovať cieľové miesto.
 
@@ -10360,6 +10581,7 @@
     vi = Hãy chọn điểm đến gần với một con đường hơn.
     zh-Hans = 请选择更靠近公路的目的地位置。
     zh-Hant = 請選擇更接近道路的目的地。
+    el = Επιλέξτε ένα σημείο προορισμού πιο κοντά σε ένα δρόμο.
     he = בחר נקודת יעד הקרובה יותר לכביש כלשהו.
     sk = Vyberte cieľové miesto nachádzajúce sa bližšie k ceste.
 
@@ -10391,6 +10613,7 @@
     vi = Lỗi hệ thống
     zh-Hans = 系统错误
     zh-Hant = 系統錯誤
+    el = Σφάλμα συστήματος
     he = שגיאת מערכת
     sk = Systémová chyba
 
@@ -10422,6 +10645,7 @@
     vi = Không thể tạo tuyến đường do lỗi ứng dụng.
     zh-Hans = 由于应用程序错误，无法创建路线。
     zh-Hant = 由於此錯誤，尚未建立路線。
+    el = Δεν είναι δυνατή η δημιουργία διαδρομής εξαιτίας σφάλματος εφαρμογής.
     he = לא ניתן ליצור מסלול עקב שגיאת אפליקציה.
     sk = Nedá sa vytvoriť trasa z dôvodu aplikačnej chyby.
 
@@ -10453,6 +10677,7 @@
     vi = Vui lòng thử lại
     zh-Hans = 请重试
     zh-Hant = 請再試一次
+    el = Προσπαθήστε ξανά
     he = נסה שוב
     sk = Skúste znova, prosím
 
@@ -10577,6 +10802,7 @@
     vi = Lúc khác
     zh-Hans = 现在不用
     zh-Hant = 現在不要
+    el = Όχι τώρα
     he = לא עכשיו
     sk = Nie teraz
 
@@ -10639,6 +10865,7 @@
     vi = Bạn có muốn tải về bản đồ và tạo một tuyến đường tối ưu hơn kéo dài trên nhiều hơn một bản đồ?
     zh-Hans = 您是否要下载地图并创建一条跨越多张地图的更佳路线？
     zh-Hant = 您是否要下載地圖，產生跨越邊界的更好路線？
+    el = Θέλετε να κατεβάσετε το χάρτη και να δημιουργήσετε μια πιο βέλτιστη διαδρομή που εκτείνονται σε περισσότερους από έναν χάρτη;
     he = האם ברצונך להוריד את המפה וליצור מסלול מיטבי יותר, הכולל יותר מאשר מפה אחת?
     sk = Chcete si prevziať mapu a vytvoriť optimálnejšiu trasu, ktorá si vyžaduje viac ako jednu mapu?
 
@@ -10670,6 +10897,7 @@
     vi = Tải về bản đồ để tạo tuyến đường tối ưu hơn mà đi qua cạnh của bản đồ này.
     zh-Hans = 下载地图，创建一条跨越此地图边缘的更佳路线。
     zh-Hant = 若要產生跨越邊界的更理想路線，您需要下載地圖。
+    el = Κατεβάσετε επιπλέον χάρτες για να δημιουργήσετε μια καλύτερη διαδρομή που διασχίζει τα όρια αυτού του χάρτη.
     he = הורד את המפה כדי ליצור מסלול מיטבי יותר, החוצה את הגבול של מפה זו.
     sk = Prevezmite si mapu na vytvorenie optimálnejšej trasy, ktorá prekračuje okraje tejto mapy.
 
@@ -10734,6 +10962,7 @@
     vi = Để bắt đầu tìm kiếm và tạo đường đi, vui lòng tải về bản đồ, và bạn sẽ không cần đến kết nối Internet nữa.
     zh-Hans = 要开始搜索和创建路线，请下载地图，那您就不再需要网络连接了。
     zh-Hant = 要開始搜索和建立路線，請下載地圖，那您就不再需要網絡連接了。
+    el = Για να ξεκινήσετε την αναζήτηση και τη δημιουργία διαδρομών, κατεβάστε το χάρτη. Μετά από αυτό δεν θα χρειάζεστε πλέον σύνδεση στο Internet.
     he = על מנת להתחיל לחפש וליצור מסלולים, הורידו בבקשה את המפה ולא תזדקקו יותר לחיבור לאינטרנט.
     sk = Stiahnutím mapy už nebudete potrebovať pripojenie k internetu a môžete si začať vyhľadávať a vytvárať trasy.
 
@@ -10765,6 +10994,7 @@
     vi = Chọn bản đồ
     zh-Hans = 选择地图
     zh-Hant = 選擇地圖
+    el = Επιλέξτε χάρτη
     he = בחרו את המפה
     sk = Vybrať mapu
 
@@ -10828,6 +11058,7 @@
     vi = Hiện
     zh-Hans = 显示
     zh-Hant = 顯示
+    el = Εμφάνιση
     sk = Ukázať
 
   [hide]
@@ -10859,6 +11090,7 @@
     vi = Ẩn
     zh-Hans = 隐藏
     zh-Hant = 隱藏
+    el = Απόκρυψη
     sk = Skryť
 
   [rename]
@@ -10890,6 +11122,7 @@
     vi = Đổi tên
     zh-Hans = 重命名
     zh-Hant = 重新命名
+    el = Μετονομασία
     sk = Premenovať
 
   [bottom_sheet_more]
@@ -10952,6 +11185,7 @@
     vi = Không thể Lập Lộ trình
     zh-Hans = 路线计划失败
     zh-Hant = 路線計劃失敗
+    el = Ο σχεδιασμός διαδρομής απέτυχε
     sk = Plánovanie trasy zlyhalo
 
   [routing_arrive]
@@ -10983,6 +11217,7 @@
     vi = Đến: %s
     zh-Hans = 抵達:%s
     zh-Hant = 抵達:%s
+    el = Άφιξη στις %s
     sk = Pricestovať: %s
 
   [dialog_routing_download_and_update_maps]
@@ -11044,6 +11279,7 @@
     vi = Bạn thích ứng dụng chứ?
     zh-Hans = 喜欢这个应用吗？
     zh-Hant = 喜歡這個應用程式嗎？
+    el = Σας αρέσει η εφαρμογή;
     sk = Páči sa vám aplikácia?
 
   [rate_alert_default_message]
@@ -11074,6 +11310,7 @@
     vi = Cám ơn bạn đã sử dụng MAPS.ME. Vui lòng đánh giá ứng dụng. Phản hồi của bạn giúp chúng tôi trở nên tốt hơn.
     zh-Hans = 感谢您使用 MAPS.ME。请，评价该应用。您的反馈帮助我们变得更好。
     zh-Hant = 感謝您使用 MAPS.ME。請評價此應用程式。您的回饋幫助我們改善我們的產品。
+    el = Σας ευχαριστούμε που χρησιμοποιείτε το MAPS.ME. Βαθμολογήστε την εφαρμογή. Τα σχόλιά σας μας βοηθάνε να βελτιώσουμε το προϊόν μας.
     sk = Ďakujeme, že používate MAPS.ME. Prosím, ohodnoťte aplikáciu. Vaše názory nám pomôžu zlepšiť sa.
 
   [rate_alert_five_star_message]
@@ -11104,6 +11341,7 @@
     vi = Hoan hô! Chúng tôi cũng yêu bạn!
     zh-Hans = 太棒了！我们也爱您！
     zh-Hant = 太棒了！我們也愛您！
+    el = Ζήτω! Σας ευχαριστούμε πάρα πολύ!
     sk = Hurá! Aj my vás taky páči!
 
   [rate_alert_four_star_message]
@@ -11134,6 +11372,7 @@
     vi = Cám ơn, chúng tôi sẽ nỗ lực hết mình!
     zh-Hans = 谢谢您，我们会尽可能做好！
     zh-Hant = 謝謝您，我們會盡可能做好!
+    el = Σας ευχαριστούμε, θα κάνουμε το καλύτερο δυνατό!
     sk = Ďakujeme vám, urobíme, čo bude v našich silách!
 
   [rate_alert_less_than_four_star_message]
@@ -11164,6 +11403,7 @@
     vi = Có bất kỳ ý tưởng nào về cách chúng tôi có thể giúp ứng dụng tốt hơn?
     zh-Hans = 有没有想法我们能怎么把它变得更好？
     zh-Hant = 有沒有想法我們能怎麽把它變得更好？
+    el = Έχετε κάποια ιδέα για το πώς μπορούμε να το κάνουμε καλύτερο;
     sk = Nejaký nápad, ako ju môžeme vylepšiť?
 
   [categories]
@@ -11194,6 +11434,7 @@
     vi = Thể loại
     zh-Hans = 类别
     zh-Hant = 類別
+    el = Κατηγορίες
     sk = Kategórie
 
   [history]
@@ -11224,6 +11465,7 @@
     vi = Lịch sử
     zh-Hans = 历史
     zh-Hant = 記錄
+    el = Ιστορικό
     sk = Archív
 
   [next_turn_then]
@@ -11284,6 +11526,7 @@
     vi = Đã đóng
     zh-Hans = 已关闭
     zh-Hant = 已關閉
+    el = Κλειστό
     sk = Zatvorené
 
   [back_to]
@@ -11314,6 +11557,7 @@
     vi = Quay lại %@
     zh-Hans = 回到 %@
     zh-Hant = 返回 %@
+    el = Επιστροφή στο %@
     sk = Späť do %@
 
   [search_not_found]
@@ -11344,6 +11588,7 @@
     vi = Xin lỗi, tôi không tìm thấy kết quả nào.
     zh-Hans = 抱歉，没有找到任何东西。
     zh-Hant = 很抱歉，找不到任何東西。
+    el = Ωχ, δεν βρέθηκαν αποτελέσματα.
     sk = Ľutujeme, ale nič sme nenašli.
 
   [search_not_found_query]
@@ -11374,6 +11619,7 @@
     vi = Vui lòng thử câu hỏi khác.
     zh-Hans = 请尝试其它查询。
     zh-Hant = 請嘗試其他搜尋字詞。
+    el = Δοκιμάστε να αλλάξετε τα κριτήρια αναζήτησής σας.
     sk = Vyskúšajte, prosím, iný hľadaný výraz.
 
   [search_not_found_map]
@@ -11464,6 +11710,7 @@
     vi = Lịch sử tìm kiếm
     zh-Hans = 搜索历史
     zh-Hant = 搜尋歷史紀錄
+    el = Ιστορικό αναζήτησης
     sk = História vyhľadávania
 
   [search_history_text]
@@ -11494,6 +11741,7 @@
     vi = Truy cập nhanh chóng đến câu hỏi tìm kiếm gần đây.
     zh-Hans = 快速访问最近的搜索查询。
     zh-Hant = 檢視最近的搜尋。
+    el = Προβολή πρόσφατων αναζητήσεων.
     sk = Rýchlo pristupujte k nedávnym hľadaným výrazom.
 
   [clear_search]
@@ -11524,6 +11772,7 @@
     vi = Xóa Lịch sử Tìm kiếm
     zh-Hans = 清除历史搜索
     zh-Hant = 清除搜尋記錄
+    el = Εκκαθάριση ιστορικού αναζήτησης
     sk = Vymazať históriu vyhľadávania
 
   [showcase_settings_title]
@@ -11555,6 +11804,7 @@
     vi = Hiển thị lời mời
     zh-Hans = 显示优惠
     zh-Hant = 顯示優惠
+    el = Εμφάνιση προσφορών
     sk = Zobraziť akcie
 
   [read_in_wikipedia]
@@ -11563,6 +11813,7 @@
     en = Wikipedia
     fr = Wikipédia
     zh-Hant = 維基百科
+    el = Wikipedia
 
   [p2p_route_planning]
     tags = ios, android
@@ -11622,6 +11873,7 @@
     vi = Vị trí của bạn
     zh-Hans = 您的位置
     zh-Hant = 您的位置
+    el = Η τοποθεσία σας
     sk = Vaša poloha
 
   [p2p_from]
@@ -11652,6 +11904,7 @@
     vi = Điểm khởi hành
     zh-Hans = 出发地点
     zh-Hant = 出發地點
+    el = Από
     sk = Východiskový bod
 
   [p2p_to]
@@ -11682,6 +11935,7 @@
     vi = Điểm đích
     zh-Hans = 目的地点
     zh-Hant = 目的地點
+    el = Έως
     sk = Cieľový bod
 
   [p2p_start]
@@ -11712,6 +11966,7 @@
     vi = Bắt đầu
     zh-Hans = 开始
     zh-Hant = 開始
+    el = Έναρξη
     sk = Štart
 
   [p2p_planning]
@@ -11742,6 +11997,7 @@
     vi = Đang hoạch định…
     zh-Hans = 计划中…
     zh-Hant = 計劃中…
+    el = Σχεδιασμός…
     sk = Plánovanie…
 
   [p2p_from_here]
@@ -11772,6 +12028,7 @@
     vi = Từ
     zh-Hans = 从
     zh-Hant = 從
+    el = Διαδρομή από
     sk = Z
 
   [p2p_to_here]
@@ -11802,6 +12059,7 @@
     vi = Tuyến đến
     zh-Hans = 发送至
     zh-Hant = 路線終點
+    el = Διαδρομή στο
     sk = Cesta do
 
   [p2p_only_from_current]
@@ -11832,6 +12090,7 @@
     vi = Chức năng tìm đường chỉ có sẵn từ vị trí hiện tại của bạn.
     zh-Hans = 导航只能从您目前的位置开始。
     zh-Hant = 導航只能從您目前的位置開始。
+    el = Η πλοήγηση είναι διαθέσιμη μόνο από την τρέχουσα τοποθεσία σας.
     sk = Navigácia je dostupná iba z vašej aktuálnej polohy.
 
   [p2p_reroute_from_current]
@@ -11862,6 +12121,7 @@
     vi = Bạn có muốn chúng tôi vạch đường từ vị trí hiện tại của bạn không?
     zh-Hans = 你是否想要规划当前位置的路线？
     zh-Hant = 你是否想要規劃目前位置的路線？
+    el = Θέλετε να σχεδιάσουμε μια διαδρομή από την τρέχουσα θέση σας;
     sk = Doriți să vă planificăm o rută având ca punct de pornire locația actuală?
 
   [whats_new_next_button]
@@ -11892,6 +12152,7 @@
     vi = Tiếp theo
     zh-Hans = 下一页
     zh-Hant = 下一頁
+    el = Επόμενη
     sk = Nasledujúca
 
   [editor_time_add]
@@ -11922,6 +12183,7 @@
     vi = Thêm lịch biểu
     zh-Hans = 添加计划
     zh-Hant = 新增排程
+    el = Προσθέσετε χρονοδιάγραμμα
     sk = Pridať rozvrh
 
   [editor_time_delete]
@@ -11952,6 +12214,7 @@
     vi = Xóa lịch biểu
     zh-Hans = 删除计划
     zh-Hant = 刪除排程
+    el = Διαγραφή χρονοδιαγράμματος
     sk = Zmazať rozvrh
 
   [editor_time_allday]
@@ -11983,6 +12246,7 @@
     vi = Cả ngày (24 giờ)
     zh-Hans = 全天（24小时）
     zh-Hant = 全天 (24 小時)
+    el = Όλη την ημέρα (24 ώρες)
     sk = Nepretržite (24 hodín)
 
   [editor_time_open]
@@ -12013,6 +12277,7 @@
     vi = Mở cửa
     zh-Hans = 营业中
     zh-Hant = 營業中
+    el = Άνοιγμα
     sk = Otvorené
 
   [editor_time_close]
@@ -12043,6 +12308,7 @@
     vi = Đóng cửa
     zh-Hans = 未营业
     zh-Hant = 休息時間
+    el = Κλειστό
     sk = Zatvorené
 
   [editor_time_add_closed]
@@ -12073,6 +12339,7 @@
     vi = Thêm giờ đóng cửa
     zh-Hans = 添加不营业时间
     zh-Hant = 新增休息時間
+    el = Προσθήκη μη-εργάσιμων ωρών
     sk = Pridať hodiny zatvorenia
 
   [editor_time_title]
@@ -12103,6 +12370,7 @@
     vi = Giờ mở cửa
     zh-Hans = 营业时间
     zh-Hant = 營業時間
+    el = Εργάσιμες ώρες
     sk = Otváracie hodiny
 
   [editor_time_advanced]
@@ -12133,6 +12401,7 @@
     vi = Chế độ nâng cao
     zh-Hans = 高级模式
     zh-Hant = 進階模式
+    el = Προηγμένη λειτουργία
     sk = Rozšírený režim
 
   [editor_time_simple]
@@ -12163,6 +12432,7 @@
     vi = Chế độ đơn giản
     zh-Hans = 简单模式
     zh-Hant = 簡易模式
+    el = Απλή λειτουργία
     sk = Jednoduchý režim
 
   [editor_hours_closed]
@@ -12193,6 +12463,7 @@
     vi = Giờ đóng cửa
     zh-Hans = 不营业时间
     zh-Hant = 休息時間
+    el = Μη-εργάσιμες ώρες
     sk = Hodiny zatvorenia
 
   [editor_example_values]
@@ -12223,6 +12494,7 @@
     vi = Giá trị ví dụ
     zh-Hans = 示例值
     zh-Hant = 範例值
+    el = Παράδειγμα τιμών
     sk = Príklady hodnôt
 
   [editor_correct_mistake]
@@ -12253,6 +12525,7 @@
     vi = Sửa lỗi
     zh-Hans = 纠正错误
     zh-Hant = 修正錯誤
+    el = Διόρθωση λάθους
     sk = Opraviť chybu
 
   [editor_correct_mistake_message]
@@ -12312,6 +12585,7 @@
     vi = Vị trí
     zh-Hans = 位置
     zh-Hant = 位置
+    el = Τοποθεσία
     sk = Poloha
 
   [editor_done_dialog_1]
@@ -12341,6 +12615,7 @@
     vi = Bạn đã thay đổi bản đồ thế giới. Đừng giấu điều đó! Hãy cho các bạn khác biết và cùng nhau chỉnh sửa.
     zh-Hans = 您已经改变了世界地图。请不要隐藏这一点！告诉您的朋友们并一起编辑它。
     zh-Hant = 您已經改變了世界地圖。別藏私！告訴您的朋友們一起來編輯。
+    el = Έχετε αλλάξει τον παγκόμιο χάρτη. Μην το κρατάτε για τον εαυτό σας! Πείτε το στους φίλους σας και κάντε τις αλλαγές μαζί.
     sk = Zmenili ste mapu sveta. Nemusíte to skrývať! Povedzte o tom svojim priateľom a začnite ju spolu upravovať.
 
   [editor_done_dialog_2]
@@ -12370,6 +12645,7 @@
     vi = Đây là lần nâng cấp bản đồ thứ hai của bạn. Giờ bạn xếp hạng %d trong các nhà hiệu chỉnh bản đồ. Hãy nói với các bạn khác về điều đó.
     zh-Hans = 这是您的第二个地图改进。现在您在地图编辑者排行榜中排在第%d名。把它告诉您的朋友们。
     zh-Hant = 這是您的第二次地圖改進。現在您在地圖編輯者排行榜中排在第%d名。把它告訴您的朋友們。
+    el = Αυτή είναι η δεύτερη φορά που επεξεργαστήκατε το χάρτη. Είστε πλέον %d στην κατάταξη των επεξεργαστών του χάρτη. Πείτε το στους φίλους σας.
     sk = Toto je vaša druhá vylepšená mapa. Momentálne ste na %d. mieste zoznamu editorov máp. Povedzte o tom svojim priateľom.
 
   [editor_done_dialog_3]
@@ -12428,6 +12704,7 @@
     vi = Chia sẻ với bạn bè
     zh-Hans = 与朋友分享
     zh-Hant = 和朋友分享
+    el = Μοιραστείτε με φίλους
     sk = Zdieľaj s priateľmi
 
   [editor_report_problem_desription_1]
@@ -12457,6 +12734,7 @@
     vi = Xin mô tả chi tiết vấn đề để cộng đồng OpenStreeMap có thể sửa lỗi đó.
     zh-Hans = 请详细描述此问题以便OpenStreeMap社区能够修复此错误。
     zh-Hant = 請詳細描述此問題以便 OpenStreeMap 社群修復此錯誤。
+    el = Περιγράψτε το πρόβλημα αναλυτικά ώστε η Κοινότητα OpenStreeMap να διορθώσει το σφάλμα.
     sk = Prosím, pridajte detailný popis problému, aby mohla komunita OpenStreetMap opraviť danú chybu.
 
   [editor_report_problem_desription_2]
@@ -12486,6 +12764,7 @@
     vi = Hoặc bạn có thể tự sửa tại http://www.openstreetmap.org/
     zh-Hans = 或者在http://www.openstreetmap.org/上亲自修复此错误。
     zh-Hant = 或者在http://www.openstreetmap.org/上親自修復此錯誤
+    el = Ή κάντε το μόνοι σας στη διεύθυνση http://www.openstreetmap.org/
     sk = K oprave môžete prispieť aj vy na stránke http://www.openstreetmap.org/
 
   [editor_report_problem_send_button]
@@ -12515,6 +12794,7 @@
     vi = Gửi
     zh-Hans = 发送
     zh-Hant = 發送
+    el = Αποστολή
     sk = Odoslať
 
   [editor_report_problem_title]
@@ -12544,6 +12824,7 @@
     vi = Vấn đề
     zh-Hans = 问题
     zh-Hant = 問題
+    el = Πρόβλημα
     sk = Problém
 
   [editor_report_problem_no_place_title]
@@ -12573,6 +12854,7 @@
     vi = Địa điểm này không tồn tại
     zh-Hans = 该地点不存在
     zh-Hant = 該地點不存在
+    el = Η τοποθεσία δεν υπάρχει
     sk = Dané miesto neexistuje
 
   [editor_report_problem_under_construction_title]
@@ -12602,6 +12884,7 @@
     vi = Tạm dừng để bảo trì
     zh-Hans = 因维护而关闭
     zh-Hant = 因維護而關閉
+    el = Εκτός λειτουργίας για συντήρηση
     sk = Zatvorené kvôli prebiehajúcej údržbe
 
   [editor_report_problem_duplicate_place_title]
@@ -12631,6 +12914,7 @@
     vi = Địa điểm trùng lặp
     zh-Hans = 重复的地点
     zh-Hant = 重複的地點
+    el = Διπλότυπη τοποθεσία
     sk = Duplicitné miesto
 
   [first_launch_congrats_title]
@@ -12660,6 +12944,7 @@
     vi = MAPS.ME đã sẵn sàng để sử dụng
     zh-Hans = MAPS.ME已经可用
     zh-Hant = MAPS.ME 已做好使用準備
+    el = Το MAPS.ME είναι έτοιμο για χρήση
     sk = Aplikácia MAPS.ME je pripravená na použitie
 
   [first_launch_congrats_text]
@@ -12689,6 +12974,7 @@
     vi = Tìm kiếm và điều hướng ngoại tuyến, miễn phí khắp mọi nơi trên thế giới.
     zh-Hans = 在世界各地离线搜索和导航，免费。
     zh-Hant = 在世界各地離線搜尋和導航，免費。
+    el = Κάντε αναζήτηση και πλοηγηθείτε παντού στον κόσμο χωρίς σύνδεση και χωρίς χρέωση.
     sk = Vyhľadávajte a určujte trasu bez pripojenia všade na svete bez poplatkov.
 
   [migrate_title]
@@ -12719,6 +13005,7 @@
     vi = Quan trọng!
     zh-Hans = 重要！
     zh-Hant = 重要！
+    el = Σημαντικό!
     sk = Dôležité!
 
   [download_all]
@@ -12810,6 +13097,7 @@
     vi = Tự động tải về
     zh-Hans = 自动下载
     zh-Hant = 自動下載
+    el = Αυτόματη λήψη
     sk = Automaticky stiahnuť
 
   [disable_autodownload]
@@ -12871,6 +13159,7 @@
     vi = Hiện đã đóng
     zh-Hans = 现在关门
     zh-Hant = 現在關門
+    el = Τώρα είναι κλειστό
     sk = Teraz zatvorené
 
   [daily]
@@ -12902,6 +13191,7 @@
     vi = Hàng ngày
     zh-Hans = 每天
     zh-Hant = 每天
+    el = Καθημερινά
     sk = Denne
 
   [twentyfour_seven]
@@ -12932,7 +13222,7 @@
     vi = ngày và đêm
     zh-Hans = 白天和黑夜
     zh-Hant = 全天候
-    el = μέρα και νύχτα
+    el = 24/7
     he = יום ולילה
     sk = Deň a noc
 
@@ -12964,6 +13254,7 @@
     vi = Nghỉ hôm nay
     zh-Hans = 今天没有营业
     zh-Hant = 今天沒有營業
+    el = Κλειστό σήμερα
     sk = Dnes deň voľna
 
   [day_off]
@@ -12994,6 +13285,7 @@
     vi = Ngày nghỉ
     zh-Hans = 没有营业
     zh-Hant = 沒有營業
+    el = Κλειστό
     sk = Deň voľna
 
   [today]
@@ -13024,6 +13316,7 @@
     vi = Hôm nay
     zh-Hans = 今天
     zh-Hant = 今天
+    el = Σήμερα
     sk = Dnes
 
   [sunrise_to_sunset]
@@ -13114,6 +13407,7 @@
     vi = Thêm giờ làm việc
     zh-Hans = 添加工作时间
     zh-Hant = 新增營業時間
+    el = Προσθέστε ώρες λειτουργίας
     sk = Pridať otváracie hodiny
 
   [edit_opening_hours]
@@ -13144,6 +13438,7 @@
     vi = Sửa giờ làm việc
     zh-Hans = 编辑工作时间
     zh-Hant = 編輯營業時間
+    el = Επεξεργαστείτε τις ώρες λειτουργίας
     sk = Upraviť otváracie hodiny
 
   [profile]
@@ -13174,6 +13469,7 @@
     vi = Hồ sơ
     zh-Hans = 资料
     zh-Hant = 資料
+    el = Προφίλ
     sk = Profil
 
   [no_osm_account]
@@ -13204,6 +13500,7 @@
     vi = Bạn chưa có tài khoản tại OpenStreetMap ư?
     zh-Hans = OpenStreetMap上没有账户吗？
     zh-Hant = 沒有 OpenStreeMap 帳號嗎？
+    el = Δεν έχετε λογαριασμό OpenStreetMap;
     sk = Nemáte účet v OpenStreetMap?
 
   [register_at_openstreetmap]
@@ -13234,6 +13531,7 @@
     vi = Đăng ký
     zh-Hans = 注册
     zh-Hant = 註冊
+    el = Εγγραφείτε στο OpenStreetMap
     sk = Zaregistrovať sa
 
   [password_8_chars_min]
@@ -13264,6 +13562,7 @@
     vi = Mật khẩu (tối thiểu 8 ký tự)
     zh-Hans = 密码（最少8个字符）
     zh-Hant = 密碼（最少8個字母）
+    el = Κωδικός πρόσβασης (8 χαρακτήρες ελάχιστο)
     sk = Heslo (8 minimálne znakov)
 
   [invalid_username_or_password]
@@ -13294,6 +13593,7 @@
     vi = Sai Tên người dùng hoặc Mật khẩu.
     zh-Hans = 无效的用户名或密码。
     zh-Hant = 無效的使用者名稱或密碼。
+    el = Μη έγκυρο όνομα χρήστη ή κωδικός πρόσβασης.
     sk = Nesprávne používateľské meno alebo heslo.
 
   [login]
@@ -13324,6 +13624,7 @@
     vi = Đăng nhập
     zh-Hans = 登录
     zh-Hant = 登入
+    el = Σύνδεση
     sk = Prihlásiť sa
 
   [password]
@@ -13354,6 +13655,7 @@
     vi = Mật khẩu
     zh-Hans = 密码
     zh-Hant = 密碼
+    el = Κωδικός πρόσβασης
     sk = Heslo
 
   [forgot_password]
@@ -13384,6 +13686,7 @@
     vi = Quên mật khẩu?
     zh-Hans = 忘记密码
     zh-Hant = 忘記密碼
+    el = Ξαχάσατε τον κωδικό πρόσβασης;
     sk = Zabudli ste heslo?
 
   [restore_password]
@@ -13535,6 +13838,7 @@
     vi = Tài khoản OSM
     zh-Hans = OSM账户
     zh-Hant = OSM 帳號
+    el = `Λογαριασμός OSM  `
     sk = OSM účet
 
   [logout]
@@ -13565,6 +13869,7 @@
     vi = Đăng xuất
     zh-Hans = 登出
     zh-Hant = 登出
+    el = Αποσύνδεση
     sk = Odhlásiť sa
 
   [login_and_edit_map_motivation_message]
@@ -13626,6 +13931,7 @@
     vi = Tải lên mới nhất
     zh-Hans = 上次上传
     zh-Hant = 上次上傳
+    el = Τελευταία μεταφόρτωση
     sk = Posledné nahrávanie
 
   [you_have_edited_your_first_object]
@@ -13687,6 +13993,7 @@
     vi = Cảm ơn bạn
     zh-Hans = 谢谢您
     zh-Hant = 謝謝您
+    el = Σας ευχαριστούμε
     sk = Ďakujeme Vám
 
   [login_with_google]
@@ -13807,6 +14114,7 @@
     vi = Chỉnh sửa địa điểm
     zh-Hans = 编辑地点
     zh-Hant = 編輯地點
+    el = Επεξεργασία μέρους
     sk = Upraviť miesto
 
   [place_name]
@@ -13837,6 +14145,7 @@
     vi = Tên địa điểm
     zh-Hans = 地点名
     zh-Hant = 地點名稱
+    el = Όνομα μέρους
     sk = Názov miesta
 
   [other_languages]
@@ -13962,6 +14271,7 @@
     vi = Thêm ngôn ngữ
     zh-Hans = 添加语言
     zh-Hant = 新增語言
+    el = Προσθήκη γλώσσας
     sk = Pridať jazyk
 
   [street]
@@ -13992,6 +14302,7 @@
     vi = Đường
     zh-Hans = 街道
     zh-Hant = 街道
+    el = Οδός
     sk = Ulica
 
   [house_number]
@@ -14023,6 +14334,7 @@
     vi = Số nhà
     zh-Hans = 门牌号码
     zh-Hant = 門牌號碼
+    el = Αριθμός κτιρίου
     sk = Číslo domu
 
   [details]
@@ -14053,6 +14365,7 @@
     vi = Chi tiết
     zh-Hans = 细节
     zh-Hant = 詳細資訊
+    el = Λεπτομέρειες
     sk = Podrobnosti
 
   [add_street]
@@ -14084,6 +14397,7 @@
     vi = Thêm con đường
     zh-Hans = 添加街道
     zh-Hant = 新增街道
+    el = Προσθέστε ένα δρόμο
     sk = Pridať ulicu
 
   [choose_language]
@@ -14114,6 +14428,7 @@
     vi = Đã chọn ngôn ngữ
     zh-Hans = 选择语言
     zh-Hant = 選擇語言
+    el = Επιλέξτε μια γλώσσα
     sk = Vybrať jazyk
 
   [choose_street]
@@ -14144,6 +14459,7 @@
     vi = Đã chọn con đường
     zh-Hans = 选择街道
     zh-Hant = 選擇街道
+    el = Επιλέξτε μια οδό
     sk = Vybrať ulicu
 
   [postal_code]
@@ -14204,6 +14520,7 @@
     vi = Ẩm thực
     zh-Hans = 菜肴
     zh-Hant = 料理
+    el = Κουζίνα
     sk = Kuchyňa
 
   [select_cuisine]
@@ -14234,6 +14551,7 @@
     vi = Chọn Ẩm thực
     zh-Hans = 选择菜肴
     zh-Hant = 選擇料理
+    el = Επιλέξτε κουζίνα
     sk = Vyberte si kuchyňu
 
   [email_or_username]
@@ -14265,6 +14583,7 @@
     vi = Email hoặc tên người dùng
     zh-Hans = 邮箱或用户名
     zh-Hant = 電子郵件或使用者名稱
+    el = Email ή όνομα χρήστη
     sk = Email alebo používateľské meno
 
   [phone]
@@ -14295,6 +14614,7 @@
     vi = Điện thoại
     zh-Hans = 电话
     zh-Hant = 電話
+    el = Τηλέφωνο
     sk = Telefón
 
   [please_note]
@@ -14325,6 +14645,7 @@
     vi = Xin lưu ý
     zh-Hans = 请注意
     zh-Hant = 請註意
+    el = Λάβετε υπόψη
     sk = Upozorňujeme vás, že
 
   [common_no_wifi_dialog]
@@ -14385,6 +14706,7 @@
     vi = Tất cả những thay đổi của bản đồ sẽ bị xóa cùng với bản đồ đó.
     zh-Hans = 所有对地图的修改都将与地图一起被删除。
     zh-Hant = 所有對地圖的修改都將與地圖一起被刪除。
+    el = Όλες οι αλλαγές που έχετε κάνει στο χάρτη θα διαγραφούν μαζί με το χάρτη.
     sk = Všetky zmeny týkajúce sa mapy budú vymazané spolu s mapou.
 
   [downloader_update_maps]
@@ -14415,6 +14737,7 @@
     vi = Cập nhật các bản đồ
     zh-Hans = 更新地图
     zh-Hant = 更新地圖
+    el = Ενημέρωση χαρτών
     sk = Aktualizovať mapy
 
   [downloader_mwm_migration_dialog]
@@ -14445,6 +14768,7 @@
     vi = Để tạo một tuyến đường, bạn cần cập nhật tất cả các bản đồ và sau đó lập lại tuyến đường.
     zh-Hans = 为了创建路线，您需要更新全部地图并重新规划路线。
     zh-Hant = 為了建立路線，您需要更新全部地圖並重新規劃路線。
+    el = Για να δημιουργήσετε μια διαδρομή, πρέπει να ενημερώσετε όλους τους χάρτες και στη συνέχεια να σχεδιάσετε τη διαδρομή ξανά.
     sk = Ak chcete vytvoriť cestu, musíte najskôr aktualizovať všetky mapy a potom odznova naplánovať trasu.
 
   [downloader_search_field_hint]
@@ -14475,6 +14799,7 @@
     vi = Tìm bản đồ
     zh-Hans = 找到地图
     zh-Hant = 找到地圖
+    el = Ανεύρεση χάρτη
     sk = Nájsť mapu
 
   [migration_update_all_button]
@@ -14505,6 +14830,7 @@
     vi = Cập nhật tất cả các bản đồ
     zh-Hans = 更新全部地图
     zh-Hant = 更新全部地圖
+    el = Ενημέρωση όλων των χαρτών
     sk = Aktualizovať všetky mapy
 
   [migration_delete_all_download_current_button]
@@ -14535,6 +14861,7 @@
     vi = Tải xuống bản đồ hiện tại và xóa những bản đồ cũ
     zh-Hans = 下载当前地图并删除旧地图
     zh-Hant = 下載目前地圖並刪除舊地圖
+    el = Κατεβάστε τον τρέχον χάρτη και διαγράψτε όλους τους παλιούς
     sk = Stiahnite si aktuálnu mapu a odstráňte neaktuálne mapy
 
   [migration_download_error_dialog]
@@ -14565,6 +14892,7 @@
     vi = Lỗi tải xuống
     zh-Hans = 下载错误
     zh-Hant = 下載錯誤
+    el = Σφάλμα λήψης
     sk = Chyba pri sťahovaní
 
   [common_check_internet_connection_dialog]
@@ -14595,6 +14923,7 @@
     vi = Xin kiểm tra các thiết lập và đảm bảo thiết bị của bạn có kết nối Internet.
     zh-Hans = 请检查您的设置并确保您的设备已连接至网络。
     zh-Hant = 請檢查您的設定並確保您的設備已連接至網路。
+    el = Ελέγξτε τις ρυθμίσεις σας και βεβαιωθείτε ότι η συσκευή σας είναι συνδεδεμένη στο Internet.
     sk = Prosím, skontrolujte svoje nastavenia a uistite sa, že váš počítač je pripojený k internetu.
 
   [downloader_no_space_title]
@@ -14625,6 +14954,7 @@
     vi = Không đủ dung lượng
     zh-Hans = 无足够的空间
     zh-Hant = 無足夠的空間
+    el = Δεν υπάρχει αρκετός χώρος
     sk = Nemáte dostatok miesta
 
   [downloader_no_space_message]
@@ -14655,6 +14985,7 @@
     vi = Xin xóa dữ liệu không cần thiết
     zh-Hans = 请删除不必要的数据
     zh-Hant = 請刪除不必要的資料
+    el = Διαγράψτε τυχόν μη απαραίτητα δεδομένα
     sk = Prosím, odstráňte prebytočné dáta
 
   [editor_general_auth_error_dialog]
@@ -14715,6 +15046,7 @@
     vi = Lỗi đăng nhập.
     zh-Hans = 登录错误。
     zh-Hant = 登入錯誤。
+    el = Σφάλμα σύνδεσης.
     sk = Pri prihlasovaní sa vyskytla chyba.
 
   [editor_login_failed_dialog]
@@ -14865,6 +15197,7 @@
     vi = Các thay đổi đã được xác thực
     zh-Hans = 已验证的更改
     zh-Hant = 已驗證的變更
+    el = Επαληθευμένες αλλαγές
     sk = Overené zmeny
 
   [editor_profile_unsent_changes]
@@ -14925,6 +15258,7 @@
     vi = Kéo bản đồ để chọn vị trí chính xác của đối tượng
     zh-Hans = 拖动地图以选择此对象的正确位置。
     zh-Hant = 拖動地圖以選擇此物件的正確位置。
+    el = Σύρετε τον χάρτη για να επιλέξετε τη σωστή θέση του αντικειμένου.
     sk = Ak chcete nastaviť správnu polohu objektu, posuňte mapu.
 
   [editor_add_select_category]
@@ -14955,6 +15289,7 @@
     vi = Chọn thể loại
     zh-Hans = 选择类别
     zh-Hant = 選擇類別
+    el = Επιλέξτε κατηγορία
     sk = Vybrať kategóriu
 
   [editor_add_select_category_popular_subtitle]
@@ -14985,6 +15320,7 @@
     vi = Phổ biến
     zh-Hans = 受欢迎的
     zh-Hant = 受歡迎的
+    el = Δημοφιλή
     sk = Obľúbené
 
   [editor_add_select_category_all_subtitle]
@@ -15015,6 +15351,7 @@
     vi = Mọi thể loại
     zh-Hans = 所有类别
     zh-Hant = 所有類別
+    el = Όλες οι κατηγορίες
     sk = Všetky kategórie
 
   [editor_edit_place_title]
@@ -15045,6 +15382,7 @@
     vi = Chỉnh sửa
     zh-Hans = 编辑中
     zh-Hant = 編輯中
+    el = Επεξεργασία
     sk = Úprava
 
   [editor_add_place_title]
@@ -15075,6 +15413,7 @@
     vi = Nhập
     zh-Hans = 添加中
     zh-Hant = 新增中
+    el = Προσθήκη
     sk = Nové
 
   [editor_edit_place_name_hint]
@@ -15105,6 +15444,7 @@
     vi = Tên địa điểm
     zh-Hans = 该地点的名称
     zh-Hant = 該地點的名稱
+    el = Το όνομα του τόπου
     sk = Názov miesta
 
   [editor_edit_place_category_title]
@@ -15135,6 +15475,7 @@
     vi = Thể loại
     zh-Hans = 类别
     zh-Hant = 類別
+    el = Κατηγορία
     sk = Kategória
 
   [detailed_problem_description]
@@ -15164,6 +15505,7 @@
     vi = Mô tả chi tiết của vấn đề
     zh-Hans = 问题的详细描述
     zh-Hant = 問題的詳細描述
+    el = Λεπτομερή περιγραφή του θέματος
     sk = Podrobný popis problému
 
   [editor_report_problem_other_title]
@@ -15193,6 +15535,7 @@
     vi = Một vấn đề khác
     zh-Hans = 一个不同的问题
     zh-Hant = 一個不同的問題
+    el = Διαφορετικό πρόβλημα
     sk = Iný problém
 
   [placepage_report_problem_button]
@@ -15253,6 +15596,7 @@
     vi = Thêm tổ chức
     zh-Hans = 添加组织
     zh-Hant = 添加組織
+    el = Προσθήκη επιχείρησης
     sk = Pridať organizáciu
 
   [whatsnew_smallmwm_header]
@@ -15283,6 +15627,7 @@
     vi = Bạn đã yêu cầu điều đó và chúng tôi đã thực hiện nó
     zh-Hans = 我们满足了您一直以来的要求
     zh-Hant = 您一直在要求，而我們已經完成
+    el = Το έχετε ζητήσει εδώ και καιρό, το προσθέσαμε τελικά
     sk = Dožadovali ste sa toho a my sme vám vyhoveli
 
   [whatsnew_smallmwm_message]
@@ -15313,6 +15658,7 @@
     vi = Chúng tôi đã chia bản đồ thành nhiều phần. Bây giờ bạn có thể tải về các vùng riêng biệt, không phải là toàn bộ quốc gia.
     zh-Hans = 我们将地图分成了几部分。现在，您可以下载独立的区域，而不是整个国家。
     zh-Hant = 我們已將地圖分為若干部分。現在，您可下載各個地區，而非整個國家的地圖。
+    el = Χωρίσαμε μεγάλους χάρτες σε τμήματα. Μπορείτε πλέον να κατεβάσετε μόνο τις περιοχές που χρειάζεστε σε αντίθεση με τους χάρτες για ολόκληρες χώρες.
     sk = Mapy sme rozdelili na časti. Teraz si môžete stiahnuť jednotlivé regióny, nie celú krajinu.
 
   [whatsnew_search_header]
@@ -15343,6 +15689,7 @@
     vi = Tìm kiếm mới
     zh-Hans = 新搜索
     zh-Hant = 新搜尋
+    el = Νέα αναζήτηση
     sk = Nové vyhľadávanie
 
   [whatsnew_search_message]
@@ -15373,6 +15720,7 @@
     vi = Chúng tôi đã cải thiện đáng kể việc tìm kiếm theo địa chỉ. Bạn hãy tự xem thử.
     zh-Hans = 我们已明显改进了按地址的搜索。亲自看看。
     zh-Hant = 我們已明顯改進了按地址的搜尋。親自看看。
+    el = Έχουμε βελτιώσει σημαντικά την αναζήτηση μέσω διεύθυνσης. Δοκιμάστε το.
     sk = Významne sme zlepšili vyhľadávanie pomocou adresy. Pozrite sa sami.
 
   [whatsnew_editor_title]
@@ -15403,6 +15751,7 @@
     vi = Chỉnh sửa bản đồ*
     zh-Hans = 编辑此地图*
     zh-Hant = 編輯此地圖*
+    el = Επεξεργαστείτε το χάρτη*
     sk = Upraviť mapu*
 
   [whatsnew_editor_message_1]
@@ -15433,6 +15782,7 @@
     vi = Nhập các địa điểm mới vào bản đồ, và trực tiếp chỉnh sửa những địa điểm hiện có trên ứng dụng.
     zh-Hans = 添加新地点到该地图，并直接通过此应用编辑已存在的地点。
     zh-Hant = 新增新地點到該地圖，並直接通過此應用程式編輯已存在的地點。
+    el = Προσθέστε νέες τοποθεσίες στο χάρτη, και επεξεργαστείτε τις υπάρχουσες απευθείας από την εφαρμογή.
     sk = Na mapu môžete pridávať nové miesta a upravovať tie, ktoré sú už pridané.
 
   [whatsnew_editor_message_2]
@@ -15463,6 +15813,7 @@
     vi = * MAPS.ME sử dụng dữ liệu của cộng đồng OpenStreetMap.
     zh-Hans = * MAPS.ME使用OpenStreetMap社区的数据。
     zh-Hant = * MAPS.ME 使用 OpenStreetMap 社群的數據。
+    el = * Το MAPS.ME χρησιμοποιεί δεδομένα της κοινότητας OpenStreetMap.
     sk = * MAPS.ME využíva dáta komunity OpenStreetMap.
 
   [onboarding_offline_navigation_title]
@@ -15493,6 +15844,7 @@
     vi = Bạn sẽ không bao giờ bị lạc nữa
     zh-Hans = 您将不再迷路
     zh-Hant = 您將不再迷路
+    el = Δεν θα χαθείτε ποτέ ξανά
     sk = Už sa nikdy nestratíte
 
   [onboarding_offline_navigation_message]
@@ -15523,6 +15875,7 @@
     vi = Lập tuyến đường xe hơi và đi bộ tối ưu, mặc dù không có kết nối Internet!
     zh-Hans = 规划最佳的驾车和步行路线，即使在没有网络连接的情况下！
     zh-Hant = 規劃最佳的行車和步行路線，即使在沒有網絡連接的情況下！
+    el = Σχεδιασμός βέλτισης διαδρομής αυτοκινήτων και πεζών, ακόμα και χωρίς σύνδεση στο Internet!
     sk = Naplánujte si vhodné trasy na cestu autom alebo peši. Internetové pripojenie sa nevyžaduje!
 
   [onboarding_offline_navigation_title_2]
@@ -15613,6 +15966,7 @@
     vi = MAPS.ME — truy cập bản đồ trên toàn thế giới không cần Internet
     zh-Hans = MAPS.ME — 无需互联网获取全球地图
     zh-Hant = MAPS.ME — 無需網際網路獲取全球地圖
+    el = MAPS.ME — χρησιμοποιήστε χάρτες από όλο τον κόσμο χωρίς σύνδεση στο Internet
     sk = MAPS.ME — globálny prístup k mapám bez internetu
 
   [onboarding_offline_maps_message]
@@ -15643,6 +15997,7 @@
     vi = Chỉ tải xuống các bản đồ của khu vực bạn muốn một lần, và sử dụng các chức năng dẫn đường và tìm kiếm mà không cần kết nối Internet.
     zh-Hans = 下载一次所需区域的地图，您便可以在无网络连接的情况下使用导航和搜索功能。
     zh-Hant = 一次下載所需地區的地圖，無需網絡連接就能使用導航和搜索功能。
+    el = Κατεβάστε τους χάρτες της περιοχής που επιθυμείτε μια φορά και χρησιμοποιήστε τις λειτουργίες πλοήγησης και αναζήτησης χωρίς σύνδεση στο Internet.
     sk = Stiahnite si jednorázovo potrebné mapy - navigáciu a funkcie vyhľadávania môžete využívať aj bez internetového pripojenia.
 
   [onboarding_notifications_message]
@@ -15673,6 +16028,7 @@
     vi = Để nhận các bản đồ mới nhất, hãy nhận thông báo cập nhật
     zh-Hans = 为了接收最新的地图，请获取更新通知
     zh-Hant = 為了接收最新的地圖，請接收更新通知
+    el = Για να λάβετε τους πιο πρόσφατους χάρτες, επιλέξτε να λαμβάνετε ειδοποιήσεις ενημερώσεων
     sk = Ak chcete získavať najnovšie mapy, zapnite si notifikácie aktualizácií
 
   [onboarding_notifications_title]
@@ -15703,6 +16059,7 @@
     vi = Cho phép thông báo cập nhật
     zh-Hans = 允许更新通知
     zh-Hant = 啟用更新通知
+    el = Ενεργοποιήσετε τις ειδοποιήσεις για ενημερώσεις
     sk = Povoliť notifikácie aktualizácií
 
   [onboarding_location_title]
@@ -15733,6 +16090,7 @@
     vi = Giúp chúng tôi tìm bạn
     zh-Hans = 帮助我们找到您
     zh-Hant = 幫我們找到您
+    el = Βοηθήστε μας να σας βρούμε
     sk = Pomôžte nám a my vás nájdeme
 
   [onboarding_location_message]
@@ -15763,6 +16121,7 @@
     vi = Để sử dụng tính năng dẫn đường và các tính năng khác, chúng tôi cần truy cập vị trí địa lý của bạn.
     zh-Hans = 为了使用导航和其他功能，我们需要访问您的地理位置信息.
     zh-Hant = 如要使用導航和其他功能，我們需要能獲取您的地理位置.
+    el = Προκειμένου να χρησιμοποιήσετε την πλοήγηση και τις άλλες λειτουργίες του MAPS.ME χρειάζεται πρόσβαση στη γεωγραφική σας θέση.
     sk = Ak chcete používať navigáciu a ostatné funkcie, potrebujeme prístup k vašej aktuálnej polohe.
 
   [dialog_incorrect_feature_position]
@@ -15792,6 +16151,7 @@
     vi = Thay đổi địa điểm
     zh-Hans = 改变位置
     zh-Hant = 改變位置
+    el = Αλλαγή τοποθεσίας
     sk = Zmeniť polohu
 
   [message_invalid_feature_position]
@@ -15821,6 +16181,7 @@
     vi = Một đối tượng không thể đặt được ở đây
     zh-Hans = 对象无法设置在这里
     zh-Hant = 物件無法設置在這裡
+    el = Δε μπορεί να εντοπιστεί αντικείμενο εδώ
     sk = Objekt sa tu nedá umiestniť
 
   [login_to_make_edits_visible]
@@ -15850,6 +16211,7 @@
     vi = Đăng nhập để người dùng khác có thể nhìn thấy những thay đổi bạn đã thực hiện.
     zh-Hans = 登陆，让其他用户能看到您所作出的修改。
     zh-Hant = 登入來讓其他使用者能看到您所作出的修改。
+    el = Συνδεθείτε ώστε άλλοι χρήστες να μπορούν να δουν τις αλλαγές που έχετε κάνει
     sk = Prihláste sa, aby mohli ostatní užívatelia vidieť Vami vykonané zmeny.
 
   [no_migration_during_navigation]
@@ -15879,6 +16241,7 @@
     vi = Không cho phép cập nhật trong khi điều hướng.
     zh-Hans = 导航中禁止更新。
     zh-Hant = 導航中禁止更新。
+    el = Δεν επιτρέπεται η ενημέρωση κατά τη διάρκεια της πλοήγησης.
     sk = Počas hľadania trasy nie je možné vykonať aktualizáciu.
 
   [migration_no_space_message]
@@ -15909,6 +16272,7 @@
     vi = Để tải xuống, bạn cần thêm dung lượng. Xin xóa mọi dữ liệu không cần thiết.
     zh-Hans = 为了下载，您需要更多的空间。请删除不必要的数据。
     zh-Hant = 為了下載，您需要更多的空間。請刪除不必要的數據。
+    el = Για να το κατεβάσετε, χρειάζεστε περισσότερο χώρο. Διαγράψτε τυχόν μη απαραίτητα δεδομένα.
     sk = Ak chcete pokračovať v sťahovaní, musíte uvoľniť viac miesta na ukladacom priestore. Prosím, odstráňte prebytočné dáta.
 
   [editor_sharing_title]
@@ -15938,6 +16302,7 @@
     vi = Tôi đã cải thiện các bản đồ MAPS.ME
     zh-Hans = 我改进了MAPS.ME地图
     zh-Hant = 我改進了 MAPS.ME 地圖
+    el = Βελτίωσα τους χάρτες MAPS.ME
     sk = Vďaka mne sú mapy na MAPS.ME lepšie
 
   [editor_comment_will_be_sent]
@@ -16026,6 +16391,7 @@
     vi = %1$d trên %2$d
     zh-Hans = %1$d个/共%2$d个
     zh-Hant = %1$d個/共%2$d個
+    el = %1$d από %2$d
     sk = %1$d z %2$d
 
   [download_over_mobile_header]
@@ -16054,6 +16420,7 @@
     vi = Tải xuống qua kết nối mạng di động?
     zh-Hans = 用手机网络连接下载吗？
     zh-Hant = 用手機網絡連接下載嗎？
+    el = Να γίνει λήψη μέσω δικτύου κινητής τηλεφωνίας;
     sk = Sťahovať prostredníctvom pripojenia na mobilnú sieť?
 
   [download_over_mobile_message]
@@ -16082,6 +16449,7 @@
     vi = Như vậy sẽ rất đắt tiền với một số gói dữ liệu hoặc khi chuyển vùng.
     zh-Hans = 用一些方案或漫游的话这可能相当昂贵。
     zh-Hant = 用某些方案或漫遊的話這可能相當昂貴。
+    el = Αυτό μπορεί να είναι σημαντικά πιο ακριβό για μερικά πακέτα ή στην περίπτωση περιαγωγής
     sk = V prípade niektorých plánov alebo použitím roamingu by to mohlo byť značne nákladné.
 
   [error_enter_correct_house_number]
@@ -16111,6 +16479,7 @@
     vi = Nhập số nhà chính xác
     zh-Hans = 输入正确的房屋号
     zh-Hant = 輸入正確的門牌號碼
+    el = Εισαγάγετε έναν έγκυρο αριθμό κτιρίου
     sk = Zadajte správne číslo domu
 
   [editor_storey_number]
@@ -16141,6 +16510,7 @@
     vi = Số tầng (tối đa %d)
     zh-Hans = 楼号 (最大 %d)
     zh-Hant = 樓號（最大 %d）
+    el = Αριθμός ορόφων (μέγιστο %d)
     sk = Počet poschodí (max %d)
 
   [error_enter_correct_storey_number]
@@ -16172,6 +16542,7 @@
     vi = Sửa tòa nhà có tối đa 25 tầng
     zh-Hans = 编辑最多 25 层的建筑
     zh-Hant = 編輯最多 25 層的建築
+    el = Ο αριθμός των ορόφων δεν πρέπει να υπερβαίνει τους 25
     sk = Upraviť s maximálne 25 poschodiami
 
   [editor_zip_code]
@@ -16202,6 +16573,7 @@
     vi = Mã ZIP
     zh-Hans = 邮编
     zh-Hant = 郵遞區號
+    el = Ταχυδρομικός κώδικας
     sk = PSČ
 
   [error_enter_correct_zip_code]
@@ -16232,6 +16604,7 @@
     vi = Nhập Mã ZIP chính xác
     zh-Hans = 输入正确的邮编
     zh-Hant = 輸入正確的郵遞區號
+    el = Πληκτρολογήστε έναν έγκυρο ταχυδρομικό κώδικα
     sk = Zadajte správne PSČ
 
   [placepage_unknown_place]
@@ -16263,6 +16636,7 @@
     vi = Địa Điểm Chưa Biết
     zh-Hans = 未知位置
     zh-Hant = 未知的位置
+    el = Άγνωστο μέρος
     sk = Neznáme miesto
 
   [editor_other_info]
@@ -16293,6 +16667,7 @@
     vi = Thông Tin Bổ Sung
     zh-Hans = 附加信息
     zh-Hant = 額外資訊
+    el = Πρόσθετες πληροφορίες
     sk = Dodatočné informácie
 
   [editor_detailed_description_hint]
@@ -16323,6 +16698,7 @@
     vi = Nhận xét chi tiết
     zh-Hans = 详细备注
     zh-Hant = 詳細註釋
+    el = Αναλυτικό σχόλιο
     sk = Zmazaná poznámka
 
   [editor_detailed_description]
@@ -16353,6 +16729,7 @@
     vi = Những thay đổi đề nghị của bạn sẽ được gửi đến cộng đồng OpenStreetMap. Mô tả các chi tiết không thể sửa trong MAPS.ME.
     zh-Hans = 您建议的更改将发送至 OpenStreetMap 社区。说明无法在 MAPS.ME 编辑的详情。
     zh-Hant = 您建議的變更將傳送至 OpenStreetMap 社群。說明無法在 MAPS.ME 中編輯的詳細資料。
+    el = Οι προτεινόμενες αλλαγές χάρτη θα σταλούν στην Κοινότητα του OpenStreetMap. Περιγράψτε τυχόν πρόσθετα στοιχεία που δεν μπορείτε να επεξεργαστείτε στο MAPS.ME.
     sk = Vami navrhované zmeny sa odošlú do komunity OpenStreetMap. Popíšte detaily, ktoré sa nedajú upraviť v MAPS.ME.
 
   [editor_more_about_osm]
@@ -16383,6 +16760,7 @@
     vi = Thông tin bổ sung về OpenStreetMap
     zh-Hans = 关于 OpenStreetMap 的更多信息
     zh-Hant = 關於 OpenStreetMap 的更多資訊
+    el = Περισσότερα σχετικά με το OpenStreetMap
     sk = Viac o OpenStreetMap
 
   [editor_operator]
@@ -16412,6 +16790,7 @@
     vi = Đơn vị điều hành
     zh-Hans = 运营者
     zh-Hant = 營運者
+    el = Ιδιοκτήτης
     sk = Prevádzkovateľ
 
   [editor_tag_description]
@@ -16586,6 +16965,7 @@
     vi = Bản đồ của tôi
     zh-Hans = 我的地图
     zh-Hant = 我的地圖
+    el = Οι χάρτες μου
     sk = Moje mapy
 
   [downloader_no_downloaded_maps_title]
@@ -16615,6 +16995,7 @@
     vi = Bạn chưa tải về bất kỳ bản đồ nào
     zh-Hans = 您尚未下载任何地图
     zh-Hant = 您尚未下載任何地圖
+    el = Δεν έχετε κατεβάσει χάρτες
     sk = Neprevzali ste žiadne mapy
 
   [downloader_no_downloaded_maps_message]
@@ -16644,6 +17025,7 @@
     vi = Tải về bản đồ để tìm địa điểm và định hướng ngoại tuyến.
     zh-Hans = 下载地图来查找位置和离线浏览
     zh-Hant = 下載地圖來尋找位置和離線瀏覽。
+    el = Κατεβάστε χάρτες για να αναζητήσετε μια τοποθεσία και να χρησιμοποιήσετε την πλοήγησης χωρίς σύνδεση.
     sk = Prevziať mapy na nájdenie pozície a navigovanie off-line.
 
   [downloader_find_place_hint]
@@ -16703,6 +17085,7 @@
     vi = Tiếp tục phát hiện địa điểm hiện tại của bạn?
     zh-Hans = 继续检测您的当前位置？
     zh-Hant = 繼續偵測您的目前位置？
+    el = Να συνεχίσει να ανιχνεύεται η τρέχουσα θέση σας;
     sk = Pokračovať v mazaní vašej súčasnej pozície?
 
   [current_location_unknown_message]
@@ -16733,6 +17116,7 @@
     vi = Chưa biết địa điểm hiện tại. Có thể bạn đang ở trong một tòa nhà hoặc đường hầm.
     zh-Hans = 当前位置未知，可能您在建筑内或隧道内。
     zh-Hant = 目前位置未知，可能您在建築物內或隧道內。
+    el = Η τρέχουσα τοποθεσία είναι άγνωστη. Ίσως είστε σε ένα κτίριο ή σε μια σήραγγα.
     sk = Súčasná pozícia je neznáma. Možno sa nachádzate v budove alebo v tuneli.
 
   [current_location_unknown_continue_button]
@@ -16762,6 +17146,7 @@
     vi = Tiếp tục
     zh-Hans = 继续
     zh-Hant = 繼續
+    el = Συνέχεια
     sk = Pokračovať
 
   [current_location_unknown_stop_button]
@@ -16791,6 +17176,7 @@
     vi = Dừng
     zh-Hans = 停止
     zh-Hant = 停止
+    el = Στοπ
     sk = Zastaviť
 
   [current_location_unknown_error_title]
@@ -16819,6 +17205,7 @@
     vi = Chưa biết địa điểm hiện tại.
     zh-Hans = 当前位置未知
     zh-Hant = 目前位置未知。
+    el = Η τρέχουσα τοποθεσία είναι άγνωστη.
     sk = Súčasná pozícia je neznáma.
 
   [current_location_unknown_error_message]
@@ -16848,6 +17235,7 @@
     vi = Có lỗi khi tìm kiếm địa điểm của bạn. Đảm bảo rằng thiết bị của bạn hoạt động tốt và thử lại sau.
     zh-Hans = 搜索您的位置时发生错误。请检查您的设备是否工作正常，然后重试。
     zh-Hant = 搜尋您的位置時發生錯誤。請檢查您的裝置是否正常運作，然後重試。
+    el = Παρουσιάστηκε σφάλμα κατά την αναζήτηση της τοποθεσίας σας. Ελέγξτε αν η συσκευή σας λειτουργεί κανονικά και δοκιμάστε ξανά αργότερα.
     sk = Počas vyhľadávania vašej pozície došlo k chybe. Skontrolujte, či zariadenie pracuje správne a skúste to znova.
 
   [whatsnew_update_editor_title]
@@ -16877,6 +17265,7 @@
     vi = Chúng tôi đã cập nhật trình biên tập bản đồ
     zh-Hans = 我们已经更新了地图编辑器
     zh-Hant = 我們已更新地圖編輯器
+    el = Έχουμε ενημερωθεί το πρόγραμμα επεξεργασίας του χάρτη
     sk = Aktualizovali sme program na úpravu máp
 
   [whatsnew_update_editor_message]
@@ -16906,6 +17295,7 @@
     vi = Người dùng MAPS.ME đã thực hiện 200 000 thay đổi cho bản đồ. Cùng nhau chúng ta đang tạo ra những bản đồ chi tiết nhất trên thế giới. Hãy tham gia cùng chúng tôi!
     zh-Hans = MAPS.ME 用户已经进行了 200 000 处地图修改。我们正在齐心协力打造世界上最详细的地图，加入我们吧！
     zh-Hant = MAPS.ME 使用者已經進行了 200,000 處地圖變更。我們正在齊心協力打造世界上最詳細的地圖，加入我們吧！
+    el = Οι χρήστες MAPS.ME έχουν ήδη κάνει 200.000 αλλαγές χάρτη. Μαζί δημιουργούμε τους πιο λεπτομερείς χάρτες του κόσμου. Ελάτε μαζί μας!
     sk = Používatelia MAPS.ME urobili 200 000 zmien v mapách. Spoločne vytvárame najpodrobnejšie mapy na svete. Pridajte sa!
 
   [whatsnew_update_editor_message_update]
@@ -16936,6 +17326,7 @@
     vi = Để sử dụng Ứng dụng Điều chỉnh Bản đồ, xin vui lòng cập nhật tất cả các bản đồ.
     zh-Hans = 如要使用地图编辑器，请更新所有地图
     zh-Hant = 如要使用地圖編輯器，請更新所有地圖。
+    el = Ενημερώστε όλους τους χάρτες για να χρησιμοποιήσετε το πρόγραμμα επεξεργασίας του χάρτη.
     sk = Ak chcete použiť editor máp, prosím, aktualizujte všetky mapy.
 
   [location_services_disabled_header]
@@ -16965,6 +17356,7 @@
     vi = Chức năng nhận biết địa điểm bị tắt
     zh-Hans = 地点定位被禁用
     zh-Hant = 地點定位被禁用
+    el = Οι υπηρεσίες εντοπισμού τοποθεσίας είναι απενεργοποιημένες
     he = זיהוי המיקום אינו מופעל
     sk = Identifikácia lokality je zablokovaná
 
@@ -16995,6 +17387,7 @@
     vi = Bật truy cập định vị địa lý trong thiết lập thiết bị
     zh-Hans = 启用设备设置中的地理位置定位
     zh-Hant = 啟用設備設置中的地理位置定位
+    el = Ενεργοποίηση πρόσβασης γεωγραφικού εντοπισμού τοποθεσίας στις ρυθμίσεις της συσκευής
     he = אפשרו גישה לגאולוקיישן בהגדרות המכשיר
     sk = Povoliť prístup ku geolokalizácii v nastaveniach prístroja
 
@@ -17026,6 +17419,7 @@
     vi = 1. Mở Thiết lập
     zh-Hans = 1. 打开设置
     zh-Hant = 1. 打開設置
+    el = 1. Ανοίξτε τις ρυθμίσεις
     he = 1. פתחו את "הגדרות" (Settings)
     sk = 1. Otvorte Nastavenia
 
@@ -17057,6 +17451,7 @@
     vi = 2. Chạm mục Địa điểm
     zh-Hans = 2. 点击位置
     zh-Hant = 2. 點擊位置
+    el = 2. Πατήστε τοποθεσία
     he = 2. געו ב"מיקום" (Location)
     sk = 2. Kliknite na položku Lokalita
 
@@ -17088,6 +17483,7 @@
     vi = 3. Chọn Khi Đang Dùng Ứng dụng
     zh-Hans = 3. 使用应用时选择
     zh-Hant = 3. 使用應用時選擇
+    el = 3. Επιλέξτε ενώ χρησιμοποιείτε την εφαρμογή
     sk = 3. Vyberte si počas používania aplikácie
 
   [placepage_parking_surface]
@@ -17522,6 +17918,7 @@
     vi = Xếp hạng: %s
     zh-Hans = 评价: %s
     zh-Hant = 評分： %s
+    el = Βαθμολογία: %s
     sk = Hodnotenie: %s
 
   [place_page_starting_from]
@@ -17551,6 +17948,7 @@
     vi = từ %s
     zh-Hans = 从 %s
     zh-Hant = 從%s
+    el = από %s
     sk = od %s
 
   [meter]
@@ -17870,11 +18268,13 @@
     vi = Bổ sung
     zh-Hans = 更多
     zh-Hant = 更多
+    el = Περισσότερα
     sk = Viac
 
   [placepage_more_reviews_button]
     en = More Reviews
     ru = Ещё отзывы
+    el = Περισσότερες κριτικές
 
   [book_button]
     en = Book
@@ -17932,6 +18332,7 @@
     vi = Gọi
     zh-Hans = 呼叫
     zh-Hant = 呼叫
+    el = Κλήση
     sk = Zavolať
 
   [placepage_edit_bookmark_button]
@@ -17961,6 +18362,7 @@
     vi = Sửa Dấu Trang
     zh-Hans = 编辑书签
     zh-Hant = 編輯書籤
+    el = Επεξεργασία αγαπημένου
     sk = Upraviť záložku
 
   [placepage_bookmark_name_hint]
@@ -17990,6 +18392,7 @@
     vi = Tên Dấu Trang
     zh-Hans = 书签名称
     zh-Hant = 書籤名稱
+    el = Όνομα αγαπημένου
     sk = Názov záložky
 
   [placepage_personal_notes_hint]
@@ -18019,6 +18422,7 @@
     vi = Ghi chú cá nhân
     zh-Hans = 个人备注
     zh-Hant = 個人備註
+    el = Προσωπικές σημειώσεις
     sk = Osobné poznámky
 
   [placepage_delete_bookmark_button]
@@ -18048,6 +18452,7 @@
     vi = Xóa Dấu Trang
     zh-Hans = 删除书签
     zh-Hant = 刪除書籤
+    el = Διαγραφή αγαπημένου
     sk = Zmazať záložku
 
   [editor_edits_sent_message]
@@ -18077,6 +18482,7 @@
     vi = Những thay đổi đề nghị của bạn đã được gửi
     zh-Hans = 您的建议已发送
     zh-Hant = 您的建議已傳送
+    el = Οι προτεινόμενες αλλαγές σας έχουν σταλεί
     sk = Vykonali sa vami odporúčané zmeny
 
   [editor_comment_hint]
@@ -18106,6 +18512,7 @@
     vi = Nhận xét…
     zh-Hans = 备注…
     zh-Hant = 註解…
+    el = Σχόλιο…
     sk = Poznámka…
 
   [editor_reset_edits_message]
@@ -18135,6 +18542,7 @@
     vi = Cài đặt lại tất cả thay đổi cục bộ?
     zh-Hans = 重置所有本地更改？
     zh-Hant = 重設所有本機變更？
+    el = Απόρριψη όλων των τοπικών αλλαγών;
     sk = Resetovať všetky miestne časy?
 
   [editor_reset_edits_button]
@@ -18164,6 +18572,7 @@
     vi = Cài đặt lại
     zh-Hans = 重置
     zh-Hant = 重設
+    el = Απόρριψη
     sk = Resetovať
 
   [editor_remove_place_message]
@@ -18193,6 +18602,7 @@
     vi = Xóa một địa điểm đã thêm?
     zh-Hans = 删除已添加的位置？
     zh-Hant = 移除已新增的位置？
+    el = Διαγραφή της τοποθεσίας που προστέθηκε;
     sk = Odstrániť pridané miesto?
 
   [editor_remove_place_button]
@@ -18222,6 +18632,7 @@
     vi = Xóa
     zh-Hans = 删除
     zh-Hant = 移除
+    el = Διαγραφή
     sk = Odstrániť
 
   [editor_status_sending]
@@ -18280,6 +18691,7 @@
     vi = Địa điểm không tồn tại
     zh-Hans = 位置不存在
     zh-Hant = 位置不存在
+    el = Η τοποθεσία δεν υπάρχει
     sk = Miesto neexistuje
 
   [text_more_button]
@@ -18309,6 +18721,7 @@
     vi = …thêm
     zh-Hans = …更多
     zh-Hant = …更多
+    el = …περισσότερα
     sk = …viac
 
   [error_enter_correct_phone]
@@ -18339,6 +18752,7 @@
     vi = Nhập chính xác số điện thoại
     zh-Hans = 输入正确的电话号码
     zh-Hant = 輸入正確的電話號碼
+    el = Εισάγετε έναν έγκυρο αριθμό τηλεφώνου
     sk = Zadajte správne telefónne číslo
 
   [error_enter_correct_web]
@@ -18368,6 +18782,7 @@
     vi = Nhập địa chỉ trang web hợp lệ
     zh-Hans = 输入有效网址
     zh-Hant = 輸入有效網址
+    el = Εισάγετε μια έγκυρη διεύθυνση ιστοτόπου
     sk = Zadajte platnú webovú adresu
 
   [error_enter_correct_email]
@@ -18397,6 +18812,7 @@
     vi = Nhập email hợp lệ
     zh-Hans = 输入有效电子邮箱
     zh-Hant = 輸入有效電子郵箱
+    el = Εισάγετε ένα έγκυρο email
     sk = Zadajte platný email
 
   [error_enter_correct]
@@ -18455,6 +18871,7 @@
     vi = Các thay đổi tới địa điểm tiếp theo: %d
     zh-Hans = 升到下一级所需更改: %d
     zh-Hant = 對下一個地點的變更：%d
+    el = Αλλάζει στην επόμενη τοποθεσία: %d
     sk = Zmeny pre ďalšie miesto: %d
 
   [editor_profile_rating_place]
@@ -18484,6 +18901,7 @@
     vi = Vị trí thứ hạng
     zh-Hans = 排名位置
     zh-Hant = 排名位置
+    el = Θέση στην κατάταξη
     sk = Hodnotiaca pozícia
 
   [booking_dialog_not_connect_header]
@@ -18571,6 +18989,7 @@
     vi = Cập nhật
     zh-Hans = 更新
     zh-Hant = 更新
+    el = Ενημέρωση
     sk = Aktualizovať
 
   [last_update]
@@ -18600,6 +19019,7 @@
     vi = Cập nhật cuối cùng: %s
     zh-Hans = 上次更新于：%s
     zh-Hant = 上次更新於：%s
+    el = Τελευταία ενημέρωση: %s
     sk = Naposledy aktualizované: %s
 
   [booking_checkin]
@@ -18687,6 +19107,7 @@
     vi = Thêm địa điểm vào bản đồ
     zh-Hans = 添加地点到地图上
     zh-Hant = 添加地點到地圖上
+    el = Να προστεθεί η τοποθεσία στο χάρτη
     sk = Pridať miesto na mape
 
   [editor_share_to_all_dialog_title]
@@ -18717,6 +19138,7 @@
     vi = Bạn có muốn gửi cho toàn bộ người dùng?
     zh-Hans = 您想要发给所有用户吗？
     zh-Hant = 您想要發給所有用戶嗎？
+    el = Θέλετε να το στείλετε σε όλους τους χρήστες;
     sk = Odoslať všetkým používateľom?
 
   [editor_share_to_all_dialog_message_1]
@@ -18747,6 +19169,7 @@
     vi = Chắc chắn rằng bạn không nhập bất kỳ thông tin cá nhân nào.
     zh-Hans = 确保您没有输入任何个人数据。
     zh-Hant = 確保您沒有輸入任何個人數據。
+    el = Βεβαιωθείτε ότι δεν έχετε εισάγει προσωπικά δεδομένα.
     sk = Nezadávajte žiadne osobné udaje.
 
   [editor_share_to_all_dialog_message_2]
@@ -18776,6 +19199,7 @@
     vi = Chúng tôi sẽ kiểm tra những thay đổi. Nếu chúng tôi có câu hỏi nào, chúng tôi sẽ liên lạc với bạn qua email.
     zh-Hans = 我们会检查更改。如果我们有任何问题，我们会邮件与您联系。
     zh-Hant = 我們會檢查更改。如果我們有任何問題，我們會郵件與您聯系。
+    el = Θα ελέγξουμε τις αλλαγές. Εάν έχουμε οποιαδήποτε απορία θα επικοινωνήσουμε μαζί σας μέσω email.
     sk = Skontrolujeme zmeny. V prípade otázok vás budeme kontaktovať emailom.
 
   [navigation_overview_button]
@@ -19040,6 +19464,7 @@
     vi = Tắt ghi lại tuyến đường đã đi gần đây của bạn?
     zh-Hans = 禁止记录您最近去过的路径？
     zh-Hant = 禁止記錄您最近去過的路徑？
+    el = Θέλετε να απενεργοποιήσετε την καταγραφή της πρόσφατης διαδρομής σας;
     sk = Znemožniť nahrávanie vami nedávno precestovanej trasy?
 
   [sharing_booking]
@@ -19070,6 +19495,7 @@
     vi = hoặc đặt phòng tại booking.com
     zh-Hans = 或者在booking.com上预订
     zh-Hant = 或在booking.com上預訂
+    el = ή κάντε κράτηση στο booking.com
     sk = alebo si rezervujte na booking.com
 
   [off_recent_track_background_button]
@@ -19099,6 +19525,7 @@
     vi = Tắt
     zh-Hans = 禁用
     zh-Hant = 禁用
+    el = Απενεργοποίηση
     sk = Znemožniť
 
   [sharing_call_action_look]
@@ -19129,6 +19556,7 @@
     vi = Xem
     zh-Hans = 来看看
     zh-Hant = 看一看
+    el = Αναχώρηση
     sk = Pozrite si
 
   [continue_recent_track_background_button]
@@ -19187,6 +19615,7 @@
     vi = MAPS.ME sử dụng định vị của bạn trong ứng dụng chạy nền để ghi lại tuyến đường đã đi gần đây của bạn.
     zh-Hans = MAPS.ME使用背景中的地理位置记录您最近去过的路径。
     zh-Hant = MAPS.ME使用背景中的地理位置記錄您最近去過的路徑。
+    el = Το MAPS.ME χρησιμοποιεί τη γεωγραφική σας τοποθεσία στο παρασκήνιο για την καταγραφή των πρόσφατων διαδρομών σας.
     sk = MAPS.ME používa vašu geopozíciu na pozadí pre zaznamenávanie vami nedávno precestovanej trasy.
 
   [whatsnew_car_navigation_header]
@@ -19216,6 +19645,7 @@
     vi = Phần mềm dẫn đường dành cho xe cộ thân thiện với người dùng
     zh-Hans = 方便用户使用的车辆导航
     zh-Hant = 方便用戶使用的車輛導航
+    el = Πλοήγηση οχήματος φιλική προς το χρήστη
     sk = Užívateľsky prívetivá navigácia do vozidiel
 
   [whatsnew_car_navigation_message]
@@ -19245,6 +19675,7 @@
     vi = • Các thành phần của phần mềm dẫn đường chiếm ít bộ nhớ.\n• Phần mềm có hiển thị tốc độ và đã được thêm tính năng tự động thu phóng.
     zh-Hans = • 导航元素所占用的空间更小。\n• 我们显示了速度并且已经添加了自动缩放功能。
     zh-Hant = • 導航元素所佔用的空間更小。\n• 我們顯示了速度並且已經添加了自動縮放功能。
+    el = • Τα στοιχεία πλοήγησης καταλαμβάνουν λιγότερο χώρο. \n• Εμφανίζεται η ταχύτητα και προστέθηκε αυτόματη μεγέθυνση.
     sk = • Navigačné prvky zaberajú menej miesta.\n• Zobrazujeme rýchlosť a pridali sme auto zoom.
 
   [whatsnew_cycle_navigation_2_header]
@@ -19274,6 +19705,7 @@
     vi = Phần mềm dẫn đường dành cho xe đạp
     zh-Hans = 自行车导航
     zh-Hant = 自行車導航
+    el = Πλοήγηση με ποδήλατο
     sk = Navigácia na bicykle
 
   [whatsnew_cycle_navigation_2_message]
@@ -19303,6 +19735,7 @@
     vi = • Phần mềm dẫn đường dành cho điện thoại dựa trên các dữ liệu về địa hình.\n• Chúng tôi tạo nên những tuyến đường tối ưu dựa trên độ dốc của con đường.
     zh-Hans = • 自行车导航考虑了地形数据。\n• 考虑到道路斜坡，我们创建了更加优化便捷的路线。
     zh-Hant = • 自行車導航考慮了地形數據。\n• 考慮到道路斜坡，我們創建了更加優化便捷的路線。
+    el = • Η πλοήγηση με ποδήλατο λαμβάνει υπόψη τα δεδομένα της μορφολογίας του εδάφους. \n• Δημιουργούνται πιο εύκολες διαδρομές λαμβάνοντας υπόψη την κλίση του εδάφους.
     sk = • Navigácia na bicykle berie do úvahy terénne dáta.\n• Tvoríme ľahšie trasy s prihliadnutím na sklon ciest.
 
   [whatsnew_booking_2_header]
@@ -19332,6 +19765,7 @@
     vi = Tìm kiếm khách sạn dễ dàng
     zh-Hans = 便捷的酒店搜索
     zh-Hant = 便捷的酒店搜索
+    el = Εύκολη αναζήτηση ξενοδοχείου
     sk = Jednoduché vyhľadávanie hotelov
 
   [whatsnew_booking_2_message]
@@ -19361,6 +19795,7 @@
     vi = Kết quả tìm kiếm cho thấy các đánh giá và mức giá của khách sạn.
     zh-Hans = 该搜索结果显示酒店星级和价格分类。
     zh-Hant = 該搜索結果顯示酒店星級和價格分類。
+    el = Τα αποτελέσματα αναζήτησης δείχνουν τη βαθμολογία του ξενοδοχείου και την κατηγορία τιμής.
     sk = Výsledky vyhľadávania ukazujú hodnotenie hotelov a cenové kategórie.
 
   [whatsnew_cycle_navigation_header]
@@ -19390,6 +19825,7 @@
     vi = Định vị xe đạp (phiên bản beta)
     zh-Hans = 自行车导航 (beta 版)
     zh-Hant = 自行車導航（beta 版）
+    el = Πλοήγηση με ποδήλατο (έκδοση beta)
     sk = Navigácia pre cyklistov (beta verzia)
 
   [whatsnew_cycle_navigation_message]
@@ -19419,6 +19855,7 @@
     vi = Chúng tôi đang thử nghiệm định vị xe đạp cho mùa mới. Hãy thử tuyến đường xe đạp ưa thích của bạn với MAPS.ME, và chia sẻ ý kiến của bạn với chúng tôi.
     zh-Hans = 正在测试自行车导航。试一下使用 MAPS.ME 寻找您最喜爱的自行车路线并与我们分享您的意见。
     zh-Hant = 我們正在為新的一季測試自行車導航功能。請使用 MAPS.ME 嘗試您最喜愛的自行車路徑，並將您的意見與我們分享。
+    el = Δοκιμάζουμε την πλοήγησης με ποδήλατο για τη νέα σεζόν. Δοκιμάστε την αγαπημένη σας διαδρομή με ποδήλατο με το MAPS.ME και μοιραστείτε τη γνώμη σας μαζί μας.
     sk = Testujeme navigáciu pre cyklistov na novú sezónu. Vyskúšajte svoju obľúbenú cyklotrasu s aplikáciou MAPS.ME a podeľte sa s nami o svoj názor.
 
   [rate_gp]
@@ -19824,7 +20261,7 @@
     vi = Đối với các đường đi bộ và đi xe đạp, chúng tôi hiện đã hiển thị mặt cắt tầng.
     zh-Hans = 对于行人和自行车路线，我们现在显示纵剖面。
     zh-Hant = 對於行人和自行車路線，我們現在顯示海拔剖面圖。
-    el = Για διαδρομές πεζών και ποδηλατών, υπάρχει πλέον διαθέσιμο ανυψωμένο προφίλ.
+    el = Για διαδρομές πεζών και ποδηλατών, υπάρχει πλέον διαθέσιμο προφίλ υψόμετρου.
     sk = Pre pešie trasy a cyklotrasy sa odteraz zobrazuje aj výškový profil.
 
   [whats_new_booking_improve_title]
@@ -20069,6 +20506,7 @@
     vi = Cài đặt
     zh-Hans = 安装
     zh-Hant = 安裝
+    el = Εγκατάσταση
     sk = Nainštalovať
 
   [booking_filters]
