@@ -24,7 +24,7 @@
     tr = Hafif sağa.
     zh-Hans = 向右微转。
     zh-Hant = 稍向右轉。
-    el = Ανοιχτή στροφή δεξιά.
+    el = Ελαφρώς δεξιά.
     hi = थोड़ा सा दाएं मुड़े।
     hr = Blago udesno.
     sk = Mierne doprava.
@@ -84,7 +84,7 @@
     tr = Tam sağa.
     zh-Hans = 向右急转。
     zh-Hant = 向右急轉。
-    el = Κλειστή στροφή δεξιά.
+    el = Απότομα δεξιά.
     hi = तीव्रता से दाएं मुड़े।
     hr = Oštro udesno.
     sk = Ostro doprava.
@@ -114,7 +114,7 @@
     tr = Kavşağa girin.
     zh-Hans = 进入环岛。
     zh-Hant = 進入環島。
-    el = Μπείτε στον κυκλικό κόμβο.
+    el = Μπείτε στην κυκλική διασταύρωση.
     hi = गोल चक्‍कर में प्रवेश करें।
     hr = Uđite na zaobilaznicu.
     sk = Vojdite na kruhový objazd.
@@ -144,7 +144,7 @@
     tr = Kavşaktan çık.
     zh-Hans = 退出环岛。
     zh-Hant = 退出環島。
-    el = Έξοδος από τον κυκλικό κόμβο.
+    el = Βγείτε από την κυκλική διασταύρωση.
     hi = परिपथ से बाहर निकलें।
     hr = Napustite zaobilaznicu.
     sk = Výjazd z kruhového objazdu.
@@ -174,7 +174,7 @@
     tr = Hafif sola.
     zh-Hans = 向左微转。
     zh-Hant = 稍向左轉。
-    el = Ανοιχτή στροφή αριστερά.
+    el = Ελαφρώς αριστερά.
     hi = थोड़ा सा बाएं मुड़े।
     hr = Blago ulijevo.
     sk = Mierne doľava.
@@ -234,7 +234,7 @@
     tr = Tam sola.
     zh-Hans = 向左急转。
     zh-Hant = 向左急轉。
-    el = Κλειστή στροφή αριστερά.
+    el = Απότομα αριστερά.
     hi = तीव्रता से बाएं मुड़े।
     hr = Oštro ulijevo.
     sk = Ostro doľava.
@@ -264,7 +264,7 @@
     tr = U dönüşü yapın.
     zh-Hans = 掉头。
     zh-Hant = 掉頭。
-    el = Κάντε αναστροφή.
+    el = Κάντε στροφή 180 μοιρών.
     hi = यू-टर्न लें।
     hr = Napravite poluzaokret.
     sk = Otočte sa o stoosemdesiat stupňov.
@@ -354,7 +354,7 @@
     tr = Vardınız.
     zh-Hans = 您已抵达。
     zh-Hant = 您已抵達
-    el = Έχετε Φτάσει.
+    el = Έχετε φτάσει.
     hi = आप पहुंच गए हैं।
     hr = Stigli ste.
     sk = Dorazili ste do cieľa.
@@ -774,7 +774,7 @@
     tr = Bir buçuk kilometre sonra
     zh-Hans = 前方一点五千米
     zh-Hant = 前方一千五百米
-    el = Σε ενάμιση χιλιόμετρο
+    el = Σε ενάμισυ χιλιόμετρο
     hi = डेढ़ किलोमीटर में।
     hr = Za jedan i pol kilometar
     sk = Po jeden a pol kilometri
@@ -834,7 +834,7 @@
     tr = İki buçuk kilometre sonra
     zh-Hans = 前方两点五千米
     zh-Hant = 前方二千五百米
-    el = Σε τρισήμιση χιλιόμετρα
+    el = Σε δυόμισι χιλιόμετρα
     hi = ढाई किलोमीटर में।
     hr = Za dva i pol kilometra
     sk = Po dva a pol kilometri
@@ -1164,7 +1164,7 @@
     tr = Dokuzuncu çıkıştan çıkın.
     zh-Hans = 取道第九个出口。
     zh-Hant = 取道第九個出口。
-    el = Πάρτε την έννατη έξοδο.
+    el = Πάρτε την ένατη έξοδο.
     hi = नौवें निकास को लें।
     hr = Izađite na devetom izlazu.
     sk = Opustite kruhový objazd na deviatom výjazde.
@@ -1194,7 +1194,7 @@
     tr = Onuncu çıkıştan çıkın.
     zh-Hans = 取道第十个出口。
     zh-Hant = 取道第十個出口。
-    el = Πάρτε τη δέκατη έξοδο.
+    el = Πάρτε την δέκατη έξοδο.
     hi = दसवाँ एग्जिट लें।
     hr = Izađite na desetom izlazu.
     sk = Opustite kruhový objazd na desiatom výjazde.
@@ -1344,7 +1344,7 @@
     tr = Üç yüz fit sonra
     zh-Hans = 前方三百英尺
     zh-Hant = 前方三百英尺
-    el = Σε τριακόσια πόδια
+    el = Στα τριακόσια πόδια
     hi = तीन सौ फीट में।
     hr = Za tri stotine stopa
     sk = Po tristo stopách
@@ -1644,7 +1644,7 @@
     tr = İki bin beş yüz fit sonra
     zh-Hans = 前方两千五百英尺
     zh-Hant = 前方二千五百英尺
-    el = Σε δύο χιλιάδες πεντακόσια πόδια
+    el = Σε δυόμισυ χιλιάδες πόδια
     hi = दो हजार पांच सौ फीट में।
     hr = Za dvije tisuće i pet stotina stopa
     sk = Po dvetisícpäťsto stopách
@@ -1704,7 +1704,7 @@
     tr = Üç bin beş yüz fit sonra
     zh-Hans = 前方三千五百英尺
     zh-Hant = 前方三千五百英尺
-    el = Σε τρεις χιλιάδες πεντακόσια πόδια
+    el = Σε τρισύμιση χιλιάδες πόδια
     hi = तीन हजार पांच सौ फीट में।
     hr = Za tri tisuće i pet stotina stopa
     sk = Po tritisícpäťsto stopách
@@ -1764,7 +1764,7 @@
     tr = Dört bin beş yüz fit sonra
     zh-Hans = 前方四千五百英尺
     zh-Hant = 前方四千五百英尺
-    el = Σε τέσσερις χιλιάδες πεντακόσια πόδια
+    el = Σε τεσσερισήμισι χιλιάδες πόδια
     hi = चार हजार पांच सौ फीट में।
     hr = Za četiri tisuće i pet stotina stopa
     sk = Po štyritisícpäťsto stopách
@@ -1854,7 +1854,7 @@
     tr = Bir buçuk mil sonra
     zh-Hans = 前方一点五英里
     zh-Hant = 前方一點五英里
-    el = Σε ενάμιση μίλι
+    el = Σε ενάμισυ μίλι
     hi = डेढ़ मील में।
     hr = Za jednu i pol milju
     sk = Po jeden a pol míli
