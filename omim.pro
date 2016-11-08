@@ -64,7 +64,7 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
 }
 
 !CONFIG(gtool):!CONFIG(osrm) {
-  SUBDIRS *= drape drape_frontend partners_api tracking map
+  SUBDIRS *= drape drape_frontend partners_api tracking traffic map
 
   CONFIG(map_designer):CONFIG(desktop) {
     SUBDIRS *= skin_generator
@@ -253,5 +253,8 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
     tracking_tests.depends = 3party base routing tracking platform_tests_support platform coding geometry 
     SUBDIRS *= tracking_tests
 
+    traffic_tests.subdir = traffic/traffic_tests
+    traffic_tests.depends = 3party base routing traffic platform_tests_support platform coding geometry
+    SUBDIRS *= traffic_tests
   } # !no-tests
 } # !gtool
