@@ -6,7 +6,9 @@
 @property (weak, nonatomic) IBOutlet UIButton * headerButton;
 @property (weak, nonatomic) IBOutlet UIImageView * expandImage;
 
-+ (instancetype)headerForOwnerAlert:(MWMDownloadTransitMapAlert *)alert title:(NSString *)title size:(NSString *)size;
++ (instancetype)headerForOwnerAlert:(MWMDownloadTransitMapAlert *)alert;
 - (void)layoutSizeLabel;
+
+- (void)setTitle:(NSString *)title size:(NSString *)size;
 
 @end
