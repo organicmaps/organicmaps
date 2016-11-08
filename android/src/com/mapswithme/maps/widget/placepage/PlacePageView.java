@@ -217,6 +217,11 @@ public class PlacePageView extends RelativeLayout
     }
   };
 
+  public int getScrollHeight()
+  {
+    return mAnimationController.mDetailsScroll.getHeight();
+  }
+
   public enum State
   {
     HIDDEN,
@@ -1194,6 +1199,11 @@ public class PlacePageView extends RelativeLayout
   public void setOnVisibilityChangedListener(BasePlacePageAnimationController.OnVisibilityChangedListener listener)
   {
     mAnimationController.setOnVisibilityChangedListener(listener);
+  }
+
+  public void setOnAnimationListener(BasePlacePageAnimationController.OnAnimationListener listener)
+  {
+    mAnimationController.setOnProgressListener(listener);
   }
 
   private void addOrganisation()

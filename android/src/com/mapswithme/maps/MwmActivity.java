@@ -29,6 +29,7 @@ import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.api.ParsedRoutingData;
 import com.mapswithme.maps.api.ParsedUrlMwmRequest;
 import com.mapswithme.maps.api.RoutePoint;
+import com.mapswithme.maps.routing.RoutingPlanController;
 import com.mapswithme.maps.uber.Uber;
 import com.mapswithme.maps.uber.UberInfo;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
@@ -92,12 +93,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
                       implements MapObjectListener,
                                  View.OnTouchListener,
                                  BasePlacePageAnimationController.OnVisibilityChangedListener,
+                                 BasePlacePageAnimationController.OnAnimationListener,
                                  OnClickListener,
                                  MapFragment.MapRenderingListener,
                                  CustomNavigateUpListener,
                                  ChooseBookmarkCategoryFragment.Listener,
                                  RoutingController.Container,
-                                 LocationHelper.UiCallback
+                                 LocationHelper.UiCallback,
+                                 RoutingPlanController.OnToggleListener,
+                                 FloatingSearchToolbarController.VisibilityListener
 {
   public static final String EXTRA_TASK = "map_task";
   private static final String EXTRA_CONSUMED = "mwm.extra.intent.processed";
@@ -134,6 +138,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private View mNavZoomIn;
   private View mNavZoomOut;
   private MyPositionButton mNavMyPosition;
+  @Nullable
+  private NavigationButtonsAnimationController mNavAnimationController;
 
   private View mPositionChooser;
 
@@ -414,6 +420,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Framework.nativeSetMapObjectListener(this);
 
     mSearchController = new FloatingSearchToolbarController(this);
+    mSearchController.setVisibilityListener(this);
     processIntent(getIntent());
     SharingHelper.prepare();
 
@@ -434,10 +441,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     mPlacePage = (PlacePageView) findViewById(R.id.info_box);
     mPlacePage.setOnVisibilityChangedListener(this);
+    mPlacePage.setOnAnimationListener(this);
 
     if (!mIsFragmentContainer)
     {
       mRoutingPlanInplaceController = new RoutingPlanInplaceController(this);
+      mRoutingPlanInplaceController.setOnToggleListener(this);
       removeCurrentFragment(false);
     }
 
@@ -525,7 +534,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mNavZoomIn.setOnClickListener(this);
     mNavZoomOut = frame.findViewById(R.id.nav_zoom_out);
     mNavZoomOut.setOnClickListener(this);
-    mNavMyPosition = new MyPositionButton(frame.findViewById(R.id.my_position));
+    View myPosition = frame.findViewById(R.id.my_position);
+    mNavMyPosition = new MyPositionButton(myPosition);
+    mNavAnimationController = new NavigationButtonsAnimationController(mNavZoomIn, mNavZoomOut, mNavMyPosition,
+                                                                       frame.findViewById(R.id.anchor_center));
   }
 
   public boolean closePlacePage()
@@ -1099,6 +1111,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       {
         Animations.disappearSliding(mNavZoomOut, Animations.RIGHT, null);
         Animations.disappearSliding(mNavZoomIn, Animations.RIGHT, null);
+        Animations.disappearSliding(mNavMyPosition.getButton(), Animations.RIGHT, null);
       }
     }
     else
@@ -1125,6 +1138,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       Animations.appearSliding(mNavZoomOut, Animations.RIGHT, null);
       Animations.appearSliding(mNavZoomIn, Animations.RIGHT, null);
+      Animations.appearSliding(mNavMyPosition.getButton(), Animations.RIGHT, null);
     }
   }
 
@@ -1164,6 +1178,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                              : Statistics.EventName.PP_CLOSE);
     AlohaHelper.logClick(isVisible ? AlohaHelper.PP_OPEN
                                    : AlohaHelper.PP_CLOSE);
+  }
+
+  @Override
+  public void onProgress(float translationX, float translationY)
+  {
+    if (mNavAnimationController != null)
+      mNavAnimationController.onPlacePageMoved(translationY, mPlacePage.getScrollHeight());
   }
 
   @Override
@@ -1371,6 +1392,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mMainMenu.showLineFrame(true);
   }
 
+  private void setNavButtonsTopLimit(float limit)
+  {
+    if (mNavAnimationController == null)
+      return;
+
+    mNavAnimationController.setTopLimit(limit);
+    mNavAnimationController.update();
+  }
+
   @Override
   public void showRoutePlan(boolean show, @Nullable Runnable completionListener)
   {
@@ -1387,6 +1417,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
         mRoutingPlanInplaceController.show(true);
         if (completionListener != null)
           completionListener.run();
+
+        if (mRoutingPlanInplaceController.getHeight() > 0)
+          setNavButtonsTopLimit(mRoutingPlanInplaceController.getHeight());
       }
     }
     else
@@ -1398,9 +1431,32 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
       if (completionListener != null)
         completionListener.run();
+
+      setNavButtonsTopLimit(0);
     }
 
     mPlacePage.refreshViews();
+  }
+
+  @Override
+  public void onToggle(boolean state)
+  {
+    if (mNavAnimationController == null)
+      return;
+
+    setNavButtonsTopLimit(mRoutingPlanInplaceController.getHeight());
+  }
+
+  @Override
+  public void onSearchVisibilityChanged(boolean visible)
+  {
+    if (mNavAnimationController == null)
+      return;
+
+    if (visible)
+      setNavButtonsTopLimit(mSearchController.getToolbar().getHeight());
+    else
+      setNavButtonsTopLimit(0);
   }
 
   @Override

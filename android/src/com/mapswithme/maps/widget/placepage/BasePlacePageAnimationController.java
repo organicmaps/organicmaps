@@ -3,6 +3,7 @@ package com.mapswithme.maps.widget.placepage;
 import android.animation.TimeInterpolator;
 import android.animation.ValueAnimator;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.view.GestureDetectorCompat;
 import android.view.MotionEvent;
 import android.view.View;
@@ -53,9 +54,10 @@ public abstract class BasePlacePageAnimationController implements ObservableScro
     void onPlacePageVisibilityChanged(boolean isVisible);
   }
 
+  @Nullable
   private OnAnimationListener mProgressListener;
 
-  interface OnAnimationListener
+  public interface OnAnimationListener
   {
     void onProgress(float translationX, float translationY);
   }
@@ -132,7 +134,7 @@ public abstract class BasePlacePageAnimationController implements ObservableScro
     mVisibilityListener = listener;
   }
 
-  public void setOnProgressListener(OnAnimationListener listener)
+  void setOnProgressListener(@Nullable OnAnimationListener listener)
   {
     mProgressListener = listener;
   }
