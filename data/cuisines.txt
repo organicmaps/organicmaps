@@ -28,7 +28,7 @@
     vi = Ẩm thực khu vực
     zh-Hans = 地方菜
     zh-Hant = 地方料理
-    el = Τοπική κουζίνα
+    el = Περιφερειακή
     he = מטבח אזורי
     sk = Regionálna kuchyňa
 
@@ -92,7 +92,7 @@
     vi = Bánh hamburger
     zh-Hans = 汉堡包
     zh-Hant = 漢堡
-    el = µπέργκερ
+    el = Μπιφτέκι
     he = המבורגר
     sk = Hamburger
 
@@ -124,7 +124,7 @@
     vi = Ẩm thực ý
     zh-Hans = 意大利菜
     zh-Hant = 義大利料理
-    el = ͅταλική κουζίνα
+    el = Ιταλική
     he = מטבח איטלקי
     sk = Talianska kuchyňa
 
@@ -156,7 +156,7 @@
     vi = Ẩm thực trung quốc
     zh-Hans = 中国菜
     zh-Hant = 中華料理
-    el = Κινέζικη κουζίνα
+    el = Κινέζικη
     he = מטבח סיני
     sk = Čína
 
@@ -253,7 +253,7 @@
     vi = Ẩm thực đức
     zh-Hans = 德国菜
     zh-Hant = 德國料理
-    el = Γερμανική κουζίνα
+    el = Γερμανική
     he = מטבח גרמני
     sk = Nemecká kuchyňa
 
@@ -285,7 +285,7 @@
     vi = Ẩm thực nhật bản
     zh-Hans = 日本菜
     zh-Hant = 日本料理
-    el = ͅαπωνική κουζίνα
+    el = Ιαπωνική
     he = מטבח יפני
     sk = Japonská kuchyňa
 
@@ -349,7 +349,7 @@
     vi = Ẩm thực mexico
     zh-Hans = 墨西哥菜
     zh-Hant = 墨西哥料理
-    el = µεξικάνικη κουζίνα
+    el = Μεξικάνικη
     he = מטבח מקסיקני
     sk = Mexická kuchyňa
 
@@ -381,7 +381,7 @@
     vi = Ẩm thực ấn độ
     zh-Hans = 印度菜
     zh-Hant = 印度料理
-    el = ͅνδική κουζίνα
+    el = Ινδική
     he = מטבח הודי
     sk = Indická kuchyňa
 
@@ -413,7 +413,7 @@
     vi = Ẩm thực mỹ
     zh-Hans = 美国菜
     zh-Hant = 美國料理
-    el = Αμερικανική κουζίνα
+    el = Αμερικάνικη
     he = מטבח אמריקאי
     sk = Americká kuchyňa
 
@@ -445,7 +445,7 @@
     vi = Ẩm thực pháp
     zh-Hans = 法国菜
     zh-Hant = 法國料理
-    el = Γαλλική κουζίνα
+    el = Γαλλική
     he = מטבח צרפתי
     sk = Francúzska kuchyňa
 
@@ -509,7 +509,7 @@
     vi = Ẩm thực châu á
     zh-Hans = 亚洲菜
     zh-Hant = 亞洲料理
-    el = Ασιατική κουζίνα
+    el = Ασιάτικη
     he = מטבח אסיאתי
     sk = Ázijská kuchyňa
 
@@ -573,7 +573,7 @@
     vi = Ẩm thực hy lạp
     zh-Hans = 希腊菜
     zh-Hant = 希臘料理
-    el = Ελληνική κουζίνα
+    el = Ελληνική
     he = מטבח יווני
     sk = Grécka kuchyňa
 
@@ -605,7 +605,7 @@
     vi = Ẩm thực thái lan
     zh-Hans = 泰国菜
     zh-Hant = 泰國料理
-    el = Ταϊλανδέζικη κουζίνα
+    el = Ταϊλανδική
     he = מטבח תאילנדי
     sk = Thajská kuchyňa
 
@@ -637,7 +637,7 @@
     vi = Ẩm thực quốc tế
     zh-Hans = 国际菜肴
     zh-Hant = 國際菜肴
-    el = Διεθνής κουζίνα
+    el = Διεθνής
     he = מטבח בינלאומי
     sk = Medzinárodné jedlá
 
@@ -701,7 +701,7 @@
     vi = Cá và khoai tây chiên
     zh-Hans = 炸鱼 和 薯条
     zh-Hant = 炸魚薯條
-    el = Fish_and_chips
+    el = Ψάρια και πατάτες
     he = פיש אנד צ'יפס
     sk = Ryba s hranolkami
 
@@ -733,7 +733,7 @@
     vi = Ẩm thực thổ nhĩ kỳ
     zh-Hans = 土耳其菜
     zh-Hant = 土耳其料理
-    el = Τούρκικη κουζίνα
+    el = Τουρκική
     he = מטבח תורכי
     sk = Turecká kuchyňa
 
@@ -797,7 +797,7 @@
     vi = Steak house
     zh-Hans = 牛排馆
     zh-Hant = 牛排館
-    el = Ψησταριά
+    el = Μπριζολάδικο
     he = סטייקיה
     sk = Steak house
 
@@ -829,7 +829,7 @@
     vi = Ẩm thực tây ban nha
     zh-Hans = 西班牙菜
     zh-Hant = 西班牙料理
-    el = ͅσπανική κουζίνα
+    el = Ισπανική
     he = מטבח ספרדי
     sk = Španielska kuchyňa
 
@@ -861,7 +861,7 @@
     vi = Cá
     zh-Hans = 鱼
     zh-Hant = 魚
-    el = Ψάρι
+    el = Ψάρια
     he = דגים
     sk = Ryby
 
@@ -893,7 +893,7 @@
     vi = Ẩm thực việt
     zh-Hans = 越南菜
     zh-Hant = 越南料理
-    el = Βιετναμέζικη κουζίνα
+    el = Βιετναμέζικη
     he = מטבח וייטנאמי
     sk = Vietnamská kuchyňa
 
@@ -925,7 +925,7 @@
     vi = Mì
     zh-Hans = 面
     zh-Hant = 麵食
-    el = Νούντλ
+    el = Χυλοπίτες
     he = אטריות
     sk = Rezance
 
@@ -957,7 +957,7 @@
     vi = Ẩm thực chay
     zh-Hans = 素菜
     zh-Hant = 素食
-    el = Χορτοφαγική κουζίνα
+    el = Χορτοφαγική
     he = מטבח צמחוני
     sk = Vegetariánske jedlá
 
@@ -989,7 +989,7 @@
     vi = Ẩm thực hàn quốc
     zh-Hans = 韩国菜
     zh-Hant = 韓國料理
-    el = Κορεάτικη κουζίνα
+    el = Κορεάτικη
     he = מטבח קוריאני
     sk = Kórejská kuchyňa
 
@@ -1021,7 +1021,7 @@
     vi = Friture
     zh-Hans = 油炸
     zh-Hant = 油炸
-    el = Τηγανητό
+    el = Τηγανητά
     he = פריטורה
     sk = Vyprážané jedlá
 
@@ -1053,7 +1053,7 @@
     vi = Thịt nướng ngoài trời
     zh-Hans = 烧烤
     zh-Hant = 燒烤
-    el = µπάρμπεκιου
+    el = Μπάρμπεκιου
     he = ברביקיו
     sk = Gril
 
@@ -1085,7 +1085,7 @@
     vi = Ẩm thực bavarian
     zh-Hans = 巴伐利亚菜
     zh-Hant = 巴伐利亞料理
-    el = Βαυαρική κουζίνα
+    el = Βαυαρική
     he = מטבח של בוואריה
     sk = Bavorská kuchyňa
 
@@ -1149,7 +1149,7 @@
     vi = Ẩm thực ý, bánh pizza
     zh-Hans = 意大利菜；匹萨
     zh-Hant = 義大利料理；披薩
-    el = ͅταλική κουζίνα, πίτσα
+    el = Ιταλική, Πίτσα
     he = מטבח איטלקי;פיצה
     sk = Talianska kuchyňa; pizza
 
@@ -1181,7 +1181,7 @@
     vi = Ẩm thực địa trung hải
     zh-Hans = 地中海菜
     zh-Hant = 地中海料理
-    el = µεσογειακή κουζίνα
+    el = Μεσογειακή
     he = מטבח ים-תיכוני
     sk = Stredomorská kuchyňa
 
@@ -1213,7 +1213,7 @@
     vi = Bánh rán
     zh-Hans = 甜甜圈
     zh-Hant = 甜甜圈
-    el = Λουκουμάς
+    el = Ντόνατ
     he = דונאט
     sk = Šišky
 
@@ -1245,7 +1245,7 @@
     vi = Tô thịt bò
     zh-Hans = 牛肉 碗
     zh-Hant = 牛丼
-    el = µπολ με βοδινό
+    el = Σούπα με βοδινό
     he = קערת בשר בקר
     sk = Misa hovädzieho
 
@@ -1341,7 +1341,7 @@
     vi = Heuriger
     zh-Hans = 霍里格
     zh-Hant = 霍里格
-    el = Παραδοσιακά κρασοπουλειά
+    el = Χόιριγκερ
     he = הויריגר
     sk = Heuriger
 
@@ -1373,7 +1373,7 @@
     vi = Ẩm thực lebanon
     zh-Hans = 黎巴嫩菜
     zh-Hant = 黎巴嫩料理
-    el = Λιβανέζικη κουζίνα
+    el = Λιβανέζικη
     he = מטבח לבנוני
     sk = Libanonská kuchyňa
 
@@ -1405,7 +1405,7 @@
     vi = Ẩm thực địa phương
     zh-Hans = 本地菜
     zh-Hant = 本地料理
-    el = Τοπική κουζίνα
+    el = Τοπική
     he = מטבח מקומי
     sk = Miestna kuchyňa
 
@@ -1469,7 +1469,7 @@
     vi = Ẩm thực philipin
     zh-Hans = 菲律宾菜
     zh-Hant = 菲律賓料理
-    el = Κουζίνα Φιλιππίνων
+    el = Φιλιππινέζικη
     he = מטבח פיליפיני
     sk = Filipínska kuchyňa
 
@@ -1501,7 +1501,7 @@
     vi = Ẩm thực nga
     zh-Hans = 俄罗斯菜
     zh-Hant = 俄羅斯料理
-    el = Ρώσικη κουζίνα
+    el = Ρώσσικη
     he = מטבח רוסי
     sk = Ruská kuchyňa
 
@@ -1661,7 +1661,7 @@
     vi = Buschenschank
     zh-Hans = 酒庄
     zh-Hant = 酒莊
-    el = Ταβέρνα
+    el = Μπούσενσανκ (αυστριακή ταβέρνα)
     he = בושנשאנק
     sk = Viecha
 
@@ -1725,7 +1725,7 @@
     vi = Ẩm thực bồ đào nha
     zh-Hans = 葡萄牙菜
     zh-Hant = 葡萄牙料理
-    el = Πορτογαλική κουζίνα
+    el = Πορτογαλική
     he = מטבח פורטוגלי
     sk = Portugalská kuchyňa
 
@@ -1757,7 +1757,7 @@
     vi = Thịt nướng
     zh-Hans = 烤
     zh-Hant = 烤
-    el = Σχάρα
+    el = Ψησταριά
     he = גריל
     sk = Gril
 
@@ -1821,7 +1821,7 @@
     vi = Malagasy
     zh-Hans = 马达加斯加的
     zh-Hant = 馬達加斯加料理
-    el = µαδαγασκάρης
+    el = Μαδαγασκάρης
     he = מלגאסי
     sk = Madagaskarská kuchyňa
 
@@ -1853,7 +1853,7 @@
     vi = Ẩm thực ba lan
     zh-Hans = 波兰菜
     zh-Hant = 波蘭料理
-    el = Πολωνική κουζίνα
+    el = Πολωνέζικη
     he = מטבח פולני
     sk = Poľská kuchyňa
 
@@ -1885,7 +1885,7 @@
     vi = Bữa tối
     zh-Hans = 饭店
     zh-Hant = 美式餐廳
-    el = Δείπνο
+    el = Μικροεστιατόριο
     he = דיינר
     sk = Diner
 
@@ -1917,7 +1917,7 @@
     vi = Ẩm thực châu phi
     zh-Hans = 非洲菜
     zh-Hant = 非洲料理
-    el = Αφρικανική κουζίνα
+    el = Αφρικανική
     he = מטבח אפריקאי
     sk = Africká kuchyňa
 
@@ -1949,7 +1949,7 @@
     vi = Ẩm thực georgia
     zh-Hans = 格鲁吉亚菜
     zh-Hant = 喬治亞料理
-    el = Γεωργιανή κουζίνα
+    el = Γεωργιανή
     he = מטבח גיאורגי
     sk = Gruzínska kuchyňa
 
@@ -1981,7 +1981,7 @@
     vi = Ẩm thực croatia
     zh-Hans = 克罗地亚的
     zh-Hant = 克羅埃西亞料理
-    el = Κροατική κουζίνα
+    el = Κροατική
     he = מטבח קרואטי
     sk = Chorvátska kuchyňa
 
@@ -2013,7 +2013,7 @@
     vi = Ẩm thực ả-rập
     zh-Hans = 阿拉伯菜
     zh-Hant = 阿拉伯料理
-    el = Αραβική κουζίνα
+    el = Αραβική
     he = מטבח ערבי
     sk = Arabská kuchyňa
 
@@ -2045,7 +2045,7 @@
     vi = Ẩm thực balkan
     zh-Hans = 巴尔干菜
     zh-Hant = 巴爾幹料理
-    el = Βαλκανική κουζίνα
+    el = Βαλκανίων
     he = מטבח בלקני
     sk = Balkánska kuchyňa
 
@@ -2077,7 +2077,7 @@
     vi = Ẩm thực brazil
     zh-Hans = 巴西菜
     zh-Hant = 巴西料理
-    el = Βραζιλιάνικη κουζίνα
+    el = Βραζιλιάνικη
     he = מטבח ברזילאי
     sk = Brazílska kuchyňa
 
@@ -2109,7 +2109,7 @@
     vi = Ẩm thực caribê
     zh-Hans = 加勒比菜
     zh-Hant = 加勒比料理
-    el = Καραϊβική κουζίνα
+    el = Καραϊβική
     he = מטבח קריבי
     sk = Karibská kuchyňa
 
@@ -2141,7 +2141,7 @@
     vi = Ẩm thực áo
     zh-Hans = 奥地利菜
     zh-Hant = 奧地利料理
-    el = Αυστριακή κουζίνα
+    el = Αυστριακή
     he = מטבח אוסטרי
     sk = Rakúska kuchyňa
 
@@ -2173,7 +2173,7 @@
     vi = Ẩm thực chay
     zh-Hans = 全素菜
     zh-Hant = 全素料理
-    el = Χορτοφαγική κουζίνα
+    el = Για χορτοφάγους
     he = מטבח טבעוני
     sk = Vegánske jedlá
 
@@ -2205,7 +2205,7 @@
     vi = Ẩm thực argentina
     zh-Hans = 阿根廷菜
     zh-Hant = 阿根廷料理
-    el = Αργεντίνικη κουζίνα
+    el = Αργεντίνικη
     he = מטבח ארגטינאי
     sk = Argentínska kuchyňa
 
@@ -2237,7 +2237,7 @@
     vi = Ẩm thực ba tư
     zh-Hans = 波斯菜
     zh-Hant = 波斯料理
-    el = Περσική κουζίνα
+    el = Περσική
     he = מטבח פרסי
     sk = Perzská kuchyňa
 
@@ -2269,7 +2269,7 @@
     vi = Mì soba
     zh-Hans = 荞麦面
     zh-Hant = 蕎麥面
-    el = Σομπά
+    el = Σόμπα (λεπτά μακαρόνια)
     he = אטריות סובה
     sk = Soba
 
@@ -2301,7 +2301,7 @@
     vi = Ẩm thực malaysia
     zh-Hans = 马来西亚菜
     zh-Hant = 馬來西亞料理
-    el = µαλαισιανή κουζίνα
+    el = Μαλαισιανή
     he = מטבח מלזי
     sk = Malajzijská kuchyňa
 
@@ -2333,7 +2333,7 @@
     vi = Ẩm thực indonesia
     zh-Hans = 印度尼西亚菜
     zh-Hant = 印度尼西亞料理
-    el = ͅνδονησιακό
+    el = Ινδονησιακή
     he = מטבח אינדונזי
     sk = Indonézska kuchyňa
 
@@ -2365,7 +2365,7 @@
     vi = Ẩm thực ethiopia
     zh-Hans = 埃塞俄比亚菜
     zh-Hant = 衣索比亞料理
-    el = Αιθιοπικό
+    el = Αιθιοπίας
     he = מטבח אתיופי
     sk = Etiópska kuchyňa
 
@@ -2429,7 +2429,7 @@
     vi = Ẩm thực ai-len
     zh-Hans = 爱尔兰菜
     zh-Hant = 愛爾蘭料理
-    el = ͅρλανδικό
+    el = Ιρλανδέζικη
     he = מטבח אירי
     sk = Írska kuchyňa
 
@@ -2461,7 +2461,7 @@
     vi = Ẩm thực hungary
     zh-Hans = 匈牙利菜
     zh-Hant = 匈牙利料理
-    el = Ουγγρικό
+    el = Ουγγρική
     he = מטבח הונגרי
     sk = Maďarská kuchyňa
 
@@ -2493,7 +2493,7 @@
     vi = Ẩm thực lào
     zh-Hans = 老挝菜
     zh-Hant = 寮國料理
-    el = Του Λάος
+    el = Λάος
     he = מטבח לאו
     sk = Laoská kuchyňa
 
@@ -2525,7 +2525,7 @@
     vi = Hotdog
     zh-Hans = 热狗
     zh-Hant = 熱狗
-    el = Χοτ-ντογκ
+    el = Χοτ Ντογκ
     he = נקניקיה
     sk = Párok v rožku
 
@@ -2557,7 +2557,7 @@
     vi = Ẩm thực phương đông
     zh-Hans = 东方菜
     zh-Hant = 東方料理
-    el = Ανατολικό
+    el = Άπω Ανατολής
     he = מטבח מזרחי
     sk = Orientálna kuchyňa
 
@@ -2589,7 +2589,7 @@
     vi = Bánh kếp rau thơm
     zh-Hans = 咸的_煎饼
     zh-Hant = 大阪燒
-    el = Αλμυρές κρέπες
+    el = Αλμυρές τηγανίτες
     he = חביתיות טעימות
     sk = Pikantné palacinky
 
@@ -2621,7 +2621,7 @@
     vi = Ẩm thực ma-rốc
     zh-Hans = 摩洛哥菜
     zh-Hant = 摩洛哥料理
-    el = µαροκινό
+    el = Μαροκινή
     he = מטבח מרוקאי
     sk = Marocká kuchyňa
 
@@ -2653,7 +2653,7 @@
     vi = Ẩm thực Pê-ru
     zh-Hans = 秘鲁的
     zh-Hant = 秘魯料理
-    el = Περουβιανή κουζίνα
+    el = Περουβιανή
     he = מטבח פרואני
     sk = Peruánska kuchyňa
 
@@ -2685,7 +2685,7 @@
     vi = Chuỗi nhà hàng
     zh-Hans = 高级餐饮
     zh-Hant = 高級餐飲
-    el = Εκλεκτό φαγητό
+    el = Εκλεκτά εστιατόρια
     he = אכילה במסעדות יוקרה
     sk = Exkluzívna reštaurácia
 
