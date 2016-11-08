@@ -15304,7 +15304,7 @@
     pl = Podzieliliśmy mapy na części. Teraz możesz pobierać oddzielne regiony, zamiast całego kraju
     pt = Dividimos os mapas em partes. Agora vocês podem baixar regiões separadas em vez do país inteiro.
     ro = Am împărțit hărțile în mai multe secțiuni. Acum, puteți descărca și regiuni separate, nu doar țara întreagă.
-    es = Hemos dividido el mapa por partes. Ahora, puedes descargar regiones individuales, en vez de el país entero.
+    es = Hemos dividido el mapa por partes. Ahora, puedes descargar regiones individuales, en vez del país entero.
     sv = Vi har delat in kartor i delar. Nu kan du ladda ner separata regioner, inte hela landet.
     th = เราได้แบ่งแผนที่ออกเป็นส่วน ๆ ตอนนี้คุณสามารถดาวน์โหลดภูมิภาคแยกต่างหากได้แล้ว
     tr = Haritaları parçalara ayırdık. Artık tüm ülke yerine belirli bölgeleri indirebilirsiniz.
