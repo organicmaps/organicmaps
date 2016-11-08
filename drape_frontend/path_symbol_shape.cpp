@@ -43,10 +43,6 @@ void PathSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureMana
     glsl::vec2 const pivot = glsl::ToVec2(ConvertToLocal(splineIter.m_pos, m_params.m_tileCenter, kShapeCoordScalar));
     glsl::vec2 n = halfH * glsl::normalize(glsl::vec2(-splineIter.m_dir.y, splineIter.m_dir.x));
     glsl::vec2 d = halfW * glsl::normalize(glsl::vec2(splineIter.m_dir.x, splineIter.m_dir.y));
-    float nLength = glsl::length(n) * pToGScale;
-    float dLength = glsl::length(d) * pToGScale;
-    n = nLength * glsl::normalize(n);
-    d = dLength * glsl::normalize(d);
 
     buffer.emplace_back(gpu::SolidTexturingVertex(glsl::vec4(pivot, m_params.m_depth, 0.0f), - d - n, glsl::ToVec2(rect.LeftTop())));
     buffer.emplace_back(gpu::SolidTexturingVertex(glsl::vec4(pivot, m_params.m_depth, 0.0f), - d + n, glsl::ToVec2(rect.LeftBottom())));
