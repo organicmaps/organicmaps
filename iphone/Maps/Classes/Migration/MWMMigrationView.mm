@@ -108,6 +108,8 @@
   switch (state)
   {
     case MWMMigrationViewState::Default:
+      self.primaryButton.hidden = NO;
+      self.secondaryButton.hidden = NO;
       break;
     case MWMMigrationViewState::Processing:
       self.info.hidden = NO;
@@ -121,15 +123,15 @@
       self.info.hidden = NO;
       self.info.textColor = [UIColor red];
       self.info.text = L(@"common_check_internet_connection_dialog");
-      self.primaryButton.enabled = NO;
-      self.secondaryButton.enabled = NO;
+      self.primaryButton.hidden = YES;
+      self.secondaryButton.hidden = YES;
       break;
     case MWMMigrationViewState::ErrorNoSpace:
       self.info.hidden = NO;
       self.info.textColor = [UIColor red];
       self.info.text = L(@"migration_no_space_message");
-      self.primaryButton.enabled = NO;
-      self.secondaryButton.enabled = NO;
+      self.primaryButton.hidden = YES;
+      self.secondaryButton.hidden = YES;
       break;
   }
   _state = state;
