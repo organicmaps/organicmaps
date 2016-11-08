@@ -2,4 +2,6 @@
 
 @interface MWMNoMapsViewController : MWMViewController
 
++ (MWMNoMapsViewController *)controller;
+
 @end

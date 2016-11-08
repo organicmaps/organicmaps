@@ -15,7 +15,6 @@
 #import "MWMRoutePreview.h"
 #import "MWMRouter.h"
 #import "MWMSearchManager.h"
-#import "MWMSearchView.h"
 #import "MWMSideButtons.h"
 #import "MWMTaxiPreviewDataSource.h"
 #import "MapViewController.h"
@@ -119,7 +118,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   // Workaround needs for setting correct left bound while landscape place page is open.
   self.navigationManager.leftBound = 0;
   [self.placePageManager willRotateToInterfaceOrientation:toInterfaceOrientation];
-  [self.searchManager willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size
@@ -302,7 +300,8 @@ extern NSString * const kAlohalyticsTapEventKey;
   UIView * ownerView = self.ownerController.view;
   for (UIView * view in views)
     [ownerView addSubview:view];
-  [ownerView bringSubviewToFront:self.searchManager.view];
+  for (UIView * view in self.searchManager.topViews)
+    [ownerView bringSubviewToFront:view];
   if (IPAD)
   {
     [ownerView bringSubviewToFront:self.menuController.view];
@@ -331,7 +330,9 @@ extern NSString * const kAlohalyticsTapEventKey;
   {
     [UIView animateWithDuration:kDefaultAnimationDuration
         animations:^{
-          self.searchManager.view.alpha = bound > 0 ? 0. : 1.;
+          CGFloat const alpha = bound > 0 ? 0. : 1.;
+          for (UIView * view in self.searchManager.topViews)
+            view.alpha = alpha;
         }
         completion:^(BOOL finished) {
           self.searchManager.state = MWMSearchManagerStateHidden;
@@ -475,7 +476,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (MWMSearchManager *)searchManager
 {
   if (!_searchManager)
-    _searchManager = [[MWMSearchManager alloc] initWithParentView:self.ownerController.view];
+    _searchManager = [[MWMSearchManager alloc] init];
   return _searchManager;
 }
 

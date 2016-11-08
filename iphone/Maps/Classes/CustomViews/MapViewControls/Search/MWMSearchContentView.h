@@ -1,3 +1,3 @@
-@interface MWMSearchContentView : UIView
+@interface MWMSearchContentView : SolidTouchView
 
 @end

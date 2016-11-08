@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Search Hotels Filter View Controller-->
+        <scene sceneID="Rgk-Uh-KhM">
+            <objects>
+                <tableViewController storyboardIdentifier="MWMSearchHotelsFilterViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ba5-kG-Q6e" customClass="MWMSearchHotelsFilterViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="48" sectionHeaderHeight="28" sectionFooterHeight="18" id="h41-fx-HZL">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection headerTitle="rating" id="nxP-KI-Mxt">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="S86-4W-dBQ">
+                                        <rect key="frame" x="0.0" y="56" width="375" height="48"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="S86-4W-dBQ" id="k1w-ko-jKp">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="47"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="3XN-J7-em8">
+                                                    <rect key="frame" x="0.0" y="0.0" width="93" height="47.5"/>
+                                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <state key="normal" title="ANY"/>
+                                                    <connections>
+                                                        <action selector="changeRating:" destination="ba5-kG-Q6e" eventType="touchUpInside" id="Pa2-eu-Wah"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Zkg-9y-Z28">
+                                                    <rect key="frame" x="94" y="0.0" width="93" height="47.5"/>
+                                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <state key="normal" title="7.0+"/>
+                                                    <state key="disabled">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="changeRating:" destination="ba5-kG-Q6e" eventType="touchUpInside" id="WKP-9d-IZZ"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="X6d-fl-45M">
+                                                    <rect key="frame" x="188" y="0.0" width="93" height="47.5"/>
+                                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <state key="normal" title="8.0+"/>
+                                                    <connections>
+                                                        <action selector="changeRating:" destination="ba5-kG-Q6e" eventType="touchUpInside" id="5dd-p2-AQm"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="s7t-4f-3jf">
+                                                    <rect key="frame" x="282" y="0.0" width="93" height="47.5"/>
+                                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <state key="normal" title="9.0+"/>
+                                                    <connections>
+                                                        <action selector="changeRating:" destination="ba5-kG-Q6e" eventType="touchUpInside" id="VeU-7D-nmL"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="s7t-4f-3jf" secondAttribute="trailing" id="0HE-4Q-tcV"/>
+                                                <constraint firstItem="3XN-J7-em8" firstAttribute="top" secondItem="k1w-ko-jKp" secondAttribute="top" id="2cf-SF-H9J"/>
+                                                <constraint firstItem="3XN-J7-em8" firstAttribute="width" secondItem="Zkg-9y-Z28" secondAttribute="width" id="8aj-Y4-3hI"/>
+                                                <constraint firstItem="X6d-fl-45M" firstAttribute="top" secondItem="k1w-ko-jKp" secondAttribute="top" id="Fir-ad-qrK"/>
+                                                <constraint firstItem="s7t-4f-3jf" firstAttribute="leading" secondItem="X6d-fl-45M" secondAttribute="trailing" constant="1" id="HIv-c2-V2I"/>
+                                                <constraint firstItem="X6d-fl-45M" firstAttribute="width" secondItem="s7t-4f-3jf" secondAttribute="width" id="LEq-XC-YxP"/>
+                                                <constraint firstAttribute="bottom" secondItem="3XN-J7-em8" secondAttribute="bottom" id="X6N-M7-EPf"/>
+                                                <constraint firstItem="Zkg-9y-Z28" firstAttribute="leading" secondItem="3XN-J7-em8" secondAttribute="trailing" constant="1" id="YYA-yc-USl"/>
+                                                <constraint firstItem="3XN-J7-em8" firstAttribute="leading" secondItem="k1w-ko-jKp" secondAttribute="leading" id="jSz-Oe-fHi"/>
+                                                <constraint firstAttribute="bottom" secondItem="Zkg-9y-Z28" secondAttribute="bottom" id="rMR-zk-TOw"/>
+                                                <constraint firstItem="Zkg-9y-Z28" firstAttribute="width" secondItem="X6d-fl-45M" secondAttribute="width" id="srM-9Y-kMU"/>
+                                                <constraint firstAttribute="bottom" secondItem="s7t-4f-3jf" secondAttribute="bottom" id="v98-aC-TOi"/>
+                                                <constraint firstItem="X6d-fl-45M" firstAttribute="leading" secondItem="Zkg-9y-Z28" secondAttribute="trailing" constant="1" id="vRU-AP-dZP"/>
+                                                <constraint firstItem="Zkg-9y-Z28" firstAttribute="top" secondItem="k1w-ko-jKp" secondAttribute="top" id="vdQ-SU-7i3"/>
+                                                <constraint firstItem="s7t-4f-3jf" firstAttribute="top" secondItem="k1w-ko-jKp" secondAttribute="top" id="xb2-G6-Ncy"/>
+                                                <constraint firstAttribute="bottom" secondItem="X6d-fl-45M" secondAttribute="bottom" id="yf7-5l-fTe"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="price category" id="QJt-NN-Pll">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="v9h-eu-GaI">
+                                        <rect key="frame" x="0.0" y="161" width="375" height="48"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="v9h-eu-GaI" id="BUk-m8-14p">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="47"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="mqG-GU-eru">
+                                                    <rect key="frame" x="0.0" y="0.0" width="124.5" height="47.5"/>
+                                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <state key="normal" title="$"/>
+                                                    <connections>
+                                                        <action selector="priceChange:" destination="ba5-kG-Q6e" eventType="touchUpInside" id="hRE-0J-1EF"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="G1g-Nv-ywz">
+                                                    <rect key="frame" x="125.5" y="0.0" width="124.5" height="47.5"/>
+                                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <state key="normal" title="$$"/>
+                                                    <connections>
+                                                        <action selector="priceChange:" destination="ba5-kG-Q6e" eventType="touchUpInside" id="Wci-4d-Wx1"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="bJB-5R-Lwq">
+                                                    <rect key="frame" x="251" y="0.0" width="124" height="47.5"/>
+                                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <state key="normal" title="$$$"/>
+                                                    <connections>
+                                                        <action selector="priceChange:" destination="ba5-kG-Q6e" eventType="touchUpInside" id="Ivf-0t-ijz"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="G1g-Nv-ywz" firstAttribute="width" secondItem="bJB-5R-Lwq" secondAttribute="width" id="2Rq-QB-wKr"/>
+                                                <constraint firstItem="bJB-5R-Lwq" firstAttribute="top" secondItem="BUk-m8-14p" secondAttribute="top" id="Do1-VA-ZF5"/>
+                                                <constraint firstItem="bJB-5R-Lwq" firstAttribute="leading" secondItem="G1g-Nv-ywz" secondAttribute="trailing" constant="1" id="G1k-10-O9x"/>
+                                                <constraint firstItem="G1g-Nv-ywz" firstAttribute="leading" secondItem="mqG-GU-eru" secondAttribute="trailing" constant="1" id="SpC-Ga-1eL"/>
+                                                <constraint firstAttribute="bottom" secondItem="bJB-5R-Lwq" secondAttribute="bottom" id="Vb5-be-4J1"/>
+                                                <constraint firstAttribute="bottom" secondItem="G1g-Nv-ywz" secondAttribute="bottom" id="VcP-lH-ev9"/>
+                                                <constraint firstAttribute="trailing" secondItem="bJB-5R-Lwq" secondAttribute="trailing" id="Wth-2N-NDF"/>
+                                                <constraint firstItem="mqG-GU-eru" firstAttribute="top" secondItem="BUk-m8-14p" secondAttribute="top" id="bhx-Qd-RSN"/>
+                                                <constraint firstItem="G1g-Nv-ywz" firstAttribute="top" secondItem="BUk-m8-14p" secondAttribute="top" id="jle-uq-3IR"/>
+                                                <constraint firstItem="mqG-GU-eru" firstAttribute="leading" secondItem="BUk-m8-14p" secondAttribute="leading" id="nMS-Dx-9Ry"/>
+                                                <constraint firstItem="mqG-GU-eru" firstAttribute="width" secondItem="G1g-Nv-ywz" secondAttribute="width" id="pbq-DX-uvw"/>
+                                                <constraint firstAttribute="bottom" secondItem="mqG-GU-eru" secondAttribute="bottom" id="vft-M7-INB"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="pressBackground"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <outlet property="dataSource" destination="ba5-kG-Q6e" id="kJJ-6Q-QN1"/>
+                            <outlet property="delegate" destination="ba5-kG-Q6e" id="1rN-r0-boA"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="price1" destination="mqG-GU-eru" id="Vdq-8n-6T8"/>
+                        <outlet property="price2" destination="G1g-Nv-ywz" id="J1S-Eq-dPu"/>
+                        <outlet property="price3" destination="bJB-5R-Lwq" id="7Tn-t1-wvS"/>
+                        <outlet property="rating7" destination="Zkg-9y-Z28" id="Qef-va-SOU"/>
+                        <outlet property="rating8" destination="X6d-fl-45M" id="7T3-fw-02d"/>
+                        <outlet property="rating9" destination="s7t-4f-3jf" id="AHM-SF-VeU"/>
+                        <outlet property="ratingAny" destination="3XN-J7-em8" id="wdf-m0-jhw"/>
+                        <outletCollection property="ratings" destination="3XN-J7-em8" id="CEA-kd-bg3"/>
+                        <outletCollection property="ratings" destination="Zkg-9y-Z28" id="e0h-ZA-PXe"/>
+                        <outletCollection property="ratings" destination="X6d-fl-45M" id="NEr-fZ-JQN"/>
+                        <outletCollection property="ratings" destination="s7t-4f-3jf" id="79W-E7-ojF"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bP0-hk-aQt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="115" y="40"/>
+        </scene>
+    </scenes>
+</document>

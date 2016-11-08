@@ -420,6 +420,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatBookmarks}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"bookmarks"];
   self.state = self.restoreState;
+  [self.delegate closeInfoScreens];
   [self.controller openBookmarks];
 }
 

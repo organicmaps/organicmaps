@@ -45,5 +45,5 @@ CGFloat constexpr kButtonExtraWidth = 16.0;
 }
 
 - (void)backTap { [self.navigationController popViewControllerAnimated:YES]; }
-- (UIStoryboard *)mainStoryboard { return [UIStoryboard storyboardWithName:@"Mapsme" bundle:nil]; }
++ (UIStoryboard *)mainStoryboard { return [UIStoryboard storyboardWithName:@"Mapsme" bundle:nil]; }
 @end

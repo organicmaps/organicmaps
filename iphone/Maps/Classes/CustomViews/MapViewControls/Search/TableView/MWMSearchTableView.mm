@@ -1,5 +1,6 @@
 #import "MWMSearchTableView.h"
 #import "MWMKeyboard.h"
+#import "MWMSearchNoResults.h"
 
 @interface MWMSearchTableView ()<MWMKeyboardObserver>
 
@@ -7,6 +8,7 @@
 
 @property(weak, nonatomic) IBOutlet UIView * noResultsContainer;
 @property(weak, nonatomic) IBOutlet UIView * noResultsWrapper;
+@property(nonatomic) MWMSearchNoResults * noResultsView;
 
 @end
 
@@ -21,18 +23,19 @@
   [MWMKeyboard addObserver:self];
 }
 
-- (void)addNoResultsView:(MWMSearchNoResults *)view
+- (void)hideNoResultsView:(BOOL)hide
 {
-  [self removeNoResultsView];
-  self.noResultsContainer.hidden = NO;
-  [self.noResultsWrapper addSubview:view];
-  [self onKeyboardAnimation];
-}
-
-- (void)removeNoResultsView
-{
-  self.noResultsContainer.hidden = YES;
-  [self.noResultsWrapper.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+  if (hide)
+  {
+    self.noResultsContainer.hidden = YES;
+    [self.noResultsView removeFromSuperview];
+  }
+  else
+  {
+    self.noResultsContainer.hidden = NO;
+    [self.noResultsWrapper addSubview:self.noResultsView];
+    [self onKeyboardAnimation];
+  }
 }
 
 #pragma mark - MWMKeyboard
@@ -53,4 +56,16 @@
   if (self.superview)
     [self layoutIfNeeded];
 }
+
+- (MWMSearchNoResults *)noResultsView
+{
+  if (!_noResultsView)
+  {
+    _noResultsView = [MWMSearchNoResults viewWithImage:[UIImage imageNamed:@"img_search_not_found"]
+                                                 title:nil
+                                                  text:L(@"search_not_found_query")];
+  }
+  return _noResultsView;
+}
+
 @end
