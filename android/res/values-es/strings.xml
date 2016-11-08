@@ -759,7 +759,7 @@
 	<string name="placepage_report_problem_button">Informar de un problema</string>
 	<string name="placepage_add_business_button">Añadir organización</string>
 	<string name="whatsnew_smallmwm_header">Llevas tiempo pidiéndolo y lo hemos hecho</string>
-	<string name="whatsnew_smallmwm_message">Hemos dividido el mapa por partes. Ahora, puedes descargar regiones individuales, en vez de el país entero.</string>
+	<string name="whatsnew_smallmwm_message">Hemos dividido el mapa por partes. Ahora, puedes descargar regiones individuales, en vez del país entero.</string>
 	<string name="whatsnew_search_header">Nueva búsqueda</string>
 	<string name="whatsnew_search_message">Hemos mejorado notablemente la búsqueda por dirección. Compruébalo.</string>
 	<string name="whatsnew_editor_title">Editar el mapa*</string>
