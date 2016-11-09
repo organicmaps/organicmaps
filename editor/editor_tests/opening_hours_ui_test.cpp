@@ -31,6 +31,7 @@ UNIT_TEST(TestTimeTable_ExcludeTime)
 {
   using osmoh::operator""_h;
   using osmoh::operator""_min;
+  using osmoh::HourMinutes;
 
   {
     auto tt = TimeTable::GetPredefinedTimeTable();
@@ -123,33 +124,49 @@ UNIT_TEST(TestTimeTable_ExcludeTime)
     TEST(tt.AddExcludeTime({10_h, 11_h}), ());
     TEST(tt.AddExcludeTime({12_h, 13_h}), ());
     TEST(tt.AddExcludeTime({15_h, 17_h}), ());
-    TEST_EQUAL(tt.GetPredefinedExcludeTime().GetStart().GetHourMinutes().GetHoursCount(), 18, ());
-    TEST_EQUAL(tt.GetPredefinedExcludeTime().GetStart().GetHourMinutes().GetMinutesCount(), 30, ());
-    TEST_EQUAL(tt.GetPredefinedExcludeTime().GetEnd().GetHourMinutes().GetHoursCount(), 22, ());
+    TEST_EQUAL(tt.GetPredefinedExcludeTime().GetStart().GetHourMinutes().GetHoursCount(), 20, ());
+    TEST_EQUAL(tt.GetPredefinedExcludeTime().GetStart().GetHourMinutes().GetMinutesCount(), 0, ());
+    TEST_EQUAL(tt.GetPredefinedExcludeTime().GetEnd().GetHourMinutes().GetHoursCount(), 21, ());
     TEST_EQUAL(tt.GetPredefinedExcludeTime().GetEnd().GetHourMinutes().GetMinutesCount(), 0, ());
 
     TEST(tt.AddExcludeTime({18_h, 23_h}), ());
-    TEST_EQUAL(tt.GetPredefinedExcludeTime().GetStart().GetHourMinutes().GetHoursCount(), 13, ());
-    TEST_EQUAL(tt.GetPredefinedExcludeTime().GetStart().GetHourMinutes().GetMinutesCount(), 30, ());
-    TEST_EQUAL(tt.GetPredefinedExcludeTime().GetEnd().GetHourMinutes().GetHoursCount(), 14, ());
-    TEST_EQUAL(tt.GetPredefinedExcludeTime().GetStart().GetHourMinutes().GetMinutesCount(), 30, ());
+    auto const predefinedStart = tt.GetPredefinedExcludeTime().GetStart().GetHourMinutes();
+    auto const predefinedEnd = tt.GetPredefinedExcludeTime().GetEnd().GetHourMinutes();
+    TEST(predefinedStart.GetHours() == HourMinutes::THours::zero(), ());
+    TEST(predefinedStart.GetMinutes() == HourMinutes::TMinutes::zero(), ());
+    TEST(predefinedEnd.GetHours() == HourMinutes::THours::zero(), ());
+    TEST(predefinedEnd.GetMinutes() == HourMinutes::TMinutes::zero(), ());
   }
   {
     auto tt = TimeTable::GetPredefinedTimeTable();
     tt.SetTwentyFourHours(false);
 
     tt.SetOpeningTime({8_h, 7_h});
-    TEST_EQUAL(tt.GetPredefinedExcludeTime().GetStart().GetHourMinutes().GetHoursCount(), 13, ());
-    TEST_EQUAL(tt.GetPredefinedExcludeTime().GetStart().GetHourMinutes().GetMinutesCount(), 45, ());
-    TEST_EQUAL(tt.GetPredefinedExcludeTime().GetEnd().GetHourMinutes().GetHoursCount(), 1, ());
-    TEST_EQUAL(tt.GetPredefinedExcludeTime().GetEnd().GetHourMinutes().GetMinutesCount(), 15, ());
+    auto const predefinedStart = tt.GetPredefinedExcludeTime().GetStart().GetHourMinutes();
+    auto const predefinedEnd = tt.GetPredefinedExcludeTime().GetEnd().GetHourMinutes();
+    TEST(predefinedStart.GetHours() == HourMinutes::THours::zero(), ());
+    TEST(predefinedStart.GetMinutes() == HourMinutes::TMinutes::zero(), ());
+    TEST(predefinedEnd.GetHours() == HourMinutes::THours::zero(), ());
+    TEST(predefinedEnd.GetMinutes() == HourMinutes::TMinutes::zero(), ());
   }
   {
     auto tt = TimeTable::GetPredefinedTimeTable();
     tt.SetTwentyFourHours(false);
 
-    tt.SetOpeningTime({7_h, 7_h + 45_min});
+    tt.SetOpeningTime({7_h, 8_h + 45_min});
     TEST(!tt.CanAddExcludeTime(), ());
+  }
+  {
+    auto tt = TimeTable::GetPredefinedTimeTable();
+    tt.SetTwentyFourHours(false);
+
+    tt.SetOpeningTime({19_h, 18_h});
+    auto const predefinedStart = tt.GetPredefinedExcludeTime().GetStart().GetHourMinutes();
+    auto const predefinedEnd = tt.GetPredefinedExcludeTime().GetEnd().GetHourMinutes();
+    TEST(predefinedStart.GetHours() == HourMinutes::THours::zero(), ());
+    TEST(predefinedStart.GetMinutes() == HourMinutes::TMinutes::zero(), ());
+    TEST(predefinedEnd.GetHours() == HourMinutes::THours::zero(), ());
+    TEST(predefinedEnd.GetMinutes() == HourMinutes::TMinutes::zero(), ());
   }
 }
 
