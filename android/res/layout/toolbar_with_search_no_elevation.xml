@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/toolbar"
+  style="@style/MwmWidget.ToolbarStyle.NoElevation"
+  android:theme="@style/MwmWidget.ToolbarTheme"
+  android:layout_width="match_parent"
+  android:layout_height="?attr/actionBarSize">
+  <include layout="@layout/toolbar_search_controls"/>
+</android.support.v7.widget.Toolbar>

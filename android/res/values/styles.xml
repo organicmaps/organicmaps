@@ -85,6 +85,10 @@
     <item name="titleTextAppearance">@style/MwmTextAppearance.Toolbar.Title.Light</item>
   </style>
 
+  <style name="MwmWidget.ToolbarStyle.NoElevation">
+    <item name="android:elevation" tools:ignore="NewApi">0dp</item>
+  </style>
+
   <style name="MwmWidget.ToolbarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
     <item name="android:gravity">center_vertical</item>
     <item name="colorAccent">@android:color/white</item>
