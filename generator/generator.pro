@@ -37,8 +37,8 @@ SOURCES += \
     osm_source.cpp \
     region_meta.cpp \
     restriction_collector.cpp \
-    restriction_dumper.cpp \
     restriction_generator.cpp \
+    restriction_writer.cpp \
     routing_generator.cpp \
     search_index_builder.cpp \
     sponsored_scoring.cpp \
@@ -77,8 +77,8 @@ HEADERS += \
     polygonizer.hpp \
     region_meta.hpp \
     restriction_collector.hpp \
-    restriction_dumper.hpp \
     restriction_generator.hpp \
+    restriction_writer.hpp \
     routing_generator.hpp \
     search_index_builder.hpp \
     sponsored_dataset.hpp \

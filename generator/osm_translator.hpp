@@ -3,7 +3,7 @@
 #include "generator/feature_builder.hpp"
 #include "generator/osm2type.hpp"
 #include "generator/osm_element.hpp"
-#include "generator/restriction_dumper.hpp"
+#include "generator/restriction_writer.hpp"
 #include "generator/ways_merger.hpp"
 
 #include "indexer/classificator.hpp"
@@ -29,7 +29,7 @@ namespace
 class RelationTagsBase
 {
 public:
-  RelationTagsBase(routing::RestrictionDumper & restrictionDumper)
+  RelationTagsBase(routing::RestrictionWriter & restrictionDumper)
     : m_restrictionDumper(restrictionDumper), m_cache(14)
   {
   }
@@ -77,7 +77,7 @@ protected:
 protected:
   uint64_t m_featureID;
   OsmElement * m_current;
-  routing::RestrictionDumper & m_restrictionDumper;
+  routing::RestrictionWriter & m_restrictionDumper;
 
 private:
   my::Cache<uint64_t, RelationElement> m_cache;
@@ -88,7 +88,7 @@ class RelationTagsNode : public RelationTagsBase
   using TBase = RelationTagsBase;
 
 public:
-  RelationTagsNode(routing::RestrictionDumper & restrictionDumper)
+  RelationTagsNode(routing::RestrictionWriter & restrictionDumper)
     : RelationTagsBase(restrictionDumper)
   {
   }
@@ -131,7 +131,7 @@ protected:
 class RelationTagsWay : public RelationTagsBase
 {
 public:
-  RelationTagsWay(routing::RestrictionDumper & restrictionDumper)
+  RelationTagsWay(routing::RestrictionWriter & restrictionDumper)
     : RelationTagsBase(restrictionDumper)
   {
   }
@@ -213,7 +213,7 @@ class OsmToFeatureTranslator
   uint32_t m_coastType;
   unique_ptr<FileWriter> m_addrWriter;
 
-  routing::RestrictionDumper m_restrictionDumper;
+  routing::RestrictionWriter m_restrictionDumper;
 
   RelationTagsNode m_nodeRelations;
   RelationTagsWay m_wayRelations;

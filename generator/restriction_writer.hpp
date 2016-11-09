@@ -7,7 +7,7 @@ class RelationElement;
 
 namespace routing
 {
-class RestrictionDumper
+class RestrictionWriter
 {
 public:
   void Open(string const & fullPath);

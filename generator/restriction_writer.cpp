@@ -1,4 +1,4 @@
-#include "generator/restriction_dumper.hpp"
+#include "generator/restriction_writer.hpp"
 #include "generator/intermediate_elements.hpp"
 #include "generator/osm_id.hpp"
 #include "generator/restriction_collector.hpp"
@@ -47,7 +47,7 @@ bool TagToType(string const & tag, Restriction::Type & type)
 
 namespace routing
 {
-void RestrictionDumper::Open(string const & fullPath)
+void RestrictionWriter::Open(string const & fullPath)
 {
   LOG(LINFO, ("Saving road restrictions in osm id terms to", fullPath));
   m_stream.open(fullPath, std::ofstream::out);
@@ -56,9 +56,9 @@ void RestrictionDumper::Open(string const & fullPath)
     LOG(LINFO, ("Cannot open file", fullPath));
 }
 
-bool RestrictionDumper::IsOpened() { return m_stream.is_open() && !m_stream.fail(); }
+bool RestrictionWriter::IsOpened() { return m_stream.is_open() && !m_stream.fail(); }
 
-void RestrictionDumper::Write(RelationElement const & relationElement)
+void RestrictionWriter::Write(RelationElement const & relationElement)
 {
   if (!IsOpened())
     return;
