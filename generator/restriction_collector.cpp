@@ -159,16 +159,6 @@ void RestrictionCollector::AddFeatureId(uint32_t featureId, vector<uint64_t> con
     m_osmIds2FeatureId.insert(make_pair(osmId, featureId));
 }
 
-string ToString(Restriction::Type const & type)
-{
-  switch (type)
-  {
-  case Restriction::Type::No: return kNo;
-  case Restriction::Type::Only: return kOnly;
-  }
-  return "Unknown";
-}
-
 bool FromString(string str, Restriction::Type & type)
 {
   if (str == kNo)
@@ -185,21 +175,11 @@ bool FromString(string str, Restriction::Type & type)
   return false;
 }
 
-string DebugPrint(Restriction::Type const & type) { return ToString(type); }
-
 string DebugPrint(RestrictionCollector::LinkIndex const & index)
 {
   ostringstream out;
   out << "m_restrictionNumber:" << index.m_restrictionNumber
       << " m_linkNumber:" << index.m_linkNumber << " ";
-  return out.str();
-}
-
-string DebugPrint(Restriction const & restriction)
-{
-  ostringstream out;
-  out << "m_featureIds:[" << ::DebugPrint(restriction.m_featureIds)
-      << "] m_type:" << DebugPrint(restriction.m_type) << " ";
   return out.str();
 }
 }  // namespace routing

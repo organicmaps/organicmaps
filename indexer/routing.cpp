@@ -1,5 +1,11 @@
 #include "indexer/routing.hpp"
 
+namespace
+{
+char const kNo[] = "No";
+char const kOnly[] = "Only";
+}  // namespace
+
 namespace routing
 {
 // static
@@ -22,12 +28,31 @@ bool Restriction::operator<(Restriction const & restriction) const
     return m_type < restriction.m_type;
   return m_featureIds < restriction.m_featureIds;
 }
+
+string ToString(Restriction::Type const & type)
+{
+  switch (type)
+  {
+  case Restriction::Type::No: return kNo;
+  case Restriction::Type::Only: return kOnly;
+  }
+  return "Unknown";
+}
+
+string DebugPrint(Restriction::Type const & type) { return ToString(type); }
+
+string DebugPrint(Restriction const & restriction)
+{
+  ostringstream out;
+  out << "m_featureIds:[" << ::DebugPrint(restriction.m_featureIds)
+      << "] m_type:" << DebugPrint(restriction.m_type) << " ";
+  return out.str();
+}
 }  // namespace routing
 
 namespace feature
 {
-// For the time being only one kind of restrictions is supported. It's line-point-line
-// restrictions in osm ids term. Such restrictions correspond to two feature ids
-// restrictions in feature id terms. Because of it supported number of links is two.
-size_t const RestrictionSerializer::kSupportedLinkNumber = 2;
-}
+// static
+uint32_t const RestrictionSerializer::kDefaultFeatureId = 0;
+}  // feature
+

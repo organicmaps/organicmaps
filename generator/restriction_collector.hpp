@@ -100,9 +100,6 @@ private:
   unordered_multimap<uint64_t, uint32_t> m_osmIds2FeatureId;
 };
 
-string ToString(Restriction::Type const & type);
 bool FromString(string str, Restriction::Type & type);
-string DebugPrint(Restriction::Type const & type);
 string DebugPrint(RestrictionCollector::LinkIndex const & index);
-string DebugPrint(Restriction const & restriction);
 }  // namespace routing
