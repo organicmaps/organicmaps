@@ -169,8 +169,10 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
           mIsDragging = true;
           if (!translateBy(-distanceY))
           {
-            if ((isDetailContentScrollable() && mDetailsScroll.getTranslationY() == 0)
-                || (!isDetailContentScrollable() && mDetailsScroll.getTranslationY() <= mDetailsScroll.getHeight() - mDetailsContent.getHeight()))
+            boolean scrollable = isDetailContentScrollable();
+            int maxTranslationY = mDetailsScroll.getHeight() - mDetailsContent.getHeight();
+            if ((scrollable && mDetailsScroll.getTranslationY() == 0)
+                || (!scrollable && mDetailsScroll.getTranslationY() <= maxTranslationY))
             {
               mDetailsScroll.scrollBy((int) distanceX, (int) distanceY);
               mState = State.FULLSCREEN;
@@ -329,7 +331,8 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
             mPreview.addOnLayoutChangeListener(new View.OnLayoutChangeListener()
             {
               @Override
-              public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom)
+              public void onLayoutChange(View v, int left, int top, int right, int bottom,
+                                         int oldLeft, int oldTop, int oldRight, int oldBottom)
               {
                 mPreview.removeOnLayoutChangeListener(this);
                 showPreview(currentState);
