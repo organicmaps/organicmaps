@@ -133,7 +133,18 @@ extern NSString * const kAlohalyticsTapEventKey;
 #pragma mark - MWMPlacePageViewManager
 
 - (void)dismissPlacePage { [self.placePageManager hidePlacePage]; }
-- (void)showPlacePage:(place_page::Info const &)info { [self.placePageManager showPlacePage:info]; }
+
+- (void)showPlacePage:(place_page::Info const &)info
+{
+  [self.placePageManager showPlacePage:info];
+  if (IPAD)
+  {
+    auto ownerView = self.ownerController.view;
+    [ownerView bringSubviewToFront:self.menuController.view];
+    [ownerView bringSubviewToFront:self.navigationManager.routePreview];
+  }
+}
+
 - (MWMAlertViewController *)alertController { return self.ownerController.alertController; }
 - (void)searchViewDidEnterState:(MWMSearchManagerState)state
 {
@@ -454,10 +465,8 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (id<MWMPlacePageProtocol>)placePageManager
 {
-  auto const PlacePageClass = IPAD ? [MWMPlacePageViewManager class] : [MWMPlacePageManager class];
-
   if (!_placePageManager)
-    _placePageManager = [[PlacePageClass alloc] init];
+    _placePageManager = [[MWMPlacePageManager alloc] init];
   return _placePageManager;
 }
 

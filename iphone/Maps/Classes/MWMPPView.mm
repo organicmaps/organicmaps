@@ -62,7 +62,7 @@ CGFloat const kTableViewTopInset = -36;
   {
     NSValue * s = change[@"new"];
     CGFloat const height = s.CGSizeValue.height;
-    if (!equalScreenDimensions(height, self.currentContentHeight))
+    if (!equalScreenDimensions(height, self.currentContentHeight) && !self.tableView.scrollEnabled)
     {
       self.currentContentHeight = height;
       self.height = height + self.top.height;
@@ -85,7 +85,9 @@ CGFloat const kTableViewTopInset = -36;
 
   self.tableView.estimatedRowHeight = 44.;
   self.tableView.rowHeight = UITableViewAutomaticDimension;
-  self.tableView.contentInset = {.top = kTableViewTopInset};
+  self.tableView.contentInset = {.top = kTableViewTopInset, .bottom = - kTableViewTopInset};
+  if (IPAD)
+    self.autoresizingMask = UIViewAutoresizingNone;
 }
 
 - (void)dealloc

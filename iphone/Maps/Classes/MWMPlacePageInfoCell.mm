@@ -166,29 +166,29 @@
 
 - (IBAction)cellTap
 {
-  if (IPAD)
-  {
-    switch (self.type)
-    {
-    case MWMPlacePageCellTypeURL:
-    case MWMPlacePageCellTypeWebsite:
-      [Statistics logEvent:kStatEventName(kStatPlacePage, kStatOpenSite)];
-      break;
-    case MWMPlacePageCellTypeEmail:
-      [Statistics logEvent:kStatEventName(kStatPlacePage, kStatSendEmail)];
-      break;
-    case MWMPlacePageCellTypePhoneNumber:
-      [Statistics logEvent:kStatEventName(kStatPlacePage, kStatCallPhoneNumber)];
-      break;
-    case MWMPlacePageCellTypeCoordinate:
-      [Statistics logEvent:kStatEventName(kStatPlacePage, kStatToggleCoordinates)];
-      [self.currentEntity toggleCoordinateSystem];
-      [self changeText:[self.currentEntity getCellValue:MWMPlacePageCellTypeCoordinate]];
-      break;
-    default: break;
-    }
-    return;
-  }
+//  if (IPAD)
+//  {
+//    switch (self.type)
+//    {
+//    case MWMPlacePageCellTypeURL:
+//    case MWMPlacePageCellTypeWebsite:
+//      [Statistics logEvent:kStatEventName(kStatPlacePage, kStatOpenSite)];
+//      break;
+//    case MWMPlacePageCellTypeEmail:
+//      [Statistics logEvent:kStatEventName(kStatPlacePage, kStatSendEmail)];
+//      break;
+//    case MWMPlacePageCellTypePhoneNumber:
+//      [Statistics logEvent:kStatEventName(kStatPlacePage, kStatCallPhoneNumber)];
+//      break;
+//    case MWMPlacePageCellTypeCoordinate:
+//      [Statistics logEvent:kStatEventName(kStatPlacePage, kStatToggleCoordinates)];
+//      [self.currentEntity toggleCoordinateSystem];
+//      [self changeText:[self.currentEntity getCellValue:MWMPlacePageCellTypeCoordinate]];
+//      break;
+//    default: break;
+//    }
+//    return;
+//  }
 
   switch (self.rowType)
   {

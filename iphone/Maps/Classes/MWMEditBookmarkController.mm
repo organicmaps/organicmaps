@@ -54,23 +54,23 @@ enum RowInMetaInfo
   [super viewDidLoad];
   auto data = self.data;
   NSAssert(self.manager || data, @"Entity and data can't be nil both!");
-  if (IPAD)
-  {
-    MWMPlacePageEntity * en = self.manager.entity;
-    self.cachedDescription = en.bookmarkDescription;
-    self.cachedTitle = en.bookmarkTitle;
-    self.cachedCategory = en.bookmarkCategory;
-    self.cachedColor = en.bookmarkColor;
-    m_cachedBac = en.bac;
-  }
-  else
-  {
+//  if (IPAD)
+//  {
+//    MWMPlacePageEntity * en = self.manager.entity;
+//    self.cachedDescription = en.bookmarkDescription;
+//    self.cachedTitle = en.bookmarkTitle;
+//    self.cachedCategory = en.bookmarkCategory;
+//    self.cachedColor = en.bookmarkColor;
+//    m_cachedBac = en.bac;
+//  }
+//  else
+//  {
     self.cachedDescription = data.bookmarkDescription;
     self.cachedTitle = data.externalTitle ? data.externalTitle : data.title;
     self.cachedCategory = data.bookmarkCategory;
     self.cachedColor = data.bookmarkColor;
     m_cachedBac = data.bac;
-  }
+//  }
 
   [self configNavBar];
   [self registerCells];
@@ -109,19 +109,19 @@ enum RowInMetaInfo
 - (void)onSave
 {
   [self.view endEditing:YES];
-  if (IPAD)
-  {
-    MWMPlacePageEntity * en = self.manager.entity;
-    en.bookmarkDescription = self.cachedDescription;
-    en.bookmarkColor = self.cachedColor;
-    en.bookmarkCategory = self.cachedCategory;
-    en.bookmarkTitle = self.cachedTitle;
-    en.bac = m_cachedBac;
-    [en synchronize];
-    [self.manager reloadBookmark];
-  }
-  else
-  {
+//  if (IPAD)
+//  {
+//    MWMPlacePageEntity * en = self.manager.entity;
+//    en.bookmarkDescription = self.cachedDescription;
+//    en.bookmarkColor = self.cachedColor;
+//    en.bookmarkCategory = self.cachedCategory;
+//    en.bookmarkTitle = self.cachedTitle;
+//    en.bac = m_cachedBac;
+//    [en synchronize];
+//    [self.manager reloadBookmark];
+//  }
+//  else
+//  {
     Framework & f = GetFramework();
     BookmarkCategory * category = f.GetBmCategory(m_cachedBac.m_categoryIndex);
     if (!category)
@@ -141,15 +141,15 @@ enum RowInMetaInfo
 
     category->SaveToKMLFile();
     f.UpdatePlacePageInfoForCurrentSelection();
-  }
+//  }
   [self backTap];
 }
 
 - (void)backTap
 {
-  if (IPAD)
-    [self dismissViewControllerAnimated:YES completion:nil];
-  else
+//  if (IPAD)
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//  else
     [super backTap];
 }
 
@@ -277,15 +277,15 @@ enum RowInMetaInfo
 
 - (void)cellSelect:(UITableViewCell *)cell
 {
-  if (IPAD)
-  {
-    [self.manager removeBookmark];
-  }
-  else
-  {
+//  if (IPAD)
+//  {
+//    [self.manager removeBookmark];
+//  }
+//  else
+//  {
     [self.data updateBookmarkStatus:NO];
     GetFramework().UpdatePlacePageInfoForCurrentSelection();
-  }
+//  }
   [self backTap];
 }
 

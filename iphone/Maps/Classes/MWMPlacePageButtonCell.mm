@@ -63,20 +63,6 @@
 
 - (IBAction)buttonTap
 {
-  if (IPAD)
-  {
-    auto m = self.manager;
-    switch (self.type)
-    {
-    case MWMPlacePageCellTypeEditButton: [m editPlace]; break;
-    case MWMPlacePageCellTypeAddBusinessButton: [m addBusiness]; break;
-    case MWMPlacePageCellTypeAddPlaceButton: [m addPlace]; break;
-    case MWMPlacePageCellTypeBookingMore: [m book:YES]; break;
-    default: NSAssert(false, @"Incorrect cell type!"); break;
-    }
-    return;
-  }
-
   using namespace place_page;
   auto d = self.delegate;
   switch (self.rowType)

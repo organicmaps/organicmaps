@@ -12,9 +12,21 @@ enum class Sections
   Buttons
 };
 
+enum class PreviewRows
+{
+  Title,
+  ExternalTitle,
+  Subtitle,
+  Schedule,
+  Booking,
+  Address,
+  Space
+};
+
 enum class MetainfoRows
 {
   OpeningHours,
+  ExtendedOpeningHours,
   Phone,
   Address,
   Website,
@@ -81,6 +93,7 @@ enum class OpeningHours
 
 // Table view's data
 - (vector<place_page::Sections> const &)sections;
+- (vector<place_page::PreviewRows> const &)previewRows;
 - (vector<place_page::MetainfoRows> const &)metainfoRows;
 - (vector<place_page::ButtonsRows> const &)buttonsRows;
 

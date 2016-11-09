@@ -72,7 +72,7 @@ NSString * const kTextViewContentSizeKeyPath = @"contentSize";
       [self stateOpen:NO];
 
     [self setNeedsLayout];
-    [self.updateCellDelegate updateCellWithForceReposition:NO];
+    [self.updateCellDelegate updateCell];
     return;
   }
 
@@ -201,5 +201,6 @@ NSString * const kTextViewContentSizeKeyPath = @"contentSize";
   [self setNeedsLayout];
 }
 
-- (IBAction)editTap { [self.editBookmarkDelegate editBookmark]; }
+- (IBAction)editTap { [self.editBookmarkDelegate editBookmark];}
+
 @end

@@ -2,7 +2,7 @@
 
 @protocol MWMPlacePageLayoutDelegate<NSObject>
 
-- (void)onTopBoundChanged:(CGFloat)bound;
+- (void)onPlacePageTopBoundChanged:(CGFloat)bound;
 - (void)shouldDestroyLayout;
 
 @end
@@ -11,6 +11,8 @@
 
 - (NSString *)distanceToObject;
 - (void)downloadSelectedArea;
+- (CGFloat)leftBound;
+- (CGFloat)topBound;
 
 @end
 
@@ -40,4 +42,10 @@
 
 - (void)processDownloaderEventWithStatus:(storage::NodeStatus)status progress:(CGFloat)progress;
 
+#pragma mark - iPad only
+
+- (void)updateTopBound;
+- (void)updateLeftBound;
+
 @end
+

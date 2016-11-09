@@ -18,6 +18,7 @@
 - (void)book:(BOOL)isDecription;
 
 - (void)apiBack;
+- (void)downloadSelectedArea;
 
 @end
 

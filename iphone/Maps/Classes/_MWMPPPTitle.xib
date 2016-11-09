@@ -9,7 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="_MWMPPPTitle" id="pV6-Se-WUl" customClass="_MWMPPPTitle">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="_MWMPPPTitle" id="pV6-Se-WUl" customClass="_MWMPPPTitle">
             <rect key="frame" x="0.0" y="0.0" width="320" height="24"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pV6-Se-WUl" id="9Ek-CZ-WD2">
@@ -72,8 +72,8 @@
                     <constraint firstAttribute="trailingMargin" secondItem="reR-BO-1en" secondAttribute="trailing" priority="750" id="Jj2-xo-qfY"/>
                     <constraint firstItem="BgA-ZV-xGI" firstAttribute="leading" secondItem="reR-BO-1en" secondAttribute="trailing" priority="500" constant="8" id="Mql-sB-OGC"/>
                     <constraint firstItem="BgA-ZV-xGI" firstAttribute="top" secondItem="9Ek-CZ-WD2" secondAttribute="top" constant="2" id="QV6-9L-Vi0"/>
-                    <constraint firstAttribute="trailing" secondItem="BgA-ZV-xGI" secondAttribute="trailing" id="Yle-ie-ms5"/>
-                    <constraint firstItem="reR-BO-1en" firstAttribute="leading" secondItem="9Ek-CZ-WD2" secondAttribute="leading" id="n3E-vj-86W"/>
+                    <constraint firstAttribute="trailing" secondItem="BgA-ZV-xGI" secondAttribute="trailing" constant="16" id="Yle-ie-ms5"/>
+                    <constraint firstItem="reR-BO-1en" firstAttribute="leading" secondItem="9Ek-CZ-WD2" secondAttribute="leading" constant="16" id="n3E-vj-86W"/>
                     <constraint firstAttribute="bottom" secondItem="BgA-ZV-xGI" secondAttribute="bottom" constant="0.5" id="o3O-o2-QYz"/>
                 </constraints>
             </tableViewCellContentView>

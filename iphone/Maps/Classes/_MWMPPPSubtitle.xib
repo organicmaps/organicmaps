@@ -9,7 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="_MWMPPPSubtitle" id="uPP-a7-pwR" customClass="_MWMPPPSubtitle">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="_MWMPPPSubtitle" id="uPP-a7-pwR" customClass="_MWMPPPSubtitle">
             <rect key="frame" x="0.0" y="0.0" width="320" height="27"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uPP-a7-pwR" id="32Q-dS-DC0">
@@ -72,8 +72,8 @@
                     <constraint firstAttribute="trailingMargin" secondItem="7eI-u4-YYe" secondAttribute="trailing" priority="750" id="Xy5-rf-Gp5"/>
                     <constraint firstItem="7eI-u4-YYe" firstAttribute="top" secondItem="32Q-dS-DC0" secondAttribute="top" constant="4" id="d6c-V2-5sp"/>
                     <constraint firstAttribute="bottom" secondItem="eHp-si-h1T" secondAttribute="bottom" id="fVo-GO-rno"/>
-                    <constraint firstItem="7eI-u4-YYe" firstAttribute="leading" secondItem="32Q-dS-DC0" secondAttribute="leading" id="t4R-SJ-7gL"/>
-                    <constraint firstAttribute="trailing" secondItem="eHp-si-h1T" secondAttribute="trailing" id="xVy-Vw-zeg"/>
+                    <constraint firstItem="7eI-u4-YYe" firstAttribute="leading" secondItem="32Q-dS-DC0" secondAttribute="leading" constant="16" id="t4R-SJ-7gL"/>
+                    <constraint firstAttribute="trailing" secondItem="eHp-si-h1T" secondAttribute="trailing" constant="16" id="xVy-Vw-zeg"/>
                     <constraint firstItem="eHp-si-h1T" firstAttribute="leading" secondItem="7eI-u4-YYe" secondAttribute="trailing" priority="500" constant="8" id="zrW-8g-wwY"/>
                 </constraints>
             </tableViewCellContentView>

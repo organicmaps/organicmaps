@@ -9,7 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="_MWMPPPSchedule" id="HVA-4K-8ma" customClass="_MWMPPPSchedule">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="_MWMPPPSchedule" id="HVA-4K-8ma" customClass="_MWMPPPSchedule">
             <rect key="frame" x="0.0" y="0.0" width="320" height="24"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HVA-4K-8ma" id="Vj6-NH-gE1">
@@ -68,10 +68,10 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="BQA-1t-HxB" secondAttribute="bottom" id="JlE-1h-DrI"/>
-                    <constraint firstItem="fDX-g2-0au" firstAttribute="leading" secondItem="Vj6-NH-gE1" secondAttribute="leading" id="KgC-ae-UIS"/>
+                    <constraint firstItem="fDX-g2-0au" firstAttribute="leading" secondItem="Vj6-NH-gE1" secondAttribute="leading" constant="16" id="KgC-ae-UIS"/>
                     <constraint firstAttribute="bottom" secondItem="fDX-g2-0au" secondAttribute="bottom" constant="0.5" id="NJW-Tu-wrB"/>
                     <constraint firstItem="fDX-g2-0au" firstAttribute="top" secondItem="Vj6-NH-gE1" secondAttribute="top" constant="4" id="NzT-aJ-MUo"/>
-                    <constraint firstAttribute="trailing" secondItem="BQA-1t-HxB" secondAttribute="trailing" id="TxV-7f-VK5"/>
+                    <constraint firstAttribute="trailing" secondItem="BQA-1t-HxB" secondAttribute="trailing" constant="16" id="TxV-7f-VK5"/>
                     <constraint firstItem="BQA-1t-HxB" firstAttribute="leading" secondItem="fDX-g2-0au" secondAttribute="trailing" priority="500" constant="8" id="V72-o8-GUw"/>
                     <constraint firstItem="BQA-1t-HxB" firstAttribute="top" secondItem="Vj6-NH-gE1" secondAttribute="top" constant="3" id="dG3-Rs-qKT"/>
                     <constraint firstAttribute="trailingMargin" secondItem="fDX-g2-0au" secondAttribute="trailing" priority="750" id="mdD-gF-WZW"/>

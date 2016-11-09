@@ -1,6 +1,7 @@
 enum class EButton  // Required button's order
 {
   Api,
+  Download,
   Booking,
   Opentable,
   Call,
@@ -15,6 +16,7 @@ enum class EButton  // Required button's order
 NSString * titleForButton(EButton type, BOOL isSelected);
 
 @class MWMActionBarButton;
+@class MWMCircularProgress;
 
 @protocol MWMActionBarButtonDelegate <NSObject>
 
@@ -30,5 +32,9 @@ NSString * titleForButton(EButton type, BOOL isSelected);
                     delegate:(id<MWMActionBarButtonDelegate>)delegate
                   buttonType:(EButton)type
                   isSelected:(BOOL)isSelected;
+
+- (EButton)type;
+- (MWMCircularProgress *)mapDownloadProgress;
+
 
 @end

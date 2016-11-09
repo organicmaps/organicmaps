@@ -1,5 +1,5 @@
 @protocol MWMPlacePageCellUpdateProtocol<NSObject>
 
-- (void)updateCellWithForceReposition:(BOOL)isForceReposition;
+- (void)updateCell;
 
 @end

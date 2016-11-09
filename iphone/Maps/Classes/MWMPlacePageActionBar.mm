@@ -70,8 +70,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   m_visibleButtons.clear();
   m_additionalButtons.clear();
-  auto data =
-      static_cast<id<MWMActionBarSharedData>>(IPAD ? self.placePageManager.entity : self.data);
+  auto data = self.data;
   NSString * phone = data.phoneNumber;
 
   BOOL const isIphone = [[UIDevice currentDevice].model isEqualToString:@"iPhone"];
@@ -86,7 +85,14 @@ extern NSString * const kAlohalyticsTapEventKey;
 
   EButton const sponsoredButton = isBooking ? EButton::Booking : EButton::Opentable;
 
-  if (isMyPosition)
+  if (self.isAreaNotDownloaded)
+  {
+    m_visibleButtons.push_back(EButton::Download);
+    m_visibleButtons.push_back(EButton::Bookmark);
+    m_visibleButtons.push_back(EButton::RouteTo);
+    m_visibleButtons.push_back(EButton::Share);
+  }
+  else if (isMyPosition)
   {
     m_visibleButtons.push_back(EButton::Spacer);
     m_visibleButtons.push_back(EButton::Bookmark);
@@ -157,7 +163,7 @@ extern NSString * const kAlohalyticsTapEventKey;
     m_visibleButtons.push_back(EButton::RouteFrom);
   }
 
-  if (!isMyPosition)
+  if (!isMyPosition || !self.isAreaNotDownloaded)
   {
     m_visibleButtons.push_back(EButton::RouteTo);
     m_visibleButtons.push_back(m_additionalButtons.empty() ? EButton::Share : EButton::More);
@@ -172,6 +178,43 @@ extern NSString * const kAlohalyticsTapEventKey;
                                   buttonType:type
                                   isSelected:type == EButton::Bookmark ? self.isBookmark : NO];
   }
+}
+
+- (void)setDownloadingState:(MWMCircularProgressState)state
+{
+  MWMCircularProgress * p = self.progressFromActiveButton;
+  p.state = state;
+}
+
+- (void)setDownloadingProgress:(CGFloat)progress
+{
+  MWMCircularProgress * p = self.progressFromActiveButton;
+  p.progress = progress;
+}
+
+- (MWMCircularProgress *)progressFromActiveButton
+{
+  if (!self.isAreaNotDownloaded)
+    return nil;
+
+  for (UIView * view in self.buttons)
+  {
+    MWMActionBarButton * button = view.subviews[0];
+    if (button.type != EButton::Download)
+      continue;
+
+    return button.mapDownloadProgress;
+  }
+  return nil;
+}
+
+- (void)setIsAreaNotDownloaded:(BOOL)isAreaNotDownloaded
+{
+  if (_isAreaNotDownloaded == isAreaNotDownloaded)
+    return;
+
+  _isAreaNotDownloaded = isAreaNotDownloaded;
+  [self configureButtons];
 }
 
 - (UIView *)shareAnchor
@@ -190,11 +233,12 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)tapOnButtonWithType:(EButton)type
 {
-  id<MWMActionBarProtocol> delegate = IPAD ? self.placePageManager : self.delegate;
+  id<MWMActionBarProtocol> delegate = self.delegate;
 
   switch (type)
   {
   case EButton::Api: [delegate apiBack]; break;
+  case EButton::Download: [delegate downloadSelectedArea]; break;
   case EButton::Opentable:
   case EButton::Booking: [delegate book:NO]; break;
   case EButton::Call: [delegate call]; break;
@@ -219,8 +263,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)showActionSheet
 {
   NSString * cancel = L(@"cancel");
-  auto data =
-      static_cast<id<MWMActionBarSharedData>>(IPAD ? self.placePageManager.entity : self.data);
+  auto data = self.data;
   BOOL const isTitleNotEmpty = data.title.length > 0;
   NSString * title = isTitleNotEmpty ? data.title : data.subtitle;
   NSString * subtitle = isTitleNotEmpty ? data.subtitle : nil;
@@ -272,7 +315,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   [super layoutSubviews];
   self.width = self.superview.width;
   if (IPAD)
-    self.origin = {0, self.superview.height - self.height};
+    self.maxY = self.superview.height;
 
   self.separator.width = self.width;
   CGFloat const buttonWidth = self.width / self.buttons.count;
