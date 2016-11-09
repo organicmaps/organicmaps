@@ -484,40 +484,45 @@ void ForEachMatched(string const & s, regex const & regex, TFn && fn)
     fn(*cur);
 }
 
-// Computes the minimum number of insertions, deletions and alterations
-// of characters needed to transform one string into another.
-// The function works in O(length1 * length2) time and memory
-// where length1 and length2 are the lengths of the argument strings.
-// See https://en.wikipedia.org/wiki/Levenshtein_distance.
-// One string is [b1, e1) and the other is [b2, e2). The iterator
-// form is chosen to fit both std::string and strings::UniString.
-// This function does not normalize either of the strings.
+// Computes the minimum number of insertions, deletions and
+// alterations of characters needed to transform one string into
+// another.  The function works in O(length1 * length2) time and
+// O(min(length1, length2)) memory where length1 and length2 are the
+// lengths of the argument strings.  See
+// https://en.wikipedia.org/wiki/Levenshtein_distance.  One string is
+// [b1, e1) and the other is [b2, e2). The iterator form is chosen to
+// fit both std::string and strings::UniString.  This function does
+// not normalize either of the strings.
 template <typename TIter>
 size_t EditDistance(TIter const & b1, TIter const & e1, TIter const & b2, TIter const & e2)
 {
   size_t const n = distance(b1, e1);
   size_t const m = distance(b2, e2);
-  // |cur| and |prev| are current and previous rows of the
+
+  if (m > n)
+    return EditDistance(b2, e2, b1, e1);
+
+  // |curr| and |prev| are current and previous rows of the
   // dynamic programming table.
   vector<size_t> prev(m + 1);
-  vector<size_t> cur(m + 1);
+  vector<size_t> curr(m + 1);
   for (size_t j = 0; j <= m; j++)
     prev[j] = j;
   auto it1 = b1;
   // 1-based to avoid corner cases.
   for (size_t i = 1; i <= n; ++i, ++it1)
   {
-    cur[0] = i;
+    curr[0] = i;
     auto const & c1 = *it1;
     auto it2 = b2;
     for (size_t j = 1; j <= m; ++j, ++it2)
     {
       auto const & c2 = *it2;
 
-      cur[j] = min(cur[j - 1], prev[j]) + 1;
-      cur[j] = min(cur[j], prev[j - 1] + (c1 == c2 ? 0 : 1));
+      curr[j] = min(curr[j - 1], prev[j]) + 1;
+      curr[j] = min(curr[j], prev[j - 1] + (c1 == c2 ? 0 : 1));
     }
-    prev.swap(cur);
+    prev.swap(curr);
   }
   return prev[m];
 }

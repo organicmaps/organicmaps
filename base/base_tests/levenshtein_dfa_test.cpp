@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "base/dfa_helpers.hpp"
 #include "base/levenshtein_dfa.hpp"
 
 #include "std/string.hpp"
@@ -18,7 +19,7 @@ enum class Status
 Status GetStatus(LevenshteinDFA const & dfa, string const & s)
 {
   auto it = dfa.Begin();
-  it.Move(s);
+  DFAMove(it, s);
   if (it.Accepts())
     return Status::Accepts;
   if (it.Rejects())
@@ -85,6 +86,11 @@ UNIT_TEST(LevenshteinDFA_Smoke)
     TEST(Accepts(dfa, "ленингадский"), ());
     TEST(Accepts(dfa, "ленигнрадский"), ());
     TEST(Rejects(dfa, "ленинский"), ());
+  }
+
+  {
+    LevenshteinDFA dfa("atm", 1 /* maxErrors */);
+    TEST(Rejects(dfa, "san"), ());
   }
 }
 }  // namespace

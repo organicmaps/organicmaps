@@ -12,6 +12,7 @@ set(
   condition_test.cpp
   const_helper.cpp
   containers_test.cpp
+  levenshtein_dfa_test.cpp
   logging_test.cpp
   math_test.cpp
   matrix_test.cpp
@@ -33,6 +34,7 @@ set(
   threads_test.cpp
   timegm_test.cpp
   timer_test.cpp
+  uni_string_dfa_test.cpp
   worker_thread_test.cpp
 )
 

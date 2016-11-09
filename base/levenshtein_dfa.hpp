@@ -71,29 +71,13 @@ public:
       return *this;
     }
 
-    inline Iterator & Move(UniString const & s) { return Move(s.begin(), s.end()); }
-
-    inline Iterator & Move(string const & s)
-    {
-      UniString us = MakeUniString(s);
-      return Move(us);
-    }
-
-    template <typename It>
-    Iterator & Move(It begin, It end)
-    {
-      for (; begin != end; ++begin)
-        Move(*begin);
-      return *this;
-    }
-
     bool Accepts() const { return m_dfa.IsAccepting(m_s); }
     bool Rejects() const { return m_dfa.IsRejecting(m_s); }
 
   private:
     friend class LevenshteinDFA;
 
-    Iterator(LevenshteinDFA const & dfa) : m_s(kStartingState), m_dfa(dfa) {}
+    explicit Iterator(LevenshteinDFA const & dfa) : m_s(kStartingState), m_dfa(dfa) {}
 
     size_t m_s;
     LevenshteinDFA const & m_dfa;

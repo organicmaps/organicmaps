@@ -44,6 +44,7 @@ SOURCES += \
   threads_test.cpp \
   timegm_test.cpp \
   timer_test.cpp \
+  uni_string_dfa_test.cpp \
   worker_thread_test.cpp \
 
 HEADERS +=
