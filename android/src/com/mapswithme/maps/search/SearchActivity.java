@@ -6,9 +6,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NavUtils;
 
+import com.mapswithme.maps.R;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.base.OnBackPressListener;
+import com.mapswithme.util.ThemeUtils;
 
 public class SearchActivity extends BaseMwmFragmentActivity implements CustomNavigateUpListener
 {
@@ -19,6 +21,18 @@ public class SearchActivity extends BaseMwmFragmentActivity implements CustomNav
     final Intent i = new Intent(context, SearchActivity.class);
     i.putExtra(EXTRA_QUERY, query);
     context.startActivity(i);
+  }
+
+  @Override
+  public int getThemeResourceId(String theme)
+  {
+    if (ThemeUtils.isDefaultTheme(theme))
+      return R.style.MwmTheme_CardBg;
+
+    if (ThemeUtils.isNightTheme(theme))
+      return R.style.MwmTheme_Night_CardBg;
+
+    throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
   }
 
   @Override

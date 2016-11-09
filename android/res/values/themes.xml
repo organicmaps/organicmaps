@@ -15,10 +15,21 @@
     <item name="android:windowBackground">@null</item>
   </style>
 
-  <style name="MwmTheme.Settings"/>
+  <style name="MwmTheme.Settings">
+    <item name="android:windowBackground">@color/bg_cards</item>
+  </style>
 
   <style name="MwmTheme.Night.Settings">
     <item name="colorSwitchThumbNormal">?android:colorControlNormal</item>
+    <item name="android:windowBackground">@color/bg_cards_night</item>
+  </style>
+
+  <style name="MwmTheme.CardBg">
+    <item name="android:windowBackground">@color/bg_cards</item>
+  </style>
+
+  <style name="MwmTheme.Night.CardBg">
+    <item name="android:windowBackground">@color/bg_cards_night</item>
   </style>
 
   <style name="MwmTheme.DialogFragment" parent="android:Theme.Holo.Light.Dialog.NoActionBar">

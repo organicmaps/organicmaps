@@ -13,7 +13,7 @@
     android:paddingTop="@dimen/margin_half"
     android:paddingBottom="@dimen/margin_half"
     android:layout_marginRight="@dimen/margin_base"
-    android:background="?panel"
+    android:background="?cardBackground"
     android:textAppearance="@style/MwmTextAppearance.Caption"
     tools:text="Downloaded"
     tools:background="#80FF0000"/>
