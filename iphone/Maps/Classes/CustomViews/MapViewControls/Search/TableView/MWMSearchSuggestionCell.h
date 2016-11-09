@@ -4,6 +4,4 @@
 
 @property (nonatomic) BOOL isLastCell;
 
-+ (CGFloat)cellHeight;
-
 @end

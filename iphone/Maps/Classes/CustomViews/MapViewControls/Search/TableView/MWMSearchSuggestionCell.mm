@@ -28,11 +28,6 @@
   return @{NSForegroundColorAttributeName : UIColor.linkBlue, NSFontAttributeName : UIFont.regular16};
 }
 
-+ (CGFloat)cellHeight
-{
-  return 44.0;
-}
-
 #pragma mark - Properties
 
 - (void)setIsLastCell:(BOOL)isLastCell

@@ -4,9 +4,6 @@
 
 @interface MWMSearchCommonCell : MWMSearchCell
 
-+ (CGFloat)defaultCellHeight;
-- (CGFloat)cellHeight;
-
-- (void)config:(search::Result const &)result forHeight:(BOOL)forHeight;
+- (void)config:(search::Result const &)result;
 
 @end

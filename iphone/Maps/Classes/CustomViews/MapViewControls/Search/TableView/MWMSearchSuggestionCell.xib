@@ -1,8 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_search" translatesAutoresizingMaskIntoConstraints="NO" id="1IA-T9-KOb">
@@ -25,16 +29,16 @@
                         </userDefinedRuntimeAttributes>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GqR-59-j1h" userLabel="Separator">
-                        <rect key="frame" x="60" y="43" width="260" height="1"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
+                        <rect key="frame" x="60" y="42" width="260" height="1"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="Lg7-yQ-W1g"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Arbat Avenue" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gWP-Zj-GCt">
-                        <rect key="frame" x="60" y="12" width="244" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Arbat Avenue" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gWP-Zj-GCt">
+                        <rect key="frame" x="60" y="11" width="244" height="21"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
-                        <color key="textColor" red="0.12549019610000001" green="0.58823529409999997" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.12549019610000001" green="0.58823529409999997" blue="0.95294117649999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="linkBlue"/>
@@ -46,11 +50,12 @@
                     <constraint firstItem="GqR-59-j1h" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="60" id="2a5-qd-cFD"/>
                     <constraint firstAttribute="centerY" secondItem="gWP-Zj-GCt" secondAttribute="centerY" id="97n-6D-RYM"/>
                     <constraint firstAttribute="trailing" secondItem="GqR-59-j1h" secondAttribute="trailing" id="Bws-x7-MnZ"/>
-                    <constraint firstAttribute="centerY" secondItem="1IA-T9-KOb" secondAttribute="centerY" constant="0.75" id="DIS-mz-Yl5"/>
                     <constraint firstAttribute="bottom" secondItem="GqR-59-j1h" secondAttribute="bottom" id="ECE-wu-FiJ"/>
                     <constraint firstAttribute="trailing" secondItem="gWP-Zj-GCt" secondAttribute="trailing" constant="16" id="c1H-CR-1P7"/>
+                    <constraint firstAttribute="bottom" secondItem="1IA-T9-KOb" secondAttribute="bottom" priority="750" constant="8" id="e9l-fY-cym"/>
                     <constraint firstItem="1IA-T9-KOb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="l2F-lx-j3x"/>
                     <constraint firstItem="gWP-Zj-GCt" firstAttribute="leading" secondItem="1IA-T9-KOb" secondAttribute="trailing" constant="16" id="xfc-Vx-bth"/>
+                    <constraint firstItem="1IA-T9-KOb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="7" id="y24-rC-y5X"/>
                 </constraints>
             </tableViewCellContentView>
             <userDefinedRuntimeAttributes>

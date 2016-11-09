@@ -28,7 +28,7 @@
 
 @implementation MWMSearchCommonCell
 
-- (void)config:(search::Result const &)result forHeight:(BOOL)forHeight
+- (void)config:(search::Result const &)result
 {
   [super config:result];
   self.typeLabel.text = @(result.GetFeatureType().c_str()).capitalizedString;
@@ -40,19 +40,17 @@
   self.locationLabel.text = @(result.GetAddress().c_str());
   [self.locationLabel sizeToFit];
 
-  if (!forHeight)
-  {
-    NSUInteger const starsCount = result.GetStarsCount();
-    NSString * cuisine = @(result.GetCuisine().c_str());
-    if (starsCount > 0)
-      [self setInfoRating:starsCount];
-    else if (cuisine.length > 0)
-      [self setInfoText:cuisine.capitalizedString];
-    else
-      [self clearInfo];
+  NSUInteger const starsCount = result.GetStarsCount();
+  NSString * cuisine = @(result.GetCuisine().c_str());
+  if (starsCount > 0)
+    [self setInfoRating:starsCount];
+  else if (cuisine.length > 0)
+    [self setInfoText:cuisine.capitalizedString];
+  else
+    [self clearInfo];
 
-    switch (result.IsOpenNow())
-    {
+  switch (result.IsOpenNow())
+  {
     case osm::Unknown:
     // TODO: Correctly handle Open Now = YES value (show "OPEN" mark).
     case osm::Yes: self.closedView.hidden = YES; break;
@@ -70,7 +68,6 @@
         measurement_utils::FormatDistance(dist, distanceStr);
       }
       self.distanceLabel.text = @(distanceStr.c_str());
-    }
   }
 }
 
@@ -108,12 +105,6 @@
     NSForegroundColorAttributeName : UIColor.blackPrimaryText,
     NSFontAttributeName : UIFont.regular17
   };
-}
-
-+ (CGFloat)defaultCellHeight { return 80.0; }
-- (CGFloat)cellHeight
-{
-  return ceil([self.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height);
 }
 
 @end
