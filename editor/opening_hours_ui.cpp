@@ -252,27 +252,38 @@ bool TimeTable::IsValid() const
 osmoh::Timespan TimeTable::GetPredefinedOpeningTime() const
 {
   using osmoh::operator""_h;
-  return {10_h, 22_h};
+  return {9_h, 18_h};
 }
 
 osmoh::Timespan TimeTable::GetPredefinedExcludeTime() const
 {
   using osmoh::operator""_h;
   using osmoh::operator""_min;
+  using osmoh::HourMinutes;
+
   auto longestOpenSpan = GetLongetsOpenSpan(GetOpeningTime(), GetExcludeTime());
 
-  auto const longestOpenSpanLength = SpanLength(longestOpenSpan);
-  auto offset = longestOpenSpanLength / 4;
+  auto const startTime = longestOpenSpan.GetStart().GetHourMinutes().GetDuration();
+  auto const endTime = longestOpenSpan.GetEnd().GetHourMinutes().GetDuration();
+  // We do not support exclude time spans in extended working intervals.
+  if (endTime < startTime)
+    return {};
 
-  auto const remainder = offset % 10;
-  if (remainder && remainder != 5)
-    offset -= remainder;
+  auto const startHours = longestOpenSpan.GetStart().GetHourMinutes().GetHours();
+  auto const endHours = longestOpenSpan.GetEnd().GetHourMinutes().GetHours();
 
-  longestOpenSpan.GetStart().GetHourMinutes().AddDuration(osmoh::HourMinutes::TMinutes(offset));
-  longestOpenSpan.GetEnd().GetHourMinutes().AddDuration(-osmoh::HourMinutes::TMinutes(offset));
+  auto const period = endHours - startHours;
 
-  if (SpanLength(longestOpenSpan) < (30_min).count())
-    return osmoh::Timespan{};
+  // Cannot calculate exclude time when working time is less than 3 hours.
+  if (period < 3_h)
+    return {};
+
+  auto excludeTimeStart = startHours + HourMinutes::THours(period.count() / 2);
+
+  CHECK(excludeTimeStart < 24_h, ());
+
+  longestOpenSpan.SetStart(HourMinutes(excludeTimeStart));
+  longestOpenSpan.SetEnd(HourMinutes(excludeTimeStart + 1_h));
 
   return longestOpenSpan;
 }
