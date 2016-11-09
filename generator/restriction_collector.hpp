@@ -4,8 +4,8 @@
 
 #include "std/functional.hpp"
 #include "std/limits.hpp"
+#include "std/map.hpp"
 #include "std/string.hpp"
-#include "std/unordered_map.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 
@@ -16,25 +16,6 @@ namespace routing
 class RestrictionCollector
 {
 public:
-  /// \brief Addresses a link in vector<Restriction>.
-  struct LinkIndex
-  {
-    LinkIndex(size_t restrictionNumber, size_t linkNumber)
-      : m_restrictionNumber(restrictionNumber), m_linkNumber(linkNumber)
-    {
-    }
-
-    bool operator==(LinkIndex const & index) const
-    {
-      return m_restrictionNumber == index.m_restrictionNumber && m_linkNumber == index.m_linkNumber;
-    }
-
-    // Restriction number in restriction vector.
-    size_t const m_restrictionNumber;
-    // Link number for a restriction. It's equal to zero or one for most cases.
-    size_t const m_linkNumber;
-  };
-
   /// \param restrictionPath full path to file with road restrictions in osm id terms.
   /// \param featureId2OsmIdsPath full path to file with mapping from feature id to osm id.
   RestrictionCollector(string const & restrictionPath, string const & featureId2OsmIdsPath);
@@ -76,13 +57,6 @@ private:
   /// \param featureId2OsmIdsPath path to the text file.
   bool ParseRestrictions(string const & path);
 
-  /// \brief Sets feature id for all restrictions in |m_restrictions|.
-  void ComposeRestrictions();
-
-  /// \brief removes all restriction with incorrect feature id.
-  /// \note The method should be called after ComposeRestrictions().
-  void RemoveInvalidRestrictions();
-
   /// \brief Adds feature id and corresponding vector of |osmIds| to |m_osmId2FeatureId|.
   /// \note One feature id (|featureId|) may correspond to several osm ids (|osmIds|).
   void AddFeatureId(uint32_t featureId, vector<uint64_t> const & osmIds);
@@ -92,14 +66,12 @@ private:
   /// \param osmIds is osm ids of restriction links
   /// \note This method should be called to add a restriction when feature ids of the restriction
   /// are unknown. The feature ids should be set later with a call of |SetFeatureId(...)| method.
-  void AddRestriction(Restriction::Type type, vector<uint64_t> const & osmIds);
+  /// \returns true if restriction is add and false otherwise.
+  bool AddRestriction(Restriction::Type type, vector<uint64_t> const & osmIds);
 
   RestrictionVec m_restrictions;
-  vector<pair<uint64_t, LinkIndex>> m_restrictionIndex;
-
-  unordered_multimap<uint64_t, uint32_t> m_osmIds2FeatureId;
+  map<uint64_t, uint32_t> m_osmId2FeatureId;
 };
 
 bool FromString(string str, Restriction::Type & type);
-string DebugPrint(RestrictionCollector::LinkIndex const & index);
 }  // namespace routing

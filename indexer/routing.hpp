@@ -34,7 +34,6 @@ struct Restriction
     Only,  // Only going according such restriction is permitted
   };
 
-  Restriction(Type type, size_t linkNumber) : m_featureIds(linkNumber, kInvalidFeatureId), m_type(type) {}
   Restriction(Type type, vector<uint32_t> const & links) : m_featureIds(links), m_type(type) {}
 
   bool IsValid() const;
@@ -136,7 +135,7 @@ private:
 
     routing::Restriction::Type const type = begin->m_type;
 
-    routing::Restriction prevRestriction(type, 0 /* linkNumber */);
+    routing::Restriction prevRestriction(type, {} /* links */);
     prevRestriction.m_featureIds.resize(kSupportedLinkNumber, kDefaultFeatureId);
     for (auto it = begin; it != end; ++it)
     {
@@ -162,12 +161,13 @@ private:
   static bool DeserializeSingleType(routing::Restriction::Type type, uint32_t count,
                                     routing::RestrictionVec & restrictions, Source & src)
   {
-    routing::Restriction prevRestriction(type, 0 /* linkNumber */);
+    routing::Restriction prevRestriction(type, {} /* links */);
     prevRestriction.m_featureIds.resize(kSupportedLinkNumber, kDefaultFeatureId);
     for (size_t i = 0; i < count; ++i)
     {
       BitReader<Source> bits(src);
-      routing::Restriction restriction(type, kSupportedLinkNumber);
+      routing::Restriction restriction(type,  {} /* links */);
+      restriction.m_featureIds.resize(kSupportedLinkNumber);
       for (size_t i = 0; i < kSupportedLinkNumber; ++i)
       {
         uint32_t const biasedDelta = coding::DeltaCoder::Decode(bits);

@@ -31,8 +31,8 @@ bool BuildRoadRestrictions(string const & mwmPath, string const & restrictionPat
   RestrictionVec const & restrictions = restrictionCollector.GetRestrictions();
 
   auto const firstOnlyIt =
-      upper_bound(restrictions.cbegin(), restrictions.cend(), Restriction(Restriction::Type::No, 0),
-                  my::LessBy(&Restriction::m_type));
+      upper_bound(restrictions.cbegin(), restrictions.cend(),
+                  Restriction(Restriction::Type::No, {} /* links */), my::LessBy(&Restriction::m_type));
   RoutingHeader header;
   header.m_noRestrictionCount = distance(restrictions.cbegin(), firstOnlyIt);
   header.m_onlyRestrictionCount = restrictions.size() - header.m_noRestrictionCount;

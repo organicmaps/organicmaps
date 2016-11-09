@@ -28,19 +28,18 @@ string const kRestrictionTestDir = "test-restrictions";
 UNIT_TEST(RestrictionTest_ValidCase)
 {
   RestrictionCollector restrictionCollector("" /* restrictionPath */, "" /* featureId2OsmIdsPath */);
-  // Adding restrictions and feature ids to restrictionCollector in mixed order.
-  restrictionCollector.AddRestriction(Restriction::Type::No, {1, 2} /* osmIds */);
+  // Adding feature ids.
   restrictionCollector.AddFeatureId(30 /* featureId */, {3} /* osmIds */);
-  restrictionCollector.AddRestriction(Restriction::Type::No, {2, 3} /* osmIds */);
   restrictionCollector.AddFeatureId(10 /* featureId */, {1} /* osmIds */);
   restrictionCollector.AddFeatureId(50 /* featureId */, {5} /* osmIds */);
-  restrictionCollector.AddRestriction(Restriction::Type::Only, {5, 7} /* osmIds */);
   restrictionCollector.AddFeatureId(70 /* featureId */, {7} /* osmIds */);
   restrictionCollector.AddFeatureId(20 /* featureId */, {2} /* osmIds */);
 
-  // Composing restriction in feature id terms.
-  restrictionCollector.ComposeRestrictions();
-  restrictionCollector.RemoveInvalidRestrictions();
+  // Adding restrictions.
+  TEST(restrictionCollector.AddRestriction(Restriction::Type::No, {1, 2} /* osmIds */), ());
+  TEST(restrictionCollector.AddRestriction(Restriction::Type::No, {2, 3} /* osmIds */), ());
+  TEST(restrictionCollector.AddRestriction(Restriction::Type::Only, {5, 7} /* osmIds */), ());
+  my::SortUnique(restrictionCollector.m_restrictions);
 
   // Checking the result.
   TEST(restrictionCollector.IsValid(), ());
@@ -55,18 +54,10 @@ UNIT_TEST(RestrictionTest_InvalidCase)
 {
   RestrictionCollector restrictionCollector("" /* restrictionPath */, "" /* featureId2OsmIdsPath */);
   restrictionCollector.AddFeatureId(0 /* featureId */, {0} /* osmIds */);
-  restrictionCollector.AddRestriction(Restriction::Type::No, {0, 1} /* osmIds */);
   restrictionCollector.AddFeatureId(20 /* featureId */, {2} /* osmIds */);
 
-  restrictionCollector.ComposeRestrictions();
+  TEST(!restrictionCollector.AddRestriction(Restriction::Type::No, {0, 1} /* osmIds */), ());
 
-  TEST(!restrictionCollector.IsValid(), ());
-
-  RestrictionVec const expectedRestrictions = {
-      {Restriction::Type::No, {0, Restriction::kInvalidFeatureId}}};
-  TEST_EQUAL(restrictionCollector.m_restrictions, expectedRestrictions, ());
-
-  restrictionCollector.RemoveInvalidRestrictions();
   TEST(!restrictionCollector.HasRestrictions(), ());
   TEST(restrictionCollector.IsValid(), ());
 }
@@ -91,17 +82,7 @@ UNIT_TEST(RestrictionTest_ParseRestrictions)
   TEST(restrictionCollector.ParseRestrictions(
            my::JoinFoldersToPath(platform.WritableDir(), kRestrictionPath)),
        ());
-  RestrictionVec expectedRestrictions = {{Restriction::Type::No, 2 /* linkNumber */},
-                                         {Restriction::Type::Only, 2 /* linkNumber */},
-                                         {Restriction::Type::Only, 2 /* linkNumber */},
-                                         {Restriction::Type::No, 2 /* linkNumber */},
-                                         {Restriction::Type::No, 2 /* linkNumber */}};
-  TEST_EQUAL(restrictionCollector.m_restrictions, expectedRestrictions, ());
-
-  vector<pair<uint64_t, RestrictionCollector::LinkIndex>> const expectedRestrictionIndex = {
-      {1, {0, 0}}, {1, {0, 1}},        {0, {1, 0}},        {2, {1, 1}}, {2, {2, 0}},
-      {3, {2, 1}}, {38028428, {3, 0}}, {38028428, {3, 1}}, {4, {4, 0}}, {5, {4, 1}}};
-  TEST_EQUAL(restrictionCollector.m_restrictionIndex, expectedRestrictionIndex, ());
+  TEST(!restrictionCollector.HasRestrictions(), ());
 }
 
 UNIT_TEST(RestrictionTest_ParseFeatureId2OsmIdsMapping)
@@ -126,8 +107,8 @@ UNIT_TEST(RestrictionTest_ParseFeatureId2OsmIdsMapping)
   vector<pair<uint64_t, uint32_t>> const expectedOsmIds2FeatureId = {
       {10, 1}, {20, 2}, {30, 3}, {5423239545, 779703}};
   vector<pair<uint64_t, uint32_t>> osmIds2FeatureId(
-      restrictionCollector.m_osmIds2FeatureId.cbegin(),
-      restrictionCollector.m_osmIds2FeatureId.cend());
+      restrictionCollector.m_osmId2FeatureId.cbegin(),
+      restrictionCollector.m_osmId2FeatureId.cend());
   sort(osmIds2FeatureId.begin(), osmIds2FeatureId.end(),
        my::LessBy(&pair<uint64_t, uint32_t>::first));
   TEST_EQUAL(osmIds2FeatureId, expectedOsmIds2FeatureId, ());
