@@ -1,3 +1,5 @@
+project(base)
+
 set(
   SRC
   SRC_FIRST.hpp
@@ -77,6 +79,6 @@ set(
   internal/message.cpp
 )
 
-add_library(base ${SRC})
+add_library(${PROJECT_NAME} ${SRC})
 
 omim_add_test_subdirectory(base_tests)

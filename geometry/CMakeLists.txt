@@ -1,3 +1,5 @@
+project(geometry)
+
 set(
   SRC
   algorithm.cpp
@@ -46,6 +48,6 @@ set(
   region2d/boost_concept.hpp
 )
 
-add_library(geometry ${SRC})
+add_library(${PROJECT_NAME} ${SRC})
 
 add_subdirectory(geometry_tests)

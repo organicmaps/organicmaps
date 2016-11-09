@@ -1,3 +1,5 @@
+project(geometry_tests)
+
 add_definitions(-DOMIM_UNIT_TEST_DISABLE_PLATFORM_INIT)
 
 set(
@@ -34,5 +36,5 @@ set(
   vector_test.cpp
 )
 
-omim_add_test(geometry_tests ${SRC})
-omim_link_libraries(geometry_tests geometry base)
+omim_add_test(${PROJECT_NAME} ${SRC})
+omim_link_libraries(${PROJECT_NAME} geometry base)

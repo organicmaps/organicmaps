@@ -1,15 +1,8 @@
-cmake_minimum_required(VERSION 3.2)
-
-project(jansson C CXX)
+project(jansson)
 
 include_directories(src ../../)
 
-add_compile_options(
-  "-Wall"
-  "-Wno-unused-function"
-)
-
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+append(CMAKE_CXX_FLAGS "-std=c++11")
 
 
 set(
@@ -35,4 +28,4 @@ set(
   src/value.c
 )
 
-add_library(jansson ${SRC})
+add_library(${PROJECT_NAME} ${SRC})

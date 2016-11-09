@@ -1,10 +1,4 @@
-cmake_minimum_required(VERSION 3.2)
-
-project(minizip C CXX)
-
-add_compile_options(
-  "-Wall"
-)
+project(minizip)
 
 add_definitions(-DUSE_FILE32ZPI -DNOCRYPT)
 
@@ -18,4 +12,4 @@ set(
   zip.h
 )
 
-add_library(minizip ${SRC})
+add_library(${PROJECT_NAME} ${SRC})

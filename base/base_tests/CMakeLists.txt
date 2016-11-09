@@ -1,3 +1,5 @@
+project(base_tests)
+
 add_definitions(-DOMIM_UNIT_TEST_DISABLE_PLATFORM_INIT)
 
 set(
@@ -34,5 +36,5 @@ set(
   worker_thread_test.cpp
 )
 
-omim_add_test(base_tests ${SRC})
-omim_link_libraries(base_tests base)
+omim_add_test(${PROJECT_NAME} ${SRC})
+omim_link_libraries(${PROJECT_NAME} base)

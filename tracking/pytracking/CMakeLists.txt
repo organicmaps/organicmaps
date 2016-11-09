@@ -1,5 +1,7 @@
 project(pytracking)
 
+check_pybindings()
+
 set(
   SRC
   bindings.cpp

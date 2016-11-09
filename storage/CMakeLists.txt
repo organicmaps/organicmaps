@@ -1,3 +1,5 @@
+project(storage)
+
 include_directories(${OMIM_ROOT}/3party/jansson/src)
 
 set(
@@ -31,6 +33,6 @@ set(
   storage_helpers.hpp
 )
 
-add_library(storage ${SRC})
+add_library(${PROJECT_NAME} ${SRC})
 
 #add_subdirectory(storage_tests)

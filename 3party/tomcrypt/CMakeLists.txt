@@ -1,10 +1,4 @@
-cmake_minimum_required(VERSION 3.2)
-
-project(tomcrypt C CXX)
-
-add_compile_options(
-  "-Wall"
-)
+project(tomcrypt)
 
 add_definitions(-DLTC_NO_ROLC)
 
@@ -20,4 +14,4 @@ set(
   src/misc/crypt/crypt_argchk.c
 )
 
-add_library(tomcrypt ${SRC})
+add_library(${PROJECT_NAME} ${SRC})

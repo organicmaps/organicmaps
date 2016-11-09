@@ -1,11 +1,4 @@
-cmake_minimum_required(VERSION 3.2)
-
-project(pugixml C CXX)
-
-add_compile_options(
-  "-Wall"
-  "-std=c++11"
-)
+project(pugixml)
 
 include_directories(src)
 
@@ -16,4 +9,4 @@ set(
   src/pugiconfig.hpp
 )
 
-add_library(pugixml ${SRC})
+add_library(${PROJECT_NAME} ${SRC})

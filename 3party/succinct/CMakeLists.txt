@@ -1,11 +1,4 @@
-cmake_minimum_required(VERSION 3.2)
-
-project(succinct C CXX)
-
-add_compile_options(
-  "-Wall"
-  "-std=c++11"
-)
+project(succinct)
 
 add_definitions(-DLTC_NO_ROLC)
 
@@ -38,4 +31,4 @@ set(
   vbyte.hpp
 )
 
-add_library(succinct ${SRC})
+add_library(${PROJECT_NAME} ${SRC})

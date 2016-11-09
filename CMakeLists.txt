@@ -115,21 +115,33 @@ function(omim_link_libraries target)
   endif()
 endfunction()
 
+function(append VAR)
+  set(${VAR} ${${VAR}} ${ARGN} PARENT_SCOPE)
+endfunction()
+
+macro(check_pybindings)
+  if (NOT PYBINDINGS)
+    message("Skipping " + ${PROJECT_NAME} + " because the PYBINDINGS variale is not set or is set to FALSE")
+    return()
+  endif()
+endmacro()
+
 # End of functions for subdirectories
 
 # Include subdirectories
 add_subdirectory(3party/jansson)
 add_subdirectory(3party/minizip)
-add_subdirectory(3party/liboauthcpp)
-add_subdirectory(3party/pugixml)
-add_subdirectory(3party/succinct)
 add_subdirectory(3party/tomcrypt)
-
 
 add_compile_options(
   "-Wall"
   "-std=c++11"
 )
+
+add_subdirectory(3party/protobuf)
+add_subdirectory(3party/liboauthcpp)
+add_subdirectory(3party/pugixml)
+add_subdirectory(3party/succinct)
 
 add_subdirectory(base)
 add_subdirectory(coding)
@@ -139,4 +151,6 @@ add_subdirectory(3party/opening_hours)
 add_subdirectory(stats)
 add_subdirectory(storage)
 add_subdirectory(editor)
+add_subdirectory(indexer)
+add_subdirectory(search)
 add_subdirectory(tracking)

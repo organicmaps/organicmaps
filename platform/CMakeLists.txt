@@ -1,3 +1,5 @@
+project(platform)
+
 include_directories(${OMIM_ROOT}/3party/jansson/src ${OMIM_ROOT}/platform)
 
 set(
@@ -42,11 +44,9 @@ set(
   socket.hpp
 )
 
-
 if(${PLATFORM_IPHONE})
-  set(
+  append(
     SRC
-    ${SRC}
     http_thread_apple.h
     http_thread_apple.mm
     http_client_apple.mm
@@ -57,17 +57,15 @@ if(${PLATFORM_IPHONE})
     socket_apple.mm
   )
 elseif(${PLATFORM_ANDROID})
-  set(
+  append(
     SRC
-    ${SRC}
     platform_android.cpp
     platform_unix_impl.cpp
     platform_unix_impl.hpp
   )
 else() # neither iPhone nor Android
-  set(
+  append(
     SRC
-    ${SRC}
     location_service.cpp
     location_service.hpp
     marketing_service_dummy.cpp
@@ -77,9 +75,8 @@ else() # neither iPhone nor Android
   )
 
   if (${PLATFORM_WIN})
-    set(
+    append(
       SRC
-      ${SRC}
       http_client_curl.cpp
       http_thread_qt.cpp
       http_thread_qt.hpp
@@ -88,9 +85,8 @@ else() # neither iPhone nor Android
       wifi_info_windows.cpp
     )
   elseif(${PLATFORM_MAC})
-    set(
+    append(
       SRC
-      ${SRC}
       apple_location_service.mm
       http_client_apple.mm
       http_thread_apple.h
@@ -102,9 +98,8 @@ else() # neither iPhone nor Android
       socket_apple.mm
     )
   elseif(${PLATFORM_LINUX})
-    set(
+    append(
       SRC
-      ${SRC}
       http_client_curl.cpp
       http_thread_qt.cpp
       http_thread_qt.hpp
@@ -116,14 +111,12 @@ else() # neither iPhone nor Android
   endif()
 endif()
 
-
-
 add_subdirectory(platform_tests_support)
 
-add_library(platform ${SRC})
+add_library(${PROJECT_NAME} ${SRC})
 
 if (APPLE)
-  target_compile_options(platform PUBLIC "-fobjc-arc")
+  target_compile_options(${PROJECT_NAME} PUBLIC "-fobjc-arc")
 endif()
 
 omim_add_test_subdirectory(platform_tests)
