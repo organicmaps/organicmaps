@@ -1631,62 +1631,66 @@
 "whats_new_booking_improve_message" = "酒店的搜索结果现在包含价格类别。\n我们还添加了超过 110,000 家酒店。";
 
 /* For place page hotel facilities block */
-"placepage_hotel_facilities" = "Facilities";
+"placepage_hotel_facilities" = "设施";
 
 /* For place page hotel nearby block */
-"placepage_hotel_nearby" = "Nearby";
+"placepage_hotel_nearby" = "附近";
 
 /* For ordering a taxi (as opposed to hotels or other things) */
-"taxi_order" = "Order";
+"taxi_order" = "预订";
 
 /* How long it is until the taxi arrives */
-"taxi_wait" = "Expected in %s";
+"taxi_wait" = "预计 %s后到达";
 
 /* When there are no available taxis nearby */
-"taxi_not_found" = "Couldn't find a taxi nearby";
+"taxi_not_found" = "无法在附近找到出租车";
 
 "install_app" = "安装";
 
 /* `Filter` is a noun here */
-"booking_filters" = "Filter";
+"booking_filters" = "筛选器";
 
-"booking_filters_reset" = "Reset";
+"booking_filters_reset" = "重置";
 
-"booking_filters_rating" = "Rating";
+"booking_filters_rating" = "评分";
 
-"booking_filters_rating_any" = "Any";
+"booking_filters_rating_any" = "任意";
 
-"booking_filters_ragting_good" = "Good";
+"booking_filters_ragting_good" = "好";
 
-"booking_filters_rating_very_good" = "Very Good";
+"booking_filters_rating_very_good" = "很好";
 
-"booking_filters_rating_excellent" = "Excellent";
+"booking_filters_rating_excellent" = "极好";
 
-"booking_filters_price_category" = "Price Category";
+"booking_filters_price_category" = "价格类别";
 
-"booking_filters_no_results" = "No Results Found";
+"booking_filters_no_results" = "未找到任何结果";
 
-"booking_filters_nores_message" = "Try a more general search term, zoom out or reset the filter.";
+"booking_filters_nores_message" = "尝试一个更普通的搜索词、缩小显示或重置筛选器。";
 
-"booking_filters_expand_area_button" = "Zoom out";
+"booking_filters_expand_area_button" = "缩小";
 
-"booking_filters_reset_button" = "Reset Filter";
+"booking_filters_reset_button" = "重置筛选器";
 
-"booking_list" = "List";
+/* noun */
+"booking_list" = "列表";
 
-"booking_based_on_reviews" = "Based on %d hotel reviews";
+"booking_based_on_reviews" = "根据 %d 条酒店点评";
 
-"booking_show_more" = "Show more";
+"booking_show_more" = "显示更多";
 
-"booking_reviews" = "Reviews";
+"booking_reviews" = "点评";
 
-"booking_hotel" = "Hotel";
+"booking_hotel" = "酒店";
 
-"booking_hotel_room" = "Room";
+/* hotel room */
+"booking_hotel_room" = "客房";
 
+/* A neologism for a chat based on geographical proximity */
 "chat" = "Geochat";
 
-"chat_open" = "Open";
+/* Verb. Text on a button that opens the chat. */
+"chat_open" = "开放";
 
 "whatsnew_uber_header" = "优步和MAPS.ME";
 

@@ -953,7 +953,42 @@
 	<string name="whats_new_route_profile_message">对于行人和自行车路线，我们现在显示纵剖面。</string>
 	<string name="whats_new_booking_improve_title">优惠预订酒店</string>
 	<string name="whats_new_booking_improve_message">酒店的搜索结果现在包含价格类别。\n我们还添加了超过 110,000 家酒店。</string>
+	<!-- For place page hotel facilities block -->
+	<string name="placepage_hotel_facilities">设施</string>
+	<!-- For place page hotel nearby block -->
+	<string name="placepage_hotel_nearby">附近</string>
+	<!-- For ordering a taxi (as opposed to hotels or other things) -->
+	<string name="taxi_order">预订</string>
+	<!-- How long it is until the taxi arrives -->
+	<string name="taxi_wait">预计 %s后到达</string>
+	<!-- When there are no available taxis nearby -->
+	<string name="taxi_not_found">无法在附近找到出租车</string>
 	<string name="install_app">安装</string>
+	<!-- `Filter` is a noun here -->
+	<string name="booking_filters">筛选器</string>
+	<string name="booking_filters_reset">重置</string>
+	<string name="booking_filters_rating">评分</string>
+	<string name="booking_filters_rating_any">任意</string>
+	<string name="booking_filters_ragting_good">好</string>
+	<string name="booking_filters_rating_very_good">很好</string>
+	<string name="booking_filters_rating_excellent">极好</string>
+	<string name="booking_filters_price_category">价格类别</string>
+	<string name="booking_filters_no_results">未找到任何结果</string>
+	<string name="booking_filters_nores_message">尝试一个更普通的搜索词、缩小显示或重置筛选器。</string>
+	<string name="booking_filters_expand_area_button">缩小</string>
+	<string name="booking_filters_reset_button">重置筛选器</string>
+	<!-- noun -->
+	<string name="booking_list">列表</string>
+	<string name="booking_based_on_reviews">根据 %d 条酒店点评</string>
+	<string name="booking_show_more">显示更多</string>
+	<string name="booking_reviews">点评</string>
+	<string name="booking_hotel">酒店</string>
+	<!-- hotel room -->
+	<string name="booking_hotel_room">客房</string>
+	<!-- A neologism for a chat based on geographical proximity -->
+	<string name="chat">Geochat</string>
+	<!-- Verb. Text on a button that opens the chat. -->
+	<string name="chat_open">开放</string>
 	<string name="whatsnew_uber_header">优步和MAPS.ME</string>
 	<string name="whatsnew_uber_message">从应用直接叫优步出租车！</string>
 	<string name="dialog_taxi_offline">叫出租车服务在离线模式下无法使用。</string>

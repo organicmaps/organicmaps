@@ -954,7 +954,42 @@
 	<string name="whats_new_route_profile_message">U pěších a cyklistických tras nyní zobrazujeme výškový profil.</string>
 	<string name="whats_new_booking_improve_title">Ušetřete při rezervaci hotelů</string>
 	<string name="whats_new_booking_improve_message">Výsledky hledání hotelů nyní obsahují cenové kategorie. \nTaké jsme přidali více než 110 000 hotelů.</string>
+	<!-- For place page hotel facilities block -->
+	<string name="placepage_hotel_facilities">Vybavení</string>
+	<!-- For place page hotel nearby block -->
+	<string name="placepage_hotel_nearby">Nedaleké</string>
+	<!-- For ordering a taxi (as opposed to hotels or other things) -->
+	<string name="taxi_order">Objednat</string>
+	<!-- How long it is until the taxi arrives -->
+	<string name="taxi_wait">Očekávaný příjezd za %s</string>
+	<!-- When there are no available taxis nearby -->
+	<string name="taxi_not_found">Nelze najít taxi v okolí</string>
 	<string name="install_app">Instalovat</string>
+	<!-- `Filter` is a noun here -->
+	<string name="booking_filters">Filtr</string>
+	<string name="booking_filters_reset">Reset</string>
+	<string name="booking_filters_rating">Hodnocení</string>
+	<string name="booking_filters_rating_any">Jakékoli</string>
+	<string name="booking_filters_ragting_good">Dobré</string>
+	<string name="booking_filters_rating_very_good">Velmi dobré</string>
+	<string name="booking_filters_rating_excellent">Vynikající</string>
+	<string name="booking_filters_price_category">Cenová kategorie</string>
+	<string name="booking_filters_no_results">Nebyly nalezeny žádné výsledky</string>
+	<string name="booking_filters_nores_message">Zkuste obecnější hledaný výraz, oddálit nebo obnovit filtr.</string>
+	<string name="booking_filters_expand_area_button">Oddálit</string>
+	<string name="booking_filters_reset_button">Resetovat filtr</string>
+	<!-- noun -->
+	<string name="booking_list">Seznam</string>
+	<string name="booking_based_on_reviews">Podle %d hodnocení hotelů</string>
+	<string name="booking_show_more">Zobrazit více</string>
+	<string name="booking_reviews">Hodnocení</string>
+	<string name="booking_hotel">Hotel</string>
+	<!-- hotel room -->
+	<string name="booking_hotel_room">Pokoj</string>
+	<!-- A neologism for a chat based on geographical proximity -->
+	<string name="chat">Geochat</string>
+	<!-- Verb. Text on a button that opens the chat. -->
+	<string name="chat_open">Otevřít</string>
 	<string name="whatsnew_uber_header">MAPS.ME a Uber</string>
 	<string name="whatsnew_uber_message">Objednejte si taxi Uber přímo z aplikace!</string>
 	<string name="dialog_taxi_offline">Objednání taxi není v režimu offline k dispozici.</string>

@@ -1631,62 +1631,66 @@
 "whats_new_booking_improve_message" = "Zoekresultaten voor hotels bevatten nu de prijscategorie.\nWe hebben ook meer dan 110.000 hotels toegevoegd.";
 
 /* For place page hotel facilities block */
-"placepage_hotel_facilities" = "Facilities";
+"placepage_hotel_facilities" = "Faciliteiten";
 
 /* For place page hotel nearby block */
-"placepage_hotel_nearby" = "Nearby";
+"placepage_hotel_nearby" = "In de buurt";
 
 /* For ordering a taxi (as opposed to hotels or other things) */
-"taxi_order" = "Order";
+"taxi_order" = "Bestellen";
 
 /* How long it is until the taxi arrives */
-"taxi_wait" = "Expected in %s";
+"taxi_wait" = "Verwacht binnen %s";
 
 /* When there are no available taxis nearby */
-"taxi_not_found" = "Couldn't find a taxi nearby";
+"taxi_not_found" = "Kon geen taxi vinden in de buurt";
 
 "install_app" = "Installeer";
 
 /* `Filter` is a noun here */
 "booking_filters" = "Filter";
 
-"booking_filters_reset" = "Reset";
+"booking_filters_reset" = "Resetten";
 
-"booking_filters_rating" = "Rating";
+"booking_filters_rating" = "Beoordeling";
 
-"booking_filters_rating_any" = "Any";
+"booking_filters_rating_any" = "Alle";
 
-"booking_filters_ragting_good" = "Good";
+"booking_filters_ragting_good" = "Goed";
 
-"booking_filters_rating_very_good" = "Very Good";
+"booking_filters_rating_very_good" = "Heel Goed";
 
-"booking_filters_rating_excellent" = "Excellent";
+"booking_filters_rating_excellent" = "Uitstekend";
 
-"booking_filters_price_category" = "Price Category";
+"booking_filters_price_category" = "Prijscategorie";
 
-"booking_filters_no_results" = "No Results Found";
+"booking_filters_no_results" = "Geen Resultaten Gevonden";
 
-"booking_filters_nores_message" = "Try a more general search term, zoom out or reset the filter.";
+"booking_filters_nores_message" = "Probeer een meer algemene zoekterm, zoom uit of reset de filter.";
 
-"booking_filters_expand_area_button" = "Zoom out";
+"booking_filters_expand_area_button" = "Uitzoomen";
 
-"booking_filters_reset_button" = "Reset Filter";
+"booking_filters_reset_button" = "Filter Resetten";
 
-"booking_list" = "List";
+/* noun */
+"booking_list" = "Lijst";
 
-"booking_based_on_reviews" = "Based on %d hotel reviews";
+"booking_based_on_reviews" = "Gebaseerd op %d hotelbeoordelingen";
 
-"booking_show_more" = "Show more";
+"booking_show_more" = "Meer weergeven";
 
-"booking_reviews" = "Reviews";
+"booking_reviews" = "Beoordelingen";
 
 "booking_hotel" = "Hotel";
 
-"booking_hotel_room" = "Room";
+/* hotel room */
+"booking_hotel_room" = "Kamer";
 
+/* A neologism for a chat based on geographical proximity */
 "chat" = "Geochat";
 
-"chat_open" = "Open";
+/* Verb. Text on a button that opens the chat. */
+"chat_open" = "Openen";
 
 "whatsnew_uber_header" = "MAPS.ME en Uber";
 

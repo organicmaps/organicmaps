@@ -943,7 +943,42 @@
 	<string name="whats_new_route_profile_message">Pentru rutele pentru pietoni și bicicliști, afișam acum profilul de elevație.</string>
 	<string name="whats_new_booking_improve_title">Economisiți bani când rezervați hoteluri</string>
 	<string name="whats_new_booking_improve_message">Rezultatele de căutare pentru hoteluri conțin acum categoria de preț. \nAm mai adăugat și peste 110.000 de hoteluri.</string>
+	<!-- For place page hotel facilities block -->
+	<string name="placepage_hotel_facilities">Facilităţi</string>
+	<!-- For place page hotel nearby block -->
+	<string name="placepage_hotel_nearby">În apropiere</string>
+	<!-- For ordering a taxi (as opposed to hotels or other things) -->
+	<string name="taxi_order">Comandă</string>
+	<!-- How long it is until the taxi arrives -->
+	<string name="taxi_wait">Așteptat în %s</string>
+	<!-- When there are no available taxis nearby -->
+	<string name="taxi_not_found">Nu am găsit niciun taxi în apropiere\u0020</string>
 	<string name="install_app">Instalați</string>
+	<!-- `Filter` is a noun here -->
+	<string name="booking_filters">Filtrare</string>
+	<string name="booking_filters_reset">Resetare</string>
+	<string name="booking_filters_rating">Clasificare</string>
+	<string name="booking_filters_rating_any">Oricare</string>
+	<string name="booking_filters_ragting_good">Bine</string>
+	<string name="booking_filters_rating_very_good">Foarte bine</string>
+	<string name="booking_filters_rating_excellent">Excelent</string>
+	<string name="booking_filters_price_category">Categorie de preț</string>
+	<string name="booking_filters_no_results">Nu au fost găsite rezultate</string>
+	<string name="booking_filters_nores_message">Încercați un termen mai general, micșorați sau resetați filtrul.</string>
+	<string name="booking_filters_expand_area_button">Micșorare</string>
+	<string name="booking_filters_reset_button">Resetare filtru</string>
+	<!-- noun -->
+	<string name="booking_list">Listă</string>
+	<string name="booking_based_on_reviews">Bazat pe comentariile privind hotelul %d</string>
+	<string name="booking_show_more">Arată mai multe</string>
+	<string name="booking_reviews">Comentarii</string>
+	<string name="booking_hotel">Hotel</string>
+	<!-- hotel room -->
+	<string name="booking_hotel_room">Cameră</string>
+	<!-- A neologism for a chat based on geographical proximity -->
+	<string name="chat">Geochat</string>
+	<!-- Verb. Text on a button that opens the chat. -->
+	<string name="chat_open">Deschideți</string>
 	<string name="whatsnew_uber_header">MAPS.ME și Uber</string>
 	<string name="whatsnew_uber_message">Comandați un taxi Uber direct din aplicație!</string>
 	<string name="dialog_taxi_offline">Comandarea unui taxi nu se poate face în modul offline.</string>

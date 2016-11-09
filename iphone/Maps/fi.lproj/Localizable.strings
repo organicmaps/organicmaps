@@ -1631,62 +1631,66 @@
 "whats_new_booking_improve_message" = "Hotellien hakutuloksissa näkyy nyt hintakategoria.\nLisäsimme myös yli 110 000 hotellia.";
 
 /* For place page hotel facilities block */
-"placepage_hotel_facilities" = "Facilities";
+"placepage_hotel_facilities" = "Palvelut";
 
 /* For place page hotel nearby block */
-"placepage_hotel_nearby" = "Nearby";
+"placepage_hotel_nearby" = "Lähellä";
 
 /* For ordering a taxi (as opposed to hotels or other things) */
-"taxi_order" = "Order";
+"taxi_order" = "Tilaa";
 
 /* How long it is until the taxi arrives */
-"taxi_wait" = "Expected in %s";
+"taxi_wait" = "Saapumiseen arviolta %s";
 
 /* When there are no available taxis nearby */
-"taxi_not_found" = "Couldn't find a taxi nearby";
+"taxi_not_found" = "Läheltä ei löytynyt taksia";
 
 "install_app" = "Asenna";
 
 /* `Filter` is a noun here */
-"booking_filters" = "Filter";
+"booking_filters" = "Suodatin";
 
-"booking_filters_reset" = "Reset";
+"booking_filters_reset" = "Palauta";
 
-"booking_filters_rating" = "Rating";
+"booking_filters_rating" = "Arvio";
 
-"booking_filters_rating_any" = "Any";
+"booking_filters_rating_any" = "Kaikki";
 
-"booking_filters_ragting_good" = "Good";
+"booking_filters_ragting_good" = "Hyvä";
 
-"booking_filters_rating_very_good" = "Very Good";
+"booking_filters_rating_very_good" = "Todella hyvä";
 
-"booking_filters_rating_excellent" = "Excellent";
+"booking_filters_rating_excellent" = "Erinomainen";
 
-"booking_filters_price_category" = "Price Category";
+"booking_filters_price_category" = "Hintaluokka";
 
-"booking_filters_no_results" = "No Results Found";
+"booking_filters_no_results" = "Ei hakutuloksia";
 
-"booking_filters_nores_message" = "Try a more general search term, zoom out or reset the filter.";
+"booking_filters_nores_message" = "Kokeile yleisempää hakusanaa, loitonna tai palauta suodatin.";
 
-"booking_filters_expand_area_button" = "Zoom out";
+"booking_filters_expand_area_button" = "Loitonna";
 
-"booking_filters_reset_button" = "Reset Filter";
+"booking_filters_reset_button" = "Palauta suodatin";
 
-"booking_list" = "List";
+/* noun */
+"booking_list" = "Luettelo";
 
-"booking_based_on_reviews" = "Based on %d hotel reviews";
+"booking_based_on_reviews" = "Perustuu %d hotelliarvioon";
 
-"booking_show_more" = "Show more";
+"booking_show_more" = "Näytä lisää";
 
-"booking_reviews" = "Reviews";
+"booking_reviews" = "Arviot";
 
-"booking_hotel" = "Hotel";
+"booking_hotel" = "Hotelli";
 
-"booking_hotel_room" = "Room";
+/* hotel room */
+"booking_hotel_room" = "Huone";
 
+/* A neologism for a chat based on geographical proximity */
 "chat" = "Geochat";
 
-"chat_open" = "Open";
+/* Verb. Text on a button that opens the chat. */
+"chat_open" = "Avaa";
 
 "whatsnew_uber_header" = "MAPS.ME & Uber";
 

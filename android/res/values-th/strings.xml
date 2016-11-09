@@ -953,7 +953,42 @@
 	<string name="whats_new_route_profile_message">สำหรับเส้นทางคนเดินเท้าและจักรยาน ตอนนี้เราแสดงโปรไฟล์ระดับความสูงแล้ว</string>
 	<string name="whats_new_booking_improve_title">ประหยัดเมื่อจองโรงแรม</string>
 	<string name="whats_new_booking_improve_message">การค้นหาโรงแรมตอนนี้มีหมวดหมู่ราคาแล้ว\nเรายังได้เพิ่มโรงแรมเข้ามากว่า 110,000 โรงแรมอีกด้วย</string>
+	<!-- For place page hotel facilities block -->
+	<string name="placepage_hotel_facilities">สิ่งอำนวยความสะดวก</string>
+	<!-- For place page hotel nearby block -->
+	<string name="placepage_hotel_nearby">บริเวณใกล้เคียง</string>
+	<!-- For ordering a taxi (as opposed to hotels or other things) -->
+	<string name="taxi_order">สั่ง</string>
+	<!-- How long it is until the taxi arrives -->
+	<string name="taxi_wait">คาดว่าภายใน %s</string>
+	<!-- When there are no available taxis nearby -->
+	<string name="taxi_not_found">ไม่พบแท็กซี่ในบริเวณใกล้เคียง</string>
 	<string name="install_app">ติดตั้ง</string>
+	<!-- `Filter` is a noun here -->
+	<string name="booking_filters">ตัวกรอง</string>
+	<string name="booking_filters_reset">รีเซ็ต</string>
+	<string name="booking_filters_rating">อันดับ</string>
+	<string name="booking_filters_rating_any">อะไรก็ได้</string>
+	<string name="booking_filters_ragting_good">ดี</string>
+	<string name="booking_filters_rating_very_good">ดีมาก</string>
+	<string name="booking_filters_rating_excellent">ยอดเยี่ยม</string>
+	<string name="booking_filters_price_category">หมวดหมู่ราคา</string>
+	<string name="booking_filters_no_results">ไม่พบผลลัพธ์</string>
+	<string name="booking_filters_nores_message">ลองค้นหาด้วยคำทั่ว ๆ ไปดู ซูมออกหรือรีเซ็ตตัวกรอง</string>
+	<string name="booking_filters_expand_area_button">ซูมออก</string>
+	<string name="booking_filters_reset_button">รีเซ็ตตัวกรอง</string>
+	<!-- noun -->
+	<string name="booking_list">รายการ</string>
+	<string name="booking_based_on_reviews">ตาม %d รีวิวโรงแรม</string>
+	<string name="booking_show_more">แสดงเพิ่มเติม</string>
+	<string name="booking_reviews">รีวิว</string>
+	<string name="booking_hotel">โรงแรม</string>
+	<!-- hotel room -->
+	<string name="booking_hotel_room">ห้องพัก</string>
+	<!-- A neologism for a chat based on geographical proximity -->
+	<string name="chat">Geochat</string>
+	<!-- Verb. Text on a button that opens the chat. -->
+	<string name="chat_open">เปิด</string>
 	<string name="whatsnew_uber_header">MAPS.ME &amp; Uber</string>
 	<string name="whatsnew_uber_message">เรียกแท็กซี่ Uber โดยตรงจากแอป!</string>
 	<string name="dialog_taxi_offline">ไม่สามารถทำการจองแท็กซี่ได้ในโหมดออฟไลน์</string>

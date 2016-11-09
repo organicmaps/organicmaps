@@ -947,7 +947,42 @@
 	<string name="whats_new_route_profile_message">Voor wandel- en fietsroutes geven we nu het hoogteprofiel weer.</string>
 	<string name="whats_new_booking_improve_title">Bespaar op het boeken van hotels</string>
 	<string name="whats_new_booking_improve_message">Zoekresultaten voor hotels bevatten nu de prijscategorie.\nWe hebben ook meer dan 110.000 hotels toegevoegd.</string>
+	<!-- For place page hotel facilities block -->
+	<string name="placepage_hotel_facilities">Faciliteiten</string>
+	<!-- For place page hotel nearby block -->
+	<string name="placepage_hotel_nearby">In de buurt</string>
+	<!-- For ordering a taxi (as opposed to hotels or other things) -->
+	<string name="taxi_order">Bestellen</string>
+	<!-- How long it is until the taxi arrives -->
+	<string name="taxi_wait">Verwacht binnen %s</string>
+	<!-- When there are no available taxis nearby -->
+	<string name="taxi_not_found">Kon geen taxi vinden in de buurt</string>
 	<string name="install_app">Installeer</string>
+	<!-- `Filter` is a noun here -->
+	<string name="booking_filters">Filter</string>
+	<string name="booking_filters_reset">Resetten</string>
+	<string name="booking_filters_rating">Beoordeling</string>
+	<string name="booking_filters_rating_any">Alle</string>
+	<string name="booking_filters_ragting_good">Goed</string>
+	<string name="booking_filters_rating_very_good">Heel Goed</string>
+	<string name="booking_filters_rating_excellent">Uitstekend</string>
+	<string name="booking_filters_price_category">Prijscategorie</string>
+	<string name="booking_filters_no_results">Geen Resultaten Gevonden</string>
+	<string name="booking_filters_nores_message">Probeer een meer algemene zoekterm, zoom uit of reset de filter.</string>
+	<string name="booking_filters_expand_area_button">Uitzoomen</string>
+	<string name="booking_filters_reset_button">Filter Resetten</string>
+	<!-- noun -->
+	<string name="booking_list">Lijst</string>
+	<string name="booking_based_on_reviews">Gebaseerd op %d hotelbeoordelingen</string>
+	<string name="booking_show_more">Meer weergeven</string>
+	<string name="booking_reviews">Beoordelingen</string>
+	<string name="booking_hotel">Hotel</string>
+	<!-- hotel room -->
+	<string name="booking_hotel_room">Kamer</string>
+	<!-- A neologism for a chat based on geographical proximity -->
+	<string name="chat">Geochat</string>
+	<!-- Verb. Text on a button that opens the chat. -->
+	<string name="chat_open">Openen</string>
 	<string name="whatsnew_uber_header">MAPS.ME en Uber</string>
 	<string name="whatsnew_uber_message">Bestel een Uber-taxi rechtstreeks vanuit de app!</string>
 	<string name="dialog_taxi_offline">Het bestellen van een taxi is niet beschikbaar in de offline modus.</string>

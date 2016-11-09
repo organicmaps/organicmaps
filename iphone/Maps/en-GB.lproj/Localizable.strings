@@ -1672,6 +1672,7 @@
 
 "booking_filters_reset_button" = "Reset Filter";
 
+/* noun */
 "booking_list" = "List";
 
 "booking_based_on_reviews" = "Based on %d hotel reviews";
@@ -1682,10 +1683,13 @@
 
 "booking_hotel" = "Hotel";
 
+/* hotel room */
 "booking_hotel_room" = "Room";
 
+/* A neologism for a chat based on geographical proximity */
 "chat" = "Geochat";
 
+/* Verb. Text on a button that opens the chat. */
 "chat_open" = "Open";
 
 "whatsnew_uber_header" = "MAPS.ME & Uber";

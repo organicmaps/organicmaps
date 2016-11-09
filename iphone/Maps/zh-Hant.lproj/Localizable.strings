@@ -1631,62 +1631,66 @@
 "whats_new_booking_improve_message" = "飯店搜尋結果現在還包含價格類別。\n我們還加入了超過 110,000 間飯店。";
 
 /* For place page hotel facilities block */
-"placepage_hotel_facilities" = "Facilities";
+"placepage_hotel_facilities" = "設施";
 
 /* For place page hotel nearby block */
-"placepage_hotel_nearby" = "Nearby";
+"placepage_hotel_nearby" = "附近";
 
 /* For ordering a taxi (as opposed to hotels or other things) */
-"taxi_order" = "Order";
+"taxi_order" = "預約";
 
 /* How long it is until the taxi arrives */
-"taxi_wait" = "Expected in %s";
+"taxi_wait" = "預計 %s 內到達";
 
 /* When there are no available taxis nearby */
-"taxi_not_found" = "Couldn't find a taxi nearby";
+"taxi_not_found" = "無法在附近找到計程車";
 
 "install_app" = "安裝";
 
 /* `Filter` is a noun here */
-"booking_filters" = "Filter";
+"booking_filters" = "篩選條件";
 
-"booking_filters_reset" = "Reset";
+"booking_filters_reset" = "重設";
 
-"booking_filters_rating" = "Rating";
+"booking_filters_rating" = "評分";
 
-"booking_filters_rating_any" = "Any";
+"booking_filters_rating_any" = "任意";
 
-"booking_filters_ragting_good" = "Good";
+"booking_filters_ragting_good" = "好";
 
-"booking_filters_rating_very_good" = "Very Good";
+"booking_filters_rating_very_good" = "很好";
 
-"booking_filters_rating_excellent" = "Excellent";
+"booking_filters_rating_excellent" = "極好";
 
-"booking_filters_price_category" = "Price Category";
+"booking_filters_price_category" = "價格類別";
 
-"booking_filters_no_results" = "No Results Found";
+"booking_filters_no_results" = "找不到任何結果";
 
-"booking_filters_nores_message" = "Try a more general search term, zoom out or reset the filter.";
+"booking_filters_nores_message" = "嘗試一個更普通的搜尋字詞、縮小顯示或重設篩選條件。";
 
-"booking_filters_expand_area_button" = "Zoom out";
+"booking_filters_expand_area_button" = "縮小";
 
-"booking_filters_reset_button" = "Reset Filter";
+"booking_filters_reset_button" = "重設篩選條件";
 
-"booking_list" = "List";
+/* noun */
+"booking_list" = "清單";
 
-"booking_based_on_reviews" = "Based on %d hotel reviews";
+"booking_based_on_reviews" = "根據 %d 則飯店評論";
 
-"booking_show_more" = "Show more";
+"booking_show_more" = "顯示更多";
 
-"booking_reviews" = "Reviews";
+"booking_reviews" = "評論";
 
-"booking_hotel" = "Hotel";
+"booking_hotel" = "飯店";
 
-"booking_hotel_room" = "Room";
+/* hotel room */
+"booking_hotel_room" = "客房";
 
+/* A neologism for a chat based on geographical proximity */
 "chat" = "Geochat";
 
-"chat_open" = "Open";
+/* Verb. Text on a button that opens the chat. */
+"chat_open" = "開放";
 
 "whatsnew_uber_header" = "優步 & MAPS.ME離綫地圖";
 

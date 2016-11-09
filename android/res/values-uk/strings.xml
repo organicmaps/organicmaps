@@ -951,7 +951,42 @@
 	<string name="whats_new_route_profile_message">Для пішохідних і велосипедних маршрутів тепер відображається профіль рельєфу.</string>
 	<string name="whats_new_booking_improve_title">Заощаджуйте на бронюванні готелів</string>
 	<string name="whats_new_booking_improve_message">В результатах пошуку готелів на карті відображається цінова категорія.\nКрім того, тепер у нашій базі даних з\&#39;явилося 110 000 нових готелів.</string>
+	<!-- For place page hotel facilities block -->
+	<string name="placepage_hotel_facilities">Зручності</string>
+	<!-- For place page hotel nearby block -->
+	<string name="placepage_hotel_nearby">Поблизу</string>
+	<!-- For ordering a taxi (as opposed to hotels or other things) -->
+	<string name="taxi_order">Замовити</string>
+	<!-- How long it is until the taxi arrives -->
+	<string name="taxi_wait">Очікується через %s</string>
+	<!-- When there are no available taxis nearby -->
+	<string name="taxi_not_found">Не вдалося знайти таксі поблизу</string>
 	<string name="install_app">Встановити</string>
+	<!-- `Filter` is a noun here -->
+	<string name="booking_filters">Фільтр</string>
+	<string name="booking_filters_reset">Скинути</string>
+	<string name="booking_filters_rating">Рейтинг</string>
+	<string name="booking_filters_rating_any">Будь-який</string>
+	<string name="booking_filters_ragting_good">Добре</string>
+	<string name="booking_filters_rating_very_good">Дуже добре</string>
+	<string name="booking_filters_rating_excellent">Чудово</string>
+	<string name="booking_filters_price_category">Цінова категорія</string>
+	<string name="booking_filters_no_results">Не знайдено жодного результату</string>
+	<string name="booking_filters_nores_message">Спробуйте пошук за більш узагальненим пошуковим виразом, зменшіть масштаб або скиньте фільтри.</string>
+	<string name="booking_filters_expand_area_button">Зменшити масштаб</string>
+	<string name="booking_filters_reset_button">Скинути фільтри</string>
+	<!-- noun -->
+	<string name="booking_list">Список</string>
+	<string name="booking_based_on_reviews">На основі %d відгуків(-у) про готель</string>
+	<string name="booking_show_more">Показати більше</string>
+	<string name="booking_reviews">Відгуки</string>
+	<string name="booking_hotel">Готель</string>
+	<!-- hotel room -->
+	<string name="booking_hotel_room">Номер</string>
+	<!-- A neologism for a chat based on geographical proximity -->
+	<string name="chat">Геочат</string>
+	<!-- Verb. Text on a button that opens the chat. -->
+	<string name="chat_open">Відкрити</string>
 	<string name="whatsnew_uber_header">MAPS.ME і Uber</string>
 	<string name="whatsnew_uber_message">Замовляйте таксі прямо з додатку!</string>
 	<string name="dialog_taxi_offline">Замовлення таксі неможливе в автономному режимі.</string>

@@ -1631,62 +1631,66 @@
 "whats_new_booking_improve_message" = "A szálláshely keresési eredménye már tartalmazza az árkategóriát. \nEmellett kiegészítettük több mint 110.000 szálláshellyel.";
 
 /* For place page hotel facilities block */
-"placepage_hotel_facilities" = "Facilities";
+"placepage_hotel_facilities" = "Létesítmények";
 
 /* For place page hotel nearby block */
-"placepage_hotel_nearby" = "Nearby";
+"placepage_hotel_nearby" = "Közeli";
 
 /* For ordering a taxi (as opposed to hotels or other things) */
-"taxi_order" = "Order";
+"taxi_order" = "Rendelés";
 
 /* How long it is until the taxi arrives */
-"taxi_wait" = "Expected in %s";
+"taxi_wait" = "Várható %s";
 
 /* When there are no available taxis nearby */
-"taxi_not_found" = "Couldn't find a taxi nearby";
+"taxi_not_found" = "Nem talált taxit a közelben";
 
 "install_app" = "Telepítés";
 
 /* `Filter` is a noun here */
-"booking_filters" = "Filter";
+"booking_filters" = "Szűrő";
 
-"booking_filters_reset" = "Reset";
+"booking_filters_reset" = "Alaphelyzetbe állítás";
 
-"booking_filters_rating" = "Rating";
+"booking_filters_rating" = "Minősítés";
 
-"booking_filters_rating_any" = "Any";
+"booking_filters_rating_any" = "Bármelyik";
 
-"booking_filters_ragting_good" = "Good";
+"booking_filters_ragting_good" = "Jó";
 
-"booking_filters_rating_very_good" = "Very Good";
+"booking_filters_rating_very_good" = "Nagyon jó";
 
-"booking_filters_rating_excellent" = "Excellent";
+"booking_filters_rating_excellent" = "Kiváló";
 
-"booking_filters_price_category" = "Price Category";
+"booking_filters_price_category" = "Árkategória";
 
-"booking_filters_no_results" = "No Results Found";
+"booking_filters_no_results" = "Nincs találat";
 
-"booking_filters_nores_message" = "Try a more general search term, zoom out or reset the filter.";
+"booking_filters_nores_message" = "Próbálkozzon általánosabb kereső kifejezéssel, tágítsa vagy törölje a szűrőt.";
 
-"booking_filters_expand_area_button" = "Zoom out";
+"booking_filters_expand_area_button" = "Kicsinyítés";
 
-"booking_filters_reset_button" = "Reset Filter";
+"booking_filters_reset_button" = "Szűrő nullázása";
 
-"booking_list" = "List";
+/* noun */
+"booking_list" = "Lista";
 
-"booking_based_on_reviews" = "Based on %d hotel reviews";
+"booking_based_on_reviews" = "%d hotel-értékelés alapján";
 
-"booking_show_more" = "Show more";
+"booking_show_more" = "Több megjelenítése";
 
-"booking_reviews" = "Reviews";
+"booking_reviews" = "Bírálatok";
 
-"booking_hotel" = "Hotel";
+"booking_hotel" = "Szálloda";
 
-"booking_hotel_room" = "Room";
+/* hotel room */
+"booking_hotel_room" = "Szoba";
 
+/* A neologism for a chat based on geographical proximity */
 "chat" = "Geochat";
 
-"chat_open" = "Open";
+/* Verb. Text on a button that opens the chat. */
+"chat_open" = "Megnyitás";
 
 "whatsnew_uber_header" = "MAPS.ME és Uber";
 

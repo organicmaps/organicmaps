@@ -1631,62 +1631,66 @@
 "whats_new_booking_improve_message" = "Wyniki wyszukiwania hoteli zawierają teraz kategorię cenową. \nDodaliśmy też ponad 110 000 hoteli.";
 
 /* For place page hotel facilities block */
-"placepage_hotel_facilities" = "Facilities";
+"placepage_hotel_facilities" = "Obiekty hotelowe";
 
 /* For place page hotel nearby block */
-"placepage_hotel_nearby" = "Nearby";
+"placepage_hotel_nearby" = "W pobliżu";
 
 /* For ordering a taxi (as opposed to hotels or other things) */
-"taxi_order" = "Order";
+"taxi_order" = "Zamów";
 
 /* How long it is until the taxi arrives */
-"taxi_wait" = "Expected in %s";
+"taxi_wait" = "Szacunkowo przybędzie za %s";
 
 /* When there are no available taxis nearby */
-"taxi_not_found" = "Couldn't find a taxi nearby";
+"taxi_not_found" = "Nie można znaleźć taksówki w pobliżu";
 
 "install_app" = "Zainstaluj";
 
 /* `Filter` is a noun here */
-"booking_filters" = "Filter";
+"booking_filters" = "Filtr";
 
-"booking_filters_reset" = "Reset";
+"booking_filters_reset" = "Resetuj";
 
-"booking_filters_rating" = "Rating";
+"booking_filters_rating" = "Ocena";
 
-"booking_filters_rating_any" = "Any";
+"booking_filters_rating_any" = "Wszelkie";
 
-"booking_filters_ragting_good" = "Good";
+"booking_filters_ragting_good" = "Dobrze";
 
-"booking_filters_rating_very_good" = "Very Good";
+"booking_filters_rating_very_good" = "Bardzo dobrze";
 
-"booking_filters_rating_excellent" = "Excellent";
+"booking_filters_rating_excellent" = "Doskonale";
 
-"booking_filters_price_category" = "Price Category";
+"booking_filters_price_category" = "Kategoria cenowa";
 
-"booking_filters_no_results" = "No Results Found";
+"booking_filters_no_results" = "Nie znaleziono wyników";
 
-"booking_filters_nores_message" = "Try a more general search term, zoom out or reset the filter.";
+"booking_filters_nores_message" = "Spróbuj szerszego terminu wyszukiwania, zawęzić lub resetować filtr.";
 
-"booking_filters_expand_area_button" = "Zoom out";
+"booking_filters_expand_area_button" = "Zawęź";
 
-"booking_filters_reset_button" = "Reset Filter";
+"booking_filters_reset_button" = "Resetuj filtr";
 
-"booking_list" = "List";
+/* noun */
+"booking_list" = "Lista";
 
-"booking_based_on_reviews" = "Based on %d hotel reviews";
+"booking_based_on_reviews" = "Na podstawie %d opinii o hotelach";
 
-"booking_show_more" = "Show more";
+"booking_show_more" = "Pokaż więcej";
 
-"booking_reviews" = "Reviews";
+"booking_reviews" = "Opinie";
 
 "booking_hotel" = "Hotel";
 
-"booking_hotel_room" = "Room";
+/* hotel room */
+"booking_hotel_room" = "Pokój";
 
+/* A neologism for a chat based on geographical proximity */
 "chat" = "Geochat";
 
-"chat_open" = "Open";
+/* Verb. Text on a button that opens the chat. */
+"chat_open" = "Otwórz";
 
 "whatsnew_uber_header" = "MAPS.ME i Uber";
 

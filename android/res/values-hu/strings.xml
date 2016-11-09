@@ -947,7 +947,42 @@
 	<string name="whats_new_route_profile_message">A gyalogos és kerékpáros utakat most már emelkedési profillal jelenítjük meg.</string>
 	<string name="whats_new_booking_improve_title">Takarékoskodjon szálláshely foglalásakor</string>
 	<string name="whats_new_booking_improve_message">A szálláshely keresési eredménye már tartalmazza az árkategóriát. \nEmellett kiegészítettük több mint 110.000 szálláshellyel.</string>
+	<!-- For place page hotel facilities block -->
+	<string name="placepage_hotel_facilities">Létesítmények</string>
+	<!-- For place page hotel nearby block -->
+	<string name="placepage_hotel_nearby">Közeli</string>
+	<!-- For ordering a taxi (as opposed to hotels or other things) -->
+	<string name="taxi_order">Rendelés</string>
+	<!-- How long it is until the taxi arrives -->
+	<string name="taxi_wait">Várható %s</string>
+	<!-- When there are no available taxis nearby -->
+	<string name="taxi_not_found">Nem talált taxit a közelben</string>
 	<string name="install_app">Telepítés</string>
+	<!-- `Filter` is a noun here -->
+	<string name="booking_filters">Szűrő</string>
+	<string name="booking_filters_reset">Alaphelyzetbe állítás</string>
+	<string name="booking_filters_rating">Minősítés</string>
+	<string name="booking_filters_rating_any">Bármelyik</string>
+	<string name="booking_filters_ragting_good">Jó</string>
+	<string name="booking_filters_rating_very_good">Nagyon jó</string>
+	<string name="booking_filters_rating_excellent">Kiváló</string>
+	<string name="booking_filters_price_category">Árkategória</string>
+	<string name="booking_filters_no_results">Nincs találat</string>
+	<string name="booking_filters_nores_message">Próbálkozzon általánosabb kereső kifejezéssel, tágítsa vagy törölje a szűrőt.</string>
+	<string name="booking_filters_expand_area_button">Kicsinyítés</string>
+	<string name="booking_filters_reset_button">Szűrő nullázása</string>
+	<!-- noun -->
+	<string name="booking_list">Lista</string>
+	<string name="booking_based_on_reviews">%d hotel-értékelés alapján</string>
+	<string name="booking_show_more">Több megjelenítése</string>
+	<string name="booking_reviews">Bírálatok</string>
+	<string name="booking_hotel">Szálloda</string>
+	<!-- hotel room -->
+	<string name="booking_hotel_room">Szoba</string>
+	<!-- A neologism for a chat based on geographical proximity -->
+	<string name="chat">Geochat</string>
+	<!-- Verb. Text on a button that opens the chat. -->
+	<string name="chat_open">Megnyitás</string>
 	<string name="whatsnew_uber_header">MAPS.ME és Uber</string>
 	<string name="whatsnew_uber_message">Hívj Uber-taxit közvetlenül az alkalmazásból!</string>
 	<string name="dialog_taxi_offline">Taxirendelés offline módban nem lehetséges.</string>

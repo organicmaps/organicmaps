@@ -994,13 +994,17 @@
 	<string name="booking_filters_nores_message">Try a more general search term, zoom out or reset the filter.</string>
 	<string name="booking_filters_expand_area_button">Zoom out</string>
 	<string name="booking_filters_reset_button">Reset Filter</string>
+	<!-- noun -->
 	<string name="booking_list">List</string>
 	<string name="booking_based_on_reviews">Based on %d hotel reviews</string>
 	<string name="booking_show_more">Show more</string>
 	<string name="booking_reviews">Reviews</string>
 	<string name="booking_hotel">Hotel</string>
+	<!-- hotel room -->
 	<string name="booking_hotel_room">Room</string>
+	<!-- A neologism for a chat based on geographical proximity -->
 	<string name="chat">Geochat</string>
+	<!-- Verb. Text on a button that opens the chat. -->
 	<string name="chat_open">Open</string>
 	<string name="whatsnew_uber_header">MAPS.ME &amp; Uber</string>
 	<string name="whatsnew_uber_message">Order a taxi directly from the app!</string>

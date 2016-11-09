@@ -946,7 +946,42 @@
 	<string name="whats_new_route_profile_message">Per gli itinerari pedonali e ciclabili, è ora visualizzato il profilo altimetrico.</string>
 	<string name="whats_new_booking_improve_title">Risparmia alla prenotazione degli hotel</string>
 	<string name="whats_new_booking_improve_message">I risultati della ricerca per gli hotel contengono ora la categoria di prezzo.\nInoltre, abbiamo aggiunto più di 110.000 hotel.</string>
+	<!-- For place page hotel facilities block -->
+	<string name="placepage_hotel_facilities">Servizi</string>
+	<!-- For place page hotel nearby block -->
+	<string name="placepage_hotel_nearby">Nelle vicinanze</string>
+	<!-- For ordering a taxi (as opposed to hotels or other things) -->
+	<string name="taxi_order">Prenota</string>
+	<!-- How long it is until the taxi arrives -->
+	<string name="taxi_wait">Atteso in %s</string>
+	<!-- When there are no available taxis nearby -->
+	<string name="taxi_not_found">Impossibile trovare un taxi nelle vicinanze</string>
 	<string name="install_app">Installa</string>
+	<!-- `Filter` is a noun here -->
+	<string name="booking_filters">Filtro</string>
+	<string name="booking_filters_reset">Reimposta</string>
+	<string name="booking_filters_rating">Voto</string>
+	<string name="booking_filters_rating_any">Qualsiasi</string>
+	<string name="booking_filters_ragting_good">Buono</string>
+	<string name="booking_filters_rating_very_good">Molto buono</string>
+	<string name="booking_filters_rating_excellent">Eccellente</string>
+	<string name="booking_filters_price_category">Categoria di prezzo</string>
+	<string name="booking_filters_no_results">Nessun risultato trovato</string>
+	<string name="booking_filters_nores_message">Prova con un termine di ricerca più generale, fai lo zoom indietro o reimposta il filtro.</string>
+	<string name="booking_filters_expand_area_button">Zoom indietro</string>
+	<string name="booking_filters_reset_button">Reimposta filtro</string>
+	<!-- noun -->
+	<string name="booking_list">Elenco</string>
+	<string name="booking_based_on_reviews">Basato su %d recensioni d\&#39;hotel</string>
+	<string name="booking_show_more">Mostra altro</string>
+	<string name="booking_reviews">Recensioni</string>
+	<string name="booking_hotel">Hotel</string>
+	<!-- hotel room -->
+	<string name="booking_hotel_room">Camera</string>
+	<!-- A neologism for a chat based on geographical proximity -->
+	<string name="chat">GeoChat</string>
+	<!-- Verb. Text on a button that opens the chat. -->
+	<string name="chat_open">Apri</string>
 	<string name="whatsnew_uber_header">MAPS.ME e Uber</string>
 	<string name="whatsnew_uber_message">Prenota un taxi Uber direttamente dalla app!</string>
 	<string name="dialog_taxi_offline">La chiamata taxi non è disponibile in modalità offline.</string>

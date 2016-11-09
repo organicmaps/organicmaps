@@ -945,7 +945,40 @@
 	<string name="whats_new_route_profile_message">Vi viser nå høydeprofilen med tanke på gå- og sykkelruter.</string>
 	<string name="whats_new_booking_improve_title">Spar penger når du bestiller hotell</string>
 	<string name="whats_new_booking_improve_message">Søkeresultatene for hoteller inneholder nå priskategori.\nVi har også lagt til flere enn 110.000 hoteller.</string>
+	<!-- For place page hotel facilities block -->
+	<string name="placepage_hotel_facilities">Fasiliteter</string>
+	<!-- For place page hotel nearby block -->
+	<string name="placepage_hotel_nearby">I nærheten</string>
+	<!-- For ordering a taxi (as opposed to hotels or other things) -->
+	<string name="taxi_order">Bestille</string>
+	<!-- When there are no available taxis nearby -->
+	<string name="taxi_not_found">Kunne ikke finne drosje i nærheten</string>
 	<string name="install_app">Installer</string>
+	<!-- `Filter` is a noun here -->
+	<string name="booking_filters">Filter</string>
+	<string name="booking_filters_reset">Tilbakestille</string>
+	<string name="booking_filters_rating">Vurdering</string>
+	<string name="booking_filters_rating_any">Hvilken som helst</string>
+	<string name="booking_filters_ragting_good">Bra</string>
+	<string name="booking_filters_rating_very_good">Veldig bra</string>
+	<string name="booking_filters_rating_excellent">Utmerket</string>
+	<string name="booking_filters_price_category">Prisklasse</string>
+	<string name="booking_filters_no_results">Fant ingen resultater</string>
+	<string name="booking_filters_nores_message">Prøv et mer generelt søkeord, zoom ut eller tilbakestill filteret.</string>
+	<string name="booking_filters_expand_area_button">Zoom ut</string>
+	<string name="booking_filters_reset_button">Tilbakestill filter</string>
+	<!-- noun -->
+	<string name="booking_list">Liste</string>
+	<string name="booking_based_on_reviews">Basert på %d hotellvurderinger</string>
+	<string name="booking_show_more">Vis mer</string>
+	<string name="booking_reviews">Vurderinger</string>
+	<string name="booking_hotel">Hotell</string>
+	<!-- hotel room -->
+	<string name="booking_hotel_room">Rom</string>
+	<!-- A neologism for a chat based on geographical proximity -->
+	<string name="chat">Geochat</string>
+	<!-- Verb. Text on a button that opens the chat. -->
+	<string name="chat_open">Åpne</string>
 	<string name="whatsnew_uber_header">MAPS.ME og Uber</string>
 	<string name="whatsnew_uber_message">Bestill en Uber-drosje direkte fra appen!</string>
 	<string name="dialog_taxi_offline">Bestilling av taxi er ikke mulig i offlinemodus.</string>

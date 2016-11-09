@@ -947,7 +947,42 @@
 	<string name="whats_new_route_profile_message">Näytämme nyt maaston korkeuden kävely- ja pyöräilyreittejä varten.</string>
 	<string name="whats_new_booking_improve_title">Säästä hotellivarauksissa</string>
 	<string name="whats_new_booking_improve_message">Hotellien hakutuloksissa näkyy nyt hintakategoria.\nLisäsimme myös yli 110 000 hotellia.</string>
+	<!-- For place page hotel facilities block -->
+	<string name="placepage_hotel_facilities">Palvelut</string>
+	<!-- For place page hotel nearby block -->
+	<string name="placepage_hotel_nearby">Lähellä</string>
+	<!-- For ordering a taxi (as opposed to hotels or other things) -->
+	<string name="taxi_order">Tilaa</string>
+	<!-- How long it is until the taxi arrives -->
+	<string name="taxi_wait">Saapumiseen arviolta %s</string>
+	<!-- When there are no available taxis nearby -->
+	<string name="taxi_not_found">Läheltä ei löytynyt taksia</string>
 	<string name="install_app">Asenna</string>
+	<!-- `Filter` is a noun here -->
+	<string name="booking_filters">Suodatin</string>
+	<string name="booking_filters_reset">Palauta</string>
+	<string name="booking_filters_rating">Arvio</string>
+	<string name="booking_filters_rating_any">Kaikki</string>
+	<string name="booking_filters_ragting_good">Hyvä</string>
+	<string name="booking_filters_rating_very_good">Todella hyvä</string>
+	<string name="booking_filters_rating_excellent">Erinomainen</string>
+	<string name="booking_filters_price_category">Hintaluokka</string>
+	<string name="booking_filters_no_results">Ei hakutuloksia</string>
+	<string name="booking_filters_nores_message">Kokeile yleisempää hakusanaa, loitonna tai palauta suodatin.</string>
+	<string name="booking_filters_expand_area_button">Loitonna</string>
+	<string name="booking_filters_reset_button">Palauta suodatin</string>
+	<!-- noun -->
+	<string name="booking_list">Luettelo</string>
+	<string name="booking_based_on_reviews">Perustuu %d hotelliarvioon</string>
+	<string name="booking_show_more">Näytä lisää</string>
+	<string name="booking_reviews">Arviot</string>
+	<string name="booking_hotel">Hotelli</string>
+	<!-- hotel room -->
+	<string name="booking_hotel_room">Huone</string>
+	<!-- A neologism for a chat based on geographical proximity -->
+	<string name="chat">Geochat</string>
+	<!-- Verb. Text on a button that opens the chat. -->
+	<string name="chat_open">Avaa</string>
 	<string name="whatsnew_uber_header">MAPS.ME &amp; Uber</string>
 	<string name="whatsnew_uber_message">Tilaa Uber -taksi suoraan sovelluksesta!</string>
 	<string name="dialog_taxi_offline">Taksin tilaaminen ei ole mahdollista ilman verkkoyhteyttä.</string>

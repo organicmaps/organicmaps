@@ -947,7 +947,42 @@
 	<string name="whats_new_route_profile_message">Đối với các đường đi bộ và đi xe đạp, chúng tôi hiện đã hiển thị mặt cắt tầng.</string>
 	<string name="whats_new_booking_improve_title">Tiết kiệm khi đặt khách sạn</string>
 	<string name="whats_new_booking_improve_message">Kết quả tìm kiếm cho khách sạn giờ đã có bậc giá cả.\nChúng tôi cũng đã bổ sung hơn 110.000 khách sạn.</string>
+	<!-- For place page hotel facilities block -->
+	<string name="placepage_hotel_facilities">Cơ sở</string>
+	<!-- For place page hotel nearby block -->
+	<string name="placepage_hotel_nearby">Gần đây</string>
+	<!-- For ordering a taxi (as opposed to hotels or other things) -->
+	<string name="taxi_order">Đặt xe</string>
+	<!-- How long it is until the taxi arrives -->
+	<string name="taxi_wait">Sẽ đến trong %s</string>
+	<!-- When there are no available taxis nearby -->
+	<string name="taxi_not_found">Không thể tìm thấy một taxi ở gần đây</string>
 	<string name="install_app">Cài đặt</string>
+	<!-- `Filter` is a noun here -->
+	<string name="booking_filters">Bộ lọc</string>
+	<string name="booking_filters_reset">Đặt lại</string>
+	<string name="booking_filters_rating">Cho điểm</string>
+	<string name="booking_filters_rating_any">Bất kỳ</string>
+	<string name="booking_filters_ragting_good">Tốt</string>
+	<string name="booking_filters_rating_very_good">Rất tốt</string>
+	<string name="booking_filters_rating_excellent">Xuất sắc</string>
+	<string name="booking_filters_price_category">Hạng mục Giá</string>
+	<string name="booking_filters_no_results">Không tìm thấy kết quả nào</string>
+	<string name="booking_filters_nores_message">Hãy thử một từ khóa tìm kiếm chung hơn, thu nhỏ hoặc đặt lại bộ lọc.</string>
+	<string name="booking_filters_expand_area_button">Thu nhỏ</string>
+	<string name="booking_filters_reset_button">Đặt lại Bộ lọc</string>
+	<!-- noun -->
+	<string name="booking_list">Danh sách</string>
+	<string name="booking_based_on_reviews">Dựa trên %d đánh giá khách sạn</string>
+	<string name="booking_show_more">Hiển thị thêm</string>
+	<string name="booking_reviews">Đánh giá</string>
+	<string name="booking_hotel">Khách sạn</string>
+	<!-- hotel room -->
+	<string name="booking_hotel_room">Phòng</string>
+	<!-- A neologism for a chat based on geographical proximity -->
+	<string name="chat">Geochat</string>
+	<!-- Verb. Text on a button that opens the chat. -->
+	<string name="chat_open">Mở</string>
 	<string name="whatsnew_uber_header">MAPS.ME &amp; Uber</string>
 	<string name="whatsnew_uber_message">Đặt taxi Uber trực tiếp từ ứng dụng!</string>
 	<string name="dialog_taxi_offline">Gọi taxi không khả dụng trong chế độ ngoại tuyến.</string>

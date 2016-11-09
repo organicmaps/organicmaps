@@ -1631,62 +1631,66 @@
 "whats_new_booking_improve_message" = "تحتوي نتائج البحث عن الفنادق الآن على فئة السعر.\nوأضفنا أيضًا أكثر من 110000 فندق.";
 
 /* For place page hotel facilities block */
-"placepage_hotel_facilities" = "Facilities";
+"placepage_hotel_facilities" = "مرافق";
 
 /* For place page hotel nearby block */
-"placepage_hotel_nearby" = "Nearby";
+"placepage_hotel_nearby" = "قريبة";
 
 /* For ordering a taxi (as opposed to hotels or other things) */
-"taxi_order" = "Order";
+"taxi_order" = "ترتيب";
 
 /* How long it is until the taxi arrives */
-"taxi_wait" = "Expected in %s";
+"taxi_wait" = "متوقع في %s";
 
 /* When there are no available taxis nearby */
-"taxi_not_found" = "Couldn't find a taxi nearby";
+"taxi_not_found" = "لا يمكن العثور على تاكسي قريب";
 
 "install_app" = "تثبيت";
 
 /* `Filter` is a noun here */
-"booking_filters" = "Filter";
+"booking_filters" = "عامل التصفية";
 
-"booking_filters_reset" = "Reset";
+"booking_filters_reset" = "إعادة تعيين";
 
-"booking_filters_rating" = "Rating";
+"booking_filters_rating" = "تصنيف";
 
-"booking_filters_rating_any" = "Any";
+"booking_filters_rating_any" = "أي";
 
-"booking_filters_ragting_good" = "Good";
+"booking_filters_ragting_good" = "جيد";
 
-"booking_filters_rating_very_good" = "Very Good";
+"booking_filters_rating_very_good" = "جيد جداً";
 
-"booking_filters_rating_excellent" = "Excellent";
+"booking_filters_rating_excellent" = "ممتاز";
 
-"booking_filters_price_category" = "Price Category";
+"booking_filters_price_category" = "فئة الأسعار";
 
-"booking_filters_no_results" = "No Results Found";
+"booking_filters_no_results" = "لم يتم العثور على نتائج";
 
-"booking_filters_nores_message" = "Try a more general search term, zoom out or reset the filter.";
+"booking_filters_nores_message" = "جرب مصطلح بحث أكثر عمومية أو التصغير أو إعادة تعيين عامل التصفية.";
 
-"booking_filters_expand_area_button" = "Zoom out";
+"booking_filters_expand_area_button" = "تصغير";
 
-"booking_filters_reset_button" = "Reset Filter";
+"booking_filters_reset_button" = "إعادة تعيين عامل التصفية";
 
-"booking_list" = "List";
+/* noun */
+"booking_list" = "قائمة";
 
-"booking_based_on_reviews" = "Based on %d hotel reviews";
+"booking_based_on_reviews" = "استناداً إلى %d من مراجعات الفنادق";
 
-"booking_show_more" = "Show more";
+"booking_show_more" = "إظهار المزيد";
 
-"booking_reviews" = "Reviews";
+"booking_reviews" = "المراجعات";
 
-"booking_hotel" = "Hotel";
+"booking_hotel" = "الفندق";
 
-"booking_hotel_room" = "Room";
+/* hotel room */
+"booking_hotel_room" = "الغرفة";
 
+/* A neologism for a chat based on geographical proximity */
 "chat" = "Geochat";
 
-"chat_open" = "Open";
+/* Verb. Text on a button that opens the chat. */
+"chat_open" = "فتح";
 
 "whatsnew_uber_header" = "MAPS.ME وUber";
 

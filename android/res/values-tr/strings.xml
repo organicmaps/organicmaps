@@ -953,7 +953,42 @@
 	<string name="whats_new_route_profile_message">Yürüyüş ve bisiklet yolları şimdi yükseklik profilli olarak görüntüleniyor.</string>
 	<string name="whats_new_booking_improve_title">Otel rezervasyonlarınızdan tasarruf edin</string>
 	<string name="whats_new_booking_improve_message">Artık otel arama sonuçlarında fiyat kategorisi de gösteriliyor.\nVe 110,000\&#39;den fazla oteli sistemimize ekledik.</string>
+	<!-- For place page hotel facilities block -->
+	<string name="placepage_hotel_facilities">Tesisler</string>
+	<!-- For place page hotel nearby block -->
+	<string name="placepage_hotel_nearby">Yakınlarda</string>
+	<!-- For ordering a taxi (as opposed to hotels or other things) -->
+	<string name="taxi_order">Çağır</string>
+	<!-- How long it is until the taxi arrives -->
+	<string name="taxi_wait">%s içinde bekleniyor</string>
+	<!-- When there are no available taxis nearby -->
+	<string name="taxi_not_found">Yakın hiç taksi bulunamadı</string>
 	<string name="install_app">Kur</string>
+	<!-- `Filter` is a noun here -->
+	<string name="booking_filters">Filtre</string>
+	<string name="booking_filters_reset">Sıfırla</string>
+	<string name="booking_filters_rating">Oy Verin</string>
+	<string name="booking_filters_rating_any">Herhangi biri</string>
+	<string name="booking_filters_ragting_good">İyi</string>
+	<string name="booking_filters_rating_very_good">Çok iyi</string>
+	<string name="booking_filters_rating_excellent">Mükemmel</string>
+	<string name="booking_filters_price_category">Fiyat Kategorisi</string>
+	<string name="booking_filters_no_results">Hiçbir Sonuç Bulunamadı</string>
+	<string name="booking_filters_nores_message">Daha genel bir terimi aramayı deneyin, uzaklaşın veya filtreyi Sıfırlayın.</string>
+	<string name="booking_filters_expand_area_button">Uzaklaş</string>
+	<string name="booking_filters_reset_button">Filtreyi Sıfırla</string>
+	<!-- noun -->
+	<string name="booking_list">Liste</string>
+	<string name="booking_based_on_reviews">%d otel değerlendirmesine göre</string>
+	<string name="booking_show_more">Daha fazla göster</string>
+	<string name="booking_reviews">Değerlendirmeler</string>
+	<string name="booking_hotel">Otel</string>
+	<!-- hotel room -->
+	<string name="booking_hotel_room">Oda</string>
+	<!-- A neologism for a chat based on geographical proximity -->
+	<string name="chat">GeoChat</string>
+	<!-- Verb. Text on a button that opens the chat. -->
+	<string name="chat_open">Aç</string>
 	<string name="whatsnew_uber_header">MAPS.ME ve Uber</string>
 	<string name="whatsnew_uber_message">Doğrudan uygulamadan Uber taksi isteyin!</string>
 	<string name="dialog_taxi_offline">Taksi çağırma çevrimdışı modda kullanılamıyor.</string>

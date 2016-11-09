@@ -946,7 +946,42 @@
 	<string name="whats_new_route_profile_message">Untuk rute pejalan kaki dan sepeda, kami kini menampilkan profil elevasi.</string>
 	<string name="whats_new_booking_improve_title">Berhemat saat memesan hotel</string>
 	<string name="whats_new_booking_improve_message">Hasil pencarian untuk hotel kini disertai kategori harga.\nKami juga menambahkan lebih dari 110.000 hotel.</string>
+	<!-- For place page hotel facilities block -->
+	<string name="placepage_hotel_facilities">Fasilitas</string>
+	<!-- For place page hotel nearby block -->
+	<string name="placepage_hotel_nearby">Dekat</string>
+	<!-- For ordering a taxi (as opposed to hotels or other things) -->
+	<string name="taxi_order">Pesan</string>
+	<!-- How long it is until the taxi arrives -->
+	<string name="taxi_wait">Diharapkan dalam %s</string>
+	<!-- When there are no available taxis nearby -->
+	<string name="taxi_not_found">Tidak dapat menemukan taksi di dekat lokasi</string>
 	<string name="install_app">Pasang</string>
+	<!-- `Filter` is a noun here -->
+	<string name="booking_filters">Filter</string>
+	<string name="booking_filters_reset">Atur ulang</string>
+	<string name="booking_filters_rating">Peringkat</string>
+	<string name="booking_filters_rating_any">Apa saja</string>
+	<string name="booking_filters_ragting_good">Bagus</string>
+	<string name="booking_filters_rating_very_good">Sangat Bagus</string>
+	<string name="booking_filters_rating_excellent">Luar Biasa</string>
+	<string name="booking_filters_price_category">Kategori Harga</string>
+	<string name="booking_filters_no_results">Tidak Ada Hasil</string>
+	<string name="booking_filters_nores_message">Cobalah dengan istilah pencarian yang lebih umum, perkecil atau atur ulang filter.</string>
+	<string name="booking_filters_expand_area_button">Perkecil</string>
+	<string name="booking_filters_reset_button">Atur Ulang Filter</string>
+	<!-- noun -->
+	<string name="booking_list">Daftar</string>
+	<string name="booking_based_on_reviews">Berdasarkan %d ulasan hotel</string>
+	<string name="booking_show_more">Selengkapnya</string>
+	<string name="booking_reviews">Ulasan</string>
+	<string name="booking_hotel">Hotel</string>
+	<!-- hotel room -->
+	<string name="booking_hotel_room">Kamar</string>
+	<!-- A neologism for a chat based on geographical proximity -->
+	<string name="chat">Geochat</string>
+	<!-- Verb. Text on a button that opens the chat. -->
+	<string name="chat_open">Buka</string>
 	<string name="whatsnew_uber_header">MAPS.ME &amp; Uber</string>
 	<string name="whatsnew_uber_message">Pesan taksi Uber langsung dari aplikasi!</string>
 	<string name="dialog_taxi_offline">Memesan taksi tidak tersedia dalam modus offline.</string>

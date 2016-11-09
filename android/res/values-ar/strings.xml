@@ -953,7 +953,42 @@
 	<string name="whats_new_route_profile_message">بالنسبة لمسارات المشاة والدراجات نحن الآن نعرض تشكيل الارتفاع.</string>
 	<string name="whats_new_booking_improve_title">توفير عند حجز الفنادق</string>
 	<string name="whats_new_booking_improve_message">تحتوي نتائج البحث عن الفنادق الآن على فئة السعر.\nوأضفنا أيضًا أكثر من 110000 فندق.</string>
+	<!-- For place page hotel facilities block -->
+	<string name="placepage_hotel_facilities">مرافق</string>
+	<!-- For place page hotel nearby block -->
+	<string name="placepage_hotel_nearby">قريبة</string>
+	<!-- For ordering a taxi (as opposed to hotels or other things) -->
+	<string name="taxi_order">ترتيب</string>
+	<!-- How long it is until the taxi arrives -->
+	<string name="taxi_wait">متوقع في %s</string>
+	<!-- When there are no available taxis nearby -->
+	<string name="taxi_not_found">لا يمكن العثور على تاكسي قريب</string>
 	<string name="install_app">تثبيت</string>
+	<!-- `Filter` is a noun here -->
+	<string name="booking_filters">عامل التصفية</string>
+	<string name="booking_filters_reset">إعادة تعيين</string>
+	<string name="booking_filters_rating">تصنيف</string>
+	<string name="booking_filters_rating_any">أي</string>
+	<string name="booking_filters_ragting_good">جيد</string>
+	<string name="booking_filters_rating_very_good">جيد جداً</string>
+	<string name="booking_filters_rating_excellent">ممتاز</string>
+	<string name="booking_filters_price_category">فئة الأسعار</string>
+	<string name="booking_filters_no_results">لم يتم العثور على نتائج</string>
+	<string name="booking_filters_nores_message">جرب مصطلح بحث أكثر عمومية أو التصغير أو إعادة تعيين عامل التصفية.</string>
+	<string name="booking_filters_expand_area_button">تصغير</string>
+	<string name="booking_filters_reset_button">إعادة تعيين عامل التصفية</string>
+	<!-- noun -->
+	<string name="booking_list">قائمة</string>
+	<string name="booking_based_on_reviews">استناداً إلى %d من مراجعات الفنادق</string>
+	<string name="booking_show_more">إظهار المزيد</string>
+	<string name="booking_reviews">المراجعات</string>
+	<string name="booking_hotel">الفندق</string>
+	<!-- hotel room -->
+	<string name="booking_hotel_room">الغرفة</string>
+	<!-- A neologism for a chat based on geographical proximity -->
+	<string name="chat">Geochat</string>
+	<!-- Verb. Text on a button that opens the chat. -->
+	<string name="chat_open">فتح</string>
 	<string name="whatsnew_uber_header">MAPS.ME وUber</string>
 	<string name="whatsnew_uber_message">اطلب تاكسي Uber مباشرة من التطبيق!</string>
 	<string name="dialog_taxi_offline">طلب تاكسي غير متاح في وضع الطيران.</string>

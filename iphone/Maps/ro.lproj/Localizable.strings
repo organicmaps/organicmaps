@@ -1631,62 +1631,66 @@
 "whats_new_booking_improve_message" = "Rezultatele de căutare pentru hoteluri conțin acum categoria de preț. \nAm mai adăugat și peste 110.000 de hoteluri.";
 
 /* For place page hotel facilities block */
-"placepage_hotel_facilities" = "Facilities";
+"placepage_hotel_facilities" = "Facilităţi";
 
 /* For place page hotel nearby block */
-"placepage_hotel_nearby" = "Nearby";
+"placepage_hotel_nearby" = "În apropiere";
 
 /* For ordering a taxi (as opposed to hotels or other things) */
-"taxi_order" = "Order";
+"taxi_order" = "Comandă";
 
 /* How long it is until the taxi arrives */
-"taxi_wait" = "Expected in %s";
+"taxi_wait" = "Așteptat în %s";
 
 /* When there are no available taxis nearby */
-"taxi_not_found" = "Couldn't find a taxi nearby";
+"taxi_not_found" = "Nu am găsit niciun taxi în apropiere ";
 
 "install_app" = "Instalați";
 
 /* `Filter` is a noun here */
-"booking_filters" = "Filter";
+"booking_filters" = "Filtrare";
 
-"booking_filters_reset" = "Reset";
+"booking_filters_reset" = "Resetare";
 
-"booking_filters_rating" = "Rating";
+"booking_filters_rating" = "Clasificare";
 
-"booking_filters_rating_any" = "Any";
+"booking_filters_rating_any" = "Oricare";
 
-"booking_filters_ragting_good" = "Good";
+"booking_filters_ragting_good" = "Bine";
 
-"booking_filters_rating_very_good" = "Very Good";
+"booking_filters_rating_very_good" = "Foarte bine";
 
-"booking_filters_rating_excellent" = "Excellent";
+"booking_filters_rating_excellent" = "Excelent";
 
-"booking_filters_price_category" = "Price Category";
+"booking_filters_price_category" = "Categorie de preț";
 
-"booking_filters_no_results" = "No Results Found";
+"booking_filters_no_results" = "Nu au fost găsite rezultate";
 
-"booking_filters_nores_message" = "Try a more general search term, zoom out or reset the filter.";
+"booking_filters_nores_message" = "Încercați un termen mai general, micșorați sau resetați filtrul.";
 
-"booking_filters_expand_area_button" = "Zoom out";
+"booking_filters_expand_area_button" = "Micșorare";
 
-"booking_filters_reset_button" = "Reset Filter";
+"booking_filters_reset_button" = "Resetare filtru";
 
-"booking_list" = "List";
+/* noun */
+"booking_list" = "Listă";
 
-"booking_based_on_reviews" = "Based on %d hotel reviews";
+"booking_based_on_reviews" = "Bazat pe comentariile privind hotelul %d";
 
-"booking_show_more" = "Show more";
+"booking_show_more" = "Arată mai multe";
 
-"booking_reviews" = "Reviews";
+"booking_reviews" = "Comentarii";
 
 "booking_hotel" = "Hotel";
 
-"booking_hotel_room" = "Room";
+/* hotel room */
+"booking_hotel_room" = "Cameră";
 
+/* A neologism for a chat based on geographical proximity */
 "chat" = "Geochat";
 
-"chat_open" = "Open";
+/* Verb. Text on a button that opens the chat. */
+"chat_open" = "Deschideți";
 
 "whatsnew_uber_header" = "MAPS.ME și Uber";
 

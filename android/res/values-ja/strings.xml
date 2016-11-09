@@ -946,7 +946,42 @@
 	<string name="whats_new_route_profile_message">歩行者とバイク用のルートに高度プロファイルが表示されるようになりました。</string>
 	<string name="whats_new_booking_improve_title">ホテル予約時に節約しましょう</string>
 	<string name="whats_new_booking_improve_message">ホテルの検索結果に価格のカテゴリーが表示されるようになりました。\nさらに、 110,000 軒を超えるホテルを追加しました。</string>
+	<!-- For place page hotel facilities block -->
+	<string name="placepage_hotel_facilities">施設</string>
+	<!-- For place page hotel nearby block -->
+	<string name="placepage_hotel_nearby">近隣</string>
+	<!-- For ordering a taxi (as opposed to hotels or other things) -->
+	<string name="taxi_order">予約</string>
+	<!-- How long it is until the taxi arrives -->
+	<string name="taxi_wait">%s 後に到着予定</string>
+	<!-- When there are no available taxis nearby -->
+	<string name="taxi_not_found">近隣にタクシーは見つかりませんでした</string>
 	<string name="install_app">インストール</string>
+	<!-- `Filter` is a noun here -->
+	<string name="booking_filters">フィルター</string>
+	<string name="booking_filters_reset">リセット</string>
+	<string name="booking_filters_rating">評価</string>
+	<string name="booking_filters_rating_any">すべて</string>
+	<string name="booking_filters_ragting_good">良い</string>
+	<string name="booking_filters_rating_very_good">非常に良い</string>
+	<string name="booking_filters_rating_excellent">最高</string>
+	<string name="booking_filters_price_category">価格帯</string>
+	<string name="booking_filters_no_results">結果が見つかりません</string>
+	<string name="booking_filters_nores_message">一般的な検索語句や、フィルター範囲を広げたりリセットしたりしてください。</string>
+	<string name="booking_filters_expand_area_button">広げる</string>
+	<string name="booking_filters_reset_button">フィルターをリセット</string>
+	<!-- noun -->
+	<string name="booking_list">一覧</string>
+	<string name="booking_based_on_reviews">%d 件のホテルのレビューに基づいています</string>
+	<string name="booking_show_more">さらに表示</string>
+	<string name="booking_reviews">レビュー</string>
+	<string name="booking_hotel">ホテル</string>
+	<!-- hotel room -->
+	<string name="booking_hotel_room">部屋</string>
+	<!-- A neologism for a chat based on geographical proximity -->
+	<string name="chat">ジオチャット</string>
+	<!-- Verb. Text on a button that opens the chat. -->
+	<string name="chat_open">開始</string>
 	<string name="whatsnew_uber_header">MAPS.ME &amp; Uber</string>
 	<string name="whatsnew_uber_message">アプリから直接Uberの配車リクエストができます！</string>
 	<string name="dialog_taxi_offline">タクシーの予約がオフラインモードでは使用できません。</string>

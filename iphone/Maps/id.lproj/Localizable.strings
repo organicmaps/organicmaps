@@ -1631,62 +1631,66 @@
 "whats_new_booking_improve_message" = "Hasil pencarian untuk hotel kini disertai kategori harga.\nKami juga menambahkan lebih dari 110.000 hotel.";
 
 /* For place page hotel facilities block */
-"placepage_hotel_facilities" = "Facilities";
+"placepage_hotel_facilities" = "Fasilitas";
 
 /* For place page hotel nearby block */
-"placepage_hotel_nearby" = "Nearby";
+"placepage_hotel_nearby" = "Dekat";
 
 /* For ordering a taxi (as opposed to hotels or other things) */
-"taxi_order" = "Order";
+"taxi_order" = "Pesan";
 
 /* How long it is until the taxi arrives */
-"taxi_wait" = "Expected in %s";
+"taxi_wait" = "Diharapkan dalam %s";
 
 /* When there are no available taxis nearby */
-"taxi_not_found" = "Couldn't find a taxi nearby";
+"taxi_not_found" = "Tidak dapat menemukan taksi di dekat lokasi";
 
 "install_app" = "Pasang";
 
 /* `Filter` is a noun here */
 "booking_filters" = "Filter";
 
-"booking_filters_reset" = "Reset";
+"booking_filters_reset" = "Atur ulang";
 
-"booking_filters_rating" = "Rating";
+"booking_filters_rating" = "Peringkat";
 
-"booking_filters_rating_any" = "Any";
+"booking_filters_rating_any" = "Apa saja";
 
-"booking_filters_ragting_good" = "Good";
+"booking_filters_ragting_good" = "Bagus";
 
-"booking_filters_rating_very_good" = "Very Good";
+"booking_filters_rating_very_good" = "Sangat Bagus";
 
-"booking_filters_rating_excellent" = "Excellent";
+"booking_filters_rating_excellent" = "Luar Biasa";
 
-"booking_filters_price_category" = "Price Category";
+"booking_filters_price_category" = "Kategori Harga";
 
-"booking_filters_no_results" = "No Results Found";
+"booking_filters_no_results" = "Tidak Ada Hasil";
 
-"booking_filters_nores_message" = "Try a more general search term, zoom out or reset the filter.";
+"booking_filters_nores_message" = "Cobalah dengan istilah pencarian yang lebih umum, perkecil atau atur ulang filter.";
 
-"booking_filters_expand_area_button" = "Zoom out";
+"booking_filters_expand_area_button" = "Perkecil";
 
-"booking_filters_reset_button" = "Reset Filter";
+"booking_filters_reset_button" = "Atur Ulang Filter";
 
-"booking_list" = "List";
+/* noun */
+"booking_list" = "Daftar";
 
-"booking_based_on_reviews" = "Based on %d hotel reviews";
+"booking_based_on_reviews" = "Berdasarkan %d ulasan hotel";
 
-"booking_show_more" = "Show more";
+"booking_show_more" = "Selengkapnya";
 
-"booking_reviews" = "Reviews";
+"booking_reviews" = "Ulasan";
 
 "booking_hotel" = "Hotel";
 
-"booking_hotel_room" = "Room";
+/* hotel room */
+"booking_hotel_room" = "Kamar";
 
+/* A neologism for a chat based on geographical proximity */
 "chat" = "Geochat";
 
-"chat_open" = "Open";
+/* Verb. Text on a button that opens the chat. */
+"chat_open" = "Buka";
 
 "whatsnew_uber_header" = "MAPS.ME & Uber";
 

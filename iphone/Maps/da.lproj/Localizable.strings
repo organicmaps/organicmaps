@@ -1631,62 +1631,66 @@
 "whats_new_booking_improve_message" = "Søgeresultater for hoteller viser nu også priskategorien.\nVi har desuden tilføjet mere end 110.000 hoteller.";
 
 /* For place page hotel facilities block */
-"placepage_hotel_facilities" = "Facilities";
+"placepage_hotel_facilities" = "Faciliteter";
 
 /* For place page hotel nearby block */
-"placepage_hotel_nearby" = "Nearby";
+"placepage_hotel_nearby" = "I nærheden";
 
 /* For ordering a taxi (as opposed to hotels or other things) */
-"taxi_order" = "Order";
+"taxi_order" = "Bestil";
 
 /* How long it is until the taxi arrives */
-"taxi_wait" = "Expected in %s";
+"taxi_wait" = "Forventes om %s";
 
 /* When there are no available taxis nearby */
-"taxi_not_found" = "Couldn't find a taxi nearby";
+"taxi_not_found" = "Kunne ikke finde en taxi i nærheden";
 
 "install_app" = "Installer";
 
 /* `Filter` is a noun here */
 "booking_filters" = "Filter";
 
-"booking_filters_reset" = "Reset";
+"booking_filters_reset" = "Nulstil";
 
-"booking_filters_rating" = "Rating";
+"booking_filters_rating" = "Vurdering";
 
-"booking_filters_rating_any" = "Any";
+"booking_filters_rating_any" = "Hvilken som helst";
 
-"booking_filters_ragting_good" = "Good";
+"booking_filters_ragting_good" = "God";
 
-"booking_filters_rating_very_good" = "Very Good";
+"booking_filters_rating_very_good" = "Meget god";
 
-"booking_filters_rating_excellent" = "Excellent";
+"booking_filters_rating_excellent" = "Fremragende";
 
-"booking_filters_price_category" = "Price Category";
+"booking_filters_price_category" = "Prisklasse";
 
-"booking_filters_no_results" = "No Results Found";
+"booking_filters_no_results" = "Ingen resultater fundet";
 
-"booking_filters_nores_message" = "Try a more general search term, zoom out or reset the filter.";
+"booking_filters_nores_message" = "Prøv et mere generelt søgeudtryk, zoom ud eller nulstil filteret.";
 
-"booking_filters_expand_area_button" = "Zoom out";
+"booking_filters_expand_area_button" = "Zoom ud";
 
-"booking_filters_reset_button" = "Reset Filter";
+"booking_filters_reset_button" = "Nulstil Filter";
 
-"booking_list" = "List";
+/* noun */
+"booking_list" = "Liste";
 
-"booking_based_on_reviews" = "Based on %d hotel reviews";
+"booking_based_on_reviews" = "Baseret på %d hotelanmeldelser";
 
-"booking_show_more" = "Show more";
+"booking_show_more" = "Vis mere";
 
-"booking_reviews" = "Reviews";
+"booking_reviews" = "Anmeldelser";
 
 "booking_hotel" = "Hotel";
 
-"booking_hotel_room" = "Room";
+/* hotel room */
+"booking_hotel_room" = "Værelse";
 
+/* A neologism for a chat based on geographical proximity */
 "chat" = "Geochat";
 
-"chat_open" = "Open";
+/* Verb. Text on a button that opens the chat. */
+"chat_open" = "Åbn";
 
 "whatsnew_uber_header" = "MAPS.ME & Uber";
 

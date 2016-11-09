@@ -943,7 +943,42 @@
 	<string name="whats_new_route_profile_message">보행자 및 자전거 도로를 위해 이제 고도 단면을 표시합니다.</string>
 	<string name="whats_new_booking_improve_title">호텔 예약 시 절약</string>
 	<string name="whats_new_booking_improve_message">이제 가격 범주를 포함하는 호텔에 대한 결과를 검색하세요.\n또한 110,000곳 이상의 호텔이 추가되었습니다.</string>
+	<!-- For place page hotel facilities block -->
+	<string name="placepage_hotel_facilities">시설</string>
+	<!-- For place page hotel nearby block -->
+	<string name="placepage_hotel_nearby">근처</string>
+	<!-- For ordering a taxi (as opposed to hotels or other things) -->
+	<string name="taxi_order">주문</string>
+	<!-- How long it is until the taxi arrives -->
+	<string name="taxi_wait">%s 예상</string>
+	<!-- When there are no available taxis nearby -->
+	<string name="taxi_not_found">근처에서 택시를 찾을 수 없음</string>
 	<string name="install_app">설치</string>
+	<!-- `Filter` is a noun here -->
+	<string name="booking_filters">필터</string>
+	<string name="booking_filters_reset">재설정</string>
+	<string name="booking_filters_rating">평가</string>
+	<string name="booking_filters_rating_any">모두</string>
+	<string name="booking_filters_ragting_good">양호</string>
+	<string name="booking_filters_rating_very_good">매우 양호</string>
+	<string name="booking_filters_rating_excellent">탁월</string>
+	<string name="booking_filters_price_category">가격 범주</string>
+	<string name="booking_filters_no_results">결과 찾지 못함</string>
+	<string name="booking_filters_nores_message">보다 일반적인 검색어로 시도하거나, 축소하거나, 필터를 재설정하세요.</string>
+	<string name="booking_filters_expand_area_button">축소</string>
+	<string name="booking_filters_reset_button">필터 재설정</string>
+	<!-- noun -->
+	<string name="booking_list">목록</string>
+	<string name="booking_based_on_reviews">%d개 호텔 리뷰 기반</string>
+	<string name="booking_show_more">자세히 표시</string>
+	<string name="booking_reviews">리뷰</string>
+	<string name="booking_hotel">호텔</string>
+	<!-- hotel room -->
+	<string name="booking_hotel_room">객실</string>
+	<!-- A neologism for a chat based on geographical proximity -->
+	<string name="chat">Geochat</string>
+	<!-- Verb. Text on a button that opens the chat. -->
+	<string name="chat_open">열기</string>
 	<string name="whatsnew_uber_header">MAPS.ME &amp; Uber</string>
 	<string name="whatsnew_uber_message">Uber 택시를 직접 앱에서 예약하세요.</string>
 	<string name="dialog_taxi_offline">오프라인 모드에서는 택시를 예약할 수 없습니다.</string>

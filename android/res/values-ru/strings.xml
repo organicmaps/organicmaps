@@ -990,13 +990,17 @@
 	<string name="booking_filters_nores_message">Попробуйте задать более общий запрос, уменьшить масштаб карты или сбросить фильтр.</string>
 	<string name="booking_filters_expand_area_button">Уменьшить масштаб карты</string>
 	<string name="booking_filters_reset_button">Сбросить фильтр</string>
+	<!-- noun -->
 	<string name="booking_list">Список</string>
 	<string name="booking_based_on_reviews">По %d отзывам об отеле</string>
 	<string name="booking_show_more">Показать еще</string>
 	<string name="booking_reviews">Отзывы</string>
 	<string name="booking_hotel">Отель</string>
+	<!-- hotel room -->
 	<string name="booking_hotel_room">Номер</string>
+	<!-- A neologism for a chat based on geographical proximity -->
 	<string name="chat">Геочат</string>
+	<!-- Verb. Text on a button that opens the chat. -->
 	<string name="chat_open">Открыть</string>
 	<string name="whatsnew_uber_header">MAPS.ME и Uber</string>
 	<string name="whatsnew_uber_message">Закажите такси прямо из приложения!</string>

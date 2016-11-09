@@ -1631,62 +1631,66 @@
 "whats_new_booking_improve_message" = "이제 가격 범주를 포함하는 호텔에 대한 결과를 검색하세요.\n또한 110,000곳 이상의 호텔이 추가되었습니다.";
 
 /* For place page hotel facilities block */
-"placepage_hotel_facilities" = "Facilities";
+"placepage_hotel_facilities" = "시설";
 
 /* For place page hotel nearby block */
-"placepage_hotel_nearby" = "Nearby";
+"placepage_hotel_nearby" = "근처";
 
 /* For ordering a taxi (as opposed to hotels or other things) */
-"taxi_order" = "Order";
+"taxi_order" = "주문";
 
 /* How long it is until the taxi arrives */
-"taxi_wait" = "Expected in %s";
+"taxi_wait" = "%s 예상";
 
 /* When there are no available taxis nearby */
-"taxi_not_found" = "Couldn't find a taxi nearby";
+"taxi_not_found" = "근처에서 택시를 찾을 수 없음";
 
 "install_app" = "설치";
 
 /* `Filter` is a noun here */
-"booking_filters" = "Filter";
+"booking_filters" = "필터";
 
-"booking_filters_reset" = "Reset";
+"booking_filters_reset" = "재설정";
 
-"booking_filters_rating" = "Rating";
+"booking_filters_rating" = "평가";
 
-"booking_filters_rating_any" = "Any";
+"booking_filters_rating_any" = "모두";
 
-"booking_filters_ragting_good" = "Good";
+"booking_filters_ragting_good" = "양호";
 
-"booking_filters_rating_very_good" = "Very Good";
+"booking_filters_rating_very_good" = "매우 양호";
 
-"booking_filters_rating_excellent" = "Excellent";
+"booking_filters_rating_excellent" = "탁월";
 
-"booking_filters_price_category" = "Price Category";
+"booking_filters_price_category" = "가격 범주";
 
-"booking_filters_no_results" = "No Results Found";
+"booking_filters_no_results" = "결과 찾지 못함";
 
-"booking_filters_nores_message" = "Try a more general search term, zoom out or reset the filter.";
+"booking_filters_nores_message" = "보다 일반적인 검색어로 시도하거나, 축소하거나, 필터를 재설정하세요.";
 
-"booking_filters_expand_area_button" = "Zoom out";
+"booking_filters_expand_area_button" = "축소";
 
-"booking_filters_reset_button" = "Reset Filter";
+"booking_filters_reset_button" = "필터 재설정";
 
-"booking_list" = "List";
+/* noun */
+"booking_list" = "목록";
 
-"booking_based_on_reviews" = "Based on %d hotel reviews";
+"booking_based_on_reviews" = "%d개 호텔 리뷰 기반";
 
-"booking_show_more" = "Show more";
+"booking_show_more" = "자세히 표시";
 
-"booking_reviews" = "Reviews";
+"booking_reviews" = "리뷰";
 
-"booking_hotel" = "Hotel";
+"booking_hotel" = "호텔";
 
-"booking_hotel_room" = "Room";
+/* hotel room */
+"booking_hotel_room" = "객실";
 
+/* A neologism for a chat based on geographical proximity */
 "chat" = "Geochat";
 
-"chat_open" = "Open";
+/* Verb. Text on a button that opens the chat. */
+"chat_open" = "열기";
 
 "whatsnew_uber_header" = "MAPS.ME & Uber";
 

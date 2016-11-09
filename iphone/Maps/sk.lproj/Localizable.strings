@@ -1631,62 +1631,66 @@
 "whats_new_booking_improve_message" = "Výsledky vyhľadávania hotelov odteraz obsahujú aj cenové kategórie. \nTiež sme pridali viac ako 110 000 hotelov.";
 
 /* For place page hotel facilities block */
-"placepage_hotel_facilities" = "Facilities";
+"placepage_hotel_facilities" = "Zariadenia";
 
 /* For place page hotel nearby block */
-"placepage_hotel_nearby" = "Nearby";
+"placepage_hotel_nearby" = "V blízkosti";
 
 /* For ordering a taxi (as opposed to hotels or other things) */
-"taxi_order" = "Order";
+"taxi_order" = "Objednať";
 
 /* How long it is until the taxi arrives */
-"taxi_wait" = "Expected in %s";
+"taxi_wait" = "Očakávaný príjazd o %s";
 
 /* When there are no available taxis nearby */
-"taxi_not_found" = "Couldn't find a taxi nearby";
+"taxi_not_found" = "V okolí sa nepodarilo nájsť žiaden taxík";
 
 "install_app" = "Nainštalovať";
 
 /* `Filter` is a noun here */
 "booking_filters" = "Filter";
 
-"booking_filters_reset" = "Reset";
+"booking_filters_reset" = "Obnoviť";
 
-"booking_filters_rating" = "Rating";
+"booking_filters_rating" = "Hodnotenie";
 
-"booking_filters_rating_any" = "Any";
+"booking_filters_rating_any" = "Akékoľvek";
 
-"booking_filters_ragting_good" = "Good";
+"booking_filters_ragting_good" = "Dobré";
 
-"booking_filters_rating_very_good" = "Very Good";
+"booking_filters_rating_very_good" = "Veľmi dobré";
 
-"booking_filters_rating_excellent" = "Excellent";
+"booking_filters_rating_excellent" = "Výborné";
 
-"booking_filters_price_category" = "Price Category";
+"booking_filters_price_category" = "Cenová kategória";
 
-"booking_filters_no_results" = "No Results Found";
+"booking_filters_no_results" = "Nenašli sa žiadne výsledky";
 
-"booking_filters_nores_message" = "Try a more general search term, zoom out or reset the filter.";
+"booking_filters_nores_message" = "Skúste vyhľadávať všeobecnejší výraz, vzdialiť alebo obnoviť nastavenie filtra.";
 
-"booking_filters_expand_area_button" = "Zoom out";
+"booking_filters_expand_area_button" = "Vzdialiť";
 
-"booking_filters_reset_button" = "Reset Filter";
+"booking_filters_reset_button" = "Obnoviť filter";
 
-"booking_list" = "List";
+/* noun */
+"booking_list" = "Zoznam";
 
-"booking_based_on_reviews" = "Based on %d hotel reviews";
+"booking_based_on_reviews" = "Na základe %d recenzií";
 
-"booking_show_more" = "Show more";
+"booking_show_more" = "Zobraziť viac";
 
-"booking_reviews" = "Reviews";
+"booking_reviews" = "Recenzie";
 
 "booking_hotel" = "Hotel";
 
-"booking_hotel_room" = "Room";
+/* hotel room */
+"booking_hotel_room" = "Izba";
 
-"chat" = "Geochat";
+/* A neologism for a chat based on geographical proximity */
+"chat" = "GeoChat";
 
-"chat_open" = "Open";
+/* Verb. Text on a button that opens the chat. */
+"chat_open" = "Otvoriť";
 
 "whatsnew_uber_header" = "MAPS.ME & Uber";
 
