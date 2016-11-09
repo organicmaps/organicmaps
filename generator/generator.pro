@@ -44,6 +44,7 @@ SOURCES += \
     sponsored_scoring.cpp \
     srtm_parser.cpp \
     statistics.cpp \
+    sync_ofsteam.cpp \
     tesselator.cpp \
     towns_dumper.cpp \
     unpack_mwm.cpp \
@@ -86,6 +87,7 @@ HEADERS += \
     sponsored_scoring.hpp \
     srtm_parser.hpp \
     statistics.hpp \
+    sync_ofsteam.cpp \
     tag_admixer.hpp \
     tesselator.hpp \
     towns_dumper.hpp \
