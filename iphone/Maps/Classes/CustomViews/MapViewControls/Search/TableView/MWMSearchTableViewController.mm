@@ -67,6 +67,9 @@ NSString * identifierForType(MWMSearchTableCellType type)
 - (void)setupTableView
 {
   UITableView * tableView = self.tableView;
+  tableView.estimatedRowHeight = 80.;
+  tableView.rowHeight = UITableViewAutomaticDimension;
+
   [tableView registerNib:[UINib nibWithNibName:kTableSuggestionCell bundle:nil]
       forCellReuseIdentifier:kTableSuggestionCell];
   [tableView registerNib:[UINib nibWithNibName:kTableCommonCell bundle:nil]
@@ -110,7 +113,21 @@ NSString * identifierForType(MWMSearchTableCellType type)
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   MWMSearchTableCellType const cellType = [self cellTypeForIndexPath:indexPath];
-  return [tableView dequeueReusableCellWithIdentifier:identifierForType(cellType)];
+  UITableViewCell * cell =
+      [tableView dequeueReusableCellWithIdentifier:identifierForType(cellType)];
+  switch (cellType)
+  {
+  case MWMSearchTableCellTypeSuggestion:
+    [self configSuggestionCell:(MWMSearchSuggestionCell *)cell
+                        result:[self searchResultForIndexPath:indexPath]
+                    isLastCell:indexPath.row == [MWMSearch suggestionsCount] - 1];
+    break;
+  case MWMSearchTableCellTypeCommon:
+    [(MWMSearchCommonCell *)cell config:[self searchResultForIndexPath:indexPath]];
+    break;
+  }
+
+  return cell;
 }
 
 #pragma mark - Config cells
@@ -124,45 +141,6 @@ NSString * identifierForType(MWMSearchTableCellType type)
 }
 
 #pragma mark - UITableViewDelegate
-
-- (CGFloat)tableView:(UITableView *)tableView
-    estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-  switch ([self cellTypeForIndexPath:indexPath])
-  {
-  case MWMSearchTableCellTypeSuggestion: return MWMSearchSuggestionCell.cellHeight;
-  case MWMSearchTableCellTypeCommon: return MWMSearchCommonCell.defaultCellHeight;
-  }
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-  MWMSearchTableCellType const cellType = [self cellTypeForIndexPath:indexPath];
-  switch (cellType)
-  {
-  case MWMSearchTableCellTypeSuggestion: return MWMSearchSuggestionCell.cellHeight;
-  case MWMSearchTableCellTypeCommon:
-    [self.commonSizingCell config:[self searchResultForIndexPath:indexPath] forHeight:YES];
-    return self.commonSizingCell.cellHeight;
-  }
-}
-
-- (void)tableView:(UITableView *)tableView
-      willDisplayCell:(UITableViewCell *)cell
-    forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-  switch ([self cellTypeForIndexPath:indexPath])
-  {
-  case MWMSearchTableCellTypeSuggestion:
-    [self configSuggestionCell:(MWMSearchSuggestionCell *)cell
-                        result:[self searchResultForIndexPath:indexPath]
-                    isLastCell:indexPath.row == [MWMSearch suggestionsCount] - 1];
-    break;
-  case MWMSearchTableCellTypeCommon:
-    [(MWMSearchCommonCell *)cell config:[self searchResultForIndexPath:indexPath] forHeight:NO];
-    break;
-  }
-}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

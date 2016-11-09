@@ -27,6 +27,8 @@ extern NSString * const kSearchStateKey;
                                                name:kSearchStateWillChangeNotification
                                              object:nil];
   [MWMSearch addObserver:self];
+  self.changeModeButton.titleLabel.textAlignment = NSTextAlignmentNatural;
+  self.filterButton.titleLabel.textAlignment = NSTextAlignmentNatural;
   self.filterButtoniPadX.priority = IPAD ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow;
 }
 
