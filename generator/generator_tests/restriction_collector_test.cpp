@@ -67,8 +67,8 @@ UNIT_TEST(RestrictionTest_InvalidCase)
   TEST_EQUAL(restrictionCollector.m_restrictions, expectedRestrictions, ());
 
   restrictionCollector.RemoveInvalidRestrictions();
-  TEST(restrictionCollector.m_restrictions.empty(), ());
-  TEST(!restrictionCollector.IsValid(), ());
+  TEST(!restrictionCollector.HasRestrictions(), ());
+  TEST(restrictionCollector.IsValid(), ());
 }
 
 UNIT_TEST(RestrictionTest_ParseRestrictions)

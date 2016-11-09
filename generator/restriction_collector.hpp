@@ -15,11 +15,6 @@ namespace routing
 /// their road feature in text file for using later.
 class RestrictionCollector
 {
-  friend void UnitTest_RestrictionTest_ValidCase();
-  friend void UnitTest_RestrictionTest_InvalidCase();
-  friend void UnitTest_RestrictionTest_ParseRestrictions();
-  friend void UnitTest_RestrictionTest_ParseFeatureId2OsmIdsMapping();
-
 public:
   /// \brief Addresses a link in vector<Restriction>.
   struct LinkIndex
@@ -29,30 +24,37 @@ public:
     {
     }
 
-    // Restriction number in restriction vector.
-    size_t m_restrictionNumber = 0;
-    // Link number for a restriction. It's equal to zero or one for most cases.
-    size_t m_linkNumber = 0;
-
     bool operator==(LinkIndex const & index) const
     {
       return m_restrictionNumber == index.m_restrictionNumber && m_linkNumber == index.m_linkNumber;
     }
+
+    // Restriction number in restriction vector.
+    size_t const m_restrictionNumber;
+    // Link number for a restriction. It's equal to zero or one for most cases.
+    size_t const m_linkNumber;
   };
 
   /// \param restrictionPath full path to file with road restrictions in osm id terms.
   /// \param featureId2OsmIdsPath full path to file with mapping from feature id to osm id.
   RestrictionCollector(string const & restrictionPath, string const & featureId2OsmIdsPath);
 
-  /// \returns true if |m_restrictions| is not empty all feature ids in |m_restrictions|
-  /// are set to valid value and false otherwise.
+  bool HasRestrictions() const { return !m_restrictions.empty(); }
+
+  /// \returns true if all restrictions in |m_restrictions| are valid and false otherwise.
   /// \note Empty |m_restrictions| is considered as an invalid restriction.
   /// \note Complexity of the method is up to linear in the size of |m_restrictions|.
   bool IsValid() const;
 
   /// \returns Sorted vector of restrictions.
   RestrictionVec const & GetRestrictions() const { return m_restrictions; }
+
 private:
+  friend void UnitTest_RestrictionTest_ValidCase();
+  friend void UnitTest_RestrictionTest_InvalidCase();
+  friend void UnitTest_RestrictionTest_ParseRestrictions();
+  friend void UnitTest_RestrictionTest_ParseFeatureId2OsmIdsMapping();
+
   /// \brief Parses comma separated text file with line in following format:
   /// <feature id>, <osm id 1 corresponding feature id>, <osm id 2 corresponding feature id>, and so
   /// on
@@ -72,7 +74,7 @@ private:
   /// No, 157616940, 157616940,
   /// No, 157616940, 157617107,
   /// \param featureId2OsmIdsPath path to the text file.
-  bool ParseRestrictions(string const & restrictionPath);
+  bool ParseRestrictions(string const & path);
 
   /// \brief Sets feature id for all restrictions in |m_restrictions|.
   void ComposeRestrictions();

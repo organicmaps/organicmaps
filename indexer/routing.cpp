@@ -2,33 +2,25 @@
 
 namespace routing
 {
+// static
 uint32_t const Restriction::kInvalidFeatureId = numeric_limits<uint32_t>::max();
-
-Restriction::Restriction(Type type, size_t linkNumber) : m_type(type)
-{
-  m_links.resize(linkNumber, kInvalidFeatureId);
-}
-
-Restriction::Restriction(Type type, vector<uint32_t> const & links) : m_links(links), m_type(type)
-{
-}
 
 bool Restriction::IsValid() const
 {
-  return !m_links.empty() && find(begin(m_links), end(m_links), kInvalidFeatureId) == end(m_links);
+  return !m_featureIds.empty() && find(begin(m_featureIds), end(m_featureIds), kInvalidFeatureId)
+      == end(m_featureIds);
 }
 
 bool Restriction::operator==(Restriction const & restriction) const
 {
-  return m_links == restriction.m_links && m_type == restriction.m_type;
+  return m_featureIds == restriction.m_featureIds && m_type == restriction.m_type;
 }
 
 bool Restriction::operator<(Restriction const & restriction) const
 {
   if (m_type != restriction.m_type)
     return m_type < restriction.m_type;
-
-  return m_links < restriction.m_links;
+  return m_featureIds < restriction.m_featureIds;
 }
 }  // namespace routing
 

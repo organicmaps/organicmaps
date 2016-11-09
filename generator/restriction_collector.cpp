@@ -12,16 +12,16 @@ namespace
 {
 char const kNo[] = "No";
 char const kOnly[] = "Only";
+char const kDelim[] = ", \t\r\n";
 
 bool ParseLineOfNumbers(strings::SimpleTokenizer & iter, vector<uint64_t> & numbers)
 {
   uint64_t number = 0;
-  while (iter)
+  for (; iter; ++iter)
   {
     if (!strings::to_uint64(*iter, number))
       return false;
     numbers.push_back(number);
-    ++iter;
   }
   return true;
 }
@@ -42,13 +42,12 @@ RestrictionCollector::RestrictionCollector(string const & restrictionPath,
   }
   ComposeRestrictions();
   RemoveInvalidRestrictions();
-  LOG(LINFO, ("m_restrictions.size() =", m_restrictions.size()));
+  LOG(LINFO, ("Number of restrictions: =", m_restrictions.size()));
 }
 
 bool RestrictionCollector::IsValid() const
 {
-  return !m_restrictions.empty() &&
-         find_if(begin(m_restrictions), end(m_restrictions),
+  return find_if(begin(m_restrictions), end(m_restrictions),
                  [](Restriction const & r) { return !r.IsValid(); }) == end(m_restrictions);
 }
 
@@ -58,14 +57,11 @@ bool RestrictionCollector::ParseFeatureId2OsmIdsMapping(string const & featureId
   if (featureId2OsmIdsStream.fail())
     return false;
 
-  while (featureId2OsmIdsStream)
+  string line;
+  while (getline(featureId2OsmIdsStream, line))
   {
-    string line;
-    if (!getline(featureId2OsmIdsStream, line))
-      return true;
-
     vector<uint64_t> osmIds;
-    strings::SimpleTokenizer iter(line, ",");
+    strings::SimpleTokenizer iter(line, kDelim);
     if (!ParseLineOfNumbers(iter, osmIds))
       return false;
 
@@ -79,19 +75,19 @@ bool RestrictionCollector::ParseFeatureId2OsmIdsMapping(string const & featureId
   return true;
 }
 
-bool RestrictionCollector::ParseRestrictions(string const & restrictionPath)
+bool RestrictionCollector::ParseRestrictions(string const & path)
 {
-  ifstream restrictionsStream(restrictionPath);
-  if (restrictionsStream.fail())
+  ifstream stream(path);
+  if (stream.fail())
     return false;
 
-  while (restrictionsStream)
+  string line;
+  while (getline(stream, line))
   {
-    string line;
-    if (!getline(restrictionsStream, line))
-      return true;
+    strings::SimpleTokenizer iter(line, kDelim);
+    if (!iter)  // the line is empty
+      return false;
 
-    strings::SimpleTokenizer iter(line, ",");
     Restriction::Type type;
     if (!FromString(*iter, type))
       return false;
@@ -115,7 +111,7 @@ void RestrictionCollector::ComposeRestrictions()
     LinkIndex const & index = osmIdAndIndex.second;
     CHECK_LESS(index.m_restrictionNumber, numRestrictions, ());
     Restriction & restriction = m_restrictions[index.m_restrictionNumber];
-    CHECK_LESS(index.m_linkNumber, restriction.m_links.size(), ());
+    CHECK_LESS(index.m_linkNumber, restriction.m_featureIds.size(), ());
 
     uint64_t const & osmId = osmIdAndIndex.first;
     // Checking if there's an osm id belongs to a restriction is saved only once as feature id.
@@ -132,7 +128,7 @@ void RestrictionCollector::ComposeRestrictions()
 
     uint32_t const & featureId = rangeId.first->second;
     // Adding feature id to restriction coresponded to the osm id.
-    restriction.m_links[index.m_linkNumber] = featureId;
+    restriction.m_featureIds[index.m_linkNumber] = featureId;
   }
 
   my::SortUnique(m_restrictions);
@@ -149,10 +145,10 @@ void RestrictionCollector::RemoveInvalidRestrictions()
 
 void RestrictionCollector::AddRestriction(Restriction::Type type, vector<uint64_t> const & osmIds)
 {
-  size_t const restrictionCount = m_restrictions.size();
+  size_t const numRestrictions = m_restrictions.size();
   m_restrictions.emplace_back(type, osmIds.size());
   for (size_t i = 0; i < osmIds.size(); ++i)
-    m_restrictionIndex.emplace_back(osmIds[i], LinkIndex({restrictionCount, i}));
+    m_restrictionIndex.emplace_back(osmIds[i], LinkIndex({numRestrictions, i}));
 }
 
 void RestrictionCollector::AddFeatureId(uint32_t featureId, vector<uint64_t> const & osmIds)
@@ -175,7 +171,6 @@ string ToString(Restriction::Type const & type)
 
 bool FromString(string str, Restriction::Type & type)
 {
-  str.erase(remove_if(str.begin(), str.end(), isspace), str.end());
   if (str == kNo)
   {
     type = Restriction::Type::No;
@@ -203,7 +198,7 @@ string DebugPrint(RestrictionCollector::LinkIndex const & index)
 string DebugPrint(Restriction const & restriction)
 {
   ostringstream out;
-  out << "m_links:[" << ::DebugPrint(restriction.m_links)
+  out << "m_featureIds:[" << ::DebugPrint(restriction.m_featureIds)
       << "] m_type:" << DebugPrint(restriction.m_type) << " ";
   return out.str();
 }

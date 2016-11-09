@@ -17,10 +17,11 @@ public:
 
   bool HasRestrictions() const { return !m_restrictions.empty(); }
   routing::RestrictionVec const & GetRestrictions() const { return m_restrictions; }
+
 private:
   unique_ptr<FilesContainerR::TReader> m_reader;
   RoutingHeader m_header;
   routing::RestrictionVec m_restrictions;
-  string m_countryFileName;
+  string const m_countryFileName;
 };
 }  // namespace feature

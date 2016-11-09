@@ -28,8 +28,8 @@ void SerializeRestrictions(RestrictionVec::const_iterator begin, RestrictionVec:
 
   Restriction::Type const type = begin->m_type;
 
-  Restriction prevRestriction(type, 0);
-  prevRestriction.m_links.resize(feature::RestrictionSerializer::kSupportedLinkNumber, 0);
+  Restriction prevRestriction(type, 0 /* linkNumber */);
+  prevRestriction.m_featureIds.resize(feature::RestrictionSerializer::kSupportedLinkNumber, 0);
   for (auto it = begin; it != end; ++it)
   {
     CHECK_EQUAL(type, it->m_type, ());
@@ -48,7 +48,7 @@ bool BuildRoadRestrictions(string const & mwmPath, string const & restrictionPat
   LOG(LINFO,
       ("BuildRoadRestrictions(", mwmPath, ", ", restrictionPath, ", ", featureId2OsmIdsPath, ");"));
   RestrictionCollector restrictionCollector(restrictionPath, featureId2OsmIdsPath);
-  if (!restrictionCollector.IsValid())
+  if (!restrictionCollector.HasRestrictions() || !restrictionCollector.IsValid())
   {
     LOG(LWARNING, ("No valid restrictions for", mwmPath, "It's necessary to check if",
                    restrictionPath, "and", featureId2OsmIdsPath, "are available."));

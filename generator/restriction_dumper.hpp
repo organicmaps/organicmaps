@@ -9,8 +9,6 @@ namespace routing
 {
 class RestrictionDumper
 {
-  ofstream m_stream;
-
 public:
   void Open(string const & fullPath);
   bool IsOpened();
@@ -21,5 +19,8 @@ public:
   /// are ignored.
   // @TODO(bykoianko) It's necessary to process all kind of restrictions.
   void Write(RelationElement const & relationElement);
+
+private:
+    ofstream m_stream;
 };
 }  // namespace routing

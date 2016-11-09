@@ -4,7 +4,7 @@
 
 #include "coding/file_writer.hpp"
 
-#include "std/numeric.hpp"
+#include "std/limits.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
@@ -21,6 +21,7 @@ class FeaturesCollector
 
 protected:
   static uint32_t constexpr kInvalidFeatureId = numeric_limits<uint32_t>::max();
+
   FileWriter m_datFile;
   m2::RectD m_bounds;
 

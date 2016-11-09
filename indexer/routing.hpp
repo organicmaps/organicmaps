@@ -32,14 +32,15 @@ struct Restriction
     Only,  // Only going according such restriction is permitted
   };
 
-  Restriction(Type type, size_t linkNumber);
-  Restriction(Type type, vector<uint32_t> const & links);
+  Restriction(Type type, size_t linkNumber) : m_featureIds(linkNumber, kInvalidFeatureId), m_type(type) {}
+  Restriction(Type type, vector<uint32_t> const & links) : m_featureIds(links), m_type(type) {}
 
   bool IsValid() const;
   bool operator==(Restriction const & restriction) const;
   bool operator<(Restriction const & restriction) const;
 
-  vector<uint32_t> m_links;
+  // Links of the restriction in feature ids term.
+  vector<uint32_t> m_featureIds;
   Type m_type;
 };
 
@@ -51,8 +52,9 @@ namespace feature
 struct RoutingHeader
 {
   RoutingHeader() { Reset(); }
-  template <class TSink>
-  void Serialize(TSink & sink) const
+
+  template <class Sink>
+  void Serialize(Sink & sink) const
   {
     WriteToSink(sink, m_version);
     WriteToSink(sink, m_reserved);
@@ -60,8 +62,8 @@ struct RoutingHeader
     WriteToSink(sink, m_onlyRestrictionCount);
   }
 
-  template <class TSource>
-  void Deserialize(TSource & src)
+  template <class Source>
+  void Deserialize(Source & src)
   {
     m_version = ReadPrimitiveFromSource<uint16_t>(src);
     m_reserved = ReadPrimitiveFromSource<uint16_t>(src);
@@ -88,52 +90,53 @@ static_assert(sizeof(RoutingHeader) == 12, "Wrong header size of routing section
 class RestrictionSerializer
 {
 public:
-  RestrictionSerializer() : m_restriction(routing::Restriction::Type::No, 0) {}
+  static size_t const kSupportedLinkNumber;
+
+  RestrictionSerializer() : m_restriction(routing::Restriction::Type::No, 0 /* linkNumber */) {}
+
   explicit RestrictionSerializer(routing::Restriction const & restriction)
     : m_restriction(restriction)
   {
   }
 
-  template <class TSink>
-  void Serialize(routing::Restriction const & prevRestriction, TSink & sink) const
+  template <class Sink>
+  void Serialize(routing::Restriction const & prevRestriction, Sink & sink) const
   {
     CHECK(m_restriction.IsValid(), ());
-    CHECK_EQUAL(m_restriction.m_links.size(), kSupportedLinkNumber,
+    CHECK_EQUAL(m_restriction.m_featureIds.size(), kSupportedLinkNumber,
                 ("Only", kSupportedLinkNumber, "links restriction are supported."));
-    CHECK_EQUAL(m_restriction.m_links.size(), prevRestriction.m_links.size(), ());
 
-    BitWriter<TSink> bits(sink);
+    BitWriter<Sink> bits(sink);
     for (size_t i = 0; i < kSupportedLinkNumber; ++i)
     {
-      uint32_t const delta = bits::ZigZagEncode(static_cast<int32_t>(m_restriction.m_links[i]) -
-                                                static_cast<int32_t>(prevRestriction.m_links[i]));
+      uint32_t const delta = bits::ZigZagEncode(static_cast<int32_t>(m_restriction.m_featureIds[i]) -
+                                                static_cast<int32_t>(prevRestriction.m_featureIds[i]));
       coding::DeltaCoder::Encode(bits, delta + 1 /* making it greater than zero */);
     }
   }
 
-  template <class TSource>
-  bool Deserialize(routing::Restriction const & prevRestriction, TSource & src)
+  template <class Source>
+  bool Deserialize(routing::Restriction const & prevRestriction, Source & src)
   {
-    BitReader<TSource> bits(src);
-    m_restriction.m_links.resize(kSupportedLinkNumber);
+    BitReader<Source> bits(src);
+    m_restriction.m_featureIds.resize(kSupportedLinkNumber);
     for (size_t i = 0; i < kSupportedLinkNumber; ++i)
     {
       uint32_t const biasedDelta = coding::DeltaCoder::Decode(bits);
       if (biasedDelta == 0)
       {
         LOG(LERROR, ("Decoded link restriction feature id delta is zero."));
-        m_restriction.m_links.clear();
+        m_restriction.m_featureIds.clear();
         return false;
       }
       uint32_t const delta = biasedDelta - 1;
-      m_restriction.m_links[i] = static_cast<uint32_t>(
-          bits::ZigZagDecode(delta) + prevRestriction.m_links[i]);
+      m_restriction.m_featureIds[i] = static_cast<uint32_t>(
+          bits::ZigZagDecode(delta) + prevRestriction.m_featureIds[i]);
     }
     return true;
   }
 
   routing::Restriction const & GetRestriction() const { return m_restriction; }
-  static size_t const kSupportedLinkNumber;
 
 private:
   routing::Restriction m_restriction;

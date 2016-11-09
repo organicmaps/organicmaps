@@ -23,24 +23,25 @@ vector<string> const kRestrictionTypesOnly = {"only_right_turn", "only_left_turn
                                               "only_straight_on"};
 
 /// \brief Converts restriction type form string to RestrictionCollector::Type.
-/// \returns Fisrt item is a result of conversion. Second item is true
-/// if convertion was successful and false otherwise.
-pair<Restriction::Type, bool> TagToType(string const & type)
+/// \returns Fisrt true if convertion was successful and false otherwise.
+bool TagToType(string const & tag, Restriction::Type & type)
 {
-  if (find(kRestrictionTypesNo.cbegin(), kRestrictionTypesNo.cend(), type) !=
+  if (find(kRestrictionTypesNo.cbegin(), kRestrictionTypesNo.cend(), tag) !=
       kRestrictionTypesNo.cend())
   {
-    return make_pair(Restriction::Type::No, true);
+    type = Restriction::Type::No;
+    return true;
   }
 
-  if (find(kRestrictionTypesOnly.cbegin(), kRestrictionTypesOnly.cend(), type) !=
+  if (find(kRestrictionTypesOnly.cbegin(), kRestrictionTypesOnly.cend(), tag) !=
       kRestrictionTypesOnly.cend())
   {
-    return make_pair(Restriction::Type::Only, true);
+    type = Restriction::Type::Only;
+    return true;
   }
 
   // Unsupported restriction type.
-  return make_pair(Restriction::Type::No, false);
+  return false;
 }
 }  // namespace
 
@@ -92,12 +93,11 @@ void RestrictionDumper::Write(RelationElement const & relationElement)
   if (tagIt == relationElement.tags.end())
     return;  // Type of the element is different from "restriction".
 
-  auto const typeResult = TagToType(tagIt->second);
-  if (typeResult.second == false)
+  Restriction::Type type = Restriction::Type::No;
+  if (!TagToType(tagIt->second, type))
     return;  // Unsupported restriction type.
 
   // Adding restriction.
-  m_stream << ToString(typeResult.first) << ","  // Restriction type
-           << fromIt->first << ", " << toIt->first << "," << endl;
+  m_stream << ToString(type) << "," << fromIt->first << ", " << toIt->first << endl;
 }
 }  // namespace routing

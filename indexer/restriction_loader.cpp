@@ -10,9 +10,9 @@ template <class TSource>
 void DeserializeRestrictions(Restriction::Type type, uint32_t count, TSource & src,
                              RestrictionVec & restrictions)
 {
-  feature::RestrictionSerializer serializer(Restriction(type, 0));
-  Restriction prevRestriction(type, 0);
-  prevRestriction.m_links.resize(feature::RestrictionSerializer::kSupportedLinkNumber, 0);
+  feature::RestrictionSerializer serializer(Restriction(type, 0 /* linkNumber */));
+  Restriction prevRestriction(type, 0 /* linkNumber */);
+  prevRestriction.m_featureIds.resize(feature::RestrictionSerializer::kSupportedLinkNumber, 0);
   for (size_t i = 0; i < count; ++i)
   {
     serializer.Deserialize(prevRestriction, src);
@@ -25,8 +25,8 @@ void DeserializeRestrictions(Restriction::Type type, uint32_t count, TSource & s
 namespace feature
 {
 RestrictionLoader::RestrictionLoader(MwmValue const & mwmValue)
+  : m_countryFileName(mwmValue.GetCountryFileName())
 {
-  m_countryFileName = mwmValue.GetCountryFileName();
   if (!mwmValue.m_cont.IsExist(ROUTING_FILE_TAG))
     return;
 
