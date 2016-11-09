@@ -14,6 +14,7 @@ SOURCES += \
     exception.cpp \
     gmtime.cpp \
     internal/message.cpp \
+    levenshtein_dfa.cpp \
     logging.cpp \
     lower_case.cpp \
     normalize_unicode.cpp \
@@ -48,6 +49,7 @@ HEADERS += \
     exception.hpp \
     gmtime.hpp \
     internal/messagex.hpp \
+    levenshtein_dfa.hpp \
     limited_priority_queue.hpp \
     logging.hpp \
     macros.hpp \
