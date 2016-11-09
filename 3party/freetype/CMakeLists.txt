@@ -1,6 +1,4 @@
-cmake_minimum_required(VERSION 3.2)
-
-project(freetype C CXX)
+project(freetype)
 
 add_definitions(-DFT2_BUILD_LIBRARY)
 
@@ -13,7 +11,6 @@ add_compile_options(
 )
 
 include_directories(include)
-
 
 set(
   SRC
@@ -129,4 +126,4 @@ set(
   src/cache/ftstrokedcache.c
 )
 
-add_library(freetype ${SRC})
+add_library(${PROJECT_NAME} ${SRC})

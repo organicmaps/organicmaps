@@ -1,6 +1,4 @@
-cmake_minimum_required(VERSION 3.2)
-
-project(fribidi C CXX)
+project(fribidi)
 
 include_directories(lib ./)
 
@@ -9,7 +7,6 @@ add_definitions(-DHAVE_CONFIG_H)
 add_compile_options(
   "-Wall"
 )
-
 
 set(
   SRC
@@ -57,4 +54,4 @@ set(
   lib/run.h
 )
 
-add_library(fribidi ${SRC})
+add_library(${PROJECT_NAME} ${SRC})

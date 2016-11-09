@@ -1,3 +1,5 @@
+project(map)
+
 include_directories(
   ${OMIM_ROOT}/3party/protobuf/src
   ${OMIM_ROOT}/3party/freetype/include
@@ -5,11 +7,7 @@ include_directories(
   ${OMIM_ROOT}/3party/glm
 )
 
-add_compile_options(
-  "-Wall"
-)
-
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+append(CMAKE_CXX_FLAGS "-std=c++11")
 
 set(
   SRC
@@ -17,8 +15,6 @@ set(
   address_finder.cpp
   api_mark_point.cpp
   api_mark_point.hpp
-  booking_api.cpp
-  booking_api.hpp
   bookmark_manager.cpp
   bookmark_manager.hpp
   bookmark.cpp
@@ -57,7 +53,7 @@ set(
   user_mark.hpp
 )
 
-add_library(map ${SRC})
+add_library(${PROJECT_NAME} ${SRC})
 
 if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
   include_directories(

@@ -1,3 +1,5 @@
+project(mwm_tests)
+
 add_compile_options(
   "-Wall"
   "-std=c++11"
@@ -10,9 +12,9 @@ set(
   mwm_index_test.cpp
 )
 
-omim_add_test(mwm_tests ${SRC})
+omim_add_test(${PROJECT_NAME} ${SRC})
 omim_link_libraries(
-  mwm_tests
+  ${PROJECT_NAME}
   map
   search
   storage
@@ -40,7 +42,7 @@ omim_link_libraries(
 
 if (PLATFORM_MAC)
   omim_link_libraries(
-    mwm_tests
+    ${PROJECT_NAME}
     "-framework Cocoa"
     "-framework IOKit"
     "-framework QuartzCore"

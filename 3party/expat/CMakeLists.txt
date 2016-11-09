@@ -1,13 +1,10 @@
-cmake_minimum_required(VERSION 3.2)
-
-project(expat C CXX)
+project(expat)
 
 add_definitions(-DHAVE_MEMMOVE)
 
 add_compile_options(
   "-Wall"
 )
-
 
 set(
   SRC
@@ -25,4 +22,4 @@ set(
   lib/xmltok.h
 )
 
-add_library(expat ${SRC})
+add_library(${PROJECT_NAME} ${SRC})
