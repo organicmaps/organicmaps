@@ -131,16 +131,17 @@ endmacro()
 # Include subdirectories
 add_subdirectory(3party/jansson)
 add_subdirectory(3party/minizip)
-add_subdirectory(3party/liboauthcpp)
-add_subdirectory(3party/pugixml)
-add_subdirectory(3party/succinct)
 add_subdirectory(3party/tomcrypt)
-add_subdirectory(3party/protobuf)
 
 add_compile_options(
   "-Wall"
   "-std=c++11"
 )
+
+add_subdirectory(3party/protobuf)
+add_subdirectory(3party/liboauthcpp)
+add_subdirectory(3party/pugixml)
+add_subdirectory(3party/succinct)
 
 add_subdirectory(base)
 add_subdirectory(coding)

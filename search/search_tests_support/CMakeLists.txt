@@ -1,10 +1,5 @@
 project(search_tests_support)
 
-add_compile_options(
-  "-Wall"
-  "-std=c++11"
-)
-
 set(
   SRC
   test_results_matching.cpp

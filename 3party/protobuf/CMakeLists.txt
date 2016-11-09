@@ -1,18 +1,10 @@
-cmake_minimum_required(VERSION 3.2)
-
-project(protobuf C CXX)
+project(protobuf)
 
 include_directories(. src ../../)
-
-add_compile_options(
-  "-Wall"
-  "-std=c++11"
-)
 
 if (NOT PLATFORM_WIN)
   add_definitions(-DHAVE_PTHREAD)
 endif ()
-
 
 set(
   SRC
@@ -56,19 +48,17 @@ set(
 )
 
 if (PLATFORM_LINUX OR PLATFORM_ANDROID OR (PLATFORM_WIN AND NOT MSVC))
-  set(
+  append(
     SRC
-    ${SRC}
     src/google/protobuf/stubs/atomicops_internals_x86_gcc.cc
   )
 endif()
 
 if (PLATFORM_WIN AND MSVC)
-  set(
+  append(
     SRC
-    ${SRC}
     src/google/protobuf/stubs/atomicops_internals_x86_msvc.cc
   )
 endif()
 
-add_library(protobuf ${SRC})
+add_library(${PROJECT_NAME} ${SRC})
