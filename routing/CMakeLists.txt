@@ -90,4 +90,6 @@ set(
 
 add_library(${PROJECT_NAME} ${SRC})
 omim_add_test_subdirectory(routing_tests)
+omim_add_test_subdirectory(routing_integration_tests)
+
 

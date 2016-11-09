@@ -31,9 +31,9 @@ omim_link_libraries(
   routing
   indexer
   platform_tests_support
-  oauthcpp
-  platform
   editor
+  platform
+  oauthcpp
   geometry
   coding
   base
