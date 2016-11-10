@@ -2,11 +2,12 @@ package com.mapswithme.maps.search;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.annotation.StyleRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NavUtils;
 
-import com.mapswithme.maps.R;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.base.OnBackPressListener;
@@ -24,15 +25,10 @@ public class SearchActivity extends BaseMwmFragmentActivity implements CustomNav
   }
 
   @Override
-  public int getThemeResourceId(String theme)
+  @StyleRes
+  public int getThemeResourceId(@NonNull String theme)
   {
-    if (ThemeUtils.isDefaultTheme(theme))
-      return R.style.MwmTheme_CardBg;
-
-    if (ThemeUtils.isNightTheme(theme))
-      return R.style.MwmTheme_Night_CardBg;
-
-    throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
+    return ThemeUtils.getCardBgThemeResourceId(theme);
   }
 
   @Override
