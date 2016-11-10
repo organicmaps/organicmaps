@@ -1,4 +1,5 @@
 #import "MWMMapDownloaderTypes.h"
+#import "MWMPageController.h"
 #import "MWMViewController.h"
 
 #include "geometry/point2d.hpp"
@@ -38,5 +39,6 @@ struct AddressInfo;
 
 @property(nonatomic, readonly) MWMMapViewControlsManager * controlsManager;
 @property(nonatomic) MWMAPIBar * apiBar;
+@property(nonatomic) MWMPageController * pageViewController;
 
 @end

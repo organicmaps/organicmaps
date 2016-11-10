@@ -294,7 +294,6 @@ void setPermissionRequested()
   if (self.lastLocationInfo == locationInfo)
     return;
   self.lastLocationInfo = locationInfo;
-  self.lastLocationStatus = location::TLocationError::ENoError;
   [self.predictor reset:gpsInfo];
 }
 
@@ -453,6 +452,8 @@ void setPermissionRequested()
   // So we filter out such events completely.
   if (location.horizontalAccuracy < 0.)
     return;
+
+  self.lastLocationStatus = location::TLocationError::ENoError;
   [self processLocationUpdate:location];
   [[Statistics instance] logLocation:location];
 }

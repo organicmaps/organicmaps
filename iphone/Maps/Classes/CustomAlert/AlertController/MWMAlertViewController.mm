@@ -3,6 +3,7 @@
 #import "MWMController.h"
 #import "MWMDownloadTransitMapAlert.h"
 #import "MWMLocationAlert.h"
+#import "MapViewController.h"
 #import "MapsAppDelegate.h"
 
 static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController";
@@ -47,7 +48,11 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 #pragma mark - Actions
 
 - (void)presentRateAlert { [self displayAlert:MWMAlert.rateAlert]; }
-- (void)presentLocationAlert { [self displayAlert:[MWMAlert locationAlert]]; }
+- (void)presentLocationAlert
+{
+  if (![MapViewController controller].pageViewController)
+    [self displayAlert:[MWMAlert locationAlert]];
+}
 - (void)presentPoint2PointAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock
                              needToRebuild:(BOOL)needToRebuild
 {
