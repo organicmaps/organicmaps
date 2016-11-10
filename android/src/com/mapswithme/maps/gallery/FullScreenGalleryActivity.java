@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.StyleRes;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.ViewPager;
@@ -95,7 +96,8 @@ public class FullScreenGalleryActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public int getThemeResourceId(String theme)
+  @StyleRes
+  public int getThemeResourceId(@NonNull String theme)
   {
     if (ThemeUtils.isDefaultTheme(theme))
       return R.style.MwmTheme_FullScreenGalleryActivity;

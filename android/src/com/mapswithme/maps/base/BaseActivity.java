@@ -1,9 +1,12 @@
 package com.mapswithme.maps.base;
 
 import android.app.Activity;
+import android.support.annotation.NonNull;
+import android.support.annotation.StyleRes;
 
 public interface BaseActivity
 {
   Activity get();
-  int getThemeResourceId(String theme);
+  @StyleRes
+  int getThemeResourceId(@NonNull String theme);
 }
