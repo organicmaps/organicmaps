@@ -106,7 +106,7 @@ UNIT_TEST(RestrictionGenerationTest_OneRestriction)
   TestRestrictionBuilding(restrictionContent, featureIdToOsmIdsContent);
 }
 
-UNIT_TEST(RestrictionGenerationTest_ThreeRestriction)
+UNIT_TEST(RestrictionGenerationTest_ThreeRestrictions)
 {
   string const restrictionContent = R"(No, 10, 10,
                                        Only, 10, 20
@@ -118,7 +118,7 @@ UNIT_TEST(RestrictionGenerationTest_ThreeRestriction)
   TestRestrictionBuilding(restrictionContent, featureIdToOsmIdsContent);
 }
 
-UNIT_TEST(RestrictionGenerationTest_SevenRestriction)
+UNIT_TEST(RestrictionGenerationTest_SevenRestrictions)
 {
   string const restrictionContent = R"(No, 10, 10,
                                        No, 20, 20,
@@ -127,6 +127,19 @@ UNIT_TEST(RestrictionGenerationTest_SevenRestriction)
                                        No, 30, 30,
                                        No, 40, 40,
                                        Only, 30, 40,)";
+  string const featureIdToOsmIdsContent = R"(1, 10,
+                                             2, 20,
+                                             3, 30,
+                                             4, 40)";
+  TestRestrictionBuilding(restrictionContent, featureIdToOsmIdsContent);
+}
+
+UNIT_TEST(RestrictionGenerationTest_ThereAndMoreLinkRestrictions)
+{
+  string const restrictionContent = R"(No, 10, 10,
+                                       No, 20, 20,
+                                       Only, 10, 20, 30, 40
+                                       Only, 20, 30, 40)";
   string const featureIdToOsmIdsContent = R"(1, 10,
                                              2, 20,
                                              3, 30,
