@@ -18,8 +18,10 @@ class MapObjectShareable extends BaseShareable
     super(context);
 
     final Activity activity = getActivity();
-    final String ge0Url = Framework.nativeGetGe0Url(mapObject.getLat(), mapObject.getLon(), mapObject.getScale(), mapObject.getTitle());
-
+    final String ge0Url = Framework.nativeGetGe0Url(mapObject.getLat(), mapObject.getLon(),
+                                                    mapObject.getScale(), mapObject.getTitle());
+    final String httpUrl = Framework.getHttpGe0Url(mapObject.getLat(), mapObject.getLon(),
+                                                   mapObject.getScale(), mapObject.getTitle());
     final String subject;
     String text;
     if (MapObject.isOfType(MapObject.MY_POSITION, mapObject))
@@ -27,8 +29,7 @@ class MapObjectShareable extends BaseShareable
       subject = activity.getString(R.string.my_position_share_email_subject);
       text = activity.getString(R.string.my_position_share_email,
                                 Framework.nativeGetNameAndAddress(mapObject.getLat(), mapObject.getLon()),
-                                ge0Url,
-                                Framework.getHttpGe0Url(mapObject.getLat(), mapObject.getLon(), mapObject.getScale(), mapObject.getTitle()));
+                                ge0Url, httpUrl);
     }
     else
     {
@@ -38,7 +39,8 @@ class MapObjectShareable extends BaseShareable
                  lineWithBreak(mapObject.getTitle()) +
                  lineWithBreak(mapObject.getSubtitle()) +
                  lineWithBreak(mapObject.getAddress()) +
-                 lineWithBreak(ge0Url);
+                 lineWithBreak(ge0Url) +
+                 lineWithBreak(httpUrl);
 
       if (sponsored != null)
       {
