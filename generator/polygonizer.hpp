@@ -4,6 +4,7 @@
 #include "generator/feature_builder.hpp"
 #include "generator/generate_info.hpp"
 #include "generator/osm_source.hpp"
+#include "generator/sync_ofsteam.hpp"
 
 #include "indexer/feature_visibility.hpp"
 #include "indexer/cell_id.hpp"
@@ -17,7 +18,6 @@
 #include "base/macros.hpp"
 
 #include "std/string.hpp"
-
 
 #ifndef PARALLEL_POLYGONIZER
 #define PARALLEL_POLYGONIZER 1
@@ -42,6 +42,8 @@ namespace feature
     vector<string> m_Names;
     borders::CountriesContainerT m_countries;
 
+    generator::SyncOfstream & m_featureIdToOsmIds;
+
 #if PARALLEL_POLYGONIZER
     QThreadPool m_ThreadPool;
     QSemaphore m_ThreadPoolSemaphore;
@@ -49,7 +51,8 @@ namespace feature
 #endif
 
   public:
-    explicit Polygonizer(feature::GenerateInfo const & info) : m_info(info)
+    Polygonizer(feature::GenerateInfo const & info, generator::SyncOfstream & featureIdToOsmIds)
+      : m_info(info), m_featureIdToOsmIds(featureIdToOsmIds)
 #if PARALLEL_POLYGONIZER
     , m_ThreadPoolSemaphore(m_ThreadPool.maxThreadCount() * 8)
 #endif
@@ -110,7 +113,7 @@ namespace feature
       }
     };
 
-    void operator()(FeatureBuilder1 & fb, SyncOfstream & featureId2osmIds)
+    void operator()(FeatureBuilder1 & fb)
     {
       buffer_vector<borders::CountryPolygons const *, 32> vec;
       m_countries.ForEachInRect(fb.GetLimitRect(), InsertCountriesPtr(vec));
@@ -119,14 +122,14 @@ namespace feature
       {
       case 0:
         break;
-      case 1: EmitFeature(vec[0], fb, featureId2osmIds); break;
+      case 1: EmitFeature(vec[0], fb, m_featureIdToOsmIds); break;
       default:
         {
 #if PARALLEL_POLYGONIZER
           m_ThreadPoolSemaphore.acquire();
-          m_ThreadPool.start(new PolygonizerTask(this, vec, fb, featureId2osmIds));
+          m_ThreadPool.start(new PolygonizerTask(this, vec, fb, m_featureIdToOsmIds));
 #else
-        PolygonizerTask task(this, vec, fb, featureId2osmIds);
+        PolygonizerTask task(this, vec, fb, m_featureIdToOsmIds);
         task.RunBase();
 #endif
         }
@@ -148,7 +151,7 @@ namespace feature
     }
 
     void EmitFeature(borders::CountryPolygons const * country, FeatureBuilder1 const & fb,
-                     SyncOfstream & featureId2osmIds)
+                     generator::SyncOfstream & featureIdToOsmIds)
     {
 #if PARALLEL_POLYGONIZER
       QMutexLocker mutexLocker(&m_EmitFeatureMutex);
@@ -169,7 +172,7 @@ namespace feature
       uint32_t const featureId = bucket(fb);
 
       if (fb.IsLine())
-        featureId2osmIds.Write(featureId /* feature id of |fb| */, fb.GetOsmIds());
+        featureIdToOsmIds.Write(featureId /* feature id of |fb| */, fb.GetOsmIds());
     }
 
     vector<string> const & Names() const
@@ -188,11 +191,11 @@ namespace feature
     public:
       PolygonizerTask(Polygonizer * pPolygonizer,
                       buffer_vector<borders::CountryPolygons const *, 32> const & countries,
-                      FeatureBuilder1 const & fb, SyncOfstream & featureId2osmIds)
+                      FeatureBuilder1 const & fb, generator::SyncOfstream & featureIdToOsmIds)
         : m_pPolygonizer(pPolygonizer)
         , m_Countries(countries)
-        , m_FB(fb)
-        , m_featureId2osmIds(featureId2osmIds)
+        , m_fb(fb)
+        , m_featureIdToOsmIds(featureIdToOsmIds)
       {
       }
 
@@ -201,10 +204,10 @@ namespace feature
         for (size_t i = 0; i < m_Countries.size(); ++i)
         {
           PointChecker doCheck(m_Countries[i]->m_regions);
-          m_FB.ForEachGeometryPoint(doCheck);
+          m_fb.ForEachGeometryPoint(doCheck);
 
           if (doCheck.m_belongs)
-            m_pPolygonizer->EmitFeature(m_Countries[i], m_FB, m_featureId2osmIds);
+            m_pPolygonizer->EmitFeature(m_Countries[i], m_fb, m_featureIdToOsmIds);
         }
       }
 
@@ -220,8 +223,8 @@ namespace feature
     private:
       Polygonizer * m_pPolygonizer;
       buffer_vector<borders::CountryPolygons const *, 32> m_Countries;
-      FeatureBuilder1 m_FB;
-      SyncOfstream & m_featureId2osmIds;
+      FeatureBuilder1 m_fb;
+      generator::SyncOfstream & m_featureIdToOsmIds;
     };
   };
 }

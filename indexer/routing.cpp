@@ -49,10 +49,3 @@ string DebugPrint(Restriction const & restriction)
   return out.str();
 }
 }  // namespace routing
-
-namespace feature
-{
-// static
-uint32_t const RestrictionSerializer::kDefaultFeatureId = 0;
-}  // feature
-

@@ -312,11 +312,13 @@ class CountryMapGenerator
   FeatureOutT m_bucket;
 
 public:
-  explicit CountryMapGenerator(feature::GenerateInfo const & info) : m_bucket(info) {}
-  void operator()(FeatureBuilder1 fb, SyncOfstream & featureId2osmIds)
+  CountryMapGenerator(feature::GenerateInfo const & info, generator::SyncOfstream & featureIdToOsmIds)
+    : m_bucket(info, featureIdToOsmIds) {}
+
+  void operator()(FeatureBuilder1 fb)
   {
     if (feature::PreprocessForCountryMap(fb))
-      m_bucket(fb, featureId2osmIds);
+      m_bucket(fb);
   }
 
   inline FeatureOutT & Parent() { return m_bucket; }

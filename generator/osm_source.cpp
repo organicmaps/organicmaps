@@ -2,13 +2,13 @@
 #include "generator/feature_generator.hpp"
 #include "generator/intermediate_data.hpp"
 #include "generator/intermediate_elements.hpp"
-#include "generator/sync_ofsteam.hpp"
 #include "generator/osm_element.hpp"
 #include "generator/osm_o5m_source.hpp"
 #include "generator/osm_source.hpp"
 #include "generator/osm_translator.hpp"
 #include "generator/osm_xml_source.hpp"
 #include "generator/polygonizer.hpp"
+#include "generator/sync_ofsteam.hpp"
 #include "generator/tag_admixer.hpp"
 #include "generator/towns_dumper.hpp"
 #include "generator/world_map_generator.hpp"
@@ -268,6 +268,8 @@ class MainFeaturesEmitter : public EmitterBase
 {
   using TWorldGenerator = WorldMapGenerator<feature::FeaturesCollector>;
   using TCountriesGenerator = CountryMapGenerator<feature::Polygonizer<feature::FeaturesCollector>>;
+
+  generator::SyncOfstream m_featureIdToOsmIds;
   unique_ptr<TCountriesGenerator> m_countries;
   unique_ptr<TWorldGenerator> m_world;
 
@@ -299,7 +301,6 @@ class MainFeaturesEmitter : public EmitterBase
   uint32_t m_types[TYPES_COUNT];
 
   inline uint32_t Type(TypeIndex i) const { return m_types[i]; }
-  SyncOfstream m_featureId2osmIds;
 
 public:
   MainFeaturesEmitter(feature::GenerateInfo const & info)
@@ -336,20 +337,20 @@ public:
       m_coastsHolder.reset(
           new feature::FeaturesCollector(info.GetTmpFileName(WORLD_COASTS_FILE_NAME)));
 
+    string const featureId2OsmIdsFile = info.GetIntermediateFileName(info.m_featureIdToOsmIds, "");
+    LOG(LINFO, ("Saving mapping from feature ids to osm ids to", featureId2OsmIdsFile));
+    m_featureIdToOsmIds.Open(featureId2OsmIdsFile);
+    if (!m_featureIdToOsmIds.IsOpened())
+    {
+      LOG(LWARNING,
+          ("Cannot open", featureId2OsmIdsFile, ". Feature ids to osm ids to map won't be saved."));
+    }
+
     if (info.m_splitByPolygons || !info.m_fileName.empty())
-      m_countries.reset(new TCountriesGenerator(info));
+      m_countries = make_unique<TCountriesGenerator>(info, m_featureIdToOsmIds);
 
     if (info.m_createWorld)
       m_world.reset(new TWorldGenerator(info));
-
-    string const featureId2OsmIdsFile = info.GetIntermediateFileName(info.m_featureIdToOsmIds, "");
-    LOG(LINFO, ("Saving mapping from feature id osm ids to file", featureId2OsmIdsFile));
-    m_featureId2osmIds.Open(featureId2OsmIdsFile);
-    if (!m_featureId2osmIds.IsOpened())
-    {
-      LOG(LWARNING,
-          ("Cannot open", featureId2OsmIdsFile, ". Feature id to osm ids to map won't be saved."));
-    }
   }
 
   void operator()(FeatureBuilder1 & fb) override
@@ -450,7 +451,7 @@ public:
         auto & emitter = m_countries->Parent();
 
         emitter.Start();
-        (*m_countries)(fb, m_featureId2osmIds);
+        (*m_countries)(fb);
         emitter.Finish();
 
         if (m_coastsHolder)
@@ -507,7 +508,7 @@ private:
       (*m_world)(fb);
 
     if (m_countries)
-      (*m_countries)(fb, m_featureId2osmIds);
+      (*m_countries)(fb);
   }
 
   void DumpSkippedElements()

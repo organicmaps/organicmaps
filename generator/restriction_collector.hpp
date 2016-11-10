@@ -17,14 +17,13 @@ class RestrictionCollector
 {
 public:
   /// \param restrictionPath full path to file with road restrictions in osm id terms.
-  /// \param featureId2OsmIdsPath full path to file with mapping from feature id to osm id.
-  RestrictionCollector(string const & restrictionPath, string const & featureId2OsmIdsPath);
+  /// \param featureIdToOsmIdsPath full path to file with mapping from feature id to osm id.
+  RestrictionCollector(string const & restrictionPath, string const & featureIdToOsmIdsPath);
 
   bool HasRestrictions() const { return !m_restrictions.empty(); }
 
   /// \returns true if all restrictions in |m_restrictions| are valid and false otherwise.
-  /// \note Empty |m_restrictions| is considered as an invalid restriction.
-  /// \note Complexity of the method is up to linear in the size of |m_restrictions|.
+  /// \note Complexity of the method is linear in the size of |m_restrictions|.
   bool IsValid() const;
 
   /// \returns Sorted vector of restrictions.
@@ -43,10 +42,10 @@ private:
   /// 137999, 5170186,
   /// 138000, 5170209, 5143342,
   /// 138001, 5170228,
-  /// \param featureId2OsmIdsPath path to the text file.
+  /// \param featureIdToOsmIdsPath path to the text file.
   /// \note Most restrictions consist of type and two linear(road) features.
   /// \note For the time being only line-point-line restrictions are supported.
-  bool ParseFeatureId2OsmIdsMapping(string const & featureId2OsmIdsPath);
+  bool ParseFeatureId2OsmIdsMapping(string const & featureIdToOsmIdsPath);
 
   /// \brief Parses comma separated text file with line in following format:
   /// <type of restrictions>, <osm id 1 of the restriction>, <osm id 2>, and so on
@@ -54,10 +53,10 @@ private:
   /// Only, 335049632, 49356687,
   /// No, 157616940, 157616940,
   /// No, 157616940, 157617107,
-  /// \param featureId2OsmIdsPath path to the text file.
+  /// \param featureIdToOsmIdsPath path to the text file.
   bool ParseRestrictions(string const & path);
 
-  /// \brief Adds feature id and corresponding vector of |osmIds| to |m_osmId2FeatureId|.
+  /// \brief Adds feature id and corresponding vector of |osmIds| to |m_osmIdToFeatureId|.
   /// \note One feature id (|featureId|) may correspond to several osm ids (|osmIds|).
   void AddFeatureId(uint32_t featureId, vector<uint64_t> const & osmIds);
 
@@ -70,7 +69,7 @@ private:
   bool AddRestriction(Restriction::Type type, vector<uint64_t> const & osmIds);
 
   RestrictionVec m_restrictions;
-  map<uint64_t, uint32_t> m_osmId2FeatureId;
+  map<uint64_t, uint32_t> m_osmIdToFeatureId;
 };
 
 bool FromString(string str, Restriction::Type & type);

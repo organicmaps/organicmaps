@@ -46,7 +46,7 @@ void BuildEmptyMwm(LocalCountryFile & country)
 /// \brief Generates a restriction section, adds it to an empty mwm,
 /// loads the restriction section and test loaded restrictions.
 /// \param restrictionContent comma separated text with restrictions in osm id terms.
-/// \param mappingContent comma separated text with with mapping from feature id to osm ids.
+/// \param mappingContent comma separated text with with mapping from feature ids to osm ids.
 void TestRestrictionBuilding(string const & restrictionContent, string const & mappingContent)
 {
   Platform & platform = GetPlatform();

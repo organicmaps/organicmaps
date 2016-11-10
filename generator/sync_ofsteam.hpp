@@ -7,13 +7,17 @@
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
+namespace generator
+{
 class SyncOfstream
 {
-  ofstream m_stream;
-  mutex m_mutex;
-
 public:
   void Open(string const & fullPath);
   bool IsOpened();
   void Write(uint32_t featureId, vector<osm::Id> const & osmIds);
+
+private:
+  ofstream m_stream;
+  mutex m_mutex;
 };
+}  // namespace generator

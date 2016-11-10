@@ -97,10 +97,11 @@ class RestrictionSerializer
 {
 public:
   template <class Sink>
-  static void Serialize(routing::RestrictionVec::const_iterator begin,
-                        routing::RestrictionVec::const_iterator firstOnlyIt,
+  static void Serialize(RoutingHeader const & header,
+                        routing::RestrictionVec::const_iterator begin,
                         routing::RestrictionVec::const_iterator end, Sink & sink)
   {
+    auto const firstOnlyIt = begin + header.m_noRestrictionCount;
     SerializeSingleType(begin, firstOnlyIt, sink);
     SerializeSingleType(firstOnlyIt, end, sink);
   }
@@ -116,7 +117,7 @@ public:
   }
 
 private:
-  static uint32_t const kDefaultFeatureId;
+  static uint32_t const kDefaultFeatureId = 0;
 
   /// \brief Serializes a range of restrictions form |begin| to |end| to |sink|.
   /// \param begin is an iterator to the first item to serialize.
@@ -132,26 +133,28 @@ private:
     CHECK(is_sorted(begin, end), ());
     routing::Restriction::Type const type = begin->m_type;
 
-    uint32_t prevFisrtLinkFeatureId = 0;
-    for (auto it = begin; it != end; ++it)
+    uint32_t prevFirstLinkFeatureId = 0;
+    for (; begin != end; ++begin)
     {
-      CHECK_EQUAL(type, it->m_type, ());
+      CHECK_EQUAL(type, begin->m_type, ());
 
-      routing::Restriction const & restriction = *it;
+      routing::Restriction const & restriction = *begin;
       CHECK(restriction.IsValid(), ());
-      CHECK_LESS(1, restriction.m_featureIds.size(), ("No meaning in zero or one link restrictions."));
+      CHECK_LESS(1, restriction.m_featureIds.size(), ("No sense in zero or one link restrictions."));
 
       BitWriter<FileWriter> bits(sink);
-      coding::DeltaCoder::Encode(bits, restriction.m_featureIds.size() - 1 /* link number is two or more */);
-      uint32_t prevLinkFeatureId = prevFisrtLinkFeatureId;
-      for (size_t i = 0; i < restriction.m_featureIds.size(); ++i)
+      coding::DeltaCoder::Encode(bits, restriction.m_featureIds.size() - 1 /* number of link is two or more */);
+
+      CHECK_LESS_OR_EQUAL(prevFirstLinkFeatureId, restriction.m_featureIds[0], ());
+      coding::DeltaCoder::Encode(bits,
+          restriction.m_featureIds[0] - prevFirstLinkFeatureId + 1 /* making it greater than zero */);
+      for (size_t i = 1; i < restriction.m_featureIds.size(); ++i)
       {
         uint32_t const delta = bits::ZigZagEncode(static_cast<int32_t>(restriction.m_featureIds[i]) -
-                                                  static_cast<int32_t>(prevLinkFeatureId));
+                                                  static_cast<int32_t>(restriction.m_featureIds[i - 1]));
         coding::DeltaCoder::Encode(bits, delta + 1 /* making it greater than zero */);
-        prevLinkFeatureId = restriction.m_featureIds[i];
       }
-      prevFisrtLinkFeatureId = restriction.m_featureIds[0];
+      prevFirstLinkFeatureId = restriction.m_featureIds[0];
     }
   }
 
@@ -159,7 +162,7 @@ private:
   static bool DeserializeSingleType(routing::Restriction::Type type, uint32_t count,
                                     routing::RestrictionVec & restrictions, Source & src)
   {
-    uint32_t prevFisrtLinkFeatureId = 0;
+    uint32_t prevFirstLinkFeatureId = 0;
     for (size_t i = 0; i < count; ++i)
     {
       BitReader<Source> bits(src);
@@ -169,12 +172,18 @@ private:
         LOG(LERROR, ("Decoded link restriction number is zero."));
         return false;
       }
-      size_t const linkNumber = biasedLinkNumber + 1 /* link number is two or more */;
+      size_t const numLinks = biasedLinkNumber + 1 /* number of link is two or more */;
 
       routing::Restriction restriction(type,  {} /* links */);
-      restriction.m_featureIds.resize(linkNumber);
-      uint32_t prevLinkFeatureId = prevFisrtLinkFeatureId;
-      for (size_t i = 0; i < linkNumber; ++i)
+      restriction.m_featureIds.resize(numLinks);
+      uint32_t const biasedFirstFeatureId = coding::DeltaCoder::Decode(bits);
+      if (biasedFirstFeatureId == 0)
+      {
+        LOG(LERROR, ("Decoded first link restriction feature id delta is zero.."));
+        return false;
+      }
+      restriction.m_featureIds[0] = prevFirstLinkFeatureId + biasedFirstFeatureId - 1;
+      for (size_t i = 1; i < numLinks; ++i)
       {
         uint32_t const biasedDelta = coding::DeltaCoder::Decode(bits);
         if (biasedDelta == 0)
@@ -184,11 +193,10 @@ private:
         }
         uint32_t const delta = biasedDelta - 1;
         restriction.m_featureIds[i] = static_cast<uint32_t>(
-            bits::ZigZagDecode(delta) + prevLinkFeatureId);
-        prevLinkFeatureId = restriction.m_featureIds[i];
+            bits::ZigZagDecode(delta) + restriction.m_featureIds[i - 1]);
       }
 
-      prevFisrtLinkFeatureId = restriction.m_featureIds[0];
+      prevFirstLinkFeatureId = restriction.m_featureIds[0];
       restrictions.push_back(restriction);
     }
     return true;

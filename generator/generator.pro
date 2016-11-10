@@ -87,7 +87,7 @@ HEADERS += \
     sponsored_scoring.hpp \
     srtm_parser.hpp \
     statistics.hpp \
-    sync_ofsteam.cpp \
+    sync_ofsteam.hpp \
     tag_admixer.hpp \
     tesselator.hpp \
     towns_dumper.hpp \

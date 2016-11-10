@@ -1,4 +1,5 @@
 #include "generator/restriction_generator.hpp"
+
 #include "generator/restriction_collector.hpp"
 
 #include "coding/file_container.hpp"
@@ -16,34 +17,34 @@ using namespace feature;
 namespace routing
 {
 bool BuildRoadRestrictions(string const & mwmPath, string const & restrictionPath,
-                           string const & featureId2OsmIdsPath)
+                           string const & featureIdToOsmIdsPath)
 {
   LOG(LINFO,
-      ("BuildRoadRestrictions(", mwmPath, ", ", restrictionPath, ", ", featureId2OsmIdsPath, ");"));
-  RestrictionCollector restrictionCollector(restrictionPath, featureId2OsmIdsPath);
+      ("BuildRoadRestrictions(", mwmPath, ", ", restrictionPath, ", ", featureIdToOsmIdsPath, ");"));
+  RestrictionCollector restrictionCollector(restrictionPath, featureIdToOsmIdsPath);
   if (!restrictionCollector.HasRestrictions() || !restrictionCollector.IsValid())
   {
-    LOG(LWARNING, ("No valid restrictions for", mwmPath, "It's necessary to check if",
-                   restrictionPath, "and", featureId2OsmIdsPath, "are available."));
+    LOG(LWARNING, ("No valid restrictions for", mwmPath, "It's necessary to check that",
+                   restrictionPath, "and", featureIdToOsmIdsPath, "are available."));
     return false;
   }
 
   RestrictionVec const & restrictions = restrictionCollector.GetRestrictions();
 
   auto const firstOnlyIt =
-      upper_bound(restrictions.cbegin(), restrictions.cend(),
-                  Restriction(Restriction::Type::No, {} /* links */), my::LessBy(&Restriction::m_type));
+      lower_bound(restrictions.cbegin(), restrictions.cend(),
+                  Restriction(Restriction::Type::Only, {} /* links */), my::LessBy(&Restriction::m_type));
   RoutingHeader header;
   header.m_noRestrictionCount = distance(restrictions.cbegin(), firstOnlyIt);
   header.m_onlyRestrictionCount = restrictions.size() - header.m_noRestrictionCount;
-  LOG(LINFO, ("Header info. There are", header.m_noRestrictionCount, "no restrictions and",
-              header.m_onlyRestrictionCount, "only restrictions"));
+  LOG(LINFO, ("Header info. There are", header.m_noRestrictionCount, "of type No restrictions and",
+              header.m_onlyRestrictionCount, "of type Only restrictions"));
 
   FilesContainerW cont(mwmPath, FileWriter::OP_WRITE_EXISTING);
   FileWriter w = cont.GetWriter(ROUTING_FILE_TAG);
   header.Serialize(w);
 
-  RestrictionSerializer::Serialize(restrictions.cbegin(), firstOnlyIt, restrictions.cend(), w);
+  RestrictionSerializer::Serialize(header, restrictions.cbegin(), restrictions.cend(), w);
 
   return true;
 }

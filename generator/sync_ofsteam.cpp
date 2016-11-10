@@ -2,6 +2,8 @@
 
 #include "std/iostream.hpp"
 
+namespace generator
+{
 void SyncOfstream::Open(string const & fullPath)
 {
   lock_guard<mutex> guard(m_mutex);
@@ -25,3 +27,4 @@ void SyncOfstream::Write(uint32_t featureId, vector<osm::Id> const & osmIds)
     m_stream << "," << osmId.OsmId();
   m_stream << endl;
 }
+}  // namespace generator

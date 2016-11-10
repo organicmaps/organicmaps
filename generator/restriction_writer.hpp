@@ -15,8 +15,7 @@ public:
 
   /// \brief Writes |relationElement| to |m_stream| if |relationElement| is a supported restriction.
   /// \note For the time being only line-point-line restrictions are processed. The other
-  /// restrictions
-  /// are ignored.
+  /// restrictions are ignored.
   // @TODO(bykoianko) It's necessary to process all kind of restrictions.
   void Write(RelationElement const & relationElement);
 

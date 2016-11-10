@@ -27,7 +27,7 @@ string const kRestrictionTestDir = "test-restrictions";
 
 UNIT_TEST(RestrictionTest_ValidCase)
 {
-  RestrictionCollector restrictionCollector("" /* restrictionPath */, "" /* featureId2OsmIdsPath */);
+  RestrictionCollector restrictionCollector("" /* restrictionPath */, "" /* featureIdToOsmIdsPath */);
   // Adding feature ids.
   restrictionCollector.AddFeatureId(30 /* featureId */, {3} /* osmIds */);
   restrictionCollector.AddFeatureId(10 /* featureId */, {1} /* osmIds */);
@@ -52,7 +52,7 @@ UNIT_TEST(RestrictionTest_ValidCase)
 
 UNIT_TEST(RestrictionTest_InvalidCase)
 {
-  RestrictionCollector restrictionCollector("" /* restrictionPath */, "" /* featureId2OsmIdsPath */);
+  RestrictionCollector restrictionCollector("" /* restrictionPath */, "" /* featureIdToOsmIdsPath */);
   restrictionCollector.AddFeatureId(0 /* featureId */, {0} /* osmIds */);
   restrictionCollector.AddFeatureId(20 /* featureId */, {2} /* osmIds */);
 
@@ -75,7 +75,7 @@ UNIT_TEST(RestrictionTest_ParseRestrictions)
   ScopedDir const scopedDir(kRestrictionTestDir);
   ScopedFile const scopedFile(kRestrictionPath, kRestrictionContent);
 
-  RestrictionCollector restrictionCollector("" /* restrictionPath */, "" /* featureId2OsmIdsPath */);
+  RestrictionCollector restrictionCollector("" /* restrictionPath */, "" /* featureIdToOsmIdsPath */);
 
   Platform const & platform = Platform();
 
@@ -98,7 +98,7 @@ UNIT_TEST(RestrictionTest_ParseFeatureId2OsmIdsMapping)
   ScopedDir const scopedDir(kRestrictionTestDir);
   ScopedFile const scopedFile(kFeatureIdToOsmIdsPath, kFeatureIdToOsmIdsContent);
 
-  RestrictionCollector restrictionCollector("" /* restrictionPath */, "" /* featureId2OsmIdsPath */);
+  RestrictionCollector restrictionCollector("" /* restrictionPath */, "" /* featureIdToOsmIdsPath */);
 
   Platform const & platform = Platform();
   restrictionCollector.ParseFeatureId2OsmIdsMapping(
@@ -107,8 +107,8 @@ UNIT_TEST(RestrictionTest_ParseFeatureId2OsmIdsMapping)
   vector<pair<uint64_t, uint32_t>> const expectedOsmIds2FeatureId = {
       {10, 1}, {20, 2}, {30, 3}, {5423239545, 779703}};
   vector<pair<uint64_t, uint32_t>> osmIds2FeatureId(
-      restrictionCollector.m_osmId2FeatureId.cbegin(),
-      restrictionCollector.m_osmId2FeatureId.cend());
+      restrictionCollector.m_osmIdToFeatureId.cbegin(),
+      restrictionCollector.m_osmIdToFeatureId.cend());
   sort(osmIds2FeatureId.begin(), osmIds2FeatureId.end(),
        my::LessBy(&pair<uint64_t, uint32_t>::first));
   TEST_EQUAL(osmIds2FeatureId, expectedOsmIds2FeatureId, ());

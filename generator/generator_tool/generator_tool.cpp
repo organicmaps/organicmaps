@@ -83,10 +83,10 @@ DEFINE_uint64(planet_version, my::SecondsSinceEpoch(),
 DEFINE_string(srtm_path, "",
               "Path to srtm directory. If it is set, generates section with altitude information "
               "about roads.");
-DEFINE_string(restriction_name, "", "Name of file with relation restriction in osm id term.");
-DEFINE_string(feature_id_to_osm_ids_name, "",
-              "Name of to file with mapping from feature id to osm ids.");
-DEFINE_bool(generate_routing, false, "Generates section with routing information");
+DEFINE_string(restriction_name, "", "Name of file with relation restriction in osm id terms.");
+DEFINE_string(feature_ids_to_osm_ids_name, "",
+              "Name of file with mapping from feature ids to osm ids.");
+DEFINE_bool(generate_routing, false, "Generate section with routing information.");
 
 int main(int argc, char ** argv)
 {
@@ -118,7 +118,7 @@ int main(int argc, char ** argv)
 
   genInfo.m_osmFileName = FLAGS_osm_file_name;
   genInfo.m_restrictions = FLAGS_restriction_name;
-  genInfo.m_featureIdToOsmIds = FLAGS_feature_id_to_osm_ids_name;
+  genInfo.m_featureIdToOsmIds = FLAGS_feature_ids_to_osm_ids_name;
   genInfo.m_failOnCoasts = FLAGS_fail_on_coasts;
   genInfo.m_preloadCache = FLAGS_preload_cache;
   genInfo.m_bookingDatafileName = FLAGS_booking_data;
@@ -163,7 +163,7 @@ int main(int argc, char ** argv)
     LOG(LINFO, ("Generating final data ..."));
 
     genInfo.m_restrictions = FLAGS_restriction_name;
-    genInfo.m_featureIdToOsmIds = FLAGS_feature_id_to_osm_ids_name;
+    genInfo.m_featureIdToOsmIds = FLAGS_feature_ids_to_osm_ids_name;
     genInfo.m_splitByPolygons = FLAGS_split_by_polygons;
     genInfo.m_createWorld = FLAGS_generate_world;
     genInfo.m_makeCoasts = FLAGS_make_coasts;

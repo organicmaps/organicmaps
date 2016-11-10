@@ -29,8 +29,8 @@ namespace
 class RelationTagsBase
 {
 public:
-  RelationTagsBase(routing::RestrictionWriter & restrictionDumper)
-    : m_restrictionDumper(restrictionDumper), m_cache(14)
+  RelationTagsBase(routing::RestrictionWriter & restrictionWriter)
+    : m_restrictionWriter(restrictionWriter), m_cache(14)
   {
   }
 
@@ -77,7 +77,7 @@ protected:
 protected:
   uint64_t m_featureID;
   OsmElement * m_current;
-  routing::RestrictionWriter & m_restrictionDumper;
+  routing::RestrictionWriter & m_restrictionWriter;
 
 private:
   my::Cache<uint64_t, RelationElement> m_cache;
@@ -88,8 +88,8 @@ class RelationTagsNode : public RelationTagsBase
   using TBase = RelationTagsBase;
 
 public:
-  RelationTagsNode(routing::RestrictionWriter & restrictionDumper)
-    : RelationTagsBase(restrictionDumper)
+  RelationTagsNode(routing::RestrictionWriter & restrictionWriter)
+    : RelationTagsBase(restrictionWriter)
   {
   }
 
@@ -102,7 +102,7 @@ protected:
 
     if (type == "restriction")
     {
-      m_restrictionDumper.Write(e);
+      m_restrictionWriter.Write(e);
       return;
     }
 
@@ -131,8 +131,8 @@ protected:
 class RelationTagsWay : public RelationTagsBase
 {
 public:
-  RelationTagsWay(routing::RestrictionWriter & restrictionDumper)
-    : RelationTagsBase(restrictionDumper)
+  RelationTagsWay(routing::RestrictionWriter & restrictionWriter)
+    : RelationTagsBase(restrictionWriter)
   {
   }
 
@@ -161,7 +161,7 @@ protected:
 
     if (type == "restriction")
     {
-      m_restrictionDumper.Write(e);
+      m_restrictionWriter.Write(e);
       return;
     }
 
@@ -213,7 +213,7 @@ class OsmToFeatureTranslator
   uint32_t m_coastType;
   unique_ptr<FileWriter> m_addrWriter;
 
-  routing::RestrictionWriter m_restrictionDumper;
+  routing::RestrictionWriter m_restrictionWriter;
 
   RelationTagsNode m_nodeRelations;
   RelationTagsWay m_wayRelations;
@@ -521,13 +521,13 @@ public:
     : m_emitter(emitter)
     , m_holder(holder)
     , m_coastType(coastType)
-    , m_nodeRelations(m_restrictionDumper)
-    , m_wayRelations(m_restrictionDumper)
+    , m_nodeRelations(m_restrictionWriter)
+    , m_wayRelations(m_restrictionWriter)
   {
     if (!addrFilePath.empty())
       m_addrWriter.reset(new FileWriter(addrFilePath));
 
     if (!restrictionsFilePath.empty())
-      m_restrictionDumper.Open(restrictionsFilePath);
+      m_restrictionWriter.Open(restrictionsFilePath);
   }
 };

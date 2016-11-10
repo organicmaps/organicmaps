@@ -12,7 +12,7 @@ namespace routing
 /// For example:
 /// Only, 335049632, 49356687,
 /// No, 157616940, 157616940,
-/// \param featureId2OsmIdsPath comma separated (csv like) file with mapping from feature id to osm
+/// \param featureIdToOsmIdsPath comma separated (csv like) file with mapping from feature id to osm
 /// ids
 /// in following format:
 /// <feature id>, <osm id 1 corresponding feature id>, <osm id 2 corresponding feature id>, and so
@@ -21,5 +21,5 @@ namespace routing
 /// 137999, 5170186,
 /// 138000, 5170209,
 bool BuildRoadRestrictions(string const & mwmPath, string const & restrictionPath,
-                           string const & featureId2OsmIdsPath);
+                           string const & featureIdToOsmIdsPath);
 }  // namespace routing

@@ -1,4 +1,5 @@
 #include "generator/restriction_writer.hpp"
+
 #include "generator/intermediate_elements.hpp"
 #include "generator/osm_id.hpp"
 #include "generator/restriction_collector.hpp"
@@ -23,7 +24,7 @@ vector<string> const kRestrictionTypesOnly = {"only_right_turn", "only_left_turn
                                               "only_straight_on"};
 
 /// \brief Converts restriction type form string to RestrictionCollector::Type.
-/// \returns Fisrt true if convertion was successful and false otherwise.
+/// \returns true if conversion was successful and false otherwise.
 bool TagToType(string const & tag, Restriction::Type & type)
 {
   if (find(kRestrictionTypesNo.cbegin(), kRestrictionTypesNo.cend(), tag) !=

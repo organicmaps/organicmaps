@@ -38,8 +38,8 @@ struct GenerateInfo
 
   // File name for a file with restrictions in osm id terms.
   string m_restrictions;
-  // File name for a file with mapping from features id to osm ids.
-  // Note. One feature id maps to one or several osm ids.
+  // File name for a file with mapping from feature ids to osm ids.
+  // Note. One feature id maps to one or more osm ids.
   string m_featureIdToOsmIds;
 
   NodeStorageType m_nodeStorageType;
