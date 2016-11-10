@@ -1,14 +1,15 @@
 #pragma once
 
+#include "routing/routing_serializer.hpp"
+
 #include "indexer/index.hpp"
-#include "indexer/routing.hpp"
 
 #include "coding/file_container.hpp"
 
 #include "std/string.hpp"
 #include "std/unique_ptr.hpp"
 
-namespace feature
+namespace routing
 {
 class RestrictionLoader
 {
@@ -16,12 +17,12 @@ public:
   explicit RestrictionLoader(MwmValue const & mwmValue);
 
   bool HasRestrictions() const { return !m_restrictions.empty(); }
-  routing::RestrictionVec const & GetRestrictions() const { return m_restrictions; }
+  RestrictionVec const & GetRestrictions() const { return m_restrictions; }
 
 private:
   unique_ptr<FilesContainerR::TReader> m_reader;
   RoutingHeader m_header;
-  routing::RestrictionVec m_restrictions;
+  RestrictionVec m_restrictions;
   string const m_countryFileName;
 };
-}  // namespace feature
+}  // namespace routing

@@ -33,6 +33,7 @@ SOURCES += \
     osrm_path_segment_factory.cpp \
     pedestrian_directions.cpp \
     pedestrian_model.cpp \
+    restriction_loader.cpp \
     road_graph.cpp \
     road_graph_router.cpp \
     route.cpp \
@@ -40,6 +41,7 @@ SOURCES += \
     router_delegate.cpp \
     routing_algorithm.cpp \
     routing_mapping.cpp \
+    routing_serializer.cpp \
     routing_session.cpp \
     speed_camera.cpp \
     turns.cpp \
@@ -74,6 +76,7 @@ HEADERS += \
     osrm_path_segment_factory.hpp \
     pedestrian_directions.hpp \
     pedestrian_model.hpp \
+    restriction_loader.hpp \
     road_graph.hpp \
     road_graph_router.hpp \
     route.hpp \
@@ -83,6 +86,7 @@ HEADERS += \
     routing_helpers.hpp \
     routing_mapping.hpp \
     routing_result_graph.hpp \
+    routing_serializer.hpp \
     routing_session.hpp \
     routing_settings.hpp \
     speed_camera.hpp \

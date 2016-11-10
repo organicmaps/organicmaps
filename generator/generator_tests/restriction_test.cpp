@@ -6,9 +6,10 @@
 #include "generator/restriction_collector.hpp"
 #include "generator/restriction_generator.hpp"
 
+#include "routing/restriction_loader.hpp"
+
 #include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
-#include "indexer/restriction_loader.hpp"
 
 #include "coding/file_name_utils.hpp"
 

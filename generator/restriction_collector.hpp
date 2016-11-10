@@ -1,6 +1,6 @@
 #pragma once
 
-#include "indexer/routing.hpp"
+#include "routing/routing_serializer.hpp"
 
 #include "std/functional.hpp"
 #include "std/limits.hpp"

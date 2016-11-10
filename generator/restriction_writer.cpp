@@ -4,7 +4,7 @@
 #include "generator/osm_id.hpp"
 #include "generator/restriction_collector.hpp"
 
-#include "indexer/routing.hpp"
+#include "routing/routing_serializer.hpp"
 
 #include "base/logging.hpp"
 

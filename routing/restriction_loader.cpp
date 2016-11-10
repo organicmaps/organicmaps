@@ -1,9 +1,7 @@
-#include "indexer/restriction_loader.hpp"
-#include "indexer/routing.hpp"
+#include "routing/restriction_loader.hpp"
+#include "routing/routing_serializer.hpp"
 
-using namespace routing;
-
-namespace feature
+namespace routing
 {
 RestrictionLoader::RestrictionLoader(MwmValue const & mwmValue)
   : m_countryFileName(mwmValue.GetCountryFileName())
@@ -26,4 +24,4 @@ RestrictionLoader::RestrictionLoader(MwmValue const & mwmValue)
         ("File", m_countryFileName, "Error while reading", ROUTING_FILE_TAG, "section.", e.Msg()));
   }
 }
-}  // namespace feature
+}  // namespace routing

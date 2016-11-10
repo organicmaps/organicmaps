@@ -12,8 +12,6 @@
 
 #include "std/algorithm.hpp"
 
-using namespace feature;
-
 namespace routing
 {
 bool BuildRoadRestrictions(string const & mwmPath, string const & restrictionPath,

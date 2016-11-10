@@ -51,10 +51,7 @@ using RestrictionVec = vector<Restriction>;
 string ToString(Restriction::Type const & type);
 string DebugPrint(Restriction::Type const & type);
 string DebugPrint(Restriction const & restriction);
-}  // namespace routing
 
-namespace feature
-{
 struct RoutingHeader
 {
   RoutingHeader() { Reset(); }
@@ -202,4 +199,4 @@ private:
     return true;
   }
 };
-}  // namespace feature
+}  // namespace routing
