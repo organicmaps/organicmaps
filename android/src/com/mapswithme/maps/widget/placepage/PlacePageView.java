@@ -806,7 +806,7 @@ public class PlacePageView extends RelativeLayout
       }
 
       String country = MapManager.nativeGetSelectedCountry();
-      if (country != null)
+      if (country != null && !RoutingController.get().isNavigating())
         attachCountry(country);
     }
 
