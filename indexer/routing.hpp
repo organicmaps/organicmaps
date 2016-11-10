@@ -10,6 +10,7 @@
 #include "base/assert.hpp"
 #include "base/bits.hpp"
 
+#include "std/algorithm.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
@@ -54,11 +55,6 @@ string DebugPrint(Restriction const & restriction);
 
 namespace feature
 {
-// For the time being only one kind of restrictions is supported. It's line-point-line
-// restrictions in osm ids term. Such restrictions correspond to two feature ids
-// restrictions in feature id terms. Because of it supported number of links is two.
-static size_t const kSupportedLinkNumber = 2;
-
 struct RoutingHeader
 {
   RoutingHeader() { Reset(); }
@@ -133,27 +129,29 @@ private:
     if (begin == end)
       return;
 
+    CHECK(is_sorted(begin, end), ());
     routing::Restriction::Type const type = begin->m_type;
 
-    routing::Restriction prevRestriction(type, {} /* links */);
-    prevRestriction.m_featureIds.resize(kSupportedLinkNumber, kDefaultFeatureId);
+    uint32_t prevFisrtLinkFeatureId = 0;
     for (auto it = begin; it != end; ++it)
     {
       CHECK_EQUAL(type, it->m_type, ());
 
       routing::Restriction const & restriction = *it;
       CHECK(restriction.IsValid(), ());
-      CHECK_EQUAL(restriction.m_featureIds.size(), kSupportedLinkNumber,
-                  ("Only", kSupportedLinkNumber, "links restriction are supported."));
+      CHECK_LESS(1, restriction.m_featureIds.size(), ("No meaning in zero or one link restrictions."));
 
       BitWriter<FileWriter> bits(sink);
-      for (size_t i = 0; i < kSupportedLinkNumber; ++i)
+      coding::DeltaCoder::Encode(bits, restriction.m_featureIds.size() - 1 /* link number is two or more */);
+      uint32_t prevLinkFeatureId = prevFisrtLinkFeatureId;
+      for (size_t i = 0; i < restriction.m_featureIds.size(); ++i)
       {
         uint32_t const delta = bits::ZigZagEncode(static_cast<int32_t>(restriction.m_featureIds[i]) -
-                                                  static_cast<int32_t>(prevRestriction.m_featureIds[i]));
+                                                  static_cast<int32_t>(prevLinkFeatureId));
         coding::DeltaCoder::Encode(bits, delta + 1 /* making it greater than zero */);
+        prevLinkFeatureId = restriction.m_featureIds[i];
       }
-      prevRestriction = restriction;
+      prevFisrtLinkFeatureId = restriction.m_featureIds[0];
     }
   }
 
@@ -161,14 +159,22 @@ private:
   static bool DeserializeSingleType(routing::Restriction::Type type, uint32_t count,
                                     routing::RestrictionVec & restrictions, Source & src)
   {
-    routing::Restriction prevRestriction(type, {} /* links */);
-    prevRestriction.m_featureIds.resize(kSupportedLinkNumber, kDefaultFeatureId);
+    uint32_t prevFisrtLinkFeatureId = 0;
     for (size_t i = 0; i < count; ++i)
     {
       BitReader<Source> bits(src);
+      uint32_t const biasedLinkNumber = coding::DeltaCoder::Decode(bits);
+      if (biasedLinkNumber == 0)
+      {
+        LOG(LERROR, ("Decoded link restriction number is zero."));
+        return false;
+      }
+      size_t const linkNumber = biasedLinkNumber + 1 /* link number is two or more */;
+
       routing::Restriction restriction(type,  {} /* links */);
-      restriction.m_featureIds.resize(kSupportedLinkNumber);
-      for (size_t i = 0; i < kSupportedLinkNumber; ++i)
+      restriction.m_featureIds.resize(linkNumber);
+      uint32_t prevLinkFeatureId = prevFisrtLinkFeatureId;
+      for (size_t i = 0; i < linkNumber; ++i)
       {
         uint32_t const biasedDelta = coding::DeltaCoder::Decode(bits);
         if (biasedDelta == 0)
@@ -178,11 +184,12 @@ private:
         }
         uint32_t const delta = biasedDelta - 1;
         restriction.m_featureIds[i] = static_cast<uint32_t>(
-            bits::ZigZagDecode(delta) + prevRestriction.m_featureIds[i]);
+            bits::ZigZagDecode(delta) + prevLinkFeatureId);
+        prevLinkFeatureId = restriction.m_featureIds[i];
       }
 
+      prevFisrtLinkFeatureId = restriction.m_featureIds[0];
       restrictions.push_back(restriction);
-      prevRestriction = restriction;
     }
     return true;
   }
