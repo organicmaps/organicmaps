@@ -18,7 +18,6 @@
 #import "MWMMapDownloadDialog.h"
 #import "MWMMapDownloaderViewController.h"
 #import "MWMMapViewControlsManager.h"
-#import "MWMPageController.h"
 #import "MWMPlacePageData.h"
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageProtocol.h"
@@ -110,7 +109,7 @@ BOOL gIsFirstMyPositionMode = YES;
 @property(nonatomic) BOOL disableStandbyOnLocationStateMode;
 
 @property(nonatomic) UserTouchesAction userTouchesAction;
-@property(nonatomic) MWMPageController * pageViewController;
+
 @property(nonatomic) MWMMapDownloadDialog * downloadDialog;
 
 @property(nonatomic) BOOL skipForceTouch;
