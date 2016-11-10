@@ -337,13 +337,13 @@ public:
       m_coastsHolder.reset(
           new feature::FeaturesCollector(info.GetTmpFileName(WORLD_COASTS_FILE_NAME)));
 
-    string const featureId2OsmIdsFile = info.GetIntermediateFileName(info.m_featureIdToOsmIds, "");
-    LOG(LINFO, ("Saving mapping from feature ids to osm ids to", featureId2OsmIdsFile));
-    m_featureIdToOsmIds.Open(featureId2OsmIdsFile);
+    string const featureIdToOsmIdsFile = info.GetIntermediateFileName(info.m_featureIdToOsmIds, "");
+    LOG(LINFO, ("Saving mapping from feature ids to osm ids to", featureIdToOsmIdsFile));
+    m_featureIdToOsmIds.Open(featureIdToOsmIdsFile);
     if (!m_featureIdToOsmIds.IsOpened())
     {
       LOG(LWARNING,
-          ("Cannot open", featureId2OsmIdsFile, ". Feature ids to osm ids to map won't be saved."));
+          ("Cannot open", featureIdToOsmIdsFile, ". Feature ids to osm ids to map won't be saved."));
     }
 
     if (info.m_splitByPolygons || !info.m_fileName.empty())

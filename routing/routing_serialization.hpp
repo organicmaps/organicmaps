@@ -131,6 +131,7 @@ private:
     routing::Restriction::Type const type = begin->m_type;
 
     uint32_t prevFirstLinkFeatureId = 0;
+    BitWriter<FileWriter> bits(sink);
     for (; begin != end; ++begin)
     {
       CHECK_EQUAL(type, begin->m_type, ());
@@ -139,7 +140,6 @@ private:
       CHECK(restriction.IsValid(), ());
       CHECK_LESS(1, restriction.m_featureIds.size(), ("No sense in zero or one link restrictions."));
 
-      BitWriter<FileWriter> bits(sink);
       coding::DeltaCoder::Encode(bits, restriction.m_featureIds.size() - 1 /* number of link is two or more */);
 
       CHECK_LESS_OR_EQUAL(prevFirstLinkFeatureId, restriction.m_featureIds[0], ());
@@ -160,9 +160,9 @@ private:
                                     routing::RestrictionVec & restrictions, Source & src)
   {
     uint32_t prevFirstLinkFeatureId = 0;
+    BitReader<Source> bits(src);
     for (size_t i = 0; i < count; ++i)
     {
-      BitReader<Source> bits(src);
       uint32_t const biasedLinkNumber = coding::DeltaCoder::Decode(bits);
       if (biasedLinkNumber == 0)
       {
@@ -176,7 +176,7 @@ private:
       uint32_t const biasedFirstFeatureId = coding::DeltaCoder::Decode(bits);
       if (biasedFirstFeatureId == 0)
       {
-        LOG(LERROR, ("Decoded first link restriction feature id delta is zero.."));
+        LOG(LERROR, ("Decoded first link restriction feature id delta is zero."));
         return false;
       }
       restriction.m_featureIds[0] = prevFirstLinkFeatureId + biasedFirstFeatureId - 1;

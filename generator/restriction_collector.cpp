@@ -33,18 +33,24 @@ namespace routing
 RestrictionCollector::RestrictionCollector(string const & restrictionPath,
                                            string const & featureIdToOsmIdsPath)
 {
-  MY_SCOPE_GUARD(parseErrorGuard, [this]{
+  MY_SCOPE_GUARD(clean, [this](){
     m_osmIdToFeatureId.clear();
     m_restrictions.clear();
   });
 
-  if (!ParseFeatureId2OsmIdsMapping(featureIdToOsmIdsPath)
-      || !ParseRestrictions(restrictionPath))
+  if (!ParseFeatureId2OsmIdsMapping(featureIdToOsmIdsPath))
   {
-    LOG(LWARNING, ("An error happened while parsing", featureIdToOsmIdsPath, "or", restrictionPath));
+    LOG(LWARNING, ("An error happened while parsing feature id to osm ids mapping from file:",
+                   featureIdToOsmIdsPath));
     return;
   }
-  parseErrorGuard.release();
+
+  if (!ParseRestrictions(restrictionPath))
+  {
+    LOG(LWARNING, ("An error happened while parsing restrictions from file:",  restrictionPath));
+    return;
+  }
+  clean.release();
 
   my::SortUnique(m_restrictions);
 
@@ -61,20 +67,27 @@ bool RestrictionCollector::IsValid() const
 
 bool RestrictionCollector::ParseFeatureId2OsmIdsMapping(string const & featureIdToOsmIdsPath)
 {
-  ifstream featureId2OsmIdsStream(featureIdToOsmIdsPath);
-  if (featureId2OsmIdsStream.fail())
+  ifstream featureIdToOsmIdsStream(featureIdToOsmIdsPath);
+  if (featureIdToOsmIdsStream.fail())
     return false;
 
   string line;
-  while (getline(featureId2OsmIdsStream, line))
+  while (getline(featureIdToOsmIdsStream, line))
   {
     vector<uint64_t> osmIds;
     strings::SimpleTokenizer iter(line, kDelim);
     if (!ParseLineOfNumbers(iter, osmIds))
+    {
+      LOG(LWARNING, ("Cannot parse feature id to osm ids mapping. Line:", line));
       return false;
+    }
 
     if (osmIds.size() < 2)
+    {
+      LOG(LWARNING, ("Parse result of mapping feature id to osm ids is too small. Line:",
+                     line));
       return false;  // Every line should contain feature id and at least one osm id.
+    }
 
     uint32_t const featureId = static_cast<uint32_t>(osmIds.front());
     osmIds.erase(osmIds.begin());
@@ -99,7 +112,7 @@ bool RestrictionCollector::ParseRestrictions(string const & path)
     Restriction::Type type;
     if (!FromString(*iter, type))
     {
-      LOG(LWARNING, ("Cannot parse a restriction type", *iter, "form", path));
+      LOG(LWARNING, ("Cannot parse a restriction type. Line:", line));
       return false;
     }
 
@@ -140,7 +153,7 @@ bool RestrictionCollector::AddRestriction(Restriction::Type type, vector<uint64_
 void RestrictionCollector::AddFeatureId(uint32_t featureId, vector<uint64_t> const & osmIds)
 {
   // Note. One |featureId| could correspond to several osm ids.
-  // but for road feature |featureId| corresponds exactly one osm id.
+  // But for road feature |featureId| corresponds to exactly one osm id.
   for (uint64_t const & osmId : osmIds)
   {
     auto const result = m_osmIdToFeatureId.insert(make_pair(osmId, featureId));

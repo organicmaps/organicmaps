@@ -4,7 +4,7 @@
 #include "generator/osm_id.hpp"
 #include "generator/restriction_collector.hpp"
 
-#include "routing/routing_serializer.hpp"
+#include "routing/routing_serialization.hpp"
 
 #include "base/logging.hpp"
 
@@ -92,13 +92,13 @@ void RestrictionWriter::Write(RelationElement const & relationElement)
   // Extracting type of restriction.
   auto const tagIt = relationElement.tags.find("restriction");
   if (tagIt == relationElement.tags.end())
-    return;  // Type of the element is different from "restriction".
+    return;
 
   Restriction::Type type = Restriction::Type::No;
   if (!TagToType(tagIt->second, type))
-    return;  // Unsupported restriction type.
+    return;
 
   // Adding restriction.
-  m_stream << ToString(type) << "," << fromIt->first << ", " << toIt->first << endl;
+  m_stream << ToString(type) << "," << fromIt->first << ", " << toIt->first << '\n';
 }
 }  // namespace routing

@@ -41,7 +41,7 @@ SOURCES += \
     router_delegate.cpp \
     routing_algorithm.cpp \
     routing_mapping.cpp \
-    routing_serializer.cpp \
+    routing_serialization.cpp \
     routing_session.cpp \
     speed_camera.cpp \
     turns.cpp \
@@ -86,7 +86,7 @@ HEADERS += \
     routing_helpers.hpp \
     routing_mapping.hpp \
     routing_result_graph.hpp \
-    routing_serializer.hpp \
+    routing_serialization.hpp \
     routing_session.hpp \
     routing_settings.hpp \
     speed_camera.hpp \
