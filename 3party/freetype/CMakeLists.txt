@@ -112,6 +112,7 @@ set(
   src/truetype/ttobjs.c
   src/truetype/ttpload.c
   src/truetype/truetype.c
+  src/truetype/ttgxvar.c
   src/type1/t1afm.c
   src/type1/t1driver.c
   src/type1/t1gload.c

@@ -14,10 +14,6 @@ find_package(Qt5Network REQUIRED)
 find_package(Qt5OpenGL REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 
-if (APPLE)
-  find_library(APL_SYSCON SystemConfiguration)
-endif()
-
 find_library(LIBZ NAMES z)
 if (LIBZ STREQUAL "LIBZ-NOTFOUND")
   message(FATAL_ERROR "Failed to find libz library.")
@@ -137,6 +133,7 @@ add_subdirectory(3party/freetype)
 add_subdirectory(3party/fribidi)
 add_subdirectory(3party/expat)
 add_subdirectory(map)
+add_subdirectory(drape)
 
 add_compile_options(
   "-Wall"
@@ -148,7 +145,8 @@ add_subdirectory(3party/liboauthcpp)
 add_subdirectory(3party/pugixml)
 add_subdirectory(3party/succinct)
 add_subdirectory(3party/osrm)
-
+add_subdirectory(3party/gmock)
+add_subdirectory(qt_tstfrm)
 add_subdirectory(base)
 add_subdirectory(coding)
 add_subdirectory(geometry)
