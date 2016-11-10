@@ -918,8 +918,7 @@ public class PlacePageView extends RelativeLayout
     {
       UiUtils.hide(mWebsite);
 //    TODO: remove this after booking_api.cpp will be done
-      if (!USE_OLD_BOOKING)
-        UiUtils.hide(mHotelMore);
+      UiUtils.showIf(USE_OLD_BOOKING, mHotelMore);
 
       if (mSponsored.getType() != Sponsored.TYPE_BOOKING)
         UiUtils.hide(mHotelMore);
