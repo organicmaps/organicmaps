@@ -66504,57 +66504,6 @@ cont {
   }
 }
 cont {
-  name: "tourism-information-office"
-  element {
-    scale: 17
-    symbol {
-      name: "information"
-      priority: 16003
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4210752
-        stroke_color: 16777215
-        offset_y: 10
-      }
-      priority: 15003
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "information"
-      priority: 16003
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4210752
-        stroke_color: 16777215
-        offset_y: 10
-      }
-      priority: 15003
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "information"
-      priority: 16003
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4210752
-        stroke_color: 16777215
-        offset_y: 10
-      }
-      priority: 15003
-    }
-  }
-}
-cont {
   name: "tourism-motel"
   element {
     scale: 16
