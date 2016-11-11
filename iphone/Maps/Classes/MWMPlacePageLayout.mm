@@ -289,6 +289,7 @@ void animate(TMWMVoidBlock animate, TMWMVoidBlock completion = nil)
   auto const & sections = self.data.sections;
   switch (status)
   {
+  case NodeStatus::OnDiskOutOfDate:
   case NodeStatus::Undefined:
   {
     self.isPlacePageButtonsEnabled = NO;
@@ -323,7 +324,6 @@ void animate(TMWMVoidBlock animate, TMWMVoidBlock completion = nil)
     break;
   }
   case NodeStatus::Partly: break;
-  case NodeStatus::OnDiskOutOfDate:
   case NodeStatus::OnDisk:
   {
     self.isPlacePageButtonsEnabled = YES;
@@ -556,8 +556,11 @@ void animate(TMWMVoidBlock animate, TMWMVoidBlock completion = nil)
     MWMPlacePageButtonCell * c = [tableView dequeueReusableCellWithIdentifier:kButtonsCells[0]];
     auto const row = data.buttonsRows[indexPath.row];
     [c configForRow:row withDelegate:delegate];
+
     if (row != ButtonsRows::HotelDescription)
       [c setEnabled:self.isPlacePageButtonsEnabled];
+    else
+      [c setEnabled:YES];
 
     return c;
   }

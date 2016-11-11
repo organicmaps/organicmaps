@@ -18,17 +18,7 @@ size_t constexpr kRealTimeBufferSize = 60;
 
 namespace tracking
 {
-// static
-// Apple and Android applications use different keys for settings.ini.
-// Keys saved for existing users, so can' fix it easy, need migration.
-// Use this hack until change to special traffic key.
-#if defined(OMIM_OS_IPHONE)
 const char Reporter::kEnableTrackingKey[] = "StatisticsEnabled";
-#elif defined(OMIM_OS_ANDROID)
-const char Reporter::kEnableTrackingKey[] = "AllowStat";
-#else
-const char Reporter::kEnableTrackingKey[] = "AllowStat";
-#endif
 
 // static
 milliseconds const Reporter::kPushDelayMs = milliseconds(10000);

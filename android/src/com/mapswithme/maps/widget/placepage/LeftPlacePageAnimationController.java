@@ -16,6 +16,7 @@ class LeftPlacePageAnimationController extends BasePlacePageAnimationController
   LeftPlacePageAnimationController(@NonNull PlacePageView placePage)
   {
     super(placePage);
+    UiUtils.extendViewPaddingWithStatusBar(mPreview);
   }
 
   @Override

@@ -123,15 +123,14 @@ enum RowInMetaInfo
   else
   {
     Framework & f = GetFramework();
-    auto const & bac = self.data.bac;
-    BookmarkCategory * category = f.GetBmCategory(bac.m_categoryIndex);
+    BookmarkCategory * category = f.GetBmCategory(m_cachedBac.m_categoryIndex);
     if (!category)
       return;
 
     {
       BookmarkCategory::Guard guard(*category);
       Bookmark * bookmark =
-          static_cast<Bookmark *>(guard.m_controller.GetUserMarkForEdit(bac.m_bookmarkIndex));
+          static_cast<Bookmark *>(guard.m_controller.GetUserMarkForEdit(m_cachedBac.m_bookmarkIndex));
       if (!bookmark)
         return;
 

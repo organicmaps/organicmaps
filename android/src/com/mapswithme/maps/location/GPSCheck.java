@@ -20,6 +20,7 @@ public class GPSCheck extends BroadcastReceiver
         && MwmApplication.get().isFrameworkInitialized() && MwmApplication.backgroundTracker().isForeground())
     {
       LocationHelper.INSTANCE.addLocationListener();
+      LocationHelper.INSTANCE.forceRestart();
     }
   }
 }

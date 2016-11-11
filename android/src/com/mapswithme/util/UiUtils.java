@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Build;
@@ -20,13 +21,17 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,6 +40,7 @@ import com.mapswithme.maps.R;
 
 public final class UiUtils
 {
+  private static final int DEFAULT_TINT_COLOR = Color.parseColor("#20000000");
   private static float sScreenDensity;
 
   public static class SimpleAnimationListener implements AnimationListener
@@ -357,6 +363,81 @@ public final class UiUtils
     Rect viewRect = new Rect(viewX, viewY, viewX + width, viewY + height);
 
     return viewRect.contains(x, y);
+  }
+
+  private static int getStatusBarHeight(@NonNull Context context)
+  {
+    int result = 0;
+    Resources res = context.getResources();
+    int resourceId = res.getIdentifier("status_bar_height", "dimen", "android");
+    if (resourceId > 0)
+      result = res.getDimensionPixelSize(resourceId);
+
+    return result;
+  }
+
+  public static void extendViewWithStatusBar(@NonNull View view)
+  {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
+      return;
+
+    int statusBarHeight = getStatusBarHeight(view.getContext());
+    ViewGroup.LayoutParams lp = view.getLayoutParams();
+    lp.height += statusBarHeight;
+    view.setLayoutParams(lp);
+    extendViewPaddingTop(view, statusBarHeight);
+  }
+
+  public static void extendViewPaddingWithStatusBar(@NonNull View view)
+  {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
+      return;
+
+    int statusBarHeight = getStatusBarHeight(view.getContext());
+    extendViewPaddingTop(view, statusBarHeight);
+  }
+
+  private static void extendViewPaddingTop(@NonNull View view, int statusBarHeight)
+  {
+    view.setPadding(view.getPaddingLeft(), view.getPaddingTop() + statusBarHeight,
+                    view.getPaddingRight(), view.getPaddingBottom());
+  }
+
+  public static void extendViewMarginWithStatusBar(@NonNull View view)
+  {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
+      return;
+
+    int statusBarHeight = getStatusBarHeight(view.getContext());
+    ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+    int margin = lp.getMarginStart();
+    lp.setMargins(margin, margin + statusBarHeight, margin, margin);
+    view.setLayoutParams(lp);
+  }
+
+  public static void setupStatusBar(@NonNull Activity activity)
+  {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
+      return;
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+    {
+      activity.getWindow().getDecorView().setSystemUiVisibility(
+          View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+    }
+    else
+    {
+      activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+    }
+
+    View statusBarTintView = new View(activity);
+    FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, getStatusBarHeight(activity));
+    params.gravity = Gravity.TOP;
+    statusBarTintView.setLayoutParams(params);
+    statusBarTintView.setBackgroundColor(DEFAULT_TINT_COLOR);
+    statusBarTintView.setVisibility(View.VISIBLE);
+    ViewGroup decorViewGroup = (ViewGroup) activity.getWindow().getDecorView();
+    decorViewGroup.addView(statusBarTintView);
   }
 
   // utility class

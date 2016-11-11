@@ -110,6 +110,7 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
   if (IPAD && self.state != MWMNavigationDashboardStateNavigation)
     [self.delegate routePreviewDidChangeFrame:{}];
   [[MWMRouter router] stop];
+  self.taxiDataSource = nil;
 }
 
 #pragma mark - MWMTaxiDataSource

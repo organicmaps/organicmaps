@@ -259,7 +259,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </collectionView>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="t6d-gI-JcN" firstAttribute="top" secondItem="xAP-RW-zvp" secondAttribute="top" id="Q7e-1w-LMz"/>
                                 <constraint firstItem="t6d-gI-JcN" firstAttribute="leading" secondItem="xAP-RW-zvp" secondAttribute="leading" id="TYJ-1W-jS1"/>

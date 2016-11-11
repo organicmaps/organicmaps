@@ -122,10 +122,6 @@
   dispatch_once(&onceToken, ^
   {
     instance = [[Statistics alloc] init];
-    if ([MWMSettings statisticsEnabled])
-      [Alohalytics enable];
-    else
-      [Alohalytics disable];
   });
   return instance;
 }

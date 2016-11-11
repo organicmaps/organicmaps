@@ -24,7 +24,8 @@ NSString * breaksFromClosedTime(TTimespans const & closedTimes)
   {
     if (i)
       [breaks appendString:@"\n"];
-    [breaks appendString:stringFromTimeSpan(closedTimes[i])];
+    [breaks appendString:[NSString stringWithFormat:@"%@ %@", L(@"editor_hours_closed"),
+                                                              stringFromTimeSpan(closedTimes[i])]];
   }
   return breaks.copy;
 }

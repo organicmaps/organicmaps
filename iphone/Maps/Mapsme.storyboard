@@ -53,7 +53,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="Wns-nH-AQU" customClass="MWMNavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="OK2-RC-YDq">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="OK2-RC-YDq">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1214,7 +1214,7 @@
             <objects>
                 <navigationController id="Psz-BY-Fy4" customClass="MWMNavigationController" sceneMemberID="viewController">
                     <value key="contentSizeForViewInPopover" type="size" width="600" height="600"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="SUN-3A-xgM">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="SUN-3A-xgM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3032,7 +3032,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Для обновления требуется больше свободного места. Пожалуйста, удалите ненужный контент." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="400" translatesAutoresizingMaskIntoConstraints="NO" id="9dB-cn-qbb" userLabel="State">
-                                        <rect key="frame" x="-21.5" y="401" width="363" height="33"/>
+                                        <rect key="frame" x="12" y="401" width="296" height="33"/>
                                         <constraints>
                                             <constraint firstAttribute="width" priority="750" constant="400" id="gnK-Ra-PzL"/>
                                         </constraints>
@@ -3102,7 +3102,7 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <accessibility key="accessibilityConfiguration" identifier="ContainerView"/>
                                 <constraints>
-                                    <constraint firstItem="9dB-cn-qbb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Toe-vk-Vmp" secondAttribute="leading" priority="750" constant="12" id="4Wc-7I-5xu"/>
+                                    <constraint firstItem="9dB-cn-qbb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Toe-vk-Vmp" secondAttribute="leading" priority="900" constant="12" id="4Wc-7I-5xu"/>
                                     <constraint firstItem="3d5-wL-CHn" firstAttribute="centerX" secondItem="Toe-vk-Vmp" secondAttribute="centerX" id="8Mi-Ib-PsJ"/>
                                     <constraint firstItem="OC0-ml-Jn7" firstAttribute="top" secondItem="Toe-vk-Vmp" secondAttribute="top" constant="36" id="G6M-AB-Kp0"/>
                                     <constraint firstItem="7bw-ZT-3ea" firstAttribute="top" secondItem="4zz-rI-p8s" secondAttribute="bottom" priority="500" constant="10" id="JGY-SO-Jd5"/>
@@ -3113,7 +3113,7 @@
                                     <constraint firstItem="4zz-rI-p8s" firstAttribute="top" secondItem="OC0-ml-Jn7" secondAttribute="bottom" priority="250" constant="80" id="eff-ZO-eVk"/>
                                     <constraint firstItem="7bw-ZT-3ea" firstAttribute="centerX" secondItem="Toe-vk-Vmp" secondAttribute="centerX" id="hLc-KL-B8u"/>
                                     <constraint firstAttribute="bottom" secondItem="3d5-wL-CHn" secondAttribute="bottom" constant="36" id="jIy-bI-IQK"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="9dB-cn-qbb" secondAttribute="trailing" priority="750" constant="12" id="mib-fn-M58"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="9dB-cn-qbb" secondAttribute="trailing" priority="900" constant="12" id="mib-fn-M58"/>
                                     <constraint firstAttribute="trailing" secondItem="OC0-ml-Jn7" secondAttribute="trailing" constant="16" id="oQ5-fG-W4E"/>
                                     <constraint firstItem="4zz-rI-p8s" firstAttribute="top" secondItem="9dB-cn-qbb" secondAttribute="bottom" priority="250" constant="16" id="rHI-IH-sDQ"/>
                                     <constraint firstItem="4zz-rI-p8s" firstAttribute="centerX" secondItem="Toe-vk-Vmp" secondAttribute="centerX" id="xcS-f1-5Fn"/>

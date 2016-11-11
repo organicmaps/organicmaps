@@ -28,6 +28,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -138,7 +139,8 @@ public class PlacePageView extends RelativeLayout
   private View mAddPlace;
   // Bookmark
   private View mBookmarkFrame;
-  private TextView mBookmarkNote;
+  private WebView mWvBookmarkNote;
+  private TextView mTvBookmarkNote;
   private boolean mBookmarkSet;
   // Place page buttons
   private PlacePageButtons mButtons;
@@ -312,7 +314,9 @@ public class PlacePageView extends RelativeLayout
     mWiki.setOnLongClickListener(this);
 
     mBookmarkFrame = mDetails.findViewById(R.id.bookmark_frame);
-    mBookmarkNote = (TextView) mBookmarkFrame.findViewById(R.id.tv__bookmark_notes);
+    mWvBookmarkNote = (WebView) mBookmarkFrame.findViewById(R.id.wv__bookmark_notes);
+    mWvBookmarkNote.getSettings().setJavaScriptEnabled(false);
+    mTvBookmarkNote = (TextView) mBookmarkFrame.findViewById(R.id.tv__bookmark_notes);
     mBookmarkFrame.findViewById(R.id.tv__bookmark_edit).setOnClickListener(this);
 
     ViewGroup ppButtons = (ViewGroup) findViewById(R.id.pp__buttons);
@@ -348,7 +352,7 @@ public class PlacePageView extends RelativeLayout
 
           case BOOKMARK:
             mBookmarkButtonIcon = icon;
-            updateButtons();
+            updateBookmarkButton();
             color = ThemeUtils.getColor(getContext(), R.attr.iconTint);
             break;
 
@@ -755,6 +759,12 @@ public class PlacePageView extends RelativeLayout
   {
     mDetails.scrollTo(0, 0);
 
+    // If place page is closed the state of webview should be cleared,
+    // otherwise the animation controller will work with stale webview height,
+    // since the webview caches its state completely, and animation will work wrong.
+    if (state == State.HIDDEN)
+      clearBookmarkWebView();
+
     if (mMapObject != null)
       mAnimationController.setState(state, mMapObject.getMapObjectType());
 
@@ -769,6 +779,11 @@ public class PlacePageView extends RelativeLayout
                                                                                                  : R.attr.ppPreviewHeadOpen));
       mPreview.setPadding(left, top, right, bottom);
     }
+  }
+
+  private void clearBookmarkWebView()
+  {
+    mWvBookmarkNote.loadUrl("about:blank");
   }
 
   public MapObject getMapObject()
@@ -827,6 +842,7 @@ public class PlacePageView extends RelativeLayout
       case MapObject.BOOKMARK:
         refreshDistanceToObject(loc);
         showBookmarkDetails();
+        updateBookmarkButton();
         setButtons(false, true);
         break;
       case MapObject.POI:
@@ -918,8 +934,7 @@ public class PlacePageView extends RelativeLayout
     {
       UiUtils.hide(mWebsite);
 //    TODO: remove this after booking_api.cpp will be done
-      if (!USE_OLD_BOOKING)
-        UiUtils.hide(mHotelMore);
+      UiUtils.showIf(USE_OLD_BOOKING, mHotelMore);
 
       if (mSponsored.getType() != Sponsored.TYPE_BOOKING)
         UiUtils.hide(mHotelMore);
@@ -993,7 +1008,7 @@ public class PlacePageView extends RelativeLayout
     mTodayOpeningHours.setTextColor(color);
   }
 
-  private void updateButtons()
+  private void updateBookmarkButton()
   {
     if (mBookmarkButtonIcon == null)
       return;
@@ -1008,16 +1023,35 @@ public class PlacePageView extends RelativeLayout
   {
     mBookmarkSet = false;
     UiUtils.hide(mBookmarkFrame);
-    updateButtons();
+    updateBookmarkButton();
   }
 
   private void showBookmarkDetails()
   {
     mBookmarkSet = true;
     UiUtils.show(mBookmarkFrame);
-    UiUtils.setTextAndHideIfEmpty(mBookmarkNote, ((Bookmark) mMapObject).getBookmarkDescription());
-    Linkify.addLinks(mBookmarkNote, Linkify.ALL);
-    updateButtons();
+
+    final String notes = ((Bookmark) mMapObject).getBookmarkDescription();
+
+    if (TextUtils.isEmpty(notes))
+    {
+      UiUtils.hide(mTvBookmarkNote, mWvBookmarkNote);
+      return;
+    }
+
+    if (StringUtils.nativeIsHtml(notes))
+    {
+      mWvBookmarkNote.loadData(notes, "text/html; charset=utf-8", null);
+      UiUtils.show(mWvBookmarkNote);
+      UiUtils.hide(mTvBookmarkNote);
+    }
+    else
+    {
+      mTvBookmarkNote.setText(notes);
+      Linkify.addLinks(mTvBookmarkNote, Linkify.ALL);
+      UiUtils.show(mTvBookmarkNote);
+      UiUtils.hide(mWvBookmarkNote);
+    }
   }
 
   private void setButtons(boolean showBackButton, boolean showRoutingButton)
@@ -1082,11 +1116,15 @@ public class PlacePageView extends RelativeLayout
 
     final StringBuilder builder = new StringBuilder();
     if (l.hasAltitude())
-      builder.append(Framework.nativeFormatAltitude(l.getAltitude()));
+    {
+      double altitude = l.getAltitude();
+      builder.append(altitude >= 0 ? "▲" : "▼");
+      builder.append(Framework.nativeFormatAltitude(altitude));
+    }
     if (l.hasSpeed())
       builder.append("   ")
              .append(Framework.nativeFormatSpeed(l.getSpeed()));
-    mTvSubtitle.setText(builder.toString());
+    UiUtils.setTextAndHideIfEmpty(mTvSubtitle, builder.toString());
 
     mMapObject.setLat(l.getLatitude());
     mMapObject.setLon(l.getLongitude());

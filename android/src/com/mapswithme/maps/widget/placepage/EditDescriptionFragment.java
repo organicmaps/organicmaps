@@ -79,6 +79,7 @@ public class EditDescriptionFragment extends BaseMwmDialogFragment
   private void initToolbar(View view)
   {
     Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+    UiUtils.extendViewWithStatusBar(toolbar);
     final TextView textView = (TextView) toolbar.findViewById(R.id.tv__save);
     textView.setOnClickListener(new View.OnClickListener()
     {

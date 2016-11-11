@@ -130,12 +130,14 @@ public class SettingsActivity extends PreferenceActivity
     getAppDelegate().onCreate(savedInstanceState);
 
     super.onCreate(savedInstanceState);
+    UiUtils.setupStatusBar(this);
     setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
     // Hack to attach Toolbar and make it work on native PreferenceActivity
     ViewGroup root = (ViewGroup)findViewById(android.R.id.list).getParent().getParent().getParent();
     View toolbarHolder = LayoutInflater.from(this).inflate(R.layout.toolbar_default, root, false);
     Toolbar toolbar = (Toolbar) toolbarHolder.findViewById(R.id.toolbar);
+    UiUtils.extendViewWithStatusBar(toolbar);
     UiUtils.showHomeUpButton(toolbar);
 
     // First, add toolbar view to UI.

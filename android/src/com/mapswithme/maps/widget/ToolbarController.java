@@ -27,6 +27,8 @@ public class ToolbarController
   {
     mActivity = activity;
     mToolbar = (Toolbar) root.findViewById(getToolbarId());
+
+    UiUtils.extendViewWithStatusBar(mToolbar);
     setupNavigationListener();
   }
 

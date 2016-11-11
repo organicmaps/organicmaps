@@ -36,6 +36,10 @@ class SearchWheel implements View.OnClickListener
     @Override
     public void run()
     {
+      // if the search bar is already closed, i.e. nothing should be done here.
+      if (!mIsExpanded)
+        return;
+
       toggleSearchLayout();
     }
   };
@@ -237,7 +241,6 @@ class SearchWheel implements View.OnClickListener
     parent.showSearch();
     mIsExpanded = false;
     refreshSearchVisibility();
-    UiThread.cancelDelayedTasks(mCloseRunnable);
   }
 
   private void startSearch(SearchOption searchOption)

@@ -140,6 +140,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private boolean mIsFragmentContainer;
   private boolean mIsFullscreen;
   private boolean mIsFullscreenAnimating;
+  private boolean mIsAppearMenuLater;
 
   private FloatingSearchToolbarController mSearchController;
 
@@ -450,6 +451,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     mPositionChooser = findViewById(R.id.position_chooser);
     final Toolbar toolbar = (Toolbar) mPositionChooser.findViewById(R.id.toolbar_position_chooser);
+    UiUtils.extendViewWithStatusBar(toolbar);
     UiUtils.showHomeUpButton(toolbar);
     toolbar.setNavigationOnClickListener(new OnClickListener()
     {
@@ -892,7 +894,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void adjustZoomButtons()
   {
-    UiUtils.showIf(showZoomButtons(), mNavZoomIn, mNavZoomOut);
+    UiUtils.showIf(showZoomButtons() && !mIsFullscreen, mNavZoomIn, mNavZoomOut);
     // TODO animate zoom buttons & myposition
   }
 
@@ -944,7 +946,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     if (!closePlacePage() && !closeSidePanel() &&
-        !RoutingController.get().cancel() && !closePositionChooser())
+        (mNavigationController != null && !mNavigationController.cancel()) && !closePositionChooser())
     {
       try
       {
@@ -1026,11 +1028,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       request.setPointData(object.getLat(), object.getLon(), object.getTitle(), object.getApiId());
       object.setSubtitle(request.getCallerName(MwmApplication.get()).toString());
     }
-    else if (MapObject.isOfType(MapObject.MY_POSITION, object) &&
-             RoutingController.get().isNavigating())
-    {
-      return;
-    }
 
     setFullscreen(false);
 
@@ -1091,6 +1088,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
           adjustRuler(0, menuHeight);
 
           mIsFullscreenAnimating = false;
+          if (mIsAppearMenuLater)
+          {
+            appearMenu(menu);
+            mIsAppearMenuLater = false;
+          }
         }
       });
       if (showZoomButtons())
@@ -1101,20 +1103,28 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
     else
     {
-      Animations.appearSliding(menu.getFrame(), Animations.BOTTOM, new Runnable()
+      if (!mIsFullscreenAnimating)
+        appearMenu(menu);
+      else
+        mIsAppearMenuLater = true;
+    }
+  }
+
+  private void appearMenu(BaseMenu menu)
+  {
+    Animations.appearSliding(menu.getFrame(), Animations.BOTTOM, new Runnable()
+    {
+      @Override
+      public void run()
       {
-        @Override
-        public void run()
-        {
-          adjustCompass(0, 0);
-          adjustRuler(0, 0);
-        }
-      });
-      if (showZoomButtons())
-      {
-        Animations.appearSliding(mNavZoomOut, Animations.RIGHT, null);
-        Animations.appearSliding(mNavZoomIn, Animations.RIGHT, null);
+        adjustCompass(0, 0);
+        adjustRuler(0, 0);
       }
+    });
+    if (showZoomButtons())
+    {
+      Animations.appearSliding(mNavZoomOut, Animations.RIGHT, null);
+      Animations.appearSliding(mNavZoomIn, Animations.RIGHT, null);
     }
   }
 
@@ -1324,7 +1334,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       mNavigationController.show(true);
       mSearchController.hide();
-      mMainMenu.setState(MainMenu.State.NAVIGATION, false);
+      mMainMenu.setState(MainMenu.State.NAVIGATION, false, mIsFullscreen);
       return;
     }
 
@@ -1335,11 +1345,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
     else if (RoutingController.get().isPlanning())
     {
-      mMainMenu.setState(MainMenu.State.ROUTE_PREPARE, false);
+      mMainMenu.setState(MainMenu.State.ROUTE_PREPARE, false, mIsFullscreen);
       return;
     }
 
-    mMainMenu.setState(MainMenu.State.MENU, false);
+    mMainMenu.setState(MainMenu.State.MENU, false, mIsFullscreen);
   }
 
   private void adjustMenuLineFrameVisibility()

@@ -11,7 +11,7 @@ NSString * titleForButton(EButton type, BOOL isSelected)
     return L(@"back");
   case EButton::Booking:
   case EButton::Opentable:
-    return L(@"bookingcom_book_button");
+    return L(@"book_button");
   case EButton::Call:
     return L(@"placepage_call_button");
   case EButton::Bookmark:

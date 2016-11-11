@@ -198,13 +198,9 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [UIView animateWithDuration:kDefaultAnimationDuration
       animations:^{
         for (MWMAlert * view in self.view.subviews)
-          view.alpha = 0.0;
-      }
-      completion:^(BOOL finished) {
-        for (MWMAlert * view in self.view.subviews)
         {
           if (view != alert)
-            view.hidden = YES;
+            view.alpha = 0.0;
         }
       }];
 
@@ -229,8 +225,6 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   NSArray * subviews = self.view.subviews;
   MWMAlert * closeAlert = subviews.lastObject;
   MWMAlert * showAlert = (subviews.count >= 2 ? subviews[subviews.count - 2] : nil);
-  if (showAlert)
-    showAlert.hidden = NO;
   [UIView animateWithDuration:kDefaultAnimationDuration
       animations:^{
         closeAlert.alpha = 0.;

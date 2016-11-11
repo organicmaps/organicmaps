@@ -3,7 +3,6 @@ package com.mapswithme.maps.gallery;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
@@ -66,8 +65,6 @@ public class FullScreenGalleryActivity extends BaseMwmFragmentActivity
     toolbar.setTitle("");
     UiUtils.showHomeUpButton(toolbar);
     displayToolbarAsActionBar();
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
-      getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 
     mUserBlock = findViewById(R.id.rl__user_block);
     mDescription = (TextView) findViewById(R.id.tv__description);

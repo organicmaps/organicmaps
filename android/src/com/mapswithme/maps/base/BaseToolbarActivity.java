@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
 
@@ -15,6 +16,7 @@ public abstract class BaseToolbarActivity extends BaseMwmFragmentActivity
     super.onCreate(state);
 
     Toolbar toolbar = getToolbar();
+    UiUtils.extendViewWithStatusBar(toolbar);
     int title = getToolbarTitle();
     if (title == 0)
       toolbar.setTitle(getTitle());

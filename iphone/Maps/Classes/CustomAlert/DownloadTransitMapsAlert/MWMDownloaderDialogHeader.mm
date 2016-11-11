@@ -18,11 +18,9 @@ static NSString * const kDownloaderDialogHeaderNibName = @"MWMDownloaderDialogHe
 
 @implementation MWMDownloaderDialogHeader
 
-+ (instancetype)headerForOwnerAlert:(MWMDownloadTransitMapAlert *)alert title:(NSString *)title size:(NSString *)size;
++ (instancetype)headerForOwnerAlert:(MWMDownloadTransitMapAlert *)alert
 {
   MWMDownloaderDialogHeader * header = [[[NSBundle mainBundle] loadNibNamed:kDownloaderDialogHeaderNibName owner:nil options:nil] firstObject];
-  header.title.text = title;
-  header.size.text = size;
   header.ownerAlert = alert;
   return header;
 }
@@ -46,6 +44,12 @@ static NSString * const kDownloaderDialogHeaderNibName = @"MWMDownloaderDialogHe
   if (self.expandImage.hidden)
     self.sizeTrailing.constant = self.titleLeading.constant;
   [self layoutIfNeeded];
+}
+
+- (void)setTitle:(NSString *)title size:(NSString *)size
+{
+  self.title.text = title;
+  self.size.text = size;
 }
 
 @end
