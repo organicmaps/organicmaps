@@ -40,6 +40,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
   BottomPlacePageAnimationController(@NonNull PlacePageView placePage)
   {
     super(placePage);
+    UiUtils.extendViewMarginWithStatusBar(mDetailsScroll);
     mLayoutToolbar = (LinearLayout) mPlacePage.findViewById(R.id.toolbar_layout);
     if (mLayoutToolbar == null)
       return;
@@ -90,6 +91,10 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
         if (Math.abs(delta) > mTouchSlop && !isDetailsScroll(delta))
           return true;
 
+        break;
+      case MotionEvent.ACTION_UP:
+        if (mIsGestureStartedInsideView)
+          mGestureDetector.onTouchEvent(event);
         break;
     }
 
