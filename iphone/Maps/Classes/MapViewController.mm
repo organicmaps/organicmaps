@@ -445,7 +445,7 @@ BOOL gIsFirstMyPositionMode = YES;
   {
   case location::NotFollowNoPosition:
   {
-    BOOL const hasLocation = [MWMLocationManager lastLocation];
+    BOOL const hasLocation = [MWMLocationManager lastLocation] != nil;
     if (hasLocation || (gIsFirstMyPositionMode && ![Alohalytics isFirstSession]))
     {
       GetFramework().SwitchMyPositionNextMode();
