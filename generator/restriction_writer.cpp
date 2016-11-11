@@ -18,31 +18,26 @@ namespace
 {
 using namespace routing;
 
-vector<string> const kRestrictionTypesNo = {"no_right_turn",  "no_left_turn", "no_u_turn",
-                                            "no_straight_on", "no_entry",     "no_exit"};
-vector<string> const kRestrictionTypesOnly = {"only_right_turn", "only_left_turn",
-                                              "only_straight_on"};
+vector<pair<string, Restriction::Type>> const kRestrictionTypes =
+  {{"no_right_turn", Restriction::Type::No},  {"no_left_turn", Restriction::Type::No},
+   {"no_u_turn", Restriction::Type::No}, {"no_straight_on", Restriction::Type::No},
+   {"no_entry", Restriction::Type::No}, {"no_exit", Restriction::Type::No},
+   {"only_right_turn", Restriction::Type::Only}, {"only_left_turn", Restriction::Type::Only},
+   {"only_straight_on", Restriction::Type::Only}};
 
 /// \brief Converts restriction type form string to RestrictionCollector::Type.
 /// \returns true if conversion was successful and false otherwise.
 bool TagToType(string const & tag, Restriction::Type & type)
 {
-  if (find(kRestrictionTypesNo.cbegin(), kRestrictionTypesNo.cend(), tag) !=
-      kRestrictionTypesNo.cend())
-  {
-    type = Restriction::Type::No;
-    return true;
-  }
+  auto const it = find_if(kRestrictionTypes.cbegin(), kRestrictionTypes.cend(),
+                          [&tag](pair<string, Restriction::Type> const & v) {
+    return v.first == tag;
+  });
+  if (it == kRestrictionTypes.cend())
+    return false; // Unsupported restriction type.
 
-  if (find(kRestrictionTypesOnly.cbegin(), kRestrictionTypesOnly.cend(), tag) !=
-      kRestrictionTypesOnly.cend())
-  {
-    type = Restriction::Type::Only;
-    return true;
-  }
-
-  // Unsupported restriction type.
-  return false;
+  type = it->second;
+  return true;
 }
 }  // namespace
 
