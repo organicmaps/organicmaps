@@ -258,7 +258,7 @@ class MWM:
                 if type_id < len(self.type_mapping):
                     types.append(self.type_mapping[type_id])
                 else:
-                    types.append(str(type_id))
+                    types.append(str(type_id + 1))  # So the numbers match with mapcss-mapping.csv
             header['types'] = types
             if has_name:
                 header['name'] = self.read_multilang()

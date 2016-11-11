@@ -96,7 +96,13 @@ build_conf()
     else
       "$QMAKE" "$OMIM_PATH/omim.pro" -spec $SPEC CONFIG+=$CONF ${CONFIG+"CONFIG*=$CONFIG"}
     fi
-    make -j $PROCESSES
+    TMP_FILE="build_error.log"
+    if ! make -j $PROCESSES 2> "$TMP_FILE"; then
+      echo '--------------------'
+      cat "$TMP_FILE"
+      exit 1
+    fi
+    rm "$TMP_FILE"
   )
 }
 
