@@ -51,26 +51,27 @@ set(
   src/cache/ftcmanag.c
   src/cache/ftcmru.c
   src/cache/ftcsbits.c
-  src/cff/cf2ft.c
-  src/cff/cf2font.c
-  src/cff/cf2blues.c
-  src/cff/cf2intrp.c
-  src/cff/cf2stack.c
+  src/cache/ftstrokedcache.c
   src/cff/cf2arrst.c
-  src/cff/cf2hints.c
+  src/cff/cf2blues.c
   src/cff/cf2error.c
+  src/cff/cf2font.c
+  src/cff/cf2ft.c
+  src/cff/cf2hints.c
+  src/cff/cf2intrp.c
   src/cff/cf2read.c
+  src/cff/cf2stack.c
   src/cff/cffcmap.c
   src/cff/cffdrivr.c
   src/cff/cffgload.c
   src/cff/cffload.c
   src/cff/cffobjs.c
   src/cff/cffparse.c
-  src/cid/cidriver.c
   src/cid/cidgload.c
   src/cid/cidload.c
   src/cid/cidobjs.c
   src/cid/cidparse.c
+  src/cid/cidriver.c
   src/gzip/ftgzip.c
   src/lzw/ftlzw.c
   src/pcf/pcfdrivr.c
@@ -106,25 +107,15 @@ set(
   src/sfnt/ttsbit.c
   src/smooth/ftgrays.c
   src/smooth/ftsmooth.c
-  src/truetype/ttdriver.c
-  src/truetype/ttgload.c
-  src/truetype/ttinterp.c
-  src/truetype/ttobjs.c
-  src/truetype/ttpload.c
   src/truetype/truetype.c
-  src/truetype/ttgxvar.c
   src/type1/t1afm.c
   src/type1/t1driver.c
   src/type1/t1gload.c
   src/type1/t1load.c
   src/type1/t1objs.c
   src/type1/t1parse.c
-  src/type42/t42drivr.c
-  src/type42/t42objs.c
-  src/type42/t42parse.c
   src/type42/type42.c
   src/winfonts/winfnt.c
-  src/cache/ftstrokedcache.c
 )
 
 add_library(${PROJECT_NAME} ${SRC})
