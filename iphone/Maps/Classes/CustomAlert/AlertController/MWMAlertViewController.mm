@@ -3,6 +3,7 @@
 #import "MWMController.h"
 #import "MWMDownloadTransitMapAlert.h"
 #import "MWMLocationAlert.h"
+#import "MWMLocationNotFoundAlert.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 
@@ -67,7 +68,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 - (void)presentLocationNotFoundAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock
 {
-  [self displayAlert:[MWMAlert locationNotFoundAlertWithOkBlock:okBlock]];
+  [self displayAlert:[MWMLocationNotFoundAlert alertWithOkBlock:okBlock]];
 }
 
 - (void)presentNoConnectionAlert { [self displayAlert:[MWMAlert noConnectionAlert]]; }
