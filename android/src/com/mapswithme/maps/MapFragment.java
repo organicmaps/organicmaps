@@ -91,7 +91,7 @@ public class MapFragment extends BaseMwmFragment
                         ANCHOR_LEFT_TOP);
     }
 
-    setupCompass(0, 0, false);
+    setupCompass(0, UiUtils.getCompassYOffset(getContext()), false);
   }
 
   void setupCompass(int offsetX, int offsetY, boolean forceRedraw)
