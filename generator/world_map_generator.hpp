@@ -312,7 +312,8 @@ class CountryMapGenerator
   FeatureOutT m_bucket;
 
 public:
-  explicit CountryMapGenerator(feature::GenerateInfo const & info) : m_bucket(info) {}
+  CountryMapGenerator(feature::GenerateInfo const & info, generator::SyncOfstream & featureIdToOsmIds)
+    : m_bucket(info, featureIdToOsmIds) {}
 
   void operator()(FeatureBuilder1 fb)
   {

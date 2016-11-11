@@ -8,6 +8,7 @@
 #include "generator/osm_translator.hpp"
 #include "generator/osm_xml_source.hpp"
 #include "generator/polygonizer.hpp"
+#include "generator/sync_ofsteam.hpp"
 #include "generator/tag_admixer.hpp"
 #include "generator/towns_dumper.hpp"
 #include "generator/world_map_generator.hpp"
@@ -24,9 +25,8 @@
 
 #include "base/stl_helpers.hpp"
 
+#include "coding/file_name_utils.hpp"
 #include "coding/parse_xml.hpp"
-
-#include "std/fstream.hpp"
 
 #include "defines.hpp"
 
@@ -54,7 +54,6 @@ uint64_t SourceReader::Read(char * buffer, uint64_t bufferSize)
   m_file->read(buffer, bufferSize);
   return m_file->gcount();
 }
-
 
 namespace
 {
@@ -138,10 +137,12 @@ public:
   void AddRelation(TKey id, RelationElement const & e)
   {
     string const & relationType = e.GetType();
-    if (!(relationType == "multipolygon" || relationType == "route" ||
-          relationType == "boundary" || relationType == "associatedStreet" ||
-          relationType == "building"))
+    if (!(relationType == "multipolygon" || relationType == "route" || relationType == "boundary" ||
+          relationType == "associatedStreet" || relationType == "building" ||
+          relationType == "restriction"))
+    {
       return;
+    }
 
     m_relations.Write(id, e);
     AddToIndex(m_nodeToRelations, id, e.nodes);
@@ -267,6 +268,8 @@ class MainFeaturesEmitter : public EmitterBase
 {
   using TWorldGenerator = WorldMapGenerator<feature::FeaturesCollector>;
   using TCountriesGenerator = CountryMapGenerator<feature::Polygonizer<feature::FeaturesCollector>>;
+
+  generator::SyncOfstream m_featureIdToOsmIds;
   unique_ptr<TCountriesGenerator> m_countries;
   unique_ptr<TWorldGenerator> m_world;
 
@@ -305,7 +308,6 @@ public:
     , m_failOnCoasts(info.m_failOnCoasts)
     , m_bookingDataset(info.m_bookingDatafileName, info.m_bookingReferenceDir)
     , m_opentableDataset(info.m_opentableDatafileName, info.m_opentableReferenceDir)
-
   {
     Classificator const & c = classif();
 
@@ -335,8 +337,17 @@ public:
       m_coastsHolder.reset(
           new feature::FeaturesCollector(info.GetTmpFileName(WORLD_COASTS_FILE_NAME)));
 
+    string const featureIdToOsmIdsFile = info.GetIntermediateFileName(info.m_featureIdToOsmIds, "");
+    LOG(LINFO, ("Saving mapping from feature ids to osm ids to", featureIdToOsmIdsFile));
+    m_featureIdToOsmIds.Open(featureIdToOsmIdsFile);
+    if (!m_featureIdToOsmIds.IsOpened())
+    {
+      LOG(LWARNING,
+          ("Cannot open", featureIdToOsmIdsFile, ". Feature ids to osm ids to map won't be saved."));
+    }
+
     if (info.m_splitByPolygons || !info.m_fileName.empty())
-      m_countries.reset(new TCountriesGenerator(info));
+      m_countries = make_unique<TCountriesGenerator>(info, m_featureIdToOsmIds);
 
     if (info.m_createWorld)
       m_world.reset(new TWorldGenerator(info));
@@ -688,7 +699,7 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info, EmitterBase & emitter)
     // TODO(mgsergio): Get rid of EmitterBase template parameter.
     OsmToFeatureTranslator<EmitterBase, TDataCache> parser(
         emitter, cache, info.m_makeCoasts ? classif().GetCoastType() : 0,
-        info.GetAddressesFileName());
+        info.GetAddressesFileName(), info.GetIntermediateFileName(info.m_restrictions, ""));
 
     TagAdmixer tagAdmixer(info.GetIntermediateFileName("ways", ".csv"),
                           info.GetIntermediateFileName("towns", ".csv"));

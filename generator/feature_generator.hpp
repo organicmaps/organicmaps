@@ -4,6 +4,7 @@
 
 #include "coding/file_writer.hpp"
 
+#include "std/limits.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
@@ -19,6 +20,8 @@ class FeaturesCollector
   uint32_t m_featureID = 0;
 
 protected:
+  static uint32_t constexpr kInvalidFeatureId = numeric_limits<uint32_t>::max();
+
   FileWriter m_datFile;
   m2::RectD m_bounds;
 
@@ -39,8 +42,12 @@ public:
   virtual ~FeaturesCollector();
 
   string const & GetFilePath() const { return m_datFile.GetName(); }
-
-  virtual void operator()(FeatureBuilder1 const & f);
+  /// \brief Serializes |f|.
+  /// \returns feature id of serialized feature if |f| is serialized after the call
+  /// and |kInvalidFeatureId| if not.
+  /// \note See implementation operator() in derived class for cases when |f| cannot be
+  /// serialized.
+  virtual uint32_t operator()(FeatureBuilder1 const & f);
 };
 
 class FeaturesAndRawGeometryCollector : public FeaturesCollector
@@ -53,6 +60,6 @@ public:
                                   string const & rawGeometryFileName);
   ~FeaturesAndRawGeometryCollector();
 
-  void operator()(FeatureBuilder1 const & f) override;
+  uint32_t operator()(FeatureBuilder1 const & f) override;
 };
 }

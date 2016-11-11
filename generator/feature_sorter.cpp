@@ -446,7 +446,7 @@ namespace feature
     bool IsCountry() const { return m_header.GetType() == feature::DataHeader::country; }
 
   public:
-    void operator() (FeatureBuilder2 & fb)
+    uint32_t operator()(FeatureBuilder2 & fb)
     {
       GeometryHolder holder(*this, fb, m_header);
 
@@ -520,11 +520,12 @@ namespace feature
         }
       }
 
+      uint32_t featureId = kInvalidFeatureId;
       if (fb.PreSerialize(holder.m_buffer))
       {
         fb.Serialize(holder.m_buffer, m_header.GetDefCodingParams());
 
-        uint32_t const ftID = WriteFeatureBase(holder.m_buffer.m_buffer, fb);
+        featureId = WriteFeatureBase(holder.m_buffer.m_buffer, fb);
 
         fb.GetAddressData().Serialize(*(m_helperFile[SEARCH_TOKENS]));
 
@@ -535,14 +536,15 @@ namespace feature
           uint64_t const offset = w->Pos();
           ASSERT_LESS_OR_EQUAL(offset, numeric_limits<uint32_t>::max(), ());
 
-          m_metadataIndex.emplace_back(ftID, static_cast<uint32_t>(offset));
+          m_metadataIndex.emplace_back(featureId, static_cast<uint32_t>(offset));
           fb.GetMetadata().Serialize(*w);
         }
 
         uint64_t const osmID = fb.GetWayIDForRouting();
         if (osmID != 0)
-          m_osm2ft.Add(make_pair(osmID, ftID));
-      }
+          m_osm2ft.Add(make_pair(osmID, featureId));
+      };
+      return featureId;
     }
   };
 

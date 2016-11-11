@@ -171,6 +171,7 @@ public:
   osm::Id GetMostGenericOsmId() const;
   bool HasOsmId(osm::Id const & id) const;
   string GetOsmIdsString() const;
+  vector<osm::Id> const & GetOsmIds() const { return m_osmIds; }
   //@}
 
   uint64_t GetWayIDForRouting() const;

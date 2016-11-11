@@ -103,11 +103,13 @@ uint32_t FeaturesCollector::WriteFeatureBase(vector<char> const & bytes, Feature
   return m_featureID++;
 }
 
-void FeaturesCollector::operator()(FeatureBuilder1 const & fb)
+uint32_t FeaturesCollector::operator()(FeatureBuilder1 const & fb)
 {
   FeatureBuilder1::TBuffer bytes;
   fb.Serialize(bytes);
-  (void)WriteFeatureBase(bytes, fb);
+  uint32_t const featureId = WriteFeatureBase(bytes, fb);
+  CHECK_LESS(0, m_featureID, ());
+  return featureId;
 }
 
 FeaturesAndRawGeometryCollector::FeaturesAndRawGeometryCollector(string const & featuresFileName,
@@ -124,12 +126,12 @@ FeaturesAndRawGeometryCollector::~FeaturesAndRawGeometryCollector()
   LOG(LINFO, ("Write", m_rawGeometryCounter, "geometries into", m_rawGeometryFileStream.GetName()));
 }
 
-void FeaturesAndRawGeometryCollector::operator()(FeatureBuilder1 const & fb)
+uint32_t FeaturesAndRawGeometryCollector::operator()(FeatureBuilder1 const & fb)
 {
-  FeaturesCollector::operator()(fb);
+  uint32_t const featureId = FeaturesCollector::operator()(fb);
   FeatureBuilder1::TGeometry const & geom = fb.GetGeometry();
   if (geom.empty())
-    return;
+    return featureId;
 
   ++m_rawGeometryCounter;
 
@@ -142,5 +144,6 @@ void FeaturesAndRawGeometryCollector::operator()(FeatureBuilder1 const & fb)
     m_rawGeometryFileStream.Write(points.data(),
                                   sizeof(FeatureBuilder1::TPointSeq::value_type) * points.size());
   }
+  return featureId;
 }
 }

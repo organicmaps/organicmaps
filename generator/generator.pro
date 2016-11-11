@@ -36,11 +36,15 @@ SOURCES += \
     osm_id.cpp \
     osm_source.cpp \
     region_meta.cpp \
+    restriction_collector.cpp \
+    restriction_generator.cpp \
+    restriction_writer.cpp \
     routing_generator.cpp \
     search_index_builder.cpp \
     sponsored_scoring.cpp \
     srtm_parser.cpp \
     statistics.cpp \
+    sync_ofsteam.cpp \
     tesselator.cpp \
     towns_dumper.cpp \
     unpack_mwm.cpp \
@@ -73,6 +77,9 @@ HEADERS += \
     osm_xml_source.hpp \
     polygonizer.hpp \
     region_meta.hpp \
+    restriction_collector.hpp \
+    restriction_generator.hpp \
+    restriction_writer.hpp \
     routing_generator.hpp \
     search_index_builder.hpp \
     sponsored_dataset.hpp \
@@ -80,6 +87,7 @@ HEADERS += \
     sponsored_scoring.hpp \
     srtm_parser.hpp \
     statistics.hpp \
+    sync_ofsteam.hpp \
     tag_admixer.hpp \
     tesselator.hpp \
     towns_dumper.hpp \
