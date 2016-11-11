@@ -290,7 +290,7 @@
 
 - (void)safariViewControllerDidFinish:(SFSafariViewController *)controller
 {
-  [self.navigationController popViewControllerAnimated:YES];
+  [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
@@ -299,14 +299,8 @@
 
 - (void)openUrl:(NSURL *)url
 {
-  UIApplication * app = [UIApplication sharedApplication];
-  if ([app canOpenURL:url])
-    [app openURL:url];
-  // TODO(Vlad): Correct implementation of navigation controller's buttons.
-  /*
   NSString * scheme = url.scheme;
-  NSAssert(([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]), @"Incorrect
-  url's scheme!");
+  NSAssert(([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]), @"Incorrect url's scheme!");
   if (isIOS8)
   {
     UIApplication * app = [UIApplication sharedApplication];
@@ -316,8 +310,7 @@
   }
   SFSafariViewController * svc = [[SFSafariViewController alloc] initWithURL:url];
   svc.delegate = self;
-  [self.navigationController pushViewController:svc animated:YES];
-   */
+  [self.navigationController presentViewController:svc animated:YES completion:nil];
 }
 
 @end
