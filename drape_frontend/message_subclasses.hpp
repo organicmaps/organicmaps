@@ -977,46 +977,46 @@ private:
   TRequestSymbolsSizeCallback m_callback;
 };
 
-class AddTrafficSegmentsMessage : public Message
+class CacheTrafficSegmentsMessage : public Message
 {
 public:
-  explicit AddTrafficSegmentsMessage(vector<pair<uint64_t, m2::PolylineD>> const & segments)
+  explicit CacheTrafficSegmentsMessage(TrafficSegmentsGeometry const & segments)
     : m_segments(segments)
   {}
 
-  Type GetType() const override { return Message::AddTrafficSegments; }
-  vector<pair<uint64_t, m2::PolylineD>> const & GetSegments() const { return m_segments; }
+  Type GetType() const override { return Message::CacheTrafficSegments; }
+  TrafficSegmentsGeometry const & GetSegments() const { return m_segments; }
 
 private:
-  vector<pair<uint64_t, m2::PolylineD>> m_segments;
+  TrafficSegmentsGeometry m_segments;
 };
 
 class SetTrafficTexCoordsMessage : public Message
 {
 public:
-  explicit SetTrafficTexCoordsMessage(unordered_map<int, glsl::vec2> && texCoords)
+  explicit SetTrafficTexCoordsMessage(TrafficTexCoords && texCoords)
     : m_texCoords(move(texCoords))
   {}
 
   Type GetType() const override { return Message::SetTrafficTexCoords; }
-  unordered_map<int, glsl::vec2> && AcceptTexCoords() { return move(m_texCoords); }
+  TrafficTexCoords && AcceptTexCoords() { return move(m_texCoords); }
 
 private:
-  unordered_map<int, glsl::vec2> m_texCoords;
+  TrafficTexCoords m_texCoords;
 };
 
 class UpdateTrafficMessage : public Message
 {
 public:
-  explicit UpdateTrafficMessage(vector<TrafficSegmentData> const & segmentsData)
-    : m_segmentsData(segmentsData)
+  explicit UpdateTrafficMessage(TrafficSegmentsColoring const & segmentsColoring)
+    : m_segmentsColoring(segmentsColoring)
   {}
 
   Type GetType() const override { return Message::UpdateTraffic; }
-  vector<TrafficSegmentData> const & GetSegmentsData() const { return m_segmentsData; }
+  TrafficSegmentsColoring const & GetSegmentsColoring() const { return m_segmentsColoring; }
 
 private:
-  vector<TrafficSegmentData> m_segmentsData;
+  TrafficSegmentsColoring m_segmentsColoring;
 };
 
 class FlushTrafficDataMessage : public Message

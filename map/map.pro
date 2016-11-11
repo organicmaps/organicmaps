@@ -28,6 +28,7 @@ HEADERS += \
     mwm_url.hpp \
     place_page_info.hpp \
     track.hpp \
+    traffic_manager.hpp \
     user_mark.hpp \
     user_mark_container.hpp \
 
@@ -51,6 +52,7 @@ SOURCES += \
     mwm_url.cpp \
     place_page_info.cpp \
     track.cpp \
+    traffic_manager.cpp \
     user_mark.cpp \
     user_mark_container.cpp \
 

@@ -331,9 +331,9 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::AddTrafficSegments:
+  case Message::CacheTrafficSegments:
     {
-      ref_ptr<AddTrafficSegmentsMessage> msg = message;
+      ref_ptr<CacheTrafficSegmentsMessage> msg = message;
       for (auto const & segment : msg->GetSegments())
         m_trafficGenerator->AddSegment(segment.first, segment.second);
       break;
@@ -342,7 +342,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::UpdateTraffic:
     {
       ref_ptr<UpdateTrafficMessage> msg = message;
-      auto segments = m_trafficGenerator->GetSegmentsToUpdate(msg->GetSegmentsData());
+      auto segments = m_trafficGenerator->GetSegmentsToUpdate(msg->GetSegmentsColoring());
       if (!segments.empty())
       {
         m_commutator->PostMessage(ThreadsCommutator::RenderThread,
@@ -350,10 +350,10 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
                                   MessagePriority::Normal);
       }
 
-      if (segments.size() < msg->GetSegmentsData().size())
+      if (segments.size() < msg->GetSegmentsColoring().size())
       {
         vector<TrafficRenderData> data;
-        m_trafficGenerator->GetTrafficGeom(m_texMng, msg->GetSegmentsData(), data);
+        m_trafficGenerator->GetTrafficGeom(m_texMng, msg->GetSegmentsColoring(), data);
         m_commutator->PostMessage(ThreadsCommutator::RenderThread,
                                   make_unique_dp<FlushTrafficDataMessage>(move(data)),
                                   MessagePriority::Normal);

@@ -86,7 +86,8 @@ void GenerateCapTriangles(glsl::vec3 const & pivot, vector<glsl::vec2> const & n
 
 } // namespace
 
-TrafficHandle::TrafficHandle(uint64_t segmentId, glsl::vec2 const & texCoord, size_t verticesCount)
+TrafficHandle::TrafficHandle(TrafficSegmentID const & segmentId, glsl::vec2 const & texCoord,
+                             size_t verticesCount)
   : OverlayHandle(FeatureID(), dp::Anchor::Center, 0, false)
   , m_segmentId(segmentId)
   , m_needUpdate(false)
@@ -148,26 +149,26 @@ void TrafficHandle::SetTexCoord(glsl::vec2 const & texCoord)
   m_needUpdate = true;
 }
 
-uint64_t TrafficHandle::GetSegmentId() const
+TrafficSegmentID TrafficHandle::GetSegmentId() const
 {
   return m_segmentId;
 }
 
-void TrafficGenerator::AddSegment(uint64_t segmentId, m2::PolylineD const & polyline)
+void TrafficGenerator::AddSegment(TrafficSegmentID const & segmentId, m2::PolylineD const & polyline)
 {
   m_segments.insert(make_pair(segmentId, polyline));
 }
 
 void TrafficGenerator::ClearCache()
 {
-  m_colorsCache.clear();
+  m_colorsCacheValid = false;
   m_segmentsCache.clear();
 }
 
-vector<TrafficSegmentData> TrafficGenerator::GetSegmentsToUpdate(vector<TrafficSegmentData> const & trafficData) const
+TrafficSegmentsColoring TrafficGenerator::GetSegmentsToUpdate(TrafficSegmentsColoring const & trafficColoring) const
 {
-  vector<TrafficSegmentData> result;
-  for (TrafficSegmentData const & segment : trafficData)
+  TrafficSegmentsColoring result;
+  for (auto const & segment : trafficColoring)
   {
     if (m_segmentsCache.find(segment.m_id) != m_segmentsCache.end())
       result.push_back(segment);
@@ -176,21 +177,22 @@ vector<TrafficSegmentData> TrafficGenerator::GetSegmentsToUpdate(vector<TrafficS
 }
 
 void TrafficGenerator::GetTrafficGeom(ref_ptr<dp::TextureManager> textures,
-                                      vector<TrafficSegmentData> const & trafficData,
+                                      TrafficSegmentsColoring const & trafficColoring,
                                       vector<TrafficRenderData> & data)
 {
   FillColorsCache(textures);
 
   dp::GLState state(gpu::TRAFFIC_PROGRAM, dp::GLState::GeometryLayer);
-  state.SetColorTexture(m_colorsCache[TrafficSpeedBucket::Normal].GetTexture());
+  ASSERT(m_colorsCacheValid, ());
+  state.SetColorTexture(m_colorsCache[static_cast<size_t>(traffic::SpeedGroup::G0)].GetTexture());
   state.SetMaskTexture(textures->GetTrafficArrowTexture());
 
   int const kZoomLevel = 10;
   uint32_t const kBatchSize = 5000;
 
   using TSegIter = TSegmentCollection::iterator;
-  map<TileKey, list<pair<TSegIter, TrafficSpeedBucket>>> segmentsByTiles;
-  for (TrafficSegmentData const & segment : trafficData)
+  map<TileKey, list<pair<TSegIter, traffic::SpeedGroup>>> segmentsByTiles;
+  for (auto const & segment : trafficColoring)
   {
     // Check if a segment hasn't been added.
     auto it = m_segments.find(segment.m_id);
@@ -203,7 +205,7 @@ void TrafficGenerator::GetTrafficGeom(ref_ptr<dp::TextureManager> textures,
 
     m_segmentsCache.insert(segment.m_id);
     TileKey const tileKey = GetTileKeyByPoint(it->second.GetLimitRect().Center(), kZoomLevel);
-    segmentsByTiles[tileKey].emplace_back(make_pair(it, segment.m_speedBucket));
+    segmentsByTiles[tileKey].emplace_back(make_pair(it, segment.m_speedGroup));
   }
 
   for (auto const & s : segmentsByTiles)
@@ -221,7 +223,8 @@ void TrafficGenerator::GetTrafficGeom(ref_ptr<dp::TextureManager> textures,
     for (auto const & segmentPair : s.second)
     {
       TSegIter it = segmentPair.first;
-      dp::TextureManager::ColorRegion const & colorRegion = m_colorsCache[segmentPair.second];
+      ASSERT(m_colorsCacheValid, ());
+      dp::TextureManager::ColorRegion const & colorRegion = m_colorsCache[static_cast<size_t>(segmentPair.second)];
       m2::PolylineD const & polyline = it->second;
 
       vector<TrafficStaticVertex> staticGeometry;
@@ -324,28 +327,38 @@ void TrafficGenerator::GenerateSegment(dp::TextureManager::ColorRegion const & c
 
 void TrafficGenerator::FillColorsCache(ref_ptr<dp::TextureManager> textures)
 {
-  if (m_colorsCache.empty())
+  size_t constexpr kSpeedGroupsCount = static_cast<size_t>(traffic::SpeedGroup::Count);
+  static array<df::ColorConstant, kSpeedGroupsCount> const colorMap
+  {{
+    df::TrafficG0,
+    df::TrafficG1,
+    df::TrafficG2,
+    df::TrafficG3,
+    df::TrafficG4,
+    df::TrafficG5,
+    df::TrafficTempBlock,
+    df::TrafficUnknown,
+  }};
+
+  if (!m_colorsCacheValid)
   {
     auto const & style = GetStyleReader().GetCurrentStyle();
-    dp::TextureManager::ColorRegion colorRegion;
-    textures->GetColorRegion(df::GetColorConstant(style, df::TrafficVerySlow), colorRegion);
-    m_colorsCache[TrafficSpeedBucket::VerySlow] = colorRegion;
-
-    textures->GetColorRegion(df::GetColorConstant(style, df::TrafficSlow), colorRegion);
-    m_colorsCache[TrafficSpeedBucket::Slow] = colorRegion;
-
-    textures->GetColorRegion(df::GetColorConstant(style, df::TrafficNormal), colorRegion);
-    m_colorsCache[TrafficSpeedBucket::Normal] = colorRegion;
-
+    for (size_t i = 0; i < colorMap.size(); i++)
+    {
+      dp::TextureManager::ColorRegion colorRegion;
+      textures->GetColorRegion(df::GetColorConstant(style, colorMap[i]), colorRegion);
+      m_colorsCache[i] = colorRegion;
+    }
+    m_colorsCacheValid = true;
     m_colorsCacheRefreshed = true;
   }
 }
 
-unordered_map<int, glsl::vec2> TrafficGenerator::ProcessCacheRefreshing()
+TrafficTexCoords TrafficGenerator::ProcessCacheRefreshing()
 {
-  unordered_map<int, glsl::vec2> result;
-  for (auto it = m_colorsCache.begin(); it != m_colorsCache.end(); ++it)
-    result[it->first] = glsl::ToVec2(it->second.GetTexRect().Center());
+  TrafficTexCoords result;
+  for (size_t i = 0; i < m_colorsCache.size(); i++)
+    result[i] = glsl::ToVec2(m_colorsCache[i].GetTexRect().Center());
   m_colorsCacheRefreshed = false;
   return result;
 }

@@ -81,11 +81,11 @@ void TrafficRenderer::AddRenderData(ref_ptr<dp::GpuProgramManager> mng,
   }
 }
 
-void TrafficRenderer::UpdateTraffic(vector<TrafficSegmentData> const & trafficData)
+void TrafficRenderer::UpdateTraffic(TrafficSegmentsColoring const & trafficColoring)
 {
-  for (TrafficSegmentData const & segment : trafficData)
+  for (auto const & segment : trafficColoring)
   {
-    auto it = m_texCoords.find(segment.m_speedBucket);
+    auto it = m_texCoords.find(static_cast<size_t>(segment.m_speedGroup));
     if (it == m_texCoords.end())
       continue;
 
@@ -124,7 +124,7 @@ void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel,
   }
 }
 
-void TrafficRenderer::SetTexCoords(unordered_map<int, glsl::vec2> && texCoords)
+void TrafficRenderer::SetTexCoords(TrafficTexCoords && texCoords)
 {
   m_texCoords = move(texCoords);
 }
