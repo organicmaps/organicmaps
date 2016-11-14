@@ -89,7 +89,8 @@ def download(user, password, path):
 
             # Check for error.
             if hotels is None:
-                exit(1)
+                logging.critical('No hotels downloaded for country {0}'.format(country['name']))
+                break
 
             for h in hotels:
                 allhotels[h['hotel_id']] = h
@@ -97,6 +98,9 @@ def download(user, password, path):
             # If hotels in answer less then maxrows, we reach end of data.
             if len(hotels) < maxrows:
                 break
+
+        if not hotels:
+            continue
 
         # Now the same for hotel translations
         offset = 0
@@ -116,6 +120,8 @@ def download(user, password, path):
             if len(hotels) < maxrows:
                 break
 
+        if not hotels:
+            raise Exception('Failed to load any hotels')
         logging.info('Num of hotels: {0}, translations: {1}'.format(len(allhotels), offset))
         filename = os.path.join(path,
                                 '{0} - {1}.pkl'.format(country['area'].encode('utf8'), country['name'].encode('utf8')))

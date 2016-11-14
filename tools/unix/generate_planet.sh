@@ -138,6 +138,9 @@ OMIM_PATH="${OMIM_PATH:-$(cd "$(dirname "$0")/../.."; pwd)}"
 DATA_PATH="${DATA_PATH:-$OMIM_PATH/data}"
 [ ! -r "${DATA_PATH}/types.txt" ] && fail "Cannot find classificators in $DATA_PATH, please set correct OMIM_PATH"
 [ -n "$OPT_ROUTING" -a ! -f "$HOME/.stxxl" ] && fail "For routing, you need ~/.stxxl file. Run this: echo 'disk=$HOME/stxxl_disk1,400G,syscall' > $HOME/.stxxl"
+if [ -n "$OPT_ROUTING" -a -n "${OSRM_URL-}" ]; then
+  curl -s "http://$OSRM_URL/way_id" | grep -q position || fail "Cannot access $OSRM_URL"
+fi
 TARGET="${TARGET:-$DATA_PATH}"
 mkdir -p "$TARGET"
 INTDIR="${INTDIR:-$TARGET/intermediate_data}"
@@ -254,8 +257,13 @@ if [ "$MODE" == "coast" ]; then
   if [ ! -f "$BOOKING_FILE" -a -n "${BOOKING_USER-}" -a -n "${BOOKING_PASS-}" ]; then
     log "STATUS" "Step S1: Starting background hotels downloading"
     (
-        $PYTHON $BOOKING_SCRIPT --user $BOOKING_USER --password $BOOKING_PASS --path "$INTDIR" --download --translate --output "$BOOKING_FILE" 2>"$LOG_PATH"/booking.log &
-        echo "Hotels have been downloaded. Please ensure this line is before Step 4." >> "$PLANET_LOG"
+        $PYTHON $BOOKING_SCRIPT --user $BOOKING_USER --password $BOOKING_PASS --path "$INTDIR" --download --translate --output "$BOOKING_FILE" 2>"$LOG_PATH"/booking.log || true
+        if [ -f "$BOOKING_FILE" -a "$(wc -l < "$BOOKING_FILE" || echo 0)" -gt 100 ]; then
+          echo "Hotels have been downloaded. Please ensure this line is before Step 4." >> "$PLANET_LOG"
+        else
+          log "Failed to download hotels!"
+          [ -n "${MAIL-}" ] && tail "$LOG_PATH/booking.log" | mailx -s "Failed to download hotels at $(hostname), please hurry to fix" "$MAIL"
+        fi
     ) &
   fi
 
@@ -263,8 +271,13 @@ if [ "$MODE" == "coast" ]; then
   if [ ! -f "$OPENTABLE_FILE" -a -n "${OPENTABLE_USER-}" -a -n "${OPENTABLE_PASS-}" ]; then
     log "STATUS" "Step S2: Starting background restaurants downloading"
     (
-        $PYTHON $OPENTABLE_SCRIPT --client $OPENTABLE_USER --secret $OPENTABLE_PASS --opentable_data "$INTDIR"/opentable.json --download --tsv "$OPENTABLE_FILE" 2>"$LOG_PATH"/opentable.log &
-        echo "Restaurants have been downloaded. Please ensure this line is before Step 4." >> "$PLANET_LOG"
+        $PYTHON $OPENTABLE_SCRIPT --client $OPENTABLE_USER --secret $OPENTABLE_PASS --opentable_data "$INTDIR"/opentable.json --download --tsv "$OPENTABLE_FILE" 2>"$LOG_PATH"/opentable.log || true
+        if [ -f "$OPENTABLE_FILE" -a "$(wc -l < "$OPENTABLE_FILE" || echo 0)" -gt 100 ]; then
+          echo "Restaurants have been downloaded. Please ensure this line is before Step 4." >> "$PLANET_LOG"
+        else
+          log "Failed to download restaurants!"
+          [ -n "${MAIL-}" ] && tail "$LOG_PATH/opentable.log" | mailx -s "Failed to download restaurants at $(hostname), please hurry to fix" "$MAIL"
+        fi
     ) &
   fi
 
@@ -312,7 +325,7 @@ if [ "$MODE" == "coast" ]; then
       then
         log "STATUS" "Coastline merge failed"
         if [ -n "$OPT_UPDATE" ]; then
-          [ -n "${MAIL-}" ] && tail -n 50 "$LOG_PATH/WorldCoasts.log" | mailx -s "Generate_planet: coastline merge failed, next try in $MERGE_INTERVAL minutes" "$MAIL"
+          [ -n "${MAIL-}" ] && tail -n 50 "$LOG_PATH/WorldCoasts.log" | mailx -s "Coastline merge at $(hostname) failed, next try in $MERGE_INTERVAL minutes" "$MAIL"
           echo "Will try fresh coasts again in $MERGE_INTERVAL minutes, or press a key..."
           read -rs -n 1 -t $(($MERGE_INTERVAL * 60)) || true
           TRY_AGAIN=1
