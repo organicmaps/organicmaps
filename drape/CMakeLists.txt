@@ -1,0 +1,142 @@
+project(drape)
+
+get_filename_component(DRAPE_ROOT ${PROJECT_SOURCE_DIR} ABSOLUTE)
+
+execute_process(
+  COMMAND python ${OMIM_ROOT}/tools/autobuild/shader_preprocessor.py
+  ${DRAPE_ROOT}/shaders
+  shader_index.txt
+  shader_def
+)
+
+include_directories(
+  ${OMIM_ROOT}/3party/freetype/include
+  ${OMIM_ROOT}/3party/glm
+)
+
+append(CMAKE_CXX_FLAGS "-std=c++11 ")
+
+set(
+  DRAPE_COMMON_SRC
+  ${DRAPE_ROOT}/attribute_buffer_mutator.cpp
+  ${DRAPE_ROOT}/attribute_buffer_mutator.hpp
+  ${DRAPE_ROOT}/attribute_provider.cpp
+  ${DRAPE_ROOT}/attribute_provider.hpp
+  ${DRAPE_ROOT}/batcher.cpp
+  ${DRAPE_ROOT}/batcher.hpp
+  ${DRAPE_ROOT}/batcher_helpers.cpp
+  ${DRAPE_ROOT}/batcher_helpers.hpp
+  ${DRAPE_ROOT}/binding_info.cpp
+  ${DRAPE_ROOT}/binding_info.hpp
+  ${DRAPE_ROOT}/buffer_base.cpp
+  ${DRAPE_ROOT}/buffer_base.hpp
+  ${DRAPE_ROOT}/color.cpp
+  ${DRAPE_ROOT}/color.hpp
+  ${DRAPE_ROOT}/constants.hpp
+  ${DRAPE_ROOT}/cpu_buffer.cpp
+  ${DRAPE_ROOT}/cpu_buffer.hpp
+  ${DRAPE_ROOT}/data_buffer.cpp
+  ${DRAPE_ROOT}/data_buffer.hpp
+  ${DRAPE_ROOT}/data_buffer_impl.hpp
+  ${DRAPE_ROOT}/debug_rect_renderer.cpp
+  ${DRAPE_ROOT}/debug_rect_renderer.hpp
+  ${DRAPE_ROOT}/drape_global.hpp
+  ${DRAPE_ROOT}/dynamic_texture.hpp
+  ${DRAPE_ROOT}/font_texture.cpp
+  ${DRAPE_ROOT}/font_texture.hpp
+  ${DRAPE_ROOT}/fribidi.cpp
+  ${DRAPE_ROOT}/fribidi.hpp
+  ${DRAPE_ROOT}/glconstants.cpp
+  ${DRAPE_ROOT}/glconstants.hpp
+  ${DRAPE_ROOT}/glextensions_list.cpp
+  ${DRAPE_ROOT}/glextensions_list.hpp
+  ${DRAPE_ROOT}/glfunctions.hpp
+  ${DRAPE_ROOT}/glIncludes.hpp
+  ${DRAPE_ROOT}/glsl_func.hpp
+  ${DRAPE_ROOT}/glsl_types.hpp
+  ${DRAPE_ROOT}/glstate.cpp
+  ${DRAPE_ROOT}/glstate.hpp
+  ${DRAPE_ROOT}/glyph_manager.cpp
+  ${DRAPE_ROOT}/glyph_manager.hpp
+  ${DRAPE_ROOT}/gpu_buffer.cpp
+  ${DRAPE_ROOT}/gpu_buffer.hpp
+  ${DRAPE_ROOT}/gpu_program.cpp
+  ${DRAPE_ROOT}/gpu_program.hpp
+  ${DRAPE_ROOT}/gpu_program_manager.cpp
+  ${DRAPE_ROOT}/gpu_program_manager.hpp
+  ${DRAPE_ROOT}/hw_texture.cpp
+  ${DRAPE_ROOT}/hw_texture.hpp
+  ${DRAPE_ROOT}/index_buffer.cpp
+  ${DRAPE_ROOT}/index_buffer.hpp
+  ${DRAPE_ROOT}/index_buffer_mutator.cpp
+  ${DRAPE_ROOT}/index_buffer_mutator.hpp
+  ${DRAPE_ROOT}/index_storage.cpp
+  ${DRAPE_ROOT}/index_storage.hpp
+  ${DRAPE_ROOT}/object_pool.hpp
+  ${DRAPE_ROOT}/oglcontext.hpp
+  ${DRAPE_ROOT}/oglcontextfactory.cpp
+  ${DRAPE_ROOT}/oglcontextfactory.hpp
+  ${DRAPE_ROOT}/overlay_handle.cpp
+  ${DRAPE_ROOT}/overlay_handle.hpp
+  ${DRAPE_ROOT}/overlay_tree.cpp
+  ${DRAPE_ROOT}/overlay_tree.hpp
+  ${DRAPE_ROOT}/pointers.cpp
+  ${DRAPE_ROOT}/pointers.hpp
+  ${DRAPE_ROOT}/render_bucket.cpp
+  ${DRAPE_ROOT}/render_bucket.hpp
+  ${DRAPE_ROOT}/shader.cpp
+  ${DRAPE_ROOT}/shader.hpp
+  ${DRAPE_ROOT}/shader_def.cpp
+  ${DRAPE_ROOT}/shader_def.hpp
+  ${DRAPE_ROOT}/static_texture.cpp
+  ${DRAPE_ROOT}/static_texture.hpp
+  ${DRAPE_ROOT}/stipple_pen_resource.cpp
+  ${DRAPE_ROOT}/stipple_pen_resource.hpp
+  ${DRAPE_ROOT}/support_manager.cpp
+  ${DRAPE_ROOT}/support_manager.hpp
+  ${DRAPE_ROOT}/symbols_texture.cpp
+  ${DRAPE_ROOT}/symbols_texture.hpp
+  ${DRAPE_ROOT}/texture.cpp
+  ${DRAPE_ROOT}/texture.hpp
+  ${DRAPE_ROOT}/texture_manager.cpp
+  ${DRAPE_ROOT}/texture_manager.hpp
+  ${DRAPE_ROOT}/texture_of_colors.cpp
+  ${DRAPE_ROOT}/texture_of_colors.hpp
+  ${DRAPE_ROOT}/uniform_value.cpp
+  ${DRAPE_ROOT}/uniform_value.hpp
+  ${DRAPE_ROOT}/uniform_values_storage.cpp
+  ${DRAPE_ROOT}/uniform_values_storage.hpp
+  ${DRAPE_ROOT}/utils/glyph_usage_tracker.cpp
+  ${DRAPE_ROOT}/utils/glyph_usage_tracker.hpp
+  ${DRAPE_ROOT}/utils/gpu_mem_tracker.cpp
+  ${DRAPE_ROOT}/utils/gpu_mem_tracker.hpp
+  ${DRAPE_ROOT}/utils/projection.cpp
+  ${DRAPE_ROOT}/utils/projection.hpp
+  ${DRAPE_ROOT}/utils/vertex_decl.cpp
+  ${DRAPE_ROOT}/utils/vertex_decl.hpp
+  ${DRAPE_ROOT}/vertex_array_buffer.cpp
+  ${DRAPE_ROOT}/vertex_array_buffer.hpp
+  ${DRAPE_ROOT}/visual_scale.hpp
+
+  ${OMIM_ROOT}/3party/sdf_image/sdf_image.cpp
+  ${OMIM_ROOT}/3party/sdf_image/sdf_image.h
+  ${OMIM_ROOT}/3party/stb_image/stb_image.c
+  ${OMIM_ROOT}/3party/stb_image/stb_image.h
+)
+
+set(
+  SRC
+  glfunctions.cpp
+)
+
+if (PLATFORM_IOS)
+  append(
+    SRC
+    hw_texture_ios.hpp
+    hw_texture_ios.mm
+  )
+endif()
+
+add_library(${PROJECT_NAME} ${DRAPE_COMMON_SRC} ${SRC})
+
+omim_add_test_subdirectory(drape_tests)

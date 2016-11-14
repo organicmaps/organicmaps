@@ -1,7 +1,6 @@
 project(platform_tests)
 
 add_definitions(-DOMIM_UNIT_TEST_WITH_QT_EVENT_LOOP)
-include_directories(${APL_SYSCON})
 
 set(
   SRC
