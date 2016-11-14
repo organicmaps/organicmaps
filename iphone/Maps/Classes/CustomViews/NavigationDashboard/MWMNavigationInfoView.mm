@@ -5,6 +5,7 @@
 #import "MWMLocationHelpers.h"
 #import "MWMLocationManager.h"
 #import "MWMMapViewControlsManager.h"
+#import "MWMMapWidgets.h"
 #import "MWMRouter.h"
 #import "MWMSearch.h"
 #import "MapViewController.h"
@@ -323,13 +324,16 @@ BOOL defaultOrientation(CGSize const & size)
   [self layoutIfNeeded];
   [self layoutSearch];
   [UIView animateWithDuration:kDefaultAnimationDuration
-                   animations:^{
-                     self.searchButtonsView.layer.cornerRadius =
-                         (defaultOrientation(self.frame.size) ? kSearchButtonsViewHeightPortrait
-                                                              : kSearchButtonsViewHeightLandscape) /
-                         2;
-                     [self layoutIfNeeded];
-                   }];
+      animations:^{
+        self.searchButtonsView.layer.cornerRadius =
+            (defaultOrientation(self.frame.size) ? kSearchButtonsViewHeightPortrait
+                                                 : kSearchButtonsViewHeightLandscape) /
+            2;
+        [self layoutIfNeeded];
+      }
+      completion:^(BOOL finished) {
+        [[MWMMapWidgets widgetsManager] layoutWidgets];
+      }];
 }
 
 - (void)setSearchState:(NavigationSearchState)searchState animated:(BOOL)animated

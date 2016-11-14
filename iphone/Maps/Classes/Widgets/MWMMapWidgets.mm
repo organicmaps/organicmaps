@@ -1,6 +1,8 @@
 #import "MWMMapWidgets.h"
 #import "Common.h"
+#import "EAGLView.h"
 #import "MWMNavigationDashboardManager.h"
+#import "MapViewController.h"
 
 #include "drape_frontend/gui/skin.hpp"
 #include "std/unique_ptr.hpp"
@@ -14,6 +16,11 @@
 @implementation MWMMapWidgets
 {
   unique_ptr<gui::Skin> m_skin;
+}
+
++ (MWMMapWidgets *)widgetsManager
+{
+  return ((EAGLView *)[MapViewController controller].view).widgetsManager;
 }
 
 - (void)setupWidgets:(Framework::DrapeCreationParams &)p
