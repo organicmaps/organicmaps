@@ -41,10 +41,11 @@ set(
   pointers_tests.cpp
   stipple_pen_tests.cpp
   texture_of_colors_tests.cpp
+  testingmain.cpp
   uniform_value_tests.cpp
 )
 
-omim_add_test(${PROJECT_NAME} ${DRAPE_COMMON_SRC} ${SRC})
+add_executable(${PROJECT_NAME} ${DRAPE_COMMON_SRC} ${SRC})
 
 omim_link_libraries(
   ${PROJECT_NAME}
