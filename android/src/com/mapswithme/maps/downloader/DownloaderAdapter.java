@@ -748,14 +748,15 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     mItems.clear();
     mItems.addAll(results);
     processData();
-    if (results.isEmpty())
-      clearAds();
   }
 
-  private void clearAds()
+  void clearAds()
   {
     if (mAds.isEmpty())
       return;
+
+    if (mMytargetHelper != null)
+      mMytargetHelper.cancel();
 
     mAds.clear();
     mAdsLoaded = false;
@@ -981,6 +982,13 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     }
 
     mAdsLoading = true;
+
+    if (mMytargetHelper == null)
+      initMytargetHelper();
+  }
+
+  private void initMytargetHelper()
+  {
     mMytargetHelper = new MytargetHelper(new MytargetHelper.Listener<Void>()
     {
       private void onNoAdsInternal()
