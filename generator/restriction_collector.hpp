@@ -42,10 +42,10 @@ private:
   /// 137999, 5170186,
   /// 138000, 5170209, 5143342,
   /// 138001, 5170228,
-  /// \param featureIdToOsmIdsPath path to the text file.
+  /// \param osmIdsToFeatureIdPath path to the text file.
   /// \note Most restrictions consist of type and two linear(road) features.
   /// \note For the time being only line-point-line restrictions are supported.
-  bool ParseFeatureId2OsmIdsMapping(string const & featureIdToOsmIdsPath);
+  bool ParseOsmIdToFeatureIdMapping(string const & osmIdsToFeatureIdPath);
 
   /// \brief Parses comma separated text file with line in following format:
   /// <type of restrictions>, <osm id 1 of the restriction>, <osm id 2>, and so on
@@ -56,9 +56,10 @@ private:
   /// \param featureIdToOsmIdsPath path to the text file.
   bool ParseRestrictions(string const & path);
 
-  /// \brief Adds feature id and corresponding vector of |osmIds| to |m_osmIdToFeatureId|.
-  /// \note One feature id (|featureId|) may correspond to several osm ids (|osmIds|).
-  void AddFeatureId(uint32_t featureId, vector<uint64_t> const & osmIds);
+  /// \brief Adds feature id and corresponding |osmId| to |m_osmIdToFeatureId|.
+  /// \note In general one feature id (|featureId|) may correspond to several osm ids (|osmIds|).
+  /// But for road feature one feature id corresponds one osm id.
+  void AddFeatureId(uint32_t featureId, uint64_t osmId);
 
   /// \brief Adds a restriction (vector of osm id).
   /// \param type is a type of restriction

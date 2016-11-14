@@ -1,5 +1,10 @@
 #include "generator/restriction_collector.hpp"
 
+#include "generator/gen_mwm_info.hpp"
+
+#include "coding/file_reader.hpp"
+#include "coding/reader.hpp"
+
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
@@ -31,17 +36,17 @@ bool ParseLineOfNumbers(strings::SimpleTokenizer & iter, vector<uint64_t> & numb
 namespace routing
 {
 RestrictionCollector::RestrictionCollector(string const & restrictionPath,
-                                           string const & featureIdToOsmIdsPath)
+                                           string const & osmIdsToFeatureIdPath)
 {
   MY_SCOPE_GUARD(clean, [this](){
     m_osmIdToFeatureId.clear();
     m_restrictions.clear();
   });
 
-  if (!ParseFeatureId2OsmIdsMapping(featureIdToOsmIdsPath))
+  if (!ParseOsmIdToFeatureIdMapping(osmIdsToFeatureIdPath))
   {
     LOG(LWARNING, ("An error happened while parsing feature id to osm ids mapping from file:",
-                   featureIdToOsmIdsPath));
+                   osmIdsToFeatureIdPath));
     return;
   }
 
@@ -65,34 +70,34 @@ bool RestrictionCollector::IsValid() const
                  [](Restriction const & r) { return !r.IsValid(); }) == end(m_restrictions);
 }
 
-bool RestrictionCollector::ParseFeatureId2OsmIdsMapping(string const & featureIdToOsmIdsPath)
+bool RestrictionCollector::ParseOsmIdToFeatureIdMapping(string const & osmIdsToFeatureIdPath)
 {
-  ifstream featureIdToOsmIdsStream(featureIdToOsmIdsPath);
-  if (featureIdToOsmIdsStream.fail())
-    return false;
+  LOG(LINFO, ("osmIdsToFeatureIdPath =", osmIdsToFeatureIdPath));
 
-  string line;
-  while (getline(featureIdToOsmIdsStream, line))
+  using OsmIdToFeatureId = pair<uint64_t /* osm id */, uint32_t /* feature id */>;
+  gen::Accumulator<OsmIdToFeatureId> osmIdsToFeatureIds;
+  try
   {
-    vector<uint64_t> osmIds;
-    strings::SimpleTokenizer iter(line, kDelim);
-    if (!ParseLineOfNumbers(iter, osmIds))
-    {
-      LOG(LWARNING, ("Cannot parse feature id to osm ids mapping. Line:", line));
-      return false;
-    }
-
-    if (osmIds.size() < 2)
-    {
-      LOG(LWARNING, ("Parse result of mapping feature id to osm ids is too small. Line:",
-                     line));
-      return false;  // Every line should contain feature id and at least one osm id.
-    }
-
-    uint32_t const featureId = static_cast<uint32_t>(osmIds.front());
-    osmIds.erase(osmIds.begin());
-    AddFeatureId(featureId, osmIds);
+    FileReader reader(osmIdsToFeatureIdPath);
+    ReaderSource<FileReader> src(reader);
+    osmIdsToFeatureIds.Read(src);
   }
+  catch (FileReader::Exception const & e)
+  {
+    LOG(LERROR, ("Exception while reading file:", osmIdsToFeatureIdPath, ". Msg:", e.Msg()));
+    return false;
+  }
+
+  vector<OsmIdToFeatureId> const & mapping = osmIdsToFeatureIds.GetData();
+  if (mapping.empty())
+  {
+    LOG(LINFO, ("No osm ids to feature ids mapping in file", osmIdsToFeatureIdPath));
+    return true;
+  }
+
+  for (auto const osmIdToFeatureId : mapping)
+    AddFeatureId(osmIdToFeatureId.second /* feature id */, osmIdToFeatureId.first /* osm id */);
+
   return true;
 }
 
@@ -150,18 +155,15 @@ bool RestrictionCollector::AddRestriction(Restriction::Type type, vector<uint64_
   return true;
 }
 
-void RestrictionCollector::AddFeatureId(uint32_t featureId, vector<uint64_t> const & osmIds)
+void RestrictionCollector::AddFeatureId(uint32_t featureId, uint64_t osmId)
 {
   // Note. One |featureId| could correspond to several osm ids.
   // But for road feature |featureId| corresponds to exactly one osm id.
-  for (uint64_t const & osmId : osmIds)
+  auto const result = m_osmIdToFeatureId.insert(make_pair(osmId, featureId));
+  if (result.second == false)
   {
-    auto const result = m_osmIdToFeatureId.insert(make_pair(osmId, featureId));
-    if (result.second == false)
-    {
-      LOG(LERROR, ("Osm id", osmId, "is included in two feature ids: ", featureId,
-                   m_osmIdToFeatureId.find(osmId)->second));
-    }
+    LOG(LERROR, ("Osm id", osmId, "is included in two feature ids: ", featureId,
+                 m_osmIdToFeatureId.find(osmId)->second));
   }
 }
 

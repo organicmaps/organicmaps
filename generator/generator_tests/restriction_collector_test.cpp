@@ -101,7 +101,7 @@ UNIT_TEST(RestrictionTest_ParseFeatureId2OsmIdsMapping)
   RestrictionCollector restrictionCollector("" /* restrictionPath */, "" /* featureIdToOsmIdsPath */);
 
   Platform const & platform = Platform();
-  restrictionCollector.ParseFeatureId2OsmIdsMapping(
+  restrictionCollector.ParseOsmIdToFeatureIdMapping(
       my::JoinFoldersToPath(platform.WritableDir(), kFeatureIdToOsmIdsPath));
 
   vector<pair<uint64_t, uint32_t>> const expectedOsmIds2FeatureId = {

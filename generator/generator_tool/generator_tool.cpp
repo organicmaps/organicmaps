@@ -244,7 +244,7 @@ int main(int argc, char ** argv)
     {
       routing::BuildRoadRestrictions(
           datFile, genInfo.GetIntermediateFileName(genInfo.m_restrictions, "" /* extention */),
-          genInfo.GetIntermediateFileName(genInfo.m_featureIdToOsmIds, "" /* extention */));
+          genInfo.GetTargetFileName(country) + OSM2FEATURE_FILE_EXTENSION);
     }
   }
 

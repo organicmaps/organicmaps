@@ -4,13 +4,14 @@
 
 #include "base/assert.hpp"
 
-#include "std/utility.hpp"
 #include "std/algorithm.hpp"
-
+#include "std/fstream.hpp"
+#include "std/iostream.hpp"
+#include "std/string.hpp"
+#include "std/utility.hpp"
 
 namespace gen
 {
-
 template <class T> class Accumulator
 {
 protected:
@@ -30,6 +31,8 @@ public:
   {
     rw::ReadVectorOfPOD(src, m_data);
   }
+
+  vector<T> const & GetData() const { return m_data; }
 };
 
 class OsmID2FeatureID : public Accumulator<pair<uint64_t, uint32_t>>
@@ -63,5 +66,4 @@ public:
       return 0;
   }
 };
-
-}
+}  // namespace gen
