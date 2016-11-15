@@ -93,4 +93,21 @@ UNIT_TEST(LevenshteinDFA_Smoke)
     TEST(Rejects(dfa, "san"), ());
   }
 }
+
+UNIT_TEST(LevenshteinDFA_Prefix)
+{
+  {
+    LevenshteinDFA dfa("москва", 1 /* prefixCharsToKeep */, 1 /* maxErrors */);
+    TEST(Accepts(dfa, "москва"), ());
+    TEST(Accepts(dfa, "масква"), ());
+    TEST(Accepts(dfa, "моска"), ());
+    TEST(Rejects(dfa, "иосква"), ());
+  }
+  {
+    LevenshteinDFA dfa("москва", 0 /* prefixCharsToKeep */, 1 /* maxErrors */);
+    TEST(Accepts(dfa, "москва"), ());
+    TEST(Accepts(dfa, "иосква"), ());
+    TEST(Rejects(dfa, "моксва"), ());
+  }
+}
 }  // namespace

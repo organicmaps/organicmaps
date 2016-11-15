@@ -626,20 +626,16 @@ void Processor::InitParams(QueryParams & params)
   for (size_t i = 0; i < tokensCount; ++i)
     params.m_tokens[i].push_back(m_tokens[i]);
 
-  params.m_types.resize(tokensCount + (m_prefix.empty() ? 0 : 1));
-  for (auto & types : params.m_types)
-    types.clear();
+  params.m_typeIndices.resize(tokensCount + (m_prefix.empty() ? 0 : 1));
+  for (auto & indices : params.m_typeIndices)
+    indices.clear();
 
   // Add names of categories (and synonyms).
   Classificator const & c = classif();
   auto addSyms = [&](size_t i, uint32_t t)
   {
-    QueryParams::TSynonymsVector & v = params.GetTokens(i);
-
-    params.m_types[i].push_back(t);
-
     uint32_t const index = c.GetIndexForType(t);
-    v.push_back(FeatureTypeToString(index));
+    params.m_typeIndices[i].push_back(index);
 
     // v2-version MWM has raw classificator types in search index prefix, so
     // do the hack: add synonyms for old convention if needed.
@@ -649,7 +645,7 @@ void Processor::InitParams(QueryParams & params)
       if (type >= 0)
       {
         ASSERT(type == 70 || type > 4000, (type));
-        v.push_back(FeatureTypeToString(static_cast<uint32_t>(type)));
+        params.m_typeIndices[i].push_back(static_cast<uint32_t>(type));
       }
     }
   };

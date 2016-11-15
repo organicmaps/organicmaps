@@ -59,7 +59,7 @@ void QueryParams::Clear()
 {
   m_tokens.clear();
   m_prefixTokens.clear();
-  m_types.clear();
+  m_typeIndices.clear();
   m_langs.clear();
   m_scale = scales::GetUpperScale();
 }
@@ -67,7 +67,7 @@ void QueryParams::Clear()
 bool QueryParams::IsCategorySynonym(size_t i) const
 {
   ASSERT_LESS(i, GetNumTokens(), ());
-  return !m_types[i].empty();
+  return !m_typeIndices[i].empty();
 }
 
 bool QueryParams::IsPrefixToken(size_t i) const
@@ -109,6 +109,16 @@ bool QueryParams::IsNumberTokens(size_t start, size_t end) const
   }
 
   return true;
+}
+
+void QueryParams::RemoveToken(size_t i)
+{
+  ASSERT_LESS(i, GetNumTokens(), ());
+  if (i == m_tokens.size())
+    m_prefixTokens.clear();
+  else
+    m_tokens.erase(m_tokens.begin() + i);
+  m_typeIndices.erase(m_typeIndices.begin() + i);
 }
 
 string DebugPrint(search::QueryParams const & params)
