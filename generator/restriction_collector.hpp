@@ -17,8 +17,8 @@ class RestrictionCollector
 {
 public:
   /// \param restrictionPath full path to file with road restrictions in osm id terms.
-  /// \param featureIdToOsmIdsPath full path to file with mapping from feature id to osm id.
-  RestrictionCollector(string const & restrictionPath, string const & featureIdToOsmIdsPath);
+  /// \param osmIdsToFeatureIdsPath full path to file with mapping from osm ids to feature ids.
+  RestrictionCollector(string const & restrictionPath, string const & osmIdsToFeatureIdsPath);
 
   bool HasRestrictions() const { return !m_restrictions.empty(); }
 
@@ -53,7 +53,7 @@ private:
   /// Only, 335049632, 49356687,
   /// No, 157616940, 157616940,
   /// No, 157616940, 157617107,
-  /// \param featureIdToOsmIdsPath path to the text file.
+  /// \param path path to the text file with restrictions.
   bool ParseRestrictions(string const & path);
 
   /// \brief Adds feature id and corresponding |osmId| to |m_osmIdToFeatureId|.
