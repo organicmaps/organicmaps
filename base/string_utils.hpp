@@ -506,7 +506,7 @@ size_t EditDistance(TIter const & b1, TIter const & e1, TIter const & b2, TIter 
   // dynamic programming table.
   vector<size_t> prev(m + 1);
   vector<size_t> curr(m + 1);
-  for (size_t j = 0; j <= m; j++)
+  for (size_t j = 0; j <= m; ++j)
     prev[j] = j;
   auto it1 = b1;
   // 1-based to avoid corner cases.
