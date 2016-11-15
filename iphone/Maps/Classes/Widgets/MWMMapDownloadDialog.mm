@@ -203,7 +203,8 @@ using namespace storage;
             kStatScenario : kStatDownload
           }];
     [self showInQueue];
-    [MWMStorage retryDownloadNode:self->m_countryId];
+    [MWMStorage retryDownloadNode:self->m_countryId
+                  alertController:self.controller.alertController];
   };
   auto const cancelBlock = ^{
     [Statistics logEvent:kStatDownloaderDownloadCancel withParameters:@{kStatFrom : kStatMap}];
@@ -292,7 +293,7 @@ using namespace storage;
             kStatScenario : kStatDownload
           }];
     [self showInQueue];
-    [MWMStorage retryDownloadNode:m_countryId];
+    [MWMStorage retryDownloadNode:m_countryId alertController:self.controller.alertController];
   }
   else
   {

@@ -673,7 +673,7 @@ using namespace mwm;
           kStatScenario : kStatDownload
         }];
   self.skipCountryEventProcessing = YES;
-  [MWMStorage retryDownloadNode:countryId];
+  [MWMStorage retryDownloadNode:countryId alertController:self.alertController];
   self.skipCountryEventProcessing = NO;
   [self processCountryEvent:countryId];
 }

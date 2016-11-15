@@ -9,6 +9,6 @@
                             rightButtonAction:(nullable TMWMVoidBlock)action
                               statisticsEvent:(nonnull NSString *)statisticsEvent;
 
-@property(copy, nonatomic, nullable) TMWMVoidBlock rightButtonAction;
+@property(copy, nonatomic, readonly, nullable) TMWMVoidBlock rightButtonAction;
 
 @end
