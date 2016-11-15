@@ -31,8 +31,12 @@ using namespace storage;
 }
 
 + (void)retryDownloadNode:(TCountryId const &)countryId
+          alertController:(MWMAlertViewController *)alertController
 {
-  GetFramework().GetStorage().RetryDownloadNode(countryId);
+  [self checkConnectionAndPerformAction:[countryId] {
+    GetFramework().GetStorage().RetryDownloadNode(countryId);
+  }
+                        alertController:alertController];
 }
 
 + (void)updateNode:(TCountryId const &)countryId

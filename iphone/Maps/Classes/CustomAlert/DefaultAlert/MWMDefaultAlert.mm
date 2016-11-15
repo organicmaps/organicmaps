@@ -14,12 +14,13 @@ static CGFloat const kDividerTopConstant = -8.;
 
 @interface MWMDefaultAlert ()
 
-@property (weak, nonatomic) IBOutlet UILabel * messageLabel;
-@property (weak, nonatomic) IBOutlet UIButton * rightButton;
-@property (weak, nonatomic) IBOutlet UIButton * leftButton;
-@property (weak, nonatomic) IBOutlet UILabel * titleLabel;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * rightButtonWidth;
-@property (copy, nonatomic) TMWMVoidBlock leftButtonAction;
+@property(weak, nonatomic) IBOutlet UILabel * messageLabel;
+@property(weak, nonatomic) IBOutlet UIButton * rightButton;
+@property(weak, nonatomic) IBOutlet UIButton * leftButton;
+@property(weak, nonatomic) IBOutlet UILabel * titleLabel;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * rightButtonWidth;
+@property(copy, nonatomic) TMWMVoidBlock leftButtonAction;
+@property(copy, nonatomic, readwrite) TMWMVoidBlock rightButtonAction;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * dividerTop;
 
 @property(copy, nonatomic) NSString * statisticsEvent;
