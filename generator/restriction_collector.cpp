@@ -84,7 +84,7 @@ bool RestrictionCollector::ParseOsmIdToFeatureIdMapping(string const & osmIdsToF
   }
   catch (FileReader::Exception const & e)
   {
-    LOG(LERROR, ("Exception while reading file:", osmIdsToFeatureIdPath, ". Msg:", e.Msg()));
+    LOG(LWARNING, ("Exception while reading file:", osmIdsToFeatureIdPath, ". Msg:", e.Msg()));
     return false;
   }
 
