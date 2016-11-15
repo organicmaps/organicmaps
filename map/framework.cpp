@@ -341,7 +341,7 @@ Framework::Framework()
   , m_isRenderingEnabled(true)
   , m_trackingReporter(platform::CreateSocket(), TRACKING_REALTIME_HOST, TRACKING_REALTIME_PORT,
                        tracking::Reporter::kPushDelayMs)
-  , m_trafficManager(m_model.GetIndex())
+  , m_trafficManager(m_model.GetIndex(), bind(&Framework::GetMwmsByRect, this, _1))
   , m_displacementModeManager([this](bool show) {
     int const mode = show ? dp::displacement::kHotelMode : dp::displacement::kDefaultMode;
     CallDrapeFunction(bind(&df::DrapeEngine::SetDisplacementMode, _1, mode));
@@ -3208,4 +3208,16 @@ void Framework::VizualizeRoadsInRect(m2::RectD const & rect)
       }
     }
   }, kScale);
+}
+
+vector<MwmSet::MwmId> Framework::GetMwmsByRect(m2::RectD const & rect)
+{
+  vector<MwmSet::MwmId> result;
+  if (!m_infoGetter)
+    return result;
+
+  auto countryId = m_infoGetter->GetRegionCountryId(rect.Center());
+  result.push_back(m_model.GetIndex().GetMwmIdByCountryFile(platform::CountryFile(countryId)));
+
+  return result;
 }

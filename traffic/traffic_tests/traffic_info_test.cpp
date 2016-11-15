@@ -21,8 +21,10 @@ SpeedGroup GetSpeedGroup(TrafficInfo::Coloring const & coloring,
 
 UNIT_TEST(TrafficInfo_RemoteFile)
 {
+  string const kTestFileName = "traffic_data";
+
   TrafficInfo r;
-  TEST(r.ReceiveTrafficData(), ());
+  TEST(r.ReceiveTrafficData(kTestFileName), ());
 }
 
 UNIT_TEST(TrafficInfo_Serialization)

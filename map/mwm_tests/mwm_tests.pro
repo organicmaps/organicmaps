@@ -6,7 +6,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = map search storage indexer platform editor geometry coding base \
+DEPENDENCIES = map traffic search storage indexer platform editor geometry coding base \
                freetype fribidi expat protobuf tomcrypt jansson succinct pugixml stats_client
 
 include($$ROOT_DIR/common.pri)
