@@ -177,6 +177,16 @@
       </FileRef>
    </Group>
    <Group
+      location = "container:../pyhelpers"
+      name = "pyhelpers">
+      <FileRef
+         location = "group:pair.hpp">
+      </FileRef>
+      <FileRef
+         location = "group:vector_uint8.hpp">
+      </FileRef>
+   </Group>
+   <Group
       location = "container:"
       name = "3party">
       <FileRef
@@ -287,6 +297,9 @@
    </FileRef>
    <FileRef
       location = "container:storage/storage.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:traffic/traffic.xcodeproj">
    </FileRef>
    <FileRef
       location = "container:tracking/tracking.xcodeproj">
