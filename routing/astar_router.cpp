@@ -1,4 +1,4 @@
-#include "astar_router.hpp"
+#include "routing/astar_router.hpp"
 
 #include "routing/base/astar_algorithm.hpp"
 #include "routing/base/astar_progress.hpp"
@@ -15,26 +15,31 @@
 #include "indexer/routing_section.hpp"
 
 #include "geometry/distance.hpp"
+#include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
+
+#include "base/exception.hpp"
+
+using namespace routing;
 
 namespace
 {
 size_t constexpr kMaxRoadCandidates = 6;
 float constexpr kProgressInterval = 2;
+uint32_t constexpr kDrawPointsPeriod = 10;
 
-using namespace routing;
-
-vector<Junction> ConvertToJunctions(IndexGraph const & graph, vector<JointId> const & joints)
+vector<Junction> ConvertToJunctions(IndexGraph const & graph, vector<Joint::Id> const & joints)
 {
-  vector<FSegId> const & fsegs = graph.RedressRoute(joints);
+  vector<RoadPoint> roadPoints;
+  graph.RedressRoute(joints, roadPoints);
 
   vector<Junction> junctions;
-  junctions.reserve(fsegs.size());
+  junctions.reserve(roadPoints.size());
 
   Geometry const & geometry = graph.GetGeometry();
   // TODO: Use real altitudes for pedestrian and bicycle routing.
-  for (FSegId const & fseg : fsegs)
-    junctions.emplace_back(geometry.GetPoint(fseg), feature::kDefaultAltitudeMeters);
+  for (RoadPoint const & point : roadPoints)
+    junctions.emplace_back(geometry.GetPoint(point), feature::kDefaultAltitudeMeters);
 
   return junctions;
 }
@@ -42,67 +47,92 @@ vector<Junction> ConvertToJunctions(IndexGraph const & graph, vector<JointId> co
 
 namespace routing
 {
-AStarRouter::AStarRouter(const char * name, Index const & index,
-                         TCountryFileFn const & countryFileFn,
+AStarRouter::AStarRouter(string const & name, Index const & index,
                          shared_ptr<VehicleModelFactory> vehicleModelFactory,
+                         shared_ptr<EdgeEstimator> estimator,
                          unique_ptr<IDirectionsEngine> directionsEngine)
   : m_name(name)
   , m_index(index)
-  , m_countryFileFn(countryFileFn)
   , m_roadGraph(
         make_unique<FeaturesRoadGraph>(index, IRoadGraph::Mode::ObeyOnewayTag, vehicleModelFactory))
   , m_vehicleModelFactory(vehicleModelFactory)
+  , m_estimator(estimator)
   , m_directionsEngine(move(directionsEngine))
 {
-  ASSERT(name, ());
   ASSERT(!m_name.empty(), ());
   ASSERT(m_vehicleModelFactory, ());
+  ASSERT(m_estimator, ());
   ASSERT(m_directionsEngine, ());
 }
 
 IRouter::ResultCode AStarRouter::CalculateRoute(MwmSet::MwmId const & mwmId,
                                                 m2::PointD const & startPoint,
-                                                m2::PointD const & /* startDirection */,
+                                                m2::PointD const & startDirection,
                                                 m2::PointD const & finalPoint,
                                                 RouterDelegate const & delegate, Route & route)
 {
-  string const country = m_countryFileFn(startPoint);
+  try
+  {
+    return DoCalculateRoute(mwmId, startPoint, startDirection, finalPoint, delegate, route);
+  }
+  catch (RootException const & e)
+  {
+    LOG(LERROR, ("Can't find path from", MercatorBounds::ToLatLon(startPoint), "to",
+                 MercatorBounds::ToLatLon(finalPoint), ":\n ", e.what()));
+    return IRouter::InternalError;
+  }
+}
 
-  Edge startEdge = Edge::MakeFake({} /* startJunction */, {} /* endJunction */);
+IRouter::ResultCode AStarRouter::DoCalculateRoute(MwmSet::MwmId const & mwmId,
+                                                  m2::PointD const & startPoint,
+                                                  m2::PointD const & /* startDirection */,
+                                                  m2::PointD const & finalPoint,
+                                                  RouterDelegate const & delegate, Route & route)
+{
+  string const & country = mwmId.GetInfo()->GetCountryName();
+
+  Edge startEdge;
   if (!FindClosestEdge(mwmId, startPoint, startEdge))
     return IRouter::StartPointNotFound;
 
-  Edge finishEdge = Edge::MakeFake({} /* startJunction */, {} /* endJunction */);
+  Edge finishEdge;
   if (!FindClosestEdge(mwmId, finalPoint, finishEdge))
     return IRouter::EndPointNotFound;
 
-  FSegId const start(startEdge.GetFeatureId().m_index, startEdge.GetSegId());
-  FSegId const finish(finishEdge.GetFeatureId().m_index, finishEdge.GetSegId());
+  RoadPoint const start(startEdge.GetFeatureId().m_index, startEdge.GetSegId());
+  RoadPoint const finish(finishEdge.GetFeatureId().m_index, finishEdge.GetSegId());
 
-  IndexGraph graph(
-      CreateGeometry(m_index, mwmId, m_vehicleModelFactory->GetVehicleModelForCountry(country)));
+  IndexGraph graph(CreateGeometryLoader(m_index, mwmId,
+                                        m_vehicleModelFactory->GetVehicleModelForCountry(country)),
+                   m_estimator);
 
-  if (!LoadIndex(mwmId, graph))
+  if (!LoadIndex(mwmId, country, graph))
     return IRouter::RouteFileNotExist;
 
   AStarProgress progress(0, 100);
+  progress.Initialize(graph.GetGeometry().GetPoint(start), graph.GetGeometry().GetPoint(finish));
 
-  auto onVisitJunctionFn = [&delegate, &progress, &graph](JointId const & from,
-                                                          JointId const & /*finish*/) {
+  uint32_t drawPointsStep = 0;
+  auto onVisitJunction = [&delegate, &progress, &graph, &drawPointsStep](Joint::Id const & from,
+                                                                         Joint::Id const & target) {
     m2::PointD const & point = graph.GetPoint(from);
+    m2::PointD const & targetPoint = graph.GetPoint(target);
     auto const lastValue = progress.GetLastValue();
-    auto const newValue = progress.GetProgressForDirectedAlgo(point);
+    auto const newValue = progress.GetProgressForBidirectedAlgo(point, targetPoint);
     if (newValue - lastValue > kProgressInterval)
       delegate.OnProgress(newValue);
-    delegate.OnPointCheck(point);
+    if (drawPointsStep % kDrawPointsPeriod == 0)
+      delegate.OnPointCheck(point);
+    ++drawPointsStep;
   };
 
   AStarAlgorithm<IndexGraph> algorithm;
 
-  RoutingResult<JointId> routingResult;
-  AStarAlgorithm<IndexGraph>::Result const resultCode =
-      algorithm.FindPathBidirectional(graph, graph.InsertJoint(start), graph.InsertJoint(finish),
-                                      routingResult, delegate, onVisitJunctionFn);
+  RoutingResult<Joint::Id> routingResult;
+  Joint::Id const startJoint = graph.InsertJoint(start);
+  Joint::Id const finishJoint = graph.InsertJoint(finish);
+  auto const resultCode = algorithm.FindPathBidirectional(graph, startJoint, finishJoint,
+                                                          routingResult, delegate, onVisitJunction);
 
   switch (resultCode)
   {
@@ -130,9 +160,9 @@ bool AStarRouter::FindClosestEdge(MwmSet::MwmId const & mwmId, m2::PointD const 
     if (edge.GetFeatureId().m_mwmId != mwmId)
       continue;
 
-    m2::DistanceToLineSquare<m2::PointD> squareDistance;
-    squareDistance.SetBounds(edge.GetStartJunction().GetPoint(), edge.GetEndJunction().GetPoint());
-    double const distance = squareDistance(point);
+    m2::DistanceToLineSquare<m2::PointD> squaredDistance;
+    squaredDistance.SetBounds(edge.GetStartJunction().GetPoint(), edge.GetEndJunction().GetPoint());
+    double const distance = squaredDistance(point);
     if (distance < minDistance)
     {
       minDistance = distance;
@@ -140,25 +170,20 @@ bool AStarRouter::FindClosestEdge(MwmSet::MwmId const & mwmId, m2::PointD const 
     }
   }
 
-  if (minIndex < candidates.size())
-  {
-    closestEdge = candidates[minIndex].first;
-    return true;
-  }
+  if (minIndex == candidates.size())
+    return false;
 
-  return false;
+  closestEdge = candidates[minIndex].first;
+  return true;
 }
 
-bool AStarRouter::LoadIndex(MwmSet::MwmId const & mwmId, IndexGraph & graph)
+bool AStarRouter::LoadIndex(MwmSet::MwmId const & mwmId, string const & country, IndexGraph & graph)
 {
   MwmSet::MwmHandle mwmHandle = m_index.GetMwmHandleById(mwmId);
-  MwmValue const * mwmValue = mwmHandle.GetValue<MwmValue>();
-  if (!mwmValue)
-  {
-    LOG(LERROR, ("mwmValue == null"));
+  if (!mwmHandle.IsAlive())
     return false;
-  }
 
+  MwmValue const * mwmValue = mwmHandle.GetValue<MwmValue>();
   try
   {
     my::Timer timer;
@@ -167,27 +192,28 @@ bool AStarRouter::LoadIndex(MwmSet::MwmId const & mwmId, IndexGraph & graph)
     feature::RoutingSectionHeader header;
     header.Deserialize(src);
     graph.Deserialize(src);
-    LOG(LINFO, (ROUTING_FILE_TAG, "section loaded in ", timer.ElapsedSeconds(), "seconds"));
+    LOG(LINFO,
+        (ROUTING_FILE_TAG, "section for", country, "loaded in", timer.ElapsedSeconds(), "seconds"));
     return true;
   }
   catch (Reader::OpenException const & e)
   {
     LOG(LERROR, ("File", mwmValue->GetCountryFileName(), "Error while reading", ROUTING_FILE_TAG,
-                 "section.", e.Msg()));
+                 "section:", e.Msg()));
     return false;
   }
 }
 
-unique_ptr<AStarRouter> CreateCarAStarBidirectionalRouter(Index & index,
-                                                          TCountryFileFn const & countryFileFn)
+unique_ptr<AStarRouter> CreateCarAStarBidirectionalRouter(Index & index)
 {
-  shared_ptr<VehicleModelFactory> vehicleModelFactory = make_shared<CarModelFactory>();
+  auto vehicleModelFactory = make_shared<CarModelFactory>();
   // @TODO Bicycle turn generation engine is used now. It's ok for the time being.
   // But later a special car turn generation engine should be implemented.
-  unique_ptr<IDirectionsEngine> directionsEngine = make_unique<BicycleDirectionsEngine>(index);
-  unique_ptr<AStarRouter> router =
-      make_unique<AStarRouter>("astar-bidirectional-car", index, countryFileFn,
-                               move(vehicleModelFactory), move(directionsEngine));
+  auto directionsEngine = make_unique<BicycleDirectionsEngine>(index);
+  auto estimator = CreateCarEdgeEstimator(vehicleModelFactory->GetVehicleModel());
+  auto router =
+      make_unique<AStarRouter>("astar-bidirectional-car", index, move(vehicleModelFactory),
+                               estimator, move(directionsEngine));
   return router;
 }
 }  // namespace routing

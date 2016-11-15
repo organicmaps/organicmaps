@@ -2446,7 +2446,7 @@ void Framework::SetRouterImpl(RouterType type)
 
     router.reset(
         new CarRouter(m_model.GetIndex(), countryFileGetter,
-                      CreateCarAStarBidirectionalRouter(m_model.GetIndex(), countryFileGetter)));
+                      CreateCarAStarBidirectionalRouter(m_model.GetIndex())));
     fetcher.reset(new OnlineAbsentCountriesFetcher(countryFileGetter, localFileChecker));
     m_routingSession.SetRoutingSettings(routing::GetCarRoutingSettings());
   }

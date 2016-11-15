@@ -1,197 +1,126 @@
 #include "index_graph.hpp"
 
 #include "base/assert.hpp"
+#include "base/exception.hpp"
 
 namespace routing
 {
-IndexGraph::IndexGraph(unique_ptr<Geometry> geometry) : m_geometry(move(geometry)) {}
-
-void IndexGraph::GetOutgoingEdgesList(JointId jointId, vector<TEdgeType> & edges) const
+IndexGraph::IndexGraph(unique_ptr<GeometryLoader> loader, shared_ptr<EdgeEstimator> estimator)
+  : m_geometry(move(loader)), m_estimator(move(estimator))
 {
-  GetEdgesList(jointId, edges, true);
+  ASSERT(m_estimator, ());
 }
 
-void IndexGraph::GetIngoingEdgesList(JointId jointId, vector<TEdgeType> & edges) const
+void IndexGraph::GetOutgoingEdgesList(Joint::Id jointId, vector<JointEdge> & edges) const
 {
-  GetEdgesList(jointId, edges, false);
+  GetEdgesList(jointId, true, edges);
 }
 
-double IndexGraph::HeuristicCostEstimate(JointId jointFrom, JointId jointTo) const
+void IndexGraph::GetIngoingEdgesList(Joint::Id jointId, vector<JointEdge> & edges) const
 {
-  return m_geometry->CalcHeuristic(GetFSeg(jointFrom), GetFSeg(jointTo));
+  GetEdgesList(jointId, false, edges);
 }
 
-m2::PointD const & IndexGraph::GetPoint(JointId jointId) const
+double IndexGraph::HeuristicCostEstimate(Joint::Id jointFrom, Joint::Id jointTo) const
 {
-  return m_geometry->GetPoint(GetFSeg(jointId));
+  return m_estimator->CalcHeuristic(GetPoint(jointFrom), GetPoint(jointTo));
 }
 
-void IndexGraph::Export(vector<Joint> const & joints)
+m2::PointD const & IndexGraph::GetPoint(Joint::Id jointId) const
 {
-  m_fsegIndex.Export(joints);
-  BuildJoints(joints.size());
+  return m_geometry.GetPoint(m_jointIndex.GetPoint(jointId));
 }
 
-JointId IndexGraph::InsertJoint(FSegId fseg)
+void IndexGraph::Import(vector<Joint> const & joints)
 {
-  JointId const existId = m_fsegIndex.GetJointId(fseg);
-  if (existId != kInvalidJointId)
+  m_roadIndex.Import(joints);
+  m_jointIndex.Build(m_roadIndex, joints.size());
+}
+
+Joint::Id IndexGraph::InsertJoint(RoadPoint const & rp)
+{
+  Joint::Id const existId = m_roadIndex.GetJointId(rp);
+  if (existId != Joint::kInvalidId)
     return existId;
 
-  JointId const jointId = m_jointOffsets.size();
-  m_jointOffsets.emplace_back(JointOffset(m_fsegs.size(), m_fsegs.size() + 1));
-  m_fsegs.emplace_back(fseg);
-  m_fsegIndex.AddJoint(fseg, jointId);
+  Joint::Id const jointId = m_jointIndex.InsertJoint(rp);
+  m_roadIndex.AddJoint(rp, jointId);
   return jointId;
 }
 
-vector<FSegId> IndexGraph::RedressRoute(vector<JointId> const & route) const
+void IndexGraph::RedressRoute(vector<Joint::Id> const & route, vector<RoadPoint> & roadPoints) const
 {
-  vector<FSegId> fsegs;
   if (route.size() < 2)
   {
     if (route.size() == 1)
-      fsegs.emplace_back(GetFSeg(route[0]));
-    return fsegs;
+      roadPoints.emplace_back(m_jointIndex.GetPoint(route[0]));
+    return;
   }
 
-  fsegs.reserve(route.size() * 2);
+  roadPoints.reserve(route.size() * 2);
 
   for (size_t i = 0; i < route.size() - 1; ++i)
   {
-    JointId const prevJoint = route[i];
-    JointId const nextJoint = route[i + 1];
+    Joint::Id const prevJoint = route[i];
+    Joint::Id const nextJoint = route[i + 1];
 
-    auto const & pair = FindSharedFeature(prevJoint, nextJoint);
-    if (!pair.first.IsValid())
-    {
-      fsegs.clear();
-      return fsegs;
-    }
-
+    RoadPoint rp0;
+    RoadPoint rp1;
+    m_jointIndex.FindPointsWithCommonFeature(prevJoint, nextJoint, rp0, rp1);
     if (i == 0)
-      fsegs.push_back(pair.first);
+      roadPoints.emplace_back(rp0);
 
-    uint32_t const featureId = pair.first.GetFeatureId();
-    uint32_t const segFrom = pair.first.GetSegId();
-    uint32_t const segTo = pair.second.GetSegId();
+    uint32_t const featureId = rp0.GetFeatureId();
+    uint32_t const pointFrom = rp0.GetPointId();
+    uint32_t const pointTo = rp1.GetPointId();
 
-    ASSERT_NOT_EQUAL(segFrom, segTo, ());
-
-    if (segFrom < segTo)
+    if (pointFrom < pointTo)
     {
-      for (uint32_t seg = segFrom + 1; seg < segTo; ++seg)
-        fsegs.push_back({featureId, seg});
+      for (uint32_t pointId = pointFrom + 1; pointId < pointTo; ++pointId)
+        roadPoints.emplace_back(featureId, pointId);
+    }
+    else if (pointFrom > pointTo)
+    {
+      for (uint32_t pointId = pointFrom - 1; pointId > pointTo; --pointId)
+        roadPoints.emplace_back(featureId, pointId);
     }
     else
     {
-      for (uint32_t seg = segFrom - 1; seg > segTo; --seg)
-        fsegs.push_back({featureId, seg});
+      MYTHROW(RootException,
+              ("Wrong equality pointFrom = pointTo =", pointFrom, ", featureId = ", featureId));
     }
 
-    fsegs.push_back(pair.second);
+    roadPoints.emplace_back(rp1);
   }
-
-  return fsegs;
 }
 
-FSegId IndexGraph::GetFSeg(JointId jointId) const
+inline void IndexGraph::AddNeighboringEdge(RoadGeometry const & road, RoadPoint rp, bool forward,
+                                           vector<TEdgeType> & edges) const
 {
-  return m_fsegs[GetJointOffset(jointId).Begin()];
-}
-
-inline JointOffset const & IndexGraph::GetJointOffset(JointId jointId) const
-{
-  ASSERT_LESS(jointId, m_jointOffsets.size(), ("JointId out of bounds"));
-  return m_jointOffsets[jointId];
-}
-
-pair<FSegId, FSegId> IndexGraph::FindSharedFeature(JointId jointId0, JointId jointId1) const
-{
-  JointOffset const & offset0 = GetJointOffset(jointId0);
-  JointOffset const & offset1 = GetJointOffset(jointId1);
-
-  for (size_t i = offset0.Begin(); i < offset0.End(); ++i)
+  pair<Joint::Id, uint32_t> const & neighbor = m_roadIndex.FindNeighbor(rp, forward);
+  if (neighbor.first != Joint::kInvalidId)
   {
-    FSegId const & fseg0 = m_fsegs[i];
-    for (size_t j = offset1.Begin(); j < offset1.End(); ++j)
-    {
-      FSegId const & fseg1 = m_fsegs[j];
-      if (fseg0.GetFeatureId() == fseg1.GetFeatureId())
-        return make_pair(fseg0, fseg1);
-    }
-  }
-
-  LOG(LERROR, ("Can't find shared feature for joints", jointId0, jointId1));
-  return make_pair(FSegId::MakeInvalid(), FSegId::MakeInvalid());
-}
-
-void IndexGraph::BuildJoints(uint32_t jointsAmount)
-{
-  // +2 is reserved space for start and finish
-  m_jointOffsets.reserve(jointsAmount + 2);
-  m_jointOffsets.resize(jointsAmount, {0, 0});
-
-  m_fsegIndex.ForEachRoad([this](uint32_t featureId, RoadJointIds const & road) {
-    road.ForEachJoint([this](uint32_t segId, uint32_t jointId) {
-      ASSERT_LESS(jointId, m_jointOffsets.size(), ());
-      m_jointOffsets[jointId].IncSize();
-    });
-  });
-
-  uint32_t offset = 0;
-  for (size_t i = 0; i < m_jointOffsets.size(); ++i)
-  {
-    JointOffset & jointOffset = m_jointOffsets[i];
-    uint32_t const size = jointOffset.Size();
-    ASSERT_GREATER(size, 0, ());
-
-    jointOffset.Assign(offset);
-    offset += size;
-  }
-
-  // +2 is reserved space for start and finish
-  m_fsegs.reserve(offset + 2);
-  m_fsegs.resize(offset);
-
-  m_fsegIndex.ForEachRoad([this](uint32_t featureId, RoadJointIds const & road) {
-    road.ForEachJoint([this, featureId](uint32_t segId, uint32_t jointId) {
-      ASSERT_LESS(jointId, m_jointOffsets.size(), ());
-      JointOffset & jointOffset = m_jointOffsets[jointId];
-      m_fsegs[jointOffset.End()] = {featureId, segId};
-      jointOffset.IncSize();
-    });
-  });
-}
-
-void IndexGraph::AddNeigborEdge(vector<TEdgeType> & edges, FSegId fseg, bool forward) const
-{
-  pair<JointId, uint32_t> const & pair = m_fsegIndex.FindNeigbor(fseg, forward);
-  if (pair.first != kInvalidJointId)
-  {
-    double const distance =
-        m_geometry->CalcEdgesWeight(fseg.GetFeatureId(), fseg.GetSegId(), pair.second);
-    edges.push_back({pair.first, distance});
+    double const distance = m_estimator->CalcEdgesWeight(road, rp.GetPointId(), neighbor.second);
+    edges.push_back({neighbor.first, distance});
   }
 }
 
-void IndexGraph::GetEdgesList(JointId jointId, vector<TEdgeType> & edges, bool forward) const
+inline void IndexGraph::GetEdgesList(Joint::Id jointId, bool isOutgoing,
+                                     vector<TEdgeType> & edges) const
 {
   edges.clear();
 
-  JointOffset const & offset = GetJointOffset(jointId);
-  for (size_t i = offset.Begin(); i < offset.End(); ++i)
-  {
-    FSegId const & fseg = m_fsegs[i];
-    if (!m_geometry->IsRoad(fseg.GetFeatureId()))
-      continue;
+  m_jointIndex.ForEachPoint(jointId, [this, &edges, isOutgoing](RoadPoint const & rp) {
+    RoadGeometry const & road = m_geometry.GetRoad(rp.GetFeatureId());
+    if (!road.IsRoad())
+      return;
 
-    bool const twoWay = !m_geometry->IsOneWay(fseg.GetFeatureId());
-    if (!forward || twoWay)
-      AddNeigborEdge(edges, fseg, false);
+    bool const bidirectional = !road.IsOneWay();
+    if (!isOutgoing || bidirectional)
+      AddNeighboringEdge(road, rp, false /* forward */, edges);
 
-    if (forward || twoWay)
-      AddNeigborEdge(edges, fseg, true);
-  }
+    if (isOutgoing || bidirectional)
+      AddNeighboringEdge(road, rp, true /* forward */, edges);
+  });
 }
 }  // namespace routing

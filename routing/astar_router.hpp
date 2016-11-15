@@ -1,6 +1,7 @@
 #pragma once
 
 #include "routing/directions_engine.hpp"
+#include "routing/edge_estimator.hpp"
 #include "routing/road_graph.hpp"
 #include "routing/router.hpp"
 #include "routing/vehicle_model.hpp"
@@ -18,9 +19,9 @@ class IndexGraph;
 class AStarRouter
 {
 public:
-  AStarRouter(const char * name, Index const & index, TCountryFileFn const & countryFileFn,
+  AStarRouter(string const & name, Index const & index,
               shared_ptr<VehicleModelFactory> vehicleModelFactory,
-              unique_ptr<IDirectionsEngine> directionsEngine);
+              shared_ptr<EdgeEstimator> estimator, unique_ptr<IDirectionsEngine> directionsEngine);
 
   string const & GetName() const { return m_name; }
 
@@ -30,18 +31,21 @@ public:
                                      Route & route);
 
 private:
+  IRouter::ResultCode DoCalculateRoute(MwmSet::MwmId const & mwmId, m2::PointD const & startPoint,
+                                       m2::PointD const & startDirection,
+                                       m2::PointD const & finalPoint,
+                                       RouterDelegate const & delegate, Route & route);
   bool FindClosestEdge(MwmSet::MwmId const & mwmId, m2::PointD const & point,
                        Edge & closestEdge) const;
-  bool LoadIndex(MwmSet::MwmId const & mwmId, IndexGraph & graph);
+  bool LoadIndex(MwmSet::MwmId const & mwmId, string const & country, IndexGraph & graph);
 
   string m_name;
   Index const & m_index;
-  TCountryFileFn m_countryFileFn;
   unique_ptr<IRoadGraph> m_roadGraph;
   shared_ptr<VehicleModelFactory> m_vehicleModelFactory;
+  shared_ptr<EdgeEstimator> m_estimator;
   unique_ptr<IDirectionsEngine> m_directionsEngine;
 };
 
-unique_ptr<AStarRouter> CreateCarAStarBidirectionalRouter(Index & index,
-                                                          TCountryFileFn const & countryFileFn);
+unique_ptr<AStarRouter> CreateCarAStarBidirectionalRouter(Index & index);
 }  // namespace routing

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C5FEC731DDE1A140017688C /* routing_section.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0C5FEC721DDE1A140017688C /* routing_section.hpp */; };
 		340DF9D01C1FF04D00B5C7EC /* osm_editor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 340DF9CF1C1FF04D00B5C7EC /* osm_editor.cpp */; };
 		34583BC71C88552100F94664 /* cuisines.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34583BC11C88552100F94664 /* cuisines.cpp */; };
 		34583BC81C88552100F94664 /* cuisines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34583BC21C88552100F94664 /* cuisines.hpp */; };
@@ -223,6 +224,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0C5FEC721DDE1A140017688C /* routing_section.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_section.hpp; sourceTree = "<group>"; };
 		340DF9CF1C1FF04D00B5C7EC /* osm_editor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = osm_editor.cpp; sourceTree = "<group>"; };
 		34583BC11C88552100F94664 /* cuisines.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cuisines.cpp; sourceTree = "<group>"; };
 		34583BC21C88552100F94664 /* cuisines.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cuisines.hpp; sourceTree = "<group>"; };
@@ -651,6 +653,7 @@
 				56C74C151C749E4700B71B9F /* displacement_manager.hpp */,
 				56C74C161C749E4700B71B9F /* edits_migration.cpp */,
 				56C74C171C749E4700B71B9F /* edits_migration.hpp */,
+				0C5FEC721DDE1A140017688C /* routing_section.hpp */,
 				56C74C181C749E4700B71B9F /* search_delimiters.cpp */,
 				56C74C191C749E4700B71B9F /* search_delimiters.hpp */,
 				56C74C1A1C749E4700B71B9F /* search_string_utils.cpp */,
@@ -822,6 +825,7 @@
 				675341411A3F540F00A0A8C3 /* scales.hpp in Headers */,
 				675341321A3F540F00A0A8C3 /* interval_index_builder.hpp in Headers */,
 				347F337C1C454242009758CC /* rank_table.hpp in Headers */,
+				0C5FEC731DDE1A140017688C /* routing_section.hpp in Headers */,
 				6753414B1A3F540F00A0A8C3 /* tesselator_decl.hpp in Headers */,
 				347F33801C454242009758CC /* trie_reader.hpp in Headers */,
 				675341191A3F540F00A0A8C3 /* feature_decl.hpp in Headers */,

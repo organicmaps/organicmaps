@@ -24,10 +24,12 @@ SOURCES += \
     cross_mwm_router.cpp \
     cross_routing_context.cpp \
     directions_engine.cpp \
+    edge_estimator.cpp \
     features_road_graph.cpp \
-    fseg_index.cpp \
     geometry.cpp \
     index_graph.cpp \
+    joint.cpp \
+    joint_index.cpp \
     nearest_edge_finder.cpp \
     online_absent_fetcher.cpp \
     online_cross_fetcher.cpp \
@@ -40,6 +42,7 @@ SOURCES += \
     restriction_loader.cpp \
     road_graph.cpp \
     road_graph_router.cpp \
+    road_index.cpp \
     route.cpp \
     router.cpp \
     router_delegate.cpp \
@@ -69,12 +72,12 @@ HEADERS += \
     cross_mwm_router.hpp \
     cross_routing_context.hpp \
     directions_engine.hpp \
+    edge_estimator.hpp \
     features_road_graph.hpp \
-    fseg.hpp \
-    fseg_index.hpp \
     geometry.hpp \
     index_graph.hpp \
     joint.hpp \
+    joint_index.hpp \
     loaded_path_segment.hpp \
     nearest_edge_finder.hpp \
     online_absent_fetcher.hpp \
@@ -89,6 +92,8 @@ HEADERS += \
     restriction_loader.hpp \
     road_graph.hpp \
     road_graph_router.hpp \
+    road_index.hpp \
+    road_point.hpp \
     route.hpp \
     router.hpp \
     router_delegate.hpp \

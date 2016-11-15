@@ -83,7 +83,7 @@ namespace integration
     };
 
     auto carRouter = make_unique<CarRouter>(
-        index, countryFileGetter, CreateCarAStarBidirectionalRouter(index, countryFileGetter));
+        index, countryFileGetter, CreateCarAStarBidirectionalRouter(index));
     return carRouter;
   }
 

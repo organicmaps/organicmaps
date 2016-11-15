@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C5FEC701DDE19E50017688C /* routing_index_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C5FEC6E1DDE19E50017688C /* routing_index_generator.cpp */; };
+		0C5FEC711DDE19E50017688C /* routing_index_generator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0C5FEC6F1DDE19E50017688C /* routing_index_generator.hpp */; };
 		34F558791DBF4C7800A4FC11 /* booking_quality_check.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34F558771DBF4C7800A4FC11 /* booking_quality_check.cpp */; };
 		34F5587B1DBF4C8300A4FC11 /* feature_segments_checker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34F5587A1DBF4C8300A4FC11 /* feature_segments_checker.cpp */; };
 		34F558871DBF4C9600A4FC11 /* opentable_dataset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34F5587E1DBF4C9600A4FC11 /* opentable_dataset.cpp */; };
@@ -86,6 +88,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0C5FEC6E1DDE19E50017688C /* routing_index_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_index_generator.cpp; sourceTree = "<group>"; };
+		0C5FEC6F1DDE19E50017688C /* routing_index_generator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_index_generator.hpp; sourceTree = "<group>"; };
 		34AF87CF1DBE52DC00E5E7DC /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
 		34AF87D01DBE52DC00E5E7DC /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
 		34F558771DBF4C7800A4FC11 /* booking_quality_check.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = booking_quality_check.cpp; path = booking_quality_check/booking_quality_check.cpp; sourceTree = "<group>"; };
@@ -269,6 +273,8 @@
 				6753404D1A3F2A7400A0A8C3 /* polygonizer.hpp */,
 				6753404E1A3F2A7400A0A8C3 /* routing_generator.cpp */,
 				6753404F1A3F2A7400A0A8C3 /* routing_generator.hpp */,
+				0C5FEC6E1DDE19E50017688C /* routing_index_generator.cpp */,
+				0C5FEC6F1DDE19E50017688C /* routing_index_generator.hpp */,
 				675340501A3F2A7400A0A8C3 /* statistics.cpp */,
 				675340511A3F2A7400A0A8C3 /* statistics.hpp */,
 				675340521A3F2A7400A0A8C3 /* tesselator.cpp */,
@@ -331,6 +337,7 @@
 				34F5588B1DBF4C9600A4FC11 /* sponsored_dataset.hpp in Headers */,
 				6753405F1A3F2A7400A0A8C3 /* borders_loader.hpp in Headers */,
 				675340801A3F2A7400A0A8C3 /* polygonizer.hpp in Headers */,
+				0C5FEC711DDE19E50017688C /* routing_index_generator.hpp in Headers */,
 				675340941C5231BA002CF0D9 /* search_index_builder.hpp in Headers */,
 				3D51BC591D5E512500F1FA8D /* srtm_parser.hpp in Headers */,
 				677E2A181CAACC5F001DC42A /* towns_dumper.hpp in Headers */,
@@ -438,6 +445,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6753406C1A3F2A7400A0A8C3 /* feature_generator.cpp in Sources */,
+				0C5FEC701DDE19E50017688C /* routing_index_generator.cpp in Sources */,
 				3D51BC561D5E512500F1FA8D /* region_meta.cpp in Sources */,
 				3D51BC521D5E512500F1FA8D /* altitude_generator.cpp in Sources */,
 				3D51BC581D5E512500F1FA8D /* srtm_parser.cpp in Sources */,

@@ -4,5 +4,5 @@
 
 namespace routing
 {
-void BuildRoutingIndex(string const & dir, string const & country);
+bool BuildRoutingIndex(string const & filename);
 }  // namespace routing

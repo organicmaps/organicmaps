@@ -240,12 +240,14 @@ int main(int argc, char ** argv)
       routing::BuildRoadAltitudes(datFile, FLAGS_srtm_path);
 
     if (FLAGS_generate_routing)
-      routing::BuildRoutingIndex(path, country);
+      routing::BuildRoutingIndex(datFile);
 
     if (FLAGS_generate_restrictions)
+    {
       routing::BuildRoadRestrictions(
           datFile, genInfo.GetIntermediateFileName(genInfo.m_restrictions, "" /* extention */),
           genInfo.GetTargetFileName(country) + OSM2FEATURE_FILE_EXTENSION);
+    }
   }
 
   string const datFile = my::JoinFoldersToPath(path, FLAGS_output + DATA_FILE_EXTENSION);
