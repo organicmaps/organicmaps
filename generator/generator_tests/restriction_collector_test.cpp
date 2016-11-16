@@ -30,7 +30,8 @@ string const kRestrictionTestDir = "test-restrictions";
 
 UNIT_TEST(RestrictionTest_ValidCase)
 {
-  RestrictionCollector restrictionCollector("" /* restrictionPath */, "" /* osmIdsToFeatureIdsPath */);
+  RestrictionCollector restrictionCollector("" /* restrictionPath */,
+                                            "" /* osmIdsToFeatureIdsPath */);
   // Adding feature ids.
   restrictionCollector.AddFeatureId(30 /* featureId */, 3 /* osmId */);
   restrictionCollector.AddFeatureId(10 /* featureId */, 1 /* osmId */);
@@ -55,7 +56,8 @@ UNIT_TEST(RestrictionTest_ValidCase)
 
 UNIT_TEST(RestrictionTest_InvalidCase)
 {
-  RestrictionCollector restrictionCollector("" /* restrictionPath */, "" /* osmIdsToFeatureIdsPath */);
+  RestrictionCollector restrictionCollector("" /* restrictionPath */,
+                                            "" /* osmIdsToFeatureIdsPath */);
   restrictionCollector.AddFeatureId(0 /* featureId */, 0 /* osmId */);
   restrictionCollector.AddFeatureId(20 /* featureId */, 2 /* osmId */);
 
@@ -78,7 +80,8 @@ UNIT_TEST(RestrictionTest_ParseRestrictions)
   ScopedDir const scopedDir(kRestrictionTestDir);
   ScopedFile const scopedFile(kRestrictionPath, kRestrictionContent);
 
-  RestrictionCollector restrictionCollector("" /* restrictionPath */, "" /* osmIdsToFeatureIdsPath */);
+  RestrictionCollector restrictionCollector("" /* restrictionPath */,
+                                            "" /* osmIdsToFeatureIdsPath */);
 
   Platform const & platform = Platform();
 
@@ -107,8 +110,8 @@ UNIT_TEST(RestrictionTest_RestrictionCollectorWholeClassTest)
                                                30, 3,
                                                40, 4)";
   Platform const & platform = Platform();
-  string const osmIdsToFeatureIdsFullPath = my::JoinFoldersToPath(platform.WritableDir(),
-                                                                  osmIdsToFeatureIdsPath);
+  string const osmIdsToFeatureIdsFullPath =
+      my::JoinFoldersToPath(platform.WritableDir(), osmIdsToFeatureIdsPath);
   ReEncodeOsmIdsToFeatureIdsMapping(kOsmIdsToFeatureIdsContent, osmIdsToFeatureIdsFullPath);
   ScopedFile mappingScopedFile(osmIdsToFeatureIdsPath);
 

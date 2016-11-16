@@ -48,9 +48,10 @@ namespace feature
 #endif
 
   public:
-    Polygonizer(feature::GenerateInfo const & info) : m_info(info)
+    Polygonizer(feature::GenerateInfo const & info)
+      : m_info(info)
 #if PARALLEL_POLYGONIZER
-    , m_ThreadPoolSemaphore(m_ThreadPool.maxThreadCount() * 8)
+      , m_ThreadPoolSemaphore(m_ThreadPool.maxThreadCount() * 8)
 #endif
     {
 #if PARALLEL_POLYGONIZER
@@ -184,9 +185,7 @@ namespace feature
       PolygonizerTask(Polygonizer * pPolygonizer,
                       buffer_vector<borders::CountryPolygons const *, 32> const & countries,
                       FeatureBuilder1 const & fb)
-        : m_pPolygonizer(pPolygonizer)
-        , m_Countries(countries)
-        , m_fb(fb)
+        : m_pPolygonizer(pPolygonizer), m_Countries(countries), m_fb(fb)
       {
       }
 

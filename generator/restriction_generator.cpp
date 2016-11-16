@@ -17,8 +17,8 @@ namespace routing
 bool BuildRoadRestrictions(string const & mwmPath, string const & restrictionPath,
                            string const & osmIdsTofeatureIdsPath)
 {
-  LOG(LINFO,
-      ("BuildRoadRestrictions(", mwmPath, ", ", restrictionPath, ", ", osmIdsTofeatureIdsPath, ");"));
+  LOG(LINFO, ("BuildRoadRestrictions(", mwmPath, ", ", restrictionPath, ", ",
+              osmIdsTofeatureIdsPath, ");"));
   RestrictionCollector restrictionCollector(restrictionPath, osmIdsTofeatureIdsPath);
   if (!restrictionCollector.HasRestrictions() || !restrictionCollector.IsValid())
   {

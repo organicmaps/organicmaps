@@ -85,7 +85,7 @@ bool RestrictionCollector::ParseOsmIdToFeatureIdMapping(string const & osmIdsToF
     return false;
   }
 
-  osmIdsToFeatureIds.ForEach([this](gen::OsmID2FeatureID::ValueT const & p){
+  osmIdsToFeatureIds.ForEach([this](gen::OsmID2FeatureID::ValueT const & p) {
     AddFeatureId(p.second /* feature id */, p.first /* osm id */);
   });
 
