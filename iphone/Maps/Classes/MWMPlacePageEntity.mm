@@ -1,6 +1,5 @@
 #import "MWMPlacePageEntity.h"
 #import "MWMMapViewControlsManager.h"
-#import "MWMPlacePageViewManager.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 

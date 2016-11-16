@@ -1,6 +1,5 @@
 #import "MWMDirectionView.h"
 #import "MWMMapViewControlsManager.h"
-#import "MWMPlacePageViewManager.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 #import "UIFont+MapsMeFonts.h"
@@ -10,23 +9,21 @@ static CGFloat const kDirectionArrowSide = IPAD ? 260. : 160.;
 
 @interface MWMDirectionView ()
 
-@property (weak, nonatomic) MWMPlacePageViewManager * manager;
 @property (nonatomic) CGSize defaultSize;
 
 @end
 
 @implementation MWMDirectionView
 
-- (instancetype)initWithManager:(MWMPlacePageViewManager *)manager
+- (instancetype)init
 {
   self = [[[NSBundle mainBundle] loadNibNamed:kDirectionViewNibName owner:nil options:nil] firstObject];
-  [self setup:manager];
+  [self setup];
   return self;
 }
 
-- (void)setup:(MWMPlacePageViewManager *)manager
+- (void)setup
 {
-  self.manager = manager;
   self.directionArrow.size = CGSizeMake(kDirectionArrowSide, kDirectionArrowSide);
   self.directionArrow.image = [UIImage imageNamed:IPAD ? @"direction_big" : @"direction_mini"];
 

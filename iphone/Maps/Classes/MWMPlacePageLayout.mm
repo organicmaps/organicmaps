@@ -7,7 +7,6 @@
 #import "MWMPPPreviewLayoutHelper.h"
 #import "MWMBookmarkCell.h"
 #import "MWMOpeningHoursLayoutHelper.h"
-#import "MWMPlacePageBookmarkCell.h"
 #import "MWMPlacePageButtonCell.h"
 #import "MWMPlacePageInfoCell.h"
 #import "MWMPlacePageLayoutImpl.h"

@@ -1,3 +1,0 @@
-@interface MWMExtendedPlacePageView : SolidTouchView
-
-@end

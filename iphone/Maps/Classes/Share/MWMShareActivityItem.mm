@@ -1,5 +1,4 @@
 #import "MWMShareActivityItem.h"
-#import "MWMPlacePageEntity.h"
 #import "Macros.h"
 #import "Statistics.h"
 

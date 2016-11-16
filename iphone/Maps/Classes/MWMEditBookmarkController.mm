@@ -5,8 +5,6 @@
 #import "MWMButtonCell.h"
 #import "MWMNoteCell.h"
 #import "MWMPlacePageData.h"
-#import "MWMPlacePageEntity.h"
-#import "MWMPlacePageViewManager.h"
 #import "SelectSetVC.h"
 #import "UIImageView+Coloring.h"
 #import "UIViewController+Navigation.h"
@@ -53,25 +51,12 @@ enum RowInMetaInfo
 {
   [super viewDidLoad];
   auto data = self.data;
-  NSAssert(self.manager || data, @"Entity and data can't be nil both!");
-//  if (IPAD)
-//  {
-//    MWMPlacePageEntity * en = self.manager.entity;
-//    self.cachedDescription = en.bookmarkDescription;
-//    self.cachedTitle = en.bookmarkTitle;
-//    self.cachedCategory = en.bookmarkCategory;
-//    self.cachedColor = en.bookmarkColor;
-//    m_cachedBac = en.bac;
-//  }
-//  else
-//  {
-    self.cachedDescription = data.bookmarkDescription;
-    self.cachedTitle = data.externalTitle ? data.externalTitle : data.title;
-    self.cachedCategory = data.bookmarkCategory;
-    self.cachedColor = data.bookmarkColor;
-    m_cachedBac = data.bac;
-//  }
-
+  NSAssert(data, @"Entity and data can't be nil both!");
+  self.cachedDescription = data.bookmarkDescription;
+  self.cachedTitle = data.externalTitle ? data.externalTitle : data.title;
+  self.cachedCategory = data.bookmarkCategory;
+  self.cachedColor = data.bookmarkColor;
+  m_cachedBac = data.bac;
   [self configNavBar];
   [self registerCells];
 }
@@ -109,48 +94,26 @@ enum RowInMetaInfo
 - (void)onSave
 {
   [self.view endEditing:YES];
-//  if (IPAD)
-//  {
-//    MWMPlacePageEntity * en = self.manager.entity;
-//    en.bookmarkDescription = self.cachedDescription;
-//    en.bookmarkColor = self.cachedColor;
-//    en.bookmarkCategory = self.cachedCategory;
-//    en.bookmarkTitle = self.cachedTitle;
-//    en.bac = m_cachedBac;
-//    [en synchronize];
-//    [self.manager reloadBookmark];
-//  }
-//  else
-//  {
-    Framework & f = GetFramework();
-    BookmarkCategory * category = f.GetBmCategory(m_cachedBac.m_categoryIndex);
-    if (!category)
+  Framework & f = GetFramework();
+  BookmarkCategory * category = f.GetBmCategory(m_cachedBac.m_categoryIndex);
+  if (!category)
+    return;
+
+  {
+    BookmarkCategory::Guard guard(*category);
+    Bookmark * bookmark =
+        static_cast<Bookmark *>(guard.m_controller.GetUserMarkForEdit(m_cachedBac.m_bookmarkIndex));
+    if (!bookmark)
       return;
 
-    {
-      BookmarkCategory::Guard guard(*category);
-      Bookmark * bookmark =
-          static_cast<Bookmark *>(guard.m_controller.GetUserMarkForEdit(m_cachedBac.m_bookmarkIndex));
-      if (!bookmark)
-        return;
+    bookmark->SetType(self.cachedColor.UTF8String);
+    bookmark->SetDescription(self.cachedDescription.UTF8String);
+    bookmark->SetName(self.cachedTitle.UTF8String);
+  }
 
-      bookmark->SetType(self.cachedColor.UTF8String);
-      bookmark->SetDescription(self.cachedDescription.UTF8String);
-      bookmark->SetName(self.cachedTitle.UTF8String);
-    }
-
-    category->SaveToKMLFile();
-    f.UpdatePlacePageInfoForCurrentSelection();
-//  }
+  category->SaveToKMLFile();
+  f.UpdatePlacePageInfoForCurrentSelection();
   [self backTap];
-}
-
-- (void)backTap
-{
-//  if (IPAD)
-//    [self dismissViewControllerAnimated:YES completion:nil];
-//  else
-    [super backTap];
 }
 
 #pragma mark - UITableView
@@ -277,15 +240,8 @@ enum RowInMetaInfo
 
 - (void)cellSelect:(UITableViewCell *)cell
 {
-//  if (IPAD)
-//  {
-//    [self.manager removeBookmark];
-//  }
-//  else
-//  {
-    [self.data updateBookmarkStatus:NO];
-    GetFramework().UpdatePlacePageInfoForCurrentSelection();
-//  }
+  [self.data updateBookmarkStatus:NO];
+  GetFramework().UpdatePlacePageInfoForCurrentSelection();
   [self backTap];
 }
 

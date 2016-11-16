@@ -9,9 +9,7 @@
 #import "MWMButton.h"
 #import "MWMFrameworkListener.h"
 #import "MWMObjectsCategorySelectorController.h"
-#import "MWMPlacePageEntity.h"
 #import "MWMPlacePageManager.h"
-#import "MWMPlacePageViewManager.h"
 #import "MWMRoutePreview.h"
 #import "MWMRouter.h"
 #import "MWMSearchManager.h"
@@ -304,20 +302,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   if (IPAD)
     return;
   [self.sideButtons setBottomBound:frame.origin.y];
-}
-
-- (void)addPlacePageViews:(NSArray *)views
-{
-  UIView * ownerView = self.ownerController.view;
-  for (UIView * view in views)
-    [ownerView addSubview:view];
-  for (UIView * view in self.searchManager.topViews)
-    [ownerView bringSubviewToFront:view];
-  if (IPAD)
-  {
-    [ownerView bringSubviewToFront:self.menuController.view];
-    [ownerView bringSubviewToFront:self.navigationManager.routePreview];
-  }
 }
 
 #pragma mark - MWMNavigationDashboardManager

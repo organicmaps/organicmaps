@@ -221,7 +221,6 @@ using namespace place_page;
 
 - (void)assignOnlinePriceToLabel:(UILabel *)label
 {
-  // TODO(Vlad): Remove similar code from MWMPlacePageEntity.mm when new iPAD place page will be finished.
   NSAssert(self.isBooking, @"Online price must be assigned to booking object!");
   if (Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
     return;

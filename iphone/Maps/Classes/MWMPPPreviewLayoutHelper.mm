@@ -268,4 +268,11 @@ array<NSString *, 7> kPreviewCells = {{@"_MWMPPPTitle", @"_MWMPPPExternalTitle",
   return rect.origin.y + rect.size.height;
 }
 
+- (MWMDirectionView *)directionView
+{
+  if (!_directionView)
+    _directionView = [[MWMDirectionView alloc] init];
+  return _directionView;
+}
+
 @end

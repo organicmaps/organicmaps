@@ -2,7 +2,7 @@
 
 #include "Framework.h"
 
-@class MWMPlacePageEntity, MWMViewController;
+@class MWMViewController;
 
 @protocol MWMActionBarProtocol<NSObject>
 

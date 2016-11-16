@@ -1,10 +1,7 @@
 #import "MWMPlacePageActionBar.h"
 #import "Common.h"
 #import "MWMActionBarButton.h"
-#import "MWMBasePlacePageView.h"
-#import "MWMPlacePageEntity.h"
 #import "MWMPlacePageProtocol.h"
-#import "MWMPlacePageViewManager.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 
@@ -20,7 +17,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   vector<EButton> m_additionalButtons;
 }
 
-@property(weak, nonatomic) MWMPlacePageViewManager * placePageManager;
 @property(copy, nonatomic) IBOutletCollection(UIView) NSArray<UIView *> * buttons;
 @property(weak, nonatomic) IBOutlet UIImageView * separator;
 @property(nonatomic) BOOL isPrepareRouteMode;
@@ -45,23 +41,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.data = data;
   self.isPrepareRouteMode = MapsAppDelegate.theApp.routingPlaneMode != MWMRoutingPlaneModeNone;
   self.isBookmark = data.isBookmark;
-  [self configureButtons];
-  self.autoresizingMask = UIViewAutoresizingNone;
-}
-
-+ (MWMPlacePageActionBar *)actionBarForPlacePageManager:(MWMPlacePageViewManager *)placePageManager
-{
-  MWMPlacePageActionBar * bar =
-      [[NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil] firstObject];
-  [bar configureWithPlacePageManager:placePageManager];
-  return bar;
-}
-
-- (void)configureWithPlacePageManager:(MWMPlacePageViewManager *)placePageManager
-{
-  self.placePageManager = placePageManager;
-  self.isPrepareRouteMode = MapsAppDelegate.theApp.routingPlaneMode != MWMRoutingPlaneModeNone;
-  self.isBookmark = placePageManager.entity.isBookmark;
   [self configureButtons];
   self.autoresizingMask = UIViewAutoresizingNone;
 }
