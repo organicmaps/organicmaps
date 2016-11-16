@@ -3421,8 +3421,7 @@
 				978D4A281996C17300D72CA7 /* RichTextVC.mm */,
 				FAA4B13E13EC1C8C00BCAB63 /* DiskFreeSpace.h */,
 			);
-			name = Common;
-			path = ../Common;
+			path = Common;
 			sourceTree = SOURCE_ROOT;
 		};
 		FA36B8011540388B004560CC /* Bookmarks */ = {
