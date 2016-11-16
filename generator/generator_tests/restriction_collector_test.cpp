@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "generator/generator_tests_support/restriction_helpers.hpp"
+
 #include "generator/osm_id.hpp"
 #include "generator/restriction_collector.hpp"
 
@@ -18,6 +20,7 @@
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 
+using namespace generator;
 using namespace platform;
 using namespace platform::tests_support;
 
@@ -27,13 +30,14 @@ string const kRestrictionTestDir = "test-restrictions";
 
 UNIT_TEST(RestrictionTest_ValidCase)
 {
-  RestrictionCollector restrictionCollector("" /* restrictionPath */, "" /* featureIdToOsmIdsPath */);
+  RestrictionCollector restrictionCollector("" /* restrictionPath */,
+                                            "" /* osmIdsToFeatureIdsPath */);
   // Adding feature ids.
-  restrictionCollector.AddFeatureId(30 /* featureId */, {3} /* osmIds */);
-  restrictionCollector.AddFeatureId(10 /* featureId */, {1} /* osmIds */);
-  restrictionCollector.AddFeatureId(50 /* featureId */, {5} /* osmIds */);
-  restrictionCollector.AddFeatureId(70 /* featureId */, {7} /* osmIds */);
-  restrictionCollector.AddFeatureId(20 /* featureId */, {2} /* osmIds */);
+  restrictionCollector.AddFeatureId(30 /* featureId */, 3 /* osmId */);
+  restrictionCollector.AddFeatureId(10 /* featureId */, 1 /* osmId */);
+  restrictionCollector.AddFeatureId(50 /* featureId */, 5 /* osmId */);
+  restrictionCollector.AddFeatureId(70 /* featureId */, 7 /* osmId */);
+  restrictionCollector.AddFeatureId(20 /* featureId */, 2 /* osmId */);
 
   // Adding restrictions.
   TEST(restrictionCollector.AddRestriction(Restriction::Type::No, {1, 2} /* osmIds */), ());
@@ -52,9 +56,10 @@ UNIT_TEST(RestrictionTest_ValidCase)
 
 UNIT_TEST(RestrictionTest_InvalidCase)
 {
-  RestrictionCollector restrictionCollector("" /* restrictionPath */, "" /* featureIdToOsmIdsPath */);
-  restrictionCollector.AddFeatureId(0 /* featureId */, {0} /* osmIds */);
-  restrictionCollector.AddFeatureId(20 /* featureId */, {2} /* osmIds */);
+  RestrictionCollector restrictionCollector("" /* restrictionPath */,
+                                            "" /* osmIdsToFeatureIdsPath */);
+  restrictionCollector.AddFeatureId(0 /* featureId */, 0 /* osmId */);
+  restrictionCollector.AddFeatureId(20 /* featureId */, 2 /* osmId */);
 
   TEST(!restrictionCollector.AddRestriction(Restriction::Type::No, {0, 1} /* osmIds */), ());
 
@@ -75,7 +80,8 @@ UNIT_TEST(RestrictionTest_ParseRestrictions)
   ScopedDir const scopedDir(kRestrictionTestDir);
   ScopedFile const scopedFile(kRestrictionPath, kRestrictionContent);
 
-  RestrictionCollector restrictionCollector("" /* restrictionPath */, "" /* featureIdToOsmIdsPath */);
+  RestrictionCollector restrictionCollector("" /* restrictionPath */,
+                                            "" /* osmIdsToFeatureIdsPath */);
 
   Platform const & platform = Platform();
 
@@ -85,59 +91,32 @@ UNIT_TEST(RestrictionTest_ParseRestrictions)
   TEST(!restrictionCollector.HasRestrictions(), ());
 }
 
-UNIT_TEST(RestrictionTest_ParseFeatureId2OsmIdsMapping)
-{
-  string const kFeatureIdToOsmIdsName = "feature_id_to_osm_ids.csv";
-  string const kFeatureIdToOsmIdsPath =
-      my::JoinFoldersToPath(kRestrictionTestDir, kFeatureIdToOsmIdsName);
-  string const kFeatureIdToOsmIdsContent = R"(1, 10,
-                                              2, 20
-                                              779703, 5423239545,
-                                              3, 30)";
-
-  ScopedDir const scopedDir(kRestrictionTestDir);
-  ScopedFile const scopedFile(kFeatureIdToOsmIdsPath, kFeatureIdToOsmIdsContent);
-
-  RestrictionCollector restrictionCollector("" /* restrictionPath */, "" /* featureIdToOsmIdsPath */);
-
-  Platform const & platform = Platform();
-  restrictionCollector.ParseFeatureId2OsmIdsMapping(
-      my::JoinFoldersToPath(platform.WritableDir(), kFeatureIdToOsmIdsPath));
-
-  vector<pair<uint64_t, uint32_t>> const expectedOsmIds2FeatureId = {
-      {10, 1}, {20, 2}, {30, 3}, {5423239545, 779703}};
-  vector<pair<uint64_t, uint32_t>> osmIds2FeatureId(
-      restrictionCollector.m_osmIdToFeatureId.cbegin(),
-      restrictionCollector.m_osmIdToFeatureId.cend());
-  sort(osmIds2FeatureId.begin(), osmIds2FeatureId.end(),
-       my::LessBy(&pair<uint64_t, uint32_t>::first));
-  TEST_EQUAL(osmIds2FeatureId, expectedOsmIds2FeatureId, ());
-}
-
 UNIT_TEST(RestrictionTest_RestrictionCollectorWholeClassTest)
 {
+  ScopedDir scopedDir(kRestrictionTestDir);
+
   string const kRestrictionName = "restrictions_in_osm_ids.csv";
   string const kRestrictionPath = my::JoinFoldersToPath(kRestrictionTestDir, kRestrictionName);
   string const kRestrictionContent = R"(No, 10, 10,
                                         Only, 10, 20,
                                         Only, 30, 40,)";
-
-  string const kFeatureIdToOsmIdsName = "feature_id_to_osm_ids.csv";
-  string const kFeatureIdToOsmIdsPath =
-      my::JoinFoldersToPath(kRestrictionTestDir, kFeatureIdToOsmIdsName);
-  string const kFeatureIdToOsmIdsContent = R"(1, 10,
-                                              2, 20,
-                                              3, 30,
-                                              4, 40)";
-
-  ScopedDir scopedDir(kRestrictionTestDir);
   ScopedFile restrictionScopedFile(kRestrictionPath, kRestrictionContent);
-  ScopedFile mappingScopedFile(kFeatureIdToOsmIdsPath, kFeatureIdToOsmIdsContent);
 
+  string const kOsmIdsToFeatureIdsName = "osm_ids_to_feature_ids" OSM2FEATURE_FILE_EXTENSION;
+  string const osmIdsToFeatureIdsPath =
+      my::JoinFoldersToPath(kRestrictionTestDir, kOsmIdsToFeatureIdsName);
+  string const kOsmIdsToFeatureIdsContent = R"(10, 1,
+                                               20, 2,
+                                               30, 3,
+                                               40, 4)";
   Platform const & platform = Platform();
+  string const osmIdsToFeatureIdsFullPath =
+      my::JoinFoldersToPath(platform.WritableDir(), osmIdsToFeatureIdsPath);
+  ReEncodeOsmIdsToFeatureIdsMapping(kOsmIdsToFeatureIdsContent, osmIdsToFeatureIdsFullPath);
+  ScopedFile mappingScopedFile(osmIdsToFeatureIdsPath);
+
   RestrictionCollector restrictionCollector(
-      my::JoinFoldersToPath(platform.WritableDir(), kRestrictionPath),
-      my::JoinFoldersToPath(platform.WritableDir(), kFeatureIdToOsmIdsPath));
+      my::JoinFoldersToPath(platform.WritableDir(), kRestrictionPath), osmIdsToFeatureIdsFullPath);
   TEST(restrictionCollector.IsValid(), ());
 
   RestrictionVec const & restrictions = restrictionCollector.GetRestrictions();

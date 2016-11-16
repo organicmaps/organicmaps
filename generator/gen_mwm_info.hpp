@@ -4,13 +4,12 @@
 
 #include "base/assert.hpp"
 
-#include "std/utility.hpp"
 #include "std/algorithm.hpp"
-
+#include "std/utility.hpp"
+#include "std/vector.hpp"
 
 namespace gen
 {
-
 template <class T> class Accumulator
 {
 protected:
@@ -32,7 +31,7 @@ public:
   }
 };
 
-class OsmID2FeatureID : public Accumulator<pair<uint64_t, uint32_t>>
+class OsmID2FeatureID : public Accumulator<pair<uint64_t /* osm id */, uint32_t /* feature id */>>
 {
   typedef Accumulator<ValueT> BaseT;
 
@@ -62,6 +61,12 @@ public:
     else
       return 0;
   }
-};
 
-}
+  template <class Fn>
+  void ForEach(Fn && fn) const
+  {
+    for (auto const & v : m_data)
+      fn(v);
+  }
+};
+}  // namespace gen

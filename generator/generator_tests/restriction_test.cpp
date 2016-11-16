@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "generator/generator_tests_support/restriction_helpers.hpp"
 #include "generator/generator_tests_support/test_feature.hpp"
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
 
@@ -37,7 +38,7 @@ string const kTestDir = "restriction_generation_test";
 // Temporary mwm name for testing.
 string const kTestMwm = "test";
 string const kRestrictionFileName = "restrictions_in_osm_ids.csv";
-string const featureId2OsmIdsName = "feature_id_to_osm_ids.csv";
+string const kOsmIdsToFeatureIdsName = "osm_ids_to_feature_ids" OSM2FEATURE_FILE_EXTENSION;
 
 void BuildEmptyMwm(LocalCountryFile & country)
 {
@@ -47,7 +48,7 @@ void BuildEmptyMwm(LocalCountryFile & country)
 /// \brief Generates a restriction section, adds it to an empty mwm,
 /// loads the restriction section and test loaded restrictions.
 /// \param restrictionContent comma separated text with restrictions in osm id terms.
-/// \param mappingContent comma separated text with with mapping from feature ids to osm ids.
+/// \param mappingContent comma separated text with mapping from osm ids to feature ids.
 void TestRestrictionBuilding(string const & restrictionContent, string const & mappingContent)
 {
   Platform & platform = GetPlatform();
@@ -60,16 +61,18 @@ void TestRestrictionBuilding(string const & restrictionContent, string const & m
   ScopedFile const scopedMwm(mwmRelativePath);
   BuildEmptyMwm(country);
 
-  // Creating files with restrictions.
+  // Creating a file with restrictions.
   string const restrictionRelativePath = my::JoinFoldersToPath(kTestDir, kRestrictionFileName);
   ScopedFile const restrictionScopedFile(restrictionRelativePath, restrictionContent);
 
-  string const mappingRelativePath = my::JoinFoldersToPath(kTestDir, featureId2OsmIdsName);
-  ScopedFile const mappingScopedFile(mappingRelativePath, mappingContent);
+  // Creating osm ids to feature ids mapping.
+  string const mappingRelativePath = my::JoinFoldersToPath(kTestDir, kOsmIdsToFeatureIdsName);
+  ScopedFile const mappingScopedFile(mappingRelativePath);
+  string const mappingFullPath = my::JoinFoldersToPath(writableDir, mappingRelativePath);
+  ReEncodeOsmIdsToFeatureIdsMapping(mappingContent, mappingFullPath);
 
   // Adding restriction section to mwm.
   string const restrictionFullPath = my::JoinFoldersToPath(writableDir, restrictionRelativePath);
-  string const mappingFullPath = my::JoinFoldersToPath(writableDir, mappingRelativePath);
   string const mwmFullPath = my::JoinFoldersToPath(writableDir, mwmRelativePath);
   BuildRoadRestrictions(mwmFullPath, restrictionFullPath, mappingFullPath);
 
@@ -89,22 +92,22 @@ void TestRestrictionBuilding(string const & restrictionContent, string const & m
 UNIT_TEST(RestrictionGenerationTest_NoRestriction)
 {
   string const restrictionContent = "";
-  string const featureIdToOsmIdsContent = "";
-  TestRestrictionBuilding(restrictionContent, featureIdToOsmIdsContent);
+  string const osmIdsToFeatureIdsContent = "";
+  TestRestrictionBuilding(restrictionContent, osmIdsToFeatureIdsContent);
 }
 
 UNIT_TEST(RestrictionGenerationTest_ZeroId)
 {
   string const restrictionContent = R"(Only, 0, 0,)";
-  string const featureIdToOsmIdsContent = R"(0, 0,)";
-  TestRestrictionBuilding(restrictionContent, featureIdToOsmIdsContent);
+  string const osmIdsToFeatureIdsContent = R"(0, 0,)";
+  TestRestrictionBuilding(restrictionContent, osmIdsToFeatureIdsContent);
 }
 
 UNIT_TEST(RestrictionGenerationTest_OneRestriction)
 {
   string const restrictionContent = R"(No, 10, 10,)";
-  string const featureIdToOsmIdsContent = R"(1, 10,)";
-  TestRestrictionBuilding(restrictionContent, featureIdToOsmIdsContent);
+  string const osmIdsToFeatureIdsContent = R"(10, 1,)";
+  TestRestrictionBuilding(restrictionContent, osmIdsToFeatureIdsContent);
 }
 
 UNIT_TEST(RestrictionGenerationTest_ThreeRestrictions)
@@ -112,11 +115,11 @@ UNIT_TEST(RestrictionGenerationTest_ThreeRestrictions)
   string const restrictionContent = R"(No, 10, 10,
                                        Only, 10, 20
                                        Only, 30, 40)";
-  string const featureIdToOsmIdsContent = R"(1, 10,
-                                             2, 20
-                                             3, 30,
-                                             4, 40)";
-  TestRestrictionBuilding(restrictionContent, featureIdToOsmIdsContent);
+  string const osmIdsToFeatureIdsContent = R"(10, 1,
+                                              20, 2
+                                              30, 3,
+                                              40, 4)";
+  TestRestrictionBuilding(restrictionContent, osmIdsToFeatureIdsContent);
 }
 
 UNIT_TEST(RestrictionGenerationTest_SevenRestrictions)
@@ -128,11 +131,11 @@ UNIT_TEST(RestrictionGenerationTest_SevenRestrictions)
                                        No, 30, 30,
                                        No, 40, 40,
                                        Only, 30, 40,)";
-  string const featureIdToOsmIdsContent = R"(1, 10,
-                                             2, 20,
-                                             3, 30,
-                                             4, 40)";
-  TestRestrictionBuilding(restrictionContent, featureIdToOsmIdsContent);
+  string const osmIdsToFeatureIdsContent = R"(10, 1,
+                                              20, 2,
+                                              30, 3,
+                                              40, 4)";
+  TestRestrictionBuilding(restrictionContent, osmIdsToFeatureIdsContent);
 }
 
 UNIT_TEST(RestrictionGenerationTest_ThereAndMoreLinkRestrictions)
@@ -141,10 +144,10 @@ UNIT_TEST(RestrictionGenerationTest_ThereAndMoreLinkRestrictions)
                                        No, 20, 20,
                                        Only, 10, 20, 30, 40
                                        Only, 20, 30, 40)";
-  string const featureIdToOsmIdsContent = R"(1, 10,
-                                             2, 20,
-                                             3, 30,
-                                             4, 40)";
-  TestRestrictionBuilding(restrictionContent, featureIdToOsmIdsContent);
+  string const osmIdsToFeatureIdsContent = R"(10, 1,
+                                             20, 2,
+                                             30, 3,
+                                             40, 4)";
+  TestRestrictionBuilding(restrictionContent, osmIdsToFeatureIdsContent);
 }
 }  // namespace

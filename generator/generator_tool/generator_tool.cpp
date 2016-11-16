@@ -118,7 +118,6 @@ int main(int argc, char ** argv)
 
   genInfo.m_osmFileName = FLAGS_osm_file_name;
   genInfo.m_restrictions = FLAGS_restriction_name;
-  genInfo.m_featureIdToOsmIds = FLAGS_feature_ids_to_osm_ids_name;
   genInfo.m_failOnCoasts = FLAGS_fail_on_coasts;
   genInfo.m_preloadCache = FLAGS_preload_cache;
   genInfo.m_bookingDatafileName = FLAGS_booking_data;
@@ -163,7 +162,6 @@ int main(int argc, char ** argv)
     LOG(LINFO, ("Generating final data ..."));
 
     genInfo.m_restrictions = FLAGS_restriction_name;
-    genInfo.m_featureIdToOsmIds = FLAGS_feature_ids_to_osm_ids_name;
     genInfo.m_splitByPolygons = FLAGS_split_by_polygons;
     genInfo.m_createWorld = FLAGS_generate_world;
     genInfo.m_makeCoasts = FLAGS_make_coasts;
@@ -244,7 +242,7 @@ int main(int argc, char ** argv)
     {
       routing::BuildRoadRestrictions(
           datFile, genInfo.GetIntermediateFileName(genInfo.m_restrictions, "" /* extention */),
-          genInfo.GetIntermediateFileName(genInfo.m_featureIdToOsmIds, "" /* extention */));
+          genInfo.GetTargetFileName(country) + OSM2FEATURE_FILE_EXTENSION);
     }
   }
 

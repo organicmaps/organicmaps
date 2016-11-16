@@ -15,15 +15,15 @@
 namespace routing
 {
 bool BuildRoadRestrictions(string const & mwmPath, string const & restrictionPath,
-                           string const & featureIdToOsmIdsPath)
+                           string const & osmIdsTofeatureIdsPath)
 {
-  LOG(LINFO,
-      ("BuildRoadRestrictions(", mwmPath, ", ", restrictionPath, ", ", featureIdToOsmIdsPath, ");"));
-  RestrictionCollector restrictionCollector(restrictionPath, featureIdToOsmIdsPath);
+  LOG(LINFO, ("BuildRoadRestrictions(", mwmPath, ", ", restrictionPath, ", ",
+              osmIdsTofeatureIdsPath, ");"));
+  RestrictionCollector restrictionCollector(restrictionPath, osmIdsTofeatureIdsPath);
   if (!restrictionCollector.HasRestrictions() || !restrictionCollector.IsValid())
   {
     LOG(LWARNING, ("No valid restrictions for", mwmPath, "It's necessary to check that",
-                   restrictionPath, "and", featureIdToOsmIdsPath, "are available."));
+                   restrictionPath, "and", osmIdsTofeatureIdsPath, "are available."));
     return false;
   }
 
