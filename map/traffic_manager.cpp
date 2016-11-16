@@ -42,8 +42,19 @@ void TrafficManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
   m_drapeEngine = engine;
 }
 
+void TrafficManager::OnRecover()
+{
+  m_requestTimings.clear();
+  m_mwmIds.clear();
+
+  UpdateViewport(m_currentModelView);
+  UpdateMyPosition(m_currentPosition);
+}
+
 void TrafficManager::UpdateViewport(ScreenBase const & screen)
 {
+  m_currentModelView = screen;
+
   if (!m_isEnabled)
     return;
 
@@ -64,6 +75,8 @@ void TrafficManager::UpdateViewport(ScreenBase const & screen)
 
 void TrafficManager::UpdateMyPosition(MyPosition const & myPosition)
 {
+  m_currentPosition = myPosition;
+
   if (!m_isEnabled)
     return;
 

@@ -7,7 +7,6 @@
 #include "drape_frontend/tile_utils.hpp"
 
 #include "drape/attribute_provider.hpp"
-#include "drape/batcher.hpp"
 #include "drape/glsl_func.hpp"
 #include "drape/shader_def.hpp"
 #include "drape/texture_manager.hpp"
@@ -154,6 +153,18 @@ TrafficSegmentID TrafficHandle::GetSegmentId() const
   return m_segmentId;
 }
 
+void TrafficGenerator::Init()
+{
+  m_batchersPool = make_unique_dp<BatchersPool<TrafficBatcherKey, TrafficBatcherKeyComparator>>(
+        1, bind(&TrafficGenerator::FlushGeometry, this, _1, _2, _3));
+}
+
+void TrafficGenerator::ClearGLDependentResources()
+{
+  ClearCache();
+  m_batchersPool.reset();
+}
+
 void TrafficGenerator::AddSegment(TrafficSegmentID const & segmentId, m2::PolylineD const & polyline)
 {
   m_segments.insert(make_pair(segmentId, polyline));
@@ -163,6 +174,18 @@ void TrafficGenerator::ClearCache()
 {
   m_colorsCacheValid = false;
   m_segmentsCache.clear();
+}
+
+void TrafficGenerator::ClearCache(MwmSet::MwmId const & mwmId)
+{
+  auto it = m_segmentsCache.begin();
+  while (it != m_segmentsCache.end())
+  {
+    if (it->m_mwmId == mwmId)
+      it = m_segmentsCache.erase(it);
+    else
+      ++it;
+  }
 }
 
 TrafficSegmentsColoring TrafficGenerator::GetSegmentsToUpdate(TrafficSegmentsColoring const & trafficColoring) const
@@ -176,9 +199,17 @@ TrafficSegmentsColoring TrafficGenerator::GetSegmentsToUpdate(TrafficSegmentsCol
   return result;
 }
 
+void TrafficGenerator::FlushGeometry(TrafficBatcherKey const & key, dp::GLState const & state, drape_ptr<dp::RenderBucket> && buffer)
+{
+  TrafficRenderData renderData(state);
+  renderData.m_bucket = move(buffer);
+  renderData.m_mwmId = key.m_mwmId;
+  renderData.m_tileKey = key.m_tileKey;
+  m_flushRenderDataFn(move(renderData));
+}
+
 void TrafficGenerator::GetTrafficGeom(ref_ptr<dp::TextureManager> textures,
-                                      TrafficSegmentsColoring const & trafficColoring,
-                                      vector<TrafficRenderData> & data)
+                                      TrafficSegmentsColoring const & trafficColoring)
 {
   FillColorsCache(textures);
 
@@ -188,7 +219,6 @@ void TrafficGenerator::GetTrafficGeom(ref_ptr<dp::TextureManager> textures,
   state.SetMaskTexture(textures->GetTrafficArrowTexture());
 
   int const kZoomLevel = 10;
-  uint32_t const kBatchSize = 5000;
 
   using TSegIter = TSegmentCollection::iterator;
   map<TileKey, list<pair<TSegIter, traffic::SpeedGroup>>> segmentsByTiles;
@@ -211,18 +241,16 @@ void TrafficGenerator::GetTrafficGeom(ref_ptr<dp::TextureManager> textures,
   for (auto const & s : segmentsByTiles)
   {
     TileKey const & tileKey = s.first;
-    dp::Batcher batcher(kBatchSize, kBatchSize);
-    dp::SessionGuard guard(batcher, [&data, &tileKey](dp::GLState const & state, drape_ptr<dp::RenderBucket> && b)
-    {
-      TrafficRenderData bucket(state);
-      bucket.m_bucket = move(b);
-      bucket.m_tileKey = tileKey;
-      data.emplace_back(move(bucket));
-    });
 
     for (auto const & segmentPair : s.second)
     {
       TSegIter it = segmentPair.first;
+
+      TrafficBatcherKey bk(it->first.m_mwmId, tileKey);
+
+      m_batchersPool->ReserveBatcher(bk);
+      ref_ptr<dp::Batcher> batcher = m_batchersPool->GetBatcher(bk);
+
       ASSERT(m_colorsCacheValid, ());
       dp::TextureManager::ColorRegion const & colorRegion = m_colorsCache[static_cast<size_t>(segmentPair.second)];
       m2::PolylineD const & polyline = it->second;
@@ -241,8 +269,11 @@ void TrafficGenerator::GetTrafficGeom(ref_ptr<dp::TextureManager> textures,
       dp::AttributeProvider provider(2 /* stream count */, staticGeometry.size());
       provider.InitStream(0 /* stream index */, GetTrafficStaticBindingInfo(), make_ref(staticGeometry.data()));
       provider.InitStream(1 /* stream index */, GetTrafficDynamicBindingInfo(), make_ref(dynamicGeometry.data()));
-      batcher.InsertTriangleList(state, make_ref(&provider), move(handle));
+      batcher->InsertTriangleList(state, make_ref(&provider), move(handle));
     }
+
+    for (auto const & segmentPair : s.second)
+      m_batchersPool->ReleaseBatcher(TrafficBatcherKey(segmentPair.first->first.m_mwmId, tileKey));
   }
 
   GLFunctions::glFlush();

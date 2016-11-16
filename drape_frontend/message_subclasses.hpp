@@ -999,6 +999,8 @@ public:
   {}
 
   Type GetType() const override { return Message::SetTrafficTexCoords; }
+  bool IsGLContextDependent() const override { return true; }
+
   TrafficTexCoords && AcceptTexCoords() { return move(m_texCoords); }
 
 private:
@@ -1013,6 +1015,8 @@ public:
   {}
 
   Type GetType() const override { return Message::UpdateTraffic; }
+  bool IsGLContextDependent() const override { return true; }
+
   TrafficSegmentsColoring const & GetSegmentsColoring() const { return m_segmentsColoring; }
 
 private:
@@ -1022,15 +1026,31 @@ private:
 class FlushTrafficDataMessage : public Message
 {
 public:
-  explicit FlushTrafficDataMessage(vector<TrafficRenderData> && trafficData)
+  explicit FlushTrafficDataMessage(TrafficRenderData && trafficData)
     : m_trafficData(move(trafficData))
   {}
 
   Type GetType() const override { return Message::FlushTrafficData; }
-  vector<TrafficRenderData> && AcceptTrafficData() { return move(m_trafficData); }
+  bool IsGLContextDependent() const override { return true; }
+
+  TrafficRenderData && AcceptTrafficData() { return move(m_trafficData); }
 
 private:
-  vector<TrafficRenderData> m_trafficData;
+  TrafficRenderData m_trafficData;
+};
+
+class ClearTrafficDataMessage : public Message
+{
+public:
+  explicit ClearTrafficDataMessage(MwmSet::MwmId const & mwmId)
+    : m_mwmId(mwmId)
+  {}
+
+  Type GetType() const override { return Message::ClearTrafficData; }
+  MwmSet::MwmId const & GetMwmId() { return m_mwmId; }
+
+private:
+  MwmSet::MwmId m_mwmId;
 };
 
 class DrapeApiAddLinesMessage : public Message

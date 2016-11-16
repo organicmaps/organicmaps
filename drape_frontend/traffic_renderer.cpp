@@ -60,24 +60,18 @@ float CalculateHalfWidth(ScreenBase const & screen, bool left)
 } // namespace
 
 void TrafficRenderer::AddRenderData(ref_ptr<dp::GpuProgramManager> mng,
-                                    vector<TrafficRenderData> && renderData)
+                                    TrafficRenderData && renderData)
 {
-  if (renderData.empty())
-    return;
+  m_renderData.emplace_back(move(renderData));
 
-  size_t const startIndex = m_renderData.size();
-  m_renderData.reserve(m_renderData.size() + renderData.size());
-  move(renderData.begin(), renderData.end(), std::back_inserter(m_renderData));
-  for (size_t i = startIndex; i < m_renderData.size(); i++)
+  ref_ptr<dp::GpuProgram> program = mng->GetProgram(m_renderData.back().m_state.GetProgramIndex());
+  program->Bind();
+  m_renderData.back().m_bucket->GetBuffer()->Build(program);
+
+  for (size_t j = 0; j < m_renderData.back().m_bucket->GetOverlayHandlesCount(); j++)
   {
-    ref_ptr<dp::GpuProgram> program = mng->GetProgram(m_renderData[i].m_state.GetProgramIndex());
-    program->Bind();
-    m_renderData[i].m_bucket->GetBuffer()->Build(program);
-    for (size_t j = 0; j < m_renderData[i].m_bucket->GetOverlayHandlesCount(); j++)
-    {
-      TrafficHandle * handle = static_cast<TrafficHandle *>(m_renderData[i].m_bucket->GetOverlayHandle(j).get());
-      m_handles.insert(make_pair(handle->GetSegmentId(), handle));
-    }
+    TrafficHandle * handle = static_cast<TrafficHandle *>(m_renderData.back().m_bucket->GetOverlayHandle(j).get());
+    m_handles.insert(make_pair(handle->GetSegmentId(), handle));
   }
 }
 
@@ -129,10 +123,27 @@ void TrafficRenderer::SetTexCoords(TrafficTexCoords && texCoords)
   m_texCoords = move(texCoords);
 }
 
-void TrafficRenderer::Clear()
+void TrafficRenderer::ClearGLDependentResources()
 {
   m_renderData.clear();
   m_handles.clear();
+  m_texCoords.clear();
+}
+
+void TrafficRenderer::Clear(MwmSet::MwmId const & mwmId)
+{
+  for (size_t i = 0; i < m_renderData.size();)
+  {
+    if (m_renderData[i].m_mwmId == mwmId)
+    {
+      swap(m_renderData[i], m_renderData.back());
+      m_renderData.pop_back();
+    }
+    else
+    {
+      ++i;
+    }
+  }
 }
 
 } // namespace df

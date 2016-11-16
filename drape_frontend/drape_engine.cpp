@@ -555,7 +555,9 @@ void DrapeEngine::UpdateTraffic(TrafficSegmentsColoring const & segmentsColoring
 
 void DrapeEngine::ClearTrafficCache(MwmSet::MwmId const & mwmId)
 {
-  // TODO(@rokuz): implement
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<ClearTrafficDataMessage>(mwmId),
+                                  MessagePriority::Normal);
 }
 
 void DrapeEngine::SetFontScaleFactor(double scaleFactor)

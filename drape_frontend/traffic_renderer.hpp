@@ -21,7 +21,7 @@ public:
   TrafficRenderer() = default;
 
   void AddRenderData(ref_ptr<dp::GpuProgramManager> mng,
-                     vector<TrafficRenderData> && renderData);
+                     TrafficRenderData && renderData);
 
   void SetTexCoords(TrafficTexCoords && texCoords);
 
@@ -31,7 +31,8 @@ public:
                      ref_ptr<dp::GpuProgramManager> mng,
                      dp::UniformValuesStorage const & commonUniforms);
 
-  void Clear();
+  void ClearGLDependentResources();
+  void Clear(MwmSet::MwmId const & mwmId);
 
 private:
   vector<TrafficRenderData> m_renderData;

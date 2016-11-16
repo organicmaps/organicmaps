@@ -1681,7 +1681,7 @@ void Framework::UpdateDrapeEngine(int width, int height)
 
     m_drapeApi.Invalidate();
 
-    //TODO: update traffic data
+    m_trafficManager.OnRecover();
   }
 }
 

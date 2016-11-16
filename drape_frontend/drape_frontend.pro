@@ -43,7 +43,6 @@ SOURCES += \
     arrow3d.cpp \
     backend_renderer.cpp \
     base_renderer.cpp \
-    batchers_pool.cpp \
     batch_merge_helper.cpp \
     circle_shape.cpp \
     color_constants.cpp \
