@@ -117,6 +117,7 @@ HEADERS += \
     point_to_int64.hpp \
     postcodes_matcher.hpp \   # it's in indexer due to editor wich is in indexer and depends on postcodes_marcher
     rank_table.hpp \
+    routing_section.hpp \
     scale_index.hpp \
     scale_index_builder.hpp \
     scales.hpp \

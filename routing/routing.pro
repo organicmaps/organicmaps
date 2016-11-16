@@ -13,6 +13,7 @@ INCLUDEPATH += $$ROOT_DIR/3party/jansson/src \
                $$ROOT_DIR/3party/osrm/osrm-backend/third_party
 
 SOURCES += \
+    astar_router.cpp \
     async_router.cpp \
     base/followed_polyline.cpp \
     bicycle_directions.cpp \
@@ -24,6 +25,9 @@ SOURCES += \
     cross_routing_context.cpp \
     directions_engine.cpp \
     features_road_graph.cpp \
+    fseg_index.cpp \
+    geometry.cpp \
+    index_graph.cpp \
     nearest_edge_finder.cpp \
     online_absent_fetcher.cpp \
     online_cross_fetcher.cpp \
@@ -53,6 +57,7 @@ SOURCES += \
 
 
 HEADERS += \
+    astar_router.hpp \
     async_router.hpp \
     base/astar_algorithm.hpp \
     base/followed_polyline.hpp \
@@ -65,6 +70,11 @@ HEADERS += \
     cross_routing_context.hpp \
     directions_engine.hpp \
     features_road_graph.hpp \
+    fseg.hpp \
+    fseg_index.hpp \
+    geometry.hpp \
+    index_graph.hpp \
+    joint.hpp \
     loaded_path_segment.hpp \
     nearest_edge_finder.hpp \
     online_absent_fetcher.hpp \

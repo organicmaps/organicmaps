@@ -1,5 +1,6 @@
 #pragma once
 
+#include "routing/astar_router.hpp"
 #include "routing/osrm_data_facade.hpp"
 #include "routing/osrm_engine.hpp"
 #include "routing/route.hpp"
@@ -34,7 +35,7 @@ public:
   typedef vector<double> GeomTurnCandidateT;
 
   CarRouter(Index & index, TCountryFileFn const & countryFileFn,
-            unique_ptr<IRouter> roadGraphRouter);
+            unique_ptr<AStarRouter> localRouter);
 
   virtual string GetName() const override;
 
@@ -114,6 +115,6 @@ private:
 
   RoutingIndexManager m_indexManager;
 
-  unique_ptr<IRouter> m_router;
+  unique_ptr<AStarRouter> m_router;
 };
 }  // namespace routing

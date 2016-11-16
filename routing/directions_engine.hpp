@@ -9,7 +9,6 @@
 
 namespace routing
 {
-
 class IDirectionsEngine
 {
 public:
@@ -17,8 +16,7 @@ public:
 
   virtual void Generate(IRoadGraph const & graph, vector<Junction> const & path,
                         Route::TTimes & times, Route::TTurns & turns,
-                        vector<Junction> & routeGeometry,
-                        my::Cancellable const & cancellable) = 0;
+                        vector<Junction> & routeGeometry, my::Cancellable const & cancellable) = 0;
 
 protected:
   /// \brief constructs route based on |graph| and |path|. Fills |routeEdges| with the route.
@@ -31,4 +29,6 @@ protected:
                       Route::TTimes & times) const;
 };
 
+void ReconstructRoute(IDirectionsEngine * engine, IRoadGraph const & graph,
+                      my::Cancellable const & cancellable, vector<Junction> & path, Route & route);
 }  // namespace routing

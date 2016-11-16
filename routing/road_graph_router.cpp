@@ -1,5 +1,6 @@
 #include "routing/road_graph_router.hpp"
 
+#include "routing/astar_router.hpp"
 #include "routing/bicycle_directions.hpp"
 #include "routing/bicycle_model.hpp"
 #include "routing/car_model.hpp"
@@ -225,7 +226,7 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
     ASSERT_EQUAL(result.path.front(), startPos, ());
     ASSERT_EQUAL(result.path.back(), finalPos, ());
     ASSERT_GREATER(result.distance, 0., ());
-    ReconstructRoute(move(result.path), route, delegate);
+    ReconstructRoute(m_directionsEngine.get(), *m_roadGraph, delegate, result.path, route);
   }
 
   m_roadGraph->ResetFakes();
@@ -244,39 +245,6 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   }
   ASSERT(false, ("Unexpected IRoutingAlgorithm::Result code:", resultCode));
   return IRouter::RouteNotFound;
-}
-
-void RoadGraphRouter::ReconstructRoute(vector<Junction> && path, Route & route,
-                                       my::Cancellable const & cancellable) const
-{
-  CHECK(!path.empty(), ("Can't reconstruct route from an empty list of positions."));
-
-  // By some reason there're two adjacent positions on a road with
-  // the same end-points. This could happen, for example, when
-  // direction on a road was changed.  But it doesn't matter since
-  // this code reconstructs only geometry of a route.
-  path.erase(unique(path.begin(), path.end()), path.end());
-  if (path.size() == 1)
-    path.emplace_back(path.back());
-
-  Route::TTimes times;
-  Route::TTurns turnsDir;
-  vector<Junction> junctions;
-  // @TODO(bykoianko) streetNames is not filled in Generate(). It should be done.
-  Route::TStreets streetNames;
-  if (m_directionsEngine)
-    m_directionsEngine->Generate(*m_roadGraph, path, times, turnsDir, junctions, cancellable);
-
-  vector<m2::PointD> routeGeometry;
-  JunctionsToPoints(junctions, routeGeometry);
-  feature::TAltitudes altitudes;
-  JunctionsToAltitudes(junctions, altitudes);
-
-  route.SetGeometry(routeGeometry.begin(), routeGeometry.end());
-  route.SetSectionTimes(move(times));
-  route.SetTurnInstructions(move(turnsDir));
-  route.SetStreetNames(move(streetNames));
-  route.SetAltitudes(move(altitudes));
 }
 
 unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index, TCountryFileFn const & countryFileFn)
@@ -309,20 +277,6 @@ unique_ptr<IRouter> CreateBicycleAStarBidirectionalRouter(Index & index, TCountr
   unique_ptr<IRouter> router(new RoadGraphRouter(
       "astar-bidirectional-bicycle", index, countryFileFn, IRoadGraph::Mode::ObeyOnewayTag,
       move(vehicleModelFactory), move(algorithm), move(directionsEngine)));
-  return router;
-}
-
-unique_ptr<IRouter> CreateCarAStarBidirectionalRouter(Index & index,
-                                                      TCountryFileFn const & countryFileFn)
-{
-  unique_ptr<VehicleModelFactory> vehicleModelFactory = make_unique<CarModelFactory>();
-  unique_ptr<IRoutingAlgorithm> algorithm = make_unique<AStarBidirectionalRoutingAlgorithm>();
-  // @TODO Bicycle turn generation engine is used now. It's ok for the time being.
-  // But later a special car turn generation engine should be implemented.
-  unique_ptr<IDirectionsEngine> directionsEngine = make_unique<BicycleDirectionsEngine>(index);
-  unique_ptr<IRouter> router = make_unique<RoadGraphRouter>(
-      "astar-bidirectional-car", index, countryFileFn, IRoadGraph::Mode::ObeyOnewayTag,
-      move(vehicleModelFactory), move(algorithm), move(directionsEngine));
   return router;
 }
 }  // namespace routing

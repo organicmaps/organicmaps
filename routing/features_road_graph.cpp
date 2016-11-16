@@ -47,8 +47,8 @@ FeaturesRoadGraph::Value::Value(MwmSet::MwmHandle handle) : m_mwmHandle(move(han
 }
 
 FeaturesRoadGraph::CrossCountryVehicleModel::CrossCountryVehicleModel(
-    unique_ptr<VehicleModelFactory> vehicleModelFactory)
-  : m_vehicleModelFactory(move(vehicleModelFactory))
+    shared_ptr<VehicleModelFactory> vehicleModelFactory)
+  : m_vehicleModelFactory(vehicleModelFactory)
   , m_maxSpeedKMPH(m_vehicleModelFactory->GetVehicleModel()->GetMaxSpeed())
 {
 }
@@ -108,8 +108,8 @@ void FeaturesRoadGraph::RoadInfoCache::Clear()
   m_cache.clear();
 }
 FeaturesRoadGraph::FeaturesRoadGraph(Index const & index, IRoadGraph::Mode mode,
-                                     unique_ptr<VehicleModelFactory> vehicleModelFactory)
-  : m_index(index), m_mode(mode), m_vehicleModel(move(vehicleModelFactory))
+                                     shared_ptr<VehicleModelFactory> vehicleModelFactory)
+  : m_index(index), m_mode(mode), m_vehicleModel(vehicleModelFactory)
 {
 }
 

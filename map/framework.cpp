@@ -8,6 +8,7 @@
 #include "defines.hpp"
 #include "private.h"
 
+#include "routing/astar_router.hpp"
 #include "routing/car_router.hpp"
 #include "routing/online_absent_fetcher.hpp"
 #include "routing/road_graph_router.hpp"
