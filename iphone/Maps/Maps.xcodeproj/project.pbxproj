@@ -4707,6 +4707,7 @@
 					"-lpugixml",
 					"-loauthcpp",
 					"-leditor",
+					"-ltraffic",
 				);
 			};
 			name = Simulator;
@@ -4791,6 +4792,7 @@
 					"-lpugixml",
 					"-loauthcpp",
 					"-leditor",
+					"-ltraffic",
 				);
 			};
 			name = Debug;
@@ -4877,6 +4879,7 @@
 					"-lpugixml",
 					"-loauthcpp",
 					"-leditor",
+					"-ltraffic",
 				);
 			};
 			name = AdHoc;
@@ -4963,6 +4966,7 @@
 					"-lpugixml",
 					"-loauthcpp",
 					"-leditor",
+					"-ltraffic",
 				);
 			};
 			name = "Production Full";
@@ -5050,6 +5054,7 @@
 					"-lpugixml",
 					"-loauthcpp",
 					"-leditor",
+					"-ltraffic",
 				);
 			};
 			name = Release;
@@ -5138,6 +5143,7 @@
 					"-lpugixml",
 					"-loauthcpp",
 					"-leditor",
+					"-ltraffic",
 				);
 			};
 			name = "Simulator Release";
