@@ -7,6 +7,8 @@
 #include "storage/storage.hpp"
 
 #include "geometry/mercator.hpp"
+#include "geometry/point2d.hpp"
+#include "geometry/rect2d.hpp"
 
 #include "platform/mwm_version.hpp"
 #include "platform/platform.hpp"
@@ -14,6 +16,7 @@
 #include "base/logging.hpp"
 
 #include "std/unique_ptr.hpp"
+#include "std/vector.hpp"
 
 
 using namespace storage;
@@ -43,6 +46,29 @@ UNIT_TEST(CountryInfoGetter_GetByPoint_Smoke)
 
   getter->GetRegionInfo(MercatorBounds::FromLatLon(34.6509, 135.5018), info);
   TEST_EQUAL(info.m_name, "Japan, Kinki", ());
+}
+
+UNIT_TEST(CountryInfoGetter_GetRegionsCountryIdByRect_Smoke)
+{
+  auto const getter = CreateCountryInfoGetter();
+
+  m2::PointD const p = MercatorBounds::FromLatLon(53.9022651, 27.5618818);
+
+  // Inside mwm.
+  m2::PointD const halfSize = m2::PointD(0.1, 0.1);
+  auto countries = getter->GetRegionsCountryIdByRect(m2::RectD(p - halfSize, p + halfSize));
+  TEST_EQUAL(countries, vector<storage::TCountryId> { "Belarus" }, ());
+
+  // Several countries.
+  m2::PointD const halfSize2 = m2::PointD(5.0, 5.0);
+  auto countries2 = getter->GetRegionsCountryIdByRect(m2::RectD(p - halfSize2, p + halfSize2));
+  auto expected = vector<storage::TCountryId> { "Belarus", "Latvia", "Lithuania", "Poland",
+                                                "Russia_Central", "Russia_Northwestern", "Ukraine" };
+  TEST_EQUAL(countries2, expected, ());
+
+  // No one found.
+  auto countries3 = getter->GetRegionsCountryIdByRect(m2::RectD(-halfSize, halfSize));
+  TEST_EQUAL(countries3, vector<storage::TCountryId>{}, ());
 }
 
 UNIT_TEST(CountryInfoGetter_ValidName_Smoke)

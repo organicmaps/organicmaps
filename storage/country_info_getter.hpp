@@ -36,6 +36,10 @@ public:
   // string.
   TCountryId GetRegionCountryId(m2::PointD const & pt) const;
 
+  // Returns vector of countries file names without an extension for
+  // countries belong to |rect|.
+  vector<TCountryId> GetRegionsCountryIdByRect(m2::RectD const & rect) const;
+
   // Returns a list of country ids by a |pt| in mercator.
   // |closestCoutryIds| is filled with country ids of mwm which covers |pt| or close to it.
   // |closestCoutryIds| is not filled with country world.mwm country id and with custom mwm.
@@ -96,6 +100,9 @@ protected:
   // Returns true when |pt| belongs to a country identified by |id|.
   virtual bool IsBelongToRegionImpl(size_t id, m2::PointD const & pt) const = 0;
 
+  // Returns true when |rect| intersects a country identified by |id|.
+  virtual bool IsIntersectedByRegionImpl(size_t id, m2::RectD const & rect) const = 0;
+
   // Returns true when the distance from |pt| to country identified by |id| less then |distance|.
   virtual bool IsCloseEnough(size_t id, m2::PointD const & pt, double distance) = 0;
 
@@ -144,6 +151,7 @@ protected:
   // CountryInfoGetter overrides:
   void ClearCachesImpl() const override;
   bool IsBelongToRegionImpl(size_t id, m2::PointD const & pt) const override;
+  bool IsIntersectedByRegionImpl(size_t id, m2::RectD const & rect) const override;
   bool IsCloseEnough(size_t id, m2::PointD const & pt, double distance) override;
 
   template <typename TFn>
@@ -172,6 +180,7 @@ protected:
   // CountryInfoGetter overrides:
   void ClearCachesImpl() const override;
   bool IsBelongToRegionImpl(size_t id, m2::PointD const & pt) const override;
+  bool IsIntersectedByRegionImpl(size_t id, m2::RectD const & rect) const override;
   bool IsCloseEnough(size_t id, m2::PointD const & pt, double distance) override;
 };
 }  // namespace storage
