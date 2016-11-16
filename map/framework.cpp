@@ -728,6 +728,11 @@ void Framework::FillBookmarkInfo(Bookmark const & bmk, BookmarkAndCategory const
   info.m_bookmarkDescription = data.GetDescription();
 }
 
+void Framework::FillPoiInfo(m2::PointD const & pt, place_page::Info & info) const
+{
+  FillPointInfo(pt, string(), info);
+}
+
 void Framework::FillFeatureInfo(FeatureID const & fid, place_page::Info & info) const
 {
   if (!fid.IsValid())
@@ -2106,10 +2111,13 @@ void Framework::UpdateMinBuildingsTapZoom()
                               feature::GetDrawableScaleRange(classif().GetTypeByPath({"building"})).first);
 }
 
-FeatureID Framework::FindBuildingAtPoint(m2::PointD const & mercator) const
+FeatureID Framework::FindBuildingAtPoint(m2::PointD const & mercator, int drawScale /*= -1*/) const
 {
   FeatureID featureId;
-  if (GetDrawScale() >= m_minBuildingsTapZoom)
+  bool matchZoom = drawScale < 0
+      ? GetDrawScale() >= m_minBuildingsTapZoom
+      : drawScale >= m_minBuildingsTapZoom;
+  if (matchZoom)
   {
     constexpr int kScale = scales::GetUpperScale();
     constexpr double kSelectRectWidthInMeters = 1.1;
@@ -2941,7 +2949,8 @@ bool Framework::CreateMapObject(m2::PointD const & mercator, uint32_t const feat
   return osm::Editor::Instance().CreatePoint(featureType, mercator, mwmId, emo);
 }
 
-bool Framework::GetEditableMapObject(FeatureID const & fid, osm::EditableMapObject & emo) const
+bool Framework::GetEditableMapObject(FeatureID const & fid, osm::EditableMapObject & emo,
+                                     int drawScale /*= -1*/) const
 {
   if (!fid.IsValid())
     return false;
@@ -2965,7 +2974,7 @@ bool Framework::GetEditableMapObject(FeatureID const & fid, osm::EditableMapObje
   if (!ftypes::IsBuildingChecker::Instance()(ft) &&
       (emo.GetHouseNumber().empty() || emo.GetStreet().m_defaultName.empty()))
   {
-    SetHostingBuildingAddress(FindBuildingAtPoint(feature::GetCenter(ft)),
+    SetHostingBuildingAddress(FindBuildingAtPoint(feature::GetCenter(ft), drawScale),
                               index, coder, emo);
   }
 

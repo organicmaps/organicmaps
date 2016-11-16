@@ -140,7 +140,7 @@ public final class Editor
    * That method should be called, when user opens editor from place page, so that information in editor
    * could refresh.
    */
-  public static native void nativeStartEdit();
+  public static native void nativeStartEdit(int drawScale);
   /**
    * @return true if feature was saved. False if some error occurred (eg. no space)
    */
