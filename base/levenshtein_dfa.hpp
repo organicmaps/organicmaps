@@ -3,7 +3,7 @@
 #include "base/string_utils.hpp"
 
 #include "std/cstdint.hpp"
-#include "std/unordered_set.hpp"
+#include "std/vector.hpp"
 
 namespace strings
 {
@@ -83,6 +83,8 @@ public:
     LevenshteinDFA const & m_dfa;
   };
 
+  LevenshteinDFA(UniString const & s, size_t prefixCharsToKeep, uint8_t maxErrors);
+  LevenshteinDFA(string const & s, size_t prefixCharsToKeep, uint8_t maxErrors);
   LevenshteinDFA(UniString const & s, uint8_t maxErrors);
   LevenshteinDFA(string const & s, uint8_t maxErrors);
 
@@ -101,7 +103,7 @@ private:
 
   bool IsAccepting(Position const & p) const;
   bool IsAccepting(State const & s) const;
-  inline bool IsAccepting(size_t s) const { return m_accepting.count(s) != 0; }
+  inline bool IsAccepting(size_t s) const { return m_accepting[s]; }
 
   inline bool IsRejecting(State const & s) const { return s.m_positions.empty(); }
   inline bool IsRejecting(size_t s) const { return s == kRejectingState; }
@@ -114,7 +116,7 @@ private:
   vector<UniChar> m_alphabet;
 
   vector<vector<size_t>> m_transitions;
-  unordered_set<size_t> m_accepting;
+  vector<bool> m_accepting;
 };
 
 string DebugPrint(LevenshteinDFA::Position const & p);

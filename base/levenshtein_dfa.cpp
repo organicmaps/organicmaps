@@ -21,16 +21,18 @@ public:
   {
   }
 
-  void Move(LevenshteinDFA::State const & s, UniChar c, LevenshteinDFA::State & t)
+  void Move(LevenshteinDFA::State const & s, size_t prefixCharsToKeep, UniChar c,
+            LevenshteinDFA::State & t)
   {
     t.Clear();
     for (auto const & p : s.m_positions)
-      GetMoves(p, c, t);
+      GetMoves(p, prefixCharsToKeep, c, t);
     t.Normalize();
   }
 
 private:
-  void GetMoves(LevenshteinDFA::Position const & p, UniChar c, LevenshteinDFA::State & t)
+  void GetMoves(LevenshteinDFA::Position const & p, size_t prefixCharsToKeep, UniChar c,
+                LevenshteinDFA::State & t)
   {
     auto & ps = t.m_positions;
 
@@ -41,6 +43,9 @@ private:
     }
 
     if (p.m_numErrors == m_maxErrors)
+      return;
+
+    if (p.m_offset < prefixCharsToKeep)
       return;
 
     ps.emplace_back(p.m_offset, p.m_numErrors + 1);
@@ -150,7 +155,7 @@ void LevenshteinDFA::State::Normalize()
 
 // LevenshteinDFA ----------------------------------------------------------------------------------
 // static
-LevenshteinDFA::LevenshteinDFA(UniString const & s, uint8_t maxErrors)
+LevenshteinDFA::LevenshteinDFA(UniString const & s, size_t prefixCharsToKeep, uint8_t maxErrors)
   : m_size(s.size()), m_maxErrors(maxErrors)
 {
   m_alphabet.assign(s.begin(), s.end());
@@ -175,6 +180,7 @@ LevenshteinDFA::LevenshteinDFA(UniString const & s, uint8_t maxErrors)
     states.emplace(state);
     visited[state] = id;
     m_transitions.emplace_back(m_alphabet.size());
+    m_accepting.push_back(false);
   };
 
   pushState(State::MakeStart(), kStartingState);
@@ -193,12 +199,12 @@ LevenshteinDFA::LevenshteinDFA(UniString const & s, uint8_t maxErrors)
     ASSERT_LESS(id, m_transitions.size(), ());
 
     if (IsAccepting(curr))
-      m_accepting.insert(id);
+      m_accepting[id] = true;
 
     for (size_t i = 0; i < m_alphabet.size(); ++i)
     {
       State next;
-      table.Move(curr, m_alphabet[i], next);
+      table.Move(curr, prefixCharsToKeep, m_alphabet[i], next);
 
       size_t nid;
 
@@ -218,8 +224,18 @@ LevenshteinDFA::LevenshteinDFA(UniString const & s, uint8_t maxErrors)
   }
 }
 
+LevenshteinDFA::LevenshteinDFA(string const & s, size_t prefixCharsToKeep, uint8_t maxErrors)
+  : LevenshteinDFA(MakeUniString(s), prefixCharsToKeep, maxErrors)
+{
+}
+
+LevenshteinDFA::LevenshteinDFA(UniString const & s, uint8_t maxErrors)
+  : LevenshteinDFA(s, 0 /* prefixCharsToKeep */, maxErrors)
+{
+}
+
 LevenshteinDFA::LevenshteinDFA(string const & s, uint8_t maxErrors)
-  : LevenshteinDFA(MakeUniString(s), maxErrors)
+  : LevenshteinDFA(s, 0 /* prefixCharsToKeep */, maxErrors)
 {
 }
 

@@ -10,6 +10,7 @@
 #include "search/processor.hpp"
 #include "search/retrieval.hpp"
 #include "search/token_slice.hpp"
+#include "search/utils.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature_decl.hpp"
@@ -53,6 +54,8 @@
 #include <gperftools/profiler.h>
 #endif
 
+using namespace strings;
+
 namespace search
 {
 namespace
@@ -71,7 +74,7 @@ size_t const kMaxNumLocalities = LocalityScorer::kDefaultReadLimit;
 size_t constexpr kPivotRectsCacheSize = 10;
 size_t constexpr kLocalityRectsCacheSize = 10;
 
-strings::UniString const kUniSpace(strings::MakeUniString(" "));
+UniString const kUniSpace(MakeUniString(" "));
 
 struct ScopedMarkTokens
 {
@@ -171,7 +174,7 @@ private:
 };
 
 void JoinQueryTokens(QueryParams const & params, size_t curToken, size_t endToken,
-                     strings::UniString const & sep, strings::UniString & res)
+                     UniString const & sep, UniString & res)
 {
   ASSERT_LESS_OR_EQUAL(curToken, endToken, ());
   for (size_t i = curToken; i < endToken; ++i)
@@ -219,15 +222,15 @@ MwmSet::MwmHandle FindWorld(Index const & index, vector<shared_ptr<MwmInfo>> con
   return handle;
 }
 
-strings::UniString AsciiToUniString(char const * s) { return strings::UniString(s, s + strlen(s)); }
+UniString AsciiToUniString(char const * s) { return UniString(s, s + strlen(s)); }
 
-bool IsStopWord(strings::UniString const & s)
+bool IsStopWord(UniString const & s)
 {
   /// @todo Get all common used stop words and factor out this array into
   /// search_string_utils.cpp module for example.
   static char const * arr[] = {"a", "de", "da", "la"};
 
-  static set<strings::UniString> const kStopWords(
+  static set<UniString> const kStopWords(
       make_transform_iterator(arr, &AsciiToUniString),
       make_transform_iterator(arr + ARRAY_SIZE(arr), &AsciiToUniString));
 
@@ -331,6 +334,18 @@ size_t OrderCountries(m2::RectD const & pivot, vector<shared_ptr<MwmInfo>> & inf
   auto const sep = stable_partition(infos.begin(), infos.end(), intersects);
   return distance(infos.begin(), sep);
 }
+
+size_t GetMaxErrorsForToken(UniString const & token)
+{
+  bool const digitsOnly = all_of(token.begin(), token.end(), isdigit);
+  if (digitsOnly)
+    return 0;
+  if (token.size() < 4)
+    return 0;
+  if (token.size() < 8)
+    return 1;
+  return 2;
+}
 }  // namespace
 
 // Geocoder::Params --------------------------------------------------------------------------------
@@ -370,15 +385,18 @@ void Geocoder::SetParams(Params const & params)
     for (auto & v : m_params.m_tokens)
       my::EraseIf(v, &IsStopWord);
 
-    auto & v = m_params.m_tokens;
-    my::EraseIf(v, mem_fn(&Params::TSynonymsVector::empty));
+    for (size_t i = 0; i < m_params.GetNumTokens();)
+    {
+      if (m_params.m_tokens[i].empty())
+        m_params.RemoveToken(i);
+      else
+        ++i;
+    }
 
     // If all tokens are stop words - give up.
-    if (m_params.m_tokens.empty())
+    if (m_params.GetNumTokens() == 0)
       m_params = params;
   }
-
-  m_retrievalParams = m_params;
 
   // Remove all category synonyms for streets, as they're extracted
   // individually.
@@ -388,15 +406,48 @@ void Geocoder::SetParams(Params const & params)
     ASSERT(!synonyms.empty(), ());
 
     if (IsStreetSynonym(synonyms.front()))
+      m_params.m_typeIndices[i].clear();
+  }
+
+  m_tokenRequests.resize(m_params.m_tokens.size());
+  for (size_t i = 0; i < m_params.m_tokens.size(); ++i)
+  {
+    auto & request = m_tokenRequests[i];
+    request.Clear();
+    for (auto const & name : m_params.m_tokens[i])
     {
-      auto b = synonyms.begin();
-      auto e = synonyms.end();
-      synonyms.erase(remove_if(b + 1, e,
-                               [this](strings::UniString const & synonym) {
-                                 return m_streetsCache.HasCategory(synonym);
-                               }),
-                     e);
+      // Here and below, we use LevenshteinDFAs for fuzzy
+      // matching. But due to performance reasons, we assume that the
+      // first letter is always correct.
+      if (!IsHashtagged(name))
+        request.m_names.emplace_back(name, 1 /* prefixCharsToKeep */, GetMaxErrorsForToken(name));
+      else
+        request.m_names.emplace_back(name, 0 /* maxErrors */);
     }
+    for (auto const & index : m_params.m_typeIndices[i])
+      request.m_categories.emplace_back(FeatureTypeToString(index));
+    request.m_langs = m_params.m_langs;
+  }
+
+  if (m_params.LastTokenIsPrefix())
+  {
+    auto & request = m_prefixTokenRequest;
+    request.Clear();
+    for (auto const & name : m_params.m_prefixTokens)
+    {
+      if (!IsHashtagged(name))
+      {
+        request.m_names.emplace_back(
+            LevenshteinDFA(name, 1 /* prefixCharsToKeep */, GetMaxErrorsForToken(name)));
+      }
+      else
+      {
+        request.m_names.emplace_back(LevenshteinDFA(name, 0 /* maxErrors */));
+      }
+    }
+    for (auto const & index : m_params.m_typeIndices.back())
+      request.m_categories.emplace_back(FeatureTypeToString(index));
+    request.m_langs = m_params.m_langs;
   }
 
   LOG(LDEBUG, ("Tokens =", m_params.m_tokens));
@@ -447,6 +498,11 @@ void Geocoder::GoInViewport()
 
 void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
 {
+#if defined(USE_GOOGLE_PROFILER) && defined(OMIM_OS_LINUX)
+  ProfilerStart("/tmp/geocoder.prof");
+  MY_SCOPE_GUARD(profilerStop, []() { ProfilerStop(); });
+#endif
+
   try
   {
     // Tries to find world and fill localities table.
@@ -565,29 +621,6 @@ void Geocoder::ClearCaches()
   m_postcodes.Clear();
 }
 
-void Geocoder::PrepareRetrievalParams(size_t curToken, size_t endToken)
-{
-  ASSERT_LESS(curToken, endToken, ());
-  ASSERT_LESS_OR_EQUAL(endToken, m_params.GetNumTokens(), ());
-
-  m_retrievalParams.m_tokens.clear();
-  m_retrievalParams.m_prefixTokens.clear();
-  m_retrievalParams.m_types.clear();
-
-  // TODO (@y): possibly it's not cheap to copy vectors of strings.
-  // Profile it, and in case of serious performance loss, refactor
-  // QueryParams to support subsets of tokens.
-  for (size_t i = curToken; i < endToken; ++i)
-  {
-    if (i < m_params.m_tokens.size())
-      m_retrievalParams.m_tokens.push_back(m_params.m_tokens[i]);
-    else
-      m_retrievalParams.m_prefixTokens = m_params.m_prefixTokens;
-
-    m_retrievalParams.m_types.push_back(m_params.m_types[i]);
-  }
-}
-
 void Geocoder::InitBaseContext(BaseContext & ctx)
 {
   ctx.m_usedTokens.assign(m_params.GetNumTokens(), false);
@@ -595,8 +628,10 @@ void Geocoder::InitBaseContext(BaseContext & ctx)
   ctx.m_features.resize(ctx.m_numTokens);
   for (size_t i = 0; i < ctx.m_features.size(); ++i)
   {
-    PrepareRetrievalParams(i, i + 1);
-    ctx.m_features[i] = RetrieveAddressFeatures(*m_context, m_cancellable, m_retrievalParams);
+    if (m_params.IsPrefixToken(i))
+      ctx.m_features[i] = RetrieveAddressFeatures(*m_context, m_cancellable, m_prefixTokenRequest);
+    else
+      ctx.m_features[i] = RetrieveAddressFeatures(*m_context, m_cancellable, m_tokenRequests[i]);
   }
   ctx.m_hotelsFilter = m_hotelsFilter.MakeScopedFilter(*m_context, m_params.m_hotelsFilter);
 }

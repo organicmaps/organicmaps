@@ -1,8 +1,8 @@
 #pragma once
 #include "search/common.hpp"
-#include "search/processor.hpp"
 #include "search/query_params.hpp"
 #include "search/search_index_values.hpp"
+#include "search/search_trie.hpp"
 #include "search/token_slice.hpp"
 
 #include "indexer/trie.hpp"
@@ -209,7 +209,15 @@ struct SearchTrieRequest
 {
   inline bool IsLangExist(int8_t lang) const { return m_langs.count(lang) != 0; }
 
-  vector<DFA> m_dfas;
+  inline void Clear()
+  {
+    m_names.clear();
+    m_categories.clear();
+    m_langs.clear();
+  }
+
+  vector<DFA> m_names;
+  vector<strings::UniStringDFA> m_categories;
   unordered_set<int8_t> m_langs;
 };
 
@@ -238,7 +246,7 @@ bool MatchCategoriesInTrie(SearchTrieRequest<DFA> const & request,
   ASSERT_GREATER_OR_EQUAL(edge.size(), 1, ());
 
   auto const catRoot = trieRoot.GoToEdge(langIx);
-  MatchInTrie(request.m_dfas, TrieRootPrefix<Value>(*catRoot, edge), toDo);
+  MatchInTrie(request.m_categories, TrieRootPrefix<Value>(*catRoot, edge), toDo);
 
   return true;
 }
@@ -279,10 +287,12 @@ void MatchFeaturesInTrie(SearchTrieRequest<DFA> const & request,
   bool const categoriesMatched = MatchCategoriesInTrie(request, trieRoot, categoriesHolder);
 
   impl::OffsetIntersector<Filter, Value> intersector(filter);
+
   ForEachLangPrefix(request, trieRoot,
-                    [&request, &intersector](TrieRootPrefix<Value> & langRoot, int8_t lang) {
-                      MatchInTrie(request.m_dfas, langRoot, intersector);
+                    [&request, &intersector](TrieRootPrefix<Value> & langRoot, int8_t /* lang */) {
+                      MatchInTrie(request.m_names, langRoot, intersector);
                     });
+
   if (categoriesMatched)
     categoriesHolder.ForEachValue(intersector);
 

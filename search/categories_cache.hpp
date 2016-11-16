@@ -27,11 +27,6 @@ public:
 
   CBV Get(MwmContext const & context);
 
-  inline bool HasCategory(strings::UniString const & category) const
-  {
-    return m_categories.HasKey(category);
-  }
-
   inline void Clear() { m_cache.clear(); }
 
 private:

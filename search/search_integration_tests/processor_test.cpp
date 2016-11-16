@@ -750,5 +750,41 @@ UNIT_CLASS_TEST(ProcessorTest, HotelsFiltering)
     TEST(MatchResults(rules, request.Results()), ());
   }
 }
+
+UNIT_CLASS_TEST(ProcessorTest, FuzzyMatch)
+{
+  string const countryName = "Wonderland";
+  TestCountry country(m2::PointD(10, 10), countryName, "en");
+
+  TestCity city(m2::PointD(0, 0), "Москва", "ru", 100 /* rank */);
+  TestStreet street(vector<m2::PointD>{m2::PointD(-0.001, -0.001), m2::PointD(0.001, 0.001)},
+                    "Ленинградский", "ru");
+  TestPOI bar(m2::PointD(0, 0), "Черчилль", "ru");
+  bar.SetTypes({{"amenity", "pub"}});
+
+  BuildWorld([&](TestMwmBuilder & builder) {
+    builder.Add(country);
+    builder.Add(city);
+  });
+
+  auto id = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(street);
+    builder.Add(bar);
+  });
+
+  SetViewport(m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)));
+  {
+    TRules rules = {ExactMatch(id, bar)};
+    TEST(ResultsMatch("москва черчилль", "ru", rules), ());
+    TEST(ResultsMatch("москва ленинградский черчилль", "ru", rules), ());
+    TEST(ResultsMatch("москва ленинградский паб черчилль", "ru", rules), ());
+
+    TEST(ResultsMatch("масква лининградский черчиль", "ru", rules), ());
+    TEST(ResultsMatch("масква ленинргадский черчиль", "ru", rules), ());
+
+    // Too many errors, can't do anything.
+    TEST(ResultsMatch("масква ленинргадский чирчиль", "ru", TRules{}), ());
+  }
+}
 }  // namespace
 }  // namespace search

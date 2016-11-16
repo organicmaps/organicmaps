@@ -24,6 +24,8 @@ struct QueryParams
     return m_prefixTokens.empty() ? m_tokens.size() : m_tokens.size() + 1;
   }
 
+  inline bool LastTokenIsPrefix() const { return !m_prefixTokens.empty(); }
+
   inline bool IsEmpty() const { return GetNumTokens() == 0; }
   inline bool IsLangExist(int8_t lang) const { return m_langs.count(lang) != 0; }
 
@@ -38,9 +40,11 @@ struct QueryParams
   // synonyms.
   bool IsNumberTokens(size_t start, size_t end) const;
 
+  void RemoveToken(size_t i);
+
   vector<TSynonymsVector> m_tokens;
   TSynonymsVector m_prefixTokens;
-  vector<vector<uint32_t>> m_types;
+  vector<vector<uint32_t>> m_typeIndices;
 
   TLangsSet m_langs;
   int m_scale = scales::GetUpperScale();

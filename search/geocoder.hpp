@@ -3,6 +3,7 @@
 #include "search/cancel_exception.hpp"
 #include "search/categories_cache.hpp"
 #include "search/cbv.hpp"
+#include "search/feature_offset_match.hpp"
 #include "search/features_layer.hpp"
 #include "search/features_layer_path_finder.hpp"
 #include "search/geocoder_context.hpp"
@@ -28,6 +29,8 @@
 
 #include "base/buffer_vector.hpp"
 #include "base/cancellable.hpp"
+#include "base/dfa_helpers.hpp"
+#include "base/levenshtein_dfa.hpp"
 #include "base/macros.hpp"
 #include "base/string_utils.hpp"
 
@@ -183,10 +186,6 @@ private:
 
   QueryParams::TSynonymsVector const & GetTokens(size_t i) const;
 
-  // Fills |m_retrievalParams| with [curToken, endToken) subsequence
-  // of search query tokens.
-  void PrepareRetrievalParams(size_t curToken, size_t endToken);
-
   // Creates a cache of posting lists corresponding to features in m_context
   // for each token and saves it to m_addressFeatures.
   void InitBaseContext(BaseContext & ctx);
@@ -324,7 +323,8 @@ private:
   FeaturesLayerPathFinder m_finder;
 
   // Search query params prepared for retrieval.
-  QueryParams m_retrievalParams;
+  vector<SearchTrieRequest<strings::LevenshteinDFA>> m_tokenRequests;
+  SearchTrieRequest<strings::PrefixDFAModifier<strings::LevenshteinDFA>> m_prefixTokenRequest;
 
   // Pointer to the most nested region filled during geocoding.
   Region const * m_lastMatchedRegion;
