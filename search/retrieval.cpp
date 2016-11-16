@@ -24,8 +24,12 @@
 #include "coding/compressed_bit_vector.hpp"
 #include "coding/reader_wrapper.hpp"
 
+#include "base/dfa_helpers.hpp"
+#include "base/uni_string_dfa.hpp"
+
 #include "std/algorithm.hpp"
 
+using namespace strings;
 using osm::Editor;
 
 namespace search
@@ -182,7 +186,7 @@ bool MatchFeatureByNameAndType(FeatureType const & ft, QueryParams const & param
 bool MatchFeatureByPostcode(FeatureType const & ft, TokenSlice const & slice)
 {
   string const postcode = ft.GetMetadata().Get(feature::Metadata::FMD_POSTCODE);
-  vector<strings::UniString> tokens;
+  vector<UniString> tokens;
   NormalizeAndTokenizeString(postcode, tokens, Delimiters());
   if (slice.Size() > tokens.size())
     return false;
@@ -226,12 +230,46 @@ unique_ptr<coding::CompressedBitVector> RetrieveAddressFeaturesImpl(
   vector<uint64_t> features;
   FeaturesCollector collector(cancellable, features);
 
-  WithSearchTrieRoot<TValue>(context.m_value, [&](TrieRoot<TValue> const & root) {
-    MatchFeaturesInTrie(
-        params, root,
-        [&holder](uint32_t featureIndex) { return !holder.ModifiedOrDeleted(featureIndex); },
-        collector);
-  });
+  // TODO (@y): this code highly depends on the fact that the function
+  // is called on a single-token query params. In any case, this code
+  // must be fixed ASAP, as this is the wrong place for DFA creation.
+  ASSERT_EQUAL(1, params.GetNumTokens(), ());
+
+  for (size_t i = 0; i < params.GetNumTokens(); ++i)
+  {
+    if (params.IsPrefixToken(i))
+    {
+      using DFA = PrefixDFAModifier<UniStringDFA>;
+
+      SearchTrieRequest<DFA> request;
+      for (auto const & sym : params.GetTokens(i))
+        request.m_dfas.emplace_back(UniStringDFA(sym));
+      request.m_langs = params.m_langs;
+
+      WithSearchTrieRoot<TValue>(context.m_value, [&](TrieRoot<TValue> const & root) {
+        MatchFeaturesInTrie(
+            request, root,
+            [&holder](uint32_t featureIndex) { return !holder.ModifiedOrDeleted(featureIndex); },
+            collector);
+      });
+    }
+    else
+    {
+      using DFA = UniStringDFA;
+
+      SearchTrieRequest<DFA> request;
+      for (auto const & sym : params.GetTokens(i))
+        request.m_dfas.emplace_back(sym);
+      request.m_langs = params.m_langs;
+
+      WithSearchTrieRoot<TValue>(context.m_value, [&](TrieRoot<TValue> const & root) {
+        MatchFeaturesInTrie(
+            request, root,
+            [&holder](uint32_t featureIndex) { return !holder.ModifiedOrDeleted(featureIndex); },
+            collector);
+      });
+    }
+  }
   holder.ForEachModifiedOrCreated([&](FeatureType & ft, uint64_t index) {
     if (MatchFeatureByNameAndType(ft, params))
       features.push_back(index);

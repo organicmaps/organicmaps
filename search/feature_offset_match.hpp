@@ -7,12 +7,16 @@
 
 #include "indexer/trie.hpp"
 
+#include "base/dfa_helpers.hpp"
+#include "base/levenshtein_dfa.hpp"
 #include "base/mutex.hpp"
 #include "base/scope_guard.hpp"
 #include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
+#include "base/uni_string_dfa.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/queue.hpp"
 #include "std/target_os.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/unordered_set.hpp"
@@ -23,90 +27,10 @@ namespace search
 {
 namespace impl
 {
-template <class TSrcIter, class TCompIter>
-size_t CalcEqualLength(TSrcIter b, TSrcIter e, TCompIter bC, TCompIter eC)
-{
-  size_t count = 0;
-  while ((b != e) && (bC != eC) && (*b++ == *bC++))
-    ++count;
-  return count;
-}
-
-template <typename TValue>
-inline shared_ptr<trie::Iterator<ValueList<TValue>>> MoveTrieIteratorToString(
-    trie::Iterator<ValueList<TValue>> const & trieRoot, strings::UniString const & queryS,
-    size_t & symbolsMatched, bool & bFullEdgeMatched)
-{
-  symbolsMatched = 0;
-  bFullEdgeMatched = false;
-
-  auto it = trieRoot.Clone();
-
-  size_t const szQuery = queryS.size();
-
-  while (symbolsMatched < szQuery)
-  {
-    bool bMatched = false;
-
-    ASSERT_LESS(it->m_edge.size(), std::numeric_limits<uint32_t>::max(), ());
-    uint32_t const edgeCount = static_cast<uint32_t>(it->m_edge.size());
-
-    for (uint32_t i = 0; i < edgeCount; ++i)
-    {
-      size_t const szEdge = it->m_edge[i].m_label.size();
-
-      size_t const count =
-          CalcEqualLength(it->m_edge[i].m_label.begin(), it->m_edge[i].m_label.end(),
-                          queryS.begin() + symbolsMatched, queryS.end());
-
-      if ((count > 0) && (count == szEdge || szQuery == count + symbolsMatched))
-      {
-        it = it->GoToEdge(i);
-
-        bFullEdgeMatched = (count == szEdge);
-        symbolsMatched += count;
-        bMatched = true;
-        break;
-      }
-    }
-
-    if (!bMatched)
-      return NULL;
-  }
-  return it->Clone();
-}
-
 namespace
 {
-bool CheckMatchString(strings::UniChar const * rootPrefix, size_t rootPrefixSize,
-                      strings::UniString & s, bool prefix)
-{
-  if (rootPrefixSize == 0)
-    return true;
-
-  if (prefix && s.size() < rootPrefixSize &&
-      StartsWith(rootPrefix, rootPrefix + rootPrefixSize, s.begin(), s.end()))
-  {
-    // In the case of prefix match query may be a prefix of the root
-    // label string.  In this case we continue processing as if the
-    // string is equal to root label.
-    s.clear();
-    return true;
-  }
-  if (s.size() >= rootPrefixSize &&
-      StartsWith(s.begin(), s.end(), rootPrefix, rootPrefix + rootPrefixSize))
-  {
-    // In both (prefix and not-prefix) cases when string has root label
-    // as a prefix, we continue processing.
-    s = strings::UniString(s.begin() + rootPrefixSize, s.end());
-    return true;
-  }
-
-  return false;
-}
-
-template <typename TValue>
-bool FindLangIndex(trie::Iterator<ValueList<TValue>> const & trieRoot, uint8_t lang, uint32_t & langIx)
+template <typename Value>
+bool FindLangIndex(trie::Iterator<ValueList<Value>> const & trieRoot, uint8_t lang, uint32_t & langIx)
 {
   ASSERT_LESS(trieRoot.m_edge.size(), numeric_limits<uint32_t>::max(), ());
 
@@ -125,95 +49,82 @@ bool FindLangIndex(trie::Iterator<ValueList<TValue>> const & trieRoot, uint8_t l
 }
 }  // namespace
 
-template <typename TValue, typename TF>
-void FullMatchInTrie(trie::Iterator<ValueList<TValue>> const & trieRoot,
-                     strings::UniChar const * rootPrefix, size_t rootPrefixSize,
-                     strings::UniString s, TF & f)
+template <typename Value, typename DFA, typename ToDo>
+bool MatchInTrie(trie::Iterator<ValueList<Value>> const & trieRoot,
+                 strings::UniChar const * rootPrefix, size_t rootPrefixSize, DFA const & dfa,
+                 ToDo && toDo)
 {
-  if (!CheckMatchString(rootPrefix, rootPrefixSize, s, false /* prefix */))
-    return;
+  using TrieDFAIt = shared_ptr<trie::Iterator<ValueList<Value>>>;
+  using DFAIt = typename DFA::Iterator;
+  using State = pair<TrieDFAIt, DFAIt>;
 
-  size_t symbolsMatched = 0;
-  bool bFullEdgeMatched;
-  auto const it = MoveTrieIteratorToString(trieRoot, s, symbolsMatched, bFullEdgeMatched);
+  queue<State> q;
 
-  if (!it || (!s.empty() && !bFullEdgeMatched) || symbolsMatched != s.size())
-    return;
-
-#if defined(OMIM_OS_IPHONE) && !defined(__clang__)
-  // Here is the dummy mutex to avoid mysterious iOS GCC-LLVM bug here.
-  static threads::Mutex dummyM;
-  threads::MutexGuard dummyG(dummyM);
-#endif
-
-  ASSERT_EQUAL(symbolsMatched, s.size(), ());
-
-  it->m_valueList.ForEach(f);
-}
-
-template <typename TValue, typename TF>
-void PrefixMatchInTrie(trie::Iterator<ValueList<TValue>> const & trieRoot,
-                       strings::UniChar const * rootPrefix, size_t rootPrefixSize,
-                       strings::UniString s, TF & f)
-{
-  if (!CheckMatchString(rootPrefix, rootPrefixSize, s, true /* prefix */))
-    return;
-
-  using TIterator = trie::Iterator<ValueList<TValue>>;
-
-  using TQueue = vector<shared_ptr<TIterator>>;
-  TQueue trieQueue;
   {
-    size_t symbolsMatched = 0;
-    bool bFullEdgeMatched;
-    auto const it = MoveTrieIteratorToString(trieRoot, s, symbolsMatched, bFullEdgeMatched);
-
-    UNUSED_VALUE(symbolsMatched);
-    UNUSED_VALUE(bFullEdgeMatched);
-
-    if (!it)
-      return;
-
-    trieQueue.push_back(it);
+    auto it = dfa.Begin();
+    DFAMove(it, rootPrefix, rootPrefix + rootPrefixSize);
+    if (it.Rejects())
+      return false;
+    q.emplace(trieRoot.Clone(), it);
   }
 
-  while (!trieQueue.empty())
-  {
-    auto const it = trieQueue.back();
-    trieQueue.pop_back();
+  bool found = false;
 
-    it->m_valueList.ForEach(f);
-
-    for (size_t i = 0; i < it->m_edge.size(); ++i)
-      trieQueue.push_back(it->GoToEdge(i));
-  }
-}
-
-template <typename TFilter, typename TValue>
-class OffsetIntersecter
-{
-  struct HashFn
+  while (!q.empty())
   {
-    size_t operator()(TValue const & v) const { return v.m_featureId; }
-  };
-  struct EqualFn
-  {
-    bool operator()(TValue const & v1, TValue const & v2) const
+    auto const p = q.front();
+    q.pop();
+
+    auto const & trieIt = p.first;
+    auto const & dfaIt = p.second;
+
+    if (dfaIt.Accepts())
     {
-      return (v1.m_featureId == v2.m_featureId);
+      trieIt->m_valueList.ForEach(toDo);
+      found = true;
+    }
+
+    size_t const numEdges = trieIt->m_edge.size();
+    for (size_t i = 0; i < numEdges; ++i)
+    {
+      auto const & edge = trieIt->m_edge[i];
+
+      auto curIt = dfaIt;
+      strings::DFAMove(curIt, edge.m_label.begin(), edge.m_label.end());
+      if (!curIt.Rejects())
+        q.emplace(trieIt->GoToEdge(i), curIt);
+    }
+  }
+
+  return found;
+}
+
+template <typename Filter, typename Value>
+class OffsetIntersector
+{
+  struct Hash
+  {
+    size_t operator()(Value const & v) const { return v.m_featureId; }
+  };
+
+  struct Equal
+  {
+    bool operator()(Value const & v1, Value const & v2) const
+    {
+      return v1.m_featureId == v2.m_featureId;
     }
   };
 
-  using TSet = unordered_set<TValue, HashFn, EqualFn>;
+  using Set = unordered_set<Value, Hash, Equal>;
 
-  TFilter const & m_filter;
-  unique_ptr<TSet> m_prevSet;
-  unique_ptr<TSet> m_set;
+  Filter const & m_filter;
+  unique_ptr<Set> m_prevSet;
+  unique_ptr<Set> m_set;
 
 public:
-  explicit OffsetIntersecter(TFilter const & filter) : m_filter(filter), m_set(new TSet) {}
+  explicit OffsetIntersector(Filter const & filter) : m_filter(filter), m_set(make_unique<Set>()) {}
 
-  void operator()(TValue const & v)
+  void operator()(Value const & v)
   {
     if (m_prevSet && !m_prevSet->count(v))
       return;
@@ -227,7 +138,7 @@ public:
   void NextStep()
   {
     if (!m_prevSet)
-      m_prevSet.reset(new TSet);
+      m_prevSet = make_unique<Set>();
 
     m_prevSet.swap(m_set);
     m_set->clear();
@@ -244,15 +155,16 @@ public:
 };
 }  // namespace impl
 
-template <typename TValue>
+template <typename Value>
 struct TrieRootPrefix
 {
-  using TIterator = trie::Iterator<ValueList<TValue>>;
-  TIterator const & m_root;
+  using Iterator = trie::Iterator<ValueList<Value>>;
+
+  Iterator const & m_root;
   strings::UniChar const * m_prefix;
   size_t m_prefixSize;
 
-  TrieRootPrefix(TIterator const & root, typename TIterator::Edge::TEdgeLabel const & edge)
+  TrieRootPrefix(Iterator const & root, typename Iterator::Edge::TEdgeLabel const & edge)
     : m_root(root)
   {
     if (edge.size() == 1)
@@ -268,102 +180,55 @@ struct TrieRootPrefix
   }
 };
 
-template <typename TFilter, typename TValue>
+template <typename Filter, typename Value>
 class TrieValuesHolder
 {
 public:
-  TrieValuesHolder(TFilter const & filter) : m_filter(filter) {}
+  TrieValuesHolder(Filter const & filter) : m_filter(filter) {}
 
-  void Resize(size_t count) { m_holder.resize(count); }
-
-  void SwitchTo(size_t index)
-  {
-    ASSERT_LESS(index, m_holder.size(), ());
-    m_index = index;
-  }
-
-  void operator()(TValue const & v)
+  void operator()(Value const & v)
   {
     if (m_filter(v.m_featureId))
-      m_holder[m_index].push_back(v);
+      m_values.push_back(v);
   }
 
   template <class ToDo>
-  void ForEachValue(size_t index, ToDo && toDo) const
+  void ForEachValue(ToDo && toDo) const
   {
-    ASSERT_LESS(index, m_holder.size(), ());
-    for (auto const & value : m_holder[index])
+    for (auto const & value : m_values)
       toDo(value);
   }
 
 private:
-  vector<vector<TValue>> m_holder;
-  size_t m_index;
-  TFilter const & m_filter;
+  vector<Value> m_values;
+  Filter const & m_filter;
 };
 
-// Calls toDo for each feature corresponding to at least one synonym.
-// *NOTE* toDo may be called several times for the same feature.
-template <typename TValue, typename ToDo>
-void MatchTokenInTrie(QueryParams::TSynonymsVector const & syns,
-                      TrieRootPrefix<TValue> const & trieRoot, ToDo && toDo)
+template <typename DFA>
+struct SearchTrieRequest
 {
-  for (auto const & syn : syns)
-  {
-    ASSERT(!syn.empty(), ());
-    impl::FullMatchInTrie(trieRoot.m_root, trieRoot.m_prefix, trieRoot.m_prefixSize, syn, toDo);
-  }
+  inline bool IsLangExist(int8_t lang) const { return m_langs.count(lang) != 0; }
+
+  vector<DFA> m_dfas;
+  unordered_set<int8_t> m_langs;
+};
+
+// Calls |toDo| for each feature accepted but at least one DFA.
+//
+// *NOTE* |toDo| may be called several times for the same feature.
+template <typename DFA, typename Value, typename ToDo>
+void MatchInTrie(vector<DFA> const & dfas, TrieRootPrefix<Value> const & trieRoot, ToDo && toDo)
+{
+  for (auto const & dfa : dfas)
+    impl::MatchInTrie(trieRoot.m_root, trieRoot.m_prefix, trieRoot.m_prefixSize, dfa, toDo);
 }
 
-// Calls toDo for each feature whose tokens contains at least one
-// synonym as a prefix.
-// *NOTE* toDo may be called serveral times for the same feature.
-template <typename TValue, typename ToDo>
-void MatchTokenPrefixInTrie(QueryParams::TSynonymsVector const & syns,
-                            TrieRootPrefix<TValue> const & trieRoot, ToDo && toDo)
-{
-  for (auto const & syn : syns)
-  {
-    ASSERT(!syn.empty(), ());
-    impl::PrefixMatchInTrie(trieRoot.m_root, trieRoot.m_prefix, trieRoot.m_prefixSize, syn, toDo);
-  }
-}
-
-// Fills holder with features whose names correspond to tokens list up to synonyms.
-// *NOTE* the same feature may be put in the same holder's slot several times.
-template <typename TValue, typename THolder>
-void MatchTokensInTrie(vector<QueryParams::TSynonymsVector> const & tokens,
-                       TrieRootPrefix<TValue> const & trieRoot, THolder && holder)
-{
-  holder.Resize(tokens.size());
-  for (size_t i = 0; i < tokens.size(); ++i)
-  {
-    holder.SwitchTo(i);
-    MatchTokenInTrie(tokens[i], trieRoot, holder);
-  }
-}
-
-// Fills holder with features whose names correspond to tokens list up to synonyms,
-// also, last holder's slot will be filled with features corresponding to prefixTokens.
-// *NOTE* the same feature may be put in the same holder's slot several times.
-template <typename TValue, typename THolder>
-void MatchTokensAndPrefixInTrie(vector<QueryParams::TSynonymsVector> const & tokens,
-                                QueryParams::TSynonymsVector const & prefixTokens,
-                                TrieRootPrefix<TValue> const & trieRoot, THolder && holder)
-{
-  MatchTokensInTrie(tokens, trieRoot, holder);
-
-  holder.Resize(tokens.size() + 1);
-  holder.SwitchTo(tokens.size());
-  MatchTokenPrefixInTrie(prefixTokens, trieRoot, holder);
-}
-
-// Fills holder with categories whose description matches to at least one
-// token from a search query.
-// *NOTE* query prefix will be treated as a complete token in the function.
-template <typename TValue, typename THolder>
-bool MatchCategoriesInTrie(QueryParams const & params,
-                           trie::Iterator<ValueList<TValue>> const & trieRoot, THolder && holder)
+// Calls |toDo| for each feature in categories branch matching to |request|.
+//
+// *NOTE* |toDo| may be called several times for the same feature.
+template <typename DFA, typename Value, typename ToDo>
+bool MatchCategoriesInTrie(SearchTrieRequest<DFA> const & request,
+                           trie::Iterator<ValueList<Value>> const & trieRoot, ToDo && toDo)
 {
   uint32_t langIx = 0;
   if (!impl::FindLangIndex(trieRoot, search::kCategoriesLang, langIx))
@@ -373,82 +238,65 @@ bool MatchCategoriesInTrie(QueryParams const & params,
   ASSERT_GREATER_OR_EQUAL(edge.size(), 1, ());
 
   auto const catRoot = trieRoot.GoToEdge(langIx);
-  MatchTokensInTrie(params.m_tokens, TrieRootPrefix<TValue>(*catRoot, edge), holder);
+  MatchInTrie(request.m_dfas, TrieRootPrefix<Value>(*catRoot, edge), toDo);
 
-  // Last token's prefix is used as a complete token here, to limit
-  // the number of features in the last bucket of a holder. Probably,
-  // this is a false optimization.
-  holder.Resize(params.m_tokens.size() + 1);
-  holder.SwitchTo(params.m_tokens.size());
-  MatchTokenInTrie(params.m_prefixTokens, TrieRootPrefix<TValue>(*catRoot, edge), holder);
   return true;
 }
 
-// Calls toDo with trie root prefix and language code on each language
-// allowed by params.
-template <typename TValue, typename ToDo>
-void ForEachLangPrefix(QueryParams const & params,
-                       trie::Iterator<ValueList<TValue>> const & trieRoot, ToDo && toDo)
+// Calls |toDo| with trie root prefix and language code on each
+// language allowed by |request|.
+template <typename DFA, typename Value, typename ToDo>
+void ForEachLangPrefix(SearchTrieRequest<DFA> const & request,
+                       trie::Iterator<ValueList<Value>> const & trieRoot, ToDo && toDo)
 {
   ASSERT_LESS(trieRoot.m_edge.size(), numeric_limits<uint32_t>::max(), ());
+
   uint32_t const numLangs = static_cast<uint32_t>(trieRoot.m_edge.size());
   for (uint32_t langIx = 0; langIx < numLangs; ++langIx)
   {
     auto const & edge = trieRoot.m_edge[langIx].m_label;
     ASSERT_GREATER_OR_EQUAL(edge.size(), 1, ());
     int8_t const lang = static_cast<int8_t>(edge[0]);
-    if (edge[0] < search::kCategoriesLang && params.IsLangExist(lang))
+    if (edge[0] < search::kCategoriesLang && request.IsLangExist(lang))
     {
       auto const langRoot = trieRoot.GoToEdge(langIx);
-      TrieRootPrefix<TValue> langPrefix(*langRoot, edge);
+      TrieRootPrefix<Value> langPrefix(*langRoot, edge);
       toDo(langPrefix, lang);
     }
   }
 }
 
-// Calls toDo for each feature whose description contains *ALL* tokens from a search query.
-// Each feature will be passed to toDo only once.
-template <typename TValue, typename TFilter, typename ToDo>
-void MatchFeaturesInTrie(QueryParams const & params,
-                         trie::Iterator<ValueList<TValue>> const & trieRoot, TFilter const & filter,
+// Calls |toDo| for each feature whose description matches to
+// |request|.  Each feature will be passed to |toDo| only once.
+template <typename DFA, typename Value, typename Filter, typename ToDo>
+void MatchFeaturesInTrie(SearchTrieRequest<DFA> const & request,
+                         trie::Iterator<ValueList<Value>> const & trieRoot, Filter const & filter,
                          ToDo && toDo)
 {
-  using TIterator = trie::Iterator<ValueList<TValue>>;
+  using Iterator = trie::Iterator<ValueList<Value>>;
 
-  TrieValuesHolder<TFilter, TValue> categoriesHolder(filter);
-  bool const categoriesMatched = MatchCategoriesInTrie(params, trieRoot, categoriesHolder);
+  TrieValuesHolder<Filter, Value> categoriesHolder(filter);
+  bool const categoriesMatched = MatchCategoriesInTrie(request, trieRoot, categoriesHolder);
 
-  impl::OffsetIntersecter<TFilter, TValue> intersecter(filter);
-  for (size_t i = 0; i < params.m_tokens.size(); ++i)
-  {
-    ForEachLangPrefix(params, trieRoot, [&](TrieRootPrefix<TValue> & langRoot, int8_t lang)
-                      {
-                        MatchTokenInTrie(params.m_tokens[i], langRoot, intersecter);
-                      });
-    if (categoriesMatched)
-      categoriesHolder.ForEachValue(i, intersecter);
-    intersecter.NextStep();
-  }
+  impl::OffsetIntersector<Filter, Value> intersector(filter);
+  ForEachLangPrefix(request, trieRoot,
+                    [&request, &intersector](TrieRootPrefix<Value> & langRoot, int8_t lang) {
+                      MatchInTrie(request.m_dfas, langRoot, intersector);
+                    });
+  if (categoriesMatched)
+    categoriesHolder.ForEachValue(intersector);
 
-  if (!params.m_prefixTokens.empty())
-  {
-    ForEachLangPrefix(params, trieRoot, [&](TrieRootPrefix<TValue> & langRoot, int8_t /* lang */)
-                      {
-                        MatchTokenPrefixInTrie(params.m_prefixTokens, langRoot, intersecter);
-                      });
-    if (categoriesMatched)
-      categoriesHolder.ForEachValue(params.m_tokens.size(), intersecter);
-    intersecter.NextStep();
-  }
-
-  intersecter.ForEachResult(forward<ToDo>(toDo));
+  intersector.NextStep();
+  intersector.ForEachResult(forward<ToDo>(toDo));
 }
 
-template <typename TValue, typename TFilter, typename ToDo>
+template <typename Value, typename Filter, typename ToDo>
 void MatchPostcodesInTrie(TokenSlice const & slice,
-                          trie::Iterator<ValueList<TValue>> const & trieRoot,
-                          TFilter const & filter, ToDo && toDo)
+                          trie::Iterator<ValueList<Value>> const & trieRoot,
+                          Filter const & filter, ToDo && toDo)
 {
+  using namespace strings;
+
   uint32_t langIx = 0;
   if (!impl::FindLangIndex(trieRoot, search::kPostcodesLang, langIx))
     return;
@@ -456,16 +304,28 @@ void MatchPostcodesInTrie(TokenSlice const & slice,
   auto const & edge = trieRoot.m_edge[langIx].m_label;
   auto const postcodesRoot = trieRoot.GoToEdge(langIx);
 
-  impl::OffsetIntersecter<TFilter, TValue> intersecter(filter);
+  impl::OffsetIntersector<Filter, Value> intersector(filter);
   for (size_t i = 0; i < slice.Size(); ++i)
   {
     if (slice.IsPrefix(i))
-      MatchTokenPrefixInTrie(slice.Get(i), TrieRootPrefix<TValue>(*postcodesRoot, edge), intersecter);
+    {
+      vector<PrefixDFAModifier<UniStringDFA>> dfas;
+      for (auto const & s : slice.Get(i))
+        dfas.emplace_back(UniStringDFA(s));
+
+      MatchInTrie(dfas, TrieRootPrefix<Value>(*postcodesRoot, edge), intersector);
+    }
     else
-      MatchTokenInTrie(slice.Get(i), TrieRootPrefix<TValue>(*postcodesRoot, edge), intersecter);
-    intersecter.NextStep();
+    {
+      vector<UniStringDFA> dfas;
+      for (auto const & s : slice.Get(i))
+        dfas.emplace_back(s);
+      MatchInTrie(dfas, TrieRootPrefix<Value>(*postcodesRoot, edge), intersector);
+    }
+
+    intersector.NextStep();
   }
 
-  intersecter.ForEachResult(forward<ToDo>(toDo));
+  intersector.ForEachResult(forward<ToDo>(toDo));
 }
 }  // namespace search
