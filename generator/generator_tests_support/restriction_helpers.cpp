@@ -22,13 +22,13 @@ void ReEncodeOsmIdsToFeatureIdsMapping(string const & mappingContent, string con
     strings::SimpleTokenizer idIter(*lineIter, ", \t" /* id delimiters */);
     uint64_t osmId = 0;
     TEST(idIter, ());
-    TEST(strings::to_uint64(*idIter, osmId), ("Cannot covert to uint64_t:", *idIter));
+    TEST(strings::to_uint64(*idIter, osmId), ("Cannot convert to uint64_t:", *idIter));
     TEST(idIter, ("Wrong feature ids to osm ids mapping."));
     ++idIter;
 
     uint32_t featureId = 0;
     TEST(idIter, ());
-    TEST(strings::to_uint(*idIter, featureId), ("Cannot covert to uint:", *idIter));
+    TEST(strings::to_uint(*idIter, featureId), ("Cannot convert to uint:", *idIter));
     osmIdsToFeatureIds.Add(make_pair(osmId, featureId));
     ++idIter;
     TEST(!idIter, ());

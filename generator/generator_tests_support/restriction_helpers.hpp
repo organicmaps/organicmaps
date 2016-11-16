@@ -11,7 +11,7 @@ namespace generator
 /// 20, 2
 /// 30, 3,
 /// 40, 4
-/// \parma outputFilePath full path to an output file where the mapping is saved.
+/// \param outputFilePath full path to an output file where the mapping is saved.
 void ReEncodeOsmIdsToFeatureIdsMapping(string const & mappingContent,
                                        string const & outputFilePath);
 }  // namespace generator

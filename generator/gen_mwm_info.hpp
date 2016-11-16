@@ -65,7 +65,7 @@ public:
   template <class Fn>
   void ForEach(Fn && fn) const
   {
-    for (ValueT const & v : m_data)
+    for (auto const & v : m_data)
       fn(v);
   }
 };
