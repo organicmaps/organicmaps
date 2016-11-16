@@ -21,7 +21,6 @@
 		56EB1EDE1C6B6E6C0022D831 /* mwm_traits.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56EB1EDA1C6B6E6C0022D831 /* mwm_traits.cpp */; };
 		56EB1EDF1C6B6E6C0022D831 /* mwm_traits.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56EB1EDB1C6B6E6C0022D831 /* mwm_traits.hpp */; };
 		670E8C761BB318AB00094197 /* platform_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 670E8C741BB318AB00094197 /* platform_ios.mm */; };
-		670E8C911BB31A2F00094197 /* ios_video_timer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 670E8C901BB31A2F00094197 /* ios_video_timer.mm */; };
 		671182F31C80AC4200CB8177 /* WorldCoasts_obsolete.mwm in Resources */ = {isa = PBXBuildFile; fileRef = 671182F21C80AC3D00CB8177 /* WorldCoasts_obsolete.mwm */; };
 		671C62061AE9014C00076BD0 /* measurement_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671C62041AE9014C00076BD0 /* measurement_utils.cpp */; };
 		671C62071AE9014C00076BD0 /* measurement_utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 671C62051AE9014C00076BD0 /* measurement_utils.hpp */; };
@@ -59,13 +58,10 @@
 		675343CD1A3F5D5A00A0A8C3 /* platform.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675343A21A3F5D5A00A0A8C3 /* platform.hpp */; };
 		675343CE1A3F5D5A00A0A8C3 /* preferred_languages.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675343A31A3F5D5A00A0A8C3 /* preferred_languages.cpp */; };
 		675343CF1A3F5D5A00A0A8C3 /* preferred_languages.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675343A41A3F5D5A00A0A8C3 /* preferred_languages.hpp */; };
-		675343D01A3F5D5A00A0A8C3 /* pthread_video_timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675343A51A3F5D5A00A0A8C3 /* pthread_video_timer.cpp */; };
 		675343D11A3F5D5A00A0A8C3 /* servers_list.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675343A61A3F5D5A00A0A8C3 /* servers_list.cpp */; };
 		675343D21A3F5D5A00A0A8C3 /* servers_list.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675343A71A3F5D5A00A0A8C3 /* servers_list.hpp */; };
 		675343D31A3F5D5A00A0A8C3 /* settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675343A81A3F5D5A00A0A8C3 /* settings.cpp */; };
 		675343D41A3F5D5A00A0A8C3 /* settings.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675343A91A3F5D5A00A0A8C3 /* settings.hpp */; };
-		675343D71A3F5D5A00A0A8C3 /* video_timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675343AC1A3F5D5A00A0A8C3 /* video_timer.cpp */; };
-		675343D81A3F5D5A00A0A8C3 /* video_timer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675343AD1A3F5D5A00A0A8C3 /* video_timer.hpp */; };
 		675343D91A3F5D5A00A0A8C3 /* wifi_info_windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675343AE1A3F5D5A00A0A8C3 /* wifi_info_windows.cpp */; };
 		675343DA1A3F5D5A00A0A8C3 /* wifi_info.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675343AF1A3F5D5A00A0A8C3 /* wifi_info.hpp */; };
 		675343DB1A3F5D5A00A0A8C3 /* wifi_location_service.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675343B01A3F5D5A00A0A8C3 /* wifi_location_service.cpp */; };
@@ -82,7 +78,6 @@
 		6783389C1C6DE59200FD6263 /* location_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675341061C58C4C9002CF0D9 /* location_test.cpp */; };
 		6783389D1C6DE59200FD6263 /* measurement_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675341071C58C4C9002CF0D9 /* measurement_tests.cpp */; };
 		6783389E1C6DE59200FD6263 /* platform_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675341081C58C4C9002CF0D9 /* platform_test.cpp */; };
-		6783389F1C6DE59200FD6263 /* video_timer_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675341091C58C4C9002CF0D9 /* video_timer_test.cpp */; };
 		678338A01C6DE5BA00FD6263 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6753413B1C58C79C002CF0D9 /* libz.tbd */; };
 		678338A11C6DE5BA00FD6263 /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675341311C58C786002CF0D9 /* libbase.a */; };
 		678338A21C6DE5BA00FD6263 /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675341321C58C786002CF0D9 /* libcoding.a */; };
@@ -122,7 +117,6 @@
 		56EB1EDA1C6B6E6C0022D831 /* mwm_traits.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mwm_traits.cpp; sourceTree = "<group>"; };
 		56EB1EDB1C6B6E6C0022D831 /* mwm_traits.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mwm_traits.hpp; sourceTree = "<group>"; };
 		670E8C741BB318AB00094197 /* platform_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = platform_ios.mm; sourceTree = "<group>"; };
-		670E8C901BB31A2F00094197 /* ios_video_timer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ios_video_timer.mm; sourceTree = "<group>"; };
 		671182F21C80AC3D00CB8177 /* WorldCoasts_obsolete.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; path = WorldCoasts_obsolete.mwm; sourceTree = "<group>"; };
 		671C62041AE9014C00076BD0 /* measurement_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = measurement_utils.cpp; sourceTree = "<group>"; };
 		671C62051AE9014C00076BD0 /* measurement_utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = measurement_utils.hpp; sourceTree = "<group>"; };
@@ -152,7 +146,6 @@
 		675341061C58C4C9002CF0D9 /* location_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = location_test.cpp; sourceTree = "<group>"; };
 		675341071C58C4C9002CF0D9 /* measurement_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = measurement_tests.cpp; sourceTree = "<group>"; };
 		675341081C58C4C9002CF0D9 /* platform_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = platform_test.cpp; sourceTree = "<group>"; };
-		675341091C58C4C9002CF0D9 /* video_timer_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = video_timer_test.cpp; sourceTree = "<group>"; };
 		675341141C58C4D8002CF0D9 /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
 		6753412F1C58C70C002CF0D9 /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libindexer.a; path = "../../../omim-xcode-build/Debug/libindexer.a"; sourceTree = "<group>"; };
 		675341311C58C786002CF0D9 /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = "../../../omim-xcode-build/Debug/libbase.a"; sourceTree = "<group>"; };
@@ -163,7 +156,6 @@
 		6753413B1C58C79C002CF0D9 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		675343781A3F5CF500A0A8C3 /* libplatform.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libplatform.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		675343861A3F5D5900A0A8C3 /* apple_location_service.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = apple_location_service.mm; sourceTree = "<group>"; };
-		675343871A3F5D5900A0A8C3 /* apple_video_timer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = apple_video_timer.mm; sourceTree = "<group>"; };
 		675343881A3F5D5900A0A8C3 /* chunks_download_strategy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chunks_download_strategy.cpp; sourceTree = "<group>"; };
 		675343891A3F5D5900A0A8C3 /* chunks_download_strategy.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = chunks_download_strategy.hpp; sourceTree = "<group>"; };
 		6753438A1A3F5D5900A0A8C3 /* constants.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = constants.hpp; sourceTree = "<group>"; };
@@ -185,13 +177,10 @@
 		675343A21A3F5D5A00A0A8C3 /* platform.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = platform.hpp; sourceTree = "<group>"; };
 		675343A31A3F5D5A00A0A8C3 /* preferred_languages.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = preferred_languages.cpp; sourceTree = "<group>"; };
 		675343A41A3F5D5A00A0A8C3 /* preferred_languages.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = preferred_languages.hpp; sourceTree = "<group>"; };
-		675343A51A3F5D5A00A0A8C3 /* pthread_video_timer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pthread_video_timer.cpp; sourceTree = "<group>"; };
 		675343A61A3F5D5A00A0A8C3 /* servers_list.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = servers_list.cpp; sourceTree = "<group>"; };
 		675343A71A3F5D5A00A0A8C3 /* servers_list.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = servers_list.hpp; sourceTree = "<group>"; };
 		675343A81A3F5D5A00A0A8C3 /* settings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = settings.cpp; sourceTree = "<group>"; };
 		675343A91A3F5D5A00A0A8C3 /* settings.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = settings.hpp; sourceTree = "<group>"; };
-		675343AC1A3F5D5A00A0A8C3 /* video_timer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = video_timer.cpp; sourceTree = "<group>"; };
-		675343AD1A3F5D5A00A0A8C3 /* video_timer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = video_timer.hpp; sourceTree = "<group>"; };
 		675343AE1A3F5D5A00A0A8C3 /* wifi_info_windows.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wifi_info_windows.cpp; sourceTree = "<group>"; };
 		675343AF1A3F5D5A00A0A8C3 /* wifi_info.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = wifi_info.hpp; sourceTree = "<group>"; };
 		675343B01A3F5D5A00A0A8C3 /* wifi_location_service.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wifi_location_service.cpp; sourceTree = "<group>"; };
@@ -266,7 +255,6 @@
 				675341061C58C4C9002CF0D9 /* location_test.cpp */,
 				675341071C58C4C9002CF0D9 /* measurement_tests.cpp */,
 				675341081C58C4C9002CF0D9 /* platform_test.cpp */,
-				675341091C58C4C9002CF0D9 /* video_timer_test.cpp */,
 			);
 			name = platform_tests;
 			path = ../../platform/platform_tests;
@@ -344,7 +332,6 @@
 				56EB1ED91C6B6E6C0022D831 /* file_logging.hpp */,
 				56EB1EDA1C6B6E6C0022D831 /* mwm_traits.cpp */,
 				56EB1EDB1C6B6E6C0022D831 /* mwm_traits.hpp */,
-				670E8C901BB31A2F00094197 /* ios_video_timer.mm */,
 				67AB92E81B7B3E9100AB5194 /* get_text_by_id.cpp */,
 				67AB92E91B7B3E9100AB5194 /* get_text_by_id.hpp */,
 				67AB92DA1B7B3D7300AB5194 /* mwm_version.cpp */,
@@ -360,7 +347,6 @@
 				671C62041AE9014C00076BD0 /* measurement_utils.cpp */,
 				671C62051AE9014C00076BD0 /* measurement_utils.hpp */,
 				675343861A3F5D5900A0A8C3 /* apple_location_service.mm */,
-				675343871A3F5D5900A0A8C3 /* apple_video_timer.mm */,
 				675343881A3F5D5900A0A8C3 /* chunks_download_strategy.cpp */,
 				675343891A3F5D5900A0A8C3 /* chunks_download_strategy.hpp */,
 				6753438A1A3F5D5900A0A8C3 /* constants.hpp */,
@@ -383,13 +369,10 @@
 				675343A21A3F5D5A00A0A8C3 /* platform.hpp */,
 				675343A31A3F5D5A00A0A8C3 /* preferred_languages.cpp */,
 				675343A41A3F5D5A00A0A8C3 /* preferred_languages.hpp */,
-				675343A51A3F5D5A00A0A8C3 /* pthread_video_timer.cpp */,
 				675343A61A3F5D5A00A0A8C3 /* servers_list.cpp */,
 				675343A71A3F5D5A00A0A8C3 /* servers_list.hpp */,
 				675343A81A3F5D5A00A0A8C3 /* settings.cpp */,
 				675343A91A3F5D5A00A0A8C3 /* settings.hpp */,
-				675343AC1A3F5D5A00A0A8C3 /* video_timer.cpp */,
-				675343AD1A3F5D5A00A0A8C3 /* video_timer.hpp */,
 				675343AE1A3F5D5A00A0A8C3 /* wifi_info_windows.cpp */,
 				675343AF1A3F5D5A00A0A8C3 /* wifi_info.hpp */,
 				675343B01A3F5D5A00A0A8C3 /* wifi_location_service.cpp */,
@@ -449,7 +432,6 @@
 				67247FFE1C60BD6500EDE56A /* writable_dir_changer.hpp in Headers */,
 				674125091B4C00CC00A3E828 /* country_defines.hpp in Headers */,
 				675343CD1A3F5D5A00A0A8C3 /* platform.hpp in Headers */,
-				675343D81A3F5D5A00A0A8C3 /* video_timer.hpp in Headers */,
 				6741250F1B4C00CC00A3E828 /* local_country_file.hpp in Headers */,
 				675E88A11DB7B0F200F8EBDA /* test_socket.hpp in Headers */,
 				675343CF1A3F5D5A00A0A8C3 /* preferred_languages.hpp in Headers */,
@@ -610,12 +592,9 @@
 				675343CC1A3F5D5A00A0A8C3 /* platform.cpp in Sources */,
 				675343DB1A3F5D5A00A0A8C3 /* wifi_location_service.cpp in Sources */,
 				56EB1EDC1C6B6E6C0022D831 /* file_logging.cpp in Sources */,
-				675343D01A3F5D5A00A0A8C3 /* pthread_video_timer.cpp in Sources */,
 				675343B11A3F5D5A00A0A8C3 /* apple_location_service.mm in Sources */,
 				675343B31A3F5D5A00A0A8C3 /* chunks_download_strategy.cpp in Sources */,
 				34513AFA1DCB37C100471BDA /* marketing_service_ios.mm in Sources */,
-				670E8C911BB31A2F00094197 /* ios_video_timer.mm in Sources */,
-				675343D71A3F5D5A00A0A8C3 /* video_timer.cpp in Sources */,
 				675343C01A3F5D5A00A0A8C3 /* location_service.cpp in Sources */,
 				675343D31A3F5D5A00A0A8C3 /* settings.cpp in Sources */,
 				675343CE1A3F5D5A00A0A8C3 /* preferred_languages.cpp in Sources */,
@@ -629,7 +608,6 @@
 			files = (
 				6783389E1C6DE59200FD6263 /* platform_test.cpp in Sources */,
 				678338961C6DE59200FD6263 /* apk_test.cpp in Sources */,
-				6783389F1C6DE59200FD6263 /* video_timer_test.cpp in Sources */,
 				678338991C6DE59200FD6263 /* jansson_test.cpp in Sources */,
 				6783389C1C6DE59200FD6263 /* location_test.cpp in Sources */,
 				678338981C6DE59200FD6263 /* get_text_by_id_tests.cpp in Sources */,
