@@ -39,7 +39,6 @@ omim_link_libraries(
   base
   osrm
   protobuf
-  tomcrypt
   succinct
   opening_hours
   jansson

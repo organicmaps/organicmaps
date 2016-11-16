@@ -45,4 +45,4 @@ set(
 
 omim_add_test(${PROJECT_NAME} ${SRC})
 
-omim_link_libraries(${PROJECT_NAME} coding base geometry minizip tomcrypt succinct ${LIBZ})
+omim_link_libraries(${PROJECT_NAME} coding base geometry minizip succinct ${LIBZ})

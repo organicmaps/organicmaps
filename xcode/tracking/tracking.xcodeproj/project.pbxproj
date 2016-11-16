@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		346B76CE1DC1ECC900C7C87E /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 346B76CD1DC1ECC900C7C87E /* libtomcrypt.a */; };
 		3496ABB21DC2026E00C5DDBA /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3496ABB11DC2026E00C5DDBA /* libalohalitics.a */; };
 		3496ABB41DC2028F00C5DDBA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3496ABB31DC2028F00C5DDBA /* libz.tbd */; };
 		349756271DC1EBEE0058742A /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 349756261DC1EBEE0058742A /* libcoding.a */; };
@@ -27,7 +26,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		346B76CD1DC1ECC900C7C87E /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtomcrypt.a; path = "../../../omim-build/xcode/Debug/libtomcrypt.a"; sourceTree = "<group>"; };
 		3496ABB11DC2026E00C5DDBA /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "../../../omim-build/xcode/Debug-iphonesimulator/libalohalitics.a"; sourceTree = "<group>"; };
 		3496ABB31DC2028F00C5DDBA /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		349756261DC1EBEE0058742A /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = "../../../omim-build/xcode/Debug/libcoding.a"; sourceTree = "<group>"; };
@@ -64,7 +62,6 @@
 			files = (
 				3496ABB41DC2028F00C5DDBA /* libz.tbd in Frameworks */,
 				3496ABB21DC2026E00C5DDBA /* libalohalitics.a in Frameworks */,
-				346B76CE1DC1ECC900C7C87E /* libtomcrypt.a in Frameworks */,
 				3497562D1DC1EC3F0058742A /* libbase.a in Frameworks */,
 				3497562B1DC1EC220058742A /* libplatform.a in Frameworks */,
 				349756291DC1EC060058742A /* libgeometry.a in Frameworks */,
@@ -128,7 +125,6 @@
 			children = (
 				3496ABB31DC2028F00C5DDBA /* libz.tbd */,
 				3496ABB11DC2026E00C5DDBA /* libalohalitics.a */,
-				346B76CD1DC1ECC900C7C87E /* libtomcrypt.a */,
 				3497562C1DC1EC3F0058742A /* libbase.a */,
 				3497562A1DC1EC220058742A /* libplatform.a */,
 				349756281DC1EC060058742A /* libgeometry.a */,

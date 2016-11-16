@@ -128,7 +128,6 @@ endmacro()
 # Include subdirectories
 add_subdirectory(3party/jansson)
 add_subdirectory(3party/minizip)
-add_subdirectory(3party/tomcrypt)
 add_subdirectory(3party/freetype)
 add_subdirectory(3party/fribidi)
 add_subdirectory(3party/expat)

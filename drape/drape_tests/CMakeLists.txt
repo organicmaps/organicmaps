@@ -57,7 +57,6 @@ omim_link_libraries(
   base
   fribidi
   expat
-  tomcrypt
   stats_client
   freetype
   gmock

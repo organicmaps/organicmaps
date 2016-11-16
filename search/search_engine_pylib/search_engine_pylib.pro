@@ -64,7 +64,6 @@ LIBS += -lsearch_tests_support \
         -lcoding \
         -lbase \
         -lopening_hours \
-        -ltomcrypt \
         -lsuccinct \
         -lpugixml \
         -lprotobuf \

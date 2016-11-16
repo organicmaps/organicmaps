@@ -7,7 +7,7 @@ ROOT_DIR = ../..
 
 INCLUDEPATH *= $$ROOT_DIR/3party/jansson/src
 
-DEPENDENCIES = partners_api platform coding base tomcrypt jansson stats_client
+DEPENDENCIES = partners_api platform coding base jansson stats_client
 
 include($$ROOT_DIR/common.pri)
 

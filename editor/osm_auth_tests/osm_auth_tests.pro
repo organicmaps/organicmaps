@@ -5,7 +5,7 @@ TEMPLATE = app
 
 ROOT_DIR = ../..
 DEPENDENCIES = editor platform_tests_support platform geometry coding base \
-               stats_client pugixml oauthcpp tomcrypt
+               stats_client pugixml oauthcpp
 
 include($$ROOT_DIR/common.pri)
 

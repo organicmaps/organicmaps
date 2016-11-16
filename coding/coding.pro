@@ -7,8 +7,6 @@ ROOT_DIR = ..
 
 include($$ROOT_DIR/common.pri)
 
-INCLUDEPATH *= $$ROOT_DIR/3party/tomcrypt/src/headers
-
 SOURCES += \
     $$ROOT_DIR/3party/lodepng/lodepng.cpp \
     base64.cpp \

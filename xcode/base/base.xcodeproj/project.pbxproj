@@ -160,7 +160,6 @@
 		39FD273D1CC65B1000AFF551 /* libplatform.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform.a; path = "../../../omim-xcode-build/Debug/libplatform.a"; sourceTree = "<group>"; };
 		39FD27401CC65B2800AFF551 /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libindexer.a; path = "../../../omim-xcode-build/Debug/libindexer.a"; sourceTree = "<group>"; };
 		39FD27421CC65B4800AFF551 /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = "../../../omim-xcode-build/Debug/libcoding.a"; sourceTree = "<group>"; };
-		39FD27441CC65B5C00AFF551 /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtomcrypt.a; path = "../../../omim-xcode-build/Debug/libtomcrypt.a"; sourceTree = "<group>"; };
 		670E39421C46C76900E9C0A6 /* sunrise_sunset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sunrise_sunset.cpp; sourceTree = "<group>"; };
 		670E39431C46C76900E9C0A6 /* sunrise_sunset.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sunrise_sunset.hpp; sourceTree = "<group>"; };
 		671182EE1C807C0A00CB8177 /* gmtime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gmtime.cpp; sourceTree = "<group>"; };
@@ -401,7 +400,6 @@
 		678850931D084AF6004201E1 /* libs */ = {
 			isa = PBXGroup;
 			children = (
-				39FD27441CC65B5C00AFF551 /* libtomcrypt.a */,
 				39FD27421CC65B4800AFF551 /* libcoding.a */,
 				39FD27401CC65B2800AFF551 /* libindexer.a */,
 				39FD273C1CC65B1000AFF551 /* libplatform_tests_support.a */,

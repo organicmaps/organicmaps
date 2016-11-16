@@ -31,7 +31,6 @@
 		56F0D73C1D896A5300045886 /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACFE1C68A2F4009CB89E /* libjansson.a */; };
 		56F0D73D1D896A5300045886 /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACE71C68A23B009CB89E /* libgeometry.a */; };
 		56F0D73E1D896A5300045886 /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACEE1C68A27C009CB89E /* libpugixml.a */; };
-		56F0D73F1D896A5300045886 /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACFF1C68A2F4009CB89E /* libtomcrypt.a */; };
 		56F0D7401D896A5300045886 /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACE31C68A203009CB89E /* libcoding.a */; };
 		56F0D7411D896A5300045886 /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACE21C68A203009CB89E /* libbase.a */; };
 		56F0D7421D896A5300045886 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742AD021C68A303009CB89E /* libz.tbd */; };
@@ -97,7 +96,6 @@
 		6742AD391C68AA04009CB89E /* libplatform_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742AD041C68A317009CB89E /* libplatform_tests_support.a */; };
 		6742AD3A1C68AA04009CB89E /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742AD051C68A317009CB89E /* libsuccinct.a */; };
 		6742AD3B1C68AA04009CB89E /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACFE1C68A2F4009CB89E /* libjansson.a */; };
-		6742AD3C1C68AA04009CB89E /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACFF1C68A2F4009CB89E /* libtomcrypt.a */; };
 		6742AD3D1C68AA04009CB89E /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACFA1C68A2D7009CB89E /* liboauthcpp.a */; };
 		6742AD3E1C68AA04009CB89E /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACFB1C68A2D7009CB89E /* libprotobuf.a */; };
 		6742AD3F1C68AA04009CB89E /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACF81C68A2C8009CB89E /* libeditor.a */; };
@@ -157,7 +155,6 @@
 		67BD35C21C69F121003AA26F /* libplatform_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742AD041C68A317009CB89E /* libplatform_tests_support.a */; };
 		67BD35C31C69F121003AA26F /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742AD051C68A317009CB89E /* libsuccinct.a */; };
 		67BD35C41C69F121003AA26F /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACFE1C68A2F4009CB89E /* libjansson.a */; };
-		67BD35C51C69F121003AA26F /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACFF1C68A2F4009CB89E /* libtomcrypt.a */; };
 		67BD35C61C69F121003AA26F /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACFA1C68A2D7009CB89E /* liboauthcpp.a */; };
 		67BD35C71C69F121003AA26F /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACFB1C68A2D7009CB89E /* libprotobuf.a */; };
 		67BD35C81C69F121003AA26F /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACF81C68A2C8009CB89E /* libeditor.a */; };
@@ -291,7 +288,6 @@
 		6742ACFA1C68A2D7009CB89E /* liboauthcpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liboauthcpp.a; path = "../../../omim-xcode-build/Debug/liboauthcpp.a"; sourceTree = "<group>"; };
 		6742ACFB1C68A2D7009CB89E /* libprotobuf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libprotobuf.a; path = "../../../omim-xcode-build/Debug/libprotobuf.a"; sourceTree = "<group>"; };
 		6742ACFE1C68A2F4009CB89E /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjansson.a; path = "../../../omim-xcode-build/Debug/libjansson.a"; sourceTree = "<group>"; };
-		6742ACFF1C68A2F4009CB89E /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtomcrypt.a; path = "../../../omim-xcode-build/Debug/libtomcrypt.a"; sourceTree = "<group>"; };
 		6742AD021C68A303009CB89E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		6742AD041C68A317009CB89E /* libplatform_tests_support.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform_tests_support.a; path = "../../../omim-xcode-build/Debug/libplatform_tests_support.a"; sourceTree = "<group>"; };
 		6742AD051C68A317009CB89E /* libsuccinct.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsuccinct.a; path = "../../../omim-xcode-build/Debug/libsuccinct.a"; sourceTree = "<group>"; };
@@ -397,7 +393,6 @@
 				56F0D73C1D896A5300045886 /* libjansson.a in Frameworks */,
 				56F0D73D1D896A5300045886 /* libgeometry.a in Frameworks */,
 				56F0D73E1D896A5300045886 /* libpugixml.a in Frameworks */,
-				56F0D73F1D896A5300045886 /* libtomcrypt.a in Frameworks */,
 				56F0D7401D896A5300045886 /* libcoding.a in Frameworks */,
 				56F0D7411D896A5300045886 /* libbase.a in Frameworks */,
 				56F0D7421D896A5300045886 /* libz.tbd in Frameworks */,
@@ -420,7 +415,6 @@
 				6742AD3B1C68AA04009CB89E /* libjansson.a in Frameworks */,
 				6742AD451C68AA04009CB89E /* libgeometry.a in Frameworks */,
 				6742AD421C68AA04009CB89E /* libpugixml.a in Frameworks */,
-				6742AD3C1C68AA04009CB89E /* libtomcrypt.a in Frameworks */,
 				6742AD481C68AA04009CB89E /* libcoding.a in Frameworks */,
 				6742AD471C68AA04009CB89E /* libbase.a in Frameworks */,
 				6742AD491C68AA2F009CB89E /* libz.tbd in Frameworks */,
@@ -465,7 +459,6 @@
 				67BD35C41C69F121003AA26F /* libjansson.a in Frameworks */,
 				67BD35CE1C69F121003AA26F /* libgeometry.a in Frameworks */,
 				67BD35CB1C69F121003AA26F /* libpugixml.a in Frameworks */,
-				67BD35C51C69F121003AA26F /* libtomcrypt.a in Frameworks */,
 				67BD35D11C69F121003AA26F /* libcoding.a in Frameworks */,
 				67BD35D01C69F121003AA26F /* libbase.a in Frameworks */,
 				67BD35D21C69F126003AA26F /* libz.tbd in Frameworks */,
@@ -551,7 +544,6 @@
 				6742AD041C68A317009CB89E /* libplatform_tests_support.a */,
 				6742AD051C68A317009CB89E /* libsuccinct.a */,
 				6742ACFE1C68A2F4009CB89E /* libjansson.a */,
-				6742ACFF1C68A2F4009CB89E /* libtomcrypt.a */,
 				6742ACFA1C68A2D7009CB89E /* liboauthcpp.a */,
 				6742ACFB1C68A2D7009CB89E /* libprotobuf.a */,
 				6742ACF81C68A2C8009CB89E /* libeditor.a */,

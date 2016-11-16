@@ -19,7 +19,6 @@
 		3949172B1BAC3CAC002A8C4F /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 394917271BAC3CAC002A8C4F /* libbase.a */; };
 		3949172C1BAC3CAC002A8C4F /* libminizip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 394917281BAC3CAC002A8C4F /* libminizip.a */; };
 		3949172D1BAC3CAC002A8C4F /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 394917291BAC3CAC002A8C4F /* libsuccinct.a */; };
-		3949172E1BAC3CAC002A8C4F /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3949172A1BAC3CAC002A8C4F /* libtomcrypt.a */; };
 		394917301BAC3CC9002A8C4F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3949172F1BAC3CC9002A8C4F /* libz.tbd */; };
 		3D489BB61D3D21510052AA38 /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D489BB51D3D21510052AA38 /* libplatform.a */; };
 		3D489BC01D3D21A00052AA38 /* succinct_mapper_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D489BBA1D3D217E0052AA38 /* succinct_mapper_test.cpp */; };
@@ -156,7 +155,6 @@
 		394917271BAC3CAC002A8C4F /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = "../../../omim-xcode-build/Debug/libbase.a"; sourceTree = "<group>"; };
 		394917281BAC3CAC002A8C4F /* libminizip.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libminizip.a; path = "../../../omim-xcode-build/Debug/libminizip.a"; sourceTree = "<group>"; };
 		394917291BAC3CAC002A8C4F /* libsuccinct.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsuccinct.a; path = "../../../omim-xcode-build/Debug/libsuccinct.a"; sourceTree = "<group>"; };
-		3949172A1BAC3CAC002A8C4F /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtomcrypt.a; path = "../../../omim-xcode-build/Debug/libtomcrypt.a"; sourceTree = "<group>"; };
 		3949172F1BAC3CC9002A8C4F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		3D489BB51D3D21510052AA38 /* libplatform.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform.a; path = "../../../omim-xcode-build/Debug/libplatform.a"; sourceTree = "<group>"; };
 		3D489BB71D3D217E0052AA38 /* elias_coder_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = elias_coder_test.cpp; sourceTree = "<group>"; };
@@ -277,7 +275,6 @@
 				3949172B1BAC3CAC002A8C4F /* libbase.a in Frameworks */,
 				3949172C1BAC3CAC002A8C4F /* libminizip.a in Frameworks */,
 				3949172D1BAC3CAC002A8C4F /* libsuccinct.a in Frameworks */,
-				3949172E1BAC3CAC002A8C4F /* libtomcrypt.a in Frameworks */,
 				394916E41BAC3ACF002A8C4F /* libcoding.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -467,7 +464,6 @@
 				394917271BAC3CAC002A8C4F /* libbase.a */,
 				394917281BAC3CAC002A8C4F /* libminizip.a */,
 				394917291BAC3CAC002A8C4F /* libsuccinct.a */,
-				3949172A1BAC3CAC002A8C4F /* libtomcrypt.a */,
 			);
 			name = libs;
 			sourceTree = "<group>";
@@ -704,10 +700,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34A72A431DBE4989003D1F5F /* common-debug.xcconfig */;
 			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(OMIM_ROOT)/3party/tomcrypt/src/headers",
-				);
 			};
 			name = Debug;
 		};
@@ -715,10 +707,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34A72A441DBE4989003D1F5F /* common-release.xcconfig */;
 			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(OMIM_ROOT)/3party/tomcrypt/src/headers",
-				);
 			};
 			name = Release;
 		};

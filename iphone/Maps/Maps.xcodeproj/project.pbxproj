@@ -649,7 +649,6 @@
 		6741AAD41BF356BA002C974C /* libsearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAB91BF356BA002C974C /* libsearch.a */; };
 		6741AAD51BF356BA002C974C /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AABA1BF356BA002C974C /* libstorage.a */; };
 		6741AAD61BF356BA002C974C /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AABB1BF356BA002C974C /* libsuccinct.a */; };
-		6741AAD71BF356BA002C974C /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AABC1BF356BA002C974C /* libtomcrypt.a */; };
 		674A7E281C0DA573003D48E1 /* libstb_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E231C0DA55E003D48E1 /* libstb_image.a */; };
 		674A7E291C0DA576003D48E1 /* libsdf_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E221C0DA55E003D48E1 /* libsdf_image.a */; };
 		674A7E2A1C0DA579003D48E1 /* libdrape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E211C0DA55E003D48E1 /* libdrape.a */; };
@@ -1429,7 +1428,6 @@
 		6741AAB91BF356BA002C974C /* libsearch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsearch.a; path = "../../../omim-xcode-build/Debug/libsearch.a"; sourceTree = "<group>"; };
 		6741AABA1BF356BA002C974C /* libstorage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libstorage.a; path = "../../../omim-xcode-build/Debug/libstorage.a"; sourceTree = "<group>"; };
 		6741AABB1BF356BA002C974C /* libsuccinct.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsuccinct.a; path = "../../../omim-xcode-build/Debug/libsuccinct.a"; sourceTree = "<group>"; };
-		6741AABC1BF356BA002C974C /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtomcrypt.a; path = "../../../omim-xcode-build/Debug/libtomcrypt.a"; sourceTree = "<group>"; };
 		674A7E201C0DA55E003D48E1 /* libdrape_frontend.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape_frontend.a; path = "../../../omim-xcode-build/Debug/libdrape_frontend.a"; sourceTree = "<group>"; };
 		674A7E211C0DA55E003D48E1 /* libdrape.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape.a; path = "../../../omim-xcode-build/Debug/libdrape.a"; sourceTree = "<group>"; };
 		674A7E221C0DA55E003D48E1 /* libsdf_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsdf_image.a; path = "../../../omim-xcode-build/Debug/libsdf_image.a"; sourceTree = "<group>"; };
@@ -1861,7 +1859,6 @@
 				349B49BF1D3F58C3005A3C4E /* MyTrackerSDK.framework in Frameworks */,
 				6741AAD51BF356BA002C974C /* libstorage.a in Frameworks */,
 				6741AAD61BF356BA002C974C /* libsuccinct.a in Frameworks */,
-				6741AAD71BF356BA002C974C /* libtomcrypt.a in Frameworks */,
 				343E8B381D0800520046AEEE /* libc++.tbd in Frameworks */,
 				6741AA321BF340DE002C974C /* FBSDKLoginKit.framework in Frameworks */,
 				6741AA331BF340DE002C974C /* Social.framework in Frameworks */,
@@ -2040,7 +2037,6 @@
 				6741AAB91BF356BA002C974C /* libsearch.a */,
 				6741AABA1BF356BA002C974C /* libstorage.a */,
 				6741AABB1BF356BA002C974C /* libsuccinct.a */,
-				6741AABC1BF356BA002C974C /* libtomcrypt.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -4722,7 +4718,6 @@
 					"-lfribidi",
 					"-lminizip",
 					"-ljansson",
-					"-ltomcrypt",
 					"-lexpat",
 					"-lprotobuf",
 					"-losrm",
@@ -4807,7 +4802,6 @@
 					"-lfribidi",
 					"-lminizip",
 					"-ljansson",
-					"-ltomcrypt",
 					"-lexpat",
 					"-lprotobuf",
 					"-losrm",
@@ -4894,7 +4888,6 @@
 					"-lfribidi",
 					"-lminizip",
 					"-ljansson",
-					"-ltomcrypt",
 					"-lexpat",
 					"-lprotobuf",
 					"-losrm",
@@ -4981,7 +4974,6 @@
 					"-lfribidi",
 					"-lminizip",
 					"-ljansson",
-					"-ltomcrypt",
 					"-lexpat",
 					"-lprotobuf",
 					"-losrm",
@@ -5069,7 +5061,6 @@
 					"-lfribidi",
 					"-lminizip",
 					"-ljansson",
-					"-ltomcrypt",
 					"-lexpat",
 					"-lprotobuf",
 					"-losrm",
@@ -5158,7 +5149,6 @@
 					"-lfribidi",
 					"-lminizip",
 					"-ljansson",
-					"-ltomcrypt",
 					"-lexpat",
 					"-lprotobuf",
 					"-losrm",

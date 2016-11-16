@@ -41,7 +41,6 @@
 		3496ABFC1DC2045600C5DDBA /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3496ABF91DC2045600C5DDBA /* libcoding.a */; };
 		3496ABFD1DC2045600C5DDBA /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3496ABFA1DC2045600C5DDBA /* libindexer.a */; };
 		3496ABFE1DC2045600C5DDBA /* libplatform_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3496ABFB1DC2045600C5DDBA /* libplatform_tests_support.a */; };
-		3496AC001DC2046200C5DDBA /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3496ABFF1DC2046200C5DDBA /* libtomcrypt.a */; };
 		3496AC031DC2048E00C5DDBA /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3496AC011DC2047D00C5DDBA /* testingmain.cpp */; };
 		3496AC051DC204B700C5DDBA /* editor.config in Resources */ = {isa = PBXBuildFile; fileRef = 3496AC041DC204B700C5DDBA /* editor.config */; };
 		3496AC071DC204D000C5DDBA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3496AC061DC204D000C5DDBA /* libz.tbd */; };
@@ -93,7 +92,6 @@
 		3496ABF91DC2045600C5DDBA /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = "../../../omim-build/xcode/Debug/libcoding.a"; sourceTree = "<group>"; };
 		3496ABFA1DC2045600C5DDBA /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libindexer.a; path = "../../../omim-build/xcode/Debug/libindexer.a"; sourceTree = "<group>"; };
 		3496ABFB1DC2045600C5DDBA /* libplatform_tests_support.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform_tests_support.a; path = "../../../omim-build/xcode/Debug/libplatform_tests_support.a"; sourceTree = "<group>"; };
-		3496ABFF1DC2046200C5DDBA /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtomcrypt.a; path = "../../../omim-build/xcode/Debug/libtomcrypt.a"; sourceTree = "<group>"; };
 		3496AC011DC2047D00C5DDBA /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
 		3496AC041DC204B700C5DDBA /* editor.config */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = editor.config; path = ../../data/editor.config; sourceTree = "<group>"; };
 		3496AC061DC204D000C5DDBA /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -124,7 +122,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3496AC071DC204D000C5DDBA /* libz.tbd in Frameworks */,
-				3496AC001DC2046200C5DDBA /* libtomcrypt.a in Frameworks */,
 				3496ABFC1DC2045600C5DDBA /* libcoding.a in Frameworks */,
 				3496ABFD1DC2045600C5DDBA /* libindexer.a in Frameworks */,
 				3496ABFE1DC2045600C5DDBA /* libplatform_tests_support.a in Frameworks */,
@@ -218,7 +215,6 @@
 			isa = PBXGroup;
 			children = (
 				3496AC061DC204D000C5DDBA /* libz.tbd */,
-				3496ABFF1DC2046200C5DDBA /* libtomcrypt.a */,
 				3496ABF91DC2045600C5DDBA /* libcoding.a */,
 				3496ABFA1DC2045600C5DDBA /* libindexer.a */,
 				3496ABFB1DC2045600C5DDBA /* libplatform_tests_support.a */,
@@ -456,6 +452,7 @@
 				3496ABCF1DC2031900C5DDBA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

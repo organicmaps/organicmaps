@@ -90,7 +90,6 @@
 		674A29C11B26F0AE001A525C /* libsearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29A61B26F0AE001A525C /* libsearch.a */; };
 		674A29C21B26F0AE001A525C /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29A71B26F0AE001A525C /* libstorage.a */; };
 		674A29C31B26F0AE001A525C /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29A81B26F0AE001A525C /* libsuccinct.a */; };
-		674A29C41B26F0AE001A525C /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29A91B26F0AE001A525C /* libtomcrypt.a */; };
 		674A7E311C0DB727003D48E1 /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A299A1B26F0AE001A525C /* libgeometry.a */; };
 		674A7E361C0DB727003D48E1 /* libdrape_frontend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E321C0DB727003D48E1 /* libdrape_frontend.a */; };
 		674A7E371C0DB727003D48E1 /* libdrape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E331C0DB727003D48E1 /* libdrape.a */; };
@@ -269,7 +268,6 @@
 		674A29A61B26F0AE001A525C /* libsearch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsearch.a; path = "../../../omim-xcode-build/Debug/libsearch.a"; sourceTree = "<group>"; };
 		674A29A71B26F0AE001A525C /* libstorage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libstorage.a; path = "../../../omim-xcode-build/Debug/libstorage.a"; sourceTree = "<group>"; };
 		674A29A81B26F0AE001A525C /* libsuccinct.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsuccinct.a; path = "../../../omim-xcode-build/Debug/libsuccinct.a"; sourceTree = "<group>"; };
-		674A29A91B26F0AE001A525C /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtomcrypt.a; path = "../../../omim-xcode-build/Debug/libtomcrypt.a"; sourceTree = "<group>"; };
 		674A7E321C0DB727003D48E1 /* libdrape_frontend.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape_frontend.a; path = "../../../omim-xcode-build/Debug/libdrape_frontend.a"; sourceTree = "<group>"; };
 		674A7E331C0DB727003D48E1 /* libdrape.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape.a; path = "../../../omim-xcode-build/Debug/libdrape.a"; sourceTree = "<group>"; };
 		674A7E341C0DB727003D48E1 /* libsdf_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsdf_image.a; path = "../../../omim-xcode-build/Debug/libsdf_image.a"; sourceTree = "<group>"; };
@@ -361,7 +359,6 @@
 				674A29C11B26F0AE001A525C /* libsearch.a in Frameworks */,
 				674A29C21B26F0AE001A525C /* libstorage.a in Frameworks */,
 				674A29C31B26F0AE001A525C /* libsuccinct.a in Frameworks */,
-				674A29C41B26F0AE001A525C /* libtomcrypt.a in Frameworks */,
 				67534D271A40AA4300A0A8C3 /* CoreLocation.framework in Frameworks */,
 				67534C421A4097D000A0A8C3 /* OpenGL.framework in Frameworks */,
 				675345A81A40535E00A0A8C3 /* Cocoa.framework in Frameworks */,
@@ -425,7 +422,6 @@
 				674A29A61B26F0AE001A525C /* libsearch.a */,
 				674A29A71B26F0AE001A525C /* libstorage.a */,
 				674A29A81B26F0AE001A525C /* libsuccinct.a */,
-				674A29A91B26F0AE001A525C /* libtomcrypt.a */,
 				67534D261A40AA4300A0A8C3 /* CoreLocation.framework */,
 				67534C411A4097D000A0A8C3 /* OpenGL.framework */,
 				675345A71A40535E00A0A8C3 /* Cocoa.framework */,

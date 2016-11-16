@@ -7,7 +7,7 @@ TEMPLATE = app
 
 ROOT_DIR = ../..
 DEPENDENCIES = map drape_frontend routing search storage tracking traffic indexer drape partners_api platform_tests_support platform editor opening_hours geometry \
-               coding base freetype expat fribidi tomcrypt jansson protobuf osrm stats_client \
+               coding base freetype expat fribidi jansson protobuf osrm stats_client \
                minizip succinct pugixml oauthcpp
 
 include($$ROOT_DIR/common.pri)

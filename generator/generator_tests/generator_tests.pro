@@ -6,7 +6,7 @@ TEMPLATE = app
 ROOT_DIR = ../..
 DEPENDENCIES = generator_tests_support platform_tests_support generator drape_frontend routing search storage \
                indexer drape map traffic platform editor geometry \
-               coding base freetype expat fribidi tomcrypt jansson protobuf osrm stats_client \
+               coding base freetype expat fribidi jansson protobuf osrm stats_client \
                minizip succinct pugixml tess2 gflags oauthcpp
 
 

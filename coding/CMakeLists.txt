@@ -1,6 +1,6 @@
 project(coding)
 
-include_directories(${OMIM_ROOT}/3party/tomcrypt/src/headers  ${OMIM_ROOT}/coding)
+include_directories(${OMIM_ROOT}/coding)
 
 set(
   SRC

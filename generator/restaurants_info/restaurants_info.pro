@@ -8,7 +8,7 @@ TEMPLATE = app
 ROOT_DIR = ../..
 DEPENDENCIES = \
     generator search routing indexer geometry \
-    editor platform coding base tomcrypt jansson \
+    editor platform coding base jansson \
     pugixml stats_client opening_hours gflags \
     oauthcpp expat protobuf \
 
