@@ -288,9 +288,10 @@ void MatchFeaturesInTrie(SearchTrieRequest<DFA> const & request,
 
   impl::OffsetIntersector<Filter, Value> intersector(filter);
 
-  ForEachLangPrefix(request, trieRoot, [&](TrieRootPrefix<Value> & langRoot, int8_t lang) {
-    MatchInTrie(request.m_names, langRoot, intersector);
-  });
+  ForEachLangPrefix(request, trieRoot,
+                    [&request, &intersector](TrieRootPrefix<Value> & langRoot, int8_t /* lang */) {
+                      MatchInTrie(request.m_names, langRoot, intersector);
+                    });
 
   if (categoriesMatched)
     categoriesHolder.ForEachValue(intersector);

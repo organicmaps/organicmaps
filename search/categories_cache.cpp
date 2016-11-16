@@ -40,7 +40,7 @@ CBV CategoriesCache::Load(MwmContext const & context)
 
   SearchTrieRequest<strings::LevenshteinDFA> request;
 
-  m_categories.ForEach([&](uint32_t const type) {
+  m_categories.ForEach([&request, &c](uint32_t const type) {
     request.m_categories.emplace_back(FeatureTypeToString(c.GetIndexForType(type)));
   });
 

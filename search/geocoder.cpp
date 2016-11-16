@@ -337,7 +337,7 @@ size_t OrderCountries(m2::RectD const & pivot, vector<shared_ptr<MwmInfo>> & inf
 
 size_t GetMaxErrorsForToken(UniString const & token)
 {
-  bool const digitsOnly = all_of(token.begin(), token.end(), [](UniChar c) { return isdigit(c); });
+  bool const digitsOnly = all_of(token.begin(), token.end(), isdigit);
   if (digitsOnly)
     return 0;
   if (token.size() < 4)
