@@ -121,6 +121,7 @@
 		3442B29D1D92C14C00CA9291 /* MWMMapDownloaderAdsTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3442B29B1D92C14C00CA9291 /* MWMMapDownloaderAdsTableViewCell.mm */; };
 		3442B29F1D92C56500CA9291 /* MWMMapDownloaderAdsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3442B29E1D92C56500CA9291 /* MWMMapDownloaderAdsTableViewCell.xib */; };
 		3442B2A01D92C56500CA9291 /* MWMMapDownloaderAdsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3442B29E1D92C56500CA9291 /* MWMMapDownloaderAdsTableViewCell.xib */; };
+		3446C6771DDCA9A200146687 /* libtraffic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3446C6761DDCA9A200146687 /* libtraffic.a */; };
 		34479C7C1C60C6130065D261 /* MWMFrameworkListener.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34479C781C60C6130065D261 /* MWMFrameworkListener.mm */; };
 		34479C7D1C60C6130065D261 /* MWMFrameworkListener.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34479C781C60C6130065D261 /* MWMFrameworkListener.mm */; };
 		344D77B41D1BD7C800DBED70 /* MWMLocationManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 344D77B31D1BD7C800DBED70 /* MWMLocationManager.mm */; };
@@ -1090,6 +1091,7 @@
 		3442B29A1D92C14C00CA9291 /* MWMMapDownloaderAdsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapDownloaderAdsTableViewCell.h; sourceTree = "<group>"; };
 		3442B29B1D92C14C00CA9291 /* MWMMapDownloaderAdsTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapDownloaderAdsTableViewCell.mm; sourceTree = "<group>"; };
 		3442B29E1D92C56500CA9291 /* MWMMapDownloaderAdsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMMapDownloaderAdsTableViewCell.xib; sourceTree = "<group>"; };
+		3446C6761DDCA9A200146687 /* libtraffic.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtraffic.a; path = "../../../omim-build/xcode/Debug/libtraffic.a"; sourceTree = "<group>"; };
 		34479C751C60C6130065D261 /* Framework.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Framework.cpp; sourceTree = "<group>"; };
 		34479C761C60C6130065D261 /* Framework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Framework.h; sourceTree = "<group>"; };
 		34479C771C60C6130065D261 /* MWMFrameworkListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMFrameworkListener.h; sourceTree = "<group>"; };
@@ -1822,6 +1824,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3446C6771DDCA9A200146687 /* libtraffic.a in Frameworks */,
 				34201E0C1DC0E33100D24118 /* libtracking.a in Frameworks */,
 				34170B7E1D93C3C80074117B /* MyTargetSDK.framework in Frameworks */,
 				34BF68631D7459E6001752F6 /* CoreSpotlight.framework in Frameworks */,
@@ -2005,6 +2008,7 @@
 			children = (
 				3462FD8B1DC1DFDE00906FD7 /* 3party */,
 				3462FD8A1DC1DF3A00906FD7 /* SDK */,
+				3446C6761DDCA9A200146687 /* libtraffic.a */,
 				34201E0B1DC0E33100D24118 /* libtracking.a */,
 				3DDB4BC31DAB98F000F4D021 /* libpartners_api.a */,
 				340DC82B1C4E72C700EAA2CC /* liboauthcpp.a */,
