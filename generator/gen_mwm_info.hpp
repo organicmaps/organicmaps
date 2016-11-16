@@ -31,9 +31,7 @@ public:
   }
 };
 
-using OsmIdAndFeatureId = pair<uint64_t /* osm id */, uint32_t /* feature id */>;
-
-class OsmID2FeatureID : public Accumulator<OsmIdAndFeatureId>
+class OsmID2FeatureID : public Accumulator<pair<uint64_t /* osm id */, uint32_t /* feature id */>>
 {
   typedef Accumulator<ValueT> BaseT;
 
@@ -64,6 +62,11 @@ public:
       return 0;
   }
 
-  vector<OsmIdAndFeatureId> const & GetData() const { return m_data; }
+  template <class Fn>
+  void ForEach(Fn && fn) const
+  {
+    for (ValueT const & v : m_data)
+      fn(v);
+  }
 };
 }  // namespace gen

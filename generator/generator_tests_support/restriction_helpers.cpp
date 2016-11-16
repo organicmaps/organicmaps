@@ -30,6 +30,8 @@ void ReEncodeOsmIdsToFeatureIdsMapping(string const & mappingContent, string con
     TEST(idIter, ());
     TEST(strings::to_uint(*idIter, featureId), ("Cannot covert to uint:", *idIter));
     osmIdsToFeatureIds.Add(make_pair(osmId, featureId));
+    ++idIter;
+    TEST(!idIter, ());
   }
 
   FileWriter osm2ftWriter(outputFilePath);

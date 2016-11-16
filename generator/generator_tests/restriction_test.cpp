@@ -116,9 +116,9 @@ UNIT_TEST(RestrictionGenerationTest_ThreeRestrictions)
                                        Only, 10, 20
                                        Only, 30, 40)";
   string const osmIdsToFeatureIdsContent = R"(10, 1,
-                                             20, 2
-                                             30, 3,
-                                             40, 4)";
+                                              20, 2
+                                              30, 3,
+                                              40, 4)";
   TestRestrictionBuilding(restrictionContent, osmIdsToFeatureIdsContent);
 }
 
@@ -132,9 +132,9 @@ UNIT_TEST(RestrictionGenerationTest_SevenRestrictions)
                                        No, 40, 40,
                                        Only, 30, 40,)";
   string const osmIdsToFeatureIdsContent = R"(10, 1,
-                                             20, 2,
-                                             30, 3,
-                                             40, 4)";
+                                              20, 2,
+                                              30, 3,
+                                              40, 4)";
   TestRestrictionBuilding(restrictionContent, osmIdsToFeatureIdsContent);
 }
 

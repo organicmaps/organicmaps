@@ -85,15 +85,9 @@ bool RestrictionCollector::ParseOsmIdToFeatureIdMapping(string const & osmIdsToF
     return false;
   }
 
-  vector<gen::OsmIdAndFeatureId> const & mapping = osmIdsToFeatureIds.GetData();
-  if (mapping.empty())
-  {
-    LOG(LINFO, ("No osm ids to feature ids mapping in file", osmIdsToFeatureIdPath));
-    return true;
-  }
-
-  for (auto const osmIdToFeatureId : mapping)
-    AddFeatureId(osmIdToFeatureId.second /* feature id */, osmIdToFeatureId.first /* osm id */);
+  osmIdsToFeatureIds.ForEach([this](gen::OsmID2FeatureID::ValueT const & p){
+    AddFeatureId(p.second /* feature id */, p.first /* osm id */);
+  });
 
   return true;
 }
