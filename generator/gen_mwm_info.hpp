@@ -5,10 +5,8 @@
 #include "base/assert.hpp"
 
 #include "std/algorithm.hpp"
-#include "std/fstream.hpp"
-#include "std/iostream.hpp"
-#include "std/string.hpp"
 #include "std/utility.hpp"
+#include "std/vector.hpp"
 
 namespace gen
 {
@@ -31,11 +29,11 @@ public:
   {
     rw::ReadVectorOfPOD(src, m_data);
   }
-
-  vector<T> const & GetData() const { return m_data; }
 };
 
-class OsmID2FeatureID : public Accumulator<pair<uint64_t, uint32_t>>
+using OsmIdAndFeatureId = pair<uint64_t /* osm id */, uint32_t /* feature id */>;
+
+class OsmID2FeatureID : public Accumulator<OsmIdAndFeatureId>
 {
   typedef Accumulator<ValueT> BaseT;
 
@@ -65,5 +63,7 @@ public:
     else
       return 0;
   }
+
+  vector<OsmIdAndFeatureId> const & GetData() const { return m_data; }
 };
 }  // namespace gen

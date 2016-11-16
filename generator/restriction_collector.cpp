@@ -72,10 +72,7 @@ bool RestrictionCollector::IsValid() const
 
 bool RestrictionCollector::ParseOsmIdToFeatureIdMapping(string const & osmIdsToFeatureIdPath)
 {
-  LOG(LINFO, ("osmIdsToFeatureIdPath =", osmIdsToFeatureIdPath));
-
-  using OsmIdToFeatureId = pair<uint64_t /* osm id */, uint32_t /* feature id */>;
-  gen::Accumulator<OsmIdToFeatureId> osmIdsToFeatureIds;
+  gen::OsmID2FeatureID osmIdsToFeatureIds;
   try
   {
     FileReader reader(osmIdsToFeatureIdPath);
@@ -88,7 +85,7 @@ bool RestrictionCollector::ParseOsmIdToFeatureIdMapping(string const & osmIdsToF
     return false;
   }
 
-  vector<OsmIdToFeatureId> const & mapping = osmIdsToFeatureIds.GetData();
+  vector<gen::OsmIdAndFeatureId> const & mapping = osmIdsToFeatureIds.GetData();
   if (mapping.empty())
   {
     LOG(LINFO, ("No osm ids to feature ids mapping in file", osmIdsToFeatureIdPath));

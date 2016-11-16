@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "generator/generator_tests_support/restrcion_support.hpp"
+#include "generator/generator_tests_support/restriction_helpers.hpp"
 
 #include "generator/osm_id.hpp"
 #include "generator/restriction_collector.hpp"
@@ -90,11 +90,14 @@ UNIT_TEST(RestrictionTest_ParseRestrictions)
 
 UNIT_TEST(RestrictionTest_RestrictionCollectorWholeClassTest)
 {
+  ScopedDir scopedDir(kRestrictionTestDir);
+
   string const kRestrictionName = "restrictions_in_osm_ids.csv";
   string const kRestrictionPath = my::JoinFoldersToPath(kRestrictionTestDir, kRestrictionName);
   string const kRestrictionContent = R"(No, 10, 10,
                                         Only, 10, 20,
                                         Only, 30, 40,)";
+  ScopedFile restrictionScopedFile(kRestrictionPath, kRestrictionContent);
 
   string const kOsmIdsToFeatureIdsName = "osm_ids_to_feature_ids" OSM2FEATURE_FILE_EXTENSION;
   string const osmIdsToFeatureIdsPath =
@@ -106,10 +109,7 @@ UNIT_TEST(RestrictionTest_RestrictionCollectorWholeClassTest)
   Platform const & platform = Platform();
   string const osmIdsToFeatureIdsFullPath = my::JoinFoldersToPath(platform.WritableDir(),
                                                                   osmIdsToFeatureIdsPath);
-  GenerateOsmIdsToFeatureIdsMapping(kOsmIdsToFeatureIdsContent, osmIdsToFeatureIdsFullPath);
-
-  ScopedDir scopedDir(kRestrictionTestDir);
-  ScopedFile restrictionScopedFile(kRestrictionPath, kRestrictionContent);
+  ReEncodeOsmIdsToFeatureIdsMapping(kOsmIdsToFeatureIdsContent, osmIdsToFeatureIdsFullPath);
   ScopedFile mappingScopedFile(osmIdsToFeatureIdsPath);
 
   RestrictionCollector restrictionCollector(

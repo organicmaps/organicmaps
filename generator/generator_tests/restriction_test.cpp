@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "generator/generator_tests_support/restrcion_support.hpp"
+#include "generator/generator_tests_support/restriction_helpers.hpp"
 #include "generator/generator_tests_support/test_feature.hpp"
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
 
@@ -69,7 +69,7 @@ void TestRestrictionBuilding(string const & restrictionContent, string const & m
   string const mappingRelativePath = my::JoinFoldersToPath(kTestDir, kOsmIdsToFeatureIdsName);
   ScopedFile const mappingScopedFile(mappingRelativePath);
   string const mappingFullPath = my::JoinFoldersToPath(writableDir, mappingRelativePath);
-  GenerateOsmIdsToFeatureIdsMapping(mappingContent, mappingFullPath);
+  ReEncodeOsmIdsToFeatureIdsMapping(mappingContent, mappingFullPath);
 
   // Adding restriction section to mwm.
   string const restrictionFullPath = my::JoinFoldersToPath(writableDir, restrictionRelativePath);
