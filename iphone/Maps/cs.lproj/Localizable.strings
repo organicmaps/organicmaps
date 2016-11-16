@@ -1699,3 +1699,5 @@
 "dialog_taxi_offline" = "Objednání taxi není v režimu offline k dispozici.";
 
 "dialog_taxi_error" = "Objednání taxi není dočasně k dispozici.";
+
+"advertisement" = "Advertisement";

@@ -160,4 +160,9 @@
   <!-- Compass offset-->
   <dimen name="compass_navigation_landscape_offset">-54dp</dimen>
 
+  <!-- Banner-->
+  <dimen name="placepage_banner_height">46dp</dimen>
+  <dimen name="placepage_banner_icon_size">22dp</dimen>
+  <dimen name="placepage_banner_icon_size_full">40dp</dimen>
+
 </resources>

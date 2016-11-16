@@ -1699,3 +1699,5 @@
 "dialog_taxi_offline" = "ไม่สามารถทำการจองแท็กซี่ได้ในโหมดออฟไลน์";
 
 "dialog_taxi_error" = "ไม่สามารถทำการจองแท็กซี่ได้ชั่วคราว";
+
+"advertisement" = "Advertisement";

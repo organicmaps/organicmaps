@@ -19,6 +19,7 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.LocationState;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.bookmarks.data.Banner;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.util.Config;
@@ -303,7 +304,8 @@ public enum LocationHelper
       return null;
 
     if (mMyPosition == null)
-      mMyPosition = new MapObject(MapObject.MY_POSITION, "", "", "", mSavedLocation.getLatitude(), mSavedLocation.getLongitude(), "");
+      mMyPosition = new MapObject(MapObject.MY_POSITION, "", "", "", mSavedLocation.getLatitude(),
+          mSavedLocation.getLongitude(), "", Banner.empty());
 
     return mMyPosition;
   }

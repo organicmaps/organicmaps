@@ -43,6 +43,7 @@ import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.api.ParsedMwmRequest;
+import com.mapswithme.maps.bookmarks.data.Banner;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
@@ -94,7 +95,9 @@ public class PlacePageView extends RelativeLayout
                Sponsored.OnHotelInfoReceivedListener,
                LineCountTextView.OnLineCountCalculatedListener,
                RecyclerClickListener,
-               NearbyAdapter.OnItemClickListener
+               NearbyAdapter.OnItemClickListener,
+               BannerController.OnBannerClickListener,
+               BottomPlacePageAnimationController.OnBannerOpenListener
 {
   private static final String PREF_USE_DMS = "use_dms";
 
@@ -160,6 +163,9 @@ public class PlacePageView extends RelativeLayout
   private TextView mHotelRatingBase;
 //TODO: remove this after booking_api.cpp will be done
   private View mHotelMore;
+  // Banner
+  @Nullable
+  BannerController mBannerController;
 
   // Animations
   private BaseShadowController mShadowController;
@@ -331,6 +337,10 @@ public class PlacePageView extends RelativeLayout
     initHotelGalleryView();
     initHotelNearbyView();
     initHotelRatingView();
+
+    View bannerView = findViewById(R.id.banner);
+    if (bannerView != null)
+      mBannerController = new BannerController(bannerView, this);
 
     mButtons = new PlacePageButtons(this, ppButtons, new PlacePageButtons.ItemListener()
     {
@@ -706,6 +716,19 @@ public class PlacePageView extends RelativeLayout
         });
   }
 
+  @Override
+  public void onBannerClick(@NonNull Banner banner)
+  {
+//  TODO: go to banner url
+  }
+
+  @Override
+  public void onNeedOpenBanner()
+  {
+    if (mBannerController != null)
+      mBannerController.open();
+  }
+
   private void init(AttributeSet attrs, int defStyleAttr)
   {
     initViews();
@@ -719,8 +742,11 @@ public class PlacePageView extends RelativeLayout
     mIsFloating = attrArray.getBoolean(R.styleable.PlacePageView_floating, false);
     attrArray.recycle();
 
-    mAnimationController = animationType == 0 ? new BottomPlacePageAnimationController(this)
-                                              : new LeftPlacePageAnimationController(this);
+    boolean isBottom = animationType == 0;
+    mAnimationController = isBottom ? new BottomPlacePageAnimationController(this)
+                                    : new LeftPlacePageAnimationController(this);
+    if (isBottom)
+      ((BottomPlacePageAnimationController)mAnimationController).setBannerOpenListener(this);
   }
 
   public void restore()
@@ -766,13 +792,22 @@ public class PlacePageView extends RelativeLayout
     if (state == State.HIDDEN)
       clearBookmarkWebView();
 
+    if (mBannerController != null)
+    {
+      if ((state == State.HIDDEN || state == State.PREVIEW) && !UiUtils.isLandscape(getContext()))
+        mBannerController.close();
+      else
+        mBannerController.open();
+    }
+
     if (mMapObject != null)
       mAnimationController.setState(state, mMapObject.getMapObjectType());
 
     if (!mIsDocked && !mIsFloating)
     {
       // After ninepatch background is set from code, all paddings are lost, so we need to restore it later.
-      int bottom = mPreview.getPaddingBottom();
+      int bottom = mBannerController != null && mBannerController.isShowing()
+                   ? 0 : (int) getResources().getDimension(R.dimen.margin_base);
       int left = mPreview.getPaddingLeft();
       int right = mPreview.getPaddingRight();
       int top = mPreview.getPaddingTop();
@@ -913,6 +948,10 @@ public class PlacePageView extends RelativeLayout
       mTvSponsoredPrice.setText(mSponsoredPrice);
       UiUtils.showIf(!isPriceEmpty, mTvSponsoredPrice);
     }
+
+    Banner banner = mMapObject.getBanner();
+    if (mBannerController != null)
+      mBannerController.updateData(banner);
   }
 
   private void refreshDetails()

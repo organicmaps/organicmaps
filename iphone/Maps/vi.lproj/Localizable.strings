@@ -1699,3 +1699,5 @@
 "dialog_taxi_offline" = "Gọi taxi không khả dụng trong chế độ ngoại tuyến.";
 
 "dialog_taxi_error" = "Gọi taxi tạm thời không khả dụng.";
+
+"advertisement" = "Advertisement";

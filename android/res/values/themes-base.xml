@@ -82,6 +82,9 @@
     <item name="ppRatingText">@color/text_placepage_rating</item>
     <item name="ppPositive">@drawable/ic_positive_review</item>
     <item name="ppNegative">@drawable/ic_negative_review</item>
+
+    <item name="bannerText">@color/text_banner_color</item>
+    <item name="bannerBackground">@color/bg_banner_color</item>
   </style>
 
   <!-- Night theme -->
@@ -167,5 +170,8 @@
     <item name="ppRatingText">@color/text_placepage_rating_night</item>
     <item name="ppPositive">@drawable/ic_positive_review_night</item>
     <item name="ppNegative">@drawable/ic_negative_review_night</item>
+
+    <item name="bannerText">@color/text_banner_color_night</item>
+    <item name="bannerBackground">@color/bg_banner_color_night</item>
   </style>
 </resources>

@@ -1699,3 +1699,5 @@
 "dialog_taxi_offline" = "Objednanie taxíka nie je k dispozícii v režime offline.";
 
 "dialog_taxi_error" = "Objednanie taxíka je dočasne nedostupné.";
+
+"advertisement" = "Advertisement";

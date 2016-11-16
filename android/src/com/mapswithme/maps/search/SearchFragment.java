@@ -23,6 +23,7 @@ import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
+import com.mapswithme.maps.bookmarks.data.Banner;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.CountrySuggestFragment;
 import com.mapswithme.maps.downloader.MapManager;
@@ -351,7 +352,8 @@ public class SearchFragment extends BaseMwmFragment
     if (mFromRoutePlan)
     {
       //noinspection ConstantConditions
-      final MapObject point = new MapObject(MapObject.SEARCH, result.name, result.description.featureType, "", result.lat, result.lon, "");
+      final MapObject point = new MapObject(MapObject.SEARCH, result.name,
+          result.description.featureType, "", result.lat, result.lon, "", Banner.empty());
       RoutingController.get().onPoiSelected(point);
     }
 

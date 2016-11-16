@@ -1699,3 +1699,5 @@
 "dialog_taxi_offline" = "오프라인 모드에서는 택시를 예약할 수 없습니다.";
 
 "dialog_taxi_error" = "일시적으로 택시를 예약할 수 없습니다.";
+
+"advertisement" = "Advertisement";

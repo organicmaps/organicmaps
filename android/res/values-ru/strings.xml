@@ -1006,4 +1006,5 @@
 	<string name="whatsnew_uber_message">Закажите такси прямо из приложения!</string>
 	<string name="dialog_taxi_offline">Заказ такси недоступен офлайн.</string>
 	<string name="dialog_taxi_error">Заказ такси временно недоступен.</string>
+	<string name="advertisement">Реклама</string>
 </resources>

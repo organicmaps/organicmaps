@@ -1699,3 +1699,5 @@
 "dialog_taxi_offline" = "Det er ikke muligt at bestille en taxi i offlinetilstand.";
 
 "dialog_taxi_error" = "Bestilling af en taxi er ikke muligt lige nu.";
+
+"advertisement" = "Advertisement";

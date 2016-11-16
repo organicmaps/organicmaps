@@ -1699,3 +1699,5 @@
 "dialog_taxi_offline" = "La opción para solicitar un taxi no se encuentra disponible en el modo sin conexión.";
 
 "dialog_taxi_error" = "La opción para solicitar un taxi se encuentra temporalmente no disponible.";
+
+"advertisement" = "Advertisement";

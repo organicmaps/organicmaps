@@ -1699,3 +1699,5 @@
 "dialog_taxi_offline" = "叫計程車服務在離線模式下無法使用。";
 
 "dialog_taxi_error" = "叫計程車服務暫時無法使用。";
+
+"advertisement" = "Advertisement";

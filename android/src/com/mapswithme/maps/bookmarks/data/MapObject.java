@@ -32,13 +32,16 @@ public class MapObject implements Parcelable
   protected String mAddress;
   protected Metadata mMetadata;
   protected String mApiId;
+  @NonNull
+  protected Banner mBanner;
 
-  public MapObject(@MapObjectType int mapObjectType, String title, String subtitle, String address, double lat, double lon, String apiId)
+  public MapObject(@MapObjectType int mapObjectType, String title, String subtitle, String address,
+                   double lat, double lon, String apiId, @NonNull Banner banner)
   {
-    this(mapObjectType, title, subtitle, address, lat, lon, new Metadata(), apiId);
+    this(mapObjectType, title, subtitle, address, lat, lon, new Metadata(), apiId, banner);
   }
 
-  public MapObject(@MapObjectType int mapObjectType, String title, String subtitle, String address, double lat, double lon, Metadata metadata, String apiId)
+  public MapObject(@MapObjectType int mapObjectType, String title, String subtitle, String address, double lat, double lon, Metadata metadata, String apiId, @NonNull Banner banner)
   {
     mMapObjectType = mapObjectType;
     mTitle = title;
@@ -48,6 +51,7 @@ public class MapObject implements Parcelable
     mLon = lon;
     mMetadata = metadata;
     mApiId = apiId;
+    mBanner = banner;
   }
 
   protected MapObject(Parcel source)
@@ -60,7 +64,8 @@ public class MapObject implements Parcelable
          source.readDouble(), // Lat
          source.readDouble(), // Lon
          (Metadata) source.readParcelable(Metadata.class.getClassLoader()),
-         source.readString()); // ApiId;
+         source.readString(), // ApiId;
+         (Banner) source.readParcelable(Banner.class.getClassLoader()));
   }
 
   /**
@@ -123,6 +128,12 @@ public class MapObject implements Parcelable
   public String getApiId()
   {
     return mApiId;
+  }
+
+  @NonNull
+  public Banner getBanner()
+  {
+    return mBanner;
   }
 
   public void setLat(double lat)
@@ -188,6 +199,7 @@ public class MapObject implements Parcelable
     dest.writeDouble(mLon);
     dest.writeParcelable(mMetadata, 0);
     dest.writeString(mApiId);
+    dest.writeParcelable(mBanner, 0);
   }
 
   public static final Creator<MapObject> CREATOR = new Creator<MapObject>()

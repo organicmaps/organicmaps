@@ -1699,3 +1699,5 @@
 "dialog_taxi_offline" = "Memesan taksi tidak tersedia dalam modus offline.";
 
 "dialog_taxi_error" = "Memesan taksi untuk sementara tidak tersedia.";
+
+"advertisement" = "Advertisement";

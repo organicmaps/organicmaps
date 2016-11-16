@@ -1010,4 +1010,5 @@
 	<string name="whatsnew_uber_message">Order a taxi directly from the app!</string>
 	<string name="dialog_taxi_offline">Taxi ordering is unavailable in offline mode.</string>
 	<string name="dialog_taxi_error">Taxi ordering is temporarily unavailable.</string>
+	<string name="advertisement">Advertisement</string>
 </resources>

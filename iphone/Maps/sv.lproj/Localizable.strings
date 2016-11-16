@@ -1699,3 +1699,5 @@
 "dialog_taxi_offline" = "Du kan inte beställa en taxi i offlineläge.";
 
 "dialog_taxi_error" = "Du kan inte beställa en taxi just nu.";
+
+"advertisement" = "Advertisement";
