@@ -13,13 +13,12 @@ namespace strings
 {
 namespace
 {
+inline size_t AbsDiff(size_t a, size_t b) { return a > b ? a - b : b - a; }
+
 class TransitionTable
 {
 public:
-  TransitionTable(UniString const & s, uint8_t maxErrors)
-    : m_s(s), m_size(s.size()), m_maxErrors(maxErrors)
-  {
-  }
+  TransitionTable(UniString const & s) : m_s(s), m_size(s.size()) {}
 
   void Move(LevenshteinDFA::State const & s, size_t prefixCharsToKeep, UniChar c,
             LevenshteinDFA::State & t)
@@ -36,38 +35,50 @@ private:
   {
     auto & ps = t.m_positions;
 
-    if (p.m_offset < m_size && m_s[p.m_offset] == c)
+    if (p.IsTransposed())
     {
-      ps.emplace_back(p.m_offset + 1, p.m_numErrors);
+      if (p.m_offset + 2 <= m_size && m_s[p.m_offset] == c)
+        ps.emplace_back(p.m_offset + 2, p.m_errorsLeft, false /* transposed */);
       return;
     }
 
-    if (p.m_numErrors == m_maxErrors)
+    ASSERT(p.IsStandard(), ());
+
+    if (p.m_offset < m_size && m_s[p.m_offset] == c)
+    {
+      ps.emplace_back(p.m_offset + 1, p.m_errorsLeft, false /* transposed */);
+      return;
+    }
+
+    if (p.m_errorsLeft == 0)
       return;
 
     if (p.m_offset < prefixCharsToKeep)
       return;
 
-    ps.emplace_back(p.m_offset, p.m_numErrors + 1);
+    ps.emplace_back(p.m_offset, p.m_errorsLeft - 1, false /* transposed */);
 
     if (p.m_offset == m_size)
       return;
 
-    ps.emplace_back(p.m_offset + 1, p.m_numErrors + 1);
+    ps.emplace_back(p.m_offset + 1, p.m_errorsLeft - 1, false /* transposed */);
 
     size_t i;
     if (FindRelevant(p, c, i))
     {
       ASSERT_GREATER(i, 0, (i));
       ASSERT_LESS_OR_EQUAL(p.m_offset + i + 1, m_size, ());
-      ps.emplace_back(p.m_offset + i + 1, p.m_numErrors + i);
+      ps.emplace_back(p.m_offset + i + 1, p.m_errorsLeft - i, false /* transposed */);
+
+      if (i == 1)
+        ps.emplace_back(p.m_offset, p.m_errorsLeft - 1, true /* transposed */);
     }
   }
 
   bool FindRelevant(LevenshteinDFA::Position const & p, UniChar c, size_t & i) const
   {
     size_t const limit =
-        min(m_size - p.m_offset, static_cast<size_t>(m_maxErrors - p.m_numErrors) + 1);
+        min(m_size - p.m_offset, static_cast<size_t>(p.m_errorsLeft) + 1);
 
     for (i = 0; i < limit; ++i)
     {
@@ -79,7 +90,6 @@ private:
 
   UniString const & m_s;
   size_t const m_size;
-  uint8_t const m_maxErrors;
 };
 }  // namespace
 
@@ -89,49 +99,46 @@ size_t const LevenshteinDFA::kStartingState = 0;
 size_t const LevenshteinDFA::kRejectingState = 1;
 
 // LevenshteinDFA::Position ------------------------------------------------------------------------
-LevenshteinDFA::Position::Position(size_t offset, uint8_t numErrors)
-  : m_offset(offset), m_numErrors(numErrors)
+LevenshteinDFA::Position::Position(size_t offset, uint8_t errorsLeft, bool transposed)
+  : m_offset(offset), m_errorsLeft(errorsLeft), m_transposed(transposed)
 {
 }
 
 bool LevenshteinDFA::Position::SubsumedBy(Position const & rhs) const
 {
-  if (m_numErrors <= rhs.m_numErrors)
+  if (m_errorsLeft >= rhs.m_errorsLeft)
     return false;
 
-  size_t const u = m_offset < rhs.m_offset ? rhs.m_offset - m_offset : m_offset - rhs.m_offset;
-  size_t const v = m_numErrors - rhs.m_numErrors;
+  if (IsStandard() && rhs.IsStandard())
+    return AbsDiff(m_offset, rhs.m_offset) <= rhs.m_errorsLeft - m_errorsLeft;
 
-  return u <= v;
+  if (IsStandard() && rhs.IsTransposed())
+    return m_offset == rhs.m_offset && m_errorsLeft == 0;
+
+  if (IsTransposed() && rhs.IsStandard())
+    return AbsDiff(m_offset + 1, rhs.m_offset) <= rhs.m_errorsLeft - m_errorsLeft;
+
+  ASSERT(IsTransposed(), ());
+  ASSERT(rhs.IsTransposed(), ());
+  return m_offset == rhs.m_offset;
 }
 
 bool LevenshteinDFA::Position::operator<(Position const & rhs) const
 {
   if (m_offset != rhs.m_offset)
     return m_offset < rhs.m_offset;
-  return m_numErrors < rhs.m_numErrors;
+  if (m_errorsLeft != rhs.m_errorsLeft)
+    return m_errorsLeft < rhs.m_errorsLeft;
+  return m_transposed < rhs.m_transposed;
 }
 
 bool LevenshteinDFA::Position::operator==(Position const & rhs) const
 {
-  return m_offset == rhs.m_offset && m_numErrors == rhs.m_numErrors;
+  return m_offset == rhs.m_offset && m_errorsLeft == rhs.m_errorsLeft &&
+         m_transposed == rhs.m_transposed;
 }
 
 // LevenshteinDFA::State ---------------------------------------------------------------------------
-// static
-LevenshteinDFA::State LevenshteinDFA::State::MakeStart()
-{
-  State state;
-  state.m_positions.emplace_back(0 /* offset */, 0 /* numErrors */);
-  return state;
-}
-
-// static
-LevenshteinDFA::State LevenshteinDFA::State::MakeRejecting()
-{
-  return State();
-}
-
 void LevenshteinDFA::State::Normalize()
 {
   size_t j = m_positions.size();
@@ -183,10 +190,10 @@ LevenshteinDFA::LevenshteinDFA(UniString const & s, size_t prefixCharsToKeep, ui
     m_accepting.push_back(false);
   };
 
-  pushState(State::MakeStart(), kStartingState);
-  pushState(State::MakeRejecting(), kRejectingState);
+  pushState(MakeStart(), kStartingState);
+  pushState(MakeRejecting(), kRejectingState);
 
-  TransitionTable table(s, maxErrors);
+  TransitionTable table(s);
 
   while (!states.empty())
   {
@@ -239,9 +246,22 @@ LevenshteinDFA::LevenshteinDFA(string const & s, uint8_t maxErrors)
 {
 }
 
+LevenshteinDFA::State LevenshteinDFA::MakeStart()
+{
+  State state;
+  state.m_positions.emplace_back(0 /* offset */, m_maxErrors /* errorsLeft */,
+                                 false /* transposed */);
+  return state;
+}
+
+LevenshteinDFA::State LevenshteinDFA::MakeRejecting()
+{
+  return State();
+}
+
 bool LevenshteinDFA::IsValid(Position const & p) const
 {
-  return p.m_offset <= m_size && p.m_numErrors <= m_maxErrors;
+  return p.m_offset <= m_size && p.m_errorsLeft <= m_maxErrors;
 }
 
 bool LevenshteinDFA::IsValid(State const & s) const
@@ -256,7 +276,7 @@ bool LevenshteinDFA::IsValid(State const & s) const
 
 bool LevenshteinDFA::IsAccepting(Position const & p) const
 {
-  return m_size - p.m_offset <= m_maxErrors - p.m_numErrors;
+  return m_size - p.m_offset <= p.m_errorsLeft;
 }
 
 bool LevenshteinDFA::IsAccepting(State const & s) const
@@ -287,7 +307,8 @@ size_t LevenshteinDFA::Move(size_t s, UniChar c) const
 string DebugPrint(LevenshteinDFA::Position const & p)
 {
   ostringstream os;
-  os << "Position [" << p.m_offset << ", " << static_cast<uint32_t>(p.m_numErrors) << "]";
+  os << "Position [" << p.m_offset << ", " << static_cast<uint32_t>(p.m_errorsLeft) << ", "
+     << p.m_transposed << "]";
   return os.str();
 }
 

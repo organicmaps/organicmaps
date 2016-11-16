@@ -10,18 +10,18 @@ namespace strings
 // This class represents a DFA recognizing a language consisting of
 // all words that are close enough to a given string, in terms of
 // Levenshtein distance. Levenshtein distance treats deletions,
-// insertions and replacements as errors, transpositions are not
-// handled now. The code is based on the work "Fast String Correction
-// with Levenshtein-Automata" by Klaus U. Schulz and Stoyan Mihov.
-// For a fixed number of allowed errors and fixed alphabet the
-// construction time and size of automata is O(length of the pattern),
-// but the size grows exponentially with the number of errors, so be
-// reasonable and don't use this class when the number of errors is
-// too high.
+// insertions and replacements as errors. Transpositions are handled
+// in a quite special way - its assumed that all transformations are
+// applied in parallel, i.e. the Levenshtein distance between "ab" and
+// "bca" is three, not two.  The code is based on the work "Fast
+// String Correction with Levenshtein-Automata" by Klaus U. Schulz and
+// Stoyan Mihov.  For a fixed number of allowed errors and fixed
+// alphabet the construction time and size of automata is O(length of
+// the pattern), but the size grows exponentially with the number of
+// errors, so be reasonable and don't use this class when the number
+// of errors is too high.
 //
 // *NOTE* The class *IS* thread-safe.
-//
-// TODO (@y): add support for transpositions.
 //
 // TODO (@y): consider to implement a factory of automata, that will
 // be able to construct them quickly for a fixed number of errors.
@@ -34,22 +34,23 @@ public:
   struct Position
   {
     Position() = default;
-    Position(size_t offset, uint8_t numErrors);
+    Position(size_t offset, uint8_t errorsLeft, bool transposed);
 
     bool SubsumedBy(Position const & rhs) const;
 
     bool operator<(Position const & rhs) const;
     bool operator==(Position const & rhs) const;
 
+    inline bool IsStandard() const { return !m_transposed; }
+    inline bool IsTransposed() const { return m_transposed; }
+
     size_t m_offset = 0;
-    uint8_t m_numErrors = 0;
+    uint8_t m_errorsLeft = 0;
+    bool m_transposed = false;
   };
 
   struct State
   {
-    static State MakeStart();
-    static State MakeRejecting();
-
     void Normalize();
     inline void Clear() { m_positions.clear(); }
 
@@ -96,7 +97,8 @@ public:
 private:
   friend class Iterator;
 
-  size_t TransformChar(UniChar c) const;
+  State MakeStart();
+  State MakeRejecting();
 
   bool IsValid(Position const & p) const;
   bool IsValid(State const & s) const;

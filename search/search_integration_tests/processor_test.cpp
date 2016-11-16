@@ -784,6 +784,8 @@ UNIT_CLASS_TEST(ProcessorTest, FuzzyMatch)
 
     // Too many errors, can't do anything.
     TEST(ResultsMatch("масква ленинргадский чирчиль", "ru", TRules{}), ());
+
+    TEST(ResultsMatch("моксва ленинргадский черчиль", "ru", rules), ());
   }
 }
 }  // namespace
