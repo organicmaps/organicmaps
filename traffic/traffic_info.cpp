@@ -20,7 +20,6 @@ namespace traffic
 {
 namespace
 {
-char const kTestFileName[] = "traffic_data";
 
 bool ReadRemoteFile(string const & url, vector<uint8_t> & result)
 {
@@ -46,12 +45,12 @@ TrafficInfo::RoadSegmentId::RoadSegmentId(uint32_t fid, uint16_t idx, uint8_t di
 // TrafficInfo --------------------------------------------------------------------------------
 TrafficInfo::TrafficInfo(MwmSet::MwmId const & mwmId) : m_mwmId(mwmId) {}
 
-bool TrafficInfo::ReceiveTrafficData()
+bool TrafficInfo::ReceiveTrafficData(string const & fileName)
 {
   if (strlen(TRAFFIC_DATA_BASE_URL) == 0)
     return false;
 
-  string const url = string(TRAFFIC_DATA_BASE_URL) + string(kTestFileName);
+  string const url = string(TRAFFIC_DATA_BASE_URL) + string(fileName);
   vector<uint8_t> contents;
   if (!ReadRemoteFile(url, contents))
     return false;

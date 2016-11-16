@@ -7,7 +7,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = generator map routing storage indexer platform geometry coding base minizip succinct protobuf gflags
+DEPENDENCIES = generator map traffic routing storage indexer platform geometry coding base minizip succinct protobuf gflags
 
 include($$ROOT_DIR/common.pri)
 

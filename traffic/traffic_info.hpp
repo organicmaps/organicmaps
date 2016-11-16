@@ -12,11 +12,16 @@ namespace traffic
 {
 // This class is responsible for providing the real-time
 // information about road traffic for one mwm file.
+
 class TrafficInfo
 {
 public:
   struct RoadSegmentId
   {
+    // m_dir can be kForwardDirection or kReverseDirection.
+    static int constexpr kForwardDirection = 0;
+    static int constexpr kReverseDirection = 1;
+
     RoadSegmentId();
 
     RoadSegmentId(uint32_t fid, uint16_t idx, uint8_t dir);
@@ -43,7 +48,6 @@ public:
     uint16_t m_idx : 15;
 
     // The direction of the segment.
-    // todo(@m) Write up what the values 0 and 1 mean specifically.
     uint8_t m_dir : 1;
   };
 
@@ -58,7 +62,7 @@ public:
   // todo(@m, @syershov) Currently a hardcoded path is used.
   // Construct the url by passing an MwmId.
   // *NOTE* This method must not be called on the UI thread.
-  bool ReceiveTrafficData();
+  bool ReceiveTrafficData(string const & fileName);
 
   // Returns the latest known speed group by a feature segment's id.
   SpeedGroup GetSpeedGroup(RoadSegmentId const & id) const;

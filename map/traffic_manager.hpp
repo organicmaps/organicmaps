@@ -12,14 +12,17 @@
 
 #include "indexer/index.hpp"
 
+#include "std/mutex.hpp"
 #include "std/set.hpp"
+#include "std/thread.hpp"
+#include "std/vector.hpp"
 
 namespace df
 {
 class DrapeEngine;
 }  // namespace df
 
-class TrafficManager
+class TrafficManager final
 {
 public:
   struct MyPosition
@@ -34,9 +37,12 @@ public:
     {}
   };
 
-  TrafficManager(Index const & index)
-    : m_index(index)
-  {}
+  using GetMwmsByRectFn = function<vector<MwmSet::MwmId>(m2::RectD const &)>;
+
+  TrafficManager(Index const & index, GetMwmsByRectFn const & getMwmsByRectFn);
+  ~TrafficManager();
+
+  void SetEnabled(bool enabled);
 
   void UpdateViewport(ScreenBase const & screen);
   void UpdateMyPosition(MyPosition const & myPosition);
@@ -49,8 +55,24 @@ private:
   void CalculateSegmentsColoring(traffic::TrafficInfo const & trafficInfo,
                                  df::TrafficSegmentsColoring & output) const;
 
+  void ThreadRoutine();
+  bool WaitForRequest(vector<MwmSet::MwmId> & mwms);
+  void RequestTrafficData(MwmSet::MwmId const & mwmId);
+  void OnTrafficDataResponse(traffic::TrafficInfo const & info);
+
+  bool m_isEnabled;
+
   Index const & m_index;
+  GetMwmsByRectFn m_getMwmsByRectFn;
+
   ref_ptr<df::DrapeEngine> m_drapeEngine;
   m2::PointD m_myPosition;
   set<MwmSet::MwmId> m_mwmIds;
+
+  bool m_isRunning;
+  condition_variable m_condition;
+
+  vector<MwmSet::MwmId> m_requestedMwms;
+  mutex m_requestedMwmsLock;
+  thread m_thread;
 };

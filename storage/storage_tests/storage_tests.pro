@@ -11,7 +11,7 @@ macx*|win32*|linux* {
 DEPENDENCIES = generator_tests_support generator
 }
 
-DEPENDENCIES *= drape_frontend map routing \
+DEPENDENCIES *= drape_frontend map routing traffic \
                 search storage indexer drape platform_tests_support platform editor opening_hours geometry \
                 coding base freetype expat fribidi tomcrypt jansson tess2 protobuf osrm stats_client \
                 minizip succinct pugixml oauthcpp

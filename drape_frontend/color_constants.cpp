@@ -27,9 +27,9 @@ unordered_map<int, unordered_map<int, dp::Color>> kColorConstants =
       { TrafficG0, dp::Color(60, 170, 60, 255) },
       { TrafficG1, dp::Color(60, 170, 60, 255) },
       { TrafficG2, dp::Color(227, 38, 54, 255) },
-      { TrafficG3, dp::Color(100, 100, 100, 255) },
-      { TrafficG4, dp::Color(100, 100, 100, 255) },
-      { TrafficG5, dp::Color(100, 100, 100, 255) },
+      { TrafficG3, dp::Color(0, 100, 100, 255) },
+      { TrafficG4, dp::Color(100, 0, 100, 255) },
+      { TrafficG5, dp::Color(100, 100, 0, 255) },
       { TrafficTempBlock, dp::Color(0, 0, 0, 255) },
       { TrafficUnknown, dp::Color(0, 0, 0, 0) },
     }

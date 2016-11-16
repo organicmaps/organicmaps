@@ -1,6 +1,6 @@
 # Head project for drape develop and debuging
 ROOT_DIR = ..
-DEPENDENCIES = map drape_frontend drape indexer storage platform geometry coding base \
+DEPENDENCIES = map traffic drape_frontend drape indexer storage platform geometry coding base \
                freetype expat protobuf jansson fribidi tomcrypt
 
 include($$ROOT_DIR/common.pri)

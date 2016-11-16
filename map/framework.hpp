@@ -360,6 +360,8 @@ public:
   /// Guarantees that listener is called in the main thread context.
   void SetCurrentCountryChangedListener(TCurrentCountryChanged const & listener);
 
+  vector<MwmSet::MwmId> GetMwmsByRect(m2::RectD const & rect);
+
 private:
   struct TapEvent
   {
