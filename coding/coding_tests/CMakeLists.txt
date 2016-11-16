@@ -4,7 +4,6 @@ add_definitions(-DOMIM_UNIT_TEST_DISABLE_PLATFORM_INIT)
 
 set(
   SRC
-  base64_for_user_id_test.cpp
   base64_test.cpp
   bit_streams_test.cpp
   coder_test.hpp
@@ -29,7 +28,6 @@ set(
   reader_test.cpp
   reader_test.hpp
   reader_writer_ops_test.cpp
-  sha2_test.cpp
   simple_dense_coding_test.cpp
   succinct_mapper_test.cpp
   traffic_test.cpp

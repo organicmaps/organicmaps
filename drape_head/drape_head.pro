@@ -1,7 +1,7 @@
 # Head project for drape develop and debuging
 ROOT_DIR = ..
 DEPENDENCIES = map traffic drape_frontend drape indexer storage platform geometry coding base \
-               freetype expat protobuf jansson fribidi tomcrypt
+               freetype expat protobuf jansson fribidi stats_client
 
 include($$ROOT_DIR/common.pri)
 
@@ -24,7 +24,7 @@ win32*|linux* {
 
 macx-* {
   LIBS *= "-framework CoreLocation" "-framework CoreWLAN" \
-          "-framework QuartzCore" "-framework IOKit"
+          "-framework QuartzCore" "-framework IOKit" "-framework SystemConfiguration"
 }
 
 HEADERS += \

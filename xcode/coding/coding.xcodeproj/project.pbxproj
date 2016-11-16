@@ -22,7 +22,6 @@
 		3949172E1BAC3CAC002A8C4F /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3949172A1BAC3CAC002A8C4F /* libtomcrypt.a */; };
 		394917301BAC3CC9002A8C4F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3949172F1BAC3CC9002A8C4F /* libz.tbd */; };
 		3D489BB61D3D21510052AA38 /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D489BB51D3D21510052AA38 /* libplatform.a */; };
-		3D489BBF1D3D21940052AA38 /* base64_for_user_id_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E8DB071BBC16C70053C5BA /* base64_for_user_id_test.cpp */; };
 		3D489BC01D3D21A00052AA38 /* succinct_mapper_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D489BBA1D3D217E0052AA38 /* succinct_mapper_test.cpp */; };
 		3D489BC11D3D21A40052AA38 /* simple_dense_coding_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D489BB91D3D217E0052AA38 /* simple_dense_coding_test.cpp */; };
 		3D489BC21D3D21AA0052AA38 /* fixed_bits_ddvector_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D489BB81D3D217E0052AA38 /* fixed_bits_ddvector_test.cpp */; };
@@ -74,8 +73,6 @@
 		675342BA1A3F588C00A0A8C3 /* reader_writer_ops.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675342641A3F588B00A0A8C3 /* reader_writer_ops.hpp */; };
 		675342BB1A3F588C00A0A8C3 /* reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675342651A3F588B00A0A8C3 /* reader.cpp */; };
 		675342BC1A3F588C00A0A8C3 /* reader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675342661A3F588B00A0A8C3 /* reader.hpp */; };
-		675342BD1A3F588C00A0A8C3 /* sha2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675342671A3F588B00A0A8C3 /* sha2.cpp */; };
-		675342BE1A3F588C00A0A8C3 /* sha2.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675342681A3F588B00A0A8C3 /* sha2.hpp */; };
 		675342BF1A3F588C00A0A8C3 /* streams_common.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675342691A3F588B00A0A8C3 /* streams_common.hpp */; };
 		675342C01A3F588C00A0A8C3 /* streams_sink.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753426A1A3F588B00A0A8C3 /* streams_sink.hpp */; };
 		675342C11A3F588C00A0A8C3 /* streams.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753426B1A3F588B00A0A8C3 /* streams.hpp */; };
@@ -118,7 +115,6 @@
 		67E8DB681BBC17490053C5BA /* reader_cache_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E8DB1D1BBC16C70053C5BA /* reader_cache_test.cpp */; };
 		67E8DB691BBC17490053C5BA /* reader_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E8DB1E1BBC16C70053C5BA /* reader_test.cpp */; };
 		67E8DB6A1BBC17490053C5BA /* reader_writer_ops_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E8DB201BBC16C70053C5BA /* reader_writer_ops_test.cpp */; };
-		67E8DB6B1BBC17490053C5BA /* sha2_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E8DB211BBC16C70053C5BA /* sha2_test.cpp */; };
 		67E8DB6E1BBC17490053C5BA /* uri_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E8DB241BBC16C70053C5BA /* uri_test.cpp */; };
 		67E8DB6F1BBC17490053C5BA /* url_encode_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E8DB251BBC16C70053C5BA /* url_encode_test.cpp */; };
 		67E8DB701BBC17490053C5BA /* value_opt_string_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E8DB261BBC16C70053C5BA /* value_opt_string_test.cpp */; };
@@ -212,8 +208,6 @@
 		675342641A3F588B00A0A8C3 /* reader_writer_ops.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = reader_writer_ops.hpp; sourceTree = "<group>"; };
 		675342651A3F588B00A0A8C3 /* reader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = reader.cpp; sourceTree = "<group>"; };
 		675342661A3F588B00A0A8C3 /* reader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = reader.hpp; sourceTree = "<group>"; };
-		675342671A3F588B00A0A8C3 /* sha2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sha2.cpp; sourceTree = "<group>"; };
-		675342681A3F588B00A0A8C3 /* sha2.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sha2.hpp; sourceTree = "<group>"; };
 		675342691A3F588B00A0A8C3 /* streams_common.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = streams_common.hpp; sourceTree = "<group>"; };
 		6753426A1A3F588B00A0A8C3 /* streams_sink.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = streams_sink.hpp; sourceTree = "<group>"; };
 		6753426B1A3F588B00A0A8C3 /* streams.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = streams.hpp; sourceTree = "<group>"; };
@@ -238,7 +232,6 @@
 		6768181F1DC3ABD80094C0AC /* traffic_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = traffic_test.cpp; sourceTree = "<group>"; };
 		67D1C81A1AE541C300A239E3 /* png_memory_encoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = png_memory_encoder.cpp; sourceTree = "<group>"; };
 		67D1C81B1AE541C300A239E3 /* png_memory_encoder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = png_memory_encoder.hpp; sourceTree = "<group>"; };
-		67E8DB071BBC16C70053C5BA /* base64_for_user_id_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = base64_for_user_id_test.cpp; sourceTree = "<group>"; };
 		67E8DB081BBC16C70053C5BA /* base64_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = base64_test.cpp; sourceTree = "<group>"; };
 		67E8DB091BBC16C70053C5BA /* bit_streams_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bit_streams_test.cpp; sourceTree = "<group>"; };
 		67E8DB0B1BBC16C70053C5BA /* coder_test.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = coder_test.hpp; sourceTree = "<group>"; };
@@ -261,7 +254,6 @@
 		67E8DB1E1BBC16C70053C5BA /* reader_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = reader_test.cpp; sourceTree = "<group>"; };
 		67E8DB1F1BBC16C70053C5BA /* reader_test.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = reader_test.hpp; sourceTree = "<group>"; };
 		67E8DB201BBC16C70053C5BA /* reader_writer_ops_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = reader_writer_ops_test.cpp; sourceTree = "<group>"; };
-		67E8DB211BBC16C70053C5BA /* sha2_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sha2_test.cpp; sourceTree = "<group>"; };
 		67E8DB241BBC16C70053C5BA /* uri_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = uri_test.cpp; sourceTree = "<group>"; };
 		67E8DB251BBC16C70053C5BA /* url_encode_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = url_encode_test.cpp; sourceTree = "<group>"; };
 		67E8DB261BBC16C70053C5BA /* value_opt_string_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = value_opt_string_test.cpp; sourceTree = "<group>"; };
@@ -317,7 +309,6 @@
 				3D489BB81D3D217E0052AA38 /* fixed_bits_ddvector_test.cpp */,
 				3D489BB91D3D217E0052AA38 /* simple_dense_coding_test.cpp */,
 				3D489BBA1D3D217E0052AA38 /* succinct_mapper_test.cpp */,
-				67E8DB071BBC16C70053C5BA /* base64_for_user_id_test.cpp */,
 				67E8DB081BBC16C70053C5BA /* base64_test.cpp */,
 				67E8DB091BBC16C70053C5BA /* bit_streams_test.cpp */,
 				67E8DB0B1BBC16C70053C5BA /* coder_test.hpp */,
@@ -341,7 +332,6 @@
 				67E8DB1E1BBC16C70053C5BA /* reader_test.cpp */,
 				67E8DB1F1BBC16C70053C5BA /* reader_test.hpp */,
 				67E8DB201BBC16C70053C5BA /* reader_writer_ops_test.cpp */,
-				67E8DB211BBC16C70053C5BA /* sha2_test.cpp */,
 				67E8DB251BBC16C70053C5BA /* url_encode_test.cpp */,
 				67E8DB261BBC16C70053C5BA /* value_opt_string_test.cpp */,
 				67E8DB271BBC16C70053C5BA /* var_record_reader_test.cpp */,
@@ -445,8 +435,6 @@
 				675342641A3F588B00A0A8C3 /* reader_writer_ops.hpp */,
 				675342651A3F588B00A0A8C3 /* reader.cpp */,
 				675342661A3F588B00A0A8C3 /* reader.hpp */,
-				675342671A3F588B00A0A8C3 /* sha2.cpp */,
-				675342681A3F588B00A0A8C3 /* sha2.hpp */,
 				675342691A3F588B00A0A8C3 /* streams_common.hpp */,
 				6753426A1A3F588B00A0A8C3 /* streams_sink.hpp */,
 				6753426B1A3F588B00A0A8C3 /* streams.hpp */,
@@ -536,7 +524,6 @@
 				675342861A3F588C00A0A8C3 /* bit_streams.hpp in Headers */,
 				675342A01A3F588C00A0A8C3 /* file_reader.hpp in Headers */,
 				675342C71A3F588C00A0A8C3 /* url_encode.hpp in Headers */,
-				675342BE1A3F588C00A0A8C3 /* sha2.hpp in Headers */,
 				674A29C91B26F93F001A525C /* png_memory_encoder.hpp in Headers */,
 				675342BC1A3F588C00A0A8C3 /* reader.hpp in Headers */,
 				675342D21A3F588C00A0A8C3 /* zip_creator.hpp in Headers */,
@@ -628,7 +615,6 @@
 				67E8DB551BBC17490053C5BA /* base64_test.cpp in Sources */,
 				67E8DB5F1BBC17490053C5BA /* file_data_test.cpp in Sources */,
 				67E8DB6E1BBC17490053C5BA /* uri_test.cpp in Sources */,
-				3D489BBF1D3D21940052AA38 /* base64_for_user_id_test.cpp in Sources */,
 				67E8DB711BBC17490053C5BA /* var_record_reader_test.cpp in Sources */,
 				67E8DB5E1BBC17490053C5BA /* file_container_test.cpp in Sources */,
 				67E8DB6A1BBC17490053C5BA /* reader_writer_ops_test.cpp in Sources */,
@@ -653,7 +639,6 @@
 				67E8DB581BBC17490053C5BA /* coder_util_test.cpp in Sources */,
 				67E8DB601BBC17490053C5BA /* file_sort_test.cpp in Sources */,
 				67E8DB691BBC17490053C5BA /* reader_test.cpp in Sources */,
-				67E8DB6B1BBC17490053C5BA /* sha2_test.cpp in Sources */,
 				3D489BC01D3D21A00052AA38 /* succinct_mapper_test.cpp in Sources */,
 				67E8DB561BBC17490053C5BA /* bit_streams_test.cpp in Sources */,
 				67E8DB651BBC17490053C5BA /* mem_file_writer_test.cpp in Sources */,
@@ -687,7 +672,6 @@
 				670D04BF1B0BA92D0013A7AC /* file_data.cpp in Sources */,
 				674A29C61B26F828001A525C /* png_memory_encoder.cpp in Sources */,
 				675342CC1A3F588C00A0A8C3 /* varint_vector.cpp in Sources */,
-				675342BD1A3F588C00A0A8C3 /* sha2.cpp in Sources */,
 				675342B91A3F588C00A0A8C3 /* reader_writer_ops.cpp in Sources */,
 				675E889C1DB7B0D000F8EBDA /* traffic.cpp in Sources */,
 				675342AE1A3F588C00A0A8C3 /* mmap_reader.cpp in Sources */,

@@ -17,7 +17,13 @@ include($$DRAPE_DIR/drape_common.pri)
 
 INCLUDEPATH *= $$ROOT_DIR/3party/gmock/include $$ROOT_DIR/3party/gmock/gtest/include
 
-macx-* : LIBS *= "-framework CoreLocation"
+macx-* {
+  QT *= gui widgets # needed for QApplication with event loop, to test async events (downloader, etc.)
+  LIBS *= "-framework IOKit" "-framework QuartzCore" "-framework Cocoa" "-framework SystemConfiguration" "-framework CoreLocation"
+}
+win32*|linux* {
+  QT *= network
+}
 
 SOURCES += \
     attribute_provides_tests.cpp \

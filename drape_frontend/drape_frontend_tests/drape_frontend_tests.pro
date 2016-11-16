@@ -13,7 +13,10 @@ QT *= opengl
 
 macx-* {
   LIBS *= "-framework CoreLocation" "-framework Foundation" "-framework CoreWLAN" \
-          "-framework QuartzCore" "-framework IOKit"
+          "-framework QuartzCore" "-framework IOKit" "-framework Cocoa" "-framework SystemConfiguration"
+}
+win32*|linux* {
+  QT *= network
 }
 
 SOURCES += \

@@ -82,9 +82,6 @@ protected:
   /// Uses m_writeableDir [w], m_resourcesDir [r], m_settingsDir [s].
   string ReadPathForFile(string const & file, string searchScope = string()) const;
 
-  /// Hash some unique string into uniform format.
-  static string HashUniqueID(string const & s);
-
   /// Returns last system call error as EError.
   static EError ErrnoToError();
 

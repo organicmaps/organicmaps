@@ -11,10 +11,15 @@ DEPENDENCIES = map traffic search storage indexer platform editor geometry codin
 
 include($$ROOT_DIR/common.pri)
 
-QT *= core opengl
+QT *= core
 
-win32*: LIBS *= -lOpengl32
-macx-*: LIBS *= "-framework IOKit"
+macx-* {
+  QT *= gui widgets # needed for QApplication with event loop, to test async events (downloader, etc.)
+  LIBS *= "-framework IOKit" "-framework QuartzCore" "-framework Cocoa" "-framework SystemConfiguration"
+}
+win32*|linux* {
+  QT *= network
+}
 
 SOURCES += \
   ../../testing/testingmain.cpp \

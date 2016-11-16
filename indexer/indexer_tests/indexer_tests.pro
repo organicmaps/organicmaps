@@ -13,6 +13,14 @@ include($$ROOT_DIR/common.pri)
 
 QT *= core
 
+macx-* {
+  QT *= gui widgets # needed for QApplication with event loop, to test async events (downloader, etc.)
+  LIBS *= "-framework IOKit" "-framework QuartzCore" "-framework Cocoa" "-framework SystemConfiguration"
+}
+win32*|linux* {
+  QT *= network
+}
+
 HEADERS += \
     osm_editor_test.hpp \
     test_mwm_set.hpp \

@@ -56,8 +56,6 @@ set(
   reader_wrapper.hpp
   reader_writer_ops.cpp
   reader_writer_ops.hpp
-  sha2.cpp
-  sha2.hpp
   simple_dense_coding.cpp
   simple_dense_coding.hpp
   streams.hpp
