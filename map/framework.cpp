@@ -3216,8 +3216,9 @@ vector<MwmSet::MwmId> Framework::GetMwmsByRect(m2::RectD const & rect)
   if (!m_infoGetter)
     return result;
 
-  auto countryId = m_infoGetter->GetRegionCountryId(rect.Center());
-  result.push_back(m_model.GetIndex().GetMwmIdByCountryFile(platform::CountryFile(countryId)));
+  auto countryIds = m_infoGetter->GetRegionsCountryIdByRect(rect);
+  for (auto const & countryId : countryIds)
+    result.push_back(m_model.GetIndex().GetMwmIdByCountryFile(platform::CountryFile(countryId)));
 
   return result;
 }

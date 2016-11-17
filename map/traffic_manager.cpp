@@ -6,6 +6,11 @@
 
 #include "indexer/scales.hpp"
 
+namespace
+{
+seconds const kUpdateInterval = minutes(5);
+}  // namespace
+
 TrafficManager::TrafficManager(Index const & index,
                                GetMwmsByRectFn const & getMwmsByRectFn)
   : m_isEnabled(true) //TODO: true is temporary
@@ -44,15 +49,17 @@ void TrafficManager::UpdateViewport(ScreenBase const & screen)
 
   // Request traffic.
   auto mwms = m_getMwmsByRectFn(screen.ClipRect());
-
-  // TODO: request new mwms, update old ones by timer.
-
   for (auto const & mwm : mwms)
-    RequestTrafficData(mwm);
+  {
+    if (mwm.IsAlive())
+      RequestTrafficData(mwm);
+  }
 
   // TODO: Remove some mwm's from cache.
   //MwmSet::MwmId mwmId;
   //m_drapeEngine->ClearTrafficCache(mwmId);
+  // TODO: remove from m_requestTimings
+  // TODO: remove from m_mwmIds
 }
 
 void TrafficManager::UpdateMyPosition(MyPosition const & myPosition)
@@ -90,7 +97,7 @@ void TrafficManager::CalculateSegmentsGeometry(traffic::TrafficInfo const & traf
     {
       m2::PolylineD polyline;
       ft.ForEachPoint([&polyline](m2::PointD const & pt) { polyline.Add(pt); }, kScale);
-      if (polyline.GetSize() != 0)
+      if (polyline.GetSize() > 1)
         polylines[fid] = polyline;
     }
   };
@@ -102,8 +109,9 @@ void TrafficManager::CalculateSegmentsGeometry(traffic::TrafficInfo const & traf
     if (it == polylines.end())
       continue;
     bool const isReversed = (c.first.m_dir == traffic::TrafficInfo::RoadSegmentId::kReverseDirection);
-    output.emplace_back(df::TrafficSegmentID(trafficInfo.GetMwmId(), c.first),
-                        it->second.ExtractSegment(c.first.m_idx, isReversed));
+    m2::PolylineD polyline = it->second.ExtractSegment(c.first.m_idx, isReversed);
+    if (polyline.GetSize() > 1)
+      output.emplace_back(df::TrafficSegmentID(trafficInfo.GetMwmId(), c.first), move(polyline));
   }
 }
 
@@ -125,10 +133,14 @@ void TrafficManager::ThreadRoutine()
     for (auto const & mwm : mwms)
     {
       traffic::TrafficInfo info(mwm);
-      if (info.ReceiveTrafficData("Russia_Moscow.traff")) // TODO: temporary name
-        OnTrafficDataResponse(info);
-      else
-        LOG(LDEBUG, ("Traffic request failed. Mwm =", mwm));
+
+      if (mwm.GetInfo()->GetCountryName() == "Russia_Moscow") // TODO: temporary condition
+      {
+        if (info.ReceiveTrafficData("Russia_Moscow.traff")) // TODO: temporary name
+          OnTrafficDataResponse(info);
+        else
+          LOG(LDEBUG, ("Traffic request failed. Mwm =", mwm));
+      }
     }
     mwms.clear();
   }
@@ -137,16 +149,52 @@ void TrafficManager::ThreadRoutine()
 bool TrafficManager::WaitForRequest(vector<MwmSet::MwmId> & mwms)
 {
   unique_lock<mutex> lock(m_requestedMwmsLock);
-  m_condition.wait(lock, [this] { return !m_isRunning || !m_requestedMwms.empty(); });
+  bool const timeout = !m_condition.wait_for(lock, kUpdateInterval, [this] { return !m_isRunning || !m_requestedMwms.empty(); });
   if (!m_isRunning)
     return false;
-  mwms.swap(m_requestedMwms);
+  if (timeout)
+  {
+    mwms.reserve(m_requestTimings.size());
+    for (auto const & timing : m_requestTimings)
+      mwms.push_back(timing.first);
+  }
+  else
+  {
+    ASSERT(!m_requestedMwms.empty(), ());
+    mwms.swap(m_requestedMwms);
+  }
   return true;
 }
 
 void TrafficManager::RequestTrafficData(MwmSet::MwmId const & mwmId)
 {
   lock_guard<mutex> lock(m_requestedMwmsLock);
+
+  ASSERT(mwmId.IsAlive(), ());
+  bool needRequesting = false;
+
+  auto it = m_requestTimings.find(mwmId);
+  if (it == m_requestTimings.end())
+  {
+    needRequesting = true;
+    m_requestTimings[mwmId] = steady_clock::now();
+  }
+  else
+  {
+    auto const passedSeconds = steady_clock::now() - it->second;
+    if (passedSeconds >= kUpdateInterval)
+    {
+      needRequesting = true;
+      it->second = steady_clock::now();
+    }
+  }
+
+  if (needRequesting)
+    RequestTrafficDataImpl(mwmId);
+}
+
+void TrafficManager::RequestTrafficDataImpl(MwmSet::MwmId const & mwmId)
+{
   m_requestedMwms.push_back(mwmId);
   m_condition.notify_one();
 }

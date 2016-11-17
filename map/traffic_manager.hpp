@@ -11,7 +11,10 @@
 #include "geometry/screenbase.hpp"
 
 #include "indexer/index.hpp"
+#include "indexer/mwm_set.hpp"
 
+#include "std/chrono.hpp"
+#include "std/map.hpp"
 #include "std/mutex.hpp"
 #include "std/set.hpp"
 #include "std/thread.hpp"
@@ -58,6 +61,7 @@ private:
   void ThreadRoutine();
   bool WaitForRequest(vector<MwmSet::MwmId> & mwms);
   void RequestTrafficData(MwmSet::MwmId const & mwmId);
+  void RequestTrafficDataImpl(MwmSet::MwmId const & mwmId);
   void OnTrafficDataResponse(traffic::TrafficInfo const & info);
 
   bool m_isEnabled;
@@ -68,6 +72,7 @@ private:
   ref_ptr<df::DrapeEngine> m_drapeEngine;
   m2::PointD m_myPosition;
   set<MwmSet::MwmId> m_mwmIds;
+  map<MwmSet::MwmId, time_point<steady_clock>> m_requestTimings;
 
   bool m_isRunning;
   condition_variable m_condition;

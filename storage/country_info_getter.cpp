@@ -59,6 +59,23 @@ TCountryId CountryInfoGetter::GetRegionCountryId(m2::PointD const & pt) const
   return id != kInvalidId ? m_countries[id].m_countryId : kInvalidCountryId;
 }
 
+vector<TCountryId> CountryInfoGetter::GetRegionsCountryIdByRect(m2::RectD const & rect) const
+{
+  size_t constexpr kAverageSize = 10;
+
+  vector<TCountryId> result;
+  result.reserve(kAverageSize);
+  for (size_t id = 0; id < m_countries.size(); ++id)
+  {
+    if (rect.IsRectInside(m_countries[id].m_rect) ||
+        (rect.IsIntersect(m_countries[id].m_rect) && IsIntersectedByRegionImpl(id, rect)))
+    {
+      result.push_back(m_countries[id].m_countryId);
+    }
+  }
+  return result;
+}
+
 void CountryInfoGetter::GetRegionsCountryId(m2::PointD const & pt, TCountriesVec & closestCoutryIds)
 {
   double const kLookupRadiusM = 30 /* km */ * 1000;
@@ -297,6 +314,35 @@ bool CountryInfoReader::IsBelongToRegionImpl(size_t id, m2::PointD const & pt) c
   return WithRegion(id, contains);
 }
 
+bool CountryInfoReader::IsIntersectedByRegionImpl(size_t id, m2::RectD const & rect) const
+{
+  vector<pair<m2::PointD, m2::PointD>> edges =
+  {
+    {rect.LeftTop(), rect.RightTop()},
+    {rect.RightTop(), rect.RightBottom()},
+    {rect.RightBottom(), rect.LeftBottom()},
+    {rect.LeftBottom(), rect.LeftTop()}
+  };
+  auto contains = [&edges](vector<m2::RegionD> const & regions)
+  {
+    for (auto const & region : regions)
+    {
+      for (auto const & edge : edges)
+      {
+        m2::PointD result;
+        if (region.FindIntersection(edge.first, edge.second, result))
+          return true;
+      }
+    }
+    return false;
+  };
+
+  if (WithRegion(id, contains))
+    return true;
+
+  return IsBelongToRegionImpl(id, rect.Center());
+}
+
 bool CountryInfoReader::IsCloseEnough(size_t id, m2::PointD const & pt, double distance)
 {
   m2::RectD const lookupRect = MercatorBounds::RectByCenterXYAndSizeInMeters(pt, distance);
@@ -345,6 +391,12 @@ bool CountryInfoGetterForTesting::IsBelongToRegionImpl(size_t id,
 {
   CHECK_LESS(id, m_countries.size(), ());
   return m_countries[id].m_rect.IsPointInside(pt);
+}
+
+bool CountryInfoGetterForTesting::IsIntersectedByRegionImpl(size_t id, m2::RectD const & rect) const
+{
+  CHECK_LESS(id, m_countries.size(), ());
+  return rect.IsIntersect(m_countries[id].m_rect);
 }
 
 bool CountryInfoGetterForTesting::IsCloseEnough(size_t id, m2::PointD const & pt, double distance)
