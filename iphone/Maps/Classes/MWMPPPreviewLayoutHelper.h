@@ -3,7 +3,6 @@
 @interface MWMPPPreviewLayoutHelper : NSObject
 
 - (instancetype)initWithTableView:(UITableView *)tableView;
-- (void)registerCells;
 - (UITableViewCell *)cellForRowAtIndexPath:(NSIndexPath *)indexPath
                                   withData:(MWMPlacePageData *)data;
 

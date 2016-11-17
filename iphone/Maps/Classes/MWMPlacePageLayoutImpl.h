@@ -18,7 +18,7 @@ inline void animate(TMWMVoidBlock animate, TMWMVoidBlock completion = nil)
                        completion();
                    }];
 }
-} // namepsace place_page_layout
+}  // namepsace place_page_layout
 
 @protocol MWMPlacePageLayoutDelegate;
 

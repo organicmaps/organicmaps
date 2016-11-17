@@ -67,13 +67,13 @@ CGFloat const kLuftDraggingOffset = 30;
 - (void)onShow
 {
   self.state = State::Bottom;
-  [self colapse];
+  [self collapse];
 }
 
 - (void)onClose
 {
   place_page_layout::animate(^{
-    self.actionBar.origin = {0., self.ownerView.height};
+    self.actionBar.minY = self.ownerView.height;
     [self.scrollView setContentOffset:{} animated:YES];
   },^{
     [self.actionBar removeFromSuperview];
@@ -85,7 +85,7 @@ CGFloat const kLuftDraggingOffset = 30;
 - (void)onScreenResize:(CGSize const &)size
 {
   self.scrollView.frame = {{}, size};
-  self.placePageView.origin = {0., size.height};
+  self.placePageView.minY = size.height;
   auto actionBar = self.actionBar;
   actionBar.frame = {{0., size.height - actionBar.height},
     {size.width, actionBar.height}};
@@ -100,9 +100,9 @@ CGFloat const kLuftDraggingOffset = 30;
 
 - (void)onActionBarInit:(MWMPlacePageActionBar *)actionBar
 {
-  UIView * superview = self.ownerView;
+  auto superview = self.ownerView;
   self.actionBar = actionBar;
-  actionBar.origin = {0., superview.height};
+  actionBar.minY = superview.height;
   [superview addSubview:_actionBar];
 }
 
@@ -118,16 +118,15 @@ CGFloat const kLuftDraggingOffset = 30;
     actionBar.minY = actionBar.superview.height - actionBar.height;
 
     // We decrease expanded offset for 2 pixels because it looks more clear.
-    auto constexpr designOffset = 2;
+    CGFloat constexpr designOffset = 2;
     self.expandedContentOffset = height + actionBar.height - designOffset;
 
-    auto const targetOffset =
-    self.state == State::Bottom ? self.expandedContentOffset : self.topContentOffset;
+    auto const targetOffset = self.state == State::Bottom ? self.expandedContentOffset : self.topContentOffset;
     [self.scrollView setContentOffset:{ 0, targetOffset } animated:YES];
   });
 }
 
-- (void)colapse
+- (void)collapse
 {
   self.scrollView.scrollEnabled = NO;
   [self.placePageView hideTableView:YES];
@@ -154,10 +153,7 @@ CGFloat const kLuftDraggingOffset = 30;
 {
   auto const target = self.openContentOffset;
   auto const ppView = self.placePageView;
-  if (target > ppView.height)
-    return ppView.height;
-
-  return target;
+  return MIN(target, ppView.height);
 }
 
 - (void)scrollViewDidScroll:(MWMPPScrollView *)scrollView
@@ -203,8 +199,7 @@ CGFloat const kLuftDraggingOffset = 30;
   {
     auto const isDirectionUp = self.direction == ScrollDirection::Up;
     self.state = isDirectionUp ? State::Top : State::Bottom;
-    (*targetContentOffset).y =
-    isDirectionUp ? openOffset : self.expandedContentOffset;
+    (*targetContentOffset).y = isDirectionUp ? openOffset : self.expandedContentOffset;
   }
   else if (actualOffset > openOffset && targetOffset < openOffset)
   {
@@ -215,7 +210,7 @@ CGFloat const kLuftDraggingOffset = 30;
   {
     (*targetContentOffset).y = 0;
     place_page_layout::animate(^{
-      self.actionBar.origin = {0., self.ownerView.height};
+      self.actionBar.minY = self.ownerView.height;
     });
   }
   else

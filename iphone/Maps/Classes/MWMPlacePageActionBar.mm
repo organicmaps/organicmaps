@@ -161,14 +161,12 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)setDownloadingState:(MWMCircularProgressState)state
 {
-  MWMCircularProgress * p = self.progressFromActiveButton;
-  p.state = state;
+  self.progressFromActiveButton.state = state;
 }
 
 - (void)setDownloadingProgress:(CGFloat)progress
 {
-  MWMCircularProgress * p = self.progressFromActiveButton;
-  p.progress = progress;
+  self.progressFromActiveButton.progress = progress;
 }
 
 - (MWMCircularProgress *)progressFromActiveButton
@@ -178,6 +176,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
   for (UIView * view in self.buttons)
   {
+    NSAssert(view.subviews.count, @"Subviews can't be empty!");
     MWMActionBarButton * button = view.subviews[0];
     if (button.type != EButton::Download)
       continue;

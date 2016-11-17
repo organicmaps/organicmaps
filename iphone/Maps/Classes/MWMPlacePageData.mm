@@ -71,6 +71,8 @@ using namespace place_page;
   if (self.schedule != OpeningHours::Unknown) m_previewRows.push_back(PreviewRows::Schedule);
   if (self.isBooking) m_previewRows.push_back(PreviewRows::Booking);
   if (self.address.length) m_previewRows.push_back(PreviewRows::Address);
+  
+  NSAssert(!m_previewRows.empty(), @"Preview row's can't be empty!");
   m_previewRows.push_back(PreviewRows::Space);
 }
 

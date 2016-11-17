@@ -317,7 +317,7 @@
 
 - (void)setTopBound:(CGFloat)topBound
 {
-  if (topBound == _topBound)
+  if (_topBound == topBound)
     return;
 
   _topBound = topBound;

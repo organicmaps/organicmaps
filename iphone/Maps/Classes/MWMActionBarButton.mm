@@ -1,7 +1,7 @@
 #import "MWMActionBarButton.h"
 #import "Common.h"
-#import "MWMCircularProgress.h"
 #import "MWMButton.h"
+#import "MWMCircularProgress.h"
 #import "UIColor+MapsMeColor.h"
 
 NSString * titleForButton(EButton type, BOOL isSelected)
@@ -173,7 +173,7 @@ NSString * titleForButton(EButton type, BOOL isSelected)
 {
   [super layoutSubviews];
   self.frame = self.superview.bounds;
-  auto constexpr designOffset = 4;
+  CGFloat constexpr designOffset = 4;
   self.progressWrapper.size = {self.button.height - designOffset, self.button.height - designOffset};
   self.progressWrapper.center = self.button.center;
 }

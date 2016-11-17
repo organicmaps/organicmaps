@@ -1,12 +1,12 @@
-#import "MWMPlacePageLayout.h"
 #import "MWMiPadPlacePageLayoutImpl.h"
+#import "MWMPlacePageLayout.h"
 
 namespace
 {
 CGFloat const kPlacePageWidth = 360;
-CGFloat const kLeftOffset = 12.;
-CGFloat const kTopOffset = 36.;
-CGFloat const kBottomOffset = 60.;
+CGFloat const kLeftOffset = 12;
+CGFloat const kTopOffset = 36;
+CGFloat const kBottomOffset = 60;
 }  // namespace
 
 @interface MWMPPView (ActionBarLayout)
@@ -17,11 +17,9 @@ CGFloat const kBottomOffset = 60.;
 
 - (void)layoutSubviews
 {
+  [super layoutSubviews];
   if (!IPAD)
-  {
-    [super layoutSubviews];
     return;
-  }
 
   for (UIView * sv in self.subviews)
   {
@@ -86,7 +84,7 @@ CGFloat const kBottomOffset = 60.;
   ppView.tableView.scrollEnabled = NO;
   actionBar.alpha = 0;
   ppView.alpha = 0;
-  ppView.origin = {-self.leftBound - kPlacePageWidth, self.topBound};
+  ppView.origin = {- kPlacePageWidth, self.topBound};
   [self.ownerView addSubview:ppView];
 
   place_page_layout::animate(^{
@@ -100,7 +98,7 @@ CGFloat const kBottomOffset = 60.;
 {
   auto ppView = self.placePageView;
   place_page_layout::animate(^{
-    ppView.maxX = -self.leftBound;
+    ppView.maxX = 0;
     ppView.alpha = 0;
   },^{
     [self.placePageView removeFromSuperview];
@@ -187,7 +185,7 @@ CGFloat const kBottomOffset = 60.;
 - (void)didPan:(UIPanGestureRecognizer *)pan
 {
   MWMPPView * view = self.placePageView;
-  UIView * superview = view.superview;
+  auto superview = view.superview;
 
   CGFloat const leftOffset = self.leftBound;
   view.minX += [pan translationInView:superview].x;
@@ -199,7 +197,8 @@ CGFloat const kBottomOffset = 60.;
   UIGestureRecognizerState const state = pan.state;
   if (state == UIGestureRecognizerStateEnded || state == UIGestureRecognizerStateCancelled)
   {
-    if (alpha < 0.8)
+    CGFloat constexpr designAlpha = 0.8;
+    if (alpha < designAlpha)
     {
       [self onClose];
     }

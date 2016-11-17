@@ -10,7 +10,7 @@
 
 namespace
 {
-array<NSString *, 2> kCells = {{@"_MWMOHHeaderCell", @"_MWMOHSubCell"}};
+array<NSString *, 2> const kCells = {{@"_MWMOHHeaderCell", @"_MWMOHSubCell"}};
 
 NSAttributedString * richStringFromDay(osmoh::Day const & day, BOOL isClosedNow)
 {
@@ -120,7 +120,10 @@ NSAttributedString * richStringFromDay(osmoh::Day const & day, BOOL isClosedNow)
 {
   self = [super init];
   if (self)
+  {
     _tableView = tableView;
+    [self registerCells];
+  }
   return self;
 }
 
@@ -145,8 +148,7 @@ NSAttributedString * richStringFromDay(osmoh::Day const & day, BOOL isClosedNow)
 
   if (self.data.metainfoRows[indexPath.row] == place_page::MetainfoRows::OpeningHours)
   {
-    _MWMOHHeaderCell * cell =
-    [tableView dequeueReusableCellWithIdentifier:[_MWMOHHeaderCell className]];
+    _MWMOHHeaderCell * cell = [tableView dequeueReusableCellWithIdentifier:[_MWMOHHeaderCell className]];
 
     if (m_days.size() > 1)
     {

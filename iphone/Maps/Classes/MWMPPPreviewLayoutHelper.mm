@@ -9,7 +9,7 @@
 
 namespace
 {
-array<NSString *, 7> kPreviewCells = {{@"_MWMPPPTitle", @"_MWMPPPExternalTitle", @"_MWMPPPSubtitle",
+array<NSString *, 7> const kPreviewCells = {{@"_MWMPPPTitle", @"_MWMPPPExternalTitle", @"_MWMPPPSubtitle",
   @"_MWMPPPSchedule", @"_MWMPPPBooking", @"_MWMPPPAddress", @"_MWMPPPSpace"}};
 }  // namespace
 
@@ -30,7 +30,8 @@ array<NSString *, 7> kPreviewCells = {{@"_MWMPPPTitle", @"_MWMPPPExternalTitle",
 - (void)layoutSubviews
 {
   [super layoutSubviews];
-  self.separatorInset = {0, self.width / 2, 0, self.width / 2};
+  auto const inset = self.width / 2;
+  self.separatorInset = {0, inset, 0, inset};
 }
 
 - (IBAction)tap
@@ -137,7 +138,10 @@ array<NSString *, 7> kPreviewCells = {{@"_MWMPPPTitle", @"_MWMPPPExternalTitle",
 {
   self = [super init];
   if (self)
+  {
     _tableView = tableView;
+    [self registerCells];
+  }
 
   return self;
 }
@@ -158,7 +162,7 @@ array<NSString *, 7> kPreviewCells = {{@"_MWMPPPTitle", @"_MWMPPPExternalTitle",
   // -2 because last cell is always the spacer cell.
   BOOL const isNeedToShowDistance = (indexPath.row == data.previewRows.size() - 2);
 
-  UITableViewCell * c = [tableView dequeueReusableCellWithIdentifier:cellName];
+  auto * c = [tableView dequeueReusableCellWithIdentifier:cellName];
   switch(row)
   {
   case PreviewRows::Title:
@@ -252,10 +256,7 @@ array<NSString *, 7> kPreviewCells = {{@"_MWMPPPTitle", @"_MWMPPPExternalTitle",
 
 - (void)setDistanceToObject:(NSString *)distance
 {
-  if (!distance.length)
-    return;
-
-  if ([self.distance isEqualToString:distance])
+  if (!distance.length || [self.distance isEqualToString:distance])
     return;
 
   self.distance = distance;

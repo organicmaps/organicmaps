@@ -1,5 +1,5 @@
 @protocol MWMPlacePageCellUpdateProtocol<NSObject>
 
-- (void)updateCell;
+- (void)cellUpdated;
 
 @end

@@ -1,15 +1,15 @@
 #import "MWMPlacePageLayout.h"
+#import "MWMBookmarkCell.h"
+#import "MWMCircularProgress.h"
 #import "MWMiPadPlacePageLayoutImpl.h"
 #import "MWMiPhonePlacePageLayoutImpl.h"
-#import "MWMCircularProgress.h"
+#import "MWMPlacePageButtonCell.h"
 #import "MWMPlacePageCellUpdateProtocol.h"
 #import "MWMPlacePageData.h"
-#import "MWMPPPreviewLayoutHelper.h"
-#import "MWMBookmarkCell.h"
-#import "MWMOpeningHoursLayoutHelper.h"
-#import "MWMPlacePageButtonCell.h"
 #import "MWMPlacePageInfoCell.h"
 #import "MWMPlacePageLayoutImpl.h"
+#import "MWMOpeningHoursLayoutHelper.h"
+#import "MWMPPPreviewLayoutHelper.h"
 #import "UIColor+MapsMeColor.h"
 
 #include "storage/storage.hpp"
@@ -19,7 +19,7 @@
 
 namespace
 {
-array<NSString *, 1> kBookmarkCells = {{@"MWMBookmarkCell"}};
+array<NSString *, 1> const kBookmarkCells = {{@"MWMBookmarkCell"}};
 
 using place_page::MetainfoRows;
 
@@ -33,7 +33,7 @@ map<MetainfoRows, NSString *> const kMetaInfoCells = {
   {MetainfoRows::Coordinate, @"PlacePageInfoCell"},
   {MetainfoRows::Internet, @"PlacePageInfoCell"}};
 
-array<NSString *, 1> kButtonsCells = {{@"MWMPlacePageButtonCell"}};
+array<NSString *, 1> const kButtonsCells = {{@"MWMPlacePageButtonCell"}};
 
 }  // namespace
 
@@ -101,9 +101,6 @@ array<NSString *, 1> kButtonsCells = {{@"MWMPlacePageButtonCell"}};
                   forCellReuseIdentifier:kButtonsCells[0]];
   [tv registerNib:[UINib nibWithNibName:kBookmarkCells[0] bundle:nil]
                   forCellReuseIdentifier:kBookmarkCells[0]];
-
-  [self.previewLayoutHelper registerCells];
-  [self.openingHoursLayoutHelper registerCells];
 
   // Register all meta info cells.
   for (auto const & pair : kMetaInfoCells)
@@ -362,7 +359,7 @@ array<NSString *, 1> kButtonsCells = {{@"MWMPlacePageButtonCell"}};
 
 #pragma mark - MWMPlacePageCellUpdateProtocol
 
-- (void)updateCell
+- (void)cellUpdated
 {
   auto const update = @selector(update);
   [NSObject cancelPreviousPerformRequestsWithTarget:self selector:update object:nil];

@@ -51,7 +51,7 @@ enum RowInMetaInfo
 {
   [super viewDidLoad];
   auto data = self.data;
-  NSAssert(data, @"Entity and data can't be nil both!");
+  NSAssert(data, @"Data can't be nil!");
   self.cachedDescription = data.bookmarkDescription;
   self.cachedTitle = data.externalTitle ? data.externalTitle : data.title;
   self.cachedCategory = data.bookmarkCategory;
@@ -94,15 +94,14 @@ enum RowInMetaInfo
 - (void)onSave
 {
   [self.view endEditing:YES];
-  Framework & f = GetFramework();
+  auto & f = GetFramework();
   BookmarkCategory * category = f.GetBmCategory(m_cachedBac.m_categoryIndex);
   if (!category)
     return;
 
   {
     BookmarkCategory::Guard guard(*category);
-    Bookmark * bookmark =
-        static_cast<Bookmark *>(guard.m_controller.GetUserMarkForEdit(m_cachedBac.m_bookmarkIndex));
+    auto bookmark = static_cast<Bookmark *>(guard.m_controller.GetUserMarkForEdit(m_cachedBac.m_bookmarkIndex));
     if (!bookmark)
       return;
 
