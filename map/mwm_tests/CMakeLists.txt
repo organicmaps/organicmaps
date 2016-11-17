@@ -30,7 +30,6 @@ omim_link_libraries(
   expat
   oauthcpp
   protobuf
-  tomcrypt
   jansson
   succinct
   pugixml

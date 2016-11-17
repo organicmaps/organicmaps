@@ -7,8 +7,6 @@ ROOT_DIR = ..
 
 include($$ROOT_DIR/common.pri)
 
-INCLUDEPATH *= $$ROOT_DIR/3party/tomcrypt/src/headers
-
 SOURCES += \
     $$ROOT_DIR/3party/lodepng/lodepng.cpp \
     base64.cpp \
@@ -27,7 +25,6 @@ SOURCES += \
     reader_streambuf.cpp \
     reader_writer_ops.cpp \
     simple_dense_coding.cpp \
-    sha2.cpp \
     traffic.cpp \
     uri.cpp \
 #    varint_vector.cpp \
@@ -79,7 +76,6 @@ HEADERS += \
     reader_wrapper.hpp \
     reader_writer_ops.hpp \
     simple_dense_coding.hpp \
-    sha2.hpp \
     streams.hpp \
     streams_common.hpp \
     streams_sink.hpp \

@@ -100,7 +100,6 @@
 		67F90B8A1C6A278800CD458E /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709A91C6215000093DD1B /* libpugixml.a */; };
 		67F90B8B1C6A278800CD458E /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709A51C6213F10093DD1B /* libmap.a */; };
 		67F90B8C1C6A278800CD458E /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FF71C60BD5900EDE56A /* libalohalitics.a */; };
-		67F90B8D1C6A278800CD458E /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FF81C60BD5900EDE56A /* libtomcrypt.a */; };
 		67F90B8E1C6A278800CD458E /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FF31C60BD4000EDE56A /* libcoding.a */; };
 		67F90B8F1C6A278800CD458E /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FF41C60BD4000EDE56A /* libjansson.a */; };
 		67F90B901C6A278800CD458E /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FF11C60BD1400EDE56A /* libindexer.a */; };
@@ -138,7 +137,6 @@
 		67F90BE61C6A2A3000CD458E /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709A91C6215000093DD1B /* libpugixml.a */; };
 		67F90BE71C6A2A3000CD458E /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709A51C6213F10093DD1B /* libmap.a */; };
 		67F90BE81C6A2A3000CD458E /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FF71C60BD5900EDE56A /* libalohalitics.a */; };
-		67F90BE91C6A2A3000CD458E /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FF81C60BD5900EDE56A /* libtomcrypt.a */; };
 		67F90BEA1C6A2A3000CD458E /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FF31C60BD4000EDE56A /* libcoding.a */; };
 		67F90BEB1C6A2A3000CD458E /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FF41C60BD4000EDE56A /* libjansson.a */; };
 		67F90BEC1C6A2A3000CD458E /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FF11C60BD1400EDE56A /* libindexer.a */; };
@@ -202,7 +200,6 @@
 		67247FF31C60BD4000EDE56A /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = "../../../omim-xcode-build/Debug/libcoding.a"; sourceTree = "<group>"; };
 		67247FF41C60BD4000EDE56A /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjansson.a; path = "../../../omim-xcode-build/Debug/libjansson.a"; sourceTree = "<group>"; };
 		67247FF71C60BD5900EDE56A /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "../../../omim-xcode-build/Debug/libalohalitics.a"; sourceTree = "<group>"; };
-		67247FF81C60BD5900EDE56A /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtomcrypt.a; path = "../../../omim-xcode-build/Debug/libtomcrypt.a"; sourceTree = "<group>"; };
 		67247FFF1C60BD7E00EDE56A /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		6724800D1C60CE7300EDE56A /* migrate_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = migrate_tests.cpp; sourceTree = "<group>"; };
 		6724800E1C60CE7300EDE56A /* storage_group_download_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = storage_group_download_tests.cpp; sourceTree = "<group>"; };
@@ -307,7 +304,6 @@
 				67F90B8F1C6A278800CD458E /* libjansson.a in Frameworks */,
 				67F90B851C6A278800CD458E /* libstb_image.a in Frameworks */,
 				67F90B881C6A278800CD458E /* libdrape.a in Frameworks */,
-				67F90B8D1C6A278800CD458E /* libtomcrypt.a in Frameworks */,
 				67F90B891C6A278800CD458E /* libexpat.a in Frameworks */,
 				67F90B8A1C6A278800CD458E /* libpugixml.a in Frameworks */,
 				67F90B921C6A278800CD458E /* libgeometry.a in Frameworks */,
@@ -347,7 +343,6 @@
 				67F90BEB1C6A2A3000CD458E /* libjansson.a in Frameworks */,
 				67F90BE11C6A2A3000CD458E /* libstb_image.a in Frameworks */,
 				67F90BE41C6A2A3000CD458E /* libdrape.a in Frameworks */,
-				67F90BE91C6A2A3000CD458E /* libtomcrypt.a in Frameworks */,
 				67F90BE51C6A2A3000CD458E /* libexpat.a in Frameworks */,
 				67F90BE61C6A2A3000CD458E /* libpugixml.a in Frameworks */,
 				67F90BEE1C6A2A3000CD458E /* libgeometry.a in Frameworks */,
@@ -428,7 +423,6 @@
 				674709A91C6215000093DD1B /* libpugixml.a */,
 				674709A51C6213F10093DD1B /* libmap.a */,
 				67247FF71C60BD5900EDE56A /* libalohalitics.a */,
-				67247FF81C60BD5900EDE56A /* libtomcrypt.a */,
 				67247FF31C60BD4000EDE56A /* libcoding.a */,
 				67247FF41C60BD4000EDE56A /* libjansson.a */,
 				67247FF11C60BD1400EDE56A /* libindexer.a */,

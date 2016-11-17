@@ -150,9 +150,10 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
     platform_tests.depends = 3party base coding platform platform_tests_support
     SUBDIRS *= platform_tests
 
-    downloader_tests.subdir = platform/downloader_tests
-    downloader_tests.depends = 3party base coding platform platform_tests_support
-    SUBDIRS *= downloader_tests
+#   Uncomment after replace hash function
+#    downloader_tests.subdir = platform/downloader_tests
+#    downloader_tests.depends = 3party base coding platform platform_tests_support
+#    SUBDIRS *= downloader_tests
 
     search_tests.subdir = search/search_tests
     search_tests.depends = 3party base coding geometry platform indexer search

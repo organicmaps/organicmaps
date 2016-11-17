@@ -4,7 +4,6 @@
 #include "coding/base64.hpp"
 #include "coding/file_name_utils.hpp"
 #include "coding/internal/file_data.hpp"
-#include "coding/sha2.hpp"
 #include "coding/writer.hpp"
 
 #include "base/logging.hpp"
@@ -115,19 +114,6 @@ string Platform::ReadPathForFile(string const & file, string searchScope) const
   string const possiblePaths = m_writableDir  + "\n" + m_resourcesDir + "\n" + m_settingsDir;
   MYTHROW(FileAbsentException, ("File", file, "doesn't exist in the scope", searchScope,
                                 "Have been looking in:\n", possiblePaths));
-}
-
-string Platform::HashUniqueID(string const & s)
-{
-  // generate sha2 hash for UUID
-  string const hash = sha2::digest256(s, false);
-  // xor it
-  size_t const offset = hash.size() / 4;
-  string xoredHash;
-  for (size_t i = 0; i < offset; ++i)
-    xoredHash.push_back(hash[i] ^ hash[i + offset] ^ hash[i + offset * 2] ^ hash[i + offset * 3]);
-  // and use base64 encoding
-  return base64_for_user_ids::encode(xoredHash);
 }
 
 string Platform::ResourcesMetaServerUrl() const

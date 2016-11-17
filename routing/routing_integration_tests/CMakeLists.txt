@@ -44,7 +44,6 @@ omim_link_libraries(
   osrm
   jansson
   protobuf
-  tomcrypt
   succinct
   stats_client
   pugixml

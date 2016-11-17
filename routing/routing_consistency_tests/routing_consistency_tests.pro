@@ -8,11 +8,19 @@ TEMPLATE = app
 
 ROOT_DIR = ../..
 DEPENDENCIES = map routing traffic search storage indexer platform editor geometry coding base osrm \
-               jansson protobuf tomcrypt succinct stats_client generator gflags pugixml
+               jansson protobuf succinct stats_client generator gflags pugixml
 
 include($$ROOT_DIR/common.pri)
 
 QT *= core
+
+macx-* {
+  QT *= gui widgets # needed for QApplication with event loop, to test async events (downloader, etc.)
+  LIBS *= "-framework IOKit" "-framework QuartzCore" "-framework Cocoa" "-framework SystemConfiguration"
+}
+win32*|linux* {
+  QT *= network
+}
 
 INCLUDEPATH *= $$ROOT_DIR/3party/gflags/src
 

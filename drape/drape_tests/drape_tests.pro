@@ -5,7 +5,7 @@ TEMPLATE = app
 DEFINES += OGL_TEST_ENABLED GTEST_DONT_DEFINE_TEST COMPILER_TESTS
 
 ROOT_DIR = ../..
-DEPENDENCIES = qt_tstfrm indexer platform coding geometry base gmock freetype fribidi expat tomcrypt stats_client
+DEPENDENCIES = qt_tstfrm indexer platform coding geometry base gmock freetype fribidi expat stats_client
 
 SHADER_COMPILE_ARGS = $$PWD/../shaders shader_index.txt shader_def
 include($$ROOT_DIR/common.pri)
@@ -17,7 +17,13 @@ include($$DRAPE_DIR/drape_common.pri)
 
 INCLUDEPATH *= $$ROOT_DIR/3party/gmock/include $$ROOT_DIR/3party/gmock/gtest/include
 
-macx-* : LIBS *= "-framework CoreLocation"
+macx-* {
+  QT *= gui widgets # needed for QApplication with event loop, to test async events (downloader, etc.)
+  LIBS *= "-framework IOKit" "-framework QuartzCore" "-framework Cocoa" "-framework SystemConfiguration" "-framework CoreLocation"
+}
+win32*|linux* {
+  QT *= network
+}
 
 SOURCES += \
     attribute_provides_tests.cpp \

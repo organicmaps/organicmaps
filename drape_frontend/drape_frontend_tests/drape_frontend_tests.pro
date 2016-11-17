@@ -4,7 +4,7 @@ CONFIG += console warn_on
 CONFIG -= app_bundle
 TEMPLATE = app
 
-DEPENDENCIES = drape_frontend drape platform indexer geometry coding base expat tomcrypt stats_client
+DEPENDENCIES = drape_frontend drape platform indexer geometry coding base expat stats_client
 
 ROOT_DIR = ../..
 include($$ROOT_DIR/common.pri)
@@ -13,7 +13,10 @@ QT *= opengl
 
 macx-* {
   LIBS *= "-framework CoreLocation" "-framework Foundation" "-framework CoreWLAN" \
-          "-framework QuartzCore" "-framework IOKit"
+          "-framework QuartzCore" "-framework IOKit" "-framework Cocoa" "-framework SystemConfiguration"
+}
+win32*|linux* {
+  QT *= network
 }
 
 SOURCES += \

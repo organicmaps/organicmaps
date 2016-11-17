@@ -6,12 +6,20 @@ TEMPLATE = app
 ROOT_DIR = ../..
 DEPENDENCIES =  generator_tests_support search_tests_support indexer_tests_support \
                 platform_tests_support generator search routing indexer storage editor \
-                platform coding geometry base stats_client jansson tess2 protobuf tomcrypt \
+                platform coding geometry base stats_client jansson tess2 protobuf \
                 succinct opening_hours pugixml
 
 include($$ROOT_DIR/common.pri)
 
 QT *= core
+
+macx-* {
+  QT *= gui widgets # needed for QApplication with event loop, to test async events (downloader, etc.)
+  LIBS *= "-framework IOKit" "-framework QuartzCore" "-framework Cocoa" "-framework SystemConfiguration"
+}
+win32*|linux* {
+  QT *= network
+}
 
 HEADERS += \
     osm_editor_test.hpp \

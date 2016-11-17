@@ -92,7 +92,6 @@
 		671C622A1AE9233C00076BD0 /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671C62291AE9233C00076BD0 /* libplatform.a */; };
 		671C622E1AE923A300076BD0 /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671C622D1AE923A300076BD0 /* libcoding.a */; };
 		671C62341AE924AB00076BD0 /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671C62331AE924AB00076BD0 /* libprotobuf.a */; };
-		671C62361AE924BD00076BD0 /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671C62351AE924BD00076BD0 /* libtomcrypt.a */; };
 		671C62381AE924CE00076BD0 /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671C62371AE924CE00076BD0 /* libbase.a */; };
 		671C623A1AE924E600076BD0 /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671C62391AE924E600076BD0 /* libgeometry.a */; };
 		675346DC1A40560D00A0A8C3 /* algos.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675346BE1A40560D00A0A8C3 /* algos.hpp */; };
@@ -280,7 +279,6 @@
 		671C622F1AE9243E00076BD0 /* QtCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtCore.framework; path = ../../../../../../usr/local/Cellar/qt5/5.3.2/lib/QtCore.framework; sourceTree = "<group>"; };
 		671C62311AE9245900076BD0 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		671C62331AE924AB00076BD0 /* libprotobuf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libprotobuf.a; path = "../../../omim-xcode-build/Debug-iphonesimulator/libprotobuf.a"; sourceTree = "<group>"; };
-		671C62351AE924BD00076BD0 /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtomcrypt.a; path = "../../../omim-xcode-build/Debug-iphonesimulator/libtomcrypt.a"; sourceTree = "<group>"; };
 		671C62371AE924CE00076BD0 /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = "../../../omim-xcode-build/Debug-iphonesimulator/libbase.a"; sourceTree = "<group>"; };
 		671C62391AE924E600076BD0 /* libgeometry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgeometry.a; path = "../../../omim-xcode-build/Debug-iphonesimulator/libgeometry.a"; sourceTree = "<group>"; };
 		675346B01A4055CF00A0A8C3 /* libsearch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsearch.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -381,7 +379,6 @@
 				34F5583B1DBF2E0E00A4FC11 /* libalohalitics.a in Frameworks */,
 				671C623A1AE924E600076BD0 /* libgeometry.a in Frameworks */,
 				671C62381AE924CE00076BD0 /* libbase.a in Frameworks */,
-				671C62361AE924BD00076BD0 /* libtomcrypt.a in Frameworks */,
 				671C62341AE924AB00076BD0 /* libprotobuf.a in Frameworks */,
 				671C622E1AE923A300076BD0 /* libcoding.a in Frameworks */,
 				671C622A1AE9233C00076BD0 /* libplatform.a in Frameworks */,
@@ -427,7 +424,6 @@
 			children = (
 				671C62391AE924E600076BD0 /* libgeometry.a */,
 				671C62371AE924CE00076BD0 /* libbase.a */,
-				671C62351AE924BD00076BD0 /* libtomcrypt.a */,
 				671C62331AE924AB00076BD0 /* libprotobuf.a */,
 				671C62311AE9245900076BD0 /* IOKit.framework */,
 				671C622F1AE9243E00076BD0 /* QtCore.framework */,

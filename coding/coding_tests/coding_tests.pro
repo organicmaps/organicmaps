@@ -6,14 +6,13 @@ TEMPLATE = app
 
 ROOT_DIR = ../..
 
-DEPENDENCIES = coding base geometry minizip tomcrypt succinct
+DEPENDENCIES = coding base geometry minizip succinct
 
 include($$ROOT_DIR/common.pri)
 
 DEFINES += OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT
 
 SOURCES += ../../testing/testingmain.cpp \
-    base64_for_user_id_test.cpp \
     base64_test.cpp \
     bit_streams_test.cpp \
     coder_util_test.cpp \
@@ -37,7 +36,6 @@ SOURCES += ../../testing/testingmain.cpp \
     reader_test.cpp \
     reader_writer_ops_test.cpp \
     simple_dense_coding_test.cpp \
-    sha2_test.cpp \
     succinct_mapper_test.cpp \
     traffic_test.cpp \
     uri_test.cpp \

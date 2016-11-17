@@ -16,7 +16,6 @@ DEPENDENCIES = \
     platform \
     coding \
     base \
-    tomcrypt \
     jansson \
     pugixml \
     stats_client \

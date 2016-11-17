@@ -108,7 +108,6 @@
 		670BAAB81D0B07D1000302DA /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670BAAB61D0B07D1000302DA /* libgeometry.a */; };
 		670BAABA1D0B07E9000302DA /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670BAAB91D0B07E9000302DA /* libjansson.a */; };
 		670BAABD1D0B07FE000302DA /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670BAABB1D0B07FE000302DA /* libsuccinct.a */; };
-		670BAABE1D0B07FE000302DA /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670BAABC1D0B07FE000302DA /* libtomcrypt.a */; };
 		670BAAC01D0B0849000302DA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 670BAABF1D0B0849000302DA /* Foundation.framework */; };
 		670BAAC21D0B0856000302DA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 670BAAC11D0B0856000302DA /* libz.tbd */; };
 		670BAAC41D0B0865000302DA /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 670BAAC31D0B0865000302DA /* IOKit.framework */; };
@@ -308,7 +307,6 @@
 		670BAAB61D0B07D1000302DA /* libgeometry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgeometry.a; path = "../../../omim-xcode-build/Debug/libgeometry.a"; sourceTree = "<group>"; };
 		670BAAB91D0B07E9000302DA /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjansson.a; path = "../../../omim-xcode-build/Debug/libjansson.a"; sourceTree = "<group>"; };
 		670BAABB1D0B07FE000302DA /* libsuccinct.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsuccinct.a; path = "../../../omim-xcode-build/Debug/libsuccinct.a"; sourceTree = "<group>"; };
-		670BAABC1D0B07FE000302DA /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtomcrypt.a; path = "../../../omim-xcode-build/Debug/libtomcrypt.a"; sourceTree = "<group>"; };
 		670BAABF1D0B0849000302DA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		670BAAC11D0B0856000302DA /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		670BAAC31D0B0865000302DA /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
@@ -459,7 +457,6 @@
 				670BAAC21D0B0856000302DA /* libz.tbd in Frameworks */,
 				670BAAC01D0B0849000302DA /* Foundation.framework in Frameworks */,
 				670BAABD1D0B07FE000302DA /* libsuccinct.a in Frameworks */,
-				670BAABE1D0B07FE000302DA /* libtomcrypt.a in Frameworks */,
 				670BAABA1D0B07E9000302DA /* libjansson.a in Frameworks */,
 				670BAAB71D0B07D1000302DA /* libalohalitics.a in Frameworks */,
 				670BAAB81D0B07D1000302DA /* libgeometry.a in Frameworks */,
@@ -532,7 +529,6 @@
 				670BAAC11D0B0856000302DA /* libz.tbd */,
 				670BAABF1D0B0849000302DA /* Foundation.framework */,
 				670BAABB1D0B07FE000302DA /* libsuccinct.a */,
-				670BAABC1D0B07FE000302DA /* libtomcrypt.a */,
 				670BAAB91D0B07E9000302DA /* libjansson.a */,
 				670BAAB51D0B07D1000302DA /* libalohalitics.a */,
 				670BAAB61D0B07D1000302DA /* libgeometry.a */,

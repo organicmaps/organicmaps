@@ -17,7 +17,6 @@
 		67BECB871DDA475500FC4E99 /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BECB861DDA475500FC4E99 /* libplatform.a */; };
 		67BECB891DDA476A00FC4E99 /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BECB881DDA476A00FC4E99 /* libcoding.a */; };
 		67BECB8C1DDA478E00FC4E99 /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BECB8A1DDA478800FC4E99 /* testingmain.cpp */; };
-		67BECB8E1DDA47B200FC4E99 /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BECB8D1DDA47B200FC4E99 /* libtomcrypt.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,7 +33,6 @@
 		67BECB861DDA475500FC4E99 /* libplatform.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform.a; path = "../../../omim-build/xcode/Debug/libplatform.a"; sourceTree = "<group>"; };
 		67BECB881DDA476A00FC4E99 /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = "../../../omim-build/xcode/Debug/libcoding.a"; sourceTree = "<group>"; };
 		67BECB8A1DDA478800FC4E99 /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
-		67BECB8D1DDA47B200FC4E99 /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtomcrypt.a; path = "../../../omim-build/xcode/Debug/libtomcrypt.a"; sourceTree = "<group>"; };
 		67BECB941DDA4AC800FC4E99 /* bindings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bindings.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -50,7 +48,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				67BECB8E1DDA47B200FC4E99 /* libtomcrypt.a in Frameworks */,
 				67BECB891DDA476A00FC4E99 /* libcoding.a in Frameworks */,
 				67BECB871DDA475500FC4E99 /* libplatform.a in Frameworks */,
 				67BECB851DDA474400FC4E99 /* libbase.a in Frameworks */,
@@ -108,7 +105,6 @@
 		67BECB831DDA474400FC4E99 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				67BECB8D1DDA47B200FC4E99 /* libtomcrypt.a */,
 				67BECB881DDA476A00FC4E99 /* libcoding.a */,
 				67BECB861DDA475500FC4E99 /* libplatform.a */,
 				67BECB841DDA474400FC4E99 /* libbase.a */,
@@ -311,6 +307,7 @@
 				67BECB571DDA43B000FC4E99 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		67BECB7B1DDA466800FC4E99 /* Build configuration list for PBXNativeTarget "traffic_tests" */ = {
 			isa = XCConfigurationList;
@@ -319,6 +316,7 @@
 				67BECB7D1DDA466800FC4E99 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

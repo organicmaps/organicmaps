@@ -1,5 +1,0 @@
-Tech Note #7
-Quick building for testing with LTM
-
-EXTRALIBS=-ltommath CFLAGS="-g3 -DLTC_NO_ASM -DUSE_LTM -DLTM_DESC" make -j3 IGNORE_SPEED=1 test
-

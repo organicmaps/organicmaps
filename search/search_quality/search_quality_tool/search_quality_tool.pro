@@ -8,7 +8,7 @@ TEMPLATE = app
 ROOT_DIR = ../../..
 # todo(@m) revise
 DEPENDENCIES = map drape_frontend traffic routing search_tests_support search search_quality storage indexer drape \
-               platform editor geometry coding base freetype expat fribidi tomcrypt gflags \
+               platform editor geometry coding base freetype expat fribidi gflags \
                jansson protobuf osrm stats_client minizip succinct \
                opening_hours pugixml
 

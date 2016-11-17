@@ -26,7 +26,6 @@
 		F6B536761DA523D60067EEA5 /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B536731DA523D60067EEA5 /* libplatform.a */; };
 		F6B536781DA523EF0067EEA5 /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B536771DA523EF0067EEA5 /* libindexer.a */; };
 		F6B5367B1DA524030067EEA5 /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B536791DA524030067EEA5 /* libalohalitics.a */; };
-		F6B5367C1DA524030067EEA5 /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B5367A1DA524030067EEA5 /* libtomcrypt.a */; };
 		F6B5367E1DA5242A0067EEA5 /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B5367D1DA5242A0067EEA5 /* libcoding.a */; };
 		F6B536801DA5243B0067EEA5 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B5367F1DA5243B0067EEA5 /* libz.tbd */; };
 /* End PBXBuildFile section */
@@ -51,7 +50,6 @@
 		F6B536731DA523D60067EEA5 /* libplatform.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform.a; path = "../../../omim-xcode-build/Debug/libplatform.a"; sourceTree = "<group>"; };
 		F6B536771DA523EF0067EEA5 /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libindexer.a; path = "../../../omim-xcode-build/Debug/libindexer.a"; sourceTree = "<group>"; };
 		F6B536791DA524030067EEA5 /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "../../../omim-xcode-build/Debug/libalohalitics.a"; sourceTree = "<group>"; };
-		F6B5367A1DA524030067EEA5 /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtomcrypt.a; path = "../../../omim-xcode-build/Debug/libtomcrypt.a"; sourceTree = "<group>"; };
 		F6B5367D1DA5242A0067EEA5 /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = "../../../omim-xcode-build/Debug/libcoding.a"; sourceTree = "<group>"; };
 		F6B5367F1DA5243B0067EEA5 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -71,7 +69,6 @@
 				F6B536801DA5243B0067EEA5 /* libz.tbd in Frameworks */,
 				F6B5367E1DA5242A0067EEA5 /* libcoding.a in Frameworks */,
 				F6B5367B1DA524030067EEA5 /* libalohalitics.a in Frameworks */,
-				F6B5367C1DA524030067EEA5 /* libtomcrypt.a in Frameworks */,
 				F6B536781DA523EF0067EEA5 /* libindexer.a in Frameworks */,
 				F6B536741DA523D60067EEA5 /* libbase.a in Frameworks */,
 				F6B536751DA523D60067EEA5 /* libjansson.a in Frameworks */,
@@ -145,7 +142,6 @@
 				F6B5367F1DA5243B0067EEA5 /* libz.tbd */,
 				F6B5367D1DA5242A0067EEA5 /* libcoding.a */,
 				F6B536791DA524030067EEA5 /* libalohalitics.a */,
-				F6B5367A1DA524030067EEA5 /* libtomcrypt.a */,
 				F6B536771DA523EF0067EEA5 /* libindexer.a */,
 				F6B536711DA523D60067EEA5 /* libbase.a */,
 				F6B536721DA523D60067EEA5 /* libjansson.a */,

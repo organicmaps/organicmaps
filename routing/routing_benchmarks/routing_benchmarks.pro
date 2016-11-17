@@ -5,13 +5,21 @@ TEMPLATE = app
 
 ROOT_DIR = ../../
 DEPENDENCIES = map routing traffic search storage indexer platform editor geometry coding base \
-               osrm jansson protobuf tomcrypt stats_client succinct pugixml
+               osrm jansson protobuf stats_client succinct pugixml
 
 macx-*: LIBS *= "-framework IOKit"
 
 include($$ROOT_DIR/common.pri)
 
 QT *= core
+
+macx-* {
+  QT *= gui widgets # needed for QApplication with event loop, to test async events (downloader, etc.)
+  LIBS *= "-framework IOKit" "-framework QuartzCore" "-framework Cocoa" "-framework SystemConfiguration"
+}
+win32*|linux* {
+  QT *= network
+}
 
 SOURCES += \
   ../../testing/testingmain.cpp \

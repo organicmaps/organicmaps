@@ -41,7 +41,6 @@
 		674A2A231B26FE62001A525C /* libsearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A2A071B26FE62001A525C /* libsearch.a */; };
 		674A2A251B26FE62001A525C /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A2A091B26FE62001A525C /* libstorage.a */; };
 		674A2A261B26FE62001A525C /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A2A0A1B26FE62001A525C /* libsuccinct.a */; };
-		674A2A271B26FE62001A525C /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A2A0B1B26FE62001A525C /* libtomcrypt.a */; };
 		674A2A2F1B26FF7B001A525C /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675345BB1A4054AD00A0A8C3 /* libmap.a */; };
 		674A2A361B27011A001A525C /* working_time_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674A2A351B27011A001A525C /* working_time_tests.cpp */; };
 		674A2A381B2715FB001A525C /* osm_opening_hours.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 674A2A371B2715FB001A525C /* osm_opening_hours.hpp */; };
@@ -157,7 +156,6 @@
 		674A2A071B26FE62001A525C /* libsearch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsearch.a; path = "../../../omim-xcode-build/Debug/libsearch.a"; sourceTree = "<group>"; };
 		674A2A091B26FE62001A525C /* libstorage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libstorage.a; path = "../../../omim-xcode-build/Debug/libstorage.a"; sourceTree = "<group>"; };
 		674A2A0A1B26FE62001A525C /* libsuccinct.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsuccinct.a; path = "../../../omim-xcode-build/Debug/libsuccinct.a"; sourceTree = "<group>"; };
-		674A2A0B1B26FE62001A525C /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtomcrypt.a; path = "../../../omim-xcode-build/Debug/libtomcrypt.a"; sourceTree = "<group>"; };
 		674A2A291B26FF24001A525C /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		674A2A2B1B26FF38001A525C /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		674A2A2D1B26FF4F001A525C /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -263,7 +261,6 @@
 				674A2A231B26FE62001A525C /* libsearch.a in Frameworks */,
 				674A2A251B26FE62001A525C /* libstorage.a in Frameworks */,
 				674A2A261B26FE62001A525C /* libsuccinct.a in Frameworks */,
-				674A2A271B26FE62001A525C /* libtomcrypt.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,7 +353,6 @@
 				674A2A071B26FE62001A525C /* libsearch.a */,
 				674A2A091B26FE62001A525C /* libstorage.a */,
 				674A2A0A1B26FE62001A525C /* libsuccinct.a */,
-				674A2A0B1B26FE62001A525C /* libtomcrypt.a */,
 			);
 			name = libs;
 			sourceTree = "<group>";

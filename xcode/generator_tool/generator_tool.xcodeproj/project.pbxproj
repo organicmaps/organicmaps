@@ -48,7 +48,6 @@
 		6737466F1CF47D82005E6D1F /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28C71B1C7FC9001A525C /* libexpat.a */; };
 		673746711CF47E14005E6D1F /* librouting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28D41B1C8001001A525C /* librouting.a */; };
 		673746731CF47E54005E6D1F /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28ED1B1C80FB001A525C /* libjansson.a */; };
-		673746741CF47E54005E6D1F /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28DD1B1C8027001A525C /* libtomcrypt.a */; };
 		673746751CF47E7A005E6D1F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675343DE1A3F5FE500A0A8C3 /* CoreFoundation.framework */; };
 		673746761CF47E7F005E6D1F /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675343E01A3F600D00A0A8C3 /* IOKit.framework */; };
 		673746771CF47E83005E6D1F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675343E21A3F607600A0A8C3 /* Cocoa.framework */; };
@@ -62,7 +61,6 @@
 		674A28D61B1C8001001A525C /* librouting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28D41B1C8001001A525C /* librouting.a */; };
 		674A28D81B1C800D001A525C /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28D71B1C800D001A525C /* libbase.a */; };
 		674A28DC1B1C801D001A525C /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28DB1B1C801D001A525C /* libprotobuf.a */; };
-		674A28DE1B1C8027001A525C /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28DD1B1C8027001A525C /* libtomcrypt.a */; };
 		674A28DF1B1C80EA001A525C /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28D71B1C800D001A525C /* libbase.a */; };
 		674A28E01B1C80EA001A525C /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28C91B1C7FED001A525C /* libcoding.a */; };
 		674A28E11B1C80EA001A525C /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28C71B1C7FC9001A525C /* libexpat.a */; };
@@ -73,7 +71,6 @@
 		674A28E61B1C80EA001A525C /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28D31B1C8001001A525C /* libplatform.a */; };
 		674A28E71B1C80EA001A525C /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28DB1B1C801D001A525C /* libprotobuf.a */; };
 		674A28E81B1C80EA001A525C /* librouting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28D41B1C8001001A525C /* librouting.a */; };
-		674A28EA1B1C80EA001A525C /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28DD1B1C8027001A525C /* libtomcrypt.a */; };
 		674A28EC1B1C80F4001A525C /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28EB1B1C80F4001A525C /* libstorage.a */; };
 		674A28EE1B1C80FB001A525C /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28ED1B1C80FB001A525C /* libjansson.a */; };
 		674A28F01B1C8104001A525C /* libsearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28EF1B1C8104001A525C /* libsearch.a */; };
@@ -100,7 +97,6 @@
 		6796246F1D100F7C00AE4E3C /* libsearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28EF1B1C8104001A525C /* libsearch.a */; };
 		679624701D100F7C00AE4E3C /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28EB1B1C80F4001A525C /* libstorage.a */; };
 		679624711D100F7C00AE4E3C /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28F11B1C8119001A525C /* libsuccinct.a */; };
-		679624721D100F7C00AE4E3C /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28DD1B1C8027001A525C /* libtomcrypt.a */; };
 		679624741D1012B700AE4E3C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 679624731D1012B700AE4E3C /* Foundation.framework */; };
 		679624751D1012BD00AE4E3C /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675343E01A3F600D00A0A8C3 /* IOKit.framework */; };
 		679624771D1012C700AE4E3C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 679624761D1012C700AE4E3C /* SystemConfiguration.framework */; };
@@ -226,7 +222,6 @@
 		674A28D41B1C8001001A525C /* librouting.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librouting.a; path = "../../../omim-xcode-build/Debug/librouting.a"; sourceTree = "<group>"; };
 		674A28D71B1C800D001A525C /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = "../../../omim-xcode-build/Debug/libbase.a"; sourceTree = "<group>"; };
 		674A28DB1B1C801D001A525C /* libprotobuf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libprotobuf.a; path = "../../../omim-xcode-build/Debug/libprotobuf.a"; sourceTree = "<group>"; };
-		674A28DD1B1C8027001A525C /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtomcrypt.a; path = "../../../omim-xcode-build/Debug/libtomcrypt.a"; sourceTree = "<group>"; };
 		674A28EB1B1C80F4001A525C /* libstorage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libstorage.a; path = "../../../omim-xcode-build/Debug/libstorage.a"; sourceTree = "<group>"; };
 		674A28ED1B1C80FB001A525C /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjansson.a; path = "../../../omim-xcode-build/Debug/libjansson.a"; sourceTree = "<group>"; };
 		674A28EF1B1C8104001A525C /* libsearch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsearch.a; path = "../../../omim-xcode-build/Debug/libsearch.a"; sourceTree = "<group>"; };
@@ -283,7 +278,6 @@
 				3462FD9C1DC1E27300906FD7 /* libpugixml.a in Frameworks */,
 				3462FD9B1DC1E26800906FD7 /* libeditor.a in Frameworks */,
 				6719DD5E1B95AB0F0018166F /* libtess2.a in Frameworks */,
-				674A28DE1B1C8027001A525C /* libtomcrypt.a in Frameworks */,
 				674A28DC1B1C801D001A525C /* libprotobuf.a in Frameworks */,
 				674A28D81B1C800D001A525C /* libbase.a in Frameworks */,
 				674A28D51B1C8001001A525C /* libplatform.a in Frameworks */,
@@ -313,7 +307,6 @@
 				3462FDAA1DC1E32C00906FD7 /* libsearch.a in Frameworks */,
 				6737466B1CF47D82005E6D1F /* libplatform.a in Frameworks */,
 				3462FDA21DC1E2D300906FD7 /* libalohalitics.a in Frameworks */,
-				673746741CF47E54005E6D1F /* libtomcrypt.a in Frameworks */,
 				673746711CF47E14005E6D1F /* librouting.a in Frameworks */,
 				6737466D1CF47D82005E6D1F /* libgeometry.a in Frameworks */,
 				3462FDA51DC1E2F300906FD7 /* liboauthcpp.a in Frameworks */,
@@ -370,7 +363,6 @@
 				674A28E61B1C80EA001A525C /* libplatform.a in Frameworks */,
 				674A28E71B1C80EA001A525C /* libprotobuf.a in Frameworks */,
 				674A28E81B1C80EA001A525C /* librouting.a in Frameworks */,
-				674A28EA1B1C80EA001A525C /* libtomcrypt.a in Frameworks */,
 				675344431A3F65E800A0A8C3 /* IOKit.framework in Frameworks */,
 				675343E31A3F607600A0A8C3 /* Cocoa.framework in Frameworks */,
 			);
@@ -414,7 +406,6 @@
 				6796246F1D100F7C00AE4E3C /* libsearch.a in Frameworks */,
 				679624701D100F7C00AE4E3C /* libstorage.a in Frameworks */,
 				679624711D100F7C00AE4E3C /* libsuccinct.a in Frameworks */,
-				679624721D100F7C00AE4E3C /* libtomcrypt.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -538,7 +529,6 @@
 				674A28EF1B1C8104001A525C /* libsearch.a */,
 				674A28ED1B1C80FB001A525C /* libjansson.a */,
 				674A28EB1B1C80F4001A525C /* libstorage.a */,
-				674A28DD1B1C8027001A525C /* libtomcrypt.a */,
 				674A28DB1B1C801D001A525C /* libprotobuf.a */,
 				674A28D71B1C800D001A525C /* libbase.a */,
 				674A28D31B1C8001001A525C /* libplatform.a */,
