@@ -18,7 +18,8 @@ omim_link_libraries(
   base
   pugixml
   oauthcpp
-  tomcrypt
+  stats_client
+  ${LIBZ}
   ${Qt5Widgets_LIBRARIES}
 )
 

@@ -26,7 +26,7 @@ omim_link_libraries(
   opening_hours
   pugixml
   oauthcpp
-  tomcrypt
+  ${LIBZ}
   ${Qt5Widgets_LIBRARIES}
 )
 

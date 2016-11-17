@@ -32,5 +32,6 @@ omim_link_libraries(
   expat
   tomcrypt
   stats_client
+  ${LIBZ}
   ${Qt5OpenGL_LIBRARIES}
 )

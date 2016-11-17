@@ -25,7 +25,7 @@ omim_link_libraries(
   base
   jansson
   minizip
-  tomcrypt
+  stats_client
   ${LIBZ}
 )
 
