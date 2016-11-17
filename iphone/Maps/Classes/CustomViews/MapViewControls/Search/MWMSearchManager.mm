@@ -130,9 +130,9 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
 - (IBAction)textFieldTextDidChange:(UITextField *)textField
 {
   NSString * text = textField.text;
-  [self clearFilter];
   if (text.length > 0)
   {
+    [self clearFilter];
     if ([MWMConsole performCommand:text])
     {
       self.state = MWMSearchManagerStateHidden;

@@ -1,6 +1,7 @@
 #import "MWMSearch.h"
 #import <Crashlytics/Crashlytics.h>
 #import "Common.h"
+#import "MWMAlertViewController.h"
 #import "MWMLocationManager.h"
 #import "MWMSearchHotelsFilterViewController.h"
 #import "ToastView.h"
@@ -105,7 +106,11 @@ using TObservers = NSHashTable<__kindof TObserver>;
       if (!self)
         return;
       if (results.IsEndedNormal())
+      {
         [self checkIsHotelResults:results];
+        if (results.GetCount() == 0)
+          [[MWMAlertViewController activeAlertController] presentSearchNoResultsAlert];
+      }
       [self onSearchCompleted];
     };
   }
