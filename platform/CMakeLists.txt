@@ -2,6 +2,8 @@ project(platform)
 
 include_directories(${OMIM_ROOT}/3party/jansson/src ${OMIM_ROOT}/platform)
 
+set(CMAKE_AUTOMOC ON)
+
 set(
   SRC
   chunks_download_strategy.cpp
