@@ -104,9 +104,24 @@ function(omim_add_test_subdirectory subdir)
   endif()
 endfunction()
 
+function(omim_link_platform_if_needed target)
+  if (";${ARGN};" MATCHES ";platform;")
+    if (PLATFORM_MAC)
+      target_link_libraries(
+        ${target}
+        "-framework Cocoa"
+        "-framework QuartzCore"
+        "-framework SystemConfiguration"
+      )
+    endif()
+  endif()
+endfunction()
+
+
 function(omim_link_libraries target)
   if (TARGET ${target})
     target_link_libraries(${target} ${ARGN} ${CMAKE_THREAD_LIBS_INIT})
+    omim_link_platform_if_needed(${target} ${ARGN})
   else()
     message("~> Skipping linking the libraries to the target ${target} as it does not exist")
   endif()

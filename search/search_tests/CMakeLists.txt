@@ -43,12 +43,3 @@ omim_link_libraries(
   ${Qt5Core_LIBRARIES}
   ${LIBZ}
 )
-
-if (PLATFORM_MAC)
-  omim_link_libraries(
-    ${PROJECT_NAME}
-    "-framework Cocoa"
-    "-framework IOKit"
-    "-framework SystemConfiguration"
-  )
-endif ()

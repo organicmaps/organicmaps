@@ -22,12 +22,3 @@ omim_link_libraries(
   ${LIBZ}
   ${Qt5Widgets_LIBRARIES}
 )
-
-if (${PLATFORM_MAC})
-  omim_link_libraries(
-    ${PROJECT_NAME}
-    "-framework Cocoa"
-    "-framework IOKit"
-    "-framework SystemConfiguration"
-  )
-endif()
