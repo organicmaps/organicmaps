@@ -22,8 +22,6 @@
 @interface MWMPlacePageManager ()<MWMFrameworkStorageObserver, MWMPlacePageLayoutDelegate,
                                   MWMPlacePageLayoutDataSource, MWMLocationObserver>
 
-@property(nonatomic) MWMPlacePageEntity * entity;
-
 @property(nonatomic) MWMPlacePageLayout * layout;
 @property(nonatomic) MWMPlacePageData * data;
 
@@ -47,13 +45,13 @@
                                                      dataSource:self];
   }
 
-  [self.layout showWithData:self.data];
-
-  // Call for the first time to produce changes
-  [self processCountryEvent:self.data.countryId];
-
   [MWMLocationManager addObserver:self];
   [self.layout setDistanceToObject:self.distanceToObject];
+
+  [self.layout showWithData:self.data];
+  
+  // Call for the first time to produce changes
+  [self processCountryEvent:self.data.countryId];
 }
 
 - (void)closePlacePage
@@ -134,7 +132,7 @@
 
 #pragma mark - MWMPlacePageLayout
 
-- (void)onTopBoundChanged:(CGFloat)bound
+- (void)onPlacePageTopBoundChanged:(CGFloat)bound
 {
   [[MWMMapViewControlsManager manager]
       dragPlacePage:{{0, self.ownerViewController.view.height - bound}, {}}];
@@ -307,15 +305,34 @@
 #pragma mark - MWMFeatureHolder
 
 - (FeatureID const &)featureId { return self.data.featureId; }
+
 #pragma mark - Owner
 
 - (MapViewController *)ownerViewController { return [MapViewController controller]; }
+
 #pragma mark - Deprecated
 
 @synthesize leftBound = _leftBound;
 @synthesize topBound = _topBound;
-- (void)setTopBound:(CGFloat)topBound { _topBound = 0; }
-- (void)setLeftBound:(CGFloat)leftBound { _leftBound = 0; }
+
+- (void)setTopBound:(CGFloat)topBound
+{
+  if (_topBound == topBound)
+    return;
+
+  _topBound = topBound;
+  [self.layout updateTopBound];
+}
+
+- (void)setLeftBound:(CGFloat)leftBound
+{
+  if (_leftBound == leftBound)
+    return;
+
+  _leftBound = leftBound;
+  [self.layout updateLeftBound];
+}
+
 - (void)addSubviews:(NSArray *)views withNavigationController:(UINavigationController *)controller
 {
 }

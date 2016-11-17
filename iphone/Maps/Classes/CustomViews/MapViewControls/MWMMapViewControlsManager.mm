@@ -9,9 +9,7 @@
 #import "MWMButton.h"
 #import "MWMFrameworkListener.h"
 #import "MWMObjectsCategorySelectorController.h"
-#import "MWMPlacePageEntity.h"
 #import "MWMPlacePageManager.h"
-#import "MWMPlacePageViewManager.h"
 #import "MWMRoutePreview.h"
 #import "MWMRouter.h"
 #import "MWMSearchManager.h"
@@ -133,7 +131,18 @@ extern NSString * const kAlohalyticsTapEventKey;
 #pragma mark - MWMPlacePageViewManager
 
 - (void)dismissPlacePage { [self.placePageManager hidePlacePage]; }
-- (void)showPlacePage:(place_page::Info const &)info { [self.placePageManager showPlacePage:info]; }
+
+- (void)showPlacePage:(place_page::Info const &)info
+{
+  [self.placePageManager showPlacePage:info];
+  if (IPAD)
+  {
+    auto ownerView = self.ownerController.view;
+    [ownerView bringSubviewToFront:self.menuController.view];
+    [ownerView bringSubviewToFront:self.navigationManager.routePreview];
+  }
+}
+
 - (MWMAlertViewController *)alertController { return self.ownerController.alertController; }
 - (void)searchViewDidEnterState:(MWMSearchManagerState)state
 {
@@ -295,20 +304,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   [self.sideButtons setBottomBound:frame.origin.y];
 }
 
-- (void)addPlacePageViews:(NSArray *)views
-{
-  UIView * ownerView = self.ownerController.view;
-  for (UIView * view in views)
-    [ownerView addSubview:view];
-  for (UIView * view in self.searchManager.topViews)
-    [ownerView bringSubviewToFront:view];
-  if (IPAD)
-  {
-    [ownerView bringSubviewToFront:self.menuController.view];
-    [ownerView bringSubviewToFront:self.navigationManager.routePreview];
-  }
-}
-
 #pragma mark - MWMNavigationDashboardManager
 
 - (void)routePreviewDidChangeFrame:(CGRect)newFrame
@@ -454,10 +449,8 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (id<MWMPlacePageProtocol>)placePageManager
 {
-  auto const PlacePageClass = IPAD ? [MWMPlacePageViewManager class] : [MWMPlacePageManager class];
-
   if (!_placePageManager)
-    _placePageManager = [[PlacePageClass alloc] init];
+    _placePageManager = [[MWMPlacePageManager alloc] init];
   return _placePageManager;
 }
 

@@ -1,5 +1,6 @@
-@class MWMPlacePageViewManager;
 @class MWMPlacePageData;
+
+#import "MWMCircularProgress.h"
 
 @protocol MWMActionBarSharedData<NSObject>
 
@@ -21,13 +22,14 @@
 + (MWMPlacePageActionBar *)actionBarWithDelegate:(id<MWMActionBarProtocol>)delegate;
 - (void)configureWithData:(id<MWMActionBarSharedData>)data;
 
-@property (nonatomic) BOOL isBookmark;
+@property(nonatomic) BOOL isBookmark;
+@property(nonatomic) BOOL isAreaNotDownloaded;
+
+- (void)setDownloadingProgress:(CGFloat)progress;
+- (void)setDownloadingState:(MWMCircularProgressState)state;
 
 - (UIView *)shareAnchor;
 - (BOOL)isPrepareRouteMode;
-
-+ (MWMPlacePageActionBar *)actionBarForPlacePageManager:(MWMPlacePageViewManager *)placePageManager;
-- (void)configureWithPlacePageManager:(MWMPlacePageViewManager *)placePageManager;
 
 - (instancetype)init __attribute__((unavailable("call actionBarForPlacePage: instead")));
 - (instancetype)initWithCoder:(NSCoder *)aDecoder __attribute__((unavailable("call actionBarForPlacePage: instead")));

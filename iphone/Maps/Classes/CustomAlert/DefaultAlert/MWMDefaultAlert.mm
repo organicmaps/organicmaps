@@ -1,7 +1,6 @@
 #import "MWMDefaultAlert.h"
 #import "MWMAlertViewController.h"
 #import "MWMDefaultAlert_Protected.h"
-#import "MWMPlacePageViewManager.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"

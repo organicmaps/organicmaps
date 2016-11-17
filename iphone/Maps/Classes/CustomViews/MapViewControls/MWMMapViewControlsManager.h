@@ -8,7 +8,6 @@
 #include "platform/location.hpp"
 
 @class MapViewController;
-@class MWMPlacePageEntity;
 @protocol MWMFeatureHolder;
 
 @interface MWMMapViewControlsManager : NSObject
@@ -43,7 +42,6 @@
 
 - (void)dismissPlacePage;
 - (void)showPlacePage:(place_page::Info const &)info;
-- (void)addPlacePageViews:(NSArray *)views;
 - (void)addPlace:(BOOL)isBusiness hasPoint:(BOOL)hasPoint point:(m2::PointD const &)point;
 - (void)dragPlacePage:(CGRect)frame;
 

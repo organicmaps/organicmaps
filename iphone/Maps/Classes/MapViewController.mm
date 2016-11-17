@@ -19,7 +19,6 @@
 #import "MWMMapDownloaderViewController.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMPlacePageData.h"
-#import "MWMPlacePageEntity.h"
 #import "MWMPlacePageProtocol.h"
 #import "MWMRouter.h"
 #import "MWMRouterSavedState.h"
@@ -586,17 +585,6 @@ BOOL gIsFirstMyPositionMode = YES;
   {
     MWMAuthorizationWebViewLoginViewController * dvc = segue.destinationViewController;
     dvc.authType = MWMWebViewAuthorizationTypeGoogle;
-  }
-  else if ([segue.identifier isEqualToString:@"PP2BookmarkEditingIPAD"])
-  {
-    UINavigationController * nav = segue.destinationViewController;
-    MWMEditBookmarkController * dvc = nav.viewControllers.firstObject;
-    dvc.manager = sender;
-  }
-  else if ([segue.identifier isEqualToString:@"PP2BookmarkEditing"])
-  {
-    MWMEditBookmarkController * dvc = segue.destinationViewController;
-    dvc.manager = sender;
   }
 }
 

@@ -9,7 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="_MWMPPPExternalTitle" id="BGG-6x-Yz5" customClass="_MWMPPPExternalTitle">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="_MWMPPPExternalTitle" id="BGG-6x-Yz5" customClass="_MWMPPPExternalTitle">
             <rect key="frame" x="0.0" y="0.0" width="320" height="24"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BGG-6x-Yz5" id="qw4-Pb-AUe">
@@ -68,12 +68,12 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="ugv-HY-Iyx" firstAttribute="leading" secondItem="RVZ-XQ-Hc9" secondAttribute="trailing" priority="500" constant="8" id="Aey-Ea-IiP"/>
-                    <constraint firstAttribute="trailing" secondItem="ugv-HY-Iyx" secondAttribute="trailing" id="FBP-qb-iYH"/>
+                    <constraint firstAttribute="trailing" secondItem="ugv-HY-Iyx" secondAttribute="trailing" constant="16" id="FBP-qb-iYH"/>
                     <constraint firstAttribute="bottom" secondItem="ugv-HY-Iyx" secondAttribute="bottom" id="J9l-KA-e20"/>
                     <constraint firstItem="ugv-HY-Iyx" firstAttribute="top" secondItem="qw4-Pb-AUe" secondAttribute="top" constant="3" id="KGm-L4-5Pj"/>
                     <constraint firstItem="RVZ-XQ-Hc9" firstAttribute="top" secondItem="qw4-Pb-AUe" secondAttribute="top" constant="4" id="Vep-PM-Fnb"/>
                     <constraint firstAttribute="trailingMargin" secondItem="RVZ-XQ-Hc9" secondAttribute="trailing" priority="750" id="gTr-DS-WO3"/>
-                    <constraint firstItem="RVZ-XQ-Hc9" firstAttribute="leading" secondItem="qw4-Pb-AUe" secondAttribute="leading" id="pyI-Wm-46c"/>
+                    <constraint firstItem="RVZ-XQ-Hc9" firstAttribute="leading" secondItem="qw4-Pb-AUe" secondAttribute="leading" constant="16" id="pyI-Wm-46c"/>
                     <constraint firstAttribute="bottom" secondItem="RVZ-XQ-Hc9" secondAttribute="bottom" id="tIE-kq-5JG"/>
                 </constraints>
             </tableViewCellContentView>

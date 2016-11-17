@@ -1,6 +1,7 @@
 #import "MWMActionBarButton.h"
 #import "Common.h"
 #import "MWMButton.h"
+#import "MWMCircularProgress.h"
 #import "UIColor+MapsMeColor.h"
 
 NSString * titleForButton(EButton type, BOOL isSelected)
@@ -9,6 +10,8 @@ NSString * titleForButton(EButton type, BOOL isSelected)
   {
   case EButton::Api:
     return L(@"back");
+  case EButton::Download:
+    return L(@"download");
   case EButton::Booking:
   case EButton::Opentable:
     return L(@"book_button");
@@ -29,13 +32,15 @@ NSString * titleForButton(EButton type, BOOL isSelected)
   }
 }
 
-@interface MWMActionBarButton ()
+@interface MWMActionBarButton () <MWMCircularProgressProtocol>
 
 @property (weak, nonatomic) IBOutlet MWMButton * button;
 @property (weak, nonatomic) IBOutlet UILabel * label;
 
 @property (weak, nonatomic) id<MWMActionBarButtonDelegate> delegate;
 @property (nonatomic) EButton type;
+@property(nonatomic) MWMCircularProgress * mapDownloadProgress;
+@property(nonatomic) UIView * progressWrapper;
 
 @end
 
@@ -56,6 +61,24 @@ NSString * titleForButton(EButton type, BOOL isSelected)
   case EButton::Api:
     [self.button setImage:[UIImage imageNamed:@"ic_back_api"] forState:UIControlStateNormal];
     break;
+  case EButton::Download:
+  {
+    if (self.mapDownloadProgress)
+      return;
+
+    self.progressWrapper = [[UIView alloc] init];
+    [self.button addSubview:self.progressWrapper];
+
+    self.mapDownloadProgress = [MWMCircularProgress downloaderProgressForParentView:self.progressWrapper];
+      self.mapDownloadProgress.delegate = self;
+
+    MWMCircularProgressStateVec const affectedStates = {MWMCircularProgressStateNormal,
+      MWMCircularProgressStateSelected};
+
+    [self.mapDownloadProgress setImageName:@"ic_download" forStates:affectedStates];
+    [self.mapDownloadProgress setColoring:MWMButtonColoringBlue forStates:affectedStates];
+    break;
+  }
   case EButton::Booking:
     [self.button setImage:[UIImage imageNamed:@"ic_booking_logo"] forState:UIControlStateNormal];
     self.label.textColor = [UIColor whiteColor];
@@ -105,6 +128,11 @@ NSString * titleForButton(EButton type, BOOL isSelected)
   [button configButton:isSelected];
 }
 
+- (void)progressButtonPressed:(MWMCircularProgress *)progress
+{
+  [self.delegate tapOnButtonWithType:EButton::Download];
+}
+
 - (IBAction)tap
 {
   if (self.type == EButton::Bookmark)
@@ -143,8 +171,11 @@ NSString * titleForButton(EButton type, BOOL isSelected)
 
 - (void)layoutSubviews
 {
-  self.frame = self.superview.bounds;
   [super layoutSubviews];
+  self.frame = self.superview.bounds;
+  CGFloat constexpr designOffset = 4;
+  self.progressWrapper.size = {self.button.height - designOffset, self.button.height - designOffset};
+  self.progressWrapper.center = self.button.center;
 }
 
 @end

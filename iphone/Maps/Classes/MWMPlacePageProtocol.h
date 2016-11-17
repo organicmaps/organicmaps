@@ -2,7 +2,7 @@
 
 #include "Framework.h"
 
-@class MWMPlacePageEntity, MWMViewController;
+@class MWMViewController;
 
 @protocol MWMActionBarProtocol<NSObject>
 
@@ -18,6 +18,7 @@
 - (void)book:(BOOL)isDecription;
 
 - (void)apiBack;
+- (void)downloadSelectedArea;
 
 @end
 

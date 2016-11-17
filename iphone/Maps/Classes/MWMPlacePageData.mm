@@ -19,6 +19,7 @@ using namespace place_page;
   Info m_info;
 
   vector<Sections> m_sections;
+  vector<PreviewRows> m_previewRows;
   vector<MetainfoRows> m_metainfoRows;
   vector<ButtonsRows> m_buttonsRows;
 }
@@ -38,10 +39,12 @@ using namespace place_page;
 - (void)fillSections
 {
   m_sections.clear();
+  m_previewRows.clear();
   m_metainfoRows.clear();
   m_buttonsRows.clear();
 
   m_sections.push_back(Sections::Preview);
+  [self fillPreviewSection];
 
   // It's bookmark.
   if (m_info.IsBookmark())
@@ -58,6 +61,19 @@ using namespace place_page;
     m_sections.push_back(Sections::Buttons);
     [self fillButtonsSection];
   }
+}
+
+- (void)fillPreviewSection
+{
+  if (self.title.length) m_previewRows.push_back(PreviewRows::Title);
+  if (self.externalTitle.length) m_previewRows.push_back(PreviewRows::ExternalTitle);
+  if (self.subtitle.length) m_previewRows.push_back(PreviewRows::Subtitle);
+  if (self.schedule != OpeningHours::Unknown) m_previewRows.push_back(PreviewRows::Schedule);
+  if (self.isBooking) m_previewRows.push_back(PreviewRows::Booking);
+  if (self.address.length) m_previewRows.push_back(PreviewRows::Address);
+  
+  NSAssert(!m_previewRows.empty(), @"Preview row's can't be empty!");
+  m_previewRows.push_back(PreviewRows::Space);
 }
 
 - (void)fillMetaInfoSection
@@ -207,7 +223,6 @@ using namespace place_page;
 
 - (void)assignOnlinePriceToLabel:(UILabel *)label
 {
-  // TODO(Vlad): Remove similar code from MWMPlacePageEntity.mm when new iPAD place page will be finished.
   NSAssert(self.isBooking, @"Online price must be assigned to booking object!");
   if (Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
     return;
@@ -282,12 +297,15 @@ using namespace place_page;
 }
 
 - (vector<Sections> const &)sections { return m_sections; }
+- (vector<PreviewRows> const &)previewRows { return m_previewRows; }
 - (vector<MetainfoRows> const &)metainfoRows { return m_metainfoRows; }
+- (vector<MetainfoRows> &)mutableMetainfoRows { return m_metainfoRows; }
 - (vector<ButtonsRows> const &)buttonsRows { return m_buttonsRows; }
 - (NSString *)stringForRow:(MetainfoRows)row
 {
   switch (row)
   {
+  case MetainfoRows::ExtendedOpeningHours: return nil;
   case MetainfoRows::OpeningHours: return @(m_info.GetOpeningHours().c_str());
   case MetainfoRows::Phone: return @(m_info.GetPhone().c_str());
   case MetainfoRows::Address: return @(m_info.GetAddress().c_str());
