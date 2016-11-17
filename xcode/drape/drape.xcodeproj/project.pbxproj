@@ -26,7 +26,6 @@
 		6709472E1BDF9A4F005014C0 /* index_storage.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670947201BDF9A4F005014C0 /* index_storage.hpp */; };
 		6709472F1BDF9A4F005014C0 /* shader_def.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670947211BDF9A4F005014C0 /* shader_def.cpp */; };
 		670947301BDF9A4F005014C0 /* shader_def.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670947221BDF9A4F005014C0 /* shader_def.hpp */; };
-		670D059D1B0CC8A70013A7AC /* shader_index.txt in Sources */ = {isa = PBXBuildFile; fileRef = 6729A5491A69213A007D5872 /* shader_index.txt */; };
 		6729A5631A69213A007D5872 /* attribute_buffer_mutator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6729A4FF1A69213A007D5872 /* attribute_buffer_mutator.cpp */; };
 		6729A5641A69213A007D5872 /* attribute_buffer_mutator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6729A5001A69213A007D5872 /* attribute_buffer_mutator.hpp */; };
 		6729A5651A69213A007D5872 /* attribute_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6729A5011A69213A007D5872 /* attribute_provider.cpp */; };
@@ -106,19 +105,67 @@
 		6743D3451C3533AE0095054B /* support_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6743D3431C3533AE0095054B /* support_manager.hpp */; };
 		675D21991BFB876E00717E4F /* projection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675D21971BFB876E00717E4F /* projection.cpp */; };
 		675D219A1BFB876E00717E4F /* projection.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675D21981BFB876E00717E4F /* projection.hpp */; };
+		BB06FBE91DDDFFBE00B41AF0 /* area_vertex_shader.vsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBC01DDDFDC300B41AF0 /* area_vertex_shader.vsh */; };
+		BB06FBEA1DDDFFBE00B41AF0 /* area3d_outline_vertex_shader.vsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBC11DDDFDC300B41AF0 /* area3d_outline_vertex_shader.vsh */; };
+		BB06FBEB1DDDFFBE00B41AF0 /* area3d_vertex_shader.vsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBC21DDDFDC300B41AF0 /* area3d_vertex_shader.vsh */; };
+		BB06FBEC1DDDFFBE00B41AF0 /* arrow3d_fragment_shader.fsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBC31DDDFDC300B41AF0 /* arrow3d_fragment_shader.fsh */; };
+		BB06FBED1DDDFFBE00B41AF0 /* arrow3d_shadow_fragment_shader.fsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBC41DDDFDC300B41AF0 /* arrow3d_shadow_fragment_shader.fsh */; };
+		BB06FBEE1DDDFFBE00B41AF0 /* arrow3d_shadow_vertex_shader.vsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBC51DDDFDC300B41AF0 /* arrow3d_shadow_vertex_shader.vsh */; };
+		BB06FBEF1DDDFFBE00B41AF0 /* arrow3d_vertex_shader.vsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBC61DDDFDC300B41AF0 /* arrow3d_vertex_shader.vsh */; };
+		BB06FBF01DDDFFBE00B41AF0 /* circle_shader.fsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBC71DDDFDC300B41AF0 /* circle_shader.fsh */; };
+		BB06FBF11DDDFFBE00B41AF0 /* circle_shader.vsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBC81DDDFDC300B41AF0 /* circle_shader.vsh */; };
+		BB06FBF21DDDFFBE00B41AF0 /* dashed_fragment_shader.fsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBC91DDDFDC300B41AF0 /* dashed_fragment_shader.fsh */; };
+		BB06FBF31DDDFFBE00B41AF0 /* dashed_vertex_shader.vsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBCA1DDDFDC300B41AF0 /* dashed_vertex_shader.vsh */; };
+		BB06FBF41DDDFFBE00B41AF0 /* debug_rect_fragment_shader.fsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBCB1DDDFDC300B41AF0 /* debug_rect_fragment_shader.fsh */; };
+		BB06FBF51DDDFFBE00B41AF0 /* debug_rect_vertex_shader.vsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBCC1DDDFDC300B41AF0 /* debug_rect_vertex_shader.vsh */; };
+		BB06FBF61DDDFFBE00B41AF0 /* masked_texturing_billboard_vertex_shader.vsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBCD1DDDFDC300B41AF0 /* masked_texturing_billboard_vertex_shader.vsh */; };
+		BB06FBF71DDDFFBE00B41AF0 /* masked_texturing_fragment_shader.fsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBCE1DDDFDC300B41AF0 /* masked_texturing_fragment_shader.fsh */; };
+		BB06FBF81DDDFFBE00B41AF0 /* masked_texturing_vertex_shader.vsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBCF1DDDFDC300B41AF0 /* masked_texturing_vertex_shader.vsh */; };
+		BB06FBF91DDDFFBE00B41AF0 /* my_position_shader.vsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBD01DDDFDC300B41AF0 /* my_position_shader.vsh */; };
+		BB06FBFA1DDDFFBE00B41AF0 /* path_symbol_vertex_shader.vsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBD11DDDFDC300B41AF0 /* path_symbol_vertex_shader.vsh */; };
+		BB06FBFB1DDDFFBE00B41AF0 /* position_accuracy3d_shader.vsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBD21DDDFDC300B41AF0 /* position_accuracy3d_shader.vsh */; };
+		BB06FBFC1DDDFFBE00B41AF0 /* route_arrow_vertex_shader.vsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBD31DDDFDC300B41AF0 /* route_arrow_vertex_shader.vsh */; };
+		BB06FBFD1DDDFFBE00B41AF0 /* route_dash_fragment_shader.fsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBD41DDDFDC300B41AF0 /* route_dash_fragment_shader.fsh */; };
+		BB06FBFE1DDDFFBE00B41AF0 /* route_fragment_shader.fsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBD51DDDFDC300B41AF0 /* route_fragment_shader.fsh */; };
+		BB06FBFF1DDDFFBE00B41AF0 /* route_vertex_shader.vsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBD61DDDFDC300B41AF0 /* route_vertex_shader.vsh */; };
+		BB06FC001DDDFFBE00B41AF0 /* ruler_vertex_shader.vsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBD71DDDFDC300B41AF0 /* ruler_vertex_shader.vsh */; };
+		BB06FC011DDDFFBE00B41AF0 /* solid_color_fragment_shader.fsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBD81DDDFDC300B41AF0 /* solid_color_fragment_shader.fsh */; };
+		BB06FC021DDDFFBE00B41AF0 /* text_billboard_vertex_shader.vsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBD91DDDFDC300B41AF0 /* text_billboard_vertex_shader.vsh */; };
+		BB06FC031DDDFFBE00B41AF0 /* text_outlined_billboard_vertex_shader.vsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBDA1DDDFDC300B41AF0 /* text_outlined_billboard_vertex_shader.vsh */; };
+		BB06FC041DDDFFBE00B41AF0 /* text_outlined_gui_vertex_shader.vsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBDB1DDDFDC300B41AF0 /* text_outlined_gui_vertex_shader.vsh */; };
+		BB06FC051DDDFFBE00B41AF0 /* text_outlined_vertex_shader.vsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBDC1DDDFDC300B41AF0 /* text_outlined_vertex_shader.vsh */; };
+		BB06FC061DDDFFBE00B41AF0 /* texturing_billboard_vertex_shader.vsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBDD1DDDFDC300B41AF0 /* texturing_billboard_vertex_shader.vsh */; };
+		BB06FC071DDDFFBE00B41AF0 /* texturing_gui_vertex_shader.vsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBDE1DDDFDC300B41AF0 /* texturing_gui_vertex_shader.vsh */; };
+		BB06FC081DDDFFBE00B41AF0 /* texturing3d_fragment_shader.fsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBDF1DDDFDC300B41AF0 /* texturing3d_fragment_shader.fsh */; };
+		BB06FC091DDDFFBE00B41AF0 /* trackpoint_fragment_shader.fsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBE01DDDFDC300B41AF0 /* trackpoint_fragment_shader.fsh */; };
+		BB06FC0A1DDDFFBE00B41AF0 /* trackpoint_vertex_shader.vsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBE11DDDFDC300B41AF0 /* trackpoint_vertex_shader.vsh */; };
+		BB06FC0B1DDDFFBE00B41AF0 /* traffic_fragment_shader.fsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBE21DDDFDC300B41AF0 /* traffic_fragment_shader.fsh */; };
+		BB06FC0C1DDDFFBE00B41AF0 /* traffic_vertex_shader.vsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBE31DDDFDC300B41AF0 /* traffic_vertex_shader.vsh */; };
+		BB06FC0D1DDDFFBE00B41AF0 /* transparent_layer_fragment_shader.fsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBE41DDDFDC300B41AF0 /* transparent_layer_fragment_shader.fsh */; };
+		BB06FC0E1DDDFFBE00B41AF0 /* transparent_layer_vertex_shader.vsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBE51DDDFDC300B41AF0 /* transparent_layer_vertex_shader.vsh */; };
+		BB06FC0F1DDDFFBE00B41AF0 /* user_mark_billboard.vsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBE61DDDFDC300B41AF0 /* user_mark_billboard.vsh */; };
+		BB06FC101DDDFFBE00B41AF0 /* user_mark.vsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBE71DDDFDC300B41AF0 /* user_mark.vsh */; };
+		BB06FC111DDDFFBE00B41AF0 /* line_fragment_shader.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 6729A5471A69213A007D5872 /* line_fragment_shader.fsh */; };
+		BB06FC121DDDFFBE00B41AF0 /* line_vertex_shader.vsh in Sources */ = {isa = PBXBuildFile; fileRef = 6729A5481A69213A007D5872 /* line_vertex_shader.vsh */; };
+		BB06FC131DDDFFBE00B41AF0 /* shader_index.txt in Sources */ = {isa = PBXBuildFile; fileRef = 6729A5491A69213A007D5872 /* shader_index.txt */; };
+		BB06FC141DDDFFBE00B41AF0 /* text_fragment_shader.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 6729A54A1A69213A007D5872 /* text_fragment_shader.fsh */; };
+		BB06FC151DDDFFBE00B41AF0 /* text_vertex_shader.vsh in Sources */ = {isa = PBXBuildFile; fileRef = 6729A54B1A69213A007D5872 /* text_vertex_shader.vsh */; };
+		BB06FC161DDDFFBE00B41AF0 /* texturing_fragment_shader.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 6729A54C1A69213A007D5872 /* texturing_fragment_shader.fsh */; };
+		BB06FC171DDDFFBE00B41AF0 /* texturing_vertex_shader.vsh in Sources */ = {isa = PBXBuildFile; fileRef = 6729A54D1A69213A007D5872 /* texturing_vertex_shader.vsh */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
 		670D055F1B0C9E4D0013A7AC /* PBXBuildRule */ = {
 			isa = PBXBuildRule;
 			compilerSpec = com.apple.compilers.proxy.script;
-			filePatterns = "*/shader_index.txt";
+			filePatterns = "*.vsh *.fsh */shader_index.txt";
 			fileType = pattern.proxy;
 			isEditable = 1;
+			name = "Shader compiler";
 			outputFiles = (
 				"$(INPUT_FILE_DIR)/../shader_def.cpp",
 			);
-			script = "python ${SRCROOT}/../../tools/autobuild/shader_preprocessor.py ${INPUT_FILE_DIR} ${INPUT_FILE_NAME} ${INPUT_FILE_DIR}/../shader_def";
+			script = "python ${SRCROOT}/../../tools/autobuild/shader_preprocessor.py ${INPUT_FILE_DIR} shader_index.txt ${INPUT_FILE_DIR}/../shader_def";
 		};
 /* End PBXBuildRule section */
 
@@ -202,13 +249,6 @@
 		6729A5371A69213A007D5872 /* render_bucket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = render_bucket.hpp; sourceTree = "<group>"; };
 		6729A53C1A69213A007D5872 /* shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shader.cpp; sourceTree = "<group>"; };
 		6729A53D1A69213A007D5872 /* shader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = shader.hpp; sourceTree = "<group>"; };
-		6729A5401A69213A007D5872 /* line_fragment_shader_fsh.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = line_fragment_shader_fsh.txt; sourceTree = "<group>"; };
-		6729A5411A69213A007D5872 /* line_vertex_shader_vsh.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = line_vertex_shader_vsh.txt; sourceTree = "<group>"; };
-		6729A5421A69213A007D5872 /* normalize_vertex_shader_vsh.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = normalize_vertex_shader_vsh.txt; sourceTree = "<group>"; };
-		6729A5431A69213A007D5872 /* simple_vertex_shader_vsh.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = simple_vertex_shader_vsh.txt; sourceTree = "<group>"; };
-		6729A5441A69213A007D5872 /* solid_color_fragment_shader_fsh.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = solid_color_fragment_shader_fsh.txt; sourceTree = "<group>"; };
-		6729A5451A69213A007D5872 /* texturing_fragment_shader_fsh.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = texturing_fragment_shader_fsh.txt; sourceTree = "<group>"; };
-		6729A5461A69213A007D5872 /* texturing_vertex_shader_vsh.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = texturing_vertex_shader_vsh.txt; sourceTree = "<group>"; };
 		6729A5471A69213A007D5872 /* line_fragment_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = line_fragment_shader.fsh; sourceTree = "<group>"; };
 		6729A5481A69213A007D5872 /* line_vertex_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = line_vertex_shader.vsh; sourceTree = "<group>"; };
 		6729A5491A69213A007D5872 /* shader_index.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = shader_index.txt; sourceTree = "<group>"; };
@@ -238,6 +278,46 @@
 		6743D3431C3533AE0095054B /* support_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = support_manager.hpp; sourceTree = "<group>"; };
 		675D21971BFB876E00717E4F /* projection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = projection.cpp; sourceTree = "<group>"; };
 		675D21981BFB876E00717E4F /* projection.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = projection.hpp; sourceTree = "<group>"; };
+		BB06FBC01DDDFDC300B41AF0 /* area_vertex_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = area_vertex_shader.vsh; sourceTree = "<group>"; };
+		BB06FBC11DDDFDC300B41AF0 /* area3d_outline_vertex_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = area3d_outline_vertex_shader.vsh; sourceTree = "<group>"; };
+		BB06FBC21DDDFDC300B41AF0 /* area3d_vertex_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = area3d_vertex_shader.vsh; sourceTree = "<group>"; };
+		BB06FBC31DDDFDC300B41AF0 /* arrow3d_fragment_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = arrow3d_fragment_shader.fsh; sourceTree = "<group>"; };
+		BB06FBC41DDDFDC300B41AF0 /* arrow3d_shadow_fragment_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = arrow3d_shadow_fragment_shader.fsh; sourceTree = "<group>"; };
+		BB06FBC51DDDFDC300B41AF0 /* arrow3d_shadow_vertex_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = arrow3d_shadow_vertex_shader.vsh; sourceTree = "<group>"; };
+		BB06FBC61DDDFDC300B41AF0 /* arrow3d_vertex_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = arrow3d_vertex_shader.vsh; sourceTree = "<group>"; };
+		BB06FBC71DDDFDC300B41AF0 /* circle_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = circle_shader.fsh; sourceTree = "<group>"; };
+		BB06FBC81DDDFDC300B41AF0 /* circle_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = circle_shader.vsh; sourceTree = "<group>"; };
+		BB06FBC91DDDFDC300B41AF0 /* dashed_fragment_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = dashed_fragment_shader.fsh; sourceTree = "<group>"; };
+		BB06FBCA1DDDFDC300B41AF0 /* dashed_vertex_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = dashed_vertex_shader.vsh; sourceTree = "<group>"; };
+		BB06FBCB1DDDFDC300B41AF0 /* debug_rect_fragment_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = debug_rect_fragment_shader.fsh; sourceTree = "<group>"; };
+		BB06FBCC1DDDFDC300B41AF0 /* debug_rect_vertex_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = debug_rect_vertex_shader.vsh; sourceTree = "<group>"; };
+		BB06FBCD1DDDFDC300B41AF0 /* masked_texturing_billboard_vertex_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = masked_texturing_billboard_vertex_shader.vsh; sourceTree = "<group>"; };
+		BB06FBCE1DDDFDC300B41AF0 /* masked_texturing_fragment_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = masked_texturing_fragment_shader.fsh; sourceTree = "<group>"; };
+		BB06FBCF1DDDFDC300B41AF0 /* masked_texturing_vertex_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = masked_texturing_vertex_shader.vsh; sourceTree = "<group>"; };
+		BB06FBD01DDDFDC300B41AF0 /* my_position_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = my_position_shader.vsh; sourceTree = "<group>"; };
+		BB06FBD11DDDFDC300B41AF0 /* path_symbol_vertex_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = path_symbol_vertex_shader.vsh; sourceTree = "<group>"; };
+		BB06FBD21DDDFDC300B41AF0 /* position_accuracy3d_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = position_accuracy3d_shader.vsh; sourceTree = "<group>"; };
+		BB06FBD31DDDFDC300B41AF0 /* route_arrow_vertex_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = route_arrow_vertex_shader.vsh; sourceTree = "<group>"; };
+		BB06FBD41DDDFDC300B41AF0 /* route_dash_fragment_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = route_dash_fragment_shader.fsh; sourceTree = "<group>"; };
+		BB06FBD51DDDFDC300B41AF0 /* route_fragment_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = route_fragment_shader.fsh; sourceTree = "<group>"; };
+		BB06FBD61DDDFDC300B41AF0 /* route_vertex_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = route_vertex_shader.vsh; sourceTree = "<group>"; };
+		BB06FBD71DDDFDC300B41AF0 /* ruler_vertex_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ruler_vertex_shader.vsh; sourceTree = "<group>"; };
+		BB06FBD81DDDFDC300B41AF0 /* solid_color_fragment_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = solid_color_fragment_shader.fsh; sourceTree = "<group>"; };
+		BB06FBD91DDDFDC300B41AF0 /* text_billboard_vertex_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = text_billboard_vertex_shader.vsh; sourceTree = "<group>"; };
+		BB06FBDA1DDDFDC300B41AF0 /* text_outlined_billboard_vertex_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = text_outlined_billboard_vertex_shader.vsh; sourceTree = "<group>"; };
+		BB06FBDB1DDDFDC300B41AF0 /* text_outlined_gui_vertex_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = text_outlined_gui_vertex_shader.vsh; sourceTree = "<group>"; };
+		BB06FBDC1DDDFDC300B41AF0 /* text_outlined_vertex_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = text_outlined_vertex_shader.vsh; sourceTree = "<group>"; };
+		BB06FBDD1DDDFDC300B41AF0 /* texturing_billboard_vertex_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = texturing_billboard_vertex_shader.vsh; sourceTree = "<group>"; };
+		BB06FBDE1DDDFDC300B41AF0 /* texturing_gui_vertex_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = texturing_gui_vertex_shader.vsh; sourceTree = "<group>"; };
+		BB06FBDF1DDDFDC300B41AF0 /* texturing3d_fragment_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = texturing3d_fragment_shader.fsh; sourceTree = "<group>"; };
+		BB06FBE01DDDFDC300B41AF0 /* trackpoint_fragment_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = trackpoint_fragment_shader.fsh; sourceTree = "<group>"; };
+		BB06FBE11DDDFDC300B41AF0 /* trackpoint_vertex_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = trackpoint_vertex_shader.vsh; sourceTree = "<group>"; };
+		BB06FBE21DDDFDC300B41AF0 /* traffic_fragment_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = traffic_fragment_shader.fsh; sourceTree = "<group>"; };
+		BB06FBE31DDDFDC300B41AF0 /* traffic_vertex_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = traffic_vertex_shader.vsh; sourceTree = "<group>"; };
+		BB06FBE41DDDFDC300B41AF0 /* transparent_layer_fragment_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = transparent_layer_fragment_shader.fsh; sourceTree = "<group>"; };
+		BB06FBE51DDDFDC300B41AF0 /* transparent_layer_vertex_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = transparent_layer_vertex_shader.vsh; sourceTree = "<group>"; };
+		BB06FBE61DDDFDC300B41AF0 /* user_mark_billboard.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = user_mark_billboard.vsh; sourceTree = "<group>"; };
+		BB06FBE71DDDFDC300B41AF0 /* user_mark.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = user_mark.vsh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -376,7 +456,46 @@
 		6729A53E1A69213A007D5872 /* shaders */ = {
 			isa = PBXGroup;
 			children = (
-				6729A53F1A69213A007D5872 /* doc */,
+				BB06FBC01DDDFDC300B41AF0 /* area_vertex_shader.vsh */,
+				BB06FBC11DDDFDC300B41AF0 /* area3d_outline_vertex_shader.vsh */,
+				BB06FBC21DDDFDC300B41AF0 /* area3d_vertex_shader.vsh */,
+				BB06FBC31DDDFDC300B41AF0 /* arrow3d_fragment_shader.fsh */,
+				BB06FBC41DDDFDC300B41AF0 /* arrow3d_shadow_fragment_shader.fsh */,
+				BB06FBC51DDDFDC300B41AF0 /* arrow3d_shadow_vertex_shader.vsh */,
+				BB06FBC61DDDFDC300B41AF0 /* arrow3d_vertex_shader.vsh */,
+				BB06FBC71DDDFDC300B41AF0 /* circle_shader.fsh */,
+				BB06FBC81DDDFDC300B41AF0 /* circle_shader.vsh */,
+				BB06FBC91DDDFDC300B41AF0 /* dashed_fragment_shader.fsh */,
+				BB06FBCA1DDDFDC300B41AF0 /* dashed_vertex_shader.vsh */,
+				BB06FBCB1DDDFDC300B41AF0 /* debug_rect_fragment_shader.fsh */,
+				BB06FBCC1DDDFDC300B41AF0 /* debug_rect_vertex_shader.vsh */,
+				BB06FBCD1DDDFDC300B41AF0 /* masked_texturing_billboard_vertex_shader.vsh */,
+				BB06FBCE1DDDFDC300B41AF0 /* masked_texturing_fragment_shader.fsh */,
+				BB06FBCF1DDDFDC300B41AF0 /* masked_texturing_vertex_shader.vsh */,
+				BB06FBD01DDDFDC300B41AF0 /* my_position_shader.vsh */,
+				BB06FBD11DDDFDC300B41AF0 /* path_symbol_vertex_shader.vsh */,
+				BB06FBD21DDDFDC300B41AF0 /* position_accuracy3d_shader.vsh */,
+				BB06FBD31DDDFDC300B41AF0 /* route_arrow_vertex_shader.vsh */,
+				BB06FBD41DDDFDC300B41AF0 /* route_dash_fragment_shader.fsh */,
+				BB06FBD51DDDFDC300B41AF0 /* route_fragment_shader.fsh */,
+				BB06FBD61DDDFDC300B41AF0 /* route_vertex_shader.vsh */,
+				BB06FBD71DDDFDC300B41AF0 /* ruler_vertex_shader.vsh */,
+				BB06FBD81DDDFDC300B41AF0 /* solid_color_fragment_shader.fsh */,
+				BB06FBD91DDDFDC300B41AF0 /* text_billboard_vertex_shader.vsh */,
+				BB06FBDA1DDDFDC300B41AF0 /* text_outlined_billboard_vertex_shader.vsh */,
+				BB06FBDB1DDDFDC300B41AF0 /* text_outlined_gui_vertex_shader.vsh */,
+				BB06FBDC1DDDFDC300B41AF0 /* text_outlined_vertex_shader.vsh */,
+				BB06FBDD1DDDFDC300B41AF0 /* texturing_billboard_vertex_shader.vsh */,
+				BB06FBDE1DDDFDC300B41AF0 /* texturing_gui_vertex_shader.vsh */,
+				BB06FBDF1DDDFDC300B41AF0 /* texturing3d_fragment_shader.fsh */,
+				BB06FBE01DDDFDC300B41AF0 /* trackpoint_fragment_shader.fsh */,
+				BB06FBE11DDDFDC300B41AF0 /* trackpoint_vertex_shader.vsh */,
+				BB06FBE21DDDFDC300B41AF0 /* traffic_fragment_shader.fsh */,
+				BB06FBE31DDDFDC300B41AF0 /* traffic_vertex_shader.vsh */,
+				BB06FBE41DDDFDC300B41AF0 /* transparent_layer_fragment_shader.fsh */,
+				BB06FBE51DDDFDC300B41AF0 /* transparent_layer_vertex_shader.vsh */,
+				BB06FBE61DDDFDC300B41AF0 /* user_mark_billboard.vsh */,
+				BB06FBE71DDDFDC300B41AF0 /* user_mark.vsh */,
 				6729A5471A69213A007D5872 /* line_fragment_shader.fsh */,
 				6729A5481A69213A007D5872 /* line_vertex_shader.vsh */,
 				6729A5491A69213A007D5872 /* shader_index.txt */,
@@ -386,20 +505,6 @@
 				6729A54D1A69213A007D5872 /* texturing_vertex_shader.vsh */,
 			);
 			path = shaders;
-			sourceTree = "<group>";
-		};
-		6729A53F1A69213A007D5872 /* doc */ = {
-			isa = PBXGroup;
-			children = (
-				6729A5401A69213A007D5872 /* line_fragment_shader_fsh.txt */,
-				6729A5411A69213A007D5872 /* line_vertex_shader_vsh.txt */,
-				6729A5421A69213A007D5872 /* normalize_vertex_shader_vsh.txt */,
-				6729A5431A69213A007D5872 /* simple_vertex_shader_vsh.txt */,
-				6729A5441A69213A007D5872 /* solid_color_fragment_shader_fsh.txt */,
-				6729A5451A69213A007D5872 /* texturing_fragment_shader_fsh.txt */,
-				6729A5461A69213A007D5872 /* texturing_vertex_shader_vsh.txt */,
-			);
-			path = doc;
 			sourceTree = "<group>";
 		};
 		6729A55C1A69213A007D5872 /* utils */ = {
@@ -534,7 +639,53 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				670D059D1B0CC8A70013A7AC /* shader_index.txt in Sources */,
+				BB06FBE91DDDFFBE00B41AF0 /* area_vertex_shader.vsh in Sources */,
+				BB06FBEA1DDDFFBE00B41AF0 /* area3d_outline_vertex_shader.vsh in Sources */,
+				BB06FBEB1DDDFFBE00B41AF0 /* area3d_vertex_shader.vsh in Sources */,
+				BB06FBEC1DDDFFBE00B41AF0 /* arrow3d_fragment_shader.fsh in Sources */,
+				BB06FBED1DDDFFBE00B41AF0 /* arrow3d_shadow_fragment_shader.fsh in Sources */,
+				BB06FBEE1DDDFFBE00B41AF0 /* arrow3d_shadow_vertex_shader.vsh in Sources */,
+				BB06FBEF1DDDFFBE00B41AF0 /* arrow3d_vertex_shader.vsh in Sources */,
+				BB06FBF01DDDFFBE00B41AF0 /* circle_shader.fsh in Sources */,
+				BB06FBF11DDDFFBE00B41AF0 /* circle_shader.vsh in Sources */,
+				BB06FBF21DDDFFBE00B41AF0 /* dashed_fragment_shader.fsh in Sources */,
+				BB06FBF31DDDFFBE00B41AF0 /* dashed_vertex_shader.vsh in Sources */,
+				BB06FBF41DDDFFBE00B41AF0 /* debug_rect_fragment_shader.fsh in Sources */,
+				BB06FBF51DDDFFBE00B41AF0 /* debug_rect_vertex_shader.vsh in Sources */,
+				BB06FBF61DDDFFBE00B41AF0 /* masked_texturing_billboard_vertex_shader.vsh in Sources */,
+				BB06FBF71DDDFFBE00B41AF0 /* masked_texturing_fragment_shader.fsh in Sources */,
+				BB06FBF81DDDFFBE00B41AF0 /* masked_texturing_vertex_shader.vsh in Sources */,
+				BB06FBF91DDDFFBE00B41AF0 /* my_position_shader.vsh in Sources */,
+				BB06FBFA1DDDFFBE00B41AF0 /* path_symbol_vertex_shader.vsh in Sources */,
+				BB06FBFB1DDDFFBE00B41AF0 /* position_accuracy3d_shader.vsh in Sources */,
+				BB06FBFC1DDDFFBE00B41AF0 /* route_arrow_vertex_shader.vsh in Sources */,
+				BB06FBFD1DDDFFBE00B41AF0 /* route_dash_fragment_shader.fsh in Sources */,
+				BB06FBFE1DDDFFBE00B41AF0 /* route_fragment_shader.fsh in Sources */,
+				BB06FBFF1DDDFFBE00B41AF0 /* route_vertex_shader.vsh in Sources */,
+				BB06FC001DDDFFBE00B41AF0 /* ruler_vertex_shader.vsh in Sources */,
+				BB06FC011DDDFFBE00B41AF0 /* solid_color_fragment_shader.fsh in Sources */,
+				BB06FC021DDDFFBE00B41AF0 /* text_billboard_vertex_shader.vsh in Sources */,
+				BB06FC031DDDFFBE00B41AF0 /* text_outlined_billboard_vertex_shader.vsh in Sources */,
+				BB06FC041DDDFFBE00B41AF0 /* text_outlined_gui_vertex_shader.vsh in Sources */,
+				BB06FC051DDDFFBE00B41AF0 /* text_outlined_vertex_shader.vsh in Sources */,
+				BB06FC061DDDFFBE00B41AF0 /* texturing_billboard_vertex_shader.vsh in Sources */,
+				BB06FC071DDDFFBE00B41AF0 /* texturing_gui_vertex_shader.vsh in Sources */,
+				BB06FC081DDDFFBE00B41AF0 /* texturing3d_fragment_shader.fsh in Sources */,
+				BB06FC091DDDFFBE00B41AF0 /* trackpoint_fragment_shader.fsh in Sources */,
+				BB06FC0A1DDDFFBE00B41AF0 /* trackpoint_vertex_shader.vsh in Sources */,
+				BB06FC0B1DDDFFBE00B41AF0 /* traffic_fragment_shader.fsh in Sources */,
+				BB06FC0C1DDDFFBE00B41AF0 /* traffic_vertex_shader.vsh in Sources */,
+				BB06FC0D1DDDFFBE00B41AF0 /* transparent_layer_fragment_shader.fsh in Sources */,
+				BB06FC0E1DDDFFBE00B41AF0 /* transparent_layer_vertex_shader.vsh in Sources */,
+				BB06FC0F1DDDFFBE00B41AF0 /* user_mark_billboard.vsh in Sources */,
+				BB06FC101DDDFFBE00B41AF0 /* user_mark.vsh in Sources */,
+				BB06FC111DDDFFBE00B41AF0 /* line_fragment_shader.fsh in Sources */,
+				BB06FC121DDDFFBE00B41AF0 /* line_vertex_shader.vsh in Sources */,
+				BB06FC131DDDFFBE00B41AF0 /* shader_index.txt in Sources */,
+				BB06FC141DDDFFBE00B41AF0 /* text_fragment_shader.fsh in Sources */,
+				BB06FC151DDDFFBE00B41AF0 /* text_vertex_shader.vsh in Sources */,
+				BB06FC161DDDFFBE00B41AF0 /* texturing_fragment_shader.fsh in Sources */,
+				BB06FC171DDDFFBE00B41AF0 /* texturing_vertex_shader.vsh in Sources */,
 				6729A5711A69213A007D5872 /* cpu_buffer.cpp in Sources */,
 				6729A5631A69213A007D5872 /* attribute_buffer_mutator.cpp in Sources */,
 				6729A56B1A69213A007D5872 /* binding_info.cpp in Sources */,

@@ -125,7 +125,6 @@
 		670947FA1BDF9BF5005014C0 /* backend_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670947EC1BDF9BF5005014C0 /* backend_renderer.cpp */; };
 		670947FB1BDF9BF5005014C0 /* backend_renderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670947ED1BDF9BF5005014C0 /* backend_renderer.hpp */; };
 		670947FD1BDF9BF5005014C0 /* base_renderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670947EF1BDF9BF5005014C0 /* base_renderer.hpp */; };
-		670947FE1BDF9BF5005014C0 /* batchers_pool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670947F01BDF9BF5005014C0 /* batchers_pool.cpp */; };
 		670947FF1BDF9BF5005014C0 /* batchers_pool.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670947F11BDF9BF5005014C0 /* batchers_pool.hpp */; };
 		670948011BDF9BF5005014C0 /* circle_shape.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670947F31BDF9BF5005014C0 /* circle_shape.hpp */; };
 		670948021BDF9BF5005014C0 /* drape_engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670947F41BDF9BF5005014C0 /* drape_engine.cpp */; };
@@ -343,7 +342,6 @@
 		670947ED1BDF9BF5005014C0 /* backend_renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = backend_renderer.hpp; sourceTree = "<group>"; };
 		670947EE1BDF9BF5005014C0 /* base_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = base_renderer.cpp; sourceTree = "<group>"; };
 		670947EF1BDF9BF5005014C0 /* base_renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = base_renderer.hpp; sourceTree = "<group>"; };
-		670947F01BDF9BF5005014C0 /* batchers_pool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = batchers_pool.cpp; sourceTree = "<group>"; };
 		670947F11BDF9BF5005014C0 /* batchers_pool.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = batchers_pool.hpp; sourceTree = "<group>"; };
 		670947F21BDF9BF5005014C0 /* circle_shape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = circle_shape.cpp; sourceTree = "<group>"; };
 		670947F31BDF9BF5005014C0 /* circle_shape.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = circle_shape.hpp; sourceTree = "<group>"; };
@@ -509,7 +507,6 @@
 				670947ED1BDF9BF5005014C0 /* backend_renderer.hpp */,
 				670947EE1BDF9BF5005014C0 /* base_renderer.cpp */,
 				670947EF1BDF9BF5005014C0 /* base_renderer.hpp */,
-				670947F01BDF9BF5005014C0 /* batchers_pool.cpp */,
 				670947F11BDF9BF5005014C0 /* batchers_pool.hpp */,
 				670947F21BDF9BF5005014C0 /* circle_shape.cpp */,
 				670947F31BDF9BF5005014C0 /* circle_shape.hpp */,
@@ -948,7 +945,6 @@
 				347F52111DC2334A0064B273 /* drape_api.cpp in Sources */,
 				347F520F1DC2334A0064B273 /* drape_api_renderer.cpp in Sources */,
 				347F520D1DC2334A0064B273 /* drape_api_builder.cpp in Sources */,
-				670947FE1BDF9BF5005014C0 /* batchers_pool.cpp in Sources */,
 				670947DC1BDF9BE1005014C0 /* viewport.cpp in Sources */,
 				670947CA1BDF9BE1005014C0 /* threads_commutator.cpp in Sources */,
 				670947981BDF9BE1005014C0 /* map_data_provider.cpp in Sources */,
