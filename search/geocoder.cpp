@@ -382,12 +382,11 @@ void Geocoder::SetParams(Params const & params)
   // Filter stop words.
   if (m_params.m_tokens.size() > 1)
   {
-    for (auto & v : m_params.m_tokens)
-      my::EraseIf(v, &IsStopWord);
-
-    for (size_t i = 0; i < m_params.GetNumTokens();)
+    for (size_t i = 0; i < m_params.m_tokens.size();)
     {
-      if (m_params.m_tokens[i].empty())
+      auto & tokens = m_params.m_tokens[i];
+      my::EraseIf(tokens, &IsStopWord);
+      if (tokens.empty())
         m_params.RemoveToken(i);
       else
         ++i;
