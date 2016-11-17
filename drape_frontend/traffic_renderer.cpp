@@ -22,7 +22,7 @@ namespace
 int const kMinVisibleZoomLevel = 10;
 int const kMinVisibleArrowZoomLevel = 16;
 
-float const kTrafficArrowAspect = 64.0f / 16.0f;
+float const kTrafficArrowAspect = 24.0f / 8.0f;
 
 float const kLeftWidthInPixel[] =
 {
