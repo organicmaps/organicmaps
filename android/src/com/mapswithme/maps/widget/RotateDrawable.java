@@ -5,6 +5,9 @@ import android.graphics.ColorFilter;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
+
 import com.mapswithme.maps.MwmApplication;
 
 public class RotateDrawable extends Drawable
@@ -14,7 +17,7 @@ public class RotateDrawable extends Drawable
 
   public RotateDrawable(@DrawableRes int resId)
   {
-    this(MwmApplication.get().getResources().getDrawable(resId));
+    this(ContextCompat.getDrawable(MwmApplication.get(), resId));
   }
 
   public RotateDrawable(Drawable drawable)
@@ -45,14 +48,17 @@ public class RotateDrawable extends Drawable
   protected void onBoundsChange(Rect bounds)
   {
     super.onBoundsChange(bounds);
-    mBaseDrawable.setBounds(bounds);
+    mBaseDrawable.setBounds(0, 0, mBaseDrawable.getIntrinsicWidth(),
+                            mBaseDrawable.getIntrinsicHeight());
   }
 
   @Override
-  public void draw(Canvas canvas)
+  public void draw(@NonNull Canvas canvas)
   {
     canvas.save();
-    canvas.rotate(mAngle, mBaseDrawable.getBounds().width() / 2, mBaseDrawable.getBounds().height() / 2);
+    canvas.rotate(mAngle, getBounds().width() * 0.5f, getBounds().height() * 0.5f);
+    canvas.translate((getBounds().width() - mBaseDrawable.getIntrinsicWidth()) * 0.5f,
+                     (getBounds().height() - mBaseDrawable.getIntrinsicHeight()) * 0.5f);
     mBaseDrawable.draw(canvas);
     canvas.restore();
   }
