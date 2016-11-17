@@ -16,7 +16,6 @@ omim_link_libraries(
   platform
   coding
   base
-  tomcrypt
   jansson
   stats_client
   ${LIBZ}

@@ -22,8 +22,8 @@ omim_link_libraries(
   geometry
   base
   stats_client
-  tomcrypt
   ${Qt5Core_LIBRARIES}
+  ${LIBZ}
 )
 
 if (PLATFORM_MAC)

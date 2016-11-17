@@ -44,5 +44,14 @@ if (PLATFORM_WIN OR PLATFORM_LINUX)
   )
 endif()
 
-omim_link_libraries(${PROJECT_NAME} ${PYTHON_LIBRARIES} ${Boost_LIBRARIES} traffic platform geometry base)
+omim_link_libraries(
+  ${PROJECT_NAME}
+  ${PYTHON_LIBRARIES}
+  ${Boost_LIBRARIES}
+  traffic
+  platform
+  geometry
+  base
+)
+
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
