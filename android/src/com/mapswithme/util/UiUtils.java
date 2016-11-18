@@ -441,7 +441,7 @@ public final class UiUtils
     decorViewGroup.addView(statusBarTintView);
   }
 
-  public static int getCompassYOffset(Context context)
+  public static int getCompassYOffset(@NonNull Context context)
   {
     return isLandscape(context) && RoutingController.get().isNavigating()
               ? (int)context.getResources()
