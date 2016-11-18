@@ -95,7 +95,7 @@ class PanelAnimator
           listener.onTrackStarted(true);
         mAnimationTrackListeners.finishIterate();
 
-        mActivity.adjustCompass(WIDTH, 0);
+        mActivity.adjustCompass(WIDTH, UiUtils.getCompassYOffset(mActivity));
       }
     });
 
@@ -137,7 +137,7 @@ class PanelAnimator
           listener.onTrackStarted(false);
         mAnimationTrackListeners.finishIterate();
 
-        mActivity.adjustCompass(0, 0);
+        mActivity.adjustCompass(0, UiUtils.getCompassYOffset(mActivity));
 
         if (completionListener != null)
           completionListener.run();

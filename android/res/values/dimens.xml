@@ -157,4 +157,7 @@
   <!-- Rating-->
   <dimen name="placepage_margin_rating">20dp</dimen>
 
+  <!-- Compass offset-->
+  <dimen name="compass_navigation_landscape_offset">-54dp</dimen>
+
 </resources>

@@ -1410,6 +1410,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPlacePage.refreshViews();
     mNavigationController.show(show);
     mOnmapDownloader.updateState(false);
+    adjustCompass(0, UiUtils.getCompassYOffset(this));
   }
 
   @Override

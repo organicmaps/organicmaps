@@ -3,4 +3,7 @@
   <dimen name="menu_line_button_inset_edge">-12dp</dimen>
   <dimen name="menu_line_button_width_edge">72dp</dimen>
   <dimen name="menu_line_button_width">80dp</dimen>
+
+  <!-- Compass offset-->
+  <dimen name="compass_navigation_landscape_offset">-72dp</dimen>
 </resources>

@@ -37,6 +37,7 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.routing.RoutingController;
 
 public final class UiUtils
 {
@@ -438,6 +439,13 @@ public final class UiUtils
     statusBarTintView.setVisibility(View.VISIBLE);
     ViewGroup decorViewGroup = (ViewGroup) activity.getWindow().getDecorView();
     decorViewGroup.addView(statusBarTintView);
+  }
+
+  public static int getCompassYOffset(@NonNull Context context)
+  {
+    return isLandscape(context) && RoutingController.get().isNavigating()
+              ? (int)context.getResources()
+               .getDimension(R.dimen.compass_navigation_landscape_offset) : 0;
   }
 
   // utility class
