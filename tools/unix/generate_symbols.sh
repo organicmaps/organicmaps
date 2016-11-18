@@ -36,7 +36,7 @@ fi
 # Helper function to build skin
 # Parameter $1 - style type (legacy, clear)
 # Parameter $2 - style name (dark, light, clear, ...)
-# Parameter $3 - resource name (ldpi, mdpi, hdpi, ...)
+# Parameter $3 - resource name (mdpi, hdpi, ...)
 # Parameter $4 - symbol size
 # Parameter $5 - does color correction required
 # Parameter $6 - style suffix (none, _dark, _clear)
@@ -66,7 +66,7 @@ function BuildSkin() {
 }
 
 # Cleanup
-cleanup=(resources-{{6plus,ldpi,mdpi,hdpi,xhdpi,xxhdpi}{_legacy,_dark,_clear}})
+cleanup=(resources-{{6plus,mdpi,hdpi,xhdpi,xxhdpi}{_legacy,_dark,_clear}})
 for item in ${cleanup[*]}
 do
   rm -rf "$DATA_PATH/$item" || true
@@ -75,21 +75,18 @@ done
 
 # Build styles
 
-BuildSkin legacy light ldpi   18 false  _legacy
 BuildSkin legacy light mdpi   18 false  _legacy
 BuildSkin legacy light hdpi   27 false  _legacy
 BuildSkin legacy light xhdpi  36 false  _legacy
 BuildSkin legacy light xxhdpi 54 false  _legacy
 BuildSkin legacy light 6plus  54 false  _legacy
 
-BuildSkin clear  night ldpi   18 false _dark
 BuildSkin clear  night mdpi   18 false _dark
 BuildSkin clear  night hdpi   27 false _dark
 BuildSkin clear  night xhdpi  36 false _dark
 BuildSkin clear  night xxhdpi 54 false _dark
 BuildSkin clear  night 6plus  54 false _dark
 
-BuildSkin clear  clear ldpi   18 false _clear
 BuildSkin clear  clear mdpi   18 false _clear
 BuildSkin clear  clear hdpi   27 false _clear
 BuildSkin clear  clear xhdpi  36 false _clear

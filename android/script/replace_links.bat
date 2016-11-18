@@ -27,9 +27,6 @@ cp ../data/opening_hours_how_to_edit.html assets/
 cp -r ../data/resources-hdpi_legacy/ assets/
 cp -r ../data/resources-hdpi_dark/ assets/
 cp -r ../data/resources-hdpi_clear/ assets/
-cp -r ../data/resources-ldpi_legacy/ assets/
-cp -r ../data/resources-ldpi_dark/ assets/
-cp -r ../data/resources-ldpi_clear/ assets/
 cp -r ../data/resources-mdpi_legacy/ assets/
 cp -r ../data/resources-mdpi_dark/ assets/
 cp -r ../data/resources-mdpi_clear/ assets/

@@ -9,7 +9,7 @@ uniform float u_opacity;
 const float kAntialiasingThreshold = 0.92;
 
 const vec3 kLightArrow = vec3(1.0, 1.0, 1.0);
-const vec3 kDarkArrow = vec3(160.0 / 255.0, 120.0 / 255.0, 30.0 / 255.0);
+const vec3 kDarkArrow = vec3(107.0 / 255.0, 81.0 / 255.0, 20.0 / 255.0);
 
 void main(void)
 {

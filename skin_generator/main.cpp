@@ -17,7 +17,7 @@ DEFINE_string(symbolsDir, "../../data/styles/symbols", "directory with svg symbo
 DEFINE_int32(symbolWidth, 24, "width of the rendered symbol");
 DEFINE_int32(symbolHeight, 24, "height of the rendered symbol");
 DEFINE_string(skinName, "../../data/basic", "prefix for the skin and skinImage file name");
-DEFINE_string(skinSuffix, "ldpi", "suffix for skinName<suffix>.skn and symbols<suffix>.png");
+DEFINE_string(skinSuffix, "mdpi", "suffix for skinName<suffix>.skn and symbols<suffix>.png");
 DEFINE_string(searchIconsOutPath, "../../data/search-icons/png", "output path for search category icons");
 DEFINE_string(searchCategories, "../../data/search-icons/categories-icons.txt", "path to file that contains mapping between category and icon names");
 DEFINE_string(searchIconsSrcPath, "../../data/search-icons/svg", "input path for search category icons");

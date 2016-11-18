@@ -77,7 +77,6 @@ string const & VisualParams::GetResourcePostfix(double visualScale)
 {
   static visual_scale_t postfixes[] =
   {
-    make_pair("ldpi", 0.75),
     make_pair("mdpi", 1.0),
     make_pair("hdpi", 1.5),
     make_pair("xhdpi", 2.0),
