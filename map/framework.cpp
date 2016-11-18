@@ -784,6 +784,7 @@ void Framework::FillPointInfo(m2::PointD const & mercator, string const & custom
 
 void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info & info) const
 {
+  using place_page::SponsoredType;
   auto const featureStatus = osm::Editor::Instance().GetFeatureStatus(ft.GetID());
   ASSERT_NOT_EQUAL(featureStatus, osm::Editor::FeatureStatus::Deleted,
                    ("Deleted features cannot be selected from UI."));
@@ -2042,6 +2043,7 @@ void Framework::InvalidateUserMarks()
 
 void Framework::OnTapEvent(TapEvent const & tapEvent)
 {
+  using place_page::SponsoredType;
   auto const & tapInfo = tapEvent.m_info;
 
   bool const somethingWasAlreadySelected = (m_lastTapEvent != nullptr);
