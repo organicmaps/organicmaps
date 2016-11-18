@@ -20,7 +20,8 @@ enum class PreviewRows
   Schedule,
   Booking,
   Address,
-  Space
+  Space,
+  Banner
 };
 
 enum class MetainfoRows
@@ -79,6 +80,10 @@ enum class OpeningHours
 - (NSURL *)sponsoredURL;
 - (NSURL *)sponsoredDescriptionURL;
 - (NSString *)sponsoredId;
+- (NSString *)bannerTitle;
+- (NSString *)bannerContent;
+- (NSURL *)bannerIconURL;
+- (NSURL *)bannerURL;
 - (void)assignOnlinePriceToLabel:(UILabel *)label;
 
 // API

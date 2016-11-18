@@ -1,5 +1,6 @@
 #import "MWMPlacePageLayout.h"
 #import "MWMiPhonePlacePageLayoutImpl.h"
+#import "MWMPPPreviewLayoutHelper.h"
 
 namespace
 {
@@ -31,6 +32,7 @@ CGFloat const kLuftDraggingOffset = 30;
 @property(nonatomic) CGFloat landscapeOpenContentOffset;
 @property(nonatomic) CGFloat lastContentOffset;
 @property(nonatomic) CGFloat expandedContentOffset;
+@property(weak, nonatomic) MWMPPPreviewLayoutHelper * previewLayoutHelper;
 
 @end
 
@@ -117,10 +119,7 @@ CGFloat const kLuftDraggingOffset = 30;
     auto actionBar = self.actionBar;
     actionBar.minY = actionBar.superview.height - actionBar.height;
 
-    // We decrease expanded offset for 2 pixels because it looks more clear.
-    CGFloat constexpr designOffset = 2;
-    self.expandedContentOffset = height + actionBar.height - designOffset;
-
+    self.expandedContentOffset = height + actionBar.height - ppView.top.height;
     auto const targetOffset = self.state == State::Bottom ? self.expandedContentOffset : self.topContentOffset;
     [self.scrollView setContentOffset:{ 0, targetOffset } animated:YES];
   });
@@ -252,8 +251,10 @@ CGFloat const kLuftDraggingOffset = 30;
 - (void)setState:(State)state
 {
   _state = state;
-  self.placePageView.anchorImage.transform = state == State::Top ? CGAffineTransformMakeRotation(M_PI)
+  BOOL const isTop = state == State::Top;
+  self.placePageView.anchorImage.transform = isTop ? CGAffineTransformMakeRotation(M_PI)
   : CGAffineTransformIdentity;
+  [self.previewLayoutHelper layoutInOpenState:isTop];
 }
 
 #pragma mark - UITableViewDelegate
@@ -274,6 +275,7 @@ CGFloat const kLuftDraggingOffset = 30;
     self.state = State::Top;
     offset = self.topContentOffset;
   }
+
   place_page_layout::animate(^{ [self.scrollView setContentOffset:{0, offset} animated:YES]; });
 }
 

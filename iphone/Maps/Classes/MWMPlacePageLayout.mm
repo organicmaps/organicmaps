@@ -124,7 +124,11 @@ array<NSString *, 1> const kButtonsCells = {{@"MWMPlacePageButtonCell"}};
   [self.layoutImpl onShow];
 
   [self.actionBar configureWithData:static_cast<id<MWMActionBarSharedData>>(data)];
+  [self.previewLayoutHelper configWithData:data];
   [self.openingHoursLayoutHelper configWithData:data];
+  if ([self.layoutImpl respondsToSelector:@selector(setPreviewLayoutHelper:)])
+    [self.layoutImpl setPreviewLayoutHelper:self.previewLayoutHelper];
+
   [self.placePageView.tableView reloadData];
 
   dispatch_async(dispatch_get_main_queue(), ^{
