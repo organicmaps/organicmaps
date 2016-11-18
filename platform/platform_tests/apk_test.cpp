@@ -15,9 +15,6 @@ namespace
 {
   char const * arrFiles[] = {
     "copyright.html",
-    "resources-ldpi_legacy/basic.skn",
-    "resources-ldpi_legacy/plus.png",
-    "resources-ldpi_legacy/symbols.png",
     "resources-mdpi_legacy/basic.skn",
     "resources-mdpi_legacy/plus.png",
     "resources-mdpi_legacy/symbols.png",
