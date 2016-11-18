@@ -592,7 +592,6 @@
 		6741AA3C1BF340DE002C974C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		6741AA3D1BF340DE002C974C /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BC1E4B1ACBE96100EF0360 /* FBSDKCoreKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		6741AA3E1BF340DE002C974C /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BC1E4C1ACBE96100EF0360 /* FBSDKShareKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		6741AA3F1BF340DE002C974C /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C9864F186C5EDE00AF7E9E /* PassKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		6741AA401BF340DE002C974C /* libFlurry_7.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6671C6A1BA2EFD500548008 /* libFlurry_7.1.0.a */; };
 		6741AA411BF340DE002C974C /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511051A1101FC00A61AA4 /* CoreMedia.framework */; };
 		6741AA421BF340DE002C974C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511031A1101F600A61AA4 /* CoreData.framework */; };
@@ -687,7 +686,6 @@
 		B00511021A1101E000A61AA4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98655186C734000AF7E9E /* AVFoundation.framework */; };
 		B00511041A1101F600A61AA4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511031A1101F600A61AA4 /* CoreData.framework */; };
 		B00511061A1101FC00A61AA4 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511051A1101FC00A61AA4 /* CoreMedia.framework */; };
-		B08AA8D51A25E58500810B1C /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C9864F186C5EDE00AF7E9E /* PassKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		B08AA8D61A25E58C00810B1C /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C9864D186C5ED300AF7E9E /* Social.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		B08AA8DA1A26299A00810B1C /* TimeUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = B08AA8D91A26299A00810B1C /* TimeUtils.mm */; };
 		B0DFE6311A1B78A200B6C35E /* LocalNotifications.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0DFE62F1A1B78A200B6C35E /* LocalNotifications.plist */; };
@@ -1452,7 +1450,6 @@
 		97C98521186AE3CF00AF7E9E /* AppInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppInfo.h; sourceTree = "<group>"; };
 		97C9864B186C5EAA00AF7E9E /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		97C9864D186C5ED300AF7E9E /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
-		97C9864F186C5EDE00AF7E9E /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
 		97C98651186C5EF000AF7E9E /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		97C98653186C5F0500AF7E9E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		97C98655186C734000AF7E9E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -1761,7 +1758,6 @@
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				F6BC1E4D1ACBE96100EF0360 /* FBSDKCoreKit.framework in Frameworks */,
 				F6BC1E4E1ACBE96100EF0360 /* FBSDKShareKit.framework in Frameworks */,
-				B08AA8D51A25E58500810B1C /* PassKit.framework in Frameworks */,
 				F6671C6B1BA2EFD500548008 /* libFlurry_7.1.0.a in Frameworks */,
 				343E8B341D07F84C0046AEEE /* Pushwoosh.framework in Frameworks */,
 				B00511061A1101FC00A61AA4 /* CoreMedia.framework in Frameworks */,
@@ -1835,7 +1831,6 @@
 				6741AA3D1BF340DE002C974C /* FBSDKCoreKit.framework in Frameworks */,
 				3456E0241DC0C4290055DF50 /* HockeySDK.framework in Frameworks */,
 				6741AA3E1BF340DE002C974C /* FBSDKShareKit.framework in Frameworks */,
-				6741AA3F1BF340DE002C974C /* PassKit.framework in Frameworks */,
 				6741AA401BF340DE002C974C /* libFlurry_7.1.0.a in Frameworks */,
 				6741AA411BF340DE002C974C /* CoreMedia.framework in Frameworks */,
 				674A7E2A1C0DA579003D48E1 /* libdrape.a in Frameworks */,
@@ -2218,7 +2213,6 @@
 				97C98655186C734000AF7E9E /* AVFoundation.framework */,
 				97C98653186C5F0500AF7E9E /* AudioToolbox.framework */,
 				97C98651186C5EF000AF7E9E /* iAd.framework */,
-				97C9864F186C5EDE00AF7E9E /* PassKit.framework */,
 				97C9864D186C5ED300AF7E9E /* Social.framework */,
 				97C9864B186C5EAA00AF7E9E /* MediaPlayer.framework */,
 				97719D471843B6F200BDD815 /* Security.framework */,
@@ -3428,10 +3422,13 @@
 								enabled = 1;
 							};
 							com.apple.InAppPurchase = {
-								enabled = 1;
+								enabled = 0;
 							};
 							com.apple.Push = {
 								enabled = 1;
+							};
+							com.apple.Wallet = {
+								enabled = 0;
 							};
 						};
 					};
@@ -4512,7 +4509,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				BUNDLE_IDENTIFIER = mapsme.debug;
-				CURRENT_PROJECT_VERSION = 6.5.0;
 				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				ENABLE_BITCODE = NO;
 				GCC_ENABLE_PASCAL_STRINGS = NO;
@@ -4550,7 +4546,7 @@
 		FAAB411A149BA83500C245B1 /* Simulator */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUILD_DIR = "$(inherited)/../qmake";
+				BUILD_DIR = "$(BUILD_ROOT)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/HockeySDK.embeddedframework",
@@ -4599,7 +4595,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				BUNDLE_IDENTIFIER = mapsme.debug;
-				CURRENT_PROJECT_VERSION = 6.5.0;
 				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				ENABLE_BITCODE = NO;
 				GCC_ENABLE_PASCAL_STRINGS = NO;
@@ -4634,7 +4629,7 @@
 		FAAB411C149BA84700C245B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUILD_DIR = "$(inherited)/../qmake";
+				BUILD_DIR = "$(BUILD_ROOT)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/HockeySDK.embeddedframework",
@@ -4683,7 +4678,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				BUNDLE_IDENTIFIER = "com.my.maps-beta-enterprise";
-				CURRENT_PROJECT_VERSION = 6.5.0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = L2QFT5NA2Q;
 				ENABLE_BITCODE = NO;
@@ -4699,6 +4693,7 @@
 				);
 				INFOPLIST_FILE = MAPSME.plist;
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-Wall",
@@ -4720,7 +4715,7 @@
 		FAAB411E149BA85500C245B1 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUILD_DIR = "$(inherited)/../qmake";
+				BUILD_DIR = "$(BUILD_ROOT)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/HockeySDK.embeddedframework",
@@ -4769,9 +4764,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				BUNDLE_IDENTIFIER = com.mapswithme.full;
-				CURRENT_PROJECT_VERSION = 6.5.0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 3T6FSDE8C7;
+				DEVELOPMENT_TEAM = N9X2A789QT;
 				ENABLE_BITCODE = NO;
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
@@ -4785,6 +4779,7 @@
 				);
 				INFOPLIST_FILE = MAPSME.plist;
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-Wall",
@@ -4806,7 +4801,7 @@
 		FAAB4120149BA86000C245B1 /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUILD_DIR = "$(inherited)/../qmake";
+				BUILD_DIR = "$(BUILD_ROOT)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/HockeySDK.embeddedframework",
@@ -4855,7 +4850,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				BUNDLE_IDENTIFIER = mapsme.release;
-				CURRENT_PROJECT_VERSION = 6.5.0;
 				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				ENABLE_BITCODE = NO;
 				GCC_ENABLE_PASCAL_STRINGS = NO;
@@ -4893,7 +4887,7 @@
 		FABB561F149CD957006969C0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUILD_DIR = "$(inherited)/../qmake";
+				BUILD_DIR = "$(BUILD_ROOT)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/HockeySDK.embeddedframework",
@@ -4942,7 +4936,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				BUNDLE_IDENTIFIER = mapsme.release;
-				CURRENT_PROJECT_VERSION = 6.5.0;
 				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				ENABLE_BITCODE = NO;
 				GCC_ENABLE_PASCAL_STRINGS = NO;
@@ -4981,7 +4974,7 @@
 		FACFE54515F8F35600CE8B20 /* Simulator Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUILD_DIR = "$(inherited)/../qmake";
+				BUILD_DIR = "$(BUILD_ROOT)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/HockeySDK.embeddedframework",
