@@ -188,7 +188,7 @@ protected:
         TBase::AddCustomTag({"addr:street", p.second});
 
       // Important! Skip all "name" tags.
-      if (strings::StartsWith(p.first, "name"))
+      if (strings::StartsWith(p.first, "name") || p.first == "int_name")
         continue;
 
       if (!isBoundary && p.first == "boundary")
