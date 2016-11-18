@@ -2,6 +2,7 @@ package com.mapswithme.maps.location;
 
 import android.annotation.SuppressLint;
 import android.net.SSLCertificateSocketFactory;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -139,7 +140,7 @@ class PlatformSocket
       return false;
 
     sLogger.d("Reading has started, data.length = " + data.length, ", count = " + count);
-    long startTime = System.nanoTime();
+    long startTime = SystemClock.elapsedRealtime();
     int readBytes = 0;
     try
     {
@@ -147,7 +148,7 @@ class PlatformSocket
         throw new AssertionError("mSocket cannot be null");
 
       InputStream in = mSocket.getInputStream();
-      while (readBytes != count && (System.nanoTime() - startTime) < mTimeout)
+      while (readBytes != count && (SystemClock.elapsedRealtime() - startTime) < mTimeout)
       {
         try
         {
@@ -170,7 +171,7 @@ class PlatformSocket
           readBytes += read;
         } catch (SocketTimeoutException e)
         {
-          long readingTime = System.nanoTime() - startTime;
+          long readingTime = SystemClock.elapsedRealtime() - startTime;
           sLogger.e(e, "Socked timeout has occurred after ", readingTime, " (ms) ");
           if (readingTime > mTimeout)
           {
@@ -194,7 +195,7 @@ class PlatformSocket
       return false;
 
     sLogger.d("Writing method has started, data.length = " + data.length, ", count = " + count);
-    long startTime = System.nanoTime();
+    long startTime = SystemClock.elapsedRealtime();
     try
     {
       if (mSocket == null)
@@ -206,7 +207,7 @@ class PlatformSocket
       return true;
     } catch (SocketTimeoutException e)
     {
-      long writingTime = System.nanoTime() - startTime;
+      long writingTime = SystemClock.elapsedRealtime() - startTime;
       sLogger.e(e, "Socked timeout has occurred after ", writingTime, " (ms) ");
     } catch (IOException e)
     {
