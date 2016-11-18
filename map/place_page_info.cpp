@@ -36,6 +36,16 @@ bool Info::ShouldShowEditPlace() const
 bool Info::HasApiUrl() const { return !m_apiUrl.empty(); }
 bool Info::HasWifi() const { return GetInternet() == osm::Internet::Wlan; }
 
+bool Info::HasBanner() const
+{
+  // Dummy implementation.
+  // auto const now = time(nullptr);
+  // auto const bannerStartTime = strings::to_uint(m_metadata.Get(feature::Metadata::FMD_BANNER_FROM));
+  // auto const bannerEndTime = strings::to_uint(m_metadata.Get(feature::Metadata::FMD_BANNER_TO));
+  // return !(now < bannerStartTime || now > bannerEndTime);
+  return true;
+}
+
 string Info::FormatNewBookmarkName() const
 {
   string const title = GetTitle();
@@ -160,6 +170,34 @@ string Info::GetApproximatePricing() const
     result.append(kPricingSymbol);
 
   return result;
+}
+
+string Info::GetBannerTitleId() const
+{
+  // Dummy implementation.
+  //return m_metadata.Get(feature::Metadata::FMD_BANNER_ID) + "title";
+  return "title";
+}
+
+string Info::GetBannerMessageId() const
+{
+  // Dummy implementation.
+  //return m_metadata.Get(feature::Metadata::FMD_BANNER_ID) + "message";
+  return "message";
+}
+
+string Info::GetBannerIconId() const
+{
+  // Dummy implementation.
+  //return m_metadata.Get(feature::Metadata::FMD_BANNER_ID) + "icon";
+  return "icon";
+}
+
+string Info::GetBannerUrl() const
+{
+  // Dummy implementation.
+  //return m_metadata.Get(feature::Metadata::FMD_BANNER_URL);
+  return "url";
 }
 
 void Info::SetMercator(m2::PointD const & mercator) { m_mercator = mercator; }

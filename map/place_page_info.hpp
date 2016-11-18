@@ -14,6 +14,8 @@
 
 #include "std/string.hpp"
 
+namespace place_page
+{
 enum class SponsoredType
 {
   None,
@@ -22,8 +24,6 @@ enum class SponsoredType
   Geochat
 };
 
-namespace place_page
-{
 class Info : public osm::MapObject
 {
 public:
@@ -76,6 +76,13 @@ public:
   string GetRatingFormatted() const;
   /// @returns string with |kPricingSymbol| signs or empty string if it isn't booking object
   string GetApproximatePricing() const;
+
+  /// Returns true, if the current time is within the working range of the banner.
+  bool HasBanner() const;
+  string GetBannerTitleId() const;
+  string GetBannerMessageId() const;
+  string GetBannerIconId() const;
+  string GetBannerUrl() const;
 
   void SetMercator(m2::PointD const & mercator);
 

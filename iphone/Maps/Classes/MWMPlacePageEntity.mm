@@ -229,8 +229,8 @@ void initFieldsMap()
 - (BOOL)isMyPosition { return m_info.IsMyPosition(); }
 - (BOOL)isBookmark { return m_info.IsBookmark(); }
 - (BOOL)isApi { return m_info.HasApiUrl(); }
-- (BOOL)isBooking { return m_info.m_sponsoredType == SponsoredType::Booking; }
-- (BOOL)isOpentable { return m_info.m_sponsoredType == SponsoredType::Opentable; }
+- (BOOL)isBooking { return m_info.m_sponsoredType == place_page::SponsoredType::Booking; }
+- (BOOL)isOpentable { return m_info.m_sponsoredType == place_page::SponsoredType::Opentable; }
 - (BOOL)isSponsored { return m_info.IsSponsored(); }
 - (NSString *)sponsoredId
 {
