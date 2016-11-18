@@ -132,18 +132,12 @@ void TrafficRenderer::ClearGLDependentResources()
 
 void TrafficRenderer::Clear(MwmSet::MwmId const & mwmId)
 {
-  for (size_t i = 0; i < m_renderData.size();)
+  auto removePredicate = [&mwmId](TrafficRenderData const & data)
   {
-    if (m_renderData[i].m_mwmId == mwmId)
-    {
-      swap(m_renderData[i], m_renderData.back());
-      m_renderData.pop_back();
-    }
-    else
-    {
-      ++i;
-    }
-  }
+    return data.m_mwmId == mwmId;
+  };
+
+  m_renderData.erase(remove_if(m_renderData.begin(), m_renderData.end(), removePredicate), m_renderData.end());
 }
 
 } // namespace df

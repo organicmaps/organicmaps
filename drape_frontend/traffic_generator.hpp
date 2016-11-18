@@ -130,9 +130,9 @@ using TrafficTexCoords = unordered_map<size_t, glsl::vec2>;
 class TrafficGenerator final
 {
 public:
-  typedef function<void (TrafficRenderData && renderData)> TFlushRenderDataFn;
+  using TFlushRenderDataFn = function<void (TrafficRenderData && renderData)>;
 
-  TrafficGenerator(TFlushRenderDataFn flushFn)
+  explicit TrafficGenerator(TFlushRenderDataFn flushFn)
     : m_flushRenderDataFn(flushFn)
   {}
 

@@ -1,15 +1,13 @@
 #pragma once
 
-#include "drape/pointers.hpp"
-#include "drape/object_pool.hpp"
 #include "drape/batcher.hpp"
+#include "drape/object_pool.hpp"
 
 #include "base/assert.hpp"
 
 #include "std/bind.hpp"
-#include "std/map.hpp"
-#include "std/stack.hpp"
 #include "std/function.hpp"
+#include "std/map.hpp"
 
 namespace df
 {
@@ -19,65 +17,62 @@ template <typename TKey, typename TKeyComparator>
 class BatchersPool
 {
 public:
-  typedef function<void (TKey const & key, dp::GLState const & state, drape_ptr<dp::RenderBucket> && buffer)> TFlushFn;
+  using TFlushFn = function<void (TKey const & key, dp::GLState const & state, drape_ptr<dp::RenderBucket> && buffer)>;
 
-  BatchersPool(int initBatcherCount, TFlushFn const & flushFn)
+  BatchersPool(int initBatchersCount, TFlushFn const & flushFn)
     : m_flushFn(flushFn)
-    , m_pool(initBatcherCount, dp::BatcherFactory())
+    , m_pool(initBatchersCount, dp::BatcherFactory())
   {}
 
   ~BatchersPool()
   {
-    for_each(m_batchs.begin(), m_batchs.end(), [this](pair<TKey, TBatcherPair> const & p)
-    {
+    for (auto const & p : m_batchers)
       m_pool.Return(p.second.first);
-    });
 
-    m_batchs.clear();
+    m_batchers.clear();
   }
 
   void ReserveBatcher(TKey const & key)
   {
-    TIterator it = m_batchs.find(key);
-    if (it != m_batchs.end())
+    auto it = m_batchers.find(key);
+    if (it != m_batchers.end())
     {
       it->second.second++;
       return;
     }
     dp::Batcher * batcher = m_pool.Get();
-    m_batchs.insert(make_pair(key, make_pair(batcher, 1)));
+    m_batchers.insert(make_pair(key, make_pair(batcher, 1)));
     batcher->StartSession(bind(m_flushFn, key, _1, _2));
   }
 
   ref_ptr<dp::Batcher> GetBatcher(TKey const & key)
   {
-    TIterator it = m_batchs.find(key);
-    ASSERT(it != m_batchs.end(), ());
+    auto it = m_batchers.find(key);
+    ASSERT(it != m_batchers.end(), ());
     return make_ref(it->second.first);
   }
 
   void ReleaseBatcher(TKey const & key)
   {
-    TIterator it = m_batchs.find(key);
-    ASSERT(it != m_batchs.end(), ());
+    auto it = m_batchers.find(key);
+    ASSERT(it != m_batchers.end(), ());
     ASSERT_GREATER(it->second.second, 0, ());
     if ((--it->second.second)== 0)
     {
       dp::Batcher * batcher = it->second.first;
       batcher->EndSession();
       m_pool.Return(batcher);
-      m_batchs.erase(it);
+      m_batchers.erase(it);
     }
   }
 
 private:
-  typedef pair<dp::Batcher *, int> TBatcherPair;
-  typedef map<TKey, TBatcherPair, TKeyComparator> TBatcherMap;
-  typedef typename TBatcherMap::iterator TIterator;
+  using TBatcherPair = pair<dp::Batcher *, int>;
+  using TBatcherMap = map<TKey, TBatcherPair, TKeyComparator>;
   TFlushFn m_flushFn;
 
   ObjectPool<dp::Batcher, dp::BatcherFactory> m_pool;
-  TBatcherMap m_batchs;
+  TBatcherMap m_batchers;
 };
 
 } // namespace df

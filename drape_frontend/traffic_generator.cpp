@@ -155,8 +155,9 @@ TrafficSegmentID TrafficHandle::GetSegmentId() const
 
 void TrafficGenerator::Init()
 {
+  int const kBatchersCount = 3;
   m_batchersPool = make_unique_dp<BatchersPool<TrafficBatcherKey, TrafficBatcherKeyComparator>>(
-        1, bind(&TrafficGenerator::FlushGeometry, this, _1, _2, _3));
+        kBatchersCount, bind(&TrafficGenerator::FlushGeometry, this, _1, _2, _3));
 }
 
 void TrafficGenerator::ClearGLDependentResources()
