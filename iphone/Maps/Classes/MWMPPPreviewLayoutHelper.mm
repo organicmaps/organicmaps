@@ -2,6 +2,7 @@
 #import "Common.h"
 #import "MWMDirectionView.h"
 #import "MWMPlacePageData.h"
+#import "MWMPPPreviewBannerCell.h"
 #import "MWMTableViewCell.h"
 #import "UIColor+MapsmeColor.h"
 
@@ -9,8 +10,8 @@
 
 namespace
 {
-array<NSString *, 7> const kPreviewCells = {{@"_MWMPPPTitle", @"_MWMPPPExternalTitle", @"_MWMPPPSubtitle",
-  @"_MWMPPPSchedule", @"_MWMPPPBooking", @"_MWMPPPAddress", @"_MWMPPPSpace"}};
+array<NSString *, 8> const kPreviewCells = {{@"_MWMPPPTitle", @"_MWMPPPExternalTitle", @"_MWMPPPSubtitle",
+  @"_MWMPPPSchedule", @"_MWMPPPBooking", @"_MWMPPPAddress", @"_MWMPPPSpace", @"MWMPPPreviewBannerCell"}};
 }  // namespace
 
 #pragma mark - Base
@@ -118,6 +119,12 @@ array<NSString *, 7> const kPreviewCells = {{@"_MWMPPPTitle", @"_MWMPPPExternalT
 @implementation _MWMPPPAddress
 @end
 
+@interface _MWMPPPSpace : _MWMPPPCellBase
+@end
+
+@implementation _MWMPPPSpace
+@end
+
 @interface MWMPPPreviewLayoutHelper ()
 
 @property(weak, nonatomic) UITableView * tableView;
@@ -130,6 +137,11 @@ array<NSString *, 7> const kPreviewCells = {{@"_MWMPPPTitle", @"_MWMPPPExternalT
 @property(copy, nonatomic) NSString * distance;
 @property(weak, nonatomic) UIImageView * compass;
 @property(nonatomic) NSIndexPath * lastCellIndexPath;
+@property(nonatomic) BOOL lastCellIsBanner;
+@property(nonatomic) NSUInteger distanceRow;
+
+@property(weak, nonatomic) MWMPPPreviewBannerCell * cachedBannerCell;
+
 @end
 
 @implementation MWMPPPreviewLayoutHelper
@@ -152,15 +164,23 @@ array<NSString *, 7> const kPreviewCells = {{@"_MWMPPPTitle", @"_MWMPPPExternalT
     [self.tableView registerNib:[UINib nibWithNibName:name bundle:nil] forCellReuseIdentifier:name];
 }
 
+- (void)configWithData:(MWMPlacePageData *)data
+{
+  auto const & previewRows = data.previewRows;
+  using place_page::PreviewRows;
+  self.lastCellIsBanner = previewRows.back() == PreviewRows::Banner;
+  self.lastCellIndexPath = [NSIndexPath indexPathForRow:previewRows.size() - 1 inSection:0];
+  auto it = find(previewRows.begin(), previewRows.end(), PreviewRows::Space);
+  if (it != previewRows.end())
+    self.distanceRow = distance(previewRows.begin(), it) - 1;
+}
+
 - (UITableViewCell *)cellForRowAtIndexPath:(NSIndexPath *)indexPath withData:(MWMPlacePageData *)data
 {
   using namespace place_page;
   auto tableView = self.tableView;
   auto const row = data.previewRows[indexPath.row];
   auto cellName = kPreviewCells[static_cast<size_t>(row)];
-
-  // -2 because last cell is always the spacer cell.
-  BOOL const isNeedToShowDistance = (indexPath.row == data.previewRows.size() - 2);
 
   auto * c = [tableView dequeueReusableCellWithIdentifier:cellName];
   switch(row)
@@ -200,21 +220,27 @@ array<NSString *, 7> const kPreviewCells = {{@"_MWMPPPTitle", @"_MWMPPPExternalT
     auto bookingCell = static_cast<_MWMPPPBooking *>(c);
     [bookingCell configWithRating:data.bookingRating pricing:data.bookingApproximatePricing];
     [data assignOnlinePriceToLabel:bookingCell.pricing];
-    return c;
+    return bookingCell;
   }
   case PreviewRows::Address:
     static_cast<_MWMPPPAddress *>(c).address.text = data.address;
     break;
   case PreviewRows::Space:
     return c;
+  case PreviewRows::Banner:
+    auto bannerCell = static_cast<MWMPPPreviewBannerCell *>(c);
+    [bannerCell configWithTitle:data.bannerTitle
+                        content:data.bannerContent
+                     adURL:data.bannerURL
+                  imageURL:data.bannerIconURL];
+    self.cachedBannerCell = bannerCell;
+    return bannerCell;
   }
 
   auto baseCell = static_cast<_MWMPPPCellBase *>(c);
-  if (isNeedToShowDistance)
-  {
+
+  if (indexPath.row == self.distanceRow)
     [self showDistanceOnCell:baseCell withData:data];
-    self.lastCellIndexPath = indexPath;
-  }
   else
     [self hideDistanceOnCell:baseCell];
 
@@ -265,8 +291,21 @@ array<NSString *, 7> const kPreviewCells = {{@"_MWMPPPTitle", @"_MWMPPPExternalT
 
 - (CGFloat)height
 {
+  CGFloat constexpr bannerDefaultHeight = 45;
   auto const rect = [self.tableView rectForRowAtIndexPath:self.lastCellIndexPath];
-  return rect.origin.y + rect.size.height;
+  return rect.origin.y + (self.lastCellIsBanner ? bannerDefaultHeight : rect.size.height);
+}
+
+- (void)layoutInOpenState:(BOOL)isOpen
+{
+  if (IPAD)
+    return;
+
+  auto cell = self.cachedBannerCell;
+  if (isOpen)
+    [cell configImageInOpenState];
+  else
+    [cell configImageInPreviewState];
 }
 
 - (MWMDirectionView *)directionView

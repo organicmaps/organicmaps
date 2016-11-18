@@ -8,7 +8,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="16" id="e80-Up-JKd">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="_MWMPPPSpace" rowHeight="16" id="e80-Up-JKd" customClass="_MWMPPPSpace">
             <rect key="frame" x="0.0" y="0.0" width="375" height="16"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="e80-Up-JKd" id="Ko3-Cf-A8Q">
@@ -20,6 +20,9 @@
                         <constraints>
                             <constraint firstAttribute="height" priority="750" constant="15" id="da2-0A-6d4"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                        </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
                 <constraints>

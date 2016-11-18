@@ -34,6 +34,7 @@
 + (UIColor *)blackOpaque;
 + (UIColor *)bookingBackground;
 + (UIColor *)opentableBackground;
++ (UIColor *)bannerBackground;
 
 + (UIColor *)colorWithName:(NSString *)colorName;
 

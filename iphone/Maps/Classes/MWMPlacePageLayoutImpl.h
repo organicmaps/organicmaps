@@ -21,6 +21,7 @@ inline void animate(TMWMVoidBlock animate, TMWMVoidBlock completion = nil)
 }  // namepsace place_page_layout
 
 @protocol MWMPlacePageLayoutDelegate;
+@class MWMPPPreviewLayoutHelper;
 
 @protocol MWMPlacePageLayoutImpl <NSObject>
 
@@ -43,5 +44,6 @@ inline void animate(TMWMVoidBlock animate, TMWMVoidBlock completion = nil)
 - (void)updateLayoutWithTopBound:(CGFloat)topBound;
 - (void)updateLayoutWithLeftBound:(CGFloat)leftBound;
 - (void)setInitialTopBound:(CGFloat)topBound leftBound:(CGFloat)leftBound;
+- (void)setPreviewLayoutHelper:(MWMPPPreviewLayoutHelper *)layoutHelper;
 
 @end

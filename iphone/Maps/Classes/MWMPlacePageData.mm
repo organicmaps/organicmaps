@@ -74,6 +74,8 @@ using namespace place_page;
   
   NSAssert(!m_previewRows.empty(), @"Preview row's can't be empty!");
   m_previewRows.push_back(PreviewRows::Space);
+// Uncomment when implementation will not dummy.
+//  if (m_info.HasBanner()) m_previewRows.push_back(PreviewRows::Banner);
 }
 
 - (void)fillMetaInfoSection
@@ -219,6 +221,26 @@ using namespace place_page;
   return m_info.IsSponsored()
              ? @(m_info.GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID).c_str())
              : nil;
+}
+
+- (NSString *)bannerTitle
+{
+  return m_info.HasBanner() ? @(m_info.GetBannerTitleId().c_str()) : nil;
+}
+
+- (NSString *)bannerContent
+{
+  return m_info.HasBanner() ? @(m_info.GetBannerMessageId().c_str()) : nil;
+}
+
+- (NSURL *)bannerIconURL
+{
+  return m_info.HasBanner() ? [NSURL URLWithString:@(m_info.GetBannerIconId().c_str())] : nil;
+}
+
+- (NSURL *)bannerURL
+{
+  return m_info.HasBanner() ? [NSURL URLWithString:@(m_info.GetBannerUrl().c_str())] : nil;
 }
 
 - (void)assignOnlinePriceToLabel:(UILabel *)label
