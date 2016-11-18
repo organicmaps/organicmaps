@@ -28,7 +28,7 @@ BackendRenderer::BackendRenderer(Params const & params)
   : BaseRenderer(ThreadsCommutator::ResourceUploadThread, params)
   , m_model(params.m_model)
   , m_readManager(make_unique_dp<ReadManager>(params.m_commutator, m_model, params.m_allow3dBuildings))
-  , m_trafficGenerator(make_unique_dp<TrafficGenerator>())
+  , m_trafficGenerator(make_unique_dp<TrafficGenerator>(bind(&BackendRenderer::FlushTrafficRenderData, this, _1)))
   , m_requestedTiles(params.m_requestedTiles)
   , m_updateCurrentCountryFn(params.m_updateCurrentCountryFn)
 {
@@ -200,7 +200,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       auto const & tileKey = msg->GetKey();
       if (m_requestedTiles->CheckTileKey(tileKey) && m_readManager->CheckTileKey(tileKey))
       {
-        ref_ptr<dp::Batcher> batcher = m_batchersPool->GetTileBatcher(tileKey);
+        ref_ptr<dp::Batcher> batcher = m_batchersPool->GetBatcher(tileKey);
         for (drape_ptr<MapShape> const & shape : msg->GetShapes())
         {
           batcher->SetFeatureMinZoom(shape->GetFeatureMinZoom());
@@ -352,11 +352,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
 
       if (segments.size() < msg->GetSegmentsColoring().size())
       {
-        vector<TrafficRenderData> data;
-        m_trafficGenerator->GetTrafficGeom(m_texMng, msg->GetSegmentsColoring(), data);
-        m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<FlushTrafficDataMessage>(move(data)),
-                                  MessagePriority::Normal);
+        m_trafficGenerator->GetTrafficGeom(m_texMng, msg->GetSegmentsColoring());
 
         if (m_trafficGenerator->IsColorsCacheRefreshed())
         {
@@ -368,7 +364,17 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       }
       break;
     }
+  case Message::ClearTrafficData:
+    {
+      ref_ptr<ClearTrafficDataMessage> msg = message;
 
+      m_trafficGenerator->ClearCache(msg->GetMwmId());
+
+      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                make_unique_dp<ClearTrafficDataMessage>(msg->GetMwmId()),
+                                MessagePriority::Normal);
+      break;
+    }
   case Message::DrapeApiAddLines:
     {
       ref_ptr<DrapeApiAddLinesMessage> msg = message;
@@ -403,6 +409,7 @@ void BackendRenderer::ReleaseResources()
   m_batchersPool.reset();
   m_routeBuilder.reset();
   m_overlays.clear();
+  m_trafficGenerator.reset();
 
   m_texMng->Release();
   m_contextFactory->getResourcesUploadContext()->doneCurrent();
@@ -426,7 +433,7 @@ void BackendRenderer::OnContextDestroy()
   m_batchersPool.reset();
   m_texMng->Release();
   m_overlays.clear();
-  m_trafficGenerator->ClearCache();
+  m_trafficGenerator->ClearGLDependentResources();
 
   m_contextFactory->getResourcesUploadContext()->doneCurrent();
 }
@@ -449,8 +456,10 @@ void BackendRenderer::Routine::Do()
 
 void BackendRenderer::InitGLDependentResource()
 {
-  m_batchersPool = make_unique_dp<BatchersPool>(ReadManager::ReadCount(),
-                                                bind(&BackendRenderer::FlushGeometry, this, _1));
+  m_batchersPool = make_unique_dp<BatchersPool<TileKey, TileKeyStrictComparator>>(ReadManager::ReadCount(),
+                                                bind(&BackendRenderer::FlushGeometry, this, _1, _2, _3));
+  m_trafficGenerator->Init();
+
   dp::TextureManager::Params params;
   params.m_resPostfix = VisualParams::Instance().GetResourcePostfix();
   params.m_visualScale = df::VisualParams::Instance().GetVisualScale();
@@ -475,10 +484,19 @@ void BackendRenderer::RecacheMapShapes()
   m_commutator->PostMessage(ThreadsCommutator::RenderThread, move(msg), MessagePriority::High);
 }
 
-void BackendRenderer::FlushGeometry(drape_ptr<Message> && message)
+void BackendRenderer::FlushGeometry(TileKey const & key, dp::GLState const & state, drape_ptr<dp::RenderBucket> && buffer)
 {
   GLFunctions::glFlush();
-  m_commutator->PostMessage(ThreadsCommutator::RenderThread, move(message), MessagePriority::Normal);
+  m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                            make_unique_dp<FlushRenderBucketMessage>(key, state, move(buffer)),
+                            MessagePriority::Normal);
+}
+
+void BackendRenderer::FlushTrafficRenderData(TrafficRenderData && renderData)
+{
+  m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                            make_unique_dp<FlushTrafficDataMessage>(move(renderData)),
+                            MessagePriority::Normal);
 }
 
 void BackendRenderer::CleanupOverlays(TileKey const & tileKey)

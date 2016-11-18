@@ -202,9 +202,6 @@
          location = "container:jansson/jansson.xcodeproj">
       </FileRef>
       <FileRef
-         location = "container:tomcrypt/tomcrypt.xcodeproj">
-      </FileRef>
-      <FileRef
          location = "container:freetype/freetype.xcodeproj">
       </FileRef>
       <FileRef

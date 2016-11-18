@@ -760,6 +760,12 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::ClearTrafficData:
+    {
+      ref_ptr<ClearTrafficDataMessage> msg = message;
+      m_trafficRenderer->Clear(msg->GetMwmId());
+      break;
+    }
   case Message::DrapeApiFlush:
     {
       ref_ptr<DrapeApiFlushMessage> msg = message;
@@ -822,6 +828,8 @@ void FrontendRenderer::UpdateGLResources()
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, move(recacheRouteMsg),
                               MessagePriority::Normal);
   }
+
+  m_trafficRenderer->ClearGLDependentResources();
 
   // Request new tiles.
   ScreenBase screen = m_userEventStream.GetCurrentScreen();
@@ -1599,7 +1607,7 @@ void FrontendRenderer::OnContextDestroy()
   m_myPositionController->ResetRenderShape();
   m_routeRenderer->ClearGLDependentResources();
   m_gpsTrackRenderer->ClearRenderData();
-  m_trafficRenderer->Clear();
+  m_trafficRenderer->ClearGLDependentResources();
   m_drapeApiRenderer->Clear();
 
 #ifdef RENDER_DEBUG_RECTS
@@ -1766,6 +1774,7 @@ void FrontendRenderer::ReleaseResources()
   m_routeRenderer.reset();
   m_framebuffer.reset();
   m_transparentLayer.reset();
+  m_trafficRenderer.reset();
 
   m_gpuProgramManager.reset();
   m_contextFactory->getDrawContext()->doneCurrent();

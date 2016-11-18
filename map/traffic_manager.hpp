@@ -50,6 +50,8 @@ public:
   void UpdateViewport(ScreenBase const & screen);
   void UpdateMyPosition(MyPosition const & myPosition);
 
+  void OnRecover();
+
   void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine);
 
 private:
@@ -70,7 +72,10 @@ private:
   GetMwmsByRectFn m_getMwmsByRectFn;
 
   ref_ptr<df::DrapeEngine> m_drapeEngine;
-  m2::PointD m_myPosition;
+
+  MyPosition m_currentPosition;
+  ScreenBase m_currentModelView;
+
   set<MwmSet::MwmId> m_mwmIds;
   map<MwmSet::MwmId, time_point<steady_clock>> m_requestTimings;
 

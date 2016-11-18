@@ -69,6 +69,7 @@ public:
     SetTrafficTexCoords,
     UpdateTraffic,
     FlushTrafficData,
+    ClearTrafficData,
     DrapeApiAddLines,
     DrapeApiRemove,
     DrapeApiFlush,

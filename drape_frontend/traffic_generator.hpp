@@ -1,5 +1,6 @@
 #pragma once
 
+#include "drape_frontend/batchers_pool.hpp"
 #include "drape_frontend/tile_key.hpp"
 
 #include "drape/color.hpp"
@@ -71,6 +72,7 @@ struct TrafficRenderData
   dp::GLState m_state;
   drape_ptr<dp::RenderBucket> m_bucket;
   TileKey m_tileKey;
+  MwmSet::MwmId m_mwmId;
   TrafficRenderData(dp::GLState const & state) : m_state(state) {}
 };
 
@@ -128,22 +130,51 @@ using TrafficTexCoords = unordered_map<size_t, glsl::vec2>;
 class TrafficGenerator final
 {
 public:
-  TrafficGenerator() = default;
+  using TFlushRenderDataFn = function<void (TrafficRenderData && renderData)>;
+
+  explicit TrafficGenerator(TFlushRenderDataFn flushFn)
+    : m_flushRenderDataFn(flushFn)
+  {}
+
+  void Init();
+  void ClearGLDependentResources();
 
   void AddSegment(TrafficSegmentID const & segmentId, m2::PolylineD const & polyline);
 
   TrafficSegmentsColoring GetSegmentsToUpdate(TrafficSegmentsColoring const & trafficColoring) const;
 
   void GetTrafficGeom(ref_ptr<dp::TextureManager> textures,
-                      TrafficSegmentsColoring const & trafficColoring,
-                      vector<TrafficRenderData> & data);
+                      TrafficSegmentsColoring const & trafficColoring);
 
   void ClearCache();
+  void ClearCache(MwmSet::MwmId const & mwmId);
 
   bool IsColorsCacheRefreshed() const { return m_colorsCacheRefreshed; }
   TrafficTexCoords ProcessCacheRefreshing();
 
 private:
+  struct TrafficBatcherKey
+  {
+    TrafficBatcherKey() = default;
+    TrafficBatcherKey(MwmSet::MwmId const & mwmId, TileKey const & tileKey)
+      : m_mwmId(mwmId)
+      , m_tileKey(tileKey)
+    {}
+
+    MwmSet::MwmId m_mwmId;
+    TileKey m_tileKey;
+  };
+
+  struct TrafficBatcherKeyComparator
+  {
+    bool operator() (TrafficBatcherKey const & lhs, TrafficBatcherKey const & rhs) const
+    {
+      if (lhs.m_mwmId == rhs.m_mwmId)
+        return lhs.m_tileKey < rhs.m_tileKey;
+      return lhs.m_mwmId < rhs.m_mwmId;
+    }
+  };
+
   using TSegmentCollection = map<TrafficSegmentID, m2::PolylineD>;
 
   void GenerateSegment(dp::TextureManager::ColorRegion const & colorRegion,
@@ -152,12 +183,17 @@ private:
                        vector<TrafficDynamicVertex> & dynamicGeometry);
   void FillColorsCache(ref_ptr<dp::TextureManager> textures);
 
+  void FlushGeometry(TrafficBatcherKey const & key, dp::GLState const & state, drape_ptr<dp::RenderBucket> && buffer);
+
   TSegmentCollection m_segments;
 
   set<TrafficSegmentID> m_segmentsCache;
   array<dp::TextureManager::ColorRegion, static_cast<size_t>(traffic::SpeedGroup::Count)> m_colorsCache;
   bool m_colorsCacheValid = false;
   bool m_colorsCacheRefreshed = false;
+
+  drape_ptr<BatchersPool<TrafficBatcherKey, TrafficBatcherKeyComparator>> m_batchersPool;
+  TFlushRenderDataFn m_flushRenderDataFn;
 };
 
 } // namespace df
