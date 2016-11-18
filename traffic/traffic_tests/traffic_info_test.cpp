@@ -6,9 +6,14 @@
 #include "platform/local_country_file.hpp"
 #include "platform/platform_tests_support/writable_dir_changer.hpp"
 
+#include "indexer/classificator_loader.hpp"
 #include "indexer/mwm_set.hpp"
 
+#include "geometry/mercator.hpp"
+#include "geometry/rect2d.hpp"
+
 #include "std/algorithm.hpp"
+#include "std/random.hpp"
 
 namespace traffic
 {
@@ -73,24 +78,45 @@ UNIT_TEST(TrafficInfo_Serialization)
 {
   TrafficInfo::Coloring coloring = {
       {TrafficInfo::RoadSegmentId(0, 0, 0), SpeedGroup::G0},
-      {TrafficInfo::RoadSegmentId(1000, 1, 1), SpeedGroup::G1},
-      {TrafficInfo::RoadSegmentId(1000000, 0, 0), SpeedGroup::G5},
-      {TrafficInfo::RoadSegmentId(4294967295, 32767, 1), SpeedGroup::TempBlock},
+
+      {TrafficInfo::RoadSegmentId(1, 0, 0), SpeedGroup::G1},
+      {TrafficInfo::RoadSegmentId(1, 0, 1), SpeedGroup::G3},
+
+      {TrafficInfo::RoadSegmentId(5, 0, 0), SpeedGroup::G2},
+      {TrafficInfo::RoadSegmentId(5, 0, 1), SpeedGroup::G2},
+      {TrafficInfo::RoadSegmentId(5, 1, 0), SpeedGroup::G2},
+      {TrafficInfo::RoadSegmentId(5, 1, 1), SpeedGroup::G5},
+
+      {TrafficInfo::RoadSegmentId(4294967295, 0, 0), SpeedGroup::TempBlock},
   };
 
-  vector<uint8_t> buf;
-  TrafficInfo::SerializeTrafficData(coloring, buf);
-
-  TrafficInfo::Coloring deserializedColoring;
-  TrafficInfo::DeserializeTrafficData(buf, deserializedColoring);
-
-  TEST_EQUAL(coloring.size(), deserializedColoring.size(), ());
-
-  for (auto const & p : coloring)
+  vector<TrafficInfo::RoadSegmentId> keys;
+  vector<SpeedGroup> values;
+  for (auto const & kv : coloring)
   {
-    auto const g1 = p.second;
-    auto const g2 = GetSpeedGroup(deserializedColoring, p.first);
-    TEST_EQUAL(g1, g2, ());
+    keys.push_back(kv.first);
+    values.push_back(kv.second);
+  }
+
+  {
+    vector<uint8_t> buf;
+    TrafficInfo::SerializeTrafficKeys(keys, buf);
+
+    vector<TrafficInfo::RoadSegmentId> deserializedKeys;
+    TrafficInfo::DeserializeTrafficKeys(buf, deserializedKeys);
+
+    ASSERT(is_sorted(keys.begin(), keys.end()), ());
+    ASSERT(is_sorted(deserializedKeys.begin(), deserializedKeys.end()), ());
+    TEST_EQUAL(keys, deserializedKeys, ());
+  }
+
+  {
+    vector<uint8_t> buf;
+    TrafficInfo::SerializeTrafficValues(values, buf);
+
+    vector<SpeedGroup> deserializedValues;
+    TrafficInfo::DeserializeTrafficValues(buf, deserializedValues);
+    TEST_EQUAL(values, deserializedValues, ());
   }
 }
 }  // namespace traffic

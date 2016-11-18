@@ -2,7 +2,7 @@
 
 ROOT_DIR = ../..
 
-DEPENDENCIES = generator routing search storage indexer editor platform geometry \
+DEPENDENCIES = generator routing traffic search storage indexer editor platform geometry \
                coding base freetype expat fribidi jansson protobuf osrm stats_client \
                minizip succinct pugixml tess2 gflags oauthcpp 
 include($$ROOT_DIR/common.pri)

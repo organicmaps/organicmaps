@@ -1,8 +1,25 @@
 #include "traffic/speed_groups.hpp"
 
+#include "base/math.hpp"
+
+#include "std/algorithm.hpp"
+
 namespace traffic
 {
 uint32_t const kSpeedGroupThresholdPercentage[] = {8, 16, 33, 58, 83, 100, 100, 100};
+
+SpeedGroup GetSpeedGroupByPercentage(double p)
+{
+  p = my::clamp(p, 0.0, 100.0);
+  uint32_t const pu = static_cast<uint32_t>(p);
+  SpeedGroup res = SpeedGroup::Unknown;
+  for (int i = static_cast<int>(SpeedGroup::Count) - 1; i >= 0; --i)
+  {
+    if (pu <= kSpeedGroupThresholdPercentage[i])
+      res = static_cast<SpeedGroup>(i);
+  }
+  return res;
+}
 
 string DebugPrint(SpeedGroup const & group)
 {
