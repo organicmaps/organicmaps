@@ -707,7 +707,7 @@ ko:편의점|쇼핑
 nb:Nærbutikk|nærbutikk|butikk
 pt:Loja de conveniência|compras
 ro:4Magazin mixt|magazin
-es:Chino|tienda
+es:Tienda de ultramarinos|chino|bazar
 sv:Närbutik|butik
 th:ร้านสะดวกซื้อ|ร้านค้า
 tr:Bakkal|mağaza
@@ -2718,7 +2718,7 @@ nb:Drikkevann
 pl:4Picie wody|woda|picie
 pt:Água potável
 ro:Apă de băut
-es:4Agua potable
+es:4Agua potable|Fuente de agua potable|Fuente
 sv:4Dricksvatten
 th:4น้ำดื่ม
 tr:4Içme suyu
@@ -3008,7 +3008,7 @@ nb:Barnehage
 pl:4Przedszkole|dzieci|zerówka
 pt:Jardim de infância
 ro:Grădiniță
-es:Kindergarden|preescolar
+es:Guardería|Kindergarden|preescolar
 sv:Förskola
 th:4โรงเรียนอนุบาล
 tr:4Anaokulu
@@ -3176,7 +3176,7 @@ nb:^Post
 pl:4^Poczta
 pt:3^Correios
 ro:^Poştă
-es:^Oficinadecorreos
+es:^Oficina de correos
 sv:3^Post
 th:3^ไปรษณีย์
 tr:^Posta
@@ -3313,7 +3313,7 @@ nb:Tilfluktsrom
 pl:3Szopa|schronienie
 pt:Abrigo
 ro:Adăpost
-es:Abrigo
+es:Refugio|Abrigo|Marquesina
 sv:Logi
 th:ที่อยู่อาศัย
 tr:Barınak
@@ -3373,7 +3373,7 @@ nb:^Toalett
 pl:3^Toaleta
 pt:^WC
 ro:^Toaletă
-es:^Serviciossanitario
+es:^Baños
 sv:3^Toalett
 th:3^ห้องน้ำ
 tr:3^Tuvalet
@@ -3396,7 +3396,7 @@ hu:WC
 it:WC
 ja:お手洗い|便所|厠
 pl:wc|ubikacja|wychodek
-es:3Servicios sanitario|3lavabo|inodoro|baño
+es:3Baños|servicios sanitarios|3lavabo|inodoro|baño|wc
 vi:Nhà vệ sinh
 zh-Hant:2洗手間|wc
 sk:3Toalety|wc
@@ -4778,7 +4778,7 @@ nb:Bilverksted
 pl:3Naprawa samochodu|warsztat samochodowy|warsztat|samochód|auto
 pt:Oficina de reparação de automóveis|estação de serviço
 ro:Atelier de reparații auto
-es:3Reparaciones auto|coche|automóvil|3auto|carro
+es:Taller|3reparaciones auto|coche|automóvil|3auto|carro
 sv:3Bilreparatör|4servicestation|bil
 th:3ร้านซ่อมรถยนต์|สถานีบริการ
 tr:3Oto tamir dükkanı|servis istasyonu|araba
@@ -5815,7 +5815,7 @@ nb:Førskole|Barnehage
 pl:Żłobek|Przedszkole
 pt:Creche|jardim de infância
 ro:De îngrijire a copilului|Grădiniță|Îngrijire copii
-es:Habitación infantil|guardería
+es:Ludoteca|habitación infantil|guardería
 sv:Barnomsorg|Förskola
 th:สถานรับเลี้ยงเด็ก|ดูแลเด็ก
 tr:Çocuk Yuvası|Kreş
@@ -6810,7 +6810,7 @@ nb:Pullert
 pl:Kolumna
 pt:Pilar
 ro:Stâlp
-es:Pilar
+es:Bolardo
 sv:Stolpe
 th:เสา
 tr:Pilier
