@@ -2114,9 +2114,8 @@ void Framework::UpdateMinBuildingsTapZoom()
 FeatureID Framework::FindBuildingAtPoint(m2::PointD const & mercator, int drawScale /*= -1*/) const
 {
   FeatureID featureId;
-  bool matchZoom = drawScale < 0
-      ? GetDrawScale() >= m_minBuildingsTapZoom
-      : drawScale >= m_minBuildingsTapZoom;
+  bool matchZoom =
+      drawScale < 0 ? GetDrawScale() >= m_minBuildingsTapZoom : drawScale >= m_minBuildingsTapZoom;
   if (matchZoom)
   {
     constexpr int kScale = scales::GetUpperScale();
@@ -2974,8 +2973,8 @@ bool Framework::GetEditableMapObject(FeatureID const & fid, osm::EditableMapObje
   if (!ftypes::IsBuildingChecker::Instance()(ft) &&
       (emo.GetHouseNumber().empty() || emo.GetStreet().m_defaultName.empty()))
   {
-    SetHostingBuildingAddress(FindBuildingAtPoint(feature::GetCenter(ft), drawScale),
-                              index, coder, emo);
+    SetHostingBuildingAddress(FindBuildingAtPoint(feature::GetCenter(ft), drawScale), index, coder,
+                              emo);
   }
 
   return true;

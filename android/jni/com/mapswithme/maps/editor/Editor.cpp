@@ -417,8 +417,8 @@ Java_com_mapswithme_maps_editor_Editor_nativeClearLocalEdits(JNIEnv * env, jclas
   Editor::Instance().ClearAllLocalEdits();
 }
 
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeStartEdit(JNIEnv *, jclass, jint drawScale = -1)
+JNIEXPORT void JNICALL Java_com_mapswithme_maps_editor_Editor_nativeStartEdit(JNIEnv *, jclass,
+                                                                              jint drawScale = -1)
 {
   ::Framework * frm = g_framework->NativeFramework();
   place_page::Info const & info = g_framework->GetPlacePageInfo();
