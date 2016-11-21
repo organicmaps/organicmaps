@@ -76,6 +76,8 @@
 
 #define GPS_TRACK_FILENAME "gps_track.dat"
 
+#define TRAFFIC_FILE_EXTENSION ".traffic"
+
 #define REPLACED_TAGS_FILE "replaced_tags.txt"
 #define MIXED_TAGS_FILE "mixed_tags.txt"
 

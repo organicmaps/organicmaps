@@ -59,10 +59,9 @@ public:
   TrafficInfo(MwmSet::MwmId const & mwmId);
 
   // Fetches the latest traffic data from the server and updates the coloring.
-  // todo(@m, @syershov) Currently a hardcoded path is used.
   // Construct the url by passing an MwmId.
   // *NOTE* This method must not be called on the UI thread.
-  bool ReceiveTrafficData(string const & fileName);
+  bool ReceiveTrafficData();
 
   // Returns the latest known speed group by a feature segment's id.
   SpeedGroup GetSpeedGroup(RoadSegmentId const & id) const;
