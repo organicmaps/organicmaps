@@ -395,7 +395,7 @@ void OverlayTree::Select(m2::PointD const & glbPoint, TOverlayContainer & result
 
   for (auto const & handle : m_handlesCache)
   {
-    if (rect.IsPointInside(handle->GetPivot(screen, false)))
+    if (!handle->HasDynamicAttributes() && rect.IsPointInside(handle->GetPivot(screen, false)))
       result.push_back(handle);
   }
 }
@@ -405,7 +405,7 @@ void OverlayTree::Select(m2::RectD const & rect, TOverlayContainer & result) con
   ScreenBase screen = m_traits.m_modelView;
   ForEachInRect(rect, [&](ref_ptr<OverlayHandle> const & h)
   {
-    if (h->IsVisible() && h->GetFeatureID().IsValid())
+    if (!h->HasDynamicAttributes() && h->IsVisible() && h->GetFeatureID().IsValid())
     {
       OverlayHandle::Rects shape;
       h->GetPixelShape(screen, screen.isPerspective(), shape);
