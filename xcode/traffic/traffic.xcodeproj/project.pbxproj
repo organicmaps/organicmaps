@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		672292AB1DE2F673005BA3A7 /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 672292AA1DE2F673005BA3A7 /* libalohalitics.a */; };
+		672292AD1DE2F683005BA3A7 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 672292AC1DE2F683005BA3A7 /* libz.tbd */; };
+		672292AF1DE2FF0F005BA3A7 /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 672292AE1DE2FF0F005BA3A7 /* libindexer.a */; };
 		67BECB5F1DDA44FD00FC4E99 /* speed_groups.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BECB5B1DDA44FD00FC4E99 /* speed_groups.cpp */; };
 		67BECB601DDA44FD00FC4E99 /* speed_groups.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67BECB5C1DDA44FD00FC4E99 /* speed_groups.hpp */; };
 		67BECB611DDA44FD00FC4E99 /* traffic_info.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BECB5D1DDA44FD00FC4E99 /* traffic_info.cpp */; };
@@ -20,6 +23,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		672292AA1DE2F673005BA3A7 /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "../../../omim-build/xcode/Debug/libalohalitics.a"; sourceTree = "<group>"; };
+		672292AC1DE2F683005BA3A7 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		672292AE1DE2FF0F005BA3A7 /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libindexer.a; path = "../../../omim-build/xcode/Debug/libindexer.a"; sourceTree = "<group>"; };
 		67BECB4A1DDA43AF00FC4E99 /* libtraffic.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtraffic.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		67BECB581DDA43FB00FC4E99 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
 		67BECB591DDA440100FC4E99 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
@@ -48,6 +54,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				672292AF1DE2FF0F005BA3A7 /* libindexer.a in Frameworks */,
+				672292AD1DE2F683005BA3A7 /* libz.tbd in Frameworks */,
+				672292AB1DE2F673005BA3A7 /* libalohalitics.a in Frameworks */,
 				67BECB891DDA476A00FC4E99 /* libcoding.a in Frameworks */,
 				67BECB871DDA475500FC4E99 /* libplatform.a in Frameworks */,
 				67BECB851DDA474400FC4E99 /* libbase.a in Frameworks */,
@@ -105,6 +114,9 @@
 		67BECB831DDA474400FC4E99 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				672292AE1DE2FF0F005BA3A7 /* libindexer.a */,
+				672292AC1DE2F683005BA3A7 /* libz.tbd */,
+				672292AA1DE2F673005BA3A7 /* libalohalitics.a */,
 				67BECB881DDA476A00FC4E99 /* libcoding.a */,
 				67BECB861DDA475500FC4E99 /* libplatform.a */,
 				67BECB841DDA474400FC4E99 /* libbase.a */,
