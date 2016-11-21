@@ -124,6 +124,8 @@ char const kAllowAutoZoom[] = "AutoZoom";
 
 double const kDistEqualQueryMeters = 100.0;
 
+size_t constexpr kMaxTrafficCacheSizeBytes = 256 /* Mb */ * 1024 * 1024;
+
 // Must correspond SearchMarkType.
 vector<string> kSearchMarks =
 {
@@ -341,7 +343,8 @@ Framework::Framework()
   , m_isRenderingEnabled(true)
   , m_trackingReporter(platform::CreateSocket(), TRACKING_REALTIME_HOST, TRACKING_REALTIME_PORT,
                        tracking::Reporter::kPushDelayMs)
-  , m_trafficManager(m_model.GetIndex(), bind(&Framework::GetMwmsByRect, this, _1))
+  , m_trafficManager(m_model.GetIndex(), bind(&Framework::GetMwmsByRect, this, _1),
+                     kMaxTrafficCacheSizeBytes)
   , m_displacementModeManager([this](bool show) {
     int const mode = show ? dp::displacement::kHotelMode : dp::displacement::kDefaultMode;
     CallDrapeFunction(bind(&df::DrapeEngine::SetDisplacementMode, _1, mode));
