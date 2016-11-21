@@ -16,10 +16,14 @@
 
   [self updatePlaceholderVisibility];
 
-  NSNotificationCenter * defaultCenter = [NSNotificationCenter defaultCenter];
-  [defaultCenter addObserver:self selector:@selector(textDidChange:)
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidChange:)
                         name:UITextViewTextDidChangeNotification object:self];
   self.clipsToBounds = YES;
+}
+
+- (void)dealloc
+{
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextViewTextDidChangeNotification object:nil];
 }
 
 - (UILabel *)placeholderView

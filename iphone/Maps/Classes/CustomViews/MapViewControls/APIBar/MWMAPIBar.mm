@@ -101,7 +101,7 @@ static NSString * const kKeyPath = @"subviews";
   }
   else
   {
-    [self.rootView.superview removeObserver:self forKeyPath:kKeyPath];
+    [controller.view removeObserver:self forKeyPath:kKeyPath];
     [self.rootView removeFromSuperview];
     [self.timer invalidate];
   }
