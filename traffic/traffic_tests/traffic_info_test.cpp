@@ -3,12 +3,19 @@
 #include "traffic/speed_groups.hpp"
 #include "traffic/traffic_info.hpp"
 
+#include "platform/local_country_file.hpp"
+#include "platform/platform_tests_support/writable_dir_changer.hpp"
+
+#include "indexer/mwm_set.hpp"
+
 #include "std/algorithm.hpp"
 
 namespace traffic
 {
 namespace
 {
+string const & kMapTestDir = "traffic-test";
+
 SpeedGroup GetSpeedGroup(TrafficInfo::Coloring const & coloring,
                          TrafficInfo::RoadSegmentId const & fid)
 {
@@ -17,14 +24,49 @@ SpeedGroup GetSpeedGroup(TrafficInfo::Coloring const & coloring,
     return SpeedGroup::Unknown;
   return it->second;
 }
+
+class TestMwmSet : public MwmSet
+{
+protected:
+  // MwmSet overrides:
+  unique_ptr<MwmInfo> CreateInfo(platform::LocalCountryFile const & localFile) const override
+  {
+    unique_ptr<MwmInfo> info(new MwmInfo());
+    info->m_version.SetFormat(version::Format::lastFormat);
+    return info;
+  }
+
+  unique_ptr<MwmValueBase> CreateValue(MwmInfo &) const override
+  {
+    return make_unique<MwmValueBase>();
+  }
+};
 }  // namespace
 
 UNIT_TEST(TrafficInfo_RemoteFile)
 {
-  string const kTestFileName = "traffic_data";
-
-  TrafficInfo r;
-  TEST(r.ReceiveTrafficData(kTestFileName), ());
+  WritableDirChanger writableDirChanger(kMapTestDir);
+  {
+    TestMwmSet mwmSet;
+    auto const & r =
+        mwmSet.Register(platform::LocalCountryFile::MakeForTesting("traffic_data_test"));
+    TrafficInfo trafficInfo(r.first);
+    TEST(trafficInfo.ReceiveTrafficData(), ());
+  }
+  {
+    TestMwmSet mwmSet;
+    auto const & r =
+        mwmSet.Register(platform::LocalCountryFile::MakeForTesting("traffic_data_test2"));
+    TrafficInfo trafficInfo(r.first);
+    TEST(!trafficInfo.ReceiveTrafficData(), ());
+  }
+  {
+    TestMwmSet mwmSet;
+    auto const & r =
+        mwmSet.Register(platform::LocalCountryFile::MakeForTesting("traffic_data_test", 101010));
+    TrafficInfo trafficInfo(r.first);
+    TEST(trafficInfo.ReceiveTrafficData(), ());
+  }
 }
 
 UNIT_TEST(TrafficInfo_Serialization)

@@ -14,23 +14,40 @@
 #include "std/algorithm.hpp"
 #include "std/string.hpp"
 
+#include "defines.hpp"
+
 #include "private.h"
 
 namespace traffic
 {
 namespace
 {
-
 bool ReadRemoteFile(string const & url, vector<uint8_t> & result)
 {
   platform::HttpClient request(url);
   if (!request.RunHttpRequest() || request.ErrorCode() != 200)
+  {
+    LOG(LINFO, ("Traffic request", url, "failed. HTTP Error:", request.ErrorCode()));
     return false;
+  }
   string const & response = request.ServerResponse();
   result.resize(response.size());
   for (size_t i = 0; i < response.size(); ++i)
     result[i] = static_cast<uint8_t>(response[i]);
   return true;
+}
+
+string MakeRemoteURL(string const & name, uint64_t version)
+{
+  if (string(TRAFFIC_DATA_BASE_URL).empty())
+    return {};
+
+  stringstream ss;
+  ss << TRAFFIC_DATA_BASE_URL;
+  if (version != 0)
+    ss << version << "/";
+  ss << name << TRAFFIC_FILE_EXTENSION;
+  return ss.str();
 }
 }  // namespace
 
@@ -45,12 +62,17 @@ TrafficInfo::RoadSegmentId::RoadSegmentId(uint32_t fid, uint16_t idx, uint8_t di
 // TrafficInfo --------------------------------------------------------------------------------
 TrafficInfo::TrafficInfo(MwmSet::MwmId const & mwmId) : m_mwmId(mwmId) {}
 
-bool TrafficInfo::ReceiveTrafficData(string const & fileName)
+bool TrafficInfo::ReceiveTrafficData()
 {
-  if (strlen(TRAFFIC_DATA_BASE_URL) == 0)
+  auto const & info = m_mwmId.GetInfo();
+  if (!info)
     return false;
 
-  string const url = string(TRAFFIC_DATA_BASE_URL) + string(fileName);
+  string const url = MakeRemoteURL(info->GetCountryName(), info->GetVersion());
+
+  if (url.empty())
+    return false;
+
   vector<uint8_t> contents;
   if (!ReadRemoteFile(url, contents))
     return false;
@@ -62,7 +84,8 @@ bool TrafficInfo::ReceiveTrafficData(string const & fileName)
   }
   catch (Reader::Exception const & e)
   {
-    LOG(LINFO, ("Could not read traffic data received from server."));
+    LOG(LINFO, ("Could not read traffic data received from server. MWM:", info->GetCountryName(),
+                "Version:", info->GetVersion()));
     return false;
   }
   m_coloring.swap(coloring);

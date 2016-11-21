@@ -147,13 +147,10 @@ void TrafficManager::ThreadRoutine()
     {
       traffic::TrafficInfo info(mwm);
 
-      if (mwm.GetInfo()->GetCountryName() == "Russia_Moscow") // TODO: temporary condition
-      {
-        if (info.ReceiveTrafficData("Russia_Moscow.traff")) // TODO: temporary name
-          OnTrafficDataResponse(info);
-        else
-          LOG(LDEBUG, ("Traffic request failed. Mwm =", mwm));
-      }
+      if (info.ReceiveTrafficData())
+        OnTrafficDataResponse(info);
+      else
+        LOG(LWARNING, ("Traffic request failed. Mwm =", mwm));
     }
     mwms.clear();
   }
