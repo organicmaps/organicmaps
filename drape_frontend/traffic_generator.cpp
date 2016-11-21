@@ -85,10 +85,13 @@ void GenerateCapTriangles(glsl::vec3 const & pivot, vector<glsl::vec2> const & n
 
 } // namespace
 
-TrafficHandle::TrafficHandle(TrafficSegmentID const & segmentId, glsl::vec2 const & texCoord,
+TrafficHandle::TrafficHandle(TrafficSegmentID const & segmentId,  RoadClass const & roadClass,
+                             m2::RectD const & boundingBox, glsl::vec2 const & texCoord,
                              size_t verticesCount)
   : OverlayHandle(FeatureID(), dp::Anchor::Center, 0, false)
   , m_segmentId(segmentId)
+  , m_roadClass(roadClass)
+  , m_boundingBox(boundingBox)
   , m_needUpdate(false)
 {
   m_buffer.resize(verticesCount);
@@ -153,11 +156,23 @@ TrafficSegmentID TrafficHandle::GetSegmentId() const
   return m_segmentId;
 }
 
+RoadClass const & TrafficHandle::GetRoadClass() const
+{
+  return m_roadClass;
+}
+
+m2::RectD const & TrafficHandle::GetBoundingBox() const
+{
+  return m_boundingBox;
+}
+
 void TrafficGenerator::Init()
 {
-  int const kBatchersCount = 3;
+  int constexpr kBatchersCount = 3;
+  int constexpr kBatchSize = 65000;
   m_batchersPool = make_unique_dp<BatchersPool<TrafficBatcherKey, TrafficBatcherKeyComparator>>(
-        kBatchersCount, bind(&TrafficGenerator::FlushGeometry, this, _1, _2, _3));
+                                  kBatchersCount, bind(&TrafficGenerator::FlushGeometry, this, _1, _2, _3),
+                                  kBatchSize, kBatchSize);
 }
 
 void TrafficGenerator::ClearGLDependentResources()
@@ -166,9 +181,9 @@ void TrafficGenerator::ClearGLDependentResources()
   m_batchersPool.reset();
 }
 
-void TrafficGenerator::AddSegment(TrafficSegmentID const & segmentId, m2::PolylineD const & polyline)
+void TrafficGenerator::AddSegmentsGeometry(TrafficSegmentsGeometry const & geom)
 {
-  m_segments.insert(make_pair(segmentId, polyline));
+  m_segments.insert(geom.begin(), geom.end());
 }
 
 void TrafficGenerator::ClearCache()
@@ -221,7 +236,7 @@ void TrafficGenerator::GetTrafficGeom(ref_ptr<dp::TextureManager> textures,
 
   int const kZoomLevel = 10;
 
-  using TSegIter = TSegmentCollection::iterator;
+  using TSegIter = TrafficSegmentsGeometry::iterator;
   map<TileKey, list<pair<TSegIter, traffic::SpeedGroup>>> segmentsByTiles;
   for (auto const & segment : trafficColoring)
   {
@@ -235,7 +250,7 @@ void TrafficGenerator::GetTrafficGeom(ref_ptr<dp::TextureManager> textures,
       continue;
 
     m_segmentsCache.insert(segment.m_id);
-    TileKey const tileKey = GetTileKeyByPoint(it->second.GetLimitRect().Center(), kZoomLevel);
+    TileKey const tileKey = GetTileKeyByPoint(it->second.m_polyline.GetLimitRect().Center(), kZoomLevel);
     segmentsByTiles[tileKey].emplace_back(make_pair(it, segment.m_speedGroup));
   }
 
@@ -247,14 +262,14 @@ void TrafficGenerator::GetTrafficGeom(ref_ptr<dp::TextureManager> textures,
     {
       TSegIter it = segmentPair.first;
 
-      TrafficBatcherKey bk(it->first.m_mwmId, tileKey);
+      TrafficBatcherKey bk(it->first.m_mwmId, tileKey, it->second.m_roadClass);
 
       m_batchersPool->ReserveBatcher(bk);
       ref_ptr<dp::Batcher> batcher = m_batchersPool->GetBatcher(bk);
 
       ASSERT(m_colorsCacheValid, ());
       dp::TextureManager::ColorRegion const & colorRegion = m_colorsCache[static_cast<size_t>(segmentPair.second)];
-      m2::PolylineD const & polyline = it->second;
+      m2::PolylineD const & polyline = it->second.m_polyline;
 
       vector<TrafficStaticVertex> staticGeometry;
       vector<TrafficDynamicVertex> dynamicGeometry;
@@ -265,7 +280,9 @@ void TrafficGenerator::GetTrafficGeom(ref_ptr<dp::TextureManager> textures,
         continue;
 
       glsl::vec2 const uv = glsl::ToVec2(colorRegion.GetTexRect().Center());
-      drape_ptr<dp::OverlayHandle> handle = make_unique_dp<TrafficHandle>(it->first, uv, staticGeometry.size());
+      drape_ptr<dp::OverlayHandle> handle = make_unique_dp<TrafficHandle>(it->first, it->second.m_roadClass,
+                                                                          polyline.GetLimitRect(), uv,
+                                                                          staticGeometry.size());
 
       dp::AttributeProvider provider(2 /* stream count */, staticGeometry.size());
       provider.InitStream(0 /* stream index */, GetTrafficStaticBindingInfo(), make_ref(staticGeometry.data()));
@@ -274,7 +291,10 @@ void TrafficGenerator::GetTrafficGeom(ref_ptr<dp::TextureManager> textures,
     }
 
     for (auto const & segmentPair : s.second)
-      m_batchersPool->ReleaseBatcher(TrafficBatcherKey(segmentPair.first->first.m_mwmId, tileKey));
+    {
+      m_batchersPool->ReleaseBatcher(TrafficBatcherKey(segmentPair.first->first.m_mwmId, tileKey,
+                                                       segmentPair.first->second.m_roadClass));
+    }
   }
 
   GLFunctions::glFlush();
@@ -339,22 +359,22 @@ void TrafficGenerator::GenerateSegment(dp::TextureManager::ColorRegion const & c
   }
 
   // Generate caps.
-  if (firstFilled)
-  {
-    int const kSegmentsCount = 4;
-    vector<glsl::vec2> normals;
-    normals.reserve(kAverageCapSize);
-    GenerateCapNormals(dp::RoundCap, firstLeftNormal, firstRightNormal, -firstTangent,
-                       1.0f, true /* isStart */, normals, kSegmentsCount);
-    GenerateCapTriangles(glsl::vec3(firstPoint, kDepth), normals, colorRegion,
-                         staticGeometry, dynamicGeometry);
+//  if (firstFilled)
+//  {
+//    int const kSegmentsCount = 4;
+//    vector<glsl::vec2> normals;
+//    normals.reserve(kAverageCapSize);
+//    GenerateCapNormals(dp::RoundCap, firstLeftNormal, firstRightNormal, -firstTangent,
+//                       1.0f, true /* isStart */, normals, kSegmentsCount);
+//    GenerateCapTriangles(glsl::vec3(firstPoint, kDepth), normals, colorRegion,
+//                         staticGeometry, dynamicGeometry);
 
-    normals.clear();
-    GenerateCapNormals(dp::RoundCap, lastLeftNormal, lastRightNormal, lastTangent,
-                       1.0f, false /* isStart */, normals, kSegmentsCount);
-    GenerateCapTriangles(glsl::vec3(lastPoint, kDepth), normals, colorRegion,
-                         staticGeometry, dynamicGeometry);
-  }
+//    normals.clear();
+//    GenerateCapNormals(dp::RoundCap, lastLeftNormal, lastRightNormal, lastTangent,
+//                       1.0f, false /* isStart */, normals, kSegmentsCount);
+//    GenerateCapTriangles(glsl::vec3(lastPoint, kDepth), normals, colorRegion,
+//                         staticGeometry, dynamicGeometry);
+//  }
 }
 
 void TrafficGenerator::FillColorsCache(ref_ptr<dp::TextureManager> textures)

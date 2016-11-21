@@ -334,8 +334,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::CacheTrafficSegments:
     {
       ref_ptr<CacheTrafficSegmentsMessage> msg = message;
-      for (auto const & segment : msg->GetSegments())
-        m_trafficGenerator->AddSegment(segment.first, segment.second);
+      m_trafficGenerator->AddSegmentsGeometry(msg->GetSegments());
       break;
     }
 
@@ -456,8 +455,10 @@ void BackendRenderer::Routine::Do()
 
 void BackendRenderer::InitGLDependentResource()
 {
+  int constexpr kBatchSize = 5000;
   m_batchersPool = make_unique_dp<BatchersPool<TileKey, TileKeyStrictComparator>>(ReadManager::ReadCount(),
-                                                bind(&BackendRenderer::FlushGeometry, this, _1, _2, _3));
+                                               bind(&BackendRenderer::FlushGeometry, this, _1, _2, _3),
+                                               kBatchSize, kBatchSize);
   m_trafficGenerator->Init();
 
   dp::TextureManager::Params params;

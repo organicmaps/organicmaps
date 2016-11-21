@@ -5,6 +5,7 @@
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/visual_params.hpp"
 
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
 
 namespace
@@ -101,7 +102,6 @@ void TrafficManager::CalculateSegmentsGeometry(traffic::TrafficInfo const & traf
                                                df::TrafficSegmentsGeometry & output) const
 {
   size_t const coloringSize = trafficInfo.GetColoring().size();
-  output.reserve(coloringSize);
 
   vector<FeatureID> features;
   features.reserve(coloringSize);
@@ -109,7 +109,7 @@ void TrafficManager::CalculateSegmentsGeometry(traffic::TrafficInfo const & traf
     features.emplace_back(trafficInfo.GetMwmId(), c.first.m_fid);
 
   int constexpr kScale = scales::GetUpperScale();
-  unordered_map<uint32_t, m2::PolylineD> polylines;
+  unordered_map<uint32_t, pair<m2::PolylineD, df::RoadClass>> polylines;
   auto featureReader = [&polylines](FeatureType & ft)
   {
     uint32_t const fid = ft.GetID().m_index;
@@ -118,10 +118,17 @@ void TrafficManager::CalculateSegmentsGeometry(traffic::TrafficInfo const & traf
 
     if (routing::IsRoad(feature::TypesHolder(ft)))
     {
+      auto const highwayClass = ftypes::GetHighwayClass(ft);
+      df::RoadClass roadClass = df::RoadClass::Class2;
+      if (highwayClass == ftypes::HighwayClass::Trunk || highwayClass == ftypes::HighwayClass::Primary)
+        roadClass = df::RoadClass::Class0;
+      else if (highwayClass == ftypes::HighwayClass::Secondary || highwayClass == ftypes::HighwayClass::Tertiary)
+        roadClass = df::RoadClass::Class1;
+
       m2::PolylineD polyline;
       ft.ForEachPoint([&polyline](m2::PointD const & pt) { polyline.Add(pt); }, kScale);
       if (polyline.GetSize() > 1)
-        polylines[fid] = polyline;
+        polylines[fid] = make_pair(polyline, roadClass);
     }
   };
   m_index.ReadFeatures(featureReader, features);
@@ -132,9 +139,10 @@ void TrafficManager::CalculateSegmentsGeometry(traffic::TrafficInfo const & traf
     if (it == polylines.end())
       continue;
     bool const isReversed = (c.first.m_dir == traffic::TrafficInfo::RoadSegmentId::kReverseDirection);
-    m2::PolylineD polyline = it->second.ExtractSegment(c.first.m_idx, isReversed);
+    m2::PolylineD polyline = it->second.first.ExtractSegment(c.first.m_idx, isReversed);
     if (polyline.GetSize() > 1)
-      output.emplace_back(df::TrafficSegmentID(trafficInfo.GetMwmId(), c.first), move(polyline));
+      output.insert(make_pair(df::TrafficSegmentID(trafficInfo.GetMwmId(), c.first),
+                              df::TrafficSegmentGeometry(move(polyline), it->second.second)));
   }
 }
 
