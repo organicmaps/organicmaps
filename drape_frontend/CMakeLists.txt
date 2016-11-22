@@ -56,7 +56,6 @@ set(
   base_renderer.hpp
   batch_merge_helper.cpp
   batch_merge_helper.hpp
-  batchers_pool.cpp
   batchers_pool.hpp
   circle_shape.cpp
   circle_shape.hpp
