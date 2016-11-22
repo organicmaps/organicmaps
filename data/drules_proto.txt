@@ -6056,10 +6056,6 @@ cont {
   }
   element {
     scale: 16
-    area {
-      color: 16316664
-      priority: -15187
-    }
     symbol {
       name: "place-of-worship-m"
       priority: 16813
@@ -6076,10 +6072,6 @@ cont {
   }
   element {
     scale: 17
-    area {
-      color: 16316664
-      priority: -15187
-    }
     symbol {
       name: "place-of-worship-l"
       priority: 16813
@@ -6095,10 +6087,6 @@ cont {
   }
   element {
     scale: 18
-    area {
-      color: 16316664
-      priority: -15187
-    }
     symbol {
       name: "place-of-worship-l"
       priority: 16813
@@ -6114,10 +6102,6 @@ cont {
   }
   element {
     scale: 19
-    area {
-      color: 16316664
-      priority: -15187
-    }
     symbol {
       name: "place-of-worship-l"
       priority: 16813
@@ -6152,10 +6136,6 @@ cont {
   }
   element {
     scale: 16
-    area {
-      color: 16316664
-      priority: -15187
-    }
     symbol {
       name: "buddhist-m"
       priority: 16813
@@ -6172,10 +6152,6 @@ cont {
   }
   element {
     scale: 17
-    area {
-      color: 16316664
-      priority: -15187
-    }
     symbol {
       name: "buddhist-l"
       priority: 16813
@@ -6191,10 +6167,6 @@ cont {
   }
   element {
     scale: 18
-    area {
-      color: 16316664
-      priority: -15187
-    }
     symbol {
       name: "buddhist-l"
       priority: 16813
@@ -6210,10 +6182,6 @@ cont {
   }
   element {
     scale: 19
-    area {
-      color: 16316664
-      priority: -15187
-    }
     symbol {
       name: "buddhist-l"
       priority: 16813
@@ -6248,10 +6216,6 @@ cont {
   }
   element {
     scale: 16
-    area {
-      color: 16316664
-      priority: -15187
-    }
     symbol {
       name: "christian-m"
       priority: 16813
@@ -6268,10 +6232,6 @@ cont {
   }
   element {
     scale: 17
-    area {
-      color: 16316664
-      priority: -15187
-    }
     symbol {
       name: "christian-l"
       priority: 16813
@@ -6287,10 +6247,6 @@ cont {
   }
   element {
     scale: 18
-    area {
-      color: 16316664
-      priority: -15187
-    }
     symbol {
       name: "christian-l"
       priority: 16813
@@ -6306,10 +6262,6 @@ cont {
   }
   element {
     scale: 19
-    area {
-      color: 16316664
-      priority: -15187
-    }
     symbol {
       name: "christian-l"
       priority: 16813
@@ -6344,10 +6296,6 @@ cont {
   }
   element {
     scale: 16
-    area {
-      color: 16316664
-      priority: -15187
-    }
     symbol {
       name: "hindu-m"
       priority: 16813
@@ -6364,10 +6312,6 @@ cont {
   }
   element {
     scale: 17
-    area {
-      color: 16316664
-      priority: -15187
-    }
     symbol {
       name: "hindu-l"
       priority: 16813
@@ -6383,10 +6327,6 @@ cont {
   }
   element {
     scale: 18
-    area {
-      color: 16316664
-      priority: -15187
-    }
     symbol {
       name: "hindu-l"
       priority: 16813
@@ -6402,10 +6342,6 @@ cont {
   }
   element {
     scale: 19
-    area {
-      color: 16316664
-      priority: -15187
-    }
     symbol {
       name: "hindu-l"
       priority: 16813
@@ -6440,10 +6376,6 @@ cont {
   }
   element {
     scale: 16
-    area {
-      color: 16316664
-      priority: -15187
-    }
     symbol {
       name: "jewish-m"
       priority: 16813
@@ -6460,10 +6392,6 @@ cont {
   }
   element {
     scale: 17
-    area {
-      color: 16316664
-      priority: -15187
-    }
     symbol {
       name: "jewish-l"
       priority: 16813
@@ -6479,10 +6407,6 @@ cont {
   }
   element {
     scale: 18
-    area {
-      color: 16316664
-      priority: -15187
-    }
     symbol {
       name: "jewish-l"
       priority: 16813
@@ -6498,10 +6422,6 @@ cont {
   }
   element {
     scale: 19
-    area {
-      color: 16316664
-      priority: -15187
-    }
     symbol {
       name: "jewish-l"
       priority: 16813
@@ -6536,10 +6456,6 @@ cont {
   }
   element {
     scale: 16
-    area {
-      color: 16316664
-      priority: -15187
-    }
     symbol {
       name: "muslim-m"
       priority: 16813
@@ -6556,10 +6472,6 @@ cont {
   }
   element {
     scale: 17
-    area {
-      color: 16316664
-      priority: -15187
-    }
     symbol {
       name: "muslim-l"
       priority: 16813
@@ -6575,10 +6487,6 @@ cont {
   }
   element {
     scale: 18
-    area {
-      color: 16316664
-      priority: -15187
-    }
     symbol {
       name: "muslim-l"
       priority: 16813
@@ -6594,10 +6502,6 @@ cont {
   }
   element {
     scale: 19
-    area {
-      color: 16316664
-      priority: -15187
-    }
     symbol {
       name: "muslim-l"
       priority: 16813
@@ -6632,10 +6536,6 @@ cont {
   }
   element {
     scale: 16
-    area {
-      color: 16316664
-      priority: -15187
-    }
     symbol {
       name: "shinto-m"
       priority: 16813
@@ -6652,10 +6552,6 @@ cont {
   }
   element {
     scale: 17
-    area {
-      color: 16316664
-      priority: -15187
-    }
     symbol {
       name: "shinto-l"
       priority: 16813
@@ -6671,10 +6567,6 @@ cont {
   }
   element {
     scale: 18
-    area {
-      color: 16316664
-      priority: -15187
-    }
     symbol {
       name: "shinto-l"
       priority: 16813
@@ -6690,10 +6582,6 @@ cont {
   }
   element {
     scale: 19
-    area {
-      color: 16316664
-      priority: -15187
-    }
     symbol {
       name: "shinto-l"
       priority: 16813
@@ -6728,10 +6616,6 @@ cont {
   }
   element {
     scale: 16
-    area {
-      color: 16316664
-      priority: -15187
-    }
     symbol {
       name: "taoist-m"
       priority: 16813
@@ -6748,10 +6632,6 @@ cont {
   }
   element {
     scale: 17
-    area {
-      color: 16316664
-      priority: -15187
-    }
     symbol {
       name: "taoist-l"
       priority: 16813
@@ -6767,10 +6647,6 @@ cont {
   }
   element {
     scale: 18
-    area {
-      color: 16316664
-      priority: -15187
-    }
     symbol {
       name: "taoist-l"
       priority: 16813
@@ -6786,10 +6662,6 @@ cont {
   }
   element {
     scale: 19
-    area {
-      color: 16316664
-      priority: -15187
-    }
     symbol {
       name: "taoist-l"
       priority: 16813
@@ -7833,12 +7705,12 @@ cont {
     scale: 15
     area {
       color: 16311482
-      priority: -15099
+      priority: -15991
     }
     symbol {
       name: "college-m"
       apply_for_type: 1
-      priority: 16901
+      priority: 16009
       min_distance: 10
     }
     caption {
@@ -7900,11 +7772,11 @@ cont {
     scale: 17
     area {
       color: 16311482
-      priority: -15099
+      priority: -15991
     }
     symbol {
       name: "college-l"
-      priority: 16901
+      priority: 16009
       min_distance: 10
     }
     caption {
@@ -7929,11 +7801,11 @@ cont {
     scale: 17
     area {
       color: 16311482
-      priority: -15099
+      priority: -15991
     }
     symbol {
       name: "college-l"
-      priority: 16901
+      priority: 16009
       min_distance: 10
     }
     caption {
@@ -7958,11 +7830,11 @@ cont {
     scale: 18
     area {
       color: 16311482
-      priority: -15099
+      priority: -15991
     }
     symbol {
       name: "college-l"
-      priority: 16901
+      priority: 16009
     }
     caption {
       primary {
@@ -7986,11 +7858,11 @@ cont {
     scale: 18
     area {
       color: 16311482
-      priority: -15099
+      priority: -15991
     }
     symbol {
       name: "college-l"
-      priority: 16901
+      priority: 16009
     }
     caption {
       primary {
@@ -8014,11 +7886,11 @@ cont {
     scale: 19
     area {
       color: 16311482
-      priority: -15099
+      priority: -15991
     }
     symbol {
       name: "college-l"
-      priority: 16901
+      priority: 16009
     }
     caption {
       primary {
@@ -8054,11 +7926,11 @@ cont {
     scale: 19
     area {
       color: 16311482
-      priority: -15099
+      priority: -15991
     }
     symbol {
       name: "college-l"
-      priority: 16901
+      priority: 16009
     }
     caption {
       primary {
