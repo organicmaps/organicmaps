@@ -1010,6 +1010,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     {
       mHeadersDecoration.invalidateHeaders();
       notifyItemRangeInserted(mNearMeCount, mAds.size());
+      handleBannersShow(mAds);
       return;
     }
 
@@ -1017,6 +1018,12 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
     if (mMytargetHelper == null)
       initMytargetHelper();
+  }
+
+  private void handleBannersShow(@NonNull List<NativeAppwallBanner> ads)
+  {
+    if (mMytargetHelper != null)
+      mMytargetHelper.handleBannersShow(ads);
   }
 
   private void initMytargetHelper()
@@ -1054,13 +1061,16 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
           {
             mAdsLoading = false;
             mAdsLoaded = true;
-
             mAds.clear();
 
             if (banners != null)
-              for (NativeAppwallBanner banner: banners)
+            {
+              for (NativeAppwallBanner banner : banners)
                 if (!banner.isAppInstalled())
                   mAds.add(banner);
+
+              handleBannersShow(banners);
+            }
 
             mHeadersDecoration.invalidateHeaders();
             notifyDataSetChanged();
