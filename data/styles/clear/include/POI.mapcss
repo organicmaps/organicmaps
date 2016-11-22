@@ -28,7 +28,7 @@ node|z14[tourism=viewpoint] { icon-image: viewpoint-s.svg; text-offset: 6; font-
 node|z14[tourism=attraction], area|z14[tourism=attraction] { icon-image: tourism-s.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2840; icon-min-distance: 12;}
 node|z14[amenity=community_centre], area|z14[amenity=community_centre] { icon-image: tourism-s.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2840; icon-min-distance: 8;}
 
-area|z14[amenity=university][name] { icon-image: college-s.svg; text-offset: 6; font-size: 10; text: name; text-color: @poi_label;z-index: 1; icon-min-distance: 12; -x-me-text-priority:16000; z-index: 2890;}
+area|z14[amenity=university][name] { icon-image: college-s.svg; text-offset: 6; font-size: 10; text: name; text-color: @poi_label;z-index: 1; icon-min-distance: 12; -x-me-text-priority:16000;}
 node|z14[amenity=theatre], area|z14[amenity=theatre] { icon-image: theatre-s.svg; text-offset: 6; font-size: 10; text: name; text-color: @poi_label;z-index: 2790; icon-min-distance: 8;}
 
 node|z14[tourism=hotel] { icon-image: hotel-s.svg; text-offset: 6; font-size: 10; text: name; text-color: @poi_label; z-index: 2820; icon-min-distance: 24; text-halo-color: @halo_park_label; text-halo-radius: 0.5; text-halo-opacity: 0.8;}
@@ -81,8 +81,8 @@ node|z15[tourism=artwork] { icon-image: tourism-m.svg; text-offset: 10; font-siz
 node|z15[amenity=community_centre], area|z15[amenity=community_centre] { icon-image: tourism-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2840; icon-min-distance: 24;}
 
 
-area|z155[amenity=university][name] { icon-image: college-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; icon-min-distance: 12; -x-me-text-priority:16000; z-index: 2890;}
-node|z15[amenity=university][name] { icon-image: college-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; icon-min-distance: 10; -x-me-text-priority:1600; z-index: 2890;}
+area|z155[amenity=university][name] { icon-image: college-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; icon-min-distance: 12; -x-me-text-priority:16000;}
+node|z15[amenity=university][name] { icon-image: college-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; icon-min-distance: 10; -x-me-text-priority:1600;}
 node|z15[amenity=university][!name] { }
 
 node|z15-16[leisure=stadium] { icon-image: stadium-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2848; icon-min-distance: 8; }
@@ -138,7 +138,7 @@ node|z16[tourism=zoo], area|z16[tourism=zoo] { icon-image: zoo-m.svg; text-offse
 node|z16[tourism=information]{ icon-image: information-s.svg; text-offset: 6; font-size: 10; text: name; text-color: @poi_label; z-index: 2200; icon-min-distance: 10;}
 
 
-ode|z16[amenity=university][name], area|z16[amenity=university][name] { icon-image: college-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 1;icon-min-distance: 11; -x-me-text-priority:16000; z-index: 2890;}
+ode|z16[amenity=university][name], area|z16[amenity=university][name] { icon-image: college-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 1;icon-min-distance: 11; -x-me-text-priority:16000;}
 node|z16[amenity=university][!name], area|z16[amenity=university][!name] { }
 
 node|z16[tourism=museum],area|z16[tourism=museum] { icon-image: museum-m.svg; text-offset: 12; font-size: 10; text: name; text-color: @poi_label; z-index: 2846; icon-min-distance: 12;}
@@ -278,7 +278,7 @@ node|z17-[tourism=zoo], area|z17-[tourism=zoo] { icon-image: zoo-l.svg; text-off
 node|z17-[tourism=viewpoint] { icon-image: viewpoint-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2850; }
 node|z17-[tourism=information]{ icon-image: information-s.svg; text-offset: 6; font-size: 10; text: name; text-color: @poi_label; z-index: 2200; }
 
-node|z17[amenity=university][name], area|z17[amenity=university][name] { icon-image: college-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; icon-min-distance: 10; -x-me-text-priority:16000; z-index: 2890;}
+node|z17[amenity=university][name], area|z17[amenity=university][name] { icon-image: college-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; icon-min-distance: 10; -x-me-text-priority:16000;}
 node|z17[amenity=university][!name], area|z17[amenity=university][!name] { }
 
 node|z17-[leisure=stadium] { icon-image: stadium-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2848; icon-min-distance: 8; }
@@ -483,7 +483,7 @@ node|z18-[amenity=doctors],area|z18-[amenity=doctors]{ icon-image: hospital-l.sv
 node|z18-[amenity=veterinary], area|z18-[amenity=veterinary] { icon-image: veterinary-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
 node|z18-[amenity=pharmacy], area|z18-[amenity=pharmacy] { icon-image: pharmacy-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2900; }
 
-node|z18-[amenity=university][name], area|z18-[amenity=university][name] { icon-image: college-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; -x-me-text-priority:16000; z-index: 2890;}
+node|z18-[amenity=university][name], area|z18-[amenity=university][name] { icon-image: college-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; -x-me-text-priority:16000;}
 node|z18-[amenity=university][!name], area|z18-[amenity=university][!name] { }
 
 node|z18-[tourism=hotel]{ icon-image: hotel-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2820; text-halo-color: @halo_park_label; text-halo-radius: 0.5; text-halo-opacity: 0.8;}
