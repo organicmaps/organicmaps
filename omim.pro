@@ -39,7 +39,7 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
   # Integration tests dependencies for gtool.
   # TODO(AlexZ): Avoid duplication for routing_integration_tests.
   CONFIG(gtool):!CONFIG(no-tests) {
-    SUBDIRS *= map
+    SUBDIRS *= traffic map
 
     # Booking quality check
     booking_quality_check.subdir = generator/booking_quality_check
