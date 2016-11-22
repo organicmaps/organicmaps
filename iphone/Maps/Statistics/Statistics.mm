@@ -16,6 +16,15 @@
 // If you have a "missing header error" here, then please run configure.sh script in the root repo folder.
 #import "../../../private.h"
 
+namespace
+{
+void checkFlurryLogStatus(FlurryEventRecordStatus status)
+{
+  NSCAssert(status == FlurryEventRecorded || status == FlurryEventLoggingDelayed,
+            @"Flurry log event failed.");
+}
+}  // namespace
+
 @interface Statistics ()
 
 @property(nonatomic) NSDate * lastLocationLogTimestamp;
@@ -62,8 +71,8 @@
   if (![MWMSettings statisticsEnabled])
     return;
   NSMutableDictionary * params = [self addDefaultAttributesToParameters:parameters];
-  [Flurry logEvent:eventName withParameters:params];
   [Alohalytics logEvent:eventName withDictionary:params];
+  checkFlurryLogStatus([Flurry logEvent:eventName withParameters:params]);
 }
 
 - (void)logEvent:(NSString *)eventName withParameters:(NSDictionary *)parameters atLocation:(CLLocation *)location
