@@ -192,9 +192,6 @@ area|z16-[amenity=doctors]{
 }
 area|z16-[amenity=place_of_worship]
 {
- fill-color: @pedestrian;
- fill-opacity: 1;
- fill-position: background;
  z-index: 210;
 
 }
