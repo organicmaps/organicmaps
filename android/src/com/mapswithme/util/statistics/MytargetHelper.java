@@ -137,6 +137,7 @@ public final class MytargetHelper
   private NativeAppwallAd loadAds(final @NonNull Listener<List<NativeAppwallBanner>> listener, Activity activity)
   {
     NativeAppwallAd res = new NativeAppwallAd(PrivateVariables.myTargetSlot(), activity);
+    res.setCachePeriod(0);
     res.setListener(new NativeAppwallAd.AppwallAdListener()
     {
       @Override

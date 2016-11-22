@@ -16,6 +16,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
@@ -621,9 +623,40 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     void bind(int position)
     {
       if (position >= mNearMeCount && position < mNearMeCount + getAdsCount())
+      {
         mTitle.setText(HEADER_ADVERTISMENT_TITLE);
+      }
       else
-        mTitle.setText(mHeaders.get(mItems.get(position).headerId));
+      {
+        // TODO: remove this debug 'if' if the crash is gone in next (6.5.3) release
+        // - https://www.fabric.io/mapsme/android/apps/com.mapswithme.maps.pro/issues/58249a350aeb16625bb4d0a7,
+        // otherwise the logged information should help to pinpoint the 'IndexOutOfBounds' bug.
+        if (position >= mItems.size())
+          logIndexOutOfBoundsErrorInfoToCrashlytics(position);
+
+        CountryItem ci = mItems.get(position);
+        mTitle.setText(mHeaders.get(ci.headerId));
+      }
+    }
+  }
+
+  private void logIndexOutOfBoundsErrorInfoToCrashlytics(int position)
+  {
+    String tag = DownloaderAdapter.class.getSimpleName();
+    int itemSize = mItems.size();
+    Crashlytics.log(Log.ERROR, tag, "Index " + position + " is out of bounds, mItem.size = "
+                                    + itemSize + ", current thread = " + Thread.currentThread() +
+                                    " mNearMeCount = " + mNearMeCount + ", ads count = " + mAds.size()
+                                    + ", showAds = " + mShowAds + ", mAdsLoaded = " + mAdsLoaded
+                                    + ", mAdsLoading = " + mAdsLoading +
+                                    " mSearchResultsMode = " + mSearchResultsMode
+                                    + ", mSearchQuery = " + mSearchQuery +
+                                    " mHeaders.size = " + mHeaders.size()
+                                    + " mHeaders = " + mHeaders);
+    if (itemSize > 0)
+    {
+      CountryItem lastCi = mItems.get(--itemSize);
+      Crashlytics.log(Log.INFO, tag, "last county item in position = " + itemSize + " = " + lastCi);
     }
   }
 
@@ -750,7 +783,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     processData();
   }
 
-  void clearAds()
+  void clearAdsAndCancelMyTarget()
   {
     if (mAds.isEmpty())
       return;
@@ -758,9 +791,8 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     if (mMytargetHelper != null)
       mMytargetHelper.cancel();
 
-    mAds.clear();
+    clearAdsInternal();
     mAdsLoaded = false;
-    notifyDataSetChanged();
   }
 
   void resetSearchResultsMode()
@@ -996,13 +1028,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         mAdsLoading = false;
         mAdsLoaded = true;
 
-        int oldSize = mAds.size();
-        mAds.clear();
-        if (oldSize > 0)
-        {
-          mHeadersDecoration.invalidateHeaders();
-          notifyItemRangeRemoved(mNearMeCount, oldSize);
-        }
+        clearAdsInternal();
       }
 
       @Override
@@ -1042,6 +1068,17 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         }, mActivity);
       }
     });
+  }
+
+  private void clearAdsInternal()
+  {
+    int oldSize = mAds.size();
+    mAds.clear();
+    if (oldSize > 0)
+    {
+      mHeadersDecoration.invalidateHeaders();
+      notifyItemRangeRemoved(mNearMeCount, oldSize);
+    }
   }
 
   void attach()
