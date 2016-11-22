@@ -116,7 +116,16 @@ public class SearchFragment extends BaseMwmFragment
     public void onUpClick()
     {
       if (!onBackPressed())
-        super.onUpClick();
+      {
+        mAnimationController.animate(false, new Runnable()
+        {
+          @Override
+          public void run()
+          {
+            ToolbarController.super.onUpClick();
+          }
+        });
+      }
     }
   }
 
@@ -125,6 +134,7 @@ public class SearchFragment extends BaseMwmFragment
   private View mResultsPlaceholder;
 
   private SearchToolbarController mToolbarController;
+  private SearchAnimationController mAnimationController;
 
   private SearchAdapter mSearchAdapter;
 
@@ -224,12 +234,13 @@ public class SearchFragment extends BaseMwmFragment
     mTabFrame = root.findViewById(R.id.tab_frame);
     ViewPager pager = (ViewPager) mTabFrame.findViewById(R.id.pages);
 
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-      UiUtils.hide(mTabFrame.findViewById(R.id.tabs_divider));
-
     mToolbarController = new ToolbarController(view);
 
-    final TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(), pager, (TabLayout) root.findViewById(R.id.tabs));
+    TabLayout tabLayout = (TabLayout) root.findViewById(R.id.tabs);
+    final TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(), pager, tabLayout);
+
+    mAnimationController = new SearchAnimationController(mToolbarController.getToolbar(),
+                                                         mTabFrame.findViewById(R.id.tabs_layout));
 
     mResultsFrame = root.findViewById(R.id.results_frame);
     RecyclerView results = (RecyclerView) mResultsFrame.findViewById(R.id.recycler);
@@ -274,6 +285,8 @@ public class SearchFragment extends BaseMwmFragment
         mToolbarController.deactivate();
       }
     });
+
+    mAnimationController.animate(true, null);
   }
 
   @Override
@@ -480,10 +493,27 @@ public class SearchFragment extends BaseMwmFragment
     if (mFromRoutePlan)
     {
       RoutingController.get().onPoiSelected(null);
-      return !(getActivity() instanceof SearchActivity);
+      final boolean isSearchActivity = getActivity() instanceof SearchActivity;
+      if (isSearchActivity)
+        closeSearch();
+      return true;
     }
 
-    return false;
+    closeSearch();
+    return true;
+  }
+
+  private void closeSearch()
+  {
+    mAnimationController.animate(false, new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        getActivity().finish();
+        getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+      }
+    });
   }
 
   public void setRecyclerScrollListener(RecyclerView recycler)
