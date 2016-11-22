@@ -38,10 +38,9 @@ jobject CreateBanner(JNIEnv * env, bool hasBanner, string const & bannerTitleId,
 
 jobject CreateMapObject(JNIEnv * env, int mapObjectType, string const & title,
                         string const & subtitle, double lat, double lon, string const & address,
-                        Metadata const & metadata, string const & apiId,
-                        bool hasBanner, string const & bannerTitleId,
-                        string const & bannerMessageId, string const & bannerIconId,
-                        string const & bannerUrl)
+                        Metadata const & metadata, string const & apiId, bool hasBanner,
+                        string const & bannerTitleId, string const & bannerMessageId,
+                        string const & bannerIconId, string const & bannerUrl)
 {
   // public MapObject(@MapObjectType int mapObjectType, String title, String subtitle, double lat,
   // double lon, String address, String apiId, @NonNull Banner banner)
@@ -53,14 +52,10 @@ jobject CreateMapObject(JNIEnv * env, int mapObjectType, string const & title,
   jobject jbanner =
       CreateBanner(env, hasBanner, bannerTitleId, bannerMessageId, bannerIconId, bannerUrl);
 
-  jobject mapObject = env->NewObject(g_mapObjectClazz, ctorId,
-                                     mapObjectType,
-                                     jni::ToJavaString(env, title),
-                                     jni::ToJavaString(env, subtitle),
-                                     jni::ToJavaString(env, address),
-                                     lat, lon,
-                                     jni::ToJavaString(env, apiId),
-                                     jbanner);
+  jobject mapObject =
+      env->NewObject(g_mapObjectClazz, ctorId, mapObjectType, jni::ToJavaString(env, title),
+                     jni::ToJavaString(env, subtitle), jni::ToJavaString(env, address), lat, lon,
+                     jni::ToJavaString(env, apiId), jbanner);
 
   InjectMetadata(env, g_mapObjectClazz, mapObject, metadata);
   return mapObject;
@@ -70,7 +65,8 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
 {
   if (info.IsBookmark())
   {
-    // public Bookmark(@IntRange(from = 0) int categoryId, @IntRange(from = 0) int bookmarkId, String name)
+    // public Bookmark(@IntRange(from = 0) int categoryId, @IntRange(from = 0) int bookmarkId,
+    // String name)
     static jmethodID const ctorId = jni::GetConstructorID(
         env, g_bookmarkClazz, "(IILjava/lang/String;Lcom/mapswithme/maps/bookmarks/data/Banner;)V");
 
@@ -80,20 +76,21 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
 
     auto const & bac = info.GetBookmarkAndCategory();
     BookmarkCategory * cat = g_framework->NativeFramework()->GetBmCategory(bac.m_categoryIndex);
-    BookmarkData const & data = static_cast<Bookmark const *>(cat->GetUserMark(bac.m_bookmarkIndex))->GetData();
+    BookmarkData const & data =
+        static_cast<Bookmark const *>(cat->GetUserMark(bac.m_bookmarkIndex))->GetData();
 
     jni::TScopedLocalRef jName(env, jni::ToJavaString(env, data.GetName()));
-    jobject mapObject = env->NewObject(g_bookmarkClazz, ctorId,
-                                       static_cast<jint>(info.m_bac.m_categoryIndex),
-                                       static_cast<jint>(info.m_bac.m_bookmarkIndex),
-                                       jName.get(), jbanner);
+    jobject mapObject =
+        env->NewObject(g_bookmarkClazz, ctorId, static_cast<jint>(info.m_bac.m_categoryIndex),
+                       static_cast<jint>(info.m_bac.m_bookmarkIndex), jName.get(), jbanner);
     if (info.IsFeature())
       InjectMetadata(env, g_mapObjectClazz, mapObject, info.GetMetadata());
     return mapObject;
   }
 
   ms::LatLon const ll = info.GetLatLon();
-  search::AddressInfo const address = g_framework->NativeFramework()->GetAddressInfoAtPoint(info.GetMercator());
+  search::AddressInfo const address =
+      g_framework->NativeFramework()->GetAddressInfoAtPoint(info.GetMercator());
 
   // TODO(yunikkk): object can be POI + API + search result + bookmark simultaneously.
   // TODO(yunikkk): Should we pass localized strings here and in other methods as byte arrays?

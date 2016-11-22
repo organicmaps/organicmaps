@@ -163,7 +163,6 @@ public class PlacePageView extends RelativeLayout
   private TextView mHotelRatingBase;
 //TODO: remove this after booking_api.cpp will be done
   private View mHotelMore;
-  // Banner
   @Nullable
   BannerController mBannerController;
 
@@ -719,7 +718,7 @@ public class PlacePageView extends RelativeLayout
   @Override
   public void onBannerClick(@NonNull Banner banner)
   {
-//  TODO: go to banner url
+    // TODO (goblinr): go to banner url
   }
 
   @Override
@@ -746,7 +745,7 @@ public class PlacePageView extends RelativeLayout
     mAnimationController = isBottom ? new BottomPlacePageAnimationController(this)
                                     : new LeftPlacePageAnimationController(this);
     if (isBottom)
-      ((BottomPlacePageAnimationController)mAnimationController).setBannerOpenListener(this);
+      ((BottomPlacePageAnimationController) mAnimationController).setBannerOpenListener(this);
   }
 
   public void restore()
@@ -949,9 +948,8 @@ public class PlacePageView extends RelativeLayout
       UiUtils.showIf(!isPriceEmpty, mTvSponsoredPrice);
     }
 
-    Banner banner = mMapObject.getBanner();
     if (mBannerController != null)
-      mBannerController.updateData(banner);
+      mBannerController.updateData(mMapObject.getBanner());
   }
 
   private void refreshDetails()

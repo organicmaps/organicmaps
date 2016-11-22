@@ -23,6 +23,7 @@ import java.net.URL;
 import java.util.List;
 
 import static com.mapswithme.maps.MwmApplication.prefs;
+import static com.mapswithme.util.SharedPropertiesUtils.isShowcaseSwitchedOnLocal;
 
 public final class MytargetHelper
 {
@@ -170,12 +171,6 @@ public final class MytargetHelper
   public void onBannerClick(NativeAppwallBanner banner)
   {
     mShowcase.handleBannerClick(banner);
-  }
-
-  private static boolean isShowcaseSwitchedOnLocal()
-  {
-    return PreferenceManager.getDefaultSharedPreferences(MwmApplication.get())
-                            .getBoolean(MwmApplication.get().getString(R.string.pref_showcase_switched_on), false);
   }
 
   public static boolean isShowcaseSwitchedOnServer()

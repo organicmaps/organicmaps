@@ -1,7 +1,6 @@
 package com.mapswithme.maps.widget.placepage;
 
 import android.content.res.Resources;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -14,13 +13,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.Banner;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.UiUtils;
 
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
+import static com.mapswithme.util.SharedPropertiesUtils.isShowcaseSwitchedOnLocal;
 
 final class BannerController implements View.OnClickListener
 {
@@ -46,13 +45,7 @@ final class BannerController implements View.OnClickListener
   private final float mMarginBase;
   private final float mMarginHalfPlus;
 
-  private boolean mState = false;
-
-  private static boolean isShowcaseSwitchedOn()
-  {
-    return PreferenceManager.getDefaultSharedPreferences(MwmApplication.get())
-        .getBoolean(MwmApplication.get().getString(R.string.pref_showcase_switched_on), false);
-  }
+  private boolean mIsOpened = false;
 
   BannerController(@NonNull View bannerView, @Nullable OnBannerClickListener listener)
   {
@@ -79,7 +72,7 @@ final class BannerController implements View.OnClickListener
     if (mMessage != null)
       mMessage.setText(banner.getMessage());
     boolean showBanner = banner.isActive() && ConnectionState.isConnected()
-                         && isShowcaseSwitchedOn();
+                         && isShowcaseSwitchedOnLocal();
     UiUtils.showIf(showBanner, mFrame);
     if (UiUtils.isLandscape(mFrame.getContext()))
       open();
@@ -92,10 +85,10 @@ final class BannerController implements View.OnClickListener
 
   void open()
   {
-    if (!isShowing() || mBanner == null || mState)
+    if (!isShowing() || mBanner == null || mIsOpened)
       return;
 
-    mState = true;
+    mIsOpened = true;
     setFrameHeight(WRAP_CONTENT);
     setIconParams(mOpenIconSize, 0, mMarginBase);
     UiUtils.show(mMessage, mAdMarker);
@@ -107,10 +100,10 @@ final class BannerController implements View.OnClickListener
 
   void close()
   {
-    if (!isShowing() || mBanner == null || !mState)
+    if (!isShowing() || mBanner == null || !mIsOpened)
       return;
 
-    mState = false;
+    mIsOpened = false;
     setFrameHeight((int) mCloseFrameHeight);
     setIconParams(mCloseIconSize, mMarginBase, mMarginHalfPlus);
     UiUtils.hide(mMessage, mAdMarker);

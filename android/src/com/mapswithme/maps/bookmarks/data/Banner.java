@@ -7,41 +7,7 @@ import android.support.annotation.Nullable;
 
 public final class Banner implements Parcelable
 {
-  private final boolean mIsActive;
-  @Nullable
-  private final String mTitle;
-  @Nullable
-  private final String mMessage;
-  @Nullable
-  private final String mIconUrl;
-  @Nullable
-  private final String mUrl;
-
-  @NonNull
-  public static Banner empty()
-  {
-    return new Banner(false, "", "", "", "");
-  }
-
-  public Banner(boolean isActive, @Nullable String title, @Nullable String message,
-                @Nullable String iconUrl, @Nullable String url)
-  {
-    mIsActive = isActive;
-    mTitle = title;
-    mMessage = message;
-//    mIconUrl = iconUrl;
-    mIconUrl = "https://lh6.ggpht.com/bVwOOcO1jm_bfvqtkUDEyyOl2PZ-ZLaxqzylW5NtM2NHSlLQAnC1t45gf6d6JX07XQ=w300";
-    mUrl = url;
-  }
-
-  protected Banner(Parcel in)
-  {
-    mIsActive = in.readByte() != 0;
-    mTitle = in.readString();
-    mMessage = in.readString();
-    mIconUrl = in.readString();
-    mUrl = in.readString();
-  }
+  public static final Banner EMPTY = new Banner(false, "", "", "", "");
 
   public static final Creator<Banner> CREATOR = new Creator<Banner>()
   {
@@ -57,6 +23,37 @@ public final class Banner implements Parcelable
       return new Banner[size];
     }
   };
+
+  private final boolean mIsActive;
+  @Nullable
+  private final String mTitle;
+  @Nullable
+  private final String mMessage;
+  @Nullable
+  private final String mIconUrl;
+  @Nullable
+  private final String mUrl;
+
+  public Banner(boolean isActive, @Nullable String title, @Nullable String message,
+                @Nullable String iconUrl, @Nullable String url)
+  {
+    mIsActive = isActive;
+    mTitle = title;
+    mMessage = message;
+    //TODO: uncomment this when cpp banner implementation will be done
+    //mIconUrl = iconUrl;
+    mIconUrl = "https://lh6.ggpht.com/bVwOOcO1jm_bfvqtkUDEyyOl2PZ-ZLaxqzylW5NtM2NHSlLQAnC1t45gf6d6JX07XQ=w300";
+    mUrl = url;
+  }
+
+  protected Banner(Parcel in)
+  {
+    mIsActive = in.readByte() != 0;
+    mTitle = in.readString();
+    mMessage = in.readString();
+    mIconUrl = in.readString();
+    mUrl = in.readString();
+  }
 
   public boolean isActive()
   {

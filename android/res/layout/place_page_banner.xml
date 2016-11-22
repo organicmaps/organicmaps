@@ -56,9 +56,7 @@
     android:layout_toRightOf="@id/iv__banner_icon"
     android:textAppearance="@style/MwmTextAppearance.Body4"
     android:visibility="gone"
-    tools:text="Бесплатная курьерская доставка по России!
-
-Коллекции женской, мужской и детской одежды, обуви,
+    tools:text="Бесплатная курьерская доставка по России!\n\nКоллекции женской, мужской и детской одежды, обуви,
 а также товары для дома и спорта. Цены."
     tools:visibility="visible"/>
 
