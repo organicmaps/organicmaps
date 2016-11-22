@@ -17880,7 +17880,7 @@
     ru = Забронировать
     ar = حجز
     cs = Rezervace
-    da = Bog
+    da = Book
     nl = Boeken
     fi = Varaa
     fr = Réserver
