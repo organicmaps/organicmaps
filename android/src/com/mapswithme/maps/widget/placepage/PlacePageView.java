@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -216,11 +217,6 @@ public class PlacePageView extends RelativeLayout
       detachCountry();
     }
   };
-
-  public int getScrollHeight()
-  {
-    return mAnimationController.mDetailsScroll.getHeight();
-  }
 
   public enum State
   {
@@ -1201,7 +1197,7 @@ public class PlacePageView extends RelativeLayout
     mAnimationController.setOnVisibilityChangedListener(listener);
   }
 
-  public void setOnAnimationListener(BasePlacePageAnimationController.OnAnimationListener listener)
+  public void setOnAnimationListener(@Nullable BasePlacePageAnimationController.OnAnimationListener listener)
   {
     mAnimationController.setOnProgressListener(listener);
   }

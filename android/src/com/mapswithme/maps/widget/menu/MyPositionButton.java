@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import com.mapswithme.maps.LocationState;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.routing.RoutingController;
+import com.mapswithme.util.Animations;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
@@ -79,18 +80,22 @@ public class MyPositionButton
     if (image instanceof AnimationDrawable)
       ((AnimationDrawable) image).start();
 
-    UiUtils.visibleIf(!isHideOnNavigation(), mButton);
+    UiUtils.visibleIf(!shouldBeHidden(), mButton);
   }
 
-  @NonNull
-  public View getButton()
-  {
-    return mButton;
-  }
-
-  public boolean isHideOnNavigation()
+  private boolean shouldBeHidden()
   {
     return mMode == LocationState.FOLLOW_AND_ROTATE
            && (RoutingController.get().isPlanning() || RoutingController.get().isNavigating());
+  }
+
+  public void show()
+  {
+    Animations.appearSliding(mButton, Animations.RIGHT, null);
+  }
+
+  public void hide()
+  {
+    Animations.disappearSliding(mButton, Animations.RIGHT, null);
   }
 }

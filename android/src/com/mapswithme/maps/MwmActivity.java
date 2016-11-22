@@ -536,7 +536,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mNavZoomOut.setOnClickListener(this);
     View myPosition = frame.findViewById(R.id.my_position);
     mNavMyPosition = new MyPositionButton(myPosition);
-    mNavAnimationController = new NavigationButtonsAnimationController(mNavZoomIn, mNavZoomOut, mNavMyPosition,
+    mNavAnimationController = new NavigationButtonsAnimationController(mNavZoomIn, mNavZoomOut, myPosition,
                                                                        frame.findViewById(R.id.anchor_center));
   }
 
@@ -1111,7 +1111,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       {
         Animations.disappearSliding(mNavZoomOut, Animations.RIGHT, null);
         Animations.disappearSliding(mNavZoomIn, Animations.RIGHT, null);
-        Animations.disappearSliding(mNavMyPosition.getButton(), Animations.RIGHT, null);
+        mNavMyPosition.hide();
       }
     }
     else
@@ -1138,7 +1138,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       Animations.appearSliding(mNavZoomOut, Animations.RIGHT, null);
       Animations.appearSliding(mNavZoomIn, Animations.RIGHT, null);
-      Animations.appearSliding(mNavMyPosition.getButton(), Animations.RIGHT, null);
+      mNavMyPosition.show();
     }
   }
 
@@ -1184,7 +1184,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onProgress(float translationX, float translationY)
   {
     if (mNavAnimationController != null)
-      mNavAnimationController.onPlacePageMoved(translationY, mPlacePage.getScrollHeight());
+      mNavAnimationController.onPlacePageMoved(translationY);
   }
 
   @Override
@@ -1453,10 +1453,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mNavAnimationController == null)
       return;
 
-    if (visible)
-      setNavButtonsTopLimit(mSearchController.getToolbar().getHeight());
-    else
-      setNavButtonsTopLimit(0);
+    setNavButtonsTopLimit(visible ? mSearchController.getToolbar().getHeight() : 0);
   }
 
   @Override
