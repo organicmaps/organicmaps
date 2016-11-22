@@ -13,7 +13,6 @@ if (PLATFORM_MAC)
   omim_link_libraries(
     ${PROJECT_NAME}
     ${Qt5Widgets_LIBRARIES}
-    "-framework QuartzCore"
   )
 endif()
 
