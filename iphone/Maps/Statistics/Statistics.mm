@@ -80,7 +80,6 @@
 - (NSMutableDictionary *)addDefaultAttributesToParameters:(NSDictionary *)parameters
 {
   NSMutableDictionary * params = [parameters mutableCopy];
-  params[kStatDeviceType] = IPAD ? kStatiPad : kStatiPhone;
   BOOL isLandscape = UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation);
   params[kStatOrientation] = isLandscape ? kStatLandscape : kStatPortrait;
   AppInfo * info = [AppInfo sharedInfo];
