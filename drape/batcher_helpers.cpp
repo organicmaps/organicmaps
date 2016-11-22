@@ -529,10 +529,6 @@ void TriangleFanBatch::BatchData(ref_ptr<AttributeProvider> streams)
         // first vertex of cpuBuffer if the first vertex of params, second vertex is
         // the last vertex of previous uploaded data. We copy this data on GPU.
         FlushData(streams->GetBindingInfo(i), cpuBuffer.Data(), batchVertexCount + 1);
-
-        // Move cpu buffer cursor on second element of buffer.
-        // On next iteration first vertex of fan will be also available
-        cpuBuffer.Seek(1);
       }
 
       uint32_t advanceCount = batchVertexCount;
@@ -571,6 +567,10 @@ void TriangleFanBatch::BatchData(ref_ptr<AttributeProvider> streams)
           cpuBuffers.push_back(CPUBuffer(binding.GetElementSize(), (vertexCount + 2) - batchVertexCount));
           CPUBuffer & cpuBuffer = cpuBuffers.back();
           cpuBuffer.UploadData(rawDataPointer, 1);
+
+          // Move cpu buffer cursor on second element of buffer.
+          // On next iteration first vertex of fan will be also available
+          cpuBuffer.Seek(1);
         }
 
         // advance on uploadVertexCount - 1 to copy last vertex also into next VAO with
