@@ -254,15 +254,13 @@
   {
     stat[kStatProvider] = kStatBooking;
     stat[kStatHotel] = data.sponsoredId;
-    stat[kStatHotelLat] = @(latLon.lat);
-    stat[kStatHotelLon] = @(latLon.lon);
+    stat[kStatHotelLocation] = makeLocationEventValue(latLon.lat, latLon.lon);
   }
   else
   {
     stat[kStatProvider] = kStatOpentable;
     stat[kStatRestaurant] = data.sponsoredId;
-    stat[kStatRestaurantLat] = @(latLon.lat);
-    stat[kStatRestaurantLon] = @(latLon.lon);
+    stat[kStatRestaurantLocation] = makeLocationEventValue(latLon.lat, latLon.lon);
   }
 
   NSString * eventName = isBooking ? kPlacePageHotelBook : kPlacePageRestaurantBook;

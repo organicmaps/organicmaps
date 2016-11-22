@@ -97,8 +97,7 @@ static NSString * const kStatExport = @"Export";
 static NSString * const kStatFacebook = @"Facebook";
 static NSString * const kStatFeedback = @"Feedback";
 static NSString * const kStatFrom = @"from";
-static NSString * const kStatFromLat = @"from_lat";
-static NSString * const kStatFromLon = @"from_lon";
+static NSString * const kStatFromLocation = @"from_location";
 static NSString * const kStatFromMyPosition = @"From my position";
 static NSString * const kStatGo = @"Go";
 static NSString * const kStatGoogle = @"Google";
@@ -106,8 +105,7 @@ static NSString * const kStatHelp = @"Help";
 static NSString * const kStatHidden = @"Hidden";
 static NSString * const kStatHistory = @"History";
 static NSString * const kStatHotel = @"hotel";
-static NSString * const kStatHotelLat = @"hotel_lat";
-static NSString * const kStatHotelLon = @"hotel_lon";
+static NSString * const kStatHotelLocation = @"hotel_location";
 static NSString * const kStatImport = @"Import";
 static NSString * const kStatIn = @"In";
 static NSString * const kStatIsAuto = @"is_auto";
@@ -117,9 +115,7 @@ static NSString * const kStatKML = @"KML";
 static NSString * const kStatKilometers = @"Kilometers";
 static NSString * const kStatLandscape = @"Landscape";
 static NSString * const kStatLanguage = @"Language";
-static NSString * const kStatLat = @"Lat";
 static NSString * const kStatLocation = @"Location";
-static NSString * const kStatLon = @"Lon";
 static NSString * const kStatLogout = @"Logout";
 static NSString * const kStatMap = @"map";
 static NSString * const kStatMapSearch = @"Map search";
@@ -170,8 +166,7 @@ static NSString * const kStatRemove = @"Remove";
 static NSString * const kStatRename = @"Rename";
 static NSString * const kStatReport = @"Report";
 static NSString * const kStatRestaurant = @"restaurant";
-static NSString * const kStatRestaurantLat = @"restaurant_lat";
-static NSString * const kStatRestaurantLon = @"restaurant_lon";
+static NSString * const kStatRestaurantLocation = @"restaurant_location";
 static NSString * const kStatRetry = @"retry";
 static NSString * const kStatRouting = @"routing";
 static NSString * const kStatRoutingTaxiInstall = @"Routing_Taxi_install";
@@ -198,8 +193,7 @@ static NSString * const kStatSwapRoutingPoints = @"Swap routing points";
 static NSString * const kStatTTS = @"TTS";
 static NSString * const kStatTTSSettings = @"TTS settings";
 static NSString * const kStatTable = @"Table";
-static NSString * const kStatToLat = @"to_lat";
-static NSString * const kStatToLon = @"to_lon";
+static NSString * const kStatToLocation = @"to_location";
 static NSString * const kStatToMyPosition = @"To my position";
 static NSString * const kStatToggleBookmark = @"Toggle bookmark";
 static NSString * const kStatToggleCompassCalibration = @"Toggle compass calibration";
@@ -226,4 +220,10 @@ static NSString * const kStatiPhone = @"iPhone";
 static inline NSString * const kStatEventName(NSString * component, NSString * action)
 {
   return [NSString stringWithFormat:@"%@ %@", component, action];
+}
+
+static inline NSString * const makeLocationEventValue(CLLocationDegrees latitude,
+                                                      CLLocationDegrees longitude)
+{
+  return [NSString stringWithFormat:@"%@,%@", @(latitude), @(longitude)];
 }

@@ -73,9 +73,8 @@
   NSMutableDictionary * params = [self addDefaultAttributesToParameters:parameters];
   [Alohalytics logEvent:eventName withDictionary:params atLocation:location];
   auto const & coordinate = location ? location.coordinate : kCLLocationCoordinate2DInvalid;
-  params[kStatLat] = @(coordinate.latitude);
-  params[kStatLon] = @(coordinate.longitude);
-  [Flurry logEvent:eventName withParameters:params];
+  params[kStatLocation] = makeLocationEventValue(coordinate.latitude, coordinate.longitude);
+  checkFlurryLogStatus([Flurry logEvent:eventName withParameters:params]);
 }
 
 - (NSMutableDictionary *)addDefaultAttributesToParameters:(NSDictionary *)parameters
