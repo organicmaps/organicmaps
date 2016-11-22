@@ -42,8 +42,7 @@ public:
 
   using GetMwmsByRectFn = function<vector<MwmSet::MwmId>(m2::RectD const &)>;
 
-  TrafficManager(Index const & index, GetMwmsByRectFn const & getMwmsByRectFn,
-                 size_t maxCacheSizeBytes);
+  TrafficManager(GetMwmsByRectFn const & getMwmsByRectFn, size_t maxCacheSizeBytes);
   ~TrafficManager();
 
   void SetEnabled(bool enabled);
@@ -56,11 +55,6 @@ public:
   void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine);
 
 private:
-  void CalculateSegmentsGeometry(traffic::TrafficInfo const & trafficInfo,
-                                 df::TrafficSegmentsGeometry & output) const;
-  void CalculateSegmentsColoring(traffic::TrafficInfo const & trafficInfo,
-                                 df::TrafficSegmentsColoring & output) const;
-
   void ThreadRoutine();
   bool WaitForRequest(vector<MwmSet::MwmId> & mwms);
   void RequestTrafficData();
@@ -70,7 +64,6 @@ private:
 
   bool m_isEnabled;
 
-  Index const & m_index;
   GetMwmsByRectFn m_getMwmsByRectFn;
 
   ref_ptr<df::DrapeEngine> m_drapeEngine;

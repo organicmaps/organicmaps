@@ -44,6 +44,7 @@ public:
            gui::TWidgetsInitInfo && info,
            pair<location::EMyPositionMode, bool> const & initialMyPositionMode,
            bool allow3dBuildings,
+           bool trafficEnabled,
            bool blockTapEvents,
            bool showChoosePositionMark,
            vector<m2::TriangleD> && boundAreaTriangles,
@@ -58,6 +59,7 @@ public:
       , m_info(move(info))
       , m_initialMyPositionMode(initialMyPositionMode)
       , m_allow3dBuildings(allow3dBuildings)
+      , m_trafficEnabled(trafficEnabled)
       , m_blockTapEvents(blockTapEvents)
       , m_showChoosePositionMark(showChoosePositionMark)
       , m_boundAreaTriangles(move(boundAreaTriangles))
@@ -74,6 +76,7 @@ public:
     gui::TWidgetsInitInfo m_info;
     pair<location::EMyPositionMode, bool> m_initialMyPositionMode;
     bool m_allow3dBuildings;
+    bool m_trafficEnabled;
     bool m_blockTapEvents;
     bool m_showChoosePositionMark;
     vector<m2::TriangleD> m_boundAreaTriangles;
@@ -162,7 +165,7 @@ public:
   void RequestSymbolsSize(vector<string> const & symbols,
                           TRequestSymbolsSizeCallback const & callback);
 
-  void CacheTrafficSegmentsGeometry(TrafficSegmentsGeometry const & segments);
+  void EnableTraffic(bool trafficEnabled);
   void UpdateTraffic(TrafficSegmentsColoring const & segmentsColoring);
   void ClearTrafficCache(MwmSet::MwmId const & mwmId);
 

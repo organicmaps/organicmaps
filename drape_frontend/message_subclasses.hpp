@@ -996,16 +996,32 @@ private:
   TRequestSymbolsSizeCallback m_callback;
 };
 
-class CacheTrafficSegmentsMessage : public Message
+class EnableTrafficMessage : public Message
 {
 public:
-  explicit CacheTrafficSegmentsMessage(TrafficSegmentsGeometry const & segments)
-    : m_segments(segments)
+  explicit EnableTrafficMessage(bool trafficEnabled)
+    : m_trafficEnabled(trafficEnabled)
   {}
 
-  Type GetType() const override { return Message::CacheTrafficSegments; }
+  Type GetType() const override { return Message::EnableTraffic; }
 
-  TrafficSegmentsGeometry const & GetSegments() const { return m_segments; }
+  bool IsTrafficEnabled() const { return m_trafficEnabled; }
+
+private:
+  bool const m_trafficEnabled;
+};
+
+class FlushTrafficGeometryMessage : public BaseTileMessage
+{
+public:
+  FlushTrafficGeometryMessage(TileKey const & tileKey, TrafficSegmentsGeometry && segments)
+    : BaseTileMessage(tileKey)
+    , m_segments(move(segments))
+  {}
+
+  Type GetType() const override { return Message::FlushTrafficGeometry; }
+
+  TrafficSegmentsGeometry & GetSegments() { return m_segments; }
 
 private:
   TrafficSegmentsGeometry m_segments;
@@ -1032,15 +1048,23 @@ class UpdateTrafficMessage : public Message
 public:
   explicit UpdateTrafficMessage(TrafficSegmentsColoring const & segmentsColoring)
     : m_segmentsColoring(segmentsColoring)
+    , m_needInvalidate(false)
+  {}
+
+  UpdateTrafficMessage(TrafficSegmentsColoring const & segmentsColoring, bool needInvalidate)
+    : m_segmentsColoring(segmentsColoring)
+    , m_needInvalidate(needInvalidate)
   {}
 
   Type GetType() const override { return Message::UpdateTraffic; }
   bool IsGLContextDependent() const override { return true; }
 
-  TrafficSegmentsColoring const & GetSegmentsColoring() const { return m_segmentsColoring; }
+  TrafficSegmentsColoring & GetSegmentsColoring() { return m_segmentsColoring; }
+  bool NeedInvalidate() const { return m_needInvalidate; }
 
 private:
   TrafficSegmentsColoring m_segmentsColoring;
+  bool const m_needInvalidate;
 };
 
 class FlushTrafficDataMessage : public Message

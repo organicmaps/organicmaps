@@ -38,18 +38,21 @@ public:
     Params(ref_ptr<ThreadsCommutator> commutator, ref_ptr<dp::OGLContextFactory> factory,
            ref_ptr<dp::TextureManager> texMng, MapDataProvider const & model,
            TUpdateCurrentCountryFn const & updateCurrentCountryFn,
-           ref_ptr<RequestedTiles> requestedTiles, bool allow3dBuildings)
+           ref_ptr<RequestedTiles> requestedTiles, bool allow3dBuildings,
+           bool trafficEnabled)
       : BaseRenderer::Params(commutator, factory, texMng)
       , m_model(model)
       , m_updateCurrentCountryFn(updateCurrentCountryFn)
       , m_requestedTiles(requestedTiles)
       , m_allow3dBuildings(allow3dBuildings)
+      , m_trafficEnabled(trafficEnabled)
     {}
 
     MapDataProvider const & m_model;
     TUpdateCurrentCountryFn m_updateCurrentCountryFn;
     ref_ptr<RequestedTiles> m_requestedTiles;
     bool m_allow3dBuildings;
+    bool m_trafficEnabled;
   };
 
   BackendRenderer(Params const & params);

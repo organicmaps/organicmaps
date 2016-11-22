@@ -85,15 +85,15 @@ void GenerateCapTriangles(glsl::vec3 const & pivot, vector<glsl::vec2> const & n
 
 } // namespace
 
-TrafficHandle::TrafficHandle(TrafficSegmentID const & segmentId,  RoadClass const & roadClass,
-                             m2::RectD const & boundingBox, glsl::vec2 const & texCoord,
-                             size_t verticesCount)
+TrafficHandle::TrafficHandle(traffic::TrafficInfo::RoadSegmentId const & segmentId, RoadClass const & roadClass,
+                             m2::RectD const & boundingBox, glsl::vec2 const & texCoord, size_t verticesCount)
   : OverlayHandle(FeatureID(), dp::Anchor::Center, 0, false)
   , m_segmentId(segmentId)
   , m_roadClass(roadClass)
   , m_boundingBox(boundingBox)
   , m_needUpdate(false)
 {
+  ASSERT_NOT_EQUAL(verticesCount, 0, ());
   m_buffer.resize(verticesCount);
   for (size_t i = 0; i < m_buffer.size(); i++)
     m_buffer[i] = texCoord;
@@ -151,7 +151,7 @@ void TrafficHandle::SetTexCoord(glsl::vec2 const & texCoord)
   m_needUpdate = true;
 }
 
-TrafficSegmentID TrafficHandle::GetSegmentId() const
+traffic::TrafficInfo::RoadSegmentId const & TrafficHandle::GetSegmentId() const
 {
   return m_segmentId;
 }
@@ -181,51 +181,8 @@ void TrafficGenerator::ClearGLDependentResources()
   m_batchersPool.reset();
 }
 
-void TrafficGenerator::AddSegmentsGeometry(TrafficSegmentsGeometry const & geom)
-{
-  m_segments.insert(geom.begin(), geom.end());
-}
-
-void TrafficGenerator::ClearCache()
-{
-  m_colorsCacheValid = false;
-  m_segmentsCache.clear();
-}
-
-void TrafficGenerator::ClearCache(MwmSet::MwmId const & mwmId)
-{
-  auto it = m_segmentsCache.begin();
-  while (it != m_segmentsCache.end())
-  {
-    if (it->m_mwmId == mwmId)
-      it = m_segmentsCache.erase(it);
-    else
-      ++it;
-  }
-}
-
-TrafficSegmentsColoring TrafficGenerator::GetSegmentsToUpdate(TrafficSegmentsColoring const & trafficColoring) const
-{
-  TrafficSegmentsColoring result;
-  for (auto const & segment : trafficColoring)
-  {
-    if (m_segmentsCache.find(segment.m_id) != m_segmentsCache.end())
-      result.push_back(segment);
-  }
-  return result;
-}
-
-void TrafficGenerator::FlushGeometry(TrafficBatcherKey const & key, dp::GLState const & state, drape_ptr<dp::RenderBucket> && buffer)
-{
-  TrafficRenderData renderData(state);
-  renderData.m_bucket = move(buffer);
-  renderData.m_mwmId = key.m_mwmId;
-  renderData.m_tileKey = key.m_tileKey;
-  m_flushRenderDataFn(move(renderData));
-}
-
-void TrafficGenerator::GetTrafficGeom(ref_ptr<dp::TextureManager> textures,
-                                      TrafficSegmentsColoring const & trafficColoring)
+void TrafficGenerator::FlushSegmentsGeometry(TileKey const & tileKey, TrafficSegmentsGeometry const & geom,
+                                             ref_ptr<dp::TextureManager> textures)
 {
   FillColorsCache(textures);
 
@@ -234,70 +191,97 @@ void TrafficGenerator::GetTrafficGeom(ref_ptr<dp::TextureManager> textures,
   state.SetColorTexture(m_colorsCache[static_cast<size_t>(traffic::SpeedGroup::G0)].GetTexture());
   state.SetMaskTexture(textures->GetTrafficArrowTexture());
 
-  int const kZoomLevel = 10;
+  static vector<RoadClass> roadClasses = {RoadClass::Class0, RoadClass::Class1, RoadClass::Class2};
 
-  using TSegIter = TrafficSegmentsGeometry::iterator;
-  map<TileKey, list<pair<TSegIter, traffic::SpeedGroup>>> segmentsByTiles;
-  for (auto const & segment : trafficColoring)
+  for (auto geomIt = geom.begin(); geomIt != geom.end(); ++geomIt)
   {
-    // Check if a segment hasn't been added.
-    auto it = m_segments.find(segment.m_id);
-    if (it == m_segments.end())
-      continue;
-
-    // Check if a segment has already generated.
-    if (m_segmentsCache.find(segment.m_id) != m_segmentsCache.end())
-      continue;
-
-    m_segmentsCache.insert(segment.m_id);
-    TileKey const tileKey = GetTileKeyByPoint(it->second.m_polyline.GetLimitRect().Center(), kZoomLevel);
-    segmentsByTiles[tileKey].emplace_back(make_pair(it, segment.m_speedGroup));
-  }
-
-  for (auto const & s : segmentsByTiles)
-  {
-    TileKey const & tileKey = s.first;
-
-    for (auto const & segmentPair : s.second)
+    auto coloringIt = m_coloring.find(geomIt->first);
+    if (coloringIt != m_coloring.end())
     {
-      TSegIter it = segmentPair.first;
+      for (size_t i = 0; i < roadClasses.size(); i++)
+        m_batchersPool->ReserveBatcher(TrafficBatcherKey(geomIt->first, tileKey, roadClasses[i]));
 
-      TrafficBatcherKey bk(it->first.m_mwmId, tileKey, it->second.m_roadClass);
+      auto & coloring = coloringIt->second;
+      for (size_t i = 0; i < geomIt->second.size(); i++)
+      {
+        traffic::TrafficInfo::RoadSegmentId const & sid = geomIt->second[i].first;
+        auto segmentColoringIt = coloring.find(sid);
+        if (segmentColoringIt != coloring.end())
+        {
+          TrafficSegmentGeometry const & g = geomIt->second[i].second;
+          ref_ptr<dp::Batcher> batcher = m_batchersPool->GetBatcher(TrafficBatcherKey(geomIt->first, tileKey, g.m_roadClass));
 
-      m_batchersPool->ReserveBatcher(bk);
-      ref_ptr<dp::Batcher> batcher = m_batchersPool->GetBatcher(bk);
+          ASSERT(m_colorsCacheValid, ());
+          dp::TextureManager::ColorRegion const & colorRegion = m_colorsCache[static_cast<size_t>(segmentColoringIt->second)];
 
-      ASSERT(m_colorsCacheValid, ());
-      dp::TextureManager::ColorRegion const & colorRegion = m_colorsCache[static_cast<size_t>(segmentPair.second)];
-      m2::PolylineD const & polyline = it->second.m_polyline;
+          vector<TrafficStaticVertex> staticGeometry;
+          vector<TrafficDynamicVertex> dynamicGeometry;
+          GenerateSegment(colorRegion, g.m_polyline, tileKey.GetGlobalRect().Center(), staticGeometry, dynamicGeometry);
+          ASSERT_EQUAL(staticGeometry.size(), dynamicGeometry.size(), ());
 
-      vector<TrafficStaticVertex> staticGeometry;
-      vector<TrafficDynamicVertex> dynamicGeometry;
-      GenerateSegment(colorRegion, polyline, tileKey.GetGlobalRect().Center(), staticGeometry, dynamicGeometry);
-      ASSERT_EQUAL(staticGeometry.size(), dynamicGeometry.size(), ());
+          if ((staticGeometry.size() + dynamicGeometry.size()) == 0)
+            continue;
 
-      if ((staticGeometry.size() + dynamicGeometry.size()) == 0)
-        continue;
+          glsl::vec2 const uv = glsl::ToVec2(colorRegion.GetTexRect().Center());
+          drape_ptr<dp::OverlayHandle> handle = make_unique_dp<TrafficHandle>(sid, g.m_roadClass, g.m_polyline.GetLimitRect(), uv,
+                                                                              staticGeometry.size());
 
-      glsl::vec2 const uv = glsl::ToVec2(colorRegion.GetTexRect().Center());
-      drape_ptr<dp::OverlayHandle> handle = make_unique_dp<TrafficHandle>(it->first, it->second.m_roadClass,
-                                                                          polyline.GetLimitRect(), uv,
-                                                                          staticGeometry.size());
+          dp::AttributeProvider provider(2 /* stream count */, staticGeometry.size());
+          provider.InitStream(0 /* stream index */, GetTrafficStaticBindingInfo(), make_ref(staticGeometry.data()));
+          provider.InitStream(1 /* stream index */, GetTrafficDynamicBindingInfo(), make_ref(dynamicGeometry.data()));
+          batcher->InsertTriangleList(state, make_ref(&provider), move(handle));
+        }
+      }
 
-      dp::AttributeProvider provider(2 /* stream count */, staticGeometry.size());
-      provider.InitStream(0 /* stream index */, GetTrafficStaticBindingInfo(), make_ref(staticGeometry.data()));
-      provider.InitStream(1 /* stream index */, GetTrafficDynamicBindingInfo(), make_ref(dynamicGeometry.data()));
-      batcher->InsertTriangleList(state, make_ref(&provider), move(handle));
-    }
-
-    for (auto const & segmentPair : s.second)
-    {
-      m_batchersPool->ReleaseBatcher(TrafficBatcherKey(segmentPair.first->first.m_mwmId, tileKey,
-                                                       segmentPair.first->second.m_roadClass));
+      for (size_t i = 0; i < roadClasses.size(); i++)
+        m_batchersPool->ReleaseBatcher(TrafficBatcherKey(geomIt->first, tileKey, roadClasses[i]));
     }
   }
 
   GLFunctions::glFlush();
+}
+
+bool TrafficGenerator::UpdateColoring(TrafficSegmentsColoring const & coloring)
+{
+  // Check for new mwm's in coloring.
+  bool hasNew = false;
+  for (auto it = coloring.begin(); it != coloring.end(); ++it)
+  {
+    auto const coloringIt = m_coloring.find(it->first);
+    if (coloringIt == m_coloring.end())
+    {
+      hasNew = true;
+      break;
+    }
+  }
+
+  // Update coloring.
+  for (auto it = coloring.begin(); it != coloring.end(); ++it)
+    m_coloring.erase(it->first);
+  m_coloring.insert(coloring.begin(), coloring.end());
+
+  return hasNew;
+}
+
+void TrafficGenerator::ClearCache()
+{
+  m_colorsCacheValid = false;
+  m_coloring.clear();
+}
+
+void TrafficGenerator::ClearCache(MwmSet::MwmId const & mwmId)
+{
+  m_coloring.erase(mwmId);
+}
+
+void TrafficGenerator::FlushGeometry(TrafficBatcherKey const & key, dp::GLState const & state,
+                                     drape_ptr<dp::RenderBucket> && buffer)
+{
+  TrafficRenderData renderData(state);
+  renderData.m_bucket = move(buffer);
+  renderData.m_mwmId = key.m_mwmId;
+  renderData.m_tileKey = key.m_tileKey;
+  m_flushRenderDataFn(move(renderData));
 }
 
 void TrafficGenerator::GenerateSegment(dp::TextureManager::ColorRegion const & colorRegion,
@@ -359,22 +343,22 @@ void TrafficGenerator::GenerateSegment(dp::TextureManager::ColorRegion const & c
   }
 
   // Generate caps.
-//  if (firstFilled)
-//  {
-//    int const kSegmentsCount = 4;
-//    vector<glsl::vec2> normals;
-//    normals.reserve(kAverageCapSize);
-//    GenerateCapNormals(dp::RoundCap, firstLeftNormal, firstRightNormal, -firstTangent,
-//                       1.0f, true /* isStart */, normals, kSegmentsCount);
-//    GenerateCapTriangles(glsl::vec3(firstPoint, kDepth), normals, colorRegion,
-//                         staticGeometry, dynamicGeometry);
+  if (firstFilled)
+  {
+    int const kSegmentsCount = 4;
+    vector<glsl::vec2> normals;
+    normals.reserve(kAverageCapSize);
+    GenerateCapNormals(dp::RoundCap, firstLeftNormal, firstRightNormal, -firstTangent,
+                       1.0f, true /* isStart */, normals, kSegmentsCount);
+    GenerateCapTriangles(glsl::vec3(firstPoint, kDepth), normals, colorRegion,
+                         staticGeometry, dynamicGeometry);
 
-//    normals.clear();
-//    GenerateCapNormals(dp::RoundCap, lastLeftNormal, lastRightNormal, lastTangent,
-//                       1.0f, false /* isStart */, normals, kSegmentsCount);
-//    GenerateCapTriangles(glsl::vec3(lastPoint, kDepth), normals, colorRegion,
-//                         staticGeometry, dynamicGeometry);
-//  }
+    normals.clear();
+    GenerateCapNormals(dp::RoundCap, lastLeftNormal, lastRightNormal, lastTangent,
+                       1.0f, false /* isStart */, normals, kSegmentsCount);
+    GenerateCapTriangles(glsl::vec3(lastPoint, kDepth), normals, colorRegion,
+                         staticGeometry, dynamicGeometry);
+  }
 }
 
 void TrafficGenerator::FillColorsCache(ref_ptr<dp::TextureManager> textures)

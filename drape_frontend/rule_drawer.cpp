@@ -1,7 +1,8 @@
 #include "drape_frontend/rule_drawer.hpp"
-#include "drape_frontend/stylist.hpp"
-#include "drape_frontend/engine_context.hpp"
+
 #include "drape_frontend/apply_feature_functors.hpp"
+#include "drape_frontend/engine_context.hpp"
+#include "drape_frontend/stylist.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "indexer/feature.hpp"
@@ -24,8 +25,8 @@
 #include "base/string_utils.hpp"
 #endif
 
-namespace {
-
+namespace
+{
 df::BaseApplyFeature::HotelData ExtractHotelData(FeatureType const & f)
 {
   df::BaseApplyFeature::HotelData result;
@@ -39,7 +40,29 @@ df::BaseApplyFeature::HotelData ExtractHotelData(FeatureType const & f)
   return result;
 }
 
-} // namespace
+void ExtractTrafficGeometry(FeatureType const & f, df::RoadClass const & roadClass, m2::PolylineD const & polyline,
+                            df::TrafficSegmentsGeometry & geometry)
+{
+  df::TrafficSegmentsGeometry output;
+  if (polyline.GetSize() < 2)
+    return;
+
+  static vector<uint8_t> directions = {traffic::TrafficInfo::RoadSegmentId::kForwardDirection,
+                                       traffic::TrafficInfo::RoadSegmentId::kReverseDirection};
+  auto & segments = geometry[f.GetID().m_mwmId];
+  segments.reserve(segments.size() + directions.size() * (polyline.GetPoints().size() - 1));
+  for (uint16_t segmentIndex = 0; segmentIndex + 1 < static_cast<uint16_t>(polyline.GetPoints().size()); segmentIndex++)
+  {
+    for (size_t dirIndex = 0; dirIndex < directions.size(); dirIndex++)
+    {
+      auto const sid = traffic::TrafficInfo::RoadSegmentId(f.GetID().m_index, segmentIndex, directions[dirIndex]);
+      bool const isReversed = (directions[dirIndex] == traffic::TrafficInfo::RoadSegmentId::kReverseDirection);
+      segments.emplace_back(sid, df::TrafficSegmentGeometry(polyline.ExtractSegment(segmentIndex, isReversed), roadClass));
+    }
+  }
+}
+
+} //  namespace
 
 namespace df
 {
@@ -47,12 +70,14 @@ namespace df
 RuleDrawer::RuleDrawer(TDrawerCallback const & fn,
                        TCheckCancelledCallback const & checkCancelled,
                        TIsCountryLoadedByNameFn const & isLoadedFn,
-                       ref_ptr<EngineContext> context, bool is3dBuildings)
+                       ref_ptr<EngineContext> context,
+                       bool is3dBuildings, bool trafficEnabled)
   : m_callback(fn)
   , m_checkCancelled(checkCancelled)
   , m_isLoadedFn(isLoadedFn)
   , m_context(context)
   , m_is3dBuidings(is3dBuildings)
+  , m_trafficEnabled(trafficEnabled)
   , m_wasCancelled(false)
 {
   ASSERT(m_callback != nullptr, ());
@@ -85,6 +110,8 @@ RuleDrawer::~RuleDrawer()
     overlayShapes.swap(m_mapShapes[df::OverlayType]);
     m_context->FlushOverlays(move(overlayShapes));
   }
+
+  m_context->FlushTrafficGeometry(move(m_trafficGeometry));
 }
 
 bool RuleDrawer::CheckCancelled()
@@ -245,6 +272,25 @@ void RuleDrawer::operator()(FeatureType const & f)
     if (apply.HasGeometry())
       s.ForEachRule(bind(&ApplyLineFeature::ProcessRule, &apply, _1));
     apply.Finish();
+
+    if (m_trafficEnabled && zoomLevel >= kRoadClass0ZoomLevel)
+    {
+      auto const highwayClass = ftypes::GetHighwayClass(f);
+      if (highwayClass == ftypes::HighwayClass::Trunk || highwayClass == ftypes::HighwayClass::Primary)
+      {
+        ExtractTrafficGeometry(f, df::RoadClass::Class0, apply.GetPolyline(), m_trafficGeometry);
+      }
+      else if ((highwayClass == ftypes::HighwayClass::Secondary || highwayClass == ftypes::HighwayClass::Tertiary) &&
+               zoomLevel >= kRoadClass1ZoomLevel)
+      {
+        ExtractTrafficGeometry(f, df::RoadClass::Class1, apply.GetPolyline(), m_trafficGeometry);
+      }
+      else if ((highwayClass == ftypes::HighwayClass::LivingStreet || highwayClass == ftypes::HighwayClass::Service) &&
+               zoomLevel >= kRoadClass2ZoomLevel)
+      {
+        ExtractTrafficGeometry(f, df::RoadClass::Class2, apply.GetPolyline(), m_trafficGeometry);
+      }
+    }
   }
   else
   {

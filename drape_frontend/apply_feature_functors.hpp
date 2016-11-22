@@ -9,6 +9,7 @@
 #include "indexer/point_to_int64.hpp"
 
 #include "geometry/point2d.hpp"
+#include "geometry/polyline2d.hpp"
 #include "geometry/spline.hpp"
 
 #include "std/unordered_map.hpp"
@@ -143,6 +144,8 @@ public:
   bool HasGeometry() const;
   void ProcessRule(Stylist::TRuleWrapper const & rule);
   void Finish();
+
+  m2::PolylineD GetPolyline() const;
 
 private:
   m2::SharedSpline m_spline;

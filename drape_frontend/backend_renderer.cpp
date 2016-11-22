@@ -27,7 +27,8 @@ namespace df
 BackendRenderer::BackendRenderer(Params const & params)
   : BaseRenderer(ThreadsCommutator::ResourceUploadThread, params)
   , m_model(params.m_model)
-  , m_readManager(make_unique_dp<ReadManager>(params.m_commutator, m_model, params.m_allow3dBuildings))
+  , m_readManager(make_unique_dp<ReadManager>(params.m_commutator, m_model,
+                                              params.m_allow3dBuildings, params.m_trafficEnabled))
   , m_trafficGenerator(make_unique_dp<TrafficGenerator>(bind(&BackendRenderer::FlushTrafficRenderData, this, _1)))
   , m_requestedTiles(params.m_requestedTiles)
   , m_updateCurrentCountryFn(params.m_updateCurrentCountryFn)
@@ -331,36 +332,38 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::CacheTrafficSegments:
+  case Message::EnableTraffic:
     {
-      ref_ptr<CacheTrafficSegmentsMessage> msg = message;
-      m_trafficGenerator->AddSegmentsGeometry(msg->GetSegments());
+      ref_ptr<EnableTrafficMessage> msg = message;
+      m_readManager->SetTrafficEnabled(msg->IsTrafficEnabled());
+      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                make_unique_dp<EnableTrafficMessage>(msg->IsTrafficEnabled()),
+                                MessagePriority::Normal);
+      break;
+    }
+
+  case Message::FlushTrafficGeometry:
+    {
+      ref_ptr<FlushTrafficGeometryMessage> msg = message;
+      m_trafficGenerator->FlushSegmentsGeometry(msg->GetKey(), msg->GetSegments(), m_texMng);
       break;
     }
 
   case Message::UpdateTraffic:
     {
       ref_ptr<UpdateTrafficMessage> msg = message;
-      auto segments = m_trafficGenerator->GetSegmentsToUpdate(msg->GetSegmentsColoring());
-      if (!segments.empty())
+      bool const needInvalidate = m_trafficGenerator->UpdateColoring(msg->GetSegmentsColoring());
+      if (m_trafficGenerator->IsColorsCacheRefreshed())
       {
+        auto texCoords = m_trafficGenerator->ProcessCacheRefreshing();
         m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<UpdateTrafficMessage>(segments),
+                                  make_unique_dp<SetTrafficTexCoordsMessage>(move(texCoords)),
                                   MessagePriority::Normal);
       }
-
-      if (segments.size() < msg->GetSegmentsColoring().size())
-      {
-        m_trafficGenerator->GetTrafficGeom(m_texMng, msg->GetSegmentsColoring());
-
-        if (m_trafficGenerator->IsColorsCacheRefreshed())
-        {
-          auto texCoords = m_trafficGenerator->ProcessCacheRefreshing();
-          m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                    make_unique_dp<SetTrafficTexCoordsMessage>(move(texCoords)),
-                                    MessagePriority::Normal);
-        }
-      }
+      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                make_unique_dp<UpdateTrafficMessage>(move(msg->GetSegmentsColoring()),
+                                                                     needInvalidate),
+                                MessagePriority::Normal);
       break;
     }
   case Message::ClearTrafficData:

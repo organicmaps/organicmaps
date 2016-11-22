@@ -773,6 +773,9 @@ public:
   void AllowAutoZoom(bool allowAutoZoom);
   void SaveAutoZoom(bool allowAutoZoom);
 
+  bool LoadTrafficEnabled();
+  void SaveTrafficEnabled(bool trafficEnabled);
+
   /// \returns true if altitude information along |m_route| is available and
   /// false otherwise.
   bool HasRouteAltitude() const;

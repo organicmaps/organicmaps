@@ -36,12 +36,14 @@ struct LessCoverageCell
 
 } // namespace
 
-ReadManager::ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model, bool allow3dBuildings)
+ReadManager::ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model,
+                         bool allow3dBuildings, bool trafficEnabled)
   : m_commutator(commutator)
   , m_model(model)
   , m_pool(make_unique_dp<threads::ThreadPool>(ReadCount(), bind(&ReadManager::OnTaskFinished, this, _1)))
   , m_have3dBuildings(false)
   , m_allow3dBuildings(allow3dBuildings)
+  , m_trafficEnabled(trafficEnabled)
   , m_modeChanged(false)
   , myPool(64, ReadMWMTaskFactory(m_model))
   , m_counter(0)
@@ -202,6 +204,7 @@ void ReadManager::PushTaskBackForTileKey(TileKey const & tileKey, ref_ptr<dp::Te
   shared_ptr<TileInfo> tileInfo(new TileInfo(make_unique_dp<EngineContext>(TileKey(tileKey, m_generationCounter),
                                                                            m_commutator, texMng)));
   tileInfo->Set3dBuildings(m_have3dBuildings && m_allow3dBuildings);
+  tileInfo->SetTrafficEnabled(m_trafficEnabled);
   m_tileInfos.insert(tileInfo);
   ReadMWMTask * task = myPool.Get();
 
@@ -264,6 +267,15 @@ void ReadManager::Allow3dBuildings(bool allow3dBuildings)
   {
     m_modeChanged = true;
     m_allow3dBuildings = allow3dBuildings;
+  }
+}
+
+void ReadManager::SetTrafficEnabled(bool trafficEnabled)
+{
+  if (m_trafficEnabled != trafficEnabled)
+  {
+    m_modeChanged = true;
+    m_trafficEnabled = trafficEnabled;
   }
 }
 

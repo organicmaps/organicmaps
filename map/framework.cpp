@@ -121,6 +121,7 @@ char const kMapStyleKey[] = "MapStyleKeyV1";
 char const kAllow3dKey[] = "Allow3d";
 char const kAllow3dBuildingsKey[] = "Buildings3d";
 char const kAllowAutoZoom[] = "AutoZoom";
+char const kTrafficEnabledKey[] = "TrafficEnabled";
 
 double const kDistEqualQueryMeters = 100.0;
 
@@ -343,8 +344,7 @@ Framework::Framework()
   , m_isRenderingEnabled(true)
   , m_trackingReporter(platform::CreateSocket(), TRACKING_REALTIME_HOST, TRACKING_REALTIME_PORT,
                        tracking::Reporter::kPushDelayMs)
-  , m_trafficManager(m_model.GetIndex(), bind(&Framework::GetMwmsByRect, this, _1),
-                     kMaxTrafficCacheSizeBytes)
+  , m_trafficManager(bind(&Framework::GetMwmsByRect, this, _1), kMaxTrafficCacheSizeBytes)
   , m_displacementModeManager([this](bool show) {
     int const mode = show ? dp::displacement::kHotelMode : dp::displacement::kDefaultMode;
     CallDrapeFunction(bind(&df::DrapeEngine::SetDisplacementMode, _1, mode));
@@ -1605,6 +1605,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   Load3dMode(allow3d, allow3dBuildings);
 
   bool const isAutozoomEnabled = LoadAutoZoom();
+  bool const trafficEnabled = LoadTrafficEnabled();
+  m_trafficManager.SetEnabled(trafficEnabled);
 
   df::DrapeEngine::Params p(contextFactory,
                             make_ref(&m_stringsBundle),
@@ -1612,7 +1614,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
                             df::MapDataProvider(idReadFn, featureReadFn, isCountryLoadedByNameFn, updateCurrentCountryFn),
                             params.m_visualScale, move(params.m_widgetsInitInfo),
                             make_pair(params.m_initialMyPositionState, params.m_hasMyPositionState),
-                            allow3dBuildings, params.m_isChoosePositionMode,
+                            allow3dBuildings, trafficEnabled, params.m_isChoosePositionMode,
                             params.m_isChoosePositionMode, GetSelectedFeatureTriangles(), params.m_isFirstLaunch,
                             m_routingSession.IsActive() && m_routingSession.IsFollowing(), isAutozoomEnabled);
 
@@ -2644,6 +2646,18 @@ void Framework::Load3dMode(bool & allow3d, bool & allow3dBuildings)
 
   if (!settings::Get(kAllow3dBuildingsKey, allow3dBuildings))
     allow3dBuildings = true;
+}
+
+bool Framework::LoadTrafficEnabled()
+{
+  bool enabled = true; //TODO(@rokuz): temporary. It has to be false by default.
+  settings::Get(kTrafficEnabledKey, enabled);
+  return enabled;
+}
+
+void Framework::SaveTrafficEnabled(bool trafficEnabled)
+{
+  settings::Set(kTrafficEnabledKey, trafficEnabled);
 }
 
 bool Framework::LoadAutoZoom()

@@ -34,6 +34,9 @@ public:
   void Set3dBuildings(bool buildings3d) { m_is3dBuildings = buildings3d; }
   bool Get3dBuildings() const { return m_is3dBuildings; }
 
+  void SetTrafficEnabled(bool trafficEnabled) { m_trafficEnabled = trafficEnabled; }
+  bool GetTrafficEnabled() const { return m_trafficEnabled; }
+
   m2::RectD GetGlobalRect() const;
   TileKey const & GetTileKey() const { return m_context->GetTileKey(); }
   bool operator <(TileInfo const & other) const { return GetTileKey() < other.GetTileKey(); }
@@ -50,6 +53,7 @@ private:
   drape_ptr<EngineContext> m_context;
   vector<FeatureID> m_featureInfo;
   bool m_is3dBuildings;
+  bool m_trafficEnabled;
 
   atomic<bool> m_isCanceled;
 };

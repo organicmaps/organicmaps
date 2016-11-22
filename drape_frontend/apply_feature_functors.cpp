@@ -802,4 +802,9 @@ void ApplyLineFeature::Finish()
   }
 }
 
+m2::PolylineD ApplyLineFeature::GetPolyline() const
+{
+  return HasGeometry() ? m2::PolylineD(m_spline->GetPath()) : m2::PolylineD();
+}
+
 } // namespace df

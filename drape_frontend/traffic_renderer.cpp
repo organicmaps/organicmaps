@@ -19,13 +19,8 @@ namespace df
 namespace
 {
 
-int const kMinVisibleZoomLevel = 10;
-
 int const kMinVisibleArrowZoomLevel = 16;
 int const kRoadClass2MinVisibleArrowZoomLevel = 18;
-
-int const kRoadClass1ZoomLevel = 12;
-int const kRoadClass2ZoomLevel = 14;
 
 float const kTrafficArrowAspect = 24.0f / 8.0f;
 
@@ -96,6 +91,14 @@ float CalculateHalfWidth(ScreenBase const & screen, RoadClass const & roadClass,
 
 void TrafficRenderer::AddRenderData(ref_ptr<dp::GpuProgramManager> mng, TrafficRenderData && renderData)
 {
+  // Remove obsolete render data.
+  TileKey const tileKey(renderData.m_tileKey);
+  m_renderData.erase(remove_if(m_renderData.begin(), m_renderData.end(), [&tileKey](TrafficRenderData const & rd)
+  {
+    return tileKey == rd.m_tileKey && rd.m_tileKey.m_generation < tileKey.m_generation;
+  }), m_renderData.end());
+
+  // Add new render data.
   m_renderData.emplace_back(move(renderData));
   TrafficRenderData & rd = m_renderData.back();
 
@@ -103,25 +106,56 @@ void TrafficRenderer::AddRenderData(ref_ptr<dp::GpuProgramManager> mng, TrafficR
   program->Bind();
   rd.m_bucket->GetBuffer()->Build(program);
 
+  rd.m_handles.reserve(rd.m_bucket->GetOverlayHandlesCount());
   for (size_t j = 0; j < rd.m_bucket->GetOverlayHandlesCount(); j++)
   {
     TrafficHandle * handle = static_cast<TrafficHandle *>(rd.m_bucket->GetOverlayHandle(j).get());
-    m_handles.insert(make_pair(handle->GetSegmentId(), handle));
+    rd.m_handles.emplace_back(handle);
     rd.m_boundingBox.Add(handle->GetBoundingBox());
   }
 }
 
+void TrafficRenderer::OnUpdateViewport(CoverageResult const & coverage, int currentZoomLevel,
+                                       buffer_vector<TileKey, 8> const & tilesToDelete)
+{
+  m_renderData.erase(remove_if(m_renderData.begin(), m_renderData.end(),
+                               [&coverage, &currentZoomLevel, &tilesToDelete](TrafficRenderData const & rd)
+  {
+    return rd.m_tileKey.m_zoomLevel == currentZoomLevel &&
+           (rd.m_tileKey.m_x < coverage.m_minTileX || rd.m_tileKey.m_x >= coverage.m_maxTileX ||
+           rd.m_tileKey.m_y < coverage.m_minTileY || rd.m_tileKey.m_y >= coverage.m_maxTileY ||
+           find(tilesToDelete.begin(), tilesToDelete.end(), rd.m_tileKey) != tilesToDelete.end());
+  }), m_renderData.end());
+}
+
+void TrafficRenderer::OnGeometryReady(int currentZoomLevel)
+{
+  m_renderData.erase(remove_if(m_renderData.begin(), m_renderData.end(),
+                               [&currentZoomLevel](TrafficRenderData const & rd)
+  {
+    return rd.m_tileKey.m_zoomLevel != currentZoomLevel;
+  }), m_renderData.end());
+}
+
 void TrafficRenderer::UpdateTraffic(TrafficSegmentsColoring const & trafficColoring)
 {
-  for (auto const & segment : trafficColoring)
+  for (TrafficRenderData & renderData : m_renderData)
   {
-    auto it = m_texCoords.find(static_cast<size_t>(segment.m_speedGroup));
-    if (it == m_texCoords.end())
+    auto coloringIt = trafficColoring.find(renderData.m_mwmId);
+    if (coloringIt == trafficColoring.end())
       continue;
 
-    auto handleIt = m_handles.find(segment.m_id);
-    if (handleIt != m_handles.end())
-      handleIt->second->SetTexCoord(it->second);
+    for (size_t i = 0; i < renderData.m_handles.size(); i++)
+    {
+      auto it = coloringIt->second.find(renderData.m_handles[i]->GetSegmentId());
+      if (it != coloringIt->second.end())
+      {
+        auto texCoordIt = m_texCoords.find(static_cast<size_t>(it->second));
+        if (texCoordIt == m_texCoords.end())
+          continue;
+        renderData.m_handles[i]->SetTexCoord(texCoordIt->second);
+      }
+    }
   }
 }
 
@@ -129,7 +163,7 @@ void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel,
                                     ref_ptr<dp::GpuProgramManager> mng,
                                     dp::UniformValuesStorage const & commonUniforms)
 {
-  if (m_renderData.empty() || zoomLevel < kMinVisibleZoomLevel)
+  if (m_renderData.empty() || zoomLevel < kRoadClass0ZoomLevel)
     return;
 
   m2::RectD const clipRect = screen.ClipRect();
@@ -151,7 +185,7 @@ void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel,
       TrafficHandle * handle = static_cast<TrafficHandle *>(renderData.m_bucket->GetOverlayHandle(0).get());
       ASSERT(handle != nullptr, ());
 
-      int visibleZoomLevel = kMinVisibleZoomLevel;
+      int visibleZoomLevel = kRoadClass0ZoomLevel;
       if (handle->GetRoadClass() == RoadClass::Class1)
       {
         visibleZoomLevel = kRoadClass1ZoomLevel;
@@ -197,7 +231,6 @@ void TrafficRenderer::SetTexCoords(TrafficTexCoords && texCoords)
 void TrafficRenderer::ClearGLDependentResources()
 {
   m_renderData.clear();
-  m_handles.clear();
   m_texCoords.clear();
 }
 
