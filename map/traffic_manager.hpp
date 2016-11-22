@@ -42,7 +42,8 @@ public:
 
   using GetMwmsByRectFn = function<vector<MwmSet::MwmId>(m2::RectD const &)>;
 
-  TrafficManager(Index const & index, GetMwmsByRectFn const & getMwmsByRectFn);
+  TrafficManager(Index const & index, GetMwmsByRectFn const & getMwmsByRectFn,
+                 size_t maxCacheSizeBytes);
   ~TrafficManager();
 
   void SetEnabled(bool enabled);
@@ -62,9 +63,10 @@ private:
 
   void ThreadRoutine();
   bool WaitForRequest(vector<MwmSet::MwmId> & mwms);
+  void RequestTrafficData();
   void RequestTrafficData(MwmSet::MwmId const & mwmId);
-  void RequestTrafficDataImpl(MwmSet::MwmId const & mwmId);
   void OnTrafficDataResponse(traffic::TrafficInfo const & info);
+  void CheckCacheSize();
 
   bool m_isEnabled;
 
@@ -76,11 +78,26 @@ private:
   MyPosition m_currentPosition;
   ScreenBase m_currentModelView;
 
-  set<MwmSet::MwmId> m_mwmIds;
-  map<MwmSet::MwmId, time_point<steady_clock>> m_requestTimings;
+  struct MwmTrafficInfo
+  {
+    MwmTrafficInfo() = default;
+
+    MwmTrafficInfo(time_point<steady_clock> const & requestTime) : m_lastRequestTime(requestTime) {}
+    bool m_isLoaded = false;
+    time_point<steady_clock> m_lastSeenTime;
+    time_point<steady_clock> m_lastRequestTime;
+    size_t m_dataSize = 0;
+  };
+
+  size_t m_maxCacheSizeBytes;
+  size_t m_currentCacheSizeBytes;
+
+  map<MwmSet::MwmId, MwmTrafficInfo> m_mwmInfos;
 
   bool m_isRunning;
   condition_variable m_condition;
+
+  vector<MwmSet::MwmId> m_activeMwms;
 
   vector<MwmSet::MwmId> m_requestedMwms;
   mutex m_requestedMwmsLock;
