@@ -1,7 +1,10 @@
 package com.mapswithme.maps.routing;
 
+import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
 import com.mapswithme.maps.MwmActivity;
@@ -20,7 +23,7 @@ public class RoutingPlanInplaceController extends RoutingPlanController
     super(activity.findViewById(R.id.routing_plan_frame), activity);
   }
 
-  public void show(boolean show)
+  public void show(final boolean show)
   {
     if (show == UiUtils.isVisible(mFrame))
       return;
@@ -36,9 +39,21 @@ public class RoutingPlanInplaceController extends RoutingPlanController
       mSlotsRestoredState = null;
     }
 
-    UiUtils.showIf(show, mFrame);
     if (show)
+    {
+      UiUtils.show(mFrame);
       updatePoints();
+    }
+
+    animateFrame(show, new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        if (!show)
+          UiUtils.hide(mFrame);
+      }
+    });
   }
 
   public void onSaveState(@NonNull Bundle outState)
@@ -60,5 +75,43 @@ public class RoutingPlanInplaceController extends RoutingPlanController
   {
     ImageView altitudeChart = (ImageView) mActivity.findViewById(R.id.altitude_chart);
     showRouteAltitudeChartInternal(altitudeChart);
+  }
+
+  private void animateFrame(final boolean show, final @Nullable Runnable completion)
+  {
+    if (!checkFrameHeight())
+    {
+      mFrame.post(new Runnable()
+      {
+        @Override
+        public void run()
+        {
+          animateFrame(show, completion);
+        }
+      });
+      return;
+    }
+
+    ValueAnimator animator =
+        ValueAnimator.ofFloat(show ? -mFrameHeight : 0, show ? 0 : -mFrameHeight);
+    animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
+    {
+      @Override
+      public void onAnimationUpdate(ValueAnimator animation)
+      {
+        mFrame.setTranslationY((Float) animation.getAnimatedValue());
+      }
+    });
+    animator.addListener(new UiUtils.SimpleAnimatorListener()
+    {
+      @Override
+      public void onAnimationEnd(Animator animation)
+      {
+        if (completion != null)
+          completion.run();
+      }
+    });
+    animator.setDuration(ANIM_TOGGLE);
+    animator.start();
   }
 }

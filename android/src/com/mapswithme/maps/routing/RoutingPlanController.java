@@ -62,7 +62,7 @@ public class RoutingPlanController extends ToolbarController
   private final View mUberFrame;
 
   private final RotateDrawable mToggleImage = new RotateDrawable(R.drawable.ic_down);
-  private int mFrameHeight;
+  protected int mFrameHeight;
   private int mToolbarHeight;
   private boolean mOpen;
   @Nullable
@@ -186,7 +186,7 @@ public class RoutingPlanController extends ToolbarController
     RoutingController.get().cancelPlanning();
   }
 
-  private boolean checkFrameHeight()
+  protected boolean checkFrameHeight()
   {
     if (mFrameHeight > 0)
       return true;
