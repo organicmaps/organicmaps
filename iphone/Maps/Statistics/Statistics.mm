@@ -16,6 +16,15 @@
 // If you have a "missing header error" here, then please run configure.sh script in the root repo folder.
 #import "../../../private.h"
 
+namespace
+{
+void checkFlurryLogStatus(FlurryEventRecordStatus status)
+{
+  NSCAssert(status == FlurryEventRecorded || status == FlurryEventLoggingDelayed,
+            @"Flurry log event failed.");
+}
+}  // namespace
+
 @interface Statistics ()
 
 @property(nonatomic) NSDate * lastLocationLogTimestamp;
@@ -62,8 +71,8 @@
   if (![MWMSettings statisticsEnabled])
     return;
   NSMutableDictionary * params = [self addDefaultAttributesToParameters:parameters];
-  [Flurry logEvent:eventName withParameters:params];
   [Alohalytics logEvent:eventName withDictionary:params];
+  checkFlurryLogStatus([Flurry logEvent:eventName withParameters:params]);
 }
 
 - (void)logEvent:(NSString *)eventName withParameters:(NSDictionary *)parameters atLocation:(CLLocation *)location
@@ -73,15 +82,13 @@
   NSMutableDictionary * params = [self addDefaultAttributesToParameters:parameters];
   [Alohalytics logEvent:eventName withDictionary:params atLocation:location];
   auto const & coordinate = location ? location.coordinate : kCLLocationCoordinate2DInvalid;
-  params[kStatLat] = @(coordinate.latitude);
-  params[kStatLon] = @(coordinate.longitude);
-  [Flurry logEvent:eventName withParameters:params];
+  params[kStatLocation] = makeLocationEventValue(coordinate.latitude, coordinate.longitude);
+  checkFlurryLogStatus([Flurry logEvent:eventName withParameters:params]);
 }
 
 - (NSMutableDictionary *)addDefaultAttributesToParameters:(NSDictionary *)parameters
 {
   NSMutableDictionary * params = [parameters mutableCopy];
-  params[kStatDeviceType] = IPAD ? kStatiPad : kStatiPhone;
   BOOL isLandscape = UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation);
   params[kStatOrientation] = isLandscape ? kStatLandscape : kStatPortrait;
   AppInfo * info = [AppInfo sharedInfo];

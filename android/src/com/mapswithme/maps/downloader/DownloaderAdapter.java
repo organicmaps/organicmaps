@@ -740,7 +740,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     loadAds();
   }
 
-  void setSearchResultsMode(Collection<CountryItem> results, String query)
+  void setSearchResultsMode(@NonNull Collection<CountryItem> results, String query)
   {
     mSearchResultsMode = true;
     mSearchQuery = query.toLowerCase();
@@ -748,6 +748,19 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     mItems.clear();
     mItems.addAll(results);
     processData();
+  }
+
+  void clearAds()
+  {
+    if (mAds.isEmpty())
+      return;
+
+    if (mMytargetHelper != null)
+      mMytargetHelper.cancel();
+
+    mAds.clear();
+    mAdsLoaded = false;
+    notifyDataSetChanged();
   }
 
   void resetSearchResultsMode()
@@ -969,6 +982,13 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     }
 
     mAdsLoading = true;
+
+    if (mMytargetHelper == null)
+      initMytargetHelper();
+  }
+
+  private void initMytargetHelper()
+  {
     mMytargetHelper = new MytargetHelper(new MytargetHelper.Listener<Void>()
     {
       private void onNoAdsInternal()
@@ -1009,7 +1029,6 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
             mAdsLoading = false;
             mAdsLoaded = true;
 
-            int oldSize = mAds.size();
             mAds.clear();
 
             if (banners != null)
@@ -1018,10 +1037,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
                   mAds.add(banner);
 
             mHeadersDecoration.invalidateHeaders();
-            if (oldSize == 0)
-              notifyItemRangeInserted(mNearMeCount, mAds.size());
-            else
-              notifyDataSetChanged();
+            notifyDataSetChanged();
           }
         }, mActivity);
       }

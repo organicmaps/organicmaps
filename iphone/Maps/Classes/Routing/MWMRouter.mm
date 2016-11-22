@@ -76,8 +76,11 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
   auto const & fLatLon = MercatorBounds::ToLatLon(router.finishPoint.Point());
 
   [Statistics logEvent:eventName
-        withParameters:@{kStatProvider : kStatUber, kStatFromLat : @(sLatLon.lat), kStatFromLon : @(sLatLon.lon),
-                            kStatToLat : @(fLatLon.lat), kStatToLon : @(fLatLon.lon)}
+        withParameters:@{
+          kStatProvider : kStatUber,
+          kStatFromLocation : makeLocationEventValue(sLatLon.lat, sLatLon.lon),
+          kStatToLocation : makeLocationEventValue(fLatLon.lat, fLatLon.lon)
+        }
             atLocation:[MWMLocationManager lastLocation]];
 
   [[UIApplication sharedApplication] openURL:taxiDataSource.taxiURL];

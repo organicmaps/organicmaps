@@ -285,9 +285,8 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
     auto const latLon = m_mapObject.GetLatLon();
     NSMutableDictionary * noteInfo = [info mutableCopy];
     noteInfo[kStatProblem] = self.note;
-    noteInfo[kStatLat] = @(latLon.lat);
-    noteInfo[kStatLon] = @(latLon.lon);
-    [Statistics logEvent:kStatEditorProblemReport withParameters:noteInfo];
+    CLLocation * location = [[CLLocation alloc] initWithLatitude:latLon.lat longitude:latLon.lon];
+    [Statistics logEvent:kStatEditorProblemReport withParameters:noteInfo atLocation:location];
     f.CreateNote(latLon, featureID, osm::Editor::NoteProblemType::General, self.note.UTF8String);
   }
 
@@ -958,6 +957,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
 {
   auto const & fid = m_mapObject.GetID();
   auto const latLon = m_mapObject.GetLatLon();
+  CLLocation * location = [[CLLocation alloc] initWithLatitude:latLon.lat longitude:latLon.lon];
   self.isFeatureUploaded = osm::Editor::Instance().IsFeatureUploaded(fid.m_mwmId, fid.m_index);
   [self.tableView reloadRowsAtIndexPaths:@[ [self.tableView indexPathForCell:cell] ]
                         withRowAnimation:UITableViewRowAnimationFade];
@@ -969,10 +969,9 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
             withParameters:@{
               kStatEditorMWMName : @(fid.GetMwmName().c_str()),
               kStatEditorMWMVersion : @(fid.GetMwmVersion()),
-              kStatProblem : @(osm::Editor::kPlaceDoesNotExistMessage),
-              kStatLat : @(latLon.lat),
-              kStatLon : @(latLon.lon)
-            }];
+              kStatProblem : @(osm::Editor::kPlaceDoesNotExistMessage)
+            }
+                atLocation:location];
       GetFramework().CreateNote(latLon, fid, osm::Editor::NoteProblemType::PlaceDoesNotExist,
                                 additional);
       [self backTap];
@@ -984,10 +983,9 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
     [Statistics logEvent:isCreated ? kStatEditorAddCancel : kStatEditorEditCancel
           withParameters:@{
             kStatEditorMWMName : @(fid.GetMwmName().c_str()),
-            kStatEditorMWMVersion : @(fid.GetMwmVersion()),
-            kStatLat : @(latLon.lat),
-            kStatLon : @(latLon.lon)
-          }];
+            kStatEditorMWMVersion : @(fid.GetMwmVersion())
+          }
+              atLocation:location];
     auto & f = GetFramework();
     if (!f.RollBackChanges(fid))
       NSAssert(false, @"We shouldn't call this if we can't roll back!");

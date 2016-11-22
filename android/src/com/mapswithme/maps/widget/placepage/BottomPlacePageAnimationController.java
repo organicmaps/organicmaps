@@ -82,6 +82,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
         mIsDragging = false;
         mIsGestureFinished = false;
         mDownCoord = event.getY();
+        mGestureDetector.onTouchEvent(event);
         break;
       case MotionEvent.ACTION_MOVE:
         if (!mIsGestureStartedInsideView)
@@ -93,7 +94,8 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
 
         break;
       case MotionEvent.ACTION_UP:
-        if (mIsGestureStartedInsideView)
+        final boolean isInside = UiUtils.isViewTouched(event, mDetailsScroll);
+        if (isInside && mIsGestureStartedInsideView)
           mGestureDetector.onTouchEvent(event);
         break;
     }

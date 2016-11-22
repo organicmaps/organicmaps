@@ -53,7 +53,9 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
     mBaseDelegate.onCreate();
 
     super.onCreate(savedInstanceState);
+
     UiUtils.setupStatusBar(this);
+
     setVolumeControlStream(AudioManager.STREAM_MUSIC);
     final int layoutId = getContentLayoutResId();
     if (layoutId != 0)

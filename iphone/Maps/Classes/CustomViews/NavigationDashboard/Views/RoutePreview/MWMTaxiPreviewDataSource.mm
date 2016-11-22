@@ -86,6 +86,14 @@ using namespace uber;
   return self;
 }
 
+- (void)dealloc
+{
+  MWMTaxiCollectionView * cv = self.collectionView;
+  cv.dataSource = nil;
+  cv.delegate = nil;
+  self.collectionView = nil;
+}
+
 - (void)requestTaxiFrom:(MWMRoutePoint const &)from
                                   to:(MWMRoutePoint const &)to
                           completion:(TMWMVoidBlock)completion

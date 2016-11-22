@@ -1,8 +1,10 @@
+CURRENT_PROJECT_VERSION = 6.5.3
+
 // Paths
-OMIM_ROOT=$(PROJECT_DIR)/../..
-BUILD_DIR=$(OMIM_ROOT)/../omim-build/xcode
-QT_PATH=/usr/local/opt/qt5
-BOOST_ROOT=$(OMIM_ROOT)/3party/boost
+OMIM_ROOT = $(PROJECT_DIR)/../..
+BUILD_DIR = $(OMIM_ROOT)/../omim-build/xcode
+QT_PATH = /usr/local/opt/qt5
+BOOST_ROOT = $(OMIM_ROOT)/3party/boost
 
 HEADER_SEARCH_PATHS = $(inherited) $(OMIM_ROOT) $(BOOST_ROOT)
 LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/Frameworks
