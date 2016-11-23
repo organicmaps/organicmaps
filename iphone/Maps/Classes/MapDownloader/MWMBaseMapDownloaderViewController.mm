@@ -341,7 +341,10 @@ using namespace mwm;
 {
   if (!self.showAllMapsButtons)
     return;
-  BOOL const hide = (scrollOffset >= self.lastScrollOffset) && !equalScreenDimensions(scrollOffset, 0.0);
+  UITableView * tv = self.tableView;
+  CGFloat const bottomOffset = tv.contentSize.height - tv.frame.size.height;
+  BOOL const hide =
+      scrollOffset >= self.lastScrollOffset && scrollOffset > 0 && scrollOffset < bottomOffset;
   self.lastScrollOffset = scrollOffset;
   if (self.allMapsView.hidden == hide)
     return;
@@ -455,9 +458,12 @@ using namespace mwm;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-  if ([self.dataSource isButtonCell:section])
-    return 36.0;
-  return 28.0;
+  return [self.dataSource isButtonCell:section] ? 36 : 28;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+  return section == [tableView numberOfSections] - 1 ? 68 : 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
