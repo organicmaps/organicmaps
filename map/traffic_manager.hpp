@@ -71,11 +71,11 @@ private:
   MyPosition m_currentPosition;
   ScreenBase m_currentModelView;
 
-  struct MwmTrafficInfo
+  struct CacheEntry
   {
-    MwmTrafficInfo() = default;
+    CacheEntry() = default;
 
-    MwmTrafficInfo(time_point<steady_clock> const & requestTime) : m_lastRequestTime(requestTime) {}
+    CacheEntry(time_point<steady_clock> const & requestTime) : m_lastRequestTime(requestTime) {}
     bool m_isLoaded = false;
     time_point<steady_clock> m_lastSeenTime;
     time_point<steady_clock> m_lastRequestTime;
@@ -85,7 +85,7 @@ private:
   size_t m_maxCacheSizeBytes;
   size_t m_currentCacheSizeBytes;
 
-  map<MwmSet::MwmId, MwmTrafficInfo> m_mwmInfos;
+  map<MwmSet::MwmId, CacheEntry> m_mwmCache;
 
   bool m_isRunning;
   condition_variable m_condition;

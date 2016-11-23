@@ -48,7 +48,7 @@ void TrafficManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
 
 void TrafficManager::OnRecover()
 {
-  m_mwmInfos.clear();
+  m_mwmCache.clear();
 
   UpdateViewport(m_currentModelView);
   UpdateMyPosition(m_currentPosition);
@@ -141,19 +141,22 @@ void TrafficManager::RequestTrafficData()
     ASSERT(mwmId.IsAlive(), ());
     bool needRequesting = false;
 
-    auto it = m_mwmInfos.find(mwmId);
-    if (it == m_mwmInfos.end())
+    auto currentTime = steady_clock::now();
+
+    auto it = m_mwmCache.find(mwmId);
+    if (it == m_mwmCache.end())
     {
       needRequesting = true;
-      m_mwmInfos.insert(make_pair(mwmId, MwmTrafficInfo(steady_clock::now())));
+      m_mwmCache.insert(make_pair(mwmId, CacheEntry(currentTime)));
     }
     else
     {
-      auto const passedSeconds = steady_clock::now() - it->second.m_lastRequestTime;
+      it->second.m_lastSeenTime = currentTime;
+      auto const passedSeconds = currentTime - it->second.m_lastRequestTime;
       if (passedSeconds >= kUpdateInterval)
       {
         needRequesting = true;
-        it->second.m_lastRequestTime = steady_clock::now();
+        it->second.m_lastRequestTime = currentTime;
       }
     }
 
@@ -170,8 +173,8 @@ void TrafficManager::RequestTrafficData(MwmSet::MwmId const & mwmId)
 
 void TrafficManager::OnTrafficDataResponse(traffic::TrafficInfo const & info)
 {
-  auto it = m_mwmInfos.find(info.GetMwmId());
-  if (it == m_mwmInfos.end())
+  auto it = m_mwmCache.find(info.GetMwmId());
+  if (it == m_mwmCache.end())
     return;
 
   // Update cache.
@@ -190,24 +193,24 @@ void TrafficManager::OnTrafficDataResponse(traffic::TrafficInfo const & info)
 
 void TrafficManager::CheckCacheSize()
 {
-  if ((m_currentCacheSizeBytes > m_maxCacheSizeBytes) && (m_mwmInfos.size() > m_activeMwms.size()))
+  if (m_currentCacheSizeBytes > m_maxCacheSizeBytes && m_mwmCache.size() > m_activeMwms.size())
   {
     std::multimap<time_point<steady_clock>, MwmSet::MwmId> seenTimings;
-    for (auto const & mwmInfo : m_mwmInfos)
+    for (auto const & mwmInfo : m_mwmCache)
       seenTimings.insert(make_pair(mwmInfo.second.m_lastSeenTime, mwmInfo.first));
 
     auto itSeen = seenTimings.begin();
-    while ((m_currentCacheSizeBytes > m_maxCacheSizeBytes) &&
-           (m_mwmInfos.size() > m_activeMwms.size()))
+    while (m_currentCacheSizeBytes > m_maxCacheSizeBytes &&
+           m_mwmCache.size() > m_activeMwms.size())
     {
       auto const mwmId = itSeen->second;
-      auto const it = m_mwmInfos.find(mwmId);
+      auto const it = m_mwmCache.find(mwmId);
       if (it->second.m_isLoaded)
       {
         m_currentCacheSizeBytes -= it->second.m_dataSize;
         m_drapeEngine->ClearTrafficCache(mwmId);
       }
-      m_mwmInfos.erase(it);
+      m_mwmCache.erase(it);
       ++itSeen;
     }
   }
