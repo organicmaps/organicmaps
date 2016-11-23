@@ -2,6 +2,7 @@ package com.mapswithme.util;
 
 import android.animation.Animator;
 import android.support.annotation.IntDef;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
@@ -106,6 +107,30 @@ public final class Animations
       public void run()
       {
         appearSliding(viewToShow, appearFrom, completionListener);
+      }
+    });
+  }
+
+  public static void fadeOutView(@NonNull final View view, @Nullable final Runnable completionListener)
+  {
+    view.animate().setDuration(DURATION_DEFAULT).alpha(0).setListener(new UiUtils.SimpleAnimatorListener() {
+      @Override
+      public void onAnimationEnd(Animator animation)
+      {
+        if (completionListener != null)
+          completionListener.run();
+      }
+    });
+  }
+
+  public static void fadeInView(@NonNull final View view, @Nullable final Runnable completionListener)
+  {
+    view.animate().setDuration(DURATION_DEFAULT).alpha(1).setListener(new UiUtils.SimpleAnimatorListener() {
+      @Override
+      public void onAnimationEnd(Animator animation)
+      {
+        if (completionListener != null)
+          completionListener.run();
       }
     });
   }

@@ -313,6 +313,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
     }
 
     mDetailsScroll.setTranslationY(detailsTranslation);
+    notifyProgress();
     refreshToolbarVisibility();
     return consumeEvent;
   }
@@ -489,6 +490,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
       {
         initialVisibility();
         mPlacePage.setTranslationY(0);
+        mDetailsScroll.setTranslationY(mDetailsScroll.getHeight());
         notifyProgress();
         notifyVisibilityListener(false, false);
       }
@@ -528,7 +530,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
 
   private void notifyProgress()
   {
-    notifyProgress(0, mPreview.getTranslationY());
+    notifyProgress(0, mDetailsScroll.getTranslationY() + mPlacePage.getTranslationY());
   }
 
   private class UpdateListener implements ValueAnimator.AnimatorUpdateListener

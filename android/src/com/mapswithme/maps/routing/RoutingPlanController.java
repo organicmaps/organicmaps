@@ -1,5 +1,6 @@
 package com.mapswithme.maps.routing;
 
+import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -69,6 +70,14 @@ public class RoutingPlanController extends ToolbarController
 
   @Nullable
   private UberInfo.Product mUberProduct;
+
+  @Nullable
+  private OnToggleListener mToggleListener;
+
+  public interface OnToggleListener
+  {
+    void onToggle(boolean state);
+  }
 
   private RadioButton setupRouterButton(@IdRes int buttonId, final @DrawableRes int iconRes, View.OnClickListener clickListener)
   {
@@ -352,6 +361,14 @@ public class RoutingPlanController extends ToolbarController
           mToggleImage.setAngle((1.0f - fraction) * 180.0f);
         }
       });
+      animator.addListener(new UiUtils.SimpleAnimatorListener() {
+        @Override
+        public void onAnimationEnd(Animator animation)
+        {
+          if (mToggleListener != null)
+            mToggleListener.onToggle(mOpen);
+        }
+      });
 
       animator.setDuration(ANIM_TOGGLE);
       animator.start();
@@ -362,6 +379,15 @@ public class RoutingPlanController extends ToolbarController
       animateSlotFrame(mOpen ? 0 : mFrameHeight);
       mToggleImage.setAngle(mOpen ? 180.0f : 0.0f);
       mSlotFrame.unfadeSlots();
+      mSlotFrame.post(new Runnable()
+      {
+        @Override
+        public void run()
+        {
+          if (mToggleListener != null)
+            mToggleListener.onToggle(mOpen);
+        }
+      });
     }
   }
 
@@ -543,5 +569,15 @@ public class RoutingPlanController extends ToolbarController
     MapObject to = RoutingController.get().getEndPoint();
     Location location = LocationHelper.INSTANCE.getLastKnownLocation();
     Statistics.INSTANCE.trackUber(from, to, location, isUberInstalled);
+  }
+
+  public float getHeight()
+  {
+    return mFrame.getHeight();
+  }
+
+  public void setOnToggleListener(@Nullable OnToggleListener listener)
+  {
+    mToggleListener = listener;
   }
 }
