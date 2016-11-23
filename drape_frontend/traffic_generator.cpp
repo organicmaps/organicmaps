@@ -198,8 +198,8 @@ void TrafficGenerator::FlushSegmentsGeometry(TileKey const & tileKey, TrafficSeg
     auto coloringIt = m_coloring.find(geomIt->first);
     if (coloringIt != m_coloring.end())
     {
-      for (size_t i = 0; i < roadClasses.size(); i++)
-        m_batchersPool->ReserveBatcher(TrafficBatcherKey(geomIt->first, tileKey, roadClasses[i]));
+      for (auto const & roadClass : roadClasses)
+        m_batchersPool->ReserveBatcher(TrafficBatcherKey(geomIt->first, tileKey, roadClass));
 
       auto & coloring = coloringIt->second;
       for (size_t i = 0; i < geomIt->second.size(); i++)
@@ -216,7 +216,8 @@ void TrafficGenerator::FlushSegmentsGeometry(TileKey const & tileKey, TrafficSeg
 
           vector<TrafficStaticVertex> staticGeometry;
           vector<TrafficDynamicVertex> dynamicGeometry;
-          GenerateSegment(colorRegion, g.m_polyline, tileKey.GetGlobalRect().Center(), staticGeometry, dynamicGeometry);
+          bool const generateCaps = (tileKey.m_zoomLevel > kOutlineMinZoomLevel);
+          GenerateSegment(colorRegion, g.m_polyline, tileKey.GetGlobalRect().Center(), generateCaps, staticGeometry, dynamicGeometry);
           ASSERT_EQUAL(staticGeometry.size(), dynamicGeometry.size(), ());
 
           if ((staticGeometry.size() + dynamicGeometry.size()) == 0)
@@ -233,8 +234,8 @@ void TrafficGenerator::FlushSegmentsGeometry(TileKey const & tileKey, TrafficSeg
         }
       }
 
-      for (size_t i = 0; i < roadClasses.size(); i++)
-        m_batchersPool->ReleaseBatcher(TrafficBatcherKey(geomIt->first, tileKey, roadClasses[i]));
+      for (auto const & roadClass : roadClasses)
+        m_batchersPool->ReleaseBatcher(TrafficBatcherKey(geomIt->first, tileKey, roadClass));
     }
   }
 
@@ -243,23 +244,13 @@ void TrafficGenerator::FlushSegmentsGeometry(TileKey const & tileKey, TrafficSeg
 
 bool TrafficGenerator::UpdateColoring(TrafficSegmentsColoring const & coloring)
 {
-  // Check for new mwm's in coloring.
   bool hasNew = false;
   for (auto it = coloring.begin(); it != coloring.end(); ++it)
   {
-    auto const coloringIt = m_coloring.find(it->first);
-    if (coloringIt == m_coloring.end())
-    {
+    if (!hasNew && m_coloring.find(it->first) == m_coloring.end())
       hasNew = true;
-      break;
-    }
+    m_coloring[it->first] = it->second;
   }
-
-  // Update coloring.
-  for (auto it = coloring.begin(); it != coloring.end(); ++it)
-    m_coloring.erase(it->first);
-  m_coloring.insert(coloring.begin(), coloring.end());
-
   return hasNew;
 }
 
@@ -286,7 +277,7 @@ void TrafficGenerator::FlushGeometry(TrafficBatcherKey const & key, dp::GLState 
 
 void TrafficGenerator::GenerateSegment(dp::TextureManager::ColorRegion const & colorRegion,
                                        m2::PolylineD const & polyline, m2::PointD const & tileCenter,
-                                       vector<TrafficStaticVertex> & staticGeometry,
+                                       bool generateCaps, vector<TrafficStaticVertex> & staticGeometry,
                                        vector<TrafficDynamicVertex> & dynamicGeometry)
 {
   vector<m2::PointD> const & path = polyline.GetPoints();
@@ -343,7 +334,7 @@ void TrafficGenerator::GenerateSegment(dp::TextureManager::ColorRegion const & c
   }
 
   // Generate caps.
-  if (firstFilled)
+  if (generateCaps && firstFilled)
   {
     int const kSegmentsCount = 4;
     vector<glsl::vec2> normals;

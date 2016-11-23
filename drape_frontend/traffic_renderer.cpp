@@ -20,7 +20,7 @@ namespace
 {
 
 int const kMinVisibleArrowZoomLevel = 16;
-int const kRoadClass2MinVisibleArrowZoomLevel = 18;
+int const kRoadClass2MinVisibleArrowZoomLevel = 17;
 
 float const kTrafficArrowAspect = 24.0f / 8.0f;
 
@@ -29,15 +29,15 @@ float const kLeftWidthInPixel[] =
   // 1   2     3     4     5     6     7     8     9     10
   0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f,
   //11   12     13    14    15    16    17    18    19     20
-  0.75f, 0.75f, 1.0f, 2.0f, 2.0f, 3.0f, 3.0f, 4.0f, 5.0f, 8.0f
+  0.75f, 0.75f, 0.75f, 2.0f, 2.0f, 3.0f, 3.0f, 4.0f, 5.0f, 8.0f
 };
 
 float const kRightWidthInPixel[] =
 {
   // 1   2     3     4     5     6     7     8     9     10
-  2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 3.0f, 3.0f,
+  2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 3.0f, 4.0f,
   //11  12    13    14    15    16    17    18    19     20
-  3.0f, 3.0f, 3.0f, 2.0f, 2.0f, 3.0f, 3.0f, 4.0f, 5.0f, 8.0f
+  4.0f, 4.0f, 4.0f, 2.0f, 2.0f, 3.0f, 3.0f, 4.0f, 5.0f, 8.0f
 };
 
 float const kRoadClass1WidthScalar[] =
@@ -45,7 +45,7 @@ float const kRoadClass1WidthScalar[] =
   // 1   2     3     4     5     6     7     8     9     10
   0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
   //11  12    13    14    15    16    17    18    19     20
-  0.0f, 0.4f, 0.5f, 0.6f, 0.8f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f
+  0.0f, 0.2f, 0.3f, 0.6f, 0.8f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f
 };
 
 float const kRoadClass2WidthScalar[] =
@@ -53,7 +53,7 @@ float const kRoadClass2WidthScalar[] =
   // 1   2     3     4     5     6     7     8     9     10
   0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
   //11  12    13    14    15    16    17    18    19     20
-  0.0f, 0.0f, 0.0f, 0.2f, 0.3f, 0.4f, 0.5f, 0.6f, 0.8f, 1.0f
+  0.0f, 0.0f, 0.0f, 0.2f, 0.3f, 0.5f, 0.7f, 0.8f, 0.9f, 1.0f
 };
 
 float CalculateHalfWidth(ScreenBase const & screen, RoadClass const & roadClass, bool left)
@@ -179,6 +179,7 @@ void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel,
     float invLeftPixelLength = 0.0f;
     float rightPixelHalfWidth = 0.0f;
     int minVisibleArrowZoomLevel = kMinVisibleArrowZoomLevel;
+    float outline = 0.0f;
 
     if (renderData.m_bucket->GetOverlayHandlesCount() > 0)
     {
@@ -186,7 +187,11 @@ void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel,
       ASSERT(handle != nullptr, ());
 
       int visibleZoomLevel = kRoadClass0ZoomLevel;
-      if (handle->GetRoadClass() == RoadClass::Class1)
+      if (handle->GetRoadClass() == RoadClass::Class0)
+      {
+        outline = (zoomLevel <= kOutlineMinZoomLevel ? 1.0 : 0.0);
+      }
+      else if (handle->GetRoadClass() == RoadClass::Class1)
       {
         visibleZoomLevel = kRoadClass1ZoomLevel;
       }
@@ -215,6 +220,7 @@ void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel,
     math::Matrix<float, 4, 4> const mv = renderData.m_tileKey.GetTileBasedModelView(screen);
     uniforms.SetMatrix4x4Value("modelView", mv.m_data);
     uniforms.SetFloatValue("u_opacity", 1.0f);
+    uniforms.SetFloatValue("u_outline", outline);
     uniforms.SetFloatValue("u_trafficParams", leftPixelHalfWidth, rightPixelHalfWidth,
                            invLeftPixelLength, zoomLevel >= minVisibleArrowZoomLevel ? 1.0f : 0.0f);
     dp::ApplyUniforms(uniforms, program);

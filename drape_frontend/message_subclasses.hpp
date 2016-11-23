@@ -1051,8 +1051,8 @@ public:
     , m_needInvalidate(false)
   {}
 
-  UpdateTrafficMessage(TrafficSegmentsColoring const & segmentsColoring, bool needInvalidate)
-    : m_segmentsColoring(segmentsColoring)
+  UpdateTrafficMessage(TrafficSegmentsColoring && segmentsColoring, bool needInvalidate)
+    : m_segmentsColoring(move(segmentsColoring))
     , m_needInvalidate(needInvalidate)
   {}
 

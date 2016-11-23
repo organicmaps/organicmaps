@@ -36,6 +36,7 @@ enum class RoadClass : uint8_t
 int constexpr kRoadClass0ZoomLevel = 10;
 int constexpr kRoadClass1ZoomLevel = 12;
 int constexpr kRoadClass2ZoomLevel = 14;
+int constexpr kOutlineMinZoomLevel = 13;
 
 struct TrafficSegmentID
 {
@@ -192,9 +193,9 @@ private:
     {
       if (lhs.m_mwmId == rhs.m_mwmId)
       {
-        if (lhs.m_tileKey == rhs.m_tileKey)
+        if (lhs.m_tileKey.EqualStrict(rhs.m_tileKey))
           return lhs.m_roadClass < rhs.m_roadClass;
-        return lhs.m_tileKey < rhs.m_tileKey;
+        return lhs.m_tileKey.LessStrict(rhs.m_tileKey);
       }
       return lhs.m_mwmId < rhs.m_mwmId;
     }
@@ -202,7 +203,7 @@ private:
 
   void GenerateSegment(dp::TextureManager::ColorRegion const & colorRegion,
                        m2::PolylineD const & polyline, m2::PointD const & tileCenter,
-                       vector<TrafficStaticVertex> & staticGeometry,
+                       bool generateCaps, vector<TrafficStaticVertex> & staticGeometry,
                        vector<TrafficDynamicVertex> & dynamicGeometry);
   void FillColorsCache(ref_ptr<dp::TextureManager> textures);
 
@@ -211,9 +212,6 @@ private:
 
   TrafficSegmentsColoring m_coloring;
 
-  //map<TileKey, TrafficSegmentsGeometry> m_segments;
-
-  //set<TrafficSegmentID> m_segmentsCache;
   array<dp::TextureManager::ColorRegion, static_cast<size_t>(traffic::SpeedGroup::Count)> m_colorsCache;
   bool m_colorsCacheValid = false;
   bool m_colorsCacheRefreshed = false;

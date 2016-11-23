@@ -50,10 +50,10 @@ void ExtractTrafficGeometry(FeatureType const & f, df::RoadClass const & roadCla
   static vector<uint8_t> directions = {traffic::TrafficInfo::RoadSegmentId::kForwardDirection,
                                        traffic::TrafficInfo::RoadSegmentId::kReverseDirection};
   auto & segments = geometry[f.GetID().m_mwmId];
-  segments.reserve(segments.size() + directions.size() * (polyline.GetPoints().size() - 1));
-  for (uint16_t segmentIndex = 0; segmentIndex + 1 < static_cast<uint16_t>(polyline.GetPoints().size()); segmentIndex++)
+  segments.reserve(segments.size() + directions.size() * (polyline.GetSize() - 1));
+  for (uint16_t segmentIndex = 0; segmentIndex + 1 < static_cast<uint16_t>(polyline.GetSize()); ++segmentIndex)
   {
-    for (size_t dirIndex = 0; dirIndex < directions.size(); dirIndex++)
+    for (size_t dirIndex = 0; dirIndex < directions.size(); ++dirIndex)
     {
       auto const sid = traffic::TrafficInfo::RoadSegmentId(f.GetID().m_index, segmentIndex, directions[dirIndex]);
       bool const isReversed = (directions[dirIndex] == traffic::TrafficInfo::RoadSegmentId::kReverseDirection);
@@ -275,20 +275,29 @@ void RuleDrawer::operator()(FeatureType const & f)
 
     if (m_trafficEnabled && zoomLevel >= kRoadClass0ZoomLevel)
     {
+      vector<m2::PointD> points;
+      points.reserve(f.GetPointsCount());
+      f.ForEachPoint([&points](m2::PointD const & p) { points.emplace_back(p); }, FeatureType::BEST_GEOMETRY);
+      m2::PolylineD const polyline(points);
+
+      struct Checker
+      {
+        vector<ftypes::HighwayClass> m_highwayClasses;
+        int m_zoomLevel;
+        df::RoadClass m_roadClass;
+      };
+      static Checker const checkers[] = {
+        {{ftypes::HighwayClass::Trunk, ftypes::HighwayClass::Primary}, kRoadClass0ZoomLevel, df::RoadClass::Class0},
+        {{ftypes::HighwayClass::Secondary, ftypes::HighwayClass::Tertiary}, kRoadClass1ZoomLevel, df::RoadClass::Class1},
+        {{ftypes::HighwayClass::LivingStreet, ftypes::HighwayClass::Service}, kRoadClass2ZoomLevel, df::RoadClass::Class2}
+      };
+
       auto const highwayClass = ftypes::GetHighwayClass(f);
-      if (highwayClass == ftypes::HighwayClass::Trunk || highwayClass == ftypes::HighwayClass::Primary)
+      for (size_t i = 0; i < ARRAY_SIZE(checkers); ++i)
       {
-        ExtractTrafficGeometry(f, df::RoadClass::Class0, apply.GetPolyline(), m_trafficGeometry);
-      }
-      else if ((highwayClass == ftypes::HighwayClass::Secondary || highwayClass == ftypes::HighwayClass::Tertiary) &&
-               zoomLevel >= kRoadClass1ZoomLevel)
-      {
-        ExtractTrafficGeometry(f, df::RoadClass::Class1, apply.GetPolyline(), m_trafficGeometry);
-      }
-      else if ((highwayClass == ftypes::HighwayClass::LivingStreet || highwayClass == ftypes::HighwayClass::Service) &&
-               zoomLevel >= kRoadClass2ZoomLevel)
-      {
-        ExtractTrafficGeometry(f, df::RoadClass::Class2, apply.GetPolyline(), m_trafficGeometry);
+        auto const & classes = checkers[i].m_highwayClasses;
+        if (find(classes.begin(), classes.end(), highwayClass) != classes.end() && zoomLevel >= checkers[i].m_zoomLevel)
+          ExtractTrafficGeometry(f, checkers[i].m_roadClass, polyline, m_trafficGeometry);
       }
     }
   }
