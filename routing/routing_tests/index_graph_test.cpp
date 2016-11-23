@@ -4,6 +4,7 @@
 #include "routing/car_model.hpp"
 #include "routing/edge_estimator.hpp"
 #include "routing/index_graph.hpp"
+#include "routing/index_graph_starter.hpp"
 
 #include "geometry/point2d.hpp"
 
@@ -66,21 +67,22 @@ shared_ptr<EdgeEstimator> CreateEstimator()
   return CreateCarEdgeEstimator(make_shared<CarModelFactory>()->GetVehicleModel());
 }
 
-void TestRoute(IndexGraph & graph, RoadPoint const & start, RoadPoint const & finish,
+void TestRoute(IndexGraph const & graph, RoadPoint const & start, RoadPoint const & finish,
                size_t expectedLength)
 {
   LOG(LINFO, ("Test route", start.GetFeatureId(), ",", start.GetPointId(), "=>",
               finish.GetFeatureId(), ",", finish.GetPointId()));
 
-  AStarAlgorithm<IndexGraph> algorithm;
+  AStarAlgorithm<IndexGraphStarter> algorithm;
   RoutingResult<Joint::Id> routingResult;
 
-  AStarAlgorithm<IndexGraph>::Result const resultCode = algorithm.FindPath(
-      graph, graph.InsertJoint(start), graph.InsertJoint(finish), routingResult, {}, {});
-  vector<RoadPoint> roadPoints;
-  graph.RedressRoute(routingResult.path, roadPoints);
+  IndexGraphStarter starter(graph, start, finish);
+  auto const resultCode = algorithm.FindPath(starter, starter.GetStartJoint(),
+                                             starter.GetFinishJoint(), routingResult, {}, {});
+  TEST_EQUAL(resultCode, AStarAlgorithm<IndexGraphStarter>::Result::OK, ());
 
-  TEST_EQUAL(resultCode, AStarAlgorithm<IndexGraph>::Result::OK, ());
+  vector<RoadPoint> roadPoints;
+  starter.RedressRoute(routingResult.path, roadPoints);
   TEST_EQUAL(roadPoints.size(), expectedLength, ());
 }
 
@@ -88,10 +90,7 @@ void TestEdges(IndexGraph const & graph, Joint::Id jointId,
                vector<Joint::Id> const & expectedTargets, bool forward)
 {
   vector<JointEdge> edges;
-  if (forward)
-    graph.GetOutgoingEdgesList(jointId, edges);
-  else
-    graph.GetIngoingEdgesList(jointId, edges);
+  graph.GetEdgesList(jointId, forward, edges);
 
   vector<Joint::Id> targets;
   for (JointEdge const & edge : edges)

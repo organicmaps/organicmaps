@@ -19,6 +19,11 @@ public:
 
   uint32_t GetPointId() const { return m_pointId; }
 
+  bool operator==(RoadPoint const & rp) const
+  {
+    return m_featureId == rp.m_featureId && m_pointId == rp.m_pointId;
+  }
+
 private:
   uint32_t m_featureId;
   uint32_t m_pointId;

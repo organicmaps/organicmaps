@@ -16,8 +16,8 @@ class JointIndex final
 {
 public:
   // Read comments in Build method about -1.
-  size_t GetNumJoints() const { return m_offsets.size() - 1; }
-  size_t GetNumPoints() const { return m_points.size(); }
+  uint32_t GetNumJoints() const { return m_offsets.size() - 1; }
+  uint32_t GetNumPoints() const { return m_points.size(); }
   RoadPoint GetPoint(Joint::Id jointId) const { return m_points[Begin(jointId)]; }
 
   template <typename F>
@@ -36,8 +36,6 @@ public:
   }
 
   void Build(RoadIndex const & roadIndex, uint32_t numJoints);
-  void FindPointsWithCommonFeature(Joint::Id jointId0, Joint::Id jointId1, RoadPoint & result0,
-                                   RoadPoint & result1) const;
   Joint::Id InsertJoint(RoadPoint const & rp);
   void AppendToJoint(Joint::Id jointId, RoadPoint rp);
 

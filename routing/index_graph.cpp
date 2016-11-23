@@ -11,19 +11,11 @@ IndexGraph::IndexGraph(unique_ptr<GeometryLoader> loader, shared_ptr<EdgeEstimat
   ASSERT(m_estimator, ());
 }
 
-void IndexGraph::GetOutgoingEdgesList(Joint::Id jointId, vector<JointEdge> & edges) const
+void IndexGraph::GetEdgesList(Joint::Id jointId, bool isOutgoing, vector<JointEdge> & edges) const
 {
-  GetEdgesList(jointId, true, edges);
-}
-
-void IndexGraph::GetIngoingEdgesList(Joint::Id jointId, vector<JointEdge> & edges) const
-{
-  GetEdgesList(jointId, false, edges);
-}
-
-double IndexGraph::HeuristicCostEstimate(Joint::Id jointFrom, Joint::Id jointTo) const
-{
-  return m_estimator->CalcHeuristic(GetPoint(jointFrom), GetPoint(jointTo));
+  m_jointIndex.ForEachPoint(jointId, [this, &edges, isOutgoing](RoadPoint const & rp) {
+    AddNeighboringEdges(rp, isOutgoing, edges);
+  });
 }
 
 m2::PointD const & IndexGraph::GetPoint(Joint::Id jointId) const
@@ -48,54 +40,34 @@ Joint::Id IndexGraph::InsertJoint(RoadPoint const & rp)
   return jointId;
 }
 
-void IndexGraph::RedressRoute(vector<Joint::Id> const & route, vector<RoadPoint> & roadPoints) const
+bool IndexGraph::JointLaysOnRoad(Joint::Id jointId, uint32_t featureId) const
 {
-  if (route.size() < 2)
-  {
-    if (route.size() == 1)
-      roadPoints.emplace_back(m_jointIndex.GetPoint(route[0]));
+  bool result = false;
+  m_jointIndex.ForEachPoint(jointId, [&result, featureId](RoadPoint const & rp) {
+    if (rp.GetFeatureId() == featureId)
+      result = true;
+  });
+
+  return result;
+}
+
+inline void IndexGraph::AddNeighboringEdges(RoadPoint rp, bool isOutgoing,
+                                            vector<JointEdge> & edges) const
+{
+  RoadGeometry const & road = m_geometry.GetRoad(rp.GetFeatureId());
+  if (!road.IsRoad())
     return;
-  }
 
-  roadPoints.reserve(route.size() * 2);
+  bool const bidirectional = !road.IsOneWay();
+  if (!isOutgoing || bidirectional)
+    AddNeighboringEdge(road, rp, false /* forward */, edges);
 
-  for (size_t i = 0; i < route.size() - 1; ++i)
-  {
-    Joint::Id const prevJoint = route[i];
-    Joint::Id const nextJoint = route[i + 1];
-
-    RoadPoint rp0;
-    RoadPoint rp1;
-    m_jointIndex.FindPointsWithCommonFeature(prevJoint, nextJoint, rp0, rp1);
-    if (i == 0)
-      roadPoints.emplace_back(rp0);
-
-    uint32_t const featureId = rp0.GetFeatureId();
-    uint32_t const pointFrom = rp0.GetPointId();
-    uint32_t const pointTo = rp1.GetPointId();
-
-    if (pointFrom < pointTo)
-    {
-      for (uint32_t pointId = pointFrom + 1; pointId < pointTo; ++pointId)
-        roadPoints.emplace_back(featureId, pointId);
-    }
-    else if (pointFrom > pointTo)
-    {
-      for (uint32_t pointId = pointFrom - 1; pointId > pointTo; --pointId)
-        roadPoints.emplace_back(featureId, pointId);
-    }
-    else
-    {
-      MYTHROW(RootException,
-              ("Wrong equality pointFrom = pointTo =", pointFrom, ", featureId = ", featureId));
-    }
-
-    roadPoints.emplace_back(rp1);
-  }
+  if (isOutgoing || bidirectional)
+    AddNeighboringEdge(road, rp, true /* forward */, edges);
 }
 
 inline void IndexGraph::AddNeighboringEdge(RoadGeometry const & road, RoadPoint rp, bool forward,
-                                           vector<TEdgeType> & edges) const
+                                           vector<JointEdge> & edges) const
 {
   pair<Joint::Id, uint32_t> const & neighbor = m_roadIndex.FindNeighbor(rp, forward);
   if (neighbor.first != Joint::kInvalidId)
@@ -105,22 +77,17 @@ inline void IndexGraph::AddNeighboringEdge(RoadGeometry const & road, RoadPoint 
   }
 }
 
-inline void IndexGraph::GetEdgesList(Joint::Id jointId, bool isOutgoing,
-                                     vector<TEdgeType> & edges) const
+void IndexGraph::AddDirectEdge(uint32_t featureId, uint32_t pointFrom, uint32_t pointTo,
+                               Joint::Id target, bool forward, vector<JointEdge> & edges) const
 {
-  edges.clear();
+  RoadGeometry const & road = m_geometry.GetRoad(featureId);
+  if (!road.IsRoad())
+    return;
 
-  m_jointIndex.ForEachPoint(jointId, [this, &edges, isOutgoing](RoadPoint const & rp) {
-    RoadGeometry const & road = m_geometry.GetRoad(rp.GetFeatureId());
-    if (!road.IsRoad())
-      return;
+  if (road.IsOneWay() && forward != (pointFrom < pointTo))
+    return;
 
-    bool const bidirectional = !road.IsOneWay();
-    if (!isOutgoing || bidirectional)
-      AddNeighboringEdge(road, rp, false /* forward */, edges);
-
-    if (isOutgoing || bidirectional)
-      AddNeighboringEdge(road, rp, true /* forward */, edges);
-  });
+  double const distance = m_estimator->CalcEdgesWeight(road, pointFrom, pointTo);
+  edges.emplace_back(target, distance);
 }
 }  // namespace routing

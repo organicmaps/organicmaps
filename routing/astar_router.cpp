@@ -7,6 +7,7 @@
 #include "routing/car_model.hpp"
 #include "routing/features_road_graph.hpp"
 #include "routing/index_graph.hpp"
+#include "routing/index_graph_starter.hpp"
 #include "routing/pedestrian_model.hpp"
 #include "routing/route.hpp"
 #include "routing/turns_generator.hpp"
@@ -28,15 +29,16 @@ size_t constexpr kMaxRoadCandidates = 6;
 float constexpr kProgressInterval = 2;
 uint32_t constexpr kDrawPointsPeriod = 10;
 
-vector<Junction> ConvertToJunctions(IndexGraph const & graph, vector<Joint::Id> const & joints)
+vector<Junction> ConvertToJunctions(IndexGraphStarter const & starter,
+                                    vector<Joint::Id> const & joints)
 {
   vector<RoadPoint> roadPoints;
-  graph.RedressRoute(joints, roadPoints);
+  starter.RedressRoute(joints, roadPoints);
 
   vector<Junction> junctions;
   junctions.reserve(roadPoints.size());
 
-  Geometry const & geometry = graph.GetGeometry();
+  Geometry const & geometry = starter.GetGraph().GetGeometry();
   // TODO: Use real altitudes for pedestrian and bicycle routing.
   for (RoadPoint const & point : roadPoints)
     junctions.emplace_back(geometry.GetPoint(point), feature::kDefaultAltitudeMeters);
@@ -109,14 +111,15 @@ IRouter::ResultCode AStarRouter::DoCalculateRoute(MwmSet::MwmId const & mwmId,
   if (!LoadIndex(mwmId, country, graph))
     return IRouter::RouteFileNotExist;
 
+  IndexGraphStarter starter(graph, start, finish);
+
   AStarProgress progress(0, 100);
   progress.Initialize(graph.GetGeometry().GetPoint(start), graph.GetGeometry().GetPoint(finish));
 
   uint32_t drawPointsStep = 0;
-  auto onVisitJunction = [&delegate, &progress, &graph, &drawPointsStep](Joint::Id const & from,
-                                                                         Joint::Id const & target) {
-    m2::PointD const & point = graph.GetPoint(from);
-    m2::PointD const & targetPoint = graph.GetPoint(target);
+  auto onVisitJunction = [&](Joint::Id const & from, Joint::Id const & target) {
+    m2::PointD const & point = starter.GetPoint(from);
+    m2::PointD const & targetPoint = starter.GetPoint(target);
     auto const lastValue = progress.GetLastValue();
     auto const newValue = progress.GetProgressForBidirectedAlgo(point, targetPoint);
     if (newValue - lastValue > kProgressInterval)
@@ -126,20 +129,19 @@ IRouter::ResultCode AStarRouter::DoCalculateRoute(MwmSet::MwmId const & mwmId,
     ++drawPointsStep;
   };
 
-  AStarAlgorithm<IndexGraph> algorithm;
+  AStarAlgorithm<IndexGraphStarter> algorithm;
 
   RoutingResult<Joint::Id> routingResult;
-  Joint::Id const startJoint = graph.InsertJoint(start);
-  Joint::Id const finishJoint = graph.InsertJoint(finish);
-  auto const resultCode = algorithm.FindPathBidirectional(graph, startJoint, finishJoint,
-                                                          routingResult, delegate, onVisitJunction);
+  auto const resultCode =
+      algorithm.FindPathBidirectional(starter, starter.GetStartJoint(), starter.GetFinishJoint(),
+                                      routingResult, delegate, onVisitJunction);
 
   switch (resultCode)
   {
-  case AStarAlgorithm<IndexGraph>::Result::NoPath: return IRouter::RouteNotFound;
-  case AStarAlgorithm<IndexGraph>::Result::Cancelled: return IRouter::Cancelled;
-  case AStarAlgorithm<IndexGraph>::Result::OK:
-    vector<Junction> path = ConvertToJunctions(graph, routingResult.path);
+  case AStarAlgorithm<IndexGraphStarter>::Result::NoPath: return IRouter::RouteNotFound;
+  case AStarAlgorithm<IndexGraphStarter>::Result::Cancelled: return IRouter::Cancelled;
+  case AStarAlgorithm<IndexGraphStarter>::Result::OK:
+    vector<Junction> path = ConvertToJunctions(starter, routingResult.path);
     ReconstructRoute(m_directionsEngine.get(), *m_roadGraph, delegate, path, route);
     return IRouter::NoError;
   }

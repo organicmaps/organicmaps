@@ -15,34 +15,12 @@ void JointIndex::AppendToJoint(Joint::Id jointId, RoadPoint rp)
   m_dynamicJoints[jointId].AddPoint(rp);
 }
 
-void JointIndex::FindPointsWithCommonFeature(Joint::Id jointId0, Joint::Id jointId1,
-                                             RoadPoint & result0, RoadPoint & result1) const
-{
-  bool found = false;
-
-  ForEachPoint(jointId0, [&](RoadPoint const & rp0) {
-    ForEachPoint(jointId1, [&](RoadPoint const & rp1) {
-      if (rp0.GetFeatureId() == rp1.GetFeatureId() && !found)
-      {
-        result0 = rp0;
-        result1 = rp1;
-        found = true;
-      }
-    });
-  });
-
-  if (!found)
-    MYTHROW(RootException, ("Can't find common feature for joints", jointId0, jointId1));
-}
-
 void JointIndex::Build(RoadIndex const & roadIndex, uint32_t numJoints)
 {
-  // +2 is reserved space for start and finish.
   // + 1 is protection for 'End' method from out of bounds.
   // Call End(numJoints-1) requires more size, so add one more item.
   // Therefore m_offsets.size() == numJoints + 1,
   // And m_offsets.back() == m_points.size()
-  m_offsets.reserve(numJoints + 1 + 2);
   m_offsets.assign(numJoints + 1, 0);
 
   // Calculate shifted sizes.
@@ -68,8 +46,6 @@ void JointIndex::Build(RoadIndex const & roadIndex, uint32_t numJoints)
     prevSum = sum;
   }
 
-  // +2 is reserved space for start and finish
-  m_points.reserve(sum + 2);
   m_points.resize(sum);
 
   // Now fill points, m_offsets[nextId] is current incrementing begin.

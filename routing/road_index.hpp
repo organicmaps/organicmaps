@@ -5,6 +5,7 @@
 #include "coding/reader.hpp"
 #include "coding/write_to_sink.hpp"
 
+#include "std/algorithm.hpp"
 #include "std/cstdint.hpp"
 #include "std/unordered_map.hpp"
 #include "std/utility.hpp"
@@ -45,13 +46,25 @@ public:
 
   pair<Joint::Id, uint32_t> FindNeighbor(uint32_t pointId, bool forward) const
   {
-    int32_t const step = forward ? 1 : -1;
+    uint32_t const size = static_cast<uint32_t>(m_jointIds.size());
 
-    for (uint32_t i = pointId + step; i < m_jointIds.size(); i += step)
+    if (forward)
     {
-      Joint::Id const jointId = m_jointIds[i];
-      if (jointId != Joint::kInvalidId)
-        return make_pair(jointId, i);
+      for (uint32_t i = pointId + 1; i < size; ++i)
+      {
+        Joint::Id const jointId = m_jointIds[i];
+        if (jointId != Joint::kInvalidId)
+          return make_pair(jointId, i);
+      }
+    }
+    else
+    {
+      for (uint32_t i = min(pointId, size) - 1; i < size; --i)
+      {
+        Joint::Id const jointId = m_jointIds[i];
+        if (jointId != Joint::kInvalidId)
+          return make_pair(jointId, i);
+      }
     }
 
     return make_pair(Joint::kInvalidId, 0);
