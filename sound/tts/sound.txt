@@ -43,7 +43,7 @@
     it = Gira a destra.
     cs = Otočte se doprava.
     hu = Forduljon jobbra.
-    ro = Curbă la dreapta.
+    ro = Virați la dreapta.
     ja = 右に曲がります。
     da = Drej til højre.
     es = Gire a la derecha.
@@ -193,7 +193,7 @@
     it = Gira a sinistra.
     cs = Otočte se doleva.
     hu = Forduljon balra.
-    ro = Curbă la stânga.
+    ro = Virați la stânga.
     ja = 左に曲がります。
     da = Drej til venstre.
     es = Gire a la izquierda.
