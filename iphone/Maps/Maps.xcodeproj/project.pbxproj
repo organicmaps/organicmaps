@@ -293,6 +293,8 @@
 		34B646C01CEB6FE000E0C7A5 /* MWMEditorAdditionalNameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34B646BF1CEB6FE000E0C7A5 /* MWMEditorAdditionalNameTableViewCell.xib */; };
 		34B646C11CEB6FE000E0C7A5 /* MWMEditorAdditionalNameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34B646BF1CEB6FE000E0C7A5 /* MWMEditorAdditionalNameTableViewCell.xib */; };
 		34B6CF5D1BBBFC6B009203C6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34B6CF5C1BBBFC6B009203C6 /* LaunchScreen.storyboard */; };
+		34B7D4E11DE5903E00BE2309 /* Authorization.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34B7D4E01DE5903E00BE2309 /* Authorization.storyboard */; };
+		34B7D4E21DE5903E00BE2309 /* Authorization.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34B7D4E01DE5903E00BE2309 /* Authorization.storyboard */; };
 		34B82AB21B8344E300180497 /* MWMSearchTextField.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B82AB11B8344E300180497 /* MWMSearchTextField.mm */; };
 		34B82ABA1B837FFD00180497 /* MWMSearchHistoryRequestCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B82AB81B837FFD00180497 /* MWMSearchHistoryRequestCell.mm */; };
 		34B82ABB1B837FFD00180497 /* MWMSearchHistoryRequestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34B82AB91B837FFD00180497 /* MWMSearchHistoryRequestCell.xib */; };
@@ -1240,6 +1242,7 @@
 		34B646BC1CEB6FC000E0C7A5 /* MWMEditorAdditionalNameTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMEditorAdditionalNameTableViewCell.mm; sourceTree = "<group>"; };
 		34B646BF1CEB6FE000E0C7A5 /* MWMEditorAdditionalNameTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMEditorAdditionalNameTableViewCell.xib; sourceTree = "<group>"; };
 		34B6CF5C1BBBFC6B009203C6 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		34B7D4E01DE5903E00BE2309 /* Authorization.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Authorization.storyboard; sourceTree = "<group>"; };
 		34B82AB01B8344E300180497 /* MWMSearchTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchTextField.h; sourceTree = "<group>"; };
 		34B82AB11B8344E300180497 /* MWMSearchTextField.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchTextField.mm; sourceTree = "<group>"; };
 		34B82AB71B837FFD00180497 /* MWMSearchHistoryRequestCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchHistoryRequestCell.h; sourceTree = "<group>"; };
@@ -1952,6 +1955,7 @@
 				FA99CB71147089B100689A9A /* Localizable.strings */,
 				5605022E1B6211E100169CAD /* sound-strings */,
 				347FDDA01BB59B4E00871410 /* Mapsme.storyboard */,
+				34B7D4E01DE5903E00BE2309 /* Authorization.storyboard */,
 				34B6CF5C1BBBFC6B009203C6 /* LaunchScreen.storyboard */,
 			);
 			name = Resources;
@@ -3502,6 +3506,7 @@
 				4519503A1B7A3E070085DA05 /* patterns.txt in Resources */,
 				346225911DDC5FBA001E8752 /* MWMSearchNoResultsAlert.xib in Resources */,
 				F6FE3C3B1CC5106500A73196 /* MWMPlaceDoesntExistAlert.xib in Resources */,
+				34B7D4E11DE5903E00BE2309 /* Authorization.storyboard in Resources */,
 				5605022F1B6211E100169CAD /* sound-strings in Resources */,
 				34CCFDE21C22A2EF00F28959 /* MWMPlacePageOpeningHoursCell.xib in Resources */,
 				452FCA3B1B6A3DF7007019AB /* colors.txt in Resources */,
@@ -3662,6 +3667,7 @@
 				676507611C10559B00830BB3 /* colors.txt in Resources */,
 				346225921DDC5FBA001E8752 /* MWMSearchNoResultsAlert.xib in Resources */,
 				F6FE3C3C1CC5106500A73196 /* MWMPlaceDoesntExistAlert.xib in Resources */,
+				34B7D4E21DE5903E00BE2309 /* Authorization.storyboard in Resources */,
 				671182E51C7F0DDB00CB8177 /* packed_polygons_obsolete.bin in Resources */,
 				676507601C10559800830BB3 /* patterns.txt in Resources */,
 				6741A9421BF340DE002C974C /* sound-strings in Resources */,
