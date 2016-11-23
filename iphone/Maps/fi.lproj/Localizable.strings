@@ -27,7 +27,7 @@
 /* Button "do not interrupt download" if user touched actively downloading country */
 "do_nothing" = "Jatka";
 
-"download_maps" = "Lataa kartat";
+"download_maps" = "Lataa karttoja";
 
 /* Settings/Downloader - Download confirmation button */
 "download_x_kb" = "Lataa %qu Kt";
@@ -141,7 +141,7 @@
 "country_status_download_without_routing" = "Lataa kartta\nilman reititystä (^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Ladataan epäonnistui";
+"country_status_download_failed" = "Lataus epäonnistui";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Yritä uudelleen";
@@ -263,7 +263,7 @@
 "bookmarks_usage_hint_import_only" = "Voit tuoda kirjanmerkkejä MAPS.ME:ssä käytettäväksi muista lähteistä avaamalla KML/KMZ-kirjanmerkkitiedoston sähköpostistasi, Dropbox-tililtäsi tai verkko-osoitteesta.";
 
 /* Settings button in system menu */
-"settings" = "İnstellingen";
+"settings" = "Asetukset";
 
 /* Header of settings activity where user defines storage path */
 "maps_storage" = "Karttojen tallennus";
@@ -275,7 +275,7 @@
 "move_maps" = "Siirrä karttoja?";
 
 /* Ask to wait user several minutes (some long process in modal dialog). */
-"wait_several_minutes" = "Tämä voi kestää useita minuutteja.Odota hetkinen…";
+"wait_several_minutes" = "Tämä voi kestää useita minuutteja.\nOdota hetki…";
 
 /* Show bookmarks from this category on a map or not */
 "visible" = "Näkyvä";
@@ -392,13 +392,13 @@
 "no_thanks" = "Ei kiitos";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Hei, se merket mitt på MAPS.ME! %1$@ eller %2$@ Har du ikke installert offline-kart? Last dem ned her: http://maps.me/get";
+"bookmark_share_sms" = "Hei, katso merkintäni MAPS.ME-sovelluksessa! %1$@ tai %2$@ Eikö sinulla ole offline-karttoja? Lataa ne täältä: http://maps.me/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Hei, se posisjonen min på MAPS.ME! %1$@ eller %2$@ Har du ikke offline-kart? Last dem ned her: http://maps.me/get";
+"my_position_share_sms" = "Hei, katso sijaintini MAPS.ME-sovelluksessa! %1$@ tai %2$@ Eikö sinulla ole vielä offline-karttoja? Lataa ne täältä: http://maps.me/get";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Hei, se merket mitt på MAPS.ME-kartet";
+"bookmark_share_email_subject" = "Hei, katso merkintäni MAPS.ME-kartalla";
 
 /* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
 "bookmark_share_email" = "Hei,\n\nnastoitin kohteen %1$@ MAPS.ME:ssä, koko maailman kattavassa offline-karttasovelluksessa. Klikkaa linkkiä %2$@ tai %3$@ nähdäksesi paikan kartalla. \n\nKiitos. kaikki";
@@ -458,7 +458,7 @@
 "are_you_sure" = "Oletko varma että haluat jatkaa?";
 
 /* Title for tracks category in bookmarks manager */
-"tracks" = "Raidat";
+"tracks" = "Reitit";
 
 /* Length of track in cell that describes route */
 "length" = "Pituus";
@@ -507,12 +507,12 @@
 "pref_tts_language_title" = "Äänen kieli";
 
 /* Settings «Route» category: «Tts unavailable» subtitle */
-"pref_tts_unavailable" = "Non disponible";
+"pref_tts_unavailable" = "Ei saatavilla";
 
 /* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Egyéb";
+"pref_tts_other_section_title" = "Muu";
 
-"pref_tts_how_to_set_up_voice" = "Így állítsd be a hangot";
+"pref_tts_how_to_set_up_voice" = "Kuinka asettaa ääni";
 
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "Viimeisin reitti";
@@ -680,7 +680,7 @@
 /* Country queued for download */
 "downloader_queued" = "jonossa";
 
-"downloader_near_me_subtitle" = "Minun lähelläni";
+"downloader_near_me_subtitle" = "Lähelläni";
 
 "downloader_status_maps" = "Kartat";
 
@@ -712,7 +712,7 @@
 "routing_failed_unknown_my_position" = "Tämänhetkinen sijainti ei ole tiedossa. Määritä sijainti luodaksesi reitin.";
 
 /* Show if use has not routing file, or InconsistentMWMandRoute */
-"routing_failed_has_no_routing_file" = "Lisädata, jotka vaaditaan reittien luomiseen sijainnistasi.";
+"routing_failed_has_no_routing_file" = "Reitin luomiseksi on ladattava lisää dataa. Ladatataanko data nyt?";
 
 /* StartPointNotFound */
 "routing_failed_start_point_not_found" = "Reittiä ei voida laskea, koska lähtöpisteen lähistöllä ei ole teitä.";
@@ -747,7 +747,7 @@
 "routing_go" = "Lähde!";
 
 /* Item status in downloader. */
-"downloader_retry" = "Toista";
+"downloader_retry" = "Yritä uudelleen";
 
 /* Item in context menu. */
 "downloader_map_and_routing" = "Kartta + reititys";
@@ -810,7 +810,7 @@
 "routing_get_additional_data" = "Lisädata, jotka vaaditaan reittien luomiseen sijainnistasi.";
 
 /* Text for routing error dialog */
-"routing_requires_all_map" = "Reittien luonti vaatii omasta sijainnistasi päämääriin johtavien karttojen lataamiseen ja päivitykseen.";
+"routing_requires_all_map" = "Reitin luominen vaatii karttojen lataamisen ja päivityksen oman sijaintisi ja kohteeen väliltä.";
 
 /* Text for routing error dialog */
 "routing_not_enough_space" = "Ei tarpeeksi tilaa";
@@ -825,16 +825,16 @@
 "bookmark" = "kirjanmerkki";
 
 /* map is not downloaded */
-"not_found_map" = "Olinpaikkasi karttaa ei ole ladattu";
+"not_found_map" = "Nykyisen sijaintisi karttaa ei ole ladattu";
 
 /* location service disabled */
 "enable_location_services" = "Ota sijaintipalvelut käyttöön";
 
 /* download map */
-"download_map" = "Lataa olinpaikkasi kartta";
+"download_map" = "Lataa nykyisen sijaintisi kartta";
 
 /* download map on iPhone */
-"download_map_iphone" = "Lataa tämän hetkisen olinpaikkasi kartta iPhoneesi";
+"download_map_iphone" = "Lataa tämän hetkisen sijaintisi kartta iPhoneesi";
 
 /* clear pin */
 "nearby" = "Lähellä";
@@ -963,7 +963,7 @@
 
 /********** Strings for downloading map from search **********/
 
-"search_without_internet_advertisement" = "Lataa kartta aloittaksesi haun ja luodaksesi reittejä. Tämän jälkeen et enää tule tarvitsemaan Internet-yhteyttä.";
+"search_without_internet_advertisement" = "Lataa kartta jotta voit käyttää hakua ja luoda reittejä. Tämän jälkeen et tarvitse enää Internet-yhteyttä.";
 
 "search_select_map" = "Valitse kartta";
 
@@ -1067,9 +1067,9 @@
 
 "editor_time_title" = "Aukioloajat";
 
-"editor_time_advanced" = "Kehittynyt malli";
+"editor_time_advanced" = "Edistynyt tila";
 
-"editor_time_simple" = "Yksinkertainen malli";
+"editor_time_simple" = "Yksinkertainen tila";
 
 "editor_hours_closed" = "Suljettuna tunnit";
 
@@ -1077,7 +1077,7 @@
 
 "editor_correct_mistake" = "Korjaa virhe";
 
-"editor_correct_mistake_message" = "Teit muokkausvirheen. Korjaa se tai vaihda yksinkertaiseen malliin.";
+"editor_correct_mistake_message" = "Teit muokkausvirheen. Korjaa se tai vaihda yksinkertaiseen tilaan.";
 
 "editor_add_select_location" = "Sijainti";
 
@@ -1142,13 +1142,13 @@
 
 "profile" = "Profiili";
 
-"no_osm_account" = "Eikö sinulla ole tiliä OpenStreetMap?";
+"no_osm_account" = "Eikö sinulla ole OpenStreetMap tiliä?";
 
 "register_at_openstreetmap" = "Rekisteröidy";
 
 "password_8_chars_min" = "Salasana (vähintään 8 merkkiä)";
 
-"invalid_username_or_password" = "Virheellinen Käyttäjätunnus tai Salasana";
+"invalid_username_or_password" = "Virheellinen käyttäjätunnus tai salasana";
 
 "login" = "Kirjaudu sisään";
 
@@ -1185,7 +1185,7 @@
 
 "login_with_openstreetmap" = "Kirjaudu sisään osoitteessa www.openstreetmap.org";
 
-"edit_place" = "Muokkaa sijaintia";
+"edit_place" = "Muokkaa kohdetta";
 
 "place_name" = "Paikan nimi";
 
@@ -1214,11 +1214,11 @@
 
 "choose_street" = "Valitse katu";
 
-"postal_code" = "Postikoodi";
+"postal_code" = "Postinumero";
 
 "cuisine" = "Ruokalaji";
 
-"select_cuisine" = "Valitse Ruokalaji";
+"select_cuisine" = "Valitse ruokalaji";
 
 /* login text field */
 "email_or_username" = "Sähköposti tai käyttäjätunnus";
@@ -1325,7 +1325,7 @@
 
 "dialog_incorrect_feature_position" = "Vaihda sijaintia";
 
-"message_invalid_feature_position" = "Objektia ei voida asettaa tänne";
+"message_invalid_feature_position" = "Kohdetta ei voida asettaa tänne";
 
 "login_to_make_edits_visible" = "Kirjaudu sisään jotta muut käyttäjät voivat nähdä tekemäsi muokkaukset.";
 
@@ -1334,7 +1334,7 @@
 /* Error dialog no space */
 "migration_no_space_message" = "Tarvitset lisää tilaa ladataksesi. Poista tarpeeton data.";
 
-"editor_sharing_title" = "Minä paransin MAPS.ME-karttoja";
+"editor_sharing_title" = "Paransin MAPS.ME-karttoja";
 
 "editor_comment_will_be_sent" = "Lähetämme kommenttisi kartanpiirtäjille.";
 
@@ -1385,23 +1385,23 @@
 
 "downloader_no_downloaded_maps_title" = "Et ole ladannut yhtään karttaa";
 
-"downloader_no_downloaded_maps_message" = "Lataa kartat löytääksesi paikan ja navigoidaksesi offline.";
+"downloader_no_downloaded_maps_message" = "Lataa kartattoja löytääksesi paikkoja ja navigoidaksesi offline-tilassa.";
 
 "downloader_find_place_hint" = "Etsi kaupunki tai maa";
 
 /* Error title that appears after certain time without location. */
-"current_location_unknown_title" = "Jatketaanko nykyisen paikkasi havaitsemista?";
+"current_location_unknown_title" = "Jatketaanko nykyisen sijaintisi havaitsemista?";
 
 /* Error that appears after certain time without location. */
-"current_location_unknown_message" = "Nykyinen paikka on tuntematon. Kenties olet rakennuksessa tai tunnelissa.";
+"current_location_unknown_message" = "Nykyistä sijaintiasi ei voitu määrittää. Kenties olet rakennuksessa tai tunnelissa.";
 
 "current_location_unknown_continue_button" = "Jatka";
 
 "current_location_unknown_stop_button" = "Seis";
 
-"current_location_unknown_error_title" = "Nykyinen paikka on tuntematon.";
+"current_location_unknown_error_title" = "Nykyinen sijainti on tuntematon.";
 
-"current_location_unknown_error_message" = "Tapahtui virhe etsittäessä paikkaasi. Tarkista laitteesi ja yritä myöhemmin uudelleen.";
+"current_location_unknown_error_message" = "Tapahtui virhe määritettäessä sijaintiasi. Tarkista laitteesi ja yritä myöhemmin uudelleen.";
 
 "whatsnew_update_editor_title" = "Olemme päivittäneet karttamuokkaimen";
 
@@ -1410,11 +1410,11 @@
 /* Additional text in whats new */
 "whatsnew_update_editor_message_update" = "Päivitä kaikki kartat käyttääksesi Karttamuokkainta.";
 
-"location_services_disabled_header" = "Locatie-identificatie is uitgeschakeld";
+"location_services_disabled_header" = "Sijaintipalvelut on poistettu käytöstä";
 
 "location_services_disabled_message" = "Schakel de toegang tot geolocaties in in de instellingen van het apparaat";
 
-"location_services_disabled_1" = "1. Instellingen openen";
+"location_services_disabled_1" = "1. Avaa asetukset";
 
 "location_services_disabled_2" = "2. Tik op locatie";
 
@@ -1447,7 +1447,7 @@
 
 "placepage_flat" = "sov.";
 
-"placepage_open_24_7" = "24_7";
+"placepage_open_24_7" = "24 / 7";
 
 "place_page_booking_rating" = "Luokitus: %s";
 
@@ -1503,7 +1503,7 @@
 
 "editor_status_sending" = "Lähetetään…";
 
-"editor_place_doesnt_exist" = "Paikkaa ei ole";
+"editor_place_doesnt_exist" = "Paikkaa ei ole olemassa";
 
 "text_more_button" = "…Näytä";
 
@@ -1524,7 +1524,7 @@
 
 "button_try" = "Kokeile sitä";
 
-"refresh" = "Päivitetäänkö";
+"refresh" = "Päivitä";
 
 "last_update" = "Viimeisin päivitys: %s";
 
