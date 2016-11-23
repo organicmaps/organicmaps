@@ -71,8 +71,6 @@
 			</array>
 		</dict>
 	</array>
-	<key>CFBundleVersion</key>
-	<string>${CURRENT_PROJECT_VERSION}</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -146,6 +144,14 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Unused by an application</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Unused by an application</string>
+	<key>PW_USE_GPS</key>
+	<false/>
+	<key>Pushwoosh_LOG_LEVEL</key>
+	<string>WARNING</string>
 	<key>UIApplicationShortcutItems</key>
 	<array>
 		<dict>
@@ -246,13 +252,5 @@
 			</dict>
 		</dict>
 	</array>
-	<key>PW_USE_GPS</key>
-	<false/>
-	<key>Pushwoosh_LOG_LEVEL</key>
-	<string>WARNING</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Unused by an application</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Unused by an application</string>
 </dict>
 </plist>
