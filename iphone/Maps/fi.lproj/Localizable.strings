@@ -1699,3 +1699,5 @@
 "dialog_taxi_offline" = "Taksin tilaaminen ei ole mahdollista ilman verkkoyhteyttä.";
 
 "dialog_taxi_error" = "Taksin tilaaminen ei ole tällä hetkellä mahdollista.";
+
+"advertisement" = "Advertisement";

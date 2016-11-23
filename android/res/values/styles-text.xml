@@ -171,4 +171,10 @@
   <style name="MwmTextAppearance.Editor.Buttons">
     <item name="android:textSize">@dimen/text_size_body_3</item>
   </style>
+
+  <style name="MwmTextAppearance.Banner" parent="MwmTextAppearance.Body4">
+    <item name="android:textSize">@dimen/text_size_banner</item>
+    <item name="android:textAllCaps">true</item>
+    <item name="android:textColor">?bannerText</item>
+  </style>
 </resources>

@@ -1699,3 +1699,5 @@
 "dialog_taxi_offline" = "Het bestellen van een taxi is niet beschikbaar in de offline modus.";
 
 "dialog_taxi_error" = "Het bestellen van een taxi is tijdelijk niet beschikbaar.";
+
+"advertisement" = "Advertisement";

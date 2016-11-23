@@ -1699,3 +1699,5 @@
 "dialog_taxi_offline" = "طلب تاكسي غير متاح في وضع الطيران.";
 
 "dialog_taxi_error" = "طلب تاكسي غير متاح مؤقتا.";
+
+"advertisement" = "Advertisement";

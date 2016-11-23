@@ -1699,3 +1699,5 @@
 "dialog_taxi_offline" = "タクシーの予約がオフラインモードでは使用できません。";
 
 "dialog_taxi_error" = "タクシーの予約が一時的に使用できません。";
+
+"advertisement" = "Advertisement";

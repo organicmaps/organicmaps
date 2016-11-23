@@ -1699,3 +1699,5 @@
 "dialog_taxi_offline" = "Comandarea unui taxi nu se poate face în modul offline.";
 
 "dialog_taxi_error" = "Comandarea unui taxi este momentan indisponibilă.";
+
+"advertisement" = "Advertisement";

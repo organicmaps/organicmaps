@@ -18,6 +18,14 @@
       android:orientation="vertical">
 
       <include
+        android:id="@+id/banner"
+        layout="@layout/place_page_banner"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/placepage_banner_height"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
+      <include
         layout="@layout/divider_horizontal"/>
 
       <include

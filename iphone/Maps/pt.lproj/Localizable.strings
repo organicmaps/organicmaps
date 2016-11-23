@@ -1699,3 +1699,5 @@
 "dialog_taxi_offline" = "O serviço de táxi não está disponível no modo off-line.";
 
 "dialog_taxi_error" = "O serviço de táxi está temporariamente indisponível.";
+
+"advertisement" = "Advertisement";

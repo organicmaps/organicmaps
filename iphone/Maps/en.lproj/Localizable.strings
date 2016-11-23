@@ -1699,3 +1699,5 @@
 "dialog_taxi_offline" = "Taxi ordering is unavailable in offline mode.";
 
 "dialog_taxi_error" = "Taxi ordering is temporarily unavailable.";
+
+"advertisement" = "Advertisement";

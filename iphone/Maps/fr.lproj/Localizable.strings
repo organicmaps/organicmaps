@@ -1699,3 +1699,5 @@
 "dialog_taxi_offline" = "La commande d'un taxi n'est pas disponible en mode hors ligne.";
 
 "dialog_taxi_error" = "La commande d'un taxi est temporairement indisponible.";
+
+"advertisement" = "Advertisement";

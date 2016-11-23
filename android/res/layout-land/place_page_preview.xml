@@ -6,15 +6,15 @@
   android:layout_height="wrap_content"
   android:gravity="center_vertical"
   android:orientation="horizontal"
-  android:paddingTop="@dimen/margin_base">
+  android:padding="@dimen/margin_base">
 
   <include
     android:id="@+id/downloader_status_frame"
     layout="@layout/downloader_status"
     android:layout_width="@dimen/downloader_status_size"
     android:layout_height="@dimen/downloader_status_size"
-    android:layout_marginStart="@dimen/margin_base"
-    android:layout_marginLeft="@dimen/margin_base"
+    android:layout_marginEnd="@dimen/margin_base"
+    android:layout_marginRight="@dimen/margin_base"
     android:layout_marginTop="@dimen/margin_half"
     android:visibility="gone"
     tools:visibility="visible"/>
@@ -25,10 +25,6 @@
     android:layout_height="wrap_content"
     android:layout_alignWithParentIfMissing="true"
     android:layout_marginTop="@dimen/margin_quarter"
-    android:layout_marginEnd="@dimen/margin_base"
-    android:layout_marginRight="@dimen/margin_base"
-    android:layout_marginStart="@dimen/margin_base"
-    android:layout_marginLeft="@dimen/margin_base"
     android:layout_toEndOf="@id/downloader_status_frame"
     android:layout_toRightOf="@id/downloader_status_frame"
     android:ellipsize="end"
@@ -46,8 +42,6 @@
     android:layout_alignWithParentIfMissing="true"
     android:layout_below="@id/tv__title"
     android:layout_marginTop="@dimen/margin_quarter"
-    android:layout_marginStart="@dimen/margin_base"
-    android:layout_marginLeft="@dimen/margin_base"
     android:layout_toEndOf="@id/downloader_status_frame"
     android:layout_toLeftOf="@+id/direction_frame"
     android:layout_toRightOf="@id/downloader_status_frame"
@@ -61,8 +55,6 @@
     android:id="@+id/direction_frame"
     android:layout_width="wrap_content"
     android:layout_height="@dimen/direction_frame_min_height"
-    android:layout_marginEnd="@dimen/margin_base"
-    android:layout_marginRight="@dimen/margin_base"
     android:layout_alignParentEnd="true"
     android:layout_alignParentRight="true"
     android:layout_alignWithParentIfMissing="true"
@@ -97,10 +89,6 @@
     android:layout_alignWithParentIfMissing="true"
     android:layout_below="@id/tv__subtitle"
     android:layout_marginTop="@dimen/margin_quarter"
-    android:layout_marginEnd="@dimen/margin_base"
-    android:layout_marginRight="@dimen/margin_base"
-    android:layout_marginStart="@dimen/margin_base"
-    android:layout_marginLeft="@dimen/margin_base"
     android:layout_toEndOf="@id/downloader_status_frame"
     android:layout_toRightOf="@id/downloader_status_frame"
     android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
@@ -117,10 +105,6 @@
     android:layout_alignWithParentIfMissing="true"
     android:layout_below="@id/tv__downloader_details"
     android:layout_marginTop="@dimen/margin_quarter"
-    android:layout_marginEnd="@dimen/margin_base"
-    android:layout_marginRight="@dimen/margin_base"
-    android:layout_marginStart="@dimen/margin_base"
-    android:layout_marginLeft="@dimen/margin_base"
     android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
     android:visibility="gone"
     tools:background="#80FFF000"
@@ -134,10 +118,6 @@
     android:layout_alignWithParentIfMissing="true"
     android:layout_below="@id/tv__opened_till"
     android:layout_marginTop="@dimen/margin_quarter"
-    android:layout_marginEnd="@dimen/margin_base"
-    android:layout_marginRight="@dimen/margin_base"
-    android:layout_marginStart="@dimen/margin_base"
-    android:layout_marginLeft="@dimen/margin_base"
     tools:background="#8000FFFF">
 
     <TextView
@@ -166,23 +146,7 @@
     android:layout_alignWithParentIfMissing="true"
     android:layout_below="@id/hotel_info_frame"
     android:layout_marginTop="@dimen/margin_half"
-    android:layout_marginEnd="@dimen/margin_base"
-    android:layout_marginRight="@dimen/margin_base"
-    android:layout_marginStart="@dimen/margin_base"
-    android:layout_marginLeft="@dimen/margin_base"
     android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
     tools:background="#60000000"
     tools:text="Lenina str, 10"/>
-
-  <include
-    android:id="@+id/banner"
-    layout="@layout/place_page_banner"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/placepage_banner_height"
-    android:layout_alignWithParentIfMissing="true"
-    android:layout_below="@id/tv__address"
-    android:layout_marginTop="@dimen/margin_base"
-    android:visibility="gone"
-    tools:visibility="visible"/>
 </RelativeLayout>
-

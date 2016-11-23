@@ -20797,3 +20797,8 @@
     zh-Hant = 叫計程車服務暫時無法使用。
     el = Η παραγγελία ταξί είναι προσωρινά μη διαθέσιμη.
     sk = Objednanie taxíka je dočasne nedostupné.
+
+  [advertisement]
+    en = Advertisement
+    en-GB = Advertisement
+    ru = Реклама

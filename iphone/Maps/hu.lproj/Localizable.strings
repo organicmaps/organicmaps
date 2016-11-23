@@ -1699,3 +1699,5 @@
 "dialog_taxi_offline" = "Taxirendelés offline módban nem lehetséges.";
 
 "dialog_taxi_error" = "A taxirendelés átmenetileg nem elérhető.";
+
+"advertisement" = "Advertisement";

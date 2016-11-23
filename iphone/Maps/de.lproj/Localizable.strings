@@ -1699,3 +1699,5 @@
 "dialog_taxi_offline" = "Das Bestellen eines Taxis ist im Offline-Modus nicht verfügbar.";
 
 "dialog_taxi_error" = "Das Bestellen eines Taxis ist vorübergehend nicht verfügbar.";
+
+"advertisement" = "Advertisement";

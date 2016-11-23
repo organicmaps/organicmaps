@@ -147,4 +147,10 @@
   <color name="bg_brand_opentable">#FFDA3743</color>
   <color name="bg_brand_opentable_pressed">#FFFC5965</color>
 
+  <!-- Banner colors-->
+  <color name="bg_banner_color">#FFF8E1</color>
+  <color name="bg_banner_color_night">#555A5A</color>
+  <color name="text_banner_color">#28000000</color>
+  <color name="text_banner_color_night">#28FFFFFF</color>
+
 </resources>

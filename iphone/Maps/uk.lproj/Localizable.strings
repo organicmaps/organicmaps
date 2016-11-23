@@ -1699,3 +1699,5 @@
 "dialog_taxi_offline" = "Замовлення таксі неможливе в автономному режимі.";
 
 "dialog_taxi_error" = "Замовлення таксі тимчасово недоступне.";
+
+"advertisement" = "Advertisement";

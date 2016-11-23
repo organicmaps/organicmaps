@@ -1699,3 +1699,5 @@
 "dialog_taxi_offline" = "La chiamata taxi non è disponibile in modalità offline.";
 
 "dialog_taxi_error" = "La chiamata taxi è temporaneamente non disponibile.";
+
+"advertisement" = "Advertisement";

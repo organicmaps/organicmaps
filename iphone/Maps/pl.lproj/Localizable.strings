@@ -1699,3 +1699,5 @@
 "dialog_taxi_offline" = "Zamawianie taksówek nie jest dostępne w trybie offline.";
 
 "dialog_taxi_error" = "Zamawianie taksówek jest tymczasowo niedostępne.";
+
+"advertisement" = "Advertisement";

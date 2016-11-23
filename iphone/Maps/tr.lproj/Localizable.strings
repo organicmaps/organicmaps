@@ -1699,3 +1699,5 @@
 "dialog_taxi_offline" = "Taksi çağırma çevrimdışı modda kullanılamıyor.";
 
 "dialog_taxi_error" = "Taksi çağırma geçici olarak kullanılamıyor.";
+
+"advertisement" = "Advertisement";

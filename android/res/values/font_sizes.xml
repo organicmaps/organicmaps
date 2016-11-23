@@ -43,4 +43,6 @@
   <dimen name="text_size_nav_circle_exit">12sp</dimen>
   <dimen name="text_size_nav_number">24sp</dimen>
   <dimen name="text_size_nav_dimension">20sp</dimen>
+
+  <dimen name="text_size_banner">8sp</dimen>
 </resources>

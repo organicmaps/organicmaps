@@ -30,6 +30,7 @@ import com.mapswithme.maps.api.ParsedRoutingData;
 import com.mapswithme.maps.api.ParsedUrlMwmRequest;
 import com.mapswithme.maps.api.RoutePoint;
 import com.mapswithme.maps.routing.RoutingPlanController;
+import com.mapswithme.maps.bookmarks.data.Banner;
 import com.mapswithme.maps.uber.Uber;
 import com.mapswithme.maps.uber.UberInfo;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
@@ -1257,9 +1258,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
         final RoutePoint from = data.mPoints[0];
         final RoutePoint to = data.mPoints[1];
         RoutingController.get().prepare(new MapObject(MapObject.API_POINT, from.mName, "", "",
-                                                      from.mLat, from.mLon, ""),
+                                                      from.mLat, from.mLon, "", Banner.EMPTY),
                                         new MapObject(MapObject.API_POINT, to.mName, "", "",
-                                                      to.mLat, to.mLon, ""));
+                                                      to.mLat, to.mLon, "", Banner.EMPTY));
         return true;
       }
 
