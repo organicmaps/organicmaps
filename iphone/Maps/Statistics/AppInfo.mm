@@ -15,6 +15,7 @@ extern string const kLanguageKey = "Language";
 @property(nonatomic) NSString * countryCode;
 @property(nonatomic) NSString * uniqueId;
 @property(nonatomic) NSString * bundleVersion;
+@property(nonatomic) NSString * buildNumber;
 @property(nonatomic) NSString * deviceInfo;
 @property(nonatomic) NSUUID * advertisingId;
 @property(nonatomic) NSDate * buildDate;
@@ -96,8 +97,15 @@ extern string const kLanguageKey = "Language";
 - (NSString *)bundleVersion
 {
   if (!_bundleVersion)
-    _bundleVersion = [[NSBundle mainBundle] infoDictionary][@"CFBundleVersion"];
+    _bundleVersion = [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"];
   return _bundleVersion;
+}
+
+- (NSString *)buildNumber
+{
+  if (!_buildNumber)
+    _buildNumber = [[NSBundle mainBundle] infoDictionary][@"CFBundleVersion"];
+  return _buildNumber;
 }
 
 - (NSUUID *)advertisingId
