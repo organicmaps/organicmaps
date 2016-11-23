@@ -63,17 +63,21 @@ final class BannerController implements View.OnClickListener
     mAdMarker = bannerView.findViewById(R.id.tv__banner);
   }
 
-  void updateData(@NonNull Banner banner)
+  void updateData(@Nullable Banner banner)
   {
     mBanner = banner;
+    boolean showBanner = banner != null && ConnectionState.isConnected()
+                         && isShowcaseSwitchedOnLocal();
+    UiUtils.showIf(showBanner, mFrame);
+    if (!showBanner)
+      return;
+
     loadIcon(banner);
     if (mTitle != null)
       mTitle.setText(banner.getTitle());
     if (mMessage != null)
       mMessage.setText(banner.getMessage());
-    boolean showBanner = banner.isActive() && ConnectionState.isConnected()
-                         && isShowcaseSwitchedOnLocal();
-    UiUtils.showIf(showBanner, mFrame);
+
     if (UiUtils.isLandscape(mFrame.getContext()))
       open();
   }

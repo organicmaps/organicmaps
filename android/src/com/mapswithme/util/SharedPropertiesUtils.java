@@ -1,15 +1,15 @@
 package com.mapswithme.util;
 
+import android.preference.PreferenceManager;
+
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
-
-import static com.mapswithme.maps.MwmApplication.prefs;
 
 public final class SharedPropertiesUtils
 {
   public static boolean isShowcaseSwitchedOnLocal()
   {
-    return prefs()
+    return PreferenceManager.getDefaultSharedPreferences(MwmApplication.get())
         .getBoolean(MwmApplication.get().getString(R.string.pref_showcase_switched_on), false);
   }
 

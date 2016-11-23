@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Parcel;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.util.Constants;
@@ -19,7 +20,7 @@ public class Bookmark extends MapObject
   private double mMerY;
 
   Bookmark(@IntRange(from = 0) int categoryId, @IntRange(from = 0) int bookmarkId, String title,
-           @NonNull Banner banner)
+           @Nullable Banner banner)
   {
     super(BOOKMARK, title, "", "", 0, 0, "", banner);
 

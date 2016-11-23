@@ -22,16 +22,14 @@ void InjectMetadata(JNIEnv * env, jclass const clazz, jobject const mapObject, f
   }
 }
 
-jobject CreateBanner(JNIEnv * env, bool hasBanner, string const & bannerTitleId,
-                     string const & bannerMessageId, string const & bannerIconId,
-                     string const & bannerUrl)
+jobject CreateBanner(JNIEnv * env, string const & bannerTitleId, string const & bannerMessageId,
+                     string const & bannerIconId, string const & bannerUrl)
 {
   static jmethodID const bannerCtorId = jni::GetConstructorID(
       env, g_bannerClazz,
-      "(ZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+      "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
 
-  return env->NewObject(g_bannerClazz, bannerCtorId, hasBanner,
-                        jni::ToJavaString(env, bannerTitleId),
+  return env->NewObject(g_bannerClazz, bannerCtorId, jni::ToJavaString(env, bannerTitleId),
                         jni::ToJavaString(env, bannerMessageId),
                         jni::ToJavaString(env, bannerIconId), jni::ToJavaString(env, bannerUrl));
 }
@@ -49,8 +47,9 @@ jobject CreateMapObject(JNIEnv * env, int mapObjectType, string const & title,
                             "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;DDLjava/lang/"
                             "String;Lcom/mapswithme/maps/bookmarks/data/Banner;)V");
 
-  jobject jbanner =
-      CreateBanner(env, hasBanner, bannerTitleId, bannerMessageId, bannerIconId, bannerUrl);
+  jobject jbanner;
+  if (hasBanner)
+    jbanner = CreateBanner(env, bannerTitleId, bannerMessageId, bannerIconId, bannerUrl);
 
   jobject mapObject =
       env->NewObject(g_mapObjectClazz, ctorId, mapObjectType, jni::ToJavaString(env, title),
@@ -70,9 +69,10 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
     static jmethodID const ctorId = jni::GetConstructorID(
         env, g_bookmarkClazz, "(IILjava/lang/String;Lcom/mapswithme/maps/bookmarks/data/Banner;)V");
 
-    jobject jbanner =
-        CreateBanner(env, info.HasBanner(), info.GetBannerTitleId(), info.GetBannerMessageId(),
-                     info.GetBannerIconId(), info.GetBannerUrl());
+    jobject jbanner;
+    if (info.HasBanner())
+      jbanner = CreateBanner(env, info.GetBannerTitleId(), info.GetBannerMessageId(),
+                             info.GetBannerIconId(), info.GetBannerUrl());
 
     auto const & bac = info.GetBookmarkAndCategory();
     BookmarkCategory * cat = g_framework->NativeFramework()->GetBmCategory(bac.m_categoryIndex);

@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import java.lang.annotation.Retention;
@@ -32,16 +33,17 @@ public class MapObject implements Parcelable
   protected String mAddress;
   protected Metadata mMetadata;
   protected String mApiId;
-  @NonNull
+  @Nullable
   protected Banner mBanner;
 
   public MapObject(@MapObjectType int mapObjectType, String title, String subtitle, String address,
-                   double lat, double lon, String apiId, @NonNull Banner banner)
+                   double lat, double lon, String apiId, @Nullable Banner banner)
   {
     this(mapObjectType, title, subtitle, address, lat, lon, new Metadata(), apiId, banner);
   }
 
-  public MapObject(@MapObjectType int mapObjectType, String title, String subtitle, String address, double lat, double lon, Metadata metadata, String apiId, @NonNull Banner banner)
+  public MapObject(@MapObjectType int mapObjectType, String title, String subtitle, String address,
+                   double lat, double lon, Metadata metadata, String apiId, @Nullable Banner banner)
   {
     mMapObjectType = mapObjectType;
     mTitle = title;
@@ -130,7 +132,7 @@ public class MapObject implements Parcelable
     return mApiId;
   }
 
-  @NonNull
+  @Nullable
   public Banner getBanner()
   {
     return mBanner;

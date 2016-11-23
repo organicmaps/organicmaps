@@ -2,12 +2,11 @@ package com.mapswithme.maps.bookmarks.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 public final class Banner implements Parcelable
 {
-  public static final Banner EMPTY = new Banner(false, "", "", "", "");
+  public static final Banner EMPTY = new Banner("", "", "", "");
 
   public static final Creator<Banner> CREATOR = new Creator<Banner>()
   {
@@ -24,7 +23,6 @@ public final class Banner implements Parcelable
     }
   };
 
-  private final boolean mIsActive;
   @Nullable
   private final String mTitle;
   @Nullable
@@ -34,10 +32,9 @@ public final class Banner implements Parcelable
   @Nullable
   private final String mUrl;
 
-  public Banner(boolean isActive, @Nullable String title, @Nullable String message,
+  public Banner(@Nullable String title, @Nullable String message,
                 @Nullable String iconUrl, @Nullable String url)
   {
-    mIsActive = isActive;
     mTitle = title;
     mMessage = message;
     //TODO: uncomment this when cpp banner implementation will be done
@@ -48,16 +45,10 @@ public final class Banner implements Parcelable
 
   protected Banner(Parcel in)
   {
-    mIsActive = in.readByte() != 0;
     mTitle = in.readString();
     mMessage = in.readString();
     mIconUrl = in.readString();
     mUrl = in.readString();
-  }
-
-  public boolean isActive()
-  {
-    return mIsActive;
   }
 
   @Nullable
@@ -93,7 +84,6 @@ public final class Banner implements Parcelable
   @Override
   public void writeToParcel(Parcel dest, int flags)
   {
-    dest.writeByte((byte) (mIsActive ? 1 : 0));
     dest.writeString(mTitle);
     dest.writeString(mMessage);
     dest.writeString(mIconUrl);
