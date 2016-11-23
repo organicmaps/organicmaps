@@ -109,14 +109,13 @@ function(omim_link_platform_deps target)
     if (PLATFORM_MAC)
       target_link_libraries(
         ${target}
-        "-framework Cocoa"
-        "-framework QuartzCore"
+        "-framework CFNetwork"
+        "-framework Foundation"
         "-framework SystemConfiguration"
       )
     endif()
   endif()
 endfunction()
-
 
 function(omim_link_libraries target)
   if (TARGET ${target})
