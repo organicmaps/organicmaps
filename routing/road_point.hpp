@@ -1,6 +1,8 @@
 #pragma once
 
 #include "std/cstdint.hpp"
+#include "std/sstream.hpp"
+#include "std/string.hpp"
 
 namespace routing
 {
@@ -28,4 +30,12 @@ private:
   uint32_t m_featureId;
   uint32_t m_pointId;
 };
+
+inline string DebugPrint(RoadPoint const & rp)
+{
+  ostringstream out;
+  out << "rp("
+      << "(" << rp.GetFeatureId() << ", " << rp.GetPointId() << ")";
+  return out.str();
+}
 }  // namespace routing

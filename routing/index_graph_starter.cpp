@@ -138,14 +138,45 @@ void IndexGraphStarter::FindPointsWithCommonFeature(Joint::Id jointId0, Joint::I
                                                     RoadPoint & result0, RoadPoint & result1) const
 {
   bool found = false;
+  double minWeight = -1.0;
 
   ForEachPoint(jointId0, [&](RoadPoint const & rp0) {
     ForEachPoint(jointId1, [&](RoadPoint const & rp1) {
-      if (rp0.GetFeatureId() == rp1.GetFeatureId() && !found)
+      if (rp0.GetFeatureId() == rp1.GetFeatureId())
       {
-        result0 = rp0;
-        result1 = rp1;
-        found = true;
+        RoadGeometry const & road = m_graph.GetGeometry().GetRoad(rp0.GetFeatureId());
+        if (!road.IsRoad())
+          return;
+
+        if (road.IsOneWay() && rp0.GetPointId() > rp1.GetPointId())
+          return;
+
+        if (found)
+        {
+          if (minWeight < 0.0)
+          {
+            // CalcEdgesWeight is very expensive.
+            // So calculate it only if second common feature found.
+            RoadGeometry const & prevRoad = m_graph.GetGeometry().GetRoad(result0.GetFeatureId());
+            minWeight = m_graph.GetEstimator().CalcEdgesWeight(prevRoad, result0.GetPointId(),
+                                                               result1.GetPointId());
+          }
+
+          double const weight =
+              m_graph.GetEstimator().CalcEdgesWeight(road, rp0.GetPointId(), rp1.GetPointId());
+          if (weight < minWeight)
+          {
+            minWeight = weight;
+            result0 = rp0;
+            result1 = rp1;
+          }
+        }
+        else
+        {
+          result0 = rp0;
+          result1 = rp1;
+          found = true;
+        }
       }
     });
   });

@@ -68,7 +68,7 @@ shared_ptr<EdgeEstimator> CreateEstimator()
 }
 
 void TestRoute(IndexGraph const & graph, RoadPoint const & start, RoadPoint const & finish,
-               size_t expectedLength)
+               size_t expectedLength, vector<RoadPoint> const * expectedRoute = nullptr)
 {
   LOG(LINFO, ("Test route", start.GetFeatureId(), ",", start.GetPointId(), "=>",
               finish.GetFeatureId(), ",", finish.GetPointId()));
@@ -84,6 +84,9 @@ void TestRoute(IndexGraph const & graph, RoadPoint const & start, RoadPoint cons
   vector<RoadPoint> roadPoints;
   starter.RedressRoute(routingResult.path, roadPoints);
   TEST_EQUAL(roadPoints.size(), expectedLength, ());
+
+  if (expectedRoute != nullptr)
+    TEST_EQUAL(roadPoints, *expectedRoute, ());
 }
 
 void TestEdges(IndexGraph const & graph, Joint::Id jointId,
@@ -267,5 +270,42 @@ UNIT_TEST(FindPathManhattan)
       }
     }
   }
+}
+
+// Roads                          y:
+//
+//  R0:         * - * - *         -1
+//            /           \
+//  R1:   J0 * -* - * - *- * J1    0
+//            \           /
+//  R2:         * - * - *          1
+//
+//     x:    0  1   2   3  4
+//
+UNIT_TEST(RedressRace)
+{
+  unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
+
+  loader->AddRoad(
+      0 /* featureId */, false,
+      RoadGeometry::Points({{0.0, 0.0}, {1.0, -1.0}, {2.0, -1.0}, {3.0, -1.0}, {4.0, 0.0}}));
+
+  loader->AddRoad(
+      1 /* featureId */, false,
+      RoadGeometry::Points({{0.0, 0.0}, {1.0, 0.0}, {2.0, 0.0}, {3.0, 0.0}, {4.0, 0.0}}));
+
+  loader->AddRoad(
+      2 /* featureId */, false,
+      RoadGeometry::Points({{0.0, 0.0}, {1.0, 1.0}, {2.0, 1.0}, {3.0, 1.0}, {4.0, 0.0}}));
+
+  IndexGraph graph(move(loader), CreateEstimator());
+
+  vector<Joint> joints;
+  joints.emplace_back(MakeJoint({{0, 0}, {1, 0}, {2, 0}}));  // J0
+  joints.emplace_back(MakeJoint({{0, 4}, {1, 4}, {2, 4}}));  // J1
+  graph.Import(joints);
+
+  vector<RoadPoint> const expectedRoute({{1, 0}, {1, 1}, {1, 2}, {1, 3}, {1, 4}});
+  TestRoute(graph, {0, 0}, {0, 4}, 5, &expectedRoute);
 }
 }  // namespace routing_test

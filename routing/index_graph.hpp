@@ -42,13 +42,10 @@ public:
   void AddDirectEdge(uint32_t featureId, uint32_t pointFrom, uint32_t pointTo, Joint::Id target,
                      bool forward, vector<JointEdge> & edges) const;
   void AddNeighboringEdges(RoadPoint rp, bool isOutgoing, vector<JointEdge> & edges) const;
-  double CalcHeuristic(m2::PointD const & from, m2::PointD const & to) const
-  {
-    return m_estimator->CalcHeuristic(from, to);
-  }
   void GetEdgesList(Joint::Id jointId, bool forward, vector<JointEdge> & edges) const;
   Joint::Id GetJointId(RoadPoint rp) const { return m_roadIndex.GetJointId(rp); }
   Geometry const & GetGeometry() const { return m_geometry; }
+  EdgeEstimator const & GetEstimator() const { return *m_estimator; }
   m2::PointD const & GetPoint(Joint::Id jointId) const;
   uint32_t GetNumRoads() const { return m_roadIndex.GetSize(); }
   uint32_t GetNumJoints() const { return m_jointIndex.GetNumJoints(); }

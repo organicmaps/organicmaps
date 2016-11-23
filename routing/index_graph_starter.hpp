@@ -49,7 +49,7 @@ public:
 
   double HeuristicCostEstimate(Joint::Id from, Joint::Id to) const
   {
-    return m_graph.CalcHeuristic(GetPoint(from), GetPoint(to));
+    return m_graph.GetEstimator().CalcHeuristic(GetPoint(from), GetPoint(to));
   }
 
   // Add intermediate points to route (those don't correspond to any joint).
