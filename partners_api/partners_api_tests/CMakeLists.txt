@@ -20,21 +20,6 @@ omim_link_libraries(
   stats_client
   ${LIBZ}
   ${Qt5Core_LIBRARIES}
+  ${Qt5Widgets_LIBRARIES}
+  ${Qt5Network_LIBRARIES}
 )
-
-if (PLATFORM_MAC)
-  omim_link_libraries(
-    ${PROJECT_NAME}
-    ${Qt5Widgets_LIBRARIES}
-    "-framework IOKit"
-    "-framework SystemConfiguration"
-    "-framework Cocoa"
-  )
-endif()
-
-if (PLATFORM_LINUX OR PLATFORM_WIN)
-  omim_link_libraries(
-    ${PROJECT_NAME}
-    ${Qt5Network_LIBRARIES}
-  )
-endif()

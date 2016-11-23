@@ -69,9 +69,6 @@ omim_link_libraries(
 if (PLATFORM_MAC)
   omim_link_libraries(
     ${PROJECT_NAME}
-    "-framework IOKit"
-    "-framework Cocoa"
     "-framework CoreLocation"
-    "-framework SystemConfiguration"
   )
 endif()

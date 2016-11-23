@@ -17,6 +17,7 @@ set(
 )
 
 omim_add_test(${PROJECT_NAME} ${SRC})
+
 omim_link_libraries(
   ${PROJECT_NAME}
   platform_tests_support
@@ -29,15 +30,11 @@ omim_link_libraries(
   ${LIBZ}
 )
 
-
 if (PLATFORM_MAC)
   omim_link_libraries(
     ${PROJECT_NAME}
     ${Qt5Widgets_LIBRARIES}
-    "-framework Cocoa"
-    "-framework IOKit"
     "-framework QuartzCore"
-    "-framework SystemConfiguration"
   )
 endif()
 
