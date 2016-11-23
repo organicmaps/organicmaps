@@ -8,6 +8,7 @@
 @property(nonatomic, readonly) NSString * countryCode;
 @property(nonatomic, readonly) NSString * uniqueId;
 @property(nonatomic, readonly) NSString * bundleVersion;
+@property(nonatomic, readonly) NSString * buildNumber;
 @property(nonatomic, readonly) NSUUID * advertisingId;
 @property(nonatomic, readonly) NSString * languageId;
 @property(nonatomic, readonly) NSDate * buildDate;

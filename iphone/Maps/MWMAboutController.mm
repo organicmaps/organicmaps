@@ -41,8 +41,9 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.tableView.tableHeaderView = self.headerView;
 
   AppInfo * appInfo = [AppInfo sharedInfo];
-
-  self.versionLabel.text = [NSString stringWithFormat:L(@"version"), appInfo.bundleVersion];
+  NSString * version =
+      [NSString stringWithFormat:@"%@.%@", appInfo.bundleVersion, appInfo.buildNumber];
+  self.versionLabel.text = [NSString stringWithFormat:L(@"version"), version];
 
   NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
   dateFormatter.dateStyle = NSDateFormatterShortStyle;
