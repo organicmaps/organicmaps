@@ -15,11 +15,17 @@ include($$ROOT_DIR/common.pri)
 
 HEADERS += opening_hours.hpp \
            opening_hours_parsers.hpp \
-           opening_hours_parsers_terminals.hpp \
            parse_opening_hours.hpp \
            rules_evaluation_private.hpp \
            rules_evaluation.hpp
 
 SOURCES += rules_evaluation.cpp \
+           opening_hours_parsers_terminals.cpp \
            opening_hours.cpp \
-           parse_opening_hours.cpp
+           parse_opening_hours.cpp \
+           parse_years.cpp \
+           parse_weekdays.cpp \
+           parse_weeks.cpp \
+           parse_timespans.cpp \
+           parse_months.cpp
+
