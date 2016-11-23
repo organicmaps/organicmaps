@@ -1,10 +1,17 @@
 package com.mapswithme.util;
 
 import android.animation.Animator;
+import android.animation.ValueAnimator;
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.Rect;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewPropertyAnimator;
 
 import com.mapswithme.maps.MwmApplication;
@@ -26,6 +33,7 @@ public final class Animations
   public static final int BOTTOM = 3;
 
   private static final int DURATION_DEFAULT = MwmApplication.get().getResources().getInteger(R.integer.anim_default);
+  private static final int DURATION_MENU = MwmApplication.get().getResources().getInteger(R.integer.anim_menu);
 
   public static void appearSliding(final View view, @AnimationDirection int appearFrom, @Nullable final Runnable completionListener)
   {
@@ -133,5 +141,70 @@ public final class Animations
           completionListener.run();
       }
     });
+  }
+
+  public static void rizeTransition(@NonNull ViewGroup rootView, @NonNull final Rect startRect,
+                                    @Nullable final Runnable runnable)
+  {
+    Context context = rootView.getContext();
+    final View view = new View(context);
+    TypedArray a = null;
+    try
+    {
+      a = context.obtainStyledAttributes(new int[] { R.attr.cardBackgroundColor });
+      int color = a.getColor(0, ContextCompat.getColor(context, R.color.bg_cards));
+      view.setBackgroundColor(color);
+    }
+    finally
+    {
+      if (a != null)
+        a.recycle();
+    }
+
+    DisplayMetrics dm = context.getResources().getDisplayMetrics();
+    final float screenWidth = dm.widthPixels;
+    final float screenHeight = dm.heightPixels;
+    final float width = startRect.width();
+    final float height = startRect.height();
+    ViewGroup.MarginLayoutParams lp = new ViewGroup.MarginLayoutParams((int) width,
+                                                                       (int) height);
+    lp.topMargin = startRect.top;
+    lp.leftMargin = startRect.left;
+    final float right = screenWidth - startRect.right;
+    lp.rightMargin = (int) right;
+    rootView.addView(view, lp);
+
+    ValueAnimator animator = ValueAnimator.ofFloat(0.0f, 1.0f);
+    animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
+    {
+      @Override
+      public void onAnimationUpdate(ValueAnimator animation)
+      {
+        final float t = (float) animation.getAnimatedValue();
+        final float topMargin = startRect.top - t * startRect.top;
+        final float leftMargin = startRect.left - t * startRect.left;
+        final float rightMargin = right - t * right;
+        final float newWidth = width + t * (screenWidth - width);
+        final float newHeight = height + t * (screenHeight - height);
+        ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+        lp.width = (int) newWidth;
+        lp.height = (int) newHeight;
+        lp.topMargin = (int) topMargin;
+        lp.leftMargin = (int) leftMargin;
+        lp.rightMargin = (int) rightMargin;
+        view.setLayoutParams(lp);
+      }
+    });
+    animator.addListener(new UiUtils.SimpleAnimatorListener()
+    {
+      @Override
+      public void onAnimationEnd(Animator animation)
+      {
+        if (runnable != null)
+          runnable.run();
+      }
+    });
+    animator.setDuration(DURATION_MENU);
+    animator.start();
   }
 }

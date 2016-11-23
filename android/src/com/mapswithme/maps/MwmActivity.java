@@ -20,6 +20,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 
@@ -147,6 +148,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private TrafficButtonController mTrafficButtonController;
 
   private View mPositionChooser;
+
+  private ViewGroup mRootView;
 
   private boolean mIsFragmentContainer;
   private boolean mIsFullscreen;
@@ -529,7 +532,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
           .commit();
     }
 
-    findViewById(R.id.map_fragment_container).setOnTouchListener(this);
+    View container = findViewById(R.id.map_fragment_container);
+    container.setOnTouchListener(this);
+    mRootView = (ViewGroup) container.getParent();
   }
 
   private void initNavigationButtons()
@@ -1527,6 +1532,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       mRoutingPlanInplaceController.updateBuildProgress(progress, router);
     }
+  }
+
+  @Override
+  public void animateSearchPoiTransition(@NonNull final Rect startRect,
+                                         @Nullable final Runnable runnable)
+  {
+    Animations.rizeTransition(mRootView, startRect, runnable);
   }
 
   @Override

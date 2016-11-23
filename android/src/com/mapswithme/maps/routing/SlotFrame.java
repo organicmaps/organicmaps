@@ -74,7 +74,9 @@ public class SlotFrame extends LinearLayout
         @Override
         public void onClick(View v)
         {
-          RoutingController.get().searchPoi(mOrder);
+          Rect rect = new Rect();
+          mFrame.getGlobalVisibleRect(rect);
+          RoutingController.get().searchPoi(mOrder, rect);
         }
       });
 
