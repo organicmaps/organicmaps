@@ -47,6 +47,8 @@ void ExtractTrafficGeometry(FeatureType const & f, df::RoadClass const & roadCla
   if (polyline.GetSize() < 2)
     return;
 
+  bool const isLeftHandTraffic = f.GetID().m_mwmId.GetInfo()->GetRegionData().Get(feature::RegionData::RD_DRIVING) == "l";
+
   static vector<uint8_t> directions = {traffic::TrafficInfo::RoadSegmentId::kForwardDirection,
                                        traffic::TrafficInfo::RoadSegmentId::kReverseDirection};
   auto & segments = geometry[f.GetID().m_mwmId];
@@ -56,7 +58,10 @@ void ExtractTrafficGeometry(FeatureType const & f, df::RoadClass const & roadCla
     for (size_t dirIndex = 0; dirIndex < directions.size(); ++dirIndex)
     {
       auto const sid = traffic::TrafficInfo::RoadSegmentId(f.GetID().m_index, segmentIndex, directions[dirIndex]);
-      bool const isReversed = (directions[dirIndex] == traffic::TrafficInfo::RoadSegmentId::kReverseDirection);
+      bool isReversed = (directions[dirIndex] == traffic::TrafficInfo::RoadSegmentId::kReverseDirection);
+      if (isLeftHandTraffic)
+        isReversed = !isReversed;
+
       segments.emplace_back(sid, df::TrafficSegmentGeometry(polyline.ExtractSegment(segmentIndex, isReversed), roadClass));
     }
   }
