@@ -290,9 +290,11 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
           }
         }
       }
-
       if (changed)
         UpdateCanBeDeletedStatus();
+
+      if (m_notFinishedTiles.empty())
+        m_trafficRenderer->OnGeometryReady(m_currentZoomLevel);
       break;
     }
 
@@ -739,10 +741,23 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::EnableTraffic:
+    {
+      ref_ptr<EnableTrafficMessage> msg = message;
+      if (msg->IsTrafficEnabled())
+        InvalidateRect(m_userEventStream.GetCurrentScreen().ClipRect());
+      else
+        m_trafficRenderer->ClearGLDependentResources();
+      break;
+    }
+
   case Message::UpdateTraffic:
     {
       ref_ptr<UpdateTrafficMessage> msg = message;
-      m_trafficRenderer->UpdateTraffic(msg->GetSegmentsColoring());
+      if (msg->NeedInvalidate())
+        InvalidateRect(m_userEventStream.GetCurrentScreen().ClipRect());
+      else
+        m_trafficRenderer->UpdateTraffic(msg->GetSegmentsColoring());
       break;
     }
 
@@ -1583,6 +1598,8 @@ TTilesCollection FrontendRenderer::ResolveTileKeys(ScreenBase const & screen)
   {
     return group->GetTileKey().m_zoomLevel != m_currentZoomLevel;
   });
+
+  m_trafficRenderer->OnUpdateViewport(result, m_currentZoomLevel, tilesToDelete);
 
   return tiles;
 }

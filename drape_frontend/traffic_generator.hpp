@@ -26,6 +26,18 @@
 namespace df
 {
 
+enum class RoadClass : uint8_t
+{
+  Class0,
+  Class1,
+  Class2
+};
+
+int constexpr kRoadClass0ZoomLevel = 10;
+int constexpr kRoadClass1ZoomLevel = 12;
+int constexpr kRoadClass2ZoomLevel = 14;
+int constexpr kOutlineMinZoomLevel = 13;
+
 struct TrafficSegmentID
 {
   MwmSet::MwmId m_mwmId;
@@ -52,20 +64,22 @@ struct TrafficSegmentID
   inline bool operator!=(TrafficSegmentID const & r) const { return !(*this == r); }
 };
 
-using TrafficSegmentsGeometry = vector<pair<TrafficSegmentID, m2::PolylineD>>;
-
-struct TrafficSegmentColoring
+struct TrafficSegmentGeometry
 {
-  TrafficSegmentID m_id;
-  traffic::SpeedGroup m_speedGroup;
+  m2::PolylineD m_polyline;
+  RoadClass m_roadClass;
 
-  TrafficSegmentColoring(TrafficSegmentID const & id, traffic::SpeedGroup const & speedGroup)
-    : m_id(id)
-    , m_speedGroup(speedGroup)
+  TrafficSegmentGeometry(m2::PolylineD && polyline, RoadClass const & roadClass)
+    : m_polyline(move(polyline))
+    , m_roadClass(roadClass)
   {}
 };
 
-using TrafficSegmentsColoring = vector<TrafficSegmentColoring>;
+using TrafficSegmentsGeometry = map<MwmSet::MwmId, vector<pair<traffic::TrafficInfo::RoadSegmentId,
+                                                               TrafficSegmentGeometry>>>;
+using TrafficSegmentsColoring = map<MwmSet::MwmId, traffic::TrafficInfo::Coloring>;
+
+class TrafficHandle;
 
 struct TrafficRenderData
 {
@@ -73,6 +87,9 @@ struct TrafficRenderData
   drape_ptr<dp::RenderBucket> m_bucket;
   TileKey m_tileKey;
   MwmSet::MwmId m_mwmId;
+  m2::RectD m_boundingBox;
+  vector<TrafficHandle *> m_handles;
+
   TrafficRenderData(dp::GLState const & state) : m_state(state) {}
 };
 
@@ -108,7 +125,9 @@ class TrafficHandle : public dp::OverlayHandle
   using TBase = dp::OverlayHandle;
 
 public:
-  TrafficHandle(TrafficSegmentID const & segmentId, glsl::vec2 const & texCoord, size_t verticesCount);
+  TrafficHandle(traffic::TrafficInfo::RoadSegmentId const & segmentId, RoadClass const & roadClass,
+                m2::RectD const & boundingBox, glsl::vec2 const & texCoord,
+                size_t verticesCount);
 
   void GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator) const override;
   bool Update(ScreenBase const & screen) override;
@@ -117,11 +136,15 @@ public:
   void GetPixelShape(ScreenBase const & screen, bool perspective, Rects & rects) const override;
 
   void SetTexCoord(glsl::vec2 const & texCoord);
-  TrafficSegmentID GetSegmentId() const;
+  traffic::TrafficInfo::RoadSegmentId const & GetSegmentId() const;
+  RoadClass const & GetRoadClass() const;
+  m2::RectD const & GetBoundingBox() const;
 
 private:
-  TrafficSegmentID m_segmentId;
+  traffic::TrafficInfo::RoadSegmentId m_segmentId;
+  RoadClass m_roadClass;
   vector<glsl::vec2> m_buffer;
+  m2::RectD m_boundingBox;
   mutable bool m_needUpdate;
 };
 
@@ -139,12 +162,9 @@ public:
   void Init();
   void ClearGLDependentResources();
 
-  void AddSegment(TrafficSegmentID const & segmentId, m2::PolylineD const & polyline);
-
-  TrafficSegmentsColoring GetSegmentsToUpdate(TrafficSegmentsColoring const & trafficColoring) const;
-
-  void GetTrafficGeom(ref_ptr<dp::TextureManager> textures,
-                      TrafficSegmentsColoring const & trafficColoring);
+  void FlushSegmentsGeometry(TileKey const & tileKey, TrafficSegmentsGeometry const & geom,
+                             ref_ptr<dp::TextureManager> textures);
+  bool UpdateColoring(TrafficSegmentsColoring const & coloring);
 
   void ClearCache();
   void ClearCache(MwmSet::MwmId const & mwmId);
@@ -156,13 +176,15 @@ private:
   struct TrafficBatcherKey
   {
     TrafficBatcherKey() = default;
-    TrafficBatcherKey(MwmSet::MwmId const & mwmId, TileKey const & tileKey)
+    TrafficBatcherKey(MwmSet::MwmId const & mwmId, TileKey const & tileKey, RoadClass const & roadClass)
       : m_mwmId(mwmId)
       , m_tileKey(tileKey)
+      , m_roadClass(roadClass)
     {}
 
     MwmSet::MwmId m_mwmId;
     TileKey m_tileKey;
+    RoadClass m_roadClass;
   };
 
   struct TrafficBatcherKeyComparator
@@ -170,24 +192,26 @@ private:
     bool operator() (TrafficBatcherKey const & lhs, TrafficBatcherKey const & rhs) const
     {
       if (lhs.m_mwmId == rhs.m_mwmId)
-        return lhs.m_tileKey < rhs.m_tileKey;
+      {
+        if (lhs.m_tileKey.EqualStrict(rhs.m_tileKey))
+          return lhs.m_roadClass < rhs.m_roadClass;
+        return lhs.m_tileKey.LessStrict(rhs.m_tileKey);
+      }
       return lhs.m_mwmId < rhs.m_mwmId;
     }
   };
 
-  using TSegmentCollection = map<TrafficSegmentID, m2::PolylineD>;
-
   void GenerateSegment(dp::TextureManager::ColorRegion const & colorRegion,
                        m2::PolylineD const & polyline, m2::PointD const & tileCenter,
-                       vector<TrafficStaticVertex> & staticGeometry,
+                       bool generateCaps, vector<TrafficStaticVertex> & staticGeometry,
                        vector<TrafficDynamicVertex> & dynamicGeometry);
   void FillColorsCache(ref_ptr<dp::TextureManager> textures);
 
-  void FlushGeometry(TrafficBatcherKey const & key, dp::GLState const & state, drape_ptr<dp::RenderBucket> && buffer);
+  void FlushGeometry(TrafficBatcherKey const & key, dp::GLState const & state,
+                     drape_ptr<dp::RenderBucket> && buffer);
 
-  TSegmentCollection m_segments;
+  TrafficSegmentsColoring m_coloring;
 
-  set<TrafficSegmentID> m_segmentsCache;
   array<dp::TextureManager::ColorRegion, static_cast<size_t>(traffic::SpeedGroup::Count)> m_colorsCache;
   bool m_colorsCacheValid = false;
   bool m_colorsCacheRefreshed = false;

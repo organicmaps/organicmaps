@@ -1,6 +1,7 @@
 #pragma once
 
 #include "drape_frontend/traffic_generator.hpp"
+#include "drape_frontend/tile_utils.hpp"
 
 #include "drape/gpu_program_manager.hpp"
 #include "drape/pointers.hpp"
@@ -9,7 +10,6 @@
 #include "geometry/screenbase.hpp"
 #include "geometry/spline.hpp"
 
-#include "std/map.hpp"
 #include "std/vector.hpp"
 
 namespace df
@@ -34,10 +34,13 @@ public:
   void ClearGLDependentResources();
   void Clear(MwmSet::MwmId const & mwmId);
 
+  void OnUpdateViewport(CoverageResult const & coverage, int currentZoomLevel,
+                        buffer_vector<TileKey, 8> const & tilesToDelete);
+  void OnGeometryReady(int currentZoomLevel);
+
 private:
   vector<TrafficRenderData> m_renderData;
   TrafficTexCoords m_texCoords;
-  map<TrafficSegmentID, TrafficHandle *> m_handles;
 };
 
 } // namespace df

@@ -27,7 +27,8 @@ class CoverageUpdateDescriptor;
 class ReadManager
 {
 public:
-  ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model, bool allow3dBuildings);
+  ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model,
+              bool allow3dBuildings, bool trafficEnabled);
 
   void UpdateCoverage(ScreenBase const & screen, bool have3dBuildings,
                       TTilesCollection const & tiles, ref_ptr<dp::TextureManager> texMng);
@@ -37,6 +38,8 @@ public:
 
   bool CheckTileKey(TileKey const & tileKey) const;
   void Allow3dBuildings(bool allow3dBuildings);
+
+  void SetTrafficEnabled(bool trafficEnabled);
 
   static size_t ReadCount();
 
@@ -56,6 +59,7 @@ private:
   ScreenBase m_currentViewport;
   bool m_have3dBuildings;
   bool m_allow3dBuildings;
+  bool m_trafficEnabled;
   bool m_modeChanged;
 
   struct LessByTileInfo

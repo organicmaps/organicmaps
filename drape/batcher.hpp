@@ -87,7 +87,16 @@ private:
 class BatcherFactory
 {
 public:
+  BatcherFactory(uint32_t indexBufferSize, uint32_t vertexBufferSize)
+    : m_indexBufferSize(indexBufferSize)
+    , m_vertexBufferSize(vertexBufferSize)
+  {}
+
   Batcher * GetNew() const;
+
+private:
+  uint32_t const m_indexBufferSize;
+  uint32_t const m_vertexBufferSize;
 };
 
 class SessionGuard

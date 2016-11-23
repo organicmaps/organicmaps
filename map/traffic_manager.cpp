@@ -5,20 +5,16 @@
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/visual_params.hpp"
 
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
 
 namespace
 {
 auto const kUpdateInterval = minutes(1);
-
-int const kMinTrafficZoom = 10;
-
 }  // namespace
 
-TrafficManager::TrafficManager(Index const & index, GetMwmsByRectFn const & getMwmsByRectFn,
-                               size_t maxCacheSizeBytes)
-  : m_isEnabled(true)  // TODO: true is temporary
-  , m_index(index)
+TrafficManager::TrafficManager(GetMwmsByRectFn const & getMwmsByRectFn, size_t maxCacheSizeBytes)
+  : m_isEnabled(false)
   , m_getMwmsByRectFn(getMwmsByRectFn)
   , m_maxCacheSizeBytes(maxCacheSizeBytes)
   , m_currentCacheSizeBytes(0)
@@ -41,6 +37,8 @@ TrafficManager::~TrafficManager()
 void TrafficManager::SetEnabled(bool enabled)
 {
   m_isEnabled = enabled;
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->EnableTraffic(enabled);
 }
 
 void TrafficManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
@@ -63,7 +61,7 @@ void TrafficManager::UpdateViewport(ScreenBase const & screen)
   if (!m_isEnabled)
     return;
 
-  if (df::GetZoomLevel(screen.GetScale()) < kMinTrafficZoom)
+  if (df::GetZoomLevel(screen.GetScale()) < df::kRoadClass0ZoomLevel)
     return;
 
   // Request traffic.
@@ -95,57 +93,6 @@ void TrafficManager::UpdateMyPosition(MyPosition const & myPosition)
   // 2. Request traffic for this mwm's.
 
   // 3. Do all routing stuff.
-}
-
-void TrafficManager::CalculateSegmentsGeometry(traffic::TrafficInfo const & trafficInfo,
-                                               df::TrafficSegmentsGeometry & output) const
-{
-  size_t const coloringSize = trafficInfo.GetColoring().size();
-  output.reserve(coloringSize);
-
-  vector<FeatureID> features;
-  features.reserve(coloringSize);
-  for (auto const & c : trafficInfo.GetColoring())
-    features.emplace_back(trafficInfo.GetMwmId(), c.first.m_fid);
-
-  int constexpr kScale = scales::GetUpperScale();
-  unordered_map<uint32_t, m2::PolylineD> polylines;
-  auto featureReader = [&polylines](FeatureType & ft)
-  {
-    uint32_t const fid = ft.GetID().m_index;
-    if (polylines.find(fid) != polylines.end())
-      return;
-
-    if (routing::IsRoad(feature::TypesHolder(ft)))
-    {
-      m2::PolylineD polyline;
-      ft.ForEachPoint([&polyline](m2::PointD const & pt) { polyline.Add(pt); }, kScale);
-      if (polyline.GetSize() > 1)
-        polylines[fid] = polyline;
-    }
-  };
-  m_index.ReadFeatures(featureReader, features);
-
-  for (auto const & c : trafficInfo.GetColoring())
-  {
-    auto it = polylines.find(c.first.m_fid);
-    if (it == polylines.end())
-      continue;
-    bool const isReversed = (c.first.m_dir == traffic::TrafficInfo::RoadSegmentId::kReverseDirection);
-    m2::PolylineD polyline = it->second.ExtractSegment(c.first.m_idx, isReversed);
-    if (polyline.GetSize() > 1)
-      output.emplace_back(df::TrafficSegmentID(trafficInfo.GetMwmId(), c.first), move(polyline));
-  }
-}
-
-void TrafficManager::CalculateSegmentsColoring(traffic::TrafficInfo const & trafficInfo,
-                                               df::TrafficSegmentsColoring & output) const
-{
-  for (auto const & c : trafficInfo.GetColoring())
-  {
-    df::TrafficSegmentID const sid (trafficInfo.GetMwmId(), c.first);
-    output.emplace_back(sid, c.second);
-  }
 }
 
 void TrafficManager::ThreadRoutine()
@@ -227,25 +174,17 @@ void TrafficManager::OnTrafficDataResponse(traffic::TrafficInfo const & info)
   if (it == m_mwmInfos.end())
     return;
 
-  // Cache geometry for rendering if it's necessary.
-  if (!it->second.m_isLoaded)
-  {
-    df::TrafficSegmentsGeometry geometry;
-    CalculateSegmentsGeometry(info, geometry);
-    it->second.m_isLoaded = true;
-    m_drapeEngine->CacheTrafficSegmentsGeometry(geometry);
-  }
+  // Update cache.
+  size_t constexpr kElementSize = sizeof(traffic::TrafficInfo::RoadSegmentId) + sizeof(traffic::SpeedGroup);
+  size_t const dataSize = info.GetColoring().size() * kElementSize;
+  it->second.m_isLoaded = true;
+  m_currentCacheSizeBytes += (dataSize - it->second.m_dataSize);
+  it->second.m_dataSize = dataSize;
+  CheckCacheSize();
 
   // Update traffic colors.
   df::TrafficSegmentsColoring coloring;
-  CalculateSegmentsColoring(info, coloring);
-
-  size_t dataSize = coloring.size() * sizeof(df::TrafficSegmentColoring);
-  it->second.m_dataSize = dataSize;
-  m_currentCacheSizeBytes += dataSize;
-
-  CheckCacheSize();
-
+  coloring[info.GetMwmId()] = info.GetColoring();
   m_drapeEngine->UpdateTraffic(coloring);
 }
 

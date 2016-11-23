@@ -19,9 +19,10 @@ class BatchersPool
 public:
   using TFlushFn = function<void (TKey const & key, dp::GLState const & state, drape_ptr<dp::RenderBucket> && buffer)>;
 
-  BatchersPool(int initBatchersCount, TFlushFn const & flushFn)
+  BatchersPool(int initBatchersCount, TFlushFn const & flushFn,
+               uint32_t indexBufferSize, uint32_t vertexBufferSize)
     : m_flushFn(flushFn)
-    , m_pool(initBatchersCount, dp::BatcherFactory())
+    , m_pool(initBatchersCount, dp::BatcherFactory(indexBufferSize, vertexBufferSize))
   {}
 
   ~BatchersPool()

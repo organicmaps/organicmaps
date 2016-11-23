@@ -71,7 +71,8 @@ DrapeEngine::DrapeEngine(Params && params)
   BackendRenderer::Params brParams(frParams.m_commutator, frParams.m_oglContextFactory,
                                    frParams.m_texMng, params.m_model,
                                    params.m_model.UpdateCurrentCountryFn(),
-                                   make_ref(m_requestedTiles), params.m_allow3dBuildings);
+                                   make_ref(m_requestedTiles), params.m_allow3dBuildings,
+                                   params.m_trafficEnabled);
   m_backend = make_unique_dp<BackendRenderer>(brParams);
 
   m_widgetsInfo = move(params.m_info);
@@ -533,13 +534,10 @@ void DrapeEngine::RequestSymbolsSize(vector<string> const & symbols,
                                   MessagePriority::Normal);
 }
 
-void DrapeEngine::CacheTrafficSegmentsGeometry(TrafficSegmentsGeometry const & segments)
+void DrapeEngine::EnableTraffic(bool trafficEnabled)
 {
-  if (segments.empty())
-    return;
-
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<CacheTrafficSegmentsMessage>(segments),
+                                  make_unique_dp<EnableTrafficMessage>(trafficEnabled),
                                   MessagePriority::Normal);
 }
 

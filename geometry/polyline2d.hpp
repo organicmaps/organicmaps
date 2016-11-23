@@ -115,7 +115,7 @@ public:
     return m_points.back();
   }
 
-  Polyline ExtractSegment(size_t segmentIndex, bool reversed)
+  Polyline ExtractSegment(size_t segmentIndex, bool reversed) const
   {
     if (segmentIndex + 1 >= m_points.size())
       return Polyline();
