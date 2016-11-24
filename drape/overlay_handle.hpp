@@ -81,6 +81,7 @@ public:
   virtual uint64_t GetPriorityInFollowingMode() const;
 
   virtual bool IsBound() const { return false; }
+  virtual bool HasLinearFeatureShape() const { return false; }
 
   virtual bool Enable3dExtention() const { return true; }
 
