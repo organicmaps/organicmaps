@@ -1,0 +1,10 @@
+[deliveryclub_ru]
+start = 2016-12-01
+end = 2017-01-15
+icon =
+url = http://fas.st/VtumFw
+aux = test
+
+[lamoda_ua]
+start = 2016-12-01
+end = 2017-01-15

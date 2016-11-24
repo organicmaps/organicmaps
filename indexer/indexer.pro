@@ -11,6 +11,7 @@ include($$ROOT_DIR/common.pri)
 
 SOURCES += \
     altitude_loader.cpp \
+    banners.cpp \
     categories_holder.cpp \
     categories_holder_loader.cpp \
     categories_index.cpp \
@@ -64,6 +65,7 @@ SOURCES += \
 
 HEADERS += \
     altitude_loader.hpp \
+    banners.hpp \
     categories_holder.hpp \
     categories_index.hpp \
     cell_coverer.hpp \

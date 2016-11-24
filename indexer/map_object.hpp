@@ -146,6 +146,7 @@ vector<Props> MetadataToProps(vector<T> const & metadata)
     case Metadata::FMD_SPONSORED_ID:
     case Metadata::FMD_PRICE_RATE:
     case Metadata::FMD_RATING:
+    case Metadata::FMD_BANNER_URL:
     case Metadata::FMD_TEST_ID:
     case Metadata::FMD_COUNT:
       break;

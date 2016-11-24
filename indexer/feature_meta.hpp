@@ -126,6 +126,7 @@ public:
     FMD_SPONSORED_ID = 24,
     FMD_PRICE_RATE = 25,
     FMD_RATING = 26,
+    FMD_BANNER_URL = 27,
     FMD_COUNT
   };
 
