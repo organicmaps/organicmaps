@@ -16,22 +16,22 @@
     android:visibility="invisible"/>
 
   <ImageButton
-    android:id="@+id/nav_zoom_out"
+    android:id="@+id/nav_zoom_in"
     style="@style/MwmWidget.MapButton"
-    android:layout_above="@+id/nav_zoom_in"
+    android:layout_above="@+id/nav_zoom_out"
     android:layout_alignParentEnd="true"
     android:layout_alignParentRight="true"
     android:background="?nav_background"
-    android:src="@drawable/ic_zoom_out"/>
+    android:src="@drawable/ic_zoom_in"/>
 
   <ImageButton
-    android:id="@+id/nav_zoom_in"
+    android:id="@+id/nav_zoom_out"
     style="@style/MwmWidget.MapButton"
     android:layout_above="@+id/my_position"
     android:layout_alignParentEnd="true"
     android:layout_alignParentRight="true"
     android:background="?nav_background"
-    android:src="@drawable/ic_zoom_in"/>
+    android:src="@drawable/ic_zoom_out"/>
 
   <ImageButton
     android:id="@+id/my_position"
