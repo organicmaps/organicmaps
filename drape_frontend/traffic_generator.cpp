@@ -192,6 +192,7 @@ void TrafficGenerator::FlushSegmentsGeometry(TileKey const & tileKey, TrafficSeg
   state.SetMaskTexture(textures->GetTrafficArrowTexture());
 
   static vector<RoadClass> roadClasses = {RoadClass::Class0, RoadClass::Class1, RoadClass::Class2};
+  static const int kGenerateCapsZoomLevel[] = {13, 14, 16};
 
   for (auto geomIt = geom.begin(); geomIt != geom.end(); ++geomIt)
   {
@@ -208,6 +209,10 @@ void TrafficGenerator::FlushSegmentsGeometry(TileKey const & tileKey, TrafficSeg
         auto segmentColoringIt = coloring.find(sid);
         if (segmentColoringIt != coloring.end())
         {
+          // We do not generate geometry for unknown segments.
+          if (segmentColoringIt->second == traffic::SpeedGroup::Unknown)
+            continue;
+
           TrafficSegmentGeometry const & g = geomIt->second[i].second;
           ref_ptr<dp::Batcher> batcher = m_batchersPool->GetBatcher(TrafficBatcherKey(geomIt->first, tileKey, g.m_roadClass));
 
@@ -216,7 +221,7 @@ void TrafficGenerator::FlushSegmentsGeometry(TileKey const & tileKey, TrafficSeg
 
           vector<TrafficStaticVertex> staticGeometry;
           vector<TrafficDynamicVertex> dynamicGeometry;
-          bool const generateCaps = (tileKey.m_zoomLevel > kOutlineMinZoomLevel);
+          bool const generateCaps = (tileKey.m_zoomLevel > kGenerateCapsZoomLevel[static_cast<uint32_t>(g.m_roadClass)]);
           GenerateSegment(colorRegion, g.m_polyline, tileKey.GetGlobalRect().Center(), generateCaps, staticGeometry, dynamicGeometry);
           ASSERT_EQUAL(staticGeometry.size(), dynamicGeometry.size(), ());
 

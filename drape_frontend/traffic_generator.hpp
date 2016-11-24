@@ -35,8 +35,7 @@ enum class RoadClass : uint8_t
 
 int constexpr kRoadClass0ZoomLevel = 10;
 int constexpr kRoadClass1ZoomLevel = 12;
-int constexpr kRoadClass2ZoomLevel = 14;
-int constexpr kOutlineMinZoomLevel = 13;
+int constexpr kRoadClass2ZoomLevel = 15;
 
 struct TrafficSegmentID
 {

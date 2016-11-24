@@ -19,8 +19,9 @@ namespace df
 namespace
 {
 
-int const kMinVisibleArrowZoomLevel = 16;
-int const kRoadClass2MinVisibleArrowZoomLevel = 17;
+int constexpr kMinVisibleArrowZoomLevel = 16;
+int constexpr kRoadClass2MinVisibleArrowZoomLevel = 17;
+int constexpr kOutlineMinZoomLevel = 13;
 
 float const kTrafficArrowAspect = 24.0f / 8.0f;
 
@@ -53,7 +54,7 @@ float const kRoadClass2WidthScalar[] =
   // 1   2     3     4     5     6     7     8     9     10
   0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
   //11  12    13    14    15    16    17    18    19     20
-  0.0f, 0.0f, 0.0f, 0.2f, 0.3f, 0.5f, 0.7f, 0.8f, 0.9f, 1.0f
+  0.0f, 0.0f, 0.0f, 0.0f, 0.3f, 0.5f, 0.7f, 0.8f, 0.9f, 1.0f
 };
 
 float CalculateHalfWidth(ScreenBase const & screen, RoadClass const & roadClass, bool left)
