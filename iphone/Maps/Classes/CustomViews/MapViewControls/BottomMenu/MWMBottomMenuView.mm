@@ -4,6 +4,7 @@
 #import "MWMBottomMenuViewController.h"
 #import "MWMButton.h"
 #import "MWMRouter.h"
+#import "MWMSideButtons.h"
 #import "MapsAppDelegate.h"
 #import "UIButton+RuntimeAttributes.h"
 #import "UIColor+MapsMeColor.h"
@@ -159,10 +160,17 @@ CGFloat constexpr kTimeWidthRegular = 128;
       completion:^(BOOL finished) {
         [self updateVisibility];
       }];
-  ((EAGLView *)self.superview).widgetsManager.bottomBound = self.mainButtonsHeight.constant;
+  [self noftifyBottomBoundChange];
   [self updateFonts];
   [self updateHeightProfile];
   [super layoutSubviews];
+}
+
+- (void)noftifyBottomBoundChange
+{
+  CGFloat const height = self.superview.height - self.mainButtonsHeight.constant;
+  [MWMMapWidgets widgetsManager].bottomBound = height;
+  [MWMSideButtons buttons].bottomBound = height;
 }
 
 - (void)updateAlphaAndColor

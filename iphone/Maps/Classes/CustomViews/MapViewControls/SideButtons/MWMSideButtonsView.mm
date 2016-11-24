@@ -1,22 +1,24 @@
 #import "MWMSideButtonsView.h"
 #import "Common.h"
+#import "MWMBottomMenuViewController.h"
 #import "MWMButton.h"
 #import "MWMMapViewControlsCommon.h"
 
+#include "base/math.hpp"
+
 namespace
 {
-CGFloat constexpr kZoomOutToLayoutPortraitOffset = 52;
+CGFloat const kLocationButtonSpacingMax = 52;
+CGFloat const kLocationButtonSpacingMin = 8;
+CGFloat const kButtonsTopOffset = 82;
+CGFloat const kButtonsBottomOffset = 6;
 }  // namespace
 
 @interface MWMSideButtonsView ()
 
-@property(nonatomic) CGRect defaultBounds;
-
 @property(weak, nonatomic) IBOutlet MWMButton * zoomIn;
 @property(weak, nonatomic) IBOutlet MWMButton * zoomOut;
 @property(weak, nonatomic) IBOutlet MWMButton * location;
-
-@property(nonatomic) BOOL isPortrait;
 
 @end
 
@@ -25,28 +27,19 @@ CGFloat constexpr kZoomOutToLayoutPortraitOffset = 52;
 - (void)awakeFromNib
 {
   [super awakeFromNib];
-  self.defaultBounds = self.bounds;
   self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 }
 
 - (void)layoutSubviews
 {
-  BOOL const isPortrait = self.superview.width < self.superview.height;
-  if (self.isPortrait != isPortrait && self.superview)
-  {
-    self.isPortrait = isPortrait;
-    CGFloat const zoomOutToLayoutOffset =
-        IPAD || isPortrait ? kZoomOutToLayoutPortraitOffset : self.zoomOut.minY - self.zoomIn.maxY;
-    self.location.minY = self.zoomOut.maxY + zoomOutToLayoutOffset;
-    CGSize size = self.defaultBounds.size;
-    size.height = self.location.maxY;
-    self.defaultBounds.size = size;
-  }
-  self.bounds = self.defaultBounds;
+  CGFloat spacing = self.bottomBound - self.topBound - self.zoomOut.maxY - self.location.height;
+  spacing = my::clamp(spacing, kLocationButtonSpacingMin, kLocationButtonSpacingMax);
+
+  self.location.minY = self.zoomOut.maxY + spacing;
+  self.bounds = {{}, {self.zoomOut.width, self.location.maxY}};
   if (self.zoomHidden)
     self.height = self.location.height;
   self.location.maxY = self.height;
-  self.bottomBound = self.superview.height;
 
   [self layoutXPosition:self.hidden];
   [self layoutYPosition];
@@ -71,7 +64,13 @@ CGFloat constexpr kZoomOutToLayoutPortraitOffset = 52;
   }
 }
 
-- (void)layoutYPosition { self.maxY = self.bottomBound; }
+- (void)layoutYPosition
+{
+  CGFloat const centerShift = (self.height - self.zoomIn.midY - self.zoomOut.midY) / 2;
+  self.midY = centerShift + self.superview.height / 2;
+  if (self.maxY > self.bottomBound)
+    self.maxY = self.bottomBound;
+}
 - (void)fadeZoomButtonsShow:(BOOL)show
 {
   CGFloat const alpha = show ? 1.0 : 0.0;
@@ -92,34 +91,36 @@ CGFloat constexpr kZoomOutToLayoutPortraitOffset = 52;
 
 - (void)animate
 {
-  [self layoutYPosition];
+  runAsyncOnMainQueue(^{
+    [self layoutYPosition];
 
-  CGFloat const spaceLeft = self.bottomBound - self.topBound -
-                            (equalScreenDimensions(self.topBound, 0.0) ? statusBarHeight() : 0.0);
-  BOOL const isZoomHidden = self.zoomIn.alpha == 0.0;
-  BOOL const willZoomHide = (self.defaultBounds.size.height > spaceLeft);
-  if (willZoomHide)
-  {
-    if (!isZoomHidden)
-      [self fadeZoomButtonsShow:NO];
-  }
-  else
-  {
-    if (isZoomHidden)
-      [self fadeZoomButtonsShow:YES];
-  }
-  BOOL const isLocationHidden = self.location.alpha == 0.0;
-  BOOL const willLocationHide = (self.location.height > spaceLeft);
-  if (willLocationHide)
-  {
-    if (!isLocationHidden)
-      [self fadeLocationButtonShow:NO];
-  }
-  else
-  {
-    if (isLocationHidden)
-      [self fadeLocationButtonShow:YES];
-  }
+    CGFloat const spaceLeft = self.bottomBound - self.topBound -
+                              (equalScreenDimensions(self.topBound, 0.0) ? statusBarHeight() : 0.0);
+    BOOL const isZoomHidden = self.zoomIn.alpha == 0.0;
+    BOOL const willZoomHide = (self.location.maxY > spaceLeft);
+    if (willZoomHide)
+    {
+      if (!isZoomHidden)
+        [self fadeZoomButtonsShow:NO];
+    }
+    else
+    {
+      if (isZoomHidden)
+        [self fadeZoomButtonsShow:YES];
+    }
+    BOOL const isLocationHidden = self.location.alpha == 0.0;
+    BOOL const willLocationHide = (self.location.height > spaceLeft);
+    if (willLocationHide)
+    {
+      if (!isLocationHidden)
+        [self fadeLocationButtonShow:NO];
+    }
+    else
+    {
+      if (isLocationHidden)
+        [self fadeLocationButtonShow:YES];
+    }
+  });
 }
 
 #pragma mark - Properties
@@ -166,7 +167,7 @@ CGFloat constexpr kZoomOutToLayoutPortraitOffset = 52;
   [self animate];
 }
 
-- (CGFloat)topBound { return MAX(0.0, _topBound); }
+- (CGFloat)topBound { return MAX(kButtonsTopOffset, _topBound); }
 @synthesize bottomBound = _bottomBound;
 
 - (void)setBottomBound:(CGFloat)bottomBound
@@ -181,8 +182,9 @@ CGFloat constexpr kZoomOutToLayoutPortraitOffset = 52;
 {
   if (!self.superview)
     return _bottomBound;
-  CGFloat const bottomBoundLimit = (self.superview.height - self.defaultBounds.size.height) / 2;
-  return MIN(self.superview.height - bottomBoundLimit, _bottomBound);
+  CGFloat const spaceOccupiedByMenu =
+      self.superview.height - [MWMBottomMenuViewController controller].mainStateHeight;
+  return MIN(spaceOccupiedByMenu, _bottomBound) - kButtonsBottomOffset;
 }
 
 @end

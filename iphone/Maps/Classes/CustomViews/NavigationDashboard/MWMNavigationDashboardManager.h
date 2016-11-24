@@ -40,7 +40,6 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState) {
 @property(weak, nonatomic, readonly) id<MWMNavigationDashboardManagerProtocol> delegate;
 @property(nonatomic) CGFloat topBound;
 @property(nonatomic) CGFloat leftBound;
-@property(nonatomic, readonly) CGFloat extraCompassBottomOffset;
 @property(nonatomic, readonly) CGFloat leftHeight;
 @property(nonatomic, readonly) CGFloat rightHeight;
 

@@ -1,6 +1,7 @@
 #import "MWMSideButtons.h"
 #import "Common.h"
 #import "MWMButton.h"
+#import "MWMMapViewControlsManager.h"
 #import "MWMRouter.h"
 #import "MWMSettings.h"
 #import "MWMSideButtonsView.h"
@@ -33,6 +34,12 @@ NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger im
 }
 }  // namespace
 
+@interface MWMMapViewControlsManager ()
+
+@property(nonatomic) MWMSideButtons * sideButtons;
+
+@end
+
 @interface MWMSideButtons ()
 
 @property(nonatomic) IBOutlet MWMSideButtonsView * sideView;
@@ -49,6 +56,7 @@ NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger im
 
 @implementation MWMSideButtons
 
++ (MWMSideButtons *)buttons { return [MWMMapViewControlsManager manager].sideButtons; }
 - (instancetype)initWithParentView:(UIView *)view
 {
   self = [super init];
@@ -56,7 +64,7 @@ NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger im
   {
     [[NSBundle mainBundle] loadNibNamed:kMWMSideButtonsViewNibName owner:self options:nil];
     [view addSubview:self.sideView];
-    [self.sideView layoutIfNeeded];
+    [self.sideView setNeedsLayout];
     self.sideView.topBound = 0.0;
     self.sideView.bottomBound = view.height;
     self.zoomSwipeEnabled = NO;

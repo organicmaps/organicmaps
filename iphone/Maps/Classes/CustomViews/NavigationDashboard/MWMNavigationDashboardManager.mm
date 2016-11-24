@@ -344,13 +344,6 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
   return _entity;
 }
 
-- (CGFloat)extraCompassBottomOffset
-{
-  if (!_navigationInfoView)
-    return 0;
-  return self.navigationInfoView.extraCompassBottomOffset;
-}
-
 - (void)setMapSearch
 {
   if (_navigationInfoView)
