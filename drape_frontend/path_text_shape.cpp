@@ -185,6 +185,11 @@ public:
     return m_priorityFollowingMode;
   }
 
+  bool HasLinearFeatureShape() const override
+  {
+    return true;
+  }
+
 private:
   bool CalculatePerspectiveOffsets(const m2::Spline & pixelSpline, float & pixelOffset) const
   {
