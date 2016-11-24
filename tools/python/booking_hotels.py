@@ -145,8 +145,12 @@ def translate(source, output):
     # Fix chinese coordinates
     for hotel in data:
         if hotel['countrycode'] == 'cn' and 'location' in hotel:
-            hotel['location']['latitude'], hotel['location']['longitude'] = eviltransform.gcj2wgs_exact(
-                float(hotel['location']['latitude']), float(hotel['location']['longitude']))
+            try:
+                hotel['location']['latitude'], hotel['location']['longitude'] = eviltransform.gcj2wgs_exact(
+                    float(hotel['location']['latitude']), float(hotel['location']['longitude']))
+            except ValueError:
+                # We don't care if there were errors converting coordinates to float
+                pass
 
     # Dict of dicts city_id -> { currency -> [prices] }
     cities = defaultdict(lambda: defaultdict(list))
