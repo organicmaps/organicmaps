@@ -11,14 +11,14 @@ IndexGraph::IndexGraph(unique_ptr<GeometryLoader> loader, shared_ptr<EdgeEstimat
   ASSERT(m_estimator, ());
 }
 
-void IndexGraph::GetEdgesList(Joint::Id jointId, bool isOutgoing, vector<JointEdge> & edges) const
+void IndexGraph::GetEdgeList(Joint::Id jointId, bool isOutgoing, vector<JointEdge> & edges)
 {
   m_jointIndex.ForEachPoint(jointId, [this, &edges, isOutgoing](RoadPoint const & rp) {
-    AddNeighboringEdges(rp, isOutgoing, edges);
+    GetNeighboringEdges(rp, isOutgoing, edges);
   });
 }
 
-m2::PointD const & IndexGraph::GetPoint(Joint::Id jointId) const
+m2::PointD const & IndexGraph::GetPoint(Joint::Id jointId)
 {
   return m_geometry.GetPoint(m_jointIndex.GetPoint(jointId));
 }
@@ -40,7 +40,7 @@ Joint::Id IndexGraph::InsertJoint(RoadPoint const & rp)
   return jointId;
 }
 
-bool IndexGraph::JointLaysOnRoad(Joint::Id jointId, uint32_t featureId) const
+bool IndexGraph::JointLiesOnRoad(Joint::Id jointId, uint32_t featureId) const
 {
   bool result = false;
   m_jointIndex.ForEachPoint(jointId, [&result, featureId](RoadPoint const & rp) {
@@ -51,8 +51,8 @@ bool IndexGraph::JointLaysOnRoad(Joint::Id jointId, uint32_t featureId) const
   return result;
 }
 
-inline void IndexGraph::AddNeighboringEdges(RoadPoint rp, bool isOutgoing,
-                                            vector<JointEdge> & edges) const
+void IndexGraph::GetNeighboringEdges(RoadPoint const & rp, bool isOutgoing,
+                                     vector<JointEdge> & edges)
 {
   RoadGeometry const & road = m_geometry.GetRoad(rp.GetFeatureId());
   if (!road.IsRoad())
@@ -60,14 +60,14 @@ inline void IndexGraph::AddNeighboringEdges(RoadPoint rp, bool isOutgoing,
 
   bool const bidirectional = !road.IsOneWay();
   if (!isOutgoing || bidirectional)
-    AddNeighboringEdge(road, rp, false /* forward */, edges);
+    GetNeighboringEdge(road, rp, false /* forward */, edges);
 
   if (isOutgoing || bidirectional)
-    AddNeighboringEdge(road, rp, true /* forward */, edges);
+    GetNeighboringEdge(road, rp, true /* forward */, edges);
 }
 
-inline void IndexGraph::AddNeighboringEdge(RoadGeometry const & road, RoadPoint rp, bool forward,
-                                           vector<JointEdge> & edges) const
+inline void IndexGraph::GetNeighboringEdge(RoadGeometry const & road, RoadPoint const & rp,
+                                           bool forward, vector<JointEdge> & edges) const
 {
   pair<Joint::Id, uint32_t> const & neighbor = m_roadIndex.FindNeighbor(rp, forward);
   if (neighbor.first != Joint::kInvalidId)
@@ -77,8 +77,8 @@ inline void IndexGraph::AddNeighboringEdge(RoadGeometry const & road, RoadPoint 
   }
 }
 
-void IndexGraph::AddDirectEdge(uint32_t featureId, uint32_t pointFrom, uint32_t pointTo,
-                               Joint::Id target, bool forward, vector<JointEdge> & edges) const
+void IndexGraph::GetDirectedEdge(uint32_t featureId, uint32_t pointFrom, uint32_t pointTo,
+                                 Joint::Id target, bool forward, vector<JointEdge> & edges)
 {
   RoadGeometry const & road = m_geometry.GetRoad(featureId);
   if (!road.IsRoad())

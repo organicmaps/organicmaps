@@ -2,7 +2,7 @@
 
 #include "routing/directions_engine.hpp"
 #include "routing/edge_estimator.hpp"
-#include "routing/road_graph.hpp"
+#include "routing/features_road_graph.hpp"
 #include "routing/router.hpp"
 #include "routing/vehicle_model.hpp"
 
@@ -16,12 +16,13 @@ namespace routing
 {
 class IndexGraph;
 
-class AStarRouter
+class SingleMwmRouter
 {
 public:
-  AStarRouter(string const & name, Index const & index,
-              shared_ptr<VehicleModelFactory> vehicleModelFactory,
-              shared_ptr<EdgeEstimator> estimator, unique_ptr<IDirectionsEngine> directionsEngine);
+  SingleMwmRouter(string const & name, Index const & index,
+                  shared_ptr<VehicleModelFactory> vehicleModelFactory,
+                  shared_ptr<EdgeEstimator> estimator,
+                  unique_ptr<IDirectionsEngine> directionsEngine);
 
   string const & GetName() const { return m_name; }
 
@@ -29,6 +30,8 @@ public:
                                      m2::PointD const & startDirection,
                                      m2::PointD const & finalPoint, RouterDelegate const & delegate,
                                      Route & route);
+
+  static unique_ptr<SingleMwmRouter> CreateCarRouter(Index const & index);
 
 private:
   IRouter::ResultCode DoCalculateRoute(MwmSet::MwmId const & mwmId, m2::PointD const & startPoint,
@@ -39,13 +42,11 @@ private:
                        Edge & closestEdge) const;
   bool LoadIndex(MwmSet::MwmId const & mwmId, string const & country, IndexGraph & graph);
 
-  string m_name;
+  string const m_name;
   Index const & m_index;
-  unique_ptr<IRoadGraph> m_roadGraph;
+  FeaturesRoadGraph m_roadGraph;
   shared_ptr<VehicleModelFactory> m_vehicleModelFactory;
   shared_ptr<EdgeEstimator> m_estimator;
   unique_ptr<IDirectionsEngine> m_directionsEngine;
 };
-
-unique_ptr<AStarRouter> CreateCarAStarBidirectionalRouter(Index & index);
 }  // namespace routing

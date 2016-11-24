@@ -244,7 +244,7 @@ bool CarRouter::CheckRoutingAbility(m2::PointD const & startPoint, m2::PointD co
 }
 
 CarRouter::CarRouter(Index & index, TCountryFileFn const & countryFileFn,
-                     unique_ptr<AStarRouter> localRouter)
+                     unique_ptr<SingleMwmRouter> localRouter)
   : m_index(index), m_indexManager(countryFileFn, index), m_router(move(localRouter))
 {
 }

@@ -47,6 +47,7 @@ public:
   pair<Joint::Id, uint32_t> FindNeighbor(uint32_t pointId, bool forward) const
   {
     uint32_t const size = static_cast<uint32_t>(m_jointIds.size());
+    pair<Joint::Id, uint32_t> result = make_pair(Joint::kInvalidId, 0);
 
     if (forward)
     {
@@ -54,7 +55,10 @@ public:
       {
         Joint::Id const jointId = m_jointIds[i];
         if (jointId != Joint::kInvalidId)
-          return make_pair(jointId, i);
+        {
+          result = {jointId, i};
+          return result;
+        }
       }
     }
     else
@@ -63,11 +67,14 @@ public:
       {
         Joint::Id const jointId = m_jointIds[i];
         if (jointId != Joint::kInvalidId)
-          return make_pair(jointId, i);
+        {
+          result = {jointId, i};
+          return result;
+        }
       }
     }
 
-    return make_pair(Joint::kInvalidId, 0);
+    return result;
   }
 
   template <class Sink>
@@ -102,7 +109,7 @@ class RoadIndex final
 public:
   void Import(vector<Joint> const & joints);
 
-  void AddJoint(RoadPoint rp, Joint::Id jointId)
+  void AddJoint(RoadPoint const & rp, Joint::Id jointId)
   {
     m_roads[rp.GetFeatureId()].AddJoint(rp.GetPointId(), jointId);
   }
@@ -110,7 +117,7 @@ public:
   // Find nearest point with normal joint id.
   // If forward == true: neighbor with larger point id (right neighbor)
   // If forward == false: neighbor with smaller point id (left neighbor)
-  pair<Joint::Id, uint32_t> FindNeighbor(RoadPoint rp, bool forward) const;
+  pair<Joint::Id, uint32_t> FindNeighbor(RoadPoint const & rp, bool forward) const;
 
   template <class Sink>
   void Serialize(Sink & sink) const
@@ -138,7 +145,7 @@ public:
 
   uint32_t GetSize() const { return m_roads.size(); }
 
-  Joint::Id GetJointId(RoadPoint rp) const
+  Joint::Id GetJointId(RoadPoint const & rp) const
   {
     auto const it = m_roads.find(rp.GetFeatureId());
     if (it == m_roads.end())

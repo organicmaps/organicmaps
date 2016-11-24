@@ -29,7 +29,8 @@ public:
 
   bool IsOneWay() const { return m_isOneWay; }
 
-  bool GetSpeed() const { return m_speed; }
+  // Kilometers per hour.
+  double GetSpeed() const { return m_speed; }
 
   m2::PointD const & GetPoint(uint32_t pointId) const
   {
@@ -40,10 +41,10 @@ public:
   uint32_t GetPointsCount() const { return m_points.size(); }
 
 private:
+  Points m_points;
+  double m_speed = 0.0;
   bool m_isRoad = false;
   bool m_isOneWay = false;
-  double m_speed = 0.0;
-  Points m_points;
 };
 
 class GeometryLoader
@@ -52,6 +53,10 @@ public:
   virtual ~GeometryLoader() = default;
 
   virtual void Load(uint32_t featureId, RoadGeometry & road) const = 0;
+
+  // mwmId should be alive: it is caller responsibility to check it.
+  static unique_ptr<GeometryLoader> Create(Index const & index, MwmSet::MwmId const & mwmId,
+                                           shared_ptr<IVehicleModel> vehicleModel);
 };
 
 class Geometry final
@@ -60,28 +65,16 @@ public:
   Geometry() = default;
   explicit Geometry(unique_ptr<GeometryLoader> loader);
 
-  RoadGeometry const & GetRoad(uint32_t featureId) const
-  {
-    auto const & it = m_roads.find(featureId);
-    if (it != m_roads.cend())
-      return it->second;
+  RoadGeometry const & GetRoad(uint32_t featureId);
 
-    RoadGeometry & road = m_roads[featureId];
-    m_loader->Load(featureId, road);
-    return road;
-  }
-
-  m2::PointD const & GetPoint(RoadPoint const & rp) const
+  m2::PointD const & GetPoint(RoadPoint const & rp)
   {
     return GetRoad(rp.GetFeatureId()).GetPoint(rp.GetPointId());
   }
 
 private:
   // Feature id to RoadGeometry map.
-  mutable unordered_map<uint32_t, RoadGeometry> m_roads;
+  unordered_map<uint32_t, RoadGeometry> m_roads;
   unique_ptr<GeometryLoader> m_loader;
 };
-
-unique_ptr<GeometryLoader> CreateGeometryLoader(Index const & index, MwmSet::MwmId const & mwmId,
-                                                shared_ptr<IVehicleModel> vehicleModel);
 }  // namespace routing

@@ -4,6 +4,8 @@
 #include "routing/road_index.hpp"
 #include "routing/road_point.hpp"
 
+#include "base/assert.hpp"
+
 #include "std/vector.hpp"
 
 namespace routing
@@ -16,7 +18,12 @@ class JointIndex final
 {
 public:
   // Read comments in Build method about -1.
-  uint32_t GetNumJoints() const { return m_offsets.size() - 1; }
+  uint32_t GetNumJoints() const
+  {
+    CHECK_GREATER(m_offsets.size(), 0, ());
+    return m_offsets.size() - 1;
+  }
+
   uint32_t GetNumPoints() const { return m_points.size(); }
   RoadPoint GetPoint(Joint::Id jointId) const { return m_points[Begin(jointId)]; }
 
@@ -37,7 +44,7 @@ public:
 
   void Build(RoadIndex const & roadIndex, uint32_t numJoints);
   Joint::Id InsertJoint(RoadPoint const & rp);
-  void AppendToJoint(Joint::Id jointId, RoadPoint rp);
+  void AppendToJoint(Joint::Id jointId, RoadPoint const & rp);
 
 private:
   // Begin index for jointId entries.

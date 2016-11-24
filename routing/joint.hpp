@@ -17,7 +17,7 @@ public:
   using Id = uint32_t;
   static Id constexpr kInvalidId = numeric_limits<Id>::max();
 
-  void AddPoint(RoadPoint rp) { m_points.emplace_back(rp); }
+  void AddPoint(RoadPoint const & rp) { m_points.emplace_back(rp); }
 
   size_t GetSize() const { return m_points.size(); }
 

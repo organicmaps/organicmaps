@@ -18,7 +18,7 @@ public:
   virtual double CalcEdgesWeight(RoadGeometry const & road, uint32_t pointFrom,
                                  uint32_t pointTo) const = 0;
   virtual double CalcHeuristic(m2::PointD const & from, m2::PointD const & to) const = 0;
-};
 
-shared_ptr<EdgeEstimator> CreateCarEdgeEstimator(shared_ptr<IVehicleModel> vehicleModel);
+  static shared_ptr<EdgeEstimator> CreateForCar(IVehicleModel const & vehicleModel);
+};
 }  // namespace routing

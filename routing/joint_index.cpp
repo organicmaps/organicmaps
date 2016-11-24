@@ -1,5 +1,7 @@
 #include "routing/joint_index.hpp"
 
+#include "routing/routing_exception.hpp"
+
 namespace routing
 {
 Joint::Id JointIndex::InsertJoint(RoadPoint const & rp)
@@ -10,61 +12,50 @@ Joint::Id JointIndex::InsertJoint(RoadPoint const & rp)
   return jointId;
 }
 
-void JointIndex::AppendToJoint(Joint::Id jointId, RoadPoint rp)
+void JointIndex::AppendToJoint(Joint::Id jointId, RoadPoint const & rp)
 {
   m_dynamicJoints[jointId].AddPoint(rp);
 }
 
 void JointIndex::Build(RoadIndex const & roadIndex, uint32_t numJoints)
 {
+  m_dynamicJoints.clear();
+
   // + 1 is protection for 'End' method from out of bounds.
   // Call End(numJoints-1) requires more size, so add one more item.
   // Therefore m_offsets.size() == numJoints + 1,
   // And m_offsets.back() == m_points.size()
   m_offsets.assign(numJoints + 1, 0);
 
-  // Calculate shifted sizes.
+  // Calculate sizes.
   // Example for numJoints = 6:
-  // Original sizes: 2, 5, 3, 4, 2, 3, 0
-  // Shifted sizes: 0, 2, 5, 3, 4, 2, 3
-  roadIndex.ForEachRoad([this](uint32_t /* featureId */, RoadJointIds const & road) {
-    road.ForEachJoint([this](uint32_t /* pointId */, Joint::Id jointId) {
-      Joint::Id nextId = jointId + 1;
-      ASSERT_LESS(jointId, m_offsets.size(), ());
-      ++m_offsets[nextId];
+  // 2, 5, 3, 4, 2, 3, 0
+  roadIndex.ForEachRoad([this, numJoints](uint32_t /* featureId */, RoadJointIds const & road) {
+    road.ForEachJoint([this, numJoints](uint32_t /* pointId */, Joint::Id jointId) {
+      ASSERT_LESS(jointId, numJoints, ());
+      ++m_offsets[jointId];
     });
   });
 
-  // Calculate twice shifted offsets.
-  // Example: 0, 0, 2, 7, 10, 14, 16
-  uint32_t sum = 0;
-  uint32_t prevSum = 0;
+  // Fill offsets with end bounds.
+  // Example: 2, 7, 10, 14, 16, 19, 19
   for (size_t i = 1; i < m_offsets.size(); ++i)
-  {
-    sum += m_offsets[i];
-    m_offsets[i] = prevSum;
-    prevSum = sum;
-  }
+    m_offsets[i] += m_offsets[i - 1];
 
-  m_points.resize(sum);
+  m_points.resize(m_offsets.back());
 
-  // Now fill points, m_offsets[nextId] is current incrementing begin.
-  // Offsets after this operation: 0, 2, 7, 10, 14, 16, 19
+  // Now fill points.
+  // Offsets after this operation are begin bounds:
+  // 0, 2, 7, 10, 14, 16, 19
   roadIndex.ForEachRoad([this](uint32_t featureId, RoadJointIds const & road) {
     road.ForEachJoint([this, featureId](uint32_t pointId, Joint::Id jointId) {
-      Joint::Id nextId = jointId + 1;
-      ASSERT_LESS(nextId, m_offsets.size(), ());
-      uint32_t & offset = m_offsets[nextId];
+      uint32_t & offset = m_offsets[jointId];
+      --offset;
       m_points[offset] = {featureId, pointId};
-      ++offset;
     });
   });
 
-  if (m_offsets[0] != 0)
-    MYTHROW(RootException, ("Wrong offsets calculation: m_offsets[0] =", m_offsets[0]));
-
-  if (m_offsets.back() != m_points.size())
-    MYTHROW(RootException, ("Wrong offsets calculation: m_offsets.back() =", m_offsets.back(),
-                            ", m_points.size()=", m_points.size()));
+  CHECK_EQUAL(m_offsets[0], 0, ());
+  CHECK_EQUAL(m_offsets.back(), m_points.size(), ());
 }
 }  // namespace routing

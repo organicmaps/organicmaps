@@ -13,7 +13,6 @@ INCLUDEPATH += $$ROOT_DIR/3party/jansson/src \
                $$ROOT_DIR/3party/osrm/osrm-backend/third_party
 
 SOURCES += \
-    astar_router.cpp \
     async_router.cpp \
     base/followed_polyline.cpp \
     bicycle_directions.cpp \
@@ -48,9 +47,11 @@ SOURCES += \
     router.cpp \
     router_delegate.cpp \
     routing_algorithm.cpp \
+    routing_helpers.cpp \
     routing_mapping.cpp \
     routing_serialization.cpp \
     routing_session.cpp \
+    single_mwm_router.cpp \
     speed_camera.cpp \
     turns.cpp \
     turns_generator.cpp \
@@ -61,7 +62,6 @@ SOURCES += \
 
 
 HEADERS += \
-    astar_router.hpp \
     async_router.hpp \
     base/astar_algorithm.hpp \
     base/followed_polyline.hpp \
@@ -100,12 +100,14 @@ HEADERS += \
     router.hpp \
     router_delegate.hpp \
     routing_algorithm.hpp \
+    routing_exception.hpp \
     routing_helpers.hpp \
     routing_mapping.hpp \
     routing_result_graph.hpp \
     routing_serialization.hpp \
     routing_session.hpp \
     routing_settings.hpp \
+    single_mwm_router.hpp \
     speed_camera.hpp \
     turn_candidate.hpp \
     turns.hpp \

@@ -28,7 +28,4 @@ protected:
   void CalculateTimes(IRoadGraph const & graph, vector<Junction> const & path,
                       Route::TTimes & times) const;
 };
-
-void ReconstructRoute(IDirectionsEngine * engine, IRoadGraph const & graph,
-                      my::Cancellable const & cancellable, vector<Junction> & path, Route & route);
 }  // namespace routing

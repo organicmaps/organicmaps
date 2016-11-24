@@ -12,6 +12,7 @@
 
 #include "base/logging.hpp"
 
+#include "std/bind.hpp"
 #include "std/unordered_map.hpp"
 #include "std/vector.hpp"
 
@@ -26,8 +27,7 @@ class Processor final
 public:
   void ProcessAllFeatures(string const & filename)
   {
-    feature::ForEachFromDat(filename,
-                            [this](FeatureType const & f, uint32_t id) { ProcessFeature(f, id); });
+    feature::ForEachFromDat(filename, bind(&Processor::ProcessFeature, this, _1, _2));
   }
 
   void BuildGraph(IndexGraph & graph) const

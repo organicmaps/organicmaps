@@ -1,6 +1,5 @@
 #include "routing/road_graph_router.hpp"
 
-#include "routing/astar_router.hpp"
 #include "routing/bicycle_directions.hpp"
 #include "routing/bicycle_model.hpp"
 #include "routing/car_model.hpp"
@@ -9,6 +8,8 @@
 #include "routing/pedestrian_directions.hpp"
 #include "routing/pedestrian_model.hpp"
 #include "routing/route.hpp"
+#include "routing/routing_helpers.hpp"
+#include "routing/single_mwm_router.hpp"
 
 #include "coding/reader_wrapper.hpp"
 

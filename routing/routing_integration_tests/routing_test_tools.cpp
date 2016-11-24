@@ -7,12 +7,12 @@
 #include "geometry/distance_on_sphere.hpp"
 #include "geometry/latlon.hpp"
 
-#include "routing/astar_router.hpp"
 #include "routing/online_absent_fetcher.hpp"
 #include "routing/online_cross_fetcher.hpp"
 #include "routing/road_graph_router.hpp"
 #include "routing/route.hpp"
 #include "routing/router_delegate.hpp"
+#include "routing/single_mwm_router.hpp"
 
 #include "indexer/index.hpp"
 
@@ -83,7 +83,7 @@ namespace integration
     };
 
     auto carRouter = make_unique<CarRouter>(
-        index, countryFileGetter, CreateCarAStarBidirectionalRouter(index));
+        index, countryFileGetter, SingleMwmRouter::CreateCarRouter(index));
     return carRouter;
   }
 

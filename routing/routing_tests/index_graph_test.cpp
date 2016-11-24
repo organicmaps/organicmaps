@@ -25,7 +25,7 @@ public:
   // GeometryLoader overrides:
   void Load(uint32_t featureId, RoadGeometry & road) const override;
 
-  void AddRoad(uint32_t featureId, bool oneWay, RoadGeometry::Points const & points);
+  void AddRoad(uint32_t featureId, bool oneWay, float speed, RoadGeometry::Points const & points);
 
 private:
   unordered_map<uint32_t, RoadGeometry> m_roads;
@@ -40,17 +40,12 @@ void TestGeometryLoader::Load(uint32_t featureId, RoadGeometry & road) const
   road = it->second;
 }
 
-void TestGeometryLoader::AddRoad(uint32_t featureId, bool oneWay,
+void TestGeometryLoader::AddRoad(uint32_t featureId, bool oneWay, float speed,
                                  RoadGeometry::Points const & points)
 {
   auto it = m_roads.find(featureId);
-  if (it != m_roads.end())
-  {
-    ASSERT(false, ("Already contains feature", featureId));
-    return;
-  }
-
-  m_roads[featureId] = RoadGeometry(oneWay, 1.0 /* speed */, points);
+  CHECK(it == m_roads.end(), ("Already contains feature", featureId));
+  m_roads[featureId] = RoadGeometry(oneWay, speed, points);
 }
 
 Joint MakeJoint(vector<RoadPoint> const & points)
@@ -64,10 +59,10 @@ Joint MakeJoint(vector<RoadPoint> const & points)
 
 shared_ptr<EdgeEstimator> CreateEstimator()
 {
-  return CreateCarEdgeEstimator(make_shared<CarModelFactory>()->GetVehicleModel());
+  return EdgeEstimator::CreateForCar(*make_shared<CarModelFactory>()->GetVehicleModel());
 }
 
-void TestRoute(IndexGraph const & graph, RoadPoint const & start, RoadPoint const & finish,
+void TestRoute(IndexGraph & graph, RoadPoint const & start, RoadPoint const & finish,
                size_t expectedLength, vector<RoadPoint> const * expectedRoute = nullptr)
 {
   LOG(LINFO, ("Test route", start.GetFeatureId(), ",", start.GetPointId(), "=>",
@@ -85,15 +80,15 @@ void TestRoute(IndexGraph const & graph, RoadPoint const & start, RoadPoint cons
   starter.RedressRoute(routingResult.path, roadPoints);
   TEST_EQUAL(roadPoints.size(), expectedLength, ());
 
-  if (expectedRoute != nullptr)
+  if (expectedRoute)
     TEST_EQUAL(roadPoints, *expectedRoute, ());
 }
 
-void TestEdges(IndexGraph const & graph, Joint::Id jointId,
-               vector<Joint::Id> const & expectedTargets, bool forward)
+void TestEdges(IndexGraph & graph, Joint::Id jointId, vector<Joint::Id> const & expectedTargets,
+               bool forward)
 {
   vector<JointEdge> edges;
-  graph.GetEdgesList(jointId, forward, edges);
+  graph.GetEdgeList(jointId, forward, edges);
 
   vector<Joint::Id> targets;
   for (JointEdge const & edge : edges)
@@ -101,16 +96,16 @@ void TestEdges(IndexGraph const & graph, Joint::Id jointId,
 
   sort(targets.begin(), targets.end());
 
-  ASSERT_EQUAL(targets, expectedTargets, ());
+  TEST_EQUAL(targets, expectedTargets, ());
 }
 
-void TestOutgoingEdges(IndexGraph const & graph, Joint::Id jointId,
+void TestOutgoingEdges(IndexGraph & graph, Joint::Id jointId,
                        vector<Joint::Id> const & expectedTargets)
 {
   TestEdges(graph, jointId, expectedTargets, true);
 }
 
-void TestIngoingEdges(IndexGraph const & graph, Joint::Id jointId,
+void TestIngoingEdges(IndexGraph & graph, Joint::Id jointId,
                       vector<Joint::Id> const & expectedTargets)
 {
   TestEdges(graph, jointId, expectedTargets, false);
@@ -119,6 +114,8 @@ void TestIngoingEdges(IndexGraph const & graph, Joint::Id jointId,
 uint32_t AbsDelta(uint32_t v0, uint32_t v1) { return v0 > v1 ? v0 - v1 : v1 - v0; }
 }  // namespace
 
+namespace routing_test
+{
 //                   R4 (one way down)
 //
 // R1     J2--------J3         -1
@@ -137,13 +134,15 @@ UNIT_TEST(EdgesTest)
 {
   unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
   loader->AddRoad(
-      0 /* featureId */, false,
+      0 /* featureId */, false, 1.0 /* speed */,
       RoadGeometry::Points({{0.0, 0.0}, {1.0, 0.0}, {2.0, 0.0}, {3.0, 0.0}, {4.0, 0.0}}));
-  loader->AddRoad(1 /* featureId */, false, RoadGeometry::Points({{1.0, -1.0}, {3.0, -1.0}}));
-  loader->AddRoad(2 /* featureId */, false, RoadGeometry::Points({{1.0, -1.0}, {3.0, -1.0}}));
-  loader->AddRoad(3 /* featureId */, true,
+  loader->AddRoad(1 /* featureId */, false, 1.0 /* speed */,
+                  RoadGeometry::Points({{1.0, -1.0}, {3.0, -1.0}}));
+  loader->AddRoad(2 /* featureId */, false, 1.0 /* speed */,
+                  RoadGeometry::Points({{1.0, -1.0}, {3.0, -1.0}}));
+  loader->AddRoad(3 /* featureId */, true, 1.0 /* speed */,
                   RoadGeometry::Points({{1.0, 1.0}, {1.0, 0.0}, {1.0, -1.0}}));
-  loader->AddRoad(4 /* featureId */, true,
+  loader->AddRoad(4 /* featureId */, true, 1.0 /* speed */,
                   RoadGeometry::Points({{3.0, -1.0}, {3.0, 0.0}, {3.0, 1.0}}));
 
   IndexGraph graph(move(loader), CreateEstimator());
@@ -172,8 +171,6 @@ UNIT_TEST(EdgesTest)
   TestIngoingEdges(graph, 5, {1, 4});
 }
 
-namespace routing_test
-{
 //  Roads     R1:
 //
 //            -2
@@ -186,10 +183,10 @@ UNIT_TEST(FindPathCross)
 {
   unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
   loader->AddRoad(
-      0 /* featureId */, false,
+      0 /* featureId */, false, 1.0 /* speed */,
       RoadGeometry::Points({{-2.0, 0.0}, {-1.0, 0.0}, {0.0, 0.0}, {1.0, 0.0}, {2.0, 0.0}}));
   loader->AddRoad(
-      1 /* featureId */, false,
+      1 /* featureId */, false, 1.0 /* speed */,
       RoadGeometry::Points({{0.0, -2.0}, {-1.0, 0.0}, {0.0, 0.0}, {0.0, 1.0}, {0.0, 2.0}}));
 
   IndexGraph graph(move(loader), CreateEstimator());
@@ -244,8 +241,8 @@ UNIT_TEST(FindPathManhattan)
       street.emplace_back(static_cast<double>(i), static_cast<double>(j));
       avenue.emplace_back(static_cast<double>(j), static_cast<double>(i));
     }
-    loader->AddRoad(i, false, street);
-    loader->AddRoad(i + kCitySize, false, avenue);
+    loader->AddRoad(i, false, 1.0 /* speed */, street);
+    loader->AddRoad(i + kCitySize, false, 1.0 /* speed */, avenue);
   }
 
   IndexGraph graph(move(loader), CreateEstimator());
@@ -287,15 +284,15 @@ UNIT_TEST(RedressRace)
   unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
 
   loader->AddRoad(
-      0 /* featureId */, false,
+      0 /* featureId */, false, 1.0 /* speed */,
       RoadGeometry::Points({{0.0, 0.0}, {1.0, -1.0}, {2.0, -1.0}, {3.0, -1.0}, {4.0, 0.0}}));
 
   loader->AddRoad(
-      1 /* featureId */, false,
+      1 /* featureId */, false, 1.0 /* speed */,
       RoadGeometry::Points({{0.0, 0.0}, {1.0, 0.0}, {2.0, 0.0}, {3.0, 0.0}, {4.0, 0.0}}));
 
   loader->AddRoad(
-      2 /* featureId */, false,
+      2 /* featureId */, false, 1.0 /* speed */,
       RoadGeometry::Points({{0.0, 0.0}, {1.0, 1.0}, {2.0, 1.0}, {3.0, 1.0}, {4.0, 0.0}}));
 
   IndexGraph graph(move(loader), CreateEstimator());
@@ -306,6 +303,36 @@ UNIT_TEST(RedressRace)
   graph.Import(joints);
 
   vector<RoadPoint> const expectedRoute({{1, 0}, {1, 1}, {1, 2}, {1, 3}, {1, 4}});
+  TestRoute(graph, {0, 0}, {0, 4}, 5, &expectedRoute);
+}
+
+// Roads                                       y:
+//
+//  fast road R0            * - * - *         -1
+//                        /           \
+//  slow road R1      J0 *  - - * - -  * J1    0
+//
+//                 x:    0  1   2   3  4
+//
+UNIT_TEST(RoadSpeed)
+{
+  unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
+
+  loader->AddRoad(
+      0 /* featureId */, false, 10.0 /* speed */,
+      RoadGeometry::Points({{0.0, 0.0}, {1.0, -1.0}, {2.0, -1.0}, {3.0, -1.0}, {4.0, 0.0}}));
+
+  loader->AddRoad(1 /* featureId */, false, 1.0 /* speed */,
+                  RoadGeometry::Points({{0.0, 0.0}, {2.0, 0.0}, {4.0, 0.0}}));
+
+  IndexGraph graph(move(loader), CreateEstimator());
+
+  vector<Joint> joints;
+  joints.emplace_back(MakeJoint({{0, 0}, {1, 0}}));  // J0
+  joints.emplace_back(MakeJoint({{0, 4}, {1, 2}}));  // J1
+  graph.Import(joints);
+
+  vector<RoadPoint> const expectedRoute({{0, 0}, {0, 1}, {0, 2}, {0, 3}, {0, 4}});
   TestRoute(graph, {0, 0}, {0, 4}, 5, &expectedRoute);
 }
 }  // namespace routing_test

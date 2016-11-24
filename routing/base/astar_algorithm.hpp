@@ -61,13 +61,13 @@ public:
 
   using TOnVisitedVertexCallback = std::function<void(TVertexType const &, TVertexType const &)>;
 
-  Result FindPath(TGraphType const & graph,
+  Result FindPath(TGraphType & graph,
                   TVertexType const & startVertex, TVertexType const & finalVertex,
                   RoutingResult<TVertexType> & result,
                   my::Cancellable const & cancellable = my::Cancellable(),
                   TOnVisitedVertexCallback onVisitedVertexCallback = nullptr) const;
 
-  Result FindPathBidirectional(TGraphType const & graph,
+  Result FindPathBidirectional(TGraphType & graph,
                                TVertexType const & startVertex, TVertexType const & finalVertex,
                                RoutingResult<TVertexType> & result,
                                my::Cancellable const & cancellable = my::Cancellable(),
@@ -104,7 +104,7 @@ private:
   struct BidirectionalStepContext
   {
     BidirectionalStepContext(bool forward, TVertexType const & startVertex,
-                             TVertexType const & finalVertex, TGraphType const & graph)
+                             TVertexType const & finalVertex, TGraphType & graph)
         : forward(forward), startVertex(startVertex), finalVertex(finalVertex), graph(graph)
     {
       bestVertex = forward ? startVertex : finalVertex;
@@ -151,7 +151,7 @@ private:
     bool const forward;
     TVertexType const & startVertex;
     TVertexType const & finalVertex;
-    TGraph const & graph;
+    TGraph & graph;
 
     priority_queue<State, vector<State>, greater<State>> queue;
     map<TVertexType, double> bestDistance;
@@ -182,7 +182,7 @@ private:
 
 template <typename TGraph>
 typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
-    TGraphType const & graph,
+    TGraphType & graph,
     TVertexType const & startVertex, TVertexType const & finalVertex,
     RoutingResult<TVertexType> & result,
     my::Cancellable const & cancellable,
@@ -257,7 +257,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
 
 template <typename TGraph>
 typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirectional(
-    TGraphType const & graph,
+    TGraphType & graph,
     TVertexType const & startVertex, TVertexType const & finalVertex,
     RoutingResult<TVertexType> & result,
     my::Cancellable const & cancellable,

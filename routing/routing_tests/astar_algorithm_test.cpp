@@ -57,7 +57,7 @@ private:
   map<unsigned, vector<Edge>> m_adjs;
 };
 
-void TestAStar(UndirectedGraph const & graph, vector<unsigned> const & expectedRoute, double const & expectedDistance)
+void TestAStar(UndirectedGraph & graph, vector<unsigned> const & expectedRoute, double const & expectedDistance)
 {
   using TAlgorithm = AStarAlgorithm<UndirectedGraph>;
 
