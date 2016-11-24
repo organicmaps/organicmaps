@@ -43,7 +43,6 @@
 - (void)dismissPlacePage;
 - (void)showPlacePage:(place_page::Info const &)info;
 - (void)addPlace:(BOOL)isBusiness hasPoint:(BOOL)hasPoint point:(m2::PointD const &)point;
-- (void)dragPlacePage:(CGRect)frame;
 
 #pragma mark - MWMNavigationDashboardManager
 

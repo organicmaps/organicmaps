@@ -25,7 +25,6 @@ CGFloat constexpr kSearchButtonsViewWidthPortrait = 200;
 CGFloat constexpr kSearchButtonsViewHeightLandscape = 56;
 CGFloat constexpr kSearchButtonsViewWidthLandscape = 286;
 CGFloat constexpr kSearchButtonsSideSize = 44;
-CGFloat constexpr kDefaultExtraCompassBottomOffset = -10;
 
 NSTimeInterval constexpr kCollapseSearchTimeout = 5.0;
 
@@ -392,12 +391,6 @@ BOOL defaultOrientation(CGSize const & size)
   _leftBound = MAX(leftBound, 0.0);
   [self setNeedsLayout];
   [self layoutIfNeeded];
-}
-
-- (CGFloat)extraCompassBottomOffset
-{
-  return (defaultOrientation(self.frame.size) ? 0 : kSearchButtonsViewHeightLandscape) +
-         kDefaultExtraCompassBottomOffset;
 }
 
 @end

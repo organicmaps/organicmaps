@@ -17,10 +17,12 @@
 
 @interface MWMBottomMenuViewController : UIViewController<MWMNavigationDashboardInfoProtocol>
 
++ (MWMBottomMenuViewController *)controller;
+
 @property(nonatomic) MWMBottomMenuState state;
 @property(weak, nonatomic) IBOutlet MWMButton * p2pButton;
 @property(nonatomic) CGFloat leftBound;
-@property(nonatomic, readonly) CGFloat mainButtonsHeight;
+@property(nonatomic, readonly) CGFloat mainStateHeight;
 
 - (instancetype)initWithParentController:(MapViewController *)controller
                                 delegate:(id<MWMBottomMenuControllerProtocol>)delegate;

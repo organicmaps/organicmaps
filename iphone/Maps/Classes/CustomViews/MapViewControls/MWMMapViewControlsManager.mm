@@ -295,15 +295,6 @@ extern NSString * const kAlohalyticsTapEventKey;
       }];
 }
 
-#pragma mark - MWMPlacePageManager
-
-- (void)dragPlacePage:(CGRect)frame
-{
-  if (IPAD)
-    return;
-  [self.sideButtons setBottomBound:frame.origin.y];
-}
-
 #pragma mark - MWMNavigationDashboardManager
 
 - (void)routePreviewDidChangeFrame:(CGRect)newFrame

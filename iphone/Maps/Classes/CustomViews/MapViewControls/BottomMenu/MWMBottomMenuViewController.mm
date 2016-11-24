@@ -52,6 +52,12 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   MWMBottomMenuViewCellCount
 };
 
+@interface MWMMapViewControlsManager ()
+
+@property(nonatomic) MWMBottomMenuViewController * menuController;
+
+@end
+
 @interface MWMBottomMenuViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property(weak, nonatomic) MapViewController * controller;
@@ -87,9 +93,16 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * routingProgress;
 @property(weak, nonatomic) IBOutlet MWMButton * ttsSoundButton;
 
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * mainButtonsHeight;
+
 @end
 
 @implementation MWMBottomMenuViewController
+
++ (MWMBottomMenuViewController *)controller
+{
+  return [MWMMapViewControlsManager manager].menuController;
+}
 
 - (instancetype)initWithParentController:(MapViewController *)controller
                                 delegate:(id<MWMBottomMenuControllerProtocol>)delegate
@@ -577,4 +590,5 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   [self ttsButtonStatusChanged:nil];
 }
 
+- (CGFloat)mainStateHeight { return self.mainButtonsHeight.constant; }
 @end

@@ -15,7 +15,6 @@ enum class NavigationSearchState
 @interface MWMNavigationInfoView : UIView<MWMNavigationDashboardInfoProtocol>
 
 @property(nonatomic) CGFloat leftBound;
-@property(nonatomic, readonly) CGFloat extraCompassBottomOffset;
 @property(nonatomic, readonly) CGFloat leftHeight;
 @property(nonatomic, readonly) CGFloat rightHeight;
 @property(nonatomic, readonly) NavigationSearchState searchState;

@@ -53,7 +53,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="Wns-nH-AQU" customClass="MWMNavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="OK2-RC-YDq">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="OK2-RC-YDq">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -90,7 +90,7 @@
             <objects>
                 <navigationController id="Psz-BY-Fy4" customClass="MWMNavigationController" sceneMemberID="viewController">
                     <value key="contentSizeForViewInPopover" type="size" width="600" height="600"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="SUN-3A-xgM">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="SUN-3A-xgM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -216,7 +216,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Example values" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="120" translatesAutoresizingMaskIntoConstraints="NO" id="dAM-iT-fzu">
-                                                        <rect key="frame" x="16" y="12" width="119.5" height="20"/>
+                                                        <rect key="frame" x="16" y="12" width="120" height="20"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -987,16 +987,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gmw-e3-n53" userLabel="Container" customClass="MWMNoMapsView">
-                                <rect key="frame" x="6" y="0.0" width="308" height="504"/>
+                                <rect key="frame" x="96.5" y="0.0" width="407" height="536"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dCZ-PN-2Ob" userLabel="BoundsView">
-                                        <rect key="frame" x="16" y="0.0" width="276" height="400"/>
+                                        <rect key="frame" x="16" y="0.0" width="375" height="432"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="87G-jh-N8H" userLabel="CenteredView">
-                                                <rect key="frame" x="0.0" y="67.5" width="276" height="265"/>
+                                                <rect key="frame" x="0.0" y="92" width="375" height="249"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="img_no_maps" translatesAutoresizingMaskIntoConstraints="NO" id="vI9-fc-FO2">
-                                                        <rect key="frame" x="58" y="0.0" width="160" height="160"/>
+                                                        <rect key="frame" x="107.5" y="0.0" width="160" height="160"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="vI9-fc-FO2" secondAttribute="height" multiplier="1:1" id="f4J-1R-ewM"/>
                                                             <constraint firstAttribute="height" relation="lessThanOrEqual" priority="800" constant="160" id="jwh-bM-u0p"/>
@@ -1004,7 +1004,7 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="У вас нет загруженных карт" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="abh-G0-Alr" userLabel="Title">
-                                                        <rect key="frame" x="0.0" y="180" width="276" height="24"/>
+                                                        <rect key="frame" x="0.0" y="180" width="375" height="24"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -1015,7 +1015,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Загрузите необходимые карты, чтобы находить места и пользоваться навигацией без интернета." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LaW-Ad-mYI" userLabel="Text">
-                                                        <rect key="frame" x="0.0" y="216" width="276" height="49"/>
+                                                        <rect key="frame" x="0.0" y="216" width="375" height="33"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -1056,7 +1056,7 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Moj-UK-oyl" userLabel="DownloadMaps" customClass="MWMButton">
-                                        <rect key="frame" x="34" y="420" width="240" height="44"/>
+                                        <rect key="frame" x="83.5" y="452" width="240" height="44"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="240" id="49x-bx-JJj"/>
@@ -1352,14 +1352,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zha-LO-7Vm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2705" y="5187"/>
-        </scene>
-        <!--AuthorizationLoginViewController-->
-        <scene sceneID="Uoe-yB-Kdk">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Authorization" referencedIdentifier="AuthorizationLoginViewController" id="fxB-8Y-C2b" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="DMV-2O-GbN" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1955" y="4393"/>
         </scene>
         <!--MWMSettingsViewController-->
         <scene sceneID="ecD-Uc-PMs">

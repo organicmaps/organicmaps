@@ -7,4 +7,4 @@ static inline NSTimeInterval framesDuration(NSTimeInterval const framesCount)
   return kFrameDuration * framesCount;
 }
 
-static CGFloat const kViewControlsOffsetToBounds = 4.0;
+static CGFloat const kViewControlsOffsetToBounds = 6;

@@ -4,6 +4,8 @@
 
 @interface MWMSideButtons : NSObject
 
++ (MWMSideButtons *)buttons;
+
 @property (nonatomic) BOOL zoomHidden;
 @property (nonatomic) BOOL hidden;
 

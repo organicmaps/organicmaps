@@ -10,6 +10,7 @@
 #import "MWMPlacePageData.h"
 #import "MWMPlacePageLayout.h"
 #import "MWMRouter.h"
+#import "MWMSideButtons.h"
 #import "MWMStorage.h"
 #import "MWMViewController.h"
 #import "MapViewController.h"
@@ -134,8 +135,7 @@
 
 - (void)onPlacePageTopBoundChanged:(CGFloat)bound
 {
-  [[MWMMapViewControlsManager manager]
-      dragPlacePage:{{0, self.ownerViewController.view.height - bound}, {}}];
+  [[MWMSideButtons buttons] setBottomBound:self.ownerViewController.view.height - bound];
 }
 
 - (void)shouldDestroyLayout
