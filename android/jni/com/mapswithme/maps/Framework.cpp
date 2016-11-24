@@ -626,6 +626,50 @@ Java_com_mapswithme_maps_Framework_nativeSetMapObjectListener(JNIEnv * env, jcla
 }
 
 JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeRestoreMapObject(JNIEnv * env, jclass clazz,
+                                                          jobject jMapObject)
+{
+  static jmethodID const getMapObjectTypeId =
+      jni::GetMethodID(env, jMapObject, "getMapObjectType", "()I");
+
+  place_page::Info info;
+  jint type = env->CallIntMethod(jMapObject, getMapObjectTypeId);
+  switch (type)
+  {
+    case usermark_helper::kBookmark:
+    {
+      static jmethodID const getCategoryId =
+          jni::GetMethodID(env, jMapObject, "getCategoryId", "()I");
+      static jmethodID const getBookmarkId =
+          jni::GetMethodID(env, jMapObject, "getBookmarkId", "()I");
+      jint categoryId = env->CallIntMethod(jMapObject, getCategoryId);
+      jint bookmarkId = env->CallIntMethod(jMapObject, getBookmarkId);
+      BookmarkAndCategory bnc = BookmarkAndCategory(bookmarkId, categoryId);
+      BookmarkCategory * pCat = frm()->GetBmCategory(categoryId);
+      Bookmark const * pBmk = static_cast<Bookmark const *>(pCat->GetUserMark(bookmarkId));
+      frm()->FillBookmarkInfo(*pBmk, bnc, info);
+      break;
+    }
+    case usermark_helper::kMyPosition:
+    {
+      frm()->FillMyPositionInfo(info);
+      break;
+    }
+    default:
+    {
+      static jmethodID const getLatId = jni::GetMethodID(env, jMapObject, "getLat", "()D");
+      static jmethodID const getLonId = jni::GetMethodID(env, jMapObject, "getLon", "()D");
+      jdouble lat = env->CallDoubleMethod(jMapObject, getLatId);
+      jdouble lon = env->CallDoubleMethod(jMapObject, getLonId);
+      frm()->FillPoiInfo(m2::PointD(MercatorBounds::FromLatLon(lat, lon)), info);
+      break;
+    }
+  }
+
+  g_framework->SetPlacePageInfo(info);
+}
+
+JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeRemoveMapObjectListener(JNIEnv * env, jclass)
 {
   frm()->SetMapSelectionListeners({}, {});

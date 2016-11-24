@@ -114,6 +114,11 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
+
+    if (!(getActivity() instanceof EditorActivity))
+      Editor.nativeStartEdit(-1);
+    else
+      Editor.nativeStartEdit(((EditorActivity) getActivity()).getDrawScale());
     mToolbarController.findViewById(R.id.save).setOnClickListener(this);
     mToolbarController.getToolbar().setNavigationOnClickListener(new View.OnClickListener()
     {
