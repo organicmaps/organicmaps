@@ -35,6 +35,7 @@ usage() {
   echo -e "MAIL\tE-mail address to send notifications"
   echo -e "OSRM_URL\tURL of the osrm server to build world roads."
   echo -e "SRTM_PATH\tPath to 27k zip files with SRTM data."
+  echo -e "OLD_INTDIR\tPath to an intermediate_data directory with older files."
   echo
 }
 
@@ -213,6 +214,12 @@ fi
 ULIMIT_REQ=$((3 * $(ls "$TARGET/borders" | { grep '\.poly' || true; } | wc -l)))
 [ $(ulimit -n) -lt $ULIMIT_REQ ] && fail "Ulimit is too small, you need at least $ULIMIT_REQ (e.g. ulimit -n 4000)"
 
+[ -n "$OPT_CLEAN" -a -d "$INTDIR" ] && rm -r "$INTDIR"
+mkdir -p "$INTDIR"
+if [ -z "${REGIONS+1}" -a "$(df -m "$INTDIR" | tail -n 1 | awk '{ printf "%d\n", $4 / 1024 }')" -lt "400" ]; then
+  echo "WARNING: You have less than 400 GB for intermediate data, that's not enough for the whole planet."
+fi
+
 # These variables are used by external script(s), namely generate_planet_routing.sh
 export GENERATOR_TOOL
 export INTDIR
@@ -225,12 +232,6 @@ export LOG_PATH
 export REGIONS= # Routing script might expect something in this variable
 export BORDERS_PATH="$TARGET/borders" # Also for the routing script
 export LC_ALL=en_US.UTF-8
-
-[ -n "$OPT_CLEAN" -a -d "$INTDIR" ] && rm -r "$INTDIR"
-mkdir -p "$INTDIR"
-if [ -z "${REGIONS+1}" -a "$(df -m "$INTDIR" | tail -n 1 | awk '{ printf "%d\n", $4 / 1024 }')" -lt "250" ]; then
-  echo "WARNING: You have less than 250 GB for intermediate data, that's not enough for the whole planet."
-fi
 
 # We need osmconvert both for planet/coasts and for getting the timestamp.
 [ ! -x "$OSMCTOOLS/osmconvert" ] && cc -x c -O3 "$OMIM_PATH/tools/osmctools/osmconvert.c" -o "$OSMCTOOLS/osmconvert" -lz
@@ -261,7 +262,12 @@ if [ "$MODE" == "coast" ]; then
         if [ -f "$BOOKING_FILE" -a "$(wc -l < "$BOOKING_FILE" || echo 0)" -gt 100 ]; then
           echo "Hotels have been downloaded. Please ensure this line is before Step 4." >> "$PLANET_LOG"
         else
-          log "Failed to download hotels!"
+          if [ -n "${OLD_INTDIR-}" -a -f "${OLD_INTDIR-}/$(basename "$BOOKING_FILE")" ]; then
+            cp "$OLD_INTDIR/$(basename "$BOOKING_FILE")" "$INTDIR"
+            log "Failed to download hotels! Using older hotels list."
+          else
+            log "Failed to download hotels!"
+          fi
           [ -n "${MAIL-}" ] && tail "$LOG_PATH/booking.log" | mailx -s "Failed to download hotels at $(hostname), please hurry to fix" "$MAIL"
         fi
     ) &
@@ -275,7 +281,12 @@ if [ "$MODE" == "coast" ]; then
         if [ -f "$OPENTABLE_FILE" -a "$(wc -l < "$OPENTABLE_FILE" || echo 0)" -gt 100 ]; then
           echo "Restaurants have been downloaded. Please ensure this line is before Step 4." >> "$PLANET_LOG"
         else
-          log "Failed to download restaurants!"
+          if [ -n "${OLD_INTDIR-}" -a -f "${OLD_INTDIR-}/$(basename "$OPENTABLE_FILE")" ]; then
+            cp "$OLD_INTDIR/$(basename "$OPENTABLE_FILE")" "$INTDIR"
+            log "Failed to download restaurants! Using older restaurants list."
+          else
+            log "Failed to download restaurants!"
+          fi
           [ -n "${MAIL-}" ] && tail "$LOG_PATH/opentable.log" | mailx -s "Failed to download restaurants at $(hostname), please hurry to fix" "$MAIL"
         fi
     ) &
@@ -353,7 +364,12 @@ fi
 # This mode is started only after updating or processing a planet file
 if [ "$MODE" == "roads" ]; then
   if [ -z "${OSRM_URL-}" ]; then
-    log "OSRM_URL variable not set. World roads will not be calculated."
+    if [ -n "${OLD_INTDIR-}" -a -f "${OLD_INTDIR-}/ways.csv" ]; then
+      cp "$OLD_INTDIR/ways.csv" "$INTDIR"
+      log "OSRM_URL variable is not set. Using older world roads file."
+    else
+      log "OSRM_URL variable is not set. World roads will not be calculated."
+    fi
   else
     putmode "Step 2a: Generating road networks for the World map"
     $PYTHON "$ROADS_SCRIPT" "$INTDIR" "$OSRM_URL" >>"$LOG_PATH"/road_runner.log
@@ -411,6 +427,10 @@ if [ "$MODE" == "features" ]; then
   # Checking for coastlines, can't build proper mwms without them
   if [ ! -s "$INTDIR/WorldCoasts.geom" ]; then
     COASTS="${COASTS-WorldCoasts.geom}"
+    if [ ! -s "$COASTS" -a -n "${OLD_INTDIR-}" -a -s "$OLD_INTDIR/WorldCoasts.geom" ]; then
+      log "Using older coastlines."
+      COASTS="$OLD_INTDIR/WorldCoasts.geom"
+    fi
     if [ -s "$COASTS" ]; then
       cp "$COASTS" "$INTDIR/WorldCoasts.geom"
       RAWGEOM="${COASTS%.*}.rawgeom"
