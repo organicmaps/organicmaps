@@ -203,6 +203,7 @@ static NSString * const kStatToggleSection = @"Toggle section";
 static NSString * const kStatToggleStatistics = @"Toggle statistics";
 static NSString * const kStatToggleVisibility = @"Toggle visibility";
 static NSString * const kStatToggleZoomButtonsVisibility = @"Toggle zoom buttons visibility";
+static NSString * const kStatTraffic = @"Traffic";
 static NSString * const kStatType = @"type";
 static NSString * const kStatUber = @"Uber";
 static NSString * const kStatUnknownError = @"unknown_error";

@@ -92,6 +92,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 @property(weak, nonatomic) IBOutlet UIView * progressView;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * routingProgress;
 @property(weak, nonatomic) IBOutlet MWMButton * ttsSoundButton;
+@property(weak, nonatomic) IBOutlet MWMButton * trafficButton;
 
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * mainButtonsHeight;
 
@@ -224,9 +225,17 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 - (IBAction)soundTouchUpInside:(MWMButton *)sender
 {
   BOOL const isEnable = sender.selected;
-  [Statistics logEvent:kStatEventName(kStatNavigationDashboard, isEnable ? kStatOn : kStatOff)];
+  [Statistics logEvent:kStatMenu withParameters:@{kStatTTS : isEnable ? kStatOn : kStatOff}];
   sender.coloring = isEnable ? MWMButtonColoringBlue : MWMButtonColoringGray;
   [MWMTextToSpeech tts].active = isEnable;
+  [self refreshRoutingDiminishTimer];
+}
+- (IBAction)trafficTouchUpInside:(MWMButton *)sender
+{
+  BOOL const isEnable = sender.selected;
+  [Statistics logEvent:kStatMenu withParameters:@{kStatTraffic : isEnable ? kStatOn : kStatOff}];
+  sender.coloring = isEnable ? MWMButtonColoringBlue : MWMButtonColoringGray;
+  sender.selected = !isEnable; // TODO: Replace with real logic
   [self refreshRoutingDiminishTimer];
 }
 
@@ -588,6 +597,15 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   [ttsSoundButton setImage:[UIImage imageNamed:@"ic_voice_off"]
                   forState:UIControlStateSelected | UIControlStateHighlighted];
   [self ttsButtonStatusChanged:nil];
+}
+
+- (void)setTrafficButton:(MWMButton *)trafficButton
+{
+  _trafficButton = trafficButton;
+  [trafficButton setImage:[UIImage imageNamed:@"ic_setting_traffic_on"] forState:UIControlStateNormal];
+  [trafficButton setImage:[UIImage imageNamed:@"ic_setting_traffic_off"] forState:UIControlStateSelected];
+  [trafficButton setImage:[UIImage imageNamed:@"ic_setting_traffic_off"]
+                  forState:UIControlStateSelected | UIControlStateHighlighted];
 }
 
 - (CGFloat)mainStateHeight { return self.mainButtonsHeight.constant; }

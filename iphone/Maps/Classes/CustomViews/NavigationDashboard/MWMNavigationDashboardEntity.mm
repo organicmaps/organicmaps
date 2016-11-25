@@ -63,7 +63,7 @@ using namespace routing::turns;
       [NSString stringWithFormat:@"%@ • %@ %@", eta, _targetDistance, _targetUnits];
   NSMutableAttributedString * result =
       [[NSMutableAttributedString alloc] initWithString:resultString];
-  [result addAttributes:etaAttributes range:NSMakeRange(0, eta.length)];
+  [result addAttributes:etaAttributes range:NSMakeRange(0, resultString.length)];
   _estimate = [result copy];
 
   TurnDirection const turn = info.m_turn;
