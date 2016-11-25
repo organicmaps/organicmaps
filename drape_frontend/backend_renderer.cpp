@@ -345,7 +345,9 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::FlushTrafficGeometry:
     {
       ref_ptr<FlushTrafficGeometryMessage> msg = message;
-      m_trafficGenerator->FlushSegmentsGeometry(msg->GetKey(), msg->GetSegments(), m_texMng);
+      auto const & tileKey = msg->GetKey();
+      if (m_requestedTiles->CheckTileKey(tileKey) && m_readManager->CheckTileKey(tileKey))
+        m_trafficGenerator->FlushSegmentsGeometry(tileKey, msg->GetSegments(), m_texMng);
       break;
     }
 
