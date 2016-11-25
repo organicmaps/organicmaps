@@ -4,33 +4,6 @@ project(omim C CXX)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-# Find installed packages
-
-find_package(Threads)
-
-find_package(Qt5Core REQUIRED)
-find_package(Qt5Gui REQUIRED)
-find_package(Qt5Network REQUIRED)
-find_package(Qt5OpenGL REQUIRED)
-find_package(Qt5Widgets REQUIRED)
-
-find_library(LIBZ NAMES z)
-if (LIBZ STREQUAL "LIBZ-NOTFOUND")
-  message(FATAL_ERROR "Failed to find libz library.")
-endif()
-
-
-get_filename_component(OMIM_ROOT . ABSOLUTE)
-
-include_directories(
-  ${CMAKE_HOME_DIRECTORY}
-  ${Qt5Core_LIBRARIES}
-  ${Qt5Core_INCLUDE_DIRS}
-  ${Qt5Network_LIBRARIES}
-  ${Qt5Network_INCLUDE_DIRS}
-  ${CMAKE_HOME_DIRECTORY}/3party/boost
-)
-
 # Set environment variables
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
@@ -89,6 +62,41 @@ endif()
 omim_set_platform_var(PLATFORM_LINUX "linux-.*" ${LINUX_DETECTED})
 
 # End of setting the target platform
+
+# Find installed packages
+
+find_package(Threads)
+
+find_package(Qt5Core REQUIRED)
+find_package(Qt5Network REQUIRED)
+if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
+  find_package(Qt5Gui REQUIRED)
+  find_package(Qt5OpenGL REQUIRED)
+  find_package(Qt5Widgets REQUIRED)
+endif()
+
+find_library(LIBZ NAMES z)
+if (LIBZ STREQUAL "LIBZ-NOTFOUND")
+  message(FATAL_ERROR "Failed to find libz library.")
+endif()
+
+if (NOT DEVELOPER_FRAMEWORKS_DIR)
+  message("Doing nothing, because we know nothing about developer frameworks dir")
+  #do nothing
+else()
+  include_directories(${DEVELOPER_FRAMEWORKS_DIR})
+endif()
+
+get_filename_component(OMIM_ROOT . ABSOLUTE)
+
+include_directories(
+  ${CMAKE_HOME_DIRECTORY}
+  ${Qt5Core_LIBRARIES}
+  ${Qt5Core_INCLUDE_DIRS}
+  ${Qt5Network_LIBRARIES}
+  ${Qt5Network_INCLUDE_DIRS}
+  ${CMAKE_HOME_DIRECTORY}/3party/boost
+)
 
 # Functions for using in subdirectories
 

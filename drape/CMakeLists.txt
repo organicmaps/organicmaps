@@ -129,7 +129,7 @@ set(
   glfunctions.cpp
 )
 
-if (PLATFORM_IOS)
+if (PLATFORM_IPHONE)
   append(
     SRC
     hw_texture_ios.hpp
