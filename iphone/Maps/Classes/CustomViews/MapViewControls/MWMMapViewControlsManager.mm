@@ -15,6 +15,7 @@
 #import "MWMSearchManager.h"
 #import "MWMSideButtons.h"
 #import "MWMTaxiPreviewDataSource.h"
+#import "MWMTrafficButtonViewController.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
@@ -39,6 +40,7 @@ extern NSString * const kAlohalyticsTapEventKey;
                                         MWMBottomMenuControllerProtocol>
 
 @property(nonatomic) MWMSideButtons * sideButtons;
+@property(nonatomic) MWMTrafficButtonViewController * trafficButton;
 @property(nonatomic) MWMBottomMenuViewController * menuController;
 @property(nonatomic) id<MWMPlacePageProtocol> placePageManager;
 @property(nonatomic) MWMNavigationDashboardManager * navigationManager;
@@ -66,6 +68,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.ownerController = controller;
   self.hidden = NO;
   self.sideButtonsHidden = NO;
+  self.trafficButtonHidden = NO;
   self.isDirectionViewHidden = YES;
   self.menuState = MWMBottomMenuStateInactive;
   self.menuRestoreState = MWMBottomMenuStateInactive;
@@ -99,9 +102,9 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 #pragma mark - Layout
 
-- (void)refreshLayout { [self.menuController refreshLayout]; }
 - (void)mwm_refreshUI
 {
+  [self.trafficButton mwm_refreshUI];
   [self.sideButtons mwm_refreshUI];
   [self.navigationManager mwm_refreshUI];
   [self.searchManager mwm_refreshUI];
@@ -121,6 +124,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
+  [self.trafficButton viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [self.menuController viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   // Workaround needs for setting correct left bound while landscape place page is open.
   self.navigationManager.leftBound = 0;
@@ -309,8 +313,10 @@ extern NSString * const kAlohalyticsTapEventKey;
   CGFloat const bound = newFrame.origin.x + newFrame.size.width;
   if (self.searchManager.state == MWMSearchManagerStateHidden)
   {
-    self.placePageManager.leftBound = self.menuController.leftBound =
-        newFrame.origin.x + newFrame.size.width;
+    CGFloat const leftBound = newFrame.origin.x + newFrame.size.width;
+    self.placePageManager.leftBound = leftBound;
+    self.menuController.leftBound = leftBound;
+    self.trafficButton.leftBound = leftBound;
   }
   else
   {
@@ -429,6 +435,13 @@ extern NSString * const kAlohalyticsTapEventKey;
   return _sideButtons;
 }
 
+- (MWMTrafficButtonViewController *)trafficButton
+{
+  if (!_trafficButton)
+    _trafficButton = [[MWMTrafficButtonViewController alloc] init];
+  return _trafficButton;
+}
+
 - (MWMBottomMenuViewController *)menuController
 {
   if (!_menuController)
@@ -472,6 +485,7 @@ extern NSString * const kAlohalyticsTapEventKey;
     return;
   _hidden = hidden;
   self.sideButtonsHidden = _sideButtonsHidden;
+  self.trafficButtonHidden = _trafficButtonHidden;
   self.menuState = _menuState;
   EAGLView * glView = (EAGLView *)self.ownerController.view;
   glView.widgetsManager.fullScreen = hidden;
@@ -487,6 +501,12 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   _sideButtonsHidden = sideButtonsHidden;
   self.sideButtons.hidden = self.hidden || sideButtonsHidden;
+}
+
+- (void)setTrafficButtonHidden:(BOOL)trafficButtonHidden
+{
+  _trafficButtonHidden = trafficButtonHidden;
+  self.trafficButton.hidden = self.hidden || trafficButtonHidden;
 }
 
 - (void)setMenuState:(MWMBottomMenuState)menuState
@@ -525,7 +545,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   if (m != MWMRoutingPlaneModeNone)
     return;
   _leftBound = self.placePageManager.leftBound = self.navigationManager.leftBound =
-      self.menuController.leftBound = leftBound;
+      self.menuController.leftBound = self.trafficButton.leftBound = leftBound;
 }
 
 - (BOOL)searchHidden { return self.searchManager.state == MWMSearchManagerStateHidden; }
