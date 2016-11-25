@@ -17,6 +17,7 @@
 @property(nonatomic) BOOL hidden;
 @property(nonatomic) BOOL zoomHidden;
 @property(nonatomic) BOOL sideButtonsHidden;
+@property(nonatomic) BOOL trafficButtonHidden;
 @property(nonatomic) MWMBottomMenuState menuState;
 @property(nonatomic) MWMBottomMenuState menuRestoreState;
 @property(nonatomic, readonly) MWMNavigationDashboardState navigationState;
@@ -30,7 +31,6 @@
 
 #pragma mark - Layout
 
-- (void)refreshLayout;
 - (void)mwm_refreshUI;
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation

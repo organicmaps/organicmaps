@@ -28,7 +28,6 @@
                                 delegate:(id<MWMBottomMenuControllerProtocol>)delegate;
 
 - (void)mwm_refreshUI;
-- (void)refreshLayout;
 - (MWMTaxiCollectionView *)taxiCollectionView;
 - (void)setRoutingErrorMessage:(NSString *)routingErrorMessage;
 
