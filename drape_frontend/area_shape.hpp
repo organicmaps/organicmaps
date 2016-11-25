@@ -16,6 +16,7 @@ struct BuildingOutline
   buffer_vector<m2::PointD, kBuildingOutlineSize> m_vertices;
   vector<int> m_indices;
   vector<m2::PointD> m_normals;
+  bool m_generateOutline = false;
 };
 
 class AreaShape : public MapShape

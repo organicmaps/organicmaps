@@ -426,12 +426,13 @@ void ApplyPointFeature::Finish()
 ApplyAreaFeature::ApplyAreaFeature(m2::PointD const & tileCenter,
                                    TInsertShapeFn const & insertShape, FeatureID const & id,
                                    m2::RectD const & clipRect, bool isBuilding, float minPosZ,
-                                   float posZ, int minVisibleScale, uint8_t rank,
+                                   float posZ, int minVisibleScale, uint8_t rank, bool generateOutline,
                                    CaptionDescription const & captions)
   : TBase(tileCenter, insertShape, id, minVisibleScale, rank, captions, posZ)
   , m_minPosZ(minPosZ)
   , m_isBuilding(isBuilding)
   , m_clipRect(clipRect)
+  , m_generateOutline(generateOutline)
 {}
 
 void ApplyAreaFeature::operator()(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
@@ -598,10 +599,13 @@ void ApplyAreaFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
     params.m_posZ = m_posZ;
 
     BuildingOutline outline;
-    bool const calculateNormals = m_posZ > 0.0;
     if (m_isBuilding)
+    {
+      outline.m_generateOutline = m_generateOutline;
+      bool const calculateNormals = m_posZ > 0.0;
       CalculateBuildingOutline(calculateNormals, outline);
-    params.m_is3D = !outline.m_indices.empty() && calculateNormals;
+      params.m_is3D = !outline.m_indices.empty() && calculateNormals;
+    }
 
     m_insertShape(make_unique_dp<AreaShape>(move(m_triangles), move(outline), params));
   }

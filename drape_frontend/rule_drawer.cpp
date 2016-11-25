@@ -27,6 +27,8 @@
 
 namespace
 {
+int constexpr kOutlineMinZoomLevel = 16;
+
 df::BaseApplyFeature::HotelData ExtractHotelData(FeatureType const & f)
 {
   df::BaseApplyFeature::HotelData result;
@@ -250,9 +252,10 @@ void RuleDrawer::operator()(FeatureType const & f)
     if (applyPointStyle || is3dBuilding)
       minVisibleScale = feature::GetMinDrawableScale(f);
 
+    bool const generateOutline = (zoomLevel >= kOutlineMinZoomLevel);
     ApplyAreaFeature apply(m_globalRect.Center(), insertShape, f.GetID(), m_globalRect,
                            isBuilding, areaMinHeight, areaHeight, minVisibleScale,
-                           f.GetRank(), s.GetCaptionDescription());
+                           f.GetRank(), generateOutline, s.GetCaptionDescription());
     f.ForEachTriangle(apply, zoomLevel);
     apply.SetHotelData(ExtractHotelData(f));
     if (applyPointStyle)
