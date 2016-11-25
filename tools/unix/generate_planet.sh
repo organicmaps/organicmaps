@@ -214,6 +214,12 @@ fi
 ULIMIT_REQ=$((3 * $(ls "$TARGET/borders" | { grep '\.poly' || true; } | wc -l)))
 [ $(ulimit -n) -lt $ULIMIT_REQ ] && fail "Ulimit is too small, you need at least $ULIMIT_REQ (e.g. ulimit -n 4000)"
 
+[ -n "$OPT_CLEAN" -a -d "$INTDIR" ] && rm -r "$INTDIR"
+mkdir -p "$INTDIR"
+if [ -z "${REGIONS+1}" -a "$(df -m "$INTDIR" | tail -n 1 | awk '{ printf "%d\n", $4 / 1024 }')" -lt "400" ]; then
+  echo "WARNING: You have less than 400 GB for intermediate data, that's not enough for the whole planet."
+fi
+
 # These variables are used by external script(s), namely generate_planet_routing.sh
 export GENERATOR_TOOL
 export INTDIR
@@ -226,12 +232,6 @@ export LOG_PATH
 export REGIONS= # Routing script might expect something in this variable
 export BORDERS_PATH="$TARGET/borders" # Also for the routing script
 export LC_ALL=en_US.UTF-8
-
-[ -n "$OPT_CLEAN" -a -d "$INTDIR" ] && rm -r "$INTDIR"
-mkdir -p "$INTDIR"
-if [ -z "${REGIONS+1}" -a "$(df -m "$INTDIR" | tail -n 1 | awk '{ printf "%d\n", $4 / 1024 }')" -lt "250" ]; then
-  echo "WARNING: You have less than 250 GB for intermediate data, that's not enough for the whole planet."
-fi
 
 # We need osmconvert both for planet/coasts and for getting the timestamp.
 [ ! -x "$OSMCTOOLS/osmconvert" ] && cc -x c -O3 "$OMIM_PATH/tools/osmctools/osmconvert.c" -o "$OSMCTOOLS/osmconvert" -lz
