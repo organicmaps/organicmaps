@@ -51,7 +51,7 @@ public:
     : TBase(id, anchor, pivot)
     , m_isAppearing(isAppearing)
     , m_isVisibleAtEnd(true)
-    , m_animation(false, 0.4)
+    , m_animation(false, 0.2)
   {
   }
 
