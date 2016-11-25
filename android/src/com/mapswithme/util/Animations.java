@@ -143,7 +143,7 @@ public final class Animations
     });
   }
 
-  public static void rizeTransition(@NonNull ViewGroup rootView, @NonNull final Rect startRect,
+  public static void riseTransition(@NonNull ViewGroup rootView, @NonNull final Rect startRect,
                                     @Nullable final Runnable runnable)
   {
     Context context = rootView.getContext();

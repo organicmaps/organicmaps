@@ -1174,9 +1174,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       Framework.nativeDeactivatePopup();
       mPlacePage.setMapObject(null, false);
     }
-
-    if (mNavAnimationController != null)
-      mNavAnimationController.onPlacePageVisibilityChanged(isVisible);
   }
 
   @Override
@@ -1388,20 +1385,46 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void adjustMenuLineFrameVisibility()
   {
     final RoutingController controller = RoutingController.get();
+    final int menuHeight = getCurrentMenu().getFrame().getHeight();
 
     if (controller.isBuilt() || controller.isUberRequestHandled())
     {
-      mMainMenu.showLineFrame(true);
+      mMainMenu.showLineFrame(true, new Runnable()
+      {
+        @Override
+        public void run()
+        {
+          adjustCompass(0);
+          adjustRuler(0, 0);
+        }
+      });
       return;
     }
 
     if (controller.isPlanning() || controller.isBuilding() || controller.isErrorEncountered())
     {
-      mMainMenu.showLineFrame(false);
+      mMainMenu.showLineFrame(false, new Runnable()
+      {
+        @Override
+        public void run()
+        {
+          adjustCompass(menuHeight);
+          adjustRuler(0, menuHeight);
+        }
+      });
       return;
     }
 
-    mMainMenu.showLineFrame(true);
+    mMainMenu.showLineFrame(true, new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        adjustCompass(0);
+        adjustRuler(0, 0);
+      }
+    });
+
   }
 
   private void setNavButtonsTopLimit(int limit)
@@ -1415,6 +1438,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void showRoutePlan(boolean show, @Nullable Runnable completionListener)
   {
+    if (mNavAnimationController != null && !mIsFragmentContainer)
+      mNavAnimationController.slide(show);
     if (show)
     {
       mSearchController.hide();
@@ -1538,7 +1563,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void animateSearchPoiTransition(@NonNull final Rect startRect,
                                          @Nullable final Runnable runnable)
   {
-    Animations.rizeTransition(mRootView, startRect, runnable);
+    Animations.riseTransition(mRootView, startRect, runnable);
   }
 
   @Override
