@@ -29,6 +29,8 @@ static int const MinUnitValue = -1;
 static int const MaxUnitValue = numeric_limits<int>::max() - 1;
 static int const InvalidUnitValue = MaxUnitValue + 1;
 
+static double const kHideDelaySeconds = 1.0;
+
 struct UnitValue
 {
   char const * m_s;
@@ -113,6 +115,14 @@ RulerHelper::RulerHelper()
 
 void RulerHelper::Update(ScreenBase const & screen)
 {
+  if (m_lastScale != screen.GetScale())
+  {
+    if (!IsVisible(screen))
+      SetTextDirty();
+    m_lastScale = screen.GetScale();
+    m_hideTimer.Reset();
+  }
+
   m2::PointD pivot = screen.PixelRect().Center();
   int const minPxWidth = my::rounds(MinPixelWidth * df::VisualParams::Instance().GetVisualScale());
   m2::PointD pt1 = screen.PtoG(pivot);
@@ -150,7 +160,9 @@ void RulerHelper::Update(ScreenBase const & screen)
 bool RulerHelper::IsVisible(ScreenBase const & screen) const
 {
   DrapeGui & gui = DrapeGui::Instance();
-  return !gui.IsCopyrightActive() && df::GetDrawTileScale(screen) >= VISIBLE_RULER_BOTTOM_SCALE;
+  return !gui.IsCopyrightActive() &&
+      (df::GetDrawTileScale(screen) >= VISIBLE_RULER_BOTTOM_SCALE) &&
+      (m_hideTimer.ElapsedSeconds() < kHideDelaySeconds);
 }
 
 void RulerHelper::Invalidate()
