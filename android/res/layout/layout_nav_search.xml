@@ -37,6 +37,9 @@
 
     <ImageView
       android:id="@+id/search_fuel"
+      android:layout_marginTop="@dimen/margin_half_plus"
+      android:layout_marginStart="@dimen/margin_half_plus"
+      android:layout_marginLeft="@dimen/margin_half_plus"
       style="@style/MwmWidget.SearchNavigationButton"
       android:layout_alignParentTop="true"
       android:layout_centerHorizontal="true"
@@ -45,7 +48,7 @@
     <ImageView
       android:id="@+id/search_parking"
       style="@style/MwmWidget.SearchNavigationButton"
-      android:layout_marginTop="30dp"
+      android:layout_marginTop="@dimen/margin_double"
       android:layout_toEndOf="@id/search_fuel"
       android:layout_toRightOf="@id/search_fuel"
       android:src="@drawable/ic_routing_parking_on"/>
@@ -55,6 +58,8 @@
       style="@style/MwmWidget.SearchNavigationButton"
       android:layout_alignParentEnd="true"
       android:layout_alignParentRight="true"
+      android:layout_marginEnd="@dimen/margin_half_plus"
+      android:layout_marginRight="@dimen/margin_half_plus"
       android:layout_centerVertical="true"
       android:src="@drawable/ic_routing_food_on"/>
 
@@ -62,7 +67,7 @@
       android:id="@+id/search_shop"
       style="@style/MwmWidget.SearchNavigationButton"
       android:layout_alignParentBottom="true"
-      android:layout_marginBottom="30dp"
+      android:layout_marginBottom="@dimen/margin_double"
       android:layout_toEndOf="@id/search_fuel"
       android:layout_toRightOf="@id/search_fuel"
       android:src="@drawable/ic_routing_shop_on"/>
@@ -70,6 +75,9 @@
     <ImageView
       android:id="@+id/search_atm"
       style="@style/MwmWidget.SearchNavigationButton"
+      android:layout_marginBottom="@dimen/margin_half_plus"
+      android:layout_marginStart="@dimen/margin_half_plus"
+      android:layout_marginLeft="@dimen/margin_half_plus"
       android:layout_alignParentBottom="true"
       android:layout_centerHorizontal="true"
       android:src="@drawable/ic_routing_atm_on"/>
@@ -81,6 +89,8 @@
     style="@style/MwmWidget.SearchNavigationButton"
     android:layout_width="64dp"
     android:layout_height="64dp"
+    android:layout_marginStart="@dimen/margin_eighth"
+    android:layout_marginLeft="@dimen/margin_eighth"
     android:layout_below="@id/anchor_center"
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
