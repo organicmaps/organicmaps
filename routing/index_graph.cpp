@@ -66,8 +66,8 @@ void IndexGraph::GetNeighboringEdges(RoadPoint const & rp, bool isOutgoing,
     GetNeighboringEdge(road, rp, true /* forward */, edges);
 }
 
-inline void IndexGraph::GetNeighboringEdge(RoadGeometry const & road, RoadPoint const & rp,
-                                           bool forward, vector<JointEdge> & edges) const
+void IndexGraph::GetNeighboringEdge(RoadGeometry const & road, RoadPoint const & rp,
+                                    bool forward, vector<JointEdge> & edges) const
 {
   pair<Joint::Id, uint32_t> const & neighbor = m_roadIndex.FindNeighbor(rp, forward);
   if (neighbor.first != Joint::kInvalidId)
