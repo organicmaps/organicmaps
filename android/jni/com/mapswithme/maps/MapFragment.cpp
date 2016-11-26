@@ -16,20 +16,14 @@ extern "C"
 {
 using namespace storage;
 
-// Fixed optimization bug for x86 (reproduced on Asus ME302C).
-#pragma clang push_options
-#pragma clang optimize off
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_MapFragment_nativeCompassUpdated(JNIEnv * env, jclass clazz, jdouble magneticNorth, jdouble trueNorth, jboolean forceRedraw)
+{
+  location::CompassInfo info;
+  info.m_bearing = (trueNorth >= 0.0) ? trueNorth : magneticNorth;
 
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MapFragment_nativeCompassUpdated(JNIEnv * env, jclass clazz, jdouble magneticNorth, jdouble trueNorth, jboolean forceRedraw)
-  {
-    location::CompassInfo info;
-    info.m_bearing = (trueNorth >= 0.0) ? trueNorth : magneticNorth;
-
-    g_framework->OnCompassUpdated(info, forceRedraw);
-  }
-
-#pragma clang pop_options
+  g_framework->OnCompassUpdated(info, forceRedraw);
+}
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_MapFragment_nativeStorageConnected(JNIEnv * env, jclass clazz)
