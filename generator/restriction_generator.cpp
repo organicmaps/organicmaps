@@ -39,7 +39,7 @@ bool BuildRoadRestrictions(string const & mwmPath, string const & restrictionPat
               header.m_onlyRestrictionCount, "of type Only restrictions"));
 
   FilesContainerW cont(mwmPath, FileWriter::OP_WRITE_EXISTING);
-  FileWriter w = cont.GetWriter(ROUTING_FILE_TAG);
+  FileWriter w = cont.GetWriter(RESTRICTIONS_FILE_TAG);
   header.Serialize(w);
 
   RestrictionSerializer::Serialize(header, restrictions.cbegin(), restrictions.cend(), w);

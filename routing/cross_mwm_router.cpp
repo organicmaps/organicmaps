@@ -10,7 +10,7 @@ namespace
 {
 /// Function to run AStar Algorithm from the base.
 IRouter::ResultCode CalculateRoute(BorderCross const & startPos, BorderCross const & finalPos,
-                                   CrossMwmGraph const & roadGraph, RouterDelegate const & delegate,
+                                   CrossMwmGraph & roadGraph, RouterDelegate const & delegate,
                                    RoutingResult<BorderCross> & route)
 {
   using TAlgorithm = AStarAlgorithm<CrossMwmGraph>;

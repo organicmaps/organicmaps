@@ -12,6 +12,7 @@
 #include "routing/road_graph_router.hpp"
 #include "routing/route.hpp"
 #include "routing/router_delegate.hpp"
+#include "routing/single_mwm_router.hpp"
 
 #include "indexer/index.hpp"
 
@@ -82,7 +83,7 @@ namespace integration
     };
 
     auto carRouter = make_unique<CarRouter>(
-        index, countryFileGetter, CreateCarAStarBidirectionalRouter(index, countryFileGetter));
+        index, countryFileGetter, SingleMwmRouter::CreateCarRouter(index));
     return carRouter;
   }
 

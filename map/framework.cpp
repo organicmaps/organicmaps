@@ -14,6 +14,7 @@
 #include "routing/route.hpp"
 #include "routing/routing_algorithm.hpp"
 #include "routing/routing_helpers.hpp"
+#include "routing/single_mwm_router.hpp"
 
 #include "search/downloader_search_callback.hpp"
 #include "search/editor_delegate.hpp"
@@ -2445,7 +2446,7 @@ void Framework::SetRouterImpl(RouterType type)
 
     router.reset(
         new CarRouter(m_model.GetIndex(), countryFileGetter,
-                      CreateCarAStarBidirectionalRouter(m_model.GetIndex(), countryFileGetter)));
+                      SingleMwmRouter::CreateCarRouter(m_model.GetIndex())));
     fetcher.reset(new OnlineAbsentCountriesFetcher(countryFileGetter, localFileChecker));
     m_routingSession.SetRoutingSettings(routing::GetCarRoutingSettings());
   }

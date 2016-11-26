@@ -27,6 +27,7 @@ SOURCES += \
   async_router_test.cpp \
   cross_routing_tests.cpp \
   followed_polyline_test.cpp \
+  index_graph_test.cpp \
   nearest_edge_finder_tests.cpp \
   online_cross_fetcher_test.cpp \
   osrm_router_test.cpp \

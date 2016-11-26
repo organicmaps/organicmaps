@@ -40,6 +40,7 @@ SOURCES += \
     restriction_generator.cpp \
     restriction_writer.cpp \
     routing_generator.cpp \
+    routing_index_generator.cpp \
     search_index_builder.cpp \
     sponsored_scoring.cpp \
     srtm_parser.cpp \
@@ -80,6 +81,7 @@ HEADERS += \
     restriction_generator.hpp \
     restriction_writer.hpp \
     routing_generator.hpp \
+    routing_index_generator.hpp \
     search_index_builder.hpp \
     sponsored_dataset.hpp \
     sponsored_dataset_inl.hpp \

@@ -6,12 +6,12 @@ namespace routing
 RestrictionLoader::RestrictionLoader(MwmValue const & mwmValue)
   : m_countryFileName(mwmValue.GetCountryFileName())
 {
-  if (!mwmValue.m_cont.IsExist(ROUTING_FILE_TAG))
+  if (!mwmValue.m_cont.IsExist(RESTRICTIONS_FILE_TAG))
     return;
 
   try
   {
-    m_reader = make_unique<FilesContainerR::TReader>(mwmValue.m_cont.GetReader(ROUTING_FILE_TAG));
+    m_reader = make_unique<FilesContainerR::TReader>(mwmValue.m_cont.GetReader(RESTRICTIONS_FILE_TAG));
     ReaderSource<FilesContainerR::TReader> src(*m_reader);
     m_header.Deserialize(src);
 
@@ -21,7 +21,7 @@ RestrictionLoader::RestrictionLoader(MwmValue const & mwmValue)
   {
     m_header.Reset();
     LOG(LERROR,
-        ("File", m_countryFileName, "Error while reading", ROUTING_FILE_TAG, "section.", e.Msg()));
+        ("File", m_countryFileName, "Error while reading", RESTRICTIONS_FILE_TAG, "section.", e.Msg()));
   }
 }
 }  // namespace routing

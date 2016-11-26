@@ -27,6 +27,7 @@
 #define METADATA_FILE_TAG "meta"
 #define METADATA_INDEX_FILE_TAG "metaidx"
 #define ALTITUDES_FILE_TAG "altitudes"
+#define RESTRICTIONS_FILE_TAG "restrictions"
 #define ROUTING_FILE_TAG "routing"
 #define FEATURE_OFFSETS_FILE_TAG "offs"
 #define RANKS_FILE_TAG "ranks"
@@ -39,8 +40,6 @@
 #define ROUTING_EDGEID_FILE_TAG "infinity"
 #define ROUTING_SHORTCUTS_FILE_TAG  "skoda"
 #define ROUTING_CROSS_CONTEXT_TAG "chrysler"
-
-#define ROUTING_FILE_TAG "routing"
 
 #define ROUTING_FTSEG_FILE_TAG  "ftseg"
 #define ROUTING_NODEIND_TO_FTSEGIND_FILE_TAG  "node2ftseg"
