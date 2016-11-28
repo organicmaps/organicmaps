@@ -9,22 +9,22 @@ NSTimeInterval const kSessionDurationSeconds = 24 * 60 * 60;
 
 namespace networking_policy
 {
-void callPartnersApiWithNetworkingPolicy(MWMNetworkingPolicyFn const & fn)
+void CallPartnersApi(MWMPartnersApiFn const & fn)
 {
-  auto checkAndApply = ^BOOL {
+  auto checkAndApply = ^bool {
     NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
     NSDate * policyDate = [ud objectForKey:kNetworkingPolicyTimeStamp];
     if ([policyDate compare:[NSDate date]] == NSOrderedDescending)
     {
       fn(YES);
-      return YES;
+      return true;
     }
     if ([policyDate isEqualToDate:NSDate.distantPast])
     {
       fn(NO);
-      return YES;
+      return true;
     }
-    return NO;
+    return false;
   };
 
   if (checkAndApply())
@@ -37,29 +37,29 @@ void callPartnersApiWithNetworkingPolicy(MWMNetworkingPolicyFn const & fn)
   }];
 }
 
-void SetNetworkingPolicyState(NetworkingPolicyState state)
+void SetStage(Stage state)
 {
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
   NSDate * policyDate = nil;
   switch (state)
   {
-  case NetworkingPolicyState::Always: policyDate = NSDate.distantFuture; break;
-  case NetworkingPolicyState::Session:
+  case Stage::Always: policyDate = NSDate.distantFuture; break;
+  case Stage::Session:
     policyDate = [NSDate dateWithTimeIntervalSinceNow:kSessionDurationSeconds];
     break;
-  case NetworkingPolicyState::Never: policyDate = NSDate.distantPast; break;
+  case Stage::Never: policyDate = NSDate.distantPast; break;
   }
   [ud setObject:policyDate forKey:kNetworkingPolicyTimeStamp];
 }
 
-NetworkingPolicyState GetNetworkingPolicyState()
+Stage GetStage()
 {
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
   NSDate * policyDate = [ud objectForKey:kNetworkingPolicyTimeStamp];
   if ([policyDate isEqualToDate:NSDate.distantFuture])
-    return NetworkingPolicyState::Always;
+    return Stage::Always;
   if ([policyDate isEqualToDate:NSDate.distantPast])
-    return NetworkingPolicyState::Never;
-  return NetworkingPolicyState::Session;
+    return Stage::Never;
+  return Stage::Session;
 }
 }  // namespace networking_policy

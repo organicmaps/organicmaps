@@ -2,17 +2,17 @@
 
 namespace networking_policy
 {
-using MWMNetworkingPolicyFn = function<void(BOOL solver)>;
+using MWMPartnersApiFn = function<void(BOOL canUseNetwork)>;
 
-void callPartnersApiWithNetworkingPolicy(MWMNetworkingPolicyFn const & fn);
+void CallPartnersApi(MWMPartnersApiFn const & fn);
 
-enum class NetworkingPolicyState
+enum class Stage
 {
   Always,
   Session,
   Never
 };
 
-void SetNetworkingPolicyState(NetworkingPolicyState state);
-NetworkingPolicyState GetNetworkingPolicyState();
+void SetStage(Stage state);
+Stage GetStage();
 }  // namespace networking_policy

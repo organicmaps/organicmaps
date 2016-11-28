@@ -22,11 +22,11 @@ using namespace networking_policy;
   self.title = L(@"pref_mobile_internet");
 
   SelectableCell * selected;
-  switch (GetNetworkingPolicyState())
+  switch (GetStage())
   {
-  case NetworkingPolicyState::Always: selected = self.always; break;
-  case NetworkingPolicyState::Session: selected = self.ask; break;
-  case NetworkingPolicyState::Never: selected = self.never; break;
+  case Stage::Always: selected = self.always; break;
+  case Stage::Session: selected = self.ask; break;
+  case Stage::Never: selected = self.never; break;
   }
   selected.accessoryType = UITableViewCellAccessoryCheckmark;
   self.selected = selected;
@@ -42,17 +42,17 @@ using namespace networking_policy;
   if ([selected isEqual:self.always])
   {
     statValue = kStatAlways;
-    SetNetworkingPolicyState(NetworkingPolicyState::Always);
+    SetStage(Stage::Always);
   }
   else if ([selected isEqual:self.ask])
   {
     statValue = kStatAsk;
-    SetNetworkingPolicyState(NetworkingPolicyState::Session);
+    SetStage(Stage::Session);
   }
   else if ([selected isEqual:self.never])
   {
     statValue = kStatNever;
-    SetNetworkingPolicyState(NetworkingPolicyState::Never);
+    SetStage(Stage::Never);
   }
 
   [Statistics logEvent:kStatMobileInternet withParameters:@{kStatValue : statValue}];

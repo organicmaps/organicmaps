@@ -87,11 +87,11 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.autoDownloadCell.delegate = self;
 
   NSString * internetLabel = nil;
-  switch (networking_policy::GetNetworkingPolicyState())
+  switch (networking_policy::GetStage())
   {
-  case networking_policy::NetworkingPolicyState::Always: internetLabel = L(@"pref_always"); break;
-  case networking_policy::NetworkingPolicyState::Session: internetLabel = L(@"pref_ask"); break;
-  case networking_policy::NetworkingPolicyState::Never: internetLabel = L(@"pref_never"); break;
+  case networking_policy::Stage::Always: internetLabel = L(@"pref_always"); break;
+  case networking_policy::Stage::Session: internetLabel = L(@"pref_ask"); break;
+  case networking_policy::Stage::Never: internetLabel = L(@"pref_never"); break;
   }
   self.mobileInternetCell.infoLabel.text = internetLabel;
 
