@@ -665,6 +665,7 @@
 		845C89371C8983F300940D7F /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 845C89341C8983F300940D7F /* QuickLook.framework */; };
 		845E4B1C1DEC839800D6BED8 /* MWMTrafficButtonViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3463BA641DE81DB90082417F /* MWMTrafficButtonViewController.mm */; };
 		845E4B1D1DEC83AE00D6BED8 /* MWMMobileInternetAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349A13801DEC138C00C7DB60 /* MWMMobileInternetAlert.mm */; };
+		845E4B201DEEE98900D6BED8 /* MWMNetworkPolicy.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34EA976B1DEC779D00616B11 /* MWMNetworkPolicy.mm */; };
 		849CF5E51DE842290024A8A5 /* HockeySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3456E0251DC0C4500055DF50 /* HockeySDKResources.bundle */; };
 		849CF5E61DE842290024A8A5 /* patterns.txt in Resources */ = {isa = PBXBuildFile; fileRef = 451950391B7A3E070085DA05 /* patterns.txt */; };
 		849CF5E71DE842290024A8A5 /* MWMSearchNoResultsAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 346225901DDC5FBA001E8752 /* MWMSearchNoResultsAlert.xib */; };
@@ -877,7 +878,6 @@
 		849CF6B71DE842290024A8A5 /* MWMCuisineEditorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340C20E21C3E565600111D22 /* MWMCuisineEditorViewController.mm */; };
 		849CF6B81DE842290024A8A5 /* UIButton+Orientation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3499C6851D51D3A600A1048A /* UIButton+Orientation.mm */; };
 		849CF6B91DE842290024A8A5 /* MWMSearchCommonCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B82ADC1B84A4A000180497 /* MWMSearchCommonCell.mm */; };
-		849CF6BA1DE842290024A8A5 /* ToastView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 974386DC19373EA400FD5659 /* ToastView.mm */; };
 		849CF6BB1DE842290024A8A5 /* MWMSearchManager+Filter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BBB71D1DD07A4B0002E025 /* MWMSearchManager+Filter.mm */; };
 		849CF6BC1DE842290024A8A5 /* MWMOpeningHoursDaysSelectorTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 347FD8571C60B2CE002FB65E /* MWMOpeningHoursDaysSelectorTableViewCell.mm */; };
 		849CF6BD1DE842290024A8A5 /* MWMAuthorizationWebViewLoginViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 342EE4101C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm */; };
@@ -892,7 +892,6 @@
 		849CF6C61DE842290024A8A5 /* MWMInputPasswordValidator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34ABA62B1C2D57D500FE1BEC /* MWMInputPasswordValidator.mm */; };
 		849CF6C71DE842290024A8A5 /* MWMAuthorizationOSMLoginViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34ABA6151C2D185B00FE1BEC /* MWMAuthorizationOSMLoginViewController.mm */; };
 		849CF6C81DE842290024A8A5 /* MWMMapDownloaderButtonTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34E0EECC1CC51B1D008E4919 /* MWMMapDownloaderButtonTableViewCell.mm */; };
-		849CF6C91DE842290024A8A5 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		849CF6CA1DE842290024A8A5 /* MWMSearchFilterTransitioning.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34257D061DC9FB0D00DC5BB9 /* MWMSearchFilterTransitioning.mm */; };
 		849CF6CB1DE842290024A8A5 /* MWMWhatsNewNightModeController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34A759C61DC795140078C3AE /* MWMWhatsNewNightModeController.mm */; };
 		849CF6CC1DE842290024A8A5 /* MWMLocationAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6BBF2C51B4FFB72000CF8E2 /* MWMLocationAlert.mm */; };
@@ -1100,7 +1099,6 @@
 		849CF7971DE842290024A8A5 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD870183620CE00F77A46 /* AdSupport.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		849CF7981DE842290024A8A5 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26C7210F61FD600ECCA39 /* OpenGLES.framework */; };
 		849CF7991DE842290024A8A5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB7E22111E9079400080A68 /* CoreLocation.framework */; };
-		974386DD19373EA400FD5659 /* ToastView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 974386DC19373EA400FD5659 /* ToastView.mm */; };
 		9747264318323080006B7CB7 /* UIKitCategories.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9747264118323080006B7CB7 /* UIKitCategories.mm */; };
 		9747278418338F0C006B7CB7 /* UIViewController+Navigation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9747278318338F0C006B7CB7 /* UIViewController+Navigation.mm */; };
 		974D041D1977DE430081D0A7 /* LocalNotificationManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 974D041B1977DE430081D0A7 /* LocalNotificationManager.mm */; };
@@ -4017,6 +4015,7 @@
 					};
 					849CF5E21DE842290024A8A5 = {
 						DevelopmentTeam = 3T6FSDE8C7;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -5178,6 +5177,7 @@
 				849CF6AF1DE842290024A8A5 /* MWMTextView.mm in Sources */,
 				849CF6B01DE842290024A8A5 /* MWMEditorAdditionalNamesTableViewController.mm in Sources */,
 				849CF6B11DE842290024A8A5 /* MWMMapWidgets.mm in Sources */,
+				845E4B201DEEE98900D6BED8 /* MWMNetworkPolicy.mm in Sources */,
 				849CF6B21DE842290024A8A5 /* MWMOpeningHoursTableViewCell.mm in Sources */,
 				849CF6B31DE842290024A8A5 /* MWMiPadPlacePageLayoutImpl.mm in Sources */,
 				849CF6B41DE842290024A8A5 /* MWMPlacePageActionBar.mm in Sources */,
@@ -5186,7 +5186,6 @@
 				849CF6B71DE842290024A8A5 /* MWMCuisineEditorViewController.mm in Sources */,
 				849CF6B81DE842290024A8A5 /* UIButton+Orientation.mm in Sources */,
 				849CF6B91DE842290024A8A5 /* MWMSearchCommonCell.mm in Sources */,
-				849CF6BA1DE842290024A8A5 /* ToastView.mm in Sources */,
 				849CF6BB1DE842290024A8A5 /* MWMSearchManager+Filter.mm in Sources */,
 				849CF6BC1DE842290024A8A5 /* MWMOpeningHoursDaysSelectorTableViewCell.mm in Sources */,
 				849CF6BD1DE842290024A8A5 /* MWMAuthorizationWebViewLoginViewController.mm in Sources */,
@@ -5201,7 +5200,6 @@
 				849CF6C61DE842290024A8A5 /* MWMInputPasswordValidator.mm in Sources */,
 				849CF6C71DE842290024A8A5 /* MWMAuthorizationOSMLoginViewController.mm in Sources */,
 				849CF6C81DE842290024A8A5 /* MWMMapDownloaderButtonTableViewCell.mm in Sources */,
-				849CF6C91DE842290024A8A5 /* (null) in Sources */,
 				849CF6CA1DE842290024A8A5 /* MWMSearchFilterTransitioning.mm in Sources */,
 				849CF6CB1DE842290024A8A5 /* MWMWhatsNewNightModeController.mm in Sources */,
 				849CF6CC1DE842290024A8A5 /* MWMLocationAlert.mm in Sources */,
@@ -5537,6 +5535,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_DIR = "$(BUILD_ROOT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/HockeySDK.embeddedframework",
@@ -5583,6 +5583,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_DIR = "$(BUILD_ROOT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/HockeySDK.embeddedframework",
@@ -5629,6 +5631,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_DIR = "$(BUILD_ROOT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/HockeySDK.embeddedframework",
@@ -5675,6 +5679,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_DIR = "$(BUILD_ROOT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/HockeySDK.embeddedframework",
@@ -5721,6 +5727,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_DIR = "$(BUILD_ROOT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/HockeySDK.embeddedframework",
@@ -5767,6 +5775,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_DIR = "$(BUILD_ROOT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/HockeySDK.embeddedframework",
