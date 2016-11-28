@@ -30,8 +30,20 @@ set(
   cross_routing_context.hpp
   directions_engine.cpp
   directions_engine.hpp
+  edge_estimator.cpp
+  edge_estimator.hpp
   features_road_graph.cpp
   features_road_graph.hpp
+  geometry.cpp
+  geometry.hpp
+  index_graph.cpp
+  index_graph.hpp
+  index_graph_starter.cpp
+  index_graph_starter.hpp
+  joint.cpp
+  joint.hpp
+  joint_index.cpp
+  joint_index.hpp
   loaded_path_segment.hpp
   nearest_edge_finder.cpp
   nearest_edge_finder.hpp
@@ -39,6 +51,8 @@ set(
   online_absent_fetcher.hpp
   online_cross_fetcher.cpp
   online_cross_fetcher.hpp
+  osrm2feature_map.cpp
+  osrm2feature_map.hpp
   osrm_data_facade.hpp
   osrm_engine.cpp
   osrm_engine.hpp
@@ -46,34 +60,45 @@ set(
   osrm_helpers.hpp
   osrm_path_segment_factory.cpp
   osrm_path_segment_factory.hpp
-  osrm2feature_map.cpp
-  osrm2feature_map.hpp
   pedestrian_directions.cpp
   pedestrian_directions.hpp
   pedestrian_model.cpp
   pedestrian_model.hpp
-  road_graph_router.cpp
-  road_graph_router.hpp
+  restriction_loader.cpp
+  restriction_loader.hpp
   road_graph.cpp
   road_graph.hpp
+  road_graph_router.cpp
+  road_graph_router.hpp
+  road_index.cpp
+  road_index.hpp
+  road_point.hpp
   route.cpp
   route.hpp
-  router_delegate.cpp
-  router_delegate.hpp
   router.cpp
   router.hpp
+  router_delegate.cpp
+  router_delegate.hpp
   routing_algorithm.cpp
   routing_algorithm.hpp
+  routing_exception.hpp
+  routing_helpers.cpp
   routing_helpers.hpp
   routing_mapping.cpp
   routing_mapping.hpp
   routing_result_graph.hpp
+  routing_serialization.cpp
+  routing_serialization.hpp
   routing_session.cpp
   routing_session.hpp
   routing_settings.hpp
+  single_mwm_router.cpp
+  single_mwm_router.hpp
   speed_camera.cpp
   speed_camera.hpp
   turn_candidate.hpp
+  turns.cpp
+  turns.hpp
   turns_generator.cpp
   turns_generator.hpp
   turns_notification_manager.cpp
@@ -82,8 +107,6 @@ set(
   turns_sound_settings.hpp
   turns_tts_text.cpp
   turns_tts_text.hpp
-  turns.cpp
-  turns.hpp
   vehicle_model.cpp
   vehicle_model.hpp
 )
