@@ -227,6 +227,12 @@
 		3497A93A1B5CF8A900F51E55 /* MWMNavigationDashboardManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3497A9371B5CF8A900F51E55 /* MWMNavigationDashboardManager.mm */; };
 		3499C6861D51D3A600A1048A /* UIButton+Orientation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3499C6851D51D3A600A1048A /* UIButton+Orientation.mm */; };
 		3499C6871D51D3A700A1048A /* UIButton+Orientation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3499C6851D51D3A600A1048A /* UIButton+Orientation.mm */; };
+		349A137C1DEC0B6200C7DB60 /* MWMMobileInternetViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349A137B1DEC0B6200C7DB60 /* MWMMobileInternetViewController.mm */; };
+		349A137D1DEC0B6200C7DB60 /* MWMMobileInternetViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349A137B1DEC0B6200C7DB60 /* MWMMobileInternetViewController.mm */; };
+		349A13821DEC138C00C7DB60 /* MWMMobileInternetAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349A13801DEC138C00C7DB60 /* MWMMobileInternetAlert.mm */; };
+		349A13831DEC138C00C7DB60 /* MWMMobileInternetAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349A13801DEC138C00C7DB60 /* MWMMobileInternetAlert.mm */; };
+		349A13841DEC138C00C7DB60 /* MWMMobileInternetAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349A13811DEC138C00C7DB60 /* MWMMobileInternetAlert.xib */; };
+		349A13851DEC138C00C7DB60 /* MWMMobileInternetAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349A13811DEC138C00C7DB60 /* MWMMobileInternetAlert.xib */; };
 		349A357A1B53D4C9009677EE /* MWMCircularProgress.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349A35761B53D4C9009677EE /* MWMCircularProgress.mm */; };
 		349A357B1B53D4C9009677EE /* MWMCircularProgress.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349A35771B53D4C9009677EE /* MWMCircularProgress.xib */; };
 		349A357C1B53D4C9009677EE /* MWMCircularProgressView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349A35791B53D4C9009677EE /* MWMCircularProgressView.mm */; };
@@ -1183,6 +1189,11 @@
 		3497A9371B5CF8A900F51E55 /* MWMNavigationDashboardManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMNavigationDashboardManager.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		3499C6841D51D3A600A1048A /* UIButton+Orientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Orientation.h"; sourceTree = "<group>"; };
 		3499C6851D51D3A600A1048A /* UIButton+Orientation.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIButton+Orientation.mm"; sourceTree = "<group>"; };
+		349A137A1DEC0B6200C7DB60 /* MWMMobileInternetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMobileInternetViewController.h; sourceTree = "<group>"; };
+		349A137B1DEC0B6200C7DB60 /* MWMMobileInternetViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMobileInternetViewController.mm; sourceTree = "<group>"; };
+		349A137F1DEC138C00C7DB60 /* MWMMobileInternetAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMobileInternetAlert.h; sourceTree = "<group>"; };
+		349A13801DEC138C00C7DB60 /* MWMMobileInternetAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMobileInternetAlert.mm; sourceTree = "<group>"; };
+		349A13811DEC138C00C7DB60 /* MWMMobileInternetAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMMobileInternetAlert.xib; sourceTree = "<group>"; };
 		349A35751B53D4C9009677EE /* MWMCircularProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCircularProgress.h; sourceTree = "<group>"; };
 		349A35761B53D4C9009677EE /* MWMCircularProgress.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCircularProgress.mm; sourceTree = "<group>"; };
 		349A35771B53D4C9009677EE /* MWMCircularProgress.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMCircularProgress.xib; sourceTree = "<group>"; };
@@ -2390,6 +2401,16 @@
 			path = ../NavigationDashboard;
 			sourceTree = "<group>";
 		};
+		349A137E1DEC138C00C7DB60 /* MobileInternetAlert */ = {
+			isa = PBXGroup;
+			children = (
+				349A137F1DEC138C00C7DB60 /* MWMMobileInternetAlert.h */,
+				349A13801DEC138C00C7DB60 /* MWMMobileInternetAlert.mm */,
+				349A13811DEC138C00C7DB60 /* MWMMobileInternetAlert.xib */,
+			);
+			path = MobileInternetAlert;
+			sourceTree = "<group>";
+		};
 		349A35741B53D4C9009677EE /* CircularProgress */ = {
 			isa = PBXGroup;
 			children = (
@@ -2953,6 +2974,7 @@
 		F64F195F1AB8125C006EAF7E /* CustomAlert */ = {
 			isa = PBXGroup;
 			children = (
+				349A137E1DEC138C00C7DB60 /* MobileInternetAlert */,
 				3462258B1DDC5D76001E8752 /* SearchAlert */,
 				F6FE3C351CC50FDF00A73196 /* PlaceDoesntExist */,
 				F6BD1D1D1CA412700047B8E8 /* AuthAlert */,
@@ -3371,6 +3393,8 @@
 				34AA09D61DC3A14A002E8083 /* MWMAboutControllerHeader.xib */,
 				348C26031D701B9F00813924 /* MWMHelpController.h */,
 				348C26041D701B9F00813924 /* MWMHelpController.mm */,
+				349A137A1DEC0B6200C7DB60 /* MWMMobileInternetViewController.h */,
+				349A137B1DEC0B6200C7DB60 /* MWMMobileInternetViewController.mm */,
 			);
 			name = Settings;
 			path = ..;
@@ -3550,6 +3574,7 @@
 				4A23D15F1B8B4DD700D4EB6F /* resources-xxhdpi_clear in Resources */,
 				34A759D21DC7953A0078C3AE /* Welcome.storyboard in Resources */,
 				F64F199E1AB81A00006EAF7E /* MWMDefaultAlert.xib in Resources */,
+				349A13841DEC138C00C7DB60 /* MWMMobileInternetAlert.xib in Resources */,
 				EEFE7C1512F8C9E1006AF8C3 /* fonts_whitelist.txt in Resources */,
 				F67E751C1DB635FE00D6741F /* MWMPPView.xib in Resources */,
 				F64F4B711B4A41D40081A24A /* MWMDownloaderDialogHeader.xib in Resources */,
@@ -3713,6 +3738,7 @@
 				34CCFDE31C22A2EF00F28959 /* MWMPlacePageOpeningHoursCell.xib in Resources */,
 				F69E91241D99511F00D7A778 /* _MWMOHHeaderCell.xib in Resources */,
 				6741A94D1BF340DE002C974C /* resources-xxhdpi_clear in Resources */,
+				349A13851DEC138C00C7DB60 /* MWMMobileInternetAlert.xib in Resources */,
 				F653CE0E1C6DEB2E00A453F1 /* MWMDropDown.xib in Resources */,
 				6741A94F1BF340DE002C974C /* MWMDefaultAlert.xib in Resources */,
 				6741A9501BF340DE002C974C /* fonts_whitelist.txt in Resources */,
@@ -3930,6 +3956,7 @@
 				34CC4C0E1B82069C00E44C1F /* MWMSearchTabbedCollectionViewCell.mm in Sources */,
 				34B646BD1CEB6FC000E0C7A5 /* MWMEditorAdditionalNameTableViewCell.mm in Sources */,
 				F6588E2C1B15C26700EE1E58 /* MWMTextView.mm in Sources */,
+				349A137C1DEC0B6200C7DB60 /* MWMMobileInternetViewController.mm in Sources */,
 				34C2431B1CEDBDBA0006B7DC /* MWMEditorAdditionalNamesTableViewController.mm in Sources */,
 				34FE4C451BCC013500066718 /* MWMMapWidgets.mm in Sources */,
 				347FD8831C60B2CE002FB65E /* MWMOpeningHoursTableViewCell.mm in Sources */,
@@ -3993,6 +4020,7 @@
 				3465E7D81B6658C000854C4D /* MWMAPIBar.mm in Sources */,
 				F6D409FA1B319BD70041730F /* ContextViews.mm in Sources */,
 				342CC5F11C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.mm in Sources */,
+				349A13821DEC138C00C7DB60 /* MWMMobileInternetAlert.mm in Sources */,
 				347FD8851C60B2CE002FB65E /* MWMOpeningHoursTimeSelectorTableViewCell.mm in Sources */,
 				34EB84581C073DF70004689F /* MWMOpeningHoursEditorViewController.mm in Sources */,
 				F617B4E31D8FDDD5007A1A4E /* MWMBookmarkCell.mm in Sources */,
@@ -4179,6 +4207,7 @@
 				34B646BE1CEB6FC000E0C7A5 /* MWMEditorAdditionalNameTableViewCell.mm in Sources */,
 				347FD8841C60B2CE002FB65E /* MWMOpeningHoursTableViewCell.mm in Sources */,
 				34C2431C1CEDBDBA0006B7DC /* MWMEditorAdditionalNamesTableViewController.mm in Sources */,
+				349A137D1DEC0B6200C7DB60 /* MWMMobileInternetViewController.mm in Sources */,
 				34A759DC1DC797880078C3AE /* MWMWelcomeController.mm in Sources */,
 				6741A9C31BF340DE002C974C /* MWMPlacePageActionBar.mm in Sources */,
 				6741A9C61BF340DE002C974C /* MWMSearchCommonCell.mm in Sources */,
@@ -4242,6 +4271,7 @@
 				F626D5301C3E840600C17D15 /* MWMNightModeController.mm in Sources */,
 				6741A9E81BF340DE002C974C /* MWMAPIBar.mm in Sources */,
 				34B104271D6F040E00C8B577 /* MWMAboutController.mm in Sources */,
+				349A13831DEC138C00C7DB60 /* MWMMobileInternetAlert.mm in Sources */,
 				347FD8861C60B2CE002FB65E /* MWMOpeningHoursTimeSelectorTableViewCell.mm in Sources */,
 				6741A9EB1BF340DE002C974C /* ContextViews.mm in Sources */,
 				6741A9EC1BF340DE002C974C /* MWMCircularProgress.mm in Sources */,

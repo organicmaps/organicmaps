@@ -50,6 +50,7 @@
 - (void)presentPersonalInfoWarningAlertWithBlock:(nonnull TMWMVoidBlock)block;
 - (void)presentTrackWarningAlertWithCancelBlock:(nonnull TMWMVoidBlock)block;
 - (void)presentSearchNoResultsAlert;
+- (void)presentMobileInternetAlert;
 - (void)closeAlert:(nullable TMWMVoidBlock)completion;
 
 - (nonnull instancetype)init __attribute__((unavailable("call -initWithViewController: instead!")));
