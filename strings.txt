@@ -21219,3 +21219,63 @@
   [banner_viator_message]
     en = Search in over 50,000 tours all over the world.
     ru = Поиск по более чем 50 тысячам экскурсий по всему миру.
+
+  [whatsnew_traffic]
+    comment = december
+    en = Traffic Data in 36 Countries
+    ru = Пробки в 36 странах мира
+
+  [whatsnew_traffic_text]
+    comment = december
+    en = Up-to-date traffic info and fastest driving routes based on it!
+    ru = Актуальная информация о пробках на дорогах и самые быстрые маршруты с их учетом в 36 странах мира!
+
+  [whatsnew_traffic_roaming]
+    comment = december
+    en = Traffic Info in Roaming
+    ru = Пробки даже в роуминге
+
+  [whatsnew_traffic_roaming_text]
+    comment = december
+    en = Requires less than 1 MB of mobile bandwidth per trip.
+    ru = Требует менее 1 МБ мобильного трафика за поездку.
+
+  [whatsnew_order_taxi]
+    comment = december
+    en = Order a Taxi
+    ru = Вызов такси
+
+  [whatsnew_order_taxi_text]
+    comment = december
+    en = Most of the location pages now contain a button for ordering a taxi.
+    ru = В карточке большинства объектов появилась кнопка заказа такси.
+
+  [whatsnew_improved_search]
+    comment = january
+    en = Improved Search
+    ru = Улучшен поиск
+
+  [whatsnew_improved_search_text]
+    comment = january
+    en = Even misspelled queries bring accurate search results.
+    ru = Опечатки в запросах не влияют на результаты поиска.
+
+  [whatsnew_filters_in_search]
+    comment = january
+    en = Search Filters
+    ru = Фильтры в поиске
+
+  [whatsnew_filters_in_search_text]
+    comment = january
+    en = Search hotels based on price and rating.
+    ru = Можно искать отели с учетом цены и рейтинга.
+
+  [whatsnew_font_size]
+    comment = january
+    en = Font Size
+    ru = Размер шрифта
+
+  [whatsnew_font_size_text]
+    comment = january
+    en = Labels on the map can be made bigger.
+    ru = Названия объектов на карте теперь можно сделать крупнее.
