@@ -91,6 +91,11 @@ namespace df
   }
 }
 
+namespace platform
+{
+class NetworkPolicy;
+}
+
 /// Uncomment line to make fixed position settings and
 /// build version for screenshots.
 //#define FIXED_LOCATION
@@ -160,9 +165,8 @@ protected:
 
   BookmarkManager m_bmManager;
 
-  BookingApi m_bookingApi;
-
-  uber::Api m_uberApi;
+  unique_ptr<BookingApi> m_bookingApi = make_unique<BookingApi>();
+  unique_ptr<uber::Api> m_uberApi = make_unique<uber::Api>();
 
   df::DrapeApi m_drapeApi;
 
@@ -195,12 +199,11 @@ public:
   virtual ~Framework();
 
   /// Get access to booking api helpers
-  BookingApi & GetBookingApi() { return m_bookingApi; }
-  BookingApi const & GetBookingApi() const { return m_bookingApi; }
+  BookingApi * GetBookingApi(platform::NetworkPolicy const & policy);
+  BookingApi const * GetBookingApi(platform::NetworkPolicy const & policy) const;
+  uber::Api * GetUberApi(platform::NetworkPolicy const & policy);
 
   df::DrapeApi & GetDrapeApi() { return m_drapeApi; }
-
-  uber::Api & GetUberApi() { return m_uberApi;}
 
   /// Migrate to new version of very different data.
   bool IsEnoughSpaceForMigrate() const;

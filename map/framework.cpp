@@ -59,6 +59,7 @@
 #include "platform/local_country_file_utils.hpp"
 #include "platform/measurement_utils.hpp"
 #include "platform/mwm_version.hpp"
+#include "platform/network_policy.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
@@ -447,6 +448,30 @@ Framework::~Framework()
   m_model.SetOnMapDeregisteredCallback(nullptr);
 }
 
+BookingApi * Framework::GetBookingApi(platform::NetworkPolicy const & policy)
+{
+  if (policy.CanUse())
+    return m_bookingApi.get();
+
+  return nullptr;
+}
+
+BookingApi const * Framework::GetBookingApi(platform::NetworkPolicy const & policy) const
+{
+  if (policy.CanUse())
+    return m_bookingApi.get();
+
+  return nullptr;
+}
+
+uber::Api * Framework::GetUberApi(platform::NetworkPolicy const & policy)
+{
+  if (policy.CanUse())
+    return m_uberApi.get();
+
+  return nullptr;
+}
+
 void Framework::DrawWatchFrame(m2::PointD const & center, int zoomModifier,
                                uint32_t pxWidth, uint32_t pxHeight,
                                df::watch::FrameSymbols const & symbols,
@@ -795,10 +820,11 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
 
   if (ftypes::IsBookingChecker::Instance()(ft))
   {
+    ASSERT(m_bookingApi, ());
     info.m_sponsoredType = SponsoredType::Booking;
     auto const & baseUrl = info.GetMetadata().Get(feature::Metadata::FMD_WEBSITE);
-    info.m_sponsoredUrl = GetBookingApi().GetBookHotelUrl(baseUrl);
-    info.m_sponsoredDescriptionUrl = GetBookingApi().GetDescriptionUrl(baseUrl);
+    info.m_sponsoredUrl = m_bookingApi->GetBookHotelUrl(baseUrl);
+    info.m_sponsoredDescriptionUrl = m_bookingApi->GetDescriptionUrl(baseUrl);
   }
   else if (ftypes::IsOpentableChecker::Instance()(ft))
   {

@@ -9,9 +9,11 @@
 
 #include "platform/measurement_utils.hpp"
 #include "platform/mwm_version.hpp"
+#include "platform/network_policy.hpp"
 #include "platform/platform.hpp"
 
 using feature::Metadata;
+using platform::MakeNetworkPolicyIos;
 
 static NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 
@@ -131,7 +133,9 @@ void initFieldsMap()
   currencyFormatter.numberStyle = NSNumberFormatterCurrencyStyle;
   currencyFormatter.maximumFractionDigits = 0;
   string const currency = currencyFormatter.currencyCode.UTF8String;
-  GetFramework().GetBookingApi().GetMinPrice(
+  auto const api = GetFramework().GetBookingApi(MakeNetworkPolicyIos(true));
+  if (api)
+    api->GetMinPrice(
       m_info.GetMetadata().Get(Metadata::FMD_SPONSORED_ID), currency,
       [self, completion, failure, currency, currencyFormatter](string const & minPrice,
                                                                string const & priceCurrency) {
