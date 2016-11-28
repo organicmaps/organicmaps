@@ -24,6 +24,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 @property(weak, nonatomic) IBOutlet SwitchCell * zoomButtonsCell;
 @property(weak, nonatomic) IBOutlet SwitchCell * is3dCell;
 @property(weak, nonatomic) IBOutlet SwitchCell * autoDownloadCell;
+@property(weak, nonatomic) IBOutlet LinkCell * mobileInternetCell;
 @property(weak, nonatomic) IBOutlet LinkCell * recentTrackCell;
 @property(weak, nonatomic) IBOutlet SwitchCell * compassCalibrationCell;
 @property(weak, nonatomic) IBOutlet SwitchCell * statisticsCell;
@@ -83,6 +84,8 @@ extern NSString * const kAlohalyticsTapEventKey;
 
   self.autoDownloadCell.switchButton.on = [MWMSettings autoDownloadEnabled];
   self.autoDownloadCell.delegate = self;
+
+  self.mobileInternetCell.infoLabel.text = L(@"pref_ask");
 
   if (!GpsTracker::Instance().IsEnabled())
   {
@@ -229,6 +232,12 @@ extern NSString * const kAlohalyticsTapEventKey;
     [Statistics logEvent:kStatEventName(kStatSettings, kStatChangeMeasureUnits)
           withParameters:@{kStatAction : kStatChangeMeasureUnits}];
     [self performSegueWithIdentifier:@"SettingsToUnits" sender:nil];
+  }
+  else if (cell == self.mobileInternetCell)
+  {
+    [Statistics logEvent:kStatEventName(kStatSettings, kStatMobileInternet)
+          withParameters:@{kStatAction : kStatChangeMobileInternet}];
+    [self performSegueWithIdentifier:@"SettingsToMobileInternetSegue" sender:nil];
   }
   else if (cell == self.recentTrackCell)
   {

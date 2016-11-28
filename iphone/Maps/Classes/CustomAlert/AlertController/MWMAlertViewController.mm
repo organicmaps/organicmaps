@@ -4,6 +4,7 @@
 #import "MWMDownloadTransitMapAlert.h"
 #import "MWMLocationAlert.h"
 #import "MWMLocationNotFoundAlert.h"
+#import "MWMMobileInternetAlert.h"
 #import "MWMSearchNoResultsAlert.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
@@ -205,6 +206,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [alert update];
 }
 
+- (void)presentMobileInternetAlert { [self displayAlert:[MWMMobileInternetAlert alert]]; }
 - (void)presentEditorViralAlert { [self displayAlert:[MWMAlert editorViralAlert]]; }
 - (void)presentOsmAuthAlert { [self displayAlert:[MWMAlert osmAuthAlert]]; }
 - (void)displayAlert:(MWMAlert *)alert
