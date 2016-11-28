@@ -61,8 +61,8 @@
   <!-- map widgets -->
   <dimen name="margin_compass_left">32dp</dimen>
   <dimen name="margin_compass_bottom">80dp</dimen>
-  <dimen name="margin_ruler_right">8dp</dimen>
-  <dimen name="margin_ruler_bottom">56dp</dimen>
+  <dimen name="margin_ruler_left">10dp</dimen>
+  <dimen name="margin_ruler_bottom">58dp</dimen>
 
   <!-- routing layout -->
   <dimen name="routing_info_height">48dp</dimen>

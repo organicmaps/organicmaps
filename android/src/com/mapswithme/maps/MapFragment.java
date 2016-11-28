@@ -72,16 +72,16 @@ public class MapFragment extends BaseMwmFragment
     if (!sWasCopyrightDisplayed)
     {
       nativeSetupWidget(WIDGET_COPYRIGHT,
-                        mWidth - UiUtils.dimen(R.dimen.margin_ruler_right),
+                        UiUtils.dimen(R.dimen.margin_ruler_left),
                         mHeight - UiUtils.dimen(R.dimen.margin_ruler_bottom),
-                        ANCHOR_RIGHT_BOTTOM);
+                        ANCHOR_LEFT_BOTTOM);
       sWasCopyrightDisplayed = true;
     }
 
     nativeSetupWidget(WIDGET_RULER,
-                      mWidth - UiUtils.dimen(R.dimen.margin_ruler_right),
+                      UiUtils.dimen(R.dimen.margin_ruler_left),
                       mHeight - UiUtils.dimen(R.dimen.margin_ruler_bottom),
-                      ANCHOR_RIGHT_BOTTOM);
+                      ANCHOR_LEFT_BOTTOM);
 
     if (BuildConfig.DEBUG)
     {
@@ -107,9 +107,9 @@ public class MapFragment extends BaseMwmFragment
   void setupRuler(int offsetX, int offsetY, boolean forceRedraw)
   {
     nativeSetupWidget(WIDGET_RULER,
-                      mWidth - UiUtils.dimen(R.dimen.margin_ruler_right) + offsetX,
+                      UiUtils.dimen(R.dimen.margin_ruler_left) + offsetX,
                       mHeight - UiUtils.dimen(R.dimen.margin_ruler_bottom) + offsetY,
-                      ANCHOR_RIGHT_BOTTOM);
+                      ANCHOR_LEFT_BOTTOM);
     if (forceRedraw && mContextCreated)
       nativeApplyWidgets();
   }
