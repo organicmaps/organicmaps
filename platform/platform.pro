@@ -87,6 +87,7 @@ HEADERS += \
     measurement_utils.hpp \
     mwm_traits.hpp \
     mwm_version.hpp \
+    network_policy.hpp \
     platform.hpp \
     preferred_languages.hpp \
     servers_list.hpp \
