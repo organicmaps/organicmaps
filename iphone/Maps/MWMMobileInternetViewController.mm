@@ -1,6 +1,9 @@
 #import "MWMMobileInternetViewController.h"
+#import "MWMNetworkingPolicy.h"
 #import "SelectableCell.h"
 #import "Statistics.h"
+
+using namespace networking_policy;
 
 @interface MWMMobileInternetViewController ()
 
@@ -18,8 +21,15 @@
   [super viewDidLoad];
   self.title = L(@"pref_mobile_internet");
 
-  self.never.accessoryType = UITableViewCellAccessoryCheckmark;
-  _selected = self.never;
+  SelectableCell * selected;
+  switch (GetNetworkingPolicyState())
+  {
+  case NetworkingPolicyState::Always: selected = self.always; break;
+  case NetworkingPolicyState::Session: selected = self.ask; break;
+  case NetworkingPolicyState::Never: selected = self.never; break;
+  }
+  selected.accessoryType = UITableViewCellAccessoryCheckmark;
+  self.selected = selected;
 }
 
 - (void)setSelected:(SelectableCell *)selected
@@ -32,14 +42,17 @@
   if ([selected isEqual:self.always])
   {
     statValue = kStatAlways;
+    SetNetworkingPolicyState(NetworkingPolicyState::Always);
   }
   else if ([selected isEqual:self.ask])
   {
     statValue = kStatAsk;
+    SetNetworkingPolicyState(NetworkingPolicyState::Session);
   }
   else if ([selected isEqual:self.never])
   {
     statValue = kStatNever;
+    SetNetworkingPolicyState(NetworkingPolicyState::Never);
   }
 
   [Statistics logEvent:kStatMobileInternet withParameters:@{kStatValue : statValue}];

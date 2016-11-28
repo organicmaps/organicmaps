@@ -2,6 +2,7 @@
 #import "LinkCell.h"
 #import "LocaleTranslator.h"
 #import "MWMAuthorizationCommon.h"
+#import "MWMNetworkingPolicy.h"
 #import "MWMSettings.h"
 #import "MWMTextToSpeech.h"
 #import "Statistics.h"
@@ -85,7 +86,14 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.autoDownloadCell.switchButton.on = [MWMSettings autoDownloadEnabled];
   self.autoDownloadCell.delegate = self;
 
-  self.mobileInternetCell.infoLabel.text = L(@"pref_ask");
+  NSString * internetLabel = nil;
+  switch (networking_policy::GetNetworkingPolicyState())
+  {
+  case networking_policy::NetworkingPolicyState::Always: internetLabel = L(@"pref_always"); break;
+  case networking_policy::NetworkingPolicyState::Session: internetLabel = L(@"pref_ask"); break;
+  case networking_policy::NetworkingPolicyState::Never: internetLabel = L(@"pref_never"); break;
+  }
+  self.mobileInternetCell.infoLabel.text = internetLabel;
 
   if (!GpsTracker::Instance().IsEnabled())
   {
