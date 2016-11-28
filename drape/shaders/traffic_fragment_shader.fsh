@@ -19,20 +19,13 @@ void main(void)
 {
   vec4 color = texture2D(u_colorTex, v_colorTexCoord);
   float alphaCode = color.a;
-  if (alphaCode > 0.1)
+  vec4 mask = texture2D(u_maskTex, v_maskTexCoord);
+  color.a = u_opacity * (1.0 - smoothstep(kAntialiasingThreshold, 1.0, abs(v_halfLength)));
+  color.rgb = mix(color.rgb, mask.rgb * mix(kLightArrow, kDarkArrow, step(alphaCode, 0.6)), mask.a);
+  if (u_outline > 0.0)
   {
-    vec4 mask = texture2D(u_maskTex, v_maskTexCoord);
-    color.a = u_opacity * (1.0 - smoothstep(kAntialiasingThreshold, 1.0, abs(v_halfLength)));
-    color.rgb = mix(color.rgb, mask.rgb * mix(kLightArrow, kDarkArrow, step(alphaCode, 0.6)), mask.a);
-    if (u_outline > 0.0)
-    {
-      color.rgb = mix(color.rgb, vec3(1.0, 1.0, 1.0), step(kOutlineThreshold1, abs(v_halfLength)));
-      color.rgb = mix(color.rgb, vec3(1.0, 1.0, 1.0), smoothstep(kOutlineThreshold2, kOutlineThreshold1, abs(v_halfLength)));
-    }
-    gl_FragColor = color;
+    color.rgb = mix(color.rgb, vec3(1.0, 1.0, 1.0), step(kOutlineThreshold1, abs(v_halfLength)));
+    color.rgb = mix(color.rgb, vec3(1.0, 1.0, 1.0), smoothstep(kOutlineThreshold2, kOutlineThreshold1, abs(v_halfLength)));
   }
-  else
-  {
-    gl_FragColor = vec4(0.0, 0.0, 0.0, 0.0);
-  }
+  gl_FragColor = color;
 }

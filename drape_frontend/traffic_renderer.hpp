@@ -31,6 +31,8 @@ public:
                      ref_ptr<dp::GpuProgramManager> mng,
                      dp::UniformValuesStorage const & commonUniforms);
 
+  bool HasRenderData() const { return !m_renderData.empty(); }
+
   void ClearGLDependentResources();
   void Clear(MwmSet::MwmId const & mwmId);
 
