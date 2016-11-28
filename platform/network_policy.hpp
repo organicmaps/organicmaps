@@ -1,7 +1,20 @@
 #pragma once
 
+#include "std/function.hpp"
+
 class _jobject;
 typedef _jobject * jobject;
+
+namespace platform
+{
+class NetworkPolicy;
+using PartnersApiFn = function<void(NetworkPolicy const & canUseNetwork)>;
+}
+
+namespace network_policy
+{
+void CallPartnersApi(platform::PartnersApiFn fn, bool force);
+}
 
 namespace platform
 {
@@ -10,11 +23,18 @@ class NetworkPolicy
 {
   // Maker for android.
   friend NetworkPolicy ToNativeNetworkPolicy(jobject obj);
-  // Maker for ios.
-  // Dummy, real signature should be chosen by ios developer.
-  friend NetworkPolicy MakeNetworkPolicyIos(bool canUseNetwork);
+
+  // iOS
+  friend void network_policy::CallPartnersApi(PartnersApiFn fn, bool force);
 
 public:
+  enum class Stage
+  {
+    Always,
+    Session,
+    Never
+  };
+
   bool CanUse() const { return m_canUse; }
 
 private:
@@ -22,9 +42,4 @@ private:
 
   bool m_canUse = false;
 };
-// Dummy, real signature, implementation and location should be chosen by ios developer.
-inline NetworkPolicy MakeNetworkPolicyIos(bool canUseNetwork)
-{
-  return NetworkPolicy(canUseNetwork);
-}
 }  // namespace platform

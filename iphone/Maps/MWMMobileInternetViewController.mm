@@ -1,9 +1,10 @@
 #import "MWMMobileInternetViewController.h"
-#import "MWMNetworkingPolicy.h"
+#import "MWMNetworkPolicy.h"
 #import "SelectableCell.h"
 #import "Statistics.h"
 
-using namespace networking_policy;
+using namespace network_policy;
+using np = platform::NetworkPolicy;
 
 @interface MWMMobileInternetViewController ()
 
@@ -24,9 +25,9 @@ using namespace networking_policy;
   SelectableCell * selected;
   switch (GetStage())
   {
-  case Stage::Always: selected = self.always; break;
-  case Stage::Session: selected = self.ask; break;
-  case Stage::Never: selected = self.never; break;
+  case np::Stage::Always: selected = self.always; break;
+  case np::Stage::Session: selected = self.ask; break;
+  case np::Stage::Never: selected = self.never; break;
   }
   selected.accessoryType = UITableViewCellAccessoryCheckmark;
   self.selected = selected;
@@ -42,17 +43,17 @@ using namespace networking_policy;
   if ([selected isEqual:self.always])
   {
     statValue = kStatAlways;
-    SetStage(Stage::Always);
+    SetStage(np::Stage::Always);
   }
   else if ([selected isEqual:self.ask])
   {
     statValue = kStatAsk;
-    SetStage(Stage::Session);
+    SetStage(np::Stage::Session);
   }
   else if ([selected isEqual:self.never])
   {
     statValue = kStatNever;
-    SetStage(Stage::Never);
+    SetStage(np::Stage::Never);
   }
 
   [Statistics logEvent:kStatMobileInternet withParameters:@{kStatValue : statValue}];

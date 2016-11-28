@@ -1,8 +1,7 @@
 #import "MWMPlacePageData.h"
+#import "MWMNetworkPolicy.h"
 
 #include "Framework.h"
-
-#include "platform/network_policy.hpp"
 
 #include "base/string_utils.hpp"
 
@@ -15,7 +14,6 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 }  // namespace
 
 using namespace place_page;
-using platform::MakeNetworkPolicyIos;
 
 @implementation MWMPlacePageData
 {
@@ -260,7 +258,6 @@ using platform::MakeNetworkPolicyIos;
   currencyFormatter.maximumFractionDigits = 0;
 
   string const currency = currencyFormatter.currencyCode.UTF8String;
-  auto const api = GetFramework().GetBookingApi(MakeNetworkPolicyIos(true));
 
   auto const func = [self, label, currency, currencyFormatter](string const & minPrice,
                                                                string const & priceCurrency) {
@@ -287,8 +284,12 @@ using platform::MakeNetworkPolicyIos;
     });
   };
 
-  if (api)
-    api->GetMinPrice(self.sponsoredId.UTF8String, currency, func);
+  network_policy::CallPartnersApi(
+      [self, currency, func](platform::NetworkPolicy const & canUseNetwork) {
+        auto const api = GetFramework().GetBookingApi(canUseNetwork);
+        if (api)
+          api->GetMinPrice(self.sponsoredId.UTF8String, currency, func);
+      });
 }
 
 - (NSString *)address { return @(m_info.GetAddress().c_str()); }

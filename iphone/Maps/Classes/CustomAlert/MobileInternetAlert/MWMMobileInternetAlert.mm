@@ -1,8 +1,9 @@
 #import "MWMMobileInternetAlert.h"
-#import "MWMNetworkingPolicy.h"
+#import "MWMNetworkPolicy.h"
 #import "Statistics.h"
 
-using namespace networking_policy;
+using namespace network_policy;
+using np = platform::NetworkPolicy;
 
 namespace
 {
@@ -30,21 +31,21 @@ NSString * const kStatisticsEvent = @"Mobile Internet Settings Alert";
 - (IBAction)alwaysTap
 {
   [Statistics logEvent:kStatMobileInternet withParameters:@{kStatValue : kStatAlways}];
-  SetStage(Stage::Always);
+  SetStage(np::Stage::Always);
   [self close:self.completionBlock];
 }
 
 - (IBAction)askTap
 {
   [Statistics logEvent:kStatMobileInternet withParameters:@{kStatValue : kStatAsk}];
-  SetStage(Stage::Session);
+  SetStage(np::Stage::Session);
   [self close:self.completionBlock];
 }
 
 - (IBAction)neverTap
 {
   [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatNever}];
-  SetStage(Stage::Never);
+  SetStage(np::Stage::Never);
   [self close:self.completionBlock];
 }
 

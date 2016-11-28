@@ -1,5 +1,7 @@
-#import "MWMNetworkingPolicy.h"
+#import "MWMNetworkPolicy.h"
 #import "MWMAlertViewController.h"
+
+using np = platform::NetworkPolicy;
 
 namespace
 {
@@ -7,21 +9,27 @@ NSString * const kNetworkingPolicyTimeStamp = @"NetworkingPolicyTimeStamp";
 NSTimeInterval const kSessionDurationSeconds = 24 * 60 * 60;
 }  // namespace
 
-namespace networking_policy
+namespace network_policy
 {
-void CallPartnersApi(MWMPartnersApiFn const & fn)
+void CallPartnersApi(platform::PartnersApiFn fn, bool force)
 {
+  if (force)
+  {
+    fn(true);
+    return;
+  }
+
   auto checkAndApply = ^bool {
     NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
     NSDate * policyDate = [ud objectForKey:kNetworkingPolicyTimeStamp];
     if ([policyDate compare:[NSDate date]] == NSOrderedDescending)
     {
-      fn(YES);
+      fn(true);
       return true;
     }
     if ([policyDate isEqualToDate:NSDate.distantPast])
     {
-      fn(NO);
+      fn(false);
       return true;
     }
     return false;
@@ -33,33 +41,33 @@ void CallPartnersApi(MWMPartnersApiFn const & fn)
   MWMAlertViewController * alertController = [MWMAlertViewController activeAlertController];
   [alertController presentMobileInternetAlertWithBlock:^{
     if (!checkAndApply())
-      fn(NO);
+      fn(false);
   }];
 }
 
-void SetStage(Stage state)
+void SetStage(np::Stage state)
 {
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
   NSDate * policyDate = nil;
   switch (state)
   {
-  case Stage::Always: policyDate = NSDate.distantFuture; break;
-  case Stage::Session:
+  case np::Stage::Always: policyDate = NSDate.distantFuture; break;
+  case np::Stage::Session:
     policyDate = [NSDate dateWithTimeIntervalSinceNow:kSessionDurationSeconds];
     break;
-  case Stage::Never: policyDate = NSDate.distantPast; break;
+  case np::Stage::Never: policyDate = NSDate.distantPast; break;
   }
   [ud setObject:policyDate forKey:kNetworkingPolicyTimeStamp];
 }
 
-Stage GetStage()
+np::Stage GetStage()
 {
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
   NSDate * policyDate = [ud objectForKey:kNetworkingPolicyTimeStamp];
   if ([policyDate isEqualToDate:NSDate.distantFuture])
-    return Stage::Always;
+    return np::Stage::Always;
   if ([policyDate isEqualToDate:NSDate.distantPast])
-    return Stage::Never;
-  return Stage::Session;
+    return np::Stage::Never;
+  return np::Stage::Session;
 }
-}  // namespace networking_policy
+}  // namespace network_policy

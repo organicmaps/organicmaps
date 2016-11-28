@@ -2,7 +2,7 @@
 #import "LinkCell.h"
 #import "LocaleTranslator.h"
 #import "MWMAuthorizationCommon.h"
-#import "MWMNetworkingPolicy.h"
+#import "MWMNetworkPolicy.h"
 #import "MWMSettings.h"
 #import "MWMTextToSpeech.h"
 #import "Statistics.h"
@@ -87,11 +87,12 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.autoDownloadCell.delegate = self;
 
   NSString * internetLabel = nil;
-  switch (networking_policy::GetStage())
+  using np = platform::NetworkPolicy;
+  switch (network_policy::GetStage())
   {
-  case networking_policy::Stage::Always: internetLabel = L(@"pref_always"); break;
-  case networking_policy::Stage::Session: internetLabel = L(@"pref_ask"); break;
-  case networking_policy::Stage::Never: internetLabel = L(@"pref_never"); break;
+  case np::Stage::Always: internetLabel = L(@"pref_always"); break;
+  case np::Stage::Session: internetLabel = L(@"pref_ask"); break;
+  case np::Stage::Never: internetLabel = L(@"pref_never"); break;
   }
   self.mobileInternetCell.infoLabel.text = internetLabel;
 
