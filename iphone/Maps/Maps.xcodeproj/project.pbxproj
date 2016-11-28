@@ -5687,7 +5687,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(OMIM_ROOT)/../omim-iphone-cmake-production-$(CURRENT_ARCH)/out/production",
+					"$(OMIM_ROOT)/../omim-iphone-cmake-release-$(CURRENT_ARCH)/out/release",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5783,7 +5783,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(OMIM_ROOT)/../omim-iphone-cmake-production-$(CURRENT_ARCH)/out/production",
+					"$(OMIM_ROOT)/../omim-iphone-cmake-release-$(CURRENT_ARCH)/out/release",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
