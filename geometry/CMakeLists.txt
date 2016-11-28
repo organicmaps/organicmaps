@@ -50,4 +50,4 @@ set(
 
 add_library(${PROJECT_NAME} ${SRC})
 
-add_subdirectory(geometry_tests)
+omim_add_test_subdirectory(geometry_tests)

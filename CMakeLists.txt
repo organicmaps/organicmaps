@@ -67,9 +67,9 @@ omim_set_platform_var(PLATFORM_LINUX "linux-.*" ${LINUX_DETECTED})
 
 find_package(Threads)
 
-find_package(Qt5Core REQUIRED)
-find_package(Qt5Network REQUIRED)
 if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
+  find_package(Qt5Core REQUIRED)
+  find_package(Qt5Network REQUIRED)
   find_package(Qt5Gui REQUIRED)
   find_package(Qt5OpenGL REQUIRED)
   find_package(Qt5Widgets REQUIRED)
@@ -91,9 +91,7 @@ get_filename_component(OMIM_ROOT . ABSOLUTE)
 
 include_directories(
   ${CMAKE_HOME_DIRECTORY}
-  ${Qt5Core_LIBRARIES}
   ${Qt5Core_INCLUDE_DIRS}
-  ${Qt5Network_LIBRARIES}
   ${Qt5Network_INCLUDE_DIRS}
   ${CMAKE_HOME_DIRECTORY}/3party/boost
 )
@@ -109,6 +107,8 @@ endfunction()
 function(omim_add_test_subdirectory subdir)
   if (NOT NO_TESTS)
     add_subdirectory(${subdir})
+  else()
+    message("NO_TESTS: Skipping subdirectory ${subdir}")
   endif()
 endfunction()
 
@@ -166,8 +166,6 @@ add_subdirectory(3party/liboauthcpp)
 add_subdirectory(3party/pugixml)
 add_subdirectory(3party/succinct)
 add_subdirectory(3party/osrm)
-add_subdirectory(3party/gmock)
-add_subdirectory(qt_tstfrm)
 add_subdirectory(base)
 add_subdirectory(coding)
 add_subdirectory(geometry)
@@ -183,3 +181,6 @@ add_subdirectory(search)
 add_subdirectory(tracking)
 add_subdirectory(traffic)
 add_subdirectory(partners_api)
+
+omim_add_test_subdirectory(qt_tstfrm)
+omim_add_test_subdirectory(3party/gmock)
