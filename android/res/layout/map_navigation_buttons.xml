@@ -35,8 +35,8 @@
     style="@style/MwmWidget.MapButton"
     android:layout_alignParentEnd="true"
     android:layout_alignParentRight="true"
-    android:layout_below="@id/nav_zoom_out"
-    android:layout_marginTop="@dimen/margin_double"
+    android:layout_alignParentBottom="true"
+    android:layout_marginBottom="@dimen/menu_line_height"
     android:background="?nav_background"
     android:contentDescription="@string/my_position"
     android:tint="@null"/>

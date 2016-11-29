@@ -35,7 +35,7 @@ class NavigationButtonsAnimationController
     mMyPosition = myPosition;
     mCenter = center;
     Resources res = mZoomIn.getResources();
-    mMargin = res.getDimension(R.dimen.margin_base_plus);
+    mMargin = res.getDimension(R.dimen.nav_button_top_limit);
     calculateLimitTranslations();
   }
 
@@ -48,7 +48,7 @@ class NavigationButtonsAnimationController
       public void onLayoutChange(View v, int left, int top, int right, int bottom,
                                  int oldLeft, int oldTop, int oldRight, int oldBottom)
       {
-        mBottom = bottom + mMargin;
+        mBottom = bottom;
         mMyPosition.removeOnLayoutChangeListener(this);
       }
     });

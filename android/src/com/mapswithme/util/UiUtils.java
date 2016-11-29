@@ -366,7 +366,7 @@ public final class UiUtils
     return viewRect.contains(x, y);
   }
 
-  private static int getStatusBarHeight(@NonNull Context context)
+  public static int getStatusBarHeight(@NonNull Context context)
   {
     int result = 0;
     Resources res = context.getResources();
@@ -443,9 +443,7 @@ public final class UiUtils
 
   public static int getCompassYOffset(@NonNull Context context)
   {
-    return isLandscape(context) && RoutingController.get().isNavigating()
-              ? (int)context.getResources()
-               .getDimension(R.dimen.compass_navigation_landscape_offset) : 0;
+    return getStatusBarHeight(context);
   }
 
   // utility class

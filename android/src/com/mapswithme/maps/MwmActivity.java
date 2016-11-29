@@ -1099,7 +1099,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
         public void run()
         {
           final int menuHeight = menu.getFrame().getHeight();
-          adjustCompass(0, menuHeight);
           adjustRuler(0, menuHeight);
 
           mIsFullscreenAnimating = false;
@@ -1133,7 +1132,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       @Override
       public void run()
       {
-        adjustCompass(0, 0);
         adjustRuler(0, 0);
       }
     });
@@ -1304,12 +1302,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
-  void adjustCompass(int offsetX, int offsetY)
+  void adjustCompass(int offsetY)
   {
     if (mMapFragment == null || !mMapFragment.isAdded())
       return;
 
-    mMapFragment.setupCompass((mPanelAnimator != null && mPanelAnimator.isVisible()) ? offsetX : 0, offsetY, true);
+    mMapFragment.setupCompass(offsetY, true);
 
     CompassData compass = LocationHelper.INSTANCE.getCompassData();
     if (compass != null)
@@ -1466,7 +1464,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPlacePage.refreshViews();
     mNavigationController.show(show);
     mOnmapDownloader.updateState(false);
-    adjustCompass(0, UiUtils.getCompassYOffset(this));
+    adjustCompass(UiUtils.getCompassYOffset(this));
   }
 
   @Override

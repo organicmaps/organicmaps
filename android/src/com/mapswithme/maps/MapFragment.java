@@ -91,14 +91,14 @@ public class MapFragment extends BaseMwmFragment
                         ANCHOR_LEFT_TOP);
     }
 
-    setupCompass(0, UiUtils.getCompassYOffset(getContext()), false);
+    setupCompass(UiUtils.getCompassYOffset(getContext()), false);
   }
 
-  void setupCompass(int offsetX, int offsetY, boolean forceRedraw)
+  void setupCompass(int offsetY, boolean forceRedraw)
   {
     nativeSetupWidget(WIDGET_COMPASS,
-                      UiUtils.dimen(R.dimen.margin_compass_left) + offsetX,
-                      mHeight - UiUtils.dimen(R.dimen.margin_compass_bottom) + offsetY,
+                      mWidth - UiUtils.dimen(R.dimen.margin_compass),
+                      offsetY + UiUtils.dimen(R.dimen.margin_compass_top),
                       ANCHOR_CENTER);
     if (forceRedraw && mContextCreated)
       nativeApplyWidgets();
