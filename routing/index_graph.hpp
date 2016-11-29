@@ -7,9 +7,6 @@
 #include "routing/road_index.hpp"
 #include "routing/road_point.hpp"
 
-#include "coding/reader.hpp"
-#include "coding/write_to_sink.hpp"
-
 #include "geometry/point2d.hpp"
 
 #include "std/cstdint.hpp"
@@ -55,29 +52,25 @@ public:
   uint32_t GetNumJoints() const { return m_jointIndex.GetNumJoints(); }
   uint32_t GetNumPoints() const { return m_jointIndex.GetNumPoints(); }
 
+  void Build(uint32_t numJoints);
   void Import(vector<Joint> const & joints);
+  RoadJointIds & InitRoad(uint32_t featureId, uint32_t maxPointId)
+  {
+    return m_roadIndex.InitRoad(featureId, maxPointId);
+  }
   Joint::Id InsertJoint(RoadPoint const & rp);
   bool JointLiesOnRoad(Joint::Id jointId, uint32_t featureId) const;
+
+  template <typename F>
+  void ForEachRoad(F && f) const
+  {
+    m_roadIndex.ForEachRoad(forward<F>(f));
+  }
 
   template <typename F>
   void ForEachPoint(Joint::Id jointId, F && f) const
   {
     m_jointIndex.ForEachPoint(jointId, forward<F>(f));
-  }
-
-  template <class Sink>
-  void Serialize(Sink & sink) const
-  {
-    WriteToSink(sink, static_cast<uint32_t>(GetNumJoints()));
-    m_roadIndex.Serialize(sink);
-  }
-
-  template <class Source>
-  void Deserialize(Source & src)
-  {
-    uint32_t const jointsSize = ReadPrimitiveFromSource<uint32_t>(src);
-    m_roadIndex.Deserialize(src);
-    m_jointIndex.Build(m_roadIndex, jointsSize);
   }
 
 private:

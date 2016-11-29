@@ -1,12 +1,12 @@
 #include "generator/routing_index_generator.hpp"
 
 #include "routing/index_graph.hpp"
+#include "routing/index_graph_serializer.hpp"
 #include "routing/routing_helpers.hpp"
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_processor.hpp"
 #include "indexer/point_to_int64.hpp"
-#include "indexer/routing_section.hpp"
 
 #include "coding/file_container.hpp"
 
@@ -74,15 +74,16 @@ bool BuildRoutingIndex(string const & filename)
 
     IndexGraph graph;
     processor.BuildGraph(graph);
-    LOG(LINFO, ("Routing index contains", graph.GetNumRoads(), "roads,", graph.GetNumJoints(),
-                "joints,", graph.GetNumPoints(), "points"));
 
     FilesContainerW cont(filename, FileWriter::OP_WRITE_EXISTING);
     FileWriter writer = cont.GetWriter(ROUTING_FILE_TAG);
 
-    RoutingSectionHeader const routingHeader;
-    routingHeader.Serialize(writer);
-    graph.Serialize(writer);
+    auto const startPos = writer.Pos();
+    IndexGraphSerializer::Serialize(graph, writer);
+    auto const sectionSize = writer.Pos() - startPos;
+
+    LOG(LINFO, ("Routing section created:", sectionSize, "bytes,", graph.GetNumRoads(), "roads,",
+                graph.GetNumJoints(), "joints,", graph.GetNumPoints(), "points"));
     return true;
   }
   catch (RootException const & e)

@@ -2,9 +2,6 @@
 
 #include "routing/joint.hpp"
 
-#include "coding/reader.hpp"
-#include "coding/write_to_sink.hpp"
-
 #include "std/algorithm.hpp"
 #include "std/cstdint.hpp"
 #include "std/unordered_map.hpp"
@@ -16,6 +13,12 @@ namespace routing
 class RoadJointIds final
 {
 public:
+  void Init(uint32_t maxPointId)
+  {
+    m_jointIds.clear();
+    m_jointIds.reserve(maxPointId + 1);
+  }
+
   Joint::Id GetJointId(uint32_t pointId) const
   {
     if (pointId < m_jointIds.size())
@@ -26,11 +29,20 @@ public:
 
   void AddJoint(uint32_t pointId, Joint::Id jointId)
   {
+    ASSERT_NOT_EQUAL(jointId, Joint::kInvalidId, ());
+
     if (pointId >= m_jointIds.size())
       m_jointIds.insert(m_jointIds.end(), pointId + 1 - m_jointIds.size(), Joint::kInvalidId);
 
     ASSERT_EQUAL(m_jointIds[pointId], Joint::kInvalidId, ());
     m_jointIds[pointId] = jointId;
+  }
+
+  uint32_t GetMaxPointId() const
+  {
+    ASSERT(!m_jointIds.empty(), ());
+    ASSERT_NOT_EQUAL(m_jointIds.back(), Joint::kInvalidId, ());
+    return static_cast<uint32_t>(m_jointIds.size() - 1);
   }
 
   template <typename F>
@@ -77,27 +89,6 @@ public:
     return result;
   }
 
-  template <class Sink>
-  void Serialize(Sink & sink) const
-  {
-    WriteToSink(sink, static_cast<Joint::Id>(m_jointIds.size()));
-    for (Joint::Id jointId : m_jointIds)
-      WriteToSink(sink, jointId);
-  }
-
-  template <class Source>
-  void Deserialize(Source & src)
-  {
-    m_jointIds.clear();
-    Joint::Id const jointsSize = ReadPrimitiveFromSource<Joint::Id>(src);
-    m_jointIds.reserve(jointsSize);
-    for (Joint::Id i = 0; i < jointsSize; ++i)
-    {
-      Joint::Id const jointId = ReadPrimitiveFromSource<Joint::Id>(src);
-      m_jointIds.emplace_back(jointId);
-    }
-  }
-
 private:
   // Joint ids indexed by point id.
   // If some point id doesn't match any joint id, this vector contains Joint::kInvalidId.
@@ -114,34 +105,12 @@ public:
     m_roads[rp.GetFeatureId()].AddJoint(rp.GetPointId(), jointId);
   }
 
+  RoadJointIds & InitRoad(uint32_t featureId, uint32_t maxPointId);
+
   // Find nearest point with normal joint id.
   // If forward == true: neighbor with larger point id (right neighbor)
   // If forward == false: neighbor with smaller point id (left neighbor)
   pair<Joint::Id, uint32_t> FindNeighbor(RoadPoint const & rp, bool forward) const;
-
-  template <class Sink>
-  void Serialize(Sink & sink) const
-  {
-    WriteToSink(sink, static_cast<uint32_t>(m_roads.size()));
-    for (auto const & it : m_roads)
-    {
-      uint32_t const featureId = it.first;
-      WriteToSink(sink, featureId);
-      it.second.Serialize(sink);
-    }
-  }
-
-  template <class Source>
-  void Deserialize(Source & src)
-  {
-    m_roads.clear();
-    size_t const roadsSize = static_cast<size_t>(ReadPrimitiveFromSource<uint32_t>(src));
-    for (size_t i = 0; i < roadsSize; ++i)
-    {
-      uint32_t featureId = ReadPrimitiveFromSource<decltype(featureId)>(src);
-      m_roads[featureId].Deserialize(src);
-    }
-  }
 
   uint32_t GetSize() const { return m_roads.size(); }
 

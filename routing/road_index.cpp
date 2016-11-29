@@ -18,6 +18,13 @@ void RoadIndex::Import(vector<Joint> const & joints)
   }
 }
 
+RoadJointIds & RoadIndex::InitRoad(uint32_t featureId, uint32_t maxPointId)
+{
+  RoadJointIds & road = m_roads[featureId];
+  road.Init(maxPointId);
+  return road;
+}
+
 pair<Joint::Id, uint32_t> RoadIndex::FindNeighbor(RoadPoint const & rp, bool forward) const
 {
   auto const it = m_roads.find(rp.GetFeatureId());

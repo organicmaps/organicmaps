@@ -27,6 +27,7 @@ SOURCES += \
     features_road_graph.cpp \
     geometry.cpp \
     index_graph.cpp \
+    index_graph_serializer.cpp \
     index_graph_starter.cpp \
     joint.cpp \
     joint_index.cpp \
@@ -77,6 +78,7 @@ HEADERS += \
     features_road_graph.hpp \
     geometry.hpp \
     index_graph.hpp \
+    index_graph_serializer.hpp \
     index_graph_starter.hpp \
     joint.hpp \
     joint_index.hpp \
