@@ -70,7 +70,7 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
 {
   if (GetFramework().IsRouteFinished())
   {
-    [[MWMRouter router] stop];
+    [MWMRouter stopRouting];
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     return;
   }
@@ -109,7 +109,7 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
 {
   if (IPAD && self.state != MWMNavigationDashboardStateNavigation)
     [self.delegate routePreviewDidChangeFrame:{}];
-  [[MWMRouter router] stop];
+  [MWMRouter stopRouting];
   self.taxiDataSource = nil;
 }
 

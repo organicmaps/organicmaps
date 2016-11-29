@@ -11,6 +11,7 @@ typedef void (^MWMImageHeightBlock)(UIImage *, NSString *);
 + (BOOL)hasRouteAltitude;
 + (BOOL)isTaxi;
 + (void)startRouting;
++ (void)stopRouting;
 
 @property(nonatomic, readonly) MWMRoutePoint startPoint;
 @property(nonatomic, readonly) MWMRoutePoint finishPoint;
@@ -23,8 +24,6 @@ typedef void (^MWMImageHeightBlock)(UIImage *, NSString *);
                toPoint:(MWMRoutePoint const &)finish
             bestRouter:(BOOL)bestRouter;
 - (void)rebuildWithBestRouter:(BOOL)bestRouter;
-- (void)start;
-- (void)stop;
 - (void)routeAltitudeImageForSize:(CGSize)size completion:(MWMImageHeightBlock)block;
 
 - (instancetype)init __attribute__((unavailable("call +router instead")));

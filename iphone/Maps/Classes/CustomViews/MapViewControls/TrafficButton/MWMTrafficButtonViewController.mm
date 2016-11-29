@@ -25,6 +25,7 @@ CGFloat const kTopOffset = 16;
 
 @interface MWMTrafficButtonViewController ()
 
+@property(nonatomic) NSLayoutConstraint * topOffset;
 @property(nonatomic) NSLayoutConstraint * leftOffset;
 @property(nonatomic) MWMTrafficButtonState state;
 
@@ -62,13 +63,13 @@ CGFloat const kTopOffset = 16;
   UIView * sv = self.view;
   UIView * ov = sv.superview;
 
-  NSLayoutConstraint * top = [NSLayoutConstraint constraintWithItem:sv
-                                                          attribute:NSLayoutAttributeTop
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:ov
-                                                          attribute:NSLayoutAttributeTop
-                                                         multiplier:1
-                                                           constant:kTopOffset];
+  self.topOffset = [NSLayoutConstraint constraintWithItem:sv
+                                                attribute:NSLayoutAttributeTop
+                                                relatedBy:NSLayoutRelationEqual
+                                                   toItem:ov
+                                                attribute:NSLayoutAttributeTop
+                                               multiplier:1
+                                                 constant:kTopOffset];
   self.leftOffset = [NSLayoutConstraint constraintWithItem:sv
                                                  attribute:NSLayoutAttributeLeading
                                                  relatedBy:NSLayoutRelationEqual
@@ -77,7 +78,7 @@ CGFloat const kTopOffset = 16;
                                                 multiplier:1
                                                   constant:kViewControlsOffsetToBounds];
 
-  [ov addConstraints:@[ top, self.leftOffset ]];
+  [ov addConstraints:@[ self.topOffset, self.leftOffset ]];
 }
 
 - (void)mwm_refreshUI
@@ -92,8 +93,18 @@ CGFloat const kTopOffset = 16;
   [self refreshLayout];
 }
 
+- (void)setTopBound:(CGFloat)topBound
+{
+  if (_topBound == topBound)
+    return;
+  _topBound = topBound;
+  [self refreshLayout];
+}
+
 - (void)setLeftBound:(CGFloat)leftBound
 {
+  if (_leftBound == leftBound)
+    return;
   _leftBound = leftBound;
   [self refreshLayout];
 }
@@ -107,11 +118,13 @@ CGFloat const kTopOffset = 16;
 - (void)refreshLayout
 {
   runAsyncOnMainQueue(^{
-    CGFloat const offset =
+    CGFloat const topOffset = self.topBound + kTopOffset;
+    CGFloat const leftOffset =
         self.hidden ? -self.view.width : self.leftBound + kViewControlsOffsetToBounds;
     UIView * ov = self.view.superview;
     [ov layoutIfNeeded];
-    self.leftOffset.constant = offset;
+    self.topOffset.constant = topOffset;
+    self.leftOffset.constant = leftOffset;
     [UIView animateWithDuration:kDefaultAnimationDuration
                      animations:^{
                        [ov layoutIfNeeded];

@@ -2,7 +2,6 @@
 #import "Common.h"
 #import "MWMButton.h"
 #import "MWMMapViewControlsManager.h"
-#import "MWMRouter.h"
 #import "MWMSettings.h"
 #import "MWMSideButtonsView.h"
 #import "Statistics.h"
@@ -99,7 +98,6 @@ NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger im
 - (void)processMyPositionStateModeEvent:(location::EMyPositionMode)mode
 {
   UIButton * locBtn = self.locationButton;
-  locBtn.hidden = GetFramework().IsOnRoute() && mode == location::FollowAndRotate;
   [locBtn.imageView stopAnimating];
 
   NSArray<UIImage *> * images =

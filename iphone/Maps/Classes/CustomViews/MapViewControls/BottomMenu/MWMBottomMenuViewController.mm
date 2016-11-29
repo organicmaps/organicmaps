@@ -221,7 +221,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 }
 
 - (IBAction)routingStartTouchUpInside { [MWMRouter startRouting]; }
-- (IBAction)routingStopTouchUpInside { [[MWMRouter router] stop]; }
+- (IBAction)routingStopTouchUpInside { [MWMRouter stopRouting]; }
 - (IBAction)soundTouchUpInside:(MWMButton *)sender
 {
   BOOL const isEnable = sender.selected;
@@ -425,7 +425,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
     if (theApp.routingPlaneMode == MWMRoutingPlaneModeSearchDestination ||
         theApp.routingPlaneMode == MWMRoutingPlaneModeSearchSource)
       self.controller.controlsManager.searchHidden = YES;
-    [[MWMRouter router] stop];
+    [MWMRouter stopRouting];
   }
 }
 
