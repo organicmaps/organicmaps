@@ -1,6 +1,10 @@
+#import "MWMTaxiPreviewDataSource.h"
+#import "Common.h"
+#import "MWMNetworkPolicy.h"
 #import "MWMRoutePoint.h"
 #import "MWMTaxiPreviewCell.h"
-#import "MWMTaxiPreviewDataSource.h"
+
+#include "Framework.h"
 
 #include "geometry/mercator.hpp"
 
@@ -56,7 +60,6 @@ using namespace uber;
 
 @interface MWMTaxiPreviewDataSource() <UICollectionViewDataSource, UICollectionViewDelegate>
 {
-  Api m_api;
   vector<Product> m_products;
   ms::LatLon m_from;
   ms::LatLon m_to;
@@ -107,43 +110,47 @@ using namespace uber;
   cv.hidden = YES;
   cv.pageControl.hidden = YES;
 
-  m_requestId = m_api.GetAvailableProducts(m_from, m_to, [self, completion](vector<Product> const & products,
-                                                                  uint64_t const requestId)
-  {
-    dispatch_async(dispatch_get_main_queue(), [products, requestId, self, completion]
-    {
-      if (self->m_requestId != requestId)
-        return;
+  network_policy::CallPartnersApi(
+      [self, completion, failure](platform::NetworkPolicy const & canUseNetwork) {
+        auto const api = GetFramework().GetUberApi(canUseNetwork);
+        if (!api)
+        {
+          failure(L(@"dialog_taxi_error"));
+          return;
+        }
 
-      self->m_products = products;
-      auto cv = self.collectionView;
-      cv.hidden = NO;
-      cv.pageControl.hidden = NO;
-      cv.numberOfPages = self->m_products.size();
-      [cv reloadData];
-      cv.contentOffset = {};
-      cv.currentPage = 0;
-      completion();
-    });
-  },
-  [self, failure](uber::ErrorCode const code, uint64_t const requestId)
-  {
-    dispatch_async(dispatch_get_main_queue(), ^
-    {
-      if (self->m_requestId != requestId)
-        return;
+        auto success = [self, completion](vector<Product> const & products,
+                                          uint64_t const requestId) {
+          if (self->m_requestId != requestId)
+            return;
+          runAsyncOnMainQueue([self, completion, products] {
 
-      switch (code)
-      {
-      case uber::ErrorCode::NoProducts:
-        failure(L(@"taxi_not_found"));
-        break;
-      case uber::ErrorCode::RemoteError:
-        failure(L(@"dialog_taxi_error"));
-        break;
-      }
-    });
-  });
+            self->m_products = products;
+            auto cv = self.collectionView;
+            cv.hidden = NO;
+            cv.pageControl.hidden = NO;
+            cv.numberOfPages = self->m_products.size();
+            [cv reloadData];
+            cv.contentOffset = {};
+            cv.currentPage = 0;
+            completion();
+          });
+
+        };
+        auto error = [self, failure](uber::ErrorCode const code, uint64_t const requestId) {
+          if (self->m_requestId != requestId)
+            return;
+          runAsyncOnMainQueue(^{
+            switch (code)
+            {
+            case uber::ErrorCode::NoProducts: failure(L(@"taxi_not_found")); break;
+            case uber::ErrorCode::RemoteError: failure(L(@"dialog_taxi_error")); break;
+            }
+          });
+        };
+        m_requestId = api->GetAvailableProducts(m_from, m_to, success, error);
+      },
+      true /* force */);
 }
 
 - (BOOL)isTaxiInstalled

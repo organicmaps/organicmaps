@@ -386,6 +386,8 @@
 		34E273221C737A4100463965 /* MWMMigrationViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34E273201C737A4100463965 /* MWMMigrationViewController.mm */; };
 		34E273251C73876500463965 /* MWMMigrationView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34E273241C73876500463965 /* MWMMigrationView.mm */; };
 		34E273261C73876500463965 /* MWMMigrationView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34E273241C73876500463965 /* MWMMigrationView.mm */; };
+		34EA976C1DEC779D00616B11 /* MWMNetworkPolicy.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34EA976B1DEC779D00616B11 /* MWMNetworkPolicy.mm */; };
+		34EA976D1DEC779D00616B11 /* MWMNetworkPolicy.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34EA976B1DEC779D00616B11 /* MWMNetworkPolicy.mm */; };
 		34EB5E7D1C900145002C4D37 /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 845C89341C8983F300940D7F /* QuickLook.framework */; };
 		34EB5E7E1C900159002C4D37 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 845C89301C89837900940D7F /* AssetsLibrary.framework */; };
 		34EB84581C073DF70004689F /* MWMOpeningHoursEditorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34EB84571C073DF70004689F /* MWMOpeningHoursEditorViewController.mm */; };
@@ -1804,6 +1806,8 @@
 		34E273201C737A4100463965 /* MWMMigrationViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMigrationViewController.mm; sourceTree = "<group>"; };
 		34E273231C73876500463965 /* MWMMigrationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMigrationView.h; sourceTree = "<group>"; };
 		34E273241C73876500463965 /* MWMMigrationView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMigrationView.mm; sourceTree = "<group>"; };
+		34EA976A1DEC779D00616B11 /* MWMNetworkPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNetworkPolicy.h; sourceTree = "<group>"; };
+		34EA976B1DEC779D00616B11 /* MWMNetworkPolicy.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNetworkPolicy.mm; sourceTree = "<group>"; };
 		34EB84561C073DF70004689F /* MWMOpeningHoursEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMOpeningHoursEditorViewController.h; sourceTree = "<group>"; };
 		34EB84571C073DF70004689F /* MWMOpeningHoursEditorViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMOpeningHoursEditorViewController.mm; sourceTree = "<group>"; };
 		34EC27081CB2A7120084FA36 /* fabric_logging_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = fabric_logging_ios.mm; sourceTree = "<group>"; };
@@ -2378,6 +2382,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				34EA97691DEC779D00616B11 /* NetworkPolicy */,
 				348868F01D87DF8C0069BBA3 /* Keyboard */,
 				3436FE7F1D366CA0005CD87B /* Search */,
 				344D77B11D1BD79700DBED70 /* Location */,
@@ -3194,6 +3199,15 @@
 				34E273241C73876500463965 /* MWMMigrationView.mm */,
 			);
 			path = Migration;
+			sourceTree = "<group>";
+		};
+		34EA97691DEC779D00616B11 /* NetworkPolicy */ = {
+			isa = PBXGroup;
+			children = (
+				34EA976A1DEC779D00616B11 /* MWMNetworkPolicy.h */,
+				34EA976B1DEC779D00616B11 /* MWMNetworkPolicy.mm */,
+			);
+			path = NetworkPolicy;
 			sourceTree = "<group>";
 		};
 		34EB84501C0738D30004689F /* Editor */ = {
@@ -4800,6 +4814,7 @@
 				978F9242183B660F000D6C7C /* SelectableCell.mm in Sources */,
 				34ABA6241C2D551900FE1BEC /* MWMInputValidatorFactory.mm in Sources */,
 				34257D1B1DC9FD9400DC5BB9 /* MWMSearchChangeModeView.mm in Sources */,
+				34EA976C1DEC779D00616B11 /* MWMNetworkPolicy.mm in Sources */,
 				34B82AE21B84AC5E00180497 /* MWMSearchCategoriesManager.mm in Sources */,
 				34CE8A671C7740E100F4351A /* MWMStorage.mm in Sources */,
 				F6F7787A1DABC6D800B603E7 /* MWMTaxiCollectionLayout.mm in Sources */,
@@ -5051,6 +5066,7 @@
 				34ABA6251C2D551900FE1BEC /* MWMInputValidatorFactory.mm in Sources */,
 				348868F41D87DFB70069BBA3 /* MWMKeyboard.mm in Sources */,
 				34257D1C1DC9FD9400DC5BB9 /* MWMSearchChangeModeView.mm in Sources */,
+				34EA976D1DEC779D00616B11 /* MWMNetworkPolicy.mm in Sources */,
 				F639883C1CF70FE500226B6B /* MWMActionBarButton.mm in Sources */,
 				34CE8A681C7740E100F4351A /* MWMStorage.mm in Sources */,
 				6741AA141BF340DE002C974C /* MWMMultilineLabel.mm in Sources */,

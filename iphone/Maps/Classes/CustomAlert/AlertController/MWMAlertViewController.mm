@@ -206,7 +206,10 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [alert update];
 }
 
-- (void)presentMobileInternetAlert { [self displayAlert:[MWMMobileInternetAlert alert]]; }
+- (void)presentMobileInternetAlertWithBlock:(nonnull TMWMVoidBlock)block
+{
+  [self displayAlert:[MWMMobileInternetAlert alertWithBlock:block]];
+}
 - (void)presentEditorViralAlert { [self displayAlert:[MWMAlert editorViralAlert]]; }
 - (void)presentOsmAuthAlert { [self displayAlert:[MWMAlert osmAuthAlert]]; }
 - (void)displayAlert:(MWMAlert *)alert

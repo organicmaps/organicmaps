@@ -1,5 +1,6 @@
 #import "MWMPlacePageEntity.h"
 #import "MWMMapViewControlsManager.h"
+#import "MWMNetworkPolicy.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 
@@ -9,11 +10,9 @@
 
 #include "platform/measurement_utils.hpp"
 #include "platform/mwm_version.hpp"
-#include "platform/network_policy.hpp"
 #include "platform/platform.hpp"
 
 using feature::Metadata;
-using platform::MakeNetworkPolicyIos;
 
 static NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 
@@ -133,33 +132,38 @@ void initFieldsMap()
   currencyFormatter.numberStyle = NSNumberFormatterCurrencyStyle;
   currencyFormatter.maximumFractionDigits = 0;
   string const currency = currencyFormatter.currencyCode.UTF8String;
-  auto const api = GetFramework().GetBookingApi(MakeNetworkPolicyIos(true));
-  if (api)
-    api->GetMinPrice(
-      m_info.GetMetadata().Get(Metadata::FMD_SPONSORED_ID), currency,
-      [self, completion, failure, currency, currencyFormatter](string const & minPrice,
-                                                               string const & priceCurrency) {
-        if (currency != priceCurrency)
-        {
-          failure();
-          return;
-        }
-        NSNumberFormatter * decimalFormatter = [[NSNumberFormatter alloc] init];
-        decimalFormatter.numberStyle = NSNumberFormatterDecimalStyle;
-        NSString * currencyString = [currencyFormatter
-            stringFromNumber:
-                [decimalFormatter
-                    numberFromString:
-                        [@(minPrice.c_str())
-                            stringByReplacingOccurrencesOfString:@"."
-                                                      withString:decimalFormatter
-                                                                     .decimalSeparator]]];
-        NSString * currencyPattern =
-            [L(@"place_page_starting_from") stringByReplacingOccurrencesOfString:@"%s"
-                                                                      withString:@"%@"];
-        self.bookingOnlinePrice = [NSString stringWithFormat:currencyPattern, currencyString];
-        completion();
-      });
+  network_policy::CallPartnersApi([self, completion, failure, currency, currencyFormatter](
+      platform::NetworkPolicy const & canUseNetwork) {
+    auto const api = GetFramework().GetBookingApi(canUseNetwork);
+    if (!api)
+    {
+      failure();
+      return;
+    }
+    auto success = [self, completion, failure, currency, currencyFormatter](
+        string const & minPrice, string const & priceCurrency) {
+      if (currency != priceCurrency)
+      {
+        failure();
+        return;
+      }
+      NSNumberFormatter * decimalFormatter = [[NSNumberFormatter alloc] init];
+      decimalFormatter.numberStyle = NSNumberFormatterDecimalStyle;
+      NSString * currencyString = [currencyFormatter
+          stringFromNumber:
+              [decimalFormatter
+                  numberFromString:
+                      [@(minPrice.c_str())
+                          stringByReplacingOccurrencesOfString:@"."
+                                                    withString:decimalFormatter.decimalSeparator]]];
+      NSString * currencyPattern =
+          [L(@"place_page_starting_from") stringByReplacingOccurrencesOfString:@"%s"
+                                                                    withString:@"%@"];
+      self.bookingOnlinePrice = [NSString stringWithFormat:currencyPattern, currencyString];
+      completion();
+    };
+    api->GetMinPrice(m_info.GetMetadata().Get(Metadata::FMD_SPONSORED_ID), currency, success);
+  });
 }
 
 - (void)configureBookmark
