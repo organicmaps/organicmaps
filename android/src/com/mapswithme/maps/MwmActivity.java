@@ -140,7 +140,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private View mNavZoomIn;
   private View mNavZoomOut;
   private MyPositionButton mNavMyPosition;
-  @Nullable
   private TrafficButton mTraffic;
   @Nullable
   private NavigationButtonsAnimationController mNavAnimationController;
@@ -1121,6 +1120,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         Animations.disappearSliding(mNavZoomOut, Animations.RIGHT, null);
         Animations.disappearSliding(mNavZoomIn, Animations.RIGHT, null);
         mNavMyPosition.hide();
+        mTraffic.hide();
       }
     }
     else
@@ -1147,6 +1147,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       Animations.appearSliding(mNavZoomOut, Animations.RIGHT, null);
       Animations.appearSliding(mNavZoomIn, Animations.RIGHT, null);
       mNavMyPosition.show();
+      mTraffic.show();
     }
   }
 
@@ -1400,7 +1401,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mMainMenu.showLineFrame(true);
   }
 
-  private void setNavButtonsTopLimit(float limit)
+  private void setNavButtonsTopLimit(int limit)
   {
     if (mNavAnimationController == null)
       return;
@@ -1427,7 +1428,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
           completionListener.run();
 
         if (mRoutingPlanInplaceController.getHeight() > 0)
+        {
           setNavButtonsTopLimit(mRoutingPlanInplaceController.getHeight());
+          adjustCompassAndTraffic(mRoutingPlanInplaceController.getHeight());
+        }
       }
     }
     else
@@ -1441,9 +1445,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
         completionListener.run();
 
       setNavButtonsTopLimit(0);
+      adjustCompassAndTraffic(UiUtils.getStatusBarHeight(getApplicationContext()));
     }
 
     mPlacePage.refreshViews();
+  }
+
+  private void adjustCompassAndTraffic(int offset)
+  {
+    adjustCompass(offset);
+    mTraffic.setTopOffset(offset);
   }
 
   @Override
@@ -1453,6 +1464,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
 
     setNavButtonsTopLimit(mRoutingPlanInplaceController.getHeight());
+    adjustCompassAndTraffic(mRoutingPlanInplaceController.getHeight());
   }
 
   @Override
@@ -1462,6 +1474,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
 
     setNavButtonsTopLimit(visible ? mSearchController.getToolbar().getHeight() : 0);
+    adjustCompassAndTraffic(visible ? mSearchController.getToolbar().getHeight(): UiUtils.getStatusBarHeight(this));
   }
 
   @Override

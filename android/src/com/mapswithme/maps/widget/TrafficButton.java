@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.util.Animations;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 
@@ -20,9 +21,12 @@ public class TrafficButton
   private final AnimationDrawable mLoadingAnim;
   @NonNull
   private final ImageButton mButton;
+  @NonNull
+  private final Context mContext;
 
   public TrafficButton(@NonNull Context context, @NonNull ImageButton button)
   {
+    mContext = context;
     mButton = button;
     Resources rs = context.getResources();
     @DrawableRes
@@ -34,7 +38,6 @@ public class TrafficButton
 
     RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) button.getLayoutParams();
     params.setMargins(0, UiUtils.getStatusBarHeight(context), 0, 0);
-    button.setLayoutParams(params);
     //TODO: set default value(state) here
     button.setVisibility(View.VISIBLE);
   }
@@ -73,5 +76,22 @@ public class TrafficButton
       mButton.setImageDrawable(null);
     }
     mButton.invalidate();
+  }
+
+  public void setTopOffset(int offset)
+  {
+    RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mButton.getLayoutParams();
+    params.setMargins(0, offset, 0, 0);
+    mButton.requestLayout();
+  }
+
+  public void show()
+  {
+    Animations.appearSliding(mButton, Animations.LEFT, null);
+  }
+
+  public void hide()
+  {
+    Animations.disappearSliding(mButton, Animations.LEFT, null);
   }
 }

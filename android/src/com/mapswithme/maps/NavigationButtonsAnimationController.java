@@ -54,7 +54,7 @@ class NavigationButtonsAnimationController
     });
   }
 
-  void setTopLimit(float limit)
+  void setTopLimit(int limit)
   {
     mTop = limit + mMargin;
   }
