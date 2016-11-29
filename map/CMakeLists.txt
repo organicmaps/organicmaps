@@ -47,6 +47,8 @@ set(
   place_page_info.hpp
   track.cpp
   track.hpp
+  traffic_manager.cpp
+  traffic_manager.hpp
   user_mark_container.cpp
   user_mark_container.hpp
   user_mark.cpp
