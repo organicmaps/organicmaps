@@ -42,8 +42,6 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
 
 @property(nonatomic) MWMNavigationDashboardEntity * entity;
 
-@property(nonatomic) MWMTaxiPreviewDataSource * taxiDataSource;
-
 @end
 
 @implementation MWMNavigationDashboardManager
@@ -110,7 +108,6 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
   if (IPAD && self.state != MWMNavigationDashboardStateNavigation)
     [self.delegate routePreviewDidChangeFrame:{}];
   [MWMRouter stopRouting];
-  self.taxiDataSource = nil;
 }
 
 #pragma mark - MWMTaxiDataSource
