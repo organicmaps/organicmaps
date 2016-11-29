@@ -19950,8 +19950,8 @@
 
   [taxi_order]
     comment = For ordering a taxi (as opposed to hotels or other things)
-    en = Order
-    ru = Заказать
+    en = Order a taxi
+    ru = Заказать такси
     ar = ترتيب
     cs = Objednat
     da = Bestil
@@ -20802,3 +20802,48 @@
     en = Advertisement
     en-GB = Advertisement
     ru = Реклама
+
+  [mobile_data_dialog]
+    en = Use mobile internet to show detailed information?
+    ru = Загружать дополнительную информацию через мобильный интернет?
+
+  [mobile_data_option_always]
+    en = Use Always
+    ru = Всегда
+
+  [mobile_data_option_today]
+    en = Only Today
+    ru = Только сегодня
+
+  [mobile_data_option_not_today]
+    en = Do not Use Today
+    ru = Не сегодня
+
+  [mobile_data]
+    en = Mobile Internet
+    ru = Мобильный интернет
+
+  [mobile_data_description]
+    en = Mobile internet is required for displaying detailed information about places, such as photographs, prices and reviews.
+    ru = Мобильный интернет требуется для отображения более детальной информации о местах: фотографий, цен, отзывов.
+
+  [mobile_data_option_never]
+    en = Never Use
+    ru = Никогда не использовать
+
+  [mobile_data_option_ask]
+    en = Always Ask
+    ru = Всегда спрашивать
+
+  [traffic_update_maps_text]
+    en = To display traffic data, maps must be updated.
+    ru = Для отображения пробок необходимо обновить карты.
+
+  [traffic_outdated]
+    en = Traffic data is outdated.
+    ru = Данные о пробках устарели.
+
+  [big_font]
+    en = Bigger labels
+    ru = Увеличенные подписи
+
