@@ -46,23 +46,23 @@ public final class LocationState
   {
     switch (mode)
     {
-    case PENDING_POSITION:
-      return "PENDING_POSITION";
+      case PENDING_POSITION:
+        return "PENDING_POSITION";
 
-    case NOT_FOLLOW_NO_POSITION:
-      return "NOT_FOLLOW_NO_POSITION";
+      case NOT_FOLLOW_NO_POSITION:
+        return "NOT_FOLLOW_NO_POSITION";
 
-    case NOT_FOLLOW:
-      return "NOT_FOLLOW";
+      case NOT_FOLLOW:
+        return "NOT_FOLLOW";
 
-    case FOLLOW:
-      return "FOLLOW";
+      case FOLLOW:
+        return "FOLLOW";
 
-    case FOLLOW_AND_ROTATE:
-      return "FOLLOW_AND_ROTATE";
+      case FOLLOW_AND_ROTATE:
+        return "FOLLOW_AND_ROTATE";
 
-    default:
-      return "Unknown: " + mode;
+      default:
+        return "Unknown: " + mode;
     }
   }
 }
