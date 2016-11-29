@@ -4,7 +4,6 @@
 #import "MWMAlertViewController.h"
 #import "MWMLocationManager.h"
 #import "MWMSearchHotelsFilterViewController.h"
-#import "ToastView.h"
 
 #include "Framework.h"
 
@@ -275,8 +274,6 @@ using TObservers = NSHashTable<__kindof TObserver>;
 
 - (void)onSearchCompleted
 {
-  if (self.searchOnMap && m_results.GetCount() == 0)
-    [[[ToastView alloc] initWithMessage:L(@"search_not_found_query")] show];
   for (TObserver observer in self.observers)
   {
     if ([observer respondsToSelector:@selector(onSearchCompleted)])
