@@ -96,7 +96,7 @@ void AreaShape::DrawArea(ref_ptr<dp::Batcher> batcher, m2::PointD const & colorU
 void AreaShape::DrawArea3D(ref_ptr<dp::Batcher> batcher, m2::PointD const & colorUv, m2::PointD const & outlineUv,
                            ref_ptr<dp::Texture> texture) const
 {
-  ASSERT(m_buildingOutline.m_generateOutline && !m_buildingOutline.m_indices.empty(), ());
+  ASSERT(!m_buildingOutline.m_indices.empty(), ());
   ASSERT(!m_buildingOutline.m_normals.empty(), ());
 
   glsl::vec2 const uv = glsl::ToVec2(colorUv);
