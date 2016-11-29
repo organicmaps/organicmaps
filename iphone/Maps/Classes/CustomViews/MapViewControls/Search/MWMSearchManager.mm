@@ -493,7 +493,9 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
     [parentView addSubview:actionBarView];
     [parentView addSubview:contentView];
     [self layoutTopViews];
-    [[MWMMapViewControlsManager manager] searchFrameUpdated:self.searchBarView.frame];
+    CGRect searchAndStatusBarFrame = self.searchBarView.frame;
+    searchAndStatusBarFrame.size.height += statusBarHeight();
+    [[MWMMapViewControlsManager manager] searchFrameUpdated:searchAndStatusBarFrame];
   }
   [UIView animateWithDuration:kDefaultAnimationDuration
       animations:^{

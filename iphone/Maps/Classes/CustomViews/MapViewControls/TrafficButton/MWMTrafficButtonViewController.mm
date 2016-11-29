@@ -14,7 +14,8 @@ typedef NS_ENUM(NSUInteger, MWMTrafficButtonState) {
 
 namespace
 {
-CGFloat const kTopOffset = 16;
+CGFloat const kTopOffset = 26;
+CGFloat const kTopShiftedOffset = 6;
 }  // namespace
 
 @interface MWMMapViewControlsManager ()
@@ -118,7 +119,7 @@ CGFloat const kTopOffset = 16;
 - (void)refreshLayout
 {
   runAsyncOnMainQueue(^{
-    CGFloat const topOffset = self.topBound + kTopOffset;
+    CGFloat const topOffset = self.topBound > 0 ? self.topBound + kTopShiftedOffset : kTopOffset;
     CGFloat const leftOffset =
         self.hidden ? -self.view.width : self.leftBound + kViewControlsOffsetToBounds;
     UIView * ov = self.view.superview;
