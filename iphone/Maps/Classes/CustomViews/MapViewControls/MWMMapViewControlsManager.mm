@@ -200,7 +200,7 @@ extern NSString * const kAlohalyticsTapEventKey;
             MapsAppDelegate.theApp.routingPlaneMode = MWMRoutingPlaneModeNone;
             self.navigationManager.routePreview.alpha = 1.;
             [self.navigationManager.routePreview removeFromSuperview];
-            [[MWMRouter router] stop];
+            [MWMRouter stopRouting];
             self.navigationManager.state = MWMNavigationDashboardStateHidden;
             self.menuController.p2pButton.selected = NO;
           }];
@@ -255,7 +255,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   {
     if (!self.searchHidden)
       self.searchManager.state = MWMSearchManagerStateHidden;
-    [[MWMRouter router] stop];
+    [MWMRouter stopRouting];
   }
   else
   {
@@ -306,7 +306,9 @@ extern NSString * const kAlohalyticsTapEventKey;
   if (!IPAD)
   {
     CGFloat const bound = newFrame.origin.y + newFrame.size.height;
-    self.placePageManager.topBound = self.sideButtons.topBound = bound;
+    self.placePageManager.topBound = bound;
+    self.sideButtons.topBound = bound;
+    self.trafficButton.topBound = bound;
     return;
   }
 
@@ -413,6 +415,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.hidden = NO;
   self.sideButtons.zoomHidden = self.zoomHidden;
   self.sideButtonsHidden = NO;
+  self.trafficButtonHidden = YES;
   self.disableStandbyOnRouteFollowing = YES;
   self.navigationManager.state = MWMNavigationDashboardStateNavigation;
 }
@@ -420,6 +423,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)onRouteStop
 {
   self.sideButtons.zoomHidden = self.zoomHidden;
+  self.trafficButtonHidden = NO;
   self.navigationManager.state = MWMNavigationDashboardStateHidden;
   self.disableStandbyOnRouteFollowing = NO;
   self.menuState = MWMBottomMenuStateInactive;
@@ -533,8 +537,11 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   if (IPAD)
     return;
-  _topBound = self.placePageManager.topBound = self.sideButtons.topBound =
-      self.navigationManager.topBound = topBound;
+  _topBound = topBound;
+  self.placePageManager.topBound = topBound;
+  self.sideButtons.topBound = topBound;
+  self.navigationManager.topBound = topBound;
+  self.trafficButton.topBound = topBound;
 }
 
 - (void)setLeftBound:(CGFloat)leftBound

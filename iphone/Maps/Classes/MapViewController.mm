@@ -522,7 +522,7 @@ BOOL gIsFirstMyPositionMode = YES;
 {
   [self.navigationController popToRootViewControllerAnimated:NO];
   self.controlsManager.searchHidden = YES;
-  [[MWMRouter router] stop];
+  [MWMRouter stopRouting];
   if ([action isEqualToString:@"me.maps.3daction.bookmarks"])
     [self openBookmarks];
   else if ([action isEqualToString:@"me.maps.3daction.search"])
