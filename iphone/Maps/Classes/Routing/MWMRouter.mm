@@ -86,7 +86,12 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
   [[UIApplication sharedApplication] openURL:taxiDataSource.taxiURL];
 }
 
-+ (void)stopRouting { [[MWMRouter router] stop]; }
++ (void)stopRouting
+{
+  [[MWMRouter router] stop];
+  [MWMNavigationDashboardManager manager].taxiDataSource = nil;
+}
+
 - (instancetype)initRouter
 {
   self = [super init];
