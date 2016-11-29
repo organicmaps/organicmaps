@@ -25,7 +25,7 @@ class NetworkPolicy
   friend NetworkPolicy ToNativeNetworkPolicy(jobject obj);
 
   // iOS
-  friend void network_policy::CallPartnersApi(PartnersApiFn fn, bool force);
+  friend void network_policy::CallPartnersApi(platform::PartnersApiFn fn, bool force);
 
 public:
   enum class Stage

@@ -420,7 +420,7 @@ void RoutingSession::MatchLocationToRoute(location::GpsInfo & location,
 
 bool RoutingSession::DisableFollowMode()
 {
-  LOG(LINFO, ("Routing disables a following mode. State: ", m_state));
+  LOG(LINFO, ("Routing disables a following mode. State: ", m_state.load()));
   if (m_state == RouteNotStarted || m_state == OnRoute)
   {
     SetState(RouteNoFollowing);
@@ -432,7 +432,7 @@ bool RoutingSession::DisableFollowMode()
 
 bool RoutingSession::EnableFollowMode()
 {
-  LOG(LINFO, ("Routing enables a following mode. State: ", m_state));
+  LOG(LINFO, ("Routing enables a following mode. State: ", m_state.load()));
   if (m_state == RouteNotStarted || m_state == OnRoute)
   {
     SetState(OnRoute);
