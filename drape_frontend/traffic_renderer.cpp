@@ -175,58 +175,75 @@ void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel,
     if (!clipRect.IsIntersect(renderData.m_boundingBox))
       continue;
 
-    // Filter by road class.
-    float leftPixelHalfWidth = 0.0f;
-    float invLeftPixelLength = 0.0f;
-    float rightPixelHalfWidth = 0.0f;
-    int minVisibleArrowZoomLevel = kMinVisibleArrowZoomLevel;
-    float outline = 0.0f;
-
-    if (renderData.m_bucket->GetOverlayHandlesCount() > 0)
+    if (renderData.m_state.GetDrawAsLine())
     {
-      TrafficHandle * handle = static_cast<TrafficHandle *>(renderData.m_bucket->GetOverlayHandle(0).get());
-      ASSERT(handle != nullptr, ());
+      ref_ptr<dp::GpuProgram> program = mng->GetProgram(renderData.m_state.GetProgramIndex());
+      program->Bind();
+      dp::ApplyState(renderData.m_state, program);
 
-      int visibleZoomLevel = kRoadClass0ZoomLevel;
-      if (handle->GetRoadClass() == RoadClass::Class0)
-      {
-        outline = (zoomLevel <= kOutlineMinZoomLevel ? 1.0 : 0.0);
-      }
-      else if (handle->GetRoadClass() == RoadClass::Class1)
-      {
-        visibleZoomLevel = kRoadClass1ZoomLevel;
-      }
-      else if (handle->GetRoadClass() == RoadClass::Class2)
-      {
-        visibleZoomLevel = kRoadClass2ZoomLevel;
-        minVisibleArrowZoomLevel = kRoadClass2MinVisibleArrowZoomLevel;
-      }
+      dp::UniformValuesStorage uniforms = commonUniforms;
+      math::Matrix<float, 4, 4> const mv = renderData.m_tileKey.GetTileBasedModelView(screen);
+      uniforms.SetMatrix4x4Value("modelView", mv.m_data);
+      uniforms.SetFloatValue("u_opacity", 1.0f);
+      dp::ApplyUniforms(uniforms, program);
 
-      if (zoomLevel < visibleZoomLevel)
-        continue;
-
-      leftPixelHalfWidth = CalculateHalfWidth(screen, handle->GetRoadClass(), true /* left */);
-      invLeftPixelLength = 1.0f / (2.0f * leftPixelHalfWidth * kTrafficArrowAspect);
-      rightPixelHalfWidth = CalculateHalfWidth(screen, handle->GetRoadClass(), false /* left */);
-      float const kEps = 1e-5;
-      if (fabs(leftPixelHalfWidth) < kEps && fabs(rightPixelHalfWidth) < kEps)
-        continue;
+      renderData.m_bucket->Render(true /* draw as line */);
     }
+    else
+    {
+      // Filter by road class.
+      float leftPixelHalfWidth = 0.0f;
+      float invLeftPixelLength = 0.0f;
+      float rightPixelHalfWidth = 0.0f;
+      int minVisibleArrowZoomLevel = kMinVisibleArrowZoomLevel;
+      float outline = 0.0f;
 
-    ref_ptr<dp::GpuProgram> program = mng->GetProgram(renderData.m_state.GetProgramIndex());
-    program->Bind();
-    dp::ApplyState(renderData.m_state, program);
+      if (renderData.m_bucket->GetOverlayHandlesCount() > 0)
+      {
+        TrafficHandle * handle = static_cast<TrafficHandle *>(renderData.m_bucket->GetOverlayHandle(0).get());
+        ASSERT(handle != nullptr, ());
 
-    dp::UniformValuesStorage uniforms = commonUniforms;
-    math::Matrix<float, 4, 4> const mv = renderData.m_tileKey.GetTileBasedModelView(screen);
-    uniforms.SetMatrix4x4Value("modelView", mv.m_data);
-    uniforms.SetFloatValue("u_opacity", 1.0f);
-    uniforms.SetFloatValue("u_outline", outline);
-    uniforms.SetFloatValue("u_trafficParams", leftPixelHalfWidth, rightPixelHalfWidth,
-                           invLeftPixelLength, zoomLevel >= minVisibleArrowZoomLevel ? 1.0f : 0.0f);
-    dp::ApplyUniforms(uniforms, program);
+        int visibleZoomLevel = kRoadClass0ZoomLevel;
+        if (handle->GetRoadClass() == RoadClass::Class0)
+        {
+          outline = (zoomLevel <= kOutlineMinZoomLevel ? 1.0 : 0.0);
+        }
+        else if (handle->GetRoadClass() == RoadClass::Class1)
+        {
+          visibleZoomLevel = kRoadClass1ZoomLevel;
+        }
+        else if (handle->GetRoadClass() == RoadClass::Class2)
+        {
+          visibleZoomLevel = kRoadClass2ZoomLevel;
+          minVisibleArrowZoomLevel = kRoadClass2MinVisibleArrowZoomLevel;
+        }
 
-    renderData.m_bucket->Render(renderData.m_state.GetDrawAsLine());
+        if (zoomLevel < visibleZoomLevel)
+          continue;
+
+        leftPixelHalfWidth = CalculateHalfWidth(screen, handle->GetRoadClass(), true /* left */);
+        invLeftPixelLength = 1.0f / (2.0f * leftPixelHalfWidth * kTrafficArrowAspect);
+        rightPixelHalfWidth = CalculateHalfWidth(screen, handle->GetRoadClass(), false /* left */);
+        float const kEps = 1e-5;
+        if (fabs(leftPixelHalfWidth) < kEps && fabs(rightPixelHalfWidth) < kEps)
+          continue;
+      }
+
+      ref_ptr<dp::GpuProgram> program = mng->GetProgram(renderData.m_state.GetProgramIndex());
+      program->Bind();
+      dp::ApplyState(renderData.m_state, program);
+
+      dp::UniformValuesStorage uniforms = commonUniforms;
+      math::Matrix<float, 4, 4> const mv = renderData.m_tileKey.GetTileBasedModelView(screen);
+      uniforms.SetMatrix4x4Value("modelView", mv.m_data);
+      uniforms.SetFloatValue("u_opacity", 1.0f);
+      uniforms.SetFloatValue("u_outline", outline);
+      uniforms.SetFloatValue("u_trafficParams", leftPixelHalfWidth, rightPixelHalfWidth,
+                             invLeftPixelLength, zoomLevel >= minVisibleArrowZoomLevel ? 1.0f : 0.0f);
+      dp::ApplyUniforms(uniforms, program);
+
+      renderData.m_bucket->Render(false /* draw as line */);
+    }
   }
 }
 

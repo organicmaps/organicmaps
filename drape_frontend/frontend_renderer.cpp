@@ -1134,6 +1134,13 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 
   if (m_framebuffer->IsSupported())
   {
+    if (m_trafficRenderer->HasRenderData())
+    {
+      GLFunctions::glClearDepth();
+      GLFunctions::glEnable(gl_const::GLDepthTest);
+      m_trafficRenderer->RenderTraffic(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager), m_generalUniforms);
+    }
+
     m_framebuffer->Enable();
     GLFunctions::glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     GLFunctions::glClear();
@@ -1146,13 +1153,17 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   {
     GLFunctions::glClearDepth();
     Render3dLayer(modelView);
+
+    if (m_trafficRenderer->HasRenderData())
+    {
+      GLFunctions::glClearDepth();
+      m_trafficRenderer->RenderTraffic(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager), m_generalUniforms);
+    }
   }
 
   GLFunctions::glDisable(gl_const::GLDepthTest);
   if (hasSelectedPOI)
     m_selectionShape->Render(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager), m_generalUniforms);
-
-  m_trafficRenderer->RenderTraffic(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager), m_generalUniforms);
 
   GLFunctions::glEnable(gl_const::GLDepthTest);
   GLFunctions::glClearDepth();

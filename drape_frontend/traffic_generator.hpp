@@ -107,6 +107,18 @@ struct TrafficStaticVertex
   TNormal m_normal;
 };
 
+struct TrafficLineStaticVertex
+{
+  using TPosition = glsl::vec3;
+
+  TrafficLineStaticVertex() = default;
+  TrafficLineStaticVertex(TPosition const & position)
+    : m_position(position)
+  {}
+
+  TPosition m_position;
+};
+
 struct TrafficDynamicVertex
 {
   using TTexCoord = glsl::vec2;
@@ -202,8 +214,12 @@ private:
 
   void GenerateSegment(dp::TextureManager::ColorRegion const & colorRegion,
                        m2::PolylineD const & polyline, m2::PointD const & tileCenter,
-                       bool generateCaps, vector<TrafficStaticVertex> & staticGeometry,
+                       bool generateCaps, float depth, vector<TrafficStaticVertex> & staticGeometry,
                        vector<TrafficDynamicVertex> & dynamicGeometry);
+  void GenerateLineSegment(dp::TextureManager::ColorRegion const & colorRegion,
+                           m2::PolylineD const & polyline, m2::PointD const & tileCenter, float depth,
+                           vector<TrafficLineStaticVertex> & staticGeometry,
+                           vector<TrafficDynamicVertex> & dynamicGeometry);
   void FillColorsCache(ref_ptr<dp::TextureManager> textures);
 
   void FlushGeometry(TrafficBatcherKey const & key, dp::GLState const & state,
