@@ -21,6 +21,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 
 import com.mapswithme.maps.Framework.MapObjectListener;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
@@ -67,6 +68,7 @@ import com.mapswithme.maps.settings.StoragePathManager;
 import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.widget.FadeView;
+import com.mapswithme.maps.widget.TrafficButton;
 import com.mapswithme.maps.widget.menu.BaseMenu;
 import com.mapswithme.maps.widget.menu.MainMenu;
 import com.mapswithme.maps.widget.menu.MyPositionButton;
@@ -138,6 +140,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private View mNavZoomIn;
   private View mNavZoomOut;
   private MyPositionButton mNavMyPosition;
+  @Nullable
+  private TrafficButton mTraffic;
   @Nullable
   private NavigationButtonsAnimationController mNavAnimationController;
 
@@ -534,6 +538,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mNavZoomOut.setOnClickListener(this);
     View myPosition = frame.findViewById(R.id.my_position);
     mNavMyPosition = new MyPositionButton(myPosition);
+    ImageButton traffic = (ImageButton) frame.findViewById(R.id.traffic);
+    mTraffic = new TrafficButton(this, traffic);
+    mTraffic.setLoading(true);
     mNavAnimationController = new NavigationButtonsAnimationController(mNavZoomIn, mNavZoomOut, myPosition,
                                                                        frame.findViewById(R.id.anchor_center));
   }

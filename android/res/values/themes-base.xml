@@ -67,6 +67,7 @@
 
     <item name="myPositionButtonAnimation">@drawable/anim_myposition_pending</item>
     <item name="wheelPendingAnimation">@drawable/anim_spinner_pending</item>
+    <item name="trafficLoadingAnimation">@drawable/anim_traffic_loading</item>
 
     <item name="navButtonsTheme">@style/MwmTheme.NavButtons</item>
     <item name="downloaderTheme">@style/MwmTheme.Downloader</item>
@@ -155,6 +156,7 @@
 
     <item name="myPositionButtonAnimation">@drawable/anim_myposition_pending_night</item>
     <item name="wheelPendingAnimation">@drawable/anim_spinner_pending</item>
+    <item name="trafficLoadingAnimation">@drawable/anim_traffic_loading_night</item>
 
     <item name="navButtonsTheme">@style/MwmTheme.NavButtons.Night</item>
     <item name="downloaderTheme">@style/MwmTheme.Downloader.Night</item>
