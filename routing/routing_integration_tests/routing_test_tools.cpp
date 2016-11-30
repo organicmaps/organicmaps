@@ -83,7 +83,7 @@ namespace integration
     };
 
     auto carRouter = make_unique<CarRouter>(
-        index, countryFileGetter, SingleMwmRouter::CreateCarRouter(index));
+        index, countryFileGetter, SingleMwmRouter::CreateCarRouter(index, nullptr));
     return carRouter;
   }
 

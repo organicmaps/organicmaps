@@ -10,9 +10,12 @@
 
 #include "coding/internal/file_data.hpp"
 
+#include "std/utility.hpp"
+
 #include "3party/Alohalytics/src/alohalytics.h"
 
 using namespace location;
+using namespace traffic;
 
 namespace
 {
@@ -575,6 +578,42 @@ shared_ptr<Route> const RoutingSession::GetRoute() const
   threads::MutexGuard guard(m_routeSessionMutex);
   ASSERT(m_route, ());
   return m_route;
+}
+
+void RoutingSession::EnableTraffic(bool enable)
+{
+  threads::MutexGuard guard(m_routeSessionMutex);
+  UNUSED_VALUE(guard);
+  m_trafficInfo.clear();
+}
+
+void RoutingSession::AddTrafficInfo(TrafficInfo const & info)
+{
+  threads::MutexGuard guard(m_routeSessionMutex);
+  UNUSED_VALUE(guard);
+  // @TODO(bykoianko) It's worth considering moving a big |info.GetColoring()|
+  // not copying as it's done now.
+  m_trafficInfo.insert(make_pair(info.GetMwmId(),
+                                 make_shared<TrafficInfo::Coloring>(info.GetColoring())));
+}
+
+shared_ptr<TrafficInfo::Coloring> RoutingSession::GetTrafficColoring(
+    MwmSet::MwmId const & mwmId)
+{
+  threads::MutexGuard guard(m_routeSessionMutex);
+  UNUSED_VALUE(guard);
+  auto it = m_trafficInfo.find(mwmId);
+
+  if (it == m_trafficInfo.cend())
+    return nullptr;
+  return it->second;
+}
+
+void RoutingSession::RemoveTrafficInfo(MwmSet::MwmId const & mwmId)
+{
+  threads::MutexGuard guard(m_routeSessionMutex);
+  UNUSED_VALUE(guard);
+  m_trafficInfo.erase(mwmId);
 }
 
 string DebugPrint(RoutingSession::State state)

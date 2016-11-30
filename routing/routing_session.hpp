@@ -6,6 +6,8 @@
 #include "routing/turns.hpp"
 #include "routing/turns_notification_manager.hpp"
 
+#include "traffic/traffic_info.hpp"
+
 #include "platform/location.hpp"
 #include "platform/measurement_utils.hpp"
 
@@ -16,6 +18,7 @@
 
 #include "std/atomic.hpp"
 #include "std/limits.hpp"
+#include "std/map.hpp"
 #include "std/shared_ptr.hpp"
 #include "std/unique_ptr.hpp"
 
@@ -150,6 +153,11 @@ public:
 
   void EmitCloseRoutingEvent() const;
 
+  void EnableTraffic(bool enable);
+  void AddTrafficInfo(traffic::TrafficInfo const & info);
+  shared_ptr<traffic::TrafficInfo::Coloring> GetTrafficColoring(MwmSet::MwmId const & mwmId);
+  void RemoveTrafficInfo(MwmSet::MwmId const & mwmId);
+
 private:
   struct DoReadyCallback
   {
@@ -214,6 +222,8 @@ private:
   // Rerouting count
   int m_routingRebuildCount;
   mutable double m_lastCompletionPercent;
+
+  map<MwmSet::MwmId, shared_ptr<traffic::TrafficInfo::Coloring>> m_trafficInfo;
 };
 
 string DebugPrint(RoutingSession::State state);

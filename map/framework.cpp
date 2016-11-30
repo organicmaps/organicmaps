@@ -356,7 +356,12 @@ Framework::Framework()
   , m_isRenderingEnabled(true)
   , m_trackingReporter(platform::CreateSocket(), TRACKING_REALTIME_HOST, TRACKING_REALTIME_PORT,
                        tracking::Reporter::kPushDelayMs)
-  , m_trafficManager(bind(&Framework::GetMwmsByRect, this, _1), kMaxTrafficCacheSizeBytes)
+  , m_trafficManager(bind(&Framework::GetMwmsByRect, this, _1),
+                     // Note. |m_routingSession| should be declared before |m_trafficManager|.
+                     {bind(&RoutingSession::AddTrafficInfo, &m_routingSession, _1),
+                     bind(&RoutingSession::RemoveTrafficInfo, &m_routingSession, _1),
+                     bind(&RoutingSession::EnableTraffic, &m_routingSession, _1)},
+                     kMaxTrafficCacheSizeBytes)
   , m_displacementModeManager([this](bool show) {
     int const mode = show ? dp::displacement::kHotelMode : dp::displacement::kDefaultMode;
     CallDrapeFunction(bind(&df::DrapeEngine::SetDisplacementMode, _1, mode));
@@ -2493,7 +2498,9 @@ void Framework::SetRouterImpl(RouterType type)
 
     router.reset(
         new CarRouter(m_model.GetIndex(), countryFileGetter,
-                      SingleMwmRouter::CreateCarRouter(m_model.GetIndex())));
+                      SingleMwmRouter::CreateCarRouter(m_model.GetIndex(),
+                                                       bind(&RoutingSession::GetTrafficColoring,
+                                                            &m_routingSession, _1))));
     fetcher.reset(new OnlineAbsentCountriesFetcher(countryFileGetter, localFileChecker));
     m_routingSession.SetRoutingSettings(routing::GetCarRoutingSettings());
   }

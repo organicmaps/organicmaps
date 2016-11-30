@@ -72,7 +72,8 @@ void IndexGraph::GetNeighboringEdge(RoadGeometry const & road, RoadPoint const &
   pair<Joint::Id, uint32_t> const & neighbor = m_roadIndex.FindNeighbor(rp, forward);
   if (neighbor.first != Joint::kInvalidId)
   {
-    double const distance = m_estimator->CalcEdgesWeight(road, rp.GetPointId(), neighbor.second);
+    double const distance = m_estimator->CalcEdgesWeight(road, rp.GetFeatureId(),
+                                                         rp.GetPointId(), neighbor.second);
     edges.push_back({neighbor.first, distance});
   }
 }
@@ -87,7 +88,7 @@ void IndexGraph::GetDirectedEdge(uint32_t featureId, uint32_t pointFrom, uint32_
   if (road.IsOneWay() && forward != (pointFrom < pointTo))
     return;
 
-  double const distance = m_estimator->CalcEdgesWeight(road, pointFrom, pointTo);
+  double const distance = m_estimator->CalcEdgesWeight(road, featureId, pointFrom, pointTo);
   edges.emplace_back(target, distance);
 }
 }  // namespace routing

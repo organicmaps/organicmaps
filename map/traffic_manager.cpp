@@ -37,8 +37,11 @@ TrafficManager::CacheEntry::CacheEntry(time_point<steady_clock> const & requestT
   , m_lastAvailability(traffic::TrafficInfo::Availability::Unknown)
 {}
 
-TrafficManager::TrafficManager(GetMwmsByRectFn const & getMwmsByRectFn, size_t maxCacheSizeBytes)
+TrafficManager::TrafficManager(GetMwmsByRectFn const & getMwmsByRectFn,
+                               RoutingFns const & routingFns,
+                               size_t maxCacheSizeBytes)
   : m_getMwmsByRectFn(getMwmsByRectFn)
+  , m_routingFns(routingFns)
   , m_currentDataVersion(0)
   , m_state(TrafficState::Disabled)
   , m_maxCacheSizeBytes(maxCacheSizeBytes)
@@ -92,6 +95,8 @@ void TrafficManager::SetEnabled(bool enabled)
     if (m_currentPosition.second)
       UpdateMyPosition(m_currentPosition.first);
   }
+
+  m_routingFns.m_enableTrafficFn(enabled);
 }
 
 void TrafficManager::Clear()
@@ -320,12 +325,15 @@ void TrafficManager::OnTrafficDataResponse(traffic::TrafficInfo const & info)
   it->second.m_dataSize = dataSize;
   CheckCacheSize();
 
-  // Update traffic colors.
+  // Update traffic colors for drape.
   df::TrafficSegmentsColoring coloring;
   coloring[info.GetMwmId()] = info.GetColoring();
   m_drapeEngine->UpdateTraffic(coloring);
 
   UpdateState();
+
+  // Update traffic colors for routing.
+  m_routingFns.m_addTrafficInfoFn(info);
 }
 
 void TrafficManager::CheckCacheSize()
@@ -346,6 +354,7 @@ void TrafficManager::CheckCacheSize()
       {
         m_currentCacheSizeBytes -= it->second.m_dataSize;
         m_drapeEngine->ClearTrafficCache(mwmId);
+        m_routingFns.m_removeTrafficInfoFn(mwmId);
       }
       m_mwmCache.erase(it);
       ++itSeen;
