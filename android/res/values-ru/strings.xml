@@ -971,7 +971,7 @@
 	<!-- For place page hotel nearby block -->
 	<string name="placepage_hotel_nearby">Рядом</string>
 	<!-- For ordering a taxi (as opposed to hotels or other things) -->
-	<string name="taxi_order">Заказать</string>
+	<string name="taxi_order">Заказать такси</string>
 	<!-- How long it is until the taxi arrives -->
 	<string name="taxi_wait">Ожидание %s</string>
 	<!-- When there are no available taxis nearby -->
@@ -1007,4 +1007,15 @@
 	<string name="dialog_taxi_offline">Заказ такси недоступен офлайн.</string>
 	<string name="dialog_taxi_error">Заказ такси временно недоступен.</string>
 	<string name="advertisement">Реклама</string>
+	<string name="mobile_data_dialog">Загружать дополнительную информацию через мобильный интернет?</string>
+	<string name="mobile_data_option_always">Всегда</string>
+	<string name="mobile_data_option_today">Только сегодня</string>
+	<string name="mobile_data_option_not_today">Не сегодня</string>
+	<string name="mobile_data">Мобильный интернет</string>
+	<string name="mobile_data_description">Мобильный интернет требуется для отображения более детальной информации о местах: фотографий, цен, отзывов.</string>
+	<string name="mobile_data_option_never">Никогда не использовать</string>
+	<string name="mobile_data_option_ask">Всегда спрашивать</string>
+	<string name="traffic_update_maps_text">Для отображения пробок необходимо обновить карты.</string>
+	<string name="traffic_outdated">Данные о пробках устарели.</string>
+	<string name="big_font">Увеличенные подписи</string>
 </resources>
