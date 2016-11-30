@@ -6,11 +6,15 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.mapswithme.maps.routing.RoutingController;
+import com.mapswithme.maps.widget.placepage.PlacePageView;
 import com.mapswithme.util.Animations;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.log.DebugLogger;
 
 class NavigationButtonsAnimationController
 {
+  private static final DebugLogger LOGGER =
+      new DebugLogger(NavigationButtonsAnimationController.class.getSimpleName());
   @NonNull
   private final View mZoomIn;
   @NonNull
@@ -26,6 +30,7 @@ class NavigationButtonsAnimationController
 
   private boolean mIsZoomAnimate;
   private boolean mIsMyPosAnimate;
+  private float mLastPlacePageY;
 
   NavigationButtonsAnimationController(@NonNull View zoomIn, @NonNull View zoomOut,
                                        @NonNull View myPosition, @Nullable View center)
@@ -36,6 +41,7 @@ class NavigationButtonsAnimationController
     mCenter = center;
     Resources res = mZoomIn.getResources();
     mMargin = res.getDimension(R.dimen.nav_button_top_limit);
+    mLastPlacePageY = res.getDisplayMetrics().heightPixels;
     calculateLimitTranslations();
   }
 
@@ -130,8 +136,44 @@ class NavigationButtonsAnimationController
     if (mCenter == null || mBottom == 0)
       return;
 
-    final float translation = translationY - mBottom;
-    update(translation <= 0 ? translation : 0);
+    float translation = translationY - mBottom;
+    if (shouldMoveNavButtons(translationY, translation))
+      update(translation);
+    else
+      update(0);
+
+    mLastPlacePageY = translationY;
+  }
+
+  private boolean shouldMoveNavButtons(float ppTranslationY, float translation)
+  {
+    if (ppTranslationY == mLastPlacePageY)
+    {
+        LOGGER.d("Start of movement. Nav buttons are no needed to be moved");
+        return false;
+    }
+
+    boolean isMoveUp = ppTranslationY < mLastPlacePageY;
+    if (isMoveUp)
+    {
+      if (translation > 0)
+      {
+        LOGGER.d("Move up. Bottom limit hasn't been reached yet.");
+        return false;
+      }
+
+      LOGGER.d("Move up. PP follows the nav buttons.");
+      return true;
+    }
+
+    if (translation <= 0)
+    {
+      LOGGER.d("Move down. Bottom limit hasn't been reached yet.");
+      return true;
+    }
+
+    LOGGER.d("Move down. Nav buttons follow PP.");
+    return false;
   }
 
   void update()

@@ -1427,10 +1427,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
         if (completionListener != null)
           completionListener.run();
 
-        if (mRoutingPlanInplaceController.getHeight() > 0)
+        int routingPlanPanelHeight = mRoutingPlanInplaceController.getHeight();
+        if (routingPlanPanelHeight > 0)
         {
-          setNavButtonsTopLimit(mRoutingPlanInplaceController.getHeight());
-          adjustCompassAndTraffic(mRoutingPlanInplaceController.getHeight());
+          adjustCompassAndTraffic(routingPlanPanelHeight);
+          setNavButtonsTopLimit(routingPlanPanelHeight);
         }
       }
     }
@@ -1444,8 +1445,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (completionListener != null)
         completionListener.run();
 
-      setNavButtonsTopLimit(0);
       adjustCompassAndTraffic(UiUtils.getStatusBarHeight(getApplicationContext()));
+      setNavButtonsTopLimit(0);
     }
 
     mPlacePage.refreshViews();
@@ -1463,8 +1464,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mNavAnimationController == null)
       return;
 
-    setNavButtonsTopLimit(mRoutingPlanInplaceController.getHeight());
-    adjustCompassAndTraffic(mRoutingPlanInplaceController.getHeight());
+    int routingPlanPanelHeight = mRoutingPlanInplaceController.getHeight();
+    adjustCompassAndTraffic(routingPlanPanelHeight);
+    setNavButtonsTopLimit(routingPlanPanelHeight);
   }
 
   @Override
@@ -1473,8 +1475,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mNavAnimationController == null)
       return;
 
-    setNavButtonsTopLimit(visible ? mSearchController.getToolbar().getHeight() : 0);
-    adjustCompassAndTraffic(visible ? mSearchController.getToolbar().getHeight(): UiUtils.getStatusBarHeight(this));
+    int toolbarHeight = mSearchController.getToolbar().getHeight();
+    adjustCompassAndTraffic(visible ? toolbarHeight: UiUtils.getStatusBarHeight(this));
+    setNavButtonsTopLimit(visible ? toolbarHeight : 0);
   }
 
   @Override
