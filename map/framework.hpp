@@ -18,10 +18,11 @@
 
 #include "drape/oglcontextfactory.hpp"
 
+#include "indexer/banners.hpp"
 #include "indexer/data_header.hpp"
+#include "indexer/index_helpers.hpp"
 #include "indexer/map_style.hpp"
 #include "indexer/new_feature_categories.hpp"
-#include "indexer/index_helpers.hpp"
 
 #include "editor/user_stats.hpp"
 
@@ -167,6 +168,8 @@ protected:
 
   unique_ptr<BookingApi> m_bookingApi = make_unique<BookingApi>();
   unique_ptr<uber::Api> m_uberApi = make_unique<uber::Api>();
+
+  banner::BannerSet m_bannerSet;
 
   df::DrapeApi m_drapeApi;
 

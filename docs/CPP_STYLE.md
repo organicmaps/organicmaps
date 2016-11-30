@@ -9,6 +9,8 @@ Below are our specific (but not all!) exceptions to the Google's coding standard
 - File names are lowercase with underscores, like `file_reader.cpp`.
 - We use `#pragma once` instead of the `#define` Guard in header files.
 - We don't include system, std and boost headers directly, use `#include "std/<wrapper.hpp>"`.
+- Includes are sorted and grouped by directory, there should be newlines between different directories.
+- Order of directories in includes: "current_dir/current_file.hpp", other includes from the same dir, includes from other dirs sorted by dependencies: `coding, geometry, base, std, "defines.hpp", 3party` should go last in that order.
 - We ARE using C++ exceptions.
 - We are using all features of C++11 (the only known exception is thread_local which is not fully supported on all platforms).
 - We don't use boost libraries which require linking (and prefer C++11 types over their boost counterparts).

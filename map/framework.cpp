@@ -387,6 +387,8 @@ Framework::Framework()
 
   m_displayedCategories = make_unique<search::DisplayedCategories>(GetDefaultCategories());
 
+  m_bannerSet.LoadBanners();
+
   // To avoid possible races - init country info getter once in constructor.
   InitCountryInfoGetter();
   LOG(LDEBUG, ("Country info getter initialized"));
@@ -844,6 +846,8 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
     info.m_sponsoredDescriptionUrl = url;
   }
 
+  if (m_bannerSet.HasBannerForFeature(ft))
+    info.m_banner = m_bannerSet.GetBannerForFeature(ft);
 
   info.m_canEditOrAdd = featureStatus != osm::Editor::FeatureStatus::Obsolete && CanEditMap() &&
                         !info.IsSponsored();

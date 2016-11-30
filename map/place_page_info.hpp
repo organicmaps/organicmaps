@@ -4,6 +4,7 @@
 
 #include "storage/index.hpp"
 
+#include "indexer/banners.hpp"
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_meta.hpp"
 #include "indexer/map_object.hpp"
@@ -110,6 +111,9 @@ public:
   /// Sponsored feature urls.
   string m_sponsoredUrl;
   string m_sponsoredDescriptionUrl;
+
+  /// A banner associated with the object.
+  banner::Banner m_banner;
 
   /// Which country this MapObject is in.
   /// For a country point it will be set to topmost node for country.
