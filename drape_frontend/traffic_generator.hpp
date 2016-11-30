@@ -179,6 +179,7 @@ public:
 
   void ClearCache();
   void ClearCache(MwmSet::MwmId const & mwmId);
+  void InvalidateTexturesCache();
 
   bool IsColorsCacheRefreshed() const { return m_colorsCacheRefreshed; }
   TrafficTexCoords ProcessCacheRefreshing();

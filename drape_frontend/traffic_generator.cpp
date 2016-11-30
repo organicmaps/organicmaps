@@ -323,13 +323,18 @@ bool TrafficGenerator::UpdateColoring(TrafficSegmentsColoring const & coloring)
 
 void TrafficGenerator::ClearCache()
 {
-  m_colorsCacheValid = false;
+  InvalidateTexturesCache();
   m_coloring.clear();
 }
 
 void TrafficGenerator::ClearCache(MwmSet::MwmId const & mwmId)
 {
   m_coloring.erase(mwmId);
+}
+
+void TrafficGenerator::InvalidateTexturesCache()
+{
+  m_colorsCacheValid = false;
 }
 
 void TrafficGenerator::FlushGeometry(TrafficBatcherKey const & key, dp::GLState const & state,

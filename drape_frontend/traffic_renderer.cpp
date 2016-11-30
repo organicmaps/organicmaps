@@ -169,6 +169,11 @@ void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel,
 
   m2::RectD const clipRect = screen.ClipRect();
 
+  auto const style = GetStyleReader().GetCurrentStyle();
+  dp::Color const lightArrowColor = df::GetColorConstant(style, df::TrafficArrowLight);
+  dp::Color const darkArrowColor = df::GetColorConstant(style, df::TrafficArrowDark);
+  dp::Color const outlineColor = df::GetColorConstant(style, df::TrafficOutline);
+
   GLFunctions::glClearDepth();
   for (TrafficRenderData & renderData : m_renderData)
   {
@@ -238,6 +243,12 @@ void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel,
       uniforms.SetMatrix4x4Value("modelView", mv.m_data);
       uniforms.SetFloatValue("u_opacity", 1.0f);
       uniforms.SetFloatValue("u_outline", outline);
+      uniforms.SetFloatValue("u_lightArrowColor", lightArrowColor.GetRedF(),
+                             lightArrowColor.GetGreenF(), lightArrowColor.GetBlueF());
+      uniforms.SetFloatValue("u_darkArrowColor", darkArrowColor.GetRedF(),
+                             darkArrowColor.GetGreenF(), darkArrowColor.GetBlueF());
+      uniforms.SetFloatValue("u_outlineColor", outlineColor.GetRedF(),
+                             outlineColor.GetGreenF(), outlineColor.GetBlueF());
       uniforms.SetFloatValue("u_trafficParams", leftPixelHalfWidth, rightPixelHalfWidth,
                              invLeftPixelLength, zoomLevel >= minVisibleArrowZoomLevel ? 1.0f : 0.0f);
       dp::ApplyUniforms(uniforms, program);
