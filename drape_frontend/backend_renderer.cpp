@@ -293,6 +293,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       m_texMng->Invalidate(VisualParams::Instance().GetResourcePostfix());
       RecacheMapShapes();
+      m_trafficGenerator->InvalidateTexturesCache();
       break;
     }
 

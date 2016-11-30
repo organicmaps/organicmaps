@@ -29,6 +29,9 @@ enum ColorConstant
   TrafficG5,
   TrafficTempBlock,
   TrafficUnknown,
+  TrafficArrowLight,
+  TrafficArrowDark,
+  TrafficOutline
 };
 
 dp::Color GetColorConstant(MapStyle style, ColorConstant constant);
