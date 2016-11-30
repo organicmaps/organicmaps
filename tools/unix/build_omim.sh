@@ -46,7 +46,7 @@ if ! grep "DEFAULT_URLS_JSON" "$OMIM_PATH/private.h" >/dev/null 2>/dev/null; the
 fi
 
 BOOST_PATH="${BOOST_PATH:-/usr/local/boost_1.54.0}"
-DEVTOOLSET_PATH=/opt/rh/devtoolset-2
+DEVTOOLSET_PATH=/opt/rh/devtoolset-3
 if [ -d "$DEVTOOLSET_PATH" ]; then
   export MANPATH=
   source "$DEVTOOLSET_PATH/enable"
@@ -70,7 +70,7 @@ if [ "$(uname -s)" == "Darwin" ]; then
   SPEC=${SPEC:-macx-clang}
   PROCESSES=$(sysctl -n hw.ncpu)
 else
-  SPEC=${SPEC:-linux-clang-libc++}
+  SPEC=${SPEC-}
   PROCESSES=$(nproc)
 fi
 
@@ -89,20 +89,13 @@ build_conf()
   (
     export BOOST_INCLUDEDIR="$BOOST_PATH/include"
     cd "$DIRNAME"
-    if [ -n "$DEVTOOLSET_PATH" ]; then
-      "$QMAKE" "$OMIM_PATH/omim.pro" -spec $SPEC CONFIG+=$CONF ${CONFIG+"CONFIG*=$CONFIG"} \
-        "QMAKE_CXXFLAGS *=--gcc-toolchain=$DEVTOOLSET_PATH/root/usr" \
-        "QMAKE_LFLAGS *=--gcc-toolchain=$DEVTOOLSET_PATH/root/usr"
-    else
-      "$QMAKE" "$OMIM_PATH/omim.pro" -spec $SPEC CONFIG+=$CONF ${CONFIG+"CONFIG*=$CONFIG"}
-    fi
+    "$QMAKE" "$OMIM_PATH/omim.pro" ${SPEC:+-spec $SPEC} CONFIG+=$CONF ${CONFIG+"CONFIG*=$CONFIG"}
     TMP_FILE="build_error.log"
     if ! make -j $PROCESSES 2> "$TMP_FILE"; then
       echo '--------------------'
       cat "$TMP_FILE"
       exit 1
     fi
-    rm "$TMP_FILE"
   )
 }
 
@@ -113,12 +106,14 @@ build_conf_osrm()
   DIRNAME="$2"
   mkdir -p "$DIRNAME"
   OSPEC="$SPEC"
+  # OSRM is built with linux-clang spec
   [ "$OSPEC" == "linux-clang-libc++" ] && OSPEC=linux-clang
 
   (
     export BOOST_INCLUDEDIR="$BOOST_PATH/include"
     cd "$DIRNAME"
     if [ -n "$DEVTOOLSET_PATH" ]; then
+      # linux-clang spec requires --gcc-toolchain flag
       "$QMAKE" "$OMIM_PATH/omim.pro" -spec $OSPEC "CONFIG+=$CONF osrm no-tests" \
         "QMAKE_CXXFLAGS *=--gcc-toolchain=$DEVTOOLSET_PATH/root/usr" \
         "QMAKE_LFLAGS *=--gcc-toolchain=$DEVTOOLSET_PATH/root/usr"
