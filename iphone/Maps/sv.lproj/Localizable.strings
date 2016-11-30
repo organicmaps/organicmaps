@@ -1701,3 +1701,25 @@
 "dialog_taxi_error" = "Du kan inte beställa en taxi just nu.";
 
 "advertisement" = "Advertisement";
+
+"mobile_data_dialog" = "Use mobile internet to show detailed information?";
+
+"mobile_data_option_always" = "Use Always";
+
+"mobile_data_option_today" = "Only Today";
+
+"mobile_data_option_not_today" = "Do not Use Today";
+
+"mobile_data" = "Mobile Internet";
+
+"mobile_data_description" = "Mobile internet is required for displaying detailed information about places, such as photographs, prices and reviews.";
+
+"mobile_data_option_never" = "Never Use";
+
+"mobile_data_option_ask" = "Always Ask";
+
+"traffic_update_maps_text" = "To display traffic data, maps must be updated.";
+
+"traffic_outdated" = "Traffic data is outdated.";
+
+"big_font" = "Bigger labels";
