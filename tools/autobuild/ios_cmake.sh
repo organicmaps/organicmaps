@@ -10,8 +10,23 @@ if [[ $# < 1 ]]; then
 fi
 CONFIGURATION="$1"
 
-source "$MY_PATH/build.sh"
 source "$MY_PATH/detect_xcode.sh"
+
+GetCPUCores() {
+  case "$OSTYPE" in
+    # it's GitBash under Windows
+    cygwin)    echo $NUMBER_OF_PROCESSORS
+               ;;
+    linux-gnu) grep -c ^processor /proc/cpuinfo 2>/dev/null
+               ;;
+    darwin*)   sysctl -n hw.ncpu
+               ;;
+    *)         echo "Unsupported platform in $0"
+               exit 1
+               ;;
+  esac
+  return 0
+}
 
 BuildCmake() {
   (
@@ -22,7 +37,7 @@ BuildCmake() {
     cd "$SHADOW_DIR"
     pwd
     echo "Launching cmake..."
-    CC=$CC CXX=$CXX cmake -r "$BUILD_TYPE" -DCMAKE_OSX_ARCHITECTURES=$ARCH -DNO_TESTS=TRUE -DPLATFORM=$PLATFORM "$(StripCygwinPrefix $MY_PATH)/../.."
+    CC=$CC CXX=$CXX cmake -r "$BUILD_TYPE" -DCMAKE_OSX_ARCHITECTURES=$ARCH -DNO_TESTS=TRUE -DPLATFORM=$PLATFORM "$MY_PATH/../.."
 #    make clean > /dev/null || true
     make -j $(GetCPUCores) VERBOSE=1
   )
@@ -39,10 +54,10 @@ export SDK_ROOT
 FINAL_PATH_COMPONENT="debug"
 SHADOW_DIR="$MY_PATH/../../../omim-iphone-cmake"
 
-if [[ $CONFIGURATION == *release* ||  $CONFIGURATION == *production*  ]]; then
+if [[ $CONFIGURATION == *release* ]]; then
   BUILD_TYPE="Release"
   FINAL_PATH_COMPONENT="release"
-elif [[ $CONFIGURATION == *debug* || $CONFIGURATION == "simulator" ]]; then
+elif [[ $CONFIGURATION == *debug* ]]; then
   BUILD_TYPE="Debug"
   FINAL_PATH_COMPONENT="debug"
 else
