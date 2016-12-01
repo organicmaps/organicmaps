@@ -70,7 +70,6 @@ using namespace storage;
             kStatScenario : kStatDownload
           }];
     [MWMStorage downloadNode:countryId
-             alertController:mapViewController.alertController
                    onSuccess:^{
                      GetFramework().ShowNode(countryId);
                    }];

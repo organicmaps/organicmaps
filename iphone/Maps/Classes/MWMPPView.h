@@ -25,6 +25,4 @@
 @property(nonatomic) CGFloat currentContentHeight;
 @property(nonatomic) id<MWMPlacePageViewUpdateProtocol> delegate;
 
-- (void)hideTableView:(BOOL)isHidden;
-
 @end

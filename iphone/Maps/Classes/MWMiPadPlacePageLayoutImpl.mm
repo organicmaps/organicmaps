@@ -54,13 +54,9 @@ CGFloat const kBottomOffset = 60;
   if (self)
   {
     _ownerView = ownerView;
-    _placePageView = placePageView;
+    self.placePageView = placePageView;
     _delegate = delegate;
-    placePageView.width = kPlacePageWidth;
-    placePageView.anchorImage.hidden = YES;
     [self addShadow];
-    auto pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didPan:)];
-    [placePageView addGestureRecognizer:pan];
   }
   return self;
 }
@@ -97,15 +93,16 @@ CGFloat const kBottomOffset = 60;
 - (void)onClose
 {
   auto ppView = self.placePageView;
-  place_page_layout::animate(^{
-    ppView.maxX = 0;
-    ppView.alpha = 0;
-  },^{
-    [self.placePageView removeFromSuperview];
-    [self.actionBar removeFromSuperview];
-    self.actionBar = nil;
-    [self.delegate shouldDestroyLayout];
-  });
+  place_page_layout::animate(
+      ^{
+        ppView.maxX = 0;
+        ppView.alpha = 0;
+      },
+      ^{
+        self.placePageView = nil;
+        self.actionBar = nil;
+        [self.delegate shouldDestroyLayout];
+      });
 }
 
 - (void)onScreenResize:(CGSize const &)size
@@ -116,14 +113,6 @@ CGFloat const kBottomOffset = 60;
 - (void)onUpdatePlacePageWithHeight:(CGFloat)height
 {
   [self layoutPlacePage:height onScreen:self.ownerView.height];
-}
-
-- (void)onActionBarInit:(MWMPlacePageActionBar *)actionBar
-{
-  UIView * superview = self.placePageView;
-  self.actionBar = actionBar;
-  [superview addSubview:actionBar];
-  actionBar.origin = {0., superview.height - actionBar.height};
 }
 
 - (void)setInitialTopBound:(CGFloat)topBound leftBound:(CGFloat)leftBound
@@ -216,5 +205,37 @@ CGFloat const kBottomOffset = 60;
 
 - (CGFloat)topBound { return _topBound + kTopOffset; }
 - (CGFloat)leftBound { return _leftBound + kLeftOffset; }
+#pragma mark - Properties
+
+- (void)setPlacePageView:(MWMPPView *)placePageView
+{
+  if (placePageView)
+  {
+    placePageView.width = kPlacePageWidth;
+    placePageView.anchorImage.hidden = YES;
+    auto pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didPan:)];
+    [placePageView addGestureRecognizer:pan];
+  }
+  else
+  {
+    [_placePageView removeFromSuperview];
+  }
+  _placePageView = placePageView;
+}
+
+- (void)setActionBar:(MWMPlacePageActionBar *)actionBar
+{
+  if (actionBar)
+  {
+    auto superview = self.placePageView;
+    actionBar.origin = {0., superview.height - actionBar.height};
+    [superview addSubview:actionBar];
+  }
+  else
+  {
+    [_actionBar removeFromSuperview];
+  }
+  _actionBar = actionBar;
+}
 
 @end

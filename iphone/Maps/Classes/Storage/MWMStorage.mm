@@ -12,64 +12,58 @@ using namespace storage;
 @implementation MWMStorage
 
 + (void)downloadNode:(TCountryId const &)countryId
-     alertController:(MWMAlertViewController *)alertController
            onSuccess:(TMWMVoidBlock)onSuccess
 {
   if (IsEnoughSpaceForDownload(countryId, GetFramework().GetStorage()))
   {
-    [self checkConnectionAndPerformAction:[countryId, onSuccess]
-    {
+    [self checkConnectionAndPerformAction:[countryId, onSuccess] {
       GetFramework().GetStorage().DownloadNode(countryId);
       if (onSuccess)
         onSuccess();
-    } alertController:alertController];
+    }];
   }
   else
   {
-    [alertController presentNotEnoughSpaceAlert];
+    [[MWMAlertViewController activeAlertController] presentNotEnoughSpaceAlert];
   }
 }
 
 + (void)retryDownloadNode:(TCountryId const &)countryId
-          alertController:(MWMAlertViewController *)alertController
 {
   [self checkConnectionAndPerformAction:[countryId] {
     GetFramework().GetStorage().RetryDownloadNode(countryId);
-  }
-                        alertController:alertController];
+  }];
 }
 
 + (void)updateNode:(TCountryId const &)countryId
-   alertController:(MWMAlertViewController *)alertController
 {
   if (IsEnoughSpaceForUpdate(countryId, GetFramework().GetStorage()))
   {
-    [self checkConnectionAndPerformAction:[countryId]
-    {
+    [self checkConnectionAndPerformAction:[countryId] {
       GetFramework().GetStorage().UpdateNode(countryId);
-    } alertController:alertController];
+    }];
   }
   else
   {
-    [alertController presentNotEnoughSpaceAlert];
+    [[MWMAlertViewController activeAlertController] presentNotEnoughSpaceAlert];
   }
 }
 
-+ (void)deleteNode:(TCountryId const &)countryId alertController:(MWMAlertViewController *)alertController
++ (void)deleteNode:(TCountryId const &)countryId
 {
   auto & f = GetFramework();
   if (f.IsRoutingActive())
   {
-    [alertController presentDeleteMapProhibitedAlert];
+    [[MWMAlertViewController activeAlertController] presentDeleteMapProhibitedAlert];
     return;
   }
 
   if (f.HasUnsavedEdits(countryId))
   {
-    [alertController presentUnsavedEditsAlertWithOkBlock:[countryId]
-    {
-      GetFramework().GetStorage().DeleteNode(countryId);
-    }];
+    [[MWMAlertViewController activeAlertController]
+        presentUnsavedEditsAlertWithOkBlock:[countryId] {
+          GetFramework().GetStorage().DeleteNode(countryId);
+        }];
   }
   else
   {
@@ -88,7 +82,6 @@ using namespace storage;
 }
 
 + (void)downloadNodes:(TCountriesVec const &)countryIds
-      alertController:(MWMAlertViewController *)alertController
             onSuccess:(TMWMVoidBlock)onSuccess
 {
   TMwmSize requiredSize = accumulate(countryIds.begin(), countryIds.end(), kMaxMwmSizeBytes,
@@ -100,28 +93,26 @@ using namespace storage;
                                      });
   if (GetPlatform().GetWritableStorageStatus(requiredSize) == Platform::TStorageStatus::STORAGE_OK)
   {
-    [self checkConnectionAndPerformAction:[countryIds, onSuccess]
-    {
+    [self checkConnectionAndPerformAction:[countryIds, onSuccess] {
       auto & s = GetFramework().GetStorage();
       for (auto const & countryId : countryIds)
         s.DownloadNode(countryId);
       if (onSuccess)
         onSuccess();
-    } alertController:alertController];
+    }];
   }
   else
   {
-    [alertController presentNotEnoughSpaceAlert];
+    [[MWMAlertViewController activeAlertController] presentNotEnoughSpaceAlert];
   }
 }
 
 + (void)checkConnectionAndPerformAction:(TMWMVoidBlock)action
-                        alertController:(MWMAlertViewController *)alertController
 {
   switch (Platform::ConnectionStatus())
   {
     case Platform::EConnectionType::CONNECTION_NONE:
-      [alertController presentNoConnectionAlert];
+      [[MWMAlertViewController activeAlertController] presentNoConnectionAlert];
       break;
     case Platform::EConnectionType::CONNECTION_WIFI:
       action();
@@ -130,8 +121,7 @@ using namespace storage;
     {
       if (!GetFramework().GetDownloadingPolicy().IsCellularDownloadEnabled())
       {
-        [alertController presentNoWiFiAlertWithOkBlock:[action]
-        {
+        [[MWMAlertViewController activeAlertController] presentNoWiFiAlertWithOkBlock:[action] {
           GetFramework().GetDownloadingPolicy().EnableCellularDownload(true);
           action();
         }];

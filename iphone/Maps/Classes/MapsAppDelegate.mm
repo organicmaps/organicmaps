@@ -986,14 +986,10 @@ using namespace osm_auth_ios;
   if (!Platform::IsConnected())
     return;
 
-  UIViewController * topViewController =
-      [(UINavigationController *)self.window.rootViewController visibleViewController];
-  MWMAlertViewController * alert =
-      [[MWMAlertViewController alloc] initWithViewController:topViewController];
   if (isRate)
-    [alert presentRateAlert];
+    [[MWMAlertViewController activeAlertController] presentRateAlert];
   else
-    [alert presentFacebookAlert];
+    [[MWMAlertViewController activeAlertController] presentFacebookAlert];
   [[NSUserDefaults standardUserDefaults]
       setObject:NSDate.date
          forKey:isRate ? kUDLastRateRequestDate : kUDLastShareRequstDate];

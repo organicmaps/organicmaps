@@ -77,6 +77,7 @@ array<NSString *, 1> const kButtonsCells = {{@"MWMPlacePageButtonCell"}};
     _delegate = delegate;
     _dataSource = dataSource;
     [[NSBundle mainBundle] loadNibNamed:[MWMPPView className] owner:self options:nil];
+    [_placePageView layoutIfNeeded];
     _placePageView.delegate = self;
     auto const Impl = IPAD ? [MWMiPadPlacePageLayoutImpl class] : [MWMiPhonePlacePageLayoutImpl class];
     _layoutImpl = [[Impl alloc] initOwnerView:view placePageView:_placePageView delegate:delegate];
@@ -121,7 +122,6 @@ array<NSString *, 1> const kButtonsCells = {{@"MWMPlacePageButtonCell"}};
   self.isPlacePageButtonsEnabled = YES;
   self.data = data;
   self.bookmarkCell = nil;
-  [self.layoutImpl onShow];
 
   [self.actionBar configureWithData:static_cast<id<MWMActionBarSharedData>>(data)];
   [self.previewLayoutHelper configWithData:data];
@@ -132,8 +132,7 @@ array<NSString *, 1> const kButtonsCells = {{@"MWMPlacePageButtonCell"}};
   [self.placePageView.tableView reloadData];
 
   dispatch_async(dispatch_get_main_queue(), ^{
-    if ([self.layoutImpl respondsToSelector:@selector(onExpandWithPlacePagePreviewHeight:)])
-      [self.layoutImpl onExpandWithPlacePagePreviewHeight:self.previewLayoutHelper.height];
+    [self.layoutImpl onShow];
   });
 }
 
@@ -152,7 +151,7 @@ array<NSString *, 1> const kButtonsCells = {{@"MWMPlacePageButtonCell"}};
   if (!_actionBar)
   {
     _actionBar = [MWMPlacePageActionBar actionBarWithDelegate:self.delegate];
-    [self.layoutImpl onActionBarInit:_actionBar];
+    self.layoutImpl.actionBar = _actionBar;
   }
   return _actionBar;
 }

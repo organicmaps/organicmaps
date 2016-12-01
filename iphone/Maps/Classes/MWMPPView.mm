@@ -39,20 +39,6 @@ CGFloat const kTableViewTopInset = -36;
 
 @implementation MWMPPView
 
-- (void)hideTableView:(BOOL)isHidden
-{
-  if (isHidden)
-  {
-    self.tableView.alpha = 0.;
-    self.anchorImage.hidden = YES;
-  }
-  else
-  {
-    self.tableView.alpha = 1.;
-    self.anchorImage.hidden = NO;
-  }
-}
-
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
                         change:(NSDictionary *)change
