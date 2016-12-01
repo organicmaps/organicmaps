@@ -32,7 +32,6 @@ inline void animate(TMWMVoidBlock animate, TMWMVoidBlock completion = nil)
 - (void)onClose;
 - (void)onScreenResize:(CGSize const &)size;
 - (void)onUpdatePlacePageWithHeight:(CGFloat)height;
-- (void)onActionBarInit:(MWMPlacePageActionBar *)actionBar;
 
 @property(weak, nonatomic) UIView * ownerView;
 @property(weak, nonatomic) MWMPPView * placePageView;
@@ -40,7 +39,6 @@ inline void animate(TMWMVoidBlock animate, TMWMVoidBlock completion = nil)
 @property(weak, nonatomic) MWMPlacePageActionBar * actionBar;
 
 @optional
-- (void)onExpandWithPlacePagePreviewHeight:(CGFloat)height;
 - (void)updateLayoutWithTopBound:(CGFloat)topBound;
 - (void)updateLayoutWithLeftBound:(CGFloat)leftBound;
 - (void)setInitialTopBound:(CGFloat)topBound leftBound:(CGFloat)leftBound;

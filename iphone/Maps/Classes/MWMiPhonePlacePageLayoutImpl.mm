@@ -16,8 +16,6 @@ enum class State
   Top
 };
 
-// Minimal offset for collapse. If place page offset is below this value we should hide place page.
-CGFloat const kMinOffset = 1;
 CGFloat const kOpenPlacePageStopValue = 0.7;
 CGFloat const kLuftDraggingOffset = 30;
 }  // namespace
@@ -55,13 +53,11 @@ CGFloat const kLuftDraggingOffset = 30;
     _placePageView = placePageView;
     placePageView.tableView.delegate = self;
     _delegate = delegate;
-    _scrollView = [[MWMPPScrollView alloc] initWithFrame:ownerView.frame inactiveView:placePageView];
-    _scrollView.delegate = self;
+    self.scrollView =
+        [[MWMPPScrollView alloc] initWithFrame:ownerView.frame inactiveView:placePageView];
     _portraitOpenContentOffset = MAX(size.width, size.height) * kOpenPlacePageStopValue;
     _landscapeOpenContentOffset = MIN(size.width, size.height) * kOpenPlacePageStopValue;
     placePageView.frame = {{0, size.height}, size};
-    [ownerView addSubview:self.scrollView];
-    [_scrollView addSubview:placePageView];
   }
   return self;
 }
@@ -69,7 +65,24 @@ CGFloat const kLuftDraggingOffset = 30;
 - (void)onShow
 {
   self.state = State::Bottom;
-  [self collapse];
+
+  auto scrollView = self.scrollView;
+  scrollView.scrollEnabled = NO;
+
+  place_page_layout::animate(
+      ^{
+        auto actionBar = self.actionBar;
+        actionBar.maxY = actionBar.superview.height;
+
+        self.expandedContentOffset =
+            self.previewLayoutHelper.height + actionBar.height - self.placePageView.top.height;
+        auto const targetOffset =
+            self.state == State::Bottom ? self.expandedContentOffset : self.topContentOffset;
+        [scrollView setContentOffset:{ 0, targetOffset } animated:YES];
+      },
+      ^{
+        scrollView.scrollEnabled = YES;
+      });
 }
 
 - (void)onClose
@@ -78,8 +91,8 @@ CGFloat const kLuftDraggingOffset = 30;
     self.actionBar.minY = self.ownerView.height;
     [self.scrollView setContentOffset:{} animated:YES];
   },^{
-    [self.actionBar removeFromSuperview];
     self.actionBar = nil;
+    self.scrollView = nil;
     [self.delegate shouldDestroyLayout];
   });
 }
@@ -98,41 +111,6 @@ CGFloat const kLuftDraggingOffset = 30;
 {
   auto const & size = self.ownerView.size;
   self.scrollView.contentSize = {size.width, size.height + self.placePageView.height};
-}
-
-- (void)onActionBarInit:(MWMPlacePageActionBar *)actionBar
-{
-  auto superview = self.ownerView;
-  self.actionBar = actionBar;
-  actionBar.minY = superview.height;
-  [superview addSubview:_actionBar];
-}
-
-- (void)onExpandWithPlacePagePreviewHeight:(CGFloat)height
-{
-  self.actionBar.hidden = NO;
-  self.scrollView.scrollEnabled = YES;
-
-  place_page_layout::animate(^{
-    auto ppView = self.placePageView;
-    [ppView hideTableView:NO];
-    auto actionBar = self.actionBar;
-    actionBar.minY = actionBar.superview.height - actionBar.height;
-
-    self.expandedContentOffset = height + actionBar.height - ppView.top.height;
-    auto const targetOffset = self.state == State::Bottom ? self.expandedContentOffset : self.topContentOffset;
-    [self.scrollView setContentOffset:{ 0, targetOffset } animated:YES];
-  });
-}
-
-- (void)collapse
-{
-  self.scrollView.scrollEnabled = NO;
-  [self.placePageView hideTableView:YES];
-
-  place_page_layout::animate(^{
-    [self.scrollView setContentOffset:{ 0., kMinOffset } animated:YES];
-  });
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -165,9 +143,7 @@ CGFloat const kLuftDraggingOffset = 30;
   id<MWMPlacePageLayoutDelegate> delegate = self.delegate;
   if (offset.y <= 0)
   {
-    [self.scrollView removeFromSuperview];
-    [self.actionBar removeFromSuperview];
-    [delegate shouldDestroyLayout];
+    [self onClose];
     return;
   }
 
@@ -277,6 +253,40 @@ CGFloat const kLuftDraggingOffset = 30;
   }
 
   place_page_layout::animate(^{ [self.scrollView setContentOffset:{0, offset} animated:YES]; });
+}
+
+#pragma mark - Properties
+
+- (void)setScrollView:(MWMPPScrollView *)scrollView
+{
+  if (scrollView)
+  {
+    scrollView.delegate = self;
+    [self.ownerView addSubview:scrollView];
+    [scrollView addSubview:self.placePageView];
+  }
+  else
+  {
+    _scrollView.delegate = nil;
+    [_scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [_scrollView removeFromSuperview];
+  }
+  _scrollView = scrollView;
+}
+
+- (void)setActionBar:(MWMPlacePageActionBar *)actionBar
+{
+  if (actionBar)
+  {
+    auto superview = self.ownerView;
+    actionBar.minY = superview.height;
+    [superview addSubview:actionBar];
+  }
+  else
+  {
+    [_actionBar removeFromSuperview];
+  }
+  _actionBar = actionBar;
 }
 
 @end
