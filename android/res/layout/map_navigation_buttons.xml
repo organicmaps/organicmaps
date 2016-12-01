@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:padding="@dimen/nav_frame_padding"
@@ -13,12 +14,20 @@
     android:layout_centerInParent="true"/>
 
   <ImageButton
+    android:id="@+id/traffic"
+    style="@style/MwmWidget.MapButton.Traffic"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentTop="true"
+    android:visibility="invisible"
+    tools:src="@drawable/anim_traffic_loading"/>
+
+  <ImageButton
     android:id="@+id/nav_zoom_out"
     style="@style/MwmWidget.MapButton"
     android:layout_alignParentEnd="true"
     android:layout_alignParentRight="true"
     android:layout_below="@id/anchor_center"
-    android:background="?nav_background"
     android:src="@drawable/ic_zoom_out"/>
 
   <ImageButton
@@ -27,7 +36,6 @@
     android:layout_above="@id/anchor_center"
     android:layout_alignParentEnd="true"
     android:layout_alignParentRight="true"
-    android:background="?nav_background"
     android:src="@drawable/ic_zoom_in"/>
 
   <ImageButton
@@ -37,7 +45,6 @@
     android:layout_alignParentRight="true"
     android:layout_below="@id/nav_zoom_out"
     android:layout_marginTop="@dimen/margin_double"
-    android:background="?nav_background"
     android:contentDescription="@string/my_position"
     android:tint="@null"/>
 </RelativeLayout>

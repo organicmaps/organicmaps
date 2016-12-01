@@ -571,7 +571,7 @@ public class RoutingPlanController extends ToolbarController
     Statistics.INSTANCE.trackUber(from, to, location, isUberInstalled);
   }
 
-  public float getHeight()
+  public int getHeight()
   {
     return mFrame.getHeight();
   }

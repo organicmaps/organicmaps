@@ -21,6 +21,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 
 import com.mapswithme.maps.Framework.MapObjectListener;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
@@ -67,6 +68,7 @@ import com.mapswithme.maps.settings.StoragePathManager;
 import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.widget.FadeView;
+import com.mapswithme.maps.widget.TrafficButton;
 import com.mapswithme.maps.widget.menu.BaseMenu;
 import com.mapswithme.maps.widget.menu.MainMenu;
 import com.mapswithme.maps.widget.menu.MyPositionButton;
@@ -138,6 +140,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private View mNavZoomIn;
   private View mNavZoomOut;
   private MyPositionButton mNavMyPosition;
+  private TrafficButton mTraffic;
   @Nullable
   private NavigationButtonsAnimationController mNavAnimationController;
 
@@ -534,6 +537,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mNavZoomOut.setOnClickListener(this);
     View myPosition = frame.findViewById(R.id.my_position);
     mNavMyPosition = new MyPositionButton(myPosition);
+    ImageButton traffic = (ImageButton) frame.findViewById(R.id.traffic);
+    mTraffic = new TrafficButton(this, traffic);
+    mTraffic.setLoading(true);
     mNavAnimationController = new NavigationButtonsAnimationController(mNavZoomIn, mNavZoomOut, myPosition,
                                                                        frame.findViewById(R.id.anchor_center));
   }
@@ -1099,7 +1105,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
         public void run()
         {
           final int menuHeight = menu.getFrame().getHeight();
-          adjustCompass(0, menuHeight);
           adjustRuler(0, menuHeight);
 
           mIsFullscreenAnimating = false;
@@ -1115,6 +1120,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         Animations.disappearSliding(mNavZoomOut, Animations.RIGHT, null);
         Animations.disappearSliding(mNavZoomIn, Animations.RIGHT, null);
         mNavMyPosition.hide();
+        mTraffic.hide();
       }
     }
     else
@@ -1133,7 +1139,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       @Override
       public void run()
       {
-        adjustCompass(0, 0);
         adjustRuler(0, 0);
       }
     });
@@ -1142,6 +1147,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       Animations.appearSliding(mNavZoomOut, Animations.RIGHT, null);
       Animations.appearSliding(mNavZoomIn, Animations.RIGHT, null);
       mNavMyPosition.show();
+      mTraffic.show();
     }
   }
 
@@ -1304,12 +1310,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
-  void adjustCompass(int offsetX, int offsetY)
+  void adjustCompass(int offsetY)
   {
     if (mMapFragment == null || !mMapFragment.isAdded())
       return;
 
-    mMapFragment.setupCompass((mPanelAnimator != null && mPanelAnimator.isVisible()) ? offsetX : 0, offsetY, true);
+    mMapFragment.setupCompass(offsetY, true);
 
     CompassData compass = LocationHelper.INSTANCE.getCompassData();
     if (compass != null)
@@ -1395,7 +1401,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mMainMenu.showLineFrame(true);
   }
 
-  private void setNavButtonsTopLimit(float limit)
+  private void setNavButtonsTopLimit(int limit)
   {
     if (mNavAnimationController == null)
       return;
@@ -1421,8 +1427,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
         if (completionListener != null)
           completionListener.run();
 
-        if (mRoutingPlanInplaceController.getHeight() > 0)
-          setNavButtonsTopLimit(mRoutingPlanInplaceController.getHeight());
+        int routingPlanPanelHeight = mRoutingPlanInplaceController.getHeight();
+        if (routingPlanPanelHeight > 0)
+        {
+          adjustCompassAndTraffic(routingPlanPanelHeight);
+          setNavButtonsTopLimit(routingPlanPanelHeight);
+        }
       }
     }
     else
@@ -1435,10 +1445,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (completionListener != null)
         completionListener.run();
 
+      adjustCompassAndTraffic(UiUtils.getStatusBarHeight(getApplicationContext()));
       setNavButtonsTopLimit(0);
     }
 
     mPlacePage.refreshViews();
+  }
+
+  private void adjustCompassAndTraffic(int offset)
+  {
+    adjustCompass(offset);
+    mTraffic.setTopOffset(offset);
   }
 
   @Override
@@ -1447,7 +1464,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mNavAnimationController == null)
       return;
 
-    setNavButtonsTopLimit(mRoutingPlanInplaceController.getHeight());
+    int routingPlanPanelHeight = mRoutingPlanInplaceController.getHeight();
+    adjustCompassAndTraffic(routingPlanPanelHeight);
+    setNavButtonsTopLimit(routingPlanPanelHeight);
   }
 
   @Override
@@ -1456,7 +1475,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mNavAnimationController == null)
       return;
 
-    setNavButtonsTopLimit(visible ? mSearchController.getToolbar().getHeight() : 0);
+    int toolbarHeight = mSearchController.getToolbar().getHeight();
+    adjustCompassAndTraffic(visible ? toolbarHeight: UiUtils.getStatusBarHeight(this));
+    setNavButtonsTopLimit(visible ? toolbarHeight : 0);
   }
 
   @Override
@@ -1466,7 +1487,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPlacePage.refreshViews();
     mNavigationController.show(show);
     mOnmapDownloader.updateState(false);
-    adjustCompass(0, UiUtils.getCompassYOffset(this));
+    adjustCompass(UiUtils.getCompassYOffset(this));
   }
 
   @Override
