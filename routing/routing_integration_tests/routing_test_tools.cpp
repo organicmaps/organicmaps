@@ -83,8 +83,8 @@ namespace integration
       return infoGetter.GetRegionCountryId(pt);
     };
 
-    auto carRouter = make_unique<CarRouter>(
-        index, countryFileGetter, SingleMwmRouter::CreateCarRouter(index, trafficGetter));
+    auto carRouter = make_unique<CarRouter>(index, countryFileGetter,
+                                            SingleMwmRouter::CreateCarRouter(index, trafficGetter));
     return carRouter;
   }
 
@@ -112,7 +112,6 @@ namespace integration
     }
 
     IRouter * GetRouter() const override { return m_carRouter.get(); }
-
   private:
     TrafficInfoGetterTest m_trafficGetter;
     unique_ptr<CarRouter> m_carRouter;

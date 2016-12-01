@@ -69,7 +69,6 @@ public:
   TrafficInfo(MwmSet::MwmId const & mwmId, int64_t currentDataVersion);
 
   void SetColoringForTesting(Coloring & coloring) { m_coloring = coloring; }
-
   // Fetches the latest traffic data from the server and updates the coloring.
   // Construct the url by passing an MwmId.
   // *NOTE* This method must not be called on the UI thread.
@@ -109,6 +108,6 @@ class TrafficInfoGetter
 public:
   virtual ~TrafficInfoGetter() = default;
 
-  virtual shared_ptr<traffic::TrafficInfo>GetTrafficInfo(MwmSet::MwmId const & mwmId) const = 0;
+  virtual shared_ptr<traffic::TrafficInfo> GetTrafficInfo(MwmSet::MwmId const & mwmId) const = 0;
 };
 }  // namespace traffic

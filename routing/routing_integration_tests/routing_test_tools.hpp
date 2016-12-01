@@ -56,8 +56,7 @@ class IRouterComponents
 {
 public:
   IRouterComponents(vector<LocalCountryFile> const & localFiles)
-    : m_featuresFetcher(CreateFeaturesFetcher(localFiles))
-    , m_infoGetter(CreateCountryInfoGetter())
+    : m_featuresFetcher(CreateFeaturesFetcher(localFiles)), m_infoGetter(CreateCountryInfoGetter())
   {
   }
 
@@ -65,12 +64,8 @@ public:
 
   virtual IRouter * GetRouter() const = 0;
 
-  storage::CountryInfoGetter const & GetCountryInfoGetter() const noexcept
-  {
-    return *m_infoGetter;
-  }
-
- protected:
+  storage::CountryInfoGetter const & GetCountryInfoGetter() const noexcept { return *m_infoGetter; }
+protected:
   shared_ptr<model::FeaturesFetcher> m_featuresFetcher;
   unique_ptr<storage::CountryInfoGetter> m_infoGetter;
 };
@@ -92,11 +87,13 @@ void TestOnlineFetcher(ms::LatLon const & startPoint, ms::LatLon const & finalPo
 
 /// Gets OSRM router components
 IRouterComponents & GetOsrmComponents();
-shared_ptr<IRouterComponents> GetOsrmComponents(vector<platform::LocalCountryFile> const & localFiles);
+shared_ptr<IRouterComponents> GetOsrmComponents(
+    vector<platform::LocalCountryFile> const & localFiles);
 
 /// Gets pedestrian router components
 IRouterComponents & GetPedestrianComponents();
-shared_ptr<IRouterComponents> GetPedestrianComponents(vector<platform::LocalCountryFile> const & localFiles);
+shared_ptr<IRouterComponents> GetPedestrianComponents(
+    vector<platform::LocalCountryFile> const & localFiles);
 
 /// Gets bicycle router components.
 IRouterComponents & GetBicycleComponents();
@@ -114,10 +111,8 @@ void TestTurnCount(Route const & route, uint32_t expectedTurnCount);
 /// A created route will pass the test iff
 /// expectedRouteMeters - expectedRouteMeters * relativeError  <= route->GetDistance()
 /// && expectedRouteMeters + expectedRouteMeters * relativeError >= route->GetDistance()
-void TestRouteLength(Route const & route, double expectedRouteMeters,
-                     double relativeError = 0.01);
-void TestRouteTime(Route const & route, double expectedRouteSeconds,
-                   double relativeError = 0.01);
+void TestRouteLength(Route const & route, double expectedRouteMeters, double relativeError = 0.01);
+void TestRouteTime(Route const & route, double expectedRouteSeconds, double relativeError = 0.01);
 
 void CalculateRouteAndTestRouteLength(IRouterComponents const & routerComponents,
                                       m2::PointD const & startPoint,
@@ -135,24 +130,21 @@ class TestTurn
   bool const m_isValid;
 
   TestTurn()
-      : m_point({0., 0.}),
-        m_direction(TurnDirection::NoTurn),
-        m_roundAboutExitNum(0),
-        m_isValid(false)
+    : m_point({0., 0.})
+    , m_direction(TurnDirection::NoTurn)
+    , m_roundAboutExitNum(0)
+    , m_isValid(false)
   {
   }
   TestTurn(m2::PointD const & pnt, TurnDirection direction, uint32_t roundAboutExitNum)
-      : m_point(pnt),
-        m_direction(direction),
-        m_roundAboutExitNum(roundAboutExitNum),
-        m_isValid(true)
+    : m_point(pnt), m_direction(direction), m_roundAboutExitNum(roundAboutExitNum), m_isValid(true)
   {
   }
 
 public:
   const TestTurn & TestValid() const;
   const TestTurn & TestNotValid() const;
-  const TestTurn & TestPoint(m2::PointD  const & expectedPoint, double inaccuracyMeters = 3.) const;
+  const TestTurn & TestPoint(m2::PointD const & expectedPoint, double inaccuracyMeters = 3.) const;
   const TestTurn & TestDirection(TurnDirection expectedDirection) const;
   const TestTurn & TestOneOfDirections(set<TurnDirection> const & expectedDirections) const;
   const TestTurn & TestRoundAboutExitNum(uint32_t expectedRoundAboutExitNum) const;

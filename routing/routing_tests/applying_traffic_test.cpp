@@ -68,8 +68,8 @@ AStarAlgorithm<IndexGraphStarter>::Result CalculateRoute(IndexGraphStarter & sta
 {
   AStarAlgorithm<IndexGraphStarter> algorithm;
   RoutingResult<Joint::Id> routingResult;
-  auto const resultCode = algorithm.FindPath(
-      starter, starter.GetStartJoint(), starter.GetFinishJoint(), routingResult, {}, {});
+  auto const resultCode = algorithm.FindPath(starter, starter.GetStartJoint(),
+                                             starter.GetFinishJoint(), routingResult, {}, {});
 
   starter.RedressRoute(routingResult.path, roadPoints);
   return resultCode;
@@ -135,15 +135,15 @@ unique_ptr<IndexGraph> BuildXXGraph(shared_ptr<EdgeEstimator> estimator)
                   RoadGeometry::Points({{3.0, 0.0}, {3.0, 1.0}}));
 
   vector<Joint> const joints = {
-    MakeJoint({{0 /* feature id */, 0 /* point id */}}), /* joint at point (0, 0) */
-    MakeJoint({{1, 0}, {7, 0}}), /* joint at point (2, 0) */
-    MakeJoint({{0, 1}, {1, 1}, {2, 0}, {3, 0}}), /* joint at point (1, 1) */
-    MakeJoint({{2, 1}}), /* joint at point (0, 2) */
-    MakeJoint({{3, 1}, {4, 1}, {5, 0}, {6, 0}}), /* joint at point (2, 2) */
-    MakeJoint({{4, 0}, {8, 1}}), /* joint at point (3, 1) */
-    MakeJoint({{5, 1}}), /* joint at point (1, 3) */
-    MakeJoint({{6, 1}}), /* joint at point (3, 3) */
-    MakeJoint({{7, 1}, {8, 0}}), /* joint at point (3, 0) */
+      MakeJoint({{0 /* feature id */, 0 /* point id */}}), /* joint at point (0, 0) */
+      MakeJoint({{1, 0}, {7, 0}}),                         /* joint at point (2, 0) */
+      MakeJoint({{0, 1}, {1, 1}, {2, 0}, {3, 0}}),         /* joint at point (1, 1) */
+      MakeJoint({{2, 1}}),                                 /* joint at point (0, 2) */
+      MakeJoint({{3, 1}, {4, 1}, {5, 0}, {6, 0}}),         /* joint at point (2, 2) */
+      MakeJoint({{4, 0}, {8, 1}}),                         /* joint at point (3, 1) */
+      MakeJoint({{5, 1}}),                                 /* joint at point (1, 3) */
+      MakeJoint({{6, 1}}),                                 /* joint at point (3, 3) */
+      MakeJoint({{7, 1}, {8, 0}}),                         /* joint at point (3, 0) */
   };
 
   unique_ptr<IndexGraph> graph = make_unique<IndexGraph>(move(loader), estimator);
@@ -170,8 +170,9 @@ UNIT_TEST(XXGraph_G0onF3)
   classificator::Load();
   shared_ptr<EdgeEstimator> estimator =
       EdgeEstimator::CreateForCar(*make_shared<CarModelFactory>()->GetVehicleModel());
-  TrafficInfo::Coloring coloring =
-      {{{3 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection}, SpeedGroup::G0}};
+  TrafficInfo::Coloring coloring = {
+      {{3 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection},
+       SpeedGroup::G0}};
   shared_ptr<TrafficInfo> trafficInfo = make_shared<TrafficInfo>();
   trafficInfo->SetColoringForTesting(coloring);
   estimator->SetTrafficInfo(trafficInfo);
@@ -187,11 +188,15 @@ UNIT_TEST(XXGraph_G0onF3andF6andG4onF8andF4)
 {
   shared_ptr<EdgeEstimator> estimator =
       EdgeEstimator::CreateForCar(*make_shared<CarModelFactory>()->GetVehicleModel());
-  TrafficInfo::Coloring coloring =
-      {{{3 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection}, SpeedGroup::G0},
-      {{6 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection}, SpeedGroup::G0},
-      {{8 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection}, SpeedGroup::G4},
-      {{7 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection}, SpeedGroup::G4}};
+  TrafficInfo::Coloring coloring = {
+      {{3 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection},
+       SpeedGroup::G0},
+      {{6 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection},
+       SpeedGroup::G0},
+      {{8 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection},
+       SpeedGroup::G4},
+      {{7 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection},
+       SpeedGroup::G4}};
   shared_ptr<TrafficInfo> trafficInfo = make_shared<TrafficInfo>();
   trafficInfo->SetColoringForTesting(coloring);
   estimator->SetTrafficInfo(trafficInfo);

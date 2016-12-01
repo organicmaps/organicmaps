@@ -17,8 +17,8 @@ class EdgeEstimator
 public:
   virtual ~EdgeEstimator() = default;
 
-  virtual double CalcEdgesWeight(uint32_t featureId, RoadGeometry const & road,
-                                 uint32_t pointFrom, uint32_t pointTo) const = 0;
+  virtual double CalcEdgesWeight(uint32_t featureId, RoadGeometry const & road, uint32_t pointFrom,
+                                 uint32_t pointTo) const = 0;
   virtual double CalcHeuristic(m2::PointD const & from, m2::PointD const & to) const = 0;
 
   void SetTrafficInfo(shared_ptr<traffic::TrafficInfo> trafficInfo);

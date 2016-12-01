@@ -72,8 +72,8 @@ void IndexGraph::GetNeighboringEdge(RoadGeometry const & road, RoadPoint const &
   pair<Joint::Id, uint32_t> const & neighbor = m_roadIndex.FindNeighbor(rp, forward);
   if (neighbor.first != Joint::kInvalidId)
   {
-    double const distance = m_estimator->CalcEdgesWeight(rp.GetFeatureId(), road,
-                                                         rp.GetPointId(), neighbor.second);
+    double const distance =
+        m_estimator->CalcEdgesWeight(rp.GetFeatureId(), road, rp.GetPointId(), neighbor.second);
     edges.push_back({neighbor.first, distance});
   }
 }

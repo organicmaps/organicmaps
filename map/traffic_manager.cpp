@@ -37,8 +37,7 @@ TrafficManager::CacheEntry::CacheEntry(time_point<steady_clock> const & requestT
   , m_lastAvailability(traffic::TrafficInfo::Availability::Unknown)
 {}
 
-TrafficManager::TrafficManager(GetMwmsByRectFn const & getMwmsByRectFn,
-                               size_t maxCacheSizeBytes,
+TrafficManager::TrafficManager(GetMwmsByRectFn const & getMwmsByRectFn, size_t maxCacheSizeBytes,
                                traffic::RoutingObserver & routingObserver)
   : m_getMwmsByRectFn(getMwmsByRectFn)
   , m_routingObserver(routingObserver)

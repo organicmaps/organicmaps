@@ -356,8 +356,7 @@ Framework::Framework()
   , m_isRenderingEnabled(true)
   , m_trackingReporter(platform::CreateSocket(), TRACKING_REALTIME_HOST, TRACKING_REALTIME_PORT,
                        tracking::Reporter::kPushDelayMs)
-  , m_trafficManager(bind(&Framework::GetMwmsByRect, this, _1),
-                     kMaxTrafficCacheSizeBytes,
+  , m_trafficManager(bind(&Framework::GetMwmsByRect, this, _1), kMaxTrafficCacheSizeBytes,
                      // Note. |m_routingSession| should be declared before |m_trafficManager|.
                      m_routingSession)
   , m_displacementModeManager([this](bool show) {
