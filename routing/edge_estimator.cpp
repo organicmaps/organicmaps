@@ -44,8 +44,8 @@ double CarEdgeEstimator::CalcEdgesWeight(uint32_t featureId, RoadGeometry const 
 
   double result = 0.0;
   double const speedMPS = road.GetSpeed() * kKMPH2MPS;
-  uint8_t const dir = start < finish ? TrafficInfo::RoadSegmentId::kForwardDirection
-                                     : TrafficInfo::RoadSegmentId::kReverseDirection;
+  uint8_t const dir = pointFrom < pointTo ? TrafficInfo::RoadSegmentId::kForwardDirection
+                                          : TrafficInfo::RoadSegmentId::kReverseDirection;
   for (uint32_t i = start; i < finish; ++i)
   {
     double factor = 1.0;
@@ -55,8 +55,7 @@ double CarEdgeEstimator::CalcEdgesWeight(uint32_t featureId, RoadGeometry const 
           m_trafficInfo->GetSpeedGroup(TrafficInfo::RoadSegmentId(featureId, i, dir));
       CHECK_LESS(speedGroup, SpeedGroup::Count, ());
       double const percentage =
-          0.01 *
-          static_cast<double>(kSpeedGroupThresholdPercentage[static_cast<size_t>(speedGroup)]);
+          0.01 * static_cast<double>(kSpeedGroupThresholdPercentage[static_cast<size_t>(speedGroup)]);
       factor = 1.0 / percentage;
     }
     result += factor * TimeBetweenSec(road.GetPoint(i), road.GetPoint(i + 1), speedMPS);

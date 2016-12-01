@@ -58,7 +58,7 @@ public:
   using GetMwmsByRectFn = function<vector<MwmSet::MwmId>(m2::RectD const &)>;
 
   TrafficManager(GetMwmsByRectFn const & getMwmsByRectFn, size_t maxCacheSizeBytes,
-                 traffic::RoutingObserver & routingObserver);
+                 traffic::TrafficObserver & observer);
   ~TrafficManager();
 
   void SetStateListener(TrafficStateChangedFn const & onStateChangedFn);
@@ -95,7 +95,7 @@ private:
   bool IsEnabled() const;
 
   GetMwmsByRectFn m_getMwmsByRectFn;
-  traffic::RoutingObserver & m_routingObserver;
+  traffic::TrafficObserver & m_observer;
 
   ref_ptr<df::DrapeEngine> m_drapeEngine;
   atomic<int64_t> m_currentDataVersion;

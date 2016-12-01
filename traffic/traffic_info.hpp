@@ -93,10 +93,10 @@ private:
   int64_t m_currentDataVersion = 0;
 };
 
-class RoutingObserver
+class TrafficObserver
 {
 public:
-  virtual ~RoutingObserver() = default;
+  virtual ~TrafficObserver() = default;
 
   virtual void OnTrafficEnabled(bool enable) = 0;
   virtual void OnTrafficInfoAdded(traffic::TrafficInfo const & info) = 0;

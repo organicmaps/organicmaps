@@ -38,7 +38,7 @@ struct SpeedCameraRestriction
   SpeedCameraRestriction() : m_index(0), m_maxSpeedKmH(numeric_limits<uint8_t>::max()) {}
 };
 
-class RoutingSession : public traffic::RoutingObserver, public traffic::TrafficInfoGetter
+class RoutingSession : public traffic::TrafficObserver, public traffic::TrafficInfoGetter
 {
   friend void UnitTest_TestFollowRoutePercentTest();
 

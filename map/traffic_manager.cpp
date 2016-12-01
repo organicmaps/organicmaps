@@ -38,9 +38,9 @@ TrafficManager::CacheEntry::CacheEntry(time_point<steady_clock> const & requestT
 {}
 
 TrafficManager::TrafficManager(GetMwmsByRectFn const & getMwmsByRectFn, size_t maxCacheSizeBytes,
-                               traffic::RoutingObserver & routingObserver)
+                               traffic::TrafficObserver & observer)
   : m_getMwmsByRectFn(getMwmsByRectFn)
-  , m_routingObserver(routingObserver)
+  , m_observer(observer)
   , m_currentDataVersion(0)
   , m_state(TrafficState::Disabled)
   , m_maxCacheSizeBytes(maxCacheSizeBytes)
@@ -95,7 +95,7 @@ void TrafficManager::SetEnabled(bool enabled)
       UpdateMyPosition(m_currentPosition.first);
   }
 
-  m_routingObserver.OnTrafficEnabled(enabled);
+  m_observer.OnTrafficEnabled(enabled);
 }
 
 void TrafficManager::Clear()
@@ -319,7 +319,10 @@ void TrafficManager::OnTrafficDataResponse(traffic::TrafficInfo const & info)
 
   // Update cache.
   size_t constexpr kElementSize = sizeof(traffic::TrafficInfo::RoadSegmentId) + sizeof(traffic::SpeedGroup);
-  size_t const dataSize = info.GetColoring().size() * kElementSize;
+
+  // Note. It's necessary to multiply by two because routing and rendering use individual caches.
+  size_t const dataSize = 2 * info.GetColoring().size() * kElementSize;
+  it->second.m_isLoaded = true;
   m_currentCacheSizeBytes += (dataSize - it->second.m_dataSize);
   it->second.m_dataSize = dataSize;
   CheckCacheSize();
@@ -332,7 +335,7 @@ void TrafficManager::OnTrafficDataResponse(traffic::TrafficInfo const & info)
   UpdateState();
 
   // Update traffic colors for routing.
-  m_routingObserver.OnTrafficInfoAdded(info);
+  m_observer.OnTrafficInfoAdded(info);
 }
 
 void TrafficManager::CheckCacheSize()
@@ -353,7 +356,7 @@ void TrafficManager::CheckCacheSize()
       {
         m_currentCacheSizeBytes -= it->second.m_dataSize;
         m_drapeEngine->ClearTrafficCache(mwmId);
-        m_routingObserver.OnTrafficInfoRemoved(mwmId);
+        m_observer.OnTrafficInfoRemoved(mwmId);
       }
       m_mwmCache.erase(it);
       ++itSeen;
