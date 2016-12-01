@@ -602,8 +602,7 @@ line|z16[man_made=pipeline][location=overground]
   linecap: butt;
 }
 area|z16-[amenity=restaurant],
-node|z16-[amenity=restaurant],
-node|z16-[sponsored=opentable]
+node|z16-[amenity=restaurant]
 {
   icon-image: restaurant.svg;
 }
@@ -729,8 +728,6 @@ node|z16-[tourism=hostel]
 area|z16-[tourism=hotel],
 area|z16-[tourism=motel],
 node|z16-[tourism=hotel],
-area|z18-[sponsored],
-node|z18-[sponsored],
 node|z16-[tourism=motel]
 {
   icon-image: hotel.svg;

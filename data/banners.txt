@@ -1,10 +1,34 @@
-[deliveryclub_ru]
-start = 2016-12-01
+# List of banner types.
+#
+# Each section in [square_quotes] corresponds to classificator type sponsored|banner|section_name.
+# Inside a section, use following variables:
+# - start=YYYY-MM-DD and end=YYYY-MM-DD: banner visibility period.
+# - url=http://...: default banner URL, use templated vars in {quotes}.
+# - icon: icon URL.
+# - messages: base substring for messages, default is "banner_sectionname".
+# Other variables can be used in URL templates.
+
+[lamoda_ru]
 end = 2017-01-15
-icon =
-url = http://fas.st/VtumFw
-aux = test
+url = http://fas.st/l1YJbD
 
 [lamoda_ua]
-start = 2016-12-01
+end = 2017-01-15
+url = http://fas.st/naNtn
+
+[deliveryclub]
+end = 2017-01-15
+url = http://fas.st/VtumFw
+
+[tutu]
+end = 2017-01-15
+url = http://fas.st/S9AciK
+
+[geerbest]
+end = 2017-01-15
+
+[rentalcars]
+end = 2017-01-15
+
+[viator]
 end = 2017-01-15
