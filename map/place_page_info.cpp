@@ -169,25 +169,29 @@ string Info::GetApproximatePricing() const
 
 string Info::GetBannerTitleId() const
 {
-  CHECK(!m_banner.IsEmpty(), ());
+  if (m_banner.IsEmpty())
+    return {};
   return m_banner.GetMessageBase() + "_title";
 }
 
 string Info::GetBannerMessageId() const
 {
-  CHECK(!m_banner.IsEmpty(), ());
+  if (m_banner.IsEmpty())
+    return {};
   return m_banner.GetMessageBase() + "_message";
 }
 
 string Info::GetBannerIconId() const
 {
-  CHECK(!m_banner.IsEmpty(), ());
+  if (m_banner.IsEmpty())
+    return {};
   return m_banner.GetIconName();
 }
 
 string Info::GetBannerUrl() const
 {
-  CHECK(!m_banner.IsEmpty(), ());
+  if (m_banner.IsEmpty())
+    return {};
   return m_banner.GetFormattedUrl(m_metadata.Get(feature::Metadata::FMD_BANNER_URL));
 }
 
