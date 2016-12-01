@@ -1,7 +1,5 @@
 #include "map/traffic_manager.hpp"
 
-#include "platform/platform.hpp"
-
 #include "routing/routing_helpers.hpp"
 
 #include "drape_frontend/drape_engine.hpp"
@@ -9,6 +7,8 @@
 
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
+
+#include "platform/platform.hpp"
 
 namespace
 {
@@ -19,10 +19,28 @@ auto constexpr kNetworkErrorTimeout = minutes(20);
 auto constexpr kMaxRetriesCount = 5;
 } // namespace
 
+
+TrafficManager::CacheEntry::CacheEntry()
+  : m_isLoaded(false)
+  , m_dataSize(0)
+  , m_retriesCount(0)
+  , m_isWaitingForResponse(false)
+  , m_lastAvailability(traffic::TrafficInfo::Availability::Unknown)
+{}
+
+TrafficManager::CacheEntry::CacheEntry(time_point<steady_clock> const & requestTime)
+  : m_isLoaded(false)
+  , m_dataSize(0)
+  , m_lastRequestTime(requestTime)
+  , m_retriesCount(0)
+  , m_isWaitingForResponse(false)
+  , m_lastAvailability(traffic::TrafficInfo::Availability::Unknown)
+{}
+
 TrafficManager::TrafficManager(GetMwmsByRectFn const & getMwmsByRectFn, size_t maxCacheSizeBytes)
   : m_getMwmsByRectFn(getMwmsByRectFn)
+  , m_currentDataVersion(0)
   , m_state(TrafficState::Disabled)
-  , m_notifyStateChanged(false)
   , m_maxCacheSizeBytes(maxCacheSizeBytes)
   , m_isRunning(true)
   , m_thread(&TrafficManager::ThreadRoutine, this)
@@ -33,7 +51,7 @@ TrafficManager::TrafficManager(GetMwmsByRectFn const & getMwmsByRectFn, size_t m
 TrafficManager::~TrafficManager()
 {
   {
-    lock_guard<mutex> lock(m_requestedMwmsLock);
+    lock_guard<mutex> lock(m_mutex);
     m_isRunning = false;
   }
   m_condition.notify_one();
@@ -51,7 +69,15 @@ void TrafficManager::SetStateListener(TrafficStateChangedFn const & onStateChang
 void TrafficManager::SetEnabled(bool enabled)
 {
   {
-    lock_guard<mutex> lock(m_requestedMwmsLock);
+    lock_guard<mutex> lock(m_mutex);
+    if (enabled == IsEnabled())
+    {
+       LOG(LWARNING, ("Invalid attempt to", enabled ? "enable" : "disable",
+                      "traffic manager, it's already", enabled ? "enabled" : "disabled",
+                      ", doing nothing."));
+       return;
+    }
+
     Clear();
     ChangeState(enabled ? TrafficState::Enabled : TrafficState::Disabled);
   }
@@ -66,8 +92,6 @@ void TrafficManager::SetEnabled(bool enabled)
     if (m_currentPosition.second)
       UpdateMyPosition(m_currentPosition.first);
   }
-
-  NotifyStateChanged();
 }
 
 void TrafficManager::Clear()
@@ -92,10 +116,8 @@ void TrafficManager::OnDestroyGLContext()
   if (!IsEnabled())
     return;
 
-  {
-    lock_guard<mutex> lock(m_requestedMwmsLock);
-    Clear();
-  }
+  lock_guard<mutex> lock(m_mutex);
+  Clear();
 }
 
 void TrafficManager::OnRecoverGLContext()
@@ -111,7 +133,7 @@ void TrafficManager::OnRecoverGLContext()
 
 void TrafficManager::UpdateViewport(ScreenBase const & screen)
 {
-  m_currentModelView = {screen, true};
+  m_currentModelView = {screen, true /* initialized */};
 
   if (!IsEnabled() || IsInvalidState())
     return;
@@ -123,7 +145,7 @@ void TrafficManager::UpdateViewport(ScreenBase const & screen)
   auto mwms = m_getMwmsByRectFn(screen.ClipRect());
 
   {
-    lock_guard<mutex> lock(m_requestedMwmsLock);
+    lock_guard<mutex> lock(m_mutex);
 
     m_activeMwms.clear();
     for (auto const & mwm : mwms)
@@ -134,13 +156,11 @@ void TrafficManager::UpdateViewport(ScreenBase const & screen)
 
     RequestTrafficData();
   }
-
-  NotifyStateChanged();
 }
 
 void TrafficManager::UpdateMyPosition(MyPosition const & myPosition)
 {
-  m_currentPosition = {myPosition, true};
+  m_currentPosition = {myPosition, true /* initialized */};
 
   if (!IsEnabled() || IsInvalidState())
     return;
@@ -170,8 +190,6 @@ void TrafficManager::ThreadRoutine()
         LOG(LWARNING, ("Traffic request failed. Mwm =", mwm));
         OnTrafficRequestFailed(info);
       }
-
-      NotifyStateChanged();
     }
     mwms.clear();
   }
@@ -179,7 +197,7 @@ void TrafficManager::ThreadRoutine()
 
 bool TrafficManager::WaitForRequest(vector<MwmSet::MwmId> & mwms)
 {
-  unique_lock<mutex> lock(m_requestedMwmsLock);
+  unique_lock<mutex> lock(m_mutex);
 
   bool const timeout = !m_condition.wait_for(lock, kUpdateInterval, [this]
   {
@@ -189,8 +207,11 @@ bool TrafficManager::WaitForRequest(vector<MwmSet::MwmId> & mwms)
   if (!m_isRunning)
     return false;
 
-  if (timeout && IsEnabled() && !IsInvalidState())
+  if (timeout)
   {
+    if (!IsEnabled() || IsInvalidState())
+      return true;
+
     mwms.reserve(m_activeMwms.size());
     for (auto const & mwmId : m_activeMwms)
       mwms.push_back(mwmId);
@@ -248,7 +269,7 @@ void TrafficManager::RequestTrafficData(MwmSet::MwmId const & mwmId)
 
 void TrafficManager::OnTrafficRequestFailed(traffic::TrafficInfo const & info)
 {
-  lock_guard<mutex> lock(m_requestedMwmsLock);
+  lock_guard<mutex> lock(m_mutex);
 
   auto it = m_mwmCache.find(info.GetMwmId());
   if (it == m_mwmCache.end())
@@ -257,24 +278,22 @@ void TrafficManager::OnTrafficRequestFailed(traffic::TrafficInfo const & info)
   it->second.m_isWaitingForResponse = false;
   it->second.m_lastAvailability = info.GetAvailability();
 
-  if (info.GetAvailability() == traffic::TrafficInfo::Availability::Unknown)
+  if (info.GetAvailability() == traffic::TrafficInfo::Availability::Unknown &&
+      !it->second.m_isLoaded)
   {
-    if (!it->second.m_isLoaded)
+    if (m_activeMwms.find(info.GetMwmId()) != m_activeMwms.end())
     {
-      if (m_activeMwms.find(info.GetMwmId()) != m_activeMwms.end())
+      if (it->second.m_retriesCount < kMaxRetriesCount)
       {
-        if (it->second.m_retriesCount < kMaxRetriesCount)
-        {
-          it->second.m_lastRequestTime = steady_clock::now();
-          it->second.m_isWaitingForResponse = true;
-          RequestTrafficData(info.GetMwmId());
-        }
-        ++it->second.m_retriesCount;
+        it->second.m_lastRequestTime = steady_clock::now();
+        it->second.m_isWaitingForResponse = true;
+        RequestTrafficData(info.GetMwmId());
       }
-      else
-      {
-        it->second.m_retriesCount = 0;
-      }
+      ++it->second.m_retriesCount;
+    }
+    else
+    {
+      it->second.m_retriesCount = 0;
     }
   }
 
@@ -283,7 +302,7 @@ void TrafficManager::OnTrafficRequestFailed(traffic::TrafficInfo const & info)
 
 void TrafficManager::OnTrafficDataResponse(traffic::TrafficInfo const & info)
 {
-  lock_guard<mutex> lock(m_requestedMwmsLock);
+  lock_guard<mutex> lock(m_mutex);
 
   auto it = m_mwmCache.find(info.GetMwmId());
   if (it == m_mwmCache.end())
@@ -355,7 +374,7 @@ void TrafficManager::UpdateState()
   bool waiting = false;
   bool networkError = false;
   bool expiredApp = false;
-  bool expiredMwm = false;
+  bool expiredData = false;
   bool noData = false;
 
   for (auto const & mwmId : m_activeMwms)
@@ -370,7 +389,7 @@ void TrafficManager::UpdateState()
     else
     {
       expiredApp |= it->second.m_lastAvailability == traffic::TrafficInfo::Availability::ExpiredApp;
-      expiredMwm |= it->second.m_lastAvailability == traffic::TrafficInfo::Availability::ExpiredMwm;
+      expiredData |= it->second.m_lastAvailability == traffic::TrafficInfo::Availability::ExpiredData;
       noData |= it->second.m_lastAvailability == traffic::TrafficInfo::Availability::NoData;
     }
 
@@ -392,7 +411,7 @@ void TrafficManager::UpdateState()
     ChangeState(TrafficState::WaitingData);
   else if (expiredApp)
     ChangeState(TrafficState::ExpiredApp);
-  else if (expiredMwm)
+  else if (expiredData)
     ChangeState(TrafficState::ExpiredData);
   else if (noData)
     ChangeState(TrafficState::NoData);
@@ -408,19 +427,10 @@ void TrafficManager::ChangeState(TrafficState newState)
     return;
 
   m_state = newState;
-  m_notifyStateChanged = true;
-}
 
-void TrafficManager::NotifyStateChanged()
-{
-  if (m_notifyStateChanged)
+  GetPlatform().RunOnGuiThread([this, newState]()
   {
-    m_notifyStateChanged = false;
-
-    GetPlatform().RunOnGuiThread([this]()
-    {
-      if (m_onStateChangedFn != nullptr)
-        m_onStateChangedFn(m_state);
-    });
-  }
+    if (m_onStateChangedFn != nullptr)
+      m_onStateChangedFn(newState);
+  });
 }

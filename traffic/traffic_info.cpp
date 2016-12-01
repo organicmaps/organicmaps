@@ -4,12 +4,14 @@
 
 #include "coding/bit_streams.hpp"
 #include "coding/reader.hpp"
+#include "coding/url_encode.hpp"
 #include "coding/varint.hpp"
 #include "coding/write_to_sink.hpp"
 #include "coding/writer.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/string.hpp"
@@ -22,18 +24,21 @@ namespace traffic
 {
 namespace
 {
-bool ReadRemoteFile(string const & url, string & result, int & errorCode)
+bool ReadRemoteFile(string const & url, vector<uint8_t> & contents, int & errorCode)
 {
   platform::HttpClient request(url);
   if (!request.RunHttpRequest())
   {
-    LOG(LINFO, ("Couldn't run traffic request", url));
-    errorCode = -1;
+    errorCode = request.ErrorCode();
+    LOG(LINFO, ("Couldn't run traffic request", url, ". Error:", errorCode));
     return false;
   }
 
   errorCode = request.ErrorCode();
-  result = request.ServerResponse();
+
+  string const & result = request.ServerResponse();
+  contents.resize(result.size());
+  memcpy(contents.data(), result.data(), result.size());
 
   if (errorCode != 200)
   {
@@ -53,7 +58,7 @@ string MakeRemoteURL(string const & name, uint64_t version)
   ss << TRAFFIC_DATA_BASE_URL;
   if (version != 0)
     ss << version << "/";
-  ss << name << TRAFFIC_FILE_EXTENSION;
+  ss << UrlEncode(name) << TRAFFIC_FILE_EXTENSION;
   return ss.str();
 }
 }  // namespace
@@ -67,7 +72,7 @@ TrafficInfo::RoadSegmentId::RoadSegmentId(uint32_t fid, uint16_t idx, uint8_t di
 }
 
 // TrafficInfo --------------------------------------------------------------------------------
-TrafficInfo::TrafficInfo(MwmSet::MwmId const & mwmId, int64_t const & currentDataVersion)
+TrafficInfo::TrafficInfo(MwmSet::MwmId const & mwmId, int64_t currentDataVersion)
   : m_mwmId(mwmId)
   , m_currentDataVersion(currentDataVersion)
 {}
@@ -83,32 +88,30 @@ bool TrafficInfo::ReceiveTrafficData()
   if (url.empty())
     return false;
 
-  string result;
+  vector<uint8_t> contents;
   int errorCode;
-  if (!ReadRemoteFile(url, result, errorCode))
+  if (!ReadRemoteFile(url, contents, errorCode))
   {
     if (errorCode == 404)
     {
-      int64_t version = atoi(result.c_str());
+      string const result(reinterpret_cast<char*>(contents.data()), contents.size());
+
+      int64_t version = 0;
+      strings::to_int64(result.c_str(), version);
 
       if (version > info->GetVersion() && version <= m_currentDataVersion)
-        m_availabilityStatus = Availability::ExpiredMwm;
+        m_availability = Availability::ExpiredData;
       else if (version > m_currentDataVersion)
-        m_availabilityStatus = Availability::ExpiredApp;
+        m_availability = Availability::ExpiredApp;
       else
-        m_availabilityStatus = Availability::NoData;
+        m_availability = Availability::NoData;
     }
     else
     {
-      m_availabilityStatus = Availability::Unknown;
+      m_availability = Availability::Unknown;
     }
     return false;
   }
-
-  vector<uint8_t> contents;
-  contents.resize(result.size());
-  for (size_t i = 0; i < result.size(); ++i)
-    contents[i] = static_cast<uint8_t>(result[i]);
 
   Coloring coloring;
   try
@@ -117,12 +120,13 @@ bool TrafficInfo::ReceiveTrafficData()
   }
   catch (Reader::Exception const & e)
   {
-    LOG(LINFO, ("Could not read traffic data received from server. MWM:", info->GetCountryName(),
-                "Version:", info->GetVersion()));
+    m_availability = Availability::NoData;
+    LOG(LWARNING, ("Could not read traffic data received from server. MWM:", info->GetCountryName(),
+                   "Version:", info->GetVersion()));
     return false;
   }
   m_coloring.swap(coloring);
-  m_availabilityStatus = Availability::IsAvailable;
+  m_availability = Availability::IsAvailable;
   return true;
 }
 

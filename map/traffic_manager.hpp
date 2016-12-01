@@ -75,18 +75,19 @@ private:
   void ThreadRoutine();
   bool WaitForRequest(vector<MwmSet::MwmId> & mwms);
 
-  void RequestTrafficData();
-  void RequestTrafficData(MwmSet::MwmId const & mwmId);
-
   void OnTrafficDataResponse(traffic::TrafficInfo const & info);
   void OnTrafficRequestFailed(traffic::TrafficInfo const & info);
+
+private:
+  // This is a group of methods that haven't their own synchronization inside.
+  void RequestTrafficData();
+  void RequestTrafficData(MwmSet::MwmId const & mwmId);
 
   void Clear();
   void CheckCacheSize();
 
   void UpdateState();
   void ChangeState(TrafficState newState);
-  void NotifyStateChanged();
 
   bool IsInvalidState() const;
   bool IsEnabled() const;
@@ -94,33 +95,31 @@ private:
   GetMwmsByRectFn m_getMwmsByRectFn;
 
   ref_ptr<df::DrapeEngine> m_drapeEngine;
-  int64_t m_currentDataVersion = 0;
+  atomic<int64_t> m_currentDataVersion;
 
+  // These fields have a flag of their initialization.
   pair<MyPosition, bool> m_currentPosition = {MyPosition(), false};
   pair<ScreenBase, bool> m_currentModelView = {ScreenBase(), false};
 
   atomic<TrafficState> m_state;
-  atomic<bool> m_notifyStateChanged;
   TrafficStateChangedFn m_onStateChangedFn;
 
   struct CacheEntry
   {
-    CacheEntry() = default;
+    CacheEntry();
+    CacheEntry(time_point<steady_clock> const & requestTime);
 
-    CacheEntry(time_point<steady_clock> const & requestTime) : m_lastRequestTime(requestTime) {}
-
-    bool m_isLoaded = false;
-    size_t m_dataSize = 0;
+    bool m_isLoaded;
+    size_t m_dataSize;
 
     time_point<steady_clock> m_lastSeenTime;
     time_point<steady_clock> m_lastRequestTime;
     time_point<steady_clock> m_lastResponseTime;
 
-    uint32_t m_retriesCount = 0;
-    bool m_isWaitingForResponse = false;
+    int m_retriesCount;
+    bool m_isWaitingForResponse;
 
-    traffic::TrafficInfo::Availability m_lastAvailability =
-        traffic::TrafficInfo::Availability::Unknown;
+    traffic::TrafficInfo::Availability m_lastAvailability;
   };
 
   size_t m_maxCacheSizeBytes;
@@ -134,6 +133,6 @@ private:
   set<MwmSet::MwmId> m_activeMwms;
 
   vector<MwmSet::MwmId> m_requestedMwms;
-  mutex m_requestedMwmsLock;
+  mutex m_mutex;
   thread m_thread;
 };
