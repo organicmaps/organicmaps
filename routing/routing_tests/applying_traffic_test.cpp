@@ -5,6 +5,8 @@
 #include "routing/index_graph.hpp"
 #include "routing/index_graph_starter.hpp"
 
+#include "routing/routing_tests/index_graph_tools.hpp"
+
 #include "traffic/traffic_info.hpp"
 
 #include "indexer/classificator_loader.hpp"
@@ -20,76 +22,8 @@
 namespace
 {
 using namespace routing;
+using namespace routing_test;
 using namespace traffic;
-
-// @TODO(bykoianko) When PR with applying restricions is merged all the helper method
-// should be used from "routing/routing_tests/index_graph_tools.hpp".
-class TestGeometryLoader final : public routing::GeometryLoader
-{
-public:
-  // GeometryLoader overrides:
-  void Load(uint32_t featureId, routing::RoadGeometry & road) const override;
-
-  void AddRoad(uint32_t featureId, bool oneWay, float speed,
-               routing::RoadGeometry::Points const & points);
-
-private:
-  unordered_map<uint32_t, routing::RoadGeometry> m_roads;
-};
-
-void TestGeometryLoader::Load(uint32_t featureId, RoadGeometry & road) const
-{
-  auto it = m_roads.find(featureId);
-  if (it == m_roads.cend())
-    return;
-
-  road = it->second;
-}
-
-void TestGeometryLoader::AddRoad(uint32_t featureId, bool oneWay, float speed,
-                                 RoadGeometry::Points const & points)
-{
-  auto it = m_roads.find(featureId);
-  CHECK(it == m_roads.end(), ("Already contains feature", featureId));
-  m_roads[featureId] = RoadGeometry(oneWay, speed, points);
-}
-
-Joint MakeJoint(vector<RoadPoint> const & points)
-{
-  Joint joint;
-  for (auto const & point : points)
-    joint.AddPoint(point);
-
-  return joint;
-}
-
-AStarAlgorithm<IndexGraphStarter>::Result CalculateRoute(IndexGraphStarter & starter,
-                                                         vector<RoadPoint> & roadPoints)
-{
-  AStarAlgorithm<IndexGraphStarter> algorithm;
-  RoutingResult<Joint::Id> routingResult;
-  auto const resultCode = algorithm.FindPath(starter, starter.GetStartJoint(),
-                                             starter.GetFinishJoint(), routingResult, {}, {});
-
-  starter.RedressRoute(routingResult.path, roadPoints);
-  return resultCode;
-}
-
-void TestRouteGeometry(IndexGraphStarter & starter,
-                       AStarAlgorithm<IndexGraphStarter>::Result expectedRouteResult,
-                       vector<m2::PointD> const & expectedRouteGeom)
-{
-  vector<RoadPoint> route;
-  auto const resultCode = CalculateRoute(starter, route);
-  TEST_EQUAL(resultCode, expectedRouteResult, ());
-  TEST_EQUAL(route.size(), expectedRouteGeom.size(), ());
-  for (size_t i = 0; i < route.size(); ++i)
-  {
-    RoadGeometry roadGeom = starter.GetGraph().GetGeometry().GetRoad(route[i].GetFeatureId());
-    CHECK_LESS(route[i].GetPointId(), roadGeom.GetPointsCount(), ());
-    TEST_EQUAL(expectedRouteGeom[i], roadGeom.GetPoint(route[i].GetPointId()), ());
-  }
-}
 
 // @TODO(bykoianko) When PR with applying restricions is merged BuildXXGraph()
 // should be moved to "routing/routing_tests/index_graph_tools.hpp" and it should
