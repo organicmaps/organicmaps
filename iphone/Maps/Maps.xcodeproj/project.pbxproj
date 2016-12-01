@@ -125,6 +125,9 @@
 		34479C7D1C60C6130065D261 /* MWMFrameworkListener.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34479C781C60C6130065D261 /* MWMFrameworkListener.mm */; };
 		344D77B41D1BD7C800DBED70 /* MWMLocationManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 344D77B31D1BD7C800DBED70 /* MWMLocationManager.mm */; };
 		344D77B51D1BD7C800DBED70 /* MWMLocationManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 344D77B31D1BD7C800DBED70 /* MWMLocationManager.mm */; };
+		3454E05F1DF00DAE00F40F46 /* banners.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3454E05E1DF00DAE00F40F46 /* banners.txt */; };
+		3454E0601DF00DC000F40F46 /* banners.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3454E05E1DF00DAE00F40F46 /* banners.txt */; };
+		3454E0611DF00DC100F40F46 /* banners.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3454E05E1DF00DAE00F40F46 /* banners.txt */; };
 		3456E0211DC0C4030055DF50 /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3456E0201DC0C4030055DF50 /* HockeySDK.framework */; };
 		3456E0241DC0C4290055DF50 /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3456E0201DC0C4030055DF50 /* HockeySDK.framework */; };
 		3456E0261DC0C4500055DF50 /* HockeySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3456E0251DC0C4500055DF50 /* HockeySDKResources.bundle */; };
@@ -1536,6 +1539,7 @@
 		344BDB021B9069810076DB31 /* MWMSearchTabbedViewProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMSearchTabbedViewProtocol.h; sourceTree = "<group>"; };
 		344D77B21D1BD7C800DBED70 /* MWMLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMLocationManager.h; sourceTree = "<group>"; };
 		344D77B31D1BD7C800DBED70 /* MWMLocationManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMLocationManager.mm; sourceTree = "<group>"; };
+		3454E05E1DF00DAE00F40F46 /* banners.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = banners.txt; path = ../../data/banners.txt; sourceTree = "<group>"; };
 		3456E0201DC0C4030055DF50 /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HockeySDK.framework; path = Frameworks/HockeySDK.embeddedframework/HockeySDK.framework; sourceTree = "<group>"; };
 		3456E0251DC0C4500055DF50 /* HockeySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = HockeySDKResources.bundle; path = Frameworks/HockeySDK.embeddedframework/Resources/HockeySDKResources.bundle; sourceTree = "<group>"; };
 		34570A3A1B13222600E6D4FD /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -3784,6 +3788,7 @@
 		FA065FC61286143F00FEA989 /* External Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3454E05E1DF00DAE00F40F46 /* banners.txt */,
 				F623DA6A1C9C2731006A3436 /* opening_hours_how_to_edit.html */,
 				6B9978341C89A316003B8AA0 /* editor.config */,
 				671182DE1C7F0DD400CB8177 /* countries_obsolete.txt */,
@@ -4075,6 +4080,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3454E05F1DF00DAE00F40F46 /* banners.txt in Resources */,
 				3456E0261DC0C4500055DF50 /* HockeySDKResources.bundle in Resources */,
 				4519503A1B7A3E070085DA05 /* patterns.txt in Resources */,
 				346225911DDC5FBA001E8752 /* MWMSearchNoResultsAlert.xib in Resources */,
@@ -4337,6 +4343,7 @@
 				6741A9741BF340DE002C974C /* resources-6plus_dark in Resources */,
 				3401CD6A1C3C03A80028C6F8 /* MWMEditorTextTableViewCell.xib in Resources */,
 				F617B4E71D8FDEC4007A1A4E /* MWMBookmarkCell.xib in Resources */,
+				3454E0601DF00DC000F40F46 /* banners.txt in Resources */,
 				341F99E01C6B1165001C67B8 /* MWMMapDownloaderSubplaceTableViewCell.xib in Resources */,
 				6741A9751BF340DE002C974C /* WorldCoasts.mwm in Resources */,
 				3490D2E31CE9DD2500D0B838 /* MWMSideButtonsView.xib in Resources */,
@@ -4485,6 +4492,7 @@
 				849CF6341DE842290024A8A5 /* resources-mdpi_legacy in Resources */,
 				849CF6351DE842290024A8A5 /* MWMPlacePageOpeningHoursWeekDayView.xib in Resources */,
 				849CF6361DE842290024A8A5 /* _MWMOHHeaderCell.xib in Resources */,
+				3454E0611DF00DC100F40F46 /* banners.txt in Resources */,
 				849CF6371DE842290024A8A5 /* MWMOpeningHoursDeleteScheduleTableViewCell.xib in Resources */,
 				849CF6381DE842290024A8A5 /* MWMiPadRoutePreview.xib in Resources */,
 				849CF6391DE842290024A8A5 /* copyright.html in Resources */,
