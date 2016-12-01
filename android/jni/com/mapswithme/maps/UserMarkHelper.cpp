@@ -47,7 +47,7 @@ jobject CreateMapObject(JNIEnv * env, int mapObjectType, string const & title,
                             "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;DDLjava/lang/"
                             "String;Lcom/mapswithme/maps/bookmarks/data/Banner;)V");
 
-  jobject jbanner;
+  jobject jbanner = nullptr;
   if (hasBanner)
     jbanner = CreateBanner(env, bannerTitleId, bannerMessageId, bannerIconId, bannerUrl);
 
@@ -69,7 +69,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
     static jmethodID const ctorId = jni::GetConstructorID(
         env, g_bookmarkClazz, "(IILjava/lang/String;Lcom/mapswithme/maps/bookmarks/data/Banner;)V");
 
-    jobject jbanner;
+    jobject jbanner = nullptr;
     if (info.HasBanner())
       jbanner = CreateBanner(env, info.GetBannerTitleId(), info.GetBannerMessageId(),
                              info.GetBannerIconId(), info.GetBannerUrl());
