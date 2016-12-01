@@ -1,6 +1,7 @@
 package com.mapswithme.maps.widget.menu;
 
 import android.animation.ValueAnimator;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
@@ -16,14 +17,18 @@ import com.mapswithme.util.UiUtils;
 public class NavMenu extends BaseMenu
 {
   private final RotateDrawable mToggleImage;
+  @NonNull
   private final ImageView mTts;
+  @NonNull
+  private final ImageView mTraffic;
 
   public enum Item implements BaseMenu.Item
   {
     TOGGLE(R.id.toggle),
     TTS_VOLUME(R.id.tts_volume),
     STOP(R.id.stop),
-    SETTINGS(R.id.settings);
+    SETTINGS(R.id.settings),
+    TRAFFIC(R.id.traffic);
 
     private final int mViewId;
 
@@ -56,13 +61,20 @@ public class NavMenu extends BaseMenu
     mapItem(Item.SETTINGS, mFrame);
 
     mTts = (ImageView) mapItem(Item.TTS_VOLUME, mFrame);
+    mTraffic = (ImageView) mapItem(Item.TRAFFIC, mFrame);
   }
 
   @Override
   public void onResume(@Nullable Runnable procAfterMeasurement)
   {
     super.onResume(procAfterMeasurement);
+    refresh();
+  }
+
+  public void refresh()
+  {
     refreshTts();
+    refreshTraffic();
   }
 
   public void refreshTts()
@@ -70,6 +82,14 @@ public class NavMenu extends BaseMenu
     mTts.setImageDrawable(TtsPlayer.isEnabled() ? Graphics.tint(mFrame.getContext(), R.drawable.ic_voice_on,
                                                                 R.attr.colorAccent)
                                                 : Graphics.tint(mFrame.getContext(), R.drawable.ic_voice_off));
+  }
+
+  public void refreshTraffic()
+  {
+    //TODO: Read the real value of this setting (in separate task)
+    mTraffic.setImageDrawable(true ? Graphics.tint(mFrame.getContext(), R.drawable.ic_setting_traffic_on,
+                                                   R.attr.colorAccent)
+                                   : Graphics.tint(mFrame.getContext(), R.drawable.ic_setting_traffic_off));
   }
 
   @Override
@@ -111,7 +131,9 @@ public class NavMenu extends BaseMenu
   {
     super.show(show);
     measureContent(null);
-
-    UiUtils.showIf(show && Framework.nativeGetRouter() != Framework.ROUTER_TYPE_PEDESTRIAN, mTts);
+    @Framework.RouterType
+    int routerType = Framework.nativeGetRouter();
+    UiUtils.showIf(show && routerType != Framework.ROUTER_TYPE_PEDESTRIAN, mTts);
+    UiUtils.showIf(show && routerType == Framework.ROUTER_TYPE_VEHICLE, mTraffic);
   }
 }

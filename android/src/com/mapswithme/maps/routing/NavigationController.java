@@ -81,7 +81,7 @@ public class NavigationController
       }
     });
     mNavMenu = createNavMenu();
-    mNavMenu.refreshTts();
+    mNavMenu.refresh();
 
     // Top frame
     View topFrame = mFrame.findViewById(R.id.nav_top_frame);
@@ -153,6 +153,10 @@ public class NavigationController
           mNavMenu.refreshTts();
           Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_CLOSE);
           AlohaHelper.logClick(AlohaHelper.ROUTING_CLOSE);
+          break;
+        case TRAFFIC:
+          mNavMenu.refreshTraffic();
+          //TODO: Add statistics reporting (in separate task)
           break;
         case TOGGLE:
           mNavMenu.toggle(true);
