@@ -58,9 +58,10 @@ void RethrowOnJniException(ScopedEnv & env)
   MYTHROW(JniException, ());
 }
 
-jfieldID GetHttpParamsFieldId(ScopedEnv & env, const char * name)
+jfieldID GetHttpParamsFieldId(ScopedEnv & env, const char * name,
+                              const char * signature = "Ljava/lang/String;")
 {
-  return env->GetFieldID(g_httpParamsClazz, name, "Ljava/lang/String;");
+  return env->GetFieldID(g_httpParamsClazz, name, signature);
 }
 
 // Set string value to HttpClient.Params object, throws JniException and
@@ -76,6 +77,12 @@ void SetString(ScopedEnv & env, jobject params, jfieldID const fieldId, string c
   RethrowOnJniException(env);
 }
 
+void SetBoolean(ScopedEnv & env, jobject params, jfieldID const fieldId, bool const value)
+{
+  env->SetBooleanField(params, fieldId, value);
+  RethrowOnJniException(env);
+}
+
 // Get string value from HttpClient.Params object, throws JniException.
 void GetString(ScopedEnv & env, jobject const params, jfieldID const fieldId, string & result)
 {
@@ -86,6 +93,66 @@ void GetString(ScopedEnv & env, jobject const params, jfieldID const fieldId, st
     result = jni::ToNativeString(env.get(), wrappedValue.get());
 }
 
+void GetInt(ScopedEnv & env, jobject const params, jfieldID const fieldId, int & result)
+{
+  result = env->GetIntField(params, fieldId);
+  RethrowOnJniException(env);
+}
+
+void SetHeaders(ScopedEnv & env, jobject const params,
+                unordered_map<string, string> const & headers)
+{
+  if (headers.empty())
+    return;
+
+  static jmethodID const headerInit = jni::GetConstructorID(
+      env.get(), g_httpHeaderClazz, "(Ljava/lang/String;Ljava/lang/String;)V");
+  static jmethodID const setHeaders = env->GetMethodID(
+      g_httpParamsClazz, "setHeaders", "([Lcom/mapswithme/util/HttpClient$HttpHeader;)V");
+
+  RethrowOnJniException(env);
+
+  using HeaderPair = unordered_map<string, string>::value_type;
+  env->CallVoidMethod(
+      params, setHeaders,
+      jni::ToJavaArray(env.get(), g_httpHeaderClazz, headers, [](JNIEnv * env,
+                                                                 HeaderPair const & item) {
+        return env->NewObject(g_httpHeaderClazz, headerInit,
+                              jni::TScopedLocalRef(env, jni::ToJavaString(env, item.first)).get(),
+                              jni::TScopedLocalRef(env, jni::ToJavaString(env, item.second)).get());
+      }));
+  RethrowOnJniException(env);
+}
+
+void LoadHeaders(ScopedEnv & env, jobject const params, unordered_map<string, string> & headers)
+{
+  static jmethodID const getHeaders =
+      env->GetMethodID(g_httpParamsClazz, "getHeaders", "()[Ljava/lang/Object;");
+  static jfieldID const keyId = env->GetFieldID(g_httpHeaderClazz, "key", "Ljava/lang/String;");
+  static jfieldID const valueId = env->GetFieldID(g_httpHeaderClazz, "value", "Ljava/lang/String;");
+
+  jobjectArray const headersArray =
+      static_cast<jobjectArray>(env->CallObjectMethod(params, getHeaders));
+
+  RethrowOnJniException(env);
+
+  headers.clear();
+  int const length = env->GetArrayLength(headersArray);
+  for (size_t i = 0; i < length; ++i)
+  {
+    jobject headerEntry = env->GetObjectArrayElement(headersArray, i);
+
+    jni::ScopedLocalRef<jstring> const key(
+        env.get(), static_cast<jstring>(env->GetObjectField(headerEntry, keyId)));
+    jni::ScopedLocalRef<jstring> const value(
+        env.get(), static_cast<jstring>(env->GetObjectField(headerEntry, valueId)));
+
+    headers.emplace(jni::ToNativeString(env.get(), key.get()),
+                    jni::ToNativeString(env.get(), value.get()));
+  }
+  RethrowOnJniException(env);
+}
+
 class Ids
 {
 public:
@@ -93,15 +160,13 @@ public:
   {
     m_fieldIds =
     {{"httpMethod", GetHttpParamsFieldId(env, "httpMethod")},
-    {"contentType", GetHttpParamsFieldId(env, "contentType")},
-    {"contentEncoding", GetHttpParamsFieldId(env, "contentEncoding")},
-    {"userAgent", GetHttpParamsFieldId(env, "userAgent")},
     {"inputFilePath", GetHttpParamsFieldId(env, "inputFilePath")},
     {"outputFilePath", GetHttpParamsFieldId(env, "outputFilePath")},
-    {"basicAuthUser", GetHttpParamsFieldId(env, "basicAuthUser")},
-    {"basicAuthPassword", GetHttpParamsFieldId(env, "basicAuthPassword")},
     {"cookies", GetHttpParamsFieldId(env, "cookies")},
-    {"receivedUrl", GetHttpParamsFieldId(env, "receivedUrl")}};
+    {"receivedUrl", GetHttpParamsFieldId(env, "receivedUrl")},
+    {"followRedirects", GetHttpParamsFieldId(env, "followRedirects", "Z")},
+    {"loadHeaders", GetHttpParamsFieldId(env, "loadHeaders", "Z")},
+    {"httpResponseCode", GetHttpParamsFieldId(env, "httpResponseCode", "I")}};
   }
 
   jfieldID GetId(string const & fieldName) const
@@ -136,7 +201,7 @@ bool HttpClient::RunHttpRequest()
   CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
 
   static jmethodID const httpParamsConstructor =
-      env->GetMethodID(g_httpParamsClazz, "<init>", "(Ljava/lang/String;)V");
+      jni::GetConstructorID(env.get(), g_httpParamsClazz, "(Ljava/lang/String;)V");
 
   jni::ScopedLocalRef<jobject> const httpParamsObject(
       env.get(), env->NewObject(g_httpParamsClazz, httpParamsConstructor, jniUrl.get()));
@@ -163,28 +228,18 @@ bool HttpClient::RunHttpRequest()
   try
   {
     SetString(env, httpParamsObject.get(), ids.GetId("httpMethod"), m_httpMethod);
-    SetString(env, httpParamsObject.get(), ids.GetId("contentType"), m_contentType);
-    SetString(env, httpParamsObject.get(), ids.GetId("contentEncoding"), m_contentEncoding);
-    SetString(env, httpParamsObject.get(), ids.GetId("userAgent"), m_userAgent);
     SetString(env, httpParamsObject.get(), ids.GetId("inputFilePath"), m_inputFile);
     SetString(env, httpParamsObject.get(), ids.GetId("outputFilePath"), m_outputFile);
-    SetString(env, httpParamsObject.get(), ids.GetId("basicAuthUser"), m_basicAuthUser);
-    SetString(env, httpParamsObject.get(), ids.GetId("basicAuthPassword"), m_basicAuthPassword);
     SetString(env, httpParamsObject.get(), ids.GetId("cookies"), m_cookies);
+    SetBoolean(env, httpParamsObject.get(), ids.GetId("followRedirects"), m_handleRedirects);
+    SetBoolean(env, httpParamsObject.get(), ids.GetId("loadHeaders"), m_loadHeaders);
+
+    SetHeaders(env, httpParamsObject.get(), m_headers);
   }
   catch (JniException const & ex)
   {
     return false;
   }
-
-  static jfieldID const debugModeField = env->GetFieldID(g_httpParamsClazz, "debugMode", "Z");
-  env->SetBooleanField(httpParamsObject.get(), debugModeField, m_debugMode);
-  CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
-
-  static jfieldID const followRedirectsField =
-      env->GetFieldID(g_httpParamsClazz, "followRedirects", "Z");
-  env->SetBooleanField(httpParamsObject.get(), followRedirectsField, m_handleRedirects);
-  CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
 
   static jmethodID const httpClientClassRun =
     env->GetStaticMethodID(g_httpClientClazz, "run",
@@ -196,31 +251,15 @@ bool HttpClient::RunHttpRequest()
       env->CallStaticObjectMethod(g_httpClientClazz, httpClientClassRun, httpParamsObject.get());
   CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
 
-  static jfieldID const httpResponseCodeField =
-      env->GetFieldID(g_httpParamsClazz, "httpResponseCode", "I");
-  m_errorCode = env->GetIntField(response, httpResponseCodeField);
-  CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
-
   try
   {
+    GetInt(env, response, ids.GetId("httpResponseCode"), m_errorCode);
     GetString(env, response, ids.GetId("receivedUrl"), m_urlReceived);
-    GetString(env, response, ids.GetId("contentType"), m_contentTypeReceived);
-    GetString(env, response, ids.GetId("contentEncoding"), m_contentEncodingReceived);
+    ::LoadHeaders(env, httpParamsObject.get(), m_headers);
   }
   catch (JniException const & ex)
   {
     return false;
-  }
-
-  // Note: cookies field is used not only to send Cookie header, but also to receive back
-  // Server-Cookie header. CookiesField is already cached above.
-  jni::ScopedLocalRef<jstring> const jniServerCookies(
-      env.get(), static_cast<jstring>(env->GetObjectField(response, ids.GetId("cookies"))));
-  CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
-  if (jniServerCookies)
-  {
-    m_serverCookies =
-        NormalizeServerCookies(jni::ToNativeString(env.get(), jniServerCookies.get()));
   }
 
   // dataField is already cached above.

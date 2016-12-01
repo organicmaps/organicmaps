@@ -61,14 +61,10 @@ bool HttpClient::RunHttpRequest()
   request.HTTPShouldHandleCookies = NO;
 
   request.HTTPMethod = [NSString stringWithUTF8String:m_httpMethod.c_str()];
-  if (!m_contentType.empty())
-    [request setValue:[NSString stringWithUTF8String:m_contentType.c_str()] forHTTPHeaderField:@"Content-Type"];
-
-  if (!m_contentEncoding.empty())
-    [request setValue:[NSString stringWithUTF8String:m_contentEncoding.c_str()] forHTTPHeaderField:@"Content-Encoding"];
-
-  if (!m_userAgent.empty())
-    [request setValue:[NSString stringWithUTF8String:m_userAgent.c_str()] forHTTPHeaderField:@"User-Agent"];
+  for (auto const & header : m_headers)
+  {
+    [request setValue:@(header.second.c_str()) forHTTPHeaderField:@(header.first.c_str())];
+  }
 
   if (!m_cookies.empty())
     [request setValue:[NSString stringWithUTF8String:m_cookies.c_str()] forHTTPHeaderField:@"Cookie"];
@@ -77,17 +73,10 @@ bool HttpClient::RunHttpRequest()
     [request setValue:gBrowserUserAgent forHTTPHeaderField:@"User-Agent"];
 #endif // TARGET_OS_IPHONE
 
-  if (!m_basicAuthUser.empty())
-  {
-    NSData * loginAndPassword = [[NSString stringWithUTF8String:(m_basicAuthUser + ":" + m_basicAuthPassword).c_str()] dataUsingEncoding:NSUTF8StringEncoding];
-    [request setValue:[NSString stringWithFormat:@"Basic %@", [loginAndPassword base64EncodedStringWithOptions:0]] forHTTPHeaderField:@"Authorization"];
-  }
-
   if (!m_bodyData.empty())
   {
     request.HTTPBody = [NSData dataWithBytes:m_bodyData.data() length:m_bodyData.size()];
-    if (m_debugMode)
-      LOG(LINFO, ("Uploading buffer of size", m_bodyData.size(), "bytes"));
+    LOG(LDEBUG, ("Uploading buffer of size", m_bodyData.size(), "bytes"));
   }
   else if (!m_inputFile.empty())
   {
@@ -97,38 +86,39 @@ bool HttpClient::RunHttpRequest()
     if (err)
     {
       m_errorCode = static_cast<int>(err.code);
-      if (m_debugMode)
-        LOG(LERROR, ("Error: ", m_errorCode, [err.localizedDescription UTF8String]));
+      LOG(LDEBUG, ("Error: ", m_errorCode, [err.localizedDescription UTF8String]));
 
       return false;
     }
     request.HTTPBodyStream = [NSInputStream inputStreamWithFileAtPath:path];
     [request setValue:[NSString stringWithFormat:@"%llu", file_size] forHTTPHeaderField:@"Content-Length"];
-    if (m_debugMode)
-      LOG(LINFO, ("Uploading file", m_inputFile, file_size, "bytes"));
+    LOG(LDEBUG, ("Uploading file", m_inputFile, file_size, "bytes"));
   }
 
   NSHTTPURLResponse * response = nil;
   NSError * err = nil;
   NSData * url_data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&err];
 
+  m_headers.clear();
+
   if (response)
   {
     m_errorCode = static_cast<int>(response.statusCode);
     m_urlReceived = [response.URL.absoluteString UTF8String];
 
-    NSString * content = [response.allHeaderFields objectForKey:@"Content-Type"];
-    if (content)
-      m_contentTypeReceived = std::move([content UTF8String]);
-
-    NSString * encoding = [response.allHeaderFields objectForKey:@"Content-Encoding"];
-    if (encoding)
-      m_contentEncodingReceived = std::move([encoding UTF8String]);
-
-    // Apple merges all Set-Cookie fields into one NSDictionary key delimited by commas.
-    NSString * cookies = [response.allHeaderFields objectForKey:@"Set-Cookie"];
-    if (cookies)
-      m_serverCookies = NormalizeServerCookies(std::move([cookies UTF8String]));
+    if (m_loadHeaders)
+    {
+      [response.allHeaderFields enumerateKeysAndObjectsUsingBlock:^(NSString * key, NSString * obj, BOOL * stop)
+      {
+        m_headers.emplace(key.UTF8String, obj.UTF8String);
+      }];
+    }
+    else
+    {
+      NSString * cookies = [response.allHeaderFields objectForKey:@"Set-Cookie"];
+      if (cookies)
+        m_headers.emplace("Set-Cookie", NormalizeServerCookies(std::move([cookies UTF8String])));
+    }
 
     if (url_data)
     {
@@ -138,6 +128,7 @@ bool HttpClient::RunHttpRequest()
         [url_data writeToFile:[NSString stringWithUTF8String:m_outputFile.c_str()] atomically:YES];
 
     }
+
     return true;
   }
   // Request has failed if we are here.
@@ -150,8 +141,7 @@ bool HttpClient::RunHttpRequest()
   }
 
   m_errorCode = static_cast<int>(err.code);
-  if (m_debugMode)
-    LOG(LERROR, ("Error: ", m_errorCode, ':', [err.localizedDescription UTF8String], "while connecting to", m_urlRequested));
+  LOG(LDEBUG, ("Error: ", m_errorCode, ':', [err.localizedDescription UTF8String], "while connecting to", m_urlRequested));
 
   return false;
 }

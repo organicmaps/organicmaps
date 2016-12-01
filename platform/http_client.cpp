@@ -1,17 +1,13 @@
 #include "platform/http_client.hpp"
 
+#include "coding/base64.hpp"
+
 #include "base/string_utils.hpp"
 
 #include "std/sstream.hpp"
 
 namespace platform
 {
-HttpClient & HttpClient::SetDebugMode(bool debug_mode)
-{
-  m_debugMode = debug_mode;
-  return *this;
-}
-
 HttpClient & HttpClient::SetUrlRequested(string const & url)
 {
   m_urlRequested = url;
@@ -30,9 +26,9 @@ HttpClient & HttpClient::SetBodyFile(string const & body_file, string const & co
 {
   m_inputFile = body_file;
   m_bodyData.clear();
-  m_contentType = content_type;
+  m_headers.emplace("Content-Type", content_type);
   m_httpMethod = http_method;
-  m_contentEncoding = content_encoding;
+  m_headers.emplace("Content-Encoding", content_encoding);
   return *this;
 }
 
@@ -42,16 +38,9 @@ HttpClient & HttpClient::SetReceivedFile(string const & received_file)
   return *this;
 }
 
-HttpClient & HttpClient::SetUserAgent(string const & user_agent)
-{
-  m_userAgent = user_agent;
-  return *this;
-}
-
 HttpClient & HttpClient::SetUserAndPassword(string const & user, string const & password)
 {
-  m_basicAuthUser = user;
-  m_basicAuthPassword = password;
+  m_headers.emplace("Authorization", "Basic" + base64::Encode(user + ":" + password));
   return *this;
 }
 
@@ -64,6 +53,12 @@ HttpClient & HttpClient::SetCookies(string const & cookies)
 HttpClient & HttpClient::SetHandleRedirects(bool handle_redirects)
 {
   m_handleRedirects = handle_redirects;
+  return *this;
+}
+
+HttpClient & HttpClient::SetRawHeader(string const & key, string const & value)
+{
+  m_headers.emplace(key, value);
   return *this;
 }
 
@@ -99,13 +94,18 @@ string const & HttpClient::HttpMethod() const
 
 string HttpClient::CombinedCookies() const
 {
-  if (m_serverCookies.empty())
+  string serverCookies;
+  auto const it = m_headers.find("Set-Cookie");
+  if (it != m_headers.end())
+    serverCookies = it->second;
+
+  if (serverCookies.empty())
     return m_cookies;
 
   if (m_cookies.empty())
-    return m_serverCookies;
+    return serverCookies;
 
-  return m_serverCookies + "; " + m_cookies;
+  return serverCookies + "; " + m_cookies;
 }
 
 string HttpClient::CookieByName(string name) const
@@ -118,6 +118,16 @@ string HttpClient::CookieByName(string name) const
     return str.substr(eq, str.find(';', eq) - eq);
 
   return {};
+}
+
+void HttpClient::LoadHeaders(bool loadHeaders)
+{
+  m_loadHeaders = loadHeaders;
+}
+
+unordered_map<string, string> const & HttpClient::GetHeaders() const
+{
+  return m_headers;
 }
 
 // static
