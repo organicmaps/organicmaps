@@ -1010,7 +1010,6 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     {
       mHeadersDecoration.invalidateHeaders();
       notifyItemRangeInserted(mNearMeCount, mAds.size());
-      handleBannersShow(mAds);
       return;
     }
 
