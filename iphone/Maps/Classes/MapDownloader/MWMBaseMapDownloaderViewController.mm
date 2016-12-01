@@ -377,7 +377,7 @@ using namespace mwm;
             kStatFrom : kStatDownloader,
             kStatScenario : kStatUpdateAll
           }];
-    [MWMStorage updateNode:parentCountryId alertController:self.alertController];
+    [MWMStorage updateNode:parentCountryId];
   }
   else
   {
@@ -389,7 +389,6 @@ using namespace mwm;
                            kStatScenario : kStatDownloadGroup
                            }];
     [MWMStorage downloadNode:parentCountryId
-             alertController:self.alertController
                    onSuccess:nil];
   }
   self.skipCountryEventProcessing = NO;
@@ -664,7 +663,7 @@ using namespace mwm;
           kStatScenario : kStatDownload
         }];
   self.skipCountryEventProcessing = YES;
-  [MWMStorage downloadNode:countryId alertController:self.alertController onSuccess:nil];
+  [MWMStorage downloadNode:countryId onSuccess:nil];
   self.skipCountryEventProcessing = NO;
   [self processCountryEvent:countryId];
 }
@@ -679,7 +678,7 @@ using namespace mwm;
           kStatScenario : kStatDownload
         }];
   self.skipCountryEventProcessing = YES;
-  [MWMStorage retryDownloadNode:countryId alertController:self.alertController];
+  [MWMStorage retryDownloadNode:countryId];
   self.skipCountryEventProcessing = NO;
   [self processCountryEvent:countryId];
 }
@@ -694,7 +693,7 @@ using namespace mwm;
           kStatScenario : kStatUpdate
         }];
   self.skipCountryEventProcessing = YES;
-  [MWMStorage updateNode:countryId alertController:self.alertController];
+  [MWMStorage updateNode:countryId];
   self.skipCountryEventProcessing = NO;
   [self processCountryEvent:countryId];
 }
@@ -709,7 +708,7 @@ using namespace mwm;
           kStatScenario : kStatDelete
         }];
   self.skipCountryEventProcessing = YES;
-  [MWMStorage deleteNode:countryId alertController:self.alertController];
+  [MWMStorage deleteNode:countryId];
   self.skipCountryEventProcessing = NO;
   [self processCountryEvent:countryId];
 }

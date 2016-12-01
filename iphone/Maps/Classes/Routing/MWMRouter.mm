@@ -439,7 +439,6 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
         }
         downloadBlock:^(storage::TCountriesVec const & downloadCountries, TMWMVoidBlock onSuccess) {
           [MWMStorage downloadNodes:downloadCountries
-                    alertController:activeAlertController
                           onSuccess:onSuccess];
         }
         downloadCompleteBlock:^{

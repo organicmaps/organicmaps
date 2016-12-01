@@ -132,7 +132,6 @@ using namespace storage;
               }];
         m_autoDownloadCountryId = m_countryId;
         [MWMStorage downloadNode:m_countryId
-                 alertController:controller.alertController
                        onSuccess:^{
                          [self showInQueue];
                        }];
@@ -203,8 +202,7 @@ using namespace storage;
             kStatScenario : kStatDownload
           }];
     [self showInQueue];
-    [MWMStorage retryDownloadNode:self->m_countryId
-                  alertController:self.controller.alertController];
+    [MWMStorage retryDownloadNode:self->m_countryId];
   };
   auto const cancelBlock = ^{
     [Statistics logEvent:kStatDownloaderDownloadCancel withParameters:@{kStatFrom : kStatMap}];
@@ -293,7 +291,7 @@ using namespace storage;
             kStatScenario : kStatDownload
           }];
     [self showInQueue];
-    [MWMStorage retryDownloadNode:m_countryId alertController:self.controller.alertController];
+    [MWMStorage retryDownloadNode:m_countryId];
   }
   else
   {
@@ -324,7 +322,6 @@ using namespace storage;
             kStatScenario : kStatDownload
           }];
     [MWMStorage downloadNode:m_countryId
-             alertController:controller.alertController
                    onSuccess:^{
                      [self showInQueue];
                    }];

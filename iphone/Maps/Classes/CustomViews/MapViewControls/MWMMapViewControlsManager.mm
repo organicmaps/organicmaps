@@ -4,6 +4,7 @@
 #import "MWMAPIBar.h"
 #import "MWMAddPlaceNavigationBar.h"
 #import "MWMAlertViewController.h"
+#import "MWMAlertViewController.h"
 #import "MWMAuthorizationCommon.h"
 #import "MWMBottomMenuViewController.h"
 #import "MWMButton.h"
@@ -147,7 +148,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   }
 }
 
-- (MWMAlertViewController *)alertController { return self.ownerController.alertController; }
 - (void)searchViewDidEnterState:(MWMSearchManagerState)state
 {
   if (state == MWMSearchManagerStateMapSearch)
@@ -234,7 +234,7 @@ extern NSString * const kAlohalyticsTapEventKey;
     {
       [Statistics logEvent:kStatDownloaderMigrationProhibitedDialogue
             withParameters:@{kStatFrom : kStatDownloader}];
-      [self.alertController presentMigrationProhibitedAlert];
+      [[MWMAlertViewController activeAlertController] presentMigrationProhibitedAlert];
     }
     else
     {

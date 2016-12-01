@@ -22,7 +22,7 @@ using namespace storage;
 
 @interface MWMStorage ()
 
-+ (void)checkConnectionAndPerformAction:(TMWMVoidBlock)action alertController:(MWMAlertViewController *)alertController;
++ (void)checkConnectionAndPerformAction:(TMWMVoidBlock)action;
 
 @end
 
@@ -104,21 +104,19 @@ using namespace storage;
     [view setProgress:static_cast<CGFloat>(progress.first) / progress.second];
   };
 
-  [MWMStorage checkConnectionAndPerformAction:^
-  {
+  [MWMStorage checkConnectionAndPerformAction:^{
     self->m_countryId = f.PreMigrate(position, onStatusChanged, onProgressChanged);
     if (self->m_countryId != kInvalidCountryId)
       [self setState:MWMMigrationViewState::Processing];
     else
       migrate();
-  }
-  alertController:self.alertController];
+  }];
 }
 
 - (void)showError:(NodeErrorCode)errorCode countryId:(TCountryId const &)countryId
 {
   [self setState:MWMMigrationViewState::Default];
-  MWMAlertViewController * avc = self.alertController;
+  MWMAlertViewController * avc = [MWMAlertViewController activeAlertController];
   auto const retryBlock = ^
   {
     GetFramework().GetStorage().GetPrefetchStorage()->RetryDownloadNode(self->m_countryId);
@@ -135,7 +133,6 @@ using namespace storage;
     case NodeErrorCode::UnknownError:
       [Statistics logEvent:kStatDownloaderMigrationError withParameters:@{kStatType : kStatUnknownError}];
       [avc presentDownloaderInternalErrorAlertWithOkBlock:retryBlock cancelBlock:cancelBlock];
-      [avc presentInternalErrorAlert];
       break;
     case NodeErrorCode::OutOfMemFailed:
       [Statistics logEvent:kStatDownloaderMigrationError withParameters:@{kStatType : kStatNoSpace}];

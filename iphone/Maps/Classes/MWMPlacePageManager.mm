@@ -69,14 +69,13 @@
   auto const & countryId = self.data.countryId;
   NodeAttrs nodeAttrs;
   GetFramework().GetStorage().GetNodeAttrs(countryId, nodeAttrs);
-  MWMAlertViewController * avc = [MapViewController controller].alertController;
   switch (nodeAttrs.m_status)
   {
   case NodeStatus::NotDownloaded:
-  case NodeStatus::Partly: [MWMStorage downloadNode:countryId alertController:avc onSuccess:nil]; break;
+  case NodeStatus::Partly: [MWMStorage downloadNode:countryId onSuccess:nil]; break;
   case NodeStatus::Undefined:
-  case NodeStatus::Error: [MWMStorage retryDownloadNode:countryId alertController:avc]; break;
-  case NodeStatus::OnDiskOutOfDate: [MWMStorage updateNode:countryId alertController:avc]; break;
+  case NodeStatus::Error: [MWMStorage retryDownloadNode:countryId]; break;
+  case NodeStatus::OnDiskOutOfDate: [MWMStorage updateNode:countryId]; break;
   case NodeStatus::Downloading:
   case NodeStatus::InQueue: [MWMStorage cancelDownloadNode:countryId]; break;
   case NodeStatus::OnDisk: break;

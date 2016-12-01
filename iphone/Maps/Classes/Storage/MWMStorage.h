@@ -4,14 +4,13 @@
 
 @interface MWMStorage : NSObject
 
-+ (void)downloadNode:(storage::TCountryId const &)countryId alertController:(MWMAlertViewController *)alertController onSuccess:(TMWMVoidBlock)onSuccess;
-+ (void)retryDownloadNode:(storage::TCountryId const &)countryId
-          alertController:(MWMAlertViewController *)alertController;
-+ (void)updateNode:(storage::TCountryId const &)countryId alertController:(MWMAlertViewController *)alertController;
-+ (void)deleteNode:(storage::TCountryId const &)countryId alertController:(MWMAlertViewController *)alertController;
++ (void)downloadNode:(storage::TCountryId const &)countryId onSuccess:(TMWMVoidBlock)onSuccess;
++ (void)retryDownloadNode:(storage::TCountryId const &)countryId;
++ (void)updateNode:(storage::TCountryId const &)countryId;
++ (void)deleteNode:(storage::TCountryId const &)countryId;
 + (void)cancelDownloadNode:(storage::TCountryId const &)countryId;
 + (void)showNode:(storage::TCountryId const &)countryId;
 
-+ (void)downloadNodes:(storage::TCountriesVec const &)countryIds alertController:(MWMAlertViewController *)alertController onSuccess:(TMWMVoidBlock)onSuccess;
++ (void)downloadNodes:(storage::TCountriesVec const &)countryIds onSuccess:(TMWMVoidBlock)onSuccess;
 
 @end
