@@ -26,6 +26,7 @@ SOFTWARE.
 #include "base/macros.hpp"
 
 #include "std/string.hpp"
+#include "std/unordered_map.hpp"
 
 namespace platform
 {
@@ -53,7 +54,6 @@ public:
                            string const & content_encoding = "");
   // If set, stores server reply in file specified.
   HttpClient & SetReceivedFile(string const & received_file);
-  HttpClient & SetUserAgent(string const & user_agent);
   // This method is mutually exclusive with set_body_file().
   template <typename StringT>
   HttpClient & SetBodyData(StringT && body_data, string const & content_type,
@@ -62,9 +62,9 @@ public:
   {
     m_bodyData = forward<StringT>(body_data);
     m_inputFile.clear();
-    m_contentType = content_type;
+    m_headers.emplace("Content-Type", content_type);
     m_httpMethod = http_method;
-    m_contentEncoding = content_encoding;
+    m_headers.emplace("Content-Encoding", content_encoding);
     return *this;
   }
   // HTTP Basic Auth.
@@ -74,6 +74,7 @@ public:
   // When set to true (default), clients never get 3XX codes from servers, redirects are handled automatically.
   // TODO: "false" is now supported on Android only.
   HttpClient & SetHandleRedirects(bool handle_redirects);
+  HttpClient & SetRawHeader(string const & key, string const & value);
 
   string const & UrlRequested() const;
   // @returns empty string in the case of error
@@ -88,6 +89,8 @@ public:
   string CombinedCookies() const;
   // Returns cookie value or empty string if it's not present.
   string CookieByName(string name) const;
+  void LoadHeaders(bool loadHeaders);
+  unordered_map<string, string> const & GetHeaders() const;
 
 private:
   // Internal helper to convert cookies like this:
@@ -105,23 +108,13 @@ private:
   string m_outputFile;
   // Data we received from the server if output_file_ wasn't initialized.
   string m_serverResponse;
-  string m_contentType;
-  string m_contentTypeReceived;
-  string m_contentEncoding;
-  string m_contentEncodingReceived;
-  string m_userAgent;
   string m_bodyData;
   string m_httpMethod = "GET";
-  string m_basicAuthUser;
-  string m_basicAuthPassword;
-  // All Set-Cookie values from server response combined in a Cookie format:
-  // cookie1=value1; cookie2=value2
-  // TODO(AlexZ): Support encoding and expiration/path/domains etc.
-  string m_serverCookies;
   // Cookies set by the client before request is run.
   string m_cookies;
-  bool m_debugMode = false;
+  unordered_map<string, string> m_headers;
   bool m_handleRedirects = true;
+  bool m_loadHeaders = false;
 
   DISALLOW_COPY_AND_MOVE(HttpClient);
 };

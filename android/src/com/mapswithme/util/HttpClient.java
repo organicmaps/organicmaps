@@ -26,8 +26,9 @@ package com.mapswithme.util;
 
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.util.Base64;
-import android.util.Log;
+
+import com.mapswithme.util.log.DebugLogger;
+import com.mapswithme.util.log.Logger;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -39,6 +40,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -46,9 +49,9 @@ public final class HttpClient
 {
   // TODO(AlexZ): tune for larger files
   private final static int STREAM_BUFFER_SIZE = 1024 * 64;
-  private final static String TAG = "Alohalytics-Http";
   // Globally accessible for faster unit-testing
   public static int TIMEOUT_IN_MILLISECONDS = 30000;
+  private static final Logger LOGGER = new DebugLogger(HttpClient.class.getSimpleName());
 
   public static Params run(@NonNull final Params p) throws IOException, NullPointerException
   {
@@ -56,8 +59,8 @@ public final class HttpClient
       throw new IllegalArgumentException("Please set valid HTTP method for request at Params.httpMethod field.");
 
     HttpURLConnection connection = null;
-    if (p.debugMode)
-      Log.d(TAG, "Connecting to " + p.url);
+
+    LOGGER.d("Connecting to ", p.url);
     try
     {
       connection = (HttpURLConnection) new URL(p.url).openConnection(); // NullPointerException, MalformedUrlException, IOException
@@ -81,31 +84,25 @@ public final class HttpClient
       connection.setReadTimeout(TIMEOUT_IN_MILLISECONDS);
       connection.setUseCaches(false);
       connection.setRequestMethod(p.httpMethod);
-      if (!TextUtils.isEmpty(p.basicAuthUser))
-      {
-        final String encoded = Base64.encodeToString((p.basicAuthUser + ":" + p.basicAuthPassword).getBytes(), Base64.NO_WRAP);
-        connection.setRequestProperty("Authorization", "Basic " + encoded);
-      }
-      if (!TextUtils.isEmpty(p.userAgent))
-        connection.setRequestProperty("User-Agent", p.userAgent);
 
       if (!TextUtils.isEmpty(p.cookies))
         connection.setRequestProperty("Cookie", p.cookies);
 
+      for (HttpHeader header : p.headers)
+      {
+        connection.setRequestProperty(header.key, header.value);
+      }
+
       if (!TextUtils.isEmpty(p.inputFilePath) || p.data != null)
       {
         // Send (POST, PUT...) data to the server.
-        if (TextUtils.isEmpty(p.contentType))
+        if (TextUtils.isEmpty(connection.getRequestProperty("Content-Type")))
           throw new NullPointerException("Please set Content-Type for request.");
 
         // Work-around for situation when more than one consequent POST requests can lead to stable
         // "java.net.ProtocolException: Unexpected status line:" on a client and Nginx HTTP 499 errors.
         // The only found reference to this bug is http://stackoverflow.com/a/24303115/1209392
         connection.setRequestProperty("Connection", "close");
-        connection.setRequestProperty("Content-Type", p.contentType);
-        if (!TextUtils.isEmpty(p.contentEncoding))
-          connection.setRequestProperty("Content-Encoding", p.contentEncoding);
-
         connection.setDoOutput(true);
         if (p.data != null)
         {
@@ -119,8 +116,7 @@ public final class HttpClient
           {
             os.close();
           }
-          if (p.debugMode)
-            Log.d(TAG, "Sent " + p.httpMethod + " with content of size " + p.data.length);
+          LOGGER.d("Sent ", p.httpMethod, " with content of size ", p.data.length);
         }
         else
         {
@@ -136,27 +132,35 @@ public final class HttpClient
           }
           istream.close(); // IOException
           ostream.close(); // IOException
-          if (p.debugMode)
-            Log.d(TAG, "Sent " + p.httpMethod + " with file of size " + file.length());
+          LOGGER.d("Sent ", p.httpMethod, " with file of size ", file.length());
         }
       }
       // GET data from the server or receive response body
       p.httpResponseCode = connection.getResponseCode();
-      if (p.debugMode)
-        Log.d(TAG, "Received HTTP " + p.httpResponseCode + " from server.");
+      LOGGER.d("Received HTTP ", p.httpResponseCode, " from server.");
 
       if (p.httpResponseCode >= 300 && p.httpResponseCode < 400)
         p.receivedUrl = connection.getHeaderField("Location");
       else
         p.receivedUrl = connection.getURL().toString();
 
-      p.contentType = connection.getContentType();
-      p.contentEncoding = connection.getContentEncoding();
-      final Map<String, List<String>> headers = connection.getHeaderFields();
-      if (headers != null && headers.containsKey("Set-Cookie"))
+      p.headers.clear();
+      if (p.loadHeaders)
       {
-        // Multiple Set-Cookie headers are normalized in C++ code.
-        p.cookies = android.text.TextUtils.join(", ", headers.get("Set-Cookie"));
+        for (Map.Entry<String, List<String>> header : connection.getHeaderFields().entrySet())
+        {
+          // Some implementations include a mapping for the null key.
+          if (header.getKey() == null || header.getValue() == null)
+            continue;
+
+          p.headers.add(new HttpHeader(header.getKey(), TextUtils.join(", ", header.getValue())));
+        }
+      }
+      else
+      {
+        List<String> cookies = connection.getHeaderFields().get("Set-Cookie");
+        if (cookies != null)
+          p.headers.add(new HttpHeader("Set-Cookie", TextUtils.join(", ", cookies)));
       }
       // This implementation receives any data only if we have HTTP::OK (200).
       if (p.httpResponseCode == HttpURLConnection.HTTP_OK)
@@ -191,51 +195,54 @@ public final class HttpClient
     return p;
   }
 
-  public static class Params
+  private static class HttpHeader
   {
+    public HttpHeader(@NonNull String key, @NonNull String value)
+    {
+      this.key = key;
+      this.value = value;
+    }
+
+    public String key;
+    public String value;
+  }
+
+  private static class Params
+  {
+    public void setHeaders(@NonNull HttpHeader[] array)
+    {
+      headers = new ArrayList<>(Arrays.asList(array));
+    }
+
+    public Object[] getHeaders()
+    {
+      return headers.toArray();
+    }
+
     public String url;
     // Can be different from url in case of redirects.
     public String receivedUrl;
     public String httpMethod;
     // Should be specified for any request whose method allows non-empty body.
     // On return, contains received Content-Type or null.
-    public String contentType;
     // Can be specified for any request whose method allows non-empty body.
     // On return, contains received Content-Encoding or null.
-    public String contentEncoding;
     public byte[] data;
     // Send from input file if specified instead of data.
     public String inputFilePath;
     // Received data is stored here if not null or in data otherwise.
     public String outputFilePath;
-    // Optionally client can override default HTTP User-Agent.
-    public String userAgent;
-    public String basicAuthUser;
-    public String basicAuthPassword;
     public String cookies;
+    public ArrayList<HttpHeader> headers = new ArrayList<>();
     public int httpResponseCode = -1;
-    public boolean debugMode = false;
     public boolean followRedirects = true;
+    public boolean loadHeaders;
 
     // Simple GET request constructor.
     public Params(String url)
     {
       this.url = url;
       httpMethod = "GET";
-    }
-
-    public void setData(byte[] data, String contentType, String httpMethod)
-    {
-      this.data = data;
-      this.contentType = contentType;
-      this.httpMethod = httpMethod;
-    }
-
-    public void setInputFilePath(String path, String contentType, String httpMethod)
-    {
-      this.inputFilePath = path;
-      this.contentType = contentType;
-      this.httpMethod = httpMethod;
     }
   }
 }
