@@ -51,13 +51,9 @@ string Banner::GetProperty(string const & name) const
   return {};
 }
 
-Banner::Banner(string const & id) : m_id(id)
+Banner::Banner(string const & id)
+  : m_id(id), m_messageBase("banner" + id), m_activeAfter(time(nullptr)), m_activeBefore(kEternity)
 {
-  m_messageBase = "banner_" + id;
-  m_iconName = m_messageBase + ".png";
-  m_defaultUrl = "";
-  m_activeAfter = time(nullptr);
-  m_activeBefore = kEternity;
 }
 
 bool Banner::IsActive() const
@@ -216,9 +212,17 @@ Banner const & BannerSet::GetBannerForFeature(FeatureType const & ft) const
 
 void BannerSet::LoadBanners()
 {
-  auto reader = GetPlatform().GetReader(BANNERS_FILE);
-  ReaderStreamBuf buffer(move(reader));
-  istream s(&buffer);
-  ReadBanners(s);
+  try
+  {
+    auto reader = GetPlatform().GetReader(BANNERS_FILE);
+    ReaderStreamBuf buffer(move(reader));
+    istream s(&buffer);
+    ReadBanners(s);
+  }
+  catch (FileAbsentException const &)
+  {
+    LOG(LWARNING, ("No", BANNERS_FILE, "found"));
+    return;
+  }
 }
 }  // namespace banner

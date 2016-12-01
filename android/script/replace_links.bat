@@ -2,6 +2,7 @@ cd ..
 
 rm -rf assets/
 mkdir assets
+cp ../data/banners.txt assets/
 cp ../data/categories.txt assets/
 cp ../data/classificator.txt assets/
 cp ../data/colors.txt assets/
