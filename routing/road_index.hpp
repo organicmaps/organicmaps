@@ -105,6 +105,13 @@ public:
     m_roads[rp.GetFeatureId()].AddJoint(rp.GetPointId(), jointId);
   }
 
+  RoadJointIds const & GetRoad(uint32_t featureId) const
+  {
+    auto const & it = m_roads.find(featureId);
+    CHECK(it != m_roads.cend(), ());
+    return it->second;
+  }
+
   RoadJointIds & InitRoad(uint32_t featureId, uint32_t maxPointId);
 
   // Find nearest point with normal joint id.

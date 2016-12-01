@@ -48,6 +48,8 @@ public:
 
   Geometry & GetGeometry() { return m_geometry; }
   EdgeEstimator const & GetEstimator() const { return *m_estimator; }
+  RoadJointIds const & GetRoad(uint32_t featureId) const { return m_roadIndex.GetRoad(featureId); }
+
   uint32_t GetNumRoads() const { return m_roadIndex.GetSize(); }
   uint32_t GetNumJoints() const { return m_jointIndex.GetNumJoints(); }
   uint32_t GetNumPoints() const { return m_jointIndex.GetNumPoints(); }

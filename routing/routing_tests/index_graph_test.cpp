@@ -4,11 +4,15 @@
 #include "routing/car_model.hpp"
 #include "routing/edge_estimator.hpp"
 #include "routing/index_graph.hpp"
+#include "routing/index_graph_serializer.hpp"
 #include "routing/index_graph_starter.hpp"
 
 #include "routing/routing_tests/index_graph_tools.hpp"
 
 #include "geometry/point2d.hpp"
+
+#include "coding/reader.hpp"
+#include "coding/writer.hpp"
 
 #include "base/assert.hpp"
 
@@ -294,5 +298,48 @@ UNIT_TEST(RoadSpeed)
 
   vector<RoadPoint> const expectedRoute({{0, 0}, {0, 1}, {0, 2}, {0, 3}, {0, 4}});
   TestRoute(graph, {0, 0}, {0, 4}, 5, &expectedRoute);
+}
+
+//
+//  Road       R0 (all)       R1 (car)       R2 (car)
+//           0----------1 * 0----------1 * 0----------1
+//  Joints               J0             J1
+//
+UNIT_TEST(SerializeSimpleGraph)
+{
+  vector<uint8_t> buffer;
+  {
+    IndexGraph graph;
+    vector<Joint> joints = {
+        MakeJoint({{0, 1}, {1, 0}}), MakeJoint({{1, 1}, {2, 0}}),
+    };
+    graph.Import(joints);
+    unordered_set<uint32_t> const carFeatureIds = {1, 2};
+
+    MemWriter<vector<uint8_t>> writer(buffer);
+    IndexGraphSerializer::Serialize(graph, carFeatureIds, writer);
+  }
+
+  {
+    IndexGraph graph;
+    MemReader reader(buffer.data(), buffer.size());
+    ReaderSource<MemReader> source(reader);
+    IndexGraphSerializer::Deserialize(graph, source, false);
+
+    TEST_EQUAL(graph.GetNumRoads(), 3, ());
+    TEST_EQUAL(graph.GetNumJoints(), 2, ());
+    TEST_EQUAL(graph.GetNumPoints(), 4, ());
+  }
+
+  {
+    IndexGraph graph;
+    MemReader reader(buffer.data(), buffer.size());
+    ReaderSource<MemReader> source(reader);
+    IndexGraphSerializer::Deserialize(graph, source, true);
+
+    TEST_EQUAL(graph.GetNumRoads(), 2, ());
+    TEST_EQUAL(graph.GetNumJoints(), 1, ());
+    TEST_EQUAL(graph.GetNumPoints(), 2, ());
+  }
 }
 }  // namespace routing_test
