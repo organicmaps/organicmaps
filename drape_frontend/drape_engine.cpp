@@ -390,10 +390,11 @@ bool DrapeEngine::GetMyPosition(m2::PointD & myPosition)
 }
 
 void DrapeEngine::AddRoute(m2::PolylineD const & routePolyline, vector<double> const & turns,
-                           df::ColorConstant color, df::RoutePattern pattern)
+                           df::ColorConstant color, vector<traffic::SpeedGroup> const & traffic,
+                           df::RoutePattern pattern)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<AddRouteMessage>(routePolyline, turns, color, pattern),
+                                  make_unique_dp<AddRouteMessage>(routePolyline, turns, color, traffic, pattern),
                                   MessagePriority::Normal);
 }
 

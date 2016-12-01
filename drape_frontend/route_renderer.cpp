@@ -35,6 +35,8 @@ uint8_t const kAlphaValue[] =
   204, 204, 204, 204, 190, 180, 170, 160, 140, 120
 };
 
+uint8_t const kAlphaValueForTraffic = 204;
+
 int const kArrowAppearingZoomLevel = 14;
 int const kInvalidGroup = -1;
 
@@ -228,7 +230,8 @@ void RouteRenderer::UpdateRoute(ScreenBase const & screen, TCacheRouteArrowsCall
   }
 }
 
-void RouteRenderer::RenderRoute(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
+void RouteRenderer::RenderRoute(ScreenBase const & screen, bool trafficShown,
+                                ref_ptr<dp::GpuProgramManager> mng,
                                 dp::UniformValuesStorage const & commonUniforms)
 {
   if (!m_routeData || m_routeData->m_route.m_buckets.empty())
@@ -244,9 +247,11 @@ void RouteRenderer::RenderRoute(ScreenBase const & screen, ref_ptr<dp::GpuProgra
     uniforms.SetMatrix4x4Value("modelView", mv.m_data);
     glsl::vec4 const color = glsl::ToVec4(df::GetColorConstant(GetStyleReader().GetCurrentStyle(),
                                                                m_routeData->m_color));
-    uniforms.SetFloatValue("u_color", color.r, color.g, color.b, m_currentAlpha);
+    uniforms.SetFloatValue("u_color", color.r, color.g, color.b,
+                           trafficShown ? kAlphaValueForTraffic : m_currentAlpha);
     double const screenScale = screen.GetScale();
-    uniforms.SetFloatValue("u_routeParams", m_currentHalfWidth, m_currentHalfWidth * screenScale, m_distanceFromBegin);
+    uniforms.SetFloatValue("u_routeParams", m_currentHalfWidth, m_currentHalfWidth * screenScale,
+                           m_distanceFromBegin, trafficShown ? 1.0f : 0.0f);
 
     if (m_routeData->m_pattern.m_isDashed)
     {

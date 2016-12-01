@@ -258,8 +258,8 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::AddRoute:
     {
       ref_ptr<AddRouteMessage> msg = message;
-      m_routeBuilder->Build(msg->GetRoutePolyline(), msg->GetTurns(),
-                            msg->GetColor(), msg->GetPattern(), m_texMng, msg->GetRecacheId());
+      m_routeBuilder->Build(msg->GetRoutePolyline(), msg->GetTurns(), msg->GetColor(),
+                            msg->GetTraffic(), msg->GetPattern(), m_texMng, msg->GetRecacheId());
       break;
     }
 

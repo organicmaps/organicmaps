@@ -87,9 +87,13 @@ void CalculateTangentAndNormals(glsl::vec2 const & pt0, glsl::vec2 const & pt1,
   rightNormal = -leftNormal;
 }
 
-void ConstructLineSegments(vector<m2::PointD> const & path, vector<LineSegment> & segments)
+void ConstructLineSegments(vector<m2::PointD> const & path, vector<glsl::vec4> const & segmentsColors,
+                           vector<LineSegment> & segments)
 {
   ASSERT_LESS(1, path.size(), ());
+
+  if (!segmentsColors.empty())
+    ASSERT_EQUAL(segmentsColors.size() + 1, path.size(), ());
 
   m2::PointD prevPoint = path[0];
   for (size_t i = 1; i < path.size(); ++i)
@@ -109,6 +113,8 @@ void ConstructLineSegments(vector<m2::PointD> const & path, vector<LineSegment> 
 
     segment.m_leftNormals[StartPoint] = segment.m_leftNormals[EndPoint] = segment.m_leftBaseNormal;
     segment.m_rightNormals[StartPoint] = segment.m_rightNormals[EndPoint] = segment.m_rightBaseNormal;
+    if (!segmentsColors.empty())
+      segment.m_color = segmentsColors[i - 1];
 
     prevPoint = path[i];
   }

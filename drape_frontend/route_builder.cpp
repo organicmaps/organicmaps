@@ -14,14 +14,16 @@ RouteBuilder::RouteBuilder(TFlushRouteFn const & flushRouteFn,
 {}
 
 void RouteBuilder::Build(m2::PolylineD const & routePolyline, vector<double> const & turns,
-                         df::ColorConstant color, df::RoutePattern const & pattern,
-                         ref_ptr<dp::TextureManager> textures, int recacheId)
+                         df::ColorConstant color, vector<traffic::SpeedGroup> const & traffic,
+                         df::RoutePattern const & pattern, ref_ptr<dp::TextureManager> textures,
+                         int recacheId)
 {
   drape_ptr<RouteData> routeData = make_unique_dp<RouteData>();
   routeData->m_routeIndex = m_routeIndex++;
   routeData->m_color = color;
   routeData->m_sourcePolyline = routePolyline;
   routeData->m_sourceTurns = turns;
+  routeData->m_traffic = traffic;
   routeData->m_pattern = pattern;
   routeData->m_pivot = routePolyline.GetLimitRect().Center();
   routeData->m_recacheId = recacheId;

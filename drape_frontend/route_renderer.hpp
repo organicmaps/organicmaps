@@ -19,7 +19,8 @@ public:
 
   void UpdateRoute(ScreenBase const & screen, TCacheRouteArrowsCallback const & callback);
 
-  void RenderRoute(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
+  void RenderRoute(ScreenBase const & screen, bool trafficShown,
+                   ref_ptr<dp::GpuProgramManager> mng,
                    dp::UniformValuesStorage const & commonUniforms);
 
   void RenderRouteSigns(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,

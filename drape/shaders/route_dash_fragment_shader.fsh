@@ -1,4 +1,5 @@
 varying vec3 v_length;
+varying vec4 v_color;
 
 #ifdef SAMSUNG_GOOGLE_NEXUS
 uniform sampler2D u_colorTex;

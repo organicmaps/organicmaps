@@ -153,12 +153,14 @@ dp::BindingInfo RouteBindingInit()
 {
   static_assert(sizeof(RouteVertex) == sizeof(RouteVertex::TPosition) +
                                        sizeof(RouteVertex::TNormal) +
-                                       sizeof(RouteVertex::TLength), "");
+                                       sizeof(RouteVertex::TLength) +
+                                       sizeof(RouteVertex::TColor), "");
 
-  dp::BindingFiller<RouteVertex> filler(3);
+  dp::BindingFiller<RouteVertex> filler(4);
   filler.FillDecl<RouteVertex::TPosition>("a_position");
   filler.FillDecl<RouteVertex::TNormal>("a_normal");
   filler.FillDecl<RouteVertex::TLength>("a_length");
+  filler.FillDecl<RouteVertex::TColor>("a_color");
 
   return filler.m_info;
 }
@@ -356,12 +358,15 @@ RouteVertex::RouteVertex()
   : m_position(0.0, 0.0, 0.0)
   , m_normal(0.0, 0.0)
   , m_length(0.0, 0.0, 0.0)
+  , m_color(0.0, 0.0, 0.0, 0.0)
 {}
 
-RouteVertex::RouteVertex(TPosition const & position, TNormal const & normal, TLength const & length)
+RouteVertex::RouteVertex(TPosition const & position, TNormal const & normal,
+                         TLength const & length, TColor const & color)
   : m_position(position)
   , m_normal(normal)
   , m_length(length)
+  , m_color(color)
 {}
 
 dp::BindingInfo const & RouteVertex::GetBindingInfo()

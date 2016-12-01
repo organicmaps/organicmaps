@@ -834,11 +834,9 @@ void FrontendRenderer::UpdateGLResources()
   auto const & routeData = m_routeRenderer->GetRouteData();
   if (routeData != nullptr)
   {
-    auto recacheRouteMsg = make_unique_dp<AddRouteMessage>(routeData->m_sourcePolyline,
-                                                           routeData->m_sourceTurns,
-                                                           routeData->m_color,
-                                                           routeData->m_pattern,
-                                                           m_lastRecacheRouteId);
+    auto recacheRouteMsg = make_unique_dp<AddRouteMessage>(routeData->m_sourcePolyline, routeData->m_sourceTurns,
+                                                           routeData->m_color, routeData->m_traffic,
+                                                           routeData->m_pattern, m_lastRecacheRouteId);
     m_routeRenderer->ClearGLDependentResources();
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, move(recacheRouteMsg),
                               MessagePriority::Normal);
@@ -1134,12 +1132,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 
   if (m_framebuffer->IsSupported())
   {
-    if (m_trafficRenderer->HasRenderData())
-    {
-      GLFunctions::glClearDepth();
-      GLFunctions::glEnable(gl_const::GLDepthTest);
-      m_trafficRenderer->RenderTraffic(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager), m_generalUniforms);
-    }
+    RenderTrafficAndRouteLayer(modelView);
 
     m_framebuffer->Enable();
     GLFunctions::glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -1153,12 +1146,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   {
     GLFunctions::glClearDepth();
     Render3dLayer(modelView);
-
-    if (m_trafficRenderer->HasRenderData())
-    {
-      GLFunctions::glClearDepth();
-      m_trafficRenderer->RenderTraffic(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager), m_generalUniforms);
-    }
+    RenderTrafficAndRouteLayer(modelView);
   }
 
   GLFunctions::glDisable(gl_const::GLDepthTest);
@@ -1174,8 +1162,6 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   GLFunctions::glDisable(gl_const::GLDepthTest);
   if (m_selectionShape != nullptr && m_selectionShape->GetSelectedObject() == SelectionShape::OBJECT_USER_MARK)
     m_selectionShape->Render(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager), m_generalUniforms);
-
-  m_routeRenderer->RenderRoute(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
 
   RenderUserMarksLayer(modelView);
 
@@ -1226,6 +1212,22 @@ void FrontendRenderer::RenderOverlayLayer(ScreenBase const & modelView)
   BuildOverlayTree(modelView);
   for (drape_ptr<RenderGroup> & group : overlay.m_renderGroups)
     RenderSingleGroup(modelView, make_ref(group));
+}
+
+void FrontendRenderer::RenderTrafficAndRouteLayer(ScreenBase const & modelView)
+{
+  if (m_trafficRenderer->HasRenderData())
+  {
+    float const opacity = (m_routeRenderer->GetRouteData() != nullptr) ? 0.5f : 1.0f;
+    GLFunctions::glClearDepth();
+    GLFunctions::glEnable(gl_const::GLDepthTest);
+    m_trafficRenderer->RenderTraffic(modelView, m_currentZoomLevel, opacity,
+                                     make_ref(m_gpuProgramManager), m_generalUniforms);
+  }
+
+  GLFunctions::glDisable(gl_const::GLDepthTest);
+  m_routeRenderer->RenderRoute(modelView, m_trafficRenderer->HasRenderData(),
+                               make_ref(m_gpuProgramManager), m_generalUniforms);
 }
 
 void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView)

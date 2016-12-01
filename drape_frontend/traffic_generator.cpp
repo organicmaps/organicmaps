@@ -1,6 +1,5 @@
 #include "drape_frontend/traffic_generator.hpp"
 
-#include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/line_shape_helper.hpp"
 #include "drape_frontend/map_shape.hpp"
 #include "drape_frontend/shape_view_params.hpp"
@@ -444,7 +443,8 @@ void TrafficGenerator::GenerateLineSegment(dp::TextureManager::ColorRegion const
   }
 }
 
-void TrafficGenerator::FillColorsCache(ref_ptr<dp::TextureManager> textures)
+// static
+df::ColorConstant TrafficGenerator::GetColorBySpeedGroup(traffic::SpeedGroup const & speedGroup)
 {
   size_t constexpr kSpeedGroupsCount = static_cast<size_t>(traffic::SpeedGroup::Count);
   static array<df::ColorConstant, kSpeedGroupsCount> const colorMap
@@ -459,13 +459,22 @@ void TrafficGenerator::FillColorsCache(ref_ptr<dp::TextureManager> textures)
     df::TrafficUnknown,
   }};
 
+  size_t const index = static_cast<size_t>(speedGroup);
+  ASSERT_LESS(index, kSpeedGroupsCount, ());
+  return colorMap[index];
+}
+
+void TrafficGenerator::FillColorsCache(ref_ptr<dp::TextureManager> textures)
+{
+  size_t constexpr kSpeedGroupsCount = static_cast<size_t>(traffic::SpeedGroup::Count);
   if (!m_colorsCacheValid)
   {
     auto const & style = GetStyleReader().GetCurrentStyle();
-    for (size_t i = 0; i < colorMap.size(); i++)
+    for (size_t i = 0; i < kSpeedGroupsCount; i++)
     {
       dp::TextureManager::ColorRegion colorRegion;
-      textures->GetColorRegion(df::GetColorConstant(style, colorMap[i]), colorRegion);
+      auto const colorConstant = GetColorBySpeedGroup(static_cast<traffic::SpeedGroup>(i));
+      textures->GetColorRegion(df::GetColorConstant(style, colorConstant), colorRegion);
       m_colorsCache[i] = colorRegion;
     }
     m_colorsCacheValid = true;

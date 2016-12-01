@@ -160,7 +160,7 @@ void TrafficRenderer::UpdateTraffic(TrafficSegmentsColoring const & trafficColor
   }
 }
 
-void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel,
+void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel, float opacity,
                                     ref_ptr<dp::GpuProgramManager> mng,
                                     dp::UniformValuesStorage const & commonUniforms)
 {
@@ -189,7 +189,7 @@ void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel,
       dp::UniformValuesStorage uniforms = commonUniforms;
       math::Matrix<float, 4, 4> const mv = renderData.m_tileKey.GetTileBasedModelView(screen);
       uniforms.SetMatrix4x4Value("modelView", mv.m_data);
-      uniforms.SetFloatValue("u_opacity", 1.0f);
+      uniforms.SetFloatValue("u_opacity", opacity);
       dp::ApplyUniforms(uniforms, program);
 
       renderData.m_bucket->Render(true /* draw as line */);
@@ -241,7 +241,7 @@ void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel,
       dp::UniformValuesStorage uniforms = commonUniforms;
       math::Matrix<float, 4, 4> const mv = renderData.m_tileKey.GetTileBasedModelView(screen);
       uniforms.SetMatrix4x4Value("modelView", mv.m_data);
-      uniforms.SetFloatValue("u_opacity", 1.0f);
+      uniforms.SetFloatValue("u_opacity", opacity);
       uniforms.SetFloatValue("u_outline", outline);
       uniforms.SetFloatValue("u_lightArrowColor", lightArrowColor.GetRedF(),
                              lightArrowColor.GetGreenF(), lightArrowColor.GetBlueF());

@@ -6,6 +6,8 @@
 #include "drape/pointers.hpp"
 #include "drape/texture_manager.hpp"
 
+#include "traffic/speed_groups.hpp"
+
 #include "geometry/polyline2d.hpp"
 
 #include "std/function.hpp"
@@ -26,8 +28,9 @@ public:
                TFlushRouteArrowsFn const & flushRouteArrowsFn);
 
   void Build(m2::PolylineD const & routePolyline, vector<double> const & turns,
-             df::ColorConstant color, df::RoutePattern const & pattern,
-             ref_ptr<dp::TextureManager> textures, int recacheId);
+             df::ColorConstant color, vector<traffic::SpeedGroup> const & traffic,
+             df::RoutePattern const & pattern, ref_ptr<dp::TextureManager> textures,
+             int recacheId);
 
   void BuildArrows(int routeIndex, vector<ArrowBorders> const & borders,
                    ref_ptr<dp::TextureManager> textures, int recacheId);

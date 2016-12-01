@@ -134,7 +134,8 @@ public:
   SelectionShape::ESelectedObject GetSelectedObject();
 
   void AddRoute(m2::PolylineD const & routePolyline, vector<double> const & turns,
-                df::ColorConstant color, df::RoutePattern pattern = df::RoutePattern());
+                df::ColorConstant color, vector<traffic::SpeedGroup> const & traffic,
+                df::RoutePattern pattern = df::RoutePattern());
   void RemoveRoute(bool deactivateFollowing);
   void FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d, bool enableAutoZoom);
   void DeactivateRouteFollowing();

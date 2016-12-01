@@ -143,14 +143,17 @@ struct DashedLineVertex : BaseVertex
 
 struct RouteVertex : BaseVertex
 {
-  typedef glsl::vec3 TLength;
+  using TLength = glsl::vec3;
+  using TColor = glsl::vec4;
 
   RouteVertex();
-  RouteVertex(TPosition const & position, TNormal const & normal, TLength const & length);
+  RouteVertex(TPosition const & position, TNormal const & normal,
+              TLength const & length, TColor const & color);
 
   TPosition m_position;
   TNormal m_normal;
   TLength m_length;
+  TColor m_color;
 
   static dp::BindingInfo const & GetBindingInfo();
 };
