@@ -22,7 +22,7 @@ public:
   CarEdgeEstimator(IVehicleModel const & vehicleModel);
 
   // EdgeEstimator overrides:
-  double CalcEdgesWeight(RoadGeometry const & road, uint32_t featureId, uint32_t pointFrom,
+  double CalcEdgesWeight(uint32_t featureId, RoadGeometry const & road, uint32_t pointFrom,
                          uint32_t pointTo) const override;
   double CalcHeuristic(m2::PointD const & from, m2::PointD const & to) const override;
 
@@ -35,7 +35,7 @@ CarEdgeEstimator::CarEdgeEstimator(IVehicleModel const & vehicleModel)
 {
 }
 
-double CarEdgeEstimator::CalcEdgesWeight(RoadGeometry const & road, uint32_t featureId,
+double CarEdgeEstimator::CalcEdgesWeight(uint32_t featureId, RoadGeometry const & road,
                                          uint32_t pointFrom, uint32_t pointTo) const
 {
   uint32_t const start = min(pointFrom, pointTo);
@@ -49,15 +49,12 @@ double CarEdgeEstimator::CalcEdgesWeight(RoadGeometry const & road, uint32_t fea
   for (uint32_t i = start; i < finish; ++i)
   {
     double factor = 1.0;
-    if (m_trafficColoring)
+    if (m_trafficInfo)
     {
-      auto const it = m_trafficColoring->find(TrafficInfo::RoadSegmentId(featureId, i, dir));
-      if (it != m_trafficColoring->cend())
-      {
-        SpeedGroup speedGroup = it->second;
-        CHECK_LESS(speedGroup, SpeedGroup::Count, ());
-        factor /= static_cast<double>(kSpeedGroupThresholdPercentage[static_cast<uint32_t>(speedGroup)]) / 100.0;
-      }
+      SpeedGroup const speedGroup = m_trafficInfo->GetSpeedGroup(TrafficInfo::RoadSegmentId(featureId, i, dir));
+      CHECK_LESS(speedGroup, SpeedGroup::Count, ());
+      double const percentage = 0.01 * static_cast<double>(kSpeedGroupThresholdPercentage[static_cast<size_t>(speedGroup)]);
+      factor = 1.0 / percentage;
     }
     result += factor * TimeBetweenSec(road.GetPoint(i), road.GetPoint(i + 1), speedMPS);
   }
@@ -73,14 +70,14 @@ double CarEdgeEstimator::CalcHeuristic(m2::PointD const & from, m2::PointD const
 
 namespace routing
 {
+void EdgeEstimator::SetTrafficInfo(shared_ptr<traffic::TrafficInfo> trafficInfo)
+{
+  m_trafficInfo = trafficInfo;
+}
+
 // static
 shared_ptr<EdgeEstimator> EdgeEstimator::CreateForCar(IVehicleModel const & vehicleModel)
 {
   return make_shared<CarEdgeEstimator>(vehicleModel);
-}
-
-void EdgeEstimator::SetTrafficColoring(shared_ptr<traffic::TrafficInfo::Coloring> coloring)
-{
-  m_trafficColoring = coloring;
 }
 }  // namespace routing

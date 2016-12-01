@@ -76,14 +76,15 @@ namespace integration
   }
 
   unique_ptr<CarRouter> CreateCarRouter(Index & index,
-                                        storage::CountryInfoGetter const & infoGetter)
+                                        storage::CountryInfoGetter const & infoGetter,
+                                        TrafficInfoGetterTest const & trafficGetter)
   {
     auto const countryFileGetter = [&infoGetter](m2::PointD const & pt) {
       return infoGetter.GetRegionCountryId(pt);
     };
 
     auto carRouter = make_unique<CarRouter>(
-        index, countryFileGetter, SingleMwmRouter::CreateCarRouter(index, nullptr));
+        index, countryFileGetter, SingleMwmRouter::CreateCarRouter(index, trafficGetter));
     return carRouter;
   }
 
@@ -106,12 +107,14 @@ namespace integration
   public:
     OsrmRouterComponents(vector<LocalCountryFile> const & localFiles)
       : IRouterComponents(localFiles)
-      , m_carRouter(CreateCarRouter(m_featuresFetcher->GetIndex(), *m_infoGetter))
+      , m_carRouter(CreateCarRouter(m_featuresFetcher->GetIndex(), *m_infoGetter, m_trafficGetter))
     {
     }
 
     IRouter * GetRouter() const override { return m_carRouter.get(); }
+
   private:
+    TrafficInfoGetterTest m_trafficGetter;
     unique_ptr<CarRouter> m_carRouter;
   };
 

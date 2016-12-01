@@ -7,6 +7,8 @@
 
 #include "traffic/traffic_info.hpp"
 
+#include "indexer/classificator_loader.hpp"
+
 #include "geometry/point2d.hpp"
 
 #include "routing/base/astar_algorithm.hpp"
@@ -152,6 +154,7 @@ unique_ptr<IndexGraph> BuildXXGraph(shared_ptr<EdgeEstimator> estimator)
 // Route through XX graph without any traffic info.
 UNIT_TEST(XXGraph_EmptyTrafficColoring)
 {
+  classificator::Load();
   shared_ptr<EdgeEstimator> estimator =
       EdgeEstimator::CreateForCar(*make_shared<CarModelFactory>()->GetVehicleModel());
 
@@ -164,12 +167,14 @@ UNIT_TEST(XXGraph_EmptyTrafficColoring)
 // Route through XX graph with SpeedGroup::G0 on F3.
 UNIT_TEST(XXGraph_G0onF3)
 {
+  classificator::Load();
   shared_ptr<EdgeEstimator> estimator =
       EdgeEstimator::CreateForCar(*make_shared<CarModelFactory>()->GetVehicleModel());
-  shared_ptr<TrafficInfo::Coloring> coloring =
-      make_shared<TrafficInfo::Coloring>(TrafficInfo::Coloring(
-      {{{3 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection}, SpeedGroup::G0}}));
-  estimator->SetTrafficColoring(coloring);
+  TrafficInfo::Coloring coloring =
+      {{{3 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection}, SpeedGroup::G0}};
+  shared_ptr<TrafficInfo> trafficInfo = make_shared<TrafficInfo>();
+  trafficInfo->SetColoringForTesting(coloring);
+  estimator->SetTrafficInfo(trafficInfo);
 
   unique_ptr<IndexGraph> graph = BuildXXGraph(estimator);
   IndexGraphStarter starter(*graph, RoadPoint(1, 0) /* start */, RoadPoint(6, 1) /* finish */);
@@ -182,13 +187,14 @@ UNIT_TEST(XXGraph_G0onF3andF6andG4onF8andF4)
 {
   shared_ptr<EdgeEstimator> estimator =
       EdgeEstimator::CreateForCar(*make_shared<CarModelFactory>()->GetVehicleModel());
-  shared_ptr<TrafficInfo::Coloring> coloring =
-      make_shared<TrafficInfo::Coloring>(TrafficInfo::Coloring(
+  TrafficInfo::Coloring coloring =
       {{{3 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection}, SpeedGroup::G0},
       {{6 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection}, SpeedGroup::G0},
       {{8 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection}, SpeedGroup::G4},
-      {{7 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection}, SpeedGroup::G4}}));
-  estimator->SetTrafficColoring(coloring);
+      {{7 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection}, SpeedGroup::G4}};
+  shared_ptr<TrafficInfo> trafficInfo = make_shared<TrafficInfo>();
+  trafficInfo->SetColoringForTesting(coloring);
+  estimator->SetTrafficInfo(trafficInfo);
 
   unique_ptr<IndexGraph> graph = BuildXXGraph(estimator);
   IndexGraphStarter starter(*graph, RoadPoint(1, 0) /* start */, RoadPoint(6, 1) /* finish */);

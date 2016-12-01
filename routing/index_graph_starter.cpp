@@ -154,11 +154,11 @@ void IndexGraphStarter::FindPointsWithCommonFeature(Joint::Id jointId0, Joint::I
           // CalcEdgesWeight is very expensive.
           // So calculate it only if second common feature found.
           RoadGeometry const & prevRoad = m_graph.GetGeometry().GetRoad(result0.GetFeatureId());
-          minWeight = m_graph.GetEstimator().CalcEdgesWeight(prevRoad, rp0.GetFeatureId(),
+          minWeight = m_graph.GetEstimator().CalcEdgesWeight(rp0.GetFeatureId(),prevRoad,
                                                              result0.GetPointId(), result1.GetPointId());
         }
 
-        double const weight = m_graph.GetEstimator().CalcEdgesWeight(road, rp0.GetFeatureId(),
+        double const weight = m_graph.GetEstimator().CalcEdgesWeight(rp0.GetFeatureId(), road,
                                                                      rp0.GetPointId(), rp1.GetPointId());
         if (weight < minWeight)
         {

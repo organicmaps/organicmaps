@@ -38,7 +38,7 @@ struct SpeedCameraRestriction
   SpeedCameraRestriction() : m_index(0), m_maxSpeedKmH(numeric_limits<uint8_t>::max()) {}
 };
 
-class RoutingSession
+class RoutingSession : public traffic::RoutingObserver, public traffic::TrafficInfoGetter
 {
   friend void UnitTest_TestFollowRoutePercentTest();
 
@@ -153,10 +153,13 @@ public:
 
   void EmitCloseRoutingEvent() const;
 
-  void EnableTraffic(bool enable);
-  void AddTrafficInfo(traffic::TrafficInfo const & info);
-  shared_ptr<traffic::TrafficInfo::Coloring> GetTrafficColoring(MwmSet::MwmId const & mwmId);
-  void RemoveTrafficInfo(MwmSet::MwmId const & mwmId);
+  // RoutingObserver overrides:
+  void OnTrafficEnabled(bool enable) override;
+  void OnTrafficInfoAdded(traffic::TrafficInfo const & info) override;
+  void OnTrafficInfoRemoved(MwmSet::MwmId const & mwmId) override;
+
+  // TrafficInfoGetter overrides:
+  shared_ptr<traffic::TrafficInfo> GetTrafficInfo(MwmSet::MwmId const & mwmId) const override;
 
 private:
   struct DoReadyCallback
@@ -188,6 +191,7 @@ private:
   double GetCompletionPercent() const;
 
 private:
+  map<MwmSet::MwmId, shared_ptr<traffic::TrafficInfo>> m_trafficInfo;
   unique_ptr<AsyncRouter> m_router;
   shared_ptr<Route> m_route;
   atomic<State> m_state;
@@ -203,7 +207,7 @@ private:
   /// about camera will be sent at most once.
   mutable bool m_speedWarningSignal;
 
-  mutable threads::Mutex m_routeSessionMutex;
+  mutable threads::Mutex m_routingSessionMutex;
 
   /// Current position metrics to check for RouteNeedRebuild state.
   double m_lastDistance;
@@ -222,8 +226,6 @@ private:
   // Rerouting count
   int m_routingRebuildCount;
   mutable double m_lastCompletionPercent;
-
-  map<MwmSet::MwmId, shared_ptr<traffic::TrafficInfo::Coloring>> m_trafficInfo;
 };
 
 string DebugPrint(RoutingSession::State state);

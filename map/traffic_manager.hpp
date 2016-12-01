@@ -56,19 +56,9 @@ public:
 
   using TrafficStateChangedFn = function<void(TrafficState)>;
   using GetMwmsByRectFn = function<vector<MwmSet::MwmId>(m2::RectD const &)>;
-  using AddTrafficInfoToRoutingFn = function<void(traffic::TrafficInfo const &)>;
-  using RemoveTrafficInfoFromRoutingFn = function<void(MwmSet::MwmId const &)>;
-  using EnableTrafficInRoutingFn = function<void(bool)>;
 
-  struct RoutingFns
-  {
-    AddTrafficInfoToRoutingFn m_addTrafficInfoFn;
-    RemoveTrafficInfoFromRoutingFn m_removeTrafficInfoFn;
-    EnableTrafficInRoutingFn m_enableTrafficFn;
-  };
-
-  TrafficManager(GetMwmsByRectFn const & getMwmsByRectFn, RoutingFns const & routingFns,
-                 size_t maxCacheSizeBytes);
+  TrafficManager(GetMwmsByRectFn const & getMwmsByRectFn, size_t maxCacheSizeBytes,
+                 traffic::RoutingObserver & routingObserver);
   ~TrafficManager();
 
   void SetStateListener(TrafficStateChangedFn const & onStateChangedFn);
@@ -105,7 +95,7 @@ private:
   bool IsEnabled() const;
 
   GetMwmsByRectFn m_getMwmsByRectFn;
-  RoutingFns m_routingFns;
+  traffic::RoutingObserver & m_routingObserver;
 
   ref_ptr<df::DrapeEngine> m_drapeEngine;
   atomic<int64_t> m_currentDataVersion;

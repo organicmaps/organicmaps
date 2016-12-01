@@ -22,10 +22,8 @@ class IndexGraph;
 class SingleMwmRouter
 {
 public:
-  using GetTrafficColoringFn = function<shared_ptr<traffic::TrafficInfo::Coloring>(MwmSet::MwmId const &)>;
-
   SingleMwmRouter(string const & name, Index const & index,
-                  GetTrafficColoringFn const & getTrafficColoringFn,
+                  traffic::TrafficInfoGetter const & getter,
                   shared_ptr<VehicleModelFactory> vehicleModelFactory,
                   shared_ptr<EdgeEstimator> estimator,
                   unique_ptr<IDirectionsEngine> directionsEngine);
@@ -38,7 +36,7 @@ public:
                                      Route & route);
 
   static unique_ptr<SingleMwmRouter> CreateCarRouter(Index const & index,
-                                                     GetTrafficColoringFn const & getTrafficColoringFn);
+                                                     traffic::TrafficInfoGetter const & getter);
 
 private:
   IRouter::ResultCode DoCalculateRoute(MwmSet::MwmId const & mwmId, m2::PointD const & startPoint,
@@ -51,7 +49,7 @@ private:
 
   string const m_name;
   Index const & m_index;
-  GetTrafficColoringFn const & m_getTrafficColoringFn;
+  traffic::TrafficInfoGetter const & m_trafficInfoGetter;
   FeaturesRoadGraph m_roadGraph;
   shared_ptr<VehicleModelFactory> m_vehicleModelFactory;
   shared_ptr<EdgeEstimator> m_estimator;

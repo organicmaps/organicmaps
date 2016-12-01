@@ -38,10 +38,10 @@ TrafficManager::CacheEntry::CacheEntry(time_point<steady_clock> const & requestT
 {}
 
 TrafficManager::TrafficManager(GetMwmsByRectFn const & getMwmsByRectFn,
-                               RoutingFns const & routingFns,
-                               size_t maxCacheSizeBytes)
+                               size_t maxCacheSizeBytes,
+                               traffic::RoutingObserver & routingObserver)
   : m_getMwmsByRectFn(getMwmsByRectFn)
-  , m_routingFns(routingFns)
+  , m_routingObserver(routingObserver)
   , m_currentDataVersion(0)
   , m_state(TrafficState::Disabled)
   , m_maxCacheSizeBytes(maxCacheSizeBytes)
@@ -96,7 +96,7 @@ void TrafficManager::SetEnabled(bool enabled)
       UpdateMyPosition(m_currentPosition.first);
   }
 
-  m_routingFns.m_enableTrafficFn(enabled);
+  m_routingObserver.OnTrafficEnabled(enabled);
 }
 
 void TrafficManager::Clear()
@@ -333,7 +333,7 @@ void TrafficManager::OnTrafficDataResponse(traffic::TrafficInfo const & info)
   UpdateState();
 
   // Update traffic colors for routing.
-  m_routingFns.m_addTrafficInfoFn(info);
+  m_routingObserver.OnTrafficInfoAdded(info);
 }
 
 void TrafficManager::CheckCacheSize()
@@ -354,7 +354,7 @@ void TrafficManager::CheckCacheSize()
       {
         m_currentCacheSizeBytes -= it->second.m_dataSize;
         m_drapeEngine->ClearTrafficCache(mwmId);
-        m_routingFns.m_removeTrafficInfoFn(mwmId);
+        m_routingObserver.OnTrafficInfoRemoved(mwmId);
       }
       m_mwmCache.erase(it);
       ++itSeen;

@@ -49,13 +49,13 @@ vector<Junction> ConvertToJunctions(IndexGraphStarter & starter, vector<Joint::I
 namespace routing
 {
 SingleMwmRouter::SingleMwmRouter(string const & name, Index const & index,
-                                 GetTrafficColoringFn const & getTrafficColoringFn,
+                                 traffic::TrafficInfoGetter const & getter,
                                  shared_ptr<VehicleModelFactory> vehicleModelFactory,
                                  shared_ptr<EdgeEstimator> estimator,
                                  unique_ptr<IDirectionsEngine> directionsEngine)
   : m_name(name)
   , m_index(index)
-  , m_getTrafficColoringFn(getTrafficColoringFn)
+  , m_trafficInfoGetter(getter)
   , m_roadGraph(index, IRoadGraph::Mode::ObeyOnewayTag, vehicleModelFactory)
   , m_vehicleModelFactory(vehicleModelFactory)
   , m_estimator(estimator)
@@ -108,10 +108,7 @@ IRouter::ResultCode SingleMwmRouter::DoCalculateRoute(MwmSet::MwmId const & mwmI
   RoadPoint const start(startEdge.GetFeatureId().m_index, startEdge.GetSegId());
   RoadPoint const finish(finishEdge.GetFeatureId().m_index, finishEdge.GetSegId());
 
-  if (m_getTrafficColoringFn)
-    m_estimator->SetTrafficColoring(m_getTrafficColoringFn(mwmId));
-  else
-    m_estimator->SetTrafficColoring(nullptr);
+  m_estimator->SetTrafficInfo(m_trafficInfoGetter.GetTrafficInfo(mwmId));
 
   IndexGraph graph(GeometryLoader::Create(
                        m_index, mwmId, m_vehicleModelFactory->GetVehicleModelForCountry(country)),
@@ -218,7 +215,7 @@ bool SingleMwmRouter::LoadIndex(MwmSet::MwmId const & mwmId, string const & coun
 
 // static
 unique_ptr<SingleMwmRouter> SingleMwmRouter::CreateCarRouter(Index const & index,
-                                                             GetTrafficColoringFn const & getTrafficColoringFn)
+                                                             traffic::TrafficInfoGetter const & getter)
 {
   auto vehicleModelFactory = make_shared<CarModelFactory>();
   // @TODO Bicycle turn generation engine is used now. It's ok for the time being.
@@ -226,7 +223,7 @@ unique_ptr<SingleMwmRouter> SingleMwmRouter::CreateCarRouter(Index const & index
   auto directionsEngine = make_unique<BicycleDirectionsEngine>(index);
   auto estimator = EdgeEstimator::CreateForCar(*vehicleModelFactory->GetVehicleModel());
   auto router =
-      make_unique<SingleMwmRouter>("astar-bidirectional-car", index, getTrafficColoringFn,
+      make_unique<SingleMwmRouter>("astar-bidirectional-car", index, getter,
                                    move(vehicleModelFactory), estimator, move(directionsEngine));
   return router;
 }
