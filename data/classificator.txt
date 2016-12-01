@@ -806,6 +806,15 @@ world  +
         wine  -
         {}
     sponsored  +
+        banner  +
+            deliveryclub  -
+            geerbest  -
+            lamoda_ru  -
+            lamoda_ua  -
+            rentalcars  -
+            tutu  -
+            viator  -
+            {}
         booking  -
         opentable  -
         {}

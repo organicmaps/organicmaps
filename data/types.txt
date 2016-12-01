@@ -1137,3 +1137,10 @@ olympics|stadium
 olympics|water_sport
 olympics|bike_sport
 sponsored|opentable
+sponsored|banner|lamoda_ru
+sponsored|banner|lamoda_ua
+sponsored|banner|deliveryclub
+sponsored|banner|tutu
+sponsored|banner|geerbest
+sponsored|banner|rentalcars
+sponsored|banner|viator
