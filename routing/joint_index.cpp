@@ -1,6 +1,6 @@
 #include "routing/joint_index.hpp"
 
-#include "routing/routing_exception.hpp"
+#include "routing/routing_exceptions.hpp"
 
 namespace routing
 {

@@ -1,6 +1,6 @@
 #include "routing/index_graph_starter.hpp"
 
-#include "routing/routing_exception.hpp"
+#include "routing/routing_exceptions.hpp"
 
 namespace routing
 {

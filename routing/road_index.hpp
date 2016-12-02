@@ -38,11 +38,17 @@ public:
     m_jointIds[pointId] = jointId;
   }
 
-  uint32_t GetMaxPointId() const
+  uint32_t GetJointsNumber() const
   {
-    ASSERT(!m_jointIds.empty(), ());
-    ASSERT_NOT_EQUAL(m_jointIds.back(), Joint::kInvalidId, ());
-    return static_cast<uint32_t>(m_jointIds.size() - 1);
+    uint32_t count = 0;
+
+    for (Joint::Id const jointId : m_jointIds)
+    {
+      if (jointId != Joint::kInvalidId)
+        ++count;
+    }
+
+    return count;
   }
 
   template <typename F>
@@ -112,11 +118,16 @@ public:
     return it->second;
   }
 
-  RoadJointIds & InitRoad(uint32_t featureId, uint32_t maxPointId);
+  void PushFromSerializer(Joint::Id jointId, RoadPoint const & rp)
+  {
+    m_roads[rp.GetFeatureId()].AddJoint(rp.GetPointId(), jointId);
+  }
 
   // Find nearest point with normal joint id.
   // If forward == true: neighbor with larger point id (right neighbor)
   // If forward == false: neighbor with smaller point id (left neighbor)
+  //
+  // If there is no nearest point, return {Joint::kInvalidId, 0}
   pair<Joint::Id, uint32_t> FindNeighbor(RoadPoint const & rp, bool forward) const;
 
   uint32_t GetSize() const { return m_roads.size(); }

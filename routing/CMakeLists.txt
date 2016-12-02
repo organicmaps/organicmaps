@@ -38,6 +38,8 @@ set(
   geometry.hpp
   index_graph.cpp
   index_graph.hpp
+  index_graph_serialization.cpp
+  index_graph_serialization.hpp
   index_graph_starter.cpp
   index_graph_starter.hpp
   joint.cpp
@@ -81,7 +83,7 @@ set(
   router_delegate.hpp
   routing_algorithm.cpp
   routing_algorithm.hpp
-  routing_exception.hpp
+  routing_exceptions.hpp
   routing_helpers.cpp
   routing_helpers.hpp
   routing_mapping.cpp
@@ -107,6 +109,7 @@ set(
   turns_sound_settings.hpp
   turns_tts_text.cpp
   turns_tts_text.hpp
+  vehicle_mask.hpp
   vehicle_model.cpp
   vehicle_model.hpp
 )

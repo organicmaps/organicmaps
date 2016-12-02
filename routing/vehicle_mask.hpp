@@ -4,13 +4,25 @@
 
 namespace routing
 {
-using VehicleMask = int32_t;
+enum class VehicleType
+{
+  Pedestrian = 0,
+  Bicycle = 1,
+  Car = 2,
+  Count = 3
+};
 
-int32_t constexpr kVehicleTypesNumber = 3;
-VehicleMask constexpr kNumVehicleMasks = 1 << kVehicleTypesNumber;
+using VehicleMask = uint32_t;
+
+inline constexpr VehicleMask GetVehicleMask(VehicleType vehicleType)
+{
+  return static_cast<VehicleMask>(1) << static_cast<uint32_t>(vehicleType);
+}
+
+VehicleMask constexpr kNumVehicleMasks = GetVehicleMask(VehicleType::Count);
 VehicleMask constexpr kAllVehiclesMask = kNumVehicleMasks - 1;
 
-VehicleMask constexpr kPedestrianMask = 1;
-VehicleMask constexpr kBicycleMask = 2;
-VehicleMask constexpr kCarMask = 4;
+VehicleMask constexpr kPedestrianMask = GetVehicleMask(VehicleType::Pedestrian);
+VehicleMask constexpr kBicycleMask = GetVehicleMask(VehicleType::Bicycle);
+VehicleMask constexpr kCarMask = GetVehicleMask(VehicleType::Car);
 }  // namespace routing

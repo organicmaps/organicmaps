@@ -1,6 +1,6 @@
 #include "routing/road_index.hpp"
 
-#include "routing/routing_exception.hpp"
+#include "routing/routing_exceptions.hpp"
 
 namespace routing
 {
@@ -16,13 +16,6 @@ void RoadIndex::Import(vector<Joint> const & joints)
       roadJoints.AddJoint(entry.GetPointId(), jointId);
     }
   }
-}
-
-RoadJointIds & RoadIndex::InitRoad(uint32_t featureId, uint32_t maxPointId)
-{
-  RoadJointIds & road = m_roads[featureId];
-  road.Init(maxPointId);
-  return road;
 }
 
 pair<Joint::Id, uint32_t> RoadIndex::FindNeighbor(RoadPoint const & rp, bool forward) const

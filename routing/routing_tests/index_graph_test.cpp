@@ -4,7 +4,7 @@
 #include "routing/car_model.hpp"
 #include "routing/edge_estimator.hpp"
 #include "routing/index_graph.hpp"
-#include "routing/index_graph_serializer.hpp"
+#include "routing/index_graph_serialization.hpp"
 #include "routing/index_graph_starter.hpp"
 #include "routing/vehicle_mask.hpp"
 
@@ -333,6 +333,13 @@ UNIT_TEST(SerializeSimpleGraph)
     TEST_EQUAL(graph.GetNumRoads(), 3, ());
     TEST_EQUAL(graph.GetNumJoints(), 2, ());
     TEST_EQUAL(graph.GetNumPoints(), 4, ());
+
+    TEST_EQUAL(graph.GetJointId({0, 0}), Joint::kInvalidId, ());
+    TEST_EQUAL(graph.GetJointId({0, 1}), 1, ());
+    TEST_EQUAL(graph.GetJointId({1, 0}), 1, ());
+    TEST_EQUAL(graph.GetJointId({1, 1}), 0, ());
+    TEST_EQUAL(graph.GetJointId({2, 0}), 0, ());
+    TEST_EQUAL(graph.GetJointId({2, 1}), Joint::kInvalidId, ());
   }
 
   {
@@ -342,9 +349,15 @@ UNIT_TEST(SerializeSimpleGraph)
     IndexGraphSerializer::Deserialize(graph, source, kCarMask);
 
     TEST_EQUAL(graph.GetNumRoads(), 2, ());
-    //    TODO: fix redundant joints and uncomment this
-    //    TEST_EQUAL(graph.GetNumJoints(), 1, ());
-    //    TEST_EQUAL(graph.GetNumPoints(), 2, ());
+    TEST_EQUAL(graph.GetNumJoints(), 1, ());
+    TEST_EQUAL(graph.GetNumPoints(), 2, ());
+
+    TEST_EQUAL(graph.GetJointId({0, 0}), Joint::kInvalidId, ());
+    TEST_EQUAL(graph.GetJointId({0, 1}), Joint::kInvalidId, ());
+    TEST_EQUAL(graph.GetJointId({1, 0}), Joint::kInvalidId, ());
+    TEST_EQUAL(graph.GetJointId({1, 1}), 0, ());
+    TEST_EQUAL(graph.GetJointId({2, 0}), 0, ());
+    TEST_EQUAL(graph.GetJointId({2, 1}), Joint::kInvalidId, ());
   }
 }
 }  // namespace routing_test

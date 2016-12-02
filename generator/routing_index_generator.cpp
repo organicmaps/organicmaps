@@ -3,7 +3,7 @@
 #include "routing/bicycle_model.hpp"
 #include "routing/car_model.hpp"
 #include "routing/index_graph.hpp"
-#include "routing/index_graph_serializer.hpp"
+#include "routing/index_graph_serialization.hpp"
 #include "routing/pedestrian_model.hpp"
 #include "routing/vehicle_mask.hpp"
 
@@ -29,7 +29,7 @@ namespace
 class Processor final
 {
 public:
-  Processor(string const & country)
+  explicit Processor(string const & country)
     : m_pedestrianModel(PedestrianModelFactory().GetVehicleModelForCountry(country))
     , m_bicycleModel(BicycleModelFactory().GetVehicleModelForCountry(country))
     , m_carModel(CarModelFactory().GetVehicleModelForCountry(country))
@@ -63,7 +63,7 @@ private:
   void ProcessFeature(FeatureType const & f, uint32_t id)
   {
     VehicleMask const mask = CalcVehicleMask(f);
-    if (!mask)
+    if (mask == 0)
       return;
 
     m_masks[id] = mask;
@@ -76,7 +76,7 @@ private:
     }
   }
 
-  VehicleMask CalcVehicleMask(FeatureType const & f)
+  VehicleMask CalcVehicleMask(FeatureType const & f) const
   {
     VehicleMask mask = 0;
     if (m_pedestrianModel->IsRoad(f))
@@ -89,9 +89,9 @@ private:
     return mask;
   }
 
-  shared_ptr<IVehicleModel> m_pedestrianModel;
-  shared_ptr<IVehicleModel> m_bicycleModel;
-  shared_ptr<IVehicleModel> m_carModel;
+  shared_ptr<IVehicleModel> const m_pedestrianModel;
+  shared_ptr<IVehicleModel> const m_bicycleModel;
+  shared_ptr<IVehicleModel> const m_carModel;
   unordered_map<uint64_t, Joint> m_posToJoint;
   unordered_map<uint32_t, VehicleMask> m_masks;
 };

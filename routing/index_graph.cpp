@@ -3,6 +3,8 @@
 #include "base/assert.hpp"
 #include "base/exception.hpp"
 
+#include "std/limits.hpp"
+
 namespace routing
 {
 IndexGraph::IndexGraph(unique_ptr<GeometryLoader> loader, shared_ptr<EdgeEstimator> estimator)
@@ -28,7 +30,8 @@ void IndexGraph::Build(uint32_t numJoints) { m_jointIndex.Build(m_roadIndex, num
 void IndexGraph::Import(vector<Joint> const & joints)
 {
   m_roadIndex.Import(joints);
-  Build(joints.size());
+  CHECK_LESS_OR_EQUAL(joints.size(), numeric_limits<uint32_t>::max(), ());
+  Build(static_cast<uint32_t>(joints.size()));
 }
 
 Joint::Id IndexGraph::InsertJoint(RoadPoint const & rp)

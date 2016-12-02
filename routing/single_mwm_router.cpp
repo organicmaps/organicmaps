@@ -6,7 +6,7 @@
 #include "routing/bicycle_model.hpp"
 #include "routing/car_model.hpp"
 #include "routing/index_graph.hpp"
-#include "routing/index_graph_serializer.hpp"
+#include "routing/index_graph_serialization.hpp"
 #include "routing/index_graph_starter.hpp"
 #include "routing/pedestrian_model.hpp"
 #include "routing/route.hpp"

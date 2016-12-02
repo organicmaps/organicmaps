@@ -56,12 +56,13 @@ public:
 
   void Build(uint32_t numJoints);
   void Import(vector<Joint> const & joints);
-  RoadJointIds & InitRoad(uint32_t featureId, uint32_t maxPointId)
-  {
-    return m_roadIndex.InitRoad(featureId, maxPointId);
-  }
   Joint::Id InsertJoint(RoadPoint const & rp);
   bool JointLiesOnRoad(Joint::Id jointId, uint32_t featureId) const;
+
+  void PushFromSerializer(Joint::Id jointId, RoadPoint const & rp)
+  {
+    m_roadIndex.PushFromSerializer(jointId, rp);
+  }
 
   template <typename F>
   void ForEachRoad(F && f) const
