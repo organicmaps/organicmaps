@@ -535,6 +535,9 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 
 - (void)setState:(MWMBottomMenuState)state
 {
+  runAsyncOnMainQueue(^{
+    [self.controller setNeedsStatusBarAppearanceUpdate];
+  });
   [self refreshRoutingDiminishTimer];
   MWMBottomMenuView * view = (MWMBottomMenuView *)self.view;
   BOOL const menuActive =

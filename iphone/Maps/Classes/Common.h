@@ -96,3 +96,14 @@ static inline void runAsyncOnMainQueue(dispatch_block_t block)
 {
   dispatch_async(dispatch_get_main_queue(), block);
 }
+
+static inline UIViewController * topViewController()
+{
+  UIWindow * window = UIApplication.sharedApplication.delegate.window;
+  UIViewController * rootViewController = window.rootViewController;
+  NSCAssert([rootViewController isKindOfClass:[UINavigationController class]],
+            @"Invalid rootViewController class");
+  UINavigationController * navigationController =
+      static_cast<UINavigationController *>(rootViewController);
+  return navigationController.topViewController;
+}

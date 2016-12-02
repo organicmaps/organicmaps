@@ -64,7 +64,10 @@ NSDictionary<NSString *, UIColor *> * night = @{
   @"alertBackground" :
       [UIColor colorWithRed:scaled(60.) green:scaled(64.) blue:scaled(68.) alpha:alpha90],
   @"blackOpaque" : [UIColor colorWithWhite:1. alpha:alpha04],
-  @"bannerBackground" : [UIColor colorWithRed:scaled(85.) green:scaled(90.) blue:scaled(90.) alpha:alpha100]
+  @"bannerBackground" :
+      [UIColor colorWithRed:scaled(85.) green:scaled(90.) blue:scaled(90.) alpha:alpha100],
+  @"toastBackground" :
+      [UIColor colorWithRed:scaled(60.) green:scaled(64.) blue:scaled(68.) alpha:alpha26]
 };
 
 NSDictionary<NSString *, UIColor *> * day = @{
@@ -109,7 +112,10 @@ NSDictionary<NSString *, UIColor *> * day = @{
       [UIColor colorWithRed:scaled(3.) green:scaled(122.) blue:scaled(255.) alpha:alpha26],
   @"alertBackground" : [UIColor colorWithWhite:1. alpha:alpha90],
   @"blackOpaque" : [UIColor colorWithWhite:0. alpha:alpha04],
-  @"bannerBackground" : [UIColor colorWithRed:scaled(255.) green:scaled(248.) blue:scaled(225.) alpha:alpha100]
+  @"bannerBackground" :
+      [UIColor colorWithRed:scaled(255.) green:scaled(248.) blue:scaled(225.) alpha:alpha100],
+  @"toastBackground" :
+      [UIColor colorWithRed:scaled(255.) green:scaled(255.) blue:scaled(255.) alpha:alpha40]
 };
 
 UIColor * color(SEL cmd)
@@ -308,7 +314,7 @@ UIColor * color(SEL cmd)
 {
   return color(_cmd);
 }
-
++ (UIColor *)toastBackground { return color(_cmd); }
 + (UIColor *)colorWithName:(NSString *)colorName
 {
 #pragma clang diagnostic push

@@ -16,6 +16,7 @@
 #import "MWMSearchManager.h"
 #import "MWMSideButtons.h"
 #import "MWMTaxiPreviewDataSource.h"
+#import "MWMToast.h"
 #import "MWMTrafficButtonViewController.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
@@ -78,6 +79,9 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
+  if ([MWMToast affectsStatusBar])
+    return [MWMToast preferredStatusBarStyle];
+
   MWMSearchManagerState const searchManagerState =
       _searchManager ? _searchManager.state : MWMSearchManagerStateHidden;
   BOOL const isNightMode = [UIColor isNightMode];

@@ -241,6 +241,12 @@
 		349A357C1B53D4C9009677EE /* MWMCircularProgressView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349A35791B53D4C9009677EE /* MWMCircularProgressView.mm */; };
 		349B49BE1D3F58C3005A3C4E /* MyTrackerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 349B49BD1D3F58C3005A3C4E /* MyTrackerSDK.framework */; };
 		349B49BF1D3F58C3005A3C4E /* MyTrackerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 349B49BD1D3F58C3005A3C4E /* MyTrackerSDK.framework */; };
+		349B926C1DF0518E007779DD /* MWMToast.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349B926B1DF0518E007779DD /* MWMToast.mm */; };
+		349B926D1DF0518E007779DD /* MWMToast.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349B926B1DF0518E007779DD /* MWMToast.mm */; };
+		349B926E1DF0518E007779DD /* MWMToast.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349B926B1DF0518E007779DD /* MWMToast.mm */; };
+		349B92701DF0526D007779DD /* MWMToast.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349B926F1DF0526D007779DD /* MWMToast.xib */; };
+		349B92711DF0526D007779DD /* MWMToast.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349B926F1DF0526D007779DD /* MWMToast.xib */; };
+		349B92721DF0526D007779DD /* MWMToast.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349B926F1DF0526D007779DD /* MWMToast.xib */; };
 		349C26B51BB02C6F0005DF2F /* MWMBottomMenuViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349C26B31BB02C6F0005DF2F /* MWMBottomMenuViewController.mm */; };
 		349C26B61BB02C6F0005DF2F /* MWMBottomMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349C26B41BB02C6F0005DF2F /* MWMBottomMenuViewController.xib */; };
 		349C26B91BB04ED30005DF2F /* MWMBottomMenuView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349C26B81BB04ED30005DF2F /* MWMBottomMenuView.mm */; };
@@ -1650,6 +1656,9 @@
 		349A35781B53D4C9009677EE /* MWMCircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCircularProgressView.h; sourceTree = "<group>"; };
 		349A35791B53D4C9009677EE /* MWMCircularProgressView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCircularProgressView.mm; sourceTree = "<group>"; };
 		349B49BD1D3F58C3005A3C4E /* MyTrackerSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MyTrackerSDK.framework; path = Frameworks/MyTrackerSDK.framework; sourceTree = "<group>"; };
+		349B926A1DF0518E007779DD /* MWMToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMToast.h; sourceTree = "<group>"; };
+		349B926B1DF0518E007779DD /* MWMToast.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMToast.mm; sourceTree = "<group>"; };
+		349B926F1DF0526D007779DD /* MWMToast.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMToast.xib; sourceTree = "<group>"; };
 		349C26B21BB02C6F0005DF2F /* MWMBottomMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMBottomMenuViewController.h; sourceTree = "<group>"; };
 		349C26B31BB02C6F0005DF2F /* MWMBottomMenuViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMBottomMenuViewController.mm; sourceTree = "<group>"; };
 		349C26B41BB02C6F0005DF2F /* MWMBottomMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMBottomMenuViewController.xib; sourceTree = "<group>"; };
@@ -2923,6 +2932,16 @@
 			path = CustomViews/CircularProgress;
 			sourceTree = "<group>";
 		};
+		349B92691DF0516C007779DD /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				349B926A1DF0518E007779DD /* MWMToast.h */,
+				349B926B1DF0518E007779DD /* MWMToast.mm */,
+				349B926F1DF0526D007779DD /* MWMToast.xib */,
+			);
+			path = Toast;
+			sourceTree = "<group>";
+		};
 		349C26AE1BB0116D0005DF2F /* BottomMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -3480,6 +3499,7 @@
 		F64F195F1AB8125C006EAF7E /* CustomAlert */ = {
 			isa = PBXGroup;
 			children = (
+				349B92691DF0516C007779DD /* Toast */,
 				349A137E1DEC138C00C7DB60 /* MobileInternetAlert */,
 				3462258B1DDC5D76001E8752 /* SearchAlert */,
 				F6FE3C351CC50FDF00A73196 /* PlaceDoesntExist */,
@@ -4123,6 +4143,7 @@
 				EEA61604134C496A003A9827 /* 04_padauk.ttf in Resources */,
 				F6D4A73C1CC1267E00BD4E5B /* MWMNoteCell.xib in Resources */,
 				3406FA181C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib in Resources */,
+				349B92701DF0526D007779DD /* MWMToast.xib in Resources */,
 				341F99E31C6B1165001C67B8 /* MWMMapDownloaderTableViewCell.xib in Resources */,
 				341F99D71C6B1165001C67B8 /* MWMMapDownloaderLargeCountryTableViewCell.xib in Resources */,
 				EEA61605134C496A003A9827 /* 05_khmeros.ttf in Resources */,
@@ -4288,6 +4309,7 @@
 				347FD86E1C60B2CE002FB65E /* MWMOpeningHoursAddScheduleTableViewCell.xib in Resources */,
 				9DA46A0D1C47E92100EF52BA /* resources-xhdpi_legacy in Resources */,
 				9DA46A0F1C47E92100EF52BA /* resources-xxhdpi_legacy in Resources */,
+				349B92711DF0526D007779DD /* MWMToast.xib in Resources */,
 				6741A9571BF340DE002C974C /* 03_jomolhari-id-a3d.ttf in Resources */,
 				6741A9581BF340DE002C974C /* 04_padauk.ttf in Resources */,
 				F634C8F41D79996D00BE04E2 /* _MWMPPPExternalTitle.xib in Resources */,
@@ -4474,6 +4496,7 @@
 				849CF6221DE842290024A8A5 /* MWMEditorAddAdditionalNameTableViewCell.xib in Resources */,
 				849CF6231DE842290024A8A5 /* MWMStreetEditorEditTableViewCell.xib in Resources */,
 				849CF6241DE842290024A8A5 /* _MWMPPPTitle.xib in Resources */,
+				349B92721DF0526D007779DD /* MWMToast.xib in Resources */,
 				849CF6251DE842290024A8A5 /* cuisine-strings in Resources */,
 				849CF6261DE842290024A8A5 /* MWMAboutControllerHeader.xib in Resources */,
 				849CF6271DE842290024A8A5 /* LaunchScreen.storyboard in Resources */,
@@ -4758,6 +4781,7 @@
 				F6DBF9B61AA8779300F2EC2C /* CALayer+RuntimeAttributes.mm in Sources */,
 				347FD8731C60B2CE002FB65E /* MWMOpeningHoursClosedSpanTableViewCell.mm in Sources */,
 				FA36B80D15403A4F004560CC /* BookmarksVC.mm in Sources */,
+				349B926C1DF0518E007779DD /* MWMToast.mm in Sources */,
 				3490D2E01CE9DD2500D0B838 /* MWMSideButtonsView.mm in Sources */,
 				F668F6561BCD4507002D6FFC /* MWMTTSSettingsViewController.mm in Sources */,
 				34ABA61B1C2D4DCC00FE1BEC /* UITextField+RuntimeAttributes.mm in Sources */,
@@ -5009,6 +5033,7 @@
 				6741A9F41BF340DE002C974C /* CALayer+RuntimeAttributes.mm in Sources */,
 				56C74C391C74A3BC00B71B9F /* MWMInputEmailValidator.mm in Sources */,
 				6741A9F51BF340DE002C974C /* BookmarksVC.mm in Sources */,
+				349B926D1DF0518E007779DD /* MWMToast.mm in Sources */,
 				347FD8741C60B2CE002FB65E /* MWMOpeningHoursClosedSpanTableViewCell.mm in Sources */,
 				3490D2E11CE9DD2500D0B838 /* MWMSideButtonsView.mm in Sources */,
 				6741A9F91BF340DE002C974C /* MWMSearchSuggestionCell.mm in Sources */,
@@ -5331,6 +5356,7 @@
 				849CF7411DE842290024A8A5 /* MWMMapDownloaderSubplaceTableViewCell.mm in Sources */,
 				849CF7421DE842290024A8A5 /* MWMNoMapsView.mm in Sources */,
 				849CF7431DE842290024A8A5 /* MWMCustomFacebookEvents.mm in Sources */,
+				349B926E1DF0518E007779DD /* MWMToast.mm in Sources */,
 				849CF7441DE842290024A8A5 /* SwitchCell.mm in Sources */,
 				849CF7451DE842290024A8A5 /* UIView+RuntimeAttributes.mm in Sources */,
 				849CF7461DE842290024A8A5 /* MWMTableViewCell.mm in Sources */,

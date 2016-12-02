@@ -3,6 +3,7 @@
 #import "MWMEditorViewController.h"
 #import "MWMKeyboard.h"
 #import "MWMTableViewCell.h"
+#import "MWMToast.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIViewController+Navigation.h"
@@ -94,7 +95,14 @@ string locale()
   [super backTap];
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle { return UIStatusBarStyleLightContent; }
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+  if ([MWMToast affectsStatusBar])
+    return [MWMToast preferredStatusBarStyle];
+
+  return UIStatusBarStyleLightContent;
+}
+
 - (void)configNavBar { self.title = L(@"editor_add_select_category"); }
 - (void)configSearchBar
 {
