@@ -80,7 +80,8 @@ void ExtractTrafficGeometry(FeatureType const & f, df::RoadClass const & roadCla
 
       auto const segment = polyline.ExtractSegment(segIndex, isReversed);
       ASSERT_EQUAL(segment.size(), 2, ());
-      if (needTwoWayOffset)
+      double const kEps = 1e-5;
+      if (needTwoWayOffset && !segment[0].EqualDxDy(segment[1], kEps))
       {
         m2::PointD const tangent = (segment[1] - segment[0]).Normalize();
         m2::PointD const normal = isLeftHandTraffic ? m2::PointD(-tangent.y, tangent.x) :
