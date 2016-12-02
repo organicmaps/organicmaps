@@ -127,7 +127,7 @@ char const kTrafficEnabledKey[] = "TrafficEnabled";
 
 double const kDistEqualQueryMeters = 100.0;
 
-size_t constexpr kMaxTrafficCacheSizeBytes = 256 /* Mb */ * 1024 * 1024;
+size_t constexpr kMaxTrafficCacheSizeBytes = 128 /* Mb */ * 1024 * 1024;
 
 // Must correspond SearchMarkType.
 vector<string> kSearchMarks =
@@ -237,6 +237,11 @@ void Framework::SetMyPositionModeListener(TMyPositionModeChanged && fn)
   m_myPositionListener = move(fn);
 }
 
+TrafficManager & Framework::GetTrafficManager()
+{
+  return m_trafficManager;
+}
+
 bool Framework::IsTrackingReporterEnabled() const
 {
   if (m_currentRouterType != routing::RouterType::Vehicle)
@@ -318,7 +323,10 @@ void Framework::Migrate(bool keepDownloaded)
   // If we do not suspend drape, it tries to access framework fields (i.e. m_infoGetter) which are null
   // while migration is performed.
   if (m_drapeEngine && m_isRenderingEnabled)
+  {
     m_drapeEngine->SetRenderingDisabled(true);
+    OnDestroyGLContext();
+  }
   m_selectedFeature = FeatureID();
   m_searchEngine.reset();
   m_infoGetter.reset();
@@ -330,11 +338,13 @@ void Framework::Migrate(bool keepDownloaded)
   InitCountryInfoGetter();
   InitSearchEngine();
   RegisterAllMaps();
+
+  m_trafficManager.SetCurrentDataVersion(GetStorage().GetCurrentDataVersion());
   if (m_drapeEngine && m_isRenderingEnabled)
   {
     m_drapeEngine->SetRenderingEnabled();
-    UpdateDrapeEngine(m_currentModelView.PixelRectIn3d().SizeX(),
-                      m_currentModelView.PixelRectIn3d().SizeY());
+    OnRecoverGLContext(m_currentModelView.PixelRectIn3d().SizeX(),
+                       m_currentModelView.PixelRectIn3d().SizeY());
   }
   InvalidateRect(MercatorBounds::FullRect());
 }
@@ -443,6 +453,8 @@ Framework::Framework()
   m_model.GetIndex().AddObserver(editor);
 
   LOG(LINFO, ("Editor initialized"));
+
+  m_trafficManager.SetCurrentDataVersion(m_storage.GetCurrentDataVersion());
 }
 
 Framework::~Framework()
@@ -1711,7 +1723,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   m_trafficManager.SetDrapeEngine(make_ref(m_drapeEngine));
 }
 
-void Framework::UpdateDrapeEngine(int width, int height)
+void Framework::OnRecoverGLContext(int width, int height)
 {
   if (m_drapeEngine)
   {
@@ -1722,9 +1734,14 @@ void Framework::UpdateDrapeEngine(int width, int height)
     UpdatePlacePageInfoForCurrentSelection();
 
     m_drapeApi.Invalidate();
-
-    m_trafficManager.OnRecover();
   }
+
+  m_trafficManager.OnRecoverGLContext();
+}
+
+void Framework::OnDestroyGLContext()
+{
+  m_trafficManager.OnDestroyGLContext();
 }
 
 ref_ptr<df::DrapeEngine> Framework::GetDrapeEngine()

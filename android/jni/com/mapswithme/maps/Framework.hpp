@@ -49,12 +49,16 @@ namespace android
 
     map<gui::EWidget, gui::Position> m_guiPositions;
 
+    void TrafficStateChanged(TrafficManager::TrafficState state);
+
     void MyPositionModeChanged(location::EMyPositionMode mode, bool routingActive);
     void SetMyPositionMode(location::EMyPositionMode mode);
 
     location::TMyPositionModeChanged m_myPositionModeSignal;
     location::EMyPositionMode m_currentMode;
     bool m_isCurrentModeInitialized;
+
+    TrafficManager::TrafficStateChangedFn m_onTrafficStateChangedFn;
 
     bool m_isChoosePositionMode;
 
@@ -140,6 +144,8 @@ namespace android
     location::EMyPositionMode GetMyPositionMode();
     void OnMyPositionModeChanged(location::EMyPositionMode mode);
     void SwitchMyPositionNextMode();
+
+    void SetTrafficStateListener(TrafficManager::TrafficStateChangedFn const & fn);
 
     void Save3dMode(bool allow3d, bool allow3dBuildings);
     void Set3dMode(bool allow3d, bool allow3dBuildings);

@@ -13,6 +13,7 @@
 #include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
 
+#include "std/atomic.hpp"
 #include "std/chrono.hpp"
 #include "std/map.hpp"
 #include "std/mutex.hpp"
@@ -28,6 +29,18 @@ class DrapeEngine;
 class TrafficManager final
 {
 public:
+  enum class TrafficState
+  {
+    Disabled,
+    Enabled,
+    WaitingData,
+    Outdated,
+    NoData,
+    NetworkError,
+    ExpiredData,
+    ExpiredApp
+  };
+
   struct MyPosition
   {
     m2::PointD m_position = m2::PointD(0.0, 0.0);
@@ -40,59 +53,86 @@ public:
     {}
   };
 
+  using TrafficStateChangedFn = function<void(TrafficState)>;
   using GetMwmsByRectFn = function<vector<MwmSet::MwmId>(m2::RectD const &)>;
 
   TrafficManager(GetMwmsByRectFn const & getMwmsByRectFn, size_t maxCacheSizeBytes);
   ~TrafficManager();
+
+  void SetStateListener(TrafficStateChangedFn const & onStateChangedFn);
+  void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine);
+  void SetCurrentDataVersion(int64_t dataVersion);
 
   void SetEnabled(bool enabled);
 
   void UpdateViewport(ScreenBase const & screen);
   void UpdateMyPosition(MyPosition const & myPosition);
 
-  void OnRecover();
-
-  void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine);
+  void OnDestroyGLContext();
+  void OnRecoverGLContext();
 
 private:
   void ThreadRoutine();
   bool WaitForRequest(vector<MwmSet::MwmId> & mwms);
+
+  void OnTrafficDataResponse(traffic::TrafficInfo const & info);
+  void OnTrafficRequestFailed(traffic::TrafficInfo const & info);
+
+private:
+  // This is a group of methods that haven't their own synchronization inside.
   void RequestTrafficData();
   void RequestTrafficData(MwmSet::MwmId const & mwmId);
-  void OnTrafficDataResponse(traffic::TrafficInfo const & info);
+
+  void Clear();
   void CheckCacheSize();
 
-  bool m_isEnabled;
+  void UpdateState();
+  void ChangeState(TrafficState newState);
+
+  bool IsInvalidState() const;
+  bool IsEnabled() const;
 
   GetMwmsByRectFn m_getMwmsByRectFn;
 
   ref_ptr<df::DrapeEngine> m_drapeEngine;
+  atomic<int64_t> m_currentDataVersion;
 
-  MyPosition m_currentPosition;
-  ScreenBase m_currentModelView;
+  // These fields have a flag of their initialization.
+  pair<MyPosition, bool> m_currentPosition = {MyPosition(), false};
+  pair<ScreenBase, bool> m_currentModelView = {ScreenBase(), false};
+
+  atomic<TrafficState> m_state;
+  TrafficStateChangedFn m_onStateChangedFn;
 
   struct CacheEntry
   {
-    CacheEntry() = default;
+    CacheEntry();
+    CacheEntry(time_point<steady_clock> const & requestTime);
 
-    CacheEntry(time_point<steady_clock> const & requestTime) : m_lastRequestTime(requestTime) {}
-    bool m_isLoaded = false;
+    bool m_isLoaded;
+    size_t m_dataSize;
+
     time_point<steady_clock> m_lastSeenTime;
     time_point<steady_clock> m_lastRequestTime;
-    size_t m_dataSize = 0;
+    time_point<steady_clock> m_lastResponseTime;
+
+    int m_retriesCount;
+    bool m_isWaitingForResponse;
+
+    traffic::TrafficInfo::Availability m_lastAvailability;
   };
 
   size_t m_maxCacheSizeBytes;
-  size_t m_currentCacheSizeBytes;
+  size_t m_currentCacheSizeBytes = 0;
 
   map<MwmSet::MwmId, CacheEntry> m_mwmCache;
 
   bool m_isRunning;
   condition_variable m_condition;
 
-  vector<MwmSet::MwmId> m_activeMwms;
+  set<MwmSet::MwmId> m_activeMwms;
 
   vector<MwmSet::MwmId> m_requestedMwms;
-  mutex m_requestedMwmsLock;
+  mutex m_mutex;
   thread m_thread;
 };

@@ -84,6 +84,8 @@ Framework::Framework()
 {
   ASSERT_EQUAL ( g_framework, 0, () );
   g_framework = this;
+
+  m_work.GetTrafficManager().SetStateListener(bind(&Framework::TrafficStateChanged, this, _1));
 }
 
 void Framework::OnLocationError(int errorCode)
@@ -125,6 +127,12 @@ void Framework::MyPositionModeChanged(location::EMyPositionMode mode, bool routi
 {
   if (m_myPositionModeSignal)
     m_myPositionModeSignal(mode, routingActive);
+}
+
+void Framework::TrafficStateChanged(TrafficManager::TrafficState state)
+{
+  if (m_onTrafficStateChangedFn)
+    m_onTrafficStateChangedFn(state);
 }
 
 void Framework::SetMyPositionMode(location::EMyPositionMode mode)
@@ -186,6 +194,7 @@ void Framework::DetachSurface(bool destroyContext)
     LOG(LINFO, ("Destroy context."));
     m_isContextDestroyed = true;
     m_work.EnterBackground();
+    m_work.OnDestroyGLContext();
   }
   m_work.SetRenderingDisabled(destroyContext);
 
@@ -215,7 +224,7 @@ bool Framework::AttachSurface(JNIEnv * env, jobject jSurface)
   if (m_isContextDestroyed)
   {
     LOG(LINFO, ("Recover GL resources, viewport size:", factory->GetWidth(), factory->GetHeight()));
-    m_work.UpdateDrapeEngine(factory->GetWidth(), factory->GetHeight());
+    m_work.OnRecoverGLContext(factory->GetWidth(), factory->GetHeight());
     m_isContextDestroyed = false;
 
     m_work.EnterForeground();
@@ -410,6 +419,11 @@ void Framework::ShowTrack(int category, int track)
 {
   Track const * nTrack = NativeFramework()->GetBmCategory(category)->GetTrack(track);
   NativeFramework()->ShowTrack(*nTrack);
+}
+
+void Framework::SetTrafficStateListener(TrafficManager::TrafficStateChangedFn const & fn)
+{
+  m_onTrafficStateChangedFn = fn;
 }
 
 void Framework::SetMyPositionModeListener(location::TMyPositionModeChanged const & fn)

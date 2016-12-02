@@ -448,7 +448,8 @@ public:
   void SetRenderingEnabled(ref_ptr<dp::OGLContextFactory> contextFactory = nullptr);
   void SetRenderingDisabled(bool destroyContext);
 
-  void UpdateDrapeEngine(int width, int height);
+  void OnRecoverGLContext(int width, int height);
+  void OnDestroyGLContext();
 
   void SetFontScaleFactor(double scaleFactor);
 
@@ -779,6 +780,8 @@ public:
   bool LoadAutoZoom();
   void AllowAutoZoom(bool allowAutoZoom);
   void SaveAutoZoom(bool allowAutoZoom);
+
+  TrafficManager & GetTrafficManager();
 
   bool LoadTrafficEnabled();
   void SaveTrafficEnabled(bool trafficEnabled);

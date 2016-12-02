@@ -50,21 +50,21 @@ UNIT_TEST(TrafficInfo_RemoteFile)
     TestMwmSet mwmSet;
     auto const & r =
         mwmSet.Register(platform::LocalCountryFile::MakeForTesting("traffic_data_test"));
-    TrafficInfo trafficInfo(r.first);
+    TrafficInfo trafficInfo(r.first, r.first.GetInfo()->GetVersion());
     TEST(trafficInfo.ReceiveTrafficData(), ());
   }
   {
     TestMwmSet mwmSet;
     auto const & r =
         mwmSet.Register(platform::LocalCountryFile::MakeForTesting("traffic_data_test2"));
-    TrafficInfo trafficInfo(r.first);
+    TrafficInfo trafficInfo(r.first, r.first.GetInfo()->GetVersion());
     TEST(!trafficInfo.ReceiveTrafficData(), ());
   }
   {
     TestMwmSet mwmSet;
     auto const & r =
         mwmSet.Register(platform::LocalCountryFile::MakeForTesting("traffic_data_test", 101010));
-    TrafficInfo trafficInfo(r.first);
+    TrafficInfo trafficInfo(r.first, r.first.GetInfo()->GetVersion());
     TEST(trafficInfo.ReceiveTrafficData(), ());
   }
 }

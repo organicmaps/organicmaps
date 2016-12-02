@@ -16,6 +16,15 @@ namespace traffic
 class TrafficInfo
 {
 public:
+  enum class Availability
+  {
+    IsAvailable,
+    NoData,
+    ExpiredData,
+    ExpiredApp,
+    Unknown
+  };
+
   struct RoadSegmentId
   {
     // m_dir can be kForwardDirection or kReverseDirection.
@@ -56,7 +65,7 @@ public:
 
   TrafficInfo() = default;
 
-  TrafficInfo(MwmSet::MwmId const & mwmId);
+  TrafficInfo(MwmSet::MwmId const & mwmId, int64_t currentDataVersion);
 
   // Fetches the latest traffic data from the server and updates the coloring.
   // Construct the url by passing an MwmId.
@@ -68,6 +77,7 @@ public:
 
   MwmSet::MwmId const & GetMwmId() const { return m_mwmId; }
   Coloring const & GetColoring() const { return m_coloring; }
+  Availability GetAvailability() const { return m_availability; }
 
   static void SerializeTrafficData(Coloring const & coloring, vector<uint8_t> & result);
 
@@ -77,5 +87,7 @@ private:
   // The mapping from feature segments to speed groups (see speed_groups.hpp).
   Coloring m_coloring;
   MwmSet::MwmId m_mwmId;
+  Availability m_availability = Availability::Unknown;
+  int64_t m_currentDataVersion = 0;
 };
 }  // namespace traffic
