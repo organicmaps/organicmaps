@@ -85,10 +85,10 @@ unique_ptr<IndexGraph> BuildXXGraph(shared_ptr<EdgeEstimator> estimator)
   return graph;
 }
 
-class ApplingTrafficTest
+class ApplyingTrafficTest
 {
 public:
-  ApplingTrafficTest()
+  ApplyingTrafficTest()
   {
     classificator::Load();
     m_estimator = EdgeEstimator::CreateForCar(*make_shared<CarModelFactory>()->GetVehicleModel());
@@ -98,7 +98,7 @@ public:
 };
 
 // Route through XX graph without any traffic info.
-UNIT_CLASS_TEST(ApplingTrafficTest, XXGraph_EmptyTrafficColoring)
+UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_EmptyTrafficColoring)
 {
   unique_ptr<IndexGraph> graph = BuildXXGraph(m_estimator);
   IndexGraphStarter starter(*graph, RoadPoint(1, 0) /* start */, RoadPoint(6, 1) /* finish */);
@@ -107,7 +107,7 @@ UNIT_CLASS_TEST(ApplingTrafficTest, XXGraph_EmptyTrafficColoring)
 }
 
 // Route through XX graph with SpeedGroup::G0 on F3.
-UNIT_CLASS_TEST(ApplingTrafficTest, XXGraph_G0onF3)
+UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_G0onF3)
 {
   TrafficInfo::Coloring coloring = {
       {{3 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection},
@@ -123,7 +123,7 @@ UNIT_CLASS_TEST(ApplingTrafficTest, XXGraph_G0onF3)
 }
 
 // Route through XX graph with SpeedGroup::G0 in reverse direction on F3.
-UNIT_CLASS_TEST(ApplingTrafficTest, XXGraph_G0onF3ReverseDir)
+UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_G0onF3ReverseDir)
 {
   TrafficInfo::Coloring coloring = {
       {{3 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kReverseDirection},
@@ -139,7 +139,7 @@ UNIT_CLASS_TEST(ApplingTrafficTest, XXGraph_G0onF3ReverseDir)
 }
 
 // Route through XX graph SpeedGroup::G1 on F3 and F6, SpeedGroup::G4 on F8 and F4.
-UNIT_CLASS_TEST(ApplingTrafficTest, XXGraph_G0onF3andF6andG4onF8andF4)
+UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_G0onF3andF6andG4onF8andF4)
 {
   TrafficInfo::Coloring coloring = {
       {{3 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection},

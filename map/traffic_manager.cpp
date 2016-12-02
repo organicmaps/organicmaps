@@ -320,7 +320,7 @@ void TrafficManager::OnTrafficDataResponse(traffic::TrafficInfo && info)
   // Update cache.
   size_t constexpr kElementSize = sizeof(traffic::TrafficInfo::RoadSegmentId) + sizeof(traffic::SpeedGroup);
 
-  // Note. It's necessary to multiply by two because routing and rendering use individual caches.
+  // Note. It's necessary to multiply by two because routing and rendering use separate caches.
   size_t const dataSize = 2 * info.GetColoring().size() * kElementSize;
   it->second.m_isLoaded = true;
   m_currentCacheSizeBytes += (dataSize - it->second.m_dataSize);
