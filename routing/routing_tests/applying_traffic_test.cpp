@@ -97,6 +97,8 @@ public:
     return m_trafficInfo;
   }
 
+  void UpdateTrafficInfo(shared_ptr<TrafficInfo> trafficInfo) { m_trafficInfo = trafficInfo; }
+
 private:
   shared_ptr<TrafficInfo> m_trafficInfo;
 };
@@ -115,8 +117,13 @@ public:
 
   shared_ptr<EdgeEstimator> GetEstimator() const { return m_estimator; }
 
+  void UpdateTrafficInfo(TrafficInfo::Coloring && coloring)
+  {
+    m_trafficGetter->UpdateTrafficInfo(make_shared<TrafficInfo>(move(coloring)));
+  }
+
 private:
-  unique_ptr<TrafficInfoGetter> m_trafficGetter;
+  unique_ptr<TrafficInfoGetterTest> m_trafficGetter;
   shared_ptr<EdgeEstimator> m_estimator;
 };
 
@@ -180,5 +187,29 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_G0onF3andF6andG4onF8andF4)
   vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {3, 0}, {3, 1}, {2, 2}, {3, 3}};
   GetEstimator()->Start(MwmSet::MwmId());
   TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
+}
+
+// Route through XX graph with changing traffic.
+UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_ChangingTraffic)
+{
+  // No trafic at all.
+  SetEstimator({});
+
+  unique_ptr<IndexGraph> graph = BuildXXGraph(GetEstimator());
+  IndexGraphStarter starter(*graph, RoadPoint(1, 0) /* start */, RoadPoint(6, 1) /* finish */);
+  vector<m2::PointD> const noTrafficGeom = {{2 /* x */, 0 /* y */}, {1, 1}, {2, 2}, {3, 3}};
+  GetEstimator()->Start(MwmSet::MwmId());
+  TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, noTrafficGeom);
+  GetEstimator()->Finish();
+
+  // Heavy traffic (SpeedGroup::G0) on F3.
+  TrafficInfo::Coloring coloringHeavyF3 = {
+      {{3 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection},
+       SpeedGroup::G0}};
+  UpdateTrafficInfo(move(coloringHeavyF3));
+  GetEstimator()->Start(MwmSet::MwmId());
+  vector<m2::PointD> const heavyF3Geom = {{2 /* x */, 0 /* y */}, {3, 0}, {3, 1}, {2, 2}, {3, 3}};
+  TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, heavyF3Geom);
+  GetEstimator()->Finish();
 }
 }  // namespace
