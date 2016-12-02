@@ -13,12 +13,13 @@
 #include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
 
+#include "base/thread.hpp"
+
 #include "std/atomic.hpp"
 #include "std/chrono.hpp"
 #include "std/map.hpp"
 #include "std/mutex.hpp"
 #include "std/set.hpp"
-#include "std/thread.hpp"
 #include "std/vector.hpp"
 
 namespace df
@@ -134,5 +135,5 @@ private:
 
   vector<MwmSet::MwmId> m_requestedMwms;
   mutex m_mutex;
-  thread m_thread;
+  threads::SimpleThread m_thread;
 };
