@@ -212,7 +212,7 @@ void TrafficGenerator::FlushSegmentsGeometry(TileKey const & tileKey, TrafficSeg
 
   static vector<RoadClass> const kRoadClasses = {RoadClass::Class0, RoadClass::Class1, RoadClass::Class2};
   static float const kDepths[] = {2.0f, 1.0f, 0.0f};
-  static int const kGenerateCapsZoomLevel[] = {14, 14, 16};
+  static vector<int> const kGenerateCapsZoomLevel = {14, 14, 16};
   static vector<int> const kLineDrawerRoadClass1 = {12, 13, 14};
   static vector<int> const kLineDrawerRoadClass2 = {15, 16};
 

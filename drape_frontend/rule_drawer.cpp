@@ -45,7 +45,7 @@ df::BaseApplyFeature::HotelData ExtractHotelData(FeatureType const & f)
 
 void ExtractTrafficGeometry(FeatureType const & f, df::RoadClass const & roadClass,
                             m2::PolylineD const & polyline, bool oneWay, int zoomLevel,
-                            double pixelToGraphics, df::TrafficSegmentsGeometry & geometry)
+                            double pixelToGlobalScale, df::TrafficSegmentsGeometry & geometry)
 {
   if (polyline.GetSize() < 2)
     return;
@@ -60,7 +60,7 @@ void ExtractTrafficGeometry(FeatureType const & f, df::RoadClass const & roadCla
   static vector<int> const kMinOffsetZoomLevels = { 13, 11, 10 };
   bool const needTwoWayOffset = !oneWay && zoomLevel > kMinOffsetZoomLevels[static_cast<int>(roadClass)];
   if (needTwoWayOffset)
-    twoWayOffset = kOffsetScalar * pixelToGraphics * df::TrafficRenderer::GetPixelWidth(roadClass, zoomLevel);
+    twoWayOffset = kOffsetScalar * pixelToGlobalScale * df::TrafficRenderer::GetPixelWidth(roadClass, zoomLevel);
 
   static vector<uint8_t> directions = {traffic::TrafficInfo::RoadSegmentId::kForwardDirection,
                                        traffic::TrafficInfo::RoadSegmentId::kReverseDirection};
@@ -312,13 +312,6 @@ void RuleDrawer::operator()(FeatureType const & f)
 
     if (m_trafficEnabled && zoomLevel >= kRoadClass0ZoomLevel)
     {
-      vector<m2::PointD> points;
-      points.reserve(f.GetPointsCount());
-      f.ResetGeometry();
-      f.ForEachPoint([&points](m2::PointD const & p) { points.emplace_back(p); },
-                     FeatureType::BEST_GEOMETRY);
-      m2::PolylineD const polyline(points);
-
       struct Checker
       {
         vector<ftypes::HighwayClass> m_highwayClasses;
@@ -336,15 +329,20 @@ void RuleDrawer::operator()(FeatureType const & f)
 
       bool const oneWay = ftypes::IsOneWayChecker::Instance()(f);
       auto const highwayClass = ftypes::GetHighwayClass(f);
-      double const pixelToGraphics = 1.0 / m_currentScaleGtoP;
+      double const pixelToGlobalScale = 1.0 / m_currentScaleGtoP;
       for (size_t i = 0; i < ARRAY_SIZE(checkers); ++i)
       {
         auto const & classes = checkers[i].m_highwayClasses;
         if (find(classes.begin(), classes.end(), highwayClass) != classes.end() &&
             zoomLevel >= checkers[i].m_zoomLevel)
         {
-          ExtractTrafficGeometry(f, checkers[i].m_roadClass, polyline, oneWay,
-                                 zoomLevel, pixelToGraphics, m_trafficGeometry);
+          vector<m2::PointD> points;
+          points.reserve(f.GetPointsCount());
+          f.ResetGeometry();
+          f.ForEachPoint([&points](m2::PointD const & p) { points.emplace_back(p); },
+                         FeatureType::BEST_GEOMETRY);
+          ExtractTrafficGeometry(f, checkers[i].m_roadClass, m2::PolylineD(points), oneWay,
+                                 zoomLevel, pixelToGlobalScale, m_trafficGeometry);
           break;
         }
       }
