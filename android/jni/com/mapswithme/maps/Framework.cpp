@@ -131,6 +131,7 @@ void Framework::MyPositionModeChanged(location::EMyPositionMode mode, bool routi
 
 void Framework::TrafficStateChanged(TrafficManager::TrafficState state)
 {
+  LOG(LDEBUG, ("TrafficStateChanged state = ", (int) state));
   if (m_onTrafficStateChangedFn)
     m_onTrafficStateChangedFn(state);
 }
@@ -424,6 +425,16 @@ void Framework::ShowTrack(int category, int track)
 void Framework::SetTrafficStateListener(TrafficManager::TrafficStateChangedFn const & fn)
 {
   m_onTrafficStateChangedFn = fn;
+}
+
+void Framework::EnableTraffic()
+{
+  m_work.GetTrafficManager().SetEnabled(true);
+}
+
+void Framework::DisableTraffic()
+{
+  m_work.GetTrafficManager().SetEnabled(false);
 }
 
 void Framework::SetMyPositionModeListener(location::TMyPositionModeChanged const & fn)

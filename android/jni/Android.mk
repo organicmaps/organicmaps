@@ -96,6 +96,7 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/maps/uber/Uber.cpp \
 	com/mapswithme/maps/TrackRecorder.cpp \
 	com/mapswithme/maps/UserMarkHelper.cpp \
+	com/mapswithme/maps/TrafficState.cpp \
 	com/mapswithme/opengl/android_gl_utils.cpp \
 	com/mapswithme/opengl/androidoglcontext.cpp \
 	com/mapswithme/opengl/androidoglcontextfactory.cpp \

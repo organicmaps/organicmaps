@@ -32,6 +32,7 @@ import com.mapswithme.maps.api.ParsedUrlMwmRequest;
 import com.mapswithme.maps.api.RoutePoint;
 import com.mapswithme.maps.routing.RoutingPlanController;
 import com.mapswithme.maps.bookmarks.data.Banner;
+import com.mapswithme.maps.traffic.TrafficManager;
 import com.mapswithme.maps.uber.Uber;
 import com.mapswithme.maps.uber.UberInfo;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
@@ -68,7 +69,8 @@ import com.mapswithme.maps.settings.StoragePathManager;
 import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.widget.FadeView;
-import com.mapswithme.maps.widget.TrafficButton;
+import com.mapswithme.maps.traffic.widget.TrafficButton;
+import com.mapswithme.maps.traffic.widget.TrafficManagerCallback;
 import com.mapswithme.maps.widget.menu.BaseMenu;
 import com.mapswithme.maps.widget.menu.MainMenu;
 import com.mapswithme.maps.widget.menu.MyPositionButton;
@@ -941,6 +943,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (MapFragment.nativeIsEngineCreated())
       LocationHelper.INSTANCE.attach(this);
+    TrafficManager.INSTANCE.attach(new TrafficManagerCallback(mTraffic, this));
   }
 
   @Override
@@ -949,6 +952,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     super.onStop();
     LocationHelper.INSTANCE.detach(!isFinishing());
     RoutingController.get().detach();
+    TrafficManager.INSTANCE.detach();
   }
 
   @Override

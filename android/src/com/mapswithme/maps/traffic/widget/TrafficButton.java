@@ -1,4 +1,4 @@
-package com.mapswithme.maps.widget;
+package com.mapswithme.maps.traffic.widget;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -38,29 +38,25 @@ public class TrafficButton
 
     RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) button.getLayoutParams();
     params.setMargins(0, UiUtils.getStatusBarHeight(context), 0, 0);
-    //TODO: set default value(state) here
     button.setVisibility(View.VISIBLE);
   }
 
-  //TODO: handle the traffic state coming from the core here
-  public void update(int state)
+  void turnOff()
   {
-    //TODO: soon
+    mButton.setImageResource(ThemeUtils.isNightTheme() ? R.drawable.ic_traffic_off_night
+                                                       : R.drawable.ic_traffic_off);
   }
 
-  private void turnOff()
+  void turnOn()
   {
-    //TODO: soon
+    mButton.setImageResource(ThemeUtils.isNightTheme() ? R.drawable.ic_traffic_on_night
+                                                       : R.drawable.ic_traffic_on);
   }
 
-  private void turnOn()
+  void markAsOutdated()
   {
-   //TODO: soon
-  }
-
-  private void onTrafficOutdated()
-  {
-    //TODO: soon
+    mButton.setImageResource(ThemeUtils.isNightTheme() ? R.drawable.ic_traffic_outdated_night
+                                                       : R.drawable.ic_traffic_outdated);
   }
 
   public void setLoading(boolean isLoading)

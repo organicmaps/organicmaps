@@ -146,6 +146,8 @@ namespace android
     void SwitchMyPositionNextMode();
 
     void SetTrafficStateListener(TrafficManager::TrafficStateChangedFn const & fn);
+    void EnableTraffic();
+    void DisableTraffic();
 
     void Save3dMode(bool allow3d, bool allow3dBuildings);
     void Set3dMode(bool allow3d, bool allow3dBuildings);
