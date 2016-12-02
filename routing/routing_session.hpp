@@ -155,7 +155,7 @@ public:
 
   // RoutingObserver overrides:
   void OnTrafficEnabled(bool enable) override;
-  void OnTrafficInfoAdded(traffic::TrafficInfo const & info) override;
+  void OnTrafficInfoAdded(traffic::TrafficInfo && info) override;
   void OnTrafficInfoRemoved(MwmSet::MwmId const & mwmId) override;
 
   // TrafficInfoGetter overrides:

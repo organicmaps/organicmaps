@@ -588,13 +588,11 @@ void RoutingSession::OnTrafficEnabled(bool enable)
     m_trafficInfo.clear();
 }
 
-void RoutingSession::OnTrafficInfoAdded(TrafficInfo const & info)
+void RoutingSession::OnTrafficInfoAdded(TrafficInfo && info)
 {
   threads::MutexGuard guard(m_routingSessionMutex);
   UNUSED_VALUE(guard);
-  // @TODO(bykoianko) It's worth considering moving a big |info.GetColoring()|
-  // not copying as it's done now.
-  m_trafficInfo.insert(make_pair(info.GetMwmId(), make_shared<TrafficInfo>(info)));
+  m_trafficInfo.insert(make_pair(info.GetMwmId(), make_shared<TrafficInfo>(move(info))));
 }
 
 void RoutingSession::OnTrafficInfoRemoved(MwmSet::MwmId const & mwmId)

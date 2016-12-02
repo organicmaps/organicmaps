@@ -68,6 +68,8 @@ public:
 
   TrafficInfo(MwmSet::MwmId const & mwmId, int64_t currentDataVersion);
 
+  TrafficInfo(TrafficInfo && info) : m_coloring(move(info.m_coloring)), m_mwmId(info.m_mwmId) {}
+
   void SetColoringForTesting(Coloring & coloring) { m_coloring = coloring; }
   // Fetches the latest traffic data from the server and updates the coloring.
   // Construct the url by passing an MwmId.
@@ -99,7 +101,7 @@ public:
   virtual ~TrafficObserver() = default;
 
   virtual void OnTrafficEnabled(bool enable) = 0;
-  virtual void OnTrafficInfoAdded(traffic::TrafficInfo const & info) = 0;
+  virtual void OnTrafficInfoAdded(traffic::TrafficInfo && info) = 0;
   virtual void OnTrafficInfoRemoved(MwmSet::MwmId const & mwmId) = 0;
 };
 

@@ -77,7 +77,7 @@ private:
   void ThreadRoutine();
   bool WaitForRequest(vector<MwmSet::MwmId> & mwms);
 
-  void OnTrafficDataResponse(traffic::TrafficInfo const & info);
+  void OnTrafficDataResponse(traffic::TrafficInfo && info);
   void OnTrafficRequestFailed(traffic::TrafficInfo const & info);
 
 private:

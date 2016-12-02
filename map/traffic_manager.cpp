@@ -187,7 +187,7 @@ void TrafficManager::ThreadRoutine()
 
       if (info.ReceiveTrafficData())
       {
-        OnTrafficDataResponse(info);
+        OnTrafficDataResponse(move(info));
       }
       else
       {
@@ -304,7 +304,7 @@ void TrafficManager::OnTrafficRequestFailed(traffic::TrafficInfo const & info)
   UpdateState();
 }
 
-void TrafficManager::OnTrafficDataResponse(traffic::TrafficInfo const & info)
+void TrafficManager::OnTrafficDataResponse(traffic::TrafficInfo && info)
 {
   lock_guard<mutex> lock(m_mutex);
 
@@ -335,7 +335,7 @@ void TrafficManager::OnTrafficDataResponse(traffic::TrafficInfo const & info)
   UpdateState();
 
   // Update traffic colors for routing.
-  m_observer.OnTrafficInfoAdded(info);
+  m_observer.OnTrafficInfoAdded(move(info));
 }
 
 void TrafficManager::CheckCacheSize()
