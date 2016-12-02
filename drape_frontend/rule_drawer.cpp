@@ -3,6 +3,7 @@
 #include "drape_frontend/apply_feature_functors.hpp"
 #include "drape_frontend/engine_context.hpp"
 #include "drape_frontend/stylist.hpp"
+#include "drape_frontend/traffic_renderer.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "indexer/feature.hpp"
@@ -42,29 +43,57 @@ df::BaseApplyFeature::HotelData ExtractHotelData(FeatureType const & f)
   return result;
 }
 
-void ExtractTrafficGeometry(FeatureType const & f, df::RoadClass const & roadClass, m2::PolylineD const & polyline,
-                            df::TrafficSegmentsGeometry & geometry)
+void ExtractTrafficGeometry(FeatureType const & f, df::RoadClass const & roadClass,
+                            m2::PolylineD const & polyline, bool oneWay, int zoomLevel,
+                            double pixelToGraphics, df::TrafficSegmentsGeometry & geometry)
 {
-  df::TrafficSegmentsGeometry output;
   if (polyline.GetSize() < 2)
     return;
 
-  bool const isLeftHandTraffic = f.GetID().m_mwmId.GetInfo()->GetRegionData().Get(feature::RegionData::RD_DRIVING) == "l";
+  auto const & regionData = f.GetID().m_mwmId.GetInfo()->GetRegionData();
+  bool const isLeftHandTraffic = regionData.Get(feature::RegionData::RD_DRIVING) == "l";
+
+  // Calculate road offset for two-way roads. The offset is available since a zoom level in
+  // kMinOffsetZoomLevels.
+  double twoWayOffset = 0.0;
+  double const kOffsetScalar = 0.5 * df::VisualParams::Instance().GetVisualScale();
+  static vector<int> const kMinOffsetZoomLevels = { 13, 11, 10 };
+  bool const needTwoWayOffset = !oneWay && zoomLevel > kMinOffsetZoomLevels[static_cast<int>(roadClass)];
+  if (needTwoWayOffset)
+    twoWayOffset = kOffsetScalar * pixelToGraphics * df::TrafficRenderer::GetPixelWidth(roadClass, zoomLevel);
 
   static vector<uint8_t> directions = {traffic::TrafficInfo::RoadSegmentId::kForwardDirection,
                                        traffic::TrafficInfo::RoadSegmentId::kReverseDirection};
   auto & segments = geometry[f.GetID().m_mwmId];
   segments.reserve(segments.size() + directions.size() * (polyline.GetSize() - 1));
-  for (uint16_t segmentIndex = 0; segmentIndex + 1 < static_cast<uint16_t>(polyline.GetSize()); ++segmentIndex)
+  for (uint16_t segIndex = 0; segIndex + 1 < static_cast<uint16_t>(polyline.GetSize()); ++segIndex)
   {
     for (size_t dirIndex = 0; dirIndex < directions.size(); ++dirIndex)
     {
-      auto const sid = traffic::TrafficInfo::RoadSegmentId(f.GetID().m_index, segmentIndex, directions[dirIndex]);
+      if (oneWay && dirIndex > 0)
+        break;
+
+      auto const sid = traffic::TrafficInfo::RoadSegmentId(f.GetID().m_index, segIndex, directions[dirIndex]);
       bool isReversed = (directions[dirIndex] == traffic::TrafficInfo::RoadSegmentId::kReverseDirection);
       if (isLeftHandTraffic)
         isReversed = !isReversed;
 
-      segments.emplace_back(sid, df::TrafficSegmentGeometry(polyline.ExtractSegment(segmentIndex, isReversed), roadClass));
+      auto const segment = polyline.ExtractSegment(segIndex, isReversed);
+      ASSERT_EQUAL(segment.size(), 2, ());
+      if (needTwoWayOffset)
+      {
+        m2::PointD const tangent = (segment[1] - segment[0]).Normalize();
+        m2::PointD const normal = isLeftHandTraffic ? m2::PointD(-tangent.y, tangent.x) :
+                                                      m2::PointD(tangent.y, -tangent.x);
+        m2::PolylineD segmentPolyline(vector<m2::PointD>{segment[0] + normal * twoWayOffset,
+                                                         segment[1] + normal * twoWayOffset});
+        segments.emplace_back(sid, df::TrafficSegmentGeometry(move(segmentPolyline), roadClass));
+      }
+      else
+      {
+        m2::PolylineD segmentPolyline(vector<m2::PointD>{segment[0], segment[1]});
+        segments.emplace_back(sid, df::TrafficSegmentGeometry(move(segmentPolyline), roadClass));
+      }
     }
   }
 }
@@ -285,7 +314,9 @@ void RuleDrawer::operator()(FeatureType const & f)
     {
       vector<m2::PointD> points;
       points.reserve(f.GetPointsCount());
-      f.ForEachPoint([&points](m2::PointD const & p) { points.emplace_back(p); }, FeatureType::BEST_GEOMETRY);
+      f.ResetGeometry();
+      f.ForEachPoint([&points](m2::PointD const & p) { points.emplace_back(p); },
+                     FeatureType::BEST_GEOMETRY);
       m2::PolylineD const polyline(points);
 
       struct Checker
@@ -295,17 +326,27 @@ void RuleDrawer::operator()(FeatureType const & f)
         df::RoadClass m_roadClass;
       };
       static Checker const checkers[] = {
-        {{ftypes::HighwayClass::Trunk, ftypes::HighwayClass::Primary}, kRoadClass0ZoomLevel, df::RoadClass::Class0},
-        {{ftypes::HighwayClass::Secondary, ftypes::HighwayClass::Tertiary}, kRoadClass1ZoomLevel, df::RoadClass::Class1},
-        {{ftypes::HighwayClass::LivingStreet, ftypes::HighwayClass::Service}, kRoadClass2ZoomLevel, df::RoadClass::Class2}
+        {{ftypes::HighwayClass::Trunk, ftypes::HighwayClass::Primary},
+         kRoadClass0ZoomLevel, df::RoadClass::Class0},
+        {{ftypes::HighwayClass::Secondary, ftypes::HighwayClass::Tertiary},
+         kRoadClass1ZoomLevel, df::RoadClass::Class1},
+        {{ftypes::HighwayClass::LivingStreet, ftypes::HighwayClass::Service},
+         kRoadClass2ZoomLevel, df::RoadClass::Class2}
       };
 
+      bool const oneWay = ftypes::IsOneWayChecker::Instance()(f);
       auto const highwayClass = ftypes::GetHighwayClass(f);
+      double const pixelToGraphics = 1.0 / m_currentScaleGtoP;
       for (size_t i = 0; i < ARRAY_SIZE(checkers); ++i)
       {
         auto const & classes = checkers[i].m_highwayClasses;
-        if (find(classes.begin(), classes.end(), highwayClass) != classes.end() && zoomLevel >= checkers[i].m_zoomLevel)
-          ExtractTrafficGeometry(f, checkers[i].m_roadClass, polyline, m_trafficGeometry);
+        if (find(classes.begin(), classes.end(), highwayClass) != classes.end() &&
+            zoomLevel >= checkers[i].m_zoomLevel)
+        {
+          ExtractTrafficGeometry(f, checkers[i].m_roadClass, polyline, oneWay,
+                                 zoomLevel, pixelToGraphics, m_trafficGeometry);
+          break;
+        }
       }
     }
   }

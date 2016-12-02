@@ -4,6 +4,7 @@
 #include "drape_frontend/map_shape.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/tile_utils.hpp"
+#include "drape_frontend/traffic_renderer.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "drape/attribute_provider.hpp"
@@ -211,10 +212,9 @@ void TrafficGenerator::FlushSegmentsGeometry(TileKey const & tileKey, TrafficSeg
 
   static vector<RoadClass> const kRoadClasses = {RoadClass::Class0, RoadClass::Class1, RoadClass::Class2};
   static float const kDepths[] = {2.0f, 1.0f, 0.0f};
-  static int const kGenerateCapsZoomLevel[] = {13, 14, 16};
-  static double const kVS = VisualParams::Instance().GetVisualScale();
-  static unordered_map<int, int> const kLineDrawerRoadClass1 = {{12, 2 * kVS}, {13, 3 * kVS}, {14, 4 * kVS}};
-  static unordered_map<int, int> const kLineDrawerRoadClass2 = {{15, 2 * kVS}, {16, 3 * kVS}};
+  static int const kGenerateCapsZoomLevel[] = {14, 14, 16};
+  static vector<int> const kLineDrawerRoadClass1 = {12, 13, 14};
+  static vector<int> const kLineDrawerRoadClass2 = {15, 16};
 
   for (auto geomIt = geom.begin(); geomIt != geom.end(); ++geomIt)
   {
@@ -245,7 +245,7 @@ void TrafficGenerator::FlushSegmentsGeometry(TileKey const & tileKey, TrafficSeg
           glsl::vec2 const uv = glsl::ToVec2(colorRegion.GetTexRect().Center());
 
           bool generatedAsLine = false;
-          unordered_map<int, int> const * lineDrawer = nullptr;
+          vector<int> const * lineDrawer = nullptr;
           if (g.m_roadClass == RoadClass::Class1)
             lineDrawer = &kLineDrawerRoadClass1;
           else if (g.m_roadClass == RoadClass::Class2)
@@ -253,8 +253,9 @@ void TrafficGenerator::FlushSegmentsGeometry(TileKey const & tileKey, TrafficSeg
 
           if (lineDrawer != nullptr)
           {
-            auto lineDrawerIt = lineDrawer->find(tileKey.m_zoomLevel);
-            if (lineDrawerIt != lineDrawer->end() && lineDrawerIt->second <= dp::SupportManager::Instance().GetMaxLineWidth())
+            auto lineDrawerIt = find(lineDrawer->begin(), lineDrawer->end(), tileKey.m_zoomLevel);
+            int const w = static_cast<int>(TrafficRenderer::GetPixelWidth(g.m_roadClass, tileKey.m_zoomLevel));
+            if (lineDrawerIt != lineDrawer->end() && w > 0 && w <= dp::SupportManager::Instance().GetMaxLineWidth())
             {
               vector<TrafficLineStaticVertex> staticGeometry;
               vector<TrafficDynamicVertex> dynamicGeometry;
@@ -272,7 +273,7 @@ void TrafficGenerator::FlushSegmentsGeometry(TileKey const & tileKey, TrafficSeg
               provider.InitStream(1 /* stream index */, GetTrafficDynamicBindingInfo(), make_ref(dynamicGeometry.data()));
 
               dp::GLState curLineState = lineState;
-              curLineState.SetLineWidth(lineDrawerIt->second);
+              curLineState.SetLineWidth(w * df::VisualParams::Instance().GetVisualScale());
               batcher->InsertLineStrip(curLineState, make_ref(&provider), move(handle));
               generatedAsLine = true;
             }
