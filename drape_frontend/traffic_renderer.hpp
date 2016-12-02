@@ -40,6 +40,8 @@ public:
                         buffer_vector<TileKey, 8> const & tilesToDelete);
   void OnGeometryReady(int currentZoomLevel);
 
+  static float GetPixelWidth(RoadClass const & roadClass, int zoomLevel);
+
 private:
   vector<TrafficRenderData> m_renderData;
   TrafficTexCoords m_texCoords;

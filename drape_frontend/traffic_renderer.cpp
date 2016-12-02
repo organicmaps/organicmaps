@@ -21,40 +21,40 @@ namespace
 
 int constexpr kMinVisibleArrowZoomLevel = 16;
 int constexpr kRoadClass2MinVisibleArrowZoomLevel = 17;
-int constexpr kOutlineMinZoomLevel = 13;
+int constexpr kOutlineMinZoomLevel = 14;
 
 float const kTrafficArrowAspect = 24.0f / 8.0f;
 
 float const kLeftWidthInPixel[] =
 {
-  // 1   2     3     4     5     6     7     8     9     10
+  // 1   2     3     4     5     6     7     8     9    10
   0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f,
-  //11   12     13    14    15    16    17    18    19     20
-  0.75f, 0.75f, 0.75f, 2.0f, 2.0f, 3.0f, 3.0f, 4.0f, 5.0f, 8.0f
+  //11   12    13   14    15    16    17   18     19    20
+  0.5f, 0.5f, 0.5f, 0.5f, 2.0f, 2.5f, 3.0f, 4.0f, 4.0f, 7.0f
 };
 
 float const kRightWidthInPixel[] =
 {
-  // 1   2     3     4     5     6     7     8     9     10
-  2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 3.0f, 4.0f,
+  // 1   2     3     4     5     6     7     8     9    10
+  2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 3.0f, 3.0f,
   //11  12    13    14    15    16    17    18    19     20
-  4.0f, 4.0f, 4.0f, 2.0f, 2.0f, 3.0f, 3.0f, 4.0f, 5.0f, 8.0f
+  3.0f, 3.0f, 4.0f, 4.0f, 2.0f, 2.5f, 3.0f, 4.0f, 4.0f, 7.0f
 };
 
 float const kRoadClass1WidthScalar[] =
 {
-  // 1   2     3     4     5     6     7     8     9     10
-  0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+  // 1   2     3     4     5     6     7     8     9    10
+  0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.2,
   //11  12    13    14    15    16    17    18    19     20
-  0.0f, 0.2f, 0.3f, 0.6f, 0.8f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f
+  0.2, 0.2f, 0.4f, 0.5f, 0.6f, 0.6f, 1.0f, 1.0f, 1.0f, 1.0f
 };
 
 float const kRoadClass2WidthScalar[] =
 {
   // 1   2     3     4     5     6     7     8     9     10
-  0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-  //11  12    13    14    15    16    17    18    19     20
-  0.0f, 0.0f, 0.0f, 0.0f, 0.3f, 0.5f, 0.7f, 0.8f, 0.9f, 1.0f
+  0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.2f,
+  //11  12    13    14    15     16   17    18    19    20
+  0.2f, 0.2f, 0.2f, 0.2f, 0.5f, 0.5f, 0.5f, 0.8f, 0.9f, 1.0f
 };
 
 float CalculateHalfWidth(ScreenBase const & screen, RoadClass const & roadClass, bool left)
@@ -215,6 +215,7 @@ void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel, fl
         }
         else if (handle->GetRoadClass() == RoadClass::Class1)
         {
+          outline = (zoomLevel <= kOutlineMinZoomLevel ? 1.0 : 0.0);
           visibleZoomLevel = kRoadClass1ZoomLevel;
         }
         else if (handle->GetRoadClass() == RoadClass::Class2)
@@ -277,6 +278,21 @@ void TrafficRenderer::Clear(MwmSet::MwmId const & mwmId)
   };
 
   m_renderData.erase(remove_if(m_renderData.begin(), m_renderData.end(), removePredicate), m_renderData.end());
+}
+
+// static
+float TrafficRenderer::GetPixelWidth(RoadClass const & roadClass, int zoomLevel)
+{
+  ASSERT_GREATER(zoomLevel, 1, ());
+  ASSERT_LESS_OR_EQUAL(zoomLevel, scales::GetUpperStyleScale(), ());
+  float const * widthScalar = nullptr;
+  if (roadClass == RoadClass::Class1)
+    widthScalar = kRoadClass1WidthScalar;
+  else if (roadClass == RoadClass::Class2)
+    widthScalar = kRoadClass2WidthScalar;
+
+  float const baseWidth = kLeftWidthInPixel[zoomLevel] + kRightWidthInPixel[zoomLevel];
+  return (widthScalar != nullptr) ? (baseWidth * widthScalar[zoomLevel]) : baseWidth;
 }
 
 } // namespace df

@@ -1218,10 +1218,9 @@ void FrontendRenderer::RenderTrafficAndRouteLayer(ScreenBase const & modelView)
 {
   if (m_trafficRenderer->HasRenderData())
   {
-    float const opacity = (m_routeRenderer->GetRouteData() != nullptr) ? 0.5f : 1.0f;
     GLFunctions::glClearDepth();
     GLFunctions::glEnable(gl_const::GLDepthTest);
-    m_trafficRenderer->RenderTraffic(modelView, m_currentZoomLevel, opacity,
+    m_trafficRenderer->RenderTraffic(modelView, m_currentZoomLevel, 1.0f /* opacity */,
                                      make_ref(m_gpuProgramManager), m_generalUniforms);
   }
 
