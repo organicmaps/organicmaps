@@ -71,8 +71,10 @@ JNIEnv * GetEnv()
 {
   JNIEnv * env;
   if (JNI_OK != g_jvm->GetEnv((void **)&env, JNI_VERSION_1_6))
+  {
+    LOG(LERROR, ("Can't get JNIEnv. Was thread attached to JVM?"));
     MYTHROW(RootException, ("Can't get JNIEnv. Was thread attached to JVM?"));
-
+  }
   return env;
 }
 
