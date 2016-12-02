@@ -1,14 +1,16 @@
 attribute vec3 a_position;
 attribute vec2 a_normal;
 attribute vec3 a_length;
+attribute vec4 a_color;
 
 uniform mat4 modelView;
 uniform mat4 projection;
 uniform mat4 pivotTransform;
 
-uniform vec3 u_routeParams;
+uniform vec4 u_routeParams;
 
 varying vec3 v_length;
+varying vec4 v_color;
 
 void main(void)
 {
@@ -29,6 +31,7 @@ void main(void)
   }
 
   v_length = vec3(len, u_routeParams.z);
+  v_color = a_color;
   vec4 pos = vec4(transformedAxisPos, a_position.z, 1.0) * projection;
   float w = pos.w;
   pos.xyw = (pivotTransform * vec4(pos.xy, 0.0, w)).xyw;

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "drape_frontend/batchers_pool.hpp"
+#include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/tile_key.hpp"
 
 #include "drape/color.hpp"
@@ -183,6 +184,8 @@ public:
 
   bool IsColorsCacheRefreshed() const { return m_colorsCacheRefreshed; }
   TrafficTexCoords ProcessCacheRefreshing();
+
+  static df::ColorConstant GetColorBySpeedGroup(traffic::SpeedGroup const & speedGroup);
 
 private:
   struct TrafficBatcherKey

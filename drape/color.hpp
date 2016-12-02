@@ -28,9 +28,9 @@ struct Color
   bool operator< (Color const & other) const { return m_rgba < other.m_rgba; }
   Color operator*(float s) const
   {
-    return Color(my::clamp(static_cast<uint8_t>(GetRed() * s), 0, 255),
-                 my::clamp(static_cast<uint8_t>(GetGreen() * s), 0, 255),
-                 my::clamp(static_cast<uint8_t>(GetBlue() * s), 0, 255),
+    return Color(static_cast<uint8_t>(my::clamp(GetRedF() * s, 0.0f, 1.0f) * 255.0f),
+                 static_cast<uint8_t>(my::clamp(GetGreenF() * s, 0.0f, 1.0f) * 255.0f),
+                 static_cast<uint8_t>(my::clamp(GetBlueF() * s, 0.0f, 1.0f) * 255.0f),
                  GetAlfa());
   }
 

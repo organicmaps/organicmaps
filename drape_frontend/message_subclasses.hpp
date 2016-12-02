@@ -603,16 +603,19 @@ class AddRouteMessage : public Message
 {
 public:
   AddRouteMessage(m2::PolylineD const & routePolyline, vector<double> const & turns,
-                  df::ColorConstant color, df::RoutePattern const & pattern)
-    : AddRouteMessage(routePolyline, turns, color, pattern, -1 /* invalid recache id */)
+                  df::ColorConstant color, vector<traffic::SpeedGroup> const & traffic,
+                  df::RoutePattern const & pattern)
+    : AddRouteMessage(routePolyline, turns, color, traffic, pattern, -1 /* invalid recache id */)
   {}
 
   AddRouteMessage(m2::PolylineD const & routePolyline, vector<double> const & turns,
-                  df::ColorConstant color, df::RoutePattern const & pattern, int recacheId)
+                  df::ColorConstant color, vector<traffic::SpeedGroup> const & traffic,
+                  df::RoutePattern const & pattern, int recacheId)
     : m_routePolyline(routePolyline)
     , m_color(color)
     , m_turns(turns)
     , m_pattern(pattern)
+    , m_traffic(traffic)
     , m_recacheId(recacheId)
   {}
 
@@ -622,6 +625,7 @@ public:
   df::ColorConstant GetColor() const { return m_color; }
   vector<double> const & GetTurns() const { return m_turns; }
   df::RoutePattern const & GetPattern() const { return m_pattern; }
+  vector<traffic::SpeedGroup> const & GetTraffic() const { return m_traffic; }
   int GetRecacheId() const { return m_recacheId; }
 
 private:
@@ -629,6 +633,7 @@ private:
   df::ColorConstant m_color;
   vector<double> m_turns;
   df::RoutePattern m_pattern;
+  vector<traffic::SpeedGroup> m_traffic;
   int const m_recacheId;
 };
 

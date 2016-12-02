@@ -27,7 +27,7 @@ public:
 
   void UpdateTraffic(TrafficSegmentsColoring const & trafficColoring);
 
-  void RenderTraffic(ScreenBase const & screen, int zoomLevel,
+  void RenderTraffic(ScreenBase const & screen, int zoomLevel, float opacity,
                      ref_ptr<dp::GpuProgramManager> mng,
                      dp::UniformValuesStorage const & commonUniforms);
 

@@ -9,6 +9,8 @@
 #include "drape/utils/vertex_decl.hpp"
 #include "drape/pointers.hpp"
 
+#include "traffic/speed_groups.hpp"
+
 #include "geometry/polyline2d.hpp"
 
 #include "std/vector.hpp"
@@ -64,6 +66,7 @@ struct RouteData
   vector<double> m_sourceTurns;
   m2::PointD m_pivot;
   df::ColorConstant m_color;
+  vector<traffic::SpeedGroup> m_traffic;
   double m_length;
   RouteRenderProperty m_route;
   RoutePattern m_pattern;
@@ -101,6 +104,7 @@ public:
 
 private:
   static void PrepareGeometry(vector<m2::PointD> const & path, m2::PointD const & pivot,
+                              vector<glsl::vec4> const & segmentsColors,
                               TGeometryBuffer & geometry, TGeometryBuffer & joinsGeometry,
                               double & outputLength);
   static void PrepareArrowGeometry(vector<m2::PointD> const & path, m2::PointD const & pivot,

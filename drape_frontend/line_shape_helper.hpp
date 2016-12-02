@@ -36,6 +36,7 @@ struct LineSegment
   glsl::vec2 m_rightWidthScalar[PointsCount];
   bool m_hasLeftJoin[PointsCount];
   bool m_generateJoin;
+  glsl::vec4 m_color;
 
   LineSegment(glsl::vec2 const & p1, glsl::vec2 const & p2)
   {
@@ -44,6 +45,7 @@ struct LineSegment
     m_leftWidthScalar[StartPoint] = m_leftWidthScalar[EndPoint] = glsl::vec2(1.0f, 0.0f);
     m_rightWidthScalar[StartPoint] = m_rightWidthScalar[EndPoint] = glsl::vec2(1.0f, 0.0f);
     m_hasLeftJoin[StartPoint] = m_hasLeftJoin[EndPoint] = true;
+    m_color = glsl::vec4(0.0f, 0.0f, 0.0f, 0.0f);
     m_generateJoin = true;
   }
 };
@@ -52,7 +54,8 @@ void CalculateTangentAndNormals(glsl::vec2 const & pt0, glsl::vec2 const & pt1,
                                 glsl::vec2 & tangent, glsl::vec2 & leftNormal,
                                 glsl::vec2 & rightNormal);
 
-void ConstructLineSegments(vector<m2::PointD> const & path, vector<LineSegment> & segments);
+void ConstructLineSegments(vector<m2::PointD> const & path, vector<glsl::vec4> const & segmentsColors,
+                           vector<LineSegment> & segments);
 
 void UpdateNormals(LineSegment * segment, LineSegment * prevSegment, LineSegment * nextSegment);
 
