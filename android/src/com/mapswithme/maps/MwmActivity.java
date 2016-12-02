@@ -541,7 +541,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mNavMyPosition = new MyPositionButton(myPosition);
     ImageButton traffic = (ImageButton) frame.findViewById(R.id.traffic);
     mTraffic = new TrafficButton(this, traffic);
-    mTraffic.setLoading(true);
     mNavAnimationController = new NavigationButtonsAnimationController(mNavZoomIn, mNavZoomOut, myPosition,
                                                                        frame.findViewById(R.id.anchor_center));
   }

@@ -13,13 +13,11 @@ import java.util.List;
 public enum TrafficManager
 {
   INSTANCE;
-
   @NonNull
   private final Logger mLogger;
   @NonNull
   private final TrafficState.StateChangeListener mStateChangeListener = new TrafficStateListener();
   @TrafficState.Value
-  //TODO: Figure out what is the default state??
   private int mState = TrafficState.DISABLED;
   @Nullable
   private TrafficCallback mCallback;
@@ -44,8 +42,15 @@ public enum TrafficManager
     TrafficState.nativeSetListener(mStateChangeListener);
   }
 
-  public void enable()
+  public void enableOrDisable()
   {
+    if (mState == TrafficState.ENABLED)
+    {
+      mLogger.d("Disable traffic");
+      TrafficState.nativeDisable();
+      return;
+    }
+
     mLogger.d("Enable traffic");
     TrafficState.nativeEnable();
   }

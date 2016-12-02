@@ -4,13 +4,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
+import android.view.View;
 import android.widget.Toast;
 
 import com.mapswithme.maps.traffic.TrafficManager;
-
-/**
- * Created by a.zacepin on 02.12.16.
- */
 
 public class TrafficManagerCallback implements TrafficManager.TrafficCallback
 {
@@ -22,6 +19,7 @@ public class TrafficManagerCallback implements TrafficManager.TrafficCallback
   public TrafficManagerCallback(@NonNull TrafficButton button, @NonNull Activity activity)
   {
     mButton = button;
+    mButton.setClickListener(new OnTrafficClickListener());
     mActivity = activity;
   }
 
@@ -52,14 +50,16 @@ public class TrafficManagerCallback implements TrafficManager.TrafficCallback
   @Override
   public void onNoData()
   {
-    Toast.makeText(mActivity, "TODO: onNoData", Toast.LENGTH_SHORT).show();
+    //TODO: put localized string
+    Toast.makeText(mActivity, "There is not traffic data here", Toast.LENGTH_SHORT).show();
   }
 
   @Override
   public void onNetworkError()
   {
+    //TODO: put localized string
     AlertDialog.Builder builder = new AlertDialog.Builder(mActivity)
-        .setMessage("TODO: Show networkError dialog")
+        .setMessage("Network problem encountered. Traffic data cannot be obtained.")
         .setPositiveButton("OK", new DialogInterface.OnClickListener()
         {
           @Override
@@ -67,18 +67,32 @@ public class TrafficManagerCallback implements TrafficManager.TrafficCallback
           {
             TrafficManager.INSTANCE.disable();
           }
-        });
+        })
+        .setCancelable(false);
+    builder.show();
   }
 
   @Override
   public void onExpiredData()
   {
-    Toast.makeText(mActivity, "TODO: onExpiredData", Toast.LENGTH_SHORT).show();
+    //TODO: put localized string
+    Toast.makeText(mActivity, "Traffic data is outdated", Toast.LENGTH_SHORT).show();
   }
 
   @Override
   public void onExpiredApp()
   {
-    Toast.makeText(mActivity, "TODO: onExpiredApp", Toast.LENGTH_SHORT).show();
+    //TODO: put localized string
+    Toast.makeText(mActivity, "The app needs to be updated to get traffic data", Toast.LENGTH_SHORT).show();
+  }
+
+  private class OnTrafficClickListener implements View.OnClickListener
+  {
+
+    @Override
+    public void onClick(View v)
+    {
+      TrafficManager.INSTANCE.enableOrDisable();
+    }
   }
 }

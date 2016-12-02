@@ -131,7 +131,6 @@ void Framework::MyPositionModeChanged(location::EMyPositionMode mode, bool routi
 
 void Framework::TrafficStateChanged(TrafficManager::TrafficState state)
 {
-  LOG(LDEBUG, ("TrafficStateChanged state = ", (int) state));
   if (m_onTrafficStateChangedFn)
     m_onTrafficStateChangedFn(state);
 }

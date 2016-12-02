@@ -21,12 +21,9 @@ public class TrafficButton
   private final AnimationDrawable mLoadingAnim;
   @NonNull
   private final ImageButton mButton;
-  @NonNull
-  private final Context mContext;
 
   public TrafficButton(@NonNull Context context, @NonNull ImageButton button)
   {
-    mContext = context;
     mButton = button;
     Resources rs = context.getResources();
     @DrawableRes
@@ -39,6 +36,11 @@ public class TrafficButton
     RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) button.getLayoutParams();
     params.setMargins(0, UiUtils.getStatusBarHeight(context), 0, 0);
     button.setVisibility(View.VISIBLE);
+  }
+
+  void setClickListener(@NonNull View.OnClickListener clickListener)
+  {
+    mButton.setOnClickListener(clickListener);
   }
 
   void turnOff()
