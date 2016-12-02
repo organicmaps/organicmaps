@@ -6,8 +6,6 @@
 
 #include "map/feature_vec_model.hpp"
 
-#include "traffic/traffic_info.hpp"
-
 #include "platform/local_country_file.hpp"
 
 #include "std/set.hpp"
@@ -65,19 +63,10 @@ public:
   virtual IRouter * GetRouter() const = 0;
 
   storage::CountryInfoGetter const & GetCountryInfoGetter() const noexcept { return *m_infoGetter; }
+
 protected:
   shared_ptr<model::FeaturesFetcher> m_featuresFetcher;
   unique_ptr<storage::CountryInfoGetter> m_infoGetter;
-};
-
-class TrafficInfoGetterTest : public traffic::TrafficInfoGetter
-{
-public:
-  // TrafficInfoGetter overrides:
-  shared_ptr<traffic::TrafficInfo> GetTrafficInfo(MwmSet::MwmId const & mwmId) const override
-  {
-    return shared_ptr<traffic::TrafficInfo>();
-  }
 };
 
 void TestOnlineCrosses(ms::LatLon const & startPoint, ms::LatLon const & finalPoint,

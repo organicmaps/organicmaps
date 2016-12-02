@@ -85,22 +85,47 @@ unique_ptr<IndexGraph> BuildXXGraph(shared_ptr<EdgeEstimator> estimator)
   return graph;
 }
 
+class TrafficInfoGetterTest : public TrafficInfoGetter
+{
+public:
+  TrafficInfoGetterTest(shared_ptr<TrafficInfo> trafficInfo = shared_ptr<TrafficInfo>())
+    : m_trafficInfo(trafficInfo) {}
+
+  // TrafficInfoGetter overrides:
+  shared_ptr<traffic::TrafficInfo> GetTrafficInfo(MwmSet::MwmId const &) const override
+  {
+    return m_trafficInfo;
+  }
+
+private:
+  shared_ptr<TrafficInfo> m_trafficInfo;
+};
+
 class ApplyingTrafficTest
 {
 public:
-  ApplyingTrafficTest()
+  ApplyingTrafficTest() { classificator::Load(); }
+
+  void SetEstimator(TrafficInfo::Coloring && coloring)
   {
-    classificator::Load();
-    m_estimator = EdgeEstimator::CreateForCar(*make_shared<CarModelFactory>()->GetVehicleModel());
+    m_trafficGetter = make_unique<TrafficInfoGetterTest>(make_shared<TrafficInfo>(move(coloring)));
+    m_estimator = EdgeEstimator::CreateForCar(*make_shared<CarModelFactory>()->GetVehicleModel(),
+                                              *m_trafficGetter);
   }
 
+  shared_ptr<EdgeEstimator> GetEstimator() const { return m_estimator; }
+
+private:
+  unique_ptr<TrafficInfoGetter> m_trafficGetter;
   shared_ptr<EdgeEstimator> m_estimator;
 };
 
 // Route through XX graph without any traffic info.
 UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_EmptyTrafficColoring)
 {
-  unique_ptr<IndexGraph> graph = BuildXXGraph(m_estimator);
+  SetEstimator({} /* coloring */);
+
+  unique_ptr<IndexGraph> graph = BuildXXGraph(GetEstimator());
   IndexGraphStarter starter(*graph, RoadPoint(1, 0) /* start */, RoadPoint(6, 1) /* finish */);
   vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {1, 1}, {2, 2}, {3, 3}};
   TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
@@ -112,13 +137,12 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_G0onF3)
   TrafficInfo::Coloring coloring = {
       {{3 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection},
        SpeedGroup::G0}};
-  shared_ptr<TrafficInfo> trafficInfo = make_shared<TrafficInfo>();
-  trafficInfo->SetColoringForTesting(coloring);
-  m_estimator->SetTrafficInfo(trafficInfo);
+  SetEstimator(move(coloring));
 
-  unique_ptr<IndexGraph> graph = BuildXXGraph(m_estimator);
+  unique_ptr<IndexGraph> graph = BuildXXGraph(GetEstimator());
   IndexGraphStarter starter(*graph, RoadPoint(1, 0) /* start */, RoadPoint(6, 1) /* finish */);
   vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {3, 0}, {3, 1}, {2, 2}, {3, 3}};
+  GetEstimator()->Start(MwmSet::MwmId());
   TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
 }
 
@@ -128,13 +152,12 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_G0onF3ReverseDir)
   TrafficInfo::Coloring coloring = {
       {{3 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kReverseDirection},
        SpeedGroup::G0}};
-  shared_ptr<TrafficInfo> trafficInfo = make_shared<TrafficInfo>();
-  trafficInfo->SetColoringForTesting(coloring);
-  m_estimator->SetTrafficInfo(trafficInfo);
+  SetEstimator(move(coloring));
 
-  unique_ptr<IndexGraph> graph = BuildXXGraph(m_estimator);
+  unique_ptr<IndexGraph> graph = BuildXXGraph(GetEstimator());
   IndexGraphStarter starter(*graph, RoadPoint(1, 0) /* start */, RoadPoint(6, 1) /* finish */);
   vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {1, 1}, {2, 2}, {3, 3}};
+  GetEstimator()->Start(MwmSet::MwmId());
   TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
 }
 
@@ -150,13 +173,12 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_G0onF3andF6andG4onF8andF4)
        SpeedGroup::G4},
       {{7 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection},
        SpeedGroup::G4}};
-  shared_ptr<TrafficInfo> trafficInfo = make_shared<TrafficInfo>();
-  trafficInfo->SetColoringForTesting(coloring);
-  m_estimator->SetTrafficInfo(trafficInfo);
+  SetEstimator(move(coloring));
 
-  unique_ptr<IndexGraph> graph = BuildXXGraph(m_estimator);
+  unique_ptr<IndexGraph> graph = BuildXXGraph(GetEstimator());
   IndexGraphStarter starter(*graph, RoadPoint(1, 0) /* start */, RoadPoint(6, 1) /* finish */);
   vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {3, 0}, {3, 1}, {2, 2}, {3, 3}};
+  GetEstimator()->Start(MwmSet::MwmId());
   TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
 }
 }  // namespace

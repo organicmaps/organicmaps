@@ -1,5 +1,7 @@
 #include "routing/routing_integration_tests/routing_test_tools.hpp"
 
+#include "routing/routing_tests/index_graph_tools.hpp"
+
 #include "testing/testing.hpp"
 
 #include "map/feature_vec_model.hpp"
@@ -29,8 +31,8 @@
 
 #include <sys/resource.h>
 
-
 using namespace routing;
+using namespace routing_test;
 
 using TRouterFactory =
     function<unique_ptr<IRouter>(Index & index, TCountryFileFn const & countryFileFn)>;
@@ -112,6 +114,7 @@ namespace integration
     }
 
     IRouter * GetRouter() const override { return m_carRouter.get(); }
+
   private:
     TrafficInfoGetterTest m_trafficGetter;
     unique_ptr<CarRouter> m_carRouter;

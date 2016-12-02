@@ -6,8 +6,6 @@
 #include "routing/router.hpp"
 #include "routing/vehicle_model.hpp"
 
-#include "traffic/traffic_info.hpp"
-
 #include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
 
@@ -23,7 +21,6 @@ class SingleMwmRouter
 {
 public:
   SingleMwmRouter(string const & name, Index const & index,
-                  traffic::TrafficInfoGetter const & getter,
                   shared_ptr<VehicleModelFactory> vehicleModelFactory,
                   shared_ptr<EdgeEstimator> estimator,
                   unique_ptr<IDirectionsEngine> directionsEngine);
@@ -49,7 +46,6 @@ private:
 
   string const m_name;
   Index const & m_index;
-  traffic::TrafficInfoGetter const & m_trafficInfoGetter;
   FeaturesRoadGraph m_roadGraph;
   shared_ptr<VehicleModelFactory> m_vehicleModelFactory;
   shared_ptr<EdgeEstimator> m_estimator;

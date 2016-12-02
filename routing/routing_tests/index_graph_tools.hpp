@@ -7,6 +7,8 @@
 
 #include "routing/base/astar_algorithm.hpp"
 
+#include "traffic/traffic_info.hpp"
+
 #include "geometry/point2d.hpp"
 
 #include "std/algorithm.hpp"
@@ -30,9 +32,21 @@ private:
   unordered_map<uint32_t, routing::RoadGeometry> m_roads;
 };
 
+class TrafficInfoGetterTest : public traffic::TrafficInfoGetter
+{
+public:
+  TrafficInfoGetterTest() {}
+
+  // TrafficInfoGetter overrides:
+  shared_ptr<traffic::TrafficInfo> GetTrafficInfo(MwmSet::MwmId const & mwmId) const override
+  {
+    return shared_ptr<traffic::TrafficInfo>();
+  }
+};
+
 routing::Joint MakeJoint(vector<routing::RoadPoint> const & points);
 
-shared_ptr<routing::EdgeEstimator> CreateEstimator();
+shared_ptr<routing::EdgeEstimator> CreateEstimator(TrafficInfoGetterTest const & trafficGette);
 
 routing::AStarAlgorithm<routing::IndexGraphStarter>::Result CalculateRoute(
     routing::IndexGraphStarter & graph, vector<routing::RoadPoint> & roadPoints);

@@ -70,7 +70,9 @@ public:
 
   TrafficInfo(TrafficInfo && info) : m_coloring(move(info.m_coloring)), m_mwmId(info.m_mwmId) {}
 
-  void SetColoringForTesting(Coloring & coloring) { m_coloring = coloring; }
+  // For testing only.
+  TrafficInfo(Coloring && coloring) : m_coloring(move(coloring)) {}
+
   // Fetches the latest traffic data from the server and updates the coloring.
   // Construct the url by passing an MwmId.
   // *NOTE* This method must not be called on the UI thread.

@@ -44,18 +44,30 @@ vector<Junction> ConvertToJunctions(IndexGraphStarter & starter, vector<Joint::I
 
   return junctions;
 }
+
+class EstimatorGuard
+{
+public:
+  EstimatorGuard(MwmSet::MwmId const & mwmId, EdgeEstimator & estimator) : m_estimator(estimator)
+  {
+    m_estimator.Start(mwmId);
+  }
+
+  ~EstimatorGuard() { m_estimator.Finish(); }
+
+private:
+  EdgeEstimator & m_estimator;
+};
 }  // namespace
 
 namespace routing
 {
 SingleMwmRouter::SingleMwmRouter(string const & name, Index const & index,
-                                 traffic::TrafficInfoGetter const & getter,
                                  shared_ptr<VehicleModelFactory> vehicleModelFactory,
                                  shared_ptr<EdgeEstimator> estimator,
                                  unique_ptr<IDirectionsEngine> directionsEngine)
   : m_name(name)
   , m_index(index)
-  , m_trafficInfoGetter(getter)
   , m_roadGraph(index, IRoadGraph::Mode::ObeyOnewayTag, vehicleModelFactory)
   , m_vehicleModelFactory(vehicleModelFactory)
   , m_estimator(estimator)
@@ -108,7 +120,7 @@ IRouter::ResultCode SingleMwmRouter::DoCalculateRoute(MwmSet::MwmId const & mwmI
   RoadPoint const start(startEdge.GetFeatureId().m_index, startEdge.GetSegId());
   RoadPoint const finish(finishEdge.GetFeatureId().m_index, finishEdge.GetSegId());
 
-  m_estimator->SetTrafficInfo(m_trafficInfoGetter.GetTrafficInfo(mwmId));
+  EstimatorGuard guard(mwmId, *m_estimator);
 
   IndexGraph graph(GeometryLoader::Create(
                        m_index, mwmId, m_vehicleModelFactory->GetVehicleModelForCountry(country)),
@@ -221,9 +233,9 @@ unique_ptr<SingleMwmRouter> SingleMwmRouter::CreateCarRouter(
   // @TODO Bicycle turn generation engine is used now. It's ok for the time being.
   // But later a special car turn generation engine should be implemented.
   auto directionsEngine = make_unique<BicycleDirectionsEngine>(index);
-  auto estimator = EdgeEstimator::CreateForCar(*vehicleModelFactory->GetVehicleModel());
+  auto estimator = EdgeEstimator::CreateForCar(*vehicleModelFactory->GetVehicleModel(), getter);
   auto router =
-      make_unique<SingleMwmRouter>("astar-bidirectional-car", index, getter,
+      make_unique<SingleMwmRouter>("astar-bidirectional-car", index,
                                    move(vehicleModelFactory), estimator, move(directionsEngine));
   return router;
 }
