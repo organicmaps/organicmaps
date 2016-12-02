@@ -21,15 +21,10 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 + (nonnull MWMAlertViewController *)activeAlertController
 {
-  UIWindow * window = UIApplication.sharedApplication.delegate.window;
-  UIViewController * rootViewController = window.rootViewController;
-  ASSERT([rootViewController isKindOfClass:[UINavigationController class]], ());
-  UINavigationController * navigationController =
-      static_cast<UINavigationController *>(rootViewController);
-  UIViewController * topViewController = navigationController.topViewController;
-  ASSERT([topViewController conformsToProtocol:@protocol(MWMController)], ());
+  UIViewController * tvc = topViewController();
+  ASSERT([tvc conformsToProtocol:@protocol(MWMController)], ());
   UIViewController<MWMController> * mwmController =
-      static_cast<UIViewController<MWMController> *>(topViewController);
+      static_cast<UIViewController<MWMController> *>(tvc);
   return mwmController.alertController;
 }
 

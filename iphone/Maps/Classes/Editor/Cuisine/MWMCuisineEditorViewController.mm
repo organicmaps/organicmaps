@@ -1,6 +1,7 @@
 #import "MWMCuisineEditorViewController.h"
 #import "MWMKeyboard.h"
 #import "MWMTableViewCell.h"
+#import "MWMToast.h"
 #import "UIColor+MapsMeColor.h"
 
 #include "indexer/cuisines.hpp"
@@ -47,7 +48,13 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
   [MWMKeyboard addObserver:self];
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle { return UIStatusBarStyleLightContent; }
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+  if ([MWMToast affectsStatusBar])
+    return [MWMToast preferredStatusBarStyle];
+  return UIStatusBarStyleLightContent;
+}
+
 #pragma mark - MWMKeyboard
 
 - (void)onKeyboardAnimation

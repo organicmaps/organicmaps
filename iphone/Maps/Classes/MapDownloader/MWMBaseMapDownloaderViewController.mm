@@ -11,10 +11,11 @@
 #import "MWMMapDownloaderSubplaceTableViewCell.h"
 #import "MWMMapDownloaderTableViewCell.h"
 #import "MWMMapDownloaderViewController.h"
-#import "MWMMyTarget.h"
 #import "MWMMigrationViewController.h"
+#import "MWMMyTarget.h"
 #import "MWMSegue.h"
 #import "MWMStorage.h"
+#import "MWMToast.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
@@ -737,6 +738,8 @@ using namespace mwm;
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
+  if ([MWMToast affectsStatusBar])
+    return [MWMToast preferredStatusBarStyle];
   return UIStatusBarStyleLightContent;
 }
 
