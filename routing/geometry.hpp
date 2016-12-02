@@ -25,8 +25,6 @@ public:
 
   void Load(IVehicleModel const & vehicleModel, FeatureType const & feature);
 
-  bool IsRoad() const { return m_isRoad; }
-
   bool IsOneWay() const { return m_isOneWay; }
 
   // Kilometers per hour.
@@ -43,7 +41,6 @@ public:
 private:
   Points m_points;
   double m_speed = 0.0;
-  bool m_isRoad = false;
   bool m_isOneWay = false;
 };
 

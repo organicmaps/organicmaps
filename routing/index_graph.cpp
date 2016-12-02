@@ -57,8 +57,6 @@ void IndexGraph::GetNeighboringEdges(RoadPoint const & rp, bool isOutgoing,
                                      vector<JointEdge> & edges)
 {
   RoadGeometry const & road = m_geometry.GetRoad(rp.GetFeatureId());
-  if (!road.IsRoad())
-    return;
 
   bool const bidirectional = !road.IsOneWay();
   if (!isOutgoing || bidirectional)
@@ -84,8 +82,6 @@ void IndexGraph::GetDirectedEdge(uint32_t featureId, uint32_t pointFrom, uint32_
                                  Joint::Id target, bool forward, vector<JointEdge> & edges)
 {
   RoadGeometry const & road = m_geometry.GetRoad(featureId);
-  if (!road.IsRoad())
-    return;
 
   if (road.IsOneWay() && forward != (pointFrom < pointTo))
     return;

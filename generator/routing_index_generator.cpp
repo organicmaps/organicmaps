@@ -5,6 +5,7 @@
 #include "routing/index_graph.hpp"
 #include "routing/index_graph_serializer.hpp"
 #include "routing/pedestrian_model.hpp"
+#include "routing/vehicle_mask.hpp"
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_processor.hpp"
@@ -17,7 +18,6 @@
 #include "std/bind.hpp"
 #include "std/shared_ptr.hpp"
 #include "std/unordered_map.hpp"
-#include "std/unordered_set.hpp"
 #include "std/vector.hpp"
 
 using namespace feature;
@@ -57,17 +57,16 @@ public:
     graph.Import(joints);
   }
 
-  unordered_set<uint32_t> const & GetCarFeatureIds() const { return m_carFeatureIds; }
+  unordered_map<uint32_t, VehicleMask> const & GetMasks() const { return m_masks; }
 
 private:
   void ProcessFeature(FeatureType const & f, uint32_t id)
   {
-    if (!IsRoad(f))
+    VehicleMask const mask = CalcVehicleMask(f);
+    if (!mask)
       return;
 
-    if (m_carModel->IsRoad(f))
-      m_carFeatureIds.insert(id);
-
+    m_masks[id] = mask;
     f.ParseGeometry(FeatureType::BEST_GEOMETRY);
 
     for (size_t i = 0; i < f.GetPointsCount(); ++i)
@@ -77,16 +76,24 @@ private:
     }
   }
 
-  bool IsRoad(FeatureType const & f) const
+  VehicleMask CalcVehicleMask(FeatureType const & f)
   {
-    return m_pedestrianModel->IsRoad(f) || m_bicycleModel->IsRoad(f) || m_carModel->IsRoad(f);
+    VehicleMask mask = 0;
+    if (m_pedestrianModel->IsRoad(f))
+      mask |= kPedestrianMask;
+    if (m_bicycleModel->IsRoad(f))
+      mask |= kBicycleMask;
+    if (m_carModel->IsRoad(f))
+      mask |= kCarMask;
+
+    return mask;
   }
 
   shared_ptr<IVehicleModel> m_pedestrianModel;
   shared_ptr<IVehicleModel> m_bicycleModel;
   shared_ptr<IVehicleModel> m_carModel;
   unordered_map<uint64_t, Joint> m_posToJoint;
-  unordered_set<uint32_t> m_carFeatureIds;
+  unordered_map<uint32_t, VehicleMask> m_masks;
 };
 }  // namespace
 
@@ -107,7 +114,7 @@ bool BuildRoutingIndex(string const & filename, string const & country)
     FileWriter writer = cont.GetWriter(ROUTING_FILE_TAG);
 
     auto const startPos = writer.Pos();
-    IndexGraphSerializer::Serialize(graph, processor.GetCarFeatureIds(), writer);
+    IndexGraphSerializer::Serialize(graph, processor.GetMasks(), writer);
     auto const sectionSize = writer.Pos() - startPos;
 
     LOG(LINFO, ("Routing section created:", sectionSize, "bytes,", graph.GetNumRoads(), "roads,",

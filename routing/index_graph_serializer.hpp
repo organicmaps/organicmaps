@@ -1,7 +1,9 @@
 #pragma once
 
 #include "routing/index_graph.hpp"
+#include "routing/joint.hpp"
 #include "routing/routing_exception.hpp"
+#include "routing/vehicle_mask.hpp"
 
 #include "coding/bit_streams.hpp"
 #include "coding/elias_coder.hpp"
@@ -22,154 +24,168 @@ public:
   IndexGraphSerializer() = delete;
 
   template <class Sink>
-  static void Serialize(IndexGraph const & graph, unordered_set<uint32_t> const & carFeatureIds,
-                        Sink & sink)
+  static void Serialize(IndexGraph const & graph,
+                        unordered_map<uint32_t, VehicleMask> const & masks, Sink & sink)
   {
-    Header const header(graph, carFeatureIds);
-    header.Serialize(sink);
+    Header header(graph, masks);
+    JointIdEncoder jointEncoder;
 
-    vector<uint32_t> featureIds;
-    MakeFeatureIds(graph, carFeatureIds, featureIds);
+    vector<SectionSerializer> serializers;
+    PrepareSectionSerializers(graph, masks, serializers);
 
-    BitWriter<Sink> writer(sink);
-    JointIdEncoder carEncoder(header, true);
-    JointIdEncoder restEncoder(header, false);
-
-    // -1 for uint32_t is some confusing, but it allows process first iteration in the common way.
-    // It works because uint32_t is modular ring type.
-    uint32_t prevFeatureId = -1;
-
-    for (uint32_t const featureId : featureIds)
+    for (uint32_t i = 0; i < serializers.size(); ++i)
     {
-      RoadJointIds const & road = graph.GetRoad(featureId);
-
-      uint32_t const featureDelta = featureId - prevFeatureId;
-      Write32(writer, featureDelta);
-      prevFeatureId = featureId;
-
-      uint32_t const pointCap = road.GetMaxPointId() + 1;
-      Write32(writer, pointCap);
-
-      uint32_t prevPointId = -1;
-      road.ForEachJoint([&](uint32_t pointId, Joint::Id jointId) {
-        uint32_t const pointDelta = pointId - prevPointId;
-        Write32(writer, pointDelta);
-        prevPointId = pointId;
-
-        if (IsCarJoint(graph, carFeatureIds, jointId))
-          carEncoder.Write(jointId, writer);
-        else
-          restEncoder.Write(jointId, writer);
-      });
+      SectionSerializer & serializer = serializers[i];
+      Joint::Id const begin = jointEncoder.GetCount();
+      serializer.SerializeToBuffer(graph, masks, jointEncoder);
+      header.AddSection({serializer.GetMask(), serializer.GetBufferSize(), serializer.GetNumRoads(),
+                         begin, jointEncoder.GetCount()});
     }
+
+    header.Serialize(sink);
+    for (SectionSerializer & section : serializers)
+      section.Flush(sink);
   }
 
   template <class Source>
-  static void Deserialize(IndexGraph & graph, Source & src, bool forCar)
+  static void Deserialize(IndexGraph & graph, Source & src, VehicleMask requiredMask)
   {
     Header header;
     header.Deserialize(src);
 
-    BitReader<Source> reader(src);
-    JointIdDecoder jointIdDecoder(header);
+    JointIdConverter jointIdConverter(header.GetNumJoints());
 
-    uint32_t featureId = -1;
-    uint32_t const roadsLimit = forCar ? header.GetNumCarRoads() : header.GetNumRoads();
-    for (uint32_t i = 0; i < roadsLimit; ++i)
+    for (uint32_t i = 0; i < header.GetNumSections(); ++i)
     {
-      uint32_t const featureDelta = Read32(reader);
-      featureId += featureDelta;
+      Section const & section = header.GetSection(i);
+      VehicleMask const mask = section.GetMask();
 
-      uint32_t const pointCap = Read32(reader);
-      if (pointCap < 1)
-        MYTHROW(RoutingException, ("Invalid pointCap =", pointCap, ", featureId =", featureId));
-
-      uint32_t const maxPointId = pointCap - 1;
-
-      RoadJointIds & roadJoints = graph.InitRoad(featureId, maxPointId);
-
-      for (uint32_t pointId = -1; pointId != maxPointId;)
+      if (!(mask & requiredMask))
       {
-        uint32_t const pointDelta = Read32(reader);
-        pointId += pointDelta;
-        if (pointId > maxPointId)
-        {
-          MYTHROW(RoutingException, ("Invalid pointId =", pointId, ", maxPointId =", maxPointId,
-                                     ", pointDelta =", pointDelta, ", featureId =", featureId));
-        }
+        src.Skip(section.GetSize());
+        continue;
+      }
 
-        Joint::Id const jointId = jointIdDecoder.Read(reader);
-        if (jointId >= header.GetNumJoints())
-        {
-          MYTHROW(RoutingException,
-                  ("Invalid jointId =", jointId, ", numJoints =", header.GetNumJoints(),
-                   ", pointId =", pointId, ", featureId =", featureId));
-        }
+      JointIdDecoder jointIdDecoder(section.GetBeginJointId());
+      BitReader<Source> reader(src);
+      uint64_t const expectedEndPos = src.Pos() + section.GetSize();
 
-        if (!forCar || jointId < header.GetNumCarJoints())
+      // -1 for uint32_t is some confusing, but it allows process first iteration in the common way.
+      // It works because uint32_t is modular ring type.
+      uint32_t featureId = -1;
+      for (uint32_t i = 0; i < section.GetNumRoads(); ++i)
+      {
+        uint32_t const featureDelta = Read32(reader);
+        featureId += featureDelta;
+
+        uint32_t const pointCap = Read32(reader);
+        if (pointCap < 1)
+          MYTHROW(RoutingException, ("Invalid pointCap =", pointCap, ", featureId =", featureId));
+
+        uint32_t const maxPointId = pointCap - 1;
+
+        RoadJointIds & roadJoints = graph.InitRoad(featureId, maxPointId);
+
+        for (uint32_t pointId = -1; pointId != maxPointId;)
+        {
+          uint32_t const pointDelta = Read32(reader);
+          pointId += pointDelta;
+          if (pointId > maxPointId)
+          {
+            MYTHROW(RoutingException, ("Invalid pointId =", pointId, ", maxPointId =", maxPointId,
+                                       ", pointDelta =", pointDelta, ", featureId =", featureId));
+          }
+
+          Joint::Id const jointIdInFile = jointIdDecoder.Read(reader);
+          if (jointIdInFile >= section.GetEndJointId())
+          {
+            MYTHROW(RoutingException,
+                    ("Invalid jointId =", jointIdInFile, ", end =", section.GetEndJointId(),
+                     ", mask =", mask, ", pointId =", pointId, ", featureId =", featureId));
+          }
+
+          Joint::Id const jointId = jointIdConverter.Convert(jointIdInFile);
+          // TODO: filter redundant joints
           roadJoints.AddJoint(pointId, jointId);
+        }
+      }
+
+      if (jointIdDecoder.GetCount() != section.GetEndJointId())
+      {
+        MYTHROW(RoutingException, ("Invalid decoder count =", jointIdDecoder.GetCount(),
+                                   ", expected =", section.GetEndJointId(), ", mask =", mask));
+      }
+
+      if (src.Pos() != expectedEndPos)
+      {
+        MYTHROW(RoutingException,
+                ("Wrong position", src.Pos(), "after decoding section", mask, "expected",
+                 expectedEndPos, "section size =", section.GetSize()));
       }
     }
 
-    if (jointIdDecoder.GetCarCount() != header.GetNumCarJoints())
-    {
-      MYTHROW(RoutingException,
-              ("Invalid JointIdDecoder.GetCarCount() =", jointIdDecoder.GetCarCount(),
-               ", expected =", header.GetNumCarJoints()));
-    }
-
-    if (!forCar && jointIdDecoder.GetRestCount() != header.GetNumJoints())
-    {
-      MYTHROW(RoutingException,
-              ("Invalid JointIdDecoder.GetRestCount() =", jointIdDecoder.GetRestCount(),
-               ", expected =", header.GetNumJoints()));
-    }
-
-    graph.Build(forCar ? header.GetNumCarJoints() : header.GetNumJoints());
+    graph.Build(jointIdConverter.GetCount());
   }
 
 private:
   static uint8_t constexpr kVersion = 0;
 
-  template <typename Sink>
-  static void Write32(BitWriter<Sink> & writer, uint32_t value)
+  class Section final
   {
-    bool const success = coding::GammaCoder::Encode(writer, static_cast<uint64_t>(value));
-    if (!success)
-      MYTHROW(RoutingException, ("Can't encode", value));
-  }
+  public:
+    Section() = default;
 
-  template <class Source>
-  static uint32_t Read32(BitReader<Source> & reader)
-  {
-    uint64_t const decoded = coding::GammaCoder::Decode(reader);
-    if (decoded > numeric_limits<uint32_t>::max())
-      MYTHROW(RoutingException, ("Decoded uint32_t out of limit", decoded));
+    Section(VehicleMask mask, uint64_t size, uint32_t numRoads, Joint::Id beginJointId,
+            Joint::Id endJointId)
+      : m_size(size)
+      , m_numRoads(numRoads)
+      , m_beginJointId(beginJointId)
+      , m_endJointId(endJointId)
+      , m_mask(mask)
+    {
+    }
 
-    return static_cast<uint32_t>(decoded);
-  }
+    template <class Sink>
+    void Serialize(Sink & sink) const
+    {
+      WriteToSink(sink, m_size);
+      WriteToSink(sink, m_numRoads);
+      WriteToSink(sink, m_beginJointId);
+      WriteToSink(sink, m_endJointId);
+      WriteToSink(sink, m_mask);
+    }
 
-  static bool IsCarRoad(unordered_set<uint32_t> const & carFeatureIds, uint32_t featureId);
-  static bool IsCarJoint(IndexGraph const & graph, unordered_set<uint32_t> const & carFeatureIds,
-                         Joint::Id jointId);
-  static uint32_t CalcNumCarRoads(IndexGraph const & graph,
-                                  unordered_set<uint32_t> const & carFeatureIds);
-  static Joint::Id CalcNumCarJoints(IndexGraph const & graph,
-                                    unordered_set<uint32_t> const & carFeatureIds);
-  static void MakeFeatureIds(IndexGraph const & graph,
-                             unordered_set<uint32_t> const & carFeatureIds,
-                             vector<uint32_t> & featureIds);
+    template <class Source>
+    void Deserialize(Source & src)
+    {
+      m_size = ReadPrimitiveFromSource<decltype(m_size)>(src);
+      m_numRoads = ReadPrimitiveFromSource<decltype(m_numRoads)>(src);
+      m_beginJointId = ReadPrimitiveFromSource<decltype(m_beginJointId)>(src);
+      m_endJointId = ReadPrimitiveFromSource<decltype(m_endJointId)>(src);
+      m_mask = ReadPrimitiveFromSource<decltype(m_mask)>(src);
+    }
+
+    uint64_t GetSize() const { return m_size; }
+    uint32_t GetNumRoads() const { return m_numRoads; }
+    Joint::Id GetBeginJointId() const { return m_beginJointId; }
+    Joint::Id GetEndJointId() const { return m_endJointId; }
+    VehicleMask GetMask() const { return m_mask; }
+
+  private:
+    uint64_t m_size = 0;
+    uint32_t m_numRoads = 0;
+    Joint::Id m_beginJointId = Joint::kInvalidId;
+    Joint::Id m_endJointId = Joint::kInvalidId;
+    VehicleMask m_mask = 0;
+  };
 
   class Header final
   {
   public:
     Header() = default;
 
-    Header(IndexGraph const & graph, unordered_set<uint32_t> const & carFeatureIds)
-      : m_numRoads(graph.GetNumRoads())
-      , m_numJoints(graph.GetNumJoints())
-      , m_numCarRoads(CalcNumCarRoads(graph, carFeatureIds))
-      , m_numCarJoints(CalcNumCarJoints(graph, carFeatureIds))
+    Header(IndexGraph const & graph, unordered_map<uint32_t, VehicleMask> const & masks)
+      : m_numRoads(graph.GetNumRoads()), m_numJoints(graph.GetNumJoints())
     {
     }
 
@@ -179,8 +195,10 @@ private:
       WriteToSink(sink, m_version);
       WriteToSink(sink, m_numRoads);
       WriteToSink(sink, m_numJoints);
-      WriteToSink(sink, m_numCarRoads);
-      WriteToSink(sink, m_numCarJoints);
+
+      WriteToSink(sink, static_cast<uint32_t>(m_sections.size()));
+      for (Section const & section : m_sections)
+        section.Serialize(sink);
     }
 
     template <class Source>
@@ -195,36 +213,36 @@ private:
 
       m_numRoads = ReadPrimitiveFromSource<decltype(m_numRoads)>(src);
       m_numJoints = ReadPrimitiveFromSource<decltype(m_numJoints)>(src);
-      m_numCarRoads = ReadPrimitiveFromSource<decltype(m_numCarRoads)>(src);
-      m_numCarJoints = ReadPrimitiveFromSource<decltype(m_numCarJoints)>(src);
+
+      auto const sectionsSize = ReadPrimitiveFromSource<uint32_t>(src);
+      m_sections.resize(sectionsSize);
+      for (Section & section : m_sections)
+        section.Deserialize(src);
     }
 
     uint32_t GetNumRoads() const { return m_numRoads; }
     Joint::Id GetNumJoints() const { return m_numJoints; }
-    uint32_t GetNumCarRoads() const { return m_numCarRoads; }
-    Joint::Id GetNumCarJoints() const { return m_numCarJoints; }
+    uint32_t GetNumSections() const { return m_sections.size(); }
+    Section const & GetSection(uint32_t index) const
+    {
+      CHECK_LESS(index, m_sections.size(), ());
+      return m_sections[index];
+    }
 
+    void AddSection(Section const & section) { m_sections.push_back(section); }
   private:
     uint8_t m_version = kVersion;
     uint32_t m_numRoads = 0;
     Joint::Id m_numJoints = 0;
-    uint32_t m_numCarRoads = 0;
-    Joint::Id m_numCarJoints = 0;
+    vector<Section> m_sections;
   };
 
   class JointIdEncoder final
   {
   public:
-    JointIdEncoder(Header const & header, bool forCar)
-      : m_forCar(forCar), m_count(forCar ? 0 : header.GetNumCarJoints())
-    {
-    }
-
     template <class Sink>
     void Write(Joint::Id originalId, BitWriter<Sink> & writer)
     {
-      writer.Write(m_forCar ? 0 : 1, 1);
-
       auto const & it = m_convertedIds.find(originalId);
       if (it != m_convertedIds.end())
       {
@@ -248,35 +266,114 @@ private:
     Joint::Id GetCount() const { return m_count; }
 
   private:
-    bool const m_forCar;
-    Joint::Id m_count;
+    Joint::Id m_count = 0;
     unordered_map<Joint::Id, Joint::Id> m_convertedIds;
   };
 
   class JointIdDecoder final
   {
   public:
-    JointIdDecoder(Header const & header) : m_CarCount(0), m_RestCount(header.GetNumCarJoints()) {}
-
+    JointIdDecoder(Joint::Id begin) : m_count(begin) {}
     template <class Source>
     Joint::Id Read(BitReader<Source> & reader)
     {
-      uint8_t const carBit = reader.Read(1);
-      Joint::Id & count = carBit == 0 ? m_CarCount : m_RestCount;
+      uint8_t const repeatBit = reader.Read(1);
+      if (repeatBit)
+      {
+        uint32_t const delta = Read32(reader);
+        if (delta > m_count)
+          MYTHROW(RoutingException, ("Joint id delta", delta, "> count =", m_count));
 
-      uint8_t const fullId = reader.Read(1);
-      if (fullId)
-        return count - Read32(reader);
+        return m_count - delta;
+      }
 
-      return count++;
+      return m_count++;
     }
 
-    Joint::Id GetCarCount() const { return m_CarCount; }
-    Joint::Id GetRestCount() const { return m_RestCount; }
+    Joint::Id GetCount() const { return m_count; }
+  private:
+    Joint::Id m_count;
+  };
+
+  class JointIdConverter final
+  {
+  public:
+    JointIdConverter(Joint::Id numJoints) { m_ids.assign(numJoints, Joint::kInvalidId); }
+    Joint::Id Convert(Joint::Id jointIdInFile)
+    {
+      if (jointIdInFile >= m_ids.size())
+        MYTHROW(RoutingException,
+                ("Saved joint id", jointIdInFile, " out of bounds", m_ids.size()));
+
+      Joint::Id & idForMemory = m_ids[jointIdInFile];
+      if (idForMemory == Joint::kInvalidId)
+      {
+        idForMemory = m_count;
+        ++m_count;
+      }
+
+      return idForMemory;
+    }
+
+    Joint::Id GetCount() const { return m_count; }
+  private:
+    Joint::Id m_count = 0;
+    vector<Joint::Id> m_ids;
+  };
+
+  class SectionSerializer final
+  {
+  public:
+    explicit SectionSerializer(VehicleMask mask) : m_mask(mask) {}
+
+    uint64_t GetBufferSize() const { return m_buffer.size(); }
+    VehicleMask GetMask() const { return m_mask; }
+    uint32_t GetNumRoads() const { return m_featureIds.size(); }
+
+    void AddRoad(uint32_t featureId) { m_featureIds.push_back(featureId); }
+    void SortRoads() { sort(m_featureIds.begin(), m_featureIds.end()); }
+    void SerializeToBuffer(IndexGraph const & graph,
+                           unordered_map<uint32_t, VehicleMask> const & masks,
+                           JointIdEncoder & jointEncoder);
+
+    template <class Sink>
+    void Flush(Sink & sink)
+    {
+      sink.Write(m_buffer.data(), m_buffer.size());
+      m_buffer.clear();
+    }
 
   private:
-    Joint::Id m_CarCount;
-    Joint::Id m_RestCount;
+    VehicleMask const m_mask;
+    vector<uint32_t> m_featureIds;
+    vector<uint8_t> m_buffer;
   };
+
+  template <typename Sink>
+  static void Write32(BitWriter<Sink> & writer, uint32_t value)
+  {
+    bool const success = coding::GammaCoder::Encode(writer, static_cast<uint64_t>(value));
+    if (!success)
+      MYTHROW(RoutingException, ("Can't encode", value));
+  }
+
+  template <class Source>
+  static uint32_t Read32(BitReader<Source> & reader)
+  {
+    uint64_t const decoded = coding::GammaCoder::Decode(reader);
+    if (decoded > numeric_limits<uint32_t>::max())
+      MYTHROW(RoutingException, ("Decoded uint32_t out of limit", decoded));
+
+    return static_cast<uint32_t>(decoded);
+  }
+
+  static VehicleMask GetRoadMask(unordered_map<uint32_t, VehicleMask> const & masks,
+                                 uint32_t featureId);
+  static VehicleMask GetJointMask(IndexGraph const & graph,
+                                  unordered_map<uint32_t, VehicleMask> const & masks,
+                                  Joint::Id jointId);
+  static void PrepareSectionSerializers(IndexGraph const & graph,
+                                        unordered_map<uint32_t, VehicleMask> const & masks,
+                                        vector<SectionSerializer> & sections);
 };
 }  // namespace routing

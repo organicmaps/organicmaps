@@ -141,9 +141,6 @@ void IndexGraphStarter::FindPointsWithCommonFeature(Joint::Id jointId0, Joint::I
         return;
 
       RoadGeometry const & road = m_graph.GetGeometry().GetRoad(rp0.GetFeatureId());
-      if (!road.IsRoad())
-        return;
-
       if (road.IsOneWay() && rp0.GetPointId() > rp1.GetPointId())
         return;
 

@@ -117,4 +117,5 @@ HEADERS += \
     turns_notification_manager.hpp \
     turns_sound_settings.hpp \
     turns_tts_text.hpp \
+    vehicle_mask.hpp \
     vehicle_model.hpp \

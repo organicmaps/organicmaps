@@ -51,14 +51,18 @@ namespace routing
 {
 // RoadGeometry ------------------------------------------------------------------------------------
 RoadGeometry::RoadGeometry(bool oneWay, double speed, Points const & points)
-  : m_points(points), m_speed(speed), m_isRoad(true), m_isOneWay(oneWay)
+  : m_points(points), m_speed(speed), m_isOneWay(oneWay)
 {
   ASSERT_GREATER(speed, 0.0, ());
 }
 
 void RoadGeometry::Load(IVehicleModel const & vehicleModel, FeatureType const & feature)
 {
-  m_isRoad = vehicleModel.IsRoad(feature);
+  bool const isRoad = vehicleModel.IsRoad(feature);
+  if (!isRoad)
+    MYTHROW(RoutingException,
+            ("Feature", feature.GetID().m_index, "is not a road in the current vehicle model"));
+
   m_isOneWay = vehicleModel.IsOneWay(feature);
   m_speed = vehicleModel.GetSpeed(feature);
 
