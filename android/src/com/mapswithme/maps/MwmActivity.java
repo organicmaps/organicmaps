@@ -70,7 +70,7 @@ import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.widget.FadeView;
 import com.mapswithme.maps.traffic.widget.TrafficButton;
-import com.mapswithme.maps.traffic.widget.TrafficManagerCallback;
+import com.mapswithme.maps.traffic.widget.TrafficButtonController;
 import com.mapswithme.maps.widget.menu.BaseMenu;
 import com.mapswithme.maps.widget.menu.MainMenu;
 import com.mapswithme.maps.widget.menu.MyPositionButton;
@@ -942,7 +942,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (MapFragment.nativeIsEngineCreated())
       LocationHelper.INSTANCE.attach(this);
-    TrafficManager.INSTANCE.attach(new TrafficManagerCallback(mTraffic, this));
+    TrafficManager.INSTANCE.attach(new TrafficButtonController(mTraffic, this));
+    if (mNavigationController != null)
+      TrafficManager.INSTANCE.attach(mNavigationController);
   }
 
   @Override

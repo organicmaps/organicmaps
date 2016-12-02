@@ -9,14 +9,14 @@ import android.widget.Toast;
 
 import com.mapswithme.maps.traffic.TrafficManager;
 
-public class TrafficManagerCallback implements TrafficManager.TrafficCallback
+public class TrafficButtonController implements TrafficManager.TrafficCallback
 {
   @NonNull
   private final TrafficButton mButton;
   @NonNull
   private final Activity mActivity;
 
-  public TrafficManagerCallback(@NonNull TrafficButton button, @NonNull Activity activity)
+  public TrafficButtonController(@NonNull TrafficButton button, @NonNull Activity activity)
   {
     mButton = button;
     mButton.setClickListener(new OnTrafficClickListener());
@@ -88,7 +88,6 @@ public class TrafficManagerCallback implements TrafficManager.TrafficCallback
 
   private class OnTrafficClickListener implements View.OnClickListener
   {
-
     @Override
     public void onClick(View v)
     {

@@ -4,6 +4,7 @@ import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.DebugLogger;
 import com.mapswithme.util.log.Logger;
 
@@ -19,21 +20,14 @@ public enum TrafficManager
   private final TrafficState.StateChangeListener mStateChangeListener = new TrafficStateListener();
   @TrafficState.Value
   private int mState = TrafficState.DISABLED;
-  @Nullable
-  private TrafficCallback mCallback;
   @NonNull
-  private List<Integer> mPendingStates = new ArrayList<>();
+  private List<TrafficCallback> mCallbacks = new ArrayList<>();
 
   TrafficManager()
   {
     mLogger = new DebugLogger(TrafficManager.class.getSimpleName());
-    logInitialization();
+    mLogger.d("Traffic manager initialization");
     setCoreStateChangedListener();
-  }
-
-  private void logInitialization()
-  {
-    mLogger.d("Initialization");
   }
 
   private void setCoreStateChangedListener()
@@ -44,13 +38,17 @@ public enum TrafficManager
 
   public void enableOrDisable()
   {
-    if (mState == TrafficState.ENABLED)
+    if (mState == TrafficState.DISABLED)
     {
-      mLogger.d("Disable traffic");
-      TrafficState.nativeDisable();
+      enable();
       return;
     }
 
+    disable();
+  }
+
+  private void enable()
+  {
     mLogger.d("Enable traffic");
     TrafficState.nativeEnable();
   }
@@ -61,41 +59,44 @@ public enum TrafficManager
     TrafficState.nativeDisable();
   }
 
-  public void attach(@NonNull TrafficCallback callback)
+  public boolean isEnabled()
   {
-    if (mCallback != null)
-    {
-      throw new IllegalStateException("A callback '" + mCallback
-                                      + "' is already attached, but another callback '"
-                                      + callback + "' is trying to be attached. " +
-                                      "Don't forget to detach callback!");
-    }
-
-    mCallback = callback;
-    postPendingStatesIfNeeded();
+    return mState != TrafficState.DISABLED;
   }
 
-  private void postPendingStatesIfNeeded()
+  public void attach(@NonNull TrafficCallback callback)
   {
-    if (mPendingStates.isEmpty())
-      return;
+    if (mCallbacks.contains(callback))
+    {
+      throw new IllegalStateException("A callback '" + callback
+                                      + "' is already attached. Check that the 'detach' method was called.");
+    }
 
-    for (@TrafficState.Value int state : mPendingStates)
-      mStateChangeListener.onTrafficStateChanged(state);
+    mLogger.d("Attach callback '" + callback + "'");
+    mCallbacks.add(callback);
+    postPendingState();
+  }
 
-    mPendingStates.clear();
+  private void postPendingState()
+  {
+    mStateChangeListener.onTrafficStateChanged(mState);
   }
 
   public void detach()
   {
-    if (mCallback == null)
-      mLogger.e("TrafficCallback is already detached. Invoke the 'detach' method only when it's really needed!");
-    mCallback = null;
+    if (mCallbacks.isEmpty())
+    {
+      throw new IllegalStateException("There are no attached callbacks. Invoke the 'detach' method " +
+                                      "only when it's really needed!");
+    }
+
+    for (TrafficCallback callback : mCallbacks)
+      mLogger.d("Detach callback '" + callback + "'");
+    mCallbacks.clear();
   }
 
   private class TrafficStateListener implements TrafficState.StateChangeListener
   {
-
     @Override
     @MainThread
     public void onTrafficStateChanged(@TrafficState.Value int state)
@@ -104,51 +105,59 @@ public enum TrafficManager
                 + " new value = " + TrafficState.nameOf(state));
       mState = state;
 
-      if (mCallback == null)
-      {
-        mPendingStates.add(state);
+      if (mCallbacks.isEmpty())
         return;
-      }
 
-      mPendingStates.clear();
-
-      switch (mState)
+      iterateOverCallbacks(new Utils.Proc<TrafficCallback>()
       {
-        case TrafficState.DISABLED:
-          mCallback.onDisabled();
-          break;
+        @Override
+        public void invoke(@NonNull TrafficCallback callback)
+        {
+          switch (mState)
+          {
+            case TrafficState.DISABLED:
+              callback.onDisabled();
+              break;
 
-        case TrafficState.ENABLED:
-          mCallback.onEnabled();
-          break;
+            case TrafficState.ENABLED:
+              callback.onEnabled();
+              break;
 
-        case TrafficState.WAITING_DATA:
-          mCallback.onWaitingData();
-          break;
+            case TrafficState.WAITING_DATA:
+              callback.onWaitingData();
+              break;
 
-        case TrafficState.NO_DATA:
-          mCallback.onNoData();
-          break;
+            case TrafficState.NO_DATA:
+              callback.onNoData();
+              break;
 
-        case TrafficState.OUTDATED:
-          mCallback.onOutdated();
-          break;
+            case TrafficState.OUTDATED:
+              callback.onOutdated();
+              break;
 
-        case TrafficState.NETWORK_ERROR:
-          mCallback.onNetworkError();
-          break;
+            case TrafficState.NETWORK_ERROR:
+              callback.onNetworkError();
+              break;
 
-        case TrafficState.EXPIRED_DATA:
-          mCallback.onExpiredData();
-          break;
+            case TrafficState.EXPIRED_DATA:
+              callback.onExpiredData();
+              break;
 
-        case TrafficState.EXPIRED_APP:
-          mCallback.onExpiredApp();
-          break;
+            case TrafficState.EXPIRED_APP:
+              callback.onExpiredApp();
+              break;
 
-        default:
-          throw new IllegalArgumentException("Unsupported traffic state: " + state);
-      }
+            default:
+              throw new IllegalArgumentException("Unsupported traffic state: " + mState);
+          }
+        }
+      });
+    }
+
+    private void iterateOverCallbacks(@NonNull Utils.Proc<TrafficCallback> proc)
+    {
+      for (TrafficCallback callback : mCallbacks)
+        proc.invoke(callback);
     }
   }
 
