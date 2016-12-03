@@ -100,7 +100,7 @@ UNIT_TEST(EdgesTest)
   loader->AddRoad(4 /* featureId */, true, 1.0 /* speed */,
                   RoadGeometry::Points({{3.0, -1.0}, {3.0, 0.0}, {3.0, 1.0}}));
 
-  TrafficInfoGetterTest const trafficGetter;
+  TrafficInfoGetterNoJam const trafficGetter;
   IndexGraph graph(move(loader), CreateEstimator(trafficGetter));
 
   vector<Joint> joints;
@@ -145,7 +145,7 @@ UNIT_TEST(FindPathCross)
       1 /* featureId */, false, 1.0 /* speed */,
       RoadGeometry::Points({{0.0, -2.0}, {-1.0, 0.0}, {0.0, 0.0}, {0.0, 1.0}, {0.0, 2.0}}));
 
-  TrafficInfoGetterTest const trafficGetter;
+  TrafficInfoGetterNoJam const trafficGetter;
   IndexGraph graph(move(loader), CreateEstimator(trafficGetter));
 
   graph.Import({MakeJoint({{0, 2}, {1, 2}})});
@@ -202,7 +202,7 @@ UNIT_TEST(FindPathManhattan)
     loader->AddRoad(i + kCitySize, false, 1.0 /* speed */, avenue);
   }
 
-  TrafficInfoGetterTest const trafficGetter;
+  TrafficInfoGetterNoJam const trafficGetter;
   IndexGraph graph(move(loader), CreateEstimator(trafficGetter));
 
   vector<Joint> joints;
@@ -253,7 +253,7 @@ UNIT_TEST(RedressRace)
       2 /* featureId */, false, 1.0 /* speed */,
       RoadGeometry::Points({{0.0, 0.0}, {1.0, 1.0}, {2.0, 1.0}, {3.0, 1.0}, {4.0, 0.0}}));
 
-  TrafficInfoGetterTest const trafficGetter;
+  TrafficInfoGetterNoJam const trafficGetter;
   IndexGraph graph(move(loader), CreateEstimator(trafficGetter));
 
   vector<Joint> joints;
@@ -284,7 +284,7 @@ UNIT_TEST(RoadSpeed)
   loader->AddRoad(1 /* featureId */, false, 1.0 /* speed */,
                   RoadGeometry::Points({{0.0, 0.0}, {2.0, 0.0}, {4.0, 0.0}}));
 
-  TrafficInfoGetterTest const trafficGetter;
+  TrafficInfoGetterNoJam const trafficGetter;
   IndexGraph graph(move(loader), CreateEstimator(trafficGetter));
 
   vector<Joint> joints;

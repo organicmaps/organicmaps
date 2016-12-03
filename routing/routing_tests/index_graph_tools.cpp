@@ -34,7 +34,7 @@ Joint MakeJoint(vector<RoadPoint> const & points)
   return joint;
 }
 
-shared_ptr<EdgeEstimator> CreateEstimator(TrafficInfoGetterTest const & trafficGetter)
+shared_ptr<EdgeEstimator> CreateEstimator(TrafficInfoGetterNoJam const & trafficGetter)
 {
   return EdgeEstimator::CreateForCar(*make_shared<CarModelFactory>()->GetVehicleModel(), trafficGetter);
 }

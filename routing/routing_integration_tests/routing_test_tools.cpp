@@ -79,7 +79,7 @@ namespace integration
 
   unique_ptr<CarRouter> CreateCarRouter(Index & index,
                                         storage::CountryInfoGetter const & infoGetter,
-                                        TrafficInfoGetterTest const & trafficGetter)
+                                        TrafficInfoGetterNoJam const & trafficGetter)
   {
     auto const countryFileGetter = [&infoGetter](m2::PointD const & pt) {
       return infoGetter.GetRegionCountryId(pt);
@@ -116,7 +116,7 @@ namespace integration
     IRouter * GetRouter() const override { return m_carRouter.get(); }
 
   private:
-    TrafficInfoGetterTest m_trafficGetter;
+    TrafficInfoGetterNoJam m_trafficGetter;
     unique_ptr<CarRouter> m_carRouter;
   };
 

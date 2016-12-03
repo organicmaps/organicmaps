@@ -322,7 +322,6 @@ void TrafficManager::OnTrafficDataResponse(traffic::TrafficInfo && info)
 
   // Note. It's necessary to multiply by two because routing and rendering use separate caches.
   size_t const dataSize = 2 * info.GetColoring().size() * kElementSize;
-  it->second.m_isLoaded = true;
   m_currentCacheSizeBytes += (dataSize - it->second.m_dataSize);
   it->second.m_dataSize = dataSize;
   CheckCacheSize();
@@ -354,7 +353,8 @@ void TrafficManager::CheckCacheSize()
       auto const it = m_mwmCache.find(mwmId);
       if (it->second.m_isLoaded)
       {
-        m_currentCacheSizeBytes -= it->second.m_dataSize;
+        // Note. It's necessary to multiply by two because routing and rendering use separate caches.
+        m_currentCacheSizeBytes -= 2 * it->second.m_dataSize;
         m_drapeEngine->ClearTrafficCache(mwmId);
         m_observer.OnTrafficInfoRemoved(mwmId);
       }

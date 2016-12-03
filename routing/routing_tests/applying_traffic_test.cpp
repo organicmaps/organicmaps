@@ -196,7 +196,7 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_G0onF3andF6andG4onF8andF4)
 UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_ChangingTraffic)
 {
   // No trafic at all.
-  SetEstimator({});
+  SetEstimator({} /* coloring */);
   unique_ptr<IndexGraph> graph = BuildXXGraph(GetEstimator());
   IndexGraphStarter starter(*graph, RoadPoint(1, 0) /* start */, RoadPoint(6, 1) /* finish */);
   vector<m2::PointD> const noTrafficGeom = {{2 /* x */, 0 /* y */}, {1, 1}, {2, 2}, {3, 3}};

@@ -76,18 +76,15 @@ void TestOnlineFetcher(ms::LatLon const & startPoint, ms::LatLon const & finalPo
 
 /// Gets OSRM router components
 IRouterComponents & GetOsrmComponents();
-shared_ptr<IRouterComponents> GetOsrmComponents(
-    vector<platform::LocalCountryFile> const & localFiles);
+shared_ptr<IRouterComponents> GetOsrmComponents(vector<platform::LocalCountryFile> const & localFiles);
 
 /// Gets pedestrian router components
 IRouterComponents & GetPedestrianComponents();
-shared_ptr<IRouterComponents> GetPedestrianComponents(
-    vector<platform::LocalCountryFile> const & localFiles);
+shared_ptr<IRouterComponents> GetPedestrianComponents(vector<platform::LocalCountryFile> const & localFiles);
 
 /// Gets bicycle router components.
 IRouterComponents & GetBicycleComponents();
-shared_ptr<IRouterComponents> GetBicycleComponents(
-    vector<platform::LocalCountryFile> const & localFiles);
+shared_ptr<IRouterComponents> GetBicycleComponents(vector<platform::LocalCountryFile> const & localFiles);
 
 TRouteResult CalculateRoute(IRouterComponents const & routerComponents,
                             m2::PointD const & startPoint, m2::PointD const & startDirection,
@@ -119,7 +116,7 @@ class TestTurn
   bool const m_isValid;
 
   TestTurn()
-    : m_point({0., 0.})
+    : m_point({0.0, 0.0})
     , m_direction(TurnDirection::NoTurn)
     , m_roundAboutExitNum(0)
     , m_isValid(false)
