@@ -29,6 +29,20 @@ size_t constexpr kMaxRoadCandidates = 6;
 float constexpr kProgressInterval = 2;
 uint32_t constexpr kDrawPointsPeriod = 10;
 
+class EstimatorGuard final
+{
+public:
+  EstimatorGuard(MwmSet::MwmId const & mwmId, EdgeEstimator & estimator) : m_estimator(estimator)
+  {
+    m_estimator.Start(mwmId);
+  }
+
+  ~EstimatorGuard() { m_estimator.Finish(); }
+
+private:
+  EdgeEstimator & m_estimator;
+};
+
 vector<Junction> ConvertToJunctions(IndexGraphStarter & starter, vector<Joint::Id> const & joints)
 {
   vector<RoadPoint> roadPoints;

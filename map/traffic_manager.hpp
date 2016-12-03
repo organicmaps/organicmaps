@@ -78,7 +78,7 @@ private:
   bool WaitForRequest(vector<MwmSet::MwmId> & mwms);
 
   void OnTrafficDataResponse(traffic::TrafficInfo && info);
-  void OnTrafficRequestFailed(traffic::TrafficInfo const & info);
+  void OnTrafficRequestFailed(traffic::TrafficInfo && info);
 
 private:
   // This is a group of methods that haven't their own synchronization inside.

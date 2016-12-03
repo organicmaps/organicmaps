@@ -84,6 +84,14 @@ TrafficInfo::TrafficInfo(TrafficInfo && info)
   , m_currentDataVersion(info.m_currentDataVersion)
 {}
 
+// static
+TrafficInfo TrafficInfo::BuildForTesting(Coloring && coloring)
+{
+  TrafficInfo info;
+  info.m_coloring = move(coloring);
+  return info;
+}
+
 bool TrafficInfo::ReceiveTrafficData()
 {
   auto const & info = m_mwmId.GetInfo();

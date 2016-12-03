@@ -3,7 +3,7 @@
 #include "routing/geometry.hpp"
 #include "routing/vehicle_model.hpp"
 
-#include "traffic/traffic_info.hpp"
+#include "traffic/traffic_info_getter.hpp"
 
 #include "indexer/mwm_set.hpp"
 
@@ -28,19 +28,5 @@ public:
 
   static shared_ptr<EdgeEstimator> CreateForCar(IVehicleModel const & vehicleModel,
                                                 traffic::TrafficInfoGetter const & getter);
-};
-
-class EstimatorGuard final
-{
-public:
-  EstimatorGuard(MwmSet::MwmId const & mwmId, EdgeEstimator & estimator) : m_estimator(estimator)
-  {
-    m_estimator.Start(mwmId);
-  }
-
-  ~EstimatorGuard() { m_estimator.Finish(); }
-
-private:
-  EdgeEstimator & m_estimator;
 };
 }  // namespace routing

@@ -70,8 +70,7 @@ public:
 
   TrafficInfo(TrafficInfo && info);
 
-  // For testing only.
-  TrafficInfo(Coloring && coloring) : m_coloring(move(coloring)) {}
+  static TrafficInfo BuildForTesting(Coloring && coloring);
 
   // Fetches the latest traffic data from the server and updates the coloring.
   // Construct the url by passing an MwmId.
@@ -105,13 +104,5 @@ public:
   virtual void OnTrafficEnabled(bool enable) = 0;
   virtual void OnTrafficInfoAdded(traffic::TrafficInfo && info) = 0;
   virtual void OnTrafficInfoRemoved(MwmSet::MwmId const & mwmId) = 0;
-};
-
-class TrafficInfoGetter
-{
-public:
-  virtual ~TrafficInfoGetter() = default;
-
-  virtual shared_ptr<traffic::TrafficInfo> GetTrafficInfo(MwmSet::MwmId const & mwmId) const = 0;
 };
 }  // namespace traffic

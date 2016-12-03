@@ -192,7 +192,7 @@ void TrafficManager::ThreadRoutine()
       else
       {
         LOG(LWARNING, ("Traffic request failed. Mwm =", mwm));
-        OnTrafficRequestFailed(info);
+        OnTrafficRequestFailed(move(info));
       }
     }
     mwms.clear();
@@ -271,7 +271,7 @@ void TrafficManager::RequestTrafficData(MwmSet::MwmId const & mwmId)
   m_condition.notify_one();
 }
 
-void TrafficManager::OnTrafficRequestFailed(traffic::TrafficInfo const & info)
+void TrafficManager::OnTrafficRequestFailed(traffic::TrafficInfo && info)
 {
   lock_guard<mutex> lock(m_mutex);
 
@@ -320,8 +320,7 @@ void TrafficManager::OnTrafficDataResponse(traffic::TrafficInfo && info)
   // Update cache.
   size_t constexpr kElementSize = sizeof(traffic::TrafficInfo::RoadSegmentId) + sizeof(traffic::SpeedGroup);
 
-  // Note. It's necessary to multiply by two because routing and rendering use separate caches.
-  size_t const dataSize = 2 * info.GetColoring().size() * kElementSize;
+  size_t const dataSize = info.GetColoring().size() * kElementSize;
   m_currentCacheSizeBytes += (dataSize - it->second.m_dataSize);
   it->second.m_dataSize = dataSize;
   CheckCacheSize();
@@ -353,8 +352,8 @@ void TrafficManager::CheckCacheSize()
       auto const it = m_mwmCache.find(mwmId);
       if (it->second.m_isLoaded)
       {
-        // Note. It's necessary to multiply by two because routing and rendering use separate caches.
-        m_currentCacheSizeBytes -= 2 * it->second.m_dataSize;
+        ASSERT_GREATER_OR_EQUAL(m_currentCacheSizeBytes, it->second.m_dataSize, ());
+        m_currentCacheSizeBytes -= it->second.m_dataSize;
         m_drapeEngine->ClearTrafficCache(mwmId);
         m_observer.OnTrafficInfoRemoved(mwmId);
       }

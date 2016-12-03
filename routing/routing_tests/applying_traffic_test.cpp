@@ -89,11 +89,6 @@ unique_ptr<IndexGraph> BuildXXGraph(shared_ptr<EdgeEstimator> estimator)
 class TrafficInfoGetterForTesting : public TrafficInfoGetter
 {
 public:
-  TrafficInfoGetterForTesting(TrafficInfo && trafficInfo)
-  {
-    m_trafficCache.Set(move(trafficInfo));
-  }
-
   // TrafficInfoGetter overrides:
   shared_ptr<traffic::TrafficInfo> GetTrafficInfo(MwmSet::MwmId const & mwmId) const override
   {
@@ -113,7 +108,8 @@ public:
 
   void SetEstimator(TrafficInfo::Coloring && coloring)
   {
-    m_trafficGetter = make_unique<TrafficInfoGetterForTesting>(move(coloring));
+    m_trafficGetter = make_unique<TrafficInfoGetterForTesting>();
+    UpdateTrafficInfo(move(coloring));
     m_estimator = EdgeEstimator::CreateForCar(*make_shared<CarModelFactory>()->GetVehicleModel(),
                                               *m_trafficGetter);
   }
@@ -122,7 +118,7 @@ public:
 
   void UpdateTrafficInfo(TrafficInfo::Coloring && coloring)
   {
-    m_trafficGetter->UpdateTrafficInfo(TrafficInfo(move(coloring)));
+    m_trafficGetter->UpdateTrafficInfo(TrafficInfo::BuildForTesting(move(coloring)));
   }
 
 private:

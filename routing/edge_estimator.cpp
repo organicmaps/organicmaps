@@ -76,15 +76,15 @@ double CarEdgeEstimator::CalcEdgesWeight(uint32_t featureId, RoadGeometry const 
                                        : TrafficInfo::RoadSegmentId::kReverseDirection;
   for (uint32_t i = start; i < finish; ++i)
   {
-    double factor = 1.0;
+    double edgeWeight = TimeBetweenSec(road.GetPoint(i), road.GetPoint(i + 1), speedMPS);
     if (m_trafficInfo)
     {
       SpeedGroup const speedGroup =
           m_trafficInfo->GetSpeedGroup(TrafficInfo::RoadSegmentId(featureId, i, dir));
-      CHECK_LESS(speedGroup, SpeedGroup::Count, ());
-      factor = CalcTrafficFactor(speedGroup);
+      ASSERT_LESS(speedGroup, SpeedGroup::Count, ());
+      edgeWeight *= CalcTrafficFactor(speedGroup);
     }
-    result += factor * TimeBetweenSec(road.GetPoint(i), road.GetPoint(i + 1), speedMPS);
+    result += edgeWeight;
   }
 
   return result;
