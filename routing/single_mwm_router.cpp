@@ -44,20 +44,6 @@ vector<Junction> ConvertToJunctions(IndexGraphStarter & starter, vector<Joint::I
 
   return junctions;
 }
-
-class EstimatorGuard
-{
-public:
-  EstimatorGuard(MwmSet::MwmId const & mwmId, EdgeEstimator & estimator) : m_estimator(estimator)
-  {
-    m_estimator.Start(mwmId);
-  }
-
-  ~EstimatorGuard() { m_estimator.Finish(); }
-
-private:
-  EdgeEstimator & m_estimator;
-};
 }  // namespace
 
 namespace routing

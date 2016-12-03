@@ -49,6 +49,25 @@ uint32_t constexpr kMinimumETASec = 60;
 
 namespace routing
 {
+void TrafficCache::Set(TrafficInfo && info)
+{
+  MwmSet::MwmId const mwmId = info.GetMwmId();
+  m_trafficInfo[mwmId] = make_shared<TrafficInfo>(move(info));
+}
+
+void TrafficCache::Remove(MwmSet::MwmId const & mwmId) { m_trafficInfo.erase(mwmId); }
+
+shared_ptr<TrafficInfo> TrafficCache::Get(MwmSet::MwmId const & mwmId) const
+{
+  auto it = m_trafficInfo.find(mwmId);
+
+  if (it == m_trafficInfo.cend())
+    return shared_ptr<TrafficInfo>();
+  return it->second;
+}
+
+void TrafficCache::Clear() { m_trafficInfo.clear(); }
+
 RoutingSession::RoutingSession()
   : m_router(nullptr)
   , m_route(make_shared<Route>(string()))
@@ -585,32 +604,28 @@ void RoutingSession::OnTrafficEnabled(bool enable)
   threads::MutexGuard guard(m_routingSessionMutex);
   UNUSED_VALUE(guard);
   if (!enable)
-    m_trafficInfo.clear();
+    m_trafficCache.Clear();
 }
 
 void RoutingSession::OnTrafficInfoAdded(TrafficInfo && info)
 {
   threads::MutexGuard guard(m_routingSessionMutex);
   UNUSED_VALUE(guard);
-  m_trafficInfo.insert(make_pair(info.GetMwmId(), make_shared<TrafficInfo>(move(info))));
+  m_trafficCache.Set(move(info));
 }
 
 void RoutingSession::OnTrafficInfoRemoved(MwmSet::MwmId const & mwmId)
 {
   threads::MutexGuard guard(m_routingSessionMutex);
   UNUSED_VALUE(guard);
-  m_trafficInfo.erase(mwmId);
+  m_trafficCache.Remove(mwmId);
 }
 
 shared_ptr<traffic::TrafficInfo> RoutingSession::GetTrafficInfo(MwmSet::MwmId const & mwmId) const
 {
   threads::MutexGuard guard(m_routingSessionMutex);
   UNUSED_VALUE(guard);
-  auto it = m_trafficInfo.find(mwmId);
-
-  if (it == m_trafficInfo.cend())
-    return shared_ptr<TrafficInfo>();
-  return it->second;
+  return m_trafficCache.Get(mwmId);
 }
 
 string DebugPrint(RoutingSession::State state)

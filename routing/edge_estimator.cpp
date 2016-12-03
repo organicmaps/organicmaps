@@ -4,10 +4,21 @@
 
 #include "std/algorithm.hpp"
 
-namespace routing
-{
 using namespace traffic;
 
+namespace
+{
+double CalcTrafficFactor(SpeedGroup speedGroup)
+{
+  double const percentage =
+      0.01 * static_cast<double>(kSpeedGroupThresholdPercentage[static_cast<size_t>(speedGroup)]);
+  CHECK_GREATER(percentage, 0.0, ("speedGroup:", speedGroup));
+  return 1.0 / percentage;
+}
+}  // namespace
+
+namespace routing
+{
 double constexpr kKMPH2MPS = 1000.0 / (60 * 60);
 
 inline double TimeBetweenSec(m2::PointD const & from, m2::PointD const & to, double speedMPS)
@@ -25,10 +36,10 @@ public:
 
   // EdgeEstimator overrides:
   void Start(MwmSet::MwmId const & mwmId) override;
+  void Finish() override;
   double CalcEdgesWeight(uint32_t featureId, RoadGeometry const & road, uint32_t pointFrom,
                          uint32_t pointTo) const override;
   double CalcHeuristic(m2::PointD const & from, m2::PointD const & to) const override;
-  void Finish() override;
 
 private:
   TrafficInfoGetter const & m_trafficGetter;
@@ -45,6 +56,11 @@ CarEdgeEstimator::CarEdgeEstimator(IVehicleModel const & vehicleModel,
 void CarEdgeEstimator::Start(MwmSet::MwmId const & mwmId)
 {
   m_trafficInfo = m_trafficGetter.GetTrafficInfo(mwmId);
+}
+
+void CarEdgeEstimator::Finish()
+{
+  m_trafficInfo.reset();
 }
 
 double CarEdgeEstimator::CalcEdgesWeight(uint32_t featureId, RoadGeometry const & road,
@@ -66,9 +82,7 @@ double CarEdgeEstimator::CalcEdgesWeight(uint32_t featureId, RoadGeometry const 
       SpeedGroup const speedGroup =
           m_trafficInfo->GetSpeedGroup(TrafficInfo::RoadSegmentId(featureId, i, dir));
       CHECK_LESS(speedGroup, SpeedGroup::Count, ());
-      double const percentage =
-          0.01 * static_cast<double>(kSpeedGroupThresholdPercentage[static_cast<size_t>(speedGroup)]);
-      factor = 1.0 / percentage;
+      factor = CalcTrafficFactor(speedGroup);
     }
     result += factor * TimeBetweenSec(road.GetPoint(i), road.GetPoint(i + 1), speedMPS);
   }
@@ -79,11 +93,6 @@ double CarEdgeEstimator::CalcEdgesWeight(uint32_t featureId, RoadGeometry const 
 double CarEdgeEstimator::CalcHeuristic(m2::PointD const & from, m2::PointD const & to) const
 {
   return TimeBetweenSec(from, to, m_maxSpeedMPS);
-}
-
-void CarEdgeEstimator::Finish()
-{
-  m_trafficInfo.reset();
 }
 }  // namespace
 

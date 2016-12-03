@@ -77,6 +77,13 @@ TrafficInfo::TrafficInfo(MwmSet::MwmId const & mwmId, int64_t currentDataVersion
   , m_currentDataVersion(currentDataVersion)
 {}
 
+TrafficInfo::TrafficInfo(TrafficInfo && info)
+  : m_coloring(move(info.m_coloring))
+  , m_mwmId(info.m_mwmId)
+  , m_availability(info.m_availability)
+  , m_currentDataVersion(info.m_currentDataVersion)
+{}
+
 bool TrafficInfo::ReceiveTrafficData()
 {
   auto const & info = m_mwmId.GetInfo();

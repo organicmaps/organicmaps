@@ -20,17 +20,27 @@ public:
   virtual ~EdgeEstimator() = default;
 
   virtual void Start(MwmSet::MwmId const & mwmId) = 0;
-
+  virtual void Finish() = 0;
   virtual double CalcEdgesWeight(uint32_t featureId, RoadGeometry const & road, uint32_t pointFrom,
                                  uint32_t pointTo) const = 0;
   virtual double CalcHeuristic(m2::PointD const & from, m2::PointD const & to) const = 0;
 
-  virtual void Finish() = 0;
 
   static shared_ptr<EdgeEstimator> CreateForCar(IVehicleModel const & vehicleModel,
                                                 traffic::TrafficInfoGetter const & getter);
+};
 
-protected:
-  shared_ptr<traffic::TrafficInfo> m_trafficInfo;
+class EstimatorGuard final
+{
+public:
+  EstimatorGuard(MwmSet::MwmId const & mwmId, EdgeEstimator & estimator) : m_estimator(estimator)
+  {
+    m_estimator.Start(mwmId);
+  }
+
+  ~EstimatorGuard() { m_estimator.Finish(); }
+
+private:
+  EdgeEstimator & m_estimator;
 };
 }  // namespace routing

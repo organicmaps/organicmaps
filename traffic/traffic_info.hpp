@@ -68,7 +68,7 @@ public:
 
   TrafficInfo(MwmSet::MwmId const & mwmId, int64_t currentDataVersion);
 
-  TrafficInfo(TrafficInfo && info) : m_coloring(move(info.m_coloring)), m_mwmId(info.m_mwmId) {}
+  TrafficInfo(TrafficInfo && info);
 
   // For testing only.
   TrafficInfo(Coloring && coloring) : m_coloring(move(coloring)) {}

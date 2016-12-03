@@ -4,6 +4,7 @@
 #include "routing/geometry.hpp"
 #include "routing/index_graph.hpp"
 #include "routing/index_graph_starter.hpp"
+#include "routing/routing_session.hpp"
 
 #include "routing/routing_tests/index_graph_tools.hpp"
 
@@ -85,22 +86,24 @@ unique_ptr<IndexGraph> BuildXXGraph(shared_ptr<EdgeEstimator> estimator)
   return graph;
 }
 
-class TrafficInfoGetterTest : public TrafficInfoGetter
+class TrafficInfoGetterForTesting : public TrafficInfoGetter
 {
 public:
-  TrafficInfoGetterTest(shared_ptr<TrafficInfo> trafficInfo = shared_ptr<TrafficInfo>())
-    : m_trafficInfo(trafficInfo) {}
-
-  // TrafficInfoGetter overrides:
-  shared_ptr<traffic::TrafficInfo> GetTrafficInfo(MwmSet::MwmId const &) const override
+  TrafficInfoGetterForTesting(TrafficInfo && trafficInfo)
   {
-    return m_trafficInfo;
+    m_trafficCache.Set(move(trafficInfo));
   }
 
-  void UpdateTrafficInfo(shared_ptr<TrafficInfo> trafficInfo) { m_trafficInfo = trafficInfo; }
+  // TrafficInfoGetter overrides:
+  shared_ptr<traffic::TrafficInfo> GetTrafficInfo(MwmSet::MwmId const & mwmId) const override
+  {
+    return m_trafficCache.Get(mwmId);
+  }
+
+  void UpdateTrafficInfo(TrafficInfo && trafficInfo) { m_trafficCache.Set(move(trafficInfo)); }
 
 private:
-  shared_ptr<TrafficInfo> m_trafficInfo;
+  TrafficCache m_trafficCache;
 };
 
 class ApplyingTrafficTest
@@ -110,7 +113,7 @@ public:
 
   void SetEstimator(TrafficInfo::Coloring && coloring)
   {
-    m_trafficGetter = make_unique<TrafficInfoGetterTest>(make_shared<TrafficInfo>(move(coloring)));
+    m_trafficGetter = make_unique<TrafficInfoGetterForTesting>(move(coloring));
     m_estimator = EdgeEstimator::CreateForCar(*make_shared<CarModelFactory>()->GetVehicleModel(),
                                               *m_trafficGetter);
   }
@@ -119,11 +122,11 @@ public:
 
   void UpdateTrafficInfo(TrafficInfo::Coloring && coloring)
   {
-    m_trafficGetter->UpdateTrafficInfo(make_shared<TrafficInfo>(move(coloring)));
+    m_trafficGetter->UpdateTrafficInfo(TrafficInfo(move(coloring)));
   }
 
 private:
-  unique_ptr<TrafficInfoGetterTest> m_trafficGetter;
+  unique_ptr<TrafficInfoGetterForTesting> m_trafficGetter;
   shared_ptr<EdgeEstimator> m_estimator;
 };
 
@@ -194,7 +197,6 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_ChangingTraffic)
 {
   // No trafic at all.
   SetEstimator({});
-
   unique_ptr<IndexGraph> graph = BuildXXGraph(GetEstimator());
   IndexGraphStarter starter(*graph, RoadPoint(1, 0) /* start */, RoadPoint(6, 1) /* finish */);
   vector<m2::PointD> const noTrafficGeom = {{2 /* x */, 0 /* y */}, {1, 1}, {2, 2}, {3, 3}};
@@ -210,6 +212,23 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_ChangingTraffic)
   GetEstimator()->Start(MwmSet::MwmId());
   vector<m2::PointD> const heavyF3Geom = {{2 /* x */, 0 /* y */}, {3, 0}, {3, 1}, {2, 2}, {3, 3}};
   TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, heavyF3Geom);
+  GetEstimator()->Finish();
+
+  // Overloading traffic jam on F3. Middle traffic (SpeedGroup::G3) on F1, F3, F4, F7 and F8.
+  TrafficInfo::Coloring coloringMiddleF1F3F4F7F8 = {
+      {{1 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection},
+       SpeedGroup::G3},
+      {{3 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection},
+       SpeedGroup::G3},
+      {{4 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection},
+       SpeedGroup::G3},
+      {{7 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection},
+       SpeedGroup::G3},
+      {{8 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection},
+       SpeedGroup::G3}};
+  UpdateTrafficInfo(move(coloringMiddleF1F3F4F7F8));
+  GetEstimator()->Start(MwmSet::MwmId());
+  TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, noTrafficGeom);
   GetEstimator()->Finish();
 }
 }  // namespace

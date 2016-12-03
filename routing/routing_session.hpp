@@ -38,6 +38,18 @@ struct SpeedCameraRestriction
   SpeedCameraRestriction() : m_index(0), m_maxSpeedKmH(numeric_limits<uint8_t>::max()) {}
 };
 
+class TrafficCache
+{
+public:
+  void Set(traffic::TrafficInfo && info);
+  void Remove(MwmSet::MwmId const & mwmId);
+  shared_ptr<traffic::TrafficInfo> Get(MwmSet::MwmId const & mwmId) const;
+  void Clear();
+
+private:
+  map<MwmSet::MwmId, shared_ptr<traffic::TrafficInfo>> m_trafficInfo;
+};
+
 class RoutingSession : public traffic::TrafficObserver, public traffic::TrafficInfoGetter
 {
   friend void UnitTest_TestFollowRoutePercentTest();
@@ -191,7 +203,7 @@ private:
   double GetCompletionPercent() const;
 
 private:
-  map<MwmSet::MwmId, shared_ptr<traffic::TrafficInfo>> m_trafficInfo;
+  TrafficCache m_trafficCache;
   unique_ptr<AsyncRouter> m_router;
   shared_ptr<Route> m_route;
   atomic<State> m_state;
