@@ -37,9 +37,7 @@ public final class Banner implements Parcelable
   {
     mTitle = title;
     mMessage = message;
-    //TODO: uncomment this when cpp banner implementation will be done
-    //mIconUrl = iconUrl;
-    mIconUrl = "https://lh6.ggpht.com/bVwOOcO1jm_bfvqtkUDEyyOl2PZ-ZLaxqzylW5NtM2NHSlLQAnC1t45gf6d6JX07XQ=w300";
+    mIconUrl = iconUrl;
     mUrl = url;
   }
 

@@ -718,7 +718,8 @@ public class PlacePageView extends RelativeLayout
   @Override
   public void onBannerClick(@NonNull Banner banner)
   {
-    // TODO (goblinr): go to banner url
+    if (!TextUtils.isEmpty(banner.getUrl()))
+      followUrl(banner.getUrl());
   }
 
   @Override
