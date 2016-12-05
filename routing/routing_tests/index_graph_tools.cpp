@@ -34,9 +34,9 @@ Joint MakeJoint(vector<RoadPoint> const & points)
   return joint;
 }
 
-shared_ptr<EdgeEstimator> CreateEstimator(TrafficInfoGetterNoJam const & trafficGetter)
+shared_ptr<EdgeEstimator> CreateEstimator(traffic::TrafficCache const & trafficCache)
 {
-  return EdgeEstimator::CreateForCar(*make_shared<CarModelFactory>()->GetVehicleModel(), trafficGetter);
+  return EdgeEstimator::CreateForCar(*make_shared<CarModelFactory>()->GetVehicleModel(), trafficCache);
 }
 
 AStarAlgorithm<IndexGraphStarter>::Result CalculateRoute(IndexGraphStarter & starter,

@@ -6,8 +6,8 @@
 #include "routing/turns.hpp"
 #include "routing/turns_notification_manager.hpp"
 
+#include "traffic/traffic_cache.hpp"
 #include "traffic/traffic_info.hpp"
-#include "traffic/traffic_info_getter.hpp"
 
 #include "platform/location.hpp"
 #include "platform/measurement_utils.hpp"
@@ -39,7 +39,7 @@ struct SpeedCameraRestriction
   SpeedCameraRestriction() : m_index(0), m_maxSpeedKmH(numeric_limits<uint8_t>::max()) {}
 };
 
-class RoutingSession : public traffic::TrafficObserver, public traffic::TrafficInfoGetter
+class RoutingSession : public traffic::TrafficObserver, public traffic::TrafficCache
 {
   friend void UnitTest_TestFollowRoutePercentTest();
 
@@ -159,7 +159,7 @@ public:
   void OnTrafficInfoAdded(traffic::TrafficInfo && info) override;
   void OnTrafficInfoRemoved(MwmSet::MwmId const & mwmId) override;
 
-  // TrafficInfoGetter overrides:
+  // TrafficCache overrides:
   shared_ptr<traffic::TrafficInfo> GetTrafficInfo(MwmSet::MwmId const & mwmId) const override;
 
 private:
@@ -192,7 +192,6 @@ private:
   double GetCompletionPercent() const;
 
 private:
-  traffic::TrafficCache m_trafficCache;
   unique_ptr<AsyncRouter> m_router;
   shared_ptr<Route> m_route;
   atomic<State> m_state;

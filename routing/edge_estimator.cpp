@@ -32,7 +32,7 @@ inline double TimeBetweenSec(m2::PointD const & from, m2::PointD const & to, dou
 class CarEdgeEstimator : public EdgeEstimator
 {
 public:
-  CarEdgeEstimator(IVehicleModel const & vehicleModel, traffic::TrafficInfoGetter const & getter);
+  CarEdgeEstimator(IVehicleModel const & vehicleModel, traffic::TrafficCache const & getter);
 
   // EdgeEstimator overrides:
   void Start(MwmSet::MwmId const & mwmId) override;
@@ -42,13 +42,13 @@ public:
   double CalcHeuristic(m2::PointD const & from, m2::PointD const & to) const override;
 
 private:
-  TrafficInfoGetter const & m_trafficGetter;
+  TrafficCache const & m_trafficGetter;
   shared_ptr<traffic::TrafficInfo> m_trafficInfo;
   double const m_maxSpeedMPS;
 };
 
 CarEdgeEstimator::CarEdgeEstimator(IVehicleModel const & vehicleModel,
-                                   traffic::TrafficInfoGetter const & getter)
+                                   traffic::TrafficCache const & getter)
   : m_trafficGetter(getter), m_maxSpeedMPS(vehicleModel.GetMaxSpeed() * kKMPH2MPS)
 {
 }
@@ -100,7 +100,7 @@ namespace routing
 {
 // static
 shared_ptr<EdgeEstimator> EdgeEstimator::CreateForCar(IVehicleModel const & vehicleModel,
-                                                      traffic::TrafficInfoGetter const & getter)
+                                                      traffic::TrafficCache const & getter)
 {
   return make_shared<CarEdgeEstimator>(vehicleModel, getter);
 }

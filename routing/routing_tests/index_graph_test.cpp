@@ -100,8 +100,8 @@ UNIT_TEST(EdgesTest)
   loader->AddRoad(4 /* featureId */, true, 1.0 /* speed */,
                   RoadGeometry::Points({{3.0, -1.0}, {3.0, 0.0}, {3.0, 1.0}}));
 
-  TrafficInfoGetterNoJam const trafficGetter;
-  IndexGraph graph(move(loader), CreateEstimator(trafficGetter));
+  traffic::TrafficCache const trafficCache;
+  IndexGraph graph(move(loader), CreateEstimator(trafficCache));
 
   vector<Joint> joints;
   joints.emplace_back(MakeJoint({{0, 1}, {3, 1}}));  // J0
@@ -145,8 +145,8 @@ UNIT_TEST(FindPathCross)
       1 /* featureId */, false, 1.0 /* speed */,
       RoadGeometry::Points({{0.0, -2.0}, {-1.0, 0.0}, {0.0, 0.0}, {0.0, 1.0}, {0.0, 2.0}}));
 
-  TrafficInfoGetterNoJam const trafficGetter;
-  IndexGraph graph(move(loader), CreateEstimator(trafficGetter));
+  traffic::TrafficCache const trafficCache;
+  IndexGraph graph(move(loader), CreateEstimator(trafficCache));
 
   graph.Import({MakeJoint({{0, 2}, {1, 2}})});
 
@@ -202,8 +202,8 @@ UNIT_TEST(FindPathManhattan)
     loader->AddRoad(i + kCitySize, false, 1.0 /* speed */, avenue);
   }
 
-  TrafficInfoGetterNoJam const trafficGetter;
-  IndexGraph graph(move(loader), CreateEstimator(trafficGetter));
+  traffic::TrafficCache const trafficCache;
+  IndexGraph graph(move(loader), CreateEstimator(trafficCache));
 
   vector<Joint> joints;
   for (uint32_t i = 0; i < kCitySize; ++i)
@@ -253,8 +253,8 @@ UNIT_TEST(RedressRace)
       2 /* featureId */, false, 1.0 /* speed */,
       RoadGeometry::Points({{0.0, 0.0}, {1.0, 1.0}, {2.0, 1.0}, {3.0, 1.0}, {4.0, 0.0}}));
 
-  TrafficInfoGetterNoJam const trafficGetter;
-  IndexGraph graph(move(loader), CreateEstimator(trafficGetter));
+  traffic::TrafficCache const trafficCache;
+  IndexGraph graph(move(loader), CreateEstimator(trafficCache));
 
   vector<Joint> joints;
   joints.emplace_back(MakeJoint({{0, 0}, {1, 0}, {2, 0}}));  // J0
@@ -284,8 +284,8 @@ UNIT_TEST(RoadSpeed)
   loader->AddRoad(1 /* featureId */, false, 1.0 /* speed */,
                   RoadGeometry::Points({{0.0, 0.0}, {2.0, 0.0}, {4.0, 0.0}}));
 
-  TrafficInfoGetterNoJam const trafficGetter;
-  IndexGraph graph(move(loader), CreateEstimator(trafficGetter));
+  traffic::TrafficCache const trafficCache;
+  IndexGraph graph(move(loader), CreateEstimator(trafficCache));
 
   vector<Joint> joints;
   joints.emplace_back(MakeJoint({{0, 0}, {1, 0}}));  // J0

@@ -585,28 +585,28 @@ void RoutingSession::OnTrafficEnabled(bool enable)
   threads::MutexGuard guard(m_routingSessionMutex);
   UNUSED_VALUE(guard);
   if (!enable)
-    m_trafficCache.Clear();
+    Clear();
 }
 
 void RoutingSession::OnTrafficInfoAdded(TrafficInfo && info)
 {
   threads::MutexGuard guard(m_routingSessionMutex);
   UNUSED_VALUE(guard);
-  m_trafficCache.Set(move(info));
+  Set(move(info));
 }
 
 void RoutingSession::OnTrafficInfoRemoved(MwmSet::MwmId const & mwmId)
 {
   threads::MutexGuard guard(m_routingSessionMutex);
   UNUSED_VALUE(guard);
-  m_trafficCache.Remove(mwmId);
+  Remove(mwmId);
 }
 
 shared_ptr<traffic::TrafficInfo> RoutingSession::GetTrafficInfo(MwmSet::MwmId const & mwmId) const
 {
   threads::MutexGuard guard(m_routingSessionMutex);
   UNUSED_VALUE(guard);
-  return m_trafficCache.Get(mwmId);
+  return TrafficCache::GetTrafficInfo(mwmId);
 }
 
 string DebugPrint(RoutingSession::State state)

@@ -227,7 +227,7 @@ bool SingleMwmRouter::LoadIndex(MwmSet::MwmId const & mwmId, string const & coun
 
 // static
 unique_ptr<SingleMwmRouter> SingleMwmRouter::CreateCarRouter(
-    Index const & index, traffic::TrafficInfoGetter const & getter)
+    Index const & index, traffic::TrafficCache const & getter)
 {
   auto vehicleModelFactory = make_shared<CarModelFactory>();
   // @TODO Bicycle turn generation engine is used now. It's ok for the time being.

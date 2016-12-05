@@ -32,21 +32,9 @@ private:
   unordered_map<uint32_t, routing::RoadGeometry> m_roads;
 };
 
-class TrafficInfoGetterNoJam : public traffic::TrafficInfoGetter
-{
-public:
-  TrafficInfoGetterNoJam() {}
-
-  // TrafficInfoGetter overrides:
-  shared_ptr<traffic::TrafficInfo> GetTrafficInfo(MwmSet::MwmId const &) const override
-  {
-    return shared_ptr<traffic::TrafficInfo>();
-  }
-};
-
 routing::Joint MakeJoint(vector<routing::RoadPoint> const & points);
 
-shared_ptr<routing::EdgeEstimator> CreateEstimator(TrafficInfoGetterNoJam const & trafficGette);
+shared_ptr<routing::EdgeEstimator> CreateEstimator(traffic::TrafficCache const & trafficCache);
 
 routing::AStarAlgorithm<routing::IndexGraphStarter>::Result CalculateRoute(
     routing::IndexGraphStarter & graph, vector<routing::RoadPoint> & roadPoints);

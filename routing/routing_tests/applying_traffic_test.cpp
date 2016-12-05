@@ -86,43 +86,34 @@ unique_ptr<IndexGraph> BuildXXGraph(shared_ptr<EdgeEstimator> estimator)
   return graph;
 }
 
-class TrafficInfoGetterForTesting : public TrafficInfoGetter
-{
-public:
-  // TrafficInfoGetter overrides:
-  shared_ptr<traffic::TrafficInfo> GetTrafficInfo(MwmSet::MwmId const & mwmId) const override
-  {
-    return m_trafficCache.Get(mwmId);
-  }
-
-  void UpdateTrafficInfo(TrafficInfo && trafficInfo) { m_trafficCache.Set(move(trafficInfo)); }
-
-private:
-  TrafficCache m_trafficCache;
-};
-
 class ApplyingTrafficTest
 {
 public:
+  class TrafficCacheTest : public TrafficCache
+  {
+  public:
+    void SetTrafficInfo(traffic::TrafficInfo && info) { Set(move(info)); }
+  };
+
   ApplyingTrafficTest() { classificator::Load(); }
 
   void SetEstimator(TrafficInfo::Coloring && coloring)
   {
-    m_trafficGetter = make_unique<TrafficInfoGetterForTesting>();
+    m_trafficCache = make_unique<TrafficCacheTest>();
     UpdateTrafficInfo(move(coloring));
     m_estimator = EdgeEstimator::CreateForCar(*make_shared<CarModelFactory>()->GetVehicleModel(),
-                                              *m_trafficGetter);
+                                              *m_trafficCache);
   }
 
   shared_ptr<EdgeEstimator> GetEstimator() const { return m_estimator; }
 
   void UpdateTrafficInfo(TrafficInfo::Coloring && coloring)
   {
-    m_trafficGetter->UpdateTrafficInfo(TrafficInfo::BuildForTesting(move(coloring)));
+    m_trafficCache->SetTrafficInfo(TrafficInfo::BuildForTesting(move(coloring)));
   }
 
 private:
-  unique_ptr<TrafficInfoGetterForTesting> m_trafficGetter;
+  unique_ptr<TrafficCacheTest> m_trafficCache;
   shared_ptr<EdgeEstimator> m_estimator;
 };
 

@@ -3,7 +3,7 @@
 #include "routing/geometry.hpp"
 #include "routing/vehicle_model.hpp"
 
-#include "traffic/traffic_info_getter.hpp"
+#include "traffic/traffic_cache.hpp"
 
 #include "indexer/mwm_set.hpp"
 
@@ -27,6 +27,6 @@ public:
 
 
   static shared_ptr<EdgeEstimator> CreateForCar(IVehicleModel const & vehicleModel,
-                                                traffic::TrafficInfoGetter const & getter);
+                                                traffic::TrafficCache const & getter);
 };
 }  // namespace routing

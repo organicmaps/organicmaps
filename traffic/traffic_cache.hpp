@@ -8,20 +8,17 @@
 
 namespace traffic
 {
-class TrafficInfoGetter
+class TrafficCache
 {
 public:
-  virtual ~TrafficInfoGetter() = default;
+  TrafficCache() : m_trafficInfo() {}
+  virtual ~TrafficCache() = default;
 
-  virtual shared_ptr<traffic::TrafficInfo> GetTrafficInfo(MwmSet::MwmId const & mwmId) const = 0;
-};
+  virtual shared_ptr<traffic::TrafficInfo> GetTrafficInfo(MwmSet::MwmId const & mwmId) const;
 
-class TrafficCache final
-{
-public:
+protected:
   void Set(traffic::TrafficInfo && info);
   void Remove(MwmSet::MwmId const & mwmId);
-  shared_ptr<traffic::TrafficInfo> Get(MwmSet::MwmId const & mwmId) const;
   void Clear();
 
 private:

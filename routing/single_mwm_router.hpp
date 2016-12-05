@@ -33,7 +33,7 @@ public:
                                      Route & route);
 
   static unique_ptr<SingleMwmRouter> CreateCarRouter(Index const & index,
-                                                     traffic::TrafficInfoGetter const & getter);
+                                                     traffic::TrafficCache const & getter);
 
 private:
   IRouter::ResultCode DoCalculateRoute(MwmSet::MwmId const & mwmId, m2::PointD const & startPoint,

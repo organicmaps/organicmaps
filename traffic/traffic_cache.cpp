@@ -1,4 +1,4 @@
-#include "traffic/traffic_info_getter.hpp"
+#include "traffic/traffic_cache.hpp"
 
 namespace traffic
 {
@@ -10,7 +10,7 @@ void TrafficCache::Set(TrafficInfo && info)
 
 void TrafficCache::Remove(MwmSet::MwmId const & mwmId) { m_trafficInfo.erase(mwmId); }
 
-shared_ptr<TrafficInfo> TrafficCache::Get(MwmSet::MwmId const & mwmId) const
+shared_ptr<TrafficInfo> TrafficCache::GetTrafficInfo(MwmSet::MwmId const & mwmId) const
 {
   auto it = m_trafficInfo.find(mwmId);
 

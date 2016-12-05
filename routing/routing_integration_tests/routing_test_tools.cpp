@@ -79,7 +79,7 @@ namespace integration
 
   unique_ptr<CarRouter> CreateCarRouter(Index & index,
                                         storage::CountryInfoGetter const & infoGetter,
-                                        TrafficInfoGetterNoJam const & trafficGetter)
+                                        traffic::TrafficCache const & trafficGetter)
   {
     auto const countryFileGetter = [&infoGetter](m2::PointD const & pt) {
       return infoGetter.GetRegionCountryId(pt);
@@ -109,14 +109,14 @@ namespace integration
   public:
     OsrmRouterComponents(vector<LocalCountryFile> const & localFiles)
       : IRouterComponents(localFiles)
-      , m_carRouter(CreateCarRouter(m_featuresFetcher->GetIndex(), *m_infoGetter, m_trafficGetter))
+      , m_carRouter(CreateCarRouter(m_featuresFetcher->GetIndex(), *m_infoGetter, m_trafficCache))
     {
     }
 
     IRouter * GetRouter() const override { return m_carRouter.get(); }
 
   private:
-    TrafficInfoGetterNoJam m_trafficGetter;
+    traffic::TrafficCache m_trafficCache;
     unique_ptr<CarRouter> m_carRouter;
   };
 
