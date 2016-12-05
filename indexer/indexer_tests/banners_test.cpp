@@ -53,7 +53,7 @@ UNIT_TEST(Banners_Load)
   Banner const & bannerRe = bs.GetBannerForType(c.GetTypeByPath({"shop", "shoes"}));
   TEST(!bannerRe.IsEmpty(), ());
   TEST(bannerRe.IsActive(), ());
-  TEST_EQUAL(bannerRe.GetIconName(), "banner_re_123.png", ());
+  TEST_EQUAL(bannerRe.GetIconName(), "", ());
   TEST_EQUAL(bannerRe.GetFormattedUrl(), "http://test.com", ());
   TEST_EQUAL(bannerRe.GetFormattedUrl("http://ex.ru/{aux}?var={v}"), "http://ex.ru/test?var={v}", ());
 

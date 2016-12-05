@@ -52,7 +52,7 @@ string Banner::GetProperty(string const & name) const
 }
 
 Banner::Banner(string const & id)
-  : m_id(id), m_messageBase("banner" + id), m_activeAfter(time(nullptr)), m_activeBefore(kEternity)
+  : m_id(id), m_messageBase("banner_" + id), m_activeAfter(time(nullptr)), m_activeBefore(kEternity)
 {
 }
 
