@@ -243,6 +243,7 @@ array<NSString *, 1> const kButtonsCells = {{@"MWMPlacePageButtonCell"}};
   {
     self.isPlacePageButtonsEnabled = NO;
     self.actionBar.isAreaNotDownloaded = YES;
+    self.actionBar.downloadingState = MWMCircularProgressStateNormal;
     break;
   }
   }
