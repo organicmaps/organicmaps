@@ -3,6 +3,7 @@ package com.mapswithme.maps.traffic;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.DebugLogger;
@@ -11,39 +12,36 @@ import com.mapswithme.util.log.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
+@MainThread
 public enum TrafficManager
 {
   INSTANCE;
+  private final String mTag = TrafficManager.class.getSimpleName();
   @NonNull
-  private final Logger mLogger = new DebugLogger(TrafficManager.class.getSimpleName());
+  private final Logger mLogger = new DebugLogger(mTag);
   @NonNull
   private final TrafficState.StateChangeListener mStateChangeListener = new TrafficStateListener();
   @TrafficState.Value
   private int mState = TrafficState.DISABLED;
   @NonNull
   private final List<TrafficCallback> mCallbacks = new ArrayList<>();
+  private boolean mInitialized = false;
 
-  TrafficManager()
+  public void initialize()
   {
-    mLogger.d("Traffic manager initialization");
-    setCoreStateChangedListener();
-  }
-
-  private void setCoreStateChangedListener()
-  {
-    mLogger.d("Set core traffic state listener");
+    mLogger.d("Initialization of traffic manager and setting the listener for traffic state changes");
     TrafficState.nativeSetListener(mStateChangeListener);
+    mInitialized = true;
   }
 
-  public void enableOrDisable()
+  public void toggle()
   {
-    if (mState == TrafficState.DISABLED)
-    {
-      enable();
-      return;
-    }
+    checkInitialization();
 
-    disable();
+    if (mState == TrafficState.DISABLED)
+      enable();
+    else
+      disable();
   }
 
   private void enable()
@@ -54,21 +52,27 @@ public enum TrafficManager
 
   public void disable()
   {
+    checkInitialization();
+
     mLogger.d("Disable traffic");
     TrafficState.nativeDisable();
   }
-
+  
   public boolean isEnabled()
   {
+    checkInitialization();
+
     return mState != TrafficState.DISABLED;
   }
 
   public void attach(@NonNull TrafficCallback callback)
   {
+    checkInitialization();
+
     if (mCallbacks.contains(callback))
     {
       throw new IllegalStateException("A callback '" + callback
-                                      + "' is already attached. Check that the 'detach' method was called.");
+                                      + "' is already attached. Check that the 'detachAll' method was called.");
     }
 
     mLogger.d("Attach callback '" + callback + "'");
@@ -81,17 +85,26 @@ public enum TrafficManager
     mStateChangeListener.onTrafficStateChanged(mState);
   }
 
-  public void detach()
+  public void detachAll()
   {
+    checkInitialization();
+
     if (mCallbacks.isEmpty())
     {
-      throw new IllegalStateException("There are no attached callbacks. Invoke the 'detach' method " +
-                                      "only when it's really needed!");
+      Log.w(mTag, "There are no attached callbacks. Invoke the 'detachAll' method " +
+                                      "only when it's really needed!", new Throwable());
+      return;
     }
 
     for (TrafficCallback callback : mCallbacks)
       mLogger.d("Detach callback '" + callback + "'");
     mCallbacks.clear();
+  }
+
+  private void checkInitialization()
+  {
+    if (!mInitialized)
+      throw new AssertionError("Traffic manager is not initialized!");
   }
 
   private class TrafficStateListener implements TrafficState.StateChangeListener
@@ -103,9 +116,6 @@ public enum TrafficManager
       mLogger.d("onTrafficStateChanged current state = " + TrafficState.nameOf(mState)
                 + " new value = " + TrafficState.nameOf(state));
       mState = state;
-
-      if (mCallbacks.isEmpty())
-        return;
 
       iterateOverCallbacks(new Utils.Proc<TrafficCallback>()
       {
@@ -163,19 +173,12 @@ public enum TrafficManager
   public interface TrafficCallback
   {
     void onEnabled();
-
     void onDisabled();
-
     void onWaitingData();
-
     void onOutdated();
-
     void onNoData();
-
     void onNetworkError();
-
     void onExpiredData();
-
     void onExpiredApp();
   }
 }

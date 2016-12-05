@@ -32,6 +32,7 @@ final class TrafficState
   static final int NETWORK_ERROR = 5;
   static final int EXPIRED_DATA = 6;
   static final int EXPIRED_APP = 7;
+
   @MainThread
   static native void nativeSetListener(@NonNull StateChangeListener listener);
   static native void nativeRemoveListener();

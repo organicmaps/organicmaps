@@ -91,7 +91,7 @@ public class TrafficButtonController implements TrafficManager.TrafficCallback
     @Override
     public void onClick(View v)
     {
-      TrafficManager.INSTANCE.enableOrDisable();
+      TrafficManager.INSTANCE.toggle();
     }
   }
 }

@@ -953,7 +953,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     super.onStop();
     LocationHelper.INSTANCE.detach(!isFinishing());
     RoutingController.get().detach();
-    TrafficManager.INSTANCE.detach();
+    TrafficManager.INSTANCE.detachAll();
   }
 
   @Override

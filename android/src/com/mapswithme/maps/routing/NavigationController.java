@@ -156,7 +156,7 @@ public class NavigationController implements TrafficManager.TrafficCallback
           AlohaHelper.logClick(AlohaHelper.ROUTING_CLOSE);
           break;
         case TRAFFIC:
-          TrafficManager.INSTANCE.enableOrDisable();
+          TrafficManager.INSTANCE.toggle();
           mNavMenu.refreshTraffic();
           //TODO: Add statistics reporting (in separate task)
           break;
