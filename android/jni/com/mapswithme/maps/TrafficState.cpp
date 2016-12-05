@@ -35,5 +35,4 @@ Java_com_mapswithme_maps_traffic_TrafficState_nativeDisable(JNIEnv * env, jclass
 {
   g_framework->DisableTraffic();
 }
-
 } // extern "C"

@@ -15,7 +15,7 @@ public enum TrafficManager
 {
   INSTANCE;
   @NonNull
-  private final Logger mLogger;
+  private final Logger mLogger = new DebugLogger(TrafficManager.class.getSimpleName());
   @NonNull
   private final TrafficState.StateChangeListener mStateChangeListener = new TrafficStateListener();
   @TrafficState.Value
@@ -25,7 +25,6 @@ public enum TrafficManager
 
   TrafficManager()
   {
-    mLogger = new DebugLogger(TrafficManager.class.getSimpleName());
     mLogger.d("Traffic manager initialization");
     setCoreStateChangedListener();
   }

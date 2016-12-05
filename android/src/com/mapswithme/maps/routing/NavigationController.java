@@ -324,7 +324,6 @@ public class NavigationController implements TrafficManager.TrafficCallback
     return false;
   }
 
-
   @Override
   public void onEnabled()
   {
