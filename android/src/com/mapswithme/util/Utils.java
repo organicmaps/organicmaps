@@ -49,7 +49,7 @@ public class Utils
 
   public interface Proc<T>
   {
-    void invoke(T param);
+    void invoke(@NonNull T param);
   }
 
   private Utils() {}

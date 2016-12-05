@@ -23,6 +23,7 @@ import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.settings.SettingsActivity;
 import com.mapswithme.maps.sound.TtsPlayer;
+import com.mapswithme.maps.traffic.TrafficManager;
 import com.mapswithme.maps.widget.FlatProgressView;
 import com.mapswithme.maps.widget.menu.NavMenu;
 import com.mapswithme.util.StringUtils;
@@ -31,7 +32,7 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
-public class NavigationController
+public class NavigationController implements TrafficManager.TrafficCallback
 {
   private static final String STATE_SHOW_TIME_LEFT = "ShowTimeLeft";
 
@@ -155,6 +156,7 @@ public class NavigationController
           AlohaHelper.logClick(AlohaHelper.ROUTING_CLOSE);
           break;
         case TRAFFIC:
+          TrafficManager.INSTANCE.toggle();
           mNavMenu.refreshTraffic();
           //TODO: Add statistics reporting (in separate task)
           break;
@@ -320,5 +322,53 @@ public class NavigationController
       return true;
     }
     return false;
+  }
+
+  @Override
+  public void onEnabled()
+  {
+    mNavMenu.refreshTraffic();
+  }
+
+  @Override
+  public void onDisabled()
+  {
+    mNavMenu.refreshTraffic();
+  }
+
+  @Override
+  public void onWaitingData()
+  {
+    // no op
+  }
+
+  @Override
+  public void onOutdated()
+  {
+    // no op
+  }
+
+  @Override
+  public void onNoData()
+  {
+    // no op
+  }
+
+  @Override
+  public void onNetworkError()
+  {
+    // no op
+  }
+
+  @Override
+  public void onExpiredData()
+  {
+    // no op
+  }
+
+  @Override
+  public void onExpiredApp()
+  {
+    // no op
   }
 }

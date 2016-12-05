@@ -9,19 +9,34 @@ extern "C"
 static void TrafficStateChanged(TrafficManager::TrafficState state, shared_ptr<jobject> const & listener)
 {
   JNIEnv * env = jni::GetEnv();
-  static jmethodID const = jni::GetMethodID(env, *listener.get(), "onTrafficStateChanged", "(I)V");
-  env->CallVoidMethod(*listener, jmethodID, static_cast<jint>(state));
+  env->CallVoidMethod(*listener, jni::GetMethodID(env, *listener, "onTrafficStateChanged", "(I)V"), static_cast<jint>(state));
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_TrafficState_nativeSetListener(JNIEnv * env, jclass clazz, jobject listener)
+Java_com_mapswithme_maps_traffic_TrafficState_nativeSetListener(JNIEnv * env, jclass clazz, jobject listener)
 {
+  CHECK(g_framework, ("Framework isn't created yet!"));
   g_framework->SetTrafficStateListener(bind(&TrafficStateChanged, _1, jni::make_global_ref(listener)));
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_TrafficState_nativeRemoveListener(JNIEnv * env, jclass clazz)
+Java_com_mapswithme_maps_traffic_TrafficState_nativeRemoveListener(JNIEnv * env, jclass clazz)
 {
+  CHECK(g_framework, ("Framework isn't created yet!"));
   g_framework->SetTrafficStateListener(TrafficManager::TrafficStateChangedFn());
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_traffic_TrafficState_nativeEnable(JNIEnv * env, jclass clazz)
+{
+  CHECK(g_framework, ("Framework isn't created yet!"));
+  g_framework->EnableTraffic();
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_traffic_TrafficState_nativeDisable(JNIEnv * env, jclass clazz)
+{
+  CHECK(g_framework, ("Framework isn't created yet!"));
+  g_framework->DisableTraffic();
 }
 } // extern "C"

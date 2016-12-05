@@ -26,6 +26,7 @@ import com.mapswithme.maps.location.TrackRecorder;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.settings.StoragePathManager;
 import com.mapswithme.maps.sound.TtsPlayer;
+import com.mapswithme.maps.traffic.TrafficManager;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.ThemeSwitcher;
@@ -155,6 +156,7 @@ public class MwmApplication extends Application
     TtsPlayer.INSTANCE.init(this);
     ThemeSwitcher.restart();
     RoutingController.get().initialize();
+    TrafficManager.INSTANCE.initialize();
     mIsFrameworkInitialized = true;
   }
 
