@@ -9,7 +9,7 @@ extern "C"
 static void TrafficStateChanged(TrafficManager::TrafficState state, shared_ptr<jobject> const & listener)
 {
   JNIEnv * env = jni::GetEnv();
-  env->CallVoidMethod(*listener, jni::GetMethodID(env, *listener.get(), "onTrafficStateChanged", "(I)V"), static_cast<jint>(state));
+  env->CallVoidMethod(*listener, jni::GetMethodID(env, *listener, "onTrafficStateChanged", "(I)V"), static_cast<jint>(state));
 }
 
 JNIEXPORT void JNICALL

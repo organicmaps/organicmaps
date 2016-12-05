@@ -21,7 +21,7 @@ public enum TrafficManager
   @TrafficState.Value
   private int mState = TrafficState.DISABLED;
   @NonNull
-  private List<TrafficCallback> mCallbacks = new ArrayList<>();
+  private final List<TrafficCallback> mCallbacks = new ArrayList<>();
 
   TrafficManager()
   {
