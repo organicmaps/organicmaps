@@ -34,6 +34,9 @@
 		3406FA191C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3406FA171C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib */; };
 		340837131B7243CE00B5C185 /* MWMActivityViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340837121B7243CE00B5C185 /* MWMActivityViewController.mm */; };
 		340837161B72451A00B5C185 /* MWMShareActivityItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340837151B72451A00B5C185 /* MWMShareActivityItem.mm */; };
+		34094F281DF1C1E7005F7A22 /* MWMTrafficManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34094F231DF1C1E7005F7A22 /* MWMTrafficManager.mm */; };
+		34094F291DF1C1E7005F7A22 /* MWMTrafficManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34094F231DF1C1E7005F7A22 /* MWMTrafficManager.mm */; };
+		34094F2A1DF1C1E7005F7A22 /* MWMTrafficManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34094F231DF1C1E7005F7A22 /* MWMTrafficManager.mm */; };
 		340C20E31C3E565600111D22 /* MWMCuisineEditorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340C20E21C3E565600111D22 /* MWMCuisineEditorViewController.mm */; };
 		340C20E41C3E565600111D22 /* MWMCuisineEditorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340C20E21C3E565600111D22 /* MWMCuisineEditorViewController.mm */; };
 		340E10601B944DAB00D975D5 /* MWMSearchHistoryManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340E105F1B944DAB00D975D5 /* MWMSearchHistoryManager.mm */; };
@@ -1430,6 +1433,9 @@
 		340837121B7243CE00B5C185 /* MWMActivityViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMActivityViewController.mm; sourceTree = "<group>"; };
 		340837141B72451A00B5C185 /* MWMShareActivityItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMShareActivityItem.h; sourceTree = "<group>"; };
 		340837151B72451A00B5C185 /* MWMShareActivityItem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMShareActivityItem.mm; sourceTree = "<group>"; };
+		34094F211DF1C1E7005F7A22 /* MWMTrafficManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMTrafficManager.h; sourceTree = "<group>"; };
+		34094F231DF1C1E7005F7A22 /* MWMTrafficManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTrafficManager.mm; sourceTree = "<group>"; };
+		34094F241DF1C1E7005F7A22 /* MWMTrafficManagerObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMTrafficManagerObserver.h; sourceTree = "<group>"; };
 		340C20E11C3E565600111D22 /* MWMCuisineEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCuisineEditorViewController.h; sourceTree = "<group>"; };
 		340C20E21C3E565600111D22 /* MWMCuisineEditorViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMCuisineEditorViewController.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		340C20E51C3E58B000111D22 /* MWMEditorCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMEditorCommon.h; sourceTree = "<group>"; };
@@ -2390,6 +2396,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				34094F201DF1C1E7005F7A22 /* TrafficManager */,
 				34EA97691DEC779D00616B11 /* NetworkPolicy */,
 				348868F01D87DF8C0069BBA3 /* Keyboard */,
 				3436FE7F1D366CA0005CD87B /* Search */,
@@ -2555,6 +2562,16 @@
 				F6A218481CA3F26800BE2CC6 /* MWMEditorViralActivityItem.mm */,
 			);
 			path = Share;
+			sourceTree = "<group>";
+		};
+		34094F201DF1C1E7005F7A22 /* TrafficManager */ = {
+			isa = PBXGroup;
+			children = (
+				34094F211DF1C1E7005F7A22 /* MWMTrafficManager.h */,
+				34094F231DF1C1E7005F7A22 /* MWMTrafficManager.mm */,
+				34094F241DF1C1E7005F7A22 /* MWMTrafficManagerObserver.h */,
+			);
+			path = TrafficManager;
 			sourceTree = "<group>";
 		};
 		340C20E01C3E563500111D22 /* Cuisine */ = {
@@ -4744,6 +4761,7 @@
 				34C9BD021C6DB693000DC38D /* MWMTableViewController.mm in Sources */,
 				F63BA3711BCD5B520044C504 /* MWMTTSLanguageViewController.mm in Sources */,
 				F64DA8021C524BDE00330E9E /* UISwitch+RuntimeAttributes.m in Sources */,
+				34094F281DF1C1E7005F7A22 /* MWMTrafficManager.mm in Sources */,
 				F607C18E1C047FDC00B53A87 /* MWMSegue.mm in Sources */,
 				34DCDE3A1C75CD8100652CAC /* Framework.cpp in Sources */,
 				341138801C15B50B002E3B3E /* MWMOpeningHoursModel.mm in Sources */,
@@ -4996,6 +5014,7 @@
 				6741A9D51BF340DE002C974C /* WebViewController.mm in Sources */,
 				34C9BD031C6DB693000DC38D /* MWMTableViewController.mm in Sources */,
 				34AA7DA01D63543E00254037 /* MWMRouterSavedState.mm in Sources */,
+				34094F291DF1C1E7005F7A22 /* MWMTrafficManager.mm in Sources */,
 				F64DA8031C52520000330E9E /* UISwitch+RuntimeAttributes.m in Sources */,
 				676507631C1055BB00830BB3 /* MWMTTSLanguageViewController.mm in Sources */,
 				341138811C15B50B002E3B3E /* MWMOpeningHoursModel.mm in Sources */,
@@ -5344,6 +5363,7 @@
 				849CF7351DE842290024A8A5 /* MWMSearchCategoriesManager.mm in Sources */,
 				849CF7361DE842290024A8A5 /* MWMStorage.mm in Sources */,
 				849CF7371DE842290024A8A5 /* MWMTaxiCollectionLayout.mm in Sources */,
+				34094F2A1DF1C1E7005F7A22 /* MWMTrafficManager.mm in Sources */,
 				849CF7381DE842290024A8A5 /* MWMPPPreviewLayoutHelper.mm in Sources */,
 				849CF7391DE842290024A8A5 /* UIColor+MapsMeColor.mm in Sources */,
 				849CF73A1DE842290024A8A5 /* MWMOpeningHours.mm in Sources */,

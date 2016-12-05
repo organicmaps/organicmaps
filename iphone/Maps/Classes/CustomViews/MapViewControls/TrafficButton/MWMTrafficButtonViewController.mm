@@ -1,21 +1,31 @@
 #import "MWMTrafficButtonViewController.h"
 #import "Common.h"
+#import "MWMAlertViewController.h"
 #import "MWMButton.h"
 #import "MWMMapViewControlsCommon.h"
 #import "MWMMapViewControlsManager.h"
+#import "MWMToast.h"
+#import "MWMTrafficManager.h"
 #import "MapViewController.h"
 #import "UIColor+MapsMeColor.h"
-
-typedef NS_ENUM(NSUInteger, MWMTrafficButtonState) {
-  MWMTrafficButtonStateOff,
-  MWMTrafficButtonStateOn,
-  MWMTrafficButtonStateUpdate
-};
 
 namespace
 {
 CGFloat const kTopOffset = 26;
 CGFloat const kTopShiftedOffset = 6;
+
+NSArray<UIImage *> * imagesWithName(NSString * name)
+{
+  NSUInteger const imagesCount = 3;
+  NSMutableArray<UIImage *> * images = [NSMutableArray arrayWithCapacity:imagesCount];
+  NSString * mode = [UIColor isNightMode] ? @"dark" : @"light";
+  for (NSUInteger i = 1; i <= imagesCount; i += 1)
+  {
+    NSString * imageName = [NSString stringWithFormat:@"%@_%@_%@", name, mode, @(i).stringValue];
+    [images addObject:static_cast<UIImage * _Nonnull>([UIImage imageNamed:imageName])];
+  }
+  return [images copy];
+}
 }  // namespace
 
 @interface MWMMapViewControlsManager ()
@@ -24,11 +34,10 @@ CGFloat const kTopShiftedOffset = 6;
 
 @end
 
-@interface MWMTrafficButtonViewController ()
+@interface MWMTrafficButtonViewController ()<MWMTrafficManagerObserver>
 
 @property(nonatomic) NSLayoutConstraint * topOffset;
 @property(nonatomic) NSLayoutConstraint * leftOffset;
-@property(nonatomic) MWMTrafficButtonState state;
 
 @end
 
@@ -48,7 +57,7 @@ CGFloat const kTopShiftedOffset = 6;
     [ovc addChildViewController:self];
     [ovc.view addSubview:self.view];
     [self configLayout];
-    self.state = MWMTrafficButtonStateOff;
+    [MWMTrafficManager addObserver:self];
   }
   return self;
 }
@@ -110,12 +119,6 @@ CGFloat const kTopShiftedOffset = 6;
   [self refreshLayout];
 }
 
-- (void)setState:(MWMTrafficButtonState)state
-{
-  _state = state;
-  [self refreshAppearance];
-}
-
 - (void)refreshLayout
 {
   runAsyncOnMainQueue(^{
@@ -136,29 +139,43 @@ CGFloat const kTopShiftedOffset = 6;
 - (void)refreshAppearance
 {
   MWMButton * btn = static_cast<MWMButton *>(self.view);
-  switch (self.state)
+  UIImageView * iv = btn.imageView;
+  [iv stopAnimating];
+  switch ([MWMTrafficManager state])
   {
-  case MWMTrafficButtonStateOff: btn.imageName = @"btn_traffic_off"; break;
-  case MWMTrafficButtonStateOn: btn.imageName = @"btn_traffic_on"; break;
-  case MWMTrafficButtonStateUpdate:
-  {
-    NSUInteger const imagesCount = 3;
-    NSMutableArray<UIImage *> * images = [NSMutableArray arrayWithCapacity:imagesCount];
-    NSString * mode = [UIColor isNightMode] ? @"dark" : @"light";
-    for (NSUInteger i = 1; i <= imagesCount; i += 1)
-    {
-      NSString * name =
-          [NSString stringWithFormat:@"btn_traffic_update_%@_%@", mode, @(i).stringValue];
-      [images addObject:[UIImage imageNamed:name]];
-    }
-    UIImageView * iv = btn.imageView;
-    iv.animationImages = images;
+  case TrafficManager::TrafficState::Disabled: btn.imageName = @"btn_traffic_off"; break;
+  case TrafficManager::TrafficState::Enabled: btn.imageName = @"btn_traffic_on"; break;
+  case TrafficManager::TrafficState::WaitingData:
+    iv.animationImages = imagesWithName(@"btn_traffic_update");
     iv.animationDuration = 0.8;
-    iv.image = images.lastObject;
+    iv.image = iv.animationImages.lastObject;
     [iv startAnimating];
     break;
-  }
+  case TrafficManager::TrafficState::Outdated: btn.imageName = @"btn_traffic_outdated"; break;
+  case TrafficManager::TrafficState::NetworkError:
+    [MWMTrafficManager enableTraffic:NO];
+    [[MWMAlertViewController activeAlertController] presentNoConnectionAlert];
+    break;
+  case TrafficManager::TrafficState::NoData:
+    [MWMToast showWithText:L(@"traffic_state_no_data")];
+    break;
+  case TrafficManager::TrafficState::ExpiredApp:
+    [MWMToast showWithText:L(@"traffic_state_expired_app")];
+    break;
+  case TrafficManager::TrafficState::ExpiredData:
+    [MWMToast showWithText:L(@"traffic_state_expired_data")];
+    break;
   }
 }
+- (IBAction)buttonTouchUpInside
+{
+  if ([MWMTrafficManager state] == TrafficManager::TrafficState::Disabled)
+    [MWMTrafficManager enableTraffic:YES];
+  else
+    [MWMTrafficManager enableTraffic:NO];
+}
 
+#pragma mark - MWMTrafficManagerObserver
+
+- (void)onTrafficStateUpdated { [self refreshAppearance]; }
 @end

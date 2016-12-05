@@ -22,7 +22,10 @@
                 <constraint firstAttribute="width" constant="56" id="hko-xz-hRz"/>
             </constraints>
             <state key="normal" image="btn_traffic_on_light"/>
-            <point key="canvasLocation" x="-57" y="-113"/>
+            <connections>
+                <action selector="buttonTouchUpInside" destination="-1" eventType="touchUpInside" id="fKZ-g8-4ML"/>
+            </connections>
+            <point key="canvasLocation" x="0.0" y="0.0"/>
         </button>
     </objects>
     <resources>

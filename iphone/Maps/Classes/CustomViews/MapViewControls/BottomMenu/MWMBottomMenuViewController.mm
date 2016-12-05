@@ -15,6 +15,7 @@
 #import "MWMSearchManager.h"
 #import "MWMSettingsViewController.h"
 #import "MWMTextToSpeech.h"
+#import "MWMTrafficManager.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
@@ -58,7 +59,8 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 
 @end
 
-@interface MWMBottomMenuViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
+@interface MWMBottomMenuViewController ()<UICollectionViewDataSource, UICollectionViewDelegate,
+                                          MWMTrafficManagerObserver>
 
 @property(weak, nonatomic) MapViewController * controller;
 @property(weak, nonatomic) IBOutlet UICollectionView * buttonsCollectionView;
@@ -143,6 +145,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
          selector:@selector(ttsButtonStatusChanged:)
              name:[MWMTextToSpeech ttsStatusNotificationKey]
            object:nil];
+  [MWMTrafficManager addObserver:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -230,12 +233,22 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   [MWMTextToSpeech tts].active = isEnable;
   [self refreshRoutingDiminishTimer];
 }
+
+#pragma mark - MWMTrafficManagerObserver
+
+- (void)onTrafficStateUpdated
+{
+  MWMButton * tb = self.trafficButton;
+  BOOL const enabled = ([MWMTrafficManager state] != TrafficManager::TrafficState::Disabled);
+  tb.coloring = enabled ? MWMButtonColoringBlue : MWMButtonColoringGray;
+  tb.selected = enabled;
+}
+
 - (IBAction)trafficTouchUpInside:(MWMButton *)sender
 {
-  BOOL const isEnable = sender.selected;
-  [Statistics logEvent:kStatMenu withParameters:@{kStatTraffic : isEnable ? kStatOn : kStatOff}];
-  sender.coloring = isEnable ? MWMButtonColoringBlue : MWMButtonColoringGray;
-  sender.selected = !isEnable; // TODO: Replace with real logic
+  BOOL const switchOn = ([MWMTrafficManager state] == TrafficManager::TrafficState::Disabled);
+  [Statistics logEvent:kStatMenu withParameters:@{kStatTraffic : switchOn ? kStatOn : kStatOff}];
+  [MWMTrafficManager enableTraffic:switchOn];
   [self refreshRoutingDiminishTimer];
 }
 
