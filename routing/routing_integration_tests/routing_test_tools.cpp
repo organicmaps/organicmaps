@@ -79,14 +79,14 @@ namespace integration
 
   unique_ptr<CarRouter> CreateCarRouter(Index & index,
                                         storage::CountryInfoGetter const & infoGetter,
-                                        traffic::TrafficCache const & trafficGetter)
+                                        traffic::TrafficCache const & trafficCache)
   {
     auto const countryFileGetter = [&infoGetter](m2::PointD const & pt) {
       return infoGetter.GetRegionCountryId(pt);
     };
 
     auto carRouter = make_unique<CarRouter>(index, countryFileGetter,
-                                            SingleMwmRouter::CreateCarRouter(index, trafficGetter));
+                                            SingleMwmRouter::CreateCarRouter(index, trafficCache));
     return carRouter;
   }
 

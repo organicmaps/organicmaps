@@ -68,8 +68,6 @@ public:
 
   TrafficInfo(MwmSet::MwmId const & mwmId, int64_t currentDataVersion);
 
-  TrafficInfo(TrafficInfo && info);
-
   static TrafficInfo BuildForTesting(Coloring && coloring);
 
   // Fetches the latest traffic data from the server and updates the coloring.

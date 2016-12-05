@@ -27,7 +27,7 @@ public:
 
 
   static shared_ptr<EdgeEstimator> CreateForCar(IVehicleModel const & vehicleModel,
-                                                traffic::TrafficCache const & getter);
+                                                traffic::TrafficCache const & trafficCache);
 };
 
 class EstimatorGuard final

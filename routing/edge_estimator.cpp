@@ -12,7 +12,7 @@ double CalcTrafficFactor(SpeedGroup speedGroup)
 {
   double const percentage =
       0.01 * static_cast<double>(kSpeedGroupThresholdPercentage[static_cast<size_t>(speedGroup)]);
-  CHECK_GREATER(percentage, 0.0, ("speedGroup:", speedGroup));
+  CHECK_GREATER(percentage, 0.0, ("Speed group:", speedGroup));
   return 1.0 / percentage;
 }
 }  // namespace
@@ -32,7 +32,7 @@ inline double TimeBetweenSec(m2::PointD const & from, m2::PointD const & to, dou
 class CarEdgeEstimator : public EdgeEstimator
 {
 public:
-  CarEdgeEstimator(IVehicleModel const & vehicleModel, traffic::TrafficCache const & getter);
+  CarEdgeEstimator(IVehicleModel const & vehicleModel, traffic::TrafficCache const & trafficCache);
 
   // EdgeEstimator overrides:
   void Start(MwmSet::MwmId const & mwmId) override;
@@ -42,20 +42,20 @@ public:
   double CalcHeuristic(m2::PointD const & from, m2::PointD const & to) const override;
 
 private:
-  TrafficCache const & m_trafficGetter;
+  TrafficCache const & m_trafficCache;
   shared_ptr<traffic::TrafficInfo> m_trafficInfo;
   double const m_maxSpeedMPS;
 };
 
 CarEdgeEstimator::CarEdgeEstimator(IVehicleModel const & vehicleModel,
-                                   traffic::TrafficCache const & getter)
-  : m_trafficGetter(getter), m_maxSpeedMPS(vehicleModel.GetMaxSpeed() * kKMPH2MPS)
+                                   traffic::TrafficCache const & trafficCache)
+  : m_trafficCache(trafficCache), m_maxSpeedMPS(vehicleModel.GetMaxSpeed() * kKMPH2MPS)
 {
 }
 
 void CarEdgeEstimator::Start(MwmSet::MwmId const & mwmId)
 {
-  m_trafficInfo = m_trafficGetter.GetTrafficInfo(mwmId);
+  m_trafficInfo = m_trafficCache.GetTrafficInfo(mwmId);
 }
 
 void CarEdgeEstimator::Finish()
@@ -100,8 +100,8 @@ namespace routing
 {
 // static
 shared_ptr<EdgeEstimator> EdgeEstimator::CreateForCar(IVehicleModel const & vehicleModel,
-                                                      traffic::TrafficCache const & getter)
+                                                      traffic::TrafficCache const & trafficCache)
 {
-  return make_shared<CarEdgeEstimator>(vehicleModel, getter);
+  return make_shared<CarEdgeEstimator>(vehicleModel, trafficCache);
 }
 }  // namespace routing
