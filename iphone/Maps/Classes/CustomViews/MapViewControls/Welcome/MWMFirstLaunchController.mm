@@ -37,12 +37,11 @@ void requestNotifications() { [MapsAppDelegate initPushNotificationsWithLaunchOp
 void zoomToCurrentPosition()
 {
   auto & f = GetFramework();
-  f.SwitchMyPositionNextMode();
   CLLocation * lastLocation = [MWMLocationManager lastLocation];
   if (!lastLocation)
-    return;
-  int const zoom = 13;
-  f.SetViewportCenter(lastLocation.mercator, zoom);
+    f.SwitchMyPositionNextMode();
+  else
+    f.SetViewportCenter(lastLocation.mercator, 13 /* zoom */);
 }
 
 NSInteger constexpr kRequestLocationPage = 2;
