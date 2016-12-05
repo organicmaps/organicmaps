@@ -29,4 +29,18 @@ public:
   static shared_ptr<EdgeEstimator> CreateForCar(IVehicleModel const & vehicleModel,
                                                 traffic::TrafficCache const & getter);
 };
+
+class EstimatorGuard final
+{
+public:
+  EstimatorGuard(MwmSet::MwmId const & mwmId, EdgeEstimator & estimator) : m_estimator(estimator)
+  {
+    m_estimator.Start(mwmId);
+  }
+
+  ~EstimatorGuard() { m_estimator.Finish(); }
+
+private:
+  EdgeEstimator & m_estimator;
+};
 }  // namespace routing

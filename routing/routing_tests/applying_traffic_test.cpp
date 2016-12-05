@@ -139,7 +139,7 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_G0onF3)
   unique_ptr<IndexGraph> graph = BuildXXGraph(GetEstimator());
   IndexGraphStarter starter(*graph, RoadPoint(1, 0) /* start */, RoadPoint(6, 1) /* finish */);
   vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {3, 0}, {3, 1}, {2, 2}, {3, 3}};
-  GetEstimator()->Start(MwmSet::MwmId());
+  EstimatorGuard guard(MwmSet::MwmId(), *GetEstimator());
   TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
 }
 
@@ -154,7 +154,7 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_G0onF3ReverseDir)
   unique_ptr<IndexGraph> graph = BuildXXGraph(GetEstimator());
   IndexGraphStarter starter(*graph, RoadPoint(1, 0) /* start */, RoadPoint(6, 1) /* finish */);
   vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {1, 1}, {2, 2}, {3, 3}};
-  GetEstimator()->Start(MwmSet::MwmId());
+  EstimatorGuard guard(MwmSet::MwmId(), *GetEstimator());
   TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
 }
 
@@ -175,7 +175,7 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_G0onF3andF6andG4onF8andF4)
   unique_ptr<IndexGraph> graph = BuildXXGraph(GetEstimator());
   IndexGraphStarter starter(*graph, RoadPoint(1, 0) /* start */, RoadPoint(6, 1) /* finish */);
   vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {3, 0}, {3, 1}, {2, 2}, {3, 3}};
-  GetEstimator()->Start(MwmSet::MwmId());
+  EstimatorGuard guard(MwmSet::MwmId(), *GetEstimator());
   TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
 }
 
@@ -187,19 +187,21 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_ChangingTraffic)
   unique_ptr<IndexGraph> graph = BuildXXGraph(GetEstimator());
   IndexGraphStarter starter(*graph, RoadPoint(1, 0) /* start */, RoadPoint(6, 1) /* finish */);
   vector<m2::PointD> const noTrafficGeom = {{2 /* x */, 0 /* y */}, {1, 1}, {2, 2}, {3, 3}};
-  GetEstimator()->Start(MwmSet::MwmId());
-  TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, noTrafficGeom);
-  GetEstimator()->Finish();
+  {
+    EstimatorGuard guard(MwmSet::MwmId(), *GetEstimator());
+    TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, noTrafficGeom);
+  }
 
   // Heavy traffic (SpeedGroup::G0) on F3.
   TrafficInfo::Coloring coloringHeavyF3 = {
       {{3 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection},
        SpeedGroup::G0}};
   UpdateTrafficInfo(move(coloringHeavyF3));
-  GetEstimator()->Start(MwmSet::MwmId());
-  vector<m2::PointD> const heavyF3Geom = {{2 /* x */, 0 /* y */}, {3, 0}, {3, 1}, {2, 2}, {3, 3}};
-  TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, heavyF3Geom);
-  GetEstimator()->Finish();
+  {
+    EstimatorGuard guard(MwmSet::MwmId(), *GetEstimator());
+    vector<m2::PointD> const heavyF3Geom = {{2 /* x */, 0 /* y */}, {3, 0}, {3, 1}, {2, 2}, {3, 3}};
+    TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, heavyF3Geom);
+  }
 
   // Overloading traffic jam on F3. Middle traffic (SpeedGroup::G3) on F1, F3, F4, F7 and F8.
   TrafficInfo::Coloring coloringMiddleF1F3F4F7F8 = {
@@ -214,8 +216,9 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_ChangingTraffic)
       {{8 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection},
        SpeedGroup::G3}};
   UpdateTrafficInfo(move(coloringMiddleF1F3F4F7F8));
-  GetEstimator()->Start(MwmSet::MwmId());
-  TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, noTrafficGeom);
-  GetEstimator()->Finish();
+  {
+    EstimatorGuard guard(MwmSet::MwmId(), *GetEstimator());
+    TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, noTrafficGeom);
+  }
 }
 }  // namespace
