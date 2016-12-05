@@ -50,107 +50,97 @@ shared_ptr<model::FeaturesFetcher> CreateFeaturesFetcher(vector<LocalCountryFile
 
 unique_ptr<storage::CountryInfoGetter> CreateCountryInfoGetter();
 
-  class IRouterComponents
+class IRouterComponents
+{
+public:
+  IRouterComponents(vector<LocalCountryFile> const & localFiles)
+    : m_featuresFetcher(CreateFeaturesFetcher(localFiles)), m_infoGetter(CreateCountryInfoGetter())
   {
-  public:
-    IRouterComponents(vector<LocalCountryFile> const & localFiles)
-      : m_featuresFetcher(CreateFeaturesFetcher(localFiles))
-      , m_infoGetter(CreateCountryInfoGetter())
-    {
-    }
+  }
 
-    virtual ~IRouterComponents() = default;
+  virtual ~IRouterComponents() = default;
 
-    virtual IRouter * GetRouter() const = 0;
+  virtual IRouter * GetRouter() const = 0;
 
-    storage::CountryInfoGetter const & GetCountryInfoGetter() const noexcept
-    {
-      return *m_infoGetter;
-    }
+  storage::CountryInfoGetter const & GetCountryInfoGetter() const noexcept { return *m_infoGetter; }
 
-   protected:
-    shared_ptr<model::FeaturesFetcher> m_featuresFetcher;
-    unique_ptr<storage::CountryInfoGetter> m_infoGetter;
-  };
+protected:
+  shared_ptr<model::FeaturesFetcher> m_featuresFetcher;
+  unique_ptr<storage::CountryInfoGetter> m_infoGetter;
+};
 
-  void TestOnlineCrosses(ms::LatLon const & startPoint, ms::LatLon const & finalPoint,
-                         vector<string> const & expected, IRouterComponents & routerComponents);
-  void TestOnlineFetcher(ms::LatLon const & startPoint, ms::LatLon const & finalPoint,
-                         vector<string> const & expected, IRouterComponents & routerComponents);
+void TestOnlineCrosses(ms::LatLon const & startPoint, ms::LatLon const & finalPoint,
+                       vector<string> const & expected, IRouterComponents & routerComponents);
+void TestOnlineFetcher(ms::LatLon const & startPoint, ms::LatLon const & finalPoint,
+                       vector<string> const & expected, IRouterComponents & routerComponents);
 
-  /// Gets OSRM router components
-  IRouterComponents & GetOsrmComponents();
-  shared_ptr<IRouterComponents> GetOsrmComponents(vector<platform::LocalCountryFile> const & localFiles);
+/// Gets OSRM router components
+IRouterComponents & GetOsrmComponents();
+shared_ptr<IRouterComponents> GetOsrmComponents(vector<platform::LocalCountryFile> const & localFiles);
 
-  /// Gets pedestrian router components
-  IRouterComponents & GetPedestrianComponents();
-  shared_ptr<IRouterComponents> GetPedestrianComponents(vector<platform::LocalCountryFile> const & localFiles);
+/// Gets pedestrian router components
+IRouterComponents & GetPedestrianComponents();
+shared_ptr<IRouterComponents> GetPedestrianComponents(vector<platform::LocalCountryFile> const & localFiles);
 
-  /// Gets bicycle router components.
-  IRouterComponents & GetBicycleComponents();
-  shared_ptr<IRouterComponents> GetBicycleComponents(
-      vector<platform::LocalCountryFile> const & localFiles);
+/// Gets bicycle router components.
+IRouterComponents & GetBicycleComponents();
+shared_ptr<IRouterComponents> GetBicycleComponents(vector<platform::LocalCountryFile> const & localFiles);
 
-  TRouteResult CalculateRoute(IRouterComponents const & routerComponents,
-                              m2::PointD const & startPoint, m2::PointD const & startDirection,
-                              m2::PointD const & finalPoint);
+TRouteResult CalculateRoute(IRouterComponents const & routerComponents,
+                            m2::PointD const & startPoint, m2::PointD const & startDirection,
+                            m2::PointD const & finalPoint);
 
-  void TestTurnCount(Route const & route, uint32_t expectedTurnCount);
+void TestTurnCount(Route const & route, uint32_t expectedTurnCount);
 
-  /// Testing route length.
-  /// It is used for checking if routes have expected(sample) length.
-  /// A created route will pass the test iff
-  /// expectedRouteMeters - expectedRouteMeters * relativeError  <= route->GetDistance()
-  /// && expectedRouteMeters + expectedRouteMeters * relativeError >= route->GetDistance()
-  void TestRouteLength(Route const & route, double expectedRouteMeters,
-                       double relativeError = 0.01);
-  void TestRouteTime(Route const & route, double expectedRouteSeconds,
-                     double relativeError = 0.01);
+/// Testing route length.
+/// It is used for checking if routes have expected(sample) length.
+/// A created route will pass the test iff
+/// expectedRouteMeters - expectedRouteMeters * relativeError  <= route->GetDistance()
+/// && expectedRouteMeters + expectedRouteMeters * relativeError >= route->GetDistance()
+void TestRouteLength(Route const & route, double expectedRouteMeters, double relativeError = 0.01);
+void TestRouteTime(Route const & route, double expectedRouteSeconds, double relativeError = 0.01);
 
-  void CalculateRouteAndTestRouteLength(IRouterComponents const & routerComponents,
-                                        m2::PointD const & startPoint,
-                                        m2::PointD const & startDirection,
-                                        m2::PointD const & finalPoint, double expectedRouteMeters,
-                                        double relativeError = 0.07);
+void CalculateRouteAndTestRouteLength(IRouterComponents const & routerComponents,
+                                      m2::PointD const & startPoint,
+                                      m2::PointD const & startDirection,
+                                      m2::PointD const & finalPoint, double expectedRouteMeters,
+                                      double relativeError = 0.07);
 
-  class TestTurn
+class TestTurn
+{
+  friend TestTurn GetNthTurn(Route const & route, uint32_t turnNumber);
+
+  m2::PointD const m_point;
+  TurnDirection const m_direction;
+  uint32_t const m_roundAboutExitNum;
+  bool const m_isValid;
+
+  TestTurn()
+    : m_point({0.0, 0.0})
+    , m_direction(TurnDirection::NoTurn)
+    , m_roundAboutExitNum(0)
+    , m_isValid(false)
   {
-    friend TestTurn GetNthTurn(Route const & route, uint32_t turnNumber);
+  }
+  TestTurn(m2::PointD const & pnt, TurnDirection direction, uint32_t roundAboutExitNum)
+    : m_point(pnt), m_direction(direction), m_roundAboutExitNum(roundAboutExitNum), m_isValid(true)
+  {
+  }
 
-    m2::PointD const m_point;
-    TurnDirection const m_direction;
-    uint32_t const m_roundAboutExitNum;
-    bool const m_isValid;
+public:
+  const TestTurn & TestValid() const;
+  const TestTurn & TestNotValid() const;
+  const TestTurn & TestPoint(m2::PointD const & expectedPoint, double inaccuracyMeters = 3.) const;
+  const TestTurn & TestDirection(TurnDirection expectedDirection) const;
+  const TestTurn & TestOneOfDirections(set<TurnDirection> const & expectedDirections) const;
+  const TestTurn & TestRoundAboutExitNum(uint32_t expectedRoundAboutExitNum) const;
+};
 
-    TestTurn()
-        : m_point({0., 0.}),
-          m_direction(TurnDirection::NoTurn),
-          m_roundAboutExitNum(0),
-          m_isValid(false)
-    {
-    }
-    TestTurn(m2::PointD const & pnt, TurnDirection direction, uint32_t roundAboutExitNum)
-        : m_point(pnt),
-          m_direction(direction),
-          m_roundAboutExitNum(roundAboutExitNum),
-          m_isValid(true)
-    {
-    }
+/// Extracting appropriate TestTurn if any. If not TestTurn::isValid() returns false.
+/// inaccuracy is set in meters.
+TestTurn GetNthTurn(Route const & route, uint32_t turnNumber);
 
-  public:
-    const TestTurn & TestValid() const;
-    const TestTurn & TestNotValid() const;
-    const TestTurn & TestPoint(m2::PointD  const & expectedPoint, double inaccuracyMeters = 3.) const;
-    const TestTurn & TestDirection(TurnDirection expectedDirection) const;
-    const TestTurn & TestOneOfDirections(set<TurnDirection> const & expectedDirections) const;
-    const TestTurn & TestRoundAboutExitNum(uint32_t expectedRoundAboutExitNum) const;
-  };
+void TestCurrentStreetName(routing::Route const & route, string const & expectedStreetName);
 
-  /// Extracting appropriate TestTurn if any. If not TestTurn::isValid() returns false.
-  /// inaccuracy is set in meters.
-  TestTurn GetNthTurn(Route const & route, uint32_t turnNumber);
-
-  void TestCurrentStreetName(routing::Route const & route, string const & expectedStreetName);
-
-  void TestNextStreetName(routing::Route const & route, string const & expectedStreetName);
-}
+void TestNextStreetName(routing::Route const & route, string const & expectedStreetName);
+}  // namespace integration

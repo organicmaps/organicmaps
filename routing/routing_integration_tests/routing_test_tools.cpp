@@ -1,5 +1,7 @@
 #include "routing/routing_integration_tests/routing_test_tools.hpp"
 
+#include "routing/routing_tests/index_graph_tools.hpp"
+
 #include "testing/testing.hpp"
 
 #include "map/feature_vec_model.hpp"
@@ -29,8 +31,8 @@
 
 #include <sys/resource.h>
 
-
 using namespace routing;
+using namespace routing_test;
 
 using TRouterFactory =
     function<unique_ptr<IRouter>(Index & index, TCountryFileFn const & countryFileFn)>;
@@ -76,14 +78,15 @@ namespace integration
   }
 
   unique_ptr<CarRouter> CreateCarRouter(Index & index,
-                                        storage::CountryInfoGetter const & infoGetter)
+                                        storage::CountryInfoGetter const & infoGetter,
+                                        traffic::TrafficCache const & trafficCache)
   {
     auto const countryFileGetter = [&infoGetter](m2::PointD const & pt) {
       return infoGetter.GetRegionCountryId(pt);
     };
 
-    auto carRouter = make_unique<CarRouter>(
-        index, countryFileGetter, SingleMwmRouter::CreateCarRouter(index));
+    auto carRouter = make_unique<CarRouter>(index, countryFileGetter,
+                                            SingleMwmRouter::CreateCarRouter(index, trafficCache));
     return carRouter;
   }
 
@@ -106,12 +109,14 @@ namespace integration
   public:
     OsrmRouterComponents(vector<LocalCountryFile> const & localFiles)
       : IRouterComponents(localFiles)
-      , m_carRouter(CreateCarRouter(m_featuresFetcher->GetIndex(), *m_infoGetter))
+      , m_carRouter(CreateCarRouter(m_featuresFetcher->GetIndex(), *m_infoGetter, m_trafficCache))
     {
     }
 
     IRouter * GetRouter() const override { return m_carRouter.get(); }
+
   private:
+    traffic::TrafficCache m_trafficCache;
     unique_ptr<CarRouter> m_carRouter;
   };
 

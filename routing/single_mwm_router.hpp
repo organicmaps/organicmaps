@@ -7,6 +7,7 @@
 #include "routing/vehicle_model.hpp"
 
 #include "indexer/index.hpp"
+#include "indexer/mwm_set.hpp"
 
 #include "std/shared_ptr.hpp"
 #include "std/unique_ptr.hpp"
@@ -31,7 +32,8 @@ public:
                                      m2::PointD const & finalPoint, RouterDelegate const & delegate,
                                      Route & route);
 
-  static unique_ptr<SingleMwmRouter> CreateCarRouter(Index const & index);
+  static unique_ptr<SingleMwmRouter> CreateCarRouter(Index const & index,
+                                                     traffic::TrafficCache const & trafficCache);
 
 private:
   IRouter::ResultCode DoCalculateRoute(MwmSet::MwmId const & mwmId, m2::PointD const & startPoint,

@@ -10,9 +10,12 @@
 
 #include "coding/internal/file_data.hpp"
 
+#include "std/utility.hpp"
+
 #include "3party/Alohalytics/src/alohalytics.h"
 
 using namespace location;
+using namespace traffic;
 
 namespace
 {
@@ -95,7 +98,7 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint,
   // Use old-style callback construction, because lambda constructs buggy function on Android
   // (callback param isn't captured by value).
   m_router->CalculateRoute(startPoint, startPoint - m_lastGoodPosition, m_endPoint,
-                           DoReadyCallback(*this, readyCallback, m_routeSessionMutex),
+                           DoReadyCallback(*this, readyCallback, m_routingSessionMutex),
                            progressCallback, timeoutSec);
 }
 
@@ -131,7 +134,7 @@ void RoutingSession::RemoveRouteImpl()
 
 void RoutingSession::RemoveRoute()
 {
-  threads::MutexGuard guard(m_routeSessionMutex);
+  threads::MutexGuard guard(m_routingSessionMutex);
   UNUSED_VALUE(guard);
 
   RemoveRouteImpl();
@@ -141,7 +144,7 @@ void RoutingSession::Reset()
 {
   ASSERT(m_router != nullptr, ());
 
-  threads::MutexGuard guard(m_routeSessionMutex);
+  threads::MutexGuard guard(m_routingSessionMutex);
   UNUSED_VALUE(guard);
 
   RemoveRouteImpl();
@@ -166,7 +169,7 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
       || m_state == RouteNotReady || m_state == RouteNoFollowing)
     return m_state;
 
-  threads::MutexGuard guard(m_routeSessionMutex);
+  threads::MutexGuard guard(m_routingSessionMutex);
   UNUSED_VALUE(guard);
   ASSERT(m_route, ());
   ASSERT(m_route->IsValid(), ());
@@ -258,7 +261,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
     value.erase(delim);
   };
 
-  threads::MutexGuard guard(m_routeSessionMutex);
+  threads::MutexGuard guard(m_routingSessionMutex);
   UNUSED_VALUE(guard);
 
   ASSERT(m_route, ());
@@ -353,7 +356,7 @@ void RoutingSession::GenerateTurnNotifications(vector<string> & turnNotification
 {
   turnNotifications.clear();
 
-  threads::MutexGuard guard(m_routeSessionMutex);
+  threads::MutexGuard guard(m_routingSessionMutex);
   UNUSED_VALUE(guard);
 
   ASSERT(m_route, ());
@@ -410,7 +413,7 @@ void RoutingSession::MatchLocationToRoute(location::GpsInfo & location,
   if (!IsOnRoute())
     return;
 
-  threads::MutexGuard guard(m_routeSessionMutex);
+  threads::MutexGuard guard(m_routingSessionMutex);
   UNUSED_VALUE(guard);
 
   ASSERT(m_route, ());
@@ -443,7 +446,7 @@ bool RoutingSession::EnableFollowMode()
 
 void RoutingSession::SetRoutingSettings(RoutingSettings const & routingSettings)
 {
-  threads::MutexGuard guard(m_routeSessionMutex);
+  threads::MutexGuard guard(m_routingSessionMutex);
   UNUSED_VALUE(guard);
   m_routingSettings = routingSettings;
 }
@@ -460,21 +463,21 @@ m2::PointD const & RoutingSession::GetUserCurrentPosition() const
 
 void RoutingSession::EnableTurnNotifications(bool enable)
 {
-  threads::MutexGuard guard(m_routeSessionMutex);
+  threads::MutexGuard guard(m_routingSessionMutex);
   UNUSED_VALUE(guard);
   m_turnNotificationsMgr.Enable(enable);
 }
 
 bool RoutingSession::AreTurnNotificationsEnabled() const
 {
-  threads::MutexGuard guard(m_routeSessionMutex);
+  threads::MutexGuard guard(m_routingSessionMutex);
   UNUSED_VALUE(guard);
   return m_turnNotificationsMgr.IsEnabled();
 }
 
 void RoutingSession::SetTurnNotificationsUnits(measurement_utils::Units const units)
 {
-  threads::MutexGuard guard(m_routeSessionMutex);
+  threads::MutexGuard guard(m_routingSessionMutex);
   UNUSED_VALUE(guard);
   m_turnNotificationsMgr.SetLengthUnits(units);
 }
@@ -482,14 +485,14 @@ void RoutingSession::SetTurnNotificationsUnits(measurement_utils::Units const un
 void RoutingSession::SetTurnNotificationsLocale(string const & locale)
 {
   LOG(LINFO, ("The language for turn notifications is", locale));
-  threads::MutexGuard guard(m_routeSessionMutex);
+  threads::MutexGuard guard(m_routingSessionMutex);
   UNUSED_VALUE(guard);
   m_turnNotificationsMgr.SetLocale(locale);
 }
 
 string RoutingSession::GetTurnNotificationsLocale() const
 {
-  threads::MutexGuard guard(m_routeSessionMutex);
+  threads::MutexGuard guard(m_routingSessionMutex);
   UNUSED_VALUE(guard);
   return m_turnNotificationsMgr.GetLocale();
 }
@@ -523,7 +526,7 @@ double RoutingSession::GetDistanceToCurrentCamM(SpeedCameraRestriction & camera,
 
 void RoutingSession::EmitCloseRoutingEvent() const
 {
-  threads::MutexGuard guard(m_routeSessionMutex);
+  threads::MutexGuard guard(m_routingSessionMutex);
   ASSERT(m_route, ());
 
   if (!m_route->IsValid())
@@ -552,14 +555,14 @@ bool RoutingSession::HasRouteAltitudeImpl() const
 
 bool RoutingSession::HasRouteAltitude() const
 {
-  threads::MutexGuard guard(m_routeSessionMutex);
+  threads::MutexGuard guard(m_routingSessionMutex);
   return HasRouteAltitudeImpl();
 }
 
 bool RoutingSession::GetRouteAltitudesAndDistancesM(vector<double> & routeSegDistanceM,
                                                     feature::TAltitudes & routeAltitudesM) const
 {
-  threads::MutexGuard guard(m_routeSessionMutex);
+  threads::MutexGuard guard(m_routingSessionMutex);
   ASSERT(m_route, ());
 
   if (!m_route->IsValid() || !HasRouteAltitudeImpl())
@@ -572,9 +575,38 @@ bool RoutingSession::GetRouteAltitudesAndDistancesM(vector<double> & routeSegDis
 
 shared_ptr<Route> const RoutingSession::GetRoute() const
 {
-  threads::MutexGuard guard(m_routeSessionMutex);
+  threads::MutexGuard guard(m_routingSessionMutex);
   ASSERT(m_route, ());
   return m_route;
+}
+
+void RoutingSession::OnTrafficEnabled(bool enable)
+{
+  threads::MutexGuard guard(m_routingSessionMutex);
+  UNUSED_VALUE(guard);
+  if (!enable)
+    Clear();
+}
+
+void RoutingSession::OnTrafficInfoAdded(TrafficInfo && info)
+{
+  threads::MutexGuard guard(m_routingSessionMutex);
+  UNUSED_VALUE(guard);
+  Set(move(info));
+}
+
+void RoutingSession::OnTrafficInfoRemoved(MwmSet::MwmId const & mwmId)
+{
+  threads::MutexGuard guard(m_routingSessionMutex);
+  UNUSED_VALUE(guard);
+  Remove(mwmId);
+}
+
+shared_ptr<traffic::TrafficInfo> RoutingSession::GetTrafficInfo(MwmSet::MwmId const & mwmId) const
+{
+  threads::MutexGuard guard(m_routingSessionMutex);
+  UNUSED_VALUE(guard);
+  return TrafficCache::GetTrafficInfo(mwmId);
 }
 
 string DebugPrint(RoutingSession::State state)

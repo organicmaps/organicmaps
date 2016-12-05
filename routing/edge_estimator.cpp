@@ -1,6 +1,21 @@
 #include "routing/edge_estimator.hpp"
 
+#include "traffic/traffic_info.hpp"
+
 #include "std/algorithm.hpp"
+
+using namespace traffic;
+
+namespace
+{
+double CalcTrafficFactor(SpeedGroup speedGroup)
+{
+  double const percentage =
+      0.01 * static_cast<double>(kSpeedGroupThresholdPercentage[static_cast<size_t>(speedGroup)]);
+  CHECK_GREATER(percentage, 0.0, ("Speed group:", speedGroup));
+  return 1.0 / percentage;
+}
+}  // namespace
 
 namespace routing
 {
@@ -17,24 +32,39 @@ inline double TimeBetweenSec(m2::PointD const & from, m2::PointD const & to, dou
 class CarEdgeEstimator : public EdgeEstimator
 {
 public:
-  CarEdgeEstimator(IVehicleModel const & vehicleModel);
+  CarEdgeEstimator(IVehicleModel const & vehicleModel, traffic::TrafficCache const & trafficCache);
 
   // EdgeEstimator overrides:
-  double CalcEdgesWeight(RoadGeometry const & road, uint32_t pointFrom,
+  void Start(MwmSet::MwmId const & mwmId) override;
+  void Finish() override;
+  double CalcEdgesWeight(uint32_t featureId, RoadGeometry const & road, uint32_t pointFrom,
                          uint32_t pointTo) const override;
   double CalcHeuristic(m2::PointD const & from, m2::PointD const & to) const override;
 
 private:
+  TrafficCache const & m_trafficCache;
+  shared_ptr<traffic::TrafficInfo> m_trafficInfo;
   double const m_maxSpeedMPS;
 };
 
-CarEdgeEstimator::CarEdgeEstimator(IVehicleModel const & vehicleModel)
-  : m_maxSpeedMPS(vehicleModel.GetMaxSpeed() * kKMPH2MPS)
+CarEdgeEstimator::CarEdgeEstimator(IVehicleModel const & vehicleModel,
+                                   traffic::TrafficCache const & trafficCache)
+  : m_trafficCache(trafficCache), m_maxSpeedMPS(vehicleModel.GetMaxSpeed() * kKMPH2MPS)
 {
 }
 
-double CarEdgeEstimator::CalcEdgesWeight(RoadGeometry const & road, uint32_t pointFrom,
-                                         uint32_t pointTo) const
+void CarEdgeEstimator::Start(MwmSet::MwmId const & mwmId)
+{
+  m_trafficInfo = m_trafficCache.GetTrafficInfo(mwmId);
+}
+
+void CarEdgeEstimator::Finish()
+{
+  m_trafficInfo.reset();
+}
+
+double CarEdgeEstimator::CalcEdgesWeight(uint32_t featureId, RoadGeometry const & road,
+                                         uint32_t pointFrom, uint32_t pointTo) const
 {
   uint32_t const start = min(pointFrom, pointTo);
   uint32_t const finish = max(pointFrom, pointTo);
@@ -42,8 +72,20 @@ double CarEdgeEstimator::CalcEdgesWeight(RoadGeometry const & road, uint32_t poi
 
   double result = 0.0;
   double const speedMPS = road.GetSpeed() * kKMPH2MPS;
+  auto const dir = pointFrom < pointTo ? TrafficInfo::RoadSegmentId::kForwardDirection
+                                       : TrafficInfo::RoadSegmentId::kReverseDirection;
   for (uint32_t i = start; i < finish; ++i)
-    result += TimeBetweenSec(road.GetPoint(i), road.GetPoint(i + 1), speedMPS);
+  {
+    double edgeWeight = TimeBetweenSec(road.GetPoint(i), road.GetPoint(i + 1), speedMPS);
+    if (m_trafficInfo)
+    {
+      SpeedGroup const speedGroup =
+          m_trafficInfo->GetSpeedGroup(TrafficInfo::RoadSegmentId(featureId, i, dir));
+      ASSERT_LESS(speedGroup, SpeedGroup::Count, ());
+      edgeWeight *= CalcTrafficFactor(speedGroup);
+    }
+    result += edgeWeight;
+  }
 
   return result;
 }
@@ -57,8 +99,9 @@ double CarEdgeEstimator::CalcHeuristic(m2::PointD const & from, m2::PointD const
 namespace routing
 {
 // static
-shared_ptr<EdgeEstimator> EdgeEstimator::CreateForCar(IVehicleModel const & vehicleModel)
+shared_ptr<EdgeEstimator> EdgeEstimator::CreateForCar(IVehicleModel const & vehicleModel,
+                                                      traffic::TrafficCache const & trafficCache)
 {
-  return make_shared<CarEdgeEstimator>(vehicleModel);
+  return make_shared<CarEdgeEstimator>(vehicleModel, trafficCache);
 }
 }  // namespace routing

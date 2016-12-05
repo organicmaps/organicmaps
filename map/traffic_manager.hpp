@@ -57,7 +57,8 @@ public:
   using TrafficStateChangedFn = function<void(TrafficState)>;
   using GetMwmsByRectFn = function<vector<MwmSet::MwmId>(m2::RectD const &)>;
 
-  TrafficManager(GetMwmsByRectFn const & getMwmsByRectFn, size_t maxCacheSizeBytes);
+  TrafficManager(GetMwmsByRectFn const & getMwmsByRectFn, size_t maxCacheSizeBytes,
+                 traffic::TrafficObserver & observer);
   ~TrafficManager();
 
   void SetStateListener(TrafficStateChangedFn const & onStateChangedFn);
@@ -76,8 +77,8 @@ private:
   void ThreadRoutine();
   bool WaitForRequest(vector<MwmSet::MwmId> & mwms);
 
-  void OnTrafficDataResponse(traffic::TrafficInfo const & info);
-  void OnTrafficRequestFailed(traffic::TrafficInfo const & info);
+  void OnTrafficDataResponse(traffic::TrafficInfo && info);
+  void OnTrafficRequestFailed(traffic::TrafficInfo && info);
 
 private:
   // This is a group of methods that haven't their own synchronization inside.
@@ -94,6 +95,7 @@ private:
   bool IsEnabled() const;
 
   GetMwmsByRectFn m_getMwmsByRectFn;
+  traffic::TrafficObserver & m_observer;
 
   ref_ptr<df::DrapeEngine> m_drapeEngine;
   atomic<int64_t> m_currentDataVersion;

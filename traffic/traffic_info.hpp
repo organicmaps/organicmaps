@@ -6,6 +6,7 @@
 
 #include "std/cstdint.hpp"
 #include "std/map.hpp"
+#include "std/shared_ptr.hpp"
 #include "std/vector.hpp"
 
 namespace traffic
@@ -67,6 +68,8 @@ public:
 
   TrafficInfo(MwmSet::MwmId const & mwmId, int64_t currentDataVersion);
 
+  static TrafficInfo BuildForTesting(Coloring && coloring);
+
   // Fetches the latest traffic data from the server and updates the coloring.
   // Construct the url by passing an MwmId.
   // *NOTE* This method must not be called on the UI thread.
@@ -89,5 +92,15 @@ private:
   MwmSet::MwmId m_mwmId;
   Availability m_availability = Availability::Unknown;
   int64_t m_currentDataVersion = 0;
+};
+
+class TrafficObserver
+{
+public:
+  virtual ~TrafficObserver() = default;
+
+  virtual void OnTrafficEnabled(bool enable) = 0;
+  virtual void OnTrafficInfoAdded(traffic::TrafficInfo && info) = 0;
+  virtual void OnTrafficInfoRemoved(MwmSet::MwmId const & mwmId) = 0;
 };
 }  // namespace traffic

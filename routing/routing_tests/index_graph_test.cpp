@@ -6,6 +6,8 @@
 #include "routing/index_graph.hpp"
 #include "routing/index_graph_starter.hpp"
 
+#include "routing/routing_tests/index_graph_tools.hpp"
+
 #include "geometry/point2d.hpp"
 
 #include "base/assert.hpp"
@@ -18,49 +20,7 @@
 namespace
 {
 using namespace routing;
-
-class TestGeometryLoader final : public GeometryLoader
-{
-public:
-  // GeometryLoader overrides:
-  void Load(uint32_t featureId, RoadGeometry & road) const override;
-
-  void AddRoad(uint32_t featureId, bool oneWay, float speed, RoadGeometry::Points const & points);
-
-private:
-  unordered_map<uint32_t, RoadGeometry> m_roads;
-};
-
-void TestGeometryLoader::Load(uint32_t featureId, RoadGeometry & road) const
-{
-  auto it = m_roads.find(featureId);
-  if (it == m_roads.cend())
-    return;
-
-  road = it->second;
-}
-
-void TestGeometryLoader::AddRoad(uint32_t featureId, bool oneWay, float speed,
-                                 RoadGeometry::Points const & points)
-{
-  auto it = m_roads.find(featureId);
-  CHECK(it == m_roads.end(), ("Already contains feature", featureId));
-  m_roads[featureId] = RoadGeometry(oneWay, speed, points);
-}
-
-Joint MakeJoint(vector<RoadPoint> const & points)
-{
-  Joint joint;
-  for (auto const & point : points)
-    joint.AddPoint(point);
-
-  return joint;
-}
-
-shared_ptr<EdgeEstimator> CreateEstimator()
-{
-  return EdgeEstimator::CreateForCar(*make_shared<CarModelFactory>()->GetVehicleModel());
-}
+using namespace routing_test;
 
 void TestRoute(IndexGraph & graph, RoadPoint const & start, RoadPoint const & finish,
                size_t expectedLength, vector<RoadPoint> const * expectedRoute = nullptr)
@@ -68,16 +28,11 @@ void TestRoute(IndexGraph & graph, RoadPoint const & start, RoadPoint const & fi
   LOG(LINFO, ("Test route", start.GetFeatureId(), ",", start.GetPointId(), "=>",
               finish.GetFeatureId(), ",", finish.GetPointId()));
 
-  AStarAlgorithm<IndexGraphStarter> algorithm;
-  RoutingResult<Joint::Id> routingResult;
-
   IndexGraphStarter starter(graph, start, finish);
-  auto const resultCode = algorithm.FindPath(starter, starter.GetStartJoint(),
-                                             starter.GetFinishJoint(), routingResult, {}, {});
+  vector<RoadPoint> roadPoints;
+  auto const resultCode = CalculateRoute(starter, roadPoints);
   TEST_EQUAL(resultCode, AStarAlgorithm<IndexGraphStarter>::Result::OK, ());
 
-  vector<RoadPoint> roadPoints;
-  starter.RedressRoute(routingResult.path, roadPoints);
   TEST_EQUAL(roadPoints.size(), expectedLength, ());
 
   if (expectedRoute)
@@ -145,7 +100,8 @@ UNIT_TEST(EdgesTest)
   loader->AddRoad(4 /* featureId */, true, 1.0 /* speed */,
                   RoadGeometry::Points({{3.0, -1.0}, {3.0, 0.0}, {3.0, 1.0}}));
 
-  IndexGraph graph(move(loader), CreateEstimator());
+  traffic::TrafficCache const trafficCache;
+  IndexGraph graph(move(loader), CreateEstimator(trafficCache));
 
   vector<Joint> joints;
   joints.emplace_back(MakeJoint({{0, 1}, {3, 1}}));  // J0
@@ -189,7 +145,8 @@ UNIT_TEST(FindPathCross)
       1 /* featureId */, false, 1.0 /* speed */,
       RoadGeometry::Points({{0.0, -2.0}, {-1.0, 0.0}, {0.0, 0.0}, {0.0, 1.0}, {0.0, 2.0}}));
 
-  IndexGraph graph(move(loader), CreateEstimator());
+  traffic::TrafficCache const trafficCache;
+  IndexGraph graph(move(loader), CreateEstimator(trafficCache));
 
   graph.Import({MakeJoint({{0, 2}, {1, 2}})});
 
@@ -245,7 +202,8 @@ UNIT_TEST(FindPathManhattan)
     loader->AddRoad(i + kCitySize, false, 1.0 /* speed */, avenue);
   }
 
-  IndexGraph graph(move(loader), CreateEstimator());
+  traffic::TrafficCache const trafficCache;
+  IndexGraph graph(move(loader), CreateEstimator(trafficCache));
 
   vector<Joint> joints;
   for (uint32_t i = 0; i < kCitySize; ++i)
@@ -295,7 +253,8 @@ UNIT_TEST(RedressRace)
       2 /* featureId */, false, 1.0 /* speed */,
       RoadGeometry::Points({{0.0, 0.0}, {1.0, 1.0}, {2.0, 1.0}, {3.0, 1.0}, {4.0, 0.0}}));
 
-  IndexGraph graph(move(loader), CreateEstimator());
+  traffic::TrafficCache const trafficCache;
+  IndexGraph graph(move(loader), CreateEstimator(trafficCache));
 
   vector<Joint> joints;
   joints.emplace_back(MakeJoint({{0, 0}, {1, 0}, {2, 0}}));  // J0
@@ -325,7 +284,8 @@ UNIT_TEST(RoadSpeed)
   loader->AddRoad(1 /* featureId */, false, 1.0 /* speed */,
                   RoadGeometry::Points({{0.0, 0.0}, {2.0, 0.0}, {4.0, 0.0}}));
 
-  IndexGraph graph(move(loader), CreateEstimator());
+  traffic::TrafficCache const trafficCache;
+  IndexGraph graph(move(loader), CreateEstimator(trafficCache));
 
   vector<Joint> joints;
   joints.emplace_back(MakeJoint({{0, 0}, {1, 0}}));  // J0

@@ -6,6 +6,9 @@
 #include "routing/turns.hpp"
 #include "routing/turns_notification_manager.hpp"
 
+#include "traffic/traffic_cache.hpp"
+#include "traffic/traffic_info.hpp"
+
 #include "platform/location.hpp"
 #include "platform/measurement_utils.hpp"
 
@@ -16,6 +19,7 @@
 
 #include "std/atomic.hpp"
 #include "std/limits.hpp"
+#include "std/map.hpp"
 #include "std/shared_ptr.hpp"
 #include "std/unique_ptr.hpp"
 
@@ -35,7 +39,7 @@ struct SpeedCameraRestriction
   SpeedCameraRestriction() : m_index(0), m_maxSpeedKmH(numeric_limits<uint8_t>::max()) {}
 };
 
-class RoutingSession
+class RoutingSession : public traffic::TrafficObserver, public traffic::TrafficCache
 {
   friend void UnitTest_TestFollowRoutePercentTest();
 
@@ -150,6 +154,14 @@ public:
 
   void EmitCloseRoutingEvent() const;
 
+  // RoutingObserver overrides:
+  void OnTrafficEnabled(bool enable) override;
+  void OnTrafficInfoAdded(traffic::TrafficInfo && info) override;
+  void OnTrafficInfoRemoved(MwmSet::MwmId const & mwmId) override;
+
+  // TrafficCache overrides:
+  shared_ptr<traffic::TrafficInfo> GetTrafficInfo(MwmSet::MwmId const & mwmId) const override;
+
 private:
   struct DoReadyCallback
   {
@@ -195,7 +207,7 @@ private:
   /// about camera will be sent at most once.
   mutable bool m_speedWarningSignal;
 
-  mutable threads::Mutex m_routeSessionMutex;
+  mutable threads::Mutex m_routingSessionMutex;
 
   /// Current position metrics to check for RouteNeedRebuild state.
   double m_lastDistance;

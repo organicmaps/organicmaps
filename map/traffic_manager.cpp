@@ -37,8 +37,10 @@ TrafficManager::CacheEntry::CacheEntry(time_point<steady_clock> const & requestT
   , m_lastAvailability(traffic::TrafficInfo::Availability::Unknown)
 {}
 
-TrafficManager::TrafficManager(GetMwmsByRectFn const & getMwmsByRectFn, size_t maxCacheSizeBytes)
+TrafficManager::TrafficManager(GetMwmsByRectFn const & getMwmsByRectFn, size_t maxCacheSizeBytes,
+                               traffic::TrafficObserver & observer)
   : m_getMwmsByRectFn(getMwmsByRectFn)
+  , m_observer(observer)
   , m_currentDataVersion(0)
   , m_state(TrafficState::Disabled)
   , m_maxCacheSizeBytes(maxCacheSizeBytes)
@@ -92,6 +94,8 @@ void TrafficManager::SetEnabled(bool enabled)
     if (m_currentPosition.second)
       UpdateMyPosition(m_currentPosition.first);
   }
+
+  m_observer.OnTrafficEnabled(enabled);
 }
 
 void TrafficManager::Clear()
@@ -183,12 +187,12 @@ void TrafficManager::ThreadRoutine()
 
       if (info.ReceiveTrafficData())
       {
-        OnTrafficDataResponse(info);
+        OnTrafficDataResponse(move(info));
       }
       else
       {
         LOG(LWARNING, ("Traffic request failed. Mwm =", mwm));
-        OnTrafficRequestFailed(info);
+        OnTrafficRequestFailed(move(info));
       }
     }
     mwms.clear();
@@ -267,7 +271,7 @@ void TrafficManager::RequestTrafficData(MwmSet::MwmId const & mwmId)
   m_condition.notify_one();
 }
 
-void TrafficManager::OnTrafficRequestFailed(traffic::TrafficInfo const & info)
+void TrafficManager::OnTrafficRequestFailed(traffic::TrafficInfo && info)
 {
   lock_guard<mutex> lock(m_mutex);
 
@@ -300,7 +304,7 @@ void TrafficManager::OnTrafficRequestFailed(traffic::TrafficInfo const & info)
   UpdateState();
 }
 
-void TrafficManager::OnTrafficDataResponse(traffic::TrafficInfo const & info)
+void TrafficManager::OnTrafficDataResponse(traffic::TrafficInfo && info)
 {
   lock_guard<mutex> lock(m_mutex);
 
@@ -315,17 +319,21 @@ void TrafficManager::OnTrafficDataResponse(traffic::TrafficInfo const & info)
 
   // Update cache.
   size_t constexpr kElementSize = sizeof(traffic::TrafficInfo::RoadSegmentId) + sizeof(traffic::SpeedGroup);
+
   size_t const dataSize = info.GetColoring().size() * kElementSize;
   m_currentCacheSizeBytes += (dataSize - it->second.m_dataSize);
   it->second.m_dataSize = dataSize;
   CheckCacheSize();
 
-  // Update traffic colors.
+  // Update traffic colors for drape.
   df::TrafficSegmentsColoring coloring;
   coloring[info.GetMwmId()] = info.GetColoring();
   m_drapeEngine->UpdateTraffic(coloring);
 
   UpdateState();
+
+  // Update traffic colors for routing.
+  m_observer.OnTrafficInfoAdded(move(info));
 }
 
 void TrafficManager::CheckCacheSize()
@@ -344,8 +352,10 @@ void TrafficManager::CheckCacheSize()
       auto const it = m_mwmCache.find(mwmId);
       if (it->second.m_isLoaded)
       {
+        ASSERT_GREATER_OR_EQUAL(m_currentCacheSizeBytes, it->second.m_dataSize, ());
         m_currentCacheSizeBytes -= it->second.m_dataSize;
         m_drapeEngine->ClearTrafficCache(mwmId);
+        m_observer.OnTrafficInfoRemoved(mwmId);
       }
       m_mwmCache.erase(it);
       ++itSeen;
