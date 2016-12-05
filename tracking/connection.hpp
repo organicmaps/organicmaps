@@ -30,6 +30,5 @@ private:
   unique_ptr<platform::Socket> m_socket;
   string const m_host;
   uint16_t const m_port;
-  bool const m_isHistorical;
 };
 }  // namespace tracking
