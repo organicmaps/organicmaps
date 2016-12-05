@@ -349,11 +349,8 @@ void MyPositionController::NextMode(ScreenBase const & screen)
   // From follow-and-rotate mode we can transit to follow mode if routing is disabled.
   if (m_mode == location::FollowAndRotate)
   {
-    if (!m_isInRouting)
-    {
-      ChangeMode(location::Follow);
-      ChangeModelView(m_position, 0.0, m_visiblePixelRect.Center(), preferredZoomLevel);
-    }
+    ChangeMode(location::Follow);
+    ChangeModelView(m_position, 0.0, m_visiblePixelRect.Center(), preferredZoomLevel);
   }
 }
 

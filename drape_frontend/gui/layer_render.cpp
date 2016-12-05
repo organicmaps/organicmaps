@@ -33,15 +33,22 @@ void LayerRenderer::Build(ref_ptr<dp::GpuProgramManager> mng)
     r.second->Build(mng);
 }
 
-void LayerRenderer::Render(ref_ptr<dp::GpuProgramManager> mng, ScreenBase const & screen)
+void LayerRenderer::Render(ref_ptr<dp::GpuProgramManager> mng, bool routingActive,
+                           ScreenBase const & screen)
 {
   if (HasWidget(gui::WIDGET_RULER))
   {
     DrapeGui::GetRulerHelper().ResetTextDirtyFlag();
     DrapeGui::GetRulerHelper().Update(screen);
   }
+
   for (TRenderers::value_type & r : m_renderers)
+  {
+    if (routingActive && (r.first == gui::WIDGET_COMPASS || r.first == gui::WIDGET_RULER))
+      continue;
+
     r.second->Render(screen, mng);
+  }
 }
 
 void LayerRenderer::Merge(ref_ptr<LayerRenderer> other)

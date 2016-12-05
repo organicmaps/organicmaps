@@ -1172,7 +1172,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   m_drapeApiRenderer->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
 
   if (m_guiRenderer != nullptr)
-    m_guiRenderer->Render(make_ref(m_gpuProgramManager), modelView);
+    m_guiRenderer->Render(make_ref(m_gpuProgramManager), m_myPositionController->IsInRouting(), modelView);
 
   GLFunctions::glEnable(gl_const::GLDepthTest);
 
