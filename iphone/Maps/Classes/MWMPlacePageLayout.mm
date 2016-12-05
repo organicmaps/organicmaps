@@ -130,10 +130,7 @@ array<NSString *, 1> const kButtonsCells = {{@"MWMPlacePageButtonCell"}};
     [self.layoutImpl setPreviewLayoutHelper:self.previewLayoutHelper];
 
   [self.placePageView.tableView reloadData];
-
-  dispatch_async(dispatch_get_main_queue(), ^{
-    [self.layoutImpl onShow];
-  });
+  [self.layoutImpl onShow];
 }
 
 - (void)rotateDirectionArrowToAngle:(CGFloat)angle

@@ -18,6 +18,9 @@ enum class State
 
 CGFloat const kOpenPlacePageStopValue = 0.7;
 CGFloat const kLuftDraggingOffset = 30;
+
+// Minimal offset for collapse. If place page offset is below this value we should hide place page.
+CGFloat const kMinOffset = 1;
 }  // namespace
 
 @interface MWMiPhonePlacePageLayoutImpl () <UIScrollViewDelegate, UITableViewDelegate>
@@ -65,24 +68,23 @@ CGFloat const kLuftDraggingOffset = 30;
 - (void)onShow
 {
   self.state = State::Bottom;
-
   auto scrollView = self.scrollView;
+  
   scrollView.scrollEnabled = NO;
+  [scrollView setContentOffset:{ 0., kMinOffset }];
 
-  place_page_layout::animate(
-      ^{
-        auto actionBar = self.actionBar;
-        actionBar.maxY = actionBar.superview.height;
-
-        self.expandedContentOffset =
-            self.previewLayoutHelper.height + actionBar.height - self.placePageView.top.height;
-        auto const targetOffset =
-            self.state == State::Bottom ? self.expandedContentOffset : self.topContentOffset;
-        [scrollView setContentOffset:{ 0, targetOffset } animated:YES];
-      },
-      ^{
-        scrollView.scrollEnabled = YES;
-      });
+  dispatch_async(dispatch_get_main_queue(), ^{
+    place_page_layout::animate(^{
+      scrollView.scrollEnabled = YES;
+      auto actionBar = self.actionBar;
+      actionBar.maxY = actionBar.superview.height;
+      self.expandedContentOffset =
+        self.previewLayoutHelper.height + actionBar.height - self.placePageView.top.height;
+      auto const targetOffset =
+        self.state == State::Bottom ? self.expandedContentOffset : self.topContentOffset;
+      [scrollView setContentOffset:{ 0, targetOffset } animated:YES];
+    });
+  });
 }
 
 - (void)onClose
