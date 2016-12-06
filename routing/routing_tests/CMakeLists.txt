@@ -33,6 +33,7 @@ omim_link_libraries(
   indexer
   platform_tests_support
   editor
+  traffic
   platform
   oauthcpp
   geometry
