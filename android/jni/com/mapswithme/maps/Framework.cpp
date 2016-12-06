@@ -429,11 +429,13 @@ void Framework::SetTrafficStateListener(TrafficManager::TrafficStateChangedFn co
 void Framework::EnableTraffic()
 {
   m_work.GetTrafficManager().SetEnabled(true);
+  NativeFramework()->SaveTrafficEnabled(true);
 }
 
 void Framework::DisableTraffic()
 {
   m_work.GetTrafficManager().SetEnabled(false);
+  NativeFramework()->SaveTrafficEnabled(false);
 }
 
 void Framework::SetMyPositionModeListener(location::TMyPositionModeChanged const & fn)
