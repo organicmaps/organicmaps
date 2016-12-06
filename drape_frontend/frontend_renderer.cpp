@@ -132,6 +132,7 @@ FrontendRenderer::FrontendRenderer(Params const & params)
   , m_requestedTiles(params.m_requestedTiles)
   , m_maxGeneration(0)
   , m_needRestoreSize(false)
+  , m_trafficStateChanged(false)
 {
 #ifdef DRAW_INFO
   m_tpf = 0.0;
@@ -745,7 +746,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<EnableTrafficMessage> msg = message;
       if (msg->IsTrafficEnabled())
-        InvalidateRect(m_userEventStream.GetCurrentScreen().ClipRect());
+        m_trafficStateChanged = true;
       else
         m_trafficRenderer->ClearGLDependentResources();
       break;
@@ -1733,7 +1734,7 @@ void FrontendRenderer::Routine::Do()
     isActiveFrame |= m_renderer.m_texMng->UpdateDynamicTextures();
     m_renderer.RenderScene(modelView);
 
-    if (modelViewChanged)
+    if (modelViewChanged || m_renderer.m_trafficStateChanged)
       m_renderer.UpdateScene(modelView);
 
     isActiveFrame |= InterpolationHolder::Instance().Advance(frameTime);
@@ -1882,8 +1883,9 @@ void FrontendRenderer::UpdateScene(ScreenBase const & modelView)
   for (RenderLayer & layer : m_layers)
     layer.m_isDirty |= RemoveGroups(removePredicate, layer.m_renderGroups, make_ref(m_overlayTree));
 
-  if (m_lastReadedModelView != modelView)
+  if (m_trafficStateChanged || m_lastReadedModelView != modelView)
   {
+    m_trafficStateChanged = false;
     EmitModelViewChanged(modelView);
     m_lastReadedModelView = modelView;
     m_requestedTiles->Set(modelView, m_isIsometry || modelView.isPerspective(), ResolveTileKeys(modelView));

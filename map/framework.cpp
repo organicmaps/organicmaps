@@ -2717,7 +2717,7 @@ void Framework::Load3dMode(bool & allow3d, bool & allow3dBuildings)
 
 bool Framework::LoadTrafficEnabled()
 {
-  bool enabled = true; //TODO(@rokuz): temporary. It has to be false by default.
+  bool enabled = false;
   settings::Get(kTrafficEnabledKey, enabled);
   return enabled;
 }

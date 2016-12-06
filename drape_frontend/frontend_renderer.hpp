@@ -340,6 +340,8 @@ private:
 
   bool m_needRestoreSize;
 
+  bool m_trafficStateChanged;
+
 #ifdef DEBUG
   bool m_isTeardowned;
 #endif

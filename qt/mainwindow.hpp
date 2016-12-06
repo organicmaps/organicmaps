@@ -31,6 +31,7 @@ namespace qt
     QAction * m_selectionMode;
     QAction * m_clearSelection;
     QAction * m_pSearchAction;
+    QAction * m_trafficEnableAction;
     DrawWidget * m_pDrawWidget;
 
     QDockWidget * m_Docks[1];
@@ -89,5 +90,7 @@ namespace qt
 
     void OnSwitchSelectionMode();
     void OnClearSelection();
+
+    void OnTrafficEnabled();
   };
 }

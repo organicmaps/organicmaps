@@ -13,6 +13,7 @@ enum ColorConstant
   MyPositionAccuracy,
   Selection,
   Route,
+  RouteOutline,
   RoutePedestrian,
   RouteBicycle,
   Arrow3D,

@@ -277,6 +277,12 @@ void MainWindow::CreateNavigationBar()
   }
 
   {
+    m_trafficEnableAction = pToolBar->addAction(QIcon(":/navig64/traffic.png"), tr("Show traffic"),
+                                                this, SLOT(OnTrafficEnabled()));
+    m_trafficEnableAction->setCheckable(true);
+    m_trafficEnableAction->setChecked(m_pDrawWidget->GetFramework().LoadTrafficEnabled());
+    pToolBar->addSeparator();
+
     // TODO(AlexZ): Replace icon.
     m_pCreateFeatureAction = pToolBar->addAction(QIcon(":/navig64/select.png"), tr("Create Feature"),
                                                  this, SLOT(OnCreateFeatureClicked()));
@@ -586,6 +592,13 @@ void MainWindow::OnDownloadClicked()
 void MainWindow::OnRetryDownloadClicked()
 {
   m_pDrawWidget->RetryToDownloadCountry(m_lastCountry);
+}
+
+void MainWindow::OnTrafficEnabled()
+{
+  bool const enabled = m_trafficEnableAction->isChecked();
+  m_pDrawWidget->GetFramework().GetTrafficManager().SetEnabled(enabled);
+  m_pDrawWidget->GetFramework().SaveTrafficEnabled(enabled);
 }
 
 }

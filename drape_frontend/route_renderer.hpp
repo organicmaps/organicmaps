@@ -41,7 +41,7 @@ public:
   void UpdateDistanceFromBegin(double distanceFromBegin);
 
 private:
-  void InterpolateByZoom(ScreenBase const & screen, float & halfWidth, float & alpha, double & zoom) const;
+  void InterpolateByZoom(ScreenBase const & screen, float & halfWidth, double & zoom) const;
   void RenderRouteSign(drape_ptr<RouteSignData> const & sign, ScreenBase const & screen,
                        ref_ptr<dp::GpuProgramManager> mng, dp::UniformValuesStorage const & commonUniforms);
 
@@ -55,7 +55,6 @@ private:
   drape_ptr<RouteSignData> m_finishRouteSign;
 
   float m_currentHalfWidth = 0.0f;
-  float m_currentAlpha = 0.0f;
 };
 
 } // namespace df

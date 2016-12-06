@@ -14,6 +14,7 @@
         <file>select.png</file>
         <file>selectmode.png</file>
         <file>clear.png</file>
+        <file>traffic.png</file>
     </qresource>
     <qresource prefix="/ui">
         <file>logo.png</file>
