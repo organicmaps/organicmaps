@@ -60,7 +60,10 @@ NSUInteger const kWordsPerSecond = 3;
   UIView * sv = self.rootView;
   [sv removeFromSuperview];
 
-  UIView * ov = topViewController().view;
+  UIViewController * tvc = topViewController();
+  UIView * ov = tvc.view;
+  if (!tvc.navigationController.navigationBarHidden)
+    ov = tvc.navigationController.navigationBar.superview;
   [ov addSubview:sv];
 
   NSLayoutConstraint * topOffset = [NSLayoutConstraint constraintWithItem:sv

@@ -94,7 +94,6 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
 - (void)mwm_refreshUI
 {
   [self.view mwm_refreshUI];
-  [self refreshAppearance];
 }
 
 - (void)setHidden:(BOOL)hidden
