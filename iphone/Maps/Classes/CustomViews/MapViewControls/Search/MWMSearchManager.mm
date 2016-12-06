@@ -489,9 +489,9 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
   {
     if (searchBarView.superview == parentView)
       return;
-    [parentView addSubview:searchBarView];
-    [parentView addSubview:actionBarView];
     [parentView addSubview:contentView];
+    [parentView addSubview:actionBarView];
+    [parentView addSubview:searchBarView];
     [self layoutTopViews];
     CGRect searchAndStatusBarFrame = self.searchBarView.frame;
     searchAndStatusBarFrame.size.height += statusBarHeight();
@@ -500,16 +500,16 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
   [UIView animateWithDuration:kDefaultAnimationDuration
       animations:^{
         CGFloat const alpha = hidden ? 0 : 1;
-        searchBarView.alpha = alpha;
-        actionBarView.alpha = alpha;
         contentView.alpha = alpha;
+        actionBarView.alpha = alpha;
+        searchBarView.alpha = alpha;
       }
       completion:^(BOOL finished) {
         if (!hidden)
           return;
-        [searchBarView removeFromSuperview];
-        [actionBarView removeFromSuperview];
         [contentView removeFromSuperview];
+        [actionBarView removeFromSuperview];
+        [searchBarView removeFromSuperview];
       }];
 }
 
