@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		34222E871DF68BB30038B646 /* traffic_cache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34222E851DF68BB30038B646 /* traffic_cache.cpp */; };
+		34222E881DF68BB30038B646 /* traffic_cache.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34222E861DF68BB30038B646 /* traffic_cache.hpp */; };
 		672292AB1DE2F673005BA3A7 /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 672292AA1DE2F673005BA3A7 /* libalohalitics.a */; };
 		672292AD1DE2F683005BA3A7 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 672292AC1DE2F683005BA3A7 /* libz.tbd */; };
 		672292AF1DE2FF0F005BA3A7 /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 672292AE1DE2FF0F005BA3A7 /* libindexer.a */; };
@@ -23,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		34222E851DF68BB30038B646 /* traffic_cache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = traffic_cache.cpp; sourceTree = "<group>"; };
+		34222E861DF68BB30038B646 /* traffic_cache.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = traffic_cache.hpp; sourceTree = "<group>"; };
 		672292AA1DE2F673005BA3A7 /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "../../../omim-build/xcode/Debug/libalohalitics.a"; sourceTree = "<group>"; };
 		672292AC1DE2F683005BA3A7 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		672292AE1DE2FF0F005BA3A7 /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libindexer.a; path = "../../../omim-build/xcode/Debug/libindexer.a"; sourceTree = "<group>"; };
@@ -92,6 +96,8 @@
 		67BECB5A1DDA449C00FC4E99 /* traffic */ = {
 			isa = PBXGroup;
 			children = (
+				34222E851DF68BB30038B646 /* traffic_cache.cpp */,
+				34222E861DF68BB30038B646 /* traffic_cache.hpp */,
 				67BECB5B1DDA44FD00FC4E99 /* speed_groups.cpp */,
 				67BECB5C1DDA44FD00FC4E99 /* speed_groups.hpp */,
 				67BECB5D1DDA44FD00FC4E99 /* traffic_info.cpp */,
@@ -142,6 +148,7 @@
 			files = (
 				67BECB621DDA44FD00FC4E99 /* traffic_info.hpp in Headers */,
 				67BECB601DDA44FD00FC4E99 /* speed_groups.hpp in Headers */,
+				34222E881DF68BB30038B646 /* traffic_cache.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,6 +244,7 @@
 			files = (
 				67BECB5F1DDA44FD00FC4E99 /* speed_groups.cpp in Sources */,
 				67BECB611DDA44FD00FC4E99 /* traffic_info.cpp in Sources */,
+				34222E871DF68BB30038B646 /* traffic_cache.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
