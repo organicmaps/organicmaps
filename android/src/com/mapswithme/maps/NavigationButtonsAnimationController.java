@@ -2,12 +2,11 @@ package com.mapswithme.maps;
 
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.mapswithme.maps.routing.RoutingController;
-import com.mapswithme.maps.widget.placepage.PlacePageView;
 import com.mapswithme.util.Animations;
+import com.mapswithme.util.Config;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.log.DebugLogger;
 
@@ -21,60 +20,159 @@ class NavigationButtonsAnimationController
   private final View mZoomOut;
   @NonNull
   private final View mMyPosition;
-  @Nullable
-  private final View mCenter;
 
-  private final float mMargin;
-  private float mBottom;
-  private float mTop;
+  private float mBottomLimit;
+  private float mTopLimit;
 
-  private boolean mIsZoomAnimate;
-  private boolean mIsMyPosAnimate;
+  private boolean mMyPosAnimate;
   private float mLastPlacePageY;
 
   NavigationButtonsAnimationController(@NonNull View zoomIn, @NonNull View zoomOut,
-                                       @NonNull View myPosition, @Nullable View center)
+                                       @NonNull View myPosition)
   {
     mZoomIn = zoomIn;
     mZoomOut = zoomOut;
     mMyPosition = myPosition;
-    mCenter = center;
     Resources res = mZoomIn.getResources();
-    mMargin = res.getDimension(R.dimen.nav_button_top_limit);
     mLastPlacePageY = res.getDisplayMetrics().heightPixels;
-    calculateLimitTranslations();
+    calculateBottomLimit();
   }
 
-  private void calculateLimitTranslations()
+  void disappearZoomButtons()
   {
-    mTop = mMargin;
+    if (!showZoomButtons())
+      return;
+
+    Animations.disappearSliding(mZoomIn, Animations.RIGHT, null);
+    Animations.disappearSliding(mZoomOut, Animations.RIGHT, null);
+  }
+
+  void appearZoomButtons()
+  {
+    if (!showZoomButtons())
+      return;
+
+    if (!canZoomButtonsFitInScreen())
+      return;
+
+    Animations.appearSliding(mZoomIn, Animations.RIGHT, null);
+    Animations.appearSliding(mZoomOut, Animations.RIGHT, null);
+    updateZoomButtonsPosition(mTopLimit);
+  }
+
+  void setTopLimit(float limit)
+  {
+    mTopLimit = limit;
+    updateZoomButtonsPosition(limit);
+  }
+
+  void onPlacePageVisibilityChanged(boolean isVisible)
+  {
+    if (isVisible)
+      fadeOutZooms();
+    else
+      fadeInZooms();
+  }
+
+  void onPlacePageMoved(float translationY)
+  {
+    if (mBottomLimit == 0)
+      return;
+
+    float translation = translationY - mBottomLimit;
+    if (shouldMoveMyPosition(translationY, translation))
+      animateMyPosition(translation);
+    else
+      animateMyPosition(0);
+    mLastPlacePageY = translationY;
+  }
+
+  private void calculateBottomLimit()
+  {
     mMyPosition.addOnLayoutChangeListener(new View.OnLayoutChangeListener()
     {
       @Override
       public void onLayoutChange(View v, int left, int top, int right, int bottom,
                                  int oldLeft, int oldTop, int oldRight, int oldBottom)
       {
-        mBottom = bottom;
+        mBottomLimit = bottom;
         mMyPosition.removeOnLayoutChangeListener(this);
       }
     });
   }
 
-  void setTopLimit(int limit)
+  private void updateZoomButtonsPosition(float newTop)
   {
-    mTop = limit + mMargin;
+    // It means that the zoom buttons fit in screen perfectly,
+    // any updates of position are no needed.
+    if (mZoomIn.getTop() >= mTopLimit)
+      return;
+
+    // If the top limit is decreased we try to return zoom buttons at initial position.
+    if (newTop < mTopLimit && tryPlaceZoomButtonsInInitialPosition())
+    {
+      LOGGER.d("Zoom buttons were come back to initial position");
+      return;
+    }
+
+    // If top view overlaps the zoomIn button.
+    if (mTopLimit > mZoomIn.getTop())
+    {
+      // We should try to pull out the zoomIn button from under the top view
+      // if available space allows us doing that.
+      if (tryPlaceZoomButtonsUnderTopLimit())
+        return;
+
+      // Otherwise, we just fade out the zoom buttons
+      // since there is not enough space on the screen for them.
+      fadeOutZooms();
+    }
   }
 
-  private void fadeOutZoom()
+  private boolean tryPlaceZoomButtonsInInitialPosition()
   {
-    mIsZoomAnimate = true;
+    float availableSpace = mBottomLimit - mTopLimit;
+    float requiredSpace = mBottomLimit - mZoomIn.getTop() - mZoomIn.getTranslationY();
+    if (requiredSpace < availableSpace)
+    {
+      mZoomIn.setTranslationY(0);
+      mZoomOut.setTranslationY(0);
+      return true;
+    }
+    return false;
+  }
+
+  private boolean tryPlaceZoomButtonsUnderTopLimit()
+  {
+    if (canZoomButtonsFitInScreen())
+    {
+      float requiredTranslate = mTopLimit - mZoomIn.getTop();
+      mZoomIn.setTranslationY(requiredTranslate);
+      mZoomOut.setTranslationY(requiredTranslate);
+      return true;
+    }
+    return false;
+  }
+
+  private boolean canZoomButtonsFitInScreen()
+  {
+    float availableSpace = mBottomLimit - mTopLimit;
+    return getMinimumRequiredHeightForButtons() <= availableSpace;
+  }
+
+  private float getMinimumRequiredHeightForButtons()
+  {
+    return mZoomIn.getHeight() + mZoomOut.getHeight() + mMyPosition.getHeight();
+  }
+
+  private void fadeOutZooms()
+  {
     Animations.fadeOutView(mZoomIn, new Runnable()
     {
       @Override
       public void run()
       {
         mZoomIn.setVisibility(View.INVISIBLE);
-        mIsZoomAnimate = false;
       }
     });
     Animations.fadeOutView(mZoomOut, new Runnable()
@@ -87,70 +185,54 @@ class NavigationButtonsAnimationController
     });
   }
 
-  private void fadeInZoom()
+  private void fadeInZooms()
   {
-    mIsZoomAnimate = true;
+    if (!showZoomButtons())
+      return;
+
+    if (!canZoomButtonsFitInScreen())
+      return;
+
     mZoomIn.setVisibility(View.VISIBLE);
     mZoomOut.setVisibility(View.VISIBLE);
-    Animations.fadeInView(mZoomIn, new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        mIsZoomAnimate = false;
-      }
-    });
+    Animations.fadeInView(mZoomIn, null);
     Animations.fadeInView(mZoomOut, null);
   }
 
   private void fadeOutMyPosition()
   {
-    mIsMyPosAnimate = true;
+    mMyPosAnimate = true;
     Animations.fadeOutView(mMyPosition, new Runnable()
     {
       @Override
       public void run()
       {
         UiUtils.invisible(mMyPosition);
-        mIsMyPosAnimate = false;
+        mMyPosAnimate = false;
       }
     });
   }
 
   private void fadeInMyPosition()
   {
-    mIsMyPosAnimate = true;
+    mMyPosAnimate = true;
     mMyPosition.setVisibility(View.VISIBLE);
     Animations.fadeInView(mMyPosition, new Runnable()
     {
       @Override
       public void run()
       {
-        mIsMyPosAnimate = false;
+        mMyPosAnimate = false;
       }
     });
   }
 
-  void onPlacePageMoved(float translationY)
-  {
-    if (mCenter == null || mBottom == 0)
-      return;
-
-    float translation = translationY - mBottom;
-    if (shouldMoveNavButtons(translationY, translation))
-      update(translation);
-    else
-      update(0);
-
-    mLastPlacePageY = translationY;
-  }
-
-  private boolean shouldMoveNavButtons(float ppTranslationY, float translation)
+  private boolean shouldMoveMyPosition(float ppTranslationY, float translation)
   {
     if (ppTranslationY == mLastPlacePageY)
     {
-        LOGGER.d("Start of movement. Nav buttons are no needed to be moved");
-        return false;
+      LOGGER.d("Start of movement. Nav buttons are no needed to be moved");
+      return false;
     }
 
     boolean isMoveUp = ppTranslationY < mLastPlacePageY;
@@ -176,31 +258,15 @@ class NavigationButtonsAnimationController
     return false;
   }
 
-  void update()
-  {
-    update(mZoomIn.getTranslationY());
-  }
-
-  private void update(final float translation)
+  private void animateMyPosition(float translation)
   {
     mMyPosition.setTranslationY(translation);
-    mZoomOut.setTranslationY(translation);
-    mZoomIn.setTranslationY(translation);
-    if (!mIsZoomAnimate && isOverTopLimit(mZoomIn))
-    {
-      fadeOutZoom();
-    }
-    else if (!mIsZoomAnimate && satisfyTopLimit(mZoomIn))
-    {
-      fadeInZoom();
-    }
-
-    if (!shouldBeHidden() && !mIsMyPosAnimate
+    if (!shouldMyPositionBeHidden() && !mMyPosAnimate
         && isOverTopLimit(mMyPosition))
     {
       fadeOutMyPosition();
     }
-    else if (!shouldBeHidden() && !mIsMyPosAnimate
+    else if (!shouldMyPositionBeHidden() && !mMyPosAnimate
              && satisfyTopLimit(mMyPosition))
     {
       fadeInMyPosition();
@@ -209,17 +275,22 @@ class NavigationButtonsAnimationController
 
   private boolean isOverTopLimit(@NonNull View view)
   {
-    return view.getVisibility() == View.VISIBLE && view.getY() <= mTop;
+    return view.getVisibility() == View.VISIBLE && view.getY() <= mTopLimit;
   }
 
   private boolean satisfyTopLimit(@NonNull View view)
   {
-    return view.getVisibility() == View.INVISIBLE && view.getY() >= mTop;
+    return view.getVisibility() == View.INVISIBLE && view.getY() >= mTopLimit;
   }
 
-  private boolean shouldBeHidden()
+  private boolean shouldMyPositionBeHidden()
   {
     return LocationState.getMode() == LocationState.FOLLOW_AND_ROTATE
-           && (RoutingController.get().isPlanning() || RoutingController.get().isNavigating());
+           && (RoutingController.get().isPlanning());
+  }
+
+  private static boolean showZoomButtons()
+  {
+    return Config.showZoomButtons();
   }
 }

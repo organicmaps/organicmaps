@@ -86,7 +86,7 @@ public class MyPositionButton
   private boolean shouldBeHidden()
   {
     return mMode == LocationState.FOLLOW_AND_ROTATE
-           && (RoutingController.get().isPlanning() || RoutingController.get().isNavigating());
+           && (RoutingController.get().isPlanning());
   }
 
   public void show()

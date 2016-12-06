@@ -30,15 +30,11 @@ import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.api.ParsedRoutingData;
 import com.mapswithme.maps.api.ParsedUrlMwmRequest;
 import com.mapswithme.maps.api.RoutePoint;
-import com.mapswithme.maps.routing.RoutingPlanController;
-import com.mapswithme.maps.bookmarks.data.Banner;
-import com.mapswithme.maps.traffic.TrafficManager;
-import com.mapswithme.maps.uber.Uber;
-import com.mapswithme.maps.uber.UberInfo;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.ChooseBookmarkCategoryFragment;
+import com.mapswithme.maps.bookmarks.data.Banner;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.DownloaderActivity;
@@ -58,6 +54,7 @@ import com.mapswithme.maps.news.FirstStartFragment;
 import com.mapswithme.maps.news.NewsFragment;
 import com.mapswithme.maps.routing.NavigationController;
 import com.mapswithme.maps.routing.RoutingController;
+import com.mapswithme.maps.routing.RoutingPlanController;
 import com.mapswithme.maps.routing.RoutingPlanFragment;
 import com.mapswithme.maps.routing.RoutingPlanInplaceController;
 import com.mapswithme.maps.search.FloatingSearchToolbarController;
@@ -68,9 +65,12 @@ import com.mapswithme.maps.settings.SettingsActivity;
 import com.mapswithme.maps.settings.StoragePathManager;
 import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.maps.sound.TtsPlayer;
-import com.mapswithme.maps.widget.FadeView;
+import com.mapswithme.maps.traffic.TrafficManager;
 import com.mapswithme.maps.traffic.widget.TrafficButton;
 import com.mapswithme.maps.traffic.widget.TrafficButtonController;
+import com.mapswithme.maps.uber.Uber;
+import com.mapswithme.maps.uber.UberInfo;
+import com.mapswithme.maps.widget.FadeView;
 import com.mapswithme.maps.widget.menu.BaseMenu;
 import com.mapswithme.maps.widget.menu.MainMenu;
 import com.mapswithme.maps.widget.menu.MyPositionButton;
@@ -79,7 +79,6 @@ import com.mapswithme.maps.widget.placepage.PlacePageView;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
 import com.mapswithme.util.Animations;
 import com.mapswithme.util.BottomSheetHelper;
-import com.mapswithme.util.Config;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
@@ -139,8 +138,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private FadeView mFadeView;
 
-  private View mNavZoomIn;
-  private View mNavZoomOut;
   private MyPositionButton mNavMyPosition;
   private TrafficButton mTraffic;
   @Nullable
@@ -533,16 +530,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void initNavigationButtons()
   {
     View frame = findViewById(R.id.navigation_buttons);
-    mNavZoomIn = frame.findViewById(R.id.nav_zoom_in);
-    mNavZoomIn.setOnClickListener(this);
-    mNavZoomOut = frame.findViewById(R.id.nav_zoom_out);
-    mNavZoomOut.setOnClickListener(this);
+    View zoomIn = frame.findViewById(R.id.nav_zoom_in);
+    zoomIn.setOnClickListener(this);
+    View zoomOut = frame.findViewById(R.id.nav_zoom_out);
+    zoomOut.setOnClickListener(this);
     View myPosition = frame.findViewById(R.id.my_position);
     mNavMyPosition = new MyPositionButton(myPosition);
     ImageButton traffic = (ImageButton) frame.findViewById(R.id.traffic);
     mTraffic = new TrafficButton(this, traffic);
-    mNavAnimationController = new NavigationButtonsAnimationController(mNavZoomIn, mNavZoomOut, myPosition,
-                                                                       frame.findViewById(R.id.anchor_center));
+    mNavAnimationController = new NavigationButtonsAnimationController(zoomIn, zoomOut, myPosition);
   }
 
   public boolean closePlacePage()
@@ -914,16 +910,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPlacePage.restore();
   }
 
-  private void adjustZoomButtons()
-  {
-    UiUtils.showIf(showZoomButtons() && !mIsFullscreen, mNavZoomIn, mNavZoomOut);
-    // TODO animate zoom buttons & myposition
-  }
 
-  private static boolean showZoomButtons()
-  {
-    return RoutingController.get().isNavigating() || Config.showZoomButtons();
-  }
 
   @Override
   protected void onPause()
@@ -1120,16 +1107,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
           }
         }
       });
-      if (showZoomButtons())
-      {
-        Animations.disappearSliding(mNavZoomOut, Animations.RIGHT, null);
-        Animations.disappearSliding(mNavZoomIn, Animations.RIGHT, null);
-        mNavMyPosition.hide();
-        mTraffic.hide();
-      }
+      if (mNavAnimationController != null)
+        mNavAnimationController.disappearZoomButtons();
+      mNavMyPosition.hide();
+      mTraffic.hide();
     }
     else
     {
+      if (mPlacePage.isHidden() && mNavAnimationController != null)
+        mNavAnimationController.appearZoomButtons();
       if (!mIsFullscreenAnimating)
         appearMenu(menu);
       else
@@ -1147,18 +1133,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
         adjustRuler(0, 0);
       }
     });
-    if (showZoomButtons())
-    {
-      Animations.appearSliding(mNavZoomOut, Animations.RIGHT, null);
-      Animations.appearSliding(mNavZoomIn, Animations.RIGHT, null);
-      mNavMyPosition.show();
-      mTraffic.show();
-    }
+    mNavMyPosition.show();
+    mTraffic.show();
   }
 
   @Override
   public void onPreviewVisibilityChanged(boolean isVisible)
   {
+
     if (mVisibleRectMeasurer != null)
       mVisibleRectMeasurer.setPreviewVisible(isVisible);
 
@@ -1180,6 +1162,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
       Framework.nativeDeactivatePopup();
       mPlacePage.setMapObject(null, false);
     }
+
+    if (mNavAnimationController != null)
+      mNavAnimationController.onPlacePageVisibilityChanged(isVisible);
   }
 
   @Override
@@ -1412,7 +1397,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
 
     mNavAnimationController.setTopLimit(limit);
-    mNavAnimationController.update();
   }
 
   @Override
@@ -1471,7 +1455,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     int routingPlanPanelHeight = mRoutingPlanInplaceController.getHeight();
     adjustCompassAndTraffic(routingPlanPanelHeight);
-    setNavButtonsTopLimit(routingPlanPanelHeight);
+    setNavButtonsTopLimit(routingPlanPanelHeight + UiUtils.dimen(R.dimen.compass_height));
   }
 
   @Override
@@ -1488,7 +1472,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void showNavigation(boolean show)
   {
-    adjustZoomButtons();
     mPlacePage.refreshViews();
     mNavigationController.show(show);
     mOnmapDownloader.updateState(false);
