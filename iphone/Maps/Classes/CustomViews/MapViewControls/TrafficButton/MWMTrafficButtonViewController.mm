@@ -139,24 +139,34 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
 {
   MWMButton * btn = static_cast<MWMButton *>(self.view);
   UIImageView * iv = btn.imageView;
-  [iv stopAnimating];
+
+  // Traffic state machine: https://confluence.mail.ru/pages/viewpage.action?pageId=103680959
   switch ([MWMTrafficManager state])
   {
-  case TrafficManager::TrafficState::Disabled: btn.imageName = @"btn_traffic_off"; break;
-  case TrafficManager::TrafficState::Enabled: btn.imageName = @"btn_traffic_on"; break;
+  case TrafficManager::TrafficState::Disabled:
+    [iv stopAnimating];
+    btn.imageName = @"btn_traffic_off";
+    break;
+  case TrafficManager::TrafficState::Enabled:
+    [iv stopAnimating];
+    btn.imageName = @"btn_traffic_on";
+    break;
   case TrafficManager::TrafficState::WaitingData:
     iv.animationImages = imagesWithName(@"btn_traffic_update");
     iv.animationDuration = 0.8;
     iv.image = iv.animationImages.lastObject;
     [iv startAnimating];
     break;
-  case TrafficManager::TrafficState::Outdated: btn.imageName = @"btn_traffic_outdated"; break;
-  case TrafficManager::TrafficState::NetworkError:
-    [MWMTrafficManager enableTraffic:NO];
-    [[MWMAlertViewController activeAlertController] presentNoConnectionAlert];
+  case TrafficManager::TrafficState::Outdated:
+    [iv stopAnimating];
+    btn.imageName = @"btn_traffic_outdated";
     break;
   case TrafficManager::TrafficState::NoData:
     [MWMToast showWithText:L(@"traffic_state_no_data")];
+    break;
+  case TrafficManager::TrafficState::NetworkError:
+    [MWMTrafficManager enableTraffic:NO];
+    [[MWMAlertViewController activeAlertController] presentNoConnectionAlert];
     break;
   case TrafficManager::TrafficState::ExpiredApp:
     [MWMToast showWithText:L(@"traffic_state_expired_app")];
