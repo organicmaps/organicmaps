@@ -117,7 +117,9 @@ using TObservers = NSHashTable<__kindof TObserver>;
 
 - (void)checkIsHotelResults:(search::Results const &)results
 {
-  self.isHotelResults = search::HotelsClassifier::IsHotelResults(results);
+  // TODO: Uncomment on release with search filters.
+  self.isHotelResults = NO;
+  // self.isHotelResults = search::HotelsClassifier::IsHotelResults(results);
   m_filterQuery = m_everywhereParams.m_query;
 }
 
