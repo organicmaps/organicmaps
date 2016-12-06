@@ -32,6 +32,7 @@ omim_link_libraries(
   storage
   indexer
   editor
+  traffic
   platform
   oauthcpp
   geometry
