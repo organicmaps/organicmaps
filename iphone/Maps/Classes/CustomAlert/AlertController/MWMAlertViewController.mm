@@ -36,11 +36,14 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   return self;
 }
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-                                duration:(NSTimeInterval)duration
+- (void)viewWillTransitionToSize:(CGSize)size
+       withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
-  for (MWMAlert * alert in self.view.subviews)
-    [alert rotate:toInterfaceOrientation duration:duration];
+  auto const orient = size.width > size.height ? UIInterfaceOrientationLandscapeLeft : UIInterfaceOrientationPortrait;
+  [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+    for (MWMAlert * alert in self.view.subviews)
+      [alert rotate:orient duration:context.transitionDuration];
+  } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {}];
 }
 
 #pragma mark - Actions
@@ -113,10 +116,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 - (void)presentRoutingDisclaimerAlertWithOkBlock:(TMWMVoidBlock)block
 {
-  [self
-      displayAlert:[MWMAlert routingDisclaimerAlertWithInitialOrientation:self.ownerViewController
-                                                                              .interfaceOrientation
-                                                                  okBlock:block]];
+  [self displayAlert:[MWMAlert routingDisclaimerAlertWithOkBlock:block]];
 }
 
 - (void)presentDisabledLocationAlert { [self displayAlert:MWMAlert.disabledLocationAlert]; }

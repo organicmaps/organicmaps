@@ -113,11 +113,4 @@ namespace
   return YES;
 }
 
-#pragma mark - Properties
-
-- (NSString *)text
-{
-  return self.textField.text;
-}
-
 @end

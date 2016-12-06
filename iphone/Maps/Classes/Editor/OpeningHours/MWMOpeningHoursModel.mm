@@ -174,16 +174,19 @@ using namespace osmoh;
   if (isSimpleMode && oh)
     isSimpleMode = MakeTimeTableSet(osmoh::OpeningHours(oh.UTF8String), timeTableSet);
 
+  delegate.advancedEditor.hidden = isSimpleMode;
+  UITableView * tv = delegate.tableView;
+  UIButton * toggleModeButton = delegate.toggleModeButton;
+
   if (isSimpleMode)
   {
     _isSimpleMode = YES;
-    delegate.tableView.hidden = NO;
-    delegate.advancedEditor.hidden = YES;
-    [delegate.toggleModeButton setTitle:L(@"editor_time_advanced") forState:UIControlStateNormal];
+    tv.hidden = NO;
+    [toggleModeButton setTitle:L(@"editor_time_advanced") forState:UIControlStateNormal];
     _sections = [NSMutableArray arrayWithCapacity:timeTableSet.Size()];
     while (self.sections.count < timeTableSet.Size())
       [self addSection];
-    [delegate.tableView reloadData];
+    [tv reloadData];
   }
   else
   {
@@ -192,9 +195,8 @@ using namespace osmoh;
       [self updateOpeningHours];
       _isSimpleMode = NO;
     }
-    delegate.tableView.hidden = YES;
-    delegate.advancedEditor.hidden = NO;
-    [delegate.toggleModeButton setTitle:L(@"editor_time_simple") forState:UIControlStateNormal];
+    tv.hidden = YES;
+    [toggleModeButton setTitle:L(@"editor_time_simple") forState:UIControlStateNormal];
     MWMTextView * ev = delegate.editorView;
     ev.text = delegate.openingHours;
     [ev becomeFirstResponder];

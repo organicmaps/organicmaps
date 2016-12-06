@@ -18,8 +18,7 @@ using TMWMDownloadBlock = void (^)(storage::TCountriesVec const &, TMWMVoidBlock
 + (MWMAlert *)rateAlert;
 + (MWMAlert *)facebookAlert;
 + (MWMAlert *)locationAlert;
-+ (MWMAlert *)routingDisclaimerAlertWithInitialOrientation:(UIInterfaceOrientation)orientation
-                                                   okBlock:(TMWMVoidBlock)block;
++ (MWMAlert *)routingDisclaimerAlertWithOkBlock:(TMWMVoidBlock)block;
 + (MWMAlert *)disabledLocationAlert;
 + (MWMAlert *)noWiFiAlertWithOkBlock:(TMWMVoidBlock)okBlock;
 + (MWMAlert *)noConnectionAlert;

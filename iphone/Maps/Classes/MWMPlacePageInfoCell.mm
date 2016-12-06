@@ -40,44 +40,46 @@
 
 - (void)configWithRow:(place_page::MetainfoRows)row data:(MWMPlacePageData *)data;
 {
+  using place_page::MetainfoRows;
   self.rowType = row;
   self.data = data;
   NSString * name;
   switch (row)
   {
-  case place_page::MetainfoRows::Address:
+  case MetainfoRows::Address:
     self.toggleImage.hidden = YES;
     name = @"address";
     break;
-  case place_page::MetainfoRows::Phone:
+  case MetainfoRows::Phone:
     self.toggleImage.hidden = YES;
     name = @"phone_number";
     break;
-  case place_page::MetainfoRows::Website:
+  case MetainfoRows::Website:
     self.toggleImage.hidden = YES;
     name = @"website";
     break;
-  case place_page::MetainfoRows::Email:
+  case MetainfoRows::Email:
     self.toggleImage.hidden = YES;
     name = @"email";
     break;
-  case place_page::MetainfoRows::Cuisine:
+  case MetainfoRows::Cuisine:
     self.toggleImage.hidden = YES;
     name = @"cuisine";
     break;
-  case place_page::MetainfoRows::Operator:
+  case MetainfoRows::Operator:
     self.toggleImage.hidden = YES;
     name = @"operator";
     break;
-  case place_page::MetainfoRows::Internet:
+  case MetainfoRows::Internet:
     self.toggleImage.hidden = YES;
     name = @"wifi";
     break;
-  case place_page::MetainfoRows::Coordinate:
+  case MetainfoRows::Coordinate:
     self.toggleImage.hidden = NO;
     name = @"coordinate";
     break;
-  case place_page::MetainfoRows::OpeningHours: NSAssert(false, @"Incorrect cell type!"); break;
+  case MetainfoRows::ExtendedOpeningHours:
+  case MetainfoRows::OpeningHours: NSAssert(false, @"Incorrect cell type!"); break;
   }
   [self configWithIconName:name data:[data stringForRow:row]];
 }
@@ -128,28 +130,29 @@
 
 - (IBAction)cellTap
 {
+  using place_page::MetainfoRows;
   switch (self.rowType)
   {
-  case place_page::MetainfoRows::Phone:
+  case MetainfoRows::Phone:
     [Statistics logEvent:kStatEventName(kStatPlacePage, kStatCallPhoneNumber)];
     break;
-  case place_page::MetainfoRows::Website:
+  case MetainfoRows::Website:
     [Statistics logEvent:kStatEventName(kStatPlacePage, kStatOpenSite)];
     break;
-  case place_page::MetainfoRows::Email:
+  case MetainfoRows::Email:
     [Statistics logEvent:kStatEventName(kStatPlacePage, kStatSendEmail)];
     break;
-  case place_page::MetainfoRows::Coordinate:
+  case MetainfoRows::Coordinate:
     [Statistics logEvent:kStatEventName(kStatPlacePage, kStatToggleCoordinates)];
     [MWMPlacePageData toggleCoordinateSystem];
     [self changeText:[self.data stringForRow:self.rowType]];
     break;
-
-  case place_page::MetainfoRows::Cuisine:
-  case place_page::MetainfoRows::Operator:
-  case place_page::MetainfoRows::OpeningHours:
-  case place_page::MetainfoRows::Address:
-  case place_page::MetainfoRows::Internet: break;
+  case MetainfoRows::ExtendedOpeningHours:
+  case MetainfoRows::Cuisine:
+  case MetainfoRows::Operator:
+  case MetainfoRows::OpeningHours:
+  case MetainfoRows::Address:
+  case MetainfoRows::Internet: break;
   }
 }
 

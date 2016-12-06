@@ -249,7 +249,8 @@ WeekDayView getWeekDayView()
 
 - (IBAction)toggleButtonTap
 {
-  [self.delegate setOpeningHoursCellExpanded:!self.delegate.openingHoursCellExpanded];
+  id<MWMPlacePageOpeningHoursCellProtocol> delegate = self.delegate;
+  [delegate setOpeningHoursCellExpanded:!delegate.openingHoursCellExpanded];
 
   // Workaround for slow devices.
   // Major QA can tap multiple times before first segue call is performed.

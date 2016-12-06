@@ -265,12 +265,6 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 
 #pragma mark - Layout
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-                                duration:(NSTimeInterval)duration
-{
-  [self.additionalButtons reloadData];
-}
-
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {

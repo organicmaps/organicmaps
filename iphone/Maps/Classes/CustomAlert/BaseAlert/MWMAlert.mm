@@ -21,10 +21,9 @@
   return [MWMDefaultAlert point2PointAlertWithOkBlock:block needToRebuild:needToRebuild];
 }
 
-+ (MWMAlert *)routingDisclaimerAlertWithInitialOrientation:(UIInterfaceOrientation)orientation
-                                                   okBlock:(TMWMVoidBlock)block
++ (MWMAlert *)routingDisclaimerAlertWithOkBlock:(TMWMVoidBlock)block
 {
-  return [MWMRoutingDisclaimerAlert alertWithInitialOrientation:orientation okBlock:block];
+  return [MWMRoutingDisclaimerAlert alertWithOkBlock:block];
 }
 
 + (MWMAlert *)disabledLocationAlert { return [MWMDefaultAlert disabledLocationAlert]; }
@@ -176,18 +175,6 @@
     [self willRotateToInterfaceOrientation:toInterfaceOrientation];
 }
 
-CGAffineTransform rotation(UIInterfaceOrientation orientation)
-{
-  switch (orientation)
-  {
-  case UIInterfaceOrientationLandscapeLeft: return CGAffineTransformMakeRotation(-M_PI_2);
-  case UIInterfaceOrientationLandscapeRight: return CGAffineTransformMakeRotation(M_PI_2);
-  case UIInterfaceOrientationPortraitUpsideDown: return CGAffineTransformMakeRotation(M_PI);
-  case UIInterfaceOrientationUnknown:
-  case UIInterfaceOrientationPortrait: return CGAffineTransformIdentity;
-  }
-}
-
 - (void)addControllerViewToWindow
 {
   UIWindow * window = UIApplication.sharedApplication.delegate.window;
@@ -204,7 +191,8 @@ CGAffineTransform rotation(UIInterfaceOrientation orientation)
   view.frame = ownerViewController.view.bounds;
   [ownerViewController.view addSubview:view];
   [self addControllerViewToWindow];
-  [self rotate:ownerViewController.interfaceOrientation duration:0.0];
+  auto const orientation = [[UIApplication sharedApplication] statusBarOrientation];
+  [self rotate:orientation duration:0.0];
   [view addSubview:self];
   self.frame = view.bounds;
 }

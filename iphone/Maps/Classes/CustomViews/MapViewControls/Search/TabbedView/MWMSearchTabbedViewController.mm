@@ -87,20 +87,6 @@ BOOL isOffsetInButton(CGFloat offset, MWMSearchTabButtonsView * button)
 
 #pragma mark - Layout
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-                                duration:(NSTimeInterval)duration
-{
-  self.isRotating = YES;
-  [UIView animateWithDuration:duration
-      animations:^{
-        [self refreshScrollPosition];
-      }
-      completion:^(BOOL finished) {
-        [self refreshScrollPosition];
-        self.isRotating = NO;
-      }];
-}
-
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {

@@ -117,15 +117,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   [self.placePageManager mwm_refreshUI];
 }
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-                                duration:(NSTimeInterval)duration
-{
-  [self.menuController willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-  // Workaround needs for setting correct left bound while landscape place page is open.
-  self.navigationManager.leftBound = 0;
-  [self.placePageManager willRotateToInterfaceOrientation:toInterfaceOrientation];
-}
-
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {

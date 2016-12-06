@@ -235,25 +235,11 @@ BOOL gIsFirstMyPositionMode = YES;
 #pragma mark - ViewController lifecycle
 
 - (void)dealloc { [[NSNotificationCenter defaultCenter] removeObserver:self]; }
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-  return YES;  // We support all orientations
-}
-
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-                                duration:(NSTimeInterval)duration
-{
-  [self.alertController willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-  [self.controlsManager willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-}
 
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
-  [self.alertController willRotateToInterfaceOrientation:(size.width > size.height)
-                                                             ? UIInterfaceOrientationLandscapeLeft
-                                                             : UIInterfaceOrientationPortrait
-                                                duration:kDefaultAnimationDuration];
+  [self.alertController viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [self.controlsManager viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [self.pageViewController viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 }
@@ -348,15 +334,6 @@ BOOL gIsFirstMyPositionMode = YES;
 {
   [super viewWillDisappear:animated];
   self.controlsManager.menuRestoreState = self.controlsManager.menuState;
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(orientationChanged:)
-                                               name:UIDeviceOrientationDidChangeNotification
-                                             object:nil];
-}
-
-- (void)orientationChanged:(NSNotification *)notification
-{
-  [self willRotateToInterfaceOrientation:self.interfaceOrientation duration:0.];
 }
 
 - (BOOL)prefersStatusBarHidden { return self.apiBar.isVisible; }

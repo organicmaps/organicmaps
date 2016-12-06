@@ -46,11 +46,6 @@ static NSString * const kAddSetCellTableViewCell = @"AddSetTableViewCell";
   [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-  return YES;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
   return 1;

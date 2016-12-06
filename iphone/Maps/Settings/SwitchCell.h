@@ -9,9 +9,9 @@
 
 @interface SwitchCell : MWMTableViewCell
 
-@property (weak, nonatomic) IBOutlet UILabel * titleLabel;
-@property (weak, nonatomic) IBOutlet UISwitch * switchButton;
+@property(weak, nonatomic) IBOutlet UILabel * titleLabel;
+@property(weak, nonatomic) IBOutlet UISwitch * switchButton;
 
-@property (weak) id<SwitchCellDelegate> delegate;
+@property(weak, nonatomic) id<SwitchCellDelegate> delegate;
 
 @end

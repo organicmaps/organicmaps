@@ -18,8 +18,7 @@ static NSString * const kStatisticsEvent = @"Routing Disclaimer Alert";
 
 @implementation MWMRoutingDisclaimerAlert
 
-+ (instancetype)alertWithInitialOrientation:(UIInterfaceOrientation)orientation
-                                    okBlock:(TMWMVoidBlock)block
++ (instancetype)alertWithOkBlock:(TMWMVoidBlock)block
 {
   [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatOpen}];
   MWMRoutingDisclaimerAlert * alert =

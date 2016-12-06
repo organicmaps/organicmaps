@@ -46,11 +46,6 @@
   self.view = webView;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-  return YES;
-}
-
 - (BOOL)webView:(UIWebView *)inWeb shouldStartLoadWithRequest:(NSURLRequest *)inRequest navigationType:(UIWebViewNavigationType)inType
 {
   if (self.openInSafari && inType == UIWebViewNavigationTypeLinkClicked
