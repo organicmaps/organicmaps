@@ -1022,4 +1022,6 @@
 	<string name="traffic_update_maps_text">To display traffic data, maps must be updated.</string>
 	<string name="traffic_outdated">Traffic data is outdated.</string>
 	<string name="big_font">Bigger labels</string>
+	<string name="traffic_update_app">Please update MAPS.ME</string>
+	<string name="traffic_update_app_message">To display traffic data, the application must be updated.</string>
 </resources>

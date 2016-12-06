@@ -1018,4 +1018,6 @@
 	<string name="traffic_update_maps_text">Для отображения пробок необходимо обновить карты.</string>
 	<string name="traffic_outdated">Данные о пробках устарели.</string>
 	<string name="big_font">Увеличенные подписи</string>
+	<string name="traffic_update_app">Обновите MAPS.ME</string>
+	<string name="traffic_update_app_message">Для отображения пробок необходимо обновить приложение.</string>
 </resources>
