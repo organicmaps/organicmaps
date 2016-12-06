@@ -33,7 +33,7 @@ TrafficManager::CacheEntry::CacheEntry(time_point<steady_clock> const & requestT
   , m_dataSize(0)
   , m_lastRequestTime(requestTime)
   , m_retriesCount(0)
-  , m_isWaitingForResponse(false)
+  , m_isWaitingForResponse(true)
   , m_lastAvailability(traffic::TrafficInfo::Availability::Unknown)
 {}
 
@@ -212,63 +212,54 @@ bool TrafficManager::WaitForRequest(vector<MwmSet::MwmId> & mwms)
     return false;
 
   if (timeout)
-  {
-    if (!IsEnabled() || IsInvalidState())
-      return true;
+    RequestTrafficData();
 
-    mwms.reserve(m_activeMwms.size());
-    for (auto const & mwmId : m_activeMwms)
-      mwms.push_back(mwmId);
+  if (!m_requestedMwms.empty())
+    mwms.swap(m_requestedMwms);
+
+  return true;
+}
+
+void TrafficManager::RequestTrafficData(MwmSet::MwmId const & mwmId)
+{
+  bool needRequesting = false;
+  auto const currentTime = steady_clock::now();
+  auto const it = m_mwmCache.find(mwmId);
+  if (it == m_mwmCache.end())
+  {
+    needRequesting = true;
+    m_mwmCache.insert(make_pair(mwmId, CacheEntry(currentTime)));
   }
   else
   {
-    ASSERT(!m_requestedMwms.empty(), ());
-    mwms.swap(m_requestedMwms);
+    it->second.m_lastSeenTime = currentTime;
+    auto const passedSeconds = currentTime - it->second.m_lastRequestTime;
+    if (passedSeconds >= kUpdateInterval)
+    {
+      needRequesting = true;
+      it->second.m_isWaitingForResponse = true;
+      it->second.m_lastRequestTime = currentTime;
+    }
   }
-  return true;
+
+  if (needRequesting)
+  {
+    m_requestedMwms.push_back(mwmId);
+    m_condition.notify_one();
+    UpdateState();
+  }
 }
 
 void TrafficManager::RequestTrafficData()
 {
-  if (m_activeMwms.empty())
+  if (m_activeMwms.empty() || !IsEnabled() || IsInvalidState())
     return;
 
   for (auto const & mwmId : m_activeMwms)
   {
     ASSERT(mwmId.IsAlive(), ());
-    bool needRequesting = false;
-
-    auto const currentTime = steady_clock::now();
-
-    auto it = m_mwmCache.find(mwmId);
-    if (it == m_mwmCache.end())
-    {
-      needRequesting = true;
-      m_mwmCache.insert(make_pair(mwmId, CacheEntry(currentTime)));
-    }
-    else
-    {
-      it->second.m_lastSeenTime = currentTime;
-      auto const passedSeconds = currentTime - it->second.m_lastRequestTime;
-      if (passedSeconds >= kUpdateInterval)
-      {
-        needRequesting = true;
-        it->second.m_isWaitingForResponse = true;
-        it->second.m_lastRequestTime = currentTime;
-      }
-    }
-
-    if (needRequesting)
-      RequestTrafficData(mwmId);
+    RequestTrafficData(mwmId);
   }
-
-  UpdateState();
-}
-
-void TrafficManager::RequestTrafficData(MwmSet::MwmId const & mwmId)
-{
-  m_requestedMwms.push_back(mwmId);
-  m_condition.notify_one();
 }
 
 void TrafficManager::OnTrafficRequestFailed(traffic::TrafficInfo && info)
@@ -306,31 +297,30 @@ void TrafficManager::OnTrafficRequestFailed(traffic::TrafficInfo && info)
 
 void TrafficManager::OnTrafficDataResponse(traffic::TrafficInfo && info)
 {
-  lock_guard<mutex> lock(m_mutex);
+  {
+    lock_guard<mutex> lock(m_mutex);
 
-  auto it = m_mwmCache.find(info.GetMwmId());
-  if (it == m_mwmCache.end())
-    return;
+    auto it = m_mwmCache.find(info.GetMwmId());
+    if (it == m_mwmCache.end())
+      return;
 
-  it->second.m_isLoaded = true;
-  it->second.m_lastResponseTime = steady_clock::now();
-  it->second.m_isWaitingForResponse = false;
-  it->second.m_lastAvailability = info.GetAvailability();
+    it->second.m_isLoaded = true;
+    it->second.m_lastResponseTime = steady_clock::now();
+    it->second.m_isWaitingForResponse = false;
+    it->second.m_lastAvailability = info.GetAvailability();
 
-  // Update cache.
-  size_t constexpr kElementSize = sizeof(traffic::TrafficInfo::RoadSegmentId) + sizeof(traffic::SpeedGroup);
+    // Update cache.
+    size_t constexpr kElementSize = sizeof(traffic::TrafficInfo::RoadSegmentId) + sizeof(traffic::SpeedGroup);
 
-  size_t const dataSize = info.GetColoring().size() * kElementSize;
-  m_currentCacheSizeBytes += (dataSize - it->second.m_dataSize);
-  it->second.m_dataSize = dataSize;
-  CheckCacheSize();
+    size_t const dataSize = info.GetColoring().size() * kElementSize;
+    m_currentCacheSizeBytes += (dataSize - it->second.m_dataSize);
+    it->second.m_dataSize = dataSize;
+    CheckCacheSize();
 
-  // Update traffic colors for drape.
-  df::TrafficSegmentsColoring coloring;
-  coloring[info.GetMwmId()] = info.GetColoring();
-  m_drapeEngine->UpdateTraffic(coloring);
+    UpdateState();
+  }
 
-  UpdateState();
+  m_drapeEngine->UpdateTraffic(info);
 
   // Update traffic colors for routing.
   m_observer.OnTrafficInfoAdded(move(info));

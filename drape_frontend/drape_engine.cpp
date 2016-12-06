@@ -542,13 +542,21 @@ void DrapeEngine::EnableTraffic(bool trafficEnabled)
                                   MessagePriority::Normal);
 }
 
-void DrapeEngine::UpdateTraffic(TrafficSegmentsColoring const & segmentsColoring)
+void DrapeEngine::UpdateTraffic(traffic::TrafficInfo const & info)
 {
-  if (segmentsColoring.empty())
+  if (info.GetColoring().empty())
     return;
 
+  df::TrafficSegmentsColoring segmentsColoring;
+  auto & mwmColoring = segmentsColoring[info.GetMwmId()];
+  for (auto const & segmentPair : info.GetColoring())
+  {
+    if (segmentPair.second != traffic::SpeedGroup::Unknown)
+      mwmColoring.insert(segmentPair);
+  }
+
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<UpdateTrafficMessage>(segmentsColoring),
+                                  make_unique_dp<UpdateTrafficMessage>(move(segmentsColoring), false),
                                   MessagePriority::Normal);
 }
 

@@ -1051,11 +1051,6 @@ private:
 class UpdateTrafficMessage : public Message
 {
 public:
-  explicit UpdateTrafficMessage(TrafficSegmentsColoring const & segmentsColoring)
-    : m_segmentsColoring(segmentsColoring)
-    , m_needInvalidate(false)
-  {}
-
   UpdateTrafficMessage(TrafficSegmentsColoring && segmentsColoring, bool needInvalidate)
     : m_segmentsColoring(move(segmentsColoring))
     , m_needInvalidate(needInvalidate)
