@@ -16,10 +16,10 @@ namespace strings
 // "bca" is three, not two.  The code is based on the work "Fast
 // String Correction with Levenshtein-Automata" by Klaus U. Schulz and
 // Stoyan Mihov.  For a fixed number of allowed errors and fixed
-// alphabet the construction time and size of automata is O(length of
-// the pattern), but the size grows exponentially with the number of
-// errors, so be reasonable and don't use this class when the number
-// of errors is too high.
+// alphabet the construction time and size of automata is
+// O(length of the pattern), but the size grows exponentially with the
+// number of errors, so be reasonable and don't use this class when
+// the number of errors is too high.
 //
 // *NOTE* The class *IS* thread-safe.
 //
@@ -36,6 +36,11 @@ public:
     Position() = default;
     Position(size_t offset, uint8_t errorsLeft, bool transposed);
 
+    // SubsumedBy is a relation on two positions, which allows to
+    // efficiently remove unnecessary positions in a state. When the
+    // function returns true, it means that |rhs| is more powerful
+    // than the current position and it is safe to remove the current
+    // position from the state, if the state contains |rhs|.
     bool SubsumedBy(Position const & rhs) const;
 
     bool operator<(Position const & rhs) const;

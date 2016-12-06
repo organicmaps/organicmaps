@@ -276,7 +276,7 @@ bool LevenshteinDFA::IsValid(State const & s) const
 
 bool LevenshteinDFA::IsAccepting(Position const & p) const
 {
-  return m_size - p.m_offset <= p.m_errorsLeft;
+  return p.IsStandard() && m_size - p.m_offset <= p.m_errorsLeft;
 }
 
 bool LevenshteinDFA::IsAccepting(State const & s) const
