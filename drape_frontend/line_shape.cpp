@@ -245,21 +245,19 @@ public:
 private:
   void CreateRoundCap(glsl::vec2 const & pos)
   {
-    m_capGeometry.reserve(8);
-
+    // Here we use an equilateral triangle to render circle (incircle of a triangle).
+    static float const kSqrt3 = sqrt(3.0f);
     float const radius = GetHalfWidth();
 
+    m_capGeometry.reserve(3);
     m_capGeometry.push_back(CapVertex(CapVertex::TPosition(pos, m_params.m_depth),
-                                      CapVertex::TNormal(-radius, radius, radius),
+                                      CapVertex::TNormal(-radius * kSqrt3, -radius, radius),
                                       CapVertex::TTexCoord(m_colorCoord)));
     m_capGeometry.push_back(CapVertex(CapVertex::TPosition(pos, m_params.m_depth),
-                                      CapVertex::TNormal(-radius, -radius, radius),
+                                      CapVertex::TNormal(radius * kSqrt3, -radius, radius),
                                       CapVertex::TTexCoord(m_colorCoord)));
     m_capGeometry.push_back(CapVertex(CapVertex::TPosition(pos, m_params.m_depth),
-                                      CapVertex::TNormal(radius, radius, radius),
-                                      CapVertex::TTexCoord(m_colorCoord)));
-    m_capGeometry.push_back(CapVertex(CapVertex::TPosition(pos, m_params.m_depth),
-                                      CapVertex::TNormal(radius, -radius, radius),
+                                      CapVertex::TNormal(0, 2.0f * radius, radius),
                                       CapVertex::TTexCoord(m_colorCoord)));
   }
 
@@ -563,7 +561,7 @@ void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
     {
       dp::AttributeProvider capProvider(1, capSize);
       capProvider.InitStream(0, m_lineShapeInfo->GetCapBindingInfo(), m_lineShapeInfo->GetCapData());
-      batcher->InsertListOfStrip(m_lineShapeInfo->GetCapState(), make_ref(&capProvider), dp::Batcher::VertexPerQuad);
+      batcher->InsertTriangleList(m_lineShapeInfo->GetCapState(), make_ref(&capProvider));
     }
   }
   else
