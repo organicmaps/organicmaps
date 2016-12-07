@@ -39,7 +39,7 @@ WITH_SERVER = "with_server"
 
 PORT = 34568
 
-TESTS_REQUIRING_SERVER = ["downloader_tests", "storage_tests"]
+TESTS_REQUIRING_SERVER = ["downloader_tests", "storage_tests", "partners_api_tests"]
 
 class TestRunner:
 
