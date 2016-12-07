@@ -50,8 +50,10 @@ public class TrafficButtonController implements TrafficManager.TrafficCallback
   @Override
   public void onNoData()
   {
+    mButton.turnOn();
     //TODO: put localized string
     Toast.makeText(mActivity, "There is not traffic data here", Toast.LENGTH_SHORT).show();
+
   }
 
   @Override
@@ -75,6 +77,7 @@ public class TrafficButtonController implements TrafficManager.TrafficCallback
   @Override
   public void onExpiredData()
   {
+    mButton.turnOn();
     //TODO: put localized string
     Toast.makeText(mActivity, "Traffic data is outdated", Toast.LENGTH_SHORT).show();
   }
@@ -82,6 +85,7 @@ public class TrafficButtonController implements TrafficManager.TrafficCallback
   @Override
   public void onExpiredApp()
   {
+    mButton.turnOn();
     //TODO: put localized string
     Toast.makeText(mActivity, "The app needs to be updated to get traffic data", Toast.LENGTH_SHORT).show();
   }
