@@ -22,18 +22,25 @@ MessageQueue::~MessageQueue()
 drape_ptr<Message> MessageQueue::PopMessage(bool waitForMessage)
 {
   unique_lock<mutex> lock(m_mutex);
-  if (waitForMessage && m_messages.empty())
+  if (waitForMessage && m_messages.empty() && m_lowPriorityMessages.empty())
   {
     m_isWaiting = true;
     m_condition.wait(lock, [this]() { return !m_isWaiting; });
     m_isWaiting = false;
   }
 
-  if (m_messages.empty())
+  if (m_messages.empty() && m_lowPriorityMessages.empty())
     return nullptr;
 
-  drape_ptr<Message> msg = move(m_messages.front().first);
-  m_messages.pop_front();
+  if (!m_messages.empty())
+  {
+    drape_ptr<Message> msg = move(m_messages.front().first);
+    m_messages.pop_front();
+    return msg;
+  }
+
+  drape_ptr<Message> msg = move(m_lowPriorityMessages.front());
+  m_lowPriorityMessages.pop_front();
   return msg;
 }
 
@@ -73,6 +80,11 @@ void MessageQueue::PushMessage(drape_ptr<Message> && message, MessagePriority pr
         m_messages.emplace_front(move(message), priority);
       break;
     }
+  case MessagePriority::Low:
+    {
+      m_lowPriorityMessages.emplace_back(move(message));
+      break;
+    }
   default:
     ASSERT(false, ("Unknown message priority type"));
   }
@@ -92,6 +104,14 @@ void MessageQueue::FilterMessages(TFilterMessageFn needFilterMessageFn)
     else
       ++it;
   }
+
+  for (auto it = m_lowPriorityMessages.begin(); it != m_lowPriorityMessages.end(); )
+  {
+    if (needFilterMessageFn(make_ref(*it)))
+      it = m_lowPriorityMessages.erase(it);
+    else
+      ++it;
+  }
 }
 
 #ifdef DEBUG_MESSAGE_QUEUE
@@ -99,13 +119,13 @@ void MessageQueue::FilterMessages(TFilterMessageFn needFilterMessageFn)
 bool MessageQueue::IsEmpty() const
 {
   lock_guard<mutex> lock(m_mutex);
-  return m_messages.empty();
+  return m_messages.empty() && m_lowPriorityMessages.empty();
 }
 
 size_t MessageQueue::GetSize() const
 {
   lock_guard<mutex> lock(m_mutex);
-  return m_messages.size();
+  return m_messages.size() + m_lowPriorityMessages.size();
 }
 
 #endif
@@ -128,6 +148,7 @@ void MessageQueue::CancelWaitImpl()
 void MessageQueue::ClearQuery()
 {
   m_messages.clear();
+  m_lowPriorityMessages.clear();
 }
 
 } // namespace df
