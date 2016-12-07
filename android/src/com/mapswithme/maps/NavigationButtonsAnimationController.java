@@ -25,7 +25,6 @@ class NavigationButtonsAnimationController
   private float mTopLimit;
 
   private boolean mMyPosAnimate;
-  private float mLastPlacePageY;
 
   NavigationButtonsAnimationController(@NonNull View zoomIn, @NonNull View zoomOut,
                                        @NonNull View myPosition)
@@ -33,8 +32,6 @@ class NavigationButtonsAnimationController
     mZoomIn = zoomIn;
     mZoomOut = zoomOut;
     mMyPosition = myPosition;
-    Resources res = mZoomIn.getResources();
-    mLastPlacePageY = res.getDisplayMetrics().heightPixels;
     calculateBottomLimit();
   }
 
@@ -80,11 +77,7 @@ class NavigationButtonsAnimationController
       return;
 
     float translation = translationY - mBottomLimit;
-    if (shouldMoveMyPosition(translationY, translation))
-      animateMyPosition(translation);
-    else
-      animateMyPosition(0);
-    mLastPlacePageY = translationY;
+    animateMyPosition(translation <= 0 ? translation : 0);
   }
 
   private void calculateBottomLimit()
@@ -225,37 +218,6 @@ class NavigationButtonsAnimationController
         mMyPosAnimate = false;
       }
     });
-  }
-
-  private boolean shouldMoveMyPosition(float ppTranslationY, float translation)
-  {
-    if (ppTranslationY == mLastPlacePageY)
-    {
-      LOGGER.d("Start of movement. Nav buttons are no needed to be moved");
-      return false;
-    }
-
-    boolean isMoveUp = ppTranslationY < mLastPlacePageY;
-    if (isMoveUp)
-    {
-      if (translation > 0)
-      {
-        LOGGER.d("Move up. Bottom limit hasn't been reached yet.");
-        return false;
-      }
-
-      LOGGER.d("Move up. PP follows the nav buttons.");
-      return true;
-    }
-
-    if (translation <= 0)
-    {
-      LOGGER.d("Move down. Bottom limit hasn't been reached yet.");
-      return true;
-    }
-
-    LOGGER.d("Move down. Nav buttons follow PP.");
-    return false;
   }
 
   private void animateMyPosition(float translation)
