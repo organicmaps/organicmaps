@@ -53,7 +53,6 @@ public class TrafficButtonController implements TrafficManager.TrafficCallback
     mButton.turnOn();
     //TODO: put localized string
     Toast.makeText(mActivity, "There is not traffic data here", Toast.LENGTH_SHORT).show();
-
   }
 
   @Override

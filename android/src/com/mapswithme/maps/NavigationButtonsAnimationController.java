@@ -1,6 +1,5 @@
 package com.mapswithme.maps;
 
-import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.view.View;
 
@@ -102,7 +101,7 @@ class NavigationButtonsAnimationController
       return;
 
     // If the top limit is decreased we try to return zoom buttons at initial position.
-    if (newTop < mTopLimit && tryPlaceZoomButtonsInInitialPosition())
+    if (newTop < mTopLimit && tryPlaceZoomButtonsAtInitialPosition())
     {
       LOGGER.d("Zoom buttons were come back to initial position");
       return;
@@ -122,29 +121,27 @@ class NavigationButtonsAnimationController
     }
   }
 
-  private boolean tryPlaceZoomButtonsInInitialPosition()
+  private boolean tryPlaceZoomButtonsAtInitialPosition()
   {
     float availableSpace = mBottomLimit - mTopLimit;
     float requiredSpace = mBottomLimit - mZoomIn.getTop() - mZoomIn.getTranslationY();
-    if (requiredSpace < availableSpace)
-    {
-      mZoomIn.setTranslationY(0);
-      mZoomOut.setTranslationY(0);
-      return true;
-    }
-    return false;
+    if (requiredSpace > availableSpace)
+      return false;
+
+    mZoomIn.setTranslationY(0);
+    mZoomOut.setTranslationY(0);
+    return true;
   }
 
   private boolean tryPlaceZoomButtonsUnderTopLimit()
   {
-    if (canZoomButtonsFitInScreen())
-    {
-      float requiredTranslate = mTopLimit - mZoomIn.getTop();
-      mZoomIn.setTranslationY(requiredTranslate);
-      mZoomOut.setTranslationY(requiredTranslate);
-      return true;
-    }
-    return false;
+    if (!canZoomButtonsFitInScreen())
+      return false;
+
+    float requiredTranslate = mTopLimit - mZoomIn.getTop();
+    mZoomIn.setTranslationY(requiredTranslate);
+    mZoomOut.setTranslationY(requiredTranslate);
+    return true;
   }
 
   private boolean canZoomButtonsFitInScreen()

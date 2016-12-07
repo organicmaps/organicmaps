@@ -1140,7 +1140,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onPreviewVisibilityChanged(boolean isVisible)
   {
-
     if (mVisibleRectMeasurer != null)
       mVisibleRectMeasurer.setPreviewVisible(isVisible);
 
