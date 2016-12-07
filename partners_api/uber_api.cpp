@@ -17,6 +17,9 @@ using namespace platform;
 
 namespace
 {
+string const kUberEstimatesUrl = "https://api.uber.com/v1/estimates";
+string g_uberUrlForTesting = "";
+
 bool RunSimpleHttpRequest(string const & url, string & result)
 {
   HttpClient request(url);
@@ -111,6 +114,14 @@ void MakeFromJson(char const * times, char const * prices, vector<uber::Product>
     products.clear();
   }
 }
+
+string GetUberURL()
+{
+  if (!g_uberUrlForTesting.empty())
+    return g_uberUrlForTesting;
+
+  return kUberEstimatesUrl;
+}
 }  // namespace
 
 namespace uber
@@ -131,7 +142,7 @@ bool RawApi::GetEstimatedTime(ms::LatLon const & pos, string & result)
 {
   stringstream url;
   url << fixed << setprecision(6)
-      << "https://api.uber.com/v1/estimates/time?server_token=" << UBER_SERVER_TOKEN
+      << GetUberURL() << "/time?server_token=" << UBER_SERVER_TOKEN
       << "&start_latitude=" << pos.lat << "&start_longitude=" << pos.lon;
 
   return RunSimpleHttpRequest(url.str(), result);
@@ -142,7 +153,7 @@ bool RawApi::GetEstimatedPrice(ms::LatLon const & from, ms::LatLon const & to, s
 {
   stringstream url;
   url << fixed << setprecision(6)
-      << "https://api.uber.com/v1/estimates/price?server_token=" << UBER_SERVER_TOKEN
+      << GetUberURL() << "/price?server_token=" << UBER_SERVER_TOKEN
       << "&start_latitude=" << from.lat << "&start_longitude=" << from.lon
       << "&end_latitude=" << to.lat << "&end_longitude=" << to.lon;
 
@@ -248,6 +259,11 @@ RideRequestLinks Api::GetRideRequestLinks(string const & productId, ms::LatLon c
       << "&dropoff[latitude]=" << to.lat << "&dropoff[longitude]=" << to.lon;
 
   return {"uber://" + url.str(), "https://m.uber.com/ul" + url.str()};
+}
+
+void SetUberUrlForTesting(string const & url)
+{
+  g_uberUrlForTesting = url;
 }
 
 string DebugPrint(ErrorCode error)

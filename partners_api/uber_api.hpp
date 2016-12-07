@@ -102,5 +102,6 @@ private:
   uint64_t m_requestId = 0;
 };
 
+void SetUberUrlForTesting(string const & url);
 string DebugPrint(ErrorCode error);
 }  // namespace uber

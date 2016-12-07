@@ -4,6 +4,8 @@
 
 #include "geometry/latlon.hpp"
 
+#include "base/scope_guard.hpp"
+
 #include "std/algorithm.hpp"
 #include "std/atomic.hpp"
 #include "std/mutex.hpp"
@@ -177,6 +179,9 @@ UNIT_TEST(Uber_Smoke)
   ms::LatLon const from(38.897724, -77.036531);
   ms::LatLon const to(38.862416, -76.883316);
 
+  uber::SetUberUrlForTesting("http://localhost:34568/partners");
+  MY_SCOPE_GUARD(cleanup, []() { uber::SetUberUrlForTesting(""); });
+
   auto const errorCallback = [](uber::ErrorCode const code, uint64_t const requestId)
   {
     TEST(false, ());
@@ -250,22 +255,13 @@ UNIT_TEST(Uber_Smoke)
 
   testing::RunEventLoop();
 
-  size_t countOfEqual = 0;
+  TEST_EQUAL(synchronousProducts.size(), productsContainer.size(), ());
 
-  for (auto const & product : synchronousProducts)
-  {
-    auto const it = find_if(
-        productsContainer.begin(), productsContainer.end(),
-        [&product, countOfEqual](uber::Product const & item)
-        {
-          return product.m_productId == item.m_productId && product.m_name == item.m_name &&
-                 product.m_price == item.m_price;
-        });
-
-    if (it != productsContainer.end())
-      ++countOfEqual;
-  }
-
-  // At least 75 percents of products should be equal.
-  TEST_LESS_OR_EQUAL(static_cast<size_t>(synchronousProducts.size() * 0.75), countOfEqual, ());
+  auto const isEqual =
+      equal(synchronousProducts.begin(), synchronousProducts.end(), productsContainer.begin(),
+            [](uber::Product const & lhs, uber::Product const & rhs) {
+              return lhs.m_productId == rhs.m_productId && lhs.m_name == rhs.m_name &&
+                     lhs.m_price == rhs.m_price;
+            });
+  TEST(isEqual, ());
 }
