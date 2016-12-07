@@ -1409,6 +1409,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (mIsFragmentContainer)
       {
         replaceFragment(RoutingPlanFragment.class, null, completionListener);
+        adjustTraffic(UiUtils.dimen(R.dimen.panel_width), UiUtils.getStatusBarHeight(getApplicationContext()));
       }
       else
       {
@@ -1427,9 +1428,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
     else
     {
       if (mIsFragmentContainer)
+      {
         closeSidePanel();
+        adjustTraffic(0, UiUtils.getStatusBarHeight(getApplicationContext()));
+      }
       else
+      {
         mRoutingPlanInplaceController.show(false);
+      }
 
       if (completionListener != null)
         completionListener.run();
@@ -1441,10 +1447,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPlacePage.refreshViews();
   }
 
-  private void adjustCompassAndTraffic(int offset)
+  private void adjustCompassAndTraffic(int offsetY)
   {
-    adjustCompass(offset);
-    mTraffic.setTopOffset(offset);
+    adjustCompass(offsetY);
+    adjustTraffic(0, offsetY);
+  }
+
+  private void adjustTraffic(int offsetX, int offsetY)
+  {
+    mTraffic.setOffset(offsetX, offsetY);
   }
 
   @Override
