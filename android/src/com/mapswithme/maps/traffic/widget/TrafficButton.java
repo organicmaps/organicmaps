@@ -76,10 +76,10 @@ public class TrafficButton
     mButton.invalidate();
   }
 
-  public void setTopOffset(int offset)
+  public void setOffset(int offsetX, int offsetY)
   {
     RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mButton.getLayoutParams();
-    params.setMargins(0, offset, 0, 0);
+    params.setMargins(offsetX, offsetY, 0, 0);
     mButton.requestLayout();
   }
 
