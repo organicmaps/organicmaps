@@ -133,6 +133,7 @@ FrontendRenderer::FrontendRenderer(Params const & params)
   , m_maxGeneration(0)
   , m_needRestoreSize(false)
   , m_trafficStateChanged(false)
+  , m_trafficEnabled(params.m_trafficEnabled)
 {
 #ifdef DRAW_INFO
   m_tpf = 0.0;
@@ -745,6 +746,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::EnableTraffic:
     {
       ref_ptr<EnableTrafficMessage> msg = message;
+      m_trafficEnabled = msg->IsTrafficEnabled();
       if (msg->IsTrafficEnabled())
         m_trafficStateChanged = true;
       else
@@ -771,6 +773,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::FlushTrafficData:
     {
+      if (!m_trafficEnabled)
+        break;
       ref_ptr<FlushTrafficDataMessage> msg = message;
       m_trafficRenderer->AddRenderData(make_ref(m_gpuProgramManager), msg->AcceptTrafficData());
       break;
