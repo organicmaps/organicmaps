@@ -30,6 +30,7 @@ SOURCES += \
 #    varint_vector.cpp \
     zip_creator.cpp \
     zip_reader.cpp \
+    zlib.cpp \
 
 HEADERS += \
     $$ROOT_DIR/3party/expat/expat_impl.h \
@@ -93,3 +94,4 @@ HEADERS += \
     writer.hpp \
     zip_creator.hpp \
     zip_reader.hpp \
+    zlib.hpp \

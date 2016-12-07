@@ -48,6 +48,7 @@ SOURCES += ../../testing/testingmain.cpp \
     writer_test.cpp \
     zip_creator_test.cpp \
     zip_reader_test.cpp \
+    zlib_test.cpp \
 
 HEADERS += \
     coder_test.hpp \

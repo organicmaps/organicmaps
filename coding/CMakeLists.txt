@@ -90,6 +90,8 @@ set(
   zip_creator.hpp
   zip_reader.cpp
   zip_reader.hpp
+  zlib.cpp
+  zlib.hpp
 )
 
 add_library(${PROJECT_NAME} ${SRC})
