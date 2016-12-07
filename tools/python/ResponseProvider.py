@@ -1,13 +1,15 @@
 from __future__ import print_function
 
+import jsons
 import logging
+import os
 
 
 BIG_FILE_SIZE = 47684
 
 
 class Payload:
-    def __init__(self, message, response_code=200, headers=dict()):
+    def __init__(self, message, response_code=200, headers={}):
         self.__response_code = response_code
         self.__message = message
         self.__headers = headers
@@ -96,10 +98,7 @@ active users and/or stop the server.
         raise NotImplementedError()
 
 
-
-
 class ResponseProvider:
-    
     def __init__(self, delegate):
         self.headers = list()
         self.delegate = delegate
@@ -111,32 +110,42 @@ class ResponseProvider:
     def pong(self):
         self.delegate.got_pinged()
         return Payload("pong")
-    
+
+
     def my_id(self):
         return Payload(str(os.getpid()))
 
-    
-    
+
+    def strip_query(self, url):
+        query_start = url.find("?")
+        if (query_start > 0):
+            return url[:query_start]
+        return url
+
+
     def response_for_url_and_headers(self, url, headers):
         self.headers = headers
         self.chunk_requested()
+        url = self.strip_query(url)
         try:
             return {
-             
-                    "/unit_tests/1.txt" : self.test1,
-                    "/unit_tests/notexisting_unittest": self.test_404,
-                    "/unit_tests/permanent" : self.test_301,
-                    "/unit_tests/47kb.file" : self.test_47_kb,
-                    # Following two URIs are used to test downloading failures on different platforms.
-                    "/unit_tests/mac/1234/Uruguay.mwm" : self.test_404,
-                    "/unit_tests/linux/1234/Uruguay.mwm" : self.test_404,
-                    "/ping" : self.pong,
-                    "/kill" : self.kill,
-                    "/id" :self.my_id,
+                "/unit_tests/1.txt": self.test1,
+                "/unit_tests/notexisting_unittest": self.test_404,
+                "/unit_tests/permanent": self.test_301,
+                "/unit_tests/47kb.file": self.test_47_kb,
+                # Following two URIs are used to test downloading failures on different platforms.
+                "/unit_tests/mac/1234/Uruguay.mwm": self.test_404,
+                "/unit_tests/linux/1234/Uruguay.mwm": self.test_404,
+                "/ping": self.pong,
+                "/kill": self.kill,
+                "/id": self.my_id,
+                "/partners/time": self.partners_time,
+                "/partners/price": self.partners_price,
             }[url]()
         except:
             return self.test_404()
-        
+
+
     def chunk_requested(self):
         if "range" in self.headers:
             self.is_chunked = True
@@ -175,9 +184,10 @@ class ResponseProvider:
             self.byterange = (0, size)
 
     def chunked_response_header(self, size):
-        return {"Content-Range" : "bytes {start}-{end}/{out_of}".format(start=self.byterange[0],
-                                                                   end=self.byterange[1],
-                                                                   out_of=size)}
+        return {
+            "Content-Range" : "bytes {start}-{end}/{out_of}".format(start=self.byterange[0],
+            end=self.byterange[1], out_of=size)
+        }
         
     
     def test_47_kb(self):
@@ -196,7 +206,16 @@ class ResponseProvider:
 
         return "".join(message)
 
-    
+
+    # Partners_api_tests
+    def partners_time(self):
+        return Payload(jsons.PARTNERS_TIME)
+
+
+    def partners_price(self):
+        return Payload(jsons.PARTNERS_PRICE)
+
+
     def kill(self):
         logging.debug("Kill called in ResponseProvider")
         self.delegate.kill()
