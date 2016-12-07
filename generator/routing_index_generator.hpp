@@ -4,5 +4,5 @@
 
 namespace routing
 {
-bool BuildRoutingIndex(string const & filename);
+bool BuildRoutingIndex(string const & filename, string const & country);
 }  // namespace routing

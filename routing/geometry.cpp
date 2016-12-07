@@ -1,6 +1,6 @@
 #include "routing/geometry.hpp"
 
-#include "routing/routing_exception.hpp"
+#include "routing/routing_exceptions.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -51,14 +51,16 @@ namespace routing
 {
 // RoadGeometry ------------------------------------------------------------------------------------
 RoadGeometry::RoadGeometry(bool oneWay, double speed, Points const & points)
-  : m_points(points), m_speed(speed), m_isRoad(true), m_isOneWay(oneWay)
+  : m_points(points), m_speed(speed), m_isOneWay(oneWay)
 {
   ASSERT_GREATER(speed, 0.0, ());
 }
 
 void RoadGeometry::Load(IVehicleModel const & vehicleModel, FeatureType const & feature)
 {
-  m_isRoad = vehicleModel.IsRoad(feature);
+  CHECK(vehicleModel.IsRoad(feature),
+        ("Feature", feature.GetID().m_index, "is not a road in the current vehicle model"));
+
   m_isOneWay = vehicleModel.IsOneWay(feature);
   m_speed = vehicleModel.GetSpeed(feature);
 

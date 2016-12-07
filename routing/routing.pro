@@ -27,6 +27,7 @@ SOURCES += \
     features_road_graph.cpp \
     geometry.cpp \
     index_graph.cpp \
+    index_graph_serialization.cpp \
     index_graph_starter.cpp \
     joint.cpp \
     joint_index.cpp \
@@ -77,6 +78,7 @@ HEADERS += \
     features_road_graph.hpp \
     geometry.hpp \
     index_graph.hpp \
+    index_graph_serialization.hpp \
     index_graph_starter.hpp \
     joint.hpp \
     joint_index.hpp \
@@ -100,7 +102,7 @@ HEADERS += \
     router.hpp \
     router_delegate.hpp \
     routing_algorithm.hpp \
-    routing_exception.hpp \
+    routing_exceptions.hpp \
     routing_helpers.hpp \
     routing_mapping.hpp \
     routing_result_graph.hpp \
@@ -115,4 +117,5 @@ HEADERS += \
     turns_notification_manager.hpp \
     turns_sound_settings.hpp \
     turns_tts_text.hpp \
+    vehicle_mask.hpp \
     vehicle_model.hpp \

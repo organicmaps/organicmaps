@@ -3,6 +3,8 @@
 #include "base/assert.hpp"
 #include "base/exception.hpp"
 
+#include "std/limits.hpp"
+
 namespace routing
 {
 IndexGraph::IndexGraph(unique_ptr<GeometryLoader> loader, shared_ptr<EdgeEstimator> estimator)
@@ -23,10 +25,13 @@ m2::PointD const & IndexGraph::GetPoint(Joint::Id jointId)
   return m_geometry.GetPoint(m_jointIndex.GetPoint(jointId));
 }
 
+void IndexGraph::Build(uint32_t numJoints) { m_jointIndex.Build(m_roadIndex, numJoints); }
+
 void IndexGraph::Import(vector<Joint> const & joints)
 {
   m_roadIndex.Import(joints);
-  m_jointIndex.Build(m_roadIndex, joints.size());
+  CHECK_LESS_OR_EQUAL(joints.size(), numeric_limits<uint32_t>::max(), ());
+  Build(static_cast<uint32_t>(joints.size()));
 }
 
 Joint::Id IndexGraph::InsertJoint(RoadPoint const & rp)
@@ -55,8 +60,6 @@ void IndexGraph::GetNeighboringEdges(RoadPoint const & rp, bool isOutgoing,
                                      vector<JointEdge> & edges)
 {
   RoadGeometry const & road = m_geometry.GetRoad(rp.GetFeatureId());
-  if (!road.IsRoad())
-    return;
 
   bool const bidirectional = !road.IsOneWay();
   if (!isOutgoing || bidirectional)
@@ -66,8 +69,8 @@ void IndexGraph::GetNeighboringEdges(RoadPoint const & rp, bool isOutgoing,
     GetNeighboringEdge(road, rp, true /* forward */, edges);
 }
 
-void IndexGraph::GetNeighboringEdge(RoadGeometry const & road, RoadPoint const & rp,
-                                    bool forward, vector<JointEdge> & edges) const
+void IndexGraph::GetNeighboringEdge(RoadGeometry const & road, RoadPoint const & rp, bool forward,
+                                    vector<JointEdge> & edges) const
 {
   pair<Joint::Id, uint32_t> const & neighbor = m_roadIndex.FindNeighbor(rp, forward);
   if (neighbor.first != Joint::kInvalidId)
@@ -82,8 +85,6 @@ void IndexGraph::GetDirectedEdge(uint32_t featureId, uint32_t pointFrom, uint32_
                                  Joint::Id target, bool forward, vector<JointEdge> & edges)
 {
   RoadGeometry const & road = m_geometry.GetRoad(featureId);
-  if (!road.IsRoad())
-    return;
 
   if (road.IsOneWay() && forward != (pointFrom < pointTo))
     return;

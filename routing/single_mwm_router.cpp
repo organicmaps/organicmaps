@@ -6,14 +6,15 @@
 #include "routing/bicycle_model.hpp"
 #include "routing/car_model.hpp"
 #include "routing/index_graph.hpp"
+#include "routing/index_graph_serialization.hpp"
 #include "routing/index_graph_starter.hpp"
 #include "routing/pedestrian_model.hpp"
 #include "routing/route.hpp"
 #include "routing/routing_helpers.hpp"
 #include "routing/turns_generator.hpp"
+#include "routing/vehicle_mask.hpp"
 
 #include "indexer/feature_altitude.hpp"
-#include "indexer/routing_section.hpp"
 
 #include "geometry/distance.hpp"
 #include "geometry/mercator.hpp"
@@ -196,9 +197,7 @@ bool SingleMwmRouter::LoadIndex(MwmSet::MwmId const & mwmId, string const & coun
     my::Timer timer;
     FilesContainerR::TReader reader(mwmValue->m_cont.GetReader(ROUTING_FILE_TAG));
     ReaderSource<FilesContainerR::TReader> src(reader);
-    feature::RoutingSectionHeader header;
-    header.Deserialize(src);
-    graph.Deserialize(src);
+    IndexGraphSerializer::Deserialize(graph, src, kCarMask);
     LOG(LINFO,
         (ROUTING_FILE_TAG, "section for", country, "loaded in", timer.ElapsedSeconds(), "seconds"));
     return true;

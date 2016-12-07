@@ -240,7 +240,7 @@ int main(int argc, char ** argv)
       routing::BuildRoadAltitudes(datFile, FLAGS_srtm_path);
 
     if (FLAGS_generate_routing)
-      routing::BuildRoutingIndex(datFile);
+      routing::BuildRoutingIndex(datFile, country);
 
     if (FLAGS_generate_restrictions)
     {
