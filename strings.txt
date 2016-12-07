@@ -19965,6 +19965,7 @@
     it = Prenota un taxi
     ja = タクシーを呼ぶ
     ko = 택시 주문
+    nb = Bestill drosje
     pl = Zamów taksówkę
     pt = Chamar um táxi
     ro = Comandați un taxi
@@ -19977,7 +19978,6 @@
     zh-Hans = 预订出租车
     zh-Hant = 訂一部計程車
     el = Παραγγελία ταξί
-    nb = Bestill drosje
     sk = Objednať taxík
 
   [taxi_wait]
@@ -19996,6 +19996,7 @@
     it = Atteso in %s
     ja = %s 後に到着予定
     ko = %s 예상
+    nb = Forventet om %s
     pl = Szacunkowo przybędzie za %s
     pt = Esperado em %s
     ro = Așteptat în %s
@@ -20008,7 +20009,6 @@
     zh-Hans = 预计 %s后到达
     zh-Hant = 預計 %s 內到達
     el = Χρόνος αναμονής %s
-    nb = Forventet om %s
     sk = Očakávaný príjazd o %s
 
   [taxi_not_found]
@@ -20815,6 +20815,7 @@
     it = Annuncio
     ja = 広告
     ko = 광고
+    nb = Reklame
     pl = Reklama
     pt = Anúncio
     ro = Reclamă
@@ -20827,7 +20828,6 @@
     zh-Hans = 广告
     zh-Hant = 廣告
     el = Διαφήμιση
-    nb = Reklame
     sk = Reklama
 
   [mobile_data_dialog]
@@ -20845,6 +20845,7 @@
     it = Usare l'Internet mobile per mostrare le informazioni dettagliate?
     ja = モバイルインターネットを使用して詳細な情報を表示しますか？
     ko = 모바일 인터넷을 사용하여 자세한 정보를 표시하시겠습니까?
+    nb = Bruke mobilt Internett til å vise detaljert informasjon?
     pl = Wykorzystać internet mobilny, aby wyświetlić dane szczegółowe?
     pt = Utilizar a internet móvel para mostrar informações detalhadas?
     ro = Folosiți internetul mobil pentru a afişa informaţii detaliate?
@@ -20857,7 +20858,6 @@
     zh-Hans = 使用移动网络显示详细信息？
     zh-Hant = 使用手機網路顯示詳細資訊？
     el = Θέλετε να χρησιμοποιήσετε το δίκτυο κινητής τηλεφωνίας για να εμφανίσετε αναλυτικές πληροφορίες;
-    nb = Bruke mobilt Internett til å vise detaljert informasjon?
     sk = Použiť mobilný internet na zobrazenie podrobnejších informácií?
 
   [mobile_data_option_always]
@@ -20875,6 +20875,7 @@
     it = Usa sempre
     ja = 常に使用
     ko = 항상 사용
+    nb = Bruk alltid
     pl = Stosuj zawsze
     pt = Utilizar Sempre
     ro = Folosiți întotdeauna
@@ -20887,7 +20888,6 @@
     zh-Hans = 始终使用
     zh-Hant = 一律使用
     el = Να χρησιμοποιείται πάντα
-    nb = Bruk alltid
     sk = Vždy použiť
 
   [mobile_data_option_today]
@@ -20905,6 +20905,7 @@
     it = Solo oggi
     ja = 今日だけ
     ko = 오늘만
+    nb = Bare i dag
     pl = Tylko dzisiaj
     pt = Apenas Hoje
     ro = Doar astăzi
@@ -20917,7 +20918,6 @@
     zh-Hans = 仅在今天
     zh-Hant = 僅限今天
     el = Μόνο σήμερα
-    nb = Bare i dag
     sk = Iba dnes
 
   [mobile_data_option_not_today]
@@ -20935,6 +20935,7 @@
     it = Non usare oggi
     ja = 今日は使用しない
     ko = 오늘 사용 안 함
+    nb = Ikke bruk i dag
     pl = Nie stosuj dzisiaj
     pt = Não Utilizar Hoje
     ro = Nu folosiți astăzi
@@ -20947,7 +20948,6 @@
     zh-Hans = 今天不使用
     zh-Hant = 今天不使用
     el = Να μην χρησιμοποιηθεί σήμερα
-    nb = Ikke bruk i dag
     sk = Dnes nepoužiť
 
   [mobile_data]
@@ -20965,6 +20965,7 @@
     it = Internet mobile
     ja = モバイルインターネット
     ko = 모바일 인터넷
+    nb = Mobilt Internett
     pl = Internet mobilny
     pt = Internet Móvel
     ro = Internet mobil
@@ -20977,7 +20978,6 @@
     zh-Hans = 移动网络
     zh-Hant = 手機網路
     el = Ίντερνετ μέσω δικτύου κινητής
-    nb = Mobilt Internett
     sk = Mobilný internet
 
   [mobile_data_description]
@@ -20995,6 +20995,7 @@
     it = L'Internet mobile è necessario per visualizzare informazioni dettagliate sulle località, ad esempio foto, prezzi e recensioni.
     ja = モバイルインターネットは場所、写真、価格やレビューのような詳細情報を表示するのに必要です。
     ko = 모바일 인터넷은 사진, 가격, 리뷰 등 장소에 대한 자세한 정보를 표시하는 데 필요합니다.
+    nb = Mobilt Internett er nødvendig for å vise detaljert informasjon om steder, for eksempel fotografier, priser og anmeldelser.
     pl = Do wyświetlania danych szczegółowych o miejscach (np. zdjęcia, ceny i recenzje) wymagany jest internet mobilny.
     pt = Para visualizar informações detalhadas sobre os locais, tais como fotos, preços e análises, é necessário acesso à internet móvel.
     ro = Internetul mobil este necesar pentru afişarea de informaţii detaliate despre locuri, precum fotografii, preţuri şi recenzii.
@@ -21007,7 +21008,6 @@
     zh-Hans = 要显示地点的详细信息（例如照片、价格和评价），需要使用移动网络。
     zh-Hant = 需有手機網路才能顯示相片、價格與評論等詳細資訊和地點。
     el = Απαιτείται πρόσβαση στο Ίντερνετ μέσω δικτύου κινητής για την εμφάνιση αναλυτικών πληροφοριών για τις τοποθεσίες, όπως φωτογραφίες, τιμές και κριτικές.
-    nb = Mobilt Internett er nødvendig for å vise detaljert informasjon om steder, for eksempel fotografier, priser og anmeldelser.
     sk = Na zobrazenie podrobnejších informácií o miestach, napríklad fotografií, cien a recenzií, sa vyžaduje mobilný internet.
 
   [mobile_data_option_never]
@@ -21025,6 +21025,7 @@
     it = Non usare mai
     ja = 使用しない
     ko = 전혀 사용 안 함
+    nb = Aldri bruk
     pl = Nigdy nie stosuj
     pt = Nunca Utilizar
     ro = Nu utilizați niciodată
@@ -21037,7 +21038,6 @@
     zh-Hans = 从不使用
     zh-Hant = 絕不使用
     el = Να μην χρησιμοποιείται ποτέ
-    nb = Aldri bruk
     sk = Nikdy nepoužiť
 
   [mobile_data_option_ask]
@@ -21055,6 +21055,7 @@
     it = Chiedi sempre
     ja = 常に確認
     ko = 항상 표시
+    nb = Alltid spør
     pl = Zawsze pytaj
     pt = Perguntar Sempre
     ro = Întrebați întotdeauna
@@ -21067,7 +21068,6 @@
     zh-Hans = 总是询问
     zh-Hant = 一律詢問
     el = Να γίνεται ερώτηση πάντα
-    nb = Alltid spør
     sk = Vždy sa opýtať
 
   [traffic_update_maps_text]
@@ -21085,6 +21085,7 @@
     it = Per visualizzare i dati sul traffico, le mappe devono essere aggiornate.
     ja = 交通データを表示するには、地図を更新する必要があります。
     ko = 교통 데이터를 표시하려면 지도를 업데이트해야 합니다.
+    nb = For å vise trafikkdata må kartene i appen være oppdaterte.
     pl = Aby wyświetlić dane o ruchu, muszą zostać zaktualizowane mapy.
     pt = Para ver os dados de tráfego, os mapas devem ser atualizados.
     ro = Pentru a afişa datele privind traficul, hărțile trebuie actualizate.
@@ -21097,7 +21098,6 @@
     zh-Hans = 要显示交通数据，必须更新地图。
     zh-Hant = 若要顯示交通資料，必須更新地圖。
     el = Για να εμφανίσετε πληροφορίες για την κίνηση, πρέπει να ενημερωθούν οι χάρτες.
-    nb = For å vise trafikkdata må kartene i appen være oppdaterte.
     sk = Na zobrazenie dopravných informácií je potrebné aktualizovať mapy.
 
   [traffic_outdated]
@@ -21115,6 +21115,7 @@
     it = Dati sul traffico non aggiornati.
     ja = 交通データが古くなっています。
     ko = 교통 데이터가 오래되었습니다.
+    nb = Trafikkdata er utdatert.
     pl = Dane o ruchu są przestarzałe.
     pt = Os dados sobre o tráfego estão desatualizados.
     ro = Datele privind traficul sunt învechite.
@@ -21127,7 +21128,6 @@
     zh-Hans = 交通数据已过时。
     zh-Hant = 交通資料已過時。
     el = Οι πληροφορίες για την κίνηση είναι παλιές.
-    nb = Trafikkdata er utdatert.
     sk = Dopravné informácie sú neaktuálne.
 
   [big_font]
@@ -21145,6 +21145,7 @@
     it = Etichette più grandi
     ja = 大きなラベル
     ko = 더 큰 레이블
+    nb = Større etiketter
     pl = Większe etykiety
     pt = Etiquetas maiores
     ro = Etichete mai mari
@@ -21157,7 +21158,6 @@
     zh-Hans = 更大的标签
     zh-Hant = 更大的標籤
     el = Μεγαλύτερες ετικέτες
-    nb = Større etiketter
     sk = Väčšie nápisy
 
   [traffic_update_app]
@@ -21224,58 +21224,454 @@
     comment = december
     en = Traffic Data in 36 Countries
     ru = Пробки в 36 странах мира
+    ar = البيانات المرورية في 36 دولة
+    cs = Údaje o provozu ve 36 zemích
+    da = Trafikdata i 36 lande
+    nl = Verkeersgegevens in 36 Landen
+    fi = Liikennetiedot 36 maassa
+    fr = Données de circulation dans 36 pays
+    de = Verkehrsdaten in 36 Ländern
+    hu = Forgalmi adatok 36 országban
+    id = Data Lalu Lintas di 36 Negara
+    it = Dati sul traffico in 36 Paesi
+    ja = 36か国の交通データ
+    ko = 36개국의 교통 데이터
+    nb = Trafikkdata i 36 land
+    pl = Dane o ruchu w 36 krajach
+    pt = Dados de tráfego em 36 países
+    ro = Date privind traficul în 36 de țări
+    es = Datos del tráfico en 36 países
+    sv = Trafikdata i 36 länder
+    th = ข้อมูลการจราจรใน 36 ประเทศ
+    tr = 36 Ülkeden Trafik Verileri
+    uk = Дані про трафік у 36 країнах
+    vi = Dữ liệu Giao thông tại 36 Quốc gia
+    zh-Hans = 36 个国家/地区的交通数据
+    zh-Hant = 36 個國家的交通資料
+    af = Verkeersdata in 36 lande
+    be = Даныя дарожнага руху ў 36 краінах
+    el = Πληροφορίες για την κίνηση σε 36 χώρες
+    es-MX = Datos sobre el tráfico en 36 países
+    fr-CA = Données de circulation dans 36 pays
+    he = נתוני תנועה ב-36 מדינות
+    hi = 36 देशों में ट्रैफिक डेटा
+    pt-BR = Dados sobre o Trânsito em 36 Países
+    sk = Dopravné informácie v 36 krajinách
 
   [whatsnew_traffic_text]
     comment = december
     en = Up-to-date traffic info and fastest driving routes based on it!
-    ru = Актуальная информация о пробках на дорогах и самые быстрые маршруты с их учетом в 36 странах мира!
+    ru = Актуальная информация о пробках на дорогах и самые быстрые маршруты с их учетом!
+    ar = معلومات مرورية حديثة وأسرع مسارات القيادة التي تعتمد عليها!
+    cs = Na nich jsou založeny aktuální dopravní informace a nejrychlejší jízdní trasy!
+    da = Opdateret trafikinformation og hurtigste ruter baseret på den!
+    nl = Actuele verkeersinformatie, en de snelste reisroutes hierop gebaseerd!
+    fi = Ενημερωμένες πληροφορίες για την κίνηση και για γρηγορότερες διαδρομές οδήγησης!
+    fr = Des données de circulation actualisées et les itinéraires les plus rapides calculés selon celles-ci!
+    de = Aktuelle Verkehrsinformationen und darauf basierende schnellste Routen!
+    hu = Aktuális forgalmi információk és a leggyorsabb útvonalak ezek alapján!
+    id = Info lalu lintas terbaru dan rute berkendara tercepat berdasarkan ini!
+    it = Info sul traffico aggiornate e itinerari più veloci sulla loro base!
+    ja = 最新の交通データと、データに基づく最速のドライブルートをご提供致します！
+    ko = 최신 교통 정보 및 이 정보에 따른 가장 빠른 운전 경로!
+    nb = Oppdatert trafikkinformasjon og raskeste kjøreruter basert på det!
+    pl = Bieżące dane o ruchu drogowym oraz oparte o nie najszybsze trasy!
+    pt = Informações sobre o trânsito actualizadas para percursos mais rápidos!
+    ro = Informații actualizate privind traficul și rutele cele mai rapide calculate în funcție de acestea!
+    es = ¡Información actualizada del tráfico y de las rutas más rápidas basadas en ella!
+    sv = Aktuell trafikinformation och de snabbaste körrutterna som baseras på informationen!
+    th = ข้อมูลการจราจรที่ทันสมัยและเส้นทางการขับรถที่เร็วที่สุดตามข้อมูลนั้น!
+    tr = En güncel trafik verileri ve en hızlı sürüş güzergâhları!
+    uk = Актуальні відомості про трафік та найменш перевантажені дороги!
+    vi = Thông tin giao thông cập nhật và lộ trình lái xe nhanh nhất dựa trên đó!
+    zh-Hans = 最快的驾驶路线离不开最新的交通信息！
+    zh-Hant = 最新交通資訊與據此得出的最快速路線！
+    af = Bygewerkte verkeersinligting en die vinnigste roetes op grond daarvan!
+    be = Актуальныя звесткі пра дарожны рух і хуткія маршруты з улікам загрузкі дарог.
+    el = Ενημερωμένες πληροφορίες για την κίνηση και γρηγορότερες διαδρομές οδήγησης με βάση αυτό!
+    es-MX = ¡Información actualizada sobre el tráfico y las rutas de conducción más rápidas basadas en dicha información!
+    fr-CA = Des données de circulation à jour et les itinéraires les plus rapides calculés pour vous!
+    he = נתוני תנועה מעודכנים ומסלולי הנהיגה המהירים ביותר!
+    hi = अप-टू-डेट ट्रैफिक जानकारी और इस पर आधारित सबसे फ़ास्ट ड्राइविंग रूट!
+    pt-BR = Informações atualizadas sobre o trânsito e rotas mais rápidas com base nessas Informações!
+    sk = Aktuálne dopravné informácie a na základe nich najrýchlejšie trasy!
 
   [whatsnew_traffic_roaming]
     comment = december
     en = Traffic Info in Roaming
     ru = Пробки даже в роуминге
+    ar = المعلومات المرورية أثناء التجوال
+    cs = Dopravní informace při roamingu
+    da = Trafikinfo ved roaming
+    nl = Verkeersinfo in Roaming
+    fi = Liikennetiedot verkkovierailussa
+    fr = Données de circulation en roaming
+    de = Verkehrsinformationen bei Roaming
+    hu = Forgalmi információ a barangolásban
+    id = Info Lalu Lintas saat Roaming
+    it = Info sul traffico in roaming
+    ja = ローミング中の交通情報
+    ko = 로밍의 교통 정보
+    nb = Trafikkinformasjon ved roaming
+    pl = Dane o ruchu w trybie roamingu
+    pt = Informações sobre o Tráfego em Roaming
+    ro = Informații privind traficul în roaming
+    es = Información del tráfico en roaming
+    sv = Trafikinformation i roaming
+    th = ข้อมูลการจราจรในการใช้โรมมิ่ง
+    tr = Roaming (Dolaşım) esnasında trafik bilgileri
+    uk = Інформація про трафік у роумінгу
+    vi = Thông tin Giao thông khi Chuyển vùng
+    zh-Hans = 交通信息漫游
+    zh-Hant = 交通資訊使用漫遊
+    af = Verkeersinligting tydens reismodus
+    be = Звесткі пра дарожны рух у роўмінгу
+    el = Πληροφορίες για την κίνηση κατά την περιαγωγή
+    es-MX = Información sobre el tráfico en roaming
+    fr-CA = Données de circulation en itinérance
+    he = נתוני תנועה במצב נדידה
+    hi = रोमिंग में यातायात जानकारी
+    pt-BR = Informações sobre o Trânsito em Roaming
+    sk = Dopravné informácie v roamingu
 
   [whatsnew_traffic_roaming_text]
     comment = december
     en = Requires less than 1 MB of mobile bandwidth per trip.
     ru = Требует менее 1 МБ мобильного трафика за поездку.
+    ar = يتطلب أقل من 1 ميجابايت من عرض نطاق المحمول لكل رحلة.
+    cs = Vyžaduje necelý 1 MB mobilních dat na jednu cestu.
+    da = Kræver mindre end 1 MB mobildata pr. tur.
+    nl = Vereist minder dan 1 MB mobiele bandbreedte per trip.
+    fi = Vaatii alle 1 MB mobiilidataa per matka.
+    fr = Nécessite moins de 1 Mo de données mobiles par trajet.
+    de = Erfordert weniger als 1 MB mobile Bandbreite pro Fahrt.
+    hu = Utazásonként kevesebb, mint 1 MB mobil sávszélességet igényel.
+    id = Memerlukan kurang dari 1 MB dari bandwidth seluler perjalanan.
+    it = Richiede meno di 1 MB di larghezza di banda mobile per viaggio.
+    ja = 移動毎に 1 MB 未満のモバイル帯域幅が必要です。
+    ko = 승차당 모바일 대역폭 1MB 미만이 필요합니다.
+    nb = Bruker mindre enn 1MB mobildata per tur.
+    pl = Wymaga mniej niż 1 MB transferu mobilnego w ciągu 1 podróży.
+    pt = Requer menos de 1 MB de banda larga móvel por viagem.
+    ro = Necesită mai puţin de 1 MB de lățime de bandă mobilă pe călătorie.
+    es = Precisa menos de 1 MB de ancho de banda móvil por viaje.
+    sv = Kräver mindre än 1 MB av mobil bandbredd per resa.
+    th = ใช้แบนด์วิดท์มือถือน้อยกว่า 1 MB ต่อเที่ยว
+    tr = Her yolculuk için en az 1 MB mobil bant genişliği gereklidir.
+    uk = Менше 1 МБ мобільних даних на одну поїздку.
+    vi = Cần ít hơn 1 MB băng thông di động cho mỗi chuyến đi.
+    zh-Hans = 每次旅行需要的移动带宽小于 1 MB。
+    zh-Hant = 每次行程需要的行動頻寬不到 1 MB。
+    af = Vereis minder as 1 MB selfoondata per rit.
+    be = На адну паездку спатрэбіцца меней за 1 МБ мабільнага трафіку.
+    el = Χρησιμοποιεί λιγότερο από 1 MB από το δίκτυο κινητής τηλεφωνίας ανά ταξίδι.
+    es-MX = Requiere menos de 1 MB de ancho de banda móvil por viaje.
+    fr-CA = Nécessitent moins de 1 Mo de données mobiles par trajet.
+    he = דורש פחות מ-1MB של תעבורת נתונים סלולריים בכל נסיעה.
+    hi = प्रति यात्रा 1 MB से भी कम मोबाइल बैंडविड्थ की ज़रूरत होती है।
+    pt-BR = Exige menos de 1 MB de dados móveis por viagem.
+    sk = Vyžaduje menej ako 1 MB mobilných dát na jazdu.
 
   [whatsnew_order_taxi]
     comment = december
     en = Order a Taxi
     ru = Вызов такси
+    ar = طلب تاكسي
+    cs = Objednat taxi
+    da = Bestil en taxa
+    nl = Bestel een Taxi
+    fi = Taksin tilaaminen
+    fr = Commander un taxi
+    de = Taxi rufen
+    hu = Taxi rendelés
+    id = Pesan Taksi
+    it = Prenota un taxi
+    ja = タクシーの呼び出し
+    ko = 택시 주문
+    nb = Bestill drosje
+    pl = Zamów taksówkę
+    pt = Chamar um Táxi
+    ro = Comandați un taxi
+    es = Pedir un taxi
+    sv = Beställ en taxi
+    th = เรียกแท็กซี่
+    tr = Taksi Çağırma
+    uk = Замовлення таксі
+    vi = Đặt Xe Taxi
+    zh-Hans = 预订出租车
+    zh-Hant = 訂一部計程車
+    af = Bestel 'n taxi
+    be = Заказ таксі
+    el = Παραγγελία ταξί
+    es-MX = Pedir un taxi
+    fr-CA = Appeler un taxi
+    he = הזמן מונית
+    hi = टैक्सी के लिए ऑर्डर करें
+    pt-BR = Chame um Táxi
+    sk = Objednajte si taxík
 
   [whatsnew_order_taxi_text]
     comment = december
     en = Most of the location pages now contain a button for ordering a taxi.
     ru = В карточке большинства объектов появилась кнопка заказа такси.
+    ar = تحتوي معظم صفحات المواقع الآن على زر لطلب تاكسي.
+    cs = Většina stránek umístění nyní obsahuje tlačítko k objednání taxi.
+    da = De fleste af siderne indeholder nu en knap til bestilling af en taxa.
+    nl = De meeste locatiepagina's bevatten nu een knop om een taxi te bestellen.
+    fi = Useimpien sijaintien sivulla on nyt painike taksin tilaamiseen.
+    fr = La plupart des pages de lieu propose maintenant un bouton pour commander un taxi.
+    de = Die meisten Standortseiten verfügen nun über eine Schaltfläche zum Rufen eines Taxis.
+    hu = A legtöbb helymeghatározó oldalon már megtalálható a taxirendelés gombja.
+    id = Sebagian besar halaman lokasi sekarang mempunyai tombol untuk memesan taksi.
+    it = La maggior parte delle pagine di posizione contiene ora un pulsante per prenotare un taxi.
+    ja = ほとんど場所のページに、タクシーを呼ぶためのボタンが表示されるようになりました。
+    ko = 이제 대부분의 위치 페이지에 택시 주문을 위한 버튼이 포함되어 있습니다.
+    nb = De fleste sidene har nå en knapp til å bestille taxi.
+    pl = Większość stron z lokalizacjami zawiera teraz przycisk do zamówienia taksówki.
+    pt = A maioria das páginas de localização contêm agora um botão para chamar um táxi.
+    ro = Majoritatea paginilor privind locația conțin acum un buton pentru a comanda un taxi.
+    es = La mayoría de las páginas de localización incluyen un botón para pedir un taxi ahora.
+    sv = De flesta platssidorna har nu en knapp för att beställa en taxi.
+    th = หน้าตำแหน่งที่ตั้งส่วนใหญ่ในขณะนี้มีปุ่มเรียกแท็กซี่
+    tr = Artık çoğu konum sayfalarında taksi çağırmak için bir düğme bulunuyor.
+    uk = На більшості сторінок місцязнаходження тепер є кнопка замовлення таксі.
+    vi = Hầu hết các trang địa điểm giờ đây đều có một nút để gọi taxi.
+    zh-Hans = 大多数地点页面现在都包含一个用于预订出租车的按钮。
+    zh-Hant = 大部分的地點頁面目前已包含可訂計程車的按鈕。
+    af = Meeste liggingbladsye bevat nou 'n knoppie om 'n taxi te bestel.
+    be = Цяпер на старонках большасці населеных пунктаў ёсць кнопка заказу таксі.
+    el = Οι περισσότερες από τις σελίδες της τοποθεσίας περιέχουν πλέον πλήκτρο για την παραγγελία ταξί.
+    es-MX = La mayoría de las páginas de localización ahora incluyen un botón para pedir un taxi.
+    fr-CA = La plupart des lieux proposent maintenant un bouton permettant d'appeler un taxi.
+    he = מרבית דפי המיקום כוללים כעת כפתור להזמנת מונית.
+    hi = अधिकांश लोकेशन पृष्ठों पर टैक्सी ऑर्डर करने का बटन रहता है।
+    pt-BR = Agora, a maioria das páginas de locais contém um botão para chamar um táxi.
+    sk = Väčšina stránok o lokalite odteraz obsahuje aj tlačidlo na objednávanie taxíka.
 
   [whatsnew_improved_search]
     comment = january
     en = Improved Search
     ru = Улучшен поиск
+    ar = بحث محسّن
+    cs = Vylepšené vyhledávání
+    da = Forbedret søgning
+    nl = Verbeterde Zoekfunctie
+    fi = Parannettu haku
+    fr = Recherche améliorée
+    de = Verbesserte Suche
+    hu = Továbbfejlesztett keresés
+    id = Pencarian yang Diperbagus
+    it = Ricerca migliorata
+    ja = 検索機能の向上
+    ko = 향상된 검색
+    nb = Forbedret søkefunksjon
+    pl = Poprawiona opcja wyszukiwania
+    pt = Pesquisa Melhorada
+    ro = Căutare îmbunătățită
+    es = Búsqueda mejorada
+    sv = Förbättrad sökning
+    th = การค้นหาที่ได้รับการปรับปรุง
+    tr = Gelişmiş Arama
+    uk = Вдосконалений пошук
+    vi = Cải thiện Tìm kiếm
+    zh-Hans = 改进了搜索
+    zh-Hant = 改善的搜尋功能
+    af = Verbeterde soektog
+    be = Удасканалены пошук
+    el = Βελτιωμένη αναζήτηση
+    es-MX = Búsqueda mejorada
+    fr-CA = Recherche améliorée
+    he = חיפוש משופר
+    hi = बेहतर खोज
+    pt-BR = Pesquisa Aprimorada
+    sk = Vylepšené vyhľadávanie
 
   [whatsnew_improved_search_text]
     comment = january
     en = Even misspelled queries bring accurate search results.
     ru = Опечатки в запросах не влияют на результаты поиска.
+    ar = حتى الاستعلامات التي بها أخطاء إملائية يمكن أن تحقق نتائج بحث دقيقة.
+    cs = I nesprávně napsané dotazy přinesou přesné výsledky vyhledávání.
+    da = Selv fejlstavede forespørgsler giver præcise søgeresultater.
+    nl = Zelfs verkeerd gespelde zoekopdrachten geven nauwkeurige zoekresultaten.
+    fi = Jopa väärin kirjoitetut kyselyt antavat tarkat hakutulokset.
+    fr = Même les requêtes contenant des erreurs proposent des résultats de recherche pertinents.
+    de = Sogar falsch geschriebene Anfragen liefern präzise Suchergebnisse.
+    hu = Még a hibásan írt lekérdezések is pontos keresési eredményeket adnak.
+    id = Bahkan pertanyaan dengan kesalahan eja akan memberikan hasil pencarian yang akurat.
+    it = Anche le query con errori di ortografia restituiscono risultati di ricerca accurati.
+    ja = スペルミスのある検索を行なっても、正確な検索結果を表示します。
+    ko = 철자가 틀린 쿼리도 정확한 검색 결과를 표시합니다.
+    nb = Selv feilstavede forespørsler gir nøyaktige søkeresultater.
+    pl = Dokładne wyniki wyszukiwania nawet przy błędnych zapytaniach.
+    pt = Até as pesquisas com erros ortogrtáficos obtêm resultados precisos.
+    ro = Chiar și căutările scrise greșit aduc rezultate de căutare precise.
+    es = Incluso las consultas mal escritas proporcionan resultados de búsqueda precisos.
+    sv = Till och med felstavade frågor skapar resultat med hög kvalitet.
+    th = แม้แต่คำถามที่สะกดผิดก็ยังให้ผลลัพธ์การค้นหาที่ถูกต้องได้
+    tr = Hatalı yazılan sorguları bile doğru getiren arama sonuçları.
+    uk = Видача правильних результатів навіть за наявності помилок у запиті.
+    vi = Kể cả các truy vấn bị lỗi chính tả vẫn có thể cho kết quả tìm kiếm chính xác.
+    zh-Hans = 即使查询存在拼写错误也能得到准确的搜索结果。
+    zh-Hant = 即使拼錯查詢字詞也能獲得準確的搜尋結果。
+    af = Selfs soektogte met spelfoute kry akkurate resultate.
+    be = Нават калі ў запыце ёсць памылка, вынікі пошуку будуць правільнымі.
+    el = Ακόμη και τα ερωτήματα με ορθογραφικά λάθη δημιουργούν ακριβή αποτελέσματα αναζήτησης.
+    es-MX = Incluso las consultas mal escritas proporcionan resultados de búsqueda precisos.
+    fr-CA = Même les requêtes contenant des erreurs proposent des résultats de recherche pertinents.
+    he = אפילו חיפושים עם שגיאות כתיב מספקים תוצאות מדויקות.
+    hi = यहाँ तक कि अशुद्ध वर्तनी (स्पेलिंग) वाले प्रश्नों या खोजों में भी सटीक खोज परिणाम मिलते हैं।
+    pt-BR = Até pesquisas com erros de ortografia geram resultados precisos.
+    sk = Presné výsledky vyhľadávania aj s nesprávne zadanými dotazmi.
 
   [whatsnew_filters_in_search]
     comment = january
     en = Search Filters
     ru = Фильтры в поиске
+    ar = عوامل تصفية البحث
+    cs = Vyhledávací filtry
+    da = Søgefiltre
+    nl = Zoekfilters
+    fi = Hakusuodattimet
+    fr = Filtres de recherche
+    de = Suchfilter
+    hu = Keresési szűrők
+    id = Filter Pencarian
+    it = Filtri di ricerca
+    ja = 検索フィルター
+    ko = 검색 필터
+    nb = Søkefiltre
+    pl = Filtry wyszukiwania
+    pt = Filtros de Pesquisa
+    ro = Filtre de căutare
+    es = Filtros de búsqueda
+    sv = Sökfilter
+    th = ตัวกรองการค้นหา
+    tr = Arama Filtreleri
+    uk = Пошукові фільтри
+    vi = Bộ lọc Tìm kiếm
+    zh-Hans = 搜索筛选器
+    zh-Hant = 搜尋篩選
+    af = Soekfilters
+    be = Фільтры ў пошуку
+    el = Φίλτρα αναζήτησης
+    es-MX = Filtros de búsqueda
+    fr-CA = Filtres de recherche
+    he = מסנני חיפוש
+    hi = खोज फ़िल्टर
+    pt-BR = Filtros de Busca
+    sk = Vyhľadávacie filtre
 
   [whatsnew_filters_in_search_text]
     comment = january
     en = Search hotels based on price and rating.
     ru = Можно искать отели с учетом цены и рейтинга.
+    ar = البحث عن الفنادق وفقًا للسعر والتصنيف.
+    cs = Hledat hotely na základě ceny a hodnocení.
+    da = Søg hoteller baseret på pris og vurdering.
+    nl = Hotels zoeken gebaseerd op prijs en rating.
+    fi = Hotellien haku hinnan ja arvion perusteella.
+    fr = Recherchez des hôtels par prix et par évaluation.
+    de = Hotels basierend auf Preis und Bewertung suchen.
+    hu = Szálláshelyek keresése ár és minősítés alapján.
+    id = Cari hotel berdasarkan harga dan peringkat.
+    it = Cerca hotel in base a prezzo e voto.
+    ja = 価格と評価に基づくホテルの検索。
+    ko = 가격 및 등급에 따라 호텔을 검색합니다.
+    nb = Søk etter hoteller basert på pris og vurdering.
+    pl = Szukaj hoteli w oparciu o cenę i oceny.
+    pt = Pesquisar Hotéis com base no preço e classificação.
+    ro = Căutați hoteluri în funcție de preț și calificare.
+    es = Búsqueda de hoteles según su precio y clasificación.
+    sv = Sök hotell efter pris och omdöme.
+    th = ค้นหาโรงแรมตามราคาและการจัดอันดับ
+    tr = Ücret ve puana göre otel arama.
+    uk = Пошук готелів виходячи з ціни та рейтингу.
+    vi = Tìm kiếm khách sạn dựa trên giá cả và xếp hạng.
+    zh-Hans = 基于价格和评分搜索酒店。
+    zh-Hant = 根據價格與評價搜尋飯店。
+    af = Deursoek hotelle volgens prys en gradering.
+    be = Пошук гасцініц паводле кошту і ацэнкі.
+    el = Αναζήτηση ξενοδοχείων με βάση την τιμή και τις κριτικές.
+    es-MX = Búsqueda de hoteles con base en su precio y clasificación.
+    fr-CA = Cherchez un hôtel par prix et par évaluation.
+    he = חיפוש מלונות על פי מחיר ודירוג.
+    hi = कीमत और रेटिंग के आधार पर होटल खोजें।
+    pt-BR = Procure por hotéis com base no preço e em sua classificação.
+    sk = Hľadať hotely podľa ceny a hodnotenia.
 
   [whatsnew_font_size]
     comment = january
     en = Font Size
     ru = Размер шрифта
+    ar = حجم الخط
+    cs = Velikost písma
+    da = Skriftstørrelse
+    nl = Lettergrootte
+    fi = Fonttikoko
+    fr = Taille de police
+    de = Schriftgröße
+    hu = Betűméret
+    id = Ukuran Huruf
+    it = Dimensione carattere
+    ja = フォントサイズ
+    ko = 글꼴 크기
+    nb = Skriftstørrelse
+    pl = Rozmiar czcionki
+    pt = Tamanho da Fonte
+    ro = Dimensiunea fontului
+    es = Tamaño de la fuente
+    sv = Teckenstorlek
+    th = ขนาดฟอนต์
+    tr = Yazı Tipi Boyutu
+    uk = Розмір шрифту
+    vi = Kích cỡ Phông chữ
+    zh-Hans = 字体大小
+    zh-Hant = 字型大小
+    af = Fontgrootte
+    be = Памер шрыфту
+    el = Μέγεθος γραμματοσειράς
+    es-MX = Tamaño de la fuente
+    fr-CA = Taille de police
+    he = גודל גופן
+    hi = फ़ॉन्ट आकार
+    pt-BR = Tamanho da Fonte
+    sk = Veľkosť písma
 
   [whatsnew_font_size_text]
     comment = january
     en = Labels on the map can be made bigger.
     ru = Названия объектов на карте теперь можно сделать крупнее.
+    ar = يمكن جعل التسميات على الخريطة أكبر.
+    cs = Popisky na mapě lze zvětšit.
+    da = Etiketterne på kortet kan gøres større.
+    nl = Labels op de map kunnen groter gemaakt worden.
+    fi = Kartan selityksiä voi suurentaa.
+    fr = Les étiquettes sur la carte peuvent être agrandies.
+    de = Bezeichnungen auf der Karte können vergrößert werden.
+    hu = A térképen a címkék lehetnek nagyobbak.
+    id = Label pada peta bisa dijadikan lebih besar.
+    it = Le etichette sulla mappa possono essere ingrandite.
+    ja = 地図上のラベルを大きくすることができます。
+    ko = 지도의 레이블을 더 크게 할 수 있습니다.
+    nb = Etiketter på kartet kan gjøres større.
+    pl = Etykiety na mapie dają się powiększyć.
+    pt = É possível aumentar o tamanho das letras do mapa.
+    ro = Etichetele de pe hartă pot fi făcute mai mari.
+    es = Las etiquetas del mapa pueden ampliarse.
+    sv = Etiketter på kartan kan göras större.
+    th = ป้ายบนแผนที่สามารถทำให้ใหญ่ขึ้นได้
+    tr = Harita üzerindeki etiketler daha büyük hale getirilebilir.
+    uk = Можливість збільшення розміру написів на карті.
+    vi = Các nhãn mác trên bản đồ có thể được phóng to hơn.
+    zh-Hans = 可以增大地图上的标签。
+    zh-Hant = 可將地圖上的標籤變大。
+    af = Etikette op die kaart kan groter gemaak word.
+    be = Подпісы на карце можна павялічыць.
+    el = Οι ετικέτες στον χάρτη μπορούν να μεγαλώσουν.
+    es-MX = Las etiquetas en el mapa pueden hacerse más grandes.
+    fr-CA = Les étiquettes sur la carte peuvent être agrandies.
+    he = ניתן להגדיל תוויות על המפה.
+    hi = नक्शे पर लेबलों को बड़ा किया जा सकता है।
+    pt-BR = Os rótulos no mapa podem ser ampliados.
+    sk = Nápisy na mape je možné zväčšiť.
