@@ -27,6 +27,9 @@ public:
                   BindingInfo const & bindingInfo,
                   ref_ptr<void> data);
 
+  void Reset(uint32_t vertexCount);
+  void UpdateStream(uint8_t streamIndex, ref_ptr<void> data);
+
 private:
   int32_t m_vertexCount;
 

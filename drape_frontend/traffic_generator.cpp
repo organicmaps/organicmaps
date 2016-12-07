@@ -187,6 +187,12 @@ void TrafficGenerator::Init()
   m_batchersPool = make_unique_dp<BatchersPool<TrafficBatcherKey, TrafficBatcherKeyComparator>>(
                                   kBatchersCount, bind(&TrafficGenerator::FlushGeometry, this, _1, _2, _3),
                                   kBatchSize, kBatchSize);
+
+  m_providerLines.InitStream(0 /* stream index */, GetTrafficLineStaticBindingInfo(), nullptr);
+  m_providerLines.InitStream(1 /* stream index */, GetTrafficDynamicBindingInfo(), nullptr);
+
+  m_providerTriangles.InitStream(0 /* stream index */, GetTrafficStaticBindingInfo(), nullptr);
+  m_providerTriangles.InitStream(1 /* stream index */, GetTrafficDynamicBindingInfo(), nullptr);
 }
 
 void TrafficGenerator::ClearGLDependentResources()
@@ -268,13 +274,13 @@ void TrafficGenerator::FlushSegmentsGeometry(TileKey const & tileKey, TrafficSeg
 
               drape_ptr<dp::OverlayHandle> handle = make_unique_dp<TrafficHandle>(sid, g.m_roadClass, g.m_polyline.GetLimitRect(), uv,
                                                                                   staticGeometry.size());
-              dp::AttributeProvider provider(2 /* stream count */, staticGeometry.size());
-              provider.InitStream(0 /* stream index */, GetTrafficLineStaticBindingInfo(), make_ref(staticGeometry.data()));
-              provider.InitStream(1 /* stream index */, GetTrafficDynamicBindingInfo(), make_ref(dynamicGeometry.data()));
+              m_providerLines.Reset(staticGeometry.size());
+              m_providerLines.UpdateStream(0 /* stream index */, make_ref(staticGeometry.data()));
+              m_providerLines.UpdateStream(1 /* stream index */, make_ref(dynamicGeometry.data()));
 
               dp::GLState curLineState = lineState;
               curLineState.SetLineWidth(w * df::VisualParams::Instance().GetVisualScale());
-              batcher->InsertLineStrip(curLineState, make_ref(&provider), move(handle));
+              batcher->InsertLineStrip(curLineState, make_ref(&m_providerLines), move(handle));
               generatedAsLine = true;
             }
           }
@@ -293,10 +299,10 @@ void TrafficGenerator::FlushSegmentsGeometry(TileKey const & tileKey, TrafficSeg
 
             drape_ptr<dp::OverlayHandle> handle = make_unique_dp<TrafficHandle>(sid, g.m_roadClass, g.m_polyline.GetLimitRect(), uv,
                                                                                 staticGeometry.size());
-            dp::AttributeProvider provider(2 /* stream count */, staticGeometry.size());
-            provider.InitStream(0 /* stream index */, GetTrafficStaticBindingInfo(), make_ref(staticGeometry.data()));
-            provider.InitStream(1 /* stream index */, GetTrafficDynamicBindingInfo(), make_ref(dynamicGeometry.data()));
-            batcher->InsertTriangleList(state, make_ref(&provider), move(handle));
+            m_providerTriangles.Reset(staticGeometry.size());
+            m_providerTriangles.UpdateStream(0 /* stream index */, make_ref(staticGeometry.data()));
+            m_providerTriangles.UpdateStream(1 /* stream index */, make_ref(dynamicGeometry.data()));
+            batcher->InsertTriangleList(state, make_ref(&m_providerTriangles), move(handle));
           }
         }
       }

@@ -69,7 +69,7 @@ void ExtractTrafficGeometry(FeatureType const & f, df::RoadClass const & roadCla
   auto & segments = geometry[f.GetID().m_mwmId];
 
   int const index = zoomLevel - 10; // 10 - the first zoom level in kAverageSegmentsCount.
-  ASSERT_GREATER(index, 0, ());
+  ASSERT_GREATER_OR_EQUAL(index, 0, ());
   ASSERT_LESS(index, kAverageSegmentsCount.size(), ());
   segments.reserve(kAverageSegmentsCount[index]);
 

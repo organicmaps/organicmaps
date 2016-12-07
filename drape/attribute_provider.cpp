@@ -84,6 +84,18 @@ void AttributeProvider::InitStream(uint8_t streamIndex,
   INIT_STREAM(streamIndex);
 }
 
+void AttributeProvider::Reset(uint32_t vertexCount)
+{
+  m_vertexCount = vertexCount;
+}
+
+void AttributeProvider::UpdateStream(uint8_t streamIndex, ref_ptr<void> data)
+{
+  ASSERT_LESS(streamIndex, GetStreamCount(), ());
+  m_streams[streamIndex].m_data = data;
+  INIT_STREAM(streamIndex);
+}
+
 #ifdef DEBUG
 void AttributeProvider::CheckStreams() const
 {

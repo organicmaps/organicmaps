@@ -169,6 +169,8 @@ public:
 
   explicit TrafficGenerator(TFlushRenderDataFn flushFn)
     : m_flushRenderDataFn(flushFn)
+    , m_providerTriangles(2 /* stream count */, 0 /* vertices count*/)
+    , m_providerLines(2 /* stream count */, 0 /* vertices count*/)
   {}
 
   void Init();
@@ -237,6 +239,9 @@ private:
 
   drape_ptr<BatchersPool<TrafficBatcherKey, TrafficBatcherKeyComparator>> m_batchersPool;
   TFlushRenderDataFn m_flushRenderDataFn;
+
+  dp::AttributeProvider m_providerTriangles;
+  dp::AttributeProvider m_providerLines;
 };
 
 } // namespace df
