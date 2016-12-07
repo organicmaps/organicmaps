@@ -101,6 +101,7 @@ void TrafficManager::SetEnabled(bool enabled)
 void TrafficManager::Clear()
 {
   m_mwmCache.clear();
+  m_lastMwmsByRect.clear();
   m_activeMwms.clear();
   m_requestedMwms.clear();
 }
@@ -147,6 +148,9 @@ void TrafficManager::UpdateViewport(ScreenBase const & screen)
 
   // Request traffic.
   auto mwms = m_getMwmsByRectFn(screen.ClipRect());
+  if (m_lastMwmsByRect == mwms)
+    return;
+  m_lastMwmsByRect = mwms;
 
   {
     lock_guard<mutex> lock(m_mutex);

@@ -30,6 +30,11 @@ namespace
 {
 int constexpr kOutlineMinZoomLevel = 16;
 
+// The first zoom level in kAverageSegmentsCount.
+int constexpr kFirstZoomInAverageSegments = 10;
+//                                             10     11    12     13    14    15    16    17    18   19
+vector<size_t> const kAverageSegmentsCount = { 10000, 5000, 10000, 5000, 2500, 5000, 2000, 1000, 500, 500 };
+
 df::BaseApplyFeature::HotelData ExtractHotelData(FeatureType const & f)
 {
   df::BaseApplyFeature::HotelData result;
@@ -65,7 +70,12 @@ void ExtractTrafficGeometry(FeatureType const & f, df::RoadClass const & roadCla
   static vector<uint8_t> directions = {traffic::TrafficInfo::RoadSegmentId::kForwardDirection,
                                        traffic::TrafficInfo::RoadSegmentId::kReverseDirection};
   auto & segments = geometry[f.GetID().m_mwmId];
-  segments.reserve(segments.size() + directions.size() * (polyline.GetSize() - 1));
+
+  int const index = zoomLevel - kFirstZoomInAverageSegments;
+  ASSERT_GREATER_OR_EQUAL(index, 0, ());
+  ASSERT_LESS(index, kAverageSegmentsCount.size(), ());
+  segments.reserve(kAverageSegmentsCount[index]);
+
   for (uint16_t segIndex = 0; segIndex + 1 < static_cast<uint16_t>(polyline.GetSize()); ++segIndex)
   {
     for (size_t dirIndex = 0; dirIndex < directions.size(); ++dirIndex)

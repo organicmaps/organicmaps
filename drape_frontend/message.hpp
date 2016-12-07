@@ -85,7 +85,8 @@ enum class MessagePriority
 {
   Normal,
   High,
-  UberHighSingleton
+  UberHighSingleton,
+  Low
 };
 
 } // namespace df
