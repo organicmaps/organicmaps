@@ -1637,7 +1637,7 @@
 "placepage_hotel_nearby" = "附近";
 
 /* For ordering a taxi (as opposed to hotels or other things) */
-"taxi_order" = "預約";
+"taxi_order" = "訂一部計程車";
 
 /* How long it is until the taxi arrives */
 "taxi_wait" = "預計 %s 內到達";
@@ -1700,29 +1700,29 @@
 
 "dialog_taxi_error" = "叫計程車服務暫時無法使用。";
 
-"advertisement" = "Advertisement";
+"advertisement" = "廣告";
 
-"mobile_data_dialog" = "Use mobile internet to show detailed information?";
+"mobile_data_dialog" = "使用手機網路顯示詳細資訊？";
 
-"mobile_data_option_always" = "Use Always";
+"mobile_data_option_always" = "一律使用";
 
-"mobile_data_option_today" = "Only Today";
+"mobile_data_option_today" = "僅限今天";
 
-"mobile_data_option_not_today" = "Do not Use Today";
+"mobile_data_option_not_today" = "今天不使用";
 
-"mobile_data" = "Mobile Internet";
+"mobile_data" = "手機網路";
 
-"mobile_data_description" = "Mobile internet is required for displaying detailed information about places, such as photographs, prices and reviews.";
+"mobile_data_description" = "需有手機網路才能顯示相片、價格與評論等詳細資訊和地點。";
 
-"mobile_data_option_never" = "Never Use";
+"mobile_data_option_never" = "絕不使用";
 
-"mobile_data_option_ask" = "Always Ask";
+"mobile_data_option_ask" = "一律詢問";
 
-"traffic_update_maps_text" = "To display traffic data, maps must be updated.";
+"traffic_update_maps_text" = "若要顯示交通資料，必須更新地圖。";
 
-"traffic_outdated" = "Traffic data is outdated.";
+"traffic_outdated" = "交通資料已過時。";
 
-"big_font" = "Bigger labels";
+"big_font" = "更大的標籤";
 
 "traffic_update_app" = "Please update MAPS.ME";
 

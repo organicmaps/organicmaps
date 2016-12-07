@@ -950,7 +950,9 @@
 	<!-- For place page hotel nearby block -->
 	<string name="placepage_hotel_nearby">I nærheten</string>
 	<!-- For ordering a taxi (as opposed to hotels or other things) -->
-	<string name="taxi_order">Bestille</string>
+	<string name="taxi_order">Bestill drosje</string>
+	<!-- How long it is until the taxi arrives -->
+	<string name="taxi_wait">Forventet om %s</string>
 	<!-- When there are no available taxis nearby -->
 	<string name="taxi_not_found">Kunne ikke finne drosje i nærheten</string>
 	<string name="install_app">Installer</string>
@@ -983,4 +985,16 @@
 	<string name="whatsnew_uber_message">Bestill en Uber-drosje direkte fra appen!</string>
 	<string name="dialog_taxi_offline">Bestilling av taxi er ikke mulig i offlinemodus.</string>
 	<string name="dialog_taxi_error">Bestilling av taxi er ikke tilgjengelig for øyeblikket.</string>
+	<string name="advertisement">Reklame</string>
+	<string name="mobile_data_dialog">Bruke mobilt Internett til å vise detaljert informasjon?</string>
+	<string name="mobile_data_option_always">Bruk alltid</string>
+	<string name="mobile_data_option_today">Bare i dag</string>
+	<string name="mobile_data_option_not_today">Ikke bruk i dag</string>
+	<string name="mobile_data">Mobilt Internett</string>
+	<string name="mobile_data_description">Mobilt Internett er nødvendig for å vise detaljert informasjon om steder, for eksempel fotografier, priser og anmeldelser.</string>
+	<string name="mobile_data_option_never">Aldri bruk</string>
+	<string name="mobile_data_option_ask">Alltid spør</string>
+	<string name="traffic_update_maps_text">For å vise trafikkdata må kartene i appen være oppdaterte.</string>
+	<string name="traffic_outdated">Trafikkdata er utdatert.</string>
+	<string name="big_font">Større etiketter</string>
 </resources>

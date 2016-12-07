@@ -958,7 +958,7 @@
 	<!-- For place page hotel nearby block -->
 	<string name="placepage_hotel_nearby">Yakınlarda</string>
 	<!-- For ordering a taxi (as opposed to hotels or other things) -->
-	<string name="taxi_order">Çağır</string>
+	<string name="taxi_order">Taksi çağır</string>
 	<!-- How long it is until the taxi arrives -->
 	<string name="taxi_wait">%s içinde bekleniyor</string>
 	<!-- When there are no available taxis nearby -->
@@ -993,4 +993,16 @@
 	<string name="whatsnew_uber_message">Doğrudan uygulamadan Uber taksi isteyin!</string>
 	<string name="dialog_taxi_offline">Taksi çağırma çevrimdışı modda kullanılamıyor.</string>
 	<string name="dialog_taxi_error">Taksi çağırma geçici olarak kullanılamıyor.</string>
+	<string name="advertisement">Reklam</string>
+	<string name="mobile_data_dialog">Ayrıntılı bilgileri görüntülemek için mobil internet kullanılsın mı?</string>
+	<string name="mobile_data_option_always">Her zaman kullan</string>
+	<string name="mobile_data_option_today">Sadece Bugün</string>
+	<string name="mobile_data_option_not_today">Bugün Kullanma</string>
+	<string name="mobile_data">Mobil İnternet</string>
+	<string name="mobile_data_description">Mobil internet, fotoğraflar, fiyatlar ve yorumlar gibi mekanlarla ilgili ayrıntılı bilgileri görüntülemek için gereklidir.</string>
+	<string name="mobile_data_option_never">Asla Kullanma</string>
+	<string name="mobile_data_option_ask">Her Zaman Sor</string>
+	<string name="traffic_update_maps_text">Trafik verilerini görüntülemek için haritaların güncellenmesi gerekiyor.</string>
+	<string name="traffic_outdated">Trafik verileri güncel değil.</string>
+	<string name="big_font">Daha büyük etiketler</string>
 </resources>

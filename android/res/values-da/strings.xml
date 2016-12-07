@@ -956,7 +956,7 @@
 	<!-- For place page hotel nearby block -->
 	<string name="placepage_hotel_nearby">I nærheden</string>
 	<!-- For ordering a taxi (as opposed to hotels or other things) -->
-	<string name="taxi_order">Bestil</string>
+	<string name="taxi_order">Bestil en taxa</string>
 	<!-- How long it is until the taxi arrives -->
 	<string name="taxi_wait">Forventes om %s</string>
 	<!-- When there are no available taxis nearby -->
@@ -991,4 +991,16 @@
 	<string name="whatsnew_uber_message">Bestil Uber taxi direkte fra app\&#39;en!</string>
 	<string name="dialog_taxi_offline">Det er ikke muligt at bestille en taxi i offlinetilstand.</string>
 	<string name="dialog_taxi_error">Bestilling af en taxi er ikke muligt lige nu.</string>
+	<string name="advertisement">Annonce</string>
+	<string name="mobile_data_dialog">Skal mobilt internet bruges til at vise detaljerede oplysninger?</string>
+	<string name="mobile_data_option_always">Brug altid</string>
+	<string name="mobile_data_option_today">Kun i dag</string>
+	<string name="mobile_data_option_not_today">Brug ikke i dag</string>
+	<string name="mobile_data">Mobilt internet</string>
+	<string name="mobile_data_description">Mobile internet er nødvendigt til visning af detaljerede oplysninger om steder, såsom fotos, priser og anmeldelser.</string>
+	<string name="mobile_data_option_never">Brug aldrig</string>
+	<string name="mobile_data_option_ask">Spørg altid</string>
+	<string name="traffic_update_maps_text">Kortet opdateres for kunne vise trafikdata.</string>
+	<string name="traffic_outdated">Trafikdata er forældede.</string>
+	<string name="big_font">Større etiketter</string>
 </resources>

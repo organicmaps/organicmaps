@@ -958,7 +958,7 @@
 	<!-- For place page hotel nearby block -->
 	<string name="placepage_hotel_nearby">附近</string>
 	<!-- For ordering a taxi (as opposed to hotels or other things) -->
-	<string name="taxi_order">预订</string>
+	<string name="taxi_order">预订出租车</string>
 	<!-- How long it is until the taxi arrives -->
 	<string name="taxi_wait">预计 %s后到达</string>
 	<!-- When there are no available taxis nearby -->
@@ -993,4 +993,16 @@
 	<string name="whatsnew_uber_message">从应用直接叫优步出租车！</string>
 	<string name="dialog_taxi_offline">叫出租车服务在离线模式下无法使用。</string>
 	<string name="dialog_taxi_error">叫出租车服务暂时无法使用。</string>
+	<string name="advertisement">广告</string>
+	<string name="mobile_data_dialog">使用移动网络显示详细信息？</string>
+	<string name="mobile_data_option_always">始终使用</string>
+	<string name="mobile_data_option_today">仅在今天</string>
+	<string name="mobile_data_option_not_today">今天不使用</string>
+	<string name="mobile_data">移动网络</string>
+	<string name="mobile_data_description">要显示地点的详细信息（例如照片、价格和评价），需要使用移动网络。</string>
+	<string name="mobile_data_option_never">从不使用</string>
+	<string name="mobile_data_option_ask">总是询问</string>
+	<string name="traffic_update_maps_text">要显示交通数据，必须更新地图。</string>
+	<string name="traffic_outdated">交通数据已过时。</string>
+	<string name="big_font">更大的标签</string>
 </resources>

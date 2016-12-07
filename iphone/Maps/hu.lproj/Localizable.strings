@@ -1637,7 +1637,7 @@
 "placepage_hotel_nearby" = "Közeli";
 
 /* For ordering a taxi (as opposed to hotels or other things) */
-"taxi_order" = "Rendelés";
+"taxi_order" = "Taxi rendelés";
 
 /* How long it is until the taxi arrives */
 "taxi_wait" = "Várható %s";
@@ -1700,29 +1700,29 @@
 
 "dialog_taxi_error" = "A taxirendelés átmenetileg nem elérhető.";
 
-"advertisement" = "Advertisement";
+"advertisement" = "Hirdetés";
 
-"mobile_data_dialog" = "Use mobile internet to show detailed information?";
+"mobile_data_dialog" = "Részletes információk megjelenítése a mobil internet segítségével?";
 
-"mobile_data_option_always" = "Use Always";
+"mobile_data_option_always" = "Mindig használja";
 
-"mobile_data_option_today" = "Only Today";
+"mobile_data_option_today" = "Csak ma";
 
-"mobile_data_option_not_today" = "Do not Use Today";
+"mobile_data_option_not_today" = "Ma nem használhatja";
 
-"mobile_data" = "Mobile Internet";
+"mobile_data" = "Mobil Internet";
 
-"mobile_data_description" = "Mobile internet is required for displaying detailed information about places, such as photographs, prices and reviews.";
+"mobile_data_description" = "Mobil internetre van szükség helyszínekre vonatkozó részletes információ, mint például fotók, árak és szemlék megjelenítéséhez.";
 
-"mobile_data_option_never" = "Never Use";
+"mobile_data_option_never" = "Soha se használja";
 
-"mobile_data_option_ask" = "Always Ask";
+"mobile_data_option_ask" = "Mindig kérdezze meg";
 
-"traffic_update_maps_text" = "To display traffic data, maps must be updated.";
+"traffic_update_maps_text" = "Forgalmi adatok megjelenítéséhez a térképeket frissíteni kell.";
 
-"traffic_outdated" = "Traffic data is outdated.";
+"traffic_outdated" = "A forgalmi adatok elavultak.";
 
-"big_font" = "Bigger labels";
+"big_font" = "Nagyobb címkék";
 
 "traffic_update_app" = "Please update MAPS.ME";
 

@@ -945,7 +945,7 @@
 	<!-- For place page hotel nearby block -->
 	<string name="placepage_hotel_nearby">Cercano</string>
 	<!-- For ordering a taxi (as opposed to hotels or other things) -->
-	<string name="taxi_order">Pedir</string>
+	<string name="taxi_order">Pedir un taxi</string>
 	<!-- How long it is until the taxi arrives -->
 	<string name="taxi_wait">Se espera en %s</string>
 	<!-- When there are no available taxis nearby -->
@@ -980,4 +980,16 @@
 	<string name="whatsnew_uber_message">¡Pide un taxi Uber directamente desde la aplicación!</string>
 	<string name="dialog_taxi_offline">La opción para solicitar un taxi no se encuentra disponible en el modo sin conexión.</string>
 	<string name="dialog_taxi_error">La opción para solicitar un taxi se encuentra temporalmente no disponible.</string>
+	<string name="advertisement">Anuncio</string>
+	<string name="mobile_data_dialog">¿Usar Internet móvil para mostrar información detallada?</string>
+	<string name="mobile_data_option_always">Usar siempre</string>
+	<string name="mobile_data_option_today">Solo hoy</string>
+	<string name="mobile_data_option_not_today">No usar hoy</string>
+	<string name="mobile_data">Internet móvil</string>
+	<string name="mobile_data_description">Se necesita Internet móvil para mostrar información detallada de los lugares, como fotografías, precios y reseñas.</string>
+	<string name="mobile_data_option_never">No usar nunca</string>
+	<string name="mobile_data_option_ask">Preguntar siempre</string>
+	<string name="traffic_update_maps_text">Para mostrar los datos de tráfico, deben actualizarse los mapas.</string>
+	<string name="traffic_outdated">Los datos de tráfico están obsoletos.</string>
+	<string name="big_font">Etiquetas mayores</string>
 </resources>

@@ -1637,7 +1637,7 @@
 "placepage_hotel_nearby" = "قريبة";
 
 /* For ordering a taxi (as opposed to hotels or other things) */
-"taxi_order" = "ترتيب";
+"taxi_order" = "طلب تاكسي";
 
 /* How long it is until the taxi arrives */
 "taxi_wait" = "متوقع في %s";
@@ -1700,29 +1700,29 @@
 
 "dialog_taxi_error" = "طلب تاكسي غير متاح مؤقتا.";
 
-"advertisement" = "Advertisement";
+"advertisement" = "إعلان";
 
-"mobile_data_dialog" = "Use mobile internet to show detailed information?";
+"mobile_data_dialog" = "استخدام إنترنت المحمول لإظهار المعلومات التفصيلية؟";
 
-"mobile_data_option_always" = "Use Always";
+"mobile_data_option_always" = "استخدام دائمًا";
 
-"mobile_data_option_today" = "Only Today";
+"mobile_data_option_today" = "اليوم فقط";
 
-"mobile_data_option_not_today" = "Do not Use Today";
+"mobile_data_option_not_today" = "عدم الاستخدام اليوم";
 
-"mobile_data" = "Mobile Internet";
+"mobile_data" = "انترنت المحمول";
 
-"mobile_data_description" = "Mobile internet is required for displaying detailed information about places, such as photographs, prices and reviews.";
+"mobile_data_description" = "الإنترنت المحمول مطلوب لعرض معلومات تفصيلية عن الأماكن مثل الصور الفوتوغرافية والأسعار والمراجعات.";
 
-"mobile_data_option_never" = "Never Use";
+"mobile_data_option_never" = "عدم الاستخدام مطلقًا";
 
-"mobile_data_option_ask" = "Always Ask";
+"mobile_data_option_ask" = "السؤال دوماً";
 
-"traffic_update_maps_text" = "To display traffic data, maps must be updated.";
+"traffic_update_maps_text" = "لعرض البيانات المرورية، يجب تحديث الخرائط.";
 
-"traffic_outdated" = "Traffic data is outdated.";
+"traffic_outdated" = "البيانات المرورية قديمة.";
 
-"big_font" = "Bigger labels";
+"big_font" = "تسميات أكبر";
 
 "traffic_update_app" = "Please update MAPS.ME";
 

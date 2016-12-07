@@ -951,7 +951,7 @@
 	<!-- For place page hotel nearby block -->
 	<string name="placepage_hotel_nearby">Dekat</string>
 	<!-- For ordering a taxi (as opposed to hotels or other things) -->
-	<string name="taxi_order">Pesan</string>
+	<string name="taxi_order">Pesan taksi</string>
 	<!-- How long it is until the taxi arrives -->
 	<string name="taxi_wait">Diharapkan dalam %s</string>
 	<!-- When there are no available taxis nearby -->
@@ -986,4 +986,16 @@
 	<string name="whatsnew_uber_message">Pesan taksi Uber langsung dari aplikasi!</string>
 	<string name="dialog_taxi_offline">Memesan taksi tidak tersedia dalam modus offline.</string>
 	<string name="dialog_taxi_error">Memesan taksi untuk sementara tidak tersedia.</string>
+	<string name="advertisement">Iklan</string>
+	<string name="mobile_data_dialog">Gunakan internet seluler untuk memperlihatkan informasi terperinci?</string>
+	<string name="mobile_data_option_always">Selalu Gunakan</string>
+	<string name="mobile_data_option_today">Hanya Hari Ini</string>
+	<string name="mobile_data_option_not_today">Jangan Gunakan Hari Ini</string>
+	<string name="mobile_data">Internet Seluler</string>
+	<string name="mobile_data_description">Internet seluler diperlukan untuk menampilkan informasi terperinci tentang tempat, seperti foto, harga, dan ulasan.</string>
+	<string name="mobile_data_option_never">Jangan Gunakan</string>
+	<string name="mobile_data_option_ask">Selalu Tanya</string>
+	<string name="traffic_update_maps_text">Untuk memperlihatkan data lalu lintas, peta harus diperbarui.</string>
+	<string name="traffic_outdated">Data lalu lintas belum diperbarui.</string>
+	<string name="big_font">Label yang lebih besar</string>
 </resources>

@@ -1637,7 +1637,7 @@
 "placepage_hotel_nearby" = "Cercano";
 
 /* For ordering a taxi (as opposed to hotels or other things) */
-"taxi_order" = "Pedir";
+"taxi_order" = "Pedir un taxi";
 
 /* How long it is until the taxi arrives */
 "taxi_wait" = "Se espera en %s";
@@ -1700,29 +1700,29 @@
 
 "dialog_taxi_error" = "La opción para solicitar un taxi se encuentra temporalmente no disponible.";
 
-"advertisement" = "Advertisement";
+"advertisement" = "Anuncio";
 
-"mobile_data_dialog" = "Use mobile internet to show detailed information?";
+"mobile_data_dialog" = "¿Usar Internet móvil para mostrar información detallada?";
 
-"mobile_data_option_always" = "Use Always";
+"mobile_data_option_always" = "Usar siempre";
 
-"mobile_data_option_today" = "Only Today";
+"mobile_data_option_today" = "Solo hoy";
 
-"mobile_data_option_not_today" = "Do not Use Today";
+"mobile_data_option_not_today" = "No usar hoy";
 
-"mobile_data" = "Mobile Internet";
+"mobile_data" = "Internet móvil";
 
-"mobile_data_description" = "Mobile internet is required for displaying detailed information about places, such as photographs, prices and reviews.";
+"mobile_data_description" = "Se necesita Internet móvil para mostrar información detallada de los lugares, como fotografías, precios y reseñas.";
 
-"mobile_data_option_never" = "Never Use";
+"mobile_data_option_never" = "No usar nunca";
 
-"mobile_data_option_ask" = "Always Ask";
+"mobile_data_option_ask" = "Preguntar siempre";
 
-"traffic_update_maps_text" = "To display traffic data, maps must be updated.";
+"traffic_update_maps_text" = "Para mostrar los datos de tráfico, deben actualizarse los mapas.";
 
-"traffic_outdated" = "Traffic data is outdated.";
+"traffic_outdated" = "Los datos de tráfico están obsoletos.";
 
-"big_font" = "Bigger labels";
+"big_font" = "Etiquetas mayores";
 
 "traffic_update_app" = "Please update MAPS.ME";
 

@@ -1637,7 +1637,7 @@
 "placepage_hotel_nearby" = "V blízkosti";
 
 /* For ordering a taxi (as opposed to hotels or other things) */
-"taxi_order" = "Objednať";
+"taxi_order" = "Objednať taxík";
 
 /* How long it is until the taxi arrives */
 "taxi_wait" = "Očakávaný príjazd o %s";
@@ -1700,29 +1700,29 @@
 
 "dialog_taxi_error" = "Objednanie taxíka je dočasne nedostupné.";
 
-"advertisement" = "Advertisement";
+"advertisement" = "Reklama";
 
-"mobile_data_dialog" = "Use mobile internet to show detailed information?";
+"mobile_data_dialog" = "Použiť mobilný internet na zobrazenie podrobnejších informácií?";
 
-"mobile_data_option_always" = "Use Always";
+"mobile_data_option_always" = "Vždy použiť";
 
-"mobile_data_option_today" = "Only Today";
+"mobile_data_option_today" = "Iba dnes";
 
-"mobile_data_option_not_today" = "Do not Use Today";
+"mobile_data_option_not_today" = "Dnes nepoužiť";
 
-"mobile_data" = "Mobile Internet";
+"mobile_data" = "Mobilný internet";
 
-"mobile_data_description" = "Mobile internet is required for displaying detailed information about places, such as photographs, prices and reviews.";
+"mobile_data_description" = "Na zobrazenie podrobnejších informácií o miestach, napríklad fotografií, cien a recenzií, sa vyžaduje mobilný internet.";
 
-"mobile_data_option_never" = "Never Use";
+"mobile_data_option_never" = "Nikdy nepoužiť";
 
-"mobile_data_option_ask" = "Always Ask";
+"mobile_data_option_ask" = "Vždy sa opýtať";
 
-"traffic_update_maps_text" = "To display traffic data, maps must be updated.";
+"traffic_update_maps_text" = "Na zobrazenie dopravných informácií je potrebné aktualizovať mapy.";
 
-"traffic_outdated" = "Traffic data is outdated.";
+"traffic_outdated" = "Dopravné informácie sú neaktuálne.";
 
-"big_font" = "Bigger labels";
+"big_font" = "Väčšie nápisy";
 
 "traffic_update_app" = "Please update MAPS.ME";
 

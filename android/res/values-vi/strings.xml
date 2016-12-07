@@ -952,7 +952,7 @@
 	<!-- For place page hotel nearby block -->
 	<string name="placepage_hotel_nearby">Gần đây</string>
 	<!-- For ordering a taxi (as opposed to hotels or other things) -->
-	<string name="taxi_order">Đặt xe</string>
+	<string name="taxi_order">Đặt xe taxi</string>
 	<!-- How long it is until the taxi arrives -->
 	<string name="taxi_wait">Sẽ đến trong %s</string>
 	<!-- When there are no available taxis nearby -->
@@ -987,4 +987,16 @@
 	<string name="whatsnew_uber_message">Đặt taxi Uber trực tiếp từ ứng dụng!</string>
 	<string name="dialog_taxi_offline">Gọi taxi không khả dụng trong chế độ ngoại tuyến.</string>
 	<string name="dialog_taxi_error">Gọi taxi tạm thời không khả dụng.</string>
+	<string name="advertisement">Quảng cáo</string>
+	<string name="mobile_data_dialog">Sử dụng mạng Internet di động để hiển thị thông tin chi tiết?</string>
+	<string name="mobile_data_option_always">Luôn Sử dụng</string>
+	<string name="mobile_data_option_today">Chỉ Hôm nay</string>
+	<string name="mobile_data_option_not_today">Không Sử dụng Hôm nay</string>
+	<string name="mobile_data">Internet Di động</string>
+	<string name="mobile_data_description">Internet di động là cần thiết để hiển thị thông tin chi tiết về các nơi, ví dụ như ảnh chụp, giá cả và đánh giá.</string>
+	<string name="mobile_data_option_never">Không bao giờ sử dụng</string>
+	<string name="mobile_data_option_ask">Luôn Hỏi</string>
+	<string name="traffic_update_maps_text">Để hiển thị dữ liệu giao thông, cần cập nhật bản đồ.</string>
+	<string name="traffic_outdated">Dữ liệu giao thông đã lỗi thời.</string>
+	<string name="big_font">Nhãn mác to hơn</string>
 </resources>

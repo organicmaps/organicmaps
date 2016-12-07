@@ -1637,7 +1637,7 @@
 "placepage_hotel_nearby" = "근처";
 
 /* For ordering a taxi (as opposed to hotels or other things) */
-"taxi_order" = "주문";
+"taxi_order" = "택시 주문";
 
 /* How long it is until the taxi arrives */
 "taxi_wait" = "%s 예상";
@@ -1700,29 +1700,29 @@
 
 "dialog_taxi_error" = "일시적으로 택시를 예약할 수 없습니다.";
 
-"advertisement" = "Advertisement";
+"advertisement" = "광고";
 
-"mobile_data_dialog" = "Use mobile internet to show detailed information?";
+"mobile_data_dialog" = "모바일 인터넷을 사용하여 자세한 정보를 표시하시겠습니까?";
 
-"mobile_data_option_always" = "Use Always";
+"mobile_data_option_always" = "항상 사용";
 
-"mobile_data_option_today" = "Only Today";
+"mobile_data_option_today" = "오늘만";
 
-"mobile_data_option_not_today" = "Do not Use Today";
+"mobile_data_option_not_today" = "오늘 사용 안 함";
 
-"mobile_data" = "Mobile Internet";
+"mobile_data" = "모바일 인터넷";
 
-"mobile_data_description" = "Mobile internet is required for displaying detailed information about places, such as photographs, prices and reviews.";
+"mobile_data_description" = "모바일 인터넷은 사진, 가격, 리뷰 등 장소에 대한 자세한 정보를 표시하는 데 필요합니다.";
 
-"mobile_data_option_never" = "Never Use";
+"mobile_data_option_never" = "전혀 사용 안 함";
 
-"mobile_data_option_ask" = "Always Ask";
+"mobile_data_option_ask" = "항상 표시";
 
-"traffic_update_maps_text" = "To display traffic data, maps must be updated.";
+"traffic_update_maps_text" = "교통 데이터를 표시하려면 지도를 업데이트해야 합니다.";
 
-"traffic_outdated" = "Traffic data is outdated.";
+"traffic_outdated" = "교통 데이터가 오래되었습니다.";
 
-"big_font" = "Bigger labels";
+"big_font" = "더 큰 레이블";
 
 "traffic_update_app" = "Please update MAPS.ME";
 

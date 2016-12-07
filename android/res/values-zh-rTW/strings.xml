@@ -964,7 +964,7 @@
 	<!-- For place page hotel nearby block -->
 	<string name="placepage_hotel_nearby">附近</string>
 	<!-- For ordering a taxi (as opposed to hotels or other things) -->
-	<string name="taxi_order">預約</string>
+	<string name="taxi_order">訂一部計程車</string>
 	<!-- How long it is until the taxi arrives -->
 	<string name="taxi_wait">預計 %s 內到達</string>
 	<!-- When there are no available taxis nearby -->
@@ -999,4 +999,16 @@
 	<string name="whatsnew_uber_message">直接從應用程序預訂計程車！</string>
 	<string name="dialog_taxi_offline">叫計程車服務在離線模式下無法使用。</string>
 	<string name="dialog_taxi_error">叫計程車服務暫時無法使用。</string>
+	<string name="advertisement">廣告</string>
+	<string name="mobile_data_dialog">使用手機網路顯示詳細資訊？</string>
+	<string name="mobile_data_option_always">一律使用</string>
+	<string name="mobile_data_option_today">僅限今天</string>
+	<string name="mobile_data_option_not_today">今天不使用</string>
+	<string name="mobile_data">手機網路</string>
+	<string name="mobile_data_description">需有手機網路才能顯示相片、價格與評論等詳細資訊和地點。</string>
+	<string name="mobile_data_option_never">絕不使用</string>
+	<string name="mobile_data_option_ask">一律詢問</string>
+	<string name="traffic_update_maps_text">若要顯示交通資料，必須更新地圖。</string>
+	<string name="traffic_outdated">交通資料已過時。</string>
+	<string name="big_font">更大的標籤</string>
 </resources>

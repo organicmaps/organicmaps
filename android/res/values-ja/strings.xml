@@ -951,7 +951,7 @@
 	<!-- For place page hotel nearby block -->
 	<string name="placepage_hotel_nearby">近隣</string>
 	<!-- For ordering a taxi (as opposed to hotels or other things) -->
-	<string name="taxi_order">予約</string>
+	<string name="taxi_order">タクシーを呼ぶ</string>
 	<!-- How long it is until the taxi arrives -->
 	<string name="taxi_wait">%s 後に到着予定</string>
 	<!-- When there are no available taxis nearby -->
@@ -986,4 +986,16 @@
 	<string name="whatsnew_uber_message">アプリから直接Uberの配車リクエストができます！</string>
 	<string name="dialog_taxi_offline">タクシーの予約がオフラインモードでは使用できません。</string>
 	<string name="dialog_taxi_error">タクシーの予約が一時的に使用できません。</string>
+	<string name="advertisement">広告</string>
+	<string name="mobile_data_dialog">モバイルインターネットを使用して詳細な情報を表示しますか？</string>
+	<string name="mobile_data_option_always">常に使用</string>
+	<string name="mobile_data_option_today">今日だけ</string>
+	<string name="mobile_data_option_not_today">今日は使用しない</string>
+	<string name="mobile_data">モバイルインターネット</string>
+	<string name="mobile_data_description">モバイルインターネットは場所、写真、価格やレビューのような詳細情報を表示するのに必要です。</string>
+	<string name="mobile_data_option_never">使用しない</string>
+	<string name="mobile_data_option_ask">常に確認</string>
+	<string name="traffic_update_maps_text">交通データを表示するには、地図を更新する必要があります。</string>
+	<string name="traffic_outdated">交通データが古くなっています。</string>
+	<string name="big_font">大きなラベル</string>
 </resources>

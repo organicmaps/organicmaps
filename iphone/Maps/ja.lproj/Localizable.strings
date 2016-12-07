@@ -1637,7 +1637,7 @@
 "placepage_hotel_nearby" = "近隣";
 
 /* For ordering a taxi (as opposed to hotels or other things) */
-"taxi_order" = "予約";
+"taxi_order" = "タクシーを呼ぶ";
 
 /* How long it is until the taxi arrives */
 "taxi_wait" = "%s 後に到着予定";
@@ -1700,29 +1700,29 @@
 
 "dialog_taxi_error" = "タクシーの予約が一時的に使用できません。";
 
-"advertisement" = "Advertisement";
+"advertisement" = "広告";
 
-"mobile_data_dialog" = "Use mobile internet to show detailed information?";
+"mobile_data_dialog" = "モバイルインターネットを使用して詳細な情報を表示しますか？";
 
-"mobile_data_option_always" = "Use Always";
+"mobile_data_option_always" = "常に使用";
 
-"mobile_data_option_today" = "Only Today";
+"mobile_data_option_today" = "今日だけ";
 
-"mobile_data_option_not_today" = "Do not Use Today";
+"mobile_data_option_not_today" = "今日は使用しない";
 
-"mobile_data" = "Mobile Internet";
+"mobile_data" = "モバイルインターネット";
 
-"mobile_data_description" = "Mobile internet is required for displaying detailed information about places, such as photographs, prices and reviews.";
+"mobile_data_description" = "モバイルインターネットは場所、写真、価格やレビューのような詳細情報を表示するのに必要です。";
 
-"mobile_data_option_never" = "Never Use";
+"mobile_data_option_never" = "使用しない";
 
-"mobile_data_option_ask" = "Always Ask";
+"mobile_data_option_ask" = "常に確認";
 
-"traffic_update_maps_text" = "To display traffic data, maps must be updated.";
+"traffic_update_maps_text" = "交通データを表示するには、地図を更新する必要があります。";
 
-"traffic_outdated" = "Traffic data is outdated.";
+"traffic_outdated" = "交通データが古くなっています。";
 
-"big_font" = "Bigger labels";
+"big_font" = "大きなラベル";
 
 "traffic_update_app" = "Please update MAPS.ME";
 
