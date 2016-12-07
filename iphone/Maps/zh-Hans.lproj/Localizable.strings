@@ -1723,3 +1723,7 @@
 "traffic_outdated" = "Traffic data is outdated.";
 
 "big_font" = "Bigger labels";
+
+"traffic_update_app" = "Please update MAPS.ME";
+
+"traffic_update_app_message" = "To display traffic data, the application must be updated.";

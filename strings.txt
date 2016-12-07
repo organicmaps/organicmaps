@@ -20847,3 +20847,10 @@
     en = Bigger labels
     ru = Увеличенные подписи
 
+  [traffic_update_app]
+    en = Please update MAPS.ME
+    ru = Обновите MAPS.ME
+
+  [traffic_update_app_message]
+    en = To display traffic data, the application must be updated.
+    ru = Для отображения пробок необходимо обновить приложение.

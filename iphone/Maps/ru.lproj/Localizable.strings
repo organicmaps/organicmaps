@@ -1723,3 +1723,7 @@
 "traffic_outdated" = "Данные о пробках устарели.";
 
 "big_font" = "Увеличенные подписи";
+
+"traffic_update_app" = "Обновите MAPS.ME";
+
+"traffic_update_app_message" = "Для отображения пробок необходимо обновить приложение.";
