@@ -75,6 +75,8 @@ string MakeRemoteURL(string const & name, uint64_t version)
   ss << UrlEncode(name) << TRAFFIC_FILE_EXTENSION;
   return ss.str();
 }
+
+char const kETag[] = "Etag";
 }  // namespace
 
 // TrafficInfo::RoadSegmentId -----------------------------------------------------------------
@@ -133,10 +135,10 @@ void TrafficInfo::SetTrafficKeysForTesting(vector<RoadSegmentId> const & keys)
   m_availability = Availability::IsAvailable;
 }
 
-bool TrafficInfo::ReceiveTrafficData()
+bool TrafficInfo::ReceiveTrafficData(string & etag)
 {
   vector<SpeedGroup> values;
-  if (!ReceiveTrafficValues(values))
+  if (!ReceiveTrafficValues(etag, values))
     return false;
 
   return UpdateTrafficData(values);
@@ -396,48 +398,28 @@ bool TrafficInfo::ReceiveTrafficKeys()
   return true;
 }
 
-bool TrafficInfo::ReceiveTrafficValues(vector<SpeedGroup> & values)
+bool TrafficInfo::ReceiveTrafficValues(string & etag, vector<SpeedGroup> & values)
 {
   auto const & info = m_mwmId.GetInfo();
   if (!info)
     return false;
 
-  string const url = MakeRemoteURL(info->GetCountryName(), info->GetVersion());
+  uint64_t const version = info->GetVersion();
+  string const url = MakeRemoteURL(info->GetCountryName(), version);
 
   if (url.empty())
     return false;
 
-  vector<uint8_t> contents;
-  int errorCode;
-  if (!ReadRemoteFile(url, contents, errorCode))
-  {
-    if (errorCode == 404)
-    {
-      string const result(reinterpret_cast<char*>(contents.data()), contents.size());
+  platform::HttpClient request(url);
+  request.LoadHeaders(true);
+  request.SetRawHeader("If-None-Match", etag);
 
-      int64_t version = 0;
-      strings::to_int64(result.c_str(), version);
-
-      if (version > info->GetVersion() && version <= m_currentDataVersion)
-        m_availability = Availability::ExpiredData;
-      else if (version > m_currentDataVersion)
-        m_availability = Availability::ExpiredApp;
-      else
-        m_availability = Availability::NoData;
-    }
-    else
-    {
-      m_availability = Availability::Unknown;
-
-      alohalytics::LogEvent(
-          "$TrafficNetworkError",
-          alohalytics::TStringMap({{"code", strings::to_string(errorCode)}}));
-    }
-    return false;
-  }
-
+  if (!request.RunHttpRequest() || request.ErrorCode() != 200)
+    return ProcessFailure(request, version);
   try
   {
+    string const & response = request.ServerResponse();
+    vector<uint8_t> contents(response.cbegin(), response.cend());
     DeserializeTrafficValues(contents, values);
   }
   catch (Reader::Exception const & e)
@@ -453,6 +435,12 @@ bool TrafficInfo::ReceiveTrafficValues(vector<SpeedGroup> & values)
 
     return false;
   }
+  // Update ETag for this MWM.
+  auto const & headers = request.GetHeaders();
+  auto const it = headers.find(kETag);
+  if (it != headers.end())
+    etag = it->second;
+
   m_availability = Availability::IsAvailable;
   return true;
 }
@@ -480,13 +468,45 @@ bool TrafficInfo::UpdateTrafficData(vector<SpeedGroup> const & values)
   return true;
 }
 
+bool TrafficInfo::ProcessFailure(platform::HttpClient const & request, uint64_t const mwmVersion)
+{
+  switch (request.ErrorCode())
+  {
+  case 404: /* Not Found */
+  {
+    int64_t version = 0;
+    strings::to_int64(request.ServerResponse().c_str(), version);
+
+    if (version > mwmVersion && version <= m_currentDataVersion)
+      m_availability = Availability::ExpiredData;
+    else if (version > m_currentDataVersion)
+      m_availability = Availability::ExpiredApp;
+    else
+      m_availability = Availability::NoData;
+    return false;
+  }
+  case 304: /* Not Modified */
+  {
+    m_availability = Availability::IsAvailable;
+    return true;
+  }
+  }
+
+  m_availability = Availability::Unknown;
+  alohalytics::LogEvent(
+                        "$TrafficNetworkError",
+                        alohalytics::TStringMap({{"code", strings::to_string(request.ErrorCode())}}));
+
+  return false;
+}
+
 string DebugPrint(TrafficInfo::RoadSegmentId const & id)
 {
   string const dir =
-      id.m_dir == TrafficInfo::RoadSegmentId::kForwardDirection ? "Forward" : "Backward";
+  id.m_dir == TrafficInfo::RoadSegmentId::kForwardDirection ? "Forward" : "Backward";
   ostringstream oss;
   oss << "RoadSegmentId ["
-      << " fid = " << id.m_fid << " idx = " << id.m_idx << " dir = " << dir << " ]";
+  << " fid = " << id.m_fid << " idx = " << id.m_idx << " dir = " << dir << " ]";
   return oss.str();
 }
 }  // namespace traffic
