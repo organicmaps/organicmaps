@@ -139,10 +139,15 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 #pragma mark - MWMPlacePageViewManager
 
-- (void)dismissPlacePage { [self.placePageManager hidePlacePage]; }
+- (void)dismissPlacePage
+{
+  self.trafficButtonHidden = NO;
+  [self.placePageManager hidePlacePage];
+}
 
 - (void)showPlacePage:(place_page::Info const &)info
 {
+  self.trafficButtonHidden = YES;
   [self.placePageManager showPlacePage:info];
   if (IPAD)
   {
@@ -271,12 +276,14 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)didFinishAddingPlace
 {
+  self.trafficButtonHidden = NO;
   self.menuState = MWMBottomMenuStateInactive;
   static_cast<EAGLView *>(self.ownerController.view).widgetsManager.fullScreen = NO;
 }
 
 - (void)addPlace:(BOOL)isBusiness hasPoint:(BOOL)hasPoint point:(m2::PointD const &)point
 {
+  self.trafficButtonHidden = YES;
   self.menuState = MWMBottomMenuStateHidden;
   MapViewController * ownerController = self.ownerController;
   static_cast<EAGLView *>(ownerController.view).widgetsManager.fullScreen = YES;
@@ -368,6 +375,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   if (_disableStandbyOnRouteFollowing == disableStandbyOnRouteFollowing)
     return;
   _disableStandbyOnRouteFollowing = disableStandbyOnRouteFollowing;
+  self.trafficButtonHidden = disableStandbyOnRouteFollowing;
   if (disableStandbyOnRouteFollowing)
     [[MapsAppDelegate theApp] disableStandby];
   else
@@ -419,7 +427,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.hidden = NO;
   self.sideButtons.zoomHidden = self.zoomHidden;
   self.sideButtonsHidden = NO;
-  self.trafficButtonHidden = YES;
   self.disableStandbyOnRouteFollowing = YES;
   self.navigationManager.state = MWMNavigationDashboardStateNavigation;
 }
@@ -427,7 +434,6 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)onRouteStop
 {
   self.sideButtons.zoomHidden = self.zoomHidden;
-  self.trafficButtonHidden = NO;
   self.navigationManager.state = MWMNavigationDashboardStateHidden;
   self.disableStandbyOnRouteFollowing = NO;
   self.menuState = MWMBottomMenuStateInactive;
@@ -513,8 +519,8 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)setTrafficButtonHidden:(BOOL)trafficButtonHidden
 {
-  _trafficButtonHidden = trafficButtonHidden;
-  self.trafficButton.hidden = self.hidden || trafficButtonHidden;
+  _trafficButtonHidden = self.disableStandbyOnRouteFollowing || trafficButtonHidden;
+  self.trafficButton.hidden = self.hidden || _trafficButtonHidden;
 }
 
 - (void)setMenuState:(MWMBottomMenuState)menuState
