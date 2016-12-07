@@ -86,6 +86,7 @@ public:
            ref_ptr<RequestedTiles> requestedTiles,
            double timeInBackground,
            bool allow3dBuildings,
+           bool trafficEnabled,
            bool blockTapEvents,
            bool firstLaunch,
            bool isRoutingActive,
@@ -100,6 +101,7 @@ public:
       , m_requestedTiles(requestedTiles)
       , m_timeInBackground(timeInBackground)
       , m_allow3dBuildings(allow3dBuildings)
+      , m_trafficEnabled(trafficEnabled)
       , m_blockTapEvents(blockTapEvents)
       , m_firstLaunch(firstLaunch)
       , m_isRoutingActive(isRoutingActive)
@@ -115,6 +117,7 @@ public:
     ref_ptr<RequestedTiles> m_requestedTiles;
     double m_timeInBackground;
     bool m_allow3dBuildings;
+    bool m_trafficEnabled;
     bool m_blockTapEvents;
     bool m_firstLaunch;
     bool m_isRoutingActive;
@@ -341,6 +344,7 @@ private:
   bool m_needRestoreSize;
 
   bool m_trafficStateChanged;
+  bool m_trafficEnabled;
 
 #ifdef DEBUG
   bool m_isTeardowned;
