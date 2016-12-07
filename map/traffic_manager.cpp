@@ -52,12 +52,21 @@ TrafficManager::TrafficManager(GetMwmsByRectFn const & getMwmsByRectFn, size_t m
 
 TrafficManager::~TrafficManager()
 {
+  ASSERT(m_isTeardowned, ());
+}
+
+void TrafficManager::Teardown()
+{
   {
     lock_guard<mutex> lock(m_mutex);
     m_isRunning = false;
   }
   m_condition.notify_one();
   m_thread.join();
+
+#ifdef DEBUG
+  m_isTeardowned = true;
+#endif
 }
 
 void TrafficManager::SetStateListener(TrafficStateChangedFn const & onStateChangedFn)
@@ -313,21 +322,26 @@ void TrafficManager::OnTrafficDataResponse(traffic::TrafficInfo && info)
     it->second.m_isWaitingForResponse = false;
     it->second.m_lastAvailability = info.GetAvailability();
 
-    // Update cache.
-    size_t constexpr kElementSize = sizeof(traffic::TrafficInfo::RoadSegmentId) + sizeof(traffic::SpeedGroup);
-
-    size_t const dataSize = info.GetColoring().size() * kElementSize;
-    m_currentCacheSizeBytes += (dataSize - it->second.m_dataSize);
-    it->second.m_dataSize = dataSize;
-    CheckCacheSize();
+    if (!info.GetColoring().empty())
+    {
+      // Update cache.
+      size_t constexpr kElementSize = sizeof(traffic::TrafficInfo::RoadSegmentId) + sizeof(traffic::SpeedGroup);
+      size_t const dataSize = info.GetColoring().size() * kElementSize;
+      m_currentCacheSizeBytes += (dataSize - it->second.m_dataSize);
+      it->second.m_dataSize = dataSize;
+      CheckCacheSize();
+    }
 
     UpdateState();
   }
 
-  m_drapeEngine->UpdateTraffic(info);
+  if (!info.GetColoring().empty())
+  {
+    m_drapeEngine->UpdateTraffic(info);
 
-  // Update traffic colors for routing.
-  m_observer.OnTrafficInfoAdded(move(info));
+    // Update traffic colors for routing.
+    m_observer.OnTrafficInfoAdded(move(info));
+  }
 }
 
 void TrafficManager::CheckCacheSize()
