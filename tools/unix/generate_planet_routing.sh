@@ -113,13 +113,14 @@ elif [ "$1" == "mwm" ]; then
 
   # Xargs has 255 chars limit for exec string, so we use short variable names.
   export G="$GENERATOR_TOOL"
-  export K="--make_routing --make_cross_section"
+  export K="--make_routing --make_cross_section --make_routing_index"
+  export I="--intermediate_data_path=$INTDIR"
   export TARGET
   export LOG_PATH
   export DATA_PATH
   set +e
   find "$INTDIR" -maxdepth 1 -name '*.osrm' -print0 | xargs -0 -P $NUM_PROCESSES -I % \
-    sh -c 'O="%"; B="$(basename "$O" .osrm)"; "$G" $K --osrm_file_name="$O" --data_path="$TARGET" --user_resource_path="$DATA_PATH" --output="$B" 2>> "$LOG_PATH/$B.log"'
+    sh -c 'O="%"; B="$(basename "$O" .osrm)"; "$G" $K "$I" --osrm_file_name="$O" --data_path="$TARGET" --user_resource_path="$DATA_PATH" --output="$B" 2>> "$LOG_PATH/$B.log"'
   set -e
 
   if [ -n "${POLY_DIR-}" ]; then

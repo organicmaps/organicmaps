@@ -36,9 +36,6 @@ struct GenerateInfo
   // Current generated file name if --output option is defined.
   string m_fileName;
 
-  // File name for a file with restrictions in osm id terms.
-  string m_restrictions;
-
   NodeStorageType m_nodeStorageType;
   OsmSourceType m_osmFileType;
   string m_osmFileName;

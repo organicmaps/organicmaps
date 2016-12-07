@@ -84,11 +84,7 @@ DEFINE_uint64(planet_version, my::SecondsSinceEpoch(),
 DEFINE_string(srtm_path, "",
               "Path to srtm directory. If it is set, generates section with altitude information "
               "about roads.");
-DEFINE_string(restriction_name, "", "Name of file with relation restriction in osm id terms.");
-DEFINE_string(feature_ids_to_osm_ids_name, "",
-              "Name of file with mapping from feature ids to osm ids.");
-DEFINE_bool(generate_routing, false, "Generate section with routing information.");
-DEFINE_bool(generate_restrictions, false, "Generate section with road restrictions.");
+DEFINE_bool(make_routing_index, false, "Make sections with the routing information.");
 
 int main(int argc, char ** argv)
 {
@@ -119,7 +115,6 @@ int main(int argc, char ** argv)
   }
 
   genInfo.m_osmFileName = FLAGS_osm_file_name;
-  genInfo.m_restrictions = FLAGS_restriction_name;
   genInfo.m_failOnCoasts = FLAGS_fail_on_coasts;
   genInfo.m_preloadCache = FLAGS_preload_cache;
   genInfo.m_bookingDatafileName = FLAGS_booking_data;
@@ -152,7 +147,7 @@ int main(int argc, char ** argv)
       FLAGS_generate_index || FLAGS_generate_search_index || FLAGS_calc_statistics ||
       FLAGS_type_statistics || FLAGS_dump_types || FLAGS_dump_prefixes ||
       FLAGS_dump_feature_names != "" || FLAGS_check_mwm || FLAGS_srtm_path != "" ||
-      FLAGS_generate_routing || FLAGS_generate_restrictions )
+      FLAGS_make_routing_index)
   {
     classificator::Load();
     classif().SortClassificator();
@@ -163,7 +158,6 @@ int main(int argc, char ** argv)
   {
     LOG(LINFO, ("Generating final data ..."));
 
-    genInfo.m_restrictions = FLAGS_restriction_name;
     genInfo.m_splitByPolygons = FLAGS_split_by_polygons;
     genInfo.m_createWorld = FLAGS_generate_world;
     genInfo.m_makeCoasts = FLAGS_make_coasts;
@@ -239,14 +233,13 @@ int main(int argc, char ** argv)
     if (!FLAGS_srtm_path.empty())
       routing::BuildRoadAltitudes(datFile, FLAGS_srtm_path);
 
-    if (FLAGS_generate_routing)
-      routing::BuildRoutingIndex(datFile, country);
-
-    if (FLAGS_generate_restrictions)
+    if (FLAGS_make_routing_index)
     {
       routing::BuildRoadRestrictions(
-          datFile, genInfo.GetIntermediateFileName(genInfo.m_restrictions, "" /* extention */),
+          datFile, genInfo.GetIntermediateFileName(RESTRICTIONS_FILENAME, ""),
           genInfo.GetTargetFileName(country) + OSM2FEATURE_FILE_EXTENSION);
+
+      routing::BuildRoutingIndex(datFile, country);
     }
   }
 
