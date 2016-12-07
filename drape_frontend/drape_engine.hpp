@@ -5,11 +5,12 @@
 #include "drape_frontend/frontend_renderer.hpp"
 #include "drape_frontend/route_shape.hpp"
 #include "drape_frontend/selection_shape.hpp"
-#include "drape_frontend/traffic_generator.hpp"
 #include "drape_frontend/threads_commutator.hpp"
 
 #include "drape/pointers.hpp"
 #include "drape/texture_manager.hpp"
+
+#include "traffic/traffic_info.hpp"
 
 #include "platform/location.hpp"
 
@@ -167,7 +168,7 @@ public:
                           TRequestSymbolsSizeCallback const & callback);
 
   void EnableTraffic(bool trafficEnabled);
-  void UpdateTraffic(TrafficSegmentsColoring const & segmentsColoring);
+  void UpdateTraffic(traffic::TrafficInfo const & info);
   void ClearTrafficCache(MwmSet::MwmId const & mwmId);
 
   void SetFontScaleFactor(double scaleFactor);
