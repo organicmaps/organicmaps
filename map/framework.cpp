@@ -461,10 +461,7 @@ Framework::Framework()
 
 Framework::~Framework()
 {
-  m_trafficManager.SetDrapeEngine(nullptr);
-  m_drapeApi.SetEngine(nullptr);
-  m_drapeEngine.reset();
-
+  DestroyDrapeEngine();
   m_model.SetOnMapDeregisteredCallback(nullptr);
 }
 
@@ -1753,8 +1750,13 @@ ref_ptr<df::DrapeEngine> Framework::GetDrapeEngine()
 
 void Framework::DestroyDrapeEngine()
 {
-  GpsTracker::Instance().Disconnect();
-  m_drapeEngine.reset();
+  if (m_drapeEngine != nullptr)
+  {
+    m_drapeApi.SetEngine(nullptr);
+    m_trafficManager.Teardown();
+    GpsTracker::Instance().Disconnect();
+    m_drapeEngine.reset();
+  }
 }
 
 void Framework::SetRenderingEnabled(ref_ptr<dp::OGLContextFactory> contextFactory)

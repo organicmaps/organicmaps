@@ -61,6 +61,8 @@ public:
                  traffic::TrafficObserver & observer);
   ~TrafficManager();
 
+  void Teardown();
+
   void SetStateListener(TrafficStateChangedFn const & onStateChangedFn);
   void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine);
   void SetCurrentDataVersion(int64_t dataVersion);
@@ -139,4 +141,8 @@ private:
   vector<MwmSet::MwmId> m_requestedMwms;
   mutex m_mutex;
   threads::SimpleThread m_thread;
+
+#ifdef DEBUG
+  bool m_isTeardowned = false;
+#endif
 };
