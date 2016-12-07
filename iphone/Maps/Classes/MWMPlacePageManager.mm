@@ -137,12 +137,8 @@
   [[MWMSideButtons buttons] setBottomBound:self.ownerViewController.view.height - bound];
 }
 
-- (void)shouldDestroyLayout
-{
-  self.layout = nil;
-  GetFramework().DeactivateMapSelection(false);
-}
-
+- (void)shouldDestroyLayout { self.layout = nil; }
+- (void)shouldClose { GetFramework().DeactivateMapSelection(true); }
 #pragma mark - MWMLocationObserver
 
 - (void)onHeadingUpdate:(location::CompassInfo const &)info

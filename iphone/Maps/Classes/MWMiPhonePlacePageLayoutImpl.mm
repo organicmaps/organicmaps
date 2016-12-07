@@ -145,7 +145,7 @@ CGFloat const kMinOffset = 1;
   id<MWMPlacePageLayoutDelegate> delegate = self.delegate;
   if (offset.y <= 0)
   {
-    [self onClose];
+    [delegate shouldClose];
     return;
   }
 

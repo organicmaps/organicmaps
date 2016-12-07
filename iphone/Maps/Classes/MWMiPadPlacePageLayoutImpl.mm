@@ -189,7 +189,7 @@ CGFloat const kBottomOffset = 60;
     CGFloat constexpr designAlpha = 0.8;
     if (alpha < designAlpha)
     {
-      [self onClose];
+      [self.delegate shouldClose];
     }
     else
     {

@@ -4,6 +4,7 @@
 
 - (void)onPlacePageTopBoundChanged:(CGFloat)bound;
 - (void)shouldDestroyLayout;
+- (void)shouldClose;
 
 @end
 
