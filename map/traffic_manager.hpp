@@ -133,6 +133,7 @@ private:
   bool m_isRunning;
   condition_variable m_condition;
 
+  vector<MwmSet::MwmId> m_lastMwmsByRect;
   set<MwmSet::MwmId> m_activeMwms;
 
   vector<MwmSet::MwmId> m_requestedMwms;
