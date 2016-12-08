@@ -41,6 +41,7 @@ set(
   writer_test.cpp
   zip_creator_test.cpp
   zip_reader_test.cpp
+  zlib_test.cpp
 )
 
 omim_add_test(${PROJECT_NAME} ${SRC})
