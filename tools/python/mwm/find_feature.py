@@ -38,4 +38,4 @@ for i, feature in enumerate(mwm.iter_features(metadata=True)):
     elif typ == 'id' and i == int(find):
         found = True
     if found:
-        print(json.dumps(feature, ensure_ascii=False).encode('utf-8'))
+        print(json.dumps(feature, ensure_ascii=False, sort_keys=True).encode('utf-8'))

@@ -120,8 +120,6 @@ def download(user, password, path):
             if len(hotels) < maxrows:
                 break
 
-        if not hotels:
-            raise Exception('Failed to load any hotels')
         logging.info('Num of hotels: {0}, translations: {1}'.format(len(allhotels), offset))
         filename = os.path.join(path,
                                 '{0} - {1}.pkl'.format(country['area'].encode('utf8'), country['name'].encode('utf8')))
