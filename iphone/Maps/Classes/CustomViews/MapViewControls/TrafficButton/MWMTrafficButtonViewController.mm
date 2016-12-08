@@ -141,14 +141,13 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
   UIImageView * iv = btn.imageView;
 
   // Traffic state machine: https://confluence.mail.ru/pages/viewpage.action?pageId=103680959
+  [iv stopAnimating];
   switch ([MWMTrafficManager state])
   {
   case TrafficManager::TrafficState::Disabled:
-    [iv stopAnimating];
     btn.imageName = @"btn_traffic_off";
     break;
   case TrafficManager::TrafficState::Enabled:
-    [iv stopAnimating];
     btn.imageName = @"btn_traffic_on";
     break;
   case TrafficManager::TrafficState::WaitingData:
@@ -158,20 +157,23 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
     [iv startAnimating];
     break;
   case TrafficManager::TrafficState::Outdated:
-    [iv stopAnimating];
     btn.imageName = @"btn_traffic_outdated";
     break;
   case TrafficManager::TrafficState::NoData:
+    btn.imageName = @"btn_traffic_on";
     [MWMToast showWithText:L(@"traffic_state_no_data")];
     break;
   case TrafficManager::TrafficState::NetworkError:
+    btn.imageName = @"btn_traffic_off";
     [MWMTrafficManager enableTraffic:NO];
     [[MWMAlertViewController activeAlertController] presentNoConnectionAlert];
     break;
   case TrafficManager::TrafficState::ExpiredApp:
+    btn.imageName = @"btn_traffic_on";
     [MWMToast showWithText:L(@"traffic_state_expired_app")];
     break;
   case TrafficManager::TrafficState::ExpiredData:
+    btn.imageName = @"btn_traffic_on";
     [MWMToast showWithText:L(@"traffic_state_expired_data")];
     break;
   }
