@@ -61,11 +61,10 @@ void ExtractTrafficGeometry(FeatureType const & f, df::RoadClass const & roadCla
   // Calculate road offset for two-way roads. The offset is available since a zoom level in
   // kMinOffsetZoomLevels.
   double twoWayOffset = 0.0;
-  double const kOffsetScalar = 0.5 * df::VisualParams::Instance().GetVisualScale();
   static vector<int> const kMinOffsetZoomLevels = { 13, 11, 10 };
   bool const needTwoWayOffset = !oneWay && zoomLevel > kMinOffsetZoomLevels[static_cast<int>(roadClass)];
   if (needTwoWayOffset)
-    twoWayOffset = kOffsetScalar * pixelToGlobalScale * df::TrafficRenderer::GetPixelWidth(roadClass, zoomLevel);
+    twoWayOffset = pixelToGlobalScale * 0.5 * df::TrafficRenderer::GetPixelWidth(roadClass, zoomLevel);
 
   static vector<uint8_t> directions = {traffic::TrafficInfo::RoadSegmentId::kForwardDirection,
                                        traffic::TrafficInfo::RoadSegmentId::kReverseDirection};
