@@ -75,8 +75,7 @@ using namespace place_page;
   
   NSAssert(!m_previewRows.empty(), @"Preview row's can't be empty!");
   m_previewRows.push_back(PreviewRows::Space);
-//  Uncomment when implementation will be not dummy.
-//  if (m_info.HasBanner()) m_previewRows.push_back(PreviewRows::Banner);
+  if (m_info.HasBanner()) m_previewRows.push_back(PreviewRows::Banner);
 }
 
 - (void)fillMetaInfoSection
