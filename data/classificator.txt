@@ -808,9 +808,12 @@ world  +
     sponsored  +
         banner  +
             deliveryclub  -
-            geerbest  -
+            geerbest_de  -
+            geerbest_fr  -
+            geerbest_uk  -
             lamoda_ru  -
             lamoda_ua  -
+            raileurope  -
             rentalcars  -
             tutu  -
             viator  -
