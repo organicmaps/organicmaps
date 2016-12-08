@@ -259,7 +259,6 @@ void TrafficManager::RequestTrafficData(MwmSet::MwmId const & mwmId)
   {
     m_requestedMwms.push_back(mwmId);
     m_condition.notify_one();
-    UpdateState();
   }
 }
 
@@ -273,6 +272,7 @@ void TrafficManager::RequestTrafficData()
     ASSERT(mwmId.IsAlive(), ());
     RequestTrafficData(mwmId);
   }
+  UpdateState();
 }
 
 void TrafficManager::OnTrafficRequestFailed(traffic::TrafficInfo && info)
