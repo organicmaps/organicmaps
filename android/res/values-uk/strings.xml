@@ -956,7 +956,7 @@
 	<!-- For place page hotel nearby block -->
 	<string name="placepage_hotel_nearby">Поблизу</string>
 	<!-- For ordering a taxi (as opposed to hotels or other things) -->
-	<string name="taxi_order">Замовити</string>
+	<string name="taxi_order">Замовлення таксі</string>
 	<!-- How long it is until the taxi arrives -->
 	<string name="taxi_wait">Очікується через %s</string>
 	<!-- When there are no available taxis nearby -->
@@ -991,4 +991,16 @@
 	<string name="whatsnew_uber_message">Замовляйте таксі прямо з додатку!</string>
 	<string name="dialog_taxi_offline">Замовлення таксі неможливе в автономному режимі.</string>
 	<string name="dialog_taxi_error">Замовлення таксі тимчасово недоступне.</string>
+	<string name="advertisement">Реклама</string>
+	<string name="mobile_data_dialog">Використовувати мобільні дані для перегляду докладної інформації?</string>
+	<string name="mobile_data_option_always">Завжди</string>
+	<string name="mobile_data_option_today">Тільки сьогодні</string>
+	<string name="mobile_data_option_not_today">За винятком сьогодні</string>
+	<string name="mobile_data">Мобільні дані</string>
+	<string name="mobile_data_description">Використання мобільних даних необхідно для відображення докладної інформації про місця (наприклад, фотографій, цін і відгуків).</string>
+	<string name="mobile_data_option_never">Ніколи</string>
+	<string name="mobile_data_option_ask">Завжди питати</string>
+	<string name="traffic_update_maps_text">Для відображення інформації про трафік необхідно оновити карти.</string>
+	<string name="traffic_outdated">Дані про трафік застаріли.</string>
+	<string name="big_font">Більші написи</string>
 </resources>

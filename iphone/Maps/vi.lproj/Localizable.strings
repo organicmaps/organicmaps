@@ -1637,7 +1637,7 @@
 "placepage_hotel_nearby" = "Gần đây";
 
 /* For ordering a taxi (as opposed to hotels or other things) */
-"taxi_order" = "Đặt xe";
+"taxi_order" = "Đặt xe taxi";
 
 /* How long it is until the taxi arrives */
 "taxi_wait" = "Sẽ đến trong %s";
@@ -1700,29 +1700,29 @@
 
 "dialog_taxi_error" = "Gọi taxi tạm thời không khả dụng.";
 
-"advertisement" = "Advertisement";
+"advertisement" = "Quảng cáo";
 
-"mobile_data_dialog" = "Use mobile internet to show detailed information?";
+"mobile_data_dialog" = "Sử dụng mạng Internet di động để hiển thị thông tin chi tiết?";
 
-"mobile_data_option_always" = "Use Always";
+"mobile_data_option_always" = "Luôn Sử dụng";
 
-"mobile_data_option_today" = "Only Today";
+"mobile_data_option_today" = "Chỉ Hôm nay";
 
-"mobile_data_option_not_today" = "Do not Use Today";
+"mobile_data_option_not_today" = "Không Sử dụng Hôm nay";
 
-"mobile_data" = "Mobile Internet";
+"mobile_data" = "Internet Di động";
 
-"mobile_data_description" = "Mobile internet is required for displaying detailed information about places, such as photographs, prices and reviews.";
+"mobile_data_description" = "Internet di động là cần thiết để hiển thị thông tin chi tiết về các nơi, ví dụ như ảnh chụp, giá cả và đánh giá.";
 
-"mobile_data_option_never" = "Never Use";
+"mobile_data_option_never" = "Không bao giờ sử dụng";
 
-"mobile_data_option_ask" = "Always Ask";
+"mobile_data_option_ask" = "Luôn Hỏi";
 
-"traffic_update_maps_text" = "To display traffic data, maps must be updated.";
+"traffic_update_maps_text" = "Để hiển thị dữ liệu giao thông, cần cập nhật bản đồ.";
 
-"traffic_outdated" = "Traffic data is outdated.";
+"traffic_outdated" = "Dữ liệu giao thông đã lỗi thời.";
 
-"big_font" = "Bigger labels";
+"big_font" = "Nhãn mác to hơn";
 
 "traffic_update_app" = "Please update MAPS.ME";
 

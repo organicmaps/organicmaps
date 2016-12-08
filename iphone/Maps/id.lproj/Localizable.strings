@@ -1637,7 +1637,7 @@
 "placepage_hotel_nearby" = "Dekat";
 
 /* For ordering a taxi (as opposed to hotels or other things) */
-"taxi_order" = "Pesan";
+"taxi_order" = "Pesan taksi";
 
 /* How long it is until the taxi arrives */
 "taxi_wait" = "Diharapkan dalam %s";
@@ -1700,29 +1700,29 @@
 
 "dialog_taxi_error" = "Memesan taksi untuk sementara tidak tersedia.";
 
-"advertisement" = "Advertisement";
+"advertisement" = "Iklan";
 
-"mobile_data_dialog" = "Use mobile internet to show detailed information?";
+"mobile_data_dialog" = "Gunakan internet seluler untuk memperlihatkan informasi terperinci?";
 
-"mobile_data_option_always" = "Use Always";
+"mobile_data_option_always" = "Selalu Gunakan";
 
-"mobile_data_option_today" = "Only Today";
+"mobile_data_option_today" = "Hanya Hari Ini";
 
-"mobile_data_option_not_today" = "Do not Use Today";
+"mobile_data_option_not_today" = "Jangan Gunakan Hari Ini";
 
-"mobile_data" = "Mobile Internet";
+"mobile_data" = "Internet Seluler";
 
-"mobile_data_description" = "Mobile internet is required for displaying detailed information about places, such as photographs, prices and reviews.";
+"mobile_data_description" = "Internet seluler diperlukan untuk menampilkan informasi terperinci tentang tempat, seperti foto, harga, dan ulasan.";
 
-"mobile_data_option_never" = "Never Use";
+"mobile_data_option_never" = "Jangan Gunakan";
 
-"mobile_data_option_ask" = "Always Ask";
+"mobile_data_option_ask" = "Selalu Tanya";
 
-"traffic_update_maps_text" = "To display traffic data, maps must be updated.";
+"traffic_update_maps_text" = "Untuk memperlihatkan data lalu lintas, peta harus diperbarui.";
 
-"traffic_outdated" = "Traffic data is outdated.";
+"traffic_outdated" = "Data lalu lintas belum diperbarui.";
 
-"big_font" = "Bigger labels";
+"big_font" = "Label yang lebih besar";
 
 "traffic_update_app" = "Please update MAPS.ME";
 

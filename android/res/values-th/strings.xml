@@ -958,7 +958,7 @@
 	<!-- For place page hotel nearby block -->
 	<string name="placepage_hotel_nearby">บริเวณใกล้เคียง</string>
 	<!-- For ordering a taxi (as opposed to hotels or other things) -->
-	<string name="taxi_order">สั่ง</string>
+	<string name="taxi_order">เรียกแท็กซี่</string>
 	<!-- How long it is until the taxi arrives -->
 	<string name="taxi_wait">คาดว่าภายใน %s</string>
 	<!-- When there are no available taxis nearby -->
@@ -993,4 +993,16 @@
 	<string name="whatsnew_uber_message">เรียกแท็กซี่ Uber โดยตรงจากแอป!</string>
 	<string name="dialog_taxi_offline">ไม่สามารถทำการจองแท็กซี่ได้ในโหมดออฟไลน์</string>
 	<string name="dialog_taxi_error">ไม่สามารถทำการจองแท็กซี่ได้ชั่วคราว</string>
+	<string name="advertisement">โฆษณา</string>
+	<string name="mobile_data_dialog">ใช้อินเทอร์เน็ตมือถือแสดงข้อมูลโดยรายละเอียดหรือไม่?</string>
+	<string name="mobile_data_option_always">ใช้เสมอ</string>
+	<string name="mobile_data_option_today">วันนี้เท่านั้น</string>
+	<string name="mobile_data_option_not_today">ไม่ใช้วันนี้</string>
+	<string name="mobile_data">อินเทอร์เน็ตมือถือ</string>
+	<string name="mobile_data_description">จำเป็นต้องใช้อินเทอร์เน็ตมือถือในการแสดงข้อมูลโดยรายละเอียดเกี่ยวกับสถานที่ เช่น รูปถ่าย ราคา และรีวิว</string>
+	<string name="mobile_data_option_never">ไม่ใช้เลย</string>
+	<string name="mobile_data_option_ask">ถามก่อนเสมอ</string>
+	<string name="traffic_update_maps_text">ต้องอัปเดตแผนที่เพื่อแสดงข้อมูลการจราจร</string>
+	<string name="traffic_outdated">ข้อมูลการจราจรเก่าเกินไปแล้ว</string>
+	<string name="big_font">ป้ายใหญ่ขึ้น</string>
 </resources>

@@ -970,7 +970,7 @@
 	<!-- For place page hotel nearby block -->
 	<string name="placepage_hotel_nearby">In der Nähe</string>
 	<!-- For ordering a taxi (as opposed to hotels or other things) -->
-	<string name="taxi_order">Bestellen</string>
+	<string name="taxi_order">Taxi rufen</string>
 	<!-- How long it is until the taxi arrives -->
 	<string name="taxi_wait">Erwartet in %s</string>
 	<!-- When there are no available taxis nearby -->
@@ -1005,4 +1005,16 @@
 	<string name="whatsnew_uber_message">Uber-Taxi direkt über die App bestellen!</string>
 	<string name="dialog_taxi_offline">Das Bestellen eines Taxis ist im Offline-Modus nicht verfügbar.</string>
 	<string name="dialog_taxi_error">Das Bestellen eines Taxis ist vorübergehend nicht verfügbar.</string>
+	<string name="advertisement">Werbung</string>
+	<string name="mobile_data_dialog">Mobiles Internet verwenden, um genauere Informationen anzuzeigen?</string>
+	<string name="mobile_data_option_always">Immer verwenden</string>
+	<string name="mobile_data_option_today">Nur heute</string>
+	<string name="mobile_data_option_not_today">Heute nicht verwenden</string>
+	<string name="mobile_data">Mobiles Internet</string>
+	<string name="mobile_data_description">Mobiles Internet wird benötigt, um genauere Informationen über Orte anzuzeigen, wie Fotos, Preise und Bewertungen.</string>
+	<string name="mobile_data_option_never">Nie verwenden</string>
+	<string name="mobile_data_option_ask">Immer fragen</string>
+	<string name="traffic_update_maps_text">Um Verkehrsdaten anzuzeigen, müssen die Karten aktualisiert werden.</string>
+	<string name="traffic_outdated">Verkehrsdaten sind veraltet.</string>
+	<string name="big_font">Größere Bezeichnungen</string>
 </resources>

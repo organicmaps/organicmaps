@@ -955,7 +955,7 @@
 	<!-- For place page hotel nearby block -->
 	<string name="placepage_hotel_nearby">V blízkosti</string>
 	<!-- For ordering a taxi (as opposed to hotels or other things) -->
-	<string name="taxi_order">Objednať</string>
+	<string name="taxi_order">Objednať taxík</string>
 	<!-- How long it is until the taxi arrives -->
 	<string name="taxi_wait">Očakávaný príjazd o %s</string>
 	<!-- When there are no available taxis nearby -->
@@ -990,4 +990,16 @@
 	<string name="whatsnew_uber_message">Objednajte si Uber priamo z aplikácie!</string>
 	<string name="dialog_taxi_offline">Objednanie taxíka nie je k dispozícii v režime offline.</string>
 	<string name="dialog_taxi_error">Objednanie taxíka je dočasne nedostupné.</string>
+	<string name="advertisement">Reklama</string>
+	<string name="mobile_data_dialog">Použiť mobilný internet na zobrazenie podrobnejších informácií?</string>
+	<string name="mobile_data_option_always">Vždy použiť</string>
+	<string name="mobile_data_option_today">Iba dnes</string>
+	<string name="mobile_data_option_not_today">Dnes nepoužiť</string>
+	<string name="mobile_data">Mobilný internet</string>
+	<string name="mobile_data_description">Na zobrazenie podrobnejších informácií o miestach, napríklad fotografií, cien a recenzií, sa vyžaduje mobilný internet.</string>
+	<string name="mobile_data_option_never">Nikdy nepoužiť</string>
+	<string name="mobile_data_option_ask">Vždy sa opýtať</string>
+	<string name="traffic_update_maps_text">Na zobrazenie dopravných informácií je potrebné aktualizovať mapy.</string>
+	<string name="traffic_outdated">Dopravné informácie sú neaktuálne.</string>
+	<string name="big_font">Väčšie nápisy</string>
 </resources>

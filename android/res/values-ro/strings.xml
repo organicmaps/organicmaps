@@ -948,7 +948,7 @@
 	<!-- For place page hotel nearby block -->
 	<string name="placepage_hotel_nearby">În apropiere</string>
 	<!-- For ordering a taxi (as opposed to hotels or other things) -->
-	<string name="taxi_order">Comandă</string>
+	<string name="taxi_order">Comandați un taxi</string>
 	<!-- How long it is until the taxi arrives -->
 	<string name="taxi_wait">Așteptat în %s</string>
 	<!-- When there are no available taxis nearby -->
@@ -983,4 +983,16 @@
 	<string name="whatsnew_uber_message">Comandați un taxi Uber direct din aplicație!</string>
 	<string name="dialog_taxi_offline">Comandarea unui taxi nu se poate face în modul offline.</string>
 	<string name="dialog_taxi_error">Comandarea unui taxi este momentan indisponibilă.</string>
+	<string name="advertisement">Reclamă</string>
+	<string name="mobile_data_dialog">Folosiți internetul mobil pentru a afişa informaţii detaliate?</string>
+	<string name="mobile_data_option_always">Folosiți întotdeauna</string>
+	<string name="mobile_data_option_today">Doar astăzi</string>
+	<string name="mobile_data_option_not_today">Nu folosiți astăzi</string>
+	<string name="mobile_data">Internet mobil</string>
+	<string name="mobile_data_description">Internetul mobil este necesar pentru afişarea de informaţii detaliate despre locuri, precum fotografii, preţuri şi recenzii.</string>
+	<string name="mobile_data_option_never">Nu utilizați niciodată</string>
+	<string name="mobile_data_option_ask">Întrebați întotdeauna</string>
+	<string name="traffic_update_maps_text">Pentru a afişa datele privind traficul, hărțile trebuie actualizate.</string>
+	<string name="traffic_outdated">Datele privind traficul sunt învechite.</string>
+	<string name="big_font">Etichete mai mari</string>
 </resources>
