@@ -427,7 +427,7 @@ if [ "$MODE" == "features" ]; then
   # Checking for coastlines, can't build proper mwms without them
   if [ ! -s "$INTDIR/WorldCoasts.geom" ]; then
     COASTS="${COASTS-WorldCoasts.geom}"
-    if [ ! -s "$COASTS" -a -n "${OLD_INTDIR-}" -a -s "$OLD_INTDIR/WorldCoasts.geom" ]; then
+    if [ ! -s "$COASTS" -a -n "${OLD_INTDIR-}" -a -s "${OLD_INTDIR-}/WorldCoasts.geom" ]; then
       log "Using older coastlines."
       COASTS="$OLD_INTDIR/WorldCoasts.geom"
     fi
