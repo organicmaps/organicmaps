@@ -89,6 +89,8 @@ public:
 
   void SetMercator(m2::PointD const & mercator);
 
+  vector<string> GetRawTypes() const;
+
   /// Comes from API, shared links etc.
   string m_customName;
   /// If not empty, bookmark is bound to this place page.

@@ -202,4 +202,5 @@ bool Info::IsReachableByTaxi() const
 }
 
 void Info::SetMercator(m2::PointD const & mercator) { m_mercator = mercator; }
+vector<string> Info::GetRawTypes() const { return m_types.ToObjectNames(); }
 }  // namespace place_page
