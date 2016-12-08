@@ -72,7 +72,7 @@ UNIT_TEST(LevenshteinDFA_Smoke)
     TEST(Rejects(dfa, "abcde"), ());
 
     TEST(Accepts(dfa, "ac"), ());
-    TEST(Intermediate(dfa, "acb"), ());  // transpositions are not supported yet
+    TEST(Accepts(dfa, "acb"), ());
     TEST(Accepts(dfa, "acbc"), ());
     TEST(Rejects(dfa, "acbd"), ());
 
@@ -107,7 +107,7 @@ UNIT_TEST(LevenshteinDFA_Prefix)
     LevenshteinDFA dfa("москва", 0 /* prefixCharsToKeep */, 1 /* maxErrors */);
     TEST(Accepts(dfa, "москва"), ());
     TEST(Accepts(dfa, "иосква"), ());
-    TEST(Rejects(dfa, "моксва"), ());
+    TEST(Accepts(dfa, "моксва"), ());
   }
 }
 }  // namespace
