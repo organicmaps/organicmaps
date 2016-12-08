@@ -12,6 +12,9 @@
 #include "indexer/features_offsets_table.hpp"
 
 #include "coding/file_container.hpp"
+#include "coding/file_writer.hpp"
+
+#include "std/vector.hpp"
 
 namespace traffic
 {

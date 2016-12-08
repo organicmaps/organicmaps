@@ -6,29 +6,17 @@
 #include "platform/local_country_file.hpp"
 #include "platform/platform_tests_support/writable_dir_changer.hpp"
 
-#include "indexer/classificator_loader.hpp"
 #include "indexer/mwm_set.hpp"
 
-#include "geometry/mercator.hpp"
-#include "geometry/rect2d.hpp"
-
 #include "std/algorithm.hpp"
-#include "std/random.hpp"
+#include "std/cstdint.hpp"
+#include "std/vector.hpp"
 
 namespace traffic
 {
 namespace
 {
 string const & kMapTestDir = "traffic-test";
-
-SpeedGroup GetSpeedGroup(TrafficInfo::Coloring const & coloring,
-                         TrafficInfo::RoadSegmentId const & fid)
-{
-  auto const it = coloring.find(fid);
-  if (it == coloring.cend())
-    return SpeedGroup::Unknown;
-  return it->second;
-}
 
 class TestMwmSet : public MwmSet
 {
@@ -105,8 +93,8 @@ UNIT_TEST(TrafficInfo_Serialization)
     vector<TrafficInfo::RoadSegmentId> deserializedKeys;
     TrafficInfo::DeserializeTrafficKeys(buf, deserializedKeys);
 
-    ASSERT(is_sorted(keys.begin(), keys.end()), ());
-    ASSERT(is_sorted(deserializedKeys.begin(), deserializedKeys.end()), ());
+    TEST(is_sorted(keys.begin(), keys.end()), ());
+    TEST(is_sorted(deserializedKeys.begin(), deserializedKeys.end()), ());
     TEST_EQUAL(keys, deserializedKeys, ());
   }
 
@@ -118,5 +106,33 @@ UNIT_TEST(TrafficInfo_Serialization)
     TrafficInfo::DeserializeTrafficValues(buf, deserializedValues);
     TEST_EQUAL(values, deserializedValues, ());
   }
+}
+
+UNIT_TEST(TrafficInfo_UpdateTrafficData)
+{
+  vector<TrafficInfo::RoadSegmentId> const keys = {
+      TrafficInfo::RoadSegmentId(0, 0, 0),
+
+      TrafficInfo::RoadSegmentId(1, 0, 0), TrafficInfo::RoadSegmentId(1, 0, 1),
+  };
+
+  vector<SpeedGroup> const values1 = {
+      SpeedGroup::G1, SpeedGroup::G2, SpeedGroup::G3,
+  };
+
+  vector<SpeedGroup> const values2 = {
+      SpeedGroup::G4, SpeedGroup::G5, SpeedGroup::Unknown,
+  };
+
+  TrafficInfo info;
+  info.SetTrafficKeysForTesting(keys);
+
+  TEST(info.UpdateTrafficData(values1), ());
+  for (size_t i = 0; i < keys.size(); ++i)
+    TEST_EQUAL(info.GetSpeedGroup(keys[i]), values1[i], ());
+
+  TEST(info.UpdateTrafficData(values2), ());
+  for (size_t i = 0; i < keys.size(); ++i)
+    TEST_EQUAL(info.GetSpeedGroup(keys[i]), values2[i], ());
 }
 }  // namespace traffic

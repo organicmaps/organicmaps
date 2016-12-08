@@ -125,26 +125,19 @@ TrafficInfo TrafficInfo::BuildForTesting(Coloring && coloring)
   return info;
 }
 
+void TrafficInfo::SetTrafficKeysForTesting(vector<RoadSegmentId> const & keys)
+{
+  m_keys = keys;
+  m_availability = Availability::IsAvailable;
+}
+
 bool TrafficInfo::ReceiveTrafficData()
 {
   vector<SpeedGroup> values;
   if (!ReceiveTrafficValues(values))
     return false;
 
-  if (m_keys.size() != values.size())
-  {
-    LOG(LWARNING,
-        ("The number of received traffic values does not correspond to the number of keys:",
-         m_keys.size(), "keys", values.size(), "values."));
-    m_availability = Availability::NoData;
-    m_coloring.clear();
-    return false;
-  }
-
-  for (size_t i = 0; i < m_keys.size(); ++i)
-    m_coloring.emplace(m_keys[i], values[i]);
-
-  return true;
+  return UpdateTrafficData(values);
 }
 
 SpeedGroup TrafficInfo::GetSpeedGroup(RoadSegmentId const & id) const
@@ -195,6 +188,7 @@ void CombineColorings(vector<TrafficInfo::RoadSegmentId> const & keys,
     else
     {
       result[key] = it->second;
+      ASSERT_GREATER(numUnexpectedKeys, 0, ());
       --numUnexpectedKeys;
       ++numKnown;
     }
@@ -249,7 +243,7 @@ void TrafficInfo::SerializeTrafficKeys(vector<RoadSegmentId> const & keys, vecto
     uint32_t prevFid = 0;
     for (auto const & fid : fids)
     {
-      uint32_t const fidDiff = fid - prevFid;
+      uint64_t const fidDiff = static_cast<uint64_t>(fid - prevFid);
       bool ok = coding::GammaCoder::Encode(bitWriter, fidDiff + 1);
       ASSERT(ok, ());
       prevFid = fid;
@@ -262,7 +256,7 @@ void TrafficInfo::SerializeTrafficKeys(vector<RoadSegmentId> const & keys, vecto
     }
 
     for (auto const & val : oneWay)
-      bitWriter.Write(val ? 1 : 0, 1);
+      bitWriter.Write(val ? 1 : 0, 1 /* numBits */);
   }
 }
 
@@ -324,10 +318,13 @@ void TrafficInfo::SerializeTrafficValues(vector<SpeedGroup> const & values,
   WriteVarUint(memWriter, values.size());
   {
     BitWriter<decltype(memWriter)> bitWriter(memWriter);
+    auto const numSpeedGroups = static_cast<uint8_t>(SpeedGroup::Count);
+    static_assert(numSpeedGroups <= 8, "A speed group's value may not fit into 3 bits");
     for (auto const & v : values)
     {
-      // SpeedGroup's values fit into 3 bits.
-      bitWriter.Write(static_cast<uint8_t>(v), 3);
+      uint8_t const u = static_cast<uint8_t>(v);
+      CHECK_LESS(u, numSpeedGroups, ());
+      bitWriter.Write(u, 3);
     }
   }
 
@@ -445,6 +442,25 @@ bool TrafficInfo::ReceiveTrafficValues(vector<SpeedGroup> & values)
     return false;
   }
   m_availability = Availability::IsAvailable;
+  return true;
+}
+
+bool TrafficInfo::UpdateTrafficData(vector<SpeedGroup> const & values)
+{
+  m_coloring.clear();
+
+  if (m_keys.size() != values.size())
+  {
+    LOG(LWARNING,
+        ("The number of received traffic values does not correspond to the number of keys:",
+         m_keys.size(), "keys", values.size(), "values."));
+    m_availability = Availability::NoData;
+    return false;
+  }
+
+  for (size_t i = 0; i < m_keys.size(); ++i)
+    m_coloring.emplace(m_keys[i], values[i]);
+
   return true;
 }
 

@@ -72,6 +72,7 @@ public:
   TrafficInfo(MwmSet::MwmId const & mwmId, int64_t currentDataVersion);
 
   static TrafficInfo BuildForTesting(Coloring && coloring);
+  void SetTrafficKeysForTesting(vector<RoadSegmentId> const & keys);
 
   // Fetches the latest traffic data from the server and updates the coloring.
   // Construct the url by passing an MwmId.
@@ -108,6 +109,8 @@ public:
   static void DeserializeTrafficValues(vector<uint8_t> const & data, vector<SpeedGroup> & result);
 
 private:
+  friend void UnitTest_TrafficInfo_UpdateTrafficData();
+
   // todo(@m) A temporary method. Remove it once the keys are added
   // to the generator and the data is regenerated.
   bool ReceiveTrafficKeys();
@@ -117,6 +120,9 @@ private:
   // their number is equal to the number of keys.
   // Otherwise, returns false and does not change m_coloring.
   bool ReceiveTrafficValues(vector<SpeedGroup> & values);
+
+  // Updates the coloring and changes the availability status if needed.
+  bool UpdateTrafficData(vector<SpeedGroup> const & values);
 
   // The mapping from feature segments to speed groups (see speed_groups.hpp).
   Coloring m_coloring;
