@@ -269,7 +269,7 @@
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="pref_mobile_internet"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="mobile_data"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="300" verticalHuggingPriority="251" horizontalCompressionResistancePriority="700" text="Никогда" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d32-tz-eSW">
@@ -1672,7 +1672,7 @@
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="pref_always_use"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="mobile_data_option_always"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                             </subviews>
@@ -1705,7 +1705,7 @@
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="pref_ask"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="mobile_data_option_today"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                             </subviews>
@@ -1738,7 +1738,7 @@
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="pref_never_use"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="mobile_data_option_never"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                             </subviews>

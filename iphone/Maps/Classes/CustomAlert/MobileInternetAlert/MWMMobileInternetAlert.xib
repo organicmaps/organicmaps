@@ -35,7 +35,7 @@
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium18"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="use_mobile_internet"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="mobile_data"/>
                             </userDefinedRuntimeAttributes>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fGq-0K-ugB" userLabel="Message">
@@ -50,7 +50,7 @@
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="pref_mobile_internet_hint"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="mobile_data_dialog"/>
                             </userDefinedRuntimeAttributes>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0vG-Ty-4hj" userLabel="button1">
@@ -65,7 +65,7 @@
                             </state>
                             <state key="highlighted" backgroundImage="dialog_btn_press"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="pref_always_use"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="mobile_data_option_always"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold17"/>
                             </userDefinedRuntimeAttributes>
@@ -82,7 +82,7 @@
                             </state>
                             <state key="highlighted" backgroundImage="dialog_btn_press"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="pref_ask"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="mobile_data_option_today"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium17"/>
                             </userDefinedRuntimeAttributes>
@@ -99,7 +99,7 @@
                             </state>
                             <state key="highlighted" backgroundImage="dialog_btn_press"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="pref_never_use"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="mobile_data_option_never"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium17"/>
                             </userDefinedRuntimeAttributes>
