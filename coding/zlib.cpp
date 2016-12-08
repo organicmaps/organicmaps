@@ -4,7 +4,7 @@ namespace coding
 {
 namespace
 {
-int LevelToInt(ZLib::Level level)
+int ToInt(ZLib::Level level)
 {
   switch (level)
   {
@@ -17,12 +17,17 @@ int LevelToInt(ZLib::Level level)
 }  // namespace
 
 // ZLib::Processor ---------------------------------------------------------------------------------
-ZLib::Processor::Processor(char const * data, size_t size) : m_init(false)
+ZLib::Processor::Processor(void const * data, size_t size) noexcept : m_init(false)
 {
-  m_stream.next_in = const_cast<unsigned char *>(reinterpret_cast<unsigned char const *>(data));
+  // next_in is defined as z_const (see
+  // http://www.zlib.net/manual.html).  Sometimes it's a const (when
+  // ZLIB_CONST is defined), sometimes not, it depends on the local
+  // zconf.h. So, for portability, const_cast<...> is used here, but
+  // in any case, zlib does not modify |data|.
+  m_stream.next_in = static_cast<unsigned char *>(const_cast<void *>(data));
   m_stream.avail_in = size;
 
-  m_stream.next_out = reinterpret_cast<unsigned char *>(m_buffer);
+  m_stream.next_out = m_buffer;
   m_stream.avail_out = kBufferSize;
 
   m_stream.zalloc = Z_NULL;
@@ -43,14 +48,14 @@ bool ZLib::Processor::BufferIsFull() const
 }
 
 // ZLib::Deflate -----------------------------------------------------------------------------------
-ZLib::DeflateProcessor::DeflateProcessor(char const * data, size_t size, ZLib::Level level)
+ZLib::DeflateProcessor::DeflateProcessor(void const * data, size_t size, ZLib::Level level) noexcept
   : Processor(data, size)
 {
-  int const ret = deflateInit(&m_stream, LevelToInt(level));
+  int const ret = deflateInit(&m_stream, ToInt(level));
   m_init = (ret == Z_OK);
 }
 
-ZLib::DeflateProcessor::~DeflateProcessor()
+ZLib::DeflateProcessor::~DeflateProcessor() noexcept
 {
   if (m_init)
     deflateEnd(&m_stream);
@@ -63,13 +68,14 @@ int ZLib::DeflateProcessor::Process(int flush)
 }
 
 // ZLib::Inflate -----------------------------------------------------------------------------------
-ZLib::InflateProcessor::InflateProcessor(char const * data, size_t size) : Processor(data, size)
+ZLib::InflateProcessor::InflateProcessor(void const * data, size_t size) noexcept
+  : Processor(data, size)
 {
   int const ret = inflateInit(&m_stream);
   m_init = (ret == Z_OK);
 }
 
-ZLib::InflateProcessor::~InflateProcessor()
+ZLib::InflateProcessor::~InflateProcessor() noexcept
 {
   if (m_init)
     inflateEnd(&m_stream);

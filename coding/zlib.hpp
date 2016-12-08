@@ -1,4 +1,7 @@
+#pragma once
+
 #include "base/assert.hpp"
+#include "base/macros.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/string.hpp"
@@ -11,8 +14,8 @@ namespace coding
 //
 // *NOTE* All Inflate() and Deflate() methods may return false in case
 // of errors. In this case the output sequence may be already
-// partially formed, so the user needs to implement its own roll-back
-// strategy.
+// partially formed, so the user needs to implement their own
+// roll-back strategy.
 class ZLib
 {
 public:
@@ -25,9 +28,9 @@ public:
   };
 
   template <typename OutIt>
-  static bool Deflate(char const * data, size_t size, Level level, OutIt out)
+  static bool Deflate(void const * data, size_t size, Level level, OutIt out)
   {
-    if (!data)
+    if (data == nullptr)
       return false;
     DeflateProcessor processor(data, size, level);
     return Process(processor, out);
@@ -40,9 +43,9 @@ public:
   }
 
   template <typename OutIt>
-  static bool Inflate(char const * data, size_t size, OutIt out)
+  static bool Inflate(void const * data, size_t size, OutIt out)
   {
-    if (!data)
+    if (data == nullptr)
       return false;
     InflateProcessor processor(data, size);
     return Process(processor, out);
@@ -60,9 +63,10 @@ private:
   public:
     static size_t constexpr kBufferSize = 1024;
 
-    Processor(char const * data, size_t size);
+    Processor(void const * data, size_t size) noexcept;
+    virtual ~Processor() noexcept = default;
 
-    inline bool IsInit() const { return m_init; }
+    inline bool IsInit() const noexcept { return m_init; }
     bool ConsumedAll() const;
     bool BufferIsFull() const;
 
@@ -71,32 +75,38 @@ private:
     {
       ASSERT(IsInit(), ());
       copy(m_buffer, m_buffer + kBufferSize - m_stream.avail_out, out);
-      m_stream.next_out = reinterpret_cast<unsigned char *>(m_buffer);
+      m_stream.next_out = m_buffer;
       m_stream.avail_out = kBufferSize;
     }
 
   protected:
     z_stream m_stream;
     bool m_init;
-    char m_buffer[kBufferSize];
+    unsigned char m_buffer[kBufferSize];
+
+    DISALLOW_COPY_AND_MOVE(Processor);
   };
 
-  class DeflateProcessor : public Processor
+  class DeflateProcessor final : public Processor
   {
   public:
-    DeflateProcessor(char const * data, size_t size, Level level);
-    ~DeflateProcessor();
+    DeflateProcessor(void const * data, size_t size, Level level) noexcept;
+    virtual ~DeflateProcessor() noexcept override;
 
     int Process(int flush);
+
+    DISALLOW_COPY_AND_MOVE(DeflateProcessor);
   };
 
-  class InflateProcessor : public Processor
+  class InflateProcessor final : public Processor
   {
   public:
-    InflateProcessor(char const * data, size_t size);
-    ~InflateProcessor();
+    InflateProcessor(void const * data, size_t size) noexcept;
+    virtual ~InflateProcessor() noexcept override;
 
     int Process(int flush);
+
+    DISALLOW_COPY_AND_MOVE(InflateProcessor);
   };
 
   template <typename Processor, typename OutIt>

@@ -32,7 +32,7 @@ UNIT_TEST(ZLib_Smoke)
   }
 
   TestInflateDeflate("");
-  TestInflateDeflate("Hello, World");
+  TestInflateDeflate("Hello, World!");
 }
 
 UNIT_TEST(ZLib_Large)
