@@ -461,6 +461,7 @@ Framework::Framework()
 
 Framework::~Framework()
 {
+  m_trafficManager.Teardown();
   DestroyDrapeEngine();
   m_model.SetOnMapDeregisteredCallback(nullptr);
 }

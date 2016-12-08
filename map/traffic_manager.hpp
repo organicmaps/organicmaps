@@ -141,8 +141,4 @@ private:
   vector<MwmSet::MwmId> m_requestedMwms;
   mutex m_mutex;
   threads::SimpleThread m_thread;
-
-#ifdef DEBUG
-  bool m_isTeardowned = false;
-#endif
 };

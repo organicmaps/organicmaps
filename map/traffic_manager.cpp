@@ -52,21 +52,24 @@ TrafficManager::TrafficManager(GetMwmsByRectFn const & getMwmsByRectFn, size_t m
 
 TrafficManager::~TrafficManager()
 {
-  ASSERT(m_isTeardowned, ());
+#ifdef DEBUG
+  {
+    lock_guard<mutex> lock(m_mutex);
+    ASSERT(!m_isRunning, ());
+  }
+#endif
 }
 
 void TrafficManager::Teardown()
 {
   {
     lock_guard<mutex> lock(m_mutex);
+    if (!m_isRunning)
+      return;
     m_isRunning = false;
   }
   m_condition.notify_one();
   m_thread.join();
-
-#ifdef DEBUG
-  m_isTeardowned = true;
-#endif
 }
 
 void TrafficManager::SetStateListener(TrafficStateChangedFn const & onStateChangedFn)
