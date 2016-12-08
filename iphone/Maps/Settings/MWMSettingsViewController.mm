@@ -90,9 +90,9 @@ extern NSString * const kAlohalyticsTapEventKey;
   using np = platform::NetworkPolicy;
   switch (network_policy::GetStage())
   {
-  case np::Stage::Always: internetLabel = L(@"pref_always"); break;
-  case np::Stage::Session: internetLabel = L(@"pref_ask"); break;
-  case np::Stage::Never: internetLabel = L(@"pref_never"); break;
+  case np::Stage::Always: internetLabel = L(@"mobile_data_option_always"); break;
+  case np::Stage::Session: internetLabel = L(@"mobile_data_option_today"); break;
+  case np::Stage::Never: internetLabel = L(@"mobile_data_option_never"); break;
   }
   self.mobileInternetCell.infoLabel.text = internetLabel;
 

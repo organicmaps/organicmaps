@@ -20,7 +20,7 @@ using np = platform::NetworkPolicy;
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  self.title = L(@"pref_mobile_internet");
+  self.title = L(@"mobile_data");
 
   SelectableCell * selected;
   switch (GetStage())
@@ -71,7 +71,7 @@ using np = platform::NetworkPolicy;
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
-  return L(@"pref_mobile_internet_hint");
+  return L(@"mobile_data_description");
 }
 
 @end
