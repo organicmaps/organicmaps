@@ -1,4 +1,5 @@
-#include "place_page_info.hpp"
+#include "map/place_page_info.hpp"
+#include "map/reachable_by_taxi_checker.hpp"
 
 #include "indexer/feature_utils.hpp"
 #include "indexer/osm_editor.hpp"
@@ -193,6 +194,11 @@ string Info::GetBannerUrl() const
   if (m_banner.IsEmpty())
     return {};
   return m_banner.GetFormattedUrl(m_metadata.Get(feature::Metadata::FMD_BANNER_URL));
+}
+
+bool Info::IsReachableByTaxi() const
+{
+  return IsReachableByTaxiChecker::Instance()(m_types);
 }
 
 void Info::SetMercator(m2::PointD const & mercator) { m_mercator = mercator; }

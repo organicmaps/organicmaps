@@ -27,6 +27,7 @@ HEADERS += \
     gps_tracker.hpp \
     mwm_url.hpp \
     place_page_info.hpp \
+    reachable_by_taxi_checker.hpp \
     track.hpp \
     traffic_manager.hpp \
     user_mark.hpp \
@@ -51,6 +52,7 @@ SOURCES += \
     gps_tracker.cpp \
     mwm_url.cpp \
     place_page_info.cpp \
+    reachable_by_taxi_checker.cpp \
     track.cpp \
     traffic_manager.cpp \
     user_mark.cpp \
