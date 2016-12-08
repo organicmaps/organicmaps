@@ -29,7 +29,8 @@ echo '### LOGS'
 grep -i 'error\|warn\|critical\|fail\|abort\|останов\|fatal' "$PLANET_LOG" | grep -v 'settings\.ini'
 for log in "$LOG_PATH"/*.log; do
   if [ "$log" != "$PLANET_LOG" -a "$log" != "$LOG_PATH/test_planet.log" ]; then
-    CONTENT="$(grep -i 'error\|warn\|critical\|fail\|abort\|останов\|fatal\|fault' "$log" | grep -v 'settings\.ini\|language file for co\|Zero length lin\|too many tokens\|Equal choices for way\|No feature id for way\|number of threads is\|Invalid order of edges')"
+    CONTENT="$(grep -i 'error\|warn\|critical\|fail\|abort\|останов\|fatal\|fault' "$log" | \
+      grep -v 'settings\.ini\|language file for co\|Zero length lin\|too many tokens\|Equal choices for way\|No feature id for way\|number of threads is\|Invalid order of edges')"
     if [ -n "$CONTENT" ]; then
       echo
       echo "$log"
@@ -107,11 +108,6 @@ fi
 echo
 echo '### INTEGRATION TESTS'
 "$(dirname "$GENERATOR_TOOL")/routing_integration_tests" "--data_path=$FTARGET/../" "--user_resource_path=$OMIM_PATH/data/" "--suppress=online_cross_tests.*" 2>&1
-
-# Step 5: run consistency tests
-echo
-echo '### CONSISTENCY TEST'
-"$(dirname "$GENERATOR_TOOL")/routing_consistency_test" "--data_path=$FTARGET/../" "--user_resource_path=$OMIM_PATH/data/" "--input_file=$OMIM_PATH/data/routing_statistics.log" 2>&1 || true
 
 # Clean the temporary directory
 rm -r "$FTARGET"
