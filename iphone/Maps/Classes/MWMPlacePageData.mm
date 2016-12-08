@@ -227,12 +227,12 @@ using namespace place_page;
 
 - (NSString *)bannerTitle
 {
-  return m_info.HasBanner() ? @(m_info.GetBannerTitleId().c_str()) : nil;
+  return m_info.HasBanner() ? L(@(m_info.GetBannerTitleId().c_str())) : nil;
 }
 
 - (NSString *)bannerContent
 {
-  return m_info.HasBanner() ? @(m_info.GetBannerMessageId().c_str()) : nil;
+  return m_info.HasBanner() ? L(@(m_info.GetBannerMessageId().c_str())) : nil;
 }
 
 - (NSURL *)bannerIconURL
