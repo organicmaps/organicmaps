@@ -1025,4 +1025,16 @@
 	<string name="traffic_update_app">Please update MAPS.ME</string>
 	<string name="traffic_update_app_message">To display traffic data, the application must be updated.</string>
 	<string name="traffic_data_unavailable">Traffic data is not available</string>
+	<string name="banner_deliveryclub_title">Food delivery</string>
+	<string name="banner_deliveryclub_message">Fast delivery from 4,000 restaurants. Order from Delivery Club.</string>
+	<string name="banner_lamoda_title">Online clothing and shoe store</string>
+	<string name="banner_lamoda_message">More than 1,000 brands. Up to 70% off. Free delivery all over the country.</string>
+	<string name="banner_tutu_title">Train tickets online</string>
+	<string name="banner_tutu_message">Train tickets to any city online - prices, search, and booking.</string>
+	<string name="banner_geerbest_title">Online electronics store</string>
+	<string name="banner_geerbest_message">Instant search in over 50,000 items at low prices.</string>
+	<string name="banner_rentalcars_title">Renting cars online</string>
+	<string name="banner_rentalcars_message">800 car rental companies in more than 49,000 car rental locations.</string>
+	<string name="banner_viator_title">Online tour search</string>
+	<string name="banner_viator_message">Search in over 50,000 tours all over the world.</string>
 </resources>

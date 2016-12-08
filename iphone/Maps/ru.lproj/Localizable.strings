@@ -1729,3 +1729,27 @@
 "traffic_update_app_message" = "Для отображения пробок необходимо обновить приложение.";
 
 "traffic_data_unavailable" = "Данные о пробках недоступны";
+
+"banner_deliveryclub_title" = "Доставка еды";
+
+"banner_deliveryclub_message" = "Быстрая доставка еды из 4 тысяч ресторанов. Закажите на Delivery Club.";
+
+"banner_lamoda_title" = "Интернет-магазин одежды и обуви";
+
+"banner_lamoda_message" = "Более тысячи брендов. Скидки до 70%. Доставка по всей стране бесплатно.";
+
+"banner_tutu_title" = "Ж/д билеты онлайн";
+
+"banner_tutu_message" = "Ж/д билеты в любой город онлайн – цены, поиск и бронирование.";
+
+"banner_geerbest_title" = "Интернет-магазин электроники";
+
+"banner_geerbest_message" = "Мгновенный поиск по более чем 50 тысячам товаров по низким ценам.";
+
+"banner_rentalcars_title" = "Прокат автомобилей онлайн";
+
+"banner_rentalcars_message" = "800 прокатных компаний в более чем 49 тысячах пунктах проката.";
+
+"banner_viator_title" = "Онлайн-поиск экскурсий";
+
+"banner_viator_message" = "Поиск по более чем 50 тысячам экскурсий по всему миру.";

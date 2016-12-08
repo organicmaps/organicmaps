@@ -1021,4 +1021,16 @@
 	<string name="traffic_update_app">Обновите MAPS.ME</string>
 	<string name="traffic_update_app_message">Для отображения пробок необходимо обновить приложение.</string>
 	<string name="traffic_data_unavailable">Данные о пробках недоступны</string>
+	<string name="banner_deliveryclub_title">Доставка еды</string>
+	<string name="banner_deliveryclub_message">Быстрая доставка еды из 4 тысяч ресторанов. Закажите на Delivery Club.</string>
+	<string name="banner_lamoda_title">Интернет-магазин одежды и обуви</string>
+	<string name="banner_lamoda_message">Более тысячи брендов. Скидки до 70%. Доставка по всей стране бесплатно.</string>
+	<string name="banner_tutu_title">Ж/д билеты онлайн</string>
+	<string name="banner_tutu_message">Ж/д билеты в любой город онлайн – цены, поиск и бронирование.</string>
+	<string name="banner_geerbest_title">Интернет-магазин электроники</string>
+	<string name="banner_geerbest_message">Мгновенный поиск по более чем 50 тысячам товаров по низким ценам.</string>
+	<string name="banner_rentalcars_title">Прокат автомобилей онлайн</string>
+	<string name="banner_rentalcars_message">800 прокатных компаний в более чем 49 тысячах пунктах проката.</string>
+	<string name="banner_viator_title">Онлайн-поиск экскурсий</string>
+	<string name="banner_viator_message">Поиск по более чем 50 тысячам экскурсий по всему миру.</string>
 </resources>
