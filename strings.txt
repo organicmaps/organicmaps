@@ -20854,3 +20854,7 @@
   [traffic_update_app_message]
     en = To display traffic data, the application must be updated.
     ru = Для отображения пробок необходимо обновить приложение.
+
+  [traffic_data_unavailable]
+    en = Traffic data is not available
+    ru = Данные о пробках недоступны
