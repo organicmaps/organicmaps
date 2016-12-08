@@ -62,7 +62,7 @@
   if (!_noResultsView)
   {
     _noResultsView = [MWMSearchNoResults viewWithImage:[UIImage imageNamed:@"img_search_not_found"]
-                                                 title:nil
+                                                 title:L(@"search_not_found")
                                                   text:L(@"search_not_found_query")];
   }
   return _noResultsView;
