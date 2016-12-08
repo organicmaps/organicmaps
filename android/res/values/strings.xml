@@ -1024,4 +1024,5 @@
 	<string name="big_font">Bigger labels</string>
 	<string name="traffic_update_app">Please update MAPS.ME</string>
 	<string name="traffic_update_app_message">To display traffic data, the application must be updated.</string>
+	<string name="traffic_data_unavailable">Traffic data is not available</string>
 </resources>
