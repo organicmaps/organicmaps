@@ -34,6 +34,7 @@
 #define REGION_INFO_FILE_TAG "rgninfo"
 // Temporary addresses section that is used in search index generation.
 #define SEARCH_TOKENS_FILE_TAG "addrtags"
+#define TRAFFIC_KEYS_FILE_TAG "traffic"
 
 #define ROUTING_MATRIX_FILE_TAG "mercedes"
 #define ROUTING_EDGEDATA_FILE_TAG "daewoo"

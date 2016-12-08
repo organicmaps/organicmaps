@@ -47,6 +47,7 @@ SOURCES += \
     statistics.cpp \
     tesselator.cpp \
     towns_dumper.cpp \
+    traffic_generator.cpp \
     unpack_mwm.cpp \
 
 HEADERS += \
@@ -91,6 +92,7 @@ HEADERS += \
     tag_admixer.hpp \
     tesselator.hpp \
     towns_dumper.hpp \
+    traffic_generator.hpp \
     unpack_mwm.hpp \
     ways_merger.hpp \
     world_map_generator.hpp \

@@ -13,6 +13,7 @@
 #include "generator/routing_index_generator.hpp"
 #include "generator/search_index_builder.hpp"
 #include "generator/statistics.hpp"
+#include "generator/traffic_generator.hpp"
 #include "generator/unpack_mwm.hpp"
 
 #include "indexer/classificator.hpp"
@@ -96,6 +97,8 @@ DEFINE_bool(unpack_mwm, false, "Unpack each section of mwm into a separate file 
 DEFINE_bool(check_mwm, false, "Check map file to be correct.");
 DEFINE_string(delete_section, "", "Delete specified section (defines.hpp) from container.");
 DEFINE_bool(generate_addresses_file, false, "Generate .addr file (for '--output' option) with full addresses list.");
+DEFINE_bool(generate_traffic_keys, false,
+            "Generate keys for the traffic map (road segment -> speed group).");
 
 int main(int argc, char ** argv)
 {
@@ -158,7 +161,7 @@ int main(int argc, char ** argv)
       FLAGS_generate_index || FLAGS_generate_search_index || FLAGS_calc_statistics ||
       FLAGS_type_statistics || FLAGS_dump_types || FLAGS_dump_prefixes ||
       FLAGS_dump_feature_names != "" || FLAGS_check_mwm || FLAGS_srtm_path != "" ||
-      FLAGS_make_routing_index)
+      FLAGS_make_routing_index || FLAGS_generate_traffic_keys)
   {
     classificator::Load();
     classif().SortClassificator();
@@ -251,6 +254,12 @@ int main(int argc, char ** argv)
           genInfo.GetTargetFileName(country) + OSM2FEATURE_FILE_EXTENSION);
 
       routing::BuildRoutingIndex(datFile, country);
+    }
+
+    if (FLAGS_generate_traffic_keys)
+    {
+      if (!traffic::GenerateTrafficKeysFromDataFile(datFile))
+        LOG(LCRITICAL, ("Error generating traffic keys."));
     }
   }
 
