@@ -577,6 +577,7 @@ void Framework::OnCountryFileDownloaded(storage::TCountryId const & countryId, s
     if (id.IsAlive())
       rect = id.GetInfo()->m_limitRect;
   }
+  m_trafficManager.Invalidate();
   InvalidateRect(rect);
   m_searchEngine->ClearCaches();
 }
@@ -596,9 +597,11 @@ bool Framework::OnCountryFileDelete(storage::TCountryId const & countryId, stora
   bool deferredDelete = false;
   if (localFile)
   {
+    auto const mwmId = m_model.GetIndex().GetMwmIdByCountryFile(platform::CountryFile(countryId));
     rect = m_infoGetter->GetLimitRectForLeaf(countryId);
     m_model.DeregisterMap(platform::CountryFile(countryId));
     deferredDelete = true;
+    m_trafficManager.OnMwmDelete(mwmId);
   }
   InvalidateRect(rect);
 

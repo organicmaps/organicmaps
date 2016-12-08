@@ -31,6 +31,7 @@ TrafficManager::CacheEntry::CacheEntry()
 TrafficManager::CacheEntry::CacheEntry(time_point<steady_clock> const & requestTime)
   : m_isLoaded(false)
   , m_dataSize(0)
+  , m_lastSeenTime(requestTime)
   , m_lastRequestTime(requestTime)
   , m_retriesCount(0)
   , m_isWaitingForResponse(true)
@@ -100,18 +101,14 @@ void TrafficManager::SetEnabled(bool enabled)
     m_drapeEngine->EnableTraffic(enabled);
 
   if (enabled)
-  {
-    if (m_currentModelView.second)
-      UpdateViewport(m_currentModelView.first);
-    if (m_currentPosition.second)
-      UpdateMyPosition(m_currentPosition.first);
-  }
-
-  m_observer.OnTrafficEnabled(enabled);
+    Invalidate();
+  else
+    m_observer.OnTrafficInfoClear();
 }
 
 void TrafficManager::Clear()
 {
+  m_currentCacheSizeBytes = 0;
   m_mwmCache.clear();
   m_lastMwmsByRect.clear();
   m_activeMwms.clear();
@@ -128,10 +125,24 @@ void TrafficManager::SetCurrentDataVersion(int64_t dataVersion)
   m_currentDataVersion = dataVersion;
 }
 
+void TrafficManager::OnMwmDelete(MwmSet::MwmId const & mwmId)
+{
+  if (!IsEnabled())
+    return;
+
+  {
+    lock_guard<mutex> lock(m_mutex);
+    ClearCache(mwmId);
+  }
+  Invalidate();
+}
+
 void TrafficManager::OnDestroyGLContext()
 {
   if (!IsEnabled())
     return;
+
+  m_observer.OnTrafficInfoClear();
 
   lock_guard<mutex> lock(m_mutex);
   Clear();
@@ -139,8 +150,15 @@ void TrafficManager::OnDestroyGLContext()
 
 void TrafficManager::OnRecoverGLContext()
 {
+  Invalidate();
+}
+
+void TrafficManager::Invalidate()
+{
   if (!IsEnabled())
     return;
+
+  m_lastMwmsByRect.clear();
 
   if (m_currentModelView.second)
     UpdateViewport(m_currentModelView.first);
@@ -236,7 +254,7 @@ bool TrafficManager::WaitForRequest(vector<MwmSet::MwmId> & mwms)
   return true;
 }
 
-void TrafficManager::RequestTrafficData(MwmSet::MwmId const & mwmId)
+void TrafficManager::RequestTrafficData(MwmSet::MwmId const & mwmId, bool force)
 {
   bool needRequesting = false;
   auto const currentTime = steady_clock::now();
@@ -248,14 +266,15 @@ void TrafficManager::RequestTrafficData(MwmSet::MwmId const & mwmId)
   }
   else
   {
-    it->second.m_lastSeenTime = currentTime;
     auto const passedSeconds = currentTime - it->second.m_lastRequestTime;
-    if (passedSeconds >= kUpdateInterval)
+    if (passedSeconds >= kUpdateInterval || force)
     {
       needRequesting = true;
       it->second.m_isWaitingForResponse = true;
       it->second.m_lastRequestTime = currentTime;
     }
+    if (!force)
+      it->second.m_lastSeenTime = currentTime;
   }
 
   if (needRequesting)
@@ -273,7 +292,7 @@ void TrafficManager::RequestTrafficData()
   for (auto const & mwmId : m_activeMwms)
   {
     ASSERT(mwmId.IsAlive(), ());
-    RequestTrafficData(mwmId);
+    RequestTrafficData(mwmId, false /* force */);
   }
   UpdateState();
 }
@@ -295,11 +314,7 @@ void TrafficManager::OnTrafficRequestFailed(traffic::TrafficInfo && info)
     if (m_activeMwms.find(info.GetMwmId()) != m_activeMwms.end())
     {
       if (it->second.m_retriesCount < kMaxRetriesCount)
-      {
-        it->second.m_lastRequestTime = steady_clock::now();
-        it->second.m_isWaitingForResponse = true;
-        RequestTrafficData(info.GetMwmId());
-      }
+        RequestTrafficData(info.GetMwmId(), true /* force */);
       ++it->second.m_retriesCount;
     }
     else
@@ -359,19 +374,30 @@ void TrafficManager::CheckCacheSize()
     while (m_currentCacheSizeBytes > m_maxCacheSizeBytes &&
            m_mwmCache.size() > m_activeMwms.size())
     {
-      auto const mwmId = itSeen->second;
-      auto const it = m_mwmCache.find(mwmId);
-      if (it->second.m_isLoaded)
-      {
-        ASSERT_GREATER_OR_EQUAL(m_currentCacheSizeBytes, it->second.m_dataSize, ());
-        m_currentCacheSizeBytes -= it->second.m_dataSize;
-        m_drapeEngine->ClearTrafficCache(mwmId);
-        m_observer.OnTrafficInfoRemoved(mwmId);
-      }
-      m_mwmCache.erase(it);
+      ClearCache(itSeen->second);
       ++itSeen;
     }
   }
+}
+
+void TrafficManager::ClearCache(MwmSet::MwmId const & mwmId)
+{
+  auto const it = m_mwmCache.find(mwmId);
+  if (it == m_mwmCache.end())
+    return;
+
+  if (it->second.m_isLoaded)
+  {
+    ASSERT_GREATER_OR_EQUAL(m_currentCacheSizeBytes, it->second.m_dataSize, ());
+    m_currentCacheSizeBytes -= it->second.m_dataSize;
+
+    m_drapeEngine->ClearTrafficCache(mwmId);
+    GetPlatform().RunOnGuiThread([this, mwmId]()
+    {
+      m_observer.OnTrafficInfoRemoved(mwmId);
+    });
+  }
+  m_mwmCache.erase(it);
 }
 
 bool TrafficManager::IsEnabled() const

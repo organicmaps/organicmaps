@@ -143,7 +143,7 @@ class TrafficObserver
 public:
   virtual ~TrafficObserver() = default;
 
-  virtual void OnTrafficEnabled(bool enable) = 0;
+  virtual void OnTrafficInfoClear() = 0;
   virtual void OnTrafficInfoAdded(traffic::TrafficInfo && info) = 0;
   virtual void OnTrafficInfoRemoved(MwmSet::MwmId const & mwmId) = 0;
 };

@@ -155,7 +155,7 @@ public:
   void EmitCloseRoutingEvent() const;
 
   // RoutingObserver overrides:
-  void OnTrafficEnabled(bool enable) override;
+  void OnTrafficInfoClear() override;
   void OnTrafficInfoAdded(traffic::TrafficInfo && info) override;
   void OnTrafficInfoRemoved(MwmSet::MwmId const & mwmId) override;
 
