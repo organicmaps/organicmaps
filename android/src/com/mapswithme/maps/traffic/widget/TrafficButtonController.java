@@ -40,7 +40,7 @@ public class TrafficButtonController implements TrafficManager.TrafficCallback
   @Override
   public void onWaitingData()
   {
-    mButton.setLoading(true);
+    mButton.startWaitingAnimation();
   }
 
   @Override
