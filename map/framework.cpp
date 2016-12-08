@@ -2557,11 +2557,11 @@ void Framework::InsertRoute(Route const & route)
   // TODO(@bykoianko): set traffic by route.
   // TEMPORARY {
   vector<traffic::SpeedGroup> traffic;
-  traffic.resize(route.GetPoly().GetSize() - 1, traffic::SpeedGroup::Unknown);
-  for (size_t i = 0; i < traffic.size(); i++)
-  {
-    traffic[i] = static_cast<traffic::SpeedGroup>(rand() % static_cast<int>(traffic::SpeedGroup::Count));
-  }
+  //traffic.resize(route.GetPoly().GetSize() - 1, traffic::SpeedGroup::Unknown);
+  //for (size_t i = 0; i < traffic.size(); i++)
+  //{
+  //  traffic[i] = static_cast<traffic::SpeedGroup>(rand() % static_cast<int>(traffic::SpeedGroup::Count));
+  //}
   // } TEMPORARY
 
   m_drapeEngine->AddRoute(route.GetPoly(), turns, routeColor, traffic, pattern);
