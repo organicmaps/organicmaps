@@ -14,6 +14,8 @@
 		347F333B1C4540F0009758CC /* simple_dense_coding.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 347F33351C4540F0009758CC /* simple_dense_coding.hpp */; };
 		347F333C1C4540F0009758CC /* succinct_mapper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 347F33361C4540F0009758CC /* succinct_mapper.hpp */; };
 		3496AB6E1DC1F53500C5DDBA /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3496AB6D1DC1F53500C5DDBA /* libalohalitics.a */; };
+		34A129D31DF99E43001B4531 /* zlib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34A129D11DF99E43001B4531 /* zlib.cpp */; };
+		34A129D41DF99E43001B4531 /* zlib.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34A129D21DF99E43001B4531 /* zlib.hpp */; };
 		394916E41BAC3ACF002A8C4F /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6753421B1A3F586300A0A8C3 /* libcoding.a */; };
 		394917201BAC3BE0002A8C4F /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3949171F1BAC3BE0002A8C4F /* testingmain.cpp */; };
 		3949172B1BAC3CAC002A8C4F /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 394917271BAC3CAC002A8C4F /* libbase.a */; };
@@ -146,6 +148,8 @@
 		347F33351C4540F0009758CC /* simple_dense_coding.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = simple_dense_coding.hpp; sourceTree = "<group>"; };
 		347F33361C4540F0009758CC /* succinct_mapper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = succinct_mapper.hpp; sourceTree = "<group>"; };
 		3496AB6D1DC1F53500C5DDBA /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "../../../omim-build/xcode/Debug-iphonesimulator/libalohalitics.a"; sourceTree = "<group>"; };
+		34A129D11DF99E43001B4531 /* zlib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zlib.cpp; sourceTree = "<group>"; };
+		34A129D21DF99E43001B4531 /* zlib.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = zlib.hpp; sourceTree = "<group>"; };
 		34A72A431DBE4989003D1F5F /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
 		34A72A441DBE4989003D1F5F /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
 		3949168F1BAC3A5F002A8C4F /* coding_tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = coding_tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -380,6 +384,8 @@
 		6753421D1A3F586300A0A8C3 /* coding */ = {
 			isa = PBXGroup;
 			children = (
+				34A129D11DF99E43001B4531 /* zlib.cpp */,
+				34A129D21DF99E43001B4531 /* zlib.hpp */,
 				675E889A1DB7B0D000F8EBDA /* traffic.cpp */,
 				675E889B1DB7B0D000F8EBDA /* traffic.hpp */,
 				347F33311C4540F0009758CC /* compressed_bit_vector.cpp */,
@@ -508,6 +514,7 @@
 				675342BA1A3F588C00A0A8C3 /* reader_writer_ops.hpp in Headers */,
 				675342C61A3F588C00A0A8C3 /* uri.hpp in Headers */,
 				6753429B1A3F588C00A0A8C3 /* file_container.hpp in Headers */,
+				34A129D41DF99E43001B4531 /* zlib.hpp in Headers */,
 				670D04BD1B0BA92D0013A7AC /* expat_impl.h in Headers */,
 				675342A81A3F588C00A0A8C3 /* hex.hpp in Headers */,
 				6753428C1A3F588C00A0A8C3 /* byte_stream.hpp in Headers */,
@@ -658,6 +665,7 @@
 				675342D31A3F588C00A0A8C3 /* zip_reader.cpp in Sources */,
 				347F33371C4540F0009758CC /* compressed_bit_vector.cpp in Sources */,
 				6753429F1A3F588C00A0A8C3 /* file_reader.cpp in Sources */,
+				34A129D31DF99E43001B4531 /* zlib.cpp in Sources */,
 				676818201DC3ABD80094C0AC /* traffic_test.cpp in Sources */,
 				675342C51A3F588C00A0A8C3 /* uri.cpp in Sources */,
 				675342BB1A3F588C00A0A8C3 /* reader.cpp in Sources */,
