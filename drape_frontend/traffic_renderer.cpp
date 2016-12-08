@@ -4,6 +4,7 @@
 
 #include "drape/glsl_func.hpp"
 #include "drape/shader_def.hpp"
+#include "drape/support_manager.hpp"
 #include "drape/vertex_array_buffer.hpp"
 
 #include "indexer/map_style_reader.hpp"
@@ -30,7 +31,7 @@ float const kLeftWidthInPixel[] =
   // 1   2     3     4     5     6     7     8     9    10
   0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f,
   //11   12    13   14    15    16    17   18     19    20
-  0.5f, 0.5f, 0.5f, 0.5f, 2.0f, 2.5f, 3.0f, 4.0f, 4.0f, 7.0f
+  0.5f, 0.5f, 0.5f, 0.5f, 2.0f, 2.5f, 3.0f, 4.0f, 4.0f, 4.0f
 };
 
 float const kRightWidthInPixel[] =
@@ -38,24 +39,28 @@ float const kRightWidthInPixel[] =
   // 1   2     3     4     5     6     7     8     9    10
   2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 3.0f, 3.0f,
   //11  12    13    14    15    16    17    18    19     20
-  3.0f, 3.0f, 4.0f, 4.0f, 2.0f, 2.5f, 3.0f, 4.0f, 4.0f, 7.0f
+  3.0f, 3.0f, 4.0f, 4.0f, 2.0f, 2.5f, 3.0f, 4.0f, 4.0f, 4.0f
 };
 
 float const kRoadClass1WidthScalar[] =
 {
   // 1   2     3     4     5     6     7     8     9    10
-  0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.2,
+  0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.3,
   //11  12    13    14    15    16    17    18    19     20
-  0.2, 0.2f, 0.4f, 0.5f, 0.6f, 0.6f, 1.0f, 1.0f, 1.0f, 1.0f
+  0.3, 0.3f, 0.4f, 0.5f, 0.6f, 0.6f, 1.0f, 1.0f, 1.0f, 1.0f
 };
 
 float const kRoadClass2WidthScalar[] =
 {
   // 1   2     3     4     5     6     7     8     9     10
-  0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.2f,
+  0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.3f,
   //11  12    13    14    15     16   17    18    19    20
-  0.2f, 0.2f, 0.2f, 0.2f, 0.5f, 0.5f, 0.5f, 0.8f, 0.9f, 1.0f
+  0.3f, 0.3f, 0.3f, 0.3f, 0.5f, 0.5f, 0.5f, 0.8f, 0.9f, 1.0f
 };
+
+vector<int> const kLineDrawerRoadClass1 = {12, 13, 14};
+
+vector<int> const kLineDrawerRoadClass2 = {15, 16};
 
 float CalculateHalfWidth(ScreenBase const & screen, RoadClass const & roadClass, bool left)
 {
@@ -283,6 +288,16 @@ void TrafficRenderer::Clear(MwmSet::MwmId const & mwmId)
 // static
 float TrafficRenderer::GetPixelWidth(RoadClass const & roadClass, int zoomLevel)
 {
+  int width = 0;
+  if (CanBeRendereredAsLine(roadClass, zoomLevel, width))
+    return static_cast<float>(width);
+
+  return GetPixelWidthInternal(roadClass, zoomLevel);
+}
+
+// static
+float TrafficRenderer::GetPixelWidthInternal(RoadClass const & roadClass, int zoomLevel)
+{
   ASSERT_GREATER(zoomLevel, 1, ());
   ASSERT_LESS_OR_EQUAL(zoomLevel, scales::GetUpperStyleScale(), ());
   float const * widthScalar = nullptr;
@@ -291,9 +306,31 @@ float TrafficRenderer::GetPixelWidth(RoadClass const & roadClass, int zoomLevel)
   else if (roadClass == RoadClass::Class2)
     widthScalar = kRoadClass2WidthScalar;
 
-  float const baseWidth = kLeftWidthInPixel[zoomLevel] + kRightWidthInPixel[zoomLevel];
-  return (widthScalar != nullptr) ? (baseWidth * widthScalar[zoomLevel]) : baseWidth;
+  int const index = zoomLevel - 1;
+  float const baseWidth = (kLeftWidthInPixel[index] + kRightWidthInPixel[index]) *
+                           df::VisualParams::Instance().GetVisualScale();
+  return (widthScalar != nullptr) ? (baseWidth * widthScalar[index]) : baseWidth;
 }
 
+// static
+bool TrafficRenderer::CanBeRendereredAsLine(RoadClass const & roadClass, int zoomLevel, int & width)
+{
+  if (roadClass == RoadClass::Class0)
+    return false;
+
+  vector<int> const * lineDrawer = nullptr;
+  if (roadClass == RoadClass::Class1)
+    lineDrawer = &kLineDrawerRoadClass1;
+  else if (roadClass == RoadClass::Class2)
+    lineDrawer = &kLineDrawerRoadClass2;
+
+  ASSERT(lineDrawer != nullptr, ());
+  auto it = find(lineDrawer->begin(), lineDrawer->end(), zoomLevel);
+  if (it == lineDrawer->end())
+    return false;
+
+  width = max(1, my::rounds(TrafficRenderer::GetPixelWidthInternal(roadClass, zoomLevel)));
+  return width <= dp::SupportManager::Instance().GetMaxLineWidth();
+}
 } // namespace df
 

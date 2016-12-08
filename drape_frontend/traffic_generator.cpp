@@ -11,7 +11,6 @@
 #include "drape/glsl_func.hpp"
 #include "drape/shader_def.hpp"
 #include "drape/texture_manager.hpp"
-#include "drape/support_manager.hpp"
 
 #include "indexer/map_style_reader.hpp"
 
@@ -219,8 +218,6 @@ void TrafficGenerator::FlushSegmentsGeometry(TileKey const & tileKey, TrafficSeg
   static vector<RoadClass> const kRoadClasses = {RoadClass::Class0, RoadClass::Class1, RoadClass::Class2};
   static float const kDepths[] = {2.0f, 1.0f, 0.0f};
   static vector<int> const kGenerateCapsZoomLevel = {14, 14, 16};
-  static vector<int> const kLineDrawerRoadClass1 = {12, 13, 14};
-  static vector<int> const kLineDrawerRoadClass2 = {15, 16};
 
   for (auto geomIt = geom.begin(); geomIt != geom.end(); ++geomIt)
   {
@@ -250,42 +247,29 @@ void TrafficGenerator::FlushSegmentsGeometry(TileKey const & tileKey, TrafficSeg
           dp::TextureManager::ColorRegion const & colorRegion = m_colorsCache[static_cast<size_t>(segmentColoringIt->second)];
           glsl::vec2 const uv = glsl::ToVec2(colorRegion.GetTexRect().Center());
 
-          bool generatedAsLine = false;
-          vector<int> const * lineDrawer = nullptr;
-          if (g.m_roadClass == RoadClass::Class1)
-            lineDrawer = &kLineDrawerRoadClass1;
-          else if (g.m_roadClass == RoadClass::Class2)
-            lineDrawer = &kLineDrawerRoadClass2;
-
-          if (lineDrawer != nullptr)
+          int width = 0;
+          if (TrafficRenderer::CanBeRendereredAsLine(g.m_roadClass, tileKey.m_zoomLevel, width))
           {
-            auto lineDrawerIt = find(lineDrawer->begin(), lineDrawer->end(), tileKey.m_zoomLevel);
-            int const w = static_cast<int>(TrafficRenderer::GetPixelWidth(g.m_roadClass, tileKey.m_zoomLevel));
-            if (lineDrawerIt != lineDrawer->end() && w > 0 && w <= dp::SupportManager::Instance().GetMaxLineWidth())
-            {
-              vector<TrafficLineStaticVertex> staticGeometry;
-              vector<TrafficDynamicVertex> dynamicGeometry;
-              GenerateLineSegment(colorRegion, g.m_polyline, tileKey.GetGlobalRect().Center(), depth,
-                                  staticGeometry, dynamicGeometry);
-              ASSERT_EQUAL(staticGeometry.size(), dynamicGeometry.size(), ());
+            vector<TrafficLineStaticVertex> staticGeometry;
+            vector<TrafficDynamicVertex> dynamicGeometry;
+            GenerateLineSegment(colorRegion, g.m_polyline, tileKey.GetGlobalRect().Center(), depth,
+                                staticGeometry, dynamicGeometry);
+            ASSERT_EQUAL(staticGeometry.size(), dynamicGeometry.size(), ());
 
-              if ((staticGeometry.size() + dynamicGeometry.size()) == 0)
-                continue;
+            if ((staticGeometry.size() + dynamicGeometry.size()) == 0)
+              continue;
 
-              drape_ptr<dp::OverlayHandle> handle = make_unique_dp<TrafficHandle>(sid, g.m_roadClass, g.m_polyline.GetLimitRect(), uv,
-                                                                                  staticGeometry.size());
-              m_providerLines.Reset(staticGeometry.size());
-              m_providerLines.UpdateStream(0 /* stream index */, make_ref(staticGeometry.data()));
-              m_providerLines.UpdateStream(1 /* stream index */, make_ref(dynamicGeometry.data()));
+            drape_ptr<dp::OverlayHandle> handle = make_unique_dp<TrafficHandle>(sid, g.m_roadClass, g.m_polyline.GetLimitRect(), uv,
+                                                                                staticGeometry.size());
+            m_providerLines.Reset(staticGeometry.size());
+            m_providerLines.UpdateStream(0 /* stream index */, make_ref(staticGeometry.data()));
+            m_providerLines.UpdateStream(1 /* stream index */, make_ref(dynamicGeometry.data()));
 
-              dp::GLState curLineState = lineState;
-              curLineState.SetLineWidth(w * df::VisualParams::Instance().GetVisualScale());
-              batcher->InsertLineStrip(curLineState, make_ref(&m_providerLines), move(handle));
-              generatedAsLine = true;
-            }
+            dp::GLState curLineState = lineState;
+            curLineState.SetLineWidth(width);
+            batcher->InsertLineStrip(curLineState, make_ref(&m_providerLines), move(handle));
           }
-
-          if (!generatedAsLine)
+          else
           {
             vector<TrafficStaticVertex> staticGeometry;
             vector<TrafficDynamicVertex> dynamicGeometry;
