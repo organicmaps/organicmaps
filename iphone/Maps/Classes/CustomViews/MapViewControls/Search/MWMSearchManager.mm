@@ -279,7 +279,6 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
 
 - (void)changeToDefaultState
 {
-  [self updateTopController];
   [self.navigationController popToRootViewControllerAnimated:NO];
 
   self.actionBarState = MWMSearchManagerActionBarStateTabBar;
@@ -294,7 +293,6 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
 
 - (void)changeToTableSearchState
 {
-  [self updateTopController];
   [self.navigationController popToRootViewControllerAnimated:NO];
 
   self.actionBarState = MWMSearchManagerActionBarStateHidden;
@@ -311,7 +309,6 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
 
 - (void)changeToMapSearchState
 {
-  [self updateTopController];
   [self.navigationController popToRootViewControllerAnimated:NO];
 
   self.actionBarState = MWMSearchManagerActionBarStateModeFilter;
@@ -452,6 +449,7 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
                                                       kSearchStateKey : @(state)
                                                     }];
   _state = state;
+  [self updateTopController];
   switch (state)
   {
   case MWMSearchManagerStateHidden:
