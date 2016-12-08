@@ -85,6 +85,8 @@ public:
   string GetBannerIconId() const;
   string GetBannerUrl() const;
 
+  bool IsReachableByTaxi() const;
+
   void SetMercator(m2::PointD const & mercator);
 
   /// Comes from API, shared links etc.

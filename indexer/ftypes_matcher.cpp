@@ -321,24 +321,6 @@ IsBuildingChecker const & IsBuildingChecker::Instance()
   return inst;
 }
 
-IsLocalityChecker::IsLocalityChecker()
-{
-  Classificator const & c = classif();
-
-  // Note! The order should be equal with constants in Type enum (add other villages to the end).
-  char const * arr[][2] = {
-    { "place", "country" },
-    { "place", "state" },
-    { "place", "city" },
-    { "place", "town" },
-    { "place", "village" },
-    { "place", "hamlet" }
-  };
-
-  for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
-    m_types.push_back(c.GetTypeByPath(vector<string>(arr[i], arr[i] + 2)));
-}
-
 IsBuildingPartChecker::IsBuildingPartChecker() : BaseChecker(1 /* level */)
 {
   m_types.push_back(classif().GetTypeByPath({"building:part"}));
@@ -372,45 +354,6 @@ IsTunnelChecker const & IsTunnelChecker::Instance()
 bool IsTunnelChecker::IsMatched(uint32_t type) const
 {
   return IsTypeConformed(type, {"highway", "*", "tunnel"});
-}
-
-Type IsLocalityChecker::GetType(uint32_t t) const
-{
-  ftype::TruncValue(t, 2);
-
-  size_t j = COUNTRY;
-  for (; j < LOCALITY_COUNT; ++j)
-    if (t == m_types[j])
-      return static_cast<Type>(j);
-
-  for (; j < m_types.size(); ++j)
-    if (t == m_types[j])
-      return VILLAGE;
-
-  return NONE;
-}
-
-Type IsLocalityChecker::GetType(feature::TypesHolder const & types) const
-{
-  for (uint32_t t : types)
-  {
-    Type const type = GetType(t);
-    if (type != NONE)
-      return type;
-  }
-  return NONE;
-}
-
-Type IsLocalityChecker::GetType(FeatureType const & f) const
-{
-  feature::TypesHolder types(f);
-  return GetType(types);
-}
-
-IsLocalityChecker const & IsLocalityChecker::Instance()
-{
-  static IsLocalityChecker const inst;
-  return inst;
 }
 
 IsBookingChecker::IsBookingChecker()
@@ -485,6 +428,63 @@ IsOpentableChecker::IsOpentableChecker()
 IsOpentableChecker const & IsOpentableChecker::Instance()
 {
   static IsOpentableChecker const inst;
+  return inst;
+}
+
+IsLocalityChecker::IsLocalityChecker()
+{
+  Classificator const & c = classif();
+
+  // Note! The order should be equal with constants in Type enum (add other villages to the end).
+  char const * arr[][2] = {
+    { "place", "country" },
+    { "place", "state" },
+    { "place", "city" },
+    { "place", "town" },
+    { "place", "village" },
+    { "place", "hamlet" }
+  };
+
+  for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
+    m_types.push_back(c.GetTypeByPath(vector<string>(arr[i], arr[i] + 2)));
+}
+
+Type IsLocalityChecker::GetType(uint32_t t) const
+{
+  ftype::TruncValue(t, 2);
+
+  size_t j = COUNTRY;
+  for (; j < LOCALITY_COUNT; ++j)
+    if (t == m_types[j])
+      return static_cast<Type>(j);
+
+  for (; j < m_types.size(); ++j)
+    if (t == m_types[j])
+      return VILLAGE;
+
+  return NONE;
+}
+
+Type IsLocalityChecker::GetType(feature::TypesHolder const & types) const
+{
+  for (uint32_t t : types)
+  {
+    Type const type = GetType(t);
+    if (type != NONE)
+      return type;
+  }
+  return NONE;
+}
+
+Type IsLocalityChecker::GetType(FeatureType const & f) const
+{
+  feature::TypesHolder types(f);
+  return GetType(types);
+}
+
+IsLocalityChecker const & IsLocalityChecker::Instance()
+{
+  static IsLocalityChecker const inst;
   return inst;
 }
 
