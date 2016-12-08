@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Toast;
 
+import com.mapswithme.maps.R;
 import com.mapswithme.maps.traffic.TrafficManager;
 
 public class TrafficButtonController implements TrafficManager.TrafficCallback
@@ -15,6 +16,7 @@ public class TrafficButtonController implements TrafficManager.TrafficCallback
   private final TrafficButton mButton;
   @NonNull
   private final Activity mActivity;
+  private boolean mErrorDlgShown;
 
   public TrafficButtonController(@NonNull TrafficButton button, @NonNull Activity activity)
   {
@@ -51,42 +53,53 @@ public class TrafficButtonController implements TrafficManager.TrafficCallback
   public void onNoData()
   {
     mButton.turnOn();
-    //TODO: put localized string
-    Toast.makeText(mActivity, "There is not traffic data here", Toast.LENGTH_SHORT).show();
+    Toast.makeText(mActivity, R.string.traffic_data_unavailable, Toast.LENGTH_SHORT).show();
   }
 
   @Override
   public void onNetworkError()
   {
-    //TODO: put localized string
+    if (mErrorDlgShown)
+      return;
+
     AlertDialog.Builder builder = new AlertDialog.Builder(mActivity)
-        .setMessage("Network problem encountered. Traffic data cannot be obtained.")
-        .setPositiveButton("OK", new DialogInterface.OnClickListener()
+        .setMessage(R.string.common_check_internet_connection_dialog)
+        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
         {
           @Override
           public void onClick(DialogInterface dialog, int which)
           {
             TrafficManager.INSTANCE.disable();
+            mErrorDlgShown = false;
           }
         })
-        .setCancelable(false);
+        .setCancelable(true)
+        .setOnCancelListener(new DialogInterface.OnCancelListener()
+        {
+          @Override
+          public void onCancel(DialogInterface dialog)
+          {
+            TrafficManager.INSTANCE.disable();
+            mErrorDlgShown = false;
+
+          }
+        });
     builder.show();
+    mErrorDlgShown = true;
   }
 
   @Override
   public void onExpiredData()
   {
     mButton.turnOn();
-    //TODO: put localized string
-    Toast.makeText(mActivity, "Traffic data is outdated", Toast.LENGTH_SHORT).show();
+    Toast.makeText(mActivity, R.string.traffic_update_maps_text, Toast.LENGTH_SHORT).show();
   }
 
   @Override
   public void onExpiredApp()
   {
     mButton.turnOn();
-    //TODO: put localized string
-    Toast.makeText(mActivity, "The app needs to be updated to get traffic data", Toast.LENGTH_SHORT).show();
+    Toast.makeText(mActivity, R.string.traffic_update_app, Toast.LENGTH_SHORT).show();
   }
 
   private class OnTrafficClickListener implements View.OnClickListener
