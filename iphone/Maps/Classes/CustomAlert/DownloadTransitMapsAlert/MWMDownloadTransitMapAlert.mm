@@ -32,6 +32,7 @@ CGFloat const kAnimationDuration = .05;
 
 @property (nonatomic) MWMCircularProgress * progress;
 
+@property (weak, nonatomic) IBOutlet UIView * containerView;
 @property (weak, nonatomic) IBOutlet UILabel * titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel * messageLabel;
 @property (weak, nonatomic) IBOutlet UITableView * dialogsTableView;
@@ -107,6 +108,9 @@ CGFloat const kAnimationDuration = .05;
 {
   [self.dialogsTableView registerNib:[UINib nibWithNibName:kCellIdentifier bundle:nil] forCellReuseIdentifier:kCellIdentifier];
   self.listExpanded = NO;
+  CALayer * containerViewLayer = self.containerView.layer;
+  containerViewLayer.shouldRasterize = YES;
+  containerViewLayer.rasterizationScale = [[UIScreen mainScreen] scale];
   [self.dialogsTableView reloadData];
 }
 

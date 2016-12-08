@@ -192,6 +192,7 @@
                 <constraint firstAttribute="centerX" secondItem="Hay-Qx-kVw" secondAttribute="centerX" id="e0c-Aj-Anh"/>
             </constraints>
             <connections>
+                <outlet property="containerView" destination="Hay-Qx-kVw" id="YBK-zz-Ejj"/>
                 <outlet property="dialogsBottomOffset" destination="58e-JY-U6g" id="D2s-m8-XQl"/>
                 <outlet property="dialogsTableView" destination="1lL-cj-2oS" id="QPh-bX-GfH"/>
                 <outlet property="hDivider" destination="2nQ-k3-Rx3" id="5BD-2K-Qcc"/>
