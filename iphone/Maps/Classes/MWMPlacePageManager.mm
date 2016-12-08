@@ -175,6 +175,16 @@
   [self closePlacePage];
 }
 
+- (void)taxiTo
+{
+  [Statistics logEvent:kStatPlacePageTaxiClick
+        withParameters:@{kStatProvider : kStatUber, kStatTags : self.data.statisticsTags}];
+  auto router = [MWMRouter router];
+  router.type = routing::RouterType::Taxi;
+  [router buildToPoint:self.target bestRouter:NO];
+  [self closePlacePage];
+}
+
 - (MWMRoutePoint)target
 {
   NSString * name = nil;

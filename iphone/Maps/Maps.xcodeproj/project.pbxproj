@@ -1186,6 +1186,12 @@
 		F626D5301C3E840600C17D15 /* MWMNightModeController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6B2E61E1C3D5F31005562DF /* MWMNightModeController.mm */; };
 		F626D5331C3E846E00C17D15 /* UIImageView+Coloring.mm in Sources */ = {isa = PBXBuildFile; fileRef = F62F1D941C3281F1006CF38E /* UIImageView+Coloring.mm */; };
 		F62F1D951C3281F1006CF38E /* UIImageView+Coloring.mm in Sources */ = {isa = PBXBuildFile; fileRef = F62F1D941C3281F1006CF38E /* UIImageView+Coloring.mm */; };
+		F63421EF1DF975A800A96868 /* MWMPlacePageTaxiCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F63421EE1DF975A800A96868 /* MWMPlacePageTaxiCell.mm */; };
+		F63421F01DF975A800A96868 /* MWMPlacePageTaxiCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F63421EE1DF975A800A96868 /* MWMPlacePageTaxiCell.mm */; };
+		F63421F11DF975A800A96868 /* MWMPlacePageTaxiCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F63421EE1DF975A800A96868 /* MWMPlacePageTaxiCell.mm */; };
+		F63421F31DF975CB00A96868 /* MWMPlacePageTaxiCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F63421F21DF975CB00A96868 /* MWMPlacePageTaxiCell.xib */; };
+		F63421F41DF975CB00A96868 /* MWMPlacePageTaxiCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F63421F21DF975CB00A96868 /* MWMPlacePageTaxiCell.xib */; };
+		F63421F51DF975CB00A96868 /* MWMPlacePageTaxiCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F63421F21DF975CB00A96868 /* MWMPlacePageTaxiCell.xib */; };
 		F634C8F01D79994900BE04E2 /* _MWMPPPTitle.xib in Resources */ = {isa = PBXBuildFile; fileRef = F634C8EF1D79994900BE04E2 /* _MWMPPPTitle.xib */; };
 		F634C8F11D79994900BE04E2 /* _MWMPPPTitle.xib in Resources */ = {isa = PBXBuildFile; fileRef = F634C8EF1D79994900BE04E2 /* _MWMPPPTitle.xib */; };
 		F634C8F31D79996D00BE04E2 /* _MWMPPPExternalTitle.xib in Resources */ = {isa = PBXBuildFile; fileRef = F634C8F21D79996D00BE04E2 /* _MWMPPPExternalTitle.xib */; };
@@ -2010,6 +2016,9 @@
 		F626D52D1C3E6CAA00C17D15 /* MWMTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTableViewCell.mm; sourceTree = "<group>"; };
 		F62F1D931C3281F1006CF38E /* UIImageView+Coloring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Coloring.h"; sourceTree = "<group>"; };
 		F62F1D941C3281F1006CF38E /* UIImageView+Coloring.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImageView+Coloring.mm"; sourceTree = "<group>"; };
+		F63421ED1DF975A800A96868 /* MWMPlacePageTaxiCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMPlacePageTaxiCell.h; sourceTree = "<group>"; };
+		F63421EE1DF975A800A96868 /* MWMPlacePageTaxiCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPlacePageTaxiCell.mm; sourceTree = "<group>"; };
+		F63421F21DF975CB00A96868 /* MWMPlacePageTaxiCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMPlacePageTaxiCell.xib; sourceTree = "<group>"; };
 		F634C8EF1D79994900BE04E2 /* _MWMPPPTitle.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = _MWMPPPTitle.xib; sourceTree = "<group>"; };
 		F634C8F21D79996D00BE04E2 /* _MWMPPPExternalTitle.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = _MWMPPPExternalTitle.xib; sourceTree = "<group>"; };
 		F634C8F51D79997700BE04E2 /* _MWMPPPSubtitle.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = _MWMPPPSubtitle.xib; sourceTree = "<group>"; };
@@ -3723,6 +3732,9 @@
 				3491E7C81C06F1F10042FE24 /* MWMPlacePageButtonCell.h */,
 				3491E7C91C06F1F10042FE24 /* MWMPlacePageButtonCell.mm */,
 				3491E7CA1C06F1F10042FE24 /* MWMPlacePageButtonCell.xib */,
+				F63421ED1DF975A800A96868 /* MWMPlacePageTaxiCell.h */,
+				F63421EE1DF975A800A96868 /* MWMPlacePageTaxiCell.mm */,
+				F63421F21DF975CB00A96868 /* MWMPlacePageTaxiCell.xib */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -4135,6 +4147,7 @@
 				34AB04B71CEC95B500CE8B36 /* MWMEditorAdditionalNamePlaceholderTableViewCell.xib in Resources */,
 				FA46DA2C12D4166E00968C36 /* countries.txt in Resources */,
 				671182E21C7F0DD400CB8177 /* packed_polygons_obsolete.bin in Resources */,
+				F63421F31DF975CB00A96868 /* MWMPlacePageTaxiCell.xib in Resources */,
 				4A23D15C1B8B4DD700D4EB6F /* resources-6plus_clear in Resources */,
 				341F99DB1C6B1165001C67B8 /* MWMMapDownloaderPlaceTableViewCell.xib in Resources */,
 				EE583CBB12F773F00042CBE3 /* unicode_blocks.txt in Resources */,
@@ -4301,6 +4314,7 @@
 				34AB04B81CEC95B500CE8B36 /* MWMEditorAdditionalNamePlaceholderTableViewCell.xib in Resources */,
 				6741A9481BF340DE002C974C /* MWMSearchTabbedCollectionViewCell.xib in Resources */,
 				6741A9491BF340DE002C974C /* countries.txt in Resources */,
+				F63421F41DF975CB00A96868 /* MWMPlacePageTaxiCell.xib in Resources */,
 				F69E91211D994D1A00D7A778 /* MWMOpeningHoursCell.xib in Resources */,
 				6741A94A1BF340DE002C974C /* resources-6plus_clear in Resources */,
 				6741A94B1BF340DE002C974C /* unicode_blocks.txt in Resources */,
@@ -4479,6 +4493,7 @@
 				849CF6001DE842290024A8A5 /* MWMPPView.xib in Resources */,
 				849CF6011DE842290024A8A5 /* MWMDownloaderDialogHeader.xib in Resources */,
 				849CF6021DE842290024A8A5 /* World.mwm in Resources */,
+				F63421F51DF975CB00A96868 /* MWMPlacePageTaxiCell.xib in Resources */,
 				849CF6031DE842290024A8A5 /* resources-hdpi_dark in Resources */,
 				849CF6041DE842290024A8A5 /* 01_dejavusans.ttf in Resources */,
 				849CF6051DE842290024A8A5 /* 02_droidsans-fallback.ttf in Resources */,
@@ -4872,6 +4887,7 @@
 				F69AEEB91DDB263E00BE034A /* MWMOpeningHoursLayoutHelper.mm in Sources */,
 				341F99DD1C6B1165001C67B8 /* MWMMapDownloaderSubplaceTableViewCell.mm in Sources */,
 				343FAC4A1CBFBDFC00A45D3B /* MWMNoMapsView.mm in Sources */,
+				F63421EF1DF975A800A96868 /* MWMPlacePageTaxiCell.mm in Sources */,
 				6BA0BCD11B74DDBA00CC9969 /* MWMCustomFacebookEvents.mm in Sources */,
 				978F9244183B660F000D6C7C /* SwitchCell.mm in Sources */,
 				342AD7721B53D32F00E0B997 /* UIView+RuntimeAttributes.mm in Sources */,
@@ -5125,6 +5141,7 @@
 				F69AEEBA1DDB263E00BE034A /* MWMOpeningHoursLayoutHelper.mm in Sources */,
 				F626D5331C3E846E00C17D15 /* UIImageView+Coloring.mm in Sources */,
 				343FAC4B1CBFBDFC00A45D3B /* MWMNoMapsView.mm in Sources */,
+				F63421F01DF975A800A96868 /* MWMPlacePageTaxiCell.mm in Sources */,
 				6741AA191BF340DE002C974C /* MWMDownloaderDialogCell.mm in Sources */,
 				6741AA1B1BF340DE002C974C /* MWMDirectionView.mm in Sources */,
 				3491E7CC1C06F1F10042FE24 /* MWMPlacePageButtonCell.mm in Sources */,
@@ -5195,6 +5212,7 @@
 				849CF68D1DE842290024A8A5 /* MWMLocationManager.mm in Sources */,
 				849CF68E1DE842290024A8A5 /* MWMMapDownloaderAdsTableViewCell.mm in Sources */,
 				849CF68F1DE842290024A8A5 /* MWMSearchShowOnMapCell.mm in Sources */,
+				F63421F11DF975A800A96868 /* MWMPlacePageTaxiCell.mm in Sources */,
 				849CF6901DE842290024A8A5 /* MWMSearchTabButtonsView.mm in Sources */,
 				849CF6911DE842290024A8A5 /* MWMSideButtons.mm in Sources */,
 				849CF6921DE842290024A8A5 /* MWMMapDownloaderDataSource.mm in Sources */,

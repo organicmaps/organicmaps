@@ -162,9 +162,6 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
 - (void)rebuildWithBestRouter:(BOOL)bestRouter
 {
   [self clearAltitudeImagesData];
-  // Taxi can't be used as best router.
-  if ([MWMRouter isTaxi])
-    bestRouter = NO;
 
   bool isP2P = false;
   if (self.startPoint.IsMyPosition())
@@ -193,7 +190,8 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
   auto & f = GetFramework();
   auto const & startPoint = self.startPoint.Point();
   auto const & finishPoint = self.finishPoint.Point();
-  if (bestRouter)
+  // Taxi can't be used as best router.
+  if (bestRouter && ![MWMRouter isTaxi])
     self.type = GetFramework().GetBestRouter(startPoint, finishPoint);
   f.BuildRoute(startPoint, finishPoint, isP2P, 0 /* timeoutSec */);
   f.SetRouteStartPoint(startPoint, isMarkerPoint(self.startPoint));

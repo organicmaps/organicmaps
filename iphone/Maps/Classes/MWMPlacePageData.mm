@@ -110,6 +110,8 @@ using namespace place_page;
     m_metainfoRows.push_back(MetainfoRows::Address);
 
   m_metainfoRows.push_back(MetainfoRows::Coordinate);
+  if (m_info.IsReachableByTaxi())
+    m_metainfoRows.push_back(MetainfoRows::Taxi);
 }
 
 - (void)fillButtonsSection
@@ -331,6 +333,7 @@ using namespace place_page;
 {
   switch (row)
   {
+  case MetainfoRows::Taxi:
   case MetainfoRows::ExtendedOpeningHours: return nil;
   case MetainfoRows::OpeningHours: return @(m_info.GetOpeningHours().c_str());
   case MetainfoRows::Phone: return @(m_info.GetPhone().c_str());
@@ -369,6 +372,16 @@ using namespace place_page;
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
   [ud setBool:![ud boolForKey:kUserDefaultsLatLonAsDMSKey] forKey:kUserDefaultsLatLonAsDMSKey];
   [ud synchronize];
+}
+
+#pragma mark - Stats
+
+- (NSArray<NSString *> *)statisticsTags
+{
+  NSMutableArray<NSString *> * result = [@[] mutableCopy];
+  for (auto const & s : m_info.GetRawTypes())
+    [result addObject:@(s.c_str())];
+  return result.copy;
 }
 
 @end

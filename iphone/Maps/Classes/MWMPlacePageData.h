@@ -35,7 +35,8 @@ enum class MetainfoRows
   Cuisine,
   Operator,
   Internet,
-  Coordinate
+  Coordinate,
+  Taxi
 };
 
 enum class ButtonsRows
@@ -117,6 +118,8 @@ enum class OpeningHours
 // Coordinates
 - (m2::PointD const &)mercator;
 - (ms::LatLon)latLon;
+
+- (NSArray<NSString *> *)statisticsTags;
 
 // TODO(Vlad): Use MWMSettings to store coordinate format.
 + (void)toggleCoordinateSystem;

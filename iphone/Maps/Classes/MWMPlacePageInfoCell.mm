@@ -79,7 +79,8 @@
     name = @"coordinate";
     break;
   case MetainfoRows::ExtendedOpeningHours:
-  case MetainfoRows::OpeningHours: NSAssert(false, @"Incorrect cell type!"); break;
+  case MetainfoRows::OpeningHours:
+  case MetainfoRows::Taxi: NSAssert(false, @"Incorrect cell type!"); break;
   }
   [self configWithIconName:name data:[data stringForRow:row]];
 }
@@ -152,7 +153,8 @@
   case MetainfoRows::Operator:
   case MetainfoRows::OpeningHours:
   case MetainfoRows::Address:
-  case MetainfoRows::Internet: break;
+  case MetainfoRows::Internet:
+  case MetainfoRows::Taxi: break;
   }
 }
 

@@ -29,6 +29,7 @@
 - (void)addBusiness;
 - (void)book:(BOOL)isDescription;
 - (void)editBookmark;
+- (void)taxiTo;
 
 @end
 

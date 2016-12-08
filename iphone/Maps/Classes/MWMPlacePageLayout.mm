@@ -3,12 +3,13 @@
 #import "MWMCircularProgress.h"
 #import "MWMiPadPlacePageLayoutImpl.h"
 #import "MWMiPhonePlacePageLayoutImpl.h"
+#import "MWMOpeningHoursLayoutHelper.h"
 #import "MWMPlacePageButtonCell.h"
 #import "MWMPlacePageCellUpdateProtocol.h"
 #import "MWMPlacePageData.h"
 #import "MWMPlacePageInfoCell.h"
 #import "MWMPlacePageLayoutImpl.h"
-#import "MWMOpeningHoursLayoutHelper.h"
+#import "MWMPlacePageTaxiCell.h"
 #import "MWMPPPreviewLayoutHelper.h"
 #import "UIColor+MapsMeColor.h"
 
@@ -31,7 +32,8 @@ map<MetainfoRows, NSString *> const kMetaInfoCells = {
   {MetainfoRows::Cuisine, @"PlacePageInfoCell"},
   {MetainfoRows::Operator, @"PlacePageInfoCell"},
   {MetainfoRows::Coordinate, @"PlacePageInfoCell"},
-  {MetainfoRows::Internet, @"PlacePageInfoCell"}};
+  {MetainfoRows::Internet, @"PlacePageInfoCell"},
+  {MetainfoRows::Taxi, @"MWMPlacePageTaxiCell"}};
 
 array<NSString *, 1> const kButtonsCells = {{@"MWMPlacePageButtonCell"}};
 
@@ -338,6 +340,12 @@ array<NSString *, 1> const kButtonsCells = {{@"MWMPlacePageButtonCell"}};
     {
       MWMPlacePageInfoCell * c = [tableView dequeueReusableCellWithIdentifier:kMetaInfoCells.at(row)];
       [c configWithRow:row data:data];
+      return c;
+    }
+    case MetainfoRows::Taxi:
+    {
+      MWMPlacePageTaxiCell * c = [tableView dequeueReusableCellWithIdentifier:kMetaInfoCells.at(row)];
+      c.delegate = delegate;
       return c;
     }
     }
