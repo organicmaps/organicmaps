@@ -97,6 +97,11 @@ TrafficInfo::TrafficInfo(MwmSet::MwmId const & mwmId, int64_t currentDataVersion
   : m_mwmId(mwmId)
   , m_currentDataVersion(currentDataVersion)
 {
+  if (!mwmId.IsAlive())
+  {
+    LOG(LWARNING, ("Attempt to create a traffic info for dead mwm."));
+    return;
+  }
   string const mwmPath = mwmId.GetInfo()->GetLocalFile().GetPath(MapOptions::Map);
   try
   {
@@ -107,7 +112,21 @@ TrafficInfo::TrafficInfo(MwmSet::MwmId const & mwmId, int64_t currentDataVersion
       vector<uint8_t> buf(reader.Size());
       reader.Read(0, buf.data(), buf.size());
       LOG(LINFO, ("Reading keys for", mwmId, "from section"));
-      DeserializeTrafficKeys(buf, m_keys);
+      try
+      {
+        DeserializeTrafficKeys(buf, m_keys);
+      }
+      catch (Reader::Exception const & e)
+      {
+        auto const info = mwmId.GetInfo();
+        LOG(LINFO, ("Could not read traffic keys from section. MWM:", info->GetCountryName(),
+                "Version:", info->GetVersion()));
+
+              alohalytics::LogEvent(
+        "$TrafficReadSectionError",
+        alohalytics::TStringMap({{"mwm", info->GetCountryName()},
+                                 {"version", strings::to_string(info->GetVersion())}}));        
+      }
     }
     else
     {
@@ -268,7 +287,7 @@ void TrafficInfo::SerializeTrafficKeys(vector<RoadSegmentId> const & keys, vecto
 void TrafficInfo::DeserializeTrafficKeys(vector<uint8_t> const & data,
                                          vector<TrafficInfo::RoadSegmentId> & result)
 {
-  MemReader memReader(data.data(), data.size());
+  MemReaderWithExceptions memReader(data.data(), data.size());
   ReaderSource<decltype(memReader)> src(memReader);
   auto const version = ReadPrimitiveFromSource<uint8_t>(src);
   CHECK_EQUAL(version, kLatestKeysVersion, ("Unsupported version of traffic values."));
@@ -343,7 +362,7 @@ void TrafficInfo::DeserializeTrafficValues(vector<uint8_t> const & data,
   vector<uint8_t> decompressedData;
   coding::ZLib::Inflate(data.data(), data.size(), back_inserter(decompressedData));
 
-  MemReader memReader(decompressedData.data(), decompressedData.size());
+  MemReaderWithExceptions memReader(decompressedData.data(), decompressedData.size());
   ReaderSource<decltype(memReader)> src(memReader);
 
   auto const version = ReadPrimitiveFromSource<uint8_t>(src);
@@ -364,6 +383,8 @@ void TrafficInfo::DeserializeTrafficValues(vector<uint8_t> const & data,
 // todo(@m) This is a temporary method. Do not refactor it.
 bool TrafficInfo::ReceiveTrafficKeys()
 {
+  if (!m_mwmId.IsAlive())
+    return false;
   auto const & info = m_mwmId.GetInfo();
   if (!info)
     return false;
@@ -400,6 +421,8 @@ bool TrafficInfo::ReceiveTrafficKeys()
 
 bool TrafficInfo::ReceiveTrafficValues(string & etag, vector<SpeedGroup> & values)
 {
+  if (!m_mwmId.IsAlive())
+    return false;
   auto const & info = m_mwmId.GetInfo();
   if (!info)
     return false;
