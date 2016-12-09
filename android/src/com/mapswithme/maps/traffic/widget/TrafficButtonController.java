@@ -2,8 +2,10 @@ package com.mapswithme.maps.traffic.widget;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Toast;
 
@@ -16,7 +18,8 @@ public class TrafficButtonController implements TrafficManager.TrafficCallback
   private final TrafficButton mButton;
   @NonNull
   private final Activity mActivity;
-  private boolean mErrorDlgShown;
+  @Nullable
+  private Dialog mDialog;
 
   public TrafficButtonController(@NonNull TrafficButton button, @NonNull Activity activity)
   {
@@ -50,16 +53,17 @@ public class TrafficButtonController implements TrafficManager.TrafficCallback
   }
 
   @Override
-  public void onNoData()
+  public void onNoData(boolean notify)
   {
     mButton.turnOn();
-    Toast.makeText(mActivity, R.string.traffic_data_unavailable, Toast.LENGTH_SHORT).show();
+    if (notify)
+      Toast.makeText(mActivity, R.string.traffic_data_unavailable, Toast.LENGTH_SHORT).show();
   }
 
   @Override
   public void onNetworkError()
   {
-    if (mErrorDlgShown)
+    if (mDialog != null && mDialog.isShowing())
       return;
 
     AlertDialog.Builder builder = new AlertDialog.Builder(mActivity)
@@ -70,7 +74,6 @@ public class TrafficButtonController implements TrafficManager.TrafficCallback
           public void onClick(DialogInterface dialog, int which)
           {
             TrafficManager.INSTANCE.disable();
-            mErrorDlgShown = false;
           }
         })
         .setCancelable(true)
@@ -80,26 +83,31 @@ public class TrafficButtonController implements TrafficManager.TrafficCallback
           public void onCancel(DialogInterface dialog)
           {
             TrafficManager.INSTANCE.disable();
-            mErrorDlgShown = false;
-
           }
         });
-    builder.show();
-    mErrorDlgShown = true;
+    mDialog = builder.show();
+  }
+
+  public void destroy()
+  {
+    if (mDialog != null && mDialog.isShowing())
+      mDialog.cancel();
   }
 
   @Override
-  public void onExpiredData()
+  public void onExpiredData(boolean notify)
   {
     mButton.turnOn();
-    Toast.makeText(mActivity, R.string.traffic_update_maps_text, Toast.LENGTH_SHORT).show();
+    if (notify)
+      Toast.makeText(mActivity, R.string.traffic_update_maps_text, Toast.LENGTH_SHORT).show();
   }
 
   @Override
-  public void onExpiredApp()
+  public void onExpiredApp(boolean notify)
   {
     mButton.turnOn();
-    Toast.makeText(mActivity, R.string.traffic_update_app, Toast.LENGTH_SHORT).show();
+    if (notify)
+      Toast.makeText(mActivity, R.string.traffic_update_app, Toast.LENGTH_SHORT).show();
   }
 
   private class OnTrafficClickListener implements View.OnClickListener

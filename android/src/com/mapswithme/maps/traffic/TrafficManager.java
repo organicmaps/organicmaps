@@ -2,7 +2,6 @@ package com.mapswithme.maps.traffic;
 
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.mapswithme.util.Utils;
@@ -23,6 +22,8 @@ public enum TrafficManager
   private final TrafficState.StateChangeListener mStateChangeListener = new TrafficStateListener();
   @TrafficState.Value
   private int mState = TrafficState.DISABLED;
+  @TrafficState.Value
+  private int mLastPostedState = mState;
   @NonNull
   private final List<TrafficCallback> mCallbacks = new ArrayList<>();
   private boolean mInitialized = false;
@@ -137,7 +138,7 @@ public enum TrafficManager
               break;
 
             case TrafficState.NO_DATA:
-              callback.onNoData();
+              callback.onNoData(mLastPostedState != mState);
               break;
 
             case TrafficState.OUTDATED:
@@ -149,16 +150,17 @@ public enum TrafficManager
               break;
 
             case TrafficState.EXPIRED_DATA:
-              callback.onExpiredData();
+                callback.onExpiredData(mLastPostedState != mState);
               break;
 
             case TrafficState.EXPIRED_APP:
-              callback.onExpiredApp();
+                callback.onExpiredApp(mLastPostedState != mState);
               break;
 
             default:
               throw new IllegalArgumentException("Unsupported traffic state: " + mState);
           }
+          mLastPostedState = mState;
         }
       });
     }
@@ -176,9 +178,9 @@ public enum TrafficManager
     void onDisabled();
     void onWaitingData();
     void onOutdated();
-    void onNoData();
     void onNetworkError();
-    void onExpiredData();
-    void onExpiredApp();
+    void onNoData(boolean notify);
+    void onExpiredData(boolean notify);
+    void onExpiredApp(boolean notify);
   }
 }
