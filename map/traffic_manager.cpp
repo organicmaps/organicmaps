@@ -35,7 +35,7 @@ TrafficManager::CacheEntry::CacheEntry()
 TrafficManager::CacheEntry::CacheEntry(time_point<steady_clock> const & requestTime)
   : m_isLoaded(false)
   , m_dataSize(0)
-  , m_lastSeenTime(requestTime)
+  , m_lastActiveTime(requestTime)
   , m_lastRequestTime(requestTime)
   , m_retriesCount(0)
   , m_isWaitingForResponse(true)
@@ -206,13 +206,14 @@ void TrafficManager::UpdateMyPosition(MyPosition const & myPosition)
 {
   // Side of square around |myPosition|. Every mwm which is covered by the square
   // will get traffic info.
-  double const kSquareSideM = 5000;
+  double const kSquareSideM = 5000.0;
   m_currentPosition = {myPosition, true /* initialized */};
 
   if (!IsEnabled() || IsInvalidState())
     return;
 
-  m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(myPosition.m_position, kSquareSideM);
+  m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(myPosition.m_position,
+                                                                       kSquareSideM / 2.0);
   // Request traffic.
   UpdateActiveMwms(rect, m_lastRoutingMwmsByRect, m_activeRoutingMwms);
 
@@ -301,7 +302,7 @@ void TrafficManager::RequestTrafficData(MwmSet::MwmId const & mwmId, bool force)
       it->second.m_lastRequestTime = currentTime;
     }
     if (!force)
-      it->second.m_lastSeenTime = currentTime;
+      it->second.m_lastActiveTime = currentTime;
   }
 
   if (needRequesting)
@@ -403,13 +404,13 @@ void TrafficManager::CheckCacheSize()
   // Calculating number of different active mwms.
   set<MwmSet::MwmId> activeMwms;
   UniteActiveMwms(activeMwms);
-  size_t const activeMwmsSize = m_activeDrapeMwms.size();
+  size_t const activeMwmsSize = activeMwms.size();
 
   if (m_currentCacheSizeBytes > m_maxCacheSizeBytes && m_mwmCache.size() > activeMwmsSize)
   {
     std::multimap<time_point<steady_clock>, MwmSet::MwmId> seenTimings;
     for (auto const & mwmInfo : m_mwmCache)
-      seenTimings.insert(make_pair(mwmInfo.second.m_lastSeenTime, mwmInfo.first));
+      seenTimings.insert(make_pair(mwmInfo.second.m_lastActiveTime, mwmInfo.first));
 
     auto itSeen = seenTimings.begin();
     while (m_currentCacheSizeBytes > m_maxCacheSizeBytes &&

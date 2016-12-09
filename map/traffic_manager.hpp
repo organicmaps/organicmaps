@@ -80,16 +80,6 @@ public:
   void OnMwmDelete(MwmSet::MwmId const & mwmId);
 
 private:
-  void ThreadRoutine();
-  bool WaitForRequest(vector<MwmSet::MwmId> & mwms);
-
-  void OnTrafficDataResponse(traffic::TrafficInfo && info);
-  void OnTrafficRequestFailed(traffic::TrafficInfo && info);
-
-  void UpdateActiveMwms(m2::RectD const & rect, vector<MwmSet::MwmId> & lastMwmsByRect,
-                        set<MwmSet::MwmId> & activeMwms);
-
-private:
   struct CacheEntry
   {
     CacheEntry();
@@ -98,7 +88,7 @@ private:
     bool m_isLoaded;
     size_t m_dataSize;
 
-    time_point<steady_clock> m_lastSeenTime;
+    time_point<steady_clock> m_lastActiveTime;
     time_point<steady_clock> m_lastRequestTime;
     time_point<steady_clock> m_lastResponseTime;
 
@@ -107,6 +97,16 @@ private:
 
     traffic::TrafficInfo::Availability m_lastAvailability;
   };
+
+
+  void ThreadRoutine();
+  bool WaitForRequest(vector<MwmSet::MwmId> & mwms);
+
+  void OnTrafficDataResponse(traffic::TrafficInfo && info);
+  void OnTrafficRequestFailed(traffic::TrafficInfo && info);
+
+  void UpdateActiveMwms(m2::RectD const & rect, vector<MwmSet::MwmId> & lastMwmsByRect,
+                        set<MwmSet::MwmId> & activeMwms);
 
   // This is a group of methods that haven't their own synchronization inside.
   void RequestTrafficData();
@@ -129,7 +129,7 @@ private:
   {
     set<MwmSet::MwmId> activeMwms;
     UniteActiveMwms(activeMwms);
-    for (MwmSet::MwmId const & mwmId : activeMwms)
+    for (auto const & mwmId : activeMwms)
       f(mwmId);
   }
 
