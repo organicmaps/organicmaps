@@ -5,7 +5,7 @@
 #       which are used for the search.
 # :   - symbol that is used to separate the name of the language and translation (or group of translated synonyms).
 #       Language name is located on the left side of ':', and the translation on the right.
-# | - symbol that is used to separate several translated synonyms.
+# |   - symbol that is used to separate several translated synonyms.
 # 1-9 - digits in front of a word indicate the number of symbols than need to be typed in a search query to make
 #       this word appear in the list of suggestions. Located immediately after the separating characters ':' or '|'.
 #       Acceptable use only one digit for one word.
