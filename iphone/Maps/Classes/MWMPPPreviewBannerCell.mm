@@ -1,6 +1,7 @@
 #import "MWMPPPreviewBannerCell.h"
 #import "Common.h"
 #import "MapViewController.h"
+#import "MWMPlacePageLayoutImpl.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
 
@@ -13,6 +14,8 @@ CGFloat const kPreviewImageSide = 20;
 CGFloat const kOpenImageSide = 28;
 CGFloat const kPreviewImageTopOffset = 8;
 CGFloat const kOpenImageTopOffset = 12;
+CGFloat const kParagraphSpacing = 5;
+CGFloat const kLineSpacing = 5;
 }  // namespace
 
 @interface MWMPPPreviewBannerCell ()
@@ -53,9 +56,8 @@ CGFloat const kOpenImageTopOffset = 12;
   }
 
   auto paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-  paragraphStyle.paragraphSpacing = 10;
-  paragraphStyle.lineSpacing = 6;
-  paragraphStyle.headIndent = 0;
+  paragraphStyle.paragraphSpacing = kParagraphSpacing;
+  paragraphStyle.lineSpacing = kLineSpacing;
 
   [full addAttributes:@{NSParagraphStyleAttributeName : paragraphStyle} range:{0, full.length}];
 
@@ -74,9 +76,6 @@ CGFloat const kOpenImageTopOffset = 12;
       [self configImageInOpenState];
     else
       [self configImageInPreviewState];
-
-    [self setNeedsLayout];
-    [UIView animateWithDuration:kDefaultAnimationDuration animations:^{ [self layoutIfNeeded]; }];
   }];
 }
 
@@ -102,6 +101,7 @@ CGFloat const kOpenImageTopOffset = 12;
   self.bodyLeftOffset.constant = kPreviewWithImageBodyLeftOffset;
   self.imageWidth.constant = self.imageHeight.constant = kPreviewImageSide;
   self.imageTopOffset.constant = kPreviewImageTopOffset;
+  [self commitLayoutAnimated];
 }
 
 - (void)configImageInOpenState
@@ -113,6 +113,13 @@ CGFloat const kOpenImageTopOffset = 12;
   self.bodyLeftOffset.constant = kOpenBodyLeftOffset;
   self.imageWidth.constant = self.imageHeight.constant = kOpenImageSide;
   self.imageTopOffset.constant = kOpenImageTopOffset;
+  [self commitLayoutAnimated];
+}
+
+- (void)commitLayoutAnimated
+{
+  [self setNeedsLayout];
+  [UIView animateWithDuration:place_page_layout::kAnimationSpeed animations:^{ [self layoutIfNeeded]; }];
 }
 
 - (IBAction)tap

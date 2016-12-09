@@ -59,7 +59,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="ad_message"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="advertisement"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular10"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackHintText"/>
                         </userDefinedRuntimeAttributes>
@@ -73,6 +73,7 @@
                 </subviews>
                 <color key="backgroundColor" red="1" green="0.97254901960784312" blue="0.88235294117647056" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
+                    <constraint firstItem="kHK-5c-pds" firstAttribute="top" secondItem="V3J-j1-bTt" secondAttribute="bottom" constant="10" id="5CO-Ne-ZXe"/>
                     <constraint firstItem="mgh-Qm-dlV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="B4n-pp-HcL"/>
                     <constraint firstAttribute="trailing" secondItem="pAO-tl-o3I" secondAttribute="trailing" id="GgN-m7-bcC"/>
                     <constraint firstItem="zud-7e-uPx" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="JDB-MJ-CvJ"/>
@@ -84,7 +85,6 @@
                     <constraint firstItem="V3J-j1-bTt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="47" id="Uic-r9-8oL"/>
                     <constraint firstAttribute="bottom" secondItem="pAO-tl-o3I" secondAttribute="bottom" id="UuD-f3-SHD"/>
                     <constraint firstItem="pAO-tl-o3I" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="dyv-wR-rid"/>
-                    <constraint firstItem="kHK-5c-pds" firstAttribute="top" secondItem="V3J-j1-bTt" secondAttribute="bottom" constant="10.5" id="evB-iU-aBn"/>
                     <constraint firstItem="V3J-j1-bTt" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="lMH-yl-IbR"/>
                     <constraint firstItem="kHK-5c-pds" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="oH2-ae-AIY"/>
                     <constraint firstAttribute="trailing" secondItem="V3J-j1-bTt" secondAttribute="trailing" constant="33" id="rLV-Pf-ur1"/>
