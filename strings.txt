@@ -20432,7 +20432,7 @@
     el = Μηδενισμός φίλτρου
     sk = Obnoviť filter
 
-  [booking_list]
+  [search_in_table]
     comment = noun
     en = List
     ru = Список
