@@ -45,18 +45,21 @@ final class BannerController implements View.OnClickListener
   private final float mMarginBase;
   private final float mMarginHalfPlus;
 
+  @NonNull
+  private final Resources mResources;
+
   private boolean mIsOpened = false;
 
   BannerController(@NonNull View bannerView, @Nullable OnBannerClickListener listener)
   {
     mFrame = bannerView;
     mListener = listener;
-    Resources res = mFrame.getResources();
-    mCloseFrameHeight = res.getDimension(R.dimen.placepage_banner_height);
-    mCloseIconSize = res.getDimension(R.dimen.placepage_banner_icon_size);
-    mOpenIconSize = res.getDimension(R.dimen.placepage_banner_icon_size_full);
-    mMarginBase = res.getDimension(R.dimen.margin_base);
-    mMarginHalfPlus = res.getDimension(R.dimen.margin_half_plus);
+    mResources = mFrame.getResources();
+    mCloseFrameHeight = mResources.getDimension(R.dimen.placepage_banner_height);
+    mCloseIconSize = mResources.getDimension(R.dimen.placepage_banner_icon_size);
+    mOpenIconSize = mResources.getDimension(R.dimen.placepage_banner_icon_size_full);
+    mMarginBase = mResources.getDimension(R.dimen.margin_base);
+    mMarginHalfPlus = mResources.getDimension(R.dimen.margin_half_plus);
     mIcon = (ImageView) bannerView.findViewById(R.id.iv__banner_icon);
     mTitle = (TextView) bannerView.findViewById(R.id.tv__banner_title);
     mMessage = (TextView) bannerView.findViewById(R.id.tv__banner_message);
@@ -74,9 +77,17 @@ final class BannerController implements View.OnClickListener
 
     loadIcon(banner);
     if (mTitle != null)
-      mTitle.setText(banner.getTitle());
+    {
+      String title = mResources.getString(mResources.getIdentifier(banner.getTitle(), "string", mFrame.getContext().getPackageName()));
+      if (!TextUtils.isEmpty(title))
+        mTitle.setText(title);
+    }
     if (mMessage != null)
-      mMessage.setText(banner.getMessage());
+    {
+      String message = mResources.getString(mResources.getIdentifier(banner.getMessage(), "string", mFrame.getContext().getPackageName()));
+      if (!TextUtils.isEmpty(message))
+        mMessage.setText(message);
+    }
 
     if (UiUtils.isLandscape(mFrame.getContext()))
       open();
