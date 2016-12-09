@@ -101,12 +101,15 @@ CGFloat const kMinOffset = 1;
 
 - (void)onScreenResize:(CGSize const &)size
 {
-  self.scrollView.frame = {{}, size};
+  UIScrollView * sv = self.scrollView;
+  sv.frame = {{}, size};
   self.placePageView.minY = size.height;
   auto actionBar = self.actionBar;
   actionBar.frame = {{0., size.height - actionBar.height},
     {size.width, actionBar.height}};
   [self.delegate onPlacePageTopBoundChanged:self.scrollView.contentOffset.y];
+  [sv setContentOffset:{0, self.state == State::Top ? self.topContentOffset : self.expandedContentOffset}
+                           animated:YES];
 }
 
 - (void)onUpdatePlacePageWithHeight:(CGFloat)height
