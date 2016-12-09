@@ -142,6 +142,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private TrafficButton mTraffic;
   @Nullable
   private NavigationButtonsAnimationController mNavAnimationController;
+  @Nullable
+  private TrafficButtonController mTrafficButtonController;
 
   private View mPositionChooser;
 
@@ -538,6 +540,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mNavMyPosition = new MyPositionButton(myPosition);
     ImageButton traffic = (ImageButton) frame.findViewById(R.id.traffic);
     mTraffic = new TrafficButton(this, traffic);
+    mTrafficButtonController = new TrafficButtonController(mTraffic, this);
     mNavAnimationController = new NavigationButtonsAnimationController(zoomIn, zoomOut, myPosition);
   }
 
@@ -929,7 +932,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (MapFragment.nativeIsEngineCreated())
       LocationHelper.INSTANCE.attach(this);
-    TrafficManager.INSTANCE.attach(new TrafficButtonController(mTraffic, this));
+    if (mTrafficButtonController != null)
+      TrafficManager.INSTANCE.attach(mTrafficButtonController);
     if (mNavigationController != null)
       TrafficManager.INSTANCE.attach(mNavigationController);
   }
@@ -941,6 +945,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     LocationHelper.INSTANCE.detach(!isFinishing());
     RoutingController.get().detach();
     TrafficManager.INSTANCE.detachAll();
+    if (mTrafficButtonController != null)
+      mTrafficButtonController.destroy();
   }
 
   @Override
