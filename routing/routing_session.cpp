@@ -580,12 +580,11 @@ shared_ptr<Route> const RoutingSession::GetRoute() const
   return m_route;
 }
 
-void RoutingSession::OnTrafficEnabled(bool enable)
+void RoutingSession::OnTrafficInfoClear()
 {
   threads::MutexGuard guard(m_routingSessionMutex);
   UNUSED_VALUE(guard);
-  if (!enable)
-    Clear();
+  Clear();
 }
 
 void RoutingSession::OnTrafficInfoAdded(TrafficInfo && info)

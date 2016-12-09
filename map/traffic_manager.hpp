@@ -72,8 +72,11 @@ public:
   void UpdateViewport(ScreenBase const & screen);
   void UpdateMyPosition(MyPosition const & myPosition);
 
+  void Invalidate();
+
   void OnDestroyGLContext();
   void OnRecoverGLContext();
+  void OnMwmDelete(MwmSet::MwmId const & mwmId);
 
 private:
   void ThreadRoutine();
@@ -85,9 +88,10 @@ private:
 private:
   // This is a group of methods that haven't their own synchronization inside.
   void RequestTrafficData();
-  void RequestTrafficData(MwmSet::MwmId const & mwmId);
+  void RequestTrafficData(MwmSet::MwmId const & mwmId, bool force);
 
   void Clear();
+  void ClearCache(MwmSet::MwmId const & mwmId);
   void CheckCacheSize();
 
   void UpdateState();
