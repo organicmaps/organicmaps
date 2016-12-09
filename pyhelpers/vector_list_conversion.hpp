@@ -6,10 +6,8 @@
 
 namespace
 {
-using namespace boost::python;
-
 template <typename T>
-inline vector<T> python_list_to_std_vector(boost::python::object const & iterable)
+vector<T> python_list_to_std_vector(boost::python::object const & iterable)
 {
   return vector<T>(boost::python::stl_input_iterator<T>(iterable),
                    boost::python::stl_input_iterator<T>());
