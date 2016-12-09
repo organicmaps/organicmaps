@@ -43,12 +43,23 @@ endif()
 
 omim_link_libraries(
   ${PROJECT_NAME}
-  ${PYTHON_LIBRARIES}
-  ${Boost_LIBRARIES}
+  editor
+  routing
+  indexer
   traffic
   platform
   geometry
+  coding
   base
+  stats_client
+  jansson
+  oauthcpp
+  protobuf
+  pugixml
+  opening_hours
+  ${PYTHON_LIBRARIES}
+  ${Boost_LIBRARIES}
+  ${LIBZ}
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")

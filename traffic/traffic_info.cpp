@@ -193,8 +193,9 @@ void TrafficInfo::ExtractTrafficKeys(string const & mwmPath, vector<RoadSegmentI
 }
 
 // static
-void CombineColorings(vector<TrafficInfo::RoadSegmentId> const & keys,
-                      TrafficInfo::Coloring const & knownColors, TrafficInfo::Coloring & result)
+void TrafficInfo::CombineColorings(vector<TrafficInfo::RoadSegmentId> const & keys,
+                                   TrafficInfo::Coloring const & knownColors,
+                                   TrafficInfo::Coloring & result)
 {
   result.clear();
   size_t numKnown = 0;
