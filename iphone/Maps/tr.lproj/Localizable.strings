@@ -1724,35 +1724,37 @@
 
 "big_font" = "Daha büyük etiketler";
 
-"traffic_update_app" = "Please update MAPS.ME";
+"traffic_update_app" = "Lütfen MAPS.ME uygulamasını güncelleyin";
 
-"traffic_update_app_message" = "To display traffic data, the application must be updated.";
+/* "traffic" as in road congestion */
+"traffic_update_app_message" = "Trafik verilerini görüntülemek için uygulamanın güncellenmesi gerekiyor.";
 
-"traffic_data_unavailable" = "Traffic data is not available";
+/* "traffic" as in "road congestion" */
+"traffic_data_unavailable" = "Trafik verileri kullanılamıyor";
 
-"banner_deliveryclub_title" = "Food delivery";
+"banner_deliveryclub_title" = "Gıda teslimatı";
 
-"banner_deliveryclub_message" = "Fast delivery from 4,000 restaurants. Order from Delivery Club.";
+"banner_deliveryclub_message" = "4.000'den fazla restorandan hızlı teslimat. Siparişinizi Delivery Clup ile verin.";
 
-"banner_lamoda_title" = "Online clothing and shoe store";
+"banner_lamoda_title" = "Çevrimiçi giyim ve ayakkabı mağazası";
 
-"banner_lamoda_message" = "More than 1,000 brands. Up to 70% off. Free delivery all over the country.";
+"banner_lamoda_message" = "1.000'den fazla marka. %70'e varan indirimler. Ülkenin her yerine ücretsiz teslimat.";
 
-"banner_tutu_title" = "Train tickets online";
+"banner_tutu_title" = "Çevrimiçi tren biletleri";
 
-"banner_tutu_message" = "Train tickets to any city online - prices, search, and booking.";
+"banner_tutu_message" = "Tüm şehirler için çevrimiçi tren biletleri - fiyat bilgileri, arama yapma ve rezervasyon.";
 
-"banner_geerbest_title" = "Online electronics store";
+"banner_geerbest_title" = "Çevrimiçi elektronik mağazası";
 
-"banner_geerbest_message" = "Instant search in over 50,000 items at low prices.";
+"banner_geerbest_message" = "En uygun fiyatlarla 50.000'den fazla ürün için hızlı arama yapın.";
 
-"banner_rentalcars_title" = "Renting cars online";
+"banner_rentalcars_title" = "Çevrimiçi araba kiralama";
 
-"banner_rentalcars_message" = "800 car rental companies in more than 49,000 car rental locations.";
+"banner_rentalcars_message" = "49.000'den fazla araç kiralama bölgesinde yer alan 800 araç kiralama şirketi.";
 
-"banner_viator_title" = "Online tour search";
+"banner_viator_title" = "Çevrimiçi tur arama";
 
-"banner_viator_message" = "Search in over 50,000 tours all over the world.";
+"banner_viator_message" = "Dünyanın her yerinden 50.000'den fazla tur içinden arama yapın.";
 
 /* december */
 "whatsnew_traffic" = "36 Ülkeden Trafik Verileri";

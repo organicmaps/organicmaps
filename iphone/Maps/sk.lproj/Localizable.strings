@@ -1724,35 +1724,37 @@
 
 "big_font" = "Väčšie nápisy";
 
-"traffic_update_app" = "Please update MAPS.ME";
+"traffic_update_app" = "Aktualizujte si aplikáciu MAPS.ME";
 
-"traffic_update_app_message" = "To display traffic data, the application must be updated.";
+/* "traffic" as in road congestion */
+"traffic_update_app_message" = "Ak chcete zobraziť dopravné informácie, musíte si aktualizovať aplikáciu.";
 
-"traffic_data_unavailable" = "Traffic data is not available";
+/* "traffic" as in "road congestion" */
+"traffic_data_unavailable" = "Dopravné informácie nie sú k dispozícii";
 
-"banner_deliveryclub_title" = "Food delivery";
+"banner_deliveryclub_title" = "Donáška jedla";
 
-"banner_deliveryclub_message" = "Fast delivery from 4,000 restaurants. Order from Delivery Club.";
+"banner_deliveryclub_message" = "Rýchle dodanie zo 4 000 reštaurácií. Objednávky od spoločnosti Delivery Club.";
 
-"banner_lamoda_title" = "Online clothing and shoe store";
+"banner_lamoda_title" = "Online obchod s odevmi a obuvou";
 
-"banner_lamoda_message" = "More than 1,000 brands. Up to 70% off. Free delivery all over the country.";
+"banner_lamoda_message" = "Viac ako 1 000 značiek. Zľavy až 70%. Doručenie zdarma po celej krajine.";
 
-"banner_tutu_title" = "Train tickets online";
+"banner_tutu_title" = "Lístky na vlak online";
 
-"banner_tutu_message" = "Train tickets to any city online - prices, search, and booking.";
+"banner_tutu_message" = "Lístky vlak do ktoréhokoľvek mesta online - ceny, vyhľadávanie a rezervácia.";
 
-"banner_geerbest_title" = "Online electronics store";
+"banner_geerbest_title" = "Online predajňa elektroniky";
 
-"banner_geerbest_message" = "Instant search in over 50,000 items at low prices.";
+"banner_geerbest_message" = "Okamžité vyhľadávanie vo viac ako 50 000 druhoch tovaru za nízke ceny.";
 
-"banner_rentalcars_title" = "Renting cars online";
+"banner_rentalcars_title" = "Prenájom auta online";
 
-"banner_rentalcars_message" = "800 car rental companies in more than 49,000 car rental locations.";
+"banner_rentalcars_message" = "800 spoločností prenajímajúcich vozidlá vo viac ako 49 000 prevádzkach.";
 
-"banner_viator_title" = "Online tour search";
+"banner_viator_title" = "Online vyhľadávanie zájazdov";
 
-"banner_viator_message" = "Search in over 50,000 tours all over the world.";
+"banner_viator_message" = "Vyhľadávanie vo viac ako 50 000 zájazdoch po celom svete.";
 
 /* december */
 "whatsnew_traffic" = "Dopravné informácie v 36 krajinách";

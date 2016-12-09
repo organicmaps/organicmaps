@@ -999,6 +999,23 @@
 	<string name="traffic_update_maps_text">Liikennetietojen näyttämiseksi kartat on päivitettävä.</string>
 	<string name="traffic_outdated">Liikennetiedot ovat vanhentuneet.</string>
 	<string name="big_font">Suuremmat selitykset</string>
+	<string name="traffic_update_app">Päivitä MAPS.ME</string>
+	<!-- "traffic" as in road congestion -->
+	<string name="traffic_update_app_message">Liikennetietojen näyttämiseksi sovellus on päivitettävä.</string>
+	<!-- "traffic" as in "road congestion" -->
+	<string name="traffic_data_unavailable">Liikennetietoja ei ole saatavilla</string>
+	<string name="banner_deliveryclub_title">Ruoan toimitus</string>
+	<string name="banner_deliveryclub_message">Nopea toimitus 4 000 ravintolasta. Tilaa Delivery Clubilta.</string>
+	<string name="banner_lamoda_title">Vaate- ja kenkäkauppa verkossa</string>
+	<string name="banner_lamoda_message">Yli 1 000 merkkiä. Jopa 70 % alea. Ilmainen toimitus kaikkialle maahan.</string>
+	<string name="banner_tutu_title">Junaliput verkossa</string>
+	<string name="banner_tutu_message">Junaliput kaikkiin kaupunkeihin verkossa – hinnat, haku ja varaus.</string>
+	<string name="banner_geerbest_title">Elektroniikkaliike verkossa</string>
+	<string name="banner_geerbest_message">Hae nopeasti yli 50 000 kohteesta edullisin hinnoin.</string>
+	<string name="banner_rentalcars_title">Autonvuokraus verkossa</string>
+	<string name="banner_rentalcars_message">800 autonvuokrausyritystä yli 49 000 autonvuokrauskohteessa.</string>
+	<string name="banner_viator_title">Kierrosten haku verkossa</string>
+	<string name="banner_viator_message">Hae yli 50 000 kierroksesta ympäri maailmaa.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Liikennetiedot 36 maassa</string>
 	<!-- december -->

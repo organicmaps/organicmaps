@@ -999,6 +999,23 @@
 	<string name="traffic_update_maps_text">Để hiển thị dữ liệu giao thông, cần cập nhật bản đồ.</string>
 	<string name="traffic_outdated">Dữ liệu giao thông đã lỗi thời.</string>
 	<string name="big_font">Nhãn mác to hơn</string>
+	<string name="traffic_update_app">Vui lòng cập nhật MAPS.ME</string>
+	<!-- "traffic" as in road congestion -->
+	<string name="traffic_update_app_message">Để hiển thị dữ liệu giao thông, ứng dụng cần phải được cập nhật.</string>
+	<!-- "traffic" as in "road congestion" -->
+	<string name="traffic_data_unavailable">Dữ liệu giao thông không khả dụng</string>
+	<string name="banner_deliveryclub_title">Giao thực phẩm</string>
+	<string name="banner_deliveryclub_message">Giao hàng nhanh từ 4.000 nhà hàng. Đặt hàng từ Delivery Club.</string>
+	<string name="banner_lamoda_title">Cửa hàng quần áo và giầy dép trực tuyến</string>
+	<string name="banner_lamoda_message">Hơn 1.000 nhãn hiệu. Giảm đến 70%. Giao hàng miễn phí toàn quốc.</string>
+	<string name="banner_tutu_title">Vé tàu trực tuyến</string>
+	<string name="banner_tutu_message">Mua vé tàu trực tuyến đến bất kỳ thành phố nào - giá cả, tìm kiếm và đặt vé.</string>
+	<string name="banner_geerbest_title">Cửa hàng điện tử trực tuyến</string>
+	<string name="banner_geerbest_message">Tìm kiếm nhanh hơn 50.000 sản phẩm ở mức giá thấp.</string>
+	<string name="banner_rentalcars_title">Thuê ô tô trực tuyến</string>
+	<string name="banner_rentalcars_message">800 công ty thuê ô tô ở hơn 49.000 địa điểm thuê ô tô.</string>
+	<string name="banner_viator_title">Tìm kiếm tour trực tuyến</string>
+	<string name="banner_viator_message">Tìm hơn 50.000 trên toàn thế giới.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Dữ liệu Giao thông tại 36 Quốc gia</string>
 	<!-- december -->

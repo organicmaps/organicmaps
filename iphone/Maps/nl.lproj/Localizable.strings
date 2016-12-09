@@ -1724,35 +1724,37 @@
 
 "big_font" = "Grotere labels";
 
-"traffic_update_app" = "Please update MAPS.ME";
+"traffic_update_app" = "Gelieve MAPS.ME bij te werken";
 
-"traffic_update_app_message" = "To display traffic data, the application must be updated.";
+/* "traffic" as in road congestion */
+"traffic_update_app_message" = "Om de verkeersgegevens weer te geven, moet de applicatie bijgewerkt worden.";
 
-"traffic_data_unavailable" = "Traffic data is not available";
+/* "traffic" as in "road congestion" */
+"traffic_data_unavailable" = "Verkeersgegevens zijn niet beschikbaar";
 
-"banner_deliveryclub_title" = "Food delivery";
+"banner_deliveryclub_title" = "Levering maaltijden";
 
-"banner_deliveryclub_message" = "Fast delivery from 4,000 restaurants. Order from Delivery Club.";
+"banner_deliveryclub_message" = "Snelle levering van 4.000 restaurants. Bestel via Delivery Club.";
 
-"banner_lamoda_title" = "Online clothing and shoe store";
+"banner_lamoda_title" = "Online kleding- en schoenenwinkel";
 
-"banner_lamoda_message" = "More than 1,000 brands. Up to 70% off. Free delivery all over the country.";
+"banner_lamoda_message" = "Meer dan 1.000 merken. Tot 70% korting. Gratis levering over het hele land.";
 
-"banner_tutu_title" = "Train tickets online";
+"banner_tutu_title" = "Treintickets online";
 
-"banner_tutu_message" = "Train tickets to any city online - prices, search, and booking.";
+"banner_tutu_message" = "Treintickets naar elke staf online - prijzen, zoeken en reserveren.";
 
-"banner_geerbest_title" = "Online electronics store";
+"banner_geerbest_title" = "Online elektronicawinkel";
 
-"banner_geerbest_message" = "Instant search in over 50,000 items at low prices.";
+"banner_geerbest_message" = "Onmiddellijk zoeken tussen meer dan 50.000 artikelen aan lage prijzen.";
 
-"banner_rentalcars_title" = "Renting cars online";
+"banner_rentalcars_title" = "Online auto's huren";
 
-"banner_rentalcars_message" = "800 car rental companies in more than 49,000 car rental locations.";
+"banner_rentalcars_message" = "800 autoverhuurbedrijven in meer dan 49.000 locaties voor autoverhuur.";
 
-"banner_viator_title" = "Online tour search";
+"banner_viator_title" = "Online tours zoeken";
 
-"banner_viator_message" = "Search in over 50,000 tours all over the world.";
+"banner_viator_message" = "Zoek in meer dan 50.000 tours over de hele wereld.";
 
 /* december */
 "whatsnew_traffic" = "Verkeersgegevens in 36 Landen";

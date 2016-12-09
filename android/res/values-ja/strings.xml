@@ -998,6 +998,23 @@
 	<string name="traffic_update_maps_text">交通データを表示するには、地図を更新する必要があります。</string>
 	<string name="traffic_outdated">交通データが古くなっています。</string>
 	<string name="big_font">大きなラベル</string>
+	<string name="traffic_update_app">MAPS.ME をアップデートしてください</string>
+	<!-- "traffic" as in road congestion -->
+	<string name="traffic_update_app_message">交通データを表示するには、アプリケーションをアップデートする必要があります。</string>
+	<!-- "traffic" as in "road congestion" -->
+	<string name="traffic_data_unavailable">交通データは利用できません</string>
+	<string name="banner_deliveryclub_title">出前・宅配</string>
+	<string name="banner_deliveryclub_message">4,000 軒のレストランから迅速にお届けします。Delivery Club からご注文ください。</string>
+	<string name="banner_lamoda_title">衣料品と靴のオンライン店舗</string>
+	<string name="banner_lamoda_message">1,000 件を超えるブランド。最大 70% オフ。全国無料配送。</string>
+	<string name="banner_tutu_title">オンライン鉄道チケット</string>
+	<string name="banner_tutu_message">どんな都市への鉄道チケットもオンラインで。価格を検索して、予約しましょう。</string>
+	<string name="banner_geerbest_title">オンライン家電量販店</string>
+	<string name="banner_geerbest_message">低価格で 50,000 件を超えるアイテムを素早く検索。</string>
+	<string name="banner_rentalcars_title">オンラインでレンタカーを予約</string>
+	<string name="banner_rentalcars_message">800 社のレンタカー会社による 49,000 カ所を超えるレンタカー店舗をご利用いただけます。</string>
+	<string name="banner_viator_title">オンラインツアー検索</string>
+	<string name="banner_viator_message">世界中から 50,000 件を超えるツアーを検索してください。</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">36か国の交通データ</string>
 	<!-- december -->

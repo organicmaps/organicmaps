@@ -1003,6 +1003,23 @@
 	<string name="traffic_update_maps_text">Kartor måste uppdateras för att visa trafikdata.</string>
 	<string name="traffic_outdated">Trafikdata är inaktuellt.</string>
 	<string name="big_font">Större etiketter</string>
+	<string name="traffic_update_app">Uppdatera MAPS.ME</string>
+	<!-- "traffic" as in road congestion -->
+	<string name="traffic_update_app_message">Applikationen måste uppdateras för att trafikdata ska kunna visas.</string>
+	<!-- "traffic" as in "road congestion" -->
+	<string name="traffic_data_unavailable">Trafikdata är inte tillgänglig</string>
+	<string name="banner_deliveryclub_title">Matleverans</string>
+	<string name="banner_deliveryclub_message">Snabbleverans från 4000 restauranger. Beställ från Delivery Club.</string>
+	<string name="banner_lamoda_title">Kläd- och skobutik online</string>
+	<string name="banner_lamoda_message">Över 1000 varumärken. Upp till 70 % i rabatt. Gratis leverans över hela landet.</string>
+	<string name="banner_tutu_title">Tågbiljetter online</string>
+	<string name="banner_tutu_message">Tågbiljetter till vilken stad som helst online - priser, sökning och bokning.</string>
+	<string name="banner_geerbest_title">Elektronisk onlinebutik</string>
+	<string name="banner_geerbest_message">Snabbsökning i över 50000 föremål till låga priser.</string>
+	<string name="banner_rentalcars_title">Biluthyrning online</string>
+	<string name="banner_rentalcars_message">800 biluthyrningsföretag på mer än 49000 biluthyrningsplatser.</string>
+	<string name="banner_viator_title">Sökning efter turer online</string>
+	<string name="banner_viator_message">Sök bland mer än 50000 turer över hela världen.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Trafikdata i 36 länder</string>
 	<!-- december -->

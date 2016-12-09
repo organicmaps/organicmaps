@@ -1019,7 +1019,9 @@
 	<string name="traffic_outdated">Данные о пробках устарели.</string>
 	<string name="big_font">Увеличенные подписи</string>
 	<string name="traffic_update_app">Обновите MAPS.ME</string>
+	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Для отображения пробок необходимо обновить приложение.</string>
+	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Данные о пробках недоступны</string>
 	<string name="banner_deliveryclub_title">Доставка еды</string>
 	<string name="banner_deliveryclub_message">Быстрая доставка еды из 4 тысяч ресторанов. Закажите на Delivery Club.</string>

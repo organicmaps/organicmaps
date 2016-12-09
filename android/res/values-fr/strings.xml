@@ -1016,6 +1016,23 @@
 	<string name="traffic_update_maps_text">Pour afficher les données de circulation, les cartes doivent être actualisées.</string>
 	<string name="traffic_outdated">Les données de circulation ne sont pas actuelles.</string>
 	<string name="big_font">Étiquettes plus grandes</string>
+	<string name="traffic_update_app">Veuillez mettre à jour MAPS.ME</string>
+	<!-- "traffic" as in road congestion -->
+	<string name="traffic_update_app_message">Pour afficher les données de circulation, l\&#39;application doit être actualisée.</string>
+	<!-- "traffic" as in "road congestion" -->
+	<string name="traffic_data_unavailable">Les données de circulation ne sont pas disponibles</string>
+	<string name="banner_deliveryclub_title">Livraison de nourriture</string>
+	<string name="banner_deliveryclub_message">Livraison rapide de 4 000 restaurants. Commandez via Delivery Club.</string>
+	<string name="banner_lamoda_title">Boutique de chaussures et de vêtements en ligne</string>
+	<string name="banner_lamoda_message">Plus de 1.000 marques. Jusqu\&#39;à 70 % de réduction. Livraison gratuite dans tout le pays.</string>
+	<string name="banner_tutu_title">Billets de train en ligne</string>
+	<string name="banner_tutu_message">Billets de train vers n’importe quelle ville en ligne - prix, recherche et réservation.</string>
+	<string name="banner_geerbest_title">Magasin d’électronique en ligne</string>
+	<string name="banner_geerbest_message">Recherche instantanée parmi plus de 50.000 articles à bas prix.</string>
+	<string name="banner_rentalcars_title">Location de voitures en ligne</string>
+	<string name="banner_rentalcars_message">800 sociétés de location de voiture dans plus de 49.000 points de location de voiture.</string>
+	<string name="banner_viator_title">Recherche d\&#39;excursions en ligne</string>
+	<string name="banner_viator_message">Recherchez parmi plus 50.000 excursions partout dans le monde.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Données de circulation dans 36 pays</string>
 	<!-- december -->

@@ -1724,35 +1724,37 @@
 
 "big_font" = "Etiquetas maiores";
 
-"traffic_update_app" = "Please update MAPS.ME";
+"traffic_update_app" = "Atualize o MAPS. ME";
 
-"traffic_update_app_message" = "To display traffic data, the application must be updated.";
+/* "traffic" as in road congestion */
+"traffic_update_app_message" = "Para mostrar os dados de tráfego, a aplicação deve ser atualizada.";
 
-"traffic_data_unavailable" = "Traffic data is not available";
+/* "traffic" as in "road congestion" */
+"traffic_data_unavailable" = "Não existem dados de tráfego";
 
-"banner_deliveryclub_title" = "Food delivery";
+"banner_deliveryclub_title" = "Entrega de alimentos";
 
-"banner_deliveryclub_message" = "Fast delivery from 4,000 restaurants. Order from Delivery Club.";
+"banner_deliveryclub_message" = "Entrega rápida de 4.000 restaurantes. Encomente ao Delivery Club.";
 
-"banner_lamoda_title" = "Online clothing and shoe store";
+"banner_lamoda_title" = "Loja online de vestuário e calçado";
 
-"banner_lamoda_message" = "More than 1,000 brands. Up to 70% off. Free delivery all over the country.";
+"banner_lamoda_message" = "Mais de 1.000 marcas. Até 70% de desconto. Entrega gratuita em todo o país.";
 
-"banner_tutu_title" = "Train tickets online";
+"banner_tutu_title" = "Bilhetes de comboio online";
 
-"banner_tutu_message" = "Train tickets to any city online - prices, search, and booking.";
+"banner_tutu_message" = "Bilhetes de comboio online para qualquer cidade - preços, pesquisa e reserva.";
 
-"banner_geerbest_title" = "Online electronics store";
+"banner_geerbest_title" = "Loja de eletrônica online";
 
-"banner_geerbest_message" = "Instant search in over 50,000 items at low prices.";
+"banner_geerbest_message" = "Pesquisa instantânea em mais de 50.000 itens a preços baixos.";
 
-"banner_rentalcars_title" = "Renting cars online";
+"banner_rentalcars_title" = "Aluguer de carros online";
 
-"banner_rentalcars_message" = "800 car rental companies in more than 49,000 car rental locations.";
+"banner_rentalcars_message" = "800 empresas de aluguer de automóveis em mais de 49.000 locais de aluguer de automóveis.";
 
-"banner_viator_title" = "Online tour search";
+"banner_viator_title" = "Pesquisa de turismo online";
 
-"banner_viator_message" = "Search in over 50,000 tours all over the world.";
+"banner_viator_message" = "Procurar em mais de 50.000 visitas em todo o mundo.";
 
 /* december */
 "whatsnew_traffic" = "Dados de tráfego em 36 países";

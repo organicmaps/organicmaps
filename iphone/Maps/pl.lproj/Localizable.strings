@@ -1724,35 +1724,37 @@
 
 "big_font" = "Większe etykiety";
 
-"traffic_update_app" = "Please update MAPS.ME";
+"traffic_update_app" = "Zaktualizuj MAPS.ME";
 
-"traffic_update_app_message" = "To display traffic data, the application must be updated.";
+/* "traffic" as in road congestion */
+"traffic_update_app_message" = "Aby wyświetlić dane o ruchu, należy zaktualizować aplikację.";
 
-"traffic_data_unavailable" = "Traffic data is not available";
+/* "traffic" as in "road congestion" */
+"traffic_data_unavailable" = "Dane o ruchu są niedostępne";
 
-"banner_deliveryclub_title" = "Food delivery";
+"banner_deliveryclub_title" = "Dostawa jedzenia";
 
-"banner_deliveryclub_message" = "Fast delivery from 4,000 restaurants. Order from Delivery Club.";
+"banner_deliveryclub_message" = "Szybka dostawa z 4000 restauracji. Zamawiaj z Delivery Club.";
 
-"banner_lamoda_title" = "Online clothing and shoe store";
+"banner_lamoda_title" = "Sklep internetowy z odzieżą i obuwiem";
 
-"banner_lamoda_message" = "More than 1,000 brands. Up to 70% off. Free delivery all over the country.";
+"banner_lamoda_message" = "Ponad 1000 marek. Zniżki do 70%. Bezpłatna dostawa w całym kraju.";
 
-"banner_tutu_title" = "Train tickets online";
+"banner_tutu_title" = "Bilety kolejowe online";
 
-"banner_tutu_message" = "Train tickets to any city online - prices, search, and booking.";
+"banner_tutu_message" = "Bilety kolejowe do każdego miasta online - ceny, wyszukiwanie i rezerwacja.";
 
-"banner_geerbest_title" = "Online electronics store";
+"banner_geerbest_title" = "Sklep z elektroniką online";
 
-"banner_geerbest_message" = "Instant search in over 50,000 items at low prices.";
+"banner_geerbest_message" = "Natychmiastowe wyszukiwanie ponad 50.000 towarów w niskich cenach.";
 
-"banner_rentalcars_title" = "Renting cars online";
+"banner_rentalcars_title" = "Wynajem samochodów online";
 
-"banner_rentalcars_message" = "800 car rental companies in more than 49,000 car rental locations.";
+"banner_rentalcars_message" = "800 wypożyczalni samochodów w ponad 49.000 miejscowościach.";
 
-"banner_viator_title" = "Online tour search";
+"banner_viator_title" = "Wyszukiwanie podróży online";
 
-"banner_viator_message" = "Search in over 50,000 tours all over the world.";
+"banner_viator_message" = "Szukaj spośród 50.000 podróży na całym świecie.";
 
 /* december */
 "whatsnew_traffic" = "Dane o ruchu w 36 krajach";

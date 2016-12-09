@@ -1724,35 +1724,37 @@
 
 "big_font" = "Nagyobb címkék";
 
-"traffic_update_app" = "Please update MAPS.ME";
+"traffic_update_app" = "Kérjük, frissítse a MAPS.ME alkalmazást";
 
-"traffic_update_app_message" = "To display traffic data, the application must be updated.";
+/* "traffic" as in road congestion */
+"traffic_update_app_message" = "A forgalmi adatok megjelenítéséhez frissíteni kell az alkalmazást.";
 
-"traffic_data_unavailable" = "Traffic data is not available";
+/* "traffic" as in "road congestion" */
+"traffic_data_unavailable" = "Forgalmi adatok nem állnak rendelkezésre";
 
-"banner_deliveryclub_title" = "Food delivery";
+"banner_deliveryclub_title" = "Ételfutár";
 
-"banner_deliveryclub_message" = "Fast delivery from 4,000 restaurants. Order from Delivery Club.";
+"banner_deliveryclub_message" = "Gyors házhozszállítás 4000 étteremből. Rendelés az Ételfutár Klubból.";
 
-"banner_lamoda_title" = "Online clothing and shoe store";
+"banner_lamoda_title" = "Online ruházati és cipő üzlet";
 
-"banner_lamoda_message" = "More than 1,000 brands. Up to 70% off. Free delivery all over the country.";
+"banner_lamoda_message" = "Több mint 1000 márka. Akár 70 % kedvezmény. Ingyenes szállítás az ország egész területén.";
 
-"banner_tutu_title" = "Train tickets online";
+"banner_tutu_title" = "Vonatjegy az interneten keresztül";
 
-"banner_tutu_message" = "Train tickets to any city online - prices, search, and booking.";
+"banner_tutu_message" = "Vonatjegy interneten minden városba - árak, keresés és foglalás.";
 
-"banner_geerbest_title" = "Online electronics store";
+"banner_geerbest_title" = "Internetes elektronikai áruház";
 
-"banner_geerbest_message" = "Instant search in over 50,000 items at low prices.";
+"banner_geerbest_message" = "Több mint 50.000 cikk azonnali keresése alacsony áron.";
 
-"banner_rentalcars_title" = "Renting cars online";
+"banner_rentalcars_title" = "Autóbérlés az interneten";
 
-"banner_rentalcars_message" = "800 car rental companies in more than 49,000 car rental locations.";
+"banner_rentalcars_message" = "800 autókölcsönző cég több mint 49.000 autókölcsönzési helyszínen.";
 
-"banner_viator_title" = "Online tour search";
+"banner_viator_title" = "Utazások keresése az interneten";
 
-"banner_viator_message" = "Search in over 50,000 tours all over the world.";
+"banner_viator_message" = "Több mint 50.000 utazás keresése a világ minden táján.";
 
 /* december */
 "whatsnew_traffic" = "Forgalmi adatok 36 országban";

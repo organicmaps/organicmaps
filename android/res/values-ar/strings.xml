@@ -1005,6 +1005,23 @@
 	<string name="traffic_update_maps_text">لعرض البيانات المرورية، يجب تحديث الخرائط.</string>
 	<string name="traffic_outdated">البيانات المرورية قديمة.</string>
 	<string name="big_font">تسميات أكبر</string>
+	<string name="traffic_update_app">الرجاء تحديث MAPS.ME</string>
+	<!-- "traffic" as in road congestion -->
+	<string name="traffic_update_app_message">لعرض البيانات المرورية، يجب تحديث التطبيق.</string>
+	<!-- "traffic" as in "road congestion" -->
+	<string name="traffic_data_unavailable">البيانات المرورية غير متاحة</string>
+	<string name="banner_deliveryclub_title">توصيل الطعام</string>
+	<string name="banner_deliveryclub_message">توصيل سريع من 4000 مطعم. اطلب من Delivery Club.</string>
+	<string name="banner_lamoda_title">متجر الملابس والأحذية على الإنترنت</string>
+	<string name="banner_lamoda_message">أكثر من 1000 علامة تجارية. خصم يصل إلى 70%. توصيل مجاني في كافة أنحاء البلاد.</string>
+	<string name="banner_tutu_title">تذاكر القطار على الإنترنت</string>
+	<string name="banner_tutu_message">تذاكر القطار إلى أي مدينة على الإنترنت - الأسعار والبحث والحجز.</string>
+	<string name="banner_geerbest_title">متجر إلكترونيات على الإنترنت</string>
+	<string name="banner_geerbest_message">بحث سريع في أكثر من 50000 صنف بأسعار منخفضة.</string>
+	<string name="banner_rentalcars_title">إيجار السيارات على الإنترنت</string>
+	<string name="banner_rentalcars_message">800 شركة تأجير سيارات في أكثر من 49000 مكان لتأجير السيارات.</string>
+	<string name="banner_viator_title">بحث عن الرحلات على الإنترنت</string>
+	<string name="banner_viator_message">بحث في أكثر من 50000 رحلة في كافة أنحاء العالم.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">البيانات المرورية في 36 دولة</string>
 	<!-- december -->

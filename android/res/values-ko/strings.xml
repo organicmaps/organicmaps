@@ -995,6 +995,23 @@
 	<string name="traffic_update_maps_text">교통 데이터를 표시하려면 지도를 업데이트해야 합니다.</string>
 	<string name="traffic_outdated">교통 데이터가 오래되었습니다.</string>
 	<string name="big_font">더 큰 레이블</string>
+	<string name="traffic_update_app">MAPS.ME를 업데이트하세요.</string>
+	<!-- "traffic" as in road congestion -->
+	<string name="traffic_update_app_message">교통 데이터를 표시하려면 응용 프로그램을 업데이트해야 합니다.</string>
+	<!-- "traffic" as in "road congestion" -->
+	<string name="traffic_data_unavailable">교통 데이터를 사용할 수 없습니다.</string>
+	<string name="banner_deliveryclub_title">음식 배달</string>
+	<string name="banner_deliveryclub_message">4,000곳의 레스토랑에서 신속하게 배달합니다. Delivery Club에서 주문하세요.</string>
+	<string name="banner_lamoda_title">온라인 의류 및 신발 스토어</string>
+	<string name="banner_lamoda_message">1,000개 이상의 브랜드. 최대 70% 할인. 전국 무료 배송.</string>
+	<string name="banner_tutu_title">온라인 기차표</string>
+	<string name="banner_tutu_message">온라인으로 이용하는 모든 도시행 기차표 - 가격, 검색 및 예약.</string>
+	<string name="banner_geerbest_title">온라인 전자 기기 스토어</string>
+	<string name="banner_geerbest_message">저렴한 가격의 50,000개 이상 품목에서 즉시 검색.</string>
+	<string name="banner_rentalcars_title">온라인 자동차 렌트</string>
+	<string name="banner_rentalcars_message">800개의 자동차 렌트 회사와 49,000곳 이상의 자동차 렌트 지점</string>
+	<string name="banner_viator_title">온라인 투어 검색</string>
+	<string name="banner_viator_message">전 세계 50,000개 이상의 투어에서 검색하세요.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">36개국의 교통 데이터</string>
 	<!-- december -->

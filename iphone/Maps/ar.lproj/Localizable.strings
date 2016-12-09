@@ -1724,35 +1724,37 @@
 
 "big_font" = "تسميات أكبر";
 
-"traffic_update_app" = "Please update MAPS.ME";
+"traffic_update_app" = "الرجاء تحديث MAPS.ME";
 
-"traffic_update_app_message" = "To display traffic data, the application must be updated.";
+/* "traffic" as in road congestion */
+"traffic_update_app_message" = "لعرض البيانات المرورية، يجب تحديث التطبيق.";
 
-"traffic_data_unavailable" = "Traffic data is not available";
+/* "traffic" as in "road congestion" */
+"traffic_data_unavailable" = "البيانات المرورية غير متاحة";
 
-"banner_deliveryclub_title" = "Food delivery";
+"banner_deliveryclub_title" = "توصيل الطعام";
 
-"banner_deliveryclub_message" = "Fast delivery from 4,000 restaurants. Order from Delivery Club.";
+"banner_deliveryclub_message" = "توصيل سريع من 4000 مطعم. اطلب من Delivery Club.";
 
-"banner_lamoda_title" = "Online clothing and shoe store";
+"banner_lamoda_title" = "متجر الملابس والأحذية على الإنترنت";
 
-"banner_lamoda_message" = "More than 1,000 brands. Up to 70% off. Free delivery all over the country.";
+"banner_lamoda_message" = "أكثر من 1000 علامة تجارية. خصم يصل إلى 70%. توصيل مجاني في كافة أنحاء البلاد.";
 
-"banner_tutu_title" = "Train tickets online";
+"banner_tutu_title" = "تذاكر القطار على الإنترنت";
 
-"banner_tutu_message" = "Train tickets to any city online - prices, search, and booking.";
+"banner_tutu_message" = "تذاكر القطار إلى أي مدينة على الإنترنت - الأسعار والبحث والحجز.";
 
-"banner_geerbest_title" = "Online electronics store";
+"banner_geerbest_title" = "متجر إلكترونيات على الإنترنت";
 
-"banner_geerbest_message" = "Instant search in over 50,000 items at low prices.";
+"banner_geerbest_message" = "بحث سريع في أكثر من 50000 صنف بأسعار منخفضة.";
 
-"banner_rentalcars_title" = "Renting cars online";
+"banner_rentalcars_title" = "إيجار السيارات على الإنترنت";
 
-"banner_rentalcars_message" = "800 car rental companies in more than 49,000 car rental locations.";
+"banner_rentalcars_message" = "800 شركة تأجير سيارات في أكثر من 49000 مكان لتأجير السيارات.";
 
-"banner_viator_title" = "Online tour search";
+"banner_viator_title" = "بحث عن الرحلات على الإنترنت";
 
-"banner_viator_message" = "Search in over 50,000 tours all over the world.";
+"banner_viator_message" = "بحث في أكثر من 50000 رحلة في كافة أنحاء العالم.";
 
 /* december */
 "whatsnew_traffic" = "البيانات المرورية في 36 دولة";

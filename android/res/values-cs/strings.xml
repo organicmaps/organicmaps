@@ -1006,6 +1006,23 @@
 	<string name="traffic_update_maps_text">Ke zobrazení údajů o provozu musí být aktualizovány mapy.</string>
 	<string name="traffic_outdated">Data o provozu jsou zastaralá.</string>
 	<string name="big_font">Větší štítky</string>
+	<string name="traffic_update_app">Aktualizujte MAPS. ME</string>
+	<!-- "traffic" as in road congestion -->
+	<string name="traffic_update_app_message">Ke zobrazení dat o provozu je nutné aplikaci aktualizovat.</string>
+	<!-- "traffic" as in "road congestion" -->
+	<string name="traffic_data_unavailable">Data o provozu nejsou k dispozici</string>
+	<string name="banner_deliveryclub_title">Rozvoz jídel</string>
+	<string name="banner_deliveryclub_message">Rychlé rozvoz z 4000 restaurací. Objednejte si u Delivery Club.</string>
+	<string name="banner_lamoda_title">Online obchod s oděvy a obuví</string>
+	<string name="banner_lamoda_message">Více než 1000 značek. Sleva až 70 %. Doručení zdarma po celé zemi.</string>
+	<string name="banner_tutu_title">Vlakové jízdenky online</string>
+	<string name="banner_tutu_message">Vlakové jízdenky do kteréhokoli města onlive - ceny, vyhledávání a rezervace.</string>
+	<string name="banner_geerbest_title">Online obchod s elektronikou</string>
+	<string name="banner_geerbest_message">Rychlé hledání ve více než 50 000 položkách za nízké ceny.</string>
+	<string name="banner_rentalcars_title">Pronájem auta online</string>
+	<string name="banner_rentalcars_message">800 autopůjčoven na více než 49 000 místech.</string>
+	<string name="banner_viator_title">Online vyhledávání zájezdů</string>
+	<string name="banner_viator_message">Hledejte ve více než 50 000 zájezdů po celém světě.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Údaje o provozu ve 36 zemích</string>
 	<!-- december -->

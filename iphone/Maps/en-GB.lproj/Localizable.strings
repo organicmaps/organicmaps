@@ -1726,8 +1726,10 @@
 
 "traffic_update_app" = "Please update MAPS.ME";
 
+/* "traffic" as in road congestion */
 "traffic_update_app_message" = "To display traffic data, the application must be updated.";
 
+/* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Traffic data is not available";
 
 "banner_deliveryclub_title" = "Food delivery";

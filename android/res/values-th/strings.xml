@@ -1005,6 +1005,23 @@
 	<string name="traffic_update_maps_text">ต้องอัปเดตแผนที่เพื่อแสดงข้อมูลการจราจร</string>
 	<string name="traffic_outdated">ข้อมูลการจราจรเก่าเกินไปแล้ว</string>
 	<string name="big_font">ป้ายใหญ่ขึ้น</string>
+	<string name="traffic_update_app">กรุณาอัปเดต MAPS.ME</string>
+	<!-- "traffic" as in road congestion -->
+	<string name="traffic_update_app_message">ในการแสดงข้อมูลการจราจร แอปพลิเคชั่นจะต้องอัปเดตก่อน</string>
+	<!-- "traffic" as in "road congestion" -->
+	<string name="traffic_data_unavailable">ไม่มีข้อมูลการจราจร</string>
+	<string name="banner_deliveryclub_title">อาหารส่งถึงที่</string>
+	<string name="banner_deliveryclub_message">อาหารส่งถึงที่จาก 4,000 ร้าน สั่งจาก Delivery Club.</string>
+	<string name="banner_lamoda_title">ร้านค้าเสื้อผ้าและรองเท้าออนไลน์</string>
+	<string name="banner_lamoda_message">กว่า 1,000 ยี่ห้อ ลดถึง 70% จัดส่งฟรีทั่วประเทศ</string>
+	<string name="banner_tutu_title">ตั๋วรถไฟออนไลน์</string>
+	<string name="banner_tutu_message">ตั๋วรถไฟออนไลน์ไปทุกเมือง - ราคา การค้นหา และการจอง</string>
+	<string name="banner_geerbest_title">ร้านอุปกรณ์อิเล็กทรอนิกส์ออนไลน์</string>
+	<string name="banner_geerbest_message">การค้นหาทันทีในกว่า 50,000 รายการในราคาที่ต่ำ</string>
+	<string name="banner_rentalcars_title">การเช่ารถออนไลน์</string>
+	<string name="banner_rentalcars_message">800 บริษัทเช่ารถในสถานเช่ารถมากกว่า 49,000 แห่ง</string>
+	<string name="banner_viator_title">การค้นหาทัวร์ออนไลน์</string>
+	<string name="banner_viator_message">ค้นหาในทัวร์มากกว่า 50,000 แห่งทั่วโลก</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">ข้อมูลการจราจรใน 36 ประเทศ</string>
 	<!-- december -->

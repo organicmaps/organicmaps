@@ -1724,35 +1724,37 @@
 
 "big_font" = "Større etiketter";
 
-"traffic_update_app" = "Please update MAPS.ME";
+"traffic_update_app" = "Opdater MAPS.ME";
 
-"traffic_update_app_message" = "To display traffic data, the application must be updated.";
+/* "traffic" as in road congestion */
+"traffic_update_app_message" = "Appen skal opdateres for at kunne vise trafikdata.";
 
-"traffic_data_unavailable" = "Traffic data is not available";
+/* "traffic" as in "road congestion" */
+"traffic_data_unavailable" = "Trafikdata er ikke tilgængelige";
 
-"banner_deliveryclub_title" = "Food delivery";
+"banner_deliveryclub_title" = "Udbringning af mad";
 
-"banner_deliveryclub_message" = "Fast delivery from 4,000 restaurants. Order from Delivery Club.";
+"banner_deliveryclub_message" = "Hurtig levering fra 4.000 restauranter. Bestil fra Delivery Club.";
 
-"banner_lamoda_title" = "Online clothing and shoe store";
+"banner_lamoda_title" = "Online sko- og tøjbutik";
 
-"banner_lamoda_message" = "More than 1,000 brands. Up to 70% off. Free delivery all over the country.";
+"banner_lamoda_message" = "Mere end 1.000 mærker. Op til 70% rabat. Gratis levering over hele landet.";
 
-"banner_tutu_title" = "Train tickets online";
+"banner_tutu_title" = "Togbilletter online";
 
-"banner_tutu_message" = "Train tickets to any city online - prices, search, and booking.";
+"banner_tutu_message" = "Køb togbilletter til enhver by online - priser, søgning og bestilling.";
 
-"banner_geerbest_title" = "Online electronics store";
+"banner_geerbest_title" = "Online elektronikbutik";
 
-"banner_geerbest_message" = "Instant search in over 50,000 items at low prices.";
+"banner_geerbest_message" = "Hurtig søgning blandt over 50.000 varer til lave priser.";
 
-"banner_rentalcars_title" = "Renting cars online";
+"banner_rentalcars_title" = "Udlejning biler online";
 
-"banner_rentalcars_message" = "800 car rental companies in more than 49,000 car rental locations.";
+"banner_rentalcars_message" = "800 biludlejningsselskaber på mere end 49.000 steder.";
 
-"banner_viator_title" = "Online tour search";
+"banner_viator_title" = "Online rejsesøgning";
 
-"banner_viator_message" = "Search in over 50,000 tours all over the world.";
+"banner_viator_message" = "Søg blandt mere end 50.000 rejser over hele verden.";
 
 /* december */
 "whatsnew_traffic" = "Trafikdata i 36 lande";

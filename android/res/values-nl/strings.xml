@@ -999,6 +999,23 @@
 	<string name="traffic_update_maps_text">Om verkeersgegevens weer te geven, moeten de kaarten bijgewerkt worden.</string>
 	<string name="traffic_outdated">Verkeersgegevens zijn verouderd.</string>
 	<string name="big_font">Grotere labels</string>
+	<string name="traffic_update_app">Gelieve MAPS.ME bij te werken</string>
+	<!-- "traffic" as in road congestion -->
+	<string name="traffic_update_app_message">Om de verkeersgegevens weer te geven, moet de applicatie bijgewerkt worden.</string>
+	<!-- "traffic" as in "road congestion" -->
+	<string name="traffic_data_unavailable">Verkeersgegevens zijn niet beschikbaar</string>
+	<string name="banner_deliveryclub_title">Levering maaltijden</string>
+	<string name="banner_deliveryclub_message">Snelle levering van 4.000 restaurants. Bestel via Delivery Club.</string>
+	<string name="banner_lamoda_title">Online kleding- en schoenenwinkel</string>
+	<string name="banner_lamoda_message">Meer dan 1.000 merken. Tot 70% korting. Gratis levering over het hele land.</string>
+	<string name="banner_tutu_title">Treintickets online</string>
+	<string name="banner_tutu_message">Treintickets naar elke staf online - prijzen, zoeken en reserveren.</string>
+	<string name="banner_geerbest_title">Online elektronicawinkel</string>
+	<string name="banner_geerbest_message">Onmiddellijk zoeken tussen meer dan 50.000 artikelen aan lage prijzen.</string>
+	<string name="banner_rentalcars_title">Online auto\&#39;s huren</string>
+	<string name="banner_rentalcars_message">800 autoverhuurbedrijven in meer dan 49.000 locaties voor autoverhuur.</string>
+	<string name="banner_viator_title">Online tours zoeken</string>
+	<string name="banner_viator_message">Zoek in meer dan 50.000 tours over de hele wereld.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Verkeersgegevens in 36 Landen</string>
 	<!-- december -->

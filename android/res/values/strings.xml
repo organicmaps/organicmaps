@@ -1023,7 +1023,9 @@
 	<string name="traffic_outdated">Traffic data is outdated.</string>
 	<string name="big_font">Bigger labels</string>
 	<string name="traffic_update_app">Please update MAPS.ME</string>
+	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">To display traffic data, the application must be updated.</string>
+	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Traffic data is not available</string>
 	<string name="banner_deliveryclub_title">Food delivery</string>
 	<string name="banner_deliveryclub_message">Fast delivery from 4,000 restaurants. Order from Delivery Club.</string>

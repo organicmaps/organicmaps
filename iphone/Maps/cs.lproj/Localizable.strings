@@ -1724,35 +1724,37 @@
 
 "big_font" = "Větší štítky";
 
-"traffic_update_app" = "Please update MAPS.ME";
+"traffic_update_app" = "Aktualizujte MAPS. ME";
 
-"traffic_update_app_message" = "To display traffic data, the application must be updated.";
+/* "traffic" as in road congestion */
+"traffic_update_app_message" = "Ke zobrazení dat o provozu je nutné aplikaci aktualizovat.";
 
-"traffic_data_unavailable" = "Traffic data is not available";
+/* "traffic" as in "road congestion" */
+"traffic_data_unavailable" = "Data o provozu nejsou k dispozici";
 
-"banner_deliveryclub_title" = "Food delivery";
+"banner_deliveryclub_title" = "Rozvoz jídel";
 
-"banner_deliveryclub_message" = "Fast delivery from 4,000 restaurants. Order from Delivery Club.";
+"banner_deliveryclub_message" = "Rychlé rozvoz z 4000 restaurací. Objednejte si u Delivery Club.";
 
-"banner_lamoda_title" = "Online clothing and shoe store";
+"banner_lamoda_title" = "Online obchod s oděvy a obuví";
 
-"banner_lamoda_message" = "More than 1,000 brands. Up to 70% off. Free delivery all over the country.";
+"banner_lamoda_message" = "Více než 1000 značek. Sleva až 70 %. Doručení zdarma po celé zemi.";
 
-"banner_tutu_title" = "Train tickets online";
+"banner_tutu_title" = "Vlakové jízdenky online";
 
-"banner_tutu_message" = "Train tickets to any city online - prices, search, and booking.";
+"banner_tutu_message" = "Vlakové jízdenky do kteréhokoli města onlive - ceny, vyhledávání a rezervace.";
 
-"banner_geerbest_title" = "Online electronics store";
+"banner_geerbest_title" = "Online obchod s elektronikou";
 
-"banner_geerbest_message" = "Instant search in over 50,000 items at low prices.";
+"banner_geerbest_message" = "Rychlé hledání ve více než 50 000 položkách za nízké ceny.";
 
-"banner_rentalcars_title" = "Renting cars online";
+"banner_rentalcars_title" = "Pronájem auta online";
 
-"banner_rentalcars_message" = "800 car rental companies in more than 49,000 car rental locations.";
+"banner_rentalcars_message" = "800 autopůjčoven na více než 49 000 místech.";
 
-"banner_viator_title" = "Online tour search";
+"banner_viator_title" = "Online vyhledávání zájezdů";
 
-"banner_viator_message" = "Search in over 50,000 tours all over the world.";
+"banner_viator_message" = "Hledejte ve více než 50 000 zájezdů po celém světě.";
 
 /* december */
 "whatsnew_traffic" = "Údaje o provozu ve 36 zemích";
