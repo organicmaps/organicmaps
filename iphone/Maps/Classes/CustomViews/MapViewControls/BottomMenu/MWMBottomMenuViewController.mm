@@ -229,7 +229,6 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 {
   BOOL const isEnable = sender.selected;
   [Statistics logEvent:kStatMenu withParameters:@{kStatTTS : isEnable ? kStatOn : kStatOff}];
-  sender.coloring = isEnable ? MWMButtonColoringBlue : MWMButtonColoringGray;
   [MWMTextToSpeech tts].active = isEnable;
   [self refreshRoutingDiminishTimer];
 }
@@ -240,7 +239,6 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 {
   MWMButton * tb = self.trafficButton;
   BOOL const enabled = ([MWMTrafficManager state] != TrafficManager::TrafficState::Disabled);
-  tb.coloring = enabled ? MWMButtonColoringBlue : MWMButtonColoringGray;
   tb.selected = enabled;
 }
 
@@ -602,9 +600,9 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 - (void)setTtsSoundButton:(MWMButton *)ttsSoundButton
 {
   _ttsSoundButton = ttsSoundButton;
-  [ttsSoundButton setImage:[UIImage imageNamed:@"ic_voice_on"] forState:UIControlStateNormal];
-  [ttsSoundButton setImage:[UIImage imageNamed:@"ic_voice_off"] forState:UIControlStateSelected];
-  [ttsSoundButton setImage:[UIImage imageNamed:@"ic_voice_off"]
+  [ttsSoundButton setImage:[UIImage imageNamed:@"ic_voice_off"] forState:UIControlStateNormal];
+  [ttsSoundButton setImage:[UIImage imageNamed:@"ic_voice_on"] forState:UIControlStateSelected];
+  [ttsSoundButton setImage:[UIImage imageNamed:@"ic_voice_on"]
                   forState:UIControlStateSelected | UIControlStateHighlighted];
   [self ttsButtonStatusChanged:nil];
 }
