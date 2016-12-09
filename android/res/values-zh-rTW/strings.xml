@@ -1011,4 +1011,28 @@
 	<string name="traffic_update_maps_text">若要顯示交通資料，必須更新地圖。</string>
 	<string name="traffic_outdated">交通資料已過時。</string>
 	<string name="big_font">更大的標籤</string>
+	<!-- december -->
+	<string name="whatsnew_traffic">36 個國家的交通資料</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_text">最新交通資訊與據此得出的最快速路線！</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming">交通資訊使用漫遊</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming_text">每次行程需要的行動頻寬不到 1 MB。</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi">訂一部計程車</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi_text">大部分的地點頁面目前已包含可訂計程車的按鈕。</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search">改善的搜尋功能</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search_text">即使拼錯查詢字詞也能獲得準確的搜尋結果。</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search">搜尋篩選</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search_text">根據價格與評價搜尋飯店。</string>
+	<!-- january -->
+	<string name="whatsnew_font_size">字型大小</string>
+	<!-- january -->
+	<string name="whatsnew_font_size_text">可將地圖上的標籤變大。</string>
 </resources>

@@ -1753,3 +1753,39 @@
 "banner_viator_title" = "Online tour search";
 
 "banner_viator_message" = "Search in over 50,000 tours all over the world.";
+
+/* december */
+"whatsnew_traffic" = "Trafikdata i 36 länder";
+
+/* december */
+"whatsnew_traffic_text" = "Aktuell trafikinformation och de snabbaste körrutterna som baseras på informationen!";
+
+/* december */
+"whatsnew_traffic_roaming" = "Trafikinformation i roaming";
+
+/* december */
+"whatsnew_traffic_roaming_text" = "Kräver mindre än 1 MB av mobil bandbredd per resa.";
+
+/* december */
+"whatsnew_order_taxi" = "Beställ en taxi";
+
+/* december */
+"whatsnew_order_taxi_text" = "De flesta platssidorna har nu en knapp för att beställa en taxi.";
+
+/* january */
+"whatsnew_improved_search" = "Förbättrad sökning";
+
+/* january */
+"whatsnew_improved_search_text" = "Till och med felstavade frågor skapar resultat med hög kvalitet.";
+
+/* january */
+"whatsnew_filters_in_search" = "Sökfilter";
+
+/* january */
+"whatsnew_filters_in_search_text" = "Sök hotell efter pris och omdöme.";
+
+/* january */
+"whatsnew_font_size" = "Teckenstorlek";
+
+/* january */
+"whatsnew_font_size_text" = "Etiketter på kartan kan göras större.";

@@ -1753,3 +1753,39 @@
 "banner_viator_title" = "Online tour search";
 
 "banner_viator_message" = "Search in over 50,000 tours all over the world.";
+
+/* december */
+"whatsnew_traffic" = "البيانات المرورية في 36 دولة";
+
+/* december */
+"whatsnew_traffic_text" = "معلومات مرورية حديثة وأسرع مسارات القيادة التي تعتمد عليها!";
+
+/* december */
+"whatsnew_traffic_roaming" = "المعلومات المرورية أثناء التجوال";
+
+/* december */
+"whatsnew_traffic_roaming_text" = "يتطلب أقل من 1 ميجابايت من عرض نطاق المحمول لكل رحلة.";
+
+/* december */
+"whatsnew_order_taxi" = "طلب تاكسي";
+
+/* december */
+"whatsnew_order_taxi_text" = "تحتوي معظم صفحات المواقع الآن على زر لطلب تاكسي.";
+
+/* january */
+"whatsnew_improved_search" = "بحث محسّن";
+
+/* january */
+"whatsnew_improved_search_text" = "حتى الاستعلامات التي بها أخطاء إملائية يمكن أن تحقق نتائج بحث دقيقة.";
+
+/* january */
+"whatsnew_filters_in_search" = "عوامل تصفية البحث";
+
+/* january */
+"whatsnew_filters_in_search_text" = "البحث عن الفنادق وفقًا للسعر والتصنيف.";
+
+/* january */
+"whatsnew_font_size" = "حجم الخط";
+
+/* january */
+"whatsnew_font_size_text" = "يمكن جعل التسميات على الخريطة أكبر.";

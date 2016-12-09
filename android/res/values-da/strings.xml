@@ -1003,4 +1003,28 @@
 	<string name="traffic_update_maps_text">Kortet opdateres for kunne vise trafikdata.</string>
 	<string name="traffic_outdated">Trafikdata er forældede.</string>
 	<string name="big_font">Større etiketter</string>
+	<!-- december -->
+	<string name="whatsnew_traffic">Trafikdata i 36 lande</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_text">Opdateret trafikinformation og hurtigste ruter baseret på den!</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming">Trafikinfo ved roaming</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming_text">Kræver mindre end 1 MB mobildata pr. tur.</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi">Bestil en taxa</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi_text">De fleste af siderne indeholder nu en knap til bestilling af en taxa.</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search">Forbedret søgning</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search_text">Selv fejlstavede forespørgsler giver præcise søgeresultater.</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search">Søgefiltre</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search_text">Søg hoteller baseret på pris og vurdering.</string>
+	<!-- january -->
+	<string name="whatsnew_font_size">Skriftstørrelse</string>
+	<!-- january -->
+	<string name="whatsnew_font_size_text">Etiketterne på kortet kan gøres større.</string>
 </resources>

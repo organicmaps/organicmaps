@@ -1005,4 +1005,28 @@
 	<string name="traffic_update_maps_text">لعرض البيانات المرورية، يجب تحديث الخرائط.</string>
 	<string name="traffic_outdated">البيانات المرورية قديمة.</string>
 	<string name="big_font">تسميات أكبر</string>
+	<!-- december -->
+	<string name="whatsnew_traffic">البيانات المرورية في 36 دولة</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_text">معلومات مرورية حديثة وأسرع مسارات القيادة التي تعتمد عليها!</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming">المعلومات المرورية أثناء التجوال</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming_text">يتطلب أقل من 1 ميجابايت من عرض نطاق المحمول لكل رحلة.</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi">طلب تاكسي</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi_text">تحتوي معظم صفحات المواقع الآن على زر لطلب تاكسي.</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search">بحث محسّن</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search_text">حتى الاستعلامات التي بها أخطاء إملائية يمكن أن تحقق نتائج بحث دقيقة.</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search">عوامل تصفية البحث</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search_text">البحث عن الفنادق وفقًا للسعر والتصنيف.</string>
+	<!-- january -->
+	<string name="whatsnew_font_size">حجم الخط</string>
+	<!-- january -->
+	<string name="whatsnew_font_size_text">يمكن جعل التسميات على الخريطة أكبر.</string>
 </resources>

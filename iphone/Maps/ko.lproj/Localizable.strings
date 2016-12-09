@@ -1753,3 +1753,39 @@
 "banner_viator_title" = "Online tour search";
 
 "banner_viator_message" = "Search in over 50,000 tours all over the world.";
+
+/* december */
+"whatsnew_traffic" = "36개국의 교통 데이터";
+
+/* december */
+"whatsnew_traffic_text" = "최신 교통 정보 및 이 정보에 따른 가장 빠른 운전 경로!";
+
+/* december */
+"whatsnew_traffic_roaming" = "로밍의 교통 정보";
+
+/* december */
+"whatsnew_traffic_roaming_text" = "승차당 모바일 대역폭 1MB 미만이 필요합니다.";
+
+/* december */
+"whatsnew_order_taxi" = "택시 주문";
+
+/* december */
+"whatsnew_order_taxi_text" = "이제 대부분의 위치 페이지에 택시 주문을 위한 버튼이 포함되어 있습니다.";
+
+/* january */
+"whatsnew_improved_search" = "향상된 검색";
+
+/* january */
+"whatsnew_improved_search_text" = "철자가 틀린 쿼리도 정확한 검색 결과를 표시합니다.";
+
+/* january */
+"whatsnew_filters_in_search" = "검색 필터";
+
+/* january */
+"whatsnew_filters_in_search_text" = "가격 및 등급에 따라 호텔을 검색합니다.";
+
+/* january */
+"whatsnew_font_size" = "글꼴 크기";
+
+/* january */
+"whatsnew_font_size_text" = "지도의 레이블을 더 크게 할 수 있습니다.";

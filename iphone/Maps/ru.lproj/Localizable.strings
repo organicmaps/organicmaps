@@ -1753,3 +1753,39 @@
 "banner_viator_title" = "Онлайн-поиск экскурсий";
 
 "banner_viator_message" = "Поиск по более чем 50 тысячам экскурсий по всему миру.";
+
+/* december */
+"whatsnew_traffic" = "Пробки в 36 странах мира";
+
+/* december */
+"whatsnew_traffic_text" = "Актуальная информация о пробках на дорогах и самые быстрые маршруты с их учетом!";
+
+/* december */
+"whatsnew_traffic_roaming" = "Пробки даже в роуминге";
+
+/* december */
+"whatsnew_traffic_roaming_text" = "Требует менее 1 МБ мобильного трафика за поездку.";
+
+/* december */
+"whatsnew_order_taxi" = "Вызов такси";
+
+/* december */
+"whatsnew_order_taxi_text" = "В карточке большинства объектов появилась кнопка заказа такси.";
+
+/* january */
+"whatsnew_improved_search" = "Улучшен поиск";
+
+/* january */
+"whatsnew_improved_search_text" = "Опечатки в запросах не влияют на результаты поиска.";
+
+/* january */
+"whatsnew_filters_in_search" = "Фильтры в поиске";
+
+/* january */
+"whatsnew_filters_in_search_text" = "Можно искать отели с учетом цены и рейтинга.";
+
+/* january */
+"whatsnew_font_size" = "Размер шрифта";
+
+/* january */
+"whatsnew_font_size_text" = "Названия объектов на карте теперь можно сделать крупнее.";

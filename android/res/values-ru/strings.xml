@@ -1033,4 +1033,28 @@
 	<string name="banner_rentalcars_message">800 прокатных компаний в более чем 49 тысячах пунктах проката.</string>
 	<string name="banner_viator_title">Онлайн-поиск экскурсий</string>
 	<string name="banner_viator_message">Поиск по более чем 50 тысячам экскурсий по всему миру.</string>
+	<!-- december -->
+	<string name="whatsnew_traffic">Пробки в 36 странах мира</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_text">Актуальная информация о пробках на дорогах и самые быстрые маршруты с их учетом!</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming">Пробки даже в роуминге</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming_text">Требует менее 1 МБ мобильного трафика за поездку.</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi">Вызов такси</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi_text">В карточке большинства объектов появилась кнопка заказа такси.</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search">Улучшен поиск</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search_text">Опечатки в запросах не влияют на результаты поиска.</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search">Фильтры в поиске</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search_text">Можно искать отели с учетом цены и рейтинга.</string>
+	<!-- january -->
+	<string name="whatsnew_font_size">Размер шрифта</string>
+	<!-- january -->
+	<string name="whatsnew_font_size_text">Названия объектов на карте теперь можно сделать крупнее.</string>
 </resources>

@@ -998,4 +998,28 @@
 	<string name="traffic_update_maps_text">Untuk memperlihatkan data lalu lintas, peta harus diperbarui.</string>
 	<string name="traffic_outdated">Data lalu lintas belum diperbarui.</string>
 	<string name="big_font">Label yang lebih besar</string>
+	<!-- december -->
+	<string name="whatsnew_traffic">Data Lalu Lintas di 36 Negara</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_text">Info lalu lintas terbaru dan rute berkendara tercepat berdasarkan ini!</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming">Info Lalu Lintas saat Roaming</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming_text">Memerlukan kurang dari 1 MB dari bandwidth seluler perjalanan.</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi">Pesan Taksi</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi_text">Sebagian besar halaman lokasi sekarang mempunyai tombol untuk memesan taksi.</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search">Pencarian yang Diperbagus</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search_text">Bahkan pertanyaan dengan kesalahan eja akan memberikan hasil pencarian yang akurat.</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search">Filter Pencarian</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search_text">Cari hotel berdasarkan harga dan peringkat.</string>
+	<!-- january -->
+	<string name="whatsnew_font_size">Ukuran Huruf</string>
+	<!-- january -->
+	<string name="whatsnew_font_size_text">Label pada peta bisa dijadikan lebih besar.</string>
 </resources>

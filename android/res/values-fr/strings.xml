@@ -1016,4 +1016,28 @@
 	<string name="traffic_update_maps_text">Pour afficher les données de circulation, les cartes doivent être actualisées.</string>
 	<string name="traffic_outdated">Les données de circulation ne sont pas actuelles.</string>
 	<string name="big_font">Étiquettes plus grandes</string>
+	<!-- december -->
+	<string name="whatsnew_traffic">Données de circulation dans 36 pays</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_text">Des données de circulation actualisées et les itinéraires les plus rapides calculés selon celles-ci!</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming">Données de circulation en roaming</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming_text">Nécessite moins de 1 Mo de données mobiles par trajet.</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi">Commander un taxi</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi_text">La plupart des pages de lieu propose maintenant un bouton pour commander un taxi.</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search">Recherche améliorée</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search_text">Même les requêtes contenant des erreurs proposent des résultats de recherche pertinents.</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search">Filtres de recherche</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search_text">Recherchez des hôtels par prix et par évaluation.</string>
+	<!-- january -->
+	<string name="whatsnew_font_size">Taille de police</string>
+	<!-- january -->
+	<string name="whatsnew_font_size_text">Les étiquettes sur la carte peuvent être agrandies.</string>
 </resources>

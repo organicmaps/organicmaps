@@ -1753,3 +1753,39 @@
 "banner_viator_title" = "Online tour search";
 
 "banner_viator_message" = "Search in over 50,000 tours all over the world.";
+
+/* december */
+"whatsnew_traffic" = "Date privind traficul în 36 de țări";
+
+/* december */
+"whatsnew_traffic_text" = "Informații actualizate privind traficul și rutele cele mai rapide calculate în funcție de acestea!";
+
+/* december */
+"whatsnew_traffic_roaming" = "Informații privind traficul în roaming";
+
+/* december */
+"whatsnew_traffic_roaming_text" = "Necesită mai puţin de 1 MB de lățime de bandă mobilă pe călătorie.";
+
+/* december */
+"whatsnew_order_taxi" = "Comandați un taxi";
+
+/* december */
+"whatsnew_order_taxi_text" = "Majoritatea paginilor privind locația conțin acum un buton pentru a comanda un taxi.";
+
+/* january */
+"whatsnew_improved_search" = "Căutare îmbunătățită";
+
+/* january */
+"whatsnew_improved_search_text" = "Chiar și căutările scrise greșit aduc rezultate de căutare precise.";
+
+/* january */
+"whatsnew_filters_in_search" = "Filtre de căutare";
+
+/* january */
+"whatsnew_filters_in_search_text" = "Căutați hoteluri în funcție de preț și calificare.";
+
+/* january */
+"whatsnew_font_size" = "Dimensiunea fontului";
+
+/* january */
+"whatsnew_font_size_text" = "Etichetele de pe hartă pot fi făcute mai mari.";

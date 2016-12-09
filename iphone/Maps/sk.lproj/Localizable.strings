@@ -1753,3 +1753,39 @@
 "banner_viator_title" = "Online tour search";
 
 "banner_viator_message" = "Search in over 50,000 tours all over the world.";
+
+/* december */
+"whatsnew_traffic" = "Dopravné informácie v 36 krajinách";
+
+/* december */
+"whatsnew_traffic_text" = "Aktuálne dopravné informácie a na základe nich najrýchlejšie trasy!";
+
+/* december */
+"whatsnew_traffic_roaming" = "Dopravné informácie v roamingu";
+
+/* december */
+"whatsnew_traffic_roaming_text" = "Vyžaduje menej ako 1 MB mobilných dát na jazdu.";
+
+/* december */
+"whatsnew_order_taxi" = "Objednajte si taxík";
+
+/* december */
+"whatsnew_order_taxi_text" = "Väčšina stránok o lokalite odteraz obsahuje aj tlačidlo na objednávanie taxíka.";
+
+/* january */
+"whatsnew_improved_search" = "Vylepšené vyhľadávanie";
+
+/* january */
+"whatsnew_improved_search_text" = "Presné výsledky vyhľadávania aj s nesprávne zadanými dotazmi.";
+
+/* january */
+"whatsnew_filters_in_search" = "Vyhľadávacie filtre";
+
+/* january */
+"whatsnew_filters_in_search_text" = "Hľadať hotely podľa ceny a hodnotenia.";
+
+/* january */
+"whatsnew_font_size" = "Veľkosť písma";
+
+/* january */
+"whatsnew_font_size_text" = "Nápisy na mape je možné zväčšiť.";

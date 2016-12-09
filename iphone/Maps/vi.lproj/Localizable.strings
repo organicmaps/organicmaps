@@ -1753,3 +1753,39 @@
 "banner_viator_title" = "Online tour search";
 
 "banner_viator_message" = "Search in over 50,000 tours all over the world.";
+
+/* december */
+"whatsnew_traffic" = "Dữ liệu Giao thông tại 36 Quốc gia";
+
+/* december */
+"whatsnew_traffic_text" = "Thông tin giao thông cập nhật và lộ trình lái xe nhanh nhất dựa trên đó!";
+
+/* december */
+"whatsnew_traffic_roaming" = "Thông tin Giao thông khi Chuyển vùng";
+
+/* december */
+"whatsnew_traffic_roaming_text" = "Cần ít hơn 1 MB băng thông di động cho mỗi chuyến đi.";
+
+/* december */
+"whatsnew_order_taxi" = "Đặt Xe Taxi";
+
+/* december */
+"whatsnew_order_taxi_text" = "Hầu hết các trang địa điểm giờ đây đều có một nút để gọi taxi.";
+
+/* january */
+"whatsnew_improved_search" = "Cải thiện Tìm kiếm";
+
+/* january */
+"whatsnew_improved_search_text" = "Kể cả các truy vấn bị lỗi chính tả vẫn có thể cho kết quả tìm kiếm chính xác.";
+
+/* january */
+"whatsnew_filters_in_search" = "Bộ lọc Tìm kiếm";
+
+/* january */
+"whatsnew_filters_in_search_text" = "Tìm kiếm khách sạn dựa trên giá cả và xếp hạng.";
+
+/* january */
+"whatsnew_font_size" = "Kích cỡ Phông chữ";
+
+/* january */
+"whatsnew_font_size_text" = "Các nhãn mác trên bản đồ có thể được phóng to hơn.";

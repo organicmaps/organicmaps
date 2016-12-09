@@ -1753,3 +1753,39 @@
 "banner_viator_title" = "Online tour search";
 
 "banner_viator_message" = "Search in over 50,000 tours all over the world.";
+
+/* december */
+"whatsnew_traffic" = "36 个国家/地区的交通数据";
+
+/* december */
+"whatsnew_traffic_text" = "最快的驾驶路线离不开最新的交通信息！";
+
+/* december */
+"whatsnew_traffic_roaming" = "交通信息漫游";
+
+/* december */
+"whatsnew_traffic_roaming_text" = "每次旅行需要的移动带宽小于 1 MB。";
+
+/* december */
+"whatsnew_order_taxi" = "预订出租车";
+
+/* december */
+"whatsnew_order_taxi_text" = "大多数地点页面现在都包含一个用于预订出租车的按钮。";
+
+/* january */
+"whatsnew_improved_search" = "改进了搜索";
+
+/* january */
+"whatsnew_improved_search_text" = "即使查询存在拼写错误也能得到准确的搜索结果。";
+
+/* january */
+"whatsnew_filters_in_search" = "搜索筛选器";
+
+/* january */
+"whatsnew_filters_in_search_text" = "基于价格和评分搜索酒店。";
+
+/* january */
+"whatsnew_font_size" = "字体大小";
+
+/* january */
+"whatsnew_font_size_text" = "可以增大地图上的标签。";

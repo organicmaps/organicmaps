@@ -998,4 +998,28 @@
 	<string name="traffic_update_maps_text">交通データを表示するには、地図を更新する必要があります。</string>
 	<string name="traffic_outdated">交通データが古くなっています。</string>
 	<string name="big_font">大きなラベル</string>
+	<!-- december -->
+	<string name="whatsnew_traffic">36か国の交通データ</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_text">最新の交通データと、データに基づく最速のドライブルートをご提供致します！</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming">ローミング中の交通情報</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming_text">移動毎に 1 MB 未満のモバイル帯域幅が必要です。</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi">タクシーの呼び出し</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi_text">ほとんど場所のページに、タクシーを呼ぶためのボタンが表示されるようになりました。</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search">検索機能の向上</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search_text">スペルミスのある検索を行なっても、正確な検索結果を表示します。</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search">検索フィルター</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search_text">価格と評価に基づくホテルの検索。</string>
+	<!-- january -->
+	<string name="whatsnew_font_size">フォントサイズ</string>
+	<!-- january -->
+	<string name="whatsnew_font_size_text">地図上のラベルを大きくすることができます。</string>
 </resources>

@@ -999,4 +999,28 @@
 	<string name="traffic_update_maps_text">Để hiển thị dữ liệu giao thông, cần cập nhật bản đồ.</string>
 	<string name="traffic_outdated">Dữ liệu giao thông đã lỗi thời.</string>
 	<string name="big_font">Nhãn mác to hơn</string>
+	<!-- december -->
+	<string name="whatsnew_traffic">Dữ liệu Giao thông tại 36 Quốc gia</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_text">Thông tin giao thông cập nhật và lộ trình lái xe nhanh nhất dựa trên đó!</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming">Thông tin Giao thông khi Chuyển vùng</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming_text">Cần ít hơn 1 MB băng thông di động cho mỗi chuyến đi.</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi">Đặt Xe Taxi</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi_text">Hầu hết các trang địa điểm giờ đây đều có một nút để gọi taxi.</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search">Cải thiện Tìm kiếm</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search_text">Kể cả các truy vấn bị lỗi chính tả vẫn có thể cho kết quả tìm kiếm chính xác.</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search">Bộ lọc Tìm kiếm</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search_text">Tìm kiếm khách sạn dựa trên giá cả và xếp hạng.</string>
+	<!-- january -->
+	<string name="whatsnew_font_size">Kích cỡ Phông chữ</string>
+	<!-- january -->
+	<string name="whatsnew_font_size_text">Các nhãn mác trên bản đồ có thể được phóng to hơn.</string>
 </resources>

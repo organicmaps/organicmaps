@@ -1753,3 +1753,39 @@
 "banner_viator_title" = "Online tour search";
 
 "banner_viator_message" = "Search in over 50,000 tours all over the world.";
+
+/* december */
+"whatsnew_traffic" = "Liikennetiedot 36 maassa";
+
+/* december */
+"whatsnew_traffic_text" = "Ενημερωμένες πληροφορίες για την κίνηση και για γρηγορότερες διαδρομές οδήγησης!";
+
+/* december */
+"whatsnew_traffic_roaming" = "Liikennetiedot verkkovierailussa";
+
+/* december */
+"whatsnew_traffic_roaming_text" = "Vaatii alle 1 MB mobiilidataa per matka.";
+
+/* december */
+"whatsnew_order_taxi" = "Taksin tilaaminen";
+
+/* december */
+"whatsnew_order_taxi_text" = "Useimpien sijaintien sivulla on nyt painike taksin tilaamiseen.";
+
+/* january */
+"whatsnew_improved_search" = "Parannettu haku";
+
+/* january */
+"whatsnew_improved_search_text" = "Jopa väärin kirjoitetut kyselyt antavat tarkat hakutulokset.";
+
+/* january */
+"whatsnew_filters_in_search" = "Hakusuodattimet";
+
+/* january */
+"whatsnew_filters_in_search_text" = "Hotellien haku hinnan ja arvion perusteella.";
+
+/* january */
+"whatsnew_font_size" = "Fonttikoko";
+
+/* january */
+"whatsnew_font_size_text" = "Kartan selityksiä voi suurentaa.";

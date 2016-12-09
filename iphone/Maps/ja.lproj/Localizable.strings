@@ -1753,3 +1753,39 @@
 "banner_viator_title" = "Online tour search";
 
 "banner_viator_message" = "Search in over 50,000 tours all over the world.";
+
+/* december */
+"whatsnew_traffic" = "36か国の交通データ";
+
+/* december */
+"whatsnew_traffic_text" = "最新の交通データと、データに基づく最速のドライブルートをご提供致します！";
+
+/* december */
+"whatsnew_traffic_roaming" = "ローミング中の交通情報";
+
+/* december */
+"whatsnew_traffic_roaming_text" = "移動毎に 1 MB 未満のモバイル帯域幅が必要です。";
+
+/* december */
+"whatsnew_order_taxi" = "タクシーの呼び出し";
+
+/* december */
+"whatsnew_order_taxi_text" = "ほとんど場所のページに、タクシーを呼ぶためのボタンが表示されるようになりました。";
+
+/* january */
+"whatsnew_improved_search" = "検索機能の向上";
+
+/* january */
+"whatsnew_improved_search_text" = "スペルミスのある検索を行なっても、正確な検索結果を表示します。";
+
+/* january */
+"whatsnew_filters_in_search" = "検索フィルター";
+
+/* january */
+"whatsnew_filters_in_search_text" = "価格と評価に基づくホテルの検索。";
+
+/* january */
+"whatsnew_font_size" = "フォントサイズ";
+
+/* january */
+"whatsnew_font_size_text" = "地図上のラベルを大きくすることができます。";
