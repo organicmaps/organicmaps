@@ -53,13 +53,13 @@ class NavigationButtonsAnimationController
 
     Animations.appearSliding(mZoomIn, Animations.RIGHT, null);
     Animations.appearSliding(mZoomOut, Animations.RIGHT, null);
-    updateZoomButtonsPosition(mTopLimit);
+    updateZoomButtonsPosition();
   }
 
   void setTopLimit(float limit)
   {
     mTopLimit = limit;
-    updateZoomButtonsPosition(limit);
+    updateZoomButtonsPosition();
   }
 
   void onPlacePageVisibilityChanged(boolean isVisible)
@@ -93,15 +93,15 @@ class NavigationButtonsAnimationController
     });
   }
 
-  private void updateZoomButtonsPosition(float newTop)
+  private void updateZoomButtonsPosition()
   {
     // It means that the zoom buttons fit in screen perfectly,
     // any updates of position are no needed.
-    if (mZoomIn.getTop() >= mTopLimit)
+    if (mZoomIn.getTop() >= mTopLimit && UiUtils.isVisible(mZoomIn))
       return;
 
     // If the top limit is decreased we try to return zoom buttons at initial position.
-    if (newTop < mTopLimit && tryPlaceZoomButtonsAtInitialPosition())
+    if (mTopLimit < mZoomIn.getTop() && tryPlaceZoomButtonsAtInitialPosition())
     {
       LOGGER.d("Zoom buttons were come back to initial position");
       return;
