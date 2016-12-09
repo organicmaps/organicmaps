@@ -19951,7 +19951,7 @@
 
   [taxi_order]
     comment = For ordering a taxi (as opposed to hotels or other things)
-    en = Order a taxi
+    en = Order Taxi
     ru = Заказать такси
     ar = طلب تاكسي
     cs = Objednat taxi
