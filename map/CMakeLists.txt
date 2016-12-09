@@ -45,7 +45,7 @@ set(
   mwm_url.hpp
   place_page_info.cpp
   place_page_info.hpp
-  reachable_by_taxi_checker.сpp
+  reachable_by_taxi_checker.cpp
   reachable_by_taxi_checker.hpp
   track.cpp
   track.hpp
