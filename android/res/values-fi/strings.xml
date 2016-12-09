@@ -972,7 +972,7 @@
 	<string name="booking_filters_expand_area_button">Loitonna</string>
 	<string name="booking_filters_reset_button">Palauta suodatin</string>
 	<!-- noun -->
-	<string name="booking_list">Luettelo</string>
+	<string name="search_in_table">Luettelo</string>
 	<string name="booking_based_on_reviews">Perustuu %d hotelliarvioon</string>
 	<string name="booking_show_more">Näytä lisää</string>
 	<string name="booking_reviews">Arviot</string>

@@ -1673,7 +1673,7 @@
 "booking_filters_reset_button" = "Сбросить фильтр";
 
 /* noun */
-"booking_list" = "Список";
+"search_in_table" = "Список";
 
 "booking_based_on_reviews" = "По %d отзывам об отеле";
 

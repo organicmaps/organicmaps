@@ -989,7 +989,7 @@
 	<string name="booking_filters_expand_area_button">Zoom arrière</string>
 	<string name="booking_filters_reset_button">Réinitialiser le filtre</string>
 	<!-- noun -->
-	<string name="booking_list">Liste</string>
+	<string name="search_in_table">Liste</string>
 	<string name="booking_based_on_reviews">Basé sur %d revues d\&#39;hôtels</string>
 	<string name="booking_show_more">Afficher plus</string>
 	<string name="booking_reviews">Revues</string>

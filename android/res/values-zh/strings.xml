@@ -978,7 +978,7 @@
 	<string name="booking_filters_expand_area_button">缩小</string>
 	<string name="booking_filters_reset_button">重置筛选器</string>
 	<!-- noun -->
-	<string name="booking_list">列表</string>
+	<string name="search_in_table">列表</string>
 	<string name="booking_based_on_reviews">根据 %d 条酒店点评</string>
 	<string name="booking_show_more">显示更多</string>
 	<string name="booking_reviews">点评</string>

@@ -971,7 +971,7 @@
 	<string name="booking_filters_expand_area_button">広げる</string>
 	<string name="booking_filters_reset_button">フィルターをリセット</string>
 	<!-- noun -->
-	<string name="booking_list">一覧</string>
+	<string name="search_in_table">一覧</string>
 	<string name="booking_based_on_reviews">%d 件のホテルのレビューに基づいています</string>
 	<string name="booking_show_more">さらに表示</string>
 	<string name="booking_reviews">レビュー</string>

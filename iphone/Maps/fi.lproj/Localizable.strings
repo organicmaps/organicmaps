@@ -1673,7 +1673,7 @@
 "booking_filters_reset_button" = "Palauta suodatin";
 
 /* noun */
-"booking_list" = "Luettelo";
+"search_in_table" = "Luettelo";
 
 "booking_based_on_reviews" = "Perustuu %d hotelliarvioon";
 

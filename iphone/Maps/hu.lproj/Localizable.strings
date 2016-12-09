@@ -1673,7 +1673,7 @@
 "booking_filters_reset_button" = "Szűrő nullázása";
 
 /* noun */
-"booking_list" = "Lista";
+"search_in_table" = "Lista";
 
 "booking_based_on_reviews" = "%d hotel-értékelés alapján";
 

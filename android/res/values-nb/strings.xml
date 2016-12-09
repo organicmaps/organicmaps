@@ -970,7 +970,7 @@
 	<string name="booking_filters_expand_area_button">Zoom ut</string>
 	<string name="booking_filters_reset_button">Tilbakestill filter</string>
 	<!-- noun -->
-	<string name="booking_list">Liste</string>
+	<string name="search_in_table">Liste</string>
 	<string name="booking_based_on_reviews">Basert på %d hotellvurderinger</string>
 	<string name="booking_show_more">Vis mer</string>
 	<string name="booking_reviews">Vurderinger</string>

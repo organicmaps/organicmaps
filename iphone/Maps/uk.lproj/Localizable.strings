@@ -1673,7 +1673,7 @@
 "booking_filters_reset_button" = "Скинути фільтри";
 
 /* noun */
-"booking_list" = "Список";
+"search_in_table" = "Список";
 
 "booking_based_on_reviews" = "На основі %d відгуків(-у) про готель";
 

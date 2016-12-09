@@ -972,7 +972,7 @@
 	<string name="booking_filters_expand_area_button">Kicsinyítés</string>
 	<string name="booking_filters_reset_button">Szűrő nullázása</string>
 	<!-- noun -->
-	<string name="booking_list">Lista</string>
+	<string name="search_in_table">Lista</string>
 	<string name="booking_based_on_reviews">%d hotel-értékelés alapján</string>
 	<string name="booking_show_more">Több megjelenítése</string>
 	<string name="booking_reviews">Bírálatok</string>

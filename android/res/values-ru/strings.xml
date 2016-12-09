@@ -991,7 +991,7 @@
 	<string name="booking_filters_expand_area_button">Уменьшить масштаб карты</string>
 	<string name="booking_filters_reset_button">Сбросить фильтр</string>
 	<!-- noun -->
-	<string name="booking_list">Список</string>
+	<string name="search_in_table">Список</string>
 	<string name="booking_based_on_reviews">По %d отзывам об отеле</string>
 	<string name="booking_show_more">Показать еще</string>
 	<string name="booking_reviews">Отзывы</string>

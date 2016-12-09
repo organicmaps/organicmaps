@@ -1673,7 +1673,7 @@
 "booking_filters_reset_button" = "Obnoviť filter";
 
 /* noun */
-"booking_list" = "Zoznam";
+"search_in_table" = "Zoznam";
 
 "booking_based_on_reviews" = "Na základe %d recenzií";
 

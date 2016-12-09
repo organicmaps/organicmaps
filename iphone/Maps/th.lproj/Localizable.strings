@@ -1673,7 +1673,7 @@
 "booking_filters_reset_button" = "รีเซ็ตตัวกรอง";
 
 /* noun */
-"booking_list" = "รายการ";
+"search_in_table" = "รายการ";
 
 "booking_based_on_reviews" = "ตาม %d รีวิวโรงแรม";
 

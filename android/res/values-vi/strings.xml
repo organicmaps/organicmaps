@@ -972,7 +972,7 @@
 	<string name="booking_filters_expand_area_button">Thu nhỏ</string>
 	<string name="booking_filters_reset_button">Đặt lại Bộ lọc</string>
 	<!-- noun -->
-	<string name="booking_list">Danh sách</string>
+	<string name="search_in_table">Danh sách</string>
 	<string name="booking_based_on_reviews">Dựa trên %d đánh giá khách sạn</string>
 	<string name="booking_show_more">Hiển thị thêm</string>
 	<string name="booking_reviews">Đánh giá</string>

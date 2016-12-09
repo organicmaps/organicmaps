@@ -978,7 +978,7 @@
 	<string name="booking_filters_expand_area_button">تصغير</string>
 	<string name="booking_filters_reset_button">إعادة تعيين عامل التصفية</string>
 	<!-- noun -->
-	<string name="booking_list">قائمة</string>
+	<string name="search_in_table">قائمة</string>
 	<string name="booking_based_on_reviews">استناداً إلى %d من مراجعات الفنادق</string>
 	<string name="booking_show_more">إظهار المزيد</string>
 	<string name="booking_reviews">المراجعات</string>

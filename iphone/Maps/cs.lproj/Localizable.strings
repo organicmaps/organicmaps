@@ -1673,7 +1673,7 @@
 "booking_filters_reset_button" = "Resetovat filtr";
 
 /* noun */
-"booking_list" = "Seznam";
+"search_in_table" = "Seznam";
 
 "booking_based_on_reviews" = "Podle %d hodnocení hotelů";
 

@@ -968,7 +968,7 @@
 	<string name="booking_filters_expand_area_button">축소</string>
 	<string name="booking_filters_reset_button">필터 재설정</string>
 	<!-- noun -->
-	<string name="booking_list">목록</string>
+	<string name="search_in_table">목록</string>
 	<string name="booking_based_on_reviews">%d개 호텔 리뷰 기반</string>
 	<string name="booking_show_more">자세히 표시</string>
 	<string name="booking_reviews">리뷰</string>

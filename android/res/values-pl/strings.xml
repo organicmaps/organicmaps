@@ -979,7 +979,7 @@
 	<string name="booking_filters_expand_area_button">Zawęź</string>
 	<string name="booking_filters_reset_button">Resetuj filtr</string>
 	<!-- noun -->
-	<string name="booking_list">Lista</string>
+	<string name="search_in_table">Lista</string>
 	<string name="booking_based_on_reviews">Na podstawie %d opinii o hotelach</string>
 	<string name="booking_show_more">Pokaż więcej</string>
 	<string name="booking_reviews">Opinie</string>

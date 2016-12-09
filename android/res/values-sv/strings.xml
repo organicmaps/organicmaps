@@ -976,7 +976,7 @@
 	<string name="booking_filters_expand_area_button">Zooma ut</string>
 	<string name="booking_filters_reset_button">Återställ filtret</string>
 	<!-- noun -->
-	<string name="booking_list">Lista</string>
+	<string name="search_in_table">Lista</string>
 	<string name="booking_based_on_reviews">Baserat på %d hotellomdömen</string>
 	<string name="booking_show_more">Visa fler</string>
 	<string name="booking_reviews">Omdömen</string>

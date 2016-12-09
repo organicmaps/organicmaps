@@ -1673,7 +1673,7 @@
 "booking_filters_reset_button" = "Resetare filtru";
 
 /* noun */
-"booking_list" = "Listă";
+"search_in_table" = "Listă";
 
 "booking_based_on_reviews" = "Bazat pe comentariile privind hotelul %d";
 

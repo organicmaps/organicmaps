@@ -1673,7 +1673,7 @@
 "booking_filters_reset_button" = "Filter Resetten";
 
 /* noun */
-"booking_list" = "Lijst";
+"search_in_table" = "Lijst";
 
 "booking_based_on_reviews" = "Gebaseerd op %d hotelbeoordelingen";
 

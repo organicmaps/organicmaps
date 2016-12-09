@@ -978,7 +978,7 @@
 	<string name="booking_filters_expand_area_button">ซูมออก</string>
 	<string name="booking_filters_reset_button">รีเซ็ตตัวกรอง</string>
 	<!-- noun -->
-	<string name="booking_list">รายการ</string>
+	<string name="search_in_table">รายการ</string>
 	<string name="booking_based_on_reviews">ตาม %d รีวิวโรงแรม</string>
 	<string name="booking_show_more">แสดงเพิ่มเติม</string>
 	<string name="booking_reviews">รีวิว</string>

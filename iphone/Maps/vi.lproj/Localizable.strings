@@ -1673,7 +1673,7 @@
 "booking_filters_reset_button" = "Đặt lại Bộ lọc";
 
 /* noun */
-"booking_list" = "Danh sách";
+"search_in_table" = "Danh sách";
 
 "booking_based_on_reviews" = "Dựa trên %d đánh giá khách sạn";
 

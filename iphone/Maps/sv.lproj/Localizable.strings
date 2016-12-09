@@ -1673,7 +1673,7 @@
 "booking_filters_reset_button" = "Återställ filtret";
 
 /* noun */
-"booking_list" = "Lista";
+"search_in_table" = "Lista";
 
 "booking_based_on_reviews" = "Baserat på %d hotellomdömen";
 

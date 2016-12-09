@@ -1673,7 +1673,7 @@
 "booking_filters_reset_button" = "重設篩選條件";
 
 /* noun */
-"booking_list" = "清單";
+"search_in_table" = "清單";
 
 "booking_based_on_reviews" = "根據 %d 則飯店評論";
 

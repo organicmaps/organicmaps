@@ -975,7 +975,7 @@
 	<string name="booking_filters_expand_area_button">Vzdialiť</string>
 	<string name="booking_filters_reset_button">Obnoviť filter</string>
 	<!-- noun -->
-	<string name="booking_list">Zoznam</string>
+	<string name="search_in_table">Zoznam</string>
 	<string name="booking_based_on_reviews">Na základe %d recenzií</string>
 	<string name="booking_show_more">Zobraziť viac</string>
 	<string name="booking_reviews">Recenzie</string>

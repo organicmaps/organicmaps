@@ -978,7 +978,7 @@
 	<string name="booking_filters_expand_area_button">Uzaklaş</string>
 	<string name="booking_filters_reset_button">Filtreyi Sıfırla</string>
 	<!-- noun -->
-	<string name="booking_list">Liste</string>
+	<string name="search_in_table">Liste</string>
 	<string name="booking_based_on_reviews">%d otel değerlendirmesine göre</string>
 	<string name="booking_show_more">Daha fazla göster</string>
 	<string name="booking_reviews">Değerlendirmeler</string>

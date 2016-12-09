@@ -1673,7 +1673,7 @@
 "booking_filters_reset_button" = "フィルターをリセット";
 
 /* noun */
-"booking_list" = "一覧";
+"search_in_table" = "一覧";
 
 "booking_based_on_reviews" = "%d 件のホテルのレビューに基づいています";
 

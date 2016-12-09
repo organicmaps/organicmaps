@@ -1673,7 +1673,7 @@
 "booking_filters_reset_button" = "إعادة تعيين عامل التصفية";
 
 /* noun */
-"booking_list" = "قائمة";
+"search_in_table" = "قائمة";
 
 "booking_based_on_reviews" = "استناداً إلى %d من مراجعات الفنادق";
 

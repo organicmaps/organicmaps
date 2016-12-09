@@ -1673,7 +1673,7 @@
 "booking_filters_reset_button" = "필터 재설정";
 
 /* noun */
-"booking_list" = "목록";
+"search_in_table" = "목록";
 
 "booking_based_on_reviews" = "%d개 호텔 리뷰 기반";
 
