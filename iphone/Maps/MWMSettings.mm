@@ -42,6 +42,11 @@ NSString * const kSpotlightLocaleLanguageId = @"SpotlightLocaleLanguageId";
   return adForbidden;
 }
 
++ (void)setAdForbidden:(BOOL)adForbidden
+{
+  settings::Set(kAdForbiddenSettingsKey, static_cast<bool>(adForbidden));
+}
+
 + (BOOL)autoDownloadEnabled
 {
   bool autoDownloadEnabled = true;

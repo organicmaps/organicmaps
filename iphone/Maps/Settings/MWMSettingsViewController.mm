@@ -28,6 +28,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 @property(weak, nonatomic) IBOutlet LinkCell * mobileInternetCell;
 @property(weak, nonatomic) IBOutlet LinkCell * recentTrackCell;
 @property(weak, nonatomic) IBOutlet SwitchCell * compassCalibrationCell;
+@property(weak, nonatomic) IBOutlet SwitchCell * showOffersCell;
 @property(weak, nonatomic) IBOutlet SwitchCell * statisticsCell;
 
 @property(weak, nonatomic) IBOutlet LinkCell * nightModeCell;
@@ -116,6 +117,9 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.compassCalibrationCell.switchButton.on = [MWMSettings compassCalibrationEnabled];
   self.compassCalibrationCell.delegate = self;
 
+  self.showOffersCell.switchButton.on = ![MWMSettings adForbidden];
+  self.showOffersCell.delegate = self;
+
   self.statisticsCell.switchButton.on = [MWMSettings statisticsEnabled];
   self.statisticsCell.delegate = self;
 }
@@ -195,6 +199,12 @@ extern NSString * const kAlohalyticsTapEventKey;
     [Statistics logEvent:kStatEventName(kStatSettings, kStatToggleCompassCalibration)
           withParameters:@{kStatValue : (value ? kStatOn : kStatOff)}];
     [MWMSettings setCompassCalibrationEnabled:value];
+  }
+  else if (cell == self.showOffersCell)
+  {
+    [Statistics logEvent:kStatEventName(kStatSettings, kStatAd)
+          withParameters:@{kStatAction : kStatAd, kStatValue : (value ? kStatOn : kStatOff)}];
+    [MWMSettings setAdForbidden:!value];
   }
   else if (cell == self.statisticsCell)
   {
