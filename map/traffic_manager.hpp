@@ -20,6 +20,7 @@
 #include "std/map.hpp"
 #include "std/mutex.hpp"
 #include "std/set.hpp"
+#include "std/string.hpp"
 #include "std/vector.hpp"
 
 namespace df
@@ -141,6 +142,10 @@ private:
 
   vector<MwmSet::MwmId> m_lastMwmsByRect;
   set<MwmSet::MwmId> m_activeMwms;
+  // The ETag or entity tag is part of HTTP, the protocol for the World Wide Web.
+  // It is one of several mechanisms that HTTP provides for web cache validation,
+  // which allows a client to make conditional requests.
+  map<MwmSet::MwmId, string> m_trafficETags;
 
   vector<MwmSet::MwmId> m_requestedMwms;
   mutex m_mutex;

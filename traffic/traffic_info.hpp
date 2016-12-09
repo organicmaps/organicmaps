@@ -9,6 +9,11 @@
 #include "std/shared_ptr.hpp"
 #include "std/vector.hpp"
 
+namespace platform
+{
+class HttpClient;
+}
+
 namespace traffic
 {
 // This class is responsible for providing the real-time
@@ -74,10 +79,13 @@ public:
   static TrafficInfo BuildForTesting(Coloring && coloring);
   void SetTrafficKeysForTesting(vector<RoadSegmentId> const & keys);
 
-  // Fetches the latest traffic data from the server and updates the coloring.
+  // Fetches the latest traffic data from the server and updates the coloring and ETag.
   // Construct the url by passing an MwmId.
+  // The ETag or entity tag is part of HTTP, the protocol for the World Wide Web.
+  // It is one of several mechanisms that HTTP provides for web cache validation,
+  // which allows a client to make conditional requests.
   // *NOTE* This method must not be called on the UI thread.
-  bool ReceiveTrafficData();
+  bool ReceiveTrafficData(string & etag);
 
   // Returns the latest known speed group by a feature segment's id
   // or SpeedGroup::Unknown if there is no information about the segment.
@@ -119,10 +127,12 @@ private:
   // Returns true and updates m_coloring if the values are read successfully and
   // their number is equal to the number of keys.
   // Otherwise, returns false and does not change m_coloring.
-  bool ReceiveTrafficValues(vector<SpeedGroup> & values);
+  bool ReceiveTrafficValues(string & etag, vector<SpeedGroup> & values);
 
   // Updates the coloring and changes the availability status if needed.
   bool UpdateTrafficData(vector<SpeedGroup> const & values);
+
+  bool ProcessFailure(platform::HttpClient const & request, uint64_t const mwmVersion);
 
   // The mapping from feature segments to speed groups (see speed_groups.hpp).
   Coloring m_coloring;

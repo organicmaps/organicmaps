@@ -227,9 +227,13 @@ void TrafficManager::ThreadRoutine()
   {
     for (auto const & mwm : mwms)
     {
+      auto const & mwmInfo = mwm.GetInfo();
+      if (!mwmInfo)
+        continue;
+
       traffic::TrafficInfo info(mwm, m_currentDataVersion);
 
-      if (info.ReceiveTrafficData())
+      if (info.ReceiveTrafficData(m_trafficETags[mwm]))
       {
         OnTrafficDataResponse(move(info));
       }
