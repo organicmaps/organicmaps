@@ -10,6 +10,8 @@
 
 #include "platform/platform.hpp"
 
+#include "3party/Alohalytics/src/alohalytics.h"
+
 namespace
 {
 auto constexpr kUpdateInterval = minutes(1);
@@ -101,9 +103,17 @@ void TrafficManager::SetEnabled(bool enabled)
     m_drapeEngine->EnableTraffic(enabled);
 
   if (enabled)
+  {
     Invalidate();
+    GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kTrafficDiscovered);
+    alohalytics::LogEvent(
+        "$TrafficEnabled",
+        alohalytics::TStringMap({{"dataVersion", strings::to_string(m_currentDataVersion.load())}}));
+  }
   else
+  {
     m_observer.OnTrafficInfoClear();
+  }
 }
 
 void TrafficManager::Clear()
@@ -474,10 +484,39 @@ void TrafficManager::ChangeState(TrafficState newState)
     return;
 
   m_state = newState;
+  alohalytics::LogEvent(
+      "$TrafficChangeState",
+      alohalytics::TStringMap({{"state", DebugPrint(m_state.load())}}));
 
   GetPlatform().RunOnGuiThread([this, newState]()
   {
     if (m_onStateChangedFn != nullptr)
       m_onStateChangedFn(newState);
   });
+}
+
+string DebugPrint(TrafficManager::TrafficState state)
+{
+  switch (state)
+  {
+  case TrafficManager::TrafficState::Disabled:
+    return "Disabled";
+  case TrafficManager::TrafficState::Enabled:
+    return "Enabled";
+  case TrafficManager::TrafficState::WaitingData:
+    return "WaitingData";
+  case TrafficManager::TrafficState::Outdated:
+    return "Outdated";
+  case TrafficManager::TrafficState::NoData:
+    return "NoData";
+  case TrafficManager::TrafficState::NetworkError:
+    return "NetworkError";
+  case TrafficManager::TrafficState::ExpiredData:
+    return "ExpiredData";
+  case TrafficManager::TrafficState::ExpiredApp:
+    return "ExpiredApp";
+    default:
+      ASSERT(false, ("Unknown state"));
+  }
+  return "Unknown";
 }

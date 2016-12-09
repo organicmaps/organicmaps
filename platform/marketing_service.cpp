@@ -17,6 +17,7 @@ char const * const kRoutingBicycleDiscovered = "routing_bicycle_discovered";
 char const * const kRoutingTaxiDiscovered = "routing_taxi_discovered";
 char const * const kEditorAddDiscovered = "editor_add_discovered";
 char const * const kEditorEditDiscovered = "editor_edit_discovered";
+char const * const kTrafficDiscovered = "traffic_discovered";
 
 // Events.
 char const * const kDownloaderMapActionFinished = "Downloader_Map_action_finished";
@@ -42,7 +43,9 @@ void MarketingService::ProcessFirstLaunch()
     kRoutingVehicleDiscovered, kRoutingPedestrianDiscovered,
     kRoutingBicycleDiscovered, kRoutingTaxiDiscovered,
 
-    kEditorAddDiscovered, kEditorEditDiscovered
+    kEditorAddDiscovered, kEditorEditDiscovered,
+
+    kTrafficDiscovered
   };
 
   for (auto const & tag : tags)
