@@ -1003,6 +1003,23 @@
 	<string name="traffic_update_maps_text">Kortet opdateres for kunne vise trafikdata.</string>
 	<string name="traffic_outdated">Trafikdata er forældede.</string>
 	<string name="big_font">Større etiketter</string>
+	<string name="traffic_update_app">Opdater MAPS.ME</string>
+	<!-- "traffic" as in road congestion -->
+	<string name="traffic_update_app_message">Appen skal opdateres for at kunne vise trafikdata.</string>
+	<!-- "traffic" as in "road congestion" -->
+	<string name="traffic_data_unavailable">Trafikdata er ikke tilgængelige</string>
+	<string name="banner_deliveryclub_title">Udbringning af mad</string>
+	<string name="banner_deliveryclub_message">Hurtig levering fra 4.000 restauranter. Bestil fra Delivery Club.</string>
+	<string name="banner_lamoda_title">Online sko- og tøjbutik</string>
+	<string name="banner_lamoda_message">Mere end 1.000 mærker. Op til 70% rabat. Gratis levering over hele landet.</string>
+	<string name="banner_tutu_title">Togbilletter online</string>
+	<string name="banner_tutu_message">Køb togbilletter til enhver by online - priser, søgning og bestilling.</string>
+	<string name="banner_geerbest_title">Online elektronikbutik</string>
+	<string name="banner_geerbest_message">Hurtig søgning blandt over 50.000 varer til lave priser.</string>
+	<string name="banner_rentalcars_title">Udlejning biler online</string>
+	<string name="banner_rentalcars_message">800 biludlejningsselskaber på mere end 49.000 steder.</string>
+	<string name="banner_viator_title">Online rejsesøgning</string>
+	<string name="banner_viator_message">Søg blandt mere end 50.000 rejser over hele verden.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Trafikdata i 36 lande</string>
 	<!-- december -->

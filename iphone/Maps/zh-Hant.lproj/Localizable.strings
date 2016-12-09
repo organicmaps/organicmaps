@@ -1724,35 +1724,37 @@
 
 "big_font" = "更大的標籤";
 
-"traffic_update_app" = "Please update MAPS.ME";
+"traffic_update_app" = "請更新 MAPS.ME";
 
-"traffic_update_app_message" = "To display traffic data, the application must be updated.";
+/* "traffic" as in road congestion */
+"traffic_update_app_message" = "若要顯示交通資訊，必須更新應用程式。";
 
-"traffic_data_unavailable" = "Traffic data is not available";
+/* "traffic" as in "road congestion" */
+"traffic_data_unavailable" = "無法使用交通資訊";
 
-"banner_deliveryclub_title" = "Food delivery";
+"banner_deliveryclub_title" = "送餐";
 
-"banner_deliveryclub_message" = "Fast delivery from 4,000 restaurants. Order from Delivery Club.";
+"banner_deliveryclub_message" = "4,000 家餐廳的快速外送。向 Delivery Club 訂餐。";
 
-"banner_lamoda_title" = "Online clothing and shoe store";
+"banner_lamoda_title" = "線上服飾與鞋店";
 
-"banner_lamoda_message" = "More than 1,000 brands. Up to 70% off. Free delivery all over the country.";
+"banner_lamoda_message" = "超過 1,000 個品牌。最低三折起。全國免運費。";
 
-"banner_tutu_title" = "Train tickets online";
+"banner_tutu_title" = "線上火車票";
 
-"banner_tutu_message" = "Train tickets to any city online - prices, search, and booking.";
+"banner_tutu_message" = "線上訂購前往任何城市的火車票 - 瞭解價格、搜尋並預訂。";
 
-"banner_geerbest_title" = "Online electronics store";
+"banner_geerbest_title" = "線上電器行";
 
-"banner_geerbest_message" = "Instant search in over 50,000 items at low prices.";
+"banner_geerbest_message" = "立即搜尋超過 50,000 樣低價品項。";
 
-"banner_rentalcars_title" = "Renting cars online";
+"banner_rentalcars_title" = "線上租車";
 
-"banner_rentalcars_message" = "800 car rental companies in more than 49,000 car rental locations.";
+"banner_rentalcars_message" = "營運 49,000 多個租車地點的 800 家租車公司。";
 
-"banner_viator_title" = "Online tour search";
+"banner_viator_title" = "線上行程搜尋";
 
-"banner_viator_message" = "Search in over 50,000 tours all over the world.";
+"banner_viator_message" = "搜尋全世界 50,000 多個行程。";
 
 /* december */
 "whatsnew_traffic" = "36 個國家的交通資料";

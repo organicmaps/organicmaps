@@ -1724,35 +1724,37 @@
 
 "big_font" = "Etichete mai mari";
 
-"traffic_update_app" = "Please update MAPS.ME";
+"traffic_update_app" = "Vă rugăm să actualizaţi MAPS.ME";
 
-"traffic_update_app_message" = "To display traffic data, the application must be updated.";
+/* "traffic" as in road congestion */
+"traffic_update_app_message" = "Pentru a afişa datele privind traficul, aplicația trebuie actualizată.";
 
-"traffic_data_unavailable" = "Traffic data is not available";
+/* "traffic" as in "road congestion" */
+"traffic_data_unavailable" = "Datele privind traficul nu sunt disponibile.";
 
-"banner_deliveryclub_title" = "Food delivery";
+"banner_deliveryclub_title" = "Livrare mâncare";
 
-"banner_deliveryclub_message" = "Fast delivery from 4,000 restaurants. Order from Delivery Club.";
+"banner_deliveryclub_message" = "Livrare rapidă din 4.000 de restaurante. Comandați de la Delivery Club.";
 
-"banner_lamoda_title" = "Online clothing and shoe store";
+"banner_lamoda_title" = "Îmbrăcăminte și magazin de pantofi online";
 
-"banner_lamoda_message" = "More than 1,000 brands. Up to 70% off. Free delivery all over the country.";
+"banner_lamoda_message" = "Peste 1.000 de branduri. Până la 70% reducere. Livrare gratuită în toată țara.";
 
-"banner_tutu_title" = "Train tickets online";
+"banner_tutu_title" = "Bilete de tren online";
 
-"banner_tutu_message" = "Train tickets to any city online - prices, search, and booking.";
+"banner_tutu_message" = "Bilete de tren către orice oraș online - prețuri, căutare şi rezervare.";
 
-"banner_geerbest_title" = "Online electronics store";
+"banner_geerbest_title" = "Magazin de produse electronice online";
 
-"banner_geerbest_message" = "Instant search in over 50,000 items at low prices.";
+"banner_geerbest_message" = "Căutare instantanee printre peste 50.000 de articole la prețuri mici.";
 
-"banner_rentalcars_title" = "Renting cars online";
+"banner_rentalcars_title" = "Închiriere mașini online";
 
-"banner_rentalcars_message" = "800 car rental companies in more than 49,000 car rental locations.";
+"banner_rentalcars_message" = "800 de firme care închiriază mașini în peste 49.000 de locații de închiriere mașini.";
 
-"banner_viator_title" = "Online tour search";
+"banner_viator_title" = "Căutare excursii online";
 
-"banner_viator_message" = "Search in over 50,000 tours all over the world.";
+"banner_viator_message" = "Căutați în peste 50.000 de excursii din întreaga lume.";
 
 /* december */
 "whatsnew_traffic" = "Date privind traficul în 36 de țări";

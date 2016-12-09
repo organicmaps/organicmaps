@@ -1005,6 +1005,23 @@
 	<string name="traffic_update_maps_text">Trafik verilerini görüntülemek için haritaların güncellenmesi gerekiyor.</string>
 	<string name="traffic_outdated">Trafik verileri güncel değil.</string>
 	<string name="big_font">Daha büyük etiketler</string>
+	<string name="traffic_update_app">Lütfen MAPS.ME uygulamasını güncelleyin</string>
+	<!-- "traffic" as in road congestion -->
+	<string name="traffic_update_app_message">Trafik verilerini görüntülemek için uygulamanın güncellenmesi gerekiyor.</string>
+	<!-- "traffic" as in "road congestion" -->
+	<string name="traffic_data_unavailable">Trafik verileri kullanılamıyor</string>
+	<string name="banner_deliveryclub_title">Gıda teslimatı</string>
+	<string name="banner_deliveryclub_message">4.000\&#39;den fazla restorandan hızlı teslimat. Siparişinizi Delivery Clup ile verin.</string>
+	<string name="banner_lamoda_title">Çevrimiçi giyim ve ayakkabı mağazası</string>
+	<string name="banner_lamoda_message">1.000\&#39;den fazla marka. %70\&#39;e varan indirimler. Ülkenin her yerine ücretsiz teslimat.</string>
+	<string name="banner_tutu_title">Çevrimiçi tren biletleri</string>
+	<string name="banner_tutu_message">Tüm şehirler için çevrimiçi tren biletleri - fiyat bilgileri, arama yapma ve rezervasyon.</string>
+	<string name="banner_geerbest_title">Çevrimiçi elektronik mağazası</string>
+	<string name="banner_geerbest_message">En uygun fiyatlarla 50.000\&#39;den fazla ürün için hızlı arama yapın.</string>
+	<string name="banner_rentalcars_title">Çevrimiçi araba kiralama</string>
+	<string name="banner_rentalcars_message">49.000\&#39;den fazla araç kiralama bölgesinde yer alan 800 araç kiralama şirketi.</string>
+	<string name="banner_viator_title">Çevrimiçi tur arama</string>
+	<string name="banner_viator_message">Dünyanın her yerinden 50.000\&#39;den fazla tur içinden arama yapın.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">36 Ülkeden Trafik Verileri</string>
 	<!-- december -->

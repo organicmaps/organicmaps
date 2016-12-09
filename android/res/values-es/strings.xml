@@ -992,6 +992,23 @@
 	<string name="traffic_update_maps_text">Para mostrar los datos de tráfico, deben actualizarse los mapas.</string>
 	<string name="traffic_outdated">Los datos de tráfico están obsoletos.</string>
 	<string name="big_font">Etiquetas mayores</string>
+	<string name="traffic_update_app">Por favor, actualice MAPS.ME</string>
+	<!-- "traffic" as in road congestion -->
+	<string name="traffic_update_app_message">Para mostrar los datos de tráfico, debe actualizar la aplicación.</string>
+	<!-- "traffic" as in "road congestion" -->
+	<string name="traffic_data_unavailable">Los datos de tráfico no están disponibles</string>
+	<string name="banner_deliveryclub_title">Entrega de alimentos</string>
+	<string name="banner_deliveryclub_message">Entrega rápida de 4000 restaurantes. Haga el pedido en Delivery Club.</string>
+	<string name="banner_lamoda_title">Tienda online de ropa y calzado</string>
+	<string name="banner_lamoda_message">Más de 1000 marcas. Descuentos de hasta 70%. Entrega gratuita en todo el territorio nacional.</string>
+	<string name="banner_tutu_title">Billetes de tren en línea</string>
+	<string name="banner_tutu_message">Billetes de tren en línea a cualquier ciudad en línea: precios, búsqueda y reservas.</string>
+	<string name="banner_geerbest_title">Tienda online de electrónica</string>
+	<string name="banner_geerbest_message">Búsqueda instantánea de más de 50 000 artículos a precios bajos.</string>
+	<string name="banner_rentalcars_title">Alquiler de coches en línea</string>
+	<string name="banner_rentalcars_message">800 compañías de alquiler de coches en más de 49 000 localidades.</string>
+	<string name="banner_viator_title">Reserva de viajes en línea</string>
+	<string name="banner_viator_message">Más de 50 000 viajes por todo el mundo.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Datos del tráfico en 36 países</string>
 	<!-- december -->

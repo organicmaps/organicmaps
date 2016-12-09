@@ -1002,6 +1002,23 @@
 	<string name="traffic_update_maps_text">Na zobrazenie dopravných informácií je potrebné aktualizovať mapy.</string>
 	<string name="traffic_outdated">Dopravné informácie sú neaktuálne.</string>
 	<string name="big_font">Väčšie nápisy</string>
+	<string name="traffic_update_app">Aktualizujte si aplikáciu MAPS.ME</string>
+	<!-- "traffic" as in road congestion -->
+	<string name="traffic_update_app_message">Ak chcete zobraziť dopravné informácie, musíte si aktualizovať aplikáciu.</string>
+	<!-- "traffic" as in "road congestion" -->
+	<string name="traffic_data_unavailable">Dopravné informácie nie sú k dispozícii</string>
+	<string name="banner_deliveryclub_title">Donáška jedla</string>
+	<string name="banner_deliveryclub_message">Rýchle dodanie zo 4 000 reštaurácií. Objednávky od spoločnosti Delivery Club.</string>
+	<string name="banner_lamoda_title">Online obchod s odevmi a obuvou</string>
+	<string name="banner_lamoda_message">Viac ako 1 000 značiek. Zľavy až 70%. Doručenie zdarma po celej krajine.</string>
+	<string name="banner_tutu_title">Lístky na vlak online</string>
+	<string name="banner_tutu_message">Lístky vlak do ktoréhokoľvek mesta online - ceny, vyhľadávanie a rezervácia.</string>
+	<string name="banner_geerbest_title">Online predajňa elektroniky</string>
+	<string name="banner_geerbest_message">Okamžité vyhľadávanie vo viac ako 50 000 druhoch tovaru za nízke ceny.</string>
+	<string name="banner_rentalcars_title">Prenájom auta online</string>
+	<string name="banner_rentalcars_message">800 spoločností prenajímajúcich vozidlá vo viac ako 49 000 prevádzkach.</string>
+	<string name="banner_viator_title">Online vyhľadávanie zájazdov</string>
+	<string name="banner_viator_message">Vyhľadávanie vo viac ako 50 000 zájazdoch po celom svete.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Dopravné informácie v 36 krajinách</string>
 	<!-- december -->

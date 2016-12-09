@@ -1017,6 +1017,23 @@
 	<string name="traffic_update_maps_text">Um Verkehrsdaten anzuzeigen, müssen die Karten aktualisiert werden.</string>
 	<string name="traffic_outdated">Verkehrsdaten sind veraltet.</string>
 	<string name="big_font">Größere Bezeichnungen</string>
+	<string name="traffic_update_app">Bitte aktualisieren Sie MAPS.ME</string>
+	<!-- "traffic" as in road congestion -->
+	<string name="traffic_update_app_message">Um Verkehrsdaten anzuzeigen, muss die Anwendung aktualisiert werden.</string>
+	<!-- "traffic" as in "road congestion" -->
+	<string name="traffic_data_unavailable">Verkehrsdaten sind nicht verfügbar</string>
+	<string name="banner_deliveryclub_title">Essensbringdienst</string>
+	<string name="banner_deliveryclub_message">Schnelle Lieferung von 4000 Restaurants. Bestellen mit Delivery Club.</string>
+	<string name="banner_lamoda_title">Onlinegeschäft für Kleidung und Schuhe</string>
+	<string name="banner_lamoda_message">Über 1000 Marken. Bis zu 70 % Rabatt. Kostenlose Lieferung landesweit.</string>
+	<string name="banner_tutu_title">Zugfahrkarten online</string>
+	<string name="banner_tutu_message">Zugfahrkarten in jede Stadt online – Preise, Suche und Buchung.</string>
+	<string name="banner_geerbest_title">Online-Elektronikgeschäft</string>
+	<string name="banner_geerbest_message">Sofortsuche bei über 50.000 Artikeln zu günstigen Preisen.</string>
+	<string name="banner_rentalcars_title">Autos online mieten</string>
+	<string name="banner_rentalcars_message">800 Autovermietungen mit über 49.000 Mietstationen.</string>
+	<string name="banner_viator_title">Online-Toursuche</string>
+	<string name="banner_viator_message">Suche bei über 50.000 Touren auf der ganzen Welt.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Verkehrsdaten in 36 Ländern</string>
 	<!-- december -->

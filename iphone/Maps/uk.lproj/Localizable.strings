@@ -1724,35 +1724,37 @@
 
 "big_font" = "Більші написи";
 
-"traffic_update_app" = "Please update MAPS.ME";
+"traffic_update_app" = "Будь ласка, встановіть оновлення MAPS.ME";
 
-"traffic_update_app_message" = "To display traffic data, the application must be updated.";
+/* "traffic" as in road congestion */
+"traffic_update_app_message" = "Для відображення даних про трафік оновіть додаток.";
 
-"traffic_data_unavailable" = "Traffic data is not available";
+/* "traffic" as in "road congestion" */
+"traffic_data_unavailable" = "Дані про трафік недоступні";
 
-"banner_deliveryclub_title" = "Food delivery";
+"banner_deliveryclub_title" = "Доставка їжі";
 
-"banner_deliveryclub_message" = "Fast delivery from 4,000 restaurants. Order from Delivery Club.";
+"banner_deliveryclub_message" = "Швидка доставка з 4000 ресторанів. Замовляйте з Delivery Club.";
 
-"banner_lamoda_title" = "Online clothing and shoe store";
+"banner_lamoda_title" = "Онлайн-магазини одягу та взуття";
 
-"banner_lamoda_message" = "More than 1,000 brands. Up to 70% off. Free delivery all over the country.";
+"banner_lamoda_message" = "Понад 1000 брендів. Знижки до 70%. Безкоштовна доставка по всій країні.";
 
-"banner_tutu_title" = "Train tickets online";
+"banner_tutu_title" = "Онлайн-замовлення залізничних квитків";
 
-"banner_tutu_message" = "Train tickets to any city online - prices, search, and booking.";
+"banner_tutu_message" = "Онлайн-пошук і замовлення квитків на поїзд до будь-якого міста.";
 
-"banner_geerbest_title" = "Online electronics store";
+"banner_geerbest_title" = "Онлайн-магазин електроніки";
 
-"banner_geerbest_message" = "Instant search in over 50,000 items at low prices.";
+"banner_geerbest_message" = "Миттєвий пошук по більш ніж 50 000 виробів за зниженими цінами.";
 
-"banner_rentalcars_title" = "Renting cars online";
+"banner_rentalcars_title" = "Онлайн-оренда автомобілів";
 
-"banner_rentalcars_message" = "800 car rental companies in more than 49,000 car rental locations.";
+"banner_rentalcars_message" = "800 компаній з прокату автомобілів та понад 49 000 агентів.";
 
-"banner_viator_title" = "Online tour search";
+"banner_viator_title" = "Онлайн-пошук турів";
 
-"banner_viator_message" = "Search in over 50,000 tours all over the world.";
+"banner_viator_message" = "Вибір з понад 50 000 турів у різних куточках світу.";
 
 /* december */
 "whatsnew_traffic" = "Дані про трафік у 36 країнах";

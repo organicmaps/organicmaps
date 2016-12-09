@@ -1724,35 +1724,37 @@
 
 "big_font" = "ป้ายใหญ่ขึ้น";
 
-"traffic_update_app" = "Please update MAPS.ME";
+"traffic_update_app" = "กรุณาอัปเดต MAPS.ME";
 
-"traffic_update_app_message" = "To display traffic data, the application must be updated.";
+/* "traffic" as in road congestion */
+"traffic_update_app_message" = "ในการแสดงข้อมูลการจราจร แอปพลิเคชั่นจะต้องอัปเดตก่อน";
 
-"traffic_data_unavailable" = "Traffic data is not available";
+/* "traffic" as in "road congestion" */
+"traffic_data_unavailable" = "ไม่มีข้อมูลการจราจร";
 
-"banner_deliveryclub_title" = "Food delivery";
+"banner_deliveryclub_title" = "อาหารส่งถึงที่";
 
-"banner_deliveryclub_message" = "Fast delivery from 4,000 restaurants. Order from Delivery Club.";
+"banner_deliveryclub_message" = "อาหารส่งถึงที่จาก 4,000 ร้าน สั่งจาก Delivery Club.";
 
-"banner_lamoda_title" = "Online clothing and shoe store";
+"banner_lamoda_title" = "ร้านค้าเสื้อผ้าและรองเท้าออนไลน์";
 
-"banner_lamoda_message" = "More than 1,000 brands. Up to 70% off. Free delivery all over the country.";
+"banner_lamoda_message" = "กว่า 1,000 ยี่ห้อ ลดถึง 70% จัดส่งฟรีทั่วประเทศ";
 
-"banner_tutu_title" = "Train tickets online";
+"banner_tutu_title" = "ตั๋วรถไฟออนไลน์";
 
-"banner_tutu_message" = "Train tickets to any city online - prices, search, and booking.";
+"banner_tutu_message" = "ตั๋วรถไฟออนไลน์ไปทุกเมือง - ราคา การค้นหา และการจอง";
 
-"banner_geerbest_title" = "Online electronics store";
+"banner_geerbest_title" = "ร้านอุปกรณ์อิเล็กทรอนิกส์ออนไลน์";
 
-"banner_geerbest_message" = "Instant search in over 50,000 items at low prices.";
+"banner_geerbest_message" = "การค้นหาทันทีในกว่า 50,000 รายการในราคาที่ต่ำ";
 
-"banner_rentalcars_title" = "Renting cars online";
+"banner_rentalcars_title" = "การเช่ารถออนไลน์";
 
-"banner_rentalcars_message" = "800 car rental companies in more than 49,000 car rental locations.";
+"banner_rentalcars_message" = "800 บริษัทเช่ารถในสถานเช่ารถมากกว่า 49,000 แห่ง";
 
-"banner_viator_title" = "Online tour search";
+"banner_viator_title" = "การค้นหาทัวร์ออนไลน์";
 
-"banner_viator_message" = "Search in over 50,000 tours all over the world.";
+"banner_viator_message" = "ค้นหาในทัวร์มากกว่า 50,000 แห่งทั่วโลก";
 
 /* december */
 "whatsnew_traffic" = "ข้อมูลการจราจรใน 36 ประเทศ";

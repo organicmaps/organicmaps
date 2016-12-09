@@ -1724,35 +1724,37 @@
 
 "big_font" = "Etiquetas mayores";
 
-"traffic_update_app" = "Please update MAPS.ME";
+"traffic_update_app" = "Por favor, actualice MAPS.ME";
 
-"traffic_update_app_message" = "To display traffic data, the application must be updated.";
+/* "traffic" as in road congestion */
+"traffic_update_app_message" = "Para mostrar los datos de tráfico, debe actualizar la aplicación.";
 
-"traffic_data_unavailable" = "Traffic data is not available";
+/* "traffic" as in "road congestion" */
+"traffic_data_unavailable" = "Los datos de tráfico no están disponibles";
 
-"banner_deliveryclub_title" = "Food delivery";
+"banner_deliveryclub_title" = "Entrega de alimentos";
 
-"banner_deliveryclub_message" = "Fast delivery from 4,000 restaurants. Order from Delivery Club.";
+"banner_deliveryclub_message" = "Entrega rápida de 4000 restaurantes. Haga el pedido en Delivery Club.";
 
-"banner_lamoda_title" = "Online clothing and shoe store";
+"banner_lamoda_title" = "Tienda online de ropa y calzado";
 
-"banner_lamoda_message" = "More than 1,000 brands. Up to 70% off. Free delivery all over the country.";
+"banner_lamoda_message" = "Más de 1000 marcas. Descuentos de hasta 70%. Entrega gratuita en todo el territorio nacional.";
 
-"banner_tutu_title" = "Train tickets online";
+"banner_tutu_title" = "Billetes de tren en línea";
 
-"banner_tutu_message" = "Train tickets to any city online - prices, search, and booking.";
+"banner_tutu_message" = "Billetes de tren en línea a cualquier ciudad en línea: precios, búsqueda y reservas.";
 
-"banner_geerbest_title" = "Online electronics store";
+"banner_geerbest_title" = "Tienda online de electrónica";
 
-"banner_geerbest_message" = "Instant search in over 50,000 items at low prices.";
+"banner_geerbest_message" = "Búsqueda instantánea de más de 50 000 artículos a precios bajos.";
 
-"banner_rentalcars_title" = "Renting cars online";
+"banner_rentalcars_title" = "Alquiler de coches en línea";
 
-"banner_rentalcars_message" = "800 car rental companies in more than 49,000 car rental locations.";
+"banner_rentalcars_message" = "800 compañías de alquiler de coches en más de 49 000 localidades.";
 
-"banner_viator_title" = "Online tour search";
+"banner_viator_title" = "Reserva de viajes en línea";
 
-"banner_viator_message" = "Search in over 50,000 tours all over the world.";
+"banner_viator_message" = "Más de 50 000 viajes por todo el mundo.";
 
 /* december */
 "whatsnew_traffic" = "Datos del tráfico en 36 países";

@@ -1724,35 +1724,37 @@
 
 "big_font" = "Label yang lebih besar";
 
-"traffic_update_app" = "Please update MAPS.ME";
+"traffic_update_app" = "Perbarui MAPS.ME";
 
-"traffic_update_app_message" = "To display traffic data, the application must be updated.";
+/* "traffic" as in road congestion */
+"traffic_update_app_message" = "Untuk menampilkan data lalu lintas, aplikasi ini harus diperbarui.";
 
-"traffic_data_unavailable" = "Traffic data is not available";
+/* "traffic" as in "road congestion" */
+"traffic_data_unavailable" = "Data lalu lintas tidak tersedia";
 
-"banner_deliveryclub_title" = "Food delivery";
+"banner_deliveryclub_title" = "Pengiriman makanan";
 
-"banner_deliveryclub_message" = "Fast delivery from 4,000 restaurants. Order from Delivery Club.";
+"banner_deliveryclub_message" = "Pengiriman cepat dari 4.000 restoran. Pesan dari Delivery Club.";
 
-"banner_lamoda_title" = "Online clothing and shoe store";
+"banner_lamoda_title" = "Toko pakaian dan sepatu online";
 
-"banner_lamoda_message" = "More than 1,000 brands. Up to 70% off. Free delivery all over the country.";
+"banner_lamoda_message" = "Lebih dari 1.000 merek. Diskon hingga 70%f. Gratis pengiriman ke seluruh negeri.";
 
-"banner_tutu_title" = "Train tickets online";
+"banner_tutu_title" = "Tiket kereta api online";
 
-"banner_tutu_message" = "Train tickets to any city online - prices, search, and booking.";
+"banner_tutu_message" = "Tiket kereta ke setiap kota online - harga, pencarian, dan pemesanan.";
 
-"banner_geerbest_title" = "Online electronics store";
+"banner_geerbest_title" = "Toko elektronik online";
 
-"banner_geerbest_message" = "Instant search in over 50,000 items at low prices.";
+"banner_geerbest_message" = "Cari cepat di antara lebih dari 50.000 barang berharga murah.";
 
-"banner_rentalcars_title" = "Renting cars online";
+"banner_rentalcars_title" = "Penyewaan mobil online";
 
-"banner_rentalcars_message" = "800 car rental companies in more than 49,000 car rental locations.";
+"banner_rentalcars_message" = "800 perusahaan penyewaan mobil di lebih dari 49.000 lokasi penyewaan mobil.";
 
-"banner_viator_title" = "Online tour search";
+"banner_viator_title" = "Pencarian wisata online";
 
-"banner_viator_message" = "Search in over 50,000 tours all over the world.";
+"banner_viator_message" = "Cari di antara lebih dari 50.000 wisata di seluruh dunia.";
 
 /* december */
 "whatsnew_traffic" = "Data Lalu Lintas di 36 Negara";

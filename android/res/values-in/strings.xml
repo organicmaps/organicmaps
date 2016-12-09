@@ -998,6 +998,23 @@
 	<string name="traffic_update_maps_text">Untuk memperlihatkan data lalu lintas, peta harus diperbarui.</string>
 	<string name="traffic_outdated">Data lalu lintas belum diperbarui.</string>
 	<string name="big_font">Label yang lebih besar</string>
+	<string name="traffic_update_app">Perbarui MAPS.ME</string>
+	<!-- "traffic" as in road congestion -->
+	<string name="traffic_update_app_message">Untuk menampilkan data lalu lintas, aplikasi ini harus diperbarui.</string>
+	<!-- "traffic" as in "road congestion" -->
+	<string name="traffic_data_unavailable">Data lalu lintas tidak tersedia</string>
+	<string name="banner_deliveryclub_title">Pengiriman makanan</string>
+	<string name="banner_deliveryclub_message">Pengiriman cepat dari 4.000 restoran. Pesan dari Delivery Club.</string>
+	<string name="banner_lamoda_title">Toko pakaian dan sepatu online</string>
+	<string name="banner_lamoda_message">Lebih dari 1.000 merek. Diskon hingga 70%f. Gratis pengiriman ke seluruh negeri.</string>
+	<string name="banner_tutu_title">Tiket kereta api online</string>
+	<string name="banner_tutu_message">Tiket kereta ke setiap kota online - harga, pencarian, dan pemesanan.</string>
+	<string name="banner_geerbest_title">Toko elektronik online</string>
+	<string name="banner_geerbest_message">Cari cepat di antara lebih dari 50.000 barang berharga murah.</string>
+	<string name="banner_rentalcars_title">Penyewaan mobil online</string>
+	<string name="banner_rentalcars_message">800 perusahaan penyewaan mobil di lebih dari 49.000 lokasi penyewaan mobil.</string>
+	<string name="banner_viator_title">Pencarian wisata online</string>
+	<string name="banner_viator_message">Cari di antara lebih dari 50.000 wisata di seluruh dunia.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Data Lalu Lintas di 36 Negara</string>
 	<!-- december -->

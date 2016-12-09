@@ -999,6 +999,23 @@
 	<string name="traffic_update_maps_text">Forgalmi adatok megjelenítéséhez a térképeket frissíteni kell.</string>
 	<string name="traffic_outdated">A forgalmi adatok elavultak.</string>
 	<string name="big_font">Nagyobb címkék</string>
+	<string name="traffic_update_app">Kérjük, frissítse a MAPS.ME alkalmazást</string>
+	<!-- "traffic" as in road congestion -->
+	<string name="traffic_update_app_message">A forgalmi adatok megjelenítéséhez frissíteni kell az alkalmazást.</string>
+	<!-- "traffic" as in "road congestion" -->
+	<string name="traffic_data_unavailable">Forgalmi adatok nem állnak rendelkezésre</string>
+	<string name="banner_deliveryclub_title">Ételfutár</string>
+	<string name="banner_deliveryclub_message">Gyors házhozszállítás 4000 étteremből. Rendelés az Ételfutár Klubból.</string>
+	<string name="banner_lamoda_title">Online ruházati és cipő üzlet</string>
+	<string name="banner_lamoda_message">Több mint 1000 márka. Akár 70 % kedvezmény. Ingyenes szállítás az ország egész területén.</string>
+	<string name="banner_tutu_title">Vonatjegy az interneten keresztül</string>
+	<string name="banner_tutu_message">Vonatjegy interneten minden városba - árak, keresés és foglalás.</string>
+	<string name="banner_geerbest_title">Internetes elektronikai áruház</string>
+	<string name="banner_geerbest_message">Több mint 50.000 cikk azonnali keresése alacsony áron.</string>
+	<string name="banner_rentalcars_title">Autóbérlés az interneten</string>
+	<string name="banner_rentalcars_message">800 autókölcsönző cég több mint 49.000 autókölcsönzési helyszínen.</string>
+	<string name="banner_viator_title">Utazások keresése az interneten</string>
+	<string name="banner_viator_message">Több mint 50.000 utazás keresése a világ minden táján.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Forgalmi adatok 36 országban</string>
 	<!-- december -->

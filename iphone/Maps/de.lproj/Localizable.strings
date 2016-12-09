@@ -1724,35 +1724,37 @@
 
 "big_font" = "Größere Bezeichnungen";
 
-"traffic_update_app" = "Please update MAPS.ME";
+"traffic_update_app" = "Bitte aktualisieren Sie MAPS.ME";
 
-"traffic_update_app_message" = "To display traffic data, the application must be updated.";
+/* "traffic" as in road congestion */
+"traffic_update_app_message" = "Um Verkehrsdaten anzuzeigen, muss die Anwendung aktualisiert werden.";
 
-"traffic_data_unavailable" = "Traffic data is not available";
+/* "traffic" as in "road congestion" */
+"traffic_data_unavailable" = "Verkehrsdaten sind nicht verfügbar";
 
-"banner_deliveryclub_title" = "Food delivery";
+"banner_deliveryclub_title" = "Essensbringdienst";
 
-"banner_deliveryclub_message" = "Fast delivery from 4,000 restaurants. Order from Delivery Club.";
+"banner_deliveryclub_message" = "Schnelle Lieferung von 4000 Restaurants. Bestellen mit Delivery Club.";
 
-"banner_lamoda_title" = "Online clothing and shoe store";
+"banner_lamoda_title" = "Onlinegeschäft für Kleidung und Schuhe";
 
-"banner_lamoda_message" = "More than 1,000 brands. Up to 70% off. Free delivery all over the country.";
+"banner_lamoda_message" = "Über 1000 Marken. Bis zu 70 % Rabatt. Kostenlose Lieferung landesweit.";
 
-"banner_tutu_title" = "Train tickets online";
+"banner_tutu_title" = "Zugfahrkarten online";
 
-"banner_tutu_message" = "Train tickets to any city online - prices, search, and booking.";
+"banner_tutu_message" = "Zugfahrkarten in jede Stadt online – Preise, Suche und Buchung.";
 
-"banner_geerbest_title" = "Online electronics store";
+"banner_geerbest_title" = "Online-Elektronikgeschäft";
 
-"banner_geerbest_message" = "Instant search in over 50,000 items at low prices.";
+"banner_geerbest_message" = "Sofortsuche bei über 50.000 Artikeln zu günstigen Preisen.";
 
-"banner_rentalcars_title" = "Renting cars online";
+"banner_rentalcars_title" = "Autos online mieten";
 
-"banner_rentalcars_message" = "800 car rental companies in more than 49,000 car rental locations.";
+"banner_rentalcars_message" = "800 Autovermietungen mit über 49.000 Mietstationen.";
 
-"banner_viator_title" = "Online tour search";
+"banner_viator_title" = "Online-Toursuche";
 
-"banner_viator_message" = "Search in over 50,000 tours all over the world.";
+"banner_viator_message" = "Suche bei über 50.000 Touren auf der ganzen Welt.";
 
 /* december */
 "whatsnew_traffic" = "Verkehrsdaten in 36 Ländern";

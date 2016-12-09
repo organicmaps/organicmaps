@@ -1003,6 +1003,23 @@
 	<string name="traffic_update_maps_text">Для відображення інформації про трафік необхідно оновити карти.</string>
 	<string name="traffic_outdated">Дані про трафік застаріли.</string>
 	<string name="big_font">Більші написи</string>
+	<string name="traffic_update_app">Будь ласка, встановіть оновлення MAPS.ME</string>
+	<!-- "traffic" as in road congestion -->
+	<string name="traffic_update_app_message">Для відображення даних про трафік оновіть додаток.</string>
+	<!-- "traffic" as in "road congestion" -->
+	<string name="traffic_data_unavailable">Дані про трафік недоступні</string>
+	<string name="banner_deliveryclub_title">Доставка їжі</string>
+	<string name="banner_deliveryclub_message">Швидка доставка з 4000 ресторанів. Замовляйте з Delivery Club.</string>
+	<string name="banner_lamoda_title">Онлайн-магазини одягу та взуття</string>
+	<string name="banner_lamoda_message">Понад 1000 брендів. Знижки до 70%. Безкоштовна доставка по всій країні.</string>
+	<string name="banner_tutu_title">Онлайн-замовлення залізничних квитків</string>
+	<string name="banner_tutu_message">Онлайн-пошук і замовлення квитків на поїзд до будь-якого міста.</string>
+	<string name="banner_geerbest_title">Онлайн-магазин електроніки</string>
+	<string name="banner_geerbest_message">Миттєвий пошук по більш ніж 50 000 виробів за зниженими цінами.</string>
+	<string name="banner_rentalcars_title">Онлайн-оренда автомобілів</string>
+	<string name="banner_rentalcars_message">800 компаній з прокату автомобілів та понад 49 000 агентів.</string>
+	<string name="banner_viator_title">Онлайн-пошук турів</string>
+	<string name="banner_viator_message">Вибір з понад 50 000 турів у різних куточках світу.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Дані про трафік у 36 країнах</string>
 	<!-- december -->

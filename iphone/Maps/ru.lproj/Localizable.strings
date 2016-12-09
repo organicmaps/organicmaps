@@ -1726,8 +1726,10 @@
 
 "traffic_update_app" = "Обновите MAPS.ME";
 
+/* "traffic" as in road congestion */
 "traffic_update_app_message" = "Для отображения пробок необходимо обновить приложение.";
 
+/* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Данные о пробках недоступны";
 
 "banner_deliveryclub_title" = "Доставка еды";

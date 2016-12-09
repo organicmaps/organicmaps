@@ -1724,35 +1724,37 @@
 
 "big_font" = "大きなラベル";
 
-"traffic_update_app" = "Please update MAPS.ME";
+"traffic_update_app" = "MAPS.ME をアップデートしてください";
 
-"traffic_update_app_message" = "To display traffic data, the application must be updated.";
+/* "traffic" as in road congestion */
+"traffic_update_app_message" = "交通データを表示するには、アプリケーションをアップデートする必要があります。";
 
-"traffic_data_unavailable" = "Traffic data is not available";
+/* "traffic" as in "road congestion" */
+"traffic_data_unavailable" = "交通データは利用できません";
 
-"banner_deliveryclub_title" = "Food delivery";
+"banner_deliveryclub_title" = "出前・宅配";
 
-"banner_deliveryclub_message" = "Fast delivery from 4,000 restaurants. Order from Delivery Club.";
+"banner_deliveryclub_message" = "4,000 軒のレストランから迅速にお届けします。Delivery Club からご注文ください。";
 
-"banner_lamoda_title" = "Online clothing and shoe store";
+"banner_lamoda_title" = "衣料品と靴のオンライン店舗";
 
-"banner_lamoda_message" = "More than 1,000 brands. Up to 70% off. Free delivery all over the country.";
+"banner_lamoda_message" = "1,000 件を超えるブランド。最大 70% オフ。全国無料配送。";
 
-"banner_tutu_title" = "Train tickets online";
+"banner_tutu_title" = "オンライン鉄道チケット";
 
-"banner_tutu_message" = "Train tickets to any city online - prices, search, and booking.";
+"banner_tutu_message" = "どんな都市への鉄道チケットもオンラインで。価格を検索して、予約しましょう。";
 
-"banner_geerbest_title" = "Online electronics store";
+"banner_geerbest_title" = "オンライン家電量販店";
 
-"banner_geerbest_message" = "Instant search in over 50,000 items at low prices.";
+"banner_geerbest_message" = "低価格で 50,000 件を超えるアイテムを素早く検索。";
 
-"banner_rentalcars_title" = "Renting cars online";
+"banner_rentalcars_title" = "オンラインでレンタカーを予約";
 
-"banner_rentalcars_message" = "800 car rental companies in more than 49,000 car rental locations.";
+"banner_rentalcars_message" = "800 社のレンタカー会社による 49,000 カ所を超えるレンタカー店舗をご利用いただけます。";
 
-"banner_viator_title" = "Online tour search";
+"banner_viator_title" = "オンラインツアー検索";
 
-"banner_viator_message" = "Search in over 50,000 tours all over the world.";
+"banner_viator_message" = "世界中から 50,000 件を超えるツアーを検索してください。";
 
 /* december */
 "whatsnew_traffic" = "36か国の交通データ";

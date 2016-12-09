@@ -1724,35 +1724,37 @@
 
 "big_font" = "Suuremmat selitykset";
 
-"traffic_update_app" = "Please update MAPS.ME";
+"traffic_update_app" = "Päivitä MAPS.ME";
 
-"traffic_update_app_message" = "To display traffic data, the application must be updated.";
+/* "traffic" as in road congestion */
+"traffic_update_app_message" = "Liikennetietojen näyttämiseksi sovellus on päivitettävä.";
 
-"traffic_data_unavailable" = "Traffic data is not available";
+/* "traffic" as in "road congestion" */
+"traffic_data_unavailable" = "Liikennetietoja ei ole saatavilla";
 
-"banner_deliveryclub_title" = "Food delivery";
+"banner_deliveryclub_title" = "Ruoan toimitus";
 
-"banner_deliveryclub_message" = "Fast delivery from 4,000 restaurants. Order from Delivery Club.";
+"banner_deliveryclub_message" = "Nopea toimitus 4 000 ravintolasta. Tilaa Delivery Clubilta.";
 
-"banner_lamoda_title" = "Online clothing and shoe store";
+"banner_lamoda_title" = "Vaate- ja kenkäkauppa verkossa";
 
-"banner_lamoda_message" = "More than 1,000 brands. Up to 70% off. Free delivery all over the country.";
+"banner_lamoda_message" = "Yli 1 000 merkkiä. Jopa 70 % alea. Ilmainen toimitus kaikkialle maahan.";
 
-"banner_tutu_title" = "Train tickets online";
+"banner_tutu_title" = "Junaliput verkossa";
 
-"banner_tutu_message" = "Train tickets to any city online - prices, search, and booking.";
+"banner_tutu_message" = "Junaliput kaikkiin kaupunkeihin verkossa – hinnat, haku ja varaus.";
 
-"banner_geerbest_title" = "Online electronics store";
+"banner_geerbest_title" = "Elektroniikkaliike verkossa";
 
-"banner_geerbest_message" = "Instant search in over 50,000 items at low prices.";
+"banner_geerbest_message" = "Hae nopeasti yli 50 000 kohteesta edullisin hinnoin.";
 
-"banner_rentalcars_title" = "Renting cars online";
+"banner_rentalcars_title" = "Autonvuokraus verkossa";
 
-"banner_rentalcars_message" = "800 car rental companies in more than 49,000 car rental locations.";
+"banner_rentalcars_message" = "800 autonvuokrausyritystä yli 49 000 autonvuokrauskohteessa.";
 
-"banner_viator_title" = "Online tour search";
+"banner_viator_title" = "Kierrosten haku verkossa";
 
-"banner_viator_message" = "Search in over 50,000 tours all over the world.";
+"banner_viator_message" = "Hae yli 50 000 kierroksesta ympäri maailmaa.";
 
 /* december */
 "whatsnew_traffic" = "Liikennetiedot 36 maassa";

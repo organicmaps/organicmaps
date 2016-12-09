@@ -1724,35 +1724,37 @@
 
 "big_font" = "Etichette più grandi";
 
-"traffic_update_app" = "Please update MAPS.ME";
+"traffic_update_app" = "Aggiorna MAPS.ME";
 
-"traffic_update_app_message" = "To display traffic data, the application must be updated.";
+/* "traffic" as in road congestion */
+"traffic_update_app_message" = "Per visualizzare i dati sul traffico, l'applicazione deve essere aggiornata.";
 
-"traffic_data_unavailable" = "Traffic data is not available";
+/* "traffic" as in "road congestion" */
+"traffic_data_unavailable" = "Dati sul traffico non disponibili";
 
-"banner_deliveryclub_title" = "Food delivery";
+"banner_deliveryclub_title" = "Cibo a domicilio";
 
-"banner_deliveryclub_message" = "Fast delivery from 4,000 restaurants. Order from Delivery Club.";
+"banner_deliveryclub_message" = "Consegna rapida da 4000 ristoranti. Ordina da Delivery Club.";
 
-"banner_lamoda_title" = "Online clothing and shoe store";
+"banner_lamoda_title" = "Store di abbigliamento e scarpe online";
 
-"banner_lamoda_message" = "More than 1,000 brands. Up to 70% off. Free delivery all over the country.";
+"banner_lamoda_message" = "Più di 1000 brand. Fino al 70% di sconto. Spedizione gratuita in tutto il Paese.";
 
-"banner_tutu_title" = "Train tickets online";
+"banner_tutu_title" = "Biglietti ferroviari online";
 
-"banner_tutu_message" = "Train tickets to any city online - prices, search, and booking.";
+"banner_tutu_message" = "Biglietti ferroviari per qualsiasi città online: prezzi, ricerca e prenotazione.";
 
-"banner_geerbest_title" = "Online electronics store";
+"banner_geerbest_title" = "Store di elettronica online";
 
-"banner_geerbest_message" = "Instant search in over 50,000 items at low prices.";
+"banner_geerbest_message" = "Ricerca istantanea fra oltre 50.000 articoli a prezzo scontato.";
 
-"banner_rentalcars_title" = "Renting cars online";
+"banner_rentalcars_title" = "Autonoleggio online";
 
-"banner_rentalcars_message" = "800 car rental companies in more than 49,000 car rental locations.";
+"banner_rentalcars_message" = "800 società di autonoleggio in oltre 49.000 località.";
 
-"banner_viator_title" = "Online tour search";
+"banner_viator_title" = "Ricerca viaggi online";
 
-"banner_viator_message" = "Search in over 50,000 tours all over the world.";
+"banner_viator_message" = "Ricerca di oltre 50.000 viaggi organizzati in tutto il mondo.";
 
 /* december */
 "whatsnew_traffic" = "Dati sul traffico in 36 Paesi";

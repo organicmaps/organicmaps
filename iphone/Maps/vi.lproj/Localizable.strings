@@ -1724,35 +1724,37 @@
 
 "big_font" = "Nhãn mác to hơn";
 
-"traffic_update_app" = "Please update MAPS.ME";
+"traffic_update_app" = "Vui lòng cập nhật MAPS.ME";
 
-"traffic_update_app_message" = "To display traffic data, the application must be updated.";
+/* "traffic" as in road congestion */
+"traffic_update_app_message" = "Để hiển thị dữ liệu giao thông, ứng dụng cần phải được cập nhật.";
 
-"traffic_data_unavailable" = "Traffic data is not available";
+/* "traffic" as in "road congestion" */
+"traffic_data_unavailable" = "Dữ liệu giao thông không khả dụng";
 
-"banner_deliveryclub_title" = "Food delivery";
+"banner_deliveryclub_title" = "Giao thực phẩm";
 
-"banner_deliveryclub_message" = "Fast delivery from 4,000 restaurants. Order from Delivery Club.";
+"banner_deliveryclub_message" = "Giao hàng nhanh từ 4.000 nhà hàng. Đặt hàng từ Delivery Club.";
 
-"banner_lamoda_title" = "Online clothing and shoe store";
+"banner_lamoda_title" = "Cửa hàng quần áo và giầy dép trực tuyến";
 
-"banner_lamoda_message" = "More than 1,000 brands. Up to 70% off. Free delivery all over the country.";
+"banner_lamoda_message" = "Hơn 1.000 nhãn hiệu. Giảm đến 70%. Giao hàng miễn phí toàn quốc.";
 
-"banner_tutu_title" = "Train tickets online";
+"banner_tutu_title" = "Vé tàu trực tuyến";
 
-"banner_tutu_message" = "Train tickets to any city online - prices, search, and booking.";
+"banner_tutu_message" = "Mua vé tàu trực tuyến đến bất kỳ thành phố nào - giá cả, tìm kiếm và đặt vé.";
 
-"banner_geerbest_title" = "Online electronics store";
+"banner_geerbest_title" = "Cửa hàng điện tử trực tuyến";
 
-"banner_geerbest_message" = "Instant search in over 50,000 items at low prices.";
+"banner_geerbest_message" = "Tìm kiếm nhanh hơn 50.000 sản phẩm ở mức giá thấp.";
 
-"banner_rentalcars_title" = "Renting cars online";
+"banner_rentalcars_title" = "Thuê ô tô trực tuyến";
 
-"banner_rentalcars_message" = "800 car rental companies in more than 49,000 car rental locations.";
+"banner_rentalcars_message" = "800 công ty thuê ô tô ở hơn 49.000 địa điểm thuê ô tô.";
 
-"banner_viator_title" = "Online tour search";
+"banner_viator_title" = "Tìm kiếm tour trực tuyến";
 
-"banner_viator_message" = "Search in over 50,000 tours all over the world.";
+"banner_viator_message" = "Tìm hơn 50.000 trên toàn thế giới.";
 
 /* december */
 "whatsnew_traffic" = "Dữ liệu Giao thông tại 36 Quốc gia";

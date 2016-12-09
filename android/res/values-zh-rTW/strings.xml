@@ -1011,6 +1011,23 @@
 	<string name="traffic_update_maps_text">若要顯示交通資料，必須更新地圖。</string>
 	<string name="traffic_outdated">交通資料已過時。</string>
 	<string name="big_font">更大的標籤</string>
+	<string name="traffic_update_app">請更新 MAPS.ME</string>
+	<!-- "traffic" as in road congestion -->
+	<string name="traffic_update_app_message">若要顯示交通資訊，必須更新應用程式。</string>
+	<!-- "traffic" as in "road congestion" -->
+	<string name="traffic_data_unavailable">無法使用交通資訊</string>
+	<string name="banner_deliveryclub_title">送餐</string>
+	<string name="banner_deliveryclub_message">4,000 家餐廳的快速外送。向 Delivery Club 訂餐。</string>
+	<string name="banner_lamoda_title">線上服飾與鞋店</string>
+	<string name="banner_lamoda_message">超過 1,000 個品牌。最低三折起。全國免運費。</string>
+	<string name="banner_tutu_title">線上火車票</string>
+	<string name="banner_tutu_message">線上訂購前往任何城市的火車票 - 瞭解價格、搜尋並預訂。</string>
+	<string name="banner_geerbest_title">線上電器行</string>
+	<string name="banner_geerbest_message">立即搜尋超過 50,000 樣低價品項。</string>
+	<string name="banner_rentalcars_title">線上租車</string>
+	<string name="banner_rentalcars_message">營運 49,000 多個租車地點的 800 家租車公司。</string>
+	<string name="banner_viator_title">線上行程搜尋</string>
+	<string name="banner_viator_message">搜尋全世界 50,000 多個行程。</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">36 個國家的交通資料</string>
 	<!-- december -->
