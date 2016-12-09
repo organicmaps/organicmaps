@@ -46,10 +46,9 @@ struct FeatureID;
 @property(nonatomic) CGFloat topBound;
 @property(nonatomic) CGFloat leftBound;
 
-- (void)showPlacePage:(place_page::Info const &)info;
+- (void)show:(place_page::Info const &)info;
+- (void)close;
 - (void)mwm_refreshUI;
-- (void)dismissPlacePage;
-- (void)hidePlacePage;
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation;
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator;

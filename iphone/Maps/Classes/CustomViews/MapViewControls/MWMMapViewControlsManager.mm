@@ -133,13 +133,13 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)dismissPlacePage
 {
   self.trafficButtonHidden = NO;
-  [self.placePageManager hidePlacePage];
+  [self.placePageManager close];
 }
 
 - (void)showPlacePage:(place_page::Info const &)info
 {
   self.trafficButtonHidden = YES;
-  [self.placePageManager showPlacePage:info];
+  [self.placePageManager show:info];
   if (IPAD)
   {
     auto ownerView = self.ownerController.view;
@@ -278,7 +278,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.menuState = MWMBottomMenuStateHidden;
   MapViewController * ownerController = self.ownerController;
   static_cast<EAGLView *>(ownerController.view).widgetsManager.fullScreen = YES;
-  [self.placePageManager dismissPlacePage];
+  [self.placePageManager close];
   self.searchManager.state = MWMSearchManagerStateHidden;
 
   [MWMAddPlaceNavigationBar showInSuperview:ownerController.view

@@ -32,7 +32,7 @@
 
 @implementation MWMPlacePageManager
 
-- (void)showPlacePage:(place_page::Info const &)info
+- (void)show:(place_page::Info const &)info
 {
   self.currentDownloaderStatus = storage::NodeStatus::Undefined;
   [MWMFrameworkListener addObserver:self];
@@ -55,7 +55,7 @@
   [self processCountryEvent:self.data.countryId];
 }
 
-- (void)closePlacePage
+- (void)close
 {
   [self.layout close];
   [MWMLocationManager removeObserver:self];
@@ -157,32 +157,30 @@
 }
 
 - (void)mwm_refreshUI { [self.layout mwm_refreshUI]; }
-- (void)dismissPlacePage { [self closePlacePage]; }
-- (void)hidePlacePage { [self closePlacePage]; }
 - (void)routeFrom
 {
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatBuildRoute)
         withParameters:@{kStatValue : kStatSource}];
+  [self close];
   [[MWMRouter router] buildFromPoint:self.target bestRouter:YES];
-  [self closePlacePage];
 }
 
 - (void)routeTo
 {
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatBuildRoute)
         withParameters:@{kStatValue : kStatDestination}];
+  [self close];
   [[MWMRouter router] buildToPoint:self.target bestRouter:YES];
-  [self closePlacePage];
 }
 
 - (void)taxiTo
 {
   [Statistics logEvent:kStatPlacePageTaxiClick
         withParameters:@{kStatProvider : kStatUber, kStatTags : self.data.statisticsTags}];
+  [self close];
   auto router = [MWMRouter router];
   router.type = routing::RouterType::Taxi;
   [router buildToPoint:self.target bestRouter:NO];
-  [self closePlacePage];
 }
 
 - (MWMRoutePoint)target
