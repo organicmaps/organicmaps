@@ -15,6 +15,7 @@
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
+#include "pyhelpers/vector_list_conversion.hpp"
 #include "pyhelpers/vector_uint8.hpp"
 
 #include <boost/python.hpp>
@@ -93,26 +94,39 @@ string RoadSegmentIdRepr(traffic::TrafficInfo::RoadSegmentId const & v)
   return ss.str();
 }
 
-vector<traffic::TrafficInfo::RoadSegmentId> GenerateTrafficKeys(string const & mwmPath)
+boost::python::list GenerateTrafficKeys(string const & mwmPath)
 {
   vector<traffic::TrafficInfo::RoadSegmentId> result;
   traffic::TrafficInfo::ExtractTrafficKeys(mwmPath, result);
-  return result;
+  return std_vector_to_python_list(result);
 }
 
-vector<uint8_t> GenerateTrafficValues(vector<traffic::TrafficInfo::RoadSegmentId> const & keys,
-                                      SegmentMapping const & segmentMapping)
+vector<uint8_t> GenerateTrafficValues(boost::python::list const & keys,
+                                      boost::python::dict const & segmentMappingDict)
 {
+  vector<traffic::TrafficInfo::RoadSegmentId> keysVec =
+      python_list_to_std_vector<traffic::TrafficInfo::RoadSegmentId>(keys);
+  SegmentMapping segmentMapping;
+
+  boost::python::list mappingKeys = segmentMappingDict.keys();
+  for (size_t i = 0; i < len(mappingKeys); ++i)
+  {
+    object curArg = segmentMappingDict[mappingKeys[i]];
+    if (curArg)
+      segmentMapping[extract<traffic::TrafficInfo::RoadSegmentId>(mappingKeys[i])] =
+          extract<SegmentSpeeds>(segmentMappingDict[mappingKeys[i]]);
+  }
+
   traffic::TrafficInfo::Coloring const knownColors = TransformToSpeedGroups(segmentMapping);
   traffic::TrafficInfo::Coloring coloring;
-  traffic::TrafficInfo::CombineColorings(keys, knownColors, coloring);
+  traffic::TrafficInfo::CombineColorings(keysVec, knownColors, coloring);
 
   vector<traffic::SpeedGroup> values(coloring.size());
 
   size_t i = 0;
   for (auto const & kv : coloring)
   {
-    ASSERT_EQUAL(kv.first, keys[i], ());
+    ASSERT_EQUAL(kv.first, keysVec[i], ());
     values[i] = kv.second;
     ++i;
   }
@@ -158,12 +172,6 @@ BOOST_PYTHON_MODULE(pytraffic)
       .value("TempBlock", traffic::SpeedGroup::TempBlock)
       .value("Unknown", traffic::SpeedGroup::Unknown)
   ;
-
-  class_<traffic::TrafficInfo::Coloring>("Coloring")
-      .def(map_indexing_suite<traffic::TrafficInfo::Coloring>())
-  ;
-
-  class_<SegmentMapping>("SegmentMapping").def(map_indexing_suite<SegmentMapping>());
 
   def("load_classificator", LoadClassificator);
   def("generate_traffic_keys", GenerateTrafficKeys);
