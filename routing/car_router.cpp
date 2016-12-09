@@ -466,7 +466,12 @@ CarRouter::ResultCode CarRouter::CalculateRoute(m2::PointD const & startPoint,
     }
     INTERRUPT_WHEN_CANCELLED(delegate);
 
-    if (crossCode == NoError && crossDistanceM < route.GetTotalDistanceMeters())
+    // Cross mwm and single mwm routes are built by different algorithms.
+    // It is not correct to compare distances from different algorithms.
+    // Add some penalty to cross mwm route to avoid inadequate manoeuvres near the mwm borders.
+    // TODO: remove this hack together with OSRM routing.
+    double constexpr kCrossMwmPenalty = 0.8;
+    if (crossCode == NoError && crossDistanceM < kCrossMwmPenalty * route.GetTotalDistanceMeters())
     {
       LOG(LINFO, ("Cross mwm path is shorter than single mwm path. Cross distance:",
                   crossDistanceM, "single distance:", route.GetTotalDistanceMeters()));
