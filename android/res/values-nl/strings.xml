@@ -999,4 +999,28 @@
 	<string name="traffic_update_maps_text">Om verkeersgegevens weer te geven, moeten de kaarten bijgewerkt worden.</string>
 	<string name="traffic_outdated">Verkeersgegevens zijn verouderd.</string>
 	<string name="big_font">Grotere labels</string>
+	<!-- december -->
+	<string name="whatsnew_traffic">Verkeersgegevens in 36 Landen</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_text">Actuele verkeersinformatie, en de snelste reisroutes hierop gebaseerd!</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming">Verkeersinfo in Roaming</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming_text">Vereist minder dan 1 MB mobiele bandbreedte per trip.</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi">Bestel een Taxi</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi_text">De meeste locatiepagina\&#39;s bevatten nu een knop om een taxi te bestellen.</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search">Verbeterde Zoekfunctie</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search_text">Zelfs verkeerd gespelde zoekopdrachten geven nauwkeurige zoekresultaten.</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search">Zoekfilters</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search_text">Hotels zoeken gebaseerd op prijs en rating.</string>
+	<!-- january -->
+	<string name="whatsnew_font_size">Lettergrootte</string>
+	<!-- january -->
+	<string name="whatsnew_font_size_text">Labels op de map kunnen groter gemaakt worden.</string>
 </resources>

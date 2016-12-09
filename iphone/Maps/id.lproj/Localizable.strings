@@ -1753,3 +1753,39 @@
 "banner_viator_title" = "Online tour search";
 
 "banner_viator_message" = "Search in over 50,000 tours all over the world.";
+
+/* december */
+"whatsnew_traffic" = "Data Lalu Lintas di 36 Negara";
+
+/* december */
+"whatsnew_traffic_text" = "Info lalu lintas terbaru dan rute berkendara tercepat berdasarkan ini!";
+
+/* december */
+"whatsnew_traffic_roaming" = "Info Lalu Lintas saat Roaming";
+
+/* december */
+"whatsnew_traffic_roaming_text" = "Memerlukan kurang dari 1 MB dari bandwidth seluler perjalanan.";
+
+/* december */
+"whatsnew_order_taxi" = "Pesan Taksi";
+
+/* december */
+"whatsnew_order_taxi_text" = "Sebagian besar halaman lokasi sekarang mempunyai tombol untuk memesan taksi.";
+
+/* january */
+"whatsnew_improved_search" = "Pencarian yang Diperbagus";
+
+/* january */
+"whatsnew_improved_search_text" = "Bahkan pertanyaan dengan kesalahan eja akan memberikan hasil pencarian yang akurat.";
+
+/* january */
+"whatsnew_filters_in_search" = "Filter Pencarian";
+
+/* january */
+"whatsnew_filters_in_search_text" = "Cari hotel berdasarkan harga dan peringkat.";
+
+/* january */
+"whatsnew_font_size" = "Ukuran Huruf";
+
+/* january */
+"whatsnew_font_size_text" = "Label pada peta bisa dijadikan lebih besar.";

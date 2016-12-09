@@ -1017,4 +1017,28 @@
 	<string name="traffic_update_maps_text">Um Verkehrsdaten anzuzeigen, müssen die Karten aktualisiert werden.</string>
 	<string name="traffic_outdated">Verkehrsdaten sind veraltet.</string>
 	<string name="big_font">Größere Bezeichnungen</string>
+	<!-- december -->
+	<string name="whatsnew_traffic">Verkehrsdaten in 36 Ländern</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_text">Aktuelle Verkehrsinformationen und darauf basierende schnellste Routen!</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming">Verkehrsinformationen bei Roaming</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming_text">Erfordert weniger als 1 MB mobile Bandbreite pro Fahrt.</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi">Taxi rufen</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi_text">Die meisten Standortseiten verfügen nun über eine Schaltfläche zum Rufen eines Taxis.</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search">Verbesserte Suche</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search_text">Sogar falsch geschriebene Anfragen liefern präzise Suchergebnisse.</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search">Suchfilter</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search_text">Hotels basierend auf Preis und Bewertung suchen.</string>
+	<!-- january -->
+	<string name="whatsnew_font_size">Schriftgröße</string>
+	<!-- january -->
+	<string name="whatsnew_font_size_text">Bezeichnungen auf der Karte können vergrößert werden.</string>
 </resources>

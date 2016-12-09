@@ -1037,4 +1037,28 @@
 	<string name="banner_rentalcars_message">800 car rental companies in more than 49,000 car rental locations.</string>
 	<string name="banner_viator_title">Online tour search</string>
 	<string name="banner_viator_message">Search in over 50,000 tours all over the world.</string>
+	<!-- december -->
+	<string name="whatsnew_traffic">Traffic Data in 36 Countries</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_text">Up-to-date traffic info and fastest driving routes based on it!</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming">Traffic Info in Roaming</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming_text">Requires less than 1 MB of mobile bandwidth per trip.</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi">Order a Taxi</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi_text">Most of the location pages now contain a button for ordering a taxi.</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search">Improved Search</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search_text">Even misspelled queries bring accurate search results.</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search">Search Filters</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search_text">Search hotels based on price and rating.</string>
+	<!-- january -->
+	<string name="whatsnew_font_size">Font Size</string>
+	<!-- january -->
+	<string name="whatsnew_font_size_text">Labels on the map can be made bigger.</string>
 </resources>

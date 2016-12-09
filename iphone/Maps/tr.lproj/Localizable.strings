@@ -1753,3 +1753,39 @@
 "banner_viator_title" = "Online tour search";
 
 "banner_viator_message" = "Search in over 50,000 tours all over the world.";
+
+/* december */
+"whatsnew_traffic" = "36 Ülkeden Trafik Verileri";
+
+/* december */
+"whatsnew_traffic_text" = "En güncel trafik verileri ve en hızlı sürüş güzergâhları!";
+
+/* december */
+"whatsnew_traffic_roaming" = "Roaming (Dolaşım) esnasında trafik bilgileri";
+
+/* december */
+"whatsnew_traffic_roaming_text" = "Her yolculuk için en az 1 MB mobil bant genişliği gereklidir.";
+
+/* december */
+"whatsnew_order_taxi" = "Taksi Çağırma";
+
+/* december */
+"whatsnew_order_taxi_text" = "Artık çoğu konum sayfalarında taksi çağırmak için bir düğme bulunuyor.";
+
+/* january */
+"whatsnew_improved_search" = "Gelişmiş Arama";
+
+/* january */
+"whatsnew_improved_search_text" = "Hatalı yazılan sorguları bile doğru getiren arama sonuçları.";
+
+/* january */
+"whatsnew_filters_in_search" = "Arama Filtreleri";
+
+/* january */
+"whatsnew_filters_in_search_text" = "Ücret ve puana göre otel arama.";
+
+/* january */
+"whatsnew_font_size" = "Yazı Tipi Boyutu";
+
+/* january */
+"whatsnew_font_size_text" = "Harita üzerindeki etiketler daha büyük hale getirilebilir.";

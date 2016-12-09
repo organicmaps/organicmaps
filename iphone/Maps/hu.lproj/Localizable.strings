@@ -1753,3 +1753,39 @@
 "banner_viator_title" = "Online tour search";
 
 "banner_viator_message" = "Search in over 50,000 tours all over the world.";
+
+/* december */
+"whatsnew_traffic" = "Forgalmi adatok 36 országban";
+
+/* december */
+"whatsnew_traffic_text" = "Aktuális forgalmi információk és a leggyorsabb útvonalak ezek alapján!";
+
+/* december */
+"whatsnew_traffic_roaming" = "Forgalmi információ a barangolásban";
+
+/* december */
+"whatsnew_traffic_roaming_text" = "Utazásonként kevesebb, mint 1 MB mobil sávszélességet igényel.";
+
+/* december */
+"whatsnew_order_taxi" = "Taxi rendelés";
+
+/* december */
+"whatsnew_order_taxi_text" = "A legtöbb helymeghatározó oldalon már megtalálható a taxirendelés gombja.";
+
+/* january */
+"whatsnew_improved_search" = "Továbbfejlesztett keresés";
+
+/* january */
+"whatsnew_improved_search_text" = "Még a hibásan írt lekérdezések is pontos keresési eredményeket adnak.";
+
+/* january */
+"whatsnew_filters_in_search" = "Keresési szűrők";
+
+/* january */
+"whatsnew_filters_in_search_text" = "Szálláshelyek keresése ár és minősítés alapján.";
+
+/* january */
+"whatsnew_font_size" = "Betűméret";
+
+/* january */
+"whatsnew_font_size_text" = "A térképen a címkék lehetnek nagyobbak.";

@@ -257,7 +257,7 @@
 "set" = "Grupo";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "Todavía no tienes favoritos.\nToca en cualquier lugar del mapa y añade favoritos.\nTambién se pueden importar y mostrar marcadores de otras fuentes en la aplicación MAPS.ME. Abre el archivo KML/KMZ con los alfileres guardados desde el corre, Dropbox o Weblink.";
+"bookmarks_usage_hint" = "Todavía no tienes favoritos.\nToca en cualquier lugar del mapa y añade favoritos.\nTambién se pueden importar y mostrar marcadores de otras fuentes en la aplicación MAPS.ME. Abre el archivo KML/KMZ con los alfileres guardados desde el correo, Dropbox o Weblink.";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
 "bookmarks_usage_hint_import_only" = "Se pueden importar y mostrar marcadores de otras fuentes en la aplicación MAPS.ME. Abre el archivo KML/KMZ con los alfileres guardados desde el corre, Dropbox o Weblink.";
@@ -1753,3 +1753,39 @@
 "banner_viator_title" = "Online tour search";
 
 "banner_viator_message" = "Search in over 50,000 tours all over the world.";
+
+/* december */
+"whatsnew_traffic" = "Datos del tráfico en 36 países";
+
+/* december */
+"whatsnew_traffic_text" = "¡Información actualizada del tráfico y de las rutas más rápidas basadas en ella!";
+
+/* december */
+"whatsnew_traffic_roaming" = "Información del tráfico en roaming";
+
+/* december */
+"whatsnew_traffic_roaming_text" = "Precisa menos de 1 MB de ancho de banda móvil por viaje.";
+
+/* december */
+"whatsnew_order_taxi" = "Pedir un taxi";
+
+/* december */
+"whatsnew_order_taxi_text" = "La mayoría de las páginas de localización incluyen un botón para pedir un taxi ahora.";
+
+/* january */
+"whatsnew_improved_search" = "Búsqueda mejorada";
+
+/* january */
+"whatsnew_improved_search_text" = "Incluso las consultas mal escritas proporcionan resultados de búsqueda precisos.";
+
+/* january */
+"whatsnew_filters_in_search" = "Filtros de búsqueda";
+
+/* january */
+"whatsnew_filters_in_search_text" = "Búsqueda de hoteles según su precio y clasificación.";
+
+/* january */
+"whatsnew_font_size" = "Tamaño de la fuente";
+
+/* january */
+"whatsnew_font_size_text" = "Las etiquetas del mapa pueden ampliarse.";

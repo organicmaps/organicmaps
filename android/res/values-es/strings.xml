@@ -152,7 +152,7 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Grupo</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Todavía no tienes favoritos.\nToca en cualquier lugar del mapa y añade favoritos.\nTambién se pueden importar y mostrar marcadores de otras fuentes en la aplicación MAPS.ME. Abre el archivo KML/KMZ con los alfileres guardados desde el corre, Dropbox o Weblink.</string>
+	<string name="bookmarks_usage_hint">Todavía no tienes favoritos.\nToca en cualquier lugar del mapa y añade favoritos.\nTambién se pueden importar y mostrar marcadores de otras fuentes en la aplicación MAPS.ME. Abre el archivo KML/KMZ con los alfileres guardados desde el correo, Dropbox o Weblink.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
 	<string name="bookmarks_usage_hint_import_only">Se pueden importar y mostrar marcadores de otras fuentes en la aplicación MAPS.ME. Abre el archivo KML/KMZ con los alfileres guardados desde el corre, Dropbox o Weblink.</string>
 	<!-- Settings button in system menu -->
@@ -992,4 +992,28 @@
 	<string name="traffic_update_maps_text">Para mostrar los datos de tráfico, deben actualizarse los mapas.</string>
 	<string name="traffic_outdated">Los datos de tráfico están obsoletos.</string>
 	<string name="big_font">Etiquetas mayores</string>
+	<!-- december -->
+	<string name="whatsnew_traffic">Datos del tráfico en 36 países</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_text">¡Información actualizada del tráfico y de las rutas más rápidas basadas en ella!</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming">Información del tráfico en roaming</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming_text">Precisa menos de 1 MB de ancho de banda móvil por viaje.</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi">Pedir un taxi</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi_text">La mayoría de las páginas de localización incluyen un botón para pedir un taxi ahora.</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search">Búsqueda mejorada</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search_text">Incluso las consultas mal escritas proporcionan resultados de búsqueda precisos.</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search">Filtros de búsqueda</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search_text">Búsqueda de hoteles según su precio y clasificación.</string>
+	<!-- january -->
+	<string name="whatsnew_font_size">Tamaño de la fuente</string>
+	<!-- january -->
+	<string name="whatsnew_font_size_text">Las etiquetas del mapa pueden ampliarse.</string>
 </resources>

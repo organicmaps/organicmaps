@@ -1753,3 +1753,39 @@
 "banner_viator_title" = "Online tour search";
 
 "banner_viator_message" = "Search in over 50,000 tours all over the world.";
+
+/* december */
+"whatsnew_traffic" = "Дані про трафік у 36 країнах";
+
+/* december */
+"whatsnew_traffic_text" = "Актуальні відомості про трафік та найменш перевантажені дороги!";
+
+/* december */
+"whatsnew_traffic_roaming" = "Інформація про трафік у роумінгу";
+
+/* december */
+"whatsnew_traffic_roaming_text" = "Менше 1 МБ мобільних даних на одну поїздку.";
+
+/* december */
+"whatsnew_order_taxi" = "Замовлення таксі";
+
+/* december */
+"whatsnew_order_taxi_text" = "На більшості сторінок місцязнаходження тепер є кнопка замовлення таксі.";
+
+/* january */
+"whatsnew_improved_search" = "Вдосконалений пошук";
+
+/* january */
+"whatsnew_improved_search_text" = "Видача правильних результатів навіть за наявності помилок у запиті.";
+
+/* january */
+"whatsnew_filters_in_search" = "Пошукові фільтри";
+
+/* january */
+"whatsnew_filters_in_search_text" = "Пошук готелів виходячи з ціни та рейтингу.";
+
+/* january */
+"whatsnew_font_size" = "Розмір шрифту";
+
+/* january */
+"whatsnew_font_size_text" = "Можливість збільшення розміру написів на карті.";

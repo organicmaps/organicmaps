@@ -1003,4 +1003,28 @@
 	<string name="traffic_update_maps_text">Для відображення інформації про трафік необхідно оновити карти.</string>
 	<string name="traffic_outdated">Дані про трафік застаріли.</string>
 	<string name="big_font">Більші написи</string>
+	<!-- december -->
+	<string name="whatsnew_traffic">Дані про трафік у 36 країнах</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_text">Актуальні відомості про трафік та найменш перевантажені дороги!</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming">Інформація про трафік у роумінгу</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming_text">Менше 1 МБ мобільних даних на одну поїздку.</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi">Замовлення таксі</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi_text">На більшості сторінок місцязнаходження тепер є кнопка замовлення таксі.</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search">Вдосконалений пошук</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search_text">Видача правильних результатів навіть за наявності помилок у запиті.</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search">Пошукові фільтри</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search_text">Пошук готелів виходячи з ціни та рейтингу.</string>
+	<!-- january -->
+	<string name="whatsnew_font_size">Розмір шрифту</string>
+	<!-- january -->
+	<string name="whatsnew_font_size_text">Можливість збільшення розміру написів на карті.</string>
 </resources>

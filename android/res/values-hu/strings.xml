@@ -999,4 +999,28 @@
 	<string name="traffic_update_maps_text">Forgalmi adatok megjelenítéséhez a térképeket frissíteni kell.</string>
 	<string name="traffic_outdated">A forgalmi adatok elavultak.</string>
 	<string name="big_font">Nagyobb címkék</string>
+	<!-- december -->
+	<string name="whatsnew_traffic">Forgalmi adatok 36 országban</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_text">Aktuális forgalmi információk és a leggyorsabb útvonalak ezek alapján!</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming">Forgalmi információ a barangolásban</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming_text">Utazásonként kevesebb, mint 1 MB mobil sávszélességet igényel.</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi">Taxi rendelés</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi_text">A legtöbb helymeghatározó oldalon már megtalálható a taxirendelés gombja.</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search">Továbbfejlesztett keresés</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search_text">Még a hibásan írt lekérdezések is pontos keresési eredményeket adnak.</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search">Keresési szűrők</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search_text">Szálláshelyek keresése ár és minősítés alapján.</string>
+	<!-- january -->
+	<string name="whatsnew_font_size">Betűméret</string>
+	<!-- january -->
+	<string name="whatsnew_font_size_text">A térképen a címkék lehetnek nagyobbak.</string>
 </resources>

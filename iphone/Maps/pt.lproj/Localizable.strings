@@ -1753,3 +1753,39 @@
 "banner_viator_title" = "Online tour search";
 
 "banner_viator_message" = "Search in over 50,000 tours all over the world.";
+
+/* december */
+"whatsnew_traffic" = "Dados de tráfego em 36 países";
+
+/* december */
+"whatsnew_traffic_text" = "Informações sobre o trânsito actualizadas para percursos mais rápidos!";
+
+/* december */
+"whatsnew_traffic_roaming" = "Informações sobre o Tráfego em Roaming";
+
+/* december */
+"whatsnew_traffic_roaming_text" = "Requer menos de 1 MB de banda larga móvel por viagem.";
+
+/* december */
+"whatsnew_order_taxi" = "Chamar um Táxi";
+
+/* december */
+"whatsnew_order_taxi_text" = "A maioria das páginas de localização contêm agora um botão para chamar um táxi.";
+
+/* january */
+"whatsnew_improved_search" = "Pesquisa Melhorada";
+
+/* january */
+"whatsnew_improved_search_text" = "Até as pesquisas com erros ortogrtáficos obtêm resultados precisos.";
+
+/* january */
+"whatsnew_filters_in_search" = "Filtros de Pesquisa";
+
+/* january */
+"whatsnew_filters_in_search_text" = "Pesquisar Hotéis com base no preço e classificação.";
+
+/* january */
+"whatsnew_font_size" = "Tamanho da Fonte";
+
+/* january */
+"whatsnew_font_size_text" = "É possível aumentar o tamanho das letras do mapa.";

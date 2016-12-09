@@ -995,4 +995,28 @@
 	<string name="traffic_update_maps_text">교통 데이터를 표시하려면 지도를 업데이트해야 합니다.</string>
 	<string name="traffic_outdated">교통 데이터가 오래되었습니다.</string>
 	<string name="big_font">더 큰 레이블</string>
+	<!-- december -->
+	<string name="whatsnew_traffic">36개국의 교통 데이터</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_text">최신 교통 정보 및 이 정보에 따른 가장 빠른 운전 경로!</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming">로밍의 교통 정보</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming_text">승차당 모바일 대역폭 1MB 미만이 필요합니다.</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi">택시 주문</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi_text">이제 대부분의 위치 페이지에 택시 주문을 위한 버튼이 포함되어 있습니다.</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search">향상된 검색</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search_text">철자가 틀린 쿼리도 정확한 검색 결과를 표시합니다.</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search">검색 필터</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search_text">가격 및 등급에 따라 호텔을 검색합니다.</string>
+	<!-- january -->
+	<string name="whatsnew_font_size">글꼴 크기</string>
+	<!-- january -->
+	<string name="whatsnew_font_size_text">지도의 레이블을 더 크게 할 수 있습니다.</string>
 </resources>

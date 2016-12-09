@@ -999,4 +999,28 @@
 	<string name="traffic_update_maps_text">Liikennetietojen näyttämiseksi kartat on päivitettävä.</string>
 	<string name="traffic_outdated">Liikennetiedot ovat vanhentuneet.</string>
 	<string name="big_font">Suuremmat selitykset</string>
+	<!-- december -->
+	<string name="whatsnew_traffic">Liikennetiedot 36 maassa</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_text">Ενημερωμένες πληροφορίες για την κίνηση και για γρηγορότερες διαδρομές οδήγησης!</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming">Liikennetiedot verkkovierailussa</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming_text">Vaatii alle 1 MB mobiilidataa per matka.</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi">Taksin tilaaminen</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi_text">Useimpien sijaintien sivulla on nyt painike taksin tilaamiseen.</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search">Parannettu haku</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search_text">Jopa väärin kirjoitetut kyselyt antavat tarkat hakutulokset.</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search">Hakusuodattimet</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search_text">Hotellien haku hinnan ja arvion perusteella.</string>
+	<!-- january -->
+	<string name="whatsnew_font_size">Fonttikoko</string>
+	<!-- january -->
+	<string name="whatsnew_font_size_text">Kartan selityksiä voi suurentaa.</string>
 </resources>

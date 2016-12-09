@@ -1005,4 +1005,28 @@
 	<string name="traffic_update_maps_text">ต้องอัปเดตแผนที่เพื่อแสดงข้อมูลการจราจร</string>
 	<string name="traffic_outdated">ข้อมูลการจราจรเก่าเกินไปแล้ว</string>
 	<string name="big_font">ป้ายใหญ่ขึ้น</string>
+	<!-- december -->
+	<string name="whatsnew_traffic">ข้อมูลการจราจรใน 36 ประเทศ</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_text">ข้อมูลการจราจรที่ทันสมัยและเส้นทางการขับรถที่เร็วที่สุดตามข้อมูลนั้น!</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming">ข้อมูลการจราจรในการใช้โรมมิ่ง</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming_text">ใช้แบนด์วิดท์มือถือน้อยกว่า 1 MB ต่อเที่ยว</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi">เรียกแท็กซี่</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi_text">หน้าตำแหน่งที่ตั้งส่วนใหญ่ในขณะนี้มีปุ่มเรียกแท็กซี่</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search">การค้นหาที่ได้รับการปรับปรุง</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search_text">แม้แต่คำถามที่สะกดผิดก็ยังให้ผลลัพธ์การค้นหาที่ถูกต้องได้</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search">ตัวกรองการค้นหา</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search_text">ค้นหาโรงแรมตามราคาและการจัดอันดับ</string>
+	<!-- january -->
+	<string name="whatsnew_font_size">ขนาดฟอนต์</string>
+	<!-- january -->
+	<string name="whatsnew_font_size_text">ป้ายบนแผนที่สามารถทำให้ใหญ่ขึ้นได้</string>
 </resources>

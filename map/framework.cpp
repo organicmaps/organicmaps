@@ -2863,7 +2863,10 @@ WARN_UNUSED_RESULT bool LocalizeStreet(Index const & index, FeatureID const & fi
   if (!g.GetFeatureByIndex(fid.m_index, ft))
     return false;
 
-  ft.GetPreferredNames(result.m_defaultName, result.m_localizedName);
+  ft.GetName(StringUtf8Multilang::kDefaultCode, result.m_defaultName);
+  ft.GetReadableName(result.m_localizedName);
+  if (result.m_localizedName == result.m_defaultName)
+    result.m_localizedName.clear();
   return true;
 }
 

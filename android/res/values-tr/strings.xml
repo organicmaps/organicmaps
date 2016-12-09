@@ -1005,4 +1005,28 @@
 	<string name="traffic_update_maps_text">Trafik verilerini görüntülemek için haritaların güncellenmesi gerekiyor.</string>
 	<string name="traffic_outdated">Trafik verileri güncel değil.</string>
 	<string name="big_font">Daha büyük etiketler</string>
+	<!-- december -->
+	<string name="whatsnew_traffic">36 Ülkeden Trafik Verileri</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_text">En güncel trafik verileri ve en hızlı sürüş güzergâhları!</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming">Roaming (Dolaşım) esnasında trafik bilgileri</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming_text">Her yolculuk için en az 1 MB mobil bant genişliği gereklidir.</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi">Taksi Çağırma</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi_text">Artık çoğu konum sayfalarında taksi çağırmak için bir düğme bulunuyor.</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search">Gelişmiş Arama</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search_text">Hatalı yazılan sorguları bile doğru getiren arama sonuçları.</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search">Arama Filtreleri</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search_text">Ücret ve puana göre otel arama.</string>
+	<!-- january -->
+	<string name="whatsnew_font_size">Yazı Tipi Boyutu</string>
+	<!-- january -->
+	<string name="whatsnew_font_size_text">Harita üzerindeki etiketler daha büyük hale getirilebilir.</string>
 </resources>

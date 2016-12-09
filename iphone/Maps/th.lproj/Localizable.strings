@@ -1753,3 +1753,39 @@
 "banner_viator_title" = "Online tour search";
 
 "banner_viator_message" = "Search in over 50,000 tours all over the world.";
+
+/* december */
+"whatsnew_traffic" = "ข้อมูลการจราจรใน 36 ประเทศ";
+
+/* december */
+"whatsnew_traffic_text" = "ข้อมูลการจราจรที่ทันสมัยและเส้นทางการขับรถที่เร็วที่สุดตามข้อมูลนั้น!";
+
+/* december */
+"whatsnew_traffic_roaming" = "ข้อมูลการจราจรในการใช้โรมมิ่ง";
+
+/* december */
+"whatsnew_traffic_roaming_text" = "ใช้แบนด์วิดท์มือถือน้อยกว่า 1 MB ต่อเที่ยว";
+
+/* december */
+"whatsnew_order_taxi" = "เรียกแท็กซี่";
+
+/* december */
+"whatsnew_order_taxi_text" = "หน้าตำแหน่งที่ตั้งส่วนใหญ่ในขณะนี้มีปุ่มเรียกแท็กซี่";
+
+/* january */
+"whatsnew_improved_search" = "การค้นหาที่ได้รับการปรับปรุง";
+
+/* january */
+"whatsnew_improved_search_text" = "แม้แต่คำถามที่สะกดผิดก็ยังให้ผลลัพธ์การค้นหาที่ถูกต้องได้";
+
+/* january */
+"whatsnew_filters_in_search" = "ตัวกรองการค้นหา";
+
+/* january */
+"whatsnew_filters_in_search_text" = "ค้นหาโรงแรมตามราคาและการจัดอันดับ";
+
+/* january */
+"whatsnew_font_size" = "ขนาดฟอนต์";
+
+/* january */
+"whatsnew_font_size_text" = "ป้ายบนแผนที่สามารถทำให้ใหญ่ขึ้นได้";

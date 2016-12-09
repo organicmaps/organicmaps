@@ -998,4 +998,28 @@
 	<string name="traffic_update_maps_text">Per visualizzare i dati sul traffico, le mappe devono essere aggiornate.</string>
 	<string name="traffic_outdated">Dati sul traffico non aggiornati.</string>
 	<string name="big_font">Etichette più grandi</string>
+	<!-- december -->
+	<string name="whatsnew_traffic">Dati sul traffico in 36 Paesi</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_text">Info sul traffico aggiornate e itinerari più veloci sulla loro base!</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming">Info sul traffico in roaming</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming_text">Richiede meno di 1 MB di larghezza di banda mobile per viaggio.</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi">Prenota un taxi</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi_text">La maggior parte delle pagine di posizione contiene ora un pulsante per prenotare un taxi.</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search">Ricerca migliorata</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search_text">Anche le query con errori di ortografia restituiscono risultati di ricerca accurati.</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search">Filtri di ricerca</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search_text">Cerca hotel in base a prezzo e voto.</string>
+	<!-- january -->
+	<string name="whatsnew_font_size">Dimensione carattere</string>
+	<!-- january -->
+	<string name="whatsnew_font_size_text">Le etichette sulla mappa possono essere ingrandite.</string>
 </resources>

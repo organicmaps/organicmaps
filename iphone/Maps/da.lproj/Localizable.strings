@@ -1753,3 +1753,39 @@
 "banner_viator_title" = "Online tour search";
 
 "banner_viator_message" = "Search in over 50,000 tours all over the world.";
+
+/* december */
+"whatsnew_traffic" = "Trafikdata i 36 lande";
+
+/* december */
+"whatsnew_traffic_text" = "Opdateret trafikinformation og hurtigste ruter baseret på den!";
+
+/* december */
+"whatsnew_traffic_roaming" = "Trafikinfo ved roaming";
+
+/* december */
+"whatsnew_traffic_roaming_text" = "Kræver mindre end 1 MB mobildata pr. tur.";
+
+/* december */
+"whatsnew_order_taxi" = "Bestil en taxa";
+
+/* december */
+"whatsnew_order_taxi_text" = "De fleste af siderne indeholder nu en knap til bestilling af en taxa.";
+
+/* january */
+"whatsnew_improved_search" = "Forbedret søgning";
+
+/* january */
+"whatsnew_improved_search_text" = "Selv fejlstavede forespørgsler giver præcise søgeresultater.";
+
+/* january */
+"whatsnew_filters_in_search" = "Søgefiltre";
+
+/* january */
+"whatsnew_filters_in_search_text" = "Søg hoteller baseret på pris og vurdering.";
+
+/* january */
+"whatsnew_font_size" = "Skriftstørrelse";
+
+/* january */
+"whatsnew_font_size_text" = "Etiketterne på kortet kan gøres større.";

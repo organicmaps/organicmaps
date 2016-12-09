@@ -1003,4 +1003,28 @@
 	<string name="traffic_update_maps_text">Kartor måste uppdateras för att visa trafikdata.</string>
 	<string name="traffic_outdated">Trafikdata är inaktuellt.</string>
 	<string name="big_font">Större etiketter</string>
+	<!-- december -->
+	<string name="whatsnew_traffic">Trafikdata i 36 länder</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_text">Aktuell trafikinformation och de snabbaste körrutterna som baseras på informationen!</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming">Trafikinformation i roaming</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming_text">Kräver mindre än 1 MB av mobil bandbredd per resa.</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi">Beställ en taxi</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi_text">De flesta platssidorna har nu en knapp för att beställa en taxi.</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search">Förbättrad sökning</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search_text">Till och med felstavade frågor skapar resultat med hög kvalitet.</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search">Sökfilter</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search_text">Sök hotell efter pris och omdöme.</string>
+	<!-- january -->
+	<string name="whatsnew_font_size">Teckenstorlek</string>
+	<!-- january -->
+	<string name="whatsnew_font_size_text">Etiketter på kartan kan göras större.</string>
 </resources>

@@ -995,4 +995,28 @@
 	<string name="traffic_update_maps_text">Pentru a afişa datele privind traficul, hărțile trebuie actualizate.</string>
 	<string name="traffic_outdated">Datele privind traficul sunt învechite.</string>
 	<string name="big_font">Etichete mai mari</string>
+	<!-- december -->
+	<string name="whatsnew_traffic">Date privind traficul în 36 de țări</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_text">Informații actualizate privind traficul și rutele cele mai rapide calculate în funcție de acestea!</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming">Informații privind traficul în roaming</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming_text">Necesită mai puţin de 1 MB de lățime de bandă mobilă pe călătorie.</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi">Comandați un taxi</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi_text">Majoritatea paginilor privind locația conțin acum un buton pentru a comanda un taxi.</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search">Căutare îmbunătățită</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search_text">Chiar și căutările scrise greșit aduc rezultate de căutare precise.</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search">Filtre de căutare</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search_text">Căutați hoteluri în funcție de preț și calificare.</string>
+	<!-- january -->
+	<string name="whatsnew_font_size">Dimensiunea fontului</string>
+	<!-- january -->
+	<string name="whatsnew_font_size_text">Etichetele de pe hartă pot fi făcute mai mari.</string>
 </resources>

@@ -1753,3 +1753,39 @@
 "banner_viator_title" = "Online tour search";
 
 "banner_viator_message" = "Search in over 50,000 tours all over the world.";
+
+/* december */
+"whatsnew_traffic" = "Údaje o provozu ve 36 zemích";
+
+/* december */
+"whatsnew_traffic_text" = "Na nich jsou založeny aktuální dopravní informace a nejrychlejší jízdní trasy!";
+
+/* december */
+"whatsnew_traffic_roaming" = "Dopravní informace při roamingu";
+
+/* december */
+"whatsnew_traffic_roaming_text" = "Vyžaduje necelý 1 MB mobilních dat na jednu cestu.";
+
+/* december */
+"whatsnew_order_taxi" = "Objednat taxi";
+
+/* december */
+"whatsnew_order_taxi_text" = "Většina stránek umístění nyní obsahuje tlačítko k objednání taxi.";
+
+/* january */
+"whatsnew_improved_search" = "Vylepšené vyhledávání";
+
+/* january */
+"whatsnew_improved_search_text" = "I nesprávně napsané dotazy přinesou přesné výsledky vyhledávání.";
+
+/* january */
+"whatsnew_filters_in_search" = "Vyhledávací filtry";
+
+/* january */
+"whatsnew_filters_in_search_text" = "Hledat hotely na základě ceny a hodnocení.";
+
+/* january */
+"whatsnew_font_size" = "Velikost písma";
+
+/* january */
+"whatsnew_font_size_text" = "Popisky na mapě lze zvětšit.";

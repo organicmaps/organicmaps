@@ -1005,4 +1005,28 @@
 	<string name="traffic_update_maps_text">要显示交通数据，必须更新地图。</string>
 	<string name="traffic_outdated">交通数据已过时。</string>
 	<string name="big_font">更大的标签</string>
+	<!-- december -->
+	<string name="whatsnew_traffic">36 个国家/地区的交通数据</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_text">最快的驾驶路线离不开最新的交通信息！</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming">交通信息漫游</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming_text">每次旅行需要的移动带宽小于 1 MB。</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi">预订出租车</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi_text">大多数地点页面现在都包含一个用于预订出租车的按钮。</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search">改进了搜索</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search_text">即使查询存在拼写错误也能得到准确的搜索结果。</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search">搜索筛选器</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search_text">基于价格和评分搜索酒店。</string>
+	<!-- january -->
+	<string name="whatsnew_font_size">字体大小</string>
+	<!-- january -->
+	<string name="whatsnew_font_size_text">可以增大地图上的标签。</string>
 </resources>

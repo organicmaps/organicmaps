@@ -998,4 +998,28 @@
 	<string name="traffic_update_maps_text">Para ver os dados de tráfego, os mapas devem ser atualizados.</string>
 	<string name="traffic_outdated">Os dados sobre o tráfego estão desatualizados.</string>
 	<string name="big_font">Etiquetas maiores</string>
+	<!-- december -->
+	<string name="whatsnew_traffic">Dados de tráfego em 36 países</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_text">Informações sobre o trânsito actualizadas para percursos mais rápidos!</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming">Informações sobre o Tráfego em Roaming</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming_text">Requer menos de 1 MB de banda larga móvel por viagem.</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi">Chamar um Táxi</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi_text">A maioria das páginas de localização contêm agora um botão para chamar um táxi.</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search">Pesquisa Melhorada</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search_text">Até as pesquisas com erros ortogrtáficos obtêm resultados precisos.</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search">Filtros de Pesquisa</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search_text">Pesquisar Hotéis com base no preço e classificação.</string>
+	<!-- january -->
+	<string name="whatsnew_font_size">Tamanho da Fonte</string>
+	<!-- january -->
+	<string name="whatsnew_font_size_text">É possível aumentar o tamanho das letras do mapa.</string>
 </resources>

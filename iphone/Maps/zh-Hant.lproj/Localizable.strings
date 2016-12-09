@@ -1753,3 +1753,39 @@
 "banner_viator_title" = "Online tour search";
 
 "banner_viator_message" = "Search in over 50,000 tours all over the world.";
+
+/* december */
+"whatsnew_traffic" = "36 個國家的交通資料";
+
+/* december */
+"whatsnew_traffic_text" = "最新交通資訊與據此得出的最快速路線！";
+
+/* december */
+"whatsnew_traffic_roaming" = "交通資訊使用漫遊";
+
+/* december */
+"whatsnew_traffic_roaming_text" = "每次行程需要的行動頻寬不到 1 MB。";
+
+/* december */
+"whatsnew_order_taxi" = "訂一部計程車";
+
+/* december */
+"whatsnew_order_taxi_text" = "大部分的地點頁面目前已包含可訂計程車的按鈕。";
+
+/* january */
+"whatsnew_improved_search" = "改善的搜尋功能";
+
+/* january */
+"whatsnew_improved_search_text" = "即使拼錯查詢字詞也能獲得準確的搜尋結果。";
+
+/* january */
+"whatsnew_filters_in_search" = "搜尋篩選";
+
+/* january */
+"whatsnew_filters_in_search_text" = "根據價格與評價搜尋飯店。";
+
+/* january */
+"whatsnew_font_size" = "字型大小";
+
+/* january */
+"whatsnew_font_size_text" = "可將地圖上的標籤變大。";
