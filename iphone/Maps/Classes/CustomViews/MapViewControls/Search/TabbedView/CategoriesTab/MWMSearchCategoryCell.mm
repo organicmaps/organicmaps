@@ -1,7 +1,8 @@
+#import "MWMSearchCategoryCell.h"
 #import "Common.h"
 #import "Macros.h"
-#import "MWMSearchCategoryCell.h"
 #import "UIColor+MapsMeColor.h"
+#import "UIFont+MapsMeFonts.h"
 #import "UIImageView+Coloring.h"
 
 @interface MWMSearchCategoryCell ()
@@ -25,7 +26,9 @@
 
 - (void)setCategory:(NSString *)category
 {
-  self.label.text = L(category);
+  UILabel * label = self.label;
+  label.text = L(category);
+  label.textColor = [UIColor blackPrimaryText];
   self.icon.mwm_name = [NSString stringWithFormat:@"ic_%@", category];
 }
 

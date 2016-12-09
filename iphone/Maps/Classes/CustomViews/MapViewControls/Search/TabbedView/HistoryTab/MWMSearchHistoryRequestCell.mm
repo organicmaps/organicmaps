@@ -5,8 +5,8 @@
 
 @interface MWMSearchHistoryRequestCell ()
 
-@property (weak, nonatomic) IBOutlet UILabel * title;
-@property (weak, nonatomic) IBOutlet UIImageView * icon;
+@property(weak, nonatomic) IBOutlet UILabel * label;
+@property(weak, nonatomic) IBOutlet UIImageView * icon;
 
 @end
 
@@ -23,8 +23,10 @@
 
 - (void)config:(NSString *)title
 {
-  self.title.text = title;
-  [self.title sizeToFit];
+  UILabel * label = self.label;
+  label.text = title;
+  label.textColor = [UIColor blackSecondaryText];
+  [label sizeToFit];
 }
 
 + (CGFloat)defaultCellHeight
