@@ -6,6 +6,7 @@
 
 #include "platform/measurement_utils.hpp"
 #include "platform/preferred_languages.hpp"
+#include "platform/settings.hpp"
 
 namespace place_page
 {
@@ -39,7 +40,9 @@ bool Info::HasWifi() const { return GetInternet() == osm::Internet::Wlan; }
 
 bool Info::HasBanner() const
 {
-  return !m_banner.IsEmpty() && m_banner.IsActive();
+  bool adForbidden = false;
+  UNUSED_VALUE(settings::Get("AdForbidden", adForbidden));
+  return !adForbidden && !m_banner.IsEmpty() && m_banner.IsActive();
 }
 
 string Info::FormatNewBookmarkName() const

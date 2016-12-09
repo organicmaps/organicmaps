@@ -6,6 +6,7 @@
 + (void)setAdServerForbidden:(BOOL)adServerForbidden;
 
 + (BOOL)adForbidden;
++ (void)setAdForbidden:(BOOL)adForbidden;
 
 + (BOOL)autoDownloadEnabled;
 + (void)setAutoDownloadEnabled:(BOOL)autoDownloadEnabled;
