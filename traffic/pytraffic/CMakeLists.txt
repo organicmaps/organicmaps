@@ -43,10 +43,10 @@ endif()
 
 omim_link_libraries(
   ${PROJECT_NAME}
-  editor
+  traffic
   routing
   indexer
-  traffic
+  editor
   platform
   geometry
   coding
