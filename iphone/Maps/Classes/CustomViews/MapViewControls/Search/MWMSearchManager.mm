@@ -95,8 +95,6 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
 {
   [self.searchBarView mwm_refreshUI];
   [self.actionBarView mwm_refreshUI];
-  [self.contentView mwm_refreshUI];
-  [self.tabBarView mwm_refreshUI];
   [self.tabbedController mwm_refreshUI];
   [self.tableViewController mwm_refreshUI];
   [self.noMapsController mwm_refreshUI];

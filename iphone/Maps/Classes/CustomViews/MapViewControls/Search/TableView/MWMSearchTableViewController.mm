@@ -2,7 +2,6 @@
 #import "MWMLocationManager.h"
 #import "MWMSearchChangeModeView.h"
 #import "MWMSearchCommonCell.h"
-#import "MWMSearchShowOnMapCell.h"
 #import "MWMSearchSuggestionCell.h"
 #import "MWMSearchTableView.h"
 #import "Macros.h"
