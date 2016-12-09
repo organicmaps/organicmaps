@@ -429,7 +429,8 @@ bool TrafficInfo::ReceiveTrafficKeys()
 TrafficInfo::ServerDataStatus TrafficInfo::ReceiveTrafficValues(string & etag, vector<SpeedGroup> & values)
 {
   if (!m_mwmId.IsAlive())
-    return false;
+    return ServerDataStatus::Error;
+  
   auto const & info = m_mwmId.GetInfo();
   if (!info)
     return ServerDataStatus::Error;
