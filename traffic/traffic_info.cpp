@@ -157,10 +157,17 @@ void TrafficInfo::SetTrafficKeysForTesting(vector<RoadSegmentId> const & keys)
 bool TrafficInfo::ReceiveTrafficData(string & etag)
 {
   vector<SpeedGroup> values;
-  if (!ReceiveTrafficValues(etag, values))
+  switch (ReceiveTrafficValues(etag, values))
+  {
+  case ServerDataStatus::New:
+    return UpdateTrafficData(values);
+  case ServerDataStatus::NotChanged:
+    return true;
+  case ServerDataStatus::NotFound:
+  case ServerDataStatus::Error:
     return false;
-
-  return UpdateTrafficData(values);
+  }
+  return false;
 }
 
 SpeedGroup TrafficInfo::GetSpeedGroup(RoadSegmentId const & id) const
@@ -419,19 +426,19 @@ bool TrafficInfo::ReceiveTrafficKeys()
   return true;
 }
 
-bool TrafficInfo::ReceiveTrafficValues(string & etag, vector<SpeedGroup> & values)
+TrafficInfo::ServerDataStatus TrafficInfo::ReceiveTrafficValues(string & etag, vector<SpeedGroup> & values)
 {
   if (!m_mwmId.IsAlive())
     return false;
   auto const & info = m_mwmId.GetInfo();
   if (!info)
-    return false;
+    return ServerDataStatus::Error;
 
   uint64_t const version = info->GetVersion();
   string const url = MakeRemoteURL(info->GetCountryName(), version);
 
   if (url.empty())
-    return false;
+    return ServerDataStatus::Error;
 
   platform::HttpClient request(url);
   request.LoadHeaders(true);
@@ -456,7 +463,7 @@ bool TrafficInfo::ReceiveTrafficValues(string & etag, vector<SpeedGroup> & value
         alohalytics::TStringMap({{"mwm", info->GetCountryName()},
                                  {"version", strings::to_string(info->GetVersion())}}));
 
-    return false;
+    return ServerDataStatus::Error;
   }
   // Update ETag for this MWM.
   auto const & headers = request.GetHeaders();
@@ -465,7 +472,7 @@ bool TrafficInfo::ReceiveTrafficValues(string & etag, vector<SpeedGroup> & value
     etag = it->second;
 
   m_availability = Availability::IsAvailable;
-  return true;
+  return ServerDataStatus::New;
 }
 
 bool TrafficInfo::UpdateTrafficData(vector<SpeedGroup> const & values)
@@ -491,7 +498,7 @@ bool TrafficInfo::UpdateTrafficData(vector<SpeedGroup> const & values)
   return true;
 }
 
-bool TrafficInfo::ProcessFailure(platform::HttpClient const & request, uint64_t const mwmVersion)
+TrafficInfo::ServerDataStatus TrafficInfo::ProcessFailure(platform::HttpClient const & request, uint64_t const mwmVersion)
 {
   switch (request.ErrorCode())
   {
@@ -506,12 +513,12 @@ bool TrafficInfo::ProcessFailure(platform::HttpClient const & request, uint64_t 
       m_availability = Availability::ExpiredApp;
     else
       m_availability = Availability::NoData;
-    return false;
+    return ServerDataStatus::NotFound;
   }
   case 304: /* Not Modified */
   {
     m_availability = Availability::IsAvailable;
-    return true;
+    return ServerDataStatus::NotChanged;
   }
   }
 
@@ -520,7 +527,7 @@ bool TrafficInfo::ProcessFailure(platform::HttpClient const & request, uint64_t 
                         "$TrafficNetworkError",
                         alohalytics::TStringMap({{"code", strings::to_string(request.ErrorCode())}}));
 
-  return false;
+  return ServerDataStatus::Error;
 }
 
 string DebugPrint(TrafficInfo::RoadSegmentId const & id)

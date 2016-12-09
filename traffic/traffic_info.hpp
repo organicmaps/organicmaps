@@ -117,22 +117,29 @@ public:
   static void DeserializeTrafficValues(vector<uint8_t> const & data, vector<SpeedGroup> & result);
 
 private:
+  enum class ServerDataStatus
+  {
+    New,
+    NotChanged,
+    NotFound,
+    Error,
+  };
+
   friend void UnitTest_TrafficInfo_UpdateTrafficData();
 
   // todo(@m) A temporary method. Remove it once the keys are added
   // to the generator and the data is regenerated.
   bool ReceiveTrafficKeys();
 
-  // Tries to read the values of the Coloring map from server.
-  // Returns true and updates m_coloring if the values are read successfully and
-  // their number is equal to the number of keys.
+  // Tries to read the values of the Coloring map from server into |values|.
+  // Returns result of communicating with server as ServerDataStatus.
   // Otherwise, returns false and does not change m_coloring.
-  bool ReceiveTrafficValues(string & etag, vector<SpeedGroup> & values);
+  ServerDataStatus ReceiveTrafficValues(string & etag, vector<SpeedGroup> & values);
 
   // Updates the coloring and changes the availability status if needed.
   bool UpdateTrafficData(vector<SpeedGroup> const & values);
 
-  bool ProcessFailure(platform::HttpClient const & request, uint64_t const mwmVersion);
+  ServerDataStatus ProcessFailure(platform::HttpClient const & request, uint64_t const mwmVersion);
 
   // The mapping from feature segments to speed groups (see speed_groups.hpp).
   Coloring m_coloring;
