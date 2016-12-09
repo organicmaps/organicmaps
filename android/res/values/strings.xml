@@ -975,7 +975,7 @@
 	<!-- For place page hotel nearby block -->
 	<string name="placepage_hotel_nearby">Nearby</string>
 	<!-- For ordering a taxi (as opposed to hotels or other things) -->
-	<string name="taxi_order">Order a taxi</string>
+	<string name="taxi_order">Order Taxi</string>
 	<!-- How long it is until the taxi arrives -->
 	<string name="taxi_wait">Expected in %s</string>
 	<!-- When there are no available taxis nearby -->

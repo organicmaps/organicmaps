@@ -1637,7 +1637,7 @@
 "placepage_hotel_nearby" = "Nearby";
 
 /* For ordering a taxi (as opposed to hotels or other things) */
-"taxi_order" = "Order a taxi";
+"taxi_order" = "Order Taxi";
 
 /* How long it is until the taxi arrives */
 "taxi_wait" = "Expected in %s";
