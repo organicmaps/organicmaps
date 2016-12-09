@@ -59,6 +59,12 @@ log() {
    echo "${prefix} $@" >> "$PLANET_LOG"
 }
 
+warn() {
+  echo -n -e "\033[0;31m" >&2
+  log 'WARNING:' $@
+  echo -n -e "\033[0m" >&2
+}
+
 # Print mode start message and store it in the status file
 putmode() {
   [ $# -gt 0 ] && log "STATUS" "$@"
@@ -217,7 +223,7 @@ ULIMIT_REQ=$((3 * $(ls "$TARGET/borders" | { grep '\.poly' || true; } | wc -l)))
 [ -n "$OPT_CLEAN" -a -d "$INTDIR" ] && rm -r "$INTDIR"
 mkdir -p "$INTDIR"
 if [ -z "${REGIONS+1}" -a "$(df -m "$INTDIR" | tail -n 1 | awk '{ printf "%d\n", $4 / 1024 }')" -lt "400" ]; then
-  echo "WARNING: You have less than 400 GB for intermediate data, that's not enough for the whole planet."
+  warn "You have less than 400 GB for intermediate data, that's not enough for the whole planet."
 fi
 
 # These variables are used by external script(s), namely generate_planet_routing.sh
@@ -264,9 +270,9 @@ if [ "$MODE" == "coast" ]; then
         else
           if [ -n "${OLD_INTDIR-}" -a -f "${OLD_INTDIR-}/$(basename "$BOOKING_FILE")" ]; then
             cp "$OLD_INTDIR/$(basename "$BOOKING_FILE")" "$INTDIR"
-            log "Failed to download hotels! Using older hotels list."
+            warn "Failed to download hotels! Using older hotels list."
           else
-            log "Failed to download hotels!"
+            warn "Failed to download hotels!"
           fi
           [ -n "${MAIL-}" ] && tail "$LOG_PATH/booking.log" | mailx -s "Failed to download hotels at $(hostname), please hurry to fix" "$MAIL"
         fi
@@ -283,9 +289,9 @@ if [ "$MODE" == "coast" ]; then
         else
           if [ -n "${OLD_INTDIR-}" -a -f "${OLD_INTDIR-}/$(basename "$OPENTABLE_FILE")" ]; then
             cp "$OLD_INTDIR/$(basename "$OPENTABLE_FILE")" "$INTDIR"
-            log "Failed to download restaurants! Using older restaurants list."
+            warn "Failed to download restaurants! Using older restaurants list."
           else
-            log "Failed to download restaurants!"
+            warn "Failed to download restaurants!"
           fi
           [ -n "${MAIL-}" ] && tail "$LOG_PATH/opentable.log" | mailx -s "Failed to download restaurants at $(hostname), please hurry to fix" "$MAIL"
         fi
@@ -366,9 +372,9 @@ if [ "$MODE" == "roads" ]; then
   if [ -z "${OSRM_URL-}" ]; then
     if [ -n "${OLD_INTDIR-}" -a -f "${OLD_INTDIR-}/ways.csv" ]; then
       cp "$OLD_INTDIR/ways.csv" "$INTDIR"
-      log "OSRM_URL variable is not set. Using older world roads file."
+      warn "OSRM_URL variable is not set. Using older world roads file."
     else
-      log "OSRM_URL variable is not set. World roads will not be calculated."
+      warn "OSRM_URL variable is not set. World roads will not be calculated."
     fi
   else
     putmode "Step 2a: Generating road networks for the World map"
@@ -444,7 +450,7 @@ if [ "$MODE" == "features" ]; then
   PARAMS_SPLIT="-generate_features -emit_coasts"
   [ -z "$NO_REGIONS" ] && PARAMS_SPLIT="$PARAMS_SPLIT -split_by_polygons"
   [ -n "$OPT_WORLD" ] && PARAMS_SPLIT="$PARAMS_SPLIT -generate_world"
-  [ -n "$OPT_WORLD" -a "$NODE_STORAGE" == "map" ] && log "WARNING: generating world files with NODE_STORAGE=map may lead to an out of memory error. Try NODE_STORAGE=mem if it fails."
+  [ -n "$OPT_WORLD" -a "$NODE_STORAGE" == "map" ] && warn "generating world files with NODE_STORAGE=map may lead to an out of memory error. Try NODE_STORAGE=mem if it fails."
   [ -f "$BOOKING_FILE" ] && PARAMS_SPLIT="$PARAMS_SPLIT --booking_data=$BOOKING_FILE"
   [ -f "$OPENTABLE_FILE" ] && PARAMS_SPLIT="$PARAMS_SPLIT --opentable_data=$OPENTABLE_FILE"
   "$GENERATOR_TOOL" --intermediate_data_path="$INTDIR/" --node_storage=$NODE_STORAGE --osm_file_type=o5m --osm_file_name="$PLANET" \
@@ -504,7 +510,7 @@ wait
 if [ "$MODE" == "routing" ]; then
   putmode "Step 6: Using freshly generated *.mwm and *.osrm to create routing files"
   if [ ! -e "$OSRM_FLAG" ]; then
-    log "OSRM files are missing, skipping routing step."
+    warn "OSRM files are missing, skipping routing step."
   else
     # If *.mwm.osm2ft were moved to INTDIR, let's put them back
     [ -z "$(ls "$TARGET" | grep '\.mwm\.osm2ft')" -a -n "$(ls "$INTDIR" | grep '\.mwm\.osm2ft')" ] && mv "$INTDIR"/*.mwm.osm2ft "$TARGET"
