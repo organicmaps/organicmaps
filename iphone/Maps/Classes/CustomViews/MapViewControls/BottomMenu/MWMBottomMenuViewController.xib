@@ -452,7 +452,7 @@
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z8y-bh-6dN">
                     <rect key="frame" x="0.0" y="48" width="320" height="64"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q6M-3k-tKX" customClass="MWMButton">
+                        <button opaque="NO" contentMode="center" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q6M-3k-tKX" customClass="MWMButton">
                             <rect key="frame" x="8" y="0.0" width="64" height="64"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="64" id="10m-d2-9gu"/>
@@ -461,7 +461,7 @@
                             <state key="normal" image="ic_voice_on"/>
                             <state key="selected" image="ic_voice_off"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlue"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="soundTouchUpInside:" destination="-1" eventType="touchUpInside" id="CEW-OG-NlS"/>
@@ -476,7 +476,7 @@
                             <state key="normal" image="ic_setting_traffic_on"/>
                             <state key="selected" image="ic_setting_traffic_off"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlue"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="trafficTouchUpInside:" destination="-1" eventType="touchUpInside" id="4Fg-pP-9MU"/>

@@ -153,7 +153,6 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
   case TrafficManager::TrafficState::WaitingData:
     iv.animationImages = imagesWithName(@"btn_traffic_update");
     iv.animationDuration = 0.8;
-    iv.image = iv.animationImages.lastObject;
     [iv startAnimating];
     break;
   case TrafficManager::TrafficState::Outdated:
