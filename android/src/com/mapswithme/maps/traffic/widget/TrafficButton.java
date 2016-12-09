@@ -3,6 +3,7 @@ package com.mapswithme.maps.traffic.widget;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
@@ -45,35 +46,41 @@ public class TrafficButton
 
   void turnOff()
   {
+    stopWaitingAnimation();
     mButton.setImageResource(ThemeUtils.isNightTheme() ? R.drawable.ic_traffic_off_night
                                                        : R.drawable.ic_traffic_off);
   }
 
   void turnOn()
   {
+    stopWaitingAnimation();
     mButton.setImageResource(ThemeUtils.isNightTheme() ? R.drawable.ic_traffic_on_night
                                                        : R.drawable.ic_traffic_on);
   }
 
   void markAsOutdated()
   {
+    stopWaitingAnimation();
     mButton.setImageResource(ThemeUtils.isNightTheme() ? R.drawable.ic_traffic_outdated_night
                                                        : R.drawable.ic_traffic_outdated);
   }
 
-  public void setLoading(boolean isLoading)
+  void startWaitingAnimation()
   {
-    if (isLoading)
+    mButton.setImageDrawable(mLoadingAnim);
+    AnimationDrawable animationDrawable = (AnimationDrawable) mButton.getDrawable();
+    animationDrawable.start();
+  }
+
+  private void stopWaitingAnimation()
+  {
+    Drawable drawable = mButton.getDrawable();
+    if (drawable instanceof AnimationDrawable)
     {
-      mLoadingAnim.start();
-      mButton.setImageDrawable(mLoadingAnim);
-    }
-    else
-    {
-      mLoadingAnim.stop();
+      AnimationDrawable animation = (AnimationDrawable) drawable;
+      animation.stop();
       mButton.setImageDrawable(null);
     }
-    mButton.invalidate();
   }
 
   public void setOffset(int offsetX, int offsetY)
