@@ -3,6 +3,8 @@
 #include "routing/routing_settings.hpp"
 #include "routing/turns.hpp"
 
+#include "traffic/speed_groups.hpp"
+
 #include "indexer/feature_altitude.hpp"
 
 #include "geometry/polyline2d.hpp"
@@ -59,6 +61,7 @@ public:
   inline void SetSectionTimes(TTimes && v) { m_times = move(v); }
   inline void SetStreetNames(TStreets && v) { m_streets = move(v); }
   inline void SetAltitudes(feature::TAltitudes && v) { m_altitudes = move(v); }
+  inline void SetTraffic(vector<traffic::SpeedGroup> && v) { m_traffic = move(v); }
   /// \brief Glues all |route| attributes to |this| except for |m_altitudes|.
   // @TODO In the future this method should append |m_altitudes| as well.
   // It's not implemented now because it's not easy to do it and it'll not be used in
@@ -78,6 +81,7 @@ public:
   m2::PolylineD const & GetPoly() const { return m_poly.GetPolyline(); }
   TTurns const & GetTurns() const { return m_turns; }
   feature::TAltitudes const & GetAltitudes() const { return m_altitudes; }
+  vector<traffic::SpeedGroup> const & GetTraffic() const { return m_traffic; }
   vector<double> const & GetSegDistanceM() const { return m_poly.GetSegDistanceM(); }
   void GetTurnsDistances(vector<double> & distances) const;
   string const & GetName() const { return m_name; }
@@ -131,14 +135,14 @@ public:
   }
 
 private:
+  friend string DebugPrint(Route const & r);
+
   /// Call this fucnction when geometry have changed.
   void Update();
   double GetPolySegAngle(size_t ind) const;
   TTurns::const_iterator GetCurrentTurn() const;
   TStreets::const_iterator GetCurrentStreetNameIterAfter(FollowedPolyline::Iter iter) const;
-
-private:
-  friend string DebugPrint(Route const & r);
+  void AppendTraffic(Route const & route);
 
   string m_router;
   RoutingSettings m_routingSettings;
@@ -153,6 +157,7 @@ private:
   TTimes m_times;
   TStreets m_streets;
   feature::TAltitudes m_altitudes;
+  vector<traffic::SpeedGroup> m_traffic;
 
   mutable double m_currentTime;
 };

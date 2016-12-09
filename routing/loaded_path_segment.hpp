@@ -2,8 +2,11 @@
 
 #include "routing/osrm_helpers.hpp"
 #include "routing/road_graph.hpp"
+#include "routing/road_point.hpp"
 #include "routing/turns.hpp"
 #include "routing/turn_candidate.hpp"
+
+#include "traffic/traffic_info.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
 
@@ -31,6 +34,7 @@ struct LoadedPathSegment
   string m_name;
   TEdgeWeight m_weight; /*!< Time in seconds to pass the segment. */
   TNodeId m_nodeId;     /*!< May be NodeId for OSRM router or FeatureId::index for graph router. */
+  vector<traffic::TrafficInfo::RoadSegmentId> m_routeSegs; /*!< Route segments for |m_path|. */
   ftypes::HighwayClass m_highwayClass;
   bool m_onRoundabout;
   bool m_isLink;
@@ -47,6 +51,7 @@ struct LoadedPathSegment
     m_name.clear();
     m_weight = 0;
     m_nodeId = 0;
+    m_routeSegs.clear();
     m_highwayClass = ftypes::HighwayClass::Undefined;
     m_onRoundabout = false;
     m_isLink = false;

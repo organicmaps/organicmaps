@@ -7,7 +7,10 @@
 #include "routing/osrm_helpers.hpp"
 #include "routing/osrm_path_segment_factory.hpp"
 #include "routing/road_graph_router.hpp"
+#include "routing/road_point.hpp"
 #include "routing/turns_generator.hpp"
+
+#include "traffic/traffic_info.hpp"
 
 #include "platform/country_file.hpp"
 #include "platform/platform.hpp"
@@ -204,6 +207,7 @@ IRouter::ResultCode FindSingleOsrmRoute(FeatureGraphNode const & source,
   Route::TTurns turns;
   Route::TTimes times;
   Route::TStreets streets;
+  vector<traffic::TrafficInfo::RoadSegmentId> routeSegs;
 
   LOG(LINFO, ("OSRM route from", MercatorBounds::ToLatLon(source.segmentPoint), "to",
               MercatorBounds::ToLatLon(target.segmentPoint)));
@@ -214,7 +218,7 @@ IRouter::ResultCode FindSingleOsrmRoute(FeatureGraphNode const & source,
 
   OSRMRoutingResult routingResult(index, *mapping, rawRoutingResult);
   routing::IRouter::ResultCode const result =
-      MakeTurnAnnotation(routingResult, delegate, geometry, turns, times, streets);
+      MakeTurnAnnotation(routingResult, delegate, geometry, turns, times, streets, routeSegs);
   if (result != routing::IRouter::NoError)
   {
     LOG(LWARNING, ("Can't load road path data from disk for", mapping->GetCountryName(),
@@ -225,6 +229,7 @@ IRouter::ResultCode FindSingleOsrmRoute(FeatureGraphNode const & source,
   route.SetTurnInstructions(move(turns));
   route.SetSectionTimes(move(times));
   route.SetStreetNames(move(streets));
+  route.SetTraffic({} /* No traffic info in case of OSRM */);
 
   vector<m2::PointD> mwmPoints;
   JunctionsToPoints(geometry, mwmPoints);

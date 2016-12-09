@@ -9,7 +9,10 @@
 #include "routing/turns.hpp"
 #include "routing/turn_candidate.hpp"
 
+#include "traffic/traffic_info.hpp"
+
 #include "std/function.hpp"
+#include "std/shared_ptr.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 
@@ -40,12 +43,15 @@ using TGetIndexFunction = function<size_t(pair<size_t, size_t>)>;
  * \param turnsDir output turns annotation storage.
  * \param times output times annotation storage.
  * \param streets output street names along the path.
+ * \param traffic road traffic information.
  * \return routing operation result code.
  */
 IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result,
-                                       RouterDelegate const & delegate, vector<Junction> & points,
+                                       RouterDelegate const & delegate,
+                                       vector<Junction> & points,
                                        Route::TTurns & turnsDir, Route::TTimes & times,
-                                       Route::TStreets & streets);
+                                       Route::TStreets & streets,
+                                       vector<traffic::TrafficInfo::RoadSegmentId> & routeSegs);
 
 /*!
  * \brief The TurnInfo struct is a representation of a junction.

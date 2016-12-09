@@ -227,7 +227,7 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
     ASSERT_EQUAL(result.path.front(), startPos, ());
     ASSERT_EQUAL(result.path.back(), finalPos, ());
     ASSERT_GREATER(result.distance, 0., ());
-    ReconstructRoute(m_directionsEngine.get(), *m_roadGraph, delegate, result.path, route);
+    ReconstructRoute(m_directionsEngine.get(), *m_roadGraph, nullptr, delegate, result.path, route);
   }
 
   m_roadGraph->ResetFakes();
