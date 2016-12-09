@@ -46,7 +46,7 @@ public:
 
   /// For RESULT_FEATURE.
   Result(FeatureID const & id, m2::PointD const & pt, string const & str, string const & address,
-         string const & type, uint32_t featureType, Metadata const & meta = {});
+         string const & type, uint32_t featureType, Metadata const & meta);
 
   /// For RESULT_LATLON.
   Result(m2::PointD const & pt, string const & latlon, string const & address);
