@@ -86,34 +86,10 @@ private:
   void OnTrafficDataResponse(traffic::TrafficInfo && info);
   void OnTrafficRequestFailed(traffic::TrafficInfo && info);
 
+  void UpdateActiveMwms(m2::RectD const & rect, vector<MwmSet::MwmId> & lastMwmsByRect,
+                        set<MwmSet::MwmId> & activeMwms);
+
 private:
-  // This is a group of methods that haven't their own synchronization inside.
-  void RequestTrafficData();
-  void RequestTrafficData(MwmSet::MwmId const & mwmId, bool force);
-
-  void Clear();
-  void ClearCache(MwmSet::MwmId const & mwmId);
-  void CheckCacheSize();
-
-  void UpdateState();
-  void ChangeState(TrafficState newState);
-
-  bool IsInvalidState() const;
-  bool IsEnabled() const;
-
-  GetMwmsByRectFn m_getMwmsByRectFn;
-  traffic::TrafficObserver & m_observer;
-
-  ref_ptr<df::DrapeEngine> m_drapeEngine;
-  atomic<int64_t> m_currentDataVersion;
-
-  // These fields have a flag of their initialization.
-  pair<MyPosition, bool> m_currentPosition = {MyPosition(), false};
-  pair<ScreenBase, bool> m_currentModelView = {ScreenBase(), false};
-
-  atomic<TrafficState> m_state;
-  TrafficStateChangedFn m_onStateChangedFn;
-
   struct CacheEntry
   {
     CacheEntry();
@@ -132,6 +108,44 @@ private:
     traffic::TrafficInfo::Availability m_lastAvailability;
   };
 
+  // This is a group of methods that haven't their own synchronization inside.
+  void RequestTrafficData();
+  void RequestTrafficData(MwmSet::MwmId const & mwmId, bool force);
+
+  void Clear();
+  void ClearCache(MwmSet::MwmId const & mwmId);
+  void CheckCacheSize();
+
+  void UpdateState();
+  void ChangeState(TrafficState newState);
+
+  bool IsInvalidState() const;
+  bool IsEnabled() const;
+
+  void UniteActiveMwms(set<MwmSet::MwmId> & activeMwms) const;
+
+  template <class F>
+  void ForEachActiveMwm(F && f) const
+  {
+    set<MwmSet::MwmId> activeMwms;
+    UniteActiveMwms(activeMwms);
+    for (MwmSet::MwmId const & mwmId : activeMwms)
+      f(mwmId);
+  }
+
+  GetMwmsByRectFn m_getMwmsByRectFn;
+  traffic::TrafficObserver & m_observer;
+
+  ref_ptr<df::DrapeEngine> m_drapeEngine;
+  atomic<int64_t> m_currentDataVersion;
+
+  // These fields have a flag of their initialization.
+  pair<MyPosition, bool> m_currentPosition = {MyPosition(), false};
+  pair<ScreenBase, bool> m_currentModelView = {ScreenBase(), false};
+
+  atomic<TrafficState> m_state;
+  TrafficStateChangedFn m_onStateChangedFn;
+
   size_t m_maxCacheSizeBytes;
   size_t m_currentCacheSizeBytes = 0;
 
@@ -140,8 +154,11 @@ private:
   bool m_isRunning;
   condition_variable m_condition;
 
-  vector<MwmSet::MwmId> m_lastMwmsByRect;
-  set<MwmSet::MwmId> m_activeMwms;
+  vector<MwmSet::MwmId> m_lastDrapeMwmsByRect;
+  set<MwmSet::MwmId> m_activeDrapeMwms;
+  vector<MwmSet::MwmId> m_lastRoutingMwmsByRect;
+  set<MwmSet::MwmId> m_activeRoutingMwms;
+
   // The ETag or entity tag is part of HTTP, the protocol for the World Wide Web.
   // It is one of several mechanisms that HTTP provides for web cache validation,
   // which allows a client to make conditional requests.

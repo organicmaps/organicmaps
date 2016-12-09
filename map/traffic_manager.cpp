@@ -8,6 +8,8 @@
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "platform/platform.hpp"
 
 #include "3party/Alohalytics/src/alohalytics.h"
@@ -120,8 +122,10 @@ void TrafficManager::Clear()
 {
   m_currentCacheSizeBytes = 0;
   m_mwmCache.clear();
-  m_lastMwmsByRect.clear();
-  m_activeMwms.clear();
+  m_lastDrapeMwmsByRect.clear();
+  m_lastRoutingMwmsByRect.clear();
+  m_activeDrapeMwms.clear();
+  m_activeRoutingMwms.clear();
   m_requestedMwms.clear();
 }
 
@@ -168,12 +172,51 @@ void TrafficManager::Invalidate()
   if (!IsEnabled())
     return;
 
-  m_lastMwmsByRect.clear();
+  m_lastDrapeMwmsByRect.clear();
+  m_lastRoutingMwmsByRect.clear();
 
   if (m_currentModelView.second)
     UpdateViewport(m_currentModelView.first);
   if (m_currentPosition.second)
     UpdateMyPosition(m_currentPosition.first);
+}
+
+void TrafficManager::UpdateActiveMwms(m2::RectD const & rect,
+                                      vector<MwmSet::MwmId> & lastMwmsByRect,
+                                      set<MwmSet::MwmId> & activeMwms)
+{
+  auto mwms = m_getMwmsByRectFn(rect);
+  if (lastMwmsByRect == mwms)
+    return;
+  lastMwmsByRect = mwms;
+
+  {
+    lock_guard<mutex> lock(m_mutex);
+    activeMwms.clear();
+    for (auto const & mwm : mwms)
+    {
+      if (mwm.IsAlive())
+        activeMwms.insert(mwm);
+    }
+    RequestTrafficData();
+  }
+}
+
+void TrafficManager::UpdateMyPosition(MyPosition const & myPosition)
+{
+  // Side of square around |myPosition|. Every mwm which is covered by the square
+  // will get traffic info.
+  double const kSquareSideM = 5000;
+  m_currentPosition = {myPosition, true /* initialized */};
+
+  if (!IsEnabled() || IsInvalidState())
+    return;
+
+  m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(myPosition.m_position, kSquareSideM);
+  // Request traffic.
+  UpdateActiveMwms(rect, m_lastRoutingMwmsByRect, m_activeRoutingMwms);
+
+  // @TODO Do all routing stuff.
 }
 
 void TrafficManager::UpdateViewport(ScreenBase const & screen)
@@ -187,37 +230,7 @@ void TrafficManager::UpdateViewport(ScreenBase const & screen)
     return;
 
   // Request traffic.
-  auto mwms = m_getMwmsByRectFn(screen.ClipRect());
-  if (m_lastMwmsByRect == mwms)
-    return;
-  m_lastMwmsByRect = mwms;
-
-  {
-    lock_guard<mutex> lock(m_mutex);
-
-    m_activeMwms.clear();
-    for (auto const & mwm : mwms)
-    {
-      if (mwm.IsAlive())
-        m_activeMwms.insert(mwm);
-    }
-
-    RequestTrafficData();
-  }
-}
-
-void TrafficManager::UpdateMyPosition(MyPosition const & myPosition)
-{
-  m_currentPosition = {myPosition, true /* initialized */};
-
-  if (!IsEnabled() || IsInvalidState())
-    return;
-
-  // 1. Determine mwm's nearby "my position".
-
-  // 2. Request traffic for this mwm's.
-
-  // 3. Do all routing stuff.
+  UpdateActiveMwms(screen.ClipRect(), m_lastDrapeMwmsByRect, m_activeDrapeMwms);
 }
 
 void TrafficManager::ThreadRoutine()
@@ -300,14 +313,16 @@ void TrafficManager::RequestTrafficData(MwmSet::MwmId const & mwmId, bool force)
 
 void TrafficManager::RequestTrafficData()
 {
-  if (m_activeMwms.empty() || !IsEnabled() || IsInvalidState())
-    return;
-
-  for (auto const & mwmId : m_activeMwms)
+  if ((m_activeDrapeMwms.empty() && m_activeRoutingMwms.empty())
+      || !IsEnabled() || IsInvalidState())
   {
+    return;
+  }
+
+  ForEachActiveMwm([this](MwmSet::MwmId const & mwmId){
     ASSERT(mwmId.IsAlive(), ());
     RequestTrafficData(mwmId, false /* force */);
-  }
+  });
   UpdateState();
 }
 
@@ -325,7 +340,8 @@ void TrafficManager::OnTrafficRequestFailed(traffic::TrafficInfo && info)
   if (info.GetAvailability() == traffic::TrafficInfo::Availability::Unknown &&
       !it->second.m_isLoaded)
   {
-    if (m_activeMwms.find(info.GetMwmId()) != m_activeMwms.end())
+    if (m_activeDrapeMwms.find(info.GetMwmId()) != m_activeDrapeMwms.cend()
+        || m_activeRoutingMwms.find(info.GetMwmId()) != m_activeRoutingMwms.cend())
     {
       if (it->second.m_retriesCount < kMaxRetriesCount)
         RequestTrafficData(info.GetMwmId(), true /* force */);
@@ -376,9 +392,20 @@ void TrafficManager::OnTrafficDataResponse(traffic::TrafficInfo && info)
   }
 }
 
+void TrafficManager::UniteActiveMwms(set<MwmSet::MwmId> & activeMwms) const
+{
+  activeMwms.insert(m_activeDrapeMwms.cbegin(), m_activeDrapeMwms.cend());
+  activeMwms.insert(m_activeRoutingMwms.cbegin(), m_activeRoutingMwms.cend());
+}
+
 void TrafficManager::CheckCacheSize()
 {
-  if (m_currentCacheSizeBytes > m_maxCacheSizeBytes && m_mwmCache.size() > m_activeMwms.size())
+  // Calculating number of different active mwms.
+  set<MwmSet::MwmId> activeMwms;
+  UniteActiveMwms(activeMwms);
+  size_t const activeMwmsSize = m_activeDrapeMwms.size();
+
+  if (m_currentCacheSizeBytes > m_maxCacheSizeBytes && m_mwmCache.size() > activeMwmsSize)
   {
     std::multimap<time_point<steady_clock>, MwmSet::MwmId> seenTimings;
     for (auto const & mwmInfo : m_mwmCache)
@@ -386,7 +413,7 @@ void TrafficManager::CheckCacheSize()
 
     auto itSeen = seenTimings.begin();
     while (m_currentCacheSizeBytes > m_maxCacheSizeBytes &&
-           m_mwmCache.size() > m_activeMwms.size())
+           m_mwmCache.size() > activeMwmsSize)
     {
       ClearCache(itSeen->second);
       ++itSeen;
@@ -438,7 +465,7 @@ void TrafficManager::UpdateState()
   bool expiredData = false;
   bool noData = false;
 
-  for (auto const & mwmId : m_activeMwms)
+  ForEachActiveMwm([&](MwmSet::MwmId const & mwmId)
   {
     auto it = m_mwmCache.find(mwmId);
     ASSERT(it != m_mwmCache.end(), ());
@@ -464,7 +491,7 @@ void TrafficManager::UpdateState()
     {
       networkError = true;
     }
-  }
+  });
 
   if (networkError || maxPassedTime >= kNetworkErrorTimeout)
     ChangeState(TrafficState::NetworkError);
