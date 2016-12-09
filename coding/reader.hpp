@@ -32,13 +32,12 @@ public:
 };
 
 // Reader from memory.
-class MemReader : public Reader
+template <bool WithExceptions>
+class MemReaderTemplate : public Reader
 {
-  bool AssertPosAndSize(uint64_t pos, uint64_t size) const;
-
 public:
   // Construct from block of memory.
-  MemReader(void const * pData, size_t size)
+  MemReaderTemplate(void const * pData, size_t size)
     : m_pData(static_cast<char const *>(pData)), m_size(size)
   {
   }
@@ -50,26 +49,50 @@ public:
 
   inline void Read(uint64_t pos, void * p, size_t size) const override
   {
-    ASSERT ( AssertPosAndSize(pos, size), () );
+    AssertPosAndSize(pos, size);
     memcpy(p, m_pData + pos, size);
   }
 
-  inline MemReader SubReader(uint64_t pos, uint64_t size) const
+  inline MemReaderTemplate SubReader(uint64_t pos, uint64_t size) const
   {
-    ASSERT ( AssertPosAndSize(pos, size), () );
-    return MemReader(m_pData + pos, static_cast<size_t>(size));
+    AssertPosAndSize(pos, size);
+    return MemReaderTemplate(m_pData + pos, static_cast<size_t>(size));
   }
 
   inline unique_ptr<Reader> CreateSubReader(uint64_t pos, uint64_t size) const override
   {
-    ASSERT ( AssertPosAndSize(pos, size), () );
-    return make_unique<MemReader>(m_pData + pos, static_cast<size_t>(size));
+    AssertPosAndSize(pos, size);
+    return make_unique<MemReaderTemplate>(m_pData + pos, static_cast<size_t>(size));
   }
 
 private:
+  bool GoodPosAndSize(uint64_t pos, uint64_t size) const
+  {
+    uint64_t const readerSize = Size();
+    bool const ret1 = (pos + size <= readerSize);
+    bool const ret2 = (size <= static_cast<size_t>(-1));
+    return ret1 && ret2;
+  }
+
+  void AssertPosAndSize(uint64_t pos, uint64_t size) const
+  {
+    if (WithExceptions)
+    {
+      if (!GoodPosAndSize(pos, size))
+        MYTHROW(Reader::SizeException, (pos, size, Size()));
+    }
+    else
+    {
+      ASSERT(GoodPosAndSize(pos, size), (pos, size, Size()));
+    }
+  }
+
   char const * m_pData;
   size_t m_size;
 };
+
+using MemReader = MemReaderTemplate<false>;
+using MemReaderWithExceptions = MemReaderTemplate<true>;
 
 // Reader wrapper to hold the pointer to a polymorfic reader.
 // Common use: ReaderSource<ReaderPtr<Reader> >.
