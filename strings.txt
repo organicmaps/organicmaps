@@ -21171,3 +21171,51 @@
   [traffic_data_unavailable]
     en = Traffic data is not available
     ru = Данные о пробках недоступны
+
+  [banner_deliveryclub_title]
+    en = Food delivery
+    ru = Доставка еды
+
+  [banner_deliveryclub_message]
+    en = Fast delivery from 4,000 restaurants. Order from Delivery Club.
+    ru = Быстрая доставка еды из 4 тысяч ресторанов. Закажите на Delivery Club.
+
+  [banner_lamoda_title]
+    en = Online clothing and shoe store
+    ru = Интернет-магазин одежды и обуви
+
+  [banner_lamoda_message]
+    en = More than 1,000 brands. Up to 70% off. Free delivery all over the country.
+    ru = Более тысячи брендов. Скидки до 70%. Доставка по всей стране бесплатно.
+
+  [banner_tutu_title]
+    en = Train tickets online
+    ru = Ж/д билеты онлайн
+
+  [banner_tutu_message]
+    en = Train tickets to any city online - prices, search, and booking.
+    ru = Ж/д билеты в любой город онлайн – цены, поиск и бронирование.
+
+  [banner_geerbest_title]
+    en = Online electronics store
+    ru = Интернет-магазин электроники
+
+  [banner_geerbest_message]
+    en = Instant search in over 50,000 items at low prices.
+    ru = Мгновенный поиск по более чем 50 тысячам товаров по низким ценам.
+
+  [banner_rentalcars_title]
+    en = Renting cars online
+    ru = Прокат автомобилей онлайн
+
+  [banner_rentalcars_message]
+    en = 800 car rental companies in more than 49,000 car rental locations.
+    ru = 800 прокатных компаний в более чем 49 тысячах пунктах проката.
+
+  [banner_viator_title]
+    en = Online tour search
+    ru = Онлайн-поиск экскурсий
+
+  [banner_viator_message]
+    en = Search in over 50,000 tours all over the world.
+    ru = Поиск по более чем 50 тысячам экскурсий по всему миру.
