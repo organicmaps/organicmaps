@@ -58,6 +58,10 @@ public:
       return m_dir < o.m_dir;
     }
 
+    uint32_t GetFid() const { return m_fid; }
+    uint16_t GetIdx() const { return m_idx; }
+    uint8_t GetDir() const { return m_dir; }
+
     // The ordinal number of feature this segment belongs to.
     uint32_t m_fid;
 

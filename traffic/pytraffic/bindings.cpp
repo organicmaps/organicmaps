@@ -153,10 +153,17 @@ BOOST_PYTHON_MODULE(pytraffic)
   vector_uint8t_from_python_str();
 
   class_<SegmentSpeeds>("SegmentSpeeds", init<double, double, double>())
-      .def("__repr__", &SegmentSpeedsRepr);
+      .def("__repr__", &SegmentSpeedsRepr)
+      .def_readwrite("weighted_speed", &SegmentSpeeds::m_weightedSpeed)
+      .def_readwrite("weighted_ref_speed", &SegmentSpeeds::m_weightedRefSpeed)
+      .def_readwrite("weight", &SegmentSpeeds::m_weight)
+  ;
 
   class_<traffic::TrafficInfo::RoadSegmentId>("RoadSegmentId", init<uint32_t, uint16_t, uint8_t>())
       .def("__repr__", &RoadSegmentIdRepr)
+      .add_property("fid", &traffic::TrafficInfo::RoadSegmentId::GetFid)
+      .add_property("idx", &traffic::TrafficInfo::RoadSegmentId::GetIdx)
+      .add_property("dir", &traffic::TrafficInfo::RoadSegmentId::GetDir)
   ;
 
   class_<std::vector<traffic::TrafficInfo::RoadSegmentId>>("RoadSegmentIdVec")
