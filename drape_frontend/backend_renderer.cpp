@@ -338,6 +338,8 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::EnableTraffic:
     {
       ref_ptr<EnableTrafficMessage> msg = message;
+      if (!msg->IsTrafficEnabled())
+        m_trafficGenerator->ClearCache();
       m_readManager->SetTrafficEnabled(msg->IsTrafficEnabled());
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
                                 make_unique_dp<EnableTrafficMessage>(msg->IsTrafficEnabled()),
