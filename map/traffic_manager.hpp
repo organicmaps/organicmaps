@@ -98,7 +98,6 @@ private:
     traffic::TrafficInfo::Availability m_lastAvailability;
   };
 
-
   void ThreadRoutine();
   bool WaitForRequest(vector<MwmSet::MwmId> & mwms);
 

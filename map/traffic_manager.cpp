@@ -212,8 +212,8 @@ void TrafficManager::UpdateMyPosition(MyPosition const & myPosition)
   if (!IsEnabled() || IsInvalidState())
     return;
 
-  m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(myPosition.m_position,
-                                                                       kSquareSideM / 2.0);
+  m2::RectD const rect =
+      MercatorBounds::RectByCenterXYAndSizeInMeters(myPosition.m_position, kSquareSideM / 2.0);
   // Request traffic.
   UpdateActiveMwms(rect, m_lastRoutingMwmsByRect, m_activeRoutingMwms);
 
@@ -314,13 +314,13 @@ void TrafficManager::RequestTrafficData(MwmSet::MwmId const & mwmId, bool force)
 
 void TrafficManager::RequestTrafficData()
 {
-  if ((m_activeDrapeMwms.empty() && m_activeRoutingMwms.empty())
-      || !IsEnabled() || IsInvalidState())
+  if ((m_activeDrapeMwms.empty() && m_activeRoutingMwms.empty()) || !IsEnabled() ||
+      IsInvalidState())
   {
     return;
   }
 
-  ForEachActiveMwm([this](MwmSet::MwmId const & mwmId){
+  ForEachActiveMwm([this](MwmSet::MwmId const & mwmId) {
     ASSERT(mwmId.IsAlive(), ());
     RequestTrafficData(mwmId, false /* force */);
   });
@@ -341,8 +341,8 @@ void TrafficManager::OnTrafficRequestFailed(traffic::TrafficInfo && info)
   if (info.GetAvailability() == traffic::TrafficInfo::Availability::Unknown &&
       !it->second.m_isLoaded)
   {
-    if (m_activeDrapeMwms.find(info.GetMwmId()) != m_activeDrapeMwms.cend()
-        || m_activeRoutingMwms.find(info.GetMwmId()) != m_activeRoutingMwms.cend())
+    if (m_activeDrapeMwms.find(info.GetMwmId()) != m_activeDrapeMwms.cend() ||
+        m_activeRoutingMwms.find(info.GetMwmId()) != m_activeRoutingMwms.cend())
     {
       if (it->second.m_retriesCount < kMaxRetriesCount)
         RequestTrafficData(info.GetMwmId(), true /* force */);
@@ -413,8 +413,7 @@ void TrafficManager::CheckCacheSize()
       seenTimings.insert(make_pair(mwmInfo.second.m_lastActiveTime, mwmInfo.first));
 
     auto itSeen = seenTimings.begin();
-    while (m_currentCacheSizeBytes > m_maxCacheSizeBytes &&
-           m_mwmCache.size() > activeMwmsSize)
+    while (m_currentCacheSizeBytes > m_maxCacheSizeBytes && m_mwmCache.size() > activeMwmsSize)
     {
       ClearCache(itSeen->second);
       ++itSeen;
@@ -466,8 +465,7 @@ void TrafficManager::UpdateState()
   bool expiredData = false;
   bool noData = false;
 
-  ForEachActiveMwm([&](MwmSet::MwmId const & mwmId)
-  {
+  ForEachActiveMwm([&](MwmSet::MwmId const & mwmId) {
     auto it = m_mwmCache.find(mwmId);
     ASSERT(it != m_mwmCache.end(), ());
 
