@@ -7,7 +7,6 @@
 #include "drape/color.hpp"
 #include "drape/glsl_types.hpp"
 #include "drape/glstate.hpp"
-#include "drape/overlay_handle.hpp"
 #include "drape/render_bucket.hpp"
 #include "drape/texture_manager.hpp"
 
@@ -79,16 +78,13 @@ using TrafficSegmentsGeometry = map<MwmSet::MwmId, vector<pair<traffic::TrafficI
                                                                TrafficSegmentGeometry>>>;
 using TrafficSegmentsColoring = map<MwmSet::MwmId, traffic::TrafficInfo::Coloring>;
 
-class TrafficHandle;
-
 struct TrafficRenderData
 {
   dp::GLState m_state;
   drape_ptr<dp::RenderBucket> m_bucket;
   TileKey m_tileKey;
   MwmSet::MwmId m_mwmId;
-  m2::RectD m_boundingBox;
-  vector<TrafficHandle *> m_handles;
+  RoadClass m_roadClass;
 
   TrafficRenderData(dp::GLState const & state) : m_state(state) {}
 };
@@ -97,67 +93,34 @@ struct TrafficStaticVertex
 {
   using TPosition = glsl::vec3;
   using TNormal = glsl::vec4;
+  using TTexCoord = glsl::vec2;
 
   TrafficStaticVertex() = default;
-  TrafficStaticVertex(TPosition const & position, TNormal const & normal)
+  TrafficStaticVertex(TPosition const & position, TNormal const & normal,
+                      TTexCoord const & colorTexCoord)
     : m_position(position)
     , m_normal(normal)
+    , m_colorTexCoord(colorTexCoord)
   {}
 
   TPosition m_position;
   TNormal m_normal;
+  TTexCoord m_colorTexCoord;
 };
 
 struct TrafficLineStaticVertex
 {
   using TPosition = glsl::vec3;
+  using TTexCoord = glsl::vec2;
 
   TrafficLineStaticVertex() = default;
-  TrafficLineStaticVertex(TPosition const & position)
+  TrafficLineStaticVertex(TPosition const & position, TTexCoord const & colorTexCoord)
     : m_position(position)
+    , m_colorTexCoord(colorTexCoord)
   {}
 
   TPosition m_position;
-};
-
-struct TrafficDynamicVertex
-{
-  using TTexCoord = glsl::vec2;
-
-  TrafficDynamicVertex() = default;
-  TrafficDynamicVertex(TTexCoord const & color)
-    : m_colorTexCoord(color)
-  {}
-
   TTexCoord m_colorTexCoord;
-};
-
-class TrafficHandle : public dp::OverlayHandle
-{
-  using TBase = dp::OverlayHandle;
-
-public:
-  TrafficHandle(traffic::TrafficInfo::RoadSegmentId const & segmentId, RoadClass const & roadClass,
-                m2::RectD const & boundingBox, glsl::vec2 const & texCoord,
-                size_t verticesCount);
-
-  void GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator) const override;
-  bool Update(ScreenBase const & screen) override;
-  bool IndexesRequired() const override;
-  m2::RectD GetPixelRect(ScreenBase const & screen, bool perspective) const override;
-  void GetPixelShape(ScreenBase const & screen, bool perspective, Rects & rects) const override;
-
-  void SetTexCoord(glsl::vec2 const & texCoord);
-  traffic::TrafficInfo::RoadSegmentId const & GetSegmentId() const;
-  RoadClass const & GetRoadClass() const;
-  m2::RectD const & GetBoundingBox() const;
-
-private:
-  traffic::TrafficInfo::RoadSegmentId m_segmentId;
-  RoadClass m_roadClass;
-  vector<glsl::vec2> m_buffer;
-  m2::RectD m_boundingBox;
-  mutable bool m_needUpdate;
 };
 
 using TrafficTexCoords = unordered_map<size_t, glsl::vec2>;
@@ -169,8 +132,8 @@ public:
 
   explicit TrafficGenerator(TFlushRenderDataFn flushFn)
     : m_flushRenderDataFn(flushFn)
-    , m_providerTriangles(2 /* stream count */, 0 /* vertices count*/)
-    , m_providerLines(2 /* stream count */, 0 /* vertices count*/)
+    , m_providerTriangles(1 /* stream count */, 0 /* vertices count*/)
+    , m_providerLines(1 /* stream count */, 0 /* vertices count*/)
   {}
 
   void Init();
@@ -178,14 +141,11 @@ public:
 
   void FlushSegmentsGeometry(TileKey const & tileKey, TrafficSegmentsGeometry const & geom,
                              ref_ptr<dp::TextureManager> textures);
-  bool UpdateColoring(TrafficSegmentsColoring const & coloring);
+  void UpdateColoring(TrafficSegmentsColoring const & coloring);
 
   void ClearCache();
   void ClearCache(MwmSet::MwmId const & mwmId);
   void InvalidateTexturesCache();
-
-  bool IsColorsCacheRefreshed() const { return m_colorsCacheRefreshed; }
-  TrafficTexCoords ProcessCacheRefreshing();
 
   static df::ColorConstant GetColorBySpeedGroup(traffic::SpeedGroup const & speedGroup);
 
@@ -220,12 +180,10 @@ private:
 
   void GenerateSegment(dp::TextureManager::ColorRegion const & colorRegion,
                        m2::PolylineD const & polyline, m2::PointD const & tileCenter,
-                       bool generateCaps, float depth, vector<TrafficStaticVertex> & staticGeometry,
-                       vector<TrafficDynamicVertex> & dynamicGeometry);
+                       bool generateCaps, float depth, vector<TrafficStaticVertex> & staticGeometry);
   void GenerateLineSegment(dp::TextureManager::ColorRegion const & colorRegion,
                            m2::PolylineD const & polyline, m2::PointD const & tileCenter, float depth,
-                           vector<TrafficLineStaticVertex> & staticGeometry,
-                           vector<TrafficDynamicVertex> & dynamicGeometry);
+                           vector<TrafficLineStaticVertex> & staticGeometry);
   void FillColorsCache(ref_ptr<dp::TextureManager> textures);
 
   void FlushGeometry(TrafficBatcherKey const & key, dp::GLState const & state,
@@ -235,7 +193,6 @@ private:
 
   array<dp::TextureManager::ColorRegion, static_cast<size_t>(traffic::SpeedGroup::Count)> m_colorsCache;
   bool m_colorsCacheValid = false;
-  bool m_colorsCacheRefreshed = false;
 
   drape_ptr<BatchersPool<TrafficBatcherKey, TrafficBatcherKeyComparator>> m_batchersPool;
   TFlushRenderDataFn m_flushRenderDataFn;

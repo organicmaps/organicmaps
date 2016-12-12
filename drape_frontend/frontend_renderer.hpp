@@ -343,7 +343,7 @@ private:
 
   bool m_needRestoreSize;
 
-  bool m_trafficStateChanged;
+  bool m_needRegenerateTraffic;
   bool m_trafficEnabled;
 
 #ifdef DEBUG
