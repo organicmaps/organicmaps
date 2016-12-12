@@ -34,6 +34,10 @@ struct SegmentSpeeds
   {
   }
 
+  double GetWeightedSpeed() const { return m_weightedSpeed; }
+  double GetWeightedRefSpeed() const { return m_weightedRefSpeed; }
+  double GetWeight() const { return m_weight; }
+
   double m_weightedSpeed = 0;
   double m_weightedRefSpeed = 0;
   double m_weight = 0;
@@ -153,10 +157,17 @@ BOOST_PYTHON_MODULE(pytraffic)
   vector_uint8t_from_python_str();
 
   class_<SegmentSpeeds>("SegmentSpeeds", init<double, double, double>())
-      .def("__repr__", &SegmentSpeedsRepr);
+      .def("__repr__", &SegmentSpeedsRepr)
+      .def("get_weighted_speed", &SegmentSpeeds::GetWeightedSpeed)
+      .def("get_weighted_ref_speed", &SegmentSpeeds::GetWeightedRefSpeed)
+      .def("get_weight", &SegmentSpeeds::GetWeight)
+  ;
 
   class_<traffic::TrafficInfo::RoadSegmentId>("RoadSegmentId", init<uint32_t, uint16_t, uint8_t>())
       .def("__repr__", &RoadSegmentIdRepr)
+      .def("get_fid", &traffic::TrafficInfo::RoadSegmentId::GetFid)
+      .def("get_idx", &traffic::TrafficInfo::RoadSegmentId::GetIdx)
+      .def("get_dir", &traffic::TrafficInfo::RoadSegmentId::GetDir)
   ;
 
   class_<std::vector<traffic::TrafficInfo::RoadSegmentId>>("RoadSegmentIdVec")
