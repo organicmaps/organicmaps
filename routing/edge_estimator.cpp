@@ -43,7 +43,7 @@ public:
 
 private:
   TrafficCache const & m_trafficCache;
-  shared_ptr<traffic::TrafficInfo> m_trafficInfo;
+  shared_ptr<traffic::TrafficInfo::Coloring> m_trafficColoring;
   double const m_maxSpeedMPS;
 };
 
@@ -55,12 +55,12 @@ CarEdgeEstimator::CarEdgeEstimator(IVehicleModel const & vehicleModel,
 
 void CarEdgeEstimator::Start(MwmSet::MwmId const & mwmId)
 {
-  m_trafficInfo = m_trafficCache.GetTrafficInfo(mwmId);
+  m_trafficColoring = m_trafficCache.GetTrafficInfo(mwmId);
 }
 
 void CarEdgeEstimator::Finish()
 {
-  m_trafficInfo.reset();
+  m_trafficColoring.reset();
 }
 
 double CarEdgeEstimator::CalcEdgesWeight(uint32_t featureId, RoadGeometry const & road,
@@ -77,10 +77,11 @@ double CarEdgeEstimator::CalcEdgesWeight(uint32_t featureId, RoadGeometry const 
   for (uint32_t i = start; i < finish; ++i)
   {
     double edgeWeight = TimeBetweenSec(road.GetPoint(i), road.GetPoint(i + 1), speedMPS);
-    if (m_trafficInfo)
+    if (m_trafficColoring)
     {
-      SpeedGroup const speedGroup =
-          m_trafficInfo->GetSpeedGroup(TrafficInfo::RoadSegmentId(featureId, i, dir));
+      auto const it = m_trafficColoring->find(TrafficInfo::RoadSegmentId(featureId, i, dir));
+      SpeedGroup const speedGroup = (it == m_trafficColoring->cend()) ? SpeedGroup::Unknown
+                                                                      : it->second;
       ASSERT_LESS(speedGroup, SpeedGroup::Count, ());
       edgeWeight *= CalcTrafficFactor(speedGroup);
     }

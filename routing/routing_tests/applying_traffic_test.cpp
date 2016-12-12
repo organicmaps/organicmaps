@@ -92,7 +92,11 @@ public:
   class TrafficCacheTest : public TrafficCache
   {
   public:
-    void SetTrafficInfo(traffic::TrafficInfo && info) { Set(move(info)); }
+    void SetTrafficInfo(TrafficInfo && info)
+    {
+      TrafficInfo::Coloring coloring = info.GetColoring();
+      Set(info.GetMwmId(), move(coloring));
+    }
   };
 
   ApplyingTrafficTest() { classificator::Load(); }

@@ -589,9 +589,23 @@ void RoutingSession::OnTrafficInfoClear()
 
 void RoutingSession::OnTrafficInfoAdded(TrafficInfo && info)
 {
+  ASSERT_EQUAL(kSpeedGroupThresholdPercentage[static_cast<size_t>(SpeedGroup::G5)], 100, ());
+  ASSERT_EQUAL(kSpeedGroupThresholdPercentage[static_cast<size_t>(SpeedGroup::Unknown)], 100, ());
+
+  // The code below is memory optimization. Edges with traffic SpeedGroup::G5 and
+  // SpeedGroup::Unknown constitute a large part of all edges but they are not used in routing now.
+  // So we don't need to keep the information in TrafficCache.
+  TrafficInfo::Coloring const & fullColoring = info.GetColoring();
+  TrafficInfo::Coloring coloring;
+  for (auto const & kv : fullColoring)
+  {
+    if (kv.second != SpeedGroup::G5 && kv.second != SpeedGroup::Unknown)
+      coloring.insert(kv);
+  }
+
   threads::MutexGuard guard(m_routingSessionMutex);
   UNUSED_VALUE(guard);
-  Set(move(info));
+  Set(info.GetMwmId(), move(coloring));
 }
 
 void RoutingSession::OnTrafficInfoRemoved(MwmSet::MwmId const & mwmId)
@@ -601,7 +615,7 @@ void RoutingSession::OnTrafficInfoRemoved(MwmSet::MwmId const & mwmId)
   Remove(mwmId);
 }
 
-shared_ptr<traffic::TrafficInfo> RoutingSession::GetTrafficInfo(MwmSet::MwmId const & mwmId) const
+shared_ptr<TrafficInfo::Coloring> RoutingSession::GetTrafficInfo(MwmSet::MwmId const & mwmId) const
 {
   threads::MutexGuard guard(m_routingSessionMutex);
   UNUSED_VALUE(guard);
