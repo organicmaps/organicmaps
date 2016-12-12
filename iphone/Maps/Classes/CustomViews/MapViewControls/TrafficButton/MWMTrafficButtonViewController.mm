@@ -57,15 +57,10 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
     [ovc addChildViewController:self];
     [ovc.view addSubview:self.view];
     [self configLayout];
+    [self refreshAppearance];
     [MWMTrafficManager addObserver:self];
   }
   return self;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-  [super viewWillAppear:animated];
-  [self refreshAppearance];
 }
 
 - (void)configLayout
