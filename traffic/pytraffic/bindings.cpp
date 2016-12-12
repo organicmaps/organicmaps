@@ -101,13 +101,10 @@ boost::python::list GenerateTrafficKeys(string const & mwmPath)
   return std_vector_to_python_list(result);
 }
 
-vector<uint8_t> GenerateTrafficValues(boost::python::list const & keys,
+vector<uint8_t> GenerateTrafficValues(vector<traffic::TrafficInfo::RoadSegmentId> const & keys,
                                       boost::python::dict const & segmentMappingDict)
 {
-  vector<traffic::TrafficInfo::RoadSegmentId> keysVec =
-      python_list_to_std_vector<traffic::TrafficInfo::RoadSegmentId>(keys);
   SegmentMapping segmentMapping;
-
   boost::python::list mappingKeys = segmentMappingDict.keys();
   for (size_t i = 0; i < len(mappingKeys); ++i)
   {
@@ -119,14 +116,14 @@ vector<uint8_t> GenerateTrafficValues(boost::python::list const & keys,
 
   traffic::TrafficInfo::Coloring const knownColors = TransformToSpeedGroups(segmentMapping);
   traffic::TrafficInfo::Coloring coloring;
-  traffic::TrafficInfo::CombineColorings(keysVec, knownColors, coloring);
+  traffic::TrafficInfo::CombineColorings(keys, knownColors, coloring);
 
   vector<traffic::SpeedGroup> values(coloring.size());
 
   size_t i = 0;
   for (auto const & kv : coloring)
   {
-    ASSERT_EQUAL(kv.first, keysVec[i], ());
+    ASSERT_EQUAL(kv.first, keys[i], ());
     values[i] = kv.second;
     ++i;
   }
@@ -135,6 +132,24 @@ vector<uint8_t> GenerateTrafficValues(boost::python::list const & keys,
   vector<uint8_t> buf;
   traffic::TrafficInfo::SerializeTrafficValues(values, buf);
   return buf;
+}
+
+vector<uint8_t> GenerateTrafficValuesFromList(boost::python::list const & keys,
+                                              boost::python::dict const & segmentMappingDict)
+{
+  vector<traffic::TrafficInfo::RoadSegmentId> keysVec =
+      python_list_to_std_vector<traffic::TrafficInfo::RoadSegmentId>(keys);
+
+  return GenerateTrafficValues(keysVec, segmentMappingDict);
+}
+
+vector<uint8_t> GenerateTrafficValuesFromBinary(vector<uint8_t> const & keysBlob,
+                                                boost::python::dict const & segmentMappingDict)
+{
+  vector<traffic::TrafficInfo::RoadSegmentId> keys;
+  traffic::TrafficInfo::DeserializeTrafficKeys(keysBlob, keys);
+
+  return GenerateTrafficValues(keys, segmentMappingDict);
 }
 
 void LoadClassificator(string const & classifPath)
@@ -182,5 +197,6 @@ BOOST_PYTHON_MODULE(pytraffic)
 
   def("load_classificator", LoadClassificator);
   def("generate_traffic_keys", GenerateTrafficKeys);
-  def("generate_traffic_values", GenerateTrafficValues);
+  def("generate_traffic_values_from_list", GenerateTrafficValuesFromList);
+  def("generate_traffic_values_from_binary", GenerateTrafficValuesFromBinary);
 }
