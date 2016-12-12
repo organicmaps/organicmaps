@@ -15,6 +15,10 @@ omim_link_libraries(
   ${PROJECT_NAME}
   routing
   traffic
+  editor
+  pugixml
+  oauthcpp
+  opening_hours
   indexer
   platform_tests_support
   platform
@@ -22,6 +26,7 @@ omim_link_libraries(
   geometry
   base
   stats_client
+  jansson
   ${Qt5Core_LIBRARIES}
   ${LIBZ}
 )
