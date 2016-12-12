@@ -13,13 +13,13 @@ omim_add_test(${PROJECT_NAME} ${SRC})
 
 omim_link_libraries(
   ${PROJECT_NAME}
-  routing
   traffic
+  routing
+  indexer
   editor
   pugixml
   oauthcpp
   opening_hours
-  indexer
   platform_tests_support
   platform
   coding
