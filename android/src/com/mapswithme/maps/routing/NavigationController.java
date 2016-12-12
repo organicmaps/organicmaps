@@ -12,10 +12,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.text.DateFormat;
-import java.util.Calendar;
-import java.util.concurrent.TimeUnit;
-
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
@@ -31,6 +27,10 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
+
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 public class NavigationController implements TrafficManager.TrafficCallback
 {

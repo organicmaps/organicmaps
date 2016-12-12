@@ -750,8 +750,11 @@ public class RoutingController
     Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_SEARCH_POINT);
     AlohaHelper.logClick(AlohaHelper.ROUTING_SEARCH_POINT);
     mWaitingPoiPickSlot = slotId;
-    mContainer.showSearch();
-    mContainer.updateMenu();
+    if (mContainer != null)
+    {
+      mContainer.showSearch();
+      mContainer.updateMenu();
+    }
   }
 
   private void onPoiSelectedInternal(@Nullable MapObject point, int slot)
