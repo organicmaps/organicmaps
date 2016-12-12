@@ -11,6 +11,7 @@
 #include "platform/settings.hpp"
 
 #include "std/bind.hpp"
+#include "std/utility.hpp"
 
 namespace
 {
@@ -547,13 +548,13 @@ void DrapeEngine::UpdateTraffic(traffic::TrafficInfo const & info)
   if (info.GetColoring().empty())
     return;
 
-  df::TrafficSegmentsColoring segmentsColoring;
-  auto & mwmColoring = segmentsColoring[info.GetMwmId()];
+#ifdef DEBUG
   for (auto const & segmentPair : info.GetColoring())
-  {
-    if (segmentPair.second != traffic::SpeedGroup::Unknown)
-      mwmColoring.insert(segmentPair);
-  }
+    ASSERT_NOT_EQUAL(segmentPair.second, traffic::SpeedGroup::Unknown, ());
+#endif
+
+  df::TrafficSegmentsColoring segmentsColoring;
+  segmentsColoring.insert(make_pair(info.GetMwmId(), info.GetColoring()));
 
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                   make_unique_dp<UpdateTrafficMessage>(move(segmentsColoring), false),
