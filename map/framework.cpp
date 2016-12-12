@@ -127,7 +127,7 @@ char const kTrafficEnabledKey[] = "TrafficEnabled";
 
 double const kDistEqualQueryMeters = 100.0;
 
-size_t constexpr kMaxTrafficCacheSizeBytes = 128 /* Mb */ * 1024 * 1024;
+size_t constexpr kMaxTrafficCacheSizeBytes = 64 /* Mb */ * 1024 * 1024;
 
 // Must correspond SearchMarkType.
 vector<string> kSearchMarks =
