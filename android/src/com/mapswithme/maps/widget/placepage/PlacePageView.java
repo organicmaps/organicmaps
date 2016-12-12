@@ -416,26 +416,34 @@ public class PlacePageView extends RelativeLayout
           break;
 
         case ROUTE_FROM:
-          if (RoutingController.get().setStartPoint(mMapObject))
+          RoutingController controller = RoutingController.get();
+          if (!controller.isPlanning())
+          {
+            controller.prepare(mMapObject, null);
             hide();
+          }
+          else if (controller.setStartPoint(mMapObject))
+          {
+            hide();
+          }
           break;
 
-          case ROUTE_TO:
-            if (RoutingController.get().isPlanning())
-            {
-              if (RoutingController.get().setEndPoint(mMapObject))
-                hide();
-            }
-            else
-            {
-              getActivity().startLocationToPoint(Statistics.EventName.PP_ROUTE, AlohaHelper.PP_ROUTE, getMapObject());
-            }
-            break;
+        case ROUTE_TO:
+          if (RoutingController.get().isPlanning())
+          {
+            if (RoutingController.get().setEndPoint(mMapObject))
+              hide();
+          }
+          else
+          {
+            getActivity().startLocationToPoint(Statistics.EventName.PP_ROUTE, AlohaHelper.PP_ROUTE, getMapObject());
+          }
+          break;
 
-          case BOOKING:
-          case OPENTABLE:
-            onSponsoredClick(true /* book */);
-            break;
+        case BOOKING:
+        case OPENTABLE:
+          onSponsoredClick(true /* book */);
+          break;
         }
       }
     });
@@ -1149,15 +1157,10 @@ public class PlacePageView extends RelativeLayout
 
     buttons.add(PlacePageButtons.Item.BOOKMARK);
 
-    if (RoutingController.get().isPlanning())
+    if (RoutingController.get().isPlanning() || showRoutingButton)
     {
       buttons.add(PlacePageButtons.Item.ROUTE_FROM);
       buttons.add(PlacePageButtons.Item.ROUTE_TO);
-    }
-    else
-    {
-      if (showRoutingButton)
-        buttons.add(PlacePageButtons.Item.ROUTE_TO);
     }
 
     buttons.add(PlacePageButtons.Item.SHARE);

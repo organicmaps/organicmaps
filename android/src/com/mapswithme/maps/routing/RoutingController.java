@@ -357,6 +357,9 @@ public class RoutingController
     mLastRouterType = routerType;
     Framework.nativeSetRouter(mLastRouterType);
 
+    if (mStartPoint != null || mEndPoint != null)
+      setPointsInternal();
+
     if (mContainer != null)
       mContainer.showRoutePlan(true, new Runnable()
       {
