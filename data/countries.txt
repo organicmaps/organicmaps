@@ -666,6 +666,15 @@
    "id": "Australia",
    "g": [
     {
+     "id": "Willis Island",
+     "s": 77755,
+     "affiliations": [
+      "Australia",
+      "Coral Sea Islands Territory",
+      "Willis Island"
+     ]
+    },
+    {
      "id": "Australia_Melbourne",
      "s": 55369634,
      "affiliations": [
@@ -8849,6 +8858,14 @@
      ]
     },
     {
+     "id": "Norway_Jan Mayen",
+     "s": 196627,
+     "affiliations": [
+      "Jan Mayen",
+      "Norge"
+     ]
+    },
+    {
      "id": "Norway_North Trondelag",
      "s": 48112167,
      "affiliations": [
@@ -8909,6 +8926,17 @@
      ],
      "old": [
       "Norway"
+     ]
+    },
+    {
+     "id": "Norway_Bouvet Island",
+     "s": 14708,
+     "affiliations": [
+      "Bouvet\u00f8ya",
+      "Norge"
+     ],
+     "old": [
+      "Bouvet Island"
      ]
     }
    ]
@@ -11606,6 +11634,17 @@
       "South Africa"
      ]
     }
+   ]
+  },
+  {
+   "id": "South Georgia and the South Sandwich Islands",
+   "s": 326315,
+   "affiliations": [
+    "Freezland Rock",
+    "South Georgia and South Sandwich Islands"
+   ],
+   "old": [
+    "South Georgia and the South Sandwich Islands"
    ]
   },
   {
