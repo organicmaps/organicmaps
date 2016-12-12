@@ -495,7 +495,10 @@ bool TrafficInfo::UpdateTrafficData(vector<SpeedGroup> const & values)
   }
 
   for (size_t i = 0; i < m_keys.size(); ++i)
-    m_coloring.emplace(m_keys[i], values[i]);
+  {
+    if (values[i] != SpeedGroup::Unknown)
+      m_coloring.emplace(m_keys[i], values[i]);
+  }
 
   return true;
 }
