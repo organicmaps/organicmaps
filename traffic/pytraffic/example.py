@@ -18,13 +18,13 @@ keys = [
   RoadSegmentId(1, 0, 1),
 ]
 
-fid, idx, dir = keys[2].get_fid(), keys[2].get_idx(), keys[2].get_dir()
+fid, idx, dir = keys[2].fid, keys[2].idx, keys[2].dir
 print fid, idx, dir
 
 keys_from_mwm = generate_traffic_keys(options.path_to_mwm)
 
 seg_speeds = SegmentSpeeds(1.0, 2.0, 3.0)
-ws, wrs, w = seg_speeds.get_weighted_speed(), seg_speeds.get_weighted_ref_speed(), seg_speeds.get_weight()
+ws, wrs, w = seg_speeds.weighted_speed, seg_speeds.weighted_ref_speed, seg_speeds.weight
 print ws, wrs, w
 
 mapping = {
