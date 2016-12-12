@@ -867,7 +867,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
       }
     });
     mOnmapDownloader.onResume();
-    mNavigationController.onResume();
+    if (mNavigationController != null)
+      mNavigationController.onResume();
   }
 
   @Override
@@ -1078,7 +1079,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private BaseMenu getCurrentMenu()
   {
-    return (RoutingController.get().isNavigating() ? mNavigationController.getNavMenu() : mMainMenu);
+    return (RoutingController.get().isNavigating() && mNavigationController != null
+            ? mNavigationController.getNavMenu() : mMainMenu);
   }
 
   private void setFullscreen(boolean isFullscreen)
@@ -1357,7 +1359,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (RoutingController.get().isNavigating())
     {
-      mNavigationController.show(true);
+      if (mNavigationController != null)
+        mNavigationController.show(true);
       mSearchController.hide();
       mMainMenu.setState(MainMenu.State.NAVIGATION, false, mIsFullscreen);
       return;
@@ -1489,7 +1492,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void showNavigation(boolean show)
   {
     mPlacePage.refreshViews();
-    mNavigationController.show(show);
+    if (mNavigationController != null)
+      mNavigationController.show(show);
+    refreshFade();
     mOnmapDownloader.updateState(false);
     adjustCompass(UiUtils.getCompassYOffset(this));
   }
@@ -1576,7 +1581,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (!RoutingController.get().isNavigating())
       return;
 
-    mNavigationController.update(Framework.nativeGetRouteFollowingInfo());
+    if (mNavigationController != null)
+      mNavigationController.update(Framework.nativeGetRouteFollowingInfo());
 
     TtsPlayer.INSTANCE.playTurnNotifications();
   }
@@ -1586,7 +1592,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     MapFragment.nativeCompassUpdated(compass.getMagneticNorth(), compass.getTrueNorth(), false);
     mPlacePage.refreshAzimuth(compass.getNorth());
-    mNavigationController.updateNorth(compass.getNorth());
+    if (mNavigationController != null)
+      mNavigationController.updateNorth(compass.getNorth());
   }
 
   @Override
