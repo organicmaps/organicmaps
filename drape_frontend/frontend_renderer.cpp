@@ -132,7 +132,7 @@ FrontendRenderer::FrontendRenderer(Params const & params)
   , m_requestedTiles(params.m_requestedTiles)
   , m_maxGeneration(0)
   , m_needRestoreSize(false)
-  , m_trafficStateChanged(false)
+  , m_needRegenerateTraffic(false)
   , m_trafficEnabled(params.m_trafficEnabled)
 {
 #ifdef DRAW_INFO
@@ -748,26 +748,15 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       ref_ptr<EnableTrafficMessage> msg = message;
       m_trafficEnabled = msg->IsTrafficEnabled();
       if (msg->IsTrafficEnabled())
-        m_trafficStateChanged = true;
+        m_needRegenerateTraffic = true;
       else
         m_trafficRenderer->ClearGLDependentResources();
       break;
     }
 
-  case Message::UpdateTraffic:
+  case Message::RegenerateTraffic:
     {
-      ref_ptr<UpdateTrafficMessage> msg = message;
-      if (msg->NeedInvalidate())
-        InvalidateRect(m_userEventStream.GetCurrentScreen().ClipRect());
-      else
-        m_trafficRenderer->UpdateTraffic(msg->GetSegmentsColoring());
-      break;
-    }
-
-  case Message::SetTrafficTexCoords:
-    {
-      ref_ptr<SetTrafficTexCoordsMessage> msg = message;
-      m_trafficRenderer->SetTexCoords(move(msg->AcceptTexCoords()));
+      m_needRegenerateTraffic = true;
       break;
     }
 
@@ -852,7 +841,7 @@ void FrontendRenderer::UpdateGLResources()
   // Request new tiles.
   ScreenBase screen = m_userEventStream.GetCurrentScreen();
   m_lastReadedModelView = screen;
-  m_requestedTiles->Set(screen, m_isIsometry || screen.isPerspective(), ResolveTileKeys(screen));
+  m_requestedTiles->Set(screen, m_isIsometry || screen.isPerspective(), m_needRegenerateTraffic, ResolveTileKeys(screen));
   m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                             make_unique_dp<UpdateReadManagerMessage>(),
                             MessagePriority::UberHighSingleton);
@@ -907,7 +896,8 @@ void FrontendRenderer::InvalidateRect(m2::RectD const & gRect)
 
     // Request new tiles.
     m_lastReadedModelView = screen;
-    m_requestedTiles->Set(screen, m_isIsometry || screen.isPerspective(), ResolveTileKeys(screen));
+    m_requestedTiles->Set(screen, m_isIsometry || screen.isPerspective(),
+                          m_needRegenerateTraffic, ResolveTileKeys(screen));
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                               make_unique_dp<UpdateReadManagerMessage>(),
                               MessagePriority::UberHighSingleton);
@@ -1738,7 +1728,7 @@ void FrontendRenderer::Routine::Do()
     isActiveFrame |= m_renderer.m_texMng->UpdateDynamicTextures();
     m_renderer.RenderScene(modelView);
 
-    if (modelViewChanged || m_renderer.m_trafficStateChanged)
+    if (modelViewChanged || m_renderer.m_needRegenerateTraffic)
       m_renderer.UpdateScene(modelView);
 
     isActiveFrame |= InterpolationHolder::Instance().Advance(frameTime);
@@ -1887,15 +1877,16 @@ void FrontendRenderer::UpdateScene(ScreenBase const & modelView)
   for (RenderLayer & layer : m_layers)
     layer.m_isDirty |= RemoveGroups(removePredicate, layer.m_renderGroups, make_ref(m_overlayTree));
 
-  if (m_trafficStateChanged || m_lastReadedModelView != modelView)
+  if (m_needRegenerateTraffic || m_lastReadedModelView != modelView)
   {
-    m_trafficStateChanged = false;
     EmitModelViewChanged(modelView);
     m_lastReadedModelView = modelView;
-    m_requestedTiles->Set(modelView, m_isIsometry || modelView.isPerspective(), ResolveTileKeys(modelView));
+    m_requestedTiles->Set(modelView, m_isIsometry || modelView.isPerspective(), m_needRegenerateTraffic,
+                          ResolveTileKeys(modelView));
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                               make_unique_dp<UpdateReadManagerMessage>(),
                               MessagePriority::UberHighSingleton);
+    m_needRegenerateTraffic = false;
   }
 }
 

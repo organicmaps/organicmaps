@@ -23,10 +23,6 @@ public:
   void AddRenderData(ref_ptr<dp::GpuProgramManager> mng,
                      TrafficRenderData && renderData);
 
-  void SetTexCoords(TrafficTexCoords && texCoords);
-
-  void UpdateTraffic(TrafficSegmentsColoring const & trafficColoring);
-
   void RenderTraffic(ScreenBase const & screen, int zoomLevel, float opacity,
                      ref_ptr<dp::GpuProgramManager> mng,
                      dp::UniformValuesStorage const & commonUniforms);
@@ -47,7 +43,6 @@ private:
   static float GetPixelWidthInternal(RoadClass const & roadClass, int zoomLevel);
 
   vector<TrafficRenderData> m_renderData;
-  TrafficTexCoords m_texCoords;
 };
 
 } // namespace df

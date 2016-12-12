@@ -24,16 +24,15 @@ namespace df
 namespace
 {
 
-uint32_t const kDynamicStreamID = 0x7F;
-
 dp::BindingInfo const & GetTrafficStaticBindingInfo()
 {
   static unique_ptr<dp::BindingInfo> s_info;
   if (s_info == nullptr)
   {
-    dp::BindingFiller<TrafficStaticVertex> filler(2);
+    dp::BindingFiller<TrafficStaticVertex> filler(3);
     filler.FillDecl<TrafficStaticVertex::TPosition>("a_position");
     filler.FillDecl<TrafficStaticVertex::TNormal>("a_normal");
+    filler.FillDecl<TrafficStaticVertex::TTexCoord>("a_colorTexCoord");
     s_info.reset(new dp::BindingInfo(filler.m_info));
   }
   return *s_info;
@@ -44,40 +43,24 @@ dp::BindingInfo const & GetTrafficLineStaticBindingInfo()
   static unique_ptr<dp::BindingInfo> s_info;
   if (s_info == nullptr)
   {
-    dp::BindingFiller<TrafficLineStaticVertex> filler(1);
+    dp::BindingFiller<TrafficLineStaticVertex> filler(2);
     filler.FillDecl<TrafficLineStaticVertex::TPosition>("a_position");
+    filler.FillDecl<TrafficLineStaticVertex::TTexCoord>("a_colorTexCoord");
     s_info.reset(new dp::BindingInfo(filler.m_info));
   }
   return *s_info;
 }
 
-dp::BindingInfo const & GetTrafficDynamicBindingInfo()
-{
-  static unique_ptr<dp::BindingInfo> s_info;
-  if (s_info == nullptr)
-  {
-    dp::BindingFiller<TrafficDynamicVertex> filler(1, kDynamicStreamID);
-    filler.FillDecl<TrafficDynamicVertex::TTexCoord>("a_colorTexCoord");
-    s_info.reset(new dp::BindingInfo(filler.m_info));
-  }
-  return *s_info;
-}
-
-void SubmitStaticVertex(glsl::vec3 const & pivot, glsl::vec2 const & normal, float side, float offsetFromStart,
+void SubmitStaticVertex(glsl::vec3 const & pivot, glsl::vec2 const & normal, float side,
+                        float offsetFromStart, glsl::vec2 const & texCoord,
                         vector<TrafficStaticVertex> & staticGeom)
 {
-  staticGeom.emplace_back(pivot, TrafficStaticVertex::TNormal(normal, side, offsetFromStart));
-}
-
-void SubmitDynamicVertex(glsl::vec2 const & texCoord, vector<TrafficDynamicVertex> & dynamicGeom)
-{
-  dynamicGeom.emplace_back(texCoord);
+  staticGeom.emplace_back(pivot, TrafficStaticVertex::TNormal(normal, side, offsetFromStart), texCoord);
 }
 
 void GenerateCapTriangles(glsl::vec3 const & pivot, vector<glsl::vec2> const & normals,
                           dp::TextureManager::ColorRegion const & colorRegion,
-                          vector<TrafficStaticVertex> & staticGeometry,
-                          vector<TrafficDynamicVertex> & dynamicGeometry)
+                          vector<TrafficStaticVertex> & staticGeometry)
 {
   float const kEps = 1e-5;
   glsl::vec2 const uv = glsl::ToVec2(colorRegion.GetTexRect().Center());
@@ -85,99 +68,15 @@ void GenerateCapTriangles(glsl::vec3 const & pivot, vector<glsl::vec2> const & n
   for (int j = 0; j < trianglesCount; j++)
   {
     SubmitStaticVertex(pivot, normals[3 * j],
-                       glsl::length(normals[3 * j]) < kEps ? 0.0f : 1.0f, 0.0f, staticGeometry);
+                       glsl::length(normals[3 * j]) < kEps ? 0.0f : 1.0f, 0.0f, uv, staticGeometry);
     SubmitStaticVertex(pivot, normals[3 * j + 1],
-                       glsl::length(normals[3 * j + 1]) < kEps ? 0.0f : 1.0f, 0.0f, staticGeometry);
+                       glsl::length(normals[3 * j + 1]) < kEps ? 0.0f : 1.0f, 0.0f, uv, staticGeometry);
     SubmitStaticVertex(pivot, normals[3 * j + 2],
-                       glsl::length(normals[3 * j + 2]) < kEps ? 0.0f : 1.0f, 0.0f, staticGeometry);
-
-    for (int k = 0; k < 3; k++)
-      SubmitDynamicVertex(uv, dynamicGeometry);
+                       glsl::length(normals[3 * j + 2]) < kEps ? 0.0f : 1.0f, 0.0f, uv, staticGeometry);
   }
 }
 
 } // namespace
-
-TrafficHandle::TrafficHandle(traffic::TrafficInfo::RoadSegmentId const & segmentId, RoadClass const & roadClass,
-                             m2::RectD const & boundingBox, glsl::vec2 const & texCoord, size_t verticesCount)
-  : OverlayHandle(FeatureID(), dp::Anchor::Center, 0, false)
-  , m_segmentId(segmentId)
-  , m_roadClass(roadClass)
-  , m_boundingBox(boundingBox)
-  , m_needUpdate(false)
-{
-  ASSERT_NOT_EQUAL(verticesCount, 0, ());
-  m_buffer.resize(verticesCount);
-  for (size_t i = 0; i < m_buffer.size(); i++)
-    m_buffer[i] = texCoord;
-}
-
-void TrafficHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator) const
-{
-  if (!m_needUpdate)
-    return;
-
-  TOffsetNode const & node = GetOffsetNode(kDynamicStreamID);
-  ASSERT(node.first.GetElementSize() == sizeof(TrafficDynamicVertex), ());
-  ASSERT(node.second.m_count == m_buffer.size(), ());
-
-  uint32_t const byteCount = m_buffer.size() * sizeof(TrafficDynamicVertex);
-  void * buffer = mutator->AllocateMutationBuffer(byteCount);
-  memcpy(buffer, m_buffer.data(), byteCount);
-
-  dp::MutateNode mutateNode;
-  mutateNode.m_region = node.second;
-  mutateNode.m_data = make_ref(buffer);
-  mutator->AddMutation(node.first, mutateNode);
-
-  m_needUpdate = false;
-}
-
-bool TrafficHandle::Update(ScreenBase const & screen)
-{
-  UNUSED_VALUE(screen);
-  return true;
-}
-
-bool TrafficHandle::IndexesRequired() const
-{
-  return false;
-}
-
-m2::RectD TrafficHandle::GetPixelRect(ScreenBase const & screen, bool perspective) const
-{
-  UNUSED_VALUE(screen);
-  UNUSED_VALUE(perspective);
-  return m2::RectD();
-}
-
-void TrafficHandle::GetPixelShape(ScreenBase const & screen, bool perspective, Rects & rects) const
-{
-  UNUSED_VALUE(screen);
-  UNUSED_VALUE(perspective);
-}
-
-void TrafficHandle::SetTexCoord(glsl::vec2 const & texCoord)
-{
-  for (size_t i = 0; i < m_buffer.size(); i++)
-    m_buffer[i] = texCoord;
-  m_needUpdate = true;
-}
-
-traffic::TrafficInfo::RoadSegmentId const & TrafficHandle::GetSegmentId() const
-{
-  return m_segmentId;
-}
-
-RoadClass const & TrafficHandle::GetRoadClass() const
-{
-  return m_roadClass;
-}
-
-m2::RectD const & TrafficHandle::GetBoundingBox() const
-{
-  return m_boundingBox;
-}
 
 void TrafficGenerator::Init()
 {
@@ -188,10 +87,7 @@ void TrafficGenerator::Init()
                                   kBatchSize, kBatchSize);
 
   m_providerLines.InitStream(0 /* stream index */, GetTrafficLineStaticBindingInfo(), nullptr);
-  m_providerLines.InitStream(1 /* stream index */, GetTrafficDynamicBindingInfo(), nullptr);
-
   m_providerTriangles.InitStream(0 /* stream index */, GetTrafficStaticBindingInfo(), nullptr);
-  m_providerTriangles.InitStream(1 /* stream index */, GetTrafficDynamicBindingInfo(), nullptr);
 }
 
 void TrafficGenerator::ClearGLDependentResources()
@@ -245,48 +141,33 @@ void TrafficGenerator::FlushSegmentsGeometry(TileKey const & tileKey, TrafficSeg
 
           ASSERT(m_colorsCacheValid, ());
           dp::TextureManager::ColorRegion const & colorRegion = m_colorsCache[static_cast<size_t>(segmentColoringIt->second)];
-          glsl::vec2 const uv = glsl::ToVec2(colorRegion.GetTexRect().Center());
 
           int width = 0;
           if (TrafficRenderer::CanBeRendereredAsLine(g.m_roadClass, tileKey.m_zoomLevel, width))
           {
             vector<TrafficLineStaticVertex> staticGeometry;
-            vector<TrafficDynamicVertex> dynamicGeometry;
-            GenerateLineSegment(colorRegion, g.m_polyline, tileKey.GetGlobalRect().Center(), depth,
-                                staticGeometry, dynamicGeometry);
-            ASSERT_EQUAL(staticGeometry.size(), dynamicGeometry.size(), ());
-
-            if ((staticGeometry.size() + dynamicGeometry.size()) == 0)
+            GenerateLineSegment(colorRegion, g.m_polyline, tileKey.GetGlobalRect().Center(), depth, staticGeometry);
+            if (staticGeometry.empty())
               continue;
 
-            drape_ptr<dp::OverlayHandle> handle = make_unique_dp<TrafficHandle>(sid, g.m_roadClass, g.m_polyline.GetLimitRect(), uv,
-                                                                                staticGeometry.size());
             m_providerLines.Reset(staticGeometry.size());
             m_providerLines.UpdateStream(0 /* stream index */, make_ref(staticGeometry.data()));
-            m_providerLines.UpdateStream(1 /* stream index */, make_ref(dynamicGeometry.data()));
 
             dp::GLState curLineState = lineState;
             curLineState.SetLineWidth(width);
-            batcher->InsertLineStrip(curLineState, make_ref(&m_providerLines), move(handle));
+            batcher->InsertLineStrip(curLineState, make_ref(&m_providerLines));
           }
           else
           {
             vector<TrafficStaticVertex> staticGeometry;
-            vector<TrafficDynamicVertex> dynamicGeometry;
             bool const generateCaps = (tileKey.m_zoomLevel > kGenerateCapsZoomLevel[static_cast<uint32_t>(g.m_roadClass)]);
-            GenerateSegment(colorRegion, g.m_polyline, tileKey.GetGlobalRect().Center(), generateCaps, depth,
-                            staticGeometry, dynamicGeometry);
-            ASSERT_EQUAL(staticGeometry.size(), dynamicGeometry.size(), ());
-
-            if ((staticGeometry.size() + dynamicGeometry.size()) == 0)
+            GenerateSegment(colorRegion, g.m_polyline, tileKey.GetGlobalRect().Center(), generateCaps, depth, staticGeometry);
+            if (staticGeometry.empty())
               continue;
 
-            drape_ptr<dp::OverlayHandle> handle = make_unique_dp<TrafficHandle>(sid, g.m_roadClass, g.m_polyline.GetLimitRect(), uv,
-                                                                                staticGeometry.size());
             m_providerTriangles.Reset(staticGeometry.size());
             m_providerTriangles.UpdateStream(0 /* stream index */, make_ref(staticGeometry.data()));
-            m_providerTriangles.UpdateStream(1 /* stream index */, make_ref(dynamicGeometry.data()));
-            batcher->InsertTriangleList(state, make_ref(&m_providerTriangles), move(handle));
+            batcher->InsertTriangleList(state, make_ref(&m_providerTriangles));
           }
         }
       }
@@ -299,16 +180,10 @@ void TrafficGenerator::FlushSegmentsGeometry(TileKey const & tileKey, TrafficSeg
   GLFunctions::glFlush();
 }
 
-bool TrafficGenerator::UpdateColoring(TrafficSegmentsColoring const & coloring)
+void TrafficGenerator::UpdateColoring(TrafficSegmentsColoring const & coloring)
 {
-  bool hasNew = false;
-  for (auto it = coloring.begin(); it != coloring.end(); ++it)
-  {
-    if (!hasNew && m_coloring.find(it->first) == m_coloring.end())
-      hasNew = true;
-    m_coloring[it->first] = it->second;
-  }
-  return hasNew;
+  for (auto const & p : coloring)
+    m_coloring[p.first] = p.second;
 }
 
 void TrafficGenerator::ClearCache()
@@ -334,21 +209,20 @@ void TrafficGenerator::FlushGeometry(TrafficBatcherKey const & key, dp::GLState 
   renderData.m_bucket = move(buffer);
   renderData.m_mwmId = key.m_mwmId;
   renderData.m_tileKey = key.m_tileKey;
+  renderData.m_roadClass = key.m_roadClass;
   m_flushRenderDataFn(move(renderData));
 }
 
 void TrafficGenerator::GenerateSegment(dp::TextureManager::ColorRegion const & colorRegion,
                                        m2::PolylineD const & polyline, m2::PointD const & tileCenter,
-                                       bool generateCaps, float depth, vector<TrafficStaticVertex> & staticGeometry,
-                                       vector<TrafficDynamicVertex> & dynamicGeometry)
+                                       bool generateCaps, float depth, vector<TrafficStaticVertex> & staticGeometry)
 {
   vector<m2::PointD> const & path = polyline.GetPoints();
   ASSERT_GREATER(path.size(), 1, ());
 
   size_t const kAverageSize = path.size() * 4;
-  size_t const kAverageCapSize = 24;
+  size_t const kAverageCapSize = 12;
   staticGeometry.reserve(staticGeometry.size() + kAverageSize + kAverageCapSize * 2);
-  dynamicGeometry.reserve(dynamicGeometry.size() + kAverageSize + kAverageCapSize * 2);
 
   // Build geometry.
   glsl::vec2 firstPoint, firstTangent, firstLeftNormal, firstRightNormal;
@@ -383,14 +257,12 @@ void TrafficGenerator::GenerateSegment(dp::TextureManager::ColorRegion const & c
 
     glsl::vec3 const startPivot = glsl::vec3(p1, depth);
     glsl::vec3 const endPivot = glsl::vec3(p2, depth);
-    SubmitStaticVertex(startPivot, rightNormal, -1.0f, 0.0f, staticGeometry);
-    SubmitStaticVertex(startPivot, leftNormal, 1.0f, 0.0f, staticGeometry);
-    SubmitStaticVertex(endPivot, rightNormal, -1.0f, maskSize, staticGeometry);
-    SubmitStaticVertex(endPivot, rightNormal, -1.0f, maskSize, staticGeometry);
-    SubmitStaticVertex(startPivot, leftNormal, 1.0f, 0.0f, staticGeometry);
-    SubmitStaticVertex(endPivot, leftNormal, 1.0f, maskSize, staticGeometry);
-    for (int j = 0; j < 6; j++)
-      SubmitDynamicVertex(uv, dynamicGeometry);
+    SubmitStaticVertex(startPivot, rightNormal, -1.0f, 0.0f, uv, staticGeometry);
+    SubmitStaticVertex(startPivot, leftNormal, 1.0f, 0.0f, uv, staticGeometry);
+    SubmitStaticVertex(endPivot, rightNormal, -1.0f, maskSize, uv, staticGeometry);
+    SubmitStaticVertex(endPivot, rightNormal, -1.0f, maskSize, uv, staticGeometry);
+    SubmitStaticVertex(startPivot, leftNormal, 1.0f, 0.0f, uv, staticGeometry);
+    SubmitStaticVertex(endPivot, leftNormal, 1.0f, maskSize, uv, staticGeometry);
   }
 
   // Generate caps.
@@ -401,36 +273,31 @@ void TrafficGenerator::GenerateSegment(dp::TextureManager::ColorRegion const & c
     normals.reserve(kAverageCapSize);
     GenerateCapNormals(dp::RoundCap, firstLeftNormal, firstRightNormal, -firstTangent,
                        1.0f, true /* isStart */, normals, kSegmentsCount);
-    GenerateCapTriangles(glsl::vec3(firstPoint, depth), normals, colorRegion,
-                         staticGeometry, dynamicGeometry);
+    GenerateCapTriangles(glsl::vec3(firstPoint, depth), normals, colorRegion, staticGeometry);
 
     normals.clear();
     GenerateCapNormals(dp::RoundCap, lastLeftNormal, lastRightNormal, lastTangent,
                        1.0f, false /* isStart */, normals, kSegmentsCount);
-    GenerateCapTriangles(glsl::vec3(lastPoint, depth), normals, colorRegion,
-                         staticGeometry, dynamicGeometry);
+    GenerateCapTriangles(glsl::vec3(lastPoint, depth), normals, colorRegion, staticGeometry);
   }
 }
 
 void TrafficGenerator::GenerateLineSegment(dp::TextureManager::ColorRegion const & colorRegion,
                                            m2::PolylineD const & polyline, m2::PointD const & tileCenter,
-                                           float depth, vector<TrafficLineStaticVertex> & staticGeometry,
-                                           vector<TrafficDynamicVertex> & dynamicGeometry)
+                                           float depth, vector<TrafficLineStaticVertex> & staticGeometry)
 {
   vector<m2::PointD> const & path = polyline.GetPoints();
   ASSERT_GREATER(path.size(), 1, ());
 
   size_t const kAverageSize = path.size();
   staticGeometry.reserve(staticGeometry.size() + kAverageSize);
-  dynamicGeometry.reserve(dynamicGeometry.size() + kAverageSize);
 
   // Build geometry.
   glsl::vec2 const uv = glsl::ToVec2(colorRegion.GetTexRect().Center());
   for (size_t i = 0; i < path.size(); ++i)
   {
     glsl::vec2 const p = glsl::ToVec2(MapShape::ConvertToLocal(path[i], tileCenter, kShapeCoordScalar));
-    staticGeometry.emplace_back(glsl::vec3(p, depth));
-    SubmitDynamicVertex(uv, dynamicGeometry);
+    staticGeometry.emplace_back(glsl::vec3(p, depth), uv);
   }
 }
 
@@ -469,18 +336,7 @@ void TrafficGenerator::FillColorsCache(ref_ptr<dp::TextureManager> textures)
       m_colorsCache[i] = colorRegion;
     }
     m_colorsCacheValid = true;
-    m_colorsCacheRefreshed = true;
   }
 }
 
-TrafficTexCoords TrafficGenerator::ProcessCacheRefreshing()
-{
-  TrafficTexCoords result;
-  for (size_t i = 0; i < m_colorsCache.size(); i++)
-    result[i] = glsl::ToVec2(m_colorsCache[i].GetTexRect().Center());
-  m_colorsCacheRefreshed = false;
-  return result;
-}
-
 } // namespace df
-

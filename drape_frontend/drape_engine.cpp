@@ -557,7 +557,7 @@ void DrapeEngine::UpdateTraffic(traffic::TrafficInfo const & info)
   segmentsColoring.emplace(info.GetMwmId(), info.GetColoring());
 
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<UpdateTrafficMessage>(move(segmentsColoring), false),
+                                  make_unique_dp<UpdateTrafficMessage>(move(segmentsColoring)),
                                   MessagePriority::Normal);
 }
 

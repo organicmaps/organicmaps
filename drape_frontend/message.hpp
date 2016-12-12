@@ -67,7 +67,7 @@ public:
     SetVisibleViewport,
     EnableTraffic,
     FlushTrafficGeometry,
-    SetTrafficTexCoords,
+    RegenerateTraffic,
     UpdateTraffic,
     FlushTrafficData,
     ClearTrafficData,

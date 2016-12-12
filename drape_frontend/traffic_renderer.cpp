@@ -111,14 +111,6 @@ void TrafficRenderer::AddRenderData(ref_ptr<dp::GpuProgramManager> mng, TrafficR
   ref_ptr<dp::GpuProgram> program = mng->GetProgram(rd.m_state.GetProgramIndex());
   program->Bind();
   rd.m_bucket->GetBuffer()->Build(program);
-
-  rd.m_handles.reserve(rd.m_bucket->GetOverlayHandlesCount());
-  for (size_t j = 0; j < rd.m_bucket->GetOverlayHandlesCount(); j++)
-  {
-    TrafficHandle * handle = static_cast<TrafficHandle *>(rd.m_bucket->GetOverlayHandle(j).get());
-    rd.m_handles.emplace_back(handle);
-    rd.m_boundingBox.Add(handle->GetBoundingBox());
-  }
 }
 
 void TrafficRenderer::OnUpdateViewport(CoverageResult const & coverage, int currentZoomLevel,
@@ -143,36 +135,12 @@ void TrafficRenderer::OnGeometryReady(int currentZoomLevel)
   }), m_renderData.end());
 }
 
-void TrafficRenderer::UpdateTraffic(TrafficSegmentsColoring const & trafficColoring)
-{
-  for (TrafficRenderData & renderData : m_renderData)
-  {
-    auto coloringIt = trafficColoring.find(renderData.m_mwmId);
-    if (coloringIt == trafficColoring.end())
-      continue;
-
-    for (size_t i = 0; i < renderData.m_handles.size(); i++)
-    {
-      auto it = coloringIt->second.find(renderData.m_handles[i]->GetSegmentId());
-      if (it != coloringIt->second.end())
-      {
-        auto texCoordIt = m_texCoords.find(static_cast<size_t>(it->second));
-        if (texCoordIt == m_texCoords.end())
-          continue;
-        renderData.m_handles[i]->SetTexCoord(texCoordIt->second);
-      }
-    }
-  }
-}
-
 void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel, float opacity,
                                     ref_ptr<dp::GpuProgramManager> mng,
                                     dp::UniformValuesStorage const & commonUniforms)
 {
   if (m_renderData.empty() || zoomLevel < kRoadClass0ZoomLevel)
     return;
-
-  m2::RectD const clipRect = screen.ClipRect();
 
   auto const style = GetStyleReader().GetCurrentStyle();
   dp::Color const lightArrowColor = df::GetColorConstant(style, df::TrafficArrowLight);
@@ -182,9 +150,6 @@ void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel, fl
   GLFunctions::glClearDepth();
   for (TrafficRenderData & renderData : m_renderData)
   {
-    if (!clipRect.IsIntersect(renderData.m_boundingBox))
-      continue;
-
     if (renderData.m_state.GetDrawAsLine())
     {
       ref_ptr<dp::GpuProgram> program = mng->GetProgram(renderData.m_state.GetProgramIndex());
@@ -208,37 +173,30 @@ void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel, fl
       int minVisibleArrowZoomLevel = kMinVisibleArrowZoomLevel;
       float outline = 0.0f;
 
-      if (renderData.m_bucket->GetOverlayHandlesCount() > 0)
+      int visibleZoomLevel = kRoadClass0ZoomLevel;
+      if (renderData.m_roadClass == RoadClass::Class0)
       {
-        TrafficHandle * handle = static_cast<TrafficHandle *>(renderData.m_bucket->GetOverlayHandle(0).get());
-        ASSERT(handle != nullptr, ());
-
-        int visibleZoomLevel = kRoadClass0ZoomLevel;
-        if (handle->GetRoadClass() == RoadClass::Class0)
-        {
-          outline = (zoomLevel <= kOutlineMinZoomLevel ? 1.0 : 0.0);
-        }
-        else if (handle->GetRoadClass() == RoadClass::Class1)
-        {
-          outline = (zoomLevel <= kOutlineMinZoomLevel ? 1.0 : 0.0);
-          visibleZoomLevel = kRoadClass1ZoomLevel;
-        }
-        else if (handle->GetRoadClass() == RoadClass::Class2)
-        {
-          visibleZoomLevel = kRoadClass2ZoomLevel;
-          minVisibleArrowZoomLevel = kRoadClass2MinVisibleArrowZoomLevel;
-        }
-
-        if (zoomLevel < visibleZoomLevel)
-          continue;
-
-        leftPixelHalfWidth = CalculateHalfWidth(screen, handle->GetRoadClass(), true /* left */);
-        invLeftPixelLength = 1.0f / (2.0f * leftPixelHalfWidth * kTrafficArrowAspect);
-        rightPixelHalfWidth = CalculateHalfWidth(screen, handle->GetRoadClass(), false /* left */);
-        float const kEps = 1e-5;
-        if (fabs(leftPixelHalfWidth) < kEps && fabs(rightPixelHalfWidth) < kEps)
-          continue;
+        outline = (zoomLevel <= kOutlineMinZoomLevel ? 1.0 : 0.0);
       }
+      else if (renderData.m_roadClass == RoadClass::Class1)
+      {
+        outline = (zoomLevel <= kOutlineMinZoomLevel ? 1.0 : 0.0);
+        visibleZoomLevel = kRoadClass1ZoomLevel;
+      }
+      else if (renderData.m_roadClass == RoadClass::Class2)
+      {
+        visibleZoomLevel = kRoadClass2ZoomLevel;
+        minVisibleArrowZoomLevel = kRoadClass2MinVisibleArrowZoomLevel;
+      }
+      if (zoomLevel < visibleZoomLevel)
+        continue;
+
+      leftPixelHalfWidth = CalculateHalfWidth(screen, renderData.m_roadClass, true /* left */);
+      invLeftPixelLength = 1.0f / (2.0f * leftPixelHalfWidth * kTrafficArrowAspect);
+      rightPixelHalfWidth = CalculateHalfWidth(screen, renderData.m_roadClass, false /* left */);
+      float const kEps = 1e-5;
+      if (fabs(leftPixelHalfWidth) < kEps && fabs(rightPixelHalfWidth) < kEps)
+        continue;
 
       ref_ptr<dp::GpuProgram> program = mng->GetProgram(renderData.m_state.GetProgramIndex());
       program->Bind();
@@ -264,15 +222,9 @@ void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel, fl
   }
 }
 
-void TrafficRenderer::SetTexCoords(TrafficTexCoords && texCoords)
-{
-  m_texCoords = move(texCoords);
-}
-
 void TrafficRenderer::ClearGLDependentResources()
 {
   m_renderData.clear();
-  m_texCoords.clear();
 }
 
 void TrafficRenderer::Clear(MwmSet::MwmId const & mwmId)

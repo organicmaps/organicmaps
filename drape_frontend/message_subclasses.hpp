@@ -1032,39 +1032,26 @@ private:
   TrafficSegmentsGeometry m_segments;
 };
 
-class SetTrafficTexCoordsMessage : public Message
+class RegenerateTrafficMessage : public Message
 {
 public:
-  explicit SetTrafficTexCoordsMessage(TrafficTexCoords && texCoords)
-    : m_texCoords(move(texCoords))
-  {}
-
-  Type GetType() const override { return Message::SetTrafficTexCoords; }
-  bool IsGLContextDependent() const override { return true; }
-
-  TrafficTexCoords && AcceptTexCoords() { return move(m_texCoords); }
-
-private:
-  TrafficTexCoords m_texCoords;
+  Type GetType() const override { return Message::RegenerateTraffic; }
 };
 
 class UpdateTrafficMessage : public Message
 {
 public:
-  UpdateTrafficMessage(TrafficSegmentsColoring && segmentsColoring, bool needInvalidate)
+  explicit UpdateTrafficMessage(TrafficSegmentsColoring && segmentsColoring)
     : m_segmentsColoring(move(segmentsColoring))
-    , m_needInvalidate(needInvalidate)
   {}
 
   Type GetType() const override { return Message::UpdateTraffic; }
   bool IsGLContextDependent() const override { return true; }
 
   TrafficSegmentsColoring & GetSegmentsColoring() { return m_segmentsColoring; }
-  bool NeedInvalidate() const { return m_needInvalidate; }
 
 private:
   TrafficSegmentsColoring m_segmentsColoring;
-  bool const m_needInvalidate;
 };
 
 class FlushTrafficDataMessage : public Message

@@ -109,9 +109,11 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       TTilesCollection tiles = m_requestedTiles->GetTiles();
       if (!tiles.empty())
       {
-        ScreenBase const screen = m_requestedTiles->GetScreen();
-        bool const have3dBuildings = m_requestedTiles->Have3dBuildings();
-        m_readManager->UpdateCoverage(screen, have3dBuildings, tiles, m_texMng);
+        ScreenBase screen;
+        bool have3dBuildings;
+        bool needRegenerateTraffic;
+        m_requestedTiles->GetParams(screen, have3dBuildings, needRegenerateTraffic);
+        m_readManager->UpdateCoverage(screen, have3dBuildings, needRegenerateTraffic, tiles, m_texMng);
         m_updateCurrentCountryFn(screen.ClipRect().Center(), (*tiles.begin()).m_zoomLevel);
       }
       break;
@@ -355,17 +357,9 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::UpdateTraffic:
     {
       ref_ptr<UpdateTrafficMessage> msg = message;
-      bool const needInvalidate = m_trafficGenerator->UpdateColoring(msg->GetSegmentsColoring());
-      if (m_trafficGenerator->IsColorsCacheRefreshed())
-      {
-        auto texCoords = m_trafficGenerator->ProcessCacheRefreshing();
-        m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<SetTrafficTexCoordsMessage>(move(texCoords)),
-                                  MessagePriority::Normal);
-      }
+      m_trafficGenerator->UpdateColoring(msg->GetSegmentsColoring());
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                make_unique_dp<UpdateTrafficMessage>(move(msg->GetSegmentsColoring()),
-                                                                     needInvalidate),
+                                make_unique_dp<RegenerateTrafficMessage>(),
                                 MessagePriority::Normal);
       break;
     }
