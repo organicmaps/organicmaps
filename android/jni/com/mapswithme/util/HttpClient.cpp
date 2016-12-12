@@ -131,21 +131,22 @@ void LoadHeaders(ScopedEnv & env, jobject const params, unordered_map<string, st
   static jfieldID const keyId = env->GetFieldID(g_httpHeaderClazz, "key", "Ljava/lang/String;");
   static jfieldID const valueId = env->GetFieldID(g_httpHeaderClazz, "value", "Ljava/lang/String;");
 
-  jobjectArray const headersArray =
-      static_cast<jobjectArray>(env->CallObjectMethod(params, getHeaders));
+  jni::ScopedLocalRef<jobjectArray> const headersArray(
+      env.get(), static_cast<jobjectArray>(env->CallObjectMethod(params, getHeaders)));
 
   RethrowOnJniException(env);
 
   headers.clear();
-  int const length = env->GetArrayLength(headersArray);
+  int const length = env->GetArrayLength(headersArray.get());
   for (size_t i = 0; i < length; ++i)
   {
-    jobject headerEntry = env->GetObjectArrayElement(headersArray, i);
+    jni::ScopedLocalRef<jobject> const headerEntry(
+        env.get(), env->GetObjectArrayElement(headersArray.get(), i));
 
     jni::ScopedLocalRef<jstring> const key(
-        env.get(), static_cast<jstring>(env->GetObjectField(headerEntry, keyId)));
+        env.get(), static_cast<jstring>(env->GetObjectField(headerEntry.get(), keyId)));
     jni::ScopedLocalRef<jstring> const value(
-        env.get(), static_cast<jstring>(env->GetObjectField(headerEntry, valueId)));
+        env.get(), static_cast<jstring>(env->GetObjectField(headerEntry.get(), valueId)));
 
     headers.emplace(jni::ToNativeString(env.get(), key.get()),
                     jni::ToNativeString(env.get(), value.get()));
