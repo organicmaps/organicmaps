@@ -15,10 +15,10 @@
 
 #include "std/numeric.hpp"
 
-namespace routing
-{
 using namespace traffic;
 
+namespace routing
+{
 namespace
 {
 double constexpr kLocationTimeThreshold = 60.0 * 1.0;
@@ -368,17 +368,14 @@ void Route::AppendTraffic(Route const & route)
 
   if (!IsValid())
   {
-    m_traffic.assign(route.GetTraffic().cbegin(), route.GetTraffic().cend());
+    m_traffic = route.GetTraffic();
     return;
   }
 
   // Note. At this point the last item of |m_poly| should be removed.
-  // So the size of |m_traffic| should be equal to size of |m_poly.
+  // So the size of |m_traffic| should be equal to size of |m_poly|.
   if (GetTraffic().empty())
-  {
-    CHECK_GREATER_OR_EQUAL(m_poly.GetPolyline().GetSize(), 1, ());
     m_traffic.resize(m_poly.GetPolyline().GetSize(), SpeedGroup::Unknown);
-  }
 
   CHECK_EQUAL(GetTraffic().size(), m_poly.GetPolyline().GetSize(), ());
 
@@ -386,13 +383,14 @@ void Route::AppendTraffic(Route const & route)
   {
     CHECK_GREATER_OR_EQUAL(route.m_poly.GetPolyline().GetSize(), 1, ());
     m_traffic.insert(m_traffic.end(),
-                     route.m_poly.GetPolyline().GetSize() - 1 /* segment number is less by one */,
+                     route.m_poly.GetPolyline().GetSize() - 1 /* number of segments is less by one */,
                      SpeedGroup::Unknown);
   }
   else
   {
     m_traffic.insert(m_traffic.end(), route.GetTraffic().cbegin(), route.GetTraffic().cend());
   }
+  CHECK_EQUAL(GetTraffic().size() + 1, m_poly.GetPolyline().GetSize(), ());
 }
 
 void Route::AppendRoute(Route const & route)

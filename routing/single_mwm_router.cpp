@@ -151,6 +151,8 @@ IRouter::ResultCode SingleMwmRouter::DoCalculateRoute(MwmSet::MwmId const & mwmI
     vector<Junction> path = ConvertToJunctions(starter, routingResult.path);
     shared_ptr<traffic::TrafficInfo::Coloring> trafficColoring = m_trafficCache.GetTrafficInfo(mwmId);
     ReconstructRoute(m_directionsEngine.get(), m_roadGraph, trafficColoring, delegate, path, route);
+    if (delegate.IsCancelled())
+      return IRouter::Cancelled;
     return IRouter::NoError;
   }
 }

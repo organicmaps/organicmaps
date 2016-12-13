@@ -20,7 +20,7 @@ public:
   virtual void Generate(IRoadGraph const & graph, vector<Junction> const & path,
                         Route::TTimes & times, Route::TTurns & turns,
                         vector<Junction> & routeGeometry,
-                        vector<traffic::TrafficInfo::RoadSegmentId> & routeSegs,
+                        vector<traffic::TrafficInfo::RoadSegmentId> & trafficSegs,
                         my::Cancellable const & cancellable) = 0;
 
 protected:

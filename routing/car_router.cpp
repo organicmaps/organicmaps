@@ -207,7 +207,7 @@ IRouter::ResultCode FindSingleOsrmRoute(FeatureGraphNode const & source,
   Route::TTurns turns;
   Route::TTimes times;
   Route::TStreets streets;
-  vector<traffic::TrafficInfo::RoadSegmentId> routeSegs;
+  vector<traffic::TrafficInfo::RoadSegmentId> trafficSegs;
 
   LOG(LINFO, ("OSRM route from", MercatorBounds::ToLatLon(source.segmentPoint), "to",
               MercatorBounds::ToLatLon(target.segmentPoint)));
@@ -218,7 +218,7 @@ IRouter::ResultCode FindSingleOsrmRoute(FeatureGraphNode const & source,
 
   OSRMRoutingResult routingResult(index, *mapping, rawRoutingResult);
   routing::IRouter::ResultCode const result =
-      MakeTurnAnnotation(routingResult, delegate, geometry, turns, times, streets, routeSegs);
+      MakeTurnAnnotation(routingResult, delegate, geometry, turns, times, streets, trafficSegs);
   if (result != routing::IRouter::NoError)
   {
     LOG(LWARNING, ("Can't load road path data from disk for", mapping->GetCountryName(),
@@ -276,8 +276,14 @@ bool CarRouter::FindRouteMSMT(TFeatureGraphNodeVec const & sources,
   {
     for (auto const & sourceEdge : sources)
     {
-      if (FindSingleRouteDispatcher(sourceEdge, targetEdge, delegate, mapping, route) == NoError)
-        return true;
+      IRouter::ResultCode const code =
+          FindSingleRouteDispatcher(sourceEdge, targetEdge, delegate, mapping, route);
+      switch (code)
+      {
+      case NoError: return true;
+      case Cancelled: return false;
+      default: continue;
+      }
     }
   }
   return false;

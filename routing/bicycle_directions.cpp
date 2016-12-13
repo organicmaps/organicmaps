@@ -87,7 +87,7 @@ BicycleDirectionsEngine::BicycleDirectionsEngine(Index const & index) : m_index(
 void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction> const & path,
                                        Route::TTimes & times, Route::TTurns & turns,
                                        vector<Junction> & routeGeometry,
-                                       vector<traffic::TrafficInfo::RoadSegmentId> & routeSegs,
+                                       vector<TrafficInfo::RoadSegmentId> & trafficSegs,
                                        my::Cancellable const & cancellable)
 {
   times.clear();
@@ -95,7 +95,7 @@ void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction
   routeGeometry.clear();
   m_adjacentEdges.clear();
   m_pathSegments.clear();
-  routeSegs.clear();
+  trafficSegs.clear();
 
   size_t const pathSize = path.size();
   if (pathSize == 0)
@@ -132,6 +132,9 @@ void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction
   m_adjacentEdges.insert(make_pair(0, AdjacentEdges(0)));
   for (size_t i = 1; i < pathSize; ++i)
   {
+    if (cancellable.IsCancelled())
+      return;
+
     Junction const & prevJunction = path[i - 1];
     Junction const & currJunction = path[i];
     IRoadGraph::TEdgeVector outgoingEdges, ingoingEdges;
@@ -169,7 +172,7 @@ void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction
     // prevJunction == path[i - 1] and currJunction == path[i].
     if (inFeatureId.IsValid())
       LoadPathGeometry(inFeatureId, {prevJunction, currJunction}, pathSegment);
-    pathSegment.m_routeSegs = {
+    pathSegment.m_trafficSegs = {
       {inFeatureId.m_index,
        static_cast<uint16_t>(routeEdges[i - 1].GetSegId()),
        routeEdges[i - 1].IsForward() ? TrafficInfo::RoadSegmentId::kForwardDirection
@@ -186,12 +189,17 @@ void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction
   Route::TStreets streetNames;
 
   MakeTurnAnnotation(resultGraph, delegate, routeGeometry, turns, turnAnnotationTimes,
-                     streetNames, routeSegs);
+                     streetNames, trafficSegs);
   // @TODO(bykoianko) The invariant below it's an issue but now it's so and it should be checked.
-  // The problem is every edge is added as a pair of point to route geometry.
+  // The problem is every edge is added as a pair of points to route geometry.
   // So all the points except for beginning and ending are duplicated. It should
   // be fixed in the future.
-  ASSERT_EQUAL(routeGeometry.size(), 2 * routeSegs.size(), ());
+
+  // Note 1. Accoding to current implementation all internal points are duplicated for
+  // all A* routes.
+  // Note 2. Number of |trafficSegs| should be equal to number of |routeEdges|.
+  ASSERT_EQUAL(routeGeometry.size(), 2 * (pathSize - 2) + 2, ());
+  ASSERT_EQUAL(trafficSegs.size(), pathSize - 1, ());
 }
 
 Index::FeaturesLoaderGuard & BicycleDirectionsEngine::GetLoader(MwmSet::MwmId const & id)
