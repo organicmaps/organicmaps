@@ -35,6 +35,7 @@ abstract class BaseNewsFragment extends BaseMwmDialogFragment
   private View mPrevButton;
   private View mNextButton;
   private View mDoneButton;
+  private View mSkipButton;
   private ImageView[] mDots;
 
   private int mPageCount;
@@ -164,6 +165,7 @@ abstract class BaseNewsFragment extends BaseMwmDialogFragment
     UiUtils.showIf(cur > 0, mPrevButton);
     UiUtils.showIf(cur + 1 < mPageCount, mNextButton);
     UiUtils.visibleIf(cur + 1 == mPageCount, mDoneButton);
+    UiUtils.visibleIf(cur == 0, mSkipButton);
 
     if (mPageCount == 1)
       return;
@@ -253,6 +255,7 @@ abstract class BaseNewsFragment extends BaseMwmDialogFragment
     mPrevButton = content.findViewById(R.id.back);
     mNextButton = content.findViewById(R.id.next);
     mDoneButton = content.findViewById(R.id.done);
+    mSkipButton = content.findViewById(R.id.skip);
 
     mPrevButton.setOnClickListener(new View.OnClickListener()
     {
@@ -273,6 +276,15 @@ abstract class BaseNewsFragment extends BaseMwmDialogFragment
     });
 
     mDoneButton.setOnClickListener(new View.OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        dismissAllowingStateLoss();
+      }
+    });
+
+    mSkipButton.setOnClickListener(new View.OnClickListener()
     {
       @Override
       public void onClick(View v)

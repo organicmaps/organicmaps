@@ -29,18 +29,25 @@
 
   <!-- What's new -->
   <integer-array name="news_images">
-    <item>@drawable/img_whatsnew_uber</item>
+    <item>@drawable/img_whatsnew_traffic</item>
+    <item>@drawable/img_whatsnew_traffic_roaming</item>
+    <item>@drawable/img_whatsnew_update_uber</item>
   </integer-array>
 
   <string-array name="news_titles">
-    <item>@string/whatsnew_uber_header</item>
+    <item>@string/whatsnew_traffic</item>
+    <item>@string/whatsnew_traffic_roaming</item>
+    <item>@string/whatsnew_order_taxi</item>
   </string-array>
 
   <string-array name="news_messages_1">
-    <item>@string/whatsnew_uber_message</item>
+    <item>@string/whatsnew_traffic_text</item>
+    <item>@string/whatsnew_traffic_roaming_text</item>
+    <item>@string/whatsnew_order_taxi_text</item>
   </string-array>
 
   <string-array name="news_messages_2">
+    <item/>
     <item/>
     <item/>
   </string-array>
@@ -48,9 +55,11 @@
   <string-array name="news_switch_titles">
     <item/>
     <item/>
+    <item/>
   </string-array>
 
   <string-array name="news_switch_subtitles">
+    <item/>
     <item/>
     <item/>
   </string-array>

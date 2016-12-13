@@ -1,12 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.mapswithme.maps.widget.HeightLimitedFrameLayout
+<LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="wrap_content"
-  android:layout_height="match_parent">
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="horizontal"
+  android:gravity="center">
+  <ImageView
+    android:id="@+id/image"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/margin_double_plus"
+    android:layout_marginStart="@dimen/margin_double_plus"
+    android:layout_gravity="center_vertical"
+    tools:src="@drawable/img_whats_new_traffic_roaming"/>
   <LinearLayout
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
+    android:layout_marginEnd="@dimen/margin_double_plus"
+    android:layout_marginRight="@dimen/margin_double_plus"
+    android:layout_marginLeft="@dimen/margin_base"
+    android:layout_marginStart="@dimen/margin_base"
     android:orientation="vertical">
     <FrameLayout
       android:layout_width="match_parent"
@@ -17,21 +31,10 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="center">
-        <ImageView
-          android:id="@+id/image"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginBottom="@dimen/margin_base"
-          android:layout_gravity="center_horizontal"
-          android:tag="@string/tag_height_limited"
-          tools:src="@drawable/img_whats_new_traffic_roaming"/>
-
         <TextView
           android:id="@+id/title"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginLeft="@dimen/margin_base"
-          android:layout_marginRight="@dimen/margin_base"
           android:layout_marginBottom="@dimen/margin_base"
           android:textAppearance="@style/MwmTextAppearance.Title"
           android:layout_gravity="center_horizontal"
@@ -43,8 +46,6 @@
           android:id="@+id/subtitle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginLeft="@dimen/margin_base"
-          android:layout_marginRight="@dimen/margin_base"
           android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
           android:layout_gravity="center_horizontal"
           android:gravity="center_horizontal"
@@ -59,8 +60,6 @@
       android:minHeight="64dp"
       android:orientation="horizontal"
       android:gravity="center_vertical"
-      android:paddingLeft="@dimen/margin_base"
-      android:paddingRight="@dimen/margin_base"
       android:background="?clickableBackground">
       <LinearLayout
         android:layout_width="0dp"
@@ -90,4 +89,5 @@
         android:checked="true"/>
     </LinearLayout>
   </LinearLayout>
-</com.mapswithme.maps.widget.HeightLimitedFrameLayout>
+
+</LinearLayout>

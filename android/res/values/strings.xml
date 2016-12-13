@@ -1063,4 +1063,5 @@
 	<string name="whatsnew_font_size">Font Size</string>
 	<!-- january -->
 	<string name="whatsnew_font_size_text">Labels on the map can be made bigger.</string>
+	<string name="skip">Skip</string>
 </resources>

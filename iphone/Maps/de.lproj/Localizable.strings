@@ -1791,3 +1791,5 @@
 
 /* january */
 "whatsnew_font_size_text" = "Bezeichnungen auf der Karte können vergrößert werden.";
+
+"skip" = "Skip";
