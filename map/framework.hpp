@@ -392,7 +392,7 @@ private:
                                                      place_page::Info & outInfo) const;
   unique_ptr<TapEvent> MakeTapEvent(m2::PointD const & center, FeatureID const & fid,
                                     TapEvent::Source source) const;
-  FeatureID FindBuildingAtPoint(m2::PointD const & mercator, int drawScale = -1) const;
+  FeatureID FindBuildingAtPoint(m2::PointD const & mercator) const;
   void UpdateMinBuildingsTapZoom();
 
   int m_minBuildingsTapZoom;
@@ -630,11 +630,10 @@ private:
   void FillInfoFromFeatureType(FeatureType const & ft, place_page::Info & info) const;
   void FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & info) const;
   void FillSearchResultInfo(SearchMarkPoint const & smp, place_page::Info & info) const;
+  void FillMyPositionInfo(place_page::Info & info) const;
 
 public:
   void FillBookmarkInfo(Bookmark const & bmk, BookmarkAndCategory const & bac, place_page::Info & info) const;
-  void FillPoiInfo(m2::PointD const & pt, place_page::Info & info) const;
-  void FillMyPositionInfo(place_page::Info & info) const;
 
   /// @returns address of nearby building with house number in approx 1km distance.
   search::AddressInfo GetAddressInfoAtPoint(m2::PointD const & pt) const;
@@ -815,7 +814,7 @@ public:
 
   bool CreateMapObject(m2::PointD const & mercator, uint32_t const featureType, osm::EditableMapObject & emo) const;
   /// @returns false if feature is invalid or can't be edited.
-  bool GetEditableMapObject(FeatureID const & fid, osm:: EditableMapObject & emo, int drawScale = -1) const;
+  bool GetEditableMapObject(FeatureID const & fid, osm:: EditableMapObject & emo) const;
   osm::Editor::SaveResult SaveEditedMapObject(osm::EditableMapObject emo);
   void DeleteFeature(FeatureID const & fid) const;
   osm::NewFeatureCategories GetEditorCategories() const;

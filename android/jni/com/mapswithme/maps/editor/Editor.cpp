@@ -417,13 +417,12 @@ Java_com_mapswithme_maps_editor_Editor_nativeClearLocalEdits(JNIEnv * env, jclas
   Editor::Instance().ClearAllLocalEdits();
 }
 
-JNIEXPORT void JNICALL Java_com_mapswithme_maps_editor_Editor_nativeStartEdit(JNIEnv *, jclass,
-                                                                              jint drawScale = -1)
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeStartEdit(JNIEnv *, jclass)
 {
   ::Framework * frm = g_framework->NativeFramework();
   place_page::Info const & info = g_framework->GetPlacePageInfo();
-  CHECK(frm->GetEditableMapObject(info.GetID(), g_editableMapObject, drawScale),
-        ("Invalid feature in the place page."));
+  CHECK(frm->GetEditableMapObject(info.GetID(), g_editableMapObject), ("Invalid feature in the place page."));
 }
 
 JNIEXPORT void JNICALL

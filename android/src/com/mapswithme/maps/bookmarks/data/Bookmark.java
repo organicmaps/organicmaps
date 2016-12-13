@@ -13,14 +13,11 @@ import com.mapswithme.util.Constants;
 @SuppressLint("ParcelCreator")
 public class Bookmark extends MapObject
 {
-  @Nullable
-  private Icon mIcon;
+  private final Icon mIcon;
   private int mCategoryId;
   private int mBookmarkId;
-  @Nullable
-  private Double mMerX;
-  @Nullable
-  private Double mMerY;
+  private double mMerX;
+  private double mMerY;
 
   Bookmark(@IntRange(from = 0) int categoryId, @IntRange(from = 0) int bookmarkId, String title,
            @Nullable Banner banner)
@@ -29,6 +26,8 @@ public class Bookmark extends MapObject
 
     mCategoryId = categoryId;
     mBookmarkId = bookmarkId;
+    mIcon = getIconInternal();
+    initXY();
   }
 
   private void initXY()
@@ -54,6 +53,8 @@ public class Bookmark extends MapObject
     super(source);
     mCategoryId = source.readInt();
     mBookmarkId = source.readInt();
+    mIcon = getIconInternal();
+    initXY();
   }
 
   @Override
@@ -70,38 +71,16 @@ public class Bookmark extends MapObject
 
   public DistanceAndAzimut getDistanceAndAzimuth(double cLat, double cLon, double north)
   {
-    if (mMerX == null || mMerY == null)
-      initXY();
     return Framework.nativeGetDistanceAndAzimuth(mMerX, mMerY, cLat, cLon, north);
   }
 
-  @Override
-  public double getLat()
-  {
-    if (mMerX == null || mMerY == null)
-      initXY();
-    return super.getLat();
-  }
-
-  @Override
-  public double getLon()
-  {
-    if (mMerX == null || mMerY == null)
-      initXY();
-    return super.getLon();
-  }
-
-  @NonNull
   private Icon getIconInternal()
   {
     return BookmarkManager.getIconByType((mCategoryId >= 0) ? nativeGetIcon(mCategoryId, mBookmarkId) : "");
   }
 
-  @NonNull
   public Icon getIcon()
   {
-    if (mIcon == null)
-      mIcon = getIconInternal();
     return mIcon;
   }
 
