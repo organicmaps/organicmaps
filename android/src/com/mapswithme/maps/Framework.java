@@ -128,8 +128,6 @@ public class Framework
 
   public static native void nativeRemoveMapObjectListener();
 
-  public static native void nativeRestoreMapObject(@NonNull MapObject mapObject);
-
   @UiThread
   public static native String nativeGetOutdatedCountriesString();
 
