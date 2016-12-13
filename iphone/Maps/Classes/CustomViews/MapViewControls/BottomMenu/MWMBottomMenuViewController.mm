@@ -610,9 +610,9 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 - (void)setTrafficButton:(MWMButton *)trafficButton
 {
   _trafficButton = trafficButton;
-  [trafficButton setImage:[UIImage imageNamed:@"ic_setting_traffic_on"] forState:UIControlStateNormal];
-  [trafficButton setImage:[UIImage imageNamed:@"ic_setting_traffic_off"] forState:UIControlStateSelected];
-  [trafficButton setImage:[UIImage imageNamed:@"ic_setting_traffic_off"]
+  [trafficButton setImage:[UIImage imageNamed:@"ic_setting_traffic_off"] forState:UIControlStateNormal];
+  [trafficButton setImage:[UIImage imageNamed:@"ic_setting_traffic_on"] forState:UIControlStateSelected];
+  [trafficButton setImage:[UIImage imageNamed:@"ic_setting_traffic_on"]
                   forState:UIControlStateSelected | UIControlStateHighlighted];
 }
 
