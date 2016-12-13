@@ -63,7 +63,7 @@ class PlatformSocket
     {
       String externalDir = StorageUtils.getExternalFilesDir();
       if (!TextUtils.isEmpty(externalDir))
-        return new FileLogger(externalDir + "/socket.log");
+        return new FileLogger(externalDir + "/" + PlatformSocket.class.getSimpleName() + ".log");
     }
     return new DebugLogger(PlatformSocket.class.getSimpleName());
   }
@@ -103,35 +103,43 @@ class PlatformSocket
   @Nullable
   private static Socket createSocket(@NonNull String host, int port, boolean ssl)
   {
-    Socket socket = null;
-    if (ssl)
-    {
-      try
-      {
-        SocketFactory sf = getSocketFactory();
-        socket = sf.createSocket(host, port);
-        sSslConnectionCounter++;
-        LOGGER.d("###############################################################################");
-        LOGGER.d(sSslConnectionCounter + " ssl connection is established.");
-      } catch (IOException e)
-      {
-        LOGGER.e(e, "Failed to create the ssl socket, mHost = " + host + " mPort = " + port);
-      }
-    } else
-    {
-      try
-      {
-        socket = new Socket(host, port);
-        LOGGER.d("Ssl socket is created and ssl handshake is passed successfully");
-      } catch (IOException e)
-      {
-        LOGGER.e(e, "Failed to create the socket, mHost = " + host + " mPort = " + port);
-      }
-    }
+    return ssl ? createSslSocket(host, port) : createRegularSocket(host, port);
+  }
 
+  @Nullable
+  private static Socket createSslSocket(@NonNull String host, int port)
+  {
+    Socket socket = null;
+    try
+    {
+      SocketFactory sf = getSocketFactory();
+      socket = sf.createSocket(host, port);
+      sSslConnectionCounter++;
+      LOGGER.d("###############################################################################");
+      LOGGER.d(sSslConnectionCounter + " ssl connection is established.");
+    }
+    catch (IOException e)
+    {
+      LOGGER.e(e, "Failed to create the ssl socket, mHost = " + host + " mPort = " + port);
+    }
     return socket;
   }
 
+  @Nullable
+  private static Socket createRegularSocket(@NonNull String host, int port)
+  {
+    Socket socket = null;
+    try
+    {
+      socket = new Socket(host, port);
+      LOGGER.d("Regular socket is created and tcp handshake is passed successfully");
+    }
+    catch (IOException e)
+    {
+      LOGGER.e(e, "Failed to create the socket, mHost = " + host + " mPort = " + port);
+    }
+    return socket;
+  }
 
   @SuppressLint("SSLCertificateSocketFactoryGetInsecure")
   @NonNull
