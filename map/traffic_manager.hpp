@@ -60,6 +60,7 @@ public:
 
   TrafficManager(GetMwmsByRectFn const & getMwmsByRectFn, size_t maxCacheSizeBytes,
                  traffic::TrafficObserver & observer);
+  TrafficManager(TrafficManager && /* trafficManager */) = default;
   ~TrafficManager();
 
   void Teardown();

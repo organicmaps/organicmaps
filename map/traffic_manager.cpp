@@ -404,16 +404,16 @@ void TrafficManager::CheckCacheSize()
   // Calculating number of different active mwms.
   set<MwmSet::MwmId> activeMwms;
   UniteActiveMwms(activeMwms);
-  size_t const activeMwmsSize = activeMwms.size();
+  size_t const numActiveMwms = activeMwms.size();
 
-  if (m_currentCacheSizeBytes > m_maxCacheSizeBytes && m_mwmCache.size() > activeMwmsSize)
+  if (m_currentCacheSizeBytes > m_maxCacheSizeBytes && m_mwmCache.size() > numActiveMwms)
   {
     std::multimap<time_point<steady_clock>, MwmSet::MwmId> seenTimings;
     for (auto const & mwmInfo : m_mwmCache)
       seenTimings.insert(make_pair(mwmInfo.second.m_lastActiveTime, mwmInfo.first));
 
     auto itSeen = seenTimings.begin();
-    while (m_currentCacheSizeBytes > m_maxCacheSizeBytes && m_mwmCache.size() > activeMwmsSize)
+    while (m_currentCacheSizeBytes > m_maxCacheSizeBytes && m_mwmCache.size() > numActiveMwms)
     {
       ClearCache(itSeen->second);
       ++itSeen;
@@ -465,7 +465,8 @@ void TrafficManager::UpdateState()
   bool expiredData = false;
   bool noData = false;
 
-  ForEachActiveMwm([&](MwmSet::MwmId const & mwmId) {
+  for (MwmSet::MwmId const & mwmId : m_activeDrapeMwms)
+  {
     auto it = m_mwmCache.find(mwmId);
     ASSERT(it != m_mwmCache.end(), ());
 
@@ -490,7 +491,7 @@ void TrafficManager::UpdateState()
     {
       networkError = true;
     }
-  });
+  }
 
   if (networkError || maxPassedTime >= kNetworkErrorTimeout)
     ChangeState(TrafficState::NetworkError);
