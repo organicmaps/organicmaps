@@ -190,6 +190,7 @@ void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction
 
   MakeTurnAnnotation(resultGraph, delegate, routeGeometry, turns, turnAnnotationTimes,
                      streetNames, trafficSegs);
+
   // @TODO(bykoianko) The invariant below it's an issue but now it's so and it should be checked.
   // The problem is every edge is added as a pair of points to route geometry.
   // So all the points except for beginning and ending are duplicated. It should

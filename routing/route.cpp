@@ -382,6 +382,9 @@ void Route::AppendTraffic(Route const & route)
   if (route.GetTraffic().empty())
   {
     CHECK_GREATER_OR_EQUAL(route.m_poly.GetPolyline().GetSize(), 1, ());
+    // Note. It's necessary to deduct 1 because size of |route.m_poly|
+    // is one less then number of segments of |route.m_poly|. And if |route.m_traffic|
+    // were not empty it would had had route.m_poly.GetPolyline().GetSize() - 1 items.
     m_traffic.insert(m_traffic.end(),
                      route.m_poly.GetPolyline().GetSize() - 1 /* number of segments is less by one */,
                      SpeedGroup::Unknown);
