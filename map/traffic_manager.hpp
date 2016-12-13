@@ -15,6 +15,7 @@
 
 #include "base/thread.hpp"
 
+#include "std/algorithm.hpp"
 #include "std/atomic.hpp"
 #include "std/chrono.hpp"
 #include "std/map.hpp"
@@ -105,6 +106,11 @@ private:
   void OnTrafficDataResponse(traffic::TrafficInfo && info);
   void OnTrafficRequestFailed(traffic::TrafficInfo && info);
 
+  /// \brief Updates |activeMwms| and request traffic data.
+  /// \param rect is a rectangle covering a new active mwm set.
+  /// \note |lastMwmsByRect|/|activeMwms| may be either |m_lastDrapeMwmsByRect/|m_activeDrapeMwms|
+  /// or |m_lastRoutingMwmsByRect|/|m_activeRoutingMwms|.
+  /// \note |m_mutex| is locked inside the method. So the method should be called without |m_mutex|.
   void UpdateActiveMwms(m2::RectD const & rect, vector<MwmSet::MwmId> & lastMwmsByRect,
                         set<MwmSet::MwmId> & activeMwms);
 
@@ -114,7 +120,7 @@ private:
 
   void Clear();
   void ClearCache(MwmSet::MwmId const & mwmId);
-  void CheckCacheSize();
+  void ShrinkCacheToAllowableSize();
 
   void UpdateState();
   void ChangeState(TrafficState newState);
@@ -129,8 +135,7 @@ private:
   {
     set<MwmSet::MwmId> activeMwms;
     UniteActiveMwms(activeMwms);
-    for (auto const & mwmId : activeMwms)
-      f(mwmId);
+    for_each(activeMwms.begin(), activeMwms.end(), forward<F>(f));
   }
 
   GetMwmsByRectFn m_getMwmsByRectFn;

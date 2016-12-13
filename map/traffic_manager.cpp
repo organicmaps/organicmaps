@@ -378,7 +378,7 @@ void TrafficManager::OnTrafficDataResponse(traffic::TrafficInfo && info)
       size_t const dataSize = info.GetColoring().size() * kElementSize;
       m_currentCacheSizeBytes += (dataSize - it->second.m_dataSize);
       it->second.m_dataSize = dataSize;
-      CheckCacheSize();
+      ShrinkCacheToAllowableSize();
     }
 
     UpdateState();
@@ -399,7 +399,7 @@ void TrafficManager::UniteActiveMwms(set<MwmSet::MwmId> & activeMwms) const
   activeMwms.insert(m_activeRoutingMwms.cbegin(), m_activeRoutingMwms.cend());
 }
 
-void TrafficManager::CheckCacheSize()
+void TrafficManager::ShrinkCacheToAllowableSize()
 {
   // Calculating number of different active mwms.
   set<MwmSet::MwmId> activeMwms;
