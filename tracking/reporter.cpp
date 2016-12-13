@@ -21,7 +21,7 @@ namespace tracking
 const char Reporter::kEnableTrackingKey[] = "StatisticsEnabled";
 
 // static
-milliseconds const Reporter::kPushDelayMs = milliseconds(10000);
+milliseconds const Reporter::kPushDelayMs = milliseconds(20000);
 
 Reporter::Reporter(unique_ptr<platform::Socket> socket, string const & host, uint16_t port,
                    milliseconds pushDelay)
