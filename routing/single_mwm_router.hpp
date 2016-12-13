@@ -20,7 +20,7 @@ class IndexGraph;
 class SingleMwmRouter
 {
 public:
-  SingleMwmRouter(string const & name, Index const & index,
+  SingleMwmRouter(string const & name, Index const & index, traffic::TrafficCache const & trafficCache,
                   shared_ptr<VehicleModelFactory> vehicleModelFactory,
                   shared_ptr<EdgeEstimator> estimator,
                   unique_ptr<IDirectionsEngine> directionsEngine);
@@ -46,6 +46,7 @@ private:
 
   string const m_name;
   Index const & m_index;
+  traffic::TrafficCache const & m_trafficCache;
   FeaturesRoadGraph m_roadGraph;
   shared_ptr<VehicleModelFactory> m_vehicleModelFactory;
   shared_ptr<EdgeEstimator> m_estimator;

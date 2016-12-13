@@ -50,11 +50,13 @@ vector<Junction> ConvertToJunctions(IndexGraphStarter & starter, vector<Joint::I
 namespace routing
 {
 SingleMwmRouter::SingleMwmRouter(string const & name, Index const & index,
+                                 traffic::TrafficCache const & trafficCache,
                                  shared_ptr<VehicleModelFactory> vehicleModelFactory,
                                  shared_ptr<EdgeEstimator> estimator,
                                  unique_ptr<IDirectionsEngine> directionsEngine)
   : m_name(name)
   , m_index(index)
+  , m_trafficCache(trafficCache)
   , m_roadGraph(index, IRoadGraph::Mode::ObeyOnewayTag, vehicleModelFactory)
   , m_vehicleModelFactory(vehicleModelFactory)
   , m_estimator(estimator)
@@ -147,7 +149,10 @@ IRouter::ResultCode SingleMwmRouter::DoCalculateRoute(MwmSet::MwmId const & mwmI
   case AStarAlgorithm<IndexGraphStarter>::Result::Cancelled: return IRouter::Cancelled;
   case AStarAlgorithm<IndexGraphStarter>::Result::OK:
     vector<Junction> path = ConvertToJunctions(starter, routingResult.path);
-    ReconstructRoute(m_directionsEngine.get(), m_roadGraph, delegate, path, route);
+    shared_ptr<traffic::TrafficInfo::Coloring> trafficColoring = m_trafficCache.GetTrafficInfo(mwmId);
+    ReconstructRoute(m_directionsEngine.get(), m_roadGraph, trafficColoring, delegate, path, route);
+    if (delegate.IsCancelled())
+      return IRouter::Cancelled;
     return IRouter::NoError;
   }
 }
@@ -220,7 +225,7 @@ unique_ptr<SingleMwmRouter> SingleMwmRouter::CreateCarRouter(
   auto directionsEngine = make_unique<BicycleDirectionsEngine>(index);
   auto estimator = EdgeEstimator::CreateForCar(*vehicleModelFactory->GetVehicleModel(), trafficCache);
   auto router =
-      make_unique<SingleMwmRouter>("astar-bidirectional-car", index,
+      make_unique<SingleMwmRouter>("astar-bidirectional-car", index, trafficCache,
                                    move(vehicleModelFactory), estimator, move(directionsEngine));
   return router;
 }

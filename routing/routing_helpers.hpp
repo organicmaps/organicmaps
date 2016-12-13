@@ -7,8 +7,11 @@
 #include "routing/road_graph.hpp"
 #include "routing/route.hpp"
 
+#include "traffic/traffic_info.hpp"
+
 #include "base/cancellable.hpp"
 
+#include "std/shared_ptr.hpp"
 #include "std/vector.hpp"
 
 namespace routing
@@ -23,5 +26,6 @@ bool IsRoad(TTypes const & types)
 }
 
 void ReconstructRoute(IDirectionsEngine * engine, IRoadGraph const & graph,
+                      shared_ptr<traffic::TrafficInfo::Coloring> const & trafficColoring,
                       my::Cancellable const & cancellable, vector<Junction> & path, Route & route);
 }  // namespace rouing
