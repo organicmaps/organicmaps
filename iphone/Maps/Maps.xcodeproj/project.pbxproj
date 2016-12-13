@@ -54,6 +54,9 @@
 		341876B51C280272005A0C9A /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454040681AD2D8D2007A9B12 /* CoreVideo.framework */; };
 		3418CEAE1CBF9E3300641B25 /* MWMNoMapsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3418CEAD1CBF9E3300641B25 /* MWMNoMapsViewController.mm */; };
 		3418CEAF1CBF9E3300641B25 /* MWMNoMapsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3418CEAD1CBF9E3300641B25 /* MWMNoMapsViewController.mm */; };
+		341966861E000CDD00F96327 /* MWMWhatsNewTrafficController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 341966851E000CDD00F96327 /* MWMWhatsNewTrafficController.mm */; };
+		341966871E000CDD00F96327 /* MWMWhatsNewTrafficController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 341966851E000CDD00F96327 /* MWMWhatsNewTrafficController.mm */; };
+		341966881E000CDD00F96327 /* MWMWhatsNewTrafficController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 341966851E000CDD00F96327 /* MWMWhatsNewTrafficController.mm */; };
 		341C2A571B72092A00AD41A1 /* 02_droidsans-fallback.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DF04B231B71010E00DACAF1 /* 02_droidsans-fallback.ttf */; };
 		341C2A5B1B720B8A00AD41A1 /* MWMAPIBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 341C2A5A1B720B8A00AD41A1 /* MWMAPIBarView.xib */; };
 		341F09841C20138100F18AC5 /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 341F09831C20138100F18AC5 /* libpugixml.a */; };
@@ -1457,6 +1460,8 @@
 		34181EBB1C0ED2680081B586 /* MWMOpeningHoursEditorCells.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMOpeningHoursEditorCells.h; sourceTree = "<group>"; };
 		3418CEAC1CBF9E3300641B25 /* MWMNoMapsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNoMapsViewController.h; sourceTree = "<group>"; };
 		3418CEAD1CBF9E3300641B25 /* MWMNoMapsViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNoMapsViewController.mm; sourceTree = "<group>"; };
+		341966841E000CDD00F96327 /* MWMWhatsNewTrafficController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMWhatsNewTrafficController.h; sourceTree = "<group>"; };
+		341966851E000CDD00F96327 /* MWMWhatsNewTrafficController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMWhatsNewTrafficController.mm; sourceTree = "<group>"; };
 		341C2A5A1B720B8A00AD41A1 /* MWMAPIBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMAPIBarView.xib; sourceTree = "<group>"; };
 		341F09831C20138100F18AC5 /* libpugixml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpugixml.a; path = "../../../omim-xcode-build/Debug/libpugixml.a"; sourceTree = "<group>"; };
 		341F99C91C6B1165001C67B8 /* MWMMapDownloaderLargeCountryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapDownloaderLargeCountryTableViewCell.h; sourceTree = "<group>"; };
@@ -3651,6 +3656,8 @@
 				34A759C81DC795140078C3AE /* MWMWhatsNewProfileBookingController.mm */,
 				34A759D61DC795D10078C3AE /* MWMWhatsNewUberController.h */,
 				34A759D71DC795D10078C3AE /* MWMWhatsNewUberController.mm */,
+				341966841E000CDD00F96327 /* MWMWhatsNewTrafficController.h */,
+				341966851E000CDD00F96327 /* MWMWhatsNewTrafficController.mm */,
 			);
 			path = Welcome;
 			sourceTree = "<group>";
@@ -4857,6 +4864,7 @@
 				34ABA6241C2D551900FE1BEC /* MWMInputValidatorFactory.mm in Sources */,
 				34257D1B1DC9FD9400DC5BB9 /* MWMSearchChangeModeView.mm in Sources */,
 				34EA976C1DEC779D00616B11 /* MWMNetworkPolicy.mm in Sources */,
+				341966861E000CDD00F96327 /* MWMWhatsNewTrafficController.mm in Sources */,
 				34B82AE21B84AC5E00180497 /* MWMSearchCategoriesManager.mm in Sources */,
 				34CE8A671C7740E100F4351A /* MWMStorage.mm in Sources */,
 				F6F7787A1DABC6D800B603E7 /* MWMTaxiCollectionLayout.mm in Sources */,
@@ -5110,6 +5118,7 @@
 				348868F41D87DFB70069BBA3 /* MWMKeyboard.mm in Sources */,
 				34257D1C1DC9FD9400DC5BB9 /* MWMSearchChangeModeView.mm in Sources */,
 				34EA976D1DEC779D00616B11 /* MWMNetworkPolicy.mm in Sources */,
+				341966871E000CDD00F96327 /* MWMWhatsNewTrafficController.mm in Sources */,
 				F639883C1CF70FE500226B6B /* MWMActionBarButton.mm in Sources */,
 				34CE8A681C7740E100F4351A /* MWMStorage.mm in Sources */,
 				6741AA141BF340DE002C974C /* MWMMultilineLabel.mm in Sources */,
@@ -5354,6 +5363,7 @@
 				849CF72C1DE842290024A8A5 /* LocalNotificationManager.mm in Sources */,
 				849CF72D1DE842290024A8A5 /* AppInfo.mm in Sources */,
 				849CF72E1DE842290024A8A5 /* MWMSearchHistoryMyPositionCell.mm in Sources */,
+				341966881E000CDD00F96327 /* MWMWhatsNewTrafficController.mm in Sources */,
 				849CF72F1DE842290024A8A5 /* MWMInputValidator.mm in Sources */,
 				849CF7301DE842290024A8A5 /* MWMActionBarButton.mm in Sources */,
 				849CF7311DE842290024A8A5 /* MWMKeyboard.mm in Sources */,
