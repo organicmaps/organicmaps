@@ -25,7 +25,7 @@
 #import "MWMSettings.h"
 #import "MWMStorage.h"
 #import "MWMTableViewController.h"
-#import "MWMWhatsNewUberController.h"
+#import "MWMWhatsNewTrafficController.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
@@ -285,7 +285,7 @@ BOOL gIsFirstMyPositionMode = YES;
 
 - (void)showWelcomeScreenIfNeeded
 {
-  Class<MWMWelcomeControllerProtocol> whatsNewClass = [MWMWhatsNewUberController class];
+  Class<MWMWelcomeControllerProtocol> whatsNewClass = [MWMWhatsNewTrafficController class];
   BOOL const isFirstSession = [Alohalytics isFirstSession];
   Class<MWMWelcomeControllerProtocol> welcomeClass =
       isFirstSession ? [MWMFirstLaunchController class] : whatsNewClass;
