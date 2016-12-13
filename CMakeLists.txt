@@ -184,3 +184,5 @@ add_subdirectory(partners_api)
 
 omim_add_test_subdirectory(qt_tstfrm)
 omim_add_test_subdirectory(3party/gmock)
+
+add_subdirectory(qt)

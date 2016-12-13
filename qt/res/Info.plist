@@ -3,16 +3,16 @@
 <plist version="0.9">
   <dict>
     <key>CFBundleName</key>
-    <string>@EXECUTABLE@</string>
+    <string>MAPS.ME desktop</string>
 
     <key>CFBundleDisplayName</key>
-    <string>@EXECUTABLE@</string>
+    <string>MAPS.ME desktop</string>
 
     <key>CFBundleVersion</key>
     <string>@VERSION@</string>
 
     <key>CFBundleIconFile</key>
-    <string>@ICON@</string>
+    <string>mac.icns</string>
     
     <key>CFBundlePackageType</key>
     <string>APPL</string>
