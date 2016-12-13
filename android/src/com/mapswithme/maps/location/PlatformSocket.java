@@ -5,9 +5,13 @@ import android.net.SSLCertificateSocketFactory;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import com.mapswithme.maps.BuildConfig;
+import com.mapswithme.util.StorageUtils;
+import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.DebugLogger;
+import com.mapswithme.util.log.FileLogger;
 import com.mapswithme.util.log.Logger;
 
 import javax.net.SocketFactory;
@@ -31,8 +35,10 @@ import java.net.SocketTimeoutException;
  */
 class PlatformSocket
 {
-  private final static Logger sLogger = new DebugLogger(PlatformSocket.class.getSimpleName());
   private final static int DEFAULT_TIMEOUT = 30 * 1000;
+  @NonNull
+  private final static Logger LOGGER = createLogger();
+  private static volatile long sSslConnectionCounter;
   @Nullable
   private Socket mSocket;
   @Nullable
@@ -40,17 +46,39 @@ class PlatformSocket
   private int mPort;
   private int mTimeout = DEFAULT_TIMEOUT;
 
+  PlatformSocket()
+  {
+    sSslConnectionCounter = 0;
+    LOGGER.d("***********************************************************************************");
+    LOGGER.d("Platform socket is created by core, ssl connection counter is discarded.");
+    LOGGER.d("Installation ID: ", Utils.getInstallationId());
+    LOGGER.d("App version: ", BuildConfig.VERSION_NAME);
+    LOGGER.d("App version code: ", BuildConfig.VERSION_CODE);
+  }
+
+  @NonNull
+  private static Logger createLogger()
+  {
+    if (BuildConfig.BUILD_TYPE.equals("beta"))
+    {
+      String externalDir = StorageUtils.getExternalFilesDir();
+      if (!TextUtils.isEmpty(externalDir))
+        return new FileLogger(externalDir + "/" + PlatformSocket.class.getSimpleName() + ".log");
+    }
+    return new DebugLogger(PlatformSocket.class.getSimpleName());
+  }
+
   public boolean open(@NonNull String host, int port)
   {
     if (mSocket != null)
     {
-      sLogger.e("Socket is already opened. Seems that it wasn't closed.");
+      LOGGER.e("Socket is already opened. Seems that it wasn't closed.");
       return false;
     }
 
     if (!isPortAllowed(port))
     {
-      sLogger.e("A wrong port number, it must be within (0-65535) range", port);
+      LOGGER.e("A wrong port number, it must be within (0-65535) range", port);
       return false;
     }
 
@@ -75,30 +103,43 @@ class PlatformSocket
   @Nullable
   private static Socket createSocket(@NonNull String host, int port, boolean ssl)
   {
-    if (ssl)
-    {
-      try
-      {
-        SocketFactory sf = getSocketFactory();
-        return sf.createSocket(host, port);
-      } catch (IOException e)
-      {
-        sLogger.e("Failed to create the ssl socket, mHost = ", host, " mPort = ", port, e);
-      }
-    } else
-    {
-      try
-      {
-        return new Socket(host, port);
-      } catch (IOException e)
-      {
-        sLogger.e("Failed to create the socket, mHost = ", host, " mPort = ", port, e);
-      }
-    }
-
-    return null;
+    return ssl ? createSslSocket(host, port) : createRegularSocket(host, port);
   }
 
+  @Nullable
+  private static Socket createSslSocket(@NonNull String host, int port)
+  {
+    Socket socket = null;
+    try
+    {
+      SocketFactory sf = getSocketFactory();
+      socket = sf.createSocket(host, port);
+      sSslConnectionCounter++;
+      LOGGER.d("###############################################################################");
+      LOGGER.d(sSslConnectionCounter + " ssl connection is established.");
+    }
+    catch (IOException e)
+    {
+      LOGGER.e(e, "Failed to create the ssl socket, mHost = " + host + " mPort = " + port);
+    }
+    return socket;
+  }
+
+  @Nullable
+  private static Socket createRegularSocket(@NonNull String host, int port)
+  {
+    Socket socket = null;
+    try
+    {
+      socket = new Socket(host, port);
+      LOGGER.d("Regular socket is created and tcp handshake is passed successfully");
+    }
+    catch (IOException e)
+    {
+      LOGGER.e(e, "Failed to create the socket, mHost = " + host + " mPort = " + port);
+    }
+    return socket;
+  }
 
   @SuppressLint("SSLCertificateSocketFactoryGetInsecure")
   @NonNull
@@ -117,17 +158,17 @@ class PlatformSocket
   {
     if (mSocket == null)
     {
-      sLogger.d("Socket is already closed or it wasn't opened yet");
+      LOGGER.d("Socket is already closed or it wasn't opened yet\n");
       return;
     }
 
     try
     {
       mSocket.close();
-      sLogger.d("Socket has been closed: ", this);
+      LOGGER.d("Socket has been closed: ", this + "\n");
     } catch (IOException e)
     {
-      sLogger.e("Failed to close socket: ", this, e);
+      LOGGER.e(e, "Failed to close socket: ", this + "\n");
     } finally
     {
       mSocket = null;
@@ -139,7 +180,7 @@ class PlatformSocket
     if (!checkSocketAndArguments(data, count))
       return false;
 
-    sLogger.d("Reading has started, data.length = " + data.length, ", count = " + count);
+    LOGGER.d("Reading method is started, data.length = " + data.length + ", count = " + count);
     long startTime = SystemClock.elapsedRealtime();
     int readBytes = 0;
     try
@@ -152,38 +193,38 @@ class PlatformSocket
       {
         try
         {
-          sLogger.d("Attempting to read ", count, " bytes from offset = ", readBytes);
+          LOGGER.d("Attempting to read " + count + " bytes from offset = " + readBytes);
           int read = in.read(data, readBytes, count - readBytes);
 
           if (read == -1)
           {
-            sLogger.d("All data have been read from the stream, read bytes count = ", readBytes);
+            LOGGER.d("All data is read from the stream, read bytes count = " + readBytes + "\n");
             break;
           }
 
           if (read == 0)
           {
-            sLogger.e("0 bytes have been obtained. It's considered as error");
+            LOGGER.e("0 bytes are obtained. It's considered as error\n");
             break;
           }
 
-          sLogger.d("Read bytes count = ", read);
+          LOGGER.d("Read bytes count = " + read + "\n");
           readBytes += read;
         } catch (SocketTimeoutException e)
         {
           long readingTime = SystemClock.elapsedRealtime() - startTime;
-          sLogger.e(e, "Socked timeout has occurred after ", readingTime, " (ms) ");
+          LOGGER.e(e, "Socked timeout has occurred after " + readingTime + " (ms)\n ");
           if (readingTime > mTimeout)
           {
-            sLogger.e("Socket wrapper timeout has occurred, requested count = ",
-                      count - readBytes, ", " + "readBytes = ", readBytes);
+            LOGGER.e("Socket wrapper timeout has occurred, requested count = " +
+                     (count - readBytes) + ", readBytes = " + readBytes + "\n");
             break;
           }
         }
       }
     } catch (IOException e)
     {
-      sLogger.e(e, "Failed to read data from socket: ", this);
+      LOGGER.e(e, "Failed to read data from socket: ", this, "\n");
     }
 
     return count == readBytes;
@@ -194,7 +235,7 @@ class PlatformSocket
     if (!checkSocketAndArguments(data, count))
       return false;
 
-    sLogger.d("Writing method has started, data.length = " + data.length, ", count = " + count);
+    LOGGER.d("Writing method is started, data.length = " + data.length + ", count = " + count);
     long startTime = SystemClock.elapsedRealtime();
     try
     {
@@ -203,15 +244,15 @@ class PlatformSocket
 
       OutputStream out = mSocket.getOutputStream();
       out.write(data, 0, count);
-      sLogger.d(count + " bytes have been written");
+      LOGGER.d(count + " bytes are written\n");
       return true;
     } catch (SocketTimeoutException e)
     {
       long writingTime = SystemClock.elapsedRealtime() - startTime;
-      sLogger.e(e, "Socked timeout has occurred after ", writingTime, " (ms) ");
+      LOGGER.e(e, "Socked timeout has occurred after " + writingTime + " (ms)\n");
     } catch (IOException e)
     {
-      sLogger.e(e, "Failed to write data to socket: ", this);
+      LOGGER.e(e, "Failed to write data to socket: " + this + "\n");
     }
 
     return false;
@@ -221,13 +262,13 @@ class PlatformSocket
   {
     if (mSocket == null)
     {
-      sLogger.e("Socket must be opened before reading/writing");
+      LOGGER.e("Socket must be opened before reading/writing\n");
       return false;
     }
 
     if (data.length < 0 || count < 0 || count > data.length)
     {
-      sLogger.e("Illegal arguments, data.length = ", data.length, ", count = " + count);
+      LOGGER.e("Illegal arguments, data.length = " + data.length + ", count = " + count + "\n");
       return false;
     }
 
@@ -237,7 +278,7 @@ class PlatformSocket
   public void setTimeout(int millis)
   {
     mTimeout = millis;
-    sLogger.d("Setting the socket wrapper timeout = ", millis, " ms");
+    LOGGER.d("Setting the socket wrapper timeout = " + millis + " ms\n");
   }
 
   private void setReadSocketTimeout(@NonNull Socket socket, int millis)
@@ -247,7 +288,7 @@ class PlatformSocket
       socket.setSoTimeout(millis);
     } catch (SocketException e)
     {
-      sLogger.e("Failed to set system socket timeout: ", millis, "ms, ", this, e);
+      LOGGER.e(e, "Failed to set system socket timeout: " + millis + "ms, " + this + "\n");
     }
   }
 

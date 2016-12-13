@@ -1,5 +1,6 @@
 package com.mapswithme.util.log;
 
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 public abstract class Logger
@@ -26,5 +27,5 @@ public abstract class Logger
 
   public abstract void e(String message, Object... args);
 
-  public abstract void e(Throwable throwable, String message, Object... args);
+  public abstract void e(@NonNull Throwable throwable, String message, Object... args);
 }

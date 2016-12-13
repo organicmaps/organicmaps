@@ -1,5 +1,7 @@
 package com.mapswithme.util.log;
 
+import android.support.annotation.NonNull;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -62,8 +64,12 @@ public class FileLogger extends Logger
   }
 
   @Override
-  public void e(Throwable throwable, String message, Object... args)
+  public void e(@NonNull Throwable throwable, String message, Object... args)
   {
+    e(throwable.getMessage());
+    Throwable cause = throwable.getCause();
+    if (cause != null)
+      e(cause.getMessage());
     e(message, args);
   }
 }
