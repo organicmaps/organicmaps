@@ -1059,5 +1059,4 @@
 	<string name="whatsnew_font_size">Размер шрифта</string>
 	<!-- january -->
 	<string name="whatsnew_font_size_text">Названия объектов на карте теперь можно сделать крупнее.</string>
-	<string name="skip">Пропустить</string>
 </resources>

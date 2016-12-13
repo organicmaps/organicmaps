@@ -21,17 +21,6 @@
   <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <TextView
-      android:id="@+id/skip"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="start"
-      android:text="@string/skip"
-      android:textAppearance="@style/MwmTextAppearance.Body3"
-      android:textColor="?colorAccent"
-      android:textAllCaps="true"
-      android:padding="@dimen/margin_base"
-      android:background="?clickableBackground"/>
 
     <ImageView
       android:id="@+id/back"
