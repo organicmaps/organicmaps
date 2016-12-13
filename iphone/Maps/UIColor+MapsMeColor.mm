@@ -66,8 +66,7 @@ NSDictionary<NSString *, UIColor *> * night = @{
   @"blackOpaque" : [UIColor colorWithWhite:1. alpha:alpha04],
   @"bannerBackground" :
       [UIColor colorWithRed:scaled(85.) green:scaled(90.) blue:scaled(90.) alpha:alpha100],
-  @"toastBackground" :
-      [UIColor colorWithRed:scaled(60.) green:scaled(64.) blue:scaled(68.) alpha:alpha26]
+  @"toastBackground" : [UIColor colorWithWhite:0. alpha:alpha87]
 };
 
 NSDictionary<NSString *, UIColor *> * day = @{
@@ -114,8 +113,7 @@ NSDictionary<NSString *, UIColor *> * day = @{
   @"blackOpaque" : [UIColor colorWithWhite:0. alpha:alpha04],
   @"bannerBackground" :
       [UIColor colorWithRed:scaled(255.) green:scaled(248.) blue:scaled(225.) alpha:alpha100],
-  @"toastBackground" :
-      [UIColor colorWithRed:scaled(255.) green:scaled(255.) blue:scaled(255.) alpha:alpha40]
+  @"toastBackground" : [UIColor colorWithWhite:1. alpha:alpha87]
 };
 
 UIColor * color(SEL cmd)
