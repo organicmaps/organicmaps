@@ -11,7 +11,7 @@ NSUInteger const kWordsPerSecond = 3;
 
 @interface MWMToast ()
 
-@property(nonatomic) IBOutlet UIVisualEffectView * rootView;
+@property(nonatomic) IBOutlet UIView * rootView;
 @property(nonatomic) IBOutlet UILabel * label;
 
 @property(nonatomic) NSLayoutConstraint * bottomOffset;
@@ -25,6 +25,7 @@ NSUInteger const kWordsPerSecond = 3;
   MWMToast * toast = [MWMToast toast];
   toast.label.text = text;
   toast.label.textColor = [UIColor blackPrimaryText];
+  toast.rootView.backgroundColor = [UIColor toastBackground];
   [toast show];
 }
 
