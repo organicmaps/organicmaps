@@ -32,7 +32,7 @@ void ReconstructRoute(IDirectionsEngine * engine, IRoadGraph const & graph,
   if (engine)
     engine->Generate(graph, path, times, turnsDir, junctions, trafficSegs, cancellable);
 
-  // @TODO(bykoianko) If the start and the finish of a route lies on the same road segemnt
+  // @TODO(bykoianko) If the start and the finish of a route lies on the same road segment
   // engine->Generate() fills with empty vectors |times|, |turnsDir|, |junctions| and |trafficSegs|.
   // It's not correct and should be fixed. It's necessary to work corrrectly with such routes.
 
@@ -54,7 +54,7 @@ void ReconstructRoute(IDirectionsEngine * engine, IRoadGraph const & graph,
     for (TrafficInfo::RoadSegmentId const & seg : trafficSegs)
     {
       auto const it = trafficColoring->find(seg);
-      SpeedGroup segTraffic =  (it == trafficColoring->cend()) ? SpeedGroup::Unknown
+      SpeedGroup const segTraffic = (it == trafficColoring->cend()) ? SpeedGroup::Unknown
                                                                : it->second;
       // @TODO It's written to compensate an error. The problem is in case of any routing except for osrm
       // all route points except for begining and ending are duplicated.
@@ -66,7 +66,7 @@ void ReconstructRoute(IDirectionsEngine * engine, IRoadGraph const & graph,
       // But it has 8 items in routeGeometry.
       // So for segments 0-1 and 1-2 let's set trafficSegs[0]
       // for segments 2-3 and 3-4 let's set trafficSegs[1]
-      // for segments 4-5 and 5-7 let's set trafficSegs[2]
+      // for segments 4-5 and 5-6 let's set trafficSegs[2]
       // and for segment 6-7 let's set trafficSegs[3]
       traffic.insert(traffic.end(), {segTraffic, segTraffic});
     }

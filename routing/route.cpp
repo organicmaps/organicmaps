@@ -393,7 +393,6 @@ void Route::AppendTraffic(Route const & route)
   {
     m_traffic.insert(m_traffic.end(), route.GetTraffic().cbegin(), route.GetTraffic().cend());
   }
-  CHECK_EQUAL(GetTraffic().size() + 1, m_poly.GetPolyline().GetSize(), ());
 }
 
 void Route::AppendRoute(Route const & route)
@@ -454,7 +453,9 @@ void Route::AppendRoute(Route const & route)
 
   m_poly.Append(route.m_poly);
   if (!GetTraffic().empty())
+  {
     CHECK_EQUAL(GetTraffic().size() + 1, m_poly.GetPolyline().GetSize(), ());
+  }
   Update();
 }
 
