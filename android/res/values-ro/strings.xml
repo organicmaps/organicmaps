@@ -999,7 +999,7 @@
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Pentru a afişa datele privind traficul, aplicația trebuie actualizată.</string>
 	<!-- "traffic" as in "road congestion" -->
-	<string name="traffic_data_unavailable">Datele privind traficul nu sunt disponibile.</string>
+	<string name="traffic_data_unavailable">Datele privind traficul nu sunt disponibile</string>
 	<string name="banner_deliveryclub_title">Livrare mâncare</string>
 	<string name="banner_deliveryclub_message">Livrare rapidă din 4.000 de restaurante. Comandați de la Delivery Club.</string>
 	<string name="banner_lamoda_title">Îmbrăcăminte și magazin de pantofi online</string>
