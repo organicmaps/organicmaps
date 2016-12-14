@@ -127,6 +127,7 @@ void TrafficManager::Clear()
   m_activeDrapeMwms.clear();
   m_activeRoutingMwms.clear();
   m_requestedMwms.clear();
+  m_trafficETags.clear();
 }
 
 void TrafficManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
@@ -439,6 +440,7 @@ void TrafficManager::ClearCache(MwmSet::MwmId const & mwmId)
     });
   }
   m_mwmCache.erase(it);
+  m_trafficETags.erase(mwmId);
 }
 
 bool TrafficManager::IsEnabled() const
