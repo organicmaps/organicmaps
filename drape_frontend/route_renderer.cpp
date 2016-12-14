@@ -22,9 +22,9 @@ namespace
 float const kHalfWidthInPixel[] =
 {
   // 1   2     3     4     5     6     7     8     9     10
-  2.0f, 2.0f, 3.0f, 3.0f, 3.0f, 4.0f, 4.0f, 4.0f, 5.0f, 5.0f,
-  //11   12    13    14    15    16    17    18    19     20
-  6.0f, 6.0f, 7.0f, 7.0f, 7.0f, 7.0f, 8.0f, 10.0f, 24.0f, 36.0f
+  1.0f, 1.0f, 1.5f, 1.5f, 1.5f, 2.0f, 2.0f, 2.0f, 2.5f, 2.5f,
+  //11   12    13    14    15   16    17    18    19     20
+  3.0f, 3.0f, 4.0f, 5.0f, 6.0, 8.0f, 10.0f, 10.0f, 18.0f, 27.0f
 };
 
 int const kArrowAppearingZoomLevel = 14;
@@ -131,6 +131,8 @@ void RouteRenderer::InterpolateByZoom(ScreenBase const & screen, float & halfWid
     halfWidth = kHalfWidthInPixel[index] + lerpCoef * (kHalfWidthInPixel[index + 1] - kHalfWidthInPixel[index]);
   else
     halfWidth = kHalfWidthInPixel[scales::UPPER_STYLE_SCALE];
+
+  halfWidth *= df::VisualParams::Instance().GetVisualScale();
 }
 
 void RouteRenderer::UpdateRoute(ScreenBase const & screen, TCacheRouteArrowsCallback const & callback)
