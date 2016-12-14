@@ -1306,6 +1306,8 @@ void Framework::EnterBackground()
 
   SaveViewport();
 
+  m_trafficManager.OnEnterBackground();
+
   ms::LatLon const ll = MercatorBounds::ToLatLon(GetViewportCenter());
   alohalytics::Stats::Instance().LogEvent("Framework::EnterBackground", {{"zoom", strings::to_string(GetDrawScale())},
                                           {"foregroundSeconds", strings::to_string(
@@ -1324,6 +1326,8 @@ void Framework::EnterForeground()
   m_startForegroundTime = my::Timer::LocalTime();
   double const time = m_startForegroundTime - m_startBackgroundTime;
   CallDrapeFunction(bind(&df::DrapeEngine::SetTimeInBackground, _1, time));
+
+  m_trafficManager.OnEnterForeground();
 }
 
 bool Framework::GetCurrentPosition(double & lat, double & lon) const
