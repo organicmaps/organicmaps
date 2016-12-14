@@ -1,5 +1,7 @@
 package com.mapswithme.maps.widget.placepage;
 
+import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.Banner;
 import com.mapswithme.util.ConnectionState;
@@ -23,6 +26,9 @@ import static com.mapswithme.util.SharedPropertiesUtils.isShowcaseSwitchedOnLoca
 
 final class BannerController implements View.OnClickListener
 {
+  private static final int DURATION_DEFAULT =
+      MwmApplication.get().getResources().getInteger(R.integer.anim_default);
+
   @Nullable
   private Banner mBanner;
   @Nullable
@@ -49,6 +55,9 @@ final class BannerController implements View.OnClickListener
   private final Resources mResources;
 
   private boolean mIsOpened = false;
+
+  @Nullable
+  private ValueAnimator mIconAnimator;
 
   BannerController(@NonNull View bannerView, @Nullable OnBannerClickListener listener)
   {
@@ -105,9 +114,15 @@ final class BannerController implements View.OnClickListener
 
     mIsOpened = true;
     setFrameHeight(WRAP_CONTENT);
-    setIconParams(mOpenIconSize, 0, mMarginBase);
+    setIconParams(mOpenIconSize, 0, mMarginBase, new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        loadIcon(mBanner);
+      }
+    });
     UiUtils.show(mMessage, mAdMarker);
-    loadIcon(mBanner);
     if (mTitle != null)
       mTitle.setMaxLines(2);
     mFrame.setOnClickListener(this);
@@ -120,9 +135,15 @@ final class BannerController implements View.OnClickListener
 
     mIsOpened = false;
     setFrameHeight((int) mCloseFrameHeight);
-    setIconParams(mCloseIconSize, mMarginBase, mMarginHalfPlus);
+    setIconParams(mCloseIconSize, mMarginBase, mMarginHalfPlus, new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        loadIcon(mBanner);
+      }
+    });
     UiUtils.hide(mMessage, mAdMarker);
-    loadIcon(mBanner);
     if (mTitle != null)
       mTitle.setMaxLines(1);
     mFrame.setOnClickListener(null);
@@ -135,23 +156,68 @@ final class BannerController implements View.OnClickListener
     mFrame.setLayoutParams(lp);
   }
 
-  private void setIconParams(float size, float marginRight, float marginTop)
+  private void setIconParams(final float size, final float marginRight, final float marginTop,
+                             final @Nullable Runnable listener)
   {
-    if (mIcon == null)
+    if (mIcon == null || UiUtils.isHidden(mIcon))
+    {
+      if (listener != null)
+        listener.run();
       return;
+    }
 
-    ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) mIcon.getLayoutParams();
-    lp.height = (int) size;
-    lp.width = (int) size;
-    lp.rightMargin = (int) marginRight;
-    lp.topMargin = (int) marginTop;
-    mIcon.setLayoutParams(lp);
+    if (mIconAnimator != null)
+      mIconAnimator.cancel();
+
+    final ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) mIcon.getLayoutParams();
+    final float startSize = lp.height;
+    final float startRight = lp.rightMargin;
+    final float startTop = lp.topMargin;
+    mIconAnimator = ValueAnimator.ofFloat(0.0f, 1.0f);
+    if (mIconAnimator == null)
+    {
+      if (listener != null)
+        listener.run();
+      return;
+    }
+
+    mIconAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
+    {
+      @Override
+      public void onAnimationUpdate(ValueAnimator animation)
+      {
+        float t = (float) animation.getAnimatedValue();
+        int newSize = (int) (startSize + t * (size - startSize));
+        lp.height = newSize;
+        lp.width = newSize;
+        lp.rightMargin = (int) (startRight + t * (marginRight - startRight));
+        lp.topMargin = (int) (startTop + t * (marginTop - startTop));
+        mIcon.setLayoutParams(lp);
+      }
+    });
+    mIconAnimator.addListener(new UiUtils.SimpleAnimatorListener()
+    {
+      @Override
+      public void onAnimationEnd(Animator animation)
+      {
+        if (listener != null)
+          listener.run();
+      }
+    });
+    mIconAnimator.setDuration(DURATION_DEFAULT);
+    mIconAnimator.start();
   }
 
   private void loadIcon(@NonNull Banner banner)
   {
-    if (mIcon == null || TextUtils.isEmpty(banner.getIconUrl()))
+    if (mIcon == null)
       return;
+
+    if (TextUtils.isEmpty(banner.getIconUrl()))
+    {
+      UiUtils.hide(mIcon);
+      return;
+    }
 
     Glide.with(mIcon.getContext())
          .load(banner.getIconUrl())
