@@ -37,6 +37,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -162,30 +163,27 @@ public final class HttpClient
         if (cookies != null)
           p.headers.add(new HttpHeader("Set-Cookie", TextUtils.join(", ", cookies)));
       }
-      // This implementation receives any data only if we have HTTP::OK (200).
-      if (p.httpResponseCode == HttpURLConnection.HTTP_OK)
+
+      OutputStream ostream;
+      if (!TextUtils.isEmpty(p.outputFilePath))
+        ostream = new BufferedOutputStream(new FileOutputStream(p.outputFilePath), STREAM_BUFFER_SIZE);
+      else
+        ostream = new ByteArrayOutputStream(STREAM_BUFFER_SIZE);
+      // TODO(AlexZ): Add HTTP resume support in the future for partially downloaded files
+      final BufferedInputStream istream = new BufferedInputStream(getInputStream(connection), STREAM_BUFFER_SIZE);
+      final byte[] buffer = new byte[STREAM_BUFFER_SIZE];
+      // gzip encoding is transparently enabled and we can't use Content-Length for
+      // body reading if server has gzipped it.
+      int bytesRead;
+      while ((bytesRead = istream.read(buffer, 0, STREAM_BUFFER_SIZE)) > 0)
       {
-        OutputStream ostream;
-        if (!TextUtils.isEmpty(p.outputFilePath))
-          ostream = new BufferedOutputStream(new FileOutputStream(p.outputFilePath), STREAM_BUFFER_SIZE);
-        else
-          ostream = new ByteArrayOutputStream(STREAM_BUFFER_SIZE);
-        // TODO(AlexZ): Add HTTP resume support in the future for partially downloaded files
-        final BufferedInputStream istream = new BufferedInputStream(connection.getInputStream(), STREAM_BUFFER_SIZE);
-        final byte[] buffer = new byte[STREAM_BUFFER_SIZE];
-        // gzip encoding is transparently enabled and we can't use Content-Length for
-        // body reading if server has gzipped it.
-        int bytesRead;
-        while ((bytesRead = istream.read(buffer, 0, STREAM_BUFFER_SIZE)) > 0)
-        {
-          // Read everything if Content-Length is not known in advance.
-          ostream.write(buffer, 0, bytesRead);
-        }
-        istream.close(); // IOException
-        ostream.close(); // IOException
-        if (ostream instanceof ByteArrayOutputStream)
-          p.data = ((ByteArrayOutputStream) ostream).toByteArray();
+        // Read everything if Content-Length is not known in advance.
+        ostream.write(buffer, 0, bytesRead);
       }
+      istream.close(); // IOException
+      ostream.close(); // IOException
+      if (ostream instanceof ByteArrayOutputStream)
+        p.data = ((ByteArrayOutputStream) ostream).toByteArray();
     }
     finally
     {
@@ -193,6 +191,23 @@ public final class HttpClient
         connection.disconnect();
     }
     return p;
+  }
+
+  @NonNull
+  private static InputStream getInputStream(@NonNull HttpURLConnection connection) throws IOException
+  {
+    InputStream in;
+    try
+    {
+      in = connection.getInputStream();
+    }
+    catch (IOException e)
+    {
+      in = connection.getErrorStream();
+      if (in == null)
+        throw e;
+    }
+    return in;
   }
 
   private static class HttpHeader
