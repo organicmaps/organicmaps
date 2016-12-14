@@ -92,6 +92,16 @@ void Reporter::Run()
 
 bool Reporter::SendPoints()
 {
+  if (!m_allowSendingPoints)
+  {
+    if (m_wasConnected)
+    {
+      m_realtimeSender.Shutdown();
+      m_wasConnected = false;
+    }
+    return true;
+  }
+
   if (m_points.empty())
     return true;
 

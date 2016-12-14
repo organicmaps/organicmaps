@@ -1307,6 +1307,7 @@ void Framework::EnterBackground()
   SaveViewport();
 
   m_trafficManager.OnEnterBackground();
+  m_trackingReporter.SetAllowSendingPoints(false);
 
   ms::LatLon const ll = MercatorBounds::ToLatLon(GetViewportCenter());
   alohalytics::Stats::Instance().LogEvent("Framework::EnterBackground", {{"zoom", strings::to_string(GetDrawScale())},
@@ -1328,6 +1329,7 @@ void Framework::EnterForeground()
   CallDrapeFunction(bind(&df::DrapeEngine::SetTimeInBackground, _1, time));
 
   m_trafficManager.OnEnterForeground();
+  m_trackingReporter.SetAllowSendingPoints(true);
 }
 
 bool Framework::GetCurrentPosition(double & lat, double & lon) const

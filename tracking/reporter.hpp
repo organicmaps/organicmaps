@@ -37,12 +37,15 @@ public:
 
   void AddLocation(location::GpsInfo const & info);
 
+  void SetAllowSendingPoints(bool allow) { m_allowSendingPoints = allow; }
+
   inline void SetIdleFunc(function<void()> fn) { m_idleFn = fn; }
 
 private:
   void Run();
   bool SendPoints();
 
+  bool m_allowSendingPoints = true;
   Connection m_realtimeSender;
   milliseconds m_pushDelay;
   bool m_wasConnected = false;
