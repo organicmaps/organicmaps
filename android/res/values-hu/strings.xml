@@ -1005,7 +1005,7 @@
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Forgalmi adatok nem állnak rendelkezésre</string>
 	<string name="banner_deliveryclub_title">Ételfutár</string>
-	<string name="banner_deliveryclub_message">Gyors házhozszállítás 4000 étteremből. Rendelés az Ételfutár Klubból.</string>
+	<string name="banner_deliveryclub_message">Gyors házhozszállítás 4000 étteremből. Rendelés a Delivery Club-ból.</string>
 	<string name="banner_lamoda_title">Online ruházati és cipő üzlet</string>
 	<string name="banner_lamoda_message">Több mint 1000 márka. Akár 70 % kedvezmény. Ingyenes szállítás az ország egész területén.</string>
 	<string name="banner_tutu_title">Vonatjegy az interneten keresztül</string>

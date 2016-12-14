@@ -21292,7 +21292,7 @@
     fi = Nopea toimitus 4 000 ravintolasta. Tilaa Delivery Clubilta.
     fr = Livraison rapide de 4 000 restaurants. Commandez via Delivery Club.
     de = Schnelle Lieferung von 4000 Restaurants. Bestellen mit Delivery Club.
-    hu = Gyors házhozszállítás 4000 étteremből. Rendelés az Ételfutár Klubból.
+    hu = Gyors házhozszállítás 4000 étteremből. Rendelés a Delivery Club-ból.
     id = Pengiriman cepat dari 4.000 restoran. Pesan dari Delivery Club.
     it = Consegna rapida da 4000 ristoranti. Ordina da Delivery Club.
     ja = 4,000 軒のレストランから迅速にお届けします。Delivery Club からご注文ください。
@@ -21303,10 +21303,10 @@
     es = Entrega rápida de 4000 restaurantes. Haga el pedido en Delivery Club.
     sv = Snabbleverans från 4000 restauranger. Beställ från Delivery Club.
     th = อาหารส่งถึงที่จาก 4,000 ร้าน สั่งจาก Delivery Club.
-    tr = 4.000'den fazla restorandan hızlı teslimat. Siparişinizi Delivery Clup ile verin.
+    tr = 4.000'den fazla restorandan hızlı teslimat. Siparişinizi Delivery Club ile verin.
     uk = Швидка доставка з 4000 ресторанів. Замовляйте з Delivery Club.
     vi = Giao hàng nhanh từ 4.000 nhà hàng. Đặt hàng từ Delivery Club.
-    zh-Hans = 4,000 家餐厅的快速送餐。从送餐俱乐部订餐。
+    zh-Hans = 4,000 家餐厅的快速送餐。从 Delivery Club 订餐。
     zh-Hant = 4,000 家餐廳的快速外送。向 Delivery Club 訂餐。
     el = Γρήγορη παράδοση από 4.000 εστιατόρια. Παραγγείλετε από το Delivery Club.
     nb = Hurtig leveranse fra 4000 restauranter. Bestill fra Delivery Club.
@@ -21658,7 +21658,7 @@
     cs = Na nich jsou založeny aktuální dopravní informace a nejrychlejší jízdní trasy!
     da = Opdateret trafikinformation og hurtigste ruter baseret på den!
     nl = Actuele verkeersinformatie, en de snelste reisroutes hierop gebaseerd!
-    fi = Ενημερωμένες πληροφορίες για την κίνηση και για γρηγορότερες διαδρομές οδήγησης!
+    fi = Ajankohtaiset liikennetiedot ja parhaat ajoreitit sen perusteella!
     fr = Des données de circulation actualisées et les itinéraires les plus rapides calculés selon celles-ci!
     de = Aktuelle Verkehrsinformationen und darauf basierende schnellste Routen!
     hu = Aktuális forgalmi információk és a leggyorsabb útvonalak ezek alapján!

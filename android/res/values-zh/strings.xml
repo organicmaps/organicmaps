@@ -1011,7 +1011,7 @@
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">交通数据不可用</string>
 	<string name="banner_deliveryclub_title">送餐</string>
-	<string name="banner_deliveryclub_message">4,000 家餐厅的快速送餐。从送餐俱乐部订餐。</string>
+	<string name="banner_deliveryclub_message">4,000 家餐厅的快速送餐。从 Delivery Club 订餐。</string>
 	<string name="banner_lamoda_title">在线服装和鞋店</string>
 	<string name="banner_lamoda_message">超过 1,000 个品牌。最低三折起。全国免费派送。</string>
 	<string name="banner_tutu_title">在线火车票</string>
