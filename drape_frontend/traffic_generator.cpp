@@ -92,7 +92,7 @@ void TrafficGenerator::Init()
 
 void TrafficGenerator::ClearGLDependentResources()
 {
-  ClearCache();
+  InvalidateTexturesCache();
   m_batchersPool.reset();
 }
 

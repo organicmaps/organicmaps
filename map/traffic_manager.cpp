@@ -154,13 +154,6 @@ void TrafficManager::OnMwmDelete(MwmSet::MwmId const & mwmId)
 
 void TrafficManager::OnDestroyGLContext()
 {
-  if (!IsEnabled())
-    return;
-
-  m_observer.OnTrafficInfoClear();
-
-  lock_guard<mutex> lock(m_mutex);
-  Clear();
 }
 
 void TrafficManager::OnRecoverGLContext()
