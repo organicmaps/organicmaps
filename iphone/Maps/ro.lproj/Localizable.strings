@@ -1730,7 +1730,7 @@
 "traffic_update_app_message" = "Pentru a afişa datele privind traficul, aplicația trebuie actualizată.";
 
 /* "traffic" as in "road congestion" */
-"traffic_data_unavailable" = "Datele privind traficul nu sunt disponibile.";
+"traffic_data_unavailable" = "Datele privind traficul nu sunt disponibile";
 
 "banner_deliveryclub_title" = "Livrare mâncare";
 

@@ -999,7 +999,7 @@
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">교통 데이터를 표시하려면 응용 프로그램을 업데이트해야 합니다.</string>
 	<!-- "traffic" as in "road congestion" -->
-	<string name="traffic_data_unavailable">교통 데이터를 사용할 수 없습니다.</string>
+	<string name="traffic_data_unavailable">교통 데이터를 사용할 수 없습니다</string>
 	<string name="banner_deliveryclub_title">음식 배달</string>
 	<string name="banner_deliveryclub_message">4,000곳의 레스토랑에서 신속하게 배달합니다. Delivery Club에서 주문하세요.</string>
 	<string name="banner_lamoda_title">온라인 의류 및 신발 스토어</string>

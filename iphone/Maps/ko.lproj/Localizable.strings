@@ -1730,7 +1730,7 @@
 "traffic_update_app_message" = "교통 데이터를 표시하려면 응용 프로그램을 업데이트해야 합니다.";
 
 /* "traffic" as in "road congestion" */
-"traffic_data_unavailable" = "교통 데이터를 사용할 수 없습니다.";
+"traffic_data_unavailable" = "교통 데이터를 사용할 수 없습니다";
 
 "banner_deliveryclub_title" = "음식 배달";
 
