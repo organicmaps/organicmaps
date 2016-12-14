@@ -1,6 +1,8 @@
 #import "MWMNetworkPolicy.h"
 #import "MWMAlertViewController.h"
 
+#include "platform/platform.hpp"
+
 using np = platform::NetworkPolicy;
 
 namespace
@@ -13,7 +15,13 @@ namespace network_policy
 {
 void CallPartnersApi(platform::PartnersApiFn fn, bool force)
 {
-  if (force)
+  auto const connectionType = GetPlatform().ConnectionStatus();
+  if (connectionType == Platform::EConnectionType::CONNECTION_NONE)
+  {
+    fn(false);
+    return;
+  }
+  if (force || connectionType == Platform::EConnectionType::CONNECTION_WIFI)
   {
     fn(true);
     return;
