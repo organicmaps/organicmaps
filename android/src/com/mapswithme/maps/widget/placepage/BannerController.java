@@ -179,8 +179,16 @@ final class BannerController implements View.OnClickListener
 
   private void loadIcon(@NonNull Banner banner)
   {
-    if (mIcon == null || TextUtils.isEmpty(banner.getIconUrl()))
+    if (mIcon == null)
       return;
+
+    if (TextUtils.isEmpty(banner.getIconUrl()))
+    {
+      UiUtils.hide(mIcon);
+      return;
+    }
+
+    UiUtils.show(mIcon);
 
     Glide.with(mIcon.getContext())
          .load(banner.getIconUrl())
