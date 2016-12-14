@@ -84,10 +84,7 @@ final class BannerController implements View.OnClickListener
     if (!showBanner)
       return;
 
-    if (TextUtils.isEmpty(mBanner.getIconUrl()))
-      UiUtils.hide(mIcon);
-    else
-      loadIcon(banner);
+    loadIcon(banner);
     if (mTitle != null)
     {
       String title = mResources.getString(mResources.getIdentifier(banner.getTitle(), "string", mFrame.getContext().getPackageName()));
