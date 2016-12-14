@@ -1791,3 +1791,6 @@
 
 /* january */
 "whatsnew_font_size_text" = "Harita üzerindeki etiketler daha büyük hale getirilebilir.";
+
+/* "Translation is no needed, because it's a company name" */
+"uber" = "Uber";

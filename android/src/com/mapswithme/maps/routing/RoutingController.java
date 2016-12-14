@@ -340,14 +340,21 @@ public class RoutingController
       return;
     }
 
+    if (startPoint != null && endPoint != null)
+      mLastRouterType = Framework.nativeGetBestRouter(startPoint.getLat(), startPoint.getLon(),
+                                                      endPoint.getLat(), endPoint.getLon());
+    prepare(startPoint, endPoint, mLastRouterType);
+  }
+
+  public void prepare(@Nullable MapObject startPoint, @Nullable MapObject endPoint,
+                      @Framework.RouterType int routerType)
+  {
     cancel();
     mStartPoint = startPoint;
     mEndPoint = endPoint;
     setState(State.PREPARE);
 
-    if (mStartPoint != null && mEndPoint != null)
-      mLastRouterType = Framework.nativeGetBestRouter(mStartPoint.getLat(), mStartPoint.getLon(),
-                                                      mEndPoint.getLat(), mEndPoint.getLon());
+    mLastRouterType = routerType;
     Framework.nativeSetRouter(mLastRouterType);
 
     if (mContainer != null)

@@ -1791,3 +1791,6 @@
 
 /* january */
 "whatsnew_font_size_text" = "지도의 레이블을 더 크게 할 수 있습니다.";
+
+/* "Translation is no needed, because it's a company name" */
+"uber" = "Uber";

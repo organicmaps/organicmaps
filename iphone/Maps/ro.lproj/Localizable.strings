@@ -1791,3 +1791,6 @@
 
 /* january */
 "whatsnew_font_size_text" = "Etichetele de pe hartă pot fi făcute mai mari.";
+
+/* "Translation is no needed, because it's a company name" */
+"uber" = "Uber";

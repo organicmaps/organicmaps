@@ -1063,4 +1063,6 @@
 	<string name="whatsnew_font_size">Font Size</string>
 	<!-- january -->
 	<string name="whatsnew_font_size_text">Labels on the map can be made bigger.</string>
+	<!-- "Translation is no needed, because it's a company name" -->
+	<string name="uber">Uber</string>
 </resources>

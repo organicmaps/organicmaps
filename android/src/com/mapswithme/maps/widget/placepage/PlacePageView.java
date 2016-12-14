@@ -68,6 +68,7 @@ import com.mapswithme.maps.widget.ObservableScrollView;
 import com.mapswithme.maps.widget.ScrollViewShadowController;
 import com.mapswithme.maps.widget.recycler.DividerItemDecoration;
 import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
+import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.ThemeUtils;
@@ -138,6 +139,7 @@ public class PlacePageView extends RelativeLayout
   private View mWiki;
   private View mEntrance;
   private TextView mTvEntrance;
+  private View mTaxi;
   private View mEditPlace;
   private View mAddOrganisation;
   private View mAddPlace;
@@ -304,6 +306,9 @@ public class PlacePageView extends RelativeLayout
     mWiki.setOnClickListener(this);
     mEntrance = mDetails.findViewById(R.id.ll__place_entrance);
     mTvEntrance = (TextView) mEntrance.findViewById(R.id.tv__place_entrance);
+    mTaxi = mDetails.findViewById(R.id.ll__place_page_taxi);
+    TextView orderTaxi = (TextView) mTaxi.findViewById(R.id.tv__place_page_order_taxi);
+    orderTaxi.setOnClickListener(this);
     mEditPlace = mDetails.findViewById(R.id.ll__place_editor);
     mEditPlace.setOnClickListener(this);
     mAddOrganisation = mDetails.findViewById(R.id.ll__add_organisation);
@@ -988,9 +993,16 @@ public class PlacePageView extends RelativeLayout
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_FLATS), mEntrance, mTvEntrance);
     refreshOpeningHours();
 
-    if (RoutingController.get().isNavigating() ||
-        RoutingController.get().isPlanning() ||
-        MapManager.nativeIsLegacyMode())
+    boolean showTaxiOffer = mMapObject.isReachableByTaxi() &&
+                            LocationHelper.INSTANCE.getMyPosition() != null &&
+                            ConnectionState.isConnected();
+
+    UiUtils.showIf(showTaxiOffer, mTaxi);
+
+    boolean inRouting = RoutingController.get().isNavigating() ||
+                        RoutingController.get().isPlanning();
+
+    if (inRouting || MapManager.nativeIsLegacyMode())
     {
       UiUtils.hide(mEditPlace, mAddOrganisation, mAddPlace);
     }
@@ -1321,6 +1333,12 @@ public class PlacePageView extends RelativeLayout
         ReviewActivity.start(getContext(), mReviewAdapter.getItems(), mMapObject.getTitle(),
                              mSponsored.mRating, mReviewAdapter.getItems()
                                                                .size(), mSponsored.mUrl);
+        break;
+      case R.id.tv__place_page_order_taxi:
+        RoutingController.get().prepare(LocationHelper.INSTANCE.getMyPosition(), mMapObject,
+                                        Framework.ROUTER_TYPE_TAXI);
+        hide();
+        Framework.nativeDeactivatePopup();
         break;
     }
   }
