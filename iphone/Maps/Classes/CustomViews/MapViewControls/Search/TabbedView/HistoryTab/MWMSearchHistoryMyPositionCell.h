@@ -2,6 +2,4 @@
 
 @interface MWMSearchHistoryMyPositionCell : MWMTableViewCell
 
-+ (CGFloat)cellHeight;
-
 @end

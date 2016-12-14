@@ -2,6 +2,4 @@
 
 @interface MWMSearchHistoryClearCell : MWMTableViewCell
 
-+ (CGFloat)cellHeight;
-
 @end
