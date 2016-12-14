@@ -1,5 +1,6 @@
 package com.mapswithme.maps.widget.placepage;
 
+import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
@@ -83,7 +84,10 @@ final class BannerController implements View.OnClickListener
     if (!showBanner)
       return;
 
-    loadIcon(banner);
+    if (TextUtils.isEmpty(mBanner.getIconUrl()))
+      UiUtils.hide(mIcon);
+    else
+      loadIcon(banner);
     if (mTitle != null)
     {
       String title = mResources.getString(mResources.getIdentifier(banner.getTitle(), "string", mFrame.getContext().getPackageName()));
@@ -113,9 +117,15 @@ final class BannerController implements View.OnClickListener
 
     mIsOpened = true;
     setFrameHeight(WRAP_CONTENT);
-    setIconParams(mOpenIconSize, 0, mMarginBase);
+    setIconParams(mOpenIconSize, 0, mMarginBase, new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        loadIcon(mBanner);
+      }
+    });
     UiUtils.show(mMessage, mAdMarker);
-    loadIcon(mBanner);
     if (mTitle != null)
       mTitle.setMaxLines(2);
     mFrame.setOnClickListener(this);
@@ -128,9 +138,15 @@ final class BannerController implements View.OnClickListener
 
     mIsOpened = false;
     setFrameHeight((int) mCloseFrameHeight);
-    setIconParams(mCloseIconSize, mMarginBase, mMarginHalfPlus);
+    setIconParams(mCloseIconSize, mMarginBase, mMarginHalfPlus, new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        loadIcon(mBanner);
+      }
+    });
     UiUtils.hide(mMessage, mAdMarker);
-    loadIcon(mBanner);
     if (mTitle != null)
       mTitle.setMaxLines(1);
     mFrame.setOnClickListener(null);
@@ -143,10 +159,15 @@ final class BannerController implements View.OnClickListener
     mFrame.setLayoutParams(lp);
   }
 
-  private void setIconParams(final float size, final float marginRight, final float marginTop)
+  private void setIconParams(final float size, final float marginRight, final float marginTop,
+                             final @Nullable Runnable listener)
   {
     if (mIcon == null || UiUtils.isHidden(mIcon))
+    {
+      if (listener != null)
+        listener.run();
       return;
+    }
 
     if (mIconAnimator != null)
       mIconAnimator.cancel();
@@ -157,7 +178,11 @@ final class BannerController implements View.OnClickListener
     final float startTop = lp.topMargin;
     mIconAnimator = ValueAnimator.ofFloat(0.0f, 1.0f);
     if (mIconAnimator == null)
+    {
+      if (listener != null)
+        listener.run();
       return;
+    }
 
     mIconAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
     {
@@ -171,6 +196,15 @@ final class BannerController implements View.OnClickListener
         lp.rightMargin = (int) (startRight + t * (marginRight - startRight));
         lp.topMargin = (int) (startTop + t * (marginTop - startTop));
         mIcon.setLayoutParams(lp);
+      }
+    });
+    mIconAnimator.addListener(new UiUtils.SimpleAnimatorListener()
+    {
+      @Override
+      public void onAnimationEnd(Animator animation)
+      {
+        if (listener != null)
+          listener.run();
       }
     });
     mIconAnimator.setDuration(DURATION_DEFAULT);
@@ -187,8 +221,6 @@ final class BannerController implements View.OnClickListener
       UiUtils.hide(mIcon);
       return;
     }
-
-    UiUtils.show(mIcon);
 
     Glide.with(mIcon.getContext())
          .load(banner.getIconUrl())
