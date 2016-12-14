@@ -24,6 +24,7 @@ public:
   Connection(unique_ptr<platform::Socket> socket, string const & host, uint16_t port,
              bool isHistorical);
   bool Reconnect();
+  void Shutdown();
   bool Send(boost::circular_buffer<DataPoint> const & points);
 
 private:

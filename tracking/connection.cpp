@@ -46,6 +46,14 @@ bool Connection::Reconnect()
   return true;
 }
 
+void Connection::Shutdown()
+{
+  if (!m_socket)
+    return;
+
+  m_socket->Close();
+}
+
 // TODO: implement historical
 bool Connection::Send(boost::circular_buffer<DataPoint> const & points)
 {
