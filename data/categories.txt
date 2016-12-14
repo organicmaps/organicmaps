@@ -2580,7 +2580,7 @@ sk:3Divadlo|zábava
 sw:Thieta|burudani|maonyesho
 
 amenity-nightclub
-en:3Nightclub|3disco|dance|entertainment|U+1F378|U+1F379|U+1F46F|U+1F483
+en:3Nightclub|night club|3disco|dance|entertainment|U+1F378|U+1F379|U+1F46F|U+1F483
 ru:3Ночной клуб|3дискотека|развлечения
 ar:نادي ليلي|رقص|التسلية
 cs:4Noční klub|3disco|3klub|zábava
@@ -2598,7 +2598,7 @@ nb:Nattklubb|underholdning
 pl:3Dyskoteka|klub nocny|rozrywka
 pt:3Discoteca|3dançar|entretenimento
 ro:Club de noapte|divertisment
-es:3Discoteca|nightclub|entretenimiento
+es:3Discoteca|nightclub|night club|entretenimiento
 sv:3Nattklubb|3disco|dans|underhållning
 th:3ไนต์คลับ|การเต้นรำ|แหล่งบันเทิง
 tr:3Gece kulübü|dans|eğlence
@@ -2606,7 +2606,7 @@ uk:3Нічний клуб|3дискотека|розваги
 vi:Câu lạc bộ đêm|giải trí
 zh-Hans:3夜总会|娱乐
 zh-Hant:1夜店|2俱樂部|酒|喝酒|跳舞|舞|2夜生活|娛樂
-sk:4Nočný klub|3disco|3nightclub|zábava
+sk:4Nočný klub|3disco|3nightclub|night club|zábava
 sw:Ukumbi wa starehe|klabu|burudani
 
 amenity-brothel
