@@ -77,6 +77,7 @@ set(
   road_point.hpp
   route.cpp
   route.hpp
+  route_point.hpp
   router.cpp
   router.hpp
   router_delegate.cpp

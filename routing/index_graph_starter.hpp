@@ -2,6 +2,7 @@
 
 #include "routing/index_graph.hpp"
 #include "routing/joint.hpp"
+#include "routing/route_point.hpp"
 
 #include "std/utility.hpp"
 
@@ -47,7 +48,7 @@ public:
   // Add intermediate points to route (those don't correspond to any joint).
   //
   // Also convert joint ids to RoadPoints.
-  void RedressRoute(vector<Joint::Id> const & route, vector<RoadPoint> & roadPoints);
+  void RedressRoute(vector<Joint::Id> const & route, vector<RoutePoint> & routePoints);
 
 private:
   struct FakeJoint final

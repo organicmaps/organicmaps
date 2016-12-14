@@ -30,17 +30,20 @@ m2::PointD const & IndexGraphStarter::GetPoint(Joint::Id jointId)
 }
 
 void IndexGraphStarter::RedressRoute(vector<Joint::Id> const & route,
-                                     vector<RoadPoint> & roadPoints)
+                                     vector<RoutePoint> & routePoints)
 {
   if (route.size() < 2)
   {
     if (route.size() == 1)
-      roadPoints.emplace_back(m_start.m_point);
+      routePoints.emplace_back(m_start.m_point, 0.0 /* time */);
     return;
   }
 
-  roadPoints.reserve(route.size() * 2);
+  routePoints.reserve(route.size() * 2);
 
+  EdgeEstimator const & estimator = m_graph.GetEstimator();
+
+  double routeTime = 0.0;
   for (size_t i = 0; i < route.size() - 1; ++i)
   {
     Joint::Id const prevJoint = route[i];
@@ -50,29 +53,23 @@ void IndexGraphStarter::RedressRoute(vector<Joint::Id> const & route,
     RoadPoint rp1;
     FindPointsWithCommonFeature(prevJoint, nextJoint, rp0, rp1);
     if (i == 0)
-      roadPoints.emplace_back(rp0);
+      routePoints.emplace_back(rp0, 0.0 /* time */);
 
     uint32_t const featureId = rp0.GetFeatureId();
     uint32_t const pointFrom = rp0.GetPointId();
     uint32_t const pointTo = rp1.GetPointId();
 
-    if (pointFrom < pointTo)
-    {
-      for (uint32_t pointId = pointFrom + 1; pointId < pointTo; ++pointId)
-        roadPoints.emplace_back(featureId, pointId);
-    }
-    else if (pointFrom > pointTo)
-    {
-      for (uint32_t pointId = pointFrom - 1; pointId > pointTo; --pointId)
-        roadPoints.emplace_back(featureId, pointId);
-    }
-    else
-    {
-      CHECK(false,
-            ("Wrong equality pointFrom = pointTo =", pointFrom, ", featureId = ", featureId));
-    }
+    RoadGeometry const roadGeometry = m_graph.GetGeometry().GetRoad(featureId);
 
-    roadPoints.emplace_back(rp1);
+    CHECK_NOT_EQUAL(pointFrom, pointTo, ("featureId =", featureId));
+    uint32_t const step = pointFrom < pointTo ? 1 : -1;
+
+    for (uint32_t prevPointId = pointFrom; prevPointId != pointTo; prevPointId += step)
+    {
+      uint32_t const pointId = prevPointId + step;
+      routeTime += estimator.CalcEdgesWeight(featureId, roadGeometry, prevPointId, pointId);
+      routePoints.emplace_back(featureId, pointId, routeTime);
+    }
   }
 }
 
