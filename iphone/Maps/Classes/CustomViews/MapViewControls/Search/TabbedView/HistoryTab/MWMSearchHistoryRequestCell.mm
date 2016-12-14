@@ -26,17 +26,6 @@
   UILabel * label = self.label;
   label.text = title;
   label.textColor = [UIColor blackSecondaryText];
-  [label sizeToFit];
-}
-
-+ (CGFloat)defaultCellHeight
-{
-  return 44.0;
-}
-
-- (CGFloat)cellHeight
-{
-  return ceil([self.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height);
 }
 
 @end

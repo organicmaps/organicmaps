@@ -19,9 +19,4 @@
   sl.rasterizationScale = UIScreen.mainScreen.scale;
 }
 
-+ (CGFloat)cellHeight
-{
-  return 44.0;
-}
-
 @end

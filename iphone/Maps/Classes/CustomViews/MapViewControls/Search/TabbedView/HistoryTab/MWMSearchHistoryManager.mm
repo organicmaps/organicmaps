@@ -19,7 +19,6 @@ static NSString * const kMyPositionCellIdentifier = @"MWMSearchHistoryMyPosition
 
 @property(weak, nonatomic) MWMSearchTabbedCollectionViewCell * cell;
 
-@property(nonatomic) MWMSearchHistoryRequestCell * sizingCell;
 @property(nonatomic) MWMSearchNoResults * noResultsView;
 
 @end
@@ -38,6 +37,8 @@ static NSString * const kMyPositionCellIdentifier = @"MWMSearchHistoryMyPosition
 {
   self.cell = cell;
   UITableView * tableView = cell.tableView;
+  tableView.estimatedRowHeight = 44.;
+  tableView.rowHeight = UITableViewAutomaticDimension;
   tableView.alpha = 1.0;
   BOOL const isRouteSearch = self.isRouteSearchMode;
   if (GetFramework().GetLastSearchQueries().empty() && !isRouteSearch)
@@ -97,47 +98,17 @@ static NSString * const kMyPositionCellIdentifier = @"MWMSearchHistoryMyPosition
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   if ([self isRequestCell:indexPath])
-    return [tableView dequeueReusableCellWithIdentifier:kRequestCellIdentifier];
-  else
-    return [tableView dequeueReusableCellWithIdentifier:self.isRouteSearchMode
+  {
+    auto tCell = static_cast<MWMSearchHistoryRequestCell *>([tableView dequeueReusableCellWithIdentifier:kRequestCellIdentifier]);
+    [tCell config:[self stringAtIndex:indexPath.row]];
+    return tCell;
+  }
+  return [tableView dequeueReusableCellWithIdentifier:self.isRouteSearchMode
                                                             ? kMyPositionCellIdentifier
                                                             : kClearCellIdentifier];
 }
 
 #pragma mark - UITableViewDelegate
-
-- (CGFloat)tableView:(UITableView *)tableView
-    estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-  if ([self isRequestCell:indexPath])
-    return MWMSearchHistoryRequestCell.defaultCellHeight;
-  else
-    return self.isRouteSearchMode ? MWMSearchHistoryMyPositionCell.cellHeight
-                                  : MWMSearchHistoryClearCell.cellHeight;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-  NSUInteger const row = indexPath.row;
-  if ([self isRequestCell:indexPath])
-  {
-    [self.sizingCell config:[self stringAtIndex:row]];
-    return self.sizingCell.cellHeight;
-  }
-  else
-    return self.isRouteSearchMode ? MWMSearchHistoryMyPositionCell.cellHeight
-                                  : MWMSearchHistoryClearCell.cellHeight;
-}
-
-- (void)tableView:(UITableView *)tableView
-      willDisplayCell:(UITableViewCell *)cell
-    forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-  if (![cell isKindOfClass:[MWMSearchHistoryRequestCell class]])
-    return;
-  MWMSearchHistoryRequestCell * tCell = static_cast<MWMSearchHistoryRequestCell *>(cell);
-  [tCell config:[self stringAtIndex:indexPath.row]];
-}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -177,13 +148,6 @@ static NSString * const kMyPositionCellIdentifier = @"MWMSearchHistoryMyPosition
 }
 
 #pragma mark - Properties
-
-- (MWMSearchHistoryRequestCell *)sizingCell
-{
-  if (!_sizingCell)
-    _sizingCell = [self.cell.tableView dequeueReusableCellWithIdentifier:kRequestCellIdentifier];
-  return _sizingCell;
-}
 
 - (MWMSearchNoResults *)noResultsView
 {

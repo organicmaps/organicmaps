@@ -27,6 +27,8 @@ static NSString * const kCellIdentifier = @"MWMSearchCategoryCell";
 {
   [cell removeNoResultsView];
   UITableView * tableView = cell.tableView;
+  tableView.estimatedRowHeight = 44.;
+  tableView.rowHeight = UITableViewAutomaticDimension;
   tableView.alpha = 1.0;
   tableView.hidden = NO;
   tableView.delegate = self;
@@ -46,22 +48,12 @@ static NSString * const kCellIdentifier = @"MWMSearchCategoryCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  return [tableView dequeueReusableCellWithIdentifier:kCellIdentifier];
+  auto tCell = static_cast<MWMSearchCategoryCell *>([tableView dequeueReusableCellWithIdentifier:kCellIdentifier]);
+  [tCell setCategory:@(m_categories[indexPath.row].c_str())];
+  return tCell;
 }
 
 #pragma mark - UITableViewDelegate
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-  return 44.0;
-}
-
-- (void)tableView:(UITableView *)tableView
-      willDisplayCell:(MWMSearchCategoryCell *)cell
-    forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-  [cell setCategory:@(m_categories[indexPath.row].c_str())];
-}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
