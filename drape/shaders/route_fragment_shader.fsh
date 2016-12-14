@@ -11,8 +11,8 @@ uniform vec4 u_routeParams;
 
 const float kAntialiasingThreshold = 0.92;
 
-const float kOutlineThreshold1 = 0.4;
-const float kOutlineThreshold2 = 0.3;
+const float kOutlineThreshold1 = 0.6;
+const float kOutlineThreshold2 = 0.5;
 
 void main(void)
 {
