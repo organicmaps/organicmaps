@@ -21236,10 +21236,10 @@
     id = Data lalu lintas tidak tersedia
     it = Dati sul traffico non disponibili
     ja = 交通データは利用できません
-    ko = 교통 데이터를 사용할 수 없습니다.
+    ko = 교통 데이터를 사용할 수 없습니다
     pl = Dane o ruchu są niedostępne
     pt = Não existem dados de tráfego
-    ro = Datele privind traficul nu sunt disponibile.
+    ro = Datele privind traficul nu sunt disponibile
     es = Los datos de tráfico no están disponibles
     sv = Trafikdata är inte tillgänglig
     th = ไม่มีข้อมูลการจราจร
