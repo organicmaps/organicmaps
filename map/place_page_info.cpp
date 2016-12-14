@@ -199,6 +199,13 @@ string Info::GetBannerUrl() const
   return m_banner.GetFormattedUrl(m_metadata.Get(feature::Metadata::FMD_BANNER_URL));
 }
 
+string Info::GetBannerId() const
+{
+  if (m_banner.IsEmpty())
+    return {};
+  return m_banner.GetId();
+}
+
 bool Info::IsReachableByTaxi() const
 {
   return IsReachableByTaxiChecker::Instance()(m_types);

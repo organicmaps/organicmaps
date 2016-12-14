@@ -227,22 +227,32 @@ using namespace place_page;
 
 - (NSString *)bannerTitle
 {
-  return m_info.HasBanner() ? L(@(m_info.GetBannerTitleId().c_str())) : nil;
+  NSAssert(m_info.HasBanner(), @"Incorrect banner state!");
+  return L(@(m_info.GetBannerTitleId().c_str()));
 }
 
 - (NSString *)bannerContent
 {
-  return m_info.HasBanner() ? L(@(m_info.GetBannerMessageId().c_str())) : nil;
+  NSAssert(m_info.HasBanner(), @"Incorrect banner state!");
+  return L(@(m_info.GetBannerMessageId().c_str()));
 }
 
 - (NSURL *)bannerIconURL
 {
-  return m_info.HasBanner() ? [NSURL URLWithString:@(m_info.GetBannerIconId().c_str())] : nil;
+  NSAssert(m_info.HasBanner(), @"Incorrect banner state!");
+  return [NSURL URLWithString:@(m_info.GetBannerIconId().c_str())];
 }
 
 - (NSURL *)bannerURL
 {
-  return m_info.HasBanner() ? [NSURL URLWithString:@(m_info.GetBannerUrl().c_str())] : nil;
+  NSAssert(m_info.HasBanner(), @"Incorrect banner state!");
+  return [NSURL URLWithString:@(m_info.GetBannerUrl().c_str())];
+}
+
+- (NSString *)bannerId
+{
+  NSAssert(m_info.HasBanner(), @"Incorrect banner state!");
+  return @(m_info.GetBannerId().c_str());
 }
 
 - (void)assignOnlinePriceToLabel:(UILabel *)label

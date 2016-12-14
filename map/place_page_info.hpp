@@ -84,6 +84,7 @@ public:
   string GetBannerMessageId() const;
   string GetBannerIconId() const;
   string GetBannerUrl() const;
+  string GetBannerId() const;
 
   bool IsReachableByTaxi() const;
 

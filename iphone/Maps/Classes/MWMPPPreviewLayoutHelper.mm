@@ -4,6 +4,7 @@
 #import "MWMPlacePageData.h"
 #import "MWMPPPreviewBannerCell.h"
 #import "MWMTableViewCell.h"
+#import "Statistics.h"
 #import "UIColor+MapsmeColor.h"
 
 #include "std/array.hpp"
@@ -228,11 +229,11 @@ array<NSString *, 8> const kPreviewCells = {{@"_MWMPPPTitle", @"_MWMPPPExternalT
   case PreviewRows::Space:
     return c;
   case PreviewRows::Banner:
+    [Statistics logEvent:kStatPlacePageBannerShow withParameters:@{kStatTags : data.statisticsTags,
+                                                                 kStatBanner : data.bannerId,
+                                                                  kStatState : IPAD ? @1 : @0}];
     auto bannerCell = static_cast<MWMPPPreviewBannerCell *>(c);
-    [bannerCell configWithTitle:data.bannerTitle
-                        content:data.bannerContent
-                     adURL:data.bannerURL
-                  imageURL:data.bannerIconURL];
+    [bannerCell configWithData:data];
     self.cachedBannerCell = bannerCell;
     return bannerCell;
   }

@@ -1,7 +1,9 @@
 #import "MWMPPPreviewBannerCell.h"
 #import "Common.h"
 #import "MapViewController.h"
+#import "MWMPlacePageData.h"
 #import "MWMPlacePageLayoutImpl.h"
+#import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
 
@@ -23,7 +25,7 @@ CGFloat const kLineSpacing = 5;
 @property(weak, nonatomic) IBOutlet UIImageView * icon;
 @property(weak, nonatomic) IBOutlet UILabel * body;
 @property(weak, nonatomic) IBOutlet UIButton * button;
-@property(nonatomic) NSURL * adURL;
+@property(weak, nonatomic) MWMPlacePageData * data;
 
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * imageWidth;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * imageHeight;
@@ -34,23 +36,20 @@ CGFloat const kLineSpacing = 5;
 
 @implementation MWMPPPreviewBannerCell
 
-- (void)configWithTitle:(NSString *)title
-                content:(NSString *)content
-                  adURL:(NSURL *)adURL
-               imageURL:(NSURL *)imageURL
+- (void)configWithData:(MWMPlacePageData *)data
 {
-  NSAssert(title.length, @"Title must be not empty!");
-  self.adURL = adURL;
-  auto full = [[NSMutableAttributedString alloc] initWithString:title attributes:
-                                        @{NSForegroundColorAttributeName : [UIColor blackPrimaryText],
-                                                     NSFontAttributeName : [UIFont medium16]}];
+  self.data = data;
+  auto full = [[NSMutableAttributedString alloc] initWithString:data.bannerTitle attributes:
+               @{NSForegroundColorAttributeName : [UIColor blackPrimaryText],
+                 NSFontAttributeName : [UIFont medium16]}];
   [full appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
 
+  auto content = data.bannerContent;
   if (content.length)
   {
     auto attrContent = [[NSAttributedString alloc] initWithString:content attributes:
-                                        @{NSForegroundColorAttributeName : [UIColor blackSecondaryText],
-                                                     NSFontAttributeName : [UIFont regular13]}];
+                        @{NSForegroundColorAttributeName : [UIColor blackSecondaryText],
+                          NSFontAttributeName : [UIFont regular13]}];
 
     [full appendAttributedString:attrContent];
   }
@@ -67,6 +66,7 @@ CGFloat const kLineSpacing = 5;
   self.bodyLeftOffset.constant = kDefaultBodyLeftOffset;
   self.button.hidden = !IPAD;
 
+  auto imageURL = data.bannerIconURL;
   if (!imageURL)
     return;
 
@@ -124,8 +124,13 @@ CGFloat const kLineSpacing = 5;
 
 - (IBAction)tap
 {
-  if (self.adURL)
-    [[MapViewController controller] openUrl:self.adURL];
+  MWMPlacePageData * data = self.data;
+  [Statistics logEvent:kStatPlacePageBannerClick withParameters:@{kStatTags : data.statisticsTags,
+                                                                kStatBanner : data.bannerId,
+                                                                 kStatState : @1}];
+  auto bannerURL = data.bannerURL;
+  if (bannerURL)
+    [[MapViewController controller] openUrl:bannerURL];
 }
 
 @end

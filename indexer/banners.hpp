@@ -19,6 +19,7 @@ public:
   string GetMessageBase() const { return m_messageBase; }
   string GetIconName() const { return m_iconName; }
   string GetDefaultUrl() const { return m_defaultUrl; }
+  string GetId() const { return m_id; }
   bool IsActive() const;
 
   /// Replaces inline variables in the URL, uses the default banner URL if url is not specified.
