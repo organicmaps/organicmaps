@@ -154,7 +154,7 @@ public final class HttpClient
           if (header.getKey() == null || header.getValue() == null)
             continue;
 
-          p.headers.add(new HttpHeader(header.getKey(), TextUtils.join(", ", header.getValue())));
+          p.headers.add(new HttpHeader(header.getKey().toLowerCase(), TextUtils.join(", ", header.getValue())));
         }
       }
       else
