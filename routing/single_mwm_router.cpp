@@ -208,11 +208,10 @@ bool SingleMwmRouter::BuildRoute(MwmSet::MwmId const & mwmId, vector<Joint::Id> 
   vector<Junction> junctions;
   junctions.reserve(routePoints.size());
 
-  Geometry & geometry = starter.GetGraph().GetGeometry();
   // TODO: Use real altitudes for pedestrian and bicycle routing.
   for (RoutePoint const & routePoint : routePoints)
   {
-    junctions.emplace_back(geometry.GetPoint(routePoint.GetRoadPoint()),
+    junctions.emplace_back(starter.GetPoint(routePoint.GetRoadPoint()),
                            feature::kDefaultAltitudeMeters);
   }
 

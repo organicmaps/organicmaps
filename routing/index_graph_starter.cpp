@@ -29,6 +29,11 @@ m2::PointD const & IndexGraphStarter::GetPoint(Joint::Id jointId)
   return m_graph.GetPoint(jointId);
 }
 
+m2::PointD const & IndexGraphStarter::GetPoint(RoadPoint const & rp)
+{
+  return m_graph.GetPoint(rp);
+}
+
 void IndexGraphStarter::RedressRoute(vector<Joint::Id> const & route,
                                      vector<RoutePoint> & routePoints)
 {

@@ -29,6 +29,7 @@ public:
   Joint::Id GetFinishJoint() const { return m_finish.m_jointId; }
 
   m2::PointD const & GetPoint(Joint::Id jointId);
+  m2::PointD const & GetPoint(RoadPoint const & rp);
 
   void GetOutgoingEdgesList(Joint::Id jointId, vector<JointEdge> & edges)
   {
