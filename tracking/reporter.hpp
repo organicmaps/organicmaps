@@ -45,7 +45,7 @@ private:
   void Run();
   bool SendPoints();
 
-  bool m_allowSendingPoints = true;
+  atomic<bool> m_allowSendingPoints;
   Connection m_realtimeSender;
   milliseconds m_pushDelay;
   bool m_wasConnected = false;
