@@ -22067,3 +22067,7 @@
     hi = नक्शे पर लेबलों को बड़ा किया जा सकता है।
     pt-BR = Os rótulos no mapa podem ser ampliados.
     sk = Nápisy na mape je možné zväčšiť.
+
+  [uber]
+    comment = "Translation is no needed, because it's a company name"
+    en = Uber

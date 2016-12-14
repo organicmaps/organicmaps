@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/ll__place_page_taxi"
+  style="@style/PlacePageItemFrame"
+  android:paddingTop="@dimen/placepage_taxi_padding_vert"
+  android:paddingBottom="@dimen/placepage_taxi_padding_vert"
+  android:clickable="false">
+
+  <ImageView
+    android:id="@+id/iv__place_page_taxi"
+    style="@style/PlacePageMetadataIcon"
+    android:layout_centerVertical="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:src="@drawable/ic_placepage_taxi"/>
+
+  <TextView
+    android:id="@+id/tv__place_page_taxi"
+    style="@style/PlacePageMetadataText"
+    android:layout_toRightOf="@id/iv__place_page_taxi"
+    android:layout_toEndOf="@id/iv__place_page_taxi"
+    android:layout_centerVertical="true"
+    android:layout_width="wrap_content"
+    android:text="@string/uber"/>
+
+  <TextView
+    android:id="@+id/tv__place_page_order_taxi"
+    style="@style/PlacePageMetadataText.Button"
+    android:layout_centerVertical="true"
+    android:background="?selectableItemBackgroundBorderless"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true"
+    android:text="@string/taxi_order"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:minWidth="@dimen/placepage_taxi_button_min_width"
+    android:paddingLeft="@dimen/margin_half"
+    android:paddingRight="@dimen/margin_half"
+    android:paddingTop="@dimen/placepage_taxi_button_padding_vert"
+    android:paddingBottom="@dimen/placepage_taxi_button_padding_vert"/>
+</RelativeLayout>

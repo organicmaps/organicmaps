@@ -20,9 +20,9 @@ public class Bookmark extends MapObject
   private double mMerY;
 
   Bookmark(@IntRange(from = 0) int categoryId, @IntRange(from = 0) int bookmarkId, String title,
-           @Nullable Banner banner)
+           @Nullable Banner banner, boolean reachableByTaxi)
   {
-    super(BOOKMARK, title, "", "", 0, 0, "", banner);
+    super(BOOKMARK, title, "", "", 0, 0, "", banner, reachableByTaxi);
 
     mCategoryId = categoryId;
     mBookmarkId = bookmarkId;
@@ -36,8 +36,8 @@ public class Bookmark extends MapObject
     mMerX = ll.x;
     mMerY = ll.y;
 
-    mLat = Math.toDegrees(2.0 * Math.atan(Math.exp(Math.toRadians(ll.y))) - Math.PI / 2.0);
-    mLon = ll.x;
+    setLat(Math.toDegrees(2.0 * Math.atan(Math.exp(Math.toRadians(ll.y))) - Math.PI / 2.0));
+    setLon(ll.x);
   }
 
   @Override

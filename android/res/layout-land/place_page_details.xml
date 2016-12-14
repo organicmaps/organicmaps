@@ -55,13 +55,17 @@
 
       <include layout="@layout/place_page_email"/>
 
-      <include layout="@layout/place_page_latlon"/>
-
       <include layout="@layout/place_page_wifi"/>
 
       <include layout="@layout/place_page_operator"/>
 
       <include layout="@layout/place_page_cuisine"/>
+
+      <include layout="@layout/place_page_latlon"/>
+
+      <include layout="@layout/divider_horizontal"/>
+
+      <include layout="@layout/place_page_taxi"/>
 
       <include layout="@layout/place_page_hotel_nearby"/>
 

@@ -38,14 +38,15 @@ jobject CreateMapObject(JNIEnv * env, int mapObjectType, string const & title,
                         string const & subtitle, double lat, double lon, string const & address,
                         Metadata const & metadata, string const & apiId, bool hasBanner,
                         string const & bannerTitleId, string const & bannerMessageId,
-                        string const & bannerIconId, string const & bannerUrl)
+                        string const & bannerIconId, string const & bannerUrl,
+                        bool isReachableByTaxi)
 {
   // public MapObject(@MapObjectType int mapObjectType, String title, String subtitle, double lat,
-  // double lon, String address, String apiId, @NonNull Banner banner)
+  // double lon, String address, String apiId, @NonNull Banner banner, boolean reachableByTaxi)
   static jmethodID const ctorId =
       jni::GetConstructorID(env, g_mapObjectClazz,
                             "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;DDLjava/lang/"
-                            "String;Lcom/mapswithme/maps/bookmarks/data/Banner;)V");
+                            "String;Lcom/mapswithme/maps/bookmarks/data/Banner;Z)V");
 
   jobject jbanner = nullptr;
   if (hasBanner)
@@ -54,7 +55,7 @@ jobject CreateMapObject(JNIEnv * env, int mapObjectType, string const & title,
   jobject mapObject =
       env->NewObject(g_mapObjectClazz, ctorId, mapObjectType, jni::ToJavaString(env, title),
                      jni::ToJavaString(env, subtitle), jni::ToJavaString(env, address), lat, lon,
-                     jni::ToJavaString(env, apiId), jbanner);
+                     jni::ToJavaString(env, apiId), jbanner, isReachableByTaxi);
 
   InjectMetadata(env, g_mapObjectClazz, mapObject, metadata);
   return mapObject;
@@ -65,9 +66,9 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
   if (info.IsBookmark())
   {
     // public Bookmark(@IntRange(from = 0) int categoryId, @IntRange(from = 0) int bookmarkId,
-    // String name)
+    // String name, @NonNull Banner banner, boolean reachableByTaxi)
     static jmethodID const ctorId = jni::GetConstructorID(
-        env, g_bookmarkClazz, "(IILjava/lang/String;Lcom/mapswithme/maps/bookmarks/data/Banner;)V");
+        env, g_bookmarkClazz, "(IILjava/lang/String;Lcom/mapswithme/maps/bookmarks/data/Banner;Z)V");
 
     jobject jbanner = nullptr;
     if (info.HasBanner())
@@ -82,7 +83,8 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
     jni::TScopedLocalRef jName(env, jni::ToJavaString(env, data.GetName()));
     jobject mapObject =
         env->NewObject(g_bookmarkClazz, ctorId, static_cast<jint>(info.m_bac.m_categoryIndex),
-                       static_cast<jint>(info.m_bac.m_bookmarkIndex), jName.get(), jbanner);
+                       static_cast<jint>(info.m_bac.m_bookmarkIndex), jName.get(), jbanner,
+                       info.IsReachableByTaxi());
     if (info.IsFeature())
       InjectMetadata(env, g_mapObjectClazz, mapObject, info.GetMetadata());
     return mapObject;
@@ -98,18 +100,18 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
     return CreateMapObject(env, kMyPosition, info.GetTitle(), info.GetSubtitle(), ll.lat, ll.lon,
                            address.FormatAddress(), {}, "", info.HasBanner(),
                            info.GetBannerTitleId(), info.GetBannerMessageId(),
-                           info.GetBannerIconId(), info.GetBannerUrl());
+                           info.GetBannerIconId(), info.GetBannerUrl(), info.IsReachableByTaxi());
 
   if (info.HasApiUrl())
     return CreateMapObject(env, kApiPoint, info.GetTitle(), info.GetSubtitle(), ll.lat, ll.lon,
                            address.FormatAddress(), info.GetMetadata(), info.GetApiUrl(),
                            info.HasBanner(), info.GetBannerTitleId(), info.GetBannerMessageId(),
-                           info.GetBannerIconId(), info.GetBannerUrl());
+                           info.GetBannerIconId(), info.GetBannerUrl(), info.IsReachableByTaxi());
 
   return CreateMapObject(env, kPoi, info.GetTitle(), info.GetSubtitle(), ll.lat, ll.lon,
                          address.FormatAddress(),
                          info.IsFeature() ? info.GetMetadata() : Metadata(), "", info.HasBanner(),
                          info.GetBannerTitleId(), info.GetBannerMessageId(), info.GetBannerIconId(),
-                         info.GetBannerUrl());
+                         info.GetBannerUrl(), info.IsReachableByTaxi());
 }
 }  // namespace usermark_helper

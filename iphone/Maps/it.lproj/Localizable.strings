@@ -1791,3 +1791,6 @@
 
 /* january */
 "whatsnew_font_size_text" = "Le etichette sulla mappa possono essere ingrandite.";
+
+/* "Translation is no needed, because it's a company name" */
+"uber" = "Uber";
