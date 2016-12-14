@@ -110,7 +110,7 @@ bool HttpClient::RunHttpRequest()
     {
       [response.allHeaderFields enumerateKeysAndObjectsUsingBlock:^(NSString * key, NSString * obj, BOOL * stop)
       {
-        m_headers.emplace(key.UTF8String, obj.UTF8String);
+        m_headers.emplace(key.lowercaseString.UTF8String, obj.UTF8String);
       }];
     }
     else

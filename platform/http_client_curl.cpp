@@ -208,6 +208,7 @@ bool HttpClient::RunHttpRequest()
   m_headers.clear();
   Headers const headers = ParseHeaders(ReadFileAsString(headers_deleter.m_fileName));
   string serverCookies;
+  string headerKey;
   for (auto const & header : headers)
   {
     if (header.first == "Set-Cookie")
@@ -220,7 +221,11 @@ bool HttpClient::RunHttpRequest()
         m_urlReceived = header.second;
 
       if (m_loadHeaders)
-        m_headers.emplace(header.first, header.second);
+      {
+        headerKey = header.first;
+        strings::AsciiToLower(headerKey);
+        m_headers.emplace(headerKey, header.second);
+      }
     }
   }
   m_headers.emplace("Set-Cookie", NormalizeServerCookies(move(serverCookies)));
