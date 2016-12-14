@@ -1011,7 +1011,7 @@
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Trafik verileri kullanılamıyor</string>
 	<string name="banner_deliveryclub_title">Gıda teslimatı</string>
-	<string name="banner_deliveryclub_message">4.000\&#39;den fazla restorandan hızlı teslimat. Siparişinizi Delivery Clup ile verin.</string>
+	<string name="banner_deliveryclub_message">4.000\&#39;den fazla restorandan hızlı teslimat. Siparişinizi Delivery Club ile verin.</string>
 	<string name="banner_lamoda_title">Çevrimiçi giyim ve ayakkabı mağazası</string>
 	<string name="banner_lamoda_message">1.000\&#39;den fazla marka. %70\&#39;e varan indirimler. Ülkenin her yerine ücretsiz teslimat.</string>
 	<string name="banner_tutu_title">Çevrimiçi tren biletleri</string>
