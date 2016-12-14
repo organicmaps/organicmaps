@@ -81,6 +81,9 @@ public:
   void OnRecoverGLContext();
   void OnMwmDelete(MwmSet::MwmId const & mwmId);
 
+  void OnEnterForeground();
+  void OnEnterBackground();
+
 private:
   struct CacheEntry
   {
@@ -130,6 +133,9 @@ private:
 
   void UniteActiveMwms(set<MwmSet::MwmId> & activeMwms) const;
 
+  void Pause();
+  void Resume();
+
   template <class F>
   void ForEachActiveMwm(F && f) const
   {
@@ -168,6 +174,8 @@ private:
   // It is one of several mechanisms that HTTP provides for web cache validation,
   // which allows a client to make conditional requests.
   map<MwmSet::MwmId, string> m_trafficETags;
+
+  atomic<bool> m_isPaused;
 
   vector<MwmSet::MwmId> m_requestedMwms;
   mutex m_mutex;

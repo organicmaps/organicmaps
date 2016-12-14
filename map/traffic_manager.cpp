@@ -50,6 +50,7 @@ TrafficManager::TrafficManager(GetMwmsByRectFn const & getMwmsByRectFn, size_t m
   , m_state(TrafficState::Disabled)
   , m_maxCacheSizeBytes(maxCacheSizeBytes)
   , m_isRunning(true)
+  , m_isPaused(false)
   , m_thread(&TrafficManager::ThreadRoutine, this)
 {
   CHECK(m_getMwmsByRectFn != nullptr, ());
@@ -154,11 +155,12 @@ void TrafficManager::OnMwmDelete(MwmSet::MwmId const & mwmId)
 
 void TrafficManager::OnDestroyGLContext()
 {
+  Pause();
 }
 
 void TrafficManager::OnRecoverGLContext()
 {
-  Invalidate();
+  Resume();
 }
 
 void TrafficManager::Invalidate()
@@ -203,7 +205,7 @@ void TrafficManager::UpdateMyPosition(MyPosition const & myPosition)
   double const kSquareSideM = 5000.0;
   m_currentPosition = {myPosition, true /* initialized */};
 
-  if (!IsEnabled() || IsInvalidState())
+  if (!IsEnabled() || IsInvalidState() || m_isPaused)
     return;
 
   m2::RectD const rect =
@@ -218,7 +220,7 @@ void TrafficManager::UpdateViewport(ScreenBase const & screen)
 {
   m_currentModelView = {screen, true /* initialized */};
 
-  if (!IsEnabled() || IsInvalidState())
+  if (!IsEnabled() || IsInvalidState() || m_isPaused)
     return;
 
   if (df::GetZoomLevel(screen.GetScale()) < df::kRoadClass0ZoomLevel)
@@ -309,7 +311,7 @@ void TrafficManager::RequestTrafficData(MwmSet::MwmId const & mwmId, bool force)
 void TrafficManager::RequestTrafficData()
 {
   if ((m_activeDrapeMwms.empty() && m_activeRoutingMwms.empty()) || !IsEnabled() ||
-      IsInvalidState())
+      IsInvalidState() || m_isPaused)
   {
     return;
   }
@@ -519,6 +521,30 @@ void TrafficManager::ChangeState(TrafficState newState)
     if (m_onStateChangedFn != nullptr)
       m_onStateChangedFn(newState);
   });
+}
+
+void TrafficManager::OnEnterForeground()
+{
+  Resume();
+}
+
+void TrafficManager::OnEnterBackground()
+{
+  Pause();
+}
+
+void TrafficManager::Pause()
+{
+  m_isPaused = true;
+}
+
+void TrafficManager::Resume()
+{
+  if (!m_isPaused)
+    return;
+
+  m_isPaused = false;
+  Invalidate();
 }
 
 string DebugPrint(TrafficManager::TrafficState state)
