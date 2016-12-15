@@ -243,7 +243,13 @@ void TrafficManager::ThreadRoutine()
 
       traffic::TrafficInfo info(mwm, m_currentDataVersion);
 
-      if (info.ReceiveTrafficData(m_trafficETags[mwm]))
+      string tag;
+      {
+        lock_guard<mutex> lock(m_mutex);
+        tag = m_trafficETags[mwm];
+      }
+
+      if (info.ReceiveTrafficData(tag))
       {
         OnTrafficDataResponse(move(info));
       }
@@ -251,6 +257,11 @@ void TrafficManager::ThreadRoutine()
       {
         LOG(LWARNING, ("Traffic request failed. Mwm =", mwm));
         OnTrafficRequestFailed(move(info));
+      }
+
+      {
+        lock_guard<mutex> lock(m_mutex);
+        m_trafficETags[mwm] = tag;
       }
     }
     mwms.clear();
