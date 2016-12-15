@@ -84,8 +84,6 @@ void ExtractTrafficGeometry(FeatureType const & f, df::RoadClass const & roadCla
 
       auto const sid = traffic::TrafficInfo::RoadSegmentId(f.GetID().m_index, segIndex, directions[dirIndex]);
       bool isReversed = (directions[dirIndex] == traffic::TrafficInfo::RoadSegmentId::kReverseDirection);
-      if (isLeftHandTraffic)
-        isReversed = !isReversed;
 
       auto const segment = polyline.ExtractSegment(segIndex, isReversed);
       ASSERT_EQUAL(segment.size(), 2, ());
