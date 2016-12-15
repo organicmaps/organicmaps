@@ -1,7 +1,7 @@
 #import "MWMTableViewController.h"
 
-#include "std/utility.hpp"
 #include "std/string.hpp"
+#include "std/utility.hpp"
 
 @interface MWMTTSSettingsViewController : MWMTableViewController
 

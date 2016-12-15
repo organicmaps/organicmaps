@@ -1,9 +1,8 @@
 #import "MWMTTSSettingsViewController.h"
 #import <AVFoundation/AVFoundation.h>
-#import "LinkCell.h"
 #import "MWMTextToSpeech.h"
-#import "SelectableCell.h"
 #import "Statistics.h"
+#import "SwiftBridge.h"
 #import "UIColor+MapsMeColor.h"
 #import "WebViewController.h"
 
@@ -110,10 +109,12 @@ using namespace locale_translator;
   {
     if (indexPath.row == 0)
     {
-      SelectableCell * cell = (SelectableCell *)[tableView
-          dequeueReusableCellWithIdentifier:[SelectableCell className]];
-      cell.titleLabel.text = L(@"duration_disabled");
-      cell.accessoryType = [MWMTextToSpeech isTTSEnabled] ? UITableViewCellAccessoryNone : UITableViewCellAccessoryCheckmark;
+      auto cellId = [SettingsTableViewSelectableCell cellId];
+      auto cell = static_cast<SettingsTableViewSelectableCell *>(
+          [tableView dequeueReusableCellWithIdentifier:cellId]);
+      [cell configWithTitle:L(@"duration_disabled")];
+      cell.accessoryType = [MWMTextToSpeech isTTSEnabled] ? UITableViewCellAccessoryNone
+                                                          : UITableViewCellAccessoryCheckmark;
       return cell;
     }
     else
@@ -121,17 +122,19 @@ using namespace locale_translator;
       NSInteger const row = indexPath.row - 1;
       if (row == _languages.size())
       {
-        LinkCell * cell =
-            (LinkCell *)[tableView dequeueReusableCellWithIdentifier:[LinkCell className]];
-        cell.titleLabel.text = L(@"pref_tts_other_section_title");
+        auto cellId = [SettingsTableViewLinkCell cellId];
+        auto cell = static_cast<SettingsTableViewLinkCell *>(
+            [tableView dequeueReusableCellWithIdentifier:cellId]);
+        [cell configWithTitle:L(@"pref_tts_other_section_title") info:nil];
         return cell;
       }
       else
       {
-        SelectableCell * cell = (SelectableCell *)[tableView
-            dequeueReusableCellWithIdentifier:[SelectableCell className]];
+        auto cellId = [SettingsTableViewSelectableCell cellId];
+        auto cell = static_cast<SettingsTableViewSelectableCell *>(
+            [tableView dequeueReusableCellWithIdentifier:cellId]);
         pair<string, string> const p = _languages[row];
-        cell.titleLabel.text = @(p.second.c_str());
+        [cell configWithTitle:@(p.second.c_str())];
         BOOL const isSelected =
             [@(p.first.c_str()) isEqualToString:[MWMTextToSpeech savedLanguage]];
         cell.accessoryType = [MWMTextToSpeech isTTSEnabled] && isSelected
@@ -143,9 +146,10 @@ using namespace locale_translator;
   }
   else
   {
-    LinkCell * cell =
-        (LinkCell *)[tableView dequeueReusableCellWithIdentifier:[LinkCell className]];
-    cell.titleLabel.text = L(@"pref_tts_how_to_set_up_voice");
+    auto cellId = [SettingsTableViewLinkCell cellId];
+    auto cell = static_cast<SettingsTableViewLinkCell *>(
+        [tableView dequeueReusableCellWithIdentifier:cellId]);
+    [cell configWithTitle:L(@"pref_tts_how_to_set_up_voice") info:nil];
     return cell;
   }
 }

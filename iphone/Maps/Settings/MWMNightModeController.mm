@@ -1,18 +1,18 @@
 #import "MWMNightModeController.h"
 #import "MWMSettings.h"
 #import "MapsAppDelegate.h"
-#import "SelectableCell.h"
 #import "Statistics.h"
+#import "SwiftBridge.h"
 #import "UIColor+MapsMeColor.h"
 
 #include "Framework.h"
 
 @interface MWMNightModeController ()
 
-@property(weak, nonatomic) IBOutlet SelectableCell * autoSwitch;
-@property(weak, nonatomic) IBOutlet SelectableCell * on;
-@property(weak, nonatomic) IBOutlet SelectableCell * off;
-@property(weak, nonatomic) SelectableCell * selectedCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewSelectableCell * autoSwitch;
+@property(weak, nonatomic) IBOutlet SettingsTableViewSelectableCell * on;
+@property(weak, nonatomic) IBOutlet SettingsTableViewSelectableCell * off;
+@property(weak, nonatomic) SettingsTableViewSelectableCell * selectedCell;
 
 @end
 
@@ -45,7 +45,7 @@
   }
 }
 
-- (void)setSelectedCell:(SelectableCell *)cell
+- (void)setSelectedCell:(SettingsTableViewSelectableCell *)cell
 {
   if ([_selectedCell isEqual:cell])
     return;
@@ -91,7 +91,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  SelectableCell * selectedCell = self.selectedCell;
+  SettingsTableViewSelectableCell * selectedCell = self.selectedCell;
   selectedCell.accessoryType = UITableViewCellAccessoryNone;
   selectedCell = [tableView cellForRowAtIndexPath:indexPath];
   selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;

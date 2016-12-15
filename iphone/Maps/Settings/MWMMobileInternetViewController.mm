@@ -1,17 +1,17 @@
 #import "MWMMobileInternetViewController.h"
 #import "MWMNetworkPolicy.h"
-#import "SelectableCell.h"
 #import "Statistics.h"
+#import "SwiftBridge.h"
 
 using namespace network_policy;
 using np = platform::NetworkPolicy;
 
 @interface MWMMobileInternetViewController ()
 
-@property(weak, nonatomic) IBOutlet SelectableCell * always;
-@property(weak, nonatomic) IBOutlet SelectableCell * ask;
-@property(weak, nonatomic) IBOutlet SelectableCell * never;
-@property(weak, nonatomic) SelectableCell * selected;
+@property(weak, nonatomic) IBOutlet SettingsTableViewSelectableCell * always;
+@property(weak, nonatomic) IBOutlet SettingsTableViewSelectableCell * ask;
+@property(weak, nonatomic) IBOutlet SettingsTableViewSelectableCell * never;
+@property(weak, nonatomic) SettingsTableViewSelectableCell * selected;
 
 @end
 
@@ -22,7 +22,7 @@ using np = platform::NetworkPolicy;
   [super viewDidLoad];
   self.title = L(@"mobile_data");
 
-  SelectableCell * selected;
+  SettingsTableViewSelectableCell * selected;
   switch (GetStage())
   {
   case np::Stage::Always: selected = self.always; break;
@@ -33,7 +33,7 @@ using np = platform::NetworkPolicy;
   self.selected = selected;
 }
 
-- (void)setSelected:(SelectableCell *)selected
+- (void)setSelected:(SettingsTableViewSelectableCell *)selected
 {
   if ([_selected isEqual:selected])
     return;
@@ -61,7 +61,7 @@ using np = platform::NetworkPolicy;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  SelectableCell * selected = self.selected;
+  SettingsTableViewSelectableCell * selected = self.selected;
   selected.accessoryType = UITableViewCellAccessoryNone;
   selected = [tableView cellForRowAtIndexPath:indexPath];
   selected.accessoryType = UITableViewCellAccessoryCheckmark;

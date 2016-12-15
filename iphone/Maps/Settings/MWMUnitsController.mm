@@ -1,13 +1,13 @@
 #import "MWMUnitsController.h"
 #import "MWMSettings.h"
-#import "SelectableCell.h"
 #import "Statistics.h"
+#import "SwiftBridge.h"
 
 @interface MWMUnitsController ()
 
-@property(weak, nonatomic) IBOutlet SelectableCell * kilometers;
-@property(weak, nonatomic) IBOutlet SelectableCell * miles;
-@property(weak, nonatomic) SelectableCell * selectedCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewSelectableCell * kilometers;
+@property(weak, nonatomic) IBOutlet SettingsTableViewSelectableCell * miles;
+@property(weak, nonatomic) SettingsTableViewSelectableCell * selectedCell;
 
 @end
 
@@ -25,9 +25,9 @@
   }
 }
 
-- (void)setSelectedCell:(SelectableCell *)cell
+- (void)setSelectedCell:(SettingsTableViewSelectableCell *)cell
 {
-  SelectableCell * selectedCell = _selectedCell;
+  SettingsTableViewSelectableCell * selectedCell = _selectedCell;
   if (selectedCell == cell)
     return;
 
