@@ -2475,6 +2475,7 @@
 				28A0AB4B0D9B1048005BE974 /* Maps_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.mm */,
 				34EC27091CB2A7120084FA36 /* fabric_logging.hpp */,
+				345050211E028B8000A8DC59 /* Bridging-Header.h */,
 				34EC27081CB2A7120084FA36 /* fabric_logging_ios.mm */,
 			);
 			name = "Other Sources";
@@ -4027,6 +4028,7 @@
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
 						DevelopmentTeam = 3T6FSDE8C7;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -4048,6 +4050,7 @@
 					};
 					6741A93D1BF340DE002C974C = {
 						DevelopmentTeam = 3T6FSDE8C7;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
@@ -4057,6 +4060,7 @@
 					};
 					849CF5E21DE842290024A8A5 = {
 						DevelopmentTeam = 3T6FSDE8C7;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -5514,11 +5518,13 @@
 		6741AA551BF340DE002C974C /* Simulator */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/HockeySDK.embeddedframework",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "xc dbg";
 			};
 			name = Simulator;
@@ -5526,11 +5532,13 @@
 		6741AA561BF340DE002C974C /* Simulator Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/HockeySDK.embeddedframework",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "xc rel";
 			};
 			name = "Simulator Release";
@@ -5538,11 +5546,13 @@
 		6741AA571BF340DE002C974C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/HockeySDK.embeddedframework",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "xc dbg";
 				VALID_ARCHS = "arm64 armv7 armv7s i386 x86_64";
 			};
@@ -5551,11 +5561,13 @@
 		6741AA591BF340DE002C974C /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/HockeySDK.embeddedframework",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "xc beta";
 			};
 			name = AdHoc;
@@ -5563,11 +5575,13 @@
 		6741AA5A1BF340DE002C974C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/HockeySDK.embeddedframework",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "xc rel";
 				VALID_ARCHS = "arm64 armv7 armv7s i386 x86_64";
 			};
@@ -5576,11 +5590,13 @@
 		6741AA5C1BF340DE002C974C /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/HockeySDK.embeddedframework",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "xc pf";
 			};
 			name = "Production Full";
@@ -5589,12 +5605,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_DIR = "$(BUILD_ROOT)";
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/HockeySDK.embeddedframework",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/../omim-iphone-cmake-debug-$(CURRENT_ARCH)/out/debug",
@@ -5637,12 +5655,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_DIR = "$(BUILD_ROOT)";
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/HockeySDK.embeddedframework",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/../omim-iphone-cmake-release-$(CURRENT_ARCH)/out/release",
@@ -5685,12 +5705,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_DIR = "$(BUILD_ROOT)";
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/HockeySDK.embeddedframework",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/../omim-iphone-cmake-debug-$(CURRENT_ARCH)/out/debug",
@@ -5733,12 +5755,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_DIR = "$(BUILD_ROOT)";
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/HockeySDK.embeddedframework",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/../omim-iphone-cmake-release-$(CURRENT_ARCH)/out/release",
@@ -5781,12 +5805,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_DIR = "$(BUILD_ROOT)";
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/HockeySDK.embeddedframework",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/../omim-iphone-cmake-release-$(CURRENT_ARCH)/out/release",
@@ -5829,12 +5855,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_DIR = "$(BUILD_ROOT)";
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/HockeySDK.embeddedframework",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/../omim-iphone-cmake-release-$(CURRENT_ARCH)/out/release",
@@ -5908,6 +5936,11 @@
 				PRODUCT_NAME = "maps.me dbg";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = SwiftBridge.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				SWIFT_WHOLE_MODULE_OPTIMIZATION = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "i386 x86_64";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -5918,10 +5951,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_DIR = "$(BUILD_ROOT)";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/HockeySDK.embeddedframework",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/../omim-iphone-debug-$(CURRENT_ARCH)/out/debug",
@@ -5991,6 +6026,11 @@
 				PRODUCT_NAME = "maps.me dbg";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = SwiftBridge.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				SWIFT_WHOLE_MODULE_OPTIMIZATION = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s arm64";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -6001,10 +6041,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_DIR = "$(BUILD_ROOT)";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/HockeySDK.embeddedframework",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/../omim-iphone-debug-$(CURRENT_ARCH)/out/debug",
@@ -6076,6 +6118,11 @@
 				PRODUCT_NAME = "maps.me beta";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = SwiftBridge.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
+				SWIFT_WHOLE_MODULE_OPTIMIZATION = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv7 armv7s arm64";
@@ -6087,10 +6134,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_DIR = "$(BUILD_ROOT)";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/HockeySDK.embeddedframework",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/../omim-iphone-production-$(CURRENT_ARCH)/out/production",
@@ -6162,6 +6211,11 @@
 				PRODUCT_NAME = maps.me;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = SwiftBridge.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
+				SWIFT_WHOLE_MODULE_OPTIMIZATION = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv7 armv7s arm64";
@@ -6173,10 +6227,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_DIR = "$(BUILD_ROOT)";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/HockeySDK.embeddedframework",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/../omim-iphone-production-$(CURRENT_ARCH)/out/production",
@@ -6249,6 +6305,11 @@
 				PRODUCT_NAME = "maps.me rel";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = SwiftBridge.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
+				SWIFT_WHOLE_MODULE_OPTIMIZATION = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s arm64";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -6259,10 +6320,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_DIR = "$(BUILD_ROOT)";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/HockeySDK.embeddedframework",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/../omim-iphone-release-$(CURRENT_ARCH)/out/release",
@@ -6336,6 +6399,11 @@
 				PRODUCT_NAME = "maps.me rel";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = SwiftBridge.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
+				SWIFT_WHOLE_MODULE_OPTIMIZATION = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "i386 x86_64";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -6346,10 +6414,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_DIR = "$(BUILD_ROOT)";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/HockeySDK.embeddedframework",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/../omim-iphone-release-$(CURRENT_ARCH)/out/release",
