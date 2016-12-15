@@ -29,22 +29,6 @@ namespace
 size_t constexpr kMaxRoadCandidates = 6;
 float constexpr kProgressInterval = 2;
 uint32_t constexpr kDrawPointsPeriod = 10;
-
-vector<Junction> ConvertToJunctions(IndexGraphStarter & starter, vector<Joint::Id> const & joints)
-{
-  vector<RoadPoint> roadPoints;
-  starter.RedressRoute(joints, roadPoints);
-
-  vector<Junction> junctions;
-  junctions.reserve(roadPoints.size());
-
-  Geometry & geometry = starter.GetGraph().GetGeometry();
-  // TODO: Use real altitudes for pedestrian and bicycle routing.
-  for (RoadPoint const & point : roadPoints)
-    junctions.emplace_back(geometry.GetPoint(point), feature::kDefaultAltitudeMeters);
-
-  return junctions;
-}
 }  // namespace
 
 namespace routing
@@ -148,9 +132,8 @@ IRouter::ResultCode SingleMwmRouter::DoCalculateRoute(MwmSet::MwmId const & mwmI
   case AStarAlgorithm<IndexGraphStarter>::Result::NoPath: return IRouter::RouteNotFound;
   case AStarAlgorithm<IndexGraphStarter>::Result::Cancelled: return IRouter::Cancelled;
   case AStarAlgorithm<IndexGraphStarter>::Result::OK:
-    vector<Junction> path = ConvertToJunctions(starter, routingResult.path);
-    shared_ptr<traffic::TrafficInfo::Coloring> trafficColoring = m_trafficCache.GetTrafficInfo(mwmId);
-    ReconstructRoute(m_directionsEngine.get(), m_roadGraph, trafficColoring, delegate, path, route);
+    if (!BuildRoute(mwmId, routingResult.path, delegate, starter, route))
+      return IRouter::InternalError;
     if (delegate.IsCancelled())
       return IRouter::Cancelled;
     return IRouter::NoError;
@@ -213,6 +196,53 @@ bool SingleMwmRouter::LoadIndex(MwmSet::MwmId const & mwmId, string const & coun
                  "section:", e.Msg()));
     return false;
   }
+}
+
+bool SingleMwmRouter::BuildRoute(MwmSet::MwmId const & mwmId, vector<Joint::Id> const & joints,
+                                 RouterDelegate const & delegate, IndexGraphStarter & starter,
+                                 Route & route) const
+{
+  vector<RoutePoint> routePoints;
+  starter.RedressRoute(joints, routePoints);
+
+  vector<Junction> junctions;
+  junctions.reserve(routePoints.size());
+
+  Geometry & geometry = starter.GetGraph().GetGeometry();
+  // TODO: Use real altitudes for pedestrian and bicycle routing.
+  for (RoutePoint const & routePoint : routePoints)
+  {
+    junctions.emplace_back(geometry.GetPoint(routePoint.GetRoadPoint()),
+                           feature::kDefaultAltitudeMeters);
+  }
+
+  shared_ptr<traffic::TrafficInfo::Coloring> trafficColoring = m_trafficCache.GetTrafficInfo(mwmId);
+  ReconstructRoute(m_directionsEngine.get(), m_roadGraph, trafficColoring, delegate, junctions,
+                   route);
+
+  // ReconstructRoute duplicates all points except start and finish.
+  // Therefore one needs fix time indexes to fit reconstructed polyline.
+  // TODO: rework ReconstructRoute and remove this stuff.
+  if (routePoints.size() < 2 || route.GetPoly().GetSize() + 2 != routePoints.size() * 2)
+  {
+    LOG(LERROR, ("Can't fix route times: polyline size =", route.GetPoly().GetSize(),
+                 "route points size =", routePoints.size()));
+    return false;
+  }
+
+  Route::TTimes times;
+  times.reserve(route.GetPoly().GetSize());
+  times.emplace_back(0, routePoints.front().GetTime());
+
+  for (size_t i = 1; i < routePoints.size() - 1; ++i)
+  {
+    times.emplace_back(i * 2 - 1, routePoints[i].GetTime());
+    times.emplace_back(i * 2, routePoints[i].GetTime());
+  }
+
+  times.emplace_back(route.GetPoly().GetSize() - 1, routePoints.back().GetTime());
+  route.SetSectionTimes(move(times));
+  return true;
 }
 
 // static

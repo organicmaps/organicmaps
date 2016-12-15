@@ -3,6 +3,7 @@
 #include "routing/directions_engine.hpp"
 #include "routing/edge_estimator.hpp"
 #include "routing/features_road_graph.hpp"
+#include "routing/joint.hpp"
 #include "routing/router.hpp"
 #include "routing/vehicle_model.hpp"
 
@@ -16,11 +17,13 @@
 namespace routing
 {
 class IndexGraph;
+class IndexGraphStarter;
 
 class SingleMwmRouter
 {
 public:
-  SingleMwmRouter(string const & name, Index const & index, traffic::TrafficCache const & trafficCache,
+  SingleMwmRouter(string const & name, Index const & index,
+                  traffic::TrafficCache const & trafficCache,
                   shared_ptr<VehicleModelFactory> vehicleModelFactory,
                   shared_ptr<EdgeEstimator> estimator,
                   unique_ptr<IDirectionsEngine> directionsEngine);
@@ -43,6 +46,9 @@ private:
   bool FindClosestEdge(MwmSet::MwmId const & mwmId, m2::PointD const & point,
                        Edge & closestEdge) const;
   bool LoadIndex(MwmSet::MwmId const & mwmId, string const & country, IndexGraph & graph);
+  bool BuildRoute(MwmSet::MwmId const & mwmId, vector<Joint::Id> const & joints,
+                  RouterDelegate const & delegate, IndexGraphStarter & starter,
+                  Route & route) const;
 
   string const m_name;
   Index const & m_index;

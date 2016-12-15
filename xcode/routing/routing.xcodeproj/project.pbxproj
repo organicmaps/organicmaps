@@ -30,6 +30,7 @@
 		0C5FEC6A1DDE193F0017688C /* road_index.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0C5FEC671DDE193F0017688C /* road_index.hpp */; };
 		0C5FEC6B1DDE193F0017688C /* road_point.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0C5FEC681DDE193F0017688C /* road_point.hpp */; };
 		0C5FEC6D1DDE19A40017688C /* index_graph_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C5FEC6C1DDE19A40017688C /* index_graph_test.cpp */; };
+		0C8705051E0182F200BCAF71 /* route_point.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0C8705041E0182F200BCAF71 /* route_point.hpp */; };
 		3462FDAD1DC1E5BF00906FD7 /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FDAC1DC1E5BF00906FD7 /* libopening_hours.a */; };
 		56099E291CC7C97D00A7772A /* loaded_path_segment.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56099E251CC7C97D00A7772A /* loaded_path_segment.hpp */; };
 		56099E2A1CC7C97D00A7772A /* routing_result_graph.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56099E261CC7C97D00A7772A /* routing_result_graph.hpp */; };
@@ -265,6 +266,7 @@
 		0C5FEC671DDE193F0017688C /* road_index.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = road_index.hpp; sourceTree = "<group>"; };
 		0C5FEC681DDE193F0017688C /* road_point.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = road_point.hpp; sourceTree = "<group>"; };
 		0C5FEC6C1DDE19A40017688C /* index_graph_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = index_graph_test.cpp; sourceTree = "<group>"; };
+		0C8705041E0182F200BCAF71 /* route_point.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = route_point.hpp; sourceTree = "<group>"; };
 		3462FDAC1DC1E5BF00906FD7 /* libopening_hours.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopening_hours.a; path = "../../../omim-build/xcode/Debug/libopening_hours.a"; sourceTree = "<group>"; };
 		34F558351DBF2A2600A4FC11 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
 		34F558361DBF2A2600A4FC11 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
@@ -701,6 +703,7 @@
 				0C5FEC661DDE193F0017688C /* road_index.cpp */,
 				0C5FEC671DDE193F0017688C /* road_index.hpp */,
 				0C5FEC681DDE193F0017688C /* road_point.hpp */,
+				0C8705041E0182F200BCAF71 /* route_point.hpp */,
 				0C08AA381DF8329B004195DD /* routing_exceptions.hpp */,
 				0C0DF9281DE898FF0055A22F /* routing_helpers.cpp */,
 				0C0DF9231DE898CF0055A22F /* single_mwm_router.cpp */,
@@ -830,6 +833,7 @@
 				6753441D1A3F644F00A0A8C3 /* router.hpp in Headers */,
 				A1616E2E1B6B60B3003F078E /* astar_progress.hpp in Headers */,
 				670EE5721B664796001E8064 /* directions_engine.hpp in Headers */,
+				0C8705051E0182F200BCAF71 /* route_point.hpp in Headers */,
 				A1876BC71BB19C4300C9C743 /* speed_camera.hpp in Headers */,
 				56EA2FD51D8FD8590083F01A /* routing_helpers.hpp in Headers */,
 				0C0DF9221DE898B70055A22F /* index_graph_starter.hpp in Headers */,

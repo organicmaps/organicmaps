@@ -99,6 +99,7 @@ HEADERS += \
     road_index.hpp \
     road_point.hpp \
     route.hpp \
+    route_point.hpp \
     router.hpp \
     router_delegate.hpp \
     routing_algorithm.hpp \

@@ -70,13 +70,20 @@ double CarEdgeEstimator::CalcEdgesWeight(uint32_t featureId, RoadGeometry const 
   uint32_t const finish = max(pointFrom, pointTo);
   ASSERT_LESS(finish, road.GetPointsCount(), ());
 
+  // Current time estimation are too optimistic.
+  // Need more accurate tuning: traffic lights, traffic jams, road models and so on.
+  // Add some penalty to make estimation of a more realistic.
+  // TODO: make accurate tuning, remove penalty.
+  double constexpr kTimePenalty = 1.8;
+
   double result = 0.0;
   double const speedMPS = road.GetSpeed() * kKMPH2MPS;
   auto const dir = pointFrom < pointTo ? TrafficInfo::RoadSegmentId::kForwardDirection
                                        : TrafficInfo::RoadSegmentId::kReverseDirection;
   for (uint32_t i = start; i < finish; ++i)
   {
-    double edgeWeight = TimeBetweenSec(road.GetPoint(i), road.GetPoint(i + 1), speedMPS);
+    double edgeWeight =
+        TimeBetweenSec(road.GetPoint(i), road.GetPoint(i + 1), speedMPS) * kTimePenalty;
     if (m_trafficColoring)
     {
       auto const it = m_trafficColoring->find(TrafficInfo::RoadSegmentId(featureId, i, dir));
