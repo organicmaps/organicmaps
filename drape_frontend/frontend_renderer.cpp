@@ -1120,7 +1120,6 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
     RenderTrafficAndRouteLayer(modelView);
   }
 
-  GLFunctions::glClearDepth();
   if (m_selectionShape != nullptr)
   {
     GLFunctions::glDisable(gl_const::GLDepthTest);
@@ -1138,7 +1137,6 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
     }
   }
 
-  GLFunctions::glEnable(gl_const::GLDepthTest);
   RenderOverlayLayer(modelView);
 
   m_gpsTrackRenderer->RenderTrack(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager), m_generalUniforms);
@@ -1192,6 +1190,8 @@ void FrontendRenderer::Render3dLayer(ScreenBase const & modelView)
 
 void FrontendRenderer::RenderOverlayLayer(ScreenBase const & modelView)
 {
+  GLFunctions::glClearDepth();
+  GLFunctions::glEnable(gl_const::GLDepthTest);
   RenderLayer & overlay = m_layers[RenderLayer::OverlayID];
   BuildOverlayTree(modelView);
   for (drape_ptr<RenderGroup> & group : overlay.m_renderGroups)
