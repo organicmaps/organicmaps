@@ -740,6 +740,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34AF87C91DBE4F4900E5E7DC /* common-debug.xcconfig */;
 			buildSettings = {
+				GCC_OPTIMIZATION_LEVEL = 2;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/glm/",
