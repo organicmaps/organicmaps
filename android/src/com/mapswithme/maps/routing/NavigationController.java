@@ -63,6 +63,7 @@ public class NavigationController implements TrafficManager.TrafficCallback
   private final TextView mDistanceUnits;
   private final FlatProgressView mRouteProgress;
 
+  @NonNull
   private final SearchWheel mSearchWheel;
 
   private boolean mShowTimeLeft = true;
@@ -306,11 +307,13 @@ public class NavigationController implements TrafficManager.TrafficCallback
   public void onSaveState(@NonNull Bundle outState)
   {
     outState.putBoolean(STATE_SHOW_TIME_LEFT, mShowTimeLeft);
+    mSearchWheel.saveState(outState);
   }
 
   public void onRestoreState(@NonNull Bundle savedInstanceState)
   {
     mShowTimeLeft = savedInstanceState.getBoolean(STATE_SHOW_TIME_LEFT);
+    mSearchWheel.restoreState(savedInstanceState);
   }
 
   public boolean cancel()

@@ -2,7 +2,9 @@ package com.mapswithme.maps.routing;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
@@ -22,6 +24,7 @@ import com.mapswithme.util.concurrency.UiThread;
 
 class SearchWheel implements View.OnClickListener
 {
+  private static final String EXTRA_CURRENT_OPTION = "extra_current_option";
   private final View mFrame;
 
   private final View mSearchLayout;
@@ -29,6 +32,7 @@ class SearchWheel implements View.OnClickListener
   private final View mTouchInterceptor;
 
   private boolean mIsExpanded;
+  @Nullable
   private SearchOption mCurrentOption;
 
   private static final long CLOSE_DELAY_MILLIS = 5000L;
@@ -115,6 +119,16 @@ class SearchWheel implements View.OnClickListener
     refreshSearchVisibility();
   }
 
+  void saveState(@NonNull Bundle outState)
+  {
+    outState.putSerializable(EXTRA_CURRENT_OPTION, mCurrentOption);
+  }
+
+  void restoreState(@NonNull Bundle savedState)
+  {
+    mCurrentOption = (SearchOption) savedState.getSerializable(EXTRA_CURRENT_OPTION);
+  }
+
   public void reset()
   {
     mIsExpanded = false;
@@ -125,6 +139,12 @@ class SearchWheel implements View.OnClickListener
 
   public void onResume()
   {
+    if (mCurrentOption != null)
+    {
+      refreshSearchButtonImage();
+      return;
+    }
+
     final String query = SearchEngine.getQuery();
     if (TextUtils.isEmpty(query))
     {
