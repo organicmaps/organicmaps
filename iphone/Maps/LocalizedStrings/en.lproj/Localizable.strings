@@ -1637,7 +1637,7 @@
 "placepage_hotel_nearby" = "Nearby";
 
 /* For ordering a taxi (as opposed to hotels or other things) */
-"taxi_order" = "Order Taxi";
+"taxi_order" = "Order a taxi";
 
 /* How long it is until the taxi arrives */
 "taxi_wait" = "Expected in %s";
@@ -1769,7 +1769,7 @@
 "whatsnew_traffic_roaming_text" = "Requires less than 1 MB of mobile bandwidth per trip.";
 
 /* december */
-"whatsnew_order_taxi" = "Order a Taxi";
+"whatsnew_order_taxi" = "Order Taxi";
 
 /* december */
 "whatsnew_order_taxi_text" = "Most of the location pages now contain a button for ordering a taxi.";

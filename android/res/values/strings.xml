@@ -975,7 +975,7 @@
 	<!-- For place page hotel nearby block -->
 	<string name="placepage_hotel_nearby">Nearby</string>
 	<!-- For ordering a taxi (as opposed to hotels or other things) -->
-	<string name="taxi_order">Order Taxi</string>
+	<string name="taxi_order">Order a taxi</string>
 	<!-- How long it is until the taxi arrives -->
 	<string name="taxi_wait">Expected in %s</string>
 	<!-- When there are no available taxis nearby -->
@@ -1048,7 +1048,7 @@
 	<!-- december -->
 	<string name="whatsnew_traffic_roaming_text">Requires less than 1 MB of mobile bandwidth per trip.</string>
 	<!-- december -->
-	<string name="whatsnew_order_taxi">Order a Taxi</string>
+	<string name="whatsnew_order_taxi">Order Taxi</string>
 	<!-- december -->
 	<string name="whatsnew_order_taxi_text">Most of the location pages now contain a button for ordering a taxi.</string>
 	<!-- january -->
