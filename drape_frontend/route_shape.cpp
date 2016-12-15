@@ -412,7 +412,8 @@ void RouteShape::CacheRoute(ref_ptr<dp::TextureManager> textures, RouteData & ro
   for (auto const & speedGroup : routeData.m_traffic)
   {
     dp::Color const color = df::GetColorConstant(style, TrafficGenerator::GetColorBySpeedGroup(speedGroup));
-    float const alpha = (speedGroup == traffic::SpeedGroup::G5 ||
+    float const alpha = (speedGroup == traffic::SpeedGroup::G4 ||
+                         speedGroup == traffic::SpeedGroup::G5 ||
                          speedGroup == traffic::SpeedGroup::Unknown) ? 0.0f : 1.0f;
     segmentsColors.push_back(glsl::vec4(color.GetRedF(), color.GetGreenF(), color.GetBlueF(), alpha));
   }
