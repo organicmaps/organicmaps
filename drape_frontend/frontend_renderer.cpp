@@ -1094,36 +1094,12 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   BeforeDrawFrame();
 #endif
 
-  bool const isPerspective = modelView.isPerspective();
-
   GLFunctions::glEnable(gl_const::GLDepthTest);
   m_viewport.Apply();
   RefreshBgColor();
   GLFunctions::glClear();
 
   Render2dLayer(modelView);
-
-  bool hasSelectedPOI = false;
-  if (m_selectionShape != nullptr)
-  {
-    GLFunctions::glDisable(gl_const::GLDepthTest);
-    SelectionShape::ESelectedObject selectedObject = m_selectionShape->GetSelectedObject();
-    if (selectedObject == SelectionShape::OBJECT_MY_POSITION)
-    {
-      ASSERT(m_myPositionController->IsModeHasPosition(), ());
-      m_selectionShape->SetPosition(m_myPositionController->Position());
-      m_selectionShape->Render(modelView, m_currentZoomLevel,
-                               make_ref(m_gpuProgramManager), m_generalUniforms);
-    }
-    else if (selectedObject == SelectionShape::OBJECT_POI)
-    {
-      if (!isPerspective && m_layers[RenderLayer::Geometry3dID].m_renderGroups.empty())
-        m_selectionShape->Render(modelView, m_currentZoomLevel,
-                                 make_ref(m_gpuProgramManager), m_generalUniforms);
-      else
-        hasSelectedPOI = true;
-    }
-  }
 
   if (m_framebuffer->IsSupported())
   {
@@ -1144,12 +1120,25 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
     RenderTrafficAndRouteLayer(modelView);
   }
 
-  GLFunctions::glDisable(gl_const::GLDepthTest);
-  if (hasSelectedPOI)
-    m_selectionShape->Render(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager), m_generalUniforms);
+  GLFunctions::glClearDepth();
+  if (m_selectionShape != nullptr)
+  {
+    GLFunctions::glDisable(gl_const::GLDepthTest);
+    SelectionShape::ESelectedObject selectedObject = m_selectionShape->GetSelectedObject();
+    if (selectedObject == SelectionShape::OBJECT_MY_POSITION)
+    {
+      ASSERT(m_myPositionController->IsModeHasPosition(), ());
+      m_selectionShape->SetPosition(m_myPositionController->Position());
+      m_selectionShape->Render(modelView, m_currentZoomLevel,
+                               make_ref(m_gpuProgramManager), m_generalUniforms);
+    }
+    else if (selectedObject == SelectionShape::OBJECT_POI)
+    {
+      m_selectionShape->Render(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager), m_generalUniforms);
+    }
+  }
 
   GLFunctions::glEnable(gl_const::GLDepthTest);
-  GLFunctions::glClearDepth();
   RenderOverlayLayer(modelView);
 
   m_gpsTrackRenderer->RenderTrack(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager), m_generalUniforms);
