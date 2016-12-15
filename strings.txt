@@ -20388,7 +20388,7 @@
 
   [taxi_order]
     comment = For ordering a taxi (as opposed to hotels or other things)
-    en = Order Taxi
+    en = Order a taxi
     ru = Заказать такси
     ar = طلب تاكسي
     cs = Objednat taxi
@@ -21613,6 +21613,7 @@
     it = Aggiorna MAPS.ME
     ja = MAPS.ME をアップデートしてください
     ko = MAPS.ME를 업데이트하세요.
+    nb = Vennligst oppdater MAPS.ME
     pl = Zaktualizuj MAPS.ME
     pt = Atualize o MAPS. ME
     ro = Vă rugăm să actualizaţi MAPS.ME
@@ -21625,7 +21626,6 @@
     zh-Hans = 请更新 MAPS.ME
     zh-Hant = 請更新 MAPS.ME
     el = Κάντε ενημέρωση του MAPS.ME
-    nb = Vennligst oppdater MAPS.ME
     sk = Aktualizujte si aplikáciu MAPS.ME
 
   [traffic_update_app_message]
@@ -21644,6 +21644,7 @@
     it = Per visualizzare i dati sul traffico, l'applicazione deve essere aggiornata.
     ja = 交通データを表示するには、アプリケーションをアップデートする必要があります。
     ko = 교통 데이터를 표시하려면 응용 프로그램을 업데이트해야 합니다.
+    nb = Du må oppdatere applikasjonen for å kunne se trafikkdata.
     pl = Aby wyświetlić dane o ruchu, należy zaktualizować aplikację.
     pt = Para mostrar os dados de tráfego, a aplicação deve ser atualizada.
     ro = Pentru a afişa datele privind traficul, aplicația trebuie actualizată.
@@ -21656,7 +21657,6 @@
     zh-Hans = 要显示交通数据，必须更新应用。
     zh-Hant = 若要顯示交通資訊，必須更新應用程式。
     el = Για να εμφανιστούν πληροφορίες για την κίνηση, πρέπει να γίνει ενημέρωση της εφαρμογής.
-    nb = Du må oppdatere applikasjonen for å kunne se trafikkdata.
     sk = Ak chcete zobraziť dopravné informácie, musíte si aktualizovať aplikáciu.
 
   [traffic_data_unavailable]
@@ -21675,6 +21675,7 @@
     it = Dati sul traffico non disponibili
     ja = 交通データは利用できません
     ko = 교통 데이터를 사용할 수 없습니다
+    nb = Trafikkdata er ikke tilgjengelig
     pl = Dane o ruchu są niedostępne
     pt = Não existem dados de tráfego
     ro = Datele privind traficul nu sunt disponibile
@@ -21687,7 +21688,6 @@
     zh-Hans = 交通数据不可用
     zh-Hant = 無法使用交通資訊
     el = Οι πληροφορίες για την κίνηση δεν είναι διαθέσιμες
-    nb = Trafikkdata er ikke tilgjengelig
     sk = Dopravné informácie nie sú k dispozícii
 
   [banner_deliveryclub_title]
@@ -21705,6 +21705,7 @@
     it = Cibo a domicilio
     ja = 出前・宅配
     ko = 음식 배달
+    nb = Matleveranse
     pl = Dostawa jedzenia
     pt = Entrega de alimentos
     ro = Livrare mâncare
@@ -21717,7 +21718,6 @@
     zh-Hans = 送餐
     zh-Hant = 送餐
     el = Παράδοση φαγητού
-    nb = Matleveranse
     sk = Donáška jedla
 
   [banner_deliveryclub_message]
@@ -21735,6 +21735,7 @@
     it = Consegna rapida da 4000 ristoranti. Ordina da Delivery Club.
     ja = 4,000 軒のレストランから迅速にお届けします。Delivery Club からご注文ください。
     ko = 4,000곳의 레스토랑에서 신속하게 배달합니다. Delivery Club에서 주문하세요.
+    nb = Hurtig leveranse fra 4000 restauranter. Bestill fra Delivery Club.
     pl = Szybka dostawa z 4000 restauracji. Zamawiaj z Delivery Club.
     pt = Entrega rápida de 4.000 restaurantes. Encomente ao Delivery Club.
     ro = Livrare rapidă din 4.000 de restaurante. Comandați de la Delivery Club.
@@ -21747,7 +21748,6 @@
     zh-Hans = 4,000 家餐厅的快速送餐。从 Delivery Club 订餐。
     zh-Hant = 4,000 家餐廳的快速外送。向 Delivery Club 訂餐。
     el = Γρήγορη παράδοση από 4.000 εστιατόρια. Παραγγείλετε από το Delivery Club.
-    nb = Hurtig leveranse fra 4000 restauranter. Bestill fra Delivery Club.
     sk = Rýchle dodanie zo 4 000 reštaurácií. Objednávky od spoločnosti Delivery Club.
 
   [banner_lamoda_title]
@@ -21765,6 +21765,7 @@
     it = Store di abbigliamento e scarpe online
     ja = 衣料品と靴のオンライン店舗
     ko = 온라인 의류 및 신발 스토어
+    nb = Kles- og skobutikk online
     pl = Sklep internetowy z odzieżą i obuwiem
     pt = Loja online de vestuário e calçado
     ro = Îmbrăcăminte și magazin de pantofi online
@@ -21777,7 +21778,6 @@
     zh-Hans = 在线服装和鞋店
     zh-Hant = 線上服飾與鞋店
     el = Κατάστημα υποδημάτων και ρούχων online
-    nb = Kles- og skobutikk online
     sk = Online obchod s odevmi a obuvou
 
   [banner_lamoda_message]
@@ -21795,6 +21795,7 @@
     it = Più di 1000 brand. Fino al 70% di sconto. Spedizione gratuita in tutto il Paese.
     ja = 1,000 件を超えるブランド。最大 70% オフ。全国無料配送。
     ko = 1,000개 이상의 브랜드. 최대 70% 할인. 전국 무료 배송.
+    nb = Flere enn 1000 ulike merker. Opptil 70 % rabatt. Gratis frakt over hele landet.
     pl = Ponad 1000 marek. Zniżki do 70%. Bezpłatna dostawa w całym kraju.
     pt = Mais de 1.000 marcas. Até 70% de desconto. Entrega gratuita em todo o país.
     ro = Peste 1.000 de branduri. Până la 70% reducere. Livrare gratuită în toată țara.
@@ -21807,7 +21808,6 @@
     zh-Hans = 超过 1,000 个品牌。最低三折起。全国免费派送。
     zh-Hant = 超過 1,000 個品牌。最低三折起。全國免運費。
     el = Περισσότερα από 1.000 επώνυμα προϊόντα. Έκπτωση έως και 70%. Δωρεάν παράδοση σε όλη τη χώρα.
-    nb = Flere enn 1000 ulike merker. Opptil 70 % rabatt. Gratis frakt over hele landet.
     sk = Viac ako 1 000 značiek. Zľavy až 70%. Doručenie zdarma po celej krajine.
 
   [banner_tutu_title]
@@ -21825,6 +21825,7 @@
     it = Biglietti ferroviari online
     ja = オンライン鉄道チケット
     ko = 온라인 기차표
+    nb = Togbilletter online
     pl = Bilety kolejowe online
     pt = Bilhetes de comboio online
     ro = Bilete de tren online
@@ -21837,7 +21838,6 @@
     zh-Hans = 在线火车票
     zh-Hant = 線上火車票
     el = Εισιτήρια τρένων online
-    nb = Togbilletter online
     sk = Lístky na vlak online
 
   [banner_tutu_message]
@@ -21855,6 +21855,7 @@
     it = Biglietti ferroviari per qualsiasi città online: prezzi, ricerca e prenotazione.
     ja = どんな都市への鉄道チケットもオンラインで。価格を検索して、予約しましょう。
     ko = 온라인으로 이용하는 모든 도시행 기차표 - 가격, 검색 및 예약.
+    nb = Togbilletter til alle byer – priser, søk og bestilling.
     pl = Bilety kolejowe do każdego miasta online - ceny, wyszukiwanie i rezerwacja.
     pt = Bilhetes de comboio online para qualquer cidade - preços, pesquisa e reserva.
     ro = Bilete de tren către orice oraș online - prețuri, căutare şi rezervare.
@@ -21867,7 +21868,6 @@
     zh-Hans = 在线购买前往任何城市的火车票 - 价格、搜索和预订。
     zh-Hant = 線上訂購前往任何城市的火車票 - 瞭解價格、搜尋並預訂。
     el = Σιδηροδρομικά εισιτήρια για οποιαδήποτε πόλη online - τιμές, αναζήτηση και κράτηση.
-    nb = Togbilletter til alle byer – priser, søk og bestilling.
     sk = Lístky vlak do ktoréhokoľvek mesta online - ceny, vyhľadávanie a rezervácia.
 
   [banner_geerbest_title]
@@ -21885,6 +21885,7 @@
     it = Store di elettronica online
     ja = オンライン家電量販店
     ko = 온라인 전자 기기 스토어
+    nb = Elektronikkbutikk online
     pl = Sklep z elektroniką online
     pt = Loja de eletrônica online
     ro = Magazin de produse electronice online
@@ -21897,7 +21898,6 @@
     zh-Hans = 在线电子产品商店
     zh-Hant = 線上電器行
     el = Κατάστημα ηλεκτρονικών online
-    nb = Elektronikkbutikk online
     sk = Online predajňa elektroniky
 
   [banner_geerbest_message]
@@ -21915,6 +21915,7 @@
     it = Ricerca istantanea fra oltre 50.000 articoli a prezzo scontato.
     ja = 低価格で 50,000 件を超えるアイテムを素早く検索。
     ko = 저렴한 가격의 50,000개 이상 품목에서 즉시 검색.
+    nb = Hurtigsøk blant over 50 000 varer til lave priser.
     pl = Natychmiastowe wyszukiwanie ponad 50.000 towarów w niskich cenach.
     pt = Pesquisa instantânea em mais de 50.000 itens a preços baixos.
     ro = Căutare instantanee printre peste 50.000 de articole la prețuri mici.
@@ -21927,7 +21928,6 @@
     zh-Hans = 立即搜索价格超低的 50,000 余种商品。
     zh-Hant = 立即搜尋超過 50,000 樣低價品項。
     el = Άμεση αναζήτηση σε περισσότερα από 50.000 αντικείμενα σε χαμηλές τιμές.
-    nb = Hurtigsøk blant over 50 000 varer til lave priser.
     sk = Okamžité vyhľadávanie vo viac ako 50 000 druhoch tovaru za nízke ceny.
 
   [banner_rentalcars_title]
@@ -21945,6 +21945,7 @@
     it = Autonoleggio online
     ja = オンラインでレンタカーを予約
     ko = 온라인 자동차 렌트
+    nb = Leie av bil online
     pl = Wynajem samochodów online
     pt = Aluguer de carros online
     ro = Închiriere mașini online
@@ -21957,7 +21958,6 @@
     zh-Hans = 在线租车
     zh-Hant = 線上租車
     el = Ενοικίαση αυτοκινήτων online
-    nb = Leie av bil online
     sk = Prenájom auta online
 
   [banner_rentalcars_message]
@@ -21975,6 +21975,7 @@
     it = 800 società di autonoleggio in oltre 49.000 località.
     ja = 800 社のレンタカー会社による 49,000 カ所を超えるレンタカー店舗をご利用いただけます。
     ko = 800개의 자동차 렌트 회사와 49,000곳 이상의 자동차 렌트 지점
+    nb = 800 leiebilfirmaer på over 49 000 steder.
     pl = 800 wypożyczalni samochodów w ponad 49.000 miejscowościach.
     pt = 800 empresas de aluguer de automóveis em mais de 49.000 locais de aluguer de automóveis.
     ro = 800 de firme care închiriază mașini în peste 49.000 de locații de închiriere mașini.
@@ -21987,7 +21988,6 @@
     zh-Hans = 800 家租车公司，超过 49,000 个租车网点。
     zh-Hant = 營運 49,000 多個租車地點的 800 家租車公司。
     el = 800 εταιρείες ενοικίασης αυτοκινήτων σε περισσότερες από 49.000 τοποθεσίες.
-    nb = 800 leiebilfirmaer på over 49 000 steder.
     sk = 800 spoločností prenajímajúcich vozidlá vo viac ako 49 000 prevádzkach.
 
   [banner_viator_title]
@@ -22005,10 +22005,11 @@
     it = Ricerca viaggi online
     ja = オンラインツアー検索
     ko = 온라인 투어 검색
+    nb = Søk etter omvisninger med guide online
     pl = Wyszukiwanie podróży online
     pt = Pesquisa de turismo online
     ro = Căutare excursii online
-    es = Reserva de viajes en línea
+    es = Reserva de visitas guiadas en línea
     sv = Sökning efter turer online
     th = การค้นหาทัวร์ออนไลน์
     tr = Çevrimiçi tur arama
@@ -22016,8 +22017,7 @@
     vi = Tìm kiếm tour trực tuyến
     zh-Hans = 在线导游搜索
     zh-Hant = 線上行程搜尋
-    el = Αναζήτηση εκδρομών online
-    nb = Αναζήτηση οργανωμένων εκδρομών online
+    el = Αναζήτηση οργανωμένων εκδρομών online
     sk = Online vyhľadávanie zájazdov
 
   [banner_viator_message]
@@ -22035,10 +22035,11 @@
     it = Ricerca di oltre 50.000 viaggi organizzati in tutto il mondo.
     ja = 世界中から 50,000 件を超えるツアーを検索してください。
     ko = 전 세계 50,000개 이상의 투어에서 검색하세요.
+    nb = Søk blant over 50 000 omvisninger verden over.
     pl = Szukaj spośród 50.000 podróży na całym świecie.
     pt = Procurar em mais de 50.000 visitas em todo o mundo.
     ro = Căutați în peste 50.000 de excursii din întreaga lume.
-    es = Más de 50 000 viajes por todo el mundo.
+    es = Más de 50 000 visitas guiadas por todo el mundo.
     sv = Sök bland mer än 50000 turer över hela världen.
     th = ค้นหาในทัวร์มากกว่า 50,000 แห่งทั่วโลก
     tr = Dünyanın her yerinden 50.000'den fazla tur içinden arama yapın.
@@ -22047,7 +22048,6 @@
     zh-Hans = 搜索全世界范围内的 50,000 多位导游。
     zh-Hant = 搜尋全世界 50,000 多個行程。
     el = Αναζήτηση σε περισσότερες από 50.000 εκδρομές σε όλο τον κόσμο.
-    nb = Søk blant over 50 000 omvisninger verden over.
     sk = Vyhľadávanie vo viac ako 50 000 zájazdoch po celom svete.
 
   [whatsnew_traffic]
@@ -22118,7 +22118,7 @@
     zh-Hant = 最新交通資訊與據此得出的最快速路線！
     af = Bygewerkte verkeersinligting en die vinnigste roetes op grond daarvan!
     be = Актуальныя звесткі пра дарожны рух і хуткія маршруты з улікам загрузкі дарог.
-    el = Ενημερωμένες πληροφορίες για την κίνηση και γρηγορότερες διαδρομές οδήγησης με βάση αυτό!
+    el = Ενημερωμένες πληροφορίες για την κίνηση και για γρηγορότερες διαδρομές οδήγησης!
     es-MX = ¡Información actualizada sobre el tráfico y las rutas de conducción más rápidas basadas en dicha información!
     fr-CA = Des données de circulation à jour et les itinéraires les plus rapides calculés pour vous!
     he = נתוני תנועה מעודכנים ומסלולי הנהיגה המהירים ביותר!
@@ -22204,7 +22204,7 @@
 
   [whatsnew_order_taxi]
     comment = december
-    en = Order a Taxi
+    en = Order Taxi
     ru = Вызов такси
     ar = طلب تاكسي
     cs = Objednat taxi
