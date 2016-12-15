@@ -128,10 +128,10 @@ final class BannerController implements View.OnClickListener
     mFrame.setOnClickListener(this);
   }
 
-  void close()
+  int close()
   {
     if (!isShowing() || mBanner == null || !mIsOpened)
-      return;
+      return 0;
 
     mIsOpened = false;
     setFrameHeight((int) mCloseFrameHeight);
@@ -147,6 +147,8 @@ final class BannerController implements View.OnClickListener
     if (mTitle != null)
       mTitle.setMaxLines(1);
     mFrame.setOnClickListener(null);
+
+    return mFrame.getHeight();
   }
 
   private void setFrameHeight(int height)

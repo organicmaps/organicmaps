@@ -25,6 +25,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?panel"/>
+
+      <View
+        android:id="@+id/pp__height_compensation"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="?cardBackground"/>
     </LinearLayout>
   </com.mapswithme.maps.widget.ObservableScrollView>
 

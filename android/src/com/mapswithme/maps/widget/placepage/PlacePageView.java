@@ -168,6 +168,9 @@ public class PlacePageView extends RelativeLayout
   @Nullable
   BannerController mBannerController;
 
+  @Nullable
+  View mHeightCompensationView;
+
   // Animations
   private BaseShadowController mShadowController;
   private BasePlacePageAnimationController mAnimationController;
@@ -331,6 +334,8 @@ public class PlacePageView extends RelativeLayout
     mBookmarkFrame.findViewById(R.id.tv__bookmark_edit).setOnClickListener(this);
 
     ViewGroup ppButtons = (ViewGroup) findViewById(R.id.pp__buttons);
+
+    mHeightCompensationView = findViewById(R.id.pp__height_compensation);
 
 //  TODO: remove this after booking_api.cpp will be done
     mHotelMore = findViewById(R.id.ll__more);
@@ -797,12 +802,20 @@ public class PlacePageView extends RelativeLayout
     if (state == State.HIDDEN)
       clearBookmarkWebView();
 
+    int heightCompensation = 0;
     if (mBannerController != null)
     {
       if ((state == State.HIDDEN || state == State.PREVIEW) && !UiUtils.isLandscape(getContext()))
-        mBannerController.close();
+        heightCompensation = mBannerController.close();
       else
         mBannerController.open();
+    }
+
+    if (mHeightCompensationView != null)
+    {
+      ViewGroup.LayoutParams lp = mHeightCompensationView.getLayoutParams();
+      lp.height = heightCompensation;
+      mHeightCompensationView.setLayoutParams(lp);
     }
 
     if (mMapObject != null)
