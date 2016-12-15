@@ -78,6 +78,8 @@ public enum Statistics
     public static final String PP_DIRECTION_ARROW = "PP. DirectionArrow";
     public static final String PP_DIRECTION_ARROW_CLOSE = "PP. DirectionArrowClose";
     public static final String PP_METADATA_COPY = "PP. CopyMetadata";
+    public static final String PP_BANNER_CLICK = "Placepage_Banner_click";
+    public static final String PP_BANNER_SHOW = "Placepage_Banner_show";
 
     // toolbar actions
     public static final String TOOLBAR_MY_POSITION = "Toolbar. MyPosition";

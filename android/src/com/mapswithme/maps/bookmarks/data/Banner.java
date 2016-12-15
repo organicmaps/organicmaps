@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 
 public final class Banner implements Parcelable
 {
-  public static final Banner EMPTY = new Banner("", "", "", "");
+  public static final Banner EMPTY = new Banner(null, null, null, null, null, null);
 
   public static final Creator<Banner> CREATOR = new Creator<Banner>()
   {
@@ -24,6 +24,8 @@ public final class Banner implements Parcelable
   };
 
   @Nullable
+  private final String mId;
+  @Nullable
   private final String mTitle;
   @Nullable
   private final String mMessage;
@@ -31,22 +33,34 @@ public final class Banner implements Parcelable
   private final String mIconUrl;
   @Nullable
   private final String mUrl;
+  @Nullable
+  private final String mTypes;
 
-  public Banner(@Nullable String title, @Nullable String message,
-                @Nullable String iconUrl, @Nullable String url)
+  public Banner(@Nullable String id, @Nullable String title, @Nullable String message,
+                @Nullable String iconUrl, @Nullable String url, @Nullable String types)
   {
+    mId = id;
     mTitle = title;
     mMessage = message;
     mIconUrl = iconUrl;
     mUrl = url;
+    mTypes = types;
   }
 
   protected Banner(Parcel in)
   {
+    mId = in.readString();
     mTitle = in.readString();
     mMessage = in.readString();
     mIconUrl = in.readString();
     mUrl = in.readString();
+    mTypes = in.readString();
+  }
+
+  @Nullable
+  public String getId()
+  {
+    return mId;
   }
 
   @Nullable
@@ -73,6 +87,12 @@ public final class Banner implements Parcelable
     return mUrl;
   }
 
+  @Nullable
+  public String getTypes()
+  {
+    return mTypes;
+  }
+
   @Override
   public int describeContents()
   {
@@ -82,9 +102,11 @@ public final class Banner implements Parcelable
   @Override
   public void writeToParcel(Parcel dest, int flags)
   {
+    dest.writeString(mId);
     dest.writeString(mTitle);
     dest.writeString(mMessage);
     dest.writeString(mIconUrl);
     dest.writeString(mUrl);
+    dest.writeString(mTypes);
   }
 }
