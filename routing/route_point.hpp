@@ -2,6 +2,8 @@
 
 #include "routing/road_point.hpp"
 
+#include "std/cstdint.hpp"
+
 namespace routing
 {
 class RoutePoint final
