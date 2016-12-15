@@ -22,6 +22,8 @@
 
 #include "base/exception.hpp"
 
+#include "std/algorithm.hpp"
+
 using namespace routing;
 
 namespace
@@ -205,6 +207,15 @@ bool SingleMwmRouter::BuildRoute(MwmSet::MwmId const & mwmId, vector<Joint::Id> 
   vector<RoutePoint> routePoints;
   starter.RedressRoute(joints, routePoints);
 
+  // ReconstructRoute removes equal points: do it self to match time indexes.
+  // TODO: rework ReconstructRoute and remove all time indexes stuff.
+  routePoints.erase(unique(routePoints.begin(), routePoints.end(),
+                           [&](RoutePoint const & rp0, RoutePoint const & rp1) {
+                             return starter.GetPoint(rp0.GetRoadPoint()) ==
+                                    starter.GetPoint(rp1.GetRoadPoint());
+                           }),
+                    routePoints.end());
+
   vector<Junction> junctions;
   junctions.reserve(routePoints.size());
 
@@ -216,12 +227,20 @@ bool SingleMwmRouter::BuildRoute(MwmSet::MwmId const & mwmId, vector<Joint::Id> 
   }
 
   shared_ptr<traffic::TrafficInfo::Coloring> trafficColoring = m_trafficCache.GetTrafficInfo(mwmId);
+
+  vector<Junction> const oldJunctions(junctions);
   ReconstructRoute(m_directionsEngine.get(), m_roadGraph, trafficColoring, delegate, junctions,
                    route);
 
+  if (junctions != oldJunctions)
+  {
+    LOG(LERROR, ("ReconstructRoute changed junctions: size before", oldJunctions.size(),
+                 ", size after", junctions.size()));
+    return false;
+  }
+
   // ReconstructRoute duplicates all points except start and finish.
   // Therefore one needs fix time indexes to fit reconstructed polyline.
-  // TODO: rework ReconstructRoute and remove this stuff.
   if (routePoints.size() < 2 || route.GetPoly().GetSize() + 2 != routePoints.size() * 2)
   {
     LOG(LERROR, ("Can't fix route times: polyline size =", route.GetPoly().GetSize(),
