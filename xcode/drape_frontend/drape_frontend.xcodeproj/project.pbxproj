@@ -970,6 +970,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34AF87CB1DBE508400E5E7DC /* common-debug.xcconfig */;
 			buildSettings = {
+				GCC_OPTIMIZATION_LEVEL = 2;
 				HEADER_SEARCH_PATHS = (
 					"$(OMIM_ROOT)",
 					"$(BOOST_ROOT)",
