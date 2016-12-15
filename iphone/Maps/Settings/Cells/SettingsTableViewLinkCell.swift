@@ -1,7 +1,5 @@
 @objc final class SettingsTableViewLinkCell: MWMTableViewCell {
 
-  static let cellId = "SettingsTableViewLinkCell"
-
   @IBOutlet fileprivate weak var title: UILabel!
   @IBOutlet fileprivate weak var info: UILabel!
 

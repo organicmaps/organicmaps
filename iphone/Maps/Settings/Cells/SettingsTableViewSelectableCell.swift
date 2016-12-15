@@ -1,7 +1,5 @@
 @objc final class SettingsTableViewSelectableCell: MWMTableViewCell {
 
-  static let cellId = "SettingsTableViewSelectableCell"
-
   @IBOutlet fileprivate weak var title: UILabel!
 
   func config(title: String) {

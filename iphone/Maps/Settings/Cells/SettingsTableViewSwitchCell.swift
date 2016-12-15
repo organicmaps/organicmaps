@@ -6,8 +6,6 @@
 
 @objc final class SettingsTableViewSwitchCell: MWMTableViewCell {
 
-  static let cellId = "SettingsTableViewSwitchCell"
-
   @IBOutlet fileprivate weak var title: UILabel!
   @IBOutlet fileprivate weak var switchButton: UISwitch! {
     didSet {

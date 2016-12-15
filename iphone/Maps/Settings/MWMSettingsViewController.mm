@@ -70,15 +70,13 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)configCommonSection
 {
+  NSString * units = nil;
   switch ([MWMSettings measurementUnits])
   {
-  case measurement_utils::Units::Metric:
-    [self.unitsCell configWithTitle:L(@"measurement_units") info:L(@"kilometres")];
-    break;
-  case measurement_utils::Units::Imperial:
-    [self.unitsCell configWithTitle:L(@"measurement_units") info:L(@"miles")];
-    break;
+  case measurement_utils::Units::Metric: units = L(@"kilometres"); break;
+  case measurement_utils::Units::Imperial: units = L(@"miles"); break;
   }
+  [self.unitsCell configWithTitle:L(@"measurement_units") info:units];
 
   [self.zoomButtonsCell configWithDelegate:self
                                      title:L(@"pref_zoom_title")
@@ -92,53 +90,36 @@ extern NSString * const kAlohalyticsTapEventKey;
                                       title:L(@"autodownload")
                                        isOn:[MWMSettings autoDownloadEnabled]];
 
+  NSString * mobileInternet = nil;
   using stage = platform::NetworkPolicy::Stage;
   switch (network_policy::GetStage())
   {
-  case stage::Always:
-    [self.mobileInternetCell configWithTitle:L(@"mobile_data")
-                                        info:L(@"mobile_data_option_always")];
-    break;
-  case stage::Session:
-    [self.mobileInternetCell configWithTitle:L(@"mobile_data") info:L(@"mobile_data_option_today")];
-    break;
-  case stage::Never:
-    [self.mobileInternetCell configWithTitle:L(@"mobile_data") info:L(@"mobile_data_option_never")];
-    break;
+  case stage::Always: mobileInternet = L(@"mobile_data_option_always"); break;
+  case stage::Session: mobileInternet = L(@"mobile_data_option_today"); break;
+  case stage::Never: mobileInternet = L(@"mobile_data_option_never"); break;
   }
+  [self.mobileInternetCell configWithTitle:L(@"mobile_data") info:mobileInternet];
 
+
+  NSString * recentTrack = nil;
   if (!GpsTracker::Instance().IsEnabled())
   {
-    [self.recentTrackCell configWithTitle:L(@"pref_track_record_title")
-                                     info:L(@"duration_disabled")];
+    recentTrack = L(@"duration_disabled");
   }
   else
   {
     switch (GpsTracker::Instance().GetDuration().count())
     {
-    case 1:
-      [self.recentTrackCell configWithTitle:L(@"pref_track_record_title")
-                                       info:L(@"duration_1_hour")];
-      break;
-    case 2:
-      [self.recentTrackCell configWithTitle:L(@"pref_track_record_title")
-                                       info:L(@"duration_2_hours")];
-      break;
-    case 6:
-      [self.recentTrackCell configWithTitle:L(@"pref_track_record_title")
-                                       info:L(@"duration_6_hours")];
-      break;
-    case 12:
-      [self.recentTrackCell configWithTitle:L(@"pref_track_record_title")
-                                       info:L(@"duration_12_hours")];
-      break;
-    case 24:
-      [self.recentTrackCell configWithTitle:L(@"pref_track_record_title")
-                                       info:L(@"duration_1_day")];
-      break;
+    case 1: recentTrack = L(@"duration_1_hour"); break;
+    case 2: recentTrack = L(@"duration_2_hours"); break;
+    case 6: recentTrack = L(@"duration_6_hours"); break;
+    case 12: recentTrack = L(@"duration_12_hours"); break;
+    case 24: recentTrack = L(@"duration_1_day"); break;
     default: NSAssert(false, @"Incorrect hours value"); break;
     }
   }
+  [self.recentTrackCell configWithTitle:L(@"pref_track_record_title") info:recentTrack];
+
 
   [self.compassCalibrationCell configWithDelegate:self
                                             title:L(@"pref_calibration_title")
@@ -155,24 +136,14 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)configNavigationSection
 {
+  NSString * nightMode = nil;
   if ([MWMSettings autoNightModeEnabled])
-  {
-    [self.nightModeCell configWithTitle:L(@"pref_map_style_title") info:L(@"pref_map_style_auto")];
-  }
+    nightMode = L(@"pref_map_style_auto");
+  else if (GetFramework().GetMapStyle() == MapStyleDark)
+    nightMode = L(@"pref_map_style_night");
   else
-  {
-    switch (GetFramework().GetMapStyle())
-    {
-    case MapStyleDark:
-      [self.nightModeCell configWithTitle:L(@"pref_map_style_title")
-                                     info:L(@"pref_map_style_night")];
-      break;
-    default:
-      [self.nightModeCell configWithTitle:L(@"pref_map_style_title")
-                                     info:L(@"pref_map_style_default")];
-      break;
-    }
-  }
+    nightMode = L(@"pref_map_style_default");
+  [self.nightModeCell configWithTitle:L(@"pref_map_style_title") info:nightMode];
 
   bool _ = true, on = true;
   GetFramework().Load3dMode(on, _);
@@ -182,25 +153,21 @@ extern NSString * const kAlohalyticsTapEventKey;
                                   title:L(@"pref_map_auto_zoom")
                                    isOn:GetFramework().LoadAutoZoom()];
 
+  NSString * voiceInstructions = nil;
   if ([MWMTextToSpeech isTTSEnabled])
   {
     NSString * savedLanguage = [MWMTextToSpeech savedLanguage];
     if (savedLanguage.length != 0)
     {
       string const savedLanguageTwine = locale_translator::bcp47ToTwineLanguage(savedLanguage);
-      NSString * language = @(tts::translatedTwine(savedLanguageTwine).c_str());
-      [self.voiceInstructionsCell configWithTitle:L(@"pref_tts_language_title") info:language];
-    }
-    else
-    {
-      [self.voiceInstructionsCell configWithTitle:L(@"pref_tts_language_title") info:nil];
+      voiceInstructions = @(tts::translatedTwine(savedLanguageTwine).c_str());
     }
   }
   else
   {
-    [self.voiceInstructionsCell configWithTitle:L(@"pref_tts_language_title")
-                                           info:L(@"duration_disabled")];
+    voiceInstructions = L(@"duration_disabled");
   }
+  [self.voiceInstructionsCell configWithTitle:L(@"pref_tts_language_title") info:voiceInstructions];
 }
 
 - (void)configInfoSection
