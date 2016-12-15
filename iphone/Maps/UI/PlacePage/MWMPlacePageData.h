@@ -120,7 +120,7 @@ enum class OpeningHours
 - (m2::PointD const &)mercator;
 - (ms::LatLon)latLon;
 
-- (NSArray<NSString *> *)statisticsTags;
+- (NSString *)statisticsTags;
 
 // TODO(Vlad): Use MWMSettings to store coordinate format.
 + (void)toggleCoordinateSystem;

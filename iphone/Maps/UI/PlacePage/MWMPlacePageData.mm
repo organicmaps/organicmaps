@@ -386,12 +386,12 @@ using namespace place_page;
 
 #pragma mark - Stats
 
-- (NSArray<NSString *> *)statisticsTags
+- (NSString *)statisticsTags
 {
   NSMutableArray<NSString *> * result = [@[] mutableCopy];
   for (auto const & s : m_info.GetRawTypes())
     [result addObject:@(s.c_str())];
-  return result.copy;
+  return [result componentsJoinedByString:@", "];
 }
 
 @end
