@@ -282,7 +282,18 @@ bool CarRouter::FindRouteMSMT(TFeatureGraphNodeVec const & sources,
       {
       case NoError: return true;
       case Cancelled: return false;
-      default: continue;
+      case NoCurrentPosition:
+        LOG(LERROR, ("NoCurrentPosition routing result returned by FindSingleRouteDispatcher()"));
+        return false;
+      case InconsistentMWMandRoute: return false;
+      case RouteFileNotExist: return false;
+      case StartPointNotFound: continue;
+      case EndPointNotFound: continue;
+      case PointsInDifferentMWM: return false;
+      case RouteNotFound: continue;
+      case NeedMoreMaps: return false;
+      case InternalError: return false;
+      case FileTooOld: return false;
       }
     }
   }
