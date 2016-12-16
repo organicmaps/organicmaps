@@ -20750,7 +20750,7 @@
     el = Κατηγορία τιμής
     sk = Cenová kategória
 
-  [booking_filters_no_results]
+  [search_no_results_title]
     en = No Results Found
     ru = Поиск не дал результатов
     ar = لم يتم العثور على نتائج
@@ -20780,7 +20780,7 @@
     el = Δεν βρέθηκαν αποτελέσματα
     sk = Nenašli sa žiadne výsledky
 
-  [booking_filters_nores_message]
+  [search_no_results_message]
     en = Try a more general search term, zoom out or reset the filter.
     ru = Попробуйте задать более общий запрос, уменьшить масштаб карты или сбросить фильтр.
     ar = جرب مصطلح بحث أكثر عمومية أو التصغير أو إعادة تعيين عامل التصفية.
@@ -20810,7 +20810,7 @@
     el = Δοκιμάστε ένα γενικότερο όρο αναζήτησης, κάντε σμίκρυνση ή μηδενίστε το φίλτρο.
     sk = Skúste vyhľadávať všeobecnejší výraz, vzdialiť alebo obnoviť nastavenie filtra.
 
-  [booking_filters_expand_area_button]
+  [search_no_results_expand_area_button]
     en = Zoom out
     ru = Уменьшить масштаб карты
     ar = تصغير
@@ -20840,7 +20840,7 @@
     el = Σμίκρυνση
     sk = Vzdialiť
 
-  [booking_filters_reset_button]
+  [search_no_results_reset_button]
     en = Reset Filter
     ru = Сбросить фильтр
     ar = إعادة تعيين عامل التصفية
