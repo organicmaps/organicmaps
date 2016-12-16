@@ -214,6 +214,8 @@
 	<string name="version">Έκδοση: %s</string>
 	<!-- Data version in «About» screen -->
 	<string name="data_version">Ημερομηνία έκδοσης: %d</string>
+	<!-- Confirmation in downloading countries dialog -->
+	<string name="are_you_sure">Θέλετε σίγουρα να συνεχίσετε?</string>
 	<!-- Title for tracks category in bookmarks manager -->
 	<string name="tracks">Διαδρομές</string>
 	<!-- Length of track in cell that describes route -->
@@ -305,11 +307,11 @@
 	<!-- Alert text -->
 	<string name="email_error_body">Το πρόγραμμα-client ηλεκτρονικού ταχυδρομείου έχει δεν έχει ρυθμιστεί. Ρυθμίστε το ή χρησιμοποιήστε άλλο τρόπο να επικοινωνήσετε μαζί μας στη διεύθυνση %s</string>
 	<!-- Alert title -->
-	<string name="email_error_title">Αποστολή σφάλματος αλληλογραφίας\u0020</string>
+	<string name="email_error_title">Αποστολή σφάλματος αλληλογραφίας</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Βαθμονόμηση πυξίδας</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">Wi-Fi</string>
+	<string name="wifi">WiFi</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Ενημέρωση όλων</string>
 	<!-- Cancel all button text -->
@@ -556,7 +558,7 @@
 	<string name="cuisine">Κουζίνα</string>
 	<string name="select_cuisine">Επιλέξτε κουζίνα</string>
 	<!-- login text field -->
-	<string name="email_or_username">E-mail ή όνομα χρήστη</string>
+	<string name="email_or_username">Email ή όνομα χρήστη</string>
 	<string name="phone">Τηλέφωνο</string>
 	<string name="please_note">Λάβετε υπόψη</string>
 	<string name="downloader_delete_map_dialog">Όλες οι αλλαγές που έχετε κάνει στο χάρτη θα διαγραφούν μαζί με το χάρτη.</string>
@@ -586,7 +588,7 @@
 	<string name="whatsnew_smallmwm_message">Χωρίσαμε μεγάλους χάρτες σε τμήματα. Μπορείτε πλέον να κατεβάσετε μόνο τις περιοχές που χρειάζεστε σε αντίθεση με τους χάρτες για ολόκληρες χώρες.</string>
 	<string name="whatsnew_search_header">Νέα αναζήτηση</string>
 	<string name="whatsnew_search_message">Έχουμε βελτιώσει σημαντικά την αναζήτηση μέσω διεύθυνσης. Δοκιμάστε το.</string>
-	<string name="whatsnew_editor_title">Επεξεργαστείτε το χάρτη *</string>
+	<string name="whatsnew_editor_title">Επεξεργαστείτε το χάρτη*</string>
 	<string name="whatsnew_editor_message_1">Προσθέστε νέες τοποθεσίες στο χάρτη, και επεξεργαστείτε τις υπάρχουσες απευθείας από την εφαρμογή.</string>
 	<string name="whatsnew_editor_message_2">* Το MAPS.ME χρησιμοποιεί δεδομένα της κοινότητας OpenStreetMap.</string>
 	<string name="onboarding_offline_navigation_title">Δεν θα χαθείτε ποτέ ξανά</string>
@@ -658,7 +660,7 @@
 	<string name="editor_remove_place_message">Διαγραφή της τοποθεσίας που προστέθηκε;</string>
 	<string name="editor_remove_place_button">Διαγραφή</string>
 	<string name="editor_place_doesnt_exist">Η τοποθεσία δεν υπάρχει</string>
-	<string name="text_more_button">.. περισσότερα</string>
+	<string name="text_more_button">…περισσότερα</string>
 	<!-- Phone number error message -->
 	<string name="error_enter_correct_phone">Εισάγετε έναν έγκυρο αριθμό τηλεφώνου</string>
 	<string name="error_enter_correct_web">Εισάγετε μια έγκυρη διεύθυνση ιστοτόπου</string>
@@ -718,9 +720,9 @@
 	<!-- For place page hotel nearby block -->
 	<string name="placepage_hotel_nearby">Σε κοντινή απόσταση</string>
 	<!-- For ordering a taxi (as opposed to hotels or other things) -->
-	<string name="taxi_order">Παραγγελία</string>
+	<string name="taxi_order">Παραγγελία ταξί</string>
 	<!-- How long it is until the taxi arrives -->
-	<string name="taxi_wait">Χρόνος αναμονής %d λεπτά</string>
+	<string name="taxi_wait">Χρόνος αναμονής %s</string>
 	<!-- When there are no available taxis nearby -->
 	<string name="taxi_not_found">Δε βρέθηκε ταξί σε κοντινή απόσταση</string>
 	<string name="install_app">Εγκατάσταση</string>
@@ -728,7 +730,7 @@
 	<string name="booking_filters">Φίλτρο</string>
 	<string name="booking_filters_reset">Μηδενισμός</string>
 	<string name="booking_filters_rating">Βαθμολογία</string>
-	<string name="booking_filters_rating_any">Όλα</string>
+	<string name="booking_filters_rating_any">Οποιοδήποτε</string>
 	<string name="booking_filters_ragting_good">Καλή</string>
 	<string name="booking_filters_rating_very_good">Πολύ καλή</string>
 	<string name="booking_filters_rating_excellent">Τέλεια</string>
@@ -737,16 +739,73 @@
 	<string name="booking_filters_nores_message">Δοκιμάστε ένα γενικότερο όρο αναζήτησης, κάντε σμίκρυνση ή μηδενίστε το φίλτρο.</string>
 	<string name="booking_filters_expand_area_button">Σμίκρυνση</string>
 	<string name="booking_filters_reset_button">Μηδενισμός φίλτρου</string>
-	<string name="booking_list">Λίστα</string>
+	<!-- noun -->
+	<string name="search_in_table">Λίστα</string>
 	<string name="booking_based_on_reviews">Σύμφωνα με %d κριτικές ξενοδοχείων</string>
 	<string name="booking_show_more">Εμφάνιση περισσοτέρων</string>
 	<string name="booking_reviews">Κριτικές</string>
 	<string name="booking_hotel">Ξενοδοχείο</string>
+	<!-- hotel room -->
 	<string name="booking_hotel_room">Δωμάτιο</string>
+	<!-- A neologism for a chat based on geographical proximity -->
 	<string name="chat">Geochat</string>
+	<!-- Verb. Text on a button that opens the chat. -->
 	<string name="chat_open">Άνοιγμα</string>
 	<string name="whatsnew_uber_header">MAPS.ME &amp; Uber</string>
 	<string name="whatsnew_uber_message">Καλέστε ταξί Uber απευθείας μέσα από την εφαρμογή!</string>
 	<string name="dialog_taxi_offline">Η παραγγελία ταξί δεν είναι διαθέσιμη σε offline ρύθμιση.</string>
 	<string name="dialog_taxi_error">Η παραγγελία ταξί είναι προσωρινά μη διαθέσιμη.</string>
+	<string name="advertisement">Διαφήμιση</string>
+	<string name="mobile_data_dialog">Θέλετε να χρησιμοποιήσετε το δίκτυο κινητής τηλεφωνίας για να εμφανίσετε αναλυτικές πληροφορίες;</string>
+	<string name="mobile_data_option_always">Να χρησιμοποιείται πάντα</string>
+	<string name="mobile_data_option_today">Μόνο σήμερα</string>
+	<string name="mobile_data_option_not_today">Να μην χρησιμοποιηθεί σήμερα</string>
+	<string name="mobile_data">Ίντερνετ μέσω δικτύου κινητής</string>
+	<string name="mobile_data_description">Απαιτείται πρόσβαση στο Ίντερνετ μέσω δικτύου κινητής για την εμφάνιση αναλυτικών πληροφοριών για τις τοποθεσίες, όπως φωτογραφίες, τιμές και κριτικές.</string>
+	<string name="mobile_data_option_never">Να μην χρησιμοποιείται ποτέ</string>
+	<string name="mobile_data_option_ask">Να γίνεται ερώτηση πάντα</string>
+	<string name="traffic_update_maps_text">Για να εμφανίσετε πληροφορίες για την κίνηση, πρέπει να ενημερωθούν οι χάρτες.</string>
+	<string name="traffic_outdated">Οι πληροφορίες για την κίνηση είναι παλιές.</string>
+	<string name="big_font">Μεγαλύτερες ετικέτες</string>
+	<string name="traffic_update_app">Κάντε ενημέρωση του MAPS.ME</string>
+	<!-- "traffic" as in road congestion -->
+	<string name="traffic_update_app_message">Για να εμφανιστούν πληροφορίες για την κίνηση, πρέπει να γίνει ενημέρωση της εφαρμογής.</string>
+	<!-- "traffic" as in "road congestion" -->
+	<string name="traffic_data_unavailable">Οι πληροφορίες για την κίνηση δεν είναι διαθέσιμες</string>
+	<string name="banner_deliveryclub_title">Παράδοση φαγητού</string>
+	<string name="banner_deliveryclub_message">Γρήγορη παράδοση από 4.000 εστιατόρια. Παραγγείλετε από το Delivery Club.</string>
+	<string name="banner_lamoda_title">Κατάστημα υποδημάτων και ρούχων online</string>
+	<string name="banner_lamoda_message">Περισσότερα από 1.000 επώνυμα προϊόντα. Έκπτωση έως και 70%. Δωρεάν παράδοση σε όλη τη χώρα.</string>
+	<string name="banner_tutu_title">Εισιτήρια τρένων online</string>
+	<string name="banner_tutu_message">Σιδηροδρομικά εισιτήρια για οποιαδήποτε πόλη online - τιμές, αναζήτηση και κράτηση.</string>
+	<string name="banner_geerbest_title">Κατάστημα ηλεκτρονικών online</string>
+	<string name="banner_geerbest_message">Άμεση αναζήτηση σε περισσότερα από 50.000 αντικείμενα σε χαμηλές τιμές.</string>
+	<string name="banner_rentalcars_title">Ενοικίαση αυτοκινήτων online</string>
+	<string name="banner_rentalcars_message">800 εταιρείες ενοικίασης αυτοκινήτων σε περισσότερες από 49.000 τοποθεσίες.</string>
+	<string name="banner_viator_title">Αναζήτηση εκδρομών online</string>
+	<string name="banner_viator_message">Αναζήτηση σε περισσότερες από 50.000 εκδρομές σε όλο τον κόσμο.</string>
+	<!-- december -->
+	<string name="whatsnew_traffic">Πληροφορίες για την κίνηση σε 36 χώρες</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_text">Ενημερωμένες πληροφορίες για την κίνηση και γρηγορότερες διαδρομές οδήγησης με βάση αυτό!</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming">Πληροφορίες για την κίνηση κατά την περιαγωγή</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming_text">Χρησιμοποιεί λιγότερο από 1 MB από το δίκτυο κινητής τηλεφωνίας ανά ταξίδι.</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi">Παραγγελία ταξί</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi_text">Οι περισσότερες από τις σελίδες της τοποθεσίας περιέχουν πλέον πλήκτρο για την παραγγελία ταξί.</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search">Βελτιωμένη αναζήτηση</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search_text">Ακόμη και τα ερωτήματα με ορθογραφικά λάθη δημιουργούν ακριβή αποτελέσματα αναζήτησης.</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search">Φίλτρα αναζήτησης</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search_text">Αναζήτηση ξενοδοχείων με βάση την τιμή και τις κριτικές.</string>
+	<!-- january -->
+	<string name="whatsnew_font_size">Μέγεθος γραμματοσειράς</string>
+	<!-- january -->
+	<string name="whatsnew_font_size_text">Οι ετικέτες στον χάρτη μπορούν να μεγαλώσουν.</string>
 </resources>

@@ -455,7 +455,7 @@
 "data_version" = "Ημερομηνία έκδοσης: %d";
 
 /* Confirmation in downloading countries dialog */
-"are_you_sure" = "Are you sure you want to continue?";
+"are_you_sure" = "Θέλετε σίγουρα να συνεχίσετε?";
 
 /* Title for tracks category in bookmarks manager */
 "tracks" = "Διαδρομές";
@@ -651,13 +651,13 @@
 "email_error_body" = "Το πρόγραμμα-client ηλεκτρονικού ταχυδρομείου έχει δεν έχει ρυθμιστεί. Ρυθμίστε το ή χρησιμοποιήστε άλλο τρόπο να επικοινωνήσετε μαζί μας στη διεύθυνση %@";
 
 /* Alert title */
-"email_error_title" = "Αποστολή σφάλματος αλληλογραφίας ";
+"email_error_title" = "Αποστολή σφάλματος αλληλογραφίας";
 
 /* Settings item title */
 "pref_calibration_title" = "Βαθμονόμηση πυξίδας";
 
 /* Search Suggestion */
-"wifi" = "Wi-Fi";
+"wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Please update the map to create a route";
@@ -1221,7 +1221,7 @@
 "select_cuisine" = "Επιλέξτε κουζίνα";
 
 /* login text field */
-"email_or_username" = "E-mail ή όνομα χρήστη";
+"email_or_username" = "Email ή όνομα χρήστη";
 
 "phone" = "Τηλέφωνο";
 
@@ -1297,7 +1297,7 @@
 
 "whatsnew_search_message" = "Έχουμε βελτιώσει σημαντικά την αναζήτηση μέσω διεύθυνσης. Δοκιμάστε το.";
 
-"whatsnew_editor_title" = "Επεξεργαστείτε το χάρτη *";
+"whatsnew_editor_title" = "Επεξεργαστείτε το χάρτη*";
 
 "whatsnew_editor_message_1" = "Προσθέστε νέες τοποθεσίες στο χάρτη, και επεξεργαστείτε τις υπάρχουσες απευθείας από την εφαρμογή.";
 
@@ -1505,7 +1505,7 @@
 
 "editor_place_doesnt_exist" = "Η τοποθεσία δεν υπάρχει";
 
-"text_more_button" = ".. περισσότερα";
+"text_more_button" = "…περισσότερα";
 
 /* Phone number error message */
 "error_enter_correct_phone" = "Εισάγετε έναν έγκυρο αριθμό τηλεφώνου";
@@ -1637,10 +1637,10 @@
 "placepage_hotel_nearby" = "Σε κοντινή απόσταση";
 
 /* For ordering a taxi (as opposed to hotels or other things) */
-"taxi_order" = "Παραγγελία";
+"taxi_order" = "Παραγγελία ταξί";
 
 /* How long it is until the taxi arrives */
-"taxi_wait" = "Χρόνος αναμονής %d λεπτά";
+"taxi_wait" = "Χρόνος αναμονής %s";
 
 /* When there are no available taxis nearby */
 "taxi_not_found" = "Δε βρέθηκε ταξί σε κοντινή απόσταση";
@@ -1654,7 +1654,7 @@
 
 "booking_filters_rating" = "Βαθμολογία";
 
-"booking_filters_rating_any" = "Όλα";
+"booking_filters_rating_any" = "Οποιοδήποτε";
 
 "booking_filters_ragting_good" = "Καλή";
 
@@ -1672,7 +1672,8 @@
 
 "booking_filters_reset_button" = "Μηδενισμός φίλτρου";
 
-"booking_list" = "Λίστα";
+/* noun */
+"search_in_table" = "Λίστα";
 
 "booking_based_on_reviews" = "Σύμφωνα με %d κριτικές ξενοδοχείων";
 
@@ -1682,10 +1683,13 @@
 
 "booking_hotel" = "Ξενοδοχείο";
 
+/* hotel room */
 "booking_hotel_room" = "Δωμάτιο";
 
+/* A neologism for a chat based on geographical proximity */
 "chat" = "Geochat";
 
+/* Verb. Text on a button that opens the chat. */
 "chat_open" = "Άνοιγμα";
 
 "whatsnew_uber_header" = "MAPS.ME & Uber";
@@ -1695,3 +1699,98 @@
 "dialog_taxi_offline" = "Η παραγγελία ταξί δεν είναι διαθέσιμη σε offline ρύθμιση.";
 
 "dialog_taxi_error" = "Η παραγγελία ταξί είναι προσωρινά μη διαθέσιμη.";
+
+"advertisement" = "Διαφήμιση";
+
+"mobile_data_dialog" = "Θέλετε να χρησιμοποιήσετε το δίκτυο κινητής τηλεφωνίας για να εμφανίσετε αναλυτικές πληροφορίες;";
+
+"mobile_data_option_always" = "Να χρησιμοποιείται πάντα";
+
+"mobile_data_option_today" = "Μόνο σήμερα";
+
+"mobile_data_option_not_today" = "Να μην χρησιμοποιηθεί σήμερα";
+
+"mobile_data" = "Ίντερνετ μέσω δικτύου κινητής";
+
+"mobile_data_description" = "Απαιτείται πρόσβαση στο Ίντερνετ μέσω δικτύου κινητής για την εμφάνιση αναλυτικών πληροφοριών για τις τοποθεσίες, όπως φωτογραφίες, τιμές και κριτικές.";
+
+"mobile_data_option_never" = "Να μην χρησιμοποιείται ποτέ";
+
+"mobile_data_option_ask" = "Να γίνεται ερώτηση πάντα";
+
+"traffic_update_maps_text" = "Για να εμφανίσετε πληροφορίες για την κίνηση, πρέπει να ενημερωθούν οι χάρτες.";
+
+"traffic_outdated" = "Οι πληροφορίες για την κίνηση είναι παλιές.";
+
+"big_font" = "Μεγαλύτερες ετικέτες";
+
+"traffic_update_app" = "Κάντε ενημέρωση του MAPS.ME";
+
+/* "traffic" as in road congestion */
+"traffic_update_app_message" = "Για να εμφανιστούν πληροφορίες για την κίνηση, πρέπει να γίνει ενημέρωση της εφαρμογής.";
+
+/* "traffic" as in "road congestion" */
+"traffic_data_unavailable" = "Οι πληροφορίες για την κίνηση δεν είναι διαθέσιμες";
+
+"banner_deliveryclub_title" = "Παράδοση φαγητού";
+
+"banner_deliveryclub_message" = "Γρήγορη παράδοση από 4.000 εστιατόρια. Παραγγείλετε από το Delivery Club.";
+
+"banner_lamoda_title" = "Κατάστημα υποδημάτων και ρούχων online";
+
+"banner_lamoda_message" = "Περισσότερα από 1.000 επώνυμα προϊόντα. Έκπτωση έως και 70%. Δωρεάν παράδοση σε όλη τη χώρα.";
+
+"banner_tutu_title" = "Εισιτήρια τρένων online";
+
+"banner_tutu_message" = "Σιδηροδρομικά εισιτήρια για οποιαδήποτε πόλη online - τιμές, αναζήτηση και κράτηση.";
+
+"banner_geerbest_title" = "Κατάστημα ηλεκτρονικών online";
+
+"banner_geerbest_message" = "Άμεση αναζήτηση σε περισσότερα από 50.000 αντικείμενα σε χαμηλές τιμές.";
+
+"banner_rentalcars_title" = "Ενοικίαση αυτοκινήτων online";
+
+"banner_rentalcars_message" = "800 εταιρείες ενοικίασης αυτοκινήτων σε περισσότερες από 49.000 τοποθεσίες.";
+
+"banner_viator_title" = "Αναζήτηση εκδρομών online";
+
+"banner_viator_message" = "Αναζήτηση σε περισσότερες από 50.000 εκδρομές σε όλο τον κόσμο.";
+
+/* december */
+"whatsnew_traffic" = "Πληροφορίες για την κίνηση σε 36 χώρες";
+
+/* december */
+"whatsnew_traffic_text" = "Ενημερωμένες πληροφορίες για την κίνηση και γρηγορότερες διαδρομές οδήγησης με βάση αυτό!";
+
+/* december */
+"whatsnew_traffic_roaming" = "Πληροφορίες για την κίνηση κατά την περιαγωγή";
+
+/* december */
+"whatsnew_traffic_roaming_text" = "Χρησιμοποιεί λιγότερο από 1 MB από το δίκτυο κινητής τηλεφωνίας ανά ταξίδι.";
+
+/* december */
+"whatsnew_order_taxi" = "Παραγγελία ταξί";
+
+/* december */
+"whatsnew_order_taxi_text" = "Οι περισσότερες από τις σελίδες της τοποθεσίας περιέχουν πλέον πλήκτρο για την παραγγελία ταξί.";
+
+/* january */
+"whatsnew_improved_search" = "Βελτιωμένη αναζήτηση";
+
+/* january */
+"whatsnew_improved_search_text" = "Ακόμη και τα ερωτήματα με ορθογραφικά λάθη δημιουργούν ακριβή αποτελέσματα αναζήτησης.";
+
+/* january */
+"whatsnew_filters_in_search" = "Φίλτρα αναζήτησης";
+
+/* january */
+"whatsnew_filters_in_search_text" = "Αναζήτηση ξενοδοχείων με βάση την τιμή και τις κριτικές.";
+
+/* january */
+"whatsnew_font_size" = "Μέγεθος γραμματοσειράς";
+
+/* january */
+"whatsnew_font_size_text" = "Οι ετικέτες στον χάρτη μπορούν να μεγαλώσουν.";
+
+/* "Translation is no needed, because it's a company name" */
+"uber" = "Uber";
