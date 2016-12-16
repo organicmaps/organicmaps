@@ -26,17 +26,19 @@ struct TurnCandidate
    */
   double angle;
   /*!
-   * node is a possible node (a possible way) from the juction.
-   * May be NodeId for OSRM router or FeatureId::index for graph router.
+   * |m_nodeId| is a possible node (a possible way) from the juction.
+   * |m_nodeId| contain either only unique NodeID for OSRM case or mwm id, feature id, segment id
+   * and direction in case of A*.
    */
-  TNodeId node;
+  UniNodeId m_nodeId;
   /*!
    * \brief highwayClass field for the road class caching. Because feature reading is a long
    * function.
    */
   ftypes::HighwayClass highwayClass;
 
-  TurnCandidate(double a, TNodeId n, ftypes::HighwayClass c) : angle(a), node(n), highwayClass(c)
+  TurnCandidate(double a, UniNodeId const & n, ftypes::HighwayClass c)
+    : angle(a), m_nodeId(n), highwayClass(c)
   {
   }
 };

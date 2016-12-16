@@ -23,7 +23,7 @@ class RoutingResult : public IRoutingResult
 {
 public:
   RoutingResult(IRoadGraph::TEdgeVector const & routeEdges,
-                BicycleDirectionsEngine::TAdjacentEdgesMap const & adjacentEdges,
+                BicycleDirectionsEngine::AdjacentEdgesMap const & adjacentEdges,
                 TUnpackedPathSegments const & pathSegments)
     : m_routeEdges(routeEdges)
     , m_adjacentEdges(adjacentEdges)
@@ -40,7 +40,7 @@ public:
   // turns::IRoutingResult overrides:
   TUnpackedPathSegments const & GetSegments() const override { return m_pathSegments; }
 
-  void GetPossibleTurns(TNodeId node, m2::PointD const & /* ingoingPoint */,
+  void GetPossibleTurns(UniNodeId const & node, m2::PointD const & /* ingoingPoint */,
                         m2::PointD const & /* junctionPoint */, size_t & ingoingCount,
                         TurnCandidates & outgoingTurns) const override
   {
@@ -74,7 +74,7 @@ public:
 
 private:
   IRoadGraph::TEdgeVector const & m_routeEdges;
-  BicycleDirectionsEngine::TAdjacentEdgesMap const & m_adjacentEdges;
+  BicycleDirectionsEngine::AdjacentEdgesMap const & m_adjacentEdges;
   TUnpackedPathSegments const & m_pathSegments;
   double m_routeLength;
 };
@@ -104,7 +104,8 @@ void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction
   auto emptyPathWorkaround = [&]()
   {
     turns.emplace_back(pathSize - 1, turns::TurnDirection::ReachedYourDestination);
-    this->m_adjacentEdges[0] = AdjacentEdges(1);  // There's one ingoing edge to the finish.
+    // There's one ingoing edge to the finish.
+    this->m_adjacentEdges[UniNodeId()] = AdjacentEdges(1);
   };
 
   if (pathSize == 1)
@@ -129,7 +130,7 @@ void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction
   }
 
   // Filling |m_adjacentEdges|.
-  m_adjacentEdges.insert(make_pair(0, AdjacentEdges(0)));
+  m_adjacentEdges.insert(make_pair(UniNodeId(), AdjacentEdges(0)));
   for (size_t i = 1; i < pathSize; ++i)
   {
     if (cancellable.IsCancelled())
@@ -147,6 +148,9 @@ void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction
     adjacentEdges.m_outgoingTurns.candidates.reserve(outgoingEdges.size());
     ASSERT_EQUAL(routeEdges.size(), pathSize - 1, ());
     FeatureID const inFeatureId = routeEdges[i - 1].GetFeatureId();
+    uint32_t const inSegId = routeEdges[i - 1].GetSegId();
+    bool const inIsForward = routeEdges[i - 1].IsForward();
+    UniNodeId const uniNodeId(inFeatureId, inSegId, inIsForward);
 
     for (auto const & edge : outgoingEdges)
     {
@@ -162,8 +166,7 @@ void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction
       auto const highwayClass = ftypes::GetHighwayClass(ft);
       ASSERT_NOT_EQUAL(highwayClass, ftypes::HighwayClass::Error, ());
       ASSERT_NOT_EQUAL(highwayClass, ftypes::HighwayClass::Undefined, ());
-      adjacentEdges.m_outgoingTurns.candidates.emplace_back(0.0 /* angle */, outFeatureId.m_index,
-                                                            highwayClass);
+      adjacentEdges.m_outgoingTurns.candidates.emplace_back(0.0 /* angle */, uniNodeId, highwayClass);
     }
 
     LoadedPathSegment pathSegment;
@@ -171,15 +174,16 @@ void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction
     // for every route edge leads that all route points are duplicated. It's because
     // prevJunction == path[i - 1] and currJunction == path[i].
     if (inFeatureId.IsValid())
-      LoadPathGeometry(inFeatureId, {prevJunction, currJunction}, pathSegment);
+      LoadPathGeometry(uniNodeId, {prevJunction, currJunction}, pathSegment);
     pathSegment.m_trafficSegs = {
       {inFeatureId.m_index,
-       static_cast<uint16_t>(routeEdges[i - 1].GetSegId()),
-       routeEdges[i - 1].IsForward() ? TrafficInfo::RoadSegmentId::kForwardDirection
-                                     : TrafficInfo::RoadSegmentId::kReverseDirection
+       static_cast<uint16_t>(inSegId),
+       inIsForward ? TrafficInfo::RoadSegmentId::kForwardDirection
+                   : TrafficInfo::RoadSegmentId::kReverseDirection
       }};
 
-    m_adjacentEdges.insert(make_pair(inFeatureId.m_index, move(adjacentEdges)));
+    auto const it = m_adjacentEdges.insert(make_pair(uniNodeId, move(adjacentEdges)));
+    ASSERT(it.second, ());
     m_pathSegments.push_back(move(pathSegment));
   }
 
@@ -210,20 +214,20 @@ Index::FeaturesLoaderGuard & BicycleDirectionsEngine::GetLoader(MwmSet::MwmId co
   return *m_loader;
 }
 
-void BicycleDirectionsEngine::LoadPathGeometry(FeatureID const & featureId,
+void BicycleDirectionsEngine::LoadPathGeometry(UniNodeId const & uniNodeId,
                                                vector<Junction> const & path,
                                                LoadedPathSegment & pathSegment)
 {
   pathSegment.Clear();
 
-  if (!featureId.IsValid())
+  if (!uniNodeId.GetFeature().IsValid())
   {
     ASSERT(false, ());
     return;
   }
 
   FeatureType ft;
-  if (!GetLoader(featureId.m_mwmId).GetFeatureByIndex(featureId.m_index, ft))
+  if (!GetLoader(uniNodeId.GetFeature().m_mwmId).GetFeatureByIndex(uniNodeId.GetFeature().m_index, ft))
   {
     // The feature can't be read, therefore path geometry can't be
     // loaded.
@@ -239,7 +243,7 @@ void BicycleDirectionsEngine::LoadPathGeometry(FeatureID const & featureId,
 
   ft.GetName(FeatureType::DEFAULT_LANG, pathSegment.m_name);
 
-  pathSegment.m_nodeId = featureId.m_index;
+  pathSegment.m_nodeId = uniNodeId;
   pathSegment.m_onRoundabout = ftypes::IsRoundAboutChecker::Instance()(ft);
   pathSegment.m_path = path;
   // @TODO(bykoianko) It's better to fill pathSegment.m_weight.

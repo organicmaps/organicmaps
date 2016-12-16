@@ -21,7 +21,7 @@ public:
   virtual TUnpackedPathSegments const & GetSegments() const = 0;
   /// \brief For a |node|, |junctionPoint| and |ingoingPoint| (point before the |node|)
   /// this method computes number of ingoing ways to |junctionPoint| and fills |outgoingTurns|.
-  virtual void GetPossibleTurns(TNodeId node, m2::PointD const & ingoingPoint,
+  virtual void GetPossibleTurns(UniNodeId const & node, m2::PointD const & ingoingPoint,
                                 m2::PointD const & junctionPoint, size_t & ingoingCount,
                                 TurnCandidates & outgoingTurns) const = 0;
   virtual double GetPathLength() const = 0;

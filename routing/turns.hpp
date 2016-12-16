@@ -1,5 +1,7 @@
 #pragma once
 
+#include "indexer/feature_decl.hpp"
+
 #include "geometry/point2d.hpp"
 
 #include "3party/osrm/osrm-backend/typedefs.h"
@@ -13,6 +15,32 @@ namespace routing
 {
 using TNodeId = uint32_t;
 using TEdgeWeight = double;
+
+/// \brief Unique identification for a road edge between to junctions (joints).
+/// In case of OSRM it's NodeID and in case of RoadGraph (IndexGraph)
+/// it's mwm id, feature id, segment id and direction.
+struct UniNodeId
+{
+  UniNodeId() = default;
+  UniNodeId(FeatureID const & featureId, uint32_t segId, bool forward)
+    : m_featureId(featureId), m_segId(segId), m_forward(forward) {}
+  UniNodeId(uint32_t nodeId) : m_featureId(MwmSet::MwmId(), nodeId) {}
+
+  bool operator==(UniNodeId const & rh) const;
+  bool operator<(UniNodeId const & rh) const;
+  uint32_t GetIndex() const { return m_featureId.m_index; }
+  FeatureID const & GetFeature() const { return m_featureId; }
+  uint32_t GetSegId() const { return m_segId; }
+  bool IsForward() const { return m_forward; }
+  void Clear();
+
+private:
+  /// \note In case of OSRM unique id is kept in |m_featureId.m_index|.
+  /// So |m_featureId.m_mwmId|, |m_segId| and |m_forward| have default values.
+  FeatureID m_featureId; // |m_featureId.m_index| is NodeID for OSRM.
+  uint32_t m_segId = 0; // Not valid for OSRM.
+  bool m_forward = true; // Segment direction in |m_featureId|.
+};
 
 namespace turns
 {

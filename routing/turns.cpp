@@ -51,9 +51,33 @@ static_assert(g_turnNames.size() == static_cast<size_t>(TurnDirection::Count),
 
 namespace routing
 {
+// UniNodeId -------------------------------------------------------------------
+bool UniNodeId::operator==(UniNodeId const & rh) const
+{
+  return m_featureId == rh.m_featureId && m_segId == rh.m_segId && m_forward == rh.m_forward;
+}
+
+bool UniNodeId::operator<(UniNodeId const & rh) const
+{
+  if (m_featureId != rh.m_featureId)
+    return m_featureId < rh.m_featureId;
+
+  if (m_segId != rh.m_segId)
+    return m_segId < rh.m_segId;
+
+  return m_forward < rh.m_forward;
+}
+
+void UniNodeId::Clear()
+{
+  m_featureId = FeatureID();
+  m_segId = 0;
+  m_forward = true;
+}
+
 namespace turns
 {
-
+// SingleLaneInfo --------------------------------------------------------------
 bool SingleLaneInfo::operator==(SingleLaneInfo const & other) const
 {
   return m_lane == other.m_lane && m_isRecommended == other.m_isRecommended;

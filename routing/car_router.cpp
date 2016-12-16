@@ -66,7 +66,7 @@ class OSRMRoutingResult : public turns::IRoutingResult
 public:
   // turns::IRoutingResult overrides:
   TUnpackedPathSegments const & GetSegments() const override { return m_loadedSegments; }
-  void GetPossibleTurns(TNodeId node, m2::PointD const & ingoingPoint,
+  void GetPossibleTurns(UniNodeId const & node, m2::PointD const & ingoingPoint,
                         m2::PointD const & junctionPoint, size_t & ingoingCount,
                         turns::TurnCandidates & outgoingTurns) const override
   {
@@ -87,9 +87,9 @@ public:
     // Filtering virtual edges.
     vector<NodeID> adjacentNodes;
     ingoingCount = 0;
-    for (EdgeID const e : m_routingMapping.m_dataFacade.GetAdjacentEdgeRange(node))
+    for (EdgeID const e : m_routingMapping.m_dataFacade.GetAdjacentEdgeRange(node.GetIndex()))
     {
-      QueryEdge::EdgeData const data = m_routingMapping.m_dataFacade.GetEdgeData(e, node);
+      QueryEdge::EdgeData const data = m_routingMapping.m_dataFacade.GetEdgeData(e, node.GetIndex());
       if (data.shortcut)
         continue;
       if (data.forward)
@@ -105,11 +105,11 @@ public:
 
     for (NodeID const adjacentNode : geomNodes)
     {
-      if (adjacentNode == node)
+      if (adjacentNode == node.GetIndex())
         continue;
       for (EdgeID const e : m_routingMapping.m_dataFacade.GetAdjacentEdgeRange(adjacentNode))
       {
-        if (m_routingMapping.m_dataFacade.GetTarget(e) != node)
+        if (m_routingMapping.m_dataFacade.GetTarget(e) != node.GetIndex())
           continue;
         QueryEdge::EdgeData const data = m_routingMapping.m_dataFacade.GetEdgeData(e, adjacentNode);
         if (data.shortcut)
@@ -145,7 +145,8 @@ public:
       outgoingTurns.isCandidatesAngleValid = true;
       double const a =
           my::RadToDeg(turns::PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint));
-      outgoingTurns.candidates.emplace_back(a, targetNode, ftypes::GetHighwayClass(ft));
+      outgoingTurns.candidates.emplace_back(a, UniNodeId(targetNode),
+                                            ftypes::GetHighwayClass(ft));
     }
 
     sort(outgoingTurns.candidates.begin(), outgoingTurns.candidates.end(),
