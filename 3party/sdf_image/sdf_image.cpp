@@ -22,6 +22,7 @@ THE SOFTWARE.
 #include "base/math.hpp"
 #include "base/scope_guard.hpp"
 
+#include "std/algorithm.hpp"
 #include "std/limits.hpp"
 #include "std/bind.hpp"
 

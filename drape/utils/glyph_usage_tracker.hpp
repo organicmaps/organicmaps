@@ -6,6 +6,7 @@
 #include "std/set.hpp"
 #include "std/list.hpp"
 #include "std/mutex.hpp"
+#include "std/string.hpp"
 #include "std/unordered_set.hpp"
 
 //#define TRACK_GLYPH_USAGE

@@ -1,7 +1,19 @@
 #pragma once
-#include "std/functional.hpp"
-#include "std/iterator.hpp"
-#include "std/algorithm.hpp"
+
+#include <algorithm>
+#include <functional>
+#include <iterator>
+
+namespace my
+{
+/// @todo(y): replace this hand-written helper function by
+/// std::make_unique when it will be available in C++14
+template <typename T, typename... Args>
+std::unique_ptr<T> make_unique(Args &&... args)
+{
+  return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
+}
+}
 
 
 template <class ContainerT> class BackInsertFunctor
@@ -80,7 +92,7 @@ IterT RemoveIfKeepValid(IterT beg, IterT end, CompareT comp)
       {
         if (!comp(*end))
         {
-          swap(*beg, *end);
+          std::swap(*beg, *end);
           ++beg;
           break;
         }
@@ -96,12 +108,12 @@ IterT RemoveIfKeepValid(IterT beg, IterT end, CompareT comp)
 
 template <class IterT> inline bool IsSorted(IterT beg, IterT end)
 {
-  return IsSorted(beg, end, less<typename iterator_traits<IterT>::value_type>());
+  return IsSorted(beg, end, std::less<typename std::iterator_traits<IterT>::value_type>());
 }
 
 template <class IterT> inline bool IsSortedAndUnique(IterT beg, IterT end)
 {
-  return IsSortedAndUnique(beg, end, less<typename iterator_traits<IterT>::value_type>());
+  return IsSortedAndUnique(beg, end, std::less<typename std::iterator_traits<IterT>::value_type>());
 }
 
 struct DeleteFunctor
@@ -186,7 +198,7 @@ template <class IterT1, class IterT2, class InsertIterT>
 void AccumulateIntervals1With2(IterT1 b1, IterT1 e1, IterT2 b2, IterT2 e2, InsertIterT res)
 {
   //typedef typename iterator_traits<InsertIterT>::value_type T;
-  typedef typename iterator_traits<IterT1>::value_type T;
+  typedef typename std::iterator_traits<IterT1>::value_type T;
 
   T prev;
   bool validPrev = false;

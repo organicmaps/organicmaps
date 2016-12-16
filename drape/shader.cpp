@@ -4,6 +4,8 @@
 #include "base/assert.hpp"
 #include "base/string_utils.hpp"
 
+#include "std/algorithm.hpp"
+
 namespace dp
 {
 

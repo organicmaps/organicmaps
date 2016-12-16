@@ -3,11 +3,11 @@
 #include "base/assert.hpp"
 #include "base/stl_helpers.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/queue.hpp"
-#include "std/set.hpp"
-#include "std/sstream.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <queue>
+#include <set>
+#include <sstream>
+#include <vector>
 
 namespace strings
 {
@@ -78,7 +78,7 @@ private:
   bool FindRelevant(LevenshteinDFA::Position const & p, UniChar c, size_t & i) const
   {
     size_t const limit =
-        min(m_size - p.m_offset, static_cast<size_t>(p.m_errorsLeft) + 1);
+      std::min(m_size - p.m_offset, static_cast<size_t>(p.m_errorsLeft) + 1);
 
     for (i = 0; i < limit; ++i)
     {
@@ -152,7 +152,7 @@ void LevenshteinDFA::State::Normalize()
     {
       ASSERT_GREATER(j, 0, ());
       --j;
-      swap(m_positions[i], m_positions[j]);
+      std::swap(m_positions[i], m_positions[j]);
     }
   }
 
@@ -176,8 +176,8 @@ LevenshteinDFA::LevenshteinDFA(UniString const & s, size_t prefixCharsToKeep, ui
   }
   m_alphabet.push_back(missed);
 
-  queue<State> states;
-  map<State, size_t> visited;
+  std::queue<State> states;
+  std::map<State, size_t> visited;
 
   auto pushState = [&states, &visited, this](State const & state, size_t id)
   {
@@ -231,7 +231,7 @@ LevenshteinDFA::LevenshteinDFA(UniString const & s, size_t prefixCharsToKeep, ui
   }
 }
 
-LevenshteinDFA::LevenshteinDFA(string const & s, size_t prefixCharsToKeep, uint8_t maxErrors)
+LevenshteinDFA::LevenshteinDFA(std::string const & s, size_t prefixCharsToKeep, uint8_t maxErrors)
   : LevenshteinDFA(MakeUniString(s), prefixCharsToKeep, maxErrors)
 {
 }
@@ -241,7 +241,7 @@ LevenshteinDFA::LevenshteinDFA(UniString const & s, uint8_t maxErrors)
 {
 }
 
-LevenshteinDFA::LevenshteinDFA(string const & s, uint8_t maxErrors)
+LevenshteinDFA::LevenshteinDFA(std::string const & s, uint8_t maxErrors)
   : LevenshteinDFA(s, 0 /* prefixCharsToKeep */, maxErrors)
 {
 }
@@ -304,17 +304,17 @@ size_t LevenshteinDFA::Move(size_t s, UniChar c) const
   return m_transitions[s][i];
 }
 
-string DebugPrint(LevenshteinDFA::Position const & p)
+std::string DebugPrint(LevenshteinDFA::Position const & p)
 {
-  ostringstream os;
+  std::ostringstream os;
   os << "Position [" << p.m_offset << ", " << static_cast<uint32_t>(p.m_errorsLeft) << ", "
      << p.m_transposed << "]";
   return os.str();
 }
 
-string DebugPrint(LevenshteinDFA::State const & s)
+std::string DebugPrint(LevenshteinDFA::State const & s)
 {
-  ostringstream os;
+  std::ostringstream os;
   os << "State [";
   for (size_t i = 0; i < s.m_positions.size(); ++i)
   {

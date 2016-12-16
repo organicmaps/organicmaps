@@ -2,6 +2,7 @@
 
 #include "std/string.hpp"
 #include "std/fstream.hpp"
+#include "std/vector.hpp"
 
 void loadFile(vector<unsigned char> & buffer, string const & filename) //designed for loading files from hard disk in an std::vector
 {

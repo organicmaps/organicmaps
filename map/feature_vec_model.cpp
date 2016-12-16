@@ -1,5 +1,3 @@
-#include "base/SRC_FIRST.hpp"
-
 #include "map/feature_vec_model.hpp"
 
 #include "platform/platform.hpp"

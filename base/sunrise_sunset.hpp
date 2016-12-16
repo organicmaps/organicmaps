@@ -1,7 +1,7 @@
 #pragma once
 
-#include "std/ctime.hpp"
-#include "std/string.hpp"
+#include <ctime>
+#include <string>
 
 enum class DayTimeType
 {
@@ -11,7 +11,7 @@ enum class DayTimeType
   PolarNight
 };
 
-string DebugPrint(DayTimeType type);
+std::string DebugPrint(DayTimeType type);
 
 /// Helpers which calculates 'is day time' without a time calculation error.
 /// @param timeUtc - utc time

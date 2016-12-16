@@ -4,6 +4,8 @@
 #include "base/assert.hpp"
 #include "base/math.hpp"
 
+#include "std/algorithm.hpp"
+
 namespace df
 {
 

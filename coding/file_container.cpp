@@ -4,6 +4,7 @@
 #include "coding/internal/file_data.hpp"
 
 #include "std/cstring.hpp"
+#include "std/sstream.hpp"
 
 #ifndef OMIM_OS_WINDOWS
   #include <stdio.h>

@@ -18,7 +18,6 @@ uint32_t constexpr kDefaultChar = 0;
 template <typename TValueList>
 class Iterator
 {
-  // dbg::ObjectTracker m_tracker;
 
 public:
   using TValue = typename TValueList::TValue;

@@ -7,8 +7,9 @@
 #include "base/buffer_vector.hpp"
 #include "base/stl_add.hpp"
 
-#include "std/bind.hpp"
 #include "std/algorithm.hpp"
+#include "std/bind.hpp"
+#include "std/iterator.hpp"
 
 namespace df
 {

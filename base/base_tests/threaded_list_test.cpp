@@ -1,11 +1,9 @@
-#include "base/SRC_FIRST.hpp"
 #include "testing/testing.hpp"
 
 #include "base/threaded_list.hpp"
-#include "base/threaded_priority_queue.hpp"
 #include "base/thread.hpp"
-
 #include "base/logging.hpp"
+#include "base/stl_add.hpp"
 
 #include "std/mutex.hpp"
 
@@ -13,10 +11,10 @@ struct ThreadedListProcessor : public threads::IRoutine
 {
   ThreadedList<int> & m_p;
   mutex & m_resMutex;
-  list<int> & m_res;
+  std::list<int> & m_res;
   int m_id;
 
-  ThreadedListProcessor(ThreadedList<int> & p, mutex & resMutex, list<int> & res, int id)
+  ThreadedListProcessor(ThreadedList<int> & p, mutex & resMutex, std::list<int> & res, int id)
       : m_p(p), m_resMutex(resMutex), m_res(res), m_id(id)
   {
   }
@@ -37,52 +35,23 @@ struct ThreadedListProcessor : public threads::IRoutine
   }
 };
 
-struct ThreadedPriorityQueueProcessor : public threads::IRoutine
-{
-  ThreadedPriorityQueue<int> & m_p;
-  mutex & m_resMutex;
-  list<int> & m_res;
-  int m_id;
-
-  ThreadedPriorityQueueProcessor(ThreadedPriorityQueue<int> & p, mutex & resMutex, list<int> & res,
-                                 int id)
-      : m_p(p), m_resMutex(resMutex), m_res(res), m_id(id)
-  {
-  }
-
-  virtual void Do()
-  {
-    while (!m_p.IsCancelled())
-    {
-      int res = m_p.Top(true /* doPop */);
-      {
-        lock_guard<mutex> resGuard(m_resMutex);
-        m_res.push_back(res);
-      }
-      LOG(LINFO, (m_id, " thread got ", res));
-      threads::Sleep(10);
-    }
-    LOG(LINFO, (m_id, " thread is cancelled"));
-  }
-};
-
 UNIT_TEST(ThreadedList)
 {
-  list<int> l;
+  std::list<int> l;
 
   mutex resMutex;
-  list<int> res;
+  std::list<int> res;
 
   ThreadedList<int> p;
 
   threads::Thread t0;
-  t0.Create(make_unique<ThreadedListProcessor>(p, resMutex, res, 0));
+  t0.Create(my::make_unique<ThreadedListProcessor>(p, resMutex, res, 0));
 
   threads::Thread t1;
-  t1.Create(make_unique<ThreadedListProcessor>(p, resMutex, res, 1));
+  t1.Create(my::make_unique<ThreadedListProcessor>(p, resMutex, res, 1));
 
   threads::Thread t2;
-  t2.Create(make_unique<ThreadedListProcessor>(p, resMutex, res, 2));
+  t2.Create(my::make_unique<ThreadedListProcessor>(p, resMutex, res, 2));
 
   p.PushBack(0);
   threads::Sleep(200);
@@ -106,43 +75,3 @@ UNIT_TEST(ThreadedList)
   TEST_EQUAL(res.front(), 2, ());
   res.pop_front();
 }
-
-UNIT_TEST(ThreadedPriorityQueue)
-{
-  mutex resMutex;
-  list<int> res;
-
-  ThreadedPriorityQueue<int> p;
-
-  threads::Thread t0;
-  t0.Create(make_unique<ThreadedPriorityQueueProcessor>(p, resMutex, res, 0));
-
-  threads::Thread t1;
-  t1.Create(make_unique<ThreadedPriorityQueueProcessor>(p, resMutex, res, 1));
-
-  threads::Thread t2;
-  t2.Create(make_unique<ThreadedPriorityQueueProcessor>(p, resMutex, res, 2));
-
-  p.Push(0);
-  threads::Sleep(200);
-
-  p.Push(1);
-  threads::Sleep(200);
-
-  p.Push(2);
-  threads::Sleep(200);
-
-  p.Cancel();
-
-  t0.Join();
-  t1.Join();
-  t2.Join();
-
-  TEST_EQUAL(res.front(), 0, ());
-  res.pop_front();
-  TEST_EQUAL(res.front(), 1, ());
-  res.pop_front();
-  TEST_EQUAL(res.front(), 2, ());
-  res.pop_front();
-}
-

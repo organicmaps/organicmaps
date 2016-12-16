@@ -1,8 +1,8 @@
-#include "base/SRC_FIRST.hpp"
-
 #include "geometry/robust_orientation.hpp"
 
 #include "base/macros.hpp"
+
+#include "std/algorithm.hpp"
 
 extern "C"
 {

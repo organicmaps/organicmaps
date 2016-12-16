@@ -4,8 +4,10 @@
 
 #include "base/thread.hpp"
 
+#include "std/atomic.hpp"
 #include "std/chrono.hpp"
 #include "std/condition_variable.hpp"
+#include "std/function.hpp"
 #include "std/mutex.hpp"
 #include "std/string.hpp"
 #include "std/unique_ptr.hpp"

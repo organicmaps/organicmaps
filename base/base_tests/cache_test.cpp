@@ -18,7 +18,7 @@ public:
     m_v.push_back(c);
   }
 
-  vector<char> m_v;
+  std::vector<char> m_v;
 
 private:
   DISALLOW_COPY(SimpleFunctor);
@@ -28,7 +28,7 @@ private:
 class SimpleMovableFunctor
 {
 public:
-  SimpleMovableFunctor(vector<char> * v) : m_v(v) {}
+  SimpleMovableFunctor(std::vector<char> * v) : m_v(v) {}
 
   // movable
   SimpleMovableFunctor(SimpleMovableFunctor && other)
@@ -43,7 +43,7 @@ public:
   }
 
 private:
-  vector<char> * m_v;
+  std::vector<char> * m_v;
 
   DISALLOW_COPY(SimpleMovableFunctor);
 };
@@ -85,9 +85,9 @@ UNIT_TEST(CacheSmoke_0)
   bool found = true;
   cache.Find(0, found);
   TEST(!found, ());
-  vector<char> v;
+  std::vector<char> v;
   cache.ForEachValue(MakeBackInsertFunctor(v));
-  TEST_EQUAL(v, vector<char>(8, 0), ());
+  TEST_EQUAL(v, std::vector<char>(8, 0), ());
 }
 
 UNIT_TEST(CacheSmoke_1)
@@ -95,7 +95,7 @@ UNIT_TEST(CacheSmoke_1)
   my::Cache<uint32_t, char> cache(3); // it contains 2^3=8 elements
   SimpleFunctor f;
   cache.ForEachValue(f); // f passed by reference
-  TEST_EQUAL(f.m_v, vector<char>(8, 0), ());
+  TEST_EQUAL(f.m_v, std::vector<char>(8, 0), ());
 }
 
 UNIT_TEST(CacheSmoke_2)
@@ -103,7 +103,7 @@ UNIT_TEST(CacheSmoke_2)
   my::Cache<uint32_t, char> cache(3); // it contains 2^3=8 elements
   SimpleFunctor f;
   cache.ForEachValue(ref(f)); // f passed by reference
-  TEST_EQUAL(f.m_v, vector<char>(8, 0), ());
+  TEST_EQUAL(f.m_v, std::vector<char>(8, 0), ());
 }
 
 UNIT_TEST(CacheSmoke_3)
@@ -142,7 +142,7 @@ UNIT_TEST(CacheSmoke_4)
   my::CacheWithStat<uint32_t, char> cache(3); // it contains 2^3=8 elements
   SimpleFunctor f;
   cache.ForEachValue(f); // f passed by reference
-  TEST_EQUAL(f.m_v, vector<char>(8, 0), ());
+  TEST_EQUAL(f.m_v, std::vector<char>(8, 0), ());
 }
 
 UNIT_TEST(CacheSmoke_5)
@@ -150,15 +150,15 @@ UNIT_TEST(CacheSmoke_5)
   my::CacheWithStat<uint32_t, char> cache(3); // it contains 2^3=8 elements
   SimpleFunctor f;
   cache.ForEachValue(ref(f)); // f passed by reference
-  TEST_EQUAL(f.m_v, vector<char>(8, 0), ());
+  TEST_EQUAL(f.m_v, std::vector<char>(8, 0), ());
 }
 
 UNIT_TEST(CacheSmoke_6)
 {
   my::CacheWithStat<uint32_t, char> cache(3); // it contains 2^3=8 elements
-  vector<char> v;
+  std::vector<char> v;
   cache.ForEachValue(SimpleMovableFunctor(&v));
-  TEST_EQUAL(v, vector<char>(8, 0), ());
+  TEST_EQUAL(v, std::vector<char>(8, 0), ());
 }
 
 UNIT_TEST(Cache_Init)

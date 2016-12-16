@@ -4,6 +4,7 @@
 
 #include "std/string.hpp"
 #include "std/vector.hpp"
+#include "std/utility.hpp"
 
 namespace search
 {

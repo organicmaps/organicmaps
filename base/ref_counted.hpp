@@ -2,8 +2,8 @@
 
 #include "base/macros.hpp"
 
-#include "std/cstdint.hpp"
-#include "std/unique_ptr.hpp"
+#include <cstdint>
+#include <memory>
 
 namespace my
 {
@@ -36,15 +36,15 @@ public:
       m_p->IncRef();
   }
 
-  explicit RefCountPtr(unique_ptr<T> p) noexcept : RefCountPtr(p.release()) {}
+  explicit RefCountPtr(std::unique_ptr<T> p) noexcept : RefCountPtr(p.release()) {}
 
   RefCountPtr(RefCountPtr const & rhs) { *this = rhs; }
 
-  RefCountPtr(RefCountPtr && rhs) { *this = move(rhs); }
+  RefCountPtr(RefCountPtr && rhs) { *this = std::move(rhs); }
 
   ~RefCountPtr() { Reset(); }
 
-  RefCountPtr & operator=(unique_ptr<T> p)
+  RefCountPtr & operator=(std::unique_ptr<T> p)
   {
     Reset();
 

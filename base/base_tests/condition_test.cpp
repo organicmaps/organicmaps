@@ -1,11 +1,10 @@
-#include "base/SRC_FIRST.hpp"
 #include "testing/testing.hpp"
 
 #include "base/thread.hpp"
 #include "base/threaded_list.hpp"
 #include "base/condition.hpp"
-
 #include "base/logging.hpp"
+#include "base/stl_add.hpp"
 
 struct ConditionThread : public threads::IRoutine
 {
@@ -25,10 +24,10 @@ UNIT_TEST(Condition_Test)
   ThreadedList<int> l;
 
   threads::Thread t0;
-  t0.Create(make_unique<ConditionThread>(&l));
+  t0.Create(my::make_unique<ConditionThread>(&l));
 
   threads::Thread t1;
-  t1.Create(make_unique<ConditionThread>(&l));
+  t1.Create(my::make_unique<ConditionThread>(&l));
 
   l.Cancel();
   t0.Join();

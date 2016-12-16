@@ -1,4 +1,3 @@
-#include "base/SRC_FIRST.hpp"
 #include "testing/testing.hpp"
 
 #include "base/bits.hpp"
@@ -29,7 +28,7 @@ UNIT_TEST(PopcountArray32)
 {
   for (uint32_t j = 0; j < 2777; ++j)
   {
-    vector<uint32_t> v(j / 10);
+    std::vector<uint32_t> v(j / 10);
     for (size_t i = 0; i < v.size(); ++i)
       v[i] = ((uint32_t(rand()) & 255) << 24) + ((rand() & 255) << 16) +
              ((rand() & 255) << 8) + (rand() & 255);

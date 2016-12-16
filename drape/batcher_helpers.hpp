@@ -3,6 +3,7 @@
 #include "drape/pointers.hpp"
 
 #include "std/function.hpp"
+#include "std/vector.hpp"
 
 namespace dp
 {

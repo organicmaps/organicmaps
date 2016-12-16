@@ -1,5 +1,3 @@
-#include "base/SRC_FIRST.hpp"
-
 #include "geometry/geometry_tests/test_regions.hpp"
 
 #include "testing/testing.hpp"

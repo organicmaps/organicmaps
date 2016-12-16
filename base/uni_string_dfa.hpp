@@ -3,7 +3,7 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/string.hpp"
+#include <string>
 
 namespace strings
 {
@@ -29,7 +29,7 @@ public:
   };
 
   explicit UniStringDFA(UniString const & s);
-  explicit UniStringDFA(string const & s);
+  explicit UniStringDFA(std::string const & s);
 
   Iterator Begin() const;
 

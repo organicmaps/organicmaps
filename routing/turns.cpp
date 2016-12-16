@@ -5,6 +5,7 @@
 #include "base/internal/message.hpp"
 
 #include "std/array.hpp"
+#include "std/utility.hpp"
 
 
 namespace

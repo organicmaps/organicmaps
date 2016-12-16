@@ -83,7 +83,7 @@ enum class DayEventType
 // This function was taken from source http://williams.best.vwh.net/sunrise_sunset_algorithm.htm.
 // Notation is kept to have source close to source.
 // Original article is // http://babel.hathitrust.org/cgi/pt?id=uiug.30112059294311;view=1up;seq=25
-pair<DayEventType, time_t> CalculateDayEventTime(time_t timeUtc,
+std::pair<DayEventType, time_t> CalculateDayEventTime(time_t timeUtc,
                                                  double latitude, double longitude,
                                                  bool sunrise)
 {
@@ -155,7 +155,7 @@ pair<DayEventType, time_t> CalculateDayEventTime(time_t timeUtc,
     int const m = sunrise ? 0 : 59;
     int const s = sunrise ? 0 : 59;
 
-    return make_pair((cosH < -1) ? DayEventType::PolarDay : DayEventType::PolarNight,
+    return std::make_pair((cosH < -1) ? DayEventType::PolarDay : DayEventType::PolarNight,
                      base::TimeGM(year, month, day, h, m, s));
   }
 
@@ -199,7 +199,7 @@ pair<DayEventType, time_t> CalculateDayEventTime(time_t timeUtc,
   int const m = floor((UT - h) * 60); // [0;60)
   int const s = fmod(floor(UT * 60 * 60) /* number of seconds from 0:0 to UT */, 60); // [0;60)
 
-  return make_pair(sunrise ? DayEventType::Sunrise : DayEventType::Sunset,
+  return std::make_pair(sunrise ? DayEventType::Sunrise : DayEventType::Sunset,
                    base::TimeGM(year, month, day, h, m, s));
 }
 
@@ -242,7 +242,7 @@ DayTimeType GetDayTime(time_t timeUtc, double latitude, double longitude)
   return DayTimeType::Day;
 }
 
-string DebugPrint(DayTimeType type)
+std::string DebugPrint(DayTimeType type)
 {
   switch (type)
   {
@@ -251,5 +251,5 @@ string DebugPrint(DayTimeType type)
   case DayTimeType::PolarDay: return "PolarDay";
   case DayTimeType::PolarNight: return "PolarNight";
   }
-  return string();
+  return std::string();
 }

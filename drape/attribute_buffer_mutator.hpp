@@ -7,6 +7,7 @@
 
 #include "std/cstdint.hpp"
 #include "std/map.hpp"
+#include "std/vector.hpp"
 
 namespace dp
 {

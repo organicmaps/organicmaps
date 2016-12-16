@@ -6,9 +6,11 @@
 #include "drape/glsl_func.hpp"
 #include "drape/overlay_handle.hpp"
 
-#include "std/numeric.hpp"
 #include "std/algorithm.hpp"
 #include "std/bind.hpp"
+#include "std/iterator.hpp"
+#include "std/numeric.hpp"
+
 
 namespace df
 {

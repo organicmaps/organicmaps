@@ -138,7 +138,7 @@ using namespace osmoh;
 {
   if (!self.isSimpleMode)
     return;
-  stringstream sstr;
+  std::stringstream sstr;
   sstr << MakeOpeningHours(timeTableSet).GetRule();
   self.delegate.openingHours = @(sstr.str().c_str());
 }

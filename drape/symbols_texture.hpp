@@ -4,6 +4,7 @@
 
 #include "std/string.hpp"
 #include "std/map.hpp"
+#include "std/vector.hpp"
 
 namespace dp
 {

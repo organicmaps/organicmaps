@@ -3,6 +3,7 @@
 #include "base/assert.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/map.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 

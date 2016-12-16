@@ -1,6 +1,6 @@
 #pragma once
 
-#include "std/algorithm.hpp"
+#include <algorithm>
 
 // Similar to set_difference(), but if element is present n times in the first sequence and once in
 // the second sequence, all n copies are filtered, insted of one.
@@ -29,5 +29,5 @@ OutIterT SetDifferenceUnlimited(Iter1T beg1, Iter1T end1,
         // ++beg2;
       }
     }
-    return copy(beg1, end1, out);
+    return std::copy(beg1, end1, out);
   }

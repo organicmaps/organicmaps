@@ -2,9 +2,9 @@
 
 #include "base/logging.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/mutex.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <mutex>
+#include <vector>
 
 namespace my
 {
@@ -16,7 +16,7 @@ class ObserverList
 public:
   bool Add(TObserver & observer)
   {
-    lock_guard<mutex> lock(m_observersLock);
+    std::lock_guard<std::mutex> lock(m_observersLock);
     auto const it = find(m_observers.begin(), m_observers.end(), &observer);
     if (it != m_observers.end())
     {
@@ -29,7 +29,7 @@ public:
 
   bool Remove(TObserver const & observer)
   {
-    lock_guard<mutex> lock(m_observersLock);
+    std::lock_guard<std::mutex> lock(m_observersLock);
     auto const it = find(m_observers.begin(), m_observers.end(), &observer);
     if (it == m_observers.end())
     {
@@ -43,13 +43,13 @@ public:
   template <typename F, typename... Args>
   void ForEach(F fn, Args const &... args)
   {
-    lock_guard<mutex> lock(m_observersLock);
+    std::lock_guard<std::mutex> lock(m_observersLock);
     for (TObserver * observer : m_observers)
       (observer->*fn)(args...);
   }
 
 private:
-  vector<TObserver *> m_observers;
-  mutex m_observersLock;
+  std::vector<TObserver *> m_observers;
+  std::mutex m_observersLock;
 };
 }  // namespace my

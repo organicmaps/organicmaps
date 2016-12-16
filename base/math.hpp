@@ -1,11 +1,13 @@
 #pragma once
 #include "base/assert.hpp"
 
-#include "std/algorithm.hpp"
 #include "std/cmath.hpp"
-#include "std/functional.hpp"
-#include "std/limits.hpp"
-#include "std/type_traits.hpp"
+
+#include <algorithm>
+#include <cmath>
+#include <functional>
+#include <limits>
+#include <type_traits>
 
 #include <boost/integer.hpp>
 
@@ -27,8 +29,8 @@ template <typename T> inline T Abs(T x)
 template <typename TFloat>
 bool AlmostEqualULPs(TFloat x, TFloat y, unsigned int maxULPs = 256)
 {
-  static_assert(is_floating_point<TFloat>::value, "");
-  static_assert(numeric_limits<TFloat>::is_iec559, "");
+  static_assert(std::is_floating_point<TFloat>::value, "");
+  static_assert(std::numeric_limits<TFloat>::is_iec559, "");
 
   // Make sure maxUlps is non-negative and small enough that the
   // default NaN won't compare as equal to anything.
@@ -70,7 +72,7 @@ inline bool AlmostEqualAbs(TFloat x, TFloat y, TFloat eps)
 template <typename TFloat>
 inline bool AlmostEqualRel(TFloat x, TFloat y, TFloat eps)
 {
-  return fabs(x - y) < eps * max(fabs(x), fabs(y));
+  return fabs(x - y) < eps * std::max(fabs(x), fabs(y));
 }
 
 // Returns true if x and y are equal up to the absolute or relative difference eps.
@@ -187,7 +189,7 @@ template <typename T> T GCD(T a, T b)
   {
     if (a == 0 || b == 0)
     {
-      gcd = max(a, b);
+      gcd = std::max(a, b);
       break;
     }
 
@@ -207,15 +209,15 @@ template <typename T> T GCD(T a, T b)
 
     if ((a & 0x1) != 0 && (b & 0x1) != 0)
     {
-      T const minV = min(a, b);
-      T const maxV = max(a, b);
+      T const minV = std::min(a, b);
+      T const maxV = std::max(a, b);
       a = (maxV - minV) >> 1;
       b = minV;
       continue;
     }
 
     if ((a & 0x1) != 0)
-      swap(a, b);
+      std::swap(a, b);
 
     a >>= 1;
   }
@@ -228,7 +230,7 @@ template <typename T1, typename T2>
 size_t Hash(T1 const & t1, T2 const & t2)
 {
   /// @todo Probably, we need better hash for 2 integral types.
-  return (hash<T1>()(t1) ^ (hash<T2>()(t2) << 1));
+  return (std::hash<T1>()(t1) ^ (std::hash<T2>()(t2) << 1));
 }
 
 }

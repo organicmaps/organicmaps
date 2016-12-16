@@ -1,21 +1,21 @@
 #include "base/string_format.hpp"
 
-#include "std/list.hpp"
+#include <list>
 
 
 namespace strings
 {
-  string const FormatImpl(string const & s, string arr[], size_t count)
+  std::string const FormatImpl(std::string const & s, std::string arr[], size_t count)
   {
     size_t offs = 0;
-    list<size_t> fieldOffs;
+    std::list<size_t> fieldOffs;
 
-    string res = s;
+    std::string res = s;
 
     while (true)
     {
       offs = res.find("^", offs);
-      if (offs == string::npos)
+      if (offs == std::string::npos)
         break;
       else
       {
@@ -34,7 +34,7 @@ namespace strings
     offs = 0;
     size_t i = 0;
 
-    for (list<size_t>::const_iterator offsIt = fieldOffs.begin();
+    for (std::list<size_t>::const_iterator offsIt = fieldOffs.begin();
         (offsIt != fieldOffs.end()) && (i < count);
         ++offsIt, ++i)
     {

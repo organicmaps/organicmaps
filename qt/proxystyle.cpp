@@ -1,5 +1,3 @@
-#include "base/SRC_FIRST.hpp"
-
 #include "qt/proxystyle.hpp"
 
 

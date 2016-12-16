@@ -7,6 +7,8 @@
 
 #include "geometry/point2d.hpp"
 
+#include "std/vector.hpp"
+
 namespace dp
 {
   class Batcher;

@@ -2,7 +2,6 @@ project(base)
 
 set(
   SRC
-  SRC_FIRST.hpp
   array_adapters.hpp
   assert.hpp
   base.cpp
@@ -14,10 +13,6 @@ set(
   collection_cast.hpp
   condition.cpp
   condition.hpp
-#    condition_bada.cpp
-  condition_posix.cpp
-#    condition_windows_native.cpp
-  const_helper.hpp
   deferred_task.cpp
   deferred_task.hpp
   dfa_helpers.hpp
@@ -38,8 +33,6 @@ set(
   mutex.hpp
   newtype.hpp
   normalize_unicode.cpp
-  object_tracker.cpp
-  object_tracker.hpp
   observer_list.hpp
   range_iterator.hpp
   ref_counted.hpp
@@ -63,7 +56,6 @@ set(
   strings_bundle.hpp
   sunrise_sunset.cpp
   sunrise_sunset.hpp
-  swap.hpp
   thread.cpp
   thread.hpp
   thread_checker.cpp
@@ -73,7 +65,6 @@ set(
   threaded_container.cpp
   threaded_container.hpp
   threaded_list.hpp
-  threaded_priority_queue.hpp
   internal/message.cpp
   internal/message.hpp
   timegm.cpp
@@ -82,7 +73,6 @@ set(
   timer.hpp
   uni_string_dfa.cpp
   uni_string_dfa.hpp
-  worker_thread.hpp
 )
 
 add_library(${PROJECT_NAME} ${SRC})

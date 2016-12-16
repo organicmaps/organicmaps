@@ -2,6 +2,8 @@
 
 #include "geometry/clipping.hpp"
 
+#include "std/utility.hpp"
+
 namespace
 {
 

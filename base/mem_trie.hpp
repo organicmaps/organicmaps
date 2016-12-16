@@ -2,8 +2,8 @@
 
 #include "base/macros.hpp"
 
-#include "std/map.hpp"
-#include "std/vector.hpp"
+#include <map>
+#include <vector>
 
 namespace my
 {
@@ -47,7 +47,7 @@ public:
   void ForEach(ToDo && toDo)
   {
     TString prefix;
-    ForEach(&m_root, prefix, forward<ToDo>(toDo));
+    ForEach(&m_root, prefix, std::forward<ToDo>(toDo));
   }
 
   template <typename ToDo>
@@ -55,7 +55,7 @@ public:
   {
     Node const * node = MoveTo(prefix);
     if (node)
-      ForEach(node, prefix, forward<ToDo>(toDo));
+      ForEach(node, prefix, std::forward<ToDo>(toDo));
   }
 
   size_t GetNumNodes() const { return m_numNodes; }
@@ -91,8 +91,8 @@ private:
 
     void AddValue(TValue const & value) { m_values.push_back(value); }
 
-    map<TChar, Node *> m_moves;
-    vector<TValue> m_values;
+    std::map<TChar, Node *> m_moves;
+    std::vector<TValue> m_values;
 
     DISALLOW_COPY(Node);
   };

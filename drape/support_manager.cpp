@@ -4,6 +4,7 @@
 #include "base/logging.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/vector.hpp"
 
 #include "3party/Alohalytics/src/alohalytics.h"
 

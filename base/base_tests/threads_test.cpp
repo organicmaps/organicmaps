@@ -1,8 +1,9 @@
 #include "testing/testing.hpp"
 
 #include "base/thread.hpp"
+#include "base/stl_add.hpp"
 
-#include "std/vector.hpp"
+#include <vector>
 
 
 typedef std::vector<int> Vector;
@@ -44,13 +45,13 @@ UNIT_TEST(Simple_Threads)
   Vector vec;
 
   threads::Thread reader;
-  bool ok = reader.Create(make_unique<GeneratorThread>(vec));
+  bool ok = reader.Create(my::make_unique<GeneratorThread>(vec));
   TEST( ok, ("Create Generator thread") );
 
   reader.Join();
 
   threads::Thread writer;
-  ok = writer.Create(make_unique<ReaderThread>(vec));
+  ok = writer.Create(my::make_unique<ReaderThread>(vec));
   TEST( ok, ("Create Reader thread") );
 
   writer.Join();

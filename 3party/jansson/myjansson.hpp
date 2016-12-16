@@ -7,6 +7,7 @@
 
 #include "3party/jansson/src/jansson.h"
 
+#include "std/string.hpp"
 #include "std/vector.hpp"
 
 namespace my

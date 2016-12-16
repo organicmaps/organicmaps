@@ -3,9 +3,9 @@
 #include "base/string_utils.hpp"
 #include "coding/parse_xml.hpp"
 
-#include "std/cstdio.hpp"
 #include "std/algorithm.hpp"
-
+#include "std/cstdio.hpp"
+#include "std/sstream.hpp"
 
 string DebugPrint(OsmElement::EntityType e)
 {

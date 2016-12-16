@@ -4,7 +4,7 @@
 #include "base/internal/message.hpp"
 #include "base/src_point.hpp"
 
-#include "std/atomic.hpp"
+#include <atomic>
 
 namespace my
 {
@@ -17,8 +17,8 @@ namespace my
     LCRITICAL
   };
 
-  typedef atomic<LogLevel> TLogLevel;
-  typedef void (*LogMessageFn)(LogLevel level, SrcPoint const &, string const &);
+  using TLogLevel = std::atomic<LogLevel>;
+  typedef void (*LogMessageFn)(LogLevel level, SrcPoint const &, std::string const &);
 
   extern LogMessageFn LogMessage;
   extern TLogLevel g_LogLevel;
@@ -27,8 +27,8 @@ namespace my
   /// @return Pointer to previous message function.
   LogMessageFn SetLogMessageFn(LogMessageFn fn);
 
-  void LogMessageDefault(LogLevel level, SrcPoint const & srcPoint, string const & msg);
-  void LogMessageTests(LogLevel level, SrcPoint const & srcPoint, string const & msg);
+  void LogMessageDefault(LogLevel level, SrcPoint const & srcPoint, std::string const & msg);
+  void LogMessageTests(LogLevel level, SrcPoint const & srcPoint, std::string const & msg);
 
   /// Scope Guard to temporarily suppress specific log level, for example, in unit tests:
   /// ...

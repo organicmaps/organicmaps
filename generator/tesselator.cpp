@@ -9,6 +9,7 @@
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 
+#include "std/limits.hpp"
 #include "std/queue.hpp"
 #include "std/unique_ptr.hpp"
 

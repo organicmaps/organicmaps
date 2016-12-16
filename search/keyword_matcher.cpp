@@ -6,6 +6,7 @@
 #include "base/stl_add.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/sstream.hpp"
 
 namespace search
 {

@@ -5,6 +5,7 @@
 #include "base/matrix.hpp"
 
 #include "std/cmath.hpp"
+#include "std/string.hpp"
 
 
 namespace ang

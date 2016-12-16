@@ -1,9 +1,9 @@
 #pragma once
 #include "base/assert.hpp"
 
-#include "std/cstdint.hpp"
-#include "std/limits.hpp"
-#include "std/type_traits.hpp"
+#include <cstdint>
+#include <limits>
+#include <type_traits>
 
 namespace bits
 {
@@ -112,16 +112,16 @@ namespace bits
     return (x << 1) | (x >> (sizeof(T) * 8 - 1));
   }
 
-  template <typename T> inline typename make_unsigned<T>::type ZigZagEncode(T x)
+  template <typename T> inline typename std::make_unsigned<T>::type ZigZagEncode(T x)
   {
-    static_assert(is_signed<T>::value, "Type should be signed");
+    static_assert(std::is_signed<T>::value, "Type should be signed");
     return (x << 1) ^ (x >> (sizeof(x) * 8 - 1));
   }
 
-  template <typename T> inline typename make_signed<T>::type ZigZagDecode(T x)
+  template <typename T> inline typename std::make_signed<T>::type ZigZagDecode(T x)
   {
-    static_assert(is_unsigned<T>::value, "Type should be unsigned.");
-    return (x >> 1) ^ -static_cast<typename make_signed<T>::type>(x & 1);
+    static_assert(std::is_unsigned<T>::value, "Type should be unsigned.");
+    return (x >> 1) ^ -static_cast<typename std::make_signed<T>::type>(x & 1);
   }
 
   inline uint32_t PerfectShuffle(uint32_t x)
@@ -205,7 +205,7 @@ namespace bits
   inline uint64_t GetFullMask(uint8_t numBits)
   {
     ASSERT_LESS_OR_EQUAL(numBits, 64, ());
-    return numBits == 64 ? numeric_limits<uint64_t>::max()
+    return numBits == 64 ? std::numeric_limits<uint64_t>::max()
                          : (static_cast<uint64_t>(1) << numBits) - 1;
   }
 }  // namespace bits

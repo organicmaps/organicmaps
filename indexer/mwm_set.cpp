@@ -9,6 +9,7 @@
 #include "base/stl_add.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/exception.hpp"
 #include "std/sstream.hpp"
 
 #include "defines.hpp"

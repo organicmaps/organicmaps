@@ -5,6 +5,7 @@
 #include "base/shared_buffer_manager.hpp"
 
 #include "std/numeric.hpp"
+#include "std/iomanip.hpp"
 #include "std/sstream.hpp"
 #include "std/cstring.hpp"
 

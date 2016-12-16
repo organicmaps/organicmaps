@@ -41,7 +41,7 @@ template <class RollingHasherT> void TestRollingHasher()
   {
     typedef typename RollingHasherT::hash_type hash_type;
     RollingHasherT hash;
-    vector<hash_type> hashes;
+    std::vector<hash_type> hashes;
     hashes.push_back(hash.Init(static_cast<char const *>(s), size));
     for (uint32_t i = size; i < len; ++i)
       hashes.push_back(hash.Scroll(s[i - size], s[i]));

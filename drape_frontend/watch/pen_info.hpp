@@ -7,6 +7,9 @@
 #include "base/buffer_vector.hpp"
 #include "base/math.hpp"
 
+#include "std/algorithm.hpp"
+#include "std/iterator.hpp"
+
 namespace df
 {
 namespace watch

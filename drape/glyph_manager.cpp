@@ -10,6 +10,8 @@
 #include "base/math.hpp"
 #include "base/timer.hpp"
 
+#include "std/limits.hpp"
+#include "std/sstream.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/unordered_set.hpp"
 

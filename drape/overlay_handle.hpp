@@ -14,6 +14,8 @@
 
 #include "base/buffer_vector.hpp"
 
+#include "std/set.hpp"
+
 namespace dp
 {
 

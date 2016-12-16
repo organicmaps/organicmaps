@@ -6,6 +6,7 @@
 
 #include "std/target_os.hpp"
 #include "std/set.hpp"
+#include "std/vector.hpp"
 
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_IPHONE)
   #include <CoreFoundation/CFLocale.h>

@@ -4,10 +4,6 @@
 
 #include "base/thread.hpp"
 
-#ifdef DEBUG
-#include "base/object_tracker.hpp"
-#endif
-
 #include "std/shared_ptr.hpp"
 #include "std/weak_ptr.hpp"
 
@@ -32,7 +28,6 @@ private:
   MapDataProvider & m_model;
 
 #ifdef DEBUG
-  dbg::ObjectTracker m_objTracker;
   bool m_checker;
 #endif
 };

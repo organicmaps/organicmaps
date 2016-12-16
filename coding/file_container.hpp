@@ -5,6 +5,7 @@
 #include "std/vector.hpp"
 #include "std/string.hpp"
 #include "std/noncopyable.hpp"
+#include "std/utility.hpp"
 
 
 class FilesContainerBase

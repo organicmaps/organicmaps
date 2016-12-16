@@ -3,6 +3,7 @@
 #include "base/logging.hpp"
 
 #include "std/bind.hpp"
+#include "std/vector.hpp"
 #include "std/weak_ptr.hpp"
 
 namespace df

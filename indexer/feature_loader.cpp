@@ -1,5 +1,3 @@
-#include "base/SRC_FIRST.hpp"
-
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_loader.hpp"

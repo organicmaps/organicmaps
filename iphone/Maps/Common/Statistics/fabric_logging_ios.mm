@@ -4,9 +4,9 @@
 
 namespace platform
 {
-void LogMessageFabric(my::LogLevel level, my::SrcPoint const & srcPoint, string const & msg)
+  void LogMessageFabric(my::LogLevel level, my::SrcPoint const & srcPoint, std::string const & msg)
 {
-  string recordType;
+  std::string recordType;
   switch (level)
   {
   case LINFO: recordType.assign("INFO "); break;
@@ -16,7 +16,7 @@ void LogMessageFabric(my::LogLevel level, my::SrcPoint const & srcPoint, string 
   case LCRITICAL: recordType.assign("FATAL "); break;
   }
 
-  string const srcString = recordType + DebugPrint(srcPoint) + " " + msg + "\n";
+  std::string const srcString = recordType + DebugPrint(srcPoint) + " " + msg + "\n";
 
   CLSLog(@"%@", @(srcString.c_str()));
 

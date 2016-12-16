@@ -15,6 +15,7 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
+#include "std/list.hpp"
 #include "std/unique_ptr.hpp"
 
 #include "3party/Alohalytics/src/alohalytics.h"

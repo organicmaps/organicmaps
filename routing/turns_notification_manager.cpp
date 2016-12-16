@@ -2,6 +2,8 @@
 
 #include "platform/location.hpp"
 
+#include "std/algorithm.hpp"
+
 namespace
 {
 // If the distance between two sequential turns is less than kMaxTurnDistM

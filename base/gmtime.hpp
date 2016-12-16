@@ -1,6 +1,6 @@
 #pragma once
 
-#include "std/ctime.hpp"
+#include <ctime>
 
 namespace my
 {

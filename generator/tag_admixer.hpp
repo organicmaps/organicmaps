@@ -8,7 +8,9 @@
 
 #include "std/fstream.hpp"
 #include "std/map.hpp"
+#include "std/set.hpp"
 #include "std/string.hpp"
+#include "std/utility.hpp"
 
 
 class WaysParserHelper

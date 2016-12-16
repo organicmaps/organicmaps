@@ -43,6 +43,7 @@
 #include "std/sstream.hpp"
 #include "std/target_os.hpp"
 #include "std/transform_iterator.hpp"
+#include "std/unique_ptr.hpp"
 
 #include "defines.hpp"
 
@@ -560,7 +561,7 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
       auto it = m_matchersCache.find(m_context->GetId());
       if (it == m_matchersCache.end())
       {
-        it = m_matchersCache.insert(make_pair(m_context->GetId(), make_unique<FeaturesLayerMatcher>(
+        it = m_matchersCache.insert(make_pair(m_context->GetId(), my::make_unique<FeaturesLayerMatcher>(
                                                                       m_index, m_cancellable)))
                  .first;
       }

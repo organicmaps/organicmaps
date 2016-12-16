@@ -11,11 +11,12 @@
 #include "coding/writer.hpp"
 #include "coding/varint.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/bind.hpp"
-
 #include "base/buffer_vector.hpp"
 #include "base/stl_add.hpp"
+
+#include "std/algorithm.hpp"
+#include "std/bind.hpp"
+#include "std/list.hpp"
 
 
 namespace serial

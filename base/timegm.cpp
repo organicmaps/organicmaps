@@ -3,7 +3,7 @@
 #include "base/assert.hpp"
 #include "base/timer.hpp"
 
-#include "std/chrono.hpp"
+#include <chrono>
 
 // There are issues with this implementation due to absence
 // of time_t fromat specification. There are no guarantees

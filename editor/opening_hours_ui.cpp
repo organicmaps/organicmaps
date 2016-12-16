@@ -329,7 +329,7 @@ TimeTable TimeTableSet::GetComplementTimeTable() const
 bool TimeTableSet::IsTwentyFourPerSeven() const
 {
   return GetUnhandledDays().empty() &&
-         all_of(::begin(m_table), ::end(m_table), [](TimeTable const & tt)
+         all_of(std::begin(m_table), std::end(m_table), [](TimeTable const & tt)
                 {
                   return tt.IsTwentyFourHours();
                 });

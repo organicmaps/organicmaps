@@ -9,6 +9,8 @@
 #include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
 
+#include "std/iomanip.hpp"
+
 #include "defines.hpp"
 
 namespace

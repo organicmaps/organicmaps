@@ -2,6 +2,8 @@
 
 #include "editor/ui2oh.hpp"
 
+#include "std/sstream.hpp"
+
 using namespace osmoh;
 using namespace editor;
 using namespace editor::ui;

@@ -2,8 +2,8 @@
 
 #include "base/string_utils.hpp"
 
-#include "std/cstdint.hpp"
-#include "std/vector.hpp"
+#include <cstdint>
+#include <vector>
 
 namespace strings
 {
@@ -61,7 +61,7 @@ public:
 
     inline bool operator<(State const & rhs) const { return m_positions < rhs.m_positions; }
 
-    vector<Position> m_positions;
+    std::vector<Position> m_positions;
   };
 
   // An iterator to the current state in the DFA.
@@ -90,9 +90,9 @@ public:
   };
 
   LevenshteinDFA(UniString const & s, size_t prefixCharsToKeep, uint8_t maxErrors);
-  LevenshteinDFA(string const & s, size_t prefixCharsToKeep, uint8_t maxErrors);
+  LevenshteinDFA(std::string const & s, size_t prefixCharsToKeep, uint8_t maxErrors);
   LevenshteinDFA(UniString const & s, uint8_t maxErrors);
-  LevenshteinDFA(string const & s, uint8_t maxErrors);
+  LevenshteinDFA(std::string const & s, uint8_t maxErrors);
 
   inline Iterator Begin() const { return Iterator(*this); }
 
@@ -120,12 +120,12 @@ private:
   size_t const m_size;
   uint8_t const m_maxErrors;
 
-  vector<UniChar> m_alphabet;
+  std::vector<UniChar> m_alphabet;
 
-  vector<vector<size_t>> m_transitions;
-  vector<bool> m_accepting;
+  std::vector<std::vector<size_t>> m_transitions;
+  std::vector<bool> m_accepting;
 };
 
-string DebugPrint(LevenshteinDFA::Position const & p);
-string DebugPrint(LevenshteinDFA::State const & s);
+std::string DebugPrint(LevenshteinDFA::Position const & p);
+std::string DebugPrint(LevenshteinDFA::State const & s);
 }  // namespace strings

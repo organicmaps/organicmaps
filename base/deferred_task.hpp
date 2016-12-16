@@ -2,20 +2,20 @@
 
 #include "base/thread.hpp"
 
-#include "std/chrono.hpp"
-#include "std/condition_variable.hpp"
-#include "std/function.hpp"
-#include "std/mutex.hpp"
+#include <chrono>
+#include <condition_variable>
+#include <functional>
+#include <mutex>
 
 namespace my
 {
 class DeferredTask
 {
-  using TDuration = duration<double>;
+  using TDuration = std::chrono::duration<double>;
   threads::SimpleThread m_thread;
-  mutex m_mutex;
-  condition_variable m_cv;
-  function<void()> m_fn;
+  std::mutex m_mutex;
+  std::condition_variable m_cv;
+  std::function<void()> m_fn;
   TDuration m_duration;
   bool m_terminate = false;
 
@@ -29,7 +29,7 @@ public:
   void RestartWith(TFn const && fn)
   {
     {
-      unique_lock<mutex> l(m_mutex);
+      std::unique_lock<std::mutex> l(m_mutex);
       m_fn = fn;
     }
     m_cv.notify_one();

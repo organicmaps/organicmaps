@@ -1,6 +1,6 @@
 #pragma once
 
-#include "std/atomic.hpp"
+#include <atomic>
 
 namespace my
 {
@@ -23,6 +23,6 @@ public:
   virtual bool IsCancelled() const { return m_cancelled; }
 
 private:
-  atomic<bool> m_cancelled;
+  std::atomic<bool> m_cancelled;
 };
 }  // namespace my

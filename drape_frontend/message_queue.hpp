@@ -8,6 +8,7 @@
 
 #include "std/condition_variable.hpp"
 #include "std/deque.hpp"
+#include "std/functional.hpp"
 #include "std/mutex.hpp"
 
 namespace df

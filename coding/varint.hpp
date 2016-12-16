@@ -7,6 +7,8 @@
 #include "base/bits.hpp"
 #include "base/exception.hpp"
 #include "base/stl_add.hpp"
+
+#include "std/string.hpp"
 #include "std/type_traits.hpp"
 
 

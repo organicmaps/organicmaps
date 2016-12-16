@@ -92,7 +92,7 @@ NSString * getVerifier(NSString * urlString)
         [self.webView loadRequest:request];
       });
     }
-    catch (exception const & ex)
+    catch (std::exception const & ex)
     {
       dispatch_async(dispatch_get_main_queue(), ^{
         [self stopSpinner];
@@ -138,7 +138,7 @@ NSString * getVerifier(NSString * urlString)
     {
       ks = auth.FinishAuthorization(self->m_requestToken, verifier.UTF8String);
     }
-    catch (exception const & ex)
+    catch (std::exception const & ex)
     {
       LOG(LWARNING, ("checkAuthorization error", ex.what()));
       [Statistics logEvent:@"Editor_Auth_request_result"

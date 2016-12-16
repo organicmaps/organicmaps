@@ -1,17 +1,18 @@
 #include "base/thread_pool.hpp"
 
+#include "base/stl_add.hpp"
 #include "base/thread.hpp"
 #include "base/threaded_list.hpp"
 
-#include "std/vector.hpp"
-#include "std/utility.hpp"
-#include "std/bind.hpp"
+#include <functional>
+#include <utility>
+#include <vector>
 
 namespace threads
 {
   namespace
   {
-    typedef function<threads::IRoutine *()> TPopRoutineFn;
+    typedef std::function<threads::IRoutine *()> TPopRoutineFn;
 
     class PoolRoutine : public IRoutine
     {
@@ -53,7 +54,7 @@ namespace threads
       for (auto & thread : m_threads)
       {
         thread.reset(new threads::Thread());
-        thread->Create(make_unique<PoolRoutine>(bind(&ThreadPool::Impl::PopFront, this), m_finishFn));
+        thread->Create(my::make_unique<PoolRoutine>(std::bind(&ThreadPool::Impl::PopFront, this), m_finishFn));
       }
     }
 
@@ -85,7 +86,7 @@ namespace threads
         thread->Cancel();
       m_threads.clear();
 
-      m_tasks.ProcessList([this](list<threads::IRoutine *> & tasks)
+      m_tasks.ProcessList([this](std::list<threads::IRoutine *> & tasks)
                           {
                             FinishTasksOnStop(tasks);
                           });
@@ -93,9 +94,9 @@ namespace threads
     }
 
   private:
-    void FinishTasksOnStop(list<threads::IRoutine *> & tasks)
+    void FinishTasksOnStop(std::list<threads::IRoutine *> & tasks)
     {
-      typedef list<threads::IRoutine *>::iterator task_iter;
+      typedef std::list<threads::IRoutine *>::iterator task_iter;
       for (task_iter it = tasks.begin(); it != tasks.end(); ++it)
       {
         (*it)->Cancel();
@@ -107,7 +108,7 @@ namespace threads
     ThreadedList<threads::IRoutine *> m_tasks;
     TFinishRoutineFn m_finishFn;
 
-    vector<unique_ptr<threads::Thread>> m_threads;
+    std::vector<std::unique_ptr<threads::Thread>> m_threads;
   };
 
   ThreadPool::ThreadPool(size_t size, const TFinishRoutineFn & finishFn)

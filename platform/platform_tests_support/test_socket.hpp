@@ -5,6 +5,7 @@
 #include "std/atomic.hpp"
 #include "std/condition_variable.hpp"
 #include "std/cstdint.hpp"
+#include "std/iterator.hpp"
 #include "std/deque.hpp"
 #include "std/mutex.hpp"
 #include "std/vector.hpp"

@@ -4,7 +4,7 @@ char const * RootException::what() const throw()
 {
   size_t const count = m_Msg.size();
 
-  string asciiMsg;
+  std::string asciiMsg;
   asciiMsg.resize(count);
 
   for (size_t i = 0; i < count; ++i)
@@ -15,7 +15,7 @@ char const * RootException::what() const throw()
       asciiMsg[i] = '?';
   }
 
-  static string msg;
-  msg = string(m_What) + ", \"" + asciiMsg + "\"";
+  static std::string msg;
+  msg = std::string(m_What) + ", \"" + asciiMsg + "\"";
   return msg.c_str();
 }

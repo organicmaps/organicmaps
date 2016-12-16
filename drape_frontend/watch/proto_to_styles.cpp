@@ -3,6 +3,7 @@
 #include "indexer/drules_include.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/vector.hpp"
 
 namespace
 {

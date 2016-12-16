@@ -8,6 +8,7 @@
 #include "coding/read_write_utils.hpp"
 
 #include "std/bind.hpp"
+#include "std/list.hpp"
 
 
 namespace serial { class CodingParams; }

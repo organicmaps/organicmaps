@@ -136,7 +136,7 @@ using namespace osm;
       {
         auth.AuthorizePassword(username, password);
       }
-      catch (exception const & ex)
+      catch (std::exception const & ex)
       {
         LOG(LWARNING, ("Error login", ex.what()));
         [Statistics logEvent:@"Editor_Auth_request_result"

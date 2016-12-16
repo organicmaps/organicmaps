@@ -14,6 +14,7 @@
 #include "std/algorithm.hpp"
 #include "std/bind.hpp"
 #include "std/map.hpp"
+#include "std/set.hpp"
 #include "std/sstream.hpp"
 #include "std/vector.hpp"
 #include "std/transform_iterator.hpp"

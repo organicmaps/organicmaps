@@ -2,13 +2,13 @@
 
 #include "base/base.hpp"
 
-#include "std/function.hpp"
+#include <functional>
 
 namespace threads
 {
   class IRoutine;
 
-  typedef function<void(threads::IRoutine *)> TFinishRoutineFn;
+  typedef std::function<void(threads::IRoutine *)> TFinishRoutineFn;
 
   class ThreadPool
   {
