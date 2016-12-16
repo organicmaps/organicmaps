@@ -1,36 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.mapswithme.maps.widget.HeightLimitedFrameLayout
+<merge
   xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/placeholder"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:paddingLeft="@dimen/margin_half"
-  android:paddingRight="@dimen/margin_half"
-  android:visibility="gone"
-  tools:visibility="visible">
+  xmlns:tools="http://schemas.android.com/tools">
   <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:minWidth="@dimen/placeholder_size"
     android:orientation="vertical"
-    android:layout_marginTop="@dimen/margin_double"
     android:layout_gravity="center_horizontal"
     android:gravity="center">
     <ImageView
       android:id="@+id/image"
       android:layout_width="@dimen/placeholder_size"
       android:layout_height="@dimen/placeholder_size"
-      android:layout_marginBottom="@dimen/margin_base_plus"
-      android:tag="@string/tag_height_limited"
+      android:layout_marginBottom="@dimen/margin_half_plus"
       tools:src="@drawable/img_search_empty_history_light"/>
 
     <TextView
       android:id="@+id/title"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="@dimen/margin_base"
-      android:textAppearance="@style/MwmTextAppearance.Title"
+      android:layout_marginBottom="@dimen/margin_half_plus"
+      android:textAppearance="@style/MwmTextAppearance.Title.Toolbar"
       android:gravity="center_horizontal"
       tools:text="Some long long long placeholder title"/>
 
@@ -38,8 +29,8 @@
       android:id="@+id/subtitle"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:textAppearance="@style/MwmTextAppearance.Body2"
+      android:textAppearance="@style/MwmTextAppearance.Body3"
       android:gravity="center_horizontal"
       tools:text="Some placeholder text"/>
   </LinearLayout>
-</com.mapswithme.maps.widget.HeightLimitedFrameLayout>
+</merge>

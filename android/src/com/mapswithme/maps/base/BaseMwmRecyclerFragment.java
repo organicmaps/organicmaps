@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.widget.PlaceholderView;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 
@@ -18,7 +19,7 @@ public abstract class BaseMwmRecyclerFragment extends Fragment
 {
   private Toolbar mToolbar;
   private RecyclerView mRecycler;
-  private View mPlaceholder;
+  private PlaceholderView mPlaceholder;
 
   protected abstract RecyclerView.Adapter createAdapter();
 
@@ -66,7 +67,7 @@ public abstract class BaseMwmRecyclerFragment extends Fragment
     mRecycler.setLayoutManager(manager);
     mRecycler.setAdapter(createAdapter());
 
-    mPlaceholder = view.findViewById(R.id.placeholder);
+    mPlaceholder = (PlaceholderView) view.findViewById(R.id.placeholder);
     setupPlaceholder(mPlaceholder);
   }
 
@@ -95,7 +96,7 @@ public abstract class BaseMwmRecyclerFragment extends Fragment
     org.alohalytics.Statistics.logEvent("$onPause", this.getClass().getSimpleName());
   }
 
-  protected void setupPlaceholder(View placeholder) {}
+  protected void setupPlaceholder(PlaceholderView placeholder) {}
 
   public void setupPlaceholder()
   {

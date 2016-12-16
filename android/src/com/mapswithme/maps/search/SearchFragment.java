@@ -31,6 +31,7 @@ import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationListener;
 import com.mapswithme.maps.routing.RoutingController;
+import com.mapswithme.maps.widget.PlaceholderView;
 import com.mapswithme.maps.widget.SearchToolbarController;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -122,7 +123,7 @@ public class SearchFragment extends BaseMwmFragment
 
   private View mTabFrame;
   private View mResultsFrame;
-  private View mResultsPlaceholder;
+  private PlaceholderView mResultsPlaceholder;
 
   private SearchToolbarController mToolbarController;
 
@@ -232,8 +233,9 @@ public class SearchFragment extends BaseMwmFragment
     mResultsFrame = root.findViewById(R.id.results_frame);
     RecyclerView results = (RecyclerView) mResultsFrame.findViewById(R.id.recycler);
     setRecyclerScrollListener(results);
-    mResultsPlaceholder = mResultsFrame.findViewById(R.id.placeholder);
-    UiUtils.setupPlaceholder(mResultsPlaceholder, R.drawable.img_search_nothing_found_light, R.string.search_not_found, R.string.search_not_found_query);
+    mResultsPlaceholder = (PlaceholderView) mResultsFrame.findViewById(R.id.placeholder);
+    mResultsPlaceholder.setContent(R.drawable.img_search_nothing_found_light,
+                                   R.string.search_not_found, R.string.search_not_found_query);
 
     if (mSearchAdapter == null)
     {

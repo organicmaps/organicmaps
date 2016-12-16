@@ -13,7 +13,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.AnyRes;
 import android.support.annotation.DimenRes;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
@@ -32,12 +31,10 @@ import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.routing.RoutingController;
 
 public final class UiUtils
 {
@@ -313,18 +310,6 @@ public final class UiUtils
   {
     button.setTextColor(ThemeUtils.getColor(button.getContext(), button.isEnabled() ? R.attr.accentButtonTextColor
                                                                                     : R.attr.accentButtonTextColorDisabled));
-  }
-
-  public static void setupPlaceholder(View frame, @DrawableRes int imageRes, @StringRes int titleRes, @StringRes int subtitleRes)
-  {
-    ImageView image = (ImageView) frame.findViewById(R.id.image);
-    image.setImageResource(imageRes);
-
-    TextView title = (TextView) frame.findViewById(R.id.title);
-    title.setText(titleRes);
-
-    TextView subtitle = (TextView) frame.findViewById(R.id.subtitle);
-    subtitle.setText(subtitleRes);
   }
 
   public static Uri getUriToResId(@NonNull Context context, @AnyRes int resId)

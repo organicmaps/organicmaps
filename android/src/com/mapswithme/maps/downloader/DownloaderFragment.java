@@ -14,6 +14,7 @@ import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.search.NativeMapSearchListener;
 import com.mapswithme.maps.search.SearchEngine;
+import com.mapswithme.maps.widget.PlaceholderView;
 import com.mapswithme.util.UiUtils;
 
 public class DownloaderFragment extends BaseMwmRecyclerFragment
@@ -205,13 +206,13 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
   }
 
   @Override
-  protected void setupPlaceholder(View placeholder)
+  protected void setupPlaceholder(PlaceholderView placeholder)
   {
     if (mAdapter.isSearchResultsMode())
-      UiUtils.setupPlaceholder(placeholder, R.drawable.img_search_nothing_found_light,
-                               R.string.search_not_found, R.string.search_not_found_query);
+      placeholder.setContent(R.drawable.img_search_nothing_found_light,
+                             R.string.search_not_found, R.string.search_not_found_query);
     else
-      UiUtils.setupPlaceholder(placeholder, R.drawable.img_search_no_maps,
-                               R.string.downloader_no_downloaded_maps_title, R.string.downloader_no_downloaded_maps_message);
+      placeholder.setContent(R.drawable.img_search_no_maps,
+                             R.string.downloader_no_downloaded_maps_title, R.string.downloader_no_downloaded_maps_message);
   }
 }

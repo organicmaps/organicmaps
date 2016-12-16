@@ -12,6 +12,7 @@ import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
+import com.mapswithme.maps.widget.PlaceholderView;
 import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
 import com.mapswithme.maps.widget.recycler.RecyclerLongClickListener;
 import com.mapswithme.util.BottomSheetHelper;
@@ -28,7 +29,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   @Override
   protected @LayoutRes int getLayoutRes()
   {
-    return R.layout.recycler_default;
+    return R.layout.fragment_search_base;
   }
 
   @Override
@@ -50,6 +51,19 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
 
     getAdapter().setOnClickListener(this);
     getAdapter().setOnLongClickListener(this);
+    getAdapter().registerAdapterDataObserver(new RecyclerView.AdapterDataObserver()
+    {
+      @Override
+      public void onChanged()
+      {
+        updateResultsPlaceholder();
+      }
+    });
+  }
+
+  private void updateResultsPlaceholder()
+  {
+    showPlaceholder(getAdapter().getItemCount() == 1);
   }
 
   @Override
@@ -125,5 +139,11 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   {
     startActivity(new Intent(getActivity(), BookmarkListActivity.class)
                       .putExtra(ChooseBookmarkCategoryFragment.CATEGORY_ID, position));
+  }
+
+  @Override
+  protected void setupPlaceholder(PlaceholderView placeholder)
+  {
+    placeholder.setContent(R.drawable.img_bookmarks, R.string.bookmarks_empty_title, R.string.bookmarks_usage_hint);
   }
 }

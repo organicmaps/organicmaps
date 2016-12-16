@@ -16,6 +16,11 @@
     <item name="android:textColor">?android:textColorPrimary</item>
   </style>
 
+  <style name="MwmTextAppearance.Title.Toolbar">
+    <item name="android:textSize">@dimen/text_size_toolbar</item>
+    <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoMedium</item>
+  </style>
+
   <style name="MwmTextAppearance.Headline">
     <item name="android:textSize">@dimen/text_size_headline</item>
     <item name="android:textColor">?android:textColorPrimary</item>
