@@ -71,8 +71,6 @@ void RoutingSession::Init(TRoutingStatisticsCallback const & routingStatisticsFn
 }
 
 void RoutingSession::BuildRoute(m2::PointD const & startPoint, m2::PointD const & endPoint,
-                                TReadyCallback const & readyCallback,
-                                TProgressCallback const & progressCallback,
                                 uint32_t timeoutSec)
 {
   ASSERT(m_router != nullptr, ());
@@ -81,12 +79,12 @@ void RoutingSession::BuildRoute(m2::PointD const & startPoint, m2::PointD const 
   m_router->ClearState();
   m_isFollowing = false;
   m_routingRebuildCount = -1; // -1 for the first rebuild.
-  RebuildRoute(startPoint, readyCallback, progressCallback, timeoutSec, RouteBuilding);
+  RebuildRoute(startPoint, m_buildReadyCallback, timeoutSec, RouteBuilding);
 }
 
 void RoutingSession::RebuildRoute(m2::PointD const & startPoint,
-    TReadyCallback const & readyCallback,
-    TProgressCallback const & progressCallback, uint32_t timeoutSec, State routeRebuildingState)
+                                  TReadyCallback const & readyCallback, uint32_t timeoutSec,
+                                  State routeRebuildingState)
 {
   ASSERT(m_router != nullptr, ());
   ASSERT_NOT_EQUAL(m_endPoint, m2::PointD::Zero(), ("End point was not set"));
@@ -99,7 +97,7 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint,
   // (callback param isn't captured by value).
   m_router->CalculateRoute(startPoint, startPoint - m_lastGoodPosition, m_endPoint,
                            DoReadyCallback(*this, readyCallback, m_routingSessionMutex),
-                           progressCallback, timeoutSec);
+                           m_progressCallback, timeoutSec);
 }
 
 void RoutingSession::DoReadyCallback::operator()(Route & route, IRouter::ResultCode e)
@@ -138,6 +136,28 @@ void RoutingSession::RemoveRoute()
   UNUSED_VALUE(guard);
 
   RemoveRouteImpl();
+}
+
+void RoutingSession::RebuildRouteOnTrafficUpdate()
+{
+  switch (m_state.load())
+  {
+  case RoutingNotActive:
+  case RouteNotReady:
+  case RouteFinished: return;
+
+  case RouteBuilding:
+  case RouteNotStarted:
+  case OnRoute:
+  case RouteNeedRebuild:
+  case RouteNoFollowing:
+  case RouteRebuilding: break;
+  }
+
+  // Cancel current route building if going.
+  m_router->ClearState();
+  RebuildRoute(m_lastGoodPosition, m_rebuildReadyCallback, 0 /* timeoutSec */,
+               routing::RoutingSession::State::RouteRebuilding);
 }
 
 void RoutingSession::Reset()
@@ -451,6 +471,17 @@ void RoutingSession::SetRoutingSettings(RoutingSettings const & routingSettings)
   m_routingSettings = routingSettings;
 }
 
+void RoutingSession::SetReadyCallbacks(TReadyCallback const & buildReadyCallback, TReadyCallback const & rebuildReadyCallback)
+{
+  m_buildReadyCallback = buildReadyCallback;
+  m_rebuildReadyCallback = rebuildReadyCallback;
+}
+
+void RoutingSession::SetProgressCallback(TProgressCallback const & progressCallback)
+{
+  m_progressCallback = progressCallback;
+}
+
 void RoutingSession::SetUserCurrentPosition(m2::PointD const & position)
 {
   m_userCurrentPosition = position;
@@ -582,9 +613,12 @@ shared_ptr<Route> const RoutingSession::GetRoute() const
 
 void RoutingSession::OnTrafficInfoClear()
 {
-  threads::MutexGuard guard(m_routingSessionMutex);
-  UNUSED_VALUE(guard);
-  Clear();
+  {
+    threads::MutexGuard guard(m_routingSessionMutex);
+    UNUSED_VALUE(guard);
+    Clear();
+  }
+  RebuildRouteOnTrafficUpdate();
 }
 
 void RoutingSession::OnTrafficInfoAdded(TrafficInfo && info)
@@ -604,16 +638,22 @@ void RoutingSession::OnTrafficInfoAdded(TrafficInfo && info)
       coloring.insert(kv);
   }
 
-  threads::MutexGuard guard(m_routingSessionMutex);
-  UNUSED_VALUE(guard);
-  Set(info.GetMwmId(), move(coloring));
+  {
+    threads::MutexGuard guard(m_routingSessionMutex);
+    UNUSED_VALUE(guard);
+    Set(info.GetMwmId(), move(coloring));
+  }
+  RebuildRouteOnTrafficUpdate();
 }
 
 void RoutingSession::OnTrafficInfoRemoved(MwmSet::MwmId const & mwmId)
 {
-  threads::MutexGuard guard(m_routingSessionMutex);
-  UNUSED_VALUE(guard);
-  Remove(mwmId);
+  {
+    threads::MutexGuard guard(m_routingSessionMutex);
+    UNUSED_VALUE(guard);
+    Remove(mwmId);
+  }
+  RebuildRouteOnTrafficUpdate();
 }
 
 shared_ptr<TrafficInfo::Coloring> RoutingSession::GetTrafficInfo(MwmSet::MwmId const & mwmId) const

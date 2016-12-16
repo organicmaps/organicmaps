@@ -732,7 +732,7 @@ public:
   /// lambdas/functors before calling RunOnGuiThread.
   void SetRouteBuildingListener(TRouteBuildingCallback const & buildingCallback) { m_routingCallback = buildingCallback; }
   /// See warning above.
-  void SetRouteProgressListener(TRouteProgressCallback const & progressCallback) { m_progressCallback = progressCallback; }
+  void SetRouteProgressListener(TRouteProgressCallback const & progressCallback) { m_routingSession.SetProgressCallback(progressCallback); }
   void FollowRoute();
   void CloseRouting();
   void GetRouteFollowingInfo(location::FollowingInfo & info) const { m_routingSession.GetRouteFollowingInfo(info); }
@@ -834,9 +834,10 @@ private:
                         storage::TCountriesVec const & absentCountries);
   void MatchLocationToRoute(location::GpsInfo & info, location::RouteMatchingInfo & routeMatchingInfo) const;
   string GetRoutingErrorMessage(routing::IRouter::ResultCode code);
+  void OnBuildRouteReady(routing::Route const & route, routing::IRouter::ResultCode code);
+  void OnRebuildRouteReady(routing::Route const & route, routing::IRouter::ResultCode code);
 
   TRouteBuildingCallback m_routingCallback;
-  TRouteProgressCallback m_progressCallback;
   routing::RouterType m_currentRouterType;
   //@}
 
