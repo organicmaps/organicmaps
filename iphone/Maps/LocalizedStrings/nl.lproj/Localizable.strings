@@ -1664,13 +1664,13 @@
 
 "booking_filters_price_category" = "Prijscategorie";
 
-"booking_filters_no_results" = "Geen Resultaten Gevonden";
+"search_no_results_title" = "Geen Resultaten Gevonden";
 
-"booking_filters_nores_message" = "Probeer een meer algemene zoekterm, zoom uit of reset de filter.";
+"search_no_results_message" = "Probeer een meer algemene zoekterm, zoom uit of reset de filter.";
 
-"booking_filters_expand_area_button" = "Uitzoomen";
+"search_no_results_expand_area_button" = "Uitzoomen";
 
-"booking_filters_reset_button" = "Filter Resetten";
+"search_no_results_reset_button" = "Filter Resetten";
 
 /* noun */
 "search_in_table" = "Lijst";

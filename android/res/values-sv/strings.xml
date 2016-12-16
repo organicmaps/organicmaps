@@ -971,10 +971,10 @@
 	<string name="booking_filters_rating_very_good">Väldigt bra</string>
 	<string name="booking_filters_rating_excellent">Utmärkt</string>
 	<string name="booking_filters_price_category">Priskategori</string>
-	<string name="booking_filters_no_results">Inga resultat hittades</string>
-	<string name="booking_filters_nores_message">Försök med en mer allmän sökterm, zooma ut eller återställ filtret.</string>
-	<string name="booking_filters_expand_area_button">Zooma ut</string>
-	<string name="booking_filters_reset_button">Återställ filtret</string>
+	<string name="search_no_results_title">Inga resultat hittades</string>
+	<string name="search_no_results_message">Försök med en mer allmän sökterm, zooma ut eller återställ filtret.</string>
+	<string name="search_no_results_expand_area_button">Zooma ut</string>
+	<string name="search_no_results_reset_button">Återställ filtret</string>
 	<!-- noun -->
 	<string name="search_in_table">Lista</string>
 	<string name="booking_based_on_reviews">Baserat på %d hotellomdömen</string>

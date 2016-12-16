@@ -1664,13 +1664,13 @@
 
 "booking_filters_price_category" = "Priskategori";
 
-"booking_filters_no_results" = "Inga resultat hittades";
+"search_no_results_title" = "Inga resultat hittades";
 
-"booking_filters_nores_message" = "Försök med en mer allmän sökterm, zooma ut eller återställ filtret.";
+"search_no_results_message" = "Försök med en mer allmän sökterm, zooma ut eller återställ filtret.";
 
-"booking_filters_expand_area_button" = "Zooma ut";
+"search_no_results_expand_area_button" = "Zooma ut";
 
-"booking_filters_reset_button" = "Återställ filtret";
+"search_no_results_reset_button" = "Återställ filtret";
 
 /* noun */
 "search_in_table" = "Lista";

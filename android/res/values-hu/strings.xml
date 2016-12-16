@@ -967,10 +967,10 @@
 	<string name="booking_filters_rating_very_good">Nagyon jó</string>
 	<string name="booking_filters_rating_excellent">Kiváló</string>
 	<string name="booking_filters_price_category">Árkategória</string>
-	<string name="booking_filters_no_results">Nincs találat</string>
-	<string name="booking_filters_nores_message">Próbálkozzon általánosabb kereső kifejezéssel, tágítsa vagy törölje a szűrőt.</string>
-	<string name="booking_filters_expand_area_button">Kicsinyítés</string>
-	<string name="booking_filters_reset_button">Szűrő nullázása</string>
+	<string name="search_no_results_title">Nincs találat</string>
+	<string name="search_no_results_message">Próbálkozzon általánosabb kereső kifejezéssel, tágítsa vagy törölje a szűrőt.</string>
+	<string name="search_no_results_expand_area_button">Kicsinyítés</string>
+	<string name="search_no_results_reset_button">Szűrő nullázása</string>
 	<!-- noun -->
 	<string name="search_in_table">Lista</string>
 	<string name="booking_based_on_reviews">%d hotel-értékelés alapján</string>

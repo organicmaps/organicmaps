@@ -1664,13 +1664,13 @@
 
 "booking_filters_price_category" = "Kategori Harga";
 
-"booking_filters_no_results" = "Tidak Ada Hasil";
+"search_no_results_title" = "Tidak Ada Hasil";
 
-"booking_filters_nores_message" = "Cobalah dengan istilah pencarian yang lebih umum, perkecil atau atur ulang filter.";
+"search_no_results_message" = "Cobalah dengan istilah pencarian yang lebih umum, perkecil atau atur ulang filter.";
 
-"booking_filters_expand_area_button" = "Perkecil";
+"search_no_results_expand_area_button" = "Perkecil";
 
-"booking_filters_reset_button" = "Atur Ulang Filter";
+"search_no_results_reset_button" = "Atur Ulang Filter";
 
 /* noun */
 "search_in_table" = "Daftar";

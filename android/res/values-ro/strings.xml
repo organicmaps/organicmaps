@@ -963,10 +963,10 @@
 	<string name="booking_filters_rating_very_good">Foarte bine</string>
 	<string name="booking_filters_rating_excellent">Excelent</string>
 	<string name="booking_filters_price_category">Categorie de preț</string>
-	<string name="booking_filters_no_results">Nu au fost găsite rezultate</string>
-	<string name="booking_filters_nores_message">Încercați un termen mai general, micșorați sau resetați filtrul.</string>
-	<string name="booking_filters_expand_area_button">Micșorare</string>
-	<string name="booking_filters_reset_button">Resetare filtru</string>
+	<string name="search_no_results_title">Nu au fost găsite rezultate</string>
+	<string name="search_no_results_message">Încercați un termen mai general, micșorați sau resetați filtrul.</string>
+	<string name="search_no_results_expand_area_button">Micșorare</string>
+	<string name="search_no_results_reset_button">Resetare filtru</string>
 	<!-- noun -->
 	<string name="search_in_table">Listă</string>
 	<string name="booking_based_on_reviews">Bazat pe comentariile privind hotelul %d</string>

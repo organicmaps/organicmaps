@@ -974,10 +974,10 @@
 	<string name="booking_filters_rating_very_good">Velmi dobré</string>
 	<string name="booking_filters_rating_excellent">Vynikající</string>
 	<string name="booking_filters_price_category">Cenová kategorie</string>
-	<string name="booking_filters_no_results">Nebyly nalezeny žádné výsledky</string>
-	<string name="booking_filters_nores_message">Zkuste obecnější hledaný výraz, oddálit nebo obnovit filtr.</string>
-	<string name="booking_filters_expand_area_button">Oddálit</string>
-	<string name="booking_filters_reset_button">Resetovat filtr</string>
+	<string name="search_no_results_title">Nebyly nalezeny žádné výsledky</string>
+	<string name="search_no_results_message">Zkuste obecnější hledaný výraz, oddálit nebo obnovit filtr.</string>
+	<string name="search_no_results_expand_area_button">Oddálit</string>
+	<string name="search_no_results_reset_button">Resetovat filtr</string>
 	<!-- noun -->
 	<string name="search_in_table">Seznam</string>
 	<string name="booking_based_on_reviews">Podle %d hodnocení hotelů</string>

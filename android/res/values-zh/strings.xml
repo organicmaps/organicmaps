@@ -973,10 +973,10 @@
 	<string name="booking_filters_rating_very_good">很好</string>
 	<string name="booking_filters_rating_excellent">极好</string>
 	<string name="booking_filters_price_category">价格类别</string>
-	<string name="booking_filters_no_results">未找到任何结果</string>
-	<string name="booking_filters_nores_message">尝试一个更普通的搜索词、缩小显示或重置筛选器。</string>
-	<string name="booking_filters_expand_area_button">缩小</string>
-	<string name="booking_filters_reset_button">重置筛选器</string>
+	<string name="search_no_results_title">未找到任何结果</string>
+	<string name="search_no_results_message">尝试一个更普通的搜索词、缩小显示或重置筛选器。</string>
+	<string name="search_no_results_expand_area_button">缩小</string>
+	<string name="search_no_results_reset_button">重置筛选器</string>
 	<!-- noun -->
 	<string name="search_in_table">列表</string>
 	<string name="booking_based_on_reviews">根据 %d 条酒店点评</string>

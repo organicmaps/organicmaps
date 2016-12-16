@@ -1664,13 +1664,13 @@
 
 "booking_filters_price_category" = "Cenová kategória";
 
-"booking_filters_no_results" = "Nenašli sa žiadne výsledky";
+"search_no_results_title" = "Nenašli sa žiadne výsledky";
 
-"booking_filters_nores_message" = "Skúste vyhľadávať všeobecnejší výraz, vzdialiť alebo obnoviť nastavenie filtra.";
+"search_no_results_message" = "Skúste vyhľadávať všeobecnejší výraz, vzdialiť alebo obnoviť nastavenie filtra.";
 
-"booking_filters_expand_area_button" = "Vzdialiť";
+"search_no_results_expand_area_button" = "Vzdialiť";
 
-"booking_filters_reset_button" = "Obnoviť filter";
+"search_no_results_reset_button" = "Obnoviť filter";
 
 /* noun */
 "search_in_table" = "Zoznam";

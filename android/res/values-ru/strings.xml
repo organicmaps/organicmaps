@@ -986,10 +986,10 @@
 	<string name="booking_filters_rating_very_good">Очень хорошо</string>
 	<string name="booking_filters_rating_excellent">Отлично</string>
 	<string name="booking_filters_price_category">Ценовая категория</string>
-	<string name="booking_filters_no_results">Поиск не дал результатов</string>
-	<string name="booking_filters_nores_message">Попробуйте задать более общий запрос, уменьшить масштаб карты или сбросить фильтр.</string>
-	<string name="booking_filters_expand_area_button">Уменьшить масштаб карты</string>
-	<string name="booking_filters_reset_button">Сбросить фильтр</string>
+	<string name="search_no_results_title">Поиск не дал результатов</string>
+	<string name="search_no_results_message">Попробуйте задать более общий запрос, уменьшить масштаб карты или сбросить фильтр.</string>
+	<string name="search_no_results_expand_area_button">Уменьшить масштаб карты</string>
+	<string name="search_no_results_reset_button">Сбросить фильтр</string>
 	<!-- noun -->
 	<string name="search_in_table">Список</string>
 	<string name="booking_based_on_reviews">По %d отзывам об отеле</string>

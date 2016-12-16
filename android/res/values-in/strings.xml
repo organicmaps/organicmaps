@@ -966,10 +966,10 @@
 	<string name="booking_filters_rating_very_good">Sangat Bagus</string>
 	<string name="booking_filters_rating_excellent">Luar Biasa</string>
 	<string name="booking_filters_price_category">Kategori Harga</string>
-	<string name="booking_filters_no_results">Tidak Ada Hasil</string>
-	<string name="booking_filters_nores_message">Cobalah dengan istilah pencarian yang lebih umum, perkecil atau atur ulang filter.</string>
-	<string name="booking_filters_expand_area_button">Perkecil</string>
-	<string name="booking_filters_reset_button">Atur Ulang Filter</string>
+	<string name="search_no_results_title">Tidak Ada Hasil</string>
+	<string name="search_no_results_message">Cobalah dengan istilah pencarian yang lebih umum, perkecil atau atur ulang filter.</string>
+	<string name="search_no_results_expand_area_button">Perkecil</string>
+	<string name="search_no_results_reset_button">Atur Ulang Filter</string>
 	<!-- noun -->
 	<string name="search_in_table">Daftar</string>
 	<string name="booking_based_on_reviews">Berdasarkan %d ulasan hotel</string>

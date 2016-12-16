@@ -1664,13 +1664,13 @@
 
 "booking_filters_price_category" = "Hạng mục Giá";
 
-"booking_filters_no_results" = "Không tìm thấy kết quả nào";
+"search_no_results_title" = "Không tìm thấy kết quả nào";
 
-"booking_filters_nores_message" = "Hãy thử một từ khóa tìm kiếm chung hơn, thu nhỏ hoặc đặt lại bộ lọc.";
+"search_no_results_message" = "Hãy thử một từ khóa tìm kiếm chung hơn, thu nhỏ hoặc đặt lại bộ lọc.";
 
-"booking_filters_expand_area_button" = "Thu nhỏ";
+"search_no_results_expand_area_button" = "Thu nhỏ";
 
-"booking_filters_reset_button" = "Đặt lại Bộ lọc";
+"search_no_results_reset_button" = "Đặt lại Bộ lọc";
 
 /* noun */
 "search_in_table" = "Danh sách";

@@ -1664,13 +1664,13 @@
 
 "booking_filters_price_category" = "Цінова категорія";
 
-"booking_filters_no_results" = "Не знайдено жодного результату";
+"search_no_results_title" = "Не знайдено жодного результату";
 
-"booking_filters_nores_message" = "Спробуйте пошук за більш узагальненим пошуковим виразом, зменшіть масштаб або скиньте фільтри.";
+"search_no_results_message" = "Спробуйте пошук за більш узагальненим пошуковим виразом, зменшіть масштаб або скиньте фільтри.";
 
-"booking_filters_expand_area_button" = "Зменшити масштаб";
+"search_no_results_expand_area_button" = "Зменшити масштаб";
 
-"booking_filters_reset_button" = "Скинути фільтри";
+"search_no_results_reset_button" = "Скинути фільтри";
 
 /* noun */
 "search_in_table" = "Список";

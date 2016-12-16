@@ -971,10 +971,10 @@
 	<string name="booking_filters_rating_very_good">Meget god</string>
 	<string name="booking_filters_rating_excellent">Fremragende</string>
 	<string name="booking_filters_price_category">Prisklasse</string>
-	<string name="booking_filters_no_results">Ingen resultater fundet</string>
-	<string name="booking_filters_nores_message">Prøv et mere generelt søgeudtryk, zoom ud eller nulstil filteret.</string>
-	<string name="booking_filters_expand_area_button">Zoom ud</string>
-	<string name="booking_filters_reset_button">Nulstil Filter</string>
+	<string name="search_no_results_title">Ingen resultater fundet</string>
+	<string name="search_no_results_message">Prøv et mere generelt søgeudtryk, zoom ud eller nulstil filteret.</string>
+	<string name="search_no_results_expand_area_button">Zoom ud</string>
+	<string name="search_no_results_reset_button">Nulstil Filter</string>
 	<!-- noun -->
 	<string name="search_in_table">Liste</string>
 	<string name="booking_based_on_reviews">Baseret på %d hotelanmeldelser</string>

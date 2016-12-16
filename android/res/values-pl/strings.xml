@@ -974,10 +974,10 @@
 	<string name="booking_filters_rating_very_good">Bardzo dobrze</string>
 	<string name="booking_filters_rating_excellent">Doskonale</string>
 	<string name="booking_filters_price_category">Kategoria cenowa</string>
-	<string name="booking_filters_no_results">Nie znaleziono wyników</string>
-	<string name="booking_filters_nores_message">Spróbuj szerszego terminu wyszukiwania, zawęzić lub resetować filtr.</string>
-	<string name="booking_filters_expand_area_button">Zawęź</string>
-	<string name="booking_filters_reset_button">Resetuj filtr</string>
+	<string name="search_no_results_title">Nie znaleziono wyników</string>
+	<string name="search_no_results_message">Spróbuj szerszego terminu wyszukiwania, zawęzić lub resetować filtr.</string>
+	<string name="search_no_results_expand_area_button">Zawęź</string>
+	<string name="search_no_results_reset_button">Resetuj filtr</string>
 	<!-- noun -->
 	<string name="search_in_table">Lista</string>
 	<string name="booking_based_on_reviews">Na podstawie %d opinii o hotelach</string>

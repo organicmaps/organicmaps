@@ -1664,13 +1664,13 @@
 
 "booking_filters_price_category" = "가격 범주";
 
-"booking_filters_no_results" = "결과 찾지 못함";
+"search_no_results_title" = "결과 찾지 못함";
 
-"booking_filters_nores_message" = "보다 일반적인 검색어로 시도하거나, 축소하거나, 필터를 재설정하세요.";
+"search_no_results_message" = "보다 일반적인 검색어로 시도하거나, 축소하거나, 필터를 재설정하세요.";
 
-"booking_filters_expand_area_button" = "축소";
+"search_no_results_expand_area_button" = "축소";
 
-"booking_filters_reset_button" = "필터 재설정";
+"search_no_results_reset_button" = "필터 재설정";
 
 /* noun */
 "search_in_table" = "목록";

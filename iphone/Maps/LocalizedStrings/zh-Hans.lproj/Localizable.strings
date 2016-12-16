@@ -1664,13 +1664,13 @@
 
 "booking_filters_price_category" = "价格类别";
 
-"booking_filters_no_results" = "未找到任何结果";
+"search_no_results_title" = "未找到任何结果";
 
-"booking_filters_nores_message" = "尝试一个更普通的搜索词、缩小显示或重置筛选器。";
+"search_no_results_message" = "尝试一个更普通的搜索词、缩小显示或重置筛选器。";
 
-"booking_filters_expand_area_button" = "缩小";
+"search_no_results_expand_area_button" = "缩小";
 
-"booking_filters_reset_button" = "重置筛选器";
+"search_no_results_reset_button" = "重置筛选器";
 
 /* noun */
 "search_in_table" = "列表";
