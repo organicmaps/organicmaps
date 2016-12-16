@@ -29,9 +29,10 @@ struct UniNodeId
 
   UniNodeId(Type type) : m_type(type) {}
   UniNodeId(FeatureID const & featureId, uint32_t segId, bool forward)
-    : m_type(Type::Mwm), m_featureId(featureId), m_segId(segId), m_forward(forward) {}
+    : m_type(Type::Mwm), m_featureId(featureId), m_segId(segId), m_forward(forward)
+  {
+  }
   UniNodeId(uint32_t nodeId) : m_type(Type::Osrm), m_nodeId(nodeId) {}
-
   bool operator==(UniNodeId const & rh) const;
   bool operator<(UniNodeId const & rh) const;
   void Clear();
@@ -44,9 +45,9 @@ private:
   Type m_type;
   /// \note In case of OSRM unique id is kept in |m_featureId.m_index|.
   /// So |m_featureId.m_mwmId|, |m_segId| and |m_forward| have default values.
-  FeatureID m_featureId; // |m_featureId.m_index| is NodeID for OSRM.
-  uint32_t m_segId = 0; // Not valid for OSRM.
-  bool m_forward = true; // Segment direction in |m_featureId|.
+  FeatureID m_featureId;  // |m_featureId.m_index| is NodeID for OSRM.
+  uint32_t m_segId = 0;   // Not valid for OSRM.
+  bool m_forward = true;  // Segment direction in |m_featureId|.
   NodeID m_nodeId = SPECIAL_NODEID;
 };
 

@@ -39,7 +39,6 @@ public:
 
   // turns::IRoutingResult overrides:
   TUnpackedPathSegments const & GetSegments() const override { return m_pathSegments; }
-
   void GetPossibleTurns(UniNodeId const & node, m2::PointD const & /* ingoingPoint */,
                         m2::PointD const & /* junctionPoint */, size_t & ingoingCount,
                         TurnCandidates & outgoingTurns) const override
@@ -166,7 +165,8 @@ void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction
       auto const highwayClass = ftypes::GetHighwayClass(ft);
       ASSERT_NOT_EQUAL(highwayClass, ftypes::HighwayClass::Error, ());
       ASSERT_NOT_EQUAL(highwayClass, ftypes::HighwayClass::Undefined, ());
-      adjacentEdges.m_outgoingTurns.candidates.emplace_back(0.0 /* angle */, uniNodeId, highwayClass);
+      adjacentEdges.m_outgoingTurns.candidates.emplace_back(0.0 /* angle */, uniNodeId,
+                                                            highwayClass);
     }
 
     LoadedPathSegment pathSegment(UniNodeId::Type::Mwm);
@@ -175,12 +175,9 @@ void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction
     // prevJunction == path[i - 1] and currJunction == path[i].
     if (inFeatureId.IsValid())
       LoadPathGeometry(uniNodeId, {prevJunction, currJunction}, pathSegment);
-    pathSegment.m_trafficSegs = {
-      {inFeatureId.m_index,
-       static_cast<uint16_t>(inSegId),
-       inIsForward ? TrafficInfo::RoadSegmentId::kForwardDirection
-                   : TrafficInfo::RoadSegmentId::kReverseDirection
-      }};
+    pathSegment.m_trafficSegs = {{inFeatureId.m_index, static_cast<uint16_t>(inSegId),
+                                  inIsForward ? TrafficInfo::RoadSegmentId::kForwardDirection
+                                              : TrafficInfo::RoadSegmentId::kReverseDirection}};
 
     auto const it = m_adjacentEdges.insert(make_pair(uniNodeId, move(adjacentEdges)));
     ASSERT(it.second, ());
@@ -227,7 +224,8 @@ void BicycleDirectionsEngine::LoadPathGeometry(UniNodeId const & uniNodeId,
   }
 
   FeatureType ft;
-  if (!GetLoader(uniNodeId.GetFeature().m_mwmId).GetFeatureByIndex(uniNodeId.GetFeature().m_index, ft))
+  if (!GetLoader(uniNodeId.GetFeature().m_mwmId)
+           .GetFeatureByIndex(uniNodeId.GetFeature().m_index, ft))
   {
     // The feature can't be read, therefore path geometry can't be
     // loaded.

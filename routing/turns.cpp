@@ -57,10 +57,11 @@ bool UniNodeId::operator==(UniNodeId const & rhs) const
   if (m_type != rhs.m_type)
     return false;
 
-  switch (m_type) {
+  switch (m_type)
+  {
   case Type::Osrm: return m_nodeId == rhs.m_nodeId;
-  case Type::Mwm: return m_featureId == rhs.m_featureId
-        && m_segId == rhs.m_segId && m_forward == rhs.m_forward;
+  case Type::Mwm:
+    return m_featureId == rhs.m_featureId && m_segId == rhs.m_segId && m_forward == rhs.m_forward;
   }
 }
 
@@ -69,7 +70,8 @@ bool UniNodeId::operator<(UniNodeId const & rhs) const
   if (m_type != rhs.m_type)
     return m_type < rhs.m_type;
 
-  switch (m_type) {
+  switch (m_type)
+  {
   case Type::Osrm: return m_nodeId < rhs.m_nodeId;
   case Type::Mwm:
     if (m_featureId != rhs.m_featureId)
@@ -116,7 +118,8 @@ bool UniNodeId::IsForward() const
 
 string DebugPrint(UniNodeId::Type type)
 {
-  switch (type) {
+  switch (type)
+  {
   case UniNodeId::Type::Osrm: return "Osrm";
   case UniNodeId::Type::Mwm: return "Mwm";
   }

@@ -89,7 +89,8 @@ public:
     ingoingCount = 0;
     for (EdgeID const e : m_routingMapping.m_dataFacade.GetAdjacentEdgeRange(node.GetNodeId()))
     {
-      QueryEdge::EdgeData const data = m_routingMapping.m_dataFacade.GetEdgeData(e, node.GetNodeId());
+      QueryEdge::EdgeData const data =
+          m_routingMapping.m_dataFacade.GetEdgeData(e, node.GetNodeId());
       if (data.shortcut)
         continue;
       if (data.forward)
@@ -145,8 +146,7 @@ public:
       outgoingTurns.isCandidatesAngleValid = true;
       double const a =
           my::RadToDeg(turns::PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint));
-      outgoingTurns.candidates.emplace_back(a, UniNodeId(targetNode),
-                                            ftypes::GetHighwayClass(ft));
+      outgoingTurns.candidates.emplace_back(a, UniNodeId(targetNode), ftypes::GetHighwayClass(ft));
     }
 
     sort(outgoingTurns.candidates.begin(), outgoingTurns.candidates.end(),
