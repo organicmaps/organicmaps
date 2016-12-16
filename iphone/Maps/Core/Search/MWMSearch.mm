@@ -32,13 +32,18 @@ using TObservers = NSHashTable<__kindof TObserver>;
 @property(nonatomic) BOOL isHotelResults;
 @property(nonatomic) MWMSearchFilterViewController * filter;
 
+@property(nonatomic) BOOL everywhereSearchCompleted;
+@property(nonatomic) BOOL viewportSearchCompleted;
+
+@property(nonatomic) BOOL viewportResultsEmpty;
+
 @end
 
 @implementation MWMSearch
 {
   search::EverywhereSearchParams m_everywhereParams;
   search::ViewportSearchParams m_viewportParams;
-  search::Results m_results;
+  search::Results m_everywhereResults;
   string m_filterQuery;
 }
 
@@ -77,11 +82,13 @@ using TObservers = NSHashTable<__kindof TObserver>;
       if (results.IsEndMarker())
       {
         [self checkIsHotelResults:results];
+        if (results.IsEndedNormal())
+          self.everywhereSearchCompleted = YES;
         [self onSearchCompleted];
       }
       else
       {
-        self->m_results = results;
+        self->m_everywhereResults = results;
         self.suggestionsCount = results.GetSuggestsCount();
         [self onSearchResultsUpdated];
       }
@@ -107,8 +114,8 @@ using TObservers = NSHashTable<__kindof TObserver>;
       if (results.IsEndedNormal())
       {
         [self checkIsHotelResults:results];
-        if (results.GetCount() == 0)
-          [[MWMAlertViewController activeAlertController] presentSearchNoResultsAlert];
+        self.viewportResultsEmpty = results.GetCount() == 0;
+        self.viewportSearchCompleted = YES;
       }
       [self onSearchCompleted];
     };
@@ -210,7 +217,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
 
 + (search::Result &)resultAtIndex:(NSUInteger)index
 {
-  return [MWMSearch manager]->m_results.GetResult(index);
+  return [MWMSearch manager]->m_everywhereResults.GetResult(index);
 }
 
 + (void)update { [[MWMSearch manager] update]; }
@@ -219,7 +226,9 @@ using TObservers = NSHashTable<__kindof TObserver>;
 {
   GetFramework().CancelAllSearches();
   MWMSearch * manager = [MWMSearch manager];
-  manager->m_results.Clear();
+  manager->m_everywhereResults.Clear();
+  manager.everywhereSearchCompleted = NO;
+  manager.viewportSearchCompleted = NO;
   if (manager->m_filterQuery != manager->m_everywhereParams.m_query)
     manager.isHotelResults = NO;
   manager.suggestionsCount = 0;
@@ -240,7 +249,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
 
 + (NSUInteger)suggestionsCount { return [MWMSearch manager].suggestionsCount; }
 
-+ (NSUInteger)resultsCount { return [MWMSearch manager]->m_results.GetCount(); }
++ (NSUInteger)resultsCount { return [MWMSearch manager]->m_everywhereResults.GetCount(); }
 
 + (BOOL)isHotelResults { return [MWMSearch manager].isHotelResults; }
 
@@ -276,6 +285,16 @@ using TObservers = NSHashTable<__kindof TObserver>;
 
 - (void)onSearchCompleted
 {
+  BOOL allCompleted = self.viewportSearchCompleted;
+  BOOL allEmpty = self.viewportResultsEmpty;
+  if (IPAD)
+  {
+    allCompleted = allCompleted && self.everywhereSearchCompleted;
+    allEmpty = allEmpty && m_everywhereResults.GetCount() == 0;
+  }
+  if (allCompleted && allEmpty)
+    [[MWMAlertViewController activeAlertController] presentSearchNoResultsAlert];
+
   for (TObserver observer in self.observers)
   {
     if ([observer respondsToSelector:@selector(onSearchCompleted)])
