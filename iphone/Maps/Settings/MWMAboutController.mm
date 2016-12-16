@@ -1,8 +1,8 @@
 #import "MWMAboutController.h"
 #import "AppInfo.h"
-#import "LinkCell.h"
 #import "MWMMailViewController.h"
 #import "Statistics.h"
+#import "SwiftBridge.h"
 #import "WebViewController.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
@@ -18,13 +18,13 @@ extern NSString * const kAlohalyticsTapEventKey;
 @property(weak, nonatomic) IBOutlet UILabel * versionLabel;
 @property(weak, nonatomic) IBOutlet UILabel * dateLabel;
 
-@property(weak, nonatomic) IBOutlet LinkCell * websiteCell;
-@property(weak, nonatomic) IBOutlet LinkCell * blogCell;
-@property(weak, nonatomic) IBOutlet LinkCell * facebookCell;
-@property(weak, nonatomic) IBOutlet LinkCell * twitterCell;
-@property(weak, nonatomic) IBOutlet LinkCell * subscribeCell;
-@property(weak, nonatomic) IBOutlet LinkCell * rateCell;
-@property(weak, nonatomic) IBOutlet LinkCell * copyrightCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * websiteCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * blogCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * facebookCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * twitterCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * subscribeCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * rateCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * copyrightCell;
 
 @property(nonatomic) IBOutlet UIView * headerView;
 
@@ -56,7 +56,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
-  LinkCell * cell = static_cast<LinkCell *>([tableView cellForRowAtIndexPath:indexPath]);
+  auto cell = static_cast<SettingsTableViewLinkCell *>([tableView cellForRowAtIndexPath:indexPath]);
   if (cell == self.websiteCell)
   {
     [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"website"];

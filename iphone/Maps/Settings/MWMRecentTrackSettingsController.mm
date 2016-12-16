@@ -1,6 +1,6 @@
 #import "MWMRecentTrackSettingsController.h"
-#import "SelectableCell.h"
 #import "Statistics.h"
+#import "SwiftBridge.h"
 
 #include "Framework.h"
 
@@ -12,13 +12,13 @@ typedef NS_ENUM(NSUInteger, DurationInHours) { One = 1, Two = 2, Six = 6, Twelve
 
 @interface MWMRecentTrackSettingsController ()
 
-@property(weak, nonatomic) IBOutlet SelectableCell * none;
-@property(weak, nonatomic) IBOutlet SelectableCell * oneHour;
-@property(weak, nonatomic) IBOutlet SelectableCell * twoHours;
-@property(weak, nonatomic) IBOutlet SelectableCell * sixHours;
-@property(weak, nonatomic) IBOutlet SelectableCell * twelveHours;
-@property(weak, nonatomic) IBOutlet SelectableCell * oneDay;
-@property(weak, nonatomic) SelectableCell * selectedCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewSelectableCell * none;
+@property(weak, nonatomic) IBOutlet SettingsTableViewSelectableCell * oneHour;
+@property(weak, nonatomic) IBOutlet SettingsTableViewSelectableCell * twoHours;
+@property(weak, nonatomic) IBOutlet SettingsTableViewSelectableCell * sixHours;
+@property(weak, nonatomic) IBOutlet SettingsTableViewSelectableCell * twelveHours;
+@property(weak, nonatomic) IBOutlet SettingsTableViewSelectableCell * oneDay;
+@property(weak, nonatomic) SettingsTableViewSelectableCell * selectedCell;
 
 @end
 
@@ -48,7 +48,7 @@ typedef NS_ENUM(NSUInteger, DurationInHours) { One = 1, Two = 2, Six = 6, Twelve
   self.selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
 }
 
-- (void)setSelectedCell:(SelectableCell *)selectedCell
+- (void)setSelectedCell:(SettingsTableViewSelectableCell *)selectedCell
 {
   _selectedCell = selectedCell;
   auto & f = GetFramework();
@@ -90,7 +90,7 @@ typedef NS_ENUM(NSUInteger, DurationInHours) { One = 1, Two = 2, Six = 6, Twelve
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  SelectableCell * selectedCell = self.selectedCell;
+  SettingsTableViewSelectableCell * selectedCell = self.selectedCell;
   selectedCell.accessoryType = UITableViewCellAccessoryNone;
   selectedCell = [tableView cellForRowAtIndexPath:indexPath];
   selectedCell.selected = NO;
