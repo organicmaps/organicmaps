@@ -40,7 +40,7 @@ struct LoadedPathSegment
   bool m_onRoundabout;
   bool m_isLink;
 
-  LoadedPathSegment()
+  LoadedPathSegment(UniNodeId::Type type) : m_nodeId(type)
   {
     Clear();
   }

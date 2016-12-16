@@ -87,9 +87,9 @@ public:
     // Filtering virtual edges.
     vector<NodeID> adjacentNodes;
     ingoingCount = 0;
-    for (EdgeID const e : m_routingMapping.m_dataFacade.GetAdjacentEdgeRange(node.GetIndex()))
+    for (EdgeID const e : m_routingMapping.m_dataFacade.GetAdjacentEdgeRange(node.GetNodeId()))
     {
-      QueryEdge::EdgeData const data = m_routingMapping.m_dataFacade.GetEdgeData(e, node.GetIndex());
+      QueryEdge::EdgeData const data = m_routingMapping.m_dataFacade.GetEdgeData(e, node.GetNodeId());
       if (data.shortcut)
         continue;
       if (data.forward)
@@ -105,11 +105,11 @@ public:
 
     for (NodeID const adjacentNode : geomNodes)
     {
-      if (adjacentNode == node.GetIndex())
+      if (adjacentNode == node.GetNodeId())
         continue;
       for (EdgeID const e : m_routingMapping.m_dataFacade.GetAdjacentEdgeRange(adjacentNode))
       {
-        if (m_routingMapping.m_dataFacade.GetTarget(e) != node.GetIndex())
+        if (m_routingMapping.m_dataFacade.GetTarget(e) != node.GetNodeId())
           continue;
         QueryEdge::EdgeData const data = m_routingMapping.m_dataFacade.GetEdgeData(e, adjacentNode);
         if (data.shortcut)
@@ -172,7 +172,7 @@ public:
     for (auto const & pathSegments : m_rawResult.unpackedPathSegments)
     {
       auto numSegments = pathSegments.size();
-      m_loadedSegments.resize(numSegments);
+      m_loadedSegments.resize(numSegments, LoadedPathSegment(UniNodeId::Type::Osrm));
       for (size_t segmentIndex = 0; segmentIndex < numSegments; ++segmentIndex)
       {
         bool isStartNode = (segmentIndex == 0);

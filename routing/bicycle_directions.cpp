@@ -105,7 +105,7 @@ void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction
   {
     turns.emplace_back(pathSize - 1, turns::TurnDirection::ReachedYourDestination);
     // There's one ingoing edge to the finish.
-    this->m_adjacentEdges[UniNodeId()] = AdjacentEdges(1);
+    this->m_adjacentEdges[UniNodeId(UniNodeId::Type::Mwm)] = AdjacentEdges(1);
   };
 
   if (pathSize == 1)
@@ -130,7 +130,7 @@ void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction
   }
 
   // Filling |m_adjacentEdges|.
-  m_adjacentEdges.insert(make_pair(UniNodeId(), AdjacentEdges(0)));
+  m_adjacentEdges.insert(make_pair(UniNodeId(UniNodeId::Type::Mwm), AdjacentEdges(0)));
   for (size_t i = 1; i < pathSize; ++i)
   {
     if (cancellable.IsCancelled())
@@ -169,7 +169,7 @@ void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction
       adjacentEdges.m_outgoingTurns.candidates.emplace_back(0.0 /* angle */, uniNodeId, highwayClass);
     }
 
-    LoadedPathSegment pathSegment;
+    LoadedPathSegment pathSegment(UniNodeId::Type::Mwm);
     // @TODO(bykoianko) This place should be fixed. Putting |prevJunction| and |currJunction|
     // for every route edge leads that all route points are duplicated. It's because
     // prevJunction == path[i - 1] and currJunction == path[i].

@@ -326,7 +326,7 @@ UNIT_TEST(TestCalculateMercatorDistanceAlongRoute)
 
 UNIT_TEST(TestCheckUTurnOnRoute)
 {
-  TUnpackedPathSegments pathSegments(4);
+  TUnpackedPathSegments pathSegments(4, LoadedPathSegment(UniNodeId::Type::Osrm));
   pathSegments[0].m_name = "A road";
   pathSegments[0].m_weight = 1;
   pathSegments[0].m_nodeId = UniNodeId(0 /* node id */);
