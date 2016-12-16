@@ -20,7 +20,7 @@ bool StringToTimestamp(string const & s, time_t & result)
 {
   istringstream is(s);
   tm time;
-  is >> get_time(&time, "%F");
+  is >> get_time(&time, "%Y-%m-%d");
   CHECK(!is.fail(), ("Wrong date format:", s, "(expecting YYYY-MM-DD)"));
 
   time.tm_sec = time.tm_min = time.tm_hour = 0;
@@ -82,12 +82,15 @@ void Banner::SetProperty(string const & name, string const & value)
   }
   else if (name == "start")
   {
-    CHECK(StringToTimestamp(value, m_activeAfter), ("Wrong start date", value, "for banner", m_id));
+    if (!StringToTimestamp(value, m_activeAfter))
+      LOG(LERROR, ("Wrong start date", value, "for banner", m_id));
   }
   else if (name == "end")
   {
-    CHECK(StringToTimestamp(value, m_activeBefore), ("Wrong end date", value, "for banner", m_id));
-    m_activeBefore += 24 * 60 * 60;  // Add a day so we don't miss one
+    if (!StringToTimestamp(value, m_activeBefore))
+      LOG(LERROR, ("Wrong end date", value, "for banner", m_id));
+    else
+      m_activeBefore += 24 * 60 * 60;  // Add a day so we don't miss one
   }
   else
   {
