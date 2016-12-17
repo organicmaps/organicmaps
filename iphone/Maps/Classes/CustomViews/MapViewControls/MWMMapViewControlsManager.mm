@@ -410,7 +410,8 @@ extern NSString * const kAlohalyticsTapEventKey;
       [self.navigationManager updateDashboard];
     });
   }
-  self.navigationManager.state = MWMNavigationDashboardStateReady;
+  if (self.navigationManager.state != MWMNavigationDashboardStateNavigation)
+    self.navigationManager.state = MWMNavigationDashboardStateReady;
 }
 
 - (void)onRouteStart
