@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.crashlytics.android.Crashlytics;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.Banner;
@@ -87,18 +88,8 @@ final class BannerController implements View.OnClickListener
       return;
 
     loadIcon(banner);
-    if (mTitle != null)
-    {
-      String title = mResources.getString(mResources.getIdentifier(banner.getTitle(), "string", mFrame.getContext().getPackageName()));
-      if (!TextUtils.isEmpty(title))
-        mTitle.setText(title);
-    }
-    if (mMessage != null)
-    {
-      String message = mResources.getString(mResources.getIdentifier(banner.getMessage(), "string", mFrame.getContext().getPackageName()));
-      if (!TextUtils.isEmpty(message))
-        mMessage.setText(message);
-    }
+    setLabelSafely(mTitle, mBanner.getTitle());
+    setLabelSafely(mMessage, mBanner.getMessage());
 
     if (UiUtils.isLandscape(mFrame.getContext()))
       open();
@@ -108,6 +99,30 @@ final class BannerController implements View.OnClickListener
                                                .add("tags:", mBanner.getTypes())
                                                .add("banner:", mBanner.getId())
                                                .add("state:", "0"));
+  }
+
+  private void setLabelSafely(@Nullable TextView label, @Nullable String labelId)
+  {
+    if (label == null)
+      return;
+
+    if (TextUtils.isEmpty(labelId))
+    {
+      Crashlytics.logException(new Resources.NotFoundException("An empty string id obtained for: "
+                                                               + mBanner));
+      return;
+    }
+
+    try
+    {
+      String packageName = mFrame.getContext().getPackageName();
+      String value = mResources.getString(mResources.getIdentifier(labelId, "string", packageName));
+      label.setText(value);
+    }
+    catch (Resources.NotFoundException e)
+    {
+      Crashlytics.logException(new IllegalStateException("Unknown banner is found: " + mBanner, e));
+    }
   }
 
   boolean isShowing()

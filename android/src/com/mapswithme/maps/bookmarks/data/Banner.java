@@ -109,4 +109,17 @@ public final class Banner implements Parcelable
     dest.writeString(mUrl);
     dest.writeString(mTypes);
   }
+
+  @Override
+  public String toString()
+  {
+    return "Banner{" +
+           "mId='" + mId + '\'' +
+           ", mTitle='" + mTitle + '\'' +
+           ", mMessage='" + mMessage + '\'' +
+           ", mIconUrl='" + mIconUrl + '\'' +
+           ", mUrl='" + mUrl + '\'' +
+           ", mTypes='" + mTypes + '\'' +
+           '}';
+  }
 }
