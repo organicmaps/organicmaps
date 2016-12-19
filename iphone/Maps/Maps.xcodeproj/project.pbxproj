@@ -5464,6 +5464,7 @@
 				842D9AD21DD1F14E00D22520 /* el */,
 			);
 			name = InfoPlist.strings;
+			path = LocalizedStrings;
 			sourceTree = "<group>";
 		};
 		FA99CB71147089B100689A9A /* Localizable.strings */ = {
@@ -5500,6 +5501,7 @@
 				842D9AD31DD1F14F00D22520 /* el */,
 			);
 			name = Localizable.strings;
+			path = LocalizedStrings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
