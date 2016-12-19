@@ -3,6 +3,7 @@ package com.mapswithme.maps.search;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -73,7 +74,7 @@ class TabAdapter extends FragmentPagerAdapter
 
   interface OnTabSelectedListener
   {
-    void onTabSelected(Tab tab);
+    void onTabSelected(@NonNull Tab tab);
   }
 
   // Workaround for https://code.google.com/p/android/issues/detail?id=180454
