@@ -110,6 +110,9 @@
 		342EE4121C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 342EE4101C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm */; };
 		342FDDE51C6C9071000038A0 /* MWMMapDownloaderDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 342FDDE41C6C9071000038A0 /* MWMMapDownloaderDataSource.mm */; };
 		342FDDE61C6C9071000038A0 /* MWMMapDownloaderDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 342FDDE41C6C9071000038A0 /* MWMMapDownloaderDataSource.mm */; };
+		343632821E07C1AF003CCA3B /* libFlurry_7.8.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 343632811E07C1AF003CCA3B /* libFlurry_7.8.2.a */; };
+		343632831E07C1F6003CCA3B /* libFlurry_7.8.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 343632811E07C1AF003CCA3B /* libFlurry_7.8.2.a */; };
+		343632841E07C1F7003CCA3B /* libFlurry_7.8.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 343632811E07C1AF003CCA3B /* libFlurry_7.8.2.a */; };
 		3436FE821D366CDD005CD87B /* MWMSearch.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3436FE811D366CDD005CD87B /* MWMSearch.mm */; };
 		3436FE831D366CDD005CD87B /* MWMSearch.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3436FE811D366CDD005CD87B /* MWMSearch.mm */; };
 		3438CDF41B85F1170051AA78 /* MWMConsole.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3438CDF31B85F1170051AA78 /* MWMConsole.mm */; };
@@ -628,7 +631,6 @@
 		6741AA3C1BF340DE002C974C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		6741AA3D1BF340DE002C974C /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BC1E4B1ACBE96100EF0360 /* FBSDKCoreKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		6741AA3E1BF340DE002C974C /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BC1E4C1ACBE96100EF0360 /* FBSDKShareKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		6741AA401BF340DE002C974C /* libFlurry_7.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6671C6A1BA2EFD500548008 /* libFlurry_7.1.0.a */; };
 		6741AA411BF340DE002C974C /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511051A1101FC00A61AA4 /* CoreMedia.framework */; };
 		6741AA421BF340DE002C974C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511031A1101F600A61AA4 /* CoreData.framework */; };
 		6741AA431BF340DE002C974C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98655186C734000AF7E9E /* AVFoundation.framework */; };
@@ -1098,7 +1100,6 @@
 		849CF7881DE842290024A8A5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		849CF7891DE842290024A8A5 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BC1E4B1ACBE96100EF0360 /* FBSDKCoreKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		849CF78A1DE842290024A8A5 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BC1E4C1ACBE96100EF0360 /* FBSDKShareKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		849CF78B1DE842290024A8A5 /* libFlurry_7.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6671C6A1BA2EFD500548008 /* libFlurry_7.1.0.a */; };
 		849CF78C1DE842290024A8A5 /* Pushwoosh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 343E8B331D07F84C0046AEEE /* Pushwoosh.framework */; };
 		849CF78D1DE842290024A8A5 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511051A1101FC00A61AA4 /* CoreMedia.framework */; };
 		849CF78E1DE842290024A8A5 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511031A1101F600A61AA4 /* CoreData.framework */; };
@@ -1249,7 +1250,6 @@
 		F65B31F21DD20E9600105FDE /* MWMiPhonePlacePageLayoutImpl.mm in Sources */ = {isa = PBXBuildFile; fileRef = F65B31F01DD20E9600105FDE /* MWMiPhonePlacePageLayoutImpl.mm */; };
 		F65B31F51DD2106700105FDE /* MWMiPadPlacePageLayoutImpl.mm in Sources */ = {isa = PBXBuildFile; fileRef = F65B31F41DD2106700105FDE /* MWMiPadPlacePageLayoutImpl.mm */; };
 		F65B31F61DD2106700105FDE /* MWMiPadPlacePageLayoutImpl.mm in Sources */ = {isa = PBXBuildFile; fileRef = F65B31F41DD2106700105FDE /* MWMiPadPlacePageLayoutImpl.mm */; };
-		F6671C6B1BA2EFD500548008 /* libFlurry_7.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6671C6A1BA2EFD500548008 /* libFlurry_7.1.0.a */; };
 		F668F6561BCD4507002D6FFC /* MWMTTSSettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F668F6551BCD4507002D6FFC /* MWMTTSSettingsViewController.mm */; };
 		F67223781D74800600A3BDA2 /* MWMPlacePagePreviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F67223751D74800600A3BDA2 /* MWMPlacePagePreviewCell.xib */; };
 		F67223791D74800600A3BDA2 /* MWMPlacePagePreviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F67223751D74800600A3BDA2 /* MWMPlacePagePreviewCell.xib */; };
@@ -1528,6 +1528,8 @@
 		3434D7801BD12B2000C77E44 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		3434D7811BD12B2000C77E44 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3434D7821BD12B2000C77E44 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		343632811E07C1AF003CCA3B /* libFlurry_7.8.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurry_7.8.2.a; path = Frameworks/libFlurry_7.8.2.a; sourceTree = "<group>"; };
+		343632851E07C2B2003CCA3B /* FlurrySessionBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FlurrySessionBuilder.h; path = Frameworks/FlurrySessionBuilder.h; sourceTree = SOURCE_ROOT; };
 		3436FE801D366CDD005CD87B /* MWMSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearch.h; sourceTree = "<group>"; };
 		3436FE811D366CDD005CD87B /* MWMSearch.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearch.mm; sourceTree = "<group>"; };
 		3438CDF21B85F1170051AA78 /* MWMConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMConsole.h; sourceTree = "<group>"; };
@@ -2076,7 +2078,6 @@
 		F65B31F01DD20E9600105FDE /* MWMiPhonePlacePageLayoutImpl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMiPhonePlacePageLayoutImpl.mm; sourceTree = "<group>"; };
 		F65B31F31DD2106700105FDE /* MWMiPadPlacePageLayoutImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMiPadPlacePageLayoutImpl.h; sourceTree = "<group>"; };
 		F65B31F41DD2106700105FDE /* MWMiPadPlacePageLayoutImpl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMiPadPlacePageLayoutImpl.mm; sourceTree = "<group>"; };
-		F6671C6A1BA2EFD500548008 /* libFlurry_7.1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurry_7.1.0.a; path = Frameworks/libFlurry_7.1.0.a; sourceTree = "<group>"; };
 		F668F6541BCD4507002D6FFC /* MWMTTSSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMTTSSettingsViewController.h; sourceTree = "<group>"; };
 		F668F6551BCD4507002D6FFC /* MWMTTSSettingsViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMTTSSettingsViewController.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F67223751D74800600A3BDA2 /* MWMPlacePagePreviewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMPlacePagePreviewCell.xib; sourceTree = "<group>"; };
@@ -2174,7 +2175,6 @@
 		F6ED13521B1643900095C6DE /* MWMDirectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMDirectionView.h; sourceTree = "<group>"; };
 		F6ED13531B1643900095C6DE /* MWMDirectionView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDirectionView.mm; sourceTree = "<group>"; };
 		F6ED13551B16439E0095C6DE /* MWMDirectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMDirectionView.xib; sourceTree = "<group>"; };
-		F6EE7BC11B78A1AB00FF6500 /* FlurryWatch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FlurryWatch.h; path = ../Frameworks/FlurryWatch.h; sourceTree = "<group>"; };
 		F6F533A11B3C248900C1940B /* UIColor+MapsMeColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+MapsMeColor.h"; sourceTree = "<group>"; };
 		F6F533A21B3C248900C1940B /* UIColor+MapsMeColor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIColor+MapsMeColor.mm"; sourceTree = "<group>"; };
 		F6F778781DABC6D800B603E7 /* MWMTaxiCollectionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMTaxiCollectionLayout.h; sourceTree = "<group>"; };
@@ -2229,6 +2229,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				343632821E07C1AF003CCA3B /* libFlurry_7.8.2.a in Frameworks */,
 				3456E0211DC0C4030055DF50 /* HockeySDK.framework in Frameworks */,
 				F652D9141CFEE47000FC29A0 /* SafariServices.framework in Frameworks */,
 				845C89361C8983F300940D7F /* libc++.tbd in Frameworks */,
@@ -2253,7 +2254,6 @@
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				F6BC1E4D1ACBE96100EF0360 /* FBSDKCoreKit.framework in Frameworks */,
 				F6BC1E4E1ACBE96100EF0360 /* FBSDKShareKit.framework in Frameworks */,
-				F6671C6B1BA2EFD500548008 /* libFlurry_7.1.0.a in Frameworks */,
 				343E8B341D07F84C0046AEEE /* Pushwoosh.framework in Frameworks */,
 				B00511061A1101FC00A61AA4 /* CoreMedia.framework in Frameworks */,
 				B00511041A1101F600A61AA4 /* CoreData.framework in Frameworks */,
@@ -2326,9 +2326,9 @@
 				6741AA3D1BF340DE002C974C /* FBSDKCoreKit.framework in Frameworks */,
 				3456E0241DC0C4290055DF50 /* HockeySDK.framework in Frameworks */,
 				6741AA3E1BF340DE002C974C /* FBSDKShareKit.framework in Frameworks */,
-				6741AA401BF340DE002C974C /* libFlurry_7.1.0.a in Frameworks */,
 				6741AA411BF340DE002C974C /* CoreMedia.framework in Frameworks */,
 				674A7E2A1C0DA579003D48E1 /* libdrape.a in Frameworks */,
+				343632831E07C1F6003CCA3B /* libFlurry_7.8.2.a in Frameworks */,
 				6741AA421BF340DE002C974C /* CoreData.framework in Frameworks */,
 				34EB5E7D1C900145002C4D37 /* QuickLook.framework in Frameworks */,
 				6741AA431BF340DE002C974C /* AVFoundation.framework in Frameworks */,
@@ -2360,6 +2360,7 @@
 				849CF7771DE842290024A8A5 /* QuickLook.framework in Frameworks */,
 				849CF7781DE842290024A8A5 /* CoreGraphics.framework in Frameworks */,
 				849CF7791DE842290024A8A5 /* Fabric.framework in Frameworks */,
+				343632841E07C1F7003CCA3B /* libFlurry_7.8.2.a in Frameworks */,
 				849CF77A1DE842290024A8A5 /* MobileCoreServices.framework in Frameworks */,
 				849CF77B1DE842290024A8A5 /* QuartzCore.framework in Frameworks */,
 				849CF77C1DE842290024A8A5 /* Security.framework in Frameworks */,
@@ -2377,7 +2378,6 @@
 				849CF7881DE842290024A8A5 /* Foundation.framework in Frameworks */,
 				849CF7891DE842290024A8A5 /* FBSDKCoreKit.framework in Frameworks */,
 				849CF78A1DE842290024A8A5 /* FBSDKShareKit.framework in Frameworks */,
-				849CF78B1DE842290024A8A5 /* libFlurry_7.1.0.a in Frameworks */,
 				849CF78C1DE842290024A8A5 /* Pushwoosh.framework in Frameworks */,
 				849CF78D1DE842290024A8A5 /* CoreMedia.framework in Frameworks */,
 				849CF78E1DE842290024A8A5 /* CoreData.framework in Frameworks */,
@@ -2818,7 +2818,7 @@
 				34570A401B13229300E6D4FD /* FBSDKLoginKit.framework */,
 				F6BC1E4B1ACBE96100EF0360 /* FBSDKCoreKit.framework */,
 				F6BC1E4C1ACBE96100EF0360 /* FBSDKShareKit.framework */,
-				F6671C6A1BA2EFD500548008 /* libFlurry_7.1.0.a */,
+				343632811E07C1AF003CCA3B /* libFlurry_7.8.2.a */,
 			);
 			name = 3party;
 			sourceTree = "<group>";
@@ -3414,7 +3414,7 @@
 				CB252D6B16FF82C8001E41E9 /* Statistics.h */,
 				CB252D6C16FF82C8001E41E9 /* Statistics.mm */,
 				97DD585B18A8EB120079837E /* Flurry.h */,
-				F6EE7BC11B78A1AB00FF6500 /* FlurryWatch.h */,
+				343632851E07C2B2003CCA3B /* FlurrySessionBuilder.h */,
 			);
 			path = Statistics;
 			sourceTree = "<group>";
