@@ -285,15 +285,17 @@ using TObservers = NSHashTable<__kindof TObserver>;
 
 - (void)onSearchCompleted
 {
-  BOOL allCompleted = self.viewportSearchCompleted;
-  BOOL allEmpty = self.viewportResultsEmpty;
-  if (IPAD)
-  {
-    allCompleted = allCompleted && self.everywhereSearchCompleted;
-    allEmpty = allEmpty && m_everywhereResults.GetCount() == 0;
-  }
-  if (allCompleted && allEmpty)
-    [[MWMAlertViewController activeAlertController] presentSearchNoResultsAlert];
+// TODO: Uncomment on release with search filters. Update to less annoying behavior.
+//
+// BOOL allCompleted = self.viewportSearchCompleted;
+// BOOL allEmpty = self.viewportResultsEmpty;
+// if (IPAD)
+// {
+//   allCompleted = allCompleted && self.everywhereSearchCompleted;
+//   allEmpty = allEmpty && m_everywhereResults.GetCount() == 0;
+// }
+// if (allCompleted && allEmpty)
+//   [[MWMAlertViewController activeAlertController] presentSearchNoResultsAlert];
 
   for (TObserver observer in self.observers)
   {
