@@ -487,17 +487,17 @@ void TrafficManager::UpdateState()
       expiredApp |= it->second.m_lastAvailability == traffic::TrafficInfo::Availability::ExpiredApp;
       expiredData |= it->second.m_lastAvailability == traffic::TrafficInfo::Availability::ExpiredData;
       noData |= it->second.m_lastAvailability == traffic::TrafficInfo::Availability::NoData;
-    }
 
-    if (it->second.m_isLoaded)
-    {
-      auto const timeSinceLastResponse = currentTime - it->second.m_lastResponseTime;
-      if (timeSinceLastResponse > maxPassedTime)
-        maxPassedTime = timeSinceLastResponse;
-    }
-    else if (it->second.m_retriesCount >= kMaxRetriesCount)
-    {
-      networkError = true;
+      if (it->second.m_isLoaded)
+      {
+        auto const timeSinceLastResponse = currentTime - it->second.m_lastResponseTime;
+        if (timeSinceLastResponse > maxPassedTime)
+          maxPassedTime = timeSinceLastResponse;
+      }
+      else if (it->second.m_retriesCount >= kMaxRetriesCount)
+      {
+        networkError = true;
+      }
     }
   }
 
