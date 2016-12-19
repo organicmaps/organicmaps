@@ -282,8 +282,6 @@
 		3491E7CC1C06F1F10042FE24 /* MWMPlacePageButtonCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3491E7C91C06F1F10042FE24 /* MWMPlacePageButtonCell.mm */; };
 		3491E7CD1C06F1F10042FE24 /* MWMPlacePageButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3491E7CA1C06F1F10042FE24 /* MWMPlacePageButtonCell.xib */; };
 		3491E7CE1C06F1F10042FE24 /* MWMPlacePageButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3491E7CA1C06F1F10042FE24 /* MWMPlacePageButtonCell.xib */; };
-		3492CC121C6DF00E0057D8E8 /* (null) in Sources */ = {isa = PBXBuildFile; };
-		3492CC131C6DF00F0057D8E8 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		3497A93A1B5CF8A900F51E55 /* MWMNavigationDashboardManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3497A9371B5CF8A900F51E55 /* MWMNavigationDashboardManager.mm */; };
 		349A137C1DEC0B6200C7DB60 /* MWMMobileInternetViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349A137B1DEC0B6200C7DB60 /* MWMMobileInternetViewController.mm */; };
 		349A137D1DEC0B6200C7DB60 /* MWMMobileInternetViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349A137B1DEC0B6200C7DB60 /* MWMMobileInternetViewController.mm */; };
@@ -4733,7 +4731,6 @@
 				34ABA6161C2D185C00FE1BEC /* MWMAuthorizationOSMLoginViewController.mm in Sources */,
 				34E0EECE1CC51B1D008E4919 /* MWMMapDownloaderButtonTableViewCell.mm in Sources */,
 				3454D7D31E07F045004AF2AD /* UIImageView+Coloring.mm in Sources */,
-				3492CC121C6DF00E0057D8E8 /* (null) in Sources */,
 				34257D111DC9FB0D00DC5BB9 /* MWMSearchFilterTransitioning.mm in Sources */,
 				3463BA661DE81DB90082417F /* MWMTrafficButtonViewController.mm in Sources */,
 				34A759CF1DC795140078C3AE /* MWMWhatsNewNightModeController.mm in Sources */,
@@ -4990,7 +4987,6 @@
 				34257D121DC9FB0D00DC5BB9 /* MWMSearchFilterTransitioning.mm in Sources */,
 				3463BA671DE81DB90082417F /* MWMTrafficButtonViewController.mm in Sources */,
 				34ABA6171C2D185C00FE1BEC /* MWMAuthorizationOSMLoginViewController.mm in Sources */,
-				3492CC131C6DF00F0057D8E8 /* (null) in Sources */,
 				F6B8701E1DDCB2F400BE8D94 /* MWMPPPreviewBannerCell.mm in Sources */,
 				34E0EECF1CC51B1D008E4919 /* MWMMapDownloaderButtonTableViewCell.mm in Sources */,
 				3476B8CC1BFDCB6700874594 /* MWMTTSSettingsViewController.mm in Sources */,
