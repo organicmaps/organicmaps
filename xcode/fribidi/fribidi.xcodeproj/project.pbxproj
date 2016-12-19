@@ -277,6 +277,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/fribidi",
+					"$(OMIM_ROOT)/3party/fribidi/lib",
 				);
 			};
 			name = Debug;
@@ -288,6 +289,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/fribidi",
+					"$(OMIM_ROOT)/3party/fribidi/lib",
 				);
 			};
 			name = Release;

@@ -1,7 +1,7 @@
 #include "follow_animation.hpp"
 
-#include "animation_constants.hpp"
-#include "animation_system.hpp"
+#include "drape_frontend/animation_constants.hpp"
+#include "drape_frontend/animation_system.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
