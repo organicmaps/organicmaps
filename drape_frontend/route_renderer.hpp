@@ -41,7 +41,8 @@ public:
   void UpdateDistanceFromBegin(double distanceFromBegin);
 
 private:
-  void InterpolateByZoom(ScreenBase const & screen, float & halfWidth, double & zoom) const;
+  void InterpolateByZoom(ScreenBase const & screen, ColorConstant color,
+                         float & halfWidth, double & zoom) const;
   void RenderRouteSign(drape_ptr<RouteSignData> const & sign, ScreenBase const & screen,
                        ref_ptr<dp::GpuProgramManager> mng, dp::UniformValuesStorage const & commonUniforms);
 
