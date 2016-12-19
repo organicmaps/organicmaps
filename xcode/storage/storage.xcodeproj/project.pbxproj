@@ -816,7 +816,7 @@
 					"OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP=1",
 				);
 				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = storage_tests;
+				PRODUCT_BUNDLE_IDENTIFIER = "storage-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -830,7 +830,7 @@
 					"OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP=1",
 				);
 				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = storage_tests;
+				PRODUCT_BUNDLE_IDENTIFIER = "storage-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
