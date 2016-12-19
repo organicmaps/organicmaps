@@ -112,7 +112,7 @@ UNIT_TEST(MultilangString_LangNames)
   // only by reference. And our constant is a constexpr.
   TEST_EQUAL(langs.size(), size_t(StringUtf8Multilang::kMaxSupportedLanguages), ());
   auto const international = StringUtf8Multilang::GetLangIndex("int_name");
-  TEST_EQUAL(langs[international].m_code, "int_name", ());
+  TEST_EQUAL(langs[international].m_code, string("int_name"), ());
 }
 
 UNIT_TEST(MultilangString_HasString)
