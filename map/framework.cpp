@@ -760,7 +760,6 @@ bool Framework::DeleteBmCategory(size_t index)
 void Framework::FillBookmarkInfo(Bookmark const & bmk, BookmarkAndCategory const & bac, place_page::Info & info) const
 {
   FillPointInfo(bmk.GetPivot(), string(), info);
-  info.m_countryId = m_infoGetter->GetRegionCountryId(info.GetMercator());
 
   info.m_bac = bac;
   BookmarkCategory * cat = GetBmCategory(bac.m_categoryIndex);
@@ -793,8 +792,6 @@ void Framework::FillFeatureInfo(FeatureID const & fid, place_page::Info & info) 
   uint32_t const placeContinentType = classif().GetTypeByPath({"place", "continent"});
   if (info.GetTypes().Has(placeContinentType))
     return;
-
-  info.m_countryId = m_infoGetter->GetRegionCountryId(info.GetMercator());
 
   uint32_t const placeCountryType = classif().GetTypeByPath({"place", "country"});
   uint32_t const placeStateType = classif().GetTypeByPath({"place", "state"});
@@ -2144,6 +2141,7 @@ void Framework::OnTapEvent(TapEvent const & tapEvent)
         GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kPlacepageHotelBook, {{"provider", "booking.com"}});
     }
 
+    info.m_countryId = m_infoGetter->GetRegionCountryId(info.GetMercator());
     ActivateMapSelection(true, selection, info);
   }
   else
