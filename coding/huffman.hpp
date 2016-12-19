@@ -21,10 +21,10 @@ public:
   struct Code
   {
     uint32_t bits;
-    uint32_t len;
+    size_t len;
 
     Code() : bits(0), len(0) {}
-    Code(uint32_t bits, uint32_t len) : bits(bits), len(len) {}
+    Code(uint32_t bits, size_t len) : bits(bits), len(len) {}
 
     bool operator<(const Code & o) const
     {
@@ -134,7 +134,7 @@ private:
     Node *l, *r;
     uint32_t symbol;
     uint32_t freq;
-    uint32_t depth;
+    size_t depth;
     bool isLeaf;
 
     Node(uint32_t symbol, uint32_t freq, bool isLeaf)
@@ -156,7 +156,7 @@ private:
   // No need to clump the interface: keep private the methods
   // that encode one symbol only.
   template <typename TWriter>
-  uint32_t EncodeAndWrite(BitWriter<TWriter> & bitWriter, uint32_t symbol) const
+  size_t EncodeAndWrite(BitWriter<TWriter> & bitWriter, uint32_t symbol) const
   {
     Code code;
     CHECK(Encode(symbol, code), ());

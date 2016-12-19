@@ -25,7 +25,7 @@ ZLib::Processor::Processor(void const * data, size_t size) noexcept : m_init(fal
   // zconf.h. So, for portability, const_cast<...> is used here, but
   // in any case, zlib does not modify |data|.
   m_stream.next_in = static_cast<unsigned char *>(const_cast<void *>(data));
-  m_stream.avail_in = size;
+  m_stream.avail_in = static_cast<unsigned int>(size);
 
   m_stream.next_out = m_buffer;
   m_stream.avail_out = kBufferSize;
