@@ -13,22 +13,32 @@ MapLinearAnimation::MapLinearAnimation(m2::PointD const & startPos, m2::PointD c
   , m_positionInterpolator(startPos, endPos, convertor)
   , m_scaleInterpolator(startScale, endScale, false /* isAutoZoom */)
 {
-  m_objects.insert(Animation::MapPlane);
+  m_objects.insert(Animation::Object::MapPlane);
 
   if (m_positionInterpolator.IsActive())
-    m_properties.insert(Animation::Position);
+    m_properties.insert(Animation::ObjectProperty::Position);
 
   if (m_angleInterpolator.IsActive())
-    m_properties.insert(Animation::Angle);
+    m_properties.insert(Animation::ObjectProperty::Angle);
 
   if (m_scaleInterpolator.IsActive())
-    m_properties.insert(Animation::Scale);
+    m_properties.insert(Animation::ObjectProperty::Scale);
 }
 
 MapLinearAnimation::MapLinearAnimation()
   : Animation(true /* couldBeInterrupted */, false /* couldBeBlended */)
 {
-  m_objects.insert(Animation::MapPlane);
+  m_objects.insert(Animation::Object::MapPlane);
+}
+
+void MapLinearAnimation::Init(ScreenBase const & screen, TPropertyCache const & properties)
+{
+  ScreenBase currentScreen;
+  GetCurrentScreen(properties, screen, currentScreen);
+
+  SetMove(currentScreen.GlobalRect().GlobalZero(), m_positionInterpolator.GetTargetPosition(), currentScreen);
+  SetScale(currentScreen.GetScale(), m_scaleInterpolator.GetTargetScale());
+  SetRotate(currentScreen.GetAngle(), m_angleInterpolator.GetTargetAngle());
 }
 
 void MapLinearAnimation::SetMove(m2::PointD const & startPos, m2::PointD const & endPos,
@@ -36,7 +46,7 @@ void MapLinearAnimation::SetMove(m2::PointD const & startPos, m2::PointD const &
 {
   m_positionInterpolator = PositionInterpolator(startPos, endPos, convertor);
   if (m_positionInterpolator.IsActive())
-    m_properties.insert(Animation::Position);
+    m_properties.insert(Animation::ObjectProperty::Position);
 }
 
 void MapLinearAnimation::SetMove(m2::PointD const & startPos, m2::PointD const & endPos,
@@ -44,30 +54,30 @@ void MapLinearAnimation::SetMove(m2::PointD const & startPos, m2::PointD const &
 {
   m_positionInterpolator = PositionInterpolator(startPos, endPos, viewportRect, scale);
   if (m_positionInterpolator.IsActive())
-    m_properties.insert(Animation::Position);
+    m_properties.insert(Animation::ObjectProperty::Position);
 }
 
 void MapLinearAnimation::SetRotate(double startAngle, double endAngle)
 {
   m_angleInterpolator = AngleInterpolator(startAngle, endAngle);
   if (m_angleInterpolator.IsActive())
-    m_properties.insert(Animation::Angle);
+    m_properties.insert(Animation::ObjectProperty::Angle);
 }
 
 void MapLinearAnimation::SetScale(double startScale, double endScale)
 {
   m_scaleInterpolator = ScaleInterpolator(startScale, endScale, false /* isAutoZoom */);
   if (m_scaleInterpolator.IsActive())
-    m_properties.insert(Animation::Scale);
+    m_properties.insert(Animation::ObjectProperty::Scale);
 }
 
-Animation::TObjectProperties const & MapLinearAnimation::GetProperties(TObject object) const
+Animation::TObjectProperties const & MapLinearAnimation::GetProperties(Object object) const
 {
-  ASSERT_EQUAL(object, Animation::MapPlane, ());
+  ASSERT_EQUAL(static_cast<int>(object), static_cast<int>(Animation::Object::MapPlane), ());
   return m_properties;
 }
 
-bool MapLinearAnimation::HasProperty(TObject object, TProperty property) const
+bool MapLinearAnimation::HasProperty(Object object, ObjectProperty property) const
 {
   return HasObject(object) && m_properties.find(property) != m_properties.end();
 }
@@ -133,37 +143,37 @@ bool MapLinearAnimation::IsFinished() const
          m_positionInterpolator.IsFinished();
 }
 
-bool MapLinearAnimation::GetProperty(TObject object, TProperty property, PropertyValue & value) const
+bool MapLinearAnimation::GetProperty(Object object, ObjectProperty property, PropertyValue & value) const
 {
   return GetProperty(object, property, false /* targetValue */, value);
 }
 
-bool MapLinearAnimation::GetTargetProperty(TObject object, TProperty property, PropertyValue & value) const
+bool MapLinearAnimation::GetTargetProperty(Object object, ObjectProperty property, PropertyValue & value) const
 {
   return GetProperty(object, property, true /* targetValue */, value);
 }
 
-bool MapLinearAnimation::GetProperty(TObject object, TProperty property, bool targetValue, PropertyValue & value) const
+bool MapLinearAnimation::GetProperty(Object object, ObjectProperty property, bool targetValue, PropertyValue & value) const
 {
-  ASSERT_EQUAL(object, Animation::MapPlane, ());
+  ASSERT_EQUAL(static_cast<int>(object), static_cast<int>(Animation::Object::MapPlane), ());
 
   switch (property)
   {
-  case Animation::Position:
+  case Animation::ObjectProperty::Position:
     if (m_positionInterpolator.IsActive())
     {
       value = PropertyValue(targetValue ? m_positionInterpolator.GetTargetPosition() : m_positionInterpolator.GetPosition());
       return true;
     }
     return false;
-  case Animation::Scale:
+  case Animation::ObjectProperty::Scale:
     if (m_scaleInterpolator.IsActive())
     {
       value = PropertyValue(targetValue ? m_scaleInterpolator.GetTargetScale() : m_scaleInterpolator.GetScale());
       return true;
     }
     return false;
-  case Animation::Angle:
+  case Animation::ObjectProperty::Angle:
     if (m_angleInterpolator.IsActive())
     {
       value = PropertyValue(targetValue ? m_angleInterpolator.GetTargetAngle() : m_angleInterpolator.GetAngle());
@@ -171,7 +181,7 @@ bool MapLinearAnimation::GetProperty(TObject object, TProperty property, bool ta
     }
     return false;
   default:
-    ASSERT(false, ("Wrong property:", property));
+    ASSERT(false, ("Wrong property:", static_cast<int>(property)));
   }
 
   return false;

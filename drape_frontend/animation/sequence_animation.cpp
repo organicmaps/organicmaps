@@ -12,6 +12,12 @@ SequenceAnimation::SequenceAnimation()
 {
 }
 
+void SequenceAnimation::Init(ScreenBase const & screen, TPropertyCache const & properties)
+{
+  if (!m_animations.empty())
+    m_animations.front()->Init(screen, properties);
+}
+
 string SequenceAnimation::GetCustomType() const
 {
   return m_customType;
@@ -27,19 +33,19 @@ Animation::TAnimObjects const & SequenceAnimation::GetObjects() const
   return m_objects;
 }
 
-bool SequenceAnimation::HasObject(TObject object) const
+bool SequenceAnimation::HasObject(Object object) const
 {
   ASSERT(!m_animations.empty(), ());
   return m_animations.front()->HasObject(object);
 }
 
-Animation::TObjectProperties const & SequenceAnimation::GetProperties(TObject object) const
+Animation::TObjectProperties const & SequenceAnimation::GetProperties(Object object) const
 {
   ASSERT(HasObject(object), ());
   return m_properties.find(object)->second;
 }
 
-bool SequenceAnimation::HasProperty(TObject object, TProperty property) const
+bool SequenceAnimation::HasProperty(Object object, ObjectProperty property) const
 {
   if (!HasObject(object))
     return false;
@@ -47,7 +53,7 @@ bool SequenceAnimation::HasProperty(TObject object, TProperty property) const
   return m_animations.front()->HasProperty(object, property);
 }
 
-bool SequenceAnimation::HasTargetProperty(TObject object, TProperty property) const
+bool SequenceAnimation::HasTargetProperty(Object object, ObjectProperty property) const
 {
   ASSERT(!m_animations.empty(), ());
   for (auto const & anim : m_animations)
@@ -76,13 +82,13 @@ bool SequenceAnimation::IsFinished() const
   return m_animations.empty();
 }
 
-bool SequenceAnimation::GetProperty(TObject object, TProperty property, PropertyValue & value) const
+bool SequenceAnimation::GetProperty(Object object, ObjectProperty property, PropertyValue & value) const
 {
   ASSERT(!m_animations.empty(), ());
   return m_animations.front()->GetProperty(object, property, value);
 }
 
-bool SequenceAnimation::GetTargetProperty(TObject object, TProperty property, PropertyValue & value) const
+bool SequenceAnimation::GetTargetProperty(Object object, ObjectProperty property, PropertyValue & value) const
 {
   ASSERT(!m_animations.empty(), ());
 

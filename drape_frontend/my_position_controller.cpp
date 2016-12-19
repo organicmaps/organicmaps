@@ -346,9 +346,11 @@ void MyPositionController::NextMode(ScreenBase const & screen)
     return;
   }
 
-  // From follow-and-rotate mode we can transit to follow mode if routing is disabled.
+  // From follow-and-rotate mode we can transit to follow mode.
   if (m_mode == location::FollowAndRotate)
   {
+    if (m_isInRouting && screen.isPerspective())
+      preferredZoomLevel = GetZoomLevel(ScreenBase::GetStartPerspectiveScale() * 1.1);
     ChangeMode(location::Follow);
     ChangeModelView(m_position, 0.0, m_visiblePixelRect.Center(), preferredZoomLevel);
   }
@@ -405,7 +407,7 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
   else if (!m_isPositionAssigned)
   {
     ChangeMode(m_isFirstLaunch ? location::Follow : m_desiredInitMode);
-    if (!m_isFirstLaunch || !AnimationSystem::Instance().AnimationExists(Animation::MapPlane))
+    if (!m_isFirstLaunch || !AnimationSystem::Instance().AnimationExists(Animation::Object::MapPlane))
     {
       if (m_mode == location::Follow)
         ChangeModelView(m_position, kDoNotChangeZoom);
@@ -438,7 +440,7 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
       }
       else
       {
-        if (!AnimationSystem::Instance().AnimationExists(Animation::MapPlane))
+        if (!AnimationSystem::Instance().AnimationExists(Animation::Object::MapPlane))
           ChangeModelView(m_position, kDoNotChangeZoom);
       }
     }

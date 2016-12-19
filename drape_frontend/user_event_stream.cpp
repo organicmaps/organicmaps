@@ -288,7 +288,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
 
 void UserEventStream::ApplyAnimations()
 {
-  if (m_animationSystem.AnimationExists(Animation::MapPlane))
+  if (m_animationSystem.AnimationExists(Animation::Object::MapPlane))
   {
     ScreenBase screen;
     if (m_animationSystem.GetScreen(GetCurrentScreen(), screen))
@@ -318,12 +318,12 @@ bool UserEventStream::OnSetScale(ref_ptr<ScaleEvent> scaleEvent)
 
   if (scaleEvent->IsAnim())
   {
-    auto followAnim = m_animationSystem.FindAnimation<MapFollowAnimation>(Animation::MapFollow);
+    auto followAnim = m_animationSystem.FindAnimation<MapFollowAnimation>(Animation::Type::MapFollow);
     if (followAnim == nullptr)
     {
-      auto const parallelAnim = m_animationSystem.FindAnimation<ParallelAnimation>(Animation::Parallel, kParallelFollowAnim.c_str());
+      auto const parallelAnim = m_animationSystem.FindAnimation<ParallelAnimation>(Animation::Type::Parallel, kParallelFollowAnim.c_str());
       if (parallelAnim != nullptr)
-        followAnim = parallelAnim->FindAnimation<MapFollowAnimation>(Animation::MapFollow);
+        followAnim = parallelAnim->FindAnimation<MapFollowAnimation>(Animation::Type::MapFollow);
     }
     if (followAnim != nullptr && followAnim->HasScale())
     {
@@ -332,8 +332,8 @@ bool UserEventStream::OnSetScale(ref_ptr<ScaleEvent> scaleEvent)
         return false;
 
       // Reset follow animation with scaling if we apply scale explicitly.
-      ResetAnimations(Animation::MapFollow);
-      ResetAnimations(Animation::Parallel, kParallelFollowAnim);
+      ResetAnimations(Animation::Type::MapFollow);
+      ResetAnimations(Animation::Type::Parallel, kParallelFollowAnim);
     }
     
     m2::PointD glbScaleCenter = m_navigator.PtoG(m_navigator.P3dtoP(scaleCenter));
@@ -479,16 +479,16 @@ bool UserEventStream::SetScreen(ScreenBase const & endScreen, bool isAnim, TAnim
 
 bool UserEventStream::InterruptFollowAnimations(bool force)
 {
-  Animation const * followAnim = m_animationSystem.FindAnimation<MapFollowAnimation>(Animation::MapFollow);
+  Animation const * followAnim = m_animationSystem.FindAnimation<MapFollowAnimation>(Animation::Type::MapFollow);
 
   if (followAnim == nullptr)
-    followAnim = m_animationSystem.FindAnimation<SequenceAnimation>(Animation::Sequence, kPrettyFollowAnim.c_str());
+    followAnim = m_animationSystem.FindAnimation<SequenceAnimation>(Animation::Type::Sequence, kPrettyFollowAnim.c_str());
 
   if (followAnim == nullptr)
-    followAnim = m_animationSystem.FindAnimation<ParallelAnimation>(Animation::Parallel, kParallelFollowAnim.c_str());
+    followAnim = m_animationSystem.FindAnimation<ParallelAnimation>(Animation::Type::Parallel, kParallelFollowAnim.c_str());
 
   if (followAnim == nullptr)
-    followAnim = m_animationSystem.FindAnimation<ParallelAnimation>(Animation::Parallel, kParallelLinearAnim.c_str());
+    followAnim = m_animationSystem.FindAnimation<ParallelAnimation>(Animation::Type::Parallel, kParallelLinearAnim.c_str());
 
   if (followAnim != nullptr)
   {
@@ -551,7 +551,8 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
     {
       drape_ptr<ParallelAnimation> parallelAnim = make_unique_dp<ParallelAnimation>();
       parallelAnim->SetCustomType(kParallelFollowAnim);
-      parallelAnim->AddAnimation(parallelAnimCreator(anim->GetType() == Animation::MapFollow ? anim->GetDuration() : kDoNotChangeDuration));
+      parallelAnim->AddAnimation(parallelAnimCreator(anim->GetType() == Animation::Type::MapFollow ? anim->GetDuration()
+                                                                                                   : kDoNotChangeDuration));
       parallelAnim->AddAnimation(move(anim));
       m_animationSystem.CombineAnimation(move(parallelAnim));
     }
@@ -596,7 +597,7 @@ void UserEventStream::ResetAnimations(Animation::Type animType, string const & c
 void UserEventStream::ResetMapPlaneAnimations()
 {
   bool const hasAnimations = m_animationSystem.HasAnimations();
-  m_animationSystem.FinishObjectAnimations(Animation::MapPlane, false /* rewind */, false /* finishAll */);
+  m_animationSystem.FinishObjectAnimations(Animation::Object::MapPlane, false /* rewind */, false /* finishAll */);
   if (hasAnimations)
     ApplyAnimations();
 }
@@ -608,7 +609,7 @@ m2::AnyRectD UserEventStream::GetCurrentRect() const
 
 void UserEventStream::GetTargetScreen(ScreenBase & screen)
 {
-  m_animationSystem.FinishAnimations(Animation::KineticScroll, false /* rewind */, false /* finishAll */);
+  m_animationSystem.FinishAnimations(Animation::Type::KineticScroll, false /* rewind */, false /* finishAll */);
   ApplyAnimations();
 
   m_animationSystem.GetTargetScreen(m_navigator.Screen(), screen);
@@ -670,7 +671,7 @@ bool UserEventStream::TouchDown(array<Touch, 2> const & touches)
   bool isMapTouch = true;
   
   // Interrupt kinetic scroll on touch down.
-  m_animationSystem.FinishAnimations(Animation::KineticScroll, false /* rewind */, true /* finishAll */);
+  m_animationSystem.FinishAnimations(Animation::Type::KineticScroll, false /* rewind */, true /* finishAll */);
 
   if (touchCount == 1)
   {

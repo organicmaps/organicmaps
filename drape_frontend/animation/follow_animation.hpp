@@ -12,24 +12,25 @@ public:
   MapFollowAnimation(ScreenBase const & screen,
                      m2::PointD const & globalUserPosition,
                      m2::PointD const & endPixelPosition,
-                     double startScale, double endScale,
-                     double startAngle, double endAngle,
+                     double endScale, double endAngle,
                      bool isAutoZoom);
 
-  Animation::Type GetType() const override { return Animation::MapFollow; }
+  void Init(ScreenBase const & screen, TPropertyCache const & properties) override;
+
+  Animation::Type GetType() const override { return Animation::Type::MapFollow; }
 
   TAnimObjects const & GetObjects() const override
   {
     return m_objects;
   }
 
-  bool HasObject(TObject object) const override
+  bool HasObject(Object object) const override
   {
-    return object == Animation::MapPlane;
+    return object == Animation::Object::MapPlane;
   }
 
-  TObjectProperties const & GetProperties(TObject object) const override;
-  bool HasProperty(TObject object, TProperty property) const override;
+  TObjectProperties const & GetProperties(Object object) const override;
+  bool HasProperty(Object object, ObjectProperty property) const override;
 
   void Advance(double elapsedSeconds) override;
   void Finish() override;
@@ -38,8 +39,8 @@ public:
   double GetDuration() const override;
   bool IsFinished() const override;
 
-  bool GetProperty(TObject object, TProperty property, PropertyValue & value) const override;
-  bool GetTargetProperty(TObject object, TProperty property, PropertyValue & value) const override;
+  bool GetProperty(Object object, ObjectProperty property, PropertyValue & value) const override;
+  bool GetTargetProperty(Object object, ObjectProperty property, PropertyValue & value) const override;
 
   bool IsAutoZoom() const { return m_isAutoZoom; }
 
@@ -47,7 +48,7 @@ public:
   bool HasPixelOffset() const;
 
 private:
-  bool GetProperty(TObject object, TProperty property, bool targetValue, PropertyValue & value) const;
+  bool GetProperty(Object object, ObjectProperty property, bool targetValue, PropertyValue & value) const;
   double CalculateDuration() const;
 
   bool m_isAutoZoom;
@@ -57,6 +58,8 @@ private:
 
   m2::PointD const m_globalPosition;
   m2::PointD const m_endPixelPosition;
+  double const m_endScale;
+  double const m_endAngle;
 
   m2::PointD m_offset;
 
