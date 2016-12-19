@@ -806,9 +806,14 @@ public class PlacePageView extends RelativeLayout
     if (mBannerController != null)
     {
       if ((state == State.HIDDEN || state == State.PREVIEW) && !UiUtils.isLandscape(getContext()))
-        heightCompensation = mBannerController.close();
+      {
+        if (mBannerController.close())
+          heightCompensation = mBannerController.getLastBannerHeight();
+      }
       else
+      {
         mBannerController.open();
+      }
     }
 
     if (mHeightCompensationView != null)
