@@ -141,6 +141,9 @@
 		345050231E028CB500A8DC59 /* SettingsTableViewLinkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345050221E028CB400A8DC59 /* SettingsTableViewLinkCell.swift */; };
 		345050241E028CB500A8DC59 /* SettingsTableViewLinkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345050221E028CB400A8DC59 /* SettingsTableViewLinkCell.swift */; };
 		345050251E028CB500A8DC59 /* SettingsTableViewLinkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345050221E028CB400A8DC59 /* SettingsTableViewLinkCell.swift */; };
+		3454D7951E07EC5E004AF2AD /* DateComponentsFormatter+ETA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3454D7941E07EC5E004AF2AD /* DateComponentsFormatter+ETA.swift */; };
+		3454D7961E07EC5E004AF2AD /* DateComponentsFormatter+ETA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3454D7941E07EC5E004AF2AD /* DateComponentsFormatter+ETA.swift */; };
+		3454D7971E07EC5E004AF2AD /* DateComponentsFormatter+ETA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3454D7941E07EC5E004AF2AD /* DateComponentsFormatter+ETA.swift */; };
 		3454E05F1DF00DAE00F40F46 /* banners.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3454E05E1DF00DAE00F40F46 /* banners.txt */; };
 		3454E0601DF00DC000F40F46 /* banners.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3454E05E1DF00DAE00F40F46 /* banners.txt */; };
 		3454E0611DF00DC100F40F46 /* banners.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3454E05E1DF00DAE00F40F46 /* banners.txt */; };
@@ -573,7 +576,6 @@
 		6741A9DF1BF340DE002C974C /* MWMSearchHistoryClearCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B82AC21B84608600180497 /* MWMSearchHistoryClearCell.mm */; };
 		6741A9E01BF340DE002C974C /* MWMDownloaderDialogHeader.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64F4B731B4A45FD0081A24A /* MWMDownloaderDialogHeader.mm */; };
 		6741A9E11BF340DE002C974C /* MWMSearchTableView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34F8ADD81B97229A004184CC /* MWMSearchTableView.mm */; };
-		6741A9E31BF340DE002C974C /* TimeUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = B08AA8D91A26299A00810B1C /* TimeUtils.mm */; };
 		6741A9E71BF340DE002C974C /* MWMCircularProgressView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349A35791B53D4C9009677EE /* MWMCircularProgressView.mm */; };
 		6741A9E81BF340DE002C974C /* MWMAPIBar.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3465E7D71B6658C000854C4D /* MWMAPIBar.mm */; };
 		6741A9EB1BF340DE002C974C /* ContextViews.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6D409F91B319BD70041730F /* ContextViews.mm */; };
@@ -938,7 +940,6 @@
 		849CF6E31DE842290024A8A5 /* MWMObjectsCategorySelectorController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F653CE1B1C7361DA00A453F1 /* MWMObjectsCategorySelectorController.mm */; };
 		849CF6E41DE842290024A8A5 /* MWMSearch.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3436FE811D366CDD005CD87B /* MWMSearch.mm */; };
 		849CF6E51DE842290024A8A5 /* MWMSearchHotelsFilterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34257D0C1DC9FB0D00DC5BB9 /* MWMSearchHotelsFilterViewController.mm */; };
-		849CF6E61DE842290024A8A5 /* TimeUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = B08AA8D91A26299A00810B1C /* TimeUtils.mm */; };
 		849CF6E71DE842290024A8A5 /* MWMSearchNoResultsAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3462258D1DDC5DBA001E8752 /* MWMSearchNoResultsAlert.mm */; };
 		849CF6E81DE842290024A8A5 /* MWMMapDownloaderExtendedDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 341F99EC1C6B28A7001C67B8 /* MWMMapDownloaderExtendedDataSource.mm */; };
 		849CF6E91DE842290024A8A5 /* MWMCircularProgressView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349A35791B53D4C9009677EE /* MWMCircularProgressView.mm */; };
@@ -1145,7 +1146,6 @@
 		B00511041A1101F600A61AA4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511031A1101F600A61AA4 /* CoreData.framework */; };
 		B00511061A1101FC00A61AA4 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511051A1101FC00A61AA4 /* CoreMedia.framework */; };
 		B08AA8D61A25E58C00810B1C /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C9864D186C5ED300AF7E9E /* Social.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		B08AA8DA1A26299A00810B1C /* TimeUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = B08AA8D91A26299A00810B1C /* TimeUtils.mm */; };
 		CB252D6F16FF82C9001E41E9 /* Statistics.mm in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.mm */; };
 		ED48BBB517C267F5003E7E92 /* ColorPickerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB417C267F5003E7E92 /* ColorPickerView.mm */; };
 		ED48BBBA17C2B1E2003E7E92 /* CircleView.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB917C2B1E2003E7E92 /* CircleView.mm */; };
@@ -1557,6 +1557,7 @@
 		345050111E02887000A8DC59 /* MWMSettingsViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSettingsViewController.mm; sourceTree = "<group>"; };
 		345050211E028B8000A8DC59 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		345050221E028CB400A8DC59 /* SettingsTableViewLinkCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewLinkCell.swift; sourceTree = "<group>"; };
+		3454D7941E07EC5E004AF2AD /* DateComponentsFormatter+ETA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "DateComponentsFormatter+ETA.swift"; path = "Categories/DateComponentsFormatter+ETA.swift"; sourceTree = "<group>"; };
 		3454E05E1DF00DAE00F40F46 /* banners.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = banners.txt; path = ../../data/banners.txt; sourceTree = "<group>"; };
 		3456E0201DC0C4030055DF50 /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HockeySDK.framework; path = Frameworks/HockeySDK.embeddedframework/HockeySDK.framework; sourceTree = "<group>"; };
 		3456E0251DC0C4500055DF50 /* HockeySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = HockeySDKResources.bundle; path = Frameworks/HockeySDK.embeddedframework/Resources/HockeySDKResources.bundle; sourceTree = "<group>"; };
@@ -1964,8 +1965,6 @@
 		A367C93A1B17334800E2B6E7 /* resources-default */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-default"; path = "../../data/resources-default"; sourceTree = "<group>"; };
 		B00511031A1101F600A61AA4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		B00511051A1101FC00A61AA4 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
-		B08AA8D81A26299A00810B1C /* TimeUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimeUtils.h; path = Categories/TimeUtils.h; sourceTree = "<group>"; };
-		B08AA8D91A26299A00810B1C /* TimeUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TimeUtils.mm; path = Categories/TimeUtils.mm; sourceTree = "<group>"; };
 		CB252D6B16FF82C8001E41E9 /* Statistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Statistics.h; sourceTree = "<group>"; };
 		CB252D6C16FF82C8001E41E9 /* Statistics.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Statistics.mm; sourceTree = "<group>"; };
 		ED48BBB317C267F5003E7E92 /* ColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPickerView.h; sourceTree = "<group>"; };
@@ -3355,8 +3354,6 @@
 				F62F1D941C3281F1006CF38E /* UIImageView+Coloring.mm */,
 				9747264218323080006B7CB7 /* UIKitCategories.h */,
 				9747264118323080006B7CB7 /* UIKitCategories.mm */,
-				B08AA8D81A26299A00810B1C /* TimeUtils.h */,
-				B08AA8D91A26299A00810B1C /* TimeUtils.mm */,
 				9747278218338F0C006B7CB7 /* UIViewController+Navigation.h */,
 				9747278318338F0C006B7CB7 /* UIViewController+Navigation.mm */,
 				F6DBF9B41AA8779300F2EC2C /* CALayer+RuntimeAttributes.h */,
@@ -3377,6 +3374,7 @@
 				34FED54F1D21121000183B1B /* CLLocation+Mercator.mm */,
 				34E0B8471D7EEC2A00735786 /* UIImage+RGBAData.h */,
 				34E0B8481D7EED0C00735786 /* UIImage+RGBAData.mm */,
+				3454D7941E07EC5E004AF2AD /* DateComponentsFormatter+ETA.swift */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -4744,6 +4742,7 @@
 				3492CC121C6DF00E0057D8E8 /* (null) in Sources */,
 				34257D111DC9FB0D00DC5BB9 /* MWMSearchFilterTransitioning.mm in Sources */,
 				3463BA661DE81DB90082417F /* MWMTrafficButtonViewController.mm in Sources */,
+				3454D7951E07EC5E004AF2AD /* DateComponentsFormatter+ETA.swift in Sources */,
 				34A759CF1DC795140078C3AE /* MWMWhatsNewNightModeController.mm in Sources */,
 				F6BBF2C61B4FFB72000CF8E2 /* MWMLocationAlert.mm in Sources */,
 				F6B8701D1DDCB2F400BE8D94 /* MWMPPPreviewBannerCell.mm in Sources */,
@@ -4772,7 +4771,6 @@
 				F653CE1C1C7361DA00A453F1 /* MWMObjectsCategorySelectorController.mm in Sources */,
 				3436FE821D366CDD005CD87B /* MWMSearch.mm in Sources */,
 				34257D171DC9FB0D00DC5BB9 /* MWMSearchHotelsFilterViewController.mm in Sources */,
-				B08AA8DA1A26299A00810B1C /* TimeUtils.mm in Sources */,
 				3462258E1DDC5DBA001E8752 /* MWMSearchNoResultsAlert.mm in Sources */,
 				341F99ED1C6B28A7001C67B8 /* MWMMapDownloaderExtendedDataSource.mm in Sources */,
 				349A357C1B53D4C9009677EE /* MWMCircularProgressView.mm in Sources */,
@@ -4998,6 +4996,7 @@
 				F6D1A0B21D76E33D0070A015 /* MWMPlacePageData.mm in Sources */,
 				34257D121DC9FB0D00DC5BB9 /* MWMSearchFilterTransitioning.mm in Sources */,
 				3463BA671DE81DB90082417F /* MWMTrafficButtonViewController.mm in Sources */,
+				3454D7961E07EC5E004AF2AD /* DateComponentsFormatter+ETA.swift in Sources */,
 				34ABA6171C2D185C00FE1BEC /* MWMAuthorizationOSMLoginViewController.mm in Sources */,
 				3492CC131C6DF00F0057D8E8 /* (null) in Sources */,
 				F6B8701E1DDCB2F400BE8D94 /* MWMPPPreviewBannerCell.mm in Sources */,
@@ -5026,7 +5025,6 @@
 				6741A9E01BF340DE002C974C /* MWMDownloaderDialogHeader.mm in Sources */,
 				6741A9E11BF340DE002C974C /* MWMSearchTableView.mm in Sources */,
 				34257D181DC9FB0D00DC5BB9 /* MWMSearchHotelsFilterViewController.mm in Sources */,
-				6741A9E31BF340DE002C974C /* TimeUtils.mm in Sources */,
 				341F99EE1C6B28A7001C67B8 /* MWMMapDownloaderExtendedDataSource.mm in Sources */,
 				3436FE831D366CDD005CD87B /* MWMSearch.mm in Sources */,
 				3462258F1DDC5DBA001E8752 /* MWMSearchNoResultsAlert.mm in Sources */,
@@ -5281,7 +5279,6 @@
 				849CF6E31DE842290024A8A5 /* MWMObjectsCategorySelectorController.mm in Sources */,
 				849CF6E41DE842290024A8A5 /* MWMSearch.mm in Sources */,
 				849CF6E51DE842290024A8A5 /* MWMSearchHotelsFilterViewController.mm in Sources */,
-				849CF6E61DE842290024A8A5 /* TimeUtils.mm in Sources */,
 				849CF6E71DE842290024A8A5 /* MWMSearchNoResultsAlert.mm in Sources */,
 				849CF6E81DE842290024A8A5 /* MWMMapDownloaderExtendedDataSource.mm in Sources */,
 				849CF6E91DE842290024A8A5 /* MWMCircularProgressView.mm in Sources */,
@@ -5362,6 +5359,7 @@
 				849CF7311DE842290024A8A5 /* MWMKeyboard.mm in Sources */,
 				849CF7331DE842290024A8A5 /* MWMInputValidatorFactory.mm in Sources */,
 				849CF7341DE842290024A8A5 /* MWMSearchChangeModeView.mm in Sources */,
+				3454D7971E07EC5E004AF2AD /* DateComponentsFormatter+ETA.swift in Sources */,
 				849CF7351DE842290024A8A5 /* MWMSearchCategoriesManager.mm in Sources */,
 				849CF7361DE842290024A8A5 /* MWMStorage.mm in Sources */,
 				849CF7371DE842290024A8A5 /* MWMTaxiCollectionLayout.mm in Sources */,

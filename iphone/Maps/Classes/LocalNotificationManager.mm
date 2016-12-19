@@ -5,7 +5,6 @@
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
-#import "TimeUtils.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
