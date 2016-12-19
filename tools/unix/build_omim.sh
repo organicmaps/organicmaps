@@ -112,14 +112,7 @@ build_conf_osrm()
   (
     export BOOST_INCLUDEDIR="$BOOST_PATH/include"
     cd "$DIRNAME"
-    if [ -n "$DEVTOOLSET_PATH" ]; then
-      # linux-clang spec requires --gcc-toolchain flag
-      "$QMAKE" "$OMIM_PATH/omim.pro" -spec $OSPEC "CONFIG+=$CONF osrm no-tests" \
-        "QMAKE_CXXFLAGS *=--gcc-toolchain=$DEVTOOLSET_PATH/root/usr" \
-        "QMAKE_LFLAGS *=--gcc-toolchain=$DEVTOOLSET_PATH/root/usr"
-    else
-      "$QMAKE" "$OMIM_PATH/omim.pro" -spec $OSPEC "CONFIG+=$CONF osrm"
-    fi
+    "$QMAKE" "$OMIM_PATH/omim.pro" ${SPEC:+-spec $SPEC} "CONFIG+=$CONF osrm" ${CONFIG+"CONFIG*=$CONFIG"}
     make -j $PROCESSES
   )
 }
