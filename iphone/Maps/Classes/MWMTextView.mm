@@ -1,5 +1,5 @@
 #import "MWMTextView.h"
-#import "Common.h"
+#import "MWMCommon.h"
 
 @interface MWMTextView ()
 

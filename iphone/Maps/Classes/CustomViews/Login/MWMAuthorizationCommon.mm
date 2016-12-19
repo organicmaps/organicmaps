@@ -1,4 +1,4 @@
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MWMAuthorizationCommon.h"
 #import "UIButton+RuntimeAttributes.h"
 #import "UIColor+MapsMeColor.h"

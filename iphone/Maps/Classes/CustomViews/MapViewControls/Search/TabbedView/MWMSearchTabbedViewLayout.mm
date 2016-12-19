@@ -1,5 +1,5 @@
 #import "MWMSearchTabbedViewLayout.h"
-#import "Common.h"
+#import "MWMCommon.h"
 
 @implementation MWMSearchTabbedViewLayout
 

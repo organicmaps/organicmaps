@@ -1,5 +1,5 @@
 #import "MWMRoutingDisclaimerAlert.h"
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MWMAlertViewController.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"

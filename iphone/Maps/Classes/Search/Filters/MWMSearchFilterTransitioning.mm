@@ -1,5 +1,5 @@
 #import "MWMSearchFilterTransitioning.h"
-#import "Common.h"
+#import "MWMCommon.h"
 
 @implementation MWMSearchFilterTransitioning
 

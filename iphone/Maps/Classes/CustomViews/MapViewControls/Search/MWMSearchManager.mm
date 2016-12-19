@@ -1,5 +1,5 @@
 #import "MWMSearchManager.h"
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MWMConsole.h"
 #import "MWMFrameworkListener.h"
 #import "MWMLocationManager.h"

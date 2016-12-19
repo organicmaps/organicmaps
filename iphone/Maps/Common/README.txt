@@ -1,1 +1,0 @@
-Contains reusable code snippets for all iOS projects

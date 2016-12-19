@@ -4,7 +4,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <Pushwoosh/PushNotificationManager.h>
 #import "AppInfo.h"
-#import "Common.h"
+#import "MWMCommon.h"
 #import "EAGLView.h"
 #import "LocalNotificationManager.h"
 #import "MWMAlertViewController.h"

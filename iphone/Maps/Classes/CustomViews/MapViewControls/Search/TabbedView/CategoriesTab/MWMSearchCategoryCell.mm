@@ -1,6 +1,5 @@
 #import "MWMSearchCategoryCell.h"
-#import "Common.h"
-#import "Macros.h"
+#import "MWMCommon.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
 #import "UIImageView+Coloring.h"

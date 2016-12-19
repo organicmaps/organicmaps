@@ -1,5 +1,5 @@
 #import "MWMOpeningHoursLayoutHelper.h"
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MWMOpeningHours.h"
 #import "MWMPlacePageData.h"
 #import "MWMTableViewCell.h"

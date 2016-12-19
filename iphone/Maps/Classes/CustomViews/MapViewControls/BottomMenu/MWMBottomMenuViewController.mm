@@ -1,6 +1,6 @@
 #import "MWMBottomMenuViewController.h"
 #import <Pushwoosh/PushNotificationManager.h>
-#import "Common.h"
+#import "MWMCommon.h"
 #import "EAGLView.h"
 #import "MWMActivityViewController.h"
 #import "MWMBottomMenuCollectionViewCell.h"

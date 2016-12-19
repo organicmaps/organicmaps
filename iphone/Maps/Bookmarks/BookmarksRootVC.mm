@@ -1,6 +1,6 @@
 #import "BookmarksRootVC.h"
 #import "BookmarksVC.h"
-#import "Common.h"
+#import "MWMCommon.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIImageView+Coloring.h"

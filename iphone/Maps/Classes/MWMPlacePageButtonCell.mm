@@ -1,5 +1,5 @@
 #import "MWMPlacePageButtonCell.h"
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MWMPlacePageProtocol.h"
 #import "UIColor+MapsMeColor.h"
 

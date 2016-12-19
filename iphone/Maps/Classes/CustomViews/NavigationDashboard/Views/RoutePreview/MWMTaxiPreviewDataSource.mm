@@ -1,5 +1,5 @@
 #import "MWMTaxiPreviewDataSource.h"
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MWMNetworkPolicy.h"
 #import "MWMRoutePoint.h"
 #import "MWMTaxiPreviewCell.h"

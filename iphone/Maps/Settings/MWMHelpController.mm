@@ -1,7 +1,7 @@
 #import "MWMHelpController.h"
 #import <sys/utsname.h>
 #import "AppInfo.h"
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MWMMailViewController.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"

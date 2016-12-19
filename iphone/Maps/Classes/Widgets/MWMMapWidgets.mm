@@ -1,5 +1,5 @@
 #import "MWMMapWidgets.h"
-#import "Common.h"
+#import "MWMCommon.h"
 #import "EAGLView.h"
 #import "MWMNavigationDashboardManager.h"
 #import "MapViewController.h"

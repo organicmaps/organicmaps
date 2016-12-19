@@ -1,7 +1,6 @@
 #import "MWMSearchCategoriesManager.h"
 #import "AppInfo.h"
 #import "MWMSearchCategoryCell.h"
-#import "Macros.h"
 #import "Statistics.h"
 
 #include "search/displayed_categories.hpp"

@@ -1,5 +1,5 @@
 #import "MWMNavigationDashboardEntity.h"
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MWMLocationManager.h"
 #import "MWMSettings.h"
 #import "MapsAppDelegate.h"

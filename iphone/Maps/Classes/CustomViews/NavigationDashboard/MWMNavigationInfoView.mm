@@ -1,6 +1,6 @@
 #import "MWMNavigationInfoView.h"
 #import "AppInfo.h"
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MWMButton.h"
 #import "MWMLocationHelpers.h"
 #import "MWMLocationManager.h"

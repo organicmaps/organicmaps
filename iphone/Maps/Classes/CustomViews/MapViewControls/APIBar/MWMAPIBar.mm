@@ -1,4 +1,4 @@
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MWMAPIBar.h"
 #import "MWMAPIBarView.h"
 #import "Statistics.h"

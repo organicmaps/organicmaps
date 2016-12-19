@@ -1,5 +1,5 @@
 #import "MWMPPPreviewBannerCell.h"
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MapViewController.h"
 #import "MWMPlacePageData.h"
 #import "MWMPlacePageLayoutImpl.h"

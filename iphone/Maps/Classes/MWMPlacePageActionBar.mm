@@ -1,5 +1,5 @@
 #import "MWMPlacePageActionBar.h"
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MWMActionBarButton.h"
 #import "MWMPlacePageProtocol.h"
 #import "MapViewController.h"

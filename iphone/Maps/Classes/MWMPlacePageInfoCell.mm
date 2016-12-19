@@ -1,5 +1,5 @@
 #import "MWMPlacePageInfoCell.h"
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"

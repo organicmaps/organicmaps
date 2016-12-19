@@ -1,6 +1,6 @@
 #import <MyTrackerSDK/MRMyTracker.h>
 #import <Pushwoosh/PushNotificationManager.h>
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MapsAppDelegate.h"
 
 #ifdef OMIM_PRODUCTION

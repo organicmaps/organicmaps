@@ -1,5 +1,5 @@
 #import "MWMMapDownloaderViewController.h"
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MWMMapDownloaderExtendedDataSourceWithAds.h"
 #import "MWMMapDownloaderSearchDataSource.h"
 #import "MWMNoMapsViewController.h"

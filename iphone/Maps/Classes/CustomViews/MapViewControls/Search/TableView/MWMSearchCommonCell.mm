@@ -1,4 +1,4 @@
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MWMLocationManager.h"
 #import "MWMSearchCommonCell.h"
 #import "MapsAppDelegate.h"

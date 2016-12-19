@@ -1,4 +1,4 @@
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MWMAlertViewController.h"
 #import "MWMCircularProgress.h"
 #import "MWMDownloaderDialogCell.h"
