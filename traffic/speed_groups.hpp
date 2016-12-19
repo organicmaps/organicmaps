@@ -37,7 +37,7 @@ static_assert(static_cast<uint8_t>(SpeedGroup::Count) <= 8, "");
 // special groups where V is unknown or not defined.
 extern uint32_t const kSpeedGroupThresholdPercentage[static_cast<size_t>(SpeedGroup::Count)];
 
-/// \note This method is used while traffic jam generation.
+/// \note This method is used in traffic jam generation.
 SpeedGroup GetSpeedGroupByPercentage(double p);
 
 string DebugPrint(SpeedGroup const & group);

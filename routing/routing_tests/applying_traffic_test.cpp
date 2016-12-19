@@ -147,6 +147,21 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_G0onF3)
   TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
 }
 
+// Route through XX graph with SpeedGroup::TempBlock on F3.
+UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_TempBlockonF3)
+{
+  TrafficInfo::Coloring coloring = {
+      {{3 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection},
+       SpeedGroup::TempBlock}};
+  SetEstimator(move(coloring));
+
+  unique_ptr<IndexGraph> graph = BuildXXGraph(GetEstimator());
+  IndexGraphStarter starter(*graph, RoadPoint(1, 0) /* start */, RoadPoint(6, 1) /* finish */);
+  vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {3, 0}, {3, 1}, {2, 2}, {3, 3}};
+  EstimatorGuard guard(MwmSet::MwmId(), *GetEstimator());
+  TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
+}
+
 // Route through XX graph with SpeedGroup::G0 in reverse direction on F3.
 UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_G0onF3ReverseDir)
 {
