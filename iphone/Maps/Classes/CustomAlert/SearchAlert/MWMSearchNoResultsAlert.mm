@@ -1,5 +1,5 @@
 #import "MWMSearchNoResultsAlert.h"
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MWMSearch.h"
 #import "Statistics.h"
 

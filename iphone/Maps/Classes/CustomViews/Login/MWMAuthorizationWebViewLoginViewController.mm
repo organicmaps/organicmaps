@@ -1,5 +1,5 @@
 #import "MWMAuthorizationWebViewLoginViewController.h"
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MWMAlertViewController.h"
 #import "MWMAuthorizationCommon.h"
 #import "MWMCircularProgress.h"

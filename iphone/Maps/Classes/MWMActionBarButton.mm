@@ -1,5 +1,5 @@
 #import "MWMActionBarButton.h"
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MWMButton.h"
 #import "MWMCircularProgress.h"
 #import "UIColor+MapsMeColor.h"

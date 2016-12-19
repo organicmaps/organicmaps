@@ -1,6 +1,6 @@
 #import "MWMLocationManager.h"
 #import <Pushwoosh/PushNotificationManager.h>
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MWMAlertViewController.h"
 #import "MWMController.h"
 #import "MWMLocationPredictor.h"

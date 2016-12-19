@@ -1,4 +1,4 @@
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MWMMapDownloaderLargeCountryTableViewCell.h"
 
 @interface MWMMapDownloaderLargeCountryTableViewCell ()

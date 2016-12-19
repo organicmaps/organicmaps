@@ -1,6 +1,6 @@
 #import "MWMSearch.h"
 #import <Crashlytics/Crashlytics.h>
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MWMAlertViewController.h"
 #import "MWMLocationManager.h"
 #import "MWMSearchHotelsFilterViewController.h"

@@ -4,7 +4,6 @@
 #import "MWMSearchCommonCell.h"
 #import "MWMSearchSuggestionCell.h"
 #import "MWMSearchTableView.h"
-#import "Macros.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
 

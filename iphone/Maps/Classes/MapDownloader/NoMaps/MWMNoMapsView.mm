@@ -1,5 +1,5 @@
 #import "MWMNoMapsView.h"
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MWMKeyboard.h"
 
 @interface MWMNoMapsView ()<MWMKeyboardObserver>

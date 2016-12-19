@@ -1,5 +1,5 @@
 #import "MWMSearchTabbedViewController.h"
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MWMSearchCategoriesManager.h"
 #import "MWMSearchHistoryManager.h"
 #import "MWMSearchTabbedCollectionViewCell.h"

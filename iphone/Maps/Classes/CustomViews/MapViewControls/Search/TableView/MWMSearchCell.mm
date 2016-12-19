@@ -1,4 +1,4 @@
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MWMSearchCell.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"

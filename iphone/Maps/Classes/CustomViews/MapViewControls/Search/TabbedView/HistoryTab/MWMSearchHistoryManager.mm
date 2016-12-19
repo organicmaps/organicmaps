@@ -1,11 +1,10 @@
 #import "MWMSearchHistoryManager.h"
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MWMLocationManager.h"
 #import "MWMSearchHistoryClearCell.h"
 #import "MWMSearchHistoryMyPositionCell.h"
 #import "MWMSearchHistoryRequestCell.h"
 #import "MWMSearchNoResults.h"
-#import "Macros.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
 

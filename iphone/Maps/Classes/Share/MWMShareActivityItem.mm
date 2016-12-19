@@ -1,5 +1,4 @@
 #import "MWMShareActivityItem.h"
-#import "Macros.h"
 #import "Statistics.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"

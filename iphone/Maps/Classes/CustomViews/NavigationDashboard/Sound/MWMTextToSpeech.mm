@@ -1,6 +1,6 @@
 #import "MWMTextToSpeech.h"
 #import <AVFoundation/AVFoundation.h>
-#import "Common.h"
+#import "MWMCommon.h"
 #import "Statistics.h"
 
 #include "LocaleTranslator.h"

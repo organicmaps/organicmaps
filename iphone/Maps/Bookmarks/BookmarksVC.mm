@@ -1,7 +1,7 @@
 #import "BookmarksVC.h"
 #import "CircleView.h"
 #import "ColorPickerView.h"
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MWMBookmarkNameCell.h"
 #import "MWMLocationHelpers.h"
 #import "MWMLocationManager.h"

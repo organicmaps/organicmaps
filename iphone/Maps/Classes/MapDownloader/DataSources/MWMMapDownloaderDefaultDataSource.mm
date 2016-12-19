@@ -1,4 +1,4 @@
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MWMMapDownloaderButtonTableViewCell.h"
 #import "MWMMapDownloaderDefaultDataSource.h"
 #import "MWMStorage.h"

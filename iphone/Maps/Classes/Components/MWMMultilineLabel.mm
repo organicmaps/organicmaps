@@ -1,4 +1,4 @@
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MWMMultilineLabel.h"
 
 @implementation MWMMultilineLabel

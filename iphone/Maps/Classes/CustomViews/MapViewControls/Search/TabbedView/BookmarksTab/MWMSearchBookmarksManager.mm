@@ -1,7 +1,6 @@
 #import "MWMSearchBookmarksManager.h"
 #import "MWMSearchBookmarksCell.h"
 #import "MWMSearchNoResults.h"
-#import "Macros.h"
 
 #include "Framework.h"
 

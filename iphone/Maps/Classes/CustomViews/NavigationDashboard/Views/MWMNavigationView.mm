@@ -1,5 +1,5 @@
 #import "MWMNavigationView.h"
-#import "Common.h"
+#import "MWMCommon.h"
 
 @interface MWMNavigationView ()
 

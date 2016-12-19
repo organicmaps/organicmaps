@@ -1,4 +1,4 @@
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MapsAppDelegate.h"
 #import "MWMAlertViewController.h"
 #import "MWMAuthorizationCommon.h"

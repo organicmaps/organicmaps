@@ -1,7 +1,8 @@
 #pragma once
 
 #import "iosOGLContext.h"
-#import "../../../../drape/oglcontextfactory.hpp"
+
+#include "drape/oglcontextfactory.hpp"
 
 #include "std/condition_variable.hpp"
 #include "std/mutex.hpp"

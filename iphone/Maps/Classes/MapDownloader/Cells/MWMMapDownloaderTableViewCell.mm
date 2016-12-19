@@ -1,5 +1,5 @@
 #import "MWMMapDownloaderTableViewCell.h"
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MWMCircularProgress.h"
 #import "MWMMapDownloaderLargeCountryTableViewCell.h"
 #import "NSString+Categories.h"

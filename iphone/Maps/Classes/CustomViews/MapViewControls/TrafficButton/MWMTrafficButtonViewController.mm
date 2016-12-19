@@ -1,5 +1,5 @@
 #import "MWMTrafficButtonViewController.h"
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MWMAlertViewController.h"
 #import "MWMButton.h"
 #import "MWMMapViewControlsCommon.h"

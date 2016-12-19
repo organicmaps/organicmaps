@@ -1,5 +1,5 @@
 #import "MWMEditBookmarkController.h"
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MWMBookmarkColorViewController.h"
 #import "MWMBookmarkTitleCell.h"
 #import "MWMButtonCell.h"

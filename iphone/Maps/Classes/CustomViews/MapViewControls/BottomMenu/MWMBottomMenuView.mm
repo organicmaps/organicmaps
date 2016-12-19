@@ -1,5 +1,5 @@
 #import "MWMBottomMenuView.h"
-#import "Common.h"
+#import "MWMCommon.h"
 #import "EAGLView.h"
 #import "MWMBottomMenuViewController.h"
 #import "MWMButton.h"

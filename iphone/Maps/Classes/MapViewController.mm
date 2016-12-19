@@ -1,7 +1,7 @@
 #import "MapViewController.h"
 #import "BookmarksRootVC.h"
 #import "BookmarksVC.h"
-#import "Common.h"
+#import "MWMCommon.h"
 #import "EAGLView.h"
 #import "MWMAPIBar.h"
 #import "MWMAlertViewController.h"
@@ -37,8 +37,6 @@
 #include "indexer/osm_editor.hpp"
 
 #include "Framework.h"
-
-#include "../Statistics/Statistics.h"
 
 #include "map/user_mark.hpp"
 

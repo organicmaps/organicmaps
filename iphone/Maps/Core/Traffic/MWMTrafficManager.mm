@@ -1,5 +1,5 @@
 #import "MWMTrafficManager.h"
-#import "Common.h"
+#import "MWMCommon.h"
 
 #include "Framework.h"
 

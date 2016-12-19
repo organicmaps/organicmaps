@@ -1,6 +1,6 @@
 #import "LocalNotificationManager.h"
 #import "CLLocation+Mercator.h"
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MWMStorage.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"

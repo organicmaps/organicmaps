@@ -1,9 +1,9 @@
-#import "Common.h"
+#import "MWMCommon.h"
 #import "EAGLView.h"
 #import "MapsAppDelegate.h"
 #import "MWMDirectionView.h"
 
-#import "../Platform/opengl/iosOGLContextFactory.h"
+#import "iosOGLContextFactory.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 

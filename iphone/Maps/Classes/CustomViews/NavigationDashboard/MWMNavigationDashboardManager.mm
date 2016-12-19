@@ -1,6 +1,6 @@
 #import "MWMNavigationDashboardManager.h"
 #import <AudioToolbox/AudioServices.h>
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MWMLocationHelpers.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMNavigationInfoView.h"
@@ -8,7 +8,6 @@
 #import "MWMRouter.h"
 #import "MWMTaxiPreviewDataSource.h"
 #import "MWMTextToSpeech.h"
-#import "Macros.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"

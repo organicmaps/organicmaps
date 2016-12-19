@@ -1,5 +1,5 @@
 #import "UIKitCategories.h"
-#import "Common.h"
+#import "MWMCommon.h"
 #import "UIButton+RuntimeAttributes.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIImageView+Coloring.h"

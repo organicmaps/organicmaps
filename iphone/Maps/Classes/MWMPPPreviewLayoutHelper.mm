@@ -1,5 +1,5 @@
 #import "MWMPPPreviewLayoutHelper.h"
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MWMDirectionView.h"
 #import "MWMPlacePageData.h"
 #import "MWMPPPreviewBannerCell.h"

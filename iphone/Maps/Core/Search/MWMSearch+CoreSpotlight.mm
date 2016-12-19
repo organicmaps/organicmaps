@@ -2,7 +2,7 @@
 #import <Crashlytics/Crashlytics.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "AppInfo.h"
-#import "Common.h"
+#import "MWMCommon.h"
 #import "MWMSearch+CoreSpotlight.h"
 #import "MWMSettings.h"
 
