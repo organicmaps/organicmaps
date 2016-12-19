@@ -21,7 +21,7 @@
 #define IFT_ETHER 0x6 /* Ethernet CSMACD */
 #endif
 
-#import "../iphone/Maps/Classes/Common.h"
+#import "iphone/Maps/Common/MWMCommon.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
