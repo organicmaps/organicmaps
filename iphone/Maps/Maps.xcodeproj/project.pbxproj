@@ -706,6 +706,7 @@
 		6B9978351C89A316003B8AA0 /* editor.config in Resources */ = {isa = PBXBuildFile; fileRef = 6B9978341C89A316003B8AA0 /* editor.config */; };
 		6B9978361C89A316003B8AA0 /* editor.config in Resources */ = {isa = PBXBuildFile; fileRef = 6B9978341C89A316003B8AA0 /* editor.config */; };
 		6BA0BCD11B74DDBA00CC9969 /* MWMCustomFacebookEvents.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6BA0BCD01B74DDBA00CC9969 /* MWMCustomFacebookEvents.mm */; };
+		8408BCE21E080DEF00789784 /* MWMTrafficButtonViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3463BA651DE81DB90082417F /* MWMTrafficButtonViewController.xib */; };
 		845C89311C89837900940D7F /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 845C89301C89837900940D7F /* AssetsLibrary.framework */; };
 		845C89361C8983F300940D7F /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 845C89331C8983F300940D7F /* libc++.tbd */; };
 		845C89371C8983F300940D7F /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 845C89341C8983F300940D7F /* QuickLook.framework */; };
@@ -4493,6 +4494,7 @@
 				849CF6171DE842290024A8A5 /* types.txt in Resources */,
 				849CF6181DE842290024A8A5 /* InfoPlist.strings in Resources */,
 				849CF6191DE842290024A8A5 /* MWMRoutingDisclaimerAlert.xib in Resources */,
+				8408BCE21E080DEF00789784 /* MWMTrafficButtonViewController.xib in Resources */,
 				849CF61A1DE842290024A8A5 /* resources-xhdpi_dark in Resources */,
 				849CF61B1DE842290024A8A5 /* MWMDropDown.xib in Resources */,
 				849CF61C1DE842290024A8A5 /* MWMEditorAdditionalNamesHeader.xib in Resources */,
