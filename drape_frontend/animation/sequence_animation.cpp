@@ -1,6 +1,6 @@
 #include "sequence_animation.hpp"
 
-#include "animation_system.hpp"
+#include "drape_frontend/animation_system.hpp"
 
 #include "base/assert.hpp"
 

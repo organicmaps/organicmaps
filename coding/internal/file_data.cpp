@@ -1,8 +1,8 @@
 #include "coding/internal/file_data.hpp"
 
-#include "reader.hpp" // For Reader exceptions.
-#include "writer.hpp" // For Writer exceptions.
 #include "coding/constants.hpp"
+#include "coding/reader.hpp" // For Reader exceptions.
+#include "coding/writer.hpp" // For Writer exceptions.
 
 #include "base/exception.hpp"
 #include "base/logging.hpp"
