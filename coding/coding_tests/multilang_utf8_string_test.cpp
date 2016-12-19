@@ -105,6 +105,7 @@ UNIT_TEST(MultilangString_Unique)
 
 UNIT_TEST(MultilangString_LangNames)
 {
+  // It is important to compare the contents of the strings, and not just pointers
   TEST_EQUAL(string("Беларуская"), StringUtf8Multilang::GetLangNameByCode(StringUtf8Multilang::GetLangIndex("be")), ());
 
   auto const & langs = StringUtf8Multilang::GetSupportedLanguages();
