@@ -78,13 +78,12 @@ vector<m2::PointD> CalculatePoints(m2::PolylineD const & polyline, double start,
   return result;
 }
 
-void GenerateJoinsTriangles(glsl::vec3 const & pivot, vector<glsl::vec2> const & normals,
+void GenerateJoinsTriangles(glsl::vec3 const & pivot, vector<glsl::vec2> const & normals, glsl::vec4 const & color,
                             glsl::vec2 const & length, bool isLeft, RouteShape::TGeometryBuffer & joinsGeometry)
 {
   float const kEps = 1e-5;
   size_t const trianglesCount = normals.size() / 3;
   float const side = isLeft ? kLeftSide : kRightSide;
-  glsl::vec4 const color(0.0f, 0.0f, 0.0f, 0.0f);
   for (int j = 0; j < trianglesCount; j++)
   {
     glsl::vec3 const len1 = glsl::vec3(length.x, length.y, glsl::length(normals[3 * j]) < kEps ? kCenter : side);
@@ -193,7 +192,7 @@ void RouteShape::PrepareGeometry(vector<m2::PointD> const & path, m2::PointD con
       GenerateJoinNormals(dp::RoundJoin, n1, n2, 1.0f, segments[i].m_hasLeftJoin[EndPoint],
                           widthScalar, normals);
 
-      GenerateJoinsTriangles(endPivot, normals, glsl::vec2(endLength, 0),
+      GenerateJoinsTriangles(endPivot, normals, segments[i].m_color, glsl::vec2(endLength, 0),
                              segments[i].m_hasLeftJoin[EndPoint], joinsGeometry);
     }
 
@@ -206,7 +205,8 @@ void RouteShape::PrepareGeometry(vector<m2::PointD> const & path, m2::PointD con
                          segments[i].m_rightNormals[StartPoint], -segments[i].m_tangent,
                          1.0f, true /* isStart */, normals);
 
-      GenerateJoinsTriangles(startPivot, normals, glsl::vec2(length, 0), true, joinsGeometry);
+      GenerateJoinsTriangles(startPivot, normals, segments[i].m_color, glsl::vec2(length, 0),
+                             true, joinsGeometry);
     }
 
     if (i == segments.size() - 1)
@@ -217,7 +217,8 @@ void RouteShape::PrepareGeometry(vector<m2::PointD> const & path, m2::PointD con
                          segments[i].m_rightNormals[EndPoint], segments[i].m_tangent,
                          1.0f, false /* isStart */, normals);
 
-      GenerateJoinsTriangles(endPivot, normals, glsl::vec2(endLength, 0), true, joinsGeometry);
+      GenerateJoinsTriangles(endPivot, normals, segments[i].m_color, glsl::vec2(endLength, 0),
+                             true, joinsGeometry);
     }
 
     length = endLength;
@@ -411,7 +412,8 @@ void RouteShape::CacheRoute(ref_ptr<dp::TextureManager> textures, RouteData & ro
   auto const & style = GetStyleReader().GetCurrentStyle();
   for (auto const & speedGroup : routeData.m_traffic)
   {
-    dp::Color const color = df::GetColorConstant(style, TrafficGenerator::GetColorBySpeedGroup(speedGroup));
+    dp::Color const color = df::GetColorConstant(style, TrafficGenerator::GetColorBySpeedGroup(speedGroup,
+                                                        true /* route */));
     float const alpha = (speedGroup == traffic::SpeedGroup::G4 ||
                          speedGroup == traffic::SpeedGroup::G5 ||
                          speedGroup == traffic::SpeedGroup::Unknown) ? 0.0f : 1.0f;

@@ -302,10 +302,10 @@ void TrafficGenerator::GenerateLineSegment(dp::TextureManager::ColorRegion const
 }
 
 // static
-df::ColorConstant TrafficGenerator::GetColorBySpeedGroup(traffic::SpeedGroup const & speedGroup)
+df::ColorConstant TrafficGenerator::GetColorBySpeedGroup(traffic::SpeedGroup const & speedGroup, bool route)
 {
   size_t constexpr kSpeedGroupsCount = static_cast<size_t>(traffic::SpeedGroup::Count);
-  static array<df::ColorConstant, kSpeedGroupsCount> const colorMap
+  static array<df::ColorConstant, kSpeedGroupsCount> const kColorMap
   {{
     df::TrafficG0,
     df::TrafficG1,
@@ -317,9 +317,21 @@ df::ColorConstant TrafficGenerator::GetColorBySpeedGroup(traffic::SpeedGroup con
     df::TrafficUnknown,
   }};
 
+  static array<df::ColorConstant, kSpeedGroupsCount> const kColorMapRoute
+  {{
+    df::RouteTrafficG0,
+    df::RouteTrafficG1,
+    df::RouteTrafficG2,
+    df::RouteTrafficG3,
+    df::TrafficG4,
+    df::TrafficG5,
+    df::TrafficTempBlock,
+    df::TrafficUnknown,
+  }};
+
   size_t const index = static_cast<size_t>(speedGroup);
   ASSERT_LESS(index, kSpeedGroupsCount, ());
-  return colorMap[index];
+  return route ? kColorMapRoute[index] : kColorMap[index];
 }
 
 void TrafficGenerator::FillColorsCache(ref_ptr<dp::TextureManager> textures)
@@ -331,7 +343,7 @@ void TrafficGenerator::FillColorsCache(ref_ptr<dp::TextureManager> textures)
     for (size_t i = 0; i < kSpeedGroupsCount; i++)
     {
       dp::TextureManager::ColorRegion colorRegion;
-      auto const colorConstant = GetColorBySpeedGroup(static_cast<traffic::SpeedGroup>(i));
+      auto const colorConstant = GetColorBySpeedGroup(static_cast<traffic::SpeedGroup>(i), false /* route */);
       textures->GetColorRegion(df::GetColorConstant(style, colorConstant), colorRegion);
       m_colorsCache[i] = colorRegion;
     }
