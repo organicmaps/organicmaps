@@ -185,4 +185,6 @@ add_subdirectory(partners_api)
 omim_add_test_subdirectory(qt_tstfrm)
 omim_add_test_subdirectory(3party/gmock)
 
-add_subdirectory(qt)
+if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
+    add_subdirectory(qt)
+endif()
