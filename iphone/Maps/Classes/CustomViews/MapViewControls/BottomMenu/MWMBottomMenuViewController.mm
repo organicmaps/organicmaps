@@ -19,7 +19,7 @@
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
-#import "TimeUtils.h"
+#import "SwiftBridge.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
 #import "UIImageView+Coloring.h"
@@ -175,7 +175,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   self.navigationInfo = info;
   if (self.routingInfoPageControl.currentPage == 0)
   {
-    self.timeLabel.text = [NSDateFormatter estimatedArrivalTimeWithSeconds:info.timeToTarget];
+    self.timeLabel.text = [NSDateComponentsFormatter etaStringFrom:info.timeToTarget];
   }
   else
   {

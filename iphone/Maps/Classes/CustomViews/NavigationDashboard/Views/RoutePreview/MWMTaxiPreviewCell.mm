@@ -1,5 +1,5 @@
 #import "MWMTaxiPreviewCell.h"
-#import "TimeUtils.h"
+#import "SwiftBridge.h"
 
 #include "partners_api/uber_api.hpp"
 
@@ -29,7 +29,7 @@
   if (!strings::to_double(product.m_time, time))
     NSAssert(false, @"Incorrect time");
 
-  NSString * formatted = [NSDateFormatter estimatedArrivalTimeWithSeconds:time];
+  NSString * formatted = [NSDateComponentsFormatter etaStringFrom:time];
   NSString * pattern = [L(@"taxi_wait") stringByReplacingOccurrencesOfString:@"%s" withString:@"%@"];
   self.waitingTime.text = [NSString stringWithFormat:pattern, formatted];
   self.price.text = @(product.m_price.c_str());

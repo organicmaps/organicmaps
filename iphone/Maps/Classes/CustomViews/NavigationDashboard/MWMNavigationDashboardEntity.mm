@@ -3,7 +3,7 @@
 #import "MWMLocationManager.h"
 #import "MWMSettings.h"
 #import "MapsAppDelegate.h"
-#import "TimeUtils.h"
+#import "SwiftBridge.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
 
@@ -58,7 +58,7 @@ using namespace routing::turns;
     NSForegroundColorAttributeName : UIColor.blackPrimaryText,
     NSFontAttributeName : UIFont.medium17
   };
-  NSString * eta = [NSDateFormatter estimatedArrivalTimeWithSeconds:_timeToTarget];
+  NSString * eta = [NSDateComponentsFormatter etaStringFrom:_timeToTarget];
   NSString * resultString =
       [NSString stringWithFormat:@"%@ • %@ %@", eta, _targetDistance, _targetUnits];
   NSMutableAttributedString * result =
