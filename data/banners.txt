@@ -47,3 +47,4 @@ end = 2017-01-15
 [raileurope]
 end = 2017-01-15
 url = http://www.anrdoezrs.net/links/8196243/type/dlg/fragment/%2Fptp_request/https://mobile.raileurope.com/app/index.html
+messages = banner_tutu
