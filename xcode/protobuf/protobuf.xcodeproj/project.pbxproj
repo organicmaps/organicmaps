@@ -168,6 +168,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558581DBF3D2E00A4FC11 /* common-debug.xcconfig */;
 			buildSettings = {
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/protobuf/src",
@@ -180,6 +181,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558591DBF3D2E00A4FC11 /* common-release.xcconfig */;
 			buildSettings = {
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/protobuf/src",

@@ -1929,6 +1929,7 @@
 			baseConfigurationReference = 34F558661DBF474D00A4FC11 /* common-debug.xcconfig */;
 			buildSettings = {
 				FT2_BUILD_LIBRARY = 1;
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/freetype/include",
@@ -1942,6 +1943,7 @@
 			baseConfigurationReference = 34F558671DBF474D00A4FC11 /* common-release.xcconfig */;
 			buildSettings = {
 				FT2_BUILD_LIBRARY = 1;
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/freetype/include",

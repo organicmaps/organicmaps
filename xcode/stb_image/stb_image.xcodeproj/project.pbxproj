@@ -136,6 +136,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34EBB47E1DBF52D3005BE9B8 /* common-debug.xcconfig */;
 			buildSettings = {
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 			};
 			name = Debug;
 		};
@@ -143,6 +144,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34EBB47F1DBF52D3005BE9B8 /* common-release.xcconfig */;
 			buildSettings = {
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 			};
 			name = Release;
 		};

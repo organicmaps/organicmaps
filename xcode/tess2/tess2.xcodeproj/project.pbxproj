@@ -184,6 +184,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F5585A1DBF3DC500A4FC11 /* common-debug.xcconfig */;
 			buildSettings = {
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)",
@@ -197,6 +198,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F5585B1DBF3DC500A4FC11 /* common-release.xcconfig */;
 			buildSettings = {
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)",

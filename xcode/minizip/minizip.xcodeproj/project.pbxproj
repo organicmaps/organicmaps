@@ -172,6 +172,7 @@
 					"$(inherited)",
 					"NOCRYPT=1",
 				);
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 			};
 			name = Debug;
 		};
@@ -183,6 +184,7 @@
 					"$(inherited)",
 					"NOCRYPT=1",
 				);
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 			};
 			name = Release;
 		};

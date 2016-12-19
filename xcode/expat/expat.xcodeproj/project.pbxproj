@@ -152,6 +152,7 @@
 					"$(inherited)",
 					HAVE_MEMMOVE,
 				);
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 			};
 			name = Debug;
 		};
@@ -163,6 +164,7 @@
 					"$(inherited)",
 					HAVE_MEMMOVE,
 				);
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 			};
 			name = Release;
 		};
