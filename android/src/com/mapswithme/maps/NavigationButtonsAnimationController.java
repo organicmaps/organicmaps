@@ -30,6 +30,7 @@ class NavigationButtonsAnimationController
   {
     mZoomIn = zoomIn;
     mZoomOut = zoomOut;
+    UiUtils.showIf(showZoomButtons(), mZoomIn, mZoomOut);
     mMyPosition = myPosition;
     calculateBottomLimit();
   }
