@@ -4,6 +4,7 @@
 
 #include "std/type_traits.hpp"
 
+#include <cstddef>
 
 // #define ENDIAN_IS_BIG
 

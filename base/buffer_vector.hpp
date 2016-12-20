@@ -46,7 +46,7 @@ private:
   MoveStatic(buffer_vector<T, N> & rhs)
   {
     for (size_t i = 0; i < rhs.m_size; ++i)
-      Swap(m_static[i], rhs.m_static[i]);
+      std::swap(m_static[i], rhs.m_static[i]);
   }
 #endif
 

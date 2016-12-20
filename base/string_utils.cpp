@@ -101,14 +101,14 @@ bool to_float(char const * s, float & f)
 {
   char * stop;
   f = strtof(s, &stop);
-  return *stop == 0 && s != stop && isfinite(f);
+  return *stop == 0 && s != stop && std::isfinite(f);
 }
 
 bool to_double(char const * s, double & d)
 {
   char * stop;
   d = strtod(s, &stop);
-  return *stop == 0 && s != stop && isfinite(d);
+  return *stop == 0 && s != stop && std::isfinite(d);
 }
 
 UniString MakeLowerCase(UniString const & s)
