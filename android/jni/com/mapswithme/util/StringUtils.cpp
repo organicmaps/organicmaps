@@ -24,7 +24,7 @@ Java_com_mapswithme_util_StringUtils_nativeFilterContainsNormalized(JNIEnv * env
 {
   string substr = jni::ToNativeString(env, jSubstr);
   int const length = env->GetArrayLength(src);
-  vector<string> filtered;
+  std::vector<string> filtered;
   filtered.reserve(length);
   for (int i = 0; i < length; i++)
   {

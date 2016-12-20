@@ -76,10 +76,10 @@ jobjectArray ToJavaArray(JNIEnv * env, jclass clazz, TIt begin, TIt end, size_t 
 template<typename TContainer, typename TToJavaFn>
 jobjectArray ToJavaArray(JNIEnv * env, jclass clazz, TContainer const & src, TToJavaFn && toJavaFn)
 {
-  return ToJavaArray(env, clazz, begin(src), end(src), src.size(), forward<TToJavaFn>(toJavaFn));
+  return ToJavaArray(env, clazz, begin(src), end(src), src.size(), std::forward<TToJavaFn>(toJavaFn));
 }
 
-jobjectArray ToJavaStringArray(JNIEnv * env, vector<string> const & src);
+jobjectArray ToJavaStringArray(JNIEnv * env, std::vector<std::string> const & src);
 
 void DumpDalvikReferenceTables();
 }  // namespace jni

@@ -48,7 +48,7 @@ int ConfigComparator::configAlphaSize(EGLConfig const & config) const
 namespace
 {
 
-string GetEglError(EGLint error)
+std::string GetEglError(EGLint error)
 {
   switch (error)
   {
