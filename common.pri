@@ -127,8 +127,7 @@ win32-msvc201* {
 # unix also works for Android
 unix|win32-g++ {
   LIBS *= -lz
-  QMAKE_CXXFLAGS_WARN_ON += -Wno-strict-aliasing -Wsign-compare -Wshorten-64-to-32
-
+  QMAKE_CXXFLAGS_WARN_ON += -Wno-strict-aliasing -Wsign-compare 
   # -Wno-unused-local-typedef is not supported on clang 3.5.
   IS_CLANG35 = $$system( echo | $$QMAKE_CXX -dM -E - | grep '__clang_version__.*3\.5.*' )
   if (isEmpty(IS_CLANG35)){
@@ -136,7 +135,7 @@ unix|win32-g++ {
   }
   # TODO: Check if we really need these warnings on every platform (by syershov).
   *-clang* {
-    QMAKE_CXXFLAGS_WARN_ON += -Werror=return-type
+    QMAKE_CXXFLAGS_WARN_ON += -Werror=return-type -Wshorten-64-to-32
   }
 
 tizen{
