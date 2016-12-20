@@ -32,6 +32,16 @@ void ReconstructRoute(IDirectionsEngine * engine, IRoadGraph const & graph,
   if (engine)
     engine->Generate(graph, path, times, turnsDir, junctions, trafficSegs, cancellable);
 
+  if (cancellable.IsCancelled())
+    return;
+
+  // In case of any errors in IDirectionsEngine::Generate() |junctions| is empty.
+  if (junctions.empty())
+  {
+    LOG(LERROR, ("Internal error happened while turn generation."));
+    return;
+  }
+
   // @TODO(bykoianko) If the start and the finish of a route lies on the same road segment
   // engine->Generate() fills with empty vectors |times|, |turnsDir|, |junctions| and |trafficSegs|.
   // It's not correct and should be fixed. It's necessary to work corrrectly with such routes.
