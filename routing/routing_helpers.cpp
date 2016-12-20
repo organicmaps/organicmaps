@@ -7,7 +7,7 @@ namespace routing
 {
 using namespace traffic;
 
-void ReconstructRoute(IDirectionsEngine * engine, IRoadGraph const & graph,
+void ReconstructRoute(IDirectionsEngine & engine, IRoadGraph const & graph,
                       shared_ptr<TrafficInfo::Coloring> const & trafficColoring,
                       my::Cancellable const & cancellable, vector<Junction> & path, Route & route)
 {
@@ -29,8 +29,7 @@ void ReconstructRoute(IDirectionsEngine * engine, IRoadGraph const & graph,
   // @TODO(bykoianko) streetNames is not filled in Generate(). It should be done.
   Route::TStreets streetNames;
   vector<TrafficInfo::RoadSegmentId> trafficSegs;
-  if (engine)
-    engine->Generate(graph, path, times, turnsDir, junctions, trafficSegs, cancellable);
+  engine.Generate(graph, path, times, turnsDir, junctions, trafficSegs, cancellable);
 
   if (cancellable.IsCancelled())
     return;
