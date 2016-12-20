@@ -66,7 +66,6 @@ void IndexGraphStarter::RedressRoute(vector<Joint::Id> const & route,
 
     RoadGeometry const roadGeometry = m_graph.GetGeometry().GetRoad(featureId);
 
-    CHECK_NOT_EQUAL(pointFrom, pointTo, ("featureId =", featureId));
     uint32_t const step = pointFrom < pointTo ? 1 : -1;
 
     for (uint32_t prevPointId = pointFrom; prevPointId != pointTo; prevPointId += step)
