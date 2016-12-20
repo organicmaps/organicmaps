@@ -13,6 +13,12 @@ namespace df
 class VisualParams : private noncopyable
 {
 public:
+  static double const kMdpiScale;
+  static double const kHdpiScale;
+  static double const kXhdpiScale;
+  static double const k6plusScale;
+  static double const kXxhdpiScale;
+
   static void Init(double vs, uint32_t tileSize);
   static VisualParams & Instance();
 

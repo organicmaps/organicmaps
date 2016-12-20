@@ -32,6 +32,11 @@ static bool g_isInited = false;
 #define ASSERT_INITED
 #endif
 
+double const VisualParams::kMdpiScale = 1.0;
+double const VisualParams::kHdpiScale = 1.5;
+double const VisualParams::kXhdpiScale = 2.0;
+double const VisualParams::k6plusScale = 2.4;
+double const VisualParams::kXxhdpiScale = 3.0;
 
 void VisualParams::Init(double vs, uint32_t tileSize)
 {
@@ -77,11 +82,11 @@ string const & VisualParams::GetResourcePostfix(double visualScale)
 {
   static visual_scale_t postfixes[] =
   {
-    make_pair("mdpi", 1.0),
-    make_pair("hdpi", 1.5),
-    make_pair("xhdpi", 2.0),
-    make_pair("xxhdpi", 3.0),
-    make_pair("6plus", 2.4),
+    make_pair("mdpi", kMdpiScale),
+    make_pair("hdpi", kHdpiScale),
+    make_pair("xhdpi", kXhdpiScale),
+    make_pair("xxhdpi", kXxhdpiScale),
+    make_pair("6plus", k6plusScale),
   };
 
   // Looking for the nearest available scale.

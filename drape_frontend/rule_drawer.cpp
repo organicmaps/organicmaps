@@ -58,13 +58,10 @@ void ExtractTrafficGeometry(FeatureType const & f, df::RoadClass const & roadCla
   auto const & regionData = f.GetID().m_mwmId.GetInfo()->GetRegionData();
   bool const isLeftHandTraffic = regionData.Get(feature::RegionData::RD_DRIVING) == "l";
 
-  // Calculate road offset for two-way roads. The offset is available since a zoom level in
-  // kMinOffsetZoomLevels.
+  // Calculate offset between road lines in mercator for two-way roads.
   double twoWayOffset = 0.0;
-  static vector<int> const kMinOffsetZoomLevels = { 13, 11, 10 };
-  bool const needTwoWayOffset = !oneWay && zoomLevel > kMinOffsetZoomLevels[static_cast<int>(roadClass)];
-  if (needTwoWayOffset)
-    twoWayOffset = pixelToGlobalScale * 0.5 * df::TrafficRenderer::GetPixelWidth(roadClass, zoomLevel);
+  if (!oneWay)
+    twoWayOffset = pixelToGlobalScale * df::TrafficRenderer::GetTwoWayOffset(roadClass, zoomLevel);
 
   static vector<uint8_t> directions = {traffic::TrafficInfo::RoadSegmentId::kForwardDirection,
                                        traffic::TrafficInfo::RoadSegmentId::kReverseDirection};
@@ -93,7 +90,7 @@ void ExtractTrafficGeometry(FeatureType const & f, df::RoadClass const & roadCla
       if (segment[0].EqualDxDy(segment[1], kEps))
         break;
 
-      if (needTwoWayOffset)
+      if (!oneWay)
       {
         m2::PointD const tangent = (segment[1] - segment[0]).Normalize();
         m2::PointD const normal = isLeftHandTraffic ? m2::PointD(-tangent.y, tangent.x) :
@@ -134,12 +131,20 @@ RuleDrawer::RuleDrawer(TDrawerCallback const & fn,
 
   m_globalRect = m_context->GetTileKey().GetGlobalRect();
 
-  int32_t tileSize = df::VisualParams::Instance().GetTileSize();
+  auto & vparams = df::VisualParams::Instance();
+  int32_t tileSize = vparams.GetTileSize();
   m2::RectD const r = m_context->GetTileKey().GetGlobalRect(false /* clipByDataMaxZoom */);
   ScreenBase geometryConvertor;
   geometryConvertor.OnSize(0, 0, tileSize, tileSize);
   geometryConvertor.SetFromRect(m2::AnyRectD(r));
   m_currentScaleGtoP = 1.0f / geometryConvertor.GetScale();
+
+  // Here we support only two virtual tile size: 2048 px for high resolution and 1024 px for others.
+  // It helps to render traffic the same on wide range of devices.
+  uint32_t const kTrafficTileSize = vparams.GetVisualScale() < df::VisualParams::kXxhdpiScale ? 1024 : 2048;
+  geometryConvertor.OnSize(0, 0, kTrafficTileSize, kTrafficTileSize);
+  geometryConvertor.SetFromRect(m2::AnyRectD(r));
+  m_trafficScalePtoG = geometryConvertor.GetScale();
 
   int const kAverageOverlaysCount = 200;
   m_mapShapes[df::OverlayType].reserve(kAverageOverlaysCount);
@@ -342,7 +347,6 @@ void RuleDrawer::operator()(FeatureType const & f)
 
       bool const oneWay = ftypes::IsOneWayChecker::Instance()(f);
       auto const highwayClass = ftypes::GetHighwayClass(f);
-      double const pixelToGlobalScale = 1.0 / m_currentScaleGtoP;
       for (size_t i = 0; i < ARRAY_SIZE(checkers); ++i)
       {
         auto const & classes = checkers[i].m_highwayClasses;
@@ -355,7 +359,7 @@ void RuleDrawer::operator()(FeatureType const & f)
           f.ForEachPoint([&points](m2::PointD const & p) { points.emplace_back(p); },
                          FeatureType::BEST_GEOMETRY);
           ExtractTrafficGeometry(f, checkers[i].m_roadClass, m2::PolylineD(points), oneWay,
-                                 zoomLevel, pixelToGlobalScale, m_trafficGeometry);
+                                 zoomLevel, m_trafficScalePtoG, m_trafficGeometry);
           break;
         }
       }

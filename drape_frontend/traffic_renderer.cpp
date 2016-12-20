@@ -31,7 +31,7 @@ float const kLeftWidthInPixel[] =
   // 1   2     3     4     5     6     7     8     9    10
   0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f,
   //11   12    13   14    15    16    17   18     19    20
-  0.5f, 0.5f, 0.5f, 0.5f, 2.0f, 2.5f, 3.0f, 4.0f, 4.0f, 4.0f
+  0.5f, 0.5f, 0.5f, 0.5f, 0.7f, 2.5f, 3.0f, 4.0f, 4.0f, 4.0f
 };
 
 float const kRightWidthInPixel[] =
@@ -39,7 +39,7 @@ float const kRightWidthInPixel[] =
   // 1   2     3     4     5     6     7     8     9    10
   2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 3.0f, 3.0f,
   //11  12    13    14    15    16    17    18    19     20
-  3.0f, 3.0f, 4.0f, 4.0f, 2.0f, 2.5f, 3.0f, 4.0f, 4.0f, 4.0f
+  3.0f, 3.0f, 4.0f, 4.0f, 3.8f, 2.5f, 3.0f, 4.0f, 4.0f, 4.0f
 };
 
 float const kRoadClass1WidthScalar[] =
@@ -56,6 +56,14 @@ float const kRoadClass2WidthScalar[] =
   0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.3f,
   //11  12    13    14    15     16   17    18    19    20
   0.3f, 0.3f, 0.3f, 0.3f, 0.5f, 0.5f, 0.5f, 0.8f, 0.9f, 1.0f
+};
+
+float const kTwoWayOffsetInPixel[] =
+{
+  // 1   2     3     4     5     6     7     8     9     10
+  0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+  //11  12    13    14    15     16   17    18    19    20
+  0.0f, 0.5f, 0.5f, 0.5f, 1.0f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f
 };
 
 vector<int> const kLineDrawerRoadClass1 = {12, 13, 14};
@@ -235,6 +243,22 @@ void TrafficRenderer::Clear(MwmSet::MwmId const & mwmId)
   };
 
   m_renderData.erase(remove_if(m_renderData.begin(), m_renderData.end(), removePredicate), m_renderData.end());
+}
+
+// static
+float TrafficRenderer::GetTwoWayOffset(RoadClass const & roadClass, int zoomLevel)
+{
+  // There is no offset for class-0 roads, the offset for them is created by
+  // kLeftWidthInPixel and kRightWidthInPixel.
+  int const kRoadClass0MinZoomLevel = 14;
+  if (roadClass == RoadClass::Class0 && zoomLevel <= kRoadClass0MinZoomLevel)
+    return 0.0f;
+
+  ASSERT_GREATER(zoomLevel, 1, ());
+  ASSERT_LESS_OR_EQUAL(zoomLevel, scales::GetUpperStyleScale(), ());
+  int const index = zoomLevel - 1;
+  float const halfWidth = 0.5f * df::TrafficRenderer::GetPixelWidth(roadClass, zoomLevel);
+  return halfWidth + kTwoWayOffsetInPixel[index] * VisualParams::Instance().GetVisualScale();
 }
 
 // static
