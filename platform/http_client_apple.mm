@@ -55,12 +55,12 @@ static const double kTimeoutInSeconds = 24.0;
 bool HttpClient::RunHttpRequest()
 {
   NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:
-      [NSURL URLWithString:[NSString stringWithUTF8String:m_urlRequested.c_str()]]
+      static_cast<NSURL *>([NSURL URLWithString:@(m_urlRequested.c_str())])
       cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:kTimeoutInSeconds];
   // We handle cookies manually.
   request.HTTPShouldHandleCookies = NO;
 
-  request.HTTPMethod = [NSString stringWithUTF8String:m_httpMethod.c_str()];
+  request.HTTPMethod = @(m_httpMethod.c_str());
   for (auto const & header : m_headers)
   {
     [request setValue:@(header.second.c_str()) forHTTPHeaderField:@(header.first.c_str())];
@@ -125,7 +125,7 @@ bool HttpClient::RunHttpRequest()
       if (m_outputFile.empty())
         m_serverResponse.assign(reinterpret_cast<char const *>(url_data.bytes), url_data.length);
       else
-        [url_data writeToFile:[NSString stringWithUTF8String:m_outputFile.c_str()] atomically:YES];
+        [url_data writeToFile:@(m_outputFile.c_str()) atomically:YES];
 
     }
 

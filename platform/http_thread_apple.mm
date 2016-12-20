@@ -46,7 +46,7 @@ static id<DownloadIndicatorProtocol> downloadIndicator = nil;
 	m_expectedSize = size;
 
 	NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:
-			[NSURL URLWithString:[NSString stringWithUTF8String:url.c_str()]]
+			static_cast<NSURL *>([NSURL URLWithString:@(url.c_str())])
 			cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:TIMEOUT_IN_SECONDS];
 
 	// use Range header only if we don't download whole file from start
@@ -77,7 +77,7 @@ static id<DownloadIndicatorProtocol> downloadIndicator = nil;
 	if (url.find("mapswithme.com") != string::npos)
 	{
 		static string const uid = GetPlatform().UniqueClientId();
-		[request addValue:[NSString stringWithUTF8String: uid.c_str()] forHTTPHeaderField:@"User-Agent"];
+		[request addValue:@(uid.c_str()) forHTTPHeaderField:@"User-Agent"];
 	}
 
 #ifdef OMIM_OS_IPHONE
