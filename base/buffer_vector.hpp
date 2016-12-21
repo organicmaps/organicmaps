@@ -8,6 +8,14 @@
 #include <utility>
 #include <vector>
 
+// Calls swap() function using argument dependant lookup.
+// // Do NOT override this function, but override swap() function instead!
+template <typename T> inline void Swap(T & a, T & b)
+{
+  using std::swap;
+  swap(a, b);
+}
+
 
 template <class T, size_t N> class buffer_vector
 {
@@ -32,7 +40,7 @@ private:
   MoveStatic(buffer_vector<T, N> & rhs)
   {
     for (size_t i = 0; i < rhs.m_size; ++i)
-      std::swap(m_static[i], rhs.m_static[i]);
+      Swap(m_static[i], rhs.m_static[i]);
   }
 #else
   template <class U = T>
@@ -46,7 +54,7 @@ private:
   MoveStatic(buffer_vector<T, N> & rhs)
   {
     for (size_t i = 0; i < rhs.m_size; ++i)
-      std::swap(m_static[i], rhs.m_static[i]);
+      Swap(m_static[i], rhs.m_static[i]);
   }
 #endif
 
@@ -279,9 +287,9 @@ public:
   void swap(buffer_vector & rhs)
   {
     m_dynamic.swap(rhs.m_dynamic);
-    std::swap(m_size, rhs.m_size);
+    Swap(m_size, rhs.m_size);
     for (size_t i = 0; i < N; ++i)
-      std::swap(m_static[i], rhs.m_static[i]);
+      Swap(m_static[i], rhs.m_static[i]);
   }
 
   void push_back(T const & t)
@@ -315,7 +323,7 @@ public:
 
     if (m_size < N)
     {
-      std::swap(m_static[m_size++], t);
+      Swap(m_static[m_size++], t);
     }
     else
     {
@@ -350,7 +358,7 @@ public:
     if (m_size < N)
     {
       value_type v(std::forward<Args>(args)...);
-      std::swap(v, m_static[m_size++]);
+      Swap(v, m_static[m_size++]);
     }
     else
     {
@@ -378,7 +386,7 @@ public:
     {
       if (pos != m_size)
         for (ptrdiff_t i = m_size - 1; i >= pos; --i)
-          std::swap(m_static[i], m_static[i + n]);
+          Swap(m_static[i], m_static[i + n]);
 
       m_size += n;
       T * writableWhere = &m_static[0] + pos;
@@ -418,7 +426,7 @@ private:
     for (size_t i = 0; i < m_size; ++i)
     {
       m_dynamic.emplace_back();
-      std::swap(m_static[i], m_dynamic.back());
+      Swap(m_static[i], m_dynamic.back());
     }
     m_size = USE_DYNAMIC;
   }
