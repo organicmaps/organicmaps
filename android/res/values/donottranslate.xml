@@ -63,4 +63,11 @@
   <!-- Tags -->
   <string name="tag_menu_collapse" translatable="false">collapse</string>
   <string name="tag_height_limited" translatable="false">height limited</string>
+
+  <string name="booking_filter_rating_num_good" translatable="false">7.0+</string>
+  <string name="booking_filter_rating_num_very_good" translatable="false">8.0+</string>
+  <string name="booking_filter_rating_num_excellent" translatable="false">9.0+</string>
+  <string name="booking_filter_price_one" translatable="false">$</string>
+  <string name="booking_filter_price_two" translatable="false">$$</string>
+  <string name="booking_filter_price_three" translatable="false">$$$</string>
 </resources>

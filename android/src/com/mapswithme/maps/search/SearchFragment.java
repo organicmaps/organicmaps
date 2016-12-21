@@ -2,9 +2,10 @@ package com.mapswithme.maps.search;
 
 import android.content.Intent;
 import android.location.Location;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -21,6 +22,7 @@ import java.util.List;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
@@ -33,6 +35,7 @@ import com.mapswithme.maps.location.LocationListener;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.widget.PlaceholderView;
 import com.mapswithme.maps.widget.SearchToolbarController;
+import com.mapswithme.util.Animations;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
@@ -44,6 +47,9 @@ public class SearchFragment extends BaseMwmFragment
                                     SearchToolbarController.Container,
                                     CategoriesAdapter.OnCategorySelectedListener
 {
+  private static final float NESTED_SCROLL_DELTA =
+      -MwmApplication.get().getResources().getDimension(R.dimen.margin_half);
+
   private long mLastQueryTimestamp;
 
   private static class LastPosition
@@ -65,6 +71,12 @@ public class SearchFragment extends BaseMwmFragment
     public ToolbarController(View root)
     {
       super(root, getActivity());
+    }
+
+    @Override
+    protected boolean useExtendedToolbar()
+    {
+      return false;
     }
 
     @Override
@@ -124,6 +136,11 @@ public class SearchFragment extends BaseMwmFragment
   private View mTabFrame;
   private View mResultsFrame;
   private PlaceholderView mResultsPlaceholder;
+  private RecyclerView mResults;
+  private HotelsFilterView mFilterView;
+  private AppBarLayout mAppBarLayout;
+  @Nullable
+  private SearchFilterPanelController mFilterPanel;
 
   private SearchToolbarController mToolbarController;
 
@@ -156,6 +173,19 @@ public class SearchFragment extends BaseMwmFragment
         mSearchAdapter.notifyDataSetChanged();
     }
   };
+
+  private final AppBarLayout.OnOffsetChangedListener mOffsetListener =
+      new AppBarLayout.OnOffsetChangedListener() {
+        @Override
+        public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset)
+        {
+          if (mFilterPanel == null)
+            return;
+
+          mFilterPanel.showDivider(
+              !(Math.abs(verticalOffset) == appBarLayout.getTotalScrollRange()));
+        }
+      };
 
   private static boolean doShowDownloadSuggest()
   {
@@ -191,6 +221,8 @@ public class SearchFragment extends BaseMwmFragment
   {
     final boolean hasQuery = mToolbarController.hasQuery();
     UiUtils.showIf(hasQuery, mResultsFrame);
+    if (mFilterPanel != null)
+      mFilterPanel.show(hasQuery, mSearchAdapter.showPopulateButton());
 
     if (hasQuery)
       hideDownloadSuggest();
@@ -207,6 +239,8 @@ public class SearchFragment extends BaseMwmFragment
                           mToolbarController.hasQuery());
 
     UiUtils.showIf(show, mResultsPlaceholder);
+    if (mFilterPanel != null)
+      mFilterPanel.showPopulateButton(mSearchAdapter.showPopulateButton());
   }
 
   @Override
@@ -222,6 +256,7 @@ public class SearchFragment extends BaseMwmFragment
     readArguments();
 
     ViewGroup root = (ViewGroup) view;
+    mAppBarLayout = (AppBarLayout) root.findViewById(R.id.app_bar);
     mTabFrame = root.findViewById(R.id.tab_frame);
     ViewPager pager = (ViewPager) mTabFrame.findViewById(R.id.pages);
 
@@ -237,6 +272,51 @@ public class SearchFragment extends BaseMwmFragment
     mResultsPlaceholder.setContent(R.drawable.img_search_nothing_found_light,
                                    R.string.search_not_found, R.string.search_not_found_query);
 
+    mFilterView = (HotelsFilterView) view.findViewById(R.id.filter);
+    mFilterView.setListener(new HotelsFilterView.HotelsFilterListener()
+    {
+      @Override
+      public void onCancel()
+      {
+      }
+
+      @Override
+      public void onDone(@Nullable HotelsFilter filter)
+      {
+        if (mFilterPanel != null)
+          mFilterPanel.setFilter(filter);
+
+        runSearch();
+      }
+    });
+
+    mFilterPanel = new SearchFilterPanelController(root.findViewById(R.id.filter_frame),
+                                                   new SearchFilterPanelController.FilterPanelListener()
+    {
+      @Override
+      public void onShowOnMap()
+      {
+        showAllResultsOnMap();
+      }
+
+      @Override
+      public void onFilterClick()
+      {
+        mFilterView.open(mFilterPanel == null ? null : mFilterPanel.getFilter());
+      }
+
+      @Override
+      public void onFilterClear()
+      {
+        if (mFilterPanel == null)
+          return;
+
+        mFilterPanel.setFilter(null);
+        runSearch();
+      }
+    });
+    mFilterPanel.showFilterButton(false);
+
     if (mSearchAdapter == null)
     {
       mSearchAdapter = new SearchAdapter(this);
@@ -250,8 +330,8 @@ public class SearchFragment extends BaseMwmFragment
       });
     }
 
-    results.setLayoutManager(new LinearLayoutManager(view.getContext()));
-    results.setAdapter(mSearchAdapter);
+    mResults.setLayoutManager(new LinearLayoutManager(view.getContext()));
+    mResults.setAdapter(mSearchAdapter);
 
     updateFrames();
     updateResultsPlaceholder();
@@ -281,6 +361,7 @@ public class SearchFragment extends BaseMwmFragment
   {
     super.onResume();
     LocationHelper.INSTANCE.addListener(mLocationListener, true);
+    mAppBarLayout.addOnOffsetChangedListener(mOffsetListener);
   }
 
   @Override
@@ -288,6 +369,7 @@ public class SearchFragment extends BaseMwmFragment
   {
     LocationHelper.INSTANCE.removeListener(mLocationListener);
     super.onPause();
+    mAppBarLayout.removeOnOffsetChangedListener(mOffsetListener);
   }
 
   @Override
@@ -411,18 +493,23 @@ public class SearchFragment extends BaseMwmFragment
 
   private void runSearch()
   {
+    updateFilterButton(getQuery());
+    HotelsFilter hotelsFilter = null;
+    if (mFilterPanel != null)
+      hotelsFilter = mFilterPanel.getFilter();
+
     mLastQueryTimestamp = System.nanoTime();
     // TODO @yunitsky Implement more elegant solution.
     if (getActivity() instanceof MwmActivity)
     {
       SearchEngine.searchInteractive(
-          getQuery(), mLastQueryTimestamp, true /* isMapAndTable */, null /* hotelsFilter */);
+          getQuery(), mLastQueryTimestamp, true /* isMapAndTable */, hotelsFilter);
     }
     else
     {
       // TODO (@alexzatsepin): set up hotelsFilter correctly.
       if (!SearchEngine.search(getQuery(), mLastQueryTimestamp, mLastPosition.valid,
-              mLastPosition.lat, mLastPosition.lon, null /* hotelsFilter */))
+              mLastPosition.lat, mLastPosition.lon, hotelsFilter))
       {
         return;
       }
@@ -458,6 +545,18 @@ public class SearchFragment extends BaseMwmFragment
   public void onCategorySelected(String category)
   {
     mToolbarController.setQuery(category);
+    updateFilterButton(category);
+  }
+
+  private void updateFilterButton(String category)
+  {
+    if (mFilterPanel != null)
+    {
+      String hotel = getString(R.string.hotel);
+      boolean show = !TextUtils.isEmpty(category)
+          && category.trim().toLowerCase().equals(hotel.toLowerCase());
+      mFilterPanel.showFilterButton(show);
+    }
   }
 
   @Override
@@ -470,9 +569,12 @@ public class SearchFragment extends BaseMwmFragment
   @Override
   public boolean onBackPressed()
   {
+    if (mFilterView.close())
+      return true;
     if (mToolbarController.hasQuery())
     {
       mToolbarController.clear();
+      Animations.nestedScrollAnimation(mResults, (int) NESTED_SCROLL_DELTA, 0);
       return true;
     }
 

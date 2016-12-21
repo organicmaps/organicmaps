@@ -40,6 +40,18 @@ public class SearchActivity extends BaseMwmFragmentActivity implements CustomNav
   }
 
   @Override
+  protected boolean useTransparentStatusBar()
+  {
+    return false;
+  }
+
+  @Override
+  protected boolean useColorStatusBar()
+  {
+    return true;
+  }
+
+  @Override
   public void customOnNavigateUp()
   {
     final FragmentManager manager = getSupportFragmentManager();
