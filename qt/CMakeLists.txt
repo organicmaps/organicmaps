@@ -52,7 +52,7 @@ set(
 
 add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${RES_SOURCES} ${SRC})
 
-target_link_libraries(
+omim_link_libraries(
   ${PROJECT_NAME}
   map
   drape_frontend
@@ -81,8 +81,9 @@ target_link_libraries(
   oauthcpp
   opening_hours
   ${Qt5Core_LIBRARIES}
-  ${Qt5Widgets_LIBRARIES}
   ${Qt5Gui_LIBRARIES}
+  ${Qt5Network_LIBRARIES}
+  ${Qt5Widgets_LIBRARIES}
   ${LIBZ}
 )
 
@@ -103,6 +104,10 @@ if (PLATFORM_MAC)
     PROPERTIES
     MACOSX_BUNDLE_INFO_PLIST ${PROJECT_SOURCE_DIR}/res/Info.plist
   )
+endif()
+
+if (PLATFORM_LINUX)
+  target_link_libraries(${PROJECT_NAME} ${OPENGL_gl_LIBRARY})
 endif()
 
 function(copy_resources)

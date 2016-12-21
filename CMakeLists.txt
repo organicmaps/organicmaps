@@ -81,6 +81,10 @@ if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
   find_package(Qt5Widgets REQUIRED)
 endif()
 
+if (PLATFORM_LINUX)
+  find_package(OpenGL)
+endif()
+
 find_library(LIBZ NAMES z)
 if (LIBZ STREQUAL "LIBZ-NOTFOUND")
   message(FATAL_ERROR "Failed to find libz library.")
