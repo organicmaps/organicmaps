@@ -134,4 +134,4 @@ add_library(${PROJECT_NAME} ${SRC})
 
 omim_add_test_subdirectory(search_tests_support)
 omim_add_test_subdirectory(search_tests)
-#omim_add_test_subdirectory(search_integration_tests)
+omim_add_test_subdirectory(search_integration_tests)
