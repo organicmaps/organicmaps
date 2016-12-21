@@ -159,9 +159,12 @@ add_subdirectory(3party/minizip)
 add_subdirectory(3party/freetype)
 add_subdirectory(3party/fribidi)
 add_subdirectory(3party/expat)
-add_subdirectory(3party/libtess2)
 add_subdirectory(map)
 add_subdirectory(drape)
+
+if (PLATFORM_DESKTOP)
+  add_subdirectory(3party/libtess2)
+endif()
 
 add_compile_options(
   "-Wall"
