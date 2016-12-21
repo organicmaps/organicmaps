@@ -61,6 +61,12 @@ endif()
 
 omim_set_platform_var(PLATFORM_LINUX "linux-.*" ${LINUX_DETECTED})
 
+if (PLATFORM_LINUX OR PLATFORM_MAC OR PLATFORM_WIN)
+  set(PLATFORM_DESKTOP TRUE)
+else()
+  set(PLATFORM_DESKTOP FALSE)
+endif()
+
 # End of setting the target platform
 
 # Find installed packages
@@ -153,6 +159,7 @@ add_subdirectory(3party/minizip)
 add_subdirectory(3party/freetype)
 add_subdirectory(3party/fribidi)
 add_subdirectory(3party/expat)
+add_subdirectory(3party/libtess2)
 add_subdirectory(map)
 add_subdirectory(drape)
 
@@ -181,6 +188,10 @@ add_subdirectory(search)
 add_subdirectory(tracking)
 add_subdirectory(traffic)
 add_subdirectory(partners_api)
+
+if (PLATFORM_DESKTOP)
+  add_subdirectory(generator)
+endif()
 
 omim_add_test_subdirectory(qt_tstfrm)
 omim_add_test_subdirectory(3party/gmock)

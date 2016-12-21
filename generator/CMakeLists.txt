@@ -1,0 +1,1 @@
+omim_add_test_subdirectory(generator_tests_support)
