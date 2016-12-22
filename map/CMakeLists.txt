@@ -66,3 +66,5 @@ if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
 endif()
 
 omim_add_test_subdirectory(mwm_tests)
+omim_add_test_subdirectory(map_tests)
+omim_add_test_subdirectory(style_tests)
