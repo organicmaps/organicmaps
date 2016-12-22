@@ -204,6 +204,6 @@ endif()
 omim_add_test_subdirectory(qt_tstfrm)
 omim_add_test_subdirectory(3party/gmock)
 
-if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
+if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID AND NOT NO_DESKTOP)
     add_subdirectory(qt)
 endif()
