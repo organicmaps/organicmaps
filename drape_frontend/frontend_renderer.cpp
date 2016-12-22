@@ -491,6 +491,10 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
       m2::PointD const finishPoint = routeData->m_sourcePolyline.Back();
       m_routeRenderer->SetRouteData(move(routeData), make_ref(m_gpuProgramManager));
+      // Here we have to recache route arrows.
+      m_routeRenderer->UpdateRoute(m_userEventStream.GetCurrentScreen(),
+                                   bind(&FrontendRenderer::OnCacheRouteArrows, this, _1, _2));
+
       if (!m_routeRenderer->GetFinishPoint())
       {
         m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
