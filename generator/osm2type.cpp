@@ -558,6 +558,9 @@ namespace ftype
     bool subwayDone = false;
     bool railwayDone = false;
 
+    bool addOneway = false;
+    bool noOneway = false;
+
     // Get a copy of source types, because we will modify params in the loop;
     FeatureParams::TTypes const vTypes = params.m_Types;
     for (size_t i = 0; i < vTypes.size(); ++i)
@@ -566,9 +569,11 @@ namespace ftype
       {
         TagProcessor(p).ApplyRules
         ({
-          { "oneway", "yes", [&params] { params.AddType(types.Get(CachedTypes::ONEWAY)); }},
-          { "oneway", "1", [&params] { params.AddType(types.Get(CachedTypes::ONEWAY)); }},
-          { "oneway", "-1", [&params] { params.AddType(types.Get(CachedTypes::ONEWAY)); params.m_reverseGeometry = true; }},
+          { "oneway", "yes", [&addOneway] { addOneway = true; }},
+          { "oneway", "1", [&addOneway] { addOneway = true; }},
+          { "oneway", "-1", [&addOneway, &params] { addOneway = true; params.m_reverseGeometry = true; }},
+          { "oneway", "!", [&noOneway] { noOneway = true; }},
+          { "junction", "roundabout", [&addOneway] { addOneway = true; }},
 
           { "access", "private", [&params] { params.AddType(types.Get(CachedTypes::PRIVATE)); }},
 
@@ -586,6 +591,9 @@ namespace ftype
           { "oneway:bicycle", "!", [&params] { params.AddType(types.Get(CachedTypes::BICYCLE_BIDIR)); }},
           { "cycleway", "opposite", [&params] { params.AddType(types.Get(CachedTypes::BICYCLE_BIDIR)); }},
         });
+
+        if (addOneway && !noOneway)
+          params.AddType(types.Get(CachedTypes::ONEWAY));
 
         highwayDone = true;
       }
@@ -670,7 +678,7 @@ namespace ftype
           k.clear(); v.clear();
         }
       },
-      { "layer", "*", [&params](string & k, string & v)
+      { "layer", "*", [&params](string & /* k */, string & v)
         {
           // Get layer.
           if (params.layer == 0)
