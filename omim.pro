@@ -29,7 +29,7 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
   SUBDIRS *= platform stats storage
 
   CONFIG(desktop) {
-    SUBDIRS *= generator
+    SUBDIRS *= traffic generator
 
     generator_tool.subdir = generator/generator_tool
     generator_tool.depends = $$SUBDIRS
@@ -39,7 +39,7 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
   # Integration tests dependencies for gtool.
   # TODO(AlexZ): Avoid duplication for routing_integration_tests.
   CONFIG(gtool):!CONFIG(no-tests) {
-    SUBDIRS *= traffic map
+    SUBDIRS *= map
 
     # Booking quality check
     booking_quality_check.subdir = generator/booking_quality_check
