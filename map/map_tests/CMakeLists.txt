@@ -15,11 +15,8 @@ set(
   gps_track_test.cpp
   kmz_unarchive_test.cpp
   mwm_url_tests.cpp
+  working_time_tests.cpp
 )
-
-if (NOT PLATFORM_LINUX)
-  append(SRC working_time_tests.cpp)
-endif()
 
 omim_add_test(${PROJECT_NAME} ${SRC})
 
@@ -55,23 +52,10 @@ omim_link_libraries(
   oauthcpp
   drape_frontend
   drape
-  ${Qt5Core_LIBRARIES}
+  ${Qt5Widgets_LIBRARIES}
+  ${Qt5Network_LIBRARIES}
   ${LIBZ}
 )
 
-if (PLATFORM_MAC)
-  omim_link_libraries(
-    ${PROJECT_NAME}
-    ${Qt5Widgets_LIBRARIES}
-    "-framework OpenGL"
-  )
-endif()
-
-
-if (PLATFORM_LINUX)
-  omim_link_libraries(
-    ${PROJECT_NAME}
-    ${Qt5Network_LIBRARIES}
-    GL
-  )
-endif()
+link_opengl(${PROJECT_NAME})
+link_qt5_core(${PROJECT_NAME})

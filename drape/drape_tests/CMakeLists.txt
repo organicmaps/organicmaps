@@ -61,11 +61,12 @@ omim_link_libraries(
   stats_client
   freetype
   gmock
-  ${Qt5Core_LIBRARIES}
   ${Qt5Gui_LIBRARIES}
   ${Qt5Widgets_LIBRARIES}
   ${LIBZ}
 )
+
+link_qt5_core(${PROJECT_NAME})
 
 if (PLATFORM_MAC)
   omim_link_libraries(

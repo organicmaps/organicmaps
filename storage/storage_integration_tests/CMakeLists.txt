@@ -47,23 +47,11 @@ omim_link_libraries(
   succinct
   pugixml
   oauthcpp
-  ${Qt5Core_LIBRARIES}
+  ${Qt5Widgets_LIBRARIES}
+  ${Qt5Network_LIBRARIES}
   ${LIBZ}
 )
 
-if (PLATFORM_MAC)
-  omim_link_libraries(
-    ${PROJECT_NAME}
-    ${Qt5Widgets_LIBRARIES}
-    "-framework OpenGL"
-  )
-endif()
+link_opengl(${PROJECT_NAME})
+link_qt5_core(${PROJECT_NAME})
 
-if(PLATFORM_LINUX)
-  omim_link_libraries(
-    ${PROJECT_NAME}
-    ${Qt5Network_LIBRARIES}
-    ${Qt5OpenGL_LIBRARIES}
-    GL
-  )
-endif()

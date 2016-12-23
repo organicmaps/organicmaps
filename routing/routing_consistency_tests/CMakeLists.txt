@@ -37,14 +37,8 @@ omim_link_libraries(
   generator
   gflags
   pugixml
-  ${Qt5Core_LIBRARIES}
+  ${Qt5Widgets_LIBRARIES}
   ${LIBZ}
 )
 
-if (PLATFORM_MAC)
-  omim_link_libraries(
-    ${PROJECT_NAME}
-    ${Qt5Widgets_LIBRARIES}
-    "-framework IOKit"
-  )
-endif()
+link_qt5_core(${PROJECT_NAME})

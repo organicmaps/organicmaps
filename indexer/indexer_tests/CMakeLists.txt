@@ -65,6 +65,7 @@ omim_link_libraries(
   opening_hours
   oauthcpp
   pugixml
-  ${Qt5Core_LIBRARIES}
   ${LIBZ}
 )
+
+link_qt5_core(${PROJECT_NAME})

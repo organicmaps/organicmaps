@@ -19,7 +19,8 @@ omim_link_libraries(
   jansson
   stats_client
   ${LIBZ}
-  ${Qt5Core_LIBRARIES}
   ${Qt5Widgets_LIBRARIES}
   ${Qt5Network_LIBRARIES}
 )
+
+link_qt5_core(${PROJECT_NAME})

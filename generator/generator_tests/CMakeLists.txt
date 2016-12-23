@@ -32,15 +32,14 @@ omim_link_libraries(
   platform_tests_support
   generator
   drape_frontend
+  map
   routing
   search
   storage
   indexer
   drape
-  map
   traffic
   editor
-  oauthcpp
   platform
   geometry
   coding
@@ -57,17 +56,17 @@ omim_link_libraries(
   pugixml
   tess2
   gflags
+  oauthcpp
   opening_hours
   ${LIBZ}
-  ${Qt5Core_LIBRARIES}
 )
 
 if (PLATFORM_MAC)
   omim_link_libraries(
     ${PROJECT_NAME}
-    "-framework IOKit"
-    "-framework QuartzCore"
     "-framework Cocoa"
     "-framework SystemConfiguration"
   )
 endif()
+
+link_qt5_core(${PROJECT_NAME})

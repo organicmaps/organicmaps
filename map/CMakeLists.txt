@@ -59,12 +59,6 @@ set(
 
 add_library(${PROJECT_NAME} ${SRC})
 
-if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
-  include_directories(
-    ${Qt5OpenGL_LIBRARIES}
-  )
-endif()
-
 omim_add_test_subdirectory(mwm_tests)
 omim_add_test_subdirectory(map_tests)
 omim_add_test_subdirectory(style_tests)

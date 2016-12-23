@@ -34,10 +34,11 @@ omim_link_libraries(
   succinct
   pugixml
   stats_client
-  ${Qt5Core_LIBRARIES}
-  ${Qt5OpenGL_LIBRARIES}
   ${LIBZ}
 )
+
+link_qt5_core(${PROJECT_NAME})
+link_opengl(${PROJECT_NAME})
 
 if (PLATFORM_MAC)
   omim_link_libraries(

@@ -28,5 +28,7 @@ omim_link_libraries(
   expat
   stats_client
   ${LIBZ}
-  ${Qt5OpenGL_LIBRARIES}
 )
+
+link_opengl(${PROJECT_NAME})
+link_qt5_core(${PROJECT_NAME})
