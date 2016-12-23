@@ -38,7 +38,6 @@
     <item name="ppButtonsBackground">?panel</item>
     <item name="ppPreviewHeadOpen">@drawable/bg_place_page_head_open</item>
     <item name="ppPreviewHeadClosed">@drawable/bg_place_page_head_closed</item>
-    <item name="ppArrowDrawable">@drawable/direction</item>
 
     <item name="routingSlot">@drawable/routing_slot_background</item>
     <item name="routingSlotPressed">@drawable/routing_slot_background_pressed</item>
@@ -86,6 +85,11 @@
 
     <item name="bannerText">@color/text_banner_color</item>
     <item name="bannerBackground">@color/bg_banner_color</item>
+
+    <item name="steadyIconTint">@color/black_secondary</item>
+    <item name="steadyIconBackground">@color/black_8</item>
+    <item name="activeIconTint">@color/bg_cards</item>
+    <item name="activeIconBackground">?colorAccent</item>
   </style>
 
   <!-- Night theme -->
@@ -127,7 +131,6 @@
     <item name="ppButtonsBackground">@color/bg_window_night</item>
     <item name="ppPreviewHeadOpen">@drawable/bg_place_page_head_open_night</item>
     <item name="ppPreviewHeadClosed">@drawable/bg_place_page_head_closed_night</item>
-    <item name="ppArrowDrawable">@drawable/direction_night</item>
 
     <item name="routingSlot">@drawable/routing_slot_background_night</item>
     <item name="routingSlotPressed">@drawable/routing_slot_background_pressed_night</item>
@@ -175,5 +178,9 @@
 
     <item name="bannerText">@color/text_banner_color_night</item>
     <item name="bannerBackground">@color/bg_banner_color_night</item>
+
+    <item name="steadyIconTint">@color/white_secondary</item>
+    <item name="steadyIconBackground">@color/white_8</item>
+    <item name="activeIconTint">@color/bg_cards_night</item>
   </style>
 </resources>
