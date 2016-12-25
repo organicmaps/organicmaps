@@ -12,8 +12,9 @@ namespace m2
 template <int kDepthLevels = 31> class CellId
 {
 public:
-  // TODO: Move CellId::DEPTH_LEVELS to private.
-  static int const DEPTH_LEVELS = kDepthLevels;
+  // Use enum to avoid linker errors.
+  // Can't realize why static const or constexpr is invalid here ...
+  enum { DEPTH_LEVELS = kDepthLevels };
   static uint8_t const MAX_CHILDREN = 4;
   static uint32_t const MAX_COORD = 1U << DEPTH_LEVELS;
 
@@ -213,6 +214,18 @@ public:
     }
   };
 
+  struct GreaterLevelOrder
+  {
+    bool operator() (CellId<DEPTH_LEVELS> const & id1, CellId<DEPTH_LEVELS> const & id2) const
+    {
+      if (id1.m_Level != id2.m_Level)
+        return id1.m_Level > id2.m_Level;
+      if (id1.m_Bits != id2.m_Bits)
+        return id1.m_Bits > id2.m_Bits;
+      return false;
+    }
+  };
+
   struct LessPreOrder
   {
     bool operator() (CellId<DEPTH_LEVELS> const & id1, CellId<DEPTH_LEVELS> const & id2) const
@@ -295,7 +308,7 @@ private:
 
   CellId(uint64_t bits, int level) : m_Bits(bits), m_Level(level)
   {
-    ASSERT_LESS(level, static_cast<uint32_t>(DEPTH_LEVELS), (bits, level));
+    ASSERT_LESS(level, DEPTH_LEVELS, (bits, level));
     ASSERT_LESS(bits, 1ULL << m_Level * 2, (bits, m_Level));
     ASSERT(IsValid(), (m_Bits, m_Level));
   }
