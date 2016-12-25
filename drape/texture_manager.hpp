@@ -147,7 +147,7 @@ private:
 
   void MarkCharactersUsage(strings::UniString const & text, HybridGlyphGroup & group);
   /// it's a dummy method to support generic code
-  void MarkCharactersUsage(strings::UniString const & text, GlyphGroup & group) {}
+  void MarkCharactersUsage(strings::UniString const &, GlyphGroup &) {}
 
   template<typename TGlyphGroup>
   void FillResultBuffer(strings::UniString const & text, TGlyphGroup & group, TGlyphsBuffer & regions)

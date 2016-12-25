@@ -22,7 +22,7 @@ public:
 
   bool Update(ScreenBase const & screen) override;
 
-  virtual bool IsTapped(m2::RectD const & touchArea) const { return false; }
+  virtual bool IsTapped(m2::RectD const & /*touchArea*/) const { return false; }
   virtual void OnTapBegin(){}
   virtual void OnTap(){}
   virtual void OnTapEnd(){}
