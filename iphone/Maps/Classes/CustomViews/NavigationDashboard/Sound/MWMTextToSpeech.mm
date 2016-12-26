@@ -19,7 +19,7 @@ NSString * const kDefaultLanguage = @"en-US";
 vector<pair<string, string>> availableLanguages()
 {
   NSArray<AVSpeechSynthesisVoice *> * voices = [AVSpeechSynthesisVoice speechVoices];
-  vector<pair<string, string>> native(voices.count);
+  vector<pair<string, string>> native;
   for (AVSpeechSynthesisVoice * v in voices)
     native.emplace_back(make_pair(bcp47ToTwineLanguage(v.language), [v.language UTF8String]));
 
