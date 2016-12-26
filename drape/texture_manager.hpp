@@ -126,7 +126,7 @@ private:
       : m_texture(nullptr)
     {}
 
-    set<pair<strings::UniChar, int> > m_glyphs;
+    std::set<pair<strings::UniChar, int> > m_glyphs;
     ref_ptr<Texture> m_texture;
   };
 

@@ -66,6 +66,7 @@ namespace
 {
 
 uint32_t const kSdfBorder = 4;
+double const kNonSdfBorder = 0.2;
 int const kInvalidFont = -1;
 
 template <typename ToDo>
@@ -199,10 +200,10 @@ public:
 
     float const scale = isSdf ? 1.0f / m_sdfScale : 1.0;
 
-
     SharedBufferManager::shared_buffer_ptr_t data;
     int imageWidth = bitmap.width;
     int imageHeight = bitmap.rows;
+    int border = 0;
     if (bitmap.buffer != nullptr)
     {
       if (isSdf)
@@ -210,10 +211,29 @@ public:
         sdf_image::SdfImage img(bitmap.rows, bitmap.pitch, bitmap.buffer, m_sdfScale * kSdfBorder);
         imageWidth = img.GetWidth() * scale;
         imageHeight = img.GetHeight() * scale;
+
+        size_t const bufferSize = bitmap.rows * bitmap.pitch;
+        data = SharedBufferManager::instance().reserveSharedBuffer(bufferSize);
+        memcpy(&(*data)[0], bitmap.buffer, bufferSize);
       }
-      size_t bufferSize = bitmap.rows * bitmap.pitch;
-      data = SharedBufferManager::instance().reserveSharedBuffer(bufferSize);
-      memcpy(&(*data)[0], bitmap.buffer, bufferSize);
+      else
+      {
+        border = glyphHeight * kNonSdfBorder;
+        imageHeight += 2 * border;
+        imageWidth += 2 * border;
+
+        size_t const bufferSize = imageWidth * imageHeight;
+        data = SharedBufferManager::instance().reserveSharedBuffer(bufferSize);
+        memset(data->data(), 0, data->size());
+
+        for (size_t row = border; row < bitmap.rows + border; ++row)
+        {
+          size_t const dstBaseIndex = row * imageWidth + border;
+          size_t const srcBaseIndex = (row - border) * bitmap.pitch;
+          for (size_t column = 0; column < bitmap.pitch; ++column)
+            data->data()[dstBaseIndex + column] = bitmap.buffer[srcBaseIndex + column];
+        }
+      }
     }
 
     GlyphManager::Glyph result;
@@ -227,9 +247,9 @@ public:
     result.m_metrics = GlyphManager::GlyphMetrics
     {
       static_cast<float>(glyph->advance.x >> 16) * scale,
-      static_cast<float>(glyph->advance.y >> 16)  * scale,
-      static_cast<float>(bbox.xMin) * scale,
-      static_cast<float>(bbox.yMin) * scale,
+      static_cast<float>(glyph->advance.y >> 16) * scale,
+      static_cast<float>(bbox.xMin) * scale + border,
+      static_cast<float>(bbox.yMin) * scale + border,
       true
     };
 
@@ -323,7 +343,7 @@ private:
   FT_Face m_fontFace;
   uint32_t m_sdfScale;
 
-  set<pair<strings::UniChar, int>> m_readyGlyphs;
+  std::set<pair<strings::UniChar, int>> m_readyGlyphs;
 };
 
 }

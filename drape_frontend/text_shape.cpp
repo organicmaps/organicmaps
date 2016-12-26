@@ -210,7 +210,6 @@ void TextShape::DrawSubStringPlain(StraightTextLayout const & layout, dp::FontDe
   ASSERT(color.GetTexture() == outline.GetTexture(), ());
   state.SetColorTexture(color.GetTexture());
   state.SetMaskTexture(layout.GetMaskTexture());
-  state.SetTextureFilter(gl_const::GLNearest);
 
   gpu::TTextDynamicVertexBuffer initialDynBuffer(dynamicBuffer.size());
 

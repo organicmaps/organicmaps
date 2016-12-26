@@ -154,12 +154,13 @@ void Extract(::LineDefProto const * lineRule, df::LineViewParams & params)
 
 void CaptionDefProtoToFontDecl(CaptionDefProto const * capRule, dp::FontDecl &params)
 {
+  double const vs = df::VisualParams::Instance().GetVisualScale();
   params.m_color = ToDrapeColor(capRule->color());
-  params.m_size = max(kMinVisibleFontSize, capRule->height() * df::VisualParams::Instance().GetVisualScale());
+  params.m_size = max(kMinVisibleFontSize, capRule->height() * vs);
 
   if (capRule->has_stroke_color())
     params.m_outlineColor = ToDrapeColor(capRule->stroke_color());
-  else
+  else if (vs < df::VisualParams::kHdpiScale)
     params.m_isSdf = false;
 }
 
@@ -187,7 +188,6 @@ dp::Anchor GetAnchor(CaptionDefProto const * capRule)
       return dp::Right;
     else
       return dp::Left;
-
   }
 
   return dp::Center;
