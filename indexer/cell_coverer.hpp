@@ -12,10 +12,10 @@
 constexpr int SPLIT_RECT_CELLS_COUNT = 512;
 
 template <typename BoundsT, typename CellIdT>
-inline int SplitRectCell(CellIdT const & id, m2::RectD const & rect,
-                         array<pair<CellIdT, m2::RectD>, 4> & result)
+inline size_t SplitRectCell(CellIdT const & id, m2::RectD const & rect,
+                            array<pair<CellIdT, m2::RectD>, 4> & result)
 {
-  int index = 0;
+  size_t index = 0;
   for (int8_t i = 0; i < 4; ++i)
   {
     CellIdT const child = id.Child(i);
@@ -30,23 +30,22 @@ inline int SplitRectCell(CellIdT const & id, m2::RectD const & rect,
 }
 
 template <typename BoundsT, typename CellIdT>
-inline void CoverRect(m2::RectD rect, size_t cellsCount, int maxDepth,
-                      vector<CellIdT> & result)
+inline void CoverRect(m2::RectD rect, size_t cellsCount, int maxDepth, vector<CellIdT> & result)
 {
   ASSERT(result.empty(), ());
   {
-    // Fit rect to converter bounds.
-    if (!rect.Intersect({ BoundsT::minX, BoundsT::minY, BoundsT::maxX, BoundsT::maxY }))
+    // Cut rect with world bound coordinates.
+    if (!rect.Intersect({BoundsT::minX, BoundsT::minY, BoundsT::maxX, BoundsT::maxY}))
       return;
     ASSERT(rect.IsValid(), ());
   }
 
   CellIdT const commonCell = CellIdConverter<BoundsT, CellIdT>::Cover2PointsWithCell(
-        rect.minX(), rect.minY(), rect.maxX(), rect.maxY());
+      rect.minX(), rect.minY(), rect.maxX(), rect.maxY());
 
-  priority_queue<CellIdT,
-                 buffer_vector<CellIdT, SPLIT_RECT_CELLS_COUNT>,
-                 typename CellIdT::GreaterLevelOrder> cellQueue;
+  priority_queue<CellIdT, buffer_vector<CellIdT, SPLIT_RECT_CELLS_COUNT>,
+                 typename CellIdT::GreaterLevelOrder>
+      cellQueue;
   cellQueue.push(commonCell);
 
   maxDepth -= 1;
@@ -66,11 +65,11 @@ inline void CoverRect(m2::RectD rect, size_t cellsCount, int maxDepth,
     }
 
     array<pair<CellIdT, m2::RectD>, 4> arr;
-    int const count = SplitRectCell<BoundsT>(id, rect, arr);
+    size_t const count = SplitRectCell<BoundsT>(id, rect, arr);
 
     if (cellQueue.size() + result.size() + count <= cellsCount)
     {
-      for (int i = 0; i < count; ++i)
+      for (size_t i = 0; i < count; ++i)
       {
         if (rect.IsRectInside(arr[i].second))
           result.push_back(arr[i].first);
@@ -90,11 +89,11 @@ inline void CoverRect(m2::RectD rect, size_t cellsCount, int maxDepth,
     while (id.Level() < maxDepth)
     {
       array<pair<CellIdT, m2::RectD>, 4> arr;
-      int const count = SplitRectCell<BoundsT>(id, rect, arr);
-      if (count == 1)
-        id = arr[0].first;
-      else
+      size_t const count = SplitRectCell<BoundsT>(id, rect, arr);
+      ASSERT_GREATER(count, 0, ());
+      if (count > 1)
         break;
+      id = arr[0].first;
     }
     result.push_back(id);
   }
