@@ -627,7 +627,17 @@ using namespace osm_auth_ios;
   LOG(LINFO, ("applicationWillResignActive"));
   [self.mapViewController onGetFocus:NO];
   [MWMRouterSavedState store];
-  GetFramework().SetRenderingDisabled(false);
+  // On some devices we have to free all belong-to-graphics memory
+  // because of new OpenGL driver powered by Metal.
+  if (YES) //TODO @igrechuhin: if a device is iPhone 6S and higher.
+  {
+    GetFramework().SetRenderingDisabled(true);
+    GetFramework().OnDestroyGLContext();
+  }
+  else
+  {
+    GetFramework().SetRenderingDisabled(false);
+  }
   [MWMLocationManager applicationWillResignActive];
 }
 
@@ -663,6 +673,13 @@ using namespace osm_auth_ios;
   [self handleURLs];
   [[Statistics instance] applicationDidBecomeActive];
   GetFramework().SetRenderingEnabled();
+  // On some devices we have to free all belong-to-graphics memory
+  // because of new OpenGL driver powered by Metal.
+  if (YES) //TODO @igrechuhin: if a device is iPhone 6S and higher.
+  {
+    m2::PointU size = GetFramework().GetViewportPixelSize();
+    GetFramework().OnRecoverGLContext(static_cast<int>(size.x), static_cast<int>(size.y));
+  }
   [MWMLocationManager applicationDidBecomeActive];
   [MWMRouterSavedState restore];
   [MWMSearch addCategoriesToSpotlight];
