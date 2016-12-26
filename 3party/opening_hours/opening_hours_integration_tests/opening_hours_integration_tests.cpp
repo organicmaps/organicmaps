@@ -7,9 +7,18 @@
 #include <ctime>
 #include <map>
 
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
+#endif
+
 #include <boost/algorithm/string/case_conv.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/test/included/unit_test.hpp>
+
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
 
 namespace
 {

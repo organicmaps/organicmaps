@@ -17,7 +17,7 @@ win32-msvc* {
 }
 
 unix|win32-g++ {
-  QMAKE_CXXFLAGS_WARN_ON += -Wno-unused -Wno-extra
+  QMAKE_CXXFLAGS_WARN_ON = -w
 }
 
 
