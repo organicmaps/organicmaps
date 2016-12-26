@@ -4,7 +4,9 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,7 +19,7 @@ public class SearchFilterPanelController
   @NonNull
   private final View mFrame;
   @NonNull
-  private final View mShowOnMap;
+  private final TextView mShowOnMap;
   @NonNull
   private final View mFilterButton;
   @NonNull
@@ -31,6 +33,8 @@ public class SearchFilterPanelController
   private HotelsFilter mFilter;
 
   private final float mElevation;
+  @NonNull
+  private final String mCategory;
 
   private View.OnClickListener mClearListener = new View.OnClickListener()
   {
@@ -44,7 +48,7 @@ public class SearchFilterPanelController
 
   public interface FilterPanelListener
   {
-    void onShowOnMap();
+    void onViewClick();
     void onFilterClick();
     void onFilterClear();
   }
@@ -55,9 +59,17 @@ public class SearchFilterPanelController
   public SearchFilterPanelController(@NonNull View frame,
                                      @Nullable FilterPanelListener listener)
   {
+    this(frame, listener, R.string.search_show_on_map);
+  }
+
+  public SearchFilterPanelController(@NonNull View frame,
+                                     @Nullable FilterPanelListener listener,
+                                     @StringRes int populateButtonText)
+  {
     mFrame = frame;
     mFilterPanelListener = listener;
-    mShowOnMap = mFrame.findViewById(R.id.show_on_map);
+    mShowOnMap = (TextView) mFrame.findViewById(R.id.show_on_map);
+    mShowOnMap.setText(populateButtonText);
     mFilterButton = mFrame.findViewById(R.id.filter_button);
     mFilterIcon = (ImageView) mFilterButton.findViewById(R.id.filter_icon);
     mFilterText = (TextView) mFilterButton.findViewById(R.id.filter_text);
@@ -65,6 +77,7 @@ public class SearchFilterPanelController
 
     Resources res = mFrame.getResources();
     mElevation = res.getDimension(R.dimen.margin_quarter);
+    mCategory = res.getString(R.string.hotel).toLowerCase();
 
     initListeners();
   }
@@ -85,9 +98,13 @@ public class SearchFilterPanelController
     UiUtils.showIf(show, mDivider);
   }
 
-  void showFilterButton(boolean show)
+  public boolean updateFilterButtonVisibility(@Nullable String category)
   {
+    boolean show = !TextUtils.isEmpty(category)
+                   && category.trim().toLowerCase().equals(mCategory);
     UiUtils.showIf(show, mFilterButton);
+
+    return show;
   }
 
   private void initListeners()
@@ -98,7 +115,7 @@ public class SearchFilterPanelController
       public void onClick(View v)
       {
         if (mFilterPanelListener != null)
-          mFilterPanelListener.onShowOnMap();
+          mFilterPanelListener.onViewClick();
       }
     });
     mFilterButton.setOnClickListener(new View.OnClickListener()

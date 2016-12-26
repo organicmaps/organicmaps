@@ -15,10 +15,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.AnyRes;
 import android.support.annotation.AttrRes;
+import android.support.annotation.ColorRes;
 import android.support.annotation.DimenRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
+import android.support.annotation.StyleRes;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -431,25 +433,14 @@ public final class UiUtils
     decorViewGroup.addView(statusBarTintView);
   }
 
-  public static void setupColorStatusBar(@NonNull Activity activity, @AttrRes int statusBarColor)
+  public static void setupColorStatusBar(@NonNull Activity activity, @ColorRes int statusBarColor)
   {
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
       return;
 
-    TypedArray a = null;
-    try
-    {
-      a = activity.obtainStyledAttributes(new int[] {statusBarColor});
-      int color = a.getColor(0, ContextCompat.getColor(activity, R.color.bg_statusbar));
-      Window window = activity.getWindow();
-      window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-      window.setStatusBarColor(color);
-    }
-    finally
-    {
-      if (a != null)
-        a.recycle();
-    }
+    Window window = activity.getWindow();
+    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+    window.setStatusBarColor(ContextCompat.getColor(activity, statusBarColor));
   }
 
   public static int getCompassYOffset(@NonNull Context context)

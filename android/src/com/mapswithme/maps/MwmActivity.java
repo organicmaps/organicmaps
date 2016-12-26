@@ -17,6 +17,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -60,8 +61,11 @@ import com.mapswithme.maps.routing.RoutingPlanController;
 import com.mapswithme.maps.routing.RoutingPlanFragment;
 import com.mapswithme.maps.routing.RoutingPlanInplaceController;
 import com.mapswithme.maps.search.FloatingSearchToolbarController;
+import com.mapswithme.maps.search.HotelsFilter;
+import com.mapswithme.maps.search.HotelsFilterView;
 import com.mapswithme.maps.search.SearchActivity;
 import com.mapswithme.maps.search.SearchEngine;
+import com.mapswithme.maps.search.SearchFilterPanelController;
 import com.mapswithme.maps.search.SearchFragment;
 import com.mapswithme.maps.settings.SettingsActivity;
 import com.mapswithme.maps.settings.StoragePathManager;
@@ -93,6 +97,8 @@ import com.mapswithme.util.statistics.Statistics;
 
 import java.io.Serializable;
 import java.util.Stack;
+
+import static com.mapswithme.maps.search.SearchActivity.EXTRA_HOTELS_FILTER;
 
 public class MwmActivity extends BaseMwmFragmentActivity
                       implements MapObjectListener,
@@ -151,6 +157,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private View mPositionChooser;
 
   private ViewGroup mRootView;
+
+  @Nullable
+  private SearchFilterPanelController mFilterPanel;
+  @Nullable
+  private HotelsFilterView mHotelsFilter;
 
   private boolean mIsFragmentContainer;
   private boolean mIsFullscreen;
@@ -341,10 +352,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
       final Bundle args = new Bundle();
       args.putString(SearchActivity.EXTRA_QUERY, query);
+      if (mFilterPanel != null)
+        args.putParcelable(EXTRA_HOTELS_FILTER, mFilterPanel.getFilter());
       replaceFragment(SearchFragment.class, args, null);
     }
     else
-      SearchActivity.start(this, query);
+      SearchActivity.start(this, query, mFilterPanel != null ? mFilterPanel.getFilter() : null);
   }
 
   public void showEditor()
@@ -464,6 +477,72 @@ public class MwmActivity extends BaseMwmFragmentActivity
     initMainMenu();
     initOnmapDownloader();
     initPositionChooser();
+    initFilterPanel();
+  }
+
+  private void initFilterPanel()
+  {
+    mHotelsFilter = (HotelsFilterView) findViewById(R.id.hotels_filter);
+    if (mHotelsFilter != null)
+    {
+      mHotelsFilter.setListener(new HotelsFilterView.HotelsFilterListener()
+      {
+        @Override
+        public void onCancel()
+        {
+        }
+
+        @Override
+        public void onDone(@Nullable HotelsFilter filter)
+        {
+          if (mFilterPanel != null)
+            mFilterPanel.setFilter(filter);
+
+          runSearch();
+        }
+      });
+    }
+    View frame = findViewById(R.id.filter_frame);
+    if (frame != null)
+    {
+      mFilterPanel = new SearchFilterPanelController(
+          frame, new SearchFilterPanelController.FilterPanelListener()
+      {
+        @Override
+        public void onViewClick()
+        {
+          showSearch(mSearchController.getQuery());
+        }
+
+        @Override
+        public void onFilterClick()
+        {
+          if (mFilterPanel == null)
+            return;
+
+          if (mHotelsFilter != null)
+            mHotelsFilter.open(mFilterPanel.getFilter());
+        }
+
+        @Override
+        public void onFilterClear()
+        {
+          if (mFilterPanel == null)
+            return;
+
+          mFilterPanel.setFilter(null);
+          runSearch();
+        }
+      }, R.string.search_in_table);
+    }
+  }
+
+  private void runSearch()
+  {
+    SearchEngine.searchInteractive(mSearchController.getQuery(), System.nanoTime(),
+                                   false /* isMapAndTable */,
+                                   mFilterPanel != null ? mFilterPanel.getFilter() : null);
+    SearchEngine.showAllResults(mSearchController.getQuery());
   }
 
   private void initPositionChooser()
@@ -825,6 +904,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
       addTask(intent);
     else if (intent.hasExtra(EXTRA_UPDATE_COUNTRIES))
       showDownloader(true);
+
+    HotelsFilter filter = intent.getParcelableExtra(EXTRA_HOTELS_FILTER);
+    if (mFilterPanel != null)
+    {
+      mFilterPanel.show(filter != null || !TextUtils.isEmpty(SearchEngine.getQuery()), true);
+      mFilterPanel.setFilter(filter);
+    }
   }
 
   private void addTask(Intent intent)
@@ -961,6 +1047,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onBackPressed()
   {
+    if (mHotelsFilter != null && mHotelsFilter.close())
+      return;
+
     if (getCurrentMenu().close(true))
     {
       mFadeView.fadeOut();
@@ -1529,8 +1618,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
 
     int toolbarHeight = mSearchController.getToolbar().getHeight();
-    adjustCompassAndTraffic(visible ? toolbarHeight: UiUtils.getStatusBarHeight(this));
+    adjustCompassAndTraffic(visible ? toolbarHeight : UiUtils.getStatusBarHeight(this));
     setNavButtonsTopLimit(visible ? toolbarHeight : 0);
+    if (mFilterPanel != null)
+    {
+      mFilterPanel.show(visible && !TextUtils.isEmpty(SearchEngine.getQuery()), true);
+      mFilterPanel.updateFilterButtonVisibility(SearchEngine.getQuery());
+    }
   }
 
   @Override

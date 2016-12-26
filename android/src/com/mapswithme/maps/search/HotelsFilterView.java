@@ -60,7 +60,7 @@ public class HotelsFilterView extends FrameLayout
   protected void onFinishInflate()
   {
     mFrame = findViewById(R.id.frame);
-    mFrame.setTranslationY(mFrame.getHeight());
+    mFrame.setTranslationY(mFrame.getResources().getDisplayMetrics().heightPixels);
     mFade = findViewById(R.id.fade);
     mRating = (RatingFilterView) findViewById(R.id.rating);
     mPrice = (PriceFilterView) findViewById(R.id.price);

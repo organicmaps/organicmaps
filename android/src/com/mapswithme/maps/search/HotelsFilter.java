@@ -1,8 +1,12 @@
 package com.mapswithme.maps.search;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
-public class HotelsFilter
+import static com.mapswithme.maps.search.HotelsFilter.Op.FIELD_RATING;
+
+public class HotelsFilter implements Parcelable
 {
   // *NOTE* keep this in sync with JNI counterpart.
   public final static int TYPE_AND = 0;
@@ -29,6 +33,21 @@ public class HotelsFilter
       mLhs = lhs;
       mRhs = rhs;
     }
+
+    public And(Parcel source)
+    {
+      super(TYPE_AND);
+      mLhs = source.readParcelable(HotelsFilter.class.getClassLoader());
+      mRhs = source.readParcelable(HotelsFilter.class.getClassLoader());
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags)
+    {
+      super.writeToParcel(dest, flags);
+      dest.writeParcelable(mLhs, flags);
+      dest.writeParcelable(mRhs, flags);
+    }
   }
 
   public static class Or extends HotelsFilter
@@ -43,6 +62,21 @@ public class HotelsFilter
       super(TYPE_OR);
       mLhs = lhs;
       mRhs = rhs;
+    }
+
+    public Or(Parcel source)
+    {
+      super(TYPE_OR);
+      mLhs = source.readParcelable(HotelsFilter.class.getClassLoader());
+      mRhs = source.readParcelable(HotelsFilter.class.getClassLoader());
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags)
+    {
+      super.writeToParcel(dest, flags);
+      dest.writeParcelable(mLhs, flags);
+      dest.writeParcelable(mRhs, flags);
     }
   }
 
@@ -68,6 +102,14 @@ public class HotelsFilter
       mField = field;
       mOp = op;
     }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags)
+    {
+      super.writeToParcel(dest, flags);
+      dest.writeInt(mField);
+      dest.writeInt(mOp);
+    }
   }
 
   public static class RatingFilter extends Op
@@ -78,6 +120,19 @@ public class HotelsFilter
     {
       super(FIELD_RATING, op);
       mValue = value;
+    }
+
+    public RatingFilter(Parcel source)
+    {
+      super(FIELD_RATING, source.readInt());
+      mValue = source.readFloat();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags)
+    {
+      super.writeToParcel(dest, flags);
+      dest.writeFloat(mValue);
     }
   }
 
@@ -90,5 +145,66 @@ public class HotelsFilter
       super(FIELD_PRICE_RATE, op);
       mValue = value;
     }
+
+    public PriceRateFilter(Parcel source)
+    {
+      super(FIELD_PRICE_RATE, source.readInt());
+      mValue = source.readInt();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags)
+    {
+      super.writeToParcel(dest, flags);
+      dest.writeInt(mValue);
+    }
   }
+
+  protected HotelsFilter(Parcel in)
+  {
+    mType = in.readInt();
+  }
+
+  @Override
+  public void writeToParcel(Parcel dest, int flags)
+  {
+    dest.writeInt(mType);
+  }
+
+  @Override
+  public int describeContents()
+  {
+    return 0;
+  }
+
+  private static HotelsFilter readFromParcel(Parcel source)
+  {
+    int type = source.readInt();
+    if (type == TYPE_AND)
+      return new And(source);
+
+    if (type == TYPE_OR)
+      return new Or(source);
+
+    int field = source.readInt();
+    if (field == FIELD_RATING)
+      return new RatingFilter(source);
+
+    return new PriceRateFilter(source);
+  }
+
+  public static final Creator<HotelsFilter> CREATOR = new Creator<HotelsFilter>()
+  {
+    @Override
+    public HotelsFilter createFromParcel(Parcel in)
+    {
+      return readFromParcel(in);
+    }
+
+    @Override
+    public HotelsFilter[] newArray(int size)
+    {
+      return new HotelsFilter[size];
+    }
+  };
 }

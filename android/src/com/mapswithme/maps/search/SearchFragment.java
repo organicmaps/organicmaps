@@ -160,6 +160,7 @@ public class SearchFragment extends BaseMwmFragment
   private final LastPosition mLastPosition = new LastPosition();
   private boolean mSearchRunning;
   private String mInitialQuery;
+  private @Nullable HotelsFilter mInitialHotelsFilter;
   private boolean mFromRoutePlan;
 
   private final LocationListener mLocationListener = new LocationListener.Simple()
@@ -190,6 +191,15 @@ public class SearchFragment extends BaseMwmFragment
   private static boolean doShowDownloadSuggest()
   {
     return (MapManager.nativeGetDownloadedCount() == 0 && !MapManager.nativeIsDownloading());
+  }
+
+  @Nullable
+  public HotelsFilter getHotelsFilter()
+  {
+    if (mFilterPanel == null)
+      return null;
+
+    return mFilterPanel.getFilter();
   }
 
   private void showDownloadSuggest()
@@ -294,7 +304,7 @@ public class SearchFragment extends BaseMwmFragment
                                                    new SearchFilterPanelController.FilterPanelListener()
     {
       @Override
-      public void onShowOnMap()
+      public void onViewClick()
       {
         showAllResultsOnMap();
       }
@@ -315,7 +325,9 @@ public class SearchFragment extends BaseMwmFragment
         runSearch();
       }
     });
-    mFilterPanel.showFilterButton(false);
+    if (mInitialHotelsFilter != null)
+      mFilterPanel.setFilter(mInitialHotelsFilter);
+    mFilterPanel.updateFilterButtonVisibility(null);
 
     if (mSearchAdapter == null)
     {
@@ -337,7 +349,10 @@ public class SearchFragment extends BaseMwmFragment
     updateResultsPlaceholder();
 
     if (mInitialQuery != null)
+    {
       setQuery(mInitialQuery);
+      updateFilterButton(mInitialQuery);
+    }
     mToolbarController.activate();
 
     SearchEngine.INSTANCE.addListener(this);
@@ -400,6 +415,7 @@ public class SearchFragment extends BaseMwmFragment
       return;
 
     mInitialQuery = arguments.getString(SearchActivity.EXTRA_QUERY);
+    mInitialHotelsFilter = arguments.getParcelable(SearchActivity.EXTRA_HOTELS_FILTER);
     mFromRoutePlan = RoutingController.get().isWaitingPoiPick();
   }
 
@@ -467,9 +483,12 @@ public class SearchFragment extends BaseMwmFragment
     SearchRecents.add(query);
     mLastQueryTimestamp = System.nanoTime();
 
-    // TODO (@alexzatsepin): set up hotelsFilter correctly.
+    HotelsFilter hotelsFilter = null;
+    if (mFilterPanel != null)
+      hotelsFilter = mFilterPanel.getFilter();
+
     SearchEngine.searchInteractive(
-        query, mLastQueryTimestamp, false /* isMapAndTable */, null /* hotelsFilter */);
+        query, mLastQueryTimestamp, false /* isMapAndTable */, hotelsFilter);
     SearchEngine.showAllResults(query);
     Utils.navigateToParent(getActivity());
 
@@ -507,7 +526,6 @@ public class SearchFragment extends BaseMwmFragment
     }
     else
     {
-      // TODO (@alexzatsepin): set up hotelsFilter correctly.
       if (!SearchEngine.search(getQuery(), mLastQueryTimestamp, mLastPosition.valid,
               mLastPosition.lat, mLastPosition.lon, hotelsFilter))
       {
@@ -548,14 +566,13 @@ public class SearchFragment extends BaseMwmFragment
     updateFilterButton(category);
   }
 
-  private void updateFilterButton(String category)
+  private void updateFilterButton(@Nullable String category)
   {
     if (mFilterPanel != null)
     {
-      String hotel = getString(R.string.hotel);
-      boolean show = !TextUtils.isEmpty(category)
-          && category.trim().toLowerCase().equals(hotel.toLowerCase());
-      mFilterPanel.showFilterButton(show);
+      boolean show = mFilterPanel.updateFilterButtonVisibility(category);
+      if (!show)
+        mFilterPanel.setFilter(null);
     }
   }
 

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,11 +18,14 @@ import com.mapswithme.util.ThemeUtils;
 public class SearchActivity extends BaseMwmFragmentActivity implements CustomNavigateUpListener
 {
   public static final String EXTRA_QUERY = "search_query";
+  public static final String EXTRA_HOTELS_FILTER = "hotels_filter";
 
-  public static void start(@NonNull Activity activity, String query)
+  public static void start(@NonNull Activity activity, @Nullable String query,
+                           @Nullable HotelsFilter filter)
   {
     final Intent i = new Intent(activity, SearchActivity.class);
     i.putExtra(EXTRA_QUERY, query);
+    i.putExtra(EXTRA_HOTELS_FILTER, filter);
     activity.startActivity(i);
     activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
   }
@@ -57,6 +61,19 @@ public class SearchActivity extends BaseMwmFragmentActivity implements CustomNav
     final FragmentManager manager = getSupportFragmentManager();
     if (manager.getBackStackEntryCount() == 0)
     {
+      SearchFragment fragment =
+          (SearchFragment) manager.findFragmentByTag(SearchFragment.class.getName());
+      if (fragment != null)
+      {
+        HotelsFilter filter = fragment.getHotelsFilter();
+        if (filter != null)
+        {
+          Intent intent = NavUtils.getParentActivityIntent(this);
+          intent.putExtra(EXTRA_HOTELS_FILTER, filter);
+          NavUtils.navigateUpTo(this, intent);
+          return;
+        }
+      }
       NavUtils.navigateUpFromSameTask(this);
       overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
       return;

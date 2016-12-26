@@ -7,10 +7,10 @@
   android:layout_height="@dimen/height_block_base"
   android:padding="@dimen/margin_half"
   android:background="?cardBackground"
+  android:clipToPadding="false"
   android:visibility="gone"
   tools:visibility="visible"
-  tools:showIn="@layout/fragment_search"
-  android:clipToPadding="false">
+  tools:showIn="@layout/fragment_search">
   <TextView
     android:id="@+id/show_on_map"
     style="@style/MwmTextAppearance.Button"
