@@ -14,8 +14,10 @@
 
   <ImageView
     android:id="@+id/iv__set_visible"
-    android:layout_width="@dimen/height_item_oneline"
-    android:layout_height="@dimen/height_item_oneline"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/margin_half"
+    android:layout_marginStart="@dimen/margin_half"
     android:layout_weight="0"
     android:background="?clickableBackground"
     android:scaleType="center"

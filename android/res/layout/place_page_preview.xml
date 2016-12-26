@@ -79,8 +79,9 @@
       android:layout_height="wrap_content"
       android:layout_marginEnd="@dimen/margin_half"
       android:layout_marginRight="@dimen/margin_half"
+      android:tint="?colorAccent"
       android:scaleType="center"
-      android:src="?ppArrowDrawable"/>
+      android:src="@drawable/ic_direction_pagepreview"/>
 
     <TextView
       android:id="@+id/tv__straight_distance"

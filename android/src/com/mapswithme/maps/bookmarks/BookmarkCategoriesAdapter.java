@@ -1,6 +1,7 @@
 package com.mapswithme.maps.bookmarks;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +14,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
 import com.mapswithme.maps.widget.recycler.RecyclerLongClickListener;
-import com.mapswithme.util.ThemeUtils;
+import com.mapswithme.util.Graphics;
 
 public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<BookmarkCategoriesAdapter.ViewHolder>
 {
@@ -130,10 +131,19 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Bookm
 
     void setVisibilityState(boolean visible)
     {
-      visibilityMarker.setImageResource(ThemeUtils.isNightTheme() ? visible ? R.drawable.ic_bookmark_show_night
-                                                                            : R.drawable.ic_bookmark_hide_night
-                                                                  : visible ? R.drawable.ic_bookmark_show
-                                                                            : R.drawable.ic_bookmark_hide);
+      Drawable drawable;
+      if (visible)
+      {
+        visibilityMarker.setBackgroundResource(R.drawable.bg_active_icon);
+        drawable = Graphics.tint(visibilityMarker.getContext(), R.drawable.ic_bookmark_show, R.attr.activeIconTint);
+      }
+      else
+      {
+        visibilityMarker.setBackgroundResource(R.drawable.bg_steady_icon);
+        drawable = Graphics.tint(visibilityMarker.getContext(), R.drawable.ic_bookmark_hide,
+                                 R.attr.steadyIconTint);
+      }
+      visibilityMarker.setImageDrawable(drawable);
     }
   }
 }

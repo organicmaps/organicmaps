@@ -9,9 +9,9 @@
   <color name="text_light_hint">@color/white_lightest</color>
 
   <color name="base_accent">#FF1E96F0</color>
-  <color name="base_accent_night">#FFFFE68C</color>
+  <color name="base_accent_night">#FF4BB9E6</color>
   <color name="base_accent_pressed">#FF1C85D6</color>
-  <color name="base_accent_pressed_night">#FFCCB870</color>
+  <color name="base_accent_pressed_night">#FF3C9BBE</color>
 
   <color name="base_red">#FFF54137</color>
   <color name="base_yellow">#FFFFC30A</color>
@@ -20,9 +20,12 @@
   <color name="black_primary">#DE000000</color>   <!-- 87% black -->
   <color name="black_secondary">#8A000000</color> <!-- 54% black -->
   <color name="black_lightest">#61000000</color>  <!-- 38% black -->
+  <color name="black_8">#14000000</color> <!-- 8% black -->
   <color name="white_primary">#FFFFFFFF</color>   <!-- 100% white -->
   <color name="white_secondary">#B3FFFFFF</color> <!-- 70% white -->
   <color name="white_lightest">#4CFFFFFF</color>  <!-- 50% white -->
+  <color name="white_8">#14FFFFFF</color> <!-- 8% white -->
+  
 
   <color name="icon_tint">#FF757575</color>
   <color name="icon_tint_night">#FFC4C6C7</color>
