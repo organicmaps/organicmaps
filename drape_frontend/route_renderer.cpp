@@ -169,8 +169,8 @@ void RouteRenderer::UpdateRoute(ScreenBase const & screen, TCacheRouteArrowsCall
     if (glbHalfLen < glbHalfTextureLen)
       glbHalfLen = glbHalfTextureLen;
 
-    double const glbArrowHead =  2.0 * kArrowHeadSize * glbHalfTextureLen;
-    double const glbArrowTail =  2.0 * kArrowTailSize * glbHalfTextureLen;
+    double const glbArrowHead = 2.0 * kArrowHeadSize * glbHalfTextureLen;
+    double const glbArrowTail = 2.0 * kArrowTailSize * glbHalfTextureLen;
     double const glbMinArrowSize = glbArrowHead + glbArrowTail;
 
     double const kExtendCoef = 1.1;

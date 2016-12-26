@@ -155,7 +155,6 @@ void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel, fl
   dp::Color const darkArrowColor = df::GetColorConstant(style, df::TrafficArrowDark);
   dp::Color const outlineColor = df::GetColorConstant(style, df::TrafficOutline);
 
-  GLFunctions::glClearDepth();
   for (TrafficRenderData & renderData : m_renderData)
   {
     if (renderData.m_state.GetDrawAsLine())
