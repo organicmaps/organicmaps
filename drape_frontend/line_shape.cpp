@@ -87,9 +87,9 @@ public:
     return make_ref(m_geometry.data());
   }
 
-  size_t GetLineSize() override
+  uint32_t GetLineSize() override
   {
-    return m_geometry.size();
+    return static_cast<uint32_t>(m_geometry.size());
   }
 
   ref_ptr<void> GetJoinData() override
@@ -97,9 +97,9 @@ public:
     return make_ref(m_joinGeom.data());
   }
 
-  size_t GetJoinSize() override
+  uint32_t GetJoinSize() override
   {
-    return m_joinGeom.size();
+    return static_cast<uint32_t>(m_joinGeom.size());
   }
 
   float GetHalfWidth()
@@ -122,7 +122,7 @@ public:
     return ref_ptr<void>();
   }
 
-  size_t GetCapSize() override
+  uint32_t GetCapSize() override
   {
     return 0;
   }
@@ -219,9 +219,9 @@ public:
     return make_ref<void>(m_capGeometry.data());
   }
 
-  size_t GetCapSize() override
+  uint32_t GetCapSize() override
   {
-    return m_capGeometry.size();
+    return static_cast<uint32_t>(m_capGeometry.size());
   }
 
   void SubmitVertex(glsl::vec3 const & pivot, glsl::vec2 const & normal, bool isLeft)
@@ -548,7 +548,7 @@ void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
   {
     batcher->InsertListOfStrip(state, make_ref(&provider), dp::Batcher::VertexPerQuad);
 
-    size_t const joinSize = m_lineShapeInfo->GetJoinSize();
+    uint32_t const joinSize = m_lineShapeInfo->GetJoinSize();
     if (joinSize > 0)
     {
       dp::AttributeProvider joinsProvider(1, joinSize);
@@ -556,7 +556,7 @@ void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
       batcher->InsertTriangleList(state, make_ref(&joinsProvider));
     }
 
-    size_t const capSize = m_lineShapeInfo->GetCapSize();
+    uint32_t const capSize = m_lineShapeInfo->GetCapSize();
     if (capSize > 0)
     {
       dp::AttributeProvider capProvider(1, capSize);

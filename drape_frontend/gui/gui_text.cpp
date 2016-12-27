@@ -466,7 +466,7 @@ void MutableLabelHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator
   m_textView->SetText(result, m_content);
   m_size = m2::PointF(result.m_boundRect.SizeX(), result.m_boundRect.SizeY());
 
-  size_t byteCount = result.m_buffer.size() * sizeof(MutableLabel::DynamicVertex);
+  uint32_t byteCount = static_cast<uint32_t>(result.m_buffer.size()) * sizeof(MutableLabel::DynamicVertex);
 
   MutableLabel::DynamicVertex * dataPointer =
       reinterpret_cast<MutableLabel::DynamicVertex *>(mutator->AllocateMutationBuffer(byteCount));
@@ -553,7 +553,7 @@ m2::PointF MutableLabelDrawer::Draw(Params const & params, ref_ptr<dp::TextureMa
 
   dp::BindingInfo const & sBinding = MutableLabel::StaticVertex::GetBindingInfo();
   dp::BindingInfo const & dBinding = MutableLabel::DynamicVertex::GetBindingInfo();
-  dp::AttributeProvider provider(2 /*stream count*/, staticData.m_buffer.size());
+  dp::AttributeProvider provider(2 /*stream count*/, static_cast<uint32_t>(staticData.m_buffer.size()));
   provider.InitStream(0 /*stream index*/, sBinding,
                       make_ref(staticData.m_buffer.data()));
   provider.InitStream(1 /*stream index*/, dBinding, make_ref(dynData.data()));

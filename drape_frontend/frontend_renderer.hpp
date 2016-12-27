@@ -249,7 +249,7 @@ private:
 
   bool IsPerspective() const;
 
-  void PrepareGpsTrackPoints(size_t pointsCount);
+  void PrepareGpsTrackPoints(uint32_t pointsCount);
 
   void PullToBoundArea(bool randomPlace, bool applyZoom);
 

@@ -85,7 +85,7 @@ void RenderBucket::Render(bool drawAsLine)
   {
     // in simple case when overlay is symbol each element will be contains 6 indexes
     AttributeBufferMutator attributeMutator;
-    IndexBufferMutator indexMutator(6 * m_overlay.size());
+    IndexBufferMutator indexMutator(static_cast<uint32_t>(6 * m_overlay.size()));
     ref_ptr<IndexBufferMutator> rfpIndex = make_ref(&indexMutator);
     ref_ptr<AttributeBufferMutator> rfpAttrib = make_ref(&attributeMutator);
 

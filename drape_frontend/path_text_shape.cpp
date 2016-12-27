@@ -226,7 +226,7 @@ PathTextShape::PathTextShape(m2::SharedSpline const & spline,
   , m_params(params)
 {}
 
-uint64_t PathTextShape::GetOverlayPriority(size_t textIndex, bool followingMode) const
+uint64_t PathTextShape::GetOverlayPriority(uint32_t textIndex, bool followingMode) const
 {
   // Overlay priority for path text shapes considers length of the text and index of text.
   // Greater text length has more priority, because smaller texts have more chances to be shown along the road.
@@ -259,7 +259,7 @@ void PathTextShape::DrawPathTextPlain(ref_ptr<dp::TextureManager> textures,
   gpu::TTextStaticVertexBuffer staticBuffer;
   gpu::TTextDynamicVertexBuffer dynBuffer;
   SharedTextLayout layoutPtr(layout.release());
-  for (size_t textIndex = 0; textIndex < offsets.size(); ++textIndex)
+  for (uint32_t textIndex = 0; textIndex < static_cast<uint32_t>(offsets.size()); ++textIndex)
   {
     float offset = offsets[textIndex];
     staticBuffer.clear();
@@ -268,7 +268,7 @@ void PathTextShape::DrawPathTextPlain(ref_ptr<dp::TextureManager> textures,
     layoutPtr->CacheStaticGeometry(color, staticBuffer);
     dynBuffer.resize(staticBuffer.size());
 
-    dp::AttributeProvider provider(2, staticBuffer.size());
+    dp::AttributeProvider provider(2, static_cast<uint32_t>(staticBuffer.size()));
     provider.InitStream(0, gpu::TextStaticVertex::GetBindingInfo(), make_ref(staticBuffer.data()));
     provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(), make_ref(dynBuffer.data()));
 
@@ -301,7 +301,7 @@ void PathTextShape::DrawPathTextOutlined(ref_ptr<dp::TextureManager> textures,
   gpu::TTextOutlinedStaticVertexBuffer staticBuffer;
   gpu::TTextDynamicVertexBuffer dynBuffer;
   SharedTextLayout layoutPtr(layout.release());
-  for (size_t textIndex = 0; textIndex < offsets.size(); ++textIndex)
+  for (uint32_t textIndex = 0; textIndex < static_cast<uint32_t>(offsets.size()); ++textIndex)
   {
     float offset = offsets[textIndex];
     staticBuffer.clear();
@@ -310,7 +310,7 @@ void PathTextShape::DrawPathTextOutlined(ref_ptr<dp::TextureManager> textures,
     layoutPtr->CacheStaticGeometry(color, outline, staticBuffer);
     dynBuffer.resize(staticBuffer.size());
 
-    dp::AttributeProvider provider(2, staticBuffer.size());
+    dp::AttributeProvider provider(2, static_cast<uint32_t>(staticBuffer.size()));
     provider.InitStream(0, gpu::TextOutlinedStaticVertex::GetBindingInfo(), make_ref(staticBuffer.data()));
     provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(), make_ref(dynBuffer.data()));
 

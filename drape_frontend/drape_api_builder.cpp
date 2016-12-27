@@ -22,7 +22,7 @@ void BuildText(string const & str, dp::FontDecl const & font, m2::PointD const &
   for (gui::StaticLabel::Vertex & v : result.m_buffer)
     v.m_position = glsl::vec3(pt, 0.0f);
 
-  dp::AttributeProvider provider(1 /* streamCount */, result.m_buffer.size());
+  dp::AttributeProvider provider(1 /* streamCount */, static_cast<uint32_t>(result.m_buffer.size()));
   provider.InitStream(0 /* streamIndex */, gui::StaticLabel::Vertex::GetBindingInfo(),
                       make_ref(result.m_buffer.data()));
 

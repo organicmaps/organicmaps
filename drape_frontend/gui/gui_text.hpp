@@ -182,7 +182,7 @@ public:
     dp::FontDecl m_font;
     m2::PointF m_pivot;
     string m_alphabet;
-    size_t m_maxLength;
+    uint32_t m_maxLength;
     THandleCreator m_handleCreator;
   };
 

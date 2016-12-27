@@ -27,7 +27,7 @@ public:
   bool IsTextDirty() const;
   string const & GetRulerText() const;
   void ResetTextDirtyFlag();
-  void GetTextInitInfo(string & alphabet, size_t & size) const;
+  void GetTextInitInfo(string & alphabet, uint32_t & size) const;
 
 private:
   double CalcMetresDiff(double value);

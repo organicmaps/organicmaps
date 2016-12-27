@@ -188,7 +188,7 @@ bool ReadManager::CheckTileKey(TileKey const & tileKey) const
   return false;
 }
 
-size_t ReadManager::ReadCount()
+uint32_t ReadManager::ReadCount()
 {
   return max(static_cast<int>(GetPlatform().CpuCores()) - 2, 2);
 }

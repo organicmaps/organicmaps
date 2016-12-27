@@ -147,7 +147,7 @@ void CacheUserPoints(UserMarksProvider const * provider, ref_ptr<dp::TextureMana
     {
       outShapes.emplace_back(UserMarkShape(state, move(b), key));
     });
-    dp::AttributeProvider attribProvider(1, buffer.size());
+    dp::AttributeProvider attribProvider(1, static_cast<uint32_t>(buffer.size()));
     attribProvider.InitStream(0, UPV::GetBinding(), make_ref(buffer.data()));
     batcher.InsertListOfStrip(state, make_ref(&attribProvider), dp::Batcher::VertexPerQuad);
   }

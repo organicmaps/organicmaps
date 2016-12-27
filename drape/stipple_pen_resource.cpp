@@ -60,8 +60,8 @@ void StipplePenHandle::Init(buffer_vector<uint8_t, 8> const & pattern)
   // ....
   // 0 - 5 bits = reserved
 
-  uint32_t patternSize = pattern.size();
-  ASSERT(patternSize >= 1 && patternSize < 9, (patternSize));
+  ASSERT(pattern.size() >= 1 && pattern.size() < 9, (pattern.size()));
+  uint32_t const patternSize = static_cast<uint32_t>(pattern.size());
 
   m_keyValue = patternSize - 1; // we code value 1 as 000 and value 8 as 111
   for (size_t i = 0; i < patternSize; ++i)
@@ -178,15 +178,15 @@ void StipplePenIndex::UploadResources(ref_ptr<Texture> texture)
 
   SharedBufferManager & mng = SharedBufferManager::instance();
   uint32_t const bytesPerNode = kMaxStipplePenLength * kStippleHeight;
-  uint32_t reserveBufferSize = my::NextPowOf2(pendingNodes.size() * bytesPerNode);
+  uint32_t reserveBufferSize = my::NextPowOf2(static_cast<uint32_t>(pendingNodes.size()) * bytesPerNode);
   SharedBufferManager::shared_buffer_ptr_t ptr = mng.reserveSharedBuffer(reserveBufferSize);
   uint8_t * rawBuffer = SharedBufferManager::GetRawPointer(ptr);
   memset(rawBuffer, 0, reserveBufferSize);
   for (size_t i = 0; i < pendingNodes.size(); ++i)
     pendingNodes[i].second.Rasterize(rawBuffer + i * bytesPerNode);
 
-  texture->UploadData(0, pendingNodes.front().first.minY(),
-                      kMaxStipplePenLength, pendingNodes.size() * kStippleHeight, make_ref(rawBuffer));
+  texture->UploadData(0, pendingNodes.front().first.minY(), kMaxStipplePenLength,
+                      static_cast<uint32_t>(pendingNodes.size()) * kStippleHeight, make_ref(rawBuffer));
 
   mng.freeSharedBuffer(reserveBufferSize, ptr);
 }

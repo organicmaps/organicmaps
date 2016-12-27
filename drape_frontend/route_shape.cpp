@@ -414,8 +414,8 @@ void RouteShape::CacheRouteArrows(ref_ptr<dp::TextureManager> mng, m2::PolylineD
                          depth, geometry, joinsGeometry);
   }
 
-  BatchGeometry(state, make_ref(geometry.data()), geometry.size(),
-                make_ref(joinsGeometry.data()), joinsGeometry.size(),
+  BatchGeometry(state, make_ref(geometry.data()), static_cast<uint32_t>(geometry.size()),
+                make_ref(joinsGeometry.data()), static_cast<uint32_t>(joinsGeometry.size()),
                 AV::GetBindingInfo(), routeArrowsData.m_arrows);
 }
 
@@ -441,13 +441,13 @@ void RouteShape::CacheRoute(ref_ptr<dp::TextureManager> textures, RouteData & ro
 
   dp::GLState state = dp::GLState(gpu::ROUTE_PROGRAM, dp::GLState::GeometryLayer);
   state.SetColorTexture(textures->GetSymbolsTexture());
-  BatchGeometry(state, make_ref(geometry.data()), geometry.size(),
-                make_ref(joinsGeometry.data()), joinsGeometry.size(),
+  BatchGeometry(state, make_ref(geometry.data()), static_cast<uint32_t>(geometry.size()),
+                make_ref(joinsGeometry.data()), static_cast<uint32_t>(joinsGeometry.size()),
                 RV::GetBindingInfo(), routeData.m_route);
 }
 
-void RouteShape::BatchGeometry(dp::GLState const & state, ref_ptr<void> geometry, size_t geomSize,
-                               ref_ptr<void> joinsGeometry, size_t joinsGeomSize,
+void RouteShape::BatchGeometry(dp::GLState const & state, ref_ptr<void> geometry, uint32_t geomSize,
+                               ref_ptr<void> joinsGeometry, uint32_t joinsGeomSize,
                                dp::BindingInfo const & bindingInfo, RouteRenderProperty & property)
 {
   size_t const verticesCount = geomSize + joinsGeomSize;

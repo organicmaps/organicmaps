@@ -45,7 +45,7 @@ void CPUBuffer::Seek(uint32_t elementNumber)
 
 uint32_t CPUBuffer::GetCurrentElementNumber() const
 {
-  uint32_t pointerDiff = GetCursor() - Data();
+  uint32_t pointerDiff = static_cast<uint32_t>(GetCursor() - Data());
   ASSERT(pointerDiff % GetElementSize() == 0, ());
   return pointerDiff / GetElementSize();
 }

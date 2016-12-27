@@ -141,7 +141,7 @@ void LoadSymbols(string const & skinPathName, bool convertToUV,
 
     {
       ReaderPtr<Reader> reader = GetStyleReader().GetResourceReader(SymbolsTextureName + ".png", skinPathName);
-      size_t const size = reader.Size();
+      size_t const size = static_cast<size_t>(reader.Size());
       rawData.resize(size);
       reader.Read(0, &rawData[0], size);
     }
@@ -153,7 +153,7 @@ void LoadSymbols(string const & skinPathName, bool convertToUV,
   }
 
   int w, h, bpp;
-  unsigned char * data = stbi_png_load_from_memory(&rawData[0], rawData.size(), &w, &h, &bpp, 0);
+  unsigned char * data = stbi_png_load_from_memory(&rawData[0], static_cast<int>(rawData.size()), &w, &h, &bpp, 0);
   ASSERT_EQUAL(bpp, 4, ("Incorrect symbols texture format"));
 
   if (width == w && height == h)

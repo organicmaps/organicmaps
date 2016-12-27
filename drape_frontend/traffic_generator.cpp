@@ -150,7 +150,7 @@ void TrafficGenerator::FlushSegmentsGeometry(TileKey const & tileKey, TrafficSeg
             if (staticGeometry.empty())
               continue;
 
-            m_providerLines.Reset(staticGeometry.size());
+            m_providerLines.Reset(static_cast<uint32_t>(staticGeometry.size()));
             m_providerLines.UpdateStream(0 /* stream index */, make_ref(staticGeometry.data()));
 
             dp::GLState curLineState = lineState;
@@ -165,7 +165,7 @@ void TrafficGenerator::FlushSegmentsGeometry(TileKey const & tileKey, TrafficSeg
             if (staticGeometry.empty())
               continue;
 
-            m_providerTriangles.Reset(staticGeometry.size());
+            m_providerTriangles.Reset(static_cast<uint32_t>(staticGeometry.size()));
             m_providerTriangles.UpdateStream(0 /* stream index */, make_ref(staticGeometry.data()));
             batcher->InsertTriangleList(state, make_ref(&m_providerTriangles));
           }

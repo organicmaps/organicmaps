@@ -77,7 +77,7 @@ void GpsTrackHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mu
   ASSERT(node.first.GetElementSize() == sizeof(GpsTrackDynamicVertex), ());
   ASSERT(node.second.m_count == m_buffer.size(), ());
 
-  uint32_t const byteCount = m_buffer.size() * sizeof(GpsTrackDynamicVertex);
+  uint32_t const byteCount = static_cast<uint32_t>(m_buffer.size()) * sizeof(GpsTrackDynamicVertex);
   void * buffer = mutator->AllocateMutationBuffer(byteCount);
   memcpy(buffer, m_buffer.data(), byteCount);
 
@@ -167,7 +167,7 @@ void GpsTrackShape::Draw(ref_ptr<dp::TextureManager> texMng, GpsTrackRenderData 
 
   drape_ptr<dp::OverlayHandle> handle = make_unique_dp<GpsTrackHandle>(data.m_pointsCount);
 
-  dp::AttributeProvider provider(2 /* stream count */, staticVertexData.size());
+  dp::AttributeProvider provider(2 /* stream count */, static_cast<uint32_t>(staticVertexData.size()));
   provider.InitStream(0 /* stream index */, GetGpsTrackStaticBindingInfo(), make_ref(staticVertexData.data()));
   provider.InitStream(1 /* stream index */, GetGpsTrackDynamicBindingInfo(), make_ref(dynamicVertexData.data()));
   batcher.InsertListOfStrip(GetGpsTrackState(texMng), make_ref(&provider), move(handle), kVerticesInPoint);

@@ -121,7 +121,7 @@ void ColorPalette::UploadResources(ref_ptr<Texture> texture)
 
     size_t const pixelStride = uploadRect.SizeX();
     size_t const byteCount = kBytesPerPixel * uploadRect.SizeX() * uploadRect.SizeY();
-    size_t const bufferSize = my::NextPowOf2(byteCount);
+    size_t const bufferSize = static_cast<size_t>(my::NextPowOf2(static_cast<uint32_t>(byteCount)));
 
     SharedBufferManager::shared_buffer_ptr_t buffer = SharedBufferManager::instance().reserveSharedBuffer(bufferSize);
     uint8_t * pointer = SharedBufferManager::GetRawPointer(buffer);
@@ -139,7 +139,7 @@ void ColorPalette::UploadResources(ref_ptr<Texture> texture)
         currentY = c.m_rect.minY();
       }
 
-      uint32_t const byteStride = pixelStride * kBytesPerPixel;
+      uint32_t const byteStride = static_cast<uint32_t>(pixelStride * kBytesPerPixel);
       uint8_t const red = c.m_color.GetRed();
       uint8_t const green = c.m_color.GetGreen();
       uint8_t const blue = c.m_color.GetBlue();

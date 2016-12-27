@@ -56,10 +56,10 @@ public:
       }
     }
 
-    int m_width;
-    int m_height;
+    uint32_t m_width;
+    uint32_t m_height;
 
-    int m_bitmapRows;
+    uint32_t m_bitmapRows;
     int m_bitmapPitch;
 
     SharedBufferManager::shared_buffer_ptr_t m_data;

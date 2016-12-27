@@ -114,8 +114,8 @@ private:
   static void PrepareArrowGeometry(vector<m2::PointD> const & path, m2::PointD const & pivot,
                                    m2::RectF const & texRect, float depthStep, float depth,
                                    TArrowGeometryBuffer & geometry, TArrowGeometryBuffer & joinsGeometry);
-  static void BatchGeometry(dp::GLState const & state, ref_ptr<void> geometry, size_t geomSize,
-                            ref_ptr<void> joinsGeometry, size_t joinsGeomSize,
+  static void BatchGeometry(dp::GLState const & state, ref_ptr<void> geometry, uint32_t geomSize,
+                            ref_ptr<void> joinsGeometry, uint32_t joinsGeomSize,
                             dp::BindingInfo const & bindingInfo, RouteRenderProperty & property);
 };
 

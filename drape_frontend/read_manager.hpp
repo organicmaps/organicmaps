@@ -41,7 +41,7 @@ public:
 
   void SetTrafficEnabled(bool trafficEnabled);
 
-  static size_t ReadCount();
+  static uint32_t ReadCount();
 
 private:
   void OnTaskFinished(threads::IRoutine * task);

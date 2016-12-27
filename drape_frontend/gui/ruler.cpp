@@ -232,7 +232,7 @@ void Ruler::DrawRuler(m2::PointF & size, ShapeControl & control, ref_ptr<dp::Tex
 void Ruler::DrawText(m2::PointF & size, ShapeControl & control, ref_ptr<dp::TextureManager> tex, bool isAppearing) const
 {
   string alphabet;
-  size_t maxTextLength;
+  uint32_t maxTextLength;
   RulerHelper & helper = DrapeGui::GetRulerHelper();
   helper.GetTextInitInfo(alphabet, maxTextLength);
 

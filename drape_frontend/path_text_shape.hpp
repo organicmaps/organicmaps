@@ -18,7 +18,7 @@ public:
   MapShapeType GetType() const override { return MapShapeType::OverlayType; }
 
 private:
-  uint64_t GetOverlayPriority(size_t textIndex, bool followingMode) const;
+  uint64_t GetOverlayPriority(uint32_t textIndex, bool followingMode) const;
 
   void DrawPathTextPlain(ref_ptr<dp::TextureManager> textures,
                          ref_ptr<dp::Batcher> batcher,
