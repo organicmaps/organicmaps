@@ -1,5 +1,6 @@
 #pragma once
 
+#include "base/logging.hpp"
 
 #if defined(__clang__)
 #pragma clang diagnostic push
@@ -12,8 +13,6 @@
 #if defined(__clang__)
 #pragma clang diagnostic pop
 #endif
-
-#include "base/logging.hpp"
 
 template <typename DispatcherT>
 class XmlParser : public CExpatImpl< XmlParser<DispatcherT> >
