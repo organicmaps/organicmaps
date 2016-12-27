@@ -13,23 +13,21 @@ IndexGraph::IndexGraph(unique_ptr<GeometryLoader> loader, shared_ptr<EdgeEstimat
   ASSERT(m_estimator, ());
 }
 
-void IndexGraph::GetEdgeList(Joint::Id jointId, bool isOutgoing, vector<JointEdge> & edges)
+void IndexGraph::GetEdgeList(Segment const & segment, bool isOutgoing, vector<SegmentEdge> & edges)
 {
-  m_jointIndex.ForEachPoint(jointId, [this, &edges, isOutgoing](RoadPoint const & rp) {
-    GetNeighboringEdges(rp, isOutgoing, edges);
-  });
-}
+  RoadPoint const roadPoint = segment.GetRoadPoint(isOutgoing);
+  Joint::Id const jointId = m_roadIndex.GetJointId(roadPoint);
 
-m2::PointD const & IndexGraph::GetPoint(Joint::Id jointId)
-{
-  return m_geometry.GetPoint(m_jointIndex.GetPoint(jointId));
-}
-
-m2::PointD const & IndexGraph::GetPoint(RoadPoint const & rp)
-{
-  RoadGeometry const & road = GetGeometry().GetRoad(rp.GetFeatureId());
-  CHECK_LESS(rp.GetPointId(), road.GetPointsCount(), ());
-  return road.GetPoint(rp.GetPointId());
+  if (jointId != Joint::kInvalidId)
+  {
+    m_jointIndex.ForEachPoint(jointId, [&](RoadPoint const & rp) {
+      GetNeighboringEdges(segment, rp, isOutgoing, edges);
+    });
+  }
+  else
+  {
+    GetNeighboringEdges(segment, roadPoint, isOutgoing, edges);
+  }
 }
 
 void IndexGraph::Build(uint32_t numJoints) { m_jointIndex.Build(m_roadIndex, numJoints); }
@@ -41,62 +39,34 @@ void IndexGraph::Import(vector<Joint> const & joints)
   Build(static_cast<uint32_t>(joints.size()));
 }
 
-Joint::Id IndexGraph::InsertJoint(RoadPoint const & rp)
+double IndexGraph::CalcSegmentWeight(Segment const & segment)
 {
-  Joint::Id const existId = m_roadIndex.GetJointId(rp);
-  if (existId != Joint::kInvalidId)
-    return existId;
-
-  Joint::Id const jointId = m_jointIndex.InsertJoint(rp);
-  m_roadIndex.AddJoint(rp, jointId);
-  return jointId;
+  return m_estimator->CalcSegmentWeight(segment, m_geometry.GetRoad(segment.GetFeatureId()));
 }
 
-bool IndexGraph::JointLiesOnRoad(Joint::Id jointId, uint32_t featureId) const
-{
-  bool result = false;
-  m_jointIndex.ForEachPoint(jointId, [&result, featureId](RoadPoint const & rp) {
-    if (rp.GetFeatureId() == featureId)
-      result = true;
-  });
-
-  return result;
-}
-
-void IndexGraph::GetNeighboringEdges(RoadPoint const & rp, bool isOutgoing,
-                                     vector<JointEdge> & edges)
+void IndexGraph::GetNeighboringEdges(Segment const & from, RoadPoint const & rp, bool isOutgoing,
+                                     vector<SegmentEdge> & edges)
 {
   RoadGeometry const & road = m_geometry.GetRoad(rp.GetFeatureId());
-
   bool const bidirectional = !road.IsOneWay();
-  if (!isOutgoing || bidirectional)
-    GetNeighboringEdge(road, rp, false /* forward */, edges);
 
-  if (isOutgoing || bidirectional)
-    GetNeighboringEdge(road, rp, true /* forward */, edges);
-}
-
-void IndexGraph::GetNeighboringEdge(RoadGeometry const & road, RoadPoint const & rp, bool forward,
-                                    vector<JointEdge> & edges) const
-{
-  pair<Joint::Id, uint32_t> const & neighbor = m_roadIndex.FindNeighbor(rp, forward);
-  if (neighbor.first != Joint::kInvalidId)
+  if ((isOutgoing || bidirectional) && rp.GetPointId() + 1 < road.GetPointsCount())
   {
-    double const distance =
-        m_estimator->CalcEdgesWeight(rp.GetFeatureId(), road, rp.GetPointId(), neighbor.second);
-    edges.push_back({neighbor.first, distance});
+    GetNeighboringEdge(from, Segment(rp.GetFeatureId(), rp.GetPointId(), isOutgoing), isOutgoing,
+                       edges);
+  }
+
+  if ((!isOutgoing || bidirectional) && rp.GetPointId() > 0)
+  {
+    GetNeighboringEdge(from, Segment(rp.GetFeatureId(), rp.GetPointId() - 1, !isOutgoing),
+                       isOutgoing, edges);
   }
 }
 
-void IndexGraph::GetDirectedEdge(uint32_t featureId, uint32_t pointFrom, uint32_t pointTo,
-                                 Joint::Id target, bool forward, vector<JointEdge> & edges)
+void IndexGraph::GetNeighboringEdge(Segment const & from, Segment const & to, bool isOutgoing,
+                                    vector<SegmentEdge> & edges)
 {
-  RoadGeometry const & road = m_geometry.GetRoad(featureId);
-
-  if (road.IsOneWay() && forward != (pointFrom < pointTo))
-    return;
-
-  double const distance = m_estimator->CalcEdgesWeight(featureId, road, pointFrom, pointTo);
-  edges.emplace_back(target, distance);
+  double const weight = CalcSegmentWeight(isOutgoing ? to : from);
+  edges.emplace_back(to, weight);
 }
 }  // namespace routing

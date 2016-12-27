@@ -4,23 +4,8 @@
 
 namespace routing
 {
-Joint::Id JointIndex::InsertJoint(RoadPoint const & rp)
-{
-  Joint::Id const jointId = GetNumJoints();
-  m_points.emplace_back(rp);
-  m_offsets.emplace_back(m_points.size());
-  return jointId;
-}
-
-void JointIndex::AppendToJoint(Joint::Id jointId, RoadPoint const & rp)
-{
-  m_dynamicJoints[jointId].AddPoint(rp);
-}
-
 void JointIndex::Build(RoadIndex const & roadIndex, uint32_t numJoints)
 {
-  m_dynamicJoints.clear();
-
   // + 1 is protection for 'End' method from out of bounds.
   // Call End(numJoints-1) requires more size, so add one more item.
   // Therefore m_offsets.size() == numJoints + 1,

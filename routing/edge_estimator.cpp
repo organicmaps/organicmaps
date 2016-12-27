@@ -41,8 +41,7 @@ public:
   // EdgeEstimator overrides:
   void Start(MwmSet::MwmId const & mwmId) override;
   void Finish() override;
-  double CalcEdgesWeight(uint32_t featureId, RoadGeometry const & road, uint32_t pointFrom,
-                         uint32_t pointTo) const override;
+  double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road) const override;
   double CalcHeuristic(m2::PointD const & from, m2::PointD const & to) const override;
 
 private:
@@ -67,12 +66,10 @@ void CarEdgeEstimator::Finish()
   m_trafficColoring.reset();
 }
 
-double CarEdgeEstimator::CalcEdgesWeight(uint32_t featureId, RoadGeometry const & road,
-                                         uint32_t pointFrom, uint32_t pointTo) const
+double CarEdgeEstimator::CalcSegmentWeight(Segment const & segment, RoadGeometry const & road) const
 {
-  uint32_t const start = min(pointFrom, pointTo);
-  uint32_t const finish = max(pointFrom, pointTo);
-  ASSERT_LESS(finish, road.GetPointsCount(), ());
+  ASSERT_LESS(segment.GetPointId(true /* front */), road.GetPointsCount(), ());
+  ASSERT_LESS(segment.GetPointId(false /* front */), road.GetPointsCount(), ());
 
   // Current time estimation are too optimistic.
   // Need more accurate tuning: traffic lights, traffic jams, road models and so on.
@@ -80,23 +77,21 @@ double CarEdgeEstimator::CalcEdgesWeight(uint32_t featureId, RoadGeometry const 
   // TODO: make accurate tuning, remove penalty.
   double constexpr kTimePenalty = 1.8;
 
-  double result = 0.0;
   double const speedMPS = road.GetSpeed() * kKMPH2MPS;
-  auto const dir = pointFrom < pointTo ? TrafficInfo::RoadSegmentId::kForwardDirection
-                                       : TrafficInfo::RoadSegmentId::kReverseDirection;
-  for (uint32_t i = start; i < finish; ++i)
+  double result = TimeBetweenSec(road.GetPoint(segment.GetPointId(false /* front */)),
+                                 road.GetPoint(segment.GetPointId(true /* front */)), speedMPS) *
+                  kTimePenalty;
+
+  if (m_trafficColoring)
   {
-    double edgeWeight =
-        TimeBetweenSec(road.GetPoint(i), road.GetPoint(i + 1), speedMPS) * kTimePenalty;
-    if (m_trafficColoring)
-    {
-      auto const it = m_trafficColoring->find(TrafficInfo::RoadSegmentId(featureId, i, dir));
-      SpeedGroup const speedGroup = (it == m_trafficColoring->cend()) ? SpeedGroup::Unknown
-                                                                      : it->second;
-      ASSERT_LESS(speedGroup, SpeedGroup::Count, ());
-      edgeWeight *= CalcTrafficFactor(speedGroup);
-    }
-    result += edgeWeight;
+    auto const dir = segment.IsForward() ? TrafficInfo::RoadSegmentId::kForwardDirection
+                                         : TrafficInfo::RoadSegmentId::kReverseDirection;
+    auto const it = m_trafficColoring->find(
+        TrafficInfo::RoadSegmentId(segment.GetFeatureId(), segment.GetSegmentIdx(), dir));
+    SpeedGroup const speedGroup =
+        (it == m_trafficColoring->cend()) ? SpeedGroup::Unknown : it->second;
+    ASSERT_LESS(speedGroup, SpeedGroup::Count, ());
+    result *= CalcTrafficFactor(speedGroup);
   }
 
   return result;

@@ -4,97 +4,85 @@
 #include "routing/joint.hpp"
 #include "routing/route_point.hpp"
 
+#include "std/limits.hpp"
 #include "std/utility.hpp"
+#include "std/vector.hpp"
 
 namespace routing
 {
-// The problem:
-// IndexGraph contains only road points connected in joints.
-// So it is possible IndexGraph doesn't contain start and finish.
-//
-// IndexGraphStarter adds fake start and finish joint ids for AStarAlgorithm.
-//
+// IndexGraphStarter adds fake start and finish vertexes for AStarAlgorithm.
 class IndexGraphStarter final
 {
 public:
   // AStarAlgorithm types aliases:
-  using TVertexType = Joint::Id;
-  using TEdgeType = JointEdge;
+  using TVertexType = Segment;
+  using TEdgeType = SegmentEdge;
 
-  IndexGraphStarter(IndexGraph & graph, RoadPoint const & startPoint,
-                    RoadPoint const & finishPoint);
-
-  IndexGraph & GetGraph() const { return m_graph; }
-  Joint::Id GetStartJoint() const { return m_start.m_jointId; }
-  Joint::Id GetFinishJoint() const { return m_finish.m_jointId; }
-
-  m2::PointD const & GetPoint(Joint::Id jointId);
-  m2::PointD const & GetPoint(RoadPoint const & rp);
-
-  void GetOutgoingEdgesList(Joint::Id jointId, vector<JointEdge> & edges)
+  class FakeVertex final
   {
-    GetEdgesList(jointId, true /* isOutgoing */, edges);
-  }
+  public:
+    FakeVertex(uint32_t featureId, uint32_t segmentIdx, m2::PointD const & point)
+      : m_featureId(featureId), m_segmentIdx(segmentIdx), m_point(point)
+    {
+    }
 
-  void GetIngoingEdgesList(Joint::Id jointId, vector<JointEdge> & edges)
-  {
-    GetEdgesList(jointId, false /* isOutgoing */, edges);
-  }
+    uint32_t GetFeatureId() const { return m_featureId; }
+    uint32_t GetSegmentIdx() const { return m_segmentIdx; }
+    m2::PointD const & GetPoint() const { return m_point; }
 
-  double HeuristicCostEstimate(Joint::Id from, Joint::Id to)
-  {
-    return m_graph.GetEstimator().CalcHeuristic(GetPoint(from), GetPoint(to));
-  }
+    bool Fits(Segment const & segment) const
+    {
+      return segment.GetFeatureId() == m_featureId && segment.GetSegmentIdx() == m_segmentIdx;
+    }
 
-  // Add intermediate points to route (those don't correspond to any joint).
-  //
-  // Also convert joint ids to RoadPoints.
-  void RedressRoute(vector<Joint::Id> const & route, vector<RoutePoint> & routePoints);
-
-private:
-  struct FakeJoint final
-  {
-    FakeJoint(IndexGraph const & graph, RoadPoint const & point, Joint::Id fakeId);
-
-    void SetupJointId(IndexGraph const & graph);
-    bool BelongsToGraph() const { return m_jointId != m_fakeId; }
-
-    RoadPoint const m_point;
-    Joint::Id const m_fakeId;
-    Joint::Id m_jointId;
+  private:
+    uint32_t const m_featureId;
+    uint32_t const m_segmentIdx;
+    m2::PointD const m_point;
   };
 
-  template <typename F>
-  void ForEachPoint(Joint::Id jointId, F && f) const
+  IndexGraphStarter(IndexGraph & graph, FakeVertex const & start, FakeVertex const & finish);
+
+  IndexGraph & GetGraph() const { return m_graph; }
+  Segment const & GetStart() const { return kStartFakeSegment; }
+  Segment const & GetFinish() const { return kFinishFakeSegment; }
+  m2::PointD const & GetPoint(Segment const & segment, bool isOutgoing);
+
+  static size_t GetRouteNumPoints(vector<Segment> const & route);
+  m2::PointD const & GetRoutePoint(vector<Segment> const & route, size_t pointIndex);
+
+  void GetOutgoingEdgesList(TVertexType const & segment, vector<TEdgeType> & edges)
   {
-    if (jointId == m_start.m_fakeId)
-    {
-      f(m_start.m_point);
-      return;
-    }
-
-    if (jointId == m_finish.m_fakeId)
-    {
-      f(m_finish.m_point);
-      return;
-    }
-
-    m_graph.ForEachPoint(jointId, forward<F>(f));
+    GetEdgesList(segment, true /* isOutgoing */, edges);
   }
 
-  void GetEdgesList(Joint::Id jointId, bool isOutgoing, vector<JointEdge> & edges);
-  void GetFakeEdges(FakeJoint const & from, FakeJoint const & to, bool isOutgoing,
-                    vector<JointEdge> & edges);
-  void GetArrivalFakeEdges(Joint::Id jointId, FakeJoint const & fakeJoint, bool isOutgoing,
-                           vector<JointEdge> & edges);
+  void GetIngoingEdgesList(TVertexType const & segment, vector<TEdgeType> & edges)
+  {
+    GetEdgesList(segment, false /* isOutgoing */, edges);
+  }
 
-  // Find two road points lying on the same feature.
-  // If there are several pairs of such points, return pair with minimal distance.
-  void FindPointsWithCommonFeature(Joint::Id jointId0, Joint::Id jointId1, RoadPoint & result0,
-                                   RoadPoint & result1);
+  double HeuristicCostEstimate(TVertexType const & from, TVertexType const & to)
+  {
+    return m_graph.GetEstimator().CalcHeuristic(GetPoint(from, true /* front */),
+                                                GetPoint(to, true /* front */));
+  }
+
+private:
+  static Segment constexpr kStartFakeSegment =
+      Segment(numeric_limits<uint32_t>::max(), numeric_limits<uint32_t>::max(), false);
+  static Segment constexpr kFinishFakeSegment =
+      Segment(numeric_limits<uint32_t>::max(), numeric_limits<uint32_t>::max(), true);
+
+  void GetEdgesList(Segment const & segment, bool isOutgoing, vector<SegmentEdge> & edges);
+  void GetFakeToNormalEdges(FakeVertex const & fakeVertex, vector<SegmentEdge> & edges);
+  void GetFakeToNormalEdge(FakeVertex const & fakeVertex, bool forward,
+                           vector<SegmentEdge> & edges);
+  void GetNormalToFakeEdge(Segment const & segment, FakeVertex const & fakeVertex,
+                           Segment const & fakeSegment, bool isOutgoing,
+                           vector<SegmentEdge> & edges);
 
   IndexGraph & m_graph;
-  FakeJoint m_start;
-  FakeJoint m_finish;
+  FakeVertex const m_start;
+  FakeVertex const m_finish;
 };
 }  // namespace routing

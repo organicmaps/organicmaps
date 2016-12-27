@@ -32,19 +32,9 @@ public:
   {
     for (uint32_t i = Begin(jointId); i < End(jointId); ++i)
       f(m_points[i]);
-
-    auto const & it = m_dynamicJoints.find(jointId);
-    if (it != m_dynamicJoints.end())
-    {
-      Joint const & joint = it->second;
-      for (size_t i = 0; i < joint.GetSize(); ++i)
-        f(joint.GetEntry(i));
-    }
   }
 
   void Build(RoadIndex const & roadIndex, uint32_t numJoints);
-  Joint::Id InsertJoint(RoadPoint const & rp);
-  void AppendToJoint(Joint::Id jointId, RoadPoint const & rp);
 
 private:
   // Begin index for jointId entries.
@@ -64,6 +54,5 @@ private:
 
   vector<uint32_t> m_offsets;
   vector<RoadPoint> m_points;
-  unordered_map<Joint::Id, Joint> m_dynamicJoints;
 };
 }  // namespace routing

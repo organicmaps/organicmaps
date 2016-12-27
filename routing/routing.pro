@@ -110,6 +110,7 @@ HEADERS += \
     routing_serialization.hpp \
     routing_session.hpp \
     routing_settings.hpp \
+    segment.hpp \
     single_mwm_router.hpp \
     speed_camera.hpp \
     turn_candidate.hpp \

@@ -6,6 +6,7 @@
 #include "routing/joint_index.hpp"
 #include "routing/road_index.hpp"
 #include "routing/road_point.hpp"
+#include "routing/segment.hpp"
 
 #include "geometry/point2d.hpp"
 
@@ -17,35 +18,16 @@
 
 namespace routing
 {
-class JointEdge final
-{
-public:
-  JointEdge(Joint::Id target, double weight) : m_target(target), m_weight(weight) {}
-  Joint::Id GetTarget() const { return m_target; }
-  double GetWeight() const { return m_weight; }
-
-private:
-  // Target is vertex going to for outgoing edges, vertex going from for ingoing edges.
-  Joint::Id const m_target;
-  double const m_weight;
-};
-
 class IndexGraph final
 {
 public:
   IndexGraph() = default;
   explicit IndexGraph(unique_ptr<GeometryLoader> loader, shared_ptr<EdgeEstimator> estimator);
 
-  // Creates edge for points in same feature.
-  void GetDirectedEdge(uint32_t featureId, uint32_t pointFrom, uint32_t pointTo, Joint::Id target,
-                       bool forward, vector<JointEdge> & edges);
-  void GetNeighboringEdges(RoadPoint const & rp, bool isOutgoing, vector<JointEdge> & edges);
+  // Put outgoing (or ingoing) egdes for segment to the 'edges' vector.
+  void GetEdgeList(Segment const & segment, bool isOutgoing, vector<SegmentEdge> & edges);
 
-  // Put outgoing (or ingoing) egdes for jointId to the 'edges' vector.
-  void GetEdgeList(Joint::Id jointId, bool isOutgoing, vector<JointEdge> & edges);
   Joint::Id GetJointId(RoadPoint const & rp) const { return m_roadIndex.GetJointId(rp); }
-  m2::PointD const & GetPoint(Joint::Id jointId);
-  m2::PointD const & GetPoint(RoadPoint const & rp);
 
   Geometry & GetGeometry() { return m_geometry; }
   EdgeEstimator const & GetEstimator() const { return *m_estimator; }
@@ -57,8 +39,6 @@ public:
 
   void Build(uint32_t numJoints);
   void Import(vector<Joint> const & joints);
-  Joint::Id InsertJoint(RoadPoint const & rp);
-  bool JointLiesOnRoad(Joint::Id jointId, uint32_t featureId) const;
 
   void PushFromSerializer(Joint::Id jointId, RoadPoint const & rp)
   {
@@ -71,15 +51,12 @@ public:
     m_roadIndex.ForEachRoad(forward<F>(f));
   }
 
-  template <typename F>
-  void ForEachPoint(Joint::Id jointId, F && f) const
-  {
-    m_jointIndex.ForEachPoint(jointId, forward<F>(f));
-  }
-
 private:
-  void GetNeighboringEdge(RoadGeometry const & road, RoadPoint const & rp, bool forward,
-                          vector<JointEdge> & edges) const;
+  double CalcSegmentWeight(Segment const & segment);
+  void GetNeighboringEdges(Segment const & from, RoadPoint const & rp, bool isOutgoing,
+                           vector<SegmentEdge> & edges);
+  void GetNeighboringEdge(Segment const & from, Segment const & to, bool isOutgoing,
+                          vector<SegmentEdge> & edges);
 
   Geometry m_geometry;
   shared_ptr<EdgeEstimator> m_estimator;

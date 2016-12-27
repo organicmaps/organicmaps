@@ -44,9 +44,14 @@ using namespace traffic;
 //      F0      F1          F8
 //    ↗          ↖         |
 // 0 *              *--F7--->*
+//                  ^
+//                  F9
+//                  |
+//-1                *
 //   0       1      2       3
 //                Start
-// Note. This graph contains of 9 one segment directed features.
+//
+// Note. This graph consists of 10 one segment directed features.
 unique_ptr<IndexGraph> BuildXXGraph(shared_ptr<EdgeEstimator> estimator)
 {
   unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
@@ -68,10 +73,12 @@ unique_ptr<IndexGraph> BuildXXGraph(shared_ptr<EdgeEstimator> estimator)
                   RoadGeometry::Points({{2.0, 0.0}, {3.0, 0.0}}));
   loader->AddRoad(8 /* featureId */, true /* oneWay */, 1.0 /* speed */,
                   RoadGeometry::Points({{3.0, 0.0}, {3.0, 1.0}}));
+  loader->AddRoad(9 /* featureId */, true /* oneWay */, 1.0 /* speed */,
+                  RoadGeometry::Points({{2.0, -1.0}, {2.0, 0.0}}));
 
   vector<Joint> const joints = {
       MakeJoint({{0 /* feature id */, 0 /* point id */}}), /* joint at point (0, 0) */
-      MakeJoint({{1, 0}, {7, 0}}),                         /* joint at point (2, 0) */
+      MakeJoint({{1, 0}, {7, 0}, {9, 1}}),                 /* joint at point (2, 0) */
       MakeJoint({{0, 1}, {1, 1}, {2, 0}, {3, 0}}),         /* joint at point (1, 1) */
       MakeJoint({{2, 1}}),                                 /* joint at point (0, 2) */
       MakeJoint({{3, 1}, {4, 1}, {5, 0}, {6, 0}}),         /* joint at point (2, 2) */
@@ -127,8 +134,10 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_EmptyTrafficColoring)
   SetEstimator({} /* coloring */);
 
   unique_ptr<IndexGraph> graph = BuildXXGraph(GetEstimator());
-  IndexGraphStarter starter(*graph, RoadPoint(1, 0) /* start */, RoadPoint(6, 1) /* finish */);
-  vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {1, 1}, {2, 2}, {3, 3}};
+  IndexGraphStarter::FakeVertex const start(9, 0, m2::PointD(2.0, -1.0));
+  IndexGraphStarter::FakeVertex const finish(6, 0, m2::PointD(3.0, 3.0));
+  IndexGraphStarter starter(*graph, start, finish);
+  vector<m2::PointD> const expectedGeom = {{2 /* x */, -1 /* y */}, {2, 0}, {1, 1}, {2, 2}, {3, 3}};
   TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
 }
 
@@ -141,8 +150,10 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_G0onF3)
   SetEstimator(move(coloring));
 
   unique_ptr<IndexGraph> graph = BuildXXGraph(GetEstimator());
-  IndexGraphStarter starter(*graph, RoadPoint(1, 0) /* start */, RoadPoint(6, 1) /* finish */);
-  vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {3, 0}, {3, 1}, {2, 2}, {3, 3}};
+  IndexGraphStarter::FakeVertex const start(9, 0, m2::PointD(2.0, -1.0));
+  IndexGraphStarter::FakeVertex const finish(6, 0, m2::PointD(3.0, 3.0));
+  IndexGraphStarter starter(*graph, start, finish);
+  vector<m2::PointD> const expectedGeom = {{2 /* x */, -1 /* y */}, {2, 0}, {3, 0}, {3, 1}, {2, 2}, {3, 3}};
   EstimatorGuard guard(MwmSet::MwmId(), *GetEstimator());
   TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
 }
@@ -156,8 +167,10 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_TempBlockonF3)
   SetEstimator(move(coloring));
 
   unique_ptr<IndexGraph> graph = BuildXXGraph(GetEstimator());
-  IndexGraphStarter starter(*graph, RoadPoint(1, 0) /* start */, RoadPoint(6, 1) /* finish */);
-  vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {3, 0}, {3, 1}, {2, 2}, {3, 3}};
+  IndexGraphStarter::FakeVertex const start(9, 0, m2::PointD(2.0, -1.0));
+  IndexGraphStarter::FakeVertex const finish(6, 0, m2::PointD(3.0, 3.0));
+  IndexGraphStarter starter(*graph, start, finish);
+  vector<m2::PointD> const expectedGeom = {{2 /* x */, -1 /* y */}, {2, 0}, {3, 0}, {3, 1}, {2, 2}, {3, 3}};
   EstimatorGuard guard(MwmSet::MwmId(), *GetEstimator());
   TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
 }
@@ -171,8 +184,10 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_G0onF3ReverseDir)
   SetEstimator(move(coloring));
 
   unique_ptr<IndexGraph> graph = BuildXXGraph(GetEstimator());
-  IndexGraphStarter starter(*graph, RoadPoint(1, 0) /* start */, RoadPoint(6, 1) /* finish */);
-  vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {1, 1}, {2, 2}, {3, 3}};
+  IndexGraphStarter::FakeVertex const start(9, 0, m2::PointD(2.0, -1.0));
+  IndexGraphStarter::FakeVertex const finish(6, 0, m2::PointD(3.0, 3.0));
+  IndexGraphStarter starter(*graph, start, finish);
+  vector<m2::PointD> const expectedGeom = {{2 /* x */, -1 /* y */}, {2, 0}, {1, 1}, {2, 2}, {3, 3}};
   EstimatorGuard guard(MwmSet::MwmId(), *GetEstimator());
   TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
 }
@@ -192,8 +207,10 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_G0onF3andF6andG4onF8andF4)
   SetEstimator(move(coloring));
 
   unique_ptr<IndexGraph> graph = BuildXXGraph(GetEstimator());
-  IndexGraphStarter starter(*graph, RoadPoint(1, 0) /* start */, RoadPoint(6, 1) /* finish */);
-  vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {3, 0}, {3, 1}, {2, 2}, {3, 3}};
+  IndexGraphStarter::FakeVertex const start(9, 0, m2::PointD(2.0, -1.0));
+  IndexGraphStarter::FakeVertex const finish(6, 0, m2::PointD(3.0, 3.0));
+  IndexGraphStarter starter(*graph, start, finish);
+  vector<m2::PointD> const expectedGeom = {{2 /* x */, -1 /* y */}, {2, 0}, {3, 0}, {3, 1}, {2, 2}, {3, 3}};
   EstimatorGuard guard(MwmSet::MwmId(), *GetEstimator());
   TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
 }
@@ -204,8 +221,10 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_ChangingTraffic)
   // No trafic at all.
   SetEstimator({} /* coloring */);
   unique_ptr<IndexGraph> graph = BuildXXGraph(GetEstimator());
-  IndexGraphStarter starter(*graph, RoadPoint(1, 0) /* start */, RoadPoint(6, 1) /* finish */);
-  vector<m2::PointD> const noTrafficGeom = {{2 /* x */, 0 /* y */}, {1, 1}, {2, 2}, {3, 3}};
+  IndexGraphStarter::FakeVertex const start(9, 0, m2::PointD(2.0, -1.0));
+  IndexGraphStarter::FakeVertex const finish(6, 0, m2::PointD(3.0, 3.0));
+  IndexGraphStarter starter(*graph, start, finish);
+  vector<m2::PointD> const noTrafficGeom = {{2 /* x */, -1 /* y */}, {2, 0}, {1, 1}, {2, 2}, {3, 3}};
   {
     EstimatorGuard guard(MwmSet::MwmId(), *GetEstimator());
     TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, noTrafficGeom);
@@ -218,7 +237,7 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_ChangingTraffic)
   UpdateTrafficInfo(move(coloringHeavyF3));
   {
     EstimatorGuard guard(MwmSet::MwmId(), *GetEstimator());
-    vector<m2::PointD> const heavyF3Geom = {{2 /* x */, 0 /* y */}, {3, 0}, {3, 1}, {2, 2}, {3, 3}};
+    vector<m2::PointD> const heavyF3Geom = {{2 /* x */, -1 /* y */}, {2, 0}, {3, 0}, {3, 1}, {2, 2}, {3, 3}};
     TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, heavyF3Geom);
   }
 

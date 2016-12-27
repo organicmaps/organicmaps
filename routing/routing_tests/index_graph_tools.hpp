@@ -4,6 +4,7 @@
 #include "routing/index_graph.hpp"
 #include "routing/index_graph_starter.hpp"
 #include "routing/road_point.hpp"
+#include "routing/segment.hpp"
 
 #include "routing/base/astar_algorithm.hpp"
 
@@ -37,7 +38,7 @@ routing::Joint MakeJoint(vector<routing::RoadPoint> const & points);
 shared_ptr<routing::EdgeEstimator> CreateEstimator(traffic::TrafficCache const & trafficCache);
 
 routing::AStarAlgorithm<routing::IndexGraphStarter>::Result CalculateRoute(
-    routing::IndexGraphStarter & graph, vector<routing::RoadPoint> & roadPoints);
+    routing::IndexGraphStarter & starter, vector<routing::Segment> & roadPoints);
 
 void TestRouteSegments(
     routing::IndexGraphStarter & starter,
