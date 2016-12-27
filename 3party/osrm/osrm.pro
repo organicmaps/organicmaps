@@ -8,6 +8,10 @@ ROOT_DIR = ../..
 
 include($$ROOT_DIR/common.pri)
 
+unix|win32-g++ {
+  QMAKE_CXXFLAGS_WARN_ON = -w
+}
+
 DEFINES *= BOOST_ERROR_CODE_HEADER_ONLY
 INCLUDEPATH *= osrm-backend/include \
      osrm-backend/third_party

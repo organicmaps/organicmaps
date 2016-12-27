@@ -1,11 +1,18 @@
 #pragma once
 
-#define XML_STATIC
-
-#include "3party/expat/expat_impl.h"
-
 #include "base/logging.hpp"
 
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
+#endif
+
+#define XML_STATIC
+#include "3party/expat/expat_impl.h"
+
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
 
 template <typename DispatcherT>
 class XmlParser : public CExpatImpl< XmlParser<DispatcherT> >
