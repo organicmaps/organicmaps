@@ -1147,3 +1147,7 @@ sponsored|banner|viator
 sponsored|banner|geerbest_de
 sponsored|banner|geerbest_fr
 sponsored|banner|raileurope
+hwtag|yescar
+hwtag|nocar
+tourism|gallery
+historic|fort

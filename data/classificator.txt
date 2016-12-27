@@ -354,6 +354,7 @@ world  +
         boundary_stone  -
         castle  -
         citywalls  -
+        fort  -
         memorial  -
         monument  -
         museum  -
@@ -367,10 +368,12 @@ world  +
         bidir_bicycle  -
         lit  -
         nobicycle  -
+        nocar  -
         nofoot  -
         oneway  -
         private  -
         yesbicycle  -
+        yescar  -
         yesfoot  -
         {}
     internet_access  +
@@ -853,6 +856,7 @@ world  +
         camp_site  -
         caravan_site  -
         chalet  -
+        gallery  -
         guest_house  -
         hostel  -
         hotel  -
