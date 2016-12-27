@@ -217,7 +217,7 @@ namespace ftype
   public:
     enum EType { ENTRANCE, HIGHWAY, ADDRESS, ONEWAY, PRIVATE, LIT, NOFOOT, YESFOOT,
                  NOBICYCLE, YESBICYCLE, BICYCLE_BIDIR, SURFPGOOD, SURFPBAD, SURFUGOOD, SURFUBAD,
-                 HASPARTS,
+                 HASPARTS, NOCAR, YESCAR,
                  RW_STATION, RW_STATION_SUBWAY, WHEELCHAIR_YES };
 
     CachedTypes()
@@ -234,7 +234,7 @@ namespace ftype
         {"hwtag", "nobicycle"}, {"hwtag", "yesbicycle"}, {"hwtag", "bidir_bicycle"},
         {"psurface", "paved_good"}, {"psurface", "paved_bad"},
         {"psurface", "unpaved_good"}, {"psurface", "unpaved_bad"},
-        {"building", "has_parts"}
+        {"building", "has_parts"}, {"hwtag", "nocar"}, {"hwtag", "yescar"}
       };
       for (auto const & e : arr)
         m_types.push_back(c.GetTypeByPath(e));
@@ -576,6 +576,7 @@ namespace ftype
           { "junction", "roundabout", [&addOneway] { addOneway = true; }},
 
           { "access", "private", [&params] { params.AddType(types.Get(CachedTypes::PRIVATE)); }},
+          { "access", "!", [&params] { params.AddType(types.Get(CachedTypes::PRIVATE)); }},
 
           { "lit", "~", [&params] { params.AddType(types.Get(CachedTypes::LIT)); }},
 
@@ -590,6 +591,13 @@ namespace ftype
           { "cycleway:left", "~", [&params] { params.AddType(types.Get(CachedTypes::YESBICYCLE)); }},
           { "oneway:bicycle", "!", [&params] { params.AddType(types.Get(CachedTypes::BICYCLE_BIDIR)); }},
           { "cycleway", "opposite", [&params] { params.AddType(types.Get(CachedTypes::BICYCLE_BIDIR)); }},
+
+          { "motor_vehicle", "private", [&params] { params.AddType(types.Get(CachedTypes::NOCAR)); }},
+          { "motor_vehicle", "!", [&params] { params.AddType(types.Get(CachedTypes::NOCAR)); }},
+          { "motor_vehicle", "yes", [&params] { params.AddType(types.Get(CachedTypes::YESCAR)); }},
+          { "motorcar", "private", [&params] { params.AddType(types.Get(CachedTypes::NOCAR)); }},
+          { "motorcar", "!", [&params] { params.AddType(types.Get(CachedTypes::NOCAR)); }},
+          { "motorcar", "yes", [&params] { params.AddType(types.Get(CachedTypes::YESCAR)); }},
         });
 
         if (addOneway && !noOneway)
