@@ -3,6 +3,8 @@
 #include "base/bits.hpp"
 #include "std/cstdlib.hpp"
 
+#include <vector>
+
 namespace
 {
   template <typename T> uint32_t PopCountSimple(T x)

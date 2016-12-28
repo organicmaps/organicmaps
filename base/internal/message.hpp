@@ -1,4 +1,5 @@
 #pragma once
+
 #include <array>
 #include <deque>
 #include <functional>
@@ -6,10 +7,10 @@
 #include <iterator>
 #include <list>
 #include <map>
+#include <memory>
 #include <set>
 #include <sstream>
 #include <string>
-#include <memory>
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>

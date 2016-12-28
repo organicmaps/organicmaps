@@ -1,15 +1,13 @@
 #include "base/condition.hpp"
+#include "base/mutex.hpp"
 
 #include "std/target_os.hpp"
-
-#include "base/mutex.hpp"
 #include "std/systime.hpp"
 
 #include <pthread.h>
 
-#include <cstdint>
 #include <cerrno>
-
+#include <cstdint>
 
 namespace threads
 {

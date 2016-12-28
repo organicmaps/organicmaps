@@ -22,10 +22,10 @@
 #include "3party/agg/agg_renderer_primitives.h"
 #include "3party/agg/agg_path_storage.h"
 
-#include "std/algorithm.hpp"
 #include "std/cstdint.hpp"
 #include "std/map.hpp"
 #include "std/unique_ptr.hpp"
+#include "std/vector.hpp"
 
 namespace df
 {

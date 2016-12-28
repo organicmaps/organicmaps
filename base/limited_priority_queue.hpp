@@ -11,7 +11,7 @@ namespace my
 {
 
 // Priority queue that stores only N smallest elements.
-template <typename T, typename CompareT = std::less<T> >
+template <typename T, typename CompareT = std::less<T>>
 class limited_priority_queue
 {
 public:

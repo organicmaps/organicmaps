@@ -2,9 +2,8 @@
 
 #include "base/math.hpp"
 
-#include <iomanip>
 #include <initializer_list>
-
+#include <iomanip>
 
 namespace math
 {

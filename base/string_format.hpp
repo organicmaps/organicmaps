@@ -2,9 +2,8 @@
 #include "base/base.hpp"
 #include "base/macros.hpp"
 
-#include <string>
 #include <sstream>
-
+#include <string>
 
 namespace strings
 {

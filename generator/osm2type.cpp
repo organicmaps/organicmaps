@@ -12,8 +12,8 @@
 #include "base/string_utils.hpp"
 
 #include "std/bind.hpp"
-#include "std/initializer_list.hpp"
 #include "std/function.hpp"
+#include "std/initializer_list.hpp"
 #include "std/set.hpp"
 #include "std/vector.hpp"
 

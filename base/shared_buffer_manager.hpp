@@ -2,10 +2,10 @@
 
 #include "base/mutex.hpp"
 
-#include <vector>
-#include <memory>
 #include <list>
 #include <map>
+#include <memory>
+#include <vector>
 
 class SharedBufferManager
 {

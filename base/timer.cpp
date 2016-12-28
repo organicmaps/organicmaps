@@ -15,7 +15,6 @@
 #ifndef OMIM_OS_LINUX
 using std::get_time;
 using std::put_time;
-
 #else
 #include <cassert>
 

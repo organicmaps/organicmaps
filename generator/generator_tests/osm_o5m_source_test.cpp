@@ -4,8 +4,8 @@
 
 #include "std/iterator.hpp"
 #include "std/set.hpp"
-#include "std/vector.hpp"
 #include "std/utility.hpp"
+#include "std/vector.hpp"
 
 #include "source_data.hpp"
 

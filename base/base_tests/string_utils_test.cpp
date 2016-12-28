@@ -10,6 +10,7 @@
 #include "std/unordered_map.hpp"
 #include "std/vector.hpp"
 
+#include <sstream>
 
 /// internal function in base
 namespace strings { UniChar LowerUniChar(UniChar c); }
