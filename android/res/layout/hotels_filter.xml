@@ -41,6 +41,8 @@
         android:layout_centerVertical="true"
         android:layout_toRightOf="@id/cancel"
         android:layout_toEndOf="@id/cancel"
+        android:layout_toStartOf="@id/done"
+        android:layout_toLeftOf="@id/done"
         android:textAppearance="@style/MwmTextAppearance.Toolbar.Title"
         android:fontFamily="@string/robotoMedium"
         android:textColor="?android:textColorPrimary"

@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.Build;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.IdRes;
+import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -18,6 +20,8 @@ import android.widget.TextView;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,9 +29,15 @@ import static com.mapswithme.maps.search.HotelsFilter.Op.OP_EQ;
 
 public class PriceFilterView extends LinearLayout implements View.OnClickListener
 {
-  private static final int ONE = 1;
-  private static final int TWO = 2;
-  private static final int THREE = 3;
+  private static final int LOW = 1;
+  private static final int MEDIUM = 2;
+  private static final int HIGH = 3;
+
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({ LOW, MEDIUM, HIGH })
+  public @interface PriceDef
+  {
+  }
 
   private static class Item
   {
@@ -70,7 +80,7 @@ public class PriceFilterView extends LinearLayout implements View.OnClickListene
   private HotelsFilter mFilter;
 
   @NonNull
-  private SparseArray<Item> mItems = new SparseArray<>();
+  private final SparseArray<Item> mItems = new SparseArray<>();
 
   public PriceFilterView(Context context)
   {
@@ -98,15 +108,15 @@ public class PriceFilterView extends LinearLayout implements View.OnClickListene
   @Override
   protected void onFinishInflate()
   {
-    View one = findViewById(R.id.one);
-    one.setOnClickListener(this);
-    mItems.append(R.id.one, new Item(one, (TextView) findViewById(R.id.one_title)));
-    View two = findViewById(R.id.two);
-    two.setOnClickListener(this);
-    mItems.append(R.id.two, new Item(two, (TextView) findViewById(R.id.two_title)));
-    View three = findViewById(R.id.three);
-    three.setOnClickListener(this);
-    mItems.append(R.id.three, new Item(three, (TextView) findViewById(R.id.three_title)));
+    View low = findViewById(R.id.low);
+    low.setOnClickListener(this);
+    mItems.append(R.id.low, new Item(low, (TextView) findViewById(R.id.low_title)));
+    View medium = findViewById(R.id.medium);
+    medium.setOnClickListener(this);
+    mItems.append(R.id.medium, new Item(medium, (TextView) findViewById(R.id.medium_title)));
+    View high = findViewById(R.id.high);
+    high.setOnClickListener(this);
+    mItems.append(R.id.high, new Item(high, (TextView) findViewById(R.id.high_title)));
   }
 
   public void update(@Nullable HotelsFilter filter)
@@ -118,45 +128,25 @@ public class PriceFilterView extends LinearLayout implements View.OnClickListene
       return;
     }
 
-    if (mFilter instanceof HotelsFilter.PriceRateFilter)
+    updateRecursive(mFilter);
+  }
+
+  private void updateRecursive(@NonNull HotelsFilter filter)
+  {
+    if (filter instanceof HotelsFilter.PriceRateFilter)
     {
-      HotelsFilter.PriceRateFilter price = (HotelsFilter.PriceRateFilter) mFilter;
+      HotelsFilter.PriceRateFilter price = (HotelsFilter.PriceRateFilter) filter;
       selectByValue(price.mValue);
-      return;
     }
-
-    if (!(mFilter instanceof HotelsFilter.Or))
-      return;
-
-    HotelsFilter.Or or = (HotelsFilter.Or) mFilter;
-    if (or.mLhs instanceof HotelsFilter.PriceRateFilter)
+    else if (filter instanceof HotelsFilter.Or)
     {
-      HotelsFilter.PriceRateFilter price = (HotelsFilter.PriceRateFilter) or.mLhs;
-      selectByValue(price.mValue);
+      HotelsFilter.Or or = (HotelsFilter.Or) filter;
+      updateRecursive(or.mLhs);
+      updateRecursive(or.mRhs);
     }
     else
     {
-      return;
-    }
-
-    if (or.mRhs instanceof HotelsFilter.PriceRateFilter)
-    {
-      HotelsFilter.PriceRateFilter price = (HotelsFilter.PriceRateFilter) or.mRhs;
-      selectByValue(price.mValue);
-    }
-    else if (or.mRhs instanceof HotelsFilter.Or)
-    {
-      or = (HotelsFilter.Or) or.mRhs;
-      if (or.mLhs instanceof HotelsFilter.PriceRateFilter)
-      {
-        HotelsFilter.PriceRateFilter price = (HotelsFilter.PriceRateFilter) or.mLhs;
-        selectByValue(price.mValue);
-      }
-      if (or.mRhs instanceof HotelsFilter.PriceRateFilter)
-      {
-        HotelsFilter.PriceRateFilter price = (HotelsFilter.PriceRateFilter) or.mRhs;
-        selectByValue(price.mValue);
-      }
+      throw new AssertionError("Wrong hotels filter type");
     }
   }
 
@@ -169,23 +159,23 @@ public class PriceFilterView extends LinearLayout implements View.OnClickListene
     }
   }
 
-  private void selectByValue(int value)
+  private void selectByValue(@PriceDef int value)
   {
     switch (value)
     {
-      case ONE:
-        select(R.id.one, true);
+      case LOW:
+        select(R.id.low, true);
         break;
-      case TWO:
-        select(R.id.two, true);
+      case MEDIUM:
+        select(R.id.medium, true);
         break;
-      case THREE:
-        select(R.id.three, true);
+      case HIGH:
+        select(R.id.high, true);
         break;
     }
   }
 
-  private void select(int id, boolean force)
+  private void select(@IdRes int id, boolean force)
   {
     for (int i = 0; i < mItems.size(); ++i)
     {
@@ -193,10 +183,7 @@ public class PriceFilterView extends LinearLayout implements View.OnClickListene
       Item item = mItems.valueAt(i);
       if (key == id)
       {
-        if (!force)
-          item.select(!item.mSelected);
-        else
-          item.select(true);
+        item.select(force || !item.mSelected);
         return;
       }
     }
@@ -218,40 +205,34 @@ public class PriceFilterView extends LinearLayout implements View.OnClickListene
       Item item = mItems.valueAt(i);
       if (item.mSelected)
       {
-        int value = ONE;
+        @PriceDef
+        int value = LOW;
         switch (key)
         {
-          case R.id.one:
-            value = ONE;
+          case R.id.low:
+            value = LOW;
             break;
-          case R.id.two:
-            value = TWO;
+          case R.id.medium:
+            value = MEDIUM;
             break;
-          case R.id.three:
-            value = THREE;
+          case R.id.high:
+            value = HIGH;
             break;
         }
         filters.add(new HotelsFilter.PriceRateFilter(OP_EQ, value));
       }
     }
 
-    if (filters.isEmpty())
+    if (filters.size() > 3)
+      throw new AssertionError("Wrong filters count");
+    mFilter = null;
+    for (HotelsFilter filter : filters)
     {
-      mFilter = null;
-      return;
+      if (mFilter == null)
+        mFilter = filter;
+      else
+        mFilter = new HotelsFilter.Or(mFilter, filter);
     }
-
-    if (filters.size() == 1)
-    {
-      mFilter = filters.get(0);
-      return;
-    }
-
-    if (filters.size() > 2)
-      mFilter =
-          new HotelsFilter.Or(filters.get(0), new HotelsFilter.Or(filters.get(1), filters.get(2)));
-    else
-      mFilter = new HotelsFilter.Or(filters.get(0), filters.get(1));
   }
 
   @Nullable

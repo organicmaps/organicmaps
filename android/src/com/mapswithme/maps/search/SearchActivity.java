@@ -1,7 +1,6 @@
 package com.mapswithme.maps.search;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -61,17 +60,18 @@ public class SearchActivity extends BaseMwmFragmentActivity implements CustomNav
     final FragmentManager manager = getSupportFragmentManager();
     if (manager.getBackStackEntryCount() == 0)
     {
-      SearchFragment fragment =
-          (SearchFragment) manager.findFragmentByTag(SearchFragment.class.getName());
-      if (fragment != null)
+      for (Fragment fragment : manager.getFragments())
       {
-        HotelsFilter filter = fragment.getHotelsFilter();
-        if (filter != null)
+        if (fragment instanceof HotelsFilterHolder)
         {
-          Intent intent = NavUtils.getParentActivityIntent(this);
-          intent.putExtra(EXTRA_HOTELS_FILTER, filter);
-          NavUtils.navigateUpTo(this, intent);
-          return;
+          HotelsFilter filter = ((HotelsFilterHolder) fragment).getHotelsFilter();
+          if (filter != null)
+          {
+            Intent intent = NavUtils.getParentActivityIntent(this);
+            intent.putExtra(EXTRA_HOTELS_FILTER, filter);
+            NavUtils.navigateUpTo(this, intent);
+            return;
+          }
         }
       }
       NavUtils.navigateUpFromSameTask(this);

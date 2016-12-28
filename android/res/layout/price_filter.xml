@@ -6,20 +6,20 @@
   android:layout_height="wrap_content"
   tools:parentTag="LinearLayout">
   <FrameLayout
-    android:id="@+id/one"
+    android:id="@+id/low"
     android:layout_width="match_parent"
     android:layout_height="72dp"
     android:background="?clickableBackground"
     android:layout_weight="1"
     tools:background="?colorAccent">
     <TextView
-      android:id="@+id/one_title"
+      android:id="@+id/low_title"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:textAppearance="@style/MwmTextAppearance.Button"
       android:textColor="?android:textColorPrimary"
       android:layout_gravity="center"
-      android:text="@string/booking_filter_price_one"
+      android:text="@string/booking_filter_price_low"
       android:fontFamily="@string/robotoMedium"
       tools:textColor="?accentButtonTextColor"
       tools:targetApi="jelly_bean"/>
@@ -30,19 +30,19 @@
       android:background="?dividerHorizontal"/>
   </FrameLayout>
   <FrameLayout
-    android:id="@+id/two"
+    android:id="@+id/medium"
     android:layout_width="match_parent"
     android:layout_height="72dp"
     android:background="?clickableBackground"
     android:layout_weight="1">
     <TextView
-      android:id="@+id/two_title"
+      android:id="@+id/medium_title"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:textAppearance="@style/MwmTextAppearance.Button"
       android:textColor="?android:textColorPrimary"
       android:layout_gravity="center"
-      android:text="@string/booking_filter_price_two"
+      android:text="@string/booking_filter_price_medium"
       android:fontFamily="@string/robotoMedium"
       tools:targetApi="jelly_bean"/>
     <View
@@ -52,19 +52,19 @@
       android:background="?dividerHorizontal"/>
   </FrameLayout>
   <FrameLayout
-    android:id="@+id/three"
+    android:id="@+id/high"
     android:layout_width="match_parent"
     android:layout_height="72dp"
     android:background="?clickableBackground"
     android:layout_weight="1">
     <TextView
-      android:id="@+id/three_title"
+      android:id="@+id/high_title"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:textAppearance="@style/MwmTextAppearance.Button"
       android:textColor="?android:textColorPrimary"
       android:layout_gravity="center"
-      android:text="@string/booking_filter_price_three"
+      android:text="@string/booking_filter_price_high"
       android:fontFamily="@string/robotoMedium"
       tools:targetApi="jelly_bean"/>
   </FrameLayout>

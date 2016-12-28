@@ -144,6 +144,18 @@ public class HotelsFilterView extends FrameLayout
     Animations.appearSliding(mFrame, Animations.BOTTOM, null);
   }
 
+  /**
+   * Update views state according with current {@link #mFilter}
+   *
+   * mFilter may be null or {@link HotelsFilter.RatingFilter} or {@link HotelsFilter.PriceRateFilter}
+   * or {@link HotelsFilter.And} or {@link HotelsFilter.Or}.
+   *
+   * if mFilter is {@link HotelsFilter.And} then mLhs must be {@link HotelsFilter.RatingFilter} and
+   * mRhs must be {@link HotelsFilter.PriceRateFilter} or {@link HotelsFilter.Or} with mLhs and mRhs -
+   * {@link HotelsFilter.PriceRateFilter}
+   *
+   * if mFilter is {@link HotelsFilter.Or} then mLhs and mRhs must be {@link HotelsFilter.PriceRateFilter}
+   */
   private void updateViews()
   {
     if (mFilter == null)
@@ -166,11 +178,11 @@ public class HotelsFilterView extends FrameLayout
       else if (mFilter instanceof HotelsFilter.And)
       {
         HotelsFilter.And and = (HotelsFilter.And) mFilter;
-        if (and.mLhs instanceof HotelsFilter.RatingFilter)
-        {
-          rating = (HotelsFilter.RatingFilter) and.mLhs;
-          price = ((HotelsFilter.And) mFilter).mRhs;
-        }
+        if (!(and.mLhs instanceof HotelsFilter.RatingFilter))
+          throw new AssertionError("And.mLhs must be RatingFilter");
+
+        rating = (HotelsFilter.RatingFilter) and.mLhs;
+        price = and.mRhs;
       }
       else if (mFilter instanceof HotelsFilter.Or)
       {

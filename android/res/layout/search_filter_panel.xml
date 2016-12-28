@@ -33,8 +33,10 @@
     android:layout_alignParentEnd="true"
     android:layout_alignParentRight="true"
     android:background="?clickableBackground"
+    android:visibility="gone"
     tools:background="?accentButtonBackground"
-    tools:elevation="@dimen/margin_quarter">
+    tools:elevation="@dimen/margin_quarter"
+    tools:visibility="visible">
     <ImageView
       android:id="@+id/filter_icon"
       android:layout_width="@dimen/margin_base_plus"

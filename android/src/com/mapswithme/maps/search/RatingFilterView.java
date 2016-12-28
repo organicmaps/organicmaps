@@ -69,7 +69,7 @@ public class RatingFilterView extends LinearLayout implements View.OnClickListen
   private HotelsFilter.RatingFilter mFilter;
 
   @NonNull
-  private SparseArray<Item> mItems = new SparseArray<>();
+  private final SparseArray<Item> mItems = new SparseArray<>();
 
   public RatingFilterView(Context context)
   {

@@ -19,7 +19,8 @@ public enum SearchEngine implements NativeSearchListener,
   private static String sSavedQuery;
 
   @Override
-  public void onResultsUpdate(final SearchResult[] results, final long timestamp)
+  public void onResultsUpdate(final SearchResult[] results, final long timestamp,
+                              final boolean isHotel)
   {
     UiThread.run(new Runnable()
     {
@@ -27,7 +28,7 @@ public enum SearchEngine implements NativeSearchListener,
       public void run()
       {
         for (NativeSearchListener listener : mListeners)
-          listener.onResultsUpdate(results, timestamp);
+          listener.onResultsUpdate(results, timestamp, isHotel);
         mListeners.finishIterate();
       }
     });

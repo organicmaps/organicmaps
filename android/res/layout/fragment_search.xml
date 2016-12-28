@@ -73,18 +73,17 @@
           layout="@layout/recycler_default"
           app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-        <include layout="@layout/placeholder"/>
+        <com.mapswithme.maps.widget.PlaceholderView
+          android:id="@+id/placeholder"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:paddingLeft="@dimen/margin_double_and_half"
+          android:paddingRight="@dimen/margin_double_and_half"
+          android:paddingTop="@dimen/placeholder_margin_top"
+          android:visibility="gone"
+          tools:visibility="visible"/>
       </FrameLayout>
 
-      <com.mapswithme.maps.widget.PlaceholderView
-        android:id="@+id/placeholder"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="@dimen/margin_double_and_half"
-        android:paddingRight="@dimen/margin_double_and_half"
-        android:paddingTop="@dimen/placeholder_margin_top"
-        android:visibility="gone"
-        tools:visibility="visible"/>
       <!-- Country download suggest fragment -->
       <FrameLayout
         android:id="@+id/download_suggest_frame"

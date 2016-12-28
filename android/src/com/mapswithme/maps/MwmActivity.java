@@ -63,10 +63,12 @@ import com.mapswithme.maps.routing.RoutingPlanInplaceController;
 import com.mapswithme.maps.search.FloatingSearchToolbarController;
 import com.mapswithme.maps.search.HotelsFilter;
 import com.mapswithme.maps.search.HotelsFilterView;
+import com.mapswithme.maps.search.NativeSearchListener;
 import com.mapswithme.maps.search.SearchActivity;
 import com.mapswithme.maps.search.SearchEngine;
-import com.mapswithme.maps.search.SearchFilterPanelController;
+import com.mapswithme.maps.search.SearchFilterController;
 import com.mapswithme.maps.search.SearchFragment;
+import com.mapswithme.maps.search.SearchResult;
 import com.mapswithme.maps.settings.SettingsActivity;
 import com.mapswithme.maps.settings.StoragePathManager;
 import com.mapswithme.maps.settings.UnitLocale;
@@ -98,8 +100,6 @@ import com.mapswithme.util.statistics.Statistics;
 import java.io.Serializable;
 import java.util.Stack;
 
-import static com.mapswithme.maps.search.SearchActivity.EXTRA_HOTELS_FILTER;
-
 public class MwmActivity extends BaseMwmFragmentActivity
                       implements MapObjectListener,
                                  View.OnTouchListener,
@@ -113,7 +113,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  LocationHelper.UiCallback,
                                  RoutingPlanController.OnToggleListener,
                                  RoutingPlanController.SearchPoiTransitionListener,
-                                 FloatingSearchToolbarController.VisibilityListener
+                                 FloatingSearchToolbarController.VisibilityListener,
+                                 NativeSearchListener
 {
   public static final String EXTRA_TASK = "map_task";
   private static final String EXTRA_CONSUMED = "mwm.extra.intent.processed";
@@ -159,9 +160,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private ViewGroup mRootView;
 
   @Nullable
-  private SearchFilterPanelController mFilterPanel;
-  @Nullable
-  private HotelsFilterView mHotelsFilter;
+  private SearchFilterController mFilterController;
 
   private boolean mIsFragmentContainer;
   private boolean mIsFullscreen;
@@ -352,12 +351,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
       final Bundle args = new Bundle();
       args.putString(SearchActivity.EXTRA_QUERY, query);
-      if (mFilterPanel != null)
-        args.putParcelable(EXTRA_HOTELS_FILTER, mFilterPanel.getFilter());
+      if (mFilterController != null)
+        args.putParcelable(SearchActivity.EXTRA_HOTELS_FILTER, mFilterController.getFilter());
       replaceFragment(SearchFragment.class, args, null);
     }
     else
-      SearchActivity.start(this, query, mFilterPanel != null ? mFilterPanel.getFilter() : null);
+    {
+      SearchActivity.start(this, query, mFilterController != null ? mFilterController.getFilter() : null);
+    }
   }
 
   public void showEditor()
@@ -446,6 +447,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     processIntent(getIntent());
     SharingHelper.prepare();
 
+    SearchEngine.INSTANCE.addListener(this);
+
     //TODO: uncomment after correct visible rect calculation.
     //mVisibleRectMeasurer = new VisibleRectMeasurer(new VisibleRectListener() {
     //  @Override
@@ -477,36 +480,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
     initMainMenu();
     initOnmapDownloader();
     initPositionChooser();
-    initFilterPanel();
+    initFilterViews();
   }
 
-  private void initFilterPanel()
+  private void initFilterViews()
   {
-    mHotelsFilter = (HotelsFilterView) findViewById(R.id.hotels_filter);
-    if (mHotelsFilter != null)
-    {
-      mHotelsFilter.setListener(new HotelsFilterView.HotelsFilterListener()
-      {
-        @Override
-        public void onCancel()
-        {
-        }
-
-        @Override
-        public void onDone(@Nullable HotelsFilter filter)
-        {
-          if (mFilterPanel != null)
-            mFilterPanel.setFilter(filter);
-
-          runSearch();
-        }
-      });
-    }
+    HotelsFilterView hotelsFilterView = (HotelsFilterView) findViewById(R.id.hotels_filter);
     View frame = findViewById(R.id.filter_frame);
-    if (frame != null)
+    if (frame != null && hotelsFilterView != null)
     {
-      mFilterPanel = new SearchFilterPanelController(
-          frame, new SearchFilterPanelController.FilterPanelListener()
+      mFilterController = new SearchFilterController(
+          frame, hotelsFilterView, new SearchFilterController.DefaultFilterListener()
       {
         @Override
         public void onViewClick()
@@ -515,22 +499,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
         }
 
         @Override
-        public void onFilterClick()
+        public void onFilterClear()
         {
-          if (mFilterPanel == null)
-            return;
-
-          if (mHotelsFilter != null)
-            mHotelsFilter.open(mFilterPanel.getFilter());
+          runSearch();
         }
 
         @Override
-        public void onFilterClear()
+        public void onFilterDone()
         {
-          if (mFilterPanel == null)
-            return;
-
-          mFilterPanel.setFilter(null);
           runSearch();
         }
       }, R.string.search_in_table);
@@ -541,7 +517,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     SearchEngine.searchInteractive(mSearchController.getQuery(), System.nanoTime(),
                                    false /* isMapAndTable */,
-                                   mFilterPanel != null ? mFilterPanel.getFilter() : null);
+                                   mFilterController != null ? mFilterController.getFilter() : null);
     SearchEngine.showAllResults(mSearchController.getQuery());
   }
 
@@ -839,6 +815,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     // TODO move listeners attach-deattach to onStart-onStop since onDestroy isn't guaranteed.
     Framework.nativeRemoveMapObjectListener();
     BottomSheetHelper.free();
+    SearchEngine.INSTANCE.removeListener(this);
     super.onDestroy();
   }
 
@@ -905,11 +882,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     else if (intent.hasExtra(EXTRA_UPDATE_COUNTRIES))
       showDownloader(true);
 
-    HotelsFilter filter = intent.getParcelableExtra(EXTRA_HOTELS_FILTER);
-    if (mFilterPanel != null)
+    HotelsFilter filter = intent.getParcelableExtra(SearchActivity.EXTRA_HOTELS_FILTER);
+    if (mFilterController != null)
     {
-      mFilterPanel.show(filter != null || !TextUtils.isEmpty(SearchEngine.getQuery()), true);
-      mFilterPanel.setFilter(filter);
+      mFilterController.show(filter != null || !TextUtils.isEmpty(SearchEngine.getQuery()), true);
+      mFilterController.setFilter(filter);
     }
   }
 
@@ -1047,7 +1024,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onBackPressed()
   {
-    if (mHotelsFilter != null && mHotelsFilter.close())
+    if (mFilterController != null && mFilterController.onBackPressed())
       return;
 
     if (getCurrentMenu().close(true))
@@ -1620,11 +1597,20 @@ public class MwmActivity extends BaseMwmFragmentActivity
     int toolbarHeight = mSearchController.getToolbar().getHeight();
     adjustCompassAndTraffic(visible ? toolbarHeight : UiUtils.getStatusBarHeight(this));
     setNavButtonsTopLimit(visible ? toolbarHeight : 0);
-    if (mFilterPanel != null)
-    {
-      mFilterPanel.show(visible && !TextUtils.isEmpty(SearchEngine.getQuery()), true);
-      mFilterPanel.updateFilterButtonVisibility(SearchEngine.getQuery());
-    }
+    if (mFilterController != null)
+      mFilterController.show(visible && !TextUtils.isEmpty(SearchEngine.getQuery()), true);
+  }
+
+  @Override
+  public void onResultsUpdate(SearchResult[] results, long timestamp, boolean isHotel)
+  {
+    if (mFilterController != null)
+      mFilterController.updateFilterButtonVisibility(isHotel);
+  }
+
+  @Override
+  public void onResultsEnd(long timestamp)
+  {
   }
 
   @Override

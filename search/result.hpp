@@ -65,6 +65,7 @@ public:
   string const & GetCuisine() const { return m_metadata.m_cuisine; }
   string const & GetHotelRating() const { return m_metadata.m_hotelRating; }
   string const & GetHotelApproximatePricing() const { return m_metadata.m_hotelApproximatePricing; }
+  bool IsHotel() const { return m_metadata.m_isHotel; }
   //@}
 
   osm::YesNoUnknown IsOpenNow() const { return m_metadata.m_isOpenNow; }

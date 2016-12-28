@@ -22509,3 +22509,21 @@
   [uber]
     comment = "Translation is no needed, because it's a company name"
     en = Uber
+
+  [booking_filter_rating_num_good]
+    en = 7.0+
+  
+  [booking_filter_rating_num_very_good]
+    en = 8.0+
+
+  [booking_filter_rating_num_excellent]
+    en = 9.0+
+
+  [booking_filter_price_low]
+    en = $
+
+  [booking_filter_price_medium]
+    en = $$
+
+  [booking_filter_price_high]
+    en = $$$

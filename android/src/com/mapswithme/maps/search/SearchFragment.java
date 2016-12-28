@@ -45,7 +45,8 @@ public class SearchFragment extends BaseMwmFragment
                          implements OnBackPressListener,
                                     NativeSearchListener,
                                     SearchToolbarController.Container,
-                                    CategoriesAdapter.OnCategorySelectedListener
+                                    CategoriesAdapter.OnCategorySelectedListener,
+                                    HotelsFilterHolder
 {
   private static final float NESTED_SCROLL_DELTA =
       -MwmApplication.get().getResources().getDimension(R.dimen.margin_half);
@@ -131,16 +132,26 @@ public class SearchFragment extends BaseMwmFragment
       if (!onBackPressed())
         super.onUpClick();
     }
+
+    @Override
+    public void clear()
+    {
+      super.clear();
+      if (mFilterController != null)
+      {
+        mFilterController.setFilter(null);
+        mFilterController.updateFilterButtonVisibility(false);
+      }
+    }
   }
 
   private View mTabFrame;
   private View mResultsFrame;
   private PlaceholderView mResultsPlaceholder;
   private RecyclerView mResults;
-  private HotelsFilterView mFilterView;
   private AppBarLayout mAppBarLayout;
   @Nullable
-  private SearchFilterPanelController mFilterPanel;
+  private SearchFilterController mFilterController;
 
   private SearchToolbarController mToolbarController;
 
@@ -160,7 +171,8 @@ public class SearchFragment extends BaseMwmFragment
   private final LastPosition mLastPosition = new LastPosition();
   private boolean mSearchRunning;
   private String mInitialQuery;
-  private @Nullable HotelsFilter mInitialHotelsFilter;
+  @Nullable
+  private HotelsFilter mInitialHotelsFilter;
   private boolean mFromRoutePlan;
 
   private final LocationListener mLocationListener = new LocationListener.Simple()
@@ -180,10 +192,10 @@ public class SearchFragment extends BaseMwmFragment
         @Override
         public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset)
         {
-          if (mFilterPanel == null)
+          if (mFilterController == null)
             return;
 
-          mFilterPanel.showDivider(
+          mFilterController.showDivider(
               !(Math.abs(verticalOffset) == appBarLayout.getTotalScrollRange()));
         }
       };
@@ -193,13 +205,14 @@ public class SearchFragment extends BaseMwmFragment
     return (MapManager.nativeGetDownloadedCount() == 0 && !MapManager.nativeIsDownloading());
   }
 
+  @Override
   @Nullable
   public HotelsFilter getHotelsFilter()
   {
-    if (mFilterPanel == null)
+    if (mFilterController == null)
       return null;
 
-    return mFilterPanel.getFilter();
+    return mFilterController.getFilter();
   }
 
   private void showDownloadSuggest()
@@ -231,8 +244,9 @@ public class SearchFragment extends BaseMwmFragment
   {
     final boolean hasQuery = mToolbarController.hasQuery();
     UiUtils.showIf(hasQuery, mResultsFrame);
-    if (mFilterPanel != null)
-      mFilterPanel.show(hasQuery, mSearchAdapter.showPopulateButton());
+    if (mFilterController != null)
+      mFilterController.show(hasQuery && mSearchAdapter.getItemCount() != 0,
+                             mSearchAdapter.showPopulateButton());
 
     if (hasQuery)
       hideDownloadSuggest();
@@ -249,8 +263,8 @@ public class SearchFragment extends BaseMwmFragment
                           mToolbarController.hasQuery());
 
     UiUtils.showIf(show, mResultsPlaceholder);
-    if (mFilterPanel != null)
-      mFilterPanel.showPopulateButton(mSearchAdapter.showPopulateButton());
+    if (mFilterController != null)
+      mFilterController.showPopulateButton(mSearchAdapter.showPopulateButton());
   }
 
   @Override
@@ -276,32 +290,15 @@ public class SearchFragment extends BaseMwmFragment
     final TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(), pager, tabLayout);
 
     mResultsFrame = root.findViewById(R.id.results_frame);
-    RecyclerView results = (RecyclerView) mResultsFrame.findViewById(R.id.recycler);
-    setRecyclerScrollListener(results);
+    mResults = (RecyclerView) mResultsFrame.findViewById(R.id.recycler);
+    setRecyclerScrollListener(mResults);
     mResultsPlaceholder = (PlaceholderView) mResultsFrame.findViewById(R.id.placeholder);
     mResultsPlaceholder.setContent(R.drawable.img_search_nothing_found_light,
                                    R.string.search_not_found, R.string.search_not_found_query);
 
-    mFilterView = (HotelsFilterView) view.findViewById(R.id.filter);
-    mFilterView.setListener(new HotelsFilterView.HotelsFilterListener()
-    {
-      @Override
-      public void onCancel()
-      {
-      }
-
-      @Override
-      public void onDone(@Nullable HotelsFilter filter)
-      {
-        if (mFilterPanel != null)
-          mFilterPanel.setFilter(filter);
-
-        runSearch();
-      }
-    });
-
-    mFilterPanel = new SearchFilterPanelController(root.findViewById(R.id.filter_frame),
-                                                   new SearchFilterPanelController.FilterPanelListener()
+    mFilterController = new SearchFilterController(root.findViewById(R.id.filter_frame),
+                                                   (HotelsFilterView) view.findViewById(R.id.filter),
+                                                   new SearchFilterController.DefaultFilterListener()
     {
       @Override
       public void onViewClick()
@@ -310,24 +307,20 @@ public class SearchFragment extends BaseMwmFragment
       }
 
       @Override
-      public void onFilterClick()
+      public void onFilterClear()
       {
-        mFilterView.open(mFilterPanel == null ? null : mFilterPanel.getFilter());
+        runSearch();
       }
 
       @Override
-      public void onFilterClear()
+      public void onFilterDone()
       {
-        if (mFilterPanel == null)
-          return;
-
-        mFilterPanel.setFilter(null);
         runSearch();
       }
     });
     if (mInitialHotelsFilter != null)
-      mFilterPanel.setFilter(mInitialHotelsFilter);
-    mFilterPanel.updateFilterButtonVisibility(null);
+      mFilterController.setFilter(mInitialHotelsFilter);
+    mFilterController.updateFilterButtonVisibility(false);
 
     if (mSearchAdapter == null)
     {
@@ -351,7 +344,6 @@ public class SearchFragment extends BaseMwmFragment
     if (mInitialQuery != null)
     {
       setQuery(mInitialQuery);
-      updateFilterButton(mInitialQuery);
     }
     mToolbarController.activate();
 
@@ -484,8 +476,8 @@ public class SearchFragment extends BaseMwmFragment
     mLastQueryTimestamp = System.nanoTime();
 
     HotelsFilter hotelsFilter = null;
-    if (mFilterPanel != null)
-      hotelsFilter = mFilterPanel.getFilter();
+    if (mFilterController != null)
+      hotelsFilter = mFilterController.getFilter();
 
     SearchEngine.searchInteractive(
         query, mLastQueryTimestamp, false /* isMapAndTable */, hotelsFilter);
@@ -512,10 +504,9 @@ public class SearchFragment extends BaseMwmFragment
 
   private void runSearch()
   {
-    updateFilterButton(getQuery());
     HotelsFilter hotelsFilter = null;
-    if (mFilterPanel != null)
-      hotelsFilter = mFilterPanel.getFilter();
+    if (mFilterController != null)
+      hotelsFilter = mFilterController.getFilter();
 
     mLastQueryTimestamp = System.nanoTime();
     // TODO @yunitsky Implement more elegant solution.
@@ -540,7 +531,7 @@ public class SearchFragment extends BaseMwmFragment
   }
 
   @Override
-  public void onResultsUpdate(SearchResult[] results, long timestamp)
+  public void onResultsUpdate(SearchResult[] results, long timestamp, boolean isHotel)
   {
     if (!isAdded() || !mToolbarController.hasQuery())
       return;
@@ -550,6 +541,7 @@ public class SearchFragment extends BaseMwmFragment
     updateFrames();
     mSearchAdapter.refreshData(results);
     mToolbarController.showProgress(true);
+    updateFilterButton(isHotel);
   }
 
   @Override
@@ -563,16 +555,15 @@ public class SearchFragment extends BaseMwmFragment
   public void onCategorySelected(String category)
   {
     mToolbarController.setQuery(category);
-    updateFilterButton(category);
   }
 
-  private void updateFilterButton(@Nullable String category)
+  private void updateFilterButton(boolean isHotel)
   {
-    if (mFilterPanel != null)
+    if (mFilterController != null)
     {
-      boolean show = mFilterPanel.updateFilterButtonVisibility(category);
-      if (!show)
-        mFilterPanel.setFilter(null);
+      mFilterController.updateFilterButtonVisibility(isHotel);
+      if (!isHotel)
+        mFilterController.setFilter(null);
     }
   }
 
@@ -586,7 +577,7 @@ public class SearchFragment extends BaseMwmFragment
   @Override
   public boolean onBackPressed()
   {
-    if (mFilterView.close())
+    if (mFilterController != null && mFilterController.onBackPressed())
       return true;
     if (mToolbarController.hasQuery())
     {

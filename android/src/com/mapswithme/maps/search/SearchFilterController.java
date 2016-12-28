@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,7 +13,7 @@ import android.widget.TextView;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
 
-public class SearchFilterPanelController
+public class SearchFilterController
 {
   @NonNull
   private final View mFrame;
@@ -28,46 +27,51 @@ public class SearchFilterPanelController
   private final TextView mFilterText;
   @NonNull
   private final View mDivider;
+  @NonNull
+  private final HotelsFilterView mFilterView;
 
   @Nullable
   private HotelsFilter mFilter;
 
   private final float mElevation;
-  @NonNull
-  private final String mCategory;
 
-  private View.OnClickListener mClearListener = new View.OnClickListener()
+  @NonNull
+  private final View.OnClickListener mClearListener = new View.OnClickListener()
   {
     @Override
     public void onClick(View v)
     {
-      if (mFilterPanelListener != null)
-        mFilterPanelListener.onFilterClear();
+      setFilter(null);
+      if (mFilterListener != null)
+        mFilterListener.onFilterClear();
     }
   };
 
-  public interface FilterPanelListener
+  @Nullable
+  private final FilterListener mFilterListener;
+
+  interface FilterListener
   {
     void onViewClick();
     void onFilterClick();
     void onFilterClear();
+    void onFilterCancel();
+    void onFilterDone();
   }
 
-  @Nullable
-  private final FilterPanelListener mFilterPanelListener;
-
-  public SearchFilterPanelController(@NonNull View frame,
-                                     @Nullable FilterPanelListener listener)
+  SearchFilterController(@NonNull View frame, @NonNull HotelsFilterView filter,
+                         @Nullable FilterListener listener)
   {
-    this(frame, listener, R.string.search_show_on_map);
+    this(frame, filter, listener, R.string.search_show_on_map);
   }
 
-  public SearchFilterPanelController(@NonNull View frame,
-                                     @Nullable FilterPanelListener listener,
-                                     @StringRes int populateButtonText)
+  public SearchFilterController(@NonNull View frame, @NonNull HotelsFilterView filter,
+                                @Nullable FilterListener listener,
+                                @StringRes int populateButtonText)
   {
     mFrame = frame;
-    mFilterPanelListener = listener;
+    mFilterView = filter;
+    mFilterListener = listener;
     mShowOnMap = (TextView) mFrame.findViewById(R.id.show_on_map);
     mShowOnMap.setText(populateButtonText);
     mFilterButton = mFrame.findViewById(R.id.filter_button);
@@ -77,7 +81,6 @@ public class SearchFilterPanelController
 
     Resources res = mFrame.getResources();
     mElevation = res.getDimension(R.dimen.margin_quarter);
-    mCategory = res.getString(R.string.hotel).toLowerCase();
 
     initListeners();
   }
@@ -88,23 +91,19 @@ public class SearchFilterPanelController
     showPopulateButton(showPopulateButton);
   }
 
-  public void showPopulateButton(boolean show)
+  void showPopulateButton(boolean show)
   {
     UiUtils.showIf(show, mShowOnMap);
   }
 
-  public void showDivider(boolean show)
+  void showDivider(boolean show)
   {
     UiUtils.showIf(show, mDivider);
   }
 
-  public boolean updateFilterButtonVisibility(@Nullable String category)
+  public void updateFilterButtonVisibility(boolean isHotel)
   {
-    boolean show = !TextUtils.isEmpty(category)
-                   && category.trim().toLowerCase().equals(mCategory);
-    UiUtils.showIf(show, mFilterButton);
-
-    return show;
+    UiUtils.showIf(isHotel, mFilterButton);
   }
 
   private void initListeners()
@@ -114,8 +113,8 @@ public class SearchFilterPanelController
       @Override
       public void onClick(View v)
       {
-        if (mFilterPanelListener != null)
-          mFilterPanelListener.onViewClick();
+        if (mFilterListener != null)
+          mFilterListener.onViewClick();
       }
     });
     mFilterButton.setOnClickListener(new View.OnClickListener()
@@ -123,8 +122,27 @@ public class SearchFilterPanelController
       @Override
       public void onClick(View v)
       {
-        if (mFilterPanelListener != null)
-          mFilterPanelListener.onFilterClick();
+        mFilterView.open(getFilter());
+        if (mFilterListener != null)
+          mFilterListener.onFilterClick();
+      }
+    });
+    mFilterView.setListener(new HotelsFilterView.HotelsFilterListener()
+    {
+      @Override
+      public void onCancel()
+      {
+        if (mFilterListener != null)
+          mFilterListener.onFilterCancel();
+      }
+
+      @Override
+      public void onDone(@Nullable HotelsFilter filter)
+      {
+        setFilter(filter);
+
+        if (mFilterListener != null)
+          mFilterListener.onFilterDone();
       }
     });
   }
@@ -161,6 +179,39 @@ public class SearchFilterPanelController
         mFilterButton.setElevation(0);
       mFilterText.setTextColor(ContextCompat.getColor(mFrame.getContext(),
           UiUtils.getStyledResourceId(mFrame.getContext(), R.attr.colorAccent)));
+    }
+  }
+
+  public boolean onBackPressed()
+  {
+    return mFilterView.close();
+  }
+
+  public static class DefaultFilterListener implements FilterListener
+  {
+    @Override
+    public void onViewClick()
+    {
+    }
+
+    @Override
+    public void onFilterClick()
+    {
+    }
+
+    @Override
+    public void onFilterClear()
+    {
+    }
+
+    @Override
+    public void onFilterCancel()
+    {
+    }
+
+    @Override
+    public void onFilterDone()
+    {
     }
   }
 }

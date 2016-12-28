@@ -10,7 +10,7 @@ public interface NativeSearchListener
    * @param results Search results.
    * @param timestamp Timestamp of search request.
    */
-  void onResultsUpdate(SearchResult[] results, long timestamp);
+  void onResultsUpdate(SearchResult[] results, long timestamp, boolean isHotel);
 
   /**
    * @param timestamp Timestamp of search request.
