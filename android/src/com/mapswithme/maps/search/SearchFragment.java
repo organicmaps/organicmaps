@@ -116,16 +116,7 @@ public class SearchFragment extends BaseMwmFragment
     public void onUpClick()
     {
       if (!onBackPressed())
-      {
-        mAnimationController.animate(false, new Runnable()
-        {
-          @Override
-          public void run()
-          {
-            ToolbarController.super.onUpClick();
-          }
-        });
-      }
+        super.onUpClick();
     }
   }
 
@@ -134,7 +125,6 @@ public class SearchFragment extends BaseMwmFragment
   private View mResultsPlaceholder;
 
   private SearchToolbarController mToolbarController;
-  private SearchAnimationController mAnimationController;
 
   private SearchAdapter mSearchAdapter;
 
@@ -239,9 +229,6 @@ public class SearchFragment extends BaseMwmFragment
     TabLayout tabLayout = (TabLayout) root.findViewById(R.id.tabs);
     final TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(), pager, tabLayout);
 
-    mAnimationController = new SearchAnimationController(mToolbarController.getToolbar(),
-                                                         mTabFrame.findViewById(R.id.tabs_layout));
-
     mResultsFrame = root.findViewById(R.id.results_frame);
     RecyclerView results = (RecyclerView) mResultsFrame.findViewById(R.id.recycler);
     setRecyclerScrollListener(results);
@@ -285,8 +272,6 @@ public class SearchFragment extends BaseMwmFragment
         mToolbarController.deactivate();
       }
     });
-
-    mAnimationController.animate(true, null);
   }
 
   @Override
@@ -505,15 +490,8 @@ public class SearchFragment extends BaseMwmFragment
 
   private void closeSearch()
   {
-    mAnimationController.animate(false, new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        getActivity().finish();
-        getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-      }
-    });
+    getActivity().finish();
+    getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
   }
 
   public void setRecyclerScrollListener(RecyclerView recycler)
