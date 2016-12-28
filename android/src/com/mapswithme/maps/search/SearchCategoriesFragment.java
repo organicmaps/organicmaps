@@ -19,7 +19,7 @@ public class SearchCategoriesFragment extends BaseMwmRecyclerFragment
   @Override
   protected int getLayoutRes()
   {
-    return R.layout.fragment_recycler_no_elevation;
+    return R.layout.fragment_search_categories;
   }
 
   @Override

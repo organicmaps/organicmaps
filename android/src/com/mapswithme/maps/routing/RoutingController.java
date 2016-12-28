@@ -75,8 +75,6 @@ public class RoutingController
      * @param progress progress to be displayed.
      * */
     void updateBuildProgress(@IntRange(from = 0, to = 100) int progress, @Framework.RouterType int router);
-
-    void animateSearchPoiTransition(@NonNull Rect startRect, @Nullable Runnable runnable);
   }
 
   private static final RoutingController sInstance = new RoutingController();
@@ -754,7 +752,7 @@ public class RoutingController
       build();
   }
 
-  void searchPoi(int slotId, @NonNull Rect startRect)
+  void searchPoi(int slotId)
   {
     mLogger.d("searchPoi: " + slotId);
     Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_SEARCH_POINT);
@@ -762,14 +760,8 @@ public class RoutingController
     mWaitingPoiPickSlot = slotId;
     if (mContainer != null)
     {
-      mContainer.animateSearchPoiTransition(startRect, new Runnable() {
-        @Override
-        public void run()
-        {
-          mContainer.showSearch();
-          mContainer.updateMenu();
-        }
-      });
+      mContainer.showSearch();
+      mContainer.updateMenu();
     }
   }
 

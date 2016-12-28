@@ -143,23 +143,12 @@ public final class Animations
     });
   }
 
-  public static void riseTransition(@NonNull ViewGroup rootView, @NonNull final Rect startRect,
+  public static void riseTransition(@NonNull final ViewGroup rootView, @NonNull final Rect startRect,
                                     @Nullable final Runnable runnable)
   {
-    Context context = rootView.getContext();
+    final Context context = rootView.getContext();
     final View view = new View(context);
-    TypedArray a = null;
-    try
-    {
-      a = context.obtainStyledAttributes(new int[] { R.attr.cardBackgroundColor });
-      int color = a.getColor(0, ContextCompat.getColor(context, R.color.bg_cards));
-      view.setBackgroundColor(color);
-    }
-    finally
-    {
-      if (a != null)
-        a.recycle();
-    }
+    setCardBackgroundColor(view);
 
     DisplayMetrics dm = context.getResources().getDisplayMetrics();
     final float screenWidth = dm.widthPixels;
@@ -202,9 +191,34 @@ public final class Animations
       {
         if (runnable != null)
           runnable.run();
+        rootView.postDelayed(new Runnable()
+        {
+          @Override
+          public void run()
+          {
+            rootView.removeView(view);
+          }
+        }, context.getResources().getInteger(android.R.integer.config_longAnimTime));
       }
     });
     animator.setDuration(DURATION_MENU);
     animator.start();
+  }
+
+  private static void setCardBackgroundColor(@NonNull View view)
+  {
+    Context context = view.getContext();
+    TypedArray a = null;
+    try
+    {
+      a = context.obtainStyledAttributes(new int[] { R.attr.cardBackgroundColor });
+      int color = a.getColor(0, ContextCompat.getColor(context, R.color.bg_cards));
+      view.setBackgroundColor(color);
+    }
+    finally
+    {
+      if (a != null)
+        a.recycle();
+    }
   }
 }

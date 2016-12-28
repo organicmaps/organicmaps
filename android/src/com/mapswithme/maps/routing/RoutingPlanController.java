@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
@@ -42,7 +43,7 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
-public class RoutingPlanController extends ToolbarController
+public class RoutingPlanController extends ToolbarController implements SlotFrame.SlotClickListener
 {
   static final int ANIM_TOGGLE = MwmApplication.get().getResources().getInteger(R.integer.anim_slots_toggle);
   private static final String STATE_ALTITUDE_CHART_SHOWN = "altitude_chart_shown";
@@ -62,7 +63,7 @@ public class RoutingPlanController extends ToolbarController
   private final View mUberFrame;
 
   private final RotateDrawable mToggleImage = new RotateDrawable(R.drawable.ic_down);
-  protected int mFrameHeight;
+  int mFrameHeight;
   private int mToolbarHeight;
   private boolean mOpen;
   @Nullable
@@ -74,9 +75,18 @@ public class RoutingPlanController extends ToolbarController
   @Nullable
   private OnToggleListener mToggleListener;
 
+  @Nullable
+  private  SearchPoiTransitionListener mPoiTransitionListener;
+
   public interface OnToggleListener
   {
     void onToggle(boolean state);
+  }
+
+  public interface SearchPoiTransitionListener
+  {
+    void animateSearchPoiTransition(@NonNull final Rect startRect,
+                                    @Nullable final Runnable runnable);
   }
 
   private RadioButton setupRouterButton(@IdRes int buttonId, final @DrawableRes int iconRes, View.OnClickListener clickListener)
@@ -109,6 +119,7 @@ public class RoutingPlanController extends ToolbarController
 
     mToggle = (ImageView) mToolbar.findViewById(R.id.toggle);
     mSlotFrame = (SlotFrame) root.findViewById(R.id.slots);
+    mSlotFrame.setSlotClickListener(this);
     mRouterTypes = (RadioGroup) mToolbar.findViewById(R.id.route_type);
 
     setupRouterButton(R.id.vehicle, R.drawable.ic_car, new View.OnClickListener()
@@ -186,7 +197,32 @@ public class RoutingPlanController extends ToolbarController
     RoutingController.get().cancelPlanning();
   }
 
-  protected boolean checkFrameHeight()
+  @Override
+  public void onSlotClicked(final int order, @NonNull Rect rect)
+  {
+    if (mPoiTransitionListener != null)
+    {
+      mPoiTransitionListener.animateSearchPoiTransition(rect, new Runnable()
+      {
+        @Override
+        public void run()
+        {
+          RoutingController.get().searchPoi(order);
+        }
+      });
+    }
+    else
+    {
+      RoutingController.get().searchPoi(order);
+    }
+  }
+
+  public void setPoiTransitionListener(@Nullable SearchPoiTransitionListener poiTransitionListener)
+  {
+    mPoiTransitionListener = poiTransitionListener;
+  }
+
+  boolean checkFrameHeight()
   {
     if (mFrameHeight > 0)
       return true;

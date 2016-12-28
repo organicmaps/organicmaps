@@ -23,17 +23,20 @@ class NavigationButtonsAnimationController
   private final View mMyPosition;
 
   private final float mMargin;
-  private float mBottom;
-  private float mTop;
+  private float mContentHeight;
+  private float mMyPositionBottom;
 
-  private boolean mIsZoomAnimate;
-  private boolean mIsMyPosAnimate;
-  private boolean mIsSlideDown;
+  private boolean mZoomAnimate;
+  private boolean mMyPosAnimate;
+  private boolean mSlideDown;
 
-  private final float mMenuHeight;
+  private float mTopLimit;
+  private float mBottomLimit;
+
+  private float mCurrentOffset;
 
   NavigationButtonsAnimationController(@NonNull View zoomIn, @NonNull View zoomOut,
-                                       @NonNull View myPosition)
+                                       @NonNull View myPosition, @NonNull final View contentView)
   {
     mZoomIn = zoomIn;
     mZoomOut = zoomOut;
@@ -41,20 +44,30 @@ class NavigationButtonsAnimationController
     mMyPosition = myPosition;
     Resources res = mZoomIn.getResources();
     mMargin = res.getDimension(R.dimen.margin_base_plus);
-    mMenuHeight = res.getDimension(R.dimen.menu_line_height);
+    mBottomLimit = res.getDimension(R.dimen.menu_line_height);
     calculateLimitTranslations();
+    contentView.addOnLayoutChangeListener(new View.OnLayoutChangeListener()
+    {
+      @Override
+      public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft,
+                                 int oldTop, int oldRight, int oldBottom)
+      {
+        mContentHeight = bottom - top;
+        contentView.removeOnLayoutChangeListener(this);
+      }
+    });
   }
 
   private void calculateLimitTranslations()
   {
-    mTop = mMargin;
+    mTopLimit = mMargin;
     mMyPosition.addOnLayoutChangeListener(new View.OnLayoutChangeListener()
     {
       @Override
       public void onLayoutChange(View v, int left, int top, int right, int bottom,
                                  int oldLeft, int oldTop, int oldRight, int oldBottom)
       {
-        mBottom = bottom + mMargin;
+        mMyPositionBottom = bottom;
         mMyPosition.removeOnLayoutChangeListener(this);
       }
     });
@@ -62,22 +75,29 @@ class NavigationButtonsAnimationController
 
   void setTopLimit(float limit)
   {
-    mTop = limit + mMargin;
+    mTopLimit = limit + mMargin;
+    update();
+  }
+
+  void setBottomLimit(float limit)
+  {
+    mBottomLimit = limit;
     update();
   }
 
   private void fadeOutZoom()
   {
-    if (mIsSlideDown)
+    if (mSlideDown)
       return;
-    mIsZoomAnimate = true;
+
+    mZoomAnimate = true;
     Animations.fadeOutView(mZoomIn, new Runnable()
     {
       @Override
       public void run()
       {
         mZoomIn.setVisibility(View.INVISIBLE);
-        mIsZoomAnimate = false;
+        mZoomAnimate = false;
       }
     });
     Animations.fadeOutView(mZoomOut, new Runnable()
@@ -92,7 +112,7 @@ class NavigationButtonsAnimationController
 
   private void fadeInZoom()
   {
-    mIsZoomAnimate = true;
+    mZoomAnimate = true;
     mZoomIn.setVisibility(View.VISIBLE);
     mZoomOut.setVisibility(View.VISIBLE);
     Animations.fadeInView(mZoomIn, new Runnable()
@@ -100,7 +120,7 @@ class NavigationButtonsAnimationController
       @Override
       public void run()
       {
-        mIsZoomAnimate = false;
+        mZoomAnimate = false;
       }
     });
     Animations.fadeInView(mZoomOut, null);
@@ -108,43 +128,43 @@ class NavigationButtonsAnimationController
 
   private void fadeOutMyPosition()
   {
-    if (mIsSlideDown)
+    if (mSlideDown)
       return;
 
-    mIsMyPosAnimate = true;
+    mMyPosAnimate = true;
     Animations.fadeOutView(mMyPosition, new Runnable()
     {
       @Override
       public void run()
       {
         UiUtils.invisible(mMyPosition);
-        mIsMyPosAnimate = false;
+        mMyPosAnimate = false;
       }
     });
   }
 
   private void fadeInMyPosition()
   {
-    mIsMyPosAnimate = true;
+    mMyPosAnimate = true;
     mMyPosition.setVisibility(View.VISIBLE);
     Animations.fadeInView(mMyPosition, new Runnable()
     {
       @Override
       public void run()
       {
-        mIsMyPosAnimate = false;
+        mMyPosAnimate = false;
       }
     });
   }
 
   void onPlacePageMoved(float translationY)
   {
-    if (UiUtils.isLandscape(mMyPosition.getContext()) || mBottom == 0)
+    if (UiUtils.isLandscape(mMyPosition.getContext()) || mMyPositionBottom == 0 || mContentHeight == 0)
       return;
 
-    final float amount = mZoomIn.getTranslationY() > 0 ? mMenuHeight : 0;
-    final float translation = translationY - mBottom;
-    update(translation <= amount ? translation : amount);
+    final float amount = mCurrentOffset > 0 ? mMargin : -mMargin;
+    final float translation = translationY - (mMyPositionBottom - mCurrentOffset + amount);
+    update(translation <= mCurrentOffset ? translation : mCurrentOffset);
   }
 
   private void update()
@@ -157,35 +177,33 @@ class NavigationButtonsAnimationController
     mMyPosition.setTranslationY(translation);
     mZoomOut.setTranslationY(translation);
     mZoomIn.setTranslationY(translation);
-    if (!mIsZoomAnimate && isOverTopLimit(mZoomIn))
+    if (!mZoomAnimate && mZoomIn.getVisibility() == View.VISIBLE
+        && !isViewInsideLimits(mZoomIn))
     {
       fadeOutZoom();
     }
-    else if (!mIsZoomAnimate && satisfyTopLimit(mZoomIn))
+    else if (!mZoomAnimate && mZoomIn.getVisibility() == View.INVISIBLE
+             && isViewInsideLimits(mZoomIn))
     {
       fadeInZoom();
     }
 
-    if (!shouldBeHidden() && !mIsMyPosAnimate
-        && isOverTopLimit(mMyPosition))
+    if (!shouldBeHidden() && !mMyPosAnimate
+        && mMyPosition.getVisibility() == View.VISIBLE && !isViewInsideLimits(mMyPosition))
     {
       fadeOutMyPosition();
     }
-    else if (!shouldBeHidden() && !mIsMyPosAnimate
-             && satisfyTopLimit(mMyPosition))
+    else if (!shouldBeHidden() && !mMyPosAnimate
+             && mMyPosition.getVisibility() == View.INVISIBLE && isViewInsideLimits(mMyPosition))
     {
       fadeInMyPosition();
     }
   }
 
-  private boolean isOverTopLimit(@NonNull View view)
+  private boolean isViewInsideLimits(@NonNull View view)
   {
-    return view.getVisibility() == View.VISIBLE && view.getY() <= mTop;
-  }
-
-  private boolean satisfyTopLimit(@NonNull View view)
-  {
-    return view.getVisibility() == View.INVISIBLE && view.getY() >= mTop;
+    return view.getY() >= mTopLimit &&
+           view.getBottom() + view.getTranslationY() <= mContentHeight - mBottomLimit;
   }
 
   private boolean shouldBeHidden()
@@ -194,15 +212,16 @@ class NavigationButtonsAnimationController
            && (RoutingController.get().isPlanning() || RoutingController.get().isNavigating());
   }
 
-  void slide(boolean isDown)
+  void slide(boolean isDown, float distance)
   {
     if (UiUtils.isLandscape(mMyPosition.getContext())
         || (!isDown && mZoomIn.getTranslationY() <= 0))
       return;
 
-    mIsSlideDown = isDown;
+    mSlideDown = isDown;
+    mCurrentOffset = isDown ? distance : 0;
 
-    ValueAnimator animator = ValueAnimator.ofFloat(isDown ? 0 : mMenuHeight, isDown ? mMenuHeight : 0);
+    ValueAnimator animator = ValueAnimator.ofFloat(isDown ? 0 : distance, isDown ? distance : 0);
     animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
     {
       @Override
@@ -217,7 +236,7 @@ class NavigationButtonsAnimationController
       @Override
       public void onAnimationEnd(Animator animation)
       {
-        mIsSlideDown = false;
+        mSlideDown = false;
         update();
       }
     });

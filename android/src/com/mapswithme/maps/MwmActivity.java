@@ -106,6 +106,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  RoutingController.Container,
                                  LocationHelper.UiCallback,
                                  RoutingPlanController.OnToggleListener,
+                                 RoutingPlanController.SearchPoiTransitionListener,
                                  FloatingSearchToolbarController.VisibilityListener
 {
   public static final String EXTRA_TASK = "map_task";
@@ -455,6 +456,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       mRoutingPlanInplaceController = new RoutingPlanInplaceController(this);
       mRoutingPlanInplaceController.setOnToggleListener(this);
+      mRoutingPlanInplaceController.setPoiTransitionListener(this);
       removeCurrentFragment(false);
     }
 
@@ -549,7 +551,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     ImageButton traffic = (ImageButton) frame.findViewById(R.id.traffic);
     mTraffic = new TrafficButton(this, traffic);
     mTrafficButtonController = new TrafficButtonController(mTraffic, this);
-    mNavAnimationController = new NavigationButtonsAnimationController(zoomIn, zoomOut, myPosition);
+    mNavAnimationController = new NavigationButtonsAnimationController(
+        zoomIn, zoomOut, myPosition, getWindow().getDecorView().getRootView());
   }
 
   public boolean closePlacePage()
@@ -1385,7 +1388,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void adjustMenuLineFrameVisibility()
   {
     final RoutingController controller = RoutingController.get();
-    final int menuHeight = getCurrentMenu().getFrame().getHeight();
 
     if (controller.isBuilt() || controller.isUberRequestHandled())
     {
@@ -1394,7 +1396,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
         @Override
         public void run()
         {
-          adjustCompass(0);
           adjustRuler(0, 0);
         }
       });
@@ -1408,7 +1409,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         @Override
         public void run()
         {
-          adjustCompass(menuHeight);
+          final int menuHeight = getCurrentMenu().getFrame().getHeight();
           adjustRuler(0, menuHeight);
         }
       });
@@ -1420,7 +1421,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       @Override
       public void run()
       {
-        adjustCompass(0);
         adjustRuler(0, 0);
       }
     });
@@ -1439,7 +1439,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void showRoutePlan(boolean show, @Nullable Runnable completionListener)
   {
     if (mNavAnimationController != null && !mIsFragmentContainer)
-      mNavAnimationController.slide(show);
+    {
+      mNavAnimationController.setBottomLimit(show ? 0 : getCurrentMenu().getFrame().getHeight());
+      mNavAnimationController.slide(show, getCurrentMenu().getFrame().getHeight());
+    }
     if (show)
     {
       mSearchController.hide();
