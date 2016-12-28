@@ -4,6 +4,7 @@
 #import "UIColor+MapsMeColor.h"
 #import "UIImageView+Coloring.h"
 
+#import <Crashlytics/Crashlytics.h>
 #import <SafariServices/SafariServices.h>
 
 @implementation NSObject (Optimized)
@@ -300,7 +301,16 @@
 - (void)openUrl:(NSURL *)url
 {
   NSString * scheme = url.scheme;
-  NSAssert(([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]), @"Incorrect url's scheme!");
+  if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"])
+  {
+    NSAssert(false, @"Incorrect url's scheme!");
+    NSError * err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
+                                               code:0
+                                           userInfo:@{@"Trying to open incorrect url" : url.absoluteString}];
+    [[Crashlytics sharedInstance] recordError:err];
+    return;
+  }
+
   if (isIOS8)
   {
     UIApplication * app = [UIApplication sharedApplication];
@@ -308,6 +318,7 @@
       [app openURL:url];
     return;
   }
+
   SFSafariViewController * svc = [[SFSafariViewController alloc] initWithURL:url];
   svc.delegate = self;
   [self.navigationController presentViewController:svc animated:YES completion:nil];

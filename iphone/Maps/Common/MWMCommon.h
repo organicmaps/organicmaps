@@ -6,6 +6,8 @@ static NSString * const BOOKMARK_CATEGORY_DELETED_NOTIFICATION =
 
 static NSString * const BOOKMARK_DELETED_NOTIFICATION = @"BookmarkDeletedNotification";
 
+static NSString * const kMapsmeErrorDomain = @"com.mapsme.error";
+
 static CGFloat const kDefaultAnimationDuration = .2;
 
 static inline BOOL firstVersionIsLessThanSecond(NSString * first, NSString * second)
