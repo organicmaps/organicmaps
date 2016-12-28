@@ -66,7 +66,7 @@ class OSRMRoutingResult : public turns::IRoutingResult
 public:
   // turns::IRoutingResult overrides:
   TUnpackedPathSegments const & GetSegments() const override { return m_loadedSegments; }
-  void GetPossibleTurns(TNodeId node, m2::PointD const & ingoingPoint,
+  void GetPossibleTurns(UniNodeId const & node, m2::PointD const & ingoingPoint,
                         m2::PointD const & junctionPoint, size_t & ingoingCount,
                         turns::TurnCandidates & outgoingTurns) const override
   {
@@ -87,9 +87,10 @@ public:
     // Filtering virtual edges.
     vector<NodeID> adjacentNodes;
     ingoingCount = 0;
-    for (EdgeID const e : m_routingMapping.m_dataFacade.GetAdjacentEdgeRange(node))
+    for (EdgeID const e : m_routingMapping.m_dataFacade.GetAdjacentEdgeRange(node.GetNodeId()))
     {
-      QueryEdge::EdgeData const data = m_routingMapping.m_dataFacade.GetEdgeData(e, node);
+      QueryEdge::EdgeData const data =
+          m_routingMapping.m_dataFacade.GetEdgeData(e, node.GetNodeId());
       if (data.shortcut)
         continue;
       if (data.forward)
@@ -105,11 +106,11 @@ public:
 
     for (NodeID const adjacentNode : geomNodes)
     {
-      if (adjacentNode == node)
+      if (adjacentNode == node.GetNodeId())
         continue;
       for (EdgeID const e : m_routingMapping.m_dataFacade.GetAdjacentEdgeRange(adjacentNode))
       {
-        if (m_routingMapping.m_dataFacade.GetTarget(e) != node)
+        if (m_routingMapping.m_dataFacade.GetTarget(e) != node.GetNodeId())
           continue;
         QueryEdge::EdgeData const data = m_routingMapping.m_dataFacade.GetEdgeData(e, adjacentNode);
         if (data.shortcut)
@@ -145,7 +146,7 @@ public:
       outgoingTurns.isCandidatesAngleValid = true;
       double const a =
           my::RadToDeg(turns::PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint));
-      outgoingTurns.candidates.emplace_back(a, targetNode, ftypes::GetHighwayClass(ft));
+      outgoingTurns.candidates.emplace_back(a, UniNodeId(targetNode), ftypes::GetHighwayClass(ft));
     }
 
     sort(outgoingTurns.candidates.begin(), outgoingTurns.candidates.end(),
@@ -171,7 +172,7 @@ public:
     for (auto const & pathSegments : m_rawResult.unpackedPathSegments)
     {
       auto numSegments = pathSegments.size();
-      m_loadedSegments.resize(numSegments);
+      m_loadedSegments.resize(numSegments, LoadedPathSegment(UniNodeId::Type::Osrm));
       for (size_t segmentIndex = 0; segmentIndex < numSegments; ++segmentIndex)
       {
         bool isStartNode = (segmentIndex == 0);
@@ -282,7 +283,18 @@ bool CarRouter::FindRouteMSMT(TFeatureGraphNodeVec const & sources,
       {
       case NoError: return true;
       case Cancelled: return false;
-      default: continue;
+      case NoCurrentPosition:
+        LOG(LERROR, ("NoCurrentPosition routing result returned by FindSingleRouteDispatcher()"));
+        return false;
+      case InconsistentMWMandRoute: return false;
+      case RouteFileNotExist: return false;
+      case StartPointNotFound: continue;
+      case EndPointNotFound: continue;
+      case PointsInDifferentMWM: return false;
+      case RouteNotFound: continue;
+      case NeedMoreMaps: return false;
+      case InternalError: return false;
+      case FileTooOld: return false;
       }
     }
   }

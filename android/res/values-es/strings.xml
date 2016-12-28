@@ -960,10 +960,10 @@
 	<string name="booking_filters_rating_very_good">Muy bueno</string>
 	<string name="booking_filters_rating_excellent">Excelente</string>
 	<string name="booking_filters_price_category">Categoría de precios</string>
-	<string name="booking_filters_no_results">No se han encontrado resultados</string>
-	<string name="booking_filters_nores_message">Pruebe un término de búsqueda general, aléjese o restablezca el filtro.</string>
-	<string name="booking_filters_expand_area_button">Alejarse</string>
-	<string name="booking_filters_reset_button">Restablecer filtro</string>
+	<string name="search_no_results_title">No se han encontrado resultados</string>
+	<string name="search_no_results_message">Pruebe un término de búsqueda general, aléjese o restablezca el filtro.</string>
+	<string name="search_no_results_expand_area_button">Alejarse</string>
+	<string name="search_no_results_reset_button">Restablecer filtro</string>
 	<!-- noun -->
 	<string name="search_in_table">Lista</string>
 	<string name="booking_based_on_reviews">Basado en %d reseñas de hoteles</string>
@@ -1007,8 +1007,8 @@
 	<string name="banner_geerbest_message">Búsqueda instantánea de más de 50 000 artículos a precios bajos.</string>
 	<string name="banner_rentalcars_title">Alquiler de coches en línea</string>
 	<string name="banner_rentalcars_message">800 compañías de alquiler de coches en más de 49 000 localidades.</string>
-	<string name="banner_viator_title">Reserva de viajes en línea</string>
-	<string name="banner_viator_message">Más de 50 000 viajes por todo el mundo.</string>
+	<string name="banner_viator_title">Reserva de visitas guiadas en línea</string>
+	<string name="banner_viator_message">Más de 50 000 visitas guiadas por todo el mundo.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Datos del tráfico en 36 países</string>
 	<!-- december -->

@@ -985,10 +985,10 @@
 	<string name="booking_filters_rating_very_good">Sehr gut</string>
 	<string name="booking_filters_rating_excellent">Ausgezeichnet</string>
 	<string name="booking_filters_price_category">Preiskategorie</string>
-	<string name="booking_filters_no_results">Keine Ergebnisse gefunden</string>
-	<string name="booking_filters_nores_message">Versuchen Sie es mit einem allgemeineren Suchbegriff, zoomen Sie heraus oder setzen Sie den Filter zurück.</string>
-	<string name="booking_filters_expand_area_button">Herauszoomen</string>
-	<string name="booking_filters_reset_button">Filter zurücksetzen</string>
+	<string name="search_no_results_title">Keine Ergebnisse gefunden</string>
+	<string name="search_no_results_message">Versuchen Sie es mit einem allgemeineren Suchbegriff, zoomen Sie heraus oder setzen Sie den Filter zurück.</string>
+	<string name="search_no_results_expand_area_button">Herauszoomen</string>
+	<string name="search_no_results_reset_button">Filter zurücksetzen</string>
 	<!-- noun -->
 	<string name="search_in_table">Liste</string>
 	<string name="booking_based_on_reviews">Basierend auf %d Hotelbewertungen</string>

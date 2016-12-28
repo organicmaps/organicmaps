@@ -1664,13 +1664,13 @@
 
 "booking_filters_price_category" = "หมวดหมู่ราคา";
 
-"booking_filters_no_results" = "ไม่พบผลลัพธ์";
+"search_no_results_title" = "ไม่พบผลลัพธ์";
 
-"booking_filters_nores_message" = "ลองค้นหาด้วยคำทั่ว ๆ ไปดู ซูมออกหรือรีเซ็ตตัวกรอง";
+"search_no_results_message" = "ลองค้นหาด้วยคำทั่ว ๆ ไปดู ซูมออกหรือรีเซ็ตตัวกรอง";
 
-"booking_filters_expand_area_button" = "ซูมออก";
+"search_no_results_expand_area_button" = "ซูมออก";
 
-"booking_filters_reset_button" = "รีเซ็ตตัวกรอง";
+"search_no_results_reset_button" = "รีเซ็ตตัวกรอง";
 
 /* noun */
 "search_in_table" = "รายการ";

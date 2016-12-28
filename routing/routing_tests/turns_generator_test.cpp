@@ -326,25 +326,25 @@ UNIT_TEST(TestCalculateMercatorDistanceAlongRoute)
 
 UNIT_TEST(TestCheckUTurnOnRoute)
 {
-  TUnpackedPathSegments pathSegments(4);
+  TUnpackedPathSegments pathSegments(4, LoadedPathSegment(UniNodeId::Type::Osrm));
   pathSegments[0].m_name = "A road";
   pathSegments[0].m_weight = 1;
-  pathSegments[0].m_nodeId = 0;
+  pathSegments[0].m_nodeId = UniNodeId(0 /* node id */);
   pathSegments[0].m_highwayClass = ftypes::HighwayClass::Trunk;
   pathSegments[0].m_onRoundabout = false;
   pathSegments[0].m_isLink = false;
   pathSegments[0].m_path = {{{0, 0}, 0}, {{0, 1}, 0}};
 
   pathSegments[1] = pathSegments[0];
-  pathSegments[1].m_nodeId = 1;
+  pathSegments[1].m_nodeId = UniNodeId(1 /* node id */);
   pathSegments[1].m_path = {{{0, 1}, 0}, {{0, 0}, 0}};
 
   pathSegments[2] = pathSegments[0];
-  pathSegments[2].m_nodeId = 2;
+  pathSegments[2].m_nodeId = UniNodeId(2 /* node id */);
   pathSegments[2].m_path = {{{0, 0}, 0}, {{0, 1}, 0}};
 
   pathSegments[3] = pathSegments[0];
-  pathSegments[3].m_nodeId = 3;
+  pathSegments[3].m_nodeId = UniNodeId(3 /* node id */);
   pathSegments[3].m_path.clear();
 
   // Zigzag test.

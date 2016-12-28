@@ -867,6 +867,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mOnmapDownloader.onResume();
     if (mNavigationController != null)
       mNavigationController.onResume();
+    if (mNavAnimationController != null)
+      mNavAnimationController.onResume();
   }
 
   @Override

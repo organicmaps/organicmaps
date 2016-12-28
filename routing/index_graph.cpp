@@ -25,6 +25,13 @@ m2::PointD const & IndexGraph::GetPoint(Joint::Id jointId)
   return m_geometry.GetPoint(m_jointIndex.GetPoint(jointId));
 }
 
+m2::PointD const & IndexGraph::GetPoint(RoadPoint const & rp)
+{
+  RoadGeometry const & road = GetGeometry().GetRoad(rp.GetFeatureId());
+  CHECK_LESS(rp.GetPointId(), road.GetPointsCount(), ());
+  return road.GetPoint(rp.GetPointId());
+}
+
 void IndexGraph::Build(uint32_t numJoints) { m_jointIndex.Build(m_roadIndex, numJoints); }
 
 void IndexGraph::Import(vector<Joint> const & joints)

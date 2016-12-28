@@ -36,10 +36,11 @@ public:
                         buffer_vector<TileKey, 8> const & tilesToDelete);
   void OnGeometryReady(int currentZoomLevel);
 
-  static float GetPixelWidth(RoadClass const & roadClass, int zoomLevel);
+  static float GetTwoWayOffset(RoadClass const & roadClass, int zoomLevel);
   static bool CanBeRendereredAsLine(RoadClass const & roadClass, int zoomLevel, int & width);
 
 private:
+  static float GetPixelWidth(RoadClass const & roadClass, int zoomLevel);
   static float GetPixelWidthInternal(RoadClass const & roadClass, int zoomLevel);
 
   vector<TrafficRenderData> m_renderData;

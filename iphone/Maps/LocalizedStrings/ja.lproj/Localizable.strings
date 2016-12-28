@@ -1664,13 +1664,13 @@
 
 "booking_filters_price_category" = "価格帯";
 
-"booking_filters_no_results" = "結果が見つかりません";
+"search_no_results_title" = "結果が見つかりません";
 
-"booking_filters_nores_message" = "一般的な検索語句や、フィルター範囲を広げたりリセットしたりしてください。";
+"search_no_results_message" = "一般的な検索語句や、フィルター範囲を広げたりリセットしたりしてください。";
 
-"booking_filters_expand_area_button" = "広げる";
+"search_no_results_expand_area_button" = "広げる";
 
-"booking_filters_reset_button" = "フィルターをリセット";
+"search_no_results_reset_button" = "フィルターをリセット";
 
 /* noun */
 "search_in_table" = "一覧";

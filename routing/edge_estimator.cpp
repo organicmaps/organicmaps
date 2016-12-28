@@ -10,6 +10,10 @@ namespace
 {
 double CalcTrafficFactor(SpeedGroup speedGroup)
 {
+  double constexpr kImpossibleDrivingFactor = 1e4;
+  if (speedGroup == SpeedGroup::TempBlock)
+    return kImpossibleDrivingFactor;
+
   double const percentage =
       0.01 * static_cast<double>(kSpeedGroupThresholdPercentage[static_cast<size_t>(speedGroup)]);
   CHECK_GREATER(percentage, 0.0, ("Speed group:", speedGroup));

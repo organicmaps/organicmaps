@@ -33,24 +33,21 @@ struct LoadedPathSegment
   vector<turns::SingleLaneInfo> m_lanes;
   string m_name;
   TEdgeWeight m_weight; /*!< Time in seconds to pass the segment. */
-  TNodeId m_nodeId;     /*!< May be NodeId for OSRM router or FeatureId::index for graph router. */
+  UniNodeId m_nodeId;   /*!< May be either NodeID for OSRM route or
+                             mwm id, feature id, segment id and direction for A*. */
   vector<traffic::TrafficInfo::RoadSegmentId> m_trafficSegs; /*!< Traffic segments for |m_path|. */
   ftypes::HighwayClass m_highwayClass;
   bool m_onRoundabout;
   bool m_isLink;
 
-  LoadedPathSegment()
-  {
-    Clear();
-  }
-
+  LoadedPathSegment(UniNodeId::Type type) : m_nodeId(type) { Clear(); }
   void Clear()
   {
     m_path.clear();
     m_lanes.clear();
     m_name.clear();
     m_weight = 0;
-    m_nodeId = 0;
+    m_nodeId.Clear();
     m_trafficSegs.clear();
     m_highwayClass = ftypes::HighwayClass::Undefined;
     m_onRoundabout = false;

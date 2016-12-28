@@ -1664,13 +1664,13 @@
 
 "booking_filters_price_category" = "Hintaluokka";
 
-"booking_filters_no_results" = "Ei hakutuloksia";
+"search_no_results_title" = "Ei hakutuloksia";
 
-"booking_filters_nores_message" = "Kokeile yleisempää hakusanaa, loitonna tai palauta suodatin.";
+"search_no_results_message" = "Kokeile yleisempää hakusanaa, loitonna tai palauta suodatin.";
 
-"booking_filters_expand_area_button" = "Loitonna";
+"search_no_results_expand_area_button" = "Loitonna";
 
-"booking_filters_reset_button" = "Palauta suodatin";
+"search_no_results_reset_button" = "Palauta suodatin";
 
 /* noun */
 "search_in_table" = "Luettelo";

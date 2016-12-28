@@ -113,7 +113,7 @@ elif [ "$1" == "mwm" ]; then
 
   # Xargs has 255 chars limit for exec string, so we use short variable names.
   export G="$GENERATOR_TOOL"
-  export K="--make_routing --make_cross_section --make_routing_index"
+  export K="--make_routing --make_cross_section --make_routing_index --generate_traffic_keys"
   export I="--intermediate_data_path=$INTDIR"
   export TARGET
   export LOG_PATH

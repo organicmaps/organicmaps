@@ -174,7 +174,7 @@ private:
   //////
   /// Render part of scene
   void Render2dLayer(ScreenBase const & modelView);
-  void Render3dLayer(ScreenBase const & modelView);
+  void Render3dLayer(ScreenBase const & modelView, bool useFramebuffer);
   void RenderOverlayLayer(ScreenBase const & modelView);
   void RenderUserMarksLayer(ScreenBase const & modelView);
   void RenderTrafficAndRouteLayer(ScreenBase const & modelView);

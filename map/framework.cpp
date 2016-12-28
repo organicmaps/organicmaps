@@ -437,6 +437,8 @@ Framework::Framework()
   routing::RouterDelegate::TPointCheckCallback const routingVisualizerFn = nullptr;
 #endif
   m_routingSession.Init(routingStatisticsFn, routingVisualizerFn);
+  m_routingSession.SetReadyCallbacks([&](Route const & route, IRouter::ResultCode code){ OnBuildRouteReady(route, code); },
+                                     [&](Route const & route, IRouter::ResultCode code){ OnRebuildRouteReady(route, code); });
 
   SetRouterImpl(RouterType::Vehicle);
 
@@ -2389,37 +2391,7 @@ void Framework::BuildRoute(m2::PointD const & start, m2::PointD const & finish, 
     CloseRouting();
 
   m_routingSession.SetUserCurrentPosition(start);
-
-  auto readyCallback = [this] (Route const & route, IRouter::ResultCode code)
-  {
-    storage::TCountriesVec absentCountries;
-    if (code == IRouter::NoError)
-    {
-      double const kRouteScaleMultiplier = 1.5;
-
-      InsertRoute(route);
-      StopLocationFollow();
-
-      // Validate route (in case of bicycle routing it can be invalid).
-      ASSERT(route.IsValid(), ());
-      if (route.IsValid())
-      {
-        m2::RectD routeRect = route.GetPoly().GetLimitRect();
-        routeRect.Scale(kRouteScaleMultiplier);
-        ShowRect(routeRect, -1);
-      }
-    }
-    else
-    {
-      absentCountries.assign(route.GetAbsentCountries().begin(), route.GetAbsentCountries().end());
-
-      if (code != IRouter::NeedMoreMaps)
-        RemoveRoute(true /* deactivateFollowing */);
-    }
-    CallRouteBuilded(code, absentCountries);
-  };
-
-  m_routingSession.BuildRoute(start, finish, readyCallback, m_progressCallback, timeoutSec);
+  m_routingSession.BuildRoute(start, finish, timeoutSec);
 }
 
 void Framework::FollowRoute()
@@ -2565,17 +2537,9 @@ void Framework::CheckLocationForRouting(GpsInfo const & info)
   RoutingSession::State state = m_routingSession.OnLocationPositionChanged(info, m_model.GetIndex());
   if (state == RoutingSession::RouteNeedRebuild)
   {
-    auto readyCallback = [this] (Route const & route, IRouter::ResultCode code)
-    {
-      if (code == IRouter::NoError)
-      {
-        RemoveRoute(false /* deactivateFollowing */);
-        InsertRoute(route);
-      }
-    };
-
     m_routingSession.RebuildRoute(MercatorBounds::FromLatLon(info.m_latitude, info.m_longitude),
-                                  readyCallback, m_progressCallback, 0 /* timeoutSec */,
+                                  [&](Route const & route, IRouter::ResultCode code){ OnRebuildRouteReady(route, code); },
+                                  0 /* timeoutSec */,
                                   routing::RoutingSession::State::RouteRebuilding);
   }
 }
@@ -2627,6 +2591,45 @@ string Framework::GetRoutingErrorMessage(IRouter::ResultCode code)
   }
 
   return m_stringsBundle.GetString(messageID);
+}
+
+void Framework::OnBuildRouteReady(Route const & route, IRouter::ResultCode code)
+{
+  storage::TCountriesVec absentCountries;
+  if (code == IRouter::NoError)
+  {
+    double const kRouteScaleMultiplier = 1.5;
+
+    InsertRoute(route);
+    StopLocationFollow();
+
+    // Validate route (in case of bicycle routing it can be invalid).
+    ASSERT(route.IsValid(), ());
+    if (route.IsValid())
+    {
+      m2::RectD routeRect = route.GetPoly().GetLimitRect();
+      routeRect.Scale(kRouteScaleMultiplier);
+      ShowRect(routeRect, -1);
+    }
+  }
+  else
+  {
+    absentCountries.assign(route.GetAbsentCountries().begin(), route.GetAbsentCountries().end());
+
+    if (code != IRouter::NeedMoreMaps)
+      RemoveRoute(true /* deactivateFollowing */);
+  }
+  CallRouteBuilded(code, absentCountries);
+}
+
+void Framework::OnRebuildRouteReady(Route const & route, IRouter::ResultCode code)
+{
+  if (code != IRouter::NoError)
+    return;
+
+  RemoveRoute(false /* deactivateFollowing */);
+  InsertRoute(route);
+  CallRouteBuilded(code, storage::TCountriesVec());
 }
 
 RouterType Framework::GetBestRouter(m2::PointD const & startPoint, m2::PointD const & finalPoint)

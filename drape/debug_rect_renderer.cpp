@@ -96,8 +96,6 @@ void DebugRectRenderer::DrawRect(ScreenBase const & screen, m2::RectF const & re
   GLFunctions::glBindBuffer(m_vertexBuffer, gl_const::GLArrayBuffer);
   GLFunctions::glBindVertexArray(m_VAO);
 
-  GLFunctions::glDisable(gl_const::GLDepthTest);
-
   array<m2::PointF, 5> vertices;
   vertices[0] = PixelPointToScreenSpace(screen, rect.LeftBottom());
   vertices[1] = PixelPointToScreenSpace(screen, rect.LeftTop());
@@ -113,8 +111,6 @@ void DebugRectRenderer::DrawRect(ScreenBase const & screen, m2::RectF const & re
     GLFunctions::glUniformValuef(location, color.GetRedF(), color.GetGreenF(), color.GetBlueF(), color.GetAlfaF());
 
   GLFunctions::glDrawArrays(gl_const::GLLineStrip, 0, vertices.size());
-
-  GLFunctions::glEnable(gl_const::GLDepthTest);
 
   GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
   GLFunctions::glBindVertexArray(0);
@@ -138,8 +134,6 @@ void DebugRectRenderer::DrawArrow(ScreenBase const & screen, OverlayTree::Displa
   GLFunctions::glBindBuffer(m_vertexBuffer, gl_const::GLArrayBuffer);
   GLFunctions::glBindVertexArray(m_VAO);
 
-  GLFunctions::glDisable(gl_const::GLDepthTest);
-
   array<m2::PointF, 5> vertices;
   m2::PointF const dir = (data.m_arrowEnd - data.m_arrowStart).Normalize();
   m2::PointF const side = m2::PointF(-dir.y, dir.x);
@@ -158,8 +152,6 @@ void DebugRectRenderer::DrawArrow(ScreenBase const & screen, OverlayTree::Displa
                                  data.m_arrowColor.GetBlueF(), data.m_arrowColor.GetAlfaF());
 
   GLFunctions::glDrawArrays(gl_const::GLLineStrip, 0, vertices.size());
-
-  GLFunctions::glEnable(gl_const::GLDepthTest);
 
   GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
   GLFunctions::glBindVertexArray(0);

@@ -45,7 +45,7 @@ bool KeepTurnByHighwayClass(TurnDirection turn, TurnCandidates const & possibleT
   ftypes::HighwayClass maxClassForPossibleTurns = ftypes::HighwayClass::Error;
   for (auto const & t : possibleTurns.candidates)
   {
-    if (t.node == turnInfo.m_outgoing.m_nodeId)
+    if (t.m_nodeId == turnInfo.m_outgoing.m_nodeId)
       continue;
     ftypes::HighwayClass const highwayClass = t.highwayClass;
     if (static_cast<int>(highwayClass) > static_cast<int>(maxClassForPossibleTurns))
@@ -84,7 +84,7 @@ bool KeepRoundaboutTurnByHighwayClass(TurnDirection turn, TurnCandidates const &
 {
   for (auto const & t : possibleTurns.candidates)
   {
-    if (t.node == turnInfo.m_outgoing.m_nodeId)
+    if (t.m_nodeId == turnInfo.m_outgoing.m_nodeId)
       continue;
     if (static_cast<int>(t.highwayClass) != static_cast<int>(ftypes::HighwayClass::Service))
       return true;
@@ -615,9 +615,9 @@ void GetTurnDirection(IRoutingResult const & result, TurnInfo & turnInfo, TurnIt
   }
   else
   {
-    if (nodes.candidates.front().node == turnInfo.m_outgoing.m_nodeId)
+    if (nodes.candidates.front().m_nodeId == turnInfo.m_outgoing.m_nodeId)
       turn.m_turn = LeftmostDirection(turnAngle);
-    else if (nodes.candidates.back().node == turnInfo.m_outgoing.m_nodeId)
+    else if (nodes.candidates.back().m_nodeId == turnInfo.m_outgoing.m_nodeId)
       turn.m_turn = RightmostDirection(turnAngle);
     else
       turn.m_turn = intermediateDirection;

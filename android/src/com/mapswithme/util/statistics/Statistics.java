@@ -64,6 +64,7 @@ public enum Statistics
     public static final String SEARCH_ITEM_CLICKED = "Search. Key clicked";
     public static final String SEARCH_ON_MAP_CLICKED = "Search. View on map clicked.";
     public static final String SEARCH_CANCEL = "Search. Cancel.";
+    public static final String SEARCH_TAB_SELECTED = "Search_Tab_selected";
 
     // place page
     public static final String PP_OPEN = "PP. Open";
@@ -78,6 +79,8 @@ public enum Statistics
     public static final String PP_DIRECTION_ARROW = "PP. DirectionArrow";
     public static final String PP_DIRECTION_ARROW_CLOSE = "PP. DirectionArrowClose";
     public static final String PP_METADATA_COPY = "PP. CopyMetadata";
+    public static final String PP_BANNER_CLICK = "Placepage_Banner_click";
+    public static final String PP_BANNER_SHOW = "Placepage_Banner_show";
 
     // toolbar actions
     public static final String TOOLBAR_MY_POSITION = "Toolbar. MyPosition";
@@ -181,6 +184,7 @@ public enum Statistics
     public static final String FROM = "from";
     public static final String TO = "to";
     public static final String CATEGORY = "category";
+    public static final String TAB = "tab";
     public static final String COUNT = "Count";
     public static final String CHANNEL = "Channel";
     public static final String CALLER_ID = "Caller ID";
@@ -326,6 +330,11 @@ public enum Statistics
     // We track if user turned on/off statistics to understand data better.
     trackEvent(EventName.STATISTICS_STATUS_CHANGED + " " + Config.getInstallFlavor(),
                params().add(EventParam.ENABLED, String.valueOf(isEnabled)));
+  }
+
+  public void trackSearchTabSelected(@NonNull String tab)
+  {
+    trackEvent(EventName.SEARCH_TAB_SELECTED, params().add(EventParam.TAB, tab));
   }
 
   public void trackSearchCategoryClicked(String category)

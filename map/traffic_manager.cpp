@@ -243,7 +243,13 @@ void TrafficManager::ThreadRoutine()
 
       traffic::TrafficInfo info(mwm, m_currentDataVersion);
 
-      if (info.ReceiveTrafficData(m_trafficETags[mwm]))
+      string tag;
+      {
+        lock_guard<mutex> lock(m_mutex);
+        tag = m_trafficETags[mwm];
+      }
+
+      if (info.ReceiveTrafficData(tag))
       {
         OnTrafficDataResponse(move(info));
       }
@@ -251,6 +257,11 @@ void TrafficManager::ThreadRoutine()
       {
         LOG(LWARNING, ("Traffic request failed. Mwm =", mwm));
         OnTrafficRequestFailed(move(info));
+      }
+
+      {
+        lock_guard<mutex> lock(m_mutex);
+        m_trafficETags[mwm] = tag;
       }
     }
     mwms.clear();
@@ -476,17 +487,17 @@ void TrafficManager::UpdateState()
       expiredApp |= it->second.m_lastAvailability == traffic::TrafficInfo::Availability::ExpiredApp;
       expiredData |= it->second.m_lastAvailability == traffic::TrafficInfo::Availability::ExpiredData;
       noData |= it->second.m_lastAvailability == traffic::TrafficInfo::Availability::NoData;
-    }
 
-    if (it->second.m_isLoaded)
-    {
-      auto const timeSinceLastResponse = currentTime - it->second.m_lastResponseTime;
-      if (timeSinceLastResponse > maxPassedTime)
-        maxPassedTime = timeSinceLastResponse;
-    }
-    else if (it->second.m_retriesCount >= kMaxRetriesCount)
-    {
-      networkError = true;
+      if (it->second.m_isLoaded)
+      {
+        auto const timeSinceLastResponse = currentTime - it->second.m_lastResponseTime;
+        if (timeSinceLastResponse > maxPassedTime)
+          maxPassedTime = timeSinceLastResponse;
+      }
+      else if (it->second.m_retriesCount >= kMaxRetriesCount)
+      {
+        networkError = true;
+      }
     }
   }
 

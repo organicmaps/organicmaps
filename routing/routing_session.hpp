@@ -87,11 +87,9 @@ public:
   /// @param[in] startPoint and endPoint in mercator
   /// @param[in] timeoutSec timeout in seconds, if zero then there is no timeout
   void BuildRoute(m2::PointD const & startPoint, m2::PointD const & endPoint,
-                  TReadyCallback const & readyCallback,
-                  TProgressCallback const & progressCallback, uint32_t timeoutSec);
+                  uint32_t timeoutSec);
   void RebuildRoute(m2::PointD const & startPoint, TReadyCallback const & readyCallback,
-                    TProgressCallback const & progressCallback, uint32_t timeoutSec,
-                    State routeRebuildingState);
+                    uint32_t timeoutSec, State routeRebuildingState);
 
   m2::PointD GetEndPoint() const { return m_endPoint; }
   bool IsActive() const { return (m_state != RoutingNotActive); }
@@ -143,6 +141,9 @@ public:
   bool EnableFollowMode();
 
   void SetRoutingSettings(RoutingSettings const & routingSettings);
+  void SetReadyCallbacks(TReadyCallback const & buildReadyCallback,
+                         TReadyCallback const & rebuildReadyCallback);
+  void SetProgressCallback(TProgressCallback const & progressCallback);
 
   // Sound notifications for turn instructions.
   void EnableTurnNotifications(bool enable);
@@ -187,6 +188,7 @@ private:
   /// RemoveRoute removes m_route and resets route attributes (m_state, m_lastDistance, m_moveAwayCounter).
   void RemoveRoute();
   void RemoveRouteImpl();
+  void RebuildRouteOnTrafficUpdate();
 
   bool HasRouteAltitudeImpl() const;
   double GetCompletionPercent() const;
@@ -219,6 +221,10 @@ private:
   turns::sound::NotificationManager m_turnNotificationsMgr;
 
   RoutingSettings m_routingSettings;
+
+  TReadyCallback m_buildReadyCallback;
+  TReadyCallback m_rebuildReadyCallback;
+  TProgressCallback m_progressCallback;
 
   // Statistics parameters
   // Passed distance on route including reroutes

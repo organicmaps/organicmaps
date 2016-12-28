@@ -147,7 +147,7 @@ public:
   void ClearCache(MwmSet::MwmId const & mwmId);
   void InvalidateTexturesCache();
 
-  static df::ColorConstant GetColorBySpeedGroup(traffic::SpeedGroup const & speedGroup);
+  static df::ColorConstant GetColorBySpeedGroup(traffic::SpeedGroup const & speedGroup, bool route);
 
 private:
   struct TrafficBatcherKey

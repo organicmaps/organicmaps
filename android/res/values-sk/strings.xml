@@ -970,10 +970,10 @@
 	<string name="booking_filters_rating_very_good">Veľmi dobré</string>
 	<string name="booking_filters_rating_excellent">Výborné</string>
 	<string name="booking_filters_price_category">Cenová kategória</string>
-	<string name="booking_filters_no_results">Nenašli sa žiadne výsledky</string>
-	<string name="booking_filters_nores_message">Skúste vyhľadávať všeobecnejší výraz, vzdialiť alebo obnoviť nastavenie filtra.</string>
-	<string name="booking_filters_expand_area_button">Vzdialiť</string>
-	<string name="booking_filters_reset_button">Obnoviť filter</string>
+	<string name="search_no_results_title">Nenašli sa žiadne výsledky</string>
+	<string name="search_no_results_message">Skúste vyhľadávať všeobecnejší výraz, vzdialiť alebo obnoviť nastavenie filtra.</string>
+	<string name="search_no_results_expand_area_button">Vzdialiť</string>
+	<string name="search_no_results_reset_button">Obnoviť filter</string>
 	<!-- noun -->
 	<string name="search_in_table">Zoznam</string>
 	<string name="booking_based_on_reviews">Na základe %d recenzií</string>

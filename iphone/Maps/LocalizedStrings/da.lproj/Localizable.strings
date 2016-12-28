@@ -1664,13 +1664,13 @@
 
 "booking_filters_price_category" = "Prisklasse";
 
-"booking_filters_no_results" = "Ingen resultater fundet";
+"search_no_results_title" = "Ingen resultater fundet";
 
-"booking_filters_nores_message" = "Prøv et mere generelt søgeudtryk, zoom ud eller nulstil filteret.";
+"search_no_results_message" = "Prøv et mere generelt søgeudtryk, zoom ud eller nulstil filteret.";
 
-"booking_filters_expand_area_button" = "Zoom ud";
+"search_no_results_expand_area_button" = "Zoom ud";
 
-"booking_filters_reset_button" = "Nulstil Filter";
+"search_no_results_reset_button" = "Nulstil Filter";
 
 /* noun */
 "search_in_table" = "Liste";

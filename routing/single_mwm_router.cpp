@@ -22,6 +22,8 @@
 
 #include "base/exception.hpp"
 
+#include "std/algorithm.hpp"
+
 using namespace routing;
 
 namespace
@@ -205,24 +207,42 @@ bool SingleMwmRouter::BuildRoute(MwmSet::MwmId const & mwmId, vector<Joint::Id> 
   vector<RoutePoint> routePoints;
   starter.RedressRoute(joints, routePoints);
 
+  // ReconstructRoute removes equal points: do it self to match time indexes.
+  // TODO: rework ReconstructRoute and remove all time indexes stuff.
+  routePoints.erase(unique(routePoints.begin(), routePoints.end(),
+                           [&](RoutePoint const & rp0, RoutePoint const & rp1) {
+                             return starter.GetPoint(rp0.GetRoadPoint()) ==
+                                    starter.GetPoint(rp1.GetRoadPoint());
+                           }),
+                    routePoints.end());
+
   vector<Junction> junctions;
   junctions.reserve(routePoints.size());
 
-  Geometry & geometry = starter.GetGraph().GetGeometry();
   // TODO: Use real altitudes for pedestrian and bicycle routing.
   for (RoutePoint const & routePoint : routePoints)
   {
-    junctions.emplace_back(geometry.GetPoint(routePoint.GetRoadPoint()),
+    junctions.emplace_back(starter.GetPoint(routePoint.GetRoadPoint()),
                            feature::kDefaultAltitudeMeters);
   }
 
   shared_ptr<traffic::TrafficInfo::Coloring> trafficColoring = m_trafficCache.GetTrafficInfo(mwmId);
-  ReconstructRoute(m_directionsEngine.get(), m_roadGraph, trafficColoring, delegate, junctions,
-                   route);
+
+  vector<Junction> const oldJunctions(junctions);
+
+  CHECK(m_directionsEngine, ());
+  ReconstructRoute(*m_directionsEngine, m_roadGraph, trafficColoring, delegate,
+                   junctions, route);
+
+  if (junctions != oldJunctions)
+  {
+    LOG(LERROR, ("ReconstructRoute changed junctions: size before", oldJunctions.size(),
+                 ", size after", junctions.size()));
+    return false;
+  }
 
   // ReconstructRoute duplicates all points except start and finish.
   // Therefore one needs fix time indexes to fit reconstructed polyline.
-  // TODO: rework ReconstructRoute and remove this stuff.
   if (routePoints.size() < 2 || route.GetPoly().GetSize() + 2 != routePoints.size() * 2)
   {
     LOG(LERROR, ("Can't fix route times: polyline size =", route.GetPoly().GetSize(),

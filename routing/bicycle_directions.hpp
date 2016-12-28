@@ -22,7 +22,7 @@ public:
     size_t m_ingoingTurnsCount;
   };
 
-  using TAdjacentEdgesMap = map<TNodeId, AdjacentEdges>;
+  using AdjacentEdgesMap = map<UniNodeId, AdjacentEdges>;
 
   BicycleDirectionsEngine(Index const & index);
 
@@ -34,10 +34,10 @@ public:
 
 private:
   Index::FeaturesLoaderGuard & GetLoader(MwmSet::MwmId const & id);
-  void LoadPathGeometry(FeatureID const & featureId, vector<Junction> const & path,
+  void LoadPathGeometry(UniNodeId const & uniNodeId, vector<Junction> const & path,
                         LoadedPathSegment & pathSegment);
 
-  TAdjacentEdgesMap m_adjacentEdges;
+  AdjacentEdgesMap m_adjacentEdges;
   TUnpackedPathSegments m_pathSegments;
   Index const & m_index;
   unique_ptr<Index::FeaturesLoaderGuard> m_loader;

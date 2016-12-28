@@ -227,9 +227,9 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 - (IBAction)routingStopTouchUpInside { [MWMRouter stopRouting]; }
 - (IBAction)soundTouchUpInside:(MWMButton *)sender
 {
-  BOOL const isEnable = sender.selected;
-  [Statistics logEvent:kStatMenu withParameters:@{kStatTTS : isEnable ? kStatOn : kStatOff}];
-  [MWMTextToSpeech tts].active = isEnable;
+  BOOL const isEnabled = sender.selected;
+  [Statistics logEvent:kStatMenu withParameters:@{kStatTTS : isEnabled ? kStatOn : kStatOff}];
+  [MWMTextToSpeech tts].active = !isEnabled;
   [self refreshRoutingDiminishTimer];
 }
 
@@ -287,7 +287,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   MWMButton * ttsButton = self.ttsSoundButton;
   ttsButton.hidden = isPedestrianRouting || ![MWMTextToSpeech isTTSEnabled];
   if (!ttsButton.hidden)
-    ttsButton.selected = ![MWMTextToSpeech tts].active;
+    ttsButton.selected = [MWMTextToSpeech tts].active;
 }
 
 #pragma mark - UICollectionViewDataSource

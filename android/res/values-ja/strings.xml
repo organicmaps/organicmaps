@@ -966,10 +966,10 @@
 	<string name="booking_filters_rating_very_good">非常に良い</string>
 	<string name="booking_filters_rating_excellent">最高</string>
 	<string name="booking_filters_price_category">価格帯</string>
-	<string name="booking_filters_no_results">結果が見つかりません</string>
-	<string name="booking_filters_nores_message">一般的な検索語句や、フィルター範囲を広げたりリセットしたりしてください。</string>
-	<string name="booking_filters_expand_area_button">広げる</string>
-	<string name="booking_filters_reset_button">フィルターをリセット</string>
+	<string name="search_no_results_title">結果が見つかりません</string>
+	<string name="search_no_results_message">一般的な検索語句や、フィルター範囲を広げたりリセットしたりしてください。</string>
+	<string name="search_no_results_expand_area_button">広げる</string>
+	<string name="search_no_results_reset_button">フィルターをリセット</string>
 	<!-- noun -->
 	<string name="search_in_table">一覧</string>
 	<string name="booking_based_on_reviews">%d 件のホテルのレビューに基づいています</string>

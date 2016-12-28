@@ -2,6 +2,8 @@
 
 #include "map/place_page_info.hpp"
 
+#include "base/string_utils.hpp"
+
 namespace usermark_helper
 {
 using search::AddressInfo;
@@ -22,23 +24,25 @@ void InjectMetadata(JNIEnv * env, jclass const clazz, jobject const mapObject, f
   }
 }
 
-jobject CreateBanner(JNIEnv * env, string const & bannerTitleId, string const & bannerMessageId,
-                     string const & bannerIconId, string const & bannerUrl)
+jobject CreateBanner(JNIEnv * env, string const & id, string const & titleId,
+                     string const & messageId, string const & iconId,
+                     string const & url, vector<string> const & sourceTypes)
 {
+  auto const types = strings::JoinStrings(sourceTypes, ", ");
   static jmethodID const bannerCtorId = jni::GetConstructorID(
       env, g_bannerClazz,
-      "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+      "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;"
+      "Ljava/lang/String;)V");
 
-  return env->NewObject(g_bannerClazz, bannerCtorId, jni::ToJavaString(env, bannerTitleId),
-                        jni::ToJavaString(env, bannerMessageId),
-                        jni::ToJavaString(env, bannerIconId), jni::ToJavaString(env, bannerUrl));
+  return env->NewObject(g_bannerClazz, bannerCtorId, jni::ToJavaString(env, id),
+                        jni::ToJavaString(env, titleId), jni::ToJavaString(env, messageId),
+                        jni::ToJavaString(env, iconId), jni::ToJavaString(env, url),
+                        jni::ToJavaString(env, types));
 }
 
 jobject CreateMapObject(JNIEnv * env, int mapObjectType, string const & title,
                         string const & subtitle, double lat, double lon, string const & address,
-                        Metadata const & metadata, string const & apiId, bool hasBanner,
-                        string const & bannerTitleId, string const & bannerMessageId,
-                        string const & bannerIconId, string const & bannerUrl,
+                        Metadata const & metadata, string const & apiId, jobject jbanner,
                         bool isReachableByTaxi)
 {
   // public MapObject(@MapObjectType int mapObjectType, String title, String subtitle, double lat,
@@ -47,10 +51,6 @@ jobject CreateMapObject(JNIEnv * env, int mapObjectType, string const & title,
       jni::GetConstructorID(env, g_mapObjectClazz,
                             "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;DDLjava/lang/"
                             "String;Lcom/mapswithme/maps/bookmarks/data/Banner;Z)V");
-
-  jobject jbanner = nullptr;
-  if (hasBanner)
-    jbanner = CreateBanner(env, bannerTitleId, bannerMessageId, bannerIconId, bannerUrl);
 
   jobject mapObject =
       env->NewObject(g_mapObjectClazz, ctorId, mapObjectType, jni::ToJavaString(env, title),
@@ -63,17 +63,17 @@ jobject CreateMapObject(JNIEnv * env, int mapObjectType, string const & title,
 
 jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
 {
+  jobject jbanner = nullptr;
+  if (info.HasBanner())
+    jbanner = CreateBanner(env, info.GetBannerId(), info.GetBannerTitleId(),
+                           info.GetBannerMessageId(), info.GetBannerIconId(),
+                           info.GetBannerUrl(), info.GetRawTypes());
   if (info.IsBookmark())
   {
     // public Bookmark(@IntRange(from = 0) int categoryId, @IntRange(from = 0) int bookmarkId,
     // String name, @NonNull Banner banner, boolean reachableByTaxi)
     static jmethodID const ctorId = jni::GetConstructorID(
         env, g_bookmarkClazz, "(IILjava/lang/String;Lcom/mapswithme/maps/bookmarks/data/Banner;Z)V");
-
-    jobject jbanner = nullptr;
-    if (info.HasBanner())
-      jbanner = CreateBanner(env, info.GetBannerTitleId(), info.GetBannerMessageId(),
-                             info.GetBannerIconId(), info.GetBannerUrl());
 
     auto const & bac = info.GetBookmarkAndCategory();
     BookmarkCategory * cat = g_framework->NativeFramework()->GetBmCategory(bac.m_categoryIndex);
@@ -98,20 +98,16 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
   // TODO(yunikkk): Should we pass localized strings here and in other methods as byte arrays?
   if (info.IsMyPosition())
     return CreateMapObject(env, kMyPosition, info.GetTitle(), info.GetSubtitle(), ll.lat, ll.lon,
-                           address.FormatAddress(), {}, "", info.HasBanner(),
-                           info.GetBannerTitleId(), info.GetBannerMessageId(),
-                           info.GetBannerIconId(), info.GetBannerUrl(), info.IsReachableByTaxi());
+                           address.FormatAddress(), {}, "", jbanner, info.IsReachableByTaxi());
 
   if (info.HasApiUrl())
     return CreateMapObject(env, kApiPoint, info.GetTitle(), info.GetSubtitle(), ll.lat, ll.lon,
                            address.FormatAddress(), info.GetMetadata(), info.GetApiUrl(),
-                           info.HasBanner(), info.GetBannerTitleId(), info.GetBannerMessageId(),
-                           info.GetBannerIconId(), info.GetBannerUrl(), info.IsReachableByTaxi());
+                           jbanner, info.IsReachableByTaxi());
 
   return CreateMapObject(env, kPoi, info.GetTitle(), info.GetSubtitle(), ll.lat, ll.lon,
                          address.FormatAddress(),
-                         info.IsFeature() ? info.GetMetadata() : Metadata(), "", info.HasBanner(),
-                         info.GetBannerTitleId(), info.GetBannerMessageId(), info.GetBannerIconId(),
-                         info.GetBannerUrl(), info.IsReachableByTaxi());
+                         info.IsFeature() ? info.GetMetadata() : Metadata(), "", jbanner,
+                         info.IsReachableByTaxi());
 }
 }  // namespace usermark_helper

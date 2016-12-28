@@ -967,10 +967,10 @@
 	<string name="booking_filters_rating_very_good">Heel Goed</string>
 	<string name="booking_filters_rating_excellent">Uitstekend</string>
 	<string name="booking_filters_price_category">Prijscategorie</string>
-	<string name="booking_filters_no_results">Geen Resultaten Gevonden</string>
-	<string name="booking_filters_nores_message">Probeer een meer algemene zoekterm, zoom uit of reset de filter.</string>
-	<string name="booking_filters_expand_area_button">Uitzoomen</string>
-	<string name="booking_filters_reset_button">Filter Resetten</string>
+	<string name="search_no_results_title">Geen Resultaten Gevonden</string>
+	<string name="search_no_results_message">Probeer een meer algemene zoekterm, zoom uit of reset de filter.</string>
+	<string name="search_no_results_expand_area_button">Uitzoomen</string>
+	<string name="search_no_results_reset_button">Filter Resetten</string>
 	<!-- noun -->
 	<string name="search_in_table">Lijst</string>
 	<string name="booking_based_on_reviews">Gebaseerd op %d hotelbeoordelingen</string>

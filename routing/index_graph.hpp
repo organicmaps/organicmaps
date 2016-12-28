@@ -45,6 +45,7 @@ public:
   void GetEdgeList(Joint::Id jointId, bool isOutgoing, vector<JointEdge> & edges);
   Joint::Id GetJointId(RoadPoint const & rp) const { return m_roadIndex.GetJointId(rp); }
   m2::PointD const & GetPoint(Joint::Id jointId);
+  m2::PointD const & GetPoint(RoadPoint const & rp);
 
   Geometry & GetGeometry() { return m_geometry; }
   EdgeEstimator const & GetEstimator() const { return *m_estimator; }

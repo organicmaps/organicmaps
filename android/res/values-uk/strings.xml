@@ -971,10 +971,10 @@
 	<string name="booking_filters_rating_very_good">Дуже добре</string>
 	<string name="booking_filters_rating_excellent">Чудово</string>
 	<string name="booking_filters_price_category">Цінова категорія</string>
-	<string name="booking_filters_no_results">Не знайдено жодного результату</string>
-	<string name="booking_filters_nores_message">Спробуйте пошук за більш узагальненим пошуковим виразом, зменшіть масштаб або скиньте фільтри.</string>
-	<string name="booking_filters_expand_area_button">Зменшити масштаб</string>
-	<string name="booking_filters_reset_button">Скинути фільтри</string>
+	<string name="search_no_results_title">Не знайдено жодного результату</string>
+	<string name="search_no_results_message">Спробуйте пошук за більш узагальненим пошуковим виразом, зменшіть масштаб або скиньте фільтри.</string>
+	<string name="search_no_results_expand_area_button">Зменшити масштаб</string>
+	<string name="search_no_results_reset_button">Скинути фільтри</string>
 	<!-- noun -->
 	<string name="search_in_table">Список</string>
 	<string name="booking_based_on_reviews">На основі %d відгуків(-у) про готель</string>

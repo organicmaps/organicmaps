@@ -294,8 +294,6 @@ void GpsTrackRenderer::RenderTrack(ScreenBase const & screen, int zoomLevel,
   if (m_handlesCache.empty() || m_handlesCache.front().second == 0)
     return;
 
-  GLFunctions::glClearDepth();
-
   ASSERT_LESS_OR_EQUAL(m_renderData.size(), m_handlesCache.size(), ());
 
   // Render points.

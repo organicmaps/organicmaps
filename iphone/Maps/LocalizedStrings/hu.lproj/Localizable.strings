@@ -1664,13 +1664,13 @@
 
 "booking_filters_price_category" = "Árkategória";
 
-"booking_filters_no_results" = "Nincs találat";
+"search_no_results_title" = "Nincs találat";
 
-"booking_filters_nores_message" = "Próbálkozzon általánosabb kereső kifejezéssel, tágítsa vagy törölje a szűrőt.";
+"search_no_results_message" = "Próbálkozzon általánosabb kereső kifejezéssel, tágítsa vagy törölje a szűrőt.";
 
-"booking_filters_expand_area_button" = "Kicsinyítés";
+"search_no_results_expand_area_button" = "Kicsinyítés";
 
-"booking_filters_reset_button" = "Szűrő nullázása";
+"search_no_results_reset_button" = "Szűrő nullázása";
 
 /* noun */
 "search_in_table" = "Lista";

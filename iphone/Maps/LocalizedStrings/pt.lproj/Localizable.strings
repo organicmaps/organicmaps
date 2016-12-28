@@ -1664,13 +1664,13 @@
 
 "booking_filters_price_category" = "Categoria de preços";
 
-"booking_filters_no_results" = "Nenhum resultado encontrado";
+"search_no_results_title" = "Nenhum resultado encontrado";
 
-"booking_filters_nores_message" = "Tente um termo de pesquisa mais geral, diminuir o zoom ou redefinir o filtro.";
+"search_no_results_message" = "Tente um termo de pesquisa mais geral, diminuir o zoom ou redefinir o filtro.";
 
-"booking_filters_expand_area_button" = "Diminuir o zoom";
+"search_no_results_expand_area_button" = "Diminuir o zoom";
 
-"booking_filters_reset_button" = "Redefinir o filtro";
+"search_no_results_reset_button" = "Redefinir o filtro";
 
 /* noun */
 "search_in_table" = "Lista";

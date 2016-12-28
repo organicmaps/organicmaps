@@ -1664,13 +1664,13 @@
 
 "booking_filters_price_category" = "Fiyat Kategorisi";
 
-"booking_filters_no_results" = "Hiçbir Sonuç Bulunamadı";
+"search_no_results_title" = "Hiçbir Sonuç Bulunamadı";
 
-"booking_filters_nores_message" = "Daha genel bir terimi aramayı deneyin, uzaklaşın veya filtreyi Sıfırlayın.";
+"search_no_results_message" = "Daha genel bir terimi aramayı deneyin, uzaklaşın veya filtreyi Sıfırlayın.";
 
-"booking_filters_expand_area_button" = "Uzaklaş";
+"search_no_results_expand_area_button" = "Uzaklaş";
 
-"booking_filters_reset_button" = "Filtreyi Sıfırla";
+"search_no_results_reset_button" = "Filtreyi Sıfırla";
 
 /* noun */
 "search_in_table" = "Liste";

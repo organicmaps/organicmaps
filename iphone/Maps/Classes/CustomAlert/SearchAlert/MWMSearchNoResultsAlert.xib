@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -50,7 +50,7 @@
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="search_no_results_text"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="search_no_results_message"/>
                             </userDefinedRuntimeAttributes>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0vG-Ty-4hj" userLabel="button1">
@@ -65,7 +65,7 @@
                             </state>
                             <state key="highlighted" backgroundImage="dialog_btn_press"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="expand_search_area"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="search_no_results_expand_area_button"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium17"/>
                             </userDefinedRuntimeAttributes>
@@ -82,7 +82,7 @@
                             </state>
                             <state key="highlighted" backgroundImage="dialog_btn_press"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="reset_filters"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="search_no_results_reset_button"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium17"/>
                             </userDefinedRuntimeAttributes>

@@ -46,6 +46,7 @@ private:
   ref_ptr<EngineContext> m_context;
   m2::RectD m_globalRect;
   double m_currentScaleGtoP;
+  double m_trafficScalePtoG;
 
   bool const m_is3dBuidings;
 

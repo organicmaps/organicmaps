@@ -967,10 +967,10 @@
 	<string name="booking_filters_rating_very_good">Todella hyvä</string>
 	<string name="booking_filters_rating_excellent">Erinomainen</string>
 	<string name="booking_filters_price_category">Hintaluokka</string>
-	<string name="booking_filters_no_results">Ei hakutuloksia</string>
-	<string name="booking_filters_nores_message">Kokeile yleisempää hakusanaa, loitonna tai palauta suodatin.</string>
-	<string name="booking_filters_expand_area_button">Loitonna</string>
-	<string name="booking_filters_reset_button">Palauta suodatin</string>
+	<string name="search_no_results_title">Ei hakutuloksia</string>
+	<string name="search_no_results_message">Kokeile yleisempää hakusanaa, loitonna tai palauta suodatin.</string>
+	<string name="search_no_results_expand_area_button">Loitonna</string>
+	<string name="search_no_results_reset_button">Palauta suodatin</string>
 	<!-- noun -->
 	<string name="search_in_table">Luettelo</string>
 	<string name="booking_based_on_reviews">Perustuu %d hotelliarvioon</string>

@@ -30,8 +30,14 @@ class NavigationButtonsAnimationController
   {
     mZoomIn = zoomIn;
     mZoomOut = zoomOut;
+    checkZoomButtonsVisibility();
     mMyPosition = myPosition;
     calculateBottomLimit();
+  }
+
+  private void checkZoomButtonsVisibility()
+  {
+    UiUtils.showIf(showZoomButtons(), mZoomIn, mZoomOut);
   }
 
   void disappearZoomButtons()
@@ -251,5 +257,10 @@ class NavigationButtonsAnimationController
   private static boolean showZoomButtons()
   {
     return Config.showZoomButtons();
+  }
+
+  public void onResume()
+  {
+    checkZoomButtonsVisibility();
   }
 }

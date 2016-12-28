@@ -1664,13 +1664,13 @@
 
 "booking_filters_price_category" = "Prisklasse";
 
-"booking_filters_no_results" = "Fant ingen resultater";
+"search_no_results_title" = "Fant ingen resultater";
 
-"booking_filters_nores_message" = "Prøv et mer generelt søkeord, zoom ut eller tilbakestill filteret.";
+"search_no_results_message" = "Prøv et mer generelt søkeord, zoom ut eller tilbakestill filteret.";
 
-"booking_filters_expand_area_button" = "Zoom ut";
+"search_no_results_expand_area_button" = "Zoom ut";
 
-"booking_filters_reset_button" = "Tilbakestill filter";
+"search_no_results_reset_button" = "Tilbakestill filter";
 
 /* noun */
 "search_in_table" = "Liste";
@@ -1752,7 +1752,7 @@
 
 "banner_rentalcars_message" = "800 leiebilfirmaer på over 49 000 steder.";
 
-"banner_viator_title" = "Αναζήτηση οργανωμένων εκδρομών online";
+"banner_viator_title" = "Søk etter omvisninger med guide online";
 
 "banner_viator_message" = "Søk blant over 50 000 omvisninger verden over.";
 
