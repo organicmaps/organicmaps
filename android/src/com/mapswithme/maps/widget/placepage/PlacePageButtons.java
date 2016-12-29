@@ -151,6 +151,20 @@ final class PlacePageButtons
       {
         return R.drawable.bs_ic_more;
       }
+    },
+    CALL
+    {
+      @Override
+      int getTitle()
+      {
+        return R.string.placepage_call_button;
+      }
+
+      @Override
+      int getIcon()
+      {
+        return R.drawable.ic_phone;
+      }
     };
 
     abstract @StringRes int getTitle();
