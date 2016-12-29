@@ -36,13 +36,13 @@ public class SlotFrame extends LinearLayout
   private int mTextColor;
   private int mHintColor;
 
+  @Nullable
+  private SlotClickListener mSlotClickListener;
+
   interface SlotClickListener
   {
     void onSlotClicked(int order, @NonNull Rect rect);
   }
-
-  @Nullable
-  private SlotClickListener mSlotClickListener;
 
   private class Slot
   {
@@ -87,7 +87,6 @@ public class SlotFrame extends LinearLayout
           mFrame.getGlobalVisibleRect(rect);
           if (mSlotClickListener != null)
             mSlotClickListener.onSlotClicked(mOrder, rect);
-          //RoutingController.get().searchPoi(mOrder, rect);
         }
       });
 

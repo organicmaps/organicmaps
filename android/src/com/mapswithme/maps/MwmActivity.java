@@ -1360,32 +1360,37 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void updateMenu()
   {
-    adjustMenuLineFrameVisibility();
-
-    if (RoutingController.get().isNavigating())
+    adjustMenuLineFrameVisibility(new Runnable()
     {
-      if (mNavigationController != null)
-        mNavigationController.show(true);
-      mSearchController.hide();
-      mMainMenu.setState(MainMenu.State.NAVIGATION, false, mIsFullscreen);
-      return;
-    }
+      @Override
+      public void run()
+      {
+        if (RoutingController.get().isNavigating())
+        {
+          if (mNavigationController != null)
+            mNavigationController.show(true);
+          mSearchController.hide();
+          mMainMenu.setState(MainMenu.State.NAVIGATION, false, mIsFullscreen);
+          return;
+        }
 
-    if (mIsFragmentContainer)
-    {
-      mMainMenu.setEnabled(MainMenu.Item.P2P, !RoutingController.get().isPlanning());
-      mMainMenu.setEnabled(MainMenu.Item.SEARCH, !RoutingController.get().isWaitingPoiPick());
-    }
-    else if (RoutingController.get().isPlanning())
-    {
-      mMainMenu.setState(MainMenu.State.ROUTE_PREPARE, false, mIsFullscreen);
-      return;
-    }
+        if (mIsFragmentContainer)
+        {
+          mMainMenu.setEnabled(MainMenu.Item.P2P, !RoutingController.get().isPlanning());
+          mMainMenu.setEnabled(MainMenu.Item.SEARCH, !RoutingController.get().isWaitingPoiPick());
+        }
+        else if (RoutingController.get().isPlanning())
+        {
+          mMainMenu.setState(MainMenu.State.ROUTE_PREPARE, false, mIsFullscreen);
+          return;
+        }
 
-    mMainMenu.setState(MainMenu.State.MENU, false, mIsFullscreen);
+        mMainMenu.setState(MainMenu.State.MENU, false, mIsFullscreen);
+      }
+    });
   }
 
-  private void adjustMenuLineFrameVisibility()
+  private void adjustMenuLineFrameVisibility(@Nullable final Runnable completion)
   {
     final RoutingController controller = RoutingController.get();
 
@@ -1399,6 +1404,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
           adjustRuler(0, 0);
         }
       });
+
+      if (completion != null)
+        completion.run();
       return;
     }
 
@@ -1411,6 +1419,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
         {
           final int menuHeight = getCurrentMenu().getFrame().getHeight();
           adjustRuler(0, menuHeight);
+          if (completion != null)
+            completion.run();
         }
       });
       return;
@@ -1425,6 +1435,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
       }
     });
 
+    if (completion != null)
+      completion.run();
   }
 
   private void setNavButtonsTopLimit(int limit)

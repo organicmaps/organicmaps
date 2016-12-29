@@ -26,9 +26,9 @@ class NavigationButtonsAnimationController
   private float mContentHeight;
   private float mMyPositionBottom;
 
-  private boolean mZoomAnimate;
-  private boolean mMyPosAnimate;
-  private boolean mSlideDown;
+  private boolean mZoomAnimating;
+  private boolean mMyPosAnimating;
+  private boolean mSlidingDown;
 
   private float mTopLimit;
   private float mBottomLimit;
@@ -40,7 +40,7 @@ class NavigationButtonsAnimationController
   {
     mZoomIn = zoomIn;
     mZoomOut = zoomOut;
-    UiUtils.showIf(showZoomButtons(), mZoomIn, mZoomOut);
+    checkZoomButtonsVisibility();
     mMyPosition = myPosition;
     Resources res = mZoomIn.getResources();
     mMargin = res.getDimension(R.dimen.margin_base_plus);
@@ -57,6 +57,12 @@ class NavigationButtonsAnimationController
       }
     });
   }
+
+  private void checkZoomButtonsVisibility()
+  {
+    UiUtils.showIf(showZoomButtons(), mZoomIn, mZoomOut);
+  }
+
 
   private void calculateLimitTranslations()
   {
@@ -87,17 +93,17 @@ class NavigationButtonsAnimationController
 
   private void fadeOutZoom()
   {
-    if (mSlideDown)
+    if (mSlidingDown)
       return;
 
-    mZoomAnimate = true;
+    mZoomAnimating = true;
     Animations.fadeOutView(mZoomIn, new Runnable()
     {
       @Override
       public void run()
       {
         mZoomIn.setVisibility(View.INVISIBLE);
-        mZoomAnimate = false;
+        mZoomAnimating = false;
       }
     });
     Animations.fadeOutView(mZoomOut, new Runnable()
@@ -112,7 +118,7 @@ class NavigationButtonsAnimationController
 
   private void fadeInZoom()
   {
-    mZoomAnimate = true;
+    mZoomAnimating = true;
     mZoomIn.setVisibility(View.VISIBLE);
     mZoomOut.setVisibility(View.VISIBLE);
     Animations.fadeInView(mZoomIn, new Runnable()
@@ -120,7 +126,7 @@ class NavigationButtonsAnimationController
       @Override
       public void run()
       {
-        mZoomAnimate = false;
+        mZoomAnimating = false;
       }
     });
     Animations.fadeInView(mZoomOut, null);
@@ -128,31 +134,31 @@ class NavigationButtonsAnimationController
 
   private void fadeOutMyPosition()
   {
-    if (mSlideDown)
+    if (mSlidingDown)
       return;
 
-    mMyPosAnimate = true;
+    mMyPosAnimating = true;
     Animations.fadeOutView(mMyPosition, new Runnable()
     {
       @Override
       public void run()
       {
         UiUtils.invisible(mMyPosition);
-        mMyPosAnimate = false;
+        mMyPosAnimating = false;
       }
     });
   }
 
   private void fadeInMyPosition()
   {
-    mMyPosAnimate = true;
+    mMyPosAnimating = true;
     mMyPosition.setVisibility(View.VISIBLE);
     Animations.fadeInView(mMyPosition, new Runnable()
     {
       @Override
       public void run()
       {
-        mMyPosAnimate = false;
+        mMyPosAnimating = false;
       }
     });
   }
@@ -177,23 +183,23 @@ class NavigationButtonsAnimationController
     mMyPosition.setTranslationY(translation);
     mZoomOut.setTranslationY(translation);
     mZoomIn.setTranslationY(translation);
-    if (!mZoomAnimate && mZoomIn.getVisibility() == View.VISIBLE
+    if (!mZoomAnimating && mZoomIn.getVisibility() == View.VISIBLE
         && !isViewInsideLimits(mZoomIn))
     {
       fadeOutZoom();
     }
-    else if (!mZoomAnimate && mZoomIn.getVisibility() == View.INVISIBLE
+    else if (!mZoomAnimating && mZoomIn.getVisibility() == View.INVISIBLE
              && isViewInsideLimits(mZoomIn))
     {
       fadeInZoom();
     }
 
-    if (!shouldBeHidden() && !mMyPosAnimate
+    if (!shouldBeHidden() && !mMyPosAnimating
         && mMyPosition.getVisibility() == View.VISIBLE && !isViewInsideLimits(mMyPosition))
     {
       fadeOutMyPosition();
     }
-    else if (!shouldBeHidden() && !mMyPosAnimate
+    else if (!shouldBeHidden() && !mMyPosAnimating
              && mMyPosition.getVisibility() == View.INVISIBLE && isViewInsideLimits(mMyPosition))
     {
       fadeInMyPosition();
@@ -218,7 +224,7 @@ class NavigationButtonsAnimationController
         || (!isDown && mZoomIn.getTranslationY() <= 0))
       return;
 
-    mSlideDown = isDown;
+    mSlidingDown = isDown;
     mCurrentOffset = isDown ? distance : 0;
 
     ValueAnimator animator = ValueAnimator.ofFloat(isDown ? 0 : distance, isDown ? distance : 0);
@@ -236,7 +242,7 @@ class NavigationButtonsAnimationController
       @Override
       public void onAnimationEnd(Animator animation)
       {
-        mSlideDown = false;
+        mSlidingDown = false;
         update();
       }
     });
@@ -269,6 +275,6 @@ class NavigationButtonsAnimationController
 
   public void onResume()
   {
-    update();
+    checkZoomButtonsVisibility();
   }
 }
