@@ -224,12 +224,10 @@ public class SearchFragment extends BaseMwmFragment
     mTabFrame = root.findViewById(R.id.tab_frame);
     ViewPager pager = (ViewPager) mTabFrame.findViewById(R.id.pages);
 
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-      UiUtils.hide(mTabFrame.findViewById(R.id.tabs_divider));
-
     mToolbarController = new ToolbarController(view);
 
-    final TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(), pager, (TabLayout) root.findViewById(R.id.tabs));
+    TabLayout tabLayout = (TabLayout) root.findViewById(R.id.tabs);
+    final TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(), pager, tabLayout);
 
     mResultsFrame = root.findViewById(R.id.results_frame);
     RecyclerView results = (RecyclerView) mResultsFrame.findViewById(R.id.recycler);
@@ -480,10 +478,20 @@ public class SearchFragment extends BaseMwmFragment
     if (mFromRoutePlan)
     {
       RoutingController.get().onPoiSelected(null);
-      return !(getActivity() instanceof SearchActivity);
+      final boolean isSearchActivity = getActivity() instanceof SearchActivity;
+      if (isSearchActivity)
+        closeSearch();
+      return true;
     }
 
-    return false;
+    closeSearch();
+    return true;
+  }
+
+  private void closeSearch()
+  {
+    getActivity().finish();
+    getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
   }
 
   public void setRecyclerScrollListener(RecyclerView recycler)

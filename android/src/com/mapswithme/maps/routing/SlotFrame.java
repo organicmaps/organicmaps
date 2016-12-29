@@ -7,6 +7,7 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -34,6 +35,14 @@ public class SlotFrame extends LinearLayout
 
   private int mTextColor;
   private int mHintColor;
+
+  @Nullable
+  private SlotClickListener mSlotClickListener;
+
+  interface SlotClickListener
+  {
+    void onSlotClicked(int order, @NonNull Rect rect);
+  }
 
   private class Slot
   {
@@ -74,7 +83,10 @@ public class SlotFrame extends LinearLayout
         @Override
         public void onClick(View v)
         {
-          RoutingController.get().searchPoi(mOrder);
+          Rect rect = new Rect();
+          mFrame.getGlobalVisibleRect(rect);
+          if (mSlotClickListener != null)
+            mSlotClickListener.onSlotClicked(mOrder, rect);
         }
       });
 
@@ -332,6 +344,11 @@ public class SlotFrame extends LinearLayout
   public SlotFrame(Context context, AttributeSet attrs, int defStyleAttr)
   {
     super(context, attrs, defStyleAttr);
+  }
+
+  public void setSlotClickListener(@Nullable SlotClickListener slotClickListener)
+  {
+    mSlotClickListener = slotClickListener;
   }
 
   public void update()

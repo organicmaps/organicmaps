@@ -1,8 +1,8 @@
 package com.mapswithme.maps.widget.menu;
 
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.mapswithme.maps.MwmActivity;
@@ -11,9 +11,9 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.downloader.UpdateInfo;
 import com.mapswithme.maps.routing.RoutingController;
+import com.mapswithme.util.Animations;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
-import ru.mail.android.mytarget.core.models.Stat;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -263,9 +263,9 @@ public class MainMenu extends BaseMenu
       {
         UiUtils.show(mButtonsFrame);
         expandContent = false;
-      } else
+      }
+      else
       {
-
         UiUtils.showIf(state == State.MENU, mButtonsFrame);
         UiUtils.showIf(isRouting, mRoutePlanFrame);
         if (isRouting)
@@ -313,8 +313,17 @@ public class MainMenu extends BaseMenu
     return mAnimationTrackListener;
   }
 
-  public void showLineFrame(boolean show)
+  public void showLineFrame(boolean show, @Nullable Runnable completion)
   {
-    UiUtils.showIf(show, mLineFrame);
+    if (show)
+    {
+      UiUtils.hide(mFrame);
+      Animations.appearSliding(mFrame, Animations.BOTTOM, completion);
+    }
+    else
+    {
+      UiUtils.show(mFrame);
+      Animations.disappearSliding(mFrame, Animations.BOTTOM, completion);
+    }
   }
 }

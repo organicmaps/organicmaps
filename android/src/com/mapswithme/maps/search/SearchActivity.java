@@ -1,5 +1,6 @@
 package com.mapswithme.maps.search;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -17,11 +18,12 @@ public class SearchActivity extends BaseMwmFragmentActivity implements CustomNav
 {
   public static final String EXTRA_QUERY = "search_query";
 
-  public static void start(Context context, String query)
+  public static void start(@NonNull Activity activity, String query)
   {
-    final Intent i = new Intent(context, SearchActivity.class);
+    final Intent i = new Intent(activity, SearchActivity.class);
     i.putExtra(EXTRA_QUERY, query);
-    context.startActivity(i);
+    activity.startActivity(i);
+    activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
   }
 
   @Override
@@ -44,6 +46,7 @@ public class SearchActivity extends BaseMwmFragmentActivity implements CustomNav
     if (manager.getBackStackEntryCount() == 0)
     {
       NavUtils.navigateUpFromSameTask(this);
+      overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
       return;
     }
 
@@ -58,5 +61,6 @@ public class SearchActivity extends BaseMwmFragmentActivity implements CustomNav
         return;
 
     super.onBackPressed();
+    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
   }
 }

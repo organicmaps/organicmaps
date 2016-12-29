@@ -20,6 +20,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 
@@ -105,6 +106,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  RoutingController.Container,
                                  LocationHelper.UiCallback,
                                  RoutingPlanController.OnToggleListener,
+                                 RoutingPlanController.SearchPoiTransitionListener,
                                  FloatingSearchToolbarController.VisibilityListener
 {
   public static final String EXTRA_TASK = "map_task";
@@ -147,6 +149,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private TrafficButtonController mTrafficButtonController;
 
   private View mPositionChooser;
+
+  private ViewGroup mRootView;
 
   private boolean mIsFragmentContainer;
   private boolean mIsFullscreen;
@@ -452,6 +456,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       mRoutingPlanInplaceController = new RoutingPlanInplaceController(this);
       mRoutingPlanInplaceController.setOnToggleListener(this);
+      mRoutingPlanInplaceController.setPoiTransitionListener(this);
       removeCurrentFragment(false);
     }
 
@@ -529,7 +534,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
           .commit();
     }
 
-    findViewById(R.id.map_fragment_container).setOnTouchListener(this);
+    View container = findViewById(R.id.map_fragment_container);
+    container.setOnTouchListener(this);
+    mRootView = (ViewGroup) container.getParent();
   }
 
   private void initNavigationButtons()
@@ -544,7 +551,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     ImageButton traffic = (ImageButton) frame.findViewById(R.id.traffic);
     mTraffic = new TrafficButton(this, traffic);
     mTrafficButtonController = new TrafficButtonController(mTraffic, this);
-    mNavAnimationController = new NavigationButtonsAnimationController(zoomIn, zoomOut, myPosition);
+    mNavAnimationController = new NavigationButtonsAnimationController(
+        zoomIn, zoomOut, myPosition, getWindow().getDecorView().getRootView());
   }
 
   public boolean closePlacePage()
@@ -1169,9 +1177,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       Framework.nativeDeactivatePopup();
       mPlacePage.setMapObject(null, false);
     }
-
-    if (mNavAnimationController != null)
-      mNavAnimationController.onPlacePageVisibilityChanged(isVisible);
   }
 
   @Override
@@ -1355,48 +1360,83 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void updateMenu()
   {
-    adjustMenuLineFrameVisibility();
-
-    if (RoutingController.get().isNavigating())
+    adjustMenuLineFrameVisibility(new Runnable()
     {
-      if (mNavigationController != null)
-        mNavigationController.show(true);
-      mSearchController.hide();
-      mMainMenu.setState(MainMenu.State.NAVIGATION, false, mIsFullscreen);
-      return;
-    }
+      @Override
+      public void run()
+      {
+        if (RoutingController.get().isNavigating())
+        {
+          if (mNavigationController != null)
+            mNavigationController.show(true);
+          mSearchController.hide();
+          mMainMenu.setState(MainMenu.State.NAVIGATION, false, mIsFullscreen);
+          return;
+        }
 
-    if (mIsFragmentContainer)
-    {
-      mMainMenu.setEnabled(MainMenu.Item.P2P, !RoutingController.get().isPlanning());
-      mMainMenu.setEnabled(MainMenu.Item.SEARCH, !RoutingController.get().isWaitingPoiPick());
-    }
-    else if (RoutingController.get().isPlanning())
-    {
-      mMainMenu.setState(MainMenu.State.ROUTE_PREPARE, false, mIsFullscreen);
-      return;
-    }
+        if (mIsFragmentContainer)
+        {
+          mMainMenu.setEnabled(MainMenu.Item.P2P, !RoutingController.get().isPlanning());
+          mMainMenu.setEnabled(MainMenu.Item.SEARCH, !RoutingController.get().isWaitingPoiPick());
+        }
+        else if (RoutingController.get().isPlanning())
+        {
+          mMainMenu.setState(MainMenu.State.ROUTE_PREPARE, false, mIsFullscreen);
+          return;
+        }
 
-    mMainMenu.setState(MainMenu.State.MENU, false, mIsFullscreen);
+        mMainMenu.setState(MainMenu.State.MENU, false, mIsFullscreen);
+      }
+    });
   }
 
-  private void adjustMenuLineFrameVisibility()
+  private void adjustMenuLineFrameVisibility(@Nullable final Runnable completion)
   {
     final RoutingController controller = RoutingController.get();
 
     if (controller.isBuilt() || controller.isUberRequestHandled())
     {
-      mMainMenu.showLineFrame(true);
+      mMainMenu.showLineFrame(true, new Runnable()
+      {
+        @Override
+        public void run()
+        {
+          adjustRuler(0, 0);
+        }
+      });
+
+      if (completion != null)
+        completion.run();
       return;
     }
 
     if (controller.isPlanning() || controller.isBuilding() || controller.isErrorEncountered())
     {
-      mMainMenu.showLineFrame(false);
+      mMainMenu.showLineFrame(false, new Runnable()
+      {
+        @Override
+        public void run()
+        {
+          final int menuHeight = getCurrentMenu().getFrame().getHeight();
+          adjustRuler(0, menuHeight);
+          if (completion != null)
+            completion.run();
+        }
+      });
       return;
     }
 
-    mMainMenu.showLineFrame(true);
+    mMainMenu.showLineFrame(true, new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        adjustRuler(0, 0);
+      }
+    });
+
+    if (completion != null)
+      completion.run();
   }
 
   private void setNavButtonsTopLimit(int limit)
@@ -1410,6 +1450,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void showRoutePlan(boolean show, @Nullable Runnable completionListener)
   {
+    if (mNavAnimationController != null && !mIsFragmentContainer)
+    {
+      mNavAnimationController.setBottomLimit(show ? 0 : getCurrentMenu().getFrame().getHeight());
+      mNavAnimationController.slide(show, getCurrentMenu().getFrame().getHeight());
+    }
     if (show)
     {
       mSearchController.hide();
@@ -1527,6 +1572,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       mRoutingPlanInplaceController.updateBuildProgress(progress, router);
     }
+  }
+
+  @Override
+  public void animateSearchPoiTransition(@NonNull final Rect startRect,
+                                         @Nullable final Runnable runnable)
+  {
+    Animations.riseTransition(mRootView, startRect, runnable);
   }
 
   @Override
