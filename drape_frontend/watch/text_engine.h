@@ -13,12 +13,12 @@
 #include FT_GLYPH_H
 #include FT_STROKER_H
 
-//#include "base/utility.h"
 #include "point.h"
 #include "rect.h"
-//#include "images/style.h"
 
 #include "base/string_utils.hpp"
+
+#include "std/utility.hpp"
 
 namespace ml
 {

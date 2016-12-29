@@ -7,6 +7,7 @@
 
 #include "std/algorithm.hpp"
 #include "std/limits.hpp"
+#include "std/string.hpp"
 
 
 namespace m2

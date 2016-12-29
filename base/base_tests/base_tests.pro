@@ -20,7 +20,6 @@ SOURCES += \
   cache_test.cpp \
   collection_cast_test.cpp \
   condition_test.cpp \
-  const_helper.cpp \
   containers_test.cpp \
   levenshtein_dfa_test.cpp \
   logging_test.cpp \
@@ -45,6 +44,5 @@ SOURCES += \
   timegm_test.cpp \
   timer_test.cpp \
   uni_string_dfa_test.cpp \
-  worker_thread_test.cpp \
 
 HEADERS +=

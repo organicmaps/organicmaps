@@ -33,7 +33,7 @@ public:
   static vector<uint8_t> CreateDataPacket(DataElementsCirc const & points);
   static vector<uint8_t> CreateDataPacket(DataElementsVec const & points);
 
-  static pair<PacketType, size_t> DecodeHeader(vector<uint8_t> const & data);
+  static std::pair<PacketType, size_t> DecodeHeader(vector<uint8_t> const & data);
   static string DecodeAuthPacket(PacketType type, vector<uint8_t> const & data);
   static DataElementsVec DecodeDataPacket(PacketType type, vector<uint8_t> const & data);
 

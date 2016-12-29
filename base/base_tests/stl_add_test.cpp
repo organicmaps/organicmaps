@@ -36,7 +36,7 @@ namespace
 UNIT_TEST(STLAdd_RemoveIfKeepValid)
 {
   {
-    vector<int> v;
+    std::vector<int> v;
     TEST(RemoveIfKeepValid(v.begin(), v.end(), EqualZero()) == v.end(), ());
 
     v.push_back(1);
@@ -47,7 +47,7 @@ UNIT_TEST(STLAdd_RemoveIfKeepValid)
   }
 
   {
-    vector<int> v;
+    std::vector<int> v;
     v.push_back(0);
     TEST(RemoveIfKeepValid(v.begin(), v.end(), EqualZero()) == v.begin(), ());
 
@@ -90,11 +90,11 @@ namespace
 {
   template <class T, size_t N1, size_t N2, size_t N3>
   void CheckAccumulateIntervals(size_t & idTest,
-                                pair<T, T> (&arr1)[N1],
-                                pair<T, T> (&arr2)[N2],
-                                pair<T, T> (&arr3)[N3])
+                                std::pair<T, T> (&arr1)[N1],
+                                std::pair<T, T> (&arr2)[N2],
+                                std::pair<T, T> (&arr3)[N3])
   {
-    vector<pair<T, T> > res;
+    std::vector<std::pair<T, T> > res;
     AccumulateIntervals1With2(arr1, arr1 + N1, arr2, arr2 + N2, back_inserter(res));
 
     ++idTest;
@@ -105,12 +105,12 @@ namespace
 
 UNIT_TEST(STLAdd_AccumulateIntervals)
 {
-  typedef pair<int, int> T;
+  typedef std::pair<int, int> T;
   size_t idTest = 0;
 
   // bound cases
   {
-    vector<T> res;
+    std::vector<T> res;
     T arr[] = { T(10, 20) };
 
     res.clear();

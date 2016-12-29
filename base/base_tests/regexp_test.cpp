@@ -28,7 +28,7 @@ UNIT_TEST(RegExp_ForEachMatched)
 
   {
     string const s = "6.66, 9.99";
-    vector<string> v;
+    std::vector<string> v;
     strings::ForEachMatched(s, exp, MakeBackInsertFunctor(v));
     TEST_EQUAL(v.size(), 1, ());
     TEST_EQUAL(v[0], s, ());
@@ -37,7 +37,7 @@ UNIT_TEST(RegExp_ForEachMatched)
   {
     string const s1 = "6.66, 9.99";
     string const s2 = "-5.55, -7.77";
-    vector<string> v;
+    std::vector<string> v;
     strings::ForEachMatched(s1 + " 180 , bfuewib 365@" + s2, exp, MakeBackInsertFunctor(v));
     TEST_EQUAL(v.size(), 2, ());
     TEST_EQUAL(v[0], s1, ());
@@ -46,7 +46,7 @@ UNIT_TEST(RegExp_ForEachMatched)
 
   {
     string const s = "X6.66, 9.99";
-    vector<string> v;
+    std::vector<string> v;
     strings::ForEachMatched(s, exp, MakeBackInsertFunctor(v));
     TEST_EQUAL(v.size(), 1, ());
     TEST_EQUAL(v[0], string(s.begin() + 1, s.end()), ());
@@ -54,7 +54,7 @@ UNIT_TEST(RegExp_ForEachMatched)
 
   {
     string const s = "6.66, 9.99X";
-    vector<string> v;
+    std::vector<string> v;
     strings::ForEachMatched(s, exp, MakeBackInsertFunctor(v));
     TEST_EQUAL(v.size(), 1, ());
     TEST_EQUAL(v[0], string(s.begin(), s.end() - 1), ());
@@ -62,14 +62,14 @@ UNIT_TEST(RegExp_ForEachMatched)
 
   {
     string const s = "6.66X, 9.99";
-    vector<string> v;
+    std::vector<string> v;
     strings::ForEachMatched(s, exp, MakeBackInsertFunctor(v));
     TEST_EQUAL(v.size(), 0, ());
   }
 
   {
     string const s = "6.66, X9.99";
-    vector<string> v;
+    std::vector<string> v;
     strings::ForEachMatched(s, exp, MakeBackInsertFunctor(v));
     TEST_EQUAL(v.size(), 0, ());
   }

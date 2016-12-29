@@ -2,13 +2,13 @@
 #include "base/internal/message.hpp"
 #include "base/macros.hpp"
 
-#include "std/exception.hpp"
-#include "std/string.hpp"
+#include <exception>
+#include <string>
 
-class RootException : public exception
+class RootException : public std::exception
 {
 public:
-  RootException(char const * what, string const & msg) : m_What(what), m_Msg(msg)
+  RootException(char const * what, std::string const & msg) : m_What(what), m_Msg(msg)
   {
   }
 
@@ -18,14 +18,14 @@ public:
 
   virtual char const * what() const throw();
 
-  string const & Msg() const throw()
+  std::string const & Msg() const throw()
   {
     return m_Msg;
   }
 
 private:
   char const * m_What;
-  string m_Msg;
+  std::string m_Msg;
 };
 
 #define DECLARE_EXCEPTION(exception_name, base_exception) \

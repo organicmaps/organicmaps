@@ -2,7 +2,7 @@
 
 #include "base/string_utils.hpp"
 
-#include "std/string.hpp"
+#include <string>
 
 namespace strings
 {
@@ -59,7 +59,7 @@ void DFAMove(DFAIt & it, UniString const & s)
 }
 
 template <typename DFAIt>
-void DFAMove(DFAIt & it, string const & s)
+void DFAMove(DFAIt & it, std::string const & s)
 {
   DFAMove(it, MakeUniString(s));
 }

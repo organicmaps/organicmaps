@@ -43,6 +43,7 @@
 
 #include "std/bind.hpp"
 #include "std/condition_variable.hpp"
+#include "std/exception.hpp"
 #include "std/map.hpp"
 #include "std/mutex.hpp"
 #include "std/shared_ptr.hpp"

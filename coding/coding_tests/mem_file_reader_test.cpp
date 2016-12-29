@@ -1,4 +1,3 @@
-#include "base/SRC_FIRST.hpp"
 #include "testing/testing.hpp"
 
 #include "coding/reader.hpp"

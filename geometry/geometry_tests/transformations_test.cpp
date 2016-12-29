@@ -1,5 +1,3 @@
-#include "base/SRC_FIRST.hpp"
-
 #include "testing/testing.hpp"
 #include "base/matrix.hpp"
 #include "geometry/point2d.hpp"

@@ -3,14 +3,14 @@
 #include "base/buffer_vector.hpp"
 #include "base/stl_add.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/cstdint.hpp"
-#include "std/iterator.hpp"
-#include "std/limits.hpp"
-#include "std/regex.hpp"
-#include "std/sstream.hpp"
-#include "std/string.hpp"
-#include "std/type_traits.hpp"
+#include <algorithm>
+#include <cstdint>
+#include <iterator>
+#include <limits>
+#include <regex>
+#include <sstream>
+#include <string>
+#include <type_traits>
 
 #include "3party/utfcpp/source/utf8/unchecked.h"
 
@@ -63,7 +63,7 @@ void NormalizeInplace(UniString & s);
 UniString Normalize(UniString const & s);
 
 /// Replaces "full width" unicode digits with ascii ones.
-void NormalizeDigits(string & utf8);
+void NormalizeDigits(std::string & utf8);
 void NormalizeDigits(UniString & us);
 
 /// Counts number of start symbols in string s (that is not lower and not normalized) that maches
@@ -72,37 +72,37 @@ void NormalizeDigits(UniString & us);
 /// For implementation @see base/lower_case.cpp
 size_t CountNormLowerSymbols(UniString const & s, UniString const & lowStr);
 
-void AsciiToLower(string & s);
+void AsciiToLower(std::string & s);
 // TODO(AlexZ): current boost impl uses default std::locale() to trim.
 // In general, it does not work for any unicode whitespace except ASCII U+0020 one.
-void Trim(string & s);
+void Trim(std::string & s);
 /// Remove any characters that contain in "anyOf" on left and right side of string s
-void Trim(string & s, char const * anyOf);
+void Trim(std::string & s, char const * anyOf);
 
-void MakeLowerCaseInplace(string & s);
-string MakeLowerCase(string const & s);
-bool EqualNoCase(string const & s1, string const & s2);
+void MakeLowerCaseInplace(std::string & s);
+std::string MakeLowerCase(std::string const & s);
+bool EqualNoCase(std::string const & s1, std::string const & s2);
 
-UniString MakeUniString(string const & utf8s);
-string ToUtf8(UniString const & s);
-bool IsASCIIString(string const & str);
+UniString MakeUniString(std::string const & utf8s);
+std::string ToUtf8(UniString const & s);
+bool IsASCIIString(std::string const & str);
 bool IsASCIIDigit(UniChar c);
 bool IsASCIILatin(UniChar c);
 
-inline string DebugPrint(UniString const & s) { return ToUtf8(s); }
+inline std::string DebugPrint(UniString const & s) { return ToUtf8(s); }
 
 template <typename TDelimFn, typename TIt = UniString::const_iterator, bool KeepEmptyTokens = false>
 class TokenizeIterator
 {
 public:
   using difference_type = std::ptrdiff_t;
-  using value_type = string;
+  using value_type = std::string;
   using pointer = void;
-  using reference = string;
+  using reference = std::string;
   using iterator_category = std::input_iterator_tag;
 
   // *NOTE* |s| must be not temporary!
-  TokenizeIterator(string const & s, TDelimFn const & delimFn)
+  TokenizeIterator(std::string const & s, TDelimFn const & delimFn)
     : m_start(s.begin()), m_end(s.begin()), m_finish(s.end()), m_delimFn(delimFn)
   {
     Move();
@@ -115,10 +115,10 @@ public:
     Move();
   }
 
-  string operator*() const
+  std::string operator*() const
   {
     ASSERT(m_start != m_finish, ("Dereferencing of empty iterator."));
-    return string(m_start.base(), m_end.base());
+    return std::string(m_start.base(), m_end.base());
   }
 
   UniString GetUniString() const
@@ -181,13 +181,13 @@ class TokenizeIterator<TDelimFn, TIt, true /* KeepEmptyTokens */>
 {
 public:
   using difference_type = std::ptrdiff_t;
-  using value_type = string;
+  using value_type = std::string;
   using pointer = void;
-  using reference = string;
+  using reference = std::string;
   using iterator_category = std::input_iterator_tag;
 
   // *NOTE* |s| must be not temporary!
-  TokenizeIterator(string const & s, TDelimFn const & delimFn)
+  TokenizeIterator(std::string const & s, TDelimFn const & delimFn)
     : m_start(s.begin()), m_end(s.begin()), m_finish(s.end()), m_delimFn(delimFn), m_finished(false)
   {
     while (m_end != m_finish && !m_delimFn(*m_end))
@@ -202,10 +202,10 @@ public:
       ++m_end;
   }
 
-  string operator*() const
+  std::string operator*() const
   {
     ASSERT(!m_finished, ("Dereferencing of empty iterator."));
-    return string(m_start.base(), m_end.base());
+    return std::string(m_start.base(), m_end.base());
   }
 
   UniString GetUniString() const
@@ -291,14 +291,14 @@ public:
 };
 
 using SimpleTokenizer =
-    TokenizeIterator<SimpleDelimiter, ::utf8::unchecked::iterator<string::const_iterator>,
+    TokenizeIterator<SimpleDelimiter, ::utf8::unchecked::iterator<std::string::const_iterator>,
                      false /* KeepEmptyTokens */>;
 using SimpleTokenizerWithEmptyTokens =
-    TokenizeIterator<SimpleDelimiter, ::utf8::unchecked::iterator<string::const_iterator>,
+    TokenizeIterator<SimpleDelimiter, ::utf8::unchecked::iterator<std::string::const_iterator>,
                      true /* KeepEmptyTokens */>;
 
 template <typename TFunctor>
-void Tokenize(string const & str, char const * delims, TFunctor && f)
+void Tokenize(std::string const & str, char const * delims, TFunctor && f)
 {
   SimpleTokenizer iter(str, delims);
   while (iter)
@@ -308,23 +308,23 @@ void Tokenize(string const & str, char const * delims, TFunctor && f)
   }
 }
 
-template <template <typename ...> class Collection = vector>
-Collection<string> Tokenize(string const & str, char const * delims)
+template <template <typename ...> class Collection = std::vector>
+Collection<std::string> Tokenize(std::string const & str, char const * delims)
 {
-  Collection<string> c;
+  Collection<std::string> c;
   Tokenize(str, delims, MakeInsertFunctor(c));
   return c;
 }
 
-static_assert(is_same<vector<string>, decltype(strings::Tokenize("", ""))>::value,
+static_assert(std::is_same<std::vector<std::string>, decltype(strings::Tokenize("", ""))>::value,
               "Tokenize() should return vector<string> by default.");
 
 /// Splits a string by the delimiter, keeps empty parts, on an empty string returns an empty vector.
 /// Does not support quoted columns, newlines in columns and escaped quotes.
-void ParseCSVRow(string const & s, char const delimiter, vector<string> & target);
+void ParseCSVRow(std::string const & s, char const delimiter, std::vector<std::string> & target);
 
 /// @return code of last symbol in string or 0 if s is empty
-UniChar LastUniChar(string const & s);
+UniChar LastUniChar(std::string const & s);
 
 template <class T, size_t N, class TT>
 bool IsInArray(T(&arr)[N], TT const & t)
@@ -344,31 +344,31 @@ bool to_int64(char const * s, int64_t & i);
 bool to_float(char const * s, float & f);
 bool to_double(char const * s, double & d);
 
-inline bool is_number(string const & s)
+inline bool is_number(std::string const & s)
 {
   int64_t dummy;
   return to_int64(s.c_str(), dummy);
 }
 
-inline bool to_int(string const & s, int & i, int base = 10) { return to_int(s.c_str(), i, base); }
-inline bool to_uint(string const & s, unsigned int & i, int base = 10)
+inline bool to_int(std::string const & s, int & i, int base = 10) { return to_int(s.c_str(), i, base); }
+inline bool to_uint(std::string const & s, unsigned int & i, int base = 10)
 {
   return to_uint(s.c_str(), i, base);
 }
-inline bool to_uint64(string const & s, uint64_t & i) { return to_uint64(s.c_str(), i); }
-inline bool to_int64(string const & s, int64_t & i) { return to_int64(s.c_str(), i); }
-inline bool to_float(string const & s, float & f) { return to_float(s.c_str(), f); }
-inline bool to_double(string const & s, double & d) { return to_double(s.c_str(), d); }
+inline bool to_uint64(std::string const & s, uint64_t & i) { return to_uint64(s.c_str(), i); }
+inline bool to_int64(std::string const & s, int64_t & i) { return to_int64(s.c_str(), i); }
+inline bool to_float(std::string const & s, float & f) { return to_float(s.c_str(), f); }
+inline bool to_double(std::string const & s, double & d) { return to_double(s.c_str(), d); }
 //@}
 
 /// @name From numeric to string.
 //@{
-inline string to_string(string const & s) { return s; }
-inline string to_string(char const * s) { return s; }
+inline std::string to_string(std::string const & s) { return s; }
+inline std::string to_string(char const * s) { return s; }
 template <typename T>
-string to_string(T t)
+std::string to_string(T t)
 {
-  ostringstream ss;
+  std::ostringstream ss;
   ss << t;
   return ss.str();
 }
@@ -389,7 +389,7 @@ int UpperBoundOnChars()
   //
   // NOTE: following code works only on two-complement systems!
 
-  return numeric_limits<T>::digits10 + is_signed<T>::value + 1;
+  return std::numeric_limits<T>::digits10 + std::is_signed<T>::value + 1;
 }
 
 template <typename T>
@@ -405,7 +405,7 @@ char * to_string_digits(char * buf, T i)
 }
 
 template <typename T>
-string to_string_signed(T i)
+std::string to_string_signed(T i)
 {
   bool const negative = i < 0;
   int const sz = UpperBoundOnChars<T>();
@@ -417,41 +417,41 @@ string to_string_signed(T i)
     --beg;
     *beg = '-';
   }
-  return string(beg, end - beg);
+  return std::string(beg, end - beg);
 }
 
 template <typename T>
-string to_string_unsigned(T i)
+std::string to_string_unsigned(T i)
 {
   int const sz = UpperBoundOnChars<T>();
   char buf[sz];
   char * end = buf + sz;
   char * beg = to_string_digits(end, i);
-  return string(beg, end - beg);
+  return std::string(beg, end - beg);
 }
 }
 
-inline string to_string(int64_t i) { return impl::to_string_signed(i); }
-inline string to_string(uint64_t i) { return impl::to_string_unsigned(i); }
+inline std::string to_string(int64_t i) { return impl::to_string_signed(i); }
+inline std::string to_string(uint64_t i) { return impl::to_string_unsigned(i); }
 /// Use this function to get string with fixed count of
 /// "Digits after comma".
-string to_string_dac(double d, int dac);
-inline string to_string_with_digits_after_comma(double d, int dac) { return to_string_dac(d, dac); }
+std::string to_string_dac(double d, int dac);
+inline std::string to_string_with_digits_after_comma(double d, int dac) { return to_string_dac(d, dac); }
 //@}
 
 bool StartsWith(UniString const & s, UniString const & p);
 
-bool StartsWith(string const & s1, char const * s2);
+bool StartsWith(std::string const & s1, char const * s2);
 
-bool EndsWith(string const & s1, char const * s2);
+bool EndsWith(std::string const & s1, char const * s2);
 
-bool EndsWith(string const & s1, string const & s2);
+bool EndsWith(std::string const & s1, std::string const & s2);
 
 /// Try to guess if it's HTML or not. No guarantee.
-bool IsHTML(string const & utf8);
+bool IsHTML(std::string const & utf8);
 
 /// Compare str1 and str2 and return if they are equal except for mismatchedSymbolsNum symbols
-bool AlmostEqual(string const & str1, string const & str2, size_t mismatchedCount);
+bool AlmostEqual(std::string const & str1, std::string const & str2, size_t mismatchedCount);
 
 template <typename TIterator, typename TDelimiter>
 typename TIterator::value_type JoinStrings(TIterator begin, TIterator end,
@@ -478,9 +478,9 @@ typename TContainer::value_type JoinStrings(TContainer const & container,
 }
 
 template <typename TFn>
-void ForEachMatched(string const & s, regex const & regex, TFn && fn)
+void ForEachMatched(std::string const & s, std::regex const & regex, TFn && fn)
 {
-  for (sregex_token_iterator cur(s.begin(), s.end(), regex), end; cur != end; ++cur)
+  for (std::sregex_token_iterator cur(s.begin(), s.end(), regex), end; cur != end; ++cur)
     fn(*cur);
 }
 
@@ -496,16 +496,16 @@ void ForEachMatched(string const & s, regex const & regex, TFn && fn)
 template <typename TIter>
 size_t EditDistance(TIter const & b1, TIter const & e1, TIter const & b2, TIter const & e2)
 {
-  size_t const n = distance(b1, e1);
-  size_t const m = distance(b2, e2);
+  size_t const n = std::distance(b1, e1);
+  size_t const m = std::distance(b2, e2);
 
   if (m > n)
     return EditDistance(b2, e2, b1, e1);
 
   // |curr| and |prev| are current and previous rows of the
   // dynamic programming table.
-  vector<size_t> prev(m + 1);
-  vector<size_t> curr(m + 1);
+  std::vector<size_t> prev(m + 1);
+  std::vector<size_t> curr(m + 1);
   for (size_t j = 0; j <= m; ++j)
     prev[j] = j;
   auto it1 = b1;
@@ -519,8 +519,8 @@ size_t EditDistance(TIter const & b1, TIter const & e1, TIter const & b2, TIter 
     {
       auto const & c2 = *it2;
 
-      curr[j] = min(curr[j - 1], prev[j]) + 1;
-      curr[j] = min(curr[j], prev[j - 1] + (c1 == c2 ? 0 : 1));
+      curr[j] = std::min(curr[j - 1], prev[j]) + 1;
+      curr[j] = std::min(curr[j], prev[j - 1] + (c1 == c2 ? 0 : 1));
     }
     prev.swap(curr);
   }

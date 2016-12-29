@@ -1,15 +1,16 @@
 #include "editor/config_loader.hpp"
 #include "editor/editor_config.hpp"
 
+#include "platform/http_client.hpp"
 #include "platform/platform.hpp"
 
 #include "coding/internal/file_data.hpp"
 #include "coding/reader.hpp"
 
+#include "std/exception.hpp"
 #include "std/fstream.hpp"
 #include "std/iterator.hpp"
 
-#include "platform/http_client.hpp"
 #include "3party/pugixml/src/pugixml.hpp"
 
 namespace

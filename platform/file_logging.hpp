@@ -2,6 +2,8 @@
 
 #include "base/logging.hpp"
 
+#include "std/string.hpp"
+
 
 // @todo this functionality is not located in logging.hpp since file_logging uses FileWriter which depends on coding lib.
 // At the same time loging is located in base and I do not want base depens on several more libs.

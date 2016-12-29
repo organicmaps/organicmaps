@@ -4,16 +4,16 @@
 #include "base/cancellable.hpp"
 #include "base/macros.hpp"
 
-#include "std/bind.hpp"
-#include "std/cstdint.hpp"
-#include "std/function.hpp"
-#include "std/noncopyable.hpp"
-#include "std/shared_ptr.hpp"
 #include "std/target_os.hpp"
-#include "std/thread.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+
+#include <cstdint>
+#include <functional>
+#include <memory>
+#include <thread>
+#include <utility>
+#include <vector>
+
+#include <boost/noncopyable.hpp>
 
 #ifdef OMIM_OS_WINDOWS
 #include "std/windows.hpp"  // for DWORD
@@ -37,8 +37,8 @@ public:
 /// IRoutine.
 class Thread
 {
-  thread m_thread;
-  shared_ptr<IRoutine> m_routine;
+  std::thread m_thread;
+  std::shared_ptr<IRoutine> m_routine;
 
   DISALLOW_COPY(Thread);
 
@@ -52,7 +52,7 @@ public:
   ///                destroyed by the current Thread instance or by
   ///                the m_thread, if it is detached during the
   ///                execution of routine.
-  bool Create(unique_ptr<IRoutine> && routine);
+  bool Create(std::unique_ptr<IRoutine> && routine);
 
   /// Calling the IRoutine::Cancel method, and Join'ing with the task
   /// execution.  After that, routine is deleted.
@@ -78,14 +78,14 @@ public:
 };
 
 /// Simple threads container. Takes ownership for every added IRoutine.
-class SimpleThreadPool : public noncopyable
+class SimpleThreadPool : public boost::noncopyable
 {
-  vector<unique_ptr<Thread>> m_pool;
+  std::vector<std::unique_ptr<Thread>> m_pool;
 
 public:
   SimpleThreadPool(size_t reserve = 0);
 
-  void Add(unique_ptr<IRoutine> && routine);
+  void Add(std::unique_ptr<IRoutine> && routine);
   void Join();
 
   IRoutine * GetRoutine(size_t i) const;
@@ -95,7 +95,7 @@ public:
 /// @param[in] ms time-out interval in milliseconds
 void Sleep(size_t ms);
 
-typedef thread::id ThreadID;
+using ThreadID = std::thread::id;
 
 ThreadID GetCurrentThreadID();
 
@@ -104,8 +104,8 @@ ThreadID GetCurrentThreadID();
 class SimpleThread
 {
 public:
-  using id = thread::id;
-  using native_handle_type = thread::native_handle_type;
+  using id = std::thread::id;
+  using native_handle_type = std::thread::native_handle_type;
 
   SimpleThread() noexcept {}
   SimpleThread(SimpleThread && x) noexcept
@@ -114,7 +114,7 @@ public:
 
   template <class Fn, class... Args>
   explicit SimpleThread(Fn && fn, Args &&... args)
-    : m_thread(&SimpleThread::ThreadFunc, bind(forward<Fn>(fn), forward<Args>(args)...))
+  : m_thread(&SimpleThread::ThreadFunc, std::bind(std::forward<Fn>(fn), std::forward<Args>(args)...))
   {}
 
   SimpleThread & operator= (SimpleThread && x) noexcept
@@ -131,10 +131,10 @@ public:
   void swap(SimpleThread & x) noexcept { m_thread.swap(x.m_thread); }
 
 private:
-  static void ThreadFunc(function<void()> && fn);
+  static void ThreadFunc(std::function<void()> && fn);
 
   DISALLOW_COPY(SimpleThread);
 
-  thread m_thread;
+  std::thread m_thread;
 };
 }  // namespace threads

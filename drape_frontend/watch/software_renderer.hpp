@@ -23,7 +23,9 @@
 #include "3party/agg/agg_path_storage.h"
 
 #include "std/cstdint.hpp"
+#include "std/map.hpp"
 #include "std/unique_ptr.hpp"
+#include "std/vector.hpp"
 
 namespace df
 {

@@ -3,6 +3,7 @@
 #include "drape_frontend/tile_key.hpp"
 
 #include "std/function.hpp"
+#include "std/set.hpp"
 
 namespace df
 {

@@ -3,6 +3,9 @@
 #include "base/string_utils.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/functional.hpp"
+#include "std/string.hpp"
+#include "std/utility.hpp"
 
 namespace search
 {

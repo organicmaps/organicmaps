@@ -10,6 +10,7 @@
 #include "std/unordered_map.hpp"
 #include "std/vector.hpp"
 
+#include <sstream>
 
 /// internal function in base
 namespace strings { UniChar LowerUniChar(UniChar c); }
@@ -44,7 +45,7 @@ UNIT_TEST(LowerUniChar)
     if (!semicolon)
       continue;
     string const capital = *semicolon;
-    istringstream stream(capital);
+    std::istringstream stream(capital);
     strings::UniChar uc;
     stream >> hex >> uc;
     ++semicolon;
@@ -296,7 +297,7 @@ UNIT_TEST(to_string)
   TEST_EQUAL(strings::to_string(123456789123456789ULL), "123456789123456789", ());
   TEST_EQUAL(strings::to_string(-987654321987654321LL), "-987654321987654321", ());
 
-  uint64_t const n = numeric_limits<uint64_t>::max();
+  uint64_t const n = std::numeric_limits<uint64_t>::max();
   TEST_EQUAL(strings::to_string(n), "18446744073709551615", ());
 }
 
@@ -454,9 +455,9 @@ UNIT_TEST(SimpleTokenizer)
 UNIT_TEST(Tokenize)
 {
   {
-    initializer_list<string> expected{"acb", "def", "ghi"};
-    TEST_EQUAL(strings::Tokenize<vector>("acb def ghi", " " /* delims */), vector<string>(expected), ());
-    TEST_EQUAL(strings::Tokenize<set>("acb def ghi", " " /* delims */), set<string>(expected), ());
+    std::initializer_list<string> expected{"acb", "def", "ghi"};
+    TEST_EQUAL(strings::Tokenize<std::vector>("acb def ghi", " " /* delims */), std::vector<std::string>(expected), ());
+    TEST_EQUAL(strings::Tokenize<std::set>("acb def ghi", " " /* delims */), std::set<std::string>(expected), ());
   }
 }
 

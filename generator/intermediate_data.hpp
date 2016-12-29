@@ -13,6 +13,7 @@
 #include "std/deque.hpp"
 #include "std/exception.hpp"
 #include "std/limits.hpp"
+#include "std/unordered_map.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 

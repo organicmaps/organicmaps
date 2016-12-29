@@ -7,6 +7,7 @@
 #include "base/logging.hpp"
 
 #include "std/sstream.hpp"
+#include "std/vector.hpp"
 
 #include "3party/kdtree++/kdtree.hpp"
 

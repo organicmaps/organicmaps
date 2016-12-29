@@ -1,6 +1,6 @@
 #pragma once
 
-#include "std/string.hpp"
+#include <string>
 
 
 #ifndef SRC_LOGGING
@@ -63,4 +63,4 @@ namespace my
   };
 }
 
-string DebugPrint(my::SrcPoint const & srcPoint);
+std::string DebugPrint(my::SrcPoint const & srcPoint);

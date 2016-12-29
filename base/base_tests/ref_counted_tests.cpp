@@ -58,7 +58,7 @@ UNIT_TEST(RefCounted_Smoke)
       TEST_EQUAL(2, a->NumRefs(), ());
       TEST(!destroyed, ());
 
-      RefCountPtr<Resource> d(move(b));
+      RefCountPtr<Resource> d(std::move(b));
       TEST(b.Get() == nullptr, ());
       TEST(a.Get() == d.Get(), ());
       TEST_EQUAL(2, a->NumRefs(), ());

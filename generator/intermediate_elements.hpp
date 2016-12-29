@@ -10,7 +10,9 @@
 #include "std/algorithm.hpp"
 #include "std/bind.hpp"
 #include "std/limits.hpp"
+#include "std/map.hpp"
 #include "std/string.hpp"
+#include "std/sstream.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 

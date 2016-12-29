@@ -144,21 +144,21 @@ UNIT_TEST(BufferVectorInsert)
       for (size_t insertPos = 0; insertPos <= initialLength; ++insertPos)
       {
         buffer_vector<char, 5> b;
-        vector<char> v;
+        std::vector<char> v;
         for (size_t i = 0; i < initialLength; ++i)
         {
           b.push_back('A' + i);
           v.push_back('A' + i);
         }
 
-        vector<int> dataToInsert(insertLength);
+        std::vector<int> dataToInsert(insertLength);
         for (size_t i = 0; i < insertLength; ++i)
           dataToInsert[i] = 'a' + i;
 
         b.insert(b.begin() + insertPos, dataToInsert.begin(), dataToInsert.end());
         v.insert(v.begin() + insertPos, dataToInsert.begin(), dataToInsert.end());
 
-        vector<char> result(b.begin(), b.end());
+        std::vector<char> result(b.begin(), b.end());
         TEST_EQUAL(v, result, (initialLength, insertLength, insertPos));
       }
     }
@@ -202,21 +202,21 @@ UNIT_TEST(BufferVectorAppend)
     for (size_t insertLength = 0; insertLength < 20; ++insertLength)
     {
       buffer_vector<char, 5> b;
-      vector<char> v;
+      std::vector<char> v;
       for (size_t i = 0; i < initialLength; ++i)
       {
         b.push_back('A' + i);
         v.push_back('A' + i);
       }
 
-      vector<int> dataToInsert(insertLength);
+      std::vector<int> dataToInsert(insertLength);
       for (size_t i = 0; i < insertLength; ++i)
         dataToInsert[i] = 'a' + i;
 
       b.append(dataToInsert.begin(), dataToInsert.end());
       v.insert(v.end(), dataToInsert.begin(), dataToInsert.end());
 
-      vector<char> result(b.begin(), b.end());
+      std::vector<char> result(b.begin(), b.end());
       TEST_EQUAL(v, result, (initialLength, insertLength));
     }
   }
@@ -325,11 +325,11 @@ UNIT_TEST(BufferVectorMove)
   v1.emplace_back("2");
   TestVector(v1, 3);
 
-  VectorT v2(move(v1));
+  VectorT v2(std::move(v1));
   TestVector(v2, 3);
 
   VectorT().swap(v1);
-  v1 = move(v2);
+  v1 = std::move(v2);
   TestVector(v1, 3);
 }
 

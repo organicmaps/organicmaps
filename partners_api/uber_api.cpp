@@ -8,6 +8,7 @@
 #include "base/thread.hpp"
 
 #include "std/iomanip.hpp"
+#include "std/sstream.hpp"
 
 #include "3party/jansson/myjansson.hpp"
 

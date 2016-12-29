@@ -7,6 +7,8 @@
 
 #include "indexer/feature_data.hpp"
 
+#include "std/set.hpp"
+
 class FeatureType;
 class CategoriesHolder;
 

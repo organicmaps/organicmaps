@@ -1,7 +1,7 @@
 #pragma once
 
-#include "std/cstdint.hpp"
-#include "std/ctime.hpp"
+#include <cstdint>
+#include <ctime>
 
 namespace base
 {

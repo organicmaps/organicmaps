@@ -32,7 +32,7 @@ UniStringDFA::Iterator & UniStringDFA::Iterator::Move(UniChar c)
 // UniStringDFA::UniStringDFA ----------------------------------------------------------------------
 UniStringDFA::UniStringDFA(UniString const & s) : m_s(s) {}
 
-UniStringDFA::UniStringDFA(string const & s): UniStringDFA(MakeUniString(s)) {}
+UniStringDFA::UniStringDFA(std::string const & s): UniStringDFA(MakeUniString(s)) {}
 
 UniStringDFA::Iterator UniStringDFA::Begin() const
 {

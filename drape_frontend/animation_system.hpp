@@ -6,6 +6,7 @@
 
 #include "std/cstring.hpp"
 #include "std/deque.hpp"
+#include "std/list.hpp"
 #include "std/noncopyable.hpp"
 #include "std/shared_ptr.hpp"
 #include "std/string.hpp"

@@ -4,6 +4,8 @@
 #include "generator/osm_source.hpp"
 #include "generator/osm_element.hpp"
 
+#include "std/iterator.hpp"
+
 #include "source_data.hpp"
 
 UNIT_TEST(Source_To_Element_create_from_xml_test)

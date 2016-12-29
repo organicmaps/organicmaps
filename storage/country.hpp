@@ -13,6 +13,7 @@
 
 #include "geometry/rect2d.hpp"
 
+#include "std/unordered_map.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
 

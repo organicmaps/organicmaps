@@ -6,6 +6,8 @@
 
 #include "platform/platform.hpp"
 
+#include "std/sstream.hpp"
+
 namespace
 {
   tm * GetLocalTime()

@@ -3,8 +3,9 @@
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
-#include "std/type_traits.hpp"
 #include "std/array.hpp"
+#include "std/type_traits.hpp"
+#include "std/utility.hpp"
 #include "std/vector.hpp"
 
 namespace m2

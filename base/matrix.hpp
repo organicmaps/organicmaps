@@ -2,9 +2,8 @@
 
 #include "base/math.hpp"
 
-#include "std/iomanip.hpp"
-#include "std/initializer_list.hpp"
-
+#include <initializer_list>
+#include <iomanip>
 
 namespace math
 {
@@ -27,10 +26,10 @@ namespace math
       copy(data, data + Rows * Cols, m_data);
     }
 
-    Matrix(initializer_list<T> const & initList)
+    Matrix(std::initializer_list<T> const & initList)
     {
       ASSERT(initList.size() == Rows * Cols, ());
-      copy(initList.begin(), initList.end(), m_data);
+      std::copy(initList.begin(), initList.end(), m_data);
     }
 
     template <typename U>
@@ -196,17 +195,17 @@ namespace math
     return res;
   }
 
-  template <typename T, unsigned M, unsigned N> string DebugPrint(Matrix<T, M, N> const & m)
+  template <typename T, unsigned M, unsigned N> std::string DebugPrint(Matrix<T, M, N> const & m)
   {
-    ostringstream ss;
+    std::ostringstream ss;
 
-    ss << ":" << endl;
+    ss << ":" << std::endl;
 
     for (unsigned i = 0; i < M; ++i)
     {
       for (unsigned j = 0; j < N; ++j)
-        ss << setfill(' ') << setw(10) << m(i, j) << " ";
-      ss << endl;
+        ss << std::setfill(' ') << std::setw(10) << m(i, j) << " ";
+      ss << std::endl;
     }
 
     return ss.str();

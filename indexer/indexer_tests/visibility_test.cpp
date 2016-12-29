@@ -8,6 +8,7 @@
 
 #include "base/logging.hpp"
 
+#include "std/set.hpp"
 
 namespace
 {

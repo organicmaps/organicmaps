@@ -4,6 +4,8 @@
 
 #include "drape/color.hpp"
 
+#include "std/type_traits.hpp"
+
 #include <glm_config.hpp>
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>

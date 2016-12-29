@@ -4,6 +4,9 @@
 
 #include "std/map.hpp"
 #include "std/noncopyable.hpp"
+#include "std/string.hpp"
+#include "std/utility.hpp"
+
 
 //#define TRACK_GPU_MEM
 

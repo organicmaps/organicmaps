@@ -4,6 +4,7 @@
 
 #include "base/buffer_vector.hpp"
 
+#include "std/algorithm.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
 #include "std/type_traits.hpp"

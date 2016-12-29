@@ -3,6 +3,8 @@
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 
+#include "std/algorithm.hpp"
+
 namespace
 {
 

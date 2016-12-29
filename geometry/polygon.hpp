@@ -8,6 +8,7 @@
 #include "base/stl_add.hpp"
 
 #include "std/iterator.hpp"
+#include "std/limits.hpp"
 
 
 template <typename IsVisibleF>

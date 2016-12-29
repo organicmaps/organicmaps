@@ -15,6 +15,7 @@
 #include "base/stl_iterator.hpp"
 
 #include "std/bind.hpp"
+#include "std/exception.hpp"
 #include "std/numeric.hpp"
 #include "std/set.hpp"
 #include "std/string.hpp"

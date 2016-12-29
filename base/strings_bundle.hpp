@@ -1,17 +1,16 @@
 #pragma once
 
-#include "std/string.hpp"
-#include "std/map.hpp"
-
+#include <map>
+#include <string>
 
 class StringsBundle
 {
-  typedef map<string, string> TStringMap;
+  using TStringMap = std::map<std::string, std::string>;
   TStringMap m_values;
   TStringMap m_defValues;
 
 public:
-  void SetDefaultString(string const & name, string const & value);
-  void SetString(string const & name, string const & value);
-  string const GetString(string const & name) const;
+  void SetDefaultString(std::string const & name, std::string const & value);
+  void SetString(std::string const & name, std::string const & value);
+  std::string const GetString(std::string const & name) const;
 };

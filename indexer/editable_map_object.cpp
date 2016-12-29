@@ -9,6 +9,7 @@
 
 #include "std/cctype.hpp"
 #include "std/cmath.hpp"
+#include "std/regex.hpp"
 #include "std/sstream.hpp"
 
 namespace

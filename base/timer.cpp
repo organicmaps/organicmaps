@@ -3,13 +3,72 @@
 #include "base/timegm.hpp"
 #include "base/timer.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/chrono.hpp"
-#include "std/cstdio.hpp"
-#include "std/iomanip.hpp"
-#include "std/sstream.hpp"
 #include "std/systime.hpp"
 #include "std/target_os.hpp"
+
+#include <algorithm>
+#include <chrono>
+#include <cstdio>
+#include <iomanip>
+#include <sstream>
+
+#ifndef OMIM_OS_LINUX
+using std::get_time;
+using std::put_time;
+#else
+#include <cassert>
+
+namespace detail
+{
+  template <class _CharT> struct get_time_manip
+  {
+    tm* __tm_;
+    const _CharT* __fmt_;
+
+    get_time_manip(tm* __tm, const _CharT* __fmt)
+        : __tm_(__tm), __fmt_(__fmt) {}
+  };
+
+  template <class _CharT, class _Traits>
+  class stream_buf_impl : public std::basic_streambuf<_CharT, _Traits>
+  {
+    typedef std::basic_streambuf<_CharT, _Traits> base_t;
+  public:
+    bool parse(const get_time_manip<_CharT>& __x)
+    {
+      // Workaround works only for a stream buffer under null-terminated string.
+      assert(*base_t::egptr() == 0);
+
+      char * res = ::strptime(base_t::gptr(), __x.__fmt_, __x.__tm_);
+      if (res == 0)
+        return false;
+      else
+      {
+        base_t::setg(base_t::eback(), res, base_t::egptr());
+        return true;
+      }
+    }
+  };
+
+  template <class _CharT, class _Traits>
+  std::basic_istream<_CharT, _Traits>&
+  operator>>(std::basic_istream<_CharT, _Traits>& __is, const get_time_manip<_CharT>& __x)
+  {
+    if (!reinterpret_cast<stream_buf_impl<_CharT, _Traits>*>(__is.rdbuf())->parse(__x))
+      __is.setstate(std::ios_base::failbit);
+    return __is;
+  }
+}
+
+template <class _CharT>
+detail::get_time_manip<_CharT> get_time(tm* __tm, const _CharT* __fmt)
+{
+  return detail::get_time_manip<_CharT>(__tm, __fmt);
+}
+
+#endif
+
+
 
 namespace my
 {
@@ -38,10 +97,10 @@ double Timer::LocalTime()
 #endif
 }
 
-string FormatCurrentTime()
+std::string FormatCurrentTime()
 {
   time_t t = time(NULL);
-  string s(ctime(&t));
+  std::string s(ctime(&t));
 
   replace(s.begin(), s.end(), ' ', '_');
 
@@ -63,10 +122,10 @@ uint64_t SecondsSinceEpoch()
   return TimeTToSecondsSinceEpoch(::time(nullptr));
 }
 
-string TimestampToString(time_t time)
+std::string TimestampToString(time_t time)
 {
   if (time == INVALID_TIME_STAMP)
-    return string("INVALID_TIME_STAMP");
+    return std::string("INVALID_TIME_STAMP");
 
   tm * t = gmtime(&time);
   char buf[21] = { 0 };
@@ -92,7 +151,7 @@ bool IsValid(tm const & t)
 }
 }
 
-time_t StringToTimestamp(string const & s)
+time_t StringToTimestamp(std::string const & s)
 {
   // Return current time in the case of failure
   time_t res = INVALID_TIME_STAMP;
@@ -101,7 +160,7 @@ time_t StringToTimestamp(string const & s)
   {
     // Parse UTC format: 1970-01-01T00:00:00Z
     tm t{};
-    istringstream ss(s);
+    std::istringstream ss(s);
     ss >> get_time(&t, "%Y-%m-%dT%H:%M:%SZ");
 
     if (!ss.fail() && IsValid(t))
@@ -112,7 +171,7 @@ time_t StringToTimestamp(string const & s)
     // Parse custom time zone offset format: 2012-12-03T00:38:34+03:30
     tm t1{}, t2{};
     char sign;
-    istringstream ss(s);
+    std::istringstream ss(s);
     ss >> get_time(&t1, "%Y-%m-%dT%H:%M:%S") >> sign >> get_time(&t2, "%H:%M");
 
     if (!ss.fail() && IsValid(t1))
@@ -138,33 +197,33 @@ HighResTimer::HighResTimer(bool start/* = true*/)
 
 void HighResTimer::Reset()
 {
-  m_start = high_resolution_clock::now();
+  m_start = std::chrono::high_resolution_clock::now();
 }
 
 uint64_t HighResTimer::ElapsedNano() const
 {
-  return duration_cast<nanoseconds>(high_resolution_clock::now() - m_start).count();
+  return std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock::now() - m_start).count();
 }
 
 uint64_t HighResTimer::ElapsedMillis() const
 {
-  return duration_cast<milliseconds>(high_resolution_clock::now() - m_start).count();
+  return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - m_start).count();
 }
 
 double HighResTimer::ElapsedSeconds() const
 {
-  return duration_cast<duration<double>>(high_resolution_clock::now() - m_start).count();
+  return std::chrono::duration_cast<std::chrono::duration<double>>(std::chrono::high_resolution_clock::now() - m_start).count();
 }
 
 time_t SecondsSinceEpochToTimeT(uint64_t secondsSinceEpoch)
 {
-  time_point<system_clock> const tpoint{seconds(secondsSinceEpoch)};
-  return system_clock::to_time_t(tpoint);
+  std::chrono::time_point<std::chrono::system_clock> const tpoint{std::chrono::seconds(secondsSinceEpoch)};
+  return std::chrono::system_clock::to_time_t(tpoint);
 }
 
 uint64_t TimeTToSecondsSinceEpoch(time_t time)
 {
-  auto const tpoint = system_clock::from_time_t(time);
-  return duration_cast<seconds>(tpoint.time_since_epoch()).count();
+  auto const tpoint = std::chrono::system_clock::from_time_t(time);
+  return std::chrono::duration_cast<std::chrono::seconds>(tpoint.time_since_epoch()).count();
 }
 }

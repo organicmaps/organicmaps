@@ -4,6 +4,7 @@
 
 #include "base/assert.hpp"
 
+#include "std/array.hpp"
 #include "std/string.hpp"
 
 

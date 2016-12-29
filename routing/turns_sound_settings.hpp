@@ -4,6 +4,7 @@
 
 #include "platform/measurement_utils.hpp"
 
+#include "std/utility.hpp"
 #include "std/vector.hpp"
 
 namespace routing

@@ -18,6 +18,8 @@
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 
+#include "std/chrono.hpp"
+
 #ifdef DEBUG
 #define TEST_CALL(action) if (m_testFn) m_testFn(action)
 #else

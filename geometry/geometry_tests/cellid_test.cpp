@@ -2,6 +2,7 @@
 #include "geometry/cellid.hpp"
 #include "std/algorithm.hpp"
 #include "std/string.hpp"
+#include "std/vector.hpp"
 
 UNIT_TEST(CellID_Parent)
 {

@@ -23,6 +23,7 @@
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 
+#include "std/exception.hpp"
 #include "std/utility.hpp"
 
 #include "defines.hpp"

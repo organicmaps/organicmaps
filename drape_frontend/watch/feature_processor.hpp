@@ -13,6 +13,8 @@
 
 #include "geometry/rect2d.hpp"
 
+#include "std/list.hpp"
+
 class ScreenBase;
 
 namespace df

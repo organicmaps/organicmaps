@@ -4,6 +4,8 @@
 
 #include "base/stl_add.hpp"
 
+#include "std/algorithm.hpp"
+
 
 namespace m2 { namespace robust
 {

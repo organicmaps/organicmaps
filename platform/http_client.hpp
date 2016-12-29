@@ -27,6 +27,7 @@ SOFTWARE.
 
 #include "std/string.hpp"
 #include "std/unordered_map.hpp"
+#include "std/utility.hpp"
 
 namespace platform
 {

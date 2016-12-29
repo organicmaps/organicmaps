@@ -8,6 +8,8 @@
 
 #include "base/string_utils.hpp"
 
+#include "std/iomanip.hpp"
+
 #include "boost/algorithm/string/replace.hpp"
 
 namespace generator

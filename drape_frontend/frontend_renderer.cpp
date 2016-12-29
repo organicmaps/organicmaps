@@ -33,6 +33,7 @@
 #include "std/algorithm.hpp"
 #include "std/bind.hpp"
 #include "std/cmath.hpp"
+#include "std/chrono.hpp"
 
 namespace df
 {

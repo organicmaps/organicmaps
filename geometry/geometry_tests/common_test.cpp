@@ -1,4 +1,3 @@
-#include "base/SRC_FIRST.hpp"
 #include "base/macros.hpp"
 
 #include "geometry/geometry_tests/equality.hpp"

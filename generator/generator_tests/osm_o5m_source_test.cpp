@@ -1,8 +1,11 @@
 #include "testing/testing.hpp"
 
 #include "generator/osm_o5m_source.hpp"
+
 #include "std/iterator.hpp"
 #include "std/set.hpp"
+#include "std/utility.hpp"
+#include "std/vector.hpp"
 
 #include "source_data.hpp"
 

@@ -3,6 +3,7 @@
 #include "generator/feature_builder.hpp"
 
 #include "std/map.hpp"
+#include "std/set.hpp"
 #include "std/vector.hpp"
 
 

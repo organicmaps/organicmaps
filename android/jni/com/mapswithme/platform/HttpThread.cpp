@@ -95,7 +95,7 @@ Java_com_mapswithme_maps_downloader_ChunkTask_nativeOnWrite(JNIEnv * env, jclass
   {
     ret = cb->OnWrite(beg, buf, size);
   }
-  catch (exception const & ex)
+  catch (std::exception const & ex)
   {
     LOG(LERROR, ("Failed to write chunk:", ex.what()));
   }

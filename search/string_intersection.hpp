@@ -2,6 +2,8 @@
 
 #include "indexer/search_delimiters.hpp"
 
+#include "std/utility.hpp"
+
 namespace search
 {
 template <typename LowTokensIterType, typename F>

@@ -4,7 +4,9 @@
 
 #include "base/string_utils.hpp"
 
+#include "std/exception.hpp"
 #include "std/fstream.hpp"
+#include "std/iomanip.hpp"
 #include "std/iostream.hpp"
 #include "std/string.hpp"
 

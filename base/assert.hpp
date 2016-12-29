@@ -3,13 +3,13 @@
 #include "base/internal/message.hpp"
 #include "base/src_point.hpp"
 
-#include "std/string.hpp"
+#include <string>
 
 
 namespace my
 {
   // Called when ASSERT, CHECK or VERIFY failed.
-  typedef void (*AssertFailedFn)(SrcPoint const &, string const &);
+  typedef void (*AssertFailedFn)(SrcPoint const &, std::string const &);
   extern AssertFailedFn OnAssertFailed;
 
   /// @return Pointer to previous message function.

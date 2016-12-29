@@ -1,5 +1,7 @@
 #include "routing/routing_serialization.hpp"
 
+#include "std/sstream.hpp"
+
 namespace
 {
 char const kNo[] = "No";

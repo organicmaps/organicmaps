@@ -4,6 +4,7 @@
 #include "geometry/segment2d.hpp"
 #include "geometry/triangle2d.hpp"
 
+#include "std/iterator.hpp"
 
 using namespace m2::robust;
 

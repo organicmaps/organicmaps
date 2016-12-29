@@ -34,6 +34,7 @@
 
 #include "std/array.hpp"
 #include "std/fstream.hpp"
+#include "std/iterator.hpp"
 #include "std/sstream.hpp"
 #include "std/vector.hpp"
 

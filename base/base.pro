@@ -18,7 +18,6 @@ SOURCES += \
     logging.cpp \
     lower_case.cpp \
     normalize_unicode.cpp \
-    object_tracker.cpp \
     shared_buffer_manager.cpp \
     src_point.cpp \
     string_format.cpp \
@@ -29,7 +28,6 @@ SOURCES += \
     thread_checker.cpp \
     thread_pool.cpp \
     threaded_container.cpp \
-    time_samples.cpp \
     timegm.cpp \
     timer.cpp \
     uni_string_dfa.cpp \
@@ -45,7 +43,6 @@ HEADERS += \
     cancellable.hpp \
     collection_cast.hpp \
     condition.hpp \
-    const_helper.hpp \
     deferred_task.hpp \
     dfa_helpers.hpp \
     exception.hpp \
@@ -60,7 +57,6 @@ HEADERS += \
     mem_trie.hpp \
     mutex.hpp \
     newtype.hpp \
-    object_tracker.hpp \
     observer_list.hpp \
     range_iterator.hpp \
     ref_counted.hpp \
@@ -79,15 +75,12 @@ HEADERS += \
     string_utils.hpp \
     strings_bundle.hpp \
     sunrise_sunset.hpp \
-    swap.hpp \
     thread.hpp \
     thread_checker.hpp \
     thread_pool.hpp \
     threaded_container.hpp \
     threaded_list.hpp \
     threaded_priority_queue.hpp \
-    time_samples.hpp \
     timegm.hpp \
     timer.hpp \
     uni_string_dfa.hpp \
-    worker_thread.hpp \

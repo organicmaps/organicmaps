@@ -1,71 +1,72 @@
 #pragma once
-#include "std/array.hpp"
-#include "std/deque.hpp"
-#include "std/functional.hpp"
-#include "std/initializer_list.hpp"
-#include "std/iterator.hpp"
-#include "std/list.hpp"
-#include "std/map.hpp"
-#include "std/set.hpp"
-#include "std/sstream.hpp"
-#include "std/string.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/unordered_map.hpp"
-#include "std/unordered_set.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+
+#include <array>
+#include <deque>
+#include <functional>
+#include <initializer_list>
+#include <iterator>
+#include <list>
+#include <map>
+#include <memory>
+#include <set>
+#include <sstream>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
 
 
 /// @name Declarations.
 //@{
-template <typename T> inline string DebugPrint(T const & t);
+template <typename T> inline std::string DebugPrint(T const & t);
 
-string DebugPrint(string const & t);
-inline string DebugPrint(char const * t);
-inline string DebugPrint(char t);
+std::string DebugPrint(std::string const & t);
+inline std::string DebugPrint(char const * t);
+inline std::string DebugPrint(char t);
 
-template <typename U, typename V> inline string DebugPrint(pair<U, V> const & p);
-template <typename T> inline string DebugPrint(list<T> const & v);
-template <typename T> inline string DebugPrint(vector<T> const & v);
-template <typename T, typename C = less<T>> inline string DebugPrint(set<T, C> const & v);
-template <typename T, typename C = less<T>> inline string DebugPrint(multiset<T, C> const & v);
-template <typename U, typename V, typename C = less<U>> inline string DebugPrint(map<U, V, C> const & v);
-template <typename T> inline string DebugPrint(initializer_list<T> const & v);
-template <typename T> inline string DebugPrint(unique_ptr<T> const & v);
+template <typename U, typename V> inline std::string DebugPrint(std::pair<U, V> const & p);
+template <typename T> inline std::string DebugPrint(std::list<T> const & v);
+template <typename T> inline std::string DebugPrint(std::vector<T> const & v);
+template <typename T, typename C = std::less<T>> inline std::string DebugPrint(std::set<T, C> const & v);
+template <typename T, typename C = std::less<T>> inline std::string DebugPrint(std::multiset<T, C> const & v);
+template <typename U, typename V, typename C = std::less<U>> inline std::string DebugPrint(std::map<U, V, C> const & v);
+template <typename T> inline std::string DebugPrint(std::initializer_list<T> const & v);
+template <typename T> inline std::string DebugPrint(std::unique_ptr<T> const & v);
 
-template <class Key, class Hash = hash<Key>, class Pred = equal_to<Key>>
-inline string DebugPrint(unordered_set<Key, Hash, Pred> const & v);
-template <class Key, class T, class Hash = hash<Key>, class Pred = equal_to<Key>>
-inline string DebugPrint(unordered_map<Key, T, Hash, Pred> const & v);
+template <class Key, class Hash = std::hash<Key>, class Pred = std::equal_to<Key>>
+inline std::string DebugPrint(std::unordered_set<Key, Hash, Pred> const & v);
+template <class Key, class T, class Hash = std::hash<Key>, class Pred = std::equal_to<Key>>
+inline std::string DebugPrint(std::unordered_map<Key, T, Hash, Pred> const & v);
 //@}
 
 
-inline string DebugPrint(char const * t)
+inline std::string DebugPrint(char const * t)
 {
   if (t)
-    return DebugPrint(string(t));
+    return DebugPrint(std::string(t));
   else
-    return string("NULL string pointer");
+    return std::string("NULL string pointer");
 }
 
-inline string DebugPrint(char t)
+inline std::string DebugPrint(char t)
 {
-  return DebugPrint(string(1, t));
+  return DebugPrint(std::string(1, t));
 }
 
-inline string DebugPrint(signed char t)
+inline std::string DebugPrint(signed char t)
 {
   return DebugPrint(static_cast<int>(t));
 }
 
-inline string DebugPrint(unsigned char t)
+inline std::string DebugPrint(unsigned char t)
 {
   return DebugPrint(static_cast<unsigned int>(t));
 }
 
-template <typename U, typename V> inline string DebugPrint(pair<U,V> const & p)
+template <typename U, typename V> inline std::string DebugPrint(std::pair<U,V> const & p)
 {
-  ostringstream out;
+  std::ostringstream out;
   out << "(" << DebugPrint(p.first) << ", " << DebugPrint(p.second) << ")";
   return out.str();
 }
@@ -74,10 +75,10 @@ namespace my
 {
   namespace impl
   {
-    template <typename IterT> inline string DebugPrintSequence(IterT beg, IterT end)
+    template <typename IterT> inline std::string DebugPrintSequence(IterT beg, IterT end)
     {
-      ostringstream out;
-      out << "[" << distance(beg, end) << ":";
+      std::ostringstream out;
+      out << "[" << std::distance(beg, end) << ":";
       for (;  beg != end; ++beg)
         out << " " << DebugPrint(*beg);
       out << " ]";
@@ -86,73 +87,73 @@ namespace my
   }
 }
 
-template <typename T, size_t N> inline string DebugPrint(T (&arr) [N])
+template <typename T, size_t N> inline std::string DebugPrint(T (&arr) [N])
 {
   return ::my::impl::DebugPrintSequence(arr, arr + N);
 }
 
-template <typename T, size_t N> inline string DebugPrint(array<T, N> const & v)
+template <typename T, size_t N> inline std::string DebugPrint(std::array<T, N> const & v)
 {
   return ::my::impl::DebugPrintSequence(v.begin(), v.end());
 }
 
-template <typename T> inline string DebugPrint(vector<T> const & v)
+template <typename T> inline std::string DebugPrint(std::vector<T> const & v)
 {
   return ::my::impl::DebugPrintSequence(v.begin(), v.end());
 }
 
-template <typename T> inline string DebugPrint(deque<T> const & d)
+template <typename T> inline std::string DebugPrint(std::deque<T> const & d)
 {
   return ::my::impl::DebugPrintSequence(d.begin(), d.end());
 }
 
-template <typename T> inline string DebugPrint(list<T> const & v)
+template <typename T> inline std::string DebugPrint(std::list<T> const & v)
 {
   return ::my::impl::DebugPrintSequence(v.begin(), v.end());
 }
 
-template <typename T, typename C> inline string DebugPrint(set<T, C> const & v)
+template <typename T, typename C> inline std::string DebugPrint(std::set<T, C> const & v)
 {
   return ::my::impl::DebugPrintSequence(v.begin(), v.end());
 }
 
-template <typename T, typename C> inline string DebugPrint(multiset<T, C> const & v)
+template <typename T, typename C> inline std::string DebugPrint(std::multiset<T, C> const & v)
 {
   return ::my::impl::DebugPrintSequence(v.begin(), v.end());
 }
 
-template <typename U, typename V, typename C> inline string DebugPrint(map<U, V, C> const & v)
+template <typename U, typename V, typename C> inline std::string DebugPrint(std::map<U, V, C> const & v)
 {
   return ::my::impl::DebugPrintSequence(v.begin(), v.end());
 }
 
-template <typename T> inline string DebugPrint(initializer_list<T> const & v)
+template <typename T> inline std::string DebugPrint(std::initializer_list<T> const & v)
 {
   return ::my::impl::DebugPrintSequence(v.begin(), v.end());
 }
 
 template <class Key, class Hash, class Pred>
-inline string DebugPrint(unordered_set<Key, Hash, Pred> const & v)
+inline std::string DebugPrint(std::unordered_set<Key, Hash, Pred> const & v)
 {
   return ::my::impl::DebugPrintSequence(v.begin(), v.end());
 }
 
 template <class Key, class T, class Hash, class Pred>
-inline string DebugPrint(unordered_map<Key, T, Hash, Pred> const & v)
+inline std::string DebugPrint(std::unordered_map<Key, T, Hash, Pred> const & v)
 {
   return ::my::impl::DebugPrintSequence(v.begin(), v.end());
 }
 
-template <typename T> inline string DebugPrint(T const & t)
+template <typename T> inline std::string DebugPrint(T const & t)
 {
-  ostringstream out;
+  std::ostringstream out;
   out << t;
   return out.str();
 }
 
-template <typename T> inline string DebugPrint(unique_ptr<T> const & v)
+template <typename T> inline std::string DebugPrint(std::unique_ptr<T> const & v)
 {
-  ostringstream out;
+  std::ostringstream out;
   if (v.get() != nullptr)
     out << DebugPrint(*v);
   else
@@ -164,15 +165,15 @@ namespace my
 {
   namespace impl
   {
-    inline string Message()
+    inline std::string Message()
     {
-      return string();
+      return std::string();
     }
-    template <typename T> string Message(T const & t)
+    template <typename T> std::string Message(T const & t)
     {
       return DebugPrint(t);
     }
-    template <typename T, typename... ARGS> string Message(T const & t, ARGS const & ... others)
+    template <typename T, typename... ARGS> std::string Message(T const & t, ARGS const & ... others)
     {
       return DebugPrint(t) + " " + Message(others...);
     }

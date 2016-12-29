@@ -3,7 +3,7 @@
 #include "std/target_os.hpp"
 
 
-string DebugPrint(string const & t)
+std::string DebugPrint(std::string const & t)
 {
 #ifdef OMIM_OS_WINDOWS
   string res;

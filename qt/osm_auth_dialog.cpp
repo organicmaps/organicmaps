@@ -119,7 +119,7 @@ void OsmAuthDialog::OnAction()
         return;
       }
     }
-    catch (exception const & ex)
+    catch (std::exception const & ex)
     {
       setWindowTitle((string("Auth failed: ") + ex.what()).c_str());
       return;

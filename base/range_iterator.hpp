@@ -1,7 +1,7 @@
 #pragma once
 
-#include "std/iterator.hpp"
-#include "std/type_traits.hpp"
+#include <iterator>
+#include <type_traits>
 
 namespace my
 {

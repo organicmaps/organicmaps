@@ -1,7 +1,7 @@
 #include "base/src_point.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/sstream.hpp"
+#include <algorithm>
+#include <sstream>
 
 
 namespace my
@@ -15,7 +15,7 @@ void SrcPoint::TruncateFileName()
   {
     if (m_fileName[i] == '\\' || m_fileName[i] == '/')
     {
-      swap(p[0], p[1]);
+      std::swap(p[0], p[1]);
       p[0] = m_fileName + i + 1;
     }
   }
@@ -24,9 +24,9 @@ void SrcPoint::TruncateFileName()
 
 } // namespace my
 
-string DebugPrint(my::SrcPoint const & srcPoint)
+std::string DebugPrint(my::SrcPoint const & srcPoint)
 {
-  ostringstream out;
+  std::ostringstream out;
   if (srcPoint.Line() > 0)
     out << srcPoint.FileName() << ":" << srcPoint.Line() << " " << srcPoint.Function()
         << srcPoint.Postfix() << " ";

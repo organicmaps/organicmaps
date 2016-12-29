@@ -4,6 +4,7 @@
 #include "base/string_utils.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/iterator.hpp"
 #include "std/string.hpp"
 #include "std/utility.hpp"
 

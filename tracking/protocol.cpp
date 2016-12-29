@@ -7,6 +7,7 @@
 
 #include "std/cstdint.hpp"
 #include "std/sstream.hpp"
+#include "std/utility.hpp"
 
 namespace
 {

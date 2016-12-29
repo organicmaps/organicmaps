@@ -1,18 +1,19 @@
 #pragma once
 
 #include "base/mutex.hpp"
-#include "std/vector.hpp"
-#include "std/shared_ptr.hpp"
-#include "std/list.hpp"
-#include "std/map.hpp"
+
+#include <list>
+#include <map>
+#include <memory>
+#include <vector>
 
 class SharedBufferManager
 {
 public:
-  typedef vector<uint8_t> shared_buffer_t;
-  typedef shared_ptr<shared_buffer_t> shared_buffer_ptr_t;
-  typedef list<shared_buffer_ptr_t> shared_buffer_ptr_list_t;
-  typedef map<size_t, shared_buffer_ptr_list_t> shared_buffers_t;
+  typedef std::vector<uint8_t> shared_buffer_t;
+  typedef std::shared_ptr<shared_buffer_t> shared_buffer_ptr_t;
+  typedef std::list<shared_buffer_ptr_t> shared_buffer_ptr_list_t;
+  typedef std::map<size_t, shared_buffer_ptr_list_t> shared_buffers_t;
 private:
 
   threads::Mutex m_mutex;

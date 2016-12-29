@@ -6,6 +6,8 @@
 #include "std/map.hpp"
 #include "std/function.hpp"
 #include "std/queue.hpp"
+#include "std/utility.hpp"
+#include "std/vector.hpp"
 
 
 namespace m2

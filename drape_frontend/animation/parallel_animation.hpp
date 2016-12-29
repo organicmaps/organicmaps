@@ -4,6 +4,8 @@
 
 #include "drape/pointers.hpp"
 
+#include "std/list.hpp"
+
 namespace df
 {
 

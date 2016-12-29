@@ -3,7 +3,7 @@
 #include "base/assert.hpp"
 #include "base/macros.hpp"
 
-#include "std/thread.hpp"
+#include <thread>
 
 /// This class remembers id of a thread on which it was created, and
 /// then can be used to verify that CalledOnOriginalThread() is called
@@ -18,7 +18,7 @@ public:
   bool CalledOnOriginalThread() const;
 
 private:
-  thread::id const m_id;
+  std::thread::id const m_id;
 
   DISALLOW_COPY_AND_MOVE(ThreadChecker);
 };

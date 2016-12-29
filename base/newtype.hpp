@@ -1,21 +1,21 @@
 #pragma once
 
-#include "std/iostream.hpp"
-#include "std/type_traits.hpp"
+#include <iostream>
+#include <type_traits>
 
 namespace my
 {
 namespace impl
 {
 template <typename From, typename To>
-using IsConvertibleGuard = typename enable_if<is_convertible<From, To>::value>::type *;
+using IsConvertibleGuard = typename std::enable_if<std::is_convertible<From, To>::value>::type *;
 }  // namespace impl
 
 /// Creates a typesafe alias to a given numeric Type.
 template <typename Type, typename Tag>
 class NewType
 {
-  static_assert(is_integral<Type>::value || is_floating_point<Type>::value,
+  static_assert(std::is_integral<Type>::value || std::is_floating_point<Type>::value,
                 "NewType can be used only with integral and floating point type.");
 
 public:

@@ -1,8 +1,8 @@
 #pragma once
 #include "base/base.hpp"
 
-#include "std/sstream.hpp"
-#include "std/string.hpp"
+#include <sstream>
+#include <string>
 
 
 namespace my
@@ -13,7 +13,7 @@ template <typename T> class NoopStats
 public:
   NoopStats() {}
   inline void operator() (T const &) {}
-  inline string GetStatsStr() const { return ""; }
+  inline std::string GetStatsStr() const { return ""; }
 };
 
 template <typename T> class AverageStats
@@ -29,7 +29,7 @@ public:
 
   string GetStatsStr() const
   {
-    ostringstream out;
+    std::ostringstream out;
     out << "N: " << m_Count;
     if (m_Count > 0)
       out << " Av: " << m_Sum / m_Count;

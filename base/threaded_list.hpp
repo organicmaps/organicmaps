@@ -1,19 +1,19 @@
 #pragma once
 
+#include "base/threaded_container.hpp"
 #include "base/condition.hpp"
 #include "base/logging.hpp"
-#include "std/list.hpp"
 
-#include "base/threaded_container.hpp"
+#include <list>
 
 template <typename T>
 class ThreadedList : public ThreadedContainer
 {
 private:
 
-  list<T> m_list;
+  std::list<T> m_list;
   bool m_isEmpty;
-  string m_resName;
+  std::string m_resName;
 
 public:
 
@@ -69,7 +69,7 @@ public:
     m_resName = name;
   }
 
-  string const & GetName() const
+  std::string const & GetName() const
   {
     return m_resName;
   }

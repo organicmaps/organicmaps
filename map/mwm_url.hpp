@@ -3,6 +3,7 @@
 #include "geometry/rect2d.hpp"
 
 #include "std/string.hpp"
+#include "std/vector.hpp"
 
 class ApiMarkPoint;
 class BookmarkManager;

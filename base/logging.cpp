@@ -5,20 +5,20 @@
 #include "base/thread.hpp"
 #include "base/timer.hpp"
 
-#include "std/iomanip.hpp"
-#include "std/iostream.hpp"
-#include "std/mutex.hpp"
-#include "std/sstream.hpp"
 #include "std/target_os.hpp"
-#include "std/windows.hpp"
+//#include "std/windows.hpp"
 
+#include <iomanip>
+#include <iostream>
+#include <mutex>
+#include <sstream>
 
 namespace my
 {
   class LogHelper
   {
     int m_threadsCount;
-    map<threads::ThreadID, int> m_threadID;
+    std::map<threads::ThreadID, int> m_threadID;
 
     int GetThreadID()
     {
@@ -43,7 +43,7 @@ namespace my
       m_names[4] = "CRITICAL"; m_lens[4] = 8;
     }
 
-    void WriteProlog(ostream & s, LogLevel level)
+    void WriteProlog(std::ostream & s, LogLevel level)
     {
       s << "LOG";
 
@@ -51,33 +51,33 @@ namespace my
       s << " " << m_names[level];
 
       double const sec = m_timer.ElapsedSeconds();
-      s << " " << setfill(' ') << setw(static_cast<int>(16 - m_lens[level])) << sec << " ";
+      s << " " << std::setfill(' ') << std::setw(static_cast<int>(16 - m_lens[level])) << sec << " ";
     }
   };
 
-  mutex g_logMutex;
+  std::mutex g_logMutex;
 
-  void LogMessageDefault(LogLevel level, SrcPoint const & srcPoint, string const & msg)
+  void LogMessageDefault(LogLevel level, SrcPoint const & srcPoint, std::string const & msg)
   {
-    lock_guard<mutex> lock(g_logMutex);
+    std::lock_guard<std::mutex> lock(g_logMutex);
 
     static LogHelper logger;
 
-    ostringstream out;
+    std::ostringstream out;
     logger.WriteProlog(out, level);
 
-    out << DebugPrint(srcPoint) << msg << endl;
+    out << DebugPrint(srcPoint) << msg << std::endl;
     std::cerr << out.str();
 
     CHECK_LESS(level, g_LogAbortLevel, ("Abort. Log level is too serious", level));
   }
 
-  void LogMessageTests(LogLevel level, SrcPoint const &, string const & msg)
+  void LogMessageTests(LogLevel level, SrcPoint const &, std::string const & msg)
   {
-    lock_guard<mutex> lock(g_logMutex);
+    std::lock_guard<std::mutex> lock(g_logMutex);
 
-    ostringstream out;
-    out << msg << endl;
+    std::ostringstream out;
+    out << msg << std::endl;
     std::cerr << out.str();
 
     CHECK_LESS(level, g_LogAbortLevel, ("Abort. Log level is too serious", level));

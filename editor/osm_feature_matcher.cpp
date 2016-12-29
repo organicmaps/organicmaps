@@ -4,6 +4,7 @@
 #include "base/stl_helpers.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/utility.hpp"
 
 using editor::XMLFeature;
 

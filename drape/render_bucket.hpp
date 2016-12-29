@@ -4,6 +4,7 @@
 
 #include "std/function.hpp"
 #include "std/limits.hpp"
+#include "std/vector.hpp"
 
 class ScreenBase;
 

@@ -4,6 +4,8 @@
 
 #include "base/assert.hpp"
 
+#include "std/algorithm.hpp"
+
 
 template <typename XMLDispatcherT, typename SequenceT>
 uint64_t ParseXMLSequence(SequenceT & source, XMLDispatcherT & dispatcher, bool useCharData = false)

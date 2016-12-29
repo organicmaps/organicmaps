@@ -2,8 +2,8 @@
 
 #include "base/logging.hpp"
 
-#include "std/chrono.hpp"
-#include "std/exception.hpp"
+#include <chrono>
+#include <exception>
 
 #if defined(OMIM_OS_ANDROID)
 void AndroidThreadAttachToJVM();
@@ -15,7 +15,7 @@ namespace threads
 namespace
 {
 /// Prepares worker thread and runs routine.
-void RunRoutine(shared_ptr<IRoutine> routine)
+void RunRoutine(std::shared_ptr<IRoutine> routine)
 {
 #if defined(OMIM_OS_ANDROID)
   AndroidThreadAttachToJVM();
@@ -47,16 +47,16 @@ Thread::~Thread()
     m_thread.detach();
 }
 
-bool Thread::Create(unique_ptr<IRoutine> && routine)
+bool Thread::Create(std::unique_ptr<IRoutine> && routine)
 {
   ASSERT(!m_routine, ("Current implementation doesn't allow to reuse thread"));
-  thread routineThread;
+  std::thread routineThread;
   try
   {
     m_routine.reset(routine.release());
-    routineThread = thread(&RunRoutine, m_routine);
+    routineThread = std::thread(&RunRoutine, m_routine);
   }
-  catch (exception & e)
+  catch (std::exception & e)
   {
     LOG(LERROR, ("Thread creation failed with error:", e.what()));
     m_routine.reset();
@@ -88,7 +88,7 @@ IRoutine * Thread::GetRoutine() { return m_routine.get(); }
 
 SimpleThreadPool::SimpleThreadPool(size_t reserve) { m_pool.reserve(reserve); }
 
-void SimpleThreadPool::Add(unique_ptr<IRoutine> && routine)
+void SimpleThreadPool::Add(std::unique_ptr<IRoutine> && routine)
 {
   m_pool.emplace_back(new Thread());
   m_pool.back()->Create(move(routine));
@@ -102,14 +102,14 @@ void SimpleThreadPool::Join()
 
 IRoutine * SimpleThreadPool::GetRoutine(size_t i) const { return m_pool[i]->GetRoutine(); }
 
-void Sleep(size_t ms) { this_thread::sleep_for(milliseconds(ms)); }
+void Sleep(size_t ms) { std::this_thread::sleep_for(std::chrono::milliseconds(ms)); }
 
-ThreadID GetCurrentThreadID() { return this_thread::get_id(); }
+ThreadID GetCurrentThreadID() { return std::this_thread::get_id(); }
 
 /////////////////////////////////////////////////////////////////////
 // SimpleThread implementation
 
-void SimpleThread::ThreadFunc(function<void()> && fn)
+void SimpleThread::ThreadFunc(std::function<void()> && fn)
 {
 #if defined(OMIM_OS_ANDROID)
   AndroidThreadAttachToJVM();

@@ -11,6 +11,7 @@
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
+#include "std/chrono.hpp"
 #include "std/future.hpp"
 
 #include "3party/pugixml/src/pugixml.hpp"

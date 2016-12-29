@@ -10,8 +10,11 @@
 
 #ifdef DEBUG
 #include "base/thread.hpp"
-#include "std/map.hpp"
 #endif
+
+#include "std/algorithm.hpp"
+#include "std/map.hpp"
+#include "std/utility.hpp"
 
 #if defined(OMIM_OS_WINDOWS)
 #define DP_APIENTRY __stdcall

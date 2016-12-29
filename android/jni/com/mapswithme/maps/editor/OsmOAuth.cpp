@@ -49,7 +49,7 @@ Java_com_mapswithme_maps_editor_OsmOAuth_nativeAuthWithPassword(JNIEnv * env, jc
       return ToStringArray(env, auth.GetKeySecret());
     LOG(LWARNING, ("nativeAuthWithPassword: invalid login or password."));
   }
-  catch (exception const & ex)
+  catch (std::exception const & ex)
   {
     LOG(LWARNING, ("nativeAuthWithPassword error ", ex.what()));
   }
@@ -67,7 +67,7 @@ Java_com_mapswithme_maps_editor_OsmOAuth_nativeAuthWithWebviewToken(JNIEnv * env
     TKeySecret const ks = auth.FinishAuthorization(rt, ToNativeString(env, verifier));
     return ToStringArray(env, ks);
   }
-  catch (exception const & ex)
+  catch (std::exception const & ex)
   {
     LOG(LWARNING, ("nativeAuthWithWebviewToken error ", ex.what()));
     return nullptr;
@@ -82,7 +82,7 @@ Java_com_mapswithme_maps_editor_OsmOAuth_nativeGetFacebookAuthUrl(JNIEnv * env, 
     OsmOAuth::TUrlRequestToken const uks = OsmOAuth::ServerAuth().GetFacebookOAuthURL();
     return ToStringArray(env, uks);
   }
-  catch (exception const & ex)
+  catch (std::exception const & ex)
   {
     LOG(LWARNING, ("nativeGetFacebookAuthUrl error ", ex.what()));
     return nullptr;
@@ -97,7 +97,7 @@ Java_com_mapswithme_maps_editor_OsmOAuth_nativeGetGoogleAuthUrl(JNIEnv * env, jc
     OsmOAuth::TUrlRequestToken const uks = OsmOAuth::ServerAuth().GetGoogleOAuthURL();
     return ToStringArray(env, uks);
   }
-  catch (exception const & ex)
+  catch (std::exception const & ex)
   {
     LOG(LWARNING, ("nativeGetGoogleAuthUrl error ", ex.what()));
     return nullptr;
@@ -113,7 +113,7 @@ Java_com_mapswithme_maps_editor_OsmOAuth_nativeGetOsmUsername(JNIEnv * env, jcla
     ServerApi06 const api(OsmOAuth::ServerAuth(keySecret));
     return jni::ToJavaString(env, api.GetUserPreferences().m_displayName);
   }
-  catch (exception const & ex)
+  catch (std::exception const & ex)
   {
     LOG(LWARNING, ("Can't load user preferences from server: ", ex.what()));
     return nullptr;

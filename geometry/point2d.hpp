@@ -147,11 +147,11 @@ namespace m2
       return Point<T>(x / module, y / module);
     }
 
-    pair<Point<T>, Point<T> > Normals(T prolongationFactor = 1) const
+    std::pair<Point<T>, Point<T> > Normals(T prolongationFactor = 1) const
     {
       T const prolongatedX = prolongationFactor * x;
       T const prolongatedY = prolongationFactor * y;
-      return pair<Point<T>, Point<T> >(Point<T>(static_cast<T>(-prolongatedY), static_cast<T>(prolongatedX)),
+      return std::pair<Point<T>, Point<T> >(Point<T>(static_cast<T>(-prolongatedY), static_cast<T>(prolongatedX)),
                                        Point<T>(static_cast<T>(prolongatedY), static_cast<T>(-prolongatedX)));
     }
     // @}
@@ -245,7 +245,7 @@ namespace m2
     return res;
   }
 
-  template <typename T> string DebugPrint(m2::Point<T> const & p)
+  template <typename T> std::string DebugPrint(m2::Point<T> const & p)
   {
     ostringstream out;
     out.precision(20);
@@ -276,7 +276,7 @@ namespace m2
 
     PointT const beVec = e - b;
     PointT beNormalizedVec = beVec.Normalize();
-    pair<PointT, PointT > beNormVecs = beNormalizedVec.Normals(w);
+    std::pair<PointT, PointT > beNormVecs = beNormalizedVec.Normals(w);
 
     arrPnts[0] = e + beNormVecs.first;
     arrPnts[1] = e + beNormalizedVec * l;

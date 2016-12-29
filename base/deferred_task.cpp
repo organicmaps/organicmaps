@@ -6,7 +6,7 @@ DeferredTask::DeferredTask(TDuration const & duration) : m_duration(duration)
 {
   m_thread = threads::SimpleThread([this]
   {
-    unique_lock<mutex> l(m_mutex);
+    std::unique_lock<std::mutex> l(m_mutex);
     while (!m_terminate)
     {
       if (!m_fn)
@@ -15,7 +15,7 @@ DeferredTask::DeferredTask(TDuration const & duration) : m_duration(duration)
         continue;
       }
 
-      if (m_cv.wait_for(l, m_duration) != cv_status::timeout || !m_fn)
+      if (m_cv.wait_for(l, m_duration) != std::cv_status::timeout || !m_fn)
         continue;
 
       auto fn = move(m_fn);
@@ -31,7 +31,7 @@ DeferredTask::DeferredTask(TDuration const & duration) : m_duration(duration)
 DeferredTask::~DeferredTask()
 {
   {
-    unique_lock<mutex> l(m_mutex);
+    std::unique_lock<std::mutex> l(m_mutex);
     m_terminate = true;
   }
   m_cv.notify_one();
@@ -41,7 +41,7 @@ DeferredTask::~DeferredTask()
 void DeferredTask::Drop()
 {
   {
-    unique_lock<mutex> l(m_mutex);
+    std::unique_lock<std::mutex> l(m_mutex);
     m_fn = nullptr;
   }
   m_cv.notify_one();

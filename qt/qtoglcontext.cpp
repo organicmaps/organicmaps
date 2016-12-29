@@ -32,7 +32,7 @@ void QtRenderOGLContext::present()
   m_resizeLock = false;
   GLFunctions::glFinish();
 
-  swap(m_frontFrame, m_backFrame);
+  std::swap(m_frontFrame, m_backFrame);
   unlockFrame();
 }
 
