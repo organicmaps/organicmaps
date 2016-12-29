@@ -1664,13 +1664,13 @@
 
 "booking_filters_price_category" = "Κατηγορία τιμής";
 
-"booking_filters_no_results" = "Δεν βρέθηκαν αποτελέσματα";
+"search_no_results_title" = "Δεν βρέθηκαν αποτελέσματα";
 
-"booking_filters_nores_message" = "Δοκιμάστε ένα γενικότερο όρο αναζήτησης, κάντε σμίκρυνση ή μηδενίστε το φίλτρο.";
+"search_no_results_message" = "Δοκιμάστε ένα γενικότερο όρο αναζήτησης, κάντε σμίκρυνση ή μηδενίστε το φίλτρο.";
 
-"booking_filters_expand_area_button" = "Σμίκρυνση";
+"search_no_results_expand_area_button" = "Σμίκρυνση";
 
-"booking_filters_reset_button" = "Μηδενισμός φίλτρου";
+"search_no_results_reset_button" = "Μηδενισμός φίλτρου";
 
 /* noun */
 "search_in_table" = "Λίστα";
@@ -1752,7 +1752,7 @@
 
 "banner_rentalcars_message" = "800 εταιρείες ενοικίασης αυτοκινήτων σε περισσότερες από 49.000 τοποθεσίες.";
 
-"banner_viator_title" = "Αναζήτηση εκδρομών online";
+"banner_viator_title" = "Αναζήτηση οργανωμένων εκδρομών online";
 
 "banner_viator_message" = "Αναζήτηση σε περισσότερες από 50.000 εκδρομές σε όλο τον κόσμο.";
 
@@ -1760,7 +1760,7 @@
 "whatsnew_traffic" = "Πληροφορίες για την κίνηση σε 36 χώρες";
 
 /* december */
-"whatsnew_traffic_text" = "Ενημερωμένες πληροφορίες για την κίνηση και γρηγορότερες διαδρομές οδήγησης με βάση αυτό!";
+"whatsnew_traffic_text" = "Ενημερωμένες πληροφορίες για την κίνηση και για γρηγορότερες διαδρομές οδήγησης!";
 
 /* december */
 "whatsnew_traffic_roaming" = "Πληροφορίες για την κίνηση κατά την περιαγωγή";

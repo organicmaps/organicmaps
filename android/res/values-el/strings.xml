@@ -735,10 +735,10 @@
 	<string name="booking_filters_rating_very_good">Πολύ καλή</string>
 	<string name="booking_filters_rating_excellent">Τέλεια</string>
 	<string name="booking_filters_price_category">Κατηγορία τιμής</string>
-	<string name="booking_filters_no_results">Δεν βρέθηκαν αποτελέσματα</string>
-	<string name="booking_filters_nores_message">Δοκιμάστε ένα γενικότερο όρο αναζήτησης, κάντε σμίκρυνση ή μηδενίστε το φίλτρο.</string>
-	<string name="booking_filters_expand_area_button">Σμίκρυνση</string>
-	<string name="booking_filters_reset_button">Μηδενισμός φίλτρου</string>
+	<string name="search_no_results_title">Δεν βρέθηκαν αποτελέσματα</string>
+	<string name="search_no_results_message">Δοκιμάστε ένα γενικότερο όρο αναζήτησης, κάντε σμίκρυνση ή μηδενίστε το φίλτρο.</string>
+	<string name="search_no_results_expand_area_button">Σμίκρυνση</string>
+	<string name="search_no_results_reset_button">Μηδενισμός φίλτρου</string>
 	<!-- noun -->
 	<string name="search_in_table">Λίστα</string>
 	<string name="booking_based_on_reviews">Σύμφωνα με %d κριτικές ξενοδοχείων</string>
@@ -782,12 +782,12 @@
 	<string name="banner_geerbest_message">Άμεση αναζήτηση σε περισσότερα από 50.000 αντικείμενα σε χαμηλές τιμές.</string>
 	<string name="banner_rentalcars_title">Ενοικίαση αυτοκινήτων online</string>
 	<string name="banner_rentalcars_message">800 εταιρείες ενοικίασης αυτοκινήτων σε περισσότερες από 49.000 τοποθεσίες.</string>
-	<string name="banner_viator_title">Αναζήτηση εκδρομών online</string>
+	<string name="banner_viator_title">Αναζήτηση οργανωμένων εκδρομών online</string>
 	<string name="banner_viator_message">Αναζήτηση σε περισσότερες από 50.000 εκδρομές σε όλο τον κόσμο.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Πληροφορίες για την κίνηση σε 36 χώρες</string>
 	<!-- december -->
-	<string name="whatsnew_traffic_text">Ενημερωμένες πληροφορίες για την κίνηση και γρηγορότερες διαδρομές οδήγησης με βάση αυτό!</string>
+	<string name="whatsnew_traffic_text">Ενημερωμένες πληροφορίες για την κίνηση και για γρηγορότερες διαδρομές οδήγησης!</string>
 	<!-- december -->
 	<string name="whatsnew_traffic_roaming">Πληροφορίες για την κίνηση κατά την περιαγωγή</string>
 	<!-- december -->
