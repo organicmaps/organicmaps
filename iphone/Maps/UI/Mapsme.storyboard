@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Wns-nH-AQU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Wns-nH-AQU">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -771,7 +771,7 @@
                             <containerView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kXO-Oh-2vO" userLabel="No Maps Container View">
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <connections>
-                                    <segue destination="3el-Zi-2E4" kind="embed" identifier="MapDownloaderEmbedNoMapsSegue" id="ish-dC-mkH"/>
+                                    <segue destination="b8o-rZ-x0k" kind="embed" identifier="MapDownloaderNoResultsEmbedViewControllerSegue" id="ish-dC-mkH"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -972,7 +972,7 @@
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="4438" y="951"/>
+            <point key="canvasLocation" x="4680" y="951"/>
         </scene>
         <!--No Maps View Controller-->
         <scene sceneID="bz6-ac-EbZ">
@@ -987,16 +987,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gmw-e3-n53" userLabel="Container" customClass="MWMNoMapsView">
-                                <rect key="frame" x="96.5" y="0.0" width="407" height="536"/>
+                                <rect key="frame" x="6" y="0.0" width="308" height="504"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dCZ-PN-2Ob" userLabel="BoundsView">
-                                        <rect key="frame" x="16" y="0.0" width="375" height="432"/>
+                                        <rect key="frame" x="16" y="0.0" width="276" height="400"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="87G-jh-N8H" userLabel="CenteredView">
-                                                <rect key="frame" x="0.0" y="92" width="375" height="249"/>
+                                                <rect key="frame" x="0.0" y="68" width="276" height="265"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="img_no_maps" translatesAutoresizingMaskIntoConstraints="NO" id="vI9-fc-FO2">
-                                                        <rect key="frame" x="107.5" y="0.0" width="160" height="160"/>
+                                                        <rect key="frame" x="58" y="0.0" width="160" height="160"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="vI9-fc-FO2" secondAttribute="height" multiplier="1:1" id="f4J-1R-ewM"/>
                                                             <constraint firstAttribute="height" relation="lessThanOrEqual" priority="800" constant="160" id="jwh-bM-u0p"/>
@@ -1004,7 +1004,7 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="У вас нет загруженных карт" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="abh-G0-Alr" userLabel="Title">
-                                                        <rect key="frame" x="0.0" y="180" width="375" height="24"/>
+                                                        <rect key="frame" x="0.0" y="180" width="276" height="24"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -1015,7 +1015,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Загрузите необходимые карты, чтобы находить места и пользоваться навигацией без интернета." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LaW-Ad-mYI" userLabel="Text">
-                                                        <rect key="frame" x="0.0" y="216" width="375" height="33"/>
+                                                        <rect key="frame" x="0.0" y="216" width="276" height="49"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -1056,7 +1056,7 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Moj-UK-oyl" userLabel="DownloadMaps" customClass="MWMButton">
-                                        <rect key="frame" x="83.5" y="452" width="240" height="44"/>
+                                        <rect key="frame" x="34" y="420" width="240" height="44"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="240" id="49x-bx-JJj"/>
@@ -1122,10 +1122,51 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
                         </userDefinedRuntimeAttributes>
                     </view>
+                    <navigationItem key="navigationItem" id="DHE-Sb-Bfs"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o0Q-NP-TIw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3780" y="2228"/>
+            <point key="canvasLocation" x="4680" y="2228"/>
+        </scene>
+        <!--Search No Results View Controller-->
+        <scene sceneID="LUt-iU-iyq">
+            <objects>
+                <viewController storyboardIdentifier="SearchNoResultsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0VQ-EO-9Sv" customClass="SearchNoResultsViewController" customModule="cmMAPS_ME" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="h4O-Rs-0da"/>
+                        <viewControllerLayoutGuide type="bottom" id="nMB-gc-Hho"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9jm-RW-DZK">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EbW-Mp-c6s">
+                                <rect key="frame" x="0.0" y="124" width="320" height="320"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="EbW-Mp-c6s" secondAttribute="height" multiplier="1:1" id="tBC-sb-Q3g"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="EbW-Mp-c6s" firstAttribute="centerY" secondItem="9jm-RW-DZK" secondAttribute="centerY" priority="250" id="BHf-cB-UbU"/>
+                            <constraint firstItem="EbW-Mp-c6s" firstAttribute="height" relation="lessThanOrEqual" secondItem="9jm-RW-DZK" secondAttribute="height" id="JtV-po-tD6"/>
+                            <constraint firstItem="EbW-Mp-c6s" firstAttribute="width" relation="lessThanOrEqual" secondItem="9jm-RW-DZK" secondAttribute="width" id="aCG-RN-DSJ"/>
+                            <constraint firstItem="nMB-gc-Hho" firstAttribute="top" relation="greaterThanOrEqual" secondItem="EbW-Mp-c6s" secondAttribute="bottom" id="i0h-xR-pPI"/>
+                            <constraint firstItem="EbW-Mp-c6s" firstAttribute="height" secondItem="9jm-RW-DZK" secondAttribute="height" priority="750" id="r08-2f-jwK"/>
+                            <constraint firstItem="EbW-Mp-c6s" firstAttribute="centerX" secondItem="9jm-RW-DZK" secondAttribute="centerX" id="xbz-FB-nZl"/>
+                            <constraint firstItem="EbW-Mp-c6s" firstAttribute="width" secondItem="9jm-RW-DZK" secondAttribute="width" priority="750" id="zcx-oD-0Uk"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="container" destination="EbW-Mp-c6s" id="T6K-0M-IAe"/>
+                        <outlet property="containerBottomOffset" destination="i0h-xR-pPI" id="TpT-gj-gr2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rxe-Bw-br6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4680" y="2919"/>
         </scene>
         <!--Migration View Controller-->
         <scene sceneID="DZc-Ih-aae">
@@ -1363,6 +1404,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hlm-dO-yBR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1818" y="-190"/>
+        </scene>
+        <!--Downloader No Results Embed View Controller-->
+        <scene sceneID="Bce-Yn-A6n">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="b8o-rZ-x0k" customClass="MWMDownloaderNoResultsEmbedViewController" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="iNT-L2-ifB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="3el-Zi-2E4" kind="relationship" relationship="rootViewController" id="Nd1-nE-dJZ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0um-vd-4vd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3780" y="2227.8169014084506"/>
         </scene>
     </scenes>
     <resources>

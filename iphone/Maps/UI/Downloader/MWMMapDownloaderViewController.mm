@@ -3,6 +3,7 @@
 #import "MWMMapDownloaderExtendedDataSourceWithAds.h"
 #import "MWMMapDownloaderSearchDataSource.h"
 #import "MWMNoMapsViewController.h"
+#import "SwiftBridge.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIKitCategories.h"
 
@@ -12,7 +13,8 @@
 
 namespace
 {
-NSString * const kNoMapsSegue = @"MapDownloaderEmbedNoMapsSegue";
+NSString * const kMapDownloaderNoResultsEmbedViewControllerSegue =
+    @"MapDownloaderNoResultsEmbedViewControllerSegue";
 }  // namespace
 
 using namespace storage;
@@ -42,9 +44,11 @@ using namespace storage;
 @property(weak, nonatomic) IBOutlet UIView * statusBarBackground;
 @property(weak, nonatomic) IBOutlet UISearchBar * searchBar;
 @property(weak, nonatomic) IBOutlet UIView * noMapsContainer;
-@property(nonatomic) MWMNoMapsViewController * noMapsController;
+@property(nonatomic) MWMDownloaderNoResultsEmbedViewController * noResultsEmbedViewController;
 
-@property(nonatomic) MWMMapDownloaderDataSource * searchDataSource;
+@property(nonatomic) MWMMapDownloaderSearchDataSource * searchDataSource;
+
+@property(nonatomic) NSTimeInterval lastSearchTimestamp;
 
 @end
 
@@ -57,7 +61,6 @@ using namespace storage;
 {
   [super viewDidLoad];
   self.searchBar.placeholder = L(@"downloader_search_field_hint");
-  [self setupSearchParams];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -81,19 +84,30 @@ using namespace storage;
   auto const & s = GetFramework().GetStorage();
   if (![self.parentCountryId isEqualToString:@(s.GetRootId().c_str())])
     return;
-  if (self.mode == mwm::DownloaderMode::Available || self.dataSource == self.searchDataSource ||
-      s.HaveDownloadedCountries() || s.IsDownloadInProgress())
-  {
+
+  auto const showResults = ^{
     [self configAllMapsView];
     self.tableView.hidden = NO;
     self.noMapsContainer.hidden = YES;
-  }
-  else
-  {
+  };
+  auto const showNoResults = ^(MWMDownloaderNoResultsScreen screen) {
     self.showAllMapsButtons = NO;
     self.tableView.hidden = YES;
     self.noMapsContainer.hidden = NO;
-  }
+    self.noResultsEmbedViewController.screen = screen;
+  };
+
+  BOOL const noResults =
+      self.dataSource == self.searchDataSource && self.searchDataSource.isEmpty;
+  BOOL const isModeAvailable = self.mode == mwm::DownloaderMode::Available;
+  BOOL const haveActiveMaps = s.HaveDownloadedCountries() || s.IsDownloadInProgress();
+
+  if (noResults)
+    showNoResults(MWMDownloaderNoResultsScreenNoSearchResults);
+  else if (isModeAvailable || haveActiveMaps)
+    showResults();
+  else
+    showNoResults(MWMDownloaderNoResultsScreenNoMaps);
 }
 
 #pragma mark - UISearchBarDelegate
@@ -124,20 +138,13 @@ using namespace storage;
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
-  if (searchText.length == 0)
-  {
-    self.dataSource = self.defaultDataSource;
-    [self reloadTable];
-  }
-  else
-  {
-    NSString * primaryLanguage = self.searchBar.textInputMode.primaryLanguage;
-    if (primaryLanguage)
-      m_searchParams.m_inputLocale = primaryLanguage.UTF8String;
+  NSString * primaryLanguage = self.searchBar.textInputMode.primaryLanguage;
+  if (primaryLanguage)
+    m_searchParams.m_inputLocale = primaryLanguage.UTF8String;
 
-    m_searchParams.m_query = searchText.precomposedStringWithCompatibilityMapping.UTF8String;
-    GetFramework().SearchInDownloader(m_searchParams);
-  }
+  m_searchParams.m_query = searchText.precomposedStringWithCompatibilityMapping.UTF8String;
+  [self updateSearchCallback];
+  GetFramework().SearchInDownloader(m_searchParams);
 }
 
 #pragma mark - UIBarPositioningDelegate
@@ -145,19 +152,26 @@ using namespace storage;
 - (UIBarPosition)positionForBar:(id<UIBarPositioning>)bar { return UIBarPositionTopAttached; }
 #pragma mark - Search
 
-- (void)setupSearchParams
+- (void)updateSearchCallback
 {
   __weak auto weakSelf = self;
-  m_searchParams.m_onResults = ^(DownloaderSearchResults const & results) {
+  NSTimeInterval const timestamp = [NSDate date].timeIntervalSince1970;
+  self.lastSearchTimestamp = timestamp;
+  m_searchParams.m_onResults = [weakSelf, timestamp](DownloaderSearchResults const & results) {
     __strong auto self = weakSelf;
-    if (!self || results.m_endMarker)
+    if (!self || timestamp != self.lastSearchTimestamp)
       return;
-    self.searchDataSource =
-        [[MWMMapDownloaderSearchDataSource alloc] initWithSearchResults:results delegate:self];
-    dispatch_async(dispatch_get_main_queue(), ^{
+    if (results.m_query.empty())
+    {
+      self.dataSource = self.defaultDataSource;
+    }
+    else
+    {
+      self.searchDataSource =
+          [[MWMMapDownloaderSearchDataSource alloc] initWithSearchResults:results delegate:self];
       self.dataSource = self.searchDataSource;
-      [self reloadTable];
-    });
+    }
+    [self reloadTable];
   };
 }
 
@@ -176,8 +190,8 @@ using namespace storage;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
   [super prepareForSegue:segue sender:sender];
-  if ([segue.identifier isEqualToString:kNoMapsSegue])
-    self.noMapsController = segue.destinationViewController;
+  if ([segue.identifier isEqualToString:kMapDownloaderNoResultsEmbedViewControllerSegue])
+    self.noResultsEmbedViewController = segue.destinationViewController;
 }
 
 #pragma mark - Configuration
