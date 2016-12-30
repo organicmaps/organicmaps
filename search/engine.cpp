@@ -242,7 +242,11 @@ void Engine::DoSearch(SearchParams const & params, m2::RectD const & viewport,
   {
     Results results;
     results.SetEndMarker(true /* isCancelled */);
-    params.m_onResults(results);
+
+    if (params.m_onResults)
+      params.m_onResults(results);
+    else
+      LOG(LERROR, ("OnResults is not set."));
     return;
   }
 

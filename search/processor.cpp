@@ -409,7 +409,6 @@ void Processor::Search(SearchParams const & params, m2::RectD const & viewport)
 
   SetInputLocale(params.m_inputLocale);
 
-  ASSERT(!params.m_query.empty(), ());
   SetQuery(params.m_query);
   SetViewport(viewport, true /* forceUpdate */);
   SetOnResults(params.m_onResults);

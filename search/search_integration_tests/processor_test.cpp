@@ -173,6 +173,10 @@ UNIT_CLASS_TEST(ProcessorTest, Smoke)
 
   SetViewport(m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)));
   {
+    TRules rules = {};
+    TEST(ResultsMatch("", rules), ());
+  }
+  {
     TRules rules = {ExactMatch(wonderlandId, busStop)};
     TEST(ResultsMatch("Bus stop", rules), ());
   }
