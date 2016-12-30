@@ -180,6 +180,11 @@ public class MapObject implements Parcelable
       addMetadata(types[i], values[i]);
   }
 
+  public boolean hasPhoneNumber()
+  {
+    return !TextUtils.isEmpty(getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER));
+  }
+
   public static boolean isOfType(@MapObjectType int type, MapObject object)
   {
     return object != null && object.getMapObjectType() == type;

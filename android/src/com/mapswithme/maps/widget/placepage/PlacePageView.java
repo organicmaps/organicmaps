@@ -416,26 +416,38 @@ public class PlacePageView extends RelativeLayout
           break;
 
         case ROUTE_FROM:
-          if (RoutingController.get().setStartPoint(mMapObject))
+          RoutingController controller = RoutingController.get();
+          if (!controller.isPlanning())
+          {
+            controller.prepare(mMapObject, null);
             hide();
+          }
+          else if (controller.setStartPoint(mMapObject))
+          {
+            hide();
+          }
           break;
 
-          case ROUTE_TO:
-            if (RoutingController.get().isPlanning())
-            {
-              if (RoutingController.get().setEndPoint(mMapObject))
-                hide();
-            }
-            else
-            {
-              getActivity().startLocationToPoint(Statistics.EventName.PP_ROUTE, AlohaHelper.PP_ROUTE, getMapObject());
-            }
-            break;
+        case ROUTE_TO:
+          if (RoutingController.get().isPlanning())
+          {
+            if (RoutingController.get().setEndPoint(mMapObject))
+              hide();
+          }
+          else
+          {
+            getActivity().startLocationToPoint(Statistics.EventName.PP_ROUTE, AlohaHelper.PP_ROUTE, getMapObject());
+          }
+          break;
 
-          case BOOKING:
-          case OPENTABLE:
-            onSponsoredClick(true /* book */);
-            break;
+        case BOOKING:
+        case OPENTABLE:
+          onSponsoredClick(true /* book */);
+          break;
+
+        case CALL:
+          Utils.callPhone(getContext(), mTvPhone.getText().toString());
+          break;
         }
       }
     });
@@ -1147,17 +1159,15 @@ public class PlacePageView extends RelativeLayout
       }
     }
 
+    if (mMapObject.hasPhoneNumber())
+      buttons.add(PlacePageButtons.Item.CALL);
+
     buttons.add(PlacePageButtons.Item.BOOKMARK);
 
-    if (RoutingController.get().isPlanning())
+    if (RoutingController.get().isPlanning() || showRoutingButton)
     {
       buttons.add(PlacePageButtons.Item.ROUTE_FROM);
       buttons.add(PlacePageButtons.Item.ROUTE_TO);
-    }
-    else
-    {
-      if (showRoutingButton)
-        buttons.add(PlacePageButtons.Item.ROUTE_TO);
     }
 
     buttons.add(PlacePageButtons.Item.SHARE);
@@ -1307,15 +1317,7 @@ public class PlacePageView extends RelativeLayout
         refreshLatLon();
         break;
       case R.id.ll__place_phone:
-        Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse("tel:" + mTvPhone.getText()));
-        try
-        {
-          getContext().startActivity(intent);
-        } catch (ActivityNotFoundException e)
-        {
-          AlohaHelper.logException(e);
-        }
+        Utils.callPhone(getContext(), mTvPhone.getText().toString());
         break;
       case R.id.ll__place_website:
         followUrl(mTvWebsite.getText().toString());
@@ -1330,9 +1332,7 @@ public class PlacePageView extends RelativeLayout
         showBigDirection();
         break;
       case R.id.ll__place_email:
-        intent = new Intent(Intent.ACTION_SENDTO);
-        intent.setData(Utils.buildMailUri(mTvEmail.getText().toString(), "", ""));
-        getContext().startActivity(intent);
+        Utils.sendTo(getContext(), mTvEmail.getText().toString());
         break;
       case R.id.tv__bookmark_edit:
         Bookmark bookmark = (Bookmark) mMapObject;
