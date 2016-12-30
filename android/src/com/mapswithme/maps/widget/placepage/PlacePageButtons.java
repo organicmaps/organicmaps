@@ -201,14 +201,14 @@ final class PlacePageButtons
       if (to > from && to >= MAX_BUTTONS)
         Collections.swap(res, from, to);
 
-      preserveNavigationButtons(res, Item.CALL);
-      preserveNavigationButtons(res, Item.BOOKING);
+      preserveRoutingButtons(res, Item.CALL);
+      preserveRoutingButtons(res, Item.BOOKING);
     }
 
     return res;
   }
 
-  private void preserveNavigationButtons(@NonNull List<Item> items, @NonNull Item itemToShift)
+  private void preserveRoutingButtons(@NonNull List<Item> items, @NonNull Item itemToShift)
   {
     if (!RoutingController.get().isNavigating() && !RoutingController.get().isPlanning())
       return;
