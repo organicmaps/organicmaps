@@ -40,28 +40,24 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
 
   private final NativeMapSearchListener mSearchListener = new NativeMapSearchListener()
   {
-    private final List<CountryItem> mResults = new ArrayList<>();
-
     @Override
     public void onMapSearchResults(Result[] results, long timestamp, boolean isLast)
     {
       if (!mSearchRunning || timestamp != mCurrentSearch)
         return;
 
+      List<CountryItem> rs = new ArrayList<>();
       for (Result result : results)
       {
         CountryItem item = CountryItem.fill(result.countryId);
         item.searchResultName = result.matchedString;
-        mResults.add(item);
+        rs.add(item);
       }
+
+      mAdapter.setSearchResultsMode(rs, mToolbarController.getQuery());
 
       if (isLast)
-      {
-        mAdapter.setSearchResultsMode(mResults, mToolbarController.getQuery());
-        mResults.clear();
-
         onSearchEnd();
-      }
     }
   };
 

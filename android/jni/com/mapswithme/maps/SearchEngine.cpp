@@ -303,16 +303,19 @@ void OnResults(Results const & results, long long timestamp, bool isMapAndTable,
 
   JNIEnv * env = jni::GetEnv();
 
+  if (!results.IsEndMarker() || results.IsEndedNormal())
+  {
+    jni::TScopedLocalObjectArrayRef jResults(env, BuildJavaResults(results, hasPosition, lat, lon));
+    env->CallVoidMethod(g_javaListener, g_updateResultsId, jResults.get(),
+                        static_cast<jlong>(timestamp));
+  }
+
   if (results.IsEndMarker())
   {
     env->CallVoidMethod(g_javaListener, g_endResultsId, static_cast<jlong>(timestamp));
     if (isMapAndTable && results.IsEndedNormal())
       g_framework->NativeFramework()->UpdateUserViewportChanged();
-    return;
   }
-
-  jni::TScopedLocalObjectArrayRef jResults(env, BuildJavaResults(results, hasPosition, lat, lon));
-  env->CallVoidMethod(g_javaListener, g_updateResultsId, jResults.get(), static_cast<jlong>(timestamp));
 }
 
 jobjectArray BuildJavaMapResults(vector<storage::DownloaderSearchResult> const & results)

@@ -10,10 +10,13 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
+#include <set>
+#include <string>
+
 namespace
 {
 bool GetGroupCountryIdFromFeature(storage::Storage const & storage, FeatureType const & ft,
-                                  string & name)
+                                  std::string & name)
 {
   int8_t const langIndices[] = {StringUtf8Multilang::kEnglishCode,
                                 StringUtf8Multilang::kDefaultCode,
@@ -47,6 +50,7 @@ DownloaderSearchCallback::DownloaderSearchCallback(Delegate & delegate, Index co
 void DownloaderSearchCallback::operator()(search::Results const & results)
 {
   storage::DownloaderSearchResults downloaderSearchResults;
+  std::set<storage::DownloaderSearchResult> uniqueResults;
 
   for (auto const & result : results)
   {
@@ -68,14 +72,14 @@ void DownloaderSearchCallback::operator()(search::Results const & results)
 
       if (type == ftypes::COUNTRY || type == ftypes::STATE)
       {
-        string groupFeatureName;
+        std::string groupFeatureName;
         if (GetGroupCountryIdFromFeature(m_storage, ft, groupFeatureName))
         {
           storage::DownloaderSearchResult downloaderResult(groupFeatureName,
                                                            result.GetString() /* m_matchedName */);
-          if (m_uniqueResults.find(downloaderResult) == m_uniqueResults.end())
+          if (uniqueResults.find(downloaderResult) == uniqueResults.end())
           {
-            m_uniqueResults.insert(downloaderResult);
+            uniqueResults.insert(downloaderResult);
             downloaderSearchResults.m_results.push_back(downloaderResult);
           }
           continue;
@@ -89,9 +93,9 @@ void DownloaderSearchCallback::operator()(search::Results const & results)
 
     storage::DownloaderSearchResult downloaderResult(countryId,
                                                      result.GetString() /* m_matchedName */);
-    if (m_uniqueResults.find(downloaderResult) == m_uniqueResults.end())
+    if (uniqueResults.find(downloaderResult) == uniqueResults.end())
     {
-      m_uniqueResults.insert(downloaderResult);
+      uniqueResults.insert(downloaderResult);
       downloaderSearchResults.m_results.push_back(downloaderResult);
     }
   }
