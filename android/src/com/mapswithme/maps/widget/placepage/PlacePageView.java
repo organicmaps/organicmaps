@@ -446,7 +446,7 @@ public class PlacePageView extends RelativeLayout
           break;
 
         case CALL:
-          callPhone();
+          Utils.callPhone(getContext(), mTvPhone.getText().toString());
           break;
         }
       }
@@ -1159,7 +1159,7 @@ public class PlacePageView extends RelativeLayout
       }
     }
 
-    if (!TextUtils.isEmpty(mMapObject.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER)))
+    if (mMapObject.hasPhoneNumber())
       buttons.add(PlacePageButtons.Item.CALL);
 
     buttons.add(PlacePageButtons.Item.BOOKMARK);
@@ -1317,7 +1317,7 @@ public class PlacePageView extends RelativeLayout
         refreshLatLon();
         break;
       case R.id.ll__place_phone:
-        callPhone();
+        Utils.callPhone(getContext(), mTvPhone.getText().toString());
         break;
       case R.id.ll__place_website:
         followUrl(mTvWebsite.getText().toString());
@@ -1332,10 +1332,7 @@ public class PlacePageView extends RelativeLayout
         showBigDirection();
         break;
       case R.id.ll__place_email:
-        Intent intent;
-        intent = new Intent(Intent.ACTION_SENDTO);
-        intent.setData(Utils.buildMailUri(mTvEmail.getText().toString(), "", ""));
-        getContext().startActivity(intent);
+        Utils.sendTo(getContext(), mTvEmail.getText().toString());
         break;
       case R.id.tv__bookmark_edit:
         Bookmark bookmark = (Bookmark) mMapObject;
@@ -1361,19 +1358,6 @@ public class PlacePageView extends RelativeLayout
         hide();
         Framework.nativeDeactivatePopup();
         break;
-    }
-  }
-
-  private void callPhone()
-  {
-    Intent intent = new Intent(Intent.ACTION_DIAL);
-    intent.setData(Uri.parse("tel:" + mTvPhone.getText()));
-    try
-    {
-      getContext().startActivity(intent);
-    } catch (ActivityNotFoundException e)
-    {
-      AlohaHelper.logException(e);
     }
   }
 

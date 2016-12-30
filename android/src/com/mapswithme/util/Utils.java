@@ -429,4 +429,25 @@ public class Utils
     }
     context.startActivity(intent);
   }
+
+  public static void sendTo(@NonNull Context context, @NonNull String email)
+  {
+    Intent intent = new Intent(Intent.ACTION_SENDTO);
+    intent.setData(Utils.buildMailUri(email, "", ""));
+    context.startActivity(intent);
+  }
+
+  public static void callPhone(@NonNull Context context, @NonNull String phone)
+  {
+    Intent intent = new Intent(Intent.ACTION_DIAL);
+    intent.setData(Uri.parse("tel:" + phone));
+    try
+    {
+      context.startActivity(intent);
+    }
+    catch (ActivityNotFoundException e)
+    {
+      AlohaHelper.logException(e);
+    }
+  }
 }

@@ -17,6 +17,7 @@ import java.util.List;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.ThemeUtils;
 
@@ -199,9 +200,28 @@ final class PlacePageButtons
       int to = res.indexOf(Item.ROUTE_TO);
       if (to > from && to >= MAX_BUTTONS)
         Collections.swap(res, from, to);
+
+      preserveNavigationButtons(res, Item.CALL);
+      preserveNavigationButtons(res, Item.BOOKING);
     }
 
     return res;
+  }
+
+  private void preserveNavigationButtons(@NonNull List<Item> items, @NonNull Item itemToShift)
+  {
+    if (!RoutingController.get().isNavigating() && !RoutingController.get().isPlanning())
+      return;
+
+    int pos = items.indexOf(itemToShift);
+    if (pos > -1)
+    {
+      items.remove(pos);
+      items.add(MAX_BUTTONS, itemToShift);
+      int to = items.indexOf(Item.ROUTE_TO);
+      items.remove(Item.ROUTE_FROM);
+      items.add(to + 1, Item.ROUTE_FROM);
+    }
   }
 
   private void showPopup(final List<Item> buttons)
