@@ -191,7 +191,7 @@ NSString * const kiOSEmail = @"ios@maps.me";
   [Statistics logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatReport}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"reportABug"];
   // Do not localize subject. Support team uses it to filter emails.
-  [self sendEmailWithSubject:@"Bug report from user" toRecipient:kiOSEmail];
+  [self sendEmailWithSubject:@"Bugreport from user" toRecipient:kiOSEmail];
 }
 
 #pragma mark - Email
