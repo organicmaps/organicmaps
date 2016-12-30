@@ -2,9 +2,6 @@
 
 #include "storage/downloader_search_params.hpp"
 
-#include "std/set.hpp"
-#include "std/string.hpp"
-
 class Index;
 
 namespace storage
@@ -39,8 +36,6 @@ public:
   void operator()(search::Results const & results);
 
 private:
-  set<storage::DownloaderSearchResult> m_uniqueResults;
-
   Delegate & m_delegate;
   Index const & m_index;
   storage::CountryInfoGetter const & m_infoGetter;
