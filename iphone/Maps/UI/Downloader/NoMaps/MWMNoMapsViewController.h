@@ -2,6 +2,6 @@
 
 @interface MWMNoMapsViewController : MWMViewController
 
-+ (MWMNoMapsViewController *)controller;
++ (MWMNoMapsViewController *)controller NS_SWIFT_NAME(controller());
 
 @end

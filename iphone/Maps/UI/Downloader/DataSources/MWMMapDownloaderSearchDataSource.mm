@@ -91,4 +91,7 @@ extern NSString * const kLargeCountryCellIdentifier;
   return self.searchMatchedResults[countryId];
 }
 
+#pragma mark - Properties
+
+- (BOOL)isEmpty { return self.searchCountryIds.count == 0; }
 @end
