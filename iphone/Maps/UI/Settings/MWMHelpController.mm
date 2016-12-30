@@ -215,19 +215,18 @@ NSString * const kiOSEmail = @"ios@maps.me";
     NSString * country = [[NSLocale localeWithLocaleIdentifier:kLocaleUsedInSupportEmails]
         displayNameForKey:NSLocaleCountryCode
                     value:locale];
-    NSString * bundleVersion =
-        [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
-    NSString * text = [NSString stringWithFormat:@"\n\n\n\n- %@ (%@)\n- MAPS.ME %@\n- %@/%@",
+    NSString * bundleVersion = [AppInfo sharedInfo].bundleVersion;
+    NSString * buildNumber = [AppInfo sharedInfo].buildNumber;
+    NSString * text = [NSString stringWithFormat:@"\n\n\n\n- %@ (%@)\n- MAPS.ME %@ (%@)\n- %@/%@",
                                                  device, [UIDevice currentDevice].systemVersion,
-                                                 bundleVersion, language, country];
+                                                 bundleVersion, buildNumber, language, country];
     NSString * alohalyticsId = [Alohalytics installationId];
     if (alohalyticsId)
       text = [NSString stringWithFormat:@"%@\n- %@", text, alohalyticsId];
 
     MWMMailViewController * vc = [[MWMMailViewController alloc] init];
     vc.mailComposeDelegate = self;
-    [vc setSubject:[NSString stringWithFormat:@"[%@ iOS] %@", [AppInfo sharedInfo].bundleVersion,
-                                              subject]];
+    [vc setSubject:[NSString stringWithFormat:@"[%@ iOS] %@", bundleVersion, subject]];
     [vc setMessageBody:text isHTML:NO];
     [vc setToRecipients:@[ email ]];
     [vc.navigationBar setTintColor:[UIColor whitePrimaryText]];
