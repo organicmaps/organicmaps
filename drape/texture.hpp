@@ -51,7 +51,7 @@ public:
   virtual ref_ptr<ResourceInfo> FindResource(Key const & key, bool & newResource) = 0;
   virtual void UpdateState() {}
   virtual bool HasAsyncRoutines() const { return false; }
-  virtual bool HasEnoughSpace(uint32_t newKeysCount) const { return true; }
+  virtual bool HasEnoughSpace(uint32_t /*newKeysCount*/) const { return true; }
 
   using Params = HWTexture::Params;
 

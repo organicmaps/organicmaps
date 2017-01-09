@@ -18,7 +18,7 @@ UNIT_TEST(CellIdToStringRecode)
 UNIT_TEST(GoldenCoverRect)
 {
   vector<CellIdT> cells;
-  CoverRect<OrthoBounds>(27.43, 53.83, 27.70, 53.96, 4, RectId::DEPTH_LEVELS, cells);
+  CoverRect<OrthoBounds>({27.43, 53.83, 27.70, 53.96}, 4, RectId::DEPTH_LEVELS, cells);
 
   TEST_EQUAL(cells.size(), 4, ());
 
@@ -33,7 +33,7 @@ UNIT_TEST(ArtificialCoverRect)
   typedef Bounds<0, 0, 16, 16> TestBounds;
 
   vector<CellIdT> cells;
-  CoverRect<TestBounds>(5, 5, 11, 11, 4, RectId::DEPTH_LEVELS, cells);
+  CoverRect<TestBounds>({5, 5, 11, 11}, 4, RectId::DEPTH_LEVELS, cells);
 
   TEST_EQUAL(cells.size(), 4, ());
 

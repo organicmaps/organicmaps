@@ -1,46 +1,31 @@
 #pragma once
 #include "base/assert.hpp"
 #include "base/base.hpp"
-#include "std/string.hpp"
 #include "std/sstream.hpp"
+#include "std/string.hpp"
 #include "std/utility.hpp"
-
 
 namespace m2
 {
-
-template <int kDepthLevels = 31> class CellId
+template <int kDepthLevels = 31>
+class CellId
 {
 public:
-  // TODO: Move CellId::DEPTH_LEVELS to private.
-  static int const DEPTH_LEVELS = kDepthLevels;
+  // Use enum to avoid linker errors.
+  // Can't realize why static const or constexpr is invalid here ...
+  enum
+  {
+    DEPTH_LEVELS = kDepthLevels
+  };
   static uint8_t const MAX_CHILDREN = 4;
   static uint32_t const MAX_COORD = 1U << DEPTH_LEVELS;
 
-  CellId() : m_Bits(0), m_Level(0)
-  {
-    ASSERT(IsValid(), ());
-  }
+  CellId() : m_Bits(0), m_Level(0) { ASSERT(IsValid(), ()); }
+  explicit CellId(string const & s) { *this = FromString(s); }
 
-  explicit CellId(string const & s)
-  {
-    *this = FromString(s);
-  }
-
-  static CellId Root()
-  {
-    return CellId(0, 0);
-  }
-
-  static CellId FromBitsAndLevel(uint64_t bits, int level)
-  {
-    return CellId(bits, level);
-  }
-
-  inline static size_t TotalCellsOnLevel(size_t level)
-  {
-    return 1 << (2 * level);
-  }
+  static CellId Root() { return CellId(0, 0); }
+  static CellId FromBitsAndLevel(uint64_t bits, int level) { return CellId(bits, level); }
+  static size_t TotalCellsOnLevel(size_t level) { return 1 << (2 * level); }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
   // Simple getters
@@ -90,18 +75,14 @@ public:
   //////////////////////////////////////////////////////////////////////////////////////////////////
   // Operators
 
-  bool operator == (CellId const & cellId) const
+  bool operator==(CellId const & cellId) const
   {
     ASSERT(IsValid(), (m_Bits, m_Level));
     ASSERT(cellId.IsValid(), (cellId.m_Bits, cellId.m_Level));
     return m_Bits == cellId.m_Bits && m_Level == cellId.m_Level;
   }
 
-  bool operator != (CellId const & cellId) const
-  {
-    return !(*this == cellId);
-  }
-
+  bool operator!=(CellId const & cellId) const { return !(*this == cellId); }
   //////////////////////////////////////////////////////////////////////////////////////////////////
   // Conversion to/from string
 
@@ -203,7 +184,7 @@ public:
 
   struct LessLevelOrder
   {
-    bool operator() (CellId<DEPTH_LEVELS> const & id1, CellId<DEPTH_LEVELS> const & id2) const
+    bool operator()(CellId<DEPTH_LEVELS> const & id1, CellId<DEPTH_LEVELS> const & id2) const
     {
       if (id1.m_Level != id2.m_Level)
         return id1.m_Level < id2.m_Level;
@@ -213,9 +194,21 @@ public:
     }
   };
 
+  struct GreaterLevelOrder
+  {
+    bool operator()(CellId<DEPTH_LEVELS> const & id1, CellId<DEPTH_LEVELS> const & id2) const
+    {
+      if (id1.m_Level != id2.m_Level)
+        return id1.m_Level > id2.m_Level;
+      if (id1.m_Bits != id2.m_Bits)
+        return id1.m_Bits > id2.m_Bits;
+      return false;
+    }
+  };
+
   struct LessPreOrder
   {
-    bool operator() (CellId<DEPTH_LEVELS> const & id1, CellId<DEPTH_LEVELS> const & id2) const
+    bool operator()(CellId<DEPTH_LEVELS> const & id1, CellId<DEPTH_LEVELS> const & id2) const
     {
       int64_t const n1 = id1.ToInt64LevelZOrder(DEPTH_LEVELS);
       int64_t const n2 = id2.ToInt64LevelZOrder(DEPTH_LEVELS);
@@ -228,17 +221,9 @@ public:
   // Numbering
 
   // Default ToInt64().
-  int64_t ToInt64(int depth) const
-  {
-    return ToInt64LevelZOrder(depth);
-  }
-
+  int64_t ToInt64(int depth) const { return ToInt64LevelZOrder(depth); }
   // Default FromInt64().
-  static CellId FromInt64(int64_t v, int depth)
-  {
-    return FromInt64LevelZOrder(v, depth);
-  }
-
+  static CellId FromInt64(int64_t v, int depth) { return FromInt64LevelZOrder(v, depth); }
   // Level order, numbering by Z-curve.
   int64_t ToInt64LevelZOrder(int depth) const
   {
@@ -284,9 +269,8 @@ public:
     return CellId(bits, level);
   }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
 private:
-
   static uint64_t TreeSizeForDepth(int depth)
   {
     ASSERT(0 < depth && depth <= DEPTH_LEVELS, (depth));
@@ -295,7 +279,7 @@ private:
 
   CellId(uint64_t bits, int level) : m_Bits(bits), m_Level(level)
   {
-    ASSERT_LESS(level, static_cast<uint32_t>(DEPTH_LEVELS), (bits, level));
+    ASSERT_LESS(level, DEPTH_LEVELS, (bits, level));
     ASSERT_LESS(bits, 1ULL << m_Level * 2, (bits, m_Level));
     ASSERT(IsValid(), (m_Bits, m_Level));
   }
@@ -313,11 +297,11 @@ private:
   int m_Level;
 };
 
-template <int DEPTH_LEVELS> string DebugPrint(CellId<DEPTH_LEVELS> const & id)
+template <int DEPTH_LEVELS>
+string DebugPrint(CellId<DEPTH_LEVELS> const & id)
 {
   ostringstream out;
   out << "CellId<" << DEPTH_LEVELS << ">(\"" << id.ToString().c_str() << "\")";
   return out.str();
 }
-
 }

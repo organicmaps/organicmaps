@@ -101,7 +101,7 @@ public:
     return res;
   }
 
-  EdgeDataT & GetEdgeData(const EdgeID e) const override
+  EdgeDataT & GetEdgeData(const EdgeID) const override
   {
     static EdgeDataT res;
     ASSERT(false, ("Maps me routing facade does not supports this edge unpacking method"));
@@ -109,7 +109,7 @@ public:
   }
 
   //! TODO: Make proper travelmode getter when we add it to routing file
-  TravelMode GetTravelModeForEdgeID(const unsigned id) const override
+  TravelMode GetTravelModeForEdgeID(const unsigned) const override
   {
       return TRAVEL_MODE_DEFAULT;
   }
@@ -149,44 +149,44 @@ public:
     return smallest_edge;
   }
 
-  EdgeID FindEdgeInEitherDirection(const NodeID from, const NodeID to) const override
+  EdgeID FindEdgeInEitherDirection(const NodeID, const NodeID) const override
   {
     return (EdgeID)0;
   }
 
-  EdgeID FindEdgeIndicateIfReverse(const NodeID from, const NodeID to, bool &result) const override
+  EdgeID FindEdgeIndicateIfReverse(const NodeID, const NodeID, bool &) const override
   {
     return (EdgeID)0;
   }
 
   // node and edge information access
-  FixedPointCoordinate GetCoordinateOfNode(const unsigned id) const override
+  FixedPointCoordinate GetCoordinateOfNode(const unsigned) const override
   {
     return FixedPointCoordinate();
   }
 
-  bool EdgeIsCompressed(const unsigned id) const override
+  bool EdgeIsCompressed(const unsigned) const override
   {
     return false;
   }
 
-  unsigned GetGeometryIndexForEdgeID(const unsigned id) const override
+  unsigned GetGeometryIndexForEdgeID(const unsigned) const override
   {
     return false;
   }
 
-  void GetUncompressedGeometry(const unsigned id, std::vector<unsigned> &result_nodes) const override
+  void GetUncompressedGeometry(const unsigned, std::vector<unsigned> &) const override
   {
   }
 
-  TurnInstruction GetTurnInstructionForEdgeID(const unsigned id) const override
+  TurnInstruction GetTurnInstructionForEdgeID(const unsigned) const override
   {
     return TurnInstruction::NoTurn;
   }
 
-  bool LocateClosestEndPointForCoordinate(const FixedPointCoordinate &input_coordinate,
-                                          FixedPointCoordinate &result,
-                                          const unsigned zoom_level = 18) override
+  bool LocateClosestEndPointForCoordinate(const FixedPointCoordinate &,
+                                          FixedPointCoordinate &,
+                                          const unsigned = 18) override
   {
     return false;
   }
@@ -206,25 +206,25 @@ public:
     return false;
   }*/
 
-  bool IncrementalFindPhantomNodeForCoordinate(const FixedPointCoordinate & input_coordinate,
-                                               std::vector<PhantomNode> & resulting_phantom_node_vector,
-                                               const unsigned number_of_results) override
+  bool IncrementalFindPhantomNodeForCoordinate(const FixedPointCoordinate &,
+                                               std::vector<PhantomNode> &,
+                                               const unsigned) override
   {
     return false;
   }
 
-  bool IncrementalFindPhantomNodeForCoordinate(const FixedPointCoordinate & input_coordinate,
-                                               PhantomNode & resulting_phantom_node) override
+  bool IncrementalFindPhantomNodeForCoordinate(const FixedPointCoordinate &,
+                                               PhantomNode &) override
   {
     return false;
   }
 
   bool IncrementalFindPhantomNodeForCoordinateWithMaxDistance(
-           const FixedPointCoordinate & input_coordinate,
-           std::vector<std::pair<PhantomNode, double>> & resulting_phantom_node_vector,
-           const double max_distance,
-           const unsigned min_number_of_phantom_nodes,
-           const unsigned max_number_of_phantom_nodes) override
+           const FixedPointCoordinate &,
+           std::vector<std::pair<PhantomNode, double>> &,
+           const double,
+           const unsigned,
+           const unsigned) override
   {
     return false;
   }
@@ -234,7 +234,7 @@ public:
     return 0;
   }
 
-  unsigned GetNameIndexFromEdgeID(const unsigned id) const override
+  unsigned GetNameIndexFromEdgeID(const unsigned) const override
   {
     return -1;
   }
@@ -243,8 +243,10 @@ public:
   //{
   //}
 
-  std::string get_name_for_id(const unsigned name_id) const override
-  {return "";}
+  std::string get_name_for_id(const unsigned) const override
+  {
+    return std::string();
+  }
 
   std::string GetTimestamp() const override
   {

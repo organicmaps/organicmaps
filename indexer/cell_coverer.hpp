@@ -2,54 +2,57 @@
 
 #include "indexer/cell_id.hpp"
 
+#include "base/buffer_vector.hpp"
+
 #include "std/queue.hpp"
 #include "std/vector.hpp"
 
 // TODO: Move neccessary functions to geometry/covering_utils.hpp and delete this file.
 
+constexpr int SPLIT_RECT_CELLS_COUNT = 512;
+
 template <typename BoundsT, typename CellIdT>
-inline void SplitRectCell(CellIdT id,
-                          double minX, double minY,
-                          double maxX, double maxY,
-                          vector<CellIdT> & result)
+inline size_t SplitRectCell(CellIdT const & id, m2::RectD const & rect,
+                            array<pair<CellIdT, m2::RectD>, 4> & result)
 {
+  size_t index = 0;
   for (int8_t i = 0; i < 4; ++i)
   {
-    CellIdT child = id.Child(i);
+    CellIdT const child = id.Child(i);
     double minCellX, minCellY, maxCellX, maxCellY;
     CellIdConverter<BoundsT, CellIdT>::GetCellBounds(child, minCellX, minCellY, maxCellX, maxCellY);
-    if (!((maxX < minCellX) || (minX > maxCellX) || (maxY < minCellY) || (minY > maxCellY)))
-      result.push_back(child);
+
+    m2::RectD const childRect(minCellX, minCellY, maxCellX, maxCellY);
+    if (rect.IsIntersect(childRect))
+      result[index++] = {child, childRect};
   }
+  return index;
 }
 
 template <typename BoundsT, typename CellIdT>
-inline void CoverRect(double minX, double minY,
-                      double maxX, double maxY,
-                      size_t cells_count, int maxDepth,
-                      vector<CellIdT> & cells)
+inline void CoverRect(m2::RectD rect, size_t cellsCount, int maxDepth, vector<CellIdT> & result)
 {
-  if (minX < BoundsT::minX) minX = BoundsT::minX;
-  if (minY < BoundsT::minY) minY = BoundsT::minY;
-  if (maxX > BoundsT::maxX) maxX = BoundsT::maxX;
-  if (maxY > BoundsT::maxY) maxY = BoundsT::maxY;
+  ASSERT(result.empty(), ());
+  {
+    // Cut rect with world bound coordinates.
+    if (!rect.Intersect({BoundsT::minX, BoundsT::minY, BoundsT::maxX, BoundsT::maxY}))
+      return;
+    ASSERT(rect.IsValid(), ());
+  }
 
-  if (minX >= maxX || minY >= maxY)
-    return;
+  CellIdT const commonCell = CellIdConverter<BoundsT, CellIdT>::Cover2PointsWithCell(
+      rect.minX(), rect.minY(), rect.maxX(), rect.maxY());
 
-  CellIdT commonCell =
-      CellIdConverter<BoundsT, CellIdT>::Cover2PointsWithCell(minX, minY, maxX, maxY);
-
-  vector<CellIdT> result;
-
-  queue<CellIdT> cellQueue;
+  priority_queue<CellIdT, buffer_vector<CellIdT, SPLIT_RECT_CELLS_COUNT>,
+                 typename CellIdT::GreaterLevelOrder>
+      cellQueue;
   cellQueue.push(commonCell);
 
   maxDepth -= 1;
 
-  while (!cellQueue.empty() && cellQueue.size() + result.size() < cells_count)
+  while (!cellQueue.empty() && cellQueue.size() + result.size() < cellsCount)
   {
-    CellIdT id = cellQueue.front();
+    CellIdT id = cellQueue.top();
     cellQueue.pop();
 
     while (id.Level() > maxDepth)
@@ -61,44 +64,37 @@ inline void CoverRect(double minX, double minY,
       break;
     }
 
-    vector<CellIdT> children;
-    SplitRectCell<BoundsT>(id, minX, minY, maxX, maxY, children);
+    array<pair<CellIdT, m2::RectD>, 4> arr;
+    size_t const count = SplitRectCell<BoundsT>(id, rect, arr);
 
-    // Children shouldn't be empty, but if it is, ignore this cellid in release.
-    ASSERT(!children.empty(), (id, minX, minY, maxX, maxY));
-    if (children.empty())
+    if (cellQueue.size() + result.size() + count <= cellsCount)
     {
-      result.push_back(id);
-      continue;
-    }
-
-    if (cellQueue.size() + result.size() + children.size() <= cells_count)
-    {
-      for (size_t i = 0; i < children.size(); ++i)
-        cellQueue.push(children[i]);
+      for (size_t i = 0; i < count; ++i)
+      {
+        if (rect.IsRectInside(arr[i].second))
+          result.push_back(arr[i].first);
+        else
+          cellQueue.push(arr[i].first);
+      }
     }
     else
+    {
       result.push_back(id);
+    }
   }
 
   for (; !cellQueue.empty(); cellQueue.pop())
-    result.push_back(cellQueue.front());
-
-  for (size_t i = 0; i < result.size(); ++i)
   {
-    CellIdT id = result[i];
+    CellIdT id = cellQueue.top();
     while (id.Level() < maxDepth)
     {
-      vector<CellIdT> children;
-      SplitRectCell<BoundsT>(id, minX, minY, maxX, maxY, children);
-      if (children.size() == 1)
-        id = children[0];
-      else
+      array<pair<CellIdT, m2::RectD>, 4> arr;
+      size_t const count = SplitRectCell<BoundsT>(id, rect, arr);
+      ASSERT_GREATER(count, 0, ());
+      if (count > 1)
         break;
+      id = arr[0].first;
     }
-    result[i] = id;
+    result.push_back(id);
   }
-
-  ASSERT_LESS_OR_EQUAL(result.size(), cells_count, (minX, minY, maxX, maxY));
-  cells.insert(cells.end(), result.begin(), result.end());
 }

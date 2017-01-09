@@ -13,7 +13,7 @@ public:
   virtual void setDefaultFramebuffer() = 0;
   /// @ param w, h - pixel size of render target (logical size * visual scale)
   virtual void resize(int /*w*/, int /*h*/) {}
-  virtual void setRenderingEnabled(bool enabled) {}
+  virtual void setRenderingEnabled(bool /*enabled*/) {}
 };
 
 } // namespace dp
