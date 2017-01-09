@@ -16,6 +16,7 @@ OTHER_FILES += \
     shaders/area3d_outline_vertex_shader.vsh \
     shaders/area_vertex_shader.vsh \
     shaders/arrow3d_fragment_shader.fsh \
+    shaders/arrow3d_outline_fragment_shader.fsh \
     shaders/arrow3d_shadow_fragment_shader.fsh \
     shaders/arrow3d_shadow_vertex_shader.vsh \
     shaders/arrow3d_vertex_shader.vsh \

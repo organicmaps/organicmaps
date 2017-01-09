@@ -27,7 +27,9 @@ double const kArrow3dScaleMin = 1.0;
 double const kArrow3dScaleMax = 2.2;
 double const kArrow3dMinZoom = 16;
 
-uint32_t constexpr kComponentsInVertex = 4;
+float const kOutlineScale = 1.2f;
+
+int constexpr kComponentsInVertex = 4;
 
 Arrow3d::Arrow3d()
   : m_state(gpu::ARROW_3D_PROGRAM, dp::GLState::OverlayLayer)
@@ -118,7 +120,7 @@ void Arrow3d::SetPositionObsolete(bool obsolete)
   m_obsoletePosition = obsolete;
 }
 
-void Arrow3d::Render(ScreenBase const & screen, int zoomLevel, ref_ptr<dp::GpuProgramManager> mng)
+void Arrow3d::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng, bool routingMode)
 {
   // Unbind current VAO, because glVertexAttributePointer and glEnableVertexAttribute can affect it.
   if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
@@ -134,26 +136,36 @@ void Arrow3d::Render(ScreenBase const & screen, int zoomLevel, ref_ptr<dp::GpuPr
   if (screen.isPerspective())
   {
     ref_ptr<dp::GpuProgram> shadowProgram = mng->GetProgram(gpu::ARROW_3D_SHADOW_PROGRAM);
-    RenderArrow(screen, shadowProgram, dp::Color(60, 60, 60, 60), 0.05f, false /* hasNormals */);
+    RenderArrow(screen, shadowProgram, dp::Color(60, 60, 60, 60), 0.05f /* dz */,
+                routingMode ? kOutlineScale : 1.0f /* scaleFactor */, false /* hasNormals */);
+  }
+
+  dp::Color const color = df::GetColorConstant(GetStyleReader().GetCurrentStyle(),
+                                               m_obsoletePosition ? df::Arrow3DObsolete : df::Arrow3D);
+
+  // Render outline.
+  if (routingMode)
+  {
+    ref_ptr<dp::GpuProgram> outlineProgram = mng->GetProgram(gpu::ARROW_3D_OUTLINE_PROGRAM);
+    RenderArrow(screen, outlineProgram, dp::Color(255, 255, 255, color.GetAlfa()), 0.0f /* dz */,
+                kOutlineScale /* scaleFactor */, false /* hasNormals */);
   }
 
   // Render arrow.
   ref_ptr<dp::GpuProgram> arrowProgram = mng->GetProgram(gpu::ARROW_3D_PROGRAM);
-  dp::Color const color = df::GetColorConstant(GetStyleReader().GetCurrentStyle(),
-                                               m_obsoletePosition ? df::Arrow3DObsolete : df::Arrow3D);
-  RenderArrow(screen, arrowProgram, color, 0.0f, true /* hasNormals */);
+  RenderArrow(screen, arrowProgram, color, 0.0f /* dz */, 1.0f /* scaleFactor */, true /* hasNormals */);
 
   arrowProgram->Unbind();
   GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
 }
 
 void Arrow3d::RenderArrow(ScreenBase const & screen, ref_ptr<dp::GpuProgram> program,
-                          dp::Color const & color, float dz, bool hasNormals)
+                          dp::Color const & color, float dz, float scaleFactor, bool hasNormals)
 {
   program->Bind();
 
   GLFunctions::glBindBuffer(m_bufferId, gl_const::GLArrayBuffer);
-  uint32_t const attributePosition = program->GetAttributeLocation("a_pos");
+  int8_t const attributePosition = program->GetAttributeLocation("a_pos");
   ASSERT_NOT_EQUAL(attributePosition, -1, ());
   GLFunctions::glEnableVertexAttribute(attributePosition);
   GLFunctions::glVertexAttributePointer(attributePosition, kComponentsInVertex,
@@ -162,14 +174,14 @@ void Arrow3d::RenderArrow(ScreenBase const & screen, ref_ptr<dp::GpuProgram> pro
   if (hasNormals)
   {
     GLFunctions::glBindBuffer(m_bufferNormalsId, gl_const::GLArrayBuffer);
-    uint32_t const attributeNormal = program->GetAttributeLocation("a_normal");
+    int8_t const attributeNormal = program->GetAttributeLocation("a_normal");
     ASSERT_NOT_EQUAL(attributeNormal, -1, ());
     GLFunctions::glEnableVertexAttribute(attributeNormal);
     GLFunctions::glVertexAttributePointer(attributeNormal, 3, gl_const::GLFloatType, false, 0, 0);
   }
   
   dp::UniformValuesStorage uniforms;
-  math::Matrix<float, 4, 4> const modelTransform = CalculateTransform(screen, dz);
+  math::Matrix<float, 4, 4> const modelTransform = CalculateTransform(screen, dz, scaleFactor);
   uniforms.SetMatrix4x4Value("u_transform", modelTransform.m_data);
   glsl::vec4 const c = glsl::ToVec4(color);
   uniforms.SetFloatValue("u_color", c.r, c.g, c.b, c.a);
@@ -178,9 +190,9 @@ void Arrow3d::RenderArrow(ScreenBase const & screen, ref_ptr<dp::GpuProgram> pro
   GLFunctions::glDrawArrays(gl_const::GLTriangles, 0, static_cast<uint32_t>(m_vertices.size()) / kComponentsInVertex);
 }
 
-math::Matrix<float, 4, 4> Arrow3d::CalculateTransform(ScreenBase const & screen, float dz) const
+math::Matrix<float, 4, 4> Arrow3d::CalculateTransform(ScreenBase const & screen, float dz, float scaleFactor) const
 {
-  double arrowScale = VisualParams::Instance().GetVisualScale() * kArrowSize;
+  double arrowScale = VisualParams::Instance().GetVisualScale() * kArrowSize * scaleFactor;
   if (screen.isPerspective())
   {
     double const t = GetNormalizedZoomLevel(screen.GetScale(), kArrow3dMinZoom);
