@@ -809,7 +809,11 @@
  "driving": "l",
  "languages": ["en", "mi"]
 },
-"New Zealand": {
+"New Zealand South": {
+ "driving": "l",
+ "languages": ["en", "mi"]
+},
+"New Zealand North": {
  "driving": "l",
  "languages": ["en", "mi"]
 },
