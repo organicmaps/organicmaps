@@ -124,9 +124,10 @@ char const kAllow3dKey[] = "Allow3d";
 char const kAllow3dBuildingsKey[] = "Buildings3d";
 char const kAllowAutoZoom[] = "AutoZoom";
 char const kTrafficEnabledKey[] = "TrafficEnabled";
+char const kLargeFontsSize[] = "LargeFontsSize";
 
 double const kDistEqualQueryMeters = 100.0;
-
+double const kLargeFontsScaleFactor = 1.6;
 size_t constexpr kMaxTrafficCacheSizeBytes = 64 /* Mb */ * 1024 * 1024;
 
 // Must correspond SearchMarkType.
@@ -1659,11 +1660,13 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   bool const trafficEnabled = LoadTrafficEnabled();
   m_trafficManager.SetEnabled(trafficEnabled);
 
+  double const fontsScaleFactor = LoadLargeFontsSize() ? kLargeFontsScaleFactor : 1.0;
+
   df::DrapeEngine::Params p(contextFactory,
                             make_ref(&m_stringsBundle),
                             df::Viewport(0, 0, params.m_surfaceWidth, params.m_surfaceHeight),
                             df::MapDataProvider(idReadFn, featureReadFn, isCountryLoadedByNameFn, updateCurrentCountryFn),
-                            params.m_visualScale, move(params.m_widgetsInitInfo),
+                            params.m_visualScale, fontsScaleFactor, move(params.m_widgetsInitInfo),
                             make_pair(params.m_initialMyPositionState, params.m_hasMyPositionState),
                             allow3dBuildings, trafficEnabled, params.m_isChoosePositionMode,
                             params.m_isChoosePositionMode, GetSelectedFeatureTriangles(), params.m_isFirstLaunch,
@@ -1823,14 +1826,6 @@ void Framework::OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::Gps
   }
 
   m_drapeEngine->UpdateGpsTrackPoints(move(pointsAdd), move(indicesRemove));
-}
-
-void Framework::SetFontScaleFactor(double scaleFactor)
-{
-  ASSERT(m_drapeEngine.get() != nullptr, ());
-  m_drapeEngine->SetFontScaleFactor(scaleFactor);
-
-  InvalidateRect(GetCurrentViewport());
 }
 
 void Framework::MarkMapStyle(MapStyle mapStyle)
@@ -2710,6 +2705,28 @@ void Framework::Load3dMode(bool & allow3d, bool & allow3dBuildings)
 
   if (!settings::Get(kAllow3dBuildingsKey, allow3dBuildings))
     allow3dBuildings = true;
+}
+
+void Framework::SaveLargeFontsSize(bool isLargeSize)
+{
+  settings::Set(kLargeFontsSize, isLargeSize);
+}
+
+bool Framework::LoadLargeFontsSize()
+{
+  bool isLargeSize = false;
+  settings::Get(kLargeFontsSize, isLargeSize);
+  return isLargeSize;
+}
+
+void Framework::SetLargeFontsSize(bool isLargeSize)
+{
+  double const scaleFactor = isLargeSize ? kLargeFontsScaleFactor : 1.0;
+
+  ASSERT(m_drapeEngine.get() != nullptr, ());
+  m_drapeEngine->SetFontScaleFactor(scaleFactor);
+
+  InvalidateRect(GetCurrentViewport());
 }
 
 bool Framework::LoadTrafficEnabled()

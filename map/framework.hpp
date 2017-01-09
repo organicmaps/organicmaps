@@ -451,8 +451,6 @@ public:
   void OnRecoverGLContext(int width, int height);
   void OnDestroyGLContext();
 
-  void SetFontScaleFactor(double scaleFactor);
-
 private:
   /// Depends on initialized Drape engine.
   void SaveViewport();
@@ -775,6 +773,10 @@ public:
   void Allow3dMode(bool allow3d, bool allow3dBuildings);
   void Save3dMode(bool allow3d, bool allow3dBuildings);
   void Load3dMode(bool & allow3d, bool & allow3dBuildings);
+
+  void SetLargeFontsSize(bool isLargeSize);
+  void SaveLargeFontsSize(bool isLargeSize);
+  bool LoadLargeFontsSize();
 
   bool LoadAutoZoom();
   void AllowAutoZoom(bool allowAutoZoom);
