@@ -1,7 +1,5 @@
 #include "skin_generator.hpp"
 
-#include "3party/lodepng/lodepng_io.hpp"
-
 #include "base/logging.hpp"
 #include "base/math.hpp"
 
