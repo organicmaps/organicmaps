@@ -4,22 +4,22 @@
 
 @protocol MWMOpeningHoursModelProtocol <NSObject>
 
-@property (nonnull, copy, nonatomic) NSString * openingHours;
-@property (weak, nonatomic, readonly) UITableView * tableView;
-@property (weak, nonatomic, readonly) UIView * advancedEditor;
-@property (weak, nonatomic, readonly) MWMTextView * editorView;
-@property (weak, nonatomic, readonly) UIButton * toggleModeButton;
+@property(nonnull, copy, nonatomic) NSString * openingHours;
+@property(nullable, weak, nonatomic, readonly) UITableView * tableView;
+@property(nullable, weak, nonatomic, readonly) UIView * advancedEditor;
+@property(nullable, weak, nonatomic, readonly) MWMTextView * editorView;
+@property(nullable, weak, nonatomic, readonly) UIButton * toggleModeButton;
 
 @end
 
 @interface MWMOpeningHoursModel : NSObject
 
-@property (nonatomic, readonly) NSUInteger count;
-@property (nonatomic, readonly) BOOL canAddSection;
+@property(nonatomic, readonly) NSUInteger count;
+@property(nonatomic, readonly) BOOL canAddSection;
 
-@property (nonatomic, readonly) BOOL isValid;
-@property (nonatomic) BOOL isSimpleMode;
-@property (nonatomic, readonly) BOOL isSimpleModeCapable;
+@property(nonatomic, readonly) BOOL isValid;
+@property(nonatomic) BOOL isSimpleMode;
+@property(nonatomic, readonly) BOOL isSimpleModeCapable;
 
 - (instancetype _Nullable)initWithDelegate:(id<MWMOpeningHoursModelProtocol> _Nonnull)delegate;
 

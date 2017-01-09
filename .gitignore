@@ -54,12 +54,11 @@ iphone/*/*.xcodeproj/*.mode1v3
 iphone/*/*.xcodeproj/*.pbxuser
 iphone/*/*.xcodeproj/*.perspectivev3
 iphone/*/*.xcodeproj/project.xcworkspace/*
-iphone/*/*.xcodeproj/xcuserdata/*
 iphone/*/build/*
-xcode/**/xcuserdata
-xcode/**/xcshareddata
 tools/emacsmode/build
 **/DerivedData/*
+**/xcshareddata
+**/xcuserdata
 
 # GeneratedFiles
 version/version.hpp

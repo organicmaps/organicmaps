@@ -69,7 +69,7 @@
   UIColor * linkBlueHighlighted = [UIColor linkBlueHighlighted];
   UIColor * lightGrayColor = [UIColor lightGrayColor];
 
-  navItem.title = L(@"filters");
+  navItem.title = L(@"booking_filters");
   navItem.rightBarButtonItem =
       [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
                                                     target:self
@@ -88,7 +88,7 @@
   }
                                             forState:UIControlStateDisabled];
 
-  navItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:L(@"reset")
+  navItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:L(@"booking_filters_reset")
                                                                style:UIBarButtonItemStylePlain
                                                               target:self
                                                               action:@selector(resetAction)];

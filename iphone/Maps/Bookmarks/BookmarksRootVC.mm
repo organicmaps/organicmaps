@@ -133,9 +133,12 @@
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
-  [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-    [self.tableView reloadRowsAtIndexPaths:self.tableView.indexPathsForVisibleRows withRowAnimation:UITableViewRowAnimationFade];
-  } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {}];
+  [coordinator
+      animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        NSArray<NSIndexPath *> * ips = self.tableView.indexPathsForVisibleRows;
+        [self.tableView reloadRowsAtIndexPaths:ips withRowAnimation:UITableViewRowAnimationFade];
+      }
+                      completion:nil];
 }
 
 - (NSString *)truncateString:(NSString *)string toWidth:(CGFloat)width withFont:(UIFont *)font
@@ -164,7 +167,8 @@
     {
       NSString * txt = f.text;
       // Update edited category name
-      if (txt.length && ![txt isEqualToString:cell.textLabel.text])
+      NSString * cellLabel = cell.textLabel.text;
+      if (txt.length && ![txt isEqualToString:cellLabel])
       {
         cell.textLabel.text = txt;
         // Rename category

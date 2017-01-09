@@ -11,7 +11,12 @@
   [self setTitle:L(localizedText) forState:UIControlStateDisabled];
 }
 
-- (NSString *)localizedText { return L([self titleForState:UIControlStateNormal]); }
+- (NSString *)localizedText
+{
+  NSString * title = [self titleForState:UIControlStateNormal];
+  return L(title);
+}
+
 - (void)setFontName:(NSString *)fontName { self.titleLabel.font = [UIFont fontWithName:fontName]; }
 - (void)setTextColorName:(NSString *)colorName
 {

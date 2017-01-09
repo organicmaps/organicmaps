@@ -132,8 +132,9 @@ NSString * const kTextViewContentSizeKeyPath = @"contentSize";
         NSFontAttributeName : [UIFont regular16]
       };
       NSError * error = nil;
+      NSData * data = [text dataUsingEncoding:NSUnicodeStringEncoding];
       NSMutableAttributedString * str = [[NSMutableAttributedString alloc]
-                initWithData:[text dataUsingEncoding:NSUnicodeStringEncoding]
+                initWithData:data
                      options:@{
                        NSDocumentTypeDocumentAttribute : NSHTMLTextDocumentType
                      }
@@ -178,9 +179,11 @@ NSString * const kTextViewContentSizeKeyPath = @"contentSize";
   NSMutableArray * animationImages = [NSMutableArray arrayWithCapacity:animationImagesCount];
   NSString * postfix = [UIColor isNightMode] ? @"dark" : @"light";
   for (NSUInteger i = 0; i < animationImagesCount; ++i)
-    animationImages[i] =
+  {
+    UIImage * image =
         [UIImage imageNamed:[NSString stringWithFormat:@"Spinner_%@_%@", @(i + 1), postfix]];
-
+    animationImages[i] = image;
+  }
   self.spinner.animationDuration = 0.8;
   self.spinner.animationImages = animationImages;
   self.spinner.hidden = NO;

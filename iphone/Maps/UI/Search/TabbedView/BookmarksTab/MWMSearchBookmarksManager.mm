@@ -72,7 +72,8 @@ static NSString * const kBookmarksCellIdentifier = @"MWMSearchBookmarksCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  return [tableView dequeueReusableCellWithIdentifier:kBookmarksCellIdentifier];
+  UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:kBookmarksCellIdentifier];
+  return cell;
 }
 
 #pragma mark - UITableViewDelegate

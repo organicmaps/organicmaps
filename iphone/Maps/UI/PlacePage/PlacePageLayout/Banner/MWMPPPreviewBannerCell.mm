@@ -82,7 +82,8 @@ CGFloat const kLineSpacing = 5;
 - (void)downloadAssingImageWithURL:(NSURL *)URL completion:(TMWMVoidBlock)completion
 {
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    UIImage * image = [UIImage imageWithData:[NSData dataWithContentsOfURL:URL]];
+    NSData * data = [NSData dataWithContentsOfURL:URL];
+    UIImage * image = [UIImage imageWithData:data];
     dispatch_async(dispatch_get_main_queue(), ^{
       self.icon.image = image;
       if (image)

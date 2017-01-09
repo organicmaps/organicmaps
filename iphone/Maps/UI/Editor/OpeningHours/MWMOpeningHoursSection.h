@@ -6,7 +6,7 @@
 
 @protocol MWMOpeningHoursSectionProtocol <NSObject>
 
-@property (weak, nonatomic, readonly) UITableView * tableView;
+@property(nullable, weak, nonatomic, readonly) UITableView * tableView;
 
 - (void)updateActiveSection:(NSUInteger)index;
 
@@ -17,20 +17,20 @@
 
 @interface MWMOpeningHoursSection : NSObject
 
-@property (nonatomic) BOOL allDay;
+@property(nonatomic) BOOL allDay;
 
-@property (nonatomic, readonly) NSUInteger index;
-@property (nullable, nonatomic) NSNumber * selectedRow;
-@property (nonatomic, readonly) NSUInteger numberOfRows;
+@property(nonatomic, readonly) NSUInteger index;
+@property(nullable, nonatomic) NSNumber * selectedRow;
+@property(nonatomic, readonly) NSUInteger numberOfRows;
 
-@property (nullable, nonatomic) NSDateComponents * cachedStartTime;
-@property (nullable, nonatomic) NSDateComponents * cachedEndTime;
+@property(nullable, nonatomic) NSDateComponents * cachedStartTime;
+@property(nullable, nonatomic) NSDateComponents * cachedEndTime;
 
-@property (nonatomic, readonly) BOOL canAddClosedTime;
+@property(nonatomic, readonly) BOOL canAddClosedTime;
 
-@property (weak, nonatomic, readonly) id<MWMOpeningHoursSectionProtocol> delegate;
+@property(nullable, weak, nonatomic, readonly) id<MWMOpeningHoursSectionProtocol> delegate;
 
-- (instancetype _Nullable)initWithDelegate:(id<MWMOpeningHoursSectionProtocol> _Nonnull)delegate;
+- (instancetype _Nonnull)initWithDelegate:(id<MWMOpeningHoursSectionProtocol> _Nonnull)delegate;
 
 - (void)refreshIndex:(NSUInteger)index;
 

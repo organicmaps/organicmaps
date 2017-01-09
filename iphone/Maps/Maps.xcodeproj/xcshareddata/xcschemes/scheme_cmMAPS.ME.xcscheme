@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "849CF5E21DE842290024A8A5"
-               BuildableName = "cmMAPS.ME.app"
+               BuildableName = "cm beta.app"
                BlueprintName = "cmMAPS.ME"
                ReferencedContainer = "container:Maps.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "849CF5E21DE842290024A8A5"
-            BuildableName = "cmMAPS.ME.app"
+            BuildableName = "cm beta.app"
             BlueprintName = "cmMAPS.ME"
             ReferencedContainer = "container:Maps.xcodeproj">
          </BuildableReference>
@@ -56,7 +56,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "849CF5E21DE842290024A8A5"
-            BuildableName = "cmMAPS.ME.app"
+            BuildableName = "cm beta.app"
             BlueprintName = "cmMAPS.ME"
             ReferencedContainer = "container:Maps.xcodeproj">
          </BuildableReference>
@@ -75,7 +75,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "849CF5E21DE842290024A8A5"
-            BuildableName = "cmMAPS.ME.app"
+            BuildableName = "cm beta.app"
             BlueprintName = "cmMAPS.ME"
             ReferencedContainer = "container:Maps.xcodeproj">
          </BuildableReference>

@@ -10,9 +10,10 @@
 {
   self.text = L(localizedText);
 }
-
-- (NSString *)localizedText {
-  return L(self.text);
+- (NSString *)localizedText
+{
+  NSString * text = self.text;
+  return L(text);
 }
 
 - (void)setFontName:(NSString *)fontName

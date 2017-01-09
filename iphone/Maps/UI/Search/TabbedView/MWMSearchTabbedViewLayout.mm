@@ -28,9 +28,10 @@
   for (NSUInteger index = 0; index < self.tablesCount; index++)
   {
     NSIndexPath * indexPath = [NSIndexPath indexPathForItem:index inSection:0];
-    [attrs addObject:[self layoutAttributesForItemAtIndexPath:indexPath]];
+    UICollectionViewLayoutAttributes * attr = [self layoutAttributesForItemAtIndexPath:indexPath];
+    [attrs addObject:attr];
   }
-  return attrs;
+  return attrs.copy;
 }
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds { return YES; }

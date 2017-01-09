@@ -157,7 +157,8 @@ using namespace uber;
 {
   // TODO(Vlad): Not the best solution, need to store url's scheme of product in the uber::Product
   // instead of just "uber://".
-  return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"uber://"]];
+  NSURL * url = [NSURL URLWithString:@"uber://"];
+  return [[UIApplication sharedApplication] canOpenURL:url];
 }
 
 - (NSURL *)taxiURL;

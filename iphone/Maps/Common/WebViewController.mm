@@ -51,7 +51,8 @@
   if (self.openInSafari && inType == UIWebViewNavigationTypeLinkClicked
       && ![inRequest.URL.scheme isEqualToString:@"applewebdata"]) // do not try to open local links in Safari
   {
-    [[UIApplication sharedApplication] openURL:[inRequest URL]];
+    NSURL * url = [inRequest URL];
+    [[UIApplication sharedApplication] openURL:url];
     return NO;
   }
 

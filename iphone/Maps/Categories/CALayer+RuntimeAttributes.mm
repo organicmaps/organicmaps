@@ -10,7 +10,7 @@
 
 - (UIColor *)borderUIColor
 {
-  return [UIColor colorWithCGColor:self.borderColor];
+  return [UIColor colorWithCGColor:static_cast<CGColorRef>(self.borderColor)];
 }
 
 - (void)setBorderColorName:(NSString *)colorName
@@ -25,7 +25,7 @@
 
 - (UIColor *)shadowUIColor
 {
-  return [UIColor colorWithCGColor:self.shadowColor];
+  return [UIColor colorWithCGColor:static_cast<CGColorRef>(self.shadowColor)];
 }
 
 - (void)setShadowColorName:(NSString *)colorName

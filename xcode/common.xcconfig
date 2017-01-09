@@ -7,9 +7,7 @@ QT_PATH = /usr/local/opt/qt5
 BOOST_ROOT = $(OMIM_ROOT)/3party/boost
 
 HEADER_SEARCH_PATHS = $(inherited) $(OMIM_ROOT) $(BOOST_ROOT)
-LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/Frameworks
 FRAMEWORK_SEARCH_PATHS[sdk=macosx*] = $(QT_PATH)/lib
-FRAMEWORK_SEARCH_PATHS[sdk=iphone*] = $(PROJECT_DIR)/Frameworks
 
 // Deployment target
 IPHONEOS_DEPLOYMENT_TARGET = 8.0

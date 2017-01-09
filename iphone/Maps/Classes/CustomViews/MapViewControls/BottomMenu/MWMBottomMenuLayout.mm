@@ -38,9 +38,10 @@
   for (NSUInteger index = 0; index < buttonsCount; index++)
   {
     NSIndexPath * indexPath = [NSIndexPath indexPathForItem:index inSection:0];
-    [attrs addObject:[self layoutAttributesForItemAtIndexPath:indexPath]];
+    UICollectionViewLayoutAttributes * attr = [self layoutAttributesForItemAtIndexPath:indexPath];
+    [attrs addObject:attr];
   }
-  return attrs;
+  return attrs.copy;
 }
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds
