@@ -125,7 +125,7 @@ void MyPosition::RenderMyPosition(ScreenBase const & screen, int zoomLevel,
   {
     m_arrow3d.SetPosition(m_position);
     m_arrow3d.SetAzimuth(m_azimuth);
-    m_arrow3d.Render(screen, zoomLevel, mng);
+    m_arrow3d.Render(screen, mng, m_isRoutingMode);
   }
   else
   {
