@@ -677,6 +677,8 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategories)
   TEST(ResultsMatch("#void-", TRules{}), ());
 
   TEST(ResultsMatch("wifi", {ExactMatch(wonderlandId, cafe)}), ());
+  TEST(ResultsMatch("wi-fi", {ExactMatch(wonderlandId, cafe)}), ());
+  TEST(ResultsMatch("wai-fai", TRules{}), ());
   TEST(ResultsMatch("toilet", {ExactMatch(wonderlandId, toi)}), ());
   TEST(ResultsMatch("beach ",
                     {ExactMatch(wonderlandId, nonameBeach), ExactMatch(wonderlandId, namedBeach)}),

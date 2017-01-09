@@ -7237,7 +7237,7 @@
   [wifi]
     comment = Search Suggestion
     tags = ios,android,tizen
-    en = Wi-Fi
+    en = WiFi
     ru = WiFi
     ar = واي فاي
     cs = WiFi

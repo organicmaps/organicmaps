@@ -225,9 +225,11 @@ bool CategoriesHolder::ValidKeyToken(StringT const & s)
     return true;
 
   /// @todo We need to have global stop words array for the most used languages.
-  for (char const * token : {"a", "z", "s", "d", "di", "de", "le", "wi", "fi", "ra", "ao"})
+  for (char const * token : {"a", "z", "s", "d", "di", "de", "le", "ra", "ao"})
+  {
     if (s.IsEqualAscii(token))
       return false;
+  }
 
   return true;
 }
