@@ -86,10 +86,10 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  configButton(self.ratingAny, L(@"any"), nil);
-  configButton(self.rating7, L(@"7.0+"), L(@"good"));
-  configButton(self.rating8, L(@"8.0+"), L(@"very_good"));
-  configButton(self.rating9, L(@"9.0+"), L(@"excellent"));
+  configButton(self.ratingAny, L(@"booking_filters_rating_any"), nil);
+  configButton(self.rating7, L(@"7.0+"), L(@"booking_filters_ragting_good"));
+  configButton(self.rating8, L(@"8.0+"), L(@"booking_filters_rating_very_good"));
+  configButton(self.rating9, L(@"9.0+"), L(@"booking_filters_rating_excellent"));
 
   configButton(self.price1, L(@"$"), nil);
   configButton(self.price2, L(@"$$"), nil);
@@ -143,8 +143,8 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
 {
   switch (section)
   {
-  case 0: return L(@"rating");
-  case 1: return L(@"price_category");
+  case 0: return L(@"booking_filters_rating");
+  case 1: return L(@"booking_filters_price_category");
   default: return nil;
   }
 }
