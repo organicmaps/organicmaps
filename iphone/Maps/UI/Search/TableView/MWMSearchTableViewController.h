@@ -13,7 +13,7 @@ class Result;
 
 @protocol MWMSearchTableViewProtocol<MWMSearchTabbedViewProtocol>
 
-@property(weak, nonatomic) MWMSearchTextField * searchTextField;
+@property(nullable, weak, nonatomic) MWMSearchTextField * searchTextField;
 
 @property(nonatomic) MWMSearchManagerState state;
 

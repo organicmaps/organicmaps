@@ -109,7 +109,8 @@
       @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/"
       @"viewContentsUserReviews?id=510623322&onlyLatestVersion=true&pageNumber=0&"
       @"sortOrdering=1&type=Purple+Software";
-  [self openURL:[NSURL URLWithString:urlString]];
+  NSURL * url = [NSURL URLWithString:urlString];
+  [self openURL:url];
 }
 
 @end

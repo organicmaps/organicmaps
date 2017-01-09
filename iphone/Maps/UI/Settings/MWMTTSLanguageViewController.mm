@@ -20,7 +20,8 @@ static NSString * const kUnwingSegueIdentifier = @"UnwindToTTSSettings";
   if (![segue.identifier isEqualToString:kUnwingSegueIdentifier])
     return;
   MWMTTSSettingsViewController * dest = segue.destinationViewController;
-  NSUInteger const row = [self.tableView indexPathForCell:sender].row;
+  UITableViewCell * cell = sender;
+  NSUInteger const row = [self.tableView indexPathForCell:cell].row;
   [dest setAdditionalTTSLanguage:[[MWMTextToSpeech tts] availableLanguages][row]];
 }
 

@@ -166,8 +166,9 @@
   CGPoint const tapPoint = [sender locationInView:sender.view.superview];
   UIView * targetView =
       [self.textContainer isKindOfClass:[UITextView class]] ? sender.view : self.textContainer;
+  UIView * superview = sender.view.superview;
   [menuController setTargetRect:CGRectMake(tapPoint.x, targetView.minY, 0., 0.)
-                         inView:sender.view.superview];
+                         inView:superview];
   [menuController setMenuVisible:YES animated:YES];
   [targetView becomeFirstResponder];
   [menuController update];

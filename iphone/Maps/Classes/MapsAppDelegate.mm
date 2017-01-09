@@ -225,7 +225,8 @@ using namespace osm_auth_ios;
   NSString * openLink = userInfo[@"openURL"];
   if (!openLink)
     return NO;
-  [app openURL:[NSURL URLWithString:openLink]];
+  NSURL * url = [NSURL URLWithString:openLink];
+  [app openURL:url];
   return YES;
 }
 
@@ -674,7 +675,8 @@ using namespace osm_auth_ios;
 {
   if (![userActivity.activityType isEqualToString:CSSearchableItemActionType])
     return NO;
-  NSString * searchString = L(userActivity.userInfo[CSSearchableItemActivityIdentifier]);
+  NSString * searchStringKey = userActivity.userInfo[CSSearchableItemActivityIdentifier];
+  NSString * searchString = L(searchStringKey);
   if (!searchString)
     return NO;
 

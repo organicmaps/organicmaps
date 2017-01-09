@@ -278,13 +278,12 @@ using namespace place_page;
     NSNumberFormatter * decimalFormatter = [[NSNumberFormatter alloc] init];
     decimalFormatter.numberStyle = NSNumberFormatterDecimalStyle;
 
-    NSString * currencyString = [currencyFormatter
-        stringFromNumber:
-            [decimalFormatter
-                numberFromString:[@(minPrice.c_str())
-                                     stringByReplacingOccurrencesOfString:@"."
-                                                               withString:decimalFormatter
-                                                                              .decimalSeparator]]];
+    NSNumber * currencyNumber = [decimalFormatter
+                                 numberFromString:[@(minPrice.c_str())
+                                                   stringByReplacingOccurrencesOfString:@"."
+                                                   withString:decimalFormatter
+                                                   .decimalSeparator]];
+    NSString * currencyString = [currencyFormatter stringFromNumber:currencyNumber];
 
     NSString * pattern =
         [L(@"place_page_starting_from") stringByReplacingOccurrencesOfString:@"%s"

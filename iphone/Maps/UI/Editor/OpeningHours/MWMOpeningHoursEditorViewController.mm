@@ -141,7 +141,8 @@ extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView
                   cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
 {
-  return [tableView dequeueReusableCellWithIdentifier:[self cellIdentifierForIndexPath:indexPath]];
+  UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:[self cellIdentifierForIndexPath:indexPath]];
+  return cell;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView

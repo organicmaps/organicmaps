@@ -12,11 +12,11 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerState)
 
 @interface MWMSearchManager : NSObject
 
-@property (nullable, weak, nonatomic) IBOutlet MWMSearchTextField * searchTextField;
+@property(nullable, weak, nonatomic) IBOutlet MWMSearchTextField * searchTextField;
 
-@property (nonatomic) MWMSearchManagerState state;
+@property(nonatomic) MWMSearchManagerState state;
 
-@property(nonatomic) IBOutletCollection(UIView) NSArray * topViews;
+@property(nonnull, nonatomic) IBOutletCollection(UIView) NSArray * topViews;
 
 - (void)mwm_refreshUI;
 

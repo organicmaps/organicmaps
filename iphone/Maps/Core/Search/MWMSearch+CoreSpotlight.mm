@@ -48,7 +48,8 @@
 
     NSString * categoryKeyString = @(categoryKey.c_str());
     NSString * imageName = [NSString stringWithFormat:@"ic_%@_spotlight", categoryKeyString];
-    attrSet.thumbnailData = UIImagePNGRepresentation([UIImage imageNamed:imageName]);
+    UIImage * image = [UIImage imageNamed:imageName];
+    attrSet.thumbnailData = UIImagePNGRepresentation(image);
 
     CSSearchableItem * item =
         [[CSSearchableItem alloc] initWithUniqueIdentifier:categoryKeyString
@@ -62,9 +63,10 @@
          completionHandler:^(NSError * _Nullable error) {
            if (error)
            {
-             [[Crashlytics sharedInstance] recordError:error];
+             NSError * err = error;
+             [[Crashlytics sharedInstance] recordError:err];
              LOG(LERROR,
-                 ("addCategoriesToSpotlight failed: ", error.localizedDescription.UTF8String));
+                 ("addCategoriesToSpotlight failed: ", err.localizedDescription.UTF8String));
            }
            else
            {

@@ -43,7 +43,8 @@
 
 - (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController
 {
-  return [self.controllers indexOfObject:pageViewController.viewControllers.firstObject];
+  MWMWelcomeController * controller = pageViewController.viewControllers.firstObject;
+  return [self.controllers indexOfObject:controller];
 }
 
 - (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController

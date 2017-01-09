@@ -13,7 +13,8 @@
 
 - (NSString *)localizedPlaceholder
 {
-  return L(self.placeholder);
+  NSString * placeholder = self.placeholder;
+  return L(placeholder);
 }
 
 - (void)setFontName:(NSString *)fontName

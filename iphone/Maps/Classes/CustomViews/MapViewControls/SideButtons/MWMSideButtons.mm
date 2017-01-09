@@ -27,7 +27,7 @@ NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger im
   {
     NSString * name =
         [NSString stringWithFormat:@"%@_%@_%@", animationTemplate, mode, @(i).stringValue];
-    [images addObject:[UIImage imageNamed:name]];
+    [images addObject:static_cast<UIImage *>([UIImage imageNamed:name])];
   }
   return images.copy;
 }

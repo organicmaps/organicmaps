@@ -24,7 +24,7 @@ using namespace osmoh;
 
 @implementation MWMOpeningHoursSection
 
-- (instancetype _Nullable)initWithDelegate:(id<MWMOpeningHoursSectionProtocol> _Nonnull)delegate
+- (instancetype _Nonnull)initWithDelegate:(id<MWMOpeningHoursSectionProtocol> _Nonnull)delegate
 {
   self = [super init];
   if (self)

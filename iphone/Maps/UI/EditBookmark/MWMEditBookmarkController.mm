@@ -256,7 +256,8 @@ enum RowInMetaInfo
   self.cachedDescription = text;
   [self.tableView beginUpdates];
   [self.tableView endUpdates];
-  [self.tableView scrollToRowAtIndexPath:[self.tableView indexPathForCell:cell]
+  NSIndexPath * ip = [self.tableView indexPathForCell:cell];
+  [self.tableView scrollToRowAtIndexPath:ip
                         atScrollPosition:UITableViewScrollPositionBottom
                                 animated:YES];
 }

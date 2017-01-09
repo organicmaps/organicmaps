@@ -263,8 +263,8 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
 
   if (self.invalidCells.count)
   {
-    MWMEditorTextTableViewCell * cell =
-        [self.tableView cellForRowAtIndexPath:self.invalidCells.firstObject];
+    NSIndexPath * ip = self.invalidCells.firstObject;
+    MWMEditorTextTableViewCell * cell = [self.tableView cellForRowAtIndexPath:ip];
     [cell.textField becomeFirstResponder];
     return;
   }
@@ -825,7 +825,8 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   self.note = text;
   [self.tableView beginUpdates];
   [self.tableView endUpdates];
-  [self.tableView scrollToRowAtIndexPath:[self.tableView indexPathForCell:cell]
+  NSIndexPath * ip = [self.tableView indexPathForCell:cell];
+  [self.tableView scrollToRowAtIndexPath:ip
                         atScrollPosition:UITableViewScrollPositionBottom
                                 animated:YES];
 }
@@ -959,7 +960,8 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   auto const latLon = m_mapObject.GetLatLon();
   CLLocation * location = [[CLLocation alloc] initWithLatitude:latLon.lat longitude:latLon.lon];
   self.isFeatureUploaded = osm::Editor::Instance().IsFeatureUploaded(fid.m_mwmId, fid.m_index);
-  [self.tableView reloadRowsAtIndexPaths:@[ [self.tableView indexPathForCell:cell] ]
+  NSIndexPath * ip = [self.tableView indexPathForCell:cell];
+  [self.tableView reloadRowsAtIndexPaths:@[ip]
                         withRowAnimation:UITableViewRowAnimationFade];
 
   auto placeDoesntExistAction = ^{

@@ -282,13 +282,15 @@
   NSAssert(self.data.phoneNumber, @"Phone number can't be nil!");
   NSString * phoneNumber = [[@"telprompt:" stringByAppendingString:self.data.phoneNumber]
       stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
+  NSURL * url = [NSURL URLWithString:phoneNumber];
+  [[UIApplication sharedApplication] openURL:url];
 }
 
 - (void)apiBack
 {
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatAPI)];
-  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.data.apiURL]];
+  NSURL * url = [NSURL URLWithString:self.data.apiURL];
+  [[UIApplication sharedApplication] openURL:url];
   [[MapViewController controller].apiBar back];
 }
 
