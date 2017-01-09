@@ -12,5 +12,7 @@
 @property(nonatomic, readonly) NSUUID * advertisingId;
 @property(nonatomic, readonly) NSString * languageId;
 @property(nonatomic, readonly) NSDate * buildDate;
+@property(nonatomic, readonly) NSString * deviceName;
+@property(nonatomic, readonly) BOOL isMetalDriver;
 
 @end

@@ -629,7 +629,7 @@ using namespace osm_auth_ios;
   [MWMRouterSavedState store];
   // On some devices we have to free all belong-to-graphics memory
   // because of new OpenGL driver powered by Metal.
-  if (YES) //TODO @igrechuhin: if a device is iPhone 6S and higher.
+  if ([AppInfo sharedInfo].isMetalDriver)
   {
     GetFramework().SetRenderingDisabled(true);
     GetFramework().OnDestroyGLContext();
@@ -675,7 +675,7 @@ using namespace osm_auth_ios;
   GetFramework().SetRenderingEnabled();
   // On some devices we have to free all belong-to-graphics memory
   // because of new OpenGL driver powered by Metal.
-  if (YES) //TODO @igrechuhin: if a device is iPhone 6S and higher.
+  if ([AppInfo sharedInfo].isMetalDriver)
   {
     m2::PointU size = GetFramework().GetViewportPixelSize();
     GetFramework().OnRecoverGLContext(static_cast<int>(size.x), static_cast<int>(size.y));
