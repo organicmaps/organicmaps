@@ -180,7 +180,8 @@ NSString * const kTextViewContentSizeKeyPath = @"contentSize";
   NSString * postfix = [UIColor isNightMode] ? @"dark" : @"light";
   for (NSUInteger i = 0; i < animationImagesCount; ++i)
   {
-    UIImage * image = [UIImage imageNamed:[NSString stringWithFormat:@"Spinner_%@_%@", @(i + 1), postfix]];
+    UIImage * image =
+        [UIImage imageNamed:[NSString stringWithFormat:@"Spinner_%@_%@", @(i + 1), postfix]];
     animationImages[i] = image;
   }
   self.spinner.animationDuration = 0.8;

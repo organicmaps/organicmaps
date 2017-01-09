@@ -961,8 +961,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   CLLocation * location = [[CLLocation alloc] initWithLatitude:latLon.lat longitude:latLon.lon];
   self.isFeatureUploaded = osm::Editor::Instance().IsFeatureUploaded(fid.m_mwmId, fid.m_index);
   NSIndexPath * ip = [self.tableView indexPathForCell:cell];
-  [self.tableView reloadRowsAtIndexPaths:@[ip]
-                        withRowAnimation:UITableViewRowAnimationFade];
+  [self.tableView reloadRowsAtIndexPaths:@[ ip ] withRowAnimation:UITableViewRowAnimationFade];
 
   auto placeDoesntExistAction = ^{
     [self.alertController presentPlaceDoesntExistAlertWithBlock:^(NSString * additionalMessage) {

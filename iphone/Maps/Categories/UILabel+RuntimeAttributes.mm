@@ -10,7 +10,6 @@
 {
   self.text = L(localizedText);
 }
-
 - (NSString *)localizedText
 {
   NSString * text = self.text;

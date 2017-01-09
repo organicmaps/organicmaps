@@ -532,8 +532,9 @@ CGFloat constexpr kTimeWidthRegular = 128;
   NSMutableArray * morphImages = [NSMutableArray arrayWithCapacity:morphImagesCount];
   for (NSUInteger i = startValue, j = 0; i != endValue; i += stepValue, j++)
   {
-    UIImage * image = [UIImage imageNamed:[NSString stringWithFormat:@"%@%@_%@", morphTemplate, @(i).stringValue,
-                                           [UIColor isNightMode] ? @"dark" : @"light"]];
+    UIImage * image =
+        [UIImage imageNamed:[NSString stringWithFormat:@"%@%@_%@", morphTemplate, @(i).stringValue,
+                                                       [UIColor isNightMode] ? @"dark" : @"light"]];
     morphImages[j] = image;
   }
   btn.imageView.animationImages = morphImages;

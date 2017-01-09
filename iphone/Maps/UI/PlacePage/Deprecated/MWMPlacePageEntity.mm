@@ -150,10 +150,10 @@ void initFieldsMap()
       NSNumberFormatter * decimalFormatter = [[NSNumberFormatter alloc] init];
       decimalFormatter.numberStyle = NSNumberFormatterDecimalStyle;
       NSNumber * currencyNumber = [decimalFormatter
-                                   numberFromString:
-                                   [@(minPrice.c_str())
-                                    stringByReplacingOccurrencesOfString:@"."
-                                    withString:decimalFormatter.decimalSeparator]];
+          numberFromString:[@(minPrice.c_str())
+                               stringByReplacingOccurrencesOfString:@"."
+                                                         withString:decimalFormatter
+                                                                        .decimalSeparator]];
       NSString * currencyString = [currencyFormatter stringFromNumber:currencyNumber];
       NSString * currencyPattern =
           [L(@"place_page_starting_from") stringByReplacingOccurrencesOfString:@"%s"

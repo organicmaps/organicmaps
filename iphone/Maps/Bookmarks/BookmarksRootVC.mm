@@ -133,10 +133,12 @@
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
-  [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-    NSArray<NSIndexPath *> * ips = self.tableView.indexPathsForVisibleRows;
-    [self.tableView reloadRowsAtIndexPaths:ips withRowAnimation:UITableViewRowAnimationFade];
-  } completion:nil];
+  [coordinator
+      animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        NSArray<NSIndexPath *> * ips = self.tableView.indexPathsForVisibleRows;
+        [self.tableView reloadRowsAtIndexPaths:ips withRowAnimation:UITableViewRowAnimationFade];
+      }
+                      completion:nil];
 }
 
 - (NSString *)truncateString:(NSString *)string toWidth:(CGFloat)width withFont:(UIFont *)font

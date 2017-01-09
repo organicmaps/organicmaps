@@ -102,9 +102,9 @@ static NSString * const kMyPositionCellIdentifier = @"MWMSearchHistoryMyPosition
     [tCell config:[self stringAtIndex:indexPath.row]];
     return tCell;
   }
-  UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:self.isRouteSearchMode
-                                                            ? kMyPositionCellIdentifier
-                                                            : kClearCellIdentifier];
+  UITableViewCell * cell = [tableView
+      dequeueReusableCellWithIdentifier:self.isRouteSearchMode ? kMyPositionCellIdentifier
+                                                               : kClearCellIdentifier];
   return cell;
 }
 

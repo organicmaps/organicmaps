@@ -163,7 +163,7 @@ NSString * titleForButton(EButton type, BOOL isSelected)
   NSMutableArray * animationImages = [NSMutableArray arrayWithCapacity:animationImagesCount];
   for (NSUInteger i = 0; i < animationImagesCount; ++i)
   {
-    UIImage * image = [UIImage imageNamed:[NSString stringWithFormat:@"ic_bookmarks_%@", @(i+1)]];
+    UIImage * image = [UIImage imageNamed:[NSString stringWithFormat:@"ic_bookmarks_%@", @(i + 1)]];
     animationImages[i] = image;
   }
   UIImageView * animationIV = btn.imageView;
