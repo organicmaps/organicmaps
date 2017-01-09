@@ -46,7 +46,7 @@ void ResolveGetTexel(string & result, string const & sampler, int count)
   // Declare result var;
   result.append(LOW_P).append(" vec4 ").append(answer).append(";\n");
 
-  for (uint32_t i = 0; i < count; ++i)
+  for (int i = 0; i < count; ++i)
   {
     string constIndex = index + to_string(i);
     if (i != 0)
@@ -64,7 +64,7 @@ void ResolveGetTexel(string & result, string const & sampler, int count)
 void PreprocessShaderSource(string & src)
 {
   string const replacement("~getTexel~");
-  int const pos = src.find(replacement);
+  auto const pos = src.find(replacement);
   if (pos == string::npos)
     return;
   string injector = "";

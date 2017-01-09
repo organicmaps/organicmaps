@@ -367,7 +367,7 @@ ref_ptr<dp::Texture> TextLayout::GetMaskTexture() const
 
 uint32_t TextLayout::GetGlyphCount() const
 {
-  return m_metrics.size();
+  return static_cast<uint32_t>(m_metrics.size());
 }
 
 float TextLayout::GetPixelLength() const

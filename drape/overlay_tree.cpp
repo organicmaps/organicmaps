@@ -154,7 +154,8 @@ void OverlayTree::Add(ref_ptr<OverlayHandle> handle)
     }
   }
 
-  int const rank = handle->GetOverlayRank();
+  ASSERT_GREATER_OR_EQUAL(handle->GetOverlayRank(), 0, ());
+  size_t const rank = static_cast<size_t>(handle->GetOverlayRank());
   ASSERT_LESS(rank, m_handles.size(), ());
   m_handles[rank].emplace_back(handle);
 }

@@ -208,7 +208,7 @@ void RulerHelper::ResetTextDirtyFlag()
     m_isTextDirty = false;
 }
 
-void RulerHelper::GetTextInitInfo(string & alphabet, size_t & size) const
+void RulerHelper::GetTextInitInfo(string & alphabet, uint32_t & size) const
 {
   set<char> symbols;
   size_t result = 0;
@@ -230,7 +230,7 @@ void RulerHelper::GetTextInitInfo(string & alphabet, size_t & size) const
   });
   alphabet.append("<>");
 
-  size = result + 2; // add 2 char for symbols "< " and "> "
+  size = static_cast<uint32_t>(result) + 2; // add 2 char for symbols "< " and "> "
 }
 
 double RulerHelper::CalcMetresDiff(double value)

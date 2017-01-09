@@ -41,7 +41,7 @@ void TransparentLayer::Build(ref_ptr<dp::GpuProgram> prg)
 
   m_bufferId = GLFunctions::glGenBuffer();
   GLFunctions::glBindBuffer(m_bufferId, gl_const::GLArrayBuffer);
-  GLFunctions::glBufferData(gl_const::GLArrayBuffer, m_vertices.size() * sizeof(m_vertices[0]),
+  GLFunctions::glBufferData(gl_const::GLArrayBuffer, static_cast<uint32_t>(m_vertices.size()) * sizeof(m_vertices[0]),
                             m_vertices.data(), gl_const::GLStaticDraw);
   GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
 }

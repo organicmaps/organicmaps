@@ -22,7 +22,7 @@ strings::UniString log2vis(strings::UniString const & str)
   // call fribidi_log2vis synchronously
   {
     lock_guard<mutex> lock(log2visMutex);
-    fribidi_log2vis(&str[0], count, &dir, &res[0], 0, 0, 0);
+    fribidi_log2vis(&str[0], static_cast<int>(count), &dir, &res[0], 0, 0, 0);
   }
 
   return res;

@@ -125,7 +125,10 @@ void DrapeEngine::Update(int w, int h)
 
 void DrapeEngine::Resize(int w, int h)
 {
-  if (m_viewport.GetHeight() != h || m_viewport.GetWidth() != w)
+  ASSERT_GREATER(w, 0, ());
+  ASSERT_GREATER(h, 0, ());
+  if (m_viewport.GetHeight() != static_cast<uint32_t>(h) ||
+      m_viewport.GetWidth() != static_cast<uint32_t>(w))
     ResizeImpl(w, h);
 }
 

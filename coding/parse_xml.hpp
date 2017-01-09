@@ -50,7 +50,7 @@ public:
   SequenceAdapter(SourceT & source) : m_source(source) {}
   uint64_t Read(void * p, uint64_t size)
   {
-    size_t const correctSize = min(size, m_source.Size());
+    size_t const correctSize = static_cast<size_t>(min(size, m_source.Size()));
     m_source.Read(p, correctSize);
     return correctSize;
   }

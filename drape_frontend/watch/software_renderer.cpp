@@ -13,8 +13,6 @@
 
 #include "base/logging.hpp"
 
-#include "3party/lodepng/lodepng_io.hpp"
-
 #include "3party/agg/agg_rasterizer_scanline_aa.h"
 #include "3party/agg/agg_scanline_p.h"
 #include "3party/agg/agg_path_storage.h"

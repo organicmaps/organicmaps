@@ -231,7 +231,7 @@ void MyPosition::CachePointPosition(ref_ptr<dp::TextureManager> mng)
       m_nodes.emplace_back(state, bucket->MoveBuffer());
     });
 
-    int const partIndex = m_nodes.size();
+    int const partIndex = static_cast<int>(m_nodes.size());
     for (int i = 0; i < kSymbolsCount; i++)
     {
       m_parts[partIndices[i]].second = partIndex;

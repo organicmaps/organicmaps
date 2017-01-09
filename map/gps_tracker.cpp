@@ -44,7 +44,7 @@ inline hours GetSettingsDuration()
 
 inline void SetSettingsDuration(hours duration)
 {
-  uint32_t const hours = duration.count();
+  uint32_t const hours = static_cast<uint32_t>(duration.count());
   settings::Set(kDurationHours, hours);
 }
 

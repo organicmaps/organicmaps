@@ -892,14 +892,14 @@ public:
 class CacheGpsTrackPointsMessage : public Message
 {
 public:
-  CacheGpsTrackPointsMessage(size_t pointsCount) : m_pointsCount(pointsCount) {}
+  CacheGpsTrackPointsMessage(uint32_t pointsCount) : m_pointsCount(pointsCount) {}
 
   Type GetType() const override { return Message::CacheGpsTrackPoints; }
 
-  size_t GetPointsCount() const { return m_pointsCount; }
+  uint32_t GetPointsCount() const { return m_pointsCount; }
 
 private:
-  size_t m_pointsCount;
+  uint32_t m_pointsCount;
 };
 
 class FlushGpsTrackPointsMessage : public Message

@@ -27,7 +27,7 @@ double const kArrow3dScaleMin = 1.0;
 double const kArrow3dScaleMax = 2.2;
 double const kArrow3dMinZoom = 16;
 
-int constexpr kComponentsInVertex = 4;
+uint32_t constexpr kComponentsInVertex = 4;
 
 Arrow3d::Arrow3d()
   : m_state(gpu::ARROW_3D_PROGRAM, dp::GLState::OverlayLayer)
@@ -102,12 +102,12 @@ void Arrow3d::Build()
 {
   m_bufferId = GLFunctions::glGenBuffer();
   GLFunctions::glBindBuffer(m_bufferId, gl_const::GLArrayBuffer);
-  GLFunctions::glBufferData(gl_const::GLArrayBuffer, m_vertices.size() * sizeof(m_vertices[0]),
+  GLFunctions::glBufferData(gl_const::GLArrayBuffer, static_cast<uint32_t>(m_vertices.size()) * sizeof(m_vertices[0]),
                             m_vertices.data(), gl_const::GLStaticDraw);
 
   m_bufferNormalsId = GLFunctions::glGenBuffer();
   GLFunctions::glBindBuffer(m_bufferNormalsId, gl_const::GLArrayBuffer);
-  GLFunctions::glBufferData(gl_const::GLArrayBuffer, m_normals.size() * sizeof(m_normals[0]),
+  GLFunctions::glBufferData(gl_const::GLArrayBuffer, static_cast<uint32_t>(m_normals.size()) * sizeof(m_normals[0]),
                             m_normals.data(), gl_const::GLStaticDraw);
 
   GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
@@ -175,7 +175,7 @@ void Arrow3d::RenderArrow(ScreenBase const & screen, ref_ptr<dp::GpuProgram> pro
   uniforms.SetFloatValue("u_color", c.r, c.g, c.b, c.a);
   dp::ApplyState(m_state, program);
   dp::ApplyUniforms(uniforms, program);
-  GLFunctions::glDrawArrays(gl_const::GLTriangles, 0, m_vertices.size() / kComponentsInVertex);
+  GLFunctions::glDrawArrays(gl_const::GLTriangles, 0, static_cast<uint32_t>(m_vertices.size()) / kComponentsInVertex);
 }
 
 math::Matrix<float, 4, 4> Arrow3d::CalculateTransform(ScreenBase const & screen, float dz) const

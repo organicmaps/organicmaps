@@ -111,7 +111,7 @@ strings::UniString GlyphCache::log2vis(strings::UniString const & str)
   //FriBidiEnv env;
   threads::MutexGuard g(s_fribidiMutex);
   FriBidiParType dir = FRIBIDI_PAR_LTR;  // requested base direction
-  fribidi_log2vis(&str[0], count, &dir, &res[0], 0, 0, 0);
+  fribidi_log2vis(&str[0], static_cast<int>(count), &dir, &res[0], 0, 0, 0);
   return res;
 }
 

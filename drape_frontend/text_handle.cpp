@@ -45,7 +45,7 @@ void TextHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutato
   ASSERT(node.first.GetElementSize() == sizeof(gpu::TextDynamicVertex), ());
   ASSERT(node.second.m_count == m_buffer.size(), ());
 
-  uint32_t byteCount = m_buffer.size() * sizeof(gpu::TextDynamicVertex);
+  uint32_t const byteCount = static_cast<uint32_t>(m_buffer.size()) * sizeof(gpu::TextDynamicVertex);
   void * buffer = mutator->AllocateMutationBuffer(byteCount);
   if (isVisible)
     memcpy(buffer, m_buffer.data(), byteCount);

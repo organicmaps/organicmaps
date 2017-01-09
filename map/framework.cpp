@@ -1805,7 +1805,8 @@ void Framework::OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::Gps
   for (auto const & ip : toAdd)
   {
     df::GpsTrackPoint pt;
-    pt.m_id = ip.first;
+    ASSERT_LESS(ip.first, static_cast<size_t>(numeric_limits<uint32_t>::max()), ());
+    pt.m_id = static_cast<uint32_t>(ip.first);
     pt.m_speedMPS = ip.second.m_speed;
     pt.m_timestamp = ip.second.m_timestamp;
     pt.m_point = MercatorBounds::FromLatLon(ip.second.m_latitude, ip.second.m_longitude);

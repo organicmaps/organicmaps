@@ -31,7 +31,8 @@ void LoadData(string const & textureName, string const & skinPathName,
   try
   {
     ReaderPtr<Reader> reader = GetStyleReader().GetResourceReader(textureName + ".png", skinPathName);
-    size_t const size = reader.Size();
+    CHECK_LESS(reader.Size(), static_cast<uint64_t>(numeric_limits<size_t>::max()), ());
+    size_t const size = static_cast<size_t>(reader.Size());
     rawData.resize(size);
     reader.Read(0, &rawData[0], size);
   }
@@ -42,7 +43,7 @@ void LoadData(string const & textureName, string const & skinPathName,
   }
 
   int w, h, bpp;
-  unsigned char * data = stbi_png_load_from_memory(&rawData[0], rawData.size(), &w, &h, &bpp, 0);
+  unsigned char * data = stbi_png_load_from_memory(&rawData[0], static_cast<int>(rawData.size()), &w, &h, &bpp, 0);
   ASSERT_EQUAL(bpp, 4, ("Incorrect texture format"));
   completionHandler(data, w, h);
 

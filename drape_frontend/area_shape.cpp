@@ -65,7 +65,7 @@ void AreaShape::DrawArea(ref_ptr<dp::Batcher> batcher, m2::PointD const & colorU
   dp::GLState state(gpu::AREA_PROGRAM, dp::GLState::GeometryLayer);
   state.SetColorTexture(texture);
 
-  dp::AttributeProvider provider(1, m_vertexes.size());
+  dp::AttributeProvider provider(1, static_cast<uint32_t>(m_vertexes.size()));
   provider.InitStream(0, gpu::AreaVertex::GetBindingInfo(), make_ref(vertexes.data()));
   batcher->InsertTriangleList(state, make_ref(&provider));
 
@@ -87,7 +87,7 @@ void AreaShape::DrawArea(ref_ptr<dp::Batcher> batcher, m2::PointD const & colorU
     state.SetColorTexture(texture);
     state.SetDrawAsLine(true);
 
-    dp::AttributeProvider outlineProvider(1, vertices.size());
+    dp::AttributeProvider outlineProvider(1, static_cast<uint32_t>(vertices.size()));
     outlineProvider.InitStream(0, gpu::AreaVertex::GetBindingInfo(), make_ref(vertices.data()));
     batcher->InsertLineRaw(state, make_ref(&outlineProvider), m_buildingOutline.m_indices);
   }
@@ -135,7 +135,7 @@ void AreaShape::DrawArea3D(ref_ptr<dp::Batcher> batcher, m2::PointD const & colo
   state.SetColorTexture(texture);
   state.SetBlending(dp::Blending(false /* isEnabled */));
 
-  dp::AttributeProvider provider(1, vertexes.size());
+  dp::AttributeProvider provider(1, static_cast<uint32_t>(vertexes.size()));
   provider.InitStream(0, gpu::Area3dVertex::GetBindingInfo(), make_ref(vertexes.data()));
   batcher->InsertTriangleList(state, make_ref(&provider));
 
@@ -158,7 +158,7 @@ void AreaShape::DrawArea3D(ref_ptr<dp::Batcher> batcher, m2::PointD const & colo
       vertices.emplace_back(gpu::AreaVertex(glsl::vec3(pos, -m_params.m_posZ), ouv));
     }
 
-    dp::AttributeProvider outlineProvider(1, vertices.size());
+    dp::AttributeProvider outlineProvider(1, static_cast<uint32_t>(vertices.size()));
     outlineProvider.InitStream(0, gpu::AreaVertex::GetBindingInfo(), make_ref(vertices.data()));
     batcher->InsertLineRaw(outlineState, make_ref(&outlineProvider), m_buildingOutline.m_indices);
   }

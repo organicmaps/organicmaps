@@ -57,7 +57,7 @@ void PathSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureMana
   dp::GLState state(gpu::PATH_SYMBOL_LINE, dp::GLState::GeometryLayer);
   state.SetColorTexture(region.GetTexture());
 
-  dp::AttributeProvider provider(1, buffer.size());
+  dp::AttributeProvider provider(1, static_cast<uint32_t>(buffer.size()));
   provider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), make_ref(buffer.data()));
   batcher->InsertListOfStrip(state, make_ref(&provider), 4);
 }

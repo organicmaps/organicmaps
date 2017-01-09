@@ -1027,7 +1027,7 @@ FeatureID FrontendRenderer::GetVisiblePOI(m2::RectD const & pixelRect)
   return featureID;
 }
 
-void FrontendRenderer::PrepareGpsTrackPoints(size_t pointsCount)
+void FrontendRenderer::PrepareGpsTrackPoints(uint32_t pointsCount)
 {
   m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                             make_unique_dp<CacheGpsTrackPointsMessage>(pointsCount),

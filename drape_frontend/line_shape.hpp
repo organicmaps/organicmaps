@@ -22,15 +22,15 @@ public:
   virtual dp::GLState GetState() = 0;
 
   virtual ref_ptr<void> GetLineData() = 0;
-  virtual size_t GetLineSize() = 0;
+  virtual uint32_t GetLineSize() = 0;
 
   virtual ref_ptr<void> GetJoinData() = 0;
-  virtual size_t GetJoinSize() = 0;
+  virtual uint32_t GetJoinSize() = 0;
 
   virtual dp::BindingInfo const & GetCapBindingInfo() = 0;
   virtual dp::GLState GetCapState() = 0;
   virtual ref_ptr<void> GetCapData() = 0;
-  virtual size_t GetCapSize() = 0;
+  virtual uint32_t GetCapSize() = 0;
 };
 
 class LineShape : public MapShape

@@ -366,7 +366,7 @@ bool InitStylist(FeatureType const & f, int const zoomLevel, bool buildings3d, S
     return false;
   }
 
-  Aggregator aggregator(f, mainGeomType, zoomLevel, keys.size());
+  Aggregator aggregator(f, mainGeomType, zoomLevel, static_cast<int>(keys.size()));
   aggregator.AggregateKeys(keys);
 
   CaptionDescription & descr = s.GetCaptionDescriptionImpl();
@@ -393,7 +393,7 @@ double GetFeaturePriority(FeatureType const & f, int const zoomLevel)
 
   feature::EGeomType const mainGeomType = feature::EGeomType(geomType.first);
 
-  Aggregator aggregator(f, mainGeomType, zoomLevel, keys.size());
+  Aggregator aggregator(f, mainGeomType, zoomLevel, static_cast<int>(keys.size()));
   aggregator.AggregateKeys(keys);
 
   double maxPriority = kMinPriority;

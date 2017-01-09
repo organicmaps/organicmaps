@@ -31,7 +31,7 @@ size_t const kInvalidGlyphGroup = numeric_limits<size_t>::max();
 // number of glyphs (since 0) which will be in each texture
 size_t const kDuplicatedGlyphsCount = 128;
 
-size_t const kReservedPatterns = 10;
+uint32_t const kReservedPatterns = 10;
 size_t const kReservedColors = 20;
 
 float const kGlyphAreaMultiplier = 1.2f;
@@ -313,9 +313,9 @@ size_t TextureManager::FindGlyphsGroup(TMultilineText const & text) const
   return FindGlyphsGroup(combinedString);
 }
 
-size_t TextureManager::GetNumberOfUnfoundCharacters(strings::UniString const & text, int fixedHeight, HybridGlyphGroup const & group) const
+uint32_t TextureManager::GetNumberOfUnfoundCharacters(strings::UniString const & text, int fixedHeight, HybridGlyphGroup const & group) const
 {
-  size_t cnt = 0;
+  uint32_t cnt = 0;
   for (auto const & c : text)
     if (group.m_glyphs.find(make_pair(c, fixedHeight)) == group.m_glyphs.end())
       cnt++;
@@ -340,7 +340,7 @@ size_t TextureManager::FindHybridGlyphsGroup(strings::UniString const & text, in
   HybridGlyphGroup & group = m_hybridGlyphGroups.back();
   bool hasEnoughSpace = true;
   if (group.m_texture != nullptr)
-    hasEnoughSpace = group.m_texture->HasEnoughSpace(text.size());
+    hasEnoughSpace = group.m_texture->HasEnoughSpace(static_cast<uint32_t>(text.size()));
 
   // if we have got the only hybrid texture (in most cases it is) we can omit checking of glyphs usage
   if (hasEnoughSpace)
@@ -356,8 +356,8 @@ size_t TextureManager::FindHybridGlyphsGroup(strings::UniString const & text, in
       return i;
 
   // check if we can contain text in the last hybrid texture
-  size_t const unfoundChars = GetNumberOfUnfoundCharacters(text, fixedHeight, group);
-  size_t const newCharsCount = group.m_glyphs.size() + unfoundChars;
+  uint32_t const unfoundChars = GetNumberOfUnfoundCharacters(text, fixedHeight, group);
+  uint32_t const newCharsCount = static_cast<uint32_t>(group.m_glyphs.size()) + unfoundChars;
   if (newCharsCount >= m_maxGlypsCount || !group.m_texture->HasEnoughSpace(unfoundChars))
     m_hybridGlyphGroups.push_back(HybridGlyphGroup());
 
@@ -396,7 +396,8 @@ void TextureManager::Init(Params const & params)
     patterns.push_back(move(p));
   });
 
-  uint32_t stippleTextureHeight = max(my::NextPowOf2(patterns.size() + kReservedPatterns), kMinStippleTextureHeight);
+  uint32_t stippleTextureHeight = max(my::NextPowOf2(static_cast<uint32_t>(patterns.size()) + kReservedPatterns),
+                                      kMinStippleTextureHeight);
   stippleTextureHeight = min(m_maxTextureSize, stippleTextureHeight);
   m_stipplePenTexture = make_unique_dp<StipplePenTexture>(m2::PointU(kStippleTextureWidth, stippleTextureHeight),
                                                           make_ref(m_textureAllocator));
