@@ -38,6 +38,7 @@ public:
   bool IsBookmark() const;
   bool IsMyPosition() const;
   bool IsSponsored() const;
+  bool IsNotEditableSponsored() const;
 
   bool ShouldShowAddPlace() const;
   bool ShouldShowAddBusiness() const;
