@@ -14,14 +14,16 @@ class ParallelAnimation : public Animation
 public:
   ParallelAnimation();
 
-  Animation::Type GetType() const override { return Animation::Parallel; }
+  void Init(ScreenBase const & screen, TPropertyCache const & properties) override;
+
+  Animation::Type GetType() const override { return Animation::Type::Parallel; }
 
   TAnimObjects const & GetObjects() const override;
-  bool HasObject(TObject object) const override;
+  bool HasObject(Object object) const override;
 
-  TObjectProperties const & GetProperties(TObject object) const override;
-  bool HasProperty(TObject object, TProperty property) const override;
-  bool HasTargetProperty(TObject object, TProperty property) const override;
+  TObjectProperties const & GetProperties(Object object) const override;
+  bool HasProperty(Object object, ObjectProperty property) const override;
+  bool HasTargetProperty(Object object, ObjectProperty property) const override;
 
   string GetCustomType() const override;
   void SetCustomType(string const & type);
@@ -38,8 +40,8 @@ public:
   void Advance(double elapsedSeconds) override;
   void Finish() override;
 
-  bool GetProperty(TObject object, TProperty property, PropertyValue & value) const override;
-  bool GetTargetProperty(TObject object, TProperty property, PropertyValue & value) const override;
+  bool GetProperty(Object object, ObjectProperty property, PropertyValue & value) const override;
+  bool GetTargetProperty(Object object, ObjectProperty property, PropertyValue & value) const override;
 
   template<typename T> T const * FindAnimation(Animation::Type type, char const * customType = nullptr) const
   {
@@ -60,7 +62,7 @@ private:
 
   list<drape_ptr<Animation>> m_animations;
   TAnimObjects m_objects;
-  map<TObject, TObjectProperties> m_properties;
+  map<Object, TObjectProperties> m_properties;
 
   string m_customType;
 };

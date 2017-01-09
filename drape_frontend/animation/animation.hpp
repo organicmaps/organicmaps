@@ -3,6 +3,7 @@
 #include "drape/pointers.hpp"
 
 #include "geometry/point2d.hpp"
+#include "geometry/screenbase.hpp"
 
 #include "std/unordered_set.hpp"
 
@@ -12,7 +13,7 @@ namespace df
 class Animation
 {
 public:
-  enum Type
+  enum class Type
   {
     Sequence,
     Parallel,
@@ -23,14 +24,14 @@ public:
     KineticScroll
   };
 
-  enum Object
+  enum class Object
   {
     MyPositionArrow,
     MapPlane,
     Selection
   };
 
-  enum ObjectProperty
+  enum class ObjectProperty
   {
     Position,
     Scale,
@@ -39,7 +40,7 @@ public:
 
   struct PropertyValue
   {
-    enum Type
+    enum class Type
     {
       ValueD,
       ValuePointD
@@ -49,12 +50,12 @@ public:
     {}
 
     explicit PropertyValue(double value)
-      : m_type(ValueD)
+      : m_type(Type::ValueD)
       , m_valueD(value)
     {}
 
     explicit PropertyValue(m2::PointD const & value)
-      : m_type(ValuePointD)
+      : m_type(Type::ValuePointD)
       , m_valuePointD(value)
     {}
 
@@ -66,11 +67,10 @@ public:
     };
   };
 
-  using TObject = uint32_t;
-  using TProperty = uint32_t;
-  using TAnimObjects = unordered_set<TObject>;
-  using TObjectProperties = unordered_set<TProperty>;
+  using TAnimObjects = std::set<Object>;
+  using TObjectProperties = std::set<ObjectProperty>;
   using TAction = function<void(ref_ptr<Animation>)>;
+  using TPropertyCache = map<pair<Object, ObjectProperty>, Animation::PropertyValue>;
 
   Animation(bool couldBeInterrupted, bool couldBeBlended)
     : m_couldBeInterrupted(couldBeInterrupted)
@@ -81,6 +81,7 @@ public:
 
   virtual ~Animation() = default;
 
+  virtual void Init(ScreenBase const & screen, TPropertyCache const & properties) {}
   virtual void OnStart() { if (m_onStartAction != nullptr) m_onStartAction(this); }
   virtual void OnFinish() { if (m_onFinishAction != nullptr) m_onFinishAction(this); }
   virtual void Interrupt() { if (m_onInterruptAction != nullptr) m_onInterruptAction(this); }
@@ -89,10 +90,10 @@ public:
   virtual string GetCustomType() const { return string(); }
 
   virtual TAnimObjects const & GetObjects() const = 0;
-  virtual bool HasObject(TObject object) const = 0;
-  virtual TObjectProperties const & GetProperties(TObject object) const = 0;
-  virtual bool HasProperty(TObject object, TProperty property) const = 0;
-  virtual bool HasTargetProperty(TObject object, TProperty property) const;
+  virtual bool HasObject(Object object) const = 0;
+  virtual TObjectProperties const & GetProperties(Object object) const = 0;
+  virtual bool HasProperty(Object object, ObjectProperty property) const = 0;
+  virtual bool HasTargetProperty(Object object, ObjectProperty property) const;
 
   virtual void SetMaxDuration(double maxDuration) = 0;
   virtual double GetDuration() const = 0;
@@ -101,8 +102,8 @@ public:
   virtual void Advance(double elapsedSeconds) = 0;
   virtual void Finish() { OnFinish(); }
 
-  virtual bool GetProperty(TObject object, TProperty property, PropertyValue & value) const = 0;
-  virtual bool GetTargetProperty(TObject object, TProperty property, PropertyValue & value) const = 0;
+  virtual bool GetProperty(Object object, ObjectProperty property, PropertyValue & value) const = 0;
+  virtual bool GetTargetProperty(Object object, ObjectProperty property, PropertyValue & value) const = 0;
 
   void SetOnStartAction(TAction const & action) { m_onStartAction = action; }
   void SetOnFinishAction(TAction const & action) { m_onFinishAction = action; }
@@ -122,6 +123,9 @@ public:
   bool CouldBeRewinded() const { return m_couldBeRewinded; }
 
 protected:
+  void GetCurrentScreen(TPropertyCache const & properties, ScreenBase const & screen, ScreenBase & currentScreen);
+  bool GetCachedProperty(TPropertyCache const & properties, Object object, ObjectProperty property, PropertyValue & value);
+
   TAction m_onStartAction;
   TAction m_onFinishAction;
   TAction m_onInterruptAction;

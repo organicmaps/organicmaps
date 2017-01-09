@@ -9,11 +9,31 @@ ArrowAnimation::ArrowAnimation(m2::PointD const & startPos, m2::PointD const & e
   , m_positionInterpolator(moveDuration, 0.0 /* delay */, startPos, endPos)
   , m_angleInterpolator(startAngle, endAngle)
 {
-  m_objects.insert(Animation::MyPositionArrow);
+  m_objects.insert(Animation::Object::MyPositionArrow);
   if (m_positionInterpolator.IsActive())
-    m_properties.insert(Animation::Position);
+    m_properties.insert(Animation::ObjectProperty::Position);
   if (m_angleInterpolator.IsActive())
-    m_properties.insert(Animation::Angle);
+    m_properties.insert(Animation::ObjectProperty::Angle);
+}
+
+void ArrowAnimation::Init(ScreenBase const & screen, TPropertyCache const & properties)
+{
+  PropertyValue value;
+  if (GetCachedProperty(properties, Animation::Object::MyPositionArrow, Animation::ObjectProperty::Position, value))
+  {
+    m_positionInterpolator = PositionInterpolator(m_positionInterpolator.GetDuration(),
+                                                  0.0 /* delay */,
+                                                  value.m_valuePointD,
+                                                  m_positionInterpolator.GetTargetPosition());
+    if (m_positionInterpolator.IsActive())
+      m_properties.insert(Animation::ObjectProperty::Position);
+  }
+  if (GetCachedProperty(properties, Animation::Object::MyPositionArrow, Animation::ObjectProperty::Angle, value))
+  {
+    m_angleInterpolator = AngleInterpolator(value.m_valueD, m_angleInterpolator.GetTargetAngle());
+    if (m_angleInterpolator.IsActive())
+      m_properties.insert(Animation::ObjectProperty::Angle);
+  }
 }
 
 Animation::TAnimObjects const & ArrowAnimation::GetObjects() const
@@ -21,17 +41,17 @@ Animation::TAnimObjects const & ArrowAnimation::GetObjects() const
    return m_objects;
 }
 
-bool ArrowAnimation::HasObject(TObject object) const
+bool ArrowAnimation::HasObject(Object object) const
 {
-  return object == Animation::MyPositionArrow;
+  return object == Animation::Object::MyPositionArrow;
 }
 
-Animation::TObjectProperties const & ArrowAnimation::GetProperties(TObject object) const
+Animation::TObjectProperties const & ArrowAnimation::GetProperties(Object object) const
 {
   return m_properties;
 }
 
-bool ArrowAnimation::HasProperty(TObject object, TProperty property) const
+bool ArrowAnimation::HasProperty(Object object, ObjectProperty property) const
 {
   return HasObject(object) && m_properties.find(property) != m_properties.end();
 }
@@ -78,30 +98,30 @@ bool ArrowAnimation::IsFinished() const
   return m_positionInterpolator.IsFinished() && m_angleInterpolator.IsFinished();
 }
 
-bool ArrowAnimation::GetProperty(TObject object, TProperty property, PropertyValue & value) const
+bool ArrowAnimation::GetProperty(Object object, ObjectProperty property, PropertyValue & value) const
 {
   return GetProperty(object, property, false /* targetValue */, value);
 }
 
-bool ArrowAnimation::GetTargetProperty(TObject object, TProperty property, PropertyValue & value) const
+bool ArrowAnimation::GetTargetProperty(Object object, ObjectProperty property, PropertyValue & value) const
 {
   return GetProperty(object, property, true /* targetValue */, value);
 }
 
-bool ArrowAnimation::GetProperty(TObject object, TProperty property, bool targetValue, PropertyValue & value) const
+bool ArrowAnimation::GetProperty(Object object, ObjectProperty property, bool targetValue, PropertyValue & value) const
 {
-  ASSERT_EQUAL(object, Animation::MyPositionArrow, ());
+  ASSERT_EQUAL(static_cast<int>(object), static_cast<int>(Animation::Object::MyPositionArrow), ());
 
   switch (property)
   {
-  case Animation::Position:
+  case Animation::ObjectProperty::Position:
     if (m_positionInterpolator.IsActive())
     {
       value = PropertyValue(targetValue ? m_positionInterpolator.GetTargetPosition() : m_positionInterpolator.GetPosition());
       return true;
     }
     return false;
-  case Animation::Angle:
+  case Animation::ObjectProperty::Angle:
     if (m_angleInterpolator.IsActive())
     {
       value = PropertyValue(targetValue ? m_angleInterpolator.GetTargetAngle() : m_angleInterpolator.GetAngle());
@@ -109,7 +129,7 @@ bool ArrowAnimation::GetProperty(TObject object, TProperty property, bool target
     }
     return false;
   default:
-    ASSERT(false, ("Wrong property:", property));
+    ASSERT(false, ("Wrong property:", static_cast<int>(property)));
   }
 
   return false;

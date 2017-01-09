@@ -28,7 +28,7 @@ public:
   bool GetArrowPosition(m2::PointD & position);
   bool GetArrowAngle(double & angle);
 
-  bool AnimationExists(Animation::TObject object) const;
+  bool AnimationExists(Animation::Object object) const;
   bool HasAnimations() const;
 
   void CombineAnimation(drape_ptr<Animation> && animation);
@@ -36,7 +36,7 @@ public:
 
   void FinishAnimations(Animation::Type type, bool rewind, bool finishAll);
   void FinishAnimations(Animation::Type type, string const & customType, bool rewind, bool finishAll);
-  void FinishObjectAnimations(Animation::TObject object, bool rewind, bool finishAll);
+  void FinishObjectAnimations(Animation::Object object, bool rewind, bool finishAll);
 
   template<typename T> T const * FindAnimation(Animation::Type type, char const * customType = nullptr) const
   {
@@ -64,13 +64,13 @@ public:
 private:  
   AnimationSystem() = default;
 
-  using TGetPropertyFn = function<bool (Animation::TObject object, Animation::TProperty property,
+  using TGetPropertyFn = function<bool (Animation::Object object, Animation::ObjectProperty property,
                                         Animation::PropertyValue & value)>;
   bool GetScreen(ScreenBase const & currentScreen, TGetPropertyFn const & getPropertyFn,  ScreenBase & screen);
 
-  bool GetProperty(Animation::TObject object, Animation::TProperty property,
+  bool GetProperty(Animation::Object object, Animation::ObjectProperty property,
                    Animation::PropertyValue & value) const;
-  bool GetTargetProperty(Animation::TObject object, Animation::TProperty property,
+  bool GetTargetProperty(Animation::Object object, Animation::ObjectProperty property,
                    Animation::PropertyValue & value) const;
   void StartNextAnimations();
   void FinishAnimations(function<bool(shared_ptr<Animation> const &)> const & predicate,
@@ -82,7 +82,7 @@ private:
 
   using TAnimationList = list<shared_ptr<Animation>>;
   using TAnimationChain = deque<shared_ptr<TAnimationList>>;
-  using TPropertyCache = map<pair<Animation::TObject, Animation::TProperty>, Animation::PropertyValue>;
+  using TPropertyCache = map<pair<Animation::Object, Animation::ObjectProperty>, Animation::PropertyValue>;
 
   TAnimationChain m_animationChain;
   mutable TPropertyCache m_propertyCache;

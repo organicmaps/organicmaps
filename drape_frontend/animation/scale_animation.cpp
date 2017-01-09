@@ -14,18 +14,26 @@ MapScaleAnimation::MapScaleAnimation(double startScale, double endScale, m2::Poi
   , m_pxScaleCenter(pxScaleCenter)
   , m_globalScaleCenter(globalScaleCenter)
 {
-  m_objects.insert(Animation::MapPlane);
-  m_properties.insert(Animation::Scale);
-  m_properties.insert(Animation::Position);
+  m_objects.insert(Animation::Object::MapPlane);
+  m_properties.insert(Animation::ObjectProperty::Scale);
+  m_properties.insert(Animation::ObjectProperty::Position);
 }
 
-Animation::TObjectProperties const & MapScaleAnimation::GetProperties(TObject object) const
+void MapScaleAnimation::Init(ScreenBase const & screen, TPropertyCache const & properties)
 {
-  ASSERT_EQUAL(object, Animation::MapPlane, ());
+  ScreenBase currentScreen;
+  GetCurrentScreen(properties, screen, currentScreen);
+
+  m_scaleInterpolator = ScaleInterpolator(currentScreen.GetScale(), m_scaleInterpolator.GetTargetScale(), false /* isAutoZoom */);
+}
+
+Animation::TObjectProperties const & MapScaleAnimation::GetProperties(Object object) const
+{
+  ASSERT_EQUAL(static_cast<int>(object), static_cast<int>(Animation::Object::MapPlane), ());
   return m_properties;
 }
 
-bool MapScaleAnimation::HasProperty(TObject object, TProperty property) const
+bool MapScaleAnimation::HasProperty(Object object, ObjectProperty property) const
 {
   return HasObject(object) && m_properties.find(property) != m_properties.end();
 }
@@ -56,11 +64,11 @@ bool MapScaleAnimation::IsFinished() const
   return m_scaleInterpolator.IsFinished();
 }
 
-bool MapScaleAnimation::GetProperty(TObject object, TProperty property, bool targetValue, PropertyValue & value) const
+bool MapScaleAnimation::GetProperty(Object object, ObjectProperty property, bool targetValue, PropertyValue & value) const
 {
-  ASSERT_EQUAL(object, Animation::MapPlane, ());
+  ASSERT_EQUAL(static_cast<int>(object), static_cast<int>(Animation::Object::MapPlane), ());
 
-  if (property == Animation::Position)
+  if (property == Animation::ObjectProperty::Position)
   {
     ScreenBase screen = AnimationSystem::Instance().GetLastScreen();
     screen.SetScale(targetValue ? m_scaleInterpolator.GetTargetScale() : m_scaleInterpolator.GetScale());
@@ -68,21 +76,21 @@ bool MapScaleAnimation::GetProperty(TObject object, TProperty property, bool tar
     value = PropertyValue(screen.PtoG(screen.GtoP(m_globalScaleCenter) + pixelOffset));
     return true;
   }
-  if (property == Animation::Scale)
+  if (property == Animation::ObjectProperty::Scale)
   {
     value = PropertyValue(targetValue ? m_scaleInterpolator.GetTargetScale() : m_scaleInterpolator.GetScale());
     return true;
   }
-  ASSERT(false, ("Wrong property:", property));
+  ASSERT(false, ("Wrong property:", static_cast<int>(property)));
   return false;
 }
 
-bool MapScaleAnimation::GetTargetProperty(TObject object, TProperty property, PropertyValue & value) const
+bool MapScaleAnimation::GetTargetProperty(Object object, ObjectProperty property, PropertyValue & value) const
 {
   return GetProperty(object, property, true /* targetValue */, value);
 }
 
-bool MapScaleAnimation::GetProperty(TObject object, TProperty property, PropertyValue & value) const
+bool MapScaleAnimation::GetProperty(Object object, ObjectProperty property, PropertyValue & value) const
 {
   return GetProperty(object, property, false /* targetValue */, value);
 }

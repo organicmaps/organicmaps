@@ -169,6 +169,7 @@ public:
   Matrix3dT GetModelView(m2::PointD const & pivot, double scalar) const;
 
   static double CalculateAutoPerspectiveAngle(double scale);
+  static double GetStartPerspectiveScale();
 
   /// Compute arbitrary pixel transformation, that translates the (oldPt1, oldPt2) -> (newPt1, newPt2)
   static MatrixT const CalcTransform(m2::PointD const & oldPt1, m2::PointD const & oldPt2,

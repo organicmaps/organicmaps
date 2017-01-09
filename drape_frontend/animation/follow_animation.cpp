@@ -12,48 +12,58 @@ namespace df
 MapFollowAnimation::MapFollowAnimation(ScreenBase const & screen,
                                        m2::PointD const & globalUserPosition,
                                        m2::PointD const & endPixelPosition,
-                                       double startScale, double endScale,
-                                       double startAngle, double endAngle,
+                                       double endScale, double endAngle,
                                        bool isAutoZoom)
   : Animation(true /* couldBeInterrupted */, true /* couldBeBlended */)
   , m_isAutoZoom(isAutoZoom)
-  , m_scaleInterpolator(startScale, endScale, m_isAutoZoom)
-  , m_angleInterpolator(startAngle, endAngle)
   , m_globalPosition(globalUserPosition)
   , m_endPixelPosition(endPixelPosition)
+  , m_endScale(endScale)
+  , m_endAngle(endAngle)
 {
-  m_offset = screen.PtoG(screen.P3dtoP(m_endPixelPosition)) - m_globalPosition;
-  double const scale = m_isAutoZoom ? screen.GetScale() : (startScale + endScale) / 2.0;
-  double const moveDuration = PositionInterpolator::GetMoveDuration(m_offset.Length(), screen.PixelRectIn3d(), scale);
+  TPropertyCache properties;
+  Init(screen, properties);
+}
 
+void MapFollowAnimation::Init(ScreenBase const & screen, TPropertyCache const & properties)
+{
+  ScreenBase currentScreen;
+  GetCurrentScreen(properties, screen, currentScreen);
+
+  m_offset = currentScreen.PtoG(currentScreen.P3dtoP(m_endPixelPosition)) - m_globalPosition;
+  double const averageScale = m_isAutoZoom ? currentScreen.GetScale() : (currentScreen.GetScale() + m_endScale) / 2.0;
+  double const moveDuration = PositionInterpolator::GetMoveDuration(m_offset.Length(), screen.PixelRectIn3d(), averageScale);
   m_offsetInterpolator = PositionInterpolator(moveDuration, 0.0, m_offset, m2::PointD(0.0, 0.0));
+
+  m_scaleInterpolator = ScaleInterpolator(currentScreen.GetScale(), m_endScale, m_isAutoZoom);
+  m_angleInterpolator = AngleInterpolator(currentScreen.GetAngle(), m_endAngle);
 
   double const duration = CalculateDuration();
 
   m_scaleInterpolator.SetMinDuration(duration);
   m_angleInterpolator.SetMinDuration(duration);
 
-  m_objects.insert(Animation::MapPlane);
+  m_objects.insert(Animation::Object::MapPlane);
 
   if (m_scaleInterpolator.IsActive())
-    m_properties.insert(Animation::Scale);
+    m_properties.insert(Animation::ObjectProperty::Scale);
   if (m_angleInterpolator.IsActive())
-    m_properties.insert(Animation::Angle);
+    m_properties.insert(Animation::ObjectProperty::Angle);
   if (m_offsetInterpolator.IsActive() || m_scaleInterpolator.IsActive() || m_angleInterpolator.IsActive())
-    m_properties.insert(Animation::Position);
+    m_properties.insert(Animation::ObjectProperty::Position);
 
   // If MapFollowAnimation affects only angles, disable rewinding.
   SetCouldBeRewinded(!m_angleInterpolator.IsActive() || m_scaleInterpolator.IsActive() ||
                      m_offsetInterpolator.IsActive());
 }
 
-Animation::TObjectProperties const & MapFollowAnimation::GetProperties(TObject object) const
+Animation::TObjectProperties const & MapFollowAnimation::GetProperties(Object object) const
 {
-  ASSERT_EQUAL(object, Animation::MapPlane, ());
+  ASSERT_EQUAL(static_cast<int>(object), static_cast<int>(Animation::Object::MapPlane), ());
   return m_properties;
 }
 
-bool MapFollowAnimation::HasProperty(TObject object, TProperty property) const
+bool MapFollowAnimation::HasProperty(Object object, ObjectProperty property) const
 {
   return HasObject(object) && m_properties.find(property) != m_properties.end();
 }
@@ -112,19 +122,19 @@ bool MapFollowAnimation::IsFinished() const
   return m_angleInterpolator.IsFinished() && m_scaleInterpolator.IsFinished() && m_offsetInterpolator.IsFinished();
 }
 
-bool MapFollowAnimation::GetProperty(TObject object, TProperty property, PropertyValue & value) const
+bool MapFollowAnimation::GetProperty(Object object, ObjectProperty property, PropertyValue & value) const
 {
   return GetProperty(object, property, false /* targetValue */, value);
 }
 
-bool MapFollowAnimation::GetTargetProperty(TObject object, TProperty property, PropertyValue & value) const
+bool MapFollowAnimation::GetTargetProperty(Object object, ObjectProperty property, PropertyValue & value) const
 {
   return GetProperty(object, property, true /* targetValue */, value);
 }
 
-bool MapFollowAnimation::GetProperty(TObject object, TProperty property, bool targetValue, PropertyValue & value) const
+bool MapFollowAnimation::GetProperty(Object object, ObjectProperty property, bool targetValue, PropertyValue & value) const
 {
-  if (property == Animation::Position)
+  if (property == Animation::ObjectProperty::Position)
   {
     ScreenBase tmp = AnimationSystem::Instance().GetLastScreen();
     if (targetValue)
@@ -147,18 +157,18 @@ bool MapFollowAnimation::GetProperty(TObject object, TProperty property, bool ta
     value = PropertyValue(tmp.GetOrg());
     return true;
   }
-  if (property == Animation::Angle)
+  if (property == Animation::ObjectProperty::Angle)
   {
     value = PropertyValue(targetValue ? m_angleInterpolator.GetTargetAngle() : m_angleInterpolator.GetAngle());
     return true;
   }
-  if (property == Animation::Scale)
+  if (property == Animation::ObjectProperty::Scale)
   {
     value = PropertyValue((targetValue && !m_isAutoZoom) ? m_scaleInterpolator.GetTargetScale()
                                                          : m_scaleInterpolator.GetScale());
     return true;
   }
-  ASSERT(false, ("Wrong property:", property));
+  ASSERT(false, ("Wrong property:", static_cast<int>(property)));
   return false;
 }
 

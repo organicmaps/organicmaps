@@ -94,6 +94,7 @@ void ScreenBase::UpdateDependentParameters()
   }
 }
 
+// static
 double ScreenBase::CalculateAutoPerspectiveAngle(double scale)
 {
   if (scale > kStartPerspectiveScale1)
@@ -112,6 +113,12 @@ double ScreenBase::CalculateAutoPerspectiveAngle(double scale)
   }
 
   return kMaxPerspectiveAngle2 * 0.99;
+}
+
+// static
+double ScreenBase::GetStartPerspectiveScale()
+{
+  return kStartPerspectiveScale1;
 }
 
 double ScreenBase::CalculatePerspectiveAngle(double scale) const

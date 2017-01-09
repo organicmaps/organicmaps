@@ -780,6 +780,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       m_trafficRenderer->Clear(msg->GetMwmId());
       break;
     }
+
   case Message::DrapeApiFlush:
     {
       ref_ptr<DrapeApiFlushMessage> msg = message;
