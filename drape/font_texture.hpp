@@ -36,13 +36,25 @@ private:
 class GlyphKey : public Texture::Key
 {
 public:
-  GlyphKey(strings::UniChar unicodePoint) : m_unicodePoint(unicodePoint) {}
+  GlyphKey(strings::UniChar unicodePoint, int fixedSize)
+    : m_unicodePoint(unicodePoint)
+    , m_fixedSize(fixedSize)
+  {}
 
   Texture::ResourceType GetType() const { return Texture::Glyph; }
   strings::UniChar GetUnicodePoint() const { return m_unicodePoint; }
+  int GetFixedSize() const { return m_fixedSize; }
+
+  bool operator<(GlyphKey const & g) const
+  {
+    if (m_unicodePoint == g.m_unicodePoint)
+      return m_fixedSize < g.m_fixedSize;
+    return m_unicodePoint < g.m_unicodePoint;
+  }
 
 private:
   strings::UniChar m_unicodePoint;
+  int m_fixedSize;
 };
 
 class GlyphInfo : public Texture::ResourceInfo
@@ -113,7 +125,7 @@ public:
 
   bool HasAsyncRoutines() const;
 
-  uint32_t GetAbsentGlyphsCount(strings::UniString const & text) const;
+  uint32_t GetAbsentGlyphsCount(strings::UniString const & text, int fixedHeight) const;
 
   // ONLY for unit-tests. DO NOT use this function anywhere else.
   size_t GetPendingNodesCount();
@@ -125,7 +137,7 @@ private:
   ref_ptr<GlyphManager> m_mng;
   unique_ptr<GlyphGenerator> m_generator;
 
-  typedef map<strings::UniChar, GlyphInfo> TResourceMapping;
+  typedef map<GlyphKey, GlyphInfo> TResourceMapping;
   typedef pair<m2::RectU, GlyphManager::Glyph> TPendingNode;
   typedef vector<TPendingNode> TPendingNodes;
 
@@ -162,9 +174,9 @@ public:
     return m_index.HasAsyncRoutines();
   }
 
-  uint32_t GetAbsentGlyphsCount(strings::UniString const & text) const
+  uint32_t GetAbsentGlyphsCount(strings::UniString const & text, int fixedHeight) const
   {
-    return m_index.GetAbsentGlyphsCount(text);
+    return m_index.GetAbsentGlyphsCount(text, fixedHeight);
   }
 
 private:

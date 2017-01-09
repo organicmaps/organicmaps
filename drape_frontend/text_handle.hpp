@@ -18,12 +18,12 @@ class TextHandle : public dp::OverlayHandle
 {
 public:
   TextHandle(FeatureID const & id, strings::UniString const & text,
-             dp::Anchor anchor, uint64_t priority,
+             dp::Anchor anchor, uint64_t priority, int fixedHeight,
              ref_ptr<dp::TextureManager> textureManager,
              bool isBillboard = false);
 
   TextHandle(FeatureID const & id, strings::UniString const & text,
-             dp::Anchor anchor, uint64_t priority,
+             dp::Anchor anchor, uint64_t priority, int fixedHeight,
              ref_ptr<dp::TextureManager> textureManager,
              gpu::TTextDynamicVertexBuffer && normals,
              bool IsBillboard = false);
@@ -50,6 +50,7 @@ private:
   strings::UniString m_text;
   ref_ptr<dp::TextureManager> m_textureManager;
   bool m_glyphsReady;
+  int m_fixedHeight;
 };
 
 

@@ -313,23 +313,23 @@ size_t TextureManager::FindGlyphsGroup(TMultilineText const & text) const
   return FindGlyphsGroup(combinedString);
 }
 
-size_t TextureManager::GetNumberOfUnfoundCharacters(strings::UniString const & text, HybridGlyphGroup const & group) const
+size_t TextureManager::GetNumberOfUnfoundCharacters(strings::UniString const & text, int fixedHeight, HybridGlyphGroup const & group) const
 {
   size_t cnt = 0;
   for (auto const & c : text)
-    if (group.m_glyphs.find(c) == group.m_glyphs.end())
+    if (group.m_glyphs.find(make_pair(c, fixedHeight)) == group.m_glyphs.end())
       cnt++;
 
   return cnt;
 }
 
-void TextureManager::MarkCharactersUsage(strings::UniString const & text, HybridGlyphGroup & group)
+void TextureManager::MarkCharactersUsage(strings::UniString const & text, int fixedHeight, HybridGlyphGroup & group)
 {
   for (auto const & c : text)
-    group.m_glyphs.emplace(c);
+    group.m_glyphs.emplace(make_pair(c, fixedHeight));
 }
 
-size_t TextureManager::FindHybridGlyphsGroup(strings::UniString const & text)
+size_t TextureManager::FindHybridGlyphsGroup(strings::UniString const & text, int fixedHeight)
 {
   if (m_hybridGlyphGroups.empty())
   {
@@ -352,11 +352,11 @@ size_t TextureManager::FindHybridGlyphsGroup(strings::UniString const & text)
 
   // looking for a hybrid texture which contains text entirely
   for (size_t i = 0; i < m_hybridGlyphGroups.size() - 1; i++)
-    if (GetNumberOfUnfoundCharacters(text, m_hybridGlyphGroups[i]) == 0)
+    if (GetNumberOfUnfoundCharacters(text, fixedHeight, m_hybridGlyphGroups[i]) == 0)
       return i;
 
   // check if we can contain text in the last hybrid texture
-  size_t const unfoundChars = GetNumberOfUnfoundCharacters(text, group);
+  size_t const unfoundChars = GetNumberOfUnfoundCharacters(text, fixedHeight, group);
   size_t const newCharsCount = group.m_glyphs.size() + unfoundChars;
   if (newCharsCount >= m_maxGlypsCount || !group.m_texture->HasEnoughSpace(unfoundChars))
     m_hybridGlyphGroups.push_back(HybridGlyphGroup());
@@ -364,12 +364,12 @@ size_t TextureManager::FindHybridGlyphsGroup(strings::UniString const & text)
   return m_hybridGlyphGroups.size() - 1;
 }
 
-size_t TextureManager::FindHybridGlyphsGroup(TMultilineText const & text)
+size_t TextureManager::FindHybridGlyphsGroup(TMultilineText const & text, int fixedHeight)
 {
   strings::UniString combinedString;
   MultilineTextToUniString(text, combinedString);
 
-  return FindHybridGlyphsGroup(combinedString);
+  return FindHybridGlyphsGroup(combinedString, fixedHeight);
 }
 
 void TextureManager::Init(Params const & params)
@@ -477,39 +477,39 @@ void TextureManager::GetColorRegion(Color const & color, ColorRegion & region)
   GetRegionBase(make_ref(m_colorTexture), region, ColorKey(color));
 }
 
-void TextureManager::GetGlyphRegions(TMultilineText const & text, TMultilineGlyphsBuffer & buffers)
+void TextureManager::GetGlyphRegions(TMultilineText const & text, int fixedHeight, TMultilineGlyphsBuffer & buffers)
 {
-  CalcGlyphRegions<TMultilineText, TMultilineGlyphsBuffer>(text, buffers);
+  CalcGlyphRegions<TMultilineText, TMultilineGlyphsBuffer>(text, fixedHeight, buffers);
 }
 
-void TextureManager::GetGlyphRegions(strings::UniString const & text, TGlyphsBuffer & regions)
+void TextureManager::GetGlyphRegions(strings::UniString const & text, int fixedHeight, TGlyphsBuffer & regions)
 {
-  CalcGlyphRegions<strings::UniString, TGlyphsBuffer>(text, regions);
+  CalcGlyphRegions<strings::UniString, TGlyphsBuffer>(text, fixedHeight, regions);
 }
 
-uint32_t TextureManager::GetAbsentGlyphsCount(ref_ptr<Texture> texture, strings::UniString const & text)
+uint32_t TextureManager::GetAbsentGlyphsCount(ref_ptr<Texture> texture, strings::UniString const & text, int fixedHeight)
 {
   if (texture == nullptr)
     return 0;
 
   ASSERT(dynamic_cast<FontTexture *>(texture.get()) != nullptr, ());
-  return static_cast<FontTexture *>(texture.get())->GetAbsentGlyphsCount(text);
+  return static_cast<FontTexture *>(texture.get())->GetAbsentGlyphsCount(text, fixedHeight);
 }
 
-uint32_t TextureManager::GetAbsentGlyphsCount(ref_ptr<Texture> texture, TMultilineText const & text)
+uint32_t TextureManager::GetAbsentGlyphsCount(ref_ptr<Texture> texture, TMultilineText const & text, int fixedHeight)
 {
   if (texture == nullptr)
     return 0;
 
   uint32_t count = 0;
   for (size_t i = 0; i < text.size(); ++i)
-    count += GetAbsentGlyphsCount(texture, text[i]);
+    count += GetAbsentGlyphsCount(texture, text[i], fixedHeight);
   return count;
 }
 
-bool TextureManager::AreGlyphsReady(strings::UniString const & str) const
+bool TextureManager::AreGlyphsReady(strings::UniString const & str, int fixedHeight) const
 {
-  return m_glyphManager->AreGlyphsReady(str);
+  return m_glyphManager->AreGlyphsReady(str, fixedHeight);
 }
 
 ref_ptr<Texture> TextureManager::GetSymbolsTexture() const

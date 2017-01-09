@@ -97,9 +97,9 @@ UNIT_TEST(UploadingGlyphs)
   GlyphManager mng(args);
   DummyGlyphIndex index(m2::PointU(128, 128), make_ref(&mng));
   size_t count = 1; // invalid symbol glyph has mapped internally.
-  count += (index.MapResource(GlyphKey(0x58)) != nullptr) ? 1 : 0;
-  count += (index.MapResource(GlyphKey(0x59)) != nullptr) ? 1 : 0;
-  count += (index.MapResource(GlyphKey(0x61)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x58, GlyphManager::kDynamicGlyphSize)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x59, GlyphManager::kDynamicGlyphSize)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x61, GlyphManager::kDynamicGlyphSize)) != nullptr) ? 1 : 0;
   while (index.GetPendingNodesCount() < count);
 
   Texture::Params p;
@@ -113,12 +113,12 @@ UNIT_TEST(UploadingGlyphs)
   index.UploadResources(make_ref(&tex));
 
   count = 0;
-  count += (index.MapResource(GlyphKey(0x68)) != nullptr) ? 1 : 0;
-  count += (index.MapResource(GlyphKey(0x30)) != nullptr) ? 1 : 0;
-  count += (index.MapResource(GlyphKey(0x62)) != nullptr) ? 1 : 0;
-  count += (index.MapResource(GlyphKey(0x65)) != nullptr) ? 1 : 0;
-  count += (index.MapResource(GlyphKey(0x400)) != nullptr) ? 1 : 0;
-  count += (index.MapResource(GlyphKey(0x401)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x68, GlyphManager::kDynamicGlyphSize)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x30, GlyphManager::kDynamicGlyphSize)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x62, GlyphManager::kDynamicGlyphSize)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x65, GlyphManager::kDynamicGlyphSize)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x400, GlyphManager::kDynamicGlyphSize)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x401, GlyphManager::kDynamicGlyphSize)) != nullptr) ? 1 : 0;
   while (index.GetPendingNodesCount() < count);
 
   EXPECTGL(glTexSubImage2D(_, _, _, _, _, _, _)).WillRepeatedly(Invoke(&r, &UploadedRender::glMemoryToQImage));

@@ -457,7 +457,7 @@ void TestingEngine::DrawImpl()
   ptvp.m_minVisibleScale = 1;
   ptvp.m_rank = 0;
   ptvp.m_text = "Some text";
-  ptvp.m_textFont = dp::FontDecl(dp::Color::Black(), 40, dp::Color::Red());
+  ptvp.m_textFont = dp::FontDecl(dp::Color::Black(), 40, true, dp::Color::Red());
 
   PathTextShape(spline, ptvp).Draw(make_ref(m_batcher), make_ref(m_textures));
   LineViewParams lvp;

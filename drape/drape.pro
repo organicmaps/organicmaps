@@ -43,6 +43,8 @@ OTHER_FILES += \
     shaders/shader_index.txt \
     shaders/solid_color_fragment_shader.fsh \
     shaders/text_billboard_vertex_shader.vsh \
+    shaders/text_fixed_fragment_shader.fsh \
+    shaders/text_fixed_vertex_shader.vsh \
     shaders/text_fragment_shader.fsh \
     shaders/text_outlined_billboard_vertex_shader.vsh \
     shaders/text_outlined_gui_vertex_shader.vsh \

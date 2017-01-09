@@ -341,12 +341,14 @@ void CalculateOffsets(dp::Anchor anchor,
 
 } // namespace
 
-void TextLayout::Init(strings::UniString const & text, float fontSize,
+void TextLayout::Init(strings::UniString const & text, float fontSize, bool isSdf,
                       ref_ptr<dp::TextureManager> textures)
 {
   m_text = text;
-  m_textSizeRatio = fontSize * VisualParams::Instance().GetFontScale() / VisualParams::Instance().GetGlyphBaseSize();
-  textures->GetGlyphRegions(text, m_metrics);
+  m_textSizeRatio = isSdf ? (fontSize / VisualParams::Instance().GetGlyphBaseSize()) : 1.0;
+  m_textSizeRatio *= VisualParams::Instance().GetFontScale();
+  m_fixedHeight = isSdf ? dp::GlyphManager::kDynamicGlyphSize : fontSize;
+  textures->GetGlyphRegions(text, m_fixedHeight, m_metrics);
 }
 
 ref_ptr<dp::Texture> TextLayout::GetMaskTexture() const
@@ -378,7 +380,7 @@ float TextLayout::GetPixelLength() const
 
 float TextLayout::GetPixelHeight() const
 {
-  return m_textSizeRatio * VisualParams::Instance().GetGlyphBaseSize();
+  return m_fixedHeight > 0 ? m_fixedHeight : m_textSizeRatio * VisualParams::Instance().GetGlyphBaseSize();
 }
 
 strings::UniString const & TextLayout::GetText() const
@@ -386,7 +388,7 @@ strings::UniString const & TextLayout::GetText() const
   return m_text;
 }
 
-StraightTextLayout::StraightTextLayout(strings::UniString const & text, float fontSize,
+StraightTextLayout::StraightTextLayout(strings::UniString const & text, float fontSize, bool isSdf,
                                        ref_ptr<dp::TextureManager> textures, dp::Anchor anchor)
 {
   strings::UniString visibleText = fribidi::log2vis(text);
@@ -396,7 +398,7 @@ StraightTextLayout::StraightTextLayout(strings::UniString const & text, float fo
   else
     delimIndexes.push_back(visibleText.size());
 
-  TBase::Init(visibleText, fontSize, textures);
+  TBase::Init(visibleText, fontSize, isSdf, textures);
   CalculateOffsets(anchor, m_textSizeRatio, m_metrics, delimIndexes, m_offsets, m_pixelSize);
 }
 
@@ -438,10 +440,10 @@ void StraightTextLayout::Cache(glm::vec4 const & pivot, glm::vec2 const & pixelO
 }
 
 PathTextLayout::PathTextLayout(m2::PointD const & tileCenter, strings::UniString const & text,
-                               float fontSize, ref_ptr<dp::TextureManager> textures)
+                               float fontSize, bool isSdf, ref_ptr<dp::TextureManager> textures)
   : m_tileCenter(tileCenter)
 {
-  Init(fribidi::log2vis(text), fontSize, textures);
+  Init(fribidi::log2vis(text), fontSize, isSdf, textures);
 }
 
 void PathTextLayout::CacheStaticGeometry(dp::TextureManager::ColorRegion const & colorRegion,

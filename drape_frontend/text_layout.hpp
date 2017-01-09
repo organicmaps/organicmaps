@@ -38,12 +38,12 @@ public:
   float GetPixelLength() const;
   float GetPixelHeight() const;
 
+  int GetFixedHeight() const { return m_fixedHeight; }
+
   strings::UniString const & GetText() const;
 
 protected:
-  void Init(strings::UniString const & text,
-            float fontSize,
-            ref_ptr<dp::TextureManager> textures);
+  void Init(strings::UniString const & text, float fontSize, bool isSdf, ref_ptr<dp::TextureManager> textures);
 
 protected:
   typedef dp::TextureManager::GlyphRegion GlyphRegion;
@@ -51,6 +51,7 @@ protected:
   dp::TextureManager::TGlyphsBuffer m_metrics;
   strings::UniString m_text;
   float m_textSizeRatio = 0.0f;
+  int m_fixedHeight = dp::GlyphManager::kDynamicGlyphSize;
 };
 
 class StraightTextLayout : public TextLayout
@@ -58,7 +59,7 @@ class StraightTextLayout : public TextLayout
   using TBase = TextLayout;
 public:
   StraightTextLayout(strings::UniString const & text,
-                     float fontSize,
+                     float fontSize, bool isSdf,
                      ref_ptr<dp::TextureManager> textures,
                      dp::Anchor anchor);
 
@@ -85,7 +86,7 @@ class PathTextLayout : public TextLayout
   using TBase = TextLayout;
 public:
   PathTextLayout(m2::PointD const & tileCenter, strings::UniString const & text,
-                 float fontSize, ref_ptr<dp::TextureManager> textures);
+                 float fontSize, bool isSdf, ref_ptr<dp::TextureManager> textures);
 
   void CacheStaticGeometry(dp::TextureManager::ColorRegion const & colorRegion,
                            dp::TextureManager::ColorRegion const & outlineRegion,

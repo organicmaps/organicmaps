@@ -157,7 +157,7 @@ GlyphIndex::GlyphIndex(m2::PointU size, ref_ptr<GlyphManager> mng)
   , m_generator(new GlyphGenerator(mng, bind(&GlyphIndex::OnGlyphGenerationCompletion, this, _1, _2)))
 {
   // Cache invalid glyph.
-  GlyphKey const key = GlyphKey(m_mng->GetInvalidGlyph().m_code);
+  GlyphKey const key = GlyphKey(m_mng->GetInvalidGlyph(GlyphManager::kDynamicGlyphSize).m_code, GlyphManager::kDynamicGlyphSize);
   bool newResource = false;
   MapResource(key, newResource);
 }
@@ -178,21 +178,21 @@ GlyphIndex::~GlyphIndex()
 ref_ptr<Texture::ResourceInfo> GlyphIndex::MapResource(GlyphKey const & key, bool & newResource)
 {
   newResource = false;
-  strings::UniChar uniChar = key.GetUnicodePoint();
-  auto it = m_index.find(uniChar);
+  auto it = m_index.find(key);
   if (it != m_index.end())
     return make_ref(&it->second);
 
   newResource = true;
 
-  GlyphManager::Glyph glyph = m_mng->GetGlyph(uniChar);
+  GlyphManager::Glyph glyph = m_mng->GetGlyph(key.GetUnicodePoint(), key.GetFixedSize());
   m2::RectU r;
   if (!m_packer.PackGlyph(glyph.m_image.m_width, glyph.m_image.m_height, r))
   {
     glyph.m_image.Destroy();
-    LOG(LWARNING, ("Glyphs packer could not pack a glyph", uniChar));
+    LOG(LWARNING, ("Glyphs packer could not pack a glyph", key.GetUnicodePoint()));
 
-    auto invalidGlyph = m_index.find(m_mng->GetInvalidGlyph().m_code);
+    auto invalidGlyph = m_index.find(GlyphKey(m_mng->GetInvalidGlyph(key.GetFixedSize()).m_code,
+                                              key.GetFixedSize()));
     if (invalidGlyph != m_index.end())
       return make_ref(&invalidGlyph->second);
 
@@ -201,7 +201,7 @@ ref_ptr<Texture::ResourceInfo> GlyphIndex::MapResource(GlyphKey const & key, boo
 
   m_generator->GenerateGlyph(r, glyph);
 
-  auto res = m_index.emplace(uniChar, GlyphInfo(m_packer.MapTextureCoords(r), glyph.m_metrics));
+  auto res = m_index.emplace(key, GlyphInfo(m_packer.MapTextureCoords(r), glyph.m_metrics));
   ASSERT(res.second, ());
   return make_ref(&res.first->second);
 }
@@ -280,12 +280,12 @@ void GlyphIndex::UploadResources(ref_ptr<Texture> texture)
   }
 }
 
-uint32_t GlyphIndex::GetAbsentGlyphsCount(strings::UniString const & text) const
+uint32_t GlyphIndex::GetAbsentGlyphsCount(strings::UniString const & text, int fixedHeight) const
 {
   uint32_t count = 0;
   for (strings::UniChar const & c : text)
   {
-    if (m_index.find(c) == m_index.end())
+    if (m_index.find(GlyphKey(c, fixedHeight)) == m_index.end())
       count++;
   }
   return count;
