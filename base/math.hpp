@@ -102,8 +102,8 @@ template <typename T> inline T sq(T const & x)
   return x * x;
 }
 
-template <typename T, typename TMin, typename TMax>
-inline T clamp(T x, TMin xmin, TMax xmax)
+template <typename T>
+inline T clamp(T const x, T const xmin, T const xmax)
 {
   if (x > xmax)
     return xmax;
@@ -113,7 +113,7 @@ inline T clamp(T x, TMin xmin, TMax xmax)
 }
 
 template <typename T>
-inline T cyclicClamp(T x, T xmin, T xmax)
+inline T cyclicClamp(T const x, T const xmin, T const xmax)
 {
   if (x > xmax)
     return xmin;
@@ -122,11 +122,11 @@ inline T cyclicClamp(T x, T xmin, T xmax)
   return x;
 }
 
-template <typename T> inline bool between_s(T a, T b, T x)
+template <typename T> inline bool between_s(T const a, T const b, T const x)
 {
   return (a <= x && x <= b);
 }
-template <typename T> inline bool between_i(T a, T b, T x)
+template <typename T> inline bool between_i(T const a, T const b, T const x)
 {
   return (a < x && x < b);
 }

@@ -372,6 +372,7 @@ private:
 
     bool const success = coding::GammaCoder::Encode(writer, static_cast<uint64_t>(value));
     ASSERT(success, ());
+    UNUSED_VALUE(success);
   }
 
   template <class Source>
@@ -391,6 +392,7 @@ private:
 
     bool const success = coding::DeltaCoder::Encode(writer, static_cast<uint64_t>(value));
     ASSERT(success, ());
+    UNUSED_VALUE(success);
   }
 
   template <class Source>

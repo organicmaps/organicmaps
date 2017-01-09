@@ -2304,10 +2304,11 @@ string Framework::CodeGe0url(Bookmark const * bmk, bool addName)
 
 string Framework::CodeGe0url(double lat, double lon, double zoomLevel, string const & name)
 {
-  size_t const resultSize = MapsWithMe_GetMaxBufferSize(name.size());
+  size_t const resultSize = MapsWithMe_GetMaxBufferSize(static_cast<int>(name.size()));
 
   string res(resultSize, 0);
-  int const len = MapsWithMe_GenShortShowMapUrl(lat, lon, zoomLevel, name.c_str(), &res[0], res.size());
+  int const len = MapsWithMe_GenShortShowMapUrl(lat, lon, zoomLevel, name.c_str(), &res[0],
+                                                static_cast<int>(res.size()));
 
   ASSERT_LESS_OR_EQUAL(len, res.size(), ());
   res.resize(len);

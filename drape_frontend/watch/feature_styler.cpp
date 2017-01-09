@@ -34,9 +34,9 @@ namespace df
 {
 namespace watch
 {
-
 DrawRule::DrawRule(drule::BaseRule const * p, double depth)
-  : m_rule(p), m_depth(my::clamp(depth, minDepth, maxDepth))
+  : m_rule(p)
+  , m_depth(my::clamp(depth, static_cast<double>(minDepth), static_cast<double>(maxDepth)))
 {
 }
 

@@ -12,6 +12,7 @@
 #include "base/string_utils.hpp"
 
 #include "std/bind.hpp"
+#include "std/cstdint.hpp"
 #include "std/function.hpp"
 #include "std/initializer_list.hpp"
 #include "std/set.hpp"
@@ -686,7 +687,7 @@ namespace ftype
           {
             params.layer = atoi(v.c_str());
             int8_t const bound = 10;
-            params.layer = my::clamp(params.layer, -bound, bound);
+            params.layer = my::clamp(params.layer, static_cast<int8_t>(-bound), bound);
           }
         }
       },

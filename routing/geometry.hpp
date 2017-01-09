@@ -26,18 +26,15 @@ public:
   void Load(IVehicleModel const & vehicleModel, FeatureType const & feature);
 
   bool IsOneWay() const { return m_isOneWay; }
-
   // Kilometers per hour.
   double GetSpeed() const { return m_speed; }
-
   m2::PointD const & GetPoint(uint32_t pointId) const
   {
     ASSERT_LESS(pointId, m_points.size(), ());
     return m_points[pointId];
   }
 
-  uint32_t GetPointsCount() const { return m_points.size(); }
-
+  uint32_t GetPointsCount() const { return static_cast<uint32_t>(m_points.size()); }
 private:
   Points m_points;
   double m_speed = 0.0;

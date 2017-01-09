@@ -290,7 +290,7 @@ namespace m2
   Point<T> PointAtSegment(Point<T> const & p1, Point<T> const & p2, T shiftFromP1)
   {
     Point<T> p12 = p2 - p1;
-    shiftFromP1 = my::clamp(shiftFromP1, 0.0, p12.Length());
+    shiftFromP1 = my::clamp(shiftFromP1, static_cast<T>(0.0), static_cast<T>(p12.Length()));
     return p1 + p12.Normalize() * shiftFromP1;
   }
 

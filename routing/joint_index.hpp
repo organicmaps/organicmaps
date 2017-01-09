@@ -21,10 +21,10 @@ public:
   uint32_t GetNumJoints() const
   {
     CHECK_GREATER(m_offsets.size(), 0, ());
-    return m_offsets.size() - 1;
+    return static_cast<uint32_t>(m_offsets.size() - 1);
   }
 
-  uint32_t GetNumPoints() const { return m_points.size(); }
+  uint32_t GetNumPoints() const { return static_cast<uint32_t>(m_points.size()); }
   RoadPoint GetPoint(Joint::Id jointId) const { return m_points[Begin(jointId)]; }
 
   template <typename F>
