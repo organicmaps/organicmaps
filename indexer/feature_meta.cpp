@@ -102,6 +102,21 @@ bool Metadata::TypeFromString(string const & k, Metadata::EType & outType)
   return true;
 }
 
+// static
+bool Metadata::IsSponsoredType(Metadata::EType const & type)
+{
+  switch (type)
+  {
+  case Metadata::FMD_SPONSORED_ID:
+  case Metadata::FMD_PRICE_RATE:
+  case Metadata::FMD_RATING:
+  case Metadata::FMD_BANNER_URL:
+    return true;
+  default:
+    return false;
+  }
+}
+
 void RegionData::SetLanguages(vector<string> const & codes)
 {
   string value;

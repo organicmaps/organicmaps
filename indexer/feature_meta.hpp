@@ -131,7 +131,8 @@ public:
   };
 
   /// Used to normalize tags like "contact:phone" and "phone" to a common metadata enum value.
-  static bool TypeFromString(string const & osmTagKey, feature::Metadata::EType & outType);
+  static bool TypeFromString(string const & osmTagKey, EType & outType);
+  static bool IsSponsoredType(EType const & type);
 
   void Set(EType type, string const & value) { MetadataBase::Set(type, value); }
   void Drop(EType type) { Set(type, string()); }

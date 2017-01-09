@@ -20,6 +20,11 @@ bool Info::IsFeature() const { return m_featureID.IsValid(); }
 bool Info::IsBookmark() const { return m_bac.IsValid(); }
 bool Info::IsMyPosition() const { return m_isMyPosition; }
 bool Info::IsSponsored() const { return m_sponsoredType != SponsoredType::None; }
+bool Info::IsNotEditableSponsored() const
+{
+  return m_sponsoredType != SponsoredType::None && m_sponsoredType != SponsoredType::Opentable;
+}
+
 bool Info::ShouldShowAddPlace() const
 {
   auto const isPointOrBuilding = IsPointType() || IsBuilding();
@@ -127,16 +132,16 @@ string Info::FormatStars() const
 string Info::GetFormattedCoordinate(bool isDMS) const
 {
   auto const & ll = GetLatLon();
-  return isDMS ? measurement_utils::FormatLatLon(ll.lat, ll.lon) : measurement_utils::FormatLatLonAsDMS(ll.lat, ll.lon, 2);
+  return isDMS ? measurement_utils::FormatLatLon(ll.lat, ll.lon)
+               : measurement_utils::FormatLatLonAsDMS(ll.lat, ll.lon, 2);
 }
 
 string Info::GetCustomName() const { return m_customName; }
 BookmarkAndCategory Info::GetBookmarkAndCategory() const { return m_bac; }
 string Info::GetBookmarkCategoryName() const { return m_bookmarkCategoryName; }
 string const & Info::GetApiUrl() const { return m_apiUrl; }
-
 string const & Info::GetSponsoredUrl() const { return m_sponsoredUrl; }
-string const & Info::GetSponsoredDescriptionUrl() const {return m_sponsoredDescriptionUrl; }
+string const & Info::GetSponsoredDescriptionUrl() const { return m_sponsoredDescriptionUrl; }
 
 string Info::GetRatingFormatted() const
 {

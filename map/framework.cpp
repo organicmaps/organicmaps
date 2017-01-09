@@ -859,7 +859,7 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
     info.m_banner = m_bannerSet.GetBannerForFeature(ft);
 
   info.m_canEditOrAdd = featureStatus != osm::Editor::FeatureStatus::Obsolete && CanEditMap() &&
-                        !info.IsSponsored();
+                        !info.IsNotEditableSponsored();
 
   info.m_localizedWifiString = m_stringsBundle.GetString("wifi");
   info.m_localizedRatingString = m_stringsBundle.GetString("place_page_booking_rating");

@@ -172,6 +172,8 @@ editor::XMLFeature FeatureType::ToXML(bool serializeType) const
 
   for (auto const type : m_metadata.GetPresentTypes())
   {
+    if (m_metadata.IsSponsoredType(static_cast<Metadata::EType>(type)))
+      continue;
     auto const attributeName = DebugPrint(static_cast<Metadata::EType>(type));
     feature.SetTagValue(attributeName, m_metadata.Get(type));
   }
