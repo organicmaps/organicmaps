@@ -452,8 +452,8 @@ private:
   void CancelFilter(Touch const & t);
 
   void ApplyAnimations();
-  void ResetAnimations(Animation::Type animType, bool finishAll = false);
-  void ResetAnimations(Animation::Type animType, string const & customType, bool finishAll = false);
+  void ResetAnimations(Animation::Type animType, bool rewind = true, bool finishAll = false);
+  void ResetAnimations(Animation::Type animType, string const & customType, bool rewind = true, bool finishAll = false);
   void ResetMapPlaneAnimations();
   bool InterruptFollowAnimations(bool force);
 
