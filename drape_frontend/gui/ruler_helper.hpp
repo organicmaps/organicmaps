@@ -2,8 +2,6 @@
 
 #include "drape_frontend/animation/show_hide_animation.hpp"
 
-#include "base/timer.hpp"
-
 #include "std/string.hpp"
 
 class ScreenBase;
@@ -40,8 +38,6 @@ private:
   bool m_isTextDirty;
   mutable bool m_dirtyTextRequested;
   int m_currentDrawScale = 0;
-  my::Timer m_hideTimer;
-  double m_lastScale = 0.0;
 };
 
 }
