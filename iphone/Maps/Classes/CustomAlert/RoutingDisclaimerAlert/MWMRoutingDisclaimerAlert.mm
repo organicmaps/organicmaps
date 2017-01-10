@@ -57,7 +57,7 @@ static NSString * const kStatisticsEvent = @"Routing Disclaimer Alert";
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
-  UIView * superview = self.superview ? self.superview : UIApplication.sharedApplication.keyWindow;
+  UIView * superview = self.superview ?: UIApplication.sharedApplication.keyWindow;
   CGFloat const height = UIInterfaceOrientationIsLandscape(orientation)
                              ? MIN(superview.width, superview.height)
                              : MAX(superview.width, superview.height);

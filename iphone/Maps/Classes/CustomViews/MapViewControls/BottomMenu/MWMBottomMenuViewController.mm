@@ -191,7 +191,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
                                                              attributes:routingLegendAttributes]];
   self.distanceWithLegendLabel.attributedText = distance;
 
-  NSString * currentSpeed = info.speed ? info.speed : @"0";
+  NSString * currentSpeed = info.speed ?: @"0";
   self.speedLabel.text = currentSpeed;
   self.speedLegendLabel.text = info.speedUnits;
   NSMutableAttributedString * speed =

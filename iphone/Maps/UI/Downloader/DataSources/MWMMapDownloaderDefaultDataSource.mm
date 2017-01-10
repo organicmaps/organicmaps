@@ -91,7 +91,7 @@ using namespace mwm;
     [indexSet addObject:index];
 
     NSMutableArray<NSString *> * letterIds = availableCountries[index];
-    letterIds = letterIds ? letterIds : [@[] mutableCopy];
+    letterIds = letterIds ?: [@[] mutableCopy];
     [letterIds addObject:nsCountryId];
     availableCountries[index] = letterIds;
   }

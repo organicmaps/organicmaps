@@ -190,7 +190,7 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
 {
   [self beginSearch];
   self.searchTextField.text = text;
-  NSString * inputLocale = locale ? locale : self.searchTextField.textInputMode.primaryLanguage;
+  NSString * inputLocale = locale ?: self.searchTextField.textInputMode.primaryLanguage;
   [MWMSearch searchQuery:text forInputLocale:inputLocale];
 }
 

@@ -191,7 +191,7 @@ NSAttributedString * richStringFromDay(osmoh::Day const & day, BOOL isClosedNow)
   {
     _MWMOHSubCell * cell = [tableView dequeueReusableCellWithIdentifier:[_MWMOHSubCell className]];
     cell.days.text = day.m_workingDays;
-    cell.schedule.text = day.m_workingTimes ? day.m_workingTimes : L(@"closed");
+    cell.schedule.text = day.m_workingTimes ?: L(@"closed");
     cell.breaks.text = day.m_breaks;
     return cell;
   }
