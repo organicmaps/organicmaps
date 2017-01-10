@@ -52,7 +52,7 @@
     label.textColor = [UIColor blackPrimaryText];
     [m_hint addSubview:label];
   }
-  UILabel * label = [m_hint.subviews objectAtIndex:0];
+  UILabel * label = m_hint.subviews.firstObject;
   label.bounds = CGRectInset(rect, offset, offset);
   [label sizeToIntegralFit];
   m_hint.bounds = CGRectMake(0, 0, rect.size.width, label.bounds.size.height + 2 * offset);
@@ -238,7 +238,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:BOOKMARK_CATEGORY_DELETED_NOTIFICATION object:@(indexPath.row)];
     Framework & f = GetFramework();
     f.DeleteBmCategory(indexPath.row);
-    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     // Disable edit mode if no categories are left
     if (!f.GetBmCategoriesCount())
     {

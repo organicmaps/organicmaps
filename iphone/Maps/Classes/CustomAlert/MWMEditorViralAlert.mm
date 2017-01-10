@@ -36,8 +36,9 @@ namespace
   }
   alert.message.text = message;
   NSMutableDictionary <NSString *, NSString *> * info = [@{kStatValue : alert.statMessage} mutableCopy];
-  if (NSString * un = osm_auth_ios::OSMUserName())
-    [info setObject:un forKey:kStatOSMUserName];
+  NSString * un = osm_auth_ios::OSMUserName();
+  if (un)
+    info[kStatOSMUserName] = un;
 
   [Statistics logEvent:kStatEditorSecondTimeShareShow withParameters:info];
   return alert;
