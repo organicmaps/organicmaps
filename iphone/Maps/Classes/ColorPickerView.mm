@@ -59,7 +59,7 @@ static Tcolor const g_color [] =
     for (size_t i = 0; i < 8; ++i)
     {
       UIButton * button = [[UIButton alloc] initWithFrame:CGRectMake(BORDERMARGIN + (i % 4) * (buttonDiameter + BUTTONMARGIN), BORDERMARGIN + (i / 4) * (buttonDiameter + BUTTONMARGINHEIGHT) + HEADERHEIGHT + LINEHEIGHT, buttonDiameter, buttonDiameter)];
-      UIColor * c = [ColorPickerView buttonColor:i];
+      UIColor * c = [[self class] buttonColor:i];
       if (i != selectedIndex)
         [button setBackgroundImage:[CircleView createCircleImageWith:buttonDiameter andColor:c] forState:UIControlStateNormal];
       else

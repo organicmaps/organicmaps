@@ -14,7 +14,7 @@
 
 + (instancetype)header:(TMWMVoidBlock)toggleBlock
 {
-  MWMEditorAdditionalNamesHeader * h = [[[NSBundle mainBundle] loadNibNamed:[MWMEditorAdditionalNamesHeader className] owner:nil options:nil]
+  MWMEditorAdditionalNamesHeader * h = [[[NSBundle mainBundle] loadNibNamed:[self className] owner:nil options:nil]
           firstObject];
   h.label.localizedText = L(@"place_name").uppercaseString;
   h.toggleBlock = toggleBlock;

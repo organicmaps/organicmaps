@@ -202,7 +202,7 @@ void setPermissionRequested()
 + (void)addObserver:(TObserver)observer
 {
   runAsyncOnMainQueue(^{
-    MWMLocationManager * manager = [MWMLocationManager manager];
+    MWMLocationManager * manager = [self manager];
     [manager.observers addObject:observer];
     [manager processLocationUpdate:manager.lastLocationInfo];
   });
@@ -211,7 +211,7 @@ void setPermissionRequested()
 + (void)removeObserver:(TObserver)observer
 {
   runAsyncOnMainQueue(^{
-    [[MWMLocationManager manager].observers removeObject:observer];
+    [[self manager].observers removeObject:observer];
   });
 }
 
@@ -220,13 +220,13 @@ void setPermissionRequested()
 + (void)applicationDidBecomeActive
 {
   if (isPermissionRequested() || ![Alohalytics isFirstSession])
-    [MWMLocationManager manager].started = YES;
+    [self manager].started = YES;
 }
 
 + (void)applicationWillResignActive
 {
   BOOL const keepRunning = isPermissionRequested() && keepRunningInBackground();
-  MWMLocationManager * manager = [MWMLocationManager manager];
+  MWMLocationManager * manager = [self manager];
   CLLocationManager * locationManager = manager.locationManager;
   if ([locationManager respondsToSelector:@selector(setAllowsBackgroundLocationUpdates:)])
     [locationManager setAllowsBackgroundLocationUpdates:keepRunning];
@@ -237,7 +237,7 @@ void setPermissionRequested()
 
 + (CLLocation *)lastLocation
 {
-  MWMLocationManager * manager = [MWMLocationManager manager];
+  MWMLocationManager * manager = [self manager];
   if (!manager.started || !manager.lastLocationInfo ||
       manager.lastLocationInfo.horizontalAccuracy < 0 ||
       manager.lastLocationStatus != location::TLocationError::ENoError)
@@ -247,12 +247,12 @@ void setPermissionRequested()
 
 + (location::TLocationError)lastLocationStatus
 {
-  return [MWMLocationManager manager].lastLocationStatus;
+  return [self manager].lastLocationStatus;
 }
 
 + (CLHeading *)lastHeading
 {
-  MWMLocationManager * manager = [MWMLocationManager manager];
+  MWMLocationManager * manager = [self manager];
   if (!manager.started || !manager.lastHeadingInfo || manager.lastHeadingInfo.headingAccuracy < 0)
     return nil;
   return manager.lastHeadingInfo;
@@ -337,7 +337,7 @@ void setPermissionRequested()
 
 + (void)setMyPositionMode:(location::EMyPositionMode)mode
 {
-  MWMLocationManager * manager = [MWMLocationManager manager];
+  MWMLocationManager * manager = [self manager];
   [manager.predictor setMyPositionMode:mode];
   [manager processLocationStatus:manager.lastLocationStatus];
   auto const & f = GetFramework();

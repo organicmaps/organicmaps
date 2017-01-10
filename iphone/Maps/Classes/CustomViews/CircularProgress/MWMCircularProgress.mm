@@ -24,7 +24,7 @@ UINib * const progressViewNib =
 
 + (nonnull instancetype)downloaderProgressForParentView:(nonnull UIView *)parentView
 {
-  MWMCircularProgress * progress = [[MWMCircularProgress alloc] initWithParentView:parentView];
+  MWMCircularProgress * progress = [[self alloc] initWithParentView:parentView];
 
   progress.rootView.suspendRefreshProgress = YES;
 

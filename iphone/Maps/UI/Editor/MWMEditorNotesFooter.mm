@@ -10,7 +10,7 @@
 
 + (instancetype)footerForController:(UIViewController *)controller
 {
-  MWMEditorNotesFooter * f = [[[NSBundle mainBundle] loadNibNamed:[MWMEditorNotesFooter className] owner:nil options:nil]
+  MWMEditorNotesFooter * f = [[[NSBundle mainBundle] loadNibNamed:[self className] owner:nil options:nil]
                                 firstObject];
   f.controller = controller;
   [f setNeedsLayout];

@@ -15,7 +15,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
 
 @implementation MWMKeyboard
 
-+ (void)applicationDidBecomeActive { [MWMKeyboard manager]; }
++ (void)applicationDidBecomeActive { [self manager]; }
 + (MWMKeyboard *)manager
 {
   static MWMKeyboard * manager;
@@ -47,17 +47,17 @@ using TObservers = NSHashTable<__kindof TObserver>;
 }
 
 - (void)dealloc { [[NSNotificationCenter defaultCenter] removeObserver:self]; }
-+ (CGFloat)keyboardHeight { return [MWMKeyboard manager].keyboardHeight; }
++ (CGFloat)keyboardHeight { return [self manager].keyboardHeight; }
 #pragma mark - Add/Remove Observers
 
 + (void)addObserver:(id<MWMKeyboardObserver>)observer
 {
-  [[MWMKeyboard manager].observers addObject:observer];
+  [[self manager].observers addObject:observer];
 }
 
 + (void)removeObserver:(id<MWMKeyboardObserver>)observer
 {
-  [[MWMKeyboard manager].observers removeObject:observer];
+  [[self manager].observers removeObject:observer];
 }
 
 #pragma mark - Notifications

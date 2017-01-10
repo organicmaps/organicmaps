@@ -246,9 +246,9 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
     if (cat)
     {
       [Statistics logEvent:kStatEventName(kStatBookmarks, kStatExport)];
-      NSMutableString * catName = @(cat->GetName().c_str());
+      NSString * catName = @(cat->GetName().c_str());
       if (![catName length])
-        [catName setString:@"MapsMe"];
+        catName = @"MapsMe";
 
       NSString * filePath = @(cat->GetFileName().c_str());
       NSMutableString * kmzFile = [NSMutableString stringWithString:filePath];

@@ -75,7 +75,7 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
 
 + (MWMSearchHotelsFilterViewController *)controller
 {
-  NSString * identifier = [MWMSearchHotelsFilterViewController className];
+  NSString * identifier = [self className];
   return static_cast<MWMSearchHotelsFilterViewController *>(
       [self controllerWithIdentifier:identifier]);
 }

@@ -26,7 +26,7 @@ namespace
 
 + (nonnull instancetype)alert
 {
-  MWMEditorViralAlert * alert = [[[NSBundle mainBundle] loadNibNamed:[MWMEditorViralAlert className] owner:nil options:nil] firstObject];
+  MWMEditorViralAlert * alert = [[[NSBundle mainBundle] loadNibNamed:[self className] owner:nil options:nil] firstObject];
   alert.indexOfMessage = rand() % kMessages.size();
   NSString * message = kMessages[alert.indexOfMessage];
   if (alert.indexOfMessage == 1)

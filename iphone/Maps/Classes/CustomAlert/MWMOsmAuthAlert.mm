@@ -12,7 +12,7 @@ extern NSString * const kMap2GoogleLoginSegue;
 
 + (instancetype)alert
 {
-  MWMOsmAuthAlert * alert = [[[NSBundle mainBundle] loadNibNamed:[MWMOsmAuthAlert className] owner:nil options:nil] firstObject];
+  MWMOsmAuthAlert * alert = [[[NSBundle mainBundle] loadNibNamed:[self className] owner:nil options:nil] firstObject];
   return alert;
 }
 
