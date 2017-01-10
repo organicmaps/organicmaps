@@ -18,7 +18,6 @@
 #import "MWMToast.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
-#import "UIColor+MapsMeColor.h"
 #import "UIViewController+Navigation.h"
 
 #include "Framework.h"

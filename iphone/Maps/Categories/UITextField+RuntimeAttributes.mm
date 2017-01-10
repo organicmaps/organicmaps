@@ -1,6 +1,4 @@
 #import "MWMInputValidatorFactory.h"
-#import "UIColor+MapsMeColor.h"
-#import "UIFont+MapsMeFonts.h"
 #import "UITextField+RuntimeAttributes.h"
 #import <objc/runtime.h>
 

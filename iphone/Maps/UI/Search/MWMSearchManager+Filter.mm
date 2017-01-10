@@ -2,8 +2,6 @@
 #import "MWMSearchFilterTransitioningManager.h"
 #import "MWMSearchFilterViewController.h"
 #import "MWMSearchManager+Filter.h"
-#import "UIColor+MapsMeColor.h"
-#import "UIFont+MapsMeFonts.h"
 
 @interface MWMSearchManager ()<UIPopoverPresentationControllerDelegate>
 

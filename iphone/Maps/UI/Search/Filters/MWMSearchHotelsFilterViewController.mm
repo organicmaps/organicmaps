@@ -1,7 +1,5 @@
 #import "MWMSearchHotelsFilterViewController.h"
 #import "MWMSearchFilterViewController_Protected.h"
-#import "UIColor+MapsMeColor.h"
-#import "UIFont+MapsMeFonts.h"
 
 namespace
 {

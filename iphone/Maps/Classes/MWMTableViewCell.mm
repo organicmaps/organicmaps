@@ -1,5 +1,4 @@
 #import "MWMTableViewCell.h"
-#import "UIColor+MapsMeColor.h"
 
 @implementation MWMTableViewCell
 

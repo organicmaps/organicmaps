@@ -7,7 +7,6 @@
 #import "MWMToast.h"
 #import "MWMTrafficManager.h"
 #import "MapViewController.h"
-#import "UIColor+MapsMeColor.h"
 
 namespace
 {

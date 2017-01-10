@@ -1,6 +1,5 @@
 #import "MWMEditorCommon.h"
 #import "MWMEditorTextTableViewCell.h"
-#import "UIColor+MapsMeColor.h"
 #import "UIImageView+Coloring.h"
 #import "UITextField+RuntimeAttributes.h"
 

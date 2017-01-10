@@ -1,6 +1,4 @@
 #import "UILabel+RuntimeAttributes.h"
-#import "UIFont+MapsMeFonts.h"
-#import "UIColor+MapsMeColor.h"
 
 // Runtime attributes for setting localized text in Xib.
 

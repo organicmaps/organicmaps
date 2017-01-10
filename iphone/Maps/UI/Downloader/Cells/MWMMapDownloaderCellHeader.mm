@@ -1,6 +1,4 @@
 #import "MWMMapDownloaderCellHeader.h"
-#import "UIColor+MapsMeColor.h"
-#import "UIFont+MapsMeFonts.h"
 
 @implementation MWMMapDownloaderCellHeader
 

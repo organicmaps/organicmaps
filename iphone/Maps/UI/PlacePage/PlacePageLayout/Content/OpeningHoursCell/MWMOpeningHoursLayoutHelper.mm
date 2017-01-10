@@ -3,8 +3,6 @@
 #import "MWMOpeningHours.h"
 #import "MWMPlacePageData.h"
 #import "MWMTableViewCell.h"
-#import "UIColor+MapsMeColor.h"
-#import "UIFont+MapsMeFonts.h"
 
 #include "std/array.hpp"
 

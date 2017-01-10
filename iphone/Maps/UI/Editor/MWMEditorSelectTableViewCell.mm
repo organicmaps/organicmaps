@@ -1,6 +1,5 @@
 #import "MWMEditorSelectTableViewCell.h"
 #import "MWMCommon.h"
-#import "UIColor+MapsMeColor.h"
 #import "UIImageView+Coloring.h"
 
 @interface MWMEditorSelectTableViewCell ()

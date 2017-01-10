@@ -4,7 +4,6 @@
 #import "MWMMapDownloaderSearchDataSource.h"
 #import "MWMNoMapsViewController.h"
 #import "SwiftBridge.h"
-#import "UIColor+MapsMeColor.h"
 
 #include "Framework.h"
 

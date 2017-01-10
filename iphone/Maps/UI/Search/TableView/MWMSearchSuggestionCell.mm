@@ -1,6 +1,4 @@
 #import "MWMSearchSuggestionCell.h"
-#import "UIColor+MapsMeColor.h"
-#import "UIFont+MapsMeFonts.h"
 
 @interface MWMSearchSuggestionCell ()
 

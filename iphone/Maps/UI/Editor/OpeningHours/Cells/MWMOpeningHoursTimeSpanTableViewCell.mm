@@ -1,5 +1,4 @@
 #import "MWMOpeningHoursTimeSpanTableViewCell.h"
-#import "UIColor+MapsMeColor.h"
 
 @interface MWMOpeningHoursTimeSpanTableViewCell ()
 

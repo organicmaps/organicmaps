@@ -1,6 +1,5 @@
 #import "MWMCircularProgressView.h"
 #import "MWMCommon.h"
-#import "UIColor+MapsMeColor.h"
 #import "UIImageView+Coloring.h"
 
 #include "std/map.hpp"

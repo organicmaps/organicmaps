@@ -6,7 +6,6 @@
 #import "MWMTableViewCell.h"
 #import "MWMToast.h"
 #import "Statistics.h"
-#import "UIColor+MapsMeColor.h"
 #import "UIViewController+Navigation.h"
 
 #include "LocaleTranslator.h"

@@ -20,8 +20,6 @@
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
-#import "UIColor+MapsMeColor.h"
-#import "UIFont+MapsMeFonts.h"
 #import "UIImageView+Coloring.h"
 #import "UIViewController+Navigation.h"
 

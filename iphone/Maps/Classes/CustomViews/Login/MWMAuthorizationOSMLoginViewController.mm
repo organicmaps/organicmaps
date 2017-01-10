@@ -4,7 +4,6 @@
 #import "MWMCircularProgress.h"
 #import "MWMSettingsViewController.h"
 #import "Statistics.h"
-#import "UIColor+MapsMeColor.h"
 #import "UITextField+RuntimeAttributes.h"
 
 #include "base/logging.hpp"

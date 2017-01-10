@@ -2,7 +2,6 @@
 #import "BookmarksVC.h"
 #import "MWMCommon.h"
 #import "Statistics.h"
-#import "UIColor+MapsMeColor.h"
 #import "UIImageView+Coloring.h"
 
 #include "Framework.h"

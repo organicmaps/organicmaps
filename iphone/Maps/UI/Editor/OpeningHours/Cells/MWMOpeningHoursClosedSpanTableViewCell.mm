@@ -1,6 +1,4 @@
 #import "MWMOpeningHoursClosedSpanTableViewCell.h"
-#import "UIColor+MapsMeColor.h"
-#import "UIFont+MapsMeFonts.h"
 
 static NSString * const kLabelText = L(@"editor_hours_closed");
 

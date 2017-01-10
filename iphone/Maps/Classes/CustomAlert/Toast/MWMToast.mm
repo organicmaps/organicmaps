@@ -1,6 +1,5 @@
 #import "MWMToast.h"
 #import "MWMCommon.h"
-#import "UIColor+MapsMeColor.h"
 
 namespace
 {

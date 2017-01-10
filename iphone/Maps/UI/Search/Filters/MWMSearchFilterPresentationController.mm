@@ -1,6 +1,5 @@
 #import "MWMSearchFilterPresentationController.h"
 #import "MWMSearch.h"
-#import "UIColor+MapsMeColor.h"
 
 namespace
 {

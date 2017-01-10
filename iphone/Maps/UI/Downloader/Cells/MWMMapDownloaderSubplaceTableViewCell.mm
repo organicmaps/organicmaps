@@ -1,6 +1,5 @@
 #import "MWMMapDownloaderSubplaceTableViewCell.h"
 #import "MWMCommon.h"
-#import "UIFont+MapsMeFonts.h"
 
 @interface MWMMapDownloaderTableViewCell ()
 

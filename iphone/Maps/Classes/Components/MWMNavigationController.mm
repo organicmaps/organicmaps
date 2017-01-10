@@ -3,7 +3,6 @@
 #import "MWMController.h"
 #import "MWMToast.h"
 #import "MapsAppDelegate.h"
-#import "UIColor+MapsMeColor.h"
 #import "UIViewController+Navigation.h"
 
 #import <SafariServices/SafariServices.h>

@@ -5,7 +5,6 @@
 #import "MWMAuthorizationLoginViewController.h"
 #import "MWMAuthorizationWebViewLoginViewController.h"
 #import "Statistics.h"
-#import "UIColor+MapsMeColor.h"
 
 #include "Framework.h"
 

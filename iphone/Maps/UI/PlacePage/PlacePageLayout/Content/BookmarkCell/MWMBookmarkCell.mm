@@ -2,8 +2,6 @@
 #import "MWMPlacePageCellUpdateProtocol.h"
 
 #import "MWMPlacePageProtocol.h"
-#import "UIColor+MapsMeColor.h"
-#import "UIFont+MapsMeFonts.h"
 
 namespace
 {

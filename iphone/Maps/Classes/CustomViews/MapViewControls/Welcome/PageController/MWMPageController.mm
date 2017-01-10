@@ -1,7 +1,6 @@
 #import "MWMPageController.h"
 #import "MWMPageControllerDataSource.h"
 #import "Statistics.h"
-#import "UIColor+MapsMeColor.h"
 
 @interface MWMPageController ()
 

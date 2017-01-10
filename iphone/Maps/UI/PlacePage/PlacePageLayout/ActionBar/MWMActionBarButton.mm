@@ -2,7 +2,6 @@
 #import "MWMCommon.h"
 #import "MWMButton.h"
 #import "MWMCircularProgress.h"
-#import "UIColor+MapsMeColor.h"
 
 NSString * titleForButton(EButton type, BOOL isSelected)
 {

@@ -1,7 +1,6 @@
 #import "MWMCommon.h"
 #import "MWMAuthorizationCommon.h"
 #import "UIButton+RuntimeAttributes.h"
-#import "UIColor+MapsMeColor.h"
 
 #include "base/logging.hpp"
 #include "editor/server_api.hpp"

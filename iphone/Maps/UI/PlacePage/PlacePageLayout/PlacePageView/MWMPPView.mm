@@ -1,7 +1,6 @@
 #import "MWMCommon.h"
 #import "MWMPlacePageActionBar.h"
 #import "MWMPPView.h"
-#import "UIColor+MapsMeColor.h"
 
 namespace
 {

@@ -1,7 +1,5 @@
 #import <objc/runtime.h>
 #import "UIButton+RuntimeAttributes.h"
-#import "UIColor+MapsMeColor.h"
-#import "UIFont+MapsMeFonts.h"
 
 @implementation UIButton (RuntimeAttributes)
 

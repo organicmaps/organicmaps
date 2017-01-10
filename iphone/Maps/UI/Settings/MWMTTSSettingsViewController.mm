@@ -3,7 +3,6 @@
 #import "MWMTextToSpeech.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
-#import "UIColor+MapsMeColor.h"
 #import "WebViewController.h"
 
 #include "LocaleTranslator.h"

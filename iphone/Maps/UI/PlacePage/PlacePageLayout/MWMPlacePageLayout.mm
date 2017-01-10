@@ -11,7 +11,6 @@
 #import "MWMPlacePageLayoutImpl.h"
 #import "MWMPlacePageTaxiCell.h"
 #import "MWMPPPreviewLayoutHelper.h"
-#import "UIColor+MapsMeColor.h"
 
 #include "storage/storage.hpp"
 

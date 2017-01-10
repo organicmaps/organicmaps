@@ -3,7 +3,6 @@
 #import "MWMKeyboard.h"
 #import "MWMTableViewCell.h"
 #import "MWMToast.h"
-#import "UIColor+MapsMeColor.h"
 
 #include "indexer/cuisines.hpp"
 #include "indexer/search_string_utils.hpp"

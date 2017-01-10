@@ -2,8 +2,6 @@
 #import "MWMCommon.h"
 #import "MWMAlertViewController.h"
 #import "Statistics.h"
-#import "UIColor+MapsMeColor.h"
-#import "UIFont+MapsMeFonts.h"
 
 static CGFloat const kMinimumOffset = 20.;
 static NSString * const kStatisticsEvent = @"Routing Disclaimer Alert";

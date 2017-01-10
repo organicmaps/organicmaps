@@ -2,7 +2,6 @@
 #import "MWMTTSSettingsViewController.h"
 #import "MWMTextToSpeech.h"
 #import "SwiftBridge.h"
-#import "UIColor+MapsMeColor.h"
 
 static NSString * const kUnwingSegueIdentifier = @"UnwindToTTSSettings";
 

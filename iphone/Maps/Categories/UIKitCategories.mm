@@ -1,7 +1,6 @@
 #import "UIKitCategories.h"
 #import "MWMCommon.h"
 #import "UIButton+RuntimeAttributes.h"
-#import "UIColor+MapsMeColor.h"
 #import "UIImageView+Coloring.h"
 
 #import <Crashlytics/Crashlytics.h>

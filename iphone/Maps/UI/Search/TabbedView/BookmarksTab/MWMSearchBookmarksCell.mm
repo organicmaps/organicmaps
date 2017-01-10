@@ -1,8 +1,6 @@
 #import "BookmarksVC.h"
 #import "MWMCommon.h"
 #import "MWMSearchBookmarksCell.h"
-#import "UIColor+MapsMeColor.h"
-#import "UIFont+MapsMeFonts.h"
 
 #include "Framework.h"
 

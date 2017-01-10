@@ -1,8 +1,6 @@
 #import "MWMMapDownloaderExtendedDataSourceWithAds.h"
 #import "MWMMapDownloaderAdsTableViewCell.h"
 #import "MWMMyTarget.h"
-#import "UIColor+MapsMeColor.h"
-#import "UIFont+MapsMeFonts.h"
 
 #include "Framework.h"
 

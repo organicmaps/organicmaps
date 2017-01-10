@@ -1,5 +1,4 @@
 #import "AddSetTableViewCell.h"
-#import "UIColor+MapsMeColor.h"
 
 @interface AddSetTableViewCell () <UITextFieldDelegate>
 
