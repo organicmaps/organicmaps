@@ -164,6 +164,9 @@ string MetadataTagProcessorImpl::ValidateAndFormat_internet(string v) const
   strings::AsciiToLower(v);
   if (v == "wlan" || v == "wired" || v == "yes" || v == "no")
     return v;
+  // Process wifi=free tag.
+  if (v == "free")
+    return "wlan";
   return {};
 }
 
