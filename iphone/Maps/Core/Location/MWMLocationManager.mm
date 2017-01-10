@@ -192,6 +192,11 @@ void setPermissionRequested()
   return self;
 }
 
+- (void)dealloc
+{
+  self.locationManager.delegate = nil;
+}
+
 #pragma mark - Add/Remove Observers
 
 + (void)addObserver:(TObserver)observer

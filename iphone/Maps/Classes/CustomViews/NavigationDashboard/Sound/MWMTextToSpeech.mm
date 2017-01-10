@@ -110,6 +110,11 @@ vector<pair<string, string>> availableLanguages()
   return self;
 }
 
+- (void)dealloc
+{
+  self.speechSynthesizer.delegate = nil;
+}
+
 + (NSString *)ttsStatusNotificationKey { return @"TTFStatusWasChangedFromSettingsNotification"; }
 - (vector<pair<string, string>>)availableLanguages { return _availableLanguages; }
 - (void)setNotificationsLocale:(NSString *)locale
