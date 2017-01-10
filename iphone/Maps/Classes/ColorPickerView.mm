@@ -44,7 +44,7 @@ static Tcolor const g_color [] =
 
     UILabel * header = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, customWidth, HEADERHEIGHT)];
     header.backgroundColor = [UIColor clearColor];
-    header.text = NSLocalizedString(@"bookmark_color", nil);
+    header.text = L(@"bookmark_color");
     header.font = [UIFont fontWithName:@"Helvetica" size:20];
     header.textAlignment = NSTextAlignmentCenter;
     header.textColor = [UIColor colorWithRed:51/255.f green:204/255.f blue:255/255.f alpha:1];
