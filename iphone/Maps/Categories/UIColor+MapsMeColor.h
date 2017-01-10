@@ -36,6 +36,7 @@
 + (UIColor *)opentableBackground;
 + (UIColor *)bannerBackground;
 + (UIColor *)toastBackground;
++ (UIColor *)statusBarBackground;
 
 + (UIColor *)colorWithName:(NSString *)colorName;
 

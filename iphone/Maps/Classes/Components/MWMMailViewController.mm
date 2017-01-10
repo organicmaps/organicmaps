@@ -1,4 +1,5 @@
 #import "MWMMailViewController.h"
+#import "MWMCommon.h"
 #import "MWMToast.h"
 #import "UIColor+MapsMeColor.h"
 
@@ -14,7 +15,7 @@
 {
   if ([MWMToast affectsStatusBar])
     return [MWMToast preferredStatusBarStyle];
-
+  setStatusBarBackgroundColor([UIColor clearColor]);
   return [UIColor isNightMode] ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
 }
 

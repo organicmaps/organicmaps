@@ -32,6 +32,7 @@ NSUInteger const kWordsPerSecond = 3;
 + (BOOL)affectsStatusBar { return [MWMToast toast].rootView.superview != nil; }
 + (UIStatusBarStyle)preferredStatusBarStyle
 {
+  setStatusBarBackgroundColor([UIColor clearColor]);
   return [UIColor isNightMode] ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
 }
 

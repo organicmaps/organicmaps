@@ -7,6 +7,8 @@ CGFloat const alpha04 = 0.04;
 CGFloat const alpha12 = 0.12;
 CGFloat const alpha26 = 0.26;
 CGFloat const alpha30 = 0.3;
+CGFloat const alpha32 = 0.32;
+CGFloat const alpha36 = 0.36;
 CGFloat const alpha40 = 0.4;
 CGFloat const alpha54 = 0.54;
 CGFloat const alpha70 = 0.7;
@@ -66,7 +68,8 @@ NSDictionary<NSString *, UIColor *> * night = @{
   @"blackOpaque" : [UIColor colorWithWhite:1. alpha:alpha04],
   @"bannerBackground" :
       [UIColor colorWithRed:scaled(85.) green:scaled(90.) blue:scaled(90.) alpha:alpha100],
-  @"toastBackground" : [UIColor colorWithWhite:0. alpha:alpha87]
+  @"toastBackground" : [UIColor colorWithWhite:0. alpha:alpha87],
+  @"statusBarBackground" : [UIColor colorWithWhite:0. alpha:alpha32]
 };
 
 NSDictionary<NSString *, UIColor *> * day = @{
@@ -113,7 +116,8 @@ NSDictionary<NSString *, UIColor *> * day = @{
   @"blackOpaque" : [UIColor colorWithWhite:0. alpha:alpha04],
   @"bannerBackground" :
       [UIColor colorWithRed:scaled(255.) green:scaled(248.) blue:scaled(225.) alpha:alpha100],
-  @"toastBackground" : [UIColor colorWithWhite:1. alpha:alpha87]
+  @"toastBackground" : [UIColor colorWithWhite:1. alpha:alpha87],
+  @"statusBarBackground" : [UIColor colorWithWhite:1. alpha:alpha36]
 };
 
 UIColor * color(SEL cmd)
@@ -313,6 +317,7 @@ UIColor * color(SEL cmd)
   return color(_cmd);
 }
 + (UIColor *)toastBackground { return color(_cmd); }
++ (UIColor *)statusBarBackground { return color(_cmd); }
 + (UIColor *)colorWithName:(NSString *)colorName
 {
 #pragma clang diagnostic push

@@ -82,3 +82,11 @@ static inline UIViewController * topViewController()
       static_cast<UINavigationController *>(rootViewController);
   return navigationController.topViewController;
 }
+
+static inline void setStatusBarBackgroundColor(UIColor * color)
+{
+  UIView * statusBar =
+      [[UIApplication sharedApplication] valueForKeyPath:@"statusBarWindow.statusBar"];
+  if ([statusBar respondsToSelector:@selector(setBackgroundColor:)])
+    statusBar.backgroundColor = color;
+}

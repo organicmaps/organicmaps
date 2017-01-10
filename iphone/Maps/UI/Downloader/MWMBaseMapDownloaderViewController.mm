@@ -740,6 +740,7 @@ using namespace mwm;
 {
   if ([MWMToast affectsStatusBar])
     return [MWMToast preferredStatusBarStyle];
+  setStatusBarBackgroundColor([UIColor clearColor]);
   return UIStatusBarStyleLightContent;
 }
 
