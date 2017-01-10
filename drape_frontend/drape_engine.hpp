@@ -42,6 +42,7 @@ public:
            Viewport const & viewport,
            MapDataProvider const & model,
            double vs,
+           double fontsScaleFactor,
            gui::TWidgetsInitInfo && info,
            pair<location::EMyPositionMode, bool> const & initialMyPositionMode,
            bool allow3dBuildings,
@@ -57,6 +58,7 @@ public:
       , m_viewport(viewport)
       , m_model(model)
       , m_vs(vs)
+      , m_fontsScaleFactor(fontsScaleFactor)
       , m_info(move(info))
       , m_initialMyPositionMode(initialMyPositionMode)
       , m_allow3dBuildings(allow3dBuildings)
@@ -74,6 +76,7 @@ public:
     Viewport m_viewport;
     MapDataProvider m_model;
     double m_vs;
+    double m_fontsScaleFactor;
     gui::TWidgetsInitInfo m_info;
     pair<location::EMyPositionMode, bool> m_initialMyPositionMode;
     bool m_allow3dBuildings;
