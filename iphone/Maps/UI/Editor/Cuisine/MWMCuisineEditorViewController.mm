@@ -153,7 +153,7 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
   using namespace osm;
   m_allCuisines = Cuisines::Instance().AllSupportedCuisines();
   m_displayedKeys = SliceKeys(m_allCuisines);
-  m_selectedCuisines = [self.delegate getSelectedCuisines];
+  m_selectedCuisines = [self.delegate selectedCuisines];
   for (auto const & s : m_selectedCuisines)
   {
     string const translated = Cuisines::Instance().Translate(s);

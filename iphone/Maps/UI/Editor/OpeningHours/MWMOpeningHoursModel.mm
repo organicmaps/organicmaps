@@ -89,7 +89,7 @@ using namespace osmoh;
   }
 }
 
-- (ui::TTimeTableProxy)getTimeTableProxy:(NSUInteger)index
+- (ui::TTimeTableProxy)timeTableProxy:(NSUInteger)index
 {
   NSAssert(index < self.count, @"Invalid section index");
   return timeTableSet.Get(index);

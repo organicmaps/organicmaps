@@ -1041,7 +1041,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
 
 #pragma mark - MWMCuisineEditorProtocol
 
-- (vector<string>)getSelectedCuisines { return m_mapObject.GetCuisines(); }
+- (vector<string>)selectedCuisines { return m_mapObject.GetCuisines(); }
 - (void)setSelectedCuisines:(vector<string> const &)cuisines { m_mapObject.SetCuisines(cuisines); }
 #pragma mark - MWMStreetEditorProtocol
 
