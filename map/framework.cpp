@@ -2406,6 +2406,13 @@ void Framework::FollowRoute()
   if (enableAutoZoom)
     ++scale3d;
 
+  bool const isBicycleRoute = m_currentRouterType == RouterType::Bicycle;
+  if ((isPedestrianRoute || isBicycleRoute) && LoadTrafficEnabled())
+  {
+    m_trafficManager.SetEnabled(false /* enabled */);
+    SaveTrafficEnabled(false /* enabled */);
+  }
+
   m_drapeEngine->FollowRoute(scale, scale3d, enableAutoZoom);
   m_drapeEngine->SetRoutePoint(m2::PointD(), true /* isStart */, false /* isValid */);
 }
