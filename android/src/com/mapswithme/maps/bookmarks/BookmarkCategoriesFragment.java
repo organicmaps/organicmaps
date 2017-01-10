@@ -3,6 +3,7 @@ package com.mapswithme.maps.bookmarks;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
@@ -142,7 +143,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   }
 
   @Override
-  protected void setupPlaceholder(PlaceholderView placeholder)
+  protected void setupPlaceholder(@NonNull PlaceholderView placeholder)
   {
     placeholder.setContent(R.drawable.img_bookmarks, R.string.bookmarks_empty_title, R.string.bookmarks_usage_hint);
   }

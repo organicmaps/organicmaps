@@ -206,7 +206,7 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
   }
 
   @Override
-  protected void setupPlaceholder(PlaceholderView placeholder)
+  protected void setupPlaceholder(@NonNull PlaceholderView placeholder)
   {
     if (mAdapter.isSearchResultsMode())
       placeholder.setContent(R.drawable.img_search_nothing_found_light,

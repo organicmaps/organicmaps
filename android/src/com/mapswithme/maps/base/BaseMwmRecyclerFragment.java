@@ -2,6 +2,7 @@ package com.mapswithme.maps.base;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -96,7 +97,7 @@ public abstract class BaseMwmRecyclerFragment extends Fragment
     org.alohalytics.Statistics.logEvent("$onPause", this.getClass().getSimpleName());
   }
 
-  protected void setupPlaceholder(PlaceholderView placeholder) {}
+  protected void setupPlaceholder(@NonNull PlaceholderView placeholder) {}
 
   public void setupPlaceholder()
   {

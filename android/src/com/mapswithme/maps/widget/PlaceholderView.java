@@ -148,7 +148,7 @@ public class PlaceholderView extends FrameLayout
   {
     if (mImage != null)
       mImage.setImageResource(imageRes);
-    if (mTitle !=null)
+    if (mTitle != null)
       mTitle.setText(titleRes);
     if (mSubtitle != null)
       mSubtitle.setText(subtitleRes);
