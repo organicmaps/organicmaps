@@ -208,7 +208,7 @@ NSDictionary * const kDeviceNamesWithMetalDriver = @{
 
     NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"LLL d yyyy HH:mm:ss"];
-    [dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
+    [dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"]];
     _buildDate = [dateFormatter dateFromString:dateStr];
   }
   return _buildDate;
