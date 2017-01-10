@@ -1,4 +1,5 @@
 #import "MWMCommon.h"
+#import "MWMPlacePageActionBar.h"
 #import "MWMPPView.h"
 #import "UIColor+MapsMeColor.h"
 
@@ -79,6 +80,21 @@ CGFloat const kTableViewTopInset = -36;
 - (void)dealloc
 {
   [self.tableView removeObserver:self forKeyPath:kTableViewContentSizeKeyPath context:kContext];
+}
+
+- (void)layoutSubviews
+{
+  [super layoutSubviews];
+  if (!IPAD)
+    return;
+
+  for (UIView * sv in self.subviews)
+  {
+    if (![sv isKindOfClass:[MWMPlacePageActionBar class]])
+      continue;
+    sv.maxY = self.height;
+    break;
+  }
 }
 
 @end
