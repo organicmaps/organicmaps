@@ -859,8 +859,10 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
   if (m_bannerSet.HasBannerForFeature(ft))
     info.m_banner = m_bannerSet.GetBannerForFeature(ft);
 
+  auto const mwmInfo = ft.GetID().m_mwmId.GetInfo();
+  bool const isMapVersionEditable = mwmInfo && mwmInfo->m_version.IsEditableMap();
   info.m_canEditOrAdd = featureStatus != osm::Editor::FeatureStatus::Obsolete && CanEditMap() &&
-                        !info.IsNotEditableSponsored();
+                        !info.IsNotEditableSponsored() && isMapVersionEditable;
 
   info.m_localizedWifiString = m_stringsBundle.GetString("wifi");
   info.m_localizedRatingString = m_stringsBundle.GetString("place_page_booking_rating");

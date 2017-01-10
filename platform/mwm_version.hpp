@@ -36,6 +36,7 @@ public:
 
   void SetFormat(Format format) { m_format = format; }
   void SetSecondsSinceEpoch(uint64_t secondsSinceEpoch) { m_secondsSinceEpoch = secondsSinceEpoch; }
+  bool IsEditableMap() const;
 
 private:
   /// Data layout format in mwm file.
