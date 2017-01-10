@@ -8,7 +8,7 @@
 #import "MWMRouter.h"
 #import "MWMSearch.h"
 #import "MWMSearchChangeModeView.h"
-#import "MWMSearchFilterTransitioningDelegate.h"
+#import "MWMSearchFilterTransitioningManager.h"
 #import "MWMSearchManager+Filter.h"
 #import "MWMSearchManager+Layout.h"
 #import "MWMSearchTabButtonsView.h"
@@ -73,7 +73,7 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
 @property(nonatomic) MWMSearchTableViewController * tableViewController;
 @property(nonatomic) MWMNoMapsViewController * noMapsController;
 
-@property(nonatomic) MWMSearchFilterTransitioningDelegate * filterTransitioningDelegate;
+@property(nonatomic) MWMSearchFilterTransitioningManager * filterTransitioningManager;
 
 @end
 

@@ -23,6 +23,6 @@
 @property(weak, nonatomic) IBOutlet UITableView * tableView;
 
 @property(nonatomic) CGFloat currentContentHeight;
-@property(nonatomic) id<MWMPlacePageViewUpdateProtocol> delegate;
+@property(weak, nonatomic) id<MWMPlacePageViewUpdateProtocol> delegate;
 
 @end

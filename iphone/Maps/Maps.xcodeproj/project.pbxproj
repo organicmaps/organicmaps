@@ -1189,9 +1189,9 @@
 		F6E2FEC91E097BA00083EBEC /* MWMSearchFilterTransitioning.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FCEA1E097B9F0083EBEC /* MWMSearchFilterTransitioning.mm */; };
 		F6E2FECA1E097BA00083EBEC /* MWMSearchFilterTransitioning.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FCEA1E097B9F0083EBEC /* MWMSearchFilterTransitioning.mm */; };
 		F6E2FECB1E097BA00083EBEC /* MWMSearchFilterTransitioning.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FCEA1E097B9F0083EBEC /* MWMSearchFilterTransitioning.mm */; };
-		F6E2FECC1E097BA00083EBEC /* MWMSearchFilterTransitioningDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FCEC1E097B9F0083EBEC /* MWMSearchFilterTransitioningDelegate.mm */; };
-		F6E2FECD1E097BA00083EBEC /* MWMSearchFilterTransitioningDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FCEC1E097B9F0083EBEC /* MWMSearchFilterTransitioningDelegate.mm */; };
-		F6E2FECE1E097BA00083EBEC /* MWMSearchFilterTransitioningDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FCEC1E097B9F0083EBEC /* MWMSearchFilterTransitioningDelegate.mm */; };
+		F6E2FECC1E097BA00083EBEC /* MWMSearchFilterTransitioningManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FCEC1E097B9F0083EBEC /* MWMSearchFilterTransitioningManager.mm */; };
+		F6E2FECD1E097BA00083EBEC /* MWMSearchFilterTransitioningManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FCEC1E097B9F0083EBEC /* MWMSearchFilterTransitioningManager.mm */; };
+		F6E2FECE1E097BA00083EBEC /* MWMSearchFilterTransitioningManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FCEC1E097B9F0083EBEC /* MWMSearchFilterTransitioningManager.mm */; };
 		F6E2FECF1E097BA00083EBEC /* MWMSearchFilterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FCEE1E097B9F0083EBEC /* MWMSearchFilterViewController.mm */; };
 		F6E2FED01E097BA00083EBEC /* MWMSearchFilterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FCEE1E097B9F0083EBEC /* MWMSearchFilterViewController.mm */; };
 		F6E2FED11E097BA00083EBEC /* MWMSearchFilterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FCEE1E097B9F0083EBEC /* MWMSearchFilterViewController.mm */; };
@@ -1772,7 +1772,7 @@
 		845C89301C89837900940D7F /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		845C89331C8983F300940D7F /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		845C89341C8983F300940D7F /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
-		849CF7A31DE842290024A8A5 /* cmMAPS.ME.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cmMAPS.ME.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		849CF7A31DE842290024A8A5 /* cmMAPS.ME.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = cmMAPS.ME.app; path = "cm dbg.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D1107310486CEB800E47090 /* MAPSME.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MAPSME.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		972CDCC51887F1B7006641CA /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		974D041B1977DE430081D0A7 /* LocalNotificationManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = LocalNotificationManager.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -2102,8 +2102,8 @@
 		F6E2FCE81E097B9F0083EBEC /* MWMSearchFilters.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MWMSearchFilters.storyboard; sourceTree = "<group>"; };
 		F6E2FCE91E097B9F0083EBEC /* MWMSearchFilterTransitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchFilterTransitioning.h; sourceTree = "<group>"; };
 		F6E2FCEA1E097B9F0083EBEC /* MWMSearchFilterTransitioning.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchFilterTransitioning.mm; sourceTree = "<group>"; };
-		F6E2FCEB1E097B9F0083EBEC /* MWMSearchFilterTransitioningDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchFilterTransitioningDelegate.h; sourceTree = "<group>"; };
-		F6E2FCEC1E097B9F0083EBEC /* MWMSearchFilterTransitioningDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchFilterTransitioningDelegate.mm; sourceTree = "<group>"; };
+		F6E2FCEB1E097B9F0083EBEC /* MWMSearchFilterTransitioningManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchFilterTransitioningManager.h; sourceTree = "<group>"; };
+		F6E2FCEC1E097B9F0083EBEC /* MWMSearchFilterTransitioningManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchFilterTransitioningManager.mm; sourceTree = "<group>"; };
 		F6E2FCED1E097B9F0083EBEC /* MWMSearchFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchFilterViewController.h; sourceTree = "<group>"; };
 		F6E2FCEE1E097B9F0083EBEC /* MWMSearchFilterViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchFilterViewController.mm; sourceTree = "<group>"; };
 		F6E2FCEF1E097B9F0083EBEC /* MWMSearchFilterViewController_Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchFilterViewController_Protected.h; sourceTree = "<group>"; };
@@ -3777,8 +3777,8 @@
 				F6E2FCE81E097B9F0083EBEC /* MWMSearchFilters.storyboard */,
 				F6E2FCE91E097B9F0083EBEC /* MWMSearchFilterTransitioning.h */,
 				F6E2FCEA1E097B9F0083EBEC /* MWMSearchFilterTransitioning.mm */,
-				F6E2FCEB1E097B9F0083EBEC /* MWMSearchFilterTransitioningDelegate.h */,
-				F6E2FCEC1E097B9F0083EBEC /* MWMSearchFilterTransitioningDelegate.mm */,
+				F6E2FCEB1E097B9F0083EBEC /* MWMSearchFilterTransitioningManager.h */,
+				F6E2FCEC1E097B9F0083EBEC /* MWMSearchFilterTransitioningManager.mm */,
 				F6E2FCED1E097B9F0083EBEC /* MWMSearchFilterViewController.h */,
 				F6E2FCEE1E097B9F0083EBEC /* MWMSearchFilterViewController.mm */,
 				F6E2FCEF1E097B9F0083EBEC /* MWMSearchFilterViewController_Protected.h */,
@@ -4815,7 +4815,7 @@
 				F6E2FE541E097BA00083EBEC /* MWMPlacePageActionBar.mm in Sources */,
 				34C9BD091C6DBCDA000DC38D /* MWMNavigationController.mm in Sources */,
 				3406FA151C6E0C3300E9FAD2 /* MWMMapDownloadDialog.mm in Sources */,
-				F6E2FECC1E097BA00083EBEC /* MWMSearchFilterTransitioningDelegate.mm in Sources */,
+				F6E2FECC1E097BA00083EBEC /* MWMSearchFilterTransitioningManager.mm in Sources */,
 				F6E2FDD91E097BA00083EBEC /* MWMEditorTextTableViewCell.mm in Sources */,
 				F6E2FF111E097BA00083EBEC /* MWMSearchHistoryRequestCell.mm in Sources */,
 				34C9BD021C6DB693000DC38D /* MWMTableViewController.mm in Sources */,
@@ -5070,7 +5070,7 @@
 				F6E2FE551E097BA00083EBEC /* MWMPlacePageActionBar.mm in Sources */,
 				34ABA6171C2D185C00FE1BEC /* MWMAuthorizationOSMLoginViewController.mm in Sources */,
 				6741A9D41BF340DE002C974C /* MWMAlertViewController.mm in Sources */,
-				F6E2FECD1E097BA00083EBEC /* MWMSearchFilterTransitioningDelegate.mm in Sources */,
+				F6E2FECD1E097BA00083EBEC /* MWMSearchFilterTransitioningManager.mm in Sources */,
 				F6E2FDDA1E097BA00083EBEC /* MWMEditorTextTableViewCell.mm in Sources */,
 				F6E2FF121E097BA00083EBEC /* MWMSearchHistoryRequestCell.mm in Sources */,
 				F6FE3C391CC50FFD00A73196 /* MWMPlaceDoesntExistAlert.mm in Sources */,
@@ -5325,7 +5325,7 @@
 				F6E2FE561E097BA00083EBEC /* MWMPlacePageActionBar.mm in Sources */,
 				849CF6CF1DE842290024A8A5 /* MWMAlertViewController.mm in Sources */,
 				340475781E081A4600C92850 /* MWMTrafficManager.mm in Sources */,
-				F6E2FECE1E097BA00083EBEC /* MWMSearchFilterTransitioningDelegate.mm in Sources */,
+				F6E2FECE1E097BA00083EBEC /* MWMSearchFilterTransitioningManager.mm in Sources */,
 				F6E2FDDB1E097BA00083EBEC /* MWMEditorTextTableViewCell.mm in Sources */,
 				F6E2FF131E097BA00083EBEC /* MWMSearchHistoryRequestCell.mm in Sources */,
 				849CF6D21DE842290024A8A5 /* MWMNavigationController.mm in Sources */,
