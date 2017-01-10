@@ -10,6 +10,10 @@
 
 #include "base/string_utils.hpp"
 
+#ifdef DEBUG
+#include "3party/glm/glm/gtx/bit.hpp"
+#endif
+
 namespace dp
 {
 
@@ -155,6 +159,8 @@ void LoadSymbols(string const & skinPathName, bool convertToUV,
   int w, h, bpp;
   unsigned char * data = stbi_png_load_from_memory(&rawData[0], static_cast<int>(rawData.size()), &w, &h, &bpp, 0);
   ASSERT_EQUAL(bpp, 4, ("Incorrect symbols texture format"));
+  ASSERT(glm::isPowerOfTwo(w), (w));
+  ASSERT(glm::isPowerOfTwo(h), (h));
 
   if (width == w && height == h)
   {

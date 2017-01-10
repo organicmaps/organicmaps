@@ -9,6 +9,9 @@
 
 #include "base/string_utils.hpp"
 
+#ifdef DEBUG
+#include "3party/glm/glm/gtx/bit.hpp"
+#endif
 #include "3party/stb_image/stb_image.h"
 
 namespace dp
@@ -46,6 +49,8 @@ bool LoadData(string const & textureName, string const & skinPathName,
   unsigned char * data = stbi_png_load_from_memory(&rawData[0], static_cast<int>(rawData.size()),
                                                    &w, &h, &bpp, 0);
   ASSERT_EQUAL(bpp, 4, ("Incorrect texture format"));
+  ASSERT(glm::isPowerOfTwo(w), (w));
+  ASSERT(glm::isPowerOfTwo(h), (h));
   completionHandler(data, w, h);
 
   stbi_image_free(data);
