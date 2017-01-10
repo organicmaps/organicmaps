@@ -150,11 +150,7 @@ NSString * const kSpotlightLocaleLanguageId = @"SpotlightLocaleLanguageId";
   [ud synchronize];
 }
 
-+ (BOOL)largeFontSize
-{
-  return GetFramework().LoadLargeFontsSize();
-}
-
++ (BOOL)largeFontSize { return GetFramework().LoadLargeFontsSize(); }
 + (void)setLargeFontSize:(BOOL)largeFontSize
 {
   bool const isLargeSize = static_cast<bool>(largeFontSize);

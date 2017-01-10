@@ -308,7 +308,9 @@
     NSString * urlString = url.absoluteString;
     NSError * err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
                                                code:0
-                                           userInfo:@{@"Trying to open incorrect url" : urlString}];
+                                           userInfo:@{
+                                             @"Trying to open incorrect url" : urlString
+                                           }];
     [[Crashlytics sharedInstance] recordError:err];
     return;
   }
