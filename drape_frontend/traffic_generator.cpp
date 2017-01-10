@@ -24,6 +24,31 @@ namespace df
 namespace
 {
 
+// Values of the following arrays are based on traffic-arrow texture.
+static array<float, static_cast<size_t>(traffic::SpeedGroup::Count)> kCoordVOffsets =
+{
+  0.75f, // G0
+  0.75f, // G1
+  0.75f, // G2
+  0.5f, // G3
+  0.25f, // G4
+  0.0f, // G5
+  0.75f, // TempBlock
+  0.0f, // Unknown
+};
+
+static array<float, static_cast<size_t>(traffic::SpeedGroup::Count)> kMinCoordU =
+{
+  0.15f, // G0
+  0.15f, // G1
+  0.15f, // G2
+  0.33f, // G3
+  0.5f, // G4
+  0.0f, // G5
+  0.15f, // TempBlock
+  0.0f, // Unknown
+};
+
 dp::BindingInfo const & GetTrafficStaticBindingInfo()
 {
   static unique_ptr<dp::BindingInfo> s_info;
@@ -52,7 +77,7 @@ dp::BindingInfo const & GetTrafficLineStaticBindingInfo()
 }
 
 void SubmitStaticVertex(glsl::vec3 const & pivot, glsl::vec2 const & normal, float side,
-                        float offsetFromStart, glsl::vec2 const & texCoord,
+                        float offsetFromStart, glsl::vec4 const & texCoord,
                         vector<TrafficStaticVertex> & staticGeom)
 {
   staticGeom.emplace_back(pivot, TrafficStaticVertex::TNormal(normal, side, offsetFromStart), texCoord);
@@ -63,7 +88,7 @@ void GenerateCapTriangles(glsl::vec3 const & pivot, vector<glsl::vec2> const & n
                           vector<TrafficStaticVertex> & staticGeometry)
 {
   float const kEps = 1e-5;
-  glsl::vec2 const uv = glsl::ToVec2(colorRegion.GetTexRect().Center());
+  glsl::vec4 const uv = glsl::vec4(glsl::ToVec2(colorRegion.GetTexRect().Center()), 0.0f, 0.0f);
   size_t const trianglesCount = normals.size() / 3;
   for (int j = 0; j < trianglesCount; j++)
   {
@@ -141,6 +166,8 @@ void TrafficGenerator::FlushSegmentsGeometry(TileKey const & tileKey, TrafficSeg
 
           ASSERT(m_colorsCacheValid, ());
           dp::TextureManager::ColorRegion const & colorRegion = m_colorsCache[static_cast<size_t>(segmentColoringIt->second)];
+          float const vOffset = kCoordVOffsets[static_cast<size_t>(segmentColoringIt->second)];
+          float const minU = kMinCoordU[static_cast<size_t>(segmentColoringIt->second)];
 
           int width = 0;
           if (TrafficRenderer::CanBeRendereredAsLine(g.m_roadClass, tileKey.m_zoomLevel, width))
@@ -161,7 +188,8 @@ void TrafficGenerator::FlushSegmentsGeometry(TileKey const & tileKey, TrafficSeg
           {
             vector<TrafficStaticVertex> staticGeometry;
             bool const generateCaps = (tileKey.m_zoomLevel > kGenerateCapsZoomLevel[static_cast<uint32_t>(g.m_roadClass)]);
-            GenerateSegment(colorRegion, g.m_polyline, tileKey.GetGlobalRect().Center(), generateCaps, depth, staticGeometry);
+            GenerateSegment(colorRegion, g.m_polyline, tileKey.GetGlobalRect().Center(), generateCaps, depth,
+                            vOffset, minU, staticGeometry);
             if (staticGeometry.empty())
               continue;
 
@@ -215,7 +243,8 @@ void TrafficGenerator::FlushGeometry(TrafficBatcherKey const & key, dp::GLState 
 
 void TrafficGenerator::GenerateSegment(dp::TextureManager::ColorRegion const & colorRegion,
                                        m2::PolylineD const & polyline, m2::PointD const & tileCenter,
-                                       bool generateCaps, float depth, vector<TrafficStaticVertex> & staticGeometry)
+                                       bool generateCaps, float depth, float vOffset, float minU,
+                                       vector<TrafficStaticVertex> & staticGeometry)
 {
   vector<m2::PointD> const & path = polyline.GetPoints();
   ASSERT_GREATER(path.size(), 1, ());
@@ -229,7 +258,8 @@ void TrafficGenerator::GenerateSegment(dp::TextureManager::ColorRegion const & c
   glsl::vec2 lastPoint, lastTangent, lastLeftNormal, lastRightNormal;
   bool firstFilled = false;
 
-  glsl::vec2 const uv = glsl::ToVec2(colorRegion.GetTexRect().Center());
+  glsl::vec4 const uvStart = glsl::vec4(glsl::ToVec2(colorRegion.GetTexRect().Center()), vOffset, 1.0f);
+  glsl::vec4 const uvEnd = glsl::vec4(uvStart.x, uvStart.y, uvStart.z, minU);
   for (size_t i = 1; i < path.size(); ++i)
   {
     if (path[i].EqualDxDy(path[i - 1], 1.0E-5))
@@ -257,12 +287,12 @@ void TrafficGenerator::GenerateSegment(dp::TextureManager::ColorRegion const & c
 
     glsl::vec3 const startPivot = glsl::vec3(p1, depth);
     glsl::vec3 const endPivot = glsl::vec3(p2, depth);
-    SubmitStaticVertex(startPivot, rightNormal, -1.0f, 0.0f, uv, staticGeometry);
-    SubmitStaticVertex(startPivot, leftNormal, 1.0f, 0.0f, uv, staticGeometry);
-    SubmitStaticVertex(endPivot, rightNormal, -1.0f, maskSize, uv, staticGeometry);
-    SubmitStaticVertex(endPivot, rightNormal, -1.0f, maskSize, uv, staticGeometry);
-    SubmitStaticVertex(startPivot, leftNormal, 1.0f, 0.0f, uv, staticGeometry);
-    SubmitStaticVertex(endPivot, leftNormal, 1.0f, maskSize, uv, staticGeometry);
+    SubmitStaticVertex(startPivot, rightNormal, -1.0f, 0.0f, uvStart, staticGeometry);
+    SubmitStaticVertex(startPivot, leftNormal, 1.0f, 0.0f, uvStart, staticGeometry);
+    SubmitStaticVertex(endPivot, rightNormal, -1.0f, maskSize, uvEnd, staticGeometry);
+    SubmitStaticVertex(endPivot, rightNormal, -1.0f, maskSize, uvEnd, staticGeometry);
+    SubmitStaticVertex(startPivot, leftNormal, 1.0f, 0.0f, uvStart, staticGeometry);
+    SubmitStaticVertex(endPivot, leftNormal, 1.0f, maskSize, uvEnd, staticGeometry);
   }
 
   // Generate caps.

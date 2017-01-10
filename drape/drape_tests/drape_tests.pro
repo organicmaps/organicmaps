@@ -40,6 +40,7 @@ SOURCES += \
     glyph_packer_test.cpp \
     img.cpp \
     pointers_tests.cpp \
+    static_texture_tests.cpp \
     stipple_pen_tests.cpp \
     testingmain.cpp \
     texture_of_colors_tests.cpp \

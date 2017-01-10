@@ -39,6 +39,7 @@ set(
   img.hpp
   memory_comparer.hpp
   pointers_tests.cpp
+  static_texture_tests.cpp
   stipple_pen_tests.cpp
   texture_of_colors_tests.cpp
   testingmain.cpp
