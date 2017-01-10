@@ -277,6 +277,7 @@ void TrafficInfo::SerializeTrafficKeys(vector<RoadSegmentId> const & keys, vecto
       uint64_t const fidDiff = static_cast<uint64_t>(fid - prevFid);
       bool ok = coding::GammaCoder::Encode(bitWriter, fidDiff + 1);
       ASSERT(ok, ());
+      UNUSED_VALUE(ok);
       prevFid = fid;
     }
 
@@ -284,6 +285,7 @@ void TrafficInfo::SerializeTrafficKeys(vector<RoadSegmentId> const & keys, vecto
     {
       bool ok = coding::GammaCoder::Encode(bitWriter, s + 1);
       ASSERT(ok, ());
+      UNUSED_VALUE(ok);
     }
 
     for (auto const & val : oneWay)

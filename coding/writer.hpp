@@ -58,7 +58,7 @@ public:
 
     memcpy(&m_Data[m_Pos], p, min(size, static_cast<size_t>(freeSize)));
 
-    if (size > freeSize)
+    if (size > static_cast<size_t>(freeSize))
     {
       uint8_t const * it = reinterpret_cast<uint8_t const *>(p);
       m_Data.insert(m_Data.end(), it + freeSize, it + size);
@@ -120,7 +120,7 @@ public:
   inline uint64_t Size() const { return m_maxPos; }
 
 private:
-  inline uint64_t GetOffset() const { return m_writer.Pos() - m_pos; }
+  inline int64_t GetOffset() const { return m_writer.Pos() - m_pos; }
 
 private:
   WriterT & m_writer;

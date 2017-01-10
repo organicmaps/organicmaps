@@ -181,6 +181,7 @@ void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction
 
     auto const it = m_adjacentEdges.insert(make_pair(uniNodeId, move(adjacentEdges)));
     ASSERT(it.second, ());
+    UNUSED_VALUE(it);
     m_pathSegments.push_back(move(pathSegment));
   }
 

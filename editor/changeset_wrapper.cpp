@@ -72,7 +72,7 @@ vector<m2::PointD> NaiveSample(vector<m2::PointD> const & source, size_t count)
   indexes.reserve(count);
 
   minstd_rand engine;
-  uniform_int_distribution<> distrib(0, source.size());
+  uniform_int_distribution<size_t> distrib(0, source.size());
 
   while (count--)
   {

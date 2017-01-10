@@ -38,8 +38,8 @@ public:
 
   vector<Note> const GetNotes() const;
 
-  uint32_t NotUploadedNotesCount() const;
-  uint32_t UploadedNotesCount() const;
+  size_t NotUploadedNotesCount() const;
+  size_t UploadedNotesCount() const;
 
 private:
   Notes(string const & fileName);

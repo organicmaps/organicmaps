@@ -52,10 +52,11 @@ public:
     m2::PointD m_pt;
     size_t m_ind;
 
-    Iter(m2::PointD pt, size_t ind) : m_pt(pt), m_ind(ind) {}
-    Iter() : m_ind(-1) {}
+    static size_t constexpr kInvalidIndex = std::numeric_limits<size_t>::max();
 
-    bool IsValid() const { return m_ind != -1; }
+    Iter(m2::PointD pt, size_t ind) : m_pt(pt), m_ind(ind) {}
+    Iter() : m_ind(kInvalidIndex) {}
+    bool IsValid() const { return m_ind != kInvalidIndex; }
   };
 
   const Iter GetCurrentIter() const { return m_current; }

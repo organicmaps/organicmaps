@@ -202,13 +202,13 @@ vector<Note> const Notes::GetNotes() const
   return {begin(m_notes), end(m_notes)};
 }
 
-uint32_t Notes::NotUploadedNotesCount() const
+size_t Notes::NotUploadedNotesCount() const
 {
   lock_guard<mutex> g(m_mu);
   return m_notes.size();
 }
 
-uint32_t Notes::UploadedNotesCount() const
+size_t Notes::UploadedNotesCount() const
 {
   lock_guard<mutex> g(m_mu);
   return m_uploadedNotesCount;

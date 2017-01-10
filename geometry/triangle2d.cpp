@@ -57,8 +57,9 @@ m2::PointD GetRandomPointInsideTriangle(m2::TriangleD const & t)
 {
   size_t kDistribMax = 1000;
 
-  default_random_engine engine(system_clock::now().time_since_epoch().count());
-  uniform_int_distribution<> distrib(0, kDistribMax);
+  auto const seed = static_cast<uint32_t>(system_clock::now().time_since_epoch().count());
+  default_random_engine engine(seed);
+  uniform_int_distribution<size_t> distrib(0, kDistribMax);
   double const r1 = sqrt(static_cast<double>(distrib(engine)) / kDistribMax);
   double const r2 = static_cast<double>(distrib(engine)) / kDistribMax;
   return t.m_points[0] * (1.0 - r1) + t.m_points[1] * r1 * (1.0 - r2) + t.m_points[2] * r2 * r1;
@@ -69,8 +70,9 @@ m2::PointD GetRandomPointInsideTriangles(vector<m2::TriangleD> const & v)
   if (v.empty())
     return m2::PointD();
 
-  default_random_engine engine(system_clock::now().time_since_epoch().count());
-  uniform_int_distribution<> distrib(0, v.size() - 1);
+  auto const seed = static_cast<uint32_t>(system_clock::now().time_since_epoch().count());
+  default_random_engine engine(seed);
+  uniform_int_distribution<size_t> distrib(0, v.size() - 1);
   return GetRandomPointInsideTriangle(v[distrib(engine)]);
 }
 
