@@ -3,7 +3,7 @@
 @interface WebViewController : MWMViewController <UIWebViewDelegate>
 
 @property (nonatomic) NSURL * m_url;
-@property (nonatomic) NSString * m_htmlText;
+@property (copy, nonatomic) NSString * m_htmlText;
 // Set to YES if external browser should be launched
 @property (nonatomic) BOOL openInSafari;
 

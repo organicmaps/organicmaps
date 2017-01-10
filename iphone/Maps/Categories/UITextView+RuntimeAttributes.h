@@ -6,6 +6,6 @@
 
 @interface MWMTextView (RuntimeAttributes)
 
-@property (nonatomic) NSString * localizedPlaceholder;
+@property (copy, nonatomic) NSString * localizedPlaceholder;
 
 @end

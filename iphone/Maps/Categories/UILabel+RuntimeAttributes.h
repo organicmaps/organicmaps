@@ -1,3 +1,3 @@
 @interface UILabel (RuntimeAttributes)
-@property (nonatomic) NSString * localizedText;
+@property (copy, nonatomic) NSString * localizedText;
 @end
