@@ -1051,12 +1051,6 @@ m2::PointD Framework::GetPixelCenter() const
                                             : m_currentModelView.PixelRect().Center();
 }
 
-m2::PointU Framework::GetViewportPixelSize() const
-{
-  auto & rect = m_currentModelView.PixelRect();
-  return m2::PointU(static_cast<uint32_t>(rect.SizeX()), static_cast<uint32_t>(rect.SizeY()));
-}
-
 m2::PointD Framework::GetVisiblePixelCenter() const
 {
   return m_visibleViewport.Center();

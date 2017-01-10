@@ -675,7 +675,7 @@ using namespace osm_auth_ios;
   // because of new OpenGL driver powered by Metal.
   if ([AppInfo sharedInfo].isMetalDriver)
   {
-    m2::PointU size = GetFramework().GetViewportPixelSize();
+    m2::PointU const size = ((EAGLView *)self.mapViewController.view).pixelSize;
     GetFramework().OnRecoverGLContext(static_cast<int>(size.x), static_cast<int>(size.y));
   }
   [MWMLocationManager applicationDidBecomeActive];

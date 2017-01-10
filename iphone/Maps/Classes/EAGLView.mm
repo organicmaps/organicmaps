@@ -117,6 +117,14 @@ double getExactDPI(double contentScaleFactor)
   });
 }
 
+- (m2::PointU)pixelSize
+{
+  CGSize const s = self.bounds.size;
+  uint32_t const w = static_cast<uint32_t>(s.width * self.contentScaleFactor);
+  uint32_t const h = static_cast<uint32_t>(s.height * self.contentScaleFactor);
+  return m2::PointU(w, h);
+}
+
 - (void)onSize:(int)width withHeight:(int)height
 {
   int w = width * self.contentScaleFactor;

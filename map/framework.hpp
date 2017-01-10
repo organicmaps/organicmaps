@@ -563,7 +563,6 @@ public:
 
   m2::PointD GetPixelCenter() const;
   m2::PointD GetVisiblePixelCenter() const;
-  m2::PointU GetViewportPixelSize() const;
 
   m2::PointD const & GetViewportCenter() const;
   void SetViewportCenter(m2::PointD const & pt);

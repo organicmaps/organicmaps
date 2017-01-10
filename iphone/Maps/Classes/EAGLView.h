@@ -24,6 +24,8 @@ namespace dp
 
 @property (nonatomic, readonly) BOOL drapeEngineCreated;
 
+@property (nonatomic, readonly) m2::PointU pixelSize;
+
 - (void)deallocateNative;
 - (CGPoint)viewPoint2GlobalPoint:(CGPoint)pt;
 - (CGPoint)globalPoint2ViewPoint:(CGPoint)pt;
