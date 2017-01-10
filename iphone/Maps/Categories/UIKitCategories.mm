@@ -305,9 +305,12 @@
   if (![scheme isEqualToString:@"http"] || ![scheme isEqualToString:@"https"])
   {
     NSAssert(false, @"Incorrect url's scheme!");
+    NSString * urlString = url.absoluteString;
     NSError * err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
                                                code:0
-                                           userInfo:@{@"Trying to open incorrect url" : url.absoluteString}];
+                                           userInfo:@{
+                                             @"Trying to open incorrect url" : urlString
+                                           }];
     [[Crashlytics sharedInstance] recordError:err];
     return;
   }

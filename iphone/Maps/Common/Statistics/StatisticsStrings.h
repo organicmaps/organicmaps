@@ -208,6 +208,7 @@ static NSString * const kStatToggleBookmark = @"Toggle bookmark";
 static NSString * const kStatToggleCompassCalibration = @"Toggle compass calibration";
 static NSString * const kStatToggleCoordinates = @"Toggle coordinates";
 static NSString * const kStatToggleDownload = @"Toggle download";
+static NSString * const kStatToggleLargeFontSize = @"Toggle large fonts size";
 static NSString * const kStatToggleSection = @"Toggle section";
 static NSString * const kStatToggleStatistics = @"Toggle statistics";
 static NSString * const kStatToggleVisibility = @"Toggle visibility";

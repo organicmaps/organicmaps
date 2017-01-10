@@ -32,4 +32,7 @@
 + (NSString *)spotlightLocaleLanguageId;
 + (void)setSpotlightLocaleLanguageId:(NSString *)spotlightLocaleLanguageId;
 
++ (BOOL)largeFontSize;
++ (void)setLargeFontSize:(BOOL)largeFontSize;
+
 @end
