@@ -1,4 +1,5 @@
 #import "MWMCuisineEditorViewController.h"
+#import "MWMCommon.h"
 #import "MWMKeyboard.h"
 #import "MWMTableViewCell.h"
 #import "MWMToast.h"
@@ -52,6 +53,7 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
 {
   if ([MWMToast affectsStatusBar])
     return [MWMToast preferredStatusBarStyle];
+  setStatusBarBackgroundColor([UIColor clearColor]);
   return UIStatusBarStyleLightContent;
 }
 

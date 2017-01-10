@@ -1,4 +1,5 @@
 #import "MWMNavigationController.h"
+#import "MWMCommon.h"
 #import "MWMController.h"
 #import "MWMToast.h"
 #import "MapsAppDelegate.h"
@@ -17,7 +18,7 @@
 {
   if ([MWMToast affectsStatusBar])
     return [MWMToast preferredStatusBarStyle];
-
+  setStatusBarBackgroundColor([UIColor clearColor]);
   return UIStatusBarStyleLightContent;
 }
 

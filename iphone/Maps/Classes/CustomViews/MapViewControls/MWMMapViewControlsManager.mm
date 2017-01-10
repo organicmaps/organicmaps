@@ -82,20 +82,21 @@ extern NSString * const kAlohalyticsTapEventKey;
   if ([MWMToast affectsStatusBar])
     return [MWMToast preferredStatusBarStyle];
 
-  MWMSearchManagerState const searchManagerState =
-      _searchManager ? _searchManager.state : MWMSearchManagerStateHidden;
+  BOOL const isSearchUnderStatusBar = !self.searchHidden;
+  BOOL const isNavigationUnderStatusBar =
+      self.navigationManager.state != MWMNavigationDashboardStateHidden &&
+      self.navigationManager.state != MWMNavigationDashboardStateNavigation;
+  BOOL const isMenuViewUnderStatusBar = self.menuState == MWMBottomMenuStateActive ||
+                                        self.menuState == MWMBottomMenuStateRoutingExpanded;
+  BOOL const isDirectionViewUnderStatusBar = !self.isDirectionViewHidden;
   BOOL const isNightMode = [UIColor isNightMode];
-  BOOL const isLight = (searchManagerState == MWMSearchManagerStateMapSearch &&
-                        self.navigationState != MWMNavigationDashboardStateNavigation) ||
-                       (searchManagerState != MWMSearchManagerStateMapSearch &&
-                        searchManagerState != MWMSearchManagerStateHidden) ||
-                       self.navigationState == MWMNavigationDashboardStatePlanning ||
-                       self.navigationState == MWMNavigationDashboardStateReady ||
-                       self.menuState == MWMBottomMenuStateActive || !self.isDirectionViewHidden ||
-                       (isNightMode && self.navigationState != MWMNavigationDashboardStateHidden) ||
-                       MapsAppDelegate.theApp.routingPlaneMode != MWMRoutingPlaneModeNone;
-  return (isLight || (!isLight && isNightMode)) ? UIStatusBarStyleLightContent
-                                                : UIStatusBarStyleDefault;
+  BOOL const isSomethingUnderStatusBar = isSearchUnderStatusBar || isNavigationUnderStatusBar ||
+                                         isDirectionViewUnderStatusBar || isMenuViewUnderStatusBar;
+
+  setStatusBarBackgroundColor(isSomethingUnderStatusBar ? [UIColor clearColor]
+                                                        : [UIColor statusBarBackground]);
+  return isSomethingUnderStatusBar || isNightMode ? UIStatusBarStyleLightContent
+                                                  : UIStatusBarStyleDefault;
 }
 
 #pragma mark - My Position
@@ -115,6 +116,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   [self.searchManager mwm_refreshUI];
   [self.menuController mwm_refreshUI];
   [self.placePageManager mwm_refreshUI];
+  [self.ownerController setNeedsStatusBarAppearanceUpdate];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size
