@@ -1,5 +1,3 @@
-#import "MWMTypes.h"
-
 #include "platform/location.hpp"
 
 using TPredictionBlock = void (^)(location::GpsInfo const &);

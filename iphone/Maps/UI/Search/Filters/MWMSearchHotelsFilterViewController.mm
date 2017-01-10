@@ -2,7 +2,6 @@
 #import "MWMSearchFilterViewController_Protected.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
-#import "UIKitCategories.h"
 
 namespace
 {

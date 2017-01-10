@@ -23,7 +23,6 @@
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
 #import "UIImageView+Coloring.h"
-#import "UIKitCategories.h"
 #import "UIViewController+Navigation.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"

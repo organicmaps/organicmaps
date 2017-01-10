@@ -5,7 +5,6 @@
 #import "MWMNoMapsViewController.h"
 #import "SwiftBridge.h"
 #import "UIColor+MapsMeColor.h"
-#import "UIKitCategories.h"
 
 #include "Framework.h"
 
