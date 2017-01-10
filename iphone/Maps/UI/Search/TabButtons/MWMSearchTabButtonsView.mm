@@ -1,7 +1,6 @@
 #import "MWMCommon.h"
 #import "MWMSearchManager.h"
 #import "MWMSearchTabButtonsView.h"
-#import "UIColor+MapsMeColor.h"
 
 static CGFloat const kIconToLabelSpacing = 4.0;
 

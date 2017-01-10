@@ -1,6 +1,5 @@
 #import "MWMSearchTextField.h"
 #import "MWMSearch.h"
-#import "UIColor+MapsMeColor.h"
 #import "UIImageView+Coloring.h"
 
 namespace

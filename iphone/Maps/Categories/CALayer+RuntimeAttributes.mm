@@ -1,5 +1,4 @@
 #import "CALayer+RuntimeAttributes.h"
-#import "UIColor+MapsMeColor.h"
 
 @implementation CALayer (RuntimeAttributes)
 

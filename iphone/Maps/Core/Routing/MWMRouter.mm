@@ -63,7 +63,7 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
 + (BOOL)isTaxi { return GetFramework().GetRouter() == routing::RouterType::Taxi; }
 + (void)startRouting
 {
-  auto router = [MWMRouter router];
+  auto router = [self router];
   if (![self isTaxi])
   {
     [router start];
@@ -88,7 +88,7 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
 
 + (void)stopRouting
 {
-  [[MWMRouter router] stop];
+  [[self router] stop];
   [MWMNavigationDashboardManager manager].taxiDataSource = nil;
 }
 
@@ -191,7 +191,7 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
   auto const & startPoint = self.startPoint.Point();
   auto const & finishPoint = self.finishPoint.Point();
   // Taxi can't be used as best router.
-  if (bestRouter && ![MWMRouter isTaxi])
+  if (bestRouter && ![[self class] isTaxi])
     self.type = GetFramework().GetBestRouter(startPoint, finishPoint);
   f.BuildRoute(startPoint, finishPoint, isP2P, 0 /* timeoutSec */);
   f.SetRouteStartPoint(startPoint, isMarkerPoint(self.startPoint));
@@ -261,7 +261,7 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
 - (void)doStop
 {
   // Don't save taxi routing type as default.
-  if ([MWMRouter isTaxi])
+  if ([[self class] isTaxi])
     GetFramework().SetRouter(routing::RouterType::Vehicle);
 
   [self clearAltitudeImagesData];
@@ -288,7 +288,7 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
 - (void)routeAltitudeImageForSize:(CGSize)size completion:(MWMImageHeightBlock)block
 {
   dispatch_async(self.renderAltitudeImagesQueue, ^{
-    if (![MWMRouter hasRouteAltitude])
+    if (![[self class] hasRouteAltitude])
       return;
     CGFloat const screenScale = [UIScreen mainScreen].scale;
     CGSize const scaledSize = {.width = size.width * screenScale,
@@ -380,7 +380,7 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
     else
       [mapViewControlsManager onRouteReady];
     [self updateFollowingInfo];
-    if (![MWMRouter isTaxi])
+    if (![[self class] isTaxi])
       [[MWMNavigationDashboardManager manager] setRouteBuilderProgress:100];
 
     mapViewControlsManager.searchHidden = YES;
@@ -409,7 +409,7 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
 
 - (void)processRouteBuilderProgress:(CGFloat)progress
 {
-  if (![MWMRouter isTaxi])
+  if (![[self class] isTaxi])
     [[MWMNavigationDashboardManager manager] setRouteBuilderProgress:progress];
 }
 
@@ -433,14 +433,14 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
         code:code
         cancelBlock:^{
           if (code != routing::IRouter::NeedMoreMaps)
-            [[MWMRouter router] stop];
+            [[[self class] router] stop];
         }
         downloadBlock:^(storage::TCountriesVec const & downloadCountries, TMWMVoidBlock onSuccess) {
           [MWMStorage downloadNodes:downloadCountries
                           onSuccess:onSuccess];
         }
         downloadCompleteBlock:^{
-          [[MWMRouter router] rebuildWithBestRouter:NO];
+          [[[self class] router] rebuildWithBestRouter:NO];
         }];
   }
   else

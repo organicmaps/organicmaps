@@ -1,4 +1,3 @@
-#import "UIColor+MapsMeColor.h"
 #import "MWMTextView.h"
 #import "MWMNoteCell.h"
 

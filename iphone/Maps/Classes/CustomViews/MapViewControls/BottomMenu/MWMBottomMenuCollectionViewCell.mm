@@ -1,7 +1,5 @@
 #import "MWMCommon.h"
 #import "MWMBottomMenuCollectionViewCell.h"
-#import "UIFont+MapsMeFonts.h"
-#import "UIColor+MapsMeColor.h"
 #import "UIImageView+Coloring.h"
 
 @interface MWMBottomMenuCollectionViewCell ()

@@ -1,5 +1,4 @@
 #import "MWMStopButton.h"
-#import "UIColor+MapsMeColor.h"
 
 @implementation MWMStopButton
 

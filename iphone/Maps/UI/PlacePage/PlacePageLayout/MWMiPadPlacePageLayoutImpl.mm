@@ -9,29 +9,6 @@ CGFloat const kTopOffset = 36;
 CGFloat const kBottomOffset = 60;
 }  // namespace
 
-@interface MWMPPView (ActionBarLayout)
-
-@end
-
-@implementation MWMPPView (ActionBarLayout)
-
-- (void)layoutSubviews
-{
-  [super layoutSubviews];
-  if (!IPAD)
-    return;
-
-  for (UIView * sv in self.subviews)
-  {
-    if (![sv isKindOfClass:[MWMPlacePageActionBar class]])
-      continue;
-    sv.maxY = self.height;
-    break;
-  }
-}
-
-@end
-
 @interface MWMiPadPlacePageLayoutImpl ()
 
 @property(nonatomic) CGFloat topBound;

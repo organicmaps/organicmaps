@@ -20,10 +20,7 @@
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
-#import "UIColor+MapsMeColor.h"
-#import "UIFont+MapsMeFonts.h"
 #import "UIImageView+Coloring.h"
-#import "UIKitCategories.h"
 #import "UIViewController+Navigation.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
@@ -194,7 +191,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
                                                              attributes:routingLegendAttributes]];
   self.distanceWithLegendLabel.attributedText = distance;
 
-  NSString * currentSpeed = info.speed ? info.speed : @"0";
+  NSString * currentSpeed = info.speed ?: @"0";
   self.speedLabel.text = currentSpeed;
   self.speedLegendLabel.text = info.speedUnits;
   NSMutableAttributedString * speed =

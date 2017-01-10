@@ -1,7 +1,6 @@
 #import "MWMMailViewController.h"
 #import "MWMCommon.h"
 #import "MWMToast.h"
-#import "UIColor+MapsMeColor.h"
 
 @implementation MWMMailViewController
 

@@ -7,7 +7,6 @@
 #import "MWMFrameworkListener.h"
 #import "MWMStorage.h"
 #import "Statistics.h"
-#import "UIColor+MapsMeColor.h"
 #import "UILabel+RuntimeAttributes.h"
 
 #include "Framework.h"

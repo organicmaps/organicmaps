@@ -1,7 +1,6 @@
 #import "MWMPlacePageButtonCell.h"
 #import "MWMCommon.h"
 #import "MWMPlacePageProtocol.h"
-#import "UIColor+MapsMeColor.h"
 
 @interface MWMPlacePageButtonCell ()
 

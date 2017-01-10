@@ -2,7 +2,6 @@
 #import "MWMButton.h"
 #import "MWMSearch.h"
 #import "UIButton+RuntimeAttributes.h"
-#import "UIColor+MapsMeColor.h"
 
 extern NSString * const kSearchStateWillChangeNotification;
 extern NSString * const kSearchStateKey;

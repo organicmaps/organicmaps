@@ -28,8 +28,6 @@
 #import "MWMWhatsNewTrafficController.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
-#import "UIColor+MapsMeColor.h"
-#import "UIFont+MapsMeFonts.h"
 #import "UIViewController+Navigation.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"

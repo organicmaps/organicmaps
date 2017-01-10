@@ -9,8 +9,6 @@
 #import "MWMRouter.h"
 #import "MWMSearch.h"
 #import "MapViewController.h"
-#import "UIColor+MapsMeColor.h"
-#import "UIFont+MapsMeFonts.h"
 #import "UIImageView+Coloring.h"
 
 #include "geometry/angles.hpp"

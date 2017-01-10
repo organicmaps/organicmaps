@@ -1,5 +1,4 @@
 #import "MWMOpeningHoursDaysSelectorTableViewCell.h"
-#import "UIColor+MapsMeColor.h"
 #import "UIImageView+Coloring.h"
 
 #include "3party/opening_hours/opening_hours.hpp"

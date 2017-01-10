@@ -3,7 +3,6 @@
 #import "MWMOpeningHoursModel.h"
 #import "MWMOpeningHoursSection.h"
 #import "MWMTextView.h"
-#import "UIColor+MapsMeColor.h"
 
 extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
   @(MWMOpeningHoursEditorDaysSelectorCell) : @"MWMOpeningHoursDaysSelectorTableViewCell",

@@ -3,7 +3,6 @@
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
-#import "UIColor+MapsMeColor.h"
 
 #include "Framework.h"
 

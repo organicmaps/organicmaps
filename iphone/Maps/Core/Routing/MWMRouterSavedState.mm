@@ -25,7 +25,7 @@ static NSString * const kETAKey = @"eta";
   {
     _forceStateChange = MWMRouterForceStateChange::None;
     NSDictionary * const stateDict =
-        [NSDictionary dictionaryWithContentsOfURL:[MWMRouterSavedState stateFileURL]];
+        [NSDictionary dictionaryWithContentsOfURL:[[self class] stateFileURL]];
     if (stateDict)
     {
       m2::PointD point;
@@ -58,12 +58,12 @@ static NSString * const kETAKey = @"eta";
   NSGetSizeAndAlignment(@encode(m2::PointD), &size, nullptr);
   stateDict[kEndPointKey] = [NSData dataWithBytes:&endPoint length:size];
   stateDict[kETAKey] = [NSDate dateWithTimeIntervalSinceNow:routeInfo.m_time];
-  [stateDict writeToURL:[MWMRouterSavedState stateFileURL] atomically:YES];
+  [stateDict writeToURL:[self stateFileURL] atomically:YES];
 }
 
 + (void)remove
 {
-  [[NSFileManager defaultManager] removeItemAtURL:[MWMRouterSavedState stateFileURL] error:nil];
+  [[NSFileManager defaultManager] removeItemAtURL:[self stateFileURL] error:nil];
 }
 
 + (NSURL *)stateFileURL
@@ -77,7 +77,7 @@ static NSString * const kETAKey = @"eta";
   if (GetFramework().IsRoutingActive())
     return;
   if ([MWMRouterSavedState state].forceStateChange == MWMRouterForceStateChange::None)
-    [MWMRouterSavedState remove];
+    [self remove];
 }
 
 @end

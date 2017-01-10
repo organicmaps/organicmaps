@@ -26,7 +26,7 @@ namespace
 
 + (nonnull instancetype)alert
 {
-  MWMEditorViralAlert * alert = [[[NSBundle mainBundle] loadNibNamed:[MWMEditorViralAlert className] owner:nil options:nil] firstObject];
+  MWMEditorViralAlert * alert = [[[NSBundle mainBundle] loadNibNamed:[self className] owner:nil options:nil] firstObject];
   alert.indexOfMessage = rand() % kMessages.size();
   NSString * message = kMessages[alert.indexOfMessage];
   if (alert.indexOfMessage == 1)
@@ -36,8 +36,9 @@ namespace
   }
   alert.message.text = message;
   NSMutableDictionary <NSString *, NSString *> * info = [@{kStatValue : alert.statMessage} mutableCopy];
-  if (NSString * un = osm_auth_ios::OSMUserName())
-    [info setObject:un forKey:kStatOSMUserName];
+  NSString * un = osm_auth_ios::OSMUserName();
+  if (un)
+    info[kStatOSMUserName] = un;
 
   [Statistics logEvent:kStatEditorSecondTimeShareShow withParameters:info];
   return alert;

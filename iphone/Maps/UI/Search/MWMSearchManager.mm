@@ -8,7 +8,7 @@
 #import "MWMRouter.h"
 #import "MWMSearch.h"
 #import "MWMSearchChangeModeView.h"
-#import "MWMSearchFilterTransitioningDelegate.h"
+#import "MWMSearchFilterTransitioningManager.h"
 #import "MWMSearchManager+Filter.h"
 #import "MWMSearchManager+Layout.h"
 #import "MWMSearchTabButtonsView.h"
@@ -17,8 +17,6 @@
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
-#import "UIColor+MapsMeColor.h"
-#import "UIFont+MapsMeFonts.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
@@ -73,7 +71,7 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
 @property(nonatomic) MWMSearchTableViewController * tableViewController;
 @property(nonatomic) MWMNoMapsViewController * noMapsController;
 
-@property(nonatomic) MWMSearchFilterTransitioningDelegate * filterTransitioningDelegate;
+@property(nonatomic) MWMSearchFilterTransitioningManager * filterTransitioningManager;
 
 @end
 
@@ -192,7 +190,7 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
 {
   [self beginSearch];
   self.searchTextField.text = text;
-  NSString * inputLocale = locale ? locale : self.searchTextField.textInputMode.primaryLanguage;
+  NSString * inputLocale = locale ?: self.searchTextField.textInputMode.primaryLanguage;
   [MWMSearch searchQuery:text forInputLocale:inputLocale];
 }
 

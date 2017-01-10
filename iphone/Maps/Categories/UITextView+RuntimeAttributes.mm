@@ -1,6 +1,4 @@
-#import "UIFont+MapsMeFonts.h"
 #import "UITextView+RuntimeAttributes.h"
-#import "UIColor+MapsMeColor.h"
 
 @implementation UITextView (RuntimeAttributes)
 

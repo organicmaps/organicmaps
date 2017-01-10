@@ -1,16 +1,14 @@
 #import "MWMSearch.h"
-#import "MWMSearchFilterTransitioningDelegate.h"
+#import "MWMSearchFilterTransitioningManager.h"
 #import "MWMSearchFilterViewController.h"
 #import "MWMSearchManager+Filter.h"
-#import "UIColor+MapsMeColor.h"
-#import "UIFont+MapsMeFonts.h"
 
 @interface MWMSearchManager ()<UIPopoverPresentationControllerDelegate>
 
 @property(weak, nonatomic, readonly) UIViewController * ownerController;
 @property(weak, nonatomic) IBOutlet UIButton * actionBarViewFilterButton;
 
-@property(nonatomic) MWMSearchFilterTransitioningDelegate * filterTransitioningDelegate;
+@property(nonatomic) MWMSearchFilterTransitioningManager * filterTransitioningManager;
 
 @end
 
@@ -35,9 +33,9 @@
   else
   {
     navController.modalPresentationStyle = UIModalPresentationCustom;
-    self.filterTransitioningDelegate = [[MWMSearchFilterTransitioningDelegate alloc] init];
-    ownerController.transitioningDelegate = self.filterTransitioningDelegate;
-    navController.transitioningDelegate = self.filterTransitioningDelegate;
+    self.filterTransitioningManager = [[MWMSearchFilterTransitioningManager alloc] init];
+    ownerController.transitioningDelegate = self.filterTransitioningManager;
+    navController.transitioningDelegate = self.filterTransitioningManager;
   }
 
   [self configNavigationBar:navController.navigationBar];

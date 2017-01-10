@@ -1,8 +1,8 @@
-#import "MWMSearchFilterTransitioningDelegate.h"
+#import "MWMSearchFilterTransitioningManager.h"
 #import "MWMSearchFilterPresentationController.h"
 #import "MWMSearchFilterTransitioning.h"
 
-@implementation MWMSearchFilterTransitioningDelegate
+@implementation MWMSearchFilterTransitioningManager
 
 - (UIPresentationController *)
 presentationControllerForPresentedViewController:(UIViewController *)presented

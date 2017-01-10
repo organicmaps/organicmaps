@@ -1,8 +1,5 @@
 #import "MWMSearchHotelsFilterViewController.h"
 #import "MWMSearchFilterViewController_Protected.h"
-#import "UIColor+MapsMeColor.h"
-#import "UIFont+MapsMeFonts.h"
-#import "UIKitCategories.h"
 
 namespace
 {
@@ -78,7 +75,7 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
 
 + (MWMSearchHotelsFilterViewController *)controller
 {
-  NSString * identifier = [MWMSearchHotelsFilterViewController className];
+  NSString * identifier = [self className];
   return static_cast<MWMSearchHotelsFilterViewController *>(
       [self controllerWithIdentifier:identifier]);
 }

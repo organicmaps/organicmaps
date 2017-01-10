@@ -1,6 +1,5 @@
 #import "MWMBookmarkColorViewController.h"
 #import "Statistics.h"
-#import "UIColor+MapsMeColor.h"
 #import "UIViewController+Navigation.h"
 
 #include "std/array.hpp"

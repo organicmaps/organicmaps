@@ -3,7 +3,6 @@
 #import "MWMAlertViewController.h"
 #import "MWMTableViewCell.h"
 #import "MWMTableViewController.h"
-#import "UIColor+MapsMeColor.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 

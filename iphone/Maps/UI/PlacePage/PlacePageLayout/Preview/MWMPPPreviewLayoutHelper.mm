@@ -5,7 +5,6 @@
 #import "MWMPPPreviewBannerCell.h"
 #import "MWMTableViewCell.h"
 #import "Statistics.h"
-#import "UIColor+MapsmeColor.h"
 
 #include "std/array.hpp"
 

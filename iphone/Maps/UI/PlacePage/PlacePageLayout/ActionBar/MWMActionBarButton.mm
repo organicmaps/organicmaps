@@ -2,7 +2,6 @@
 #import "MWMCommon.h"
 #import "MWMButton.h"
 #import "MWMCircularProgress.h"
-#import "UIColor+MapsMeColor.h"
 
 NSString * titleForButton(EButton type, BOOL isSelected)
 {
@@ -121,7 +120,7 @@ NSString * titleForButton(EButton type, BOOL isSelected)
 {
   if (view.subviews.count)
     return;
-  MWMActionBarButton * button = [[[NSBundle mainBundle] loadNibNamed:[MWMActionBarButton className] owner:nil options:nil] firstObject];
+  MWMActionBarButton * button = [[[NSBundle mainBundle] loadNibNamed:[self className] owner:nil options:nil] firstObject];
   button.delegate = delegate;
   button.type = type;
   [view addSubview:button];

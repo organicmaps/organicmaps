@@ -1,5 +1,4 @@
 #import "UISwitch+RuntimeAttributes.h"
-#import "UIColor+MapsMeColor.h"
 
 @implementation UISwitch (RuntimeAttributes)
 

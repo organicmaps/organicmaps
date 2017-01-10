@@ -128,7 +128,7 @@ void checkFlurryLogStatus(FlurryEventRecordStatus status)
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^
   {
-    instance = [[Statistics alloc] init];
+    instance = [[self alloc] init];
   });
   return instance;
 }

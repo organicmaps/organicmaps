@@ -23,8 +23,6 @@
 #import "MWMTextToSpeech.h"
 #import "MapViewController.h"
 #import "Statistics.h"
-#import "UIColor+MapsMeColor.h"
-#import "UIFont+MapsMeFonts.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 

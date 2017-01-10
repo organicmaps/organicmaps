@@ -14,7 +14,7 @@
 + (instancetype)alertWithBlock:(MWMStringBlock)block
 {
   MWMPlaceDoesntExistAlert * alert =
-      [[[NSBundle mainBundle] loadNibNamed:[MWMPlaceDoesntExistAlert className]
+      [[[NSBundle mainBundle] loadNibNamed:[self className]
                                      owner:nil
                                    options:nil] firstObject];
   alert.block = block;

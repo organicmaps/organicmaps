@@ -1,5 +1,4 @@
 #import "MWMCommon.h"
-#import "UIColor+MapsMeColor.h"
 #import "UIImageView+Coloring.h"
 
 #import <objc/runtime.h>

@@ -5,7 +5,7 @@
 
 @protocol MWMCuisineEditorProtocol <NSObject>
 
-- (vector<string>)getSelectedCuisines;
+- (vector<string>)selectedCuisines;
 - (void)setSelectedCuisines:(vector<string> const &)cuisines;
 
 @end

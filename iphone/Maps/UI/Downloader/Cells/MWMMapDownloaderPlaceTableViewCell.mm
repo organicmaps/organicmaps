@@ -1,6 +1,5 @@
 #import "MWMMapDownloaderPlaceTableViewCell.h"
 #import "MWMCommon.h"
-#import "UIFont+MapsMeFonts.h"
 
 #include "Framework.h"
 

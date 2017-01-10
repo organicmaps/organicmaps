@@ -2,8 +2,6 @@
 #import "MWMLocationManager.h"
 #import "MWMSearchCommonCell.h"
 #import "MapsAppDelegate.h"
-#import "UIColor+MapsMeColor.h"
-#import "UIFont+MapsMeFonts.h"
 
 #include "Framework.h"
 

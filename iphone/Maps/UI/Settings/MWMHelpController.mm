@@ -3,7 +3,6 @@
 #import "MWMCommon.h"
 #import "MWMMailViewController.h"
 #import "Statistics.h"
-#import "UIColor+MapsMeColor.h"
 #import "WebViewController.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"

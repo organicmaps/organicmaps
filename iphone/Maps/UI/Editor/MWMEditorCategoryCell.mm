@@ -1,6 +1,5 @@
 #import "MWMEditorCategoryCell.h"
 #import "MWMEditorCommon.h"
-#import "UIColor+MapsMeColor.h"
 #import "UIImageView+Coloring.h"
 
 namespace

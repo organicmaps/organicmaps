@@ -4,8 +4,6 @@
 #import "MWMSettings.h"
 #import "MapsAppDelegate.h"
 #import "SwiftBridge.h"
-#import "UIColor+MapsMeColor.h"
-#import "UIFont+MapsMeFonts.h"
 
 #include "Framework.h"
 #include "geometry/distance_on_sphere.hpp"

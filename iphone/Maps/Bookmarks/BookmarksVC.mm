@@ -10,7 +10,6 @@
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
-#import "UIColor+MapsMeColor.h"
 
 #include "Framework.h"
 
@@ -140,7 +139,7 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
     string dist;
     if (measurement_utils::FormatDistance(tr->GetLengthMeters(), dist))
       //Change Length before release!!!
-      cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@", L(@"length"), [NSString  stringWithUTF8String:dist.c_str()]];
+      cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@", L(@"length"), @(dist.c_str())];
     else
       cell.detailTextLabel.text = nil;
     const dp::Color c = tr->GetColor(0);
@@ -247,9 +246,9 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
     if (cat)
     {
       [Statistics logEvent:kStatEventName(kStatBookmarks, kStatExport)];
-      NSMutableString * catName = [NSMutableString stringWithUTF8String:cat->GetName().c_str()];
+      NSString * catName = @(cat->GetName().c_str());
       if (![catName length])
-        [catName setString:@"MapsMe"];
+        catName = @"MapsMe";
 
       NSString * filePath = @(cat->GetFileName().c_str());
       NSMutableString * kmzFile = [NSMutableString stringWithString:filePath];
@@ -309,7 +308,7 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
       [self calculateSections];
       //We can delete the row with animation, if number of sections stay the same.
       if (previousNumberOfSections == m_numberOfSections)
-        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView deleteRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationFade];
       else
         [self.tableView reloadData];
       if (cat->GetUserMarkCount() + cat->GetTracksCount() == 0)

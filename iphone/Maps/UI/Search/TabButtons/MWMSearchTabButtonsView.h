@@ -11,6 +11,6 @@
 @property (nonatomic) BOOL selected;
 
 @property (nonatomic) UIImage * iconImage;
-@property (nonatomic) NSString * localizedText;
+@property (copy, nonatomic) NSString * localizedText;
 
 @end

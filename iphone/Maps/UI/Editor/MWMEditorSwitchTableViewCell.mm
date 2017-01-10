@@ -1,5 +1,4 @@
 #import "MWMEditorSwitchTableViewCell.h"
-#import "UIColor+MapsMeColor.h"
 #import "UIImageView+Coloring.h"
 
 @interface MWMEditorSwitchTableViewCell ()

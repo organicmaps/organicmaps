@@ -44,7 +44,7 @@ static Tcolor const g_color [] =
 
     UILabel * header = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, customWidth, HEADERHEIGHT)];
     header.backgroundColor = [UIColor clearColor];
-    header.text = NSLocalizedString(@"bookmark_color", nil);
+    header.text = L(@"bookmark_color");
     header.font = [UIFont fontWithName:@"Helvetica" size:20];
     header.textAlignment = NSTextAlignmentCenter;
     header.textColor = [UIColor colorWithRed:51/255.f green:204/255.f blue:255/255.f alpha:1];
@@ -59,7 +59,7 @@ static Tcolor const g_color [] =
     for (size_t i = 0; i < 8; ++i)
     {
       UIButton * button = [[UIButton alloc] initWithFrame:CGRectMake(BORDERMARGIN + (i % 4) * (buttonDiameter + BUTTONMARGIN), BORDERMARGIN + (i / 4) * (buttonDiameter + BUTTONMARGINHEIGHT) + HEADERHEIGHT + LINEHEIGHT, buttonDiameter, buttonDiameter)];
-      UIColor * c = [ColorPickerView buttonColor:i];
+      UIColor * c = [[self class] buttonColor:i];
       if (i != selectedIndex)
         [button setBackgroundImage:[CircleView createCircleImageWith:buttonDiameter andColor:c] forState:UIControlStateNormal];
       else

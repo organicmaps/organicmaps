@@ -1,6 +1,5 @@
 #import "MWMToast.h"
 #import "MWMCommon.h"
-#import "UIColor+MapsMeColor.h"
 
 namespace
 {
@@ -22,14 +21,14 @@ NSUInteger const kWordsPerSecond = 3;
 
 + (void)showWithText:(NSString *)text
 {
-  MWMToast * toast = [MWMToast toast];
+  MWMToast * toast = [self toast];
   toast.label.text = text;
   toast.label.textColor = [UIColor blackPrimaryText];
   toast.rootView.backgroundColor = [UIColor toastBackground];
   [toast show];
 }
 
-+ (BOOL)affectsStatusBar { return [MWMToast toast].rootView.superview != nil; }
++ (BOOL)affectsStatusBar { return [self toast].rootView.superview != nil; }
 + (UIStatusBarStyle)preferredStatusBarStyle
 {
   setStatusBarBackgroundColor([UIColor clearColor]);
@@ -51,7 +50,7 @@ NSUInteger const kWordsPerSecond = 3;
   self = [super init];
   if (self)
   {
-    [[NSBundle mainBundle] loadNibNamed:[MWMToast className] owner:self options:nil];
+    [[NSBundle mainBundle] loadNibNamed:[[self class] className] owner:self options:nil];
     self.rootView.translatesAutoresizingMaskIntoConstraints = NO;
   }
   return self;

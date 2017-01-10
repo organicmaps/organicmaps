@@ -2,7 +2,6 @@
 #import "MWMMapViewControlsManager.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
-#import "UIFont+MapsMeFonts.h"
 
 static NSString * const kDirectionViewNibName = @"MWMDirectionView";
 static CGFloat const kDirectionArrowSide = IPAD ? 260. : 160.;

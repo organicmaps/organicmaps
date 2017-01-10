@@ -1,5 +1,4 @@
 #import "MWMStartButton.h"
-#import "UIColor+MapsMeColor.h"
 
 @implementation MWMStartButton
 

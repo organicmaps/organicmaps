@@ -1,5 +1,4 @@
 #import "MWMSearchHistoryClearCell.h"
-#import "UIColor+MapsMeColor.h"
 
 @interface MWMSearchHistoryClearCell ()
 

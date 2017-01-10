@@ -1,6 +1,5 @@
 #import "MWMCommon.h"
 #import "MWMMigrationView.h"
-#import "UIColor+MapsMeColor.h"
 
 @interface MWMMigrationView ()
 
@@ -90,7 +89,7 @@
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
-  UIView * superview = self.superview ? self.superview : UIApplication.sharedApplication.keyWindow;
+  UIView * superview = self.superview ?: UIApplication.sharedApplication.keyWindow;
   BOOL const isLandscape = UIInterfaceOrientationIsLandscape(orientation);
   CGFloat const minDim = MIN(superview.width, superview.height);
   CGFloat const maxDim = MAX(superview.width, superview.height);

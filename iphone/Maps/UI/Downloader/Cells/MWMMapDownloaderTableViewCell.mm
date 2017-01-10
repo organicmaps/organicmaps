@@ -3,7 +3,6 @@
 #import "MWMCircularProgress.h"
 #import "MWMMapDownloaderLargeCountryTableViewCell.h"
 #import "NSString+Categories.h"
-#import "UIFont+MapsMeFonts.h"
 
 #include "Framework.h"
 

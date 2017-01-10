@@ -7,8 +7,6 @@
 #import "MWMSideButtons.h"
 #import "MapsAppDelegate.h"
 #import "UIButton+RuntimeAttributes.h"
-#import "UIColor+MapsMeColor.h"
-#import "UIFont+MapsMeFonts.h"
 #import "UIImageView+Coloring.h"
 #import "UIView+RuntimeAttributes.h"
 

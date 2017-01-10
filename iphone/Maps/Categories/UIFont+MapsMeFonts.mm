@@ -1,5 +1,4 @@
 #import "MWMCommon.h"
-#import "UIFont+MapsMeFonts.h"
 
 NSString * const kMediumFontName = @"HelveticaNeue-Medium";
 NSString * const kLightFontName = @"HelveticaNeue-Light";

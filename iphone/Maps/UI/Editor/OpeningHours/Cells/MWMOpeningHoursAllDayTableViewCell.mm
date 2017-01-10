@@ -1,5 +1,4 @@
 #import "MWMOpeningHoursAllDayTableViewCell.h"
-#import "UIColor+MapsMeColor.h"
 
 @interface MWMOpeningHoursAllDayTableViewCell ()
 

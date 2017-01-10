@@ -1,5 +1,4 @@
 #import "MWMSearchHistoryMyPositionCell.h"
-#import "UIColor+MapsMeColor.h"
 
 @implementation MWMSearchHistoryMyPositionCell
 

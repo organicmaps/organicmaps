@@ -114,7 +114,7 @@ using namespace osmoh;
     return cachedTime;
 
   BOOL const isClosed = [self cellKeyForRow:row] != MWMOpeningHoursEditorTimeSpanCell;
-  TTimeTableProxy tt = [self getTimeTableProxy];
+  TTimeTableProxy tt = [self timeTableProxy];
   NSUInteger const index = isClosed ? [self closedTimeIndex:row] : 0;
   Timespan span = isClosed ? tt.GetExcludeTime()[index] : tt.GetOpeningTime();
   return dateComponentsFromTime(isStart ? span.GetStart() : span.GetEnd());
@@ -125,7 +125,7 @@ using namespace osmoh;
   if (!startTime && !endTime)
     return;
 
-  TTimeTableProxy tt = [self getTimeTableProxy];
+  TTimeTableProxy tt = [self timeTableProxy];
   NSUInteger const row = self.selectedRow.unsignedIntegerValue;
   NSUInteger const index = isClosed ? [self closedTimeIndex:row] : 0;
   Timespan span = isClosed ? tt.GetExcludeTime()[index] : tt.GetOpeningTime();
@@ -165,7 +165,7 @@ using namespace osmoh;
 
 - (NSUInteger)closedTimesCount
 {
-  return [self getTimeTableProxy].GetExcludeTime().size();
+  return [self timeTableProxy].GetExcludeTime().size();
 }
 
 - (NSUInteger)closedTimeIndex:(NSUInteger)row
@@ -185,7 +185,7 @@ using namespace osmoh;
 
   NSUInteger const row = [self firstRowForKey:MWMOpeningHoursEditorAddClosedCell];
 
-  TTimeTableProxy timeTable = [self getTimeTableProxy];
+  TTimeTableProxy timeTable = [self timeTableProxy];
 
   NSUInteger const closedTimesCountBeforeUpdate = [self closedTimesCount];
 
@@ -222,7 +222,7 @@ using namespace osmoh;
     UITableView * tableView = self.delegate.tableView;
     [tableView beginUpdates];
 
-    TTimeTableProxy timeTable = [self getTimeTableProxy];
+    TTimeTableProxy timeTable = [self timeTableProxy];
     timeTable.RemoveExcludeTime([self closedTimeIndex:row]);
     timeTable.Commit();
 
@@ -237,7 +237,7 @@ using namespace osmoh;
 
 - (void)addSelectedDay:(Weekday)day
 {
-  TTimeTableProxy timeTable = [self getTimeTableProxy];
+  TTimeTableProxy timeTable = [self timeTableProxy];
   TOpeningDays openingDays(timeTable.GetOpeningDays());
   openingDays.insert(day);
   timeTable.SetOpeningDays(openingDays);
@@ -247,7 +247,7 @@ using namespace osmoh;
 
 - (void)removeSelectedDay:(Weekday)day
 {
-  TTimeTableProxy timeTable = [self getTimeTableProxy];
+  TTimeTableProxy timeTable = [self timeTableProxy];
   TOpeningDays openingDays(timeTable.GetOpeningDays());
   openingDays.erase(day);
   timeTable.SetOpeningDays(openingDays);
@@ -257,7 +257,7 @@ using namespace osmoh;
 
 - (BOOL)containsSelectedDay:(Weekday)day
 {
-  TTimeTableProxy timeTable = [self getTimeTableProxy];
+  TTimeTableProxy timeTable = [self timeTableProxy];
   TOpeningDays const & openingDays = timeTable.GetOpeningDays();
   return openingDays.find(day) != openingDays.end();
 }
@@ -316,9 +316,9 @@ using namespace osmoh;
 
 #pragma mark - Model
 
-- (TTimeTableProxy)getTimeTableProxy
+- (TTimeTableProxy)timeTableProxy
 {
-  return [self.delegate getTimeTableProxy:self.index];
+  return [self.delegate timeTableProxy:self.index];
 }
 
 - (void)deleteSchedule
@@ -444,7 +444,7 @@ using namespace osmoh;
 
 - (BOOL)allDay
 {
-  return [self getTimeTableProxy].IsTwentyFourHours();
+  return [self timeTableProxy].IsTwentyFourHours();
 }
 
 - (void)setAllDay:(BOOL)allDay
@@ -456,7 +456,7 @@ using namespace osmoh;
   NSUInteger const deleteScheduleCellShift = self.index != 0 ? 1 : 0;
   NSUInteger const oldRowCount = [self numberOfRowsForAllDay:currentAllDay] - deleteScheduleCellShift;
   NSUInteger const newRowCount = [self numberOfRowsForAllDay:allDay] - deleteScheduleCellShift;
-  TTimeTableProxy timeTable = [self getTimeTableProxy];
+  TTimeTableProxy timeTable = [self timeTableProxy];
   timeTable.SetTwentyFourHours(allDay);
   timeTable.Commit();
   [self refreshForNewRowCount:newRowCount oldRowCount:oldRowCount];
@@ -484,7 +484,7 @@ using namespace osmoh;
 
 - (BOOL)canAddClosedTime
 {
-  return [self getTimeTableProxy].CanAddExcludeTime();
+  return [self timeTableProxy].CanAddExcludeTime();
 }
 
 @end

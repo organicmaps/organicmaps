@@ -219,7 +219,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
   TMWMVoidBlock action = ^{
     GetFramework().SwitchMyPositionNextMode();
   };
-  return [MWMDefaultAlert defaultAlertWithTitle:L(@"dialog_routing_location_turn_on")
+  return [self defaultAlertWithTitle:L(@"dialog_routing_location_turn_on")
                                         message:L(@"dialog_routing_location_unknown_turn_on")
                                rightButtonTitle:L(@"turn_on")
                                 leftButtonTitle:L(@"later")
