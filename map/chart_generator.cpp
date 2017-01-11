@@ -57,7 +57,6 @@ agg::rgba8 GetLineColor(MapStyle mapStyle)
     // No need break or return here.
   case MapStyleDark:
     return agg::rgba8(255, 230, 140, 255);
-  case MapStyleLight:
   case MapStyleClear:
   case MapStyleMerged:
     return agg::rgba8(30, 150, 240, 255);
@@ -73,7 +72,6 @@ agg::rgba8 GetCurveColor(MapStyle mapStyle)
     // No need break or return here.
   case MapStyleDark:
     return agg::rgba8(255, 230, 140, 20);
-  case MapStyleLight:
   case MapStyleClear:
   case MapStyleMerged:
     return agg::rgba8(30, 150, 240, 20);

@@ -30,9 +30,5 @@ done
 # Building drawing rules
 BuildDrawingRules clear  clear _clear
 BuildDrawingRules clear  night _dark
-BuildDrawingRules legacy light _legacy
 
-echo "Merging legacy and new styles"
-python "$OMIM_PATH/tools/python/stylesheet/drules_merge.py" \
-  "$DATA_PATH/drules_proto_clear.bin" "$DATA_PATH/drules_proto_legacy.bin" \
-  "$DATA_PATH/drules_proto.bin" "$DATA_PATH/drules_proto.txt" > /dev/null
+cp "$DATA_PATH/drules_proto_clear.bin" "$DATA_PATH/drules_proto.bin"

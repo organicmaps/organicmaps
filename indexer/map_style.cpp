@@ -4,12 +4,21 @@
 
 MapStyle const kDefaultMapStyle = MapStyleClear;
 
-string DebugPrint(MapStyle mapStyle)
+MapStyle MapStyleFromSettings(std::string const & str)
+{
+  // MapStyleMerged is service style. It's unavailable for users.
+  if (str == "MapStyleClear")
+    return MapStyleClear;
+  else if (str == "MapStyleDark")
+    return MapStyleDark;
+
+  return kDefaultMapStyle;
+}
+
+std::string MapStyleToString(MapStyle mapStyle)
 {
   switch (mapStyle)
   {
-  case MapStyleLight:
-    return "MapStyleLight";
   case MapStyleDark:
     return "MapStyleDark";
   case MapStyleClear:
@@ -21,5 +30,10 @@ string DebugPrint(MapStyle mapStyle)
     break;
   }
   ASSERT(false, ());
-  return string();
+  return std::string();
+}
+
+std::string DebugPrint(MapStyle mapStyle)
+{
+  return MapStyleToString(mapStyle);
 }

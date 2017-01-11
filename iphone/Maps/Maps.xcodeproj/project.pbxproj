@@ -505,8 +505,6 @@
 		849CF6041DE842290024A8A5 /* 01_dejavusans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E5134C4968003A9827 /* 01_dejavusans.ttf */; };
 		849CF6051DE842290024A8A5 /* 02_droidsans-fallback.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DF04B231B71010E00DACAF1 /* 02_droidsans-fallback.ttf */; };
 		849CF6061DE842290024A8A5 /* resources-xxhdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 4A7D89C41B2EBF3B00AC843E /* resources-xxhdpi_dark */; };
-		849CF6071DE842290024A8A5 /* resources-xhdpi_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A061C47E92100EF52BA /* resources-xhdpi_legacy */; };
-		849CF6081DE842290024A8A5 /* resources-xxhdpi_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A071C47E92100EF52BA /* resources-xxhdpi_legacy */; };
 		849CF6091DE842290024A8A5 /* 03_jomolhari-id-a3d.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E7134C4968003A9827 /* 03_jomolhari-id-a3d.ttf */; };
 		849CF60B1DE842290024A8A5 /* 04_padauk.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E8134C4968003A9827 /* 04_padauk.ttf */; };
 		849CF60D1DE842290024A8A5 /* MWMMapDownloadDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3406FA171C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib */; };
@@ -519,7 +517,6 @@
 		849CF6191DE842290024A8A5 /* MWMRoutingDisclaimerAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F63774E61B59375E00BCF54D /* MWMRoutingDisclaimerAlert.xib */; };
 		849CF61A1DE842290024A8A5 /* resources-xhdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 4A7D89C31B2EBF3B00AC843E /* resources-xhdpi_dark */; };
 		849CF61B1DE842290024A8A5 /* MWMDropDown.xib in Resources */ = {isa = PBXBuildFile; fileRef = F652B2E91C6DE8E500D20C8C /* MWMDropDown.xib */; };
-		849CF61E1DE842290024A8A5 /* resources-6plus_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A111C47E95700EF52BA /* resources-6plus_legacy */; };
 		849CF6251DE842290024A8A5 /* cuisine-strings in Resources */ = {isa = PBXBuildFile; fileRef = 6B653B931C7F2DE4007BEFC5 /* cuisine-strings */; };
 		849CF6281DE842290024A8A5 /* tts-how-to-set-up-voice.html in Resources */ = {isa = PBXBuildFile; fileRef = 3476B8D51BFDD30B00874594 /* tts-how-to-set-up-voice.html */; };
 		849CF6291DE842290024A8A5 /* faq.html in Resources */ = {isa = PBXBuildFile; fileRef = 978D4A30199A11E600D72CA7 /* faq.html */; };
@@ -527,7 +524,6 @@
 		849CF62F1DE842290024A8A5 /* MWMDownloadTransitMapAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F64F19981AB81A00006EAF7E /* MWMDownloadTransitMapAlert.xib */; };
 		849CF6301DE842290024A8A5 /* MWMLocationAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6BBF2C71B4FFB8C000CF8E2 /* MWMLocationAlert.xib */; };
 		849CF6311DE842290024A8A5 /* MWMRoutePreview.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6BB6CBD1BB15A5E00DF1DF2 /* MWMRoutePreview.xib */; };
-		849CF6341DE842290024A8A5 /* resources-mdpi_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A051C47E92100EF52BA /* resources-mdpi_legacy */; };
 		849CF6381DE842290024A8A5 /* MWMiPadRoutePreview.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6172FA41BBD5A3E0081D325 /* MWMiPadRoutePreview.xib */; };
 		849CF6391DE842290024A8A5 /* copyright.html in Resources */ = {isa = PBXBuildFile; fileRef = 97A5967E19B9CD47007A963F /* copyright.html */; };
 		849CF63D1DE842290024A8A5 /* WorldCoasts_obsolete.mwm in Resources */ = {isa = PBXBuildFile; fileRef = 671182E01C7F0DD400CB8177 /* WorldCoasts_obsolete.mwm */; };
@@ -548,7 +544,6 @@
 		849CF6581DE842290024A8A5 /* countries-strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A300ED31C6DCFD400140018 /* countries-strings */; };
 		849CF6591DE842290024A8A5 /* MWMBottomMenuCollectionViewPortraitCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34BAB6EC1BB2DFCE00DB941B /* MWMBottomMenuCollectionViewPortraitCell.xib */; };
 		849CF65A1DE842290024A8A5 /* MWMOsmAuthAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6BD1D221CA412E30047B8E8 /* MWMOsmAuthAlert.xib */; };
-		849CF65E1DE842290024A8A5 /* drules_proto_legacy.bin in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A101C47E95700EF52BA /* drules_proto_legacy.bin */; };
 		849CF65F1DE842290024A8A5 /* drules_proto_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4A23D1561B8B4DD700D4EB6F /* drules_proto_clear.bin */; };
 		849CF6611DE842290024A8A5 /* opening_hours_how_to_edit.html in Resources */ = {isa = PBXBuildFile; fileRef = F623DA6A1C9C2731006A3436 /* opening_hours_how_to_edit.html */; };
 		849CF6621DE842290024A8A5 /* MWMAPIBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 341C2A5A1B720B8A00AD41A1 /* MWMAPIBarView.xib */; };
@@ -685,17 +680,6 @@
 		97ECD871183620CE00F77A46 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD870183620CE00F77A46 /* AdSupport.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		97ECD87818362B3D00F77A46 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87718362B3D00F77A46 /* CoreTelephony.framework */; };
 		97ECD87A18362B5400F77A46 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87918362B5400F77A46 /* MobileCoreServices.framework */; };
-		9DA46A091C47E92100EF52BA /* resources-hdpi_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A041C47E92100EF52BA /* resources-hdpi_legacy */; };
-		9DA46A0A1C47E92100EF52BA /* resources-mdpi_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A051C47E92100EF52BA /* resources-mdpi_legacy */; };
-		9DA46A0B1C47E92100EF52BA /* resources-mdpi_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A051C47E92100EF52BA /* resources-mdpi_legacy */; };
-		9DA46A0C1C47E92100EF52BA /* resources-xhdpi_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A061C47E92100EF52BA /* resources-xhdpi_legacy */; };
-		9DA46A0D1C47E92100EF52BA /* resources-xhdpi_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A061C47E92100EF52BA /* resources-xhdpi_legacy */; };
-		9DA46A0E1C47E92100EF52BA /* resources-xxhdpi_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A071C47E92100EF52BA /* resources-xxhdpi_legacy */; };
-		9DA46A0F1C47E92100EF52BA /* resources-xxhdpi_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A071C47E92100EF52BA /* resources-xxhdpi_legacy */; };
-		9DA46A121C47E95700EF52BA /* drules_proto_legacy.bin in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A101C47E95700EF52BA /* drules_proto_legacy.bin */; };
-		9DA46A131C47E95700EF52BA /* drules_proto_legacy.bin in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A101C47E95700EF52BA /* drules_proto_legacy.bin */; };
-		9DA46A141C47E95700EF52BA /* resources-6plus_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A111C47E95700EF52BA /* resources-6plus_legacy */; };
-		9DA46A151C47E95700EF52BA /* resources-6plus_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A111C47E95700EF52BA /* resources-6plus_legacy */; };
 		A367C93B1B17334800E2B6E7 /* resources-default in Resources */ = {isa = PBXBuildFile; fileRef = A367C93A1B17334800E2B6E7 /* resources-default */; };
 		B00510FB1A11015900A61AA4 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 972CDCC51887F1B7006641CA /* CFNetwork.framework */; };
 		B00511021A1101E000A61AA4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98655186C734000AF7E9E /* AVFoundation.framework */; };
@@ -1754,12 +1738,6 @@
 		97ECD870183620CE00F77A46 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		97ECD87718362B3D00F77A46 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		97ECD87918362B5400F77A46 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		9DA46A041C47E92100EF52BA /* resources-hdpi_legacy */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-hdpi_legacy"; path = "../../data/resources-hdpi_legacy"; sourceTree = "<group>"; };
-		9DA46A051C47E92100EF52BA /* resources-mdpi_legacy */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-mdpi_legacy"; path = "../../data/resources-mdpi_legacy"; sourceTree = "<group>"; };
-		9DA46A061C47E92100EF52BA /* resources-xhdpi_legacy */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xhdpi_legacy"; path = "../../data/resources-xhdpi_legacy"; sourceTree = "<group>"; };
-		9DA46A071C47E92100EF52BA /* resources-xxhdpi_legacy */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xxhdpi_legacy"; path = "../../data/resources-xxhdpi_legacy"; sourceTree = "<group>"; };
-		9DA46A101C47E95700EF52BA /* drules_proto_legacy.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_legacy.bin; path = ../../data/drules_proto_legacy.bin; sourceTree = "<group>"; };
-		9DA46A111C47E95700EF52BA /* resources-6plus_legacy */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-6plus_legacy"; path = "../../data/resources-6plus_legacy"; sourceTree = "<group>"; };
 		9DF04B231B71010E00DACAF1 /* 02_droidsans-fallback.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "02_droidsans-fallback.ttf"; path = "../../data/02_droidsans-fallback.ttf"; sourceTree = "<group>"; };
 		A367C93A1B17334800E2B6E7 /* resources-default */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-default"; path = "../../data/resources-default"; sourceTree = "<group>"; };
 		B00511031A1101F600A61AA4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -3887,12 +3865,6 @@
 				671182DE1C7F0DD400CB8177 /* countries_obsolete.txt */,
 				671182DF1C7F0DD400CB8177 /* packed_polygons_obsolete.bin */,
 				671182E01C7F0DD400CB8177 /* WorldCoasts_obsolete.mwm */,
-				9DA46A101C47E95700EF52BA /* drules_proto_legacy.bin */,
-				9DA46A111C47E95700EF52BA /* resources-6plus_legacy */,
-				9DA46A041C47E92100EF52BA /* resources-hdpi_legacy */,
-				9DA46A051C47E92100EF52BA /* resources-mdpi_legacy */,
-				9DA46A061C47E92100EF52BA /* resources-xhdpi_legacy */,
-				9DA46A071C47E92100EF52BA /* resources-xxhdpi_legacy */,
 				3476B8D51BFDD30B00874594 /* tts-how-to-set-up-voice.html */,
 				3476B8DF1BFDD33A00874594 /* tts-how-to-set-up-voice-img */,
 				4A23D1561B8B4DD700D4EB6F /* drules_proto_clear.bin */,
@@ -4169,9 +4141,7 @@
 				341C2A571B72092A00AD41A1 /* 02_droidsans-fallback.ttf in Resources */,
 				F6E2FE1B1E097BA00083EBEC /* MWMOpeningHoursTimeSpanTableViewCell.xib in Resources */,
 				4A7D89C81B2EBF3B00AC843E /* resources-xxhdpi_dark in Resources */,
-				9DA46A0C1C47E92100EF52BA /* resources-xhdpi_legacy in Resources */,
 				F6E2FE841E097BA00083EBEC /* MWMPlacePageOpeningHoursWeekDayView.xib in Resources */,
-				9DA46A0E1C47E92100EF52BA /* resources-xxhdpi_legacy in Resources */,
 				F6E2FD9A1E097BA00083EBEC /* MWMBookmarkTitleCell.xib in Resources */,
 				EEA61603134C496A003A9827 /* 03_jomolhari-id-a3d.ttf in Resources */,
 				F6E2FDC41E097BA00083EBEC /* MWMEditorCategoryCell.xib in Resources */,
@@ -4192,7 +4162,6 @@
 				F63774E71B59375E00BCF54D /* MWMRoutingDisclaimerAlert.xib in Resources */,
 				4A7D89C71B2EBF3B00AC843E /* resources-xhdpi_dark in Resources */,
 				F652B2EA1C6DE8E500D20C8C /* MWMDropDown.xib in Resources */,
-				9DA46A141C47E95700EF52BA /* resources-6plus_legacy in Resources */,
 				34F73F9E1E082FF800AC1FD6 /* Localizable.strings in Resources */,
 				F6E2FF381E097BA00083EBEC /* MWMSearchSuggestionCell.xib in Resources */,
 				F6E2FF051E097BA00083EBEC /* MWMSearchHistoryClearCell.xib in Resources */,
@@ -4208,7 +4177,6 @@
 				F6BBF2C81B4FFB8C000CF8E2 /* MWMLocationAlert.xib in Resources */,
 				F6BB6CBE1BB15A5E00DF1DF2 /* MWMRoutePreview.xib in Resources */,
 				F6E2FE6F1E097BA00083EBEC /* _MWMOHSubCell.xib in Resources */,
-				9DA46A0A1C47E92100EF52BA /* resources-mdpi_legacy in Resources */,
 				F6172FA51BBD5A3E0081D325 /* MWMiPadRoutePreview.xib in Resources */,
 				97A5967F19B9CD47007A963F /* copyright.html in Resources */,
 				F6E2FDAF1E097BA00083EBEC /* MWMEditorAddAdditionalNameTableViewCell.xib in Resources */,
@@ -4246,7 +4214,6 @@
 				4A300ED41C6DCFD400140018 /* countries-strings in Resources */,
 				34BAB6EE1BB2DFCE00DB941B /* MWMBottomMenuCollectionViewPortraitCell.xib in Resources */,
 				F6BD1D231CA412E30047B8E8 /* MWMOsmAuthAlert.xib in Resources */,
-				9DA46A121C47E95700EF52BA /* drules_proto_legacy.bin in Resources */,
 				F6E2FE631E097BA00083EBEC /* MWMBookmarkCell.xib in Resources */,
 				4A23D15B1B8B4DD700D4EB6F /* drules_proto_clear.bin in Resources */,
 				F6E2FE451E097BA00083EBEC /* MWMDirectionView.xib in Resources */,
@@ -4339,9 +4306,7 @@
 				F6E2FE011E097BA00083EBEC /* MWMOpeningHoursClosedSpanTableViewCell.xib in Resources */,
 				671182E61C7F0DDD00CB8177 /* countries_obsolete.txt in Resources */,
 				F6E2FE7F1E097BA00083EBEC /* MWMPlacePageOpeningHoursCell.xib in Resources */,
-				9DA46A0D1C47E92100EF52BA /* resources-xhdpi_legacy in Resources */,
 				F6E2FEE81E097BA00083EBEC /* MWMSearchNoResults.xib in Resources */,
-				9DA46A0F1C47E92100EF52BA /* resources-xxhdpi_legacy in Resources */,
 				F6E2FDD71E097BA00083EBEC /* MWMEditorSwitchTableViewCell.xib in Resources */,
 				349B92711DF0526D007779DD /* MWMToast.xib in Resources */,
 				6741A9571BF340DE002C974C /* 03_jomolhari-id-a3d.ttf in Resources */,
@@ -4368,7 +4333,6 @@
 				F6E2FD9B1E097BA00083EBEC /* MWMBookmarkTitleCell.xib in Resources */,
 				6741A9611BF340DE002C974C /* resources-xhdpi_dark in Resources */,
 				6B9978361C89A316003B8AA0 /* editor.config in Resources */,
-				9DA46A151C47E95700EF52BA /* resources-6plus_legacy in Resources */,
 				F6E2FE941E097BA00083EBEC /* MWMPlacePageTaxiCell.xib in Resources */,
 				F6E2FF211E097BA00083EBEC /* MWMSearchTabbedViewController.xib in Resources */,
 				34F73F9F1E082FF800AC1FD6 /* Localizable.strings in Resources */,
@@ -4384,7 +4348,6 @@
 				F6E2FE2E1E097BA00083EBEC /* MWMStreetEditorEditTableViewCell.xib in Resources */,
 				6741A96E1BF340DE002C974C /* MWMRoutePreview.xib in Resources */,
 				F6E2FD681E097BA00083EBEC /* MWMMapDownloaderPlaceTableViewCell.xib in Resources */,
-				9DA46A0B1C47E92100EF52BA /* resources-mdpi_legacy in Resources */,
 				6741A9701BF340DE002C974C /* MWMiPadRoutePreview.xib in Resources */,
 				F6E2FDDD1E097BA00083EBEC /* MWMEditorTextTableViewCell.xib in Resources */,
 				6741A9711BF340DE002C974C /* copyright.html in Resources */,
@@ -4399,7 +4362,6 @@
 				6741A9761BF340DE002C974C /* packed_polygons.bin in Resources */,
 				6741A9781BF340DE002C974C /* AddSetTableViewCell.xib in Resources */,
 				F6E2FE5E1E097BA00083EBEC /* MWMPPPreviewBannerCell.xib in Resources */,
-				9DA46A091C47E92100EF52BA /* resources-hdpi_legacy in Resources */,
 				F6E2FDB01E097BA00083EBEC /* MWMEditorAddAdditionalNameTableViewCell.xib in Resources */,
 				6741A97D1BF340DE002C974C /* synonyms.txt in Resources */,
 				F6E2FEEE1E097BA00083EBEC /* MWMSearchView.xib in Resources */,
@@ -4416,7 +4378,6 @@
 				6741A9811BF340DE002C974C /* MWMRateAlert.xib in Resources */,
 				6741A9821BF340DE002C974C /* MWMBottomMenuCollectionViewLandscapeCell.xib in Resources */,
 				6741A9851BF340DE002C974C /* MWMBottomMenuCollectionViewPortraitCell.xib in Resources */,
-				9DA46A131C47E95700EF52BA /* drules_proto_legacy.bin in Resources */,
 				6741A9871BF340DE002C974C /* drules_proto_clear.bin in Resources */,
 				F6E2FDEF1E097BA00083EBEC /* MWMOpeningHoursAddClosedTableViewCell.xib in Resources */,
 				F6E2FE851E097BA00083EBEC /* MWMPlacePageOpeningHoursWeekDayView.xib in Resources */,
@@ -4503,9 +4464,7 @@
 				849CF6061DE842290024A8A5 /* resources-xxhdpi_dark in Resources */,
 				F6E2FF1C1E097BA00083EBEC /* MWMSearchTabbedCollectionViewCell.xib in Resources */,
 				340475071E08199E00C92850 /* HockeySDKResources.bundle in Resources */,
-				849CF6071DE842290024A8A5 /* resources-xhdpi_legacy in Resources */,
 				F6E2FD541E097BA00083EBEC /* MWMMapDownloaderAdsTableViewCell.xib in Resources */,
-				849CF6081DE842290024A8A5 /* resources-xxhdpi_legacy in Resources */,
 				F6E2FF101E097BA00083EBEC /* MWMSearchHistoryMyPositionCell.xib in Resources */,
 				F6E2FD691E097BA00083EBEC /* MWMMapDownloaderPlaceTableViewCell.xib in Resources */,
 				F6E2FDBA1E097BA00083EBEC /* MWMEditorAdditionalNamesHeader.xib in Resources */,
@@ -4530,7 +4489,6 @@
 				849CF61A1DE842290024A8A5 /* resources-xhdpi_dark in Resources */,
 				F6E2FE651E097BA00083EBEC /* MWMBookmarkCell.xib in Resources */,
 				849CF61B1DE842290024A8A5 /* MWMDropDown.xib in Resources */,
-				849CF61E1DE842290024A8A5 /* resources-6plus_legacy in Resources */,
 				349B92721DF0526D007779DD /* MWMToast.xib in Resources */,
 				849CF6251DE842290024A8A5 /* cuisine-strings in Resources */,
 				F6E2FEE91E097BA00083EBEC /* MWMSearchNoResults.xib in Resources */,
@@ -4543,7 +4501,6 @@
 				849CF6311DE842290024A8A5 /* MWMRoutePreview.xib in Resources */,
 				F6E2FE6E1E097BA00083EBEC /* _MWMOHHeaderCell.xib in Resources */,
 				F6E2FF3A1E097BA00083EBEC /* MWMSearchSuggestionCell.xib in Resources */,
-				849CF6341DE842290024A8A5 /* resources-mdpi_legacy in Resources */,
 				F6E2FE471E097BA00083EBEC /* MWMDirectionView.xib in Resources */,
 				3454E0611DF00DC100F40F46 /* banners.txt in Resources */,
 				F6E2FDB41E097BA00083EBEC /* MWMEditorAdditionalNamePlaceholderTableViewCell.xib in Resources */,
@@ -4579,7 +4536,6 @@
 				849CF6581DE842290024A8A5 /* countries-strings in Resources */,
 				849CF6591DE842290024A8A5 /* MWMBottomMenuCollectionViewPortraitCell.xib in Resources */,
 				849CF65A1DE842290024A8A5 /* MWMOsmAuthAlert.xib in Resources */,
-				849CF65E1DE842290024A8A5 /* drules_proto_legacy.bin in Resources */,
 				F6E2FE1D1E097BA00083EBEC /* MWMOpeningHoursTimeSpanTableViewCell.xib in Resources */,
 				849CF65F1DE842290024A8A5 /* drules_proto_clear.bin in Resources */,
 				F6E2FEB61E097BA00083EBEC /* _MWMPPPSpace.xib in Resources */,

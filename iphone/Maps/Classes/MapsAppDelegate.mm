@@ -376,7 +376,7 @@ using namespace osm_auth_ios;
   MapsAppDelegate * app = MapsAppDelegate.theApp;
   auto & f = GetFramework();
   auto style = f.GetMapStyle();
-  if (style == MapStyleClear || style == MapStyleLight)
+  if (style == MapStyleClear)
     return;
   f.SetMapStyle(MapStyleClear);
   [UIColor setNightMode:NO];
@@ -406,7 +406,7 @@ using namespace osm_auth_ios;
     {
     case DayTimeType::Day:
     case DayTimeType::PolarDay:
-      if (style != MapStyleClear && style != MapStyleLight)
+      if (style != MapStyleClear)
       {
         f.SetMapStyle(MapStyleClear);
         [UIColor setNightMode:NO];

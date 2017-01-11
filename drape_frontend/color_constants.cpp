@@ -78,10 +78,6 @@ unordered_map<int, unordered_map<int, dp::Color>> kColorConstants =
 
 dp::Color GetColorConstant(MapStyle style, ColorConstant constant)
 {
-  // "Light" and "clear" theme share the same colors.
-  if (style == MapStyle::MapStyleLight)
-    style = MapStyle::MapStyleClear;
-
   int const styleIndex = static_cast<int>(style);
   int const colorIndex = static_cast<int>(constant);
 

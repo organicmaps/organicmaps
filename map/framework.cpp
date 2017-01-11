@@ -369,10 +369,11 @@ Framework::Framework()
   m_startBackgroundTime = my::Timer::LocalTime();
 
   // Restore map style before classificator loading
-  int mapStyle;
-  if (!settings::Get(kMapStyleKey, mapStyle))
-    mapStyle = kDefaultMapStyle;
-  GetStyleReader().SetCurrentStyle(static_cast<MapStyle>(mapStyle));
+  MapStyle mapStyle = kDefaultMapStyle;
+  std::string mapStyleStr;
+  if (settings::Get(kMapStyleKey, mapStyleStr))
+    mapStyle = MapStyleFromSettings(mapStyleStr);
+  GetStyleReader().SetCurrentStyle(mapStyle);
 
   m_connectToGpsTrack = GpsTracker::Instance().IsEnabled();
 
@@ -1833,10 +1834,16 @@ void Framework::OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::Gps
 void Framework::MarkMapStyle(MapStyle mapStyle)
 {
   // Store current map style before classificator reloading
-  settings::Set(kMapStyleKey, static_cast<uint32_t>(mapStyle));
+  std::string mapStyleStr = MapStyleToString(mapStyle);
+  if (mapStyleStr.empty())
+  {
+    mapStyle = kDefaultMapStyle;
+    mapStyleStr = MapStyleToString(mapStyle);
+  }
+  settings::Set(kMapStyleKey, mapStyleStr);
   GetStyleReader().SetCurrentStyle(mapStyle);
 
-  alohalytics::TStringMap details {{"mapStyle", strings::to_string(static_cast<int>(mapStyle))}};
+  alohalytics::TStringMap details {{"mapStyle", mapStyleStr}};
   alohalytics::Stats::Instance().LogEvent("MapStyle_Changed", details);
 }
 
