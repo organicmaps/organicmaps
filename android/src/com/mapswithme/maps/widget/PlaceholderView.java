@@ -106,7 +106,7 @@ public class PlaceholderView extends FrameLayout
       return;
     }
 
-    if (mOrientation == Configuration.ORIENTATION_LANDSCAPE)
+    if (mOrientation == Configuration.ORIENTATION_LANDSCAPE && !UiUtils.isTablet())
     {
       UiUtils.hide(mImage);
       setPadding(getPaddingLeft(), (int) mPaddingNoImage, getPaddingRight(), getPaddingBottom());
