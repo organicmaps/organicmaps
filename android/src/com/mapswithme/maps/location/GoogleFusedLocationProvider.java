@@ -1,7 +1,5 @@
 package com.mapswithme.maps.location;
 
-import android.app.Activity;
-import android.content.IntentSender;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,7 +9,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
@@ -21,14 +18,14 @@ import com.mapswithme.maps.MwmApplication;
 
 class GoogleFusedLocationProvider extends BaseLocationProvider
                                implements GoogleApiClient.ConnectionCallbacks,
-                                          GoogleApiClient.OnConnectionFailedListener,
-                                          LocationListener
+                                          GoogleApiClient.OnConnectionFailedListener
 {
   private static final String GMS_LOCATION_PROVIDER = "fused";
-
   private final GoogleApiClient mGoogleApiClient;
   private LocationRequest mLocationRequest;
   private PendingResult<LocationSettingsResult> mLocationSettingsResult;
+  @NonNull
+  private final BaseLocationListener mListener = new BaseLocationListener();
 
   GoogleFusedLocationProvider()
   {
@@ -37,6 +34,19 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
                                           .addConnectionCallbacks(this)
                                           .addOnConnectionFailedListener(this)
                                           .build();
+  }
+
+  @Override
+  boolean isLocationBetterThanLast(Location newLocation, Location lastLocation)
+  {
+    // We believe that google services always return good locations.
+    return (isFromFusedProvider(newLocation) ||
+            (!isFromFusedProvider(lastLocation) && super.isLocationBetterThanLast(newLocation, lastLocation)));
+  }
+
+  private static boolean isFromFusedProvider(Location location)
+  {
+    return GMS_LOCATION_PROVIDER.equalsIgnoreCase(location.getProvider());
   }
 
   @Override
@@ -66,26 +76,12 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
   protected void stop()
   {
     if (mGoogleApiClient.isConnected())
-      LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+      LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, mListener);
 
     if (mLocationSettingsResult != null && !mLocationSettingsResult.isCanceled())
       mLocationSettingsResult.cancel();
 
     mGoogleApiClient.disconnect();
-  }
-
-  @Override
-  protected boolean isLocationBetterThanLast(Location newLocation, Location lastLocation)
-  {
-    // We believe that google services always returns good locations.
-    return (isFromFusedProvider(newLocation) ||
-            (!isFromFusedProvider(lastLocation) && super.isLocationBetterThanLast(newLocation, lastLocation)));
-
-  }
-
-  private static boolean isFromFusedProvider(Location location)
-  {
-    return GMS_LOCATION_PROVIDER.equalsIgnoreCase(location.getProvider());
   }
 
   @Override
@@ -139,11 +135,11 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
     if (!mGoogleApiClient.isConnected())
       return;
 
-    LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+    LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, mListener);
     LocationHelper.INSTANCE.startSensors();
     Location last = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-    if (last != null)
-      onLocationChanged(last);
+    if (last != null && isLocationBetterThanLast(last))
+      mListener.onLocationChanged(last);
   }
 
   @Override
