@@ -30,11 +30,11 @@ class StubSocket final : public Socket
 {
 public:
   // Socket overrides:
-  bool Open(string const & host, uint16_t port) override { return false; }
+  bool Open(string const &, uint16_t) override { return false; }
   void Close() override {}
-  bool Read(uint8_t * data, uint32_t count) override { return false; }
-  bool Write(uint8_t const * data, uint32_t count) override { return false; }
-  void SetTimeout(uint32_t milliseconds) override {}
+  bool Read(uint8_t *, uint32_t) override { return false; }
+  bool Write(uint8_t const *, uint32_t) override { return false; }
+  void SetTimeout(uint32_t) override {}
 };
 
 unique_ptr<Socket> CreateSocket();

@@ -62,7 +62,7 @@ namespace feature
     }
 
     inline size_t GetScalesCount() const { return m_scales.size(); }
-    inline int GetScale(int i) const { return static_cast<int>(m_scales[i]); }
+    inline int GetScale(size_t i) const { return static_cast<int>(m_scales[i]); }
     inline int GetLastScale() const { return m_scales.back(); }
 
     pair<int, int> GetScaleRange() const;

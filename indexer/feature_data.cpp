@@ -129,7 +129,7 @@ public:
 
 namespace feature
 {
-uint8_t CalculateHeader(uint32_t const typesCount, uint8_t const headerGeomType,
+uint8_t CalculateHeader(size_t const typesCount, uint8_t const headerGeomType,
                         FeatureParamsBase const & params)
 {
   ASSERT(typesCount != 0, ("Feature should have at least one type."));
