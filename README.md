@@ -5,6 +5,8 @@ built on top of crowd-sourced OpenStreetMap data. It was publicly released
 for [iOS](https://itunes.apple.com/app/id510623322) and
 [Android](https://play.google.com/store/apps/details?id=com.mapswithme.maps.pro).
 
+![](docs/screenshots.jpg)
+
 ## Submodules
 
 This repository contains submodules. Clone it with `git clone --recursive`. If you forgot,
