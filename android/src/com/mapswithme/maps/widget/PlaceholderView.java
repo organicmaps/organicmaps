@@ -99,6 +99,7 @@ public class PlaceholderView extends FrameLayout
   @Override
   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
   {
+    //isInEditMode() need for correct editor visualization
     if (isInEditMode() || mImage == null)
     {
       super.onMeasure(widthMeasureSpec, heightMeasureSpec);
