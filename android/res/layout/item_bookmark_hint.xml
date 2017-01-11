@@ -9,5 +9,4 @@
     android:paddingLeft="@dimen/margin_double_plus"
     android:paddingRight="@dimen/margin_double_plus"
     android:paddingTop="@dimen/margin_base"
-    android:text="@string/bookmarks_usage_hint"
     android:textAppearance="@style/MwmTextAppearance.Body2"/>

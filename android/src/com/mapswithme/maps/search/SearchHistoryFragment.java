@@ -7,12 +7,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
+import com.mapswithme.maps.widget.PlaceholderView;
 import com.mapswithme.maps.widget.SearchToolbarController;
 import com.mapswithme.util.UiUtils;
 
 public class SearchHistoryFragment extends BaseMwmRecyclerFragment
 {
-  private View mPlaceHolder;
+  private PlaceholderView mPlaceHolder;
 
   private void updatePlaceholder()
   {
@@ -28,15 +29,16 @@ public class SearchHistoryFragment extends BaseMwmRecyclerFragment
   @Override
   protected @LayoutRes int getLayoutRes()
   {
-    return R.layout.fragment_search_recent;
+    return R.layout.fragment_search_base;
   }
 
   @Override
   public void onViewCreated(View view, Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
-    mPlaceHolder = view.findViewById(R.id.placeholder);
-    UiUtils.setupPlaceholder(mPlaceHolder, R.drawable.img_search_empty_history_light, R.string.search_history_title, R.string.search_history_text);
+    mPlaceHolder = (PlaceholderView) view.findViewById(R.id.placeholder);
+    mPlaceHolder.setContent(R.drawable.img_search_empty_history_light,
+                            R.string.search_history_title, R.string.search_history_text);
 
     getAdapter().registerAdapterDataObserver(new RecyclerView.AdapterDataObserver()
     {

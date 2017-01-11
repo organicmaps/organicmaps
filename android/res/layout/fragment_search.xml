@@ -57,7 +57,15 @@
       android:background="?windowBackgroundForced">
       <include layout="@layout/recycler_default"/>
 
-      <include layout="@layout/placeholder"/>
+      <com.mapswithme.maps.widget.PlaceholderView
+        android:id="@+id/placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/margin_double_and_half"
+        android:paddingRight="@dimen/margin_double_and_half"
+        android:paddingTop="@dimen/placeholder_margin_top"
+        android:visibility="gone"
+        tools:visibility="visible"/>
     </FrameLayout>
 
     <!-- Country download suggest fragment -->

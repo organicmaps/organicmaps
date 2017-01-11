@@ -45,6 +45,7 @@
   <dimen name="panel_width">360dp</dimen>
   <dimen name="button_width">240dp</dimen>
   <dimen name="placeholder_size">200dp</dimen>
+  <dimen name="placeholder_size_small">160dp</dimen>
 
   <dimen name="width_dialog_base">300dp</dimen>
 
@@ -170,4 +171,8 @@
   <dimen name="placepage_taxi_button_min_width">96dp</dimen>
   <dimen name="placepage_taxi_padding_vert">14dp</dimen>
   <dimen name="placepage_taxi_button_padding_vert">10dp</dimen>
+
+  <!-- Placeholder-->
+  <dimen name="placeholder_margin_top">20dp</dimen>
+  <dimen name="placeholder_margin_top_no_image">80dp</dimen>
 </resources>
