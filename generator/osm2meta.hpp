@@ -80,7 +80,7 @@ public:
     case Metadata::FMD_OPERATOR: valid = ValidateAndFormat_operator(v); break;
     case Metadata::FMD_URL:  // The same validator as for website.
     case Metadata::FMD_WEBSITE: valid = ValidateAndFormat_url(v); break;
-    case Metadata::FMD_INTERNET: ValidateAndFormat_internet(v); break;
+    case Metadata::FMD_INTERNET: valid = ValidateAndFormat_internet(v); break;
     case Metadata::FMD_ELE: valid = ValidateAndFormat_ele(v); break;
     case Metadata::FMD_TURN_LANES: valid = ValidateAndFormat_turn_lanes(v); break;
     case Metadata::FMD_TURN_LANES_FORWARD: valid = ValidateAndFormat_turn_lanes_forward(v); break;
