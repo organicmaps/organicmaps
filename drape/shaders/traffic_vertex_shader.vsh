@@ -1,6 +1,6 @@
 attribute vec3 a_position;
 attribute vec4 a_normal;
-attribute vec2 a_colorTexCoord;
+attribute vec4 a_colorTexCoord;
 
 uniform mat4 modelView;
 uniform mat4 projection;
@@ -13,7 +13,7 @@ varying vec2 v_maskTexCoord;
 varying float v_halfLength;
 
 const float kShapeCoordScalar = 1000.0;
-const float kMinVisibleArrowPart = 0.9;
+const float kArrowVSize = 0.25;
 
 void main(void)
 {
@@ -33,9 +33,10 @@ void main(void)
   }
 
   float uOffset = length(vec4(kShapeCoordScalar, 0, 0, 0) * modelView) * a_normal.w;
-  v_colorTexCoord = a_colorTexCoord;
-  v_maskTexCoord = vec2(uOffset * u_trafficParams.z, 0.5 * a_normal.z + 0.5) * u_trafficParams.w;
-  v_maskTexCoord.x *= step(kMinVisibleArrowPart, v_maskTexCoord.x);
+  v_colorTexCoord = a_colorTexCoord.xy;
+  float v = mix(a_colorTexCoord.z, a_colorTexCoord.z + kArrowVSize, 0.5 * a_normal.z + 0.5);
+  v_maskTexCoord = vec2(uOffset * u_trafficParams.z, v) * u_trafficParams.w;
+  v_maskTexCoord.x *= step(a_colorTexCoord.w, v_maskTexCoord.x);
   v_halfLength = a_normal.z;
   vec4 pos = vec4(transformedAxisPos, a_position.z, 1.0) * projection;
   float w = pos.w;

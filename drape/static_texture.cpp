@@ -9,6 +9,9 @@
 
 #include "base/string_utils.hpp"
 
+#ifdef DEBUG
+#include "3party/glm/glm/gtx/bit.hpp"
+#endif
 #include "3party/stb_image/stb_image.h"
 
 namespace dp
@@ -20,7 +23,7 @@ namespace
 using TLoadingCompletion = function<void(unsigned char *, uint32_t, uint32_t)>;
 using TLoadingFailure = function<void(string const &)>;
 
-void LoadData(string const & textureName, string const & skinPathName,
+bool LoadData(string const & textureName, string const & skinPathName,
               TLoadingCompletion const & completionHandler,
               TLoadingFailure const & failureHandler)
 {
@@ -39,15 +42,19 @@ void LoadData(string const & textureName, string const & skinPathName,
   catch (RootException & e)
   {
     failureHandler(e.what());
-    return;
+    return false;
   }
 
   int w, h, bpp;
-  unsigned char * data = stbi_png_load_from_memory(&rawData[0], static_cast<int>(rawData.size()), &w, &h, &bpp, 0);
+  unsigned char * data = stbi_png_load_from_memory(&rawData[0], static_cast<int>(rawData.size()),
+                                                   &w, &h, &bpp, 0);
   ASSERT_EQUAL(bpp, 4, ("Incorrect texture format"));
+  ASSERT(glm::isPowerOfTwo(w), (w));
+  ASSERT(glm::isPowerOfTwo(h), (h));
   completionHandler(data, w, h);
 
   stbi_image_free(data);
+  return true;
 }
 
 class StaticResourceInfo : public Texture::ResourceInfo
@@ -66,10 +73,10 @@ StaticTexture::StaticTexture(string const & textureName, string const & skinPath
   : m_textureName(textureName)
   , m_info(make_unique_dp<StaticResourceInfo>())
 {
-  Load(skinPathName, allocator);
+  m_isLoadingCorrect = Load(skinPathName, allocator);
 }
 
-void StaticTexture::Load(string const & skinPathName, ref_ptr<HWTextureAllocator> allocator)
+bool StaticTexture::Load(string const & skinPathName, ref_ptr<HWTextureAllocator> allocator)
 {
   auto completionHandler = [this, &allocator](unsigned char * data, uint32_t width, uint32_t height)
   {
@@ -90,13 +97,13 @@ void StaticTexture::Load(string const & skinPathName, ref_ptr<HWTextureAllocator
     Fail();
   };
 
-  LoadData(m_textureName, skinPathName, completionHandler, failureHandler);
+  return LoadData(m_textureName, skinPathName, completionHandler, failureHandler);
 }
 
 void StaticTexture::Invalidate(string const & skinPathName, ref_ptr<HWTextureAllocator> allocator)
 {
   Destroy();
-  Load(skinPathName, allocator);
+  m_isLoadingCorrect = Load(skinPathName, allocator);
 }
 
 ref_ptr<Texture::ResourceInfo> StaticTexture::FindResource(Texture::Key const & key, bool & newResource)

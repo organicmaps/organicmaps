@@ -23,12 +23,16 @@ public:
 
   void Invalidate(string const & skinPathName, ref_ptr<HWTextureAllocator> allocator);
 
+  bool IsLoadingCorrect() const { return m_isLoadingCorrect; }
+
 private:
   void Fail();
-  void Load(string const & skinPathName, ref_ptr<HWTextureAllocator> allocator);
+  bool Load(string const & skinPathName, ref_ptr<HWTextureAllocator> allocator);
 
   string m_textureName;
   drape_ptr<Texture::ResourceInfo> m_info;
+
+  bool m_isLoadingCorrect;
 };
 
 } // namespace dp

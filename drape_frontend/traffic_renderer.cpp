@@ -24,7 +24,7 @@ int constexpr kMinVisibleArrowZoomLevel = 16;
 int constexpr kRoadClass2MinVisibleArrowZoomLevel = 17;
 int constexpr kOutlineMinZoomLevel = 14;
 
-float const kTrafficArrowAspect = 24.0f / 8.0f;
+float const kTrafficArrowAspect = 128.0f / 8.0f;
 
 float const kLeftWidthInPixel[] =
 {

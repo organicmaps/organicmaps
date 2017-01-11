@@ -93,7 +93,7 @@ struct TrafficStaticVertex
 {
   using TPosition = glsl::vec3;
   using TNormal = glsl::vec4;
-  using TTexCoord = glsl::vec2;
+  using TTexCoord = glsl::vec4;
 
   TrafficStaticVertex() = default;
   TrafficStaticVertex(TPosition const & position, TNormal const & normal,
@@ -180,7 +180,8 @@ private:
 
   void GenerateSegment(dp::TextureManager::ColorRegion const & colorRegion,
                        m2::PolylineD const & polyline, m2::PointD const & tileCenter,
-                       bool generateCaps, float depth, vector<TrafficStaticVertex> & staticGeometry);
+                       bool generateCaps, float depth, float vOffset, float minU,
+                       vector<TrafficStaticVertex> & staticGeometry);
   void GenerateLineSegment(dp::TextureManager::ColorRegion const & colorRegion,
                            m2::PolylineD const & polyline, m2::PointD const & tileCenter, float depth,
                            vector<TrafficLineStaticVertex> & staticGeometry);
