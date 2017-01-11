@@ -4,6 +4,7 @@
 #include "routing/geometry.hpp"
 #include "routing/joint.hpp"
 #include "routing/joint_index.hpp"
+#include "routing/restrictions_serialization.hpp"
 #include "routing/road_index.hpp"
 #include "routing/road_point.hpp"
 #include "routing/segment.hpp"
@@ -40,6 +41,8 @@ public:
   void Build(uint32_t numJoints);
   void Import(vector<Joint> const & joints);
 
+  void SetRestrictions(RestrictionVec && restrictions);
+
   void PushFromSerializer(Joint::Id jointId, RoadPoint const & rp)
   {
     m_roadIndex.PushFromSerializer(jointId, rp);
@@ -57,10 +60,13 @@ private:
                            vector<SegmentEdge> & edges);
   void GetNeighboringEdge(Segment const & from, Segment const & to, bool isOutgoing,
                           vector<SegmentEdge> & edges);
+  double GetPenalties(Segment const & u, Segment const & v);
 
   Geometry m_geometry;
   shared_ptr<EdgeEstimator> m_estimator;
   RoadIndex m_roadIndex;
   JointIndex m_jointIndex;
+
+  RestrictionVec m_restrictions;
 };
 }  // namespace routing

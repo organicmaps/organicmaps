@@ -1,6 +1,6 @@
 #pragma once
 
-#include "routing/routing_serialization.hpp"
+#include "routing/restrictions_serialization.hpp"
 
 #include "indexer/index.hpp"
 
@@ -17,11 +17,10 @@ public:
   explicit RestrictionLoader(MwmValue const & mwmValue);
 
   bool HasRestrictions() const { return !m_restrictions.empty(); }
-  RestrictionVec const & GetRestrictions() const { return m_restrictions; }
-
+  RestrictionVec && StealRestrictions() { return move(m_restrictions); }
 private:
   unique_ptr<FilesContainerR::TReader> m_reader;
-  RoutingHeader m_header;
+  RestrictionHeader m_header;
   RestrictionVec m_restrictions;
   string const m_countryFileName;
 };

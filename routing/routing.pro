@@ -42,6 +42,7 @@ SOURCES += \
     pedestrian_directions.cpp \
     pedestrian_model.cpp \
     restriction_loader.cpp \
+    restrictions_serialization.cpp \
     road_graph.cpp \
     road_graph_router.cpp \
     road_index.cpp \
@@ -51,7 +52,6 @@ SOURCES += \
     routing_algorithm.cpp \
     routing_helpers.cpp \
     routing_mapping.cpp \
-    routing_serialization.cpp \
     routing_session.cpp \
     single_mwm_router.cpp \
     speed_camera.cpp \
@@ -96,6 +96,7 @@ HEADERS += \
     pedestrian_directions.hpp \
     pedestrian_model.hpp \
     restriction_loader.hpp \
+    restrictions_serialization.hpp \
     road_graph.hpp \
     road_graph_router.hpp \
     road_index.hpp \
@@ -109,7 +110,6 @@ HEADERS += \
     routing_helpers.hpp \
     routing_mapping.hpp \
     routing_result_graph.hpp \
-    routing_serialization.hpp \
     routing_session.hpp \
     routing_settings.hpp \
     segment.hpp \

@@ -52,16 +52,8 @@ public:
   m2::PointD const & GetRoutePoint(vector<Segment> const & route, size_t pointIndex);
 
   void GetEdgesList(Segment const & segment, bool isOutgoing, vector<SegmentEdge> & edges);
-
-  void GetOutgoingEdgesList(TVertexType const & segment, vector<TEdgeType> & edges)
-  {
-    GetEdgesList(segment, true /* isOutgoing */, edges);
-  }
-
-  void GetIngoingEdgesList(TVertexType const & segment, vector<TEdgeType> & edges)
-  {
-    GetEdgesList(segment, false /* isOutgoing */, edges);
-  }
+  void GetOutgoingEdgesList(TVertexType const & segment, vector<TEdgeType> & edges);
+  void GetIngoingEdgesList(TVertexType const & segment, vector<TEdgeType> & edges);
 
   double HeuristicCostEstimate(TVertexType const & from, TVertexType const & to)
   {

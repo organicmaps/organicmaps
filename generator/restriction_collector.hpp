@@ -1,6 +1,6 @@
 #pragma once
 
-#include "routing/routing_serialization.hpp"
+#include "routing/restrictions_serialization.hpp"
 
 #include "std/functional.hpp"
 #include "std/limits.hpp"

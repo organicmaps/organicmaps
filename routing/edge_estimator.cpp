@@ -43,6 +43,7 @@ public:
   void Finish() override;
   double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road) const override;
   double CalcHeuristic(m2::PointD const & from, m2::PointD const & to) const override;
+  double GetUTurnPenalty() const override;
 
 private:
   TrafficCache const & m_trafficCache;
@@ -100,6 +101,14 @@ double CarEdgeEstimator::CalcSegmentWeight(Segment const & segment, RoadGeometry
 double CarEdgeEstimator::CalcHeuristic(m2::PointD const & from, m2::PointD const & to) const
 {
   return TimeBetweenSec(from, to, m_maxSpeedMPS);
+}
+
+double CarEdgeEstimator::GetUTurnPenalty() const
+{
+  // Adds 2 minutes penalty for U-turn. The value is quite arbitrary
+  // and needs to be properly selected after a number of real-world
+  // experiments.
+  return 2 * 60;  // seconds
 }
 }  // namespace
 

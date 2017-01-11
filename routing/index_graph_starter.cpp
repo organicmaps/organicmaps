@@ -47,6 +47,16 @@ m2::PointD const & IndexGraphStarter::GetRoutePoint(vector<Segment> const & segm
   return GetPoint(segments[pointIndex], true /* front */);
 }
 
+void IndexGraphStarter::GetOutgoingEdgesList(TVertexType const & segment, vector<TEdgeType> & edges)
+{
+  GetEdgesList(segment, true /* isOutgoing */, edges);
+}
+
+void IndexGraphStarter::GetIngoingEdgesList(TVertexType const & segment, vector<TEdgeType> & edges)
+{
+  GetEdgesList(segment, false /* isOutgoing */, edges);
+}
+
 void IndexGraphStarter::GetEdgesList(Segment const & segment, bool isOutgoing,
                                      vector<SegmentEdge> & edges)
 {

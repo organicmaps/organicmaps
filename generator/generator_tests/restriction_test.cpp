@@ -83,10 +83,10 @@ void TestRestrictionBuilding(string const & restrictionContent, string const & m
 
   MwmSet::MwmHandle mwmHandle = index.GetMwmHandleById(regResult.first);
   TEST(mwmHandle.IsAlive(), ());
-  RestrictionLoader const restrictionLoader(*mwmHandle.GetValue<MwmValue>());
+  RestrictionLoader restrictionLoader(*mwmHandle.GetValue<MwmValue>());
   RestrictionCollector const restrictionCollector(restrictionFullPath, mappingFullPath);
 
-  TEST_EQUAL(restrictionLoader.GetRestrictions(), restrictionCollector.GetRestrictions(), ());
+  TEST_EQUAL(restrictionLoader.StealRestrictions(), restrictionCollector.GetRestrictions(), ());
 }
 
 UNIT_TEST(RestrictionGenerationTest_NoRestriction)

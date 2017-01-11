@@ -1,5 +1,5 @@
 #include "routing/restriction_loader.hpp"
-#include "routing/routing_serialization.hpp"
+#include "routing/restrictions_serialization.hpp"
 
 namespace routing
 {

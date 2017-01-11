@@ -31,12 +31,10 @@ void TestRoute(IndexGraph & graph, IndexGraphStarter::FakeVertex const & start,
                IndexGraphStarter::FakeVertex const & finish, size_t expectedLength,
                vector<Segment> const * expectedRoute = nullptr)
 {
-  LOG(LINFO, ("Test route", start.GetFeatureId(), ",", start.GetSegmentIdx(), "=>",
-              finish.GetFeatureId(), ",", finish.GetSegmentIdx()));
-
   IndexGraphStarter starter(graph, start, finish);
   vector<Segment> route;
-  auto const resultCode = CalculateRoute(starter, route);
+  double timeSec;
+  auto const resultCode = CalculateRoute(starter, route, timeSec);
   TEST_EQUAL(resultCode, AStarAlgorithm<IndexGraphStarter>::Result::OK, ());
 
   TEST_GREATER(route.size(), 2, ());
@@ -385,5 +383,80 @@ UNIT_TEST(SerializeSimpleGraph)
     TEST_EQUAL(graph.GetJointId({2, 0}), 0, ());
     TEST_EQUAL(graph.GetJointId({2, 1}), Joint::kInvalidId, ());
   }
+}
+
+//      Finish
+// 0.0004    *
+//           ^
+//           |
+//           F2
+//           |
+//           |
+// 0.0003    *---------*
+//           |         |
+//           |         |
+//           |         |
+//           |         |
+//           |         |
+// 0.0002    *         *
+//           |         |
+//           |         |
+// 0.00015   *    F0   *
+//            \       /
+//              \   /
+// 0.0001         *---F0-*----*
+//                            ^
+//                            |
+//                            F1
+//                            |
+//                            |
+// 0                          * Start
+//   0         0.0001       0.0002
+// F0 is a two-way feature with a loop and F1 and F2 are an one-way one-segment features.
+unique_ptr<IndexGraph> BuildLoopGraph()
+{
+  unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
+  loader->AddRoad(0 /* feature id */, false /* one way */, 100.0 /* speed */,
+                  RoadGeometry::Points({{0.0002, 0.0001},
+                                        {0.00015, 0.0001},
+                                        {0.0001, 0.0001},
+                                        {0.00015, 0.00015},
+                                        {0.00015, 0.0002},
+                                        {0.00015, 0.0003},
+                                        {0.00005, 0.0003},
+                                        {0.00005, 0.0002},
+                                        {0.00005, 0.00015},
+                                        {0.0001, 0.0001}}));
+  loader->AddRoad(1 /* feature id */, true /* one way */, 100.0 /* speed */,
+                  RoadGeometry::Points({{0.0002, 0.0}, {0.0002, 0.0001}}));
+  loader->AddRoad(2 /* feature id */, true /* one way */, 100.0 /* speed */,
+                  RoadGeometry::Points({{0.00005, 0.0003}, {0.00005, 0.0004}}));
+
+  vector<Joint> const joints = {
+      MakeJoint({{0 /* feature id */, 2 /* point id */}, {0, 9}}), /* joint at point (0.0002, 0) */
+      MakeJoint({{1, 1}, {0, 0}}), /* joint at point (0.0002, 0.0001) */
+      MakeJoint({{0, 6}, {2, 0}}), /* joint at point (0.00005, 0.0003) */
+      MakeJoint({{2, 1}}),         /* joint at point (0.00005, 0.0004) */
+  };
+
+  traffic::TrafficCache const trafficCache;
+  unique_ptr<IndexGraph> graph =
+      make_unique<IndexGraph>(move(loader), CreateEstimator(trafficCache));
+  graph->Import(joints);
+  return graph;
+}
+
+// This test checks that the route from Start to Finish doesn't make an extra loop in F0.
+// If it was so the route time had been much more.
+UNIT_CLASS_TEST(RestrictionTest, LoopGraph)
+{
+  Init(BuildLoopGraph());
+  SetStarter(
+      routing::IndexGraphStarter::FakeVertex(1, 0 /* seg id */, m2::PointD(0.0002, 0)) /* start */,
+      routing::IndexGraphStarter::FakeVertex(2, 0 /* seg id */,
+                                             m2::PointD(0.00005, 0.0004)) /* finish */);
+
+  double constexpr kExpectedRouteTimeSec = 3.48;
+  TestRouteTime(*m_starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, kExpectedRouteTimeSec);
 }
 }  // namespace routing_test
