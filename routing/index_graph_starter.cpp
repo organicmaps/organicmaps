@@ -4,190 +4,103 @@
 
 namespace routing
 {
-IndexGraphStarter::IndexGraphStarter(IndexGraph & graph, RoadPoint const & startPoint,
-                                     RoadPoint const & finishPoint)
-  : m_graph(graph)
-  , m_start(graph, startPoint, graph.GetNumJoints())
-  , m_finish(graph, finishPoint, graph.GetNumJoints() + 1)
-{
-  m_start.SetupJointId(graph);
+// static
+Segment constexpr IndexGraphStarter::kStartFakeSegment;
+Segment constexpr IndexGraphStarter::kFinishFakeSegment;
 
-  if (startPoint == finishPoint)
-    m_finish.m_jointId = m_start.m_jointId;
-  else
-    m_finish.SetupJointId(graph);
+IndexGraphStarter::IndexGraphStarter(IndexGraph & graph, FakeVertex const & start,
+                                     FakeVertex const & finish)
+  : m_graph(graph), m_start(start), m_finish(finish)
+{
 }
 
-m2::PointD const & IndexGraphStarter::GetPoint(Joint::Id jointId)
+m2::PointD const & IndexGraphStarter::GetPoint(Segment const & segment, bool front)
 {
-  if (jointId == m_start.m_fakeId)
-    return m_graph.GetGeometry().GetPoint(m_start.m_point);
+  if (segment == kStartFakeSegment)
+    return m_start.GetPoint();
 
-  if (jointId == m_finish.m_fakeId)
-    return m_graph.GetGeometry().GetPoint(m_finish.m_point);
+  if (segment == kFinishFakeSegment)
+    return m_finish.GetPoint();
 
-  return m_graph.GetPoint(jointId);
+  return m_graph.GetGeometry().GetPoint(segment.GetRoadPoint(front));
 }
 
-m2::PointD const & IndexGraphStarter::GetPoint(RoadPoint const & rp)
+// static
+size_t IndexGraphStarter::GetRouteNumPoints(vector<Segment> const & route)
 {
-  return m_graph.GetPoint(rp);
+  // if route contains start and finish fakes only, it doesn't have segment points.
+  // TODO: add start and finish when RecounstructRoute will be reworked.
+  if (route.size() <= 2)
+    return 0;
+
+  // -2 for fake start and finish.
+  // +1 for front point of first segment.
+  return route.size() - 1;
 }
 
-void IndexGraphStarter::RedressRoute(vector<Joint::Id> const & route,
-                                     vector<RoutePoint> & routePoints)
+m2::PointD const & IndexGraphStarter::GetRoutePoint(vector<Segment> const & route,
+                                                    size_t pointIndex)
 {
-  if (route.size() < 2)
+  if (pointIndex == 0)
   {
-    if (route.size() == 1)
-      routePoints.emplace_back(m_start.m_point, 0.0 /* time */);
-    return;
+    CHECK_GREATER(route.size(), 1, ());
+    return GetPoint(route[1], false /* front */);
   }
 
-  routePoints.reserve(route.size() * 2);
-
-  EdgeEstimator const & estimator = m_graph.GetEstimator();
-
-  double routeTime = 0.0;
-  for (size_t i = 0; i < route.size() - 1; ++i)
-  {
-    Joint::Id const prevJoint = route[i];
-    Joint::Id const nextJoint = route[i + 1];
-
-    RoadPoint rp0;
-    RoadPoint rp1;
-    FindPointsWithCommonFeature(prevJoint, nextJoint, rp0, rp1);
-    if (i == 0)
-      routePoints.emplace_back(rp0, 0.0 /* time */);
-
-    uint32_t const featureId = rp0.GetFeatureId();
-    uint32_t const pointFrom = rp0.GetPointId();
-    uint32_t const pointTo = rp1.GetPointId();
-
-    RoadGeometry const roadGeometry = m_graph.GetGeometry().GetRoad(featureId);
-
-    uint32_t const step = pointFrom < pointTo ? 1 : -1;
-
-    for (uint32_t prevPointId = pointFrom; prevPointId != pointTo; prevPointId += step)
-    {
-      uint32_t const pointId = prevPointId + step;
-      routeTime += estimator.CalcEdgesWeight(featureId, roadGeometry, prevPointId, pointId);
-      routePoints.emplace_back(featureId, pointId, routeTime);
-    }
-  }
+  CHECK_LESS(pointIndex, route.size(), ());
+  return GetPoint(route[pointIndex], true /* front */);
 }
 
-void IndexGraphStarter::GetEdgesList(Joint::Id jointId, bool isOutgoing, vector<JointEdge> & edges)
+void IndexGraphStarter::GetEdgesList(Segment const & segment, bool isOutgoing,
+                                     vector<SegmentEdge> & edges)
 {
   edges.clear();
 
-  if (jointId == m_start.m_fakeId)
+  if (segment == kStartFakeSegment)
   {
-    GetFakeEdges(m_start, m_finish, isOutgoing, edges);
+    GetFakeToNormalEdges(m_start, edges);
     return;
   }
 
-  if (jointId == m_finish.m_fakeId)
+  if (segment == kFinishFakeSegment)
   {
-    GetFakeEdges(m_finish, m_start, isOutgoing, edges);
+    GetFakeToNormalEdges(m_finish, edges);
     return;
   }
 
-  m_graph.GetEdgeList(jointId, isOutgoing, edges);
-  GetArrivalFakeEdges(jointId, m_start, isOutgoing, edges);
-  GetArrivalFakeEdges(jointId, m_finish, isOutgoing, edges);
+  m_graph.GetEdgeList(segment, isOutgoing, edges);
+  GetNormalToFakeEdge(segment, m_start, kStartFakeSegment, isOutgoing, edges);
+  GetNormalToFakeEdge(segment, m_finish, kFinishFakeSegment, isOutgoing, edges);
 }
 
-void IndexGraphStarter::GetFakeEdges(IndexGraphStarter::FakeJoint const & from,
-                                     IndexGraphStarter::FakeJoint const & to, bool isOutgoing,
-                                     vector<JointEdge> & edges)
+void IndexGraphStarter::GetFakeToNormalEdges(FakeVertex const & fakeVertex,
+                                             vector<SegmentEdge> & edges)
 {
-  m_graph.GetNeighboringEdges(from.m_point, isOutgoing, edges);
+  GetFakeToNormalEdge(fakeVertex, true /* forward */, edges);
 
-  if (!to.BelongsToGraph() && from.m_point.GetFeatureId() == to.m_point.GetFeatureId())
-  {
-    m_graph.GetDirectedEdge(from.m_point.GetFeatureId(), from.m_point.GetPointId(),
-                            to.m_point.GetPointId(), to.m_jointId, isOutgoing, edges);
-  }
+  if (!m_graph.GetGeometry().GetRoad(fakeVertex.GetFeatureId()).IsOneWay())
+    GetFakeToNormalEdge(fakeVertex, false /* forward */, edges);
 }
 
-void IndexGraphStarter::GetArrivalFakeEdges(Joint::Id jointId,
-                                            IndexGraphStarter::FakeJoint const & fakeJoint,
-                                            bool isOutgoing, vector<JointEdge> & edges)
+void IndexGraphStarter::GetFakeToNormalEdge(FakeVertex const & fakeVertex, bool forward,
+                                            vector<SegmentEdge> & edges)
 {
-  if (fakeJoint.BelongsToGraph())
+  Segment const segment(fakeVertex.GetFeatureId(), fakeVertex.GetSegmentIdx(), forward);
+  RoadPoint const & roadPoint = segment.GetRoadPoint(true /* front */);
+  m2::PointD const & pointTo = m_graph.GetGeometry().GetPoint(roadPoint);
+  double const weight = m_graph.GetEstimator().CalcHeuristic(fakeVertex.GetPoint(), pointTo);
+  edges.emplace_back(segment, weight);
+}
+
+void IndexGraphStarter::GetNormalToFakeEdge(Segment const & segment, FakeVertex const & fakeVertex,
+                                            Segment const & fakeSegment, bool isOutgoing,
+                                            vector<SegmentEdge> & edges)
+{
+  if (!fakeVertex.Fits(segment))
     return;
 
-  if (!m_graph.JointLiesOnRoad(jointId, fakeJoint.m_point.GetFeatureId()))
-    return;
-
-  vector<JointEdge> startEdges;
-  m_graph.GetNeighboringEdges(fakeJoint.m_point, !isOutgoing, startEdges);
-  for (JointEdge const & edge : startEdges)
-  {
-    if (edge.GetTarget() == jointId)
-      edges.emplace_back(fakeJoint.m_jointId, edge.GetWeight());
-  }
-}
-
-void IndexGraphStarter::FindPointsWithCommonFeature(Joint::Id jointId0, Joint::Id jointId1,
-                                                    RoadPoint & result0, RoadPoint & result1)
-{
-  bool found = false;
-  double minWeight = -1.0;
-
-  ForEachPoint(jointId0, [&](RoadPoint const & rp0) {
-    ForEachPoint(jointId1, [&](RoadPoint const & rp1) {
-      if (rp0.GetFeatureId() != rp1.GetFeatureId())
-        return;
-
-      RoadGeometry const & road = m_graph.GetGeometry().GetRoad(rp0.GetFeatureId());
-      if (road.IsOneWay() && rp0.GetPointId() > rp1.GetPointId())
-        return;
-
-      if (found)
-      {
-        if (minWeight < 0.0)
-        {
-          // CalcEdgesWeight is very expensive.
-          // So calculate it only if second common feature found.
-          RoadGeometry const & prevRoad = m_graph.GetGeometry().GetRoad(result0.GetFeatureId());
-          minWeight = m_graph.GetEstimator().CalcEdgesWeight(
-              rp0.GetFeatureId(), prevRoad, result0.GetPointId(), result1.GetPointId());
-        }
-
-        double const weight = m_graph.GetEstimator().CalcEdgesWeight(
-            rp0.GetFeatureId(), road, rp0.GetPointId(), rp1.GetPointId());
-        if (weight < minWeight)
-        {
-          minWeight = weight;
-          result0 = rp0;
-          result1 = rp1;
-        }
-      }
-      else
-      {
-        result0 = rp0;
-        result1 = rp1;
-        found = true;
-      }
-    });
-  });
-
-  CHECK(found, ("Can't find common feature for joints", jointId0, jointId1));
-}
-
-// IndexGraphStarter::FakeJoint --------------------------------------------------------------------
-IndexGraphStarter::FakeJoint::FakeJoint(IndexGraph const & graph, RoadPoint const & point,
-                                        Joint::Id fakeId)
-  : m_point(point), m_fakeId(fakeId), m_jointId(Joint::kInvalidId)
-{
-}
-
-void IndexGraphStarter::FakeJoint::SetupJointId(IndexGraph const & graph)
-{
-  m_jointId = graph.GetJointId(m_point);
-  if (m_jointId == Joint::kInvalidId)
-    m_jointId = m_fakeId;
+  m2::PointD const & pointFrom = m_graph.GetGeometry().GetPoint(segment.GetRoadPoint(isOutgoing));
+  double const weight = m_graph.GetEstimator().CalcHeuristic(pointFrom, fakeVertex.GetPoint());
+  edges.emplace_back(fakeSegment, weight);
 }
 }  // namespace routing

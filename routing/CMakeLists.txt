@@ -95,6 +95,7 @@ set(
   routing_session.cpp
   routing_session.hpp
   routing_settings.hpp
+  segment.hpp
   single_mwm_router.cpp
   single_mwm_router.hpp
   speed_camera.cpp

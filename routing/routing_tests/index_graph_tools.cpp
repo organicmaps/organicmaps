@@ -36,25 +36,19 @@ Joint MakeJoint(vector<RoadPoint> const & points)
 
 shared_ptr<EdgeEstimator> CreateEstimator(traffic::TrafficCache const & trafficCache)
 {
-  return EdgeEstimator::CreateForCar(*make_shared<CarModelFactory>()->GetVehicleModel(), trafficCache);
+  return EdgeEstimator::CreateForCar(*make_shared<CarModelFactory>()->GetVehicleModel(),
+                                     trafficCache);
 }
 
 AStarAlgorithm<IndexGraphStarter>::Result CalculateRoute(IndexGraphStarter & starter,
-                                                         vector<RoadPoint> & roadPoints)
+                                                          vector<Segment> & roadPoints)
 {
   AStarAlgorithm<IndexGraphStarter> algorithm;
-  RoutingResult<Joint::Id> routingResult;
-  auto const resultCode = algorithm.FindPath(
-      starter, starter.GetStartJoint(), starter.GetFinishJoint(), routingResult, {}, {});
+  RoutingResult<Segment> routingResult;
+  auto const resultCode = algorithm.FindPathBidirectional(
+      starter, starter.GetStart(), starter.GetFinish(), routingResult, {}, {});
 
-  vector<RoutePoint> routePoints;
-  starter.RedressRoute(routingResult.path, routePoints);
-
-  roadPoints.clear();
-  roadPoints.reserve(routePoints.size());
-  for (auto const & point : routePoints)
-    roadPoints.push_back(point.GetRoadPoint());
-
+  roadPoints = routingResult.path;
   return resultCode;
 }
 
@@ -62,16 +56,12 @@ void TestRouteGeometry(IndexGraphStarter & starter,
                        AStarAlgorithm<IndexGraphStarter>::Result expectedRouteResult,
                        vector<m2::PointD> const & expectedRouteGeom)
 {
-  vector<RoadPoint> route;
+  vector<Segment> route;
   auto const resultCode = CalculateRoute(starter, route);
   TEST_EQUAL(resultCode, expectedRouteResult, ());
-  TEST_EQUAL(route.size(), expectedRouteGeom.size(), ());
-  for (size_t i = 0; i < route.size(); ++i)
-  {
-    // When PR with applying restricions is merged IndexGraph::GetRoad() should be used here instead.
-    RoadGeometry roadGeom = starter.GetGraph().GetGeometry().GetRoad(route[i].GetFeatureId());
-    CHECK_LESS(route[i].GetPointId(), roadGeom.GetPointsCount(), ());
-    TEST_EQUAL(expectedRouteGeom[i], roadGeom.GetPoint(route[i].GetPointId()), ());
-  }
+  TEST_EQUAL(IndexGraphStarter::GetRouteNumPoints(route), expectedRouteGeom.size(), ());
+
+  for (size_t i = 0; i < IndexGraphStarter::GetRouteNumPoints(route); ++i)
+    TEST_EQUAL(expectedRouteGeom[i], starter.GetRoutePoint(route, i), ());
 }
 }  // namespace routing_test

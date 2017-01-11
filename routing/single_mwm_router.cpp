@@ -92,8 +92,10 @@ IRouter::ResultCode SingleMwmRouter::DoCalculateRoute(MwmSet::MwmId const & mwmI
   if (!FindClosestEdge(mwmId, finalPoint, finishEdge))
     return IRouter::EndPointNotFound;
 
-  RoadPoint const start(startEdge.GetFeatureId().m_index, startEdge.GetSegId());
-  RoadPoint const finish(finishEdge.GetFeatureId().m_index, finishEdge.GetSegId());
+  IndexGraphStarter::FakeVertex const start(startEdge.GetFeatureId().m_index, startEdge.GetSegId(),
+                                            startPoint);
+  IndexGraphStarter::FakeVertex const finish(finishEdge.GetFeatureId().m_index,
+                                             finishEdge.GetSegId(), finalPoint);
 
   EstimatorGuard guard(mwmId, *m_estimator);
 
@@ -107,12 +109,12 @@ IRouter::ResultCode SingleMwmRouter::DoCalculateRoute(MwmSet::MwmId const & mwmI
   IndexGraphStarter starter(graph, start, finish);
 
   AStarProgress progress(0, 100);
-  progress.Initialize(graph.GetGeometry().GetPoint(start), graph.GetGeometry().GetPoint(finish));
+  progress.Initialize(startPoint, finalPoint);
 
   uint32_t drawPointsStep = 0;
-  auto onVisitJunction = [&](Joint::Id const & from, Joint::Id const & to) {
-    m2::PointD const & pointFrom = starter.GetPoint(from);
-    m2::PointD const & pointTo = starter.GetPoint(to);
+  auto onVisitJunction = [&](Segment const & from, Segment const & to) {
+    m2::PointD const & pointFrom = starter.GetPoint(from, true /* front */);
+    m2::PointD const & pointTo = starter.GetPoint(to, true /* front */);
     auto const lastValue = progress.GetLastValue();
     auto const newValue = progress.GetProgressForBidirectedAlgo(pointFrom, pointTo);
     if (newValue - lastValue > kProgressInterval)
@@ -124,10 +126,9 @@ IRouter::ResultCode SingleMwmRouter::DoCalculateRoute(MwmSet::MwmId const & mwmI
 
   AStarAlgorithm<IndexGraphStarter> algorithm;
 
-  RoutingResult<Joint::Id> routingResult;
-  auto const resultCode =
-      algorithm.FindPathBidirectional(starter, starter.GetStartJoint(), starter.GetFinishJoint(),
-                                      routingResult, delegate, onVisitJunction);
+  RoutingResult<Segment> routingResult;
+  auto const resultCode = algorithm.FindPathBidirectional(
+      starter, starter.GetStart(), starter.GetFinish(), routingResult, delegate, onVisitJunction);
 
   switch (resultCode)
   {
@@ -200,30 +201,18 @@ bool SingleMwmRouter::LoadIndex(MwmSet::MwmId const & mwmId, string const & coun
   }
 }
 
-bool SingleMwmRouter::BuildRoute(MwmSet::MwmId const & mwmId, vector<Joint::Id> const & joints,
+bool SingleMwmRouter::BuildRoute(MwmSet::MwmId const & mwmId, vector<Segment> const & segments,
                                  RouterDelegate const & delegate, IndexGraphStarter & starter,
                                  Route & route) const
 {
-  vector<RoutePoint> routePoints;
-  starter.RedressRoute(joints, routePoints);
-
-  // ReconstructRoute removes equal points: do it self to match time indexes.
-  // TODO: rework ReconstructRoute and remove all time indexes stuff.
-  routePoints.erase(unique(routePoints.begin(), routePoints.end(),
-                           [&](RoutePoint const & rp0, RoutePoint const & rp1) {
-                             return starter.GetPoint(rp0.GetRoadPoint()) ==
-                                    starter.GetPoint(rp1.GetRoadPoint());
-                           }),
-                    routePoints.end());
-
   vector<Junction> junctions;
-  junctions.reserve(routePoints.size());
+  size_t const numPoints = IndexGraphStarter::GetRouteNumPoints(segments);
+  junctions.reserve(numPoints);
 
-  // TODO: Use real altitudes for pedestrian and bicycle routing.
-  for (RoutePoint const & routePoint : routePoints)
+  for (size_t i = 0; i < numPoints; ++i)
   {
-    junctions.emplace_back(starter.GetPoint(routePoint.GetRoadPoint()),
-                           feature::kDefaultAltitudeMeters);
+    // TODO: Use real altitudes for pedestrian and bicycle routing.
+    junctions.emplace_back(starter.GetRoutePoint(segments, i), feature::kDefaultAltitudeMeters);
   }
 
   shared_ptr<traffic::TrafficInfo::Coloring> trafficColoring = m_trafficCache.GetTrafficInfo(mwmId);
@@ -231,8 +220,7 @@ bool SingleMwmRouter::BuildRoute(MwmSet::MwmId const & mwmId, vector<Joint::Id> 
   vector<Junction> const oldJunctions(junctions);
 
   CHECK(m_directionsEngine, ());
-  ReconstructRoute(*m_directionsEngine, m_roadGraph, trafficColoring, delegate,
-                   junctions, route);
+  ReconstructRoute(*m_directionsEngine, m_roadGraph, trafficColoring, delegate, junctions, route);
 
   if (junctions != oldJunctions)
   {
@@ -241,27 +229,12 @@ bool SingleMwmRouter::BuildRoute(MwmSet::MwmId const & mwmId, vector<Joint::Id> 
     return false;
   }
 
-  // ReconstructRoute duplicates all points except start and finish.
-  // Therefore one needs fix time indexes to fit reconstructed polyline.
-  if (routePoints.size() < 2 || route.GetPoly().GetSize() + 2 != routePoints.size() * 2)
+  if (!route.IsValid())
   {
-    LOG(LERROR, ("Can't fix route times: polyline size =", route.GetPoly().GetSize(),
-                 "route points size =", routePoints.size()));
+    LOG(LERROR, ("ReconstructRoute failed. Segments:", segments.size()));
     return false;
   }
 
-  Route::TTimes times;
-  times.reserve(route.GetPoly().GetSize());
-  times.emplace_back(0, routePoints.front().GetTime());
-
-  for (size_t i = 1; i < routePoints.size() - 1; ++i)
-  {
-    times.emplace_back(i * 2 - 1, routePoints[i].GetTime());
-    times.emplace_back(i * 2, routePoints[i].GetTime());
-  }
-
-  times.emplace_back(route.GetPoly().GetSize() - 1, routePoints.back().GetTime());
-  route.SetSectionTimes(move(times));
   return true;
 }
 
@@ -273,7 +246,8 @@ unique_ptr<SingleMwmRouter> SingleMwmRouter::CreateCarRouter(
   // @TODO Bicycle turn generation engine is used now. It's ok for the time being.
   // But later a special car turn generation engine should be implemented.
   auto directionsEngine = make_unique<BicycleDirectionsEngine>(index);
-  auto estimator = EdgeEstimator::CreateForCar(*vehicleModelFactory->GetVehicleModel(), trafficCache);
+  auto estimator =
+      EdgeEstimator::CreateForCar(*vehicleModelFactory->GetVehicleModel(), trafficCache);
   auto router =
       make_unique<SingleMwmRouter>("astar-bidirectional-car", index, trafficCache,
                                    move(vehicleModelFactory), estimator, move(directionsEngine));
