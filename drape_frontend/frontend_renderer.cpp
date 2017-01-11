@@ -435,7 +435,12 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
       location::RouteMatchingInfo const & info = msg->GetRouteInfo();
       if (info.HasDistanceFromBegin())
+      {
         m_routeRenderer->UpdateDistanceFromBegin(info.GetDistanceFromBegin());
+        // Here we have to recache route arrows.
+        m_routeRenderer->UpdateRoute(m_userEventStream.GetCurrentScreen(),
+                                     bind(&FrontendRenderer::OnCacheRouteArrows, this, _1, _2));
+      }
 
       break;
     }

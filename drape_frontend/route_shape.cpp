@@ -145,6 +145,10 @@ void RouteShape::PrepareGeometry(vector<m2::PointD> const & path, m2::PointD con
 
   // Build geometry.
   float length = 0.0f;
+  for (size_t i = 0; i < segments.size() ; ++i)
+    length += glsl::length(segments[i].m_points[EndPoint] - segments[i].m_points[StartPoint]);
+  outputLength = length;
+
   float depth = 0.0f;
   float const depthStep = kRouteDepth / (1 + segments.size());
   for (int i = static_cast<int>(segments.size() - 1); i >= 0; i--)
@@ -162,7 +166,7 @@ void RouteShape::PrepareGeometry(vector<m2::PointD> const & path, m2::PointD con
     glsl::vec3 const endPivot = glsl::vec3(glsl::ToVec2(endPt), depth);
     depth += depthStep;
 
-    float const endLength = length + glsl::length(segments[i].m_points[EndPoint] - segments[i].m_points[StartPoint]);
+    float const startLength = length - glsl::length(segments[i].m_points[EndPoint] - segments[i].m_points[StartPoint]);
 
     glsl::vec2 const leftNormalStart = GetNormal(segments[i], true /* isLeft */, StartNormal);
     glsl::vec2 const rightNormalStart = GetNormal(segments[i], false /* isLeft */, StartNormal);
@@ -174,15 +178,15 @@ void RouteShape::PrepareGeometry(vector<m2::PointD> const & path, m2::PointD con
     float const projRightStart = -segments[i].m_rightWidthScalar[StartPoint].y;
     float const projRightEnd = segments[i].m_rightWidthScalar[EndPoint].y;
 
-    geometry.push_back(RV(startPivot, glsl::vec2(0, 0), glsl::vec3(length, 0, kCenter), segments[i].m_color));
-    geometry.push_back(RV(startPivot, leftNormalStart, glsl::vec3(length, projLeftStart, kLeftSide), segments[i].m_color));
-    geometry.push_back(RV(endPivot, glsl::vec2(0, 0), glsl::vec3(endLength, 0, kCenter), segments[i].m_color));
-    geometry.push_back(RV(endPivot, leftNormalEnd, glsl::vec3(endLength, projLeftEnd, kLeftSide), segments[i].m_color));
+    geometry.push_back(RV(startPivot, glsl::vec2(0, 0), glsl::vec3(startLength, 0, kCenter), segments[i].m_color));
+    geometry.push_back(RV(startPivot, leftNormalStart, glsl::vec3(startLength, projLeftStart, kLeftSide), segments[i].m_color));
+    geometry.push_back(RV(endPivot, glsl::vec2(0, 0), glsl::vec3(length, 0, kCenter), segments[i].m_color));
+    geometry.push_back(RV(endPivot, leftNormalEnd, glsl::vec3(length, projLeftEnd, kLeftSide), segments[i].m_color));
 
-    geometry.push_back(RV(startPivot, rightNormalStart, glsl::vec3(length, projRightStart, kRightSide), segments[i].m_color));
-    geometry.push_back(RV(startPivot, glsl::vec2(0, 0), glsl::vec3(length, 0, kCenter), segments[i].m_color));
-    geometry.push_back(RV(endPivot, rightNormalEnd, glsl::vec3(endLength, projRightEnd, kRightSide), segments[i].m_color));
-    geometry.push_back(RV(endPivot, glsl::vec2(0, 0), glsl::vec3(endLength, 0, kCenter), segments[i].m_color));
+    geometry.push_back(RV(startPivot, rightNormalStart, glsl::vec3(startLength, projRightStart, kRightSide), segments[i].m_color));
+    geometry.push_back(RV(startPivot, glsl::vec2(0, 0), glsl::vec3(startLength, 0, kCenter), segments[i].m_color));
+    geometry.push_back(RV(endPivot, rightNormalEnd, glsl::vec3(length, projRightEnd, kRightSide), segments[i].m_color));
+    geometry.push_back(RV(endPivot, glsl::vec2(0, 0), glsl::vec3(length, 0, kCenter), segments[i].m_color));
 
     // Generate joins.
     if (segments[i].m_generateJoin && i < static_cast<int>(segments.size()) - 1)
@@ -200,7 +204,7 @@ void RouteShape::PrepareGeometry(vector<m2::PointD> const & path, m2::PointD con
       GenerateJoinNormals(dp::RoundJoin, n1, n2, 1.0f, segments[i].m_hasLeftJoin[EndPoint],
                           widthScalar, normals);
 
-      GenerateJoinsTriangles(endPivot, normals, segments[i].m_color, glsl::vec2(endLength, 0),
+      GenerateJoinsTriangles(endPivot, normals, segments[i].m_color, glsl::vec2(length, 0),
                              segments[i].m_hasLeftJoin[EndPoint], joinsGeometry);
     }
 
@@ -213,7 +217,7 @@ void RouteShape::PrepareGeometry(vector<m2::PointD> const & path, m2::PointD con
                          segments[i].m_rightNormals[StartPoint], -segments[i].m_tangent,
                          1.0f, true /* isStart */, normals);
 
-      GenerateJoinsTriangles(startPivot, normals, segments[i].m_color, glsl::vec2(length, 0),
+      GenerateJoinsTriangles(startPivot, normals, segments[i].m_color, glsl::vec2(startLength, 0),
                              true, joinsGeometry);
     }
 
@@ -225,14 +229,12 @@ void RouteShape::PrepareGeometry(vector<m2::PointD> const & path, m2::PointD con
                          segments[i].m_rightNormals[EndPoint], segments[i].m_tangent,
                          1.0f, false /* isStart */, normals);
 
-      GenerateJoinsTriangles(endPivot, normals, segments[i].m_color, glsl::vec2(endLength, 0),
+      GenerateJoinsTriangles(endPivot, normals, segments[i].m_color, glsl::vec2(length, 0),
                              true, joinsGeometry);
     }
 
-    length = endLength;
+    length = startLength;
   }
-
-  outputLength = length; 
 }
 
 void RouteShape::PrepareArrowGeometry(vector<m2::PointD> const & path, m2::PointD const & pivot,
