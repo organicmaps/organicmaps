@@ -32523,6 +32523,133 @@ cont {
   }
 }
 cont {
+  name: "historic-fort"
+  element {
+    scale: 12
+    symbol {
+      name: "remains-s"
+      priority: 16901
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 6
+      }
+      priority: 15901
+    }
+  }
+  element {
+    scale: 13
+    symbol {
+      name: "remains-s"
+      priority: 16901
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 6
+      }
+      priority: 15901
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "remains-s"
+      priority: 16901
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 6
+      }
+      priority: 15901
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "remains-m"
+      priority: 16901
+      min_distance: 5
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15901
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "remains-m"
+      priority: 16901
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 12
+      }
+      priority: 15901
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "remains-l"
+      priority: 16901
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15901
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "remains-l"
+      priority: 16901
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15901
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "remains-l"
+      priority: 16901
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15901
+    }
+  }
+}
+cont {
   name: "historic-memorial"
   element {
     scale: 15
@@ -77299,6 +77426,87 @@ cont {
         height: 11
         color: 4473924
         stroke_color: 872415231
+        offset_y: 12
+      }
+      priority: 15637
+    }
+  }
+}
+cont {
+  name: "tourism-gallery"
+  element {
+    scale: 15
+    symbol {
+      name: "gallery-m"
+      apply_for_type: 1
+      priority: 16843
+      min_distance: 8
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15843
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "gallery-m"
+      priority: 16833
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 12
+      }
+      priority: 15833
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "gallery-l"
+      priority: 16833
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15833
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "gallery-l"
+      priority: 16637
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 12
+      }
+      priority: 15637
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "gallery-l"
+      priority: 16637
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
         offset_y: 12
       }
       priority: 15637
