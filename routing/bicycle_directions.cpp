@@ -83,7 +83,7 @@ namespace routing
 {
 BicycleDirectionsEngine::BicycleDirectionsEngine(Index const & index) : m_index(index) {}
 
-void BicycleDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction> const & path,
+void BicycleDirectionsEngine::Generate(RoadGraphBase const & graph, vector<Junction> const & path,
                                        Route::TTimes & times, Route::TTurns & turns,
                                        vector<Junction> & routeGeometry,
                                        vector<TrafficInfo::RoadSegmentId> & trafficSegs,

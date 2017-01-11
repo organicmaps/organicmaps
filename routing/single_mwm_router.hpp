@@ -46,9 +46,9 @@ private:
   bool FindClosestEdge(MwmSet::MwmId const & mwmId, m2::PointD const & point,
                        Edge & closestEdge) const;
   bool LoadIndex(MwmSet::MwmId const & mwmId, string const & country, IndexGraph & graph);
-  bool BuildRoute(MwmSet::MwmId const & mwmId, vector<Segment> const & segments,
-                  RouterDelegate const & delegate, IndexGraphStarter & starter,
-                  Route & route) const;
+  bool RedressRoute(MwmSet::MwmId const & mwmId, IVehicleModel const & vehicleModel,
+                    vector<Segment> const & segments, RouterDelegate const & delegate,
+                    IndexGraphStarter & starter, Route & route) const;
 
   string const m_name;
   Index const & m_index;

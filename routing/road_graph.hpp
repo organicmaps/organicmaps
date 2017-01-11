@@ -92,11 +92,31 @@ private:
   Junction m_endJunction;
 };
 
-class IRoadGraph
+class RoadGraphBase
+{
+public:
+  typedef vector<Edge> TEdgeVector;
+
+  /// Finds all nearest outgoing edges, that route to the junction.
+  virtual void GetOutgoingEdges(Junction const & junction, TEdgeVector & edges) const = 0;
+
+  /// Finds all nearest ingoing edges, that route to the junction.
+  virtual void GetIngoingEdges(Junction const & junction, TEdgeVector & edges) const = 0;
+
+  /// Returns max speed in KM/H
+  virtual double GetMaxSpeedKMPH() const = 0;
+
+  /// @return Types for the specified edge
+  virtual void GetEdgeTypes(Edge const & edge, feature::TypesHolder & types) const = 0;
+
+  /// @return Types for specified junction
+  virtual void GetJunctionTypes(Junction const & junction, feature::TypesHolder & types) const = 0;
+};
+
+class IRoadGraph : public RoadGraphBase
 {
 public:
   typedef vector<Junction> TJunctionVector;
-  typedef vector<Edge> TEdgeVector;
 
   enum class Mode
   {
@@ -200,11 +220,9 @@ public:
 
   virtual ~IRoadGraph() = default;
 
-  /// Finds all nearest outgoing edges, that route to the junction.
-  void GetOutgoingEdges(Junction const & junction, TEdgeVector & edges) const;
+  virtual void GetOutgoingEdges(Junction const & junction, TEdgeVector & edges) const override;
 
-  /// Finds all nearest ingoing edges, that route to the junction.
-  void GetIngoingEdges(Junction const & junction, TEdgeVector & edges) const;
+  virtual void GetIngoingEdges(Junction const & junction, TEdgeVector & edges) const override;
 
   /// Removes all fake turns and vertices from the graph.
   void ResetFakes();
@@ -222,9 +240,6 @@ public:
   /// Returns speed in KM/H for a road corresponding to edge.
   double GetSpeedKMPH(Edge const & edge) const;
 
-  /// Returns max speed in KM/H
-  virtual double GetMaxSpeedKMPH() const = 0;
-
   /// Calls edgesLoader on each feature which is close to cross.
   virtual void ForEachFeatureClosestToCross(m2::PointD const & cross,
                                             ICrossEdgesLoader & edgesLoader) const = 0;
@@ -239,10 +254,7 @@ public:
   virtual void GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const = 0;
 
   /// @return Types for the specified edge
-  void GetEdgeTypes(Edge const & edge, feature::TypesHolder & types) const;
-
-  /// @return Types for specified junction
-  virtual void GetJunctionTypes(Junction const & junction, feature::TypesHolder & types) const = 0;
+  virtual void GetEdgeTypes(Edge const & edge, feature::TypesHolder & types) const override;
 
   virtual IRoadGraph::Mode GetMode() const = 0;
 

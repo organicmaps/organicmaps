@@ -17,6 +17,8 @@
 		0C0DF9261DE898CF0055A22F /* single_mwm_router.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0C0DF9241DE898CF0055A22F /* single_mwm_router.hpp */; };
 		0C0DF92A1DE898FF0055A22F /* routing_helpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C0DF9281DE898FF0055A22F /* routing_helpers.cpp */; };
 		0C470E701E0D4EB1005B824D /* segment.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0C470E6F1E0D4EB1005B824D /* segment.hpp */; };
+		0C5BC9D11E28FD4E0071BFDD /* index_road_graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C5BC9CF1E28FD4E0071BFDD /* index_road_graph.cpp */; };
+		0C5BC9D21E28FD4E0071BFDD /* index_road_graph.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0C5BC9D01E28FD4E0071BFDD /* index_road_graph.hpp */; };
 		0C5FEC541DDE191E0017688C /* edge_estimator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C5FEC521DDE191E0017688C /* edge_estimator.cpp */; };
 		0C5FEC551DDE191E0017688C /* edge_estimator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0C5FEC531DDE191E0017688C /* edge_estimator.hpp */; };
 		0C5FEC5E1DDE192A0017688C /* geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C5FEC561DDE192A0017688C /* geometry.cpp */; };
@@ -254,6 +256,8 @@
 		0C0DF9241DE898CF0055A22F /* single_mwm_router.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = single_mwm_router.hpp; sourceTree = "<group>"; };
 		0C0DF9281DE898FF0055A22F /* routing_helpers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_helpers.cpp; sourceTree = "<group>"; };
 		0C470E6F1E0D4EB1005B824D /* segment.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = segment.hpp; sourceTree = "<group>"; };
+		0C5BC9CF1E28FD4E0071BFDD /* index_road_graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = index_road_graph.cpp; sourceTree = "<group>"; };
+		0C5BC9D01E28FD4E0071BFDD /* index_road_graph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = index_road_graph.hpp; sourceTree = "<group>"; };
 		0C5FEC521DDE191E0017688C /* edge_estimator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = edge_estimator.cpp; sourceTree = "<group>"; };
 		0C5FEC531DDE191E0017688C /* edge_estimator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = edge_estimator.hpp; sourceTree = "<group>"; };
 		0C5FEC561DDE192A0017688C /* geometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = geometry.cpp; sourceTree = "<group>"; };
@@ -688,6 +692,8 @@
 				0C08AA331DF83223004195DD /* index_graph_serialization.hpp */,
 				0C0DF91F1DE898B70055A22F /* index_graph_starter.cpp */,
 				0C0DF9201DE898B70055A22F /* index_graph_starter.hpp */,
+				0C5BC9CF1E28FD4E0071BFDD /* index_road_graph.cpp */,
+				0C5BC9D01E28FD4E0071BFDD /* index_road_graph.hpp */,
 				0C5FEC5C1DDE192A0017688C /* joint.cpp */,
 				0C5FEC5D1DDE192A0017688C /* joint.hpp */,
 				56099E2D1CC8FBDA00A7772A /* osrm_path_segment_factory.hpp */,
@@ -803,6 +809,7 @@
 				67AB92E51B7B3E6E00AB5194 /* routing_mapping.hpp in Headers */,
 				674F9BCB1B0A580E00704FFA /* async_router.hpp in Headers */,
 				0C08AA391DF8329B004195DD /* routing_exceptions.hpp in Headers */,
+				0C5BC9D21E28FD4E0071BFDD /* index_road_graph.hpp in Headers */,
 				674F9BD11B0A580E00704FFA /* online_cross_fetcher.hpp in Headers */,
 				0C470E701E0D4EB1005B824D /* segment.hpp in Headers */,
 				A120B3531B4A7C1C002F3808 /* astar_algorithm.hpp in Headers */,
@@ -1073,6 +1080,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C5FEC641DDE192A0017688C /* joint.cpp in Sources */,
+				0C5BC9D11E28FD4E0071BFDD /* index_road_graph.cpp in Sources */,
 				56826BD01DB51C4E00807C62 /* car_router.cpp in Sources */,
 				56099E2E1CC8FBDA00A7772A /* osrm_path_segment_factory.cpp in Sources */,
 				675344201A3F644F00A0A8C3 /* vehicle_model.cpp in Sources */,

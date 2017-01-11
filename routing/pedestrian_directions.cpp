@@ -32,7 +32,7 @@ PedestrianDirectionsEngine::PedestrianDirectionsEngine()
 {
 }
 
-void PedestrianDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction> const & path,
+void PedestrianDirectionsEngine::Generate(RoadGraphBase const & graph, vector<Junction> const & path,
                                           Route::TTimes & times, Route::TTurns & turns,
                                           vector<Junction> & routeGeometry,
                                           vector<traffic::TrafficInfo::RoadSegmentId> & /* trafficSegs */,
@@ -60,7 +60,7 @@ void PedestrianDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junct
   routeGeometry = path;
 }
 
-void PedestrianDirectionsEngine::CalculateTurns(IRoadGraph const & graph,
+void PedestrianDirectionsEngine::CalculateTurns(RoadGraphBase const & graph,
                                                 vector<Edge> const & routeEdges,
                                                 Route::TTurns & turns,
                                                 my::Cancellable const & cancellable) const

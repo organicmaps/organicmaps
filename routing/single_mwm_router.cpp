@@ -8,6 +8,7 @@
 #include "routing/index_graph.hpp"
 #include "routing/index_graph_serialization.hpp"
 #include "routing/index_graph_starter.hpp"
+#include "routing/index_road_graph.hpp"
 #include "routing/pedestrian_model.hpp"
 #include "routing/route.hpp"
 #include "routing/routing_helpers.hpp"
@@ -99,9 +100,9 @@ IRouter::ResultCode SingleMwmRouter::DoCalculateRoute(MwmSet::MwmId const & mwmI
 
   EstimatorGuard guard(mwmId, *m_estimator);
 
-  IndexGraph graph(GeometryLoader::Create(
-                       m_index, mwmId, m_vehicleModelFactory->GetVehicleModelForCountry(country)),
-                   m_estimator);
+  shared_ptr<IVehicleModel> vehicleModel =
+      m_vehicleModelFactory->GetVehicleModelForCountry(country);
+  IndexGraph graph(GeometryLoader::Create(m_index, mwmId, vehicleModel), m_estimator);
 
   if (!LoadIndex(mwmId, country, graph))
     return IRouter::RouteFileNotExist;
@@ -135,7 +136,7 @@ IRouter::ResultCode SingleMwmRouter::DoCalculateRoute(MwmSet::MwmId const & mwmI
   case AStarAlgorithm<IndexGraphStarter>::Result::NoPath: return IRouter::RouteNotFound;
   case AStarAlgorithm<IndexGraphStarter>::Result::Cancelled: return IRouter::Cancelled;
   case AStarAlgorithm<IndexGraphStarter>::Result::OK:
-    if (!BuildRoute(mwmId, routingResult.path, delegate, starter, route))
+    if (!RedressRoute(mwmId, *vehicleModel, routingResult.path, delegate, starter, route))
       return IRouter::InternalError;
     if (delegate.IsCancelled())
       return IRouter::Cancelled;
@@ -201,9 +202,9 @@ bool SingleMwmRouter::LoadIndex(MwmSet::MwmId const & mwmId, string const & coun
   }
 }
 
-bool SingleMwmRouter::BuildRoute(MwmSet::MwmId const & mwmId, vector<Segment> const & segments,
-                                 RouterDelegate const & delegate, IndexGraphStarter & starter,
-                                 Route & route) const
+bool SingleMwmRouter::RedressRoute(MwmSet::MwmId const & mwmId, IVehicleModel const & vehicleModel,
+                                 vector<Segment> const & segments, RouterDelegate const & delegate,
+                                 IndexGraphStarter & starter, Route & route) const
 {
   vector<Junction> junctions;
   size_t const numPoints = IndexGraphStarter::GetRouteNumPoints(segments);
@@ -216,24 +217,32 @@ bool SingleMwmRouter::BuildRoute(MwmSet::MwmId const & mwmId, vector<Segment> co
   }
 
   shared_ptr<traffic::TrafficInfo::Coloring> trafficColoring = m_trafficCache.GetTrafficInfo(mwmId);
-
-  vector<Junction> const oldJunctions(junctions);
+  IndexRoadGraph roadGraph(mwmId, m_index, vehicleModel.GetMaxSpeed(), starter, segments,
+                           junctions);
 
   CHECK(m_directionsEngine, ());
-  ReconstructRoute(*m_directionsEngine, m_roadGraph, trafficColoring, delegate, junctions, route);
-
-  if (junctions != oldJunctions)
-  {
-    LOG(LERROR, ("ReconstructRoute changed junctions: size before", oldJunctions.size(),
-                 ", size after", junctions.size()));
-    return false;
-  }
+  ReconstructRoute(*m_directionsEngine, roadGraph, trafficColoring, delegate, junctions, route);
 
   if (!route.IsValid())
   {
     LOG(LERROR, ("ReconstructRoute failed. Segments:", segments.size()));
     return false;
   }
+
+  EdgeEstimator const & estimator = starter.GetGraph().GetEstimator();
+  Geometry & geometry = starter.GetGraph().GetGeometry();
+  Route::TTimes times;
+  times.reserve(segments.size());
+  double time = 0.0;
+  times.emplace_back(static_cast<uint32_t>(0), 0.0);
+  // First and last segments are fakes: skip it.
+  for (size_t i = 1; i < segments.size() - 1; ++i)
+  {
+    times.emplace_back(static_cast<uint32_t>(i), time);
+    Segment const & segment = segments[i];
+    time += estimator.CalcSegmentWeight(segment, geometry.GetRoad(segment.GetFeatureId()));
+  }
+  route.SetSectionTimes(move(times));
 
   return true;
 }
