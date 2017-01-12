@@ -122,7 +122,7 @@ namespace feature
 
   string DebugPrint(TypesHolder const & holder);
 
-  uint8_t CalculateHeader(uint32_t const typesCount, uint8_t const headerGeomType,
+  uint8_t CalculateHeader(size_t const typesCount, uint8_t const headerGeomType,
                           FeatureParamsBase const & params);
 }  // namespace feature
 

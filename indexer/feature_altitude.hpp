@@ -111,7 +111,7 @@ public:
 
     for (size_t i = 0; i < pointCount; ++i)
     {
-      uint32_t const biasedDelta = coding::DeltaCoder::Decode(bits);
+      uint64_t const biasedDelta = coding::DeltaCoder::Decode(bits);
       if (biasedDelta == 0)
       {
         LOG(LERROR, ("Decoded altitude delta is zero. File", countryFileName,
@@ -119,7 +119,7 @@ public:
         m_altitudes.clear();
         return false;
       }
-      uint32_t const delta = biasedDelta - 1;
+      uint64_t const delta = biasedDelta - 1;
 
       m_altitudes[i] = static_cast<TAltitude>(bits::ZigZagDecode(delta) + prevAltitude);
       if (m_altitudes[i] < minAltitude)

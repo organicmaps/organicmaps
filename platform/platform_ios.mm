@@ -17,10 +17,6 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-#if !defined(IFT_ETHER)
-#define IFT_ETHER 0x6 /* Ethernet CSMACD */
-#endif
-
 #import "iphone/Maps/Common/MWMCommon.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
@@ -99,39 +95,6 @@ unique_ptr<ModelReader> Platform::GetReader(string const & file, string const & 
 
 int Platform::VideoMemoryLimit() const { return 8 * 1024 * 1024; }
 int Platform::PreCachingDepth() const { return 2; }
-static string GetDeviceUid()
-{
-  NSString * uid = @"";
-  UIDevice * device = [UIDevice currentDevice];
-  if (device.systemVersion.floatValue >= 6.0 && device.identifierForVendor)
-    uid = [device.identifierForVendor UUIDString];
-  return [uid UTF8String];
-}
-
-static string GetMacAddress()
-{
-  string result;
-  // get wifi mac addr
-  ifaddrs * addresses = NULL;
-  if (getifaddrs(&addresses) == 0 && addresses != NULL)
-  {
-    ifaddrs * currentAddr = addresses;
-    do
-    {
-      if (currentAddr->ifa_addr->sa_family == AF_LINK &&
-          ((const struct sockaddr_dl *)currentAddr->ifa_addr)->sdl_type == IFT_ETHER)
-      {
-        const struct sockaddr_dl * dlAddr = (const struct sockaddr_dl *)currentAddr->ifa_addr;
-        const char * base = &dlAddr->sdl_data[dlAddr->sdl_nlen];
-        result.assign(base, dlAddr->sdl_alen);
-        break;
-      }
-      currentAddr = currentAddr->ifa_next;
-    } while (currentAddr->ifa_next);
-    freeifaddrs(addresses);
-  }
-  return result;
-}
 
 string Platform::UniqueClientId() const { return [Alohalytics installationId].UTF8String; }
 static void PerformImpl(void * obj)
