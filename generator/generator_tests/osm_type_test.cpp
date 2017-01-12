@@ -608,7 +608,7 @@ UNIT_TEST(OsmType_Ferry)
   FeatureParams params;
   ftype::GetNameAndType(&e, params);
 
-  TEST_EQUAL(params.m_Types.size(), 2, (params));
+  TEST_EQUAL(params.m_Types.size(), 3, (params));
 
   uint32_t type = GetType({"highway", "primary", "bridge"});
   TEST(params.IsTypeExist(type), ());
@@ -621,6 +621,9 @@ UNIT_TEST(OsmType_Ferry)
   type = GetType({"route", "ferry"});
   TEST(!params.IsTypeExist(type), ());
   TEST(!carModel.IsRoadType(type), ());
+
+  type = GetType({"hwtag", "yescar"});
+  TEST(params.IsTypeExist(type), ());
 }
 
 UNIT_TEST(OsmType_Boundary)
