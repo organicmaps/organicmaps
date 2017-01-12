@@ -23,5 +23,4 @@
     info.textColor = UIColor.blackSecondaryText()
     info.font = UIFont.regular17()
   }
-
 }

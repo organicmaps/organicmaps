@@ -1,3 +1,5 @@
+#import "MWMMyPositionMode.h"
+
 #include "platform/location.hpp"
 
 using TPredictionBlock = void (^)(location::GpsInfo const &);
@@ -6,6 +8,6 @@ using TPredictionBlock = void (^)(location::GpsInfo const &);
 
 - (instancetype)initWithOnPredictionBlock:(TPredictionBlock)onPredictBlock;
 - (void)reset:(location::GpsInfo const &)info;
-- (void)setMyPositionMode:(location::EMyPositionMode)mode;
+- (void)setMyPositionMode:(MWMMyPositionMode)mode;
 
 @end

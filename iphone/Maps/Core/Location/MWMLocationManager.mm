@@ -1,8 +1,9 @@
 #import "MWMLocationManager.h"
 #import <Pushwoosh/PushNotificationManager.h>
-#import "MWMCommon.h"
 #import "MWMAlertViewController.h"
+#import "MWMCommon.h"
 #import "MWMController.h"
+#import "MWMLocationObserver.h"
 #import "MWMLocationPredictor.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
@@ -196,7 +197,7 @@ void setPermissionRequested()
 {
   self.locationManager.delegate = nil;
 }
-
++ (void)start { [self manager].started = YES; }
 #pragma mark - Add/Remove Observers
 
 + (void)addObserver:(TObserver)observer
@@ -220,7 +221,7 @@ void setPermissionRequested()
 + (void)applicationDidBecomeActive
 {
   if (isPermissionRequested() || ![Alohalytics isFirstSession])
-    [self manager].started = YES;
+    [self start];
 }
 
 + (void)applicationWillResignActive
@@ -245,9 +246,11 @@ void setPermissionRequested()
   return manager.lastLocationInfo;
 }
 
-+ (location::TLocationError)lastLocationStatus
++ (BOOL)isLocationProhibited
 {
-  return [self manager].lastLocationStatus;
+  auto const status = [self manager].lastLocationStatus;
+  return status == location::TLocationError::EDenied ||
+         status == location::TLocationError::EGPSIsOff;
 }
 
 + (CLHeading *)lastHeading
@@ -335,7 +338,7 @@ void setPermissionRequested()
 
 #pragma mark - My Position
 
-+ (void)setMyPositionMode:(location::EMyPositionMode)mode
++ (void)setMyPositionMode:(MWMMyPositionMode)mode
 {
   MWMLocationManager * manager = [self manager];
   [manager.predictor setMyPositionMode:mode];
@@ -355,13 +358,11 @@ void setPermissionRequested()
   {
     switch (mode)
     {
-    case location::EMyPositionMode::PendingPosition: manager.geoMode = GeoMode::Pending; break;
-    case location::EMyPositionMode::NotFollowNoPosition:
-    case location::EMyPositionMode::NotFollow: manager.geoMode = GeoMode::NotInPosition; break;
-    case location::EMyPositionMode::Follow: manager.geoMode = GeoMode::InPosition; break;
-    case location::EMyPositionMode::FollowAndRotate:
-      manager.geoMode = GeoMode::FollowAndRotate;
-      break;
+    case MWMMyPositionModePendingPosition: manager.geoMode = GeoMode::Pending; break;
+    case MWMMyPositionModeNotFollowNoPosition:
+    case MWMMyPositionModeNotFollow: manager.geoMode = GeoMode::NotInPosition; break;
+    case MWMMyPositionModeFollow: manager.geoMode = GeoMode::InPosition; break;
+    case MWMMyPositionModeFollowAndRotate: manager.geoMode = GeoMode::FollowAndRotate; break;
     }
   }
 }

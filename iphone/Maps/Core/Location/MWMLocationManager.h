@@ -1,15 +1,18 @@
-#import "CLLocation+Mercator.h"
-#import "MWMLocationObserver.h"
+#import "MWMMyPositionMode.h"
+
+@protocol MWMLocationObserver;
 
 @interface MWMLocationManager : NSObject
+
++ (void)start;
 
 + (void)addObserver:(id<MWMLocationObserver>)observer;
 + (void)removeObserver:(id<MWMLocationObserver>)observer;
 
-+ (void)setMyPositionMode:(location::EMyPositionMode)mode;
++ (void)setMyPositionMode:(MWMMyPositionMode)mode;
 
 + (CLLocation *)lastLocation;
-+ (location::TLocationError)lastLocationStatus;
++ (BOOL)isLocationProhibited;
 + (CLHeading *)lastHeading;
 
 + (void)applicationDidBecomeActive;

@@ -1,6 +1,7 @@
-#import "MapsAppDelegate.h"
-#import "MWMLocationManager.h"
 #import "MWMMapDownloaderExtendedDataSource.h"
+#import "CLLocation+Mercator.h"
+#import "MWMLocationManager.h"
+#import "MapsAppDelegate.h"
 
 #include "Framework.h"
 

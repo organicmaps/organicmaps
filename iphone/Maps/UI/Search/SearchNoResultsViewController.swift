@@ -20,7 +20,6 @@ final class SearchNoResultsViewController: MWMViewController {
     MWMKeyboard.add(self)
     onKeyboardAnimation()
   }
-
 }
 
 extension SearchNoResultsViewController: MWMKeyboardObserver {
@@ -29,5 +28,4 @@ extension SearchNoResultsViewController: MWMKeyboardObserver {
     containerBottomOffset.constant = MWMKeyboard.keyboardHeight()
     view.layoutIfNeeded()
   }
-
 }

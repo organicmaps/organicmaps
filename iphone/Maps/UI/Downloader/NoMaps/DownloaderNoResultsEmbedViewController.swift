@@ -8,7 +8,6 @@ final class DownloaderNoResultsEmbed: UINavigationController {
 
     case noMaps
     case noSearchResults
-    
   }
 
   var screen = Screen.noMaps {
@@ -21,5 +20,4 @@ final class DownloaderNoResultsEmbed: UINavigationController {
       setViewControllers([controller], animated: false)
     }
   }
-
 }

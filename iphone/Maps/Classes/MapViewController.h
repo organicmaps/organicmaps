@@ -1,6 +1,6 @@
 #import "MWMMapDownloaderTypes.h"
-#import "MWMPageController.h"
 #import "MWMViewController.h"
+#import "SwiftBridge.h"
 
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
@@ -39,6 +39,6 @@ struct AddressInfo;
 
 @property(nonatomic, readonly) MWMMapViewControlsManager * controlsManager;
 @property(nonatomic) MWMAPIBar * apiBar;
-@property(nonatomic) MWMPageController * pageViewController;
+@property(nonatomic) MWMWelcomePageController * welcomePageController;
 
 @end

@@ -13,5 +13,4 @@
     title.textColor = UIColor.blackPrimaryText()
     title.font = UIFont.regular17()
   }
-
 }
