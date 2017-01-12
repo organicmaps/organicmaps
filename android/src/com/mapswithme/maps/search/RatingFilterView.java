@@ -73,23 +73,29 @@ public class RatingFilterView extends LinearLayout implements View.OnClickListen
 
   public RatingFilterView(Context context)
   {
-    this(context, null, 0, 0);
+    this(context, null, 0);
   }
 
   public RatingFilterView(Context context, AttributeSet attrs)
   {
-    this(context, attrs, 0, 0);
+    this(context, attrs, 0);
   }
 
   public RatingFilterView(Context context, AttributeSet attrs, int defStyleAttr)
   {
-    this(context, attrs, defStyleAttr, 0);
+    super(context, attrs, defStyleAttr);
+    init(context);
   }
 
   @TargetApi(Build.VERSION_CODES.LOLLIPOP)
   public RatingFilterView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes)
   {
     super(context, attrs, defStyleAttr, defStyleRes);
+    init(context);
+  }
+
+  private void init(Context context)
+  {
     setOrientation(HORIZONTAL);
     LayoutInflater.from(context).inflate(R.layout.rating_filter, this, true);
   }

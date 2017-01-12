@@ -41,17 +41,26 @@ public class PlaceholderView extends FrameLayout
 
   public PlaceholderView(Context context)
   {
-    this(context, null, 0, 0);
+    this(context, null, 0);
   }
 
   public PlaceholderView(Context context, @Nullable AttributeSet attrs)
   {
-    this(context, attrs, 0, 0);
+    this(context, attrs, 0);
   }
 
   public PlaceholderView(Context context, @Nullable AttributeSet attrs, int defStyleAttr)
   {
-    this(context, attrs, defStyleAttr, 0);
+    super(context, attrs, defStyleAttr);
+
+    Resources res = getResources();
+    mImageSizeFull = res.getDimension(R.dimen.placeholder_size);
+    mImageSizeSmall = res.getDimension(R.dimen.placeholder_size_small);
+    mPaddingImage = res.getDimension(R.dimen.placeholder_margin_top);
+    mPaddingNoImage = res.getDimension(R.dimen.placeholder_margin_top_no_image);
+    mScreenHeight = res.getDisplayMetrics().heightPixels;
+    mScreenWidth = res.getDisplayMetrics().widthPixels;
+    init(context);
   }
 
   @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -67,6 +76,11 @@ public class PlaceholderView extends FrameLayout
     mPaddingNoImage = res.getDimension(R.dimen.placeholder_margin_top_no_image);
     mScreenHeight = res.getDisplayMetrics().heightPixels;
     mScreenWidth = res.getDisplayMetrics().widthPixels;
+    init(context);
+  }
+
+  private void init(Context context)
+  {
     LayoutInflater.from(context).inflate(R.layout.placeholder, this, true);
   }
 
