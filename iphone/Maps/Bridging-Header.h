@@ -4,11 +4,20 @@
 
 #import <UIKit/UIKit.h>
 
+#import "3party/Alohalytics/src/alohalytics_objc.h"
+
+#import "AppInfo.h"
+#import "MWMFrameworkHelper.h"
 #import "MWMKeyboard.h"
+#import "MWMLocationManager.h"
 #import "MWMNoMapsViewController.h"
+#import "MWMPushNotifications.h"
 #import "MWMSearchNoResults.h"
 #import "MWMTableViewCell.h"
+#import "MWMTypes.h"
 #import "MWMViewController.h"
+#import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
+#import "UIKitCategories.h"
 #import "UIViewController+Navigation.h"

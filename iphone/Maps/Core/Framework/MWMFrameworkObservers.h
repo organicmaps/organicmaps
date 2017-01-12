@@ -4,11 +4,11 @@
 
 using namespace storage;
 
-@protocol MWMFrameworkObserver <NSObject>
+@protocol MWMFrameworkObserver<NSObject>
 
 @end
 
-@protocol MWMFrameworkRouteBuilderObserver <MWMFrameworkObserver>
+@protocol MWMFrameworkRouteBuilderObserver<MWMFrameworkObserver>
 
 - (void)processRouteBuilderEvent:(routing::IRouter::ResultCode)code
                        countries:(storage::TCountriesVec const &)absentCountries;
@@ -19,17 +19,18 @@ using namespace storage;
 
 @end
 
-@protocol MWMFrameworkStorageObserver <MWMFrameworkObserver>
+@protocol MWMFrameworkStorageObserver<MWMFrameworkObserver>
 
 - (void)processCountryEvent:(TCountryId const &)countryId;
 
 @optional
 
-- (void)processCountry:(TCountryId const &)countryId progress:(MapFilesDownloader::TProgress const &)progress;
+- (void)processCountry:(TCountryId const &)countryId
+              progress:(MapFilesDownloader::TProgress const &)progress;
 
 @end
 
-@protocol MWMFrameworkDrapeObserver <MWMFrameworkObserver>
+@protocol MWMFrameworkDrapeObserver<MWMFrameworkObserver>
 
 - (void)processViewportCountryEvent:(TCountryId const &)countryId;
 

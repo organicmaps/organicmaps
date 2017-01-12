@@ -1,7 +1,6 @@
 @objc protocol SettingsTableViewSwitchCellDelegate {
 
   func switchCell(_ cell: SettingsTableViewSwitchCell, didChangeValue value: Bool)
-
 }
 
 @objc final class SettingsTableViewSwitchCell: MWMTableViewCell {
@@ -39,5 +38,4 @@
   fileprivate func styleSwitchButton() {
     switchButton.onTintColor = UIColor.linkBlue()
   }
-
 }

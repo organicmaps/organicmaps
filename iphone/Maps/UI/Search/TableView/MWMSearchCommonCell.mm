@@ -1,6 +1,7 @@
+#import "MWMSearchCommonCell.h"
+#import "CLLocation+Mercator.h"
 #import "MWMCommon.h"
 #import "MWMLocationManager.h"
-#import "MWMSearchCommonCell.h"
 #import "MapsAppDelegate.h"
 
 #include "Framework.h"

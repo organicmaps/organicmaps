@@ -1,5 +1,5 @@
-#import "MapsAppDelegate.h"
 #import "MWMFrameworkListener.h"
+#import "MapsAppDelegate.h"
 
 #include "Framework.h"
 
@@ -22,8 +22,7 @@ using TLoopBlock = void (^)(__kindof TObserver observer);
 
 void loopWrappers(TObservers * observers, TLoopBlock block)
 {
-  dispatch_async(dispatch_get_main_queue(), ^
-  {
+  dispatch_async(dispatch_get_main_queue(), ^{
     for (TObserver observer in observers)
     {
       if (observer)
@@ -31,13 +30,13 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
     }
   });
 }
-} // namespace
+}  // namespace
 
 @interface MWMFrameworkListener ()
 
-@property (nonatomic) TObservers * routeBuildingObservers;
-@property (nonatomic) TObservers * storageObservers;
-@property (nonatomic) TObservers * drapeObservers;
+@property(nonatomic) TObservers * routeBuildingObservers;
+@property(nonatomic) TObservers * storageObservers;
+@property(nonatomic) TObservers * drapeObservers;
 
 @end
 
@@ -47,14 +46,15 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
 {
   static MWMFrameworkListener * listener;
   static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^{ listener = [[super alloc] initListener]; });
+  dispatch_once(&onceToken, ^{
+    listener = [[super alloc] initListener];
+  });
   return listener;
 }
 
 + (void)addObserver:(TObserver)observer
 {
-  dispatch_async(dispatch_get_main_queue(), ^
-  {
+  dispatch_async(dispatch_get_main_queue(), ^{
     MWMFrameworkListener * listener = [MWMFrameworkListener listener];
     if ([observer conformsToProtocol:pRouteBuildingObserver])
       [listener.routeBuildingObservers addObject:observer];
@@ -67,8 +67,7 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
 
 + (void)removeObserver:(TObserver)observer
 {
-  dispatch_async(dispatch_get_main_queue(), ^
-  {
+  dispatch_async(dispatch_get_main_queue(), ^{
     MWMFrameworkListener * listener = [MWMFrameworkListener listener];
     [listener.routeBuildingObservers removeObject:observer];
     [listener.storageObservers removeObject:observer];
@@ -100,22 +99,21 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
   using namespace storage;
   TObservers * observers = self.routeBuildingObservers;
   auto & f = GetFramework();
-  // TODO(ldragunov,rokuz): Thise two routing callbacks are the only framework callbacks which does not guarantee
+  // TODO(ldragunov,rokuz): Thise two routing callbacks are the only framework callbacks which does
+  // not guarantee
   // that they are called on a main UI thread context. Discuss it with Lev.
   // Simplest solution is to insert RunOnGuiThread() call in the core where callbacks are called.
-  // This will help to avoid unnecessary parameters copying and will make all our framework callbacks
+  // This will help to avoid unnecessary parameters copying and will make all our framework
+  // callbacks
   // consistent: every notification to UI will run on a main UI thread.
-  f.SetRouteBuildingListener([observers](IRouter::ResultCode code, TCountriesVec const & absentCountries)
-  {
-    loopWrappers(observers, [code, absentCountries](TRouteBuildingObserver observer)
-    {
-      [observer processRouteBuilderEvent:code countries:absentCountries];
-    });
-  });
-  f.SetRouteProgressListener([observers](float progress)
-  {
-    loopWrappers(observers, [progress](TRouteBuildingObserver observer)
-    {
+  f.SetRouteBuildingListener(
+      [observers](IRouter::ResultCode code, TCountriesVec const & absentCountries) {
+        loopWrappers(observers, [code, absentCountries](TRouteBuildingObserver observer) {
+          [observer processRouteBuilderEvent:code countries:absentCountries];
+        });
+      });
+  f.SetRouteProgressListener([observers](float progress) {
+    loopWrappers(observers, [progress](TRouteBuildingObserver observer) {
       if ([observer respondsToSelector:@selector(processRouteBuilderProgress:)])
         [observer processRouteBuilderProgress:progress];
     });
@@ -128,19 +126,18 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
 {
   TObservers * observers = self.storageObservers;
   auto & s = GetFramework().GetStorage();
-  s.Subscribe([observers](TCountryId const & countryId)
-  {
-    for (TStorageObserver observer in observers)
-      [observer processCountryEvent:countryId];
-  },
-  [observers](TCountryId const & countryId, MapFilesDownloader::TProgress const & progress)
-  {
-    for (TStorageObserver observer in observers)
-    {
-      if ([observer respondsToSelector:@selector(processCountry:progress:)])
-        [observer processCountry:countryId progress:progress];
-    }
-  });
+  s.Subscribe(
+      [observers](TCountryId const & countryId) {
+        for (TStorageObserver observer in observers)
+          [observer processCountryEvent:countryId];
+      },
+      [observers](TCountryId const & countryId, MapFilesDownloader::TProgress const & progress) {
+        for (TStorageObserver observer in observers)
+        {
+          if ([observer respondsToSelector:@selector(processCountry:progress:)])
+            [observer processCountry:countryId progress:progress];
+        }
+      });
 }
 
 #pragma mark - MWMFrameworkDrapeObserver
@@ -149,8 +146,7 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
 {
   TObservers * observers = self.drapeObservers;
   auto & f = GetFramework();
-  f.SetCurrentCountryChangedListener([observers](TCountryId const & countryId)
-  {
+  f.SetCurrentCountryChangedListener([observers](TCountryId const & countryId) {
     for (TDrapeObserver observer in observers)
       [observer processViewportCountryEvent:countryId];
   });

@@ -1,5 +1,6 @@
 #import "MWMPlacePageManager.h"
 #import <Pushwoosh/PushNotificationManager.h>
+#import "CLLocation+Mercator.h"
 #import "MWMAPIBar.h"
 #import "MWMActivityViewController.h"
 #import "MWMCircularProgress.h"
@@ -7,6 +8,7 @@
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
 #import "MWMLocationManager.h"
+#import "MWMLocationObserver.h"
 #import "MWMPlacePageData.h"
 #import "MWMPlacePageLayout.h"
 #import "MWMRouter.h"

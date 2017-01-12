@@ -2,19 +2,19 @@
 #import <CoreSpotlight/CoreSpotlight.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <Pushwoosh/PushNotificationManager.h>
 #import "AppInfo.h"
-#import "MWMCommon.h"
 #import "EAGLView.h"
 #import "LocalNotificationManager.h"
 #import "MWMAlertViewController.h"
 #import "MWMAuthorizationCommon.h"
+#import "MWMCommon.h"
 #import "MWMController.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
 #import "MWMKeyboard.h"
 #import "MWMLocationManager.h"
 #import "MWMMapViewControlsManager.h"
+#import "MWMPushNotifications.h"
 #import "MWMRouter.h"
 #import "MWMRouterSavedState.h"
 #import "MWMSearch+CoreSpotlight.h"
@@ -40,7 +40,7 @@
 
 // If you have a "missing header error" here, then please run configure.sh script in the root repo
 // folder.
-#import "../../../private.h"
+#import "private.h"
 
 #ifdef OMIM_PRODUCTION
 
@@ -60,7 +60,6 @@ static NSString * const kUDLastRateRequestDate = @"LastRateRequestDate";
 extern NSString * const kUDAlreadySharedKey = @"UserAlreadyShared";
 static NSString * const kUDLastShareRequstDate = @"LastShareRequestDate";
 static NSString * const kUDAutoNightModeOff = @"AutoNightModeOff";
-static NSString * const kPushDeviceTokenLogEvent = @"iOSPushDeviceToken";
 static NSString * const kIOSIDFA = @"IFA";
 static NSString * const kBundleVersion = @"BundleVersion";
 
@@ -167,41 +166,20 @@ using namespace osm_auth_ios;
 
 #pragma mark - Notifications
 
-+ (void)initPushNotificationsWithLaunchOptions:(NSDictionary *)launchOptions
-{
-  // Do not initialize Pushwoosh for open-source version.
-  if (string(PUSHWOOSH_APPLICATION_ID).empty())
-    return;
-  [PushNotificationManager
-      initializeWithAppCode:@(PUSHWOOSH_APPLICATION_ID)
-                    appName:[[NSBundle mainBundle]
-                                objectForInfoDictionaryKey:@"CFBundleDisplayName"]];
-  PushNotificationManager * pushManager = [PushNotificationManager pushManager];
-
-  if (launchOptions)
-    [pushManager handlePushReceived:launchOptions];
-
-  // make sure we count app open in Pushwoosh stats
-  [pushManager sendAppOpen];
-
-  // register for push notifications!
-  [pushManager registerForPushNotifications];
-}
-
 // system push notification registration success callback, delegate to pushManager
 - (void)application:(UIApplication *)application
     didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-  PushNotificationManager * pushManager = [PushNotificationManager pushManager];
-  [pushManager handlePushRegistration:deviceToken];
-  [Alohalytics logEvent:kPushDeviceTokenLogEvent withValue:pushManager.getHWID];
+  [MWMPushNotifications application:application
+      didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
 }
 
 // system push notification registration error callback, delegate to pushManager
 - (void)application:(UIApplication *)application
     didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
-  [[PushNotificationManager pushManager] handlePushRegistrationFailure:error];
+  [MWMPushNotifications application:application
+      didFailToRegisterForRemoteNotificationsWithError:error];
 }
 
 // system push notifications callback, delegate to pushManager
@@ -209,23 +187,9 @@ using namespace osm_auth_ios;
     didReceiveRemoteNotification:(NSDictionary *)userInfo
           fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
-  [Statistics logEvent:kStatEventName(kStatApplication, kStatPushReceived) withParameters:userInfo];
-  if (![self handleURLPush:userInfo])
-    [[PushNotificationManager pushManager] handlePushReceived:userInfo];
-  completionHandler(UIBackgroundFetchResultNoData);
-}
-
-- (BOOL)handleURLPush:(NSDictionary *)userInfo
-{
-  auto app = UIApplication.sharedApplication;
-  if (app.applicationState != UIApplicationStateInactive)
-    return NO;
-  NSString * openLink = userInfo[@"openURL"];
-  if (!openLink)
-    return NO;
-  NSURL * url = [NSURL URLWithString:openLink];
-  [app openURL:url];
-  return YES;
+  [MWMPushNotifications application:application
+       didReceiveRemoteNotification:userInfo
+             fetchCompletionHandler:completionHandler];
 }
 
 - (BOOL)isDrapeEngineCreated
@@ -470,7 +434,7 @@ using namespace osm_auth_ios;
     else
       [Alohalytics disable];
     [self incrementSessionsCountAndCheckForAlert];
-    [MapsAppDelegate initPushNotificationsWithLaunchOptions:launchOptions];
+    [MWMPushNotifications setup:launchOptions];
   }
 
   [self enableTTSForTheFirstTime];
@@ -666,7 +630,7 @@ using namespace osm_auth_ios;
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
   LOG(LINFO, ("applicationDidBecomeActive"));
-  LOG(LINFO, ("Pushwoosh: ", [[PushNotificationManager pushManager] getPushToken].UTF8String));
+  LOG(LINFO, ("Pushwoosh: ", [MWMPushNotifications pushToken].UTF8String));
   [self.mapViewController onGetFocus:YES];
   [self handleURLs];
   [[Statistics instance] applicationDidBecomeActive];

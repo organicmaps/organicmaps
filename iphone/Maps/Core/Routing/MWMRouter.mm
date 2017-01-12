@@ -1,9 +1,11 @@
 #import "MWMRouter.h"
 #import <Pushwoosh/PushNotificationManager.h>
+#import "CLLocation+Mercator.h"
 #import "MWMAlertViewController.h"
 #import "MWMFrameworkListener.h"
 #import "MWMLocationHelpers.h"
 #import "MWMLocationManager.h"
+#import "MWMLocationObserver.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMNavigationDashboardManager.h"
 #import "MWMRouterSavedState.h"

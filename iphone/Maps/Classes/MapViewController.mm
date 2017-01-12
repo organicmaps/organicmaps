@@ -10,9 +10,7 @@
 #import "MWMAuthorizationWebViewLoginViewController.h"
 #import "MWMEditBookmarkController.h"
 #import "MWMEditorViewController.h"
-#import "MWMFirstLaunchController.h"
 #import "MWMFrameworkListener.h"
-#import "MWMFrameworkObservers.h"
 #import "MWMLocationHelpers.h"
 #import "MWMLocationManager.h"
 #import "MWMMapDownloadDialog.h"
@@ -25,7 +23,6 @@
 #import "MWMSettings.h"
 #import "MWMStorage.h"
 #import "MWMTableViewController.h"
-#import "MWMWhatsNewTrafficController.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
 #import "UIViewController+Navigation.h"
@@ -97,7 +94,7 @@ BOOL gIsFirstMyPositionMode = YES;
 @end
 
 @interface MapViewController ()<MWMFrameworkDrapeObserver, MWMFrameworkStorageObserver,
-                                MWMPageControllerProtocol>
+                                MWMWelcomePageControllerProtocol>
 
 @property(nonatomic, readwrite) MWMMapViewControlsManager * controlsManager;
 
@@ -237,7 +234,7 @@ BOOL gIsFirstMyPositionMode = YES;
 {
   [self.alertController viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [self.controlsManager viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-  [self.pageViewController viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+  [self.welcomePageController viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 }
 
 - (void)didReceiveMemoryWarning
@@ -281,28 +278,13 @@ BOOL gIsFirstMyPositionMode = YES;
 
 - (void)showWelcomeScreenIfNeeded
 {
-  Class<MWMWelcomeControllerProtocol> whatsNewClass = [MWMWhatsNewTrafficController class];
-  BOOL const isFirstSession = [Alohalytics isFirstSession];
-  Class<MWMWelcomeControllerProtocol> welcomeClass =
-      isFirstSession ? [MWMFirstLaunchController class] : whatsNewClass;
-
-  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
-  if ([ud boolForKey:[welcomeClass udWelcomeWasShownKey]])
-    return;
-  
-  self.pageViewController =
-      [MWMPageController pageControllerWithParent:self welcomeClass:welcomeClass];
-  [self.pageViewController show];
-
-  [ud setBool:YES forKey:[whatsNewClass udWelcomeWasShownKey]];
-  [ud setBool:YES forKey:[welcomeClass udWelcomeWasShownKey]];
-  [ud synchronize];
+  self.welcomePageController = [MWMWelcomePageController controllerWithParent:self];
 }
 
-- (void)closePageController:(MWMPageController *)pageController
+- (void)closePageController:(MWMWelcomePageController *)pageController
 {
-  if ([pageController isEqual:self.pageViewController])
-    self.pageViewController = nil;
+  if ([pageController isEqual:self.welcomePageController])
+    self.welcomePageController = nil;
 }
 
 - (void)showViralAlertIfNeeded
@@ -410,7 +392,7 @@ BOOL gIsFirstMyPositionMode = YES;
 
 - (void)processMyPositionStateModeEvent:(location::EMyPositionMode)mode
 {
-  [MWMLocationManager setMyPositionMode:mode];
+  location_helpers::setMyPositionMode(mode);
   [self.controlsManager processMyPositionStateModeEvent:mode];
   self.disableStandbyOnLocationStateMode = NO;
   switch (mode)
@@ -425,7 +407,7 @@ BOOL gIsFirstMyPositionMode = YES;
     else
     {
       BOOL const isMapVisible = (self.navigationController.visibleViewController == self);
-      if (isMapVisible && !location_helpers::isLocationProhibited())
+      if (isMapVisible && ![MWMLocationManager isLocationProhibited])
       {
         [self.alertController presentLocationNotFoundAlertWithOkBlock:^{
           GetFramework().SwitchMyPositionNextMode();

@@ -1,6 +1,7 @@
 #import "MWMLocationNotFoundAlert.h"
 #import "MWMDefaultAlert_Protected.h"
 #import "MWMLocationManager.h"
+#import "MWMLocationObserver.h"
 
 @interface MWMLocationNotFoundAlert ()<MWMLocationObserver>
 

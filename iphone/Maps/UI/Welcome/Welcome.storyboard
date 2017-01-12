@@ -16,10 +16,10 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Page Controller-->
+        <!--Welcome Page Controller-->
         <scene sceneID="1ZX-3C-7bF">
             <objects>
-                <pageViewController storyboardIdentifier="MWMPageScrollController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="hqM-da-ko0" customClass="MWMPageController" sceneMemberID="viewController"/>
+                <pageViewController storyboardIdentifier="WelcomePageScrollController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="hqM-da-ko0" customClass="MWMWelcomePageController" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fu9-Ui-e6Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1881" y="495"/>
@@ -27,7 +27,7 @@
         <!--First Launch Controller-->
         <scene sceneID="AgG-8B-fRd">
             <objects>
-                <viewController storyboardIdentifier="MWMFirstLaunchController" id="Gh3-qE-FWN" customClass="MWMFirstLaunchController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FirstLaunchController" id="Gh3-qE-FWN" customClass="FirstLaunchController" customModule="cm_beta" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hU9-q6-FZ7"/>
                         <viewControllerLayoutGuide type="bottom" id="f75-9I-74y"/>
@@ -37,7 +37,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x7d-CC-QbG" userLabel="Container">
-                                <rect key="frame" x="-72.5" y="33.5" width="520" height="600"/>
+                                <rect key="frame" x="-72.5" y="34" width="520" height="600"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X71-ep-Kwb" userLabel="BoundsView">
                                         <rect key="frame" x="16" y="40" width="488" height="456"/>
@@ -46,7 +46,7 @@
                                                 <rect key="frame" x="44" y="50" width="400" height="357"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="ic_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="3yX-3O-NmI">
-                                                        <rect key="frame" x="80" y="0.0" width="240" height="240"/>
+                                                        <rect key="frame" x="80.5" y="0.0" width="240" height="240"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="lessThanOrEqual" priority="800" constant="280" id="0jq-yV-Ew3"/>
                                                             <constraint firstAttribute="width" secondItem="3yX-3O-NmI" secondAttribute="height" multiplier="1:1" id="OJT-CV-liK"/>
@@ -102,7 +102,7 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UqX-Ni-ms1" userLabel="NotNow">
-                                        <rect key="frame" x="140" y="516" width="240" height="44"/>
+                                        <rect key="frame" x="140.5" y="516" width="240" height="44"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="240" id="66G-KS-XdJ"/>
@@ -151,7 +151,6 @@
                         <outlet property="alertText" destination="qXz-kN-Ik2" id="TS3-L7-Li9"/>
                         <outlet property="alertTitle" destination="dbU-5I-7cc" id="qzC-fn-IMt"/>
                         <outlet property="containerHeight" destination="AgA-pn-7sz" id="DzS-q5-8dn"/>
-                        <outlet property="containerView" destination="x7d-CC-QbG" id="jM8-lt-c26"/>
                         <outlet property="containerWidth" destination="7CX-xf-4jo" id="raa-SJ-nLD"/>
                         <outlet property="image" destination="3yX-3O-NmI" id="squ-0I-iMH"/>
                         <outlet property="imageHeight" destination="1bZ-xW-y9r" id="r1Z-vV-6Ut"/>
@@ -165,18 +164,18 @@
             </objects>
             <point key="canvasLocation" x="2563" y="1224"/>
         </scene>
-        <!--Page Controller-->
+        <!--Welcome Page Controller-->
         <scene sceneID="yjG-6M-B0J">
             <objects>
-                <pageViewController storyboardIdentifier="MWMPageCurlController" autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="none" id="Co6-CL-XGB" customClass="MWMPageController" sceneMemberID="viewController"/>
+                <pageViewController storyboardIdentifier="WelcomePageCurlController" autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="none" id="Co6-CL-XGB" customClass="MWMWelcomePageController" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QyJ-ER-oPm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2563" y="495"/>
         </scene>
-        <!--Whats New Traffic Controller-->
+        <!--Whats New Controller-->
         <scene sceneID="tit-8N-P9M">
             <objects>
-                <viewController storyboardIdentifier="MWMWhatsNewTrafficController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BOY-Lz-6Ub" customClass="MWMWhatsNewTrafficController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WhatsNewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BOY-Lz-6Ub" customClass="WhatsNewController" customModule="cm_beta" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Jil-y7-mgd"/>
                         <viewControllerLayoutGuide type="bottom" id="XLE-0j-M1L"/>
@@ -314,7 +313,6 @@
                         <outlet property="alertText" destination="Il6-Xw-i2E" id="qUe-5S-cPl"/>
                         <outlet property="alertTitle" destination="3d2-EJ-eSS" id="pCQ-2A-RYQ"/>
                         <outlet property="containerHeight" destination="KlB-Uh-TO0" id="tT3-bC-2mo"/>
-                        <outlet property="containerView" destination="tEi-xZ-vnH" id="tIh-Rr-zMr"/>
                         <outlet property="containerWidth" destination="TOw-Nl-QTj" id="Leb-pa-DoV"/>
                         <outlet property="image" destination="oT6-Mu-189" id="Dyt-KS-AuK"/>
                         <outlet property="imageHeight" destination="b4R-09-WRx" id="vPb-xP-p1f"/>

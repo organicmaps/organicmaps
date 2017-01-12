@@ -83,12 +83,6 @@ static inline BOOL isMyPositionPendingOrNoPosition()
          mode == location::EMyPositionMode::NotFollowNoPosition;
 }
 
-static inline BOOL isLocationProhibited()
-{
-  auto const status = [MWMLocationManager lastLocationStatus];
-  return status == location::TLocationError::EDenied || status == location::TLocationError::EGPSIsOff;
-}
-
 static inline double headingToNorthRad(CLHeading * heading)
 {
   double north = -1.0;
@@ -108,5 +102,24 @@ static inline m2::PointD ToMercator(CLLocationCoordinate2D const & l)
 }
 
 static inline m2::PointD ToMercator(ms::LatLon const & l) { return MercatorBounds::FromLatLon(l); }
+static inline void setMyPositionMode(location::EMyPositionMode mode)
+{
+  MWMMyPositionMode mwmMode;
+  switch (mode)
+  {
+  case location::EMyPositionMode::PendingPosition:
+    mwmMode = MWMMyPositionModePendingPosition;
+    break;
+  case location::EMyPositionMode::NotFollowNoPosition:
+    mwmMode = MWMMyPositionModeNotFollowNoPosition;
+    break;
+  case location::EMyPositionMode::NotFollow: mwmMode = MWMMyPositionModeNotFollow; break;
+  case location::EMyPositionMode::Follow: mwmMode = MWMMyPositionModeFollow; break;
+  case location::EMyPositionMode::FollowAndRotate:
+    mwmMode = MWMMyPositionModeFollowAndRotate;
+    break;
+  }
+  [MWMLocationManager setMyPositionMode:mwmMode];
+}
 
 }  // namespace MWMLocationHelpers
