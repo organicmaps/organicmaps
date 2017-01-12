@@ -35,7 +35,6 @@
     _selectedCell = self.on;
     break;
   case MapStyleClear:
-  case MapStyleLight:
     self.off.accessoryType = UITableViewCellAccessoryCheckmark;
     _selectedCell = self.off;
     break;
@@ -66,7 +65,7 @@
   else if ([cell isEqual:self.off])
   {
     [MapsAppDelegate setAutoNightModeOff:YES];
-    if (style == MapStyleClear || style == MapStyleLight)
+    if (style == MapStyleClear)
       return;
     f.SetMapStyle(MapStyleClear);
     [UIColor setNightMode:NO];
@@ -77,7 +76,7 @@
   {
     [MapsAppDelegate setAutoNightModeOff:NO];
     [MapsAppDelegate changeMapStyleIfNedeed];
-    if (style == MapStyleClear || style == MapStyleLight)
+    if (style == MapStyleClear)
       return;
     [UIColor setNightMode:NO];
     f.SetMapStyle(MapStyleClear);

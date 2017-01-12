@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:cc="http://web.resource.org/cc/" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" baseProfile="full" width="32.620000000000005" id="symbol-railway-crossing" viewBox="0 0 600 600" height="32.620000000000005">
-   <svg:g transform="translate(50,150)">
-            <svg:path fill="red" d="M1.5,4.5l66,1.5l190,91.4L456,0l63,4.5l-15,48    l-184.5,87l175.5,81l15,51l-58.5,6l-193.5-99c0,0-189,96-193.5,99S0,279,0,279l6-51l172.5-85.5L12,63L1.5,4.5z"/>
-            <svg:path fill="#FFFFFF" d="M49.5,21L33,49.5L219,141L36,237l16.5,25.5    L258,156l196.5,105l21-33l-189-91.5l189-87l-21-30l-196.7,96.7L49.5,21z"/>
-          </svg:g>
-</svg>

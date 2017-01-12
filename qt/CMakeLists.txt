@@ -122,7 +122,6 @@ endfunction()
 copy_resources(
   countries-strings
   resources-default
-  resources-mdpi_legacy
   resources-mdpi_clear
   cuisine-strings
 
@@ -135,7 +134,6 @@ copy_resources(
   countries_obsolete.txt
   drules_proto_clear.bin
   drules_proto_dark.bin
-  drules_proto_legacy.bin
   editor.config
   fonts_blacklist.txt
   fonts_whitelist.txt

@@ -158,10 +158,6 @@ void CheckPriority(vector<StringIL> const & arrT, vector<size_t> const & arrI, d
 
   styles::RunForEveryMapStyle([&](MapStyle style)
   {
-    // Not testing priorities in the legacy style, since it is not maintained anymore.
-    if (style == MapStyleLight)
-      return;
-
     types.clear();
 
     size_t ind = 0;

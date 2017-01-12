@@ -11,20 +11,17 @@
 namespace
 {
 
-const char * const kSuffixLegacyLight = "_legacy";
-const char * const kSuffixLegacyDark = "_dark";
-const char * const kSuffixModernClear = "_clear";
+const char * const kSuffixDark = "_dark";
+const char * const kSuffixClear = "_clear";
 
 string GetStyleSuffix(MapStyle mapStyle)
 {
   switch (mapStyle)
   {
-  case MapStyleLight:
-    return kSuffixLegacyLight;
    case MapStyleDark:
-    return kSuffixLegacyDark;
+    return kSuffixDark;
   case MapStyleClear:
-    return kSuffixModernClear;
+    return kSuffixClear;
   case MapStyleMerged:
     return string();
 
@@ -32,7 +29,7 @@ string GetStyleSuffix(MapStyle mapStyle)
     break;
   }
   LOG(LWARNING, ("Unknown map style", mapStyle));
-  return kSuffixModernClear;
+  return kSuffixClear;
 }
 
 }  // namespace
