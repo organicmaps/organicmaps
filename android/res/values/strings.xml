@@ -1065,4 +1065,10 @@
 	<string name="whatsnew_font_size_text">Labels on the map can be made bigger.</string>
 	<!-- "Translation is no needed, because it's a company name" -->
 	<string name="uber">Uber</string>
+	<string name="booking_filter_rating_num_good">7.0+</string>
+	<string name="booking_filter_rating_num_very_good">8.0+</string>
+	<string name="booking_filter_rating_num_excellent">9.0+</string>
+	<string name="booking_filter_price_low">$</string>
+	<string name="booking_filter_price_medium">$$</string>
+	<string name="booking_filter_price_high">$$$</string>
 </resources>

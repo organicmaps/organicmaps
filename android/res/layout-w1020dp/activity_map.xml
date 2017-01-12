@@ -53,6 +53,12 @@
       android:visibility="gone"
       tools:visibility="visible"/>
 
+    <include
+      layout="@layout/search_filter_panel"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/height_block_base"
+      android:layout_gravity="bottom"/>
+
     <com.mapswithme.maps.widget.placepage.PlacePageView
       android:id="@+id/info_box"
       style="@style/MwmWidget.Floating"
@@ -86,4 +92,10 @@
     android:elevation="@dimen/panel_elevation"
     android:visibility="gone"
     tools:visibility="visible"/>
+
+  <com.mapswithme.maps.search.HotelsFilterView
+    android:id="@+id/hotels_filter"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:visibility="gone"/>
 </RelativeLayout>

@@ -23,9 +23,8 @@ import com.mapswithme.util.UiUtils;
 
 class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
 {
-  private static final int TYPE_POPULATE_BUTTON = 0;
-  private static final int TYPE_SUGGEST = 1;
-  private static final int TYPE_RESULT = 2;
+  private static final int TYPE_SUGGEST = 0;
+  private static final int TYPE_RESULT = 1;
 
   private final SearchFragment mSearchFragment;
   private SearchResult[] mResults;
@@ -57,22 +56,6 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
     {
       mResult = result;
       mOrder = order;
-    }
-  }
-
-  private class PopulateResultsViewHolder extends BaseViewHolder
-  {
-    PopulateResultsViewHolder(View view)
-    {
-      super(view);
-      view.setOnClickListener(new View.OnClickListener()
-      {
-        @Override
-        public void onClick(View v)
-        {
-          mSearchFragment.showAllResultsOnMap();
-        }
-      });
     }
   }
 
@@ -254,9 +237,6 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
 
     switch (viewType)
     {
-    case TYPE_POPULATE_BUTTON:
-      return new PopulateResultsViewHolder(inflater.inflate(R.layout.item_search_populate, parent, false));
-
     case TYPE_SUGGEST:
       return new SuggestViewHolder(inflater.inflate(R.layout.item_search_suggest, parent, false));
 
@@ -271,28 +251,12 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
   @Override
   public void onBindViewHolder(BaseViewHolder holder, int position)
   {
-    if (showPopulateButton())
-    {
-      if (position == 0)
-        return;
-
-      position--;
-    }
-
     holder.bind(mResults[position], position);
   }
 
   @Override
   public int getItemViewType(int position)
   {
-    if (showPopulateButton())
-    {
-      if (position == 0)
-        return TYPE_POPULATE_BUTTON;
-
-      position--;
-    }
-
     switch (mResults[position].type)
     {
     case SearchResult.TYPE_SUGGEST:
@@ -306,7 +270,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
     }
   }
 
-  private boolean showPopulateButton()
+  boolean showPopulateButton()
   {
     return (!RoutingController.get().isWaitingPoiPick() &&
             mResults != null &&
@@ -326,9 +290,6 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
     int res = 0;
     if (mResults == null)
       return res;
-
-    if (showPopulateButton())
-      res++;
 
     res += mResults.length;
     return res;

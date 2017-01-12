@@ -3,8 +3,8 @@ package com.mapswithme.maps.base;
 import android.app.Activity;
 import android.content.Intent;
 import android.media.AudioManager;
-import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
@@ -12,10 +12,10 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.WindowManager;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.util.Config;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -54,7 +54,10 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
 
     super.onCreate(savedInstanceState);
 
-    UiUtils.setupStatusBar(this);
+    if (useTransparentStatusBar())
+      UiUtils.setupStatusBar(this);
+    if (useColorStatusBar())
+      UiUtils.setupColorStatusBar(this, getStatusBarColor());
 
     setVolumeControlStream(AudioManager.STREAM_MUSIC);
     final int layoutId = getContentLayoutResId();
@@ -72,6 +75,29 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
     MwmApplication.get().initCounters();
 
     attachDefaultFragment();
+  }
+
+  @ColorRes
+  protected int getStatusBarColor()
+  {
+    String theme = Config.getCurrentUiTheme();
+    if (ThemeUtils.isDefaultTheme(theme))
+      return R.color.bg_statusbar;
+
+    if (ThemeUtils.isNightTheme(theme))
+      return R.color.bg_statusbar_night;
+
+    throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
+  }
+
+  protected boolean useColorStatusBar()
+  {
+    return false;
+  }
+
+  protected boolean useTransparentStatusBar()
+  {
+    return true;
   }
 
   @Override

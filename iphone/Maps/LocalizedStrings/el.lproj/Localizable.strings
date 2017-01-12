@@ -1794,3 +1794,15 @@
 
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
+
+"booking_filter_rating_num_good" = "7.0+";
+
+"booking_filter_rating_num_very_good" = "8.0+";
+
+"booking_filter_rating_num_excellent" = "9.0+";
+
+"booking_filter_price_low" = "$";
+
+"booking_filter_price_medium" = "$$";
+
+"booking_filter_price_high" = "$$$";

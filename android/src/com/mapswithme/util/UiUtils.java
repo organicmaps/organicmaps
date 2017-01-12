@@ -7,16 +7,22 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.AnyRes;
+import android.support.annotation.AttrRes;
+import android.support.annotation.ColorRes;
 import android.support.annotation.DimenRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
+import android.support.annotation.StyleRes;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -26,6 +32,7 @@ import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
@@ -426,9 +433,40 @@ public final class UiUtils
     decorViewGroup.addView(statusBarTintView);
   }
 
+  public static void setupColorStatusBar(@NonNull Activity activity, @ColorRes int statusBarColor)
+  {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+      return;
+
+    Window window = activity.getWindow();
+    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+    window.setStatusBarColor(ContextCompat.getColor(activity, statusBarColor));
+  }
+
   public static int getCompassYOffset(@NonNull Context context)
   {
     return getStatusBarHeight(context);
+  }
+
+  @AnyRes
+  public static int getStyledResourceId(Context context, @AttrRes int res)
+  {
+    TypedArray a = null;
+    try
+    {
+      a = context.obtainStyledAttributes(new int[] {res});
+      return a.getResourceId(0, -1);
+    }
+    finally
+    {
+      if (a != null)
+        a.recycle();
+    }
+  }
+
+  public static void setBackgroundDrawable(View view, @AttrRes int res)
+  {
+    view.setBackgroundResource(getStyledResourceId(view.getContext(), res));
   }
 
   // utility class
