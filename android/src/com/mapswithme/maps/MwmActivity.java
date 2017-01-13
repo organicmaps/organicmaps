@@ -130,6 +130,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   // Instance state
   private static final String STATE_PP = "PpState";
   private static final String STATE_MAP_OBJECT = "MapObject";
+  private static final String EXTRA_LOCATION_DIALOG_IS_ANNOYING = "LOCATION_DIALOG_IS_ANNOYING";
 
   // Map tasks that we run AFTER rendering initialized
   private final Stack<MapTask> mTasks = new Stack<>();
@@ -174,7 +175,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private boolean mFirstStart;
   private boolean mPlacePageRestored;
 
-  private boolean mAnnoyedByLocationErrorDialog = false;
+  private boolean mLocationErrorDialogAnnoying = false;
 
   @NonNull
   private final OnClickListener mOnMyPositionClickListener = new OnClickListener()
@@ -182,7 +183,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     @Override
     public void onClick(View v)
     {
-      mAnnoyedByLocationErrorDialog = false;
+      mLocationErrorDialogAnnoying = false;
       LocationHelper.INSTANCE.switchToNextMode();
       Statistics.INSTANCE.trackEvent(Statistics.EventName.TOOLBAR_MY_POSITION);
       AlohaHelper.logClick(AlohaHelper.TOOLBAR_MY_POSITION);
@@ -445,6 +446,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
+
+    if (savedInstanceState != null)
+      mLocationErrorDialogAnnoying = savedInstanceState.getBoolean(EXTRA_LOCATION_DIALOG_IS_ANNOYING);
 
     mIsFragmentContainer = getResources().getBoolean(R.bool.tabletLayout);
 
@@ -858,6 +862,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mNavigationController.onSaveState(outState);
 
     RoutingController.get().onSaveState();
+    outState.putBoolean(EXTRA_LOCATION_DIALOG_IS_ANNOYING, mLocationErrorDialogAnnoying);
     super.onSaveInstanceState(outState);
   }
 
@@ -1753,7 +1758,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onLocationError()
   {
-    if (mAnnoyedByLocationErrorDialog)
+    if (mLocationErrorDialogAnnoying)
       return;
 
     Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
@@ -1773,7 +1778,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
           @Override
           public void onClick(DialogInterface dialog, int which)
           {
-            mAnnoyedByLocationErrorDialog = true;
+            mLocationErrorDialogAnnoying = true;
           }
         })
         .setOnCancelListener(new DialogInterface.OnCancelListener()
@@ -1781,7 +1786,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
           @Override
           public void onCancel(DialogInterface dialog)
           {
-            mAnnoyedByLocationErrorDialog = true;
+            mLocationErrorDialogAnnoying = true;
           }
         })
         .setPositiveButton(R.string.connection_settings, new DialogInterface.OnClickListener()
