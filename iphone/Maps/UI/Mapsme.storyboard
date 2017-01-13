@@ -421,18 +421,18 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RXe-xp-xlR" id="g0x-Vt-1FI">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JcK-nR-UGw">
-                                            <rect key="frame" x="15" y="5" width="32" height="20"/>
+                                            <rect key="frame" x="15" y="6" width="31.5" height="19.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Cmi-x5-6Vt">
-                                            <rect key="frame" x="15" y="25" width="31" height="14"/>
+                                            <rect key="frame" x="15" y="25.5" width="30.5" height="13.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1131,7 +1131,7 @@
         <!--Search No Results View Controller-->
         <scene sceneID="LUt-iU-iyq">
             <objects>
-                <viewController storyboardIdentifier="SearchNoResultsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0VQ-EO-9Sv" customClass="SearchNoResultsViewController" customModule="cmMAPS_ME" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchNoResultsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0VQ-EO-9Sv" customClass="SearchNoResultsViewController" customModule="cm_beta" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="h4O-Rs-0da"/>
                         <viewControllerLayoutGuide type="bottom" id="nMB-gc-Hho"/>
@@ -1144,7 +1144,7 @@
                                 <rect key="frame" x="0.0" y="124" width="320" height="320"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="EbW-Mp-c6s" secondAttribute="height" multiplier="1:1" id="tBC-sb-Q3g"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" secondItem="EbW-Mp-c6s" secondAttribute="height" multiplier="1:1" id="tBC-sb-Q3g"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -1152,6 +1152,7 @@
                         <constraints>
                             <constraint firstItem="EbW-Mp-c6s" firstAttribute="centerY" secondItem="9jm-RW-DZK" secondAttribute="centerY" priority="250" id="BHf-cB-UbU"/>
                             <constraint firstItem="EbW-Mp-c6s" firstAttribute="height" relation="lessThanOrEqual" secondItem="9jm-RW-DZK" secondAttribute="height" id="JtV-po-tD6"/>
+                            <constraint firstItem="EbW-Mp-c6s" firstAttribute="top" relation="greaterThanOrEqual" secondItem="9jm-RW-DZK" secondAttribute="top" id="O71-EO-9LT"/>
                             <constraint firstItem="EbW-Mp-c6s" firstAttribute="width" relation="lessThanOrEqual" secondItem="9jm-RW-DZK" secondAttribute="width" id="aCG-RN-DSJ"/>
                             <constraint firstItem="nMB-gc-Hho" firstAttribute="top" relation="greaterThanOrEqual" secondItem="EbW-Mp-c6s" secondAttribute="bottom" id="i0h-xR-pPI"/>
                             <constraint firstItem="EbW-Mp-c6s" firstAttribute="height" secondItem="9jm-RW-DZK" secondAttribute="height" priority="750" id="r08-2f-jwK"/>
