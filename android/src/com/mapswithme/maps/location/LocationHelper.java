@@ -9,14 +9,12 @@ import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 
 import java.lang.ref.WeakReference;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.LocationState;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.Banner;
@@ -323,6 +321,25 @@ public enum LocationHelper
 
   public long getSavedLocationTime() { return mSavedLocationTime; }
 
+  public void switchToNextMode()
+  {
+    if (mErrorOccurred)
+    {
+      mLogger.d("Location services are still not available, no need to switch to the next mode.");
+      notifyLocationError(ERROR_DENIED);
+      return;
+    }
+    LocationState.nativeSwitchToNextMode();
+  }
+
+  /**
+   * @see LocationState#isTurnedOn()
+   */
+  public boolean isTurnedOn()
+  {
+    return LocationState.isTurnedOn();
+  }
+
   void notifyCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
     for (LocationListener listener : mListeners)
@@ -369,7 +386,7 @@ public enum LocationHelper
 
   private void notifyMyPositionModeChanged(int newMode)
   {
-    mLogger.d(LocationHelper.class.getSimpleName(), "notifyMyPositionModeChanged(): " + LocationState.nameOf(newMode));
+    mLogger.d("notifyMyPositionModeChanged(): " + LocationState.nameOf(newMode));
 
     if (mUiCallback != null)
       mUiCallback.onMyPositionModeChanged(newMode);
@@ -640,7 +657,10 @@ public enum LocationHelper
     mLogger.d(mActive ? "SUCCESS" : "FAILURE");
 
     if (mActive)
+    {
+      mErrorOccurred = false;
       mPredictor.resume();
+    }
     else
       notifyLocationError(LocationHelper.ERROR_DENIED);
   }

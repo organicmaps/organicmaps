@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.view.View;
 
+import com.mapswithme.maps.location.LocationState;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.util.Animations;
 import com.mapswithme.util.Config;

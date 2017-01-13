@@ -7,7 +7,7 @@ import android.util.SparseArray;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.mapswithme.maps.LocationState;
+import com.mapswithme.maps.location.LocationState;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.util.Animations;

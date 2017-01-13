@@ -6,7 +6,7 @@ import android.util.Pair;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mapswithme.maps.LocationState;
+import com.mapswithme.maps.location.LocationState;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 

@@ -183,7 +183,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     public void onClick(View v)
     {
       mAnnoyedByLocationErrorDialog = false;
-      LocationState.nativeSwitchToNextMode();
+      LocationHelper.INSTANCE.switchToNextMode();
       Statistics.INSTANCE.trackEvent(Statistics.EventName.TOOLBAR_MY_POSITION);
       AlohaHelper.logClick(AlohaHelper.TOOLBAR_MY_POSITION);
     }
@@ -976,14 +976,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mFirstStart = FirstStartFragment.showOn(this);
       if (mFirstStart)
       {
-        if (LocationState.isTurnedOn())
+        if (LocationHelper.INSTANCE.isTurnedOn())
           addTask(new MwmActivity.MapTask()
           {
             @Override
             public boolean run(MwmActivity target)
             {
-              if (LocationState.isTurnedOn())
-                LocationState.nativeSwitchToNextMode();
+              if (LocationHelper.INSTANCE.isTurnedOn())
+                LocationHelper.INSTANCE.switchToNextMode();
               return false;
             }
           });
