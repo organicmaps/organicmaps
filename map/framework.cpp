@@ -806,6 +806,7 @@ void Framework::FillFeatureInfo(FeatureID const & fid, place_page::Info & info) 
   {
     size_t const level = isState ? 1 : 0;
     TCountriesVec countries;
+    info.m_countryId = m_infoGetter->GetRegionCountryId(info.GetMercator());
     GetStorage().GetTopmostNodesFor(info.m_countryId, countries, level);
     if (countries.size() == 1)
       info.m_countryId = countries.front();
@@ -2148,7 +2149,9 @@ void Framework::OnTapEvent(TapEvent const & tapEvent)
         GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kPlacepageHotelBook, {{"provider", "booking.com"}});
     }
 
-    info.m_countryId = m_infoGetter->GetRegionCountryId(info.GetMercator());
+    if (info.m_countryId.empty())
+      info.m_countryId = m_infoGetter->GetRegionCountryId(info.GetMercator());
+
     ActivateMapSelection(true, selection, info);
   }
   else
