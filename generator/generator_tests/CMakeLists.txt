@@ -61,12 +61,4 @@ omim_link_libraries(
   ${LIBZ}
 )
 
-if (PLATFORM_MAC)
-  omim_link_libraries(
-    ${PROJECT_NAME}
-    "-framework Cocoa"
-    "-framework SystemConfiguration"
-  )
-endif()
-
 link_qt5_core(${PROJECT_NAME})

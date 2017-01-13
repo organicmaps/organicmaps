@@ -54,4 +54,3 @@ omim_link_libraries(
 
 link_opengl(${PROJECT_NAME})
 link_qt5_core(${PROJECT_NAME})
-
