@@ -129,6 +129,7 @@ function(omim_link_platform_deps target)
         ${target}
         "-framework CFNetwork"
         "-framework Foundation"
+        "-framework IOKit"
         "-framework SystemConfiguration"
       )
     endif()
