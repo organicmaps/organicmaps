@@ -33,6 +33,11 @@ private:
   StreetTokensFilter m_filter;
 };
 
+bool TestStreetSynonym(char const * s)
+{
+  return IsStreetSynonym(MakeUniString(s));
+}
+
 bool TestStreetPrefixMatch(char const * s)
 {
   return IsStreetSynonymPrefix(MakeUniString(s));
@@ -86,6 +91,14 @@ UNIT_TEST(Contains)
   TEST(ContainsNormalized(kTestStr, "ўв"), ());
   TEST(!ContainsNormalized(kTestStr, "ага! "), ());
   TEST(!ContainsNormalized(kTestStr, "z"), ());
+}
+
+UNIT_TEST(StreetSynonym)
+{
+  TEST(TestStreetSynonym("street"), ());
+  TEST(TestStreetSynonym("улица"), ());
+  TEST(TestStreetSynonym("strasse"), ());
+  TEST(!TestStreetSynonym("strase"), ());
 }
 
 UNIT_TEST(StreetPrefixMatch)

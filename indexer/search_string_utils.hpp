@@ -51,6 +51,7 @@ bool TokenizeStringAndCheckIfLastTokenIsPrefix(string const & s,
 
 strings::UniString GetStreetNameAsKey(string const & name);
 
+// *NOTE* The argument string must be normalized and simplified.
 bool IsStreetSynonym(strings::UniString const & s);
 bool IsStreetSynonymPrefix(strings::UniString const & s);
 
