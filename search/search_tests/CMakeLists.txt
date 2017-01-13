@@ -40,6 +40,7 @@ omim_link_libraries(
   succinct
   pugixml
   stats_client
-  ${Qt5Core_LIBRARIES}
   ${LIBZ}
 )
+
+link_qt5_core(${PROJECT_NAME})

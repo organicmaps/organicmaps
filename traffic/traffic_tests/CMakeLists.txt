@@ -27,7 +27,6 @@ omim_link_libraries(
   base
   stats_client
   jansson
-  ${Qt5Core_LIBRARIES}
   ${LIBZ}
 )
 
@@ -44,3 +43,5 @@ if (PLATFORM_WIN OR PLATFORM_LINUX)
     ${Qt5Network_LIBRARIES}
   )
 endif()
+
+link_qt5_core(${PROJECT_NAME})

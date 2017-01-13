@@ -38,7 +38,8 @@ omim_link_libraries(
   succinct
   pugixml
   opening_hours
-  ${Qt5Core_LIBRARIES}
   ${Qt5Network_LIBRARIES}
   ${LIBZ}
 )
+
+link_qt5_core(${PROJECT_NAME})

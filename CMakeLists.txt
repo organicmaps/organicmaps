@@ -21,8 +21,8 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
   add_definitions(-DRELEASE)
 endif()
 
-if (NOT NO_TESTS)
-  set(NO_TESTS FALSE)
+if (NOT SKIP_TESTS)
+  set(SKIP_TESTS FALSE)
 endif()
 
 # End of setting environment variables
@@ -109,16 +109,16 @@ include_directories(
 # Functions for using in subdirectories
 
 function(omim_add_test executable)
-  if (NOT NO_TESTS)
+  if (NOT SKIP_TESTS)
     add_executable(${executable} ${OMIM_ROOT}/testing/testingmain.cpp ${ARGN})
   endif()
 endfunction()
 
 function(omim_add_test_subdirectory subdir)
-  if (NOT NO_TESTS)
+  if (NOT SKIP_TESTS)
     add_subdirectory(${subdir})
   else()
-    message("NO_TESTS: Skipping subdirectory ${subdir}")
+    message("SKIP_TESTS: Skipping subdirectory ${subdir}")
   endif()
 endfunction()
 
@@ -148,6 +148,37 @@ endfunction()
 function(append VAR)
   set(${VAR} ${${VAR}} ${ARGN} PARENT_SCOPE)
 endfunction()
+
+function(link_opengl target)
+    if (PLATFORM_MAC)
+      omim_link_libraries(
+        ${target}
+        "-framework OpenGL"
+      )
+    endif()
+
+    if (PLATFORM_LINUX)
+      omim_link_libraries(
+        ${target}
+        ${OPENGL_gl_LIBRARY}
+      )
+    endif()
+endfunction()
+
+function(link_qt5_core target)
+  omim_link_libraries(
+    ${target}
+    ${Qt5Core_LIBRARIES}
+  )
+
+  if (PLATFORM_MAC)
+    omim_link_libraries(
+      ${target}
+      "-framework IOKit"
+    )
+  endif()
+endfunction()
+
 
 macro(check_pybindings)
   if (NOT PYBINDINGS)
@@ -181,6 +212,7 @@ add_subdirectory(3party/liboauthcpp)
 add_subdirectory(3party/pugixml)
 add_subdirectory(3party/succinct)
 add_subdirectory(3party/osrm)
+add_subdirectory(3party/gflags)
 add_subdirectory(base)
 add_subdirectory(coding)
 add_subdirectory(geometry)
@@ -204,6 +236,6 @@ endif()
 omim_add_test_subdirectory(qt_tstfrm)
 omim_add_test_subdirectory(3party/gmock)
 
-if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
+if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID AND NOT SKIP_DESKTOP)
     add_subdirectory(qt)
 endif()

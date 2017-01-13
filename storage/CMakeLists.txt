@@ -35,4 +35,5 @@ set(
 
 add_library(${PROJECT_NAME} ${SRC})
 
-#add_subdirectory(storage_tests)
+omim_add_test_subdirectory(storage_tests)
+omim_add_test_subdirectory(storage_integration_tests)

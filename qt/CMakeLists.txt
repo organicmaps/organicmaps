@@ -80,12 +80,13 @@ omim_link_libraries(
   pugixml
   oauthcpp
   opening_hours
-  ${Qt5Core_LIBRARIES}
   ${Qt5Gui_LIBRARIES}
   ${Qt5Network_LIBRARIES}
   ${Qt5Widgets_LIBRARIES}
   ${LIBZ}
 )
+
+link_qt5_core(${PROJECT_NAME})
 
 if (PLATFORM_MAC)
   target_link_libraries(
@@ -93,9 +94,7 @@ if (PLATFORM_MAC)
     "-framework Foundation"
     "-framework CoreLocation"
     "-framework CoreWLAN"
-    "-framework IOKit"
     "-framework SystemConfiguration"
-    "-framework OpenGL"
     "-framework CFNetwork"
   )
 
@@ -106,9 +105,8 @@ if (PLATFORM_MAC)
   )
 endif()
 
-if (PLATFORM_LINUX)
-  target_link_libraries(${PROJECT_NAME} ${OPENGL_gl_LIBRARY})
-endif()
+link_opengl(${PROJECT_NAME})
+link_qt5_core(${PROJECT_NAME})
 
 function(copy_resources)
   set(files "")

@@ -91,3 +91,4 @@ set(SRC
 add_library(${PROJECT_NAME} ${SRC})
 
 omim_add_test_subdirectory(generator_tests_support)
+omim_add_test_subdirectory(generator_tests)
