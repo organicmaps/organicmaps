@@ -87,13 +87,27 @@ bool Matches(Context & context, Sample::Result const & golden, search::Result co
   if (!context.GetFeature(actual.GetFeatureID(), ft))
     return false;
 
-  string name;
-  if (!ft.GetName(FeatureType::DEFAULT_LANG, name))
-    name.clear();
   auto const houseNumber = ft.GetHouseNumber();
   auto const center = feature::GetCenter(ft);
 
-  return golden.m_name == strings::MakeUniString(name) && golden.m_houseNumber == houseNumber &&
+  bool nameMatches = false;
+  if (golden.m_name.empty())
+  {
+    nameMatches = true;
+  }
+  else
+  {
+    ft.ForEachName([&golden, &nameMatches](int8_t /* lang */, string const & name) {
+      if (golden.m_name == strings::MakeUniString(name))
+      {
+        nameMatches = true;
+        return false;  // breaks the loop
+      }
+      return true;  // continues the loop
+    });
+  }
+
+  return nameMatches && golden.m_houseNumber == houseNumber &&
          MercatorBounds::DistanceOnEarth(golden.m_pos, center) < kToleranceMeters;
 }
 
