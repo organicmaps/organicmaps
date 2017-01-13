@@ -30,28 +30,30 @@ public class PlaceholderView extends FrameLayout
   @Nullable
   private TextView mSubtitle;
 
-  private final float mImageSizeFull;
-  private final float mImageSizeSmall;
-  private final float mPaddingImage;
-  private final float mPaddingNoImage;
-  private final float mScreenHeight;
-  private final float mScreenWidth;
+  private float mImageSizeFull;
+  private float mImageSizeSmall;
+  private float mPaddingImage;
+  private float mPaddingNoImage;
+  private float mScreenHeight;
+  private float mScreenWidth;
 
   private int mOrientation;
 
   public PlaceholderView(Context context)
   {
-    this(context, null, 0, 0);
+    this(context, null, 0);
   }
 
   public PlaceholderView(Context context, @Nullable AttributeSet attrs)
   {
-    this(context, attrs, 0, 0);
+    this(context, attrs, 0);
   }
 
   public PlaceholderView(Context context, @Nullable AttributeSet attrs, int defStyleAttr)
   {
-    this(context, attrs, defStyleAttr, 0);
+    super(context, attrs, defStyleAttr);
+
+    init(context);
   }
 
   @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -60,6 +62,11 @@ public class PlaceholderView extends FrameLayout
   {
     super(context, attrs, defStyleAttr, defStyleRes);
 
+    init(context);
+  }
+
+  private void init(Context context)
+  {
     Resources res = getResources();
     mImageSizeFull = res.getDimension(R.dimen.placeholder_size);
     mImageSizeSmall = res.getDimension(R.dimen.placeholder_size_small);

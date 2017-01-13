@@ -84,23 +84,29 @@ public class PriceFilterView extends LinearLayout implements View.OnClickListene
 
   public PriceFilterView(Context context)
   {
-    this(context, null, 0, 0);
+    this(context, null, 0);
   }
 
   public PriceFilterView(Context context, AttributeSet attrs)
   {
-    this(context, attrs, 0, 0);
+    this(context, attrs, 0);
   }
 
   public PriceFilterView(Context context, AttributeSet attrs, int defStyleAttr)
   {
-    this(context, attrs, defStyleAttr, 0);
+    super(context, attrs, defStyleAttr);
+    init(context);
   }
 
   @TargetApi(Build.VERSION_CODES.LOLLIPOP)
   public PriceFilterView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes)
   {
     super(context, attrs, defStyleAttr, defStyleRes);
+    init(context);
+  }
+
+  private void init(Context context)
+  {
     setOrientation(HORIZONTAL);
     LayoutInflater.from(context).inflate(R.layout.price_filter, this, true);
   }
