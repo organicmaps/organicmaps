@@ -22,10 +22,12 @@ public class MyPositionButton
   private static final SparseArray<Drawable> mIcons = new SparseArray<>(); // Location mode -> Button icon
 
   private int mMode;
+  private boolean mVisible;
 
   public MyPositionButton(@NonNull View button, @NonNull View.OnClickListener listener)
   {
     mButton = (ImageView) button;
+    mVisible = UiUtils.isVisible(mButton);
     mButton.setOnClickListener(listener);
     mIcons.clear();
   }
@@ -73,17 +75,20 @@ public class MyPositionButton
 
   private boolean shouldBeHidden()
   {
-    return mMode == LocationState.FOLLOW_AND_ROTATE
-           && (RoutingController.get().isPlanning());
+    return (mMode == LocationState.FOLLOW_AND_ROTATE
+           && (RoutingController.get().isPlanning()))
+           || !mVisible;
   }
 
   public void show()
   {
+    mVisible = true;
     Animations.appearSliding(mButton, Animations.RIGHT, null);
   }
 
   public void hide()
   {
+    mVisible = false;
     Animations.disappearSliding(mButton, Animations.RIGHT, null);
   }
 }

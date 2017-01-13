@@ -30,6 +30,7 @@ class NavigationButtonsAnimationController
   private boolean mZoomAnimating;
   private boolean mMyPosAnimating;
   private boolean mSlidingDown;
+  private boolean mZoomVisible;
 
   private float mTopLimit;
   private float mBottomLimit;
@@ -41,6 +42,7 @@ class NavigationButtonsAnimationController
   {
     mZoomIn = zoomIn;
     mZoomOut = zoomOut;
+    mZoomVisible = UiUtils.isVisible(mZoomIn) && UiUtils.isVisible(mZoomOut);
     checkZoomButtonsVisibility();
     mMyPosition = myPosition;
     Resources res = mZoomIn.getResources();
@@ -61,7 +63,7 @@ class NavigationButtonsAnimationController
 
   private void checkZoomButtonsVisibility()
   {
-    UiUtils.showIf(showZoomButtons(), mZoomIn, mZoomOut);
+    UiUtils.showIf(showZoomButtons() && mZoomVisible, mZoomIn, mZoomOut);
   }
 
 
@@ -256,6 +258,7 @@ class NavigationButtonsAnimationController
     if (!showZoomButtons())
       return;
 
+    mZoomVisible = false;
     Animations.disappearSliding(mZoomIn, Animations.RIGHT, null);
     Animations.disappearSliding(mZoomOut, Animations.RIGHT, null);
   }
@@ -265,6 +268,7 @@ class NavigationButtonsAnimationController
     if (!showZoomButtons())
       return;
 
+    mZoomVisible = true;
     Animations.appearSliding(mZoomIn, Animations.LEFT, null);
     Animations.appearSliding(mZoomOut, Animations.LEFT, null);
   }
