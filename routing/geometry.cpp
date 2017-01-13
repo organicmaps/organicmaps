@@ -58,8 +58,8 @@ RoadGeometry::RoadGeometry(bool oneWay, double speed, Points const & points)
 
 void RoadGeometry::Load(IVehicleModel const & vehicleModel, FeatureType const & feature)
 {
-  CHECK(vehicleModel.IsRoad(feature),
-        ("Feature", feature.GetID().m_index, "is not a road in the current vehicle model"));
+  if (!vehicleModel.IsRoad(feature))
+    return;
 
   m_isOneWay = vehicleModel.IsOneWay(feature);
   m_speed = vehicleModel.GetSpeed(feature);
