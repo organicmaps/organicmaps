@@ -223,6 +223,7 @@
 		67A609AD1C88642E001E641A /* deferred_task.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = deferred_task.hpp; sourceTree = "<group>"; };
 		67B52B5E1AD3C84E00664C17 /* thread_checker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = thread_checker.cpp; sourceTree = "<group>"; };
 		67B52B5F1AD3C84E00664C17 /* thread_checker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = thread_checker.hpp; sourceTree = "<group>"; };
+		67C79B9E1E2929DB00C40034 /* checked_cast.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = checked_cast.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -377,6 +378,7 @@
 				675341CA1A3F57E400A0A8C3 /* timer.hpp */,
 				3446C66F1DDCA96300146687 /* uni_string_dfa.cpp */,
 				3446C6701DDCA96300146687 /* uni_string_dfa.hpp */,
+				67C79B9E1E2929DB00C40034 /* checked_cast.hpp */,
 			);
 			name = base;
 			path = ../../base;
