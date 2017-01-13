@@ -14,6 +14,7 @@
 #include "coding/writer.hpp"
 
 #include "base/assert.hpp"
+#include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 
 #include "std/unordered_map.hpp"
@@ -151,10 +152,10 @@ public:
     {
       entry.resize(kBlockSize);
 
-      uint32_t const start = m_offsets.select(base);
-      uint32_t const end = base + 1 < m_offsets.num_ones()
-                               ? m_offsets.select(base + 1)
-                               : m_header.m_endOffset - m_header.m_deltasOffset;
+      auto const start = m_offsets.select(base);
+      auto const end = base + 1 < m_offsets.num_ones()
+                           ? m_offsets.select(base + 1)
+                           : m_header.m_endOffset - m_header.m_deltasOffset;
 
       vector<uint8_t> data(end - start);
 
@@ -297,7 +298,7 @@ void CentersTableBuilder::Freeze(Writer & writer) const
     MemWriter<vector<uint8_t>> writer(deltas);
     for (size_t i = 0; i < m_centers.size(); i += CentersTableV0::kBlockSize)
     {
-      offsets.push_back(deltas.size());
+      offsets.push_back(static_cast<uint32_t>(deltas.size()));
 
       uint64_t delta = EncodeDelta(m_centers[i], m_codingParams.GetBasePoint());
       WriteVarUint(writer, delta);
@@ -315,15 +316,15 @@ void CentersTableBuilder::Freeze(Writer & writer) const
     for (auto const & offset : offsets)
       builder.push_back(offset);
 
-    header.m_positionsOffset = writer.Pos() - startOffset;
+    header.m_positionsOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
     coding::FreezeVisitor<Writer> visitor(writer);
     succinct::elias_fano(&builder).map(visitor);
   }
 
   {
-    header.m_deltasOffset = writer.Pos() - startOffset;
+    header.m_deltasOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
     writer.Write(deltas.data(), deltas.size());
-    header.m_endOffset = writer.Pos() - startOffset;
+    header.m_endOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
   }
 
   int64_t const endOffset = writer.Pos();

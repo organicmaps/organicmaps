@@ -294,7 +294,7 @@ public:
   //@}
 
   uint8_t GetRank() const;
-  uint32_t GetPopulation() const;
+  uint64_t GetPopulation() const;
   string GetRoadNumber() const;
 
   inline feature::Metadata const & GetMetadata() const

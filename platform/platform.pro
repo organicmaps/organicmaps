@@ -29,8 +29,7 @@ INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
     SOURCES += platform_win.cpp \
                wifi_info_windows.cpp
   } else:macx-* {
-    OBJECTIVE_SOURCES += marketing_service_dummy.cpp \
-                         platform_mac.mm \
+    OBJECTIVE_SOURCES += platform_mac.mm \
                          apple_location_service.mm
   } else:linux* {
     SOURCES += platform_linux.cpp

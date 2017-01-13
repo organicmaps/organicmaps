@@ -10,6 +10,7 @@ set(
   buffer_vector.hpp
   cache.hpp
   cancellable.hpp
+  checked_cast.hpp
   collection_cast.hpp
   condition.cpp
   condition.hpp

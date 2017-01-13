@@ -53,7 +53,7 @@ public:
 
     ReaderSource<ReaderT> source(reader);
     VarSerialVectorReader<ReaderT> treesReader(source);
-    for (int i = 0; i < treesReader.Size(); ++i)
+    for (uint32_t i = 0; i < treesReader.Size(); ++i)
       m_IndexForScale.push_back(factory.CreateIndex(treesReader.SubReader(i)));
   }
 
