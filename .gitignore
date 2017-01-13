@@ -68,6 +68,7 @@ GeneratedFiles
 # data
 data/intermediate_data
 data/[0-9][0-9][0-9][0-9][0-9][0-9]
+data/gps_track.dat
 # temporary files for downloader
 data/*.mwm.downloading2
 data/*.mwm.resume2
