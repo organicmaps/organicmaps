@@ -48,6 +48,10 @@ void IndexGraph::GetNeighboringEdges(Segment const & from, RoadPoint const & rp,
                                      vector<SegmentEdge> & edges)
 {
   RoadGeometry const & road = m_geometry.GetRoad(rp.GetFeatureId());
+
+  if (!road.IsValid())
+    return;
+
   bool const bidirectional = !road.IsOneWay();
 
   if ((isOutgoing || bidirectional) && rp.GetPointId() + 1 < road.GetPointsCount())

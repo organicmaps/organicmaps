@@ -27,7 +27,7 @@ double constexpr kKMPH2MPS = 1000.0 / (60 * 60);
 
 inline double TimeBetweenSec(m2::PointD const & from, m2::PointD const & to, double speedMPS)
 {
-  ASSERT_GREATER(speedMPS, 0.0, ());
+  CHECK_GREATER(speedMPS, 0.0, ());
 
   double const distanceM = MercatorBounds::DistanceOnEarth(from, to);
   return distanceM / speedMPS;
