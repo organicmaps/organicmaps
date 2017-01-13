@@ -35,10 +35,18 @@ public:
   }
 
   uint32_t GetPointsCount() const { return static_cast<uint32_t>(m_points.size()); }
+
+  // Note. It's possible that car_model was changed after the map was built.
+  // For example, the map from 12.2016 contained highway=pedestrian
+  // in car_model but this type of highways is removed as of 01.2017.
+  // In such cases RoadGeometry is not valid.
+  bool IsValid() const { return m_valid; }
+
 private:
   Points m_points;
   double m_speed = 0.0;
   bool m_isOneWay = false;
+  bool m_valid = false;
 };
 
 class GeometryLoader

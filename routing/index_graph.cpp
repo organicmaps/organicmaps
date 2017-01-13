@@ -49,10 +49,7 @@ void IndexGraph::GetNeighboringEdges(Segment const & from, RoadPoint const & rp,
 {
   RoadGeometry const & road = m_geometry.GetRoad(rp.GetFeatureId());
 
-  // Note. It's possible that it's used a map which is built with car_model different from
-  // car_model in current sources. For example, the map from 12.2016 contained highway==pedestrian
-  // in car_model but now this type of highways is removed. In such cases |road| has no points.
-  if (road.GetPointsCount() == 0)
+  if (!road.IsValid())
     return;
 
   bool const bidirectional = !road.IsOneWay();
