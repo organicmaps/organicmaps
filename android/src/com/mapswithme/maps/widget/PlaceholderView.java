@@ -30,12 +30,12 @@ public class PlaceholderView extends FrameLayout
   @Nullable
   private TextView mSubtitle;
 
-  private final float mImageSizeFull;
-  private final float mImageSizeSmall;
-  private final float mPaddingImage;
-  private final float mPaddingNoImage;
-  private final float mScreenHeight;
-  private final float mScreenWidth;
+  private float mImageSizeFull;
+  private float mImageSizeSmall;
+  private float mPaddingImage;
+  private float mPaddingNoImage;
+  private float mScreenHeight;
+  private float mScreenWidth;
 
   private int mOrientation;
 
@@ -53,13 +53,6 @@ public class PlaceholderView extends FrameLayout
   {
     super(context, attrs, defStyleAttr);
 
-    Resources res = getResources();
-    mImageSizeFull = res.getDimension(R.dimen.placeholder_size);
-    mImageSizeSmall = res.getDimension(R.dimen.placeholder_size_small);
-    mPaddingImage = res.getDimension(R.dimen.placeholder_margin_top);
-    mPaddingNoImage = res.getDimension(R.dimen.placeholder_margin_top_no_image);
-    mScreenHeight = res.getDisplayMetrics().heightPixels;
-    mScreenWidth = res.getDisplayMetrics().widthPixels;
     init(context);
   }
 
@@ -69,6 +62,11 @@ public class PlaceholderView extends FrameLayout
   {
     super(context, attrs, defStyleAttr, defStyleRes);
 
+    init(context);
+  }
+
+  private void init(Context context)
+  {
     Resources res = getResources();
     mImageSizeFull = res.getDimension(R.dimen.placeholder_size);
     mImageSizeSmall = res.getDimension(R.dimen.placeholder_size_small);
@@ -76,11 +74,6 @@ public class PlaceholderView extends FrameLayout
     mPaddingNoImage = res.getDimension(R.dimen.placeholder_margin_top_no_image);
     mScreenHeight = res.getDisplayMetrics().heightPixels;
     mScreenWidth = res.getDisplayMetrics().widthPixels;
-    init(context);
-  }
-
-  private void init(Context context)
-  {
     LayoutInflater.from(context).inflate(R.layout.placeholder, this, true);
   }
 
