@@ -88,6 +88,7 @@ public:
 - (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
+  UNUSED_VALUE(manager);
   GpsInfo newInfo;
   [LocationManagerWrapper location:locations.firstObject toGpsInfo:newInfo];
   m_service->OnLocationUpdate(newInfo);
@@ -96,6 +97,7 @@ public:
 - (void)locationManager:(CLLocationManager *)manager
        didFailWithError:(NSError *)error
 {
+  UNUSED_VALUE(manager);
   LOG(LWARNING, ("locationManager failed with error", error.code, [error.description UTF8String]));
 
   if (error.code == kCLErrorDenied)

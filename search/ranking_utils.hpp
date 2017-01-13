@@ -61,10 +61,10 @@ NameScore GetNameScore(vector<strings::UniString> const & tokens, TSlice const &
   bool const lastTokenIsPrefix = slice.IsPrefix(m - 1);
 
   NameScore score = NAME_SCORE_ZERO;
-  for (int offset = 0; offset + m <= n; ++offset)
+  for (size_t offset = 0; offset + m <= n; ++offset)
   {
     bool match = true;
-    for (int i = 0; i < m - 1 && match; ++i)
+    for (size_t i = 0; i < m - 1 && match; ++i)
       match = match && impl::Match(slice.Get(i), tokens[offset + i]);
     if (!match)
       continue;

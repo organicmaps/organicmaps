@@ -1,6 +1,15 @@
 #pragma once
 
-#include <boost/iterator/iterator_facade.hpp>
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wshorten-64-to-32"
+#endif
+
+#include "3party/boost/boost/iterator/iterator_facade.hpp"
+
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
 
 namespace detail
 {

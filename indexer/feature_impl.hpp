@@ -14,7 +14,7 @@ namespace feature
   static int const g_arrWorldScales[] = { 3, 5, 7, 9 };    // 9 = scales::GetUpperWorldScale()
   static int const g_arrCountryScales[] = { 10, 12, 14, 17 };  // 17 = scales::GetUpperScale()
 
-  inline string GetTagForIndex(char const * prefix, int ind)
+  inline string GetTagForIndex(char const * prefix, size_t ind)
   {
     string str;
     str.reserve(strlen(prefix) + 1);

@@ -97,7 +97,7 @@ private:
 };
 
 // Feature tag value evaluator for tag 'population'
-bool GetPopulation(FeatureType const & ft, uint32_t & population)
+bool GetPopulation(FeatureType const & ft, uint64_t & population)
 {
   population = ftypes::GetPopulation(ft);
   return true;
@@ -139,14 +139,14 @@ unique_ptr<ISelector> ParseSelector(string const & str)
 
   if (e.m_tag == "population")
   {
-    int value = 0;
-    if (!e.m_value.empty() && (!strings::to_int(e.m_value, value) || value < 0))
+    uint64_t value = 0;
+    if (!e.m_value.empty() && !strings::to_uint64(e.m_value, value))
     {
       // bad string format
       LOG(LDEBUG, ("Invalid selector:", str));
       return unique_ptr<ISelector>();
     }
-    return make_unique<Selector<uint32_t>>(&GetPopulation, e.m_operator, static_cast<uint32_t>(value));
+    return make_unique<Selector<uint64_t>>(&GetPopulation, e.m_operator, value);
   }
   else if (e.m_tag == "name")
   {

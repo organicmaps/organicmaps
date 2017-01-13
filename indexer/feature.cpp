@@ -550,7 +550,7 @@ uint8_t FeatureType::GetRank() const
   return m_params.rank;
 }
 
-uint32_t FeatureType::GetPopulation() const
+uint64_t FeatureType::GetPopulation() const
 {
   return feature::RankToPopulation(GetRank());
 }

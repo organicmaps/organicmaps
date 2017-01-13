@@ -8,6 +8,7 @@
 
 #include <cerrno>
 #include <cstdint>
+#include <limits>
 
 namespace threads
 {
@@ -47,7 +48,7 @@ namespace threads
 
   bool Condition::Wait(unsigned ms)
   {
-    if (ms == -1)
+    if (ms == std::numeric_limits<unsigned>::max())
     {
       Wait();
       return false;

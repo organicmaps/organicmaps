@@ -210,7 +210,7 @@ public:
 /// @name Get city radius and population.
 /// @param r Radius in meters.
 //@{
-uint32_t GetPopulation(FeatureType const & ft);
+uint64_t GetPopulation(FeatureType const & ft);
 double GetRadiusByPopulation(uint32_t p);
 uint32_t GetPopulationByRadius(double r);
 //@}

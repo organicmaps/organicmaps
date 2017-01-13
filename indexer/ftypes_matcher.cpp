@@ -488,9 +488,9 @@ IsLocalityChecker const & IsLocalityChecker::Instance()
   return inst;
 }
 
-uint32_t GetPopulation(FeatureType const & ft)
+uint64_t GetPopulation(FeatureType const & ft)
 {
-  uint32_t population = ft.GetPopulation();
+  uint64_t population = ft.GetPopulation();
 
   if (population < 10)
   {
