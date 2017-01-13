@@ -33,7 +33,6 @@
 		3496AB971DC1FA2000C5DDBA /* types.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3496AB961DC1FA2000C5DDBA /* types.txt */; };
 		3496AB9D1DC1FA5200C5DDBA /* drules_proto_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 3496AB981DC1FA5200C5DDBA /* drules_proto_clear.bin */; };
 		3496AB9E1DC1FA5200C5DDBA /* drules_proto_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 3496AB991DC1FA5200C5DDBA /* drules_proto_dark.bin */; };
-		3496AB9F1DC1FA5200C5DDBA /* drules_proto_legacy.bin in Resources */ = {isa = PBXBuildFile; fileRef = 3496AB9A1DC1FA5200C5DDBA /* drules_proto_legacy.bin */; };
 		3496ABA01DC1FA5200C5DDBA /* drules_proto-bw.bin in Resources */ = {isa = PBXBuildFile; fileRef = 3496AB9B1DC1FA5200C5DDBA /* drules_proto-bw.bin */; };
 		3496ABA11DC1FA5200C5DDBA /* drules_proto.bin in Resources */ = {isa = PBXBuildFile; fileRef = 3496AB9C1DC1FA5200C5DDBA /* drules_proto.bin */; };
 		3496ABA31DC1FA7200C5DDBA /* editor.config in Resources */ = {isa = PBXBuildFile; fileRef = 3496ABA21DC1FA7200C5DDBA /* editor.config */; };
@@ -972,7 +971,6 @@
 				3496ABA31DC1FA7200C5DDBA /* editor.config in Resources */,
 				3496AB9D1DC1FA5200C5DDBA /* drules_proto_clear.bin in Resources */,
 				3496AB9E1DC1FA5200C5DDBA /* drules_proto_dark.bin in Resources */,
-				3496AB9F1DC1FA5200C5DDBA /* drules_proto_legacy.bin in Resources */,
 				3496ABA01DC1FA5200C5DDBA /* drules_proto-bw.bin in Resources */,
 				3496ABA11DC1FA5200C5DDBA /* drules_proto.bin in Resources */,
 				3496AB971DC1FA2000C5DDBA /* types.txt in Resources */,
