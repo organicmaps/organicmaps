@@ -100,7 +100,8 @@ vector<pair<string, string>> availableLanguages()
     NSError * err = nil;
     _audioSession = [AVAudioSession sharedInstance];
     if (![_audioSession setCategory:AVAudioSessionCategoryPlayback
-                        withOptions:AVAudioSessionCategoryOptionInterruptSpokenAudioAndMixWithOthers
+                        withOptions:AVAudioSessionCategoryOptionMixWithOthers |
+                                    AVAudioSessionCategoryOptionDuckOthers
                               error:&err])
     {
       LOG(LWARNING, ("[ setCategory]] error.", [err localizedDescription]));
