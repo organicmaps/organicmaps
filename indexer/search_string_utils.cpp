@@ -9,7 +9,6 @@ using namespace strings;
 
 namespace search
 {
-
 UniString NormalizeAndSimplifyString(string const & s)
 {
   UniString uniString = MakeUniString(s);
@@ -111,9 +110,6 @@ public:
       // English
       "street", "avenue", "square", "road", "boulevard", "drive", "highway", "lane", "way", "circle", "st", "av", "ave", "sq", "rd", "blvd", "dr", "hwy", "ln",
 
-      // German
-      "strasse", "weg", "platz",
-
       // Lithuanian
       "g", "pr", "pl", "kel",
 
@@ -127,7 +123,7 @@ public:
       "ulice", "ul", "náměstí", "nám",
 
       // Deutsch - German
-      "allee", "al", "brücke", "br", "chaussee", "gasse", "gr", "pfad", "straße", "str",
+      "allee", "al", "brücke", "br", "chaussee", "gasse", "gr", "pfad", "straße", "str", "weg", "platz",
 
       // Español - Spanish
       "avenida", "avd", "avda", "bulevar", "bulev", "calle", "calleja", "cllja", "callejón", "callej", "cjon", "cllon", "callejuela", "cjla", "callizo", "cllzo", "calzada", "czada", "costera", "coste", "plza", "pza", "plazoleta", "pzta", "plazuela", "plzla", "tránsito", "trans", "transversal", "trval", "trasera", "tras", "travesía", "trva",
@@ -166,12 +162,12 @@ public:
       "quốc lộ", "ql", "tỉnh lộ", "tl", "Đại lộ", "Đl", "Đường", "Đ", "Đường sắt", "Đs", "Đường phố", "Đp", "vuông", "con Đường", "Đại lộ", "Đường cao tốc",
 
       // Українська - Ukrainian
-      "дорога", "провулок", "площа", "шосе", "вулиция", "дор", "пров", "вул"
+      "дорога", "провулок", "площа", "шосе", "вулиця", "дор", "пров", "вул"
     };
 
     for (auto const * s : affics)
     {
-      UniString const us = MakeUniString(s);
+      UniString const us = NormalizeAndSimplifyString(s);
       m_strings.Add(us.begin(), us.end());
     }
   }
@@ -193,8 +189,7 @@ private:
 };
 
 StreetsSynonymsHolder g_streets;
-
-} // namespace
+}  // namespace
 
 UniString GetStreetNameAsKey(string const & name)
 {
@@ -248,4 +243,4 @@ void StreetTokensFilter::Put(strings::UniString const & token, bool isPrefix, si
   }
   EmitToken(token, tag);
 }
-} // namespace search
+}  // namespace search
