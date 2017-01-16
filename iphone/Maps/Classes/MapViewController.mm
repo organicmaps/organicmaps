@@ -1,16 +1,17 @@
 #import "MapViewController.h"
 #import "BookmarksRootVC.h"
 #import "BookmarksVC.h"
-#import "MWMCommon.h"
 #import "EAGLView.h"
 #import "MWMAPIBar.h"
 #import "MWMAlertViewController.h"
 #import "MWMAuthorizationCommon.h"
 #import "MWMAuthorizationLoginViewController.h"
 #import "MWMAuthorizationWebViewLoginViewController.h"
+#import "MWMCommon.h"
 #import "MWMEditBookmarkController.h"
 #import "MWMEditorViewController.h"
 #import "MWMFrameworkListener.h"
+#import "MWMKeyboard.h"
 #import "MWMLocationHelpers.h"
 #import "MWMLocationManager.h"
 #import "MWMMapDownloadDialog.h"
@@ -94,7 +95,7 @@ BOOL gIsFirstMyPositionMode = YES;
 @end
 
 @interface MapViewController ()<MWMFrameworkDrapeObserver, MWMFrameworkStorageObserver,
-                                MWMWelcomePageControllerProtocol>
+                                MWMWelcomePageControllerProtocol, MWMKeyboardObserver>
 
 @property(nonatomic, readwrite) MWMMapViewControlsManager * controlsManager;
 
@@ -105,6 +106,9 @@ BOOL gIsFirstMyPositionMode = YES;
 @property(nonatomic) MWMMapDownloadDialog * downloadDialog;
 
 @property(nonatomic) BOOL skipForceTouch;
+
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * visibleAreaBottom;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * visibleAreaKeyboard;
 
 @end
 
@@ -266,6 +270,7 @@ BOOL gIsFirstMyPositionMode = YES;
   [super viewDidLoad];
   self.view.clipsToBounds = YES;
   [self processMyPositionStateModeEvent:location::PendingPosition];
+  [MWMKeyboard addObserver:self];
 }
 
 - (void)mwm_refreshUI
@@ -543,6 +548,9 @@ BOOL gIsFirstMyPositionMode = YES;
   }
 }
 
+#pragma mark - MWMKeyboard
+
+- (void)onKeyboardAnimation { self.visibleAreaKeyboard.constant = [MWMKeyboard keyboardHeight]; }
 #pragma mark - Properties
 
 - (MWMMapViewControlsManager *)controlsManager
@@ -560,6 +568,12 @@ BOOL gIsFirstMyPositionMode = YES;
   if (!_downloadDialog)
     _downloadDialog = [MWMMapDownloadDialog dialogForController:self];
   return _downloadDialog;
+}
+
+- (CGFloat)visibleAreaBottomOffset { return self.visibleAreaBottom.constant; }
+- (void)setVisibleAreaBottomOffset:(CGFloat)visibleAreaBottomOffset
+{
+  self.visibleAreaBottom.constant = visibleAreaBottomOffset;
 }
 
 @end

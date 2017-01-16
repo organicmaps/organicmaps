@@ -110,8 +110,6 @@ double getExactDPI(double contentScaleFactor)
   dispatch_async(dispatch_get_main_queue(), ^
   {
     GetFramework().OnSize(width, height);
-    // TODO: Temporary realization of visible viewport, this code must be removed later.
-    GetFramework().SetVisibleViewport(m2::RectD(0.0, 0.0, width, height));
     [self.widgetsManager resize:CGSizeMake(width, height)];
     self->_drapeEngineCreated = YES;
   });

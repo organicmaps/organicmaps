@@ -1,12 +1,13 @@
 #import "MWMRoutePreview.h"
-#import "MWMCommon.h"
 #import "MWMCircularProgress.h"
+#import "MWMCommon.h"
 #import "MWMNavigationDashboardManager.h"
 #import "MWMRoutePointCell.h"
 #import "MWMRoutePointLayout.h"
 #import "MWMRouter.h"
 #import "MWMTaxiPreviewDataSource.h"
 #import "Statistics.h"
+#import "SwiftBridge.h"
 #import "UIButton+Orientation.h"
 #import "UIImageView+Coloring.h"
 
@@ -479,6 +480,13 @@ CGFloat constexpr kAdditionalHeight = 20.;
   }
   cell.delegate = self;
   return cell;
+}
+
+#pragma mark - VisibleArea
+
+- (MWMVisibleAreaAffectDirection)visibleAreaAffectDirection
+{
+  return IPAD ? MWMVisibleAreaAffectDirectionLeft : MWMVisibleAreaAffectDirectionTop;
 }
 
 @end

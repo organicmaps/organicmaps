@@ -1,6 +1,7 @@
+#import "MWMPPView.h"
 #import "MWMCommon.h"
 #import "MWMPlacePageActionBar.h"
-#import "MWMPPView.h"
+#import "SwiftBridge.h"
 
 namespace
 {
@@ -94,6 +95,13 @@ CGFloat const kTableViewTopInset = -36;
     sv.maxY = self.height;
     break;
   }
+}
+
+#pragma mark - VisibleArea
+
+- (MWMVisibleAreaAffectDirection)visibleAreaAffectDirection
+{
+  return IPAD ? MWMVisibleAreaAffectDirectionLeft : MWMVisibleAreaAffectDirectionNone;
 }
 
 @end
