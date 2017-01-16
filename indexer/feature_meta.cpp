@@ -57,10 +57,10 @@ bool Metadata::TypeFromString(string const & k, Metadata::EType & outType)
   else if (k == "operator")
     outType = Metadata::FMD_OPERATOR;
   else if (k == "url")  // TODO: Should we match url to website here?
-    outType = Metadata::FMD_URL;
+    outType = Metadata::FMD_WEBSITE;
   else if (k == "website" || k == "contact:website")
     outType = Metadata::FMD_WEBSITE;
-  else if (k == "internet_access")
+  else if (k == "internet_access" || k == "wifi")
     outType = Metadata::FMD_INTERNET;
   else if (k == "ele")
     outType = Metadata::FMD_ELE;
