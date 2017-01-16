@@ -1769,7 +1769,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
         return;
     }
 
-    final Intent finIntent = intent;
+    showLocationErrorDialog(intent);
+  }
+
+  private void showLocationErrorDialog(@NonNull final Intent intent)
+  {
     new AlertDialog.Builder(this)
         .setTitle(R.string.enable_location_services)
         .setMessage(R.string.location_is_disabled_long_text)
@@ -1795,7 +1799,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
           public void onClick(DialogInterface dialog, int which)
           {
             //TODO: try to use startActivityForResult to handle settings result back
-            startActivity(finIntent);
+            startActivity(intent);
           }
         }).show();
   }
