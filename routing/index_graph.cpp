@@ -70,6 +70,16 @@ void IndexGraph::GetNeighboringEdges(Segment const & from, RoadPoint const & rp,
 void IndexGraph::GetNeighboringEdge(Segment const & from, Segment const & to, bool isOutgoing,
                                     vector<SegmentEdge> & edges)
 {
+  RoadPoint const rp = from.GetRoadPoint(isOutgoing);
+  if (from.GetFeatureId() == to.GetFeatureId() && from.GetSegmentIdx() == to.GetSegmentIdx()
+      && from.IsForward() != to.IsForward()
+      && m_roadIndex.GetJointId(rp) == Joint::kInvalidId
+      && rp.GetPointId() != 0
+      && rp.GetPointId() + 1 != m_geometry.GetRoad(from.GetFeatureId()).GetPointsCount())
+  {
+    return;
+  }
+
   double const weight = CalcSegmentWeight(isOutgoing ? to : from);
   edges.emplace_back(to, weight);
 }
