@@ -712,6 +712,8 @@
 		6726C2331A4C2BBD005EEA39 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				PRODUCT_NAME = generator_tests;
 				WARNING_CFLAGS = "-Wnull-conversion";
 			};
@@ -720,6 +722,8 @@
 		6726C2341A4C2BBD005EEA39 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				PRODUCT_NAME = generator_tests;
 				WARNING_CFLAGS = "-Wnull-conversion";
 			};
@@ -766,6 +770,8 @@
 		675341601A3F54D800A0A8C3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -773,6 +779,8 @@
 		675341611A3F54D800A0A8C3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
