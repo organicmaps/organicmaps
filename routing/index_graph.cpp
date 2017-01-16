@@ -70,7 +70,7 @@ void IndexGraph::GetNeighboringEdges(Segment const & from, RoadPoint const & rp,
 void IndexGraph::GetNeighboringEdge(Segment const & from, Segment const & to, bool isOutgoing,
                                     vector<SegmentEdge> & edges)
 {
-  RoadPoint const rp(from.GetPointId(isOutgoing), from.GetFeatureId());
+  RoadPoint const rp = from.GetRoadPoint(isOutgoing);
   if (from.GetFeatureId() == to.GetFeatureId() && from.GetSegmentIdx() == to.GetSegmentIdx()
       && from.IsForward() != to.IsForward()
       && m_roadIndex.GetJointId(rp) == Joint::kInvalidId
