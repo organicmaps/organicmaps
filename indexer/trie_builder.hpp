@@ -5,6 +5,7 @@
 #include "coding/varint.hpp"
 
 #include "base/buffer_vector.hpp"
+#include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 
 #include "std/algorithm.hpp"
@@ -48,7 +49,7 @@ void WriteNode(TSink & sink, TSerializer const & serializer, TrieChar baseChar,
                TValueList const & valueList, TChildIter const begChild, TChildIter const endChild,
                bool isRoot = false)
 {
-  uint32_t const valueCount = valueList.Size();
+  uint32_t const valueCount = base::asserted_cast<uint32_t>(valueList.Size());
   if (begChild == endChild && !isRoot)
   {
 // Leaf node.
@@ -65,7 +66,7 @@ void WriteNode(TSink & sink, TSerializer const & serializer, TrieChar baseChar,
 
     return;
   }
-  uint32_t const childCount = endChild - begChild;
+  uint32_t const childCount = base::asserted_cast<uint32_t>(endChild - begChild);
   uint8_t const header = static_cast<uint32_t>((min(valueCount, 3U) << 6) + min(childCount, 63U));
   sink.Write(&header, 1);
   if (valueCount >= 3)
@@ -77,7 +78,7 @@ void WriteNode(TSink & sink, TSerializer const & serializer, TrieChar baseChar,
   {
     uint8_t header = (it->IsLeaf() ? 128 : 0);
     TrieChar const * const edge = it->GetEdge();
-    uint32_t const edgeSize = it->GetEdgeSize();
+    uint32_t const edgeSize = base::asserted_cast<uint32_t>(it->GetEdgeSize());
     CHECK_NOT_EQUAL(edgeSize, 0, ());
     CHECK_LESS(edgeSize, 100000, ());
     uint32_t const diff0 = bits::ZigZagEncode(int32_t(edge[0] - baseChar));
@@ -127,7 +128,7 @@ struct ChildInfo
   uint32_t Size() const { return m_size; }
   bool IsLeaf() const { return m_isLeaf; }
   TrieChar const * GetEdge() const { return m_edge.data(); }
-  uint32_t GetEdgeSize() const { return m_edge.size(); }
+  size_t GetEdgeSize() const { return m_edge.size(); }
 };
 
 template <typename TValueList>
@@ -184,7 +185,7 @@ void WriteNodeReverse(TSink & sink, TSerializer const & serializer, TrieChar bas
 }
 
 template <typename TSink, typename TNodes, typename TSerializer>
-void PopNodes(TSink & sink, TSerializer const & serializer, TNodes & nodes, int nodesToPop)
+void PopNodes(TSink & sink, TSerializer const & serializer, TNodes & nodes, size_t nodesToPop)
 {
   using TNodeInfo = typename TNodes::value_type;
   ASSERT_GREATER(nodes.size(), nodesToPop, ());

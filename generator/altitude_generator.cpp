@@ -20,6 +20,7 @@
 #include "geometry/latlon.hpp"
 
 #include "base/assert.hpp"
+#include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 #include "base/stl_helpers.hpp"
@@ -184,7 +185,7 @@ void BuildRoadAltitudes(string const & mwmPath, AltitudeGetter & altitudeGetter)
       succinct::bit_vector_builder & builder = processor.GetAltitudeAvailabilityBuilder();
       succinct::rs_bit_vector(&builder).map(visitor);
     }
-    header.m_featureTableOffset = w.Pos() - startOffset;
+    header.m_featureTableOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
 
     vector<uint32_t> offsets;
     vector<uint8_t> deltas;
@@ -194,7 +195,7 @@ void BuildRoadAltitudes(string const & mwmPath, AltitudeGetter & altitudeGetter)
       Processor::TFeatureAltitudes const & featureAltitudes = processor.GetFeatureAltitudes();
       for (auto const & a : featureAltitudes)
       {
-        offsets.push_back(writer.Pos());
+        offsets.push_back(base::checked_cast<uint32_t>(writer.Pos()));
         a.m_altitudes.Serialize(header.m_minAltitude, writer);
       }
     }
@@ -211,10 +212,10 @@ void BuildRoadAltitudes(string const & mwmPath, AltitudeGetter & altitudeGetter)
       succinct::elias_fano(&builder).map(visitor);
     }
     // Writing altitude info.
-    header.m_altitudesOffset = w.Pos() - startOffset;
+    header.m_altitudesOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
     w.Write(deltas.data(), deltas.size());
     w.WritePaddingByEnd(8);
-    header.m_endOffset = w.Pos() - startOffset;
+    header.m_endOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
 
     // Rewriting header info.
     int64_t const endOffset = w.Pos();

@@ -130,6 +130,8 @@ public:
     TWriter & m_finalWriter;
 
   public:
+    using ValueType = TValue;
+
     explicit Builder(TWriter & writer)
       : m_writer(m_data), m_bits(new TBits(m_writer)), m_finalWriter(writer)
     {

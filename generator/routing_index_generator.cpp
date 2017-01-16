@@ -13,6 +13,7 @@
 
 #include "coding/file_container.hpp"
 
+#include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 
 #include "std/bind.hpp"
@@ -72,7 +73,7 @@ private:
     for (size_t i = 0; i < f.GetPointsCount(); ++i)
     {
       uint64_t const locationKey = PointToInt64(f.GetPoint(i), POINT_COORD_BITS);
-      m_posToJoint[locationKey].AddPoint(RoadPoint(id, i));
+      m_posToJoint[locationKey].AddPoint(RoadPoint(id, base::checked_cast<uint32_t>(i)));
     }
   }
 

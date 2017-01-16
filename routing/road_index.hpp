@@ -2,6 +2,8 @@
 
 #include "routing/joint.hpp"
 
+#include "base/checked_cast.hpp"
+
 #include "std/algorithm.hpp"
 #include "std/cstdint.hpp"
 #include "std/unordered_map.hpp"
@@ -130,7 +132,7 @@ public:
   // If there is no nearest point, return {Joint::kInvalidId, 0}
   pair<Joint::Id, uint32_t> FindNeighbor(RoadPoint const & rp, bool forward) const;
 
-  uint32_t GetSize() const { return m_roads.size(); }
+  uint32_t GetSize() const { return base::asserted_cast<uint32_t>(m_roads.size()); }
 
   Joint::Id GetJointId(RoadPoint const & rp) const
   {

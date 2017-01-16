@@ -5,6 +5,7 @@
 #include "coding/file_container.hpp"
 #include "coding/file_writer.hpp"
 
+#include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
 
@@ -33,8 +34,8 @@ bool BuildRoadRestrictions(string const & mwmPath, string const & restrictionPat
       lower_bound(restrictions.cbegin(), restrictions.cend(),
                   Restriction(Restriction::Type::Only, {} /* links */), my::LessBy(&Restriction::m_type));
   RoutingHeader header;
-  header.m_noRestrictionCount = distance(restrictions.cbegin(), firstOnlyIt);
-  header.m_onlyRestrictionCount = restrictions.size() - header.m_noRestrictionCount;
+  header.m_noRestrictionCount = base::checked_cast<uint32_t>(distance(restrictions.cbegin(), firstOnlyIt));
+  header.m_onlyRestrictionCount = base::checked_cast<uint32_t>(restrictions.size() - header.m_noRestrictionCount);
   LOG(LINFO, ("Header info. There are", header.m_noRestrictionCount, "of type No restrictions and",
               header.m_onlyRestrictionCount, "of type Only restrictions"));
 

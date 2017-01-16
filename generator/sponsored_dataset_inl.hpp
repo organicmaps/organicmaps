@@ -111,7 +111,7 @@ SponsoredDataset<SponsoredObject>::GetNearestObjects(ms::LatLon const & latLon, 
   namespace bgi = boost::geometry::index;
 
   vector<ObjectId> indexes;
-  for_each(bgi::qbegin(m_rtree, bgi::nearest(Point(latLon.lat, latLon.lon), limit)),
+  for_each(bgi::qbegin(m_rtree, bgi::nearest(Point(latLon.lat, latLon.lon), static_cast<unsigned>(limit))),
            bgi::qend(m_rtree), [this, &latLon, &indexes, maxDistanceMeters](Value const & v)
            {
              auto const & object = GetObjectById(v.second);

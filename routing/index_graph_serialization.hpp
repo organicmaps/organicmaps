@@ -10,6 +10,8 @@
 #include "coding/reader.hpp"
 #include "coding/write_to_sink.hpp"
 
+#include "base/checked_cast.hpp"
+
 #include "std/algorithm.hpp"
 #include "std/cstdint.hpp"
 #include "std/limits.hpp"
@@ -218,7 +220,7 @@ private:
 
     uint32_t GetNumRoads() const { return m_numRoads; }
     Joint::Id GetNumJoints() const { return m_numJoints; }
-    uint32_t GetNumSections() const { return m_sections.size(); }
+    uint32_t GetNumSections() const { return base::asserted_cast<uint32_t>(m_sections.size()); }
 
     Section const & GetSection(size_t index) const
     {
