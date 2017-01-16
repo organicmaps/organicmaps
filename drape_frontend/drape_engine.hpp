@@ -4,6 +4,7 @@
 #include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/frontend_renderer.hpp"
 #include "drape_frontend/route_shape.hpp"
+#include "drape_frontend/scenario_manager.hpp"
 #include "drape_frontend/selection_shape.hpp"
 #include "drape_frontend/threads_commutator.hpp"
 
@@ -176,6 +177,9 @@ public:
 
   void SetFontScaleFactor(double scaleFactor);
 
+  void RunScenario(ScenarioManager::Scenario && scenario,
+                   ScenarioManager::OnFinishHandler const & handler);
+
 private:
   void AddUserEvent(drape_ptr<UserEvent> && e);
   void ModelViewChanged(ScreenBase const & screen);
@@ -188,7 +192,6 @@ private:
   void RecacheGui(bool needResetOldGui);
   void RecacheMapShapes();
 
-private:
   drape_ptr<FrontendRenderer> m_frontend;
   drape_ptr<BackendRenderer> m_backend;
   drape_ptr<ThreadsCommutator> m_threadCommutator;

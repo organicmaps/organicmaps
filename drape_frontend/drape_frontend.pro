@@ -76,6 +76,7 @@ SOURCES += \
     route_renderer.cpp \
     route_shape.cpp \
     rule_drawer.cpp \
+    scenario_manager.cpp \
     screen_animations.cpp \
     screen_operations.cpp \
     selection_shape.cpp \
@@ -180,6 +181,7 @@ HEADERS += \
     route_renderer.hpp \
     route_shape.hpp \
     rule_drawer.hpp \
+    scenario_manager.hpp \
     screen_animations.hpp \
     screen_operations.hpp \
     selection_shape.hpp \

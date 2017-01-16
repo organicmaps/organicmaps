@@ -15,6 +15,8 @@ set(
   address_finder.cpp
   api_mark_point.cpp
   api_mark_point.hpp
+  benchmark_tools.hpp
+  benchmark_tools.cpp
   bookmark_manager.cpp
   bookmark_manager.hpp
   bookmark.cpp

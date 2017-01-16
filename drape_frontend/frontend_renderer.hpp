@@ -54,6 +54,7 @@ class SelectionShape;
 class Framebuffer;
 class TransparentLayer;
 class SelectObjectMessage;
+class ScenarioManager;
 
 struct TapInfo
 {
@@ -153,6 +154,8 @@ public:
                        int preferredZoomLevel, TAnimationCreator const & parallelAnimCreator) override;
   void ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero,
                        TAnimationCreator const & parallelAnimCreator) override;
+
+  drape_ptr<ScenarioManager> const & GetScenarioManager() const;
 
 protected:
   void AcceptMessage(ref_ptr<Message> message) override;
@@ -345,6 +348,8 @@ private:
 
   bool m_needRegenerateTraffic;
   bool m_trafficEnabled;
+
+  drape_ptr<ScenarioManager> m_scenarioManager;
 
 #ifdef DEBUG
   bool m_isTeardowned;

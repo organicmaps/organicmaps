@@ -150,6 +150,8 @@ set(
   route_shape.hpp
   rule_drawer.cpp
   rule_drawer.hpp
+  scenario_manager.cpp
+  scenario_manager.hpp
   screen_animations.cpp
   screen_animations.hpp
   screen_operations.cpp

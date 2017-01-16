@@ -5,6 +5,7 @@
 #include "drape_frontend/framebuffer.hpp"
 #include "drape_frontend/frontend_renderer.hpp"
 #include "drape_frontend/message_subclasses.hpp"
+#include "drape_frontend/scenario_manager.hpp"
 #include "drape_frontend/screen_operations.hpp"
 #include "drape_frontend/transparent_layer.hpp"
 #include "drape_frontend/visual_params.hpp"
@@ -135,6 +136,9 @@ FrontendRenderer::FrontendRenderer(Params const & params)
   , m_needRestoreSize(false)
   , m_needRegenerateTraffic(false)
   , m_trafficEnabled(params.m_trafficEnabled)
+#ifdef SCENARIO_ENABLE
+  , m_scenarioManager(new ScenarioManager(this))
+#endif
 {
 #ifdef DRAW_INFO
   m_tpf = 0.0;
@@ -163,6 +167,7 @@ FrontendRenderer::~FrontendRenderer()
 
 void FrontendRenderer::Teardown()
 {
+  m_scenarioManager.reset();
   StopThread();
 #ifdef DEBUG
   m_isTeardowned = true;
@@ -429,6 +434,10 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::GpsInfo:
     {
+#ifdef SCENARIO_ENABLE
+      if (m_scenarioManager->IsRunning())
+        break;
+#endif
       ref_ptr<GpsInfoMessage> msg = message;
       m_myPositionController->OnLocationUpdate(msg->GetInfo(), msg->IsNavigable(),
                                                m_userEventStream.GetCurrentScreen());
@@ -1808,6 +1817,10 @@ void FrontendRenderer::ReleaseResources()
 
 void FrontendRenderer::AddUserEvent(drape_ptr<UserEvent> && event)
 {
+#ifdef SCENARIO_ENABLE
+  if (m_scenarioManager->IsRunning() && event->GetType() == UserEvent::EventType::Touch)
+    return;
+#endif
   m_userEventStream.AddEvent(move(event));
   if (IsInInfinityWaiting())
     CancelMessageWaiting();
@@ -1902,6 +1915,11 @@ void FrontendRenderer::OnCacheRouteArrows(int routeIndex, vector<ArrowBorders> c
   m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                             make_unique_dp<CacheRouteArrowsMessage>(routeIndex, borders),
                             MessagePriority::Normal);
+}
+
+drape_ptr<ScenarioManager> const & FrontendRenderer::GetScenarioManager() const
+{
+  return m_scenarioManager;
 }
 
 FrontendRenderer::RenderLayer::RenderLayerID FrontendRenderer::RenderLayer::GetLayerID(dp::GLState const & state)

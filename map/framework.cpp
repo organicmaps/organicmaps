@@ -1,4 +1,5 @@
 #include "map/framework.hpp"
+#include "map/benchmark_tools.hpp"
 #include "map/chart_generator.hpp"
 #include "map/ge0_parser.hpp"
 #include "map/geourl_process.hpp"
@@ -1731,6 +1732,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
 
   m_drapeApi.SetEngine(make_ref(m_drapeEngine));
   m_trafficManager.SetDrapeEngine(make_ref(m_drapeEngine));
+
+  benchmark::RunGraphicsBenchmark(this);
 }
 
 void Framework::OnRecoverGLContext(int width, int height)
