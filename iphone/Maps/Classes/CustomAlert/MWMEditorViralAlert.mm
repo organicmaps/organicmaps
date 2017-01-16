@@ -5,20 +5,9 @@
 #import "MWMEditorViralAlert.h"
 #import "Statistics.h"
 
-#include "indexer/osm_editor.hpp"
-
-#include "std/array.hpp"
-
-namespace
-{
-  array<NSString *, 2> const kMessages {{L(@"editor_done_dialog_1"), L(@"editor_done_dialog_2")}};
-} // namespace
-
 @interface MWMEditorViralAlert ()
 
-@property (weak, nonatomic) IBOutlet UILabel * message;
-@property (weak, nonatomic) IBOutlet UIButton * shareButton;
-@property (nonatomic) int indexOfMessage;
+@property(weak, nonatomic) IBOutlet UIButton * shareButton;
 
 @end
 
@@ -26,27 +15,12 @@ namespace
 
 + (nonnull instancetype)alert
 {
-  MWMEditorViralAlert * alert = [[[NSBundle mainBundle] loadNibNamed:[self className] owner:nil options:nil] firstObject];
-  alert.indexOfMessage = rand() % kMessages.size();
-  NSString * message = kMessages[alert.indexOfMessage];
-  if (alert.indexOfMessage == 1)
-  {
-    int const ratingValue = (rand() % 1000) + 1000;
-    message = [NSString stringWithFormat:message, ratingValue];
-  }
-  alert.message.text = message;
-  NSMutableDictionary <NSString *, NSString *> * info = [@{kStatValue : alert.statMessage} mutableCopy];
-  NSString * un = osm_auth_ios::OSMUserName();
-  if (un)
-    info[kStatOSMUserName] = un;
-
-  [Statistics logEvent:kStatEditorSecondTimeShareShow withParameters:info];
-  return alert;
+  return [[[NSBundle mainBundle] loadNibNamed:[self className] owner:nil options:nil] firstObject];
 }
 
 - (IBAction)shareTap
 {
-  [Statistics logEvent:kStatEditorSecondTimeShareClick withParameters:@{kStatValue : self.statMessage}];
+  [Statistics logEvent:kStatEditorSecondTimeShareClick];
   [self close:^{
     MWMActivityViewController * shareVC = [MWMActivityViewController shareControllerForEditorViral];
     [shareVC presentInParentViewController:self.alertController.ownerViewController
@@ -54,14 +28,6 @@ namespace
   }];
 }
 
-- (IBAction)cancelTap
-{
-  [self close:nil];
-}
-
-- (NSString *)statMessage
-{
-  return self.indexOfMessage ? @"change" : @"rating";
-}
+- (IBAction)cancelTap { [self close:nil]; }
 
 @end
