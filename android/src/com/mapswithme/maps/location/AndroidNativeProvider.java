@@ -20,8 +20,9 @@ class AndroidNativeProvider extends BaseLocationProvider
   @NonNull
   private final List<LocationListener> mListeners = new ArrayList<>();
 
-  AndroidNativeProvider()
+  AndroidNativeProvider(@NonNull LocationFixChecker locationFixChecker)
   {
+    super(locationFixChecker);
     mLocationManager = (LocationManager) MwmApplication.get().getSystemService(Context.LOCATION_SERVICE);
   }
 
@@ -38,7 +39,7 @@ class AndroidNativeProvider extends BaseLocationProvider
     mIsActive = true;
     for (String provider : providers)
     {
-      LocationListener listener = new BaseLocationListener();
+      LocationListener listener = new BaseLocationListener(getLocationFixChecker());
       mLocationManager.requestLocationUpdates(provider, LocationHelper.INSTANCE.getInterval(), 0, listener);
       mListeners.add(listener);
     }
@@ -47,7 +48,7 @@ class AndroidNativeProvider extends BaseLocationProvider
 
     Location location = findBestNotExpiredLocation(mLocationManager, providers,
                                                    LocationUtils.LOCATION_EXPIRATION_TIME_MILLIS_SHORT);
-    if (!isLocationBetterThanLast(location))
+    if (!getLocationFixChecker().isLocationBetterThanLast(location))
     {
       location = LocationHelper.INSTANCE.getSavedLocation();
       if (location == null || LocationUtils.isExpired(location, LocationHelper.INSTANCE.getSavedLocationTime(),

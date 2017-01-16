@@ -269,12 +269,12 @@ public enum LocationHelper
         googleServicesTurnedInSettings)
     {
       mLogger.d("Use fused provider.");
-      mLocationProvider = new GoogleFusedLocationProvider();
+      mLocationProvider = new GoogleFusedLocationProvider(new FusedLocationFixChecker());
     }
     else
     {
       mLogger.d("Use native provider.");
-      mLocationProvider = new AndroidNativeProvider();
+      mLocationProvider = new AndroidNativeProvider(new DefaultLocationFixChecker());
     }
 
     mActive = !mListeners.isEmpty();

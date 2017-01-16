@@ -20,33 +20,21 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
                                implements GoogleApiClient.ConnectionCallbacks,
                                           GoogleApiClient.OnConnectionFailedListener
 {
-  private static final String GMS_LOCATION_PROVIDER = "fused";
   private final GoogleApiClient mGoogleApiClient;
   private LocationRequest mLocationRequest;
   private PendingResult<LocationSettingsResult> mLocationSettingsResult;
   @NonNull
-  private final BaseLocationListener mListener = new BaseLocationListener();
+  private final BaseLocationListener mListener;
 
-  GoogleFusedLocationProvider()
+  GoogleFusedLocationProvider(@NonNull LocationFixChecker locationFixChecker)
   {
+    super(locationFixChecker);
     mGoogleApiClient = new GoogleApiClient.Builder(MwmApplication.get())
                                           .addApi(LocationServices.API)
                                           .addConnectionCallbacks(this)
                                           .addOnConnectionFailedListener(this)
                                           .build();
-  }
-
-  @Override
-  boolean isLocationBetterThanLast(Location newLocation, Location lastLocation)
-  {
-    // We believe that google services always return good locations.
-    return (isFromFusedProvider(newLocation) ||
-            (!isFromFusedProvider(lastLocation) && super.isLocationBetterThanLast(newLocation, lastLocation)));
-  }
-
-  private static boolean isFromFusedProvider(Location location)
-  {
-    return GMS_LOCATION_PROVIDER.equalsIgnoreCase(location.getProvider());
+    mListener = new BaseLocationListener(locationFixChecker);
   }
 
   @Override
@@ -141,7 +129,7 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
     LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, mListener);
     LocationHelper.INSTANCE.startSensors();
     Location last = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-    if (last != null && isLocationBetterThanLast(last))
+    if (last != null)
       mListener.onLocationChanged(last);
   }
 
