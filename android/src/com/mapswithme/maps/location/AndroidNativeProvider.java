@@ -109,6 +109,9 @@ class AndroidNativeProvider extends BaseLocationProvider
   {
     final List<String> res = locationManager.getProviders(true /* enabledOnly */);
     res.remove(LocationManager.PASSIVE_PROVIDER);
+    // On Huawei P9 Lite, when all location services are disabled OS returns "local_database" provider,
+    // but it doesn't provide any locations actually, so consider it as unreliable.
+    res.remove("local_database");
     return res;
   }
 }

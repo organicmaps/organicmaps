@@ -172,13 +172,6 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
     mBaseDelegate.onPause();
   }
 
-  @Override
-  protected void onActivityResult(int requestCode, int resultCode, Intent data)
-  {
-    if (!BaseActivityDelegate.onActivityResult(requestCode, resultCode, data))
-      super.onActivityResult(requestCode, resultCode, data);
-  }
-
   protected Toolbar getToolbar()
   {
     return (Toolbar) findViewById(R.id.toolbar);

@@ -1,6 +1,7 @@
 package com.mapswithme.maps.location;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -9,8 +10,6 @@ import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-
-import java.lang.ref.WeakReference;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -29,6 +28,7 @@ import com.mapswithme.util.log.DebugLogger;
 import com.mapswithme.util.log.Logger;
 
 import static com.mapswithme.maps.background.AppBackgroundTracker.*;
+import java.lang.ref.WeakReference;
 
 public enum LocationHelper
 {
@@ -51,7 +51,6 @@ public enum LocationHelper
   private static final long INTERVAL_NAVIGATION_PEDESTRIAN_MS = 1000;
 
   private static final long STOP_DELAY_MS = 5000;
-  static final int REQUEST_RESOLVE_ERROR = 101;
 
   private boolean mErrorOccurred;
 
@@ -132,13 +131,11 @@ public enum LocationHelper
     {
       mErrorOccurred = true;
       mLogger.d("onLocationError errorCode = " + errorCode);
-      if (mLocationStopped)
-        return;
 
       nativeOnLocationError(errorCode);
-      mLogger.d("nativeOnLocationError errorCode = " + errorCode +", " +
-                "state machine should stop pending, current state = "
-                + LocationState.nameOf(LocationState.getMode()));
+      mLogger.d("nativeOnLocationError errorCode = " + errorCode +
+                ", current state = " + LocationState.nameOf(LocationState.getMode()));
+      stop();
 
       if (mUiCallback == null)
         return;
@@ -455,18 +452,25 @@ public enum LocationHelper
     removeListener(mLocationListener, false);
   }
 
-  public boolean onActivityResult(int requestCode, int resultCode)
+  void checkProvidersAndStartIfNeeded()
   {
-    if (requestCode != REQUEST_RESOLVE_ERROR)
-      return false;
+    Context context = MwmApplication.get();
+    LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+    boolean networkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+    boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+    mLocationStopped = !networkEnabled && !gpsEnabled;
+    mLogger.d("Providers availability: " + !mLocationStopped +
+              "; network provider = " + networkEnabled + ", gps provider = " + gpsEnabled);
 
-    mLocationStopped = (resultCode != Activity.RESULT_OK);
-    mLogger.d("onActivityResult(): success: " + !mLocationStopped);
+    if (mLocationStopped)
+    {
+      if (LocationState.getMode() == LocationState.PENDING_POSITION)
+        notifyLocationError(ERROR_DENIED);
+      return;
+    }
 
-    if (!mLocationStopped)
-      LocationState.nativeSwitchToNextMode();
-
-    return true;
+    initProvider(false);
+    LocationState.nativeSwitchToNextMode();
   }
 
   /**
@@ -635,17 +639,6 @@ public enum LocationHelper
     }
   }
 
-  public void forceRestart()
-  {
-    mActive = !mListeners.isEmpty();
-    if (mActive)
-    {
-      calcParams();
-      stopInternal();
-      startInternal();
-    }
-  }
-
   /**
    * Actually starts location polling.
    */
@@ -715,11 +708,8 @@ public enum LocationHelper
 
     if (!mLocationStopped)
       addListener(mLocationListener, true);
-  }
-
-  public void addLocationListener()
-  {
-    addListener(mLocationListener, true);
+    else
+      checkProvidersAndStartIfNeeded();
   }
 
   private void compareWithPreviousCallback()
