@@ -9,7 +9,7 @@ double constexpr KMPH2MPS = 1000.0 / (60 * 60);
 
 namespace routing
 {
-void IDirectionsEngine::CalculateTimes(IRoadGraph const & graph, vector<Junction> const & path,
+void IDirectionsEngine::CalculateTimes(RoadGraphBase const & graph, vector<Junction> const & path,
                                        Route::TTimes & times) const
 {
   times.clear();
@@ -44,7 +44,7 @@ void IDirectionsEngine::CalculateTimes(IRoadGraph const & graph, vector<Junction
   }
 }
 
-bool IDirectionsEngine::ReconstructPath(IRoadGraph const & graph, vector<Junction> const & path,
+bool IDirectionsEngine::ReconstructPath(RoadGraphBase const & graph, vector<Junction> const & path,
                                         vector<Edge> & routeEdges,
                                         my::Cancellable const & cancellable) const
 {

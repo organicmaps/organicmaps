@@ -7,7 +7,7 @@ namespace routing
 {
 using namespace traffic;
 
-void ReconstructRoute(IDirectionsEngine & engine, IRoadGraph const & graph,
+void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
                       shared_ptr<TrafficInfo::Coloring> const & trafficColoring,
                       my::Cancellable const & cancellable, vector<Junction> & path, Route & route)
 {

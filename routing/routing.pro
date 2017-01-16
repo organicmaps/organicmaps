@@ -29,6 +29,7 @@ SOURCES += \
     index_graph.cpp \
     index_graph_serialization.cpp \
     index_graph_starter.cpp \
+    index_road_graph.cpp \
     joint.cpp \
     joint_index.cpp \
     nearest_edge_finder.cpp \
@@ -80,6 +81,7 @@ HEADERS += \
     index_graph.hpp \
     index_graph_serialization.hpp \
     index_graph_starter.hpp \
+    index_road_graph.hpp \
     joint.hpp \
     joint_index.hpp \
     loaded_path_segment.hpp \

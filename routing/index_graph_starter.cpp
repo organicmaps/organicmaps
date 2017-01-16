@@ -16,39 +16,35 @@ IndexGraphStarter::IndexGraphStarter(IndexGraph & graph, FakeVertex const & star
 
 m2::PointD const & IndexGraphStarter::GetPoint(Segment const & segment, bool front)
 {
-  if (segment == kStartFakeSegment)
+  if (segment == kStartFakeSegment || (!front && m_start.Fits(segment)))
     return m_start.GetPoint();
 
-  if (segment == kFinishFakeSegment)
+  if (segment == kFinishFakeSegment || (front && m_finish.Fits(segment)))
     return m_finish.GetPoint();
 
   return m_graph.GetGeometry().GetPoint(segment.GetRoadPoint(front));
 }
 
 // static
-size_t IndexGraphStarter::GetRouteNumPoints(vector<Segment> const & route)
+size_t IndexGraphStarter::GetRouteNumPoints(vector<Segment> const & segments)
 {
-  // if route contains start and finish fakes only, it doesn't have segment points.
-  // TODO: add start and finish when RecounstructRoute will be reworked.
-  if (route.size() <= 2)
-    return 0;
+  // Valid route contains at least 3 segments:
+  // start fake, finish fake and at least one normal nearest segment.
+  CHECK_GREATER_OR_EQUAL(segments.size(), 3, ());
 
   // -2 for fake start and finish.
   // +1 for front point of first segment.
-  return route.size() - 1;
+  return segments.size() - 1;
 }
 
-m2::PointD const & IndexGraphStarter::GetRoutePoint(vector<Segment> const & route,
+m2::PointD const & IndexGraphStarter::GetRoutePoint(vector<Segment> const & segments,
                                                     size_t pointIndex)
 {
   if (pointIndex == 0)
-  {
-    CHECK_GREATER(route.size(), 1, ());
-    return GetPoint(route[1], false /* front */);
-  }
+    return m_start.GetPoint();
 
-  CHECK_LESS(pointIndex, route.size(), ());
-  return GetPoint(route[pointIndex], true /* front */);
+  CHECK_LESS(pointIndex, segments.size(), ());
+  return GetPoint(segments[pointIndex], true /* front */);
 }
 
 void IndexGraphStarter::GetEdgesList(Segment const & segment, bool isOutgoing,

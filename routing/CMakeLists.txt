@@ -42,6 +42,8 @@ set(
   index_graph_serialization.hpp
   index_graph_starter.cpp
   index_graph_starter.hpp
+  index_road_graph.cpp
+  index_road_graph.hpp
   joint.cpp
   joint.hpp
   joint_index.cpp

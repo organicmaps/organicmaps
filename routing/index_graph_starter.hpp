@@ -46,10 +46,12 @@ public:
   IndexGraph & GetGraph() const { return m_graph; }
   Segment const & GetStart() const { return kStartFakeSegment; }
   Segment const & GetFinish() const { return kFinishFakeSegment; }
-  m2::PointD const & GetPoint(Segment const & segment, bool isOutgoing);
+  m2::PointD const & GetPoint(Segment const & segment, bool front);
 
   static size_t GetRouteNumPoints(vector<Segment> const & route);
   m2::PointD const & GetRoutePoint(vector<Segment> const & route, size_t pointIndex);
+
+  void GetEdgesList(Segment const & segment, bool isOutgoing, vector<SegmentEdge> & edges);
 
   void GetOutgoingEdgesList(TVertexType const & segment, vector<TEdgeType> & edges)
   {
@@ -67,13 +69,16 @@ public:
                                                 GetPoint(to, true /* front */));
   }
 
-private:
-  static Segment constexpr kStartFakeSegment =
-      Segment(numeric_limits<uint32_t>::max(), numeric_limits<uint32_t>::max(), false);
-  static Segment constexpr kFinishFakeSegment =
-      Segment(numeric_limits<uint32_t>::max(), numeric_limits<uint32_t>::max(), true);
+  static bool IsFakeSegment(Segment const & segment) { return segment.GetFeatureId() == kFakeFeatureId; }
 
-  void GetEdgesList(Segment const & segment, bool isOutgoing, vector<SegmentEdge> & edges);
+private:
+  static uint32_t constexpr kFakeFeatureId = numeric_limits<uint32_t>::max();
+  static uint32_t constexpr kFakeSegmentIdx = numeric_limits<uint32_t>::max();
+  static Segment constexpr kStartFakeSegment =
+      Segment(kFakeFeatureId, kFakeSegmentIdx, false);
+  static Segment constexpr kFinishFakeSegment =
+      Segment(kFakeFeatureId, kFakeSegmentIdx, true);
+
   void GetFakeToNormalEdges(FakeVertex const & fakeVertex, vector<SegmentEdge> & edges);
   void GetFakeToNormalEdge(FakeVertex const & fakeVertex, bool forward,
                            vector<SegmentEdge> & edges);
