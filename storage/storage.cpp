@@ -15,6 +15,7 @@
 #include "coding/reader.hpp"
 #include "coding/url_encode.hpp"
 
+#include "base/gmtime.hpp"
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 #include "base/stl_helpers.hpp"
@@ -1559,6 +1560,18 @@ bool Storage::GetUpdateInfo(TCountryId const & countryId, UpdateInfo & updateInf
 
 void Storage::CorrectJustDownloadedAndQueue(TQueue::iterator justDownloadedItem)
 {
+  // Send stastics to Push Woosh.
+  {
+    GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kMapLastDownloaded,
+                                                         justDownloadedItem->GetCountryId());
+    char nowStr[18]{};
+    auto const tp = std::chrono::system_clock::from_time_t(time(nullptr));
+    tm now = my::GmTime(std::chrono::system_clock::to_time_t(tp));
+    strftime(nowStr, sizeof(nowStr), "%Y-%m-%d %H:%M", &now);
+    GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kMapLastDownloadedTimestamp,
+                                                         std::string(nowStr));
+  }
+
   m_justDownloaded.insert(justDownloadedItem->GetCountryId());
   m_queue.erase(justDownloadedItem);
   if (m_queue.empty())
