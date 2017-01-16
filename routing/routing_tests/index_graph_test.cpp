@@ -135,8 +135,8 @@ UNIT_TEST(EdgesTest)
   TestIngoingEdges(graph, {0, 0, false}, {{0, 0, true}, {0, 1, false}, {3, 0, true}});
 
   TestOutgoingEdges(graph, {0, 2, true}, {{0, 2, false}, {0, 3, true}, {4, 1, true}});
-  TestIngoingEdges(graph, {0, 2, true}, {{0, 2, false}, {0, 1, true}});
-  TestOutgoingEdges(graph, {0, 2, false}, {{0, 2, true}, {0, 1, false}});
+  TestIngoingEdges(graph, {0, 2, true}, {{0, 1, true}});
+  TestOutgoingEdges(graph, {0, 2, false}, {{0, 1, false}});
   TestIngoingEdges(graph, {0, 2, false}, {{0, 2, true}, {0, 3, false}, {4, 0, true}});
 
   TestOutgoingEdges(graph, {3, 0, true}, {{3, 1, true}, {0, 0, false}, {0, 1, true}});
