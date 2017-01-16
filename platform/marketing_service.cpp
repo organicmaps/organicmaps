@@ -7,6 +7,8 @@ namespace marketing
 char const * const kMapVersion = "map_version";
 char const * const kMapListing = "map_listing";
 char const * const kMapDownloadDiscovered = "map_download_discovered";
+char const * const kMapLastDownloaded = "last_map_downloaded";
+char const * const kMapLastDownloadedTimestamp = "last_map_downloaded_time";
 char const * const kRoutingP2PVehicleDiscovered = "routing_p2p_vehicle_discovered";
 char const * const kRoutingP2PPedestrianDiscovered = "routing_p2p_pedestrian_discovered";
 char const * const kRoutingP2PBicycleDiscovered = "routing_p2p_bicycle_discovered";
