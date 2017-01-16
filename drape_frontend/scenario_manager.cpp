@@ -29,7 +29,7 @@ void ScenarioManager::Interrupt()
   InterruptImpl();
 }
 
-bool ScenarioManager::RunScenario(Scenario && scenario, OnFinishHandler const & handler)
+bool ScenarioManager::RunScenario(ScenarioData && scenarioData, ScenarioCallback const & onStartFn, ScenarioCallback const & onFinishFn)
 {
   std::lock_guard<std::mutex> lock(m_mutex);
   if (m_thread != nullptr)
@@ -37,11 +37,12 @@ bool ScenarioManager::RunScenario(Scenario && scenario, OnFinishHandler const & 
     if (m_isFinished)
       InterruptImpl();
     else
-      return false; // The only scenatio can be executed currently.
+      return false; // The only scenario can be executed currently.
   }
 
-  std::swap(m_scenario, scenario);
-  m_onFinishHandler = handler;
+  std::swap(m_scenarioData, scenarioData);
+  m_onStartHandler = onStartFn;
+  m_onFinishHandler = onFinishFn;
   m_thread = my::make_unique<threads::SimpleThread>(&ScenarioManager::ThreadRoutine, this);
 #ifdef DEBUG
   m_threadId = m_thread->get_id();
@@ -65,7 +66,11 @@ bool ScenarioManager::IsRunning()
 
 void ScenarioManager::ThreadRoutine()
 {
-  for (auto const & action : m_scenario)
+  string const scenarioName = m_scenarioData.m_name;
+  if (m_onStartHandler != nullptr)
+    m_onStartHandler(scenarioName);
+
+  for (auto const & action : m_scenarioData.m_scenario)
   {
     // Interrupt scenario if it's necessary.
     {
@@ -100,10 +105,10 @@ void ScenarioManager::ThreadRoutine()
     }
   }
 
-  OnFinishHandler handler = nullptr;
+  ScenarioCallback handler = nullptr;
   {
     std::lock_guard<std::mutex> lock(m_mutex);
-    m_scenario.clear();
+    m_scenarioData.m_scenario.clear();
     m_isFinished = true;
     if (m_onFinishHandler != nullptr)
     {
@@ -113,7 +118,7 @@ void ScenarioManager::ThreadRoutine()
   }
 
   if (handler != nullptr)
-    handler();
+    handler(scenarioName);
 }
 
 void ScenarioManager::InterruptImpl()

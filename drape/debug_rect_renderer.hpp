@@ -1,13 +1,13 @@
 #pragma once
 
+#include "drape/drape_diagnostics.hpp"
+
 #include "drape/gpu_program_manager.hpp"
 #include "drape/overlay_tree.hpp"
 #include "drape/pointers.hpp"
 
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
-
-//#define RENDER_DEBUG_RECTS
 
 namespace dp
 {
@@ -39,3 +39,4 @@ private:
 };
 
 } // namespace dp
+

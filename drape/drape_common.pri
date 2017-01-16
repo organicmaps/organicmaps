@@ -66,6 +66,7 @@ HEADERS += \
     $$DRAPE_DIR/data_buffer.hpp \
     $$DRAPE_DIR/data_buffer_impl.hpp \
     $$DRAPE_DIR/debug_rect_renderer.hpp \
+    $$DRAPE_DIR/drape_diagnostics.hpp \
     $$DRAPE_DIR/drape_global.hpp \
     $$DRAPE_DIR/dynamic_texture.hpp \
     $$DRAPE_DIR/font_texture.hpp \

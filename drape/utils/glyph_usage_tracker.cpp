@@ -9,18 +9,10 @@
 namespace dp
 {
 
-GlyphUsageTracker & GlyphUsageTracker::Instance()
+string GlyphUsageTracker::GlyphUsageStatistic::ToString() const
 {
-  static GlyphUsageTracker s_inst;
-  return s_inst;
-}
-
-string GlyphUsageTracker::Report()
-{
-  lock_guard<mutex> lock(m_mutex);
-
   ostringstream ss;
-  ss << "\n ===== Glyphs Usage Report ===== \n";
+  ss << " ----- Glyphs usage report ----- \n";
   ss << " Current language = " << languages::GetCurrentOrig() << "\n";
   ss << " Invalid glyphs count = " << m_invalidGlyphs.size() << "\n";
   ss << " Invalid glyphs: { ";
@@ -40,9 +32,21 @@ string GlyphUsageTracker::Report()
     ss << "}\n";
   }
   ss << " }\n";
-  ss << " ===== Glyphs Usage Report ===== \n";
+  ss << " ----- Glyphs usage report ----- \n";
 
   return ss.str();
+}
+
+GlyphUsageTracker & GlyphUsageTracker::Instance()
+{
+  static GlyphUsageTracker s_inst;
+  return s_inst;
+}
+
+GlyphUsageTracker::GlyphUsageStatistic GlyphUsageTracker::Report()
+{
+  lock_guard<mutex> lock(m_mutex);
+  return m_glyphStat;
 }
 
 void GlyphUsageTracker::AddInvalidGlyph(strings::UniString const & str, strings::UniChar const & c)
@@ -52,7 +56,7 @@ void GlyphUsageTracker::AddInvalidGlyph(strings::UniString const & str, strings:
   if (m_processedStrings.find(strings::ToUtf8(str)) != m_processedStrings.end())
     return;
 
-  ++m_invalidGlyphs[c];
+  ++m_glyphStat.m_invalidGlyphs[c];
 
   m_processedStrings.insert(strings::ToUtf8(str));
 }
@@ -65,7 +69,7 @@ void GlyphUsageTracker::AddUnexpectedGlyph(strings::UniString const & str, strin
   if (m_processedStrings.find(strings::ToUtf8(str)) != m_processedStrings.end())
     return;
 
-  UnexpectedGlyphData & data = m_unexpectedGlyphs[c];
+  UnexpectedGlyphData & data = m_glyphStat.m_unexpectedGlyphs[c];
   ++data.m_counter;
   data.m_expectedGroups.emplace(expectedGroup);
   data.m_group = group;

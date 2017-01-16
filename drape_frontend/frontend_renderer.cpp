@@ -2,6 +2,8 @@
 #include "drape_frontend/gui/drape_gui.hpp"
 #include "drape_frontend/gui/ruler_helper.hpp"
 #include "drape_frontend/animation_system.hpp"
+#include "drape_frontend/batch_merge_helper.hpp"
+#include "drape_frontend/drape_measurer.hpp"
 #include "drape_frontend/framebuffer.hpp"
 #include "drape_frontend/frontend_renderer.hpp"
 #include "drape_frontend/message_subclasses.hpp"
@@ -10,7 +12,7 @@
 #include "drape_frontend/transparent_layer.hpp"
 #include "drape_frontend/visual_params.hpp"
 #include "drape_frontend/user_mark_shapes.hpp"
-#include "drape_frontend/batch_merge_helper.hpp"
+
 
 #include "drape/debug_rect_renderer.hpp"
 #include "drape/shader_def.hpp"
@@ -140,11 +142,6 @@ FrontendRenderer::FrontendRenderer(Params const & params)
   , m_scenarioManager(new ScenarioManager(this))
 #endif
 {
-#ifdef DRAW_INFO
-  m_tpf = 0.0;
-  m_fps = 0.0;
-#endif
-
 #ifdef DEBUG
   m_isTeardowned = false;
 #endif
@@ -173,43 +170,6 @@ void FrontendRenderer::Teardown()
   m_isTeardowned = true;
 #endif
 }
-
-#ifdef DRAW_INFO
-void FrontendRenderer::BeforeDrawFrame()
-{
-  m_frameStartTime = m_timer.ElapsedSeconds();
-}
-
-void FrontendRenderer::AfterDrawFrame()
-{
-  m_drawedFrames++;
-
-  double elapsed = m_timer.ElapsedSeconds();
-  m_tpfs.push_back(elapsed - m_frameStartTime);
-
-  if (elapsed > 1.0)
-  {
-    m_timer.Reset();
-    m_fps = m_drawedFrames / elapsed;
-    m_drawedFrames = 0;
-
-    m_tpf = accumulate(m_tpfs.begin(), m_tpfs.end(), 0.0) / m_tpfs.size();
-
-    LOG(LINFO, ("Average Fps : ", m_fps));
-    LOG(LINFO, ("Average Tpf : ", m_tpf));
-
-#if defined(TRACK_GPU_MEM)
-    string report = dp::GPUMemTracker::Inst().Report();
-    LOG(LINFO, (report));
-#endif
-#if defined(TRACK_GLYPH_USAGE)
-    string glyphReport = dp::GlyphUsageTracker::Instance().Report();
-    LOG(LINFO, (glyphReport));
-#endif
-  }
-}
-
-#endif
 
 void FrontendRenderer::UpdateCanBeDeletedStatus()
 {
@@ -302,7 +262,12 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         UpdateCanBeDeletedStatus();
 
       if (m_notFinishedTiles.empty())
+      {
+#if defined(DRAPE_MEASURER) && defined(GENERATING_STATISTIC)
+        DrapeMeasurer::Instance().EndScenePreparing();
+#endif
         m_trafficRenderer->OnGeometryReady(m_currentZoomLevel);
+      }
       break;
     }
 
@@ -1110,8 +1075,8 @@ void FrontendRenderer::EndUpdateOverlayTree()
 
 void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 {
-#ifdef DRAW_INFO
-  BeforeDrawFrame();
+#if defined(DRAPE_MEASURER) && (defined(RENDER_STATISTIC) || defined(TRACK_GPU_MEM))
+  DrapeMeasurer::Instance().BeforeRenderFrame();
 #endif
 
   GLFunctions::glEnable(gl_const::GLDepthTest);
@@ -1174,8 +1139,8 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
     dp::DebugRectRenderer::Instance().DrawArrow(modelView, arrow);
 #endif
 
-#ifdef DRAW_INFO
-  AfterDrawFrame();
+#if defined(DRAPE_MEASURER) && (defined(RENDER_STATISTIC) || defined(TRACK_GPU_MEM))
+  DrapeMeasurer::Instance().AfterRenderFrame();
 #endif
 
   MergeBuckets();
@@ -1619,6 +1584,10 @@ TTilesCollection FrontendRenderer::ResolveTileKeys(ScreenBase const & screen)
   });
 
   m_trafficRenderer->OnUpdateViewport(result, m_currentZoomLevel, tilesToDelete);
+
+#if defined(DRAPE_MEASURER) && defined(GENERATING_STATISTIC)
+  DrapeMeasurer::Instance().StartScenePreparing();
+#endif
 
   return tiles;
 }

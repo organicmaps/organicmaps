@@ -6,50 +6,58 @@
 namespace dp
 {
 
+string GPUMemTracker::GPUMemorySnapshot::ToString() const
+{
+  ostringstream ss;
+  ss << " Summary Allocated = " << m_summaryAllocatedInMb << "Mb\n";
+  ss << " Summary Used = " << m_summaryUsedInMb << "Mb\n";
+  ss << " Tags registered = " << m_tagStats.size() << "\n";
+
+  for (auto const it : m_tagStats)
+  {
+    ss << " Tag = " << it.first << " \n";
+    ss << "   Object count = " << it.second.m_objectsCount << "\n";
+    ss << "   Allocated    = " << it.second.m_alocatedInMb << "Mb\n";
+    ss << "   Used         = " << it.second.m_usedInMb << "Mb\n";
+  }
+
+  return ss.str();
+}
+
 GPUMemTracker & GPUMemTracker::Inst()
 {
   static GPUMemTracker s_inst;
   return s_inst;
 }
 
-string GPUMemTracker::Report()
+GPUMemTracker::GPUMemorySnapshot GPUMemTracker::GetMemorySnapshot()
 {
-  uint32_t summaryUsed = 0;
-  uint32_t summaryAllocated = 0;
+  GPUMemorySnapshot memStat;
 
-  typedef tuple<size_t, uint32_t, uint32_t> TTagStat;
-  map<string, TTagStat> tagStats;
-
-  for (auto const it : m_memTracker)
   {
-    TTagStat & stat = tagStats[it.first.first];
-    get<0>(stat)++;
-    get<1>(stat) += it.second.first;
-    get<2>(stat) += it.second.second;
+    threads::MutexGuard g(m_mutex);
+    for (auto const it : m_memTracker)
+    {
+      TagMemorySnapshot & tagStat = memStat.m_tagStats[it.first.first];
+      tagStat.m_objectsCount++;
+      tagStat.m_alocatedInMb += it.second.first;
+      tagStat.m_usedInMb += it.second.second;
 
-    summaryAllocated += it.second.first;
-    summaryUsed += it.second.second;
+      memStat.m_summaryAllocatedInMb += it.second.first;
+      memStat.m_summaryUsedInMb += it.second.second;
+    }
   }
 
   float byteToMb = static_cast<float>(1024 * 1024);
-
-  ostringstream ss;
-  ss << " ===== Mem Report ===== \n";
-  ss << " Summary Allocated = " << summaryAllocated / byteToMb << "\n";
-  ss << " Summary Used = " << summaryUsed / byteToMb << "\n";
-  ss << " Tags registered = " << tagStats.size() << "\n";
-
-  for (auto const it : tagStats)
+  for (auto & it : memStat.m_tagStats)
   {
-    ss << " Tag = " << it.first << " \n";
-    ss << "   Object count = " << get<0>(it.second) << "\n";
-    ss << "   Allocated    = " << get<1>(it.second) / byteToMb << "\n";
-    ss << "   Used         = " << get<2>(it.second) / byteToMb << "\n";
+    it.second.m_alocatedInMb /= byteToMb;
+    it.second.m_usedInMb /= byteToMb;
   }
+  memStat.m_summaryAllocatedInMb /= byteToMb;
+  memStat.m_summaryUsedInMb /= byteToMb;
 
-  ss << " ===== Mem Report ===== \n";
-
-  return ss.str();
+  return memStat;
 }
 
 void GPUMemTracker::AddAllocated(string const & tag, uint32_t id, uint32_t size)
@@ -63,7 +71,7 @@ void GPUMemTracker::SetUsed(string const & tag, uint32_t id, uint32_t size)
   threads::MutexGuard g(m_mutex);
   TAlocUsedMem & node = m_memTracker[make_pair(tag, id)];
   node.second = size;
-  ASSERT_LESS_OR_EQUAL(node.second, node.first, ("Can't use more then allocated"));
+  ASSERT_LESS_OR_EQUAL(node.second, node.first, ("Can't use more than allocated"));
 }
 
 void GPUMemTracker::RemoveDeallocated(string const & tag, uint32_t id)

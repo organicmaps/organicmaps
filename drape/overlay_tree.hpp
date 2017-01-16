@@ -1,5 +1,6 @@
 #pragma once
 
+#include "drape/drape_diagnostics.hpp"
 #include "drape/overlay_handle.hpp"
 
 #include "geometry/screenbase.hpp"
@@ -13,8 +14,6 @@
 
 namespace dp
 {
-
-//#define COLLECT_DISPLACEMENT_INFO
 
 namespace detail
 {

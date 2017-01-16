@@ -2,6 +2,8 @@
 
 #include "drape_frontend/frontend_renderer.hpp"
 
+#include "drape/drape_diagnostics.hpp"
+
 #include "geometry/point2d.hpp"
 
 #include "base/stl_add.hpp"
@@ -12,8 +14,6 @@
 #include <memory>
 #include <mutex>
 #include <vector>
-
-#define SCENARIO_ENABLE
 
 namespace df
 {
@@ -65,12 +65,19 @@ public:
   };
 
   using Scenario = std::vector<std::unique_ptr<Action>>;
-  using OnFinishHandler = std::function<void()>;
+  using ScenarioCallback = std::function<void(std::string const & name)>;
+
+  struct ScenarioData
+  {
+    std::string m_name;
+    Scenario m_scenario;
+  };
 
   ScenarioManager(FrontendRenderer * frontendRenderer);
   ~ScenarioManager();
 
-  bool RunScenario(Scenario && scenario, OnFinishHandler const & handler);
+  bool RunScenario(ScenarioData && scenarioData,
+                   ScenarioCallback const & startHandler, ScenarioCallback const & finishHandler);
   void Interrupt();
   bool IsRunning();
 
@@ -81,10 +88,11 @@ private:
   FrontendRenderer * m_frontendRenderer;
 
   std::mutex m_mutex;
-  Scenario m_scenario;
+  ScenarioData m_scenarioData;
   bool m_needInterrupt;
   bool m_isFinished;
-  OnFinishHandler m_onFinishHandler;
+  ScenarioCallback m_onStartHandler;
+  ScenarioCallback m_onFinishHandler;
 #ifdef DEBUG
   std::thread::id m_threadId;
 #endif

@@ -574,12 +574,13 @@ void DrapeEngine::SetFontScaleFactor(double scaleFactor)
   VisualParams::Instance().SetFontScale(scaleFactor);
 }
 
-void DrapeEngine::RunScenario(ScenarioManager::Scenario && scenario,
-                              ScenarioManager::OnFinishHandler const & handler)
+void DrapeEngine::RunScenario(ScenarioManager::ScenarioData && scenarioData,
+                              ScenarioManager::ScenarioCallback const & onStartFn,
+                              ScenarioManager::ScenarioCallback const & onFinishFn)
 {
   auto const & manager = m_frontend->GetScenarioManager();
   if (manager != nullptr)
-    manager->RunScenario(move(scenario), handler);
+    manager->RunScenario(move(scenarioData), onStartFn, onFinishFn);
 }
 
 } // namespace df

@@ -3,6 +3,7 @@
 #include "drape_frontend/backend_renderer.hpp"
 #include "drape_frontend/batchers_pool.hpp"
 #include "drape_frontend/drape_api_builder.hpp"
+#include "drape_frontend/drape_measurer.hpp"
 #include "drape_frontend/gps_track_shape.hpp"
 #include "drape_frontend/map_shape.hpp"
 #include "drape_frontend/message_subclasses.hpp"
@@ -204,11 +205,17 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       if (m_requestedTiles->CheckTileKey(tileKey) && m_readManager->CheckTileKey(tileKey))
       {
         ref_ptr<dp::Batcher> batcher = m_batchersPool->GetBatcher(tileKey);
+#if defined(DRAPE_MEASURER) && defined(GENERATING_STATISTIC)
+        DrapeMeasurer::Instance().StartShapesGeneration();
+#endif
         for (drape_ptr<MapShape> const & shape : msg->GetShapes())
         {
           batcher->SetFeatureMinZoom(shape->GetFeatureMinZoom());
           shape->Draw(batcher, m_texMng);
         }
+#if defined(DRAPE_MEASURER) && defined(GENERATING_STATISTIC)
+        DrapeMeasurer::Instance().EndShapesGeneration(static_cast<uint32_t>(msg->GetShapes().size()));
+#endif
       }
       break;
     }
@@ -221,6 +228,9 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       {
         CleanupOverlays(tileKey);
 
+#if defined(DRAPE_MEASURER) && defined(GENERATING_STATISTIC)
+        DrapeMeasurer::Instance().StartOverlayShapesGeneration();
+#endif
         OverlayBatcher batcher(tileKey);
         for (drape_ptr<MapShape> const & shape : msg->GetShapes())
           batcher.Batch(shape, m_texMng);
@@ -232,6 +242,11 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
           m_overlays.reserve(m_overlays.size() + renderData.size());
           move(renderData.begin(), renderData.end(), back_inserter(m_overlays));
         }
+
+#if defined(DRAPE_MEASURER) && defined(GENERATING_STATISTIC)
+        DrapeMeasurer::Instance().EndOverlayShapesGeneration(
+              static_cast<uint32_t>(msg->GetShapes().size()));
+#endif
       }
       break;
     }

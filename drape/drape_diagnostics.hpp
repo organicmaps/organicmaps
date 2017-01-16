@@ -1,0 +1,19 @@
+#pragma once
+
+//#define DRAW_TILE_NET
+//#define RENDER_DEBUG_RECTS
+//#define COLLECT_DISPLACEMENT_INFO
+
+//#define DRAPE_MEASURER
+//#define SCENARIO_ENABLE
+
+#ifdef DRAPE_MEASURER
+
+//#define RENDER_STATISTIC
+//#define TILES_STATISTIC
+//#define GENERATING_STATISTIC
+
+//#define TRACK_GPU_MEM
+//#define TRACK_GLYPH_USAGE
+
+#endif

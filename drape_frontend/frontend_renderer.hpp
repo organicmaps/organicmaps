@@ -2,12 +2,6 @@
 
 #include "base/thread.hpp"
 
-#ifdef DRAW_INFO
-  #include "base/timer.hpp"
-  #include "std/vector.hpp"
-  #include "std/numeric.hpp"
-#endif
-
 #include "drape_frontend/gui/layer_render.hpp"
 
 #include "drape_frontend/backend_renderer.hpp"
@@ -129,19 +123,6 @@ public:
   ~FrontendRenderer() override;
 
   void Teardown();
-
-#ifdef DRAW_INFO
-  double m_tpf;
-  double m_fps;
-
-  my::Timer m_timer;
-  double m_frameStartTime;
-  vector<double> m_tpfs;
-  int m_drawedFrames;
-
-  void BeforeDrawFrame();
-  void AfterDrawFrame();
-#endif
 
   void AddUserEvent(drape_ptr<UserEvent> && event);
 

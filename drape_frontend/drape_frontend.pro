@@ -8,7 +8,6 @@ include($$ROOT_DIR/common.pri)
 INCLUDEPATH *= $$ROOT_DIR/3party/protobuf/src
 INCLUDEPATH *= $$ROOT_DIR/3party/expat/lib
 INCLUDEPATH *= $$ROOT_DIR/3party/freetype/include
-#DEFINES += DRAW_INFO
 
 SOURCES += \
     $$ROOT_DIR/3party/agg/agg_curves.cpp \
@@ -50,6 +49,7 @@ SOURCES += \
     drape_api_builder.cpp \
     drape_api_renderer.cpp \
     drape_engine.cpp \
+    drape_measurer.cpp \
     engine_context.cpp \
     framebuffer.cpp \
     frontend_renderer.cpp \
@@ -150,6 +150,7 @@ HEADERS += \
     drape_api_builder.hpp \
     drape_api_renderer.hpp \
     drape_engine.hpp \
+    drape_measurer.hpp \
     engine_context.hpp \
     framebuffer.hpp \
     frontend_renderer.hpp \

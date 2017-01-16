@@ -208,6 +208,8 @@
 		67E91C7C1BDFC85E005CEE88 /* selection_shape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670947701BDF9BE0005014C0 /* selection_shape.cpp */; };
 		67E91C7D1BDFC85E005CEE88 /* user_marks_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6709478B1BDF9BE0005014C0 /* user_marks_provider.cpp */; };
 		67E91C7E1BDFC85E005CEE88 /* visual_params.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6709478F1BDF9BE1005014C0 /* visual_params.cpp */; };
+		BB035F6F1E3A2AAE00519962 /* drape_measurer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB035F6D1E3A2AAE00519962 /* drape_measurer.cpp */; };
+		BB035F701E3A2AAE00519962 /* drape_measurer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB035F6E1E3A2AAE00519962 /* drape_measurer.hpp */; };
 		F6B283101C1B04680081957A /* gps_track_point.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6B2830B1C1B04680081957A /* gps_track_point.hpp */; };
 		F6B283111C1B04680081957A /* gps_track_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6B2830C1C1B04680081957A /* gps_track_renderer.cpp */; };
 		F6B283121C1B04680081957A /* gps_track_renderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6B2830D1C1B04680081957A /* gps_track_renderer.hpp */; };
@@ -421,6 +423,8 @@
 		675D218B1BFB871D00717E4F /* text_engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = text_engine.h; sourceTree = "<group>"; };
 		677A2DE31C0DD55D00635A00 /* requested_tiles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = requested_tiles.cpp; sourceTree = "<group>"; };
 		677A2DE41C0DD55D00635A00 /* requested_tiles.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = requested_tiles.hpp; sourceTree = "<group>"; };
+		BB035F6D1E3A2AAE00519962 /* drape_measurer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = drape_measurer.cpp; sourceTree = "<group>"; };
+		BB035F6E1E3A2AAE00519962 /* drape_measurer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drape_measurer.hpp; sourceTree = "<group>"; };
 		F6B2830B1C1B04680081957A /* gps_track_point.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gps_track_point.hpp; sourceTree = "<group>"; };
 		F6B2830C1C1B04680081957A /* gps_track_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gps_track_renderer.cpp; sourceTree = "<group>"; };
 		F6B2830D1C1B04680081957A /* gps_track_renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gps_track_renderer.hpp; sourceTree = "<group>"; };
@@ -468,6 +472,8 @@
 				347F520A1DC2334A0064B273 /* drape_api_renderer.hpp */,
 				347F520B1DC2334A0064B273 /* drape_api.cpp */,
 				347F520C1DC2334A0064B273 /* drape_api.hpp */,
+				BB035F6D1E3A2AAE00519962 /* drape_measurer.cpp */,
+				BB035F6E1E3A2AAE00519962 /* drape_measurer.hpp */,
 				34C624BF1DABDB0400510300 /* traffic_generator.cpp */,
 				34C624C01DABDB0400510300 /* traffic_generator.hpp */,
 				34C624C11DABDB0400510300 /* traffic_renderer.cpp */,
@@ -806,6 +812,7 @@
 				670948751BDF9C7F005014C0 /* geometry_processors.hpp in Headers */,
 				6709487A1BDF9C7F005014C0 /* icon_info.hpp in Headers */,
 				670948151BDF9C39005014C0 /* base_interpolator.hpp in Headers */,
+				BB035F701E3A2AAE00519962 /* drape_measurer.hpp in Headers */,
 				670947A61BDF9BE1005014C0 /* my_position.hpp in Headers */,
 				675D21901BFB871D00717E4F /* software_renderer.hpp in Headers */,
 				670947A81BDF9BE1005014C0 /* navigator.hpp in Headers */,
@@ -923,6 +930,7 @@
 				45580ABA1E28DB2600CD535D /* scenario_manager.cpp in Sources */,
 				670947C81BDF9BE1005014C0 /* text_shape.cpp in Sources */,
 				34C624C31DABDB0400510300 /* traffic_generator.cpp in Sources */,
+				BB035F6F1E3A2AAE00519962 /* drape_measurer.cpp in Sources */,
 				670947CC1BDF9BE1005014C0 /* tile_info.cpp in Sources */,
 				34C624C51DABDB0400510300 /* traffic_renderer.cpp in Sources */,
 				670947961BDF9BE1005014C0 /* line_shape.cpp in Sources */,

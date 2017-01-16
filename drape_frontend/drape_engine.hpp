@@ -177,8 +177,9 @@ public:
 
   void SetFontScaleFactor(double scaleFactor);
 
-  void RunScenario(ScenarioManager::Scenario && scenario,
-                   ScenarioManager::OnFinishHandler const & handler);
+  void RunScenario(ScenarioManager::ScenarioData && scenarioData,
+                   ScenarioManager::ScenarioCallback const & onStartFn,
+                   ScenarioManager::ScenarioCallback const & onFinishFn);
 
 private:
   void AddUserEvent(drape_ptr<UserEvent> && e);

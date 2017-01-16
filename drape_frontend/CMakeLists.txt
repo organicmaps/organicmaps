@@ -69,6 +69,8 @@ set(
   drape_api_renderer.hpp
   drape_engine.cpp
   drape_engine.hpp
+  drape_measurer.cpp
+  drape_measurer.hpp
   engine_context.cpp
   engine_context.hpp
   framebuffer.cpp

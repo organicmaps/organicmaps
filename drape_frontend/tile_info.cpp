@@ -1,3 +1,4 @@
+#include "drape_frontend/drape_measurer.hpp"
 #include "drape_frontend/engine_context.hpp"
 #include "drape_frontend/map_data_provider.hpp"
 #include "drape_frontend/rule_drawer.hpp"
@@ -57,6 +58,9 @@ void TileInfo::ReadFeatureIndex(MapDataProvider const & model)
 
 void TileInfo::ReadFeatures(MapDataProvider const & model)
 {
+#if defined(DRAPE_MEASURER) && defined(TILES_STATISTIC)
+  DrapeMeasurer::Instance().StartTileReading();
+#endif
   m_context->BeginReadTile();
 
   // Reading can be interrupted by exception throwing
@@ -73,6 +77,9 @@ void TileInfo::ReadFeatures(MapDataProvider const & model)
                       make_ref(m_context), m_is3dBuildings, m_trafficEnabled);
     model.ReadFeatures(bind<void>(ref(drawer), _1), m_featureInfo);
   }
+#if defined(DRAPE_MEASURER) && defined(TILES_STATISTIC)
+  DrapeMeasurer::Instance().EndTileReading();
+#endif
 }
 
 void TileInfo::Cancel()
