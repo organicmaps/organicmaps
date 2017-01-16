@@ -15,7 +15,7 @@ final class WelcomePageController: UIPageViewController {
   fileprivate var controllers: [UIViewController] = []
   private var parentController: WelcomePageControllerProtocol!
   private var iPadBackgroundView: SolidTouchView?
-  private var isAnimatingTransition = false
+  private var isAnimatingTransition = true
   fileprivate var currentController: UIViewController! {
     get {
       return viewControllers?.first
