@@ -36,9 +36,7 @@ import com.mapswithme.maps.api.RoutePoint;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
-import com.mapswithme.maps.bookmarks.ChooseBookmarkCategoryFragment;
 import com.mapswithme.maps.bookmarks.data.Banner;
-import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.DownloaderActivity;
 import com.mapswithme.maps.downloader.DownloaderFragment;
@@ -109,7 +107,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  OnClickListener,
                                  MapFragment.MapRenderingListener,
                                  CustomNavigateUpListener,
-                                 ChooseBookmarkCategoryFragment.Listener,
                                  RoutingController.Container,
                                  LocationHelper.UiCallback,
                                  RoutingPlanController.OnToggleListener,
@@ -1417,14 +1414,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
 
     mMapFragment.setupRuler(offsetX, offsetY, true);
-  }
-
-  @Override
-  public void onCategoryChanged(int bookmarkId, int newCategoryId)
-  {
-    // TODO remove that hack after bookmarks will be refactored completely
-    Framework.nativeOnBookmarkCategoryChanged(newCategoryId, bookmarkId);
-    mPlacePage.setMapObject(BookmarkManager.INSTANCE.getBookmark(newCategoryId, bookmarkId), true);
   }
 
   @Override

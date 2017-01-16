@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.maps.bookmarks.ChooseBookmarkCategoryFragment;
@@ -34,9 +35,22 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
   private EditText mEtName;
   private TextView mTvBookmarkGroup;
   private ImageView mIvColor;
+  private int mCategoryId;
+  @Nullable
+  private Icon mIcon;
+  @Nullable
   private Bookmark mBookmark;
+  @Nullable
+  private EditBookmarkListener mListener;
 
-  public static void editBookmark(int categoryId, int bookmarkId, @NonNull Context context, @NonNull FragmentManager manager)
+  public interface EditBookmarkListener
+  {
+    void onBookmarkSaved(int categoryId, int bookmarkId);
+  }
+
+  public static void editBookmark(int categoryId, int bookmarkId, @NonNull Context context,
+                                  @NonNull FragmentManager manager,
+                                  @Nullable EditBookmarkListener listener)
   {
     final Bundle args = new Bundle();
     args.putInt(EXTRA_CATEGORY_ID, categoryId);
@@ -44,6 +58,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
     String name = EditBookmarkFragment.class.getName();
     final EditBookmarkFragment fragment = (EditBookmarkFragment) Fragment.instantiate(context, name, args);
     fragment.setArguments(args);
+    fragment.setEditBookmarkListener(listener);
     fragment.show(manager, name);
   }
 
@@ -68,10 +83,10 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
     super.onViewCreated(view, savedInstanceState);
 
     final Bundle args = getArguments();
-    int categoryId = args.getInt(EXTRA_CATEGORY_ID);
+    mCategoryId = args.getInt(EXTRA_CATEGORY_ID);
     int bookmarkId = args.getInt(EXTRA_BOOKMARK_ID);
-    mBookmark = BookmarkManager.INSTANCE.getBookmark(categoryId, bookmarkId);
-
+    mBookmark = BookmarkManager.INSTANCE.getBookmark(mCategoryId, bookmarkId);
+    mIcon = mBookmark.getIcon();
     mEtName = (EditText) view.findViewById(R.id.et__bookmark_name);
     mEtDescription = (EditText) view.findViewById(R.id.et__description);
     mTvBookmarkGroup = (TextView) view.findViewById(R.id.tv__bookmark_set);
@@ -109,7 +124,20 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
 
   private void saveBookmark()
   {
-    mBookmark.setParams(mEtName.getText().toString(), null, mEtDescription.getText().toString());
+    if (mBookmark == null)
+    {
+      dismiss();
+      return;
+    }
+    if (mBookmark.getCategoryId() != mCategoryId)
+    {
+      mBookmark.setCategoryId(mCategoryId);
+      Framework.nativeOnBookmarkCategoryChanged(mBookmark.getCategoryId(), mBookmark.getBookmarkId());
+    }
+    mBookmark.setParams(mEtName.getText().toString(), mIcon, mEtDescription.getText().toString());
+
+    if (mListener != null)
+      mListener.onBookmarkSaved(mBookmark.getCategoryId(), mBookmark.getBookmarkId());
     dismiss();
   }
 
@@ -129,17 +157,22 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
 
   private void selectBookmarkSet()
   {
+    if (mBookmark == null)
+      return;
+
     final Bundle args = new Bundle();
-    args.putInt(ChooseBookmarkCategoryFragment.CATEGORY_ID, mBookmark.getCategoryId());
-    args.putInt(ChooseBookmarkCategoryFragment.BOOKMARK_ID, mBookmark.getBookmarkId());
+    args.putInt(ChooseBookmarkCategoryFragment.CATEGORY_ID, mCategoryId);
     final ChooseBookmarkCategoryFragment fragment = (ChooseBookmarkCategoryFragment) Fragment.instantiate(getActivity(), ChooseBookmarkCategoryFragment.class.getName(), args);
     fragment.show(getChildFragmentManager(), null);
   }
 
   private void selectBookmarkColor()
   {
+    if (mIcon == null)
+      return;
+
     final Bundle args = new Bundle();
-    args.putString(BookmarkColorDialogFragment.ICON_TYPE, mBookmark.getIcon().getType());
+    args.putString(BookmarkColorDialogFragment.ICON_TYPE, mIcon.getType());
     final BookmarkColorDialogFragment dialogFragment = (BookmarkColorDialogFragment) BookmarkColorDialogFragment.
         instantiate(getActivity(), BookmarkColorDialogFragment.class.getName(), args);
 
@@ -149,14 +182,13 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
       public void onBookmarkColorSet(int colorPos)
       {
         final Icon newIcon = BookmarkManager.ICONS.get(colorPos);
-        final String from = mBookmark.getIcon().getName();
+        final String from = mIcon.getName();
         final String to = newIcon.getName();
         if (TextUtils.equals(from, to))
           return;
 
         Statistics.INSTANCE.trackColorChanged(from, to);
-        mBookmark.setParams(mBookmark.getTitle(), newIcon, mBookmark.getBookmarkDescription());
-        mBookmark = BookmarkManager.INSTANCE.getBookmark(mBookmark.getCategoryId(), mBookmark.getBookmarkId());
+        mIcon = newIcon;
         refreshColorMarker();
       }
     });
@@ -166,24 +198,38 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
 
   private void refreshColorMarker()
   {
-    mIvColor.setImageResource(mBookmark.getIcon().getSelectedResId());
+    if (mIcon != null)
+      mIvColor.setImageResource(mIcon.getSelectedResId());
+  }
+
+  private void refreshCategory()
+  {
+    mTvBookmarkGroup.setText(BookmarkManager.INSTANCE.getCategory(mCategoryId).getName());
   }
 
   private void refreshBookmark()
   {
+    if (mBookmark == null)
+      return;
+
     if (TextUtils.isEmpty(mEtName.getText()))
       mEtName.setText(mBookmark.getTitle());
 
     if (TextUtils.isEmpty(mEtDescription.getText()))
       mEtDescription.setText(mBookmark.getBookmarkDescription());
-    mTvBookmarkGroup.setText(mBookmark.getCategoryName());
+    refreshCategory();
     refreshColorMarker();
   }
 
   @Override
-  public void onCategoryChanged(int bookmarkId, int newCategoryId)
+  public void onCategoryChanged(int newCategoryId)
   {
-    mBookmark = BookmarkManager.INSTANCE.getBookmark(newCategoryId, bookmarkId);
-    refreshBookmark();
+    mCategoryId = newCategoryId;
+    refreshCategory();
+  }
+
+  public void setEditBookmarkListener(@Nullable EditBookmarkListener listener)
+  {
+    mListener = listener;
   }
 }

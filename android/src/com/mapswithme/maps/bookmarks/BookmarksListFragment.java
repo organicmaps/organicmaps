@@ -174,7 +174,15 @@ public class BookmarksListFragment extends BaseMwmListFragment
       break;
 
     case R.id.edit:
-      EditBookmarkFragment.editBookmark(mCategory.getId(), item.getBookmarkId(), getActivity(), getChildFragmentManager());
+      EditBookmarkFragment.editBookmark(mCategory.getId(), item.getBookmarkId(), getActivity(),
+                                        getChildFragmentManager(), new EditBookmarkFragment.EditBookmarkListener()
+          {
+            @Override
+            public void onBookmarkSaved(int categoryId, int bookmarkId)
+            {
+              mAdapter.notifyDataSetChanged();
+            }
+          });
       break;
 
     case R.id.delete:

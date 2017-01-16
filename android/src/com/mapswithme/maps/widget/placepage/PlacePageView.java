@@ -98,7 +98,8 @@ public class PlacePageView extends RelativeLayout
                RecyclerClickListener,
                NearbyAdapter.OnItemClickListener,
                BannerController.OnBannerClickListener,
-               BottomPlacePageAnimationController.OnBannerOpenListener
+               BottomPlacePageAnimationController.OnBannerOpenListener,
+               EditBookmarkFragment.EditBookmarkListener
 {
   private static final String PREF_USE_DMS = "use_dms";
 
@@ -1337,7 +1338,8 @@ public class PlacePageView extends RelativeLayout
       case R.id.tv__bookmark_edit:
         Bookmark bookmark = (Bookmark) mMapObject;
         EditBookmarkFragment.editBookmark(bookmark.getCategoryId(), bookmark.getBookmarkId(),
-                                          getActivity(), getActivity().getSupportFragmentManager());
+                                          getActivity(), getActivity().getSupportFragmentManager(),
+                                          this);
         break;
       case R.id.tv__place_hotel_more:
         UiUtils.hide(mHotelMoreDescription);
@@ -1564,5 +1566,11 @@ public class PlacePageView extends RelativeLayout
   MwmActivity getActivity()
   {
     return (MwmActivity) getContext();
+  }
+
+  @Override
+  public void onBookmarkSaved(int categoryId, int bookmarkId)
+  {
+    setMapObject(BookmarkManager.INSTANCE.getBookmark(categoryId, bookmarkId), true);
   }
 }
