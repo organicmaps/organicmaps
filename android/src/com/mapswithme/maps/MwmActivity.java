@@ -2,6 +2,7 @@ package com.mapswithme.maps;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Rect;
@@ -129,6 +130,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   // Instance state
   private static final String STATE_PP = "PpState";
   private static final String STATE_MAP_OBJECT = "MapObject";
+  private static final String EXTRA_LOCATION_DIALOG_IS_ANNOYING = "LOCATION_DIALOG_IS_ANNOYING";
 
   // Map tasks that we run AFTER rendering initialized
   private final Stack<MapTask> mTasks = new Stack<>();
@@ -172,6 +174,21 @@ public class MwmActivity extends BaseMwmFragmentActivity
   // The first launch of application ever - onboarding screen will be shown.
   private boolean mFirstStart;
   private boolean mPlacePageRestored;
+
+  private boolean mLocationErrorDialogAnnoying = false;
+
+  @NonNull
+  private final OnClickListener mOnMyPositionClickListener = new OnClickListener()
+  {
+    @Override
+    public void onClick(View v)
+    {
+      mLocationErrorDialogAnnoying = false;
+      LocationHelper.INSTANCE.switchToNextMode();
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.TOOLBAR_MY_POSITION);
+      AlohaHelper.logClick(AlohaHelper.TOOLBAR_MY_POSITION);
+    }
+  };
 
   public interface LeftAnimationTrackListener
   {
@@ -430,6 +447,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onCreate(savedInstanceState);
 
+    if (savedInstanceState != null)
+      mLocationErrorDialogAnnoying = savedInstanceState.getBoolean(EXTRA_LOCATION_DIALOG_IS_ANNOYING);
+
     mIsFragmentContainer = getResources().getBoolean(R.bool.tabletLayout);
 
     if (!mIsFragmentContainer && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP))
@@ -602,7 +622,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     View zoomOut = frame.findViewById(R.id.nav_zoom_out);
     zoomOut.setOnClickListener(this);
     View myPosition = frame.findViewById(R.id.my_position);
-    mNavMyPosition = new MyPositionButton(myPosition);
+    mNavMyPosition = new MyPositionButton(myPosition, mOnMyPositionClickListener);
     ImageButton traffic = (ImageButton) frame.findViewById(R.id.traffic);
     mTraffic = new TrafficButton(this, traffic);
     mTrafficButtonController = new TrafficButtonController(mTraffic, this);
@@ -842,6 +862,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mNavigationController.onSaveState(outState);
 
     RoutingController.get().onSaveState();
+    outState.putBoolean(EXTRA_LOCATION_DIALOG_IS_ANNOYING, mLocationErrorDialogAnnoying);
     super.onSaveInstanceState(outState);
   }
 
@@ -960,14 +981,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mFirstStart = FirstStartFragment.showOn(this);
       if (mFirstStart)
       {
-        if (LocationState.isTurnedOn())
+        if (LocationHelper.INSTANCE.isTurnedOn())
           addTask(new MwmActivity.MapTask()
           {
             @Override
             public boolean run(MwmActivity target)
             {
-              if (LocationState.isTurnedOn())
-                LocationState.nativeSwitchToNextMode();
+              if (LocationHelper.INSTANCE.isTurnedOn())
+                LocationHelper.INSTANCE.switchToNextMode();
               return false;
             }
           });
@@ -1732,5 +1753,54 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public boolean shouldNotifyLocationNotFound()
   {
     return (mMapFragment != null && !mMapFragment.isFirstStart());
+  }
+
+  @Override
+  public void onLocationError()
+  {
+    if (mLocationErrorDialogAnnoying)
+      return;
+
+    Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+    if (intent.resolveActivity(MwmApplication.get().getPackageManager()) == null)
+    {
+      intent = new Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS);
+      if (intent.resolveActivity(MwmApplication.get().getPackageManager()) == null)
+        return;
+    }
+
+    showLocationErrorDialog(intent);
+  }
+
+  private void showLocationErrorDialog(@NonNull final Intent intent)
+  {
+    new AlertDialog.Builder(this)
+        .setTitle(R.string.enable_location_services)
+        .setMessage(R.string.location_is_disabled_long_text)
+        .setNegativeButton(R.string.close, new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dialog, int which)
+          {
+            mLocationErrorDialogAnnoying = true;
+          }
+        })
+        .setOnCancelListener(new DialogInterface.OnCancelListener()
+        {
+          @Override
+          public void onCancel(DialogInterface dialog)
+          {
+            mLocationErrorDialogAnnoying = true;
+          }
+        })
+        .setPositiveButton(R.string.connection_settings, new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dialog, int which)
+          {
+            //TODO: try to use startActivityForResult to handle settings result back
+            startActivity(intent);
+          }
+        }).show();
   }
 }

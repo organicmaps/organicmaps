@@ -3,7 +3,6 @@ package com.mapswithme.maps.location;
 import android.location.Location;
 
 import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.LocationState;
 import com.mapswithme.util.concurrency.UiThread;
 
 class LocationPredictor

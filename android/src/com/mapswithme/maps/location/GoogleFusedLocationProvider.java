@@ -93,6 +93,7 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
 
   private void checkSettingsAndRequestUpdates()
   {
+    sLogger.d("checkSettingsAndRequestUpdates()");
     LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(mLocationRequest);
     builder.setAlwaysShow(true); // hides 'never' button in resolve dialog afterwards.
     mLocationSettingsResult = LocationServices.SettingsApi.checkLocationSettings(mGoogleApiClient, builder.build());
@@ -102,6 +103,7 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
       public void onResult(@NonNull LocationSettingsResult locationSettingsResult)
       {
         final Status status = locationSettingsResult.getStatus();
+        sLogger.d("onResult status: " + status);
         switch (status.getStatusCode())
         {
         case LocationSettingsStatusCodes.SUCCESS:
@@ -124,6 +126,7 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
 
   private static void resolveError(Status status)
   {
+    sLogger.d("resolveError()");
     if (LocationHelper.INSTANCE.isLocationStopped())
       return;
 

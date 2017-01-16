@@ -7,15 +7,13 @@ import android.util.SparseArray;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.mapswithme.maps.LocationState;
+import com.mapswithme.maps.location.LocationState;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.util.Animations;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.statistics.AlohaHelper;
-import com.mapswithme.util.statistics.Statistics;
 
 public class MyPositionButton
 {
@@ -25,20 +23,10 @@ public class MyPositionButton
 
   private int mMode;
 
-  public MyPositionButton(@NonNull View button)
+  public MyPositionButton(@NonNull View button, @NonNull View.OnClickListener listener)
   {
     mButton = (ImageView) button;
-    mButton.setOnClickListener(new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        LocationState.nativeSwitchToNextMode();
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.TOOLBAR_MY_POSITION);
-        AlohaHelper.logClick(AlohaHelper.TOOLBAR_MY_POSITION);
-      }
-    });
-
+    mButton.setOnClickListener(listener);
     mIcons.clear();
   }
 

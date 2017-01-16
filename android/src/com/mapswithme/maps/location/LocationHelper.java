@@ -9,14 +9,12 @@ import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 
 import java.lang.ref.WeakReference;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.LocationState;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.Banner;
@@ -55,12 +53,15 @@ public enum LocationHelper
   private static final long STOP_DELAY_MS = 5000;
   static final int REQUEST_RESOLVE_ERROR = 101;
 
+  private boolean mErrorOccurred;
+
   public interface UiCallback
   {
     Activity getActivity();
     void onMyPositionModeChanged(int newMode);
     void onLocationUpdated(@NonNull Location location);
     void onCompassUpdated(@NonNull CompassData compass);
+    void onLocationError();
     boolean shouldNotifyLocationNotFound();
   }
 
@@ -87,11 +88,11 @@ public enum LocationHelper
       {
         MwmApplication.get().unregisterReceiver(mReceiver);
         mReceiverRegistered = false;
-        return;
       }
     }
   };
 
+  @NonNull
   private final LocationListener mLocationListener = new LocationListener()
   {
     @Override
@@ -125,43 +126,35 @@ public enum LocationHelper
         mUiCallback.onCompassUpdated(mCompassData);
     }
 
+
     @Override
     public void onLocationError(int errorCode)
     {
+      mErrorOccurred = true;
+      mLogger.d("onLocationError errorCode = " + errorCode);
       if (mLocationStopped)
         return;
 
       nativeOnLocationError(errorCode);
+      mLogger.d("nativeOnLocationError errorCode = " + errorCode +", " +
+                "state machine should stop pending, current state = "
+                + LocationState.nameOf(LocationState.getMode()));
 
       if (mUiCallback == null)
         return;
 
-      Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-      if (intent.resolveActivity(MwmApplication.get().getPackageManager()) == null)
-      {
-        intent = new Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS);
-        if (intent.resolveActivity(MwmApplication.get().getPackageManager()) == null)
-          return;
-      }
+      mUiCallback.onLocationError();
+    }
 
-      final Intent finIntent = intent;
-      new AlertDialog.Builder(mUiCallback.getActivity())
-          .setTitle(R.string.enable_location_services)
-          .setMessage(R.string.location_is_disabled_long_text)
-          .setNegativeButton(R.string.close, null)
-          .setPositiveButton(R.string.connection_settings, new DialogInterface.OnClickListener()
-          {
-            @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
-              if (mUiCallback != null)
-                mUiCallback.getActivity().startActivity(finIntent);
-            }
-          }).show();
+    @Override
+    public String toString()
+    {
+      return "LocationHelper.mLocationListener";
     }
   };
 
   private final Logger mLogger = new DebugLogger(LocationHelper.class.getSimpleName());
+  @NonNull
   private final Listeners<LocationListener> mListeners = new Listeners<>();
 
   private boolean mActive;
@@ -172,10 +165,12 @@ public enum LocationHelper
   private Location mSavedLocation;
   private MapObject mMyPosition;
   private long mSavedLocationTime;
-
+  @NonNull
   private final SensorHelper mSensorHelper = new SensorHelper();
   private BaseLocationProvider mLocationProvider;
+  @NonNull
   private final LocationPredictor mPredictor = new LocationPredictor(mLocationListener);
+  @Nullable
   private UiCallback mUiCallback;
   private WeakReference<UiCallback> mPrevUiCallback;
 
@@ -190,7 +185,8 @@ public enum LocationHelper
     public void onMyPositionModeChanged(int newMode)
     {
       notifyMyPositionModeChanged(newMode);
-
+      mLogger.d("onMyPositionModeChanged mode = " + LocationState.nameOf(newMode) +
+                " mColdStart = " + mColdStart + " mErrorOccurred = " + mErrorOccurred);
       switch (newMode)
       {
       case LocationState.PENDING_POSITION:
@@ -198,7 +194,7 @@ public enum LocationHelper
         break;
 
       case LocationState.NOT_FOLLOW_NO_POSITION:
-        if (mColdStart)
+        if (mColdStart && !mErrorOccurred)
         {
           LocationState.nativeSwitchToNextMode();
           break;
@@ -223,6 +219,7 @@ public enum LocationHelper
       }
 
       mColdStart = false;
+      mErrorOccurred = false;
     }
   };
 
@@ -256,9 +253,13 @@ public enum LocationHelper
 
   public void initProvider(boolean forceNative)
   {
+    mLogger.d("initProvider forceNative = " + forceNative);
     mActive = !mListeners.isEmpty();
     if (mActive)
+    {
+      mLogger.d("Stop the active provider '" + mLocationProvider + "' before starting the new one");
       stopInternal();
+    }
 
     final MwmApplication application = MwmApplication.get();
     final boolean containsGoogleServices = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(application) == ConnectionResult.SUCCESS;
@@ -319,6 +320,25 @@ public enum LocationHelper
   public Location getSavedLocation() { return mSavedLocation; }
 
   public long getSavedLocationTime() { return mSavedLocationTime; }
+
+  public void switchToNextMode()
+  {
+    if (mErrorOccurred)
+    {
+      mLogger.d("Location services are still not available, no need to switch to the next mode.");
+      notifyLocationError(ERROR_DENIED);
+      return;
+    }
+    LocationState.nativeSwitchToNextMode();
+  }
+
+  /**
+   * @see LocationState#isTurnedOn()
+   */
+  public boolean isTurnedOn()
+  {
+    return LocationState.isTurnedOn();
+  }
 
   void notifyCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
@@ -428,7 +448,7 @@ public enum LocationHelper
     return mLocationStopped;
   }
 
-  void stop()
+  public void stop()
   {
     mLogger.d("stop()");
     mLocationStopped = true;
@@ -511,6 +531,12 @@ public enum LocationHelper
     removeListener(listener, false);
   }
 
+  @android.support.annotation.UiThread
+  public void removeListener()
+  {
+    removeListener(mLocationListener);
+  }
+
   void startSensors()
   {
     mSensorHelper.start();
@@ -584,6 +610,7 @@ public enum LocationHelper
    */
   public void restart()
   {
+    mLogger.d("restart()");
     mActive &= !mListeners.isEmpty();
     if (!mActive)
     {
@@ -624,13 +651,16 @@ public enum LocationHelper
    */
   private void startInternal()
   {
-    mLogger.d("startInternal()");
+    mLogger.d("startInternal(), current provider is '" + mLocationProvider + "'");
 
     mActive = mLocationProvider.start();
     mLogger.d(mActive ? "SUCCESS" : "FAILURE");
 
     if (mActive)
+    {
+      mErrorOccurred = false;
       mPredictor.resume();
+    }
     else
       notifyLocationError(LocationHelper.ERROR_DENIED);
   }
@@ -663,7 +693,7 @@ public enum LocationHelper
    */
   public void attach(UiCallback callback)
   {
-    mLogger.d("attach()");
+    mLogger.d("attach() callback = " + callback);
 
     if (mUiCallback != null)
     {

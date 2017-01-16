@@ -1,8 +1,10 @@
-package com.mapswithme.maps;
+package com.mapswithme.maps.location;
+
+import com.mapswithme.maps.MwmApplication;
 
 public final class LocationState
 {
-  public interface ModeChangeListener
+  interface ModeChangeListener
   {
     @SuppressWarnings("unused")
     void onMyPositionModeChanged(int newMode);
@@ -15,23 +17,23 @@ public final class LocationState
   public static final int FOLLOW = 3;
   public static final int FOLLOW_AND_ROTATE = 4;
 
-  public static native void nativeSwitchToNextMode();
+  static native void nativeSwitchToNextMode();
   private static native int nativeGetMode();
 
-  public static native void nativeSetListener(ModeChangeListener listener);
-  public static native void nativeRemoveListener();
+  static native void nativeSetListener(ModeChangeListener listener);
+  static native void nativeRemoveListener();
 
   private LocationState() {}
 
   /**
    * Checks if location state on the map is active (so its not turned off or pending).
    */
-  public static boolean isTurnedOn()
+  static boolean isTurnedOn()
   {
     return hasLocation(getMode());
   }
 
-  public static boolean hasLocation(int mode)
+  static boolean hasLocation(int mode)
   {
     return (mode > NOT_FOLLOW_NO_POSITION);
   }
@@ -42,7 +44,7 @@ public final class LocationState
     return nativeGetMode();
   }
 
-  public static String nameOf(int mode)
+  static String nameOf(int mode)
   {
     switch (mode)
     {
