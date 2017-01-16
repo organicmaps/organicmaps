@@ -36,7 +36,7 @@ struct ChildNodeInfo
   uint32_t Size() const { return m_size; }
   bool IsLeaf() const { return m_isLeaf; }
   uint32_t const * GetEdge() const { return &m_edge[0]; }
-  uint32_t GetEdgeSize() const { return m_edge.size(); }
+  size_t GetEdgeSize() const { return m_edge.size(); }
 };
 
 // The SingleValueSerializer and ValueList classes are similar to

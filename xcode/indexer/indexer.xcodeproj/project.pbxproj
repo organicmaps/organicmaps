@@ -1109,8 +1109,10 @@
 		670C612A1AB0661100C38A8C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = maps.me.indexer_tests;
+				PRODUCT_BUNDLE_IDENTIFIER = "maps.me.indexer-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1118,8 +1120,10 @@
 		670C612B1AB0661100C38A8C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = maps.me.indexer_tests;
+				PRODUCT_BUNDLE_IDENTIFIER = "maps.me.indexer-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

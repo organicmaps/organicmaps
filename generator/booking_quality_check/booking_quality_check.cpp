@@ -278,7 +278,7 @@ void GenerateSample(Dataset const & dataset,
   boost::copy(features | boost::adaptors::map_keys, begin(elementIndexes));
 
   // TODO(mgsergio): Try RandomSample (from search:: at the moment of writing).
-  shuffle(elementIndexes.begin(), elementIndexes.end(), minstd_rand(FLAGS_seed));
+  shuffle(elementIndexes.begin(), elementIndexes.end(), minstd_rand(static_cast<uint32_t>(FLAGS_seed)));
   if (FLAGS_selection_size < elementIndexes.size())
     elementIndexes.resize(FLAGS_selection_size);
 

@@ -363,7 +363,7 @@ void BuildAddressTable(FilesContainerR & container, Writer & writer)
         ++address;
       }
       if (streetMatched)
-        building2Street.PushBack(streetIndex);
+        building2Street.PushBack(base::checked_cast<decltype(building2Street)::ValueType>(streetIndex));
       else
         building2Street.PushBackUndefined();
     }

@@ -9,6 +9,7 @@
 
 #include "base/assert.hpp"
 #include "base/bits.hpp"
+#include "base/checked_cast.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/string.hpp"
@@ -163,7 +164,7 @@ private:
     BitReader<Source> bits(src);
     for (size_t i = 0; i < count; ++i)
     {
-      uint32_t const biasedLinkNumber = coding::DeltaCoder::Decode(bits);
+      auto const biasedLinkNumber = coding::DeltaCoder::Decode(bits);
       if (biasedLinkNumber == 0)
       {
         LOG(LERROR, ("Decoded link restriction number is zero."));
@@ -173,22 +174,22 @@ private:
 
       routing::Restriction restriction(type,  {} /* links */);
       restriction.m_featureIds.resize(numLinks);
-      uint32_t const biasedFirstFeatureId = coding::DeltaCoder::Decode(bits);
+      auto const biasedFirstFeatureId = coding::DeltaCoder::Decode(bits);
       if (biasedFirstFeatureId == 0)
       {
         LOG(LERROR, ("Decoded first link restriction feature id delta is zero."));
         return false;
       }
-      restriction.m_featureIds[0] = prevFirstLinkFeatureId + biasedFirstFeatureId - 1;
+      restriction.m_featureIds[0] = prevFirstLinkFeatureId + base::checked_cast<uint32_t>(biasedFirstFeatureId) - 1;
       for (size_t i = 1; i < numLinks; ++i)
       {
-        uint32_t const biasedDelta = coding::DeltaCoder::Decode(bits);
+        auto const biasedDelta = coding::DeltaCoder::Decode(bits);
         if (biasedDelta == 0)
         {
           LOG(LERROR, ("Decoded link restriction feature id delta is zero."));
           return false;
         }
-        uint32_t const delta = biasedDelta - 1;
+        auto const delta = biasedDelta - 1;
         restriction.m_featureIds[i] = static_cast<uint32_t>(
             bits::ZigZagDecode(delta) + restriction.m_featureIds[i - 1]);
       }
