@@ -148,6 +148,7 @@ CGFloat const kMinOffset = 1;
   id<MWMPlacePageLayoutDelegate> delegate = self.delegate;
   if (offset.y <= 0)
   {
+    [delegate onPlacePageTopBoundChanged:0];
     [delegate shouldClose];
     return;
   }
@@ -267,8 +268,8 @@ CGFloat const kMinOffset = 1;
   if (scrollView)
   {
     scrollView.delegate = self;
-    [self.ownerView addSubview:scrollView];
     [scrollView addSubview:self.placePageView];
+    [self.ownerView addSubview:scrollView];
   }
   else
   {

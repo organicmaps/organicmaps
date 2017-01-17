@@ -2,4 +2,6 @@
 
 + (void)zoomToCurrentPosition;
 
++ (void)setVisibleViewport:(CGRect)rect;
+
 @end

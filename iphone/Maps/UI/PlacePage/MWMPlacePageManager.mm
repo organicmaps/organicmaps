@@ -136,6 +136,7 @@
 
 - (void)onPlacePageTopBoundChanged:(CGFloat)bound
 {
+  [MapViewController controller].visibleAreaBottomOffset = bound;
   [[MWMSideButtons buttons] setBottomBound:self.ownerViewController.view.height - bound];
 }
 
