@@ -1,6 +1,7 @@
 package com.mapswithme.maps.location;
 
 import android.content.Context;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -39,6 +40,7 @@ class AndroidNativeProvider extends BaseLocationProvider
     mIsActive = true;
     for (String provider : providers)
     {
+      sLogger.d("Request location updates from the provider: " + provider);
       LocationListener listener = new BaseLocationListener(getLocationFixChecker());
       mLocationManager.requestLocationUpdates(provider, LocationHelper.INSTANCE.getInterval(), 0, listener);
       mListeners.add(listener);
@@ -107,11 +109,10 @@ class AndroidNativeProvider extends BaseLocationProvider
   @NonNull
   private static List<String> filterProviders(LocationManager locationManager)
   {
-    final List<String> res = locationManager.getProviders(true /* enabledOnly */);
+    Criteria criteria = new Criteria();
+    criteria.setAccuracy(Criteria.ACCURACY_FINE);
+    final List<String> res = locationManager.getProviders(criteria, true /* enabledOnly */);
     res.remove(LocationManager.PASSIVE_PROVIDER);
-    // On Huawei P9 Lite, when all location services are disabled OS returns "local_database" provider,
-    // but it doesn't provide any locations actually, so consider it as unreliable.
-    res.remove("local_database");
     return res;
   }
 }

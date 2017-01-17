@@ -1,6 +1,7 @@
 package com.mapswithme.maps.location;
 
 import android.location.Location;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.mapswithme.util.LocationUtils;
@@ -16,13 +17,13 @@ class DefaultLocationFixChecker implements LocationFixChecker
       return false;
 
     final Location lastLocation = LocationHelper.INSTANCE.getSavedLocation();
-    return (lastLocation == null || isLocationBetterThanLast(newLocation, lastLocation));
+    return lastLocation == null || isLocationBetterThanLast(newLocation, lastLocation);
   }
 
-  boolean isLocationBetterThanLast(Location newLocation, Location lastLocation)
+  boolean isLocationBetterThanLast(@NonNull Location newLocation, @NonNull Location lastLocation)
   {
     double speed = Math.max(DEFAULT_SPEED_MPS, (newLocation.getSpeed() + lastLocation.getSpeed()) / 2.0);
-    double lastAccuracy = (lastLocation.getAccuracy() + speed * LocationUtils.getDiff(lastLocation, newLocation));
-    return (newLocation.getAccuracy() < lastAccuracy);
+    double lastAccuracy = lastLocation.getAccuracy() + speed * LocationUtils.getDiff(lastLocation, newLocation);
+    return newLocation.getAccuracy() < lastAccuracy;
   }
 }
