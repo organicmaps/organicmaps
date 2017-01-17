@@ -1787,7 +1787,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
           @Override
           public void onClick(DialogInterface dialog, int which)
           {
-            //TODO: try to use startActivityForResult to handle settings result back
             startActivity(intent);
           }
         }).show();

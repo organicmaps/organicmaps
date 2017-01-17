@@ -73,9 +73,4 @@ public class BaseActivityDelegate
       }
     });
   }
-
-  static boolean onActivityResult(int requestCode, int resultCode, Intent data)
-  {
-    return LocationHelper.INSTANCE.onActivityResult(requestCode, resultCode);
-  }
 }
