@@ -1,12 +1,12 @@
 #import "MWMBottomMenuViewController.h"
 #import <Pushwoosh/PushNotificationManager.h>
-#import "MWMCommon.h"
 #import "EAGLView.h"
 #import "MWMActivityViewController.h"
 #import "MWMBottomMenuCollectionViewCell.h"
 #import "MWMBottomMenuLayout.h"
 #import "MWMBottomMenuView.h"
 #import "MWMButton.h"
+#import "MWMCommon.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
 #import "MWMLocationManager.h"
@@ -594,7 +594,6 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 }
 
 - (BOOL)searchIsActive { return ((MWMBottomMenuView *)self.view).searchIsActive; }
-
 - (void)setTtsSoundButton:(MWMButton *)ttsSoundButton
 {
   _ttsSoundButton = ttsSoundButton;
@@ -608,10 +607,12 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 - (void)setTrafficButton:(MWMButton *)trafficButton
 {
   _trafficButton = trafficButton;
-  [trafficButton setImage:[UIImage imageNamed:@"ic_setting_traffic_off"] forState:UIControlStateNormal];
-  [trafficButton setImage:[UIImage imageNamed:@"ic_setting_traffic_on"] forState:UIControlStateSelected];
+  [trafficButton setImage:[UIImage imageNamed:@"ic_setting_traffic_off"]
+                 forState:UIControlStateNormal];
   [trafficButton setImage:[UIImage imageNamed:@"ic_setting_traffic_on"]
-                  forState:UIControlStateSelected | UIControlStateHighlighted];
+                 forState:UIControlStateSelected];
+  [trafficButton setImage:[UIImage imageNamed:@"ic_setting_traffic_on"]
+                 forState:UIControlStateSelected | UIControlStateHighlighted];
 }
 
 - (CGFloat)mainStateHeight { return self.mainButtonsHeight.constant; }

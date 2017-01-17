@@ -1,5 +1,4 @@
-typedef NS_ENUM(NSUInteger, MWMBottomMenuState)
-{
+typedef NS_ENUM(NSUInteger, MWMBottomMenuState) {
   MWMBottomMenuStateHidden,
   MWMBottomMenuStateInactive,
   MWMBottomMenuStateActive,
