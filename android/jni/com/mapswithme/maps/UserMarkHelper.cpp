@@ -71,9 +71,10 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
   if (info.IsBookmark())
   {
     // public Bookmark(@IntRange(from = 0) int categoryId, @IntRange(from = 0) int bookmarkId,
-    // String name, @NonNull Banner banner, boolean reachableByTaxi)
+    // String name, @Nullable String objectTitle, @NonNull Banner banner, boolean reachableByTaxi)
     static jmethodID const ctorId = jni::GetConstructorID(
-        env, g_bookmarkClazz, "(IILjava/lang/String;Lcom/mapswithme/maps/bookmarks/data/Banner;Z)V");
+        env, g_bookmarkClazz,
+        "(IILjava/lang/String;Ljava/lang/String;Lcom/mapswithme/maps/bookmarks/data/Banner;Z)V");
 
     auto const & bac = info.GetBookmarkAndCategory();
     BookmarkCategory * cat = g_framework->NativeFramework()->GetBmCategory(bac.m_categoryIndex);
@@ -81,10 +82,11 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
         static_cast<Bookmark const *>(cat->GetUserMark(bac.m_bookmarkIndex))->GetData();
 
     jni::TScopedLocalRef jName(env, jni::ToJavaString(env, data.GetName()));
+    jni::TScopedLocalRef jTitle(env, jni::ToJavaString(env, info.GetTitle()));
     jobject mapObject =
         env->NewObject(g_bookmarkClazz, ctorId, static_cast<jint>(info.m_bac.m_categoryIndex),
-                       static_cast<jint>(info.m_bac.m_bookmarkIndex), jName.get(), jbanner,
-                       info.IsReachableByTaxi());
+                       static_cast<jint>(info.m_bac.m_bookmarkIndex), jName.get(), jTitle.get(),
+                       jbanner, info.IsReachableByTaxi());
     if (info.IsFeature())
       InjectMetadata(env, g_mapObjectClazz, mapObject, info.GetMetadata());
     return mapObject;
