@@ -2,6 +2,7 @@ package com.mapswithme.maps.search;
 
 import android.content.res.Resources;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -15,6 +16,9 @@ import com.mapswithme.util.UiUtils;
 
 public class SearchFilterController
 {
+  private static final String STATE_HOTEL_FILTER = "state_hotel_filter";
+  private static final String STATE_HOTEL_FILTER_VISIBILITY = "state_hotel_filter_visibility";
+
   @NonNull
   private final View mFrame;
   @NonNull
@@ -185,6 +189,21 @@ public class SearchFilterController
   public boolean onBackPressed()
   {
     return mFilterView.close();
+  }
+
+  public void onSaveState(@NonNull Bundle outState)
+  {
+    outState.putParcelable(STATE_HOTEL_FILTER, mFilter);
+    outState.putBoolean(STATE_HOTEL_FILTER_VISIBILITY,
+                        mFilterButton.getVisibility() == View.VISIBLE);
+    mFilterView.onSaveState(outState);
+  }
+
+  public void onRestoreState(@NonNull Bundle state)
+  {
+    setFilter((HotelsFilter) state.getParcelable(STATE_HOTEL_FILTER));
+    updateFilterButtonVisibility(state.getBoolean(STATE_HOTEL_FILTER_VISIBILITY, false));
+    mFilterView.onRestoreState(state, mFilter);
   }
 
   public static class DefaultFilterListener implements FilterListener

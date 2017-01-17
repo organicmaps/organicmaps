@@ -318,6 +318,8 @@ public class SearchFragment extends BaseMwmFragment
         runSearch();
       }
     });
+    if (savedInstanceState != null)
+      mFilterController.onRestoreState(savedInstanceState);
     if (mInitialHotelsFilter != null)
       mFilterController.setFilter(mInitialHotelsFilter);
     mFilterController.updateFilterButtonVisibility(false);
@@ -361,6 +363,13 @@ public class SearchFragment extends BaseMwmFragment
         mToolbarController.deactivate();
       }
     });
+  }
+
+  @Override
+  public void onSaveInstanceState(Bundle outState)
+  {
+    if (mFilterController != null)
+      mFilterController.onSaveState(outState);
   }
 
   @Override

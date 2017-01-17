@@ -865,6 +865,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if(mNavAnimationController != null)
       mNavAnimationController.onSaveState(outState);
 
+    if (mFilterController != null)
+      mFilterController.onSaveState(outState);
+
     super.onSaveInstanceState(outState);
   }
 
@@ -890,6 +893,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mNavMyPosition.onRestoreState(savedInstanceState);
     if(mNavAnimationController != null)
       mNavAnimationController.onRestoreState(savedInstanceState);
+
+    if (mFilterController != null)
+      mFilterController.onRestoreState(savedInstanceState);
   }
 
   @Override
@@ -1074,7 +1080,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         super.onBackPressed();
       } catch (IllegalStateException e)
       {
-        // Sometimes this can be called after onSaveInstanceState() for unknown reason.
+        // Sometimes this can be called after onSaveState() for unknown reason.
       }
     }
   }
@@ -1617,7 +1623,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     adjustCompassAndTraffic(visible ? toolbarHeight : UiUtils.getStatusBarHeight(this));
     setNavButtonsTopLimit(visible ? toolbarHeight : 0);
     if (mFilterController != null)
-      mFilterController.show(visible && !TextUtils.isEmpty(SearchEngine.getQuery()), true);
+    {
+      boolean show = visible && !TextUtils.isEmpty(SearchEngine.getQuery());
+      mFilterController.show(show, true);
+      mMainMenu.show(!show);
+    }
   }
 
   @Override
