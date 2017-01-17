@@ -345,9 +345,9 @@ void TextLayout::Init(strings::UniString const & text, float fontSize, bool isSd
                       ref_ptr<dp::TextureManager> textures)
 {
   m_text = text;
-  m_textSizeRatio = isSdf ? (fontSize / VisualParams::Instance().GetGlyphBaseSize()) : 1.0;
-  m_textSizeRatio *= VisualParams::Instance().GetFontScale();
-  m_fixedHeight = isSdf ? dp::GlyphManager::kDynamicGlyphSize : fontSize;
+  double const fontScale = VisualParams::Instance().GetFontScale();
+  m_textSizeRatio = isSdf ? (fontSize * fontScale / VisualParams::Instance().GetGlyphBaseSize()) : 1.0;
+  m_fixedHeight = isSdf ? dp::GlyphManager::kDynamicGlyphSize : fontSize * fontScale;
   textures->GetGlyphRegions(text, m_fixedHeight, m_metrics);
 }
 
