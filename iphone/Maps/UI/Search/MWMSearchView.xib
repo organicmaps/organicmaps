@@ -215,7 +215,7 @@
                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                     <integer key="value" value="4"/>
                                 </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="filter"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="booking_filters"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="white"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlueHighlighted"/>
