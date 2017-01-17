@@ -26,7 +26,7 @@ bool MatchStats<BookingHotel>::IsMatched() const
   return GetMatchingScore() > kOptimalThreshold;
 }
 
-// TODO(mgsergio): Do I need to spesialize this method?
+// TODO(mgsergio): Do I need to specialize this method?
 template <>
 MatchStats<BookingHotel> Match(BookingHotel const & h, FeatureBuilder1 const & fb)
 {

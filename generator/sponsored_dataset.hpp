@@ -48,8 +48,11 @@ public:
   bool NecessaryMatchingConditionHolds(FeatureBuilder1 const & fb) const;
   ObjectId FindMatchingObjectId(FeatureBuilder1 const & e) const;
 
+  // Applies changes to a given osm object (for example, remove hotel type)
+  // and passes the result to |fn|.
   void PreprocessMatchedOsmObject(ObjectId matchedObjId, FeatureBuilder1 & fb,
                                   function<void(FeatureBuilder1 &)> const fn) const;
+  // Creates objects and adds them to the map (MWM) via |fn|.
   void BuildOsmObjects(function<void(FeatureBuilder1 &)> const & fn) const;
 
 protected:
