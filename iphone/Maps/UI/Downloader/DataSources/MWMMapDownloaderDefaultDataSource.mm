@@ -184,7 +184,7 @@ using namespace mwm;
   NodeAttrs nodeAttrs;
   GetFramework().GetStorage().GetNodeAttrs([self countryIdForIndexPath:indexPath].UTF8String, nodeAttrs);
   NodeStatus const status = nodeAttrs.m_status;
-  return (status == NodeStatus::OnDisk || status == NodeStatus::OnDiskOutOfDate || nodeAttrs.m_localMwmCounter != 0);
+  return (status == NodeStatus::OnDisk || status == NodeStatus::OnDiskOutOfDate || status == NodeStatus::Partly);
 }
 
 #pragma mark - MWMMapDownloaderDataSource
