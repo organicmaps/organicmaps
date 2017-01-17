@@ -2,11 +2,7 @@
 
 @implementation MWMBottomMenuLayout
 
-- (CGSize)collectionViewContentSize
-{
-  return self.collectionView.frame.size;
-}
-
+- (CGSize)collectionViewContentSize { return self.collectionView.frame.size; }
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath
 {
   UICollectionViewLayoutAttributes * attr =
@@ -44,9 +40,5 @@
   return attrs.copy;
 }
 
-- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds
-{
-  return YES;
-}
-
+- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds { return YES; }
 @end

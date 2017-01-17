@@ -1,25 +1,25 @@
-#import "MWMCommon.h"
 #import "MWMBottomMenuCollectionViewCell.h"
+#import "MWMCommon.h"
 #import "UIImageView+Coloring.h"
 
 @interface MWMBottomMenuCollectionViewCell ()
 
-@property (weak, nonatomic) IBOutlet UILabel * label;
-@property (weak, nonatomic) IBOutlet UIView * badgeBackground;
-@property (weak, nonatomic) IBOutlet UILabel * badgeCount;
-@property (weak, nonatomic) IBOutlet UIView * separator;
+@property(weak, nonatomic) IBOutlet UILabel * label;
+@property(weak, nonatomic) IBOutlet UIView * badgeBackground;
+@property(weak, nonatomic) IBOutlet UILabel * badgeCount;
+@property(weak, nonatomic) IBOutlet UIView * separator;
 
-@property (nonatomic, readwrite) BOOL isEnabled;
-@property (nonatomic) BOOL isWideMenu;
+@property(nonatomic, readwrite) BOOL isEnabled;
+@property(nonatomic) BOOL isWideMenu;
 
 @end
 
 @implementation MWMBottomMenuCollectionViewCell
 
 - (void)configureWithImageName:(NSString *)imageName
-                     label:(NSString *)label
-                badgeCount:(NSUInteger)badgeCount
-                 isEnabled:(BOOL)isEnabled
+                         label:(NSString *)label
+                    badgeCount:(NSUInteger)badgeCount
+                     isEnabled:(BOOL)isEnabled
 {
   self.icon.image = [UIImage imageNamed:imageName];
   self.label.text = label;
@@ -50,7 +50,7 @@
 
 - (void)setSelected:(BOOL)selected
 {
-// There is no need to do something after cell has been selected.
+  // There is no need to do something after cell has been selected.
 }
 
 @end

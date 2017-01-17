@@ -1,12 +1,12 @@
 #import "MWMBottomMenuViewController.h"
 #import <Pushwoosh/PushNotificationManager.h>
-#import "MWMCommon.h"
 #import "EAGLView.h"
 #import "MWMActivityViewController.h"
 #import "MWMBottomMenuCollectionViewCell.h"
 #import "MWMBottomMenuLayout.h"
 #import "MWMBottomMenuView.h"
 #import "MWMButton.h"
+#import "MWMCommon.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
 #import "MWMLocationManager.h"
@@ -253,7 +253,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 {
   MWMBottomMenuLayout * cvLayout =
       (MWMBottomMenuLayout *)self.buttonsCollectionView.collectionViewLayout;
-  cvLayout.buttonsCount = MWMBottomMenuViewCellCount;
+  cvLayout.buttonsCount = [self collectionView:self.additionalButtons numberOfItemsInSection:0];
   [self.additionalButtons reloadData];
   [(MWMBottomMenuView *)self.view refreshLayout];
 }
@@ -303,7 +303,10 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
       [collectionView dequeueReusableCellWithReuseIdentifier:isWideMenu ? kCollectionCelllandscape
                                                                         : kCollectionCellPortrait
                                                 forIndexPath:indexPath];
-  switch (indexPath.item)
+  NSInteger item = indexPath.item;
+  if (isInterfaceRightToLeft())
+    item = [self collectionView:collectionView numberOfItemsInSection:indexPath.section] - item - 1;
+  switch (item)
   {
   case MWMBottomMenuViewCellAddPlace:
   {
@@ -339,7 +342,6 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
                       badgeCount:0
                        isEnabled:YES];
     break;
-  case MWMBottomMenuViewCellCount: break;
   }
   return cell;
 }
@@ -359,7 +361,6 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   case MWMBottomMenuViewCellDownload: [self menuActionDownloadMaps]; break;
   case MWMBottomMenuViewCellSettings: [self menuActionOpenSettings]; break;
   case MWMBottomMenuViewCellShare: [self menuActionShareLocation]; break;
-  case MWMBottomMenuViewCellCount: break;
   }
 }
 
@@ -593,7 +594,6 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 }
 
 - (BOOL)searchIsActive { return ((MWMBottomMenuView *)self.view).searchIsActive; }
-
 - (void)setTtsSoundButton:(MWMButton *)ttsSoundButton
 {
   _ttsSoundButton = ttsSoundButton;
@@ -607,10 +607,12 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 - (void)setTrafficButton:(MWMButton *)trafficButton
 {
   _trafficButton = trafficButton;
-  [trafficButton setImage:[UIImage imageNamed:@"ic_setting_traffic_off"] forState:UIControlStateNormal];
-  [trafficButton setImage:[UIImage imageNamed:@"ic_setting_traffic_on"] forState:UIControlStateSelected];
+  [trafficButton setImage:[UIImage imageNamed:@"ic_setting_traffic_off"]
+                 forState:UIControlStateNormal];
   [trafficButton setImage:[UIImage imageNamed:@"ic_setting_traffic_on"]
-                  forState:UIControlStateSelected | UIControlStateHighlighted];
+                 forState:UIControlStateSelected];
+  [trafficButton setImage:[UIImage imageNamed:@"ic_setting_traffic_on"]
+                 forState:UIControlStateSelected | UIControlStateHighlighted];
 }
 
 - (CGFloat)mainStateHeight { return self.mainButtonsHeight.constant; }
