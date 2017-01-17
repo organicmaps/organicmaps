@@ -68,7 +68,6 @@ class VisibleArea: UIView {
 
   override func layoutSubviews() {
     super.layoutSubviews()
-    print(frame)
     MWMFrameworkHelper.setVisibleViewport(frame)
   }
 }
