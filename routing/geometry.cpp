@@ -66,6 +66,17 @@ void RoadGeometry::Load(IVehicleModel const & vehicleModel, FeatureType const & 
   m_points.reserve(feature.GetPointsCount());
   for (size_t i = 0; i < feature.GetPointsCount(); ++i)
     m_points.emplace_back(feature.GetPoint(i));
+
+  if (m_valid && m_speed <= 0.0)
+  {
+    auto const & id = feature.GetID();
+    CHECK(!m_points.empty(), ("mwm:", id.GetMwmName(), ", featureId:", id.m_index));
+    auto const begin = MercatorBounds::ToLatLon(m_points.front());
+    auto const end = MercatorBounds::ToLatLon(m_points.back());
+    LOG(LERROR, ("Invalid speed", m_speed, "mwm:", id.GetMwmName(), ", featureId:", id.m_index,
+                 ", begin:", begin, "end:", end));
+    m_valid = false;
+  }
 }
 
 // Geometry ----------------------------------------------------------------------------------------
