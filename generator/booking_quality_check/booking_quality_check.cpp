@@ -351,9 +351,9 @@ string GetDatasetFilePath<OpentableDataset>(feature::GenerateInfo const & info)
 template <typename Dataset, typename Object = typename Dataset::Object>
 void RunImpl(feature::GenerateInfo & info)
 {
-  // TODO(mgsergio): Log correctly LOG_SHORT(LINFO, ("Booking data:", FLAGS_booking));
-  Dataset dataset(GetDatasetFilePath<Dataset>(info));
-  LOG_SHORT(LINFO, (dataset.Size(), "objects are loaded from a Dataset."));
+  auto const & dataSetFilePath = GetDatasetFilePath<Dataset>(info);
+  Dataset dataset(dataSetFilePath);
+  LOG_SHORT(LINFO, (dataset.Size(), "objects are loaded from a file:", dataSetFilePath));
 
   map<osm::Id, FeatureBuilder1> features;
   GenerateFeatures(info, [&dataset, &features](feature::GenerateInfo const & /* info */)

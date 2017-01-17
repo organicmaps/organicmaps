@@ -9,6 +9,7 @@ import copy
 import json
 import logging
 import os
+import re
 import sys
 import urllib2
 
@@ -83,6 +84,8 @@ def make_tsv(data_file, output_file):
         rest = json.loads(rest)
         try:
             address = ' '.join([rest['address'], rest['city'], rest['country']])
+            # Some addresses contain \t and maybe other spaces.
+            address = re.sub(r'\s', ' ', address)
         except TypeError:
             address = ''
         row = '\t'.join(map(unicode, [rest['rid'], rest['latitude'], rest['longitude'],

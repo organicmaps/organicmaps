@@ -31,6 +31,10 @@ INCLUDEPATH *= $$ROOT_DIR/3party/gflags/src
 
 QT *= core
 
+macx-* {
+  LIBS *= "-framework IOKit" "-framework SystemConfiguration"
+}
+
 SOURCES += \
   booking_quality_check.cpp \
 
