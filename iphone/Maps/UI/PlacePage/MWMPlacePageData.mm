@@ -90,7 +90,10 @@ using namespace place_page;
     {
     case Props::OpeningHours: m_metainfoRows.push_back(MetainfoRows::OpeningHours); break;
     case Props::Phone: m_metainfoRows.push_back(MetainfoRows::Phone); break;
-    case Props::Website: m_metainfoRows.push_back(MetainfoRows::Website); break;
+    case Props::Website:
+      if (!self.isBooking)
+        m_metainfoRows.push_back(MetainfoRows::Website);
+      break;
     case Props::Email: m_metainfoRows.push_back(MetainfoRows::Email); break;
     case Props::Cuisine: m_metainfoRows.push_back(MetainfoRows::Cuisine); break;
     case Props::Operator: m_metainfoRows.push_back(MetainfoRows::Operator); break;
