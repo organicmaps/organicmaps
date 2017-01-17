@@ -19,10 +19,8 @@ CGFloat const alpha100 = 1.;
 
 BOOL isNightMode = NO;
 
-CGFloat scaled(CGFloat f)
-{
-  return f / 255.;
-}
+CGFloat scaled(CGFloat f) { return f / 255.; }
+
 NSDictionary<NSString *, UIColor *> * night = @{
   @"primaryDark" :
       [UIColor colorWithRed:scaled(25.) green:scaled(30) blue:scaled(35.) alpha:alpha100],
@@ -45,11 +43,11 @@ NSDictionary<NSString *, UIColor *> * night = @{
   @"orange" : [UIColor colorWithRed:250. green:scaled(190.) blue:scaled(10.) alpha:alpha100],
   // Blue color (use for links and phone numbers)
   @"linkBlue" :
-      [UIColor colorWithRed:scaled(255.) green:scaled(230.) blue:scaled(140.) alpha:alpha100],
+      [UIColor colorWithRed:scaled(80.) green:scaled(195.) blue:scaled(240.) alpha:alpha100],
   @"linkBlueHighlighted" :
-      [UIColor colorWithRed:scaled(255.) green:scaled(230.) blue:scaled(140.) alpha:alpha30],
+      [UIColor colorWithRed:scaled(60.) green:scaled(155.) blue:scaled(190.) alpha:alpha30],
   @"linkBlueDark" :
-      [UIColor colorWithRed:scaled(200.) green:scaled(180.) blue:scaled(110.) alpha:alpha100],
+      [UIColor colorWithRed:scaled(75.) green:scaled(185.) blue:scaled(230.) alpha:alpha100],
   @"buttonRed" :
       [UIColor colorWithRed:scaled(244.) green:scaled(67.) blue:scaled(67.) alpha:alpha100],
   @"buttonRedHighlighted" :
