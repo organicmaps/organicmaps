@@ -253,7 +253,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 {
   MWMBottomMenuLayout * cvLayout =
       (MWMBottomMenuLayout *)self.buttonsCollectionView.collectionViewLayout;
-  cvLayout.buttonsCount = MWMBottomMenuViewCellCount;
+  cvLayout.buttonsCount = [self collectionView:self.additionalButtons numberOfItemsInSection:0];
   [self.additionalButtons reloadData];
   [(MWMBottomMenuView *)self.view refreshLayout];
 }
@@ -303,7 +303,10 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
       [collectionView dequeueReusableCellWithReuseIdentifier:isWideMenu ? kCollectionCelllandscape
                                                                         : kCollectionCellPortrait
                                                 forIndexPath:indexPath];
-  switch (indexPath.item)
+  NSInteger item = indexPath.item;
+  if (isInterfaceRightToLeft())
+    item = [self collectionView:collectionView numberOfItemsInSection:indexPath.section] - item - 1;
+  switch (item)
   {
   case MWMBottomMenuViewCellAddPlace:
   {
@@ -339,7 +342,6 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
                       badgeCount:0
                        isEnabled:YES];
     break;
-  case MWMBottomMenuViewCellCount: break;
   }
   return cell;
 }
@@ -359,7 +361,6 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   case MWMBottomMenuViewCellDownload: [self menuActionDownloadMaps]; break;
   case MWMBottomMenuViewCellSettings: [self menuActionOpenSettings]; break;
   case MWMBottomMenuViewCellShare: [self menuActionShareLocation]; break;
-  case MWMBottomMenuViewCellCount: break;
   }
 }
 
