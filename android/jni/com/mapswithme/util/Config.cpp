@@ -1,6 +1,11 @@
 #include "../core/jni_helper.hpp"
+#include "../maps/Framework.hpp"
 #include "platform/settings.hpp"
 
+namespace
+{
+::Framework * frm() { return g_framework->NativeFramework(); }
+}
 
 extern "C"
 {
@@ -82,5 +87,19 @@ extern "C"
     Java_com_mapswithme_util_Config_nativeSetString(JNIEnv * env, jclass thiz, jstring name, jstring value)
     {
       (void)settings::Set(jni::ToNativeString(env, name), jni::ToNativeString(env, value));
+    }
+
+    JNIEXPORT jboolean JNICALL
+    Java_com_mapswithme_util_Config_nativeGetLargeFontsSize(JNIEnv * env, jclass thiz)
+    {
+      return frm()->LoadLargeFontsSize();
+    }
+
+    JNIEXPORT void JNICALL
+    Java_com_mapswithme_util_Config_nativeSetLargeFontsSize(JNIEnv * env, jclass thiz,
+                                                            jboolean value)
+    {
+      frm()->SaveLargeFontsSize(value);
+      frm()->SetLargeFontsSize(value);
     }
 } // extern "C"

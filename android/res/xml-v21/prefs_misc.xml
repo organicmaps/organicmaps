@@ -2,6 +2,13 @@
 <PreferenceScreen
   xmlns:android="http://schemas.android.com/apk/res/android">
   <SwitchPreference
+    android:key="@string/pref_large_fonts_size"
+    android:title="@string/big_font"
+    android:defaultValue="false"
+    android:switchTextOff=""
+    android:switchTextOn=""/>
+
+  <SwitchPreference
     android:key="@string/pref_showcase_switched_on"
     android:title="@string/showcase_settings_title"
     android:defaultValue="true"
