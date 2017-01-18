@@ -35,6 +35,7 @@ void Spline::AddPoint(PointD const & pt)
 {
   /// TODO remove this check when fix generator.
   /// Now we have line objects with zero length segments
+  /// https://jira.mail.ru/browse/MAPSME-3561
   if (!IsEmpty() && (pt - m_position.back()).IsAlmostZero())
     return;
 

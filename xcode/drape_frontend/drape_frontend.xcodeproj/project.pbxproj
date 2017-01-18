@@ -968,7 +968,7 @@
 /* Begin XCBuildConfiguration section */
 		6709473C1BDF9B82005014C0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 34AF87CB1DBE508400E5E7DC /* common-debug.xcconfig */;
+			baseConfigurationReference = 34AF87CC1DBE508400E5E7DC /* common-release.xcconfig */;
 			buildSettings = {
 				GCC_OPTIMIZATION_LEVEL = 2;
 				HEADER_SEARCH_PATHS = (
