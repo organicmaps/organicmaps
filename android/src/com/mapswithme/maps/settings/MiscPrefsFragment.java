@@ -26,7 +26,23 @@ public class MiscPrefsFragment extends BaseXmlSettingsFragment
   {
     super.onCreate(savedInstanceState);
 
-    Preference pref = findPreference(getString(R.string.pref_send_statistics));
+    Preference pref = findPreference(getString(R.string.pref_large_fonts_size));
+    ((TwoStatePreference)pref).setChecked(Config.isLargeFontsSize());
+    pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
+    {
+      @Override
+      public boolean onPreferenceChange(Preference preference, Object newValue)
+      {
+        boolean oldVal = Config.isLargeFontsSize();
+        boolean newVal = (Boolean) newValue;
+        if (oldVal != newVal)
+          Config.setLargeFontsSize(newVal);
+
+        return true;
+      }
+    });
+
+    pref = findPreference(getString(R.string.pref_send_statistics));
     ((TwoStatePreference)pref).setChecked(Config.isStatisticsEnabled());
     pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
     {

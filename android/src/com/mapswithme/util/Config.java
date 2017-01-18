@@ -344,6 +344,16 @@ public final class Config
     return true;
   }
 
+  public static boolean isLargeFontsSize()
+  {
+    return nativeGetLargeFontsSize();
+  }
+
+  public static void setLargeFontsSize(boolean value)
+  {
+    nativeSetLargeFontsSize(value);
+  }
+
   private static native boolean nativeGetBoolean(String name, boolean defaultValue);
   private static native void nativeSetBoolean(String name, boolean value);
   private static native int nativeGetInt(String name, int defaultValue);
@@ -354,4 +364,6 @@ public final class Config
   private static native void nativeSetDouble(String name, double value);
   private static native String nativeGetString(String name, String defaultValue);
   private static native void nativeSetString(String name, String value);
+  private static native boolean nativeGetLargeFontsSize();
+  private static native void nativeSetLargeFontsSize(boolean value);
 }
