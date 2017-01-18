@@ -36,10 +36,7 @@ void Spline::AddPoint(PointD const & pt)
   /// TODO remove this check when fix generator.
   /// Now we have line objects with zero length segments
   if (!IsEmpty() && (pt - m_position.back()).IsAlmostZero())
-  {
-    LOG(LDEBUG, ("Found a zero-length segment (the endpoints coincide)"));
     return;
-  }
 
   if(IsEmpty())
     m_position.push_back(pt);
