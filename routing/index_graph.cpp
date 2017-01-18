@@ -53,31 +53,33 @@ bool IsRestricted(RestrictionVec const & restrictions, vector<SegmentEdge> const
   auto const lower = range.first;
   auto const upper = range.second;
 
-  // Checking if there's at least one restrictions of type Only from |featureIdFrom| and
-  // ending with |featureIdTo|. If yes, returns false.
-  if (lower != upper && lower->m_featureIds[1] == featureIdTo)
+  // Checking if there's restriction of type Only starting from |featureIdFrom|. If not returns false.
+  if (lower == upper)
     return false;
 
-  // Checking if there's at least one Only starting from |featureIdFrom|.
-  // If not, returns false.
-  if (lower == restrictions.cend() || lower->m_type != Restriction::Type::Only ||
-      lower->m_featureIds[0] != featureIdFrom)
+  // Note. The loop is necessary because it's possible that there's several restriction
+  // of type Only starting from |featureIdFrom|.
+  for (auto i = lower; i != upper; ++i)
   {
-    return false;
-  }
+    CHECK_EQUAL(i->m_featureIds.size(), 2, ("Only two link restrictions are support."));
 
-  // Note. At this point it's clear that there is an item in |restrictions| with type Only
-  // and starting with |featureIdFrom|. So there are two possibilities:
-  // * |edges| contains |it->m_featureIds[1]| => the end of |featureIdFrom| which implies in
-  //   |restrictions| is considered.
-  // * |edges| does not contain |it->m_featureIds[1]| => either the other end or an intermediate
-  // point of |featureIdFrom| is considered.
-  // See test FGraph_RestrictionF0F2Only for details.
-  CHECK_EQUAL(lower->m_featureIds.size(), 2, ("Only two link restrictions are support."));
-  for (SegmentEdge const & e : edges)
-  {
-    if (e.GetTarget().GetFeatureId() == lower->m_featureIds[isOutgoing ? 1 /* to */ : 0 /* from */])
-      return true;
+    // Checking if there's a restriction of type Only starting from |featureIdFrom| and
+    // ending with |featureIdTo|. If yes, returns false.
+    if (i->m_featureIds[isOutgoing ? 1 /* to */ : 0 /* from */] == (isOutgoing ? featureIdTo : featureIdFrom))
+      return false;
+
+    // Note. At this point it's clear that there is an item in |restrictions| with type Only
+    // and starting with |featureIdFrom|. So there are two possibilities:
+    // * |edges| contains |it->m_featureIds[1]| => the end of |featureIdFrom| which implies in
+    //   |restrictions| is considered.
+    // * |edges| does not contain |it->m_featureIds[1]| => either the other end or an intermediate
+    // point of |featureIdFrom| is considered.
+    // See test FGraph_RestrictionF0F2Only for details.
+    for (SegmentEdge const & e : edges)
+    {
+      if (e.GetTarget().GetFeatureId() == i->m_featureIds[isOutgoing ? 1 /* to */ : 0 /* from */])
+        return true;
+    }
   }
   return false;
 }
@@ -103,26 +105,25 @@ void IndexGraph::GetEdgeList(Segment const & segment, bool isOutgoing, vector<Se
   RoadPoint const roadPoint = segment.GetRoadPoint(isOutgoing);
   Joint::Id const jointId = m_roadIndex.GetJointId(roadPoint);
 
+  vector<SegmentEdge> rawEdges;
   if (jointId != Joint::kInvalidId)
   {
     m_jointIndex.ForEachPoint(jointId, [&](RoadPoint const & rp) {
-      GetNeighboringEdges(segment, rp, isOutgoing, edges);
+      GetNeighboringEdges(segment, rp, isOutgoing, rawEdges);
     });
   }
   else
   {
-    GetNeighboringEdges(segment, roadPoint, isOutgoing, edges);
+    GetNeighboringEdges(segment, roadPoint, isOutgoing, rawEdges);
   }
 
   // Removing some edges according to restriction rules.
-  vector<SegmentEdge> filteredEdges;
-  filteredEdges.reserve(edges.size());
-  for (SegmentEdge const & e : edges)
+  edges.reserve(rawEdges.size());
+  for (SegmentEdge const & e : rawEdges)
   {
-    if (!IsRestricted(m_restrictions, edges, segment, e.GetTarget(), isOutgoing))
-      filteredEdges.push_back(e);
+    if (!IsRestricted(m_restrictions, rawEdges, segment, e.GetTarget(), isOutgoing))
+      edges.push_back(e);
   }
-  edges.swap(filteredEdges);
 }
 
 void IndexGraph::Build(uint32_t numJoints) { m_jointIndex.Build(m_roadIndex, numJoints); }

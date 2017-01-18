@@ -37,6 +37,7 @@ struct Restriction
   };
 
   Restriction(Type type, vector<uint32_t> const & links) : m_featureIds(links), m_type(type) {}
+
   bool IsValid() const;
   bool operator==(Restriction const & restriction) const;
   bool operator<(Restriction const & restriction) const;
@@ -55,6 +56,7 @@ string DebugPrint(Restriction const & restriction);
 struct RestrictionHeader
 {
   RestrictionHeader() { Reset(); }
+
   template <class Sink>
   void Serialize(Sink & sink) const
   {

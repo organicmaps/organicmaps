@@ -42,6 +42,7 @@ string ToString(Restriction::Type const & type)
 }
 
 string DebugPrint(Restriction::Type const & type) { return ToString(type); }
+
 string DebugPrint(Restriction const & restriction)
 {
   ostringstream out;

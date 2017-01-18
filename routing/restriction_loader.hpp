@@ -18,6 +18,7 @@ public:
 
   bool HasRestrictions() const { return !m_restrictions.empty(); }
   RestrictionVec && StealRestrictions() { return move(m_restrictions); }
+
 private:
   unique_ptr<FilesContainerR::TReader> m_reader;
   RestrictionHeader m_header;
