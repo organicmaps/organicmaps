@@ -37,7 +37,7 @@ final class WelcomePageController: UIPageViewController {
 
     let pagesCount = isFirstSession ? FirstLaunchController.pagesCount : WhatsNewController.pagesCount
     let id = pagesCount == 1 ? "WelcomePageCurlController" : "WelcomePageScrollController"
-    let sb = Storyboard.Welcome.instance
+    let sb = UIStoryboard.instance(.Welcome)
     let vc = sb.instantiateViewController(withIdentifier: id) as! WelcomePageController
     vc.config(parent)
     vc.show()

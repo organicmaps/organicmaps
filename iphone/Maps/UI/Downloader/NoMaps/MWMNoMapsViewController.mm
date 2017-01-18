@@ -1,13 +1,14 @@
 #import "MWMNoMapsViewController.h"
 #import "MWMMapViewControlsManager.h"
 #import "UIViewController+Navigation.h"
+#import "SwiftBridge.h"
 
 @implementation MWMNoMapsViewController
 
 + (MWMNoMapsViewController *)controller
 {
-  return
-      [[UIViewController mainStoryboard] instantiateViewControllerWithIdentifier:[self className]];
+  auto storyboard = [UIStoryboard instance:MWMStoryboardMain];
+  return [storyboard instantiateViewControllerWithIdentifier:[self className]];
 }
 
 - (IBAction)downloadMaps

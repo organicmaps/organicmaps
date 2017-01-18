@@ -1,4 +1,5 @@
 #import "MWMSearchFilterViewController_Protected.h"
+#import "SwiftBridge.h"
 
 @implementation MWMSearchFilterViewController
 
@@ -11,7 +12,7 @@
 
 + (MWMSearchFilterViewController *)controllerWithIdentifier:(NSString *)identifier
 {
-  auto storyboard = [UIStoryboard storyboardWithName:@"MWMSearchFilters" bundle:nil];
+  auto storyboard = [UIStoryboard instance:MWMStoryboardSearchFilters];
   return [storyboard instantiateViewControllerWithIdentifier:identifier];
 }
 
