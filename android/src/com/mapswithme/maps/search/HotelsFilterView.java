@@ -12,6 +12,8 @@ import android.widget.FrameLayout;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Animations;
+import com.mapswithme.util.InputUtils;
+import com.mapswithme.util.UiUtils;
 
 public class HotelsFilterView extends FrameLayout
 {
@@ -75,9 +77,7 @@ public class HotelsFilterView extends FrameLayout
       @Override
       public void onClick(View v)
       {
-        if (mListener != null)
-          mListener.onCancel();
-        close();
+        cancel();
       }
     });
 
@@ -92,6 +92,24 @@ public class HotelsFilterView extends FrameLayout
         close();
       }
     });
+    findViewById(R.id.reset).setOnClickListener(new OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        mFilter = null;
+        if (mListener != null)
+          mListener.onDone(null);
+        close();
+      }
+    });
+  }
+
+  private void cancel()
+  {
+    if (mListener != null)
+      mListener.onCancel();
+    close();
   }
 
   private void populateFilter()
@@ -122,6 +140,12 @@ public class HotelsFilterView extends FrameLayout
   @Override
   public boolean onTouchEvent(MotionEvent event)
   {
+    if (mOpened && !UiUtils.isViewTouched(event, mFrame))
+    {
+      cancel();
+      return true;
+    }
+
     super.onTouchEvent(event);
     return mOpened;
   }
@@ -148,6 +172,7 @@ public class HotelsFilterView extends FrameLayout
     updateViews();
     Animations.fadeInView(mFade, null);
     Animations.appearSliding(mFrame, Animations.BOTTOM, null);
+    InputUtils.hideKeyboard(this);
   }
 
   /**
