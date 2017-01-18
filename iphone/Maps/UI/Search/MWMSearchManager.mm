@@ -278,14 +278,20 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
 {
   [self.navigationController popToRootViewControllerAnimated:NO];
 
-  self.actionBarState = MWMSearchManagerActionBarStateTabBar;
   [self animateConstraints:^{
     self.actionBarViewBottom.priority = UILayoutPriorityDefaultLow;
   }];
   [self viewHidden:NO];
 
   if (self.topController != self.noMapsController)
+  {
+    self.actionBarState = MWMSearchManagerActionBarStateTabBar;
     [self.searchTextField becomeFirstResponder];
+  }
+  else
+  {
+    self.actionBarState = MWMSearchManagerActionBarStateHidden;
+  }
 }
 
 - (void)changeToTableSearchState
@@ -516,8 +522,6 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
 
 - (void)setActionBarState:(MWMSearchManagerActionBarState)actionBarState
 {
-  if (_actionBarState == actionBarState)
-    return;
   _actionBarState = actionBarState;
   switch (actionBarState)
   {
