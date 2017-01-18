@@ -1507,22 +1507,29 @@ bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport, m2::R
     return false;
 
   ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
-  m2::PointD pos;
 
-  double const vs = VisualParams::Instance().GetVisualScale();
-  if (m_selectionShape->IsVisible(screen, pos))
+  ScreenBase targetScreen;
+  AnimationSystem::Instance().GetTargetScreen(screen, targetScreen);
+
+  m2::PointD pos;
+  m2::PointD targetPos;
+  if (m_selectionShape->IsVisible(screen, pos) &&
+      m_selectionShape->IsVisible(targetScreen, targetPos))
   {
     m2::RectD rect(pos, pos);
+    m2::RectD targetRect(targetPos, targetPos);
     if (!(m_selectionShape->GetSelectedObject() == SelectionShape::OBJECT_POI &&
-        m_overlayTree->GetSelectedFeatureRect(screen, rect)))
+          m_overlayTree->GetSelectedFeatureRect(screen, rect) &&
+          m_overlayTree->GetSelectedFeatureRect(targetScreen, targetRect)))
     {
       double const r = m_selectionShape->GetRadius();
       rect.Inflate(r, r);
+      targetRect.Inflate(r, r);
     }
 
-    if (oldViewport.IsIntersect(rect) && !newViewport.IsRectInside(rect))
+    if (oldViewport.IsIntersect(targetRect) && !newViewport.IsRectInside(rect))
     {
-      double const kOffset = 50 * vs;
+      double const kOffset = 50 * VisualParams::Instance().GetVisualScale();
       m2::PointD pOffset(0.0, 0.0);
       if (rect.minX() < newViewport.minX())
         pOffset.x = newViewport.minX() - rect.minX() + kOffset;
