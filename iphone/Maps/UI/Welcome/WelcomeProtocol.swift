@@ -25,7 +25,7 @@ extension WelcomeProtocolBase {
   static var key: String { return "\(self)" + AppInfo.shared().bundleVersion! }
 
   static func controller(_ pageIndex: Int) -> UIViewController {
-    let sb = Storyboard.Welcome.instance
+    let sb = UIStoryboard.instance(.Welcome)
     let id = String(describing: self)
     let vc = sb.instantiateViewController(withIdentifier: id)
     (vc as! Self).pageIndex = pageIndex
