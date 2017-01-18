@@ -2,12 +2,12 @@
 
 #include "platform/location.hpp"
 
-using TPredictionBlock = void (^)(location::GpsInfo const &);
+using TPredictionBlock = void (^)(CLLocation *);
 
 @interface MWMLocationPredictor : NSObject
 
 - (instancetype)initWithOnPredictionBlock:(TPredictionBlock)onPredictBlock;
-- (void)reset:(location::GpsInfo const &)info;
+- (void)reset:(CLLocation *)info;
 - (void)setMyPositionMode:(MWMMyPositionMode)mode;
 
 @end
