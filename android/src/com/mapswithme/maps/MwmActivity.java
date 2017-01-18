@@ -860,6 +860,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     RoutingController.get().onSaveState();
     outState.putBoolean(EXTRA_LOCATION_DIALOG_IS_ANNOYING, mLocationErrorDialogAnnoying);
+
+    mNavMyPosition.onSaveState(outState);
+    if(mNavAnimationController != null)
+      mNavAnimationController.onSaveState(outState);
+
     super.onSaveInstanceState(outState);
   }
 
@@ -881,6 +886,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (mNavigationController != null)
       mNavigationController.onRestoreState(savedInstanceState);
+
+    mNavMyPosition.onRestoreState(savedInstanceState);
+    if(mNavAnimationController != null)
+      mNavAnimationController.onRestoreState(savedInstanceState);
   }
 
   @Override

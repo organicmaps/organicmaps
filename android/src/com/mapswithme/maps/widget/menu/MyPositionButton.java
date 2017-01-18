@@ -2,6 +2,7 @@ package com.mapswithme.maps.widget.menu;
 
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.SparseArray;
 import android.view.View;
@@ -17,6 +18,8 @@ import com.mapswithme.util.UiUtils;
 
 public class MyPositionButton
 {
+  private static final String STATE_VISIBLE = "state_visible";
+
   @NonNull
   private final ImageView mButton;
   private static final SparseArray<Drawable> mIcons = new SparseArray<>(); // Location mode -> Button icon
@@ -90,5 +93,15 @@ public class MyPositionButton
   {
     mVisible = false;
     Animations.disappearSliding(mButton, Animations.RIGHT, null);
+  }
+
+  public void onSaveState(@NonNull Bundle outState)
+  {
+    outState.putBoolean(STATE_VISIBLE, mVisible);
+  }
+
+  public void onRestoreState(@NonNull Bundle state)
+  {
+    mVisible = state.getBoolean(STATE_VISIBLE, false);
   }
 }

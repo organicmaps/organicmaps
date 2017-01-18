@@ -3,6 +3,7 @@ package com.mapswithme.maps;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.res.Resources;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 
@@ -15,6 +16,7 @@ import com.mapswithme.util.UiUtils;
 class NavigationButtonsAnimationController
 {
   private static final int ANIM_TOGGLE = MwmApplication.get().getResources().getInteger(R.integer.anim_slots_toggle);
+  private static final String STATE_VISIBLE = "state_visible";
 
   @NonNull
   private final View mZoomIn;
@@ -281,5 +283,15 @@ class NavigationButtonsAnimationController
   public void onResume()
   {
     checkZoomButtonsVisibility();
+  }
+
+  public void onSaveState(@NonNull Bundle outState)
+  {
+    outState.putBoolean(STATE_VISIBLE, mZoomVisible);
+  }
+
+  public void onRestoreState(@NonNull Bundle state)
+  {
+    mZoomVisible = state.getBoolean(STATE_VISIBLE, false);
   }
 }
