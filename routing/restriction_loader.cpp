@@ -15,23 +15,23 @@ using namespace routing;
 /// \note In general case ends of features don't have to be joints. For example all
 /// loose feature ends aren't joints. But if ends of r1 and r2 are connected at this
 /// point there has to be a joint. So the method is valid.
-Joint::Id GetCommonEndJoint(routing::RoadJointIds const & r1, routing::RoadJointIds const & r2)
+Joint::Id GetCommonEndJoint(RoadJointIds const & r1, RoadJointIds const & r2)
 {
   auto const IsEqual = [](Joint::Id j1, Joint::Id j2) {
     return j1 != Joint::kInvalidId && j1 == j2;
   };
-  if (IsEqual(r1.GetJointId(0 /* point id */), r2.GetLastJointId()))
+
+  if (IsEqual(r1.GetJointId(0 /* point id */), r2.GetEndingJointId()))
     return r1.GetJointId(0);
 
-  if (IsEqual(r1.GetJointId(0 /* point id */), r2.GetJointId(0)))
+  if (IsEqual(r1.GetJointId(0 /* point id */), r2.GetJointId(0 /* point id */)))
     return r1.GetJointId(0);
 
-  if (IsEqual(r2.GetJointId(0 /* point id */), r1.GetLastJointId()))
-    return r2.GetJointId(0);
+  if (IsEqual(r1.GetEndingJointId(), r2.GetJointId(0 /* point id */)))
+    return r1.GetEndingJointId();
 
-  Joint::Id const r1Last = r1.GetLastJointId();
-  if (IsEqual(r1Last, r2.GetLastJointId()))
-    return r1Last;
+  if (IsEqual(r1.GetEndingJointId(), r2.GetEndingJointId()))
+    return r1.GetEndingJointId();
 
   return Joint::kInvalidId;
 }
@@ -53,7 +53,7 @@ RestrictionLoader::RestrictionLoader(MwmValue const & mwmValue, IndexGraph const
 
     RestrictionVec restrictionsOnly;
     RestrictionSerializer::Deserialize(m_header, m_restrictions /* restriction no */, restrictionsOnly, src);
-    ConvertRestrictionOnlyToNo(graph, restrictionsOnly, m_restrictions);
+    ConvertRestrictionsOnlyToNoAndSort(graph, restrictionsOnly, m_restrictions);
   }
   catch (Reader::OpenException const & e)
   {
@@ -63,15 +63,9 @@ RestrictionLoader::RestrictionLoader(MwmValue const & mwmValue, IndexGraph const
   }
 }
 
-void ConvertRestrictionOnlyToNo(IndexGraph const & graph, RestrictionVec const & restrictionsOnly,
-                                RestrictionVec & restrictionsNo)
+void ConvertRestrictionsOnlyToNoAndSort(IndexGraph const & graph, RestrictionVec const & restrictionsOnly,
+                                        RestrictionVec & restrictionsNo)
 {
-  if (!graph.IsValid())
-  {
-    LOG(LWARNING, ("Index graph is not valid. All the restrictions of type Only aren't used."));
-    return;
-  }
-
   for (Restriction const & o : restrictionsOnly)
   {
     CHECK_EQUAL(o.m_featureIds.size(), 2, ("Only two link restrictions are support."));

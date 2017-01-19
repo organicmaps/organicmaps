@@ -58,7 +58,7 @@ void LoadRestrictions(MwmValue const & mwmValue, RestrictionVec & restrictions)
     header.Deserialize(src);
 
     RestrictionVec restrictionsOnly;
-    RestrictionSerializer::Deserialize(header, restrictions /* restriction no */, restrictionsOnly, src);
+    RestrictionSerializer::Deserialize(header, restrictions, restrictionsOnly, src);
     restrictions.insert(restrictions.end(), restrictionsOnly.cbegin(), restrictionsOnly.cend());
   }
   catch (Reader::OpenException const & e)

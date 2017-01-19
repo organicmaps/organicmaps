@@ -27,6 +27,6 @@ private:
   string const m_countryFileName;
 };
 
-void ConvertRestrictionOnlyToNo(IndexGraph const & graph, RestrictionVec const & restrictionsOnly,
-                                RestrictionVec & restrictionsNo);
+void ConvertRestrictionsOnlyToNoAndSort(IndexGraph const & graph, RestrictionVec const & restrictionsOnly,
+                                        RestrictionVec & restrictionsNo);
 }  // namespace routing

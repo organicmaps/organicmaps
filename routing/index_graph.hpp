@@ -49,11 +49,6 @@ public:
     m_roadIndex.PushFromSerializer(jointId, rp);
   }
 
-  bool IsValid() const
-  {
-    return m_geometry.IsValid() && m_estimator && m_roadIndex.GetSize() != 0 && m_jointIndex.GetNumPoints() != 0;
-  }
-
   template <typename F>
   void ForEachRoad(F && f) const
   {

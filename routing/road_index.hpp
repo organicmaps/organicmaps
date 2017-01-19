@@ -29,15 +29,13 @@ public:
     return Joint::kInvalidId;
   }
 
-  Joint::Id GetLastJointId() const
+  Joint::Id GetEndingJointId() const
   {
-    Joint::Id lastJointId = Joint::kInvalidId;
-    for (Joint::Id const jointId : m_jointIds)
-    {
-      if (jointId != Joint::kInvalidId)
-        lastJointId = jointId;
-    }
-    return lastJointId;
+    if (m_jointIds.empty())
+      return Joint::kInvalidId;
+
+    ASSERT_NOT_EQUAL(m_jointIds.back(), Joint::kInvalidId, ());
+    return m_jointIds.back();
   }
 
   void AddJoint(uint32_t pointId, Joint::Id jointId)
@@ -129,7 +127,7 @@ public:
   RoadJointIds const & GetRoad(uint32_t featureId) const
   {
     auto const & it = m_roads.find(featureId);
-    CHECK(it != m_roads.cend(), ("Feture id:", featureId));
+    CHECK(it != m_roads.cend(), ("Feature id:", featureId));
     return it->second;
   }
 
