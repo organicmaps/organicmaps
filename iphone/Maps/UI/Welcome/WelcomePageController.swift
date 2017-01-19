@@ -21,10 +21,13 @@ final class WelcomePageController: UIPageViewController {
       return viewControllers?.first
     }
     set {
-      guard let controller = newValue else { return }
+      guard let controller = newValue, let parentView = parentController.view else { return }
       let animated = !isAnimatingTransition
+      parentView.isUserInteractionEnabled = isAnimatingTransition
       setViewControllers([controller], direction: .forward, animated: animated) { [weak self] _ in
-        self?.isAnimatingTransition = false
+        guard let s = self else { return }
+        s.isAnimatingTransition = false
+        parentView.isUserInteractionEnabled = true
       }
       isAnimatingTransition = animated
     }
@@ -46,9 +49,9 @@ final class WelcomePageController: UIPageViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    let parentView = parentController.view!
     view.backgroundColor = UIColor.white()
     if IPAD() {
+      let parentView = parentController.view!
       iPadBackgroundView = SolidTouchView(frame: parentView.bounds)
       iPadBackgroundView!.backgroundColor = UIColor.fadeBackground()
       iPadBackgroundView!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
