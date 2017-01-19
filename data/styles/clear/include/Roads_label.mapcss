@@ -131,6 +131,9 @@ line[highway=steps],
 node[highway=motorway_junction]
 {z-index: 1000;}
 
+line|z15-[hwtag=oneway]::arrows
+{z-index: 1000;}
+
 line[aerialway=cable_car]::dash,
 line[aerialway=chair_lift]::dash,
 line[aerialway=gondola]::dash,

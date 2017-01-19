@@ -263,18 +263,12 @@ node[office=lawyer],
 area[office=lawyer]
 {z-index: 2600;}
 
-node[landuse=forest],
-area[landuse=forest]
-{z-index: 2650;}
-
 node[amenity=bus_station],
 area[amenity=bus_station],
 node[amenity=ferry_terminal],
 node[man_made=lighthouse],
 area[man_made=lighthouse],
 node[barrier=border_control],
-node[landuse=forest][boundary=national_park],
-area[landuse=forest][boundary=national_park],
 node[boundary=national_park],
 area[boundary=national_park],
 node[leisure=nature_reserve],
@@ -786,11 +780,11 @@ node|z17[railway=subway_entrance][city=minsk] {icon-image: subway-minsk-m.svg;fo
 node|z18-[railway=subway_entrance][city=minsk] {icon-image: subway-minsk-m.svg;font-size: 13;}
 
 /* 3.2.4 Kiev Subway Station */
-node|z13[railway=station][transport=subway][city=kiev] {icon-image: subway-kiev-s.svg;text-offset: 8;	z-index: 2;font-size: 10;text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.7;text-halo-color: @label_halo_light;icon-min-distance: 1;}
+node|z13[railway=station][transport=subway][city=kiev] {icon-image: subway-kiev-s.svg;text-offset: 8;font-size: 10;text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.7;text-halo-color: @label_halo_light;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=kiev] {icon-image: subway-kiev-s.svg;}
 node|z15[railway=station][transport=subway][city=kiev] {icon-image: subway-kiev-m.svg;}
 node|z17-[railway=station][transport=subway][city=kiev] {icon-image: none.svg;font-size: 10;text: name;text-color: @district_label;text-halo-radius: 0;}/*check none*/
-node[railway=subway_entrance][city=kiev] {icon-image: subway-kiev-m.svg;text-offset: 6;z-index: 2;font-size: 12;text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.8;text-halo-color: @label_halo_light;}
+node[railway=subway_entrance][city=kiev] {icon-image: subway-kiev-m.svg;text-offset: 6;font-size: 12;text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.8;text-halo-color: @label_halo_light;}
 node|z17[railway=subway_entrance][city=kiev] {icon-image: subway-kiev-m.svg;font-size: 13;}
 node|z18-[railway=subway_entrance][city=kiev] {icon-image: subway-kiev-m.svg;font-size: 13;}
 
@@ -2086,7 +2080,7 @@ node|z18-[power=station],
 area|z18-[power=station],
 node|z18-[power=substation],
 area|z18-[power=substation]
-{icon-image: power-l.svg;font-size: 11;z-index: 2400;}
+{icon-image: power-l.svg;font-size: 11;}
 
 node|z17-[amenity=vending_machine],
 area|z17-[amenity=vending_machine]
@@ -2119,7 +2113,7 @@ area|z18-[amenity=toilets]
 {icon-image: toilets-l.svg;font-size: 11;}
 node|z18-[amenity=atm],
 area|z18-[amenity=atm]
-{z-index: 4200;icon-image: atm-l.svg;font-size: 11;}
+{icon-image: atm-l.svg;font-size: 11;}
 
 node|z18-[amenity=bench]
 {icon-image: bench.svg;}
@@ -2556,7 +2550,7 @@ area|z16[amenity=parking]
 {icon-image: parking-s.svg;icon-min-distance: 25;}
 node|z16[amenity=parking][access=permissive],
 node|z16[amenity=parking][access=private]
-{icon-image: zero-icon.svg;z-index: 6;}
+{icon-image: zero-icon.svg;}
 
 node|z17[amenity=parking] area|z17[amenity=parking]
 {icon-image: parking-m.svg;}
