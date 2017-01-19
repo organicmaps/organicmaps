@@ -54,7 +54,6 @@ area[amenity=fountain]
 {z-index: 2000;}
 node[natural=spring],
 area[natural=spring],
-node[natural=tree],
 node[amenity=drinking_water],
 area[amenity=drinking_water],
 node[amenity=water_point],
@@ -536,9 +535,6 @@ area|z15-16[natural=spring]
 node|z17-[natural=spring],
 area|z17-[natural=spring]
 {icon-image: drinking-water-l.svg;text-offset:8;font-size: 10;icon-min-distance: 24;}
-
-node|z18-[natural=tree]
-{icon-image: tree-s.svg;}
 
 node|z15-16[amenity=drinking_water],
 area|z15-16[amenity=drinking_water],
