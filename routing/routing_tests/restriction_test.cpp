@@ -418,13 +418,13 @@ UNIT_CLASS_TEST(RestrictionTest, TwoSquaresGraph_RestrictionF2F8NoRestrictionF9F
 {
   Init(BuildTwoSquaresGraph());
   RestrictionVec restrictionsNo = {
-      {Restriction::Type::No, {2 /* feature from */, 8 /* feature to */}}}; // Invalid restriction.
+      {Restriction::Type::No, {2 /* feature from */, 8 /* feature to */}}};  // Invalid restriction.
   RestrictionVec const restrictionsOnly = {
-      {Restriction::Type::Only, {9 /* feature from */, 1 /* feature to */}}}; // Invalid restriction.
+      {Restriction::Type::Only,
+       {9 /* feature from */, 1 /* feature to */}}};  // Invalid restriction.
   ConvertRestrictionsOnlyToNoAndSort(*m_graph, restrictionsOnly, restrictionsNo);
 
-  vector<m2::PointD> const expectedGeom = {
-      {3 /* x */, 0 /* y */}, {2, 0}, {1, 1}, {0, 2}, {0, 3}};
+  vector<m2::PointD> const expectedGeom = {{3 /* x */, 0 /* y */}, {2, 0}, {1, 1}, {0, 2}, {0, 3}};
 
   TestRestrictions(expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
                    routing::IndexGraphStarter::FakeVertex(10, 0, m2::PointD(3, 0)) /* start */,

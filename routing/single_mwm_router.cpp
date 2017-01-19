@@ -208,8 +208,9 @@ bool SingleMwmRouter::LoadIndex(MwmSet::MwmId const & mwmId, string const & coun
 }
 
 bool SingleMwmRouter::RedressRoute(MwmSet::MwmId const & mwmId, IVehicleModel const & vehicleModel,
-                                   vector<Segment> const & segments, RouterDelegate const & delegate,
-                                   IndexGraphStarter & starter, Route & route) const
+                                   vector<Segment> const & segments,
+                                   RouterDelegate const & delegate, IndexGraphStarter & starter,
+                                   Route & route) const
 {
   vector<Junction> junctions;
   size_t const numPoints = IndexGraphStarter::GetRouteNumPoints(segments);

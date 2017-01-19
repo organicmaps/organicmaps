@@ -15,7 +15,8 @@ using namespace base;
 using namespace routing;
 using namespace std;
 
-bool IsRestricted(RestrictionVec const & restrictions, Segment const & u, Segment const & v, bool isOutgoing)
+bool IsRestricted(RestrictionVec const & restrictions, Segment const & u, Segment const & v,
+                  bool isOutgoing)
 {
   uint32_t const featureIdFrom = isOutgoing ? u.GetFeatureId() : v.GetFeatureId();
   uint32_t const featureIdTo = isOutgoing ? v.GetFeatureId() : u.GetFeatureId();
@@ -36,7 +37,8 @@ bool IsRestricted(RestrictionVec const & restrictions, Segment const & u, Segmen
   // where the U-turn is restricted. It's necessary to pass the data to mwm and to use it here.
   // Please see test LineGraph_RestrictionF1F1No for details.
   //
-  // Another exapmle when it's necessary to be aware about feature end particepated in restriction is
+  // Another exapmle when it's necessary to be aware about feature end particepated in restriction
+  // is
   //        *---F1---*
   //        |        |
   // *--F3--A        B--F4--*
@@ -49,9 +51,8 @@ bool IsRestricted(RestrictionVec const & restrictions, Segment const & u, Segmen
 
 bool IsUTurn(Segment const & u, Segment const & v)
 {
-  return u.GetFeatureId() == v.GetFeatureId()
-      && u.GetSegmentIdx() == v.GetSegmentIdx()
-      && u.IsForward() != v.IsForward();
+  return u.GetFeatureId() == v.GetFeatureId() && u.GetSegmentIdx() == v.GetSegmentIdx() &&
+         u.IsForward() != v.IsForward();
 }
 }  // namespace
 
@@ -128,10 +129,9 @@ void IndexGraph::GetNeighboringEdge(Segment const & from, Segment const & to, bo
 {
   // Blocking U-turns on internal feature points.
   RoadPoint const rp = from.GetRoadPoint(isOutgoing);
-  if (IsUTurn(from, to)
-      && m_roadIndex.GetJointId(rp) == Joint::kInvalidId
-      && rp.GetPointId() != 0
-      && rp.GetPointId() + 1 != m_geometry.GetRoad(from.GetFeatureId()).GetPointsCount())
+  if (IsUTurn(from, to) && m_roadIndex.GetJointId(rp) == Joint::kInvalidId &&
+      rp.GetPointId() != 0 &&
+      rp.GetPointId() + 1 != m_geometry.GetRoad(from.GetFeatureId()).GetPointsCount())
   {
     return;
   }

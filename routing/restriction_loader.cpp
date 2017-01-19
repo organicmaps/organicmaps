@@ -52,7 +52,8 @@ RestrictionLoader::RestrictionLoader(MwmValue const & mwmValue, IndexGraph const
     m_header.Deserialize(src);
 
     RestrictionVec restrictionsOnly;
-    RestrictionSerializer::Deserialize(m_header, m_restrictions /* restriction no */, restrictionsOnly, src);
+    RestrictionSerializer::Deserialize(m_header, m_restrictions /* restriction no */,
+                                       restrictionsOnly, src);
     ConvertRestrictionsOnlyToNoAndSort(graph, restrictionsOnly, m_restrictions);
   }
   catch (Reader::OpenException const & e)
@@ -63,7 +64,8 @@ RestrictionLoader::RestrictionLoader(MwmValue const & mwmValue, IndexGraph const
   }
 }
 
-void ConvertRestrictionsOnlyToNoAndSort(IndexGraph const & graph, RestrictionVec const & restrictionsOnly,
+void ConvertRestrictionsOnlyToNoAndSort(IndexGraph const & graph,
+                                        RestrictionVec const & restrictionsOnly,
                                         RestrictionVec & restrictionsNo)
 {
   for (Restriction const & o : restrictionsOnly)
@@ -80,11 +82,11 @@ void ConvertRestrictionsOnlyToNoAndSort(IndexGraph const & graph, RestrictionVec
 
     // Adding restriction of type No for all features of joint |common| except for
     // the second feature of restriction |o|.
-    graph.ForEachPoint(common, [&] (RoadPoint const & rp){
+    graph.ForEachPoint(common, [&](RoadPoint const & rp) {
       if (rp.GetFeatureId() != o.m_featureIds[1 /* to */])
       {
         restrictionsNo.push_back(
-              Restriction(Restriction::Type::No, {o.m_featureIds[0 /* from */], rp.GetFeatureId()}));
+            Restriction(Restriction::Type::No, {o.m_featureIds[0 /* from */], rp.GetFeatureId()}));
       }
     });
   }

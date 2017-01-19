@@ -37,7 +37,6 @@ struct Restriction
   };
 
   Restriction(Type type, vector<uint32_t> const & links) : m_featureIds(links), m_type(type) {}
-
   bool IsValid() const;
   bool operator==(Restriction const & restriction) const;
   bool operator<(Restriction const & restriction) const;
@@ -105,11 +104,12 @@ public:
   }
 
   template <class Source>
-  static void Deserialize(RestrictionHeader const & header, routing::RestrictionVec & restrictionsNo,
+  static void Deserialize(RestrictionHeader const & header,
+                          routing::RestrictionVec & restrictionsNo,
                           routing::RestrictionVec & restrictionsOnly, Source & src)
   {
-    DeserializeSingleType(routing::Restriction::Type::No, header.m_noRestrictionCount, restrictionsNo,
-                          src);
+    DeserializeSingleType(routing::Restriction::Type::No, header.m_noRestrictionCount,
+                          restrictionsNo, src);
     DeserializeSingleType(routing::Restriction::Type::Only, header.m_onlyRestrictionCount,
                           restrictionsOnly, src);
   }
@@ -183,7 +183,8 @@ private:
         LOG(LERROR, ("Decoded first link restriction feature id delta is zero."));
         return false;
       }
-      restriction.m_featureIds[0] = prevFirstLinkFeatureId + base::checked_cast<uint32_t>(biasedFirstFeatureId) - 1;
+      restriction.m_featureIds[0] =
+          prevFirstLinkFeatureId + base::checked_cast<uint32_t>(biasedFirstFeatureId) - 1;
       for (size_t i = 1; i < numLinks; ++i)
       {
         auto const biasedDelta = coding::DeltaCoder::Decode(bits);
