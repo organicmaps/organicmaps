@@ -29,6 +29,17 @@ public:
     return Joint::kInvalidId;
   }
 
+  Joint::Id GetLastJointId() const
+  {
+    Joint::Id lastJointId = Joint::kInvalidId;
+    for (Joint::Id const jointId : m_jointIds)
+    {
+      if (jointId != Joint::kInvalidId)
+        lastJointId = jointId;
+    }
+    return lastJointId;
+  }
+
   void AddJoint(uint32_t pointId, Joint::Id jointId)
   {
     ASSERT_NOT_EQUAL(jointId, Joint::kInvalidId, ());
@@ -113,10 +124,12 @@ public:
     m_roads[rp.GetFeatureId()].AddJoint(rp.GetPointId(), jointId);
   }
 
+  bool IsRoad(uint32_t featureId) const { return m_roads.count(featureId) != 0; }
+
   RoadJointIds const & GetRoad(uint32_t featureId) const
   {
     auto const & it = m_roads.find(featureId);
-    CHECK(it != m_roads.cend(), ());
+    CHECK(it != m_roads.cend(), ("Feture id:", featureId));
     return it->second;
   }
 

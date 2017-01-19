@@ -74,6 +74,8 @@ public:
     return GetRoad(rp.GetFeatureId()).GetPoint(rp.GetPointId());
   }
 
+  bool IsValid() const { return m_loader.operator bool(); }
+
 private:
   // Feature id to RoadGeometry map.
   unordered_map<uint32_t, RoadGeometry> m_roads;

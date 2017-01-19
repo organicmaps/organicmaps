@@ -1,5 +1,6 @@
 #pragma once
 
+#include "routing/index_graph.hpp"
 #include "routing/restrictions_serialization.hpp"
 
 #include "indexer/index.hpp"
@@ -14,7 +15,7 @@ namespace routing
 class RestrictionLoader
 {
 public:
-  explicit RestrictionLoader(MwmValue const & mwmValue);
+  explicit RestrictionLoader(MwmValue const & mwmValue, IndexGraph const & graph);
 
   bool HasRestrictions() const { return !m_restrictions.empty(); }
   RestrictionVec && StealRestrictions() { return move(m_restrictions); }
@@ -25,4 +26,7 @@ private:
   RestrictionVec m_restrictions;
   string const m_countryFileName;
 };
+
+void ConvertRestrictionOnlyToNo(IndexGraph const & graph, RestrictionVec const & restrictionsOnly,
+                                RestrictionVec & restrictionsNo);
 }  // namespace routing

@@ -32,6 +32,7 @@ public:
 
   Geometry & GetGeometry() { return m_geometry; }
   EdgeEstimator const & GetEstimator() const { return *m_estimator; }
+  bool IsRoad(uint32_t featureId) const { return m_roadIndex.IsRoad(featureId); }
   RoadJointIds const & GetRoad(uint32_t featureId) const { return m_roadIndex.GetRoad(featureId); }
 
   uint32_t GetNumRoads() const { return m_roadIndex.GetSize(); }
@@ -48,10 +49,21 @@ public:
     m_roadIndex.PushFromSerializer(jointId, rp);
   }
 
+  bool IsValid() const
+  {
+    return m_geometry.IsValid() && m_estimator && m_roadIndex.GetSize() != 0 && m_jointIndex.GetNumPoints() != 0;
+  }
+
   template <typename F>
   void ForEachRoad(F && f) const
   {
     m_roadIndex.ForEachRoad(forward<F>(f));
+  }
+
+  template <typename F>
+  void ForEachPoint(Joint::Id jointId, F && f) const
+  {
+    m_jointIndex.ForEachPoint(jointId, forward<F>(f));
   }
 
 private:

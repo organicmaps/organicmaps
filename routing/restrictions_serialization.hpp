@@ -105,13 +105,13 @@ public:
   }
 
   template <class Source>
-  static void Deserialize(RestrictionHeader const & header, routing::RestrictionVec & restrictions,
-                          Source & src)
+  static void Deserialize(RestrictionHeader const & header, routing::RestrictionVec & restrictionsNo,
+                          routing::RestrictionVec & restrictionsOnly, Source & src)
   {
-    DeserializeSingleType(routing::Restriction::Type::No, header.m_noRestrictionCount, restrictions,
+    DeserializeSingleType(routing::Restriction::Type::No, header.m_noRestrictionCount, restrictionsNo,
                           src);
     DeserializeSingleType(routing::Restriction::Type::Only, header.m_onlyRestrictionCount,
-                          restrictions, src);
+                          restrictionsOnly, src);
   }
 
 private:

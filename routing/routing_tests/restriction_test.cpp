@@ -4,6 +4,7 @@
 
 #include "routing/car_model.hpp"
 #include "routing/geometry.hpp"
+#include "routing/restriction_loader.hpp"
 
 #include "indexer/classificator_loader.hpp"
 
@@ -187,15 +188,17 @@ UNIT_CLASS_TEST(RestrictionTest, TriangularGraph_RestrictionNoF5F2)
 UNIT_CLASS_TEST(RestrictionTest, TriangularGraph_RestrictionOnlyF5F3)
 {
   Init(BuildTriangularGraph());
-  RestrictionVec restrictions = {
+  RestrictionVec restrictionsOnly = {
       {Restriction::Type::Only, {5 /* feature from */, 3 /* feature to */}}};
+  RestrictionVec restrictionsNo;
+  ConvertRestrictionOnlyToNo(*m_graph, restrictionsOnly, restrictionsNo);
   vector<m2::PointD> const expectedGeom = {
       {3 /* x */, 0 /* y */}, {2, 0}, {1, 0}, {0, 0}, {0, 2}, {0, 3}};
 
   TestRestrictions(expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
                    routing::IndexGraphStarter::FakeVertex(5, 0, m2::PointD(3, 0)) /* start */,
                    routing::IndexGraphStarter::FakeVertex(4, 0, m2::PointD(0, 3)) /* finish */,
-                   move(restrictions), *this);
+                   move(restrictionsNo), *this);
 }
 
 UNIT_CLASS_TEST(RestrictionTest, TriangularGraph_RestrictionNoF5F2RestrictionOnlyF5F3)
@@ -286,15 +289,17 @@ UNIT_CLASS_TEST(RestrictionTest, TwowayCornerGraph_RestrictionF3F2No)
 UNIT_CLASS_TEST(RestrictionTest, TwowayCornerGraph_RestrictionF3F1Only)
 {
   Init(BuildTwowayCornerGraph());
-  RestrictionVec restrictions = {
+  RestrictionVec restrictionsOnly = {
       {Restriction::Type::Only, {3 /* feature from */, 1 /* feature to */}}};
+  RestrictionVec restrictionsNo;
+  ConvertRestrictionOnlyToNo(*m_graph, restrictionsOnly, restrictionsNo);
   vector<m2::PointD> const expectedGeom = {
       {3 /* x */, 0 /* y */}, {2, 0}, {1, 0}, {0, 0}, {0, 1}, {0, 2}, {0, 3}};
 
   TestRestrictions(expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
                    routing::IndexGraphStarter::FakeVertex(3, 0, m2::PointD(3, 0)) /* start */,
                    routing::IndexGraphStarter::FakeVertex(4, 0, m2::PointD(0, 3)) /* finish */,
-                   move(restrictions), *this);
+                   move(restrictionsNo), *this);
 }
 
 // Finish
@@ -377,8 +382,10 @@ UNIT_CLASS_TEST(RestrictionTest, TwoSquaresGraph)
 UNIT_CLASS_TEST(RestrictionTest, TwoSquaresGraph_RestrictionF10F3Only)
 {
   Init(BuildTwoSquaresGraph());
-  RestrictionVec restrictions = {
+  RestrictionVec restrictionsOnly = {
       {Restriction::Type::Only, {10 /* feature from */, 3 /* feature to */}}};
+  RestrictionVec restrictionsNo;
+  ConvertRestrictionOnlyToNo(*m_graph, restrictionsOnly, restrictionsNo);
 
   vector<m2::PointD> const expectedGeom = {
       {3 /* x */, 0 /* y */}, {2, 0}, {1, 0}, {1, 1}, {0, 2}, {0, 3}};
@@ -386,15 +393,17 @@ UNIT_CLASS_TEST(RestrictionTest, TwoSquaresGraph_RestrictionF10F3Only)
   TestRestrictions(expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
                    routing::IndexGraphStarter::FakeVertex(10, 0, m2::PointD(3, 0)) /* start */,
                    routing::IndexGraphStarter::FakeVertex(11, 0, m2::PointD(0, 3)) /* finish */,
-                   move(restrictions), *this);
+                   move(restrictionsNo), *this);
 }
 
 UNIT_CLASS_TEST(RestrictionTest, TwoSquaresGraph_RestrictionF10F3OnlyF3F4Only)
 {
   Init(BuildTwoSquaresGraph());
-  RestrictionVec restrictions = {
+  RestrictionVec restrictionsOnly = {
       {Restriction::Type::Only, {3 /* feature from */, 4 /* feature to */}},
       {Restriction::Type::Only, {10 /* feature from */, 3 /* feature to */}}};
+  RestrictionVec restrictionsNo;
+  ConvertRestrictionOnlyToNo(*m_graph, restrictionsOnly, restrictionsNo);
 
   vector<m2::PointD> const expectedGeom = {
       {3 /* x */, 0 /* y */}, {2, 0}, {1, 0}, {0, 0}, {0, 2}, {0, 3}};
@@ -402,23 +411,25 @@ UNIT_CLASS_TEST(RestrictionTest, TwoSquaresGraph_RestrictionF10F3OnlyF3F4Only)
   TestRestrictions(expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
                    routing::IndexGraphStarter::FakeVertex(10, 0, m2::PointD(3, 0)) /* start */,
                    routing::IndexGraphStarter::FakeVertex(11, 0, m2::PointD(0, 3)) /* finish */,
-                   move(restrictions), *this);
+                   move(restrictionsNo), *this);
 }
 
 UNIT_CLASS_TEST(RestrictionTest, TwoSquaresGraph_RestrictionF2F8NoRestrictionF9F1Only)
 {
   Init(BuildTwoSquaresGraph());
-  RestrictionVec restrictions = {
-      {Restriction::Type::No, {2 /* feature from */, 8 /* feature to */}},
-      {Restriction::Type::Only, {9 /* feature from */, 1 /* feature to */}}};
+  RestrictionVec restrictionsNo = {
+      {Restriction::Type::No, {2 /* feature from */, 8 /* feature to */}}}; // Invalid restriction.
+  RestrictionVec const restrictionsOnly = {
+      {Restriction::Type::Only, {9 /* feature from */, 1 /* feature to */}}}; // Invalid restriction.
+  ConvertRestrictionOnlyToNo(*m_graph, restrictionsOnly, restrictionsNo);
 
   vector<m2::PointD> const expectedGeom = {
-      {3 /* x */, 0 /* y */}, {2, 0}, {1, 1}, {1, 2}, {0, 2}, {0, 3}};
+      {3 /* x */, 0 /* y */}, {2, 0}, {1, 1}, {0, 2}, {0, 3}};
 
   TestRestrictions(expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
                    routing::IndexGraphStarter::FakeVertex(10, 0, m2::PointD(3, 0)) /* start */,
                    routing::IndexGraphStarter::FakeVertex(11, 0, m2::PointD(0, 3)) /* finish */,
-                   move(restrictions), *this);
+                   move(restrictionsNo), *this);
 }
 
 // 2      *
@@ -600,14 +611,17 @@ UNIT_CLASS_TEST(RestrictionTest, PosterGraph_RestrictionF0F1Only)
 {
   Init(BuildPosterGraph());
 
-  RestrictionVec restrictions = {
+  RestrictionVec restrictionsOnly = {
       {Restriction::Type::Only, {0 /* feature from */, 1 /* feature to */}}};
+  RestrictionVec restrictionsNo;
+  ConvertRestrictionOnlyToNo(*m_graph, restrictionsOnly, restrictionsNo);
+
   vector<m2::PointD> const expectedGeom = {
       {2 /* x */, 0 /* y */}, {1, 0}, {0, 0}, {0, 1}, {0.5, 1}, {1, 1}, {2, 1}};
   TestRestrictions(expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
                    routing::IndexGraphStarter::FakeVertex(0, 0, m2::PointD(2, 0)), /* start */
                    routing::IndexGraphStarter::FakeVertex(6, 0, m2::PointD(2, 1)), /* finish */
-                   move(restrictions), *this);
+                   move(restrictionsNo), *this);
 }
 
 // 1                        *--F1-->*

@@ -191,7 +191,7 @@ bool SingleMwmRouter::LoadIndex(MwmSet::MwmId const & mwmId, string const & coun
     FilesContainerR::TReader reader(mwmValue->m_cont.GetReader(ROUTING_FILE_TAG));
     ReaderSource<FilesContainerR::TReader> src(reader);
     IndexGraphSerializer::Deserialize(graph, src, kCarMask);
-    RestrictionLoader restrictionLoader(*mwmValue);
+    RestrictionLoader restrictionLoader(*mwmValue, graph);
     if (restrictionLoader.HasRestrictions())
       graph.SetRestrictions(restrictionLoader.StealRestrictions());
 
@@ -208,8 +208,8 @@ bool SingleMwmRouter::LoadIndex(MwmSet::MwmId const & mwmId, string const & coun
 }
 
 bool SingleMwmRouter::RedressRoute(MwmSet::MwmId const & mwmId, IVehicleModel const & vehicleModel,
-                                 vector<Segment> const & segments, RouterDelegate const & delegate,
-                                 IndexGraphStarter & starter, Route & route) const
+                                   vector<Segment> const & segments, RouterDelegate const & delegate,
+                                   IndexGraphStarter & starter, Route & route) const
 {
   vector<Junction> junctions;
   size_t const numPoints = IndexGraphStarter::GetRouteNumPoints(segments);
