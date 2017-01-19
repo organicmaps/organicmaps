@@ -10,8 +10,8 @@ NSUInteger constexpr kMaxPredictionCount = 20;
 
 @interface MWMLocationPredictor ()
 
-@property (nonatomic) location::GpsInfo lastLocationInfo;
-@property (nonatomic) BOOL isLastLocationInfoValid;
+@property(copy, nonatomic) CLLocation * lastLocation;
+@property(nonatomic) BOOL isLastLocationValid;
 @property (nonatomic) BOOL isLastPositionModeValid;
 @property (nonatomic) NSUInteger predictionsCount;
 @property (copy, nonatomic) TPredictionBlock onPredictionBlock;
@@ -34,18 +34,19 @@ NSUInteger constexpr kMaxPredictionCount = 20;
   [self restart];
 }
 
-- (void)reset:(location::GpsInfo const &)locationInfo
+- (void)reset:(CLLocation *)location
 {
-  self.isLastLocationInfoValid = (locationInfo.HasSpeed() && locationInfo.HasBearing());
-  if (self.isLastLocationInfoValid)
-    self.lastLocationInfo = locationInfo;
+  self.isLastLocationValid = (location.speed >= 0.0 && location.course >= 0.0);
+  if (self.isLastLocationValid)
+    self.lastLocation = location;
 
   [self restart];
 }
 
 - (BOOL)isActive
 {
-  return self.isLastLocationInfoValid && self.isLastPositionModeValid && self.predictionsCount < kMaxPredictionCount;
+  return self.isLastLocationValid && self.isLastPositionModeValid &&
+         self.predictionsCount < kMaxPredictionCount;
 }
 
 - (void)restart
@@ -68,13 +69,24 @@ NSUInteger constexpr kMaxPredictionCount = 20;
 
   self.predictionsCount++;
 
-  location::GpsInfo info = self.lastLocationInfo;
-  info.m_source = location::EPredictor;
-  info.m_timestamp = [NSDate date].timeIntervalSince1970;
-  Framework::PredictLocation(info.m_latitude, info.m_longitude, info.m_horizontalAccuracy,
-                             info.m_bearing, info.m_speed,
-                             info.m_timestamp - self.lastLocationInfo.m_timestamp);
-  self.onPredictionBlock(info);
+  CLLocation * l = self.lastLocation;
+  CLLocationCoordinate2D coordinate = l.coordinate;
+  CLLocationDistance altitude = l.altitude;
+  CLLocationAccuracy hAccuracy = l.horizontalAccuracy;
+  CLLocationAccuracy vAccuracy = l.verticalAccuracy;
+  CLLocationDirection course = l.course;
+  CLLocationSpeed speed = l.speed;
+  NSDate * timestamp = [NSDate date];
+  Framework::PredictLocation(coordinate.latitude, coordinate.longitude, hAccuracy, course, speed,
+                             timestamp.timeIntervalSince1970 - l.timestamp.timeIntervalSince1970);
+  CLLocation * location = [[CLLocation alloc] initWithCoordinate:coordinate
+                                                        altitude:altitude
+                                              horizontalAccuracy:hAccuracy
+                                                verticalAccuracy:vAccuracy
+                                                          course:course
+                                                           speed:speed
+                                                       timestamp:timestamp];
+  self.onPredictionBlock(location);
   [self schedule];
 }
 

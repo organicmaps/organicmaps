@@ -21,10 +21,10 @@ namespace
 using TObserver = id<MWMLocationObserver>;
 using TObservers = NSHashTable<__kindof TObserver>;
 
-location::GpsInfo gpsInfoFromLocation(CLLocation * l)
+location::GpsInfo gpsInfoFromLocation(CLLocation * l, location::TLocationSource source)
 {
   location::GpsInfo info;
-  info.m_source = location::EAppleNative;
+  info.m_source = source;
 
   info.m_latitude = l.coordinate.latitude;
   info.m_longitude = l.coordinate.longitude;
@@ -56,6 +56,13 @@ location::CompassInfo compassInfoFromHeading(CLHeading * h)
     info.m_bearing = my::DegToRad(h.magneticHeading);
   return info;
 }
+
+typedef NS_OPTIONS(NSUInteger, MWMLocationFrameworkUpdate) {
+  MWMLocationFrameworkUpdateNone = 0,
+  MWMLocationFrameworkUpdateLocation = 1 << 0,
+  MWMLocationFrameworkUpdateHeading = 1 << 1,
+  MWMLocationFrameworkUpdateStatus = 1 << 2
+};
 
 enum class GeoMode
 {
@@ -127,22 +134,6 @@ BOOL keepRunningInBackground()
   return NO;
 }
 
-void sendInfoToFramework(dispatch_block_t block)
-{
-  MapsAppDelegate * delegate =
-      static_cast<MapsAppDelegate *>(UIApplication.sharedApplication.delegate);
-  if (delegate.isDrapeEngineCreated)
-  {
-    block();
-  }
-  else
-  {
-    runAsyncOnMainQueue(^{
-      sendInfoToFramework(block);
-    });
-  }
-}
-
 NSString * const kLocationPermissionRequestedKey = @"kLocationPermissionRequestedKey";
 
 BOOL isPermissionRequested()
@@ -168,6 +159,8 @@ void setPermissionRequested()
 @property(nonatomic) location::TLocationError lastLocationStatus;
 @property(nonatomic) MWMLocationPredictor * predictor;
 @property(nonatomic) TObservers * observers;
+@property(nonatomic) MWMLocationFrameworkUpdate frameworkUpdateMode;
+@property(nonatomic) location::TLocationSource locationSource;
 
 @end
 
@@ -265,13 +258,9 @@ void setPermissionRequested()
 
 - (void)processLocationStatus:(location::TLocationError)locationError
 {
-  //  if (self.lastLocationStatus == locationError)
-  //    return;
   self.lastLocationStatus = locationError;
-  sendInfoToFramework(^{
-    if (self.lastLocationStatus != location::TLocationError::ENoError)
-      GetFramework().OnLocationError(self.lastLocationStatus);
-  });
+  if (self.lastLocationStatus != location::TLocationError::ENoError)
+    self.frameworkUpdateMode |= MWMLocationFrameworkUpdateStatus;
   for (TObserver observer in self.observers)
   {
     if ([observer respondsToSelector:@selector(onLocationError:)])
@@ -282,9 +271,7 @@ void setPermissionRequested()
 - (void)processHeadingUpdate:(CLHeading *)headingInfo
 {
   self.lastHeadingInfo = headingInfo;
-  sendInfoToFramework(^{
-    GetFramework().OnCompassUpdate(compassInfoFromHeading(self.lastHeadingInfo));
-  });
+  self.frameworkUpdateMode |= MWMLocationFrameworkUpdateHeading;
   location::CompassInfo const compassInfo = compassInfoFromHeading(headingInfo);
   for (TObserver observer in self.observers)
   {
@@ -297,18 +284,19 @@ void setPermissionRequested()
 {
   if (!locationInfo || self.lastLocationStatus != location::TLocationError::ENoError)
     return;
-  location::GpsInfo const gpsInfo = gpsInfoFromLocation(locationInfo);
-  [self onLocationUpdate:gpsInfo];
-  if (self.lastLocationInfo == locationInfo)
-    return;
-  self.lastLocationInfo = locationInfo;
-  [self.predictor reset:gpsInfo];
+  [self onLocationUpdate:locationInfo source:self.locationSource];
+  if (![self.lastLocationInfo isEqual:locationInfo])
+    [self.predictor reset:locationInfo];
 }
 
-- (void)onLocationUpdate:(location::GpsInfo const &)gpsInfo
+- (void)onLocationUpdate:(CLLocation *)locationInfo source:(location::TLocationSource)source
 {
+  location::GpsInfo const gpsInfo = gpsInfoFromLocation(locationInfo, source);
   GpsTracker::Instance().OnLocationUpdated(gpsInfo);
-  sendInfoToFramework([gpsInfo] { GetFramework().OnLocationUpdate(gpsInfo); });
+
+  self.lastLocationInfo = locationInfo;
+  self.locationSource = source;
+  self.frameworkUpdateMode |= MWMLocationFrameworkUpdateLocation;
   for (TObserver observer in self.observers)
   {
     if ([observer respondsToSelector:@selector(onLocationUpdate:)])
@@ -374,10 +362,9 @@ void setPermissionRequested()
   if (!_predictor)
   {
     __weak MWMLocationManager * weakSelf = self;
-    _predictor = [[MWMLocationPredictor alloc]
-        initWithOnPredictionBlock:^(location::GpsInfo const & gpsInfo) {
-          [weakSelf onLocationUpdate:gpsInfo];
-        }];
+    _predictor = [[MWMLocationPredictor alloc] initWithOnPredictionBlock:^(CLLocation * location) {
+      [weakSelf onLocationUpdate:location source:location::EPredictor];
+    }];
   }
   return _predictor;
 }
@@ -460,6 +447,7 @@ void setPermissionRequested()
     return;
 
   self.lastLocationStatus = location::TLocationError::ENoError;
+  self.locationSource = location::EAppleNative;
   [self processLocationUpdate:location];
   [[Statistics instance] logLocation:location];
 }
@@ -546,6 +534,52 @@ void setPermissionRequested()
   if ([CLLocationManager headingAvailable])
     [locationManager stopUpdatingHeading];
   [[PushNotificationManager pushManager] stopLocationTracking];
+}
+
+#pragma mark - Framework
+
+- (void)updateFrameworkInfo
+{
+  auto app = UIApplication.sharedApplication;
+  auto delegate = static_cast<MapsAppDelegate *>(app.delegate);
+  if (delegate.isDrapeEngineCreated && app.applicationState == UIApplicationStateActive)
+  {
+    auto & f = GetFramework();
+    if (self.frameworkUpdateMode & MWMLocationFrameworkUpdateLocation)
+    {
+      location::GpsInfo const gpsInfo =
+          gpsInfoFromLocation(self.lastLocationInfo, self.locationSource);
+      f.OnLocationUpdate(gpsInfo);
+    }
+    if (self.frameworkUpdateMode & MWMLocationFrameworkUpdateHeading)
+      f.OnCompassUpdate(compassInfoFromHeading(self.lastHeadingInfo));
+    if (self.frameworkUpdateMode & MWMLocationFrameworkUpdateStatus)
+      f.OnLocationError(self.lastLocationStatus);
+    self.frameworkUpdateMode = MWMLocationFrameworkUpdateNone;
+  }
+  else
+  {
+    runAsyncOnMainQueue(^{
+      [self updateFrameworkInfo];
+    });
+  }
+}
+
+#pragma mark - Property
+
+- (void)setFrameworkUpdateMode:(MWMLocationFrameworkUpdate)frameworkUpdateMode
+{
+  if (frameworkUpdateMode != _frameworkUpdateMode &&
+      _frameworkUpdateMode == MWMLocationFrameworkUpdateNone &&
+      frameworkUpdateMode != MWMLocationFrameworkUpdateNone)
+  {
+    _frameworkUpdateMode = frameworkUpdateMode;
+    [self updateFrameworkInfo];
+  }
+  else
+  {
+    _frameworkUpdateMode = frameworkUpdateMode;
+  }
 }
 
 @end
