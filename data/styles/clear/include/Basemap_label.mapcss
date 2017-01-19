@@ -550,11 +550,6 @@ area|z10-[natural=water][bbox_area<4000000],
 
 /* 6.2 Line water(river,canal etc.) Do not draw tunnel waterways */
 
-line[waterway]
-{text-position: line;}
-line[waterway][tunnel]
-{text: none;}
-
 line|z11-14[waterway=river],
 line|z11-14[waterway=riverbank],
 line|z13-14[waterway=stream],
@@ -568,6 +563,11 @@ line|z15-[waterway=riverbank],
 line|z18-[waterway=stream],
 line|z18-[waterway=canal],
 {font-size: 12;text:name;text-color: @water_label;}
+
+line[waterway]
+{text-position: line;}
+line[waterway][tunnel]
+{text: none;}
 
 /* 7. LANDUSE*/
 
