@@ -2,6 +2,7 @@ package com.mapswithme.maps.search;
 
 import android.content.Intent;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -150,6 +151,7 @@ public class SearchFragment extends BaseMwmFragment
   private PlaceholderView mResultsPlaceholder;
   private RecyclerView mResults;
   private AppBarLayout mAppBarLayout;
+  private View mFilterElevation;
   @Nullable
   private SearchFilterController mFilterController;
 
@@ -195,8 +197,10 @@ public class SearchFragment extends BaseMwmFragment
           if (mFilterController == null)
             return;
 
-          mFilterController.showDivider(
-              !(Math.abs(verticalOffset) == appBarLayout.getTotalScrollRange()));
+          boolean show = !(Math.abs(verticalOffset) == appBarLayout.getTotalScrollRange());
+          mFilterController.showDivider(show);
+          if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+            UiUtils.showIf(!show, mFilterElevation);
         }
       };
 
@@ -295,6 +299,8 @@ public class SearchFragment extends BaseMwmFragment
     mResultsPlaceholder = (PlaceholderView) mResultsFrame.findViewById(R.id.placeholder);
     mResultsPlaceholder.setContent(R.drawable.img_search_nothing_found_light,
                                    R.string.search_not_found, R.string.search_not_found_query);
+
+    mFilterElevation = view.findViewById(R.id.filter_elevation);
 
     mFilterController = new SearchFilterController(root.findViewById(R.id.filter_frame),
                                                    (HotelsFilterView) view.findViewById(R.id.filter),
