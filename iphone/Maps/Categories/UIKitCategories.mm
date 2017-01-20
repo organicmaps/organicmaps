@@ -301,7 +301,7 @@
 - (void)openUrl:(NSURL *)url
 {
   NSString * scheme = url.scheme;
-  if (![scheme isEqualToString:@"http"] || ![scheme isEqualToString:@"https"])
+  if (!([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]))
   {
     NSAssert(false, @"Incorrect url's scheme!");
     NSString * urlString = url.absoluteString;
