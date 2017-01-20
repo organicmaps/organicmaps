@@ -112,8 +112,17 @@ build_conf_osrm()
   (
     export BOOST_INCLUDEDIR="$BOOST_PATH/include"
     cd "$DIRNAME"
-    "$QMAKE" "$OMIM_PATH/omim.pro" ${SPEC:+-spec $SPEC} "CONFIG+=$CONF osrm" ${CONFIG+"CONFIG*=$CONFIG"}
-    make -j $PROCESSES
+
+    if [[ -z ${CMAKE_OMIM+x} ]]; then
+      DIRNAME="$DIRNAME/out/$CONF"
+      mkdir -p "$DIRNAME"
+      cd "$DIRNAME"
+      cmake "$OMIM_PATH"
+      make routing indexer geometry coding base jansson -j $PROCESSES
+    else
+      "$QMAKE" "$OMIM_PATH/omim.pro" ${SPEC:+-spec $SPEC} "CONFIG+=$CONF osrm no-tests" ${CONFIG+"CONFIG*=$CONFIG"}
+      make -j $PROCESSES
+    fi
   )
 }
 

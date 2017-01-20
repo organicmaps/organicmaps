@@ -92,3 +92,7 @@ add_library(${PROJECT_NAME} ${SRC})
 
 omim_add_test_subdirectory(generator_tests_support)
 omim_add_test_subdirectory(generator_tests)
+
+if (NOT SKIP_GTOOL)
+  add_subdirectory(generator_tool)
+endif()
