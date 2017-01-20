@@ -128,13 +128,10 @@ public class PriceFilterView extends LinearLayout implements View.OnClickListene
   public void update(@Nullable HotelsFilter filter)
   {
     mFilter = filter;
-    if (mFilter == null)
-    {
-      deselectAll();
-      return;
-    }
 
-    updateRecursive(mFilter);
+    deselectAll();
+    if (mFilter != null)
+      updateRecursive(mFilter);
   }
 
   private void updateRecursive(@NonNull HotelsFilter filter)
@@ -199,10 +196,9 @@ public class PriceFilterView extends LinearLayout implements View.OnClickListene
   public void onClick(View v)
   {
     select(v.getId(), false);
-    updateFilter();
   }
 
-  private void updateFilter()
+  public void updateFilter()
   {
     List<HotelsFilter.PriceRateFilter> filters = new ArrayList<>();
     for (int i = 0; i < mItems.size(); ++i)

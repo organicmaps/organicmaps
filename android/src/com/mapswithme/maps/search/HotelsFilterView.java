@@ -111,6 +111,7 @@ public class HotelsFilterView extends FrameLayout
 
   private void cancel()
   {
+    updateViews();
     if (mListener != null)
       mListener.onCancel();
     close();
@@ -118,6 +119,7 @@ public class HotelsFilterView extends FrameLayout
 
   private void populateFilter()
   {
+    mPrice.updateFilter();
     HotelsFilter.RatingFilter rating = mRating.getFilter();
     HotelsFilter price = mPrice.getFilter();
     if (rating == null && price == null)
