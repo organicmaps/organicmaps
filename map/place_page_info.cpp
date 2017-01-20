@@ -132,7 +132,7 @@ string Info::FormatStars() const
 string Info::GetFormattedCoordinate(bool isDMS) const
 {
   auto const & ll = GetLatLon();
-  return isDMS ? measurement_utils::FormatLatLon(ll.lat, ll.lon)
+  return isDMS ? measurement_utils::FormatLatLon(ll.lat, ll.lon, true)
                : measurement_utils::FormatLatLonAsDMS(ll.lat, ll.lon, 2);
 }
 
