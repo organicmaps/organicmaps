@@ -2,20 +2,17 @@ package com.mapswithme.maps.location;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.location.Location;
 import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.Banner;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.routing.RoutingController;
@@ -27,8 +24,7 @@ import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.DebugLogger;
 import com.mapswithme.util.log.Logger;
 
-import static com.mapswithme.maps.background.AppBackgroundTracker.*;
-import java.lang.ref.WeakReference;
+import static com.mapswithme.maps.background.AppBackgroundTracker.OnTransitionListener;
 
 public enum LocationHelper
 {
@@ -61,7 +57,7 @@ public enum LocationHelper
     void onLocationUpdated(@NonNull Location location);
     void onCompassUpdated(@NonNull CompassData compass);
     void onLocationError();
-    boolean shouldNotifyLocationNotFound();
+    void onLocationNotFound();
   }
 
   private final OnTransitionListener mOnTransition = new OnTransitionListener()
@@ -97,7 +93,7 @@ public enum LocationHelper
     @Override
     public void onLocationUpdated(Location location)
     {
-      mLogger.d("onLocationUpdated()");
+      mLogger.d("onLocationUpdated(), provider = " + location.getProvider());
 
       mPredictor.onLocationUpdated(location);
 
@@ -157,7 +153,6 @@ public enum LocationHelper
   private boolean mActive;
   private boolean mLocationStopped;
   private boolean mColdStart = true;
-  private boolean mPendingNoLocation;
 
   private Location mSavedLocation;
   private MapObject mMyPosition;
@@ -169,7 +164,6 @@ public enum LocationHelper
   private final LocationPredictor mPredictor = new LocationPredictor(mLocationListener);
   @Nullable
   private UiCallback mUiCallback;
-  private WeakReference<UiCallback> mPrevUiCallback;
 
   private long mInterval;
   private boolean mHighAccuracy;
@@ -202,7 +196,7 @@ public enum LocationHelper
         if (mLocationStopped)
           break;
 
-        if (!hasPendingNoLocation() && LocationUtils.areLocationServicesTurnedOn())
+        if (LocationUtils.areLocationServicesTurnedOn())
         {
           mLocationStopped = true;
           notifyLocationNotFound();
@@ -394,50 +388,8 @@ public enum LocationHelper
   private void notifyLocationNotFound()
   {
     mLogger.d("notifyLocationNotFound()");
-
-    setHasPendingNoLocation(mUiCallback == null);
-    if (hasPendingNoLocation())
-    {
-      mLogger.d("UI detached - schedule notification");
-      return;
-    }
-
-    if (!mUiCallback.shouldNotifyLocationNotFound())
-      return;
-
-    Activity activity = mUiCallback.getActivity();
-    String message = String.format("%s\n\n%s", activity.getString(R.string.current_location_unknown_message),
-                                               activity.getString(R.string.current_location_unknown_title));
-    new AlertDialog.Builder(activity)
-        .setMessage(message)
-        .setNegativeButton(R.string.current_location_unknown_stop_button, null)
-        .setPositiveButton(R.string.current_location_unknown_continue_button, new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dialog, int which)
-          {
-            mLocationStopped = false;
-            LocationState.nativeSwitchToNextMode();
-          }
-        }).setOnDismissListener(new DialogInterface.OnDismissListener()
-        {
-          @Override
-          public void onDismiss(DialogInterface dialog)
-          {
-            setHasPendingNoLocation(false);
-          }
-        }).show();
-  }
-
-  public boolean hasPendingNoLocation()
-  {
-    return mPendingNoLocation;
-  }
-
-  public void setHasPendingNoLocation(boolean hasPending)
-  {
-    mLogger.d("setHasPendingNoLocation(), hasPending: " + hasPending);
-    mPendingNoLocation = hasPending;
+    if (mUiCallback != null)
+      mUiCallback.onLocationNotFound();
   }
 
   boolean isLocationStopped()
@@ -686,7 +638,7 @@ public enum LocationHelper
    */
   public void attach(UiCallback callback)
   {
-    mLogger.d("attach() callback = " + callback);
+    mLogger.d("attach() callback = " + callback + " mColdStart = " + mColdStart);
 
     if (mUiCallback != null)
     {
@@ -695,7 +647,6 @@ public enum LocationHelper
     }
 
     mUiCallback = callback;
-    compareWithPreviousCallback();
 
     Utils.keepScreenOn(true, mUiCallback.getActivity().getWindow());
 
@@ -703,27 +654,11 @@ public enum LocationHelper
     if (mCompassData != null)
       mUiCallback.onCompassUpdated(mCompassData);
 
-    if (hasPendingNoLocation())
-      notifyLocationNotFound();
-
     if (!mLocationStopped)
       addListener(mLocationListener, true);
     else
       checkProvidersAndStartIfNeeded();
-  }
 
-  private void compareWithPreviousCallback()
-  {
-    if (mPrevUiCallback != null)
-    {
-      UiCallback prev = mPrevUiCallback.get();
-      if (prev != null && prev != mUiCallback)
-      {
-        // Another UI instance attached, cancel pending "No location" dialog.
-        setHasPendingNoLocation(false);
-      }
-    }
-    mPrevUiCallback = new WeakReference<>(mUiCallback);
   }
 
   /**

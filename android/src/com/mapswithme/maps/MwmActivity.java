@@ -1758,12 +1758,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public boolean shouldNotifyLocationNotFound()
-  {
-    return (mMapFragment != null && !mMapFragment.isFirstStart());
-  }
-
-  @Override
   public void onLocationError()
   {
     if (mLocationErrorDialogAnnoying)
@@ -1809,5 +1803,50 @@ public class MwmActivity extends BaseMwmFragmentActivity
             startActivity(intent);
           }
         }).show();
+  }
+
+  @Override
+  public void onLocationNotFound()
+  {
+    if (!shouldNotifyLocationNotFound())
+      return;
+
+    showLocationNotFoundDialog();
+  }
+
+  private void showLocationNotFoundDialog()
+  {
+    String message = String.format("%s\n\n%s", getString(R.string.current_location_unknown_message),
+                                   getString(R.string.current_location_unknown_title));
+    new AlertDialog.Builder(this)
+        .setMessage(message)
+        .setNegativeButton(R.string.current_location_unknown_stop_button, new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dialog, int which)
+          {
+            LocationHelper.INSTANCE.stop();
+          }
+        })
+        .setPositiveButton(R.string.current_location_unknown_continue_button, new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dialog, int which)
+          {
+            LocationHelper.INSTANCE.switchToNextMode();
+          }
+        }).setOnDismissListener(new DialogInterface.OnDismissListener()
+    {
+      @Override
+      public void onDismiss(DialogInterface dialog)
+      {
+        LocationHelper.INSTANCE.stop();
+      }
+    }).show();
+  }
+
+  private boolean shouldNotifyLocationNotFound()
+  {
+    return mMapFragment != null && !mMapFragment.isFirstStart();
   }
 }
