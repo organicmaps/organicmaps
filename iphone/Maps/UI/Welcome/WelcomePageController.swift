@@ -50,7 +50,7 @@ final class WelcomePageController: UIPageViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = UIColor.white()
-    if IPAD() {
+    iPadSpecific {
       let parentView = parentController.view!
       iPadBackgroundView = SolidTouchView(frame: parentView.bounds)
       iPadBackgroundView!.backgroundColor = UIColor.fadeBackground()
@@ -105,7 +105,8 @@ final class WelcomePageController: UIPageViewController {
 
   private func updateFrame() {
     let parentView = parentController.view!
-    view.frame = IPAD() ? CGRect(x: parentView.center.x - 260, y: parentView.center.y - 300, width: 520, height: 600) : CGRect(origin: CGPoint(), size: parentView.size)
+    view.frame = val(iPhone: CGRect(origin: CGPoint(), size: parentView.size),
+                     iPad: CGRect(x: parentView.center.x - 260, y: parentView.center.y - 300, width: 520, height: 600))
     (currentController as! WelcomeProtocolBase).updateSize()
   }
 
