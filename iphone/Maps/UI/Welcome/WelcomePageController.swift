@@ -105,8 +105,8 @@ final class WelcomePageController: UIPageViewController {
 
   private func updateFrame() {
     let parentView = parentController.view!
-    view.frame = val(iPhone: CGRect(origin: CGPoint(), size: parentView.size),
-                     iPad: CGRect(x: parentView.center.x - 260, y: parentView.center.y - 300, width: 520, height: 600))
+    view.frame = alternative(iPhone: CGRect(origin: CGPoint(), size: parentView.size),
+                             iPad: CGRect(x: parentView.center.x - 260, y: parentView.center.y - 300, width: 520, height: 600))
     (currentController as! WelcomeProtocolBase).updateSize()
   }
 
