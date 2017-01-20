@@ -9,8 +9,8 @@ namespace
 using namespace routing;
 
 /// \returns if features |r1| and |r2| have a common end returns its joint id.
-/// If not, returnfs Joint::kInvalidId.
-/// \note It's possible that the both ends of |r1| and |r2| has common joint ids.
+/// If not, returns Joint::kInvalidId.
+/// \note It's possible that the both ends of |r1| and |r2| have common joint ids.
 /// In that case returns any of them.
 /// \note In general case ends of features don't have to be joints. For example all
 /// loose feature ends aren't joints. But if ends of r1 and r2 are connected at this
@@ -61,6 +61,7 @@ RestrictionLoader::RestrictionLoader(MwmValue const & mwmValue, IndexGraph const
     m_header.Reset();
     LOG(LERROR,
         ("File", m_countryFileName, "Error while reading", RESTRICTIONS_FILE_TAG, "section.", e.Msg()));
+    throw;
   }
 }
 

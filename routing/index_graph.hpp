@@ -67,13 +67,12 @@ private:
                            vector<SegmentEdge> & edges);
   void GetNeighboringEdge(Segment const & from, Segment const & to, bool isOutgoing,
                           vector<SegmentEdge> & edges);
-  double GetPenalties(Segment const & u, Segment const & v);
+  double GetPenalties(Segment const & u, Segment const & v) const;
 
   Geometry m_geometry;
   shared_ptr<EdgeEstimator> m_estimator;
   RoadIndex m_roadIndex;
   JointIndex m_jointIndex;
-
   RestrictionVec m_restrictions;
 };
 }  // namespace routing

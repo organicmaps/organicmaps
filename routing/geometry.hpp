@@ -42,6 +42,11 @@ public:
   // In such cases RoadGeometry is not valid.
   bool IsValid() const { return m_valid; }
 
+  bool IsEndPointId(uint32_t pointId) const
+  {
+    return pointId == 0 || pointId + 1 == GetPointsCount();
+  }
+
 private:
   Points m_points;
   double m_speed = 0.0;

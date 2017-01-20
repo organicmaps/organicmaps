@@ -37,7 +37,7 @@ bool IsRestricted(RestrictionVec const & restrictions, Segment const & u, Segmen
   // where the U-turn is restricted. It's necessary to pass the data to mwm and to use it here.
   // Please see test LineGraph_RestrictionF1F1No for details.
   //
-  // Another exapmle when it's necessary to be aware about feature end particepated in restriction
+  // Another example when it's necessary to be aware about feature end participated in restriction
   // is
   //        *---F1---*
   //        |        |
@@ -129,9 +129,8 @@ void IndexGraph::GetNeighboringEdge(Segment const & from, Segment const & to, bo
 {
   // Blocking U-turns on internal feature points.
   RoadPoint const rp = from.GetRoadPoint(isOutgoing);
-  if (IsUTurn(from, to) && m_roadIndex.GetJointId(rp) == Joint::kInvalidId &&
-      rp.GetPointId() != 0 &&
-      rp.GetPointId() + 1 != m_geometry.GetRoad(from.GetFeatureId()).GetPointsCount())
+  if (IsUTurn(from, to) && m_roadIndex.GetJointId(rp) == Joint::kInvalidId
+      && !m_geometry.GetRoad(from.GetFeatureId()).IsEndPointId(rp.GetPointId()))
   {
     return;
   }
@@ -145,7 +144,7 @@ void IndexGraph::GetNeighboringEdge(Segment const & from, Segment const & to, bo
   edges.emplace_back(to, weight);
 }
 
-double IndexGraph::GetPenalties(Segment const & u, Segment const & v)
+double IndexGraph::GetPenalties(Segment const & u, Segment const & v) const
 {
   if (IsUTurn(u, v))
     return GetEstimator().GetUTurnPenalty();
