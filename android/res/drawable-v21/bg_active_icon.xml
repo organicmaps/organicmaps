@@ -6,7 +6,7 @@
     <shape
       xmlns:android="http://schemas.android.com/apk/res/android"
       android:shape="oval">
-      <solid android:color="?activeIconBackground"/>
+      <solid android:color="@color/base_accent"/>
       <size
         android:height="40dp"
         android:width="40dp"/>

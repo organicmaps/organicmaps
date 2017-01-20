@@ -87,9 +87,9 @@
     <item name="bannerBackground">@color/bg_banner_color</item>
 
     <item name="steadyIconTint">@color/black_secondary</item>
-    <item name="steadyIconBackground">@color/black_8</item>
+    <item name="steadyIconBackground">@drawable/bg_steady_icon</item>
     <item name="activeIconTint">@color/bg_cards</item>
-    <item name="activeIconBackground">?colorAccent</item>
+    <item name="activeIconBackground">@drawable/bg_active_icon</item>
   </style>
 
   <!-- Night theme -->
@@ -180,7 +180,8 @@
     <item name="bannerBackground">@color/bg_banner_color_night</item>
 
     <item name="steadyIconTint">@color/white_secondary</item>
-    <item name="steadyIconBackground">@color/white_8</item>
+    <item name="steadyIconBackground">@drawable/bg_steady_icon_night</item>
     <item name="activeIconTint">@color/bg_cards_night</item>
+    <item name="activeIconBackground">@drawable/bg_active_icon_night</item>
   </style>
 </resources>

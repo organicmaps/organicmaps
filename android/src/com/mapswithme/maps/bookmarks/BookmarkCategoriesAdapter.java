@@ -15,6 +15,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
 import com.mapswithme.maps.widget.recycler.RecyclerLongClickListener;
 import com.mapswithme.util.Graphics;
+import com.mapswithme.util.UiUtils;
 
 public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<BookmarkCategoriesAdapter.ViewHolder>
 {
@@ -134,12 +135,14 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Bookm
       Drawable drawable;
       if (visible)
       {
-        visibilityMarker.setBackgroundResource(R.drawable.bg_active_icon);
+        visibilityMarker.setBackgroundResource(UiUtils.getStyledResourceId(
+            visibilityMarker.getContext(), R.attr.activeIconBackground));
         drawable = Graphics.tint(visibilityMarker.getContext(), R.drawable.ic_bookmark_show, R.attr.activeIconTint);
       }
       else
       {
-        visibilityMarker.setBackgroundResource(R.drawable.bg_steady_icon);
+        visibilityMarker.setBackgroundResource(UiUtils.getStyledResourceId(
+            visibilityMarker.getContext(), R.attr.steadyIconBackground));
         drawable = Graphics.tint(visibilityMarker.getContext(), R.drawable.ic_bookmark_hide,
                                  R.attr.steadyIconTint);
       }
