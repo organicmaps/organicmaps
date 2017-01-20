@@ -204,19 +204,17 @@ UNIT_TEST(Classificator_AreaPriority)
     // 0
     {"natural", "coastline"},
     // 1
-    //{"waterway", "riverbank"}, - it's not a good idea to place it here
-    // 2
     {"place", "island"}, {"natural", "land"},
-    // 3
+    // 2
     {"natural", "wood"}, {"natural", "scrub"}, {"natural", "heath"}, {"natural", "grassland"},
     {"landuse", "grass"}, {"landuse", "farm"}, {"landuse", "farmland"}, {"landuse", "forest"},
-    // 4
+    // ?
     //{"leisure", "park"}, {"leisure", "garden"}, - maybe next time (too tricky to do it now)
-    // 5
-    {"natural", "water"}, {"natural", "lake"}, {"landuse", "basin"}
+    // 3
+    {"natural", "water"}, {"natural", "lake"}, {"landuse", "basin"}, {"waterway", "riverbank"}
   };
 
-  CheckPriority(types, {1, 2, 8, 3}, drule::area);
+  CheckPriority(types, {1, 2, 8, 4}, drule::area);
 }
 
 UNIT_TEST(Classificator_PoiPriority)
