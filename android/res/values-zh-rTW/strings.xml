@@ -390,6 +390,8 @@
 	<string name="follow_on_twitter">在Twitter 上關注</string>
 	<!-- Text in menu -->
 	<string name="contact_us">聯絡我們</string>
+	<!-- Settings: Send feedback button and dialog title -->
+	<string name="feedback">意見反應</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">一般意見反應</string>
 	<!-- Text in menu -->
@@ -1010,7 +1012,7 @@
 	<string name="mobile_data_option_ask">一律詢問</string>
 	<string name="traffic_update_maps_text">若要顯示交通資料，必須更新地圖。</string>
 	<string name="traffic_outdated">交通資料已過時。</string>
-	<string name="big_font">更大的標籤</string>
+	<string name="big_font">增加地圖上的字體大小</string>
 	<string name="traffic_update_app">請更新 MAPS.ME</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">若要顯示交通資訊，必須更新應用程式。</string>
@@ -1052,4 +1054,10 @@
 	<string name="whatsnew_font_size">字型大小</string>
 	<!-- january -->
 	<string name="whatsnew_font_size_text">可將地圖上的標籤變大。</string>
+	<!-- Seven points and higher -->
+	<string name="booking_filter_rating_num_good">7.0+</string>
+	<!-- Eight points and higher -->
+	<string name="booking_filter_rating_num_very_good">8.0+</string>
+	<!-- Nine points and higher -->
+	<string name="booking_filter_rating_num_excellent">9.0+</string>
 </resources>

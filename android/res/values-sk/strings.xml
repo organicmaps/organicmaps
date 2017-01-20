@@ -385,6 +385,8 @@
 	<string name="follow_on_twitter">Sledovať na Twitteri</string>
 	<!-- Text in menu -->
 	<string name="contact_us">Kontaktovať nás</string>
+	<!-- Settings: Send feedback button and dialog title -->
+	<string name="feedback">Spätná väzba</string>
 	<!-- Text in menu -->
 	<string name="subscribe_to_news">Prihlásiť sa k našim novinkám</string>
 	<!-- Text in menu -->
@@ -1001,7 +1003,7 @@
 	<string name="mobile_data_option_ask">Vždy sa opýtať</string>
 	<string name="traffic_update_maps_text">Na zobrazenie dopravných informácií je potrebné aktualizovať mapy.</string>
 	<string name="traffic_outdated">Dopravné informácie sú neaktuálne.</string>
-	<string name="big_font">Väčšie nápisy</string>
+	<string name="big_font">Zväčšiť veľkosť písma na mape</string>
 	<string name="traffic_update_app">Aktualizujte si aplikáciu MAPS.ME</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Ak chcete zobraziť dopravné informácie, musíte si aktualizovať aplikáciu.</string>
@@ -1043,4 +1045,10 @@
 	<string name="whatsnew_font_size">Veľkosť písma</string>
 	<!-- january -->
 	<string name="whatsnew_font_size_text">Nápisy na mape je možné zväčšiť.</string>
+	<!-- Seven points and higher -->
+	<string name="booking_filter_rating_num_good">7,0 a viac</string>
+	<!-- Eight points and higher -->
+	<string name="booking_filter_rating_num_very_good">8,0 a viac</string>
+	<!-- Nine points and higher -->
+	<string name="booking_filter_rating_num_excellent">9,0 a viac</string>
 </resources>

@@ -386,6 +386,8 @@
 	<string name="follow_on_twitter">Twitter\&#39;da takip et</string>
 	<!-- Text in menu -->
 	<string name="contact_us">İletişim</string>
+	<!-- Settings: Send feedback button and dialog title -->
+	<string name="feedback">Geri Bildirim</string>
 	<!-- Text in menu -->
 	<string name="subscribe_to_news">Haberlerimize abone ol</string>
 	<!-- Text in menu -->
@@ -1004,7 +1006,7 @@
 	<string name="mobile_data_option_ask">Her Zaman Sor</string>
 	<string name="traffic_update_maps_text">Trafik verilerini görüntülemek için haritaların güncellenmesi gerekiyor.</string>
 	<string name="traffic_outdated">Trafik verileri güncel değil.</string>
-	<string name="big_font">Daha büyük etiketler</string>
+	<string name="big_font">Harita üzerindeki yazı tipi boyutunu artır</string>
 	<string name="traffic_update_app">Lütfen MAPS.ME uygulamasını güncelleyin</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Trafik verilerini görüntülemek için uygulamanın güncellenmesi gerekiyor.</string>
@@ -1046,4 +1048,10 @@
 	<string name="whatsnew_font_size">Yazı Tipi Boyutu</string>
 	<!-- january -->
 	<string name="whatsnew_font_size_text">Harita üzerindeki etiketler daha büyük hale getirilebilir.</string>
+	<!-- Seven points and higher -->
+	<string name="booking_filter_rating_num_good">7.0+</string>
+	<!-- Eight points and higher -->
+	<string name="booking_filter_rating_num_very_good">8.0+</string>
+	<!-- Nine points and higher -->
+	<string name="booking_filter_rating_num_excellent">9.0+</string>
 </resources>

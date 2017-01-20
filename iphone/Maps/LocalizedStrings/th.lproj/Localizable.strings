@@ -618,7 +618,7 @@
 "contact_us" = "ติดต่อเรา";
 
 /* Settings: Send feedback button and dialog title */
-"feedback" = "Feedback";
+"feedback" = "ข้อเสนอแนะ";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "General Feedback";
@@ -1722,7 +1722,7 @@
 
 "traffic_outdated" = "ข้อมูลการจราจรเก่าเกินไปแล้ว";
 
-"big_font" = "ป้ายใหญ่ขึ้น";
+"big_font" = "เพิ่มขนาดฟอนต์บนแผนที่";
 
 "traffic_update_app" = "กรุณาอัปเดต MAPS.ME";
 
@@ -1795,10 +1795,13 @@
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
 
+/* Seven points and higher */
 "booking_filter_rating_num_good" = "7.0+";
 
+/* Eight points and higher */
 "booking_filter_rating_num_very_good" = "8.0+";
 
+/* Nine points and higher */
 "booking_filter_rating_num_excellent" = "9.0+";
 
 "booking_filter_price_low" = "$";

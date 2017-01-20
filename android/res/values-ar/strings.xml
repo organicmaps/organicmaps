@@ -386,6 +386,8 @@
 	<string name="follow_on_twitter">تابعونا على تويتر</string>
 	<!-- Text in menu -->
 	<string name="contact_us">أتصل بنا</string>
+	<!-- Settings: Send feedback button and dialog title -->
+	<string name="feedback">تعقيب</string>
 	<!-- Text in menu -->
 	<string name="subscribe_to_news">أشترك في نشرتنا الإخبارية</string>
 	<!-- Text in menu -->
@@ -1004,7 +1006,7 @@
 	<string name="mobile_data_option_ask">السؤال دوماً</string>
 	<string name="traffic_update_maps_text">لعرض البيانات المرورية، يجب تحديث الخرائط.</string>
 	<string name="traffic_outdated">البيانات المرورية قديمة.</string>
-	<string name="big_font">تسميات أكبر</string>
+	<string name="big_font">زيادة حجم الخط على الخريطة</string>
 	<string name="traffic_update_app">الرجاء تحديث MAPS.ME</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">لعرض البيانات المرورية، يجب تحديث التطبيق.</string>
@@ -1046,4 +1048,10 @@
 	<string name="whatsnew_font_size">حجم الخط</string>
 	<!-- january -->
 	<string name="whatsnew_font_size_text">يمكن جعل التسميات على الخريطة أكبر.</string>
+	<!-- Seven points and higher -->
+	<string name="booking_filter_rating_num_good">7.0+</string>
+	<!-- Eight points and higher -->
+	<string name="booking_filter_rating_num_very_good">8.0+</string>
+	<!-- Nine points and higher -->
+	<string name="booking_filter_rating_num_excellent">9.0+</string>
 </resources>

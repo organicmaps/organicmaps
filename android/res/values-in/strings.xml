@@ -380,6 +380,8 @@
 	<string name="follow_on_twitter">Ikuti di Twitter</string>
 	<!-- Text in menu -->
 	<string name="contact_us">Hubungi kami</string>
+	<!-- Settings: Send feedback button and dialog title -->
+	<string name="feedback">Umpan balik</string>
 	<!-- Text in menu -->
 	<string name="subscribe_to_news">Berlangganan berita kami</string>
 	<!-- Text in menu -->
@@ -997,7 +999,7 @@
 	<string name="mobile_data_option_ask">Selalu Tanya</string>
 	<string name="traffic_update_maps_text">Untuk memperlihatkan data lalu lintas, peta harus diperbarui.</string>
 	<string name="traffic_outdated">Data lalu lintas belum diperbarui.</string>
-	<string name="big_font">Label yang lebih besar</string>
+	<string name="big_font">Perbesar ukuran huruf pada peta</string>
 	<string name="traffic_update_app">Perbarui MAPS.ME</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Untuk menampilkan data lalu lintas, aplikasi ini harus diperbarui.</string>
@@ -1039,4 +1041,10 @@
 	<string name="whatsnew_font_size">Ukuran Huruf</string>
 	<!-- january -->
 	<string name="whatsnew_font_size_text">Label pada peta bisa dijadikan lebih besar.</string>
+	<!-- Seven points and higher -->
+	<string name="booking_filter_rating_num_good">7,0+</string>
+	<!-- Eight points and higher -->
+	<string name="booking_filter_rating_num_very_good">8,0+</string>
+	<!-- Nine points and higher -->
+	<string name="booking_filter_rating_num_excellent">9,0+</string>
 </resources>

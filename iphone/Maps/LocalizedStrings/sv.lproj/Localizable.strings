@@ -657,7 +657,7 @@
 "pref_calibration_title" = "Kompasskalibrering";
 
 /* Search Suggestion */
-"wifi" = "Wi-Fi";
+"wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Uppdatera kartan för att skapa en rutt.";
@@ -1722,7 +1722,7 @@
 
 "traffic_outdated" = "Trafikdata är inaktuellt.";
 
-"big_font" = "Större etiketter";
+"big_font" = "Öka teckenstorlek på kartan";
 
 "traffic_update_app" = "Uppdatera MAPS.ME";
 
@@ -1795,11 +1795,14 @@
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
 
-"booking_filter_rating_num_good" = "7.0+";
+/* Seven points and higher */
+"booking_filter_rating_num_good" = "7,0+";
 
-"booking_filter_rating_num_very_good" = "8.0+";
+/* Eight points and higher */
+"booking_filter_rating_num_very_good" = "8,0+";
 
-"booking_filter_rating_num_excellent" = "9.0+";
+/* Nine points and higher */
+"booking_filter_rating_num_excellent" = "9,0+";
 
 "booking_filter_price_low" = "$";
 

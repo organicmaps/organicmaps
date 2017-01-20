@@ -1722,7 +1722,7 @@
 
 "traffic_outdated" = "Verkeersgegevens zijn verouderd.";
 
-"big_font" = "Grotere labels";
+"big_font" = "Lettergrootte op de kaart vergroten";
 
 "traffic_update_app" = "Gelieve MAPS.ME bij te werken";
 
@@ -1795,10 +1795,13 @@
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
 
+/* Seven points and higher */
 "booking_filter_rating_num_good" = "7.0+";
 
+/* Eight points and higher */
 "booking_filter_rating_num_very_good" = "8.0+";
 
+/* Nine points and higher */
 "booking_filter_rating_num_excellent" = "9.0+";
 
 "booking_filter_price_low" = "$";

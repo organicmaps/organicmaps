@@ -384,6 +384,8 @@
 	<string name="follow_on_twitter">MAPS.ME у Twitter</string>
 	<!-- Text in menu -->
 	<string name="contact_us">Контакти</string>
+	<!-- Settings: Send feedback button and dialog title -->
+	<string name="feedback">Відгук</string>
 	<!-- Text in menu -->
 	<string name="subscribe_to_news">Email-бюлетень</string>
 	<!-- Text in menu -->
@@ -1002,7 +1004,7 @@
 	<string name="mobile_data_option_ask">Завжди питати</string>
 	<string name="traffic_update_maps_text">Для відображення інформації про трафік необхідно оновити карти.</string>
 	<string name="traffic_outdated">Дані про трафік застаріли.</string>
-	<string name="big_font">Більші написи</string>
+	<string name="big_font">Збільшити розмір шрифту на карті</string>
 	<string name="traffic_update_app">Будь ласка, встановіть оновлення MAPS.ME</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Для відображення даних про трафік оновіть додаток.</string>
@@ -1044,4 +1046,10 @@
 	<string name="whatsnew_font_size">Розмір шрифту</string>
 	<!-- january -->
 	<string name="whatsnew_font_size_text">Можливість збільшення розміру написів на карті.</string>
+	<!-- Seven points and higher -->
+	<string name="booking_filter_rating_num_good">7,0+</string>
+	<!-- Eight points and higher -->
+	<string name="booking_filter_rating_num_very_good">8,0+</string>
+	<!-- Nine points and higher -->
+	<string name="booking_filter_rating_num_excellent">9,0+</string>
 </resources>

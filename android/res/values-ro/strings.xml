@@ -378,6 +378,8 @@
 	<string name="follow_on_twitter">Urmăriți-ne pe Twitter</string>
 	<!-- Text in menu -->
 	<string name="contact_us">Contactați-ne</string>
+	<!-- Settings: Send feedback button and dialog title -->
+	<string name="feedback">Feedback</string>
 	<!-- Text in menu -->
 	<string name="subscribe_to_news">Abonați-vă la știrile noastre</string>
 	<!-- Text in menu -->
@@ -994,7 +996,7 @@
 	<string name="mobile_data_option_ask">Întrebați întotdeauna</string>
 	<string name="traffic_update_maps_text">Pentru a afişa datele privind traficul, hărțile trebuie actualizate.</string>
 	<string name="traffic_outdated">Datele privind traficul sunt învechite.</string>
-	<string name="big_font">Etichete mai mari</string>
+	<string name="big_font">Măriți dimensiunea fontului pe hartă</string>
 	<string name="traffic_update_app">Vă rugăm să actualizaţi MAPS.ME</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Pentru a afişa datele privind traficul, aplicația trebuie actualizată.</string>
@@ -1036,4 +1038,10 @@
 	<string name="whatsnew_font_size">Dimensiunea fontului</string>
 	<!-- january -->
 	<string name="whatsnew_font_size_text">Etichetele de pe hartă pot fi făcute mai mari.</string>
+	<!-- Seven points and higher -->
+	<string name="booking_filter_rating_num_good">7.0+</string>
+	<!-- Eight points and higher -->
+	<string name="booking_filter_rating_num_very_good">8.0+</string>
+	<!-- Nine points and higher -->
+	<string name="booking_filter_rating_num_excellent">9.0+</string>
 </resources>

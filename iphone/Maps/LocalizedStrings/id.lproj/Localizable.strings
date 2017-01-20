@@ -618,7 +618,7 @@
 "contact_us" = "Hubungi kami";
 
 /* Settings: Send feedback button and dialog title */
-"feedback" = "Feedback";
+"feedback" = "Umpan balik";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "General Feedback";
@@ -1722,7 +1722,7 @@
 
 "traffic_outdated" = "Data lalu lintas belum diperbarui.";
 
-"big_font" = "Label yang lebih besar";
+"big_font" = "Perbesar ukuran huruf pada peta";
 
 "traffic_update_app" = "Perbarui MAPS.ME";
 
@@ -1795,11 +1795,14 @@
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
 
-"booking_filter_rating_num_good" = "7.0+";
+/* Seven points and higher */
+"booking_filter_rating_num_good" = "7,0+";
 
-"booking_filter_rating_num_very_good" = "8.0+";
+/* Eight points and higher */
+"booking_filter_rating_num_very_good" = "8,0+";
 
-"booking_filter_rating_num_excellent" = "9.0+";
+/* Nine points and higher */
+"booking_filter_rating_num_excellent" = "9,0+";
 
 "booking_filter_price_low" = "$";
 

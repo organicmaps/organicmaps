@@ -657,7 +657,7 @@
 "pref_calibration_title" = "Compass calibration";
 
 /* Search Suggestion */
-"wifi" = "Wi-Fi";
+"wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Please update the map to create a route";
@@ -1722,7 +1722,7 @@
 
 "traffic_outdated" = "Traffic data is outdated.";
 
-"big_font" = "Bigger labels";
+"big_font" = "Increase font size on the map";
 
 "traffic_update_app" = "Please update MAPS.ME";
 
@@ -1795,10 +1795,13 @@
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
 
+/* Seven points and higher */
 "booking_filter_rating_num_good" = "7.0+";
 
+/* Eight points and higher */
 "booking_filter_rating_num_very_good" = "8.0+";
 
+/* Nine points and higher */
 "booking_filter_rating_num_excellent" = "9.0+";
 
 "booking_filter_price_low" = "$";
