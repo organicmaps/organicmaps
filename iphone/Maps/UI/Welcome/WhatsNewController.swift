@@ -4,21 +4,21 @@ final class WhatsNewController: MWMViewController, WelcomeProtocol {
 
   typealias ConfigBlock = (WhatsNewController) -> Void
   static var pagesConfigBlocks: [ConfigBlock]! = [{
-    $0.setup(image: #imageLiteral(resourceName: "whats_new_traffic"),
-             title: L("whatsnew_traffic"),
-             text: L("whatsnew_traffic_text"),
+    $0.setup(image: #imageLiteral(resourceName: "wn_img_1"),
+             title: L("whatsnew_improved_search"),
+             text: L("whatsnew_improved_search_text"),
              buttonTitle: L("whats_new_next_button"),
              buttonAction: #selector(nextPage))
   }, {
-    $0.setup(image: #imageLiteral(resourceName: "whats_new_traffic_roaming"),
-             title: L("whatsnew_traffic_roaming"),
-             text: L("whatsnew_traffic_roaming_text"),
+    $0.setup(image: #imageLiteral(resourceName: "wn_img_2"),
+             title: L("whatsnew_filters_in_search"),
+             text: L("whatsnew_filters_in_search_text"),
              buttonTitle: L("whats_new_next_button"),
              buttonAction: #selector(nextPage))
   }, {
-    $0.setup(image: #imageLiteral(resourceName: "whats_new_update_uber"),
-             title: L("whatsnew_order_taxi"),
-             text: L("whatsnew_order_taxi_text"),
+    $0.setup(image: #imageLiteral(resourceName: "wn_img_3"),
+             title: L("whatsnew_font_size"),
+             text: L("whatsnew_font_size_text"),
              buttonTitle: L("done"),
              buttonAction: #selector(close))
   }]
