@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "whats_new_traffic.png",
+      "filename" : "wn_img_2.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "whats_new_traffic@2x.png",
+      "filename" : "wn_img_2@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "whats_new_traffic@3x.png",
+      "filename" : "wn_img_2@3x.png",
       "scale" : "3x"
     }
   ],
