@@ -60,18 +60,18 @@
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"/>
 
+  <include
+    layout="@layout/search_filter_panel"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_block_base"
+    android:layout_alignParentBottom="true"/>
+
   <com.mapswithme.maps.widget.placepage.PlacePageView
     android:id="@+id/info_box"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
     placePage:animationType="bottom"/>
-
-  <include
-    layout="@layout/search_filter_panel"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/height_block_base"
-    android:layout_alignParentBottom="true"/>
 
   <com.mapswithme.maps.search.HotelsFilterView
     android:id="@+id/hotels_filter"
