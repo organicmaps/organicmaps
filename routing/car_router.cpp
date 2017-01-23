@@ -264,9 +264,9 @@ void CarRouter::ClearState()
   m_indexManager.Clear();
 }
 
-bool CarRouter::FindRouteMSMT(TFeatureGraphNodeVec const & sources,
-                              TFeatureGraphNodeVec const & targets, RouterDelegate const & delegate,
-                              TRoutingMappingPtr & mapping, Route & route)
+IRouter::ResultCode CarRouter::FindRouteMSMT(TFeatureGraphNodeVec const & sources,
+                                             TFeatureGraphNodeVec const & targets, RouterDelegate const & delegate,
+                                             TRoutingMappingPtr & mapping, Route & route)
 {
   ASSERT(mapping, ());
 
@@ -281,24 +281,28 @@ bool CarRouter::FindRouteMSMT(TFeatureGraphNodeVec const & sources,
           FindSingleRouteDispatcher(sourceEdge, targetEdge, delegate, mapping, route);
       switch (code)
       {
-      case NoError: return true;
-      case Cancelled: return false;
+      case StartPointNotFound:
+      case EndPointNotFound:
+      case RouteNotFound:
+        continue;
+
+      case NoError:
+      case Cancelled:
+      case InconsistentMWMandRoute:
+      case RouteFileNotExist:
+      case PointsInDifferentMWM:
+      case NeedMoreMaps:
+      case InternalError:
+      case FileTooOld:
+        return code;
+
       case NoCurrentPosition:
         LOG(LERROR, ("NoCurrentPosition routing result returned by FindSingleRouteDispatcher()"));
-        return false;
-      case InconsistentMWMandRoute: return false;
-      case RouteFileNotExist: return false;
-      case StartPointNotFound: continue;
-      case EndPointNotFound: continue;
-      case PointsInDifferentMWM: return false;
-      case RouteNotFound: continue;
-      case NeedMoreMaps: return false;
-      case InternalError: return false;
-      case FileTooOld: return false;
+        return code;
       }
     }
   }
-  return false;
+  return IRouter::ResultCode::RouteNotFound;
 }
 
 void FindGraphNodeOffsets(uint32_t const nodeId, m2::PointD const & point, Index const * pIndex,
@@ -470,23 +474,16 @@ CarRouter::ResultCode CarRouter::CalculateRoute(m2::PointD const & startPoint,
   if (startMapping->GetMwmId() == targetMapping->GetMwmId())
   {
     LOG(LINFO, ("Single mwm routing case"));
+    IRouter::ResultCode const code =
+        FindRouteMSMT(startTask, m_cachedTargets, delegate, startMapping, route);
+    if (code != IRouter::ResultCode::NoError && code != IRouter::ResultCode::RouteNotFound)
+      return code;
+
     m_indexManager.ForEachMapping([](pair<string, TRoutingMappingPtr> const & indexPair) {
       indexPair.second->FreeCrossContext();
     });
     ResultCode crossCode = CalculateCrossMwmPath(startTask, m_cachedTargets, m_indexManager,
                                                  crossDistanceM, delegate, finalPath);
-    LOG(LINFO, ("Found cross path in", timer.ElapsedNano(), "ns."));
-    if (!FindRouteMSMT(startTask, m_cachedTargets, delegate, startMapping, route))
-    {
-      if (crossCode == NoError)
-      {
-        LOG(LINFO, ("Found only cross path."));
-        auto code = MakeRouteFromCrossesPath(finalPath, delegate, route);
-        LOG(LINFO, ("Made final route in", timer.ElapsedNano(), "ns."));
-        return code;
-      }
-      return RouteNotFound;
-    }
     INTERRUPT_WHEN_CANCELLED(delegate);
 
     // Cross mwm and single mwm routes are built by different algorithms.

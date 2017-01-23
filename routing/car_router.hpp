@@ -105,8 +105,8 @@ private:
      * \param rawRoutingResult: routing result store
      * \return true when path exists, false otherwise.
      */
-  bool FindRouteMSMT(TFeatureGraphNodeVec const & source, TFeatureGraphNodeVec const & target,
-                     RouterDelegate const & delegate, TRoutingMappingPtr & mapping, Route & route);
+  IRouter::ResultCode FindRouteMSMT(TFeatureGraphNodeVec const & source, TFeatureGraphNodeVec const & target,
+                                    RouterDelegate const & delegate, TRoutingMappingPtr & mapping, Route & route);
 
   Index & m_index;
 
