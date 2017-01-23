@@ -170,8 +170,8 @@ void Notes::Upload(osm::OsmOAuth const & auth)
   auto const doUpload = [self, auth]() {
     std::unique_lock<std::mutex> ulock(self->m_mu);
     // Size of m_notes is decreased only in this method.
-    size_t size = notes.size();
     auto & notes = self->m_notes;
+    size_t size = notes.size();
     osm::ServerApi06 api(auth);
 
     while (size > 0)
