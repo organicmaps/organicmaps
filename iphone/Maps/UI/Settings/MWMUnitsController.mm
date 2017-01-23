@@ -52,6 +52,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   self.selectedCell = [tableView cellForRowAtIndexPath:indexPath];
+  [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end

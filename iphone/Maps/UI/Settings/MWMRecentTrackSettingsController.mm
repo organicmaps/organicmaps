@@ -95,6 +95,7 @@ typedef NS_ENUM(NSUInteger, DurationInHours) { One = 1, Two = 2, Six = 6, Twelve
   selectedCell = [tableView cellForRowAtIndexPath:indexPath];
   selectedCell.selected = NO;
   self.selectedCell = selectedCell;
+  [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section

@@ -67,6 +67,7 @@ using np = platform::NetworkPolicy;
   selected.accessoryType = UITableViewCellAccessoryCheckmark;
   selected.selected = NO;
   self.selected = selected;
+  [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
