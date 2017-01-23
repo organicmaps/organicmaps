@@ -290,10 +290,13 @@ IRouter::ResultCode CarRouter::FindRouteMSMT(TFeatureGraphNodeVec const & source
       case Cancelled:
       case InconsistentMWMandRoute:
       case RouteFileNotExist:
-      case PointsInDifferentMWM:
       case NeedMoreMaps:
       case InternalError:
       case FileTooOld:
+        return code;
+
+      case PointsInDifferentMWM:
+        LOG(LERROR, ("FindSingleRouteDispatcher returns PointsInDifferentMWM in FindRouteMSMT(...)."));
         return code;
 
       case NoCurrentPosition:
@@ -476,8 +479,11 @@ CarRouter::ResultCode CarRouter::CalculateRoute(m2::PointD const & startPoint,
     LOG(LINFO, ("Single mwm routing case"));
     IRouter::ResultCode const code =
         FindRouteMSMT(startTask, m_cachedTargets, delegate, startMapping, route);
-    if (code != IRouter::ResultCode::NoError && code != IRouter::ResultCode::RouteNotFound)
+    if (code != IRouter::ResultCode::NoError && code != IRouter::ResultCode::RouteNotFound
+        && code != IRouter::ResultCode::PointsInDifferentMWM)
+    {
       return code;
+    }
 
     m_indexManager.ForEachMapping([](pair<string, TRoutingMappingPtr> const & indexPair) {
       indexPair.second->FreeCrossContext();
