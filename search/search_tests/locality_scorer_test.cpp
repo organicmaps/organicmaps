@@ -22,20 +22,20 @@ namespace
 {
 void InitParams(string const & query, bool lastTokenIsPrefix, QueryParams & params)
 {
-  params.m_tokens.clear();
-  params.m_prefixTokens.clear();
+  params.Clear();
 
   vector<UniString> tokens;
-
   Delimiters delims;
   SplitUniString(NormalizeAndSimplifyString(query), MakeBackInsertFunctor(tokens), delims);
-  for (auto const & token : tokens)
-    params.m_tokens.push_back({token});
+
   if (lastTokenIsPrefix)
   {
-    ASSERT(!params.m_tokens.empty(), ());
-    params.m_prefixTokens = params.m_tokens.back();
-    params.m_tokens.pop_back();
+    CHECK(!tokens.empty(), ());
+    params.InitWithPrefix(tokens.begin(), tokens.end() - 1, tokens.back());
+  }
+  else
+  {
+    params.Init(tokens.begin(), tokens.end());
   }
 }
 
@@ -47,9 +47,7 @@ void AddLocality(string const & name, uint32_t featureId, QueryParams & params,
   Delimiters delims;
   SplitUniString(NormalizeAndSimplifyString(name), MakeInsertFunctor(tokens), delims);
 
-  size_t numTokens = params.m_tokens.size();
-  if (!params.m_prefixTokens.empty())
-    ++numTokens;
+  size_t numTokens = params.GetNumTokens();
 
   for (size_t startToken = 0; startToken != numTokens; ++startToken)
   {
@@ -59,8 +57,7 @@ void AddLocality(string const & name, uint32_t featureId, QueryParams & params,
       for (size_t i = startToken; i != endToken && matches; ++i)
       {
         UniString const & queryToken = params.GetTokens(i).front();
-        bool const isPrefix = (i == params.m_tokens.size());
-        if (isPrefix)
+        if (params.IsPrefixToken(i))
         {
           matches = any_of(tokens.begin(), tokens.end(), [&queryToken](UniString const & token)
                            {

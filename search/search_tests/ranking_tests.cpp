@@ -7,6 +7,7 @@
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 
+#include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
 
 #include "std/cstdint.hpp"
@@ -21,17 +22,20 @@ NameScore GetScore(string const & name, string const & query, size_t startToken,
 {
   search::Delimiters delims;
   QueryParams params;
-  auto addToken = [&params](UniString const & token)
-  {
-    params.m_tokens.push_back({token});
-  };
 
-  SplitUniString(NormalizeAndSimplifyString(query), addToken, delims);
-  if (!params.m_tokens.empty() && !delims(strings::LastUniChar(query)))
+  vector<UniString> tokens;
+  SplitUniString(NormalizeAndSimplifyString(query), MakeBackInsertFunctor(tokens), delims);
+
+  if (!query.empty() && !delims(strings::LastUniChar(query)))
   {
-    params.m_prefixTokens.swap(params.m_tokens.back());
-    params.m_tokens.pop_back();
+    CHECK(!tokens.empty(), ());
+    params.InitWithPrefix(tokens.begin(), tokens.end() - 1, tokens.back());
   }
+  else
+  {
+    params.Init(tokens.begin(), tokens.end());
+  }
+
   return GetNameScore(name, TokenSlice(params, startToken, endToken));
 }
 

@@ -14,7 +14,7 @@ class DoAddStreetSynonyms
 public:
   DoAddStreetSynonyms(QueryParams & params) : m_params(params) {}
 
-  void operator()(QueryParams::TString const & s, size_t i)
+  void operator()(QueryParams::String const & s, size_t i)
   {
     if (s.size() > 2)
       return;
@@ -40,15 +40,7 @@ public:
   }
 
 private:
-  QueryParams::TSynonymsVector & GetSyms(size_t i) const
-  {
-    size_t const count = m_params.m_tokens.size();
-    if (i < count)
-      return m_params.m_tokens[i];
-    ASSERT_EQUAL(i, count, ());
-    return m_params.m_prefixTokens;
-  }
-
+  QueryParams::Synonyms & GetSyms(size_t i) const { return m_params.GetTokens(i); }
   void AddSym(size_t i, string const & sym) { GetSyms(i).push_back(strings::MakeUniString(sym)); }
 
   QueryParams & m_params;
@@ -64,10 +56,18 @@ void QueryParams::Clear()
   m_scale = scales::GetUpperScale();
 }
 
-bool QueryParams::IsCategorySynonym(size_t i) const
+bool QueryParams::IsCategorySynonym(size_t i) const { return !GetTypeIndices(i).empty(); }
+
+QueryParams::TypeIndices & QueryParams::GetTypeIndices(size_t i)
 {
   ASSERT_LESS(i, GetNumTokens(), ());
-  return !m_typeIndices[i].empty();
+  return m_typeIndices[i];
+}
+
+QueryParams::TypeIndices const & QueryParams::GetTypeIndices(size_t i) const
+{
+  ASSERT_LESS(i, GetNumTokens(), ());
+  return m_typeIndices[i];
 }
 
 bool QueryParams::IsPrefixToken(size_t i) const
@@ -76,13 +76,13 @@ bool QueryParams::IsPrefixToken(size_t i) const
   return i == m_tokens.size();
 }
 
-QueryParams::TSynonymsVector const & QueryParams::GetTokens(size_t i) const
+QueryParams::Synonyms const & QueryParams::GetTokens(size_t i) const
 {
   ASSERT_LESS(i, GetNumTokens(), ());
   return i < m_tokens.size() ? m_tokens[i] : m_prefixTokens;
 }
 
-QueryParams::TSynonymsVector & QueryParams::GetTokens(size_t i)
+QueryParams::Synonyms & QueryParams::GetTokens(size_t i)
 {
   ASSERT_LESS(i, GetNumTokens(), ());
   return i < m_tokens.size() ? m_tokens[i] : m_prefixTokens;
@@ -125,7 +125,9 @@ string DebugPrint(search::QueryParams const & params)
 {
   ostringstream os;
   os << "QueryParams [ m_tokens=" << DebugPrint(params.m_tokens)
-     << ", m_prefixTokens=" << DebugPrint(params.m_prefixTokens) << "]";
+     << ", m_prefixTokens=" << DebugPrint(params.m_prefixTokens)
+     << ", m_typeIndices=" << ::DebugPrint(params.m_typeIndices)
+     << ", m_langs=" << ::DebugPrint(params.m_langs) << " ]";
   return os.str();
 }
 }  // namespace search

@@ -155,7 +155,7 @@ void StreetsMatcher::FindStreets(BaseContext const & ctx, FeaturesFilter const &
          ++curToken)
     {
       auto const & token = params.GetTokens(curToken).front();
-      bool const isPrefix = curToken >= params.m_tokens.size();
+      bool const isPrefix = params.IsPrefixToken(curToken);
 
       if (house_numbers::LooksLikeHouseNumber(token, isPrefix))
         emit();

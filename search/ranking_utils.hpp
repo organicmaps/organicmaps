@@ -16,7 +16,7 @@
 
 namespace search
 {
-struct QueryParams;
+class QueryParams;
 
 namespace impl
 {

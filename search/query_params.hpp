@@ -11,13 +11,34 @@
 
 namespace search
 {
-struct QueryParams
+class QueryParams
 {
-  using TString = strings::UniString;
-  using TSynonymsVector = vector<TString>;
-  using TLangsSet = unordered_set<int8_t>;
+public:
+  using String = strings::UniString;
+  using Synonyms = vector<String>;
+  using TypeIndices = vector<uint32_t>;
+  using Langs = unordered_set<int8_t>;
 
   QueryParams() = default;
+
+  template <typename It>
+  void Init(It tokenBegin, It tokenEnd)
+  {
+    Clear();
+    for (; tokenBegin != tokenEnd; ++tokenBegin)
+      m_tokens.push_back({*tokenBegin});
+    m_typeIndices.resize(GetNumTokens());
+  }
+
+  template <typename It>
+  void InitWithPrefix(It tokenBegin, It tokenEnd, String const & prefix)
+  {
+    Clear();
+    for (; tokenBegin != tokenEnd; ++tokenBegin)
+      m_tokens.push_back({*tokenBegin});
+    m_prefixTokens.push_back(prefix);
+    m_typeIndices.resize(GetNumTokens());
+  }
 
   inline size_t GetNumTokens() const
   {
@@ -27,14 +48,15 @@ struct QueryParams
   inline bool LastTokenIsPrefix() const { return !m_prefixTokens.empty(); }
 
   inline bool IsEmpty() const { return GetNumTokens() == 0; }
-  inline bool IsLangExist(int8_t lang) const { return m_langs.count(lang) != 0; }
-
   void Clear();
 
   bool IsCategorySynonym(size_t i) const;
+  TypeIndices & GetTypeIndices(size_t i);
+  TypeIndices const & GetTypeIndices(size_t i) const;
+
   bool IsPrefixToken(size_t i) const;
-  TSynonymsVector const & GetTokens(size_t i) const;
-  TSynonymsVector & GetTokens(size_t i);
+  Synonyms const & GetTokens(size_t i) const;
+  Synonyms & GetTokens(size_t i);
 
   // Returns true if all tokens in [start, end) range have integral
   // synonyms.
@@ -42,13 +64,20 @@ struct QueryParams
 
   void RemoveToken(size_t i);
 
-  vector<TSynonymsVector> m_tokens;
-  TSynonymsVector m_prefixTokens;
-  vector<vector<uint32_t>> m_typeIndices;
+  inline Langs & GetLangs() { return m_langs; }
+  inline Langs const & GetLangs() const { return m_langs; }
+  inline bool IsLangExist(int8_t lang) const { return m_langs.count(lang) != 0; }
 
-  TLangsSet m_langs;
+  inline int GetScale() const { return m_scale; }
+
+private:
+  friend string DebugPrint(search::QueryParams const & params);
+
+  vector<Synonyms> m_tokens;
+  Synonyms m_prefixTokens;
+  vector<TypeIndices> m_typeIndices;
+
+  Langs m_langs;
   int m_scale = scales::GetUpperScale();
 };
-
-string DebugPrint(search::QueryParams const & params);
 }  // namespace search
