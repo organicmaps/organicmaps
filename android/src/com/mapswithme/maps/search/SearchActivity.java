@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NavUtils;
 
+import com.mapswithme.maps.R;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.base.OnBackPressListener;
@@ -26,7 +27,7 @@ public class SearchActivity extends BaseMwmFragmentActivity implements CustomNav
     i.putExtra(EXTRA_QUERY, query);
     i.putExtra(EXTRA_HOTELS_FILTER, filter);
     activity.startActivity(i);
-    activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    activity.overridePendingTransition(R.anim.search_fade_in, R.anim.search_fade_out);
   }
 
   @Override
