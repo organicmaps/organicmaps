@@ -27,16 +27,14 @@ UNIT_TEST(Notes_Smoke)
     auto const notes = Notes::MakeNotes(fullFileName, true);
     auto const result = notes->GetNotes();
     TEST_EQUAL(result.size(), 3, ());
-    vector<Note> const expected {
-      {MercatorBounds::ToLatLon({1, 2}), "Some note1"},
-      {MercatorBounds::ToLatLon({2, 2}), "Some note2"},
-      {MercatorBounds::ToLatLon({1, 1}), "Some note3"}
-    };
-    for (auto i = 0; i < result.size(); ++i)
-    {
-      TEST(my::AlmostEqualAbs(result[i].m_point.lat, expected[i].m_point.lat, 1e-7), ());
-      TEST(my::AlmostEqualAbs(result[i].m_point.lon, expected[i].m_point.lon, 1e-7), ());
-      TEST_EQUAL(result[i].m_note, expected[i].m_note, ());
-    }
+    std::vector<Note> const expected{{MercatorBounds::ToLatLon({1, 2}), "Some note1"},
+                                     {MercatorBounds::ToLatLon({2, 2}), "Some note2"},
+                                     {MercatorBounds::ToLatLon({1, 1}), "Some note3"}};
+
+    auto const isEqual = std::equal(
+        result.begin(), result.end(), expected.begin(), [](Note const & lhs, Note const & rhs) {
+          return lhs.m_point.EqualDxDy(rhs.m_point, Notes::kTolerance);
+        });
+    TEST(isEqual, ());
   }
 }

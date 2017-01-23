@@ -11,14 +11,14 @@
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
-#include "std/chrono.hpp"
-#include "std/future.hpp"
+#include <chrono>
+#include <future>
 
 #include "3party/pugixml/src/pugixml.hpp"
 
 namespace
 {
-bool LoadFromXml(pugi::xml_document const & xml, list<editor::Note> & notes,
+bool LoadFromXml(pugi::xml_document const & xml, std::list<editor::Note> & notes,
                  uint32_t & uploadedNotesCount)
 {
   uint64_t notesCount;
@@ -55,7 +55,7 @@ bool LoadFromXml(pugi::xml_document const & xml, list<editor::Note> & notes,
   return true;
 }
 
-void SaveToXml(list<editor::Note> const & notes, pugi::xml_document & xml,
+void SaveToXml(std::list<editor::Note> const & notes, pugi::xml_document & xml,
                uint32_t const uploadedNotesCount)
 {
   auto constexpr kDigitsAfterComma = 7;
@@ -74,9 +74,10 @@ void SaveToXml(list<editor::Note> const & notes, pugi::xml_document & xml,
 }
 
 /// Not thread-safe, use only for initialization.
-bool Load(string const & fileName, list<editor::Note> & notes, uint32_t & uploadedNotesCount)
+bool Load(std::string const & fileName, std::list<editor::Note> & notes,
+          uint32_t & uploadedNotesCount)
 {
-  string content;
+  std::string content;
   try
   {
     auto const reader = GetPlatform().GetReader(fileName);
@@ -111,30 +112,31 @@ bool Load(string const & fileName, list<editor::Note> & notes, uint32_t & upload
 }
 
 /// Not thread-safe, use synchronization.
-bool Save(string const & fileName, list<editor::Note> const & notes,
+bool Save(std::string const & fileName, std::list<editor::Note> const & notes,
           uint32_t const uploadedNotesCount)
 {
   pugi::xml_document xml;
   SaveToXml(notes, xml, uploadedNotesCount);
-  return my::WriteToTempAndRenameToFile(
-      fileName, [&xml](string const & fileName) { return xml.save_file(fileName.data(), "  "); });
+  return my::WriteToTempAndRenameToFile(fileName, [&xml](std::string const & fileName) {
+    return xml.save_file(fileName.data(), "  ");
+  });
 }
 }  // namespace
 
 namespace editor
 {
-shared_ptr<Notes> Notes::MakeNotes(string const & fileName, bool const fullPath)
+std::shared_ptr<Notes> Notes::MakeNotes(std::string const & fileName, bool const fullPath)
 {
-  return shared_ptr<Notes>(
+  return std::shared_ptr<Notes>(
       new Notes(fullPath ? fileName : GetPlatform().WritablePathForFile(fileName)));
 }
 
-Notes::Notes(string const & fileName) : m_fileName(fileName)
+Notes::Notes(std::string const & fileName) : m_fileName(fileName)
 {
   Load(m_fileName, m_notes, m_uploadedNotesCount);
 }
 
-void Notes::CreateNote(ms::LatLon const & latLon, string const & text)
+void Notes::CreateNote(ms::LatLon const & latLon, std::string const & text)
 {
   if (text.empty())
   {
@@ -148,7 +150,14 @@ void Notes::CreateNote(ms::LatLon const & latLon, string const & text)
     return;
   }
 
-  lock_guard<mutex> g(m_mu);
+  std::lock_guard<std::mutex> g(m_mu);
+  auto const it = std::find_if(m_notes.begin(), m_notes.end(), [&latLon, &text](Note const & note) {
+    return latLon.EqualDxDy(note.m_point, kTolerance) && text == note.m_note;
+  });
+  // No need to add the same note. It works in case when saved note are not uploaded yet.
+  if (it != m_notes.end())
+    return;
+
   m_notes.emplace_back(latLon, text);
   Save(m_fileName, m_notes, m_uploadedNotesCount);
 }
@@ -159,20 +168,19 @@ void Notes::Upload(osm::OsmOAuth const & auth)
   auto const self = shared_from_this();
 
   auto const doUpload = [self, auth]() {
-    size_t size;
-
-    {
-      lock_guard<mutex> g(self->m_mu);
-      size = self->m_notes.size();
-    }
-
+    std::unique_lock<std::mutex> ulock(self->m_mu);
+    // Size of m_notes is decreased only in this method.
+    size_t size = notes.size();
+    auto & notes = self->m_notes;
     osm::ServerApi06 api(auth);
-    auto it = begin(self->m_notes);
-    for (size_t i = 0; i != size; ++i, ++it)
+
+    while (size > 0)
     {
       try
       {
-        auto const id = api.CreateNote(it->m_point, it->m_note);
+        ulock.unlock();
+        auto const id = api.CreateNote(notes.front().m_point, notes.front().m_note);
+        ulock.lock();
         LOG(LINFO, ("A note uploaded with id", id));
       }
       catch (osm::ServerApi06::ServerApi06Exception const & e)
@@ -182,35 +190,34 @@ void Notes::Upload(osm::OsmOAuth const & auth)
         return;
       }
 
-      lock_guard<mutex> g(self->m_mu);
-      it = self->m_notes.erase(it);
+      notes.pop_front();
+      --size;
       ++self->m_uploadedNotesCount;
       Save(self->m_fileName, self->m_notes, self->m_uploadedNotesCount);
     }
   };
 
-  // Do not run more than one upload thread at a time.
-  static auto future = async(launch::async, doUpload);
-  auto const status = future.wait_for(milliseconds(0));
-  if (status == future_status::ready)
-    future = async(launch::async, doUpload);
+  static auto future = std::async(std::launch::async, doUpload);
+  auto const status = future.wait_for(std::chrono::milliseconds(0));
+  if (status == std::future_status::ready)
+    future = std::async(std::launch::async, doUpload);
 }
 
-vector<Note> const Notes::GetNotes() const
+std::list<Note> Notes::GetNotes() const
 {
-  lock_guard<mutex> g(m_mu);
-  return {begin(m_notes), end(m_notes)};
+  std::lock_guard<std::mutex> g(m_mu);
+  return m_notes;
 }
 
 size_t Notes::NotUploadedNotesCount() const
 {
-  lock_guard<mutex> g(m_mu);
+  std::lock_guard<std::mutex> g(m_mu);
   return m_notes.size();
 }
 
 size_t Notes::UploadedNotesCount() const
 {
-  lock_guard<mutex> g(m_mu);
+  std::lock_guard<std::mutex> g(m_mu);
   return m_uploadedNotesCount;
 }
 }  // namespace editor
