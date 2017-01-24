@@ -71,6 +71,7 @@ HEADERS += \
     bicycle_model.hpp \
     car_model.hpp \
     car_router.hpp \
+    cross_mwm_index_graph.hpp \
     cross_mwm_road_graph.hpp \
     cross_mwm_router.hpp \
     cross_routing_context.hpp \
