@@ -1,6 +1,7 @@
-#import "MWMOpeningHoursCommon.h"
 #import "MWMOpeningHoursSection.h"
+#import "MWMOpeningHoursCommon.h"
 #import "MWMOpeningHoursTableViewCell.h"
+#import "SwiftBridge.h"
 
 #include "3party/opening_hours/opening_hours.hpp"
 #include "editor/opening_hours_ui.hpp"
@@ -202,13 +203,10 @@ using namespace osmoh;
 
   if (closedTimesCountAfterUpdate > closedTimesCountBeforeUpdate)
   {
-    UITableView * tableView = self.delegate.tableView;
-    [tableView beginUpdates];
-
-    [self insertRow:row];
-    self.selectedRow = @(row);
-
-    [tableView endUpdates];
+    [self.delegate.tableView update:^{
+      [self insertRow:row];
+      self.selectedRow = @(row);
+    }];
   }
   [self refresh:NO];
 }
@@ -219,16 +217,14 @@ using namespace osmoh;
   self.skipStoreCachedData = [self isRowSelected:row];
   if (closedTimesCountBeforeUpdate == [self closedTimesCount])
   {
-    UITableView * tableView = self.delegate.tableView;
-    [tableView beginUpdates];
+    [self.delegate.tableView update:^{
+      TTimeTableProxy timeTable = [self timeTableProxy];
+      timeTable.RemoveExcludeTime([self closedTimeIndex:row]);
+      timeTable.Commit();
 
-    TTimeTableProxy timeTable = [self timeTableProxy];
-    timeTable.RemoveExcludeTime([self closedTimeIndex:row]);
-    timeTable.Commit();
-
-    self.selectedRow = nil;
-    [self deleteRow:row];
-    [tableView endUpdates];
+      self.selectedRow = nil;
+      [self deleteRow:row];
+    }];
   }
   [self refresh:NO];
 }
@@ -281,22 +277,23 @@ using namespace osmoh;
 - (void)refreshForNewRowCount:(NSUInteger)newRowCount oldRowCount:(NSUInteger)oldRowCount
 {
   NSAssert(newRowCount != oldRowCount, @"Invalid rows change");
-  UITableView * tableView = self.delegate.tableView;
-  [tableView beginUpdates];
-
   BOOL const addRows = newRowCount > oldRowCount;
   NSUInteger const minRows = MIN(newRowCount, oldRowCount);
   NSUInteger const maxRows = MAX(newRowCount, oldRowCount);
   NSMutableArray<NSIndexPath *> * indexes = [NSMutableArray arrayWithCapacity:maxRows - minRows];
-  for (NSUInteger row = minRows; row < maxRows; ++row)
-    [indexes addObject:[NSIndexPath indexPathForRow:row inSection:self.index]];
 
-  if (addRows)
-    [tableView insertRowsAtIndexPaths:indexes withRowAnimation:kMWMOpeningHoursEditorRowAnimation];
-  else
-    [tableView deleteRowsAtIndexPaths:indexes withRowAnimation:kMWMOpeningHoursEditorRowAnimation];
+  UITableView * tableView = self.delegate.tableView;
+  [tableView update:^{
+    for (NSUInteger row = minRows; row < maxRows; ++row)
+      [indexes addObject:[NSIndexPath indexPathForRow:row inSection:self.index]];
 
-  [tableView endUpdates];
+    if (addRows)
+      [tableView insertRowsAtIndexPaths:indexes
+                       withRowAnimation:kMWMOpeningHoursEditorRowAnimation];
+    else
+      [tableView deleteRowsAtIndexPaths:indexes
+                       withRowAnimation:kMWMOpeningHoursEditorRowAnimation];
+  }];
   [self refresh:NO];
 }
 
@@ -347,36 +344,34 @@ using namespace osmoh;
 
   id<MWMOpeningHoursSectionProtocol> delegate = self.delegate;
   UITableView * tableView = delegate.tableView;
-  [tableView beginUpdates];
-
-  if (!oldSelectedRow)
-  {
-    _selectedRow = selectedRow;
-    [self insertRow:newInd + 1];
-    [delegate updateActiveSection:self.index];
-  }
-  else if (selectedRow)
-  {
-    if (newInd < oldInd)
+  [tableView update:^{
+    if (!oldSelectedRow)
     {
-      _selectedRow = selectedRow;
+      self->_selectedRow = selectedRow;
       [self insertRow:newInd + 1];
+      [delegate updateActiveSection:self.index];
+    }
+    else if (selectedRow)
+    {
+      if (newInd < oldInd)
+      {
+        self->_selectedRow = selectedRow;
+        [self insertRow:newInd + 1];
+      }
+      else
+      {
+        self->_selectedRow = @(newInd - 1);
+        [self insertRow:newInd];
+      }
+
+      [self deleteRow:oldInd + 1];
     }
     else
     {
-      _selectedRow = @(newInd - 1);
-      [self insertRow:newInd];
+      self->_selectedRow = selectedRow;
+      [self deleteRow:oldInd + 1];
     }
-
-    [self deleteRow:oldInd + 1];
-  }
-  else
-  {
-    _selectedRow = selectedRow;
-    [self deleteRow:oldInd + 1];
-  }
-
-  [tableView endUpdates];
+  }];
   [self scrollToSelection];
 }
 

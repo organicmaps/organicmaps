@@ -823,8 +823,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
 {
   self.offscreenCells[reuseIdentifier(MWMPlacePageCellTypeNote)] = cell;
   self.note = text;
-  [self.tableView beginUpdates];
-  [self.tableView endUpdates];
+  [self.tableView refresh];
   NSIndexPath * ip = [self.tableView indexPathForCell:cell];
   [self.tableView scrollToRowAtIndexPath:ip
                         atScrollPosition:UITableViewScrollPositionBottom
@@ -861,12 +860,10 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
 
 - (void)tryToChangeInvalidStateForCell:(MWMEditorTextTableViewCell *)cell
 {
-  [self.tableView beginUpdates];
-
-  NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
-  [self.invalidCells removeObject:indexPath];
-
-  [self.tableView endUpdates];
+  [self.tableView update:^{
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    [self.invalidCells removeObject:indexPath];
+  }];
 }
 
 - (void)cell:(MWMTableViewCell *)cell changedText:(NSString *)changeText

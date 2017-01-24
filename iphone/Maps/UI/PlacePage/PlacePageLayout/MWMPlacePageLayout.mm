@@ -1,16 +1,17 @@
 #import "MWMPlacePageLayout.h"
 #import "MWMBookmarkCell.h"
 #import "MWMCircularProgress.h"
-#import "MWMiPadPlacePageLayoutImpl.h"
-#import "MWMiPhonePlacePageLayoutImpl.h"
 #import "MWMOpeningHoursLayoutHelper.h"
+#import "MWMPPPreviewLayoutHelper.h"
 #import "MWMPlacePageButtonCell.h"
 #import "MWMPlacePageCellUpdateProtocol.h"
 #import "MWMPlacePageData.h"
 #import "MWMPlacePageInfoCell.h"
 #import "MWMPlacePageLayoutImpl.h"
 #import "MWMPlacePageTaxiCell.h"
-#import "MWMPPPreviewLayoutHelper.h"
+#import "MWMiPadPlacePageLayoutImpl.h"
+#import "MWMiPhonePlacePageLayoutImpl.h"
+#import "SwiftBridge.h"
 
 #include "storage/storage.hpp"
 
@@ -376,9 +377,7 @@ array<NSString *, 1> const kButtonsCells = {{@"MWMPlacePageButtonCell"}};
 
 - (void)update
 {
-  auto tableView = self.placePageView.tableView;
-  [tableView beginUpdates];
-  [tableView endUpdates];
+  [self.placePageView.tableView refresh];
 }
 
 #pragma mark - MWMPlacePageViewUpdateProtocol
