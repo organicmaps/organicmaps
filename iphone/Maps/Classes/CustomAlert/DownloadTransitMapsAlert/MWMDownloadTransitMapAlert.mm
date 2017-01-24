@@ -1,12 +1,13 @@
-#import "MWMCommon.h"
+#import "MWMDownloadTransitMapAlert.h"
 #import "MWMAlertViewController.h"
 #import "MWMCircularProgress.h"
+#import "MWMCommon.h"
 #import "MWMDownloaderDialogCell.h"
 #import "MWMDownloaderDialogHeader.h"
-#import "MWMDownloadTransitMapAlert.h"
 #import "MWMFrameworkListener.h"
 #import "MWMStorage.h"
 #import "Statistics.h"
+#import "SwiftBridge.h"
 #import "UILabel+RuntimeAttributes.h"
 
 #include "Framework.h"
@@ -234,8 +235,7 @@ CGFloat const kAnimationDuration = .05;
     {
       cell.titleLabel.alpha = show ? 1. : 0.;
     }
-    [self.dialogsTableView beginUpdates];
-    [self.dialogsTableView endUpdates];
+    [self.dialogsTableView refresh];
   };
   if (listExpanded)
   {

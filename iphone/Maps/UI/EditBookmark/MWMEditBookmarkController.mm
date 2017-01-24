@@ -1,11 +1,12 @@
 #import "MWMEditBookmarkController.h"
-#import "MWMCommon.h"
 #import "MWMBookmarkColorViewController.h"
 #import "MWMBookmarkTitleCell.h"
 #import "MWMButtonCell.h"
+#import "MWMCommon.h"
 #import "MWMNoteCell.h"
 #import "MWMPlacePageData.h"
 #import "SelectSetVC.h"
+#import "SwiftBridge.h"
 #import "UIImageView+Coloring.h"
 #import "UIViewController+Navigation.h"
 
@@ -254,8 +255,7 @@ enum RowInMetaInfo
 - (void)cellShouldChangeSize:(MWMNoteCell *)cell text:(NSString *)text
 {
   self.cachedDescription = text;
-  [self.tableView beginUpdates];
-  [self.tableView endUpdates];
+  [self.tableView refresh];
   NSIndexPath * ip = [self.tableView indexPathForCell:cell];
   [self.tableView scrollToRowAtIndexPath:ip
                         atScrollPosition:UITableViewScrollPositionBottom

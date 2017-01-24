@@ -330,6 +330,9 @@
 		34CA57191C292F50004D9C89 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C9864B186C5EAA00AF7E9E /* MediaPlayer.framework */; };
 		34D15BA81BD8F93C00C8BCBE /* AddSetTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34D15BA61BD8F93C00C8BCBE /* AddSetTableViewCell.mm */; };
 		34D15BA91BD8F93C00C8BCBE /* AddSetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34D15BA71BD8F93C00C8BCBE /* AddSetTableViewCell.xib */; };
+		34D3AFE11E376F7E004100F9 /* UITableView+Updates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D3AFE01E376F7E004100F9 /* UITableView+Updates.swift */; };
+		34D3AFE21E376F7E004100F9 /* UITableView+Updates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D3AFE01E376F7E004100F9 /* UITableView+Updates.swift */; };
+		34D3AFE31E376F7E004100F9 /* UITableView+Updates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D3AFE01E376F7E004100F9 /* UITableView+Updates.swift */; };
 		34D4FA621E26572D003F53EF /* FirstLaunchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D4FA611E26572D003F53EF /* FirstLaunchController.swift */; };
 		34D4FA631E26572D003F53EF /* FirstLaunchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D4FA611E26572D003F53EF /* FirstLaunchController.swift */; };
 		34D4FA641E26572D003F53EF /* FirstLaunchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D4FA611E26572D003F53EF /* FirstLaunchController.swift */; };
@@ -1617,6 +1620,7 @@
 		34D15BA51BD8F93C00C8BCBE /* AddSetTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddSetTableViewCell.h; sourceTree = "<group>"; };
 		34D15BA61BD8F93C00C8BCBE /* AddSetTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AddSetTableViewCell.mm; sourceTree = "<group>"; };
 		34D15BA71BD8F93C00C8BCBE /* AddSetTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddSetTableViewCell.xib; sourceTree = "<group>"; };
+		34D3AFE01E376F7E004100F9 /* UITableView+Updates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Updates.swift"; sourceTree = "<group>"; };
 		34D4FA611E26572D003F53EF /* FirstLaunchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstLaunchController.swift; sourceTree = "<group>"; };
 		34D4FA651E265749003F53EF /* WhatsNewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhatsNewController.swift; sourceTree = "<group>"; };
 		34F73F601E082FF700AC1FD6 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -2719,6 +2723,7 @@
 				3454D7AF1E07F045004AF2AD /* UILabel+RuntimeAttributes.mm */,
 				3454D7B01E07F045004AF2AD /* UISwitch+RuntimeAttributes.h */,
 				3454D7B11E07F045004AF2AD /* UISwitch+RuntimeAttributes.m */,
+				34D3AFE01E376F7E004100F9 /* UITableView+Updates.swift */,
 				3454D7B21E07F045004AF2AD /* UITextField+RuntimeAttributes.h */,
 				3454D7B31E07F045004AF2AD /* UITextField+RuntimeAttributes.mm */,
 				3454D7B41E07F045004AF2AD /* UITextView+RuntimeAttributes.h */,
@@ -4869,6 +4874,7 @@
 				34ABA6241C2D551900FE1BEC /* MWMInputValidatorFactory.mm in Sources */,
 				34943BBA1E2626B200B14F84 /* WelcomePageController.swift in Sources */,
 				F6E2FEE11E097BA00083EBEC /* MWMSearchManager.mm in Sources */,
+				34D3AFE11E376F7E004100F9 /* UITableView+Updates.swift in Sources */,
 				F6E2FE211E097BA00083EBEC /* MWMOpeningHoursEditorViewController.mm in Sources */,
 				349D1ADA1E2E325C004A2006 /* MWMBottomMenuView.mm in Sources */,
 				F6E2FD911E097BA00083EBEC /* MWMBookmarkColorViewController.mm in Sources */,
@@ -5121,6 +5127,7 @@
 				F6E2FEE21E097BA00083EBEC /* MWMSearchManager.mm in Sources */,
 				F6E2FE221E097BA00083EBEC /* MWMOpeningHoursEditorViewController.mm in Sources */,
 				34943BBB1E2626B200B14F84 /* WelcomePageController.swift in Sources */,
+				34D3AFE21E376F7E004100F9 /* UITableView+Updates.swift in Sources */,
 				6741AA141BF340DE002C974C /* MWMMultilineLabel.mm in Sources */,
 				349D1ADB1E2E325C004A2006 /* MWMBottomMenuView.mm in Sources */,
 				F6E2FD921E097BA00083EBEC /* MWMBookmarkColorViewController.mm in Sources */,
@@ -5373,6 +5380,7 @@
 				F6E2FEE31E097BA00083EBEC /* MWMSearchManager.mm in Sources */,
 				34943BBC1E2626B200B14F84 /* WelcomePageController.swift in Sources */,
 				F6E2FE231E097BA00083EBEC /* MWMOpeningHoursEditorViewController.mm in Sources */,
+				34D3AFE31E376F7E004100F9 /* UITableView+Updates.swift in Sources */,
 				849CF72F1DE842290024A8A5 /* MWMInputValidator.mm in Sources */,
 				349D1ADC1E2E325C004A2006 /* MWMBottomMenuView.mm in Sources */,
 				F6E2FD931E097BA00083EBEC /* MWMBookmarkColorViewController.mm in Sources */,
