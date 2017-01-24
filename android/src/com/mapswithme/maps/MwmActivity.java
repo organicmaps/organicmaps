@@ -745,7 +745,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
           break;
 
         case SEARCH:
-          RoutingController.get().cancelPlanning();
+          RoutingController.get().cancel();
           closeMenu(Statistics.EventName.TOOLBAR_SEARCH, AlohaHelper.TOOLBAR_SEARCH, new Runnable()
           {
             @Override
@@ -783,7 +783,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
           break;
 
         case DOWNLOADER:
-          RoutingController.get().cancelPlanning();
+          RoutingController.get().cancel();
           closeMenu(Statistics.EventName.MENU_DOWNLOADER, AlohaHelper.MENU_DOWNLOADER, new Runnable()
           {
             @Override
@@ -1072,8 +1072,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    if (!closePlacePage() && !closeSidePanel() &&
-        (mNavigationController != null && !mNavigationController.cancel()) && !closePositionChooser())
+    if (!closePlacePage() && !closeSidePanel() && !RoutingController.get().cancel()
+        && !closePositionChooser())
     {
       try
       {
@@ -1718,6 +1718,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       mRoutingPlanInplaceController.showUberError(code);
     }
+  }
+
+  @Override
+  public void onNavigationCancelled()
+  {
+    if (mNavigationController != null)
+      mNavigationController.stop(this);
   }
 
   boolean isFirstStart()

@@ -6,6 +6,7 @@ import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Pair;
 import android.view.View;
@@ -138,7 +139,6 @@ public class NavigationController implements TrafficManager.TrafficCallback
         {
         case STOP:
           RoutingController.get().cancel();
-          stop(parent);
           break;
         case SETTINGS:
           parent.closeMenu(Statistics.EventName.ROUTING_SETTINGS, AlohaHelper.MENU_SETTINGS, new Runnable()
@@ -169,7 +169,7 @@ public class NavigationController implements TrafficManager.TrafficCallback
     });
   }
 
-  private void stop(MwmActivity parent)
+  public void stop(MwmActivity parent)
   {
     Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_CLOSE);
     AlohaHelper.logClick(AlohaHelper.ROUTING_CLOSE);
@@ -221,7 +221,7 @@ public class NavigationController implements TrafficManager.TrafficCallback
     update(Framework.nativeGetRouteFollowingInfo());
   }
 
-  public void update(RoutingInfo info)
+  public void update(@Nullable RoutingInfo info)
   {
     if (info == null)
       return;
@@ -314,17 +314,6 @@ public class NavigationController implements TrafficManager.TrafficCallback
   {
     mShowTimeLeft = savedInstanceState.getBoolean(STATE_SHOW_TIME_LEFT);
     mSearchWheel.restoreState(savedInstanceState);
-  }
-
-  public boolean cancel()
-  {
-    if (RoutingController.get().cancel())
-    {
-      final MwmActivity parent = ((MwmActivity) mFrame.getContext());
-      stop(parent);
-      return true;
-    }
-    return false;
   }
 
   @Override

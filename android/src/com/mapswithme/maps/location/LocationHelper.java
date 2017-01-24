@@ -351,6 +351,17 @@ public enum LocationHelper
     for (LocationListener listener : mListeners)
       listener.onLocationUpdated(mSavedLocation);
     mListeners.finishIterate();
+
+    // TODO: consider to create callback mechanism to transfer 'ROUTE_IS_FINISHED' event from
+    // the core to the platform code (https://jira.mail.ru/browse/MAPSME-3675),
+    // because calling the native method 'nativeIsRouteFinished'
+    // too often can result in poor UI performance.
+    if (RoutingController.get().isNavigating() && Framework.nativeIsRouteFinished())
+    {
+      mLogger.d("End point is reached");
+      restart();
+      RoutingController.get().cancel();
+    }
   }
 
   private void notifyLocationUpdated(LocationListener listener)

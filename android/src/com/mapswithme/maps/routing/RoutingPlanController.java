@@ -194,7 +194,7 @@ public class RoutingPlanController extends ToolbarController implements SlotFram
   {
     AlohaHelper.logClick(AlohaHelper.ROUTING_CANCEL);
     Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_CANCEL);
-    RoutingController.get().cancelPlanning();
+    RoutingController.get().cancel();
   }
 
   @Override

@@ -3,7 +3,6 @@ package com.mapswithme.maps.routing;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Rect;
 import android.support.annotation.DimenRes;
 import android.support.annotation.IntRange;
 import android.support.annotation.MainThread;
@@ -70,6 +69,7 @@ public class RoutingController
     void updatePoints();
     void onUberInfoReceived(@NonNull UberInfo info);
     void onUberError(@NonNull Uber.ErrorCode code);
+    void onNavigationCancelled();
 
     /**
      * @param progress progress to be displayed.
@@ -468,7 +468,6 @@ public class RoutingController
 
     ThemeSwitcher.restart();
     Framework.nativeCloseRouting();
-    LocationHelper.INSTANCE.restart();
   }
 
   public boolean cancel()
@@ -493,23 +492,12 @@ public class RoutingController
         mContainer.showNavigation(false);
         mContainer.updateMenu();
       }
+      if (mContainer != null)
+        mContainer.onNavigationCancelled();
       return true;
     }
 
     mLogger.d("cancel: none");
-    return false;
-  }
-
-  public boolean cancelPlanning()
-  {
-    mLogger.d("cancelPlanning");
-
-    if (isPlanning())
-    {
-      cancel();
-      return true;
-    }
-
     return false;
   }
 
