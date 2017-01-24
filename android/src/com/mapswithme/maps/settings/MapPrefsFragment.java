@@ -152,6 +152,22 @@ public class MapPrefsFragment extends BaseXmlSettingsFragment
       }
     });
 
+    pref = findPreference(getString(R.string.pref_large_fonts_size));
+    ((TwoStatePreference)pref).setChecked(Config.isLargeFontsSize());
+    pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
+    {
+      @Override
+      public boolean onPreferenceChange(Preference preference, Object newValue)
+      {
+        boolean oldVal = Config.isLargeFontsSize();
+        boolean newVal = (Boolean) newValue;
+        if (oldVal != newVal)
+          Config.setLargeFontsSize(newVal);
+
+        return true;
+      }
+    });
+
     final Framework.Params3dMode _3d = new Framework.Params3dMode();
     Framework.nativeGet3dMode(_3d);
 
