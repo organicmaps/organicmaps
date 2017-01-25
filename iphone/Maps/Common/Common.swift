@@ -11,8 +11,13 @@ func iPadSpecific( _ f: () -> Void) {
     f()
   }
 }
+
 func iPhoneSpecific( _ f: () -> Void) {
   if !IPAD() {
     f()
   }
+}
+
+func toString(_ cls: AnyClass) -> String {
+  return String(describing: cls)
 }
