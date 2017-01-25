@@ -1,6 +1,6 @@
-#import "MWMCommon.h"
 #import "MWMAlertViewController.h"
 #import "MWMButton.h"
+#import "MWMCommon.h"
 #import "MWMFrameworkListener.h"
 #import "MWMMapDownloaderAdsTableViewCell.h"
 #import "MWMMapDownloaderCellHeader.h"
@@ -18,18 +18,12 @@
 #import "MWMToast.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
+#import "SwiftBridge.h"
 #import "UIViewController+Navigation.h"
 
 #include "Framework.h"
 
 #include "storage/index.hpp"
-
-extern NSString * const kAdsCellIdentifier = @"MWMMapDownloaderAdsTableViewCell";
-extern NSString * const kButtonCellIdentifier = @"MWMMapDownloaderButtonTableViewCell";
-extern NSString * const kCountryCellIdentifier = @"MWMMapDownloaderTableViewCell";
-extern NSString * const kLargeCountryCellIdentifier = @"MWMMapDownloaderLargeCountryTableViewCell";
-extern NSString * const kPlaceCellIdentifier = @"MWMMapDownloaderPlaceTableViewCell";
-extern NSString * const kSubplaceCellIdentifier = @"MWMMapDownloaderSubplaceTableViewCell";
 
 namespace
 {
@@ -225,20 +219,16 @@ using namespace mwm;
 
 #pragma mark - Table
 
-- (void)registerCellWithIdentifier:(NSString *)identifier
-{
-  [self.tableView registerNib:[UINib nibWithNibName:identifier bundle:nil] forCellReuseIdentifier:identifier];
-}
-
 - (void)configTable
 {
-  self.tableView.separatorColor = [UIColor blackDividers];
-  [self registerCellWithIdentifier:kAdsCellIdentifier];
-  [self registerCellWithIdentifier:kButtonCellIdentifier];
-  [self registerCellWithIdentifier:kCountryCellIdentifier];
-  [self registerCellWithIdentifier:kLargeCountryCellIdentifier];
-  [self registerCellWithIdentifier:kPlaceCellIdentifier];
-  [self registerCellWithIdentifier:kSubplaceCellIdentifier];
+  UITableView * tv = self.tableView;
+  tv.separatorColor = [UIColor blackDividers];
+  [tv registerWithCellClass:[MWMMapDownloaderAdsTableViewCell class]];
+  [tv registerWithCellClass:[MWMMapDownloaderButtonTableViewCell class]];
+  [tv registerWithCellClass:[MWMMapDownloaderTableViewCell class]];
+  [tv registerWithCellClass:[MWMMapDownloaderLargeCountryTableViewCell class]];
+  [tv registerWithCellClass:[MWMMapDownloaderPlaceTableViewCell class]];
+  [tv registerWithCellClass:[MWMMapDownloaderSubplaceTableViewCell class]];
 }
 
 #pragma mark - MWMMyTargetDelegate
@@ -416,15 +406,15 @@ using namespace mwm;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
-  NSString * identifier = [self.dataSource cellIdentifierForIndexPath:indexPath];
-  if ([identifier isEqualToString:kLargeCountryCellIdentifier])
+  Class cls = [self.dataSource cellClassForIndexPath:indexPath];
+  if ([MWMMapDownloaderLargeCountryTableViewCell class] == cls)
   {
     NSAssert(self.dataSource != nil, @"Datasource is nil.");
     NSString * countyId = [self.dataSource countryIdForIndexPath:indexPath];
     NSAssert(countyId != nil, @"CountryId is nil.");
     [self openNodeSubtree:countyId.UTF8String];
   }
-  else if ([identifier isEqualToString:kAdsCellIdentifier])
+  else if ([MWMMapDownloaderAdsTableViewCell class] == cls)
   {
     [[MWMMyTarget manager] handleBannerClickAtIndex:indexPath.row withController:self];
   }
@@ -436,8 +426,8 @@ using namespace mwm;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  NSString * reuseIdentifier = [self.dataSource cellIdentifierForIndexPath:indexPath];
-  if ([reuseIdentifier isEqualToString:kAdsCellIdentifier])
+  Class cls = [self.dataSource cellClassForIndexPath:indexPath];
+  if ([MWMMapDownloaderAdsTableViewCell class] == cls)
   {
     MWMMapDownloaderExtendedDataSourceWithAds * adDataSource =
         static_cast<MWMMapDownloaderExtendedDataSourceWithAds *>(self.dataSource);
@@ -451,7 +441,8 @@ using namespace mwm;
 {
   if ([self.dataSource isButtonCell:indexPath.section])
     return [MWMMapDownloaderButtonTableViewCell estimatedHeight];
-  Class<MWMMapDownloaderTableViewCellProtocol> cellClass = NSClassFromString([self.dataSource cellIdentifierForIndexPath:indexPath]);
+  Class<MWMMapDownloaderTableViewCellProtocol> cellClass =
+      [self.dataSource cellClassForIndexPath:indexPath];
   return [cellClass estimatedHeight];
 }
 
@@ -486,8 +477,8 @@ using namespace mwm;
     return;
   if ([self.dataSource isButtonCell:indexPath.section])
     return;
-  NSString * identifier = [self.dataSource cellIdentifierForIndexPath:indexPath];
-  if ([identifier isEqualToString:kAdsCellIdentifier])
+  Class cls = [self.dataSource cellClassForIndexPath:indexPath];
+  if ([MWMMapDownloaderAdsTableViewCell class] == cls)
     return;
   [self showActionSheetForRowAtIndexPath:indexPath];
 }

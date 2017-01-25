@@ -1,13 +1,11 @@
 #import "MWMMapDownloaderSearchDataSource.h"
+#import "MWMMapDownloaderLargeCountryTableViewCell.h"
+#import "MWMMapDownloaderPlaceTableViewCell.h"
+#import "MWMMapDownloaderSubplaceTableViewCell.h"
 
 #include "Framework.h"
 
 using namespace storage;
-
-extern NSString * const kCountryCellIdentifier;
-extern NSString * const kSubplaceCellIdentifier;
-extern NSString * const kPlaceCellIdentifier;
-extern NSString * const kLargeCountryCellIdentifier;
 
 @interface MWMMapDownloaderSearchDataSource ()
 
@@ -66,7 +64,7 @@ extern NSString * const kLargeCountryCellIdentifier;
   return @(kInvalidCountryId.c_str());
 }
 
-- (NSString *)cellIdentifierForIndexPath:(NSIndexPath *)indexPath
+- (Class)cellClassForIndexPath:(NSIndexPath *)indexPath
 {
   auto const & s = GetFramework().GetStorage();
   NSString * countryId = [self countryIdForIndexPath:indexPath];
@@ -74,16 +72,16 @@ extern NSString * const kLargeCountryCellIdentifier;
   s.GetChildren(countryId.UTF8String, children);
   BOOL const haveChildren = !children.empty();
   if (haveChildren)
-    return kLargeCountryCellIdentifier;
+    return [MWMMapDownloaderLargeCountryTableViewCell class];
   NodeAttrs nodeAttrs;
   s.GetNodeAttrs(countryId.UTF8String, nodeAttrs);
   NSString * nodeLocalName = @(nodeAttrs.m_nodeLocalName.c_str());
   NSString * matchedResult = [self searchMatchedResultForCountryId:countryId];
   if (![nodeLocalName isEqualToString:matchedResult])
-    return kSubplaceCellIdentifier;
+    return [MWMMapDownloaderSubplaceTableViewCell class];
   if (nodeAttrs.m_parentInfo.size() == 1 && nodeAttrs.m_parentInfo[0].m_id == s.GetRootId())
-    return kCountryCellIdentifier;
-  return kPlaceCellIdentifier;
+    return [MWMMapDownloaderTableViewCell class];
+  return [MWMMapDownloaderPlaceTableViewCell class];
 }
 
 - (NSString *)searchMatchedResultForCountryId:(NSString *)countryId
