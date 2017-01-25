@@ -49,6 +49,9 @@ public:
     ForEachInSubtree(m_root, prefix, std::forward<ToDo>(toDo));
   }
 
+  // Calls |toDo| for each key-value pair in a node that is reachable
+  // by |prefix| from the trie root. Does nothing if such node does
+  // not exist.
   template <typename ToDo>
   void ForEachInNode(String const & prefix, ToDo && toDo) const
   {
@@ -56,6 +59,9 @@ public:
       ForEachInNode(*root, prefix, std::forward<ToDo>(toDo));
   }
 
+  // Calls |toDo| for each key-value pair in a subtree that is
+  // reachable by |prefix| from the trie root. Does nothing if such
+  // subtree does not exist.
   template <typename ToDo>
   void ForEachInSubtree(String prefix, ToDo && toDo) const
   {
@@ -111,19 +117,24 @@ private:
     return cur;
   }
 
+  // Calls |toDo| for each key-value pair in a |node| that is
+  // reachable by |prefix| from the trie root.
   template <typename ToDo>
-  void ForEachInNode(Node const & root, String const & prefix, ToDo && toDo) const
+  void ForEachInNode(Node const & node, String const & prefix, ToDo && toDo) const
   {
-    for (auto const & value : root.m_values)
+    for (auto const & value : node.m_values)
       toDo(prefix, value);
   }
 
+  // Calls |toDo| for each key-value pair in subtree where |node| is a
+  // root of the subtree. |prefix| is a path from the trie root to the
+  // |node|.
   template <typename ToDo>
-  void ForEachInSubtree(Node const & root, String & prefix, ToDo && toDo) const
+  void ForEachInSubtree(Node const & node, String & prefix, ToDo && toDo) const
   {
-    ForEachInNode(root, prefix, toDo);
+    ForEachInNode(node, prefix, toDo);
 
-    for (auto const & move : root.m_moves)
+    for (auto const & move : node.m_moves)
     {
       prefix.push_back(move.first);
       ForEachInSubtree(*move.second, prefix, toDo);
