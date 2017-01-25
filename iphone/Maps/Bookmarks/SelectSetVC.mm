@@ -1,5 +1,6 @@
-#import "AddSetVC.h"
 #import "SelectSetVC.h"
+#import "AddSetVC.h"
+#import "SwiftBridge.h"
 #import "UIViewController+Navigation.h"
 
 #include "Framework.h"
@@ -55,7 +56,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:[UITableViewCell className]];
+  Class cls = [UITableViewCell class];
+  auto cell = [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath];
   if (indexPath.section == 0)
   {
     cell.textLabel.text = L(@"add_new_set");

@@ -11,6 +11,7 @@
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
+#import "SwiftBridge.h"
 
 #include "Framework.h"
 
@@ -53,8 +54,7 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  [self.tableView registerNib:[UINib nibWithNibName:[MWMBookmarkNameCell className] bundle:nil]
-       forCellReuseIdentifier:[MWMBookmarkNameCell className]];
+  [self.tableView registerWithCellClass:[MWMBookmarkNameCell class]];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -110,7 +110,8 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
   {
     if (indexPath.row == 0)
     {
-      cell = [tableView dequeueReusableCellWithIdentifier:[MWMBookmarkNameCell className]];
+      cell = [tableView dequeueReusableCellWithCellClass:[MWMBookmarkNameCell class]
+                                               indexPath:indexPath];
       [static_cast<MWMBookmarkNameCell *>(cell) configWithName:@(cat->GetName().c_str()) delegate:self];
     }
     else
