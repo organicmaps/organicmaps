@@ -1,11 +1,6 @@
 #import "MWMCircularProgress.h"
 #import "MWMCircularProgressView.h"
-
-namespace
-{
-UINib * const progressViewNib =
-    [UINib nibWithNibName:@"MWMCircularProgress" bundle:[NSBundle mainBundle]];
-}  // namespace
+#import "SwiftBridge.h"
 
 @interface MWMCircularProgressView ()
 
@@ -53,7 +48,7 @@ UINib * const progressViewNib =
   self = [super init];
   if (self)
   {
-    [progressViewNib instantiateWithOwner:self options:nil];
+    [[[UINib alloc] init:[self class] bundle:nil] instantiateWithOwner:self options:nil];
     [parentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [parentView addSubview:self.rootView];
     self.state = MWMCircularProgressStateNormal;
