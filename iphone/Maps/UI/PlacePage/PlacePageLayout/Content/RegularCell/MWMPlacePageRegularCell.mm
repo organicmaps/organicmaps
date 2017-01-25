@@ -1,4 +1,4 @@
-#import "MWMPlacePageInfoCell.h"
+#import "MWMPlacePageRegularCell.h"
 #import "MWMCommon.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
@@ -8,7 +8,7 @@
 #include "platform/measurement_utils.hpp"
 #include "platform/settings.hpp"
 
-@interface MWMPlacePageInfoCell ()<UITextViewDelegate>
+@interface MWMPlacePageRegularCell ()<UITextViewDelegate>
 
 @property(weak, nonatomic, readwrite) IBOutlet UIImageView * icon;
 @property(weak, nonatomic, readwrite) IBOutlet id textContainer;
@@ -21,7 +21,7 @@
 
 @end
 
-@implementation MWMPlacePageInfoCell
+@implementation MWMPlacePageRegularCell
 
 - (void)awakeFromNib
 {
@@ -171,4 +171,10 @@
   [menuController update];
 }
 
+@end
+
+@implementation MWMPlacePageInfoCell
+@end
+
+@implementation MWMPlacePageLinkCell
 @end

@@ -6,8 +6,8 @@
 #import "MWMPlacePageButtonCell.h"
 #import "MWMPlacePageCellUpdateProtocol.h"
 #import "MWMPlacePageData.h"
-#import "MWMPlacePageInfoCell.h"
 #import "MWMPlacePageLayoutImpl.h"
+#import "MWMPlacePageRegularCell.h"
 #import "MWMPlacePageTaxiCell.h"
 #import "MWMiPadPlacePageLayoutImpl.h"
 #import "MWMiPhonePlacePageLayoutImpl.h"
@@ -20,23 +20,18 @@
 
 namespace
 {
-array<NSString *, 1> const kBookmarkCells = {{@"MWMBookmarkCell"}};
-
 using place_page::MetainfoRows;
 
-map<MetainfoRows, NSString *> const kMetaInfoCells = {
-  {MetainfoRows::Website, @"PlacePageLinkCell"},
-  {MetainfoRows::Address, @"PlacePageInfoCell"},
-  {MetainfoRows::Email, @"PlacePageLinkCell"},
-  {MetainfoRows::Phone, @"PlacePageLinkCell"},
-  {MetainfoRows::Cuisine, @"PlacePageInfoCell"},
-  {MetainfoRows::Operator, @"PlacePageInfoCell"},
-  {MetainfoRows::Coordinate, @"PlacePageInfoCell"},
-  {MetainfoRows::Internet, @"PlacePageInfoCell"},
-  {MetainfoRows::Taxi, @"MWMPlacePageTaxiCell"}};
-
-array<NSString *, 1> const kButtonsCells = {{@"MWMPlacePageButtonCell"}};
-
+map<MetainfoRows, Class> const kMetaInfoCells = {
+    {MetainfoRows::Website, [MWMPlacePageLinkCell class]},
+    {MetainfoRows::Address, [MWMPlacePageInfoCell class]},
+    {MetainfoRows::Email, [MWMPlacePageLinkCell class]},
+    {MetainfoRows::Phone, [MWMPlacePageLinkCell class]},
+    {MetainfoRows::Cuisine, [MWMPlacePageInfoCell class]},
+    {MetainfoRows::Operator, [MWMPlacePageInfoCell class]},
+    {MetainfoRows::Coordinate, [MWMPlacePageInfoCell class]},
+    {MetainfoRows::Internet, [MWMPlacePageInfoCell class]},
+    {MetainfoRows::Taxi, [MWMPlacePageTaxiCell class]}};
 }  // namespace
 
 @interface MWMPlacePageLayout () <UITableViewDataSource,
@@ -99,18 +94,12 @@ array<NSString *, 1> const kButtonsCells = {{@"MWMPlacePageButtonCell"}};
 - (void)registerCells
 {
   auto tv = self.placePageView.tableView;
-
-  [tv registerNib:[UINib nibWithNibName:kButtonsCells[0] bundle:nil]
-                  forCellReuseIdentifier:kButtonsCells[0]];
-  [tv registerNib:[UINib nibWithNibName:kBookmarkCells[0] bundle:nil]
-                  forCellReuseIdentifier:kBookmarkCells[0]];
+  [tv registerWithCellClass:[MWMPlacePageButtonCell class]];
+  [tv registerWithCellClass:[MWMBookmarkCell class]];
 
   // Register all meta info cells.
   for (auto const & pair : kMetaInfoCells)
-  {
-    NSString * name = pair.second;
-    [tv registerNib:[UINib nibWithNibName:name bundle:nil] forCellReuseIdentifier:name];
-  }
+    [tv registerWithCellClass:pair.second];
 }
 
 - (void)layoutWithSize:(CGSize const &)size
@@ -314,7 +303,9 @@ array<NSString *, 1> const kButtonsCells = {{@"MWMPlacePageButtonCell"}};
   }
   case Sections::Bookmark:
   {
-    MWMBookmarkCell * c = [tableView dequeueReusableCellWithIdentifier:kBookmarkCells[0]];
+    Class cls = [MWMBookmarkCell class];
+    auto c = static_cast<MWMBookmarkCell *>(
+        [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
     [c configureWithText:data.bookmarkDescription
           updateCellDelegate:self
         editBookmarkDelegate:delegate
@@ -338,13 +329,17 @@ array<NSString *, 1> const kButtonsCells = {{@"MWMPlacePageButtonCell"}};
     case MetainfoRows::Internet:
     case MetainfoRows::Coordinate:
     {
-      MWMPlacePageInfoCell * c = [tableView dequeueReusableCellWithIdentifier:kMetaInfoCells.at(row)];
+      Class cls = kMetaInfoCells.at(row);
+      auto c = static_cast<MWMPlacePageRegularCell *>(
+          [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
       [c configWithRow:row data:data];
       return c;
     }
     case MetainfoRows::Taxi:
     {
-      MWMPlacePageTaxiCell * c = [tableView dequeueReusableCellWithIdentifier:kMetaInfoCells.at(row)];
+      Class cls = kMetaInfoCells.at(row);
+      auto c = static_cast<MWMPlacePageTaxiCell *>(
+          [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
       c.delegate = delegate;
       return c;
     }
@@ -352,7 +347,9 @@ array<NSString *, 1> const kButtonsCells = {{@"MWMPlacePageButtonCell"}};
   }
   case Sections::Buttons:
   {
-    MWMPlacePageButtonCell * c = [tableView dequeueReusableCellWithIdentifier:kButtonsCells[0]];
+    Class cls = [MWMPlacePageButtonCell class];
+    auto c = static_cast<MWMPlacePageButtonCell *>(
+        [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
     auto const row = data.buttonsRows[indexPath.row];
     [c configForRow:row withDelegate:delegate];
 
