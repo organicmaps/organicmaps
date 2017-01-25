@@ -108,9 +108,9 @@ using namespace locale_translator;
   {
     if (indexPath.row == 0)
     {
-      auto cellId = [SettingsTableViewSelectableCell cellId];
+      Class cls = [SettingsTableViewSelectableCell class];
       auto cell = static_cast<SettingsTableViewSelectableCell *>(
-          [tableView dequeueReusableCellWithIdentifier:cellId]);
+          [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
       [cell configWithTitle:L(@"duration_disabled")];
       cell.accessoryType = [MWMTextToSpeech isTTSEnabled] ? UITableViewCellAccessoryNone
                                                           : UITableViewCellAccessoryCheckmark;
@@ -121,17 +121,17 @@ using namespace locale_translator;
       NSInteger const row = indexPath.row - 1;
       if (row == _languages.size())
       {
-        auto cellId = [SettingsTableViewLinkCell cellId];
+        Class cls = [SettingsTableViewLinkCell class];
         auto cell = static_cast<SettingsTableViewLinkCell *>(
-            [tableView dequeueReusableCellWithIdentifier:cellId]);
+            [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
         [cell configWithTitle:L(@"pref_tts_other_section_title") info:nil];
         return cell;
       }
       else
       {
-        auto cellId = [SettingsTableViewSelectableCell cellId];
+        Class cls = [SettingsTableViewSelectableCell class];
         auto cell = static_cast<SettingsTableViewSelectableCell *>(
-            [tableView dequeueReusableCellWithIdentifier:cellId]);
+            [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
         pair<string, string> const p = _languages[row];
         [cell configWithTitle:@(p.second.c_str())];
         BOOL const isSelected =
@@ -145,9 +145,9 @@ using namespace locale_translator;
   }
   else
   {
-    auto cellId = [SettingsTableViewLinkCell cellId];
+    Class cls = [SettingsTableViewLinkCell class];
     auto cell = static_cast<SettingsTableViewLinkCell *>(
-        [tableView dequeueReusableCellWithIdentifier:cellId]);
+        [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
     [cell configWithTitle:L(@"pref_tts_how_to_set_up_voice") info:nil];
     return cell;
   }
