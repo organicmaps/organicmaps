@@ -65,8 +65,7 @@ CGFloat constexpr kAdditionalHeight = 20.;
   self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
   self.layer.shouldRasterize = YES;
   self.layer.rasterizationScale = UIScreen.mainScreen.scale;
-  [self.collectionView registerNib:[UINib nibWithNibName:[MWMRoutePointCell className] bundle:nil]
-        forCellWithReuseIdentifier:[MWMRoutePointCell className]];
+  [self.collectionView registerWithCellClass:[MWMRoutePointCell class]];
   [self setupProgresses];
 
   [self.backButton matchInterfaceOrientation];
@@ -464,9 +463,9 @@ CGFloat constexpr kAdditionalHeight = 20.;
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-  MWMRoutePointCell * cell =
-      [collectionView dequeueReusableCellWithReuseIdentifier:[MWMRoutePointCell className]
-                                                forIndexPath:indexPath];
+  Class cls = [MWMRoutePointCell class];
+  auto cell = static_cast<MWMRoutePointCell *>(
+      [collectionView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
   cell.number.text = @(indexPath.row + 1).stringValue;
   if (indexPath.row == 0)
   {

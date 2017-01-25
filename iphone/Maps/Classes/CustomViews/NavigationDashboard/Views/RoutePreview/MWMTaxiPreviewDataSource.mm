@@ -3,6 +3,7 @@
 #import "MWMNetworkPolicy.h"
 #import "MWMRoutePoint.h"
 #import "MWMTaxiPreviewCell.h"
+#import "SwiftBridge.h"
 
 #include "Framework.h"
 
@@ -83,8 +84,7 @@ using namespace uber;
     collectionView.delegate = self;
     collectionView.showsVerticalScrollIndicator = NO;
     collectionView.showsHorizontalScrollIndicator = NO;
-    auto name = [MWMTaxiPreviewCell className];
-    [collectionView registerNib:[UINib nibWithNibName:name bundle:nil] forCellWithReuseIdentifier:name];
+    [collectionView registerWithCellClass:[MWMTaxiPreviewCell class]];
   }
   return self;
 }
@@ -183,8 +183,9 @@ using namespace uber;
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-  MWMTaxiPreviewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:[MWMTaxiPreviewCell className]
-                                                                        forIndexPath:indexPath];
+  Class cls = [MWMTaxiPreviewCell class];
+  auto cell = static_cast<MWMTaxiPreviewCell *>(
+      [collectionView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
   [cell configWithProduct:m_products[indexPath.row]];
 
   return cell;
