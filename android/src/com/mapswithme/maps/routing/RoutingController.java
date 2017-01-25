@@ -122,21 +122,19 @@ public class RoutingController
           mLastMissingMaps = missingMaps;
           mContainsCachedResult = true;
 
-          if (mLastResultCode == ResultCodesHelper.NO_ERROR)
-            finishBuild();
+          if (mLastResultCode == ResultCodesHelper.NO_ERROR
+              || ResultCodesHelper.isMoreMapsNeeded(mLastResultCode))
+          {
+            mCachedRoutingInfo = Framework.nativeGetRouteFollowingInfo();
+            setBuildState(BuildState.BUILT);
+            mLastBuildProgress = 100;
+          }
 
           processRoutingEvent();
         }
       });
     }
   };
-
-  void finishBuild()
-  {
-    mCachedRoutingInfo = Framework.nativeGetRouteFollowingInfo();
-    setBuildState(BuildState.BUILT);
-    mLastBuildProgress = 100;
-  }
 
   @SuppressWarnings("FieldCanBeLocal")
   private final Framework.RoutingProgressListener mRoutingProgressListener = new Framework.RoutingProgressListener()
@@ -176,9 +174,12 @@ public class RoutingController
       return;
     }
 
-    setBuildState(BuildState.ERROR);
-    mLastBuildProgress = 0;
-    updateProgress();
+    if (!ResultCodesHelper.isMoreMapsNeeded(mLastResultCode))
+    {
+      setBuildState(BuildState.ERROR);
+      mLastBuildProgress = 0;
+      updateProgress();
+    }
 
     RoutingErrorDialogFragment fragment = RoutingErrorDialogFragment.create(mLastResultCode, mLastMissingMaps);
     fragment.show(mContainer.getActivity().getSupportFragmentManager(), RoutingErrorDialogFragment.class.getSimpleName());

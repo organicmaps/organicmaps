@@ -22,6 +22,7 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
 
   private int mResultCode;
   private String mMessage;
+  private boolean mNeedMoreMaps;
 
   @Override
   void beforeDialogCreated(AlertDialog.Builder builder)
@@ -35,7 +36,7 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
     if (ResultCodesHelper.isDownloadable(mResultCode, mMissingMaps.size()))
       builder.setPositiveButton(R.string.download, null);
 
-    mNeedMoreMaps = ResultCodesHelper.isNeedMoreMaps(mResultCode);
+    mNeedMoreMaps = ResultCodesHelper.isMoreMapsNeeded(mResultCode);
     if (mNeedMoreMaps)
       builder.setNegativeButton(R.string.later, null);
   }
@@ -44,6 +45,15 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
   {
     UiUtils.setTextAndHideIfEmpty((TextView)frame.findViewById(R.id.tv__message), mMessage);
     return frame;
+  }
+
+  @Override
+  public void onDismiss(DialogInterface dialog)
+  {
+    if (mNeedMoreMaps && mCancelled)
+      mCancelled = false;
+
+    super.onDismiss(dialog);
   }
 
   @Override
