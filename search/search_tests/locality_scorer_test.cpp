@@ -35,7 +35,7 @@ void InitParams(string const & query, bool lastTokenIsPrefix, QueryParams & para
   }
   else
   {
-    params.Init(tokens.begin(), tokens.end());
+    params.InitNoPrefix(tokens.begin(), tokens.end());
   }
 }
 
@@ -47,7 +47,7 @@ void AddLocality(string const & name, uint32_t featureId, QueryParams & params,
   Delimiters delims;
   SplitUniString(NormalizeAndSimplifyString(name), MakeInsertFunctor(tokens), delims);
 
-  size_t numTokens = params.GetNumTokens();
+  size_t const numTokens = params.GetNumTokens();
 
   for (size_t startToken = 0; startToken != numTokens; ++startToken)
   {
@@ -56,7 +56,7 @@ void AddLocality(string const & name, uint32_t featureId, QueryParams & params,
       bool matches = true;
       for (size_t i = startToken; i != endToken && matches; ++i)
       {
-        UniString const & queryToken = params.GetTokens(i).front();
+        UniString const & queryToken = params.GetToken(i).m_original;
         if (params.IsPrefixToken(i))
         {
           matches = any_of(tokens.begin(), tokens.end(), [&queryToken](UniString const & token)

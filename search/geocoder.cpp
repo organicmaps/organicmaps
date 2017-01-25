@@ -180,10 +180,7 @@ void JoinQueryTokens(QueryParams const & params, size_t curToken, size_t endToke
   ASSERT_LESS_OR_EQUAL(curToken, endToken, ());
   for (size_t i = curToken; i < endToken; ++i)
   {
-    auto const & syms = params.GetTokens(i);
-    CHECK(!syms.empty(), ("Empty synonyms for token:", i));
-    res.append(syms.front());
-
+    res.append(params.GetToken(i).m_original);
     if (i + 1 != endToken)
       res.append(sep);
   }
@@ -384,12 +381,16 @@ void Geocoder::SetParams(Params const & params)
         continue;
       }
 
-      auto & syms = m_params.GetTokens(i);
-      my::EraseIf(syms, &IsStopWord);
-      if (syms.empty())
+      auto & token = m_params.GetToken(i);
+      if (IsStopWord(token.m_original))
+      {
         m_params.RemoveToken(i);
+      }
       else
+      {
+        my::EraseIf(token.m_synonyms, &IsStopWord);
         ++i;
+      }
     }
 
     // If all tokens are stop words - give up.
@@ -401,10 +402,8 @@ void Geocoder::SetParams(Params const & params)
   // individually.
   for (size_t i = 0; i < m_params.GetNumTokens(); ++i)
   {
-    auto & synonyms = m_params.GetTokens(i);
-    ASSERT(!synonyms.empty(), ());
-
-    if (IsStreetSynonym(synonyms.front()))
+    auto & token = m_params.GetToken(i);
+    if (IsStreetSynonym(token.m_original))
       m_params.GetTypeIndices(i).clear();
   }
 
@@ -416,13 +415,12 @@ void Geocoder::SetParams(Params const & params)
     {
       m_tokenRequests.emplace_back();
       auto & request = m_tokenRequests.back();
-      for (auto const & name : m_params.GetTokens(i))
-      {
+      m_params.GetToken(i).ForEach([&request](UniString const & s) {
         // Here and below, we use LevenshteinDFAs for fuzzy
         // matching. But due to performance reasons, we assume that the
         // first letter is always correct.
-        request.m_names.emplace_back(name, 1 /* prefixCharsToKeep */, GetMaxErrorsForToken(name));
-      }
+        request.m_names.emplace_back(s, 1 /* prefixCharsToKeep */, GetMaxErrorsForToken(s));
+      });
       for (auto const & index : m_params.GetTypeIndices(i))
         request.m_categories.emplace_back(FeatureTypeToString(index));
       request.m_langs = m_params.GetLangs();
@@ -430,22 +428,17 @@ void Geocoder::SetParams(Params const & params)
     else
     {
       auto & request = m_prefixTokenRequest;
-      for (auto const & name : m_params.GetTokens(i))
-      {
-        LOG(LINFO, ("Adding prefix name:", name));
+      m_params.GetToken(i).ForEach([&request](UniString const & s) {
         request.m_names.emplace_back(
-            LevenshteinDFA(name, 1 /* prefixCharsToKeep */, GetMaxErrorsForToken(name)));
-      }
+            LevenshteinDFA(s, 1 /* prefixCharsToKeep */, GetMaxErrorsForToken(s)));
+      });
       for (auto const & index : m_params.GetTypeIndices(i))
-      {
-        LOG(LINFO, ("Adding category:", FeatureTypeToString(index)));
         request.m_categories.emplace_back(FeatureTypeToString(index));
-      }
       request.m_langs = m_params.GetLangs();
     }
   }
 
-  LOG(LDEBUG, (DebugPrint(static_cast<QueryParams const &>(m_params))));
+  LOG(LDEBUG, (static_cast<QueryParams const &>(m_params)));
 }
 
 void Geocoder::GoEverywhere()
@@ -623,16 +616,9 @@ void Geocoder::InitBaseContext(BaseContext & ctx)
   for (size_t i = 0; i < ctx.m_features.size(); ++i)
   {
     if (m_params.IsPrefixToken(i))
-    {
-      LOG(LINFO, ("Token is prefix."));
       ctx.m_features[i] = RetrieveAddressFeatures(*m_context, m_cancellable, m_prefixTokenRequest);
-    }
     else
-    {
-      LOG(LINFO, ("Token is full."));
       ctx.m_features[i] = RetrieveAddressFeatures(*m_context, m_cancellable, m_tokenRequests[i]);
-    }
-    LOG(LINFO, ("For i-th token:", i, ctx.m_features[i].PopCount()));
   }
   ctx.m_hotelsFilter = m_hotelsFilter.MakeScopedFilter(*m_context, m_params.m_hotelsFilter);
 }

@@ -184,10 +184,10 @@ bool MatchFeatureByPostcode(FeatureType const & ft, TokenSlice const & slice)
   {
     if (slice.IsPrefix(i))
     {
-      if (!StartsWith(tokens[i], slice.Get(i).front()))
+      if (!StartsWith(tokens[i], slice.Get(i).m_original))
         return false;
     }
-    else if (tokens[i] != slice.Get(i).front())
+    else if (tokens[i] != slice.Get(i).m_original)
     {
       return false;
     }

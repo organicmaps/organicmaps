@@ -17,7 +17,7 @@ void ForEachCategoryType(StringSliceBase const & slice, TLocales const & locales
 {
   for (size_t i = 0; i < slice.Size(); ++i)
   {
-    auto token = slice.Get(i);
+    auto const & token = slice.Get(i);
     for (size_t j = 0; j < locales.size(); ++j)
       categories.ForEachTypeByName(locales[j], token, bind<void>(todo, i, _1));
 

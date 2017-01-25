@@ -8,16 +8,22 @@ namespace search
 {
 namespace impl
 {
-bool Match(vector<UniString> const & tokens, UniString const & token)
+bool FullMatch(QueryParams::Token const & token, UniString const & text)
 {
-  return find(tokens.begin(), tokens.end(), token) != tokens.end();
+  if (token.m_original == text)
+    return true;
+  auto const & synonyms = token.m_synonyms;
+  return find(synonyms.begin(), synonyms.end(), text) != synonyms.end();
 }
 
-bool PrefixMatch(vector<UniString> const & prefixes, UniString const & token)
+bool PrefixMatch(QueryParams::Token const & token, UniString const & text)
 {
-  for (auto const & prefix : prefixes)
+  if (StartsWith(text, token.m_original))
+    return true;
+
+  for (auto const & synonym : token.m_synonyms)
   {
-    if (StartsWith(token, prefix))
+    if (StartsWith(text, synonym))
       return true;
   }
   return false;

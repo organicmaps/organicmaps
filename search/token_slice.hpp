@@ -17,10 +17,10 @@ class TokenSlice
 public:
   TokenSlice(QueryParams const & params, size_t startToken, size_t endToken);
 
-  inline QueryParams::Synonyms const & Get(size_t i) const
+  inline QueryParams::Token const & Get(size_t i) const
   {
     ASSERT_LESS(i, Size(), ());
-    return m_params.GetTokens(m_offset + i);
+    return m_params.GetToken(m_offset + i);
   }
 
   inline size_t Size() const { return m_size; }
@@ -42,10 +42,10 @@ class TokenSliceNoCategories
 public:
   TokenSliceNoCategories(QueryParams const & params, size_t startToken, size_t endToken);
 
-  inline QueryParams::Synonyms const & Get(size_t i) const
+  inline QueryParams::Token const & Get(size_t i) const
   {
     ASSERT_LESS(i, Size(), ());
-    return m_params.GetTokens(m_indexes[i]);
+    return m_params.GetToken(m_indexes[i]);
   }
 
   inline size_t Size() const { return m_indexes.size(); }
@@ -64,7 +64,7 @@ public:
   QuerySlice(TokenSlice const & slice) : m_slice(slice) {}
 
   // QuerySlice overrides:
-  QueryParams::String const & Get(size_t i) const override { return m_slice.Get(i).front(); }
+  QueryParams::String const & Get(size_t i) const override { return m_slice.Get(i).m_original; }
   size_t Size() const override { return m_slice.Size(); }
 
 private:

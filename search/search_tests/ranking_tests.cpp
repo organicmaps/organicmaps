@@ -33,7 +33,7 @@ NameScore GetScore(string const & name, string const & query, size_t startToken,
   }
   else
   {
-    params.Init(tokens.begin(), tokens.end());
+    params.InitNoPrefix(tokens.begin(), tokens.end());
   }
 
   return GetNameScore(name, TokenSlice(params, startToken, endToken));

@@ -614,7 +614,7 @@ int GetOldTypeFromIndex(size_t index)
 void Processor::InitParams(QueryParams & params)
 {
   if (m_prefix.empty())
-    params.Init(m_tokens.begin(), m_tokens.end());
+    params.InitNoPrefix(m_tokens.begin(), m_tokens.end());
   else
     params.InitWithPrefix(m_tokens.begin(), m_tokens.end(), m_prefix);
 

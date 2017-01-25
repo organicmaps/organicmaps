@@ -534,7 +534,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
     QueryParams params;
     {
       strings::UniString const tokens[] = {strings::MakeUniString("141702")};
-      params.Init(tokens, tokens + ARRAY_SIZE(tokens));
+      params.InitNoPrefix(tokens, tokens + ARRAY_SIZE(tokens));
     }
     auto features = RetrievePostcodeFeatures(context, cancellable,
                                              TokenSlice(params, 0, params.GetNumTokens()));

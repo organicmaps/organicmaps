@@ -8,7 +8,7 @@ namespace search
 {
 namespace
 {
-// TODO (@y, @m): reuse this class in search::Processor.
+// TODO (@y, @m): reuse this class in Processor.
 class DoAddStreetSynonyms
 {
 public:
@@ -22,26 +22,25 @@ public:
 
     // All synonyms should be lowercase!
     if (ss == "n")
-      AddSym(i, "north");
+      AddSynonym(i, "north");
     if (ss == "w")
-      AddSym(i, "west");
+      AddSynonym(i, "west");
     if (ss == "s")
-      AddSym(i, "south");
+      AddSynonym(i, "south");
     if (ss == "e")
-      AddSym(i, "east");
+      AddSynonym(i, "east");
     if (ss == "nw")
-      AddSym(i, "northwest");
+      AddSynonym(i, "northwest");
     if (ss == "ne")
-      AddSym(i, "northeast");
+      AddSynonym(i, "northeast");
     if (ss == "sw")
-      AddSym(i, "southwest");
+      AddSynonym(i, "southwest");
     if (ss == "se")
-      AddSym(i, "southeast");
+      AddSynonym(i, "southeast");
   }
 
 private:
-  QueryParams::Synonyms & GetSyms(size_t i) const { return m_params.GetTokens(i); }
-  void AddSym(size_t i, string const & sym) { GetSyms(i).push_back(strings::MakeUniString(sym)); }
+  void AddSynonym(size_t i, string const & synonym) { m_params.GetToken(i).AddSynonym(synonym); }
 
   QueryParams & m_params;
 };
@@ -50,7 +49,8 @@ private:
 void QueryParams::Clear()
 {
   m_tokens.clear();
-  m_prefixTokens.clear();
+  m_prefixToken.Clear();
+  m_hasPrefix = false;
   m_typeIndices.clear();
   m_langs.clear();
   m_scale = scales::GetUpperScale();
@@ -76,16 +76,16 @@ bool QueryParams::IsPrefixToken(size_t i) const
   return i == m_tokens.size();
 }
 
-QueryParams::Synonyms const & QueryParams::GetTokens(size_t i) const
+QueryParams::Token const & QueryParams::GetToken(size_t i) const
 {
   ASSERT_LESS(i, GetNumTokens(), ());
-  return i < m_tokens.size() ? m_tokens[i] : m_prefixTokens;
+  return i < m_tokens.size() ? m_tokens[i] : m_prefixToken;
 }
 
-QueryParams::Synonyms & QueryParams::GetTokens(size_t i)
+QueryParams::Token & QueryParams::GetToken(size_t i)
 {
   ASSERT_LESS(i, GetNumTokens(), ());
-  return i < m_tokens.size() ? m_tokens[i] : m_prefixTokens;
+  return i < m_tokens.size() ? m_tokens[i] : m_prefixToken;
 }
 
 bool QueryParams::IsNumberTokens(size_t start, size_t end) const
@@ -96,14 +96,15 @@ bool QueryParams::IsNumberTokens(size_t start, size_t end) const
   for (; start != end; ++start)
   {
     bool number = false;
-    for (auto const & t : GetTokens(start))
-    {
-      if (feature::IsNumber(t))
+    GetToken(start).ForEach([&number](String const & s) {
+      if (feature::IsNumber(s))
       {
         number = true;
-        break;
+        return false;  // breaks ForEach
       }
-    }
+      return true;  // continues ForEach
+    });
+
     if (!number)
       return false;
   }
@@ -115,19 +116,32 @@ void QueryParams::RemoveToken(size_t i)
 {
   ASSERT_LESS(i, GetNumTokens(), ());
   if (i == m_tokens.size())
-    m_prefixTokens.clear();
+  {
+    m_prefixToken.Clear();
+    m_hasPrefix = false;
+  }
   else
+  {
     m_tokens.erase(m_tokens.begin() + i);
+  }
   m_typeIndices.erase(m_typeIndices.begin() + i);
 }
 
-string DebugPrint(search::QueryParams const & params)
+string DebugPrint(QueryParams const & params)
 {
   ostringstream os;
-  os << "QueryParams [ m_tokens=" << DebugPrint(params.m_tokens)
-     << ", m_prefixTokens=" << DebugPrint(params.m_prefixTokens)
+  os << "QueryParams [ m_tokens=" << ::DebugPrint(params.m_tokens)
+     << ", m_prefixToken=" << DebugPrint(params.m_prefixToken)
      << ", m_typeIndices=" << ::DebugPrint(params.m_typeIndices)
      << ", m_langs=" << ::DebugPrint(params.m_langs) << " ]";
+  return os.str();
+}
+
+string DebugPrint(QueryParams::Token const & token)
+{
+  ostringstream os;
+  os << "Token [ m_original=" << DebugPrint(token.m_original)
+     << ", m_synonyms=" << DebugPrint(token.m_synonyms) << " ]";
   return os.str();
 }
 }  // namespace search
