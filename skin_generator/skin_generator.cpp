@@ -30,11 +30,10 @@ namespace tools
 
   struct MaxDimensions
   {
-    int & m_width;
-    int & m_height;
+    uint32_t & m_width;
+    uint32_t & m_height;
 
-    MaxDimensions(int & width, int & height)
-      : m_width(width), m_height(height)
+    MaxDimensions(uint32_t & width, uint32_t & height) : m_width(width), m_height(height)
     {
       m_width = 0;
       m_height = 0;
@@ -42,8 +41,8 @@ namespace tools
 
     void operator()(SkinGenerator::SymbolInfo const & info)
     {
-      m_width = max(max(m_width, m_height), info.m_size.width());
-      m_height = max(max(m_width, m_height), info.m_size.height());
+      m_width = max(max(m_width, m_height), static_cast<uint32_t>(info.m_size.width()));
+      m_height = max(max(m_width, m_height), static_cast<uint32_t>(info.m_size.height()));
     }
   };
 
@@ -95,7 +94,7 @@ namespace tools
       page.m_suffix = suffixes[j];
       page.m_fileName = page.m_dir + "symbols" + page.m_suffix;
 
-      for (size_t i = 0; i < fileNames.size(); ++i)
+      for (int i = 0; i < fileNames.size(); ++i)
       {
         QString const & fileName = fileNames.at(i);
         QString symbolID = fileName.left(fileName.lastIndexOf("."));
@@ -149,7 +148,8 @@ namespace tools
         for (gil::bgra8_view_t::x_coord_t x = 0; x < view.width(); ++x)
         {
           gil::bgra8_pixel_t pixel = view(x, y);
-          unsigned char color = my::clamp(0.07 * pixel[0] + 0.5 * pixel[1] + 0.22  * pixel[2], 0, 255);
+          unsigned char color =
+              my::clamp(0.07 * pixel[0] + 0.5 * pixel[1] + 0.22 * pixel[2], 0.0, 255.0);
 
           view(x, y)[0] = color;
           view(x, y)[1] = color;

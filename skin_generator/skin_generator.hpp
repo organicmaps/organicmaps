@@ -49,8 +49,8 @@ namespace tools
       struct SkinPageInfo
       {
         TSymbols m_symbols;
-        int m_width;
-        int m_height;
+        uint32_t m_width;
+        uint32_t m_height;
         string m_fileName;
         string m_dir;
         string m_suffix;
