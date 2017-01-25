@@ -111,4 +111,9 @@ class ResultCodesHelper
             resultCode == NEED_MORE_MAPS ||
             (resultCode == ROUTE_NOT_FOUND && missingCount > 0));
   }
+
+  static boolean isNeedMoreMaps(int resultCode)
+  {
+    return resultCode == NEED_MORE_MAPS;
+  }
 }

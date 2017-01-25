@@ -41,6 +41,7 @@ abstract class BaseRoutingErrorDialogFragment extends BaseMwmDialogFragment
 
   private boolean mCancelRoute = true;
   boolean mCancelled;
+  boolean mNeedMoreMaps;
 
   void beforeDialogCreated(AlertDialog.Builder builder) {}
   void bindGroup(View view) {}
@@ -85,8 +86,11 @@ abstract class BaseRoutingErrorDialogFragment extends BaseMwmDialogFragment
   @Override
   public void onDismiss(DialogInterface dialog)
   {
-    if (mCancelled && mCancelRoute)
+    if (!mNeedMoreMaps && mCancelled && mCancelRoute)
       RoutingController.get().cancel();
+
+    if (mNeedMoreMaps && mCancelled)
+      RoutingController.get().finishBuild();
 
     super.onDismiss(dialog);
   }

@@ -123,17 +123,20 @@ public class RoutingController
           mContainsCachedResult = true;
 
           if (mLastResultCode == ResultCodesHelper.NO_ERROR)
-          {
-            mCachedRoutingInfo = Framework.nativeGetRouteFollowingInfo();
-            setBuildState(BuildState.BUILT);
-            mLastBuildProgress = 100;
-          }
+            finishBuild();
 
           processRoutingEvent();
         }
       });
     }
   };
+
+  void finishBuild()
+  {
+    mCachedRoutingInfo = Framework.nativeGetRouteFollowingInfo();
+    setBuildState(BuildState.BUILT);
+    mLastBuildProgress = 100;
+  }
 
   @SuppressWarnings("FieldCanBeLocal")
   private final Framework.RoutingProgressListener mRoutingProgressListener = new Framework.RoutingProgressListener()

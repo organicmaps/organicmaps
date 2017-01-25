@@ -34,6 +34,8 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
 
     if (ResultCodesHelper.isDownloadable(mResultCode, mMissingMaps.size()))
       builder.setPositiveButton(R.string.download, null);
+
+    mNeedMoreMaps = ResultCodesHelper.isNeedMoreMaps(mResultCode);
   }
 
   private View addMessage(View frame)
