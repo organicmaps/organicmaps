@@ -7,12 +7,9 @@
 #import "MWMSearchNoResults.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
+#import "SwiftBridge.h"
 
 #include "Framework.h"
-
-static NSString * const kRequestCellIdentifier = @"MWMSearchHistoryRequestCell";
-static NSString * const kClearCellIdentifier = @"MWMSearchHistoryClearCell";
-static NSString * const kMyPositionCellIdentifier = @"MWMSearchHistoryMyPositionCell";
 
 @interface MWMSearchHistoryManager ()
 
@@ -51,15 +48,10 @@ static NSString * const kMyPositionCellIdentifier = @"MWMSearchHistoryMyPosition
     tableView.hidden = NO;
     tableView.delegate = self;
     tableView.dataSource = self;
-    [tableView registerNib:[UINib nibWithNibName:kRequestCellIdentifier bundle:nil]
-        forCellReuseIdentifier:kRequestCellIdentifier];
-    [tableView registerNib:[UINib nibWithNibName:kClearCellIdentifier bundle:nil]
-        forCellReuseIdentifier:kClearCellIdentifier];
+    [tableView registerWithCellClass:[MWMSearchHistoryRequestCell class]];
+    [tableView registerWithCellClass:[MWMSearchHistoryClearCell class]];
     if (isRouteSearch)
-    {
-      [tableView registerNib:[UINib nibWithNibName:kMyPositionCellIdentifier bundle:nil]
-          forCellReuseIdentifier:kMyPositionCellIdentifier];
-    }
+      [tableView registerWithCellClass:[MWMSearchHistoryMyPositionCell class]];
     [tableView reloadData];
   }
 }
@@ -98,14 +90,15 @@ static NSString * const kMyPositionCellIdentifier = @"MWMSearchHistoryMyPosition
 {
   if ([self isRequestCell:indexPath])
   {
-    auto tCell = static_cast<MWMSearchHistoryRequestCell *>([tableView dequeueReusableCellWithIdentifier:kRequestCellIdentifier]);
+    auto tCell = static_cast<MWMSearchHistoryRequestCell *>([tableView
+        dequeueReusableCellWithCellClass:[MWMSearchHistoryRequestCell class]
+                               indexPath:indexPath]);
     [tCell config:[self stringAtIndex:indexPath.row]];
     return tCell;
   }
-  UITableViewCell * cell = [tableView
-      dequeueReusableCellWithIdentifier:self.isRouteSearchMode ? kMyPositionCellIdentifier
-                                                               : kClearCellIdentifier];
-  return cell;
+  Class cls = self.isRouteSearchMode ? [MWMSearchHistoryMyPositionCell class]
+                                     : [MWMSearchHistoryClearCell class];
+  return [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath];
 }
 
 #pragma mark - UITableViewDelegate

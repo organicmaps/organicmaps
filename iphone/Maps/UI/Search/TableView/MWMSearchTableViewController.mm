@@ -6,32 +6,11 @@
 #import "MWMSearchTableView.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
-
-static NSString * const kTableSuggestionCell = @"MWMSearchSuggestionCell";
-static NSString * const kTableCommonCell = @"MWMSearchCommonCell";
-
-namespace
-{
-typedef NS_ENUM(NSUInteger, MWMSearchTableCellType) {
-  MWMSearchTableCellTypeSuggestion,
-  MWMSearchTableCellTypeCommon
-};
-
-NSString * identifierForType(MWMSearchTableCellType type)
-{
-  switch (type)
-  {
-  case MWMSearchTableCellTypeSuggestion: return kTableSuggestionCell;
-  case MWMSearchTableCellTypeCommon: return kTableCommonCell;
-  }
-}
-}  // namespace
+#import "SwiftBridge.h"
 
 @interface MWMSearchTableViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property(weak, nonatomic) IBOutlet UITableView * tableView;
-
-@property(nonatomic) MWMSearchCommonCell * commonSizingCell;
 
 @property(weak, nonatomic) id<MWMSearchTableViewProtocol> delegate;
 
@@ -67,19 +46,16 @@ NSString * identifierForType(MWMSearchTableCellType type)
   UITableView * tableView = self.tableView;
   tableView.estimatedRowHeight = 80.;
   tableView.rowHeight = UITableViewAutomaticDimension;
-
-  [tableView registerNib:[UINib nibWithNibName:kTableSuggestionCell bundle:nil]
-      forCellReuseIdentifier:kTableSuggestionCell];
-  [tableView registerNib:[UINib nibWithNibName:kTableCommonCell bundle:nil]
-      forCellReuseIdentifier:kTableCommonCell];
+  [tableView registerWithCellClass:[MWMSearchSuggestionCell class]];
+  [tableView registerWithCellClass:[MWMSearchCommonCell class]];
 }
 
-- (MWMSearchTableCellType)cellTypeForIndexPath:(NSIndexPath *)indexPath
+- (Class)cellClassForIndexPath:(NSIndexPath *)indexPath
 {
   size_t const numSuggests = [MWMSearch suggestionsCount];
   if (numSuggests > 0 && indexPath.row < numSuggests)
-    return MWMSearchTableCellTypeSuggestion;
-  return MWMSearchTableCellTypeCommon;
+    return [MWMSearchSuggestionCell class];
+  return [MWMSearchCommonCell class];
 }
 
 - (search::Result const &)searchResultForIndexPath:(NSIndexPath *)indexPath
@@ -110,49 +86,37 @@ NSString * identifierForType(MWMSearchTableCellType type)
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  MWMSearchTableCellType const cellType = [self cellTypeForIndexPath:indexPath];
-  UITableViewCell * cell =
-      [tableView dequeueReusableCellWithIdentifier:identifierForType(cellType)];
-  switch (cellType)
+  Class cls = [self cellClassForIndexPath:indexPath];
+  auto cell = [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath];
+  if (cls == [MWMSearchSuggestionCell class])
   {
-  case MWMSearchTableCellTypeSuggestion:
-    [self configSuggestionCell:(MWMSearchSuggestionCell *)cell
-                        result:[self searchResultForIndexPath:indexPath]
-                    isLastCell:indexPath.row == [MWMSearch suggestionsCount] - 1];
-    break;
-  case MWMSearchTableCellTypeCommon:
-    [(MWMSearchCommonCell *)cell config:[self searchResultForIndexPath:indexPath]];
-    break;
+    auto tCell = static_cast<MWMSearchSuggestionCell *>(cell);
+    [tCell config:[self searchResultForIndexPath:indexPath]];
+    tCell.isLastCell = indexPath.row == [MWMSearch suggestionsCount] - 1;
   }
-
+  else if (cls == [MWMSearchCommonCell class])
+  {
+    auto tCell = static_cast<MWMSearchCommonCell *>(cell);
+    [tCell config:[self searchResultForIndexPath:indexPath]];
+  }
   return cell;
-}
-
-#pragma mark - Config cells
-
-- (void)configSuggestionCell:(MWMSearchSuggestionCell *)cell
-                      result:(search::Result const &)result
-                  isLastCell:(BOOL)isLastCell
-{
-  [cell config:result];
-  cell.isLastCell = isLastCell;
 }
 
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  MWMSearchTableCellType cellType = [self cellTypeForIndexPath:indexPath];
+  Class cls = [self cellClassForIndexPath:indexPath];
   id<MWMSearchTableViewProtocol> delegate = self.delegate;
   search::Result const & result = [self searchResultForIndexPath:indexPath];
-  if (cellType == MWMSearchTableCellTypeSuggestion)
+  if (cls == [MWMSearchSuggestionCell class])
   {
     NSString * suggestionString = @(result.GetSuggestionString());
     [Statistics logEvent:kStatEventName(kStatSearch, kStatSelectResult)
           withParameters:@{kStatValue : suggestionString, kStatScreen : kStatSearch}];
     [delegate searchText:suggestionString forInputLocale:nil];
   }
-  else
+  else if (cls == [MWMSearchCommonCell class])
   {
     MWMSearchTextField * textField = delegate.searchTextField;
     [MWMSearch saveQuery:textField.text forInputLocale:textField.textInputMode.primaryLanguage];
@@ -174,17 +138,7 @@ NSString * identifierForType(MWMSearchTableCellType type)
   if (!IPAD && [MWMSearch isSearchOnMap])
     return;
 
-  self.commonSizingCell = nil;
   [self reloadData];
-}
-
-#pragma mark - Properties
-
-- (MWMSearchCommonCell *)commonSizingCell
-{
-  if (!_commonSizingCell)
-    _commonSizingCell = [self.tableView dequeueReusableCellWithIdentifier:kTableCommonCell];
-  return _commonSizingCell;
 }
 
 @end
