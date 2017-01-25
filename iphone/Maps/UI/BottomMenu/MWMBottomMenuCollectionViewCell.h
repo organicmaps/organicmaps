@@ -9,3 +9,9 @@
                      isEnabled:(BOOL)isEnabled;
 
 @end
+
+@interface MWMBottomMenuCollectionViewPortraitCell : MWMBottomMenuCollectionViewCell
+@end
+
+@interface MWMBottomMenuCollectionViewLandscapeCell : MWMBottomMenuCollectionViewCell
+@end

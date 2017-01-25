@@ -1581,7 +1581,7 @@
 		349D1AC91E2E325B004A2006 /* MWMBottomMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMBottomMenuView.h; sourceTree = "<group>"; };
 		349D1ACA1E2E325B004A2006 /* MWMBottomMenuView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMBottomMenuView.mm; sourceTree = "<group>"; };
 		349D1ACB1E2E325B004A2006 /* MWMBottomMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMBottomMenuViewController.h; sourceTree = "<group>"; };
-		349D1ACC1E2E325B004A2006 /* MWMBottomMenuViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMBottomMenuViewController.mm; sourceTree = "<group>"; };
+		349D1ACC1E2E325B004A2006 /* MWMBottomMenuViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMBottomMenuViewController.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		349D1ACD1E2E325B004A2006 /* MWMBottomMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMBottomMenuViewController.xib; sourceTree = "<group>"; };
 		34AB39BF1D2BD8310021857D /* MWMStopButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMStopButton.h; sourceTree = "<group>"; };
 		34AB39C01D2BD8310021857D /* MWMStopButton.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMStopButton.mm; sourceTree = "<group>"; };

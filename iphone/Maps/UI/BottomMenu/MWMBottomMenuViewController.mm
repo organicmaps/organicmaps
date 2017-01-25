@@ -35,9 +35,6 @@ extern NSString * const kSearchStateKey;
 
 namespace
 {
-NSString * const kCollectionCellPortrait = @"MWMBottomMenuCollectionViewPortraitCell";
-NSString * const kCollectionCelllandscape = @"MWMBottomMenuCollectionViewLandscapeCell";
-
 CGFloat constexpr kLayoutThreshold = 420.0;
 NSTimeInterval constexpr kRoutingDiminishInterval = 5.0;
 }  // namespace
@@ -124,10 +121,9 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  [self.buttonsCollectionView registerNib:[UINib nibWithNibName:kCollectionCellPortrait bundle:nil]
-               forCellWithReuseIdentifier:kCollectionCellPortrait];
-  [self.buttonsCollectionView registerNib:[UINib nibWithNibName:kCollectionCelllandscape bundle:nil]
-               forCellWithReuseIdentifier:kCollectionCelllandscape];
+  UICollectionView * bcv = self.buttonsCollectionView;
+  [bcv registerWithCellClass:[MWMBottomMenuCollectionViewPortraitCell class]];
+  [bcv registerWithCellClass:[MWMBottomMenuCollectionViewLandscapeCell class]];
   MWMBottomMenuLayout * cvLayout =
       (MWMBottomMenuLayout *)self.buttonsCollectionView.collectionViewLayout;
   cvLayout.layoutThreshold = kLayoutThreshold;
@@ -299,10 +295,10 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
                           cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
   BOOL const isWideMenu = self.view.width > kLayoutThreshold;
-  MWMBottomMenuCollectionViewCell * cell =
-      [collectionView dequeueReusableCellWithReuseIdentifier:isWideMenu ? kCollectionCelllandscape
-                                                                        : kCollectionCellPortrait
-                                                forIndexPath:indexPath];
+  Class cls = isWideMenu ? [MWMBottomMenuCollectionViewLandscapeCell class]
+                         : [MWMBottomMenuCollectionViewPortraitCell class];
+  auto cell = static_cast<MWMBottomMenuCollectionViewCell *>(
+      [collectionView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
   NSInteger item = indexPath.item;
   if (isInterfaceRightToLeft())
     item = [self collectionView:collectionView numberOfItemsInSection:indexPath.section] - item - 1;
