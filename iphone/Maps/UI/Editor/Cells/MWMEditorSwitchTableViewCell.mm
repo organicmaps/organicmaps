@@ -3,11 +3,11 @@
 
 @interface MWMEditorSwitchTableViewCell ()
 
-@property (weak, nonatomic) IBOutlet UIImageView * icon;
-@property (weak, nonatomic) IBOutlet UILabel * label;
-@property (weak, nonatomic) IBOutlet UISwitch * switchControl;
+@property(weak, nonatomic) IBOutlet UIImageView * icon;
+@property(weak, nonatomic) IBOutlet UILabel * label;
+@property(weak, nonatomic) IBOutlet UISwitch * switchControl;
 
-@property (weak, nonatomic) id<MWMEditorCellProtocol> delegate;
+@property(weak, nonatomic) id<MWMEditorCellProtocol> delegate;
 
 @end
 

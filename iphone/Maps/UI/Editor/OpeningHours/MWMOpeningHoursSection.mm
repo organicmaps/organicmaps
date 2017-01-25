@@ -96,9 +96,8 @@ using namespace osmoh;
 
 - (CGFloat)heightForRow:(NSUInteger)row withWidth:(CGFloat)width
 {
-  NSString * className = kMWMOpeningHoursEditorTableCells[@([self cellKeyForRow:row])];
-  NSAssert(className, @"Invalid class name");
-  return [NSClassFromString(className) heightForWidth:width];
+  Class cls = kMWMOpeningHoursEditorTableCells[@([self cellKeyForRow:row])];
+  return [cls heightForWidth:width];
 }
 
 - (void)fillCell:(MWMOpeningHoursTableViewCell * _Nonnull)cell

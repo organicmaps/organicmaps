@@ -22,6 +22,7 @@
 #import "MWMStreetEditorViewController.h"
 #import "MapViewController.h"
 #import "Statistics.h"
+#import "SwiftBridge.h"
 #import "UIViewController+Navigation.h"
 
 #include "std/algorithm.hpp"
@@ -55,32 +56,32 @@ vector<MWMPlacePageCellType> const kSectionAddressCellTypes{
 vector<MWMPlacePageCellType> const kSectionNoteCellTypes{MWMPlacePageCellTypeNote};
 vector<MWMPlacePageCellType> const kSectionButtonCellTypes{MWMPlacePageCellTypeReportButton};
 
-MWMPlacePageCellTypeValueMap const kCellType2ReuseIdentifier{
-    {MWMPlacePageCellTypeCategory, "MWMEditorCategoryCell"},
-    {MWMPlacePageCellTypeAdditionalName, "MWMEditorAdditionalNameTableViewCell"},
-    {MWMPlacePageCellTypeAddAdditionalName, "MWMEditorAddAdditionalNameTableViewCell"},
+using MWMPlacePageCellTypeClassMap = map<MWMPlacePageCellType, Class>;
+MWMPlacePageCellTypeClassMap const kCellType2Class{
+    {MWMPlacePageCellTypeCategory, [MWMEditorCategoryCell class]},
+    {MWMPlacePageCellTypeAdditionalName, [MWMEditorAdditionalNameTableViewCell class]},
+    {MWMPlacePageCellTypeAddAdditionalName, [MWMEditorAddAdditionalNameTableViewCell class]},
     {MWMPlacePageCellTypeAddAdditionalNamePlaceholder,
-     "MWMEditorAdditionalNamePlaceholderTableViewCell"},
-    {MWMPlacePageCellTypeStreet, "MWMEditorSelectTableViewCell"},
-    {MWMPlacePageCellTypeBuilding, "MWMEditorTextTableViewCell"},
-    {MWMPlacePageCellTypeZipCode, "MWMEditorTextTableViewCell"},
-    {MWMPlacePageCellTypeBuildingLevels, "MWMEditorTextTableViewCell"},
-    {MWMPlacePageCellTypeOpenHours, "MWMPlacePageOpeningHoursCell"},
-    {MWMPlacePageCellTypePhoneNumber, "MWMEditorTextTableViewCell"},
-    {MWMPlacePageCellTypeWebsite, "MWMEditorTextTableViewCell"},
-    {MWMPlacePageCellTypeEmail, "MWMEditorTextTableViewCell"},
-    {MWMPlacePageCellTypeOperator, "MWMEditorTextTableViewCell"},
-    {MWMPlacePageCellTypeCuisine, "MWMEditorSelectTableViewCell"},
-    {MWMPlacePageCellTypeWiFi, "MWMEditorSwitchTableViewCell"},
-    {MWMPlacePageCellTypeNote, "MWMNoteCell"},
-    {MWMPlacePageCellTypeReportButton, "MWMButtonCell"}};
+     [MWMEditorAdditionalNamePlaceholderTableViewCell class]},
+    {MWMPlacePageCellTypeStreet, [MWMEditorSelectTableViewCell class]},
+    {MWMPlacePageCellTypeBuilding, [MWMEditorTextTableViewCell class]},
+    {MWMPlacePageCellTypeZipCode, [MWMEditorTextTableViewCell class]},
+    {MWMPlacePageCellTypeBuildingLevels, [MWMEditorTextTableViewCell class]},
+    {MWMPlacePageCellTypeOpenHours, [MWMPlacePageOpeningHoursCell class]},
+    {MWMPlacePageCellTypePhoneNumber, [MWMEditorTextTableViewCell class]},
+    {MWMPlacePageCellTypeWebsite, [MWMEditorTextTableViewCell class]},
+    {MWMPlacePageCellTypeEmail, [MWMEditorTextTableViewCell class]},
+    {MWMPlacePageCellTypeOperator, [MWMEditorTextTableViewCell class]},
+    {MWMPlacePageCellTypeCuisine, [MWMEditorSelectTableViewCell class]},
+    {MWMPlacePageCellTypeWiFi, [MWMEditorSwitchTableViewCell class]},
+    {MWMPlacePageCellTypeNote, [MWMNoteCell class]},
+    {MWMPlacePageCellTypeReportButton, [MWMButtonCell class]}};
 
-NSString * reuseIdentifier(MWMPlacePageCellType cellType)
+Class cellClass(MWMPlacePageCellType cellType)
 {
-  auto const it = kCellType2ReuseIdentifier.find(cellType);
-  BOOL const haveCell = (it != kCellType2ReuseIdentifier.end());
-  ASSERT(haveCell, ());
-  return haveCell ? @(it->second.c_str()) : @"";
+  auto const it = kCellType2Class.find(cellType);
+  ASSERT(it != kCellType2Class.end(), ());
+  return it->second;
 }
 
 void cleanupAdditionalLanguages(vector<osm::LocalizedName> const & names,
@@ -150,13 +151,7 @@ vector<MWMPlacePageCellType> cellsForProperties(vector<osm::Props> const & props
 void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITableView * tv)
 {
   for (auto const c : cells)
-  {
-    NSString * identifier = reuseIdentifier(c);
-    if (UINib * nib = [UINib nibWithNibName:identifier bundle:nil])
-      [tv registerNib:nib forCellReuseIdentifier:identifier];
-    else
-      ASSERT(false, ("Incorrect cell"));
-  }
+    [tv registerWithCellClass:cellClass(c)];
 }
 }  // namespace
 
@@ -166,7 +161,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
     MWMStreetEditorProtocol, MWMObjectsCategorySelectorDelegate, MWMNoteCelLDelegate,
     MWMEditorAdditionalName, MWMButtonCellDelegate, MWMEditorAdditionalNamesProtocol>
 
-@property(nonatomic) NSMutableDictionary<NSString *, UITableViewCell *> * offscreenCells;
+@property(nonatomic) NSMutableDictionary<Class, UITableViewCell *> * offscreenCells;
 @property(nonatomic) NSMutableArray<NSIndexPath *> * invalidCells;
 @property(nonatomic) MWMEditorAdditionalNamesHeader * additionalNamesHeader;
 @property(nonatomic) MWMEditorNotesFooter * notesFooter;
@@ -370,13 +365,13 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
 
 #pragma mark - Offscreen cells
 
-- (UITableViewCell *)offscreenCellForIdentifier:(NSString *)reuseIdentifier
+- (UITableViewCell *)offscreenCellForClass:(Class)cls
 {
-  UITableViewCell * cell = self.offscreenCells[reuseIdentifier];
+  auto cell = self.offscreenCells[cls];
   if (!cell)
   {
-    cell = [[[NSBundle mainBundle] loadNibNamed:reuseIdentifier owner:nil options:nil] firstObject];
-    self.offscreenCells[reuseIdentifier] = cell;
+    cell = [[[NSBundle mainBundle] loadWithViewClass:cls owner:nil options:nil] firstObject];
+    self.offscreenCells[cls] = cell;
   }
   return cell;
 }
@@ -451,9 +446,9 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   return m_cells[m_sections[indexPath.section]][indexPath.row];
 }
 
-- (NSString *)cellIdentifierForIndexPath:(NSIndexPath *)indexPath
+- (Class)cellClassForIndexPath:(NSIndexPath *)indexPath
 {
-  return reuseIdentifier([self cellTypeForIndexPath:indexPath]);
+  return cellClass([self cellTypeForIndexPath:indexPath]);
 }
 
 #pragma mark - Fill cells with data
@@ -687,8 +682,8 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView
                   cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
 {
-  NSString * reuseIdentifier = [self cellIdentifierForIndexPath:indexPath];
-  UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+  Class cls = [self cellClassForIndexPath:indexPath];
+  auto cell = [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath];
   [self fillCell:cell atIndexPath:indexPath];
   return cell;
 }
@@ -708,9 +703,8 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
 - (CGFloat)tableView:(UITableView * _Nonnull)tableView
     heightForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
 {
-  NSString * reuseIdentifier = [self cellIdentifierForIndexPath:indexPath];
-
-  UITableViewCell * cell = [self offscreenCellForIdentifier:reuseIdentifier];
+  Class cls = [self cellClassForIndexPath:indexPath];
+  auto cell = [self offscreenCellForClass:cls];
   [self fillCell:cell atIndexPath:indexPath];
   MWMPlacePageCellType const cellType = [self cellTypeForIndexPath:indexPath];
   switch (cellType)
@@ -821,7 +815,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
 
 - (void)cellShouldChangeSize:(MWMNoteCell *)cell text:(NSString *)text
 {
-  self.offscreenCells[reuseIdentifier(MWMPlacePageCellTypeNote)] = cell;
+  self.offscreenCells[cellClass(MWMPlacePageCellTypeNote)] = cell;
   self.note = text;
   [self.tableView refresh];
   NSIndexPath * ip = [self.tableView indexPathForCell:cell];

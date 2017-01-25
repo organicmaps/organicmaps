@@ -5,7 +5,7 @@
 
 @interface MWMEditorAdditionalNameTableViewCell : MWMTableViewCell
 
-@property (nonatomic, readonly) NSInteger code;
+@property(nonatomic, readonly) NSInteger code;
 
 - (void)configWithDelegate:(id<MWMEditorAdditionalName>)delegate
                   langCode:(NSInteger)langCode

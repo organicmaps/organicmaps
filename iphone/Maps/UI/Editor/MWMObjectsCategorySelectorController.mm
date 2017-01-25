@@ -6,6 +6,7 @@
 #import "MWMTableViewCell.h"
 #import "MWMToast.h"
 #import "Statistics.h"
+#import "SwiftBridge.h"
 #import "UIViewController+Navigation.h"
 
 #include "LocaleTranslator.h"
@@ -171,8 +172,8 @@ string locale()
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  UITableViewCell * cell =
-      [tableView dequeueReusableCellWithIdentifier:[UITableViewCell className]];
+  auto cell =
+      [tableView dequeueReusableCellWithCellClass:[UITableViewCell class] indexPath:indexPath];
   cell.textLabel.text =
       @([self dataSourceForSection:indexPath.section][indexPath.row].first.c_str());
   if ([indexPath isEqual:self.selectedIndexPath])

@@ -1,6 +1,6 @@
 #import "MWMTableViewCell.h"
 
-@protocol MWMButtonCellDelegate <NSObject>
+@protocol MWMButtonCellDelegate<NSObject>
 
 - (void)cellSelect:(UITableViewCell *)cell;
 

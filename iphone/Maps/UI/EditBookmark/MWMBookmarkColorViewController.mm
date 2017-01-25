@@ -1,5 +1,6 @@
 #import "MWMBookmarkColorViewController.h"
 #import "Statistics.h"
+#import "SwiftBridge.h"
 #import "UIViewController+Navigation.h"
 
 #include "std/array.hpp"
@@ -55,7 +56,8 @@ array<NSString *, 9> const kBookmarkColorsVariant
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:[UITableViewCell className]];
+  auto cell =
+      [tableView dequeueReusableCellWithCellClass:[UITableViewCell class] indexPath:indexPath];
   NSString * currentColor = kBookmarkColorsVariant[indexPath.row];
   cell.textLabel.text = ios_bookmark_ui_helper::LocalizedTitleForBookmarkColor(currentColor);
   BOOL const isSelected = [currentColor isEqualToString:self.bookmarkColor];

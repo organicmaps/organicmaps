@@ -2,8 +2,8 @@
 
 @interface MWMButtonCell ()
 
-@property (weak, nonatomic) IBOutlet UIButton * button;
-@property (weak, nonatomic) id<MWMButtonCellDelegate> delegate;
+@property(weak, nonatomic) IBOutlet UIButton * button;
+@property(weak, nonatomic) id<MWMButtonCellDelegate> delegate;
 
 @end
 
@@ -15,9 +15,5 @@
   self.delegate = delegate;
 }
 
-- (IBAction)buttonTap
-{
-  [self.delegate cellSelect:self];
-}
-
+- (IBAction)buttonTap { [self.delegate cellSelect:self]; }
 @end

@@ -1,25 +1,25 @@
-#import "MWMEditorCommon.h"
 #import "MWMEditorTextTableViewCell.h"
+#import "MWMEditorCommon.h"
 #import "UIImageView+Coloring.h"
 #import "UITextField+RuntimeAttributes.h"
 
 namespace
 {
-  CGFloat const kErrorLabelDefaultTopSpace = 4.;
-} // namespace
+CGFloat const kErrorLabelDefaultTopSpace = 4.;
+}  // namespace
 
-@interface MWMEditorTextTableViewCell () <UITextFieldDelegate>
+@interface MWMEditorTextTableViewCell ()<UITextFieldDelegate>
 
-@property (weak, nonatomic) IBOutlet UIImageView * icon;
-@property (weak, nonatomic, readwrite) IBOutlet UITextField * textField;
-@property (weak, nonatomic) IBOutlet UILabel * errorLabel;
+@property(weak, nonatomic) IBOutlet UIImageView * icon;
+@property(weak, nonatomic, readwrite) IBOutlet UITextField * textField;
+@property(weak, nonatomic) IBOutlet UILabel * errorLabel;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * errorLabelTopSpace;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * labelHeight;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * errorLabelTopSpace;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * labelHeight;
 
-@property (weak, nonatomic) id<MWMEditorCellProtocol> delegate;
+@property(weak, nonatomic) id<MWMEditorCellProtocol> delegate;
 
-@property (nonatomic) BOOL isValid;
+@property(nonatomic) BOOL isValid;
 
 @end
 
@@ -30,10 +30,16 @@ namespace
                       text:(NSString *)text
                placeholder:(NSString *)placeholder
               keyboardType:(UIKeyboardType)keyboardType
-             capitalization:(UITextAutocapitalizationType)capitalization
+            capitalization:(UITextAutocapitalizationType)capitalization
 {
-  [self configWithDelegate:delegate icon:icon text:text placeholder:placeholder
-                            errorMessage:nil isValid:YES keyboardType:keyboardType capitalization:capitalization];
+  [self configWithDelegate:delegate
+                      icon:icon
+                      text:text
+               placeholder:placeholder
+              errorMessage:nil
+                   isValid:YES
+              keyboardType:keyboardType
+            capitalization:capitalization];
 }
 
 - (void)configWithDelegate:(id<MWMEditorCellProtocol>)delegate
@@ -43,7 +49,7 @@ namespace
               errorMessage:(NSString *)errorMessage
                    isValid:(BOOL)isValid
               keyboardType:(UIKeyboardType)keyboardType
-             capitalization:(UITextAutocapitalizationType)capitalization
+            capitalization:(UITextAutocapitalizationType)capitalization
 {
   self.delegate = delegate;
   self.icon.image = icon;
@@ -51,8 +57,9 @@ namespace
   self.icon.hidden = (icon == nil);
 
   self.textField.text = text;
-  self.textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder attributes:
-                                          @{NSForegroundColorAttributeName : [UIColor blackHintText]}];
+  self.textField.attributedPlaceholder = [[NSAttributedString alloc]
+      initWithString:placeholder
+          attributes:@{NSForegroundColorAttributeName : [UIColor blackHintText]}];
   self.errorLabel.text = errorMessage;
   self.textField.keyboardType = keyboardType;
   self.textField.backgroundColor = [UIColor clearColor];
@@ -89,7 +96,9 @@ namespace
 
 #pragma mark - UITextFieldDelegate
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+- (BOOL)textField:(UITextField *)textField
+    shouldChangeCharactersInRange:(NSRange)range
+                replacementString:(NSString *)string
 {
   [self changeInvalidCellState];
   return YES;

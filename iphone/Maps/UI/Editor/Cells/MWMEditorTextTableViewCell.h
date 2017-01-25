@@ -20,6 +20,6 @@
               keyboardType:(UIKeyboardType)keyboardType
             capitalization:(UITextAutocapitalizationType)capitalization;
 
-@property (weak, nonatomic, readonly) IBOutlet UITextField * textField;
+@property(weak, nonatomic, readonly) IBOutlet UITextField * textField;
 
 @end
