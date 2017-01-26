@@ -8,9 +8,13 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 
 public class TrackRecorderWakeService extends IntentService
 {
+  private static final String TAG = TrackRecorderWakeService.class.getSimpleName();
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.TRACK_RECORDER);
   private static final Object sLock = new Object();
   private static TrackRecorderWakeService sService;
   private final CountDownLatch mWaitMonitor = new CountDownLatch(1);
@@ -23,7 +27,7 @@ public class TrackRecorderWakeService extends IntentService
   @Override
   protected final void onHandleIntent(Intent intent)
   {
-    TrackRecorder.log("SVC.onHandleIntent()");
+    LOGGER.d(TAG, "SVC.onHandleIntent()");
 
     synchronized (sLock)
     {
@@ -34,11 +38,11 @@ public class TrackRecorderWakeService extends IntentService
     try
     {
       long timeout = TrackRecorder.getAwaitTimeout();
-      TrackRecorder.log("Timeout: " + timeout);
+      LOGGER.d(TAG, "Timeout: " + timeout);
 
       if (!mWaitMonitor.await(timeout, TimeUnit.MILLISECONDS))
       {
-        TrackRecorder.log("TIMEOUT awaiting coordinates");
+        LOGGER.d(TAG, "TIMEOUT awaiting coordinates");
         TrackRecorder.incrementAwaitTimeout();
       }
     } catch (InterruptedException ignored) {}
@@ -54,27 +58,27 @@ public class TrackRecorderWakeService extends IntentService
 
   public static void start()
   {
-    TrackRecorder.log("SVC.start()");
+    LOGGER.d(TAG, "SVC.start()");
 
     synchronized (sLock)
     {
       if (sService == null)
         WakefulBroadcastReceiver.startWakefulService(MwmApplication.get(), new Intent(MwmApplication.get(), TrackRecorderWakeService.class));
       else
-        TrackRecorder.log("SVC.start() SKIPPED because (sService != null)");
+        LOGGER.d(TAG, "SVC.start() SKIPPED because (sService != null)");
     }
   }
 
   public static void stop()
   {
-    TrackRecorder.log("SVC.stop()");
+    LOGGER.d(TAG, "SVC.stop()");
 
     synchronized (sLock)
     {
       if (sService != null)
         sService.mWaitMonitor.countDown();
       else
-        TrackRecorder.log("SVC.stop() SKIPPED because (sService == null)");
+        LOGGER.d(TAG, "SVC.stop() SKIPPED because (sService == null)");
     }
   }
 }

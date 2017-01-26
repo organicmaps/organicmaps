@@ -9,6 +9,7 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.search.SearchFragment;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.statistics.MytargetHelper;
 import com.mapswithme.util.statistics.Statistics;
@@ -64,5 +65,29 @@ public class MiscPrefsFragment extends BaseXmlSettingsFragment
 
     if (!MytargetHelper.isShowcaseSwitchedOnServer())
       getPreferenceScreen().removePreference(findPreference(getString(R.string.pref_showcase_switched_on)));
+
+    pref = findPreference(getString(R.string.pref_enable_logging));
+    if (!MwmApplication.prefs().getBoolean(SearchFragment.PREFS_SHOW_ENABLE_LOGGING_SETTING, false))
+    {
+      getPreferenceScreen().removePreference(pref);
+    }
+    else
+    {
+      ((TwoStatePreference) pref).setChecked(Config.isLoggingEnabled());
+      pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
+      {
+        @Override
+        public boolean onPreferenceChange(Preference preference, Object newValue)
+        {
+          boolean oldVal = Config.isLoggingEnabled();
+          boolean newVal = (Boolean) newValue;
+          if (oldVal != newVal)
+          {
+            Config.setLoggingEnabled((Boolean) newValue);
+          }
+          return true;
+        }
+      });
+    }
   }
 }

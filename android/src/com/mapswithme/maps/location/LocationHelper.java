@@ -21,7 +21,7 @@ import com.mapswithme.util.Listeners;
 import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
-import com.mapswithme.util.log.DebugLogger;
+import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.log.Logger;
 
 import static com.mapswithme.maps.background.AppBackgroundTracker.OnTransitionListener;
@@ -93,7 +93,7 @@ public enum LocationHelper
     @Override
     public void onLocationUpdated(Location location)
     {
-      mLogger.d("onLocationUpdated(), provider = " + location.getProvider());
+      mLogger.d(TAG, "onLocationUpdated(), provider = " + location.getProvider());
 
       mPredictor.onLocationUpdated(location);
 
@@ -126,10 +126,10 @@ public enum LocationHelper
     public void onLocationError(int errorCode)
     {
       mErrorOccurred = true;
-      mLogger.d("onLocationError errorCode = " + errorCode);
+      mLogger.d(TAG, "onLocationError errorCode = " + errorCode);
 
       nativeOnLocationError(errorCode);
-      mLogger.d("nativeOnLocationError errorCode = " + errorCode +
+      mLogger.d(TAG, "nativeOnLocationError errorCode = " + errorCode +
                 ", current state = " + LocationState.nameOf(LocationState.getMode()));
       stop();
 
@@ -146,7 +146,8 @@ public enum LocationHelper
     }
   };
 
-  private final Logger mLogger = new DebugLogger(LocationHelper.class.getSimpleName());
+  private final static String TAG = LocationHelper.class.getSimpleName();
+  private final Logger mLogger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.LOCATION);
   @NonNull
   private final Listeners<LocationListener> mListeners = new Listeners<>();
 
@@ -176,7 +177,7 @@ public enum LocationHelper
     public void onMyPositionModeChanged(int newMode)
     {
       notifyMyPositionModeChanged(newMode);
-      mLogger.d("onMyPositionModeChanged mode = " + LocationState.nameOf(newMode) +
+      mLogger.d(TAG, "onMyPositionModeChanged mode = " + LocationState.nameOf(newMode) +
                 " mColdStart = " + mColdStart + " mErrorOccurred = " + mErrorOccurred);
       switch (newMode)
       {
@@ -219,7 +220,7 @@ public enum LocationHelper
     @Override
     public void run()
     {
-      mLogger.d("mStopLocationTask.run(). Was active: " + mActive);
+      mLogger.d(TAG, "mStopLocationTask.run(). Was active: " + mActive);
 
       if (mActive)
         stopInternal();
@@ -228,7 +229,7 @@ public enum LocationHelper
 
   LocationHelper()
   {
-    mLogger.d("ctor()");
+    mLogger.d(LocationHelper.class.getSimpleName(), "ctor()");
 
     // TODO consider refactoring.
     // Actually we shouldn't initialize Framework here,
@@ -244,11 +245,11 @@ public enum LocationHelper
 
   public void initProvider(boolean forceNative)
   {
-    mLogger.d("initProvider forceNative = " + forceNative);
+    mLogger.d(TAG, "initProvider forceNative = " + forceNative, new Throwable());
     mActive = !mListeners.isEmpty();
     if (mActive)
     {
-      mLogger.d("Stop the active provider '" + mLocationProvider + "' before starting the new one");
+      mLogger.d(TAG, "Stop the active provider '" + mLocationProvider + "' before starting the new one");
       stopInternal();
     }
 
@@ -259,12 +260,12 @@ public enum LocationHelper
         containsGoogleServices &&
         googleServicesTurnedInSettings)
     {
-      mLogger.d("Use fused provider.");
+      mLogger.d(TAG, "Use fused provider.");
       mLocationProvider = new GoogleFusedLocationProvider(new FusedLocationFixChecker());
     }
     else
     {
-      mLogger.d("Use native provider.");
+      mLogger.d(TAG, "Use native provider.");
       mLocationProvider = new AndroidNativeProvider(new DefaultLocationFixChecker());
     }
 
@@ -316,7 +317,7 @@ public enum LocationHelper
   {
     if (mErrorOccurred)
     {
-      mLogger.d("Location services are still not available, no need to switch to the next mode.");
+      mLogger.d(TAG, "Location services are still not available, no need to switch to the next mode.");
       notifyLocationError(ERROR_DENIED);
       return;
     }
@@ -340,11 +341,11 @@ public enum LocationHelper
 
   void notifyLocationUpdated()
   {
-    mLogger.d("notifyLocationUpdated()");
+    mLogger.d(TAG, "notifyLocationUpdated()");
 
     if (mSavedLocation == null)
     {
-      mLogger.d("No saved location - skip");
+      mLogger.d(TAG, "No saved location - skip");
       return;
     }
 
@@ -358,7 +359,7 @@ public enum LocationHelper
     // too often can result in poor UI performance.
     if (RoutingController.get().isNavigating() && Framework.nativeIsRouteFinished())
     {
-      mLogger.d("End point is reached");
+      mLogger.d(TAG, "End point is reached");
       restart();
       RoutingController.get().cancel();
     }
@@ -366,11 +367,11 @@ public enum LocationHelper
 
   private void notifyLocationUpdated(LocationListener listener)
   {
-    mLogger.d("notifyLocationUpdated(), listener: " + listener);
+    mLogger.d(TAG, "notifyLocationUpdated(), listener: " + listener);
 
     if (mSavedLocation == null)
     {
-      mLogger.d("No saved location - skip");
+      mLogger.d(TAG, "No saved location - skip");
       return;
     }
 
@@ -379,7 +380,7 @@ public enum LocationHelper
 
   private void notifyLocationError(int errCode)
   {
-    mLogger.d("notifyLocationError(): " + errCode);
+    mLogger.d(TAG, "notifyLocationError(): " + errCode);
 
     for (LocationListener listener : mListeners)
       listener.onLocationError(errCode);
@@ -388,7 +389,7 @@ public enum LocationHelper
 
   private void notifyMyPositionModeChanged(int newMode)
   {
-    mLogger.d("notifyMyPositionModeChanged(): " + LocationState.nameOf(newMode));
+    mLogger.d(TAG, "notifyMyPositionModeChanged(): " + LocationState.nameOf(newMode));
 
     if (mUiCallback != null)
       mUiCallback.onMyPositionModeChanged(newMode);
@@ -398,7 +399,7 @@ public enum LocationHelper
 
   private void notifyLocationNotFound()
   {
-    mLogger.d("notifyLocationNotFound()");
+    mLogger.d(TAG, "notifyLocationNotFound()");
     if (mUiCallback != null)
       mUiCallback.onLocationNotFound();
   }
@@ -410,7 +411,7 @@ public enum LocationHelper
 
   public void stop()
   {
-    mLogger.d("stop()");
+    mLogger.d(TAG, "stop()");
     mLocationStopped = true;
     removeListener(mLocationListener, false);
   }
@@ -422,7 +423,7 @@ public enum LocationHelper
     boolean networkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     mLocationStopped = !networkEnabled && !gpsEnabled;
-    mLogger.d("Providers availability: " + !mLocationStopped +
+    mLogger.d(TAG, "Providers availability: " + !mLocationStopped +
               "; network provider = " + networkEnabled + ", gps provider = " + gpsEnabled);
 
     if (mLocationStopped)
@@ -444,8 +445,8 @@ public enum LocationHelper
   @android.support.annotation.UiThread
   public void addListener(LocationListener listener, boolean forceUpdate)
   {
-    mLogger.d("addListener(): " + listener + ", forceUpdate: " + forceUpdate);
-    mLogger.d(" - listener count was: " + mListeners.getSize());
+    mLogger.d(TAG, "addListener(): " + listener + ", forceUpdate: " + forceUpdate);
+    mLogger.d(TAG, " - listener count was: " + mListeners.getSize());
 
     UiThread.cancelDelayedTasks(mStopLocationTask);
 
@@ -465,24 +466,24 @@ public enum LocationHelper
   @android.support.annotation.UiThread
   private void removeListener(LocationListener listener, boolean delayed)
   {
-    mLogger.d("removeListener(), delayed: " + delayed + ", listener: " + listener);
-    mLogger.d(" - listener count was: " + mListeners.getSize());
+    mLogger.d(TAG, "removeListener(), delayed: " + delayed + ", listener: " + listener);
+    mLogger.d(TAG, " - listener count was: " + mListeners.getSize());
 
     boolean wasEmpty = mListeners.isEmpty();
     mListeners.unregister(listener);
 
     if (!wasEmpty && mListeners.isEmpty())
     {
-      mLogger.d(" - was not empty");
+      mLogger.d(TAG, " - was not empty");
 
       if (delayed)
       {
-        mLogger.d(" - schedule stop");
+        mLogger.d(TAG, " - schedule stop");
         stopDelayed();
       }
       else
       {
-        mLogger.d(" - stop now");
+        mLogger.d(TAG, " - stop now");
         stopInternal();
       }
     }
@@ -577,7 +578,7 @@ public enum LocationHelper
    */
   public void restart()
   {
-    mLogger.d("restart()");
+    mLogger.d(TAG, "restart()");
     mActive &= !mListeners.isEmpty();
     if (!mActive)
     {
@@ -587,10 +588,10 @@ public enum LocationHelper
 
     boolean oldHighAccuracy = mHighAccuracy;
     long oldInterval = mInterval;
-    mLogger.d("restart. Old params: " + oldInterval + " / " + (oldHighAccuracy ? "high" : "normal"));
+    mLogger.d(TAG, "restart. Old params: " + oldInterval + " / " + (oldHighAccuracy ? "high" : "normal"));
 
     calcParams();
-    mLogger.d("New params: " + mInterval + " / " + (mHighAccuracy ? "high" : "normal"));
+    mLogger.d(TAG, "New params: " + mInterval + " / " + (mHighAccuracy ? "high" : "normal"));
 
     if (mHighAccuracy != oldHighAccuracy || mInterval != oldInterval)
     {
@@ -607,10 +608,10 @@ public enum LocationHelper
    */
   private void startInternal()
   {
-    mLogger.d("startInternal(), current provider is '" + mLocationProvider + "'");
+    mLogger.d(TAG, "startInternal(), current provider is '" + mLocationProvider + "'");
 
     mActive = mLocationProvider.start();
-    mLogger.d(mActive ? "SUCCESS" : "FAILURE");
+    mLogger.d(TAG, mActive ? "SUCCESS" : "FAILURE");
 
     if (mActive)
     {
@@ -626,7 +627,7 @@ public enum LocationHelper
    */
   private void stopInternal()
   {
-    mLogger.d("stopInternal()");
+    mLogger.d(TAG, "stopInternal()");
 
     mActive = false;
     mLocationProvider.stop();
@@ -640,7 +641,7 @@ public enum LocationHelper
    */
   private void stopDelayed()
   {
-    mLogger.d("stopDelayed()");
+    mLogger.d(TAG, "stopDelayed()");
     UiThread.runLater(mStopLocationTask, STOP_DELAY_MS);
   }
 
@@ -649,11 +650,11 @@ public enum LocationHelper
    */
   public void attach(UiCallback callback)
   {
-    mLogger.d("attach() callback = " + callback + " mColdStart = " + mColdStart);
+    mLogger.d(TAG, "attach() callback = " + callback + " mColdStart = " + mColdStart);
 
     if (mUiCallback != null)
     {
-      mLogger.d(" - already attached. Skip.");
+      mLogger.d(TAG, " - already attached. Skip.");
       return;
     }
 
@@ -677,11 +678,11 @@ public enum LocationHelper
    */
   public void detach(boolean delayed)
   {
-    mLogger.d("detach(), delayed: " + delayed);
+    mLogger.d(TAG, "detach(), delayed: " + delayed);
 
     if (mUiCallback == null)
     {
-      mLogger.d(" - already detached. Skip.");
+      mLogger.d(TAG, " - already detached. Skip.");
       return;
     }
 

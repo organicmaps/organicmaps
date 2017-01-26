@@ -2,12 +2,10 @@ package com.mapswithme.util;
 
 import android.content.Context;
 import android.os.Environment;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.SimpleLogger;
 
 import java.io.File;
 
@@ -41,7 +39,8 @@ public class StorageUtils
     if (dir != null)
       return dir.getAbsolutePath();
 
-    SimpleLogger.get().e("Cannot get the external files directory for some reasons", new Throwable());
+    Log.e(StorageUtils.class.getSimpleName(),
+          "Cannot get the external files directory for some reasons", new Throwable());
     return null;
   }
 }

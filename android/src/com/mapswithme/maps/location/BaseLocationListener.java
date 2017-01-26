@@ -5,12 +5,13 @@ import android.location.LocationListener;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
-import com.mapswithme.util.log.DebugLogger;
 import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 
 class BaseLocationListener implements LocationListener, com.google.android.gms.location.LocationListener
 {
-  private static final Logger LOGGER = new DebugLogger(BaseLocationListener.class.getSimpleName());
+  private static final String TAG = BaseLocationListener.class.getSimpleName();
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.LOCATION);
   @NonNull
   private final LocationFixChecker mLocationFixChecker;
 
@@ -37,7 +38,7 @@ class BaseLocationListener implements LocationListener, com.google.android.gms.l
       Location last = LocationHelper.INSTANCE.getSavedLocation();
       if (last != null)
       {
-        LOGGER.d("The new location from '" + location.getProvider()
+        LOGGER.d(TAG, "The new location from '" + location.getProvider()
                  + "' is worse than the last one from '" + last.getProvider() + "'");
       }
     }
@@ -46,18 +47,18 @@ class BaseLocationListener implements LocationListener, com.google.android.gms.l
   @Override
   public void onProviderDisabled(String provider)
   {
-    LOGGER.d("Disabled location provider: ", provider);
+    LOGGER.d(TAG, "Disabled location provider: " + provider);
   }
 
   @Override
   public void onProviderEnabled(String provider)
   {
-    LOGGER.d("Enabled location provider: ", provider);
+    LOGGER.d(TAG, "Enabled location provider: " + provider);
   }
 
   @Override
   public void onStatusChanged(String provider, int status, Bundle extras)
   {
-    LOGGER.d("Status changed for location provider: " + provider + "; new status = " + status);
+    LOGGER.d(TAG, "Status changed for location provider: " + provider + "; new status = " + status);
   }
 }

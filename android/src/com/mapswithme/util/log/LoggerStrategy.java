@@ -1,7 +1,7 @@
 package com.mapswithme.util.log;
 
 
-public interface Logger
+interface LoggerStrategy
 {
   void v(String tag, String msg);
   void v(String tag, String msg, Throwable tr);

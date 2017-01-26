@@ -27,8 +27,8 @@ package com.mapswithme.util;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import com.mapswithme.util.log.DebugLogger;
 import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -48,11 +48,12 @@ import java.util.Map;
 
 public final class HttpClient
 {
+  private final static String TAG = HttpClient.class.getSimpleName();
   // TODO(AlexZ): tune for larger files
   private final static int STREAM_BUFFER_SIZE = 1024 * 64;
   // Globally accessible for faster unit-testing
   public static int TIMEOUT_IN_MILLISECONDS = 30000;
-  private static final Logger LOGGER = new DebugLogger(HttpClient.class.getSimpleName());
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.NETWORK);
 
   public static Params run(@NonNull final Params p) throws IOException, NullPointerException
   {
@@ -117,7 +118,7 @@ public final class HttpClient
           {
             os.close();
           }
-          LOGGER.d("Sent ", p.httpMethod, " with content of size ", p.data.length);
+          LOGGER.d(TAG, "Sent " + p.httpMethod + " with content of size " + p.data.length);
         }
         else
         {
@@ -133,12 +134,12 @@ public final class HttpClient
           }
           istream.close(); // IOException
           ostream.close(); // IOException
-          LOGGER.d("Sent ", p.httpMethod, " with file of size ", file.length());
+          LOGGER.d(TAG, "Sent " + p.httpMethod + " with file of size " + file.length());
         }
       }
       // GET data from the server or receive response body
       p.httpResponseCode = connection.getResponseCode();
-      LOGGER.d("Received HTTP ", p.httpResponseCode, " from server.");
+      LOGGER.d(TAG, "Received HTTP " + p.httpResponseCode + " from server.");
 
       if (p.httpResponseCode >= 300 && p.httpResponseCode < 400)
         p.receivedUrl = connection.getHeaderField("Location");

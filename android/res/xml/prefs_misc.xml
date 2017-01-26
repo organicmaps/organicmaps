@@ -17,4 +17,9 @@
     android:title="Google Play Services"
     android:summary="@string/pref_use_google_play"
     android:defaultValue="true"/>
+
+  <CheckBoxPreference
+    android:key="@string/pref_play_services"
+    android:title="Enable logging"
+    android:defaultValue="false"/>
 </PreferenceScreen>

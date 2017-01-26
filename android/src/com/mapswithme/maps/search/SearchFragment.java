@@ -18,9 +18,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
@@ -37,9 +34,13 @@ import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.widget.PlaceholderView;
 import com.mapswithme.maps.widget.SearchToolbarController;
 import com.mapswithme.util.Animations;
+import com.mapswithme.util.Config;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class SearchFragment extends BaseMwmFragment
@@ -49,6 +50,7 @@ public class SearchFragment extends BaseMwmFragment
                                     CategoriesAdapter.OnCategorySelectedListener,
                                     HotelsFilterHolder
 {
+  public static final String PREFS_SHOW_ENABLE_LOGGING_SETTING = "ShowEnableLoggingSetting";
   private static final float NESTED_SCROLL_DELTA =
       -MwmApplication.get().getResources().getDimension(R.dimen.margin_half);
 
@@ -96,6 +98,9 @@ public class SearchFragment extends BaseMwmFragment
 
       // TODO: This code only for demonstration purposes and will be removed soon
       if (tryChangeMapStyle(query))
+        return;
+
+      if (tryRecognizeLoggingCommand(query))
         return;
 
       runSearch();
@@ -453,6 +458,24 @@ public class SearchFragment extends BaseMwmFragment
     return true;
   }
   // FIXME END
+
+  private boolean tryRecognizeLoggingCommand(@NonNull String str)
+  {
+    if (str.equals("?enableLogging"))
+    {
+      MwmApplication.prefs().edit().putBoolean(PREFS_SHOW_ENABLE_LOGGING_SETTING, true).apply();
+      return true;
+    }
+
+    if (str.equals("?disableLogging"))
+    {
+      Config.setLoggingEnabled(false);
+      MwmApplication.prefs().edit().putBoolean(PREFS_SHOW_ENABLE_LOGGING_SETTING, false).apply();
+      return true;
+    }
+
+    return false;
+  }
 
   private void processSelected(SearchResult result)
   {

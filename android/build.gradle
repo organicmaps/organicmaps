@@ -61,6 +61,8 @@ dependencies {
   compile 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
   //Glide
   compile 'com.github.bumptech.glide:glide:3.7.0'
+  // Java concurrency annotations
+  compile 'net.jcip:jcip-annotations:1.0'
 }
 
 def getDate() {

@@ -23,4 +23,11 @@
     android:defaultValue="true"
     android:switchTextOff=""
     android:switchTextOn=""/>
+
+  <SwitchPreference
+    android:key="@string/pref_enable_logging"
+    android:title="Enable logging"
+    android:defaultValue="false"
+    android:switchTextOff=""
+    android:switchTextOn=""/>
 </PreferenceScreen>

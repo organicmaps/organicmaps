@@ -3,11 +3,11 @@ package com.mapswithme.maps.location;
 import android.support.annotation.NonNull;
 
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.SimpleLogger;
+import com.mapswithme.util.log.LoggerFactory;
 
 abstract class BaseLocationProvider
 {
-  static final Logger sLogger = SimpleLogger.get(BaseLocationProvider.class.getName());
+  static final Logger sLogger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.LOCATION);
   @NonNull
   private final LocationFixChecker mLocationFixChecker;
 

@@ -16,6 +16,7 @@ import java.util.ListIterator;
 
 class AndroidNativeProvider extends BaseLocationProvider
 {
+  private final static String TAG = AndroidNativeProvider.class.getSimpleName();
   private final static String[] TRUSTED_PROVIDERS = { LocationManager.NETWORK_PROVIDER,
                                                       LocationManager.GPS_PROVIDER };
   @NonNull
@@ -43,7 +44,7 @@ class AndroidNativeProvider extends BaseLocationProvider
     mIsActive = true;
     for (String provider : providers)
     {
-      sLogger.d("Request location updates from the provider: " + provider);
+      sLogger.d(TAG, "Request location updates from the provider: " + provider);
       LocationListener listener = new BaseLocationListener(getLocationFixChecker());
       mLocationManager.requestLocationUpdates(provider, LocationHelper.INSTANCE.getInterval(), 0, listener);
       mListeners.add(listener);

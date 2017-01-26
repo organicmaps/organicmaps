@@ -242,7 +242,7 @@ public class Utils
     return fullName;
   }
 
-  private static String getDeviceModel()
+  public static String getDeviceModel()
   {
     String model = Build.MODEL;
     if (!model.startsWith(Build.MANUFACTURER))

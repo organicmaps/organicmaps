@@ -5,8 +5,8 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.mapswithme.util.Utils;
-import com.mapswithme.util.log.DebugLogger;
 import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ public enum TrafficManager
   INSTANCE;
   private final String mTag = TrafficManager.class.getSimpleName();
   @NonNull
-  private final Logger mLogger = new DebugLogger(mTag);
+  private final Logger mLogger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.TRAFFIC);
   @NonNull
   private final TrafficState.StateChangeListener mStateChangeListener = new TrafficStateListener();
   @TrafficState.Value
@@ -30,7 +30,7 @@ public enum TrafficManager
 
   public void initialize()
   {
-    mLogger.d("Initialization of traffic manager and setting the listener for traffic state changes");
+    mLogger.d(mTag, "Initialization of traffic manager and setting the listener for traffic state changes");
     TrafficState.nativeSetListener(mStateChangeListener);
     mInitialized = true;
   }
@@ -47,7 +47,7 @@ public enum TrafficManager
 
   private void enable()
   {
-    mLogger.d("Enable traffic");
+    mLogger.d(mTag, "Enable traffic");
     TrafficState.nativeEnable();
   }
 
@@ -55,7 +55,7 @@ public enum TrafficManager
   {
     checkInitialization();
 
-    mLogger.d("Disable traffic");
+    mLogger.d(mTag, "Disable traffic");
     TrafficState.nativeDisable();
   }
   
@@ -76,7 +76,7 @@ public enum TrafficManager
                                       + "' is already attached. Check that the 'detachAll' method was called.");
     }
 
-    mLogger.d("Attach callback '" + callback + "'");
+    mLogger.d(mTag, "Attach callback '" + callback + "'");
     mCallbacks.add(callback);
     postPendingState();
   }
@@ -98,7 +98,7 @@ public enum TrafficManager
     }
 
     for (TrafficCallback callback : mCallbacks)
-      mLogger.d("Detach callback '" + callback + "'");
+      mLogger.d(mTag, "Detach callback '" + callback + "'");
     mCallbacks.clear();
   }
 
@@ -114,7 +114,7 @@ public enum TrafficManager
     @MainThread
     public void onTrafficStateChanged(@TrafficState.Value int state)
     {
-      mLogger.d("onTrafficStateChanged current state = " + TrafficState.nameOf(mState)
+      mLogger.d(mTag, "onTrafficStateChanged current state = " + TrafficState.nameOf(mState)
                 + " new value = " + TrafficState.nameOf(state));
       mState = state;
 
