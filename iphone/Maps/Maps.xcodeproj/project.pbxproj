@@ -2667,6 +2667,7 @@
 		3454D7981E07F045004AF2AD /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				34D3B04D1E38A20C004100F9 /* Bundle+Init.swift */,
 				3454D7991E07F045004AF2AD /* CALayer+RuntimeAttributes.h */,
 				3454D79A1E07F045004AF2AD /* CALayer+RuntimeAttributes.mm */,
 				3454D79B1E07F045004AF2AD /* CLLocation+Mercator.h */,
@@ -2678,6 +2679,7 @@
 				3454D7A11E07F045004AF2AD /* UIButton+Orientation.mm */,
 				3454D7A21E07F045004AF2AD /* UIButton+RuntimeAttributes.h */,
 				3454D7A31E07F045004AF2AD /* UIButton+RuntimeAttributes.mm */,
+				34D3AFF41E37A36A004100F9 /* UICollectionView+Cells.swift */,
 				3454D7A41E07F045004AF2AD /* UIColor+MapsMeColor.h */,
 				3454D7A51E07F045004AF2AD /* UIColor+MapsMeColor.mm */,
 				3454D7A61E07F045004AF2AD /* UIFont+MapsMeFonts.h */,
@@ -2690,22 +2692,20 @@
 				3454D7AD1E07F045004AF2AD /* UIKitCategories.mm */,
 				3454D7AE1E07F045004AF2AD /* UILabel+RuntimeAttributes.h */,
 				3454D7AF1E07F045004AF2AD /* UILabel+RuntimeAttributes.mm */,
+				34D3AFE81E378AF1004100F9 /* UINib+Init.swift */,
 				3454D7B01E07F045004AF2AD /* UISwitch+RuntimeAttributes.h */,
 				3454D7B11E07F045004AF2AD /* UISwitch+RuntimeAttributes.m */,
+				34D3AFF01E37945B004100F9 /* UITableView+Cells.swift */,
 				34D3AFE01E376F7E004100F9 /* UITableView+Updates.swift */,
 				3454D7B21E07F045004AF2AD /* UITextField+RuntimeAttributes.h */,
 				3454D7B31E07F045004AF2AD /* UITextField+RuntimeAttributes.mm */,
 				3454D7B41E07F045004AF2AD /* UITextView+RuntimeAttributes.h */,
 				3454D7B51E07F045004AF2AD /* UITextView+RuntimeAttributes.mm */,
+				34D3AFEC1E378D61004100F9 /* UIView+Id.swift */,
 				3454D7B61E07F045004AF2AD /* UIView+RuntimeAttributes.h */,
 				3454D7B71E07F045004AF2AD /* UIView+RuntimeAttributes.mm */,
 				34F7422F1E0834F400AC1FD6 /* UIViewController+Navigation.h */,
 				34F742301E0834F400AC1FD6 /* UIViewController+Navigation.mm */,
-				34D3AFE81E378AF1004100F9 /* UINib+Init.swift */,
-				34D3AFEC1E378D61004100F9 /* UIView+Id.swift */,
-				34D3AFF01E37945B004100F9 /* UITableView+Cells.swift */,
-				34D3AFF41E37A36A004100F9 /* UICollectionView+Cells.swift */,
-				34D3B04D1E38A20C004100F9 /* Bundle+Init.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -5124,7 +5124,6 @@
 				674A7E301C0DB10B003D48E1 /* MWMMapWidgets.mm in Sources */,
 				3404754D1E081A4600C92850 /* MWMKeyboard.mm in Sources */,
 				34EF94291C05A6F30050B714 /* MWMSegue.mm in Sources */,
-				F6E2FDA71E097BA00083EBEC /* MWMButtonCell.mm in Sources */,
 				F6E2FE731E097BA00083EBEC /* MWMOpeningHours.mm in Sources */,
 				F6E2FF601E097BA00083EBEC /* MWMSettingsViewController.mm in Sources */,
 				F6E2FE2B1E097BA00083EBEC /* MWMStreetEditorEditTableViewCell.mm in Sources */,
