@@ -2,12 +2,6 @@
 
 #include "base/thread.hpp"
 
-#ifdef DRAW_INFO
-  #include "base/timer.hpp"
-  #include "std/vector.hpp"
-  #include "std/numeric.hpp"
-#endif
-
 #include "drape_frontend/gui/layer_render.hpp"
 
 #include "drape_frontend/backend_renderer.hpp"
@@ -54,6 +48,7 @@ class SelectionShape;
 class Framebuffer;
 class TransparentLayer;
 class SelectObjectMessage;
+class ScenarioManager;
 
 struct TapInfo
 {
@@ -129,19 +124,6 @@ public:
 
   void Teardown();
 
-#ifdef DRAW_INFO
-  double m_tpf;
-  double m_fps;
-
-  my::Timer m_timer;
-  double m_frameStartTime;
-  vector<double> m_tpfs;
-  int m_drawedFrames;
-
-  void BeforeDrawFrame();
-  void AfterDrawFrame();
-#endif
-
   void AddUserEvent(drape_ptr<UserEvent> && event);
 
   /// MyPositionController::Listener
@@ -153,6 +135,8 @@ public:
                        int preferredZoomLevel, TAnimationCreator const & parallelAnimCreator) override;
   void ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero,
                        TAnimationCreator const & parallelAnimCreator) override;
+
+  drape_ptr<ScenarioManager> const & GetScenarioManager() const;
 
 protected:
   void AcceptMessage(ref_ptr<Message> message) override;
@@ -345,6 +329,8 @@ private:
 
   bool m_needRegenerateTraffic;
   bool m_trafficEnabled;
+
+  drape_ptr<ScenarioManager> m_scenarioManager;
 
 #ifdef DEBUG
   bool m_isTeardowned;

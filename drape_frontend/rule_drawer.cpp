@@ -6,6 +6,8 @@
 #include "drape_frontend/traffic_renderer.hpp"
 #include "drape_frontend/visual_params.hpp"
 
+#include "drape/drape_diagnostics.hpp"
+
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_visibility.hpp"
@@ -16,8 +18,6 @@
 #include "base/logging.hpp"
 
 #include "std/bind.hpp"
-
-//#define DRAW_TILE_NET
 
 #ifdef DRAW_TILE_NET
 #include "drape_frontend/line_shape.hpp"

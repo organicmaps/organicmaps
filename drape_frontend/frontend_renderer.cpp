@@ -2,14 +2,17 @@
 #include "drape_frontend/gui/drape_gui.hpp"
 #include "drape_frontend/gui/ruler_helper.hpp"
 #include "drape_frontend/animation_system.hpp"
+#include "drape_frontend/batch_merge_helper.hpp"
+#include "drape_frontend/drape_measurer.hpp"
 #include "drape_frontend/framebuffer.hpp"
 #include "drape_frontend/frontend_renderer.hpp"
 #include "drape_frontend/message_subclasses.hpp"
+#include "drape_frontend/scenario_manager.hpp"
 #include "drape_frontend/screen_operations.hpp"
 #include "drape_frontend/transparent_layer.hpp"
 #include "drape_frontend/visual_params.hpp"
 #include "drape_frontend/user_mark_shapes.hpp"
-#include "drape_frontend/batch_merge_helper.hpp"
+
 
 #include "drape/debug_rect_renderer.hpp"
 #include "drape/shader_def.hpp"
@@ -135,12 +138,10 @@ FrontendRenderer::FrontendRenderer(Params const & params)
   , m_needRestoreSize(false)
   , m_needRegenerateTraffic(false)
   , m_trafficEnabled(params.m_trafficEnabled)
-{
-#ifdef DRAW_INFO
-  m_tpf = 0.0;
-  m_fps = 0.0;
+#ifdef SCENARIO_ENABLE
+  , m_scenarioManager(new ScenarioManager(this))
 #endif
-
+{
 #ifdef DEBUG
   m_isTeardowned = false;
 #endif
@@ -163,48 +164,12 @@ FrontendRenderer::~FrontendRenderer()
 
 void FrontendRenderer::Teardown()
 {
+  m_scenarioManager.reset();
   StopThread();
 #ifdef DEBUG
   m_isTeardowned = true;
 #endif
 }
-
-#ifdef DRAW_INFO
-void FrontendRenderer::BeforeDrawFrame()
-{
-  m_frameStartTime = m_timer.ElapsedSeconds();
-}
-
-void FrontendRenderer::AfterDrawFrame()
-{
-  m_drawedFrames++;
-
-  double elapsed = m_timer.ElapsedSeconds();
-  m_tpfs.push_back(elapsed - m_frameStartTime);
-
-  if (elapsed > 1.0)
-  {
-    m_timer.Reset();
-    m_fps = m_drawedFrames / elapsed;
-    m_drawedFrames = 0;
-
-    m_tpf = accumulate(m_tpfs.begin(), m_tpfs.end(), 0.0) / m_tpfs.size();
-
-    LOG(LINFO, ("Average Fps : ", m_fps));
-    LOG(LINFO, ("Average Tpf : ", m_tpf));
-
-#if defined(TRACK_GPU_MEM)
-    string report = dp::GPUMemTracker::Inst().Report();
-    LOG(LINFO, (report));
-#endif
-#if defined(TRACK_GLYPH_USAGE)
-    string glyphReport = dp::GlyphUsageTracker::Instance().Report();
-    LOG(LINFO, (glyphReport));
-#endif
-  }
-}
-
-#endif
 
 void FrontendRenderer::UpdateCanBeDeletedStatus()
 {
@@ -297,7 +262,12 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         UpdateCanBeDeletedStatus();
 
       if (m_notFinishedTiles.empty())
+      {
+#if defined(DRAPE_MEASURER) && defined(GENERATING_STATISTIC)
+        DrapeMeasurer::Instance().EndScenePreparing();
+#endif
         m_trafficRenderer->OnGeometryReady(m_currentZoomLevel);
+      }
       break;
     }
 
@@ -429,6 +399,10 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::GpsInfo:
     {
+#ifdef SCENARIO_ENABLE
+      if (m_scenarioManager->IsRunning())
+        break;
+#endif
       ref_ptr<GpsInfoMessage> msg = message;
       m_myPositionController->OnLocationUpdate(msg->GetInfo(), msg->IsNavigable(),
                                                m_userEventStream.GetCurrentScreen());
@@ -1101,8 +1075,8 @@ void FrontendRenderer::EndUpdateOverlayTree()
 
 void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 {
-#ifdef DRAW_INFO
-  BeforeDrawFrame();
+#if defined(DRAPE_MEASURER) && (defined(RENDER_STATISTIC) || defined(TRACK_GPU_MEM))
+  DrapeMeasurer::Instance().BeforeRenderFrame();
 #endif
 
   GLFunctions::glEnable(gl_const::GLDepthTest);
@@ -1165,8 +1139,8 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
     dp::DebugRectRenderer::Instance().DrawArrow(modelView, arrow);
 #endif
 
-#ifdef DRAW_INFO
-  AfterDrawFrame();
+#if defined(DRAPE_MEASURER) && (defined(RENDER_STATISTIC) || defined(TRACK_GPU_MEM))
+  DrapeMeasurer::Instance().AfterRenderFrame();
 #endif
 
   MergeBuckets();
@@ -1611,6 +1585,10 @@ TTilesCollection FrontendRenderer::ResolveTileKeys(ScreenBase const & screen)
 
   m_trafficRenderer->OnUpdateViewport(result, m_currentZoomLevel, tilesToDelete);
 
+#if defined(DRAPE_MEASURER) && defined(GENERATING_STATISTIC)
+  DrapeMeasurer::Instance().StartScenePreparing();
+#endif
+
   return tiles;
 }
 
@@ -1808,6 +1786,10 @@ void FrontendRenderer::ReleaseResources()
 
 void FrontendRenderer::AddUserEvent(drape_ptr<UserEvent> && event)
 {
+#ifdef SCENARIO_ENABLE
+  if (m_scenarioManager->IsRunning() && event->GetType() == UserEvent::EventType::Touch)
+    return;
+#endif
   m_userEventStream.AddEvent(move(event));
   if (IsInInfinityWaiting())
     CancelMessageWaiting();
@@ -1902,6 +1884,11 @@ void FrontendRenderer::OnCacheRouteArrows(int routeIndex, vector<ArrowBorders> c
   m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                             make_unique_dp<CacheRouteArrowsMessage>(routeIndex, borders),
                             MessagePriority::Normal);
+}
+
+drape_ptr<ScenarioManager> const & FrontendRenderer::GetScenarioManager() const
+{
+  return m_scenarioManager;
 }
 
 FrontendRenderer::RenderLayer::RenderLayerID FrontendRenderer::RenderLayer::GetLayerID(dp::GLState const & state)

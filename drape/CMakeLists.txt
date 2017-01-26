@@ -40,6 +40,7 @@ set(
   ${DRAPE_ROOT}/data_buffer_impl.hpp
   ${DRAPE_ROOT}/debug_rect_renderer.cpp
   ${DRAPE_ROOT}/debug_rect_renderer.hpp
+  ${DRAPE_ROOT}/drape_diagnostics.hpp
   ${DRAPE_ROOT}/drape_global.hpp
   ${DRAPE_ROOT}/dynamic_texture.hpp
   ${DRAPE_ROOT}/font_texture.cpp

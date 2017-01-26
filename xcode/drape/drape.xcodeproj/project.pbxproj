@@ -105,6 +105,7 @@
 		6743D3451C3533AE0095054B /* support_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6743D3431C3533AE0095054B /* support_manager.hpp */; };
 		675D21991BFB876E00717E4F /* projection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675D21971BFB876E00717E4F /* projection.cpp */; };
 		675D219A1BFB876E00717E4F /* projection.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675D21981BFB876E00717E4F /* projection.hpp */; };
+		BB035F6C1E3A2A5C00519962 /* drape_diagnostics.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB035F6B1E3A2A5C00519962 /* drape_diagnostics.hpp */; };
 		BB06FBE91DDDFFBE00B41AF0 /* area_vertex_shader.vsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBC01DDDFDC300B41AF0 /* area_vertex_shader.vsh */; };
 		BB06FBEA1DDDFFBE00B41AF0 /* area3d_outline_vertex_shader.vsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBC11DDDFDC300B41AF0 /* area3d_outline_vertex_shader.vsh */; };
 		BB06FBEB1DDDFFBE00B41AF0 /* area3d_vertex_shader.vsh in Sources */ = {isa = PBXBuildFile; fileRef = BB06FBC21DDDFDC300B41AF0 /* area3d_vertex_shader.vsh */; };
@@ -278,6 +279,7 @@
 		6743D3431C3533AE0095054B /* support_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = support_manager.hpp; sourceTree = "<group>"; };
 		675D21971BFB876E00717E4F /* projection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = projection.cpp; sourceTree = "<group>"; };
 		675D21981BFB876E00717E4F /* projection.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = projection.hpp; sourceTree = "<group>"; };
+		BB035F6B1E3A2A5C00519962 /* drape_diagnostics.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drape_diagnostics.hpp; sourceTree = "<group>"; };
 		BB06FBC01DDDFDC300B41AF0 /* area_vertex_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = area_vertex_shader.vsh; sourceTree = "<group>"; };
 		BB06FBC11DDDFDC300B41AF0 /* area3d_outline_vertex_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = area3d_outline_vertex_shader.vsh; sourceTree = "<group>"; };
 		BB06FBC21DDDFDC300B41AF0 /* area3d_vertex_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = area3d_vertex_shader.vsh; sourceTree = "<group>"; };
@@ -391,6 +393,7 @@
 				6729A50E1A69213A007D5872 /* cpu_buffer.hpp */,
 				6729A50F1A69213A007D5872 /* data_buffer.cpp */,
 				6729A5101A69213A007D5872 /* data_buffer.hpp */,
+				BB035F6B1E3A2A5C00519962 /* drape_diagnostics.hpp */,
 				6729A5111A69213A007D5872 /* drape_global.hpp */,
 				347F32F71C45383E009758CC /* debug_rect_renderer.cpp */,
 				347F32F81C45383E009758CC /* debug_rect_renderer.hpp */,
@@ -577,6 +580,7 @@
 				6729A57F1A69213A007D5872 /* glIncludes.hpp in Headers */,
 				6729A5A91A69213A007D5872 /* texture_of_colors.hpp in Headers */,
 				6729A5871A69213A007D5872 /* gpu_buffer.hpp in Headers */,
+				BB035F6C1E3A2A5C00519962 /* drape_diagnostics.hpp in Headers */,
 				6729A56E1A69213A007D5872 /* buffer_base.hpp in Headers */,
 				6729A58F1A69213A007D5872 /* index_buffer.hpp in Headers */,
 			);

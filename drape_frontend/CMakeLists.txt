@@ -69,6 +69,8 @@ set(
   drape_api_renderer.hpp
   drape_engine.cpp
   drape_engine.hpp
+  drape_measurer.cpp
+  drape_measurer.hpp
   engine_context.cpp
   engine_context.hpp
   framebuffer.cpp
@@ -150,6 +152,8 @@ set(
   route_shape.hpp
   rule_drawer.cpp
   rule_drawer.hpp
+  scenario_manager.cpp
+  scenario_manager.hpp
   screen_animations.cpp
   screen_animations.hpp
   screen_operations.cpp
