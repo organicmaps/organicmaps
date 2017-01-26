@@ -103,6 +103,8 @@ message ShieldRuleProto
   optional uint32 stroke_color = 3;
   required int32 priority = 4;
   optional int32 min_distance = 5;
+  required uint32 text_color = 6;
+  optional uint32 text_stroke_color = 7;
 }
 
 message DrawElementProto
