@@ -72,6 +72,10 @@ class AndroidNativeProvider extends BaseLocationProvider
   private void onLocationChanged(@NonNull Location location)
   {
     ListIterator<LocationListener> iterator = mListeners.listIterator();
+    // All listeners have to be notified only through safe list iterator interface,
+    // otherwise ConcurrentModificationException will be obtained, because each listener can
+    // cause 'stop' method calling and modifying the collection during this iteration.
+    // noinspection WhileLoopReplaceableByForEach
     while (iterator.hasNext())
       iterator.next().onLocationChanged(location);
   }
@@ -80,6 +84,7 @@ class AndroidNativeProvider extends BaseLocationProvider
   protected void stop()
   {
     ListIterator<LocationListener> iterator = mListeners.listIterator();
+    // noinspection WhileLoopReplaceableByForEach
     while (iterator.hasNext())
       mLocationManager.removeUpdates(iterator.next());
 
