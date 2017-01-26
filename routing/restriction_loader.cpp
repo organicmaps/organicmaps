@@ -17,21 +17,16 @@ using namespace routing;
 /// point there has to be a joint. So the method is valid.
 Joint::Id GetCommonEndJoint(RoadJointIds const & r1, RoadJointIds const & r2)
 {
-  auto const IsEqual = [](Joint::Id j1, Joint::Id j2) {
-    return j1 != Joint::kInvalidId && j1 == j2;
-  };
+  auto const & j11 = r1.GetJointId(0 /* point id */);
+  auto const & j12 = r1.GetEndingJointId();
+  auto const & j21 = r2.GetJointId(0 /* point id */);
+  auto const & j22 = r2.GetEndingJointId();
 
-  if (IsEqual(r1.GetJointId(0 /* point id */), r2.GetEndingJointId()))
-    return r1.GetJointId(0);
+  if (j11 == j21 || j11 == j22)
+    return j11;
 
-  if (IsEqual(r1.GetJointId(0 /* point id */), r2.GetJointId(0 /* point id */)))
-    return r1.GetJointId(0);
-
-  if (IsEqual(r1.GetEndingJointId(), r2.GetJointId(0 /* point id */)))
-    return r1.GetEndingJointId();
-
-  if (IsEqual(r1.GetEndingJointId(), r2.GetEndingJointId()))
-    return r1.GetEndingJointId();
+  if (j12 == j21 || j12 == j22)
+    return j12;
 
   return Joint::kInvalidId;
 }
@@ -52,7 +47,7 @@ RestrictionLoader::RestrictionLoader(MwmValue const & mwmValue, IndexGraph const
     m_header.Deserialize(src);
 
     RestrictionVec restrictionsOnly;
-    RestrictionSerializer::Deserialize(m_header, m_restrictions /* restriction no */,
+    RestrictionSerializer::Deserialize(m_header, m_restrictions /* restriction No */,
                                        restrictionsOnly, src);
     ConvertRestrictionsOnlyToNoAndSort(graph, restrictionsOnly, m_restrictions);
   }
@@ -71,7 +66,9 @@ void ConvertRestrictionsOnlyToNoAndSort(IndexGraph const & graph,
 {
   for (Restriction const & o : restrictionsOnly)
   {
-    CHECK_EQUAL(o.m_featureIds.size(), 2, ("Only two link restrictions are support."));
+    if (o.m_featureIds.size() != 2)
+      continue;
+
     if (!graph.IsRoad(o.m_featureIds[0]) || !graph.IsRoad(o.m_featureIds[1]))
       continue;
 
@@ -86,8 +83,8 @@ void ConvertRestrictionsOnlyToNoAndSort(IndexGraph const & graph,
     graph.ForEachPoint(common, [&](RoadPoint const & rp) {
       if (rp.GetFeatureId() != o.m_featureIds[1 /* to */])
       {
-        restrictionsNo.push_back(
-            Restriction(Restriction::Type::No, {o.m_featureIds[0 /* from */], rp.GetFeatureId()}));
+        restrictionsNo.emplace_back(Restriction::Type::No,
+              vector<uint32_t>({o.m_featureIds[0 /* from */], rp.GetFeatureId()}));
       }
     });
   }

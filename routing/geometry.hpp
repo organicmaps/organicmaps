@@ -44,6 +44,7 @@ public:
 
   bool IsEndPointId(uint32_t pointId) const
   {
+    ASSERT_LESS(pointId, m_points.size(), ());
     return pointId == 0 || pointId + 1 == GetPointsCount();
   }
 

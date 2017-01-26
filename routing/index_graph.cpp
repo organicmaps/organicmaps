@@ -15,13 +15,18 @@ using namespace base;
 using namespace routing;
 using namespace std;
 
+bool IsUTurn(Segment const & u, Segment const & v)
+{
+  return u.GetFeatureId() == v.GetFeatureId() && u.GetSegmentIdx() == v.GetSegmentIdx() &&
+         u.IsForward() != v.IsForward();
+}
+
 bool IsRestricted(RestrictionVec const & restrictions, Segment const & u, Segment const & v,
                   bool isOutgoing)
 {
   uint32_t const featureIdFrom = isOutgoing ? u.GetFeatureId() : v.GetFeatureId();
   uint32_t const featureIdTo = isOutgoing ? v.GetFeatureId() : u.GetFeatureId();
 
-  // Looking for at least one restriction of type No from |featureIdFrom| to |featureIdTo|.
   if (!binary_search(restrictions.cbegin(), restrictions.cend(),
                      Restriction(Restriction::Type::No, {featureIdFrom, featureIdTo})))
   {
@@ -46,13 +51,7 @@ bool IsRestricted(RestrictionVec const & restrictions, Segment const & u, Segmen
   //        *---F2---*
   // In case of restriction F1-A-F2 or F1-B-F2 of any type (No, Only) the important information
   // is lost.
-  return u.GetSegmentIdx() == v.GetSegmentIdx() && u.IsForward() != v.IsForward();
-}
-
-bool IsUTurn(Segment const & u, Segment const & v)
-{
-  return u.GetFeatureId() == v.GetFeatureId() && u.GetSegmentIdx() == v.GetSegmentIdx() &&
-         u.IsForward() != v.IsForward();
+  return IsUTurn(u, v);
 }
 }  // namespace
 
@@ -135,7 +134,6 @@ void IndexGraph::GetNeighboringEdge(Segment const & from, Segment const & to, bo
     return;
   }
 
-  // Blocking restriction edges.
   if (IsRestricted(m_restrictions, from, to, isOutgoing))
     return;
 
