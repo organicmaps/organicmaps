@@ -14,7 +14,7 @@
 - (instancetype)initWithDelegate:(id<MWMMapDownloaderProtocol, MWMMapDownloaderButtonTableViewCellProtocol>)delegate mode:(mwm::DownloaderMode)mode;
 - (NSString *)parentCountryId;
 - (NSString *)countryIdForIndexPath:(NSIndexPath *)indexPath;
-- (NSString *)cellIdentifierForIndexPath:(NSIndexPath *)indexPath;
+- (Class)cellClassForIndexPath:(NSIndexPath *)indexPath;
 - (void)fillCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 - (BOOL)isButtonCell:(NSInteger)section;
 

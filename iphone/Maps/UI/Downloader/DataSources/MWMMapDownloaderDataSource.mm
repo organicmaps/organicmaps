@@ -1,9 +1,10 @@
-#import "MWMCommon.h"
 #import "MWMMapDownloaderDataSource.h"
+#import "MWMCommon.h"
 #import "MWMMapDownloaderLargeCountryTableViewCell.h"
 #import "MWMMapDownloaderPlaceTableViewCell.h"
 #import "MWMMapDownloaderSubplaceTableViewCell.h"
 #import "MWMMapDownloaderTypes.h"
+#import "SwiftBridge.h"
 
 #include "Framework.h"
 
@@ -57,8 +58,9 @@ using namespace storage;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  NSString * reuseIdentifier = [self cellIdentifierForIndexPath:indexPath];
-  MWMMapDownloaderTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+  Class cls = [self cellClassForIndexPath:indexPath];
+  auto cell = static_cast<MWMMapDownloaderTableViewCell *>(
+      [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
   [self fillCell:cell atIndexPath:indexPath];
   return cell;
 }
@@ -91,11 +93,7 @@ using namespace storage;
   return @(kInvalidCountryId.c_str());
 }
 
-- (NSString *)cellIdentifierForIndexPath:(NSIndexPath *)indexPath
-{
-  return nil;
-}
-
+- (Class)cellClassForIndexPath:(NSIndexPath *)indexPath { return nil; }
 - (NSString *)searchMatchedResultForCountryId:(NSString *)countryId
 {
   return nil;

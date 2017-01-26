@@ -1,18 +1,26 @@
 #import "MWMOpeningHoursEditorViewController.h"
+#import "MWMOpeningHoursAddClosedTableViewCell.h"
 #import "MWMOpeningHoursAddScheduleTableViewCell.h"
+#import "MWMOpeningHoursAllDayTableViewCell.h"
+#import "MWMOpeningHoursClosedSpanTableViewCell.h"
+#import "MWMOpeningHoursDaysSelectorTableViewCell.h"
+#import "MWMOpeningHoursDeleteScheduleTableViewCell.h"
 #import "MWMOpeningHoursModel.h"
 #import "MWMOpeningHoursSection.h"
+#import "MWMOpeningHoursTimeSelectorTableViewCell.h"
+#import "MWMOpeningHoursTimeSpanTableViewCell.h"
 #import "MWMTextView.h"
+#import "SwiftBridge.h"
 
 extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
-  @(MWMOpeningHoursEditorDaysSelectorCell) : @"MWMOpeningHoursDaysSelectorTableViewCell",
-  @(MWMOpeningHoursEditorAllDayCell) : @"MWMOpeningHoursAllDayTableViewCell",
-  @(MWMOpeningHoursEditorTimeSpanCell) : @"MWMOpeningHoursTimeSpanTableViewCell",
-  @(MWMOpeningHoursEditorTimeSelectorCell) : @"MWMOpeningHoursTimeSelectorTableViewCell",
-  @(MWMOpeningHoursEditorClosedSpanCell) : @"MWMOpeningHoursClosedSpanTableViewCell",
-  @(MWMOpeningHoursEditorAddClosedCell) : @"MWMOpeningHoursAddClosedTableViewCell",
-  @(MWMOpeningHoursEditorDeleteScheduleCell) : @"MWMOpeningHoursDeleteScheduleTableViewCell",
-  @(MWMOpeningHoursEditorAddScheduleCell) : @"MWMOpeningHoursAddScheduleTableViewCell",
+  @(MWMOpeningHoursEditorDaysSelectorCell) : [MWMOpeningHoursDaysSelectorTableViewCell class],
+  @(MWMOpeningHoursEditorAllDayCell) : [MWMOpeningHoursAllDayTableViewCell class],
+  @(MWMOpeningHoursEditorTimeSpanCell) : [MWMOpeningHoursTimeSpanTableViewCell class],
+  @(MWMOpeningHoursEditorTimeSelectorCell) : [MWMOpeningHoursTimeSelectorTableViewCell class],
+  @(MWMOpeningHoursEditorClosedSpanCell) : [MWMOpeningHoursClosedSpanTableViewCell class],
+  @(MWMOpeningHoursEditorAddClosedCell) : [MWMOpeningHoursAddClosedTableViewCell class],
+  @(MWMOpeningHoursEditorDeleteScheduleCell) : [MWMOpeningHoursDeleteScheduleTableViewCell class],
+  @(MWMOpeningHoursEditorAddScheduleCell) : [MWMOpeningHoursAddScheduleTableViewCell class],
 };
 
 @interface MWMOpeningHoursEditorViewController ()<UITableViewDelegate, UITableViewDataSource,
@@ -61,10 +69,8 @@ extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
 - (void)configTable
 {
   [kMWMOpeningHoursEditorTableCells
-      enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, NSString * identifier,
-                                          BOOL * _Nonnull stop) {
-        [self.tableView registerNib:[UINib nibWithNibName:identifier bundle:nil]
-             forCellReuseIdentifier:identifier];
+      enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, Class cls, BOOL * _Nonnull stop) {
+        [self.tableView registerWithCellClass:cls];
       }];
 }
 
@@ -108,13 +114,6 @@ extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
     return MWMOpeningHoursEditorAddScheduleCell;
 }
 
-- (NSString *)cellIdentifierForIndexPath:(NSIndexPath *)indexPath
-{
-  NSString * identifier = kMWMOpeningHoursEditorTableCells[@([self cellKeyForIndexPath:indexPath])];
-  NSAssert(identifier, @"Identifier can not be nil");
-  return identifier;
-}
-
 - (CGFloat)heightForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
 {
   CGFloat const width = self.view.width;
@@ -140,8 +139,8 @@ extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView
                   cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
 {
-  UITableViewCell * cell =
-      [tableView dequeueReusableCellWithIdentifier:[self cellIdentifierForIndexPath:indexPath]];
+  Class cls = kMWMOpeningHoursEditorTableCells[@([self cellKeyForIndexPath:indexPath])];
+  auto cell = [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath];
   return cell;
 }
 

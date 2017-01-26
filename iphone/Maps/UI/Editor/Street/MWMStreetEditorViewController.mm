@@ -1,10 +1,6 @@
-#import "MWMStreetEditorEditTableViewCell.h"
 #import "MWMStreetEditorViewController.h"
-
-namespace
-{
-  NSString * const kStreetEditorEditCell = @"MWMStreetEditorEditTableViewCell";
-} // namespace
+#import "MWMStreetEditorEditTableViewCell.h"
+#import "SwiftBridge.h"
 
 @interface MWMStreetEditorViewController () <MWMStreetEditorEditCellProtocol>
 {
@@ -75,9 +71,9 @@ namespace
 
 - (void)configTable
 {
-  [self.tableView registerNib:[UINib nibWithNibName:kStreetEditorEditCell bundle:nil]
-       forCellReuseIdentifier:kStreetEditorEditCell];
-  [self.tableView registerClass:[MWMTableViewSubtitleCell class] forCellReuseIdentifier:[MWMTableViewSubtitleCell className]];
+  UITableView * tv = self.tableView;
+  [tv registerWithCellClass:[MWMStreetEditorEditTableViewCell class]];
+  [tv registerWithCellClass:[MWMTableViewSubtitleCell class]];
 }
 
 #pragma mark - Actions
@@ -152,18 +148,22 @@ namespace
   UITableViewCell * cell = nil;
   if (m_streets.empty())
   {
-    cell = [tableView dequeueReusableCellWithIdentifier:kStreetEditorEditCell];
+    cell = [tableView dequeueReusableCellWithCellClass:[MWMStreetEditorEditTableViewCell class]
+                                             indexPath:indexPath];
   }
   else
   {
     if (indexPath.section == 0)
     {
-      NSString * identifier = m_streets[indexPath.row].m_localizedName.empty() ? [UITableViewCell className] : [MWMTableViewSubtitleCell className];
-      cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+      Class cls = m_streets[indexPath.row].m_localizedName.empty()
+                      ? [UITableViewCell class]
+                      : [MWMTableViewSubtitleCell class];
+      cell = [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath];
     }
     else
     {
-      cell = [tableView dequeueReusableCellWithIdentifier:kStreetEditorEditCell];
+      cell = [tableView dequeueReusableCellWithCellClass:[MWMStreetEditorEditTableViewCell class]
+                                               indexPath:indexPath];
     }
   }
 

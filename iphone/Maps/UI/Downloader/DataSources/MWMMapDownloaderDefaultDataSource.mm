@@ -1,16 +1,13 @@
+#import "MWMMapDownloaderDefaultDataSource.h"
 #import "MWMCommon.h"
 #import "MWMMapDownloaderButtonTableViewCell.h"
-#import "MWMMapDownloaderDefaultDataSource.h"
+#import "MWMMapDownloaderLargeCountryTableViewCell.h"
+#import "MWMMapDownloaderPlaceTableViewCell.h"
 #import "MWMStorage.h"
 #import "Statistics.h"
+#import "SwiftBridge.h"
 
 #include "Framework.h"
-
-extern NSString * const kCountryCellIdentifier;
-extern NSString * const kSubplaceCellIdentifier;
-extern NSString * const kPlaceCellIdentifier;
-extern NSString * const kLargeCountryCellIdentifier;
-extern NSString * const kButtonCellIdentifier;
 
 namespace
 {
@@ -136,7 +133,9 @@ using namespace mwm;
 {
   if ([self isButtonCell:indexPath.section])
   {
-    MWMMapDownloaderButtonTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:kButtonCellIdentifier];
+    Class cls = [MWMMapDownloaderButtonTableViewCell class];
+    auto cell = static_cast<MWMMapDownloaderButtonTableViewCell *>(
+        [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
     cell.delegate = self.delegate;
     return cell;
   }
@@ -206,15 +205,17 @@ using namespace mwm;
   return nsCountryId;
 }
 
-- (NSString *)cellIdentifierForIndexPath:(NSIndexPath *)indexPath
+- (Class)cellClassForIndexPath:(NSIndexPath *)indexPath
 {
   auto const & s = GetFramework().GetStorage();
   TCountriesVec children;
   s.GetChildren([self countryIdForIndexPath:indexPath].UTF8String, children);
   BOOL const haveChildren = !children.empty();
   if (haveChildren)
-    return kLargeCountryCellIdentifier;
-  return self.isParentRoot ? kCountryCellIdentifier : kPlaceCellIdentifier;
+    return [MWMMapDownloaderLargeCountryTableViewCell class];
+  if (self.isParentRoot)
+    return [MWMMapDownloaderTableViewCell class];
+  return [MWMMapDownloaderPlaceTableViewCell class];
 }
 
 #pragma mark - Helpers

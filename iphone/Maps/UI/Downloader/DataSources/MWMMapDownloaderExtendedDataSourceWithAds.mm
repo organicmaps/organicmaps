@@ -4,8 +4,6 @@
 
 #include "Framework.h"
 
-extern NSString * const kAdsCellIdentifier;
-
 namespace
 {
 auto constexpr extraSection = MWMMapDownloaderDataSourceExtraSection::Ads;
@@ -69,11 +67,11 @@ auto constexpr extraSection = MWMMapDownloaderDataSourceExtraSection::Ads;
 
 #pragma mark - MWMMapDownloaderDataSource
 
-- (NSString *)cellIdentifierForIndexPath:(NSIndexPath *)indexPath
+- (Class)cellClassForIndexPath:(NSIndexPath *)indexPath
 {
   if ([self isExtraSection:extraSection atIndex:indexPath.section])
-    return kAdsCellIdentifier;
-  return [super cellIdentifierForIndexPath:indexPath];
+    return [MWMMapDownloaderAdsTableViewCell class];
+  return [super cellClassForIndexPath:indexPath];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

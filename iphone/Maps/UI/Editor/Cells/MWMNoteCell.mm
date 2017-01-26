@@ -1,19 +1,19 @@
-#import "MWMTextView.h"
 #import "MWMNoteCell.h"
+#import "MWMTextView.h"
 
 namespace
 {
 CGFloat const kTopTextViewOffset = 12.;
 NSString * const kTextViewContentSizeKeyPath = @"contentSize";
 CGFloat const kMinimalTextViewHeight = 104.;
-  
+
 }  // namespace
 
-@interface MWMNoteCell () <UITextViewDelegate>
+@interface MWMNoteCell ()<UITextViewDelegate>
 
-@property (weak, nonatomic) IBOutlet MWMTextView * textView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * textViewHeight;
-@property (weak, nonatomic) id<MWMNoteCelLDelegate> delegate;
+@property(weak, nonatomic) IBOutlet MWMTextView * textView;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * textViewHeight;
+@property(weak, nonatomic) id<MWMNoteCelLDelegate> delegate;
 
 @end
 
@@ -21,12 +21,14 @@ static void * kContext = &kContext;
 
 @implementation MWMNoteCell
 
-- (void)configWithDelegate:(id<MWMNoteCelLDelegate>)delegate noteText:(NSString *)text
+- (void)configWithDelegate:(id<MWMNoteCelLDelegate>)delegate
+                  noteText:(NSString *)text
                placeholder:(NSString *)placeholder
 {
   self.delegate = delegate;
   self.textView.text = text;
-  self.textView.keyboardAppearance = [UIColor isNightMode] ? UIKeyboardAppearanceDark : UIKeyboardAppearanceDefault;
+  self.textView.keyboardAppearance =
+      [UIColor isNightMode] ? UIKeyboardAppearanceDark : UIKeyboardAppearanceDefault;
   self.textView.placeholder = placeholder;
 }
 
@@ -67,32 +69,16 @@ static void * kContext = &kContext;
   [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
 
-- (CGFloat)cellHeight
-{
-  return self.textViewHeight.constant + 2 * kTopTextViewOffset;
-}
-
-- (CGFloat)textViewContentHeight
-{
-  return self.textView.contentSize.height;
-}
-
-+ (CGFloat)minimalHeight
-{
-  return kMinimalTextViewHeight;
-}
-
+- (CGFloat)cellHeight { return self.textViewHeight.constant + 2 * kTopTextViewOffset; }
+- (CGFloat)textViewContentHeight { return self.textView.contentSize.height; }
++ (CGFloat)minimalHeight { return kMinimalTextViewHeight; }
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
   [self.delegate cell:self didFinishEditingWithText:textView.text];
   [self unregisterObserver];
 }
 
-- (void)textViewDidBeginEditing:(UITextView *)textView
-{
-  [self registerObserver];
-}
-
+- (void)textViewDidBeginEditing:(UITextView *)textView { [self registerObserver]; }
 - (void)unregisterObserver
 {
   [self.textView removeObserver:self forKeyPath:kTextViewContentSizeKeyPath context:kContext];
@@ -100,7 +86,10 @@ static void * kContext = &kContext;
 
 - (void)registerObserver
 {
-  [self.textView addObserver:self forKeyPath:kTextViewContentSizeKeyPath options:NSKeyValueObservingOptionNew context:kContext];
+  [self.textView addObserver:self
+                  forKeyPath:kTextViewContentSizeKeyPath
+                     options:NSKeyValueObservingOptionNew
+                     context:kContext];
 }
 
 @end

@@ -1,18 +1,13 @@
 #import "MWMPPPreviewLayoutHelper.h"
 #import "MWMCommon.h"
 #import "MWMDirectionView.h"
-#import "MWMPlacePageData.h"
 #import "MWMPPPreviewBannerCell.h"
+#import "MWMPlacePageData.h"
 #import "MWMTableViewCell.h"
 #import "Statistics.h"
+#import "SwiftBridge.h"
 
 #include "std/array.hpp"
-
-namespace
-{
-array<NSString *, 8> const kPreviewCells = {{@"_MWMPPPTitle", @"_MWMPPPExternalTitle", @"_MWMPPPSubtitle",
-  @"_MWMPPPSchedule", @"_MWMPPPBooking", @"_MWMPPPAddress", @"_MWMPPPSpace", @"MWMPPPreviewBannerCell"}};
-}  // namespace
 
 #pragma mark - Base
 // Base class for avoiding copy-paste in inheriting cells.
@@ -125,6 +120,14 @@ array<NSString *, 8> const kPreviewCells = {{@"_MWMPPPTitle", @"_MWMPPPExternalT
 @implementation _MWMPPPSpace
 @end
 
+namespace
+{
+array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTitle class],
+                                        [_MWMPPPSubtitle class], [_MWMPPPSchedule class],
+                                        [_MWMPPPBooking class], [_MWMPPPAddress class],
+                                        [_MWMPPPSpace class], [MWMPPPreviewBannerCell class]}};
+}  // namespace
+
 @interface MWMPPPreviewLayoutHelper ()
 
 @property(weak, nonatomic) UITableView * tableView;
@@ -160,8 +163,8 @@ array<NSString *, 8> const kPreviewCells = {{@"_MWMPPPTitle", @"_MWMPPPExternalT
 
 - (void)registerCells
 {
-  for (auto name : kPreviewCells)
-    [self.tableView registerNib:[UINib nibWithNibName:name bundle:nil] forCellReuseIdentifier:name];
+  for (Class cls : kPreviewCells)
+    [self.tableView registerWithCellClass:cls];
 }
 
 - (void)configWithData:(MWMPlacePageData *)data
@@ -180,9 +183,9 @@ array<NSString *, 8> const kPreviewCells = {{@"_MWMPPPTitle", @"_MWMPPPExternalT
   using namespace place_page;
   auto tableView = self.tableView;
   auto const row = data.previewRows[indexPath.row];
-  auto cellName = kPreviewCells[static_cast<size_t>(row)];
+  Class cls = kPreviewCells[static_cast<size_t>(row)];
 
-  auto * c = [tableView dequeueReusableCellWithIdentifier:cellName];
+  auto * c = [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath];
   switch(row)
   {
   case PreviewRows::Title:

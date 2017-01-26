@@ -2,7 +2,7 @@
 
 @class MWMNoteCell;
 
-@protocol MWMNoteCelLDelegate <NSObject>
+@protocol MWMNoteCelLDelegate<NSObject>
 
 - (void)cellShouldChangeSize:(MWMNoteCell *)cell text:(NSString *)text;
 - (void)cell:(MWMNoteCell *)cell didFinishEditingWithText:(NSString *)text;
@@ -11,7 +11,8 @@
 
 @interface MWMNoteCell : MWMTableViewCell
 
-- (void)configWithDelegate:(id<MWMNoteCelLDelegate>)delegate noteText:(NSString *)text
+- (void)configWithDelegate:(id<MWMNoteCelLDelegate>)delegate
+                  noteText:(NSString *)text
                placeholder:(NSString *)placeholder;
 - (CGFloat)cellHeight;
 - (void)updateTextViewForHeight:(CGFloat)height;

@@ -14,7 +14,6 @@
 
 namespace
 {
-NSString * const kCellIdentifier = @"MWMDownloaderDialogCell";
 NSString * const kDownloadTransitMapAlertNibName = @"MWMDownloadTransitMapAlert";
 NSString * const kStatisticsEvent = @"Map download Alert";
 
@@ -106,7 +105,7 @@ CGFloat const kAnimationDuration = .05;
 
 - (void)configure
 {
-  [self.dialogsTableView registerNib:[UINib nibWithNibName:kCellIdentifier bundle:nil] forCellReuseIdentifier:kCellIdentifier];
+  [self.dialogsTableView registerWithCellClass:[MWMDownloaderDialogCell class]];
   self.listExpanded = NO;
   CALayer * containerViewLayer = self.containerView.layer;
   containerViewLayer.shouldRasterize = YES;
@@ -323,7 +322,9 @@ CGFloat const kAnimationDuration = .05;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  MWMDownloaderDialogCell * cell = (MWMDownloaderDialogCell *)[tableView dequeueReusableCellWithIdentifier:kCellIdentifier];
+  Class cls = [MWMDownloaderDialogCell class];
+  auto cell = static_cast<MWMDownloaderDialogCell *>(
+      [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
   cell.titleLabel.text = self.countriesNames[indexPath.row];
   return cell;
 }

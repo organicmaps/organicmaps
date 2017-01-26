@@ -3,6 +3,7 @@
 #import "MWMKeyboard.h"
 #import "MWMTableViewCell.h"
 #import "MWMToast.h"
+#import "SwiftBridge.h"
 
 #include "indexer/cuisines.hpp"
 #include "indexer/search_string_utils.hpp"
@@ -193,8 +194,8 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView
                   cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
 {
-  UITableViewCell * cell =
-      [self.tableView dequeueReusableCellWithIdentifier:[UITableViewCell className]];
+  auto cell =
+      [tableView dequeueReusableCellWithCellClass:[UITableViewCell class] indexPath:indexPath];
   NSInteger const index = indexPath.row;
 
   auto const & dataSource = [self dataSourceForSection:indexPath.section];

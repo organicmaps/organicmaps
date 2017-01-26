@@ -80,16 +80,10 @@ enum RowInMetaInfo
 
 - (void)registerCells
 {
-  auto registerClass = ^ (Class c)
-  {
-    NSString * className = NSStringFromClass(c);
-    [self.tableView registerNib:[UINib nibWithNibName:className bundle:nil]
-         forCellReuseIdentifier:className];
-  };
-
-  registerClass([MWMButtonCell class]);
-  registerClass([MWMBookmarkTitleCell class]);
-  registerClass([MWMNoteCell class]);
+  UITableView * tv = self.tableView;
+  [tv registerWithCellClass:[MWMButtonCell class]];
+  [tv registerWithCellClass:[MWMBookmarkTitleCell class]];
+  [tv registerWithCellClass:[MWMNoteCell class]];
 }
 
 - (void)onSave
@@ -147,13 +141,16 @@ enum RowInMetaInfo
     {
     case Title:
     {
-      MWMBookmarkTitleCell * cell = [tableView dequeueReusableCellWithIdentifier:[MWMBookmarkTitleCell className]];
+      Class cls = [MWMBookmarkTitleCell class];
+      auto cell = static_cast<MWMBookmarkTitleCell *>(
+          [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
       [cell configureWithName:self.cachedTitle delegate:self];
       return cell;
     }
     case Color:
     {
-      UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:[UITableViewCell className]];
+      Class cls = [UITableViewCell class];
+      auto cell = [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath];
       cell.textLabel.text = ios_bookmark_ui_helper::LocalizedTitleForBookmarkColor(self.cachedColor);
       cell.imageView.image = ios_bookmark_ui_helper::ImageForBookmarkColor(self.cachedColor, YES);
       cell.imageView.layer.cornerRadius = cell.imageView.width / 2;
@@ -162,7 +159,8 @@ enum RowInMetaInfo
     }
     case Category:
     {
-      UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:[UITableViewCell className]];
+      Class cls = [UITableViewCell class];
+      auto cell = [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath];
       cell.textLabel.text = self.cachedCategory;
       cell.imageView.image = [UIImage imageNamed:@"ic_folder"];
       cell.imageView.mwm_coloring = MWMImageColoringBlack;
@@ -182,7 +180,9 @@ enum RowInMetaInfo
     }
     else
     {
-      self.cachedNote = [tableView dequeueReusableCellWithIdentifier:[MWMNoteCell className]];
+      Class cls = [MWMNoteCell class];
+      self.cachedNote = static_cast<MWMNoteCell *>(
+          [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
       [self.cachedNote configWithDelegate:self noteText:self.cachedDescription
                               placeholder:L(@"placepage_personal_notes_hint")];
       return self.cachedNote;
@@ -191,7 +191,9 @@ enum RowInMetaInfo
   case Delete:
   {
     NSAssert(indexPath.row == 0, @"Incorrect row!");
-    MWMButtonCell * cell = [tableView dequeueReusableCellWithIdentifier:[MWMButtonCell className]];
+    Class cls = [MWMButtonCell class];
+    auto cell = static_cast<MWMButtonCell *>(
+        [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
     [cell configureWithDelegate:self title:L(@"placepage_delete_bookmark_button")];
     return cell;
   }

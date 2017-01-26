@@ -2,13 +2,13 @@
 
 @interface MWMEditorAdditionalNameTableViewCell ()
 
-@property (weak, nonatomic) IBOutlet UILabel * languageLabel;
-@property (weak, nonatomic) IBOutlet UIButton * languageButton;
-@property (weak, nonatomic) IBOutlet UITextField * textField;
+@property(weak, nonatomic) IBOutlet UILabel * languageLabel;
+@property(weak, nonatomic) IBOutlet UIButton * languageButton;
+@property(weak, nonatomic) IBOutlet UITextField * textField;
 
-@property (nonatomic, readwrite) NSInteger code;
+@property(nonatomic, readwrite) NSInteger code;
 
-@property (weak, nonatomic) id<MWMEditorAdditionalName> delegate;
+@property(weak, nonatomic) id<MWMEditorAdditionalName> delegate;
 
 @end
 
@@ -28,11 +28,7 @@
   self.textField.keyboardType = keyboardType;
 }
 
-- (IBAction)changeLanguageTap
-{
-  [self.delegate editAdditionalNameLanguage:self.code];
-}
-
+- (IBAction)changeLanguageTap { [self.delegate editAdditionalNameLanguage:self.code]; }
 #pragma mark - UITextFieldDelegate
 
 - (void)textFieldDidEndEditing:(UITextField *)textField

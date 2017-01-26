@@ -3,49 +3,9 @@
 #import "MWMOpeningHours.h"
 #import "MWMPlacePageData.h"
 #import "MWMTableViewCell.h"
+#import "SwiftBridge.h"
 
 #include "std/array.hpp"
-
-namespace
-{
-array<NSString *, 2> const kCells = {{@"_MWMOHHeaderCell", @"_MWMOHSubCell"}};
-
-NSAttributedString * richStringFromDay(osmoh::Day const & day, BOOL isClosedNow)
-{
-  auto const richString = ^NSMutableAttributedString * (NSString * str, UIFont * font, UIColor * color)
-  {
-    return [[NSMutableAttributedString alloc] initWithString:str
-                                                  attributes:@{NSFontAttributeName : font,
-                                                               NSForegroundColorAttributeName : color}];
-  };
-
-  auto str = richString(day.TodayTime(), [UIFont regular17], day.m_isOpen ? [UIColor blackPrimaryText] :
-                        [UIColor red]);
-  if (day.m_isOpen)
-  {
-    auto lineBreak = [[NSAttributedString alloc] initWithString:@"\n"];
-
-    if (day.m_breaks.length)
-    {
-      [str appendAttributedString:lineBreak];
-      [str appendAttributedString:richString(day.m_breaks, [UIFont regular13], [UIColor blackSecondaryText])];
-    }
-
-    if (isClosedNow)
-    {
-      [str appendAttributedString:lineBreak];
-      [str appendAttributedString:richString(L(@"closed_now"), [UIFont regular13], [UIColor red])];
-    }
-
-    auto paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    paragraphStyle.lineSpacing = 4;
-
-    [str addAttributes:@{NSParagraphStyleAttributeName : paragraphStyle} range:{0, str.length}];
-  }
-  return str;
-}
-
-}  // namespace
 
 @interface MWMPlacePageData()
 
@@ -97,6 +57,48 @@ NSAttributedString * richStringFromDay(osmoh::Day const & day, BOOL isClosedNow)
 
 @end
 
+namespace
+{
+array<Class, 2> const kCells = {{[_MWMOHHeaderCell class], [_MWMOHSubCell class]}};
+
+NSAttributedString * richStringFromDay(osmoh::Day const & day, BOOL isClosedNow)
+{
+  auto const richString =
+      ^NSMutableAttributedString *(NSString * str, UIFont * font, UIColor * color)
+  {
+    return [[NSMutableAttributedString alloc]
+        initWithString:str
+            attributes:@{NSFontAttributeName : font, NSForegroundColorAttributeName : color}];
+  };
+
+  auto str = richString(day.TodayTime(), [UIFont regular17],
+                        day.m_isOpen ? [UIColor blackPrimaryText] : [UIColor red]);
+  if (day.m_isOpen)
+  {
+    auto lineBreak = [[NSAttributedString alloc] initWithString:@"\n"];
+
+    if (day.m_breaks.length)
+    {
+      [str appendAttributedString:lineBreak];
+      [str appendAttributedString:richString(day.m_breaks, [UIFont regular13],
+                                             [UIColor blackSecondaryText])];
+    }
+
+    if (isClosedNow)
+    {
+      [str appendAttributedString:lineBreak];
+      [str appendAttributedString:richString(L(@"closed_now"), [UIFont regular13], [UIColor red])];
+    }
+
+    auto paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineSpacing = 4;
+
+    [str addAttributes:@{ NSParagraphStyleAttributeName : paragraphStyle } range:{0, str.length}];
+  }
+  return str;
+}
+
+}  // namespace
 
 @interface MWMOpeningHoursLayoutHelper()
 {
@@ -127,8 +129,8 @@ NSAttributedString * richStringFromDay(osmoh::Day const & day, BOOL isClosedNow)
 
 - (void)registerCells
 {
-  for (auto name : kCells)
-    [self.tableView registerNib:[UINib nibWithNibName:name bundle:nil] forCellReuseIdentifier:name];
+  for (Class cls : kCells)
+    [self.tableView registerWithCellClass:cls];
 }
 
 - (void)configWithData:(MWMPlacePageData *)data
@@ -146,7 +148,9 @@ NSAttributedString * richStringFromDay(osmoh::Day const & day, BOOL isClosedNow)
 
   if (self.data.metainfoRows[indexPath.row] == place_page::MetainfoRows::OpeningHours)
   {
-    _MWMOHHeaderCell * cell = [tableView dequeueReusableCellWithIdentifier:[_MWMOHHeaderCell className]];
+    Class cls = [_MWMOHHeaderCell class];
+    auto cell = static_cast<_MWMOHHeaderCell *>(
+        [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
 
     if (m_days.size() > 1)
     {
@@ -189,7 +193,9 @@ NSAttributedString * richStringFromDay(osmoh::Day const & day, BOOL isClosedNow)
   }
   else
   {
-    _MWMOHSubCell * cell = [tableView dequeueReusableCellWithIdentifier:[_MWMOHSubCell className]];
+    Class cls = [_MWMOHSubCell class];
+    auto cell = static_cast<_MWMOHSubCell *>(
+        [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
     cell.days.text = day.m_workingDays;
     cell.schedule.text = day.m_workingTimes ?: L(@"closed");
     cell.breaks.text = day.m_breaks;

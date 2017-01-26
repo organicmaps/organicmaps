@@ -1,5 +1,6 @@
 #import "MWMBottomMenuCollectionViewCell.h"
 #import "MWMCommon.h"
+#import "SwiftBridge.h"
 #import "UIImageView+Coloring.h"
 
 @interface MWMBottomMenuCollectionViewCell ()
@@ -53,4 +54,10 @@
   // There is no need to do something after cell has been selected.
 }
 
+@end
+
+@implementation MWMBottomMenuCollectionViewPortraitCell
+@end
+
+@implementation MWMBottomMenuCollectionViewLandscapeCell
 @end

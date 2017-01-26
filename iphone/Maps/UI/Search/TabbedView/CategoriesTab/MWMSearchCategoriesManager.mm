@@ -2,12 +2,11 @@
 #import "AppInfo.h"
 #import "MWMSearchCategoryCell.h"
 #import "Statistics.h"
+#import "SwiftBridge.h"
 
 #include "search/displayed_categories.hpp"
 
 #include "base/macros.hpp"
-
-static NSString * const kCellIdentifier = @"MWMSearchCategoryCell";
 
 @implementation MWMSearchCategoriesManager
 {
@@ -32,8 +31,7 @@ static NSString * const kCellIdentifier = @"MWMSearchCategoryCell";
   tableView.hidden = NO;
   tableView.delegate = self;
   tableView.dataSource = self;
-  [tableView registerNib:[UINib nibWithNibName:kCellIdentifier bundle:nil]
-      forCellReuseIdentifier:kCellIdentifier];
+  [tableView registerWithCellClass:[MWMSearchCategoryCell class]];
   [tableView reloadData];
 }
 
@@ -47,7 +45,9 @@ static NSString * const kCellIdentifier = @"MWMSearchCategoryCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  auto tCell = static_cast<MWMSearchCategoryCell *>([tableView dequeueReusableCellWithIdentifier:kCellIdentifier]);
+  auto tCell = static_cast<MWMSearchCategoryCell *>([tableView
+      dequeueReusableCellWithCellClass:[MWMSearchCategoryCell class]
+                             indexPath:indexPath]);
   [tCell setCategory:@(m_categories[indexPath.row].c_str())];
   return tCell;
 }

@@ -6,12 +6,12 @@
 #import "MWMSearchTabbedViewLayout.h"
 #import "MWMSearchTabbedViewProtocol.h"
 #import "Statistics.h"
+#import "SwiftBridge.h"
 
 #include "Framework.h"
 
 namespace
 {
-NSString * const kCollectionCell = @"MWMSearchTabbedCollectionViewCell";
 NSString * const kSelectedButtonTagKey = @"MWMSearchTabbedCollectionViewSelectedButtonTag";
 }  // namespace
 
@@ -104,8 +104,7 @@ BOOL isOffsetInButton(CGFloat offset, MWMSearchTabButtonsView * button)
 
 - (void)setupCollectionView
 {
-  [self.tablesCollectionView registerNib:[UINib nibWithNibName:kCollectionCell bundle:nil]
-              forCellWithReuseIdentifier:kCollectionCell];
+  [self.tablesCollectionView registerWithCellClass:[MWMSearchTabbedCollectionViewCell class]];
   ((MWMSearchTabbedViewLayout *)self.tablesCollectionView.collectionViewLayout).tablesCount =
       MWMSearchTabbedViewCellCount;
 }
@@ -178,9 +177,9 @@ BOOL isOffsetInButton(CGFloat offset, MWMSearchTabButtonsView * button)
 - (nonnull UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView
                           cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
-  MWMSearchTabbedCollectionViewCell * cell =
-      [collectionView dequeueReusableCellWithReuseIdentifier:kCollectionCell
-                                                forIndexPath:indexPath];
+  auto cell = static_cast<MWMSearchTabbedCollectionViewCell *>([collectionView
+      dequeueReusableCellWithCellClass:[MWMSearchTabbedCollectionViewCell class]
+                             indexPath:indexPath]);
   MWMSearchTabbedViewCell cellType = static_cast<MWMSearchTabbedViewCell>(indexPath.item);
   switch (cellType)
   {
