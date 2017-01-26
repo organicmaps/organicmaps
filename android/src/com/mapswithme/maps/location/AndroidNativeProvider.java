@@ -12,6 +12,7 @@ import com.mapswithme.util.LocationUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 class AndroidNativeProvider extends BaseLocationProvider
 {
@@ -70,15 +71,18 @@ class AndroidNativeProvider extends BaseLocationProvider
 
   private void onLocationChanged(@NonNull Location location)
   {
-    for (LocationListener listener : mListeners)
-      listener.onLocationChanged(location);
+    ListIterator<LocationListener> iterator = mListeners.listIterator();
+    while (iterator.hasNext())
+      iterator.next().onLocationChanged(location);
   }
 
   @Override
   protected void stop()
   {
-    for (LocationListener listener : mListeners)
-      mLocationManager.removeUpdates(listener);
+    ListIterator<LocationListener> iterator = mListeners.listIterator();
+    while (iterator.hasNext())
+      mLocationManager.removeUpdates(iterator.next());
+
     mListeners.clear();
     mIsActive = false;
   }
