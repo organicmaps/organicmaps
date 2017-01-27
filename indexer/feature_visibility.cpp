@@ -208,6 +208,7 @@ namespace
 
   /// Add here all exception classificator types: needed for algorithms,
   /// but don't have drawing rules.
+  /// See also ftypes_matcher.cpp, IsInvisibleIndexedChecker.
   bool TypeAlwaysExists(uint32_t type, EGeomType g = GEOM_UNDEFINED)
   {
     static const uint32_t roundabout = classif().GetTypeByPath({ "junction", "roundabout" });

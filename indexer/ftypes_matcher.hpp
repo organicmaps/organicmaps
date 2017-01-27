@@ -192,6 +192,15 @@ public:
   static IsOpentableChecker const & Instance();
 };
 
+// Checks for types that are not drawable, but searchable.
+class IsInvisibleIndexedChecker : public BaseChecker
+{
+  IsInvisibleIndexedChecker();
+
+public:
+  static IsInvisibleIndexedChecker const & Instance();
+};
+
 /// Type of locality (do not change values and order - they have detalization order)
 /// COUNTRY < STATE < CITY < ...
 enum Type { NONE = -1, COUNTRY = 0, STATE, CITY, TOWN, VILLAGE, LOCALITY_COUNT };

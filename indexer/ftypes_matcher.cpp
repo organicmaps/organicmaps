@@ -431,6 +431,18 @@ IsOpentableChecker const & IsOpentableChecker::Instance()
   return inst;
 }
 
+IsInvisibleIndexedChecker::IsInvisibleIndexedChecker() : BaseChecker(1 /* level */)
+{
+  m_types.push_back(classif().GetTypeByPath({"internet_access"}));
+  m_types.push_back(classif().GetTypeByPath({"wheelchair"}));
+}
+
+IsInvisibleIndexedChecker const & IsInvisibleIndexedChecker::Instance()
+{
+  static IsInvisibleIndexedChecker const instance;
+  return instance;
+}
+
 IsLocalityChecker::IsLocalityChecker()
 {
   Classificator const & c = classif();
