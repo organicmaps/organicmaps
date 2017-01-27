@@ -1,5 +1,6 @@
 #import "MWMSettings.h"
 #import "MWMMapViewControlsManager.h"
+#import "MapsAppDelegate.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
@@ -118,16 +119,41 @@ NSString * const kSpotlightLocaleLanguageId = @"SpotlightLocaleLanguageId";
   settings::Set(kStatisticsEnabledSettingsKey, static_cast<bool>(statisticsEnabled));
 }
 
-+ (BOOL)autoNightModeEnabled
++ (MWMTheme)theme
 {
-  return ![[NSUserDefaults standardUserDefaults] boolForKey:kUDAutoNightModeOff];
+  if (![[NSUserDefaults standardUserDefaults] boolForKey:kUDAutoNightModeOff])
+    return MWMThemeAuto;
+  if (GetFramework().GetMapStyle() == MapStyleDark)
+    return MWMThemeNight;
+  return MWMThemeDay;
 }
 
-+ (void)setAutoNightModeEnabled:(BOOL)autoNightModeEnabled
++ (void)setTheme:(MWMTheme)theme
 {
-  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
-  [ud setBool:!autoNightModeEnabled forKey:kUDAutoNightModeOff];
-  [ud synchronize];
+  if ([self theme] == theme)
+    return;
+  auto ud = [NSUserDefaults standardUserDefaults];
+  auto & f = GetFramework();
+  switch (theme)
+  {
+  case MWMThemeDay:
+    [ud setBool:YES forKey:kUDAutoNightModeOff];
+    f.SetMapStyle(MapStyleClear);
+    [UIColor setNightMode:NO];
+    break;
+  case MWMThemeNight:
+    [ud setBool:YES forKey:kUDAutoNightModeOff];
+    f.SetMapStyle(MapStyleDark);
+    [UIColor setNightMode:YES];
+    break;
+  case MWMThemeAuto:
+    [ud setBool:NO forKey:kUDAutoNightModeOff];
+    f.SetMapStyle(MapStyleClear);
+    [UIColor setNightMode:NO];
+    [MapsAppDelegate stopMapStyleChecker];
+    [MapsAppDelegate changeMapStyleIfNedeed];
+    break;
+  }
 }
 
 + (BOOL)routingDisclaimerApproved

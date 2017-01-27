@@ -222,7 +222,7 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
       app.routingPlaneMode = MWMRoutingPlaneModeNone;
       [MWMRouterSavedState store];
       [MapsAppDelegate changeMapStyleIfNedeed];
-      [app startMapStyleChecker];
+      [MapsAppDelegate startMapStyleChecker];
     }
     else
     {
@@ -271,7 +271,7 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
   MapsAppDelegate * app = [MapsAppDelegate theApp];
   app.routingPlaneMode = MWMRoutingPlaneModeNone;
   [MWMRouterSavedState remove];
-  if ([MWMSettings autoNightModeEnabled])
+  if ([MWMSettings theme] == MWMThemeAuto)
     [MapsAppDelegate resetToDefaultMapStyle];
   [app showAlertIfRequired];
 }

@@ -47,10 +47,9 @@ typedef NS_ENUM(NSUInteger, MWMRoutingPlaneMode) {
 - (void)enableDownloadIndicator;
 
 - (void)showMap;
-- (void)startMapStyleChecker;
-- (void)stopMapStyleChecker;
++ (void)startMapStyleChecker;
++ (void)stopMapStyleChecker;
 - (void)showAlertIfRequired;
-+ (void)setAutoNightModeOff:(BOOL)off;
 + (void)resetToDefaultMapStyle;
 + (void)changeMapStyleIfNedeed;
 

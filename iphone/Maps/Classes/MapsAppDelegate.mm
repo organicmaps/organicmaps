@@ -290,10 +290,10 @@ using namespace osm_auth_ios;
   [self updateApplicationIconBadgeNumber];
 }
 
-- (void)determineMapStyle
++ (void)determineMapStyle
 {
   auto & f = GetFramework();
-  if ([MWMSettings autoNightModeEnabled])
+  if ([MWMSettings theme] == MWMThemeAuto)
   {
     f.SetMapStyle(MapStyleClear);
     [UIColor setNightMode:NO];
@@ -304,26 +304,19 @@ using namespace osm_auth_ios;
   }
 }
 
-+ (void)setAutoNightModeOff:(BOOL)off
++ (void)startMapStyleChecker
 {
-  [MWMSettings setAutoNightModeEnabled:!off];
-  if (!off)
-    [MapsAppDelegate.theApp stopMapStyleChecker];
-}
-
-- (void)startMapStyleChecker
-{
-  if (![MWMSettings autoNightModeEnabled])
+  if ([MWMSettings theme] != MWMThemeAuto)
     return;
-  self.mapStyleSwitchTimer =
+  MapsAppDelegate.theApp.mapStyleSwitchTimer =
       [NSTimer scheduledTimerWithTimeInterval:(30 * 60)
-                                       target:[MapsAppDelegate class]
+                                       target:self
                                      selector:@selector(changeMapStyleIfNedeed)
                                      userInfo:nil
                                       repeats:YES];
 }
 
-- (void)stopMapStyleChecker { [self.mapStyleSwitchTimer invalidate]; }
++ (void)stopMapStyleChecker { [MapsAppDelegate.theApp.mapStyleSwitchTimer invalidate]; }
 + (void)resetToDefaultMapStyle
 {
   MapsAppDelegate * app = MapsAppDelegate.theApp;
@@ -335,12 +328,12 @@ using namespace osm_auth_ios;
   [UIColor setNightMode:NO];
   [static_cast<id<MWMController>>(app.mapViewController.navigationController.topViewController)
       mwm_refreshUI];
-  [app stopMapStyleChecker];
+  [self stopMapStyleChecker];
 }
 
 + (void)changeMapStyleIfNedeed
 {
-  if (![MWMSettings autoNightModeEnabled])
+  if ([MWMSettings theme] != MWMThemeAuto)
     return;
   auto & f = GetFramework();
   CLLocation * lastLocation = [MWMLocationManager lastLocation];
@@ -400,7 +393,7 @@ using namespace osm_auth_ios;
   [HttpThread setDownloadIndicatorProtocol:self];
 
   InitLocalizedStrings();
-  [self determineMapStyle];
+  [[self class] determineMapStyle];
 
   GetFramework().EnterForeground();
 

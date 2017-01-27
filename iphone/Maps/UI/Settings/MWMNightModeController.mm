@@ -21,26 +21,15 @@
 {
   [super viewDidLoad];
   self.title = L(@"pref_map_style_title");
-  if ([MWMSettings autoNightModeEnabled])
+  SettingsTableViewSelectableCell * selectedCell = nil;
+  switch ([MWMSettings theme])
   {
-    self.autoSwitch.accessoryType = UITableViewCellAccessoryCheckmark;
-    _selectedCell = self.autoSwitch;
-    return;
+  case MWMThemeDay: selectedCell = self.off; break;
+  case MWMThemeNight: selectedCell = self.on; break;
+  case MWMThemeAuto: selectedCell = self.autoSwitch; break;
   }
-
-  switch (GetFramework().GetMapStyle())
-  {
-  case MapStyleDark:
-    self.on.accessoryType = UITableViewCellAccessoryCheckmark;
-    _selectedCell = self.on;
-    break;
-  case MapStyleClear:
-    self.off.accessoryType = UITableViewCellAccessoryCheckmark;
-    _selectedCell = self.off;
-    break;
-  case MapStyleMerged:
-  case MapStyleCount: break;
-  }
+  selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
+  self.selectedCell = selectedCell;
 }
 
 - (void)setSelectedCell:(SettingsTableViewSelectableCell *)cell
@@ -48,42 +37,26 @@
   if ([_selectedCell isEqual:cell])
     return;
 
+  BOOL const isNightMode = [UIColor isNightMode];
   _selectedCell = cell;
-  auto & f = GetFramework();
-  auto const style = f.GetMapStyle();
   NSString * statValue = nil;
   if ([cell isEqual:self.on])
   {
-    [MapsAppDelegate setAutoNightModeOff:YES];
-    if (style == MapStyleDark)
-      return;
-    f.SetMapStyle(MapStyleDark);
-    [UIColor setNightMode:YES];
-    [self mwm_refreshUI];
+    [MWMSettings setTheme:MWMThemeNight];
     statValue = kStatOn;
   }
   else if ([cell isEqual:self.off])
   {
-    [MapsAppDelegate setAutoNightModeOff:YES];
-    if (style == MapStyleClear)
-      return;
-    f.SetMapStyle(MapStyleClear);
-    [UIColor setNightMode:NO];
-    [self mwm_refreshUI];
+    [MWMSettings setTheme:MWMThemeDay];
     statValue = kStatOff;
   }
   else if ([cell isEqual:self.autoSwitch])
   {
-    [MapsAppDelegate setAutoNightModeOff:NO];
-    [MapsAppDelegate changeMapStyleIfNedeed];
-    if (style == MapStyleClear)
-      return;
-    [UIColor setNightMode:NO];
-    f.SetMapStyle(MapStyleClear);
-    [self mwm_refreshUI];
+    [MWMSettings setTheme:MWMThemeAuto];
     statValue = kStatValue;
   }
-
+  if (isNightMode != [UIColor isNightMode])
+    [self mwm_refreshUI];
   [Statistics logEvent:kStatNightMode withParameters:@{kStatValue : statValue}];
 }
 

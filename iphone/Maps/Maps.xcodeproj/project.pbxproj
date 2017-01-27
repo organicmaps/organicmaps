@@ -193,6 +193,9 @@
 		34570A3B1B13222600E6D4FD /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 34570A3A1B13222600E6D4FD /* libz.dylib */; settings = {ATTRIBUTES = (Required, ); }; };
 		34570A3D1B13223000E6D4FD /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 34570A3C1B13223000E6D4FD /* libsqlite3.dylib */; settings = {ATTRIBUTES = (Required, ); }; };
 		34570A3F1B13225500E6D4FD /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34570A3E1B13225500E6D4FD /* Accounts.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		34574A621E3B5B620061E839 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34574A611E3B5B620061E839 /* Theme.swift */; };
+		34574A631E3B5B620061E839 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34574A611E3B5B620061E839 /* Theme.swift */; };
+		34574A641E3B5B620061E839 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34574A611E3B5B620061E839 /* Theme.swift */; };
 		3462258E1DDC5DBA001E8752 /* MWMSearchNoResultsAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3462258D1DDC5DBA001E8752 /* MWMSearchNoResultsAlert.mm */; };
 		3462258F1DDC5DBA001E8752 /* MWMSearchNoResultsAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3462258D1DDC5DBA001E8752 /* MWMSearchNoResultsAlert.mm */; };
 		346225911DDC5FBA001E8752 /* MWMSearchNoResultsAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 346225901DDC5FBA001E8752 /* MWMSearchNoResultsAlert.xib */; };
@@ -1509,6 +1512,7 @@
 		34570A3A1B13222600E6D4FD /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		34570A3C1B13223000E6D4FD /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		34570A3E1B13225500E6D4FD /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		34574A611E3B5B620061E839 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		3462258C1DDC5DB9001E8752 /* MWMSearchNoResultsAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchNoResultsAlert.h; sourceTree = "<group>"; };
 		3462258D1DDC5DBA001E8752 /* MWMSearchNoResultsAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchNoResultsAlert.mm; sourceTree = "<group>"; };
 		346225901DDC5FBA001E8752 /* MWMSearchNoResultsAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMSearchNoResultsAlert.xib; sourceTree = "<group>"; };
@@ -2705,6 +2709,14 @@
 			path = Categories;
 			sourceTree = "<group>";
 		};
+		34574A601E3B5B2A0061E839 /* Appearance */ = {
+			isa = PBXGroup;
+			children = (
+				34574A611E3B5B620061E839 /* Theme.swift */,
+			);
+			path = Appearance;
+			sourceTree = "<group>";
+		};
 		345C34661CE9D32500BB2224 /* SideButtons */ = {
 			isa = PBXGroup;
 			children = (
@@ -3278,6 +3290,7 @@
 		F6E2FBFB1E097B9F0083EBEC /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				34574A601E3B5B2A0061E839 /* Appearance */,
 				349D1AC21E2E325B004A2006 /* BottomMenu */,
 				F6E2FBFC1E097B9F0083EBEC /* Downloader */,
 				F6E2FC291E097B9F0083EBEC /* EditBookmark */,
@@ -4833,6 +4846,7 @@
 				F6E2FEC31E097BA00083EBEC /* MWMSearchFilterPresentationController.mm in Sources */,
 				340475731E081A4600C92850 /* MWMStorage.mm in Sources */,
 				F6E2FD851E097BA00083EBEC /* MWMBaseMapDownloaderViewController.mm in Sources */,
+				34574A621E3B5B620061E839 /* Theme.swift in Sources */,
 				34ABA6241C2D551900FE1BEC /* MWMInputValidatorFactory.mm in Sources */,
 				34943BBA1E2626B200B14F84 /* WelcomePageController.swift in Sources */,
 				F6E2FEE11E097BA00083EBEC /* MWMSearchManager.mm in Sources */,
@@ -5088,6 +5102,7 @@
 				F6E2FEC41E097BA00083EBEC /* MWMSearchFilterPresentationController.mm in Sources */,
 				34ABA6251C2D551900FE1BEC /* MWMInputValidatorFactory.mm in Sources */,
 				F6E2FD861E097BA00083EBEC /* MWMBaseMapDownloaderViewController.mm in Sources */,
+				34574A631E3B5B620061E839 /* Theme.swift in Sources */,
 				F6E2FEE21E097BA00083EBEC /* MWMSearchManager.mm in Sources */,
 				F6E2FE221E097BA00083EBEC /* MWMOpeningHoursEditorViewController.mm in Sources */,
 				34943BBB1E2626B200B14F84 /* WelcomePageController.swift in Sources */,
@@ -5343,6 +5358,7 @@
 				F6E2FEC51E097BA00083EBEC /* MWMSearchFilterPresentationController.mm in Sources */,
 				F6E2FD871E097BA00083EBEC /* MWMBaseMapDownloaderViewController.mm in Sources */,
 				F6E2FEE31E097BA00083EBEC /* MWMSearchManager.mm in Sources */,
+				34574A641E3B5B620061E839 /* Theme.swift in Sources */,
 				34943BBC1E2626B200B14F84 /* WelcomePageController.swift in Sources */,
 				F6E2FE231E097BA00083EBEC /* MWMOpeningHoursEditorViewController.mm in Sources */,
 				34D3AFE31E376F7E004100F9 /* UITableView+Updates.swift in Sources */,

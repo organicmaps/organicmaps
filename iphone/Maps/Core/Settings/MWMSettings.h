@@ -1,3 +1,5 @@
+#import "SwiftBridge.h"
+
 #include "platform/measurement_utils.hpp"
 
 @interface MWMSettings : NSObject
@@ -23,8 +25,8 @@
 + (BOOL)statisticsEnabled;
 + (void)setStatisticsEnabled:(BOOL)statisticsEnabled;
 
-+ (BOOL)autoNightModeEnabled;
-+ (void)setAutoNightModeEnabled:(BOOL)autoNightModeEnabled;
++ (MWMTheme)theme;
++ (void)setTheme:(MWMTheme)theme;
 
 + (BOOL)routingDisclaimerApproved;
 + (void)setRoutingDisclaimerApproved;

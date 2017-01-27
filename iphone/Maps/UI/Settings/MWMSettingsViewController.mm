@@ -141,12 +141,12 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)configNavigationSection
 {
   NSString * nightMode = nil;
-  if ([MWMSettings autoNightModeEnabled])
-    nightMode = L(@"pref_map_style_auto");
-  else if (GetFramework().GetMapStyle() == MapStyleDark)
-    nightMode = L(@"pref_map_style_night");
-  else
-    nightMode = L(@"pref_map_style_default");
+  switch ([MWMSettings theme])
+  {
+  case MWMThemeDay: nightMode = L(@"pref_map_style_default"); break;
+  case MWMThemeNight: nightMode = L(@"pref_map_style_night"); break;
+  case MWMThemeAuto: nightMode = L(@"pref_map_style_auto"); break;
+  }
   [self.nightModeCell configWithTitle:L(@"pref_map_style_title") info:nightMode];
 
   bool _ = true, on = true;
