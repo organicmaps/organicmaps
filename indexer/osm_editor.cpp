@@ -853,28 +853,28 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
         catch (ChangesetWrapper::OsmObjectWasDeletedException const & ex)
         {
           fti.m_uploadStatus = kDeletedFromOSMServer;
-          fti.m_uploadError = ex.what();
+          fti.m_uploadError = ex.Msg();
           ++errorsCount;
           LOG(LWARNING, (ex.what()));
         }
         catch (ChangesetWrapper::RelationFeatureAreNotSupportedException const & ex)
         {
           fti.m_uploadStatus = kRelationsAreNotSupported;
-          fti.m_uploadError = ex.what();
+          fti.m_uploadError = ex.Msg();
           ++errorsCount;
           LOG(LWARNING, (ex.what()));
         }
         catch (ChangesetWrapper::EmptyFeatureException const & ex)
         {
           fti.m_uploadStatus = kWrongMatch;
-          fti.m_uploadError = ex.what();
+          fti.m_uploadError = ex.Msg();
           ++errorsCount;
           LOG(LWARNING, (ex.what()));
         }
         catch (RootException const & ex)
         {
           fti.m_uploadStatus = kNeedsRetry;
-          fti.m_uploadError = ex.what();
+          fti.m_uploadError = ex.Msg();
           ++errorsCount;
           LOG(LWARNING, (ex.what()));
         }
