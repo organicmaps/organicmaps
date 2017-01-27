@@ -538,7 +538,11 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
     MWMEditorAdditionalNameTableViewCell * tCell =
         static_cast<MWMEditorAdditionalNameTableViewCell *>(cell);
 
-    auto const & localizedNames = m_mapObject.GetNamesDataSource().names;
+    // When default name is added - remove fake names from datasource.
+    auto const it = std::find(m_newAdditionalLanguages.begin(), m_newAdditionalLanguages.end(),
+                              StringUtf8Multilang::kDefaultCode);
+    auto const needFakes = it == m_newAdditionalLanguages.end();
+    auto const & localizedNames = m_mapObject.GetNamesDataSource(needFakes).names;
 
     if (indexPath.row < localizedNames.size())
     {

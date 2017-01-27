@@ -103,6 +103,14 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     mMandatoryNamesCount = mandatoryNamesCount;
   }
 
+  private void fillNames(boolean needFakes)
+  {
+    NamesDataSource namesDataSource = Editor.nativeGetNamesDataSource(needFakes);
+    setNames(namesDataSource.getNames());
+    setMandatoryNamesCount(namesDataSource.getMandatoryNamesCount());
+    editMapObject();
+  }
+
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
@@ -128,10 +136,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
       mIsNewObject = getArguments().getBoolean(EditorActivity.EXTRA_NEW_OBJECT, false);
     mToolbarController.setTitle(getTitle());
 
-    NamesDataSource namesDataSource = Editor.nativeGetNamesDataSource();
-    setNames(namesDataSource.getNames());
-    setMandatoryNamesCount(namesDataSource.getMandatoryNamesCount());
-    editMapObject();
+    fillNames(true /* addFakes */);
   }
 
   @StringRes
@@ -373,6 +378,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     String name = "";
     if (lang.code.equals(Language.DEFAULT_LANG_CODE))
     {
+      fillNames(false /* addFakes */);
       name = Editor.nativeGetDefaultName();
       Editor.nativeEnableNamesAdvancedMode();
     }

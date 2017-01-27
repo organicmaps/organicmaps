@@ -304,9 +304,9 @@ Java_com_mapswithme_maps_editor_Editor_nativeIsBuilding(JNIEnv * env, jclass cla
 }
 
 JNIEXPORT jobject JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeGetNamesDataSource(JNIEnv * env, jclass)
+Java_com_mapswithme_maps_editor_Editor_nativeGetNamesDataSource(JNIEnv * env, jclass, jboolean needFakes)
 {
-  auto const namesDataSource = g_editableMapObject.GetNamesDataSource();
+  auto const namesDataSource = g_editableMapObject.GetNamesDataSource(needFakes);
 
   jobjectArray names = jni::ToJavaArray(env, g_localNameClazz, namesDataSource.names, ToJavaName);
   jint mandatoryNamesCount = namesDataSource.mandatoryNamesCount;

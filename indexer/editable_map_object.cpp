@@ -212,7 +212,7 @@ vector<feature::Metadata::EType> const & EditableMapObject::GetEditableFields() 
 
 StringUtf8Multilang const & EditableMapObject::GetName() const { return m_name; }
 
-NamesDataSource EditableMapObject::GetNamesDataSource()
+NamesDataSource EditableMapObject::GetNamesDataSource(bool needFakes /* = true */)
 {
   auto const mwmInfo = GetID().m_mwmId.GetInfo();
 
@@ -224,13 +224,20 @@ NamesDataSource EditableMapObject::GetNamesDataSource()
 
   auto const userLangCode = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
 
-  StringUtf8Multilang fakeSource;
-  m_fakeNames = MakeFakeSource(m_name, mwmLanguages, fakeSource);
-  
-  if (m_fakeNames.m_names.empty())
-    return GetNamesDataSource(m_name, mwmLanguages, userLangCode);
+  if (needFakes)
+  {
+    StringUtf8Multilang fakeSource;
+    m_fakeNames = MakeFakeSource(m_name, mwmLanguages, fakeSource);
 
-  return GetNamesDataSource(fakeSource, mwmLanguages, userLangCode);
+    if (!m_fakeNames.m_names.empty())
+      return GetNamesDataSource(fakeSource, mwmLanguages, userLangCode);
+  }
+  else
+  {
+    RemoveFakeNames(m_fakeNames, m_name);
+  }
+
+  return GetNamesDataSource(m_name, mwmLanguages, userLangCode);
 }
 
 // static

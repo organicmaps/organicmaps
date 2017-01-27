@@ -103,7 +103,7 @@ public:
 
   StringUtf8Multilang const & GetName() const;
   /// See comment for NamesDataSource class.
-  NamesDataSource GetNamesDataSource();
+  NamesDataSource GetNamesDataSource(bool addFakes = true);
   LocalizedStreet const & GetStreet() const;
   vector<LocalizedStreet> const & GetNearbyStreets() const;
   string const & GetHouseNumber() const;
