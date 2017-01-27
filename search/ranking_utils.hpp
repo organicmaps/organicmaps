@@ -16,13 +16,13 @@
 
 namespace search
 {
-struct QueryParams;
+class QueryParams;
 
 namespace impl
 {
-bool Match(vector<strings::UniString> const & tokens, strings::UniString const & token);
+bool FullMatch(QueryParams::Token const & token, strings::UniString const & text);
 
-bool PrefixMatch(vector<strings::UniString> const & prefixes, strings::UniString const & token);
+bool PrefixMatch(QueryParams::Token const & token, strings::UniString const & text);
 }  // namespace impl
 
 // The order and numeric values are important here.  Please, check all
@@ -65,11 +65,11 @@ NameScore GetNameScore(vector<strings::UniString> const & tokens, TSlice const &
   {
     bool match = true;
     for (size_t i = 0; i < m - 1 && match; ++i)
-      match = match && impl::Match(slice.Get(i), tokens[offset + i]);
+      match = match && impl::FullMatch(slice.Get(i), tokens[offset + i]);
     if (!match)
       continue;
 
-    if (impl::Match(slice.Get(m - 1), tokens[offset + m - 1]))
+    if (impl::FullMatch(slice.Get(m - 1), tokens[offset + m - 1]))
     {
       if (m == n)
         return NAME_SCORE_FULL_MATCH;

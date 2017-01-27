@@ -184,7 +184,7 @@ private:
   template <typename TLocality>
   using TLocalitiesCache = map<pair<size_t, size_t>, vector<TLocality>>;
 
-  QueryParams::TSynonymsVector const & GetTokens(size_t i) const;
+  QueryParams::Token const & GetTokens(size_t i) const;
 
   // Creates a cache of posting lists corresponding to features in m_context
   // for each token and saves it to m_addressFeatures.

@@ -320,16 +320,13 @@ void MatchPostcodesInTrie(TokenSlice const & slice,
     if (slice.IsPrefix(i))
     {
       vector<PrefixDFAModifier<UniStringDFA>> dfas;
-      for (auto const & s : slice.Get(i))
-        dfas.emplace_back(UniStringDFA(s));
-
+      slice.Get(i).ForEach([&dfas](UniString const & s) { dfas.emplace_back(UniStringDFA(s)); });
       MatchInTrie(dfas, TrieRootPrefix<Value>(*postcodesRoot, edge), intersector);
     }
     else
     {
       vector<UniStringDFA> dfas;
-      for (auto const & s : slice.Get(i))
-        dfas.emplace_back(s);
+      slice.Get(i).ForEach([&dfas](UniString const & s) { dfas.emplace_back(s); });
       MatchInTrie(dfas, TrieRootPrefix<Value>(*postcodesRoot, edge), intersector);
     }
 

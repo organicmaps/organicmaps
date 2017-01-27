@@ -613,28 +613,17 @@ int GetOldTypeFromIndex(size_t index)
 
 void Processor::InitParams(QueryParams & params)
 {
-  params.Clear();
-
-  if (!m_prefix.empty())
-    params.m_prefixTokens.push_back(m_prefix);
-
-  size_t const tokensCount = m_tokens.size();
-
-  // Add normal tokens.
-  params.m_tokens.resize(tokensCount);
-  for (size_t i = 0; i < tokensCount; ++i)
-    params.m_tokens[i].push_back(m_tokens[i]);
-
-  params.m_typeIndices.resize(tokensCount + (m_prefix.empty() ? 0 : 1));
-  for (auto & indices : params.m_typeIndices)
-    indices.clear();
+  if (m_prefix.empty())
+    params.InitNoPrefix(m_tokens.begin(), m_tokens.end());
+  else
+    params.InitWithPrefix(m_tokens.begin(), m_tokens.end(), m_prefix);
 
   // Add names of categories (and synonyms).
   Classificator const & c = classif();
   auto addSyms = [&](size_t i, uint32_t t)
   {
     uint32_t const index = c.GetIndexForType(t);
-    params.m_typeIndices[i].push_back(index);
+    params.GetTypeIndices(i).push_back(index);
 
     // v2-version MWM has raw classificator types in search index prefix, so
     // do the hack: add synonyms for old convention if needed.
@@ -644,22 +633,15 @@ void Processor::InitParams(QueryParams & params)
       if (type >= 0)
       {
         ASSERT(type == 70 || type > 4000, (type));
-        params.m_typeIndices[i].push_back(static_cast<uint32_t>(type));
+        params.GetTypeIndices(i).push_back(static_cast<uint32_t>(type));
       }
     }
   };
   ForEachCategoryType(QuerySliceOnRawStrings<decltype(m_tokens)>(m_tokens, m_prefix), addSyms);
 
-  for (auto & tokens : params.m_tokens)
-  {
-    if (tokens.size() > 1 && IsHashtagged(tokens[0]))
-      tokens.erase(tokens.begin());
-  }
-  if (params.m_prefixTokens.size() > 1 && IsHashtagged(params.m_prefixTokens[0]))
-    params.m_prefixTokens.erase(params.m_prefixTokens.begin());
-
+  auto & langs = params.GetLangs();
   for (int i = 0; i < LANG_COUNT; ++i)
-    params.m_langs.insert(GetLanguage(i));
+    langs.insert(GetLanguage(i));
 }
 
 void Processor::InitGeocoder(Geocoder::Params & params)
@@ -688,7 +670,7 @@ void Processor::InitPreRanker(Geocoder::Params const & geocoderParams)
     params.m_minDistanceOnMapBetweenResults = m_minDistanceOnMapBetweenResults;
   }
   params.m_accuratePivotCenter = GetPivotPoint();
-  params.m_scale = geocoderParams.m_scale;
+  params.m_scale = geocoderParams.GetScale();
 
   m_preRanker.Init(params);
 }

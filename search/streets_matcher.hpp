@@ -8,7 +8,7 @@
 namespace search
 {
 class FeaturesFilter;
-struct QueryParams;
+class QueryParams;
 
 class StreetsMatcher
 {

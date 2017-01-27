@@ -182,7 +182,7 @@ class PreResult2Maker
     TokenSlice slice(m_params, preInfo.m_startToken, preInfo.m_endToken);
     TokenSliceNoCategories sliceNoCategories(m_params, preInfo.m_startToken, preInfo.m_endToken);
 
-    for (auto const & lang : m_params.m_langs)
+    for (auto const & lang : m_params.GetLangs())
     {
       string name;
       if (!ft.GetName(lang, name))

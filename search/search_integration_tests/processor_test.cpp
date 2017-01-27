@@ -18,6 +18,7 @@
 #include "geometry/rect2d.hpp"
 
 #include "base/assert.hpp"
+#include "base/macros.hpp"
 #include "base/math.hpp"
 
 #include "std/shared_ptr.hpp"
@@ -531,10 +532,12 @@ UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
     my::Cancellable cancellable;
 
     QueryParams params;
-    params.m_tokens.emplace_back();
-    params.m_tokens.back().push_back(strings::MakeUniString("141702"));
+    {
+      strings::UniString const tokens[] = {strings::MakeUniString("141702")};
+      params.InitNoPrefix(tokens, tokens + ARRAY_SIZE(tokens));
+    }
     auto features = RetrievePostcodeFeatures(context, cancellable,
-                                             TokenSlice(params, 0, params.m_tokens.size()));
+                                             TokenSlice(params, 0, params.GetNumTokens()));
     TEST_EQUAL(1, features->PopCount(), ());
 
     uint64_t index = 0;
@@ -656,25 +659,6 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategories)
       }
     }
   }
-
-  {
-    TRules const rules = {ExactMatch(wonderlandId, nonameAtm), ExactMatch(wonderlandId, namedAtm)};
-
-    auto request = MakeRequest("#atm");
-
-    TEST(MatchResults(rules, request->Results()), ());
-    for (auto const & result : request->Results())
-    {
-      auto const & info = result.GetRankingInfo();
-
-      // Token with a hashtag should not participate in name-score
-      // calculations.
-      TEST_EQUAL(NAME_SCORE_ZERO, info.m_nameScore, (result));
-    }
-  }
-
-  // Tests that inexistent hashtagged categories do not crash.
-  TEST(ResultsMatch("#void-", TRules{}), ());
 
   TEST(ResultsMatch("wifi", {ExactMatch(wonderlandId, cafe)}), ());
   TEST(ResultsMatch("wi-fi", {ExactMatch(wonderlandId, cafe)}), ());

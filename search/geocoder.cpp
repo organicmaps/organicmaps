@@ -158,7 +158,7 @@ public:
     FeatureType ft;
     if (!m_context.GetFeature(featureId, ft))
       return;
-    for (auto const & lang : m_params.m_langs)
+    for (auto const & lang : m_params.GetLangs())
     {
       string name;
       if (ft.GetName(lang, name))
@@ -180,17 +180,7 @@ void JoinQueryTokens(QueryParams const & params, size_t curToken, size_t endToke
   ASSERT_LESS_OR_EQUAL(curToken, endToken, ());
   for (size_t i = curToken; i < endToken; ++i)
   {
-    if (i < params.m_tokens.size())
-    {
-      res.append(params.m_tokens[i].front());
-    }
-    else
-    {
-      CHECK_EQUAL(i, params.m_tokens.size(), ());
-      CHECK(!params.m_prefixTokens.empty(), ());
-      res.append(params.m_prefixTokens.front());
-    }
-
+    res.append(params.GetToken(i).m_original);
     if (i + 1 != endToken)
       res.append(sep);
   }
@@ -381,16 +371,26 @@ void Geocoder::SetParams(Params const & params)
   m_params = params;
 
   // Filter stop words.
-  if (m_params.m_tokens.size() > 1)
+  if (m_params.GetNumTokens() > 1)
   {
-    for (size_t i = 0; i < m_params.m_tokens.size();)
+    for (size_t i = 0; i < m_params.GetNumTokens();)
     {
-      auto & tokens = m_params.m_tokens[i];
-      my::EraseIf(tokens, &IsStopWord);
-      if (tokens.empty())
-        m_params.RemoveToken(i);
-      else
+      if (m_params.IsPrefixToken(i))
+      {
         ++i;
+        continue;
+      }
+
+      auto & token = m_params.GetToken(i);
+      if (IsStopWord(token.m_original))
+      {
+        m_params.RemoveToken(i);
+      }
+      else
+      {
+        my::EraseIf(token.m_synonyms, &IsStopWord);
+        ++i;
+      }
     }
 
     // If all tokens are stop words - give up.
@@ -402,57 +402,43 @@ void Geocoder::SetParams(Params const & params)
   // individually.
   for (size_t i = 0; i < m_params.GetNumTokens(); ++i)
   {
-    auto & synonyms = m_params.GetTokens(i);
-    ASSERT(!synonyms.empty(), ());
-
-    if (IsStreetSynonym(synonyms.front()))
-      m_params.m_typeIndices[i].clear();
+    auto & token = m_params.GetToken(i);
+    if (IsStreetSynonym(token.m_original))
+      m_params.GetTypeIndices(i).clear();
   }
 
-  m_tokenRequests.resize(m_params.m_tokens.size());
-  for (size_t i = 0; i < m_params.m_tokens.size(); ++i)
+  m_tokenRequests.clear();
+  m_prefixTokenRequest.Clear();
+  for (size_t i = 0; i < m_params.GetNumTokens(); ++i)
   {
-    auto & request = m_tokenRequests[i];
-    request.Clear();
-    for (auto const & name : m_params.m_tokens[i])
+    if (!m_params.IsPrefixToken(i))
     {
-      // Here and below, we use LevenshteinDFAs for fuzzy
-      // matching. But due to performance reasons, we assume that the
-      // first letter is always correct.
-      if (!IsHashtagged(name))
-        request.m_names.emplace_back(name, 1 /* prefixCharsToKeep */, GetMaxErrorsForToken(name));
-      else
-        request.m_names.emplace_back(name, 0 /* maxErrors */);
+      m_tokenRequests.emplace_back();
+      auto & request = m_tokenRequests.back();
+      m_params.GetToken(i).ForEach([&request](UniString const & s) {
+        // Here and below, we use LevenshteinDFAs for fuzzy
+        // matching. But due to performance reasons, we assume that the
+        // first letter is always correct.
+        request.m_names.emplace_back(s, 1 /* prefixCharsToKeep */, GetMaxErrorsForToken(s));
+      });
+      for (auto const & index : m_params.GetTypeIndices(i))
+        request.m_categories.emplace_back(FeatureTypeToString(index));
+      request.m_langs = m_params.GetLangs();
     }
-    for (auto const & index : m_params.m_typeIndices[i])
-      request.m_categories.emplace_back(FeatureTypeToString(index));
-    request.m_langs = m_params.m_langs;
-  }
-
-  if (m_params.LastTokenIsPrefix())
-  {
-    auto & request = m_prefixTokenRequest;
-    request.Clear();
-    for (auto const & name : m_params.m_prefixTokens)
+    else
     {
-      if (!IsHashtagged(name))
-      {
+      auto & request = m_prefixTokenRequest;
+      m_params.GetToken(i).ForEach([&request](UniString const & s) {
         request.m_names.emplace_back(
-            LevenshteinDFA(name, 1 /* prefixCharsToKeep */, GetMaxErrorsForToken(name)));
-      }
-      else
-      {
-        request.m_names.emplace_back(LevenshteinDFA(name, 0 /* maxErrors */));
-      }
+            LevenshteinDFA(s, 1 /* prefixCharsToKeep */, GetMaxErrorsForToken(s)));
+      });
+      for (auto const & index : m_params.GetTypeIndices(i))
+        request.m_categories.emplace_back(FeatureTypeToString(index));
+      request.m_langs = m_params.GetLangs();
     }
-    for (auto const & index : m_params.m_typeIndices.back())
-      request.m_categories.emplace_back(FeatureTypeToString(index));
-    request.m_langs = m_params.m_langs;
   }
 
-  LOG(LDEBUG, ("Tokens =", m_params.m_tokens));
-  LOG(LDEBUG, ("Prefix tokens =", m_params.m_prefixTokens));
-  LOG(LDEBUG, ("Languages =", m_params.m_langs));
+  LOG(LDEBUG, (static_cast<QueryParams const &>(m_params)));
 }
 
 void Geocoder::GoEverywhere()
@@ -526,6 +512,7 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
           InitBaseContext(ctx);
           FillLocalitiesTable(ctx);
         }
+
         m_context.reset();
       }
     }
@@ -646,7 +633,8 @@ void Geocoder::InitLayer(SearchModel::SearchType type, size_t startToken, size_t
 
   JoinQueryTokens(m_params, layer.m_startToken, layer.m_endToken, kUniSpace /* sep */,
                   layer.m_subQuery);
-  layer.m_lastTokenIsPrefix = (layer.m_endToken > m_params.m_tokens.size());
+  layer.m_lastTokenIsPrefix =
+      layer.m_startToken < layer.m_endToken && m_params.IsPrefixToken(layer.m_endToken - 1);
 }
 
 void Geocoder::FillLocalityCandidates(BaseContext const & ctx, CBV const & filter,
@@ -1400,8 +1388,8 @@ CBV Geocoder::RetrieveGeometryFeatures(MwmContext const & context, m2::RectD con
 {
   switch (id)
   {
-  case RECT_ID_PIVOT: return m_pivotRectsCache.Get(context, rect, m_params.m_scale);
-  case RECT_ID_LOCALITY: return m_localityRectsCache.Get(context, rect, m_params.m_scale);
+  case RECT_ID_PIVOT: return m_pivotRectsCache.Get(context, rect, m_params.GetScale());
+  case RECT_ID_LOCALITY: return m_localityRectsCache.Get(context, rect, m_params.GetScale());
   case RECT_ID_COUNT: ASSERT(false, ("Invalid RectId.")); return CBV();
   }
 }

@@ -8,7 +8,7 @@
 
 namespace search
 {
-struct QueryParams;
+class QueryParams;
 
 class LocalityScorer
 {
