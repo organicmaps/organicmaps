@@ -327,9 +327,6 @@
 		34D3AFE91E378AF1004100F9 /* UINib+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D3AFE81E378AF1004100F9 /* UINib+Init.swift */; };
 		34D3AFEA1E378AF1004100F9 /* UINib+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D3AFE81E378AF1004100F9 /* UINib+Init.swift */; };
 		34D3AFEB1E378AF1004100F9 /* UINib+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D3AFE81E378AF1004100F9 /* UINib+Init.swift */; };
-		34D3AFED1E378D61004100F9 /* UIView+Id.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D3AFEC1E378D61004100F9 /* UIView+Id.swift */; };
-		34D3AFEE1E378D61004100F9 /* UIView+Id.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D3AFEC1E378D61004100F9 /* UIView+Id.swift */; };
-		34D3AFEF1E378D61004100F9 /* UIView+Id.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D3AFEC1E378D61004100F9 /* UIView+Id.swift */; };
 		34D3AFF11E37945B004100F9 /* UITableView+Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D3AFF01E37945B004100F9 /* UITableView+Cells.swift */; };
 		34D3AFF21E37945B004100F9 /* UITableView+Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D3AFF01E37945B004100F9 /* UITableView+Cells.swift */; };
 		34D3AFF31E37945B004100F9 /* UITableView+Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D3AFF01E37945B004100F9 /* UITableView+Cells.swift */; };
@@ -1616,7 +1613,6 @@
 		34D15BA71BD8F93C00C8BCBE /* AddSetTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddSetTableViewCell.xib; sourceTree = "<group>"; };
 		34D3AFE01E376F7E004100F9 /* UITableView+Updates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Updates.swift"; sourceTree = "<group>"; };
 		34D3AFE81E378AF1004100F9 /* UINib+Init.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINib+Init.swift"; sourceTree = "<group>"; };
-		34D3AFEC1E378D61004100F9 /* UIView+Id.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Id.swift"; sourceTree = "<group>"; };
 		34D3AFF01E37945B004100F9 /* UITableView+Cells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Cells.swift"; sourceTree = "<group>"; };
 		34D3AFF41E37A36A004100F9 /* UICollectionView+Cells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Cells.swift"; sourceTree = "<group>"; };
 		34D3AFFD1E389D05004100F9 /* EditorAdditionalNamePlaceholderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorAdditionalNamePlaceholderTableViewCell.swift; sourceTree = "<group>"; };
@@ -2701,7 +2697,6 @@
 				3454D7B31E07F045004AF2AD /* UITextField+RuntimeAttributes.mm */,
 				3454D7B41E07F045004AF2AD /* UITextView+RuntimeAttributes.h */,
 				3454D7B51E07F045004AF2AD /* UITextView+RuntimeAttributes.mm */,
-				34D3AFEC1E378D61004100F9 /* UIView+Id.swift */,
 				3454D7B61E07F045004AF2AD /* UIView+RuntimeAttributes.h */,
 				3454D7B71E07F045004AF2AD /* UIView+RuntimeAttributes.mm */,
 				34F7422F1E0834F400AC1FD6 /* UIViewController+Navigation.h */,
@@ -4884,7 +4879,6 @@
 				F6E2FEEA1E097BA00083EBEC /* MWMSearchTextField.mm in Sources */,
 				F68FCB8A1DA7BD20007CC7D7 /* MWMTaxiPreviewCell.mm in Sources */,
 				3454D7D91E07F045004AF2AD /* UILabel+RuntimeAttributes.mm in Sources */,
-				34D3AFED1E378D61004100F9 /* UIView+Id.swift in Sources */,
 				F6E2FD9D1E097BA00083EBEC /* MWMEditBookmarkController.mm in Sources */,
 				F6E2FE091E097BA00083EBEC /* MWMOpeningHoursDeleteScheduleTableViewCell.mm in Sources */,
 				3454D7E21E07F045004AF2AD /* UITextView+RuntimeAttributes.mm in Sources */,
@@ -5140,7 +5134,6 @@
 				F6E2FEEB1E097BA00083EBEC /* MWMSearchTextField.mm in Sources */,
 				F68FCB8B1DA7BD20007CC7D7 /* MWMTaxiPreviewCell.mm in Sources */,
 				F6E2FD9E1E097BA00083EBEC /* MWMEditBookmarkController.mm in Sources */,
-				34D3AFEE1E378D61004100F9 /* UIView+Id.swift in Sources */,
 				F6E2FE0A1E097BA00083EBEC /* MWMOpeningHoursDeleteScheduleTableViewCell.mm in Sources */,
 				3454D7DA1E07F045004AF2AD /* UILabel+RuntimeAttributes.mm in Sources */,
 				3454D7E31E07F045004AF2AD /* UITextView+RuntimeAttributes.mm in Sources */,
@@ -5396,7 +5389,6 @@
 				F6E2FEEC1E097BA00083EBEC /* MWMSearchTextField.mm in Sources */,
 				3454D7DE1E07F045004AF2AD /* UISwitch+RuntimeAttributes.m in Sources */,
 				849CF7671DE842290024A8A5 /* CircleView.mm in Sources */,
-				34D3AFEF1E378D61004100F9 /* UIView+Id.swift in Sources */,
 				F6E2FD9F1E097BA00083EBEC /* MWMEditBookmarkController.mm in Sources */,
 				F6E2FE0B1E097BA00083EBEC /* MWMOpeningHoursDeleteScheduleTableViewCell.mm in Sources */,
 				849CF7691DE842290024A8A5 /* MWMTaxiPreviewCell.mm in Sources */,
