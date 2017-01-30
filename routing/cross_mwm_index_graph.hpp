@@ -42,10 +42,10 @@ public:
   /// transition segment.
   virtual bool IsTransition(Segment const & s, bool isOutgoing) const = 0;
 
-  /// \brief Fills |twins| with a duplicates of |s| transition segment in neighbouring mwm.
+  /// \brief Fills |twins| with duplicates of |s| transition segment in neighbouring mwm.
   /// For most cases there is only one twin for |s|.
-  /// If |s| is an enter transition segment fills |twins| with an appropriate exit transition segments.
-  /// If |s| is an exit transition segment fills |twins| with an appropriate enter transition segments.
+  /// If |s| is an enter transition segment fills |twins| with appropriate exit transition segments.
+  /// If |s| is an exit transition segment fills |twins| with appropriate enter transition segments.
   /// \note GetTwin(...) shall be called only if IsTransition(s, ...) returns true.
   virtual void GetTwin(Segment const & s, std::vector<Segment> & twins) const = 0;
 
