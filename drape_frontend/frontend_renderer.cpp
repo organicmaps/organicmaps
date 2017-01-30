@@ -1518,6 +1518,10 @@ bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport, m2::R
   {
     m2::RectD rect(pos, pos);
     m2::RectD targetRect(targetPos, targetPos);
+
+    if (m_overlayTree->IsNeedUpdate())
+      BuildOverlayTree(screen);
+
     if (!(m_selectionShape->GetSelectedObject() == SelectionShape::OBJECT_POI &&
           m_overlayTree->GetSelectedFeatureRect(screen, rect) &&
           m_overlayTree->GetSelectedFeatureRect(targetScreen, targetRect)))
@@ -1610,9 +1614,12 @@ void FrontendRenderer::OnContextDestroy()
     layer.m_isDirty = false;
   }
 
+  m_selectObjectMessage.reset();
+  m_overlayTree->SetSelectedFeature(FeatureID());
+
   m_userMarkRenderGroups.clear();
   m_guiRenderer.reset();
-  m_selectionShape.release();
+  m_selectionShape.reset();
   m_framebuffer.reset();
   m_transparentLayer.reset();
 

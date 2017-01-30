@@ -543,6 +543,7 @@ public:
   {}
 
   Type GetType() const override { return SelectObject; }
+  bool IsGLContextDependent() const override { return true; }
 
   m2::PointD const & GetPosition() const { return m_glbPoint; }
   SelectionShape::ESelectedObject GetSelectedObject() const { return m_selected; }
