@@ -1,5 +1,4 @@
 #import "MWMMapViewControlsManager.h"
-#import "MWMCommon.h"
 #import "EAGLView.h"
 #import "MWMAPIBar.h"
 #import "MWMAddPlaceNavigationBar.h"
@@ -8,6 +7,7 @@
 #import "MWMAuthorizationCommon.h"
 #import "MWMBottomMenuViewController.h"
 #import "MWMButton.h"
+#import "MWMCommon.h"
 #import "MWMFrameworkListener.h"
 #import "MWMObjectsCategorySelectorController.h"
 #import "MWMPlacePageManager.h"
@@ -21,6 +21,7 @@
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
+#import "SwiftBridge.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
@@ -88,9 +89,12 @@ extern NSString * const kAlohalyticsTapEventKey;
   BOOL const isMenuViewUnderStatusBar = self.menuState == MWMBottomMenuStateActive ||
                                         self.menuState == MWMBottomMenuStateRoutingExpanded;
   BOOL const isDirectionViewUnderStatusBar = !self.isDirectionViewHidden;
+  BOOL const isAddPlaceUnderStatusBar =
+      [self.ownerController.view hasSubviewWithViewClass:[MWMAddPlaceNavigationBar class]];
   BOOL const isNightMode = [UIColor isNightMode];
   BOOL const isSomethingUnderStatusBar = isSearchUnderStatusBar || isNavigationUnderStatusBar ||
-                                         isDirectionViewUnderStatusBar || isMenuViewUnderStatusBar;
+                                         isDirectionViewUnderStatusBar ||
+                                         isMenuViewUnderStatusBar || isAddPlaceUnderStatusBar;
 
   setStatusBarBackgroundColor(isSomethingUnderStatusBar ? [UIColor clearColor]
                                                         : [UIColor statusBarBackground]);
@@ -300,6 +304,7 @@ extern NSString * const kAlohalyticsTapEventKey;
       cancelBlock:^{
         [self didFinishAddingPlace];
       }];
+  [ownerController setNeedsStatusBarAppearanceUpdate];
 }
 
 #pragma mark - MWMNavigationDashboardManager
