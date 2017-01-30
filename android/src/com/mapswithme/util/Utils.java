@@ -32,6 +32,7 @@ import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.maps.uber.UberLinks;
+import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.AlohaHelper;
 
 import java.io.Closeable;
@@ -304,22 +305,31 @@ public class Utils
     activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.TWITTER_MAPSME_HTTP)));
   }
 
-  public static void sendSupportMail(Activity activity, String subject)
+  public static void sendSupportMail(final Activity activity, final String subject)
   {
-    final Intent intent = new Intent(Intent.ACTION_SEND);
-    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    intent.putExtra(Intent.EXTRA_EMAIL, new String[] { Constants.Email.SUPPORT });
-    intent.putExtra(Intent.EXTRA_SUBJECT, "[" + BuildConfig.VERSION_NAME + "] " + subject);
-    intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + Utils.saveLogToFile()));
-    intent.putExtra(Intent.EXTRA_TEXT, ""); // do this so some email clients don't complain about empty body.
-    intent.setType("message/rfc822");
-    try
+    //TODO: Add EXTRA_STREAM_MULTIPLE handling
+    LoggerFactory.INSTANCE.zipLogs(new LoggerFactory.OnZipCompletedListener()
     {
-      activity.startActivity(intent);
-    } catch (ActivityNotFoundException e)
-    {
-      AlohaHelper.logException(e);
-    }
+      @Override
+      public void onComplete(boolean success)
+      {
+        final Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[] { Constants.Email.SUPPORT });
+        intent.putExtra(Intent.EXTRA_SUBJECT, "[" + BuildConfig.VERSION_NAME + "] " + subject);
+        intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + Utils.saveLogToFile()));
+        intent.putExtra(Intent.EXTRA_TEXT, ""); // do this so some email clients don't complain about empty body.
+        intent.setType("message/rfc822");
+        try
+        {
+          activity.startActivity(intent);
+        } catch (ActivityNotFoundException e)
+        {
+          AlohaHelper.logException(e);
+        }
+      }
+    });
+
   }
 
   public static void navigateToParent(@NonNull Activity activity)

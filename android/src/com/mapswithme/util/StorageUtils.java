@@ -3,6 +3,7 @@ package com.mapswithme.util;
 import android.content.Context;
 import android.os.Environment;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.mapswithme.maps.MwmApplication;
@@ -11,6 +12,8 @@ import java.io.File;
 
 public class StorageUtils
 {
+  private final static String LOGS_FOLDER = "logs";
+
   /**
    * Checks if external storage is available for read and write
    *
@@ -42,5 +45,33 @@ public class StorageUtils
     Log.e(StorageUtils.class.getSimpleName(),
           "Cannot get the external files directory for some reasons", new Throwable());
     return null;
+  }
+
+  /**
+   * Check existence of the folder for writing the logs. If that folder is absent this method will
+   * try to create it and all missed parent folders.
+   * @return true - if folder exists, otherwise - false
+   */
+  public static boolean ensureLogsFolderExistence()
+  {
+    String externalDir = StorageUtils.getExternalFilesDir();
+    if (TextUtils.isEmpty(externalDir))
+      return false;
+
+    File folder = new File(externalDir + File.separator + LOGS_FOLDER);
+    boolean success = true;
+    if (!folder.exists())
+      success = folder.mkdirs();
+    return success;
+  }
+
+  @Nullable
+  public static String getLogsFolder()
+  {
+    if (!ensureLogsFolderExistence())
+      return null;
+
+    String externalDir = StorageUtils.getExternalFilesDir();
+    return externalDir + File.separator + LOGS_FOLDER;
   }
 }

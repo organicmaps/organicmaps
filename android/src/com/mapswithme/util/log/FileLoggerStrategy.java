@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.util.StorageUtils;
 import com.mapswithme.util.Utils;
 import net.jcip.annotations.NotThreadSafe;
 
@@ -19,8 +20,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.Executor;
 
 @NotThreadSafe
 class FileLoggerStrategy implements LoggerStrategy
@@ -29,11 +29,12 @@ class FileLoggerStrategy implements LoggerStrategy
   @NonNull
   private final String mFilePath;
   @NonNull
-  private final static ExecutorService EXECUTOR = Executors.newSingleThreadExecutor();
+  private final Executor mExecutor;
 
-  FileLoggerStrategy(@NonNull String filePath)
+  FileLoggerStrategy(@NonNull String filePath, @NonNull Executor executor)
   {
     mFilePath = filePath;
+    mExecutor = executor;
   }
 
   @Override
@@ -105,7 +106,7 @@ class FileLoggerStrategy implements LoggerStrategy
 
   private void write(@NonNull final String data)
   {
-    EXECUTOR.execute(new WriteTask(mFilePath, data, Thread.currentThread().getName()));
+    mExecutor.execute(new WriteTask(mFilePath, data, Thread.currentThread().getName()));
   }
 
   private static class WriteTask implements Runnable
@@ -146,7 +147,8 @@ class FileLoggerStrategy implements LoggerStrategy
       }
       catch (IOException e)
       {
-        Log.e(TAG, "Failed to write the string: " + mData);
+        Log.e(TAG, "Failed to write the string: " + mData, e);
+        Log.i(TAG, "Is logs folder existent: " + StorageUtils.ensureLogsFolderExistence());
       }
       finally
       {
@@ -157,7 +159,7 @@ class FileLoggerStrategy implements LoggerStrategy
           }
           catch (IOException e)
           {
-            Log.e(TAG, "Failed to close file: " + mData);
+            Log.e(TAG, "Failed to close file: " + mData, e);
           }
       }
     }

@@ -9,62 +9,6 @@ public class UiThread
 {
   private static final Handler sUiHandler = new Handler(Looper.getMainLooper());
 
-  /**
-   * Helper runnable classes that can be scheduled at any thread but will be started on UI thread only.
-   */
-  public static abstract class UiRunnable implements Runnable
-  {
-    @Override
-    public final void run()
-    {
-      if (currentThreadIsUi())
-        runUi();
-      else
-        UiThread.run(this);
-    }
-
-    protected abstract void runUi();
-  }
-
-  public static abstract class UiProc<T> implements Utils.Proc<T>
-  {
-    @Override
-    public final void invoke(final T param)
-    {
-      if (currentThreadIsUi())
-        invokeUi(param);
-      else
-        UiThread.run(new Runnable()
-        {
-          @Override
-          public void run()
-          {
-            invokeUi(param);
-          }
-        });
-    }
-
-    protected abstract void invokeUi(T param);
-  }
-
-  /**
-   * Checks if we currently on UI thread. Throws IllegalStateException if called not from UI thread.
-   */
-  public static void checkUi()
-  {
-    if (!currentThreadIsUi())
-      throw new IllegalStateException("Method should be called from UI thread.");
-  }
-
-  /**
-   * Checks if we currently not on UI thread. Throws IllegalStateException if called from UI thread.
-   */
-  public static void checkNotUi()
-  {
-    if (currentThreadIsUi())
-      throw new IllegalStateException("Method should NOT be called from UI thread.");
-  }
-
   public static boolean currentThreadIsUi()
   {
     return sUiHandler.getLooper().getThread() == Thread.currentThread();
