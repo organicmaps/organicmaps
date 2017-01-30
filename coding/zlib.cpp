@@ -61,9 +61,9 @@ ZLib::DeflateProcessor::~DeflateProcessor() noexcept
   int bits = 0;
   int const ret = deflatePending(&m_stream, &bytes, &bits);
   UNUSED_VALUE(ret);
-  ASSERT_EQUAL(ret, Z_OK, (""));
-  ASSERT_EQUAL(bytes, 0, ("Some bytes were not flushed:", bytes));
-  ASSERT_EQUAL(bits, 0, ("Some bits were not flushed:", bits));
+  ASSERT_EQUAL(ret, Z_OK, ());
+  ASSERT_EQUAL(bytes, 0, (bytes, "bytes were not flushed"));
+  ASSERT_EQUAL(bits, 0, (bits, "bits were not flushed"));
 
   if (m_init)
     deflateEnd(&m_stream);
