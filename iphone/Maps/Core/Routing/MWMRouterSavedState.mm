@@ -37,7 +37,7 @@ static NSString * const kETAKey = @"eta";
       if (endPointData && eta)
       {
         [endPointData getBytes:&point length:size];
-        _restorePoint = makeMWMRoutePoint(point, @"Destination");
+        _restorePoint = routePoint(point, @"Destination");
         if ([eta compare:[NSDate date]] == NSOrderedDescending)
           _forceStateChange = MWMRouterForceStateChange::Rebuild;
       }

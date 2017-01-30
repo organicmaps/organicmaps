@@ -203,7 +203,7 @@
     name = L(@"placepage_unknown_place");
 
   m2::PointD const & org = self.data.mercator;
-  return self.data.isMyPosition ? makeMWMRoutePoint(org) : makeMWMRoutePoint(org, name);
+  return self.data.isMyPosition ? routePoint(org) : routePoint(org, name);
 }
 
 - (void)share

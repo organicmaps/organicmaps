@@ -199,7 +199,7 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
 - (void)tapMyPositionFromHistory
 {
   MapsAppDelegate * a = MapsAppDelegate.theApp;
-  auto p = makeMWMRoutePoint([MWMLocationManager lastLocation].mercator);
+  auto p = routePoint([MWMLocationManager lastLocation].mercator);
   if (a.routingPlaneMode == MWMRoutingPlaneModeSearchSource)
     [[MWMRouter router] buildFromPoint:p bestRouter:YES];
   else if (a.routingPlaneMode == MWMRoutingPlaneModeSearchDestination)
@@ -218,12 +218,12 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
   MWMRoutingPlaneMode const m = a.routingPlaneMode;
   if (m == MWMRoutingPlaneModeSearchSource)
   {
-    auto p = makeMWMRoutePoint(result.GetFeatureCenter(), @(result.GetString().c_str()));
+    auto p = routePoint(result.GetFeatureCenter(), @(result.GetString().c_str()));
     [[MWMRouter router] buildFromPoint:p bestRouter:YES];
   }
   else if (m == MWMRoutingPlaneModeSearchDestination)
   {
-    auto p = makeMWMRoutePoint(result.GetFeatureCenter(), @(result.GetString().c_str()));
+    auto p = routePoint(result.GetFeatureCenter(), @(result.GetString().c_str()));
     [[MWMRouter router] buildToPoint:p bestRouter:YES];
   }
   else

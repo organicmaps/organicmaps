@@ -104,8 +104,8 @@ using namespace uber;
 {
   NSAssert(completion && failure, @"Completion and failure blocks must be not nil!");
   m_products.clear();
-  m_from = latlonMWMRoutePoint(from);
-  m_to = latlonMWMRoutePoint(to);
+  m_from = routePointLatLon(from);
+  m_to = routePointLatLon(to);
   auto cv = self.collectionView;
   cv.hidden = YES;
   cv.pageControl.hidden = YES;

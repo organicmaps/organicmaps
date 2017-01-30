@@ -34,7 +34,7 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
 MWMRoutePoint * lastLocationPoint()
 {
   CLLocation * lastLocation = [MWMLocationManager lastLocation];
-  return lastLocation ? makeMWMRoutePoint(lastLocation.mercator) : makeMWMRoutePointZero();
+  return lastLocation ? routePoint(lastLocation.mercator) : zeroRoutePoint();
 }
 
 bool isMarkerPoint(MWMRoutePoint * point) { return point.isValid && !point.isMyPosition; }
@@ -76,8 +76,8 @@ bool isMarkerPoint(MWMRoutePoint * point) { return point.isValid && !point.isMyP
 
   auto taxiDataSource = [MWMNavigationDashboardManager manager].taxiDataSource;
   auto eventName = taxiDataSource.isTaxiInstalled ? kStatRoutingTaxiOrder : kStatRoutingTaxiInstall;
-  auto const sLatLon = latlonMWMRoutePoint(router.startPoint);
-  auto const fLatLon = latlonMWMRoutePoint(router.finishPoint);
+  auto const sLatLon = routePointLatLon(router.startPoint);
+  auto const fLatLon = routePointLatLon(router.finishPoint);
 
   [Statistics logEvent:eventName
         withParameters:@{
@@ -114,7 +114,7 @@ bool isMarkerPoint(MWMRoutePoint * point) { return point.isValid && !point.isMyP
 - (void)resetPoints
 {
   self.startPoint = lastLocationPoint();
-  self.finishPoint = makeMWMRoutePointZero();
+  self.finishPoint = zeroRoutePoint();
 }
 
 - (void)setType:(MWMRouterType)type
@@ -459,7 +459,7 @@ bool isMarkerPoint(MWMRoutePoint * point) { return point.isValid && !point.isMyP
     return;
   _startPoint = startPoint;
   if (startPoint == self.finishPoint)
-    self.finishPoint = makeMWMRoutePointZero();
+    self.finishPoint = zeroRoutePoint();
   [[MWMNavigationDashboardManager manager].routePreview reloadData];
 }
 
@@ -469,7 +469,7 @@ bool isMarkerPoint(MWMRoutePoint * point) { return point.isValid && !point.isMyP
     return;
   _finishPoint = finishPoint;
   if (finishPoint == self.startPoint)
-    self.startPoint = makeMWMRoutePointZero();
+    self.startPoint = zeroRoutePoint();
   [[MWMNavigationDashboardManager manager].routePreview reloadData];
 }
 
