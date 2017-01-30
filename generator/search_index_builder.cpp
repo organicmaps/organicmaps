@@ -114,7 +114,7 @@ void GetCategoryTypes(CategoriesHolder const & categories, pair<int, int> const 
       continue;
 
     // There are some special non-drawable types we plan to search on.
-    if (invisibleChecker(t))
+    if (invisibleChecker.IsMatched(t))
     {
       result.push_back(t);
       continue;
