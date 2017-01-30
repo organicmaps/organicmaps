@@ -24,6 +24,7 @@ public:
   virtual void Finish() = 0;
   virtual double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road) const = 0;
   virtual double CalcHeuristic(m2::PointD const & from, m2::PointD const & to) const = 0;
+  virtual double GetUTurnPenalty() const = 0;
 
   static shared_ptr<EdgeEstimator> CreateForCar(IVehicleModel const & vehicleModel,
                                                 traffic::TrafficCache const & trafficCache);

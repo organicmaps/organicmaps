@@ -33,9 +33,11 @@ bool BuildRoadRestrictions(string const & mwmPath, string const & restrictionPat
   auto const firstOnlyIt =
       lower_bound(restrictions.cbegin(), restrictions.cend(),
                   Restriction(Restriction::Type::Only, {} /* links */), my::LessBy(&Restriction::m_type));
-  RoutingHeader header;
+
+  RestrictionHeader header;
   header.m_noRestrictionCount = base::checked_cast<uint32_t>(distance(restrictions.cbegin(), firstOnlyIt));
   header.m_onlyRestrictionCount = base::checked_cast<uint32_t>(restrictions.size() - header.m_noRestrictionCount);
+
   LOG(LINFO, ("Header info. There are", header.m_noRestrictionCount, "of type No restrictions and",
               header.m_onlyRestrictionCount, "of type Only restrictions"));
 

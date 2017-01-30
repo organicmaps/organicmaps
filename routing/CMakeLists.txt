@@ -70,6 +70,8 @@ set(
   pedestrian_model.hpp
   restriction_loader.cpp
   restriction_loader.hpp
+  restrictions_serialization.cpp
+  restrictions_serialization.hpp
   road_graph.cpp
   road_graph.hpp
   road_graph_router.cpp
@@ -92,8 +94,6 @@ set(
   routing_mapping.cpp
   routing_mapping.hpp
   routing_result_graph.hpp
-  routing_serialization.cpp
-  routing_serialization.hpp
   routing_session.cpp
   routing_session.hpp
   routing_settings.hpp

@@ -4,6 +4,7 @@
 #include "routing/geometry.hpp"
 #include "routing/joint.hpp"
 #include "routing/joint_index.hpp"
+#include "routing/restrictions_serialization.hpp"
 #include "routing/road_index.hpp"
 #include "routing/road_point.hpp"
 #include "routing/segment.hpp"
@@ -31,6 +32,7 @@ public:
 
   Geometry & GetGeometry() { return m_geometry; }
   EdgeEstimator const & GetEstimator() const { return *m_estimator; }
+  bool IsRoad(uint32_t featureId) const { return m_roadIndex.IsRoad(featureId); }
   RoadJointIds const & GetRoad(uint32_t featureId) const { return m_roadIndex.GetRoad(featureId); }
 
   uint32_t GetNumRoads() const { return m_roadIndex.GetSize(); }
@@ -39,6 +41,8 @@ public:
 
   void Build(uint32_t numJoints);
   void Import(vector<Joint> const & joints);
+
+  void SetRestrictions(RestrictionVec && restrictions);
 
   void PushFromSerializer(Joint::Id jointId, RoadPoint const & rp)
   {
@@ -51,16 +55,24 @@ public:
     m_roadIndex.ForEachRoad(forward<F>(f));
   }
 
+  template <typename F>
+  void ForEachPoint(Joint::Id jointId, F && f) const
+  {
+    m_jointIndex.ForEachPoint(jointId, forward<F>(f));
+  }
+
 private:
   double CalcSegmentWeight(Segment const & segment);
   void GetNeighboringEdges(Segment const & from, RoadPoint const & rp, bool isOutgoing,
                            vector<SegmentEdge> & edges);
   void GetNeighboringEdge(Segment const & from, Segment const & to, bool isOutgoing,
                           vector<SegmentEdge> & edges);
+  double GetPenalties(Segment const & u, Segment const & v) const;
 
   Geometry m_geometry;
   shared_ptr<EdgeEstimator> m_estimator;
   RoadIndex m_roadIndex;
   JointIndex m_jointIndex;
+  RestrictionVec m_restrictions;
 };
 }  // namespace routing

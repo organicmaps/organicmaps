@@ -1,4 +1,4 @@
-#include "routing/routing_serialization.hpp"
+#include "routing/restrictions_serialization.hpp"
 
 #include "std/sstream.hpp"
 
@@ -15,8 +15,8 @@ uint32_t const Restriction::kInvalidFeatureId = numeric_limits<uint32_t>::max();
 
 bool Restriction::IsValid() const
 {
-  return !m_featureIds.empty() && find(begin(m_featureIds), end(m_featureIds), kInvalidFeatureId)
-      == end(m_featureIds);
+  return !m_featureIds.empty() &&
+         find(begin(m_featureIds), end(m_featureIds), kInvalidFeatureId) == end(m_featureIds);
 }
 
 bool Restriction::operator==(Restriction const & restriction) const

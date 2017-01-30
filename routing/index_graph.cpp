@@ -1,9 +1,59 @@
-#include "index_graph.hpp"
+#include "routing/index_graph.hpp"
+
+#include "routing/restrictions_serialization.hpp"
 
 #include "base/assert.hpp"
+#include "base/checked_cast.hpp"
 #include "base/exception.hpp"
 
-#include "std/limits.hpp"
+#include <algorithm>
+#include <limits>
+
+namespace
+{
+using namespace base;
+using namespace routing;
+using namespace std;
+
+bool IsUTurn(Segment const & u, Segment const & v)
+{
+  return u.GetFeatureId() == v.GetFeatureId() && u.GetSegmentIdx() == v.GetSegmentIdx() &&
+         u.IsForward() != v.IsForward();
+}
+
+bool IsRestricted(RestrictionVec const & restrictions, Segment const & u, Segment const & v,
+                  bool isOutgoing)
+{
+  uint32_t const featureIdFrom = isOutgoing ? u.GetFeatureId() : v.GetFeatureId();
+  uint32_t const featureIdTo = isOutgoing ? v.GetFeatureId() : u.GetFeatureId();
+
+  if (!binary_search(restrictions.cbegin(), restrictions.cend(),
+                     Restriction(Restriction::Type::No, {featureIdFrom, featureIdTo})))
+  {
+    return false;
+  }
+
+  if (featureIdFrom != featureIdTo)
+    return true;
+
+  // @TODO(bykoianko) According to current code if a feature id is marked as a feature with
+  // restrictricted U-turn it's restricted to make a U-turn on the both ends of the feature.
+  // Generally speaking it's wrong. In osm there's information about the end of the feature
+  // where the U-turn is restricted. It's necessary to pass the data to mwm and to use it here.
+  // Please see test LineGraph_RestrictionF1F1No for details.
+  //
+  // Another example when it's necessary to be aware about feature end participated in restriction
+  // is
+  //        *---F1---*
+  //        |        |
+  // *--F3--A        B--F4--*
+  //        |        |
+  //        *---F2---*
+  // In case of restriction F1-A-F2 or F1-B-F2 of any type (No, Only) the important information
+  // is lost.
+  return IsUTurn(u, v);
+}
+}  // namespace
 
 namespace routing
 {
@@ -36,7 +86,13 @@ void IndexGraph::Import(vector<Joint> const & joints)
 {
   m_roadIndex.Import(joints);
   CHECK_LESS_OR_EQUAL(joints.size(), numeric_limits<uint32_t>::max(), ());
-  Build(static_cast<uint32_t>(joints.size()));
+  Build(checked_cast<uint32_t>(joints.size()));
+}
+
+void IndexGraph::SetRestrictions(RestrictionVec && restrictions)
+{
+  ASSERT(is_sorted(restrictions.cbegin(), restrictions.cend()), ());
+  m_restrictions = move(restrictions);
 }
 
 double IndexGraph::CalcSegmentWeight(Segment const & segment)
@@ -70,17 +126,27 @@ void IndexGraph::GetNeighboringEdges(Segment const & from, RoadPoint const & rp,
 void IndexGraph::GetNeighboringEdge(Segment const & from, Segment const & to, bool isOutgoing,
                                     vector<SegmentEdge> & edges)
 {
+  // Blocking U-turns on internal feature points.
   RoadPoint const rp = from.GetRoadPoint(isOutgoing);
-  if (from.GetFeatureId() == to.GetFeatureId() && from.GetSegmentIdx() == to.GetSegmentIdx()
-      && from.IsForward() != to.IsForward()
-      && m_roadIndex.GetJointId(rp) == Joint::kInvalidId
-      && rp.GetPointId() != 0
-      && rp.GetPointId() + 1 != m_geometry.GetRoad(from.GetFeatureId()).GetPointsCount())
+  if (IsUTurn(from, to) && m_roadIndex.GetJointId(rp) == Joint::kInvalidId
+      && !m_geometry.GetRoad(from.GetFeatureId()).IsEndPointId(rp.GetPointId()))
   {
     return;
   }
 
-  double const weight = CalcSegmentWeight(isOutgoing ? to : from);
+  if (IsRestricted(m_restrictions, from, to, isOutgoing))
+    return;
+
+  double const weight = CalcSegmentWeight(isOutgoing ? to : from) +
+                        GetPenalties(isOutgoing ? from : to, isOutgoing ? to : from);
   edges.emplace_back(to, weight);
+}
+
+double IndexGraph::GetPenalties(Segment const & u, Segment const & v) const
+{
+  if (IsUTurn(u, v))
+    return GetEstimator().GetUTurnPenalty();
+
+  return 0.0;
 }
 }  // namespace routing

@@ -9,10 +9,14 @@ set(
   astar_router_test.cpp
   async_router_test.cpp
   cross_routing_tests.cpp
+  cumulative_restriction_test.cpp
   followed_polyline_test.cpp
+  index_graph_tools.cpp
+  index_graph_tools.hpp
   nearest_edge_finder_tests.cpp
   online_cross_fetcher_test.cpp
   osrm_router_test.cpp
+  restriction_test.cpp
   road_graph_builder.cpp
   road_graph_builder.hpp
   road_graph_nearest_edges_test.cpp

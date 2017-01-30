@@ -5,7 +5,7 @@
 #include "generator/osm_id.hpp"
 #include "generator/restriction_collector.hpp"
 
-#include "routing/routing_serialization.hpp"
+#include "routing/restrictions_serialization.hpp"
 
 #include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/platform_tests_support/scoped_file.hpp"

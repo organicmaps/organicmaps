@@ -10,6 +10,7 @@
 #include "routing/index_graph_starter.hpp"
 #include "routing/index_road_graph.hpp"
 #include "routing/pedestrian_model.hpp"
+#include "routing/restriction_loader.hpp"
 #include "routing/route.hpp"
 #include "routing/routing_helpers.hpp"
 #include "routing/turns_generator.hpp"
@@ -190,6 +191,10 @@ bool SingleMwmRouter::LoadIndex(MwmSet::MwmId const & mwmId, string const & coun
     FilesContainerR::TReader reader(mwmValue->m_cont.GetReader(ROUTING_FILE_TAG));
     ReaderSource<FilesContainerR::TReader> src(reader);
     IndexGraphSerializer::Deserialize(graph, src, kCarMask);
+    RestrictionLoader restrictionLoader(*mwmValue, graph);
+    if (restrictionLoader.HasRestrictions())
+      graph.SetRestrictions(restrictionLoader.StealRestrictions());
+
     LOG(LINFO,
         (ROUTING_FILE_TAG, "section for", country, "loaded in", timer.ElapsedSeconds(), "seconds"));
     return true;
@@ -203,8 +208,9 @@ bool SingleMwmRouter::LoadIndex(MwmSet::MwmId const & mwmId, string const & coun
 }
 
 bool SingleMwmRouter::RedressRoute(MwmSet::MwmId const & mwmId, IVehicleModel const & vehicleModel,
-                                 vector<Segment> const & segments, RouterDelegate const & delegate,
-                                 IndexGraphStarter & starter, Route & route) const
+                                   vector<Segment> const & segments,
+                                   RouterDelegate const & delegate, IndexGraphStarter & starter,
+                                   Route & route) const
 {
   vector<Junction> junctions;
   size_t const numPoints = IndexGraphStarter::GetRouteNumPoints(segments);

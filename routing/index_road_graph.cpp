@@ -88,8 +88,9 @@ const Segment & IndexRoadGraph::GetSegment(Junction const & junction, bool isOut
 {
   auto const & junctionToSegment = isOutgoing ? m_endToSegment : m_beginToSegment;
 
-  auto it = junctionToSegment.find(junction);
-  CHECK(it != junctionToSegment.cend(), ("junctionToSegment doesn't contains", junction, ", isOutgoing =" + isOutgoing));
+  auto const it = junctionToSegment.find(junction);
+  CHECK(it != junctionToSegment.cend(),
+        ("junctionToSegment doesn't contain", junction, ", isOutgoing =", isOutgoing));
   return it->second;
 }
 }  // namespace routing

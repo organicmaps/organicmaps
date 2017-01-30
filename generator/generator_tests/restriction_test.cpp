@@ -45,6 +45,28 @@ void BuildEmptyMwm(LocalCountryFile & country)
   generator::tests_support::TestMwmBuilder builder(country, feature::DataHeader::country);
 }
 
+void LoadRestrictions(MwmValue const & mwmValue, RestrictionVec & restrictions)
+{
+  if (!mwmValue.m_cont.IsExist(RESTRICTIONS_FILE_TAG))
+    return;
+
+  try
+  {
+    FilesContainerR::TReader const reader = mwmValue.m_cont.GetReader(RESTRICTIONS_FILE_TAG);
+    ReaderSource<FilesContainerR::TReader> src(reader);
+    RestrictionHeader header;
+    header.Deserialize(src);
+
+    RestrictionVec restrictionsOnly;
+    RestrictionSerializer::Deserialize(header, restrictions, restrictionsOnly, src);
+    restrictions.insert(restrictions.end(), restrictionsOnly.cbegin(), restrictionsOnly.cend());
+  }
+  catch (Reader::OpenException const & e)
+  {
+    LOG(LERROR, ("Error while reading", RESTRICTIONS_FILE_TAG, "section.", e.Msg()));
+  }
+}
+
 /// \brief Generates a restriction section, adds it to an empty mwm,
 /// loads the restriction section and test loaded restrictions.
 /// \param restrictionContent comma separated text with restrictions in osm id terms.
@@ -83,10 +105,12 @@ void TestRestrictionBuilding(string const & restrictionContent, string const & m
 
   MwmSet::MwmHandle mwmHandle = index.GetMwmHandleById(regResult.first);
   TEST(mwmHandle.IsAlive(), ());
-  RestrictionLoader const restrictionLoader(*mwmHandle.GetValue<MwmValue>());
+
+  RestrictionVec restrictionsFromMwm;
+  LoadRestrictions(*mwmHandle.GetValue<MwmValue>(), restrictionsFromMwm);
   RestrictionCollector const restrictionCollector(restrictionFullPath, mappingFullPath);
 
-  TEST_EQUAL(restrictionLoader.GetRestrictions(), restrictionCollector.GetRestrictions(), ());
+  TEST_EQUAL(restrictionsFromMwm, restrictionCollector.GetRestrictions(), ());
 }
 
 UNIT_TEST(RestrictionGenerationTest_NoRestriction)
