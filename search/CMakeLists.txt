@@ -132,7 +132,9 @@ set(
 
 add_library(${PROJECT_NAME} ${SRC})
 
-omim_add_test_subdirectory(search_tests_support)
+if (PLATFORM_DESKTOP)
+  add_subdirectory(search_tests_support)
+  add_subdirectory(search_quality)
+endif()
 omim_add_test_subdirectory(search_tests)
 omim_add_test_subdirectory(search_integration_tests)
-add_subdirectory(search_quality)
