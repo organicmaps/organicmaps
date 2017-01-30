@@ -57,6 +57,8 @@ public:
   bool operator!=(Segment const & seg) const { return !(*this == seg); }
 
 private:
+  // @TODO(bykoianko, dobriy-eeh). It's necessary to add a member for mwm identification
+  // as a field. It'll be used during implementation of CrossMwmIndexGraph interface.
   uint32_t m_featureId = 0;
   uint32_t m_segmentIdx = 0;
   bool m_forward = true;
