@@ -1,5 +1,7 @@
 project(openlr_stat)
 
+include_directories(${OMIM_ROOT}/3party/gflags/src)
+
 set(
   SRC
   openlr_stat.cpp

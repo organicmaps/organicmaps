@@ -1,6 +1,7 @@
 project(desktop)
 
 set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
 
 QT5_ADD_RESOURCES(RES_SOURCES res/resources.qrc)
 
@@ -13,6 +14,7 @@ execute_process(
 
 include_directories(
   ${OMIM_ROOT}/3party/glm
+  ${CMAKE_CURRENT_BINARY_DIR}
 )
 
 set(
@@ -46,6 +48,12 @@ set(
   search_panel.hpp
   slider_ctrl.cpp
   slider_ctrl.hpp
+  traffic_mode.cpp
+  traffic_mode.hpp
+  traffic_panel.cpp
+  traffic_panel.hpp
+  trafficmodeinitdlg.cpp
+  trafficmodeinitdlg.h
   update_dialog.cpp
   update_dialog.hpp
 )
@@ -80,6 +88,7 @@ omim_link_libraries(
   pugixml
   oauthcpp
   opening_hours
+  openlr
   ${Qt5Gui_LIBRARIES}
   ${Qt5Network_LIBRARIES}
   ${Qt5Widgets_LIBRARIES}
