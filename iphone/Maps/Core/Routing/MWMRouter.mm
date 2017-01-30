@@ -2,12 +2,14 @@
 #import <Pushwoosh/PushNotificationManager.h>
 #import "CLLocation+Mercator.h"
 #import "MWMAlertViewController.h"
+#import "MWMCoreRouterType.h"
 #import "MWMFrameworkListener.h"
 #import "MWMLocationHelpers.h"
 #import "MWMLocationManager.h"
 #import "MWMLocationObserver.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMNavigationDashboardManager.h"
+#import "MWMRoutePoint.h"
 #import "MWMRouterSavedState.h"
 #import "MWMSearch.h"
 #import "MWMSettings.h"
@@ -29,19 +31,19 @@ namespace
 {
 char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeImagesQueue";
 
-MWMRoutePoint lastLocationPoint()
+MWMRoutePoint * lastLocationPoint()
 {
   CLLocation * lastLocation = [MWMLocationManager lastLocation];
-  return lastLocation ? MWMRoutePoint(lastLocation.mercator) : MWMRoutePoint::MWMRoutePointZero();
+  return lastLocation ? makeMWMRoutePoint(lastLocation.mercator) : makeMWMRoutePointZero();
 }
 
-bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !point.IsMyPosition(); }
+bool isMarkerPoint(MWMRoutePoint * point) { return point.isValid && !point.isMyPosition; }
 }  // namespace
 
 @interface MWMRouter ()<MWMLocationObserver, MWMFrameworkRouteBuilderObserver>
 
-@property(nonatomic, readwrite) MWMRoutePoint startPoint;
-@property(nonatomic, readwrite) MWMRoutePoint finishPoint;
+@property(nonatomic, readwrite) MWMRoutePoint * startPoint;
+@property(nonatomic, readwrite) MWMRoutePoint * finishPoint;
 
 @property(nonatomic) NSMutableDictionary<NSValue *, NSData *> * altitudeImagesData;
 @property(nonatomic) NSString * altitudeElevation;
@@ -74,8 +76,8 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
 
   auto taxiDataSource = [MWMNavigationDashboardManager manager].taxiDataSource;
   auto eventName = taxiDataSource.isTaxiInstalled ? kStatRoutingTaxiOrder : kStatRoutingTaxiInstall;
-  auto const & sLatLon = MercatorBounds::ToLatLon(router.startPoint.Point());
-  auto const & fLatLon = MercatorBounds::ToLatLon(router.finishPoint.Point());
+  auto const sLatLon = latlonMWMRoutePoint(router.startPoint);
+  auto const fLatLon = latlonMWMRoutePoint(router.finishPoint);
 
   [Statistics logEvent:eventName
         withParameters:@{
@@ -112,23 +114,21 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
 - (void)resetPoints
 {
   self.startPoint = lastLocationPoint();
-  self.finishPoint = MWMRoutePoint::MWMRoutePointZero();
+  self.finishPoint = makeMWMRoutePointZero();
 }
 
-- (void)setType:(RouterType)type
+- (void)setType:(MWMRouterType)type
 {
   if (type == self.type)
     return;
   [self doStop];
-  GetFramework().SetRouter(type);
+  GetFramework().SetRouter(coreRouterType(type));
 }
 
-- (RouterType)type { return GetFramework().GetRouter(); }
+- (MWMRouterType)type { return routerType(GetFramework().GetRouter()); }
 - (BOOL)arePointsValidForRouting
 {
-  MWMRoutePoint const zeroPoint = MWMRoutePoint::MWMRoutePointZero();
-  return self.startPoint != zeroPoint && self.finishPoint != zeroPoint &&
-         self.startPoint != self.finishPoint;
+  return self.startPoint.isValid && self.finishPoint.isValid && self.startPoint != self.finishPoint;
 }
 
 - (void)swapPointsAndRebuild
@@ -138,22 +138,22 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
   [self rebuildWithBestRouter:NO];
 }
 
-- (void)buildFromPoint:(MWMRoutePoint const &)startPoint bestRouter:(BOOL)bestRouter
+- (void)buildFromPoint:(MWMRoutePoint *)startPoint bestRouter:(BOOL)bestRouter
 {
   self.startPoint = startPoint;
   [self rebuildWithBestRouter:bestRouter];
 }
 
-- (void)buildToPoint:(MWMRoutePoint const &)finishPoint bestRouter:(BOOL)bestRouter
+- (void)buildToPoint:(MWMRoutePoint *)finishPoint bestRouter:(BOOL)bestRouter
 {
-  if (!self.startPoint.IsValid() && !finishPoint.IsMyPosition())
+  if (!self.startPoint.isValid && !finishPoint.isMyPosition)
     self.startPoint = lastLocationPoint();
   self.finishPoint = finishPoint;
   [self rebuildWithBestRouter:bestRouter];
 }
 
-- (void)buildFromPoint:(MWMRoutePoint const &)start
-               toPoint:(MWMRoutePoint const &)finish
+- (void)buildFromPoint:(MWMRoutePoint *)start
+               toPoint:(MWMRoutePoint *)finish
             bestRouter:(BOOL)bestRouter
 {
   self.startPoint = start;
@@ -166,13 +166,13 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
   [self clearAltitudeImagesData];
 
   bool isP2P = false;
-  if (self.startPoint.IsMyPosition())
+  if (self.startPoint.isMyPosition)
   {
     [Statistics logEvent:kStatPointToPoint
           withParameters:@{kStatAction : kStatBuildRoute, kStatValue : kStatFromMyPosition}];
     self.startPoint = lastLocationPoint();
   }
-  else if (self.finishPoint.IsMyPosition())
+  else if (self.finishPoint.isMyPosition)
   {
     [Statistics logEvent:kStatPointToPoint
           withParameters:@{kStatAction : kStatBuildRoute, kStatValue : kStatToMyPosition}];
@@ -190,11 +190,11 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
   if (![self arePointsValidForRouting])
     return;
   auto & f = GetFramework();
-  auto const & startPoint = self.startPoint.Point();
-  auto const & finishPoint = self.finishPoint.Point();
+  auto startPoint = mercatorMWMRoutePoint(self.startPoint);
+  auto finishPoint = mercatorMWMRoutePoint(self.finishPoint);
   // Taxi can't be used as best router.
   if (bestRouter && ![[self class] isTaxi])
-    self.type = GetFramework().GetBestRouter(startPoint, finishPoint);
+    self.type = routerType(GetFramework().GetBestRouter(startPoint, finishPoint));
   f.BuildRoute(startPoint, finishPoint, isP2P, 0 /* timeoutSec */);
   f.SetRouteStartPoint(startPoint, isMarkerPoint(self.startPoint));
   f.SetRouteFinishPoint(finishPoint, isMarkerPoint(self.finishPoint));
@@ -204,17 +204,17 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
 - (void)start
 {
   auto const doStart = ^{
-    if (self.startPoint.IsMyPosition())
+    if (self.startPoint.isMyPosition)
       [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatGo)
             withParameters:@{kStatValue : kStatFromMyPosition}];
-    else if (self.finishPoint.IsMyPosition())
+    else if (self.finishPoint.isMyPosition)
       [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatGo)
             withParameters:@{kStatValue : kStatToMyPosition}];
     else
       [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatGo)
             withParameters:@{kStatValue : kStatPointToPoint}];
 
-    if (self.startPoint.IsMyPosition())
+    if (self.startPoint.isMyPosition)
     {
       GetFramework().FollowRoute();
       [[MWMMapViewControlsManager manager] onRouteStart];
@@ -230,7 +230,7 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
       CLLocation * lastLocation = [MWMLocationManager lastLocation];
       BOOL const needToRebuild = lastLocation &&
                                  !location_helpers::isMyPositionPendingOrNoPosition() &&
-                                 !self.finishPoint.IsMyPosition();
+                                 !self.finishPoint.isMyPosition;
       [alertController presentPoint2PointAlertWithOkBlock:^{
         [self buildFromPoint:lastLocationPoint() bestRouter:NO];
       }
@@ -358,7 +358,7 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
     if (state.forceStateChange == MWMRouterForceStateChange::Rebuild)
     {
       state.forceStateChange = MWMRouterForceStateChange::Start;
-      self.type = GetFramework().GetLastUsedRouter();
+      self.type = routerType(GetFramework().GetLastUsedRouter());
       [self buildToPoint:state.restorePoint bestRouter:NO];
     }
   }
@@ -453,23 +453,23 @@ bool isMarkerPoint(MWMRoutePoint const & point) { return point.IsValid() && !poi
 
 #pragma mark - Properties
 
-- (void)setStartPoint:(MWMRoutePoint)startPoint
+- (void)setStartPoint:(MWMRoutePoint *)startPoint
 {
   if (_startPoint == startPoint)
     return;
   _startPoint = startPoint;
   if (startPoint == self.finishPoint)
-    self.finishPoint = MWMRoutePoint::MWMRoutePointZero();
+    self.finishPoint = makeMWMRoutePointZero();
   [[MWMNavigationDashboardManager manager].routePreview reloadData];
 }
 
-- (void)setFinishPoint:(MWMRoutePoint)finishPoint
+- (void)setFinishPoint:(MWMRoutePoint *)finishPoint
 {
   if (_finishPoint == finishPoint)
     return;
   _finishPoint = finishPoint;
   if (finishPoint == self.startPoint)
-    self.startPoint = MWMRoutePoint::MWMRoutePointZero();
+    self.startPoint = makeMWMRoutePointZero();
   [[MWMNavigationDashboardManager manager].routePreview reloadData];
 }
 

@@ -1,4 +1,4 @@
-class MWMRoutePoint;
+@class MWMRoutePoint;
 
 @interface MWMTaxiCollectionView : UICollectionView
 
@@ -11,10 +11,10 @@ class MWMRoutePoint;
 
 - (instancetype)initWithCollectionView:(MWMTaxiCollectionView *)collectionView;
 
-- (void)requestTaxiFrom:(MWMRoutePoint const &)from
-                         to:(MWMRoutePoint const &)to
-                          completion:(TMWMVoidBlock)completion
-                             failure:(MWMStringBlock)failure;
+- (void)requestTaxiFrom:(MWMRoutePoint *)from
+                     to:(MWMRoutePoint *)to
+             completion:(TMWMVoidBlock)completion
+                failure:(MWMStringBlock)failure;
 
 - (NSURL *)taxiURL;
 - (BOOL)isTaxiInstalled;

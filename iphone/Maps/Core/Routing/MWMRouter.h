@@ -1,6 +1,6 @@
-#include "MWMRoutePoint.h"
+#import "MWMRouterType.h"
 
-#include "routing/router.hpp"
+@class MWMRoutePoint;
 
 typedef void (^MWMImageHeightBlock)(UIImage *, NSString *);
 
@@ -13,15 +13,15 @@ typedef void (^MWMImageHeightBlock)(UIImage *, NSString *);
 + (void)startRouting;
 + (void)stopRouting;
 
-@property(nonatomic, readonly) MWMRoutePoint startPoint;
-@property(nonatomic, readonly) MWMRoutePoint finishPoint;
-@property(nonatomic) routing::RouterType type;
+@property(nonatomic, readonly) MWMRoutePoint * startPoint;
+@property(nonatomic, readonly) MWMRoutePoint * finishPoint;
+@property(nonatomic) MWMRouterType type;
 
 - (void)swapPointsAndRebuild;
-- (void)buildFromPoint:(MWMRoutePoint const &)start bestRouter:(BOOL)bestRouter;
-- (void)buildToPoint:(MWMRoutePoint const &)finish bestRouter:(BOOL)bestRouter;
-- (void)buildFromPoint:(MWMRoutePoint const &)start
-               toPoint:(MWMRoutePoint const &)finish
+- (void)buildFromPoint:(MWMRoutePoint *)start bestRouter:(BOOL)bestRouter;
+- (void)buildToPoint:(MWMRoutePoint *)finish bestRouter:(BOOL)bestRouter;
+- (void)buildFromPoint:(MWMRoutePoint *)start
+               toPoint:(MWMRoutePoint *)finish
             bestRouter:(BOOL)bestRouter;
 - (void)rebuildWithBestRouter:(BOOL)bestRouter;
 - (void)routeAltitudeImageForSize:(CGSize)size completion:(MWMImageHeightBlock)block;

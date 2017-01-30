@@ -156,14 +156,14 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
   auto showError = ^(NSString * errorMessage)
   {
     [self.routePreview stateError];
-    [self.routePreview router:routing::RouterType::Taxi setState:MWMCircularProgressStateFailed];
+    [self.routePreview router:MWMRouterTypeTaxi setState:MWMCircularProgressStateFailed];
     [self setMenuErrorStateWithErrorMessage:errorMessage];
   };
 
   auto r = [MWMRouter router];
   auto const & start = r.startPoint;
   auto const & finish = r.finishPoint;
-  if (start.IsValid() && finish.IsValid())
+  if (start.isValid && finish.isValid)
   {
     if (!Platform::IsConnected())
     {

@@ -11,6 +11,7 @@
 #import "MWMLocationObserver.h"
 #import "MWMPlacePageData.h"
 #import "MWMPlacePageLayout.h"
+#import "MWMRoutePoint.h"
 #import "MWMRouter.h"
 #import "MWMSideButtons.h"
 #import "MWMStorage.h"
@@ -182,11 +183,11 @@
         withParameters:@{kStatProvider : kStatUber, kStatTags : self.data.statisticsTags}];
   [self close];
   auto router = [MWMRouter router];
-  router.type = routing::RouterType::Taxi;
+  router.type = MWMRouterTypeTaxi;
   [router buildToPoint:self.target bestRouter:NO];
 }
 
-- (MWMRoutePoint)target
+- (MWMRoutePoint *)target
 {
   NSString * name = nil;
   auto d = self.data;
@@ -202,7 +203,7 @@
     name = L(@"placepage_unknown_place");
 
   m2::PointD const & org = self.data.mercator;
-  return self.data.isMyPosition ? MWMRoutePoint(org) : MWMRoutePoint(org, name);
+  return self.data.isMyPosition ? makeMWMRoutePoint(org) : makeMWMRoutePoint(org, name);
 }
 
 - (void)share

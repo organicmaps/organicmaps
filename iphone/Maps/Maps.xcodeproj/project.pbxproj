@@ -400,10 +400,16 @@
 		34D4FA671E265749003F53EF /* WhatsNewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D4FA651E265749003F53EF /* WhatsNewController.swift */; };
 		34D4FA681E265749003F53EF /* WhatsNewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D4FA651E265749003F53EF /* WhatsNewController.swift */; };
 		34EB5E7E1C900159002C4D37 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 845C89301C89837900940D7F /* AssetsLibrary.framework */; };
+		34ED298A1E3BB9B40054D003 /* RoutePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34ED29891E3BB9B40054D003 /* RoutePoint.swift */; };
+		34ED298B1E3BB9B40054D003 /* RoutePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34ED29891E3BB9B40054D003 /* RoutePoint.swift */; };
+		34ED298C1E3BB9B40054D003 /* RoutePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34ED29891E3BB9B40054D003 /* RoutePoint.swift */; };
 		34EF94291C05A6F30050B714 /* MWMSegue.mm in Sources */ = {isa = PBXBuildFile; fileRef = F607C18D1C047FDC00B53A87 /* MWMSegue.mm */; };
 		34F5E0D31E3F254800B1C415 /* UIView+Hierarchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F5E0D21E3F254800B1C415 /* UIView+Hierarchy.swift */; };
 		34F5E0D41E3F254800B1C415 /* UIView+Hierarchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F5E0D21E3F254800B1C415 /* UIView+Hierarchy.swift */; };
 		34F5E0D51E3F254800B1C415 /* UIView+Hierarchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F5E0D21E3F254800B1C415 /* UIView+Hierarchy.swift */; };
+		34F5E0D71E3F334700B1C415 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F5E0D61E3F334700B1C415 /* Types.swift */; };
+		34F5E0D81E3F334700B1C415 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F5E0D61E3F334700B1C415 /* Types.swift */; };
+		34F5E0D91E3F334700B1C415 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F5E0D61E3F334700B1C415 /* Types.swift */; };
 		34F73F9B1E082FF800AC1FD6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 34F73F5F1E082FF700AC1FD6 /* InfoPlist.strings */; };
 		34F73F9C1E082FF800AC1FD6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 34F73F5F1E082FF700AC1FD6 /* InfoPlist.strings */; };
 		34F73F9D1E082FF800AC1FD6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 34F73F5F1E082FF700AC1FD6 /* InfoPlist.strings */; };
@@ -1431,7 +1437,6 @@
 		3404752F1E081A4600C92850 /* MWMLocationPredictor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMLocationPredictor.mm; sourceTree = "<group>"; };
 		340475311E081A4600C92850 /* MWMNetworkPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNetworkPolicy.h; sourceTree = "<group>"; };
 		340475321E081A4600C92850 /* MWMNetworkPolicy.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNetworkPolicy.mm; sourceTree = "<group>"; };
-		340475341E081A4600C92850 /* MWMRoutePoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRoutePoint.h; sourceTree = "<group>"; };
 		340475351E081A4600C92850 /* MWMRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRouter.h; sourceTree = "<group>"; };
 		340475361E081A4600C92850 /* MWMRouter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRouter.mm; sourceTree = "<group>"; };
 		340475371E081A4600C92850 /* MWMRouterSavedState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRouterSavedState.h; sourceTree = "<group>"; };
@@ -1652,6 +1657,11 @@
 		34D4FA611E26572D003F53EF /* FirstLaunchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstLaunchController.swift; sourceTree = "<group>"; };
 		34D4FA651E265749003F53EF /* WhatsNewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhatsNewController.swift; sourceTree = "<group>"; };
 		34F5E0D21E3F254800B1C415 /* UIView+Hierarchy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Hierarchy.swift"; sourceTree = "<group>"; };
+		34ED29891E3BB9B40054D003 /* RoutePoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutePoint.swift; sourceTree = "<group>"; };
+		34F5E0D61E3F334700B1C415 /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
+		34F5E0DA1E3F3ED300B1C415 /* MWMRoutePoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMRoutePoint.h; sourceTree = "<group>"; };
+		34F5E0DB1E3F511300B1C415 /* MWMRouterType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMRouterType.h; sourceTree = "<group>"; };
+		34F5E0DC1E3F51AF00B1C415 /* MWMCoreRouterType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMCoreRouterType.h; sourceTree = "<group>"; };
 		34F73F601E082FF700AC1FD6 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		34F73F621E082FF800AC1FD6 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		34F73F631E082FF800AC1FD6 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -2514,14 +2524,15 @@
 			children = (
 				340475151E081A4600C92850 /* AppInfo.h */,
 				340475161E081A4600C92850 /* AppInfo.mm */,
+				34845DB51E166084003D55B9 /* Common.swift */,
 				340475171E081A4600C92850 /* Keyboard */,
 				3404751B1E081A4600C92850 /* MWMCommon.h */,
 				3404751C1E081A4600C92850 /* MWMMacros.h */,
 				3404751D1E081A4600C92850 /* MWMTypes.h */,
 				3404751E1E081A4600C92850 /* Statistics */,
+				34F5E0D61E3F334700B1C415 /* Types.swift */,
 				340475261E081A4600C92850 /* WebViewController.h */,
 				340475271E081A4600C92850 /* WebViewController.mm */,
-				34845DB51E166084003D55B9 /* Common.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -2592,11 +2603,14 @@
 		340475331E081A4600C92850 /* Routing */ = {
 			isa = PBXGroup;
 			children = (
-				340475341E081A4600C92850 /* MWMRoutePoint.h */,
+				34F5E0DC1E3F51AF00B1C415 /* MWMCoreRouterType.h */,
+				34F5E0DA1E3F3ED300B1C415 /* MWMRoutePoint.h */,
 				340475351E081A4600C92850 /* MWMRouter.h */,
 				340475361E081A4600C92850 /* MWMRouter.mm */,
 				340475371E081A4600C92850 /* MWMRouterSavedState.h */,
 				340475381E081A4600C92850 /* MWMRouterSavedState.mm */,
+				34F5E0DB1E3F511300B1C415 /* MWMRouterType.h */,
+				34ED29891E3BB9B40054D003 /* RoutePoint.swift */,
 			);
 			path = Routing;
 			sourceTree = "<group>";
@@ -2992,9 +3006,9 @@
 				340537621BBED98600D452C6 /* MWMMapViewControlsCommon.h */,
 				34BC72101B0DECAE0012A34B /* MWMMapViewControlsManager.h */,
 				34BC72111B0DECAE0012A34B /* MWMMapViewControlsManager.mm */,
+				3497A9321B5CF8A900F51E55 /* NavigationDashboard */,
 				345C34661CE9D32500BB2224 /* SideButtons */,
 				3463BA621DE81D760082417F /* TrafficButton */,
-				3497A9321B5CF8A900F51E55 /* NavigationDashboard */,
 			);
 			name = MapViewControls;
 			path = CustomViews/MapViewControls;
@@ -4833,6 +4847,7 @@
 				3454D7BB1E07F045004AF2AD /* CLLocation+Mercator.mm in Sources */,
 				F6E2FF4D1E097BA00083EBEC /* MWMAboutController.mm in Sources */,
 				34F5E0D31E3F254800B1C415 /* UIView+Hierarchy.swift in Sources */,
+				34ED298A1E3BB9B40054D003 /* RoutePoint.swift in Sources */,
 				3497A93A1B5CF8A900F51E55 /* MWMNavigationDashboardManager.mm in Sources */,
 				F6E2FED81E097BA00083EBEC /* MWMSearchContentView.mm in Sources */,
 				F6E2FD881E097BA00083EBEC /* MWMMapDownloaderViewController.mm in Sources */,
@@ -4894,6 +4909,7 @@
 				F6E2FF171E097BA00083EBEC /* MWMSearchTabbedCollectionViewCell.mm in Sources */,
 				F64F199B1AB81A00006EAF7E /* MWMAlert.mm in Sources */,
 				ED48BBB517C267F5003E7E92 /* ColorPickerView.mm in Sources */,
+				34F5E0D71E3F334700B1C415 /* Types.swift in Sources */,
 				F6E2FF561E097BA00083EBEC /* MWMMobileInternetViewController.mm in Sources */,
 				ED48BBBA17C2B1E2003E7E92 /* CircleView.mm in Sources */,
 				F6E2FEEA1E097BA00083EBEC /* MWMSearchTextField.mm in Sources */,
@@ -5090,6 +5106,7 @@
 				3454D7BC1E07F045004AF2AD /* CLLocation+Mercator.mm in Sources */,
 				F6E2FF4E1E097BA00083EBEC /* MWMAboutController.mm in Sources */,
 				34F5E0D41E3F254800B1C415 /* UIView+Hierarchy.swift in Sources */,
+				34ED298B1E3BB9B40054D003 /* RoutePoint.swift in Sources */,
 				6741AA0B1BF340DE002C974C /* MWMMapViewControlsManager.mm in Sources */,
 				F6E2FED91E097BA00083EBEC /* MWMSearchContentView.mm in Sources */,
 				F6E2FD891E097BA00083EBEC /* MWMMapDownloaderViewController.mm in Sources */,
@@ -5151,6 +5168,7 @@
 				34AB39C21D2BD8310021857D /* MWMStopButton.mm in Sources */,
 				6741AA281BF340DE002C974C /* MWMAlert.mm in Sources */,
 				F6E2FF571E097BA00083EBEC /* MWMMobileInternetViewController.mm in Sources */,
+				34F5E0D81E3F334700B1C415 /* Types.swift in Sources */,
 				6741AA291BF340DE002C974C /* ColorPickerView.mm in Sources */,
 				6741AA2B1BF340DE002C974C /* CircleView.mm in Sources */,
 				F6E2FEEB1E097BA00083EBEC /* MWMSearchTextField.mm in Sources */,
@@ -5347,6 +5365,7 @@
 				849CF71A1DE842290024A8A5 /* MWMDropDown.mm in Sources */,
 				F6E2FF4F1E097BA00083EBEC /* MWMAboutController.mm in Sources */,
 				34F5E0D51E3F254800B1C415 /* UIView+Hierarchy.swift in Sources */,
+				34ED298C1E3BB9B40054D003 /* RoutePoint.swift in Sources */,
 				849CF71D1DE842290024A8A5 /* MWMNavigationDashboardManager.mm in Sources */,
 				3454D7C91E07F045004AF2AD /* UIButton+RuntimeAttributes.mm in Sources */,
 				F6E2FEDA1E097BA00083EBEC /* MWMSearchContentView.mm in Sources */,
@@ -5408,6 +5427,7 @@
 				F6E2FF191E097BA00083EBEC /* MWMSearchTabbedCollectionViewCell.mm in Sources */,
 				3404754E1E081A4600C92850 /* MWMKeyboard.mm in Sources */,
 				849CF7631DE842290024A8A5 /* MWMAlert.mm in Sources */,
+				34F5E0D91E3F334700B1C415 /* Types.swift in Sources */,
 				F6E2FF581E097BA00083EBEC /* MWMMobileInternetViewController.mm in Sources */,
 				849CF7651DE842290024A8A5 /* ColorPickerView.mm in Sources */,
 				F6E2FEEC1E097BA00083EBEC /* MWMSearchTextField.mm in Sources */,

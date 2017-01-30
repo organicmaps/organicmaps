@@ -12,6 +12,7 @@
 #import "MWMLocationManager.h"
 #import "MWMNoMapsViewController.h"
 #import "MWMPushNotifications.h"
+#import "MWMRouter.h"
 #import "MWMSearchNoResults.h"
 #import "MWMTableViewCell.h"
 #import "MWMTypes.h"

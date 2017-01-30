@@ -374,7 +374,7 @@ BOOL defaultOrientation(CGSize const & size)
 {
   _isVisible = isVisible;
   [self setNeedsLayout];
-  if (isVisible && [MWMRouter router].type == routing::RouterType::Pedestrian)
+  if (isVisible && [MWMRouter router].type == MWMRouterTypePedestrian)
     [MWMLocationManager addObserver:self];
   else
     [MWMLocationManager removeObserver:self];

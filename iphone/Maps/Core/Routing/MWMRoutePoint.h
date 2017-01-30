@@ -1,35 +1,26 @@
-#pragma once
+#import "SwiftBridge.h"
 
+#include "geometry/latlon.hpp"
+#include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
-class MWMRoutePoint
+static inline MWMRoutePoint * makeMWMRoutePoint(m2::PointD const & point, NSString * name)
 {
-public:
-  MWMRoutePoint() = default;
+  return [[MWMRoutePoint alloc] initWithX:point.x y:point.y name:name isMyPosition:false];
+}
 
-  MWMRoutePoint(m2::PointD const & p, NSString * n) : m_point(p), m_name(n), m_isMyPosition(false)
-  {
-  }
+static inline MWMRoutePoint * makeMWMRoutePoint(m2::PointD const & point)
+{
+  return [[MWMRoutePoint alloc] initWithX:point.x y:point.y];
+}
 
-  explicit MWMRoutePoint(m2::PointD const & p)
-    : m_point(p), m_name(L(@"p2p_your_location")), m_isMyPosition(true)
-  {
-  }
+static inline MWMRoutePoint * makeMWMRoutePointZero() { return [[MWMRoutePoint alloc] init]; }
+static inline m2::PointD mercatorMWMRoutePoint(MWMRoutePoint * point)
+{
+  return m2::PointD(point.x, point.y);
+}
 
-  bool operator==(MWMRoutePoint const & p) const
-  {
-    return m_point.EqualDxDy(p.m_point, 0.00000001) && [m_name isEqualToString:p.m_name] &&
-           m_isMyPosition == p.m_isMyPosition;
-  }
-
-  bool operator!=(MWMRoutePoint const & p) const { return !(*this == p); }
-  static MWMRoutePoint MWMRoutePointZero() { return MWMRoutePoint(m2::PointD::Zero(), @""); }
-  m2::PointD const & Point() const { return m_point; }
-  NSString * Name() const { return m_name; }
-  bool IsMyPosition() const { return m_isMyPosition; }
-  bool IsValid() const { return *this != MWMRoutePoint::MWMRoutePointZero(); }
-private:
-  m2::PointD m_point;
-  NSString * m_name;
-  bool m_isMyPosition = false;
-};
+static inline ms::LatLon latlonMWMRoutePoint(MWMRoutePoint * point)
+{
+  return MercatorBounds::ToLatLon(mercatorMWMRoutePoint(point));
+}

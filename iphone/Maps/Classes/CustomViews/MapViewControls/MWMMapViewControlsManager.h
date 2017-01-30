@@ -2,8 +2,6 @@
 #import "MWMNavigationDashboardManager.h"
 #import "MWMSearchManager.h"
 
-#include "MWMRoutePoint.h"
-
 #include "map/user_mark.hpp"
 #include "platform/location.hpp"
 

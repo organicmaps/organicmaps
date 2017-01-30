@@ -1,6 +1,4 @@
-#include "MWMRoutePoint.h"
-
-#include "geometry/point2d.hpp"
+@class MWMRoutePoint;
 
 enum class MWMRouterForceStateChange
 {
@@ -11,7 +9,7 @@ enum class MWMRouterForceStateChange
 
 @interface MWMRouterSavedState : NSObject
 
-@property(nonatomic, readonly) MWMRoutePoint restorePoint;
+@property(nonatomic, readonly) MWMRoutePoint * restorePoint;
 @property(nonatomic) MWMRouterForceStateChange forceStateChange;
 
 + (instancetype)state;

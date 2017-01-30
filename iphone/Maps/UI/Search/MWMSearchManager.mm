@@ -6,6 +6,7 @@
 #import "MWMLocationManager.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMNoMapsViewController.h"
+#import "MWMRoutePoint.h"
 #import "MWMRouter.h"
 #import "MWMSearch.h"
 #import "MWMSearchChangeModeView.h"
@@ -198,7 +199,7 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
 - (void)tapMyPositionFromHistory
 {
   MapsAppDelegate * a = MapsAppDelegate.theApp;
-  MWMRoutePoint const p = MWMRoutePoint::MWMRoutePoint([MWMLocationManager lastLocation].mercator);
+  auto p = makeMWMRoutePoint([MWMLocationManager lastLocation].mercator);
   if (a.routingPlaneMode == MWMRoutingPlaneModeSearchSource)
     [[MWMRouter router] buildFromPoint:p bestRouter:YES];
   else if (a.routingPlaneMode == MWMRoutingPlaneModeSearchDestination)
@@ -217,12 +218,12 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
   MWMRoutingPlaneMode const m = a.routingPlaneMode;
   if (m == MWMRoutingPlaneModeSearchSource)
   {
-    MWMRoutePoint const p = { result.GetFeatureCenter(), @(result.GetString().c_str()) };
+    auto p = makeMWMRoutePoint(result.GetFeatureCenter(), @(result.GetString().c_str()));
     [[MWMRouter router] buildFromPoint:p bestRouter:YES];
   }
   else if (m == MWMRoutingPlaneModeSearchDestination)
   {
-    MWMRoutePoint const p = { result.GetFeatureCenter(), @(result.GetString().c_str()) };
+    auto p = makeMWMRoutePoint(result.GetFeatureCenter(), @(result.GetString().c_str()));
     [[MWMRouter router] buildToPoint:p bestRouter:YES];
   }
   else

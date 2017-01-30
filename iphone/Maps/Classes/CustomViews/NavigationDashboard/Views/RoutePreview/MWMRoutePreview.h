@@ -1,8 +1,7 @@
 #import "MWMCircularProgress.h"
 #import "MWMNavigationDashboardInfoProtocol.h"
 #import "MWMNavigationView.h"
-
-#include "routing/router.hpp"
+#import "MWMRouterType.h"
 
 @class MWMNavigationDashboardEntity;
 @class MWMNavigationDashboardManager;
@@ -18,8 +17,8 @@
 - (void)stateError;
 - (void)stateReady;
 - (void)reloadData;
-- (void)selectRouter:(routing::RouterType)routerType;
-- (void)router:(routing::RouterType)routerType setState:(MWMCircularProgressState)state;
-- (void)router:(routing::RouterType)routerType setProgress:(CGFloat)progress;
+- (void)selectRouter:(MWMRouterType)routerType;
+- (void)router:(MWMRouterType)routerType setState:(MWMCircularProgressState)state;
+- (void)router:(MWMRouterType)routerType setProgress:(CGFloat)progress;
 
 @end

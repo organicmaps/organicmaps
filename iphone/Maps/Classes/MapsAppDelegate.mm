@@ -15,6 +15,7 @@
 #import "MWMLocationManager.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMPushNotifications.h"
+#import "MWMRoutePoint.h"
 #import "MWMRouter.h"
 #import "MWMRouterSavedState.h"
 #import "MWMSearch+CoreSpotlight.h"
@@ -224,8 +225,8 @@ using namespace osm_auth_ios;
       auto const points = parsedData.m_points;
       auto const & p1 = points[0];
       auto const & p2 = points[1];
-      [[MWMRouter router] buildFromPoint:MWMRoutePoint(p1.m_org, @(p1.m_name.c_str()))
-                                 toPoint:MWMRoutePoint(p2.m_org, @(p2.m_name.c_str()))
+      [[MWMRouter router] buildFromPoint:makeMWMRoutePoint(p1.m_org, @(p1.m_name.c_str()))
+                                 toPoint:makeMWMRoutePoint(p2.m_org, @(p2.m_name.c_str()))
                               bestRouter:NO];
       [self showMap];
       [self.mapViewController showAPIBar];

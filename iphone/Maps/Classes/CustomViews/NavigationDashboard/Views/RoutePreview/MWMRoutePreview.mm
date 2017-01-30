@@ -56,7 +56,7 @@ CGFloat constexpr kAdditionalHeight = 20.;
 
 @implementation MWMRoutePreview
 {
-  map<routing::RouterType, MWMCircularProgress *> m_progresses;
+  map<MWMRouterType, MWMCircularProgress *> m_progresses;
 }
 
 - (void)awakeFromNib
@@ -75,16 +75,15 @@ CGFloat constexpr kAdditionalHeight = 20.;
 
 - (void)setupProgresses
 {
-  using type = routing::RouterType;
-  [self addProgress:self.vehicle imageName:@"ic_car" routerType:type::Vehicle];
-  [self addProgress:self.pedestrian imageName:@"ic_pedestrian" routerType:type::Pedestrian];
-  [self addProgress:self.bicycle imageName:@"ic_bike" routerType:type::Bicycle];
-  [self addProgress:self.taxi imageName:@"ic_taxi" routerType:type::Taxi];
+  [self addProgress:self.vehicle imageName:@"ic_car" routerType:MWMRouterTypeVehicle];
+  [self addProgress:self.pedestrian imageName:@"ic_pedestrian" routerType:MWMRouterTypePedestrian];
+  [self addProgress:self.bicycle imageName:@"ic_bike" routerType:MWMRouterTypeBicycle];
+  [self addProgress:self.taxi imageName:@"ic_taxi" routerType:MWMRouterTypeTaxi];
 }
 
 - (void)addProgress:(UIView *)parentView
           imageName:(NSString *)imageName
-         routerType:(routing::RouterType)routerType
+         routerType:(MWMRouterType)routerType
 {
   MWMCircularProgress * progress = [[MWMCircularProgress alloc] initWithParentView:parentView];
   MWMCircularProgressStateVec const imageStates = {MWMCircularProgressStateNormal,
@@ -220,7 +219,7 @@ CGFloat constexpr kAdditionalHeight = 20.;
 }
 
 - (void)reloadData { [self.collectionView reloadData]; }
-- (void)selectRouter:(routing::RouterType)routerType
+- (void)selectRouter:(MWMRouterType)routerType
 {
   for (auto const & progress : m_progresses)
     progress.second.state = MWMCircularProgressStateNormal;
@@ -235,12 +234,12 @@ CGFloat constexpr kAdditionalHeight = 20.;
   [super layoutSubviews];
 }
 
-- (void)router:(routing::RouterType)routerType setState:(MWMCircularProgressState)state
+- (void)router:(MWMRouterType)routerType setState:(MWMCircularProgressState)state
 {
   m_progresses[routerType].state = state;
 }
 
-- (void)router:(routing::RouterType)routerType setProgress:(CGFloat)progress
+- (void)router:(MWMRouterType)routerType setProgress:(CGFloat)progress
 {
   m_progresses[routerType].progress = progress;
 }
@@ -259,26 +258,26 @@ CGFloat constexpr kAdditionalHeight = 20.;
   {
     if (prg.second != progress)
       continue;
-    routing::RouterType const routerType = prg.first;
+    auto const routerType = prg.first;
     [self selectRouter:routerType];
     MWMRouter * router = [MWMRouter router];
     router.type = routerType;
     [router rebuildWithBestRouter:NO];
     switch (routerType)
     {
-    case routing::RouterType::Vehicle:
+    case MWMRouterTypeVehicle:
       [Statistics logEvent:kStatPointToPoint
             withParameters:@{kStatAction : kStatChangeRoutingMode, kStatValue : kStatVehicle}];
       break;
-    case routing::RouterType::Pedestrian:
+    case MWMRouterTypePedestrian:
       [Statistics logEvent:kStatPointToPoint
             withParameters:@{kStatAction : kStatChangeRoutingMode, kStatValue : kStatPedestrian}];
       break;
-    case routing::RouterType::Bicycle:
+    case MWMRouterTypeBicycle:
       [Statistics logEvent:kStatPointToPoint
             withParameters:@{kStatAction : kStatChangeRoutingMode, kStatValue : kStatBicycle}];
       break;
-    case routing::RouterType::Taxi:
+    case MWMRouterTypeTaxi:
       [Statistics logEvent:kStatPointToPoint
             withParameters:@{kStatAction : kStatChangeRoutingMode, kStatValue : kStatUber}];
         break;
@@ -469,12 +468,12 @@ CGFloat constexpr kAdditionalHeight = 20.;
   cell.number.text = @(indexPath.row + 1).stringValue;
   if (indexPath.row == 0)
   {
-    cell.title.text = [MWMRouter router].startPoint.Name();
+    cell.title.text = [MWMRouter router].startPoint.name;
     cell.title.placeholder = L(@"p2p_from");
   }
   else
   {
-    cell.title.text = [MWMRouter router].finishPoint.Name();
+    cell.title.text = [MWMRouter router].finishPoint.name;
     cell.title.placeholder = L(@"p2p_to");
   }
   cell.delegate = self;

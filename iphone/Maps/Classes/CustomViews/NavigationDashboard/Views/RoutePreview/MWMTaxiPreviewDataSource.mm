@@ -97,15 +97,15 @@ using namespace uber;
   self.collectionView = nil;
 }
 
-- (void)requestTaxiFrom:(MWMRoutePoint const &)from
-                                  to:(MWMRoutePoint const &)to
-                          completion:(TMWMVoidBlock)completion
-                             failure:(MWMStringBlock)failure
+- (void)requestTaxiFrom:(MWMRoutePoint *)from
+                     to:(MWMRoutePoint *)to
+             completion:(TMWMVoidBlock)completion
+                failure:(MWMStringBlock)failure
 {
   NSAssert(completion && failure, @"Completion and failure blocks must be not nil!");
   m_products.clear();
-  m_from = MercatorBounds::ToLatLon(from.Point());
-  m_to = MercatorBounds::ToLatLon(to.Point());
+  m_from = latlonMWMRoutePoint(from);
+  m_to = latlonMWMRoutePoint(to);
   auto cv = self.collectionView;
   cv.hidden = YES;
   cv.pageControl.hidden = YES;

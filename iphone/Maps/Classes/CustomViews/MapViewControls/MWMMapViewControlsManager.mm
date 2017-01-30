@@ -409,7 +409,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)onRouteReady
 {
-  if (![MWMRouter router].startPoint.IsMyPosition())
+  if (![MWMRouter router].startPoint.isMyPosition)
   {
     dispatch_async(dispatch_get_main_queue(), ^{
       GetFramework().DisableFollowMode();
