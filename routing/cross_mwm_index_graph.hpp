@@ -13,6 +13,8 @@ namespace routing
 class CrossMwmIndexGraph
 {
 public:
+  virtual ~CrossMwmIndexGraph() = default;
+
   /// \brief Transition segment is a segment which is crossed by mwm border. That means
   /// start and finsh of such segment have to lie in different mwms. If a segment is
   /// crossed by mwm border but its start and finish lie in the same mwm it's not
