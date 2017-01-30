@@ -100,6 +100,7 @@ void GetCategoryTypes(CategoriesHolder const & categories, pair<int, int> const 
                       feature::TypesHolder const & types, vector<uint32_t> & result)
 {
   Classificator const & c = classif();
+  auto const & invisibleChecker = ftypes::IsInvisibleIndexedChecker::Instance();
 
   for (uint32_t t : types)
   {
@@ -111,6 +112,13 @@ void GetCategoryTypes(CategoriesHolder const & categories, pair<int, int> const 
     // Only categorized types will be added to index.
     if (!categories.IsTypeExist(t))
       continue;
+
+    // There are some special non-drawable types we plan to search on.
+    if (invisibleChecker(t))
+    {
+      result.push_back(t);
+      continue;
+    }
 
     // Index only those types that are visible.
     pair<int, int> r = feature::GetDrawableScaleRange(t);
