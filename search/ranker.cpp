@@ -262,8 +262,8 @@ public:
     if (!LoadFeature(res1.GetId(), ft, center, name, country))
       return unique_ptr<PreResult2>();
 
-    auto res2 = make_unique<PreResult2>(ft, &res1, center, m_ranker.m_params.m_position /* pivot */,
-                                        name, country);
+    auto res2 = make_unique<PreResult2>(ft, center, m_ranker.m_params.m_position /* pivot */, name,
+                                        country);
 
     search::RankingInfo info;
     InitRankingInfo(ft, center, res1, info);
@@ -420,8 +420,8 @@ void Ranker::SuggestStrings()
   string prologue;
   GetStringPrefix(m_params.m_query, prologue);
 
-  for (int i = 0; i < m_params.m_categoryLocales.size(); ++i)
-    MatchForSuggestions(m_params.m_prefix, m_params.m_categoryLocales[i], prologue);
+  for (auto const & locale : m_params.m_categoryLocales)
+    MatchForSuggestions(m_params.m_prefix, locale, prologue);
 }
 
 void Ranker::MatchForSuggestions(strings::UniString const & token, int8_t locale,

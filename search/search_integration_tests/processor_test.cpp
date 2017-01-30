@@ -18,6 +18,7 @@
 #include "geometry/rect2d.hpp"
 
 #include "base/assert.hpp"
+#include "base/checked_cast.hpp"
 #include "base/macros.hpp"
 #include "base/math.hpp"
 
@@ -546,7 +547,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
 
     Index::FeaturesLoaderGuard loader(m_engine, countryId);
     FeatureType ft;
-    TEST(loader.GetFeatureByIndex(index, ft), ());
+    TEST(loader.GetFeatureByIndex(base::checked_cast<uint32_t>(index), ft), ());
 
     auto rule = ExactMatch(countryId, building31);
     TEST(rule->Matches(ft), ());

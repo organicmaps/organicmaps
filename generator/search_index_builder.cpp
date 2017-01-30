@@ -210,8 +210,7 @@ struct ValueBuilder<FeatureWithRankAndCenter>
 {
   ValueBuilder() = default;
 
-  void MakeValue(FeatureType const & ft, feature::TypesHolder const & types, uint32_t index,
-                 FeatureWithRankAndCenter & v) const
+  void MakeValue(FeatureType const & ft, uint32_t index, FeatureWithRankAndCenter & v) const
   {
     v.m_featureId = index;
 
@@ -226,8 +225,7 @@ struct ValueBuilder<FeatureIndexValue>
 {
   ValueBuilder() = default;
 
-  void MakeValue(FeatureType const & /* f */, feature::TypesHolder const & /* types */,
-                 uint32_t index, FeatureIndexValue & value) const
+  void MakeValue(FeatureType const & /* f */, uint32_t index, FeatureIndexValue & value) const
   {
     value.m_featureId = index;
   }
@@ -272,7 +270,7 @@ public:
     // Insert synonyms only for countries and states (maybe will add cities in future).
     FeatureNameInserter<TKey, TValue> inserter(
         skipIndex.IsCountryOrState(types) ? m_synonyms : nullptr, m_keyValuePairs, hasStreetType);
-    m_valueBuilder.MakeValue(f, types, index, inserter.m_val);
+    m_valueBuilder.MakeValue(f, index, inserter.m_val);
 
     string const postcode = f.GetMetadata().Get(feature::Metadata::FMD_POSTCODE);
     if (!postcode.empty())
