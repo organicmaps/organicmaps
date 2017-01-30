@@ -26,8 +26,7 @@ double const kDistSameStreetMeters = 5000.0;
 char const * const kEmptyRatingSymbol = "-";
 char const * const kPricingSymbol = "$";
 
-void ProcessMetadata(FeatureType const & ft, feature::TypesHolder const & types,
-                     Result::Metadata & meta)
+void ProcessMetadata(FeatureType const & ft, Result::Metadata & meta)
 {
   if (meta.m_isInitialized)
     return;
@@ -96,9 +95,8 @@ bool PreResult1::LessDistance(PreResult1 const & r1, PreResult1 const & r2)
   return r1.m_info.m_rank > r2.m_info.m_rank;
 }
 
-PreResult2::PreResult2(FeatureType const & f, PreResult1 const * p, m2::PointD const & center,
-                       m2::PointD const & pivot, string const & displayName,
-                       string const & fileName)
+PreResult2::PreResult2(FeatureType const & f, m2::PointD const & center, m2::PointD const & pivot,
+                       string const & displayName, string const & fileName)
   : m_id(f.GetID())
   , m_types(f)
   , m_str(displayName)
@@ -113,7 +111,7 @@ PreResult2::PreResult2(FeatureType const & f, PreResult1 const * p, m2::PointD c
   m_region.SetParams(fileName, center);
   m_distance = PointDistance(center, pivot);
 
-  ProcessMetadata(f, m_types, m_metadata);
+  ProcessMetadata(f, m_metadata);
 }
 
 PreResult2::PreResult2(double lat, double lon)

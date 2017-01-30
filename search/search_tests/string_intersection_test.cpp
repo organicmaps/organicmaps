@@ -29,7 +29,7 @@ struct TestData
 
     va_list ap;
     va_start(ap, resCount);
-    for(int i = 0; i < resCount; i++)
+    for (size_t i = 0; i < resCount; ++i)
     {
       uint16_t const pos = va_arg(ap, int);
       uint16_t const len = va_arg(ap, int);

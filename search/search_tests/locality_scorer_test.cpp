@@ -105,7 +105,7 @@ public:
       names.insert(names.end(), it->second.begin(), it->second.end());
   }
 
-  uint8_t GetRank(uint32_t featureId) const override { return 0; }
+  uint8_t GetRank(uint32_t /* featureId */) const override { return 0; }
 
 protected:
   QueryParams m_params;
