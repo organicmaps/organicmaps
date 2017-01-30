@@ -118,12 +118,19 @@ private:
     while (true)
     {
       int const flush = processor.ConsumedAll() ? Z_FINISH : Z_NO_FLUSH;
-      int const ret = processor.Process(flush);
-      if (ret != Z_OK && ret != Z_STREAM_END)
-        return false;
+      int ret = Z_OK;
 
-      if (processor.BufferIsFull())
+      while (true)
+      {
+        ret = processor.Process(flush);
+        if (ret != Z_OK && ret != Z_STREAM_END)
+          return false;
+
+        if (!processor.BufferIsFull())
+          break;
+
         processor.MoveOut(out);
+      }
 
       if (flush == Z_FINISH && ret == Z_STREAM_END)
         break;
