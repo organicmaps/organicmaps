@@ -2,6 +2,7 @@ package com.mapswithme.util;
 
 import android.content.Context;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
@@ -33,7 +34,7 @@ public class StorageUtils
    * @see Context#getExternalFilesDir(String)
    */
   @Nullable
-  public static String getExternalFilesDir()
+  private static String getExternalFilesDir()
   {
     if (!isExternalStorageWritable())
       return null;
@@ -73,5 +74,13 @@ public class StorageUtils
 
     String externalDir = StorageUtils.getExternalFilesDir();
     return externalDir + File.separator + LOGS_FOLDER;
+  }
+
+  @Nullable
+  static String getLogsZipPath()
+  {
+    String zipFile = getExternalFilesDir() + File.separator + LOGS_FOLDER + ".zip";
+    File file = new File(zipFile);
+    return file.isFile() && file.exists() ? zipFile : null;
   }
 }

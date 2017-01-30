@@ -32,6 +32,7 @@ import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.maps.uber.UberLinks;
+import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.AlohaHelper;
 
@@ -40,6 +41,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -200,7 +202,7 @@ public class Utils
    */
   public static String saveLogToFile()
   {
-    String fullName = MwmApplication.getSettingsPath() + "log.txt";
+    String fullName = MwmApplication.getSettingsPath() + "logcat.txt";
     File file = new File(fullName);
     InputStreamReader reader = null;
     FileWriter writer = null;
@@ -311,22 +313,40 @@ public class Utils
     LoggerFactory.INSTANCE.zipLogs(new LoggerFactory.OnZipCompletedListener()
     {
       @Override
-      public void onComplete(boolean success)
+      public void onComplete(final boolean success)
       {
-        final Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra(Intent.EXTRA_EMAIL, new String[] { Constants.Email.SUPPORT });
-        intent.putExtra(Intent.EXTRA_SUBJECT, "[" + BuildConfig.VERSION_NAME + "] " + subject);
-        intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + Utils.saveLogToFile()));
-        intent.putExtra(Intent.EXTRA_TEXT, ""); // do this so some email clients don't complain about empty body.
-        intent.setType("message/rfc822");
-        try
+        UiThread.run(new Runnable()
         {
-          activity.startActivity(intent);
-        } catch (ActivityNotFoundException e)
-        {
-          AlohaHelper.logException(e);
-        }
+          @Override
+          public void run()
+          {
+            final Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra(Intent.EXTRA_EMAIL, new String[] { Constants.Email.SUPPORT });
+            intent.putExtra(Intent.EXTRA_SUBJECT, "[" + BuildConfig.VERSION_NAME + "] " + subject);
+            final ArrayList<Uri> uris = new ArrayList<Uri>();
+            if (success)
+            {
+              intent.setAction(Intent.ACTION_SEND_MULTIPLE);
+              String logsZipFile = StorageUtils.getLogsZipPath();
+              if (!TextUtils.isEmpty(logsZipFile))
+              {
+                uris.add(Uri.parse("file://" + logsZipFile));
+              }
+            }
+            uris.add(Uri.parse("file://" + Utils.saveLogToFile()));
+            intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
+            intent.putExtra(Intent.EXTRA_TEXT, ""); // do this so some email clients don't complain about empty body.
+            intent.setType("message/rfc822");
+            try
+            {
+              activity.startActivity(intent);
+            } catch (ActivityNotFoundException e)
+            {
+              AlohaHelper.logException(e);
+            }
+          }
+        });
       }
     });
 
