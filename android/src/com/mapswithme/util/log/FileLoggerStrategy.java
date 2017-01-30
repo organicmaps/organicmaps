@@ -111,7 +111,7 @@ class FileLoggerStrategy implements LoggerStrategy
 
   private static class WriteTask implements Runnable
   {
-    private static final int MAX_SIZE = 1000000;
+    private static final int MAX_SIZE = 3000000;
     @NonNull
     private final String mFilePath;
     @NonNull
