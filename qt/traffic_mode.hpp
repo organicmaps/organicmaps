@@ -5,9 +5,9 @@
 #include "openlr/openlr_model.hpp"
 #include "openlr/openlr_sample.hpp"
 
-#include "std/string.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/unordered_map.hpp"
+#include <memory>
+#include <string>
+#include <unordered_map>
 
 #include <QAbstractTableModel>
 
@@ -19,10 +19,10 @@ struct DecodedSample
   DecodedSample(Index const & index, openlr::SamplePool const & sample);
 
   openlr::SamplePool const & GetItems() const { return m_decodedItems; }
-  vector<m2::PointD> GetPoints(size_t const index) const;
+  std::vector<m2::PointD> GetPoints(size_t const index) const;
 
-  map<FeatureID, FeatureType> m_features;
-  vector<openlr::SampleItem> m_decodedItems;
+  std::map<FeatureID, std::vector<m2::PointD>> m_points;
+  std::vector<openlr::SampleItem> m_decodedItems;
 };
 
 /// This class is used to delegate segments drawing to the DrapeEngine.
@@ -45,10 +45,11 @@ class TrafficMode : public QAbstractTableModel
   Q_OBJECT
 
 public:
-  TrafficMode(string const & dataFileName, string const & sampleFileName, Index const & index,
-              unique_ptr<TrafficDrawerDelegateBase> drawerDelagate, QObject * parent = Q_NULLPTR);
+  TrafficMode(std::string const & dataFileName, std::string const & sampleFileName,
+              Index const & index, std::unique_ptr<TrafficDrawerDelegateBase> drawerDelagate,
+              QObject * parent = Q_NULLPTR);
 
-  bool SaveSampleAs(string const & fileName) const;
+  bool SaveSampleAs(std::string const & fileName) const;
   bool IsValid() const { return m_valid; }
 
   int rowCount(const QModelIndex & parent = QModelIndex()) const Q_DECL_OVERRIDE;
@@ -65,10 +66,10 @@ public slots:
   void OnItemSelected(QItemSelection const & selected, QItemSelection const &);
 
 private:
-  unique_ptr<DecodedSample> m_decodedSample;
-  unordered_map<decltype(openlr::LinearSegment::m_segmentId), openlr::LinearSegment> m_partnerSegments;
+  std::unique_ptr<DecodedSample> m_decodedSample;
+  std::unordered_map<decltype(openlr::LinearSegment::m_segmentId), openlr::LinearSegment> m_partnerSegments;
 
-  unique_ptr<TrafficDrawerDelegateBase> m_drawerDelegate;
+  std::unique_ptr<TrafficDrawerDelegateBase> m_drawerDelegate;
 
   bool m_valid = false;
 };

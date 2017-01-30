@@ -3,6 +3,7 @@
 #include "openlr/openlr_simple_parser.hpp"
 
 #include "indexer/index.hpp"
+#include "indexer/scales.hpp"
 
 #include "3party/pugixml/src/pugixml.hpp"
 
@@ -19,19 +20,27 @@ DecodedSample::DecodedSample(Index const & index, openlr::SamplePool const & sam
       auto const & fid = mwmSegment.m_fid;
       Index::FeaturesLoaderGuard g(index, fid.m_mwmId);
       CHECK(fid.m_mwmId.IsAlive(), ("Mwm id is not alive."));
-      if (m_features.find(fid) == end(m_features))
+      if (m_points.find(fid) == end(m_points))
       {
-        auto & ft = m_features[fid];
+        FeatureType ft;
         CHECK(g.GetFeatureByIndex(fid.m_index, ft), ("Can't read feature", fid));
-        ft.ParseEverything();
+        ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
+
+        auto & v = m_points[fid];
+        v.reserve(ft.GetPointsCount());
+        auto insIt = back_inserter(v);
+        ft.ForEachPoint([insIt](m2::PointD const & p) mutable {
+            insIt++ = p;
+          },
+          scales::GetUpperScale());
       }
     }
   }
 }
 
-vector<m2::PointD> DecodedSample::GetPoints(size_t const index) const
+std::vector<m2::PointD> DecodedSample::GetPoints(size_t const index) const
 {
-  vector<m2::PointD> points;
+  std::vector<m2::PointD> points;
 
   auto const pushPoint = [&points](m2::PointD const & p)
   {
@@ -42,11 +51,11 @@ vector<m2::PointD> DecodedSample::GetPoints(size_t const index) const
   auto const & item = m_decodedItems[index];
   for (auto const & seg : item.m_segments)
   {
-    auto const ftIt = m_features.find(seg.m_fid);
-    CHECK(ftIt != end(m_features), ("Can't find feature with id:", seg.m_fid));
-    auto const & ft = ftIt->second;
-    auto const firstP = ft.GetPoint(seg.m_segId);
-    auto const secondP = ft.GetPoint(seg.m_segId + 1);
+    auto const ftIt = m_points.find(seg.m_fid);
+    CHECK(ftIt != end(m_points), ("Can't find feature with id:", seg.m_fid));
+    auto const & ftPoints = ftIt->second;
+    auto const firstP = ftPoints[seg.m_segId];
+    auto const secondP = ftPoints[seg.m_segId + 1];
     if (seg.m_isForward)
     {
       pushPoint(firstP);
@@ -63,8 +72,8 @@ vector<m2::PointD> DecodedSample::GetPoints(size_t const index) const
 }
 
 // TrafficMode -------------------------------------------------------------------------------------
-TrafficMode::TrafficMode(string const & dataFileName, string const & sampleFileName,
-                         Index const & index, unique_ptr<TrafficDrawerDelegateBase> drawerDelagate,
+TrafficMode::TrafficMode(std::string const & dataFileName, std::string const & sampleFileName,
+                         Index const & index, std::unique_ptr<TrafficDrawerDelegateBase> drawerDelagate,
                          QObject * parent)
   : QAbstractTableModel(parent)
   , m_drawerDelegate(move(drawerDelagate))
@@ -87,7 +96,7 @@ TrafficMode::TrafficMode(string const & dataFileName, string const & sampleFileN
     return;
   }
 
-  vector<openlr::LinearSegment> segments;
+  std::vector<openlr::LinearSegment> segments;
   if (!ParseOpenlr(doc, segments))
   {
     LOG(LERROR, ("Can't parse data:", dataFileName));
@@ -102,7 +111,7 @@ TrafficMode::TrafficMode(string const & dataFileName, string const & sampleFileN
   m_valid = true;
 }
 
-bool TrafficMode::SaveSampleAs(string const & fileName) const
+bool TrafficMode::SaveSampleAs(std::string const & fileName) const
 {
   try
   {
@@ -166,16 +175,16 @@ void TrafficMode::OnItemSelected(QItemSelection const & selected, QItemSelection
 
   auto const & firstSegment = m_decodedSample->m_decodedItems[row].m_segments[0];
   auto const & firstSegmentFeatureId = firstSegment.m_fid;
-  auto const & firstSegmentFeature = m_decodedSample->m_features.at(firstSegmentFeatureId);
+  auto const & firstSegmentFeature = m_decodedSample->m_points.at(firstSegmentFeatureId);
 
   LOG(LDEBUG, ("PartnerSegmentId:", partnerSegmentId.Get(),
                "Segment points:", m_partnerSegments[partnerSegmentId.Get()].GetMercatorPoints(),
                "Featrue segment id", firstSegment.m_segId,
-               "Feature segment points", firstSegmentFeature.GetPoint(firstSegment.m_segId),
-                                         firstSegmentFeature.GetPoint(firstSegment.m_segId + 1)));
+               "Feature segment points", firstSegmentFeature[firstSegment.m_segId],
+                                         firstSegmentFeature[firstSegment.m_segId + 1]));
 
   m_drawerDelegate->Clear();
-  m_drawerDelegate->SetViewportCenter(firstSegmentFeature.GetPoint(firstSegment.m_segId));
+  m_drawerDelegate->SetViewportCenter(firstSegmentFeature[firstSegment.m_segId]);
   m_drawerDelegate->DrawEncodedSegment(m_partnerSegments.at(partnerSegmentId.Get()));
   m_drawerDelegate->DrawDecodedSegments(*m_decodedSample, row);
 }
