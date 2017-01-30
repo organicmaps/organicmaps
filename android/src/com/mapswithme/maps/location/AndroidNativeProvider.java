@@ -34,6 +34,7 @@ class AndroidNativeProvider extends BaseLocationProvider
   @Override
   protected boolean start()
   {
+    sLogger.d(TAG, "Android native provider is started");
     if (mIsActive)
       return true;
 
@@ -84,6 +85,7 @@ class AndroidNativeProvider extends BaseLocationProvider
   @Override
   protected void stop()
   {
+    sLogger.d(TAG, "Android native provider is stopped");
     ListIterator<LocationListener> iterator = mListeners.listIterator();
     // noinspection WhileLoopReplaceableByForEach
     while (iterator.hasNext())

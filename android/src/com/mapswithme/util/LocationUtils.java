@@ -2,7 +2,9 @@ package com.mapswithme.util;
 
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.SystemClock;
 import android.provider.Settings;
@@ -11,6 +13,10 @@ import android.view.Surface;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
+
+import java.util.List;
 
 public class LocationUtils
 {
@@ -18,6 +24,8 @@ public class LocationUtils
 
   public static final long LOCATION_EXPIRATION_TIME_MILLIS_SHORT = 60 * 1000; // 1 minute
   public static final long LOCATION_EXPIRATION_TIME_MILLIS_LONG = 6 * 60 * 60 * 1000; // 6 hours
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.LOCATION);
+  private static final String TAG = LocationUtils.class.getSimpleName();
 
   /**
    * Correct compass angles due to display orientation.
@@ -109,5 +117,23 @@ public class LocationUtils
       e.printStackTrace();
       return false;
     }
+  }
+
+  public static void logAvailableProviders()
+  {
+    LocationManager locMngr = (LocationManager) MwmApplication.get().getSystemService(Context.LOCATION_SERVICE);
+    List<String> providers = locMngr.getProviders(true);
+    StringBuilder sb;
+    if (!providers.isEmpty())
+    {
+      sb = new StringBuilder("Available location providers: ");
+      for (String provider : providers)
+        sb.append(provider).append(" ");
+    }
+    else
+    {
+      sb = new StringBuilder("There are no enabled location providers!");
+    }
+    LOGGER.i(TAG, sb.toString(), new Throwable());
   }
 }

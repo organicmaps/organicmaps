@@ -41,6 +41,7 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
   @Override
   protected boolean start()
   {
+    sLogger.d(TAG, "Google fused provider is started");
     if (mGoogleApiClient.isConnected() || mGoogleApiClient.isConnecting())
       return true;
 
@@ -64,6 +65,7 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
   @Override
   protected void stop()
   {
+    sLogger.d(TAG, "Google fused provider is stopped");
     if (mGoogleApiClient.isConnected())
       LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, mListener);
 

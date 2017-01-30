@@ -21,8 +21,8 @@ import com.mapswithme.util.Listeners;
 import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
-import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 
 import static com.mapswithme.maps.background.AppBackgroundTracker.OnTransitionListener;
 
@@ -93,8 +93,6 @@ public enum LocationHelper
     @Override
     public void onLocationUpdated(Location location)
     {
-      mLogger.d(TAG, "onLocationUpdated(), provider = " + location.getProvider());
-
       mPredictor.onLocationUpdated(location);
 
       nativeLocationUpdated(location.getTime(),
@@ -341,8 +339,6 @@ public enum LocationHelper
 
   void notifyLocationUpdated()
   {
-    mLogger.d(TAG, "notifyLocationUpdated()");
-
     if (mSavedLocation == null)
     {
       mLogger.d(TAG, "No saved location - skip");
@@ -423,8 +419,7 @@ public enum LocationHelper
     boolean networkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     mLocationStopped = !networkEnabled && !gpsEnabled;
-    mLogger.d(TAG, "Providers availability: " + !mLocationStopped +
-              "; network provider = " + networkEnabled + ", gps provider = " + gpsEnabled);
+    LocationUtils.logAvailableProviders();
 
     if (mLocationStopped)
     {
@@ -434,6 +429,7 @@ public enum LocationHelper
     }
 
     initProvider(false);
+    mLogger.i(TAG, "checkProvidersAndStartIfNeeded, current mode '" + LocationState.nameOf(LocationState.getMode()) + "'");
     LocationState.nativeSwitchToNextMode();
   }
 
