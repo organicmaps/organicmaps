@@ -21,7 +21,7 @@ public:
   /// Transition segment at the picture below is marked as *===>*.
   /// Transition feature is a feature which contains one or more transition segments.
   /// Transition features at the picture below is marked as *===>*------>*.
-  /// Every transition feature is duplicated in two neibouring mwms.
+  /// Every transition feature is duplicated in two neighbouring mwms.
   /// The duplicate is called "twin" at the picture below.
   /// For most cases a transition feature contains only one transition segment.
   /// -------MWM0---------------MWM1----------------MWM2-------------
@@ -40,10 +40,10 @@ public:
   /// transition segment.
   virtual bool IsTransition(Segment const & s, bool isOutgoing) const = 0;
 
-  /// \brief Fills |twins| with a duplicates of |s| transition segment in neibouring mwm.
+  /// \brief Fills |twins| with a duplicates of |s| transition segment in neighbouring mwm.
   /// For most cases there is only one twin for |s|.
-  /// If |s| an enter transition segment fills |twins| with an appropriate exit transition segments.
-  /// If |s| an exit transition segment fills |twins| with an appropriate enter transition segments.
+  /// If |s| is an enter transition segment fills |twins| with an appropriate exit transition segments.
+  /// If |s| is an exit transition segment fills |twins| with an appropriate enter transition segments.
   /// \note GetTwin(...) shall be called only if IsTransition(s, ...) returns true.
   virtual void GetTwin(Segment const & s, std::vector<Segment> & twins) const = 0;
 
