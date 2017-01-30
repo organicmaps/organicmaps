@@ -34,7 +34,10 @@ public:
   void OnFinish() override;
 
   void SetMaxDuration(double maxDuration) override;
+  void SetMinDuration(double minDuration) override;
   double GetDuration() const override;
+  double GetMaxDuration() const override;
+  double GetMinDuration() const override;
   bool IsFinished() const override;
 
   void Advance(double elapsedSeconds) override;

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "drape_frontend/animation/interpolators.hpp"
+
 #include "drape/pointers.hpp"
 
 #include "geometry/point2d.hpp"
@@ -95,8 +97,13 @@ public:
   virtual bool HasProperty(Object object, ObjectProperty property) const = 0;
   virtual bool HasTargetProperty(Object object, ObjectProperty property) const;
 
+  static double constexpr kInvalidAnimationDuration = -1.0;
+
   virtual void SetMaxDuration(double maxDuration) = 0;
+  virtual void SetMinDuration(double minDuration) = 0;
   virtual double GetDuration() const = 0;
+  virtual double GetMaxDuration() const = 0;
+  virtual double GetMinDuration() const = 0;
   virtual bool IsFinished() const = 0;
 
   virtual void Advance(double elapsedSeconds) = 0;
@@ -123,8 +130,11 @@ public:
   bool CouldBeRewinded() const { return m_couldBeRewinded; }
 
 protected:
-  void GetCurrentScreen(TPropertyCache const & properties, ScreenBase const & screen, ScreenBase & currentScreen);
-  bool GetCachedProperty(TPropertyCache const & properties, Object object, ObjectProperty property, PropertyValue & value);
+  static void GetCurrentScreen(TPropertyCache const & properties, ScreenBase const & screen, ScreenBase & currentScreen);
+  static bool GetCachedProperty(TPropertyCache const & properties, Object object, ObjectProperty property, PropertyValue & value);
+
+  static bool GetMinDuration(Interpolator const & interpolator, double & minDuration);
+  static bool GetMaxDuration(Interpolator const & interpolator, double & maxDuration);
 
   TAction m_onStartAction;
   TAction m_onFinishAction;

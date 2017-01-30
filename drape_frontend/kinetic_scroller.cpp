@@ -67,6 +67,10 @@ public:
       m_duration = maxDuration;
   }
 
+  void SetMinDuration(double minDuration) override {}
+  double GetMaxDuration() const override { return Animation::kInvalidAnimationDuration; }
+  double GetMinDuration() const override { return Animation::kInvalidAnimationDuration; }
+
   double GetDuration() const override { return m_duration; }
   bool IsFinished() const override { return m_elapsedTime >= m_duration; }
 

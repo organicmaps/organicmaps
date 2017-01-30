@@ -19,18 +19,34 @@ ArrowAnimation::ArrowAnimation(m2::PointD const & startPos, m2::PointD const & e
 void ArrowAnimation::Init(ScreenBase const & screen, TPropertyCache const & properties)
 {
   PropertyValue value;
+  double minDuration;
+  double maxDuration;
   if (GetCachedProperty(properties, Animation::Object::MyPositionArrow, Animation::ObjectProperty::Position, value))
   {
+    minDuration = m_positionInterpolator.GetMinDuration();
+    maxDuration = m_positionInterpolator.GetMaxDuration();
+
     m_positionInterpolator = PositionInterpolator(m_positionInterpolator.GetDuration(),
                                                   0.0 /* delay */,
                                                   value.m_valuePointD,
                                                   m_positionInterpolator.GetTargetPosition());
+
+    m_positionInterpolator.SetMinDuration(minDuration);
+    m_positionInterpolator.SetMaxDuration(maxDuration);
+
     if (m_positionInterpolator.IsActive())
       m_properties.insert(Animation::ObjectProperty::Position);
   }
   if (GetCachedProperty(properties, Animation::Object::MyPositionArrow, Animation::ObjectProperty::Angle, value))
   {
+    minDuration = m_angleInterpolator.GetMinDuration();
+    maxDuration = m_angleInterpolator.GetMaxDuration();
+
     m_angleInterpolator = AngleInterpolator(value.m_valueD, m_angleInterpolator.GetTargetAngle());
+
+    m_angleInterpolator.SetMinDuration(minDuration);
+    m_angleInterpolator.SetMaxDuration(maxDuration);
+
     if (m_angleInterpolator.IsActive())
       m_properties.insert(Animation::ObjectProperty::Angle);
   }
@@ -83,6 +99,15 @@ void ArrowAnimation::SetMaxDuration(double maxDuration)
     m_angleInterpolator.SetMaxDuration(maxDuration);
 }
 
+void ArrowAnimation::SetMinDuration(double minDuration)
+{
+  if (m_positionInterpolator.IsActive())
+    m_positionInterpolator.SetMinDuration(minDuration);
+
+  if (m_angleInterpolator.IsActive())
+    m_angleInterpolator.SetMinDuration(minDuration);
+}
+
 double ArrowAnimation::GetDuration() const
 {
   double duration = 0.0;
@@ -91,6 +116,28 @@ double ArrowAnimation::GetDuration() const
   if (m_positionInterpolator.IsActive())
     duration = max(duration, m_positionInterpolator.GetDuration());
   return duration;
+}
+
+double ArrowAnimation::GetMaxDuration() const
+{
+  double maxDuration = Animation::kInvalidAnimationDuration;
+
+  if (!Animation::GetMaxDuration(m_angleInterpolator, maxDuration) ||
+      !Animation::GetMaxDuration(m_positionInterpolator, maxDuration))
+    return Animation::kInvalidAnimationDuration;
+
+  return maxDuration;
+}
+
+double ArrowAnimation::GetMinDuration() const
+{
+  double minDuration = Animation::kInvalidAnimationDuration;
+
+  if (!Animation::GetMinDuration(m_angleInterpolator, minDuration) ||
+      !Animation::GetMinDuration(m_positionInterpolator, minDuration))
+    return Animation::kInvalidAnimationDuration;
+
+  return minDuration;
 }
 
 bool ArrowAnimation::IsFinished() const

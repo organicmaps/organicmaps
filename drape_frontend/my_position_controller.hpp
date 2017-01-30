@@ -17,7 +17,7 @@ namespace df
 {
 
 class Animation;
-using TAnimationCreator = function<drape_ptr<Animation>(double)>;
+using TAnimationCreator = function<drape_ptr<Animation>(ref_ptr<Animation>)>;
 
 class MyPositionController
 {

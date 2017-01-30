@@ -759,11 +759,17 @@ void MyPositionController::CreateAnim(m2::PointD const & oldPos, double oldAzimu
   {
     if (IsModeChangeViewport())
     {
-      m_animCreator = [this, moveDuration](double correctedDuration) -> drape_ptr<Animation>
+      m_animCreator = [this, moveDuration](ref_ptr<Animation> syncAnim) -> drape_ptr<Animation>
       {
-        return make_unique_dp<ArrowAnimation>(GetDrawablePosition(), m_position,
-                                              correctedDuration > 0.0 ? correctedDuration : moveDuration,
-                                              GetDrawableAzimut(), m_drawDirection);
+        drape_ptr<Animation> anim = make_unique_dp<ArrowAnimation>(GetDrawablePosition(), m_position,
+                                                   syncAnim == nullptr ? moveDuration : syncAnim->GetDuration(),
+                                                   GetDrawableAzimut(), m_drawDirection);
+        if (syncAnim != nullptr)
+        {
+          anim->SetMaxDuration(syncAnim->GetMaxDuration());
+          anim->SetMinDuration(syncAnim->GetMinDuration());
+        }
+        return anim;
       };
       m_oldPosition = oldPos;
       m_oldDrawDirection = oldAzimut;
