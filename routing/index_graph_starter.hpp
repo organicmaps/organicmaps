@@ -2,7 +2,9 @@
 
 #include "routing/index_graph.hpp"
 #include "routing/joint.hpp"
+#include "routing/num_mwm_id.hpp"
 #include "routing/route_point.hpp"
+#include "routing/world_graph.hpp"
 
 #include "std/limits.hpp"
 #include "std/utility.hpp"
@@ -21,29 +23,31 @@ public:
   class FakeVertex final
   {
   public:
-    FakeVertex(uint32_t featureId, uint32_t segmentIdx, m2::PointD const & point)
-      : m_featureId(featureId), m_segmentIdx(segmentIdx), m_point(point)
+    FakeVertex(NumMwmId mwmId, uint32_t featureId, uint32_t segmentIdx, m2::PointD const & point)
+      : m_featureId(featureId), m_segmentIdx(segmentIdx), m_mwmId(mwmId), m_point(point)
     {
     }
 
+    NumMwmId GetMwmId() const { return m_mwmId; }
     uint32_t GetFeatureId() const { return m_featureId; }
     uint32_t GetSegmentIdx() const { return m_segmentIdx; }
     m2::PointD const & GetPoint() const { return m_point; }
 
     bool Fits(Segment const & segment) const
     {
-      return segment.GetFeatureId() == m_featureId && segment.GetSegmentIdx() == m_segmentIdx;
+      return segment.GetFeatureId() == m_featureId && segment.GetSegmentIdx() == m_segmentIdx &&
+             segment.GetMwmId() == m_mwmId;
     }
 
   private:
     uint32_t const m_featureId;
     uint32_t const m_segmentIdx;
+    NumMwmId const m_mwmId;
     m2::PointD const m_point;
   };
 
-  IndexGraphStarter(IndexGraph & graph, FakeVertex const & start, FakeVertex const & finish);
+  IndexGraphStarter(FakeVertex const & start, FakeVertex const & finish, WorldGraph & graph);
 
-  IndexGraph & GetGraph() const { return m_graph; }
   Segment const & GetStart() const { return kStartFakeSegment; }
   Segment const & GetFinish() const { return kFinishFakeSegment; }
   m2::PointD const & GetPoint(Segment const & segment, bool front);
@@ -69,15 +73,24 @@ public:
                                                 GetPoint(to, true /* front */));
   }
 
-  static bool IsFakeSegment(Segment const & segment) { return segment.GetFeatureId() == kFakeFeatureId; }
+  double CalcSegmentWeight(Segment const & segment) const
+  {
+    return m_graph.GetEstimator().CalcSegmentWeight(
+        segment, m_graph.GetRoadGeometry(segment.GetMwmId(), segment.GetFeatureId()));
+  }
+
+  static bool IsFakeSegment(Segment const & segment)
+  {
+    return segment.GetFeatureId() == kFakeFeatureId;
+  }
 
 private:
   static uint32_t constexpr kFakeFeatureId = numeric_limits<uint32_t>::max();
   static uint32_t constexpr kFakeSegmentIdx = numeric_limits<uint32_t>::max();
   static Segment constexpr kStartFakeSegment =
-      Segment(kFakeFeatureId, kFakeSegmentIdx, false);
+      Segment(kFakeNumMwmId, kFakeFeatureId, kFakeSegmentIdx, false);
   static Segment constexpr kFinishFakeSegment =
-      Segment(kFakeFeatureId, kFakeSegmentIdx, true);
+      Segment(kFakeNumMwmId, kFakeFeatureId, kFakeSegmentIdx, true);
 
   void GetFakeToNormalEdges(FakeVertex const & fakeVertex, vector<SegmentEdge> & edges);
   void GetFakeToNormalEdge(FakeVertex const & fakeVertex, bool forward,
@@ -86,7 +99,7 @@ private:
                            Segment const & fakeSegment, bool isOutgoing,
                            vector<SegmentEdge> & edges);
 
-  IndexGraph & m_graph;
+  WorldGraph & m_graph;
   FakeVertex const m_start;
   FakeVertex const m_finish;
 };

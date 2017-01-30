@@ -6,6 +6,7 @@
 #include "routing/bicycle_model.hpp"
 #include "routing/car_model.hpp"
 #include "routing/index_graph.hpp"
+#include "routing/index_graph_loader.hpp"
 #include "routing/index_graph_serialization.hpp"
 #include "routing/index_graph_starter.hpp"
 #include "routing/index_road_graph.hpp"
@@ -24,7 +25,7 @@
 
 #include "base/exception.hpp"
 
-#include "std/algorithm.hpp"
+#include <algorithm>
 
 using namespace routing;
 
@@ -37,34 +38,39 @@ uint32_t constexpr kDrawPointsPeriod = 10;
 
 namespace routing
 {
-SingleMwmRouter::SingleMwmRouter(string const & name, Index const & index,
-                                 traffic::TrafficCache const & trafficCache,
+SingleMwmRouter::SingleMwmRouter(string const & name, TCountryFileFn const & countryFileFn,
+                                 shared_ptr<NumMwmIds> numMwmIds,
+                                 shared_ptr<TrafficStash> trafficStash,
                                  shared_ptr<VehicleModelFactory> vehicleModelFactory,
                                  shared_ptr<EdgeEstimator> estimator,
-                                 unique_ptr<IDirectionsEngine> directionsEngine)
+                                 unique_ptr<IDirectionsEngine> directionsEngine, Index & index)
   : m_name(name)
   , m_index(index)
-  , m_trafficCache(trafficCache)
+  , m_countryFileFn(countryFileFn)
+  , m_numMwmIds(numMwmIds)
+  , m_trafficStash(trafficStash)
+  , m_indexManager(countryFileFn, m_index)
   , m_roadGraph(index, IRoadGraph::Mode::ObeyOnewayTag, vehicleModelFactory)
   , m_vehicleModelFactory(vehicleModelFactory)
   , m_estimator(estimator)
   , m_directionsEngine(move(directionsEngine))
 {
-  ASSERT(!m_name.empty(), ());
-  ASSERT(m_vehicleModelFactory, ());
-  ASSERT(m_estimator, ());
-  ASSERT(m_directionsEngine, ());
+  CHECK(!m_name.empty(), ());
+  CHECK(m_numMwmIds, ());
+  CHECK(m_trafficStash, ());
+  CHECK(m_vehicleModelFactory, ());
+  CHECK(m_estimator, ());
+  CHECK(m_directionsEngine, ());
 }
 
-IRouter::ResultCode SingleMwmRouter::CalculateRoute(MwmSet::MwmId const & mwmId,
-                                                    m2::PointD const & startPoint,
+IRouter::ResultCode SingleMwmRouter::CalculateRoute(m2::PointD const & startPoint,
                                                     m2::PointD const & startDirection,
                                                     m2::PointD const & finalPoint,
                                                     RouterDelegate const & delegate, Route & route)
 {
   try
   {
-    return DoCalculateRoute(mwmId, startPoint, startDirection, finalPoint, delegate, route);
+    return DoCalculateRoute(startPoint, startDirection, finalPoint, delegate, route);
   }
   catch (RootException const & e)
   {
@@ -74,41 +80,39 @@ IRouter::ResultCode SingleMwmRouter::CalculateRoute(MwmSet::MwmId const & mwmId,
   }
 }
 
-IRouter::ResultCode SingleMwmRouter::DoCalculateRoute(MwmSet::MwmId const & mwmId,
-                                                      m2::PointD const & startPoint,
+IRouter::ResultCode SingleMwmRouter::DoCalculateRoute(m2::PointD const & startPoint,
                                                       m2::PointD const & /* startDirection */,
                                                       m2::PointD const & finalPoint,
                                                       RouterDelegate const & delegate,
                                                       Route & route)
 {
-  if (!mwmId.IsAlive())
-    return IRouter::RouteFileNotExist;
-
-  string const & country = mwmId.GetInfo()->GetCountryName();
+  // TODO: remove field m_country.
+  // Use m_countryFileFn(startPoint), m_countryFileFn(finalPoint) here.
+  auto const startCountry = platform::CountryFile(m_country);
+  auto const finishCountry = platform::CountryFile(m_country);
 
   Edge startEdge;
-  if (!FindClosestEdge(mwmId, startPoint, startEdge))
+  if (!FindClosestEdge(startCountry, startPoint, startEdge))
     return IRouter::StartPointNotFound;
 
   Edge finishEdge;
-  if (!FindClosestEdge(mwmId, finalPoint, finishEdge))
+  if (!FindClosestEdge(finishCountry, finalPoint, finishEdge))
     return IRouter::EndPointNotFound;
 
-  IndexGraphStarter::FakeVertex const start(startEdge.GetFeatureId().m_index, startEdge.GetSegId(),
+  IndexGraphStarter::FakeVertex const start(m_numMwmIds->GetId(startCountry),
+                                            startEdge.GetFeatureId().m_index, startEdge.GetSegId(),
                                             startPoint);
-  IndexGraphStarter::FakeVertex const finish(finishEdge.GetFeatureId().m_index,
+  IndexGraphStarter::FakeVertex const finish(m_numMwmIds->GetId(finishCountry),
+                                             finishEdge.GetFeatureId().m_index,
                                              finishEdge.GetSegId(), finalPoint);
 
-  EstimatorGuard guard(mwmId, *m_estimator);
+  TrafficStash::Guard guard(*m_trafficStash);
+  WorldGraph graph(make_unique<CrossMwmIndexGraph>(m_numMwmIds, m_indexManager),
+                   IndexGraphLoader::Create(m_numMwmIds, m_vehicleModelFactory, m_estimator,
+                                            m_trafficStash, m_index),
+                   m_estimator);
 
-  shared_ptr<IVehicleModel> vehicleModel =
-      m_vehicleModelFactory->GetVehicleModelForCountry(country);
-  IndexGraph graph(GeometryLoader::Create(m_index, mwmId, vehicleModel), m_estimator);
-
-  if (!LoadIndex(mwmId, country, graph))
-    return IRouter::RouteFileNotExist;
-
-  IndexGraphStarter starter(graph, start, finish);
+  IndexGraphStarter starter(start, finish, graph);
 
   AStarProgress progress(0, 100);
   progress.Initialize(startPoint, finalPoint);
@@ -137,7 +141,7 @@ IRouter::ResultCode SingleMwmRouter::DoCalculateRoute(MwmSet::MwmId const & mwmI
   case AStarAlgorithm<IndexGraphStarter>::Result::NoPath: return IRouter::RouteNotFound;
   case AStarAlgorithm<IndexGraphStarter>::Result::Cancelled: return IRouter::Cancelled;
   case AStarAlgorithm<IndexGraphStarter>::Result::OK:
-    if (!RedressRoute(mwmId, *vehicleModel, routingResult.path, delegate, starter, route))
+    if (!RedressRoute(routingResult.path, delegate, starter, route))
       return IRouter::InternalError;
     if (delegate.IsCancelled())
       return IRouter::Cancelled;
@@ -145,9 +149,15 @@ IRouter::ResultCode SingleMwmRouter::DoCalculateRoute(MwmSet::MwmId const & mwmI
   }
 }
 
-bool SingleMwmRouter::FindClosestEdge(MwmSet::MwmId const & mwmId, m2::PointD const & point,
+bool SingleMwmRouter::FindClosestEdge(platform::CountryFile const & file, m2::PointD const & point,
                                       Edge & closestEdge) const
 {
+  MwmSet::MwmHandle handle = m_index.GetMwmHandleByCountryFile(file);
+  if (!handle.IsAlive())
+    MYTHROW(RoutingException, ("Can't get mwm handle for", file));
+
+  auto const mwmId = MwmSet::MwmId(handle.GetInfo());
+
   vector<pair<Edge, Junction>> candidates;
   m_roadGraph.FindClosestEdges(point, kMaxRoadCandidates, candidates);
 
@@ -177,38 +187,7 @@ bool SingleMwmRouter::FindClosestEdge(MwmSet::MwmId const & mwmId, m2::PointD co
   return true;
 }
 
-bool SingleMwmRouter::LoadIndex(MwmSet::MwmId const & mwmId, string const & country,
-                                IndexGraph & graph)
-{
-  MwmSet::MwmHandle mwmHandle = m_index.GetMwmHandleById(mwmId);
-  if (!mwmHandle.IsAlive())
-    return false;
-
-  MwmValue const * mwmValue = mwmHandle.GetValue<MwmValue>();
-  try
-  {
-    my::Timer timer;
-    FilesContainerR::TReader reader(mwmValue->m_cont.GetReader(ROUTING_FILE_TAG));
-    ReaderSource<FilesContainerR::TReader> src(reader);
-    IndexGraphSerializer::Deserialize(graph, src, kCarMask);
-    RestrictionLoader restrictionLoader(*mwmValue, graph);
-    if (restrictionLoader.HasRestrictions())
-      graph.SetRestrictions(restrictionLoader.StealRestrictions());
-
-    LOG(LINFO,
-        (ROUTING_FILE_TAG, "section for", country, "loaded in", timer.ElapsedSeconds(), "seconds"));
-    return true;
-  }
-  catch (Reader::OpenException const & e)
-  {
-    LOG(LERROR, ("File", mwmValue->GetCountryFileName(), "Error while reading", ROUTING_FILE_TAG,
-                 "section:", e.Msg()));
-    return false;
-  }
-}
-
-bool SingleMwmRouter::RedressRoute(MwmSet::MwmId const & mwmId, IVehicleModel const & vehicleModel,
-                                   vector<Segment> const & segments,
+bool SingleMwmRouter::RedressRoute(vector<Segment> const & segments,
                                    RouterDelegate const & delegate, IndexGraphStarter & starter,
                                    Route & route) const
 {
@@ -222,12 +201,10 @@ bool SingleMwmRouter::RedressRoute(MwmSet::MwmId const & mwmId, IVehicleModel co
     junctions.emplace_back(starter.GetRoutePoint(segments, i), feature::kDefaultAltitudeMeters);
   }
 
-  shared_ptr<traffic::TrafficInfo::Coloring> trafficColoring = m_trafficCache.GetTrafficInfo(mwmId);
-  IndexRoadGraph roadGraph(mwmId, m_index, vehicleModel.GetMaxSpeed(), starter, segments,
-                           junctions);
+  IndexRoadGraph roadGraph(m_numMwmIds, starter, segments, junctions, m_index);
 
   CHECK(m_directionsEngine, ());
-  ReconstructRoute(*m_directionsEngine, roadGraph, trafficColoring, delegate, junctions, route);
+  ReconstructRoute(*m_directionsEngine, roadGraph, m_trafficStash, delegate, junctions, route);
 
   if (!route.IsValid())
   {
@@ -235,8 +212,6 @@ bool SingleMwmRouter::RedressRoute(MwmSet::MwmId const & mwmId, IVehicleModel co
     return false;
   }
 
-  EdgeEstimator const & estimator = starter.GetGraph().GetEstimator();
-  Geometry & geometry = starter.GetGraph().GetGeometry();
   Route::TTimes times;
   times.reserve(segments.size());
   double time = 0.0;
@@ -245,8 +220,7 @@ bool SingleMwmRouter::RedressRoute(MwmSet::MwmId const & mwmId, IVehicleModel co
   for (size_t i = 1; i < segments.size() - 1; ++i)
   {
     times.emplace_back(static_cast<uint32_t>(i), time);
-    Segment const & segment = segments[i];
-    time += estimator.CalcSegmentWeight(segment, geometry.GetRoad(segment.GetFeatureId()));
+    time += starter.CalcSegmentWeight(segments[i]);
   }
   route.SetSectionTimes(move(times));
 
@@ -255,17 +229,28 @@ bool SingleMwmRouter::RedressRoute(MwmSet::MwmId const & mwmId, IVehicleModel co
 
 // static
 unique_ptr<SingleMwmRouter> SingleMwmRouter::CreateCarRouter(
-    Index const & index, traffic::TrafficCache const & trafficCache)
+    TCountryFileFn const & countryFileFn, shared_ptr<NumMwmIds> numMwmIds,
+    traffic::TrafficCache const & trafficCache, Index & index)
 {
   auto vehicleModelFactory = make_shared<CarModelFactory>();
   // @TODO Bicycle turn generation engine is used now. It's ok for the time being.
   // But later a special car turn generation engine should be implemented.
-  auto directionsEngine = make_unique<BicycleDirectionsEngine>(index);
-  auto estimator =
-      EdgeEstimator::CreateForCar(*vehicleModelFactory->GetVehicleModel(), trafficCache);
-  auto router =
-      make_unique<SingleMwmRouter>("astar-bidirectional-car", index, trafficCache,
-                                   move(vehicleModelFactory), estimator, move(directionsEngine));
+  auto directionsEngine = make_unique<BicycleDirectionsEngine>(index, numMwmIds);
+
+  double maxSpeed = 0.0;
+  numMwmIds->ForEachId([&](NumMwmId id) {
+    string const & country = numMwmIds->GetFile(id).GetName();
+    double const mwmMaxSpeed =
+        vehicleModelFactory->GetVehicleModelForCountry(country)->GetMaxSpeed();
+    maxSpeed = max(maxSpeed, mwmMaxSpeed);
+  });
+
+  auto trafficStash = make_shared<TrafficStash>(trafficCache);
+
+  auto estimator = EdgeEstimator::CreateForCar(trafficStash, maxSpeed);
+  auto router = make_unique<SingleMwmRouter>("astar-bidirectional-car", countryFileFn, numMwmIds,
+                                             trafficStash, vehicleModelFactory, estimator,
+                                             move(directionsEngine), index);
   return router;
 }
 }  // namespace routing

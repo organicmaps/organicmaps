@@ -3,6 +3,7 @@
 #include "routing/road_graph.hpp"
 #include "routing/road_point.hpp"
 #include "routing/route.hpp"
+#include "routing/segment.hpp"
 
 #include "traffic/traffic_info.hpp"
 
@@ -18,10 +19,9 @@ public:
   virtual ~IDirectionsEngine() = default;
 
   virtual void Generate(RoadGraphBase const & graph, vector<Junction> const & path,
-                        Route::TTimes & times, Route::TTurns & turns,
-                        vector<Junction> & routeGeometry,
-                        vector<traffic::TrafficInfo::RoadSegmentId> & trafficSegs,
-                        my::Cancellable const & cancellable) = 0;
+                        my::Cancellable const & cancellable, Route::TTimes & times,
+                        Route::TTurns & turns, vector<Junction> & routeGeometry,
+                        vector<Segment> & trafficSegs) = 0;
 
 protected:
   /// \brief constructs route based on |graph| and |path|. Fills |routeEdges| with the route.

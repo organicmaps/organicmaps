@@ -34,7 +34,7 @@ using namespace routing_test;
 //   0       1      2       3
 //                Start
 // Note. This graph contains of 6 one segment directed features.
-unique_ptr<IndexGraph> BuildXYGraph()
+unique_ptr<WorldGraph> BuildXYGraph()
 {
   unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
   loader->AddRoad(0 /* featureId */, true /* oneWay */, 1.0 /* speed */,
@@ -61,19 +61,17 @@ unique_ptr<IndexGraph> BuildXYGraph()
   };
 
   traffic::TrafficCache const trafficCache;
-  unique_ptr<IndexGraph> graph =
-      make_unique<IndexGraph>(move(loader), CreateEstimator(trafficCache));
-  graph->Import(joints);
-  return graph;
+  shared_ptr<EdgeEstimator> estimator = CreateEstimator(make_shared<TrafficStash>(trafficCache));
+  return BuildWorldGraph(move(loader), estimator, joints);
 }
 
 // Route through XY graph without any restrictions.
 UNIT_TEST(XYGraph)
 {
-  unique_ptr<IndexGraph> graph = BuildXYGraph();
-  IndexGraphStarter starter(*graph,
-                            IndexGraphStarter::FakeVertex(1, 0, m2::PointD(2, 0)) /* start */,
-                            IndexGraphStarter::FakeVertex(5, 0, m2::PointD(2, 3)) /* finish */);
+  unique_ptr<WorldGraph> graph = BuildXYGraph();
+  IndexGraphStarter starter(
+      IndexGraphStarter::FakeVertex(kTestNumMwmId, 1, 0, m2::PointD(2, 0)) /* start */,
+      IndexGraphStarter::FakeVertex(kTestNumMwmId, 5, 0, m2::PointD(2, 3)) /* finish */, *graph);
   vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {1, 1}, {2, 2}, {2, 3}};
   TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
 }
@@ -86,10 +84,11 @@ UNIT_CLASS_TEST(RestrictionTest, XYGraph_RestrictionF1F3Only)
       {Restriction::Type::Only, {1 /* feature from */, 3 /* feature to */}}};
 
   vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {1, 1}, {2, 2}, {2, 3}};
-  TestRestrictions(expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
-                   routing::IndexGraphStarter::FakeVertex(1, 0, m2::PointD(2, 0)) /* start */,
-                   routing::IndexGraphStarter::FakeVertex(5, 0, m2::PointD(2, 3)) /* finish */,
-                   move(restrictions), *this);
+  TestRestrictions(
+      expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
+      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 1, 0, m2::PointD(2, 0)) /* start */,
+      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 5, 0, m2::PointD(2, 3)) /* finish */,
+      move(restrictions), *this);
 }
 
 // Route through XY graph with one restriciton (type only) from F3 to F5.
@@ -100,10 +99,11 @@ UNIT_CLASS_TEST(RestrictionTest, XYGraph_RestrictionF3F5Only)
       {Restriction::Type::Only, {3 /* feature from */, 5 /* feature to */}}};
 
   vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {1, 1}, {2, 2}, {2, 3}};
-  TestRestrictions(expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
-                   routing::IndexGraphStarter::FakeVertex(1, 0, m2::PointD(2, 0)) /* start */,
-                   routing::IndexGraphStarter::FakeVertex(5, 0, m2::PointD(2, 3)) /* finish */,
-                   move(restrictions), *this);
+  TestRestrictions(
+      expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
+      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 1, 0, m2::PointD(2, 0)) /* start */,
+      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 5, 0, m2::PointD(2, 3)) /* finish */,
+      move(restrictions), *this);
 }
 
 // Cumulative case. Route through XY graph with two restricitons (type only) applying
@@ -116,10 +116,11 @@ UNIT_CLASS_TEST(RestrictionTest, XYGraph_PermutationsF3F5OnlyF1F3Only)
       {Restriction::Type::Only, {3 /* feature from */, 5 /* feature to */}}};
 
   vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {1, 1}, {2, 2}, {2, 3}};
-  TestRestrictions(expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
-                   routing::IndexGraphStarter::FakeVertex(1, 0, m2::PointD(2, 0)) /* start */,
-                   routing::IndexGraphStarter::FakeVertex(5, 0, m2::PointD(2, 3)) /* finish */,
-                   move(restrictions), *this);
+  TestRestrictions(
+      expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
+      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 1, 0, m2::PointD(2, 0)) /* start */,
+      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 5, 0, m2::PointD(2, 3)) /* finish */,
+      move(restrictions), *this);
 }
 
 // Cumulative case. Route through XY graph with two restricitons (type only and type no) applying
@@ -132,10 +133,11 @@ UNIT_CLASS_TEST(RestrictionTest, XYGraph_PermutationsF3F5OnlyAndF0F2No)
       {Restriction::Type::No, {1 /* feature from */, 2 /* feature to */}},
       {Restriction::Type::Only, {3 /* feature from */, 5 /* feature to */}}};
   vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {1, 1}, {2, 2}, {2, 3}};
-  TestRestrictions(expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
-                   routing::IndexGraphStarter::FakeVertex(1, 0, m2::PointD(2, 0)) /* start */,
-                   routing::IndexGraphStarter::FakeVertex(5, 0, m2::PointD(2, 3)) /* finish */,
-                   move(restrictions), *this);
+  TestRestrictions(
+      expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
+      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 1, 0, m2::PointD(2, 0)) /* start */,
+      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 5, 0, m2::PointD(2, 3)) /* finish */,
+      move(restrictions), *this);
 }
 
 // Cumulative case. Trying to build route through XY graph with two restricitons applying
@@ -148,10 +150,11 @@ UNIT_CLASS_TEST(RestrictionTest, XYGraph_RestrictionF3F5OnlyAndF1F3No)
       {Restriction::Type::No, {1 /* feature from */, 3 /* feature to */}},
       {Restriction::Type::Only, {3 /* feature from */, 5 /* feature to */}}};
 
-  TestRestrictions({} /* expectedGeom */, AStarAlgorithm<IndexGraphStarter>::Result::NoPath,
-                   routing::IndexGraphStarter::FakeVertex(1, 0, m2::PointD(2, 0)) /* start */,
-                   routing::IndexGraphStarter::FakeVertex(5, 0, m2::PointD(2, 3)) /* finish */,
-                   move(restrictions), *this);
+  TestRestrictions(
+      {} /* expectedGeom */, AStarAlgorithm<IndexGraphStarter>::Result::NoPath,
+      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 1, 0, m2::PointD(2, 0)) /* start */,
+      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 5, 0, m2::PointD(2, 3)) /* finish */,
+      move(restrictions), *this);
 }
 
 //                        Finish
@@ -175,7 +178,7 @@ UNIT_CLASS_TEST(RestrictionTest, XYGraph_RestrictionF3F5OnlyAndF1F3No)
 //   0       1      2       3
 //                Start
 // Note. This graph contains of 9 one segment directed features.
-unique_ptr<IndexGraph> BuildXXGraph()
+unique_ptr<WorldGraph> BuildXXGraph()
 {
   unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
   loader->AddRoad(0 /* featureId */, true /* oneWay */, 1.0 /* speed */,
@@ -213,10 +216,8 @@ unique_ptr<IndexGraph> BuildXXGraph()
   };
 
   traffic::TrafficCache const trafficCache;
-  unique_ptr<IndexGraph> graph =
-      make_unique<IndexGraph>(move(loader), CreateEstimator(trafficCache));
-  graph->Import(joints);
-  return graph;
+  shared_ptr<EdgeEstimator> estimator = CreateEstimator(make_shared<TrafficStash>(trafficCache));
+  return BuildWorldGraph(move(loader), estimator, joints);
 }
 
 // Route through XY graph without any restrictions.
@@ -225,10 +226,11 @@ UNIT_CLASS_TEST(RestrictionTest, XXGraph)
   Init(BuildXXGraph());
   RestrictionVec restrictions = {};
   vector<m2::PointD> const expectedGeom = {{2 /* x */, -1 /* y */}, {2, 0}, {1, 1}, {2, 2}, {3, 3}};
-  TestRestrictions(expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
-                   routing::IndexGraphStarter::FakeVertex(9, 0, m2::PointD(2, -1)), /* start */
-                   routing::IndexGraphStarter::FakeVertex(6, 0, m2::PointD(3, 3)),  /* finish */
-                   move(restrictions), *this);
+  TestRestrictions(
+      expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
+      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 9, 0, m2::PointD(2, -1)), /* start */
+      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 6, 0, m2::PointD(3, 3)),  /* finish */
+      move(restrictions), *this);
 }
 
 // Cumulative case. Route through XX graph with two restricitons (type only) applying
@@ -241,10 +243,11 @@ UNIT_CLASS_TEST(RestrictionTest, XXGraph_PermutationsF1F3OnlyAndF3F6Only)
       {Restriction::Type::Only, {3 /* feature from */, 6 /* feature to */}}};
 
   vector<m2::PointD> const expectedGeom = {{2 /* x */, -1 /* y */}, {2, 0}, {1, 1}, {2, 2}, {3, 3}};
-  TestRestrictions(expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
-                   routing::IndexGraphStarter::FakeVertex(9, 0, m2::PointD(2, -1)), /* start */
-                   routing::IndexGraphStarter::FakeVertex(6, 0, m2::PointD(3, 3)),  /* finish */
-                   move(restrictions), *this);
+  TestRestrictions(
+      expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
+      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 9, 0, m2::PointD(2, -1)), /* start */
+      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 6, 0, m2::PointD(3, 3)),  /* finish */
+      move(restrictions), *this);
 }
 
 // Route through XX graph with one restriciton (type no) from F1 to F3.
@@ -256,10 +259,11 @@ UNIT_CLASS_TEST(RestrictionTest, XXGraph_RestrictionF1F3No)
   vector<m2::PointD> const expectedGeom = {
       {2 /* x */, -1 /* y */}, {2, 0}, {3, 0}, {3, 1}, {2, 2}, {3, 3}};
 
-  TestRestrictions(expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
-                   routing::IndexGraphStarter::FakeVertex(9, 0, m2::PointD(2, -1)), /* start */
-                   routing::IndexGraphStarter::FakeVertex(6, 0, m2::PointD(3, 3)),  /* finish */
-                   move(restrictions), *this);
+  TestRestrictions(
+      expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
+      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 9, 0, m2::PointD(2, -1)), /* start */
+      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 6, 0, m2::PointD(3, 3)),  /* finish */
+      move(restrictions), *this);
 }
 
 // Cumulative case. Route through XX graph with four restricitons of different types applying
@@ -275,9 +279,10 @@ UNIT_CLASS_TEST(RestrictionTest, XXGraph_PermutationsF1F3NoF7F8OnlyF8F4OnlyF4F6O
 
   vector<m2::PointD> const expectedGeom = {
       {2 /* x */, -1 /* y */}, {2, 0}, {3, 0}, {3, 1}, {2, 2}, {3, 3}};
-  TestRestrictions(expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
-                   routing::IndexGraphStarter::FakeVertex(9, 0, m2::PointD(2, -1)), /* start */
-                   routing::IndexGraphStarter::FakeVertex(6, 0, m2::PointD(3, 3)),  /* finish */
-                   move(restrictions), *this);
+  TestRestrictions(
+      expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
+      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 9, 0, m2::PointD(2, -1)), /* start */
+      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 6, 0, m2::PointD(3, 3)),  /* finish */
+      move(restrictions), *this);
 }
 }  // namespace

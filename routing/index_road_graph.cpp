@@ -1,11 +1,13 @@
 #include "routing/index_road_graph.hpp"
 
+#include "routing/routing_exceptions.hpp"
+
 namespace routing
 {
-IndexRoadGraph::IndexRoadGraph(MwmSet::MwmId const & mwmId, Index const & index,
-                               double maxSpeedKMPH, IndexGraphStarter & starter,
-                               vector<Segment> const & segments, vector<Junction> const & junctions)
-  : m_mwmId(mwmId), m_index(index), m_maxSpeedKMPH(maxSpeedKMPH), m_starter(starter)
+IndexRoadGraph::IndexRoadGraph(shared_ptr<NumMwmIds> numMwmIds, IndexGraphStarter & starter,
+                               vector<Segment> const & segments, vector<Junction> const & junctions,
+                               Index & index)
+  : m_index(index), m_numMwmIds(numMwmIds), m_starter(starter)
 {
   CHECK_EQUAL(segments.size(), junctions.size() + 1, ());
 
@@ -29,7 +31,12 @@ void IndexRoadGraph::GetIngoingEdges(Junction const & junction, TEdgeVector & ed
 
 double IndexRoadGraph::GetMaxSpeedKMPH() const
 {
-  return m_maxSpeedKMPH;
+  // Value doesn't matter.
+  // It used in IDirectionsEngine::CalculateTimes only.
+  // But SingleMwmRouter::RedressRoute overwrites time values.
+  //
+  // TODO: remove this stub after transfering Bicycle and Pedestrian to index routing.
+  return 0.0;
 }
 
 void IndexRoadGraph::GetEdgeTypes(Edge const & edge, feature::TypesHolder & types) const
@@ -78,8 +85,14 @@ void IndexRoadGraph::GetEdges(Junction const & junction, bool isOutgoing, TEdgeV
     if (IndexGraphStarter::IsFakeSegment(segment))
       continue;
 
-    edges.emplace_back(FeatureID(m_mwmId, segment.GetFeatureId()), segment.IsForward(),
-                       segment.GetSegmentIdx(), GetJunction(segment, false /* front */),
+    platform::CountryFile const & file = m_numMwmIds->GetFile(segment.GetMwmId());
+    MwmSet::MwmHandle const handle = m_index.GetMwmHandleByCountryFile(file);
+    if (!handle.IsAlive())
+      MYTHROW(RoutingException, ("Can't get mwm handle for", file));
+
+    edges.emplace_back(FeatureID(MwmSet::MwmId(handle.GetInfo()), segment.GetFeatureId()),
+                       segment.IsForward(), segment.GetSegmentIdx(),
+                       GetJunction(segment, false /* front */),
                        GetJunction(segment, true /* front */));
   }
 }

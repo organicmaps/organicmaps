@@ -22,11 +22,6 @@ class Segment final
 public:
   Segment() = default;
 
-  constexpr Segment(uint32_t featureId, uint32_t segmentIdx, bool forward)
-    : m_featureId(featureId), m_segmentIdx(segmentIdx), m_forward(forward)
-  {
-  }
-
   constexpr Segment(NumMwmId mwmId, uint32_t featureId, uint32_t segmentIdx, bool forward)
     : m_featureId(featureId), m_segmentIdx(segmentIdx), m_mwmId(mwmId), m_forward(forward)
   {

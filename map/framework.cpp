@@ -2489,15 +2489,13 @@ void Framework::SetRouterImpl(RouterType type)
       return m_model.GetIndex().GetMwmIdByCountryFile(CountryFile(countryFile)).IsAlive();
     };
 
-    //    @TODO(bykoianko, dobriy-eeh). Pass numMwmIds to router and CrossMwmIndexGraph.
-    //    shared_ptr<routing::NumMwmIds> numMwmIds = make_shared<routing::NumMwmIds>();
-    //    m_storage.ForEachCountryFile([&](platform::CountryFile const & file){
-    //      numMwmIds->RegisterFile(file);
-    //    });
+    auto numMwmIds = make_shared<routing::NumMwmIds>();
+    m_storage.ForEachCountryFile(
+        [&](platform::CountryFile const & file) { numMwmIds->RegisterFile(file); });
 
     router.reset(
         new CarRouter(m_model.GetIndex(), countryFileGetter,
-                      SingleMwmRouter::CreateCarRouter(m_model.GetIndex(), m_routingSession)));
+                      SingleMwmRouter::CreateCarRouter(countryFileGetter, numMwmIds, m_routingSession, m_model.GetIndex())));
     fetcher.reset(new OnlineAbsentCountriesFetcher(countryFileGetter, localFileChecker));
     m_routingSession.SetRoutingSettings(routing::GetCarRoutingSettings());
   }

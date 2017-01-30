@@ -32,11 +32,12 @@ PedestrianDirectionsEngine::PedestrianDirectionsEngine()
 {
 }
 
-void PedestrianDirectionsEngine::Generate(RoadGraphBase const & graph, vector<Junction> const & path,
+void PedestrianDirectionsEngine::Generate(RoadGraphBase const & graph,
+                                          vector<Junction> const & path,
+                                          my::Cancellable const & cancellable,
                                           Route::TTimes & times, Route::TTurns & turns,
                                           vector<Junction> & routeGeometry,
-                                          vector<traffic::TrafficInfo::RoadSegmentId> & /* trafficSegs */,
-                                          my::Cancellable const & cancellable)
+                                          vector<Segment> & /* trafficSegs */)
 {
   times.clear();
   turns.clear();

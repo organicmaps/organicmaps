@@ -40,6 +40,8 @@ set(
   geometry.hpp
   index_graph.cpp
   index_graph.hpp
+  index_graph_loader.cpp
+  index_graph_loader.hpp
   index_graph_serialization.cpp
   index_graph_serialization.hpp
   index_graph_starter.cpp
@@ -105,6 +107,7 @@ set(
   single_mwm_router.hpp
   speed_camera.cpp
   speed_camera.hpp
+  traffic_stash.hpp
   turn_candidate.hpp
   turns.cpp
   turns.hpp
@@ -119,6 +122,8 @@ set(
   vehicle_mask.hpp
   vehicle_model.cpp
   vehicle_model.hpp
+  world_graph.cpp
+  world_graph.hpp
 )
 
 add_library(${PROJECT_NAME} ${SRC})

@@ -112,14 +112,16 @@ void IndexGraph::GetNeighboringEdges(Segment const & from, RoadPoint const & rp,
 
   if ((isOutgoing || bidirectional) && rp.GetPointId() + 1 < road.GetPointsCount())
   {
-    GetNeighboringEdge(from, Segment(rp.GetFeatureId(), rp.GetPointId(), isOutgoing), isOutgoing,
-                       edges);
+    GetNeighboringEdge(from,
+                       Segment(from.GetMwmId(), rp.GetFeatureId(), rp.GetPointId(), isOutgoing),
+                       isOutgoing, edges);
   }
 
   if ((!isOutgoing || bidirectional) && rp.GetPointId() > 0)
   {
-    GetNeighboringEdge(from, Segment(rp.GetFeatureId(), rp.GetPointId() - 1, !isOutgoing),
-                       isOutgoing, edges);
+    GetNeighboringEdge(
+        from, Segment(from.GetMwmId(), rp.GetFeatureId(), rp.GetPointId() - 1, !isOutgoing),
+        isOutgoing, edges);
   }
 }
 
@@ -145,7 +147,7 @@ void IndexGraph::GetNeighboringEdge(Segment const & from, Segment const & to, bo
 double IndexGraph::GetPenalties(Segment const & u, Segment const & v) const
 {
   if (IsUTurn(u, v))
-    return GetEstimator().GetUTurnPenalty();
+    return m_estimator->GetUTurnPenalty();
 
   return 0.0;
 }

@@ -258,7 +258,7 @@ IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result,
                                        vector<Junction> & junctions,
                                        Route::TTurns & turnsDir, Route::TTimes & times,
                                        Route::TStreets & streets,
-                                       vector<traffic::TrafficInfo::RoadSegmentId> & trafficSegs)
+                                       vector<Segment> & trafficSegs)
 {
   double estimatedTime = 0;
 

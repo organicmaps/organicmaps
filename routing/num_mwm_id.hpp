@@ -6,12 +6,14 @@
 #include "base/checked_cast.hpp"
 
 #include <cstdint>
+#include <limits>
 #include <map>
 #include <vector>
 
 namespace routing
 {
 using NumMwmId = std::uint16_t;
+NumMwmId constexpr kFakeNumMwmId = std::numeric_limits<NumMwmId>::max();
 
 class NumMwmIds final
 {
@@ -43,6 +45,13 @@ public:
     auto const it = m_fileToId.find(file);
     CHECK(it != m_fileToId.cend(), ("Can't find mwm id for", file));
     return it->second;
+  }
+
+  template <typename F>
+  void ForEachId(F && f) const
+  {
+    for (NumMwmId id = 0; id < base::asserted_cast<NumMwmId>(m_idToFile.size()); ++id)
+      f(id);
   }
 
 private:
