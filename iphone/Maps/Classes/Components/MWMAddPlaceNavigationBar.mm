@@ -39,7 +39,7 @@
   }];
 }
 
-- (void)dismiss
+- (void)dismissWithBlock:(TMWMVoidBlock)block
 {
   auto & f = GetFramework();
   f.EnableChoosePositionMode(false /* enable */, false /* enableBounds */, false /* applyPosition */, m2::PointD());
@@ -52,19 +52,18 @@
   completion:^(BOOL finished)
   {
     [self removeFromSuperview];
+    block();
   }];
 }
 
 - (IBAction)doneTap
 {
-  [self dismiss];
-  self.doneBlock();
+  [self dismissWithBlock:self.doneBlock];
 }
 
 - (IBAction)cancelTap
 {
-  [self dismiss];
-  self.cancelBlock();
+  [self dismissWithBlock:self.cancelBlock];
 }
 
 - (void)layoutSubviews
