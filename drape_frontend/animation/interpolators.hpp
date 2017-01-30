@@ -18,8 +18,13 @@ public:
   void SetActive(bool active);
 
   bool IsFinished() const;
+
+  static double constexpr kInvalidDuration = -1.0;
   void SetMaxDuration(double maxDuration);
-  void SetMinDuration(double minDuration);
+  void SetMinDuration(double minDuration); 
+  double GetMaxDuration() const;
+  double GetMinDuration() const;
+
   double GetDuration() const;
 
 protected:
@@ -29,6 +34,9 @@ protected:
 private:
   double m_elapsedTime;
   double m_duration;
+  double m_maxDuration;
+  double m_minDuration;
+
   double m_delay;
   bool m_isActive;
 };

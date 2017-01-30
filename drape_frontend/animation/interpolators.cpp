@@ -20,6 +20,8 @@ double CalcAnimSpeedDuration(double pxDiff, double pxSpeed)
 Interpolator::Interpolator(double duration, double delay)
   : m_elapsedTime(0.0)
   , m_duration(duration)
+  , m_maxDuration(Interpolator::kInvalidDuration)
+  , m_minDuration(Interpolator::kInvalidDuration)
   , m_delay(delay)
   , m_isActive(false)
 {
@@ -56,12 +58,26 @@ void Interpolator::SetActive(bool active)
 
 void Interpolator::SetMaxDuration(double maxDuration)
 {
-  m_duration = min(m_duration, maxDuration);
+  m_maxDuration = maxDuration;
+  if (m_maxDuration >= 0.0)
+    m_duration = min(m_duration, m_maxDuration);
 }
 
 void Interpolator::SetMinDuration(double minDuration)
 {
-  m_duration = max(m_duration, minDuration);
+  m_minDuration = minDuration;
+  if (m_minDuration >= 0.0)
+    m_duration = max(m_duration, m_minDuration);
+}
+
+double Interpolator::GetMaxDuration() const
+{
+  return m_maxDuration;
+}
+
+double Interpolator::GetMinDuration() const
+{
+  return m_minDuration;
 }
 
 double Interpolator::GetT() const

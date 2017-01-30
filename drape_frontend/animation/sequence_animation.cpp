@@ -69,12 +69,45 @@ void SequenceAnimation::SetMaxDuration(double maxDuration)
   ASSERT(false, ("Not implemented"));
 }
 
+void SequenceAnimation::SetMinDuration(double minDuration)
+{
+  ASSERT(false, ("Not implemented"));
+}
+
 double SequenceAnimation::GetDuration() const
 {
   double duration = 0.0;
   for (auto const & anim : m_animations)
     duration += anim->GetDuration();
   return duration;
+}
+
+double SequenceAnimation::GetMaxDuration() const
+{
+  double maxDuration = 0.0;
+  double duration;
+  for (auto const & anim : m_animations)
+  {
+    duration = anim->GetMaxDuration();
+    if (duration < 0.0)
+      return Animation::kInvalidAnimationDuration;
+    maxDuration += duration;
+  }
+  return maxDuration;
+}
+
+double SequenceAnimation::GetMinDuration() const
+{
+  double minDuration = 0.0;
+  double duration;
+  for (auto const & anim : m_animations)
+  {
+    duration = anim->GetMinDuration();
+    if (duration < 0.0)
+      return Animation::kInvalidAnimationDuration;
+    minDuration += duration;
+  }
+  return minDuration;
 }
 
 bool SequenceAnimation::IsFinished() const

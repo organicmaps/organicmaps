@@ -38,8 +38,6 @@ uint64_t const kKineticDelayMs = 500;
 
 float const kForceTapThreshold = 0.75;
 
-double const kDoNotChangeDuration = -1.0;
-
 size_t GetValidTouchesCount(array<Touch, 2> const & touches)
 {
   size_t result = 0;
@@ -460,7 +458,7 @@ bool UserEventStream::SetScreen(ScreenBase const & endScreen, bool isAnim, TAnim
       {
         drape_ptr<ParallelAnimation> parallelAnim = make_unique_dp<ParallelAnimation>();
         parallelAnim->SetCustomType(kParallelLinearAnim);
-        parallelAnim->AddAnimation(parallelAnimCreator(kDoNotChangeDuration));
+        parallelAnim->AddAnimation(parallelAnimCreator(nullptr /* syncAnim */));
         parallelAnim->AddAnimation(move(anim));
         m_animationSystem.CombineAnimation(move(parallelAnim));
       }
@@ -551,8 +549,8 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
     {
       drape_ptr<ParallelAnimation> parallelAnim = make_unique_dp<ParallelAnimation>();
       parallelAnim->SetCustomType(kParallelFollowAnim);
-      parallelAnim->AddAnimation(parallelAnimCreator(anim->GetType() == Animation::Type::MapFollow ? anim->GetDuration()
-                                                                                                   : kDoNotChangeDuration));
+      parallelAnim->AddAnimation(parallelAnimCreator(anim->GetType() == Animation::Type::MapFollow ? make_ref(anim)
+                                                                                                   : nullptr));
       parallelAnim->AddAnimation(move(anim));
       m_animationSystem.CombineAnimation(move(parallelAnim));
     }

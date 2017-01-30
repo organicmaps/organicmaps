@@ -30,13 +30,24 @@ void MapFollowAnimation::Init(ScreenBase const & screen, TPropertyCache const & 
   ScreenBase currentScreen;
   GetCurrentScreen(properties, screen, currentScreen);
 
+  double minDuration = m_offsetInterpolator.GetMinDuration();
+  double maxDuration = m_offsetInterpolator.GetMaxDuration();
+
   m_offset = currentScreen.PtoG(currentScreen.P3dtoP(m_endPixelPosition)) - m_globalPosition;
   double const averageScale = m_isAutoZoom ? currentScreen.GetScale() : (currentScreen.GetScale() + m_endScale) / 2.0;
   double const moveDuration = PositionInterpolator::GetMoveDuration(m_offset.Length(), screen.PixelRectIn3d(), averageScale);
   m_offsetInterpolator = PositionInterpolator(moveDuration, 0.0, m_offset, m2::PointD(0.0, 0.0));
 
+  m_offsetInterpolator.SetMinDuration(minDuration);
+  m_offsetInterpolator.SetMaxDuration(maxDuration);
+
+  maxDuration = m_scaleInterpolator.GetMaxDuration();
   m_scaleInterpolator = ScaleInterpolator(currentScreen.GetScale(), m_endScale, m_isAutoZoom);
+  m_scaleInterpolator.SetMaxDuration(maxDuration);
+
+  maxDuration = m_angleInterpolator.GetMaxDuration();
   m_angleInterpolator = AngleInterpolator(currentScreen.GetAngle(), m_endAngle);
+  m_angleInterpolator.SetMaxDuration(maxDuration);
 
   double const duration = CalculateDuration();
 
@@ -104,10 +115,45 @@ void MapFollowAnimation::SetMaxDuration(double maxDuration)
     m_offsetInterpolator.SetMaxDuration(maxDuration);
 }
 
+void MapFollowAnimation::SetMinDuration(double minDuration)
+{
+  if (m_angleInterpolator.IsActive())
+    m_angleInterpolator.SetMinDuration(minDuration);
+  if (!m_isAutoZoom && m_scaleInterpolator.IsActive())
+    m_scaleInterpolator.SetMinDuration(minDuration);
+  if (m_offsetInterpolator.IsActive())
+    m_offsetInterpolator.SetMinDuration(minDuration);
+}
+
 double MapFollowAnimation::GetDuration() const
 {
   return CalculateDuration();
 }
+
+double MapFollowAnimation::GetMaxDuration() const
+{
+  double maxDuration = Animation::kInvalidAnimationDuration;
+
+  if (!Animation::GetMaxDuration(m_angleInterpolator, maxDuration) ||
+      (!m_isAutoZoom && !Animation::GetMaxDuration(m_scaleInterpolator, maxDuration)) ||
+      !Animation::GetMaxDuration(m_offsetInterpolator, maxDuration))
+    return Animation::kInvalidAnimationDuration;
+
+  return maxDuration;
+}
+
+double MapFollowAnimation::GetMinDuration() const
+{
+  double minDuration = Animation::kInvalidAnimationDuration;
+
+  if (!Animation::GetMinDuration(m_angleInterpolator, minDuration) ||
+      (!m_isAutoZoom && !Animation::GetMinDuration(m_scaleInterpolator, minDuration)) ||
+      !Animation::GetMinDuration(m_offsetInterpolator, minDuration))
+    return Animation::kInvalidAnimationDuration;
+
+  return minDuration;
+}
+
 
 double MapFollowAnimation::CalculateDuration() const
 {

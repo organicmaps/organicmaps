@@ -3,6 +3,7 @@
 namespace df
 {
 
+// static
 bool Animation::GetCachedProperty(TPropertyCache const & properties, Object object, ObjectProperty property, PropertyValue & value)
 {
   auto const it = properties.find(make_pair(object, property));
@@ -14,6 +15,7 @@ bool Animation::GetCachedProperty(TPropertyCache const & properties, Object obje
   return false;
 }
 
+// static
 void Animation::GetCurrentScreen(TPropertyCache const & properties, ScreenBase const & screen, ScreenBase & currentScreen)
 {
   currentScreen = screen;
@@ -58,6 +60,34 @@ bool Animation::CouldBeBlendedWith(Animation const & animation) const
 bool Animation::HasTargetProperty(Object object, ObjectProperty property) const
 {
   return HasProperty(object, property);
+}
+
+// static
+bool Animation::GetMinDuration(Interpolator const & interpolator, double & minDuration)
+{
+  if (interpolator.IsActive())
+  {
+    double const duration = interpolator.GetMinDuration();
+    if (duration >= 0.0)
+      minDuration = minDuration >= 0.0 ? min(duration, minDuration) : duration;
+    else
+      return false;
+  }
+  return true;
+}
+
+// static
+bool Animation::GetMaxDuration(Interpolator const & interpolator, double & maxDuration)
+{
+  if (interpolator.IsActive())
+  {
+    double const duration = interpolator.GetMaxDuration();
+    if (duration >= 0.0)
+      maxDuration = maxDuration >= 0.0 ? max(duration, maxDuration) : duration;
+    else
+      return false;
+  }
+  return true;
 }
 
 } // namespace df

@@ -36,9 +36,26 @@ void MapLinearAnimation::Init(ScreenBase const & screen, TPropertyCache const & 
   ScreenBase currentScreen;
   GetCurrentScreen(properties, screen, currentScreen);
 
+  double minDuration = m_positionInterpolator.GetMinDuration();
+  double maxDuration = m_positionInterpolator.GetMaxDuration();
   SetMove(currentScreen.GlobalRect().GlobalZero(), m_positionInterpolator.GetTargetPosition(), currentScreen);
+
+  m_positionInterpolator.SetMinDuration(minDuration);
+  m_positionInterpolator.SetMaxDuration(maxDuration);
+
+  minDuration = m_scaleInterpolator.GetMinDuration();
+  maxDuration = m_scaleInterpolator.GetMaxDuration();
   SetScale(currentScreen.GetScale(), m_scaleInterpolator.GetTargetScale());
+
+  m_scaleInterpolator.SetMinDuration(minDuration);
+  m_scaleInterpolator.SetMaxDuration(maxDuration);
+
+  minDuration = m_angleInterpolator.GetMinDuration();
+  maxDuration = m_angleInterpolator.GetMaxDuration();
   SetRotate(currentScreen.GetAngle(), m_angleInterpolator.GetTargetAngle());
+
+  m_angleInterpolator.SetMinDuration(minDuration);
+  m_angleInterpolator.SetMaxDuration(maxDuration);
 }
 
 void MapLinearAnimation::SetMove(m2::PointD const & startPos, m2::PointD const & endPos,
@@ -119,6 +136,18 @@ void MapLinearAnimation::SetMaxDuration(double maxDuration)
   SetMaxScaleDuration(maxDuration);
 }
 
+void MapLinearAnimation::SetMinDuration(double minDuration)
+{
+  if (m_angleInterpolator.IsActive())
+    m_angleInterpolator.SetMinDuration(minDuration);
+
+  if (m_positionInterpolator.IsActive())
+    m_positionInterpolator.SetMinDuration(minDuration);
+
+  if (m_scaleInterpolator.IsActive())
+    m_scaleInterpolator.SetMinDuration(minDuration);
+}
+
 void MapLinearAnimation::SetMaxScaleDuration(double maxDuration)
 {
   if (m_scaleInterpolator.IsActive())
@@ -135,6 +164,30 @@ double MapLinearAnimation::GetDuration() const
   if (m_positionInterpolator.IsActive())
     duration = max(duration, m_positionInterpolator.GetDuration());
   return duration;
+}
+
+double MapLinearAnimation::GetMaxDuration() const
+{
+  double maxDuration = Animation::kInvalidAnimationDuration;
+
+  if (!Animation::GetMaxDuration(m_angleInterpolator, maxDuration) ||
+      !Animation::GetMaxDuration(m_scaleInterpolator, maxDuration) ||
+      !Animation::GetMaxDuration(m_positionInterpolator, maxDuration))
+    return Animation::kInvalidAnimationDuration;
+
+  return maxDuration;
+}
+
+double MapLinearAnimation::GetMinDuration() const
+{
+  double minDuration = Animation::kInvalidAnimationDuration;
+
+  if (!Animation::GetMinDuration(m_angleInterpolator, minDuration) ||
+      !Animation::GetMinDuration(m_scaleInterpolator, minDuration) ||
+      !Animation::GetMinDuration(m_positionInterpolator, minDuration))
+    return Animation::kInvalidAnimationDuration;
+
+  return minDuration;
 }
 
 bool MapLinearAnimation::IsFinished() const

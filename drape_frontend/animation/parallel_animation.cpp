@@ -66,12 +66,46 @@ void ParallelAnimation::SetMaxDuration(double maxDuration)
     anim->SetMaxDuration(maxDuration);
 }
 
+void ParallelAnimation::SetMinDuration(double minDuration)
+{
+  for (auto const & anim : m_animations)
+    anim->SetMinDuration(minDuration);
+}
+
 double ParallelAnimation::GetDuration() const
 {
   double duration = 0.0;
   for (auto const & anim : m_animations)
     duration = max(duration, anim->GetDuration());
   return duration;
+}
+
+double ParallelAnimation::GetMaxDuration() const
+{
+  double maxDuration = Animation::kInvalidAnimationDuration;
+  double duration;
+  for (auto const & anim : m_animations)
+  {
+    duration = anim->GetMaxDuration();
+    if (duration < 0.0)
+      return Animation::kInvalidAnimationDuration;
+    maxDuration = maxDuration >= 0 ? max(duration, maxDuration) : duration;
+  }
+  return maxDuration;
+}
+
+double ParallelAnimation::GetMinDuration() const
+{
+  double minDuration = Animation::kInvalidAnimationDuration;
+  double duration;
+  for (auto const & anim : m_animations)
+  {
+    duration = anim->GetMinDuration();
+    if (duration < 0.0)
+      return Animation::kInvalidAnimationDuration;
+    minDuration = minDuration >= 0 ? min(duration, minDuration) : duration;
+  }
+  return minDuration;
 }
 
 bool ParallelAnimation::IsFinished() const

@@ -23,7 +23,7 @@ namespace df
 int const kDoNotChangeZoom = -1;
 double const kDoNotAutoZoom = -1.0;
 
-using TAnimationCreator = function<drape_ptr<Animation>(double)>;
+using TAnimationCreator = function<drape_ptr<Animation>(ref_ptr<Animation>)>;
 
 class UserEvent
 {

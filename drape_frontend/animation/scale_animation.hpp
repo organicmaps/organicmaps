@@ -33,7 +33,10 @@ public:
   void Finish() override;
 
   void SetMaxDuration(double maxDuration) override;
+  void SetMinDuration(double minDuration) override;
   double GetDuration() const override;
+  double GetMaxDuration() const override;
+  double GetMinDuration() const override;
   bool IsFinished() const override;
 
   bool GetProperty(Object object, ObjectProperty property, PropertyValue & value) const override;

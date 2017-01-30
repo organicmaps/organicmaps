@@ -24,7 +24,13 @@ void MapScaleAnimation::Init(ScreenBase const & screen, TPropertyCache const & p
   ScreenBase currentScreen;
   GetCurrentScreen(properties, screen, currentScreen);
 
+  double const minDuration = m_scaleInterpolator.GetMinDuration();
+  double const maxDuration = m_scaleInterpolator.GetMaxDuration();
+
   m_scaleInterpolator = ScaleInterpolator(currentScreen.GetScale(), m_scaleInterpolator.GetTargetScale(), false /* isAutoZoom */);
+
+  m_scaleInterpolator.SetMinDuration(minDuration);
+  m_scaleInterpolator.SetMaxDuration(maxDuration);
 }
 
 Animation::TObjectProperties const & MapScaleAnimation::GetProperties(Object object) const
@@ -54,9 +60,24 @@ void MapScaleAnimation::SetMaxDuration(double maxDuration)
   m_scaleInterpolator.SetMaxDuration(maxDuration);
 }
 
+void MapScaleAnimation::SetMinDuration(double minDuration)
+{
+  m_scaleInterpolator.SetMinDuration(minDuration);
+}
+
 double MapScaleAnimation::GetDuration() const
 {
   return m_scaleInterpolator.GetDuration();
+}
+
+double MapScaleAnimation::GetMaxDuration() const
+{
+  return m_scaleInterpolator.GetMaxDuration();
+}
+
+double MapScaleAnimation::GetMinDuration() const
+{
+  return m_scaleInterpolator.GetMinDuration();
 }
 
 bool MapScaleAnimation::IsFinished() const
