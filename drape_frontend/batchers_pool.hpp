@@ -28,7 +28,11 @@ public:
   ~BatchersPool()
   {
     for (auto const & p : m_batchers)
-      m_pool.Return(p.second.first);
+    {
+      dp::Batcher * batcher = p.second.first;
+      batcher->ResetSession();
+      m_pool.Return(batcher);
+    }
 
     m_batchers.clear();
   }

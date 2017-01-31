@@ -196,6 +196,12 @@ void Batcher::EndSession()
   m_flushInterface = TFlushFn();
 }
 
+void Batcher::ResetSession()
+{
+  m_flushInterface = TFlushFn();
+  m_buckets.clear();
+}
+
 void Batcher::SetFeatureMinZoom(int minZoom)
 {
   m_featureMinZoom = minZoom;

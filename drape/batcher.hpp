@@ -57,6 +57,7 @@ public:
   typedef function<void (GLState const &, drape_ptr<RenderBucket> &&)> TFlushFn;
   void StartSession(TFlushFn const & flusher);
   void EndSession();
+  void ResetSession();
 
   void SetFeatureMinZoom(int minZoom);
 

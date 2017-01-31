@@ -1047,7 +1047,6 @@ public:
   {}
 
   Type GetType() const override { return Message::UpdateTraffic; }
-  bool IsGLContextDependent() const override { return true; }
 
   TrafficSegmentsColoring & GetSegmentsColoring() { return m_segmentsColoring; }
 
