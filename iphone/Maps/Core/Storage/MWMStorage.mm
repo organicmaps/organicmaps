@@ -11,8 +11,7 @@ using namespace storage;
 
 @implementation MWMStorage
 
-+ (void)downloadNode:(TCountryId const &)countryId
-           onSuccess:(TMWMVoidBlock)onSuccess
++ (void)downloadNode:(TCountryId const &)countryId onSuccess:(MWMVoidBlock)onSuccess
 {
   if (IsEnoughSpaceForDownload(countryId, GetFramework().GetStorage()))
   {
@@ -80,9 +79,7 @@ using namespace storage;
 {
   GetFramework().ShowNode(countryId);
 }
-
-+ (void)downloadNodes:(TCountriesVec const &)countryIds
-            onSuccess:(TMWMVoidBlock)onSuccess
++ (void)downloadNodes:(TCountriesVec const &)countryIds onSuccess:(MWMVoidBlock)onSuccess
 {
   TMwmSize requiredSize = accumulate(countryIds.begin(), countryIds.end(), kMaxMwmSizeBytes,
                                      [](size_t const & size, TCountryId const & countryId)
@@ -107,7 +104,7 @@ using namespace storage;
   }
 }
 
-+ (void)checkConnectionAndPerformAction:(TMWMVoidBlock)action
++ (void)checkConnectionAndPerformAction:(MWMVoidBlock)action
 {
   switch (Platform::ConnectionStatus())
   {

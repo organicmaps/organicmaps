@@ -105,7 +105,7 @@ using namespace osm_auth_ios;
 
 #pragma mark - Actions
 
-- (void)performOnlineAction:(TMWMVoidBlock)block
+- (void)performOnlineAction:(MWMVoidBlock)block
 {
   if (Platform::IsConnected())
     block();

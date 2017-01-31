@@ -25,9 +25,9 @@ CGFloat const kAnimationDuration = .05;
 
 @interface MWMDownloadTransitMapAlert () <UITableViewDataSource, UITableViewDelegate, MWMFrameworkStorageObserver, MWMCircularProgressProtocol>
 
-@property (copy, nonatomic) TMWMVoidBlock cancelBlock;
-@property (copy, nonatomic) TMWMDownloadBlock downloadBlock;
-@property (copy, nonatomic) TMWMVoidBlock downloadCompleteBlock;
+@property(copy, nonatomic) MWMVoidBlock cancelBlock;
+@property(copy, nonatomic) MWMDownloadBlock downloadBlock;
+@property(copy, nonatomic) MWMVoidBlock downloadCompleteBlock;
 
 @property (nonatomic) MWMCircularProgress * progress;
 
@@ -59,9 +59,9 @@ CGFloat const kAnimationDuration = .05;
 
 + (instancetype)downloaderAlertWithMaps:(storage::TCountriesVec const &)countries
                                    code:(routing::IRouter::ResultCode)code
-                            cancelBlock:(TMWMVoidBlock)cancelBlock
-                          downloadBlock:(TMWMDownloadBlock)downloadBlock
-                  downloadCompleteBlock:(TMWMVoidBlock)downloadCompleteBlock
+                            cancelBlock:(MWMVoidBlock)cancelBlock
+                          downloadBlock:(MWMDownloadBlock)downloadBlock
+                  downloadCompleteBlock:(MWMVoidBlock)downloadCompleteBlock
 {
   [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatOpen}];
   MWMDownloadTransitMapAlert * alert = [self alertWithCountries:countries];
@@ -285,7 +285,7 @@ CGFloat const kAnimationDuration = .05;
   [self invalidateTableConstraintWithHeight:height];
 }
 
-- (void)close:(TMWMVoidBlock)completion
+- (void)close:(MWMVoidBlock)completion
 {
   [MWMFrameworkListener removeObserver:self];
   [super close:completion];

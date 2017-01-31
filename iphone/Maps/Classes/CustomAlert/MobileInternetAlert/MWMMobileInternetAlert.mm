@@ -12,13 +12,13 @@ NSString * const kStatisticsEvent = @"Mobile Internet Settings Alert";
 
 @interface MWMMobileInternetAlert ()
 
-@property(copy, nonatomic) TMWMVoidBlock completionBlock;
+@property(copy, nonatomic) MWMVoidBlock completionBlock;
 
 @end
 
 @implementation MWMMobileInternetAlert
 
-+ (nonnull instancetype)alertWithBlock:(nonnull TMWMVoidBlock)block
++ (nonnull instancetype)alertWithBlock:(nonnull MWMVoidBlock)block
 {
   [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatOpen}];
   MWMMobileInternetAlert * alert =

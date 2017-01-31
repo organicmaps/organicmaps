@@ -17,7 +17,7 @@
 @property(weak, nonatomic) IBOutlet UIImageView * compass;
 @property(weak, nonatomic) IBOutlet UIView * distanceView;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * trailing;
-@property(copy, nonatomic) TMWMVoidBlock tapOnDistance;
+@property(copy, nonatomic) MWMVoidBlock tapOnDistance;
 
 @end
 

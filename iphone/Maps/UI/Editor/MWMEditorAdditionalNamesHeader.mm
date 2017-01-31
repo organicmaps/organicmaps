@@ -5,14 +5,14 @@
 @interface MWMEditorAdditionalNamesHeader ()
 
 @property (weak, nonatomic) IBOutlet UILabel * label;
-@property (copy, nonatomic) TMWMVoidBlock toggleBlock;
+@property(copy, nonatomic) MWMVoidBlock toggleBlock;
 @property (weak, nonatomic) IBOutlet MWMButton * toggleButton;
 
 @end
 
 @implementation MWMEditorAdditionalNamesHeader
 
-+ (instancetype)header:(TMWMVoidBlock)toggleBlock
++ (instancetype)header:(MWMVoidBlock)toggleBlock
 {
   MWMEditorAdditionalNamesHeader * h = [[[NSBundle mainBundle] loadNibNamed:[self className] owner:nil options:nil]
           firstObject];

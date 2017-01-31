@@ -404,7 +404,7 @@ using namespace osm_auth_ios;
       }
     });
   };
-  auto const runFetchTask = ^(TMWMVoidBlock task) {
+  auto const runFetchTask = ^(MWMVoidBlock task) {
     ++fetchRunningTasks;
     task();
   };

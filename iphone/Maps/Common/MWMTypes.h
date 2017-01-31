@@ -1,4 +1,4 @@
-typedef void (^TMWMVoidBlock)();
+typedef void (^MWMVoidBlock)();
 typedef void (^MWMStringBlock)(NSString *);
 
 typedef NS_ENUM(NSUInteger, MWMDayTime) { MWMDayTimeDay, MWMDayTimeNight };

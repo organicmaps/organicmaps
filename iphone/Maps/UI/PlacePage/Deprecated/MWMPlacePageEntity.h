@@ -73,7 +73,7 @@ using MWMPlacePageCellTypeValueMap = map<MWMPlacePageCellType, string>;
 
 - (instancetype)initWithInfo:(place_page::Info const &)info;
 - (void)synchronize;
-- (void)onlinePricingWithCompletionBlock:(TMWMVoidBlock)completion failure:(TMWMVoidBlock)failure;
+- (void)onlinePricingWithCompletionBlock:(MWMVoidBlock)completion failure:(MWMVoidBlock)failure;
 
 - (void)toggleCoordinateSystem;
 

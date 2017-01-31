@@ -6,9 +6,9 @@
 
 + (instancetype)downloaderAlertWithMaps:(storage::TCountriesVec const &)countries
                                    code:(routing::IRouter::ResultCode)code
-                            cancelBlock:(TMWMVoidBlock)cancelBlock
-                          downloadBlock:(TMWMDownloadBlock)downloadBlock
-                  downloadCompleteBlock:(TMWMVoidBlock)downloadCompleteBlock;
+                            cancelBlock:(MWMVoidBlock)cancelBlock
+                          downloadBlock:(MWMDownloadBlock)downloadBlock
+                  downloadCompleteBlock:(MWMVoidBlock)downloadCompleteBlock;
 - (void)showDownloadDetail:(UIButton *)sender;
 
 @end

@@ -55,7 +55,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   if (![MapViewController controller].welcomePageController)
     [self displayAlert:[MWMAlert locationAlert]];
 }
-- (void)presentPoint2PointAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock
+- (void)presentPoint2PointAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock
                              needToRebuild:(BOOL)needToRebuild
 {
   [self displayAlert:[MWMAlert point2PointAlertWithOkBlock:okBlock needToRebuild:needToRebuild]];
@@ -67,7 +67,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:MWMAlert.locationServiceNotSupportedAlert];
 }
 
-- (void)presentLocationNotFoundAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock
+- (void)presentLocationNotFoundAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock
 {
   [self displayAlert:[MWMLocationNotFoundAlert alertWithOkBlock:okBlock]];
 }
@@ -75,12 +75,12 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 - (void)presentNoConnectionAlert { [self displayAlert:[MWMAlert noConnectionAlert]]; }
 - (void)presentMigrationProhibitedAlert { [self displayAlert:[MWMAlert migrationProhibitedAlert]]; }
 - (void)presentDeleteMapProhibitedAlert { [self displayAlert:[MWMAlert deleteMapProhibitedAlert]]; }
-- (void)presentUnsavedEditsAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock
+- (void)presentUnsavedEditsAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock
 {
   [self displayAlert:[MWMAlert unsavedEditsAlertWithOkBlock:okBlock]];
 }
 
-- (void)presentNoWiFiAlertWithOkBlock:(nullable TMWMVoidBlock)okBlock
+- (void)presentNoWiFiAlertWithOkBlock:(nullable MWMVoidBlock)okBlock
 {
   [self displayAlert:[MWMAlert noWiFiAlertWithOkBlock:okBlock]];
 }
@@ -97,16 +97,16 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert invalidUserNameOrPasswordAlert]];
 }
 
-- (void)presentRoutingMigrationAlertWithOkBlock:(TMWMVoidBlock)okBlock
+- (void)presentRoutingMigrationAlertWithOkBlock:(MWMVoidBlock)okBlock
 {
   [self displayAlert:[MWMAlert routingMigrationAlertWithOkBlock:okBlock]];
 }
 
 - (void)presentDownloaderAlertWithCountries:(storage::TCountriesVec const &)countries
                                        code:(routing::IRouter::ResultCode)code
-                                cancelBlock:(TMWMVoidBlock)cancelBlock
-                              downloadBlock:(TMWMDownloadBlock)downloadBlock
-                      downloadCompleteBlock:(TMWMVoidBlock)downloadCompleteBlock
+                                cancelBlock:(MWMVoidBlock)cancelBlock
+                              downloadBlock:(MWMDownloadBlock)downloadBlock
+                      downloadCompleteBlock:(MWMVoidBlock)downloadCompleteBlock
 {
   [self displayAlert:[MWMAlert downloaderAlertWithAbsentCountries:countries
                                                              code:code
@@ -115,7 +115,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
                                             downloadCompleteBlock:downloadCompleteBlock]];
 }
 
-- (void)presentRoutingDisclaimerAlertWithOkBlock:(TMWMVoidBlock)block
+- (void)presentRoutingDisclaimerAlertWithOkBlock:(MWMVoidBlock)block
 {
   [self displayAlert:[MWMAlert routingDisclaimerAlertWithOkBlock:block]];
 }
@@ -126,13 +126,13 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert alert:type]];
 }
 
-- (void)presentDisableAutoDownloadAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock
+- (void)presentDisableAutoDownloadAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock
 {
   [self displayAlert:[MWMAlert disableAutoDownloadAlertWithOkBlock:okBlock]];
 }
 
-- (void)presentDownloaderNoConnectionAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock
-                                          cancelBlock:(nonnull TMWMVoidBlock)cancelBlock
+- (void)presentDownloaderNoConnectionAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock
+                                          cancelBlock:(nonnull MWMVoidBlock)cancelBlock
 {
   [self displayAlert:[MWMAlert downloaderNoConnectionAlertWithOkBlock:okBlock
                                                           cancelBlock:cancelBlock]];
@@ -143,14 +143,14 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert downloaderNotEnoughSpaceAlert]];
 }
 
-- (void)presentDownloaderInternalErrorAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock
-                                           cancelBlock:(nonnull TMWMVoidBlock)cancelBlock
+- (void)presentDownloaderInternalErrorAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock
+                                           cancelBlock:(nonnull MWMVoidBlock)cancelBlock
 {
   [self displayAlert:[MWMAlert downloaderInternalErrorAlertWithOkBlock:okBlock
                                                            cancelBlock:cancelBlock]];
 }
 
-- (void)presentDownloaderNeedUpdateAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock
+- (void)presentDownloaderNeedUpdateAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock
 {
   [self displayAlert:[MWMAlert downloaderNeedUpdateAlertWithOkBlock:okBlock]];
 }
@@ -160,22 +160,22 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert placeDoesntExistAlertWithBlock:block]];
 }
 
-- (void)presentResetChangesAlertWithBlock:(TMWMVoidBlock)block
+- (void)presentResetChangesAlertWithBlock:(MWMVoidBlock)block
 {
   [self displayAlert:[MWMAlert resetChangesAlertWithBlock:block]];
 }
 
-- (void)presentDeleteFeatureAlertWithBlock:(TMWMVoidBlock)block
+- (void)presentDeleteFeatureAlertWithBlock:(MWMVoidBlock)block
 {
   [self displayAlert:[MWMAlert deleteFeatureAlertWithBlock:block]];
 }
 
-- (void)presentPersonalInfoWarningAlertWithBlock:(nonnull TMWMVoidBlock)block
+- (void)presentPersonalInfoWarningAlertWithBlock:(nonnull MWMVoidBlock)block
 {
   [self displayAlert:[MWMAlert personalInfoWarningAlertWithBlock:block]];
 }
 
-- (void)presentTrackWarningAlertWithCancelBlock:(nonnull TMWMVoidBlock)block
+- (void)presentTrackWarningAlertWithCancelBlock:(nonnull MWMVoidBlock)block
 {
   [self displayAlert:[MWMAlert trackWarningAlertWithCancelBlock:block]];
 }
@@ -202,7 +202,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [alert update];
 }
 
-- (void)presentMobileInternetAlertWithBlock:(nonnull TMWMVoidBlock)block
+- (void)presentMobileInternetAlertWithBlock:(nonnull MWMVoidBlock)block
 {
   [self displayAlert:[MWMMobileInternetAlert alertWithBlock:block]];
 }
@@ -247,7 +247,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [MapsAppDelegate.theApp.window endEditing:YES];
 }
 
-- (void)closeAlert:(nullable TMWMVoidBlock)completion
+- (void)closeAlert:(nullable MWMVoidBlock)completion
 {
   NSArray * subviews = self.view.subviews;
   MWMAlert * closeAlert = subviews.lastObject;

@@ -16,18 +16,18 @@
 + (MWMAlert *)rateAlert { return [MWMRateAlert alert]; }
 + (MWMAlert *)locationAlert { return [MWMLocationAlert alert]; }
 + (MWMAlert *)facebookAlert { return [MWMFacebookAlert alert]; }
-+ (MWMAlert *)point2PointAlertWithOkBlock:(TMWMVoidBlock)block needToRebuild:(BOOL)needToRebuild
++ (MWMAlert *)point2PointAlertWithOkBlock:(MWMVoidBlock)block needToRebuild:(BOOL)needToRebuild
 {
   return [MWMDefaultAlert point2PointAlertWithOkBlock:block needToRebuild:needToRebuild];
 }
 
-+ (MWMAlert *)routingDisclaimerAlertWithOkBlock:(TMWMVoidBlock)block
++ (MWMAlert *)routingDisclaimerAlertWithOkBlock:(MWMVoidBlock)block
 {
   return [MWMRoutingDisclaimerAlert alertWithOkBlock:block];
 }
 
 + (MWMAlert *)disabledLocationAlert { return [MWMDefaultAlert disabledLocationAlert]; }
-+ (MWMAlert *)noWiFiAlertWithOkBlock:(TMWMVoidBlock)okBlock
++ (MWMAlert *)noWiFiAlertWithOkBlock:(MWMVoidBlock)okBlock
 {
   return [MWMDefaultAlert noWiFiAlertWithOkBlock:okBlock];
 }
@@ -35,7 +35,7 @@
 + (MWMAlert *)noConnectionAlert { return [MWMDefaultAlert noConnectionAlert]; }
 + (MWMAlert *)migrationProhibitedAlert { return [MWMDefaultAlert migrationProhibitedAlert]; }
 + (MWMAlert *)deleteMapProhibitedAlert { return [MWMDefaultAlert deleteMapProhibitedAlert]; }
-+ (MWMAlert *)unsavedEditsAlertWithOkBlock:(TMWMVoidBlock)okBlock
++ (MWMAlert *)unsavedEditsAlertWithOkBlock:(MWMVoidBlock)okBlock
 {
   return [MWMDefaultAlert unsavedEditsAlertWithOkBlock:okBlock];
 }
@@ -45,16 +45,16 @@
   return [MWMDefaultAlert locationServiceNotSupportedAlert];
 }
 
-+ (MWMAlert *)routingMigrationAlertWithOkBlock:(TMWMVoidBlock)okBlock
++ (MWMAlert *)routingMigrationAlertWithOkBlock:(MWMVoidBlock)okBlock
 {
   return [MWMDefaultAlert routingMigrationAlertWithOkBlock:okBlock];
 }
 
 + (MWMAlert *)downloaderAlertWithAbsentCountries:(storage::TCountriesVec const &)countries
                                             code:(routing::IRouter::ResultCode)code
-                                     cancelBlock:(TMWMVoidBlock)cancelBlock
-                                   downloadBlock:(TMWMDownloadBlock)downloadBlock
-                           downloadCompleteBlock:(TMWMVoidBlock)downloadCompleteBlock
+                                     cancelBlock:(MWMVoidBlock)cancelBlock
+                                   downloadBlock:(MWMDownloadBlock)downloadBlock
+                           downloadCompleteBlock:(MWMVoidBlock)downloadCompleteBlock
 {
   return [MWMDownloadTransitMapAlert downloaderAlertWithMaps:countries
                                                         code:code
@@ -94,13 +94,13 @@
   return [MWMDefaultAlert invalidUserNameOrPasswordAlert];
 }
 
-+ (MWMAlert *)disableAutoDownloadAlertWithOkBlock:(TMWMVoidBlock)okBlock
++ (MWMAlert *)disableAutoDownloadAlertWithOkBlock:(MWMVoidBlock)okBlock
 {
   return [MWMDefaultAlert disableAutoDownloadAlertWithOkBlock:okBlock];
 }
 
-+ (MWMAlert *)downloaderNoConnectionAlertWithOkBlock:(TMWMVoidBlock)okBlock
-                                         cancelBlock:(TMWMVoidBlock)cancelBlock
++ (MWMAlert *)downloaderNoConnectionAlertWithOkBlock:(MWMVoidBlock)okBlock
+                                         cancelBlock:(MWMVoidBlock)cancelBlock
 {
   return [MWMDefaultAlert downloaderNoConnectionAlertWithOkBlock:okBlock cancelBlock:cancelBlock];
 }
@@ -110,13 +110,13 @@
   return [MWMDefaultAlert downloaderNotEnoughSpaceAlert];
 }
 
-+ (MWMAlert *)downloaderInternalErrorAlertWithOkBlock:(TMWMVoidBlock)okBlock
-                                          cancelBlock:(TMWMVoidBlock)cancelBlock
++ (MWMAlert *)downloaderInternalErrorAlertWithOkBlock:(MWMVoidBlock)okBlock
+                                          cancelBlock:(MWMVoidBlock)cancelBlock
 {
   return [MWMDefaultAlert downloaderInternalErrorAlertWithOkBlock:okBlock cancelBlock:cancelBlock];
 }
 
-+ (MWMAlert *)downloaderNeedUpdateAlertWithOkBlock:(TMWMVoidBlock)okBlock
++ (MWMAlert *)downloaderNeedUpdateAlertWithOkBlock:(MWMVoidBlock)okBlock
 {
   return [MWMDefaultAlert downloaderNeedUpdateAlertWithOkBlock:okBlock];
 }
@@ -126,24 +126,24 @@
   return [MWMPlaceDoesntExistAlert alertWithBlock:block];
 }
 
-+ (MWMAlert *)resetChangesAlertWithBlock:(TMWMVoidBlock)block
++ (MWMAlert *)resetChangesAlertWithBlock:(MWMVoidBlock)block
 {
   return [MWMDefaultAlert resetChangesAlertWithBlock:block];
 }
 
-+ (MWMAlert *)deleteFeatureAlertWithBlock:(TMWMVoidBlock)block
++ (MWMAlert *)deleteFeatureAlertWithBlock:(MWMVoidBlock)block
 {
   return [MWMDefaultAlert deleteFeatureAlertWithBlock:block];
 }
 
 + (MWMAlert *)editorViralAlert { return [MWMEditorViralAlert alert]; }
 + (MWMAlert *)osmAuthAlert { return [MWMOsmAuthAlert alert]; }
-+ (MWMAlert *)personalInfoWarningAlertWithBlock:(TMWMVoidBlock)block
++ (MWMAlert *)personalInfoWarningAlertWithBlock:(MWMVoidBlock)block
 {
   return [MWMDefaultAlert personalInfoWarningAlertWithBlock:block];
 }
 
-+ (MWMAlert *)trackWarningAlertWithCancelBlock:(TMWMVoidBlock)block
++ (MWMAlert *)trackWarningAlertWithCancelBlock:(MWMVoidBlock)block
 {
   return [MWMDefaultAlert trackWarningAlertWithCancelBlock:block];
 }
@@ -153,7 +153,7 @@
   // Should override this method if you want custom relayout after rotation.
 }
 
-- (void)close:(TMWMVoidBlock)completion { [self.alertController closeAlert:completion]; }
+- (void)close:(MWMVoidBlock)completion { [self.alertController closeAlert:completion]; }
 - (void)setNeedsCloseAlertAfterEnterBackground
 {
   [[NSNotificationCenter defaultCenter] addObserver:self

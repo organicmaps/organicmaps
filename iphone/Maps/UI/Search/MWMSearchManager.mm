@@ -333,7 +333,7 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
   }
 }
 
-- (void)animateConstraints:(TMWMVoidBlock)block
+- (void)animateConstraints:(MWMVoidBlock)block
 {
   UIView * parentView = self.ownerController.view;
   [parentView layoutIfNeeded];

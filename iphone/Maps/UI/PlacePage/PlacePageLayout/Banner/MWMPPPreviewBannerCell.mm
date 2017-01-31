@@ -77,7 +77,7 @@ CGFloat const kLineSpacing = 5;
   }];
 }
 
-- (void)downloadAssingImageWithURL:(NSURL *)URL completion:(TMWMVoidBlock)completion
+- (void)downloadAssingImageWithURL:(NSURL *)URL completion:(MWMVoidBlock)completion
 {
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     NSData * data = [NSData dataWithContentsOfURL:URL];

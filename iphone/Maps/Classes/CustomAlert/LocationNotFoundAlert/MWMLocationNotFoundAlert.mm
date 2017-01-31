@@ -9,7 +9,7 @@
 
 @implementation MWMLocationNotFoundAlert
 
-+ (instancetype)alertWithOkBlock:(TMWMVoidBlock)okBlock
++ (instancetype)alertWithOkBlock:(MWMVoidBlock)okBlock
 {
   MWMLocationNotFoundAlert * alert =
       [self defaultAlertWithTitle:L(@"current_location_unknown_title")

@@ -99,7 +99,7 @@ using namespace uber;
 
 - (void)requestTaxiFrom:(MWMRoutePoint *)from
                      to:(MWMRoutePoint *)to
-             completion:(TMWMVoidBlock)completion
+             completion:(MWMVoidBlock)completion
                 failure:(MWMStringBlock)failure
 {
   NSAssert(completion && failure, @"Completion and failure blocks must be not nil!");

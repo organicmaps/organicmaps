@@ -10,13 +10,13 @@ static NSString * const kStatisticsEvent = @"Routing Disclaimer Alert";
 
 @property(weak, nonatomic) IBOutlet UITextView * textView;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * textViewHeight;
-@property(copy, nonatomic) TMWMVoidBlock okBlock;
+@property(copy, nonatomic) MWMVoidBlock okBlock;
 
 @end
 
 @implementation MWMRoutingDisclaimerAlert
 
-+ (instancetype)alertWithOkBlock:(TMWMVoidBlock)block
++ (instancetype)alertWithOkBlock:(MWMVoidBlock)block
 {
   [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatOpen}];
   MWMRoutingDisclaimerAlert * alert =

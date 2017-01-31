@@ -5,16 +5,19 @@
 
 @interface MWMAddPlaceNavigationBar ()
 
-@property (copy, nonatomic) TMWMVoidBlock doneBlock;
-@property (copy, nonatomic) TMWMVoidBlock cancelBlock;
+@property(copy, nonatomic) MWMVoidBlock doneBlock;
+@property(copy, nonatomic) MWMVoidBlock cancelBlock;
 
 @end
 
 @implementation MWMAddPlaceNavigationBar
 
-+ (void)showInSuperview:(UIView *)superview isBusiness:(BOOL)isBusiness
-                        applyPosition:(BOOL)applyPosition position:(m2::PointD const &)position
-                        doneBlock:(TMWMVoidBlock)done cancelBlock:(TMWMVoidBlock)cancel
++ (void)showInSuperview:(UIView *)superview
+             isBusiness:(BOOL)isBusiness
+          applyPosition:(BOOL)applyPosition
+               position:(m2::PointD const &)position
+              doneBlock:(MWMVoidBlock)done
+            cancelBlock:(MWMVoidBlock)cancel
 {
   MWMAddPlaceNavigationBar * navBar = [[[NSBundle mainBundle] loadNibNamed:self.className owner:nil options:nil] firstObject];
   navBar.width = superview.width;
@@ -39,7 +42,7 @@
   }];
 }
 
-- (void)dismissWithBlock:(TMWMVoidBlock)block
+- (void)dismissWithBlock:(MWMVoidBlock)block
 {
   auto & f = GetFramework();
   f.EnableChoosePositionMode(false /* enable */, false /* enableBounds */, false /* applyPosition */, m2::PointD());

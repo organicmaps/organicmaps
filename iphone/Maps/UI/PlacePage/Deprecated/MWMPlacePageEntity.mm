@@ -118,7 +118,7 @@ void initFieldsMap()
   }
 }
 
-- (void)onlinePricingWithCompletionBlock:(TMWMVoidBlock)completion failure:(TMWMVoidBlock)failure
+- (void)onlinePricingWithCompletionBlock:(MWMVoidBlock)completion failure:(MWMVoidBlock)failure
 {
   if (Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE || !self.isBooking)
   {

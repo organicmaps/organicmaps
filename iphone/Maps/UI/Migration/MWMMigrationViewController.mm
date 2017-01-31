@@ -22,7 +22,7 @@ using namespace storage;
 
 @interface MWMStorage ()
 
-+ (void)checkConnectionAndPerformAction:(TMWMVoidBlock)action;
++ (void)checkConnectionAndPerformAction:(MWMVoidBlock)action;
 
 @end
 

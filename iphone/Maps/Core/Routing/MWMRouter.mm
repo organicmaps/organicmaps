@@ -437,7 +437,7 @@ bool isMarkerPoint(MWMRoutePoint * point) { return point.isValid && !point.isMyP
           if (code != routing::IRouter::NeedMoreMaps)
             [[[self class] router] stop];
         }
-        downloadBlock:^(storage::TCountriesVec const & downloadCountries, TMWMVoidBlock onSuccess) {
+        downloadBlock:^(storage::TCountriesVec const & downloadCountries, MWMVoidBlock onSuccess) {
           [MWMStorage downloadNodes:downloadCountries
                           onSuccess:onSuccess];
         }

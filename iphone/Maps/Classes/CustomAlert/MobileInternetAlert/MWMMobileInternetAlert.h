@@ -2,6 +2,6 @@
 
 @interface MWMMobileInternetAlert : MWMAlert
 
-+ (nonnull instancetype)alertWithBlock:(nonnull TMWMVoidBlock)block;
++ (nonnull instancetype)alertWithBlock:(nonnull MWMVoidBlock)block;
 
 @end

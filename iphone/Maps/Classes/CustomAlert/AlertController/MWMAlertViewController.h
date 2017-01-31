@@ -11,47 +11,47 @@
 
 - (nonnull instancetype)initWithViewController:(nonnull UIViewController *)viewController;
 - (void)presentAlert:(routing::IRouter::ResultCode)type;
-- (void)presentRoutingMigrationAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock;
+- (void)presentRoutingMigrationAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock;
 - (void)presentDownloaderAlertWithCountries:(storage::TCountriesVec const &)countries
                                        code:(routing::IRouter::ResultCode)code
-                                cancelBlock:(nonnull TMWMVoidBlock)cancelBlock
-                              downloadBlock:(nonnull TMWMDownloadBlock)downloadBlock
-                      downloadCompleteBlock:(nonnull TMWMVoidBlock)downloadCompleteBlock;
+                                cancelBlock:(nonnull MWMVoidBlock)cancelBlock
+                              downloadBlock:(nonnull MWMDownloadBlock)downloadBlock
+                      downloadCompleteBlock:(nonnull MWMVoidBlock)downloadCompleteBlock;
 - (void)presentRateAlert;
 - (void)presentFacebookAlert;
-- (void)presentPoint2PointAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock
+- (void)presentPoint2PointAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock
                              needToRebuild:(BOOL)needToRebuild;
-- (void)presentRoutingDisclaimerAlertWithOkBlock:(nonnull nonnull TMWMVoidBlock)block;
+- (void)presentRoutingDisclaimerAlertWithOkBlock:(nonnull nonnull MWMVoidBlock)block;
 - (void)presentDisabledLocationAlert;
 - (void)presentLocationAlert;
 - (void)presentLocationServiceNotSupportedAlert;
-- (void)presentLocationNotFoundAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock;
+- (void)presentLocationNotFoundAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock;
 - (void)presentNoConnectionAlert;
 - (void)presentMigrationProhibitedAlert;
 - (void)presentDeleteMapProhibitedAlert;
-- (void)presentUnsavedEditsAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock;
-- (void)presentNoWiFiAlertWithOkBlock:(nullable TMWMVoidBlock)okBlock;
+- (void)presentUnsavedEditsAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock;
+- (void)presentNoWiFiAlertWithOkBlock:(nullable MWMVoidBlock)okBlock;
 - (void)presentIncorrectFeauturePositionAlert;
 - (void)presentInternalErrorAlert;
 - (void)presentNotEnoughSpaceAlert;
 - (void)presentInvalidUserNameOrPasswordAlert;
-- (void)presentDisableAutoDownloadAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock;
-- (void)presentDownloaderNoConnectionAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock
-                                          cancelBlock:(nonnull TMWMVoidBlock)cancelBlock;
+- (void)presentDisableAutoDownloadAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock;
+- (void)presentDownloaderNoConnectionAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock
+                                          cancelBlock:(nonnull MWMVoidBlock)cancelBlock;
 - (void)presentDownloaderNotEnoughSpaceAlert;
-- (void)presentDownloaderInternalErrorAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock
-                                           cancelBlock:(nonnull TMWMVoidBlock)cancelBlock;
-- (void)presentDownloaderNeedUpdateAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock;
+- (void)presentDownloaderInternalErrorAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock
+                                           cancelBlock:(nonnull MWMVoidBlock)cancelBlock;
+- (void)presentDownloaderNeedUpdateAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock;
 - (void)presentPlaceDoesntExistAlertWithBlock:(nonnull MWMStringBlock)block;
-- (void)presentResetChangesAlertWithBlock:(nonnull TMWMVoidBlock)block;
-- (void)presentDeleteFeatureAlertWithBlock:(nonnull TMWMVoidBlock)block;
+- (void)presentResetChangesAlertWithBlock:(nonnull MWMVoidBlock)block;
+- (void)presentDeleteFeatureAlertWithBlock:(nonnull MWMVoidBlock)block;
 - (void)presentEditorViralAlert;
 - (void)presentOsmAuthAlert;
-- (void)presentPersonalInfoWarningAlertWithBlock:(nonnull TMWMVoidBlock)block;
-- (void)presentTrackWarningAlertWithCancelBlock:(nonnull TMWMVoidBlock)block;
+- (void)presentPersonalInfoWarningAlertWithBlock:(nonnull MWMVoidBlock)block;
+- (void)presentTrackWarningAlertWithCancelBlock:(nonnull MWMVoidBlock)block;
 - (void)presentSearchNoResultsAlert;
-- (void)presentMobileInternetAlertWithBlock:(nonnull TMWMVoidBlock)block;
-- (void)closeAlert:(nullable TMWMVoidBlock)completion;
+- (void)presentMobileInternetAlertWithBlock:(nonnull MWMVoidBlock)block;
+- (void)closeAlert:(nullable MWMVoidBlock)completion;
 
 - (nonnull instancetype)init __attribute__((unavailable("call -initWithViewController: instead!")));
 + (nonnull instancetype) new __attribute__((unavailable("call -initWithViewController: instead!")));

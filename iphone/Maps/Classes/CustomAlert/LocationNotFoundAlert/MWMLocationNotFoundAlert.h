@@ -2,6 +2,6 @@
 
 @interface MWMLocationNotFoundAlert : MWMDefaultAlert
 
-+ (instancetype)alertWithOkBlock:(TMWMVoidBlock)okBlock;
++ (instancetype)alertWithOkBlock:(MWMVoidBlock)okBlock;
 
 @end

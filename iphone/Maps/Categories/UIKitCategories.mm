@@ -9,7 +9,7 @@
 @implementation NSObject (Optimized)
 
 + (NSString *)className { return NSStringFromClass(self); }
-- (void)performAfterDelay:(NSTimeInterval)delayInSec block:(TMWMVoidBlock)block
+- (void)performAfterDelay:(NSTimeInterval)delayInSec block:(MWMVoidBlock)block
 {
   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSec * NSEC_PER_SEC)),
                  dispatch_get_main_queue(), ^{
@@ -80,7 +80,7 @@
                     damping:(double)dampingRatio
             initialVelocity:(double)springVelocity
                     options:(UIViewAnimationOptions)options
-                 animations:(TMWMVoidBlock)animations
+                 animations:(MWMVoidBlock)animations
                  completion:(void (^)(BOOL))completion
 {
   [UIView animateWithDuration:duration

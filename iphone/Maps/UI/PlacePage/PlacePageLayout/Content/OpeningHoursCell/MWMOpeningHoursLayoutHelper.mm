@@ -20,7 +20,7 @@
 @property(weak, nonatomic) IBOutlet UILabel * text;
 @property(weak, nonatomic) IBOutlet UIImageView * arrowIcon;
 
-@property(copy, nonatomic) TMWMVoidBlock tapAction;
+@property(copy, nonatomic) MWMVoidBlock tapAction;
 
 @end
 

@@ -2,6 +2,6 @@
 
 @interface MWMRoutingDisclaimerAlert : MWMAlert
 
-+ (instancetype)alertWithOkBlock:(TMWMVoidBlock)block;
++ (instancetype)alertWithOkBlock:(MWMVoidBlock)block;
 
 @end

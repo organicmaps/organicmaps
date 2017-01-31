@@ -5,7 +5,7 @@ namespace place_page_layout
 {
 NSTimeInterval const kAnimationSpeed = IPAD ? 0.15 : 0.25;
 
-inline void animate(TMWMVoidBlock animate, TMWMVoidBlock completion = nil)
+inline void animate(MWMVoidBlock animate, MWMVoidBlock completion = nil)
 {
   [UIView animateWithDuration:kAnimationSpeed
                         delay:0

@@ -13,7 +13,7 @@
 
 - (void)requestTaxiFrom:(MWMRoutePoint *)from
                      to:(MWMRoutePoint *)to
-             completion:(TMWMVoidBlock)completion
+             completion:(MWMVoidBlock)completion
                 failure:(MWMStringBlock)failure;
 
 - (NSURL *)taxiURL;

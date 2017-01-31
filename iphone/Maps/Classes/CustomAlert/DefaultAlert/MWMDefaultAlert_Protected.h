@@ -6,9 +6,9 @@
                                       message:(nullable NSString *)message
                              rightButtonTitle:(nonnull NSString *)rightButtonTitle
                               leftButtonTitle:(nullable NSString *)leftButtonTitle
-                            rightButtonAction:(nullable TMWMVoidBlock)action
+                            rightButtonAction:(nullable MWMVoidBlock)action
                               statisticsEvent:(nonnull NSString *)statisticsEvent;
 
-@property(copy, nonatomic, readonly, nullable) TMWMVoidBlock rightButtonAction;
+@property(copy, nonatomic, readonly, nullable) MWMVoidBlock rightButtonAction;
 
 @end
