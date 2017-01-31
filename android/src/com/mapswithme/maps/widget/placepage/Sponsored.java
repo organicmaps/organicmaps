@@ -1,5 +1,6 @@
 package com.mapswithme.maps.widget.placepage;
 
+import android.content.Context;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.Metadata;
 import com.mapswithme.maps.gallery.Image;
 import com.mapswithme.maps.review.Review;
+import com.mapswithme.util.NetworkPolicy;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -265,17 +267,26 @@ public final class Sponsored
    * @param id A Hotel id
    * @param currencyCode A user currency
    */
-  static void requestPrice(String id, String currencyCode)
+  static void requestPrice(@NonNull Context context, @NonNull final String id,
+                           @NonNull final String currencyCode)
   {
     Price p = sPriceCache.get(id);
     if (p != null)
       onPriceReceived(id, p.mPrice, p.mCurrency);
 
-    nativeRequestPrice(id, currencyCode);
+    NetworkPolicy.checkNetworkPolicy(context, new NetworkPolicy.NetworkPolicyListener()
+    {
+      @Override
+      public void onResult(@NonNull NetworkPolicy policy)
+      {
+        nativeRequestPrice(policy, id, currencyCode);
+      }
+    });
   }
 
 
-  static void requestInfo(Sponsored sponsored, String locale)
+  static void requestInfo(@NonNull Context context, @NonNull Sponsored sponsored,
+                          @NonNull String locale)
   {
     String id = sponsored.getId();
     if (id == null)
@@ -284,7 +295,7 @@ public final class Sponsored
     switch (sponsored.getType())
     {
       case TYPE_BOOKING:
-        requestHotelInfo(id, locale);
+        requestHotelInfo(context, id, locale);
         break;
       case TYPE_GEOCHAT:
 //        TODO: request geochat info
@@ -305,13 +316,21 @@ public final class Sponsored
    * @param id A Hotel id
    * @param locale A user locale
    */
-  private static void requestHotelInfo(String id, String locale)
+  private static void requestHotelInfo(@NonNull Context context, @NonNull final String id,
+                                       @NonNull final String locale)
   {
     HotelInfo info = sInfoCache.get(id);
     if (info != null)
       onHotelInfoReceived(id, info);
 
-    nativeRequestHotelInfo(id, locale);
+    NetworkPolicy.checkNetworkPolicy(context, new NetworkPolicy.NetworkPolicyListener()
+    {
+      @Override
+      public void onResult(@NonNull NetworkPolicy policy)
+      {
+        nativeRequestHotelInfo(policy, id, locale);
+      }
+    });
   }
 
   private static void onPriceReceived(@NonNull String id, @NonNull String price,
@@ -340,7 +359,9 @@ public final class Sponsored
   @Nullable
   public static native Sponsored nativeGetCurrent();
 
-  private static native void nativeRequestPrice(@NonNull String id, @NonNull String currencyCode);
+  private static native void nativeRequestPrice(@NonNull NetworkPolicy policy,
+                                                @NonNull String id, @NonNull String currencyCode);
 
-  private static native void nativeRequestHotelInfo(@NonNull String id, @NonNull String locale);
+  private static native void nativeRequestHotelInfo(@NonNull NetworkPolicy policy,
+                                                    @NonNull String id, @NonNull String locale);
 }

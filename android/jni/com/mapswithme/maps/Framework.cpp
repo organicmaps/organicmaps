@@ -12,10 +12,10 @@
 
 #include "storage/storage_helpers.hpp"
 
-#include "drape_frontend/visual_params.hpp"
-#include "drape_frontend/user_event_stream.hpp"
 #include "drape/pointers.hpp"
 #include "drape/visual_scale.hpp"
+#include "drape_frontend/user_event_stream.hpp"
+#include "drape_frontend/visual_params.hpp"
 
 #include "coding/file_container.hpp"
 #include "coding/file_name_utils.hpp"
@@ -32,18 +32,21 @@
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
 
-#include "base/math.hpp"
 #include "base/logging.hpp"
+#include "base/math.hpp"
 #include "base/sunrise_sunset.hpp"
+
+#include "../util/NetworkPolicy.hpp"
 
 android::Framework * g_framework = 0;
 
+using network_policy::GetNetworkPolicyStatus;
+
 namespace platform
 {
-// Dummy, implementation and location should be chosen by android developer.
-NetworkPolicy ToNativeNetworkPolicy(jobject obj)
+NetworkPolicy ToNativeNetworkPolicy(JNIEnv * env, jobject obj)
 {
-  return NetworkPolicy(true);
+  return NetworkPolicy(GetNetworkPolicyStatus(env, obj));
 }
 }  // namespace platform
 
@@ -507,22 +510,20 @@ place_page::Info & Framework::GetPlacePageInfo()
 {
   return m_info;
 }
-
-void Framework::RequestBookingMinPrice(string const & hotelId, string const & currencyCode, function<void(string const &, string const &)> const & callback)
+void Framework::RequestBookingMinPrice(
+    JNIEnv * env, jobject policy, string const & hotelId, string const & currencyCode,
+    function<void(string const &, string const &)> const & callback)
 {
-  // Stub obj must be changed.
-  jobject obj;
-  auto const bookingApi = m_work.GetBookingApi(ToNativeNetworkPolicy(obj));
+  auto const bookingApi = m_work.GetBookingApi(ToNativeNetworkPolicy(env, policy));
   if (bookingApi)
     bookingApi->GetMinPrice(hotelId, currencyCode, callback);
 }
 
-void Framework::RequestBookingInfo(string const & hotelId, string const & lang,
+void Framework::RequestBookingInfo(JNIEnv * env, jobject policy, string const & hotelId,
+                                   string const & lang,
                                    function<void(BookingApi::HotelInfo const &)> const & callback)
 {
-  // Stub obj must be changed.
-  jobject obj;
-  auto const bookingApi = m_work.GetBookingApi(ToNativeNetworkPolicy(obj));
+  auto const bookingApi = m_work.GetBookingApi(ToNativeNetworkPolicy(env, policy));
   if (bookingApi)
     bookingApi->GetHotelInfo(hotelId, lang, callback);
 }
@@ -557,14 +558,12 @@ void Framework::EnableDownloadOn3g()
 {
   m_work.GetDownloadingPolicy().EnableCellularDownload(true);
 }
-
-uint64_t Framework::RequestUberProducts(ms::LatLon const & from, ms::LatLon const & to,
+uint64_t Framework::RequestUberProducts(JNIEnv * env, jobject policy, ms::LatLon const & from,
+                                        ms::LatLon const & to,
                                         uber::ProductsCallback const & callback,
                                         uber::ErrorCallback const & errorCallback)
 {
-  // Stub obj must be changed.
-  jobject obj;
-  auto const uberApi = m_work.GetUberApi(ToNativeNetworkPolicy(obj));
+  auto const uberApi = m_work.GetUberApi(ToNativeNetworkPolicy(env, policy));
   if (!uberApi)
     return 0;
 

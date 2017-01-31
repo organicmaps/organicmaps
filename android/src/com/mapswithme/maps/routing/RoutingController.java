@@ -26,6 +26,7 @@ import com.mapswithme.maps.uber.UberInfo;
 import com.mapswithme.maps.uber.UberLinks;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.ConnectionState;
+import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.Utils;
@@ -283,7 +284,8 @@ public class RoutingController
         completeUberRequest();
         return;
       }
-      requestUberInfo();
+      if (mContainer != null)
+        requestUberInfo(mContainer.getActivity());
     }
 
     setBuildState(BuildState.BUILDING);
@@ -828,13 +830,21 @@ public class RoutingController
     return true;
   }
 
-  private void requestUberInfo()
+  private void requestUberInfo(@NonNull Context context)
   {
-    mUberPlanning = true;
-    Uber.nativeRequestUberProducts(mStartPoint.getLat(), mStartPoint.getLon(),
-                                   mEndPoint.getLat(), mEndPoint.getLon());
-    if (mContainer != null)
-      mContainer.updateBuildProgress(0, mLastRouterType);
+    NetworkPolicy.checkNetworkPolicy(context, new NetworkPolicy.NetworkPolicyListener()
+    {
+      @Override
+      public void onResult(@NonNull NetworkPolicy policy)
+      {
+        mUberPlanning = true;
+        Uber.nativeRequestUberProducts(policy, mStartPoint.getLat(),
+                                       mStartPoint.getLon(),
+                                       mEndPoint.getLat(), mEndPoint.getLon());
+        if (mContainer != null)
+          mContainer.updateBuildProgress(0, mLastRouterType);
+      }
+    });
   }
 
   @NonNull

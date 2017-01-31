@@ -34,6 +34,8 @@ public final class Config
   private static final String KEY_MISC_FIRST_START_DIALOG_SEEN = "FirstStartDialogSeen";
   private static final String KEY_MISC_UI_THEME = "UiTheme";
   private static final String KEY_MISC_UI_THEME_SETTINGS = "UiThemeSettings";
+  private static final String KEY_MISC_USE_MOBILE_DATA = "UseMobileData";
+  private static final String KEY_MISC_NOT_TODAY_TIMESTAMP = "NotTodayTimestamp";
 
   private Config() {}
 
@@ -353,6 +355,39 @@ public final class Config
   public static void setLargeFontsSize(boolean value)
   {
     nativeSetLargeFontsSize(value);
+  }
+
+  @NetworkPolicy.NetworkPolicyDef
+  public static int getUseMobileDataSettings()
+  {
+    switch(getInt(KEY_MISC_USE_MOBILE_DATA, NetworkPolicy.ASK))
+    {
+      case NetworkPolicy.ASK:
+        return NetworkPolicy.ASK;
+      case NetworkPolicy.ALWAYS:
+        return NetworkPolicy.ALWAYS;
+      case NetworkPolicy.NEVER:
+        return NetworkPolicy.NEVER;
+      case NetworkPolicy.NOT_TODAY:
+        return NetworkPolicy.NOT_TODAY;
+    }
+
+    throw new AssertionError("Wrong NetworkPolicy type!");
+  }
+
+  public static void setUseMobileDataSettings(@NetworkPolicy.NetworkPolicyDef int value)
+  {
+    setInt(KEY_MISC_USE_MOBILE_DATA, value);
+  }
+
+  static void setNotTodayStamp(long timestamp)
+  {
+    setLong(KEY_MISC_NOT_TODAY_TIMESTAMP, timestamp);
+  }
+
+  static long getNotTodayTimeStamp()
+  {
+    return getLong(KEY_MISC_NOT_TODAY_TIMESTAMP, 0L);
   }
 
   private static native boolean nativeGetBoolean(String name, boolean defaultValue);

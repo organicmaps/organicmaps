@@ -19,7 +19,14 @@
     android:defaultValue="true"/>
 
   <CheckBoxPreference
-    android:key="@string/pref_play_services"
+    android:key="@string/pref_enable_logging"
     android:title="Enable logging"
     android:defaultValue="false"/>
+
+  <ListPreference
+    android:key="@string/pref_use_mobile_data"
+    android:title="@string/mobile_data"
+    android:summary="@string/mobile_data_option_ask"
+    android:entries="@array/mobile_data_options"
+    android:entryValues="@array/mobile_data_options_values"/>
 </PreferenceScreen>

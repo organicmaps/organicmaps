@@ -162,8 +162,11 @@ namespace android
 
     void SetPlacePageInfo(place_page::Info const & info);
     place_page::Info & GetPlacePageInfo();
-    void RequestBookingMinPrice(string const & hotelId, string const & currency, function<void(string const &, string const &)> const & callback);
-    void RequestBookingInfo(string const & hotelId, string const & lang,
+    void RequestBookingMinPrice(JNIEnv * env, jobject policy, string const & hotelId,
+                                string const & currency,
+                                function<void(string const &, string const &)> const & callback);
+    void RequestBookingInfo(JNIEnv * env, jobject policy, string const & hotelId,
+                            string const & lang,
                             function<void(BookingApi::HotelInfo const &)> const & callback);
 
     bool HasSpaceForMigration();
@@ -175,8 +178,8 @@ namespace android
     bool IsDownloadOn3gEnabled();
     void EnableDownloadOn3g();
 
-    uint64_t RequestUberProducts(ms::LatLon const & from, ms::LatLon const & to,
-                                 uber::ProductsCallback const & callback,
+    uint64_t RequestUberProducts(JNIEnv * env, jobject policy, ms::LatLon const & from,
+                                 ms::LatLon const & to, uber::ProductsCallback const & callback,
                                  uber::ErrorCallback const & errorCallback);
     static uber::RideRequestLinks GetUberLinks(string const & productId, ms::LatLon const & from, ms::LatLon const & to);
   };

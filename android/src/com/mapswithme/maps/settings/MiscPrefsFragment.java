@@ -1,6 +1,7 @@
 package com.mapswithme.maps.settings;
 
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.TwoStatePreference;
 
@@ -12,6 +13,8 @@ import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.search.SearchFragment;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.log.LoggerFactory;
+import com.mapswithme.util.NetworkPolicy;
+import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.statistics.MytargetHelper;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -91,5 +94,47 @@ public class MiscPrefsFragment extends BaseXmlSettingsFragment
         }
       });
     }
+
+    int curValue = Config.getUseMobileDataSettings();
+    final ListPreference mobilePref = (ListPreference)findPreference(
+        getString(R.string.pref_use_mobile_data));
+    mobilePref.setValue(String.valueOf(curValue));
+    mobilePref.setSummary(mobilePref.getEntry());
+    mobilePref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
+    {
+      @Override
+      public boolean onPreferenceChange(Preference preference, Object newValue)
+      {
+        String valueStr = (String)newValue;
+        switch (Integer.parseInt(valueStr))
+        {
+          case NetworkPolicy.ASK:
+            Config.setUseMobileDataSettings(NetworkPolicy.ASK);
+            break;
+          case NetworkPolicy.ALWAYS:
+            Config.setUseMobileDataSettings(NetworkPolicy.ALWAYS);
+            break;
+          case NetworkPolicy.NEVER:
+            Config.setUseMobileDataSettings(NetworkPolicy.NEVER);
+            break;
+          case NetworkPolicy.NOT_TODAY:
+            Config.setUseMobileDataSettings(NetworkPolicy.NOT_TODAY);
+            break;
+          default:
+            throw new AssertionError("Wrong NetworkPolicy type!");
+        }
+
+        UiThread.runLater(new Runnable()
+        {
+          @Override
+          public void run()
+          {
+            mobilePref.setSummary(mobilePref.getEntry());
+          }
+        });
+
+        return true;
+      }
+    });
   }
 }
