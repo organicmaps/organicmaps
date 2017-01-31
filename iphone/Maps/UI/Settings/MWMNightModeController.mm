@@ -37,7 +37,6 @@
   if ([_selectedCell isEqual:cell])
     return;
 
-  BOOL const isNightMode = [UIColor isNightMode];
   _selectedCell = cell;
   NSString * statValue = nil;
   if ([cell isEqual:self.on])
@@ -55,8 +54,6 @@
     [MWMSettings setTheme:MWMThemeAuto];
     statValue = kStatValue;
   }
-  if (isNightMode != [UIColor isNightMode])
-    [self mwm_refreshUI];
   [Statistics logEvent:kStatNightMode withParameters:@{kStatValue : statValue}];
 }
 

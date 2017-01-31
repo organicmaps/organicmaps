@@ -5,6 +5,8 @@
 
 #include "Framework.h"
 
+#include "base/sunrise_sunset.hpp"
+
 @implementation MWMFrameworkHelper
 
 + (void)zoomToCurrentPosition
@@ -25,6 +27,41 @@
   CGFloat const x1 = x0 + rect.size.width * scale;
   CGFloat const y1 = y0 + rect.size.height * scale;
   GetFramework().SetVisibleViewport(m2::RectD(x0, y0, x1, y1));
+}
+
++ (void)setTheme:(MWMTheme)theme
+{
+  auto & f = GetFramework();
+  auto style = f.GetMapStyle();
+  MapStyle newStyle = MapStyleClear;
+  switch (theme)
+  {
+  case MWMThemeDay: break;
+  case MWMThemeNight: newStyle = MapStyleDark; break;
+  case MWMThemeAuto: NSAssert(NO, @"Invalid theme");
+  }
+  if (style != newStyle)
+    f.SetMapStyle(newStyle);
+}
+
++ (MWMDayTime)daytime
+{
+  CLLocation * lastLocation = [MWMLocationManager lastLocation];
+  if (!lastLocation)
+  {
+    NSAssert(false, @"Last location is not available");
+    return MWMDayTimeDay;
+  }
+  auto const coord = lastLocation.coordinate;
+  auto const timeUtc = static_cast<time_t>(NSDate.date.timeIntervalSince1970);
+  auto const dayTime = GetDayTime(timeUtc, coord.latitude, coord.longitude);
+  switch (dayTime)
+  {
+  case DayTimeType::Day:
+  case DayTimeType::PolarDay: return MWMDayTimeDay;
+  case DayTimeType::Night:
+  case DayTimeType::PolarNight: return MWMDayTimeNight;
+  }
 }
 
 @end

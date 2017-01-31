@@ -18,6 +18,7 @@
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
+#import "SwiftBridge.h"
 #import "UIImage+RGBAData.h"
 
 #include "Framework.h"
@@ -96,6 +97,7 @@ bool isMarkerPoint(MWMRoutePoint * point) { return point.isValid && !point.isMyP
   [MWMNavigationDashboardManager manager].taxiDataSource = nil;
 }
 
++ (BOOL)isRoutingActive { return GetFramework().IsRoutingActive(); }
 - (instancetype)initRouter
 {
   self = [super init];
@@ -221,8 +223,7 @@ bool isMarkerPoint(MWMRoutePoint * point) { return point.isValid && !point.isMyP
       MapsAppDelegate * app = [MapsAppDelegate theApp];
       app.routingPlaneMode = MWMRoutingPlaneModeNone;
       [MWMRouterSavedState store];
-      [MapsAppDelegate changeMapStyleIfNedeed];
-      [MapsAppDelegate startMapStyleChecker];
+      [MWMThemeManager setAutoUpdates:YES];
     }
     else
     {
@@ -271,8 +272,7 @@ bool isMarkerPoint(MWMRoutePoint * point) { return point.isValid && !point.isMyP
   MapsAppDelegate * app = [MapsAppDelegate theApp];
   app.routingPlaneMode = MWMRoutingPlaneModeNone;
   [MWMRouterSavedState remove];
-  if ([MWMSettings theme] == MWMThemeAuto)
-    [MapsAppDelegate resetToDefaultMapStyle];
+  [MWMThemeManager setAutoUpdates:NO];
   [app showAlertIfRequired];
 }
 

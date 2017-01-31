@@ -24,12 +24,12 @@
 #import "MWMTextToSpeech.h"
 #import "MapViewController.h"
 #import "Statistics.h"
+#import "SwiftBridge.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #include <sys/xattr.h>
 
-#include "base/sunrise_sunset.hpp"
 #include "indexer/osm_editor.hpp"
 #include "map/gps_tracker.hpp"
 #include "platform/http_thread_apple.h"
@@ -291,88 +291,6 @@ using namespace osm_auth_ios;
   [self updateApplicationIconBadgeNumber];
 }
 
-+ (void)determineMapStyle
-{
-  auto & f = GetFramework();
-  if ([MWMSettings theme] == MWMThemeAuto)
-  {
-    f.SetMapStyle(MapStyleClear);
-    [UIColor setNightMode:NO];
-  }
-  else
-  {
-    [UIColor setNightMode:f.GetMapStyle() == MapStyleDark];
-  }
-}
-
-+ (void)startMapStyleChecker
-{
-  if ([MWMSettings theme] != MWMThemeAuto)
-    return;
-  MapsAppDelegate.theApp.mapStyleSwitchTimer =
-      [NSTimer scheduledTimerWithTimeInterval:(30 * 60)
-                                       target:self
-                                     selector:@selector(changeMapStyleIfNedeed)
-                                     userInfo:nil
-                                      repeats:YES];
-}
-
-+ (void)stopMapStyleChecker { [MapsAppDelegate.theApp.mapStyleSwitchTimer invalidate]; }
-+ (void)resetToDefaultMapStyle
-{
-  MapsAppDelegate * app = MapsAppDelegate.theApp;
-  auto & f = GetFramework();
-  auto style = f.GetMapStyle();
-  if (style == MapStyleClear)
-    return;
-  f.SetMapStyle(MapStyleClear);
-  [UIColor setNightMode:NO];
-  [static_cast<id<MWMController>>(app.mapViewController.navigationController.topViewController)
-      mwm_refreshUI];
-  [self stopMapStyleChecker];
-}
-
-+ (void)changeMapStyleIfNedeed
-{
-  if ([MWMSettings theme] != MWMThemeAuto)
-    return;
-  auto & f = GetFramework();
-  CLLocation * lastLocation = [MWMLocationManager lastLocation];
-  if (!lastLocation || !f.IsRoutingActive())
-    return;
-  CLLocationCoordinate2D const coord = lastLocation.coordinate;
-  dispatch_async(dispatch_get_main_queue(), [coord] {
-    auto & f = GetFramework();
-    MapsAppDelegate * app = MapsAppDelegate.theApp;
-    auto const dayTime = GetDayTime(static_cast<time_t>(NSDate.date.timeIntervalSince1970),
-                                    coord.latitude, coord.longitude);
-    id<MWMController> vc = static_cast<id<MWMController>>(
-        app.mapViewController.navigationController.topViewController);
-    auto style = f.GetMapStyle();
-    switch (dayTime)
-    {
-    case DayTimeType::Day:
-    case DayTimeType::PolarDay:
-      if (style != MapStyleClear)
-      {
-        f.SetMapStyle(MapStyleClear);
-        [UIColor setNightMode:NO];
-        [vc mwm_refreshUI];
-      }
-      break;
-    case DayTimeType::Night:
-    case DayTimeType::PolarNight:
-      if (style != MapStyleDark)
-      {
-        f.SetMapStyle(MapStyleDark);
-        [UIColor setNightMode:YES];
-        [vc mwm_refreshUI];
-      }
-      break;
-    }
-  });
-}
-
 - (BOOL)application:(UIApplication *)application
     didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -394,7 +312,7 @@ using namespace osm_auth_ios;
   [HttpThread setDownloadIndicatorProtocol:self];
 
   InitLocalizedStrings();
-  [[self class] determineMapStyle];
+  [MWMThemeManager invalidate];
 
   GetFramework().EnterForeground();
 

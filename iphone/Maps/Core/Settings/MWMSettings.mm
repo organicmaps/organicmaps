@@ -1,7 +1,9 @@
 #import "MWMSettings.h"
 #import "MWMCoreUnits.h"
+#import "MWMFrameworkHelper.h"
 #import "MWMMapViewControlsManager.h"
 #import "MapsAppDelegate.h"
+#import "SwiftBridge.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
@@ -19,7 +21,9 @@ char const * kCompassCalibrationEnabledKey = "CompassCalibrationEnabled";
 char const * kRoutingDisclaimerApprovedKey = "IsDisclaimerApproved";
 char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled";
 
+// TODO(igrechuhin): Remove outdated kUDAutoNightModeOff
 NSString * const kUDAutoNightModeOff = @"AutoNightModeOff";
+NSString * const kThemeMode = @"ThemeMode";
 NSString * const kSpotlightLocaleLanguageId = @"SpotlightLocaleLanguageId";
 }  // namespace
 
@@ -122,11 +126,10 @@ NSString * const kSpotlightLocaleLanguageId = @"SpotlightLocaleLanguageId";
 
 + (MWMTheme)theme
 {
-  if (![[NSUserDefaults standardUserDefaults] boolForKey:kUDAutoNightModeOff])
+  auto ud = [NSUserDefaults standardUserDefaults];
+  if (![ud boolForKey:kUDAutoNightModeOff])
     return MWMThemeAuto;
-  if (GetFramework().GetMapStyle() == MapStyleDark)
-    return MWMThemeNight;
-  return MWMThemeDay;
+  return static_cast<MWMTheme>([ud integerForKey:kThemeMode]);
 }
 
 + (void)setTheme:(MWMTheme)theme
@@ -134,27 +137,10 @@ NSString * const kSpotlightLocaleLanguageId = @"SpotlightLocaleLanguageId";
   if ([self theme] == theme)
     return;
   auto ud = [NSUserDefaults standardUserDefaults];
-  auto & f = GetFramework();
-  switch (theme)
-  {
-  case MWMThemeDay:
-    [ud setBool:YES forKey:kUDAutoNightModeOff];
-    f.SetMapStyle(MapStyleClear);
-    [UIColor setNightMode:NO];
-    break;
-  case MWMThemeNight:
-    [ud setBool:YES forKey:kUDAutoNightModeOff];
-    f.SetMapStyle(MapStyleDark);
-    [UIColor setNightMode:YES];
-    break;
-  case MWMThemeAuto:
-    [ud setBool:NO forKey:kUDAutoNightModeOff];
-    f.SetMapStyle(MapStyleClear);
-    [UIColor setNightMode:NO];
-    [MapsAppDelegate stopMapStyleChecker];
-    [MapsAppDelegate changeMapStyleIfNedeed];
-    break;
-  }
+  [ud setInteger:theme forKey:kThemeMode];
+  BOOL const autoOff = theme != MWMThemeAuto;
+  [ud setBool:autoOff forKey:kUDAutoNightModeOff];
+  [MWMThemeManager invalidate];
 }
 
 + (BOOL)routingDisclaimerApproved

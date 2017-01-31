@@ -10,6 +10,7 @@ typedef void (^MWMImageHeightBlock)(UIImage *, NSString *);
 + (BOOL)isTaxi;
 + (void)startRouting;
 + (void)stopRouting;
++ (BOOL)isRoutingActive;
 
 @property(nonatomic, readonly) MWMRoutePoint * startPoint;
 @property(nonatomic, readonly) MWMRoutePoint * finishPoint;
