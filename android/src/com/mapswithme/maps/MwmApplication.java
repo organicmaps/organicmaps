@@ -9,7 +9,6 @@ import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.annotation.UiThread;
 import android.text.TextUtils;
-import android.util.Log;
 
 import java.io.File;
 import java.util.List;
@@ -32,6 +31,8 @@ import com.mapswithme.util.Constants;
 import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.PushwooshHelper;
 import com.mapswithme.util.statistics.Statistics;
 import com.my.tracker.MyTracker;
@@ -42,6 +43,7 @@ import net.hockeyapp.android.CrashManager;
 
 public class MwmApplication extends Application
 {
+  private static Logger sLogger;
   private final static String TAG = "MwmApplication";
 
   private static final String PW_EMPTY_APP_ID = "XXXXX";
@@ -111,6 +113,7 @@ public class MwmApplication extends Application
   public void onCreate()
   {
     super.onCreate();
+    sLogger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
     mMainLoopHandler = new Handler(getMainLooper());
 
     initHockeyApp();
@@ -123,8 +126,11 @@ public class MwmApplication extends Application
     initTracker();
 
     String settingsPath = getSettingsPath();
+    sLogger.d(TAG, "onCreate(), setting path = " + settingsPath);
+    String tempPath = getTempPath();
+    sLogger.d(TAG, "onCreate(), temp path = " + tempPath);
     new File(settingsPath).mkdirs();
-    new File(getTempPath()).mkdirs();
+    new File(tempPath).mkdirs();
 
     // First we need initialize paths and platform to have access to settings and other components.
     nativePreparePlatform(settingsPath);
@@ -231,7 +237,7 @@ public class MwmApplication extends Application
       return getPackageManager().getApplicationInfo(BuildConfig.APPLICATION_ID, 0).sourceDir;
     } catch (final NameNotFoundException e)
     {
-      Log.e(TAG, "Can't get apk path from PackageManager");
+      sLogger.e(TAG, "Can't get apk path from PackageManager", e);
       return "";
     }
   }
@@ -296,7 +302,7 @@ public class MwmApplication extends Application
     }
     catch(Exception e)
     {
-      Log.e("Pushwoosh", e.getLocalizedMessage());
+      sLogger.e("Pushwoosh", "Failed to init Pushwoosh", e);
     }
   }
 
@@ -312,7 +318,7 @@ public class MwmApplication extends Application
     }
     catch(Exception e)
     {
-      Log.e("Pushwoosh", e.getLocalizedMessage());
+      sLogger.e("Pushwoosh", "Failed to send pushwoosh tags", e);
     }
   }
 

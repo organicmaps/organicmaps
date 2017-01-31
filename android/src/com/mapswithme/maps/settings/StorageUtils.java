@@ -3,7 +3,14 @@ package com.mapswithme.maps.settings;
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.text.TextUtils;
-import android.util.Log;
+
+import com.mapswithme.maps.BuildConfig;
+import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.util.Constants;
+import com.mapswithme.util.Utils;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -17,16 +24,12 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.mapswithme.maps.BuildConfig;
-import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.util.Constants;
-import com.mapswithme.util.Utils;
-
 final class StorageUtils
 {
   private StorageUtils() {}
 
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.STORAGE);
+  private static final String TAG = StorageUtils.class.getSimpleName();
   private static final int VOLD_MODE = 1;
   private static final int MOUNTS_MODE = 2;
 
@@ -39,7 +42,7 @@ final class StorageUtils
    * @return result
    */
   @SuppressWarnings("ResultOfMethodCallIgnored")
-  public static boolean isDirWritable(String path)
+  static boolean isDirWritable(String path)
   {
     File f = new File(path, "mapsme_test_dir");
     f.mkdir();
@@ -83,7 +86,7 @@ final class StorageUtils
   // http://stackoverflow.com/questions/14212969/file-canwrite-returns-false-on-some-devices-although-write-external-storage-pe
   private static void parseMountFile(String file, int mode, Set<String> paths)
   {
-    Log.i(StoragePathManager.TAG, "Parsing " + file);
+    LOGGER.i(StoragePathManager.TAG, "Parsing " + file);
 
     BufferedReader reader = null;
     try
@@ -125,7 +128,7 @@ final class StorageUtils
       }
     } catch (final IOException e)
     {
-      Log.w(StoragePathManager.TAG, "Can't read file: " + file);
+      LOGGER.w(TAG, "Can't read file: " + file, e);
     } finally
     {
       Utils.closeStream(reader);
@@ -153,7 +156,7 @@ final class StorageUtils
         // add only secondary dirs
         if (f != null && !f.equals(primaryStorage))
         {
-          Log.i(StoragePathManager.TAG, "Additional storage path: " + f.getPath());
+          LOGGER.i(StoragePathManager.TAG, "Additional storage path: " + f.getPath());
           paths.add(f.getPath());
         }
       }
@@ -164,10 +167,10 @@ final class StorageUtils
     String suffix = String.format(Constants.STORAGE_PATH, BuildConfig.APPLICATION_ID, Constants.FILES_DIR);
     for (String testStorage : testStorages)
     {
-      Log.i(StoragePathManager.TAG, "Test storage from config files : " + testStorage);
+      LOGGER.i(StoragePathManager.TAG, "Test storage from config files : " + testStorage);
       if (isDirWritable(testStorage))
       {
-        Log.i(StoragePathManager.TAG, "Found writable storage : " + testStorage);
+        LOGGER.i(StoragePathManager.TAG, "Found writable storage : " + testStorage);
         paths.add(testStorage);
       }
       else
@@ -176,14 +179,14 @@ final class StorageUtils
         File file = new File(testStorage);
         if (!file.exists()) // create directory for our package if it isn't created by any reason
         {
-          Log.i(StoragePathManager.TAG, "Try to create MWM path");
+          LOGGER.i(StoragePathManager.TAG, "Try to create MWM path");
           if (file.mkdirs())
-            Log.i(StoragePathManager.TAG, "Created!");
+            LOGGER.i(StoragePathManager.TAG, "Created!");
         }
 
         if (isDirWritable(testStorage))
         {
-          Log.i(StoragePathManager.TAG, "Found writable storage : " + testStorage);
+          LOGGER.i(StoragePathManager.TAG, "Found writable storage : " + testStorage);
           paths.add(testStorage);
         }
       }

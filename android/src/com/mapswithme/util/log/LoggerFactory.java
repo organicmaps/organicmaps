@@ -19,7 +19,7 @@ public class LoggerFactory
 {
   public enum Type
   {
-    MISC, LOCATION, TRAFFIC, GPS_TRACKING, TRACK_RECORDER, ROUTING, NETWORK;
+    MISC, LOCATION, TRAFFIC, GPS_TRACKING, TRACK_RECORDER, ROUTING, NETWORK, STORAGE, DOWNLOADER
   }
 
   public interface OnZipCompletedListener
@@ -35,7 +35,6 @@ public class LoggerFactory
   }
 
   public final static LoggerFactory INSTANCE = new LoggerFactory();
-  private final static String TAG = LoggerFactory.class.getSimpleName();
 
   @NonNull
   @GuardedBy("this")

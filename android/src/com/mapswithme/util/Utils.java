@@ -7,13 +7,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.annotation.DimenRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
@@ -23,7 +21,6 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.AbsoluteSizeSpan;
-import android.util.Log;
 import android.view.Window;
 import android.widget.Toast;
 
@@ -33,6 +30,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.maps.uber.UberLinks;
 import com.mapswithme.util.concurrency.UiThread;
+import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.AlohaHelper;
 
@@ -43,12 +41,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 public class Utils
 {
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = "Utils";
 
   public interface Proc<T>
@@ -67,7 +65,7 @@ public class Utils
         stream.close();
       } catch (final IOException e)
       {
-        Log.e(TAG, "Can't close stream", e);
+        LOGGER.e(TAG, "Can't close stream", e);
       }
     }
   }
@@ -75,21 +73,6 @@ public class Utils
   public static boolean isAmazonDevice()
   {
     return "Amazon".equalsIgnoreCase(Build.MANUFACTURER);
-  }
-
-  public static boolean hasAnyGoogleStoreInstalled()
-  {
-    final String GooglePlayStorePackageNameOld = "com.google.market";
-    final String GooglePlayStorePackageNameNew = "com.android.vending";
-    final PackageManager pm = MwmApplication.get().getPackageManager();
-    final List<PackageInfo> packages = pm.getInstalledPackages(0);
-    for (final PackageInfo packageInfo : packages)
-    {
-      if (packageInfo.packageName.equals(GooglePlayStorePackageNameOld)
-          || packageInfo.packageName.equals(GooglePlayStorePackageNameNew))
-        return true;
-    }
-    return false;
   }
 
   /**
@@ -154,11 +137,6 @@ public class Utils
     return "[" + joined + "]";
   }
 
-  public static Object[] asObjectArray(Object... args)
-  {
-    return args;
-  }
-
   public static boolean isPackageInstalled(String packageUri)
   {
     PackageManager pm = MwmApplication.get().getPackageManager();
@@ -172,19 +150,6 @@ public class Utils
       installed = false;
     }
     return installed;
-  }
-
-  public static void launchPackage(Activity activity, String appPackage)
-  {
-    final Intent intent = activity.getPackageManager().getLaunchIntentForPackage(appPackage);
-    if (intent != null)
-      activity.startActivity(intent);
-  }
-
-  public static boolean isIntentAvailable(Intent intent)
-  {
-    PackageManager mgr = MwmApplication.get().getPackageManager();
-    return mgr.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY).size() > 0;
   }
 
   public static Uri buildMailUri(String to, String subject, String body)
@@ -201,7 +166,7 @@ public class Utils
    *
    * @return name of the logfile. May be null in case of error.
    */
-  public static String saveLogToFile()
+  private static String saveLogToFile()
   {
     String fullName = MwmApplication.getSettingsPath() + "logcat.txt";
     File file = new File(fullName);
@@ -255,23 +220,6 @@ public class Utils
     return model;
   }
 
-  /**
-   * @param timestamp in currentTimeMillis() format
-   */
-  public static boolean isInstalledAfter(long timestamp)
-  {
-    try
-    {
-      final PackageInfo info = MwmApplication.get().getPackageManager().getPackageInfo(BuildConfig.APPLICATION_ID, 0);
-      return info.firstInstallTime > timestamp;
-    } catch (PackageManager.NameNotFoundException e)
-    {
-      e.printStackTrace();
-    }
-
-    return false;
-  }
-
   public static void openAppInMarket(Activity activity, String url)
   {
     final Intent marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
@@ -319,19 +267,6 @@ public class Utils
       ((CustomNavigateUpListener) activity).customOnNavigateUp();
     else
       NavUtils.navigateUpFromSameTask(activity);
-  }
-
-  public static void navigateToParent(@NonNull Activity activity, @NonNull Bundle extras)
-  {
-    if (activity instanceof CustomNavigateUpListener)
-    {
-      ((CustomNavigateUpListener) activity).customOnNavigateUp();
-      return;
-    }
-
-    final Intent intent = NavUtils.getParentActivityIntent(activity);
-    intent.putExtras(extras);
-    NavUtils.navigateUpTo(activity, intent);
   }
 
   public static SpannableStringBuilder formatUnitsText(Context context, @DimenRes int size, @DimenRes int units, String dimension, String unitText)
@@ -438,6 +373,7 @@ public class Utils
     }
     catch (ActivityNotFoundException e)
     {
+      LOGGER.e(TAG, "Failed to call phone", e);
       AlohaHelper.logException(e);
     }
   }

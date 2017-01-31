@@ -2,7 +2,6 @@ package com.mapswithme.maps.downloader;
 
 import android.os.AsyncTask;
 import android.util.Base64;
-import android.util.Log;
 
 import java.io.BufferedInputStream;
 import java.io.DataOutputStream;
@@ -18,10 +17,13 @@ import java.util.concurrent.Executors;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 
 @SuppressWarnings("unused")
 class ChunkTask extends AsyncTask<Void, byte[], Boolean>
 {
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.DOWNLOADER);
   private static final String TAG = "ChunkTask";
 
   private static final int TIMEOUT_IN_SECONDS = 60;
@@ -190,7 +192,7 @@ class ChunkTask extends AsyncTask<Void, byte[], Boolean>
       {
         // we've set error code so client should be notified about the error
         mHttpErrorCode = FILE_SIZE_CHECK_FAILED;
-        Log.w(TAG, "Error for " + urlConnection.getURL() +
+        LOGGER.w(TAG, "Error for " + urlConnection.getURL() +
                    ": Server replied with code " + err +
                    ", aborting download. " + Utils.mapPrettyPrint(requestParams));
         return false;
@@ -208,7 +210,7 @@ class ChunkTask extends AsyncTask<Void, byte[], Boolean>
         {
           // we've set error code so client should be notified about the error
           mHttpErrorCode = FILE_SIZE_CHECK_FAILED;
-          Log.w(TAG, "Error for " + urlConnection.getURL() +
+          LOGGER.w(TAG, "Error for " + urlConnection.getURL() +
                      ": Invalid file size received (" + contentLength + ") while expecting " + mExpectedFileSize +
                      ". Aborting download.");
           return false;
@@ -219,13 +221,13 @@ class ChunkTask extends AsyncTask<Void, byte[], Boolean>
       return downloadFromStream(new BufferedInputStream(urlConnection.getInputStream(), 65536));
     } catch (final MalformedURLException ex)
     {
-      Log.d(TAG, "Invalid url: " + mUrl);
+      LOGGER.e(TAG, "Invalid url: " + mUrl, ex);
 
       mHttpErrorCode = INVALID_URL;
       return false;
     } catch (final IOException ex)
     {
-      Log.d(TAG, "IOException in doInBackground for URL: " + mUrl, ex);
+      LOGGER.d(TAG, "IOException in doInBackground for URL: " + mUrl, ex);
 
       mHttpErrorCode = IO_ERROR;
       return false;
@@ -253,7 +255,7 @@ class ChunkTask extends AsyncTask<Void, byte[], Boolean>
         break;
       } catch (final IOException ex)
       {
-        Log.d(TAG, "IOException in downloadFromStream for chunk size: " + size, ex);
+        LOGGER.e(TAG, "IOException in downloadFromStream for chunk size: " + size, ex);
       }
     }
 

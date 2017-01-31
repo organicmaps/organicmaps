@@ -12,7 +12,17 @@ import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
+
+import com.mapswithme.maps.BuildConfig;
+import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.R;
+import com.mapswithme.maps.downloader.MapManager;
+import com.mapswithme.util.Config;
+import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.concurrency.ThreadPool;
+import com.mapswithme.util.concurrency.UiThread;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -23,17 +33,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.mapswithme.maps.BuildConfig;
-import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.R;
-import com.mapswithme.maps.downloader.MapManager;
-import com.mapswithme.util.Config;
-import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.concurrency.ThreadPool;
-import com.mapswithme.util.concurrency.UiThread;
-
 public class StoragePathManager
 {
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.STORAGE);
   private static final String[] MOVABLE_EXTS = Framework.nativeGetMovableFilesExts();
   static final FilenameFilter MOVABLE_FILES_FILTER = new FilenameFilter()
   {
@@ -169,10 +171,10 @@ public class StoragePathManager
 
     if (mCurrentStorageIndex == -1)
     {
-      Log.w(TAG, "Unrecognized current path : " + currentStorage);
-      Log.w(TAG, "Parsed paths : ");
+      LOGGER.w(TAG, "Unrecognized current path : " + currentStorage);
+      LOGGER.w(TAG, "Parsed paths : ");
       for (StorageItem item : mItems)
-        Log.w(TAG, item.toString());
+        LOGGER.w(TAG, item.toString());
     }
   }
 
@@ -192,13 +194,13 @@ public class StoragePathManager
         final long freeSize = StorageUtils.getFreeBytesAtPath(path);
         if (freeSize > 0)
         {
-          Log.i(TAG, "Storage found : " + path + ", size : " + freeSize);
+          LOGGER.i(TAG, "Storage found : " + path + ", size : " + freeSize);
           return new StorageItem(path, freeSize);
         }
       }
     } catch (final IllegalArgumentException ex)
     {
-      Log.i(TAG, "Can't build storage for path : " + path);
+      LOGGER.e(TAG, "Can't build storage for path : " + path, ex);
     }
 
     return null;
@@ -213,7 +215,7 @@ public class StoragePathManager
     final File f = new File(path);
     if (!f.exists() && !f.mkdirs())
     {
-      Log.e(TAG, "Can't create directory: " + path);
+      LOGGER.e(TAG, "Can't create directory: " + path);
       return;
     }
 
@@ -408,7 +410,7 @@ public class StoragePathManager
     // According to changeStorage code above, oldStorage can be null.
     if (oldStorage == null)
     {
-      Log.w(TAG, "Old storage path is null. New path is: " + fullNewPath);
+      LOGGER.w(TAG, "Old storage path is null. New path is: " + fullNewPath);
       return NULL_ERROR;
     }
 

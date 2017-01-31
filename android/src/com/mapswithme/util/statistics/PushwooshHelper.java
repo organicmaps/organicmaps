@@ -4,8 +4,9 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 import com.pushwoosh.PushManager;
 import com.pushwoosh.SendPushTagsCallBack;
 
@@ -17,6 +18,7 @@ import java.util.Map;
 
 public final class PushwooshHelper implements SendPushTagsCallBack
 {
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final PushwooshHelper sInstance = new PushwooshHelper();
 
   private WeakReference<Context> mContext;
@@ -42,11 +44,6 @@ public final class PushwooshHelper implements SendPushTagsCallBack
     sendTags(null);
   }
 
-  public void sendTag(String tag)
-  {
-    sendTag(tag, "1");
-  }
-
   public void sendTag(String tag, Object value)
   {
     Map<String, Object> tags = new HashMap<>();
@@ -54,7 +51,7 @@ public final class PushwooshHelper implements SendPushTagsCallBack
     sendTags(tags);
   }
 
-  public void sendTags(Map<String, Object> tags)
+  private void sendTags(Map<String, Object> tags)
   {
     synchronized (mSyncObject)
     {
@@ -127,7 +124,7 @@ public final class PushwooshHelper implements SendPushTagsCallBack
           if (e != null)
           {
             String msg = e.getLocalizedMessage();
-            Log.e("Pushwoosh", msg != null ? msg : "onSentTagsError");
+            LOGGER.e("Pushwoosh", msg != null ? msg : "onSentTagsError");
           }
           mTask = null;
         }

@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -34,6 +33,8 @@ import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.ThreadPool;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.io.File;
@@ -45,6 +46,7 @@ import java.util.List;
 @SuppressLint("StringFormatMatches")
 public class DownloadResourcesActivity extends BaseMwmFragmentActivity
 {
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.DOWNLOADER);
   private static final String TAG = DownloadResourcesActivity.class.getName();
 
   static final String EXTRA_COUNTRY = "country";
@@ -503,7 +505,7 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
     public boolean process(Intent intent)
     {
       final String url = intent.getData().toString();
-      Log.i(TAG, "Query = " + url);
+      LOGGER.i(TAG, "Query = " + url);
       mMapTaskToForward = new OpenUrlTask(url);
       org.alohalytics.Statistics.logEvent("GeoIntentProcessor::process", url);
       return true;
@@ -522,7 +524,7 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
     public boolean process(Intent intent)
     {
       final String url = intent.getData().toString();
-      Log.i(TAG, "URL = " + url);
+      LOGGER.i(TAG, "URL = " + url);
       mMapTaskToForward = new OpenUrlTask(url);
       org.alohalytics.Statistics.logEvent("Ge0IntentProcessor::process", url);
       return true;
@@ -548,7 +550,7 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
     public boolean process(Intent intent)
     {
       final Uri data = intent.getData();
-      Log.i(TAG, "URL = " + data.toString());
+      LOGGER.i(TAG, "URL = " + data.toString());
 
       final String ge0Url = "ge0:/" + data.getPath();
       mMapTaskToForward = new OpenUrlTask(ge0Url);
@@ -603,7 +605,7 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
     public boolean process(Intent intent)
     {
       final String url = intent.getData().toString();
-      Log.i(TAG, "URL = " + url);
+      LOGGER.i(TAG, "URL = " + url);
       mMapTaskToForward = new OpenUrlTask(url);
       org.alohalytics.Statistics.logEvent("GoogleMapsIntentProcessor::process", url);
       return true;
@@ -703,7 +705,7 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
           }
         } catch (final Exception ex)
         {
-          Log.w(TAG, "Attachment not found or io error: " + ex);
+          LOGGER.w(TAG, "Attachment not found or io error: " + ex, ex);
         } finally
         {
           Utils.closeStream(input);
@@ -716,11 +718,11 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
       boolean result = false;
       if (path != null)
       {
-        Log.d(TAG, "Loading bookmarks file from: " + path);
+        LOGGER.d(TAG, "Loading bookmarks file from: " + path);
         result = BookmarkManager.nativeLoadKmzFile(path);
       }
       else
-        Log.w(TAG, "Can't get bookmarks file from URI: " + mData);
+        LOGGER.w(TAG, "Can't get bookmarks file from URI: " + mData);
 
       if (tmpFile != null)
         //noinspection ResultOfMethodCallIgnored

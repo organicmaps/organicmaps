@@ -2,7 +2,6 @@ package com.mapswithme.maps.traffic;
 
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
@@ -92,7 +91,7 @@ public enum TrafficManager
 
     if (mCallbacks.isEmpty())
     {
-      Log.w(mTag, "There are no attached callbacks. Invoke the 'detachAll' method " +
+      mLogger.w(mTag, "There are no attached callbacks. Invoke the 'detachAll' method " +
                                       "only when it's really needed!", new Throwable());
       return;
     }
