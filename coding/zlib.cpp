@@ -62,7 +62,7 @@ ZLib::DeflateProcessor::~DeflateProcessor() noexcept
 #if !defined(OMIM_OS_ANDROID)
   unsigned bytes = 0;
   int bits = 0;
-  int const ret = deflatePending(&m_stream, &bytes, &bits);
+  auto const ret = deflatePending(&m_stream, &bytes, &bits);
   UNUSED_VALUE(ret);
   ASSERT_EQUAL(ret, Z_OK, ());
   ASSERT_EQUAL(bytes, 0, (bytes, "bytes were not flushed"));
