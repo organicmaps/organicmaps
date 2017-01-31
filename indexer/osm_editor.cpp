@@ -504,10 +504,9 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
         // Feature was not yet uploaded. Since it's equal to one mwm we can remove changes.
         if (editedFeatureInfo.m_uploadStatus != kUploaded)
         {
-          RemoveFeatureFromStorageIfExists(fid.m_mwmId, fid.m_index);
-          // TODO(AlexZ): Synchronize Save call/make it on a separate thread.
-          Save();
-          Invalidate();
+          if (!RemoveFeature(fid))
+            return SavingError;
+
           return SavedSuccessfully;
         }
       }
@@ -543,9 +542,7 @@ bool Editor::RollBackChanges(FeatureID const & fid)
   if (IsFeatureUploaded(fid.m_mwmId, fid.m_index))
     return false;
 
-  RemoveFeatureFromStorageIfExists(fid.m_mwmId, fid.m_index);
-  Invalidate();
-  return Save();
+  return RemoveFeature(fid);
 }
 
 void Editor::ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
@@ -988,19 +985,26 @@ void Editor::Invalidate()
     m_invalidateFn();
 }
 
-void Editor::MarkFeatureAsObsolete(FeatureID const & fid)
+bool Editor::MarkFeatureAsObsolete(FeatureID const & fid)
 {
   auto const featureStatus = GetFeatureStatus(fid);
   if (featureStatus != FeatureStatus::Untouched && featureStatus != FeatureStatus::Modified)
   {
     ASSERT(false, ("Only untouched and modified features can be made obsolete"));
-    return;
+    return false;
   }
 
   MarkFeatureWithStatus(fid, FeatureStatus::Obsolete);
 
-  Save();
   Invalidate();
+  return Save();
+}
+
+bool Editor::RemoveFeature(FeatureID const & fid)
+{
+  RemoveFeatureFromStorageIfExists(fid.m_mwmId, fid.m_index);
+  Invalidate();
+  return Save();
 }
 
 Editor::Stats Editor::GetStats() const
@@ -1074,22 +1078,36 @@ void Editor::CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
   auto const version = GetMwmCreationTimeByMwmId(fid.m_mwmId);
   auto const stringVersion = my::TimestampToString(my::SecondsSinceEpochToTimeT(version));
   ostringstream sstr;
+  auto canCreate = true;
 
   switch (type)
   {
     case NoteProblemType::PlaceDoesNotExist:
+    {
       sstr << kPlaceDoesNotExistMessage;
       if (!note.empty())
         sstr << " User comments: \"" << note << '\"';
-      MarkFeatureAsObsolete(fid);
+      auto const isCreated = GetFeatureStatus(fid) == FeatureStatus::Created;
+      auto const createdAndUploaded = (isCreated && IsFeatureUploaded(fid.m_mwmId, fid.m_index));
+      CHECK(!isCreated || createdAndUploaded, ());
+
+      if (createdAndUploaded)
+        canCreate = RemoveFeature(fid);
+      else
+        canCreate = MarkFeatureAsObsolete(fid);
+
       break;
+    }
     case NoteProblemType::General:
+    {
       sstr << note;
       break;
+    }
   }
-
   sstr << " (OSM data version: " << stringVersion << ')';
-  m_notes->CreateNote(latLon, sstr.str());
+
+  if (canCreate)
+    m_notes->CreateNote(latLon, sstr.str());
 }
 
 void Editor::UploadNotes(string const & key, string const & secret)
