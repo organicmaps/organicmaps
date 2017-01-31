@@ -209,7 +209,8 @@ private:
   void Invalidate();
 
   // Saves a feature in internal storage with FeatureStatus::Obsolete status.
-  void MarkFeatureAsObsolete(FeatureID const & fid);
+  bool MarkFeatureAsObsolete(FeatureID const & fid);
+  bool RemoveFeature(FeatureID const & fid);
 
   FeatureID GenerateNewFeatureId(MwmSet::MwmId const & id);
   EditableProperties GetEditablePropertiesForTypes(feature::TypesHolder const & types) const;
