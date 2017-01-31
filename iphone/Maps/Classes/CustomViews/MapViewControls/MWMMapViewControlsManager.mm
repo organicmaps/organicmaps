@@ -372,7 +372,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   if (_disableStandbyOnRouteFollowing == disableStandbyOnRouteFollowing)
     return;
   _disableStandbyOnRouteFollowing = disableStandbyOnRouteFollowing;
-  self.trafficButtonHidden = disableStandbyOnRouteFollowing;
   if (disableStandbyOnRouteFollowing)
     [[MapsAppDelegate theApp] disableStandby];
   else
@@ -426,6 +425,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.sideButtons.zoomHidden = self.zoomHidden;
   self.sideButtonsHidden = NO;
   self.disableStandbyOnRouteFollowing = YES;
+  self.trafficButtonHidden = YES;
   self.navigationManager.state = MWMNavigationDashboardStateNavigation;
 }
 
@@ -434,6 +434,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.sideButtons.zoomHidden = self.zoomHidden;
   self.navigationManager.state = MWMNavigationDashboardStateHidden;
   self.disableStandbyOnRouteFollowing = NO;
+  self.trafficButtonHidden = NO;
   self.menuState = MWMBottomMenuStateInactive;
   [self navigationDashBoardDidUpdate];
 }
@@ -517,7 +518,8 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)setTrafficButtonHidden:(BOOL)trafficButtonHidden
 {
-  _trafficButtonHidden = self.disableStandbyOnRouteFollowing || trafficButtonHidden;
+  BOOL const isNavigation = self.navigationManager.state == MWMNavigationDashboardStateNavigation;
+  _trafficButtonHidden = isNavigation || trafficButtonHidden;
   self.trafficButton.hidden = self.hidden || _trafficButtonHidden;
 }
 
