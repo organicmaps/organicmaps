@@ -41,6 +41,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -307,49 +308,9 @@ public class Utils
     activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.TWITTER_MAPSME_HTTP)));
   }
 
-  public static void sendSupportMail(final Activity activity, final String subject)
+  public static void sendSupportMail(@NonNull Activity activity, @NonNull String subject)
   {
-    //TODO: Add EXTRA_STREAM_MULTIPLE handling
-    LoggerFactory.INSTANCE.zipLogs(new LoggerFactory.OnZipCompletedListener()
-    {
-      @Override
-      public void onComplete(final boolean success)
-      {
-        UiThread.run(new Runnable()
-        {
-          @Override
-          public void run()
-          {
-            final Intent intent = new Intent(Intent.ACTION_SEND);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.putExtra(Intent.EXTRA_EMAIL, new String[] { Constants.Email.SUPPORT });
-            intent.putExtra(Intent.EXTRA_SUBJECT, "[" + BuildConfig.VERSION_NAME + "] " + subject);
-            final ArrayList<Uri> uris = new ArrayList<Uri>();
-            if (success)
-            {
-              intent.setAction(Intent.ACTION_SEND_MULTIPLE);
-              String logsZipFile = StorageUtils.getLogsZipPath();
-              if (!TextUtils.isEmpty(logsZipFile))
-              {
-                uris.add(Uri.parse("file://" + logsZipFile));
-              }
-            }
-            uris.add(Uri.parse("file://" + Utils.saveLogToFile()));
-            intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
-            intent.putExtra(Intent.EXTRA_TEXT, ""); // do this so some email clients don't complain about empty body.
-            intent.setType("message/rfc822");
-            try
-            {
-              activity.startActivity(intent);
-            } catch (ActivityNotFoundException e)
-            {
-              AlohaHelper.logException(e);
-            }
-          }
-        });
-      }
-    });
-
+    LoggerFactory.INSTANCE.zipLogs(new OnZipCompletedCallback(activity, subject));
   }
 
   public static void navigateToParent(@NonNull Activity activity)
@@ -478,6 +439,61 @@ public class Utils
     catch (ActivityNotFoundException e)
     {
       AlohaHelper.logException(e);
+    }
+  }
+
+  private  static class OnZipCompletedCallback implements LoggerFactory.OnZipCompletedListener
+  {
+    @NonNull
+    private final WeakReference<Activity> mActivityRef;
+    @NonNull
+    private final String mSubject;
+
+    private OnZipCompletedCallback(@NonNull Activity activity, @NonNull String subject)
+    {
+      mActivityRef = new WeakReference<>(activity);
+      mSubject = subject;
+    }
+
+    @Override
+    public void onCompleted(final boolean success)
+    {
+      UiThread.run(new Runnable()
+      {
+        @Override
+        public void run()
+        {
+          Activity activity = mActivityRef.get();
+          if (activity == null)
+            return;
+
+          final Intent intent = new Intent(Intent.ACTION_SEND);
+          intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+          intent.putExtra(Intent.EXTRA_EMAIL, new String[] { Constants.Email.SUPPORT });
+          intent.putExtra(Intent.EXTRA_SUBJECT, "[" + BuildConfig.VERSION_NAME + "] " + mSubject);
+          final ArrayList<Uri> uris = new ArrayList<>();
+          if (success)
+          {
+            intent.setAction(Intent.ACTION_SEND_MULTIPLE);
+            String logsZipFile = StorageUtils.getLogsZipPath();
+            if (!TextUtils.isEmpty(logsZipFile))
+            {
+              uris.add(Uri.parse("file://" + logsZipFile));
+            }
+          }
+          uris.add(Uri.parse("file://" + Utils.saveLogToFile()));
+          intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
+          intent.putExtra(Intent.EXTRA_TEXT, ""); // do this so some email clients don't complain about empty body.
+          intent.setType("message/rfc822");
+          try
+          {
+            activity.startActivity(intent);
+          } catch (ActivityNotFoundException e)
+          {
+            AlohaHelper.logException(e);
+          }
+        }
+      });
     }
   }
 }

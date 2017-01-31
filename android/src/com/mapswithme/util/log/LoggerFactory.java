@@ -3,7 +3,6 @@ package com.mapswithme.util.log;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.mapswithme.util.Config;
 import com.mapswithme.util.StorageUtils;
@@ -12,11 +11,8 @@ import net.jcip.annotations.ThreadSafe;
 
 import java.io.File;
 import java.util.EnumMap;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 @ThreadSafe
 public class LoggerFactory
@@ -33,9 +29,9 @@ public class LoggerFactory
      * <p>
      * <b>NOTE:</b> called from the logger thread
      * </p>
-     * @param success indicates a status of zipping operation
+     * @param success indicates about a status of zipping operation
      */
-    void onComplete(boolean success);
+    void onCompleted(boolean success);
   }
 
   public final static LoggerFactory INSTANCE = new LoggerFactory();
@@ -78,7 +74,7 @@ public class LoggerFactory
     if (!Config.isLoggingEnabled())
     {
       if (listener != null)
-        listener.onComplete(false);
+        listener.onCompleted(false);
       return;
     }
 
@@ -87,24 +83,12 @@ public class LoggerFactory
     if (TextUtils.isEmpty(logsFolder))
     {
       if (listener != null)
-        listener.onComplete(false);
+        listener.onCompleted(false);
       return;
     }
 
-    Callable<Boolean> task = new ZipLogsTask(logsFolder, logsFolder + ".zip");
-    Future<Boolean> result = getFileLoggerExecutor().submit(task);
-    boolean success = false;
-    try
-    {
-      success = result.get();
-    }
-    catch (InterruptedException | ExecutionException e)
-    {
-      Log.e(TAG, "Failed to zip logs: ", e);
-    }
-
-    if (listener != null)
-      listener.onComplete(success);
+    Runnable task = new ZipLogsTask(logsFolder, logsFolder + ".zip", listener);
+    getFileLoggerExecutor().execute(task);
   }
 
   @NonNull
