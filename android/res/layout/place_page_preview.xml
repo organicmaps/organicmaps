@@ -54,6 +54,7 @@
     android:layout_toStartOf="@+id/direction_frame"
     android:lines="1"
     android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
+    android:ellipsize="end"
     tools:background="#300000F0"
     tools:text="Subtitle, very very very very very very very long"/>
 

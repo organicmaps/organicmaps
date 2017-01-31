@@ -618,7 +618,7 @@
 "contact_us" = "Kontaktieren Sie uns";
 
 /* Settings: Send feedback button and dialog title */
-"feedback" = "Rückmeldung";
+"feedback" = "Feedback";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "Allgemeine Rückmeldung";
@@ -1722,7 +1722,7 @@
 
 "traffic_outdated" = "Verkehrsdaten sind veraltet.";
 
-"big_font" = "Größere Bezeichnungen";
+"big_font" = "Schriftgröße auf der Karte erhöhen";
 
 "traffic_update_app" = "Bitte aktualisieren Sie MAPS.ME";
 
@@ -1795,10 +1795,13 @@
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
 
+/* Seven points and higher */
 "booking_filter_rating_num_good" = "7.0+";
 
+/* Eight points and higher */
 "booking_filter_rating_num_very_good" = "8.0+";
 
+/* Nine points and higher */
 "booking_filter_rating_num_excellent" = "9.0+";
 
 "booking_filter_price_low" = "$";

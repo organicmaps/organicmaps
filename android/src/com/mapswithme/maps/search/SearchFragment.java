@@ -2,6 +2,7 @@ package com.mapswithme.maps.search;
 
 import android.content.Intent;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -150,6 +151,7 @@ public class SearchFragment extends BaseMwmFragment
   private PlaceholderView mResultsPlaceholder;
   private RecyclerView mResults;
   private AppBarLayout mAppBarLayout;
+  private View mFilterElevation;
   @Nullable
   private SearchFilterController mFilterController;
 
@@ -195,8 +197,10 @@ public class SearchFragment extends BaseMwmFragment
           if (mFilterController == null)
             return;
 
-          mFilterController.showDivider(
-              !(Math.abs(verticalOffset) == appBarLayout.getTotalScrollRange()));
+          boolean show = !(Math.abs(verticalOffset) == appBarLayout.getTotalScrollRange());
+          mFilterController.showDivider(show);
+          if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+            UiUtils.showIf(!show, mFilterElevation);
         }
       };
 
@@ -296,6 +300,8 @@ public class SearchFragment extends BaseMwmFragment
     mResultsPlaceholder.setContent(R.drawable.img_search_nothing_found_light,
                                    R.string.search_not_found, R.string.search_not_found_query);
 
+    mFilterElevation = view.findViewById(R.id.filter_elevation);
+
     mFilterController = new SearchFilterController(root.findViewById(R.id.filter_frame),
                                                    (HotelsFilterView) view.findViewById(R.id.filter),
                                                    new SearchFilterController.DefaultFilterListener()
@@ -318,6 +324,8 @@ public class SearchFragment extends BaseMwmFragment
         runSearch();
       }
     });
+    if (savedInstanceState != null)
+      mFilterController.onRestoreState(savedInstanceState);
     if (mInitialHotelsFilter != null)
       mFilterController.setFilter(mInitialHotelsFilter);
     mFilterController.updateFilterButtonVisibility(false);
@@ -361,6 +369,13 @@ public class SearchFragment extends BaseMwmFragment
         mToolbarController.deactivate();
       }
     });
+  }
+
+  @Override
+  public void onSaveInstanceState(Bundle outState)
+  {
+    if (mFilterController != null)
+      mFilterController.onSaveState(outState);
   }
 
   @Override
@@ -432,7 +447,7 @@ public class SearchFragment extends BaseMwmFragment
     hideSearch();
 
     // change map style for the Map activity
-    final int mapStyle = isOld ? Framework.MAP_STYLE_LIGHT : (isDark ? Framework.MAP_STYLE_DARK : Framework.MAP_STYLE_CLEAR);
+    final int mapStyle = isDark ? Framework.MAP_STYLE_DARK : Framework.MAP_STYLE_CLEAR;
     Framework.nativeSetMapStyle(mapStyle);
 
     return true;

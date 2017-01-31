@@ -379,6 +379,8 @@
 	<string name="follow_on_twitter">Twitterでフォロー</string>
 	<!-- Text in menu -->
 	<string name="contact_us">お問い合わせ</string>
+	<!-- Settings: Send feedback button and dialog title -->
+	<string name="feedback">フィードバック</string>
 	<!-- Text in menu -->
 	<string name="subscribe_to_news">当社のニュースに登録</string>
 	<!-- Text in menu -->
@@ -997,7 +999,7 @@
 	<string name="mobile_data_option_ask">常に確認</string>
 	<string name="traffic_update_maps_text">交通データを表示するには、地図を更新する必要があります。</string>
 	<string name="traffic_outdated">交通データが古くなっています。</string>
-	<string name="big_font">大きなラベル</string>
+	<string name="big_font">地図上のフォントサイズを大きく</string>
 	<string name="traffic_update_app">MAPS.ME をアップデートしてください</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">交通データを表示するには、アプリケーションをアップデートする必要があります。</string>
@@ -1039,4 +1041,10 @@
 	<string name="whatsnew_font_size">フォントサイズ</string>
 	<!-- january -->
 	<string name="whatsnew_font_size_text">地図上のラベルを大きくすることができます。</string>
+	<!-- Seven points and higher -->
+	<string name="booking_filter_rating_num_good">7.0+</string>
+	<!-- Eight points and higher -->
+	<string name="booking_filter_rating_num_very_good">8.0+</string>
+	<!-- Nine points and higher -->
+	<string name="booking_filter_rating_num_excellent">9.0+</string>
 </resources>

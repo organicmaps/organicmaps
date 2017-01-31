@@ -65,6 +65,7 @@
   selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
   selectedCell.selected = NO;
   self.selectedCell = selectedCell;
+  [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end

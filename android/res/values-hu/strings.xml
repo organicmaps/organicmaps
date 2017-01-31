@@ -381,6 +381,8 @@
 	<string name="follow_on_twitter">Kövess minket Twitteren</string>
 	<!-- Text in menu -->
 	<string name="contact_us">Kapcsolat</string>
+	<!-- Settings: Send feedback button and dialog title -->
+	<string name="feedback">Visszajelzés</string>
 	<!-- Text in menu -->
 	<string name="subscribe_to_news">Iratkozz fel hírlevelünkre</string>
 	<!-- Text in menu -->
@@ -998,7 +1000,7 @@
 	<string name="mobile_data_option_ask">Mindig kérdezze meg</string>
 	<string name="traffic_update_maps_text">Forgalmi adatok megjelenítéséhez a térképeket frissíteni kell.</string>
 	<string name="traffic_outdated">A forgalmi adatok elavultak.</string>
-	<string name="big_font">Nagyobb címkék</string>
+	<string name="big_font">Betűméret növelése a térképen</string>
 	<string name="traffic_update_app">Kérjük, frissítse a MAPS.ME alkalmazást</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">A forgalmi adatok megjelenítéséhez frissíteni kell az alkalmazást.</string>
@@ -1040,4 +1042,10 @@
 	<string name="whatsnew_font_size">Betűméret</string>
 	<!-- january -->
 	<string name="whatsnew_font_size_text">A térképen a címkék lehetnek nagyobbak.</string>
+	<!-- Seven points and higher -->
+	<string name="booking_filter_rating_num_good">7.0+</string>
+	<!-- Eight points and higher -->
+	<string name="booking_filter_rating_num_very_good">8.0+</string>
+	<!-- Nine points and higher -->
+	<string name="booking_filter_rating_num_excellent">9,0+</string>
 </resources>

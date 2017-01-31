@@ -64,7 +64,7 @@ public class RoutingPlanFragment extends BaseMwmFragment
   @Override
   public boolean onBackPressed()
   {
-    return RoutingController.get().cancelPlanning();
+    return RoutingController.get().cancel();
   }
 
   public void restoreRoutingPanelState(@NonNull Bundle state)

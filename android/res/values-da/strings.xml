@@ -384,6 +384,8 @@
 	<string name="follow_on_twitter">Følg på Twitter</string>
 	<!-- Text in menu -->
 	<string name="contact_us">Kontakt os</string>
+	<!-- Settings: Send feedback button and dialog title -->
+	<string name="feedback">Feedback</string>
 	<!-- Text in menu -->
 	<string name="subscribe_to_news">Abonnér på vores nyheder</string>
 	<!-- Text in menu -->
@@ -1002,7 +1004,7 @@
 	<string name="mobile_data_option_ask">Spørg altid</string>
 	<string name="traffic_update_maps_text">Kortet opdateres for kunne vise trafikdata.</string>
 	<string name="traffic_outdated">Trafikdata er forældede.</string>
-	<string name="big_font">Større etiketter</string>
+	<string name="big_font">Forøg skriftstørrelsen på kortet</string>
 	<string name="traffic_update_app">Opdater MAPS.ME</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Appen skal opdateres for at kunne vise trafikdata.</string>
@@ -1044,4 +1046,10 @@
 	<string name="whatsnew_font_size">Skriftstørrelse</string>
 	<!-- january -->
 	<string name="whatsnew_font_size_text">Etiketterne på kortet kan gøres større.</string>
+	<!-- Seven points and higher -->
+	<string name="booking_filter_rating_num_good">7,0+</string>
+	<!-- Eight points and higher -->
+	<string name="booking_filter_rating_num_very_good">8,0+</string>
+	<!-- Nine points and higher -->
+	<string name="booking_filter_rating_num_excellent">9,0+</string>
 </resources>

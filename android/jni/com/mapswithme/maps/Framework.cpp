@@ -1248,4 +1248,10 @@ Java_com_mapswithme_maps_Framework_nativeSetVisibleRect(JNIEnv * env, jclass, ji
 {
   frm()->SetVisibleViewport(m2::RectD(left, top, right, bottom));
 }
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_Framework_nativeIsRouteFinished(JNIEnv * env, jclass)
+{
+  return frm()->IsRouteFinished();
+}
 }  // extern "C"

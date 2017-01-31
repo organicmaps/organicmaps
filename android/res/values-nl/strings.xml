@@ -380,6 +380,8 @@
 	<string name="follow_on_twitter">Ons volgen op Twitter</string>
 	<!-- Text in menu -->
 	<string name="contact_us">Contact met ons opnemen</string>
+	<!-- Settings: Send feedback button and dialog title -->
+	<string name="feedback">Feedback</string>
 	<!-- Text in menu -->
 	<string name="subscribe_to_news">Aanmelden voor onze nieuwtjes</string>
 	<!-- Text in menu -->
@@ -998,7 +1000,7 @@
 	<string name="mobile_data_option_ask">Altijd Vragen</string>
 	<string name="traffic_update_maps_text">Om verkeersgegevens weer te geven, moeten de kaarten bijgewerkt worden.</string>
 	<string name="traffic_outdated">Verkeersgegevens zijn verouderd.</string>
-	<string name="big_font">Grotere labels</string>
+	<string name="big_font">Lettergrootte op de kaart vergroten</string>
 	<string name="traffic_update_app">Gelieve MAPS.ME bij te werken</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Om de verkeersgegevens weer te geven, moet de applicatie bijgewerkt worden.</string>
@@ -1040,4 +1042,10 @@
 	<string name="whatsnew_font_size">Lettergrootte</string>
 	<!-- january -->
 	<string name="whatsnew_font_size_text">Labels op de map kunnen groter gemaakt worden.</string>
+	<!-- Seven points and higher -->
+	<string name="booking_filter_rating_num_good">7.0+</string>
+	<!-- Eight points and higher -->
+	<string name="booking_filter_rating_num_very_good">8.0+</string>
+	<!-- Nine points and higher -->
+	<string name="booking_filter_rating_num_excellent">9.0+</string>
 </resources>

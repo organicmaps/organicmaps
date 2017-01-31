@@ -325,6 +325,32 @@ UNIT_TEST(RoadSpeed)
   TestRoute(graph, start, finish, 6, &expectedRoute);
 }
 
+// Roads                             y:
+//
+//    R0    * - - - - - - - - *      0
+//                ^     ^
+//             start   finish
+//
+//    x:    0     1     2     3
+//
+UNIT_TEST(OneSegmentWay)
+{
+  unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
+
+  loader->AddRoad(0 /* featureId */, false, 1.0 /* speed */,
+                  RoadGeometry::Points({{0.0, 0.0}, {3.0, 0.0}}));
+
+  traffic::TrafficCache const trafficCache;
+  IndexGraph graph(move(loader), CreateEstimator(trafficCache));
+  graph.Import(vector<Joint>());
+
+  IndexGraphStarter::FakeVertex const start(0, 0, m2::PointD(1, 0));
+  IndexGraphStarter::FakeVertex const finish(0, 0, m2::PointD(2, 0));
+
+  vector<Segment> const expectedRoute({{0, 0, true}});
+  TestRoute(graph, start, finish, 1 /* expectedLength */, &expectedRoute);
+}
+
 //
 //  Road       R0 (ped)       R1 (car)       R2 (car)
 //           0----------1 * 0----------1 * 0----------1

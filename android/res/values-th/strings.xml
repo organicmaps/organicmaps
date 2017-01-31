@@ -386,6 +386,8 @@
 	<string name="follow_on_twitter">ติดตามบน Twitter</string>
 	<!-- Text in menu -->
 	<string name="contact_us">ติดต่อเรา</string>
+	<!-- Settings: Send feedback button and dialog title -->
+	<string name="feedback">ข้อเสนอแนะ</string>
 	<!-- Text in menu -->
 	<string name="subscribe_to_news">สมัครรับข่าวของเรา</string>
 	<!-- Text in menu -->
@@ -1004,7 +1006,7 @@
 	<string name="mobile_data_option_ask">ถามก่อนเสมอ</string>
 	<string name="traffic_update_maps_text">ต้องอัปเดตแผนที่เพื่อแสดงข้อมูลการจราจร</string>
 	<string name="traffic_outdated">ข้อมูลการจราจรเก่าเกินไปแล้ว</string>
-	<string name="big_font">ป้ายใหญ่ขึ้น</string>
+	<string name="big_font">เพิ่มขนาดฟอนต์บนแผนที่</string>
 	<string name="traffic_update_app">กรุณาอัปเดต MAPS.ME</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">ในการแสดงข้อมูลการจราจร แอปพลิเคชั่นจะต้องอัปเดตก่อน</string>
@@ -1046,4 +1048,10 @@
 	<string name="whatsnew_font_size">ขนาดฟอนต์</string>
 	<!-- january -->
 	<string name="whatsnew_font_size_text">ป้ายบนแผนที่สามารถทำให้ใหญ่ขึ้นได้</string>
+	<!-- Seven points and higher -->
+	<string name="booking_filter_rating_num_good">7.0+</string>
+	<!-- Eight points and higher -->
+	<string name="booking_filter_rating_num_very_good">8.0+</string>
+	<!-- Nine points and higher -->
+	<string name="booking_filter_rating_num_excellent">9.0+</string>
 </resources>

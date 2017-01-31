@@ -380,6 +380,8 @@
 	<string name="follow_on_twitter">Theo dõi trên Twitter</string>
 	<!-- Text in menu -->
 	<string name="contact_us">Liên hệ với chúng tôi</string>
+	<!-- Settings: Send feedback button and dialog title -->
+	<string name="feedback">Phản hồi</string>
 	<!-- Text in menu -->
 	<string name="subscribe_to_news">Đăng ký nhận tin tức của chúng tôi</string>
 	<!-- Text in menu -->
@@ -998,7 +1000,7 @@
 	<string name="mobile_data_option_ask">Luôn Hỏi</string>
 	<string name="traffic_update_maps_text">Để hiển thị dữ liệu giao thông, cần cập nhật bản đồ.</string>
 	<string name="traffic_outdated">Dữ liệu giao thông đã lỗi thời.</string>
-	<string name="big_font">Nhãn mác to hơn</string>
+	<string name="big_font">Tăng kích cỡ phông chữ trên bản đồ</string>
 	<string name="traffic_update_app">Vui lòng cập nhật MAPS.ME</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Để hiển thị dữ liệu giao thông, ứng dụng cần phải được cập nhật.</string>
@@ -1040,4 +1042,10 @@
 	<string name="whatsnew_font_size">Kích cỡ Phông chữ</string>
 	<!-- january -->
 	<string name="whatsnew_font_size_text">Các nhãn mác trên bản đồ có thể được phóng to hơn.</string>
+	<!-- Seven points and higher -->
+	<string name="booking_filter_rating_num_good">7.0+</string>
+	<!-- Eight points and higher -->
+	<string name="booking_filter_rating_num_very_good">8.0+</string>
+	<!-- Nine points and higher -->
+	<string name="booking_filter_rating_num_excellent">9.0+</string>
 </resources>

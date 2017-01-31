@@ -1021,7 +1021,7 @@
 	<string name="mobile_data_option_ask">Always Ask</string>
 	<string name="traffic_update_maps_text">To display traffic data, maps must be updated.</string>
 	<string name="traffic_outdated">Traffic data is outdated.</string>
-	<string name="big_font">Bigger labels</string>
+	<string name="big_font">Increase font size on the map</string>
 	<string name="traffic_update_app">Please update MAPS.ME</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">To display traffic data, the application must be updated.</string>
@@ -1065,8 +1065,11 @@
 	<string name="whatsnew_font_size_text">Labels on the map can be made bigger.</string>
 	<!-- "Translation is no needed, because it's a company name" -->
 	<string name="uber">Uber</string>
+	<!-- Seven points and higher -->
 	<string name="booking_filter_rating_num_good">7.0+</string>
+	<!-- Eight points and higher -->
 	<string name="booking_filter_rating_num_very_good">8.0+</string>
+	<!-- Nine points and higher -->
 	<string name="booking_filter_rating_num_excellent">9.0+</string>
 	<string name="booking_filter_price_low">$</string>
 	<string name="booking_filter_price_medium">$$</string>

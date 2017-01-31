@@ -73,8 +73,8 @@ public:
 
 private:
   // Target is vertex going to for outgoing edges, vertex going from for ingoing edges.
-  Segment const m_target;
-  double const m_weight;
+  Segment m_target;
+  double m_weight;
 };
 
 inline string DebugPrint(Segment const & segment)

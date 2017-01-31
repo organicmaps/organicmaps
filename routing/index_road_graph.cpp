@@ -12,8 +12,8 @@ IndexRoadGraph::IndexRoadGraph(MwmSet::MwmId const & mwmId, Index const & index,
   for (size_t i = 0; i < junctions.size(); ++i)
   {
     Junction const & junction = junctions[i];
-    m_endToSegment[junction] = segments[i];
-    m_beginToSegment[junction] = segments[i + 1];
+    m_endToSegment[junction].push_back(segments[i]);
+    m_beginToSegment[junction].push_back(segments[i + 1]);
   }
 }
 
@@ -64,7 +64,13 @@ void IndexRoadGraph::GetEdges(Junction const & junction, bool isOutgoing, TEdgeV
   edges.clear();
 
   vector<SegmentEdge> segmentEdges;
-  m_starter.GetEdgesList(GetSegment(junction, isOutgoing), isOutgoing, segmentEdges);
+  vector<SegmentEdge> tmpEdges;
+  for (Segment const & segment : GetSegments(junction, isOutgoing))
+  {
+    tmpEdges.clear();
+    m_starter.GetEdgesList(segment, isOutgoing, tmpEdges);
+    segmentEdges.insert(segmentEdges.end(), tmpEdges.begin(), tmpEdges.end());
+  }
 
   for (SegmentEdge const & segmentEdge : segmentEdges)
   {
@@ -84,7 +90,8 @@ Junction IndexRoadGraph::GetJunction(Segment const & segment, bool front) const
   return Junction(m_starter.GetPoint(segment, front), feature::kDefaultAltitudeMeters);
 }
 
-const Segment & IndexRoadGraph::GetSegment(Junction const & junction, bool isOutgoing) const
+vector<Segment> const & IndexRoadGraph::GetSegments(Junction const & junction,
+                                                    bool isOutgoing) const
 {
   auto const & junctionToSegment = isOutgoing ? m_endToSegment : m_beginToSegment;
 

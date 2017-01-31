@@ -1017,7 +1017,7 @@
 	<string name="mobile_data_option_ask">Всегда спрашивать</string>
 	<string name="traffic_update_maps_text">Для отображения пробок необходимо обновить карты.</string>
 	<string name="traffic_outdated">Данные о пробках устарели.</string>
-	<string name="big_font">Увеличенные подписи</string>
+	<string name="big_font">Увеличить шрифт на карте</string>
 	<string name="traffic_update_app">Обновите MAPS.ME</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Для отображения пробок необходимо обновить приложение.</string>
@@ -1059,4 +1059,10 @@
 	<string name="whatsnew_font_size">Размер шрифта</string>
 	<!-- january -->
 	<string name="whatsnew_font_size_text">Названия объектов на карте теперь можно сделать крупнее.</string>
+	<!-- Seven points and higher -->
+	<string name="booking_filter_rating_num_good">7.0+</string>
+	<!-- Eight points and higher -->
+	<string name="booking_filter_rating_num_very_good">8.0+</string>
+	<!-- Nine points and higher -->
+	<string name="booking_filter_rating_num_excellent">9.0+</string>
 </resources>

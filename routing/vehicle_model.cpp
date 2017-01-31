@@ -62,7 +62,7 @@ double VehicleModel::GetMinTypeSpeed(feature::TypesHolder const & types) const
     if (it != m_types.end())
       speed = min(speed, it->second);
 
-    auto const addRoadInfoIter = FindRoadType(type);
+    auto const addRoadInfoIter = FindRoadType(t);
     if (addRoadInfoIter != m_addRoadTypes.cend())
       speed = min(speed, addRoadInfoIter->m_speedKMpH);
   }

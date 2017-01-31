@@ -12,8 +12,9 @@
     android:background="@color/bg_dialog_translucent"
     android:alpha="0"
     tools:alpha="1"/>
-  <RelativeLayout
+  <LinearLayout
     android:id="@+id/frame"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?cardBackground"
@@ -26,48 +27,41 @@
       android:layout_height="?attr/actionBarSize"
       android:background="?cardBackground"
       tools:targetApi="lollipop">
-      <ImageView
-        android:id="@+id/cancel"
-        android:layout_width="?attr/actionBarSize"
-        android:layout_height="?attr/actionBarSize"
-        android:scaleType="centerInside"
-        android:src="@drawable/ic_close"
-        android:background="?clickableBackground"/>
       <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_base"
         android:layout_marginLeft="@dimen/margin_base"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/cancel"
-        android:layout_toEndOf="@id/cancel"
-        android:layout_toStartOf="@id/done"
-        android:layout_toLeftOf="@id/done"
+        android:layout_toStartOf="@id/reset"
+        android:layout_toLeftOf="@id/reset"
         android:textAppearance="@style/MwmTextAppearance.Toolbar.Title"
         android:fontFamily="@string/robotoMedium"
         android:textColor="?android:textColorPrimary"
         android:text="@string/booking_filters"/>
-      <ImageView
-        android:id="@+id/done"
-        android:layout_width="?attr/actionBarSize"
-        android:layout_height="?attr/actionBarSize"
+      <TextView
+        android:id="@+id/reset"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingRight="@dimen/margin_base"
+        android:paddingLeft="@dimen/margin_base"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:scaleType="centerInside"
-        android:tint="?colorAccent"
-        android:src="@drawable/ic_done"
-        android:background="?clickableBackground"/>
+        android:gravity="center"
+        android:textAppearance="@style/MwmTextAppearance.Button"
+        android:fontFamily="@string/robotoMedium"
+        android:text="@string/booking_filters_reset"
+        android:background="?clickableBackground"
+        tools:targetApi="jelly_bean"/>
     </RelativeLayout>
     <FrameLayout
       style="@style/MwmWidget.FrameLayout.Elevation"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_below="@id/header"/>
+      android:layout_height="wrap_content"/>
 
     <ScrollView
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_below="@id/header">
+      android:layout_height="wrap_content">
       <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -114,5 +108,41 @@
         <include layout="@layout/divider_horizontal"/>
       </LinearLayout>
     </ScrollView>
-  </RelativeLayout>
+    <RelativeLayout
+      android:id="@+id/buttons_frame"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/height_block_base">
+      <include layout="@layout/divider_horizontal"/>
+      <View
+        android:id="@+id/center_divider"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:background="?dividerHorizontal"/>
+      <TextView
+        android:id="@+id/cancel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@id/center_divider"
+        android:layout_toStartOf="@id/center_divider"
+        android:gravity="center"
+        android:textAppearance="@style/MwmTextAppearance.Button"
+        android:fontFamily="@string/robotoMedium"
+        android:text="@string/cancel"
+        android:background="?clickableBackground"
+        tools:targetApi="jelly_bean"/>
+      <TextView
+        android:id="@+id/done"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@id/center_divider"
+        android:layout_toEndOf="@id/center_divider"
+        android:gravity="center"
+        android:textAppearance="@style/MwmTextAppearance.Button"
+        android:fontFamily="@string/robotoMedium"
+        android:text="@string/done"
+        android:background="?clickableBackground"
+        tools:targetApi="jelly_bean"/>
+    </RelativeLayout>
+  </LinearLayout>
 </merge>

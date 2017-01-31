@@ -82,8 +82,7 @@ void IndexGraphStarter::GetFakeToNormalEdge(FakeVertex const & fakeVertex, bool 
                                             vector<SegmentEdge> & edges)
 {
   Segment const segment(fakeVertex.GetFeatureId(), fakeVertex.GetSegmentIdx(), forward);
-  RoadPoint const & roadPoint = segment.GetRoadPoint(true /* front */);
-  m2::PointD const & pointTo = m_graph.GetGeometry().GetPoint(roadPoint);
+  m2::PointD const & pointTo = GetPoint(segment, true /* front */);
   double const weight = m_graph.GetEstimator().CalcHeuristic(fakeVertex.GetPoint(), pointTo);
   edges.emplace_back(segment, weight);
 }

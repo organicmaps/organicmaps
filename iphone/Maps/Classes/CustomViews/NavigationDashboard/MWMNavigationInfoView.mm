@@ -136,6 +136,7 @@ BOOL defaultOrientation(CGSize const & size)
   case NavigationSearchState::MinimizedShop:
   case NavigationSearchState::MinimizedATM:
     [MWMSearch clear];
+    [MWMMapViewControlsManager manager].searchHidden = YES;
     [self setSearchState:NavigationSearchState::MinimizedNormal animated:YES];
     break;
   }

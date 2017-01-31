@@ -384,7 +384,7 @@
 	<!-- Text in menu -->
 	<string name="contact_us">Skontaktuj się z nami</string>
 	<!-- Settings: Send feedback button and dialog title -->
-	<string name="feedback">Zgłoś opinię</string>
+	<string name="feedback">Opinia</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Ogólne opinie</string>
 	<!-- Text in menu -->
@@ -1005,7 +1005,7 @@
 	<string name="mobile_data_option_ask">Zawsze pytaj</string>
 	<string name="traffic_update_maps_text">Aby wyświetlić dane o ruchu, muszą zostać zaktualizowane mapy.</string>
 	<string name="traffic_outdated">Dane o ruchu są przestarzałe.</string>
-	<string name="big_font">Większe etykiety</string>
+	<string name="big_font">Powiększ rozmiar czcionki na mapie</string>
 	<string name="traffic_update_app">Zaktualizuj MAPS.ME</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Aby wyświetlić dane o ruchu, należy zaktualizować aplikację.</string>
@@ -1047,4 +1047,10 @@
 	<string name="whatsnew_font_size">Rozmiar czcionki</string>
 	<!-- january -->
 	<string name="whatsnew_font_size_text">Etykiety na mapie dają się powiększyć.</string>
+	<!-- Seven points and higher -->
+	<string name="booking_filter_rating_num_good">7,0+</string>
+	<!-- Eight points and higher -->
+	<string name="booking_filter_rating_num_very_good">8,0+</string>
+	<!-- Nine points and higher -->
+	<string name="booking_filter_rating_num_excellent">9,0+</string>
 </resources>

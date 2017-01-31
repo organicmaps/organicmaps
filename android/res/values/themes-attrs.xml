@@ -71,9 +71,9 @@
     <attr name="bannerBackground" format="color"/>
 
     <attr name="steadyIconTint" format="color"/>
-    <attr name="steadyIconBackground" format="color"/>
+    <attr name="steadyIconBackground" format="reference"/>
     <attr name="activeIconTint" format="color"/>
-    <attr name="activeIconBackground" format="color"/>
+    <attr name="activeIconBackground" format="reference"/>
   </declare-styleable>
 
   <declare-styleable name="ThemeAttrs.NavButtons">

@@ -380,6 +380,8 @@
 	<string name="follow_on_twitter">Seuraa meitä Twitterissä</string>
 	<!-- Text in menu -->
 	<string name="contact_us">Ota yhteyttä</string>
+	<!-- Settings: Send feedback button and dialog title -->
+	<string name="feedback">Palaute</string>
 	<!-- Text in menu -->
 	<string name="subscribe_to_news">Tilaa uutiskirjeemme</string>
 	<!-- Text in menu -->
@@ -998,7 +1000,7 @@
 	<string name="mobile_data_option_ask">Kysy aina</string>
 	<string name="traffic_update_maps_text">Liikennetietojen näyttämiseksi kartat on päivitettävä.</string>
 	<string name="traffic_outdated">Liikennetiedot ovat vanhentuneet.</string>
-	<string name="big_font">Suuremmat selitykset</string>
+	<string name="big_font">Suurenna fonttikokoa kartalla</string>
 	<string name="traffic_update_app">Päivitä MAPS.ME</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Liikennetietojen näyttämiseksi sovellus on päivitettävä.</string>
@@ -1040,4 +1042,10 @@
 	<string name="whatsnew_font_size">Fonttikoko</string>
 	<!-- january -->
 	<string name="whatsnew_font_size_text">Kartan selityksiä voi suurentaa.</string>
+	<!-- Seven points and higher -->
+	<string name="booking_filter_rating_num_good">7.0+</string>
+	<!-- Eight points and higher -->
+	<string name="booking_filter_rating_num_very_good">8.0+</string>
+	<!-- Nine points and higher -->
+	<string name="booking_filter_rating_num_excellent">9.0+</string>
 </resources>

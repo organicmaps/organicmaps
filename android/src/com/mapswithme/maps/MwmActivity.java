@@ -745,7 +745,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
           break;
 
         case SEARCH:
-          RoutingController.get().cancelPlanning();
+          RoutingController.get().cancel();
           closeMenu(Statistics.EventName.TOOLBAR_SEARCH, AlohaHelper.TOOLBAR_SEARCH, new Runnable()
           {
             @Override
@@ -783,7 +783,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
           break;
 
         case DOWNLOADER:
-          RoutingController.get().cancelPlanning();
+          RoutingController.get().cancel();
           closeMenu(Statistics.EventName.MENU_DOWNLOADER, AlohaHelper.MENU_DOWNLOADER, new Runnable()
           {
             @Override
@@ -860,6 +860,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     RoutingController.get().onSaveState();
     outState.putBoolean(EXTRA_LOCATION_DIALOG_IS_ANNOYING, mLocationErrorDialogAnnoying);
+
+    mNavMyPosition.onSaveState(outState);
+    if(mNavAnimationController != null)
+      mNavAnimationController.onSaveState(outState);
+
+    if (mFilterController != null)
+      mFilterController.onSaveState(outState);
+
     super.onSaveInstanceState(outState);
   }
 
@@ -881,6 +889,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (mNavigationController != null)
       mNavigationController.onRestoreState(savedInstanceState);
+
+    mNavMyPosition.onRestoreState(savedInstanceState);
+    if(mNavAnimationController != null)
+      mNavAnimationController.onRestoreState(savedInstanceState);
+
+    if (mFilterController != null)
+      mFilterController.onRestoreState(savedInstanceState);
   }
 
   @Override
@@ -1057,15 +1072,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    if (!closePlacePage() && !closeSidePanel() &&
-        (mNavigationController != null && !mNavigationController.cancel()) && !closePositionChooser())
+    if (!closePlacePage() && !closeSidePanel() && !RoutingController.get().cancel()
+        && !closePositionChooser())
     {
       try
       {
         super.onBackPressed();
       } catch (IllegalStateException e)
       {
-        // Sometimes this can be called after onSaveInstanceState() for unknown reason.
+        // Sometimes this can be called after onSaveState() for unknown reason.
       }
     }
   }
@@ -1608,7 +1623,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     adjustCompassAndTraffic(visible ? toolbarHeight : UiUtils.getStatusBarHeight(this));
     setNavButtonsTopLimit(visible ? toolbarHeight : 0);
     if (mFilterController != null)
-      mFilterController.show(visible && !TextUtils.isEmpty(SearchEngine.getQuery()), true);
+    {
+      boolean show = visible && !TextUtils.isEmpty(SearchEngine.getQuery());
+      mFilterController.show(show, true);
+      mMainMenu.show(!show);
+    }
   }
 
   @Override
@@ -1701,6 +1720,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
+  @Override
+  public void onNavigationCancelled()
+  {
+    if (mNavigationController != null)
+      mNavigationController.stop(this);
+  }
+
   boolean isFirstStart()
   {
     boolean res = mFirstStart;
@@ -1736,12 +1762,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPlacePage.refreshAzimuth(compass.getNorth());
     if (mNavigationController != null)
       mNavigationController.updateNorth(compass.getNorth());
-  }
-
-  @Override
-  public boolean shouldNotifyLocationNotFound()
-  {
-    return (mMapFragment != null && !mMapFragment.isFirstStart());
   }
 
   @Override
@@ -1790,5 +1810,50 @@ public class MwmActivity extends BaseMwmFragmentActivity
             startActivity(intent);
           }
         }).show();
+  }
+
+  @Override
+  public void onLocationNotFound()
+  {
+    if (!shouldNotifyLocationNotFound())
+      return;
+
+    showLocationNotFoundDialog();
+  }
+
+  private void showLocationNotFoundDialog()
+  {
+    String message = String.format("%s\n\n%s", getString(R.string.current_location_unknown_message),
+                                   getString(R.string.current_location_unknown_title));
+    new AlertDialog.Builder(this)
+        .setMessage(message)
+        .setNegativeButton(R.string.current_location_unknown_stop_button, new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dialog, int which)
+          {
+            LocationHelper.INSTANCE.stop();
+          }
+        })
+        .setPositiveButton(R.string.current_location_unknown_continue_button, new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dialog, int which)
+          {
+            LocationHelper.INSTANCE.switchToNextMode();
+          }
+        }).setOnDismissListener(new DialogInterface.OnDismissListener()
+    {
+      @Override
+      public void onDismiss(DialogInterface dialog)
+      {
+        LocationHelper.INSTANCE.stop();
+      }
+    }).show();
+  }
+
+  private boolean shouldNotifyLocationNotFound()
+  {
+    return mMapFragment != null && !mMapFragment.isFirstStart();
   }
 }

@@ -2,6 +2,7 @@ package com.mapswithme.maps.widget.menu;
 
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.SparseArray;
 import android.view.View;
@@ -17,17 +18,25 @@ import com.mapswithme.util.UiUtils;
 
 public class MyPositionButton
 {
+  private static final String STATE_VISIBLE = "state_visible";
+  private static final int FOLLOW_SHIFT = 1;
+
   @NonNull
   private final ImageView mButton;
   private static final SparseArray<Drawable> mIcons = new SparseArray<>(); // Location mode -> Button icon
 
   private int mMode;
+  private boolean mVisible;
+
+  private final int mFollowPaddingShift;
 
   public MyPositionButton(@NonNull View button, @NonNull View.OnClickListener listener)
   {
     mButton = (ImageView) button;
+    mVisible = UiUtils.isVisible(mButton);
     mButton.setOnClickListener(listener);
     mIcons.clear();
+    mFollowPaddingShift = (int) (FOLLOW_SHIFT * button.getResources().getDisplayMetrics().density);
   }
 
   @SuppressWarnings("deprecation")
@@ -64,6 +73,7 @@ public class MyPositionButton
     }
 
     mButton.setImageDrawable(image);
+    updatePadding(mode);
 
     if (image instanceof AnimationDrawable)
       ((AnimationDrawable) image).start();
@@ -71,19 +81,40 @@ public class MyPositionButton
     UiUtils.visibleIf(!shouldBeHidden(), mButton);
   }
 
+  private void updatePadding(int mode)
+  {
+    if (mode == LocationState.FOLLOW)
+      mButton.setPadding(0, mFollowPaddingShift, mFollowPaddingShift, 0);
+    else
+      mButton.setPadding(0, 0, 0, 0);
+  }
+
   private boolean shouldBeHidden()
   {
-    return mMode == LocationState.FOLLOW_AND_ROTATE
-           && (RoutingController.get().isPlanning());
+    return (mMode == LocationState.FOLLOW_AND_ROTATE
+           && (RoutingController.get().isPlanning()))
+           || !mVisible;
   }
 
   public void show()
   {
+    mVisible = true;
     Animations.appearSliding(mButton, Animations.RIGHT, null);
   }
 
   public void hide()
   {
+    mVisible = false;
     Animations.disappearSliding(mButton, Animations.RIGHT, null);
+  }
+
+  public void onSaveState(@NonNull Bundle outState)
+  {
+    outState.putBoolean(STATE_VISIBLE, mVisible);
+  }
+
+  public void onRestoreState(@NonNull Bundle state)
+  {
+    mVisible = state.getBoolean(STATE_VISIBLE, false);
   }
 }

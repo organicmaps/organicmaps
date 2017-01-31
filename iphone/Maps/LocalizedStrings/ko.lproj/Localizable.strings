@@ -618,7 +618,7 @@
 "contact_us" = "연락처";
 
 /* Settings: Send feedback button and dialog title */
-"feedback" = "Feedback";
+"feedback" = "피드백";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "General Feedback";
@@ -1722,7 +1722,7 @@
 
 "traffic_outdated" = "교통 데이터가 오래되었습니다.";
 
-"big_font" = "더 큰 레이블";
+"big_font" = "지도에서 글꼴 크기 늘리기";
 
 "traffic_update_app" = "MAPS.ME를 업데이트하세요.";
 
@@ -1795,10 +1795,13 @@
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
 
+/* Seven points and higher */
 "booking_filter_rating_num_good" = "7.0+";
 
+/* Eight points and higher */
 "booking_filter_rating_num_very_good" = "8.0+";
 
+/* Nine points and higher */
 "booking_filter_rating_num_excellent" = "9.0+";
 
 "booking_filter_price_low" = "$";

@@ -376,6 +376,8 @@
 	<string name="follow_on_twitter">Twitter에서 팔로우</string>
 	<!-- Text in menu -->
 	<string name="contact_us">연락처</string>
+	<!-- Settings: Send feedback button and dialog title -->
+	<string name="feedback">피드백</string>
 	<!-- Text in menu -->
 	<string name="subscribe_to_news">우리 뉴스 구독</string>
 	<!-- Text in menu -->
@@ -994,7 +996,7 @@
 	<string name="mobile_data_option_ask">항상 표시</string>
 	<string name="traffic_update_maps_text">교통 데이터를 표시하려면 지도를 업데이트해야 합니다.</string>
 	<string name="traffic_outdated">교통 데이터가 오래되었습니다.</string>
-	<string name="big_font">더 큰 레이블</string>
+	<string name="big_font">지도에서 글꼴 크기 늘리기</string>
 	<string name="traffic_update_app">MAPS.ME를 업데이트하세요.</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">교통 데이터를 표시하려면 응용 프로그램을 업데이트해야 합니다.</string>
@@ -1036,4 +1038,10 @@
 	<string name="whatsnew_font_size">글꼴 크기</string>
 	<!-- january -->
 	<string name="whatsnew_font_size_text">지도의 레이블을 더 크게 할 수 있습니다.</string>
+	<!-- Seven points and higher -->
+	<string name="booking_filter_rating_num_good">7.0+</string>
+	<!-- Eight points and higher -->
+	<string name="booking_filter_rating_num_very_good">8.0+</string>
+	<!-- Nine points and higher -->
+	<string name="booking_filter_rating_num_excellent">9.0+</string>
 </resources>

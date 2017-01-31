@@ -29,13 +29,13 @@ public:
 private:
   void GetEdges(Junction const & junction, bool isOutgoing, TEdgeVector & edges) const;
   Junction GetJunction(Segment const & segment, bool front) const;
-  const Segment & GetSegment(Junction const & junction, bool isOutgoing) const;
+  vector<Segment> const & GetSegments(Junction const & junction, bool isOutgoing) const;
 
   MwmSet::MwmId const & m_mwmId;
   Index const & m_index;
   double const m_maxSpeedKMPH;
   IndexGraphStarter & m_starter;
-  map<Junction, Segment> m_beginToSegment;
-  map<Junction, Segment> m_endToSegment;
+  map<Junction, vector<Segment>> m_beginToSegment;
+  map<Junction, vector<Segment>> m_endToSegment;
 };
 }  // namespace routing

@@ -1837,6 +1837,8 @@ void Framework::OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::Gps
 
 void Framework::MarkMapStyle(MapStyle mapStyle)
 {
+  ASSERT_NOT_EQUAL(mapStyle, MapStyle::MapStyleMerged, ());
+
   // Store current map style before classificator reloading
   std::string mapStyleStr = MapStyleToString(mapStyle);
   if (mapStyleStr.empty())

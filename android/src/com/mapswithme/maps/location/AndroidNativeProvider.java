@@ -1,7 +1,6 @@
 package com.mapswithme.maps.location;
 
 import android.content.Context;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -13,9 +12,13 @@ import com.mapswithme.util.LocationUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 class AndroidNativeProvider extends BaseLocationProvider
 {
+  private final static String[] TRUSTED_PROVIDERS = { LocationManager.NETWORK_PROVIDER,
+                                                      LocationManager.GPS_PROVIDER };
+  @NonNull
   private final LocationManager mLocationManager;
   private boolean mIsActive;
   @NonNull
@@ -33,7 +36,7 @@ class AndroidNativeProvider extends BaseLocationProvider
     if (mIsActive)
       return true;
 
-    List<String> providers = filterProviders(mLocationManager);
+    List<String> providers = getAvailableProviders(mLocationManager);
     if (providers.isEmpty())
       return false;
 
@@ -68,15 +71,23 @@ class AndroidNativeProvider extends BaseLocationProvider
 
   private void onLocationChanged(@NonNull Location location)
   {
-    for (LocationListener listener : mListeners)
-      listener.onLocationChanged(location);
+    ListIterator<LocationListener> iterator = mListeners.listIterator();
+    // All listeners have to be notified only through safe list iterator interface,
+    // otherwise ConcurrentModificationException will be obtained, because each listener can
+    // cause 'stop' method calling and modifying the collection during this iteration.
+    // noinspection WhileLoopReplaceableByForEach
+    while (iterator.hasNext())
+      iterator.next().onLocationChanged(location);
   }
 
   @Override
   protected void stop()
   {
-    for (LocationListener listener : mListeners)
-      mLocationManager.removeUpdates(listener);
+    ListIterator<LocationListener> iterator = mListeners.listIterator();
+    // noinspection WhileLoopReplaceableByForEach
+    while (iterator.hasNext())
+      mLocationManager.removeUpdates(iterator.next());
+
     mListeners.clear();
     mIsActive = false;
   }
@@ -86,7 +97,7 @@ class AndroidNativeProvider extends BaseLocationProvider
   {
     final LocationManager manager = (LocationManager) MwmApplication.get().getSystemService(Context.LOCATION_SERVICE);
     return findBestNotExpiredLocation(manager,
-                                      filterProviders(manager),
+                                      getAvailableProviders(manager),
                                       expirationMillis);
   }
 
@@ -107,12 +118,14 @@ class AndroidNativeProvider extends BaseLocationProvider
   }
 
   @NonNull
-  private static List<String> filterProviders(LocationManager locationManager)
+  private static List<String> getAvailableProviders(@NonNull LocationManager locationManager)
   {
-    Criteria criteria = new Criteria();
-    criteria.setAccuracy(Criteria.ACCURACY_FINE);
-    final List<String> res = locationManager.getProviders(criteria, true /* enabledOnly */);
-    res.remove(LocationManager.PASSIVE_PROVIDER);
+    final List<String> res = new ArrayList<>();
+    for (String provider : TRUSTED_PROVIDERS)
+    {
+      if (locationManager.isProviderEnabled(provider))
+        res.add(provider);
+    }
     return res;
   }
 }

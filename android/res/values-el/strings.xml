@@ -287,7 +287,7 @@
 	<!-- Text in menu -->
 	<string name="contact_us">Επικοινωνήστε μαζί μας</string>
 	<!-- Settings: Send feedback button and dialog title -->
-	<string name="feedback">Σχόλιο</string>
+	<string name="feedback">Σχόλια</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Γενικάό σχόλιο</string>
 	<!-- Text in menu -->
@@ -766,7 +766,7 @@
 	<string name="mobile_data_option_ask">Να γίνεται ερώτηση πάντα</string>
 	<string name="traffic_update_maps_text">Για να εμφανίσετε πληροφορίες για την κίνηση, πρέπει να ενημερωθούν οι χάρτες.</string>
 	<string name="traffic_outdated">Οι πληροφορίες για την κίνηση είναι παλιές.</string>
-	<string name="big_font">Μεγαλύτερες ετικέτες</string>
+	<string name="big_font">Αύξηση μεγέθους γραμματοσειράς στο χάρτη</string>
 	<string name="traffic_update_app">Κάντε ενημέρωση του MAPS.ME</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Για να εμφανιστούν πληροφορίες για την κίνηση, πρέπει να γίνει ενημέρωση της εφαρμογής.</string>
@@ -808,4 +808,10 @@
 	<string name="whatsnew_font_size">Μέγεθος γραμματοσειράς</string>
 	<!-- january -->
 	<string name="whatsnew_font_size_text">Οι ετικέτες στον χάρτη μπορούν να μεγαλώσουν.</string>
+	<!-- Seven points and higher -->
+	<string name="booking_filter_rating_num_good">7,0+</string>
+	<!-- Eight points and higher -->
+	<string name="booking_filter_rating_num_very_good">8,0+</string>
+	<!-- Nine points and higher -->
+	<string name="booking_filter_rating_num_excellent">9,0+</string>
 </resources>

@@ -9,43 +9,43 @@
 # Other variables can be used in URL templates.
 
 [lamoda_ru]
-end = 2017-03-01
+end = 2017-06-01
 url = http://fas.st/l1YJbD
 messages = banner_lamoda
 
 [lamoda_ua]
-end = 2017-03-01
+end = 2017-06-01
 url = http://fas.st/naNtn
 messages = banner_lamoda
 
 [deliveryclub]
-end = 2017-03-01
+end = 2017-06-01
 url = http://fas.st/VtumFw
 
 [tutu]
-end = 2017-03-01
+end = 2017-06-01
 url = http://fas.st/S9AciK
 
 [geerbest_uk]
-end = 2017-03-01
+end = 2017-06-01
 messages = banner_geerbest
 
 [geerbest_fr]
-end = 2017-03-01
+end = 2017-06-01
 messages = banner_geerbest
 
 [geerbest_de]
-end = 2017-03-01
+end = 2017-06-01
 messages = banner_geerbest
 
 [rentalcars]
-end = 2017-03-01
+end = 2017-06-01
 
 [viator]
-end = 2017-03-01
+end = 2017-06-01
 url = https://is.gd/UoIIyn
 
 [raileurope]
-end = 2017-03-01
+end = 2017-06-01
 url = http://www.anrdoezrs.net/links/8196243/type/dlg/fragment/%2Fptp_request/https://mobile.raileurope.com/app/index.html
 messages = banner_tutu

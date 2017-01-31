@@ -3,6 +3,7 @@ package com.mapswithme.maps;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.res.Resources;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 
@@ -15,6 +16,7 @@ import com.mapswithme.util.UiUtils;
 class NavigationButtonsAnimationController
 {
   private static final int ANIM_TOGGLE = MwmApplication.get().getResources().getInteger(R.integer.anim_slots_toggle);
+  private static final String STATE_VISIBLE = "state_visible";
 
   @NonNull
   private final View mZoomIn;
@@ -30,6 +32,7 @@ class NavigationButtonsAnimationController
   private boolean mZoomAnimating;
   private boolean mMyPosAnimating;
   private boolean mSlidingDown;
+  private boolean mZoomVisible;
 
   private float mTopLimit;
   private float mBottomLimit;
@@ -41,6 +44,7 @@ class NavigationButtonsAnimationController
   {
     mZoomIn = zoomIn;
     mZoomOut = zoomOut;
+    mZoomVisible = UiUtils.isVisible(mZoomIn) && UiUtils.isVisible(mZoomOut);
     checkZoomButtonsVisibility();
     mMyPosition = myPosition;
     Resources res = mZoomIn.getResources();
@@ -61,7 +65,7 @@ class NavigationButtonsAnimationController
 
   private void checkZoomButtonsVisibility()
   {
-    UiUtils.showIf(showZoomButtons(), mZoomIn, mZoomOut);
+    UiUtils.showIf(showZoomButtons() && mZoomVisible, mZoomIn, mZoomOut);
   }
 
 
@@ -256,6 +260,7 @@ class NavigationButtonsAnimationController
     if (!showZoomButtons())
       return;
 
+    mZoomVisible = false;
     Animations.disappearSliding(mZoomIn, Animations.RIGHT, null);
     Animations.disappearSliding(mZoomOut, Animations.RIGHT, null);
   }
@@ -265,6 +270,7 @@ class NavigationButtonsAnimationController
     if (!showZoomButtons())
       return;
 
+    mZoomVisible = true;
     Animations.appearSliding(mZoomIn, Animations.LEFT, null);
     Animations.appearSliding(mZoomOut, Animations.LEFT, null);
   }
@@ -277,5 +283,15 @@ class NavigationButtonsAnimationController
   public void onResume()
   {
     checkZoomButtonsVisibility();
+  }
+
+  public void onSaveState(@NonNull Bundle outState)
+  {
+    outState.putBoolean(STATE_VISIBLE, mZoomVisible);
+  }
+
+  public void onRestoreState(@NonNull Bundle state)
+  {
+    mZoomVisible = state.getBoolean(STATE_VISIBLE, false);
   }
 }

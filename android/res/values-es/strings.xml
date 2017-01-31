@@ -373,6 +373,8 @@
 	<string name="follow_on_twitter">Síguenos en Twitter</string>
 	<!-- Text in menu -->
 	<string name="contact_us">Contacta con nosotros</string>
+	<!-- Settings: Send feedback button and dialog title -->
+	<string name="feedback">Comentarios</string>
 	<!-- Text in menu -->
 	<string name="subscribe_to_news">Suscríbete a nuestras noticias</string>
 	<!-- Text in menu -->
@@ -991,7 +993,7 @@
 	<string name="mobile_data_option_ask">Preguntar siempre</string>
 	<string name="traffic_update_maps_text">Para mostrar los datos de tráfico, deben actualizarse los mapas.</string>
 	<string name="traffic_outdated">Los datos de tráfico están obsoletos.</string>
-	<string name="big_font">Etiquetas mayores</string>
+	<string name="big_font">Aumentar el tamaño de fuente en el mapa</string>
 	<string name="traffic_update_app">Por favor, actualice MAPS.ME</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Para mostrar los datos de tráfico, debe actualizar la aplicación.</string>
@@ -1033,4 +1035,10 @@
 	<string name="whatsnew_font_size">Tamaño de la fuente</string>
 	<!-- january -->
 	<string name="whatsnew_font_size_text">Las etiquetas del mapa pueden ampliarse.</string>
+	<!-- Seven points and higher -->
+	<string name="booking_filter_rating_num_good">7,0+</string>
+	<!-- Eight points and higher -->
+	<string name="booking_filter_rating_num_very_good">8,0+</string>
+	<!-- Nine points and higher -->
+	<string name="booking_filter_rating_num_excellent">9,0+</string>
 </resources>

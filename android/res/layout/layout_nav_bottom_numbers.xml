@@ -4,7 +4,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="@dimen/nav_menu_height"
-  android:orientation="horizontal"
+  android:orientation="vertical"
   android:paddingLeft="@dimen/nav_numbers_margin"
   android:paddingStart="@dimen/nav_numbers_margin"
   android:layout_marginRight="@dimen/nav_toggle"
@@ -12,59 +12,51 @@
   android:background="?clickableBackground"
   tools:background="#3000FF00"
   tools:ignore="RtlSymmetry">
-  <!-- Speed -->
+
   <LinearLayout
-    android:id="@+id/speed_frame"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:minWidth="@dimen/nav_numbers_side_min_width"
-    android:orientation="vertical"
-    android:paddingLeft="@dimen/nav_numbers_margin"
-    android:paddingRight="@dimen/nav_numbers_margin"
-    android:paddingTop="@dimen/margin_eighth"
-    android:gravity="center_horizontal"
-    tools:background="#20FF0000">
-    <TextView
-      android:id="@+id/speed_value"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="@dimen/neg_margin_quarter"
-      android:singleLine="true"
-      android:includeFontPadding="false"
-      android:textAppearance="@style/MwmTextAppearance.RoutingNumber.Navigation"
-      tools:text="999"/>
-
-    <TextView
-      android:id="@+id/speed_dimen"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:singleLine="true"
-      android:textAppearance="@style/MwmTextAppearance.RoutingDimension"
-      tools:text="km/h"/>
-  </LinearLayout>
-
-  <Space android:layout_width="0dp"
-         android:layout_height="0dp"
-         android:layout_weight="1"/>
-
-  <!-- Time -->
-  <FrameLayout
-    android:id="@+id/time_frame"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:minWidth="@dimen/nav_numbers_center_min_width"
-    android:paddingTop="@dimen/margin_eighth"
-    tools:background="#20FF0000">
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginBottom="@dimen/neg_margin_quarter">
+    <!-- Speed -->
     <LinearLayout
-      android:layout_width="match_parent"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      android:layout_gravity="center_horizontal">
+      android:minWidth="@dimen/nav_numbers_side_min_width"
+      android:orientation="vertical"
+      android:paddingLeft="@dimen/nav_numbers_margin"
+      android:paddingRight="@dimen/nav_numbers_margin"
+      android:paddingTop="@dimen/margin_eighth"
+      android:gravity="center_horizontal"
+      tools:background="#20FF0000">
+      <TextView
+        android:id="@+id/speed_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/neg_margin_quarter"
+        android:lines="1"
+        android:textAppearance="@style/MwmTextAppearance.RoutingNumber.Navigation"
+        tools:text="999"/>
+    </LinearLayout>
+
+    <Space android:layout_width="0dp"
+           android:layout_height="0dp"
+           android:layout_weight="1"/>
+
+    <!-- Time -->
+    <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:minWidth="@dimen/nav_numbers_center_min_width"
+      android:paddingTop="@dimen/margin_eighth"
+      android:gravity="center_horizontal"
+      tools:background="#20FF0000">
       <TextView
         android:id="@+id/time_hour_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:singleLine="true"
+        android:lines="1"
         android:textAppearance="@style/MwmTextAppearance.RoutingNumber.Navigation"
         tools:text="999"/>
 
@@ -74,7 +66,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/margin_quarter"
         android:layout_marginEnd="@dimen/margin_quarter"
-        android:singleLine="true"
+        android:lines="1"
         android:textAppearance="@style/MwmTextAppearance.RoutingDimension"
         tools:text="h"/>
 
@@ -82,7 +74,7 @@
         android:id="@+id/time_minute_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:singleLine="true"
+        android:lines="1"
         android:textAppearance="@style/MwmTextAppearance.RoutingNumber.Navigation"
         tools:text="99"/>
 
@@ -90,20 +82,73 @@
         android:id="@+id/time_minute_dimen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:singleLine="true"
+        android:lines="1"
         android:textAppearance="@style/MwmTextAppearance.RoutingNumber"
         tools:text="m"/>
     </LinearLayout>
 
+    <Space android:layout_width="0dp"
+           android:layout_height="0dp"
+           android:layout_weight="1"/>
+
+    <!-- Distance -->
+    <LinearLayout
+      android:id="@+id/distance_frame"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:minWidth="@dimen/nav_numbers_side_min_width"
+      android:orientation="vertical"
+      android:paddingLeft="@dimen/nav_numbers_margin"
+      android:paddingRight="@dimen/nav_numbers_margin"
+      android:paddingTop="@dimen/margin_eighth"
+      android:gravity="center_horizontal"
+      tools:background="#20FF0000">
+      <TextView
+        android:id="@+id/distance_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/neg_margin_quarter"
+        android:lines="1"
+        android:textAppearance="@style/MwmTextAppearance.RoutingNumber.Navigation"
+        tools:text="99999"/>
+    </LinearLayout>
+  </LinearLayout>
+
+  <LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical">
+
+    <!-- Speed -->
+    <TextView
+      android:id="@+id/speed_dimen"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:minWidth="@dimen/nav_numbers_side_min_width"
+      android:paddingLeft="@dimen/nav_numbers_margin"
+      android:paddingRight="@dimen/nav_numbers_margin"
+      android:gravity="center"
+      android:lines="1"
+      android:textAppearance="@style/MwmTextAppearance.RoutingDimension"
+      tools:text="km/h"
+      tools:background="#20FF0000"/>
+
+    <Space android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:layout_weight="1"/>
+
+    <!-- Time -->
     <LinearLayout
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="horizontal"
+      android:minWidth="@dimen/nav_numbers_center_min_width"
       android:theme="?navigationTheme"
-      android:layout_gravity="center_horizontal"
+      android:gravity="center"
       android:layout_marginLeft="@dimen/margin_eighth"
       android:layout_marginStart="@dimen/margin_eighth"
-      android:layout_marginTop="30dp">
+      tools:background="#20FF0000">
       <ImageView
         android:id="@+id/dot_left"
         android:layout_width="wrap_content"
@@ -118,40 +163,23 @@
         android:layout_height="wrap_content"
         android:src="?newsMarker"/>
     </LinearLayout>
-  </FrameLayout>
 
-  <Space android:layout_width="0dp"
-         android:layout_height="0dp"
-         android:layout_weight="1"/>
+    <Space android:layout_width="0dp"
+           android:layout_height="0dp"
+           android:layout_weight="1"/>
 
-  <!-- Distance -->
-  <LinearLayout
-    android:id="@+id/distance_frame"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:minWidth="@dimen/nav_numbers_side_min_width"
-    android:orientation="vertical"
-    android:paddingLeft="@dimen/nav_numbers_margin"
-    android:paddingRight="@dimen/nav_numbers_margin"
-    android:paddingTop="@dimen/margin_eighth"
-    android:gravity="center_horizontal"
-    tools:background="#20FF0000">
-    <TextView
-      android:id="@+id/distance_value"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="@dimen/neg_margin_quarter"
-      android:singleLine="true"
-      android:includeFontPadding="false"
-      android:textAppearance="@style/MwmTextAppearance.RoutingNumber.Navigation"
-      tools:text="99999"/>
-
+    <!-- Distance -->
     <TextView
       android:id="@+id/distance_dimen"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:singleLine="true"
+      android:minWidth="@dimen/nav_numbers_side_min_width"
+      android:paddingLeft="@dimen/nav_numbers_margin"
+      android:paddingRight="@dimen/nav_numbers_margin"
+      android:gravity="center"
+      android:lines="1"
       android:textAppearance="@style/MwmTextAppearance.RoutingDimension"
-      tools:text="km"/>
+      tools:text="km"
+      tools:background="#20FF0000"/>
   </LinearLayout>
 </LinearLayout>

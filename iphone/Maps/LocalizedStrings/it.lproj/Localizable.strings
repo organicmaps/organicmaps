@@ -1722,7 +1722,7 @@
 
 "traffic_outdated" = "Dati sul traffico non aggiornati.";
 
-"big_font" = "Etichette più grandi";
+"big_font" = "Aumenta dimensione carattere sulla mappa";
 
 "traffic_update_app" = "Aggiorna MAPS.ME";
 
@@ -1795,10 +1795,13 @@
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
 
+/* Seven points and higher */
 "booking_filter_rating_num_good" = "7.0+";
 
+/* Eight points and higher */
 "booking_filter_rating_num_very_good" = "8.0+";
 
+/* Nine points and higher */
 "booking_filter_rating_num_excellent" = "9.0+";
 
 "booking_filter_price_low" = "$";
