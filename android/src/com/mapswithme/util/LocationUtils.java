@@ -126,9 +126,9 @@ public class LocationUtils
     StringBuilder sb;
     if (!providers.isEmpty())
     {
-      sb = new StringBuilder("Available location providers: ");
+      sb = new StringBuilder("Available location providers:");
       for (String provider : providers)
-        sb.append(provider).append(" ");
+        sb.append(" ").append(provider);
     }
     else
     {

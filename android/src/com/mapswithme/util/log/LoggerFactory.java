@@ -1,10 +1,11 @@
 package com.mapswithme.util.log;
 
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
-import com.mapswithme.util.Config;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.util.StorageUtils;
 import net.jcip.annotations.GuardedBy;
 import net.jcip.annotations.ThreadSafe;
@@ -35,6 +36,7 @@ public class LoggerFactory
   }
 
   public final static LoggerFactory INSTANCE = new LoggerFactory();
+  private final static String PREF_FILE_LOGGING_ENABLED = "FileLoggingEnabled";
 
   @NonNull
   @GuardedBy("this")
@@ -45,6 +47,23 @@ public class LoggerFactory
 
   private LoggerFactory()
   {
+  }
+
+  public boolean isFileLoggingEnabled()
+  {
+    SharedPreferences prefs = MwmApplication.prefs();
+    return prefs.getBoolean(PREF_FILE_LOGGING_ENABLED, false);
+  }
+
+  public void setFileLoggingEnabled(boolean enabled)
+  {
+    if (isFileLoggingEnabled() == enabled)
+      return;
+
+    SharedPreferences prefs = MwmApplication.prefs();
+    SharedPreferences.Editor editor = prefs.edit();
+    editor.putBoolean(PREF_FILE_LOGGING_ENABLED, enabled).apply();
+    updateLoggers();
   }
 
   @NonNull
@@ -59,7 +78,7 @@ public class LoggerFactory
     return logger;
   }
 
-  public synchronized void updateLoggers()
+  private synchronized void updateLoggers()
   {
     for (Type type: mLoggers.keySet())
     {
@@ -70,7 +89,7 @@ public class LoggerFactory
 
   public synchronized void zipLogs(@Nullable OnZipCompletedListener listener)
   {
-    if (!Config.isLoggingEnabled())
+    if (!isFileLoggingEnabled())
     {
       if (listener != null)
         listener.onCompleted(false);
@@ -100,7 +119,8 @@ public class LoggerFactory
   @NonNull
   private LoggerStrategy createLoggerStrategy(@NonNull Type type)
   {
-    if (Config.isLoggingEnabled())
+    SharedPreferences prefs = MwmApplication.prefs();
+    if (prefs.getBoolean(PREF_FILE_LOGGING_ENABLED, false))
     {
       String logsFolder = StorageUtils.getLogsFolder();
       if (!TextUtils.isEmpty(logsFolder))

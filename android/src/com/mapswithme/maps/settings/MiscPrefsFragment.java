@@ -11,6 +11,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.search.SearchFragment;
 import com.mapswithme.util.Config;
+import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.MytargetHelper;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -73,17 +74,18 @@ public class MiscPrefsFragment extends BaseXmlSettingsFragment
     }
     else
     {
-      ((TwoStatePreference) pref).setChecked(Config.isLoggingEnabled());
+      final boolean isLoggingEnabled = LoggerFactory.INSTANCE.isFileLoggingEnabled();
+      ((TwoStatePreference) pref).setChecked(isLoggingEnabled);
       pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
       {
         @Override
         public boolean onPreferenceChange(Preference preference, Object newValue)
         {
-          boolean oldVal = Config.isLoggingEnabled();
+          boolean oldVal = isLoggingEnabled;
           boolean newVal = (Boolean) newValue;
           if (oldVal != newVal)
           {
-            Config.setLoggingEnabled((Boolean) newValue);
+            LoggerFactory.INSTANCE.setFileLoggingEnabled((Boolean) newValue);
           }
           return true;
         }

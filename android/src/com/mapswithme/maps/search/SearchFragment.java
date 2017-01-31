@@ -34,9 +34,9 @@ import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.widget.PlaceholderView;
 import com.mapswithme.maps.widget.SearchToolbarController;
 import com.mapswithme.util.Animations;
-import com.mapswithme.util.Config;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.util.ArrayList;
@@ -469,7 +469,7 @@ public class SearchFragment extends BaseMwmFragment
 
     if (str.equals("?disableLogging"))
     {
-      Config.setLoggingEnabled(false);
+      LoggerFactory.INSTANCE.setFileLoggingEnabled(false);
       MwmApplication.prefs().edit().putBoolean(PREFS_SHOW_ENABLE_LOGGING_SETTING, false).apply();
       return true;
     }

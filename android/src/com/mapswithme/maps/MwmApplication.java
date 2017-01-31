@@ -7,6 +7,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.annotation.UiThread;
 import android.text.TextUtils;
 
@@ -43,7 +44,7 @@ import net.hockeyapp.android.CrashManager;
 
 public class MwmApplication extends Application
 {
-  private static Logger sLogger;
+  private Logger mLogger;
   private final static String TAG = "MwmApplication";
 
   private static final String PW_EMPTY_APP_ID = "XXXXX";
@@ -98,8 +99,11 @@ public class MwmApplication extends Application
     return sSelf.mBackgroundTracker;
   }
 
-  public static SharedPreferences prefs()
+  public synchronized static SharedPreferences prefs()
   {
+    if (sSelf.mPrefs == null)
+      sSelf.mPrefs = sSelf.getSharedPreferences(sSelf.getString(R.string.pref_file_name), MODE_PRIVATE);
+
     return sSelf.mPrefs;
   }
 
@@ -113,7 +117,8 @@ public class MwmApplication extends Application
   public void onCreate()
   {
     super.onCreate();
-    sLogger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+    mLogger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+    mLogger.d(TAG, "Application is created");
     mMainLoopHandler = new Handler(getMainLooper());
 
     initHockeyApp();
@@ -126,9 +131,9 @@ public class MwmApplication extends Application
     initTracker();
 
     String settingsPath = getSettingsPath();
-    sLogger.d(TAG, "onCreate(), setting path = " + settingsPath);
+    mLogger.d(TAG, "onCreate(), setting path = " + settingsPath);
     String tempPath = getTempPath();
-    sLogger.d(TAG, "onCreate(), temp path = " + tempPath);
+    mLogger.d(TAG, "onCreate(), temp path = " + tempPath);
     new File(settingsPath).mkdirs();
     new File(tempPath).mkdirs();
 
@@ -142,7 +147,6 @@ public class MwmApplication extends Application
     if (!isInstallationIdFound)
       setInstallationIdToCrashlytics();
 
-    mPrefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
     mBackgroundTracker = new AppBackgroundTracker();
     TrackRecorder.init();
     Editor.init();
@@ -237,7 +241,7 @@ public class MwmApplication extends Application
       return getPackageManager().getApplicationInfo(BuildConfig.APPLICATION_ID, 0).sourceDir;
     } catch (final NameNotFoundException e)
     {
-      sLogger.e(TAG, "Can't get apk path from PackageManager", e);
+      mLogger.e(TAG, "Can't get apk path from PackageManager", e);
       return "";
     }
   }
@@ -302,7 +306,7 @@ public class MwmApplication extends Application
     }
     catch(Exception e)
     {
-      sLogger.e("Pushwoosh", "Failed to init Pushwoosh", e);
+      mLogger.e("Pushwoosh", "Failed to init Pushwoosh", e);
     }
   }
 
@@ -318,7 +322,7 @@ public class MwmApplication extends Application
     }
     catch(Exception e)
     {
-      sLogger.e("Pushwoosh", "Failed to send pushwoosh tags", e);
+      mLogger.e("Pushwoosh", "Failed to send pushwoosh tags", e);
     }
   }
 

@@ -34,7 +34,6 @@ public final class Config
   private static final String KEY_MISC_FIRST_START_DIALOG_SEEN = "FirstStartDialogSeen";
   private static final String KEY_MISC_UI_THEME = "UiTheme";
   private static final String KEY_MISC_UI_THEME_SETTINGS = "UiThemeSettings";
-  private static final String KEY_MISC_LOGGING_ENABLED = "LoggingEnabled";
 
   private Config() {}
 
@@ -308,17 +307,6 @@ public final class Config
   public static void setFirstStartDialogSeen()
   {
     setBool(KEY_MISC_FIRST_START_DIALOG_SEEN);
-  }
-
-  public static void setLoggingEnabled(boolean enabled)
-  {
-    setBool(KEY_MISC_LOGGING_ENABLED, enabled);
-    LoggerFactory.INSTANCE.updateLoggers();
-  }
-
-  public static boolean isLoggingEnabled()
-  {
-    return getBool(KEY_MISC_LOGGING_ENABLED, false);
   }
 
   public static String getCurrentUiTheme()
