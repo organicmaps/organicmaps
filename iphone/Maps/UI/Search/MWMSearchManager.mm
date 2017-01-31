@@ -489,8 +489,13 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
   }
   else
   {
-    if (searchBarView.superview == parentView)
+    if (searchBarView.superview)
+    {
+      [parentView bringSubviewToFront:contentView];
+      [parentView bringSubviewToFront:actionBarView];
+      [parentView bringSubviewToFront:searchBarView];
       return;
+    }
     [parentView addSubview:contentView];
     [parentView addSubview:actionBarView];
     [parentView addSubview:searchBarView];
