@@ -1,7 +1,7 @@
 @objc(MWMThemeManager)
 final class ThemeManager: NSObject {
 
-  private static let autoUpdatesInterval: TimeInterval = 30 * 60;
+  private static let autoUpdatesInterval: TimeInterval = 30 * 60 // 30 minutes in seconds
 
   private static let instance = ThemeManager()
   private weak var timer: Timer?
@@ -9,7 +9,7 @@ final class ThemeManager: NSObject {
   private override init() { super.init() }
 
   private func update(theme: MWMTheme) {
-    let actualTheme = { theme -> MWMTheme in
+    let actualTheme: MWMTheme = { theme in
       guard theme == .auto else { return theme }
       guard MWMRouter.isRoutingActive() else { return .day }
       switch MWMFrameworkHelper.daytime() {
@@ -17,14 +17,17 @@ final class ThemeManager: NSObject {
       case .night: return .night
       }
     }(theme)
-    MWMFrameworkHelper.setTheme(actualTheme)
+
     let nightMode = UIColor.isNightMode()
-    var newNightMode = false
-    switch actualTheme {
-    case .day: break
-    case .night: newNightMode = true
-    case .auto: assert(false)
-    }
+    let newNightMode: Bool = { theme in
+      switch theme {
+      case .day: return false
+      case .night: return true
+      case .auto: assert(false); return false
+      }
+    }(actualTheme)
+
+    MWMFrameworkHelper.setTheme(actualTheme)
     if nightMode != newNightMode {
       UIColor.setNightMode(newNightMode)
       (UIViewController.topViewController() as! MWMController).mwm_refreshUI()

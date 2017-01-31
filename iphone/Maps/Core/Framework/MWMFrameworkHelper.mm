@@ -32,14 +32,17 @@
 + (void)setTheme:(MWMTheme)theme
 {
   auto & f = GetFramework();
-  auto style = f.GetMapStyle();
-  MapStyle newStyle = MapStyleClear;
-  switch (theme)
-  {
-  case MWMThemeDay: break;
-  case MWMThemeNight: newStyle = MapStyleDark; break;
-  case MWMThemeAuto: NSAssert(NO, @"Invalid theme");
-  }
+
+  auto const style = f.GetMapStyle();
+  auto const newStyle = ^MapStyle(MWMTheme theme) {
+    switch (theme)
+    {
+    case MWMThemeDay: return MapStyleClear;
+    case MWMThemeNight: return MapStyleDark;
+    case MWMThemeAuto: NSAssert(NO, @"Invalid theme"); return MapStyleClear;
+    }
+  }(theme);
+
   if (style != newStyle)
     f.SetMapStyle(newStyle);
 }
