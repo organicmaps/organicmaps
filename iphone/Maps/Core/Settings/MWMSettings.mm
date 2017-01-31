@@ -1,4 +1,5 @@
 #import "MWMSettings.h"
+#import "MWMCoreUnits.h"
 #import "MWMMapViewControlsManager.h"
 #import "MapsAppDelegate.h"
 
@@ -60,16 +61,16 @@ NSString * const kSpotlightLocaleLanguageId = @"SpotlightLocaleLanguageId";
   settings::Set(kAutoDownloadEnabledKey, static_cast<bool>(autoDownloadEnabled));
 }
 
-+ (measurement_utils::Units)measurementUnits
++ (MWMUnits)measurementUnits
 {
   auto units = measurement_utils::Units::Metric;
   UNUSED_VALUE(settings::Get(settings::kMeasurementUnits, units));
-  return units;
+  return mwmUnits(units);
 }
 
-+ (void)setMeasurementUnits:(measurement_utils::Units)measurementUnits
++ (void)setMeasurementUnits:(MWMUnits)measurementUnits
 {
-  settings::Set(settings::kMeasurementUnits, measurementUnits);
+  settings::Set(settings::kMeasurementUnits, coreUnits(measurementUnits));
   GetFramework().SetupMeasurementSystem();
 }
 

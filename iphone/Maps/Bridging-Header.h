@@ -14,6 +14,7 @@
 #import "MWMPushNotifications.h"
 #import "MWMRouter.h"
 #import "MWMSearchNoResults.h"
+#import "MWMSettings.h"
 #import "MWMTableViewCell.h"
 #import "MWMTypes.h"
 #import "MWMViewController.h"

@@ -1,7 +1,3 @@
-#import "SwiftBridge.h"
-
-#include "platform/measurement_utils.hpp"
-
 @interface MWMSettings : NSObject
 
 + (BOOL)adServerForbidden;
@@ -13,8 +9,8 @@
 + (BOOL)autoDownloadEnabled;
 + (void)setAutoDownloadEnabled:(BOOL)autoDownloadEnabled;
 
-+ (measurement_utils::Units)measurementUnits;
-+ (void)setMeasurementUnits:(measurement_utils::Units)measurementUnits;
++ (MWMUnits)measurementUnits;
++ (void)setMeasurementUnits:(MWMUnits)measurementUnits;
 
 + (BOOL)zoomButtonsEnabled;
 + (void)setZoomButtonsEnabled:(BOOL)zoomButtonsEnabled;

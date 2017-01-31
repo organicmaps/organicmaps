@@ -20,8 +20,8 @@
 
   switch ([MWMSettings measurementUnits])
   {
-  case measurement_utils::Units::Metric: self.selectedCell = self.kilometers; break;
-  case measurement_utils::Units::Imperial: self.selectedCell = self.miles; break;
+  case MWMUnitsMetric: self.selectedCell = self.kilometers; break;
+  case MWMUnitsImperial: self.selectedCell = self.miles; break;
   }
 }
 
@@ -39,13 +39,13 @@
   {
     [Statistics logEvent:kStatEventName(kStatSettings, kStatChangeMeasureUnits)
           withParameters:@{kStatValue : kStatKilometers}];
-    [MWMSettings setMeasurementUnits:measurement_utils::Units::Metric];
+    [MWMSettings setMeasurementUnits:MWMUnitsMetric];
   }
   else
   {
     [Statistics logEvent:kStatEventName(kStatSettings, kStatChangeMeasureUnits)
           withParameters:@{kStatValue : kStatMiles}];
-    [MWMSettings setMeasurementUnits:measurement_utils::Units::Imperial];
+    [MWMSettings setMeasurementUnits:MWMUnitsImperial];
   }
 }
 

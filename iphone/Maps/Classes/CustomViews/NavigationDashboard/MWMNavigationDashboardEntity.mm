@@ -1,5 +1,6 @@
 #import "MWMNavigationDashboardEntity.h"
 #import "MWMCommon.h"
+#import "MWMCoreUnits.h"
 #import "MWMLocationManager.h"
 #import "MWMSettings.h"
 #import "MapsAppDelegate.h"
@@ -111,13 +112,13 @@ UIImage * image(routing::turns::TurnDirection t, bool isNextTurn)
   CLLocation * lastLocation = [MWMLocationManager lastLocation];
   if (!lastLocation || lastLocation.speed < 0)
     return nil;
-  auto const units = [MWMSettings measurementUnits];
+  auto const units = coreUnits([MWMSettings measurementUnits]);
   return @(measurement_utils::FormatSpeed(lastLocation.speed, units).c_str());
 }
 
 - (NSString *)speedUnits
 {
-  auto const units = [MWMSettings measurementUnits];
+  auto const units = coreUnits([MWMSettings measurementUnits]);
   return @(measurement_utils::FormatSpeedUnits(units).c_str());
 }
 

@@ -74,8 +74,8 @@ extern NSString * const kAlohalyticsTapEventKey;
   NSString * units = nil;
   switch ([MWMSettings measurementUnits])
   {
-  case measurement_utils::Units::Metric: units = L(@"kilometres"); break;
-  case measurement_utils::Units::Imperial: units = L(@"miles"); break;
+  case MWMUnitsMetric: units = L(@"kilometres"); break;
+  case MWMUnitsImperial: units = L(@"miles"); break;
   }
   [self.unitsCell configWithTitle:L(@"measurement_units") info:units];
 
