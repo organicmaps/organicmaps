@@ -1,5 +1,6 @@
 #import "MWMToast.h"
 #import "MWMCommon.h"
+#import "SwiftBridge.h"
 
 namespace
 {
@@ -61,7 +62,7 @@ NSUInteger const kWordsPerSecond = 3;
   UIView * sv = self.rootView;
   [sv removeFromSuperview];
 
-  UIViewController * tvc = topViewController();
+  auto tvc = [UIViewController topViewController];
   UIView * ov = tvc.view;
   if (!tvc.navigationController.navigationBarHidden)
     ov = tvc.navigationController.navigationBar.superview;
@@ -116,7 +117,7 @@ NSUInteger const kWordsPerSecond = 3;
 {
   [self configLayout];
 
-  UIView * ov = topViewController().view;
+  UIView * ov = [UIViewController topViewController].view;
   runAsyncOnMainQueue(^{
     [ov layoutIfNeeded];
     self.bottomOffset.priority = UILayoutPriorityFittingSizeLevel;
@@ -126,7 +127,7 @@ NSUInteger const kWordsPerSecond = 3;
         }
         completion:^(BOOL finished) {
           [self subscribe];
-          [topViewController() setNeedsStatusBarAppearanceUpdate];
+          [[UIViewController topViewController] setNeedsStatusBarAppearanceUpdate];
           [self scheduleHide];
         }];
   });
@@ -136,7 +137,7 @@ NSUInteger const kWordsPerSecond = 3;
 {
   [self unsubscribe];
 
-  UIView * ov = topViewController().view;
+  UIView * ov = [UIViewController topViewController].view;
   [ov layoutIfNeeded];
   self.bottomOffset.priority = UILayoutPriorityDefaultHigh;
   [UIView animateWithDuration:kDefaultAnimationDuration
@@ -145,7 +146,7 @@ NSUInteger const kWordsPerSecond = 3;
       }
       completion:^(BOOL finished) {
         [self.rootView removeFromSuperview];
-        [topViewController() setNeedsStatusBarAppearanceUpdate];
+        [[UIViewController topViewController] setNeedsStatusBarAppearanceUpdate];
       }];
 }
 

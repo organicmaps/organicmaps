@@ -8,6 +8,7 @@
 #import "MWMSearchNoResultsAlert.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
+#import "SwiftBridge.h"
 
 static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController";
 
@@ -21,7 +22,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 + (nonnull MWMAlertViewController *)activeAlertController
 {
-  UIViewController * tvc = topViewController();
+  UIViewController * tvc = [UIViewController topViewController];
   ASSERT([tvc conformsToProtocol:@protocol(MWMController)], ());
   UIViewController<MWMController> * mwmController =
       static_cast<UIViewController<MWMController> *>(tvc);
