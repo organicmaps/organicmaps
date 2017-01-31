@@ -1660,7 +1660,6 @@
 		34ED29891E3BB9B40054D003 /* RoutePoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutePoint.swift; sourceTree = "<group>"; };
 		34F5E0D61E3F334700B1C415 /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		34F5E0DA1E3F3ED300B1C415 /* MWMRoutePoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMRoutePoint.h; sourceTree = "<group>"; };
-		34F5E0DB1E3F511300B1C415 /* MWMRouterType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMRouterType.h; sourceTree = "<group>"; };
 		34F5E0DC1E3F51AF00B1C415 /* MWMCoreRouterType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMCoreRouterType.h; sourceTree = "<group>"; };
 		34F73F601E082FF700AC1FD6 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		34F73F621E082FF800AC1FD6 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -2609,7 +2608,6 @@
 				340475361E081A4600C92850 /* MWMRouter.mm */,
 				340475371E081A4600C92850 /* MWMRouterSavedState.h */,
 				340475381E081A4600C92850 /* MWMRouterSavedState.mm */,
-				34F5E0DB1E3F511300B1C415 /* MWMRouterType.h */,
 				34ED29891E3BB9B40054D003 /* RoutePoint.swift */,
 			);
 			path = Routing;
