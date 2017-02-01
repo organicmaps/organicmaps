@@ -164,9 +164,15 @@ NSAttributedString * richStringFromDay(osmoh::Day const & day, BOOL isClosedNow)
 
         if (self.isExtended)
         {
-          [self extendMetainfoRowsWithSize:ip.count];
-          [tableView insertRowsAtIndexPaths:ip
-                           withRowAnimation:UITableViewRowAnimationLeft];
+          if ([self extendMetainfoRowsWithSize:ip.count])
+          {
+            [tableView insertRowsAtIndexPaths:ip
+                             withRowAnimation:UITableViewRowAnimationLeft];
+          }
+          else
+          {
+            LOG(LWARNING, ("Incorrect raw opening hours string: ", self.rawString.UTF8String));
+          }
         }
         else
         {
@@ -203,12 +209,12 @@ NSAttributedString * richStringFromDay(osmoh::Day const & day, BOOL isClosedNow)
   }
 }
 
-- (void)extendMetainfoRowsWithSize:(NSUInteger)size
+- (BOOL)extendMetainfoRowsWithSize:(NSUInteger)size
 {
   if (size == 0)
   {
-    NSAssert(false, @"Incorrect number of days!");
-    return;
+    LOG(LWARNING, ("Incorrect number of days!"));
+    return NO;
   }
 
   auto & metainfoRows = self.data.mutableMetainfoRows;
@@ -218,10 +224,11 @@ NSAttributedString * richStringFromDay(osmoh::Day const & day, BOOL isClosedNow)
   if (it == metainfoRows.end())
   {
     LOG(LERROR, ("Incorrect state!"));
-    return;
+    return NO;
   }
 
   metainfoRows.insert(++it, size, MetainfoRows::ExtendedOpeningHours);
+  return YES;
 }
 
 - (void)reduceMetainfoRows
