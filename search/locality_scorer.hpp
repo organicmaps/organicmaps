@@ -3,12 +3,15 @@
 #include "search/geocoder.hpp"
 #include "search/ranking_utils.hpp"
 
-#include "std/string.hpp"
-#include "std/vector.hpp"
+#include <cstdint>
+#include <string>
+#include <vector>
 
 namespace search
 {
+class CBV;
 class QueryParams;
+struct BaseContext;
 
 class LocalityScorer
 {
@@ -20,15 +23,17 @@ public:
   public:
     virtual ~Delegate() = default;
 
-    virtual void GetNames(uint32_t featureId, vector<string> & names) const = 0;
+    virtual void GetNames(uint32_t featureId, std::vector<std::string> & names) const = 0;
     virtual uint8_t GetRank(uint32_t featureId) const = 0;
   };
 
   LocalityScorer(QueryParams const & params, Delegate const & delegate);
 
-  // Leaves at most |limit| elements of |localities|, ordered by some
-  // combination of ranks and number of matched tokens.
-  void GetTopLocalities(size_t limit, vector<Geocoder::Locality> & localities) const;
+  // Leaves at most |limit| elements of |localities|, ordered by their
+  // features.
+  void GetTopLocalities(MwmSet::MwmId const & countryId, BaseContext const & ctx,
+                        CBV const & filter, size_t limit,
+                        std::vector<Geocoder::Locality> & localities);
 
 private:
   struct ExLocality
@@ -44,9 +49,15 @@ private:
     NameScore m_nameScore;
   };
 
-  void RemoveDuplicates(vector<ExLocality> & ls) const;
-  void LeaveTopByRankAndProb(size_t limit, vector<ExLocality> & ls) const;
-  void SortByNameAndProb(vector<ExLocality> & ls) const;
+  friend std::string DebugPrint(ExLocality const & locality);
+
+  // Leaves at most |limit| elements of |localities|, ordered by some
+  // combination of ranks and number of matched tokens.
+  void LeaveTopLocalities(size_t limit, std::vector<Geocoder::Locality> & localities) const;
+
+  void RemoveDuplicates(std::vector<ExLocality> & ls) const;
+  void LeaveTopByRankAndProb(size_t limit, std::vector<ExLocality> & ls) const;
+  void SortByNameAndProb(std::vector<ExLocality> & ls) const;
 
   QueryParams const & m_params;
   Delegate const & m_delegate;

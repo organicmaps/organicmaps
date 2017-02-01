@@ -1,11 +1,16 @@
 #include "testing/testing.hpp"
 
+#include "search/cbv.hpp"
+#include "search/geocoder_context.hpp"
 #include "search/locality_scorer.hpp"
 
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 
+#include "coding/compressed_bit_vector.hpp"
+
 #include "base/assert.hpp"
+#include "base/mem_trie.hpp"
 #include "base/stl_add.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
@@ -20,61 +25,6 @@ using namespace strings;
 
 namespace
 {
-void InitParams(string const & query, bool lastTokenIsPrefix, QueryParams & params)
-{
-  params.Clear();
-
-  vector<UniString> tokens;
-  Delimiters delims;
-  SplitUniString(NormalizeAndSimplifyString(query), MakeBackInsertFunctor(tokens), delims);
-
-  if (lastTokenIsPrefix)
-  {
-    CHECK(!tokens.empty(), ());
-    params.InitWithPrefix(tokens.begin(), tokens.end() - 1, tokens.back());
-  }
-  else
-  {
-    params.InitNoPrefix(tokens.begin(), tokens.end());
-  }
-}
-
-void AddLocality(string const & name, uint32_t featureId, QueryParams & params,
-                 vector<Geocoder::Locality> & localities)
-{
-  set<UniString> tokens;
-
-  Delimiters delims;
-  SplitUniString(NormalizeAndSimplifyString(name), MakeInsertFunctor(tokens), delims);
-
-  size_t const numTokens = params.GetNumTokens();
-
-  for (size_t startToken = 0; startToken != numTokens; ++startToken)
-  {
-    for (size_t endToken = startToken + 1; endToken <= numTokens; ++endToken)
-    {
-      bool matches = true;
-      for (size_t i = startToken; i != endToken && matches; ++i)
-      {
-        UniString const & queryToken = params.GetToken(i).m_original;
-        if (params.IsPrefixToken(i))
-        {
-          matches = any_of(tokens.begin(), tokens.end(), [&queryToken](UniString const & token)
-                           {
-                             return StartsWith(token, queryToken);
-                           });
-        }
-        else
-        {
-          matches = (tokens.count(queryToken) != 0);
-        }
-      }
-      if (matches)
-        localities.emplace_back(featureId, startToken, endToken);
-    }
-  }
-}
-
 class LocalityScorerTest : public LocalityScorer::Delegate
 {
 public:
@@ -82,18 +32,70 @@ public:
 
   void InitParams(string const & query, bool lastTokenIsPrefix)
   {
-    ::InitParams(query, lastTokenIsPrefix, m_params);
+    m_params.Clear();
+
+    vector<UniString> tokens;
+    Delimiters delims;
+    SplitUniString(NormalizeAndSimplifyString(query), MakeBackInsertFunctor(tokens), delims);
+
+    if (lastTokenIsPrefix)
+    {
+      CHECK(!tokens.empty(), ());
+      m_params.InitWithPrefix(tokens.begin(), tokens.end() - 1, tokens.back());
+    }
+    else
+    {
+      m_params.InitNoPrefix(tokens.begin(), tokens.end());
+    }
   }
 
   void AddLocality(string const & name, uint32_t featureId)
   {
-    ::AddLocality(name, featureId, m_params, m_localities);
+    set<UniString> tokens;
+    Delimiters delims;
+    SplitUniString(NormalizeAndSimplifyString(name), MakeInsertFunctor(tokens), delims);
+
+    for (auto const & token : tokens)
+      m_searchIndex.Add(token, featureId);
+
     m_names[featureId].push_back(name);
   }
 
   void GetTopLocalities(size_t limit)
   {
-    m_scorer.GetTopLocalities(limit, m_localities);
+    BaseContext ctx;
+    ctx.m_usedTokens.assign(m_params.GetNumTokens(), false);
+    ctx.m_numTokens = m_params.GetNumTokens();
+
+    for (size_t i = 0; i < m_params.GetNumTokens(); ++i)
+    {
+      auto const & token = m_params.GetToken(i);
+      bool const isPrefixToken = m_params.IsPrefixToken(i);
+
+      vector<uint64_t> ids;
+      token.ForEach([&](UniString const & name) {
+        if (isPrefixToken)
+        {
+          m_searchIndex.ForEachInSubtree(name,
+                                         [&](UniString const & /* prefix */, uint32_t featureId) {
+                                           ids.push_back(featureId);
+                                         });
+        }
+        else
+        {
+          m_searchIndex.ForEachInNode(name, [&](UniString const & /* prefix */,
+                                                uint32_t featureId) { ids.push_back(featureId); });
+        }
+      });
+
+      my::SortUnique(ids);
+      ctx.m_features.emplace_back(coding::CompressedBitVectorBuilder::FromBitPositions(ids));
+    }
+
+    CBV filter;
+    filter.SetFull();
+
+    m_scorer.GetTopLocalities(MwmSet::MwmId(), ctx, filter, limit, m_localities);
     sort(m_localities.begin(), m_localities.end(), my::LessBy(&Geocoder::Locality::m_featureId));
   }
 
@@ -112,6 +114,8 @@ protected:
   vector<Geocoder::Locality> m_localities;
   unordered_map<uint32_t, vector<string>> m_names;
   LocalityScorer m_scorer;
+
+  my::MemTrie<UniString, uint32_t> m_searchIndex;
 };
 }  // namespace
 
@@ -159,15 +163,12 @@ UNIT_CLASS_TEST(LocalityScorerTest, NumbersMatch)
   AddLocality("поселок 1 мая", ID_MAY);
   AddLocality("тверь", ID_TVER);
 
+  // Tver is the only matched locality as other localities were
+  // matched only by number.
   GetTopLocalities(100 /* limit */);
-  TEST_EQUAL(4, m_localities.size(), ());
-  TEST_EQUAL(m_localities[0].m_featureId, ID_MARCH, ());
-  TEST_EQUAL(m_localities[1].m_featureId, ID_APRIL, ());
-  TEST_EQUAL(m_localities[2].m_featureId, ID_MAY, ());
-  TEST_EQUAL(m_localities[3].m_featureId, ID_TVER, ());
+  TEST_EQUAL(1, m_localities.size(), ());
+  TEST_EQUAL(m_localities[0].m_featureId, ID_TVER, ());
 
-  // Tver is the best matching locality, as other localities were
-  // matched by number.
   GetTopLocalities(1 /* limit */);
   TEST_EQUAL(1, m_localities.size(), ());
   TEST_EQUAL(m_localities[0].m_featureId, ID_TVER, ());
@@ -204,10 +205,8 @@ UNIT_CLASS_TEST(LocalityScorerTest, PrefixMatch)
     ID_MOSCOW
   };
 
-  // QueryParams params;
   InitParams("New York San Anto", true /* lastTokenIsPrefix */);
 
-  // vector<Geocoder::Locality> localities;
   AddLocality("San Antonio", ID_SAN_ANTONIO);
   AddLocality("New York", ID_NEW_YORK);
   AddLocality("York", ID_YORK);

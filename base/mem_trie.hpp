@@ -146,5 +146,5 @@ private:
   size_t m_numNodes = 1;
 
   DISALLOW_COPY(MemTrie);
-};  // class MemTrie
+};
 }  // namespace my

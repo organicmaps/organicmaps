@@ -29,17 +29,18 @@ omim_link_libraries(
   search
   indexer
   editor
-  oauthcpp
+  storage
   platform
-  opening_hours
   geometry
   coding
   base
-  protobuf
   jansson
-  succinct
+  oauthcpp
+  opening_hours
+  protobuf
   pugixml
   stats_client
+  succinct
   ${LIBZ}
 )
 
