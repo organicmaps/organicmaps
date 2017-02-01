@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
@@ -74,7 +75,8 @@ public class RoutingPlanInplaceController extends RoutingPlanController
   public void showRouteAltitudeChart()
   {
     ImageView altitudeChart = (ImageView) mActivity.findViewById(R.id.altitude_chart);
-    showRouteAltitudeChartInternal(altitudeChart);
+    TextView altitudeDifference = (TextView) mActivity.findViewById(R.id.altitude_difference);
+    showRouteAltitudeChartInternal(altitudeChart, altitudeDifference);
   }
 
   private void animateFrame(final boolean show, final @Nullable Runnable completion)

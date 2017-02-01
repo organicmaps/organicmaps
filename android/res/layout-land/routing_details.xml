@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/numbers"
+  android:orientation="vertical"
   android:layout_width="match_parent"
-  android:layout_height="@dimen/altitude_chart_time_distance_height">
+  android:layout_height="wrap_content">
   <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="@dimen/altitude_chart_time_distance_height"
-    android:layout_marginBottom="@dimen/altitude_chart_time_distance_margin_bottom"
     android:orientation="horizontal">
     <TextView
       android:id="@+id/time"
@@ -29,13 +29,12 @@
   <TextView
     android:id="@+id/altitude_difference"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/altitude_chart_time_distance_height"
     android:textAppearance="@style/MwmTextAppearance.Body3"
     android:fontFamily="@string/robotoMedium"
     android:textColor="?colorAccent"
-    android:layout_gravity="end"
     android:visibility="gone"
     tools:text="43 m"
     tools:targetApi="jelly_bean"
     tools:visibility="visible"/>
-</FrameLayout>
+</LinearLayout>

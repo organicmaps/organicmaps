@@ -18,7 +18,7 @@
 
     <include layout="@layout/routing_details"
              android:layout_width="wrap_content"
-             android:layout_height="@dimen/altitude_chart_time_distance_height"
+             android:layout_height="wrap_content"
              android:layout_marginRight="24dp"
              android:layout_marginEnd="24dp"/>
 

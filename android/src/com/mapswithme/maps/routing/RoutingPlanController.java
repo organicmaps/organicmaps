@@ -5,6 +5,7 @@ import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
@@ -12,6 +13,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -38,10 +40,13 @@ import com.mapswithme.maps.widget.RotateDrawable;
 import com.mapswithme.maps.widget.RoutingToolbarButton;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.maps.widget.WheelProgressView;
+import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
+
+import java.util.Locale;
 
 public class RoutingPlanController extends ToolbarController implements SlotFrame.SlotClickListener
 {
@@ -451,24 +456,40 @@ public class RoutingPlanController extends ToolbarController implements SlotFram
   public void showRouteAltitudeChart()
   {
     ImageView altitudeChart = (ImageView) mFrame.findViewById(R.id.altitude_chart);
-    showRouteAltitudeChartInternal(altitudeChart);
+    TextView altitudeDifference = (TextView) mAltitudeChartFrame.findViewById(R.id.altitude_difference);
+    showRouteAltitudeChartInternal(altitudeChart, altitudeDifference);
   }
 
-  void showRouteAltitudeChartInternal(@NonNull ImageView altitudeChart)
+  void showRouteAltitudeChartInternal(@NonNull ImageView altitudeChart,
+                                      @NonNull TextView altitudeDifference)
   {
     if (isVehicleRouterType())
     {
       UiUtils.hide(altitudeChart);
+      UiUtils.hide(altitudeDifference);
       return;
     }
 
     int chartWidth = UiUtils.dimen(mActivity, R.dimen.altitude_chart_image_width);
     int chartHeight = UiUtils.dimen(mActivity, R.dimen.altitude_chart_image_height);
-    Bitmap bm = Framework.GenerateRouteAltitudeChart(chartWidth, chartHeight);
+    Framework.RouteAltitudeLimits limits = new Framework.RouteAltitudeLimits();
+    Bitmap bm = Framework.GenerateRouteAltitudeChart(chartWidth, chartHeight, limits);
     if (bm != null)
     {
       altitudeChart.setImageBitmap(bm);
       UiUtils.show(altitudeChart);
+      String meter = altitudeDifference.getResources().getString(R.string.meter);
+      String foot = altitudeDifference.getResources().getString(R.string.foot);
+      altitudeDifference.setText(String.format(Locale.getDefault(), "%d %s",
+                                               limits.maxRouteAltitude - limits.minRouteAltitude,
+                                               limits.isMetricUnits ? meter : foot));
+      Drawable icon = ContextCompat.getDrawable(altitudeDifference.getContext(),
+                                                R.drawable.ic_altitude_difference);
+      int colorAccent = ContextCompat.getColor(altitudeDifference.getContext(),
+                             UiUtils.getStyledResourceId(altitudeDifference.getContext(), R.attr.colorAccent));
+      altitudeDifference.setCompoundDrawablesWithIntrinsicBounds(Graphics.tint(icon,colorAccent),
+                                                                 null, null, null);
+      UiUtils.show(altitudeDifference);
     }
   }
 
