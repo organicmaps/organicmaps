@@ -125,6 +125,10 @@ UNIT_TEST(HouseNumbersMatcher_Smoke)
   TEST(HouseNumbersMatch("39 К корпус 7", "39 к", false /* queryIsPrefix */), ());
   TEST(HouseNumbersMatch("39 К корпус 7", "39", false /* queryIsPrefix */), ());
 
+  TEST(HouseNumbersMatch("3/7 с1Б", "3/7 строение 1 Б", true /* queryIsPrefix */), ());
+  TEST(HouseNumbersMatch("3/7 с1Б", "3/7 строение 1 Б", false /* queryIsPrefix */), ());
+  TEST(!HouseNumbersMatch("3/7 с1Б", "3/7 с 1Д", false /* queryIsPrefix */), ());
+
   TEST(!HouseNumbersMatch("39", "39 с 79"), ());
   TEST(!HouseNumbersMatch("6 корпус 2", "7"), ());
   TEST(!HouseNumbersMatch("10/42 корпус 2", "42"), ());
@@ -166,4 +170,7 @@ UNIT_TEST(LooksLikeHouseNumber_Smoke)
   TEST(LooksLikeHouseNumber("дом ", false /* isPrefix */), ());
 
   TEST(LooksLikeHouseNumber("дом 39 строение 79", false /* isPrefix */), ());
+
+  TEST(LooksLikeHouseNumber("3/7 с1Б", false /* isPrefix */), ());
+  TEST(LooksLikeHouseNumber("3/7 с1Б", true /* isPrefix */), ());
 }

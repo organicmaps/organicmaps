@@ -87,6 +87,9 @@ const char * const g_patterns[] = {
     "N",   "NBL",  "NBLN",  "NBN",  "NBNBN",  "NBNL", "NL",  "NLBN", "NLL", "NLLN", "NLN",  "NLNL",
     "NLS", "NLSN", "NN",    "NNBN", "NNL",    "NNLN", "NNN", "NNS",  "NS",  "NSN",  "NSS",  "S",
     "SL",  "SLL",  "SLN",   "SN",   "SNBNSS", "SNL",  "SNN", "SS",   "SSN", "SSS",  "SSSS",
+
+    // List of exceptions
+    "NNBNL"
 };
 
 // List of common synonyms for building parts. Constructed by hand.
@@ -427,6 +430,10 @@ void Tokenize(UniString s, bool isPrefix, vector<Token> & ts)
         if (j != s.size() || !isPrefix)
         {
           TransformString(move(token), addToken);
+        }
+        else if (i + 1 == j)
+        {
+          ts.emplace_back(move(token), Token::TYPE_LETTER);
         }
         else
         {
