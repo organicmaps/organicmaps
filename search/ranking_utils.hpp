@@ -86,5 +86,4 @@ NameScore GetNameScore(vector<strings::UniString> const & tokens, TSlice const &
 }
 
 string DebugPrint(NameScore score);
-
 }  // namespace search
