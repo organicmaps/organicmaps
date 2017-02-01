@@ -23,6 +23,7 @@
   <dimen name="neg_margin_half">-8dp</dimen>
   <dimen name="neg_margin_half_plus">-12dp</dimen>
   <dimen name="neg_margin_base">-16dp</dimen>
+  <dimen name="neg_margin_base_plus">-24dp</dimen>
   <dimen name="neg_margin_double">-32dp</dimen>
 
   <!-- base sizes -->

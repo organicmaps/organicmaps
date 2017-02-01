@@ -119,6 +119,11 @@ public class MiscPrefsFragment extends BaseXmlSettingsFragment
             break;
           case NetworkPolicy.NOT_TODAY:
             Config.setUseMobileDataSettings(NetworkPolicy.NOT_TODAY);
+            Config.setTodayStamp(System.currentTimeMillis());
+            break;
+          case NetworkPolicy.TODAY:
+            Config.setUseMobileDataSettings(NetworkPolicy.TODAY);
+            Config.setTodayStamp(System.currentTimeMillis());
             break;
           default:
             throw new AssertionError("Wrong NetworkPolicy type!");

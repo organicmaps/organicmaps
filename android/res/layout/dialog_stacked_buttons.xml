@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:paddingTop="@dimen/margin_base_plus"
+  android:paddingLeft="@dimen/margin_base_plus"
+  android:paddingRight="@dimen/margin_base_plus"
+  android:paddingBottom="@dimen/margin_half"
+  android:background="?cardBackground"
+  android:clipToPadding="false">
+
+  <TextView
+    android:id="@+id/tv__title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_base"
+    android:textAppearance="@style/MwmTextAppearance.Body1"
+    android:fontFamily="@string/robotoMedium"
+    tools:text="Use mobile internet to show detailed information?"
+    tools:targetApi="jelly_bean"/>
+
+  <TextView
+    android:id="@+id/tv__message"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textAppearance="@style/MwmTextAppearance.Body3"
+    android:layout_marginBottom="@dimen/margin_base_plus"
+    tools:text="Mobile internet is required for displaying detailed information about places, such as photographs, prices and reviews."/>
+
+  <TextView
+    android:id="@+id/btn__positive"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/margin_double_plus"
+    android:layout_marginLeft="@dimen/neg_margin_base_plus"
+    android:layout_marginRight="@dimen/neg_margin_base_plus"
+    android:padding="@dimen/margin_half"
+    android:gravity="center_vertical|end"
+    android:textAppearance="@style/MwmTextAppearance.Button"
+    android:lines="1"
+    android:background="?clickableBackground"
+    tools:text="Use Always"/>
+
+  <TextView
+    android:id="@+id/btn__neutral"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/margin_double_plus"
+    android:layout_marginLeft="@dimen/neg_margin_base_plus"
+    android:layout_marginRight="@dimen/neg_margin_base_plus"
+    android:padding="@dimen/margin_half"
+    android:gravity="center_vertical|end"
+    android:textAppearance="@style/MwmTextAppearance.Button"
+    android:lines="1"
+    android:background="?clickableBackground"
+    tools:text="Only Today"/>
+
+  <TextView
+    android:id="@+id/btn__negative"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/margin_double_plus"
+    android:layout_marginLeft="@dimen/neg_margin_base_plus"
+    android:layout_marginRight="@dimen/neg_margin_base_plus"
+    android:padding="@dimen/margin_half"
+    android:gravity="center_vertical|end"
+    android:textAppearance="@style/MwmTextAppearance.Button"
+    android:lines="1"
+    android:background="?clickableBackground"
+    tools:text="Do not Use Today"/>
+</LinearLayout>
