@@ -135,4 +135,5 @@ SOURCES += \
     streets_matcher.cpp \
     token_slice.cpp \
     types_skipper.cpp \
+    utils.cpp \
     viewport_search_callback.cpp

@@ -141,6 +141,9 @@ protected:
   template <typename ToDo>
   void ForEachCategoryType(StringSliceBase const & slice, ToDo && todo) const;
 
+  template <typename ToDo>
+  void ForEachCategoryTypeFuzzy(StringSliceBase const & slice, ToDo && todo) const;
+
   m2::PointD GetPivotPoint() const;
   m2::RectD GetPivotRect() const;
 

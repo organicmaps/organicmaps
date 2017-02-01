@@ -221,7 +221,7 @@ struct SearchTrieRequest
   QueryParams::Langs m_langs;
 };
 
-// Calls |toDo| for each feature accepted but at least one DFA.
+// Calls |toDo| for each feature accepted by at least one DFA.
 //
 // *NOTE* |toDo| may be called several times for the same feature.
 template <typename DFA, typename Value, typename ToDo>

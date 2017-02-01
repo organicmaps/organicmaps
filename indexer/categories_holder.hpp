@@ -125,6 +125,15 @@ public:
   /// @returns raw classificator type if it's not localized in categories.txt.
   string GetReadableFeatureType(uint32_t type, int8_t locale) const;
 
+  // Exposes the tries that map category tokens to types.
+  Trie const * GetNameToTypesTrie(int8_t locale) const
+  {
+    auto const it = m_name2type.find(locale);
+    if (it == m_name2type.end())
+      return nullptr;
+    return it->second.get();
+  }
+
   bool IsTypeExist(uint32_t type) const;
 
   inline void Swap(CategoriesHolder & r)

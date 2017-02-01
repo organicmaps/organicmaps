@@ -315,18 +315,6 @@ size_t OrderCountries(m2::RectD const & pivot, vector<shared_ptr<MwmInfo>> & inf
   auto const sep = stable_partition(infos.begin(), infos.end(), intersects);
   return distance(infos.begin(), sep);
 }
-
-size_t GetMaxErrorsForToken(UniString const & token)
-{
-  bool const digitsOnly = all_of(token.begin(), token.end(), isdigit);
-  if (digitsOnly)
-    return 0;
-  if (token.size() < 4)
-    return 0;
-  if (token.size() < 8)
-    return 1;
-  return 2;
-}
 }  // namespace
 
 // Geocoder::Params --------------------------------------------------------------------------------
