@@ -12,9 +12,8 @@
     android:background="@color/bg_dialog_translucent"
     android:alpha="0"
     tools:alpha="1"/>
-  <LinearLayout
+  <RelativeLayout
     android:id="@+id/frame"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?cardBackground"
@@ -55,14 +54,19 @@
         tools:targetApi="jelly_bean"/>
     </RelativeLayout>
     <FrameLayout
+      android:id="@+id/elevation"
       style="@style/MwmWidget.FrameLayout.Elevation"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
+      android:layout_height="wrap_content"
+      android:layout_below="@id/header"/>
 
     <ScrollView
+      android:id="@+id/scroll"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+      android:layout_height="wrap_content"
+      android:layout_below="@id/elevation">
       <LinearLayout
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/hotels_filter_padding"
@@ -111,7 +115,9 @@
     <RelativeLayout
       android:id="@+id/buttons_frame"
       android:layout_width="match_parent"
-      android:layout_height="@dimen/height_block_base">
+      android:layout_height="@dimen/height_block_base"
+      android:layout_alignParentBottom="true"
+      android:background="?cardBackground">
       <include layout="@layout/divider_horizontal"/>
       <View
         android:id="@+id/center_divider"
@@ -144,5 +150,5 @@
         android:background="?clickableBackground"
         tools:targetApi="jelly_bean"/>
     </RelativeLayout>
-  </LinearLayout>
+  </RelativeLayout>
 </merge>
