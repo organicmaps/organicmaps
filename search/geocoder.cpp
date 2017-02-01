@@ -706,7 +706,7 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
 
 #if defined(DEBUG)
         ft.GetName(StringUtf8Multilang::kDefaultCode, city.m_defaultName);
-        LOG(LINFO, ("City =", city.m_defaultName, "radius =", radius, "prob = ", city.m_prob));
+        LOG(LINFO, ("City =", city.m_defaultName, "radius =", radius, "prob =", city.m_prob));
 #endif
 
         m_cities[{l.m_startToken, l.m_endToken}].push_back(city);
@@ -1292,7 +1292,7 @@ void Geocoder::EmitResult(BaseContext const & ctx, Region const & region, size_t
   case REGION_TYPE_COUNTRY: type = SearchModel::SEARCH_TYPE_COUNTRY; break;
   case REGION_TYPE_COUNT: type = SearchModel::SEARCH_TYPE_COUNT; break;
   }
-  EmitResult(ctx, m_worldId, region.m_featureId, type, startToken, endToken);
+  EmitResult(ctx, region.m_countryId, region.m_featureId, type, startToken, endToken);
 }
 
 void Geocoder::EmitResult(BaseContext const & ctx, City const & city, size_t startToken,
