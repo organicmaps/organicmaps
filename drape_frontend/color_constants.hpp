@@ -36,7 +36,16 @@ enum ColorConstant
   TrafficUnknown,
   TrafficArrowLight,
   TrafficArrowDark,
-  TrafficOutline
+  TrafficOutline,
+  RoadShieldAddText,
+  RoadShieldAddTextOutline,
+  RoadShieldUSInterstateText,
+  RoadShieldUSHighwayText,
+  RoadShieldBlueText,
+  RoadShieldGreenText,
+  RoadShieldUKGreenText,
+  RoadShieldBlueBackground,
+  RoadShieldGreenBackground,
 };
 
 dp::Color GetColorConstant(MapStyle style, ColorConstant constant);

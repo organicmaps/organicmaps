@@ -95,11 +95,6 @@ text_type_t BaseRule::GetCaptionTextType(int) const
   return text_type_name;
 }
 
-CircleRuleProto const * BaseRule::GetCircle() const
-{
-  return 0;
-}
-
 ShieldRuleProto const * BaseRule::GetShield() const
 {
   return nullptr;
@@ -295,15 +290,6 @@ namespace
     typedef CaptionT<CaptionRuleProto> Caption;
     typedef CaptionT<PathTextRuleProto> PathText;
 
-    class Circle : public BaseRule
-    {
-      CircleRuleProto m_circle;
-    public:
-      Circle(CircleRuleProto const & r) : m_circle(r) {}
-
-      virtual CircleRuleProto const * GetCircle() const { return &m_circle; }
-    };
-
     class Shield : public BaseRule
     {
       ShieldRuleProto m_shield;
@@ -443,9 +429,6 @@ namespace
 
           if (de.has_caption())
             AddRule<Caption>(p, de.scale(), caption, de.caption(), apply_if);
-
-          if (de.has_circle())
-            AddRule<Circle>(p, de.scale(), circle, de.circle(), apply_if);
 
           if (de.has_path_text())
             AddRule<PathText>(p, de.scale(), pathtext, de.path_text(), apply_if);

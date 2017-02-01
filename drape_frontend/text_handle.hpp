@@ -17,12 +17,12 @@ namespace df
 class TextHandle : public dp::OverlayHandle
 {
 public:
-  TextHandle(FeatureID const & id, strings::UniString const & text,
+  TextHandle(dp::OverlayID const & id, strings::UniString const & text,
              dp::Anchor anchor, uint64_t priority, int fixedHeight,
              ref_ptr<dp::TextureManager> textureManager,
              bool isBillboard = false);
 
-  TextHandle(FeatureID const & id, strings::UniString const & text,
+  TextHandle(dp::OverlayID const & id, strings::UniString const & text,
              dp::Anchor anchor, uint64_t priority, int fixedHeight,
              ref_ptr<dp::TextureManager> textureManager,
              gpu::TTextDynamicVertexBuffer && normals,

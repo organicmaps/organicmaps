@@ -36,17 +36,6 @@ struct PoiSymbolViewParams : CommonViewParams
   bool m_obsoleteInEditor = false;
 };
 
-struct CircleViewParams : CommonViewParams
-{
-  CircleViewParams(FeatureID const & id) : m_id(id) {}
-
-  FeatureID m_id;
-  dp::Color m_color;
-  float m_radius = 0.0f;
-  bool m_hasArea = false;
-  bool m_createdByEditor = false;
-};
-
 struct AreaViewParams : CommonViewParams
 {
   dp::Color m_color;
@@ -77,12 +66,15 @@ struct TextViewParams : CommonViewParams
   string m_secondaryText;
   dp::Anchor m_anchor;
   m2::PointF m_primaryOffset;
+  m2::PointF m_secondaryOffset;
   bool m_primaryOptional = false;
   bool m_secondaryOptional = false;
   bool m_hasArea = false;
   bool m_createdByEditor = false;
   uint32_t m_extendingSize = 0;
   float m_posZ = 0.0f;
+  bool m_limitedText = false;
+  m2::PointF m_limits;
 };
 
 struct PathTextViewParams : CommonViewParams
@@ -100,6 +92,22 @@ struct PathSymbolViewParams : CommonViewParams
   float m_offset = 0.0f;
   float m_step = 0.0f;
   float m_baseGtoPScale = 1.0f;
+};
+
+struct ColoredSymbolViewParams : CommonViewParams
+{
+  enum class Shape
+  {
+    Rectangle, Circle, RoundedRectangle
+  };
+
+  FeatureID m_featureID;
+  Shape m_shape = Shape::Circle;
+  dp::Color m_color;
+  dp::Color m_outlineColor;
+  float m_radiusInPixels = 0.0f;
+  m2::PointF m_sizeInPixels;
+  float m_outlineWidth = 0.0f;
 };
 
 } // namespace df

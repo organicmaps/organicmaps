@@ -13,7 +13,6 @@ class LineDefProto;
 class AreaRuleProto;
 class SymbolRuleProto;
 class CaptionDefProto;
-class CircleRuleProto;
 class ShieldRuleProto;
 
 namespace df
@@ -26,7 +25,6 @@ dp::Color ConvertColor(uint32_t c);
 void ConvertStyle(LineDefProto const * pSrc, double scale, PenInfo & dest);
 void ConvertStyle(AreaRuleProto const * pSrc, BrushInfo & dest);
 void ConvertStyle(SymbolRuleProto const * pSrc, IconInfo & dest);
-void ConvertStyle(CircleRuleProto const * pSrc, double scale, CircleInfo & dest);
 void ConvertStyle(CaptionDefProto const * pSrc, double scale, dp::FontDecl & dest, m2::PointD & offset);
 void ConvertStyle(ShieldRuleProto const * pSrc, double scale, dp::FontDecl & dest);
 

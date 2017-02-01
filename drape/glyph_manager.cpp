@@ -65,8 +65,6 @@ namespace dp
 namespace
 {
 
-uint32_t const kSdfBorder = 4;
-double const kNonSdfBorder = 0.2;
 int const kInvalidFont = -1;
 
 template <typename ToDo>
@@ -203,7 +201,6 @@ public:
     SharedBufferManager::shared_buffer_ptr_t data;
     uint32_t imageWidth = bitmap.width;
     uint32_t imageHeight = bitmap.rows;
-    int border = 0;
     if (bitmap.buffer != nullptr)
     {
       if (isSdf)
@@ -218,7 +215,7 @@ public:
       }
       else
       {
-        border = glyphHeight * kNonSdfBorder;
+        int const border = kSdfBorder;
         imageHeight += 2 * border;
         imageWidth += 2 * border;
 
@@ -248,8 +245,8 @@ public:
     {
       static_cast<float>(glyph->advance.x >> 16) * scale,
       static_cast<float>(glyph->advance.y >> 16) * scale,
-      static_cast<float>(bbox.xMin) * scale + border,
-      static_cast<float>(bbox.yMin) * scale + border,
+      static_cast<float>(bbox.xMin) * scale,
+      static_cast<float>(bbox.yMin) * scale,
       true
     };
 

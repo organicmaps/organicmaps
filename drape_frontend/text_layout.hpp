@@ -74,11 +74,11 @@ public:
              gpu::TTextStaticVertexBuffer & staticBuffer,
              gpu::TTextDynamicVertexBuffer & dynamicBuffer) const;
 
-  m2::PointU const & GetPixelSize() const { return m_pixelSize; }
+  m2::PointF const & GetPixelSize() const { return m_pixelSize; }
 
 private:
   buffer_vector<pair<size_t, glsl::vec2>, 2> m_offsets;
-  m2::PointU m_pixelSize;
+  m2::PointF m_pixelSize;
 };
 
 class PathTextLayout : public TextLayout

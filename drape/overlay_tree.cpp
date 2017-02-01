@@ -41,14 +41,14 @@ public:
 
     if (priorityLeft == priorityRight)
     {
-      auto const & hashLeft = l->GetFeatureID();
-      auto const & hashRight = r->GetFeatureID();
+      auto const & hashLeft = l->GetOverlayID();
+      auto const & hashRight = r->GetOverlayID();
 
-      if (hashLeft < hashRight)
+      if (hashLeft > hashRight)
         return true;
 
       if (hashLeft == hashRight)
-        return l.get() < r.get();
+        return l.get() > r.get();
     }
 
     return false;
@@ -160,7 +160,7 @@ void OverlayTree::Add(ref_ptr<OverlayHandle> handle)
   m_handles[rank].emplace_back(handle);
 }
 
-void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle,
+void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle, int currentRank,
                                ref_ptr<OverlayHandle> const & parentOverlay)
 {
   ASSERT(IsNeedUpdate(), ());
@@ -188,7 +188,7 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle,
   ForEachInRect(pixelRect, [&] (ref_ptr<OverlayHandle> const & h)
   {
     bool const isParent = (h == parentOverlay) ||
-                          (h->GetFeatureID() == handle->GetFeatureID() &&
+                          (h->GetOverlayID() == handle->GetOverlayID() &&
                            h->GetOverlayRank() < handle->GetOverlayRank());
     if (!isParent && handle->IsIntersect(modelView, h))
       rivals.push_back(h);
@@ -200,7 +200,8 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle,
   if (boundToParent)
     handleToCompare = parentOverlay;
 
-  bool const selected = m_selectedFeatureID.IsValid() && (handleToCompare->GetFeatureID() == m_selectedFeatureID);
+  bool const selected = m_selectedFeatureID.IsValid() &&
+                        handleToCompare->GetOverlayID().m_featureId == m_selectedFeatureID;
 
   if (!selected)
   {
@@ -210,7 +211,8 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle,
     // But if some of already inserted elements have more priority, then we don't insert "handle".
     for (auto const & rivalHandle : rivals)
     {
-      bool const rejectBySelected = m_selectedFeatureID.IsValid() && (rivalHandle->GetFeatureID() == m_selectedFeatureID);
+      bool const rejectBySelected = m_selectedFeatureID.IsValid() &&
+                                    rivalHandle->GetOverlayID().m_featureId == m_selectedFeatureID;
 
       bool rejectByDepth = false;
       if (!rejectBySelected && modelView.isPerspective())
@@ -225,7 +227,7 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle,
         // Handle is displaced and bound to its parent, parent will be displaced too.
         if (boundToParent)
         {
-          DeleteHandle(parentOverlay);
+          DeleteHandleWithParents(parentOverlay, currentRank - 1);
 
 #ifdef DEBUG_OVERLAYS_OUTPUT
           LOG(LINFO, ("Displace (0):", handle->GetOverlayDebugInfo(), "->", parentOverlay->GetOverlayDebugInfo()));
@@ -260,7 +262,7 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle,
       // Delete rival handle and all handles bound to it.
       for (auto it = m_handlesCache.begin(); it != m_handlesCache.end();)
       {
-        if ((*it)->GetFeatureID() == rivalHandle->GetFeatureID())
+        if ((*it)->GetOverlayID() == rivalHandle->GetOverlayID())
         {
           Erase(*it);
 
@@ -321,7 +323,7 @@ void OverlayTree::EndOverlayPlacing()
       if (!CheckHandle(handle, rank, parentOverlay))
         continue;
 
-      InsertHandle(handle, parentOverlay);
+      InsertHandle(handle, rank, parentOverlay);
     }
   }
   
@@ -347,18 +349,20 @@ bool OverlayTree::CheckHandle(ref_ptr<OverlayHandle> handle, int currentRank,
   if (currentRank == dp::OverlayRank0)
     return true;
 
-  int const seachingRank = currentRank - 1;
-  for (auto const & h : m_handles[seachingRank])
-  {
-    if (h->GetFeatureID() == handle->GetFeatureID() &&
-        m_handlesCache.find(h) != m_handlesCache.end())
-    {
-      parentOverlay = h;
-      return true;
-    }
-  }
+  parentOverlay = FindParent(handle, currentRank - 1);
+  return parentOverlay != nullptr;
+}
 
-  return false;
+ref_ptr<OverlayHandle> OverlayTree::FindParent(ref_ptr<OverlayHandle> handle, int searchingRank) const
+{
+  ASSERT_GREATER_OR_EQUAL(searchingRank, 0, ());
+  ASSERT_LESS(searchingRank, static_cast<int>(m_handles.size()), ());
+  for (auto const & h : m_handles[searchingRank])
+  {
+    if (h->GetOverlayID() == handle->GetOverlayID() && m_handlesCache.find(h) != m_handlesCache.end())
+      return h;
+  }
+  return nullptr;
 }
 
 void OverlayTree::DeleteHandle(ref_ptr<OverlayHandle> const & handle)
@@ -366,6 +370,19 @@ void OverlayTree::DeleteHandle(ref_ptr<OverlayHandle> const & handle)
   size_t const deletedCount = m_handlesCache.erase(handle);
   if (deletedCount != 0)
     Erase(handle);
+}
+
+void OverlayTree::DeleteHandleWithParents(ref_ptr<OverlayHandle> handle, int currentRank)
+{
+  currentRank--;
+  while(currentRank >= dp::OverlayRank0)
+  {
+    auto parent = FindParent(handle, currentRank);
+    if (parent != nullptr && parent->IsBound())
+      DeleteHandle(parent);
+    currentRank--;
+  }
+  DeleteHandle(handle);
 }
 
 bool OverlayTree::GetSelectedFeatureRect(ScreenBase const & screen, m2::RectD & featureRect)
@@ -376,7 +393,7 @@ bool OverlayTree::GetSelectedFeatureRect(ScreenBase const & screen, m2::RectD & 
   featureRect.MakeEmpty();
   for (auto const & handle : m_handlesCache)
   {
-    if (handle->IsVisible() && handle->GetFeatureID() == m_selectedFeatureID)
+    if (handle->IsVisible() && handle->GetOverlayID().m_featureId == m_selectedFeatureID)
     {
       m2::RectD rect = handle->GetPixelRect(screen, screen.isPerspective());
       featureRect.Add(rect);
@@ -406,7 +423,7 @@ void OverlayTree::Select(m2::RectD const & rect, TOverlayContainer & result) con
   ScreenBase screen = m_traits.m_modelView;
   ForEachInRect(rect, [&](ref_ptr<OverlayHandle> const & h)
   {
-    if (!h->HasLinearFeatureShape() && h->IsVisible() && h->GetFeatureID().IsValid())
+    if (!h->HasLinearFeatureShape() && h->IsVisible() && h->GetOverlayID().m_featureId.IsValid())
     {
       OverlayHandle::Rects shape;
       h->GetPixelShape(screen, screen.isPerspective(), shape);

@@ -94,8 +94,18 @@ void RenderGroup::Render(ScreenBase const & screen)
     m_uniforms.SetMatrix4x4Value("modelView", mv.m_data);
   }
 
-  int programIndex = m_state.GetProgramIndex();
-  int program3dIndex = m_state.GetProgram3dIndex();
+  int const programIndex = m_state.GetProgramIndex();
+  int const program3dIndex = m_state.GetProgram3dIndex();
+
+  if (m_state.GetDepthLayer() == dp::GLState::OverlayLayer)
+  {
+    if (programIndex == gpu::COLORED_SYMBOL_PROGRAM ||
+        programIndex == gpu::COLORED_SYMBOL_BILLBOARD_PROGRAM)
+      GLFunctions::glEnable(gl_const::GLDepthTest);
+    else
+      GLFunctions::glDisable(gl_const::GLDepthTest);
+  }
+
   auto const & params = df::VisualParams::Instance().GetGlyphVisualParams();
   if (programIndex == gpu::TEXT_OUTLINED_PROGRAM ||
       program3dIndex == gpu::TEXT_OUTLINED_BILLBOARD_PROGRAM)

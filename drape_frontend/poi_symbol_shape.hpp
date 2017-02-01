@@ -11,7 +11,8 @@ namespace df
 class PoiSymbolShape : public MapShape
 {
 public:
-  PoiSymbolShape(m2::PointF const & mercatorPt, PoiSymbolViewParams const & params,
+  PoiSymbolShape(m2::PointD const & mercatorPt, PoiSymbolViewParams const & params,
+                 TileKey const & tileKey, uint32_t textIndex,
                  int displacementMode = dp::displacement::kAllModes,
                  uint16_t specialModePriority = 0xFFFF);
 
@@ -21,10 +22,12 @@ public:
 private:
   uint64_t GetOverlayPriority() const;
 
-  m2::PointF const m_pt;
+  m2::PointD const m_pt;
   PoiSymbolViewParams const m_params;
   int const m_displacementMode;
   uint16_t const m_specialModePriority;
+  m2::PointI const m_tileCoords;
+  uint32_t const m_textIndex;
 };
 
 } // namespace df

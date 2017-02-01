@@ -403,7 +403,7 @@ private:
   /// Here we store last selected feature to get its polygons in case of adding organization.
   mutable FeatureID m_selectedFeature;
 
-  vector<m2::PointU> m_searchMarksSizes;
+  vector<m2::PointF> m_searchMarksSizes;
 
 private:
   vector<m2::TriangleD> GetSelectedFeatureTriangles() const;

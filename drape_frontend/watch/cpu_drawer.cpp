@@ -335,42 +335,6 @@ void CPUDrawer::DrawSymbol(m2::PointD const & pt, dp::Anchor pos, DrawRule const
   overlay.m_rects.push_back(rect);
 }
 
-void CPUDrawer::DrawCircle(m2::PointD const & pt, dp::Anchor pos, DrawRule const & rule)
-{
-  m_pointShapes.emplace_back(pt, pos, TYPE_CIRCLE, rule, GetGeneration());
-  OverlayWrapper & overlay = AddOverlay(&m_pointShapes.back());
-
-  CircleInfo info;
-  ConvertStyle(overlay.m_rules[0]->m_drawRule.m_rule->GetCircle(), m_visualScale, info);
-
-  m2::RectD rect;
-  m_renderer->CalculateCircleMetric(pt, pos, info, rect);
-  overlay.m_rects.push_back(rect);
-}
-
-void CPUDrawer::DrawCircledSymbol(m2::PointD const & pt, dp::Anchor pos,
-                                  DrawRule const & symbolRule, DrawRule const & circleRule)
-{
-  m_pointShapes.emplace_back(pt, pos, TYPE_CIRCLE, circleRule, GetGeneration());
-  BaseShape const * circleShape = &m_pointShapes.back();
-  m_pointShapes.emplace_back(pt, pos, TYPE_SYMBOL, symbolRule, GetGeneration());
-  BaseShape const * symbolShape = &m_pointShapes.back();
-
-  OverlayWrapper & overlay = AddOverlay(circleShape, symbolShape);
-
-  m2::RectD rect;
-
-  CircleInfo circleInfo;
-  ConvertStyle(overlay.m_rules[0]->m_drawRule.m_rule->GetCircle(), m_visualScale, circleInfo);
-  m_renderer->CalculateCircleMetric(pt, pos, circleInfo, rect);
-  overlay.m_rects.push_back(rect);
-
-  IconInfo symbolInfo;
-  ConvertStyle(overlay.m_rules[1]->m_drawRule.m_rule->GetSymbol(), symbolInfo);
-  m_renderer->CalculateSymbolMetric(pt, pos, symbolInfo, rect);
-  overlay.m_rects.back().Add(rect);
-}
-
 void CPUDrawer::DrawPath(PathInfo const & path, DrawRule const * rules, size_t count)
 {
   FeatureID const & id = Insert(path);
@@ -525,9 +489,6 @@ void CPUDrawer::Render()
     case TYPE_SYMBOL:
       DrawSymbol(static_cast<PointShape const *>(shape));
       break;
-    case TYPE_CIRCLE:
-      DrawCircle(static_cast<PointShape const *>(shape));
-      break;
     case TYPE_PATH:
       DrawPath(static_cast<ComplexShape const *>(shape));
       break;
@@ -577,17 +538,6 @@ void CPUDrawer::DrawSymbol(PointShape const * shape)
   IconInfo info;
   ConvertStyle(shape->m_drawRule.m_rule->GetSymbol(), info);
   m_renderer->DrawSymbol(shape->m_position, shape->m_anchor, info);
-}
-
-void CPUDrawer::DrawCircle(PointShape const * shape)
-{
-  ASSERT(shape->m_type == TYPE_CIRCLE, ());
-  ASSERT(shape->m_drawRule.m_rule != nullptr, ());
-  ASSERT(shape->m_drawRule.m_rule->GetCircle() != nullptr, ());
-
-  CircleInfo info;
-  ConvertStyle(shape->m_drawRule.m_rule->GetCircle(), m_visualScale, info);
-  m_renderer->DrawCircle(shape->m_position, shape->m_anchor, info);
 }
 
 void CPUDrawer::DrawPath(ComplexShape const * shape)
@@ -762,9 +712,6 @@ void CPUDrawer::Draw(FeatureData const & data)
   bool const isArea = !data.m_areas.empty();
   bool isCircleAndSymbol = false;
 
-  drule::BaseRule const * pCircleRule = nullptr;
-  double circleDepth = df::watch::minDepth;
-
   drule::BaseRule const * pSymbolRule = nullptr;
   double symbolDepth = df::watch::minDepth;
 
@@ -778,18 +725,11 @@ void CPUDrawer::Draw(FeatureData const & data)
 
     bool const isSymbol = pRule->GetSymbol() != 0;
     bool const isCaption = pRule->GetCaption(0) != 0;
-    bool const isCircle = pRule->GetCircle() != 0;
 
     if (pSymbolRule == nullptr && isSymbol)
     {
       pSymbolRule = pRule;
       symbolDepth = rules[i].m_depth;
-    }
-
-    if (pCircleRule == nullptr && isCircle)
-    {
-      pCircleRule = pRule;
-      circleDepth = rules[i].m_depth;
     }
 
     if (pShieldRule == nullptr && pRule->GetShield() != nullptr)
@@ -801,8 +741,6 @@ void CPUDrawer::Draw(FeatureData const & data)
     if (!isCaption && isPath && !isSymbol && (pRule->GetLine() != 0))
       pathRules.push_back(rules[i]);
   }
-
-  isCircleAndSymbol = (pSymbolRule != nullptr) && (pCircleRule != nullptr);
 
   if (!pathRules.empty())
   {
@@ -817,7 +755,6 @@ void CPUDrawer::Draw(FeatureData const & data)
 
     bool const isCaption = pRule->GetCaption(0) != 0;
     bool const isSymbol = pRule->GetSymbol() != 0;
-    bool const isCircle = pRule->GetCircle() != 0;
 
     if (!isCaption)
     {
@@ -830,34 +767,15 @@ void CPUDrawer::Draw(FeatureData const & data)
         {
           if (isFill)
             DrawArea(*i, DrawRule(pRule, depth));
-          else if (isCircleAndSymbol && isCircle)
-          {
-            DrawCircledSymbol(i->GetCenter(),
-                              dp::Center,
-                              DrawRule(pSymbolRule, symbolDepth),
-                              DrawRule(pCircleRule, circleDepth));
-          }
           else if (isSymbol)
             DrawSymbol(i->GetCenter(), dp::Center, DrawRule(pRule, depth));
-          else if (isCircle)
-            DrawCircle(i->GetCenter(), dp::Center, DrawRule(pRule, depth));
         }
       }
 
       // draw point symbol
-      if (!isPath && !isArea && ((pRule->GetType() & drule::node) != 0))
+      if (isSymbol && !isPath && !isArea && ((pRule->GetType() & drule::node) != 0))
       {
-        if (isCircleAndSymbol)
-        {
-          DrawCircledSymbol(data.m_point,
-                            dp::Center,
-                            DrawRule(pSymbolRule, symbolDepth),
-                            DrawRule(pCircleRule, circleDepth));
-        }
-        else if (isSymbol)
-          DrawSymbol(data.m_point, dp::Center, DrawRule(pRule, depth));
-        else if (isCircle)
-          DrawCircle(data.m_point, dp::Center, DrawRule(pRule, depth));
+        DrawSymbol(data.m_point, dp::Center, DrawRule(pRule, depth));
       }
     }
     else

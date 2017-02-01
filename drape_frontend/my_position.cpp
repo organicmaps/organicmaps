@@ -192,7 +192,7 @@ void MyPosition::CacheSymbol(dp::TextureManager::SymbolRegion const & symbol,
                              EMyPositionPart part)
 {
   m2::RectF const & texRect = symbol.GetTexRect();
-  m2::PointF const halfSize = m2::PointF(symbol.GetPixelSize()) * 0.5f;
+  m2::PointF const halfSize = symbol.GetPixelSize() * 0.5f;
 
   Vertex data[4] =
   {

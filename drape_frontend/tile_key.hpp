@@ -29,6 +29,8 @@ struct TileKey
 
   math::Matrix<float, 4, 4> GetTileBasedModelView(ScreenBase const & screen) const;
 
+  m2::PointI GetTileCoords() const;
+
   int m_x;
   int m_y;
   int m_zoomLevel;

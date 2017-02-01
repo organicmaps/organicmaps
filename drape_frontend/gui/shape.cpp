@@ -174,7 +174,7 @@ ref_ptr<Handle> ShapeRenderer::FindHandle(FeatureID const & id)
   ref_ptr<Handle> resultHandle = nullptr;
   ForEachShapeInfo([&resultHandle, &id](ShapeControl::ShapeInfo & shapeInfo)
                    {
-                     if (shapeInfo.m_handle->GetFeatureID() == id)
+                     if (shapeInfo.m_handle->GetOverlayID().m_featureId == id)
                        resultHandle = make_ref(shapeInfo.m_handle);
                    });
 

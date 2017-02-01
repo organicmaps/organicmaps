@@ -109,7 +109,7 @@ bool LayerRenderer::OnTouchDown(m2::RectD const & touchArea)
     m_activeOverlay = r.second->ProcessTapEvent(touchArea);
     if (m_activeOverlay != nullptr)
     {
-      m_activeOverlayId = m_activeOverlay->GetFeatureID();
+      m_activeOverlayId = m_activeOverlay->GetOverlayID().m_featureId;
       m_activeOverlay->OnTapBegin();
       return true;
     }

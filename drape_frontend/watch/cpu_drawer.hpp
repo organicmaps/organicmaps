@@ -57,9 +57,6 @@ public:
 
 protected:
   void DrawSymbol(m2::PointD const & pt, dp::Anchor pos, DrawRule const & rule);
-  void DrawCircle(m2::PointD const & pt, dp::Anchor pos, DrawRule const & rule);
-  void DrawCircledSymbol(m2::PointD const & pt, dp::Anchor pos,
-                         DrawRule const & symbolRule, DrawRule const & circleRule);
   void DrawPath(PathInfo const & path, DrawRule const * rules, size_t count);
   void DrawArea(AreaInfo const & area, DrawRule const & rule);
   void DrawText(m2::PointD const & pt, dp::Anchor pos,

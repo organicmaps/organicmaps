@@ -162,7 +162,7 @@ void LoadSymbols(string const & skinPathName, bool convertToUV,
   ASSERT(glm::isPowerOfTwo(w), (w));
   ASSERT(glm::isPowerOfTwo(h), (h));
 
-  if (width == w && height == h)
+  if (width == static_cast<uint32_t>(w) && height == static_cast<uint32_t>(h))
   {
     completionHandler(data, width, height);
   }

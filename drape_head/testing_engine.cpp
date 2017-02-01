@@ -12,7 +12,6 @@
 #include "drape_frontend/path_symbol_shape.hpp"
 #include "drape_frontend/route_shape.hpp"
 #include "drape_frontend/area_shape.hpp"
-#include "drape_frontend/circle_shape.hpp"
 #include "drape_frontend/poi_symbol_shape.hpp"
 
 #include "drape/utils/vertex_decl.hpp"
@@ -55,7 +54,7 @@ public:
     for (gui::StaticLabel::Vertex & v : result.m_buffer)
       v.m_position = glsl::vec3(glsl::ToVec2(m_base), v.m_position.z);
 
-    dp::AttributeProvider provider(1 /* streamCount */, result.m_buffer.size());
+    dp::AttributeProvider provider(1 /* streamCount */, static_cast<uint32_t>(result.m_buffer.size()));
     provider.InitStream(0 /* streamIndex */, gui::StaticLabel::Vertex::GetBindingInfo(),
                         make_ref(result.m_buffer.data()));
 
@@ -98,7 +97,7 @@ public:
     textCacher.SetText(dynResult, m_text);
     ASSERT_EQUAL(staticData.m_buffer.size(), dynResult.m_buffer.size(), ());
 
-    dp::AttributeProvider provider(2, dynResult.m_buffer.size());
+    dp::AttributeProvider provider(2, static_cast<uint32_t>(dynResult.m_buffer.size()));
     provider.InitStream(0 /* streamIndex */, gui::MutableLabel::StaticVertex::GetBindingInfo(),
                         make_ref(staticData.m_buffer.data()));
     provider.InitStream(1 /* streamIndex */, gui::MutableLabel::DynamicVertex::GetBindingInfo(),
@@ -442,7 +441,7 @@ void TestingEngine::DrawImpl()
   params.m_primaryOffset = m2::PointF(12.0, 20.0);
   params.m_primaryOptional = true;
   params.m_secondaryOptional = true;
-  TextShape sh1(m2::PointF(82.277071f, 46.9271164f), params, false, 0, true);
+  TextShape sh1(m2::PointF(82.277071f, 46.9271164f), params, TileKey(), false, 0, true);
   sh1.Draw(make_ref(m_batcher), make_ref(m_textures));
 
   vector<m2::PointD> path;
@@ -459,7 +458,7 @@ void TestingEngine::DrawImpl()
   ptvp.m_text = "Some text";
   ptvp.m_textFont = dp::FontDecl(dp::Color::Black(), 40, true, dp::Color::Red());
 
-  PathTextShape(spline, ptvp).Draw(make_ref(m_batcher), make_ref(m_textures));
+  PathTextShape(spline, ptvp, TileKey(), 0).Draw(make_ref(m_batcher), make_ref(m_textures));
   LineViewParams lvp;
   lvp.m_baseGtoPScale = ptvp.m_baseGtoPScale;
   lvp.m_depth = 90.0f;

@@ -204,7 +204,7 @@ void RulerHelper::GetTextInitInfo(string & alphabet, uint32_t & size) const
   {
     size_t stringSize = strlen(v.m_s);
     result = max(result, stringSize);
-    for (int i = 0; i < stringSize; ++i)
+    for (size_t i = 0; i < stringSize; ++i)
       symbols.insert(v.m_s[i]);
   };
 

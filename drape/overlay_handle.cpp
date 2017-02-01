@@ -24,7 +24,7 @@ private:
   uint8_t m_bufferID;
 };
 
-OverlayHandle::OverlayHandle(FeatureID const & id, dp::Anchor anchor,
+OverlayHandle::OverlayHandle(OverlayID const & id, dp::Anchor anchor,
                              uint64_t priority, bool isBillboard)
   : m_id(id)
   , m_anchor(anchor)
@@ -126,7 +126,7 @@ void OverlayHandle::AddDynamicAttribute(BindingInfo const & binding, uint32_t of
   m_offsets.insert(make_pair(binding, MutateRegion(offset, count)));
 }
 
-FeatureID const & OverlayHandle::GetFeatureID() const
+OverlayID const & OverlayHandle::GetOverlayID() const
 {
   return m_id;
 }
@@ -199,7 +199,7 @@ uint64_t OverlayHandle::GetPriorityInFollowingMode() const
 {
   return GetPriority();
 }
-SquareHandle::SquareHandle(FeatureID const & id, dp::Anchor anchor, m2::PointD const & gbPivot,
+SquareHandle::SquareHandle(OverlayID const & id, dp::Anchor anchor, m2::PointD const & gbPivot,
                            m2::PointD const & pxSize, uint64_t priority, bool isBound,
                            string const & debugStr, bool isBillboard)
   : TBase(id, anchor, priority, isBillboard)
@@ -244,7 +244,7 @@ bool SquareHandle::IsBound() const { return m_isBound; }
 string SquareHandle::GetOverlayDebugInfo()
 {
   ostringstream out;
-  out << "POI Priority(" << GetPriority() << ") " << GetFeatureID().m_index << " " << m_debugStr;
+  out << "POI Priority(" << GetPriority() << ") " << GetOverlayID().m_featureId.m_index << " " << m_debugStr;
   return out.str();
 }
 #endif

@@ -87,7 +87,7 @@ void GenerateJoinsTriangles(glsl::vec3 const & pivot, vector<glsl::vec2> const &
   float const kEps = 1e-5;
   size_t const trianglesCount = normals.size() / 3;
   float const side = isLeft ? kLeftSide : kRightSide;
-  for (int j = 0; j < trianglesCount; j++)
+  for (size_t j = 0; j < trianglesCount; j++)
   {
     glsl::vec3 const len1 = glsl::vec3(length.x, length.y, glsl::length(normals[3 * j]) < kEps ? kCenter : side);
     glsl::vec3 const len2 = glsl::vec3(length.x, length.y, glsl::length(normals[3 * j + 1]) < kEps ? kCenter : side);
@@ -115,7 +115,7 @@ void GenerateArrowsTriangles(glsl::vec4 const & pivot, vector<glsl::vec2> const 
                              bool normalizedUV, RouteShape::TArrowGeometryBuffer & joinsGeometry)
 {
   size_t const trianglesCount = normals.size() / 3;
-  for (int j = 0; j < trianglesCount; j++)
+  for (size_t j = 0; j < trianglesCount; j++)
   {
     joinsGeometry.push_back(RouteShape::AV(pivot, normals[3 * j],
                             normalizedUV ? GetUV(texRect, uv[3 * j]) : uv[3 * j]));
@@ -154,7 +154,7 @@ void RouteShape::PrepareGeometry(vector<m2::PointD> const & path, m2::PointD con
   for (int i = static_cast<int>(segments.size() - 1); i >= 0; i--)
   {
     UpdateNormals(&segments[i], (i > 0) ? &segments[i - 1] : nullptr,
-                 (i < segments.size() - 1) ? &segments[i + 1] : nullptr);
+                 (i < static_cast<int>(segments.size()) - 1) ? &segments[i + 1] : nullptr);
 
     // Generate main geometry.
     m2::PointD const startPt = MapShape::ConvertToLocal(glsl::FromVec2(segments[i].m_points[StartPoint]),
@@ -221,7 +221,7 @@ void RouteShape::PrepareGeometry(vector<m2::PointD> const & path, m2::PointD con
                              true, joinsGeometry);
     }
 
-    if (i == segments.size() - 1)
+    if (i == static_cast<int>(segments.size()) - 1)
     {
       vector<glsl::vec2> normals;
       normals.reserve(24);
@@ -361,7 +361,7 @@ void RouteShape::CacheRouteSign(ref_ptr<dp::TextureManager> mng, RouteSignData &
   mng->GetSymbolRegion(routeSignData.m_isStart ? "route_from" : "route_to", symbol);
 
   m2::RectF const & texRect = symbol.GetTexRect();
-  m2::PointF halfSize = m2::PointF(symbol.GetPixelSize()) * 0.5f;
+  m2::PointF halfSize = symbol.GetPixelSize() * 0.5f;
 
   glsl::vec4 const pivot = glsl::vec4(0.0f /* x */, 0.0f /* y */, 0.0f /* depth */, 0.0f /* pivot z */);
   gpu::SolidTexturingVertex data[4]=

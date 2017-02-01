@@ -1,5 +1,6 @@
 #pragma once
 
+#include "drape/drape_diagnostics.hpp"
 #include "drape/drape_global.hpp"
 #include "drape/binding_info.hpp"
 #include "drape/index_buffer_mutator.hpp"
@@ -19,8 +20,6 @@
 namespace dp
 {
 
-//#define DEBUG_OVERLAYS_OUTPUT
-
 enum OverlayRank
 {
   OverlayRank0 = 0,
@@ -36,12 +35,62 @@ uint64_t constexpr kPriorityMaskRank      = 0x0000000000FFFFFF;
 uint64_t constexpr kPriorityMaskAll = kPriorityMaskZoomLevel |
                                       kPriorityMaskManual |
                                       kPriorityMaskRank;
+
+struct OverlayID
+{
+  FeatureID m_featureId;
+  m2::PointI m_tileCoords;
+  uint32_t m_index;
+
+  OverlayID(FeatureID const & featureId)
+    : m_featureId(featureId), m_tileCoords(-1, -1), m_index(0)
+  {}
+  OverlayID(FeatureID const & featureId, m2::PointI const & tileCoords, uint32_t index)
+    : m_featureId(featureId), m_tileCoords(tileCoords), m_index(index)
+  {}
+
+  bool operator==(OverlayID const & overlayId) const
+  {
+    return m_featureId == overlayId.m_featureId && m_tileCoords == overlayId.m_tileCoords &&
+           m_index == overlayId.m_index;
+  }
+
+  bool operator!=(OverlayID const & overlayId) const
+  {
+    return !operator ==(overlayId);
+  }
+
+  bool operator<(OverlayID const & overlayId) const
+  {
+    if (m_featureId == overlayId.m_featureId)
+    {
+      if (m_tileCoords == overlayId.m_tileCoords)
+        return m_index < overlayId.m_index;
+
+      return m_tileCoords < overlayId.m_tileCoords;
+    }
+    return m_featureId < overlayId.m_featureId;
+  }
+
+  bool operator>(OverlayID const & overlayId) const
+  {
+    if (m_featureId == overlayId.m_featureId)
+    {
+      if (m_tileCoords == overlayId.m_tileCoords)
+        return m_index > overlayId.m_index;
+
+      return !(m_tileCoords < overlayId.m_tileCoords);
+    }
+    return !(m_featureId < overlayId.m_featureId);
+  }
+};
+
 class OverlayHandle
 {
 public:
   typedef vector<m2::RectF> Rects;
 
-  OverlayHandle(FeatureID const & id, dp::Anchor anchor,
+  OverlayHandle(OverlayID const & id, dp::Anchor anchor,
                 uint64_t priority, bool isBillboard);
 
   virtual ~OverlayHandle() {}
@@ -76,7 +125,7 @@ public:
   bool HasDynamicAttributes() const;
   void AddDynamicAttribute(BindingInfo const & binding, uint32_t offset, uint32_t count);
 
-  FeatureID const & GetFeatureID() const;
+  OverlayID const & GetOverlayID() const;
   uint64_t const & GetPriority() const;
 
   virtual uint64_t GetPriorityMask() const { return kPriorityMaskAll; }
@@ -100,7 +149,7 @@ public:
 #endif
 
 protected:
-  FeatureID const m_id;
+  OverlayID const m_id;
   dp::Anchor const m_anchor;
   uint64_t const m_priority;
 
@@ -144,7 +193,7 @@ class SquareHandle : public OverlayHandle
   using TBase = OverlayHandle;
 
 public:
-  SquareHandle(FeatureID const & id, dp::Anchor anchor, m2::PointD const & gbPivot,
+  SquareHandle(OverlayID const & id, dp::Anchor anchor, m2::PointD const & gbPivot,
                m2::PointD const & pxSize, uint64_t priority, bool isBound, string const & debugStr,
                bool isBillboard = false);
 

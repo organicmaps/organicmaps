@@ -43,8 +43,8 @@ SOURCES += \
     backend_renderer.cpp \
     base_renderer.cpp \
     batch_merge_helper.cpp \
-    circle_shape.cpp \
     color_constants.cpp \
+    colored_symbol_shape.cpp \
     drape_api.cpp \
     drape_api_builder.cpp \
     drape_api_renderer.cpp \
@@ -144,8 +144,8 @@ HEADERS += \
     base_renderer.hpp \
     batchers_pool.hpp \
     batch_merge_helper.hpp \
-    circle_shape.hpp \
     color_constants.hpp \
+    colored_symbol_shape.hpp \
     drape_api.hpp \
     drape_api_builder.hpp \
     drape_api_renderer.hpp \

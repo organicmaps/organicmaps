@@ -999,7 +999,7 @@ FeatureID FrontendRenderer::GetVisiblePOI(m2::RectD const & pixelRect)
     if (curDist < dist)
     {
       dist = curDist;
-      featureID = handle->GetFeatureID();
+      featureID = handle->GetOverlayID().m_featureId;
     }
   }
 
@@ -1097,8 +1097,9 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
     RenderTrafficAndRouteLayer(modelView);
   }
 
-  // After this line we do not use depth buffer.
+  // After this line we do not use (almost) depth buffer.
   GLFunctions::glDisable(gl_const::GLDepthTest);
+  GLFunctions::glClearDepth();
 
   if (m_selectionShape != nullptr)
   {
