@@ -166,6 +166,8 @@
 /* 6.4 Road labels */
 
 @road_label_halo: #FFFFFF;
-@shield: #fff;
-@shield_halo: #498F46;
+@shield_text: #000000;
+@shield_text_halo: #000000;
+@shield: #FFFFFF;
+@shield_outline: #000000;
 /* blue - #2E89B0; #687E94; #598DBE; */

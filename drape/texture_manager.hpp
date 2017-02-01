@@ -28,8 +28,8 @@ public:
     ref_ptr<Texture> GetTexture() const { return m_texture; }
     bool IsValid() const;
 
-    m2::PointU GetPixelSize() const;
-    uint32_t GetPixelHeight() const;
+    m2::PointF GetPixelSize() const;
+    float GetPixelHeight() const;
     m2::RectF const & GetTexRect() const;
 
   protected:

@@ -22,7 +22,7 @@ namespace
 glsl::vec2 GetNormalsAndMask(dp::TextureManager::GlyphRegion const & glyph, float textRatio,
                              array<glsl::vec2, 4> & normals, array<glsl::vec2, 4> & maskTexCoord)
 {
-  m2::PointF const pixelSize = m2::PointF(glyph.GetPixelSize()) * textRatio;
+  m2::PointF const pixelSize = glyph.GetPixelSize() * textRatio;
   m2::RectF const & r = glyph.GetTexRect();
 
   float const xOffset = glyph.GetOffsetX() * textRatio;
@@ -430,7 +430,7 @@ m2::PointF MutableLabel::GetAvarageSize() const
   for (TAlphabetNode const & node : m_alphabet)
   {
     dp::TextureManager::GlyphRegion const & reg = node.second;
-    m2::PointF size = m2::PointF(reg.GetPixelSize()) * m_textRatio;
+    m2::PointF size = reg.GetPixelSize() * m_textRatio;
     w += size.x;
     h = max(h, size.y);
   }

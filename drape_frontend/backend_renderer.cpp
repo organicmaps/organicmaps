@@ -338,7 +338,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       ref_ptr<RequestSymbolsSizeMessage> msg = message;
       auto const & symbols = msg->GetSymbols();
 
-      vector<m2::PointU> sizes(symbols.size());
+      vector<m2::PointF> sizes(symbols.size());
       for (size_t i = 0; i < symbols.size(); i++)
       {
         dp::TextureManager::SymbolRegion region;

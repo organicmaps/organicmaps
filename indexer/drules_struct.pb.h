@@ -1431,6 +1431,20 @@ class ShieldRuleProto : public ::google::protobuf::MessageLite {
   inline ::google::protobuf::int32 min_distance() const;
   inline void set_min_distance(::google::protobuf::int32 value);
 
+  // required uint32 text_color = 6;
+  inline bool has_text_color() const;
+  inline void clear_text_color();
+  static const int kTextColorFieldNumber = 6;
+  inline ::google::protobuf::uint32 text_color() const;
+  inline void set_text_color(::google::protobuf::uint32 value);
+
+  // optional uint32 text_stroke_color = 7;
+  inline bool has_text_stroke_color() const;
+  inline void clear_text_stroke_color();
+  static const int kTextStrokeColorFieldNumber = 7;
+  inline ::google::protobuf::uint32 text_stroke_color() const;
+  inline void set_text_stroke_color(::google::protobuf::uint32 value);
+
   // @@protoc_insertion_point(class_scope:ShieldRuleProto)
  private:
   inline void set_has_height();
@@ -1443,6 +1457,10 @@ class ShieldRuleProto : public ::google::protobuf::MessageLite {
   inline void clear_has_priority();
   inline void set_has_min_distance();
   inline void clear_has_min_distance();
+  inline void set_has_text_color();
+  inline void clear_has_text_color();
+  inline void set_has_text_stroke_color();
+  inline void clear_has_text_stroke_color();
 
   ::std::string _unknown_fields_;
 
@@ -1453,6 +1471,8 @@ class ShieldRuleProto : public ::google::protobuf::MessageLite {
   ::google::protobuf::uint32 stroke_color_;
   ::google::protobuf::int32 priority_;
   ::google::protobuf::int32 min_distance_;
+  ::google::protobuf::uint32 text_color_;
+  ::google::protobuf::uint32 text_stroke_color_;
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto_impl();
   #else
@@ -3409,6 +3429,54 @@ inline void ShieldRuleProto::set_min_distance(::google::protobuf::int32 value) {
   set_has_min_distance();
   min_distance_ = value;
   // @@protoc_insertion_point(field_set:ShieldRuleProto.min_distance)
+}
+
+// required uint32 text_color = 6;
+inline bool ShieldRuleProto::has_text_color() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void ShieldRuleProto::set_has_text_color() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void ShieldRuleProto::clear_has_text_color() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline void ShieldRuleProto::clear_text_color() {
+  text_color_ = 0u;
+  clear_has_text_color();
+}
+inline ::google::protobuf::uint32 ShieldRuleProto::text_color() const {
+  // @@protoc_insertion_point(field_get:ShieldRuleProto.text_color)
+  return text_color_;
+}
+inline void ShieldRuleProto::set_text_color(::google::protobuf::uint32 value) {
+  set_has_text_color();
+  text_color_ = value;
+  // @@protoc_insertion_point(field_set:ShieldRuleProto.text_color)
+}
+
+// optional uint32 text_stroke_color = 7;
+inline bool ShieldRuleProto::has_text_stroke_color() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void ShieldRuleProto::set_has_text_stroke_color() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void ShieldRuleProto::clear_has_text_stroke_color() {
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline void ShieldRuleProto::clear_text_stroke_color() {
+  text_stroke_color_ = 0u;
+  clear_has_text_stroke_color();
+}
+inline ::google::protobuf::uint32 ShieldRuleProto::text_stroke_color() const {
+  // @@protoc_insertion_point(field_get:ShieldRuleProto.text_stroke_color)
+  return text_stroke_color_;
+}
+inline void ShieldRuleProto::set_text_stroke_color(::google::protobuf::uint32 value) {
+  set_has_text_stroke_color();
+  text_stroke_color_ = value;
+  // @@protoc_insertion_point(field_set:ShieldRuleProto.text_stroke_color)
 }
 
 // -------------------------------------------------------------------

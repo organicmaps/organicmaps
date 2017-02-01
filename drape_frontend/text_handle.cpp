@@ -7,7 +7,7 @@
 namespace df
 {
 
-TextHandle::TextHandle(FeatureID const & id, strings::UniString const & text,
+TextHandle::TextHandle(dp::OverlayID const & id, strings::UniString const & text,
                        dp::Anchor anchor, uint64_t priority, int fixedHeight,
                        ref_ptr<dp::TextureManager> textureManager,
                        bool isBillboard)
@@ -20,7 +20,7 @@ TextHandle::TextHandle(FeatureID const & id, strings::UniString const & text,
   , m_fixedHeight(fixedHeight)
 {}
 
-TextHandle::TextHandle(FeatureID const & id, strings::UniString const & text,
+TextHandle::TextHandle(dp::OverlayID const & id, strings::UniString const & text,
                        dp::Anchor anchor, uint64_t priority, int fixedHeight,
                        ref_ptr<dp::TextureManager> textureManager,
                        gpu::TTextDynamicVertexBuffer && normals,
@@ -83,7 +83,8 @@ void TextHandle::SetForceUpdateNormals(bool forceUpdate) const
 string TextHandle::GetOverlayDebugInfo()
 {
   ostringstream out;
-  out << "Text Priority(" << GetPriority() << ") " << GetFeatureID().m_index << " " << strings::ToUtf8(m_text);
+  out << "Text Priority(" << GetPriority() << ") " << GetOverlayID().m_featureId.m_index
+      << "-" << GetOverlayID().m_index << " " << strings::ToUtf8(m_text);
   return out.str();
 }
 #endif

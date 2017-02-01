@@ -27,9 +27,9 @@ void PathSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureMana
   textures->GetSymbolRegion(m_params.m_symbolName, region);
   m2::RectF const & rect = region.GetTexRect();
 
-  m2::PointU pixelSize = region.GetPixelSize();
-  float halfW = pixelSize.x / 2.0f;
-  float halfH = pixelSize.y / 2.0f;
+  m2::PointF pixelSize = region.GetPixelSize();
+  float halfW = 0.5f * pixelSize.x;
+  float halfH = 0.5f * pixelSize.y;
 
   gpu::TSolidTexVertexBuffer buffer;
 

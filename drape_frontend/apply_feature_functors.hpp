@@ -6,6 +6,7 @@
 
 #include "drape/pointers.hpp"
 
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/point_to_int64.hpp"
 
 #include "geometry/point2d.hpp"
@@ -15,7 +16,6 @@
 #include "std/unordered_map.hpp"
 
 class CaptionDefProto;
-class CircleRuleProto;
 class ShieldRuleProto;
 class SymbolRuleProto;
 
@@ -33,8 +33,7 @@ using TInsertShapeFn = function<void(drape_ptr<MapShape> && shape)>;
 class BaseApplyFeature
 {
 public:
-  BaseApplyFeature(m2::PointD const & tileCenter,
-                   TInsertShapeFn const & insertShape, FeatureID const & id,
+  BaseApplyFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape, FeatureID const & id,
                    int minVisibleScale, uint8_t rank, CaptionDescription const & captions);
 
   virtual ~BaseApplyFeature() {}
@@ -62,7 +61,8 @@ protected:
   uint8_t m_rank;
   HotelData m_hotelData;
 
-  m2::PointD m_tileCenter;
+  TileKey const m_tileKey;
+  m2::RectD const m_tileRect;
 };
 
 class ApplyPointFeature : public BaseApplyFeature
@@ -70,8 +70,7 @@ class ApplyPointFeature : public BaseApplyFeature
   using TBase = BaseApplyFeature;
 
 public:
-  ApplyPointFeature(m2::PointD const & tileCenter,
-                    TInsertShapeFn const & insertShape, FeatureID const & id,
+  ApplyPointFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape, FeatureID const & id,
                     int minVisibleScale, uint8_t rank, CaptionDescription const & captions,
                     float posZ);
 
@@ -88,9 +87,7 @@ private:
   bool m_createdByEditor;
   bool m_obsoleteInEditor;
   double m_symbolDepth;
-  double m_circleDepth;
   SymbolRuleProto const * m_symbolRule;
-  CircleRuleProto const * m_circleRule;
   m2::PointF m_centerPoint;
 };
 
@@ -99,11 +96,9 @@ class ApplyAreaFeature : public ApplyPointFeature
   using TBase = ApplyPointFeature;
 
 public:
-  ApplyAreaFeature(m2::PointD const & tileCenter,
-                   TInsertShapeFn const & insertShape, FeatureID const & id,
-                   m2::RectD const & clipRect, bool isBuilding, float minPosZ,
-                   float posZ, int minVisibleScale, uint8_t rank, bool generateOutline,
-                   CaptionDescription const & captions);
+  ApplyAreaFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape, FeatureID const & id,
+                   bool isBuilding, float minPosZ, float posZ, int minVisibleScale,
+                   uint8_t rank, bool generateOutline, CaptionDescription const & captions);
 
   using TBase::operator ();
 
@@ -125,10 +120,10 @@ private:
 
   buffer_vector<m2::PointD, kBuildingOutlineSize> m_points;
   buffer_vector<pair<TEdge, int>, kBuildingOutlineSize> m_edges;
+
   float const m_minPosZ;
   bool const m_isBuilding;
-  m2::RectD m_clipRect;
-  bool m_generateOutline;
+  bool const m_generateOutline;
 };
 
 class ApplyLineFeature : public BaseApplyFeature
@@ -136,30 +131,32 @@ class ApplyLineFeature : public BaseApplyFeature
   using TBase = BaseApplyFeature;
 
 public:
-  ApplyLineFeature(m2::PointD const & tileCenter, double currentScaleGtoP,
-                   TInsertShapeFn const & insertShape, FeatureID const & id,
-                   m2::RectD const & clipRect, int minVisibleScale, uint8_t rank,
-                   CaptionDescription const & captions, int zoomLevel, size_t pointsCount);
+  ApplyLineFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape, FeatureID const & id,
+                   double currentScaleGtoP, int minVisibleScale, uint8_t rank,
+                   CaptionDescription const & captions, size_t pointsCount);
 
   void operator() (m2::PointD const & point);
   bool HasGeometry() const;
   void ProcessRule(Stylist::TRuleWrapper const & rule);
-  void Finish();
+  void Finish(std::vector<ftypes::RoadShield> && roadShields);
 
   m2::PolylineD GetPolyline() const;
 
 private:
+  void GetRoadShieldsViewParams(ftypes::RoadShield const & shield,
+                                TextViewParams & textParams,
+                                ColoredSymbolViewParams & symbolParams,
+                                PoiSymbolViewParams & poiParams);
+
   m2::SharedSpline m_spline;
   vector<m2::SharedSpline> m_clippedSplines;
   double m_currentScaleGtoP;
   double m_sqrScale;
   m2::PointD m_lastAddedPoint;
   bool m_simplify;
-  int m_zoomLevel;
   size_t m_initialPointsCount;
   double m_shieldDepth;
   ShieldRuleProto const * m_shieldRule;
-  m2::RectD m_clipRect;
 
 #ifdef CALC_FILTERED_POINTS
   int m_readedCount;

@@ -22,6 +22,9 @@ OTHER_FILES += \
     shaders/arrow3d_vertex_shader.vsh \
     shaders/circle_shader.fsh \
     shaders/circle_shader.vsh \
+    shaders/colored_symbol_billboard_shader.vsh \
+    shaders/colored_symbol_shader.fsh \
+    shaders/colored_symbol_shader.vsh \
     shaders/compass_vertex_shader.vsh \
     shaders/dashed_fragment_shader.fsh \
     shaders/dashed_vertex_shader.vsh \

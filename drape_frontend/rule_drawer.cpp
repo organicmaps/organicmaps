@@ -69,7 +69,7 @@ void ExtractTrafficGeometry(FeatureType const & f, df::RoadClass const & roadCla
 
   int const index = zoomLevel - kFirstZoomInAverageSegments;
   ASSERT_GREATER_OR_EQUAL(index, 0, ());
-  ASSERT_LESS(index, kAverageSegmentsCount.size(), ());
+  ASSERT_LESS(index, static_cast<int>(kAverageSegmentsCount.size()), ());
   segments.reserve(kAverageSegmentsCount[index]);
 
   for (uint16_t segIndex = 0; segIndex + 1 < static_cast<uint16_t>(polyline.GetSize()); ++segIndex)
@@ -225,7 +225,7 @@ void RuleDrawer::operator()(FeatureType const & f)
   auto insertShape = [this, &minVisibleScale](drape_ptr<MapShape> && shape)
   {
     int const index = static_cast<int>(shape->GetType());
-    ASSERT_LESS(index, m_mapShapes.size(), ());
+    ASSERT_LESS(index, static_cast<int>(m_mapShapes.size()), ());
 
     shape->SetFeatureMinZoom(minVisibleScale);
     m_mapShapes[index].push_back(move(shape));
@@ -300,7 +300,7 @@ void RuleDrawer::operator()(FeatureType const & f)
       minVisibleScale = feature::GetMinDrawableScale(f);
 
     bool const generateOutline = (zoomLevel >= kOutlineMinZoomLevel);
-    ApplyAreaFeature apply(m_globalRect.Center(), insertShape, f.GetID(), m_globalRect,
+    ApplyAreaFeature apply(m_context->GetTileKey(), insertShape, f.GetID(),
                            isBuilding, areaMinHeight, areaHeight, minVisibleScale,
                            f.GetRank(), generateOutline, s.GetCaptionDescription());
     f.ForEachTriangle(apply, zoomLevel);
@@ -316,9 +316,9 @@ void RuleDrawer::operator()(FeatureType const & f)
   }
   else if (s.LineStyleExists())
   {
-    ApplyLineFeature apply(m_globalRect.Center(), m_currentScaleGtoP, insertShape, f.GetID(),
-                           m_globalRect, minVisibleScale, f.GetRank(), s.GetCaptionDescription(),
-                           zoomLevel, f.GetPointsCount());
+    ApplyLineFeature apply(m_context->GetTileKey(), insertShape, f.GetID(),
+                           m_currentScaleGtoP, minVisibleScale, f.GetRank(),
+                           s.GetCaptionDescription(), f.GetPointsCount());
     f.ForEachPoint(apply, zoomLevel);
 
     if (CheckCancelled())
@@ -326,7 +326,8 @@ void RuleDrawer::operator()(FeatureType const & f)
 
     if (apply.HasGeometry())
       s.ForEachRule(bind(&ApplyLineFeature::ProcessRule, &apply, _1));
-    apply.Finish();
+
+    apply.Finish(ftypes::GetRoadShields(f));
 
     if (m_trafficEnabled && zoomLevel >= kRoadClass0ZoomLevel)
     {
@@ -370,7 +371,7 @@ void RuleDrawer::operator()(FeatureType const & f)
     ASSERT(s.PointStyleExists(), ());
 
     minVisibleScale = feature::GetMinDrawableScale(f);
-    ApplyPointFeature apply(m_globalRect.Center(), insertShape, f.GetID(), minVisibleScale, f.GetRank(),
+    ApplyPointFeature apply(m_context->GetTileKey(), insertShape, f.GetID(), minVisibleScale, f.GetRank(),
                             s.GetCaptionDescription(), 0.0f /* posZ */);
     apply.SetHotelData(ExtractHotelData(f));
     f.ForEachPoint([&apply](m2::PointD const & pt) { apply(pt, false /* hasArea */); }, zoomLevel);

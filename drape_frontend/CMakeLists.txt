@@ -57,10 +57,10 @@ set(
   batch_merge_helper.cpp
   batch_merge_helper.hpp
   batchers_pool.hpp
-  circle_shape.cpp
-  circle_shape.hpp
   color_constants.cpp
   color_constants.hpp
+  colored_symbol_shape.cpp
+  colored_symbol_shape.hpp
   drape_api.cpp
   drape_api.hpp
   drape_api_builder.cpp

@@ -16,8 +16,9 @@ class StraightTextLayout;
 class TextShape : public MapShape
 {
 public:
-  TextShape(m2::PointF const & basePoint, TextViewParams const & params, bool hasPOI,
-            size_t textIndex, bool affectedByZoomPriority,
+  TextShape(m2::PointD const & basePoint, TextViewParams const & params,
+            TileKey const & tileKey, bool hasPOI,
+            uint32_t textIndex, bool affectedByZoomPriority,
             int displacementMode = dp::displacement::kAllModes,
             uint16_t specialModePriority = 0xFFFF);
 
@@ -41,11 +42,12 @@ private:
 
   uint64_t GetOverlayPriority() const;
 
-  m2::PointF m_basePoint;
+  m2::PointD m_basePoint;
   TextViewParams m_params;
+  m2::PointI m_tileCoords;
   bool m_hasPOI;
   bool m_affectedByZoomPriority;
-  size_t m_textIndex;
+  uint32_t m_textIndex;
 
   bool m_disableDisplacing = false;
   int m_displacementMode;

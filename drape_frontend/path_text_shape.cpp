@@ -29,14 +29,14 @@ namespace
 class PathTextHandle : public df::TextHandle
 {
 public:
-  PathTextHandle(FeatureID const & id, m2::SharedSpline const & spl,
+  PathTextHandle(dp::OverlayID const & id, m2::SharedSpline const & spl,
                  df::SharedTextLayout const & layout,
-                 float mercatorOffset, float depth,
-                 uint32_t textIndex, uint64_t priority,
-                 uint64_t priorityFollowingMode, int fixedHeight,
+                 float mercatorOffset, float depth, uint32_t textIndex,
+                 uint64_t priority, uint64_t priorityFollowingMode, int fixedHeight,
                  ref_ptr<dp::TextureManager> textureManager,
                  bool isBillboard)
-    : TextHandle(id, layout->GetText(), dp::Center, priority, fixedHeight, textureManager, isBillboard)
+    : TextHandle(id, layout->GetText(), dp::Center, priority, fixedHeight,
+                 textureManager, isBillboard)
     , m_spline(spl)
     , m_layout(layout)
     , m_textIndex(textIndex)
@@ -220,10 +220,12 @@ private:
 namespace df
 {
 
-PathTextShape::PathTextShape(m2::SharedSpline const & spline,
-                             PathTextViewParams const & params)
+PathTextShape::PathTextShape(m2::SharedSpline const & spline, PathTextViewParams const & params,
+                             TileKey const & tileKey, uint32_t baseTextIndex)
   : m_spline(spline)
   , m_params(params)
+  , m_tileCoords(tileKey.GetTileCoords())
+  , m_baseTextIndex(baseTextIndex)
 {}
 
 uint64_t PathTextShape::GetOverlayPriority(uint32_t textIndex, bool followingMode) const
@@ -272,8 +274,9 @@ void PathTextShape::DrawPathTextPlain(ref_ptr<dp::TextureManager> textures,
     provider.InitStream(0, gpu::TextStaticVertex::GetBindingInfo(), make_ref(staticBuffer.data()));
     provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(), make_ref(dynBuffer.data()));
 
-    drape_ptr<dp::OverlayHandle> handle = make_unique_dp<PathTextHandle>(m_params.m_featureID, m_spline, layoutPtr, offset,
-                                                                         m_params.m_depth, textIndex,
+    dp::OverlayID const overlayId = dp::OverlayID(m_params.m_featureID, m_tileCoords, m_baseTextIndex + textIndex);
+    drape_ptr<dp::OverlayHandle> handle = make_unique_dp<PathTextHandle>(overlayId, m_spline,
+                                                                         layoutPtr, offset, m_params.m_depth, textIndex,
                                                                          GetOverlayPriority(textIndex, false /* followingMode */),
                                                                          GetOverlayPriority(textIndex, true /* followingMode */),
                                                                          layoutPtr->GetFixedHeight(),
@@ -314,7 +317,8 @@ void PathTextShape::DrawPathTextOutlined(ref_ptr<dp::TextureManager> textures,
     provider.InitStream(0, gpu::TextOutlinedStaticVertex::GetBindingInfo(), make_ref(staticBuffer.data()));
     provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(), make_ref(dynBuffer.data()));
 
-    drape_ptr<dp::OverlayHandle> handle = make_unique_dp<PathTextHandle>(m_params.m_featureID, m_spline, layoutPtr, offset,
+    dp::OverlayID const overlayId = dp::OverlayID(m_params.m_featureID, m_tileCoords, m_baseTextIndex + textIndex);
+    drape_ptr<dp::OverlayHandle> handle = make_unique_dp<PathTextHandle>(overlayId, m_spline, layoutPtr, offset,
                                                                          m_params.m_depth, textIndex,
                                                                          GetOverlayPriority(textIndex, false /* followingMode */),
                                                                          GetOverlayPriority(textIndex, true /* followingMode */),

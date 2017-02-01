@@ -3367,6 +3367,8 @@ const int ShieldRuleProto::kColorFieldNumber;
 const int ShieldRuleProto::kStrokeColorFieldNumber;
 const int ShieldRuleProto::kPriorityFieldNumber;
 const int ShieldRuleProto::kMinDistanceFieldNumber;
+const int ShieldRuleProto::kTextColorFieldNumber;
+const int ShieldRuleProto::kTextStrokeColorFieldNumber;
 #endif  // !_MSC_VER
 
 ShieldRuleProto::ShieldRuleProto()
@@ -3392,6 +3394,8 @@ void ShieldRuleProto::SharedCtor() {
   stroke_color_ = 0u;
   priority_ = 0;
   min_distance_ = 0;
+  text_color_ = 0u;
+  text_stroke_color_ = 0u;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -3440,8 +3444,8 @@ void ShieldRuleProto::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  if (_has_bits_[0 / 32] & 31) {
-    ZR_(height_, min_distance_);
+  if (_has_bits_[0 / 32] & 127) {
+    ZR_(height_, text_stroke_color_);
   }
 
 #undef OFFSET_OF_FIELD_
@@ -3535,6 +3539,36 @@ bool ShieldRuleProto::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(48)) goto parse_text_color;
+        break;
+      }
+
+      // required uint32 text_color = 6;
+      case 6: {
+        if (tag == 48) {
+         parse_text_color:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &text_color_)));
+          set_has_text_color();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(56)) goto parse_text_stroke_color;
+        break;
+      }
+
+      // optional uint32 text_stroke_color = 7;
+      case 7: {
+        if (tag == 56) {
+         parse_text_stroke_color:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &text_stroke_color_)));
+          set_has_text_stroke_color();
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -3589,6 +3623,16 @@ void ShieldRuleProto::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(5, this->min_distance(), output);
   }
 
+  // required uint32 text_color = 6;
+  if (has_text_color()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(6, this->text_color(), output);
+  }
+
+  // optional uint32 text_stroke_color = 7;
+  if (has_text_stroke_color()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(7, this->text_stroke_color(), output);
+  }
+
   output->WriteRaw(unknown_fields().data(),
                    unknown_fields().size());
   // @@protoc_insertion_point(serialize_end:ShieldRuleProto)
@@ -3633,6 +3677,20 @@ int ShieldRuleProto::ByteSize() const {
           this->min_distance());
     }
 
+    // required uint32 text_color = 6;
+    if (has_text_color()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->text_color());
+    }
+
+    // optional uint32 text_stroke_color = 7;
+    if (has_text_stroke_color()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->text_stroke_color());
+    }
+
   }
   total_size += unknown_fields().size();
 
@@ -3665,6 +3723,12 @@ void ShieldRuleProto::MergeFrom(const ShieldRuleProto& from) {
     if (from.has_min_distance()) {
       set_min_distance(from.min_distance());
     }
+    if (from.has_text_color()) {
+      set_text_color(from.text_color());
+    }
+    if (from.has_text_stroke_color()) {
+      set_text_stroke_color(from.text_stroke_color());
+    }
   }
   mutable_unknown_fields()->append(from.unknown_fields());
 }
@@ -3676,7 +3740,7 @@ void ShieldRuleProto::CopyFrom(const ShieldRuleProto& from) {
 }
 
 bool ShieldRuleProto::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000000b) != 0x0000000b) return false;
+  if ((_has_bits_[0] & 0x0000002b) != 0x0000002b) return false;
 
   return true;
 }
@@ -3688,6 +3752,8 @@ void ShieldRuleProto::Swap(ShieldRuleProto* other) {
     std::swap(stroke_color_, other->stroke_color_);
     std::swap(priority_, other->priority_);
     std::swap(min_distance_, other->min_distance_);
+    std::swap(text_color_, other->text_color_);
+    std::swap(text_stroke_color_, other->text_stroke_color_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.swap(other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

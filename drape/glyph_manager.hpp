@@ -12,6 +12,8 @@
 namespace dp
 {
 
+uint32_t constexpr kSdfBorder = 4;
+
 struct UnicodeBlock;
 
 class GlyphManager

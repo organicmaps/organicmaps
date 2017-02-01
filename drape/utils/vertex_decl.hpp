@@ -158,4 +158,20 @@ struct RouteVertex : BaseVertex
   static dp::BindingInfo const & GetBindingInfo();
 };
 
+struct ColoredSymbolVertex : BaseVertex
+{
+  using TNormal = glsl::vec4;
+  using TTexCoord = glsl::vec4;
+
+  ColoredSymbolVertex();
+  ColoredSymbolVertex(TPosition const & position, TNormal const & normal,
+                      TTexCoord const & colorTexCoord);
+
+  TPosition m_position;
+  TNormal m_normal;
+  TTexCoord m_colorTexCoord;
+
+  static dp::BindingInfo const & GetBindingInfo();
+};
+
 } // namespace gpu

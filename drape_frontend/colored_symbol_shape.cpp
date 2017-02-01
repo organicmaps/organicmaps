@@ -1,0 +1,226 @@
+#include "drape_frontend/colored_symbol_shape.hpp"
+#include "drape_frontend/visual_params.hpp"
+
+#include "drape/attribute_provider.hpp"
+#include "drape/batcher.hpp"
+#include "drape/glsl_func.hpp"
+#include "drape/glsl_types.hpp"
+#include "drape/glstate.hpp"
+#include "drape/overlay_handle.hpp"
+#include "drape/shader_def.hpp"
+#include "drape/texture_manager.hpp"
+#include "drape/utils/vertex_decl.hpp"
+
+namespace df
+{
+
+ColoredSymbolShape::ColoredSymbolShape(m2::PointD const & mercatorPt, ColoredSymbolViewParams const & params,
+                                       TileKey const & tileKey, uint32_t textIndex, bool needOverlay,
+                                       int displacementMode, uint16_t specialModePriority)
+  : m_point(mercatorPt)
+  , m_params(params)
+  , m_tileCoords(tileKey.GetTileCoords())
+  , m_textIndex(textIndex)
+  , m_needOverlay(needOverlay)
+  , m_displacementMode(displacementMode)
+  , m_specialModePriority(specialModePriority)
+{}
+
+void ColoredSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
+{
+  dp::TextureManager::ColorRegion colorRegion;
+  textures->GetColorRegion(m_params.m_color, colorRegion);
+  m2::PointF const & colorUv = colorRegion.GetTexRect().Center();
+
+  dp::TextureManager::ColorRegion outlineColorRegion;
+  textures->GetColorRegion(m_params.m_outlineColor, outlineColorRegion);
+  m2::PointF const & outlineUv = outlineColorRegion.GetTexRect().Center();
+
+  using V = gpu::ColoredSymbolVertex;
+  V::TTexCoord const uv(colorUv.x, colorUv.y, 0.0f, 0.0f);
+  V::TTexCoord const uvOutline(outlineUv.x, outlineUv.y, 0.0f, 0.0f);
+
+  glsl::vec2 const pt = glsl::ToVec2(ConvertToLocal(m_point, m_params.m_tileCenter, kShapeCoordScalar));
+  glsl::vec3 const position = glsl::vec3(pt, m_params.m_depth);
+
+  buffer_vector<V, 48> buffer;
+
+  m2::PointU pixelSize;
+  if (m_params.m_shape == ColoredSymbolViewParams::Shape::Circle)
+  {
+    pixelSize = m2::PointU(2 * static_cast<uint32_t>(m_params.m_radiusInPixels),
+                           2 * static_cast<uint32_t>(m_params.m_radiusInPixels));
+    // Here we use an equilateral triangle to render circle (incircle of a triangle).
+    static float const kSqrt3 = sqrt(3.0f);
+    float r = m_params.m_radiusInPixels - m_params.m_outlineWidth;
+
+    buffer.push_back(V(position, V::TNormal(-r * kSqrt3, -r, r, 1.0f), uv));
+    buffer.push_back(V(position, V::TNormal(r * kSqrt3, -r, r, 1.0f), uv));
+    buffer.push_back(V(position, V::TNormal(0.0f, 2.0f * r, r, 1.0f), uv));
+
+    if (m_params.m_outlineWidth >= 1e-5)
+    {
+      r = m_params.m_radiusInPixels;
+      buffer.push_back(V(position, V::TNormal(-r * kSqrt3, -r, r, 1.0f), uvOutline));
+      buffer.push_back(V(position, V::TNormal(r * kSqrt3, -r, r, 1.0f), uvOutline));
+      buffer.push_back(V(position, V::TNormal(0.0f, 2.0f * r, r, 1.0f), uvOutline));
+    }
+  }
+  else if (m_params.m_shape == ColoredSymbolViewParams::Shape::Rectangle)
+  {
+    pixelSize = m2::PointU(static_cast<uint32_t>(m_params.m_sizeInPixels.x),
+                           static_cast<uint32_t>(m_params.m_sizeInPixels.y));
+    float const halfWidth = 0.5f * m_params.m_sizeInPixels.x;
+    float const halfHeight = 0.5f * m_params.m_sizeInPixels.y;
+    float const v = halfWidth * halfWidth + halfHeight * halfHeight;
+    float const halfWidthInside = halfWidth - m_params.m_outlineWidth;
+    float const halfHeightInside = halfHeight - m_params.m_outlineWidth;
+
+    buffer.push_back(V(position, V::TNormal(-halfWidthInside, halfHeightInside, v, 0.0f), uv));
+    buffer.push_back(V(position, V::TNormal(halfWidthInside, -halfHeightInside, v, 0.0f), uv));
+    buffer.push_back(V(position, V::TNormal(halfWidthInside, halfHeightInside, v, 0.0f), uv));
+    buffer.push_back(V(position, V::TNormal(-halfWidthInside, halfHeightInside, v, 0.0f), uv));
+    buffer.push_back(V(position, V::TNormal(-halfWidthInside, -halfHeightInside, v, 0.0f), uv));
+    buffer.push_back(V(position, V::TNormal(halfWidthInside, -halfHeightInside, v, 0.0f), uv));
+
+    if (m_params.m_outlineWidth >= 1e-5)
+    {
+      buffer.push_back(V(position, V::TNormal(-halfWidth, halfHeight, v, 0.0f), uvOutline));
+      buffer.push_back(V(position, V::TNormal(halfWidth, -halfHeight, v, 0.0f), uvOutline));
+      buffer.push_back(V(position, V::TNormal(halfWidth, halfHeight, v, 0.0f), uvOutline));
+      buffer.push_back(V(position, V::TNormal(-halfWidth, halfHeight, v, 0.0f), uvOutline));
+      buffer.push_back(V(position, V::TNormal(-halfWidth, -halfHeight, v, 0.0f), uvOutline));
+      buffer.push_back(V(position, V::TNormal(halfWidth, -halfHeight, v, 0.0f), uvOutline));
+    }
+  }
+  else if (m_params.m_shape == ColoredSymbolViewParams::Shape::RoundedRectangle)
+  {
+    pixelSize = m2::PointU(static_cast<uint32_t>(m_params.m_sizeInPixels.x),
+                           static_cast<uint32_t>(m_params.m_sizeInPixels.y));
+    float const halfWidth = 0.5f * m_params.m_sizeInPixels.x;
+    float const halfHeight = 0.5f * m_params.m_sizeInPixels.y;
+    float const halfWidthBody = halfWidth - m_params.m_radiusInPixels;
+    float const halfHeightBody = halfHeight - m_params.m_radiusInPixels;
+    float const v = halfWidth * halfWidth + halfHeight * halfHeight;
+    float const halfWidthInside = halfWidth - m_params.m_outlineWidth;
+    float const halfHeightInside = halfHeight - m_params.m_outlineWidth;
+
+    if (halfWidthBody > 0.0f && halfHeightInside > 0.0f)
+    {
+      buffer.push_back(V(position, V::TNormal(-halfWidthBody, halfHeightInside, v, 0.0f), uv));
+      buffer.push_back(V(position, V::TNormal(halfWidthBody, -halfHeightInside, v, 0.0f), uv));
+      buffer.push_back(V(position, V::TNormal(halfWidthBody, halfHeightInside, v, 0.0f), uv));
+      buffer.push_back(V(position, V::TNormal(-halfWidthBody, halfHeightInside, v, 0.0f), uv));
+      buffer.push_back(V(position, V::TNormal(-halfWidthBody, -halfHeightInside, v, 0.0f), uv));
+      buffer.push_back(V(position, V::TNormal(halfWidthBody, -halfHeightInside, v, 0.0f), uv));
+    }
+
+    if (halfHeightBody > 0.0f && halfHeightBody > 0.0f)
+    {
+      buffer.push_back(V(position, V::TNormal(-halfWidthInside, halfHeightBody, v, 0.0f), uv));
+      buffer.push_back(V(position, V::TNormal(halfWidthInside, -halfHeightBody, v, 0.0f), uv));
+      buffer.push_back(V(position, V::TNormal(halfWidthInside, halfHeightBody, v, 0.0f), uv));
+      buffer.push_back(V(position, V::TNormal(-halfWidthInside, halfHeightBody, v, 0.0f), uv));
+      buffer.push_back(V(position, V::TNormal(-halfWidthInside, -halfHeightBody, v, 0.0f), uv));
+      buffer.push_back(V(position, V::TNormal(halfWidthInside, -halfHeightBody, v, 0.0f), uv));
+    }
+
+    // Here we use an right triangle to render a quarter of circle.
+    static float const kSqrt2 = sqrt(2.0f);
+    float r = m_params.m_radiusInPixels - m_params.m_outlineWidth;
+    V::TTexCoord uv2(uv.x, uv.y, -halfWidthBody, halfHeightBody);
+    buffer.push_back(V(position, V::TNormal(0.0, 0.0, r, 0.0f), uv2));
+    buffer.push_back(V(position, V::TNormal(0.0, r * kSqrt2, r, 0.0f), uv2));
+    buffer.push_back(V(position, V::TNormal(-r * kSqrt2, 0.0, r, 0.0f), uv2));
+
+    uv2 = V::TTexCoord(uv.x, uv.y, halfWidthBody, halfHeightBody);
+    buffer.push_back(V(position, V::TNormal(0.0, 0.0, r, 0.0f), uv2));
+    buffer.push_back(V(position, V::TNormal(r * kSqrt2, 0.0, r, 0.0f), uv2));
+    buffer.push_back(V(position, V::TNormal(0.0, r * kSqrt2, r, 0.0f), uv2));
+
+    uv2 = V::TTexCoord(uv.x, uv.y, halfWidthBody, -halfHeightBody);
+    buffer.push_back(V(position, V::TNormal(0.0, 0.0, r, 0.0f), uv2));
+    buffer.push_back(V(position, V::TNormal(0.0, -r * kSqrt2, r, 0.0f), uv2));
+    buffer.push_back(V(position, V::TNormal(r * kSqrt2, 0.0, r, 0.0f), uv2));
+
+    uv2 = V::TTexCoord(uv.x, uv.y, -halfWidthBody, -halfHeightBody);
+    buffer.push_back(V(position, V::TNormal(0.0, 0.0, r, 0.0f), uv2));
+    buffer.push_back(V(position, V::TNormal(-r * kSqrt2, 0.0, r, 0.0f), uv2));
+    buffer.push_back(V(position, V::TNormal(0.0, -r * kSqrt2, r, 0.0f), uv2));
+
+    if (m_params.m_outlineWidth >= 1e-5)
+    {
+      if (halfWidthBody > 0.0f && halfHeight > 0.0f)
+      {
+        buffer.push_back(V(position, V::TNormal(-halfWidthBody, halfHeight, v, 0.0f), uvOutline));
+        buffer.push_back(V(position, V::TNormal(halfWidthBody, -halfHeight, v, 0.0f), uvOutline));
+        buffer.push_back(V(position, V::TNormal(halfWidthBody, halfHeight, v, 0.0f), uvOutline));
+        buffer.push_back(V(position, V::TNormal(-halfWidthBody, halfHeight, v, 0.0f), uvOutline));
+        buffer.push_back(V(position, V::TNormal(-halfWidthBody, -halfHeight, v, 0.0f), uvOutline));
+        buffer.push_back(V(position, V::TNormal(halfWidthBody, -halfHeight, v, 0.0f), uvOutline));
+      }
+
+      if (halfWidth > 0.0f && halfHeightBody > 0.0f)
+      {
+        buffer.push_back(V(position, V::TNormal(-halfWidth, halfHeightBody, v, 0.0f), uvOutline));
+        buffer.push_back(V(position, V::TNormal(halfWidth, -halfHeightBody, v, 0.0f), uvOutline));
+        buffer.push_back(V(position, V::TNormal(halfWidth, halfHeightBody, v, 0.0f), uvOutline));
+        buffer.push_back(V(position, V::TNormal(-halfWidth, halfHeightBody, v, 0.0f), uvOutline));
+        buffer.push_back(V(position, V::TNormal(-halfWidth, -halfHeightBody, v, 0.0f), uvOutline));
+        buffer.push_back(V(position, V::TNormal(halfWidth, -halfHeightBody, v, 0.0f), uvOutline));
+      }
+
+      r = m_params.m_radiusInPixels;
+      V::TTexCoord const uvOutline2(outlineUv.x, outlineUv.y, -halfWidthBody, halfHeightBody);
+      buffer.push_back(V(position, V::TNormal(0.0, 0.0, r, 0.0f), uvOutline2));
+      buffer.push_back(V(position, V::TNormal(0.0, r * kSqrt2, r, 0.0f), uvOutline2));
+      buffer.push_back(V(position, V::TNormal(-r * kSqrt2, 0.0, r, 0.0f), uvOutline2));
+
+      uv2 = V::TTexCoord(outlineUv.x, outlineUv.y, halfWidthBody, halfHeightBody);
+      buffer.push_back(V(position, V::TNormal(0.0, 0.0, r, 0.0f), uv2));
+      buffer.push_back(V(position, V::TNormal(r * kSqrt2, 0.0, r, 0.0f), uv2));
+      buffer.push_back(V(position, V::TNormal(0.0, r * kSqrt2, r, 0.0f), uv2));
+
+      uv2 = V::TTexCoord(outlineUv.x, outlineUv.y, halfWidthBody, -halfHeightBody);
+      buffer.push_back(V(position, V::TNormal(0.0, 0.0, r, 0.0f), uv2));
+      buffer.push_back(V(position, V::TNormal(0.0, -r * kSqrt2, r, 0.0f), uv2));
+      buffer.push_back(V(position, V::TNormal(r * kSqrt2, 0.0, r, 0.0f), uv2));
+
+      uv2 = V::TTexCoord(outlineUv.x, outlineUv.y, -halfWidthBody, -halfHeightBody);
+      buffer.push_back(V(position, V::TNormal(0.0, 0.0, r, 0.0f), uv2));
+      buffer.push_back(V(position, V::TNormal(-r * kSqrt2, 0.0, r, 0.0f), uv2));
+      buffer.push_back(V(position, V::TNormal(0.0, -r * kSqrt2, r, 0.0f), uv2));
+    }
+  }
+
+  if (buffer.empty())
+    return;
+
+  auto const overlayId = dp::OverlayID(m_params.m_featureID, m_tileCoords, m_textIndex);
+  std::string const debugName = strings::to_string(m_params.m_featureID.m_index) + "-" +
+                                strings::to_string(m_textIndex);
+
+  drape_ptr<dp::OverlayHandle> handle = m_needOverlay ?
+        make_unique_dp<dp::SquareHandle>(overlayId, dp::Center, m_point, pixelSize, GetOverlayPriority(),
+                                         true /* isBound */, debugName, true /* isBillboard */) : nullptr;
+
+  dp::GLState state(gpu::COLORED_SYMBOL_PROGRAM, dp::GLState::OverlayLayer);
+  state.SetProgram3dIndex(gpu::COLORED_SYMBOL_BILLBOARD_PROGRAM);
+  state.SetColorTexture(colorRegion.GetTexture());
+  state.SetDepthFunction(gl_const::GLLess);
+
+  dp::AttributeProvider provider(1, static_cast<uint32_t>(buffer.size()));
+  provider.InitStream(0, gpu::ColoredSymbolVertex::GetBindingInfo(), make_ref(buffer.data()));
+  batcher->InsertTriangleList(state, make_ref(&provider), move(handle));
+}
+
+uint64_t ColoredSymbolShape::GetOverlayPriority() const
+{
+  // Special displacement mode.
+  if ((m_displacementMode & dp::displacement::kDefaultMode) == 0)
+    return dp::CalculateSpecialModePriority(m_specialModePriority);
+
+  return dp::CalculateOverlayPriority(m_params.m_minVisibleScale, m_params.m_rank, m_params.m_depth);
+}
+
+} //  namespace df

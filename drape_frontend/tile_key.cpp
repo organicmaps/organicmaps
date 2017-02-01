@@ -82,6 +82,11 @@ m2::RectD TileKey::GetGlobalRect(bool clipByDataMaxZoom) const
   return m2::RectD (startX, startY, startX + rectSize, startY + rectSize);
 }
 
+m2::PointI TileKey::GetTileCoords() const
+{
+  return m2::PointI(m_x, m_y);
+}
+
 math::Matrix<float, 4, 4> TileKey::GetTileBasedModelView(ScreenBase const & screen) const
 {
   return screen.GetModelView(GetGlobalRect().Center(), kShapeCoordScalar);

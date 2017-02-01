@@ -979,7 +979,7 @@ private:
 class RequestSymbolsSizeMessage : public Message
 {
 public:
-  using TRequestSymbolsSizeCallback = function<void(vector<m2::PointU> const &)>;
+  using TRequestSymbolsSizeCallback = function<void(vector<m2::PointF> const &)>;
 
   RequestSymbolsSizeMessage(vector<string> const & symbols,
                             TRequestSymbolsSizeCallback const & callback)
@@ -991,7 +991,7 @@ public:
 
   vector<string> const & GetSymbols() const { return m_symbols; }
 
-  void InvokeCallback(vector<m2::PointU> const & sizes)
+  void InvokeCallback(vector<m2::PointF> const & sizes)
   {
     if (m_callback != nullptr)
       m_callback(sizes);

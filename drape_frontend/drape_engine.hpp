@@ -166,7 +166,7 @@ public:
 
   void SetDisplacementMode(int mode);
 
-  using TRequestSymbolsSizeCallback = function<void(vector<m2::PointU> const &)>;
+  using TRequestSymbolsSizeCallback = function<void(vector<m2::PointF> const &)>;
 
   void RequestSymbolsSize(vector<string> const & symbols,
                           TRequestSymbolsSizeCallback const & callback);

@@ -19,7 +19,6 @@ class LineDefProto;
 class AreaRuleProto;
 class SymbolRuleProto;
 class CaptionDefProto;
-class CircleRuleProto;
 class ShieldRuleProto;
 class ContainerProto;
 class FeatureType;
@@ -56,7 +55,6 @@ namespace drule
     virtual SymbolRuleProto const * GetSymbol() const;
     virtual CaptionDefProto const * GetCaption(int) const;
     virtual text_type_t GetCaptionTextType(int) const;
-    virtual CircleRuleProto const * GetCircle() const;
     virtual ShieldRuleProto const * GetShield() const;
 
     // Test feature by runtime feature style selector

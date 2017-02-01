@@ -31,7 +31,7 @@ void Batch<SV>(ref_ptr<dp::Batcher> batcher, drape_ptr<dp::OverlayHandle> && han
                dp::TextureManager::SymbolRegion const & symbolRegion,
                dp::TextureManager::ColorRegion const & colorRegion)
 {
-  m2::PointU const pixelSize = symbolRegion.GetPixelSize();
+  m2::PointF const pixelSize = symbolRegion.GetPixelSize();
   m2::PointF const halfSize(pixelSize.x * 0.5f, pixelSize.y * 0.5f);
   m2::RectF const & texRect = symbolRegion.GetTexRect();
 
@@ -63,7 +63,7 @@ void Batch<MV>(ref_ptr<dp::Batcher> batcher, drape_ptr<dp::OverlayHandle> && han
                dp::TextureManager::SymbolRegion const & symbolRegion,
                dp::TextureManager::ColorRegion const & colorRegion)
 {
-  m2::PointU const pixelSize = symbolRegion.GetPixelSize();
+  m2::PointF const pixelSize = symbolRegion.GetPixelSize();
   m2::PointF const halfSize(pixelSize.x * 0.5f, pixelSize.y * 0.5f);
   m2::RectF const & texRect = symbolRegion.GetTexRect();
   glsl::vec2 const maskColorCoords = glsl::ToVec2(colorRegion.GetTexRect().Center());
@@ -95,12 +95,15 @@ void Batch<MV>(ref_ptr<dp::Batcher> batcher, drape_ptr<dp::OverlayHandle> && han
 
 namespace df
 {
-PoiSymbolShape::PoiSymbolShape(m2::PointF const & mercatorPt, PoiSymbolViewParams const & params,
+PoiSymbolShape::PoiSymbolShape(m2::PointD const & mercatorPt, PoiSymbolViewParams const & params,
+                               TileKey const & tileKey, uint32_t textIndex,
                                int displacementMode, uint16_t specialModePriority)
   : m_pt(mercatorPt)
   , m_params(params)
   , m_displacementMode(displacementMode)
   , m_specialModePriority(specialModePriority)
+  , m_tileCoords(tileKey.GetTileCoords())
+  , m_textIndex(textIndex)
 {}
 
 void PoiSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
@@ -110,9 +113,10 @@ void PoiSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManag
 
   glsl::vec2 const pt = glsl::ToVec2(ConvertToLocal(m_pt, m_params.m_tileCenter, kShapeCoordScalar));
   glsl::vec4 const position = glsl::vec4(pt, m_params.m_depth, -m_params.m_posZ);
-  m2::PointU const pixelSize = region.GetPixelSize();
+  m2::PointF const pixelSize = region.GetPixelSize();
 
-  drape_ptr<dp::OverlayHandle> handle = make_unique_dp<dp::SquareHandle>(m_params.m_id,
+  dp::OverlayID overlayId = dp::OverlayID(m_params.m_id, m_tileCoords, m_textIndex);
+  drape_ptr<dp::OverlayHandle> handle = make_unique_dp<dp::SquareHandle>(overlayId,
                                                                          dp::Center,
                                                                          m_pt, pixelSize,
                                                                          GetOverlayPriority(),

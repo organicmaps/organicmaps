@@ -167,5 +167,7 @@
 /* 6.4 Road labels */
 
 @road_label_halo: #000000;
-@shield: #b2b2b2;
-@shield_halo: #000000;
+@shield_text: #b2b2b2;
+@shield_text_halo: #000000;
+@shield: #000000;
+@shield_outline: #b2b2b2;

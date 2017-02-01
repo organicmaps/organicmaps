@@ -1,5 +1,5 @@
 #include "drape_frontend/drape_api_builder.hpp"
-#include "drape_frontend/circle_shape.hpp"
+#include "drape_frontend/colored_symbol_shape.hpp"
 #include "drape_frontend/gui/gui_text.hpp"
 #include "drape_frontend/line_shape.hpp"
 #include "drape_frontend/shape_view_params.hpp"
@@ -74,14 +74,18 @@ void DrapeApiBuilder::BuildLines(DrapeApi::TLines const & lines, ref_ptr<dp::Tex
 
       if (data.m_showPoints)
       {
-        CircleViewParams cvp(fakeFeature);
+        ColoredSymbolViewParams cvp;
         cvp.m_tileCenter = property->m_center;
         cvp.m_depth = 0.0f;
         cvp.m_minVisibleScale = 1;
+        cvp.m_shape = ColoredSymbolViewParams::Shape::Circle;
         cvp.m_color = data.m_color;
-        cvp.m_radius = data.m_width * 2.0f;
+        cvp.m_radiusInPixels = data.m_width * 2.0f;
         for (m2::PointD const & pt : data.m_points)
-          CircleShape(m2::PointF(pt), cvp, false /* need overlay */).Draw(make_ref(&batcher), textures);
+        {
+          ColoredSymbolShape(m2::PointF(pt), cvp, TileKey(), 0 /* textIndex */,
+                             false /* need overlay */).Draw(make_ref(&batcher), textures);
+        }
       }
 
       if (data.m_markPoints || data.m_showId)

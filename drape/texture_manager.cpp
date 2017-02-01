@@ -143,17 +143,17 @@ void TextureManager::BaseRegion::SetTexture(ref_ptr<Texture> texture)
   m_texture = texture;
 }
 
-m2::PointU TextureManager::BaseRegion::GetPixelSize() const
+m2::PointF TextureManager::BaseRegion::GetPixelSize() const
 {
   ASSERT(IsValid(), ());
   m2::RectF const & texRect = m_info->GetTexRect();
-  return  m2::PointU(ceil(texRect.SizeX() * m_texture->GetWidth()),
-                     ceil(texRect.SizeY() * m_texture->GetHeight()));
+  return m2::PointF(texRect.SizeX() * m_texture->GetWidth(),
+                    texRect.SizeY() * m_texture->GetHeight());
 }
 
-uint32_t TextureManager::BaseRegion::GetPixelHeight() const
+float TextureManager::BaseRegion::GetPixelHeight() const
 {
-  return ceil(m_info->GetTexRect().SizeY() * m_texture->GetHeight());
+  return m_info->GetTexRect().SizeY() * m_texture->GetHeight();
 }
 
 m2::RectF const & TextureManager::BaseRegion::GetTexRect() const

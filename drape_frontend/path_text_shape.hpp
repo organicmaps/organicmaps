@@ -13,7 +13,8 @@ class PathTextLayout;
 class PathTextShape : public MapShape
 {
 public:
-  PathTextShape(m2::SharedSpline const & spline, PathTextViewParams const & params);
+  PathTextShape(m2::SharedSpline const & spline, PathTextViewParams const & params,
+                TileKey const & tileKey, uint32_t baseTextIndex);
   void Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const override;
   MapShapeType GetType() const override { return MapShapeType::OverlayType; }
 
@@ -31,6 +32,8 @@ private:
 
   m2::SharedSpline m_spline;
   PathTextViewParams m_params;
+  m2::PointI const m_tileCoords;
+  uint32_t const m_baseTextIndex;
 };
 
 } // namespace df

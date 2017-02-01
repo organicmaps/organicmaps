@@ -1725,7 +1725,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   if (m_connectToGpsTrack)
     GpsTracker::Instance().Connect(bind(&Framework::OnUpdateGpsTrackPointsCallback, this, _1, _2));
 
-  m_drapeEngine->RequestSymbolsSize(kSearchMarks, [this](vector<m2::PointU> const & sizes)
+  m_drapeEngine->RequestSymbolsSize(kSearchMarks, [this](vector<m2::PointF> const & sizes)
   {
     GetPlatform().RunOnGuiThread([this, sizes](){ m_searchMarksSizes = sizes; });
   });
@@ -2829,7 +2829,7 @@ m2::PointD Framework::GetSearchMarkSize(SearchMarkType searchMarkType)
     return m2::PointD();
 
   ASSERT_LESS(static_cast<size_t>(searchMarkType), m_searchMarksSizes.size(), ());
-  m2::PointU const pixelSize = m_searchMarksSizes[searchMarkType];
+  m2::PointF const pixelSize = m_searchMarksSizes[searchMarkType];
 
   double const pixelToMercator = m_currentModelView.GetScale();
   return m2::PointD(pixelToMercator * pixelSize.x, pixelToMercator * pixelSize.y);
