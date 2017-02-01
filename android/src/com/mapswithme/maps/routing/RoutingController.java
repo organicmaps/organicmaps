@@ -319,8 +319,8 @@ public class RoutingController
         .setTitle(R.string.dialog_routing_disclaimer_title)
         .setMessage(builder.toString())
         .setCancelable(false)
-        .setNegativeButton(R.string.cancel, null)
-        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener()
+        .setNegativeButton(R.string.decline, null)
+        .setPositiveButton(R.string.accept, new DialogInterface.OnClickListener()
         {
           @Override
           public void onClick(DialogInterface dlg, int which)
