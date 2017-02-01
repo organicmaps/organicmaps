@@ -1,15 +1,15 @@
 #include "drape_frontend/colored_symbol_shape.hpp"
 #include "drape_frontend/visual_params.hpp"
 
-#include "drape/utils/vertex_decl.hpp"
-#include "drape/glsl_types.hpp"
+#include "drape/attribute_provider.hpp"
+#include "drape/batcher.hpp"
 #include "drape/glsl_func.hpp"
+#include "drape/glsl_types.hpp"
+#include "drape/glstate.hpp"
 #include "drape/overlay_handle.hpp"
 #include "drape/shader_def.hpp"
-#include "drape/attribute_provider.hpp"
 #include "drape/texture_manager.hpp"
-#include "drape/glstate.hpp"
-#include "drape/batcher.hpp"
+#include "drape/utils/vertex_decl.hpp"
 
 namespace df
 {

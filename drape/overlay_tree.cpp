@@ -375,7 +375,7 @@ void OverlayTree::DeleteHandle(ref_ptr<OverlayHandle> const & handle)
 void OverlayTree::DeleteHandleWithParents(ref_ptr<OverlayHandle> handle, int currentRank)
 {
   currentRank--;
-  while(currentRank >= dp::OverlayRank0)
+  while (currentRank >= dp::OverlayRank0)
   {
     auto parent = FindParent(handle, currentRank);
     if (parent != nullptr && parent->IsBound())
