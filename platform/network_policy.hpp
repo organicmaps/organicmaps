@@ -2,10 +2,10 @@
 
 #include "std/function.hpp"
 
-class _jobject;
 class _JNIEnv;
-typedef _jobject * jobject;
+class _jobject;
 typedef _JNIEnv JNIEnv;
+typedef _jobject * jobject;
 
 namespace platform
 {

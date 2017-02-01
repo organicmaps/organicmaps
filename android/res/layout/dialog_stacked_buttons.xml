@@ -36,12 +36,15 @@
     android:layout_height="@dimen/margin_double_plus"
     android:layout_marginLeft="@dimen/neg_margin_base_plus"
     android:layout_marginRight="@dimen/neg_margin_base_plus"
-    android:padding="@dimen/margin_half"
+    android:paddingLeft="@dimen/margin_base"
+    android:paddingRight="@dimen/margin_base"
     android:gravity="center_vertical|end"
     android:textAppearance="@style/MwmTextAppearance.Button"
+    android:fontFamily="@string/robotoMedium"
     android:lines="1"
     android:background="?clickableBackground"
-    tools:text="Use Always"/>
+    tools:text="Use Always"
+    tools:targetApi="jelly_bean"/>
 
   <TextView
     android:id="@+id/btn__neutral"
@@ -49,12 +52,15 @@
     android:layout_height="@dimen/margin_double_plus"
     android:layout_marginLeft="@dimen/neg_margin_base_plus"
     android:layout_marginRight="@dimen/neg_margin_base_plus"
-    android:padding="@dimen/margin_half"
+    android:paddingLeft="@dimen/margin_base"
+    android:paddingRight="@dimen/margin_base"
     android:gravity="center_vertical|end"
     android:textAppearance="@style/MwmTextAppearance.Button"
+    android:fontFamily="@string/robotoMedium"
     android:lines="1"
     android:background="?clickableBackground"
-    tools:text="Only Today"/>
+    tools:text="Only Today"
+    tools:targetApi="jelly_bean"/>
 
   <TextView
     android:id="@+id/btn__negative"
@@ -62,10 +68,13 @@
     android:layout_height="@dimen/margin_double_plus"
     android:layout_marginLeft="@dimen/neg_margin_base_plus"
     android:layout_marginRight="@dimen/neg_margin_base_plus"
-    android:padding="@dimen/margin_half"
+    android:paddingLeft="@dimen/margin_base"
+    android:paddingRight="@dimen/margin_base"
     android:gravity="center_vertical|end"
     android:textAppearance="@style/MwmTextAppearance.Button"
+    android:fontFamily="@string/robotoMedium"
     android:lines="1"
     android:background="?clickableBackground"
-    tools:text="Do not Use Today"/>
+    tools:text="Do not Use Today"
+    tools:targetApi="jelly_bean"/>
 </LinearLayout>

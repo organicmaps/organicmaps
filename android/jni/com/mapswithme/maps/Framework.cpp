@@ -1,5 +1,5 @@
-#include "Framework.hpp"
-#include "UserMarkHelper.hpp"
+#include "com/mapswithme/maps/Framework.hpp"
+#include "com/mapswithme/maps/UserMarkHelper.hpp"
 #include "com/mapswithme/core/jni_helper.hpp"
 #include "com/mapswithme/maps/bookmarks/data/BookmarkManager.hpp"
 #include "com/mapswithme/opengl/androidoglcontextfactory.hpp"
@@ -36,16 +36,15 @@
 #include "base/math.hpp"
 #include "base/sunrise_sunset.hpp"
 
-#include "../util/NetworkPolicy.hpp"
+#include "com/mapswithme/util/NetworkPolicy.hpp"
 
 android::Framework * g_framework = 0;
-
-using network_policy::GetNetworkPolicyStatus;
 
 namespace platform
 {
 NetworkPolicy ToNativeNetworkPolicy(JNIEnv * env, jobject obj)
 {
+  using network_policy::GetNetworkPolicyStatus;
   return NetworkPolicy(GetNetworkPolicyStatus(env, obj));
 }
 }  // namespace platform

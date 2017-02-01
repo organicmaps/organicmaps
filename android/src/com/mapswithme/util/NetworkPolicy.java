@@ -54,26 +54,26 @@ public final class NetworkPolicy
         listener.onResult(new NetworkPolicy(false));
         break;
       case NOT_TODAY:
-        long timestamp = Config.getTodayTimeStamp();
-        boolean showDialog = TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - timestamp) >= 1;
-        if (!showDialog)
-        {
-          listener.onResult(new NetworkPolicy(false));
-          return;
-        }
-        showDialog(context, listener);
+        showDialogIfNeed(context, listener, false);
         break;
       case TODAY:
-        timestamp = Config.getTodayTimeStamp();
-        showDialog = TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - timestamp) >= 1;
-        if (!showDialog)
-        {
-          listener.onResult(new NetworkPolicy(true));
-          return;
-        }
-        showDialog(context, listener);
+        showDialogIfNeed(context, listener, true);
         break;
     }
+  }
+
+  private static void showDialogIfNeed(@NonNull Context context,
+                                       @NonNull NetworkPolicyListener listener,
+                                       boolean allowByDefault)
+  {
+    long timestamp = Config.getMobileDataTimeStamp();
+    boolean showDialog = TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - timestamp) >= 1;
+    if (!showDialog)
+    {
+      listener.onResult(new NetworkPolicy(allowByDefault));
+      return;
+    }
+    showDialog(context, listener);
   }
 
   private static void showDialog(@NonNull Context context, @NonNull final NetworkPolicyListener listener)
@@ -97,7 +97,7 @@ public final class NetworkPolicy
           public void onClick(DialogInterface dialog, int which)
           {
             Config.setUseMobileDataSettings(NOT_TODAY);
-            Config.setTodayStamp(System.currentTimeMillis());
+            Config.setMobileDataTimeStamp(System.currentTimeMillis());
             listener.onResult(new NetworkPolicy(false));
           }
         })
@@ -107,7 +107,7 @@ public final class NetworkPolicy
           public void onClick(DialogInterface dialog, int which)
           {
             Config.setUseMobileDataSettings(TODAY);
-            Config.setTodayStamp(System.currentTimeMillis());
+            Config.setMobileDataTimeStamp(System.currentTimeMillis());
             listener.onResult(new NetworkPolicy(true));
           }
         })
@@ -122,7 +122,7 @@ public final class NetworkPolicy
     mCanUseNetwork = canUse;
   }
 
-  public boolean isCanUseNetwork()
+  public boolean сanUseNetwork()
   {
     return mCanUseNetwork;
   }

@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import android.text.format.DateUtils;
 
 import com.mapswithme.maps.BuildConfig;
-import com.mapswithme.util.log.LoggerFactory;
 
 public final class Config
 {
@@ -35,7 +34,7 @@ public final class Config
   private static final String KEY_MISC_UI_THEME = "UiTheme";
   private static final String KEY_MISC_UI_THEME_SETTINGS = "UiThemeSettings";
   private static final String KEY_MISC_USE_MOBILE_DATA = "UseMobileData";
-  private static final String KEY_MISC_TODAY_TIMESTAMP = "NotTodayTimestamp";
+  private static final String KEY_MISC_USE_MOBILE_DATA_TIMESTAMP = "UseMobileDataTimestamp";
 
   private Config() {}
 
@@ -382,14 +381,14 @@ public final class Config
     setInt(KEY_MISC_USE_MOBILE_DATA, value);
   }
 
-  public static void setTodayStamp(long timestamp)
+  public static void setMobileDataTimeStamp(long timestamp)
   {
-    setLong(KEY_MISC_TODAY_TIMESTAMP, timestamp);
+    setLong(KEY_MISC_USE_MOBILE_DATA_TIMESTAMP, timestamp);
   }
 
-  static long getTodayTimeStamp()
+  static long getMobileDataTimeStamp()
   {
-    return getLong(KEY_MISC_TODAY_TIMESTAMP, 0L);
+    return getLong(KEY_MISC_USE_MOBILE_DATA_TIMESTAMP, 0L);
   }
 
   private static native boolean nativeGetBoolean(String name, boolean defaultValue);
