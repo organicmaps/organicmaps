@@ -95,14 +95,16 @@ void OnUberError(uber::ErrorCode const code, uint64_t const requestId)
 extern "C" {
 
 JNIEXPORT void JNICALL Java_com_mapswithme_maps_uber_Uber_nativeRequestUberProducts(
-    JNIEnv * env, jclass clazz, jdouble srcLat, jdouble srcLon, jdouble dstLat, jdouble dstLon)
+    JNIEnv * env, jclass clazz, jobject policy, jdouble srcLat, jdouble srcLon, jdouble dstLat,
+    jdouble dstLon)
 {
   PrepareClassRefs(env);
 
   ms::LatLon const from(srcLat, srcLon);
   ms::LatLon const to(dstLat, dstLon);
 
-  g_lastRequestId = g_framework->RequestUberProducts(from, to, &OnUberInfoReceived, &OnUberError);
+  g_lastRequestId =
+      g_framework->RequestUberProducts(env, policy, from, to, &OnUberInfoReceived, &OnUberError);
 }
 
 JNIEXPORT jobject JNICALL Java_com_mapswithme_maps_uber_Uber_nativeGetUberLinks(

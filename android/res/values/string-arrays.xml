@@ -41,4 +41,16 @@
     <item>12</item>
     <item>24</item>
   </string-array>
+
+  <string-array name="mobile_data_options">
+    <item>@string/mobile_data_option_ask</item>
+    <item>@string/mobile_data_option_always</item>
+    <item>@string/mobile_data_option_never</item>
+  </string-array>
+
+  <string-array name="mobile_data_options_values">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+  </string-array>
 </resources>

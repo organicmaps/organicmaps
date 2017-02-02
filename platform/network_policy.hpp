@@ -2,7 +2,9 @@
 
 #include "std/function.hpp"
 
+class _JNIEnv;
 class _jobject;
+typedef _JNIEnv JNIEnv;
 typedef _jobject * jobject;
 
 namespace platform
@@ -22,7 +24,7 @@ namespace platform
 class NetworkPolicy
 {
   // Maker for android.
-  friend NetworkPolicy ToNativeNetworkPolicy(jobject obj);
+  friend NetworkPolicy ToNativeNetworkPolicy(JNIEnv * env, jobject obj);
 
   // iOS
   friend void network_policy::CallPartnersApi(platform::PartnersApiFn fn, bool force);

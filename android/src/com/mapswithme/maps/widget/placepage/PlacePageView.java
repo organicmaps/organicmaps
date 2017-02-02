@@ -885,11 +885,11 @@ public class PlacePageView extends RelativeLayout
 
         Locale locale = Locale.getDefault();
         Currency currency = Currency.getInstance(locale);
-        if (mSponsored.getType() == Sponsored.TYPE_BOOKING)
-          Sponsored.requestPrice(mSponsored.getId(), currency.getCurrencyCode());
+        if (mSponsored.getType() == Sponsored.TYPE_BOOKING && mSponsored.getId() != null)
+          Sponsored.requestPrice(getContext(), mSponsored.getId(), currency.getCurrencyCode());
 //      TODO: remove this after booking_api.cpp will be done
         if (!USE_OLD_BOOKING)
-          Sponsored.requestInfo(mSponsored, locale.toString());
+          Sponsored.requestInfo(getContext(), mSponsored, locale.toString());
       }
 
       String country = MapManager.nativeGetSelectedCountry();

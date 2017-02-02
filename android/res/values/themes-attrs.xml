@@ -37,6 +37,7 @@
     <attr name="buttonBackground" format="reference"/>
     <attr name="buttonTextColor" format="color"/>
     <attr name="buttonTextColorDisabled" format="color"/>
+    <attr name="buttonDialogTextColor" format="color"/>
 
     <attr name="accentButtonBackground" format="reference"/>
     <attr name="accentButtonTextColor" format="color"/>
