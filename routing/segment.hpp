@@ -1,5 +1,6 @@
 #pragma once
 
+#include "routing/num_mwm_id.hpp"
 #include "routing/road_point.hpp"
 
 #include "std/cstdint.hpp"
@@ -26,6 +27,7 @@ public:
   {
   }
 
+  NumMwmId GetMwmId() const { return m_mwmId; }
   uint32_t GetFeatureId() const { return m_featureId; }
   uint32_t GetSegmentIdx() const { return m_segmentIdx; }
   bool IsForward() const { return m_forward; }
@@ -45,22 +47,25 @@ public:
     if (m_segmentIdx != seg.m_segmentIdx)
       return m_segmentIdx < seg.m_segmentIdx;
 
+    if (m_mwmId != seg.m_mwmId)
+      return m_mwmId < seg.m_mwmId;
+
     return m_forward < seg.m_forward;
   }
 
   bool operator==(Segment const & seg) const
   {
     return m_featureId == seg.m_featureId && m_segmentIdx == seg.m_segmentIdx &&
-           m_forward == seg.m_forward;
+           m_mwmId == seg.m_mwmId && m_forward == seg.m_forward;
   }
 
   bool operator!=(Segment const & seg) const { return !(*this == seg); }
 
 private:
-  // @TODO(bykoianko, dobriy-eeh). It's necessary to add a member for mwm identification
-  // as a field. It'll be used during implementation of CrossMwmIndexGraph interface.
   uint32_t m_featureId = 0;
   uint32_t m_segmentIdx = 0;
+  // @TODO(bykoianko, dobriy-eeh). It's a placeholder. Init m_mwmId in a proper way.
+  NumMwmId m_mwmId = 0;
   bool m_forward = true;
 };
 
@@ -80,8 +85,8 @@ private:
 inline string DebugPrint(Segment const & segment)
 {
   ostringstream out;
-  out << "Segment(" << segment.GetFeatureId() << ", " << segment.GetSegmentIdx() << ", "
-      << segment.IsForward() << ")";
+  out << "Segment(" << segment.GetMwmId() << ", " << segment.GetFeatureId() << ", "
+      << segment.GetSegmentIdx() << ", " << segment.IsForward() << ")";
   return out.str();
 }
 }  // namespace routing

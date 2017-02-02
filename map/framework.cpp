@@ -10,6 +10,7 @@
 #include "private.h"
 
 #include "routing/car_router.hpp"
+#include "routing/num_mwm_id.hpp"
 #include "routing/online_absent_fetcher.hpp"
 #include "routing/road_graph_router.hpp"
 #include "routing/route.hpp"
@@ -2488,6 +2489,12 @@ void Framework::SetRouterImpl(RouterType type)
     {
       return m_model.GetIndex().GetMwmIdByCountryFile(CountryFile(countryFile)).IsAlive();
     };
+
+    //    @TODO(bykoianko, dobriy-eeh). Pass numMwmIds to router and CrossMwmIndexGraph.
+    //    shared_ptr<routing::NumMwmIds> numMwmIds = make_shared<routing::NumMwmIds>();
+    //    m_storage.ForEachCountryFile([&](platform::CountryFile const & file){
+    //      numMwmIds->RegisterFile(file);
+    //    });
 
     router.reset(
         new CarRouter(m_model.GetIndex(), countryFileGetter,

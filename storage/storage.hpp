@@ -424,6 +424,8 @@ public:
   void ForEachInSubtree(TCountryId const & root, ToDo && toDo) const;
   template <class ToDo>
   void ForEachAncestorExceptForTheRoot(TCountryId const & childId, ToDo && toDo) const;
+  template <class ToDo>
+  void ForEachCountryFile(ToDo && toDo) const;
 
   /// \brief Sets callback which will be called in case of a click on download map button on the map.
   void SetCallbackForClickOnDownloadMap(TDownloadFn & downloadFn);
@@ -690,5 +692,14 @@ void Storage::ForEachAncestorExceptForTheRoot(vector<TCountryTreeNode const *> c
           toDo(ancestorId, container);
         });
   }
+}
+
+template <class ToDo>
+void Storage::ForEachCountryFile(ToDo && toDo) const
+{
+  m_countries.GetRoot().ForEachInSubtree([&](TCountryTree::Node const & node) {
+    if (node.ChildrenCount() == 0)
+      toDo(node.Value().GetFile());
+  });
 }
 }  // storage
