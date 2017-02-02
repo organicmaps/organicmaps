@@ -98,8 +98,15 @@ public class MiscPrefsFragment extends BaseXmlSettingsFragment
     int curValue = Config.getUseMobileDataSettings();
     final ListPreference mobilePref = (ListPreference)findPreference(
         getString(R.string.pref_use_mobile_data));
-    mobilePref.setValue(String.valueOf(curValue));
-    mobilePref.setSummary(mobilePref.getEntry());
+    if (curValue != NetworkPolicy.NOT_TODAY && curValue != NetworkPolicy.TODAY)
+    {
+      mobilePref.setValue(String.valueOf(curValue));
+      mobilePref.setSummary(mobilePref.getEntry());
+    }
+    else
+    {
+      mobilePref.setSummary(getString(R.string.mobile_data_description));
+    }
     mobilePref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
     {
       @Override
@@ -116,14 +123,6 @@ public class MiscPrefsFragment extends BaseXmlSettingsFragment
             break;
           case NetworkPolicy.NEVER:
             Config.setUseMobileDataSettings(NetworkPolicy.NEVER);
-            break;
-          case NetworkPolicy.NOT_TODAY:
-            Config.setUseMobileDataSettings(NetworkPolicy.NOT_TODAY);
-            Config.setMobileDataTimeStamp(System.currentTimeMillis());
-            break;
-          case NetworkPolicy.TODAY:
-            Config.setUseMobileDataSettings(NetworkPolicy.TODAY);
-            Config.setMobileDataTimeStamp(System.currentTimeMillis());
             break;
           default:
             throw new AssertionError("Wrong NetworkPolicy type!");

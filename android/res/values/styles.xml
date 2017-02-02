@@ -39,6 +39,35 @@
     <item name="android:background">?accentButtonBackground</item>
   </style>
 
+  <style name="MwmWidget.Button.StackedButtonsDialog">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">@dimen/margin_double_plus</item>
+    <item name="android:paddingLeft">@dimen/margin_base</item>
+    <item name="android:paddingRight">@dimen/margin_base</item>
+    <item name="android:background">?clickableBackground</item>
+    <item name="android:textSize">@dimen/text_size_button</item>
+    <item name="android:textColor">?buttonDialogTextColor</item>
+    <item name="android:textAllCaps">true</item>
+    <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoMedium</item>
+    <item name="android:lines">1</item>
+    <item name="android:gravity">center_vertical|end</item>
+  </style>
+
+  <style name="MwmWidget.StackedButtonsDialogTitle">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_marginBottom">@dimen/margin_dialog_title</item>
+    <item name="android:textAppearance">@style/MwmTextAppearance.Body1</item>
+    <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoMedium</item>
+  </style>
+
+  <style name="MwmWidget.StackedButtonsDialogMessage">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_marginBottom">@dimen/margin_base_plus</item>
+    <item name="android:textAppearance">@style/MwmTextAppearance.Body3</item>
+  </style>
+
   <style name="MwmWidget.Button.Start">
     <item name="android:background">?startButtonBackground</item>
     <item name="android:textColor">?accentButtonTextColor</item>

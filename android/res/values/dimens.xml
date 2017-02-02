@@ -23,7 +23,6 @@
   <dimen name="neg_margin_half">-8dp</dimen>
   <dimen name="neg_margin_half_plus">-12dp</dimen>
   <dimen name="neg_margin_base">-16dp</dimen>
-  <dimen name="neg_margin_base_plus">-24dp</dimen>
   <dimen name="neg_margin_double">-32dp</dimen>
 
   <!-- base sizes -->
@@ -178,4 +177,6 @@
   <dimen name="placeholder_margin_top_no_image">80dp</dimen>
 
   <dimen name="hotels_filter_padding">128dp</dimen>
+
+  <dimen name="margin_dialog_title">20dp</dimen>
 </resources>

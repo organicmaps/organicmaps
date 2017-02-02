@@ -5,76 +5,43 @@
   android:orientation="vertical"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:paddingTop="@dimen/margin_base_plus"
-  android:paddingLeft="@dimen/margin_base_plus"
-  android:paddingRight="@dimen/margin_base_plus"
   android:paddingBottom="@dimen/margin_half"
-  android:background="?cardBackground"
-  android:clipToPadding="false">
+  android:background="?cardBackground">
 
-  <TextView
-    android:id="@+id/tv__title"
+  <LinearLayout
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/margin_base"
-    android:textAppearance="@style/MwmTextAppearance.Body1"
-    android:fontFamily="@string/robotoMedium"
-    tools:text="Use mobile internet to show detailed information?"
-    tools:targetApi="jelly_bean"/>
+    android:paddingTop="@dimen/margin_base_plus"
+    android:paddingLeft="@dimen/margin_base_plus"
+    android:paddingRight="@dimen/margin_base_plus">
+    <TextView
+      android:id="@+id/tv__title"
+      style="@style/MwmWidget.StackedButtonsDialogTitle"
+      tools:text="Use mobile internet to show detailed information?"
+      tools:targetApi="jelly_bean"/>
 
-  <TextView
-    android:id="@+id/tv__message"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textAppearance="@style/MwmTextAppearance.Body3"
-    android:layout_marginBottom="@dimen/margin_base_plus"
-    tools:text="Mobile internet is required for displaying detailed information about places, such as photographs, prices and reviews."/>
+    <TextView
+      android:id="@+id/tv__message"
+      style="@style/MwmWidget.StackedButtonsDialogMessage"
+      tools:text="Mobile internet is required for displaying detailed information about places, such as photographs, prices and reviews."/>
+  </LinearLayout>
 
   <TextView
     android:id="@+id/btn__positive"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/margin_double_plus"
-    android:layout_marginLeft="@dimen/neg_margin_base_plus"
-    android:layout_marginRight="@dimen/neg_margin_base_plus"
-    android:paddingLeft="@dimen/margin_base"
-    android:paddingRight="@dimen/margin_base"
-    android:gravity="center_vertical|end"
-    android:textAppearance="@style/MwmTextAppearance.Button"
-    android:fontFamily="@string/robotoMedium"
-    android:lines="1"
-    android:background="?clickableBackground"
+    style="@style/MwmWidget.Button.StackedButtonsDialog"
     tools:text="Use Always"
     tools:targetApi="jelly_bean"/>
 
   <TextView
     android:id="@+id/btn__neutral"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/margin_double_plus"
-    android:layout_marginLeft="@dimen/neg_margin_base_plus"
-    android:layout_marginRight="@dimen/neg_margin_base_plus"
-    android:paddingLeft="@dimen/margin_base"
-    android:paddingRight="@dimen/margin_base"
-    android:gravity="center_vertical|end"
-    android:textAppearance="@style/MwmTextAppearance.Button"
-    android:fontFamily="@string/robotoMedium"
-    android:lines="1"
-    android:background="?clickableBackground"
+    style="@style/MwmWidget.Button.StackedButtonsDialog"
     tools:text="Only Today"
     tools:targetApi="jelly_bean"/>
 
   <TextView
     android:id="@+id/btn__negative"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/margin_double_plus"
-    android:layout_marginLeft="@dimen/neg_margin_base_plus"
-    android:layout_marginRight="@dimen/neg_margin_base_plus"
-    android:paddingLeft="@dimen/margin_base"
-    android:paddingRight="@dimen/margin_base"
-    android:gravity="center_vertical|end"
-    android:textAppearance="@style/MwmTextAppearance.Button"
-    android:fontFamily="@string/robotoMedium"
-    android:lines="1"
-    android:background="?clickableBackground"
+    style="@style/MwmWidget.Button.StackedButtonsDialog"
     tools:text="Do not Use Today"
     tools:targetApi="jelly_bean"/>
 </LinearLayout>

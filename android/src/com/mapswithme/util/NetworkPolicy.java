@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.widget.StackedButtonsDialog;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.ref.WeakReference;
 import java.util.concurrent.TimeUnit;
 
 public final class NetworkPolicy
@@ -19,6 +21,9 @@ public final class NetworkPolicy
   public static final int NEVER = 2;
   public static final int NOT_TODAY = 3;
   public static final int TODAY = 4;
+
+  @NonNull
+  private static WeakReference<StackedButtonsDialog> sDialog = new WeakReference<>(null);
 
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ ASK, ALWAYS, NEVER, NOT_TODAY, TODAY })
@@ -41,6 +46,12 @@ public final class NetworkPolicy
       return;
     }
 
+    if (!ConnectionState.isInRoaming())
+    {
+      listener.onResult(new NetworkPolicy(true));
+      return;
+    }
+
     int type = Config.getUseMobileDataSettings();
     switch (type)
     {
@@ -54,23 +65,23 @@ public final class NetworkPolicy
         listener.onResult(new NetworkPolicy(false));
         break;
       case NOT_TODAY:
-        showDialogIfNeed(context, listener, false);
+        showDialogIfNeeded(context, listener, new NetworkPolicy(false));
         break;
       case TODAY:
-        showDialogIfNeed(context, listener, true);
+        showDialogIfNeeded(context, listener, new NetworkPolicy(true));
         break;
     }
   }
 
-  private static void showDialogIfNeed(@NonNull Context context,
-                                       @NonNull NetworkPolicyListener listener,
-                                       boolean allowByDefault)
+  private static void showDialogIfNeeded(@NonNull Context context,
+                                         @NonNull NetworkPolicyListener listener,
+                                         @NonNull NetworkPolicy policy)
   {
     long timestamp = Config.getMobileDataTimeStamp();
     boolean showDialog = TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - timestamp) >= 1;
     if (!showDialog)
     {
-      listener.onResult(new NetworkPolicy(allowByDefault));
+      listener.onResult(policy);
       return;
     }
     showDialog(context, listener);
@@ -78,7 +89,11 @@ public final class NetworkPolicy
 
   private static void showDialog(@NonNull Context context, @NonNull final NetworkPolicyListener listener)
   {
-    new StackedButtonsDialog.Builder(context)
+    StackedButtonsDialog dialog = sDialog.get();
+    if (dialog != null && dialog.isShowing())
+      dialog.dismiss();
+
+    dialog = new StackedButtonsDialog.Builder(context)
         .setTitle(R.string.mobile_data_dialog)
         .setMessage(R.string.mobile_data_description)
         .setCancelable(false)
@@ -111,8 +126,9 @@ public final class NetworkPolicy
             listener.onResult(new NetworkPolicy(true));
           }
         })
-        .build()
-        .show();
+        .build();
+    dialog.show();
+    sDialog = new WeakReference<>(dialog);
   }
 
   private final boolean mCanUseNetwork;
