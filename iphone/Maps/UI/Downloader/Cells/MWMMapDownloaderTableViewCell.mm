@@ -61,9 +61,30 @@
   self.title.attributedText = [self matchedString:@(nodeAttrs.m_nodeLocalName.c_str())
                                     selectedAttrs:selectedTitleAttrs
                                   unselectedAttrs:unselectedTitleAttrs];
-  TMwmSize const size = self.mode == mwm::DownloaderMode::Downloaded
-                            ? nodeAttrs.m_downloadingMwmSize
+
+  TMwmSize size = nodeAttrs.m_mwmSize;
+  bool const isModeDownloaded = self.mode == mwm::DownloaderMode::Downloaded;
+
+  switch (nodeAttrs.m_status)
+  {
+  case storage::NodeStatus::Error:
+  case storage::NodeStatus::Undefined:
+  case storage::NodeStatus::NotDownloaded:
+  case storage::NodeStatus::OnDiskOutOfDate:
+    size = isModeDownloaded ? nodeAttrs.m_localMwmSize : nodeAttrs.m_mwmSize;
+    break;
+  case storage::NodeStatus::Downloading:
+    size = isModeDownloaded ? nodeAttrs.m_downloadingMwmSize
+                            : nodeAttrs.m_mwmSize - nodeAttrs.m_downloadingMwmSize;
+    break;
+  case storage::NodeStatus::InQueue:
+  case storage::NodeStatus::Partly:
+    size = isModeDownloaded ? nodeAttrs.m_localMwmSize
                             : nodeAttrs.m_mwmSize - nodeAttrs.m_localMwmSize;
+    break;
+  case storage::NodeStatus::OnDisk: size = isModeDownloaded ? nodeAttrs.m_mwmSize : 0; break;
+  }
+
   self.downloadSize.text = formattedSize(size);
   self.downloadSize.hidden = (size == 0);
 }
