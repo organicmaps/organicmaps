@@ -132,18 +132,12 @@ public class HotelsFilterView extends FrameLayout
     mElevation.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
     int height = mContent.getMeasuredHeight() + mHeaderHeight + mButtonsHeight
                  + mElevation.getMeasuredHeight();
-    if (height < getMeasuredHeight())
-    {
-      ViewGroup.LayoutParams lp = mFrame.getLayoutParams();
-      lp.height = height;
-      mFrame.setLayoutParams(lp);
-    }
-    else
-    {
-      ViewGroup.LayoutParams lp = mFrame.getLayoutParams();
-      lp.height = LayoutParams.WRAP_CONTENT;
-      mFrame.setLayoutParams(lp);
-    }
+    if (height >= getMeasuredHeight())
+      height = LayoutParams.WRAP_CONTENT;
+
+    ViewGroup.LayoutParams lp = mFrame.getLayoutParams();
+    lp.height = height;
+    mFrame.setLayoutParams(lp);
   }
 
   private void cancel()
