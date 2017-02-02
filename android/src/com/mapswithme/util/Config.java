@@ -35,6 +35,7 @@ public final class Config
   private static final String KEY_MISC_UI_THEME_SETTINGS = "UiThemeSettings";
   private static final String KEY_MISC_USE_MOBILE_DATA = "UseMobileData";
   private static final String KEY_MISC_USE_MOBILE_DATA_TIMESTAMP = "UseMobileDataTimestamp";
+  private static final String KEY_MISC_USE_MOBILE_DATA_ROAMING = "UseMobileDataRoaming";
 
   private Config() {}
 
@@ -379,9 +380,10 @@ public final class Config
   public static void setUseMobileDataSettings(@NetworkPolicy.NetworkPolicyDef int value)
   {
     setInt(KEY_MISC_USE_MOBILE_DATA, value);
+    setBool(KEY_MISC_USE_MOBILE_DATA_ROAMING, ConnectionState.isInRoaming());
   }
 
-  public static void setMobileDataTimeStamp(long timestamp)
+  static void setMobileDataTimeStamp(long timestamp)
   {
     setLong(KEY_MISC_USE_MOBILE_DATA_TIMESTAMP, timestamp);
   }
@@ -389,6 +391,11 @@ public final class Config
   static long getMobileDataTimeStamp()
   {
     return getLong(KEY_MISC_USE_MOBILE_DATA_TIMESTAMP, 0L);
+  }
+
+  static boolean getMobileDataRoaming()
+  {
+    return getBool(KEY_MISC_USE_MOBILE_DATA_ROAMING, false);
   }
 
   private static native boolean nativeGetBoolean(String name, boolean defaultValue);

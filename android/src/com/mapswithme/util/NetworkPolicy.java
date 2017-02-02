@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.widget.StackedButtonsDialog;
@@ -46,12 +45,9 @@ public final class NetworkPolicy
       return;
     }
 
-    if (!ConnectionState.isInRoaming())
-    {
-      listener.onResult(new NetworkPolicy(true));
-      return;
-    }
 
+    boolean nowInRoaming = ConnectionState.isInRoaming();
+    boolean acceptedInRoaming = Config.getMobileDataRoaming();
     int type = Config.getUseMobileDataSettings();
     switch (type)
     {
@@ -59,7 +55,10 @@ public final class NetworkPolicy
         showDialog(context, listener);
         break;
       case ALWAYS:
-        listener.onResult(new NetworkPolicy(true));
+        if (nowInRoaming && !acceptedInRoaming)
+          showDialog(context, listener);
+        else
+          listener.onResult(new NetworkPolicy(true));
         break;
       case NEVER:
         listener.onResult(new NetworkPolicy(false));
@@ -68,7 +67,10 @@ public final class NetworkPolicy
         showDialogIfNeeded(context, listener, new NetworkPolicy(false));
         break;
       case TODAY:
-        showDialogIfNeeded(context, listener, new NetworkPolicy(true));
+        if (nowInRoaming && !acceptedInRoaming)
+          showDialog(context, listener);
+        else
+          showDialogIfNeeded(context, listener, new NetworkPolicy(true));
         break;
     }
   }
