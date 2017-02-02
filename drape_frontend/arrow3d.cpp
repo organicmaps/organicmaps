@@ -132,23 +132,26 @@ void Arrow3d::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> m
     m_isInitialized = true;
   }
 
+  auto const & style = GetStyleReader().GetCurrentStyle();
+
   // Render shadow.
   if (screen.isPerspective())
   {
     ref_ptr<dp::GpuProgram> shadowProgram = mng->GetProgram(gpu::ARROW_3D_SHADOW_PROGRAM);
-    RenderArrow(screen, shadowProgram, dp::Color(60, 60, 60, 60), 0.05f /* dz */,
+    RenderArrow(screen, shadowProgram, df::GetColorConstant(style, df::Arrow3DShadow), 0.05f /* dz */,
                 routingMode ? kOutlineScale : 1.0f /* scaleFactor */, false /* hasNormals */);
   }
 
-  dp::Color const color = df::GetColorConstant(GetStyleReader().GetCurrentStyle(),
-                                               m_obsoletePosition ? df::Arrow3DObsolete : df::Arrow3D);
+  dp::Color const color = df::GetColorConstant(style, m_obsoletePosition ? df::Arrow3DObsolete : df::Arrow3D);
 
   // Render outline.
   if (routingMode)
   {
+    dp::Color const outlineColor = df::GetColorConstant(style, df::Arrow3DOutline);
     ref_ptr<dp::GpuProgram> outlineProgram = mng->GetProgram(gpu::ARROW_3D_OUTLINE_PROGRAM);
-    RenderArrow(screen, outlineProgram, dp::Color(255, 255, 255, color.GetAlfa()), 0.0f /* dz */,
-                kOutlineScale /* scaleFactor */, false /* hasNormals */);
+    RenderArrow(screen, outlineProgram,
+                dp::Color(outlineColor.GetRed(), outlineColor.GetGreen(), outlineColor.GetBlue(), color.GetAlfa()),
+                0.0f /* dz */, kOutlineScale /* scaleFactor */, false /* hasNormals */);
   }
 
   // Render arrow.

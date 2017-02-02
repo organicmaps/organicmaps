@@ -22,6 +22,8 @@ enum ColorConstant
   RouteBicycle,
   Arrow3D,
   Arrow3DObsolete,
+  Arrow3DShadow,
+  Arrow3DOutline,
   TrackHumanSpeed,
   TrackCarSpeed,
   TrackPlaneSpeed,
@@ -46,6 +48,8 @@ enum ColorConstant
   RoadShieldUKGreenText,
   RoadShieldBlueBackground,
   RoadShieldGreenBackground,
+  PoiHotelTextOutline,
+  PoiDeletedMask
 };
 
 dp::Color GetColorConstant(MapStyle style, ColorConstant constant);

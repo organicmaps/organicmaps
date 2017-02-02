@@ -445,8 +445,7 @@ void ApplyPointFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
       params.m_primaryOptional = false;
       params.m_primaryTextFont.m_size *= 1.2;
       auto const style = GetStyleReader().GetCurrentStyle();
-      params.m_primaryTextFont.m_outlineColor = (style == MapStyle::MapStyleDark) ?
-                                                dp::Color(0, 0, 0, 153) : dp::Color(255, 255, 255, 153);
+      params.m_primaryTextFont.m_outlineColor = df::GetColorConstant(style, df::PoiHotelTextOutline);
       params.m_secondaryTextFont = params.m_primaryTextFont;
       params.m_secondaryText = ExtractHotelInfo();
       params.m_secondaryOptional = false;

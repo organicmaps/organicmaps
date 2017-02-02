@@ -1,5 +1,7 @@
 #include "drape_frontend/poi_symbol_shape.hpp"
 
+#include "drape_frontend/color_constants.hpp"
+
 #include "drape/utils/vertex_decl.hpp"
 #include "drape/attribute_provider.hpp"
 #include "drape/batcher.hpp"
@@ -8,10 +10,10 @@
 
 #include "drape/shader_def.hpp"
 
+#include "indexer/map_style_reader.hpp"
+
 namespace
 {
-
-dp::Color const kDeletedColorMask = dp::Color(255, 255, 255, 76);
 
 using SV = gpu::SolidTexturingVertex;
 using MV = gpu::MaskedTexturingVertex;
@@ -128,8 +130,9 @@ void PoiSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManag
 
   if (m_params.m_obsoleteInEditor)
   {
+    dp::Color const mask = df::GetColorConstant(GetStyleReader().GetCurrentStyle(), df::PoiDeletedMask);
     dp::TextureManager::ColorRegion maskColorRegion;
-    textures->GetColorRegion(kDeletedColorMask, maskColorRegion);
+    textures->GetColorRegion(mask, maskColorRegion);
     Batch<MV>(batcher, move(handle), position, region, maskColorRegion);
   }
   else

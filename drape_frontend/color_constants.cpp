@@ -25,6 +25,8 @@ unordered_map<int, unordered_map<int, dp::Color>> kColorConstants =
       { RouteBicycle, dp::Color(156, 39, 176, 204) },
       { Arrow3D, dp::Color(80, 170, 255, 255) },
       { Arrow3DObsolete, dp::Color(130, 170, 200, 183) },
+      { Arrow3DShadow, dp::Color(60, 60, 60, 60) },
+      { Arrow3DOutline, dp::Color(255, 255, 255, 255) },
       { TrackHumanSpeed, dp::Color(29, 51, 158, 255) },
       { TrackCarSpeed, dp::Color(21, 121, 244, 255) },
       { TrackPlaneSpeed, dp::Color(10, 196, 255, 255) },
@@ -49,6 +51,8 @@ unordered_map<int, unordered_map<int, dp::Color>> kColorConstants =
       { RoadShieldUKGreenText, dp::Color(255, 204, 102, 255) },
       { RoadShieldBlueBackground, dp::Color(46, 111, 201, 255) },
       { RoadShieldGreenBackground, dp::Color(34, 114, 59, 255) },
+      { PoiHotelTextOutline, dp::Color(255, 255, 255, 153) },
+      { PoiDeletedMask, dp::Color(255, 255, 255, 76) },
     }
   },
   { MapStyleDark,
@@ -66,6 +70,8 @@ unordered_map<int, unordered_map<int, dp::Color>> kColorConstants =
       { RouteBicycle, dp::Color(255, 75, 140, 180) },
       { Arrow3D, dp::Color(65, 200, 255, 255) },
       { Arrow3DObsolete, dp::Color(130, 170, 200, 183) },
+      { Arrow3DShadow, dp::Color(60, 60, 60, 60) },
+      { Arrow3DOutline, dp::Color(255, 255, 255, 255) },
       { TrackHumanSpeed, dp::Color(255, 152, 0, 255) },
       { TrackCarSpeed, dp::Color(255, 202, 40, 255) },
       { TrackPlaneSpeed, dp::Color(255, 245, 160, 255) },
@@ -90,6 +96,8 @@ unordered_map<int, unordered_map<int, dp::Color>> kColorConstants =
       { RoadShieldUKGreenText, dp::Color(255, 204, 102, 255) },
       { RoadShieldBlueBackground, dp::Color(46, 111, 201, 255) },
       { RoadShieldGreenBackground, dp::Color(34, 114, 59, 255) },
+      { PoiHotelTextOutline, dp::Color(0, 0, 0, 153) },
+      { PoiDeletedMask, dp::Color(255, 255, 255, 76) },
     }
   },
 };

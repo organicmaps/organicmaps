@@ -65,8 +65,8 @@ struct TextViewParams : CommonViewParams
   dp::FontDecl m_secondaryTextFont;
   string m_secondaryText;
   dp::Anchor m_anchor;
-  m2::PointF m_primaryOffset;
-  m2::PointF m_secondaryOffset;
+  m2::PointF m_primaryOffset = m2::PointF(0.0f, 0.0f);
+  m2::PointF m_secondaryOffset = m2::PointF(0.0f, 0.0f);
   bool m_primaryOptional = false;
   bool m_secondaryOptional = false;
   bool m_hasArea = false;
@@ -74,7 +74,7 @@ struct TextViewParams : CommonViewParams
   uint32_t m_extendingSize = 0;
   float m_posZ = 0.0f;
   bool m_limitedText = false;
-  m2::PointF m_limits;
+  m2::PointF m_limits = m2::PointF(0.0f, 0.0f);
 };
 
 struct PathTextViewParams : CommonViewParams
@@ -106,7 +106,7 @@ struct ColoredSymbolViewParams : CommonViewParams
   dp::Color m_color;
   dp::Color m_outlineColor;
   float m_radiusInPixels = 0.0f;
-  m2::PointF m_sizeInPixels;
+  m2::PointF m_sizeInPixels = m2::PointF(0.0f, 0.0f);
   float m_outlineWidth = 0.0f;
 };
 
