@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
+import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.util.StorageUtils;
 import net.jcip.annotations.GuardedBy;
@@ -89,13 +90,6 @@ public class LoggerFactory
 
   public synchronized void zipLogs(@Nullable OnZipCompletedListener listener)
   {
-    if (!isFileLoggingEnabled())
-    {
-      if (listener != null)
-        listener.onCompleted(false);
-      return;
-    }
-
     String logsFolder = StorageUtils.getLogsFolder();
 
     if (TextUtils.isEmpty(logsFolder))
@@ -120,7 +114,7 @@ public class LoggerFactory
   private LoggerStrategy createLoggerStrategy(@NonNull Type type)
   {
     SharedPreferences prefs = MwmApplication.prefs();
-    if (prefs.getBoolean(PREF_FILE_LOGGING_ENABLED, false))
+    if (prefs.getBoolean(PREF_FILE_LOGGING_ENABLED, BuildConfig.BUILD_TYPE.equals("beta")))
     {
       String logsFolder = StorageUtils.getLogsFolder();
       if (!TextUtils.isEmpty(logsFolder))

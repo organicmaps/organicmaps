@@ -4,12 +4,17 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.mapswithme.util.StorageUtils;
+import com.mapswithme.util.Utils;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -36,6 +41,7 @@ class ZipLogsTask implements Runnable
   @Override
   public void run()
   {
+    saveSystemLogcat();
     boolean success = zipFileAtPath(mSourcePath, mDestPath);
     if (mOnCompletedListener != null)
       mOnCompletedListener.onCompleted(success);
@@ -113,5 +119,38 @@ class ZipLogsTask implements Runnable
     if (segments.length == 0)
       return "";
     return segments[segments.length - 1];
+  }
+
+  private static void saveSystemLogcat()
+  {
+    String fullName = StorageUtils.getLogsFolder() + File.separator + "logcat.log";
+    File file = new File(fullName);
+    InputStreamReader reader = null;
+    FileWriter writer = null;
+    try
+    {
+      writer = new FileWriter(file);
+      FileLoggerStrategy.WriteTask.writeSystemInformation(writer);
+      String cmd = "logcat -d -v time";
+      Process process = Runtime.getRuntime().exec(cmd);
+      reader = new InputStreamReader(process.getInputStream());
+      char[] buffer = new char[10000];
+      do
+      {
+        int n = reader.read(buffer, 0, buffer.length);
+        if (n == -1)
+          break;
+        writer.write(buffer, 0, n);
+      } while (true);
+    }
+    catch (Throwable e)
+    {
+      Log.e(TAG, "Failed to save system logcat to file: ", e);
+    }
+    finally
+    {
+      Utils.closeStream(writer);
+      Utils.closeStream(reader);
+    }
   }
 }
