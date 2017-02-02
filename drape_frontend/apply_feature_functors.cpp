@@ -907,7 +907,7 @@ void ApplyLineFeature::Finish(std::vector<ftypes::RoadShield> && roadShields)
   uint32_t constexpr kDefaultMinDistance = 50;
   float const mainScale = df::VisualParams::Instance().GetVisualScale();
 
-  m2::PointD shieldOffset;
+  m2::PointD shieldOffset(0.0, 0.0);
   for (size_t shieldIndex = 0; shieldIndex < roadShields.size(); shieldIndex++)
   {
     ftypes::RoadShield const & shield = roadShields[shieldIndex];
