@@ -652,6 +652,19 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return false;
   }
 
+  public void closeAllFloatingPanels()
+  {
+    if (!mIsFragmentContainer)
+      return;
+
+    closePlacePage();
+    if (removeCurrentFragment(true))
+    {
+      InputUtils.hideKeyboard(mFadeView);
+      mFadeView.fadeOut();
+    }
+  }
+
   public void closeMenu(String statEvent, String alohaStatEvent, @Nullable Runnable procAfterClose)
   {
     Statistics.INSTANCE.trackEvent(statEvent);
@@ -1573,7 +1586,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       if (mIsFragmentContainer)
       {
-        closeSidePanel();
+        closeAllFloatingPanels();
         adjustTraffic(0, UiUtils.getStatusBarHeight(getApplicationContext()));
       }
       else
