@@ -3,8 +3,10 @@ package com.mapswithme.maps.downloader;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.WindowManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,6 +103,13 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
   {
     mToolbarController.update();
     mBottomPanel.update();
+  }
+
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState)
+  {
+    super.onCreate(savedInstanceState);
+    getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
   }
 
   @Override
