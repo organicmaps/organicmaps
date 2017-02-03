@@ -7,6 +7,7 @@ import android.text.TextUtils;
 
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.R;
 import com.mapswithme.util.StorageUtils;
 import net.jcip.annotations.GuardedBy;
 import net.jcip.annotations.ThreadSafe;
@@ -37,7 +38,6 @@ public class LoggerFactory
   }
 
   public final static LoggerFactory INSTANCE = new LoggerFactory();
-  private final static String PREF_FILE_LOGGING_ENABLED = "FileLoggingEnabled";
 
   @NonNull
   @GuardedBy("this")
@@ -53,17 +53,14 @@ public class LoggerFactory
   public boolean isFileLoggingEnabled()
   {
     SharedPreferences prefs = MwmApplication.prefs();
-    return prefs.getBoolean(PREF_FILE_LOGGING_ENABLED, false);
+    return prefs.getBoolean(MwmApplication.get().getString(R.string.pref_enable_logging), false);
   }
 
   public void setFileLoggingEnabled(boolean enabled)
   {
-    if (isFileLoggingEnabled() == enabled)
-      return;
-
     SharedPreferences prefs = MwmApplication.prefs();
     SharedPreferences.Editor editor = prefs.edit();
-    editor.putBoolean(PREF_FILE_LOGGING_ENABLED, enabled).apply();
+    editor.putBoolean(MwmApplication.get().getString(R.string.pref_enable_logging), enabled).apply();
     updateLoggers();
   }
 
@@ -114,7 +111,8 @@ public class LoggerFactory
   private LoggerStrategy createLoggerStrategy(@NonNull Type type)
   {
     SharedPreferences prefs = MwmApplication.prefs();
-    if (prefs.getBoolean(PREF_FILE_LOGGING_ENABLED, BuildConfig.BUILD_TYPE.equals("beta")))
+    String enableLoggingKey = MwmApplication.get().getString(R.string.pref_enable_logging);
+    if (prefs.getBoolean(enableLoggingKey, BuildConfig.BUILD_TYPE.equals("beta")))
     {
       String logsFolder = StorageUtils.getLogsFolder();
       if (!TextUtils.isEmpty(logsFolder))

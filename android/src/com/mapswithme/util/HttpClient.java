@@ -62,7 +62,8 @@ public final class HttpClient
 
     HttpURLConnection connection = null;
 
-    LOGGER.d("Connecting to ", p.url);
+    logUrlSafely(p.url);
+
     try
     {
       connection = (HttpURLConnection) new URL(p.url).openConnection(); // NullPointerException, MalformedUrlException, IOException
@@ -209,6 +210,12 @@ public final class HttpClient
         throw e;
     }
     return in;
+  }
+
+  private static void logUrlSafely(@NonNull final String url)
+  {
+    String safeUrl = url.replaceAll("(token|password|key)=([^&]+)", "***");
+    LOGGER.d("Connecting to ", safeUrl);
   }
 
   private static class HttpHeader
