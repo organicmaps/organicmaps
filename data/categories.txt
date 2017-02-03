@@ -434,7 +434,7 @@ zh-Hant:1匯率|理財|外幣|兌換|貨幣
 el:Συνάλλαγμα|ανταλλακτήριο|χρήματα
 sk:3Zmenáreň|peniaze
 
-amenity-bar
+amenity-bar|@food
 en:2Bar|2pub|beer|drink|food|U+1F37A|U+1F37B|U+1F376
 ru:2Бар|2паб|пиво|выпить|еда
 ar:الحانة|خمارة์|بيرة ์|شراب|الطعام
@@ -465,7 +465,7 @@ el:Μπαρ|Παμπ|μπύρα|ποτό|φαγητό
 sk:2Bar|pivo|pitie|jedlo|voda|pitná voda|tekutiny
 sw:Baa|vinywaji
 
-amenity-pub
+amenity-pub|@food
 en:2Pub|bar|beer|food|U+1F37A|U+1F37B
 ru:Паб|бар|пиво|выпить|еда
 ar:بار|الحانة|خمارة์|بيرة ์|شراب|الطعام
@@ -495,7 +495,7 @@ zh-Hant:酒館|啤酒吧|酒吧|飲酒|PUB|吧台|飲食
 el:Παμπ|μπαρ|μπύρα|φαγητό
 sk:Pohostinstvo|Bar|pivo|pitie|jedlo|voda|pitná voda|tekutiny
 
-amenity-cafe
+amenity-cafe|@food
 en:3Cafe|3restaurant|3food|U+2615|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B|U+1F375
 ru:3Кафе|3ресторан|3еда
 ar:مقهى|مطعم่|طعام|الطعام
@@ -526,7 +526,7 @@ el:Καφετέρια|εστιατόριο|φαγητό
 sk:3Kaviareň|reštaurácia|pohostinstvo|jedlo
 sw:Mgahawa|hoteli|chakula
 
-amenity-fast_food
+amenity-fast_food|@food
 en:4Fast Food|3restaurant|3cafe|takeaway|3food|U+1F354|U+1F355|U+1F35F|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374
 ru:3Фастфуд|3ресторан|3кафе|еда
 ar:وجبات سريعة|مطعم|مقهى|وجبة جاهزة|طعام|الطعام
@@ -556,7 +556,7 @@ zh-Hant:1速食店|麥當勞|肯德雞|漢堡王|頂呱呱|薯條|速食|用餐|
 el:Εστιατόριο|καφετέρια|φαγητό για το σπίτι|φαγητό
 sk:2Rýchle občerstvenie|4fastfood|3kaviareň|reštaurácia|jedlo
 
-amenity-restaurant
+amenity-restaurant|@food
 en:3Restaurant|3cafe|3food|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B
 ru:3Ресторан|3кафе|еда
 ar:1مطعم|مقهى|طعام|الطعام
@@ -615,7 +615,7 @@ el:Βενζινάδικο|καύσιμο|βενζίνη|πρατήριο
 sk:3^Benzínová pumpa
 sw:^Sheli|mafuta
 
-shop-bakery
+shop-bakery|@shop
 en:3Bakery|shop|U+1F35E
 ru:3Булочная|магазин
 ar:مخبزี่|متجر|المتجر
@@ -646,7 +646,7 @@ el:Αρτοποιείο|κατάστημα
 sk:3Pekáreň|obchod
 sw:Kituo cha kuwoka mikate
 
-shop
+shop|@shop
 en:2Shop|U+1F3EA|U+1F3EC
 ru:2Магазин
 ar:متجر|المتجر
@@ -677,7 +677,7 @@ el:Κατάστημα
 sk:2Obchod
 sw:Duka
 
-shop-cosmetics
+shop-cosmetics|@shop
 en:4Beauty Care|home care|shop|U+1F3EC|U+1F3EA
 ru:Магазин косметики|4Косметика|бытовая химия|магазин
 ar:ﻞﻴﻤﺠﺘﻟﺍ ﺕﺍﺮﻀﺤﺘﺴﻣ|تجميل|المتجر
@@ -709,7 +709,7 @@ he:הקיטמסוק|חנות
 sk:4Kozmetika|obchod
 sw:Vipodozi|Duka
 
-shop-convenience
+shop-convenience|@shop
 en:4Convenience Store|shop|U+1F3EC|U+1F3EA
 ru:4Продуктовый магазин|2магазин
 ar:متجر|متجر صغير|المتجر
@@ -738,7 +738,7 @@ zh-Hant:便利商店|便利超商|購物
 el:Ψιλικατζίδικο|κατάστημα
 sk:Príležitostné potreby|obchod
 
-shop-garden_centre
+shop-garden_centre|@shop
 en:Garden Store|U+1F3EC|U+1F3EA|U+1F3E1|shop
 ru:Садовые товары|магазин
 ar:حضانة|روضة|المتجر
@@ -768,7 +768,7 @@ zh-Hant:園藝店|購物
 el:Κατάστημα ειδών κήπου|κατάστημα
 sk:Škôlka|materská škôlka|obchod
 
-shop-mobile_phone
+shop-mobile_phone|@shop
 en:Cell Phones|Mobile Phones|electronics store|U+1F3EC|U+1F3EA|U+1F4F1|U+1F4F2|shop
 ru:Магазин мобильных телефонов|Сотовые|3Мобильные телефоны|электроника|салон связи|магазин
 ar:متجر هواتف محمولة|متجر إلكترونيات|المتجر
@@ -798,7 +798,7 @@ zh-Hant:手機專賣店|購物
 el:Κινητά τηλέφωνα|Κινητά|κατάστημα ηλεκτρονικών|κατάστημα
 sk:Mobilné telefóny|obchod
 
-shop-florist
+shop-florist|@shop
 en:Florist’s|U+1F337|U+1F338|U+1F339|U+1F33A|U+1F33B|U+1F33C|U+1F490|U+1F33E|2shop
 ru:Цветочный магазин|цветы|2магазин
 ar:محل زهور|متجر زهور|متجر|المتجر
@@ -828,7 +828,7 @@ zh-Hant:花店|1購物|店鋪|商店|雜貨店|便利商店
 el:Ανθοπωλείο|κατάστημα
 sk:Kvety|kvetinárstvo|2obchod
 
-shop-butcher
+shop-butcher|@shop
 en:Butcher’s|U+1F356|U+1F357|2shop
 ru:Мясная лавка|мясо|2магазин
 ar:ججزارة|متجر|المتجر
@@ -858,7 +858,7 @@ zh-Hant:肉商|1購物|店鋪|商店|雜貨店|便利商店
 el:Κρεοπωλείο|κατάστημα
 sk:Mäsiar|2obchod
 
-shop-furniture
+shop-furniture|@shop
 en:Furniture Store|2shop
 ru:Магазин мебели|2магазин
 ar:معرض أثاث|متجر|المتجر
@@ -888,7 +888,7 @@ zh-Hant:家具店|1購物|店鋪|商店|雜貨店|便利商店
 el:Κατάστημα επίπλων|κατάστημα
 sk:Nábytok|2obchod
 
-shop-alcohol
+shop-alcohol|@shop
 en:Liquor Store|liquor|U+1F377|2shop
 ru:Магазин алкоголя|4алкоголь|3винный|3вино-водочный|2магазин
 ar:متجر مشروبات كحولية|خمور|متجر|المتجر
@@ -918,7 +918,7 @@ zh-Hant:烈酒|1購物|店鋪|商店|雜貨店|便利商店
 el:Κάβα|ποτά|κατάστημα
 sk:Liehoviny|alkohol|2obchod
 
-shop-books
+shop-books|@shop
 en:Bookstore|U+1F4D6|U+1F4DA|U+1F4D9|U+1F4D8|U+1F4D7|U+1F4D5|2shop
 ru:Книжный магазин|книги|2магазин
 ar:مكتبة لبيع الكتب|متجر|المتجر
@@ -948,7 +948,7 @@ zh-Hant:書店|1購物|店鋪|商店|雜貨店|便利商店
 el:Βιβλιοπωλείο|κατάστημα
 sk:Kníhkupectvo|2obchod
 
-shop-shoes
+shop-shoes|@shop
 en:Shoe Store|U+1F461|U+1F460|U+1F462|U+1F45E|U+1F45F|2shop
 ru:Магазин обуви|2обувь|2обувной|2магазин
 ar:متجر أحذية|متجر|المتجر
@@ -978,7 +978,7 @@ zh-Hant:鞋店|1購物|店鋪|商店|雜貨店|便利商店
 el:Κατάστημα παπουτσιών|κατάστημα
 sk:Obuvníctvo|2obchod
 
-shop-electronics
+shop-electronics|@shop
 en:Electronics|U+1F4F1|U+1F4BB|U+23F0|U+1F4F7|U+1F4F9|U+1F3A5|U+1F4FA|U+1F4FB|U+1F4DF|U+1F4DE|U+260E|U+1F4E0|U+1F4BD|U+1F4BE|U+1F4BF|U+1F4C0|U+1F4FC|U+1F50B|U+1F4E1|2shop
 ru:Электротехника|2магазин
 ar:متجر إلكترونيات|متجر|المتجر
@@ -1008,7 +1008,7 @@ zh-Hant:電子產品|電器店|1購物|店鋪|商店|雜貨店|便利商店
 el:Ηλεκτρονικά|κατάστημα
 sk:Elektronika|2obchod
 
-shop-hardware|shop-doityourself
+shop-hardware|shop-doityourself|@shop
 en:Hardware Store|DIY|do it yourself|U+1F3EC|U+1F3EA|U+1F50B|U+1F50C|U+1F4A1|U+1F526|U+1F529|U+1F528|U+2614|shop
 ru:Хозяйственный|Стройтовары|магазин
 ar:متجر حواسيب|متجر|متجر مستلزمات تشطيب|متجر ديكور|المتجر
@@ -1038,7 +1038,7 @@ zh-Hant:五金行|硬件店|購物|店鋪|商店|雜貨店|便利商店
 el:Κατάστημα εξοπλισμού|DIY|Κάντεο μόνος σου|κατάστημα
 sk:Železiarstvo|Náradie|obchod
 
-shop-jewelry
+shop-jewelry|@shop
 en:Jewelry|U+1F48D|2shop
 ru:Ювелирный магазин|2магазин
 ar:مجوهرات|المتجر
@@ -1068,7 +1068,7 @@ zh-Hant:珠寶店|1購物|店鋪|商店|雜貨店|便利商店
 el:Κοσμηματοπωλείο|κατάστημα
 sk:Klenotníctvo|2obchod
 
-shop-optician
+shop-optician|@shop
 en:Optician’s|U+1F453|2shop
 ru:Оптика|2магазин
 ar:مركز بصريات|متجر|المتجر
@@ -1098,7 +1098,7 @@ zh-Hant:眼鏡店|1購物|店鋪|商店|雜貨店|便利商店
 el:Κατάστημα οπτικών
 sk:Optika|2obchod
 
-shop-gift
+shop-gift|@shop
 en:Gift Shop|U+1F381|2shop
 ru:Магазин сувениров|сувенирная лавка|cувениры|2магазин
 ar:متجر هدايا|متجر|المتجر
@@ -1160,7 +1160,7 @@ he:יפוי ןוכמ
 sk:Kozmetický salón
 sw:Uzuri saluni
 
-shop-greengrocer
+shop-greengrocer|@shop
 en:4Greengrocer's|greengrocers|3grocery|U+1F345|U+1F346|U+1F33D|U+1F360|U+1F348|U+1F347|U+1F349|U+1F34A|U+1F34C|U+1F34D|U+1F34E|U+1F34F|U+1F350|U+1F351|U+1F353|2shop
 ru:Овощи и фрукты|овощи|фрукты|2магазин
 ar:محل خضراوات|متجر|المتجر
@@ -1190,7 +1190,7 @@ zh-Hant:蔬果零售店|1購物|店鋪|商店|雜貨店|便利商店
 el:Μανάβικο|οπωροπωλείο|παντοπωλείο|κατάστημα
 sk:Zelovoc|2obchod
 
-shop-sports
+shop-sports|@shop
 en:Sports Goods|U+1F3BF|U+1F3A3|U+1F3C2|U+1F6B4|U+26BD|U+1F3C0|U+1F3C8|U+26BE|U+1F3BE|U+1F3C9|U+26F3|2shop
 ru:Магазин спорттоваров|Спорттовары|товары для спорта|2магазин
 ar:أدوات رياضية|متجر|المتجر
@@ -1220,7 +1220,7 @@ zh-Hant:運動商品店|1購物|店鋪|商店|雜貨店|便利商店
 el:Αθλητικά είδη|κατάστημα
 sk:Športové potreby|2obchod
 
-shop-supermarket
+shop-supermarket|@shop
 en:3Supermarket|shop|U+1F3EA|U+1F3EC
 ru:3Супермаркет|3универсам|3гипермаркет|магазин
 ar:سوبر ماركت|متجر|المتجر
@@ -1251,7 +1251,7 @@ el:Σούπερ μάρκετ|κατάστημα
 sk:3Supermarket|2obchod
 sw:Supamaketi|duka
 
-shop-mall
+shop-mall|@shop
 en:Mall|5shopping mall|shop
 ru:Торговый центр|магазин
 ar:ﻝﻮﻣ|المتجر
@@ -1283,7 +1283,7 @@ he:ןוינקה|חנות
 sk:The Mall|obchod
 sw:Ununuzi maduka|duka
 
-shop-department_store
+shop-department_store|@shop
 en:Department Store|U+1F3EC|U+1F3EA|shop
 ru:Универмаг|магазин
 ar:متجر شامل|مركز تجاري|المتجر
@@ -1312,7 +1312,7 @@ zh-Hant:百貨公司|購物
 el:Πολυκατάστημα|κατάστημα
 sk:Obchodný dom|obchod
 
-shop-beverages
+shop-beverages|@shop
 en:Beverages|drinks|U+1F379|shop
 ru:Напитки|соки|магазин
 ar:مشروبات|عصائر|المتجر
@@ -1342,7 +1342,7 @@ zh-Hant:飲料|飲料店|購物
 el:Οινοπνευματώδη|ποτά|κατάστημα
 sk:Nápoje|obchod
 
-shop-computer
+shop-computer|@shop
 en:Computer Store|U+1F4BB|shop
 ru:Компьютерный магазин|магазин
 ar:متجر كمبيوتر|المتجر
@@ -1371,7 +1371,7 @@ zh-Hant:電腦商店|電腦專賣店|購物
 el:Κατάστημα υπολογιστών|κατάστημα
 sk:Obchod s výpočtovou technikou|obchod
 
-shop-confectionery
+shop-confectionery|@shop
 en:Sweets|3confectionery|candy store|shop|U+1F36C|U+1F36D
 ru:Кондитерская|магазин
 ar:حلواني|متجر حلويات|المتجر
@@ -1431,7 +1431,7 @@ zh-Hant:洗衣店
 el:Άπλυτα|κατάστημα με πλυντήρια τούχων
 sk:4Práčovňa
 
-shop-toys
+shop-toys|@shop
 en:Toy Store|shop
 ru:Магазин игрушек|игрушки|магазин
 ar:محل لعب|المتجر
@@ -1460,7 +1460,7 @@ zh-Hant:玩具商店|購物
 el:Κατάστημα παιχνιδιών|κατάστημα
 sk:Hračkárstvo|obchod
 
-amenity-marketplace
+amenity-marketplace|@shop
 en:3Marketplace|market|shop
 ru:3Рынок|базар|магазин
 ar:ساحة السوق|السوق|متجر|المتجر
@@ -1491,7 +1491,7 @@ el:Αγορά|αγορά|κατάστημα
 sk:3Trhovisko|samoobsluha|obchod
 sw:Soko|duka
 
-shop-clothes
+shop-clothes|@shop
 en:Clothes Shop|4clothes|U+1F45A|U+1F457|U+1F456|U+1F455|shop
 ru:Магазин одежды|4одежда|магазин
 ar:متجر ألبسة|المتجر
@@ -1522,7 +1522,7 @@ el:Κατάστημα ρούχων|ρούχα|κατάστημα
 sk:Oblečenie|obchod
 sw:Duka la nguo|nguo
 
-shop-car
+shop-car|@shop
 en:Car Shop|U+1F697|U+1F698|U+1F699|shop
 ru:Автосалон|магазин
 ar:متجر سيارات|المتجر
@@ -1553,7 +1553,7 @@ el:Κατάστημα αυτοκινήτων|κατάστημα
 sk:Predajňa áut|obchod
 sw:Yadi|duka la gari|gari
 
-shop-bicycle
+shop-bicycle|@shop
 en:4Bicycle Shop|cycle|bike|shop|U+1F6B2|U+1F6B4|U+1F6B5
 ru:4Веломагазин|велосипед|магазин
 ar:متجر دراجات
@@ -1584,7 +1584,7 @@ el:Κατάστημα ποδηλάτων|ποδηλασία|ποδήλατο|κ�
 sk:3Cyklistický obchod|bicykel|obchod
 sw:Duka la baiskeli|baiskeli
 
-shop-kiosk
+shop-kiosk|@shop
 en:Kiosk|shop|U+1F4F0
 ru:Киоск|магазин
 ar:كشك|المتجر
@@ -1615,7 +1615,7 @@ el:Περίπτερο|κατάστημα
 sk:Kiosk|obchod
 sw:Kioski|duka
 
-highway-bus_stop
+highway-bus_stop|@transport
 en:Bus Stop|2bus|stop|4transport|U+1F68C|U+1F68F|U+1F68E|U+1F690
 ru:4Остановка|4автобус|4транспорт
 ar:محطة الحافلة์|حافلة|نقل|النقل
@@ -1646,7 +1646,7 @@ el:Στάση λεωφορείου|λεωφορείο|στάση|μεταφορ�
 sk:Autobusová zastávka|4autobus|2bus|zastávka|stanica|doprava
 sw:Kituo cha basi|basi|usafiri
 
-railway-tram_stop
+railway-tram_stop|@transport
 en:Tram Stop|3tram|stop|4transport|U+1F683
 ru:4Остановка|4трамвай|4транспорт
 ar:محطة الترام|نقل|النقل
@@ -1676,7 +1676,7 @@ zh-Hant:1電車站|電車|運輸|交通|鐵路|大眾運輸
 el:Στάση τραμ|τραμ|στάση|μεταφορές
 sk:Električková zastávka|3električka|4zastávka|stanica|doprava
 
-amenity-bus_station
+amenity-bus_station|@transport
 en:Bus Station|2bus|station|4transport|U+1F68C|U+1F68F|U+1F68D
 ru:Автовокзал|Автостанция|4автобус|4остановка|4транспорт
 ar:محطة الباص|حافلة|نقل|النقل
@@ -1707,7 +1707,7 @@ el:Σταθμός λεωφορείων|λεωφορείο|σταθμός|μετ�
 sk:Autobusové nástupište|zastávka|bus|doprava
 sw:Stendi ya basi|basi|stendi|usafiri
 
-railway-station|railway-halt|building-train_station
+railway-station|railway-halt|building-train_station|@transport
 en:3Train Station|4railway|railroad|3train|4station|4transport|U+1F684|U+1F685|U+1F689|U+1F682|U+1F686|U+1F688|U+1F68A|U+1F68B
 ru:Ж/д станция|3поезд|3станция|4транспорт
 ar:سكة الحديدี|محطة القطارี|محطةี|نقل|النقل
@@ -1738,7 +1738,7 @@ el:Σιδηροδρομικός σταθμός|σιδηρόδρομος|σιδη
 sk:3Železničná stanica|vlakové nástupište|2vlak|doprava
 sw:Kituo cha treni|treni|usafiri
 
-railway-subway_entrance|railway-station-subway
+railway-subway_entrance|railway-station-subway|@transport
 en:3Subway|3tube|3metro|3underground|transport|U+1F687
 ru:3Метро|транспорт
 ar:محطة|القطار الكهربائي النفقي|قطار الأنفاق|المترو|تحت الأرض|النقل
@@ -1769,7 +1769,7 @@ el:Υπόγειος|σωλήνας|μετρό|υπόγεια|μεταφορές
 sk:3Metro|podzemná doprava|doprava
 sw:Reli ya chini
 
-amenity-ferry_terminal
+amenity-ferry_terminal|@transport
 en:3Ferry|terminal|transport|U+1F6A2|U+1F6A4|U+2693
 ru:3Паром|транспорт
 ar:مركب|محطة|نقل|النقل
@@ -1800,7 +1800,7 @@ el:Πορθμείο|τερματικό|μεταφορές
 sk:3Trajekt|doprava
 sw:Bandali|kivuko
 
-amenity-taxi
+amenity-taxi|@transport
 en:3Taxi|transport|U+1F695|U+1F696
 ru:3Такси|транспорт
 ar:تكسي|نقل|النقل
@@ -1831,7 +1831,7 @@ el:Ταξί|μεταφορές
 sk:3Taxi|doprava
 sw:Teksi|usafiri
 
-amenity-townhall
+amenity-townhall|@tourism
 en:3Town Hall|3tourism|3sights
 ru:3Ратуша|3туризм|достопримечательность
 ar:مبنى البلدية|سياحة|مناظر
@@ -1893,7 +1893,7 @@ el:Αξιοθέατα|τουρισμός|περιηγήσεις
 sk:3Atrakcia|3pamiatka|3zaujímavosť
 sw:Kivutio|utalii
 
-tourism-artwork
+tourism-artwork|@tourism
 en:3Artwork|3tourism|3sights|U+1F3A8
 ru:3Произведение искусства|3туризм|3скульптура|достопримечательность
 ar:سياحة|مناظر
@@ -1924,7 +1924,7 @@ el:Έργα τέχνης|τουρισμός|αξιοθέατα
 sk:3Umelecké diela|3pamätihodnosť
 sw:Kazi ya kisanaa|utalii
 
-tourism-viewpoint
+tourism-viewpoint|@tourism
 en:4Viewpoint|tourism|sights
 ru:4Обзорная площадка|туризм|достопримечательность
 ar:أماكن مراقبة|سياحة|مناظر
@@ -1955,7 +1955,7 @@ el:Άποψη|τουρισμός|αξιοθέατα
 sk:3Vyhliadka|pamätihodnosť
 sw:Genge|utalii
 
-tourism-information
+tourism-information|@tourism
 en:4Tourist Information|4information|sights|U+1F481
 ru:4Туринформация|информация|достопримечательность
 ar:معلومات سياحية|معلومات|مناظر|سياحة
@@ -2017,7 +2017,7 @@ el:Χώρος εκδρομής
 sk:3Piknik
 sw:Sehemu ya madhazi
 
-amenity-place_of_worship
+amenity-place_of_worship|@tourism
 en:4Place of Worship|3temple|sights|U+1F64F
 ru:3Храм|достопримечательность
 ar:1مكان للعبادة|1معبد|سياحة
@@ -2048,7 +2048,7 @@ el:Τόπος λατρείας|ναός|αξιοθέατα
 sk:3Svätyňa|3chrám|3posvätné miesto|pamätihodnosť
 sw:Sehemu ya kusali
 
-amenity-place_of_worship-christian
+amenity-place_of_worship-christian|@tourism
 en:Church|place of worship|temple|sights|U+1F64F|U+26EA|U+271D|U+2626
 ru:Храм|костел|церковь|собор|достопримечательность
 ar:كنيسة|مكان للعبادة|معبد|سياحة
@@ -2078,7 +2078,7 @@ zh-Hant:教堂|寺廟|禱告|寺|禪寺|旅遊景點
 el:Εκκλησία|τόπος λατρείας|ναός|αξιοθέατα
 sk:Chrám|kostol|svätyňa|posvätné miesto|pamätihodnosť
 
-amenity-place_of_worship-muslim
+amenity-place_of_worship-muslim|@tourism
 en:Mosque|tekke|place of worship|temple|sights|U+1F64F|U+262A|U+1F54B|U+1F54C|U+262A
 ru:Мечеть|храм|достопримечательность
 ar:مسجد|مكان للعبادة|معبد|سياحة
@@ -2108,7 +2108,7 @@ zh-Hant:清真寺|寺廟|禱告|寺|禪寺|旅遊景點
 el:Τζαμί|τεκκέ|τόπος λατρείας|ναός|αξιοθέατα
 sk:Mešita|chrám|svätyňa|posvätné miesto|pamätihodnosť
 
-amenity-place_of_worship-buddhist
+amenity-place_of_worship-buddhist|@tourism
 en:Temple|place of worship|sights|U+1F64F|U+26EA|U+2638
 ru:Храм|достопримечательность
 ar:معبد|مكان للعبادة|سياحة
@@ -2138,7 +2138,7 @@ zh-Hant:寺廟|佛|寺廟|禱告|寺|禪寺|旅遊景點
 el:Ναός|τόπος λατρείας|αξιοθέατα
 sk:Chrám|svätyňa|posvätné miesto|pamätihodnosť
 
-amenity-place_of_worship-hindu
+amenity-place_of_worship-hindu|@tourism
 en:Temple|place of worship|sights|U+1F64F|U+1F549
 ru:Храм|достопримечательность
 ar:معبد|مكان للعبادة|سياحة
@@ -2168,7 +2168,7 @@ zh-Hant:寺廟|寺廟|禱告|寺|禪寺|旅遊景點
 el:Ναός|τόπος λατρείας|αξιοθέατα
 sk:Chrám|svätyňa|posvätné miesto|pamätihodnosť
 
-amenity-place_of_worship-shinto
+amenity-place_of_worship-shinto|@tourism
 en:Shrine|place of worship|temple|sights|U+1F64F|U+26E9
 ru:Святилище|храм|достопримечательность
 ar:مزار|مكان للعبادة|معبد|سياحة
@@ -2198,7 +2198,7 @@ zh-Hant:聖殿|寺廟|禱告|寺|禪寺|旅遊景點
 el:Ιερό|τόπος λατρείας|ναός|αξιοθέατα
 sk:Svätyňa|chrám|svätyňa|posvätné miesto|pamätihodnosť
 
-amenity-place_of_worship-jewish
+amenity-place_of_worship-jewish|@tourism
 en:Synagogue|place of worship|temple|sights|U+1F64F|U+1F54D|U+2721
 ru:Синагога|храм|достопримечательность
 ar:معبد يهودي|مكان للعبادة|معبد|سياحة
@@ -2228,7 +2228,7 @@ zh-Hant:猶太教堂|寺廟|禱告|寺|禪寺|旅遊景點
 el:Συναγωγή|τόπος λατρείας|ναός|αξιοθέατα
 sk:Synagóga|chrám|svätyňa|posvätné miesto|pamätihodnosť
 
-amenity-place_of_worship-taoist
+amenity-place_of_worship-taoist|@tourism
 en:Temple|place of worship|sights|U+1F64F|U+262F
 ru:Храм|достопримечательность
 ar:معبد|مكان للعبادة|سياحة
@@ -2258,7 +2258,7 @@ zh-Hant:寺廟|禱告|寺|禪寺|旅遊景點
 el:Ναός|τόπος λατρείας|αξιοθέατα
 sk:Chrám|svätyňa|posvätné miesto|pamätihodnosť
 
-tourism-museum
+tourism-museum|@tourism
 en:2Museum|attraction|tourism|sights|U+1F3A8
 ru:2Музей|достопримечательность|туризм
 ar:متحف|أماكن الجذب|سياحة|مناظر
@@ -2289,7 +2289,7 @@ el:Μουσείο|θέαμα|τουρισμός|αξιοθέατα
 sk:2Múzeum|pamätihodnosť
 sw:Makumbusho|kivutio|utalii
 
-waterway-waterfall
+waterway-waterfall|@tourism
 en:2Waterfall|sights
 ru:2Водопад|достопримечательность
 ar:شلال|مناظر|سياحة
@@ -2320,7 +2320,7 @@ el:Καταρράκτης|αξιοθέατα
 sk:2Vodopád|pamätihodnosť
 sw:Maporomoko ya maji
 
-historic-memorial
+historic-memorial|@tourism
 en:Memorial|monument|attraction|tourism|sights|U+1F5FC|U+1F5FD|U+1F5FF
 ru:Мемориал|монумент|достопримечательность|туризм
 ar:مبنى او نصب تزكارى
@@ -2351,7 +2351,7 @@ el:Επιμνημόσυνο|μνημείο|θέαμα|τουρισμός|αξι�
 sk:Pomník|pamiatka|atrakcia|zaujímavosť|pamätihodnosť
 sw:Makumbusho|kumbukumbu ya kihistoria|kivutio|utalii
 
-historic-monument
+historic-monument|@tourism
 en:Monument|attraction|tourism|sights|U+1F5FD|U+1F5FF
 ru:Памятник|достопримечательность|туризм
 ar:نصب تزكارى
@@ -2382,7 +2382,7 @@ el:Μνημείο|θέαμα|τουρισμός|αξιοθέατα
 sk:Zaujímavosť|pamätihodnosť|pomník|pamiatka
 sw:Makumbusho|kivutio|utalii
 
-historic-ruins
+historic-ruins|@tourism
 en:Ruins|attraction|tourism|sights|U+1F5FF
 ru:Руины|развалины|достопримечательность|туризм
 ar:آثار|أماكن الجذب|سياحة|مناظر
@@ -2413,7 +2413,7 @@ el:Αρχεία|θέαμα|τουρισμός|αξιοθέατα
 sk:Zrúcanina|ruiny|pamätihodnosť
 sw:Maeneo ya kale|jengo la kale|chakavu
 
-historic-castle
+historic-castle|@tourism
 en:Castle|attraction|tourism|sights|U+1F3EF|U+1F3F0|U+1F451|U+1F478
 ru:Замок|достопримечательность|туризм
 ar:قلعةأماكن الجذب|سياحة|مناظر
@@ -2444,7 +2444,7 @@ el:Κάστρο|θέαμα|τουρισμός|αξιοθέατα
 sk:Zámok|atrakcia|pamätihodnosť
 sw:Ngome|kivutio|utalii
 
-historic-archaeological_site
+historic-archaeological_site|@tourism
 en:Archaeological Site|attraction|tourism|sights
 ru:Раскопки|достопримечательность|туризм
 ar:موقع أثري|أماكن الجذب|سياحة|مناظر
@@ -2475,7 +2475,7 @@ el:Αρχαιολογικός χώρος|θέαμα|τουρισμός|αξιο�
 sk:Vykopávky|pamätihodnosť
 sw:Machimbo ya kihistoria|kivutio|utalii
 
-leisure-garden
+leisure-garden|@tourism
 en:2Garden|sights
 ru:2Сад|достопримечательность
 ar:بستان|مناظر|سياحة
@@ -2599,7 +2599,7 @@ el:Ενοικίαση αυτοκινήτων|αυτοκίνητο|ενοικιά
 sk:3Autopožičovňa|požičovňa áut
 sw:Kodi ya gari|gari|kodi
 
-amenity-cinema
+amenity-cinema|@entertainment
 en:3Cinema|entertainment|U+1F3A6|U+1F3AC
 ru:Кинотеатр|3кино|развлечения
 ar:سينيما|التسلية
@@ -2630,7 +2630,7 @@ el:Κινηματογράφος|ψυχαγωγία
 sk:3Kino|zábava
 sw:Sinema|burudani
 
-amenity-theatre
+amenity-theatre|@entertainment
 en:3Theatre|theater|entertainment|U+1F3AD
 ru:3Театр|развлечения
 ar:مسرح|التسلية
@@ -2661,7 +2661,7 @@ el:Θέατρο|θέατρο|ψυχαγωγία
 sk:3Divadlo|zábava
 sw:Thieta|burudani|maonyesho
 
-amenity-nightclub
+amenity-nightclub|@entertainment
 en:3Nightclub|night club|3disco|dance|entertainment|U+1F378|U+1F379|U+1F46F|U+1F483
 ru:3Ночной клуб|3дискотека|развлечения
 ar:نادي ليلي|رقص|التسلية
@@ -2692,7 +2692,7 @@ el:Νυχτερινό κέντρο διασκέδασης|ντίσκο|χορό�
 sk:4Nočný klub|3disco|3nightclub|night club|zábava
 sw:Ukumbi wa starehe|klabu|burudani
 
-amenity-brothel
+amenity-brothel|@entertainment
 en:Brothel|entertainment|U+1F3E9
 ru:Бордель|развлечения
 ar:دعارة|لتسلية
@@ -2723,7 +2723,7 @@ el:Πορνείο|ψυχαγωγία
 sk:Nevestinec|verejný dom|zábava
 sw:Danguro
 
-amenity-casino
+amenity-casino|@entertainment
 en:Casino|entertainment|U+1F3B0|U+1F3B2|U+1F3B4
 ru:Казино|развлечения
 ar:اكازينو|لتسلية
@@ -3146,7 +3146,7 @@ el:Βιβλιοθήκη
 sk:3Knižnica
 sw:Maktaba
 
-amenity-parking
+amenity-parking|@parking
 en:3Parking|U+1F697|U+1F17F|U+1F698|U+1F699
 ru:3Парковка
 ar:الاصطفاف
@@ -4340,7 +4340,7 @@ el:Πάρκο
 sk:Park
 sw:Mbuga
 
-tourism-hostel
+tourism-hostel|@hotel
 en:3Hostel|hotel|motel|U+1F3E8
 ru:3Хостел|гостиница|отель|мотель
 ar:نزُل|فندق|فندق رخيص|الفندق
@@ -4371,7 +4371,7 @@ el:Πανδοχείο|ξενοδοχείο|μοτέλ
 sk:3Hostel|hotel|ubytovňa|motel
 sw:Bweni
 
-tourism-hotel
+tourism-hotel|@hotel
 en:2Hotel|motel|U+1F3E8|U+1F62A|U+1F634
 ru:2Гостиница|2отель|мотель
 ar:فندق|فندق رخيص|الفندق
@@ -4402,7 +4402,7 @@ el:Ξενοδοχείο|μοτέλ
 sk:2Hotel|ubytovňa|motel
 sw:Hoteli
 
-tourism-guest_house
+tourism-guest_house|@hotel
 en:Guest House|hotel|hostel|U+1F3E8
 ru:Гостевой дом|гостиница|отель|хостел
 ar:دار الضيافة|فندق|نزُل|الفندق
@@ -4433,7 +4433,7 @@ el:Ξενώνας|ξενοδοχείο|ξενώνας
 sk:Penzión|hotel|hostel|ubytovňa
 sw:Gesti
 
-tourism-motel
+tourism-motel|@hotel
 en:3Motel|hotel|hostel|U+1F3E8
 ru:3Мотель|гостиница|отель|хостел
 ar:فندق رخيص|فندق|نزُل|الفندق
@@ -5745,7 +5745,7 @@ zh-Hant:復印店|打印機
 el:Φωτοτυπείο|Εκτυπωτής
 sk:Kopírovacie služby|Tlačiarne
 
-shop-photo
+shop-photo|@shop
 en:Photo Shop|frames|shop
 ru:Фототовары|магазин
 ar:محل صور|إطارات|محل
@@ -5805,7 +5805,7 @@ zh-Hant:旅行社|遊覽
 el:Ταξιδιωτικό γραφείο|Περιηγήσεις
 sk:Cestovná kancelária|Zájazdy
 
-shop-outdoor
+shop-outdoor|@shop
 en:Outdoor Equipment|trekking|climbing|camping|shop
 ru:Магазин снаряжения|туристический магазин|магазин
 ar:معدات خارجية|ترحال|تسلق|تخييم|محل
@@ -5865,7 +5865,7 @@ zh-Hant:乾洗|清潔
 el:Στεγνό καθάρισμα|καθαρισμός
 sk:Čistiareň|čistenie
 
-shop-tyres
+shop-tyre|@shop
 en:Tyre Shop|shop
 ru:Магазин шин|магазин
 ar:محل إطارات|محل
