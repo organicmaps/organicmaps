@@ -255,10 +255,12 @@ enum class RoadShieldType
   Default = 0,
   US_Interstate,
   US_Highway,
+  Euro_Motorway,
   UK_Motorway,
   UK_Highway,
-  Russia_Motorway,
   Russia_Highway,
+  France_Motorway,
+  France_Departmental,
   Count
 };
 
