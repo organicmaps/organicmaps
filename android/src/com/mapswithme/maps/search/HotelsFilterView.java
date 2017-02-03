@@ -2,15 +2,19 @@ package com.mapswithme.maps.search;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ScrollView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Animations;
@@ -32,6 +36,10 @@ public class HotelsFilterView extends FrameLayout
   private View mFade;
   private RatingFilterView mRating;
   private PriceFilterView mPrice;
+  private View mContent;
+  private View mElevation;
+  private int mHeaderHeight;
+  private int mButtonsHeight;
 
   @Nullable
   private HotelsFilterListener mListener;
@@ -65,6 +73,10 @@ public class HotelsFilterView extends FrameLayout
 
   private void init(Context context)
   {
+    Resources res = context.getResources();
+    mHeaderHeight = (int) res.getDimension(
+        UiUtils.getStyledResourceId(context, android.R.attr.actionBarSize));
+    mButtonsHeight = (int) res.getDimension(R.dimen.height_block_base);
     LayoutInflater.from(context).inflate(R.layout.hotels_filter, this, true);
   }
 
@@ -76,6 +88,8 @@ public class HotelsFilterView extends FrameLayout
     mFade = findViewById(R.id.fade);
     mRating = (RatingFilterView) findViewById(R.id.rating);
     mPrice = (PriceFilterView) findViewById(R.id.price);
+    mContent = mFrame.findViewById(R.id.content);
+    mElevation = mFrame.findViewById(R.id.elevation);
     findViewById(R.id.cancel).setOnClickListener(new OnClickListener()
     {
       @Override
@@ -107,6 +121,23 @@ public class HotelsFilterView extends FrameLayout
         close();
       }
     });
+  }
+
+  @Override
+  protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+  {
+    super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+    mContent.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+    mElevation.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+    int height = mContent.getMeasuredHeight() + mHeaderHeight + mButtonsHeight
+                 + mElevation.getMeasuredHeight();
+    if (height >= getMeasuredHeight())
+      height = LayoutParams.WRAP_CONTENT;
+
+    ViewGroup.LayoutParams lp = mFrame.getLayoutParams();
+    lp.height = height;
+    mFrame.setLayoutParams(lp);
   }
 
   private void cancel()
