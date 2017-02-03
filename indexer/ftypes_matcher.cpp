@@ -712,10 +712,21 @@ public:
 
     strings::UniString s = strings::MakeUniString(rawText);
     if (s[0] == 'E' || s[0] == strings::UniChar(1045)) // Latin and cyrillic.
-      return RoadShield(RoadShieldType::Russia_Motorway, rawText);
+      return RoadShield(RoadShieldType::Euro_Motorway, rawText);
 
     return RoadShield(RoadShieldType::Russia_Highway, rawText);
   }
+};
+
+class FranceRoadShieldParser : public SimpleRoadShieldParser
+{
+public:
+  FranceRoadShieldParser(std::string const & baseRoadNumber)
+  : SimpleRoadShieldParser(baseRoadNumber, {{'A', RoadShieldType::France_Motorway},
+                                            {'N', RoadShieldType::France_Motorway},
+                                            {'E', RoadShieldType::Euro_Motorway},
+                                            {'D', RoadShieldType::France_Departmental}})
+  {}
 };
 
 std::vector<RoadShield> GetRoadShields(FeatureType const & f)
@@ -737,6 +748,8 @@ std::vector<RoadShield> GetRoadShields(FeatureType const & f)
     return UKRoadShieldParser(roadNumber).GetRoadShields();
   if (mwmName == "Russia")
     return RussiaRoadShieldParser(roadNumber).GetRoadShields();
+  if (mwmName == "France")
+    return FranceRoadShieldParser(roadNumber).GetRoadShields();
 
   return std::vector<RoadShield>{RoadShield(RoadShieldType::Default, roadNumber)};
 }

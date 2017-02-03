@@ -258,7 +258,9 @@ bool IsColoredRoadShield(ftypes::RoadShield const & shield)
          shield.m_type == ftypes::RoadShieldType::UK_Highway ||
          shield.m_type == ftypes::RoadShieldType::UK_Motorway ||
          shield.m_type == ftypes::RoadShieldType::Russia_Highway ||
-         shield.m_type == ftypes::RoadShieldType::Russia_Motorway;
+         shield.m_type == ftypes::RoadShieldType::Euro_Motorway ||
+         shield.m_type == ftypes::RoadShieldType::France_Motorway ||
+         shield.m_type == ftypes::RoadShieldType::France_Departmental;
 }
 
 dp::FontDecl GetRoadShieldTextFont(MapStyle const & style, dp::FontDecl const & baseFont,
@@ -267,13 +269,17 @@ dp::FontDecl GetRoadShieldTextFont(MapStyle const & style, dp::FontDecl const & 
   dp::FontDecl f = baseFont;
   f.m_outlineColor = dp::Color::Transparent();
 
+  using ftypes::RoadShieldType;
+
   static std::unordered_map<int, df::ColorConstant> kColors = {
-    {static_cast<int>(ftypes::RoadShieldType::UK_Motorway), df::RoadShieldBlueText},
-    {static_cast<int>(ftypes::RoadShieldType::UK_Highway), df::RoadShieldUKGreenText},
-    {static_cast<int>(ftypes::RoadShieldType::US_Interstate), df::RoadShieldUSInterstateText},
-    {static_cast<int>(ftypes::RoadShieldType::US_Highway), df::RoadShieldUSHighwayText},
-    {static_cast<int>(ftypes::RoadShieldType::Russia_Highway), df::RoadShieldBlueText},
-    {static_cast<int>(ftypes::RoadShieldType::Russia_Motorway), df::RoadShieldGreenText},
+    {static_cast<int>(RoadShieldType::Euro_Motorway), df::RoadShieldWhiteText},
+    {static_cast<int>(RoadShieldType::UK_Motorway), df::RoadShieldWhiteText},
+    {static_cast<int>(RoadShieldType::UK_Highway), df::RoadShieldUKYellowText},
+    {static_cast<int>(RoadShieldType::US_Interstate), df::RoadShieldWhiteText},
+    {static_cast<int>(RoadShieldType::US_Highway), df::RoadShieldBlackText},
+    {static_cast<int>(RoadShieldType::Russia_Highway), df::RoadShieldWhiteText},
+    {static_cast<int>(RoadShieldType::France_Motorway), df::RoadShieldWhiteText},
+    {static_cast<int>(RoadShieldType::France_Departmental), df::RoadShieldBlackText}
   };
 
   auto it = kColors.find(static_cast<int>(shield.m_type));
@@ -286,11 +292,15 @@ dp::FontDecl GetRoadShieldTextFont(MapStyle const & style, dp::FontDecl const & 
 dp::Color GetRoadShieldColor(MapStyle const & style, dp::Color const & baseColor,
                              ftypes::RoadShield const & shield)
 {
+  using ftypes::RoadShieldType;
+
   static std::unordered_map<int, df::ColorConstant> kColors = {
-    {static_cast<int>(ftypes::RoadShieldType::UK_Motorway), df::RoadShieldBlueBackground},
-    {static_cast<int>(ftypes::RoadShieldType::UK_Highway), df::RoadShieldGreenBackground},
-    {static_cast<int>(ftypes::RoadShieldType::Russia_Highway), df::RoadShieldBlueBackground},
-    {static_cast<int>(ftypes::RoadShieldType::Russia_Motorway), df::RoadShieldGreenBackground},
+    {static_cast<int>(RoadShieldType::Euro_Motorway), df::RoadShieldGreenBackground},
+    {static_cast<int>(RoadShieldType::UK_Motorway), df::RoadShieldBlueBackground},
+    {static_cast<int>(RoadShieldType::UK_Highway), df::RoadShieldGreenBackground},
+    {static_cast<int>(RoadShieldType::Russia_Highway), df::RoadShieldBlueBackground},
+    {static_cast<int>(RoadShieldType::France_Motorway), df::RoadShieldRedBackground},
+    {static_cast<int>(RoadShieldType::France_Departmental), df::RoadShieldOrangeBackground}
   };
 
   auto it = kColors.find(static_cast<int>(shield.m_type));
@@ -305,7 +315,8 @@ float GetRoadShieldOutlineWidth(float baseWidth, ftypes::RoadShield const & shie
   if (shield.m_type == ftypes::RoadShieldType::UK_Highway ||
       shield.m_type == ftypes::RoadShieldType::UK_Motorway ||
       shield.m_type == ftypes::RoadShieldType::Russia_Highway ||
-      shield.m_type == ftypes::RoadShieldType::Russia_Motorway)
+      shield.m_type == ftypes::RoadShieldType::Euro_Motorway ||
+      shield.m_type == ftypes::RoadShieldType::France_Motorway)
     return 0.0f;
 
   return baseWidth;
@@ -874,8 +885,8 @@ void ApplyLineFeature::GetRoadShieldsViewParams(ftypes::RoadShield const & shiel
       textParams.m_anchor = dp::Top;
       textParams.m_secondaryText = shield.m_additionalText;
       textParams.m_secondaryTextFont = textParams.m_primaryTextFont;
-      textParams.m_secondaryTextFont.m_color = df::GetColorConstant(style, df::RoadShieldAddText);
-      textParams.m_secondaryTextFont.m_outlineColor = df::GetColorConstant(style, df::RoadShieldAddTextOutline);
+      textParams.m_secondaryTextFont.m_color = df::GetColorConstant(style, df::RoadShieldBlackText);
+      textParams.m_secondaryTextFont.m_outlineColor = df::GetColorConstant(style, df::RoadShieldWhiteText);
       textParams.m_primaryOffset = m2::PointF(0.0f, -0.5f * textParams.m_primaryTextFont.m_size);
       textParams.m_secondaryTextFont.m_size *= 0.9f;
       textParams.m_secondaryOffset = m2::PointF(0.0f, 3.0f * mainScale);
