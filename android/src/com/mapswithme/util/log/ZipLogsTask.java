@@ -124,7 +124,7 @@ class ZipLogsTask implements Runnable
   private static void saveSystemLogcat()
   {
     String fullName = StorageUtils.getLogsFolder() + File.separator + "logcat.log";
-    File file = new File(fullName);
+    final File file = new File(fullName);
     InputStreamReader reader = null;
     FileWriter writer = null;
     try
@@ -145,7 +145,7 @@ class ZipLogsTask implements Runnable
     }
     catch (Throwable e)
     {
-      Log.e(TAG, "Failed to save system logcat to file: ", e);
+      Log.e(TAG, "Failed to save system logcat to file: " + file, e);
     }
     finally
     {

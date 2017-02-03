@@ -38,7 +38,6 @@ public class LoggerFactory
   }
 
   public final static LoggerFactory INSTANCE = new LoggerFactory();
-
   @NonNull
   @GuardedBy("this")
   private final EnumMap<Type, BaseLogger> mLoggers = new EnumMap<>(Type.class);
@@ -60,7 +59,8 @@ public class LoggerFactory
   {
     SharedPreferences prefs = MwmApplication.prefs();
     SharedPreferences.Editor editor = prefs.edit();
-    editor.putBoolean(MwmApplication.get().getString(R.string.pref_enable_logging), enabled).apply();
+    String enableLoggingKey = MwmApplication.get().getString(R.string.pref_enable_logging);
+    editor.putBoolean(enableLoggingKey, enabled).apply();
     updateLoggers();
   }
 

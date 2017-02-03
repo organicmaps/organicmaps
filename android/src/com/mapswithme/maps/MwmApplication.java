@@ -10,6 +10,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.UiThread;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.io.File;
 import java.util.List;
@@ -83,6 +84,21 @@ public class MwmApplication extends Application
     public void onProgress(String countryId, long localSize, long remoteSize) {}
   };
 
+  @NonNull
+  private final AppBackgroundTracker.OnTransitionListener mBackgroundListener =
+      new AppBackgroundTracker.OnTransitionListener()
+      {
+        @Override
+        public void onTransit(boolean foreground)
+        {
+          if (!foreground && LoggerFactory.INSTANCE.isFileLoggingEnabled())
+          {
+            Log.i(TAG, "The app goes to background. All logs are going to be zipped.");
+            LoggerFactory.INSTANCE.zipLogs(null);
+          }
+        }
+      };
+
   public MwmApplication()
   {
     super();
@@ -148,6 +164,7 @@ public class MwmApplication extends Application
       setInstallationIdToCrashlytics();
 
     mBackgroundTracker = new AppBackgroundTracker();
+    mBackgroundTracker.addListener(mBackgroundListener);
     TrackRecorder.init();
     Editor.init();
   }
