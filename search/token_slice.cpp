@@ -23,10 +23,10 @@ string SliceToString(string const & name, TSlice const & slice)
 }  // namespace
 
 // TokenSlice --------------------------------------------------------------------------------------
-TokenSlice::TokenSlice(QueryParams const & params, size_t startToken, size_t endToken)
-  : m_params(params), m_offset(startToken), m_size(endToken - startToken)
+TokenSlice::TokenSlice(QueryParams const & params, TokenRange const & range)
+  : m_params(params), m_offset(range.m_begin), m_size(range.Size())
 {
-  ASSERT_LESS_OR_EQUAL(startToken, endToken, ());
+  ASSERT(range.IsValid(), (range));
 }
 
 bool TokenSlice::IsPrefix(size_t i) const
@@ -36,14 +36,11 @@ bool TokenSlice::IsPrefix(size_t i) const
 }
 
 // TokenSliceNoCategories --------------------------------------------------------------------------
-TokenSliceNoCategories::TokenSliceNoCategories(QueryParams const & params, size_t startToken,
-                                               size_t endToken)
+TokenSliceNoCategories::TokenSliceNoCategories(QueryParams const & params, TokenRange const & range)
   : m_params(params)
 {
-  ASSERT_LESS_OR_EQUAL(startToken, endToken, ());
-
-  m_indexes.reserve(endToken - startToken);
-  for (size_t i = startToken; i < endToken; ++i)
+  m_indexes.reserve(range.Size());
+  for (size_t i : range)
   {
     if (!m_params.IsCategorySynonym(i))
       m_indexes.push_back(i);

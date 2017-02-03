@@ -120,6 +120,7 @@ set(
   streets_matcher.hpp
   string_intersection.hpp
   suggest.hpp
+  token_range.hpp
   token_slice.cpp
   token_slice.hpp
   types_skipper.cpp

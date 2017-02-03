@@ -28,7 +28,7 @@ LocalityScorer::ExLocality::ExLocality() : m_numTokens(0), m_rank(0), m_nameScor
 
 LocalityScorer::ExLocality::ExLocality(Geocoder::Locality const & locality)
   : m_locality(locality)
-  , m_numTokens(locality.m_endToken - locality.m_startToken)
+  , m_numTokens(locality.m_tokenRange.Size())
   , m_rank(0)
   , m_nameScore(NAME_SCORE_ZERO)
 {
@@ -58,13 +58,14 @@ void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseConte
 
     for (size_t endToken = startToken + 1; endToken <= ctx.m_numTokens; ++endToken)
     {
+      TokenRange const tokenRange(startToken, endToken);
       // Skip locality candidates that match only numbers.
-      if (!m_params.IsNumberTokens(startToken, endToken))
+      if (!m_params.IsNumberTokens(tokenRange))
       {
         intersection.ForEach([&](uint32_t featureId) {
           double const prob = static_cast<double>(intersection.PopCount()) /
                               static_cast<double>(unfilteredIntersection.PopCount());
-          localities.emplace_back(countryId, featureId, startToken, endToken, prob);
+          localities.emplace_back(countryId, featureId, tokenRange, prob);
         });
       }
 
@@ -144,10 +145,7 @@ void LocalityScorer::SortByNameAndProb(std::vector<ExLocality> & ls) const
 
     auto score = NAME_SCORE_ZERO;
     for (auto const & name : names)
-    {
-      score = max(score, GetNameScore(name, TokenSlice(m_params, l.m_locality.m_startToken,
-                                                       l.m_locality.m_endToken)));
-    }
+      score = max(score, GetNameScore(name, TokenSlice(m_params, l.m_locality.m_tokenRange)));
     l.m_nameScore = score;
 
     std::sort(ls.begin(), ls.end(), [](ExLocality const & lhs, ExLocality const & rhs) {

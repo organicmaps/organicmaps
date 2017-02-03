@@ -133,8 +133,7 @@ UNIT_CLASS_TEST(PreRankerTest, Smoke)
     FeatureID id(mwmId, index);
 
     PreRankingInfo info;
-    info.m_startToken = 0;
-    info.m_endToken = 1;
+    info.m_tokenRange = TokenRange(0, 1);
     info.m_searchType = SearchModel::SEARCH_TYPE_POI;
     preRanker.Emplace(id, info);
 

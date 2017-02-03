@@ -79,26 +79,27 @@ UniString const kUniSpace(MakeUniString(" "));
 
 struct ScopedMarkTokens
 {
-  ScopedMarkTokens(vector<bool> & usedTokens, size_t from, size_t to)
-    : m_usedTokens(usedTokens), m_from(from), m_to(to)
+  ScopedMarkTokens(vector<bool> & usedTokens, TokenRange const & range)
+    : m_usedTokens(usedTokens), m_range(range)
   {
-    ASSERT_LESS_OR_EQUAL(m_from, m_to, ());
-    ASSERT_LESS_OR_EQUAL(m_to, m_usedTokens.size(), ());
+    ASSERT(m_range.IsValid(), ());
+    ASSERT_LESS_OR_EQUAL(m_range.m_end, m_usedTokens.size(), ());
 #if defined(DEBUG)
-    for (size_t i = m_from; i != m_to; ++i)
+    for (size_t i : m_range)
       ASSERT(!m_usedTokens[i], (i));
 #endif
-    fill(m_usedTokens.begin() + m_from, m_usedTokens.begin() + m_to, true /* used */);
+    fill(m_usedTokens.begin() + m_range.m_begin, m_usedTokens.begin() + m_range.m_end,
+         true /* used */);
   }
 
   ~ScopedMarkTokens()
   {
-    fill(m_usedTokens.begin() + m_from, m_usedTokens.begin() + m_to, false /* used */);
+    fill(m_usedTokens.begin() + m_range.m_begin, m_usedTokens.begin() + m_range.m_end,
+         false /* used */);
   }
 
   vector<bool> & m_usedTokens;
-  size_t const m_from;
-  size_t const m_to;
+  TokenRange const m_range;
 };
 
 class LazyRankTable : public RankTable
@@ -174,14 +175,14 @@ private:
   LazyRankTable m_ranks;
 };
 
-void JoinQueryTokens(QueryParams const & params, size_t curToken, size_t endToken,
-                     UniString const & sep, UniString & res)
+void JoinQueryTokens(QueryParams const & params, TokenRange const & range, UniString const & sep,
+                     UniString & res)
 {
-  ASSERT_LESS_OR_EQUAL(curToken, endToken, ());
-  for (size_t i = curToken; i < endToken; ++i)
+  ASSERT(range.IsValid(), (range));
+  for (size_t i : range)
   {
     res.append(params.GetToken(i).m_original);
-    if (i + 1 != endToken)
+    if (i + 1 != range.m_end)
       res.append(sep);
   }
 }
@@ -623,18 +624,16 @@ void Geocoder::InitBaseContext(BaseContext & ctx)
   ctx.m_hotelsFilter = m_hotelsFilter.MakeScopedFilter(*m_context, m_params.m_hotelsFilter);
 }
 
-void Geocoder::InitLayer(SearchModel::SearchType type, size_t startToken, size_t endToken,
+void Geocoder::InitLayer(SearchModel::SearchType type, TokenRange const & tokenRange,
                          FeaturesLayer & layer)
 {
   layer.Clear();
   layer.m_type = type;
-  layer.m_startToken = startToken;
-  layer.m_endToken = endToken;
+  layer.m_tokenRange = tokenRange;
 
-  JoinQueryTokens(m_params, layer.m_startToken, layer.m_endToken, kUniSpace /* sep */,
-                  layer.m_subQuery);
+  JoinQueryTokens(m_params, layer.m_tokenRange, kUniSpace /* sep */, layer.m_subQuery);
   layer.m_lastTokenIsPrefix =
-      layer.m_startToken < layer.m_endToken && m_params.IsPrefixToken(layer.m_endToken - 1);
+      !layer.m_tokenRange.Empty() && m_params.IsPrefixToken(layer.m_tokenRange.m_end - 1);
 }
 
 void Geocoder::FillLocalityCandidates(BaseContext const & ctx, CBV const & filter,
@@ -685,7 +684,7 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
         }
 
         ++count;
-        m_regions[type][make_pair(l.m_startToken, l.m_endToken)].push_back(region);
+        m_regions[type][l.m_tokenRange].push_back(region);
       }
     };
 
@@ -709,7 +708,7 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
         LOG(LINFO, ("City =", city.m_defaultName, "radius =", radius, "prob =", city.m_prob));
 #endif
 
-        m_cities[{l.m_startToken, l.m_endToken}].push_back(city);
+        m_cities[city.m_tokenRange].push_back(city);
       }
       break;
     }
@@ -758,7 +757,7 @@ void Geocoder::FillVillageLocalities(BaseContext const & ctx)
     LOG(LDEBUG, ("Village =", village.m_defaultName, "radius =", radius, "prob =", village.m_prob));
 #endif
 
-    m_cities[{l.m_startToken, l.m_endToken}].push_back(village);
+    m_cities[village.m_tokenRange].push_back(village);
     if (numVillages >= kMaxNumVillages)
       break;
   }
@@ -812,9 +811,8 @@ void Geocoder::MatchRegions(BaseContext & ctx, RegionType type)
   {
     BailIfCancelled();
 
-    size_t const startToken = p.first.first;
-    size_t const endToken = p.first.second;
-    if (ctx.HasUsedTokensInRange(startToken, endToken))
+    auto const & tokenRange = p.first;
+    if (ctx.HasUsedTokensInRange(tokenRange))
       continue;
 
     for (auto const & region : p.second)
@@ -838,11 +836,11 @@ void Geocoder::MatchRegions(BaseContext & ctx, RegionType type)
       if (!matches)
         continue;
 
-      ScopedMarkTokens mark(ctx.m_usedTokens, startToken, endToken);
+      ScopedMarkTokens mark(ctx.m_usedTokens, tokenRange);
       if (ctx.AllTokensUsed())
       {
         // Region matches to search query, we need to emit it as is.
-        EmitResult(ctx, region, startToken, endToken);
+        EmitResult(ctx, region, tokenRange);
         continue;
       }
 
@@ -866,9 +864,8 @@ void Geocoder::MatchCities(BaseContext & ctx)
   // Localities are ordered my (m_startToken, m_endToken) pairs.
   for (auto const & p : m_cities)
   {
-    size_t const startToken = p.first.first;
-    size_t const endToken = p.first.second;
-    if (ctx.HasUsedTokensInRange(startToken, endToken))
+    auto const & tokenRange = p.first;
+    if (ctx.HasUsedTokensInRange(tokenRange))
       continue;
 
     for (auto const & city : p.second)
@@ -881,11 +878,11 @@ void Geocoder::MatchCities(BaseContext & ctx)
         continue;
       }
 
-      ScopedMarkTokens mark(ctx.m_usedTokens, startToken, endToken);
+      ScopedMarkTokens mark(ctx.m_usedTokens, tokenRange);
       if (ctx.AllTokensUsed())
       {
         // City matches to search query, we need to emit it as is.
-        EmitResult(ctx, city, startToken, endToken);
+        EmitResult(ctx, city, tokenRange);
         continue;
       }
 
@@ -947,7 +944,7 @@ void Geocoder::WithPostcodes(BaseContext & ctx, TFn && fn)
       if (ctx.m_usedTokens[startToken + n - 1])
         break;
 
-      TokenSlice slice(m_params, startToken, startToken + n);
+      TokenSlice slice(m_params, TokenRange(startToken, startToken + n));
       auto const isPrefix = startToken + n == ctx.m_numTokens;
       if (LooksLikePostcode(QuerySlice(slice), isPrefix))
         endToken = startToken + n;
@@ -955,20 +952,17 @@ void Geocoder::WithPostcodes(BaseContext & ctx, TFn && fn)
     if (startToken == endToken)
       continue;
 
-    auto postcodes =
-        RetrievePostcodeFeatures(*m_context, TokenSlice(m_params, startToken, endToken));
-    MY_SCOPE_GUARD(cleanup, [&]()
-                   {
-                     m_postcodes.Clear();
-                   });
+    TokenRange const tokenRange(startToken, endToken);
+
+    auto postcodes = RetrievePostcodeFeatures(*m_context, TokenSlice(m_params, tokenRange));
+    MY_SCOPE_GUARD(cleanup, [&]() { m_postcodes.Clear(); });
 
     if (!postcodes.IsEmpty())
     {
-      ScopedMarkTokens mark(ctx.m_usedTokens, startToken, endToken);
+      ScopedMarkTokens mark(ctx.m_usedTokens, tokenRange);
 
       m_postcodes.Clear();
-      m_postcodes.m_startToken = startToken;
-      m_postcodes.m_endToken = endToken;
+      m_postcodes.m_tokenRange = tokenRange;
       m_postcodes.m_features = move(postcodes);
 
       fn();
@@ -994,14 +988,14 @@ void Geocoder::CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx,
   MY_SCOPE_GUARD(cleanupGuard, bind(&vector<FeaturesLayer>::pop_back, &m_layers));
 
   auto & layer = m_layers.back();
-  InitLayer(SearchModel::SEARCH_TYPE_STREET, prediction.m_startToken, prediction.m_endToken, layer);
+  InitLayer(SearchModel::SEARCH_TYPE_STREET, prediction.m_tokenRange, layer);
 
   vector<uint32_t> sortedFeatures;
   sortedFeatures.reserve(prediction.m_features.PopCount());
   prediction.m_features.ForEach(MakeBackInsertFunctor(sortedFeatures));
   layer.m_sortedFeatures = &sortedFeatures;
 
-  ScopedMarkTokens mark(ctx.m_usedTokens, prediction.m_startToken, prediction.m_endToken);
+  ScopedMarkTokens mark(ctx.m_usedTokens, prediction.m_tokenRange);
   MatchPOIsAndBuildings(ctx, 0 /* curToken */);
 }
 
@@ -1024,15 +1018,11 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
       CBV filtered = m_postcodes.m_features;
       if (m_filter->NeedToFilter(m_postcodes.m_features))
         filtered = m_filter->Filter(m_postcodes.m_features);
-      filtered.ForEach([&](uint32_t id)
-                       {
-                         SearchModel::SearchType searchType;
-                         if (GetSearchTypeInGeocoding(ctx, id, searchType))
-                         {
-                           EmitResult(ctx, m_context->GetId(), id, searchType,
-                                      m_postcodes.m_startToken, m_postcodes.m_endToken);
-                         }
-                       });
+      filtered.ForEach([&](uint32_t id) {
+        SearchModel::SearchType searchType;
+        if (GetSearchTypeInGeocoding(ctx, id, searchType))
+          EmitResult(ctx, m_context->GetId(), id, searchType, m_postcodes.m_tokenRange);
+      });
       return;
     }
 
@@ -1052,7 +1042,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
         if (!m_postcodes.m_features.HasBit(id))
           continue;
         EmitResult(ctx, m_context->GetId(), id, SearchModel::SEARCH_TYPE_STREET,
-                   m_layers.back().m_startToken, m_layers.back().m_endToken);
+                   m_layers.back().m_tokenRange);
       }
     }
 
@@ -1062,8 +1052,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
     MY_SCOPE_GUARD(cleanupGuard, bind(&vector<FeaturesLayer>::pop_back, &m_layers));
 
     auto & layer = m_layers.back();
-    InitLayer(SearchModel::SEARCH_TYPE_BUILDING, m_postcodes.m_startToken, m_postcodes.m_endToken,
-              layer);
+    InitLayer(SearchModel::SEARCH_TYPE_BUILDING, m_postcodes.m_tokenRange, layer);
 
     vector<uint32_t> features;
     m_postcodes.m_features.ForEach(MakeBackInsertFunctor(features));
@@ -1111,7 +1100,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
 
     {
       auto & layer = m_layers.back();
-      InitLayer(layer.m_type, curToken, curToken + n, layer);
+      InitLayer(layer.m_type, TokenRange(curToken, curToken + n), layer);
     }
 
     features = features.Intersect(ctx.m_features[curToken + n - 1]);
@@ -1222,11 +1211,8 @@ bool Geocoder::IsLayerSequenceSane() const
   {
     auto const & buildings = m_layers[buildingIndex];
     auto const & streets = m_layers[streetIndex];
-    if (buildings.m_startToken != streets.m_endToken &&
-        buildings.m_endToken != streets.m_startToken)
-    {
+    if (!buildings.m_tokenRange.AdjacentTo(streets.m_tokenRange))
       return false;
-    }
   }
 
   return true;
@@ -1257,12 +1243,12 @@ void Geocoder::FindPaths(BaseContext const & ctx)
         // TODO(@y, @m, @vng): use rest fields of IntersectionResult for
         // better scoring.
         EmitResult(ctx, m_context->GetId(), result.InnermostResult(), innermostLayer.m_type,
-                   innermostLayer.m_startToken, innermostLayer.m_endToken);
+                   innermostLayer.m_tokenRange);
       });
 }
 
 void Geocoder::EmitResult(BaseContext const & ctx, MwmSet::MwmId const & mwmId, uint32_t ftId,
-                          SearchModel::SearchType type, size_t startToken, size_t endToken)
+                          SearchModel::SearchType type, TokenRange const & tokenRange)
 {
   FeatureID id(mwmId, ftId);
 
@@ -1276,14 +1262,13 @@ void Geocoder::EmitResult(BaseContext const & ctx, MwmSet::MwmId const & mwmId, 
   // pivot.
   PreRankingInfo info;
   info.m_searchType = type;
-  info.m_startToken = startToken;
-  info.m_endToken = endToken;
+  info.m_tokenRange = tokenRange;
 
   m_preRanker.Emplace(id, info);
 }
 
-void Geocoder::EmitResult(BaseContext const & ctx, Region const & region, size_t startToken,
-                          size_t endToken)
+void Geocoder::EmitResult(BaseContext const & ctx, Region const & region,
+                          TokenRange const & tokenRange)
 {
   SearchModel::SearchType type;
   switch (region.m_type)
@@ -1292,13 +1277,12 @@ void Geocoder::EmitResult(BaseContext const & ctx, Region const & region, size_t
   case REGION_TYPE_COUNTRY: type = SearchModel::SEARCH_TYPE_COUNTRY; break;
   case REGION_TYPE_COUNT: type = SearchModel::SEARCH_TYPE_COUNT; break;
   }
-  EmitResult(ctx, region.m_countryId, region.m_featureId, type, startToken, endToken);
+  EmitResult(ctx, region.m_countryId, region.m_featureId, type, tokenRange);
 }
 
-void Geocoder::EmitResult(BaseContext const & ctx, City const & city, size_t startToken,
-                          size_t endToken)
+void Geocoder::EmitResult(BaseContext const & ctx, City const & city, TokenRange const & tokenRange)
 {
-  EmitResult(ctx, city.m_countryId, city.m_featureId, city.m_type, startToken, endToken);
+  EmitResult(ctx, city.m_countryId, city.m_featureId, city.m_type, tokenRange);
 }
 
 void Geocoder::MatchUnclassified(BaseContext & ctx, size_t curToken)
@@ -1334,7 +1318,7 @@ void Geocoder::MatchUnclassified(BaseContext & ctx, size_t curToken)
     if (!GetSearchTypeInGeocoding(ctx, featureId, searchType))
       return;
     if (searchType == SearchModel::SEARCH_TYPE_UNCLASSIFIED)
-      EmitResult(ctx, m_context->GetId(), featureId, searchType, startToken, curToken);
+      EmitResult(ctx, m_context->GetId(), featureId, searchType, TokenRange(startToken, curToken));
   };
   allFeatures.ForEach(emitUnclassified);
 }
@@ -1385,7 +1369,7 @@ string DebugPrint(Geocoder::Locality const & locality)
   os << "Locality [ ";
   os << "m_countryId=" << DebugPrint(locality.m_countryId) << ", ";
   os << "m_featureId=" << locality.m_featureId << ", ";
-  os << "token range=[" << locality.m_startToken << ", " << locality.m_endToken << "), ";
+  os << "m_tokenRange=" << DebugPrint(locality.m_tokenRange) << ", ";
   os << "m_prob=" << locality.m_prob;
   os << " ]";
   return os.str();

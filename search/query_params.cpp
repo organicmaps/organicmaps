@@ -1,5 +1,7 @@
 #include "search/query_params.hpp"
 
+#include "search/token_range.hpp"
+
 #include "indexer/feature_impl.hpp"
 
 #include "std/algorithm.hpp"
@@ -88,15 +90,15 @@ QueryParams::Token & QueryParams::GetToken(size_t i)
   return i < m_tokens.size() ? m_tokens[i] : m_prefixToken;
 }
 
-bool QueryParams::IsNumberTokens(size_t start, size_t end) const
+bool QueryParams::IsNumberTokens(TokenRange const & range) const
 {
-  ASSERT_LESS(start, end, ());
-  ASSERT_LESS_OR_EQUAL(end, GetNumTokens(), ());
+  ASSERT(range.IsValid(), (range));
+  ASSERT_LESS_OR_EQUAL(range.m_end, GetNumTokens(), ());
 
-  for (; start != end; ++start)
+  for (size_t i : range)
   {
     bool number = false;
-    GetToken(start).ForEach([&number](String const & s) {
+    GetToken(i).ForEach([&number](String const & s) {
       if (feature::IsNumber(s))
       {
         number = true;

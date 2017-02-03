@@ -1,6 +1,7 @@
 #pragma once
 
 #include "search/model.hpp"
+#include "search/token_range.hpp"
 
 #include "geometry/point2d.hpp"
 
@@ -10,7 +11,7 @@ namespace search
 {
 struct PreRankingInfo
 {
-  inline size_t GetNumTokens() const { return m_endToken - m_startToken; }
+  inline size_t GetNumTokens() const { return m_tokenRange.Size(); }
 
   // An abstract distance from the feature to the pivot.  Measurement
   // units do not matter here.
@@ -19,10 +20,8 @@ struct PreRankingInfo
   m2::PointD m_center = m2::PointD::Zero();
   bool m_centerLoaded = false;
 
-  // Tokens [m_startToken, m_endToken) match to the feature name or
-  // house number.
-  size_t m_startToken = 0;
-  size_t m_endToken = 0;
+  // Tokens match to the feature name or house number.
+  TokenRange m_tokenRange;
 
   // Rank of the feature.
   uint8_t m_rank = 0;

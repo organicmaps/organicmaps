@@ -1,6 +1,7 @@
 #pragma once
 
 #include "search/model.hpp"
+#include "search/token_range.hpp"
 
 #include "base/string_utils.hpp"
 
@@ -22,8 +23,7 @@ struct FeaturesLayer
 
   strings::UniString m_subQuery;
 
-  size_t m_startToken;
-  size_t m_endToken;
+  TokenRange m_tokenRange;
   SearchModel::SearchType m_type;
 
   // *NOTE* This field is meaningful only when m_type equals to

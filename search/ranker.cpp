@@ -179,8 +179,8 @@ class PreResult2Maker
     info.m_searchType = preInfo.m_searchType;
     info.m_nameScore = NAME_SCORE_ZERO;
 
-    TokenSlice slice(m_params, preInfo.m_startToken, preInfo.m_endToken);
-    TokenSliceNoCategories sliceNoCategories(m_params, preInfo.m_startToken, preInfo.m_endToken);
+    TokenSlice slice(m_params, preInfo.m_tokenRange);
+    TokenSliceNoCategories sliceNoCategories(m_params, preInfo.m_tokenRange);
 
     for (auto const & lang : m_params.GetLangs())
     {

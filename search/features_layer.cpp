@@ -12,8 +12,7 @@ void FeaturesLayer::Clear()
 {
   m_sortedFeatures = nullptr;
   m_subQuery.clear();
-  m_startToken = 0;
-  m_endToken = 0;
+  m_tokenRange.Clear();
   m_type = SearchModel::SEARCH_TYPE_COUNT;
   m_hasDelayedFeatures = false;
   m_lastTokenIsPrefix = false;
@@ -24,8 +23,9 @@ string DebugPrint(FeaturesLayer const & layer)
   ostringstream os;
   os << "FeaturesLayer [ size of m_sortedFeatures: "
      << (layer.m_sortedFeatures ? layer.m_sortedFeatures->size() : 0)
-     << ", m_subQuery: " << DebugPrint(layer.m_subQuery) << ", m_startToken: " << layer.m_startToken
-     << ", m_endToken: " << layer.m_endToken << ", m_type: " << DebugPrint(layer.m_type)
+     << ", m_subQuery: " << DebugPrint(layer.m_subQuery)
+     << ", m_tokenRange: " << DebugPrint(layer.m_tokenRange)
+     << ", m_type: " << DebugPrint(layer.m_type)
      << ", m_lastTokenIsPrefix: " << layer.m_lastTokenIsPrefix << " ]";
   return os.str();
 }

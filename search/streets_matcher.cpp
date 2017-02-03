@@ -23,7 +23,7 @@ bool LessByHash(StreetsMatcher::Prediction const & lhs, StreetsMatcher::Predicti
   if (lhs.GetNumTokens() != rhs.GetNumTokens())
     return lhs.GetNumTokens() > rhs.GetNumTokens();
 
-  return lhs.m_startToken < rhs.m_startToken;
+  return lhs.m_tokenRange.m_begin < rhs.m_tokenRange.m_begin;
 }
 }  // namespace
 
@@ -109,8 +109,7 @@ void StreetsMatcher::FindStreets(BaseContext const & ctx, FeaturesFilter const &
         predictions.emplace_back();
         auto & prediction = predictions.back();
 
-        prediction.m_startToken = startToken;
-        prediction.m_endToken = curToken;
+        prediction.m_tokenRange = TokenRange(startToken, curToken);
 
         ASSERT_NOT_EQUAL(fs.PopCount(), 0, ());
         ASSERT_LESS_OR_EQUAL(fs.PopCount(), fa.PopCount(), ());

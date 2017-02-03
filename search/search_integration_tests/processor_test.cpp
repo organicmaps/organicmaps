@@ -4,6 +4,7 @@
 #include "search/search_integration_tests/helpers.hpp"
 #include "search/search_tests_support/test_results_matching.hpp"
 #include "search/search_tests_support/test_search_request.hpp"
+#include "search/token_range.hpp"
 #include "search/token_slice.hpp"
 
 #include "generator/feature_builder.hpp"
@@ -537,8 +538,8 @@ UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
       strings::UniString const tokens[] = {strings::MakeUniString("141702")};
       params.InitNoPrefix(tokens, tokens + ARRAY_SIZE(tokens));
     }
-    auto features = RetrievePostcodeFeatures(context, cancellable,
-                                             TokenSlice(params, 0, params.GetNumTokens()));
+    auto features = RetrievePostcodeFeatures(
+        context, cancellable, TokenSlice(params, TokenRange(0, params.GetNumTokens())));
     TEST_EQUAL(1, features->PopCount(), ());
 
     uint64_t index = 0;

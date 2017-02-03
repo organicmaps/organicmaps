@@ -2,6 +2,7 @@
 
 #include "search/query_params.hpp"
 #include "search/ranking_utils.hpp"
+#include "search/token_range.hpp"
 #include "search/token_slice.hpp"
 
 #include "indexer/search_delimiters.hpp"
@@ -18,7 +19,7 @@ using namespace strings;
 
 namespace
 {
-NameScore GetScore(string const & name, string const & query, size_t startToken, size_t endToken)
+NameScore GetScore(string const & name, string const & query, TokenRange const & tokenRange)
 {
   search::Delimiters delims;
   QueryParams params;
@@ -36,17 +37,20 @@ NameScore GetScore(string const & name, string const & query, size_t startToken,
     params.InitNoPrefix(tokens.begin(), tokens.end());
   }
 
-  return GetNameScore(name, TokenSlice(params, startToken, endToken));
+  return GetNameScore(name, TokenSlice(params, tokenRange));
 }
 
 UNIT_TEST(NameTest_Smoke)
 {
-  TEST_EQUAL(GetScore("New York", "Central Park, New York, US", 2, 4), NAME_SCORE_FULL_MATCH, ());
-  TEST_EQUAL(GetScore("New York", "York", 0, 1), NAME_SCORE_SUBSTRING, ());
-  TEST_EQUAL(GetScore("Moscow", "Red Square Mosc", 2, 3), NAME_SCORE_FULL_MATCH_PREFIX, ());
-  TEST_EQUAL(GetScore("Moscow", "Red Square Moscow", 2, 3), NAME_SCORE_FULL_MATCH, ());
-  TEST_EQUAL(GetScore("San Francisco", "Fran", 0, 1), NAME_SCORE_SUBSTRING_PREFIX, ());
-  TEST_EQUAL(GetScore("San Francisco", "Fran ", 0, 1), NAME_SCORE_ZERO, ());
-  TEST_EQUAL(GetScore("Лермонтовъ", "Лермонтов", 0, 1), NAME_SCORE_FULL_MATCH_PREFIX, ());
+  TEST_EQUAL(GetScore("New York", "Central Park, New York, US", TokenRange(2, 4)),
+             NAME_SCORE_FULL_MATCH, ());
+  TEST_EQUAL(GetScore("New York", "York", TokenRange(0, 1)), NAME_SCORE_SUBSTRING, ());
+  TEST_EQUAL(GetScore("Moscow", "Red Square Mosc", TokenRange(2, 3)), NAME_SCORE_FULL_MATCH_PREFIX,
+             ());
+  TEST_EQUAL(GetScore("Moscow", "Red Square Moscow", TokenRange(2, 3)), NAME_SCORE_FULL_MATCH, ());
+  TEST_EQUAL(GetScore("San Francisco", "Fran", TokenRange(0, 1)), NAME_SCORE_SUBSTRING_PREFIX, ());
+  TEST_EQUAL(GetScore("San Francisco", "Fran ", TokenRange(0, 1)), NAME_SCORE_ZERO, ());
+  TEST_EQUAL(GetScore("Лермонтовъ", "Лермонтов", TokenRange(0, 1)), NAME_SCORE_FULL_MATCH_PREFIX,
+             ());
 }
 }  // namespace

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "search/query_params.hpp"
+#include "search/token_range.hpp"
 
 #include "indexer/string_slice.hpp"
 
@@ -15,7 +16,7 @@ namespace search
 class TokenSlice
 {
 public:
-  TokenSlice(QueryParams const & params, size_t startToken, size_t endToken);
+  TokenSlice(QueryParams const & params, TokenRange const & range);
 
   inline QueryParams::Token const & Get(size_t i) const
   {
@@ -40,7 +41,7 @@ private:
 class TokenSliceNoCategories
 {
 public:
-  TokenSliceNoCategories(QueryParams const & params, size_t startToken, size_t endToken);
+  TokenSliceNoCategories(QueryParams const & params, TokenRange const & range);
 
   inline QueryParams::Token const & Get(size_t i) const
   {

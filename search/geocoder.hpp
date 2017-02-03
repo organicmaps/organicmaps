@@ -17,6 +17,7 @@
 #include "search/query_params.hpp"
 #include "search/ranking_utils.hpp"
 #include "search/streets_matcher.hpp"
+#include "search/token_range.hpp"
 
 #include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
@@ -96,20 +97,18 @@ public:
   {
     Locality() = default;
 
-    Locality(MwmSet::MwmId const & countryId, uint32_t featureId, size_t startToken,
-             size_t endToken, double prob)
+    Locality(MwmSet::MwmId const & countryId, uint32_t featureId, TokenRange const & tokenRange,
+             double prob)
       : m_countryId(countryId)
       , m_featureId(featureId)
-      , m_startToken(startToken)
-      , m_endToken(endToken)
+      , m_tokenRange(tokenRange)
       , m_prob(prob)
     {
     }
 
     MwmSet::MwmId m_countryId;
     uint32_t m_featureId = 0;
-    size_t m_startToken = 0;
-    size_t m_endToken = 0;
+    TokenRange m_tokenRange;
 
     // Measures our belief in the fact that tokens in the range
     // [m_startToken, m_endToken) indeed specify a locality. Currently
@@ -173,20 +172,18 @@ private:
   {
     void Clear()
     {
-      m_startToken = 0;
-      m_endToken = 0;
+      m_tokenRange.Clear();
       m_features.Reset();
     }
 
-    size_t m_startToken = 0;
-    size_t m_endToken = 0;
+    TokenRange m_tokenRange;
     CBV m_features;
   };
 
   void GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport);
 
-  template <typename TLocality>
-  using TLocalitiesCache = map<pair<size_t, size_t>, vector<TLocality>>;
+  template <typename Locality>
+  using LocalitiesCache = map<TokenRange, vector<Locality>>;
 
   QueryParams::Token const & GetTokens(size_t i) const;
 
@@ -194,7 +191,7 @@ private:
   // for each token and saves it to m_addressFeatures.
   void InitBaseContext(BaseContext & ctx);
 
-  void InitLayer(SearchModel::SearchType type, size_t startToken, size_t endToken,
+  void InitLayer(SearchModel::SearchType type, TokenRange const & tokenRange,
                  FeaturesLayer & layer);
 
   void FillLocalityCandidates(BaseContext const & ctx,
@@ -256,10 +253,9 @@ private:
 
   // Forms result and feeds it to |m_preRanker|.
   void EmitResult(BaseContext const & ctx, MwmSet::MwmId const & mwmId, uint32_t ftId,
-                  SearchModel::SearchType type, size_t startToken, size_t endToken);
-  void EmitResult(BaseContext const & ctx, Region const & region, size_t startToken,
-                  size_t endToken);
-  void EmitResult(BaseContext const & ctx, City const & city, size_t startToken, size_t endToken);
+                  SearchModel::SearchType type, TokenRange const & tokenRange);
+  void EmitResult(BaseContext const & ctx, Region const & region, TokenRange const & tokenRange);
+  void EmitResult(BaseContext const & ctx, City const & city, TokenRange const & tokenRange);
 
   // Tries to match unclassified objects from lower layers, like
   // parks, forests, lakes, rivers, etc. This method finds all
@@ -305,8 +301,8 @@ private:
 
   // m_cities stores both big cities that are visible at World.mwm
   // and small villages and hamlets that are not.
-  TLocalitiesCache<City> m_cities;
-  TLocalitiesCache<Region> m_regions[REGION_TYPE_COUNT];
+  LocalitiesCache<City> m_cities;
+  LocalitiesCache<Region> m_regions[REGION_TYPE_COUNT];
 
   // Caches of features in rects. These caches are separated from
   // TLocalitiesCache because the latter are quite lightweight and not

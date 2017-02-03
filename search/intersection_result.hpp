@@ -33,5 +33,4 @@ struct IntersectionResult
 };
 
 string DebugPrint(IntersectionResult const & result);
-
 }  // namespace search

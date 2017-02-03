@@ -13,6 +13,8 @@
 
 namespace search
 {
+struct TokenRange;
+
 class QueryParams
 {
 public:
@@ -101,9 +103,8 @@ public:
   Token const & GetToken(size_t i) const;
   Token & GetToken(size_t i);
 
-  // Returns true if all tokens in [start, end) range have integral
-  // synonyms.
-  bool IsNumberTokens(size_t start, size_t end) const;
+  // Returns true if all tokens in |range| have integral synonyms.
+  bool IsNumberTokens(TokenRange const & range) const;
 
   void RemoveToken(size_t i);
 
