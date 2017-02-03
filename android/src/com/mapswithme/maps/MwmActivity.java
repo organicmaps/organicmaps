@@ -1586,6 +1586,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
       adjustCompassAndTraffic(UiUtils.getStatusBarHeight(getApplicationContext()));
       setNavButtonsTopLimit(0);
+
+      updateSearchBar();
     }
 
     mPlacePage.refreshViews();
@@ -1725,6 +1727,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (mNavigationController != null)
       mNavigationController.stop(this);
+    updateSearchBar();
+  }
+
+  private void updateSearchBar()
+  {
+    if (!TextUtils.isEmpty(SearchEngine.getQuery()))
+      mSearchController.refreshToolbar();
   }
 
   boolean isFirstStart()
