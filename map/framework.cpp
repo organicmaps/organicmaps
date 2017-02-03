@@ -914,6 +914,9 @@ void Framework::ShowBookmark(BookmarkAndCategory const & bnc)
   place_page::Info info;
   FillBookmarkInfo(*mark, bnc, info);
   ActivateMapSelection(true, df::SelectionShape::OBJECT_USER_MARK, info);
+  //TODO
+  //We need to preserve bookmark id in the m_lastTapEvent.
+  //Because in one feature can be several bokmarks.
   m_lastTapEvent = MakeTapEvent(info.GetMercator(), info.GetID(), TapEvent::Source::Other);
 }
 

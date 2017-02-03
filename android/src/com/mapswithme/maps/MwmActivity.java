@@ -37,6 +37,7 @@ import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.data.Banner;
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.DownloaderActivity;
 import com.mapswithme.maps.downloader.DownloaderFragment;
@@ -1400,17 +1401,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
-  public static class ShowAuthorizationTask implements MapTask
-  {
-    @Override
-    public boolean run(MwmActivity target)
-    {
-      final DialogFragment fragment = (DialogFragment) Fragment.instantiate(target, AuthDialogFragment.class.getName());
-      fragment.show(target.getSupportFragmentManager(), AuthDialogFragment.class.getName());
-      return true;
-    }
-  }
-
   void adjustCompass(int offsetY)
   {
     if (mMapFragment == null || !mMapFragment.isAdded())
@@ -1864,5 +1854,60 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private boolean shouldNotifyLocationNotFound()
   {
     return mMapFragment != null && !mMapFragment.isFirstStart();
+  }
+
+  public static class ShowAuthorizationTask implements MapTask
+  {
+    @Override
+    public boolean run(MwmActivity target)
+    {
+      final DialogFragment fragment = (DialogFragment) Fragment.instantiate(target, AuthDialogFragment.class.getName());
+      fragment.show(target.getSupportFragmentManager(), AuthDialogFragment.class.getName());
+      return true;
+    }
+  }
+
+  public static abstract class BaseUserMarkTask implements MapTask
+  {
+    private static final long serialVersionUID = 1L;
+
+    final int mCategoryId;
+    final int mId;
+
+    BaseUserMarkTask(int categoryId, int id)
+    {
+      mCategoryId = categoryId;
+      mId = id;
+    }
+  }
+
+  public static class ShowBookmarkTask extends BaseUserMarkTask
+  {
+    public ShowBookmarkTask(int categoryId, int bookmarkId)
+    {
+      super(categoryId, bookmarkId);
+    }
+
+    @Override
+    public boolean run(MwmActivity target)
+    {
+      BookmarkManager.INSTANCE.nativeShowBookmarkOnMap(mCategoryId, mId);
+      return true;
+    }
+  }
+
+  public static class ShowTrackTask extends BaseUserMarkTask
+  {
+    public ShowTrackTask(int categoryId, int trackId)
+    {
+      super(categoryId, trackId);
+    }
+
+    @Override
+    public boolean run(MwmActivity target)
+    {
+      Framework.nativeShowTrackRect(mCategoryId, mId);
+      return true;
+    }
   }
 }

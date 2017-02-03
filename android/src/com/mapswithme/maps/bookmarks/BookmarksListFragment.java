@@ -90,21 +90,24 @@ public class BookmarksListFragment extends BaseMwmListFragment
   @Override
   public void onListItemClick(ListView l, View v, int position, long id)
   {
+    final Intent i = new Intent(getActivity(), MwmActivity.class);
+
     switch (mAdapter.getItemViewType(position))
     {
     case BookmarkListAdapter.TYPE_SECTION:
       return;
     case BookmarkListAdapter.TYPE_BOOKMARK:
       final Bookmark bookmark = (Bookmark) mAdapter.getItem(position);
-      BookmarkManager.INSTANCE.nativeShowBookmarkOnMap(mCategoryIndex, bookmark.getBookmarkId());
+      i.putExtra(MwmActivity.EXTRA_TASK,
+                 new MwmActivity.ShowBookmarkTask(mCategoryIndex, bookmark.getBookmarkId()));
       break;
     case BookmarkListAdapter.TYPE_TRACK:
       final Track track = (Track) mAdapter.getItem(position);
-      Framework.nativeShowTrackRect(track.getCategoryId(), track.getTrackId());
+      i.putExtra(MwmActivity.EXTRA_TASK,
+                 new MwmActivity.ShowTrackTask(track.getCategoryId(), track.getTrackId()));
       break;
     }
 
-    final Intent i = new Intent(getActivity(), MwmActivity.class);
     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     startActivity(i);
   }
