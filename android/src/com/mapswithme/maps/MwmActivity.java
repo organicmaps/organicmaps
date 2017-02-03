@@ -652,7 +652,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return false;
   }
 
-  public void closeAllFloatingPanels()
+  private void closeAllFloatingPanels()
   {
     if (!mIsFragmentContainer)
       return;
@@ -1585,14 +1585,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     else
     {
       if (mIsFragmentContainer)
-      {
-        closeAllFloatingPanels();
         adjustTraffic(0, UiUtils.getStatusBarHeight(getApplicationContext()));
-      }
       else
-      {
         mRoutingPlanInplaceController.show(false);
-      }
+
+      closeAllFloatingPanels();
 
       if (completionListener != null)
         completionListener.run();
