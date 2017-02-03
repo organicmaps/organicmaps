@@ -101,16 +101,20 @@ void CoverObject(IntersectF const & intersect, uint64_t cellPenaltyArea, CellIdC
 
   uint64_t subdivArea = 0;
   for (size_t i = 0; i < subdiv.size(); ++i)
-    subdivArea += my::sq(uint64_t(1 << (CellIdT::DEPTH_LEVELS - 1 - subdiv[i].Level())));
+    subdivArea += my::sq(uint64_t(1 << (cellDepth - 1 - subdiv[i].Level())));
 
   ASSERT(!subdiv.empty(), (cellPenaltyArea, out, cell));
 
-  if (subdiv.empty() || cellPenaltyArea * (int(subdiv.size()) - 1) >= cellArea - subdivArea)
+  // This criteria is more clear for me. Let's divide if we can save more than cellPenaltyArea.
+  if (subdiv.size() > 1 && cellPenaltyArea >= cellArea - subdivArea)
+  {
     out.push_back(cell);
+  }
   else
+  {
     for (size_t i = 0; i < subdiv.size(); ++i)
       out.push_back(subdiv[i]);
+  }
 }
-
 
 } // namespace covering
