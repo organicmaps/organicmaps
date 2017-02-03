@@ -1,5 +1,7 @@
 #pragma once
 
+#include "search/common.hpp"
+
 #include "base/assert.hpp"
 #include "base/range_iterator.hpp"
 
@@ -9,11 +11,16 @@
 
 namespace search
 {
-struct TokenRange final
+class TokenRange final
 {
+public:
   TokenRange() = default;
-  TokenRange(size_t begin, size_t end) : m_begin(begin), m_end(end)
+  TokenRange(size_t begin, size_t end)
+    : m_begin(static_cast<uint8_t>(begin)), m_end(static_cast<uint8_t>(end))
+
   {
+    ASSERT_LESS_OR_EQUAL(begin, MAX_TOKENS, ());
+    ASSERT_LESS_OR_EQUAL(end, MAX_TOKENS, ());
     ASSERT(IsValid(), (*this));
   }
 
@@ -52,14 +59,20 @@ struct TokenRange final
     return m_begin == rhs.m_begin && m_end == rhs.m_end;
   }
 
+  inline size_t Begin() const { return m_begin; }
+  inline size_t End() const { return m_end; }
+
   inline my::RangeIterator<size_t> begin() const { return my::RangeIterator<size_t>(m_begin); }
   inline my::RangeIterator<size_t> end() const { return my::RangeIterator<size_t>(m_end); }
 
   inline my::RangeIterator<size_t> cbegin() const { return my::RangeIterator<size_t>(m_begin); }
   inline my::RangeIterator<size_t> cend() const { return my::RangeIterator<size_t>(m_end); }
 
-  size_t m_begin = 0;
-  size_t m_end = 0;
+private:
+  friend std::string DebugPrint(TokenRange const & tokenRange);
+
+  uint8_t m_begin = 0;
+  uint8_t m_end = 0;
 };
 
 inline std::string DebugPrint(TokenRange const & tokenRange)

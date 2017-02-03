@@ -13,7 +13,7 @@
 
 namespace search
 {
-struct TokenRange;
+class TokenRange;
 
 class QueryParams
 {

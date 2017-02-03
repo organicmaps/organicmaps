@@ -9,7 +9,7 @@
 namespace search
 {
 class FeaturesFilter;
-struct TokenRange;
+class TokenRange;
 
 struct BaseContext
 {

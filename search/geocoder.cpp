@@ -83,12 +83,12 @@ struct ScopedMarkTokens
     : m_usedTokens(usedTokens), m_range(range)
   {
     ASSERT(m_range.IsValid(), ());
-    ASSERT_LESS_OR_EQUAL(m_range.m_end, m_usedTokens.size(), ());
+    ASSERT_LESS_OR_EQUAL(m_range.End(), m_usedTokens.size(), ());
 #if defined(DEBUG)
     for (size_t i : m_range)
       ASSERT(!m_usedTokens[i], (i));
 #endif
-    fill(m_usedTokens.begin() + m_range.m_begin, m_usedTokens.begin() + m_range.m_end,
+    fill(m_usedTokens.begin() + m_range.Begin(), m_usedTokens.begin() + m_range.End(),
          true /* used */);
   }
 
@@ -98,7 +98,7 @@ struct ScopedMarkTokens
     for (size_t i : m_range)
       ASSERT(m_usedTokens[i], (i));
 #endif
-    fill(m_usedTokens.begin() + m_range.m_begin, m_usedTokens.begin() + m_range.m_end,
+    fill(m_usedTokens.begin() + m_range.Begin(), m_usedTokens.begin() + m_range.End(),
          false /* used */);
   }
 
@@ -186,7 +186,7 @@ void JoinQueryTokens(QueryParams const & params, TokenRange const & range, UniSt
   for (size_t i : range)
   {
     res.append(params.GetToken(i).m_original);
-    if (i + 1 != range.m_end)
+    if (i + 1 != range.End())
       res.append(sep);
   }
 }
@@ -637,7 +637,7 @@ void Geocoder::InitLayer(SearchModel::SearchType type, TokenRange const & tokenR
 
   JoinQueryTokens(m_params, layer.m_tokenRange, kUniSpace /* sep */, layer.m_subQuery);
   layer.m_lastTokenIsPrefix =
-      !layer.m_tokenRange.Empty() && m_params.IsPrefixToken(layer.m_tokenRange.m_end - 1);
+      !layer.m_tokenRange.Empty() && m_params.IsPrefixToken(layer.m_tokenRange.End() - 1);
 }
 
 void Geocoder::FillLocalityCandidates(BaseContext const & ctx, CBV const & filter,

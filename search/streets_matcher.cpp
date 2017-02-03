@@ -23,7 +23,7 @@ bool LessByHash(StreetsMatcher::Prediction const & lhs, StreetsMatcher::Predicti
   if (lhs.GetNumTokens() != rhs.GetNumTokens())
     return lhs.GetNumTokens() > rhs.GetNumTokens();
 
-  return lhs.m_tokenRange.m_begin < rhs.m_tokenRange.m_begin;
+  return lhs.m_tokenRange.Begin() < rhs.m_tokenRange.Begin();
 }
 }  // namespace
 
