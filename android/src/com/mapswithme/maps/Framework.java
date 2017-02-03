@@ -84,7 +84,7 @@ public class Framework
    * @return Bitmap if there's pedestrian or bicycle route and null otherwise.
    */
   @Nullable
-  public static Bitmap GenerateRouteAltitudeChart(int width, int height,
+  public static Bitmap generateRouteAltitudeChart(int width, int height,
                                                   @NonNull RouteAltitudeLimits limits)
   {
     if (width <= 0 || height <= 0)

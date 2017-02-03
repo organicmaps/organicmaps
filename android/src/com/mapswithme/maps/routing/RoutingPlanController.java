@@ -473,7 +473,7 @@ public class RoutingPlanController extends ToolbarController implements SlotFram
     int chartWidth = UiUtils.dimen(mActivity, R.dimen.altitude_chart_image_width);
     int chartHeight = UiUtils.dimen(mActivity, R.dimen.altitude_chart_image_height);
     Framework.RouteAltitudeLimits limits = new Framework.RouteAltitudeLimits();
-    Bitmap bm = Framework.GenerateRouteAltitudeChart(chartWidth, chartHeight, limits);
+    Bitmap bm = Framework.generateRouteAltitudeChart(chartWidth, chartHeight, limits);
     if (bm != null)
     {
       altitudeChart.setImageBitmap(bm);
