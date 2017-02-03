@@ -69,7 +69,7 @@ public:
   inline my::RangeIterator<size_t> cend() const { return my::RangeIterator<size_t>(m_end); }
 
 private:
-  friend  std::string DebugPrint(TokenRange const & tokenRange);
+  friend std::string DebugPrint(TokenRange const & tokenRange);
 
   uint8_t m_begin = 0;
   uint8_t m_end = 0;
