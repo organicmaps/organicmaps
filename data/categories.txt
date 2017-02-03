@@ -435,156 +435,156 @@ el:Συνάλλαγμα|ανταλλακτήριο|χρήματα
 sk:3Zmenáreň|peniaze
 
 amenity-bar|@food
-en:2Bar|2pub|beer|drink|food|U+1F37A|U+1F37B|U+1F376
+en:2Bar|2pub|beer|drink|U+1F37A|U+1F37B|U+1F376
 ru:2Бар|2паб|пиво|выпить|еда
-ar:الحانة|خمارة์|بيرة ์|شراب|الطعام
-cs:2Bar|pivo|pití|jídlo|voda|pitná voda|tekutiny
-da:2Bar|øl|pub|drink|mad
-nl:2Bar|2pub|2café|bier|drinken|eten
-fi:2Baari|ruoka
-fr:2Bar|2pub|bière|boisson|nourriture
-de:2Bar|2Pub|Kneipe|Bier|Essen
+ar:الحانة|خمارة์|بيرة ์|شراب
+cs:2Bar|pivo|pití|voda|pitná voda|tekutiny
+da:2Bar|øl|pub|drink
+nl:2Bar|2pub|2café|bier|drinken
+fi:2Baari
+fr:2Bar|2pub|bière|boisson
+de:2Bar|2Pub|Kneipe|Bier
 hu:2Bár|2kocsma|sör|ital|élelmiszer
-id:2Bar|2pub|minuman|makanan
-it:2Bar|2birra|pub|mangiare|cibo
-ja:1居酒屋|バー|パブ|ビール|飲食|飲み屋|呑み屋|酒
-ko:주점|맥주|음료|음식
-nb:2Bar|mat
-pl:2Bar|2pub|piwo|napoje|jedzenie
-pt:2Bar|2pub|cerveja|beber|alimentação
-ro:2Bar|2cârciumă|băutură|alimentație
-es:2Bar|2pub|comer
-sv:2Bar|2pub|öl|drink|mat
-th:2บาร์|ผับ|เบียร์|เครื่องดื่ม|อาหาร
-tr:2Bar|2bira|pub|içki|yemek
+id:2Bar|2pub|minuman
+it:2Bar|2birra|pub|mangiare
+ja:1居酒屋|バー|パブ|ビール|飲み屋|呑み屋|酒
+ko:주점|맥주|음료
+nb:2Bar
+pl:2Bar|2pub|piwo|napoje
+pt:2Bar|2pub|cerveja|beber
+ro:2Bar|2cârciumă|băutură
+es:2Bar|2pub
+sv:2Bar|2pub|öl|drink
+th:2บาร์|ผับ|เบียร์|เครื่องดื่ม
+tr:2Bar|2bira|pub|içki
 uk:2Бар|2паб|пиво|напої|їжа
-vi:2Quán bar|quán rượu|đồ uống|ẩm thực
+vi:2Quán bar|quán rượu|đồ uống
 zh-Hans:1酒吧|酒馆์|啤酒|饮料|食物
 zh-Hant:1酒吧|酒館|飲酒|PUB|吧台|飲食
 el:Μπαρ|Παμπ|μπύρα|ποτό|φαγητό
-sk:2Bar|pivo|pitie|jedlo|voda|pitná voda|tekutiny
+sk:2Bar|pivo|pitie|voda|pitná voda|tekutiny
 sw:Baa|vinywaji
 
 amenity-pub|@food
-en:2Pub|bar|beer|food|U+1F37A|U+1F37B
+en:2Pub|bar|beer|U+1F37A|U+1F37B
 ru:Паб|бар|пиво|выпить|еда
-ar:بار|الحانة|خمارة์|بيرة ์|شراب|الطعام
-cs:Hospoda|Bar|pivo|pití|jídlo|voda|pitná voda|tekutiny
-da:Værtshus|kro|bar|pub|øl|drink|mad
-nl:Kroeg|Bar|bier|drinken|eten
-fi:Pubi|Baari|ruoka
-fr:Bistrot|Bar|bière|boisson|nourriture
-de:Kneipe|Bar|Kneipe|Bier|Essen
+ar:بار|الحانة|خمارة์|بيرة ์|شراب
+cs:Hospoda|Bar|pivo|pití|voda|pitná voda|tekutiny
+da:Værtshus|kro|bar|pub|øl|drink
+nl:Kroeg|Bar|bier|drinken
+fi:Pubi|Baari
+fr:Bistrot|Bar|bière|boisson
+de:Kneipe|Bar|Kneipe|Bier
 hu:Kocsma|Bár|sör|ital|élelmiszer
-id:Pub|Bar|minuman|makanan
-it:Pub|Bar|birra|mangiare|cibo
-ja:バー|パブ|ビール|居酒屋|飲食|飲み屋|呑み屋|酒
-ko:술집|맥주|음료|음식
-nb:Pub|Bar|mat
-pl:Pub|Bar|piwo|napoje|jedzenie
-pt:Pub|Bar|cerveja|beber|alimentação
-ro:Pub|Bar|cârciumă|băutură|alimentație
-es:Pub|Bar|comer
-sv:Krog|Bar|öl|drink|mat
-th:ผับ|บาร์|ผับ|เบียร์|เครื่องดื่ม|อาหาร
-tr:Pub|bar|Bira|içki|yemek
+id:Pub|Bar|minuman
+it:Pub|Bar|birra|mangiare
+ja:バー|パブ|ビール|居酒屋|飲み屋|呑み屋|酒
+ko:술집|맥주|음료
+nb:Pub|Bar
+pl:Pub|Bar|piwo|napoje
+pt:Pub|Bar|cerveja|beber
+ro:Pub|Bar|cârciumă|băutură
+es:Pub|Bar
+sv:Krog|Bar|öl|drink
+th:ผับ|บาร์|ผับ|เบียร์|เครื่องดื่ม
+tr:Pub|bar|Bira|içki
 uk:Паб|Бар|пиво|напої|їжа
-vi:Quán rượu|Quán bar|quán rượu|đồ uống|ẩm thực
+vi:Quán rượu|Quán bar|quán rượu|đồ uống
 zh-Hans:酒馆|酒馆์|啤酒|饮料|食物
 zh-Hant:酒館|啤酒吧|酒吧|飲酒|PUB|吧台|飲食
 el:Παμπ|μπαρ|μπύρα|φαγητό
-sk:Pohostinstvo|Bar|pivo|pitie|jedlo|voda|pitná voda|tekutiny
+sk:Pohostinstvo|Bar|pivo|pitie|voda|pitná voda|tekutiny
 
 amenity-cafe|@food
-en:3Cafe|3restaurant|3food|U+2615|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B|U+1F375
+en:3Cafe|3restaurant|U+2615|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B|U+1F375
 ru:3Кафе|3ресторан|3еда
-ar:مقهى|مطعم่|طعام|الطعام
-cs:3Kavárna|restaurace|hospoda|jídlo
-da:3Café|restaurant|mad
-nl:3Tearoom|3brasserie|3café|3restaurant|3eten
-fi:2Kahvila|ruoka
-fr:3Café|3restaurant|3resto|3nourriture
-de:3Café|3Restaurant|Kaffee|essen
+ar:مقهى|مطعم่|طعام
+cs:3Kavárna|restaurace|hospoda
+da:3Café|restaurant
+nl:3Tearoom|3brasserie|3café|3restaurant
+fi:2Kahvila
+fr:3Café|3restaurant|3resto
+de:3Café|3Restaurant|Kaffee
 hu:3Kávézó|3étterem|3élelmiszer
-id:3Kafe|3restoran|makanan
-it:3Caffè|3ristorante|pasto|mangiare|cibo
-ja:1カフェ|喫茶|食べ物|飲食|コーヒー|珈琲|お茶|茶|紅茶|食事|軽食
-ko:1카페|레스토랑|음식
-nb:2Kafé|mat
-pl:3Kawiarnia|4restauracja|kawa|jedzenie
-pt:3Café|3restaurante|alimentação
-ro:3Cafenea|3restaurant|alimentație
-es:3Café|3restaurante|comer
-sv:3Café|3restaurang|3mat
-th:3 คาเฟ่|ร้านอาหาร่|อาหาร
-tr:3Kafeterya่|restoran|3yemek
+id:3Kafe|3restoran
+it:3Caffè|3ristorante|pasto|mangiare
+ja:1カフェ|喫茶|食べ物|コーヒー|珈琲|お茶|茶|紅茶|食事|軽食
+ko:1카페|레스토랑
+nb:2Kafé
+pl:3Kawiarnia|4restauracja|kawa
+pt:3Café|3restaurante
+ro:3Cafenea|3restaurant
+es:3Café|3restaurante
+sv:3Café|3restaurang
+th:3 คาเฟ่|ร้านอาหาร่
+tr:3Kafeterya่|restoran
 uk:3Кафе|3ресторан|2їжа|2їсти
-vi:Cà phê|quán ăn|ẩm thực
+vi:Cà phê|quán ăn
 zh-Hans:1咖啡馆่|餐厅|食物
 zh-Hant:2咖啡廳|咖啡|3cafe|餐廳|飲食
 el:Καφετέρια|εστιατόριο|φαγητό
-sk:3Kaviareň|reštaurácia|pohostinstvo|jedlo
+sk:3Kaviareň|reštaurácia|pohostinstvo
 sw:Mgahawa|hoteli|chakula
 
 amenity-fast_food|@food
-en:4Fast Food|3restaurant|3cafe|takeaway|3food|U+1F354|U+1F355|U+1F35F|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374
+en:4Fast Food|3restaurant|3cafe|takeaway|U+1F354|U+1F355|U+1F35F|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374
 ru:3Фастфуд|3ресторан|3кафе|еда
-ar:وجبات سريعة|مطعم|مقهى|وجبة جاهزة|طعام|الطعام
-cs:2Rychlé občerstvení|4fastfood|kavárna|restaurace|jídlo
-da:4Fastfood|restaurant|café|takeaway|mad
-nl:4Fast food|3frituur|fritkot|3restaurant|afhaaleten|3eten
-fi:3Pikaruokala|ruoka
-fr:4Restauration rapide|3restaurant|3café|à emporter|3nourriture|3resto
-de:4Fast-Food|Takeaway|Restaurant|Café|Pizzeria|essen
+ar:وجبات سريعة|مطعم|مقهى|وجبة جاهزة|طعام
+cs:2Rychlé občerstvení|4fastfood|kavárna|restaurace
+da:4Fastfood|restaurant|café|takeaway
+nl:4Fast food|3frituur|fritkot|3restaurant|afhaaleten
+fi:3Pikaruokala
+fr:4Restauration rapide|3restaurant|3café|à emporter|3resto
+de:4Fast-Food|Takeaway|Restaurant|Café|Pizzeria
 hu:4Gyorsétterem|3étterem|3kávézó|3élelmiszer
-id:Cepat saji|3restoran|makanan
-it:4Fast food|takeaway|caffè|ristorante|pasto|mangiare|cibo
-ja:1ファストフード|レストラン|テイクアウト|持ち帰り|軽食|飲食|食事
+id:Cepat saji|3restoran
+it:4Fast food|takeaway|caffè|ristorante|pasto|mangiare
+ja:1ファストフード|レストラン|テイクアウト|持ち帰り|軽食|食事
 ko:1패스트 푸드|레스토랑|카페|테이크 아웃|푸드
-nb:3Hurtigmat|mat
-pl:4Fast food|restauracja szybkiej obsługi|5na wynos|jedzenie
-pt:4Comida de plástico|comida para levar|3café|3alimentação
-ro:Fast food|3restaurant|alimentație
-es:4Comida rápida|restaurante|café|comer
-sv:4Snabbmat|3restaurang|3café|takeaway|3mat
-th:1อาหารจานด่วน|ร้านอาหาร|คาเฟ่|นำกลับ|อาหาร
-tr:4Fast food|3restoran|3kafeterya|yemek
+nb:3Hurtigmat
+pl:4Fast food|restauracja szybkiej obsługi|5na wynos
+pt:4Comida de plástico|comida para levar|3café
+ro:Fast food|3restaurant
+es:4Comida rápida|restaurante|café
+sv:4Snabbmat|3restaurang|3café|takeaway
+th:1อาหารจานด่วน|ร้านอาหาร|คาเฟ่|นำกลับ
+tr:4Fast food|3restoran|3kafeterya
 uk:3Фастфуд|3ресторан|3кафе|2їжа|2їсти
-vi:Thức ăn nhanh|quán ăn|ẩm thực
+vi:Thức ăn nhanh|quán ăn
 zh-Hans:1快餐|餐厅|外卖|食物
 zh-Hant:1速食店|麥當勞|肯德雞|漢堡王|頂呱呱|薯條|速食|用餐|飲食
 el:Εστιατόριο|καφετέρια|φαγητό για το σπίτι|φαγητό
-sk:2Rýchle občerstvenie|4fastfood|3kaviareň|reštaurácia|jedlo
+sk:2Rýchle občerstvenie|4fastfood|3kaviareň|reštaurácia
 
 amenity-restaurant|@food
-en:3Restaurant|3cafe|3food|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B
+en:3Restaurant|3cafe|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B
 ru:3Ресторан|3кафе|еда
-ar:1مطعم|مقهى|طعام|الطعام
-cs:3Restaurace|hospoda|kavárna|jídlo
-da:3Restaurant|café|mad
-nl:3Restaurant|3café|3eten
-fi:3Ravintola|ruoka
-fr:3Restaurant|3café|3nourriture|3resto
-de:3Restaurant|3Café|Gasthaus|Gaststube|3essen
+ar:1مطعم|مقهى|طعام
+cs:3Restaurace|hospoda|kavárna
+da:3Restaurant|café
+nl:3Restaurant|3café
+fi:3Ravintola
+fr:3Restaurant|3café|3resto
+de:3Restaurant|3Café|Gasthaus|Gaststube
 hu:3Étterem|3kávézó|3élelmiszer
-id:Restoran|3kafe|makanan
-it:3Ristorante|3caffè|mangiare|cibo
-ja:1レストラン|食べ物|飲食|食事|2ファミレス
-ko:1레스토랑|카페|음식
-nb:3Restaurant|mat
-pl:4Restauracja|3kawiarnia|2jedzenie
-pt:3Restaurante|3café|3alimentação
-ro:3Restaurant|3cafenea|alimentație
-es:3Restaurante|3café|comer
-sv:3Restaurang|3café|3mat
-th:3ร้านอาหาร|อาหาร
-tr:3Restoran|3kafeterya|3yemek
+id:Restoran|3kafe
+it:3Ristorante|3caffè|mangiare
+ja:1レストラン|食べ物|食事|2ファミレス
+ko:1레스토랑|카페
+nb:3Restaurant
+pl:4Restauracja|3kawiarnia
+pt:3Restaurante|3café
+ro:3Restaurant|3cafenea
+es:3Restaurante|3café
+sv:3Restaurang|3café
+th:3ร้านอาหาร
+tr:3Restoran|3kafeterya
 uk:3Ресторан|3кафе|2їжа|2їсти
-vi:Quán ăn|cà phê|ẩm thực
+vi:Quán ăn|cà phê
 zh-Hans:1餐厅|咖啡馆|食物
 zh-Hant:1餐廳|餐館|吃飯|餐點|早餐|午餐|晚餐|食堂|飲食|用餐
 el:Εστιατόριο|καφετέρια|φαγητό
-sk:3Reštaurácia|pohostinstvo|kaviareň|jedlo
+sk:3Reštaurácia|pohostinstvo|kaviareň
 sw:Hoteli|restorenti|mgahawa|chakula
 
 amenity-fuel|@fuel
@@ -592,12 +592,12 @@ en:^Gas Station|3fuel|petrol|petrol station|U+26FD
 ru:Бензин|топливо|азс
 ar:^محطة وقود|وقود|غاز
 cs:2pumpa
-da:3^Tankstation|benzin|brændstof
+da:3^Tankstation
 nl:3^Tankstation|3brandstof
 fr:^Station-service|3carburant
 de:^Tankstation
 hu:3^Benzinkút|benzin
-id:^Pompa bensin|bahan bakar
+id:^Pompa bensin
 ja:^ガスステーション|ガス|燃料|軽油|給油
 ko:1^가스가 역|가스
 nb:3^Bensinstasjon
@@ -616,517 +616,500 @@ sk:3^Benzínová pumpa
 sw:^Sheli|mafuta
 
 shop-bakery|@shop
-en:3Bakery|shop|U+1F35E
+en:3Bakery|U+1F35E
 ru:3Булочная|магазин
-ar:مخبزี่|متجر|المتجر
-cs:3Pekárna|obchod
-da:2Bager|bageri|butik
-nl:3Bakkerij|winkel
-fi:3Leipomo|kauppa
-fr:3Boulangerie|magasin
-de:3Bäckerei|Bäckerladen|Bäcker|Laden|Geschäft
-hu:3Pékség|bolt
-id:Toko roti|toko|Roti
-it:3Panetteria|negozio
-ja:1パン屋|ベーカリー|パン|軽食|持ち帰り|買い物
-ko:1베이커리|쇼핑
-nb:3Bakeri|butikk
-pl:4Piekarnia|sklep
-pt:3Padaria|compras
-ro:3Brutărie|magazin
-es:3Panadería|tienda
-sv:3Bageri|butik
-th:3เบเกอรี่|ร้านค้า
-tr:3Fırın|mağaza
+ar:مخبزี่|متجر
+cs:3Pekárna
+da:2Bager|bageri
+nl:3Bakkerij
+fi:3Leipomo
+fr:3Boulangerie
+de:3Bäckerei|Bäckerladen|Bäcker|Laden
+hu:3Pékség
+id:Toko roti|Roti
+it:3Panetteria
+ja:1パン屋|ベーカリー|パン|軽食|持ち帰り
+ko:1베이커리
+nb:3Bakeri
+pl:4Piekarnia
+pt:3Padaria
+ro:3Brutărie
+es:3Panadería
+sv:3Bageri
+th:3เบเกอรี่
+tr:3Fırın
 uk:3Пекарня|магазин|крамниця
-vi:Hiệu bánh|cửa hàng
+vi:Hiệu bánh
 zh-Hans:1面包店|商店
 zh-Hant:1麵包店|2蛋糕店|烘焙|麵包|蛋糕|購物
 el:Αρτοποιείο|κατάστημα
-sk:3Pekáreň|obchod
+sk:3Pekáreň
 sw:Kituo cha kuwoka mikate
 
 shop|@shop
-en:2Shop|U+1F3EA|U+1F3EC
-ru:2Магазин
-ar:متجر|المتجر
-cs:2Obchod
-da:2Butik|forretning
-nl:2Winkel
-fi:3Kauppa
-fr:2Magasin
-de:3Verbrauchermarkt|Geschäft|2Laden
-hu:2Bolt
-id:2Toko
-it:2Negozio
-ja:1買い物|お買い物|ショップ|商店|雑貨
-ko:1쇼핑|가게
-nb:3Butikk
-pl:3Sklep|towary
-pt:2Loja|compras
-ro:3Magazin
-es:2Tienda
-sv:2Butik
-th:2ร้านค้า
-tr:2Mağaza
+en:U+1F3EA|U+1F3EC
+ar:متجر
+da:forretning
+de:3Verbrauchermarkt|2Laden
+ja:お買い物|ショップ|商店|雑貨
+ko:가게
+pl:towary
+pt:2Loja
 uk:2Магазин|крамниця
-vi:Cửa hàng
 zh-Hans:商店
 zh-Hant:1購物|店鋪|商店|雜貨店|便利商店
 el:Κατάστημα
-sk:2Obchod
-sw:Duka
 
 shop-cosmetics|@shop
-en:4Beauty Care|home care|shop|U+1F3EC|U+1F3EA
+en:4Beauty Care|home care|U+1F3EC|U+1F3EA
 ru:Магазин косметики|4Косметика|бытовая химия|магазин
-ar:ﻞﻴﻤﺠﺘﻟﺍ ﺕﺍﺮﻀﺤﺘﺴﻣ|تجميل|المتجر
-cs:4Kosmetika|domácí péče|obchod
-da:4Kosmetik|butik
-nl:4Schoonheidsmiddelen|winkel
-fi:Kosmetiikka|kotihoito|kauppa
-fr:4Produits de beauté|soins de beauté|magasin
-de:4Kosmetik|Geschäft|Schönheitspflege
-hu:4Kozmetikum|házi gondozás|bolt
-id:4Kosmetik|toko
-it:Cosmetici|materiale per la casa|negozio
-ja:化粧品|ホームケア|買い物
-ko:화장품|뷰티케어|쇼핑
-nb:Kosmetikk|hjemmepleie|butikk
-pl:Kosmetyki|sklep
-pt:Cosméticos|estética|compras
-ro:Cosmetică|centru de îngrijire|magazin
-es:4Productos cosméticos|tienda
-sv:Kosmetika|butik
-th:เครื่องสำอาง|ร้านค้า
-tr:Bakım ürünleri|güzellik merkezi|mağaza
+ar:ﻞﻴﻤﺠﺘﻟﺍ ﺕﺍﺮﻀﺤﺘﺴﻣ|تجميل
+cs:4Kosmetika|domácí péče
+da:4Kosmetik
+nl:4Schoonheidsmiddelen
+fi:Kosmetiikka|kotihoito
+fr:4Produits de beauté|soins de beauté
+de:4Kosmetik|Schönheitspflege
+hu:4Kozmetikum|házi gondozás
+id:4Kosmetik
+it:Cosmetici|materiale per la casa
+ja:化粧品|ホームケア
+ko:화장품|뷰티케어
+nb:Kosmetikk|hjemmepleie
+pl:Kosmetyki
+pt:Cosméticos|estética
+ro:Cosmetică|centru de îngrijire
+es:4Productos cosméticos
+sv:Kosmetika
+th:เครื่องสำอาง
+tr:Bakım ürünleri|güzellik merkezi
 uk:4Косметика|крамниця
-vi:Mỹ phẩm|cửa hàng
+vi:Mỹ phẩm
 zh-Hans:化妝品|商店
 zh-Hant:化妆品|美妝店|購物
-el:Καλλυντικά|Μαγαζί
-he:הקיטמסוק|חנות
-sk:4Kozmetika|obchod
-sw:Vipodozi|Duka
+el:Καλλυντικά
+he:הקיטמסוק
+sk:4Kozmetika
+sw:Vipodozi
 
 shop-convenience|@shop
-en:4Convenience Store|shop|U+1F3EC|U+1F3EA
+en:4Convenience Store|U+1F3EC|U+1F3EA
 ru:4Продуктовый магазин|2магазин
-ar:متجر|متجر صغير|المتجر
-cs:Smíšené zboží|koloniál|obchod
-da:Døgnbutik|døgnkiosk|kiosk|butik
-nl:Buurtwinkel|kruidenier|winkel
-fi:Lähikauppa|kauppa
-fr:Supérette|magasin
-de:Gemischtwarenladen|Geschäft
-hu:Csemegebolt|ábécé|bolt
-id:Mini market|toko
-it:Minimarket|negozio
-ja:コンビニエンスストア|コンビニ|買い物
-ko:편의점|쇼핑
-nb:Nærbutikk|nærbutikk|butikk
-pt:Loja de conveniência|compras
-ro:4Magazin mixt|magazin
+ar:متجر|متجر صغير
+cs:Smíšené zboží|koloniál
+da:Døgnbutik|døgnkiosk|kiosk
+nl:Buurtwinkel|kruidenier
+fi:Lähikauppa
+fr:Supérette
+de:Gemischtwarenladen
+hu:Csemegebolt|ábécé
+id:Mini market
+it:Minimarket
+ja:コンビニエンスストア|コンビニ
+ko:편의점
+nb:Nærbutikk|nærbutikk
+pt:Loja de conveniência
+ro:4Magazin mixt
 es:Tienda de ultramarinos|chino|bazar
-sv:Närbutik|butik
-th:ร้านสะดวกซื้อ|ร้านค้า
-tr:Bakkal|mağaza
+sv:Närbutik
+th:ร้านสะดวกซื้อ
+tr:Bakkal
 uk:4Міні-маркет|Продуктовий|крамниця
-vi:Cửa hàng tạp hóa|cửa hàng
+vi:Cửa hàng tạp hóa
 zh-Hans:便利店|商店
 zh-Hant:便利商店|便利超商|購物
 el:Ψιλικατζίδικο|κατάστημα
-sk:Príležitostné potreby|obchod
+sk:Príležitostné potreby
 
 shop-garden_centre|@shop
-en:Garden Store|U+1F3EC|U+1F3EA|U+1F3E1|shop
+en:Garden Store|U+1F3EC|U+1F3EA|U+1F3E1
 ru:Садовые товары|магазин
-ar:حضانة|روضة|المتجر
-cs:Školka|zahradní centrum|obchod
-da:Planteskole|havecenter|plantecenter|havebutik|butik
-nl:Tuincentrum|winkel
-fi:Taimitarha|kauppa
-fr:Crèche|garderie d'enfants|magasin
-de:Gärtnerei|Garten-Center|Geschäft
-hu:Faiskola|kertészeti üzlet|bolt
-id:Penitipan anak|toko
-it:Vivaio|articoli da giardinaggio|negozio
-ja:保育園|託児所|買い物
-ko:종묘점|원예 용품점|쇼핑
-nb:Planteskole|hagesenter|butikk
-pl:Sklep ogrodniczy|sklep
-pt:Creche|infantário|compras
-ro:Pepinieră|magazin cu articole de grădinărit|magazin
-es:Vivero|tienda de jardinería|tienda
-sv:Daghem|trädgårdsbutik|butik
-th:สถานรับเลี้ยงเด็ก|เนอร์สเซอรี่|ร้านค้า
-tr:Çocuk yuvası|kreş|mağaza
+ar:حضانة|روضة
+cs:Školka|zahradní centrum
+da:Planteskole|havecenter|plantecenter|havebutik
+nl:Tuincentrum
+fi:Taimitarha
+fr:Crèche|garderie d'enfants
+de:Gärtnerei|Garten-Center
+hu:Faiskola|kertészeti üzlet
+id:Penitipan anak
+it:Vivaio|articoli da giardinaggio
+ja:保育園|託児所
+ko:종묘점|원예 용품점
+nb:Planteskole|hagesenter
+pl:Sklep ogrodniczy
+pt:Creche|infantário
+ro:Pepinieră|magazin cu articole de grădinărit
+es:Vivero|tienda de jardinería
+sv:Daghem|trädgårdsbutik
+th:สถานรับเลี้ยงเด็ก|เนอร์สเซอรี่
+tr:Çocuk yuvası|kreş
 uk:Товари для саду|крамниця
-vi:Nhà trẻ|cửa hàng
+vi:Nhà trẻ
 zh-Hans:幼儿园|商店
 zh-Hant:園藝店|購物
 el:Κατάστημα ειδών κήπου|κατάστημα
-sk:Škôlka|materská škôlka|obchod
+sk:Škôlka|materská škôlka
 
 shop-mobile_phone|@shop
-en:Cell Phones|Mobile Phones|electronics store|U+1F3EC|U+1F3EA|U+1F4F1|U+1F4F2|shop
+en:Cell Phones|Mobile Phones|electronics store|U+1F3EC|U+1F3EA|U+1F4F1|U+1F4F2
 ru:Магазин мобильных телефонов|Сотовые|3Мобильные телефоны|электроника|салон связи|магазин
-ar:متجر هواتف محمولة|متجر إلكترونيات|المتجر
-cs:Mobily|Obchod s mobilními telefony|obchod s elektronikou|obchod
-da:Mobiltelefonbutik|elektronikforretning|butik
-nl:Mobiele telefoonwinkel|elektronicawinkel|winkel
-fi:Elektroniikkakauppa|kauppa
-fr:Magasin de téléphonie|magasin d'électronique|magasin
-de:Handyladen|Eletronikgeschäft|Geschäft
-hu:Mobiltelefon üzlet|elektronikai szaküzlet|bolt
-id:Toko telepon|toko
-it:Negozio di telefonia mobile|negozio di elettronica|negozio
-ja:携帯ショップ|買い物
-ko:휴대폰 대리점|쇼핑
-nb:Mobiltelefonbutikk|elektronikkbutikk|butikk
-pl:Sklep z elektroniką|sklep elektroniczny|sklep
-pt:Loja de telemóveis|loja de aparelhos eletrónicos|compras
-ro:Magazin de telefoane mobile|magazin de electronice|magazin
-es:Celulares|Tienda de telefonía móvil|tienda de electrónica|tienda
-sv:Mobilbutik|elektronikaffär|butik
-th:ร้านขายโทรศัพท์มือถือ|ร้านขายอุปกรณ์อิเล็กโทรนิก|ร้านค้า
-tr:Cep telefonu mağazası|elektronik mağazası|mağaza
+ar:متجر هواتف محمولة|متجر إلكترونيات
+cs:Mobily|Obchod s mobilními telefony|obchod s elektronikou
+da:Mobiltelefonbutik|elektronikforretning
+nl:Mobiele telefoonwinkel|elektronicawinkel
+fi:Elektroniikkakauppa
+fr:Magasin de téléphonie|magasin d'électronique
+de:Handyladen|Eletronikgeschäft
+hu:Mobiltelefon üzlet|elektronikai szaküzlet
+id:Toko telepon
+it:Negozio di telefonia mobile|negozio di elettronica
+ja:携帯ショップ
+ko:휴대폰 대리점
+nb:Mobiltelefonbutikk|elektronikkbutikk
+pl:Sklep z elektroniką|sklep elektroniczny
+pt:Loja de telemóveis|loja de aparelhos eletrónicos
+ro:Magazin de telefoane mobile|magazin de electronice
+es:Celulares|Tienda de telefonía móvil|tienda de electrónica
+sv:Mobilbutik|elektronikaffär
+th:ร้านขายโทรศัพท์มือถือ|ร้านขายอุปกรณ์อิเล็กโทรนิก
+tr:Cep telefonu mağazası|elektronik mağazası
 uk:Мобільні телефони|салон мобільного зв'язку|салон мобільних телефонів|крамниця
-vi:Cửa hàng điện thoại di động|cửa hàng ĐTDĐ|cửa hàng
+vi:Cửa hàng điện thoại di động|cửa hàng ĐTDĐ
 zh-Hans:手机商店|商店
 zh-Hant:手機專賣店|購物
 el:Κινητά τηλέφωνα|Κινητά|κατάστημα ηλεκτρονικών|κατάστημα
-sk:Mobilné telefóny|obchod
+sk:Mobilné telefóny
 
 shop-florist|@shop
-en:Florist’s|U+1F337|U+1F338|U+1F339|U+1F33A|U+1F33B|U+1F33C|U+1F490|U+1F33E|2shop
+en:Florist’s|U+1F337|U+1F338|U+1F339|U+1F33A|U+1F33B|U+1F33C|U+1F490|U+1F33E
 ru:Цветочный магазин|цветы|2магазин
-ar:محل زهور|متجر زهور|متجر|المتجر
-cs:Květinářství|2obchod
-da:Blomsterbutik|blomsterforretning|blomsterhandel|blomsterhandler|2butik
-nl:Bloemist|bloemenwinkel|2winkel
-fi:Floristi|kukkakauppa|3kauppa
-fr:Fleuriste|2magasin
-de:Florist|Blumengeschäft|Blumenladen|Geschäft|2Laden
-hu:Virágos|virágbolt|2bolt
-id:Tukang bunga|toko bunga|2toko
-it:Fiorista|fioraio|2negozio
-ja:フローリスト/花屋|1買い物|お買い物|ショップ|商店|雑貨
-ko:플로리스트의꽃가게|1쇼핑|가게
-nb:Blomsterhandler|3butikk
-pl:Kwiaciarnia|3sklep|towary
-pt:Floricultura|2loja|compras
-ro:Florărie|3magazin
-es:Floristería|tienda de flores|2tienda
-sv:Blomsteraffär|2butik
-th:ร้านดอกไม้|2ร้านค้า
-tr:Çiçekçi|2mağaza
+ar:محل زهور|متجر زهور|متجر
+cs:Květinářství
+da:Blomsterbutik|blomsterforretning|blomsterhandel|blomsterhandler
+nl:Bloemist|bloemenwinkel
+fi:Floristi|kukkakauppa
+fr:Fleuriste
+de:Florist|Blumengeschäft|Blumenladen|2Laden
+hu:Virágos|virágbolt
+id:Tukang bunga|toko bunga
+it:Fiorista|fioraio
+ja:フローリスト/花屋|お買い物|ショップ|商店|雑貨
+ko:플로리스트의꽃가게|가게
+nb:Blomsterhandler
+pl:Kwiaciarnia|towary
+pt:Floricultura|2loja
+ro:Florărie
+es:Floristería|tienda de flores
+sv:Blomsteraffär
+th:ร้านดอกไม้
+tr:Çiçekçi
 uk:Магазин квітів|2магазин|крамниця
-vi:Cửa hàng hoa|tiệm hoa|cửa hàng
+vi:Cửa hàng hoa|tiệm hoa
 zh-Hans:花店|商店
 zh-Hant:花店|1購物|店鋪|商店|雜貨店|便利商店
 el:Ανθοπωλείο|κατάστημα
-sk:Kvety|kvetinárstvo|2obchod
+sk:Kvety|kvetinárstvo
 
 shop-butcher|@shop
-en:Butcher’s|U+1F356|U+1F357|2shop
+en:Butcher’s|U+1F356|U+1F357
 ru:Мясная лавка|мясо|2магазин
-ar:ججزارة|متجر|المتجر
-cs:Řeznictví|2obchod
-da:Slagter|slagterbutik|2butik
-nl:Slager|beenhouwer|2winkel
-fi:Lihakauppias|3kauppa
-fr:Boucherie|2magasin
-de:Metzgerei|Metzger|Schlachter|Geschäft|2Laden
-hu:Hentes|2bolt
-id:Tukang daging|2toko
-it:Macellaio|2negozio
-ja:肉屋|1買い物|お買い物|ショップ|商店|雑貨
-ko:정육점의|1쇼핑|가게
-nb:Slakter|3butikk
-pl:Rzeźnik|3sklep|towary
-pt:Açougueiro|2loja|compras
-ro:Măcelărie|3magazin
-es:Carnicería|2tienda
-sv:Slaktare|2butik
-th:ร้านขายเนื้อ|2ร้านค้า
-tr:Kasap|2mağaza
+ar:ججزارة|متجر
+cs:Řeznictví
+da:Slagter|slagterbutik
+nl:Slager|beenhouwer
+fi:Lihakauppias
+fr:Boucherie
+de:Metzgerei|Metzger|Schlachter|2Laden
+hu:Hentes
+id:Tukang daging
+it:Macellaio
+ja:肉屋|お買い物|ショップ|商店|雑貨
+ko:정육점의|가게
+nb:Slakter
+pl:Rzeźnik|towary
+pt:Açougueiro|2loja
+ro:Măcelărie
+es:Carnicería
+sv:Slaktare
+th:ร้านขายเนื้อ
+tr:Kasap
 uk:М'ясний магазин|2магазин|крамниця
-vi:Cửa hàng thịt|cửa hàng
+vi:Cửa hàng thịt
 zh-Hans:肉商|商店
 zh-Hant:肉商|1購物|店鋪|商店|雜貨店|便利商店
 el:Κρεοπωλείο|κατάστημα
-sk:Mäsiar|2obchod
+sk:Mäsiar
 
 shop-furniture|@shop
-en:Furniture Store|2shop
+en:Furniture Store
 ru:Магазин мебели|2магазин
-ar:معرض أثاث|متجر|المتجر
-cs:Nábytek|2obchod
-da:Møbelbutik|møbelforretning|møbelhandler|2butik
-nl:Meubelzaak|2winkel
-fi:Huonekalukauppa|3kauppa
-fr:Magasin de meubles|2magasin
-de:Möbelgeschäft|Geschäft|2Laden
-hu:Bútoráruház|2bolt
-id:Toko mebel|2toko
-it:Negozio di mobili|2negozio
-ja:家具店|1買い物|お買い物|ショップ|商店|雑貨
-ko:가구 상점|1쇼핑|가게
-nb:Møbelbutikk|3butikk
-pl:Sklep meblowy|3sklep|towary
-pt:Loja de móveis|2loja|compras
-ro:Magazin de mobilă|3magazin
-es:Tienda de muebles|2tienda
-sv:Möbelaffär|2butik
-th:ร้านเฟอร์นิเจอร์|2ร้านค้า
-tr:Mobilya mağazası|2mağaza
+ar:معرض أثاث|متجر
+cs:Nábytek
+da:Møbelbutik|møbelforretning|møbelhandler
+nl:Meubelzaak
+fi:Huonekalukauppa
+fr:Magasin de meubles
+de:Möbelgeschäft|2Laden
+hu:Bútoráruház
+id:Toko mebel
+it:Negozio di mobili
+ja:家具店|お買い物|ショップ|商店|雑貨
+ko:가구 상점|가게
+nb:Møbelbutikk
+pl:Sklep meblowy|towary
+pt:Loja de móveis|2loja
+ro:Magazin de mobilă
+es:Tienda de muebles
+sv:Möbelaffär
+th:ร้านเฟอร์นิเจอร์
+tr:Mobilya mağazası
 uk:Магазин меблів|2магазин|крамниця
-vi:Cửa hàng nội thất|cửa hàng
+vi:Cửa hàng nội thất
 zh-Hans:家具店|商店
 zh-Hant:家具店|1購物|店鋪|商店|雜貨店|便利商店
 el:Κατάστημα επίπλων|κατάστημα
-sk:Nábytok|2obchod
+sk:Nábytok
 
 shop-alcohol|@shop
-en:Liquor Store|liquor|U+1F377|2shop
+en:Liquor Store|liquor|U+1F377
 ru:Магазин алкоголя|4алкоголь|3винный|3вино-водочный|2магазин
-ar:متجر مشروبات كحولية|خمور|متجر|المتجر
-cs:Obchod s alkoholem|2obchod
-da:Alkohol|vinhandel|sprut|spiritus|2butik
-nl:Slijterij|drankhandel|2winkel
-fi:Alkoholikauppa|alkoholi|3kauppa
-fr:Magasin de vins et spiritueux|vins et spiritueux|2magasin
-de:Spirituosengeschäft|Spirituosen|Geschäft|2Laden
-hu:Italbolt|ital|2bolt
-id:Toko alkohol|minuman keras|2toko
-it:Enoteca|2negozio
-ja:酒屋|1買い物|お買い物|ショップ|商店|雑貨
-ko:주류 샵|1쇼핑|가게
-nb:Vinmonopol|brennevin|3butikk
-pl:Monopolowy|3sklep|towary
-pt:Loja de bebidas|bebidas alcoólicas|2loja|compras
-ro:Băuturi alcoolice|3magazin
-es:Licorería|licor|2tienda
-sv:Spritaffär|alkohol|2butik
-th:ร้านขายเหล้า|2ร้านค้า
-tr:Içki dükkanı|2mağaza
+ar:متجر مشروبات كحولية|خمور|متجر
+cs:Obchod s alkoholem
+da:Alkohol|vinhandel|sprut|spiritus
+nl:Slijterij|drankhandel
+fi:Alkoholikauppa|alkoholi
+fr:Magasin de vins et spiritueux|vins et spiritueux
+de:Spirituosengeschäft|Spirituosen|2Laden
+hu:Italbolt|ital
+id:Toko alkohol|minuman keras
+it:Enoteca
+ja:酒屋|お買い物|ショップ|商店|雑貨
+ko:주류 샵|가게
+nb:Vinmonopol|brennevin
+pl:Monopolowy|towary
+pt:Loja de bebidas|bebidas alcoólicas|2loja
+ro:Băuturi alcoolice
+es:Licorería|licor
+sv:Spritaffär|alkohol
+th:ร้านขายเหล้า
+tr:Içki dükkanı
 uk:Винний магазин|крамниця спиртних напоїв|2магазин|крамниця
-vi:Cửa hàng rượu|rượu|cửa hàng
+vi:Cửa hàng rượu|rượu
 zh-Hans:烈酒|商店
 zh-Hant:烈酒|1購物|店鋪|商店|雜貨店|便利商店
 el:Κάβα|ποτά|κατάστημα
-sk:Liehoviny|alkohol|2obchod
+sk:Liehoviny|alkohol
 
 shop-books|@shop
-en:Bookstore|U+1F4D6|U+1F4DA|U+1F4D9|U+1F4D8|U+1F4D7|U+1F4D5|2shop
+en:Bookstore|U+1F4D6|U+1F4DA|U+1F4D9|U+1F4D8|U+1F4D7|U+1F4D5
 ru:Книжный магазин|книги|2магазин
-ar:مكتبة لبيع الكتب|متجر|المتجر
-cs:Knihkupectví|2obchod
-da:Boghandel|boghandler|boglade|2butik
-nl:Boekenwinkel|boekwinkel|2winkel
-fi:Kirjakauppa|3kauppa
-fr:Librairie|2magasin
-de:Büchergeschäft|Buchhandlung|Geschäft|2Laden
-hu:Könyvesbolt|2bolt
-id:Toko buku|2toko
-it:Libreria|2negozio
-ja:本屋|1買い物|お買い物|ショップ|商店|雑貨
-ko:서점|1쇼핑|가게
-nb:Bokhandel|3butikk
-pl:Księgarnia|3sklep|towary
-pt:Livraria|2loja|compras
-ro:Librărie|3magazin
-es:Librería|2tienda
-sv:Bokaffär|2butik
-th:ร้านหนังสือ|2ร้านค้า
-tr:Kitapçı|2mağaza
+ar:مكتبة لبيع الكتب|متجر
+cs:Knihkupectví
+da:Boghandel|boghandler|boglade
+nl:Boekenwinkel|boekwinkel
+fi:Kirjakauppa
+fr:Librairie
+de:Büchergeschäft|Buchhandlung|2Laden
+hu:Könyvesbolt
+id:Toko buku
+it:Libreria
+ja:本屋|お買い物|ショップ|商店|雑貨
+ko:서점|가게
+nb:Bokhandel
+pl:Księgarnia|towary
+pt:Livraria|2loja
+ro:Librărie
+es:Librería
+sv:Bokaffär
+th:ร้านหนังสือ
+tr:Kitapçı
 uk:Книгарня|2магазин|крамниця
-vi:Hiệu sách|cửa hàng
+vi:Hiệu sách
 zh-Hans:书店|商店
 zh-Hant:書店|1購物|店鋪|商店|雜貨店|便利商店
 el:Βιβλιοπωλείο|κατάστημα
-sk:Kníhkupectvo|2obchod
+sk:Kníhkupectvo
 
 shop-shoes|@shop
-en:Shoe Store|U+1F461|U+1F460|U+1F462|U+1F45E|U+1F45F|2shop
+en:Shoe Store|U+1F461|U+1F460|U+1F462|U+1F45E|U+1F45F
 ru:Магазин обуви|2обувь|2обувной|2магазин
-ar:متجر أحذية|متجر|المتجر
-cs:Obuv|2obchod
-da:Skobutik|2butik
-nl:Schoenenwinkel|schoenwinkel|2winkel
-fi:Kenkäkauppa|3kauppa
-fr:Magasin de chaussures|2magasin
-de:Schuhgeschäft|Schuhladen|Geschäft|2Laden
-hu:Cipőbolt|2bolt
-id:Toko sepatu|2toko
-it:Negozio di scarpe|2negozio
-ja:靴屋|1買い物|お買い物|ショップ|商店|雑貨
-ko:신발 가게|1쇼핑|가게
-nb:Skobutikk|3butikk
-pl:Sklep obuwniczy|3sklep|towary
-pt:Sapataria|loja de calçados|2loja|compras
-ro:Magazin de încălțăminte|3magazin
-es:Zapatería|2tienda
-sv:Skobutik|2butik
-th:ร้านขายรองเท้า|2ร้านค้า
-tr:Ayakkabı mağazası|2mağaza
+ar:متجر أحذية|متجر
+cs:Obuv
+da:Skobutik
+nl:Schoenenwinkel|schoenwinkel
+fi:Kenkäkauppa
+fr:Magasin de chaussures
+de:Schuhgeschäft|Schuhladen|2Laden
+hu:Cipőbolt
+id:Toko sepatu
+it:Negozio di scarpe
+ja:靴屋|お買い物|ショップ|商店|雑貨
+ko:신발 가게|가게
+nb:Skobutikk
+pl:Sklep obuwniczy|towary
+pt:Sapataria|loja de calçados|2loja
+ro:Magazin de încălțăminte
+es:Zapatería
+sv:Skobutik
+th:ร้านขายรองเท้า
+tr:Ayakkabı mağazası
 uk:Магазин взуття|2магазин|крамниця
-vi:Cửa hàng giày|cửa hàng
+vi:Cửa hàng giày
 zh-Hans:鞋店|商店
 zh-Hant:鞋店|1購物|店鋪|商店|雜貨店|便利商店
 el:Κατάστημα παπουτσιών|κατάστημα
-sk:Obuvníctvo|2obchod
+sk:Obuvníctvo
 
 shop-electronics|@shop
-en:Electronics|U+1F4F1|U+1F4BB|U+23F0|U+1F4F7|U+1F4F9|U+1F3A5|U+1F4FA|U+1F4FB|U+1F4DF|U+1F4DE|U+260E|U+1F4E0|U+1F4BD|U+1F4BE|U+1F4BF|U+1F4C0|U+1F4FC|U+1F50B|U+1F4E1|2shop
+en:Electronics|U+1F4F1|U+1F4BB|U+23F0|U+1F4F7|U+1F4F9|U+1F3A5|U+1F4FA|U+1F4FB|U+1F4DF|U+1F4DE|U+260E|U+1F4E0|U+1F4BD|U+1F4BE|U+1F4BF|U+1F4C0|U+1F4FC|U+1F50B|U+1F4E1
 ru:Электротехника|2магазин
-ar:متجر إلكترونيات|متجر|المتجر
-cs:Elektronika|2obchod
-da:Elektronikbutik|elektronik|2butik
-nl:Elektronicazaak|2winkel
-fi:Elektroniikka|3kauppa
-fr:Magasin d'électroménager|2magasin
-de:Elektronik|Geschäft|2Laden
-hu:Elektronika|2bolt
-id:Elektronik|2toko
-it:Negozio di elettronica|2negozio
-ja:電気店|1買い物|お買い物|ショップ|商店|雑貨
-ko:전자|1쇼핑|가게
-nb:Elektronikk forhandler|3butikk
-pl:Sklep ze sprzętem elektronicznym|3sklep|towary
-pt:Loja de eletrônicos|2loja|compras
-ro:Electronice|3magazin
-es:Electrónica|2tienda
-sv:Elektronik|2butik
-th:ร้านขายอุปกรณ์อิเล็กทรอนิกส์|2ร้านค้า
-tr:Elektronik mağazası|2mağaza
+ar:متجر إلكترونيات|متجر
+cs:Elektronika
+da:Elektronikbutik|elektronik
+nl:Elektronicazaak
+fi:Elektroniikka
+fr:Magasin d'électroménager
+de:Elektronik|2Laden
+hu:Elektronika
+id:Elektronik
+it:Negozio di elettronica
+ja:電気店|お買い物|ショップ|商店|雑貨
+ko:전자|가게
+nb:Elektronikk forhandler
+pl:Sklep ze sprzętem elektronicznym|towary
+pt:Loja de eletrônicos|2loja
+ro:Electronice
+es:Electrónica
+sv:Elektronik
+th:ร้านขายอุปกรณ์อิเล็กทรอนิกส์
+tr:Elektronik mağazası
 uk:Електротехнічний магазин|2магазин|крамниця
-vi:Cửa hàng điện|cửa hàng
+vi:Cửa hàng điện
 zh-Hans:电子产品|商店
 zh-Hant:電子產品|電器店|1購物|店鋪|商店|雜貨店|便利商店
 el:Ηλεκτρονικά|κατάστημα
-sk:Elektronika|2obchod
+sk:Elektronika
 
 shop-hardware|shop-doityourself|@shop
-en:Hardware Store|DIY|do it yourself|U+1F3EC|U+1F3EA|U+1F50B|U+1F50C|U+1F4A1|U+1F526|U+1F529|U+1F528|U+2614|shop
+en:Hardware Store|DIY|do it yourself|U+1F3EC|U+1F3EA|U+1F50B|U+1F50C|U+1F4A1|U+1F526|U+1F529|U+1F528|U+2614
 ru:Хозяйственный|Стройтовары|магазин
-ar:متجر حواسيب|متجر|متجر مستلزمات تشطيب|متجر ديكور|المتجر
-cs:Železářství|obchod
-da:Isenkræmmer|Byggemarked|butik
-nl:Ijzerhandel|Bouwmarkt|winkel
-fi:Työkalukauppa|Rautakauppa|kauppa
-fr:Quincaillerie|bricolage|magasin
-de:Eisenwarengeschäft|Baumarkt|Heimwerkermarkt|Eisenwarenhandlung|Geschäft|Laden
-hu:Vaskereskedés|Barkácsüzlet|ezermester|bolt
-id:Toko perangkat keras|bahan bangunan|toko
-it:Ferramenta|bricolage|negozio
-ja:工具店|買い物|お買い物|ショップ|商店|雑貨
-ko:철물점|쇼핑|가게
-nb:Jernvareforretning|hjemmeforbedring|butikk
-pl:Sklep narzędziowy|Majsterkowanie|remont|sklep|towary
-pt:Loja de ferramentas|ferragens|loja|compras
-ro:Magazin de bricolaj|hardware|magazin
-es:Ferretería|bricolaje|tienda
-sv:Järnhandel|butik
-th:ร้านขายฮาร์ดแวร์|ร้านขายวัสดุอุปกรณ์|ร้านค้า
-tr:Hırdavatçı|Nalbur|mağaza
+ar:متجر حواسيب|متجر|متجر مستلزمات تشطيب|متجر ديكور
+cs:Železářství
+da:Isenkræmmer|Byggemarked
+nl:Ijzerhandel|Bouwmarkt
+fi:Työkalukauppa|Rautakauppa
+fr:Quincaillerie|bricolage
+de:Eisenwarengeschäft|Baumarkt|Heimwerkermarkt|Eisenwarenhandlung|Laden
+hu:Vaskereskedés|Barkácsüzlet|ezermester
+id:Toko perangkat keras|bahan bangunan
+it:Ferramenta|bricolage
+ja:工具店|お買い物|ショップ|商店|雑貨
+ko:철물점|가게
+nb:Jernvareforretning|hjemmeforbedring
+pl:Sklep narzędziowy|Majsterkowanie|remont|towary
+pt:Loja de ferramentas|ferragens|loja
+ro:Magazin de bricolaj|hardware
+es:Ferretería|bricolaje
+sv:Järnhandel
+th:ร้านขายฮาร์ดแวร์|ร้านขายวัสดุอุปกรณ์
+tr:Hırdavatçı|Nalbur
 uk:Будматеріали|господарський|магазин|крамниця
-vi:Cửa hàng phần cứng|cửa hàng
+vi:Cửa hàng phần cứng
 zh-Hans:硬件店|自助商店|商店
 zh-Hant:五金行|硬件店|購物|店鋪|商店|雜貨店|便利商店
 el:Κατάστημα εξοπλισμού|DIY|Κάντεο μόνος σου|κατάστημα
-sk:Železiarstvo|Náradie|obchod
+sk:Železiarstvo|Náradie
 
 shop-jewelry|@shop
-en:Jewelry|U+1F48D|2shop
+en:Jewelry|U+1F48D
 ru:Ювелирный магазин|2магазин
-ar:مجوهرات|المتجر
-cs:Klenotnictví|2obchod
-da:Smykkebutik|smykker|juveler|2butik
-nl:Juwelier|2winkel
-fi:Korukauppa|3kauppa
-fr:Bijouterie|2magasin
-de:Juweliergeschäft|Juwelier|Schmuck|Geschäft|2Laden
-hu:Ékszer|2bolt
-id:Perhiasan|2toko
-it:Gioielleria|2negozio
-ja:宝石店|1買い物|お買い物|ショップ|商店|雑貨
-ko:보석류|1쇼핑|가게
-nb:Gullsmed|3butikk
-pl:Jubiler|3sklep|towary
-pt:Joias|2loja|compras
-ro:Bijutier|3magazin
-es:Joyería|2tienda
-sv:Smycken|2butik
-th:ร้านขายเครื่องประดับ|2ร้านค้า
-tr:Kuyumcu|2mağaza
+ar:مجوهرات
+cs:Klenotnictví
+da:Smykkebutik|smykker|juveler
+nl:Juwelier
+fi:Korukauppa
+fr:Bijouterie
+de:Juweliergeschäft|Juwelier|Schmuck|2Laden
+hu:Ékszer
+id:Perhiasan
+it:Gioielleria
+ja:宝石店|お買い物|ショップ|商店|雑貨
+ko:보석류|가게
+nb:Gullsmed
+pl:Jubiler|towary
+pt:Joias|2loja
+ro:Bijutier
+es:Joyería
+sv:Smycken
+th:ร้านขายเครื่องประดับ
+tr:Kuyumcu
 uk:Ювелірний магазин|2магазин|крамниця
-vi:Đồ trang sức|cửa hàng
+vi:Đồ trang sức
 zh-Hans:珠宝店|商店
 zh-Hant:珠寶店|1購物|店鋪|商店|雜貨店|便利商店
 el:Κοσμηματοπωλείο|κατάστημα
-sk:Klenotníctvo|2obchod
+sk:Klenotníctvo
 
 shop-optician|@shop
-en:Optician’s|U+1F453|2shop
+en:Optician’s|U+1F453
 ru:Оптика|2магазин
-ar:مركز بصريات|متجر|المتجر
-cs:Optika|2obchod
-da:Optiker|2butik
-nl:Opticien|2winkel
-fi:Optikko|3kauppa
-fr:Opticien|2magasin
-de:Optiker|Brillengeschäft|Geschäft|2Laden
-hu:Optika|2bolt
-id:Toko kacamata|2toko
-it:Ottico|2negozio
-ja:眼鏡店|1買い物|お買い物|ショップ|商店|雑貨
-ko:안경점 의|1쇼핑|가게
-nb:Optiker|3butikk
-pl:Sklep optyczny|3sklep|towary
-pt:Oculista|2loja|compras
-ro:Optică|3magazin
-es:Óptica|2tienda
-sv:Optiker|brillebutik|briller|2butik
-th:ร้านแว่น|2ร้านค้า
-tr:Gözlükçü|2mağaza
+ar:مركز بصريات|متجر
+cs:Optika
+da:Optiker
+nl:Opticien
+fi:Optikko
+fr:Opticien
+de:Optiker|Brillengeschäft|2Laden
+hu:Optika
+id:Toko kacamata
+it:Ottico
+ja:眼鏡店|お買い物|ショップ|商店|雑貨
+ko:안경점 의|가게
+nb:Optiker
+pl:Sklep optyczny|towary
+pt:Oculista|2loja
+ro:Optică
+es:Óptica
+sv:Optiker|brillebutik|briller
+th:ร้านแว่น
+tr:Gözlükçü
 uk:Оптика|2магазин|крамниця
-vi:Cửa hàng mắt kính|cửa hàng
+vi:Cửa hàng mắt kính
 zh-Hans:眼镜店|商店
 zh-Hant:眼鏡店|1購物|店鋪|商店|雜貨店|便利商店
 el:Κατάστημα οπτικών
-sk:Optika|2obchod
+sk:Optika
 
 shop-gift|@shop
-en:Gift Shop|U+1F381|2shop
+en:Gift Shop|U+1F381
 ru:Магазин сувениров|сувенирная лавка|cувениры|2магазин
-ar:متجر هدايا|متجر|المتجر
-cs:Obchod s dárkovým zbožím|2obchod
-da:Gavebutik|souvenirbutik|2butik
-nl:Cadeauwinkel|2winkel
-fi:Lahjakauppa|3kauppa
-fr:Boutique de souvenirs|2magasin
-de:Geschenkladen|Geschenke|Geschäft|2Laden
-hu:Ajándékbolt|2bolt
-id:Toko hadiah|2toko
-it:Negozio di regali|2negozio
-ja:ギフトショップ|1買い物|お買い物|ショップ|商店|雑貨
-ko:선물 가게|1쇼핑|가게
-nb:Gavebutikk|3butikk
-pl:Sklep pamiątkarski|3sklep|towary
-pt:Loja de presentes|2loja|compras
-ro:Magazin de suveniruri|3magazin
-es:Tienda de regalos|2tienda
-sv:Presentaffär|2butik
-th:ร้านของขวัญ|2ร้านค้า
-tr:Hediyelik eşya mağazası|2mağaza
+ar:متجر هدايا|متجر
+cs:Obchod s dárkovým zbožím
+da:Gavebutik|souvenirbutik
+nl:Cadeauwinkel
+fi:Lahjakauppa
+fr:Boutique de souvenirs
+de:Geschenkladen|Geschenke|2Laden
+hu:Ajándékbolt
+id:Toko hadiah
+it:Negozio di regali
+ja:ギフトショップ|お買い物|ショップ|商店|雑貨
+ko:선물 가게|가게
+nb:Gavebutikk
+pl:Sklep pamiątkarski|towary
+pt:Loja de presentes|2loja
+ro:Magazin de suveniruri
+es:Tienda de regalos
+sv:Presentaffär
+th:ร้านของขวัญ
+tr:Hediyelik eşya mağazası
 uk:Магазин сувенірів|2магазин|крамниця
-vi:Cửa hàng quà tặng|cửa hàng
+vi:Cửa hàng quà tặng
 zh-Hans:礼品店|商店
 zh-Hant:禮品店|1購物|店鋪|商店|雜貨店|便利商店
 el:Είδη δώρου|κατάστημα
-sk:Darčeky|2obchod
+sk:Darčeky
 
 shop-beauty
 en:Beauty Shop|beautician|U+1F484
@@ -1161,245 +1144,245 @@ sk:Kozmetický salón
 sw:Uzuri saluni
 
 shop-greengrocer|@shop
-en:4Greengrocer's|greengrocers|3grocery|U+1F345|U+1F346|U+1F33D|U+1F360|U+1F348|U+1F347|U+1F349|U+1F34A|U+1F34C|U+1F34D|U+1F34E|U+1F34F|U+1F350|U+1F351|U+1F353|2shop
+en:4Greengrocer's|greengrocers|3grocery|U+1F345|U+1F346|U+1F33D|U+1F360|U+1F348|U+1F347|U+1F349|U+1F34A|U+1F34C|U+1F34D|U+1F34E|U+1F34F|U+1F350|U+1F351|U+1F353
 ru:Овощи и фрукты|овощи|фрукты|2магазин
-ar:محل خضراوات|متجر|المتجر
-cs:Ovoce a zelenina|2obchod
-da:Grønthandler|grønthandel|frugt og grønt|2butik
-nl:Groentenwinkel|groenteboer|2winkel
-fi:Vihanneskauppias|3kauppa
-fr:Primeur|2magasin
-de:Gemüseladen|Gemüsehändler|Geschäft|2Laden
-hu:Zöldséges|2bolt
-id:Penjual sayuran|2toko
-it:Fruttivendolo|2negozio
-ja:八百屋|1買い物|お買い物|ショップ|商店|雑貨
-ko:청과물 상인의|1쇼핑|가게
-nb:Frukt- og grønnsakshandler|3butikk
-pl:Warzywniak|3sklep|towary
-pt:Quitanda|2loja|compras
-ro:Băcănie|3magazin
-es:Frutería|2tienda
-sv:Grönsakshandlare|2butik
-th:ร้านขายผัด|2ร้านค้า
-tr:Manav|2mağaza
+ar:محل خضراوات|متجر
+cs:Ovoce a zelenina
+da:Grønthandler|grønthandel|frugt og grønt
+nl:Groentenwinkel|groenteboer
+fi:Vihanneskauppias
+fr:Primeur
+de:Gemüseladen|Gemüsehändler|2Laden
+hu:Zöldséges
+id:Penjual sayuran
+it:Fruttivendolo
+ja:八百屋|お買い物|ショップ|商店|雑貨
+ko:청과물 상인의|가게
+nb:Frukt- og grønnsakshandler
+pl:Warzywniak|towary
+pt:Quitanda|2loja
+ro:Băcănie
+es:Frutería
+sv:Grönsakshandlare
+th:ร้านขายผัด
+tr:Manav
 uk:Магазин овочів|овочі|фрукти|2магазин|крамниця
-vi:Cửa hàng rau củ|cửa hàng
+vi:Cửa hàng rau củ
 zh-Hans:蔬果零售店|商店
 zh-Hant:蔬果零售店|1購物|店鋪|商店|雜貨店|便利商店
 el:Μανάβικο|οπωροπωλείο|παντοπωλείο|κατάστημα
-sk:Zelovoc|2obchod
+sk:Zelovoc
 
 shop-sports|@shop
-en:Sports Goods|U+1F3BF|U+1F3A3|U+1F3C2|U+1F6B4|U+26BD|U+1F3C0|U+1F3C8|U+26BE|U+1F3BE|U+1F3C9|U+26F3|2shop
+en:Sports Goods|U+1F3BF|U+1F3A3|U+1F3C2|U+1F6B4|U+26BD|U+1F3C0|U+1F3C8|U+26BE|U+1F3BE|U+1F3C9|U+26F3
 ru:Магазин спорттоваров|Спорттовары|товары для спорта|2магазин
-ar:أدوات رياضية|متجر|المتجر
-cs:Sportovní zboží|2obchod
-da:Sportsudstyr|sport|2butik
-nl:Sportartikelen|2winkel
-fi:Urheilukauppa|3kauppa
-fr:Articles de sport|2magasin
-de:Sportartikel|Fitnessgeschäft|Geschäft|2Laden
-hu:Sporteszközök|2bolt
-id:Barang olahraga|2toko
-it:Negozio sportivo|negozio articoli sportivi|2negozio
-ja:スポーツ用品店|1買い物|お買い物|ショップ|商店|雑貨
-ko:스포츠 용품|1쇼핑|가게
-nb:Sportsutstyr|3butikk
-pl:Sklep sportowy|3sklep|towary
-pt:Artigos esportivos|2loja|compras
-ro:Articole sportive|3magazin
-es:Productos de deporte|2tienda
-sv:Sportaffär|2butik
-th:สินค้ากีฬา|2ร้านค้า
-tr:Spor ürünleri|2mağaza
+ar:أدوات رياضية|متجر
+cs:Sportovní zboží
+da:Sportsudstyr|sport
+nl:Sportartikelen
+fi:Urheilukauppa
+fr:Articles de sport
+de:Sportartikel|Fitnessgeschäft|2Laden
+hu:Sporteszközök
+id:Barang olahraga
+it:Negozio sportivo|negozio articoli sportivi
+ja:スポーツ用品店|お買い物|ショップ|商店|雑貨
+ko:스포츠 용품|가게
+nb:Sportsutstyr
+pl:Sklep sportowy|towary
+pt:Artigos esportivos|2loja
+ro:Articole sportive
+es:Productos de deporte
+sv:Sportaffär
+th:สินค้ากีฬา
+tr:Spor ürünleri
 uk:Спортивні товари|2магазин|крамниця
-vi:Đồ dùng thể thao|cửa hàng
+vi:Đồ dùng thể thao
 zh-Hans:运动商品店|商店
 zh-Hant:運動商品店|1購物|店鋪|商店|雜貨店|便利商店
 el:Αθλητικά είδη|κατάστημα
-sk:Športové potreby|2obchod
+sk:Športové potreby
 
 shop-supermarket|@shop
-en:3Supermarket|shop|U+1F3EA|U+1F3EC
+en:3Supermarket|U+1F3EA|U+1F3EC
 ru:3Супермаркет|3универсам|3гипермаркет|магазин
-ar:سوبر ماركت|متجر|المتجر
-cs:3Supermarket|2obchod
-da:3Supermarked|dagligvarebutik|butik
-nl:3Supermarkt|winkel
-fi:3Supermarketti|kauppa
-fr:3Supermarché|2magasin
-de:3Supermarkt|Laden|Geschäft
-hu:3Bevásárlóközpont|bolt
-id:3Supermarket|toko
-it:3Supermercato|negozio
-ja:1スーパーマーケット|ショップ|お買い物|買い物|商店
-ko:1슈퍼마켓|쇼핑|가게
-nb:3Supermarked|butikk
-pl:4Supermarket|zakupy|sklep
-pt:3Supermercado|compras
-ro:3Supermarket|magazin
-es:3Supermercado|tienda
-sv:3Stormarknad|butik
-th:3ซูเปอร์มาร์เก็ต|ร้านค้า
-tr:3Süpermarket|mağaza
+ar:سوبر ماركت|متجر
+cs:3Supermarket
+da:3Supermarked|dagligvarebutik
+nl:3Supermarkt
+fi:3Supermarketti
+fr:3Supermarché
+de:3Supermarkt|Laden
+hu:3Bevásárlóközpont
+id:3Supermarket
+it:3Supermercato
+ja:1スーパーマーケット|ショップ|お買い物|商店
+ko:1슈퍼마켓|가게
+nb:3Supermarked
+pl:4Supermarket|zakupy
+pt:3Supermercado
+ro:3Supermarket
+es:3Supermercado
+sv:3Stormarknad
+th:3ซูเปอร์มาร์เก็ต
+tr:3Süpermarket
 uk:3Супермаркет|3універсам|2магазин|крамниця
-vi:Siêu thị|cửa hàng
+vi:Siêu thị
 zh-Hans:超市|商店
 zh-Hant:1超級市場|市場|購物
 el:Σούπερ μάρκετ|κατάστημα
-sk:3Supermarket|2obchod
-sw:Supamaketi|duka
+sk:3Supermarket
+sw:Supamaketi
 
 shop-mall|@shop
-en:Mall|5shopping mall|shop
+en:Mall|5shopping mall
 ru:Торговый центр|магазин
-ar:ﻝﻮﻣ|المتجر
-cs:Obchoďák|obchod
-da:Indkøbscenter|butikscenter|storcenter|center|butik
-nl:Het winkelcentrum|winkel
-fi:Ostoskeskus|kauppa
-fr:Le centre commercial|magasin
-de:Das Einkaufszentrum|Geschäft
-hu:A pláza|bolt
-id:Mall|toko
-it:Il centro commerciale|negozio
-ja:モール|買い物
-ko:몰|쇼핑
-nb:Kjøpesenteret|butikk
-pl:Centrum handlowe|sklep
-pt:O Shopping|compras
-ro:Mall-ul|magazin
-es:El centro comercial|tienda
-sv:Gallerian|butik
-th:เดอะมอลล์|ร้านค้า
-tr:Alışveriş merkezi|mağaza
+ar:ﻝﻮﻣ
+cs:Obchoďák
+da:Indkøbscenter|butikscenter|storcenter|center
+nl:Het winkelcentrum
+fi:Ostoskeskus
+fr:Le centre commercial
+de:Das Einkaufszentrum
+hu:A pláza
+id:Mall
+it:Il centro commerciale
+ja:モール
+ko:몰
+nb:Kjøpesenteret
+pl:Centrum handlowe
+pt:O Shopping
+ro:Mall-ul
+es:El centro comercial
+sv:Gallerian
+th:เดอะมอลล์
+tr:Alışveriş merkezi
 uk:Торговий центр|крамниця
-vi:Khu mua sắm|cửa hàng
+vi:Khu mua sắm
 zh-Hans:商场|商店
 zh-Hant:商场|購物
 el:Το εμπορικό κέντρο|μαγαζί
-he:ןוינקה|חנות
-sk:The Mall|obchod
-sw:Ununuzi maduka|duka
+he:ןוינקה
+sk:The Mall
+sw:Ununuzi maduka
 
 shop-department_store|@shop
-en:Department Store|U+1F3EC|U+1F3EA|shop
+en:Department Store|U+1F3EC|U+1F3EA
 ru:Универмаг|магазин
-ar:متجر شامل|مركز تجاري|المتجر
-cs:Obchodní dům|obchod
-da:Stormagasin|varehus|butik
-nl:Warenhuis|winkel
-fi:Tavaratalo|kauppa
-fr:Grand magasin|magasin
-de:Kaufhaus|Geschäft
-hu:Áruház|bolt
-id:Toko serba ada|toko
-it:Grandi magazzini|centro commerciale|negozio
-ja:デパート|買い物
-ko:백화점|쇼핑
-nb:Varehus|butikk
-pt:Armazém retalhista|compras
-ro:Magazin universal|magazin
-es:Grandes almacenes|tienda
-sv:Varuhus|butik
-th:ห้างสรรพสินค้า|ร้านค้า
-tr:Alışveriş merkezi|mağaza
+ar:متجر شامل|مركز تجاري
+cs:Obchodní dům
+da:Stormagasin|varehus
+nl:Warenhuis
+fi:Tavaratalo
+fr:Grand magasin
+de:Kaufhaus
+hu:Áruház
+id:Toko serba ada
+it:Grandi magazzini|centro commerciale
+ja:デパート
+ko:백화점
+nb:Varehus
+pt:Armazém retalhista
+ro:Magazin universal
+es:Grandes almacenes
+sv:Varuhus
+th:ห้างสรรพสินค้า
+tr:Alışveriş merkezi
 uk:Універмаг|крамниця
-vi:Cửa hàng bách hóa|cửa hàng
+vi:Cửa hàng bách hóa
 zh-Hans:百货商店|商店
 zh-Hant:百貨公司|購物
 el:Πολυκατάστημα|κατάστημα
-sk:Obchodný dom|obchod
+sk:Obchodný dom
 
 shop-beverages|@shop
-en:Beverages|drinks|U+1F379|shop
+en:Beverages|drinks|U+1F379
 ru:Напитки|соки|магазин
-ar:مشروبات|عصائر|المتجر
-cs:Nápoje|nápoje|obchod
-da:Drikkevarer|butik
-nl:Drank|slijterij|winkel
-fi:Juomat|kauppa
-fr:Boissons|magasin
-de:Getränke|Geschäft
-hu:Italok|üdítők|bolt
-id:Minuman|toko
-it:Bibite|bevande|negozio
-ja:ドリンク|飲料|買い物
-ko:음료|쇼핑
-nb:Drinker|drikke|butikk
-pl:Napoje|sklep
-pt:Bebidas|compras
-ro:Băuturi|magazin
-es:Bebidas|tienda
-sv:Drinkar|drycker|butik
-th:เครื่องดื่ม|ร้านค้า
-tr:Içecek|mağaza
+ar:مشروبات|عصائر
+cs:Nápoje|nápoje
+da:Drikkevarer
+nl:Drank|slijterij
+fi:Juomat
+fr:Boissons
+de:Getränke
+hu:Italok|üdítők
+id:Minuman
+it:Bibite|bevande
+ja:ドリンク|飲料
+ko:음료
+nb:Drinker|drikke
+pl:Napoje
+pt:Bebidas
+ro:Băuturi
+es:Bebidas
+sv:Drinkar|drycker
+th:เครื่องดื่ม
+tr:Içecek
 uk:Напої|крамниця
-vi:Đồ uống|cửa hàng
+vi:Đồ uống
 zh-Hans:饮料|商店
 zh-Hant:飲料|飲料店|購物
 el:Οινοπνευματώδη|ποτά|κατάστημα
-sk:Nápoje|obchod
+sk:Nápoje
 
 shop-computer|@shop
-en:Computer Store|U+1F4BB|shop
+en:Computer Store|U+1F4BB
 ru:Компьютерный магазин|магазин
-ar:متجر كمبيوتر|المتجر
-cs:Obchod s počítači|obchod
-da:Computerforretning|computerbutik|computer|butik
-nl:Computerwinkel|winkel
-fi:Tietokonekauppa|kauppa
-fr:Magasin d'informatique|magasin
-de:Computergeschäft|Geschäft
-hu:Számítógép üzlet|bolt
-id:Toko komputer|toko
-it:Negozio di computer|negozio di articoli informatici|negozio
-ja:コンピュータショップ|買い物
-ko:컴퓨터 판매점|쇼핑
-nb:Databutikk|butikk
-pt:Loja de informática|compras
-ro:Magazin de calculatoare|magazin
-es:Tienda de informática|tienda de ordenadores|tienda
-sv:Datorbutik|butik
-th:ร้านขายคอมพิวเตอร์|ร้านค้า
-tr:Bilgisayar mağazası|mağaza
+ar:متجر كمبيوتر
+cs:Obchod s počítači
+da:Computerforretning|computerbutik|computer
+nl:Computerwinkel
+fi:Tietokonekauppa
+fr:Magasin d'informatique
+de:Computergeschäft
+hu:Számítógép üzlet
+id:Toko komputer
+it:Negozio di computer|negozio di articoli informatici
+ja:コンピュータショップ
+ko:컴퓨터 판매점
+nb:Databutikk
+pt:Loja de informática
+ro:Magazin de calculatoare
+es:Tienda de informática|tienda de ordenadores
+sv:Datorbutik
+th:ร้านขายคอมพิวเตอร์
+tr:Bilgisayar mağazası
 uk:Комп'ютерний магазин|комп'ютерна техніка|крамниця
-vi:Cửa hàng máy tính|cửa hàng
+vi:Cửa hàng máy tính
 zh-Hans:电脑商店|商店
 zh-Hant:電腦商店|電腦專賣店|購物
 el:Κατάστημα υπολογιστών|κατάστημα
-sk:Obchod s výpočtovou technikou|obchod
+sk:Obchod s výpočtovou technikou
 
 shop-confectionery|@shop
-en:Sweets|3confectionery|candy store|shop|U+1F36C|U+1F36D
+en:Sweets|3confectionery|candy store|U+1F36C|U+1F36D
 ru:Кондитерская|магазин
-ar:حلواني|متجر حلويات|المتجر
-cs:Cukrárna|obchod
-da:Slikbutik|slikforretning|konfektureforretning|slik|konfekt|butik
-nl:Banketbakker|snoepwinkel|winkel
-fi:Makeiskauppa|kauppa
-fr:Pâtisserie|confiserie|magasin
-de:Süßwarengeschäft|Geschäft
-hu:Cukrászüzlet|édességbolt|bolt
-id:Penganan|toko|manisan
-it:Pasticceria|drogheria|negozio
-ja:菓子類|菓子屋|買い物
-ko:제과점|베이커리|쇼핑
-nb:Søtsaker|godtebutikk|butikk
-pl:Sklep ze słodyczami|sklep
-pt:Confeitaria|loja de doces|compras
-ro:Cofetărie|magazin
-es:Confitería|confitería|tienda
-sv:Konditori|godisbutik|butik
-th:ร้านขายขนมหวาน|ร้านขายลูกกวาด|ร้านค้า
-tr:Şekerci|tatlıcı|mağaza
+ar:حلواني|متجر حلويات
+cs:Cukrárna
+da:Slikbutik|slikforretning|konfektureforretning|slik|konfekt
+nl:Banketbakker|snoepwinkel
+fi:Makeiskauppa
+fr:Pâtisserie|confiserie
+de:Süßwarengeschäft
+hu:Cukrászüzlet|édességbolt
+id:Penganan|manisan
+it:Pasticceria|drogheria
+ja:菓子類|菓子屋
+ko:제과점|베이커리
+nb:Søtsaker|godtebutikk
+pl:Sklep ze słodyczami
+pt:Confeitaria|loja de doces
+ro:Cofetărie
+es:Confitería|confitería
+sv:Konditori|godisbutik
+th:ร้านขายขนมหวาน|ร้านขายลูกกวาด
+tr:Şekerci|tatlıcı
 uk:Кондитерська|крамниця
-vi:Cửa hàng kẹo|cửa hàng
+vi:Cửa hàng kẹo
 zh-Hans:糖果店|商店
 zh-Hant:糕餅店|糕餅行|購物
 el:Γλυκά|ζαχαροπλαστική|ζαχαροπλαστείο|κατάστημα
-sk:Cukrovinky|obchod
+sk:Cukrovinky
 
 shop-laundry
 en:4Laundry|laundromat
@@ -1432,430 +1415,421 @@ el:Άπλυτα|κατάστημα με πλυντήρια τούχων
 sk:4Práčovňa
 
 shop-toys|@shop
-en:Toy Store|shop
+en:Toy Store
 ru:Магазин игрушек|игрушки|магазин
-ar:محل لعب|المتجر
-cs:Hračkářství|obchod
-da:Legetøjsbutik|legetøj|butik
-nl:Speelgoedwinkel|winkel
-fi:Leikkikalukauppa|kauppa
-fr:Magasin de jouets|magasin
-de:Spielzeuggeschäft|Geschäft
-hu:Játékbolt|bolt
-id:Toko mainan|toko
-it:Negozio di giocattoli|negozio
-ja:おもちゃ屋|玩具店|買い物
-ko:장난감 가게|쇼핑
-nb:Legebutikk|butikk
-pt:Loja de brinquedos|compras
-ro:Magazin de jucării|magazin
-es:Tienda de juguetes|juguetería|tienda
-sv:Leksaksaffär|butik
-th:ร้านขายของเล่น|ร้านค้า
-tr:Oyuncakçı|mağaza
+ar:محل لعب
+cs:Hračkářství
+da:Legetøjsbutik|legetøj
+nl:Speelgoedwinkel
+fi:Leikkikalukauppa
+fr:Magasin de jouets
+de:Spielzeuggeschäft
+hu:Játékbolt
+id:Toko mainan
+it:Negozio di giocattoli
+ja:おもちゃ屋|玩具店
+ko:장난감 가게
+nb:Legebutikk
+pt:Loja de brinquedos
+ro:Magazin de jucării
+es:Tienda de juguetes|juguetería
+sv:Leksaksaffär
+th:ร้านขายของเล่น
+tr:Oyuncakçı
 uk:Магазин іграшок|крамниця
-vi:Cửa hàng đồ chơi|cửa hàng
+vi:Cửa hàng đồ chơi
 zh-Hans:玩具店|商店
 zh-Hant:玩具商店|購物
 el:Κατάστημα παιχνιδιών|κατάστημα
-sk:Hračkárstvo|obchod
+sk:Hračkárstvo
 
 amenity-marketplace|@shop
-en:3Marketplace|market|shop
+en:3Marketplace|market
 ru:3Рынок|базар|магазин
-ar:ساحة السوق|السوق|متجر|المتجر
-cs:4Tržiště|samoobsluha|market|obchod
-da:3Markedsplads|marked|butik
-nl:3Markt|winkel
-fi:3Kauppatori|kauppa
-fr:3Marché|magasin
-de:3Marktplatz|Markt|Laden|Geschäft
-hu:2Piac|vásárlás|bolt
-id:2Toko
-it:3Mercato|negozio
-ja:1市場|買い物|お買い物|食料品
-ko:1시장|쇼핑
-nb:2Torg|butikk
-pl:Targ|targowisko|sklep
-pt:3Mercado|mercado|loja|compras
-ro:2Magazin
-es:3Mercado|tienda
-sv:3Marknadsplats|marknad|butik
-th:2ตลาดสินค้า|ตลาด|ร้าน|ร้านค้า
-tr:3Pazaryeri|mağaza
+ar:ساحة السوق|السوق|متجر
+cs:4Tržiště|samoobsluha|market
+da:3Markedsplads|marked
+nl:3Markt
+fi:3Kauppatori
+fr:3Marché
+de:3Marktplatz|Markt|Laden
+hu:2Piac|vásárlás
+it:3Mercato
+ja:1市場|お買い物|食料品
+ko:1시장
+nb:2Torg
+pl:Targ|targowisko
+pt:3Mercado|mercado|loja
+es:3Mercado
+sv:3Marknadsplats|marknad
+th:2ตลาดสินค้า|ตลาด|ร้าน
+tr:3Pazaryeri
 uk:3Ринок|магазин|базар|крамниця
-vi:2Cửa hàng
 zh-Hans:2市集|商店
 zh-Hant:1市場|市集|購物
 el:Αγορά|αγορά|κατάστημα
-sk:3Trhovisko|samoobsluha|obchod
-sw:Soko|duka
+sk:3Trhovisko|samoobsluha
+sw:Soko
 
 shop-clothes|@shop
-en:Clothes Shop|4clothes|U+1F45A|U+1F457|U+1F456|U+1F455|shop
+en:Clothes Shop|4clothes|U+1F45A|U+1F457|U+1F456|U+1F455
 ru:Магазин одежды|4одежда|магазин
-ar:متجر ألبسة|المتجر
-cs:Oblečení|obchod
-da:Tøjbutik|tøjforretning|tøj|butik
-nl:Kledingwinkel|4kleding|winkel
-fi:Vaatekauppa|kauppa
-fr:Boutique de vêtements|4vêtements|magasin
-de:Bekleidungsgeschäft|Kleidung|Laden|Geschäft
-hu:Ruhabolt|4ruhák|bolt
-id:Toko baju|toko
-it:Negozio di abbigliamento|negozio
-ja:1洋服|洋服屋さん|ショッピング|衣類|服|買い物
-ko:1옷 가게|쇼핑
-nb:Klesbutikk|butikk
-pl:Sklep z ubraniami|ciuchowy|sklep
-pt:Loja de roupas|compras
-ro:Magazin de haine|magazin
-es:Tienda de ropa|3ropa|tienda
-sv:Kläder butik|4kläder|butik
-th:ร้านขายเสื้อผ้า|ร้าน|ร้านค้า
-tr:Giyim mağazası|mağaza
+ar:متجر ألبسة
+cs:Oblečení
+da:Tøjbutik|tøjforretning|tøj
+nl:Kledingwinkel|4kleding
+fi:Vaatekauppa
+fr:Boutique de vêtements|4vêtements
+de:Bekleidungsgeschäft|Kleidung|Laden
+hu:Ruhabolt|4ruhák
+id:Toko baju
+it:Negozio di abbigliamento
+ja:1洋服|洋服屋さん|ショッピング|衣類|服
+ko:1옷 가게
+nb:Klesbutikk
+pl:Sklep z ubraniami|ciuchowy
+pt:Loja de roupas
+ro:Magazin de haine
+es:Tienda de ropa|3ropa
+sv:Kläder butik|4kläder
+th:ร้านขายเสื้อผ้า|ร้าน
+tr:Giyim mağazası
 uk:Магазин одягу|речі|4одяг|2крамниця
-vi:Cửa hàng quần áo|cửa hàng
+vi:Cửa hàng quần áo
 zh-Hans:服装店|商店
 zh-Hant:1買衣服|衣服|購物
 el:Κατάστημα ρούχων|ρούχα|κατάστημα
-sk:Oblečenie|obchod
+sk:Oblečenie
 sw:Duka la nguo|nguo
 
 shop-car|@shop
-en:Car Shop|U+1F697|U+1F698|U+1F699|shop
+en:Car Shop|U+1F697|U+1F698|U+1F699
 ru:Автосалон|магазин
-ar:متجر سيارات|المتجر
-cs:Obchod s auty|obchod
-da:Bilforhandler|butik
-nl:Autohandelaar|winkel
-fi:Autonäyttelyssä|kauppa
-fr:Réparation auto|voitures|auto|magasin
-de:Autohaus|Laden|Geschäft
-hu:Gépkocsi bolt|kocsi|bolt
-id:Toko mobil|toko
-it:Car negozio|negozio
-ja:カーディーラー|車|車販売|ディーラー|買い物
-ko:자동차 가게|쇼핑
-nb:Bil butikk|butikk
-pl:Salon samochodowy|samochody|sklep
-pt:Loja de carros|compras
-ro:Magazin auto|magazin
-es:Venta de coches|tienda
-sv:Bilåterförsäljare|butik
-th:ร้านค้ารถยนต์|ร้านค้า
-tr:Otomobil mağazası|mağaza
+ar:متجر سيارات
+cs:Obchod s auty
+da:Bilforhandler
+nl:Autohandelaar
+fi:Autonäyttelyssä
+fr:Réparation auto|voitures|auto
+de:Autohaus|Laden
+hu:Gépkocsi bolt|kocsi
+id:Toko mobil
+it:Car negozio
+ja:カーディーラー|車|車販売|ディーラー
+ko:자동차 가게
+nb:Bil butikk
+pl:Salon samochodowy|samochody
+pt:Loja de carros
+ro:Magazin auto
+es:Venta de coches
+sv:Bilåterförsäljare
+th:ร้านค้ารถยนต์
+tr:Otomobil mağazası
 uk:Автосалон|магазин|крамниця
-vi:Cửa hàng xe|cửa hàng
+vi:Cửa hàng xe
 zh-Hans:车店|商店
 zh-Hant:1買車|購車|購物
 el:Κατάστημα αυτοκινήτων|κατάστημα
-sk:Predajňa áut|obchod
+sk:Predajňa áut
 sw:Yadi|duka la gari|gari
 
 shop-bicycle|@shop
-en:4Bicycle Shop|cycle|bike|shop|U+1F6B2|U+1F6B4|U+1F6B5
+en:4Bicycle Shop|cycle|bike|U+1F6B2|U+1F6B4|U+1F6B5
 ru:4Веломагазин|велосипед|магазин
 ar:متجر دراجات
-cs:3Cyklistický obchod|jízdní kolo|3kolo|obchod
-da:3Cykelforretning|cykelhandler|cykler|butik
-nl:4Fietsenwinkel|winkel
-fi:3Polkupyörä|kauppa
-fr:4Magasin de vélos|vélo|bicyclette|magasin
-de:3Fahrradladen|Fahrrad|Velo|Laden|Geschäft
-hu:4Kerékpár üzlet|kerékpár|kocsi|bolt
-id:3Toko sepeda|toko
-it:Negozio di biciclette|bicicletta|bici|negozio
-ja:自転車屋|レンタサイクル|自転車|買い物
-ko:자전거 가게|쇼핑
-nb:3Sykkel|butikk
-pl:Sklep rowerowy|4rower|sklep
-pt:Loja de bicicletas|4bicicleta|compras
-ro:3Bicicletă|magazin|Magazin biciclete
-es:Bicicletería|bicicleta|tienda
-sv:4Cykelaffär|cykel|cykel|butik
-th:4จักรยาน|ร้าน|ร้านค้า
-tr:Bisiklet|mağaza
+cs:3Cyklistický obchod|jízdní kolo|3kolo
+da:3Cykelforretning|cykelhandler|cykler
+nl:4Fietsenwinkel
+fi:3Polkupyörä
+fr:4Magasin de vélos|vélo|bicyclette
+de:3Fahrradladen|Fahrrad|Velo|Laden
+hu:4Kerékpár üzlet|kerékpár|kocsi
+id:3Toko sepeda
+it:Negozio di biciclette|bicicletta|bici
+ja:自転車屋|レンタサイクル|自転車
+ko:자전거 가게
+nb:3Sykkel
+pl:Sklep rowerowy|4rower
+pt:Loja de bicicletas|4bicicleta
+ro:3Bicicletă|Magazin biciclete
+es:Bicicletería|bicicleta
+sv:4Cykelaffär|cykel|cykel
+th:4จักรยาน|ร้าน
+tr:Bisiklet
 uk:4Веломагазін|велосипед|магазин|крамниця
-vi:3Cửa hàng xe đạp|cửa hàng
+vi:3Cửa hàng xe đạp
 zh-Hans:自行车店|商店
 zh-Hant:1自行車店|腳踏車|單車|商店|購物
 el:Κατάστημα ποδηλάτων|ποδηλασία|ποδήλατο|κατάστημα
-sk:3Cyklistický obchod|bicykel|obchod
+sk:3Cyklistický obchod|bicykel
 sw:Duka la baiskeli|baiskeli
 
 shop-kiosk|@shop
-en:Kiosk|shop|U+1F4F0
+en:Kiosk|U+1F4F0
 ru:Киоск|магазин
-ar:كشك|المتجر
-cs:Kiosk|obchod
-da:Kiosk|pølsevogn|butik
-nl:Kiosk|winkel
-fi:Kauppa
-fr:Kiosque|magasin
-de:Kiosk|Laden|Geschäft
-hu:Trafik|bolt
-id:Toko
-it:Chiosco|negozio
-ja:1キオスク|買い物|売店
-ko:1정자|쇼핑
-nb:Butikk
-pl:Kiosk|sklep|gazety|prasa
-pt:Loja|compras
-ro:Magazin
-es:Quiosco|tienda
-sv:Kiosk|butik
-th:ร้าน|ร้านค้า
-tr:Mağaza
+ar:كشك
+cs:Kiosk
+da:Kiosk|pølsevogn
+nl:Kiosk
+fr:Kiosque
+de:Kiosk|Laden
+hu:Trafik
+it:Chiosco
+ja:1キオスク|売店
+ko:1정자
+pl:Kiosk|gazety|prasa
+pt:Loja
+es:Quiosco
+sv:Kiosk
+th:ร้าน
 uk:Кіоск|магазин|крамниця
-vi:Cửa hàng
 zh-Hans:商店
 zh-Hant:1小舖|小店|購物|商店|小攤|攤子|攤販
 el:Περίπτερο|κατάστημα
-sk:Kiosk|obchod
-sw:Kioski|duka
+sk:Kiosk
+sw:Kioski
 
 highway-bus_stop|@transport
-en:Bus Stop|2bus|stop|4transport|U+1F68C|U+1F68F|U+1F68E|U+1F690
+en:Bus Stop|2bus|stop|U+1F68C|U+1F68F|U+1F68E|U+1F690
 ru:4Остановка|4автобус|4транспорт
-ar:محطة الحافلة์|حافلة|نقل|النقل
-cs:Autobusová zastávka|4autobus|2bus|zastávka|stanice|doprava
-da:3Busstoppested|bus|transport
-nl:Bushalte|2bus|halte|4transport
-fi:3Bussipysäkki|liikenne
-fr:Arrêt de bus|2bus|arrêt|2autobus|4transport
-de:Bushaltestelle|Haltestelle|2Bus|Autobus|Verkehr|ÖPNV
-hu:2Buszmegálló|2busz|megálló|4közlekedés
-id:3Halte bus|transportasi
-it:3Fermata|autobus|4transporto
-ja:1バス停|停留所|トランスポート|バス|乗合|交通|交通機関
-ko:1수송|운송선|황홀|버스 정류장|버스|모선
-nb:3Busstopp|transport
-pl:2Przystanek autobusowy|autobus|4transport
-pt:2Paragem de autocarro|via férrea|transporte
-ro:3Stație de autobuz|transport
-es:Parada de autobuses|4transporte
-sv:Busshållplats|3buss|hållplats|4transport
-th:ป้ายรถเมล์|รถเมล์|ขนส่ง|การขนส่ง
-tr:Otobüs durağı|3otobüs|ulaşım
+ar:محطة الحافلة์|حافلة|نقل
+cs:Autobusová zastávka|4autobus|2bus|zastávka|stanice
+da:3Busstoppested|bus
+nl:Bushalte|2bus|halte
+fi:3Bussipysäkki
+fr:Arrêt de bus|2bus|arrêt|2autobus
+de:Bushaltestelle|Haltestelle|2Bus|Autobus|ÖPNV
+hu:2Buszmegálló|2busz|megálló
+id:3Halte bus
+it:3Fermata|autobus
+ja:1バス停|停留所|トランスポート|バス|乗合|交通
+ko:운송선|황홀|버스 정류장|버스|모선
+nb:3Busstopp
+pl:2Przystanek autobusowy|autobus
+pt:2Paragem de autocarro|via férrea
+ro:3Stație de autobuz
+es:Parada de autobuses
+sv:Busshållplats|3buss|hållplats
+th:ป้ายรถเมล์|รถเมล์|ขนส่ง
+tr:Otobüs durağı|3otobüs
 uk:4Зупинка|4автобус|4траспорт
-vi:3Bến xe buýt|giao thông
+vi:3Bến xe buýt
 zh-Hans:1公交车站|公交车|运输|交通
 zh-Hant:1巴士站|巴士|運輸|交通|客運站|公車|公車站
 el:Στάση λεωφορείου|λεωφορείο|στάση|μεταφορές
-sk:Autobusová zastávka|4autobus|2bus|zastávka|stanica|doprava
+sk:Autobusová zastávka|4autobus|2bus|zastávka|stanica
 sw:Kituo cha basi|basi|usafiri
 
 railway-tram_stop|@transport
-en:Tram Stop|3tram|stop|4transport|U+1F683
+en:Tram Stop|3tram|stop|U+1F683
 ru:4Остановка|4трамвай|4транспорт
-ar:محطة الترام|نقل|النقل
-cs:Tramvajová zastávka|3tramvaj|4zastávka|stanice|doprava
-da:3Sporvogn|station|transport
-nl:3Tramhalte|4transport
-fi:4Raitiovaunupysäkki|liikenne
-fr:Arrêt de tramway|3tramway|3tram|arrêt|4transport
-de:4Straßenbahnhaltestelle|Tramhaltestelle|Haltestelle|Tram|Verkehr|ÖPNV
-hu:4Villamosmegálló|3villamos|megálló|4közlekedés
-id:3Perhentian trem|transportasi
-it:Fermata|tram|4transporto
-ja:1トラム|トラム停留所|市電|トランスポート|交通|交通機関|路面電車
-ko:1트램|트램 정류장|교통|전차|수송|운송선|황홀
-nb:3Trikkestopp|transport
-pl:3Przystanek tramwajowy|tramwaj|transport
-pt:3Paragem de elétrico|via férrea|transporte
-ro:3Stație de tramvai|transport
-es:Parada|4transporte
-sv:Spårvagnshållplats|3spårvagn|hållplats|4transport
-th:ป้ายรถราง|ขนส่ง|การขนส่ง
-tr:3Tramvay durağı|ulaşım
+ar:محطة الترام|نقل
+cs:Tramvajová zastávka|3tramvaj|4zastávka|stanice
+da:3Sporvogn|station
+nl:3Tramhalte
+fi:4Raitiovaunupysäkki
+fr:Arrêt de tramway|3tramway|3tram|arrêt
+de:4Straßenbahnhaltestelle|Tramhaltestelle|Haltestelle|Tram|ÖPNV
+hu:4Villamosmegálló|3villamos|megálló
+id:3Perhentian trem
+it:Fermata|tram
+ja:1トラム|トラム停留所|市電|トランスポート|交通|路面電車
+ko:1트램|트램 정류장|교통|전차|운송선|황홀
+nb:3Trikkestopp
+pl:3Przystanek tramwajowy|tramwaj
+pt:3Paragem de elétrico|via férrea
+ro:3Stație de tramvai
+es:Parada
+sv:Spårvagnshållplats|3spårvagn|hållplats
+th:ป้ายรถราง|ขนส่ง
+tr:3Tramvay durağı
 uk:4Зупинка|4трамвай|4транспорт
-vi:Bến tàu điện|giao thông
+vi:Bến tàu điện
 zh-Hans:1电车站|运输|交通
 zh-Hant:1電車站|電車|運輸|交通|鐵路|大眾運輸
 el:Στάση τραμ|τραμ|στάση|μεταφορές
-sk:Električková zastávka|3električka|4zastávka|stanica|doprava
+sk:Električková zastávka|3električka|4zastávka|stanica
 
 amenity-bus_station|@transport
-en:Bus Station|2bus|station|4transport|U+1F68C|U+1F68F|U+1F68D
+en:Bus Station|2bus|station|U+1F68C|U+1F68F|U+1F68D
 ru:Автовокзал|Автостанция|4автобус|4остановка|4транспорт
-ar:محطة الباص|حافلة|نقل|النقل
-cs:Autobusové nádraží|zastávka|bus|doprava
-da:2Busstation|2bus|station|4transport
-nl:Busstation|2bus|station|4transport
-fi:3Bussiasema|liikenne
-fr:Gare routière|2bus|2autobus|arrêt|4transport
-de:4Busbahnhof|Haltestelle|Bus|Autobus|Verkehr|ÖPNV
-hu:2Buszpályaudvar|2busz|megálló|4közlekedés
-id:3Stasiun bus|transportasi
-it:Autostazione|fermata|autobus|4transporto
-ja:1バスステーション|バス|駅|交通機関|乗合|トランスポート|バス停|高速バス|乗車|停留所
-ko:1버스 정류장|버스|역|교통|모선|역|위치|수송|운송선|황홀
-nb:3Busstasjon|transport
-pl:2Stacja autobusowa|Zajezdnia|transport
-pt:2Estação rodoviária|4transporte
-ro:3Gara de autobuz|transport
-es:Estación de autobuses|4transporte
-sv:Busstation|2buss|station|4transport
-th:สถานีขนส่ง|ขนส่ง|สถานี|การขนส่ง
-tr:4Otobüs terminali|3Otobüs durağı|3otobüs|2ulaşım
+ar:محطة الباص|حافلة|نقل
+cs:Autobusové nádraží|zastávka|bus
+da:2Busstation|2bus|station
+nl:Busstation|2bus|station
+fi:3Bussiasema
+fr:Gare routière|2bus|2autobus|arrêt
+de:4Busbahnhof|Haltestelle|Bus|Autobus|ÖPNV
+hu:2Buszpályaudvar|2busz|megálló
+id:3Stasiun bus
+it:Autostazione|fermata|autobus
+ja:1バスステーション|バス|駅|乗合|トランスポート|バス停|高速バス|乗車|停留所
+ko:1버스 정류장|버스|역|교통|모선|역|위치|운송선|황홀
+nb:3Busstasjon
+pl:2Stacja autobusowa|Zajezdnia
+pt:2Estação rodoviária
+ro:3Gara de autobuz
+es:Estación de autobuses
+sv:Busstation|2buss|station
+th:สถานีขนส่ง|ขนส่ง|สถานี
+tr:4Otobüs terminali|3Otobüs durağı|3otobüs
 uk:Автовокзал|Автостанція|4автобус|4зупинка|4транспорт
-vi:Trạm xe buýt|2Bến xe buýt|giao thông
+vi:Trạm xe buýt|2Bến xe buýt
 zh-Hans:1公车站|公交车|运输|交通
 zh-Hant:1巴士|巴士站|交通|運輸
 el:Σταθμός λεωφορείων|λεωφορείο|σταθμός|μεταφορές
-sk:Autobusové nástupište|zastávka|bus|doprava
+sk:Autobusové nástupište|zastávka|bus
 sw:Stendi ya basi|basi|stendi|usafiri
 
 railway-station|railway-halt|building-train_station|@transport
-en:3Train Station|4railway|railroad|3train|4station|4transport|U+1F684|U+1F685|U+1F689|U+1F682|U+1F686|U+1F688|U+1F68A|U+1F68B
+en:3Train Station|4railway|railroad|3train|4station|U+1F684|U+1F685|U+1F689|U+1F682|U+1F686|U+1F688|U+1F68A|U+1F68B
 ru:Ж/д станция|3поезд|3станция|4транспорт
-ar:سكة الحديدี|محطة القطارี|محطةี|نقل|النقل
-cs:3Železniční stanice|vlakové nádraží|2vlak|doprava
-da:4Togstation|4station|3jernbane|transport
-nl:4Station|4spoorwegen|spoor|3trein|4transport
-fi:Rautatieasema|liikenne
-fr:3Gare|4chemin de fer|3train|4transport
-de:4Bahnhof|3Haltepunkt|3Station|Zug|Bahn|Verkehr|ÖPNV
-hu:3Vonatmegálló|4vonat|4megálló|4közlekedés
-id:Rel kereta api|transportasi
-it:3Stazione ferroviaria|3treno|transporto
-ja:1鉄道駅|鉄道|電車|交通機関|交通|駅|鉄|電
-ko:1기차역|철도|철도|철도|역|교통|수송
-nb:Togstasjon|transport
-pl:Dworzec kolejowy|stacja kolejowa|transport
-pt:Estação de comboios|caminhos-de-ferro|transporte
-ro:Feroviar|transport
-es:3Estación de tren|3tren|transporte
-sv:3Tågstation|4järnväg|järnväg|3tåg|4station|4transport
-th:3สถานีรถไฟ|รถไฟ|สถานี|ขนส่ง|การขนส่ง
-tr:2Gar|3demiryolları|ulaşım
+ar:سكة الحديدี|محطة القطارี|محطةี|نقل
+cs:3Železniční stanice|vlakové nádraží|2vlak
+da:4Togstation|4station|3jernbane
+nl:4Station|4spoorwegen|spoor|3trein
+fi:Rautatieasema
+fr:3Gare|4chemin de fer|3train
+de:4Bahnhof|3Haltepunkt|3Station|Zug|Bahn|ÖPNV
+hu:3Vonatmegálló|4vonat|4megálló
+id:Rel kereta api
+it:3Stazione ferroviaria|3treno
+ja:1鉄道駅|鉄道|電車|交通|駅|鉄|電
+ko:1기차역|철도|철도|철도|역|교통
+nb:Togstasjon
+pl:Dworzec kolejowy|stacja kolejowa
+pt:Estação de comboios|caminhos-de-ferro
+ro:Feroviar
+es:3Estación de tren|3tren
+sv:3Tågstation|4järnväg|järnväg|3tåg|4station
+th:3สถานีรถไฟ|รถไฟ|สถานี|ขนส่ง
+tr:2Gar|3demiryolları
 uk:Залізничний вокзал|3поїзд|залізниця|3станція|4транспорт
-vi:Đường tàu hỏa|giao thông
+vi:Đường tàu hỏa
 zh-Hans:1火车站ี|铁路ี|站ี|运输|交通
 zh-Hant:1鐵道|鐵路|火車|火車站|高鐵站|運輸
 el:Σιδηροδρομικός σταθμός|σιδηρόδρομος|σιδηροδρομικό|τρένο|σταθμός|μεταφορές
-sk:3Železničná stanica|vlakové nástupište|2vlak|doprava
+sk:3Železničná stanica|vlakové nástupište|2vlak
 sw:Kituo cha treni|treni|usafiri
 
 railway-subway_entrance|railway-station-subway|@transport
-en:3Subway|3tube|3metro|3underground|transport|U+1F687
+en:3Subway|3tube|3metro|3underground|U+1F687
 ru:3Метро|транспорт
-ar:محطة|القطار الكهربائي النفقي|قطار الأنفاق|المترو|تحت الأرض|النقل
-cs:3Metro|3podzemka|doprava
-da:3Metro|3undergrundsbane|3undergrund|3transport
-nl:3Metro|transport
-fi:3Metro|liikenne
-fr:3Métro|transport
-de:2U-Bahn|Metro|Verkehr|ÖPNV
-hu:3Földalatti|3metro|közlekedés
-id:3Stasiun bawah tanah|transportasi
-it:3Metrò|transporto
-ja:1地下鉄|地下鉄駅|電車|鉄道|交通|交通機関|交通|鉄|電
-ko:1지하철|교통|수송
-nb:2T-bane|undergrunnsbane|metro|transport
-pl:3Metro|kolej podziemna|transport
-pt:Metro|transporte
-ro:3Metrou|transport
-es:3Metro|3subte|transporte
-sv:3Tunnelbana|3tunnelbana|3metro|3tunnelbana|transport
-th:3รถไฟ|สถานีรถไฟใต้ดิน|ท่อ|เมโทร|ใต้ดิน|การขนส่ง
-tr:2Metro|3yer altı metrosu|ulaşım
+ar:محطة|القطار الكهربائي النفقي|قطار الأنفاق|المترو|تحت الأرض
+cs:3Metro|3podzemka
+da:3Metro|3undergrundsbane|3undergrund
+nl:3Metro
+fi:3Metro
+fr:3Métro
+de:2U-Bahn|Metro|ÖPNV
+hu:3Földalatti|3metro
+id:3Stasiun bawah tanah
+it:3Metrò
+ja:1地下鉄|地下鉄駅|電車|鉄道|交通|交通|鉄|電
+ko:1지하철|교통
+nb:2T-bane|undergrunnsbane|metro
+pl:3Metro|kolej podziemna
+pt:Metro
+ro:3Metrou
+es:3Metro|3subte
+sv:3Tunnelbana|3tunnelbana|3metro|3tunnelbana
+th:3รถไฟ|สถานีรถไฟใต้ดิน|ท่อ|เมโทร|ใต้ดิน
+tr:2Metro|3yer altı metrosu
 uk:3Метро|транспорт
-vi:3Ngầm|giao thông
+vi:3Ngầm
 zh-Hans:地铁|地铁|地铁|地铁|交通
 zh-Hant:1地鐵|捷運|2地下鐵|運輸
 el:Υπόγειος|σωλήνας|μετρό|υπόγεια|μεταφορές
-sk:3Metro|podzemná doprava|doprava
+sk:3Metro|podzemná doprava
 sw:Reli ya chini
 
 amenity-ferry_terminal|@transport
-en:3Ferry|terminal|transport|U+1F6A2|U+1F6A4|U+2693
+en:3Ferry|terminal|U+1F6A2|U+1F6A4|U+2693
 ru:3Паром|транспорт
-ar:مركب|محطة|نقل|النقل
-cs:3Trajekt|doprava
-da:2Færge|færgehavn|terminal|transport
-nl:3Veerpont|veerboot|veer|pont|overzetboot|transport
-fi:3Lautta|terminaali|kuljetus|liikenne
-fr:3Traversier|terminal|transport
-de:2Fähre|Terminal|Verkehr
-hu:2Komp|közlekedés
-id:3Terminal|feri|transportasi
-it:3Traghetto|transporto
-ja:1フェリー|交通機関
-ko:1나룻배|수송
-nb:3Ferje|terminal|transport
-pl:2Prom|transport
-pt:2Balsa|transporte
-ro:3Feribot|terminal|transport
-es:3Transbordador|transporte
-sv:3Färja|terminal|transport
-th:2เฟอร์รี่|สถานี|การขนส่ง
-tr:3Feribot|terminal|ulaşım
+ar:مركب|محطة|نقل
+cs:3Trajekt
+da:2Færge|færgehavn|terminal
+nl:3Veerpont|veerboot|veer|pont|overzetboot
+fi:3Lautta|terminaali|kuljetus
+fr:3Traversier|terminal
+de:2Fähre|Terminal
+hu:2Komp
+id:3Terminal|feri
+it:3Traghetto
+ja:1フェリー
+ko:1나룻배
+nb:3Ferje|terminal
+pl:2Prom
+pt:2Balsa
+ro:3Feribot|terminal
+es:3Transbordador
+sv:3Färja|terminal
+th:2เฟอร์รี่|สถานี
+tr:3Feribot|terminal
 uk:3Пором|транспорт
-vi:Phà|bến tàu xe|giao thông
+vi:Phà|bến tàu xe
 zh-Hans:1渡轮|终点站|交通
 zh-Hant:1渡船|運輸
 el:Πορθμείο|τερματικό|μεταφορές
-sk:3Trajekt|doprava
+sk:3Trajekt
 sw:Bandali|kivuko
 
 amenity-taxi|@transport
-en:3Taxi|transport|U+1F695|U+1F696
+en:3Taxi|U+1F695|U+1F696
 ru:3Такси|транспорт
-ar:تكسي|نقل|النقل
-cs:3Taxi|doprava
-da:3Taxi|taxa|transport
-nl:3Taxi|transport
-fi:3Taksi|liikenne
-fr:3Taxi|transport
-de:3Taxi|Taxe|Verkehr|ÖPNV
+ar:تكسي|نقل
+cs:3Taxi
+da:3Taxi|taxa
+nl:3Taxi
+fi:3Taksi
+fr:3Taxi
+de:3Taxi|Taxe|ÖPNV
 hu:3Taxi|szállítás
-id:3Taksi|transportasi
-it:3Taxi|3tassì|transporto
-ja:1タクシー|交通機関
-ko:1택시로 가다|전세 영업 배|수송
-nb:3Drosje|transport
+id:3Taksi
+it:3Taxi|3tassì
+ja:1タクシー
+ko:1택시로 가다|전세 영업 배
+nb:3Drosje
 pl:3Taxi|taksówka
-pt:3Táxi|transporte
-ro:3Taxi|transport
-es:3Taxi|4colectivo|transporte
-sv:3Taxi|transport
-th:3แท็กซี่|การขนส่ง
-tr:3Taksi|ulaşım
+pt:3Táxi
+ro:3Taxi
+es:3Taxi|4colectivo
+sv:3Taxi
+th:3แท็กซี่
+tr:3Taksi
 uk:3Таксі|транспорт
-vi:3Taxi|giao thông
+vi:3Taxi
 zh-Hans:出租车|交通
 zh-Hant:1計程車|交通
 el:Ταξί|μεταφορές
-sk:3Taxi|doprava
+sk:3Taxi
 sw:Teksi|usafiri
 
 amenity-townhall|@tourism
-en:3Town Hall|3tourism|3sights
+en:3Town Hall|3tourism
 ru:3Ратуша|3туризм|достопримечательность
-ar:مبنى البلدية|سياحة|مناظر
-cs:3Radnice|3pamětihodnost
-da:3Rådhus|3turisme|3sightseeing|3seværdigheder
-nl:3Gemeentehuis|3toerisme
-fi:Kaupungintalo|nähtävyydet
-fr:3Mairie|3tourisme|3site touristique
-de:3Rathaus|3Sehenswürdigkeit
-hu:3Városháza|3látnivaló
-id:3Balai kota|pemandangan
-it:3Municipio|3turistico
-ja:1役場|1公会堂|1町役場|観光
-ko:1시청사|관광
-nb:3Rådhus|severdigheter
-pl:3Ratusz|turystyka|osobliwości miasta
-pt:3Prefeitura|turismo|vistas
-ro:3Primărie|obiective turistice
-es:3Ayuntamiento|3turismo
-sv:3Rådhus|3turism|3sevärdheter
-th:3ศาลากลางจังหวัด|การท่องเที่ยว|สถานที่ท่องเที่ยว
-tr:3Belediye binası|3turizm|3görülecek yerler
+ar:مبنى البلدية|مناظر
+cs:3Radnice
+da:3Rådhus|3sightseeing
+nl:3Gemeentehuis
+fi:Kaupungintalo
+fr:3Mairie|3tourisme
+de:3Rathaus
+hu:3Városháza
+id:3Balai kota
+it:3Municipio
+ja:1役場|1公会堂|1町役場
+ko:1시청사
+nb:3Rådhus
+pl:3Ratusz|turystyka
+pt:3Prefeitura|turismo
+ro:3Primărie
+es:3Ayuntamiento
+sv:3Rådhus|3turism
+th:3ศาลากลางจังหวัด|การท่องเที่ยว
+tr:3Belediye binası|3turizm
 uk:3Ратуша|3туризм|пам’ятні місця
-vi:3Trung tâm thành phố|diểm tham quan
+vi:3Trung tâm thành phố
 zh-Hans:1市政厅|旅游|景点
 zh-Hant:1市政廳|1市鎮大廳|1旅遊景點
 el:Δημαρχείο|τουρισμός|αξιοθέατα
@@ -1894,96 +1868,96 @@ sk:3Atrakcia|3pamiatka|3zaujímavosť
 sw:Kivutio|utalii
 
 tourism-artwork|@tourism
-en:3Artwork|3tourism|3sights|U+1F3A8
+en:3Artwork|3tourism|U+1F3A8
 ru:3Произведение искусства|3туризм|3скульптура|достопримечательность
-ar:سياحة|مناظر
-cs:3Umělecké dílo|3pamětihodnost
-da:3Kunstværk|3turisme|3sightseeing|3seværdigheder
-nl:3Kunstwerk|3toerisme
-fi:Rautatieasema|nähtävyydet
-fr:3Œuvre|3oeuvre|3art|3tourisme|3site touristique
-de:3Kunstwerk|3Sehenswürdigkeit
-hu:3Szobor|3látnivaló|Műalkotás
-id:3Pariwisata|pemandangan
-it:3Opere d'arte|3turistico
-ja:1イラスト|1芸術作品|観光
-ko:1작품|관광
-nb:Kunstverk|severdigheter
-pl:3Rzeźba|turystyka|osobliwości miasta
-pt:3Artwork|turismo|vistas
-ro:3Turism|obiective turistice
-es:3Obras de arte|3turismo
-sv:3Konstverk|3turism|3sevärdheter
-th:งานศิลปะ|3การท่องเที่ยว|สถานที่ท่องเที่ยว
-tr:3Turizm|3görülecek yerler
+ar:مناظر
+cs:3Umělecké dílo
+da:3Kunstværk|3sightseeing
+nl:3Kunstwerk
+fi:Rautatieasema
+fr:3Œuvre|3oeuvre|3art|3tourisme
+de:3Kunstwerk
+hu:3Szobor|Műalkotás
+id:3Pariwisata
+it:3Opere d'arte
+ja:1イラスト|1芸術作品
+ko:1작품
+nb:Kunstverk
+pl:3Rzeźba|turystyka
+pt:3Artwork|turismo
+ro:3Turism
+es:3Obras de arte
+sv:3Konstverk|3turism
+th:งานศิลปะ|3การท่องเที่ยว
+tr:3Turizm
 uk:3Твір мистецтва|визначна річ|3туризм|3скульптура|пам’ятні місця
-vi:3Du lịch|diểm tham quan
+vi:3Du lịch
 zh-Hans:1旅游|景点
 zh-Hant:1藝術品|3旅遊景點
 el:Έργα τέχνης|τουρισμός|αξιοθέατα
-sk:3Umelecké diela|3pamätihodnosť
+sk:3Umelecké diela
 sw:Kazi ya kisanaa|utalii
 
 tourism-viewpoint|@tourism
-en:4Viewpoint|tourism|sights
+en:4Viewpoint|tourism
 ru:4Обзорная площадка|туризм|достопримечательность
-ar:أماكن مراقبة|سياحة|مناظر
-cs:3Vyhlídka|zajímavost|pamětihodnost
-da:Udsigtspunkt|turisme|sightseeing|seværdigheder
-nl:4Uitzicht|panorama|toerisme
-fi:3Näköalatasanne|nähtävyydet
-fr:4Belvédère|4point de vue|4panorama|tourisme|site touristique
-de:3Panorama|Ausblick|Aussichtspunkt|Sehenswürdigkeit
-hu:4Kilátó|kirándulás|látványosság|látnivaló|túrizmus
-id:Titik pandang|pemandangan
-it:3Panorama|turistico
-ja:1観光スポット|見どころ|観光|名所|観光名所
-ko:1관점|관 광|명소|관광
-nb:3Utsiktspunkt|severdigheter
-pl:3Punkt widokowy|widok|krajobraz|osobliwości miasta
-pt:4Ponto de vista|turismo|vistas
-ro:3Punct de vedere|obiective turistice
-es:3Vista panorámica|turismo
-sv:4Utsiktsplats|turism|sevärdheter
-th:3จุดชมวิว|การท่องเที่ยว|สถานที่ท่องเที่ยว
-tr:3Bakış|3turizm|3görülecek yerler
+ar:أماكن مراقبة|مناظر
+cs:3Vyhlídka|zajímavost
+da:Udsigtspunkt|sightseeing
+nl:4Uitzicht|panorama
+fi:3Näköalatasanne
+fr:4Belvédère|4point de vue|4panorama|tourisme
+de:3Panorama|Ausblick|Aussichtspunkt
+hu:4Kilátó|kirándulás|látványosság|túrizmus
+id:Titik pandang
+it:3Panorama
+ja:1観光スポット|見どころ|名所|観光名所
+ko:1관점|관 광|명소
+nb:3Utsiktspunkt
+pl:3Punkt widokowy|widok|krajobraz
+pt:4Ponto de vista|turismo
+ro:3Punct de vedere
+es:3Vista panorámica
+sv:4Utsiktsplats|turism
+th:3จุดชมวิว|การท่องเที่ยว
+tr:3Bakış|3turizm
 uk:4Оглядний майданчик|4місце огляду|туризм|пам’ятка|пам’ятні місця
-vi:Điểm nhìn|diểm tham quan
+vi:Điểm nhìn
 zh-Hans:1观点|旅游|景点
 zh-Hant:1視野|景觀|景點|觀光|3旅遊景點
 el:Άποψη|τουρισμός|αξιοθέατα
-sk:3Vyhliadka|pamätihodnosť
+sk:3Vyhliadka
 sw:Genge|utalii
 
 tourism-information|@tourism
-en:4Tourist Information|4information|sights|U+1F481
+en:4Tourist Information|4information|U+1F481
 ru:4Туринформация|информация|достопримечательность
-ar:معلومات سياحية|معلومات|مناظر|سياحة
-cs:4Infocentrum|4turistické informace|pamětihodnost|Íčko
-da:4Turistinformation|turistinformation|4information|seværdigheder
-nl:4Toeristische informatie|3VVV|4informatie|toerisme
-fi:3Matkailuinfo|nähtävyydet
-fr:4Informations touristiques|4informations|site touristique
-de:4Tourist-Information|Information|Sehenswürdigkeit
-hu:4Túrista információ|4információ|látványosság|látnivaló
-id:3Informasi turis|pemandangan
-it:4Informazione|turistico
+ar:معلومات سياحية|معلومات|مناظر
+cs:4Infocentrum|4turistické informace|Íčko
+da:4Turistinformation|turistinformation|4information
+nl:4Toeristische informatie|3VVV|4informatie
+fi:3Matkailuinfo
+fr:4Informations touristiques|4informations
+de:4Tourist-Information|Information
+hu:4Túrista információ|4információ|látványosság
+id:3Informasi turis
+it:4Informazione
 ja:1インフォメーション|観光情報|情報|案内
-ko:1관광 정보|정보|명소|관광
-nb:3Turistinformasjon|severdigheter
-pl:4Informacja turystyczna|punkt informacji|osobliwości miasta
-pt:4Informações turísticas|4informação|vistas
-ro:3Informații turistice|obiective turistice
-es:4Información|turismo
-sv:4Turistinformation|4information|sevärdheter
-th:4ข้อมูลการท่องเที่ยว|ข้อมูล|สถานที่ท่องเที่ยว
-tr:4Turist bilgileri|görülecek yerler
+ko:1관광 정보|정보|명소
+nb:3Turistinformasjon
+pl:4Informacja turystyczna|punkt informacji
+pt:4Informações turísticas|4informação
+ro:3Informații turistice
+es:4Información
+sv:4Turistinformation|4information
+th:4ข้อมูลการท่องเที่ยว|ข้อมูล
+tr:4Turist bilgileri
 uk:4Турінформація|інформація|пам’ятка|пам’ятні місця
-vi:Thông tin du lịch|diểm tham quan
+vi:Thông tin du lịch
 zh-Hans:1旅游信息|信息|景点
 zh-Hant:2觀光諮詢|旅遊中心|旅遊問題|資訊|旅遊資訊
 el:Τουριστικές πληροφορίες|πληροφορίες|αξιοθέατα
-sk:4Infocentrum|4turistické informácie|pamätihodnosť
+sk:4Infocentrum|4turistické informácie
 sw:Taarifa ya utalii|taarifa
 
 tourism-picnic_site|amenity-bbq
@@ -2018,492 +1992,492 @@ sk:3Piknik
 sw:Sehemu ya madhazi
 
 amenity-place_of_worship|@tourism
-en:4Place of Worship|3temple|sights|U+1F64F
+en:4Place of Worship|3temple|U+1F64F
 ru:3Храм|достопримечательность
-ar:1مكان للعبادة|1معبد|سياحة
-cs:4Posvátné místo|3chrám|pamětihodnost
-da:3Tempel|3kultsted|seværdigheder
-nl:3Gebedsplaats|3gebedshuis|3tempel|toerisme
-fi:4Uskonnollinen kohde|3temppeli|nähtävyydet
-fr:4Lieu de culte|3temple|site touristique
-de:3Anbetungsstätte|Tempel|Gotteshaus|Sehenswürdigkeit
-hu:3Templom|látnivaló
-id:4Tempat ibadah|pemandangan
-it:3Tempio|turistico
-ja:1礼拝|1寺院|1神社|仏閣|神殿|お寺|観光
-ko:1예배 장소|1사찰|볼거리|관광
-nb:3Gudshus|3tempel|severdigheter
-pl:3Świątynia|osobliwości miasta
-pt:Local de culto|3templo|vistas
-ro:3Loc de cult|3templu|obiective turistice
-es:4Lugar de culto|templo|turismo
-sv:4Plats för tillbedjan|3tempel|sevärdheter
-th:2สถานที่ประกอบพิธีกรรม|สถานที่ท่องเที่ยว
-tr:4Ibadet yerleri|3tapınak|görülecek yerler
+ar:1مكان للعبادة|1معبد
+cs:4Posvátné místo|3chrám
+da:3Tempel|3kultsted
+nl:3Gebedsplaats|3gebedshuis|3tempel
+fi:4Uskonnollinen kohde|3temppeli
+fr:4Lieu de culte|3temple
+de:3Anbetungsstätte|Tempel|Gotteshaus
+hu:3Templom
+id:4Tempat ibadah
+it:3Tempio
+ja:1礼拝|1寺院|1神社|仏閣|神殿|お寺
+ko:1예배 장소|1사찰|볼거리
+nb:3Gudshus|3tempel
+pl:3Świątynia
+pt:Local de culto|3templo
+ro:3Loc de cult|3templu
+es:4Lugar de culto|templo
+sv:4Plats för tillbedjan|3tempel
+th:2สถานที่ประกอบพิธีกรรม
+tr:4Ibadet yerleri|3tapınak
 uk:3Храм|пам’ятка|алтарь|мавзолей|пам’ятні місця
-vi:Chùa|diểm tham quan
+vi:Chùa
 zh-Hans:1礼拜场所|庙|景点
 zh-Hant:1寺廟|1禱告|寺|禪寺|旅遊景點
 el:Τόπος λατρείας|ναός|αξιοθέατα
-sk:3Svätyňa|3chrám|3posvätné miesto|pamätihodnosť
+sk:3Svätyňa|3chrám|3posvätné miesto
 sw:Sehemu ya kusali
 
 amenity-place_of_worship-christian|@tourism
-en:Church|place of worship|temple|sights|U+1F64F|U+26EA|U+271D|U+2626
+en:Church|place of worship|temple|U+1F64F|U+26EA|U+271D|U+2626
 ru:Храм|костел|церковь|собор|достопримечательность
-ar:كنيسة|مكان للعبادة|معبد|سياحة
-cs:Chrám|kostel|posvátné místo|pamětihodnost
-da:Kirke|tempel|kultsted|seværdigheder
-nl:Kerk|tempel|kathedraal|gebedsplaats|gebedshuis|toerisme
-fi:Kirkko|uskonnollinen kohde|nähtävyydet
-fr:Église|lieu de culte|temple|site touristique
-de:Kirche|Dom|3Kathedrale|4Münster|Anbetungsstätte|Tempel|Sehenswürdigkeit
-hu:Templom|látnivaló
-id:Gereja|tempat ibadah|pemandangan
-it:Chiesa|duomo|cattedrale|tempio|turistico
-ja:教会|寺院|神社|仏閣|神殿|お寺|観光
-ko:교회|예배 장소|사찰|관광
-nb:Kirke|gudshus|severdigheter
-pl:Kościół|świątynia|osobliwości miasta
-pt:Igreja|local de culto|templo|vistas
-ro:Biserică|loc de cult|templu|obiective turistice
-es:Iglesia|templo|lugar de culto|turismo
-sv:Kyrka|plats för tillbedjan|tempel|sevärdheter
-th:โบสถ์|สถานที่ประกอบพิธีกรรม|สถานที่ท่องเที่ยว
-tr:Kilise|ibadet yerleri|tapınak|görülecek yerler
+ar:كنيسة|مكان للعبادة|معبد
+cs:Chrám|kostel|posvátné místo
+da:Kirke|tempel|kultsted
+nl:Kerk|tempel|kathedraal|gebedsplaats|gebedshuis
+fi:Kirkko|uskonnollinen kohde
+fr:Église|lieu de culte|temple
+de:Kirche|Dom|3Kathedrale|4Münster|Anbetungsstätte|Tempel
+hu:Templom
+id:Gereja|tempat ibadah
+it:Chiesa|duomo|cattedrale|tempio
+ja:教会|寺院|神社|仏閣|神殿|お寺
+ko:교회|예배 장소|사찰
+nb:Kirke|gudshus
+pl:Kościół|świątynia
+pt:Igreja|local de culto|templo
+ro:Biserică|loc de cult|templu
+es:Iglesia|templo|lugar de culto
+sv:Kyrka|plats för tillbedjan|tempel
+th:โบสถ์|สถานที่ประกอบพิธีกรรม
+tr:Kilise|ibadet yerleri|tapınak
 uk:Церква|пам’ятні місця
-vi:Chùa|nhà thờ|diểm tham quan
+vi:Chùa|nhà thờ
 zh-Hans:教堂|礼拜场所|庙|景点
 zh-Hant:教堂|寺廟|禱告|寺|禪寺|旅遊景點
 el:Εκκλησία|τόπος λατρείας|ναός|αξιοθέατα
-sk:Chrám|kostol|svätyňa|posvätné miesto|pamätihodnosť
+sk:Chrám|kostol|svätyňa|posvätné miesto
 
 amenity-place_of_worship-muslim|@tourism
-en:Mosque|tekke|place of worship|temple|sights|U+1F64F|U+262A|U+1F54B|U+1F54C|U+262A
+en:Mosque|tekke|place of worship|temple|U+1F64F|U+262A|U+1F54B|U+1F54C|U+262A
 ru:Мечеть|храм|достопримечательность
-ar:مسجد|مكان للعبادة|معبد|سياحة
-cs:Mešita|chrám|posvátné místo|pamětihodnost
-da:Moske|tempel|kultsted|seværdigheder
-nl:Moskee|tempel|gebedsplaats|gebedshuis|toerisme
-fi:Moskeija|uskonnollinen kohde|nähtävyydet
-fr:Mosquée|lieu de culte|temple|site touristique
-de:Moschee|Tekke|Anbetungsstätte|Tempel|Sehenswürdigkeit
-hu:Mecset|templom|látnivaló
-id:Masjid|tempat ibadah|pemandangan
-it:Moschea|duomo|tempio|turistico
-ja:モスク|寺院|神社|仏閣|神殿|お寺|観光
-ko:모스크|예배 장소|사찰|관광
-nb:Moské|gudshus|severdigheter
-pl:Meczet|świątynia|osobliwości miasta
-pt:Mesquita|local de culto|templo|vistas
-ro:Moschee|loc de cult|templu|obiective turistice
-es:Mezquita|templo|lugar de culto|turismo
-sv:Moské|plats för tillbedjan|tempel|sevärdheter
-th:มัสยิด|สถานที่ประกอบพิธีกรรม|สถานที่ท่องเที่ยว
-tr:Cami|ibadet yerleri|tapınak|görülecek yerler
+ar:مسجد|مكان للعبادة|معبد
+cs:Mešita|chrám|posvátné místo
+da:Moske|tempel|kultsted
+nl:Moskee|tempel|gebedsplaats|gebedshuis
+fi:Moskeija|uskonnollinen kohde
+fr:Mosquée|lieu de culte|temple
+de:Moschee|Tekke|Anbetungsstätte|Tempel
+hu:Mecset|templom
+id:Masjid|tempat ibadah
+it:Moschea|duomo|tempio
+ja:モスク|寺院|神社|仏閣|神殿|お寺
+ko:모스크|예배 장소|사찰
+nb:Moské|gudshus
+pl:Meczet|świątynia
+pt:Mesquita|local de culto|templo
+ro:Moschee|loc de cult|templu
+es:Mezquita|templo|lugar de culto
+sv:Moské|plats för tillbedjan|tempel
+th:มัสยิด|สถานที่ประกอบพิธีกรรม
+tr:Cami|ibadet yerleri|tapınak
 uk:Мечеть|пам’ятні місця
-vi:Nhà thờ Hồi Giáo|chùa|diểm tham quan
+vi:Nhà thờ Hồi Giáo|chùa
 zh-Hans:清真寺|礼拜场所|庙|景点
 zh-Hant:清真寺|寺廟|禱告|寺|禪寺|旅遊景點
 el:Τζαμί|τεκκέ|τόπος λατρείας|ναός|αξιοθέατα
-sk:Mešita|chrám|svätyňa|posvätné miesto|pamätihodnosť
+sk:Mešita|chrám|svätyňa|posvätné miesto
 
 amenity-place_of_worship-buddhist|@tourism
-en:Temple|place of worship|sights|U+1F64F|U+26EA|U+2638
+en:Temple|place of worship|U+1F64F|U+26EA|U+2638
 ru:Храм|достопримечательность
-ar:معبد|مكان للعبادة|سياحة
-cs:Chrám|posvátné místo|pamětihodnost
-da:Tempel|kultsted|seværdigheder
-nl:Tempel|gebedsplaats|gebedshuis|toerisme
-fi:Temppeli|uskonnollinen kohde|nähtävyydet
-fr:Temple|lieu de culte|site touristique
-de:Tempel|Anbetungsstätte|Sehenswürdigkeit
-hu:Templom|látnivaló
-id:Kuil|tempat ibadah|pemandangan
-it:Tempio|duomo|turistico
-ja:寺|寺院|神社|仏閣|神殿|お寺|観光
-ko:절|예배 장소|사찰|관광
-nb:Tempel|gudshus|severdigheter
-pl:Świątynia|osobliwości miasta
-pt:Templo|local de culto|vistas
-ro:Templu|loc de cult|obiective turistice
-es:Templo|lugar de culto|turismo
-sv:Tempel|plats för tillbedjan|sevärdheter
-th:วัด|สถานที่ประกอบพิธีกรรม|สถานที่ท่องเที่ยว
-tr:Tapınak|ibadet yerleri|görülecek yerler
+ar:معبد|مكان للعبادة
+cs:Chrám|posvátné místo
+da:Tempel|kultsted
+nl:Tempel|gebedsplaats|gebedshuis
+fi:Temppeli|uskonnollinen kohde
+fr:Temple|lieu de culte
+de:Tempel|Anbetungsstätte
+hu:Templom
+id:Kuil|tempat ibadah
+it:Tempio|duomo
+ja:寺|寺院|神社|仏閣|神殿|お寺
+ko:절|예배 장소|사찰
+nb:Tempel|gudshus
+pl:Świątynia
+pt:Templo|local de culto
+ro:Templu|loc de cult
+es:Templo|lugar de culto
+sv:Tempel|plats för tillbedjan
+th:วัด|สถานที่ประกอบพิธีกรรม
+tr:Tapınak|ibadet yerleri
 uk:Храм|пам’ятні місця
-vi:Đền|chùa|diểm tham quan
+vi:Đền|chùa
 zh-Hans:寺庙|礼拜场所|庙|景点
 zh-Hant:寺廟|佛|寺廟|禱告|寺|禪寺|旅遊景點
 el:Ναός|τόπος λατρείας|αξιοθέατα
-sk:Chrám|svätyňa|posvätné miesto|pamätihodnosť
+sk:Chrám|svätyňa|posvätné miesto
 
 amenity-place_of_worship-hindu|@tourism
-en:Temple|place of worship|sights|U+1F64F|U+1F549
+en:Temple|place of worship|U+1F64F|U+1F549
 ru:Храм|достопримечательность
-ar:معبد|مكان للعبادة|سياحة
-cs:Chrám|posvátné místo|pamětihodnost
-da:Tempel|kultsted|seværdigheder
-nl:Tempel|gebedsplaats|gebedshuis|toerisme
-fi:Temppeli|uskonnollinen kohde|nähtävyydet
-fr:Temple|lieu de culte|site touristique
-de:Tempel|Anbetungsstätte|Sehenswürdigkeit
-hu:Templom|látnivaló
-id:Kuil|tempat ibadah|pemandangan
-it:Tempio|duomo|turistico
-ja:寺|寺院|神社|仏閣|神殿|お寺|観光
-ko:절|예배 장소|사찰|관광
-nb:Tempel|gudshus|severdigheter
-pl:Świątynia|osobliwości miasta
-pt:Templo|local de culto|vistas
-ro:Templu|loc de cult|obiective turistice
-es:Templo|lugar de culto|turismo
-sv:Tempel|plats för tillbedjan|sevärdheter
-th:วัด|สถานที่ประกอบพิธีกรรม|สถานที่ท่องเที่ยว
-tr:Tapınak|ibadet yerleri|görülecek yerler
+ar:معبد|مكان للعبادة
+cs:Chrám|posvátné místo
+da:Tempel|kultsted
+nl:Tempel|gebedsplaats|gebedshuis
+fi:Temppeli|uskonnollinen kohde
+fr:Temple|lieu de culte
+de:Tempel|Anbetungsstätte
+hu:Templom
+id:Kuil|tempat ibadah
+it:Tempio|duomo
+ja:寺|寺院|神社|仏閣|神殿|お寺
+ko:절|예배 장소|사찰
+nb:Tempel|gudshus
+pl:Świątynia
+pt:Templo|local de culto
+ro:Templu|loc de cult
+es:Templo|lugar de culto
+sv:Tempel|plats för tillbedjan
+th:วัด|สถานที่ประกอบพิธีกรรม
+tr:Tapınak|ibadet yerleri
 uk:Храм|пам’ятні місця
-vi:Đền|chùa|diểm tham quan
+vi:Đền|chùa
 zh-Hans:寺庙|礼拜场所|庙|景点
 zh-Hant:寺廟|寺廟|禱告|寺|禪寺|旅遊景點
 el:Ναός|τόπος λατρείας|αξιοθέατα
-sk:Chrám|svätyňa|posvätné miesto|pamätihodnosť
+sk:Chrám|svätyňa|posvätné miesto
 
 amenity-place_of_worship-shinto|@tourism
-en:Shrine|place of worship|temple|sights|U+1F64F|U+26E9
+en:Shrine|place of worship|temple|U+1F64F|U+26E9
 ru:Святилище|храм|достопримечательность
-ar:مزار|مكان للعبادة|معبد|سياحة
-cs:Posvátné místo|chrám|pamětihodnost
-da:Helligdom|tempel|kultsted|seværdigheder
-nl:Heiligdom|tempel|gebedsplaats|gebedshuis|toerisme
-fi:Pyhäkkö|uskonnollinen kohde|nähtävyydet
-fr:Sanctuaire|lieu de culte|temple|site touristique
-de:Schrein|Anbetungsstätte|Tempel|Sehenswürdigkeit
-hu:Kegyhely|templom|látnivaló
-id:Kuil|tempat ibadah|pemandangan
-it:Santuario|tempio|turistico
-ja:神社|寺院|神社|仏閣|神殿|お寺|観光
-ko:성지|예배 장소|사찰|관광
-nb:Alter|gudshus|severdigheter
-pl:Kapliczka|świątynia|osobliwości miasta
-pt:Santuário|templo|local de culto|vistas
-ro:Sanctuar|templu|loc de cult|obiective turistice
-es:Ermita|templo|lugar de culto|turismo
-sv:Altare|plats för tillbedjan|tempel|sevärdheter
-th:ศาลเจ้า|สถานที่ประกอบพิธีกรรม|สถานที่ท่องเที่ยว
-tr:Mabet|ibadet yerleri|tapınak|görülecek yerler
+ar:مزار|مكان للعبادة|معبد
+cs:Posvátné místo|chrám
+da:Helligdom|tempel|kultsted
+nl:Heiligdom|tempel|gebedsplaats|gebedshuis
+fi:Pyhäkkö|uskonnollinen kohde
+fr:Sanctuaire|lieu de culte|temple
+de:Schrein|Anbetungsstätte|Tempel
+hu:Kegyhely|templom
+id:Kuil|tempat ibadah
+it:Santuario|tempio
+ja:神社|寺院|神社|仏閣|神殿|お寺
+ko:성지|예배 장소|사찰
+nb:Alter|gudshus
+pl:Kapliczka|świątynia
+pt:Santuário|templo|local de culto
+ro:Sanctuar|templu|loc de cult
+es:Ermita|templo|lugar de culto
+sv:Altare|plats för tillbedjan|tempel
+th:ศาลเจ้า|สถานที่ประกอบพิธีกรรม
+tr:Mabet|ibadet yerleri|tapınak
 uk:Святиня|пам’ятні місця
-vi:Miếu thờ|chùa|diểm tham quan
+vi:Miếu thờ|chùa
 zh-Hans:圣殿|礼拜场所|庙|景点
 zh-Hant:聖殿|寺廟|禱告|寺|禪寺|旅遊景點
 el:Ιερό|τόπος λατρείας|ναός|αξιοθέατα
-sk:Svätyňa|chrám|svätyňa|posvätné miesto|pamätihodnosť
+sk:Svätyňa|chrám|svätyňa|posvätné miesto
 
 amenity-place_of_worship-jewish|@tourism
-en:Synagogue|place of worship|temple|sights|U+1F64F|U+1F54D|U+2721
+en:Synagogue|place of worship|temple|U+1F64F|U+1F54D|U+2721
 ru:Синагога|храм|достопримечательность
-ar:معبد يهودي|مكان للعبادة|معبد|سياحة
-cs:Synagoga|chrám|posvátné místo|pamětihodnost
-da:Synagoge|tempel|kultsted|seværdigheder
-nl:Synagoge|tempel|gebedsplaats|gebedshuis|toerisme
-fi:Synagoga|uskonnollinen kohde|nähtävyydet
-fr:Synagogue|lieu de culte|temple|site touristique
-de:Synagoge|Anbetungsstätte|Tempel|Sehenswürdigkeit
-hu:Zsinagóga|templom|látnivaló
-id:Sinagoge|tempat ibadah|pemandangan
-it:Sinagoga|tempio|turistico
-ja:ユダヤ教会|シナゴーグ|寺院|神社|仏閣|神殿|お寺|観光
-ko:유태교 회당|예배 장소|사찰|관광
-nb:Synagoge|gudshus|severdigheter
-pl:Synagoga|świątynia|osobliwości miasta
-pt:Sinagoga|templo|local de culto|vistas
-ro:Sinagogă|templu|loc de cult|obiective turistice
-es:Sinagoga|templo|lugar de culto|turismo
-sv:Synagoga|plats för tillbedjan|tempel|sevärdheter
-th:มัสยิดยิว|สถานที่ประกอบพิธีกรรม|สถานที่ท่องเที่ยว
-tr:Sinagog|ibadet yerleri|tapınak|görülecek yerler
+ar:معبد يهودي|مكان للعبادة|معبد
+cs:Synagoga|chrám|posvátné místo
+da:Synagoge|tempel|kultsted
+nl:Synagoge|tempel|gebedsplaats|gebedshuis
+fi:Synagoga|uskonnollinen kohde
+fr:Synagogue|lieu de culte|temple
+de:Synagoge|Anbetungsstätte|Tempel
+hu:Zsinagóga|templom
+id:Sinagoge|tempat ibadah
+it:Sinagoga|tempio
+ja:ユダヤ教会|シナゴーグ|寺院|神社|仏閣|神殿|お寺
+ko:유태교 회당|예배 장소|사찰
+nb:Synagoge|gudshus
+pl:Synagoga|świątynia
+pt:Sinagoga|templo|local de culto
+ro:Sinagogă|templu|loc de cult
+es:Sinagoga|templo|lugar de culto
+sv:Synagoga|plats för tillbedjan|tempel
+th:มัสยิดยิว|สถานที่ประกอบพิธีกรรม
+tr:Sinagog|ibadet yerleri|tapınak
 uk:Синагога|пам’ятні місця
-vi:Giáo đường Do Thái|chùa|diểm tham quan
+vi:Giáo đường Do Thái|chùa
 zh-Hans:犹太教堂|礼拜场所|庙|景点
 zh-Hant:猶太教堂|寺廟|禱告|寺|禪寺|旅遊景點
 el:Συναγωγή|τόπος λατρείας|ναός|αξιοθέατα
-sk:Synagóga|chrám|svätyňa|posvätné miesto|pamätihodnosť
+sk:Synagóga|chrám|svätyňa|posvätné miesto
 
 amenity-place_of_worship-taoist|@tourism
-en:Temple|place of worship|sights|U+1F64F|U+262F
+en:Temple|place of worship|U+1F64F|U+262F
 ru:Храм|достопримечательность
-ar:معبد|مكان للعبادة|سياحة
-cs:Chrám|posvátné místo|pamětihodnost
-da:Tempel|kultsted|seværdigheder
-nl:Tempel|gebedsplaats|gebedshuis|toerisme
-fi:Temppeli|uskonnollinen kohde|nähtävyydet
-fr:Temple|lieu de culte|site touristique
-de:Tempel|Anbetungsstätte|Sehenswürdigkeit
-hu:Templom|látnivaló
-id:Kuil|tempat ibadah|pemandangan
-it:Tempio|turistico
-ja:寺|寺院|神社|仏閣|神殿|お寺|観光
-ko:절|예배 장소|사찰|관광
-nb:Tempel|gudshus|severdigheter
-pl:Świątynia|osobliwości miasta
-pt:Templo|local de culto|vistas
-ro:Templu|loc de cult|obiective turistice
-es:Templo|lugar de culto|turismo
-sv:Tempel|plats för tillbedjan|sevärdheter
-th:วัด|สถานที่ประกอบพิธีกรรม|สถานที่ท่องเที่ยว
-tr:Tapınak|ibadet yerleri|görülecek yerler
+ar:معبد|مكان للعبادة
+cs:Chrám|posvátné místo
+da:Tempel|kultsted
+nl:Tempel|gebedsplaats|gebedshuis
+fi:Temppeli|uskonnollinen kohde
+fr:Temple|lieu de culte
+de:Tempel|Anbetungsstätte
+hu:Templom
+id:Kuil|tempat ibadah
+it:Tempio
+ja:寺|寺院|神社|仏閣|神殿|お寺
+ko:절|예배 장소|사찰
+nb:Tempel|gudshus
+pl:Świątynia
+pt:Templo|local de culto
+ro:Templu|loc de cult
+es:Templo|lugar de culto
+sv:Tempel|plats för tillbedjan
+th:วัด|สถานที่ประกอบพิธีกรรม
+tr:Tapınak|ibadet yerleri
 uk:Храм|пам’ятні місця
-vi:Đền|chùa|diểm tham quan
+vi:Đền|chùa
 zh-Hans:寺庙|礼拜场所|庙|景点
 zh-Hant:寺廟|禱告|寺|禪寺|旅遊景點
 el:Ναός|τόπος λατρείας|αξιοθέατα
-sk:Chrám|svätyňa|posvätné miesto|pamätihodnosť
+sk:Chrám|svätyňa|posvätné miesto
 
 tourism-museum|@tourism
-en:2Museum|attraction|tourism|sights|U+1F3A8
+en:2Museum|attraction|tourism|U+1F3A8
 ru:2Музей|достопримечательность|туризм
-ar:متحف|أماكن الجذب|سياحة|مناظر
-cs:2Muzeum|zajímavost|pamětihodnost
-da:2Museum|attraktioner|turisme|seværdigheder
-nl:2Museum|attractie|toerisme
-fi:3Museo|nähtävyydet
-fr:2Musée|attraction|tourisme|site touristique
-de:2Museum|Sehenswürdigkeit
-hu:2Múzeum|látnivaló|túrizmus|látványosság
-id:3Museum|pemandangan
-it:2Museo|turistico
+ar:متحف|أماكن الجذب|مناظر
+cs:2Muzeum|zajímavost
+da:2Museum|attraktioner
+nl:2Museum|attractie
+fi:3Museo
+fr:2Musée|attraction|tourisme
+de:2Museum
+hu:2Múzeum|túrizmus|látványosság
+id:3Museum
+it:2Museo
 ja:1博物館|美術館
-ko:1박물관|관광
-nb:3Museum|severdigheter
-pl:2Muzeum|turystyka|zwiedzanie|osobliwości miasta
-pt:2Museu|turismo|vistas
-ro:3Muzeu|obiective turistice
-es:2Museo|turismo
-sv:2Museum|attraktion|tursim|sevärdheter
-th:2พิพิธภัณฑ์|แหล่งท่องเที่ยว|การท่องเที่ยว|สถานที่ท่องเที่ยว
-tr:2Müze|cazibe merkezleri|turizm|görülecek yerler
+ko:1박물관
+nb:3Museum
+pl:2Muzeum|turystyka|zwiedzanie
+pt:2Museu|turismo
+ro:3Muzeu
+es:2Museo
+sv:2Museum|attraktion|tursim
+th:2พิพิธภัณฑ์|แหล่งท่องเที่ยว|การท่องเที่ยว
+tr:2Müze|cazibe merkezleri|turizm
 uk:2Музей|пам'ятка|туризм|пам’ятні місця
-vi:3Bảo tàng|diểm tham quan
+vi:3Bảo tàng
 zh-Hans:博物馆|景点
 zh-Hant:1博物館|旅遊|觀光|景點|遊覽|歷史|旅遊景點
 el:Μουσείο|θέαμα|τουρισμός|αξιοθέατα
-sk:2Múzeum|pamätihodnosť
+sk:2Múzeum
 sw:Makumbusho|kivutio|utalii
 
 waterway-waterfall|@tourism
-en:2Waterfall|sights
+en:2Waterfall
 ru:2Водопад|достопримечательность
-ar:شلال|مناظر|سياحة
-cs:2Vodopád|zajímavost|pamětihodnost
-da:2Vandfald|seværdigheder
-nl:2Watervallen|waterval|toerisme
-fi:3Vesiputous|nähtävyydet
-fr:3Cascade|site touristique
-de:2Wasserfall|Sehenswürdigkeit
-hu:2Vízesés|látnivaló
-id:2Air terjun|pemandangan
-it:3Cascata|turistico
-ja:滝|観光
-ko:1폭포|관광
-nb:3Foss|severdigheter
-pl:2Wodospad|osobliwości miasta
-pt:2Cachoeira|vistas
-ro:3Cascadă|obiective turistice
-es:3Cascada|turismo
-sv:2Vattenfall|sevärdheter
-th:2น้ำตก|สถานที่ท่องเที่ยว
-tr:2Şelale|görülecek yerler
+ar:شلال|مناظر
+cs:2Vodopád|zajímavost
+da:2Vandfald
+nl:2Watervallen|waterval
+fi:3Vesiputous
+fr:3Cascade
+de:2Wasserfall
+hu:2Vízesés
+id:2Air terjun
+it:3Cascata
+ja:滝
+ko:1폭포
+nb:3Foss
+pl:2Wodospad
+pt:2Cachoeira
+ro:3Cascadă
+es:3Cascada
+sv:2Vattenfall
+th:2น้ำตก
+tr:2Şelale
 uk:2Водоспад|пам’ятні місця
 vi:2Thác nước|điểm tham quan
 zh-Hans:2瀑布|景点
 zh-Hant:1瀑布|旅遊景點
 el:Καταρράκτης|αξιοθέατα
-sk:2Vodopád|pamätihodnosť
+sk:2Vodopád
 sw:Maporomoko ya maji
 
 historic-memorial|@tourism
-en:Memorial|monument|attraction|tourism|sights|U+1F5FC|U+1F5FD|U+1F5FF
+en:Memorial|monument|attraction|tourism|U+1F5FC|U+1F5FD|U+1F5FF
 ru:Мемориал|монумент|достопримечательность|туризм
 ar:مبنى او نصب تزكارى
-cs:Pomník|památka|zajímavost|pamětihodnost
-da:Mindesmærke|mindesten|seværdigheder
-nl:Gedenkteken|monument|attractie|toerisme
-fi:3Muistomerkki|nähtävyydet
-fr:Mémorial|monument|attraction|tourisme|site touristique
-de:Denkmal|Gedenkstätte|Sehenswürdigkeit
-hu:3Emlékmű|látnivaló|túrizmus|látványosság
-id:3Tugu peringatan|pemandangan
-it:Memoriale|monumento|turistico
-ja:追悼|1記念碑|観光|追悼碑
-ko:1기념비|관광
-nb:3Minnesmerke|severdigheter
-pl:3Pomnik|osobliwości miasta
-pt:Memorial|monumento|turismo|vistas
-ro:3Comemorare|obiective turistice
-es:Memorial|turismo
-sv:3Minnesmärke|monument|attraktion|turism|sevärdheter
-th:ที่ระลึก|สถานที่ท่องเที่ยว
-tr:Anıt|abide|cazibe merkezleri|turizm|görülecek yerler
+cs:Pomník|památka|zajímavost
+da:Mindesmærke|mindesten
+nl:Gedenkteken|monument|attractie
+fi:3Muistomerkki
+fr:Mémorial|monument|attraction|tourisme
+de:Denkmal|Gedenkstätte
+hu:3Emlékmű|túrizmus|látványosság
+id:3Tugu peringatan
+it:Memoriale|monumento
+ja:追悼|1記念碑|追悼碑
+ko:1기념비
+nb:3Minnesmerke
+pl:3Pomnik
+pt:Memorial|monumento|turismo
+ro:3Comemorare
+es:Memorial
+sv:3Minnesmärke|monument|attraktion|turism
+th:ที่ระลึก
+tr:Anıt|abide|cazibe merkezleri|turizm
 uk:Меморіал|монумент|пам'ятка|туризм|статуя|пам'ятник|пам’ятні місця
-vi:3Đài tưởng niệm|diểm tham quan
+vi:3Đài tưởng niệm
 zh-Hans:纪念馆|景点
 zh-Hant:紀念館|1紀念碑|紀念館|旅遊景點
 el:Επιμνημόσυνο|μνημείο|θέαμα|τουρισμός|αξιοθέατα
-sk:Pomník|pamiatka|atrakcia|zaujímavosť|pamätihodnosť
+sk:Pomník|pamiatka|atrakcia|zaujímavosť
 sw:Makumbusho|kumbukumbu ya kihistoria|kivutio|utalii
 
 historic-monument|@tourism
-en:Monument|attraction|tourism|sights|U+1F5FD|U+1F5FF
+en:Monument|attraction|tourism|U+1F5FD|U+1F5FF
 ru:Памятник|достопримечательность|туризм
 ar:نصب تزكارى
-cs:Zajímavost|pomník|památka|pamětihodnost
-da:Monument|seværdigheder
-nl:Monument|attractie|toerisme
-fi:Monumentti|nähtävyydet
-fr:Monument|attraction|tourisme|site touristique
-de:Monument|Denkmal|Sehenswürdigkeit
-hu:Műemlék|Szobor|túrizmus|látványosság|látnivaló
-id:Monumen|pemandangan
-it:Monumento|turistico
-ja:1記念碑|観光
-ko:1기념탑|관광
-nb:Monument|severdigheter
-pl:3Pomnik historyczny|osobliwości miasta
-pt:Monumento|turismo|vistas
-ro:Monument|obiective turistice
-es:Monumento|turismo
-sv:Monument|attraktion|tursim|sevärdheter
-th:3อนุสาวรีย์|การท่องเที่ยว|สถานที่ท่องเที่ยว
-tr:Abide|cazibe merkezleri|turizm|görülecek yerler
+cs:Zajímavost|pomník|památka
+da:Monument
+nl:Monument|attractie
+fi:Monumentti
+fr:Monument|attraction|tourisme
+de:Monument|Denkmal
+hu:Műemlék|Szobor|túrizmus|látványosság
+id:Monumen
+it:Monumento
+ja:1記念碑
+ko:1기념탑
+nb:Monument
+pl:3Pomnik historyczny
+pt:Monumento|turismo
+ro:Monument
+es:Monumento
+sv:Monument|attraktion|tursim
+th:3อนุสาวรีย์|การท่องเที่ยว
+tr:Abide|cazibe merkezleri|turizm
 uk:Пам'ятник|монумент|статуя|пам'ятка|туризм|пам’ятні місця
-vi:Tượng đài|diểm tham quan
+vi:Tượng đài
 zh-Hans:纪念碑|景点
 zh-Hant:1紀念碑|紀念塔|紀念館|旅遊景點
 el:Μνημείο|θέαμα|τουρισμός|αξιοθέατα
-sk:Zaujímavosť|pamätihodnosť|pomník|pamiatka
+sk:Zaujímavosť|pomník|pamiatka
 sw:Makumbusho|kivutio|utalii
 
 historic-ruins|@tourism
-en:Ruins|attraction|tourism|sights|U+1F5FF
+en:Ruins|attraction|tourism|U+1F5FF
 ru:Руины|развалины|достопримечательность|туризм
-ar:آثار|أماكن الجذب|سياحة|مناظر
-cs:Ruiny|zřícenina|pamětihodnost
-da:Ruiner|bunker|seværdigheder|turisme
-nl:Ruïne|attractie|toerisme
-fi:Rauniot|nähtävyydet
-fr:Ruines|attraction|tourisme|site touristique
-de:Ruinen|Sehenswürdigkeit
-hu:Romok|látnivaló|túrizmus|látványosság
-id:Reruntuhan|pemandangan
-it:Rovine|turistico
-ja:1古跡|古蹟|廃墟|観光|城址|城跡
-ko:1유적|관광
-nb:Ruiner|severdigheter
-pl:3Ruiny|turystyka|osobliwości miasta
-pt:Ruínas|turismo|vistas
-ro:Ruine|obiective turistice
-es:Ruinas|turismo
-sv:Ruiner|attraktion|turism|sevärdheter
-th:ซากปรักหักพัง|สถานที่ท่องเที่ยว|การท่องเที่ยว
-tr:Harabeler|cazibe merkezleri|turizm|görülecek yerler
+ar:آثار|أماكن الجذب|مناظر
+cs:Ruiny|zřícenina
+da:Ruiner|bunker
+nl:Ruïne|attractie
+fi:Rauniot
+fr:Ruines|attraction|tourisme
+de:Ruinen
+hu:Romok|túrizmus|látványosság
+id:Reruntuhan
+it:Rovine
+ja:1古跡|古蹟|廃墟|城址|城跡
+ko:1유적
+nb:Ruiner
+pl:3Ruiny|turystyka
+pt:Ruínas|turismo
+ro:Ruine
+es:Ruinas
+sv:Ruiner|attraktion|turism
+th:ซากปรักหักพัง|การท่องเที่ยว
+tr:Harabeler|cazibe merkezleri|turizm
 uk:Руїни|розвалини|древність|історична пам'ятка|туризм|пам’ятні місця
-vi:Phế tích|diểm tham quan
+vi:Phế tích
 zh-Hans:废墟|景点
 zh-Hant:1廢墟|古蹟|遺址|旅遊景點
 el:Αρχεία|θέαμα|τουρισμός|αξιοθέατα
-sk:Zrúcanina|ruiny|pamätihodnosť
+sk:Zrúcanina|ruiny
 sw:Maeneo ya kale|jengo la kale|chakavu
 
 historic-castle|@tourism
-en:Castle|attraction|tourism|sights|U+1F3EF|U+1F3F0|U+1F451|U+1F478
+en:Castle|attraction|tourism|U+1F3EF|U+1F3F0|U+1F451|U+1F478
 ru:Замок|достопримечательность|туризм
-ar:قلعةأماكن الجذب|سياحة|مناظر
-cs:Zámek|zajímavost|pamětihodnost
-da:Slot|borg|seværdigheder|turisme
-nl:Kasteel|burcht|attractie|toerisme
-fi:Linna|nähtävyydet
-fr:Château|attraction|tourisme|site touristique
-de:Burg|Schloss|Festung|Sehenswürdigkeit
-hu:Kastély|látnivaló|túrizmus|látványosság
-id:Kastel|pemandangan
-it:Castello|turistico
-ja:城|観光|お城|砦|城砦
-ko:대저택|관광
-nb:Slott|severdigheter
-pl:3Zamek|turystyka|zwiedzanie|osobliwości miasta
-pt:Castelo|turismo|vistas
-ro:Castel|obiective turistice
-es:Castillo|turismo
-sv:Slott|attraktion|turism|sevärdheter
-th:ปราสาท|การท่องเที่ยว|สถานที่ท่องเที่ยว
-tr:Kale|cazibe merkezleri|turizm|görülecek yerler
+ar:قلعةأماكن الجذب|مناظر
+cs:Zámek|zajímavost
+da:Slot|borg
+nl:Kasteel|burcht|attractie
+fi:Linna
+fr:Château|attraction|tourisme
+de:Burg|Schloss|Festung
+hu:Kastély|túrizmus|látványosság
+id:Kastel
+it:Castello
+ja:城|お城|砦|城砦
+ko:대저택
+nb:Slott
+pl:3Zamek|turystyka|zwiedzanie
+pt:Castelo|turismo
+ro:Castel
+es:Castillo
+sv:Slott|attraktion|turism
+th:ปราสาท|การท่องเที่ยว
+tr:Kale|cazibe merkezleri|turizm
 uk:Замок|фортеця|мури|туризм|пам'ятка|пам’ятні місця
-vi:Pháo đài|diểm tham quan
+vi:Pháo đài
 zh-Hans:城堡|景点|旅游
 zh-Hant:城堡|堡|古蹟|歷史|旅遊景點
 el:Κάστρο|θέαμα|τουρισμός|αξιοθέατα
-sk:Zámok|atrakcia|pamätihodnosť
+sk:Zámok|atrakcia
 sw:Ngome|kivutio|utalii
 
 historic-archaeological_site|@tourism
-en:Archaeological Site|attraction|tourism|sights
+en:Archaeological Site|attraction|tourism
 ru:Раскопки|достопримечательность|туризм
-ar:موقع أثري|أماكن الجذب|سياحة|مناظر
-cs:Vykopávky|zajímavost|pamětihodnost
-da:Arkæologisk sted|seværdigheder|turisme
-nl:Archeologische site|opgravingen|attractie|toerisme
-fi:Arkeologinen kohde|nähtävyydet
-fr:Site archéologique|attraction|tourisme|site touristique
-de:Ausgrabungen|Sehenswürdigkeit
-hu:Ásatás|látnivaló|túrizmus|látványosság
-id:Situs arkeologi|pemandangan
-it:Sito archeologico|turistico
-ja:1考古遺跡|発掘|観光|発掘現場|考古学|遺跡
-ko:1발굴|관광
-nb:Arkeologisk område|severdigheter
-pl:5Odkrywka archeologiczna|wykopaliska|osobliwości miasta
-pt:Sítio arqueológico|turismo|vistas
-ro:Sit arheologic|obiective turistice
-es:Sitio arqueológico|turismo
-sv:Arkeologisk plats|attraktion|turism|sevärdheter
-th:โบราณสถาน|แหล่งท่องเที่ยว|สถานที่ท่องเที่ยว|การท่องเที่ยว
-tr:Arkeolojik alan|cazibe merkezleri|turizm|görülecek yerler
+ar:موقع أثري|أماكن الجذب|مناظر
+cs:Vykopávky|zajímavost
+da:Arkæologisk sted
+nl:Archeologische site|opgravingen|attractie
+fi:Arkeologinen kohde
+fr:Site archéologique|attraction|tourisme
+de:Ausgrabungen
+hu:Ásatás|túrizmus|látványosság
+id:Situs arkeologi
+it:Sito archeologico
+ja:1考古遺跡|発掘|発掘現場|考古学|遺跡
+ko:1발굴
+nb:Arkeologisk område
+pl:5Odkrywka archeologiczna|wykopaliska
+pt:Sítio arqueológico|turismo
+ro:Sit arheologic
+es:Sitio arqueológico
+sv:Arkeologisk plats|attraktion|turism
+th:โบราณสถาน|แหล่งท่องเที่ยว|การท่องเที่ยว
+tr:Arkeolojik alan|cazibe merkezleri|turizm
 uk:Розкопки|історична пам'ятка|туризм|пам’ятні місця
-vi:Điểm khảo cổ|diểm tham quan
+vi:Điểm khảo cổ
 zh-Hans:考古遗址|旅游|景点
 zh-Hant:1考古遺址|考古|遺址|古蹟|歷史|旅遊景點
 el:Αρχαιολογικός χώρος|θέαμα|τουρισμός|αξιοθέατα
-sk:Vykopávky|pamätihodnosť
+sk:Vykopávky
 sw:Machimbo ya kihistoria|kivutio|utalii
 
 leisure-garden|@tourism
-en:2Garden|sights
+en:2Garden
 ru:2Сад|достопримечательность
-ar:بستان|مناظر|سياحة
-cs:2Zahrada|zajímavost|pamětihodnost
-da:2Have|seværdigheder
-nl:2Tuin|toerisme
-fi:Puutarha|nähtävyydet
-fr:2Jardin|site touristique
-de:2Garten|Sehenswürdigkeit
-hu:2Kert|látnivaló
-id:Situs arkeologi|pemandangan
-it:2Giardino|turistico
-ja:1庭園|庭|園|観光
-ko:1정원|관광
-nb:Hage|severdigheter
-pl:2Ogród|osobliwości miasta
-pt:2Jardim|vistas
-ro:Sit arheologic|obiective turistice
-es:2Jardín|turismo
-sv:2Trädgård|sevärdheter
-th:2สวน|สถานที่ท่องเที่ยว
-tr:2Bahçe|görülecek yerler
+ar:بستان|مناظر
+cs:2Zahrada|zajímavost
+da:2Have
+nl:2Tuin
+fi:Puutarha
+fr:2Jardin
+de:2Garten
+hu:2Kert
+id:Situs arkeologi
+it:2Giardino
+ja:1庭園|庭|園
+ko:1정원
+nb:Hage
+pl:2Ogród
+pt:2Jardim
+ro:Sit arheologic
+es:2Jardín
+sv:2Trädgård
+th:2สวน
+tr:2Bahçe
 uk:2Садок|пам’ятні місця
-vi:Điểm khảo cổ|diểm tham quan
+vi:Điểm khảo cổ
 zh-Hans:2花园|景点
 zh-Hant:1花園|旅遊景點
 el:Κήπος|αξιοθέατα
-sk:2Záhrada|pamätihodnosť
+sk:2Záhrada
 sw:Bustani
 
 amenity-bench
@@ -2600,158 +2574,152 @@ sk:3Autopožičovňa|požičovňa áut
 sw:Kodi ya gari|gari|kodi
 
 amenity-cinema|@entertainment
-en:3Cinema|entertainment|U+1F3A6|U+1F3AC
+en:3Cinema|U+1F3A6|U+1F3AC
 ru:Кинотеатр|3кино|развлечения
-ar:سينيما|التسلية
-cs:3Kino|biograf|zábava
+ar:سينيما
+cs:3Kino|biograf
 da:3Biograf
-nl:3Bioscoop|cinema|uitgaan
-fi:Elokuvateatteri|viihde
-fr:3Cinéma|divertissement
-de:3Kino|Cinema|Filmtheater|Lichtspielhaus|Unterhaltung
-hu:3Mozi|szórakozás
-id:Bioskop|hiburan
-it:3Cinema|teatro|divertimento
-ja:1映画館|シネマ|エンターテイメント|映画
-ko:1영화|엔터테인먼트
-nb:Kino|underholdning
-pl:3Kino|filmy|rozrywka
-pt:3Cinema|entretenimento
-ro:Cinema|divertisment
-es:3Cine|entretenimiento
-sv:3Bio|underhållning
-th:3โรงภาพยนตร์|แหล่งบันเทิง
-tr:3Sinema|eğlence
+nl:3Bioscoop|cinema
+fi:Elokuvateatteri
+fr:3Cinéma
+de:3Kino|Cinema|Filmtheater|Lichtspielhaus
+hu:3Mozi
+id:Bioskop
+it:3Cinema|teatro
+ja:1映画館|シネマ|映画
+ko:1영화
+nb:Kino
+pl:3Kino|filmy
+pt:3Cinema
+ro:Cinema
+es:3Cine
+sv:3Bio
+th:3โรงภาพยนตร์
+tr:3Sinema
 uk:3Кіно|кінотеатр|розваги
-vi:Rạp chiếu phim|giải trí
+vi:Rạp chiếu phim
 zh-Hans:1电影院|娱乐
 zh-Hant:1電影院|電影|娛樂
 el:Κινηματογράφος|ψυχαγωγία
-sk:3Kino|zábava
+sk:3Kino
 sw:Sinema|burudani
 
 amenity-theatre|@entertainment
-en:3Theatre|theater|entertainment|U+1F3AD
+en:3Theatre|theater|U+1F3AD
 ru:3Театр|развлечения
-ar:مسرح|التسلية
-cs:3Divadlo|zábava
+ar:مسرح
+cs:3Divadlo
 da:3Teater
-nl:3Theater|schouwburg|uitgaan
-fi:Teatteri|viihde
-fr:3Théâtre|divertissement
-de:3Theater|Unterhaltung
-hu:3Színház|szórakozás
-id:Teater|hiburan
-it:3Teatro|divertimento
-ja:1劇場|エンターテイメント|シアター
-ko:1연극|엔터테인먼트
-nb:Teater|underholdning
-pl:3Teatr|rozrywka
-pt:3Teatro|entretenimento
-ro:Teatru|divertisment
-es:3Teatro|entretenimiento
-sv:3Teater|teater|underhållning
-th:3โรงละคร|แหล่งบันเทิง
-tr:3Tiyatro|eğlence
+nl:3Theater|schouwburg
+fi:Teatteri
+fr:3Théâtre
+de:3Theater
+hu:3Színház
+id:Teater
+it:3Teatro
+ja:1劇場|シアター
+ko:1연극
+nb:Teater
+pl:3Teatr
+pt:3Teatro
+ro:Teatru
+es:3Teatro
+sv:3Teater|teater
+th:3โรงละคร
+tr:3Tiyatro
 uk:3Театр|розваги
-vi:Điểm trú ẩn|giải trí
+vi:Điểm trú ẩn
 zh-Hans:1剧院|娱乐
 zh-Hant:1劇場|戲院|劇院|娛樂
 el:Θέατρο|θέατρο|ψυχαγωγία
-sk:3Divadlo|zábava
+sk:3Divadlo
 sw:Thieta|burudani|maonyesho
 
 amenity-nightclub|@entertainment
-en:3Nightclub|night club|3disco|dance|entertainment|U+1F378|U+1F379|U+1F46F|U+1F483
+en:3Nightclub|night club|3disco|dance|U+1F378|U+1F379|U+1F46F|U+1F483
 ru:3Ночной клуб|3дискотека|развлечения
-ar:نادي ليلي|رقص|التسلية
-cs:4Noční klub|3disco|3klub|zábava
+ar:نادي ليلي|رقص
+cs:4Noční klub|3disco|3klub
 da:3Natklub|dans|danseklub
-nl:3Discotheek|3disco|dansen|uitgaan
-fi:Yökerho|viihde
-fr:3Discothèque|3boîte de nuit|danse|divertissement
-de:3Nachtclub|Nachtklub|Unterhaltung
-hu:3Éjszakai mulató|3diszkó|tánc|szórakozás
-id:Kelab malam|hiburan
-it:3Night club|divertimento
-ja:1ナイトクラブ|クラブ|ダンス|エンターテイメント
-ko:1나이트 클럽|엔터테인먼트
-nb:Nattklubb|underholdning
-pl:3Dyskoteka|klub nocny|rozrywka
-pt:3Discoteca|3dançar|entretenimento
-ro:Club de noapte|divertisment
-es:3Discoteca|nightclub|night club|entretenimiento
-sv:3Nattklubb|3disco|dans|underhållning
-th:3ไนต์คลับ|การเต้นรำ|แหล่งบันเทิง
-tr:3Gece kulübü|dans|eğlence
+nl:3Discotheek|3disco|dansen
+fi:Yökerho
+fr:3Discothèque|3boîte de nuit|danse
+de:3Nachtclub|Nachtklub
+hu:3Éjszakai mulató|3diszkó|tánc
+id:Kelab malam
+it:3Night club
+ja:1ナイトクラブ|クラブ|ダンス
+ko:1나이트 클럽
+nb:Nattklubb
+pl:3Dyskoteka|klub nocny
+pt:3Discoteca|3dançar
+ro:Club de noapte
+es:3Discoteca|nightclub|night club
+sv:3Nattklubb|3disco|dans
+th:3ไนต์คลับ|การเต้นรำ
+tr:3Gece kulübü|dans
 uk:3Нічний клуб|3дискотека|розваги
-vi:Câu lạc bộ đêm|giải trí
+vi:Câu lạc bộ đêm
 zh-Hans:3夜总会|娱乐
 zh-Hant:1夜店|2俱樂部|酒|喝酒|跳舞|舞|2夜生活|娛樂
 el:Νυχτερινό κέντρο διασκέδασης|ντίσκο|χορός|ψυχαγωγία
-sk:4Nočný klub|3disco|3nightclub|night club|zábava
+sk:4Nočný klub|3disco|3nightclub|night club
 sw:Ukumbi wa starehe|klabu|burudani
 
 amenity-brothel|@entertainment
-en:Brothel|entertainment|U+1F3E9
+en:Brothel|U+1F3E9
 ru:Бордель|развлечения
 ar:دعارة|لتسلية
-cs:Nevěstinec|zábava
-da:Bordel|underholdning
-nl:Bordeel|uitgaan
-fi:Bordelli|viihde
-fr:Maison de prostitution|divertissement
-de:Bordell|Unterhaltung
-hu:Bordélyház|szórakozás
-id:Hiburan
-it:Bordello|divertimento
-ja:売春宿|エンターテイメント
-ko:유곽|엔터테인먼트
-nb:Bordell|underholdning
-pl:Burdel|rozrywka
-pt:Bordel|entretenimento
-ro:Divertisment
-es:Burdel|entretenimiento
-sv:Bordell|underhållning
-th:ซ่อง|แหล่งบันเทิง
-tr:Genelev|eğlence
+cs:Nevěstinec
+da:Bordel
+nl:Bordeel
+fi:Bordelli
+fr:Maison de prostitution
+de:Bordell
+hu:Bordélyház
+it:Bordello
+ja:売春宿
+ko:유곽
+nb:Bordell
+pl:Burdel
+pt:Bordel
+es:Burdel
+sv:Bordell
+th:ซ่อง
+tr:Genelev
 uk:Бордель|розваги
-vi:Giải trí
 zh-Hans:妓院|娱乐
 zh-Hant:妓院|娛樂
 el:Πορνείο|ψυχαγωγία
-sk:Nevestinec|verejný dom|zábava
+sk:Nevestinec|verejný dom
 sw:Danguro
 
 amenity-casino|@entertainment
-en:Casino|entertainment|U+1F3B0|U+1F3B2|U+1F3B4
+en:Casino|U+1F3B0|U+1F3B2|U+1F3B4
 ru:Казино|развлечения
 ar:اكازينو|لتسلية
-cs:Casino|zábava
-da:Kasino|underholdning
-nl:Casino|goktent|uitgaan
-fi:Casino|viihde
-fr:Casino|divertissement
-de:Casino|Kasino|Spielkasino|Spielhalle|Unterhaltung
-hu:Kaszinó|szórakozás
-id:Hiburan
-it:Casinò|divertimento
-ja:カジノ|エンターテイメント
-ko:카지노|엔터테인먼트
-nb:Kasino|underholdning
-pl:Kasyno|rozrywka
-pt:Casino|entretenimento
-ro:Divertisment
-es:Casino|entretenimiento
-sv:Kasino|underhållning
-th:คาสิโน|แหล่งบันเทิง
-tr:Casino|eğlence
+cs:Casino
+da:Kasino
+nl:Casino|goktent
+fi:Casino
+fr:Casino
+de:Casino|Kasino|Spielkasino|Spielhalle
+hu:Kaszinó
+it:Casinò
+ja:カジノ
+ko:카지노
+nb:Kasino
+pl:Kasyno
+pt:Casino
+es:Casino
+sv:Kasino
+th:คาสิโน
+tr:Casino
 uk:Казино|розваги
-vi:Giải trí
 zh-Hans:赌场|娱乐
 zh-Hant:賭場|娛樂
 el:Καζίνο|ψυχαγωγία
-sk:Kasíno|zábava
+sk:Kasíno
 sw:Kasino|burudani
 
 amenity-college
@@ -2958,7 +2926,6 @@ sv:klinik|3läkare
 th:3โรงพยาบาล|แพทย์
 tr:3klinik|doktor
 uk:клініка|лікар|травмпункт
-vi:Bệnh viện
 zh-Hans:诊所|医生
 zh-Hant:醫生|診所|醫療|診療
 el:κλινική|γιατρός
@@ -3147,34 +3114,18 @@ sk:3Knižnica
 sw:Maktaba
 
 amenity-parking|@parking
-en:3Parking|U+1F697|U+1F17F|U+1F698|U+1F699
-ru:3Парковка
-ar:الاصطفاف
-cs:3Parkoviště
+en:U+1F697|U+1F17F|U+1F698|U+1F699
 da:3Parkeringsplads
-nl:3Parkeerplaats|parking
-fi:3Parkkipaikka
-fr:3Stationnement|3parking
-de:3Parkplatz|Parking
-hu:3Parkoló
-id:3Parkir
-it:3Parcheggio
-ja:1駐車場|パーキング|コインパーキング
-ko:1주차
-nb:3Parkering
-pl:3Parking
+nl:parking
+fr:3parking
+de:Parking
+ja:パーキング|コインパーキング
 pt:3Parking
-ro:3Parcare
-es:3Estacionamiento|3aparcamiento
-sv:3Parkering
-th:3ที่จอดรถ
-tr:3Otopark
-uk:3Парковка|автостоянка|паркінг
+es:3aparcamiento
+uk:автостоянка|паркінг
 vi:Đỗ xe
 zh-Hans:1停车
 zh-Hant:1停車場|停車|泊車
-el:Χώρος στάθμευσης
-sk:3Parkovisko
 sw:Maegesho
 
 @pharmacy
@@ -3506,7 +3457,7 @@ pl:wc|ubikacja|wychodek
 es:3Baños|servicios sanitarios|3lavabo|inodoro|baño|wc
 vi:Nhà vệ sinh
 zh-Hant:2洗手間|wc
-el:Τουαλέτα|μπάνιο|χώρος ανάγκης|αποχωρητήριο|wc
+el:μπάνιο|χώρος ανάγκης|αποχωρητήριο|wc
 sk:3Toalety|wc
 
 amenity-university
@@ -4341,127 +4292,121 @@ sk:Park
 sw:Mbuga
 
 tourism-hostel|@hotel
-en:3Hostel|hotel|motel|U+1F3E8
+en:3Hostel|motel|U+1F3E8
 ru:3Хостел|гостиница|отель|мотель
-ar:نزُل|فندق|فندق رخيص|الفندق
-cs:3Hostel|hotel|ubytovna|motel
-da:3Hostel|kro|vandrerhjem|hotel|motel|herberg
-nl:3Hostel|jeugdherberg|hotel|motel
-fi:Hostelli|hotelli
-fr:3Auberge de jeunesse|hôtel|motel
+ar:نزُل|فندق|فندق رخيص
+cs:3Hostel|ubytovna|motel
+da:3Hostel|kro|vandrerhjem|motel|herberg
+nl:3Hostel|jeugdherberg|motel
+fi:Hostelli
+fr:3Auberge de jeunesse|motel
 de:3Herberge|Hostel|Gasthaus|Unterkunft
-hu:3Hostel|szálloda|szállás
-id:Hostel|hotel
+hu:3Hostel|szállás
+id:Hostel
 it:3Ostello
-ja:1ホステル|宿泊|宿|ホテル|民宿
+ja:1ホステル|宿泊|宿|民宿
 ko:1호스텔
-nb:Vandrerhjem|hotell
-pl:4Hostel|4hotel|4motel
-pt:3Hostel|3Pousada|4hotel|motel|Albergue
-ro:Hostel|hotel
+nb:Vandrerhjem
+pl:4Hostel|4motel
+pt:3Hostel|3Pousada|motel|Albergue
+ro:Hostel
 es:3Albergue juvenil|4residencia
-sv:3Vandrarhem|hotell|motell
-th:3หอพัก|โรงแรม|โมเทล
-tr:3Pansiyon|otel|motel
+sv:3Vandrarhem|motell
+th:3หอพัก|โมเทล
+tr:3Pansiyon|motel
 uk:3Хостел|отель|мотель|вітальниця|готель
-vi:Nhà trọ|khách sạn
+vi:Nhà trọ
 zh-Hans:2旅馆|旅店
 zh-Hant:1旅舍|旅館|青年旅舍|青年旅館|住宿|飯店|3汽車旅館|3motel
 el:Πανδοχείο|ξενοδοχείο|μοτέλ
-sk:3Hostel|hotel|ubytovňa|motel
+sk:3Hostel|ubytovňa|motel
 sw:Bweni
 
 tourism-hotel|@hotel
-en:2Hotel|motel|U+1F3E8|U+1F62A|U+1F634
-ru:2Гостиница|2отель|мотель
-ar:فندق|فندق رخيص|الفندق
-cs:2Hotel|ubytovna|motel
-da:2Hotel|motel
-nl:2Hotel|motel
-fi:Hotelli
-fr:2Hôtel|motel
-de:2Hotel|Gasthaus
-hu:3Szálloda|hotel|szállás
-id:Hotel
-it:2Hôtel|albergo
-ja:1ホテル|宿|宿泊|旅館
-ko:1호텔
-nb:Hotell
-pl:3Hotel|motel
-pt:3Hotel|motel
-ro:Hotel
-es:2Hotel|residencia
-sv:2Hotell|motell
-th:3โรงแรม|โมเทล
-tr:2Otel|motel
-uk:2Готель|мотель
-vi:Khách sạn
+en:motel|U+1F3E8|U+1F62A|U+1F634
+ru:2отель|мотель
+ar:فندق|فندق رخيص
+cs:ubytovna|motel
+da:motel
+nl:motel
+fr:motel
+de:Gasthaus
+hu:hotel|szállás
+it:albergo
+ja:宿|宿泊|旅館
+pl:motel
+pt:motel
+es:residencia
+sv:motell
+th:โมเทล
+tr:motel
+uk:мотель
 zh-Hans:2宾馆|汽车旅馆|旅店
 zh-Hant:1飯店|1汽車旅館|旅館|住宿|賓館|酒店|招待所
-el:Ξενοδοχείο|μοτέλ
-sk:2Hotel|ubytovňa|motel
+el:μοτέλ
+sk:ubytovňa|motel
 sw:Hoteli
 
 tourism-guest_house|@hotel
-en:Guest House|hotel|hostel|U+1F3E8
+en:Guest House|hostel|U+1F3E8
 ru:Гостевой дом|гостиница|отель|хостел
-ar:دار الضيافة|فندق|نزُل|الفندق
-cs:Penzion|hotel|hostel|ubytovna
-da:Gæstehus|gæstehjem|hotel|hostel
-nl:Gasthuis|hotel|B&B|bed and breakfast|hostel
-fi:Majatalo|hotelli
-fr:Maison d'hôtes|hôtel|auberge de jeunesse
-de:Gästehaus|Hotel|Wohnheim|Unterkunft
-hu:Vendégház|hotel|szálloda
-id:Wisma tamu|hotel
-it:Guest house|hôtel|albergo|ostello
-ja:1ゲストハウス|ホテル|ホステル|民宿
-ko:1영빈관|호텔|호스텔
-nb:Gjestehus|hotell
-pl:4Pensjonat|hotel|hostel|gościnne pokoje
+ar:دار الضيافة|فندق|نزُل
+cs:Penzion|hostel|ubytovna
+da:Gæstehus|gæstehjem|hostel
+nl:Gasthuis|B&B|bed and breakfast|hostel
+fi:Majatalo
+fr:Maison d'hôtes|auberge de jeunesse
+de:Gästehaus|Wohnheim|Unterkunft
+hu:Vendégház|hotel
+id:Wisma tamu
+it:Guest house|albergo|ostello
+ja:1ゲストハウス|ホステル|民宿
+ko:1영빈관|호스텔
+nb:Gjestehus
+pl:4Pensjonat|hostel|gościnne pokoje
 pt:Casa de hóspedes|pousada|motel
-ro:Pensiune|hotel
-es:Casa de huéspedes|hotel|albergue juvenil|residencia
-sv:Gästhus|hotell|vandrarhem
+ro:Pensiune
+es:Casa de huéspedes|albergue juvenil|residencia
+sv:Gästhus|vandrarhem
 th:3เกสท์เฮ้าส์|โรงแรม์|์โรงแรม
-tr:Misafir evi|pansiyon|otel
+tr:Misafir evi|pansiyon
 uk:Гостинний дім|готель|хостел|постояльний двір
-vi:Nhà khách|khách sạn
+vi:Nhà khách
 zh-Hans:1招待所์|์旅馆์|์旅社|旅店
 zh-Hant:1賓館|旅館|飯店|酒店|旅舍|住宿|招待所
 el:Ξενώνας|ξενοδοχείο|ξενώνας
-sk:Penzión|hotel|hostel|ubytovňa
+sk:Penzión|hostel|ubytovňa
 sw:Gesti
 
 tourism-motel|@hotel
-en:3Motel|hotel|hostel|U+1F3E8
+en:3Motel|hostel|U+1F3E8
 ru:3Мотель|гостиница|отель|хостел
-ar:فندق رخيص|فندق|نزُل|الفندق
-cs:3Motel|penzion|hotel|hostel|ubytovna
-da:Motel|hotel|hostel
-nl:3Motel|hotel|hostel
-fi:Motelli|hotelli
-fr:3Motel|hôtel|auberge de jeunesse
-de:3Motel|Hotel|Gasthaus|Wohnheim
-hu:3Motel|szálloda|szállás
-id:Motel|hotel
-it:3Motel|hôtel|albergo|ostello
-ja:1モーテル|ホテル
-ko:1모텔|호텔|호스텔
-nb:Motell|hotell
-pl:3Motel|hotel|hostel
+ar:فندق رخيص|فندق|نزُل
+cs:3Motel|penzion|hostel|ubytovna
+da:Motel|hostel
+nl:3Motel|hostel
+fi:Motelli
+fr:3Motel|auberge de jeunesse
+de:3Motel|Gasthaus|Wohnheim
+hu:3Motel|szállás
+id:Motel
+it:3Motel|albergo|ostello
+ja:1モーテル
+ko:1모텔|호스텔
+nb:Motell
+pl:3Motel|hostel
 pt:3Motel|3Pousada
-ro:Motel|hotel
-es:3Motel|hotel|albergue juvenil|residencia
-sv:3Motell|hotell|vandrarhem
-th:3โมเทล|โรงแรม|หอพัก
-tr:3Motel|pansiyon|otel
+ro:Motel
+es:3Motel|albergue juvenil|residencia
+sv:3Motell|vandrarhem
+th:3โมเทล|หอพัก
+tr:3Motel|pansiyon
 uk:3Мотель|готель|хостел
-vi:Nhà nghỉ|khách sạn
+vi:Nhà nghỉ
 zh-Hans:1汽车旅馆|旅店
 zh-Hant:1汽車旅館|3motel|旅館|飯店|住宿|
 el:Μοτέλ|ξενοδοχείο|ξενώνας
-sk:3Motel|penzión|hotel|hostel|ubytovňa
+sk:3Motel|penzión|hostel|ubytovňa
 
 tourism-alpine_hut
 en:Mountains Lodging|hotel|hostel|alpine hut|U+1F3E8
@@ -4546,7 +4491,7 @@ ro:Aeroport
 es:3Aeropuerto|3avión
 sv:3Flygplats|3flygplan
 th:3สนามบิน|เครื่องบิน
-tr:3Havaalanıuçak|
+tr:3Havaalanıuçak
 uk:3Аеропорт|літак|аеродром|рейс
 vi:Sân bay
 zh-Hans:机场|飞机
@@ -4651,7 +4596,7 @@ sw:Viwanja vya michezo
 leisure-golf_course
 en:Golf Course|sport|U+26F3
 ru:Площадка для гольфа|спорт
-ar:ملعب جولف|
+ar:ملعب جولف
 cs:Golf
 da:Golf|golfbane
 nl:Golfbaan|sport
@@ -4875,7 +4820,6 @@ th:อ่าว
 tr:Koy
 uk:Затока
 vi:Vịnh
-zh-Hans:
 zh-Hant:1海灣|灣|灣區
 el:Κόλπος
 sk:Záliv
@@ -5032,7 +4976,8 @@ vi:Văn phòng
 zh-Hans:办公室|公司
 zh-Hant:辦公室|1辦事處
 sk:Kancelária|úrad
-el:Γραφείο|εταιρεία|sk:Kancelária|úrad
+el:Γραφείο|εταιρεία
+sk:Kancelária|úrad
 sw:Ofisi|kampuni
 
 office-company
@@ -5605,7 +5550,7 @@ nl:3^Internet
 fi:3^Internet
 fr:3^Internet
 de:3^Internet|Internetzugang
-hu:WiFi|3^Internet
+hu:3^Internet
 id:3^Internet
 it:3^Internet
 ja:3^インターネット|WiFi|3Internet
@@ -5746,34 +5691,34 @@ el:Φωτοτυπείο|Εκτυπωτής
 sk:Kopírovacie služby|Tlačiarne
 
 shop-photo|@shop
-en:Photo Shop|frames|shop
+en:Photo Shop|frames
 ru:Фототовары|магазин
 ar:محل صور|إطارات|محل
-cs:Fotografický obchod|rámy|obchod
-da:Fotobutik|rammer|butik
-nl:Fotowinkel|kaders|winkel
-fi:Valokuvakauppa|kehykset|kauppa
-fr:Matériel de photographie|Cadres|Boutique|magasin
-de:Fotofachgeschäft|Rahmen|Geschäft
-hu:Fénykép üzlet|keretek|üzlet|bolt
-id:Studio Foto|bingkai|toko
-it:Negozio di fotografia|cornici|negozio
-ja:写真屋|フレーム|店|買い物
+cs:Fotografický obchod|rámy
+da:Fotobutik|rammer
+nl:Fotowinkel|kaders
+fi:Valokuvakauppa|kehykset
+fr:Matériel de photographie|Cadres|Boutique
+de:Fotofachgeschäft|Rahmen
+hu:Fénykép üzlet|keretek|üzlet
+id:Studio Foto|bingkai
+it:Negozio di fotografia|cornici
+ja:写真屋|フレーム|店
 ko:사진 상점|프레임|상점
-nb:Fotobutikk|ramer|butikk
-pl:Fotograf|zdjęcia|punkt|sklep
-pt:Artigos para fotografia|molduras|comércio|compras
-ro:Centru fotografii|cadre|magazin
-es:Artículos de fotografía|tienda
-sv:Fotoaffär|ramar|butik
+nb:Fotobutikk|ramer
+pl:Fotograf|zdjęcia|punkt
+pt:Artigos para fotografia|molduras|comércio
+ro:Centru fotografii|cadre
+es:Artículos de fotografía
+sv:Fotoaffär|ramar
 th:ร้านถ่ายภาพ|กรอบ|ร้าน
-tr:Fotoğrafçı|çerçeve|mağaza
+tr:Fotoğrafçı|çerçeve
 uk:Фототовари|магазин|крамниця
-vi:Hiệu Ảnh|khung ảnh|cửa hàng
+vi:Hiệu Ảnh|khung ảnh
 zh-Hans:照片店|画框|商店
 zh-Hant:照片店|畫框|商店
 el:Φωτογραφείο|πλαίσια|κατάστημα
-sk:Fotografické služby|Rámovanie|Obchod
+sk:Fotografické služby|Rámovanie
 
 shop-travel_agency
 en:Travel Agency|tours
@@ -5806,34 +5751,34 @@ el:Ταξιδιωτικό γραφείο|Περιηγήσεις
 sk:Cestovná kancelária|Zájazdy
 
 shop-outdoor|@shop
-en:Outdoor Equipment|trekking|climbing|camping|shop
+en:Outdoor Equipment|trekking|climbing|camping
 ru:Магазин снаряжения|туристический магазин|магазин
 ar:معدات خارجية|ترحال|تسلق|تخييم|محل
-cs:Venkovní vybavení|trekking|lezení|kempování|obchod
-da:Fritidsudstyr|vandring|klatring|camping|butik
-nl:Outdooruitrusting|trekking|klimmen|kamperen|winkel
-fi:Ulkoiluvarusteet|vaellus|kiipeily|retkeily|kauppa
-fr:Matériel de loisirs de plein air|Randonnée|Escalade|Camping|Magasin
-de:Outdoor-Ausrüstung|Trekking|Klettern|Camping|Geschäft
-hu:Kültéri felszerelés|trekking|mászás|kemping|üzlet|bolt
-id:Peralatan Outdoor|lintas alam|mendaki|kemah|toko
-it:Attrezzatura sportiva|trekking|arrampicata|campeggio|negozio
-ja:アウトドア用品|トレッキング|クライミング|店|買い物
+cs:Venkovní vybavení|trekking|lezení|kempování
+da:Fritidsudstyr|vandring|klatring|camping
+nl:Outdooruitrusting|trekking|klimmen|kamperen
+fi:Ulkoiluvarusteet|vaellus|kiipeily|retkeily
+fr:Matériel de loisirs de plein air|Randonnée|Escalade|Camping
+de:Outdoor-Ausrüstung|Trekking|Klettern|Camping
+hu:Kültéri felszerelés|trekking|mászás|kemping|üzlet
+id:Peralatan Outdoor|lintas alam|mendaki|kemah
+it:Attrezzatura sportiva|trekking|arrampicata|campeggio
+ja:アウトドア用品|トレッキング|クライミング|店
 ko:야외 장비|트래킹|등반|캠핑|상점
-nb:Fritidsutstyr|vandring|klatring|camping|butikk
-pl:Sprzęt turystyczny|wędrowanie|wspinaczka|camping|sklep
-pt:Equipamentos esportivos|caminhada|escalada|camping|comércio|compras
-ro:Echipament de exterior|trekking|cățărare|campare|magazin
-es:Equipamiento|tienda
-sv:Fritidsutrustning|vandring|klättring|camping|butik
+nb:Fritidsutstyr|vandring|klatring|camping
+pl:Sprzęt turystyczny|wędrowanie|wspinaczka|camping
+pt:Equipamentos esportivos|caminhada|escalada|camping|comércio
+ro:Echipament de exterior|trekking|cățărare|campare
+es:Equipamiento
+sv:Fritidsutrustning|vandring|klättring|camping
 th:อุปกรณ์กลางแจ้ง|เดินป่า|ปีนเขา|ตั้งแคมป์|ร้าน
-tr:Dış Mekan Ekipmanları|yürüyüş|tırmanma|kamp|mağaza
+tr:Dış Mekan Ekipmanları|yürüyüş|tırmanma|kamp
 uk:Спорядження|магазин|крамниця
-vi:Thiết bị Ngoài trời|dã ngoại|leo|cắm trại|cửa hàng
+vi:Thiết bị Ngoài trời|dã ngoại|leo|cắm trại
 zh-Hans:室外设备|远足|攀岩|野营|商店
 zh-Hant:室外設備|遠足|攀巖|野營|商店
 el:Υπαίθριος εξοπλισμός|πεζοπορία|αναρρίχηση|κάμπινγκ|κατάστημα
-sk:Outdoorové vybavenie|Treking|Lezenie|Kempy|obchod
+sk:Outdoorové vybavenie|Treking|Lezenie|Kempy
 
 shop-dry_cleaning
 en:Dry Cleaning|cleaning
@@ -5865,35 +5810,35 @@ zh-Hant:乾洗|清潔
 el:Στεγνό καθάρισμα|καθαρισμός
 sk:Čistiareň|čistenie
 
-shop-tyre|@shop
-en:Tyre Shop|shop
+shop-tyres|@shop
+en:Tyre Shop
 ru:Магазин шин|магазин
 ar:محل إطارات|محل
-cs:Obchod s pneumatikami|obchod
-da:Dækforretning|butik
-nl:Bandenwinkel|winkel
-fi:Rengasliike|kauppa
-fr:Magasin de pneus|Magasin
-de:Reifen-Shop|Geschäft
-hu:Gumi szaküzlet|üzlet|bolt
-id:Toko Ban|toko
-it:Gommista|negozio
-ja:タイヤ専門店|ショップ|買い物
+cs:Obchod s pneumatikami
+da:Dækforretning
+nl:Bandenwinkel
+fi:Rengasliike
+fr:Magasin de pneus
+de:Reifen-Shop
+hu:Gumi szaküzlet|üzlet
+id:Toko Ban
+it:Gommista
+ja:タイヤ専門店|ショップ
 ko:타이어 상점|상점
-nb:Dekkforretning|butikk
+nb:Dekkforretning
 pl:Wulkanizacja|punkt
-pt:Borracheiro|comércio|compras
-ro:Magazin anvelope|magazin
-es:Tienda de neumáticos|tienda
-sv:Däckaffär|butik
-th:ร้านยาง|ร้านค้า
+pt:Borracheiro|comércio
+ro:Magazin anvelope
+es:Tienda de neumáticos
+sv:Däckaffär
+th:ร้านยาง
 tr:Tekerlekçi|dükkanı
 uk:Магазин шин|магазин|крамниця
-vi:Cửa hàng Lốp|cửa hàng
+vi:Cửa hàng Lốp
 zh-Hans:轮胎店|商店
 zh-Hant:輪胎店|商店
 el:Κατάστημα ελαστικών|κατάστημα
-sk:Obchod s pneumatikami|obchod
+sk:Obchod s pneumatikami
 
 amenity-car_wash
 en:Car Wash
