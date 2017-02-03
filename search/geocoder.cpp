@@ -94,6 +94,10 @@ struct ScopedMarkTokens
 
   ~ScopedMarkTokens()
   {
+#if defined(DEBUG)
+    for (size_t i : m_range)
+      ASSERT(m_usedTokens[i], (i));
+#endif
     fill(m_usedTokens.begin() + m_range.m_begin, m_usedTokens.begin() + m_range.m_end,
          false /* used */);
   }
