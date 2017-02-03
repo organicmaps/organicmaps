@@ -620,7 +620,7 @@ line|z16-[barrier=retaining_wall],
 line|z16-[barrier=hedge],
 line|z16-[barrier=fence],
 line|z16-[historic=citywalls],
-{fill-color: @fence;opacity: 1;}
+{color: @fence;opacity: 1;}
 
 line|z16[barrier=wall],
 line|z16[barrier=city_wall],

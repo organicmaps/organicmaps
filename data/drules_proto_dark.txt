@@ -8173,7 +8173,7 @@ cont {
     scale: 16
     lines {
       width: 0.7
-      color: 2147483648
+      color: 2151957572
       dashdot {
         dd: 1.0
         dd: 1.0
@@ -8181,17 +8181,13 @@ cont {
       priority: 1463
       join: ROUNDJOIN
       cap: ROUNDCAP
-    }
-    area {
-      color: 4473924
-      priority: 1464
     }
   }
   element {
     scale: 17
     lines {
       width: 1.0
-      color: 1291845632
+      color: 1296319556
       dashdot {
         dd: 1.0
         dd: 1.0
@@ -8199,17 +8195,13 @@ cont {
       priority: 1463
       join: ROUNDJOIN
       cap: ROUNDCAP
-    }
-    area {
-      color: 4473924
-      priority: 1464
     }
   }
   element {
     scale: 18
     lines {
       width: 1.4
-      color: 1291845632
+      color: 1296319556
       dashdot {
         dd: 1.0
         dd: 1.0
@@ -8217,17 +8209,13 @@ cont {
       priority: 1463
       join: ROUNDJOIN
       cap: ROUNDCAP
-    }
-    area {
-      color: 4473924
-      priority: 1464
     }
   }
   element {
     scale: 19
     lines {
       width: 1.4
-      color: 1291845632
+      color: 1296319556
       dashdot {
         dd: 1.0
         dd: 1.0
@@ -8235,10 +8223,6 @@ cont {
       priority: 1463
       join: ROUNDJOIN
       cap: ROUNDCAP
-    }
-    area {
-      color: 4473924
-      priority: 1464
     }
   }
 }
@@ -8311,7 +8295,7 @@ cont {
     scale: 16
     lines {
       width: 0.7
-      color: 2147483648
+      color: 2151957572
       dashdot {
         dd: 1.0
         dd: 1.0
@@ -8319,17 +8303,13 @@ cont {
       priority: 1463
       join: ROUNDJOIN
       cap: ROUNDCAP
-    }
-    area {
-      color: 4473924
-      priority: 1464
     }
   }
   element {
     scale: 17
     lines {
       width: 1.0
-      color: 1291845632
+      color: 1296319556
       dashdot {
         dd: 1.0
         dd: 1.0
@@ -8337,17 +8317,13 @@ cont {
       priority: 1463
       join: ROUNDJOIN
       cap: ROUNDCAP
-    }
-    area {
-      color: 4473924
-      priority: 1464
     }
   }
   element {
     scale: 18
     lines {
       width: 1.4
-      color: 1291845632
+      color: 1296319556
       dashdot {
         dd: 1.0
         dd: 1.0
@@ -8355,17 +8331,13 @@ cont {
       priority: 1463
       join: ROUNDJOIN
       cap: ROUNDCAP
-    }
-    area {
-      color: 4473924
-      priority: 1464
     }
   }
   element {
     scale: 19
     lines {
       width: 1.4
-      color: 1291845632
+      color: 1296319556
       dashdot {
         dd: 1.0
         dd: 1.0
@@ -8373,10 +8345,6 @@ cont {
       priority: 1463
       join: ROUNDJOIN
       cap: ROUNDCAP
-    }
-    area {
-      color: 4473924
-      priority: 1464
     }
   }
 }
@@ -8449,7 +8417,7 @@ cont {
     scale: 16
     lines {
       width: 0.7
-      color: 2147483648
+      color: 2151957572
       dashdot {
         dd: 1.0
         dd: 1.0
@@ -8457,17 +8425,13 @@ cont {
       priority: 1463
       join: ROUNDJOIN
       cap: ROUNDCAP
-    }
-    area {
-      color: 4473924
-      priority: 1464
     }
   }
   element {
     scale: 17
     lines {
       width: 1.0
-      color: 1291845632
+      color: 1296319556
       dashdot {
         dd: 1.0
         dd: 1.0
@@ -8475,17 +8439,13 @@ cont {
       priority: 1463
       join: ROUNDJOIN
       cap: ROUNDCAP
-    }
-    area {
-      color: 4473924
-      priority: 1464
     }
   }
   element {
     scale: 18
     lines {
       width: 1.4
-      color: 1291845632
+      color: 1296319556
       dashdot {
         dd: 1.0
         dd: 1.0
@@ -8493,17 +8453,13 @@ cont {
       priority: 1463
       join: ROUNDJOIN
       cap: ROUNDCAP
-    }
-    area {
-      color: 4473924
-      priority: 1464
     }
   }
   element {
     scale: 19
     lines {
       width: 1.4
-      color: 1291845632
+      color: 1296319556
       dashdot {
         dd: 1.0
         dd: 1.0
@@ -8511,10 +8467,6 @@ cont {
       priority: 1463
       join: ROUNDJOIN
       cap: ROUNDCAP
-    }
-    area {
-      color: 4473924
-      priority: 1464
     }
   }
 }
@@ -8591,7 +8543,7 @@ cont {
     scale: 16
     lines {
       width: 0.7
-      color: 2147483648
+      color: 2151957572
       dashdot {
         dd: 1.0
         dd: 1.0
@@ -8599,17 +8551,13 @@ cont {
       priority: 1463
       join: ROUNDJOIN
       cap: ROUNDCAP
-    }
-    area {
-      color: 4473924
-      priority: 1464
     }
   }
   element {
     scale: 17
     lines {
       width: 1.0
-      color: 1291845632
+      color: 1296319556
       dashdot {
         dd: 1.0
         dd: 1.0
@@ -8617,17 +8565,13 @@ cont {
       priority: 1463
       join: ROUNDJOIN
       cap: ROUNDCAP
-    }
-    area {
-      color: 4473924
-      priority: 1464
     }
   }
   element {
     scale: 18
     lines {
       width: 1.4
-      color: 1291845632
+      color: 1296319556
       dashdot {
         dd: 1.0
         dd: 1.0
@@ -8635,17 +8579,13 @@ cont {
       priority: 1463
       join: ROUNDJOIN
       cap: ROUNDCAP
-    }
-    area {
-      color: 4473924
-      priority: 1464
     }
   }
   element {
     scale: 19
     lines {
       width: 1.4
-      color: 1291845632
+      color: 1296319556
       dashdot {
         dd: 1.0
         dd: 1.0
@@ -8653,10 +8593,6 @@ cont {
       priority: 1463
       join: ROUNDJOIN
       cap: ROUNDCAP
-    }
-    area {
-      color: 4473924
-      priority: 1464
     }
   }
 }
@@ -8844,7 +8780,7 @@ cont {
     scale: 16
     lines {
       width: 0.7
-      color: 2147483648
+      color: 2151957572
       dashdot {
         dd: 1.0
         dd: 1.0
@@ -8852,17 +8788,13 @@ cont {
       priority: 1463
       join: ROUNDJOIN
       cap: ROUNDCAP
-    }
-    area {
-      color: 4473924
-      priority: 1464
     }
   }
   element {
     scale: 17
     lines {
       width: 1.0
-      color: 1291845632
+      color: 1296319556
       dashdot {
         dd: 1.0
         dd: 1.0
@@ -8870,17 +8802,13 @@ cont {
       priority: 1463
       join: ROUNDJOIN
       cap: ROUNDCAP
-    }
-    area {
-      color: 4473924
-      priority: 1464
     }
   }
   element {
     scale: 18
     lines {
       width: 1.4
-      color: 1291845632
+      color: 1296319556
       dashdot {
         dd: 1.0
         dd: 1.0
@@ -8888,17 +8816,13 @@ cont {
       priority: 1463
       join: ROUNDJOIN
       cap: ROUNDCAP
-    }
-    area {
-      color: 4473924
-      priority: 1464
     }
   }
   element {
     scale: 19
     lines {
       width: 1.4
-      color: 1291845632
+      color: 1296319556
       dashdot {
         dd: 1.0
         dd: 1.0
@@ -8906,10 +8830,6 @@ cont {
       priority: 1463
       join: ROUNDJOIN
       cap: ROUNDCAP
-    }
-    area {
-      color: 4473924
-      priority: 1464
     }
   }
 }
@@ -30181,7 +30101,7 @@ cont {
     scale: 16
     lines {
       width: 0.7
-      color: 2147483648
+      color: 2151957572
       dashdot {
         dd: 1.0
         dd: 1.0
@@ -30189,17 +30109,13 @@ cont {
       priority: 1463
       join: ROUNDJOIN
       cap: ROUNDCAP
-    }
-    area {
-      color: 4473924
-      priority: 1464
     }
   }
   element {
     scale: 17
     lines {
       width: 1.0
-      color: 1291845632
+      color: 1296319556
       dashdot {
         dd: 1.0
         dd: 1.0
@@ -30207,17 +30123,13 @@ cont {
       priority: 1463
       join: ROUNDJOIN
       cap: ROUNDCAP
-    }
-    area {
-      color: 4473924
-      priority: 1464
     }
   }
   element {
     scale: 18
     lines {
       width: 1.4
-      color: 1291845632
+      color: 1296319556
       dashdot {
         dd: 1.0
         dd: 1.0
@@ -30225,17 +30137,13 @@ cont {
       priority: 1463
       join: ROUNDJOIN
       cap: ROUNDCAP
-    }
-    area {
-      color: 4473924
-      priority: 1464
     }
   }
   element {
     scale: 19
     lines {
       width: 1.4
-      color: 1291845632
+      color: 1296319556
       dashdot {
         dd: 1.0
         dd: 1.0
@@ -30243,10 +30151,6 @@ cont {
       priority: 1463
       join: ROUNDJOIN
       cap: ROUNDCAP
-    }
-    area {
-      color: 4473924
-      priority: 1464
     }
   }
 }
