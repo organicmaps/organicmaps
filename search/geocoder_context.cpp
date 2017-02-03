@@ -24,7 +24,7 @@ bool BaseContext::AllTokensUsed() const
 bool BaseContext::HasUsedTokensInRange(TokenRange const & range) const
 {
   ASSERT(range.IsValid(), (range));
-  return any_of(m_usedTokens.begin() + range.m_begin, m_usedTokens.begin() + range.m_end,
+  return any_of(m_usedTokens.begin() + range.Begin(), m_usedTokens.begin() + range.End(),
                 IdFunctor());
 }
 

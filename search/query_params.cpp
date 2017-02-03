@@ -93,7 +93,7 @@ QueryParams::Token & QueryParams::GetToken(size_t i)
 bool QueryParams::IsNumberTokens(TokenRange const & range) const
 {
   ASSERT(range.IsValid(), (range));
-  ASSERT_LESS_OR_EQUAL(range.m_end, GetNumTokens(), ());
+  ASSERT_LESS_OR_EQUAL(range.End(), GetNumTokens(), ());
 
   for (size_t i : range)
   {

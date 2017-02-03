@@ -24,7 +24,7 @@ string SliceToString(string const & name, TSlice const & slice)
 
 // TokenSlice --------------------------------------------------------------------------------------
 TokenSlice::TokenSlice(QueryParams const & params, TokenRange const & range)
-  : m_params(params), m_offset(range.m_begin), m_size(range.Size())
+  : m_params(params), m_offset(range.Begin()), m_size(range.Size())
 {
   ASSERT(range.IsValid(), (range));
 }
