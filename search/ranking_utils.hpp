@@ -9,10 +9,10 @@
 #include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/cstdint.hpp"
-#include "std/limits.hpp"
-#include "std/string.hpp"
-#include "std/vector.hpp"
+#include <cstdint>
+#include <limits>
+#include <string>
+#include <vector>
 
 namespace search
 {
@@ -38,19 +38,25 @@ enum NameScore
   NAME_SCORE_COUNT
 };
 
+// Returns true when |s| is a stop-word and may be removed from a query.
+bool IsStopWord(strings::UniString const & s);
+
+// Normalizes, simplifies and splits string, removes stop-words.
+void PrepareStringForMatching(std::string const & name, std::vector<strings::UniString> & tokens);
+
 template <typename TSlice>
-NameScore GetNameScore(string const & name, TSlice const & slice)
+NameScore GetNameScore(std::string const & name, TSlice const & slice)
 {
   if (slice.Empty())
     return NAME_SCORE_ZERO;
 
-  vector<strings::UniString> tokens;
+  std::vector<strings::UniString> tokens;
   SplitUniString(NormalizeAndSimplifyString(name), MakeBackInsertFunctor(tokens), Delimiters());
   return GetNameScore(tokens, slice);
 }
 
 template <typename TSlice>
-NameScore GetNameScore(vector<strings::UniString> const & tokens, TSlice const & slice)
+NameScore GetNameScore(std::vector<strings::UniString> const & tokens, TSlice const & slice)
 {
   if (slice.Empty())
     return NAME_SCORE_ZERO;

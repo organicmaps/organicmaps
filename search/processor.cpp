@@ -129,6 +129,42 @@ void SendStatistics(SearchParams const & params, m2::RectD const & viewport, Res
   alohalytics::LogEvent("searchEmitResultsAndCoords", stats);
   GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kSearchEmitResultsAndCoords, {});
 }
+
+// Removes all full-token stop words from |params|, unless |params|
+// consists of all such tokens.
+void RemoveStopWordsIfNeeded(QueryParams & params)
+{
+  size_t numStopWords = 0;
+  for (size_t i = 0; i < params.GetNumTokens(); ++i)
+  {
+    auto & token = params.GetToken(i);
+    if (!params.IsPrefixToken(i) && IsStopWord(token.m_original))
+      ++numStopWords;
+  }
+
+  if (numStopWords == params.GetNumTokens())
+    return;
+
+  for (size_t i = 0; i < params.GetNumTokens();)
+  {
+    if (params.IsPrefixToken(i))
+    {
+      ++i;
+      continue;
+    }
+
+    auto & token = params.GetToken(i);
+    if (IsStopWord(token.m_original))
+    {
+      params.RemoveToken(i);
+    }
+    else
+    {
+      my::EraseIf(token.m_synonyms, &IsStopWord);
+      ++i;
+    }
+  }
+}
 }  // namespace
 
 // static
@@ -642,6 +678,17 @@ void Processor::InitParams(QueryParams & params)
   auto & langs = params.GetLangs();
   for (int i = 0; i < LANG_COUNT; ++i)
     langs.insert(GetLanguage(i));
+
+  RemoveStopWordsIfNeeded(params);
+
+  // Remove all type indices for streets, as they're considired
+  // individually.
+  for (size_t i = 0; i < params.GetNumTokens(); ++i)
+  {
+    auto & token = params.GetToken(i);
+    if (IsStreetSynonym(token.m_original))
+      params.GetTypeIndices(i).clear();
+  }
 }
 
 void Processor::InitGeocoder(Geocoder::Params & params)
