@@ -3,6 +3,7 @@ package com.mapswithme.maps.search;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import com.mapswithme.maps.R;
@@ -36,6 +37,7 @@ public class SearchHistoryFragment extends BaseMwmRecyclerFragment
   public void onViewCreated(View view, Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
+    getRecyclerView().setLayoutManager(new LinearLayoutManager(view.getContext()));
     mPlaceHolder = (PlaceholderView) view.findViewById(R.id.placeholder);
     mPlaceHolder.setContent(R.drawable.img_search_empty_history_light,
                             R.string.search_history_title, R.string.search_history_text);
