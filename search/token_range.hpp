@@ -78,7 +78,7 @@ private:
 inline std::string DebugPrint(TokenRange const & tokenRange)
 {
   std::ostringstream os;
-  os << "TokenRange [" << tokenRange.m_begin << ", " << tokenRange.m_end << ")";
+  os << "TokenRange [" << tokenRange.Begin() << ", " << tokenRange.End() << ")";
   return os.str();
 }
 }  // namespace search
