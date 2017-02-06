@@ -122,6 +122,7 @@ copy_resources(
   resources-default
   resources-mdpi_clear
   cuisine-strings
+  eula.html
 
   banners.txt
   categories.txt
