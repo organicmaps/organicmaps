@@ -55,7 +55,7 @@ class AndroidNativeProvider extends BaseLocationProvider
 
     Location location = findBestNotExpiredLocation(mLocationManager, providers,
                                                    LocationUtils.LOCATION_EXPIRATION_TIME_MILLIS_SHORT);
-    if (!getLocationFixChecker().isLocationBetterThanLast(location))
+    if (location != null && !getLocationFixChecker().isLocationBetterThanLast(location))
     {
       location = LocationHelper.INSTANCE.getSavedLocation();
       if (location == null || LocationUtils.isExpired(location, LocationHelper.INSTANCE.getSavedLocationTime(),
