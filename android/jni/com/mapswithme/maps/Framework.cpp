@@ -95,14 +95,8 @@ void Framework::OnLocationError(int errorCode)
 
 void Framework::OnLocationUpdated(location::GpsInfo const & info)
 {
+  ASSERT(IsDrapeEngineCreated(), ());
   m_work.OnLocationUpdate(info);
-
-  if (!IsDrapeEngineCreated())
-  {
-    location::EMyPositionMode const mode = GetMyPositionMode();
-    if (mode == location::PendingPosition)
-      SetMyPositionMode(location::Follow);
-  }
 }
 
 void Framework::OnCompassUpdated(location::CompassInfo const & info, bool forceRedraw)
@@ -133,13 +127,6 @@ void Framework::TrafficStateChanged(TrafficManager::TrafficState state)
 {
   if (m_onTrafficStateChangedFn)
     m_onTrafficStateChangedFn(state);
-}
-
-void Framework::SetMyPositionMode(location::EMyPositionMode mode)
-{
-    OnMyPositionModeChanged(mode);
-    settings::Set(settings::kLocationStateMode, m_currentMode);
-    MyPositionModeChanged(m_currentMode, false /* routingActive, does not matter */);
 }
 
 bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi, bool firstLaunch)
@@ -463,15 +450,8 @@ void Framework::OnMyPositionModeChanged(location::EMyPositionMode mode)
 
 void Framework::SwitchMyPositionNextMode()
 {
-  if (IsDrapeEngineCreated())
-  {
-    m_work.SwitchMyPositionNextMode();
-    return;
-  }
-
-  // Engine is not available, but the client requests to change mode.
-  if (GetMyPositionMode() == location::NotFollowNoPosition)
-    SetMyPositionMode(location::PendingPosition);
+  ASSERT(IsDrapeEngineCreated(), ());
+  m_work.SwitchMyPositionNextMode();
 }
 
 void Framework::SetupWidget(gui::EWidget widget, float x, float y, dp::Anchor anchor)

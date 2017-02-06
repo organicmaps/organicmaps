@@ -16,7 +16,8 @@
 namespace df
 {
 DrapeEngine::DrapeEngine(Params && params)
-  : m_viewport(params.m_viewport)
+  : m_myPositionModeChanged(move(params.m_myPositionModeChanged))
+  , m_viewport(params.m_viewport)
 {
   VisualParams::Init(params.m_vs, df::CalculateTileSize(m_viewport.GetWidth(), m_viewport.GetHeight()));
 
@@ -319,11 +320,6 @@ void DrapeEngine::FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d, 
 void DrapeEngine::SetModelViewListener(TModelViewListenerFn && fn)
 {
   m_modelViewChanged = move(fn);
-}
-
-void DrapeEngine::SetMyPositionModeListener(location::TMyPositionModeChanged && fn)
-{
-  m_myPositionModeChanged = move(fn);
 }
 
 void DrapeEngine::SetTapEventInfoListener(TTapEventInfoFn && fn)

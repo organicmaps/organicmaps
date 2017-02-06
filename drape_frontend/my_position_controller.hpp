@@ -41,7 +41,8 @@ public:
   };
 
   MyPositionController(location::EMyPositionMode initMode, double timeInBackground,
-                       bool isFirstLaunch, bool isRoutingActive, bool isAutozoomEnabled);
+                       bool isFirstLaunch, bool isRoutingActive, bool isAutozoomEnabled,
+                       location::TMyPositionModeChanged const & fn);
   ~MyPositionController();
 
   void UpdatePosition();
@@ -90,8 +91,6 @@ public:
   void OnLocationUpdate(location::GpsInfo const & info, bool isNavigable, ScreenBase const & screen);
   void OnCompassUpdate(location::CompassInfo const & info, ScreenBase const & screen);
 
-  void SetModeListener(location::TMyPositionModeChanged const & fn);
-
   void Render(ScreenBase const & screen, int zoomLevel, ref_ptr<dp::GpuProgramManager> mng,
               dp::UniformValuesStorage const & commonUniforms);
 
@@ -133,6 +132,7 @@ private:
 private:
   location::EMyPositionMode m_mode;
   location::EMyPositionMode m_desiredInitMode;
+  location::TMyPositionModeChanged m_modeChangeCallback;
   bool m_isFirstLaunch;
 
   bool m_isInRouting;
@@ -140,7 +140,6 @@ private:
   bool m_needBlockAnimation;
   bool m_wasRotationInScaling;
 
-  location::TMyPositionModeChanged m_modeChangeCallback;
   drape_ptr<MyPosition> m_shape;
   ref_ptr<Listener> m_listener;
 

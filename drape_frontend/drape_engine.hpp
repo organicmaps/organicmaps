@@ -46,6 +46,7 @@ public:
            double fontsScaleFactor,
            gui::TWidgetsInitInfo && info,
            pair<location::EMyPositionMode, bool> const & initialMyPositionMode,
+           location::TMyPositionModeChanged && myPositionModeChanged,
            bool allow3dBuildings,
            bool trafficEnabled,
            bool blockTapEvents,
@@ -62,6 +63,7 @@ public:
       , m_fontsScaleFactor(fontsScaleFactor)
       , m_info(move(info))
       , m_initialMyPositionMode(initialMyPositionMode)
+      , m_myPositionModeChanged(move(myPositionModeChanged))
       , m_allow3dBuildings(allow3dBuildings)
       , m_trafficEnabled(trafficEnabled)
       , m_blockTapEvents(blockTapEvents)
@@ -80,6 +82,7 @@ public:
     double m_fontsScaleFactor;
     gui::TWidgetsInitInfo m_info;
     pair<location::EMyPositionMode, bool> m_initialMyPositionMode;
+    location::TMyPositionModeChanged m_myPositionModeChanged;
     bool m_allow3dBuildings;
     bool m_trafficEnabled;
     bool m_blockTapEvents;
@@ -125,7 +128,6 @@ public:
   void SwitchMyPositionNextMode();
   void LoseLocation();
   void StopLocationFollow();
-  void SetMyPositionModeListener(location::TMyPositionModeChanged && fn);
 
   using TTapEventInfoFn = FrontendRenderer::TTapEventInfoFn;
   void SetTapEventInfoListener(TTapEventInfoFn && fn);
@@ -198,11 +200,11 @@ private:
   drape_ptr<ThreadsCommutator> m_threadCommutator;
   drape_ptr<dp::TextureManager> m_textureManager;
   drape_ptr<RequestedTiles> m_requestedTiles;
+  location::TMyPositionModeChanged m_myPositionModeChanged;
 
   Viewport m_viewport;
 
   TModelViewListenerFn m_modelViewChanged;
-  location::TMyPositionModeChanged m_myPositionModeChanged;
   TUserPositionChangedFn m_userPositionChanged;
   TTapEventInfoFn m_tapListener;
 

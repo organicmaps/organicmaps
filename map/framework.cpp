@@ -1654,6 +1654,19 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
     m_model.ReadFeatures(fn, ids);
   };
 
+  auto myPositionModeChangedFn = [this](location::EMyPositionMode mode, bool routingActive)
+  {
+    GetPlatform().RunOnGuiThread([this, mode, routingActive]()
+    {
+      // Deactivate selection (and hide place page) if we return to routing in F&R mode.
+      if (routingActive && mode == location::FollowAndRotate)
+        DeactivateMapSelection(true /* notifyUI */);
+
+      if (m_myPositionListener != nullptr)
+        m_myPositionListener(mode, routingActive);
+    });
+  };
+
   auto isCountryLoadedByNameFn = bind(&Framework::IsCountryLoadedByName, this, _1);
   auto updateCurrentCountryFn = bind(&Framework::OnUpdateCurrentCountry, this, _1, _2);
 
@@ -1673,7 +1686,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
                             df::MapDataProvider(idReadFn, featureReadFn, isCountryLoadedByNameFn, updateCurrentCountryFn),
                             params.m_visualScale, fontsScaleFactor, move(params.m_widgetsInitInfo),
                             make_pair(params.m_initialMyPositionState, params.m_hasMyPositionState),
-                            allow3dBuildings, trafficEnabled, params.m_isChoosePositionMode,
+                            move(myPositionModeChangedFn), allow3dBuildings, trafficEnabled, params.m_isChoosePositionMode,
                             params.m_isChoosePositionMode, GetSelectedFeatureTriangles(), params.m_isFirstLaunch,
                             m_routingSession.IsActive() && m_routingSession.IsFollowing(), isAutozoomEnabled);
 
@@ -1693,19 +1706,6 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   });
 
   OnSize(params.m_surfaceWidth, params.m_surfaceHeight);
-
-  m_drapeEngine->SetMyPositionModeListener([this](location::EMyPositionMode mode, bool routingActive)
-  {
-    GetPlatform().RunOnGuiThread([this, mode, routingActive]()
-    {
-      // Deactivate selection (and hide place page) if we return to routing in F&R mode.
-      if (routingActive && mode == location::FollowAndRotate)
-        DeactivateMapSelection(true /* notifyUI */);
-
-      if (m_myPositionListener != nullptr)
-        m_myPositionListener(mode, routingActive);
-    });
-  });
 
   InvalidateUserMarks();
 
