@@ -131,11 +131,7 @@ UNIT_CLASS_TEST(PreRankerTest, Smoke)
   FeaturesVectorTest fv(mwmId.GetInfo()->GetLocalFile().GetPath(MapOptions::Map));
   fv.GetVector().ForEach([&](FeatureType & ft, uint32_t index) {
     FeatureID id(mwmId, index);
-
-    PreRankingInfo info;
-    info.m_tokenRange = TokenRange(0, 1);
-    info.m_searchType = SearchModel::SEARCH_TYPE_POI;
-    preRanker.Emplace(id, info);
+    preRanker.Emplace(id, PreRankingInfo(SearchModel::SEARCH_TYPE_POI, TokenRange(0, 1)));
 
     TEST_LESS(index, pois.size(), ());
     distances[index] = MercatorBounds::DistanceOnEarth(feature::GetCenter(ft), kPivot);

@@ -1264,11 +1264,7 @@ void Geocoder::EmitResult(BaseContext const & ctx, MwmSet::MwmId const & mwmId, 
   // TODO (@y, @m): need to skip zero rank features that are too
   // distant from the pivot when there're enough results close to the
   // pivot.
-  PreRankingInfo info;
-  info.m_searchType = type;
-  info.m_tokenRange = tokenRange;
-
-  m_preRanker.Emplace(id, info);
+  m_preRanker.Emplace(id, PreRankingInfo(type, tokenRange));
 }
 
 void Geocoder::EmitResult(BaseContext const & ctx, Region const & region,

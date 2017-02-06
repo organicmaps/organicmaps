@@ -42,7 +42,7 @@ struct ComparePreResult1
     auto const & rinfo = rhs.GetInfo();
     if (linfo.GetNumTokens() != rinfo.GetNumTokens())
       return linfo.GetNumTokens() > rinfo.GetNumTokens();
-    return linfo.m_tokenRange.Begin() < rinfo.m_tokenRange.Begin();
+    return linfo.InnermostTokenRange().Begin() < rinfo.InnermostTokenRange().Begin();
   }
 };
 
