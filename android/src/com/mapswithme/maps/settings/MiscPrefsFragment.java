@@ -88,7 +88,7 @@ public class MiscPrefsFragment extends BaseXmlSettingsFragment
           boolean newVal = (Boolean) newValue;
           if (oldVal != newVal)
           {
-            LoggerFactory.INSTANCE.setFileLoggingEnabled((Boolean) newValue);
+            LoggerFactory.INSTANCE.setFileLoggingEnabled(newVal);
           }
           return true;
         }

@@ -109,7 +109,7 @@ class FileLoggerStrategy implements LoggerStrategy
     mExecutor.execute(new WriteTask(mFilePath, data, Thread.currentThread().getName()));
   }
 
-  private static class WriteTask implements Runnable
+  static class WriteTask implements Runnable
   {
     private static final int MAX_SIZE = 3000000;
     @NonNull
@@ -164,7 +164,7 @@ class FileLoggerStrategy implements LoggerStrategy
       }
     }
 
-    private void writeSystemInformation(FileWriter fw) throws IOException
+    static void writeSystemInformation(FileWriter fw) throws IOException
     {
       fw.write("Android version: " + Build.VERSION.SDK_INT + "\n");
       fw.write("Device: " + Utils.getDeviceModel() + "\n");

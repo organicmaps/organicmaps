@@ -8,8 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.DimenRes;
@@ -35,13 +33,8 @@ import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.AlohaHelper;
 
 import java.io.Closeable;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Map;
 
 public class Utils
@@ -159,56 +152,6 @@ public class Utils
         Constants.Url.MAIL_BODY + Uri.encode(body);
 
     return Uri.parse(uriString);
-  }
-
-  /**
-   * Stores logcat output of the application to a file on primary external storage.
-   *
-   * @return name of the logfile. May be null in case of error.
-   */
-  private static String saveLogToFile()
-  {
-    String fullName = MwmApplication.getSettingsPath() + "logcat.txt";
-    File file = new File(fullName);
-    InputStreamReader reader = null;
-    FileWriter writer = null;
-    try
-    {
-      writer = new FileWriter(file);
-      writer.write("Android version: " + Build.VERSION.SDK_INT + "\n");
-      writer.write("Device: " + getDeviceModel() + "\n");
-      writer.write("App version: " + BuildConfig.APPLICATION_ID + " " + BuildConfig.VERSION_NAME + "\n");
-      writer.write("Installation ID: " + getInstallationId() + "\n");
-      writer.write("Locale : " + Locale.getDefault());
-      writer.write("\nNetworks : ");
-      final ConnectivityManager manager = (ConnectivityManager) MwmApplication.get().getSystemService(Context.CONNECTIVITY_SERVICE);
-      for (NetworkInfo info : manager.getAllNetworkInfo())
-        writer.write(info.toString());
-      writer.write("\n\n");
-
-      String cmd = "logcat -d -v time";
-      Process process = Runtime.getRuntime().exec(cmd);
-      reader = new InputStreamReader(process.getInputStream());
-      char[] buffer = new char[10000];
-      do
-      {
-        int n = reader.read(buffer, 0, buffer.length);
-        if (n == -1)
-          break;
-        writer.write(buffer, 0, n);
-      } while (true);
-
-      reader.close();
-      writer.close();
-    } catch (IOException e)
-    {
-      closeStream(writer);
-      closeStream(reader);
-
-      return null;
-    }
-
-    return fullName;
   }
 
   public static String getDeviceModel()
@@ -407,18 +350,12 @@ public class Utils
           intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
           intent.putExtra(Intent.EXTRA_EMAIL, new String[] { Constants.Email.SUPPORT });
           intent.putExtra(Intent.EXTRA_SUBJECT, "[" + BuildConfig.VERSION_NAME + "] " + mSubject);
-          final ArrayList<Uri> uris = new ArrayList<>();
           if (success)
           {
-            intent.setAction(Intent.ACTION_SEND_MULTIPLE);
             String logsZipFile = StorageUtils.getLogsZipPath();
             if (!TextUtils.isEmpty(logsZipFile))
-            {
-              uris.add(Uri.parse("file://" + logsZipFile));
-            }
+              intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + logsZipFile));
           }
-          uris.add(Uri.parse("file://" + Utils.saveLogToFile()));
-          intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
           intent.putExtra(Intent.EXTRA_TEXT, ""); // do this so some email clients don't complain about empty body.
           intent.setType("message/rfc822");
           try

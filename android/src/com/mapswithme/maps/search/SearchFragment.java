@@ -101,7 +101,12 @@ public class SearchFragment extends BaseMwmFragment
         return;
 
       if (tryRecognizeLoggingCommand(query))
+      {
+        mSearchAdapter.clear();
+        stopSearch();
+        closeSearch();
         return;
+      }
 
       runSearch();
     }
