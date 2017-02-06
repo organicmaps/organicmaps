@@ -218,21 +218,6 @@ MwmSet::MwmHandle FindWorld(Index const & index, vector<shared_ptr<MwmInfo>> con
   return handle;
 }
 
-UniString AsciiToUniString(char const * s) { return UniString(s, s + strlen(s)); }
-
-bool IsStopWord(UniString const & s)
-{
-  /// @todo Get all common used stop words and factor out this array into
-  /// search_string_utils.cpp module for example.
-  static char const * arr[] = {"a", "de", "da", "la"};
-
-  static set<UniString> const kStopWords(
-      make_transform_iterator(arr, &AsciiToUniString),
-      make_transform_iterator(arr + ARRAY_SIZE(arr), &AsciiToUniString));
-
-  return kStopWords.count(s) > 0;
-}
-
 double Area(m2::RectD const & rect) { return rect.IsValid() ? rect.SizeX() * rect.SizeY() : 0; }
 
 // Computes an average similaty between |rect| and |pivot|. By
@@ -374,43 +359,6 @@ Geocoder::~Geocoder() {}
 void Geocoder::SetParams(Params const & params)
 {
   m_params = params;
-
-  // Filter stop words.
-  if (m_params.GetNumTokens() > 1)
-  {
-    for (size_t i = 0; i < m_params.GetNumTokens();)
-    {
-      if (m_params.IsPrefixToken(i))
-      {
-        ++i;
-        continue;
-      }
-
-      auto & token = m_params.GetToken(i);
-      if (IsStopWord(token.m_original))
-      {
-        m_params.RemoveToken(i);
-      }
-      else
-      {
-        my::EraseIf(token.m_synonyms, &IsStopWord);
-        ++i;
-      }
-    }
-
-    // If all tokens are stop words - give up.
-    if (m_params.GetNumTokens() == 0)
-      m_params = params;
-  }
-
-  // Remove all category synonyms for streets, as they're extracted
-  // individually.
-  for (size_t i = 0; i < m_params.GetNumTokens(); ++i)
-  {
-    auto & token = m_params.GetToken(i);
-    if (IsStreetSynonym(token.m_original))
-      m_params.GetTypeIndices(i).clear();
-  }
 
   m_tokenRequests.clear();
   m_prefixTokenRequest.Clear();

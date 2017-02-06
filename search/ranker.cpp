@@ -188,7 +188,7 @@ class PreResult2Maker
       if (!ft.GetName(lang, name))
         continue;
       vector<strings::UniString> tokens;
-      SplitUniString(NormalizeAndSimplifyString(name), MakeBackInsertFunctor(tokens), Delimiters());
+      PrepareStringForMatching(name, tokens);
 
       UpdateNameScore(tokens, slice, info.m_nameScore);
       UpdateNameScore(tokens, sliceNoCategories, info.m_nameScore);

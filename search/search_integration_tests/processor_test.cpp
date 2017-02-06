@@ -805,5 +805,33 @@ UNIT_CLASS_TEST(ProcessorTest, SpacesInCategories)
     TEST(ResultsMatch("Москва ночной клуб", "ru", rules), ());
   }
 }
+
+UNIT_CLASS_TEST(ProcessorTest, StopWords)
+{
+  TestCountry country(m2::PointD(0, 0), "France", "en");
+  TestCity city(m2::PointD(0, 0), "Paris", "en", 100 /* rank */);
+  TestStreet street(
+      vector<m2::PointD>{m2::PointD(-0.001, -0.001), m2::PointD(0, 0), m2::PointD(0.001, 0.001)},
+      "Rue de la Paix", "en");
+
+  BuildWorld([&](TestMwmBuilder & builder) {
+    builder.Add(country);
+    builder.Add(city);
+  });
+
+  auto id = BuildCountry(country.GetName(), [&](TestMwmBuilder & builder) { builder.Add(street); });
+
+  {
+    auto request = MakeRequest("la France à Paris Rue de la Paix");
+
+    TRules rules = {ExactMatch(id, street)};
+
+    auto const & results = request->Results();
+    TEST(MatchResults(rules, results), ());
+
+    auto const & info = results[0].GetRankingInfo();
+    TEST_EQUAL(info.m_nameScore, NAME_SCORE_FULL_MATCH, ());
+  }
+}
 }  // namespace
 }  // namespace search
