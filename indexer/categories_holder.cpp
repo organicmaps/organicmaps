@@ -391,7 +391,7 @@ int8_t CategoriesHolder::MapLocaleToInteger(string const & locale)
 // static
 string CategoriesHolder::MapIntegerToLocale(int8_t code)
 {
-  if (code <= 0 || code > kLocaleMapping.size())
+  if (code <= 0 || static_cast<size_t>(code) > kLocaleMapping.size())
     return string();
   return kLocaleMapping[code - 1].m_name;
 }
