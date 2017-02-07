@@ -693,8 +693,8 @@ class UKRoadShieldParser : public SimpleRoadShieldParser
 {
 public:
   UKRoadShieldParser(std::string const & baseRoadNumber)
-    : SimpleRoadShieldParser(baseRoadNumber, {{'M', RoadShieldType::UK_Motorway},
-                                              {'A', RoadShieldType::UK_Highway}})
+    : SimpleRoadShieldParser(
+          baseRoadNumber, {{'M', RoadShieldType::Generic_Blue}, {'A', RoadShieldType::UK_Highway}})
   {}
 };
 
@@ -712,20 +712,112 @@ public:
 
     strings::UniString s = strings::MakeUniString(rawText);
     if (s[0] == 'E' || s[0] == strings::UniChar(1045)) // Latin and cyrillic.
-      return RoadShield(RoadShieldType::Euro_Motorway, rawText);
+      return RoadShield(RoadShieldType::Generic_Green, rawText);
 
-    return RoadShield(RoadShieldType::Russia_Highway, rawText);
+    return RoadShield(RoadShieldType::Generic_Blue, rawText);
   }
+};
+
+class SimpleUnicodeRoadShieldParser : public RoadShieldParser
+{
+public:
+  struct Name
+  {
+    Name(char simpleName, strings::UniChar const & unicodeName)
+      : m_simpleName(simpleName), m_unicodeName(unicodeName)
+    {
+    }
+    char m_simpleName;
+    strings::UniChar m_unicodeName;
+  };
+
+  using ShieldTypes = std::vector<std::pair<Name, RoadShieldType>>;
+
+  SimpleUnicodeRoadShieldParser(std::string const & baseRoadNumber, ShieldTypes const & types)
+    : RoadShieldParser(baseRoadNumber), m_types(types)
+  {
+  }
+
+  RoadShield ParseRoadShield(std::string const & rawText) override
+  {
+    if (rawText.size() > kMaxRoadShieldTextSize)
+      return RoadShield();
+
+    for (auto const & p : m_types)
+    {
+      Name const & name = p.first;
+      RoadShieldType const type = p.second;
+
+      if (rawText.find(name.m_simpleName) != std::string::npos)
+        return RoadShield(type, rawText);
+
+      strings::UniString s = strings::MakeUniString(rawText);
+      if (s[0] == name.m_unicodeName)
+        return RoadShield(type, rawText);
+    }
+
+    return RoadShield(RoadShieldType::Default, rawText);
+  }
+
+private:
+  ShieldTypes const m_types;
 };
 
 class FranceRoadShieldParser : public SimpleRoadShieldParser
 {
 public:
   FranceRoadShieldParser(std::string const & baseRoadNumber)
-  : SimpleRoadShieldParser(baseRoadNumber, {{'A', RoadShieldType::France_Motorway},
-                                            {'N', RoadShieldType::France_Motorway},
-                                            {'E', RoadShieldType::Euro_Motorway},
-                                            {'D', RoadShieldType::France_Departmental}})
+    : SimpleRoadShieldParser(baseRoadNumber, {{'A', RoadShieldType::Generic_Red},
+                                              {'N', RoadShieldType::Generic_Red},
+                                              {'E', RoadShieldType::Generic_Green},
+                                              {'D', RoadShieldType::Generic_Orange}})
+  {
+  }
+};
+
+class UkraineRoadShieldParser : public SimpleUnicodeRoadShieldParser
+{
+public:
+  UkraineRoadShieldParser(std::string const & baseRoadNumber)
+    : SimpleUnicodeRoadShieldParser(
+          baseRoadNumber, {{Name('M', strings::UniChar(1052)), RoadShieldType::Generic_Blue},
+                           {Name('H', strings::UniChar(1053)), RoadShieldType::Generic_Blue},
+                           {Name('P', strings::UniChar(1056)), RoadShieldType::Generic_Blue},
+                           {Name('E', strings::UniChar(1045)), RoadShieldType::Generic_Green}})
+  {
+  }
+};
+
+class BelarusRoadShieldParser : public SimpleUnicodeRoadShieldParser
+{
+public:
+  BelarusRoadShieldParser(std::string const & baseRoadNumber)
+    : SimpleUnicodeRoadShieldParser(
+          baseRoadNumber, {{Name('M', strings::UniChar(1052)), RoadShieldType::Generic_Red},
+                           {Name('P', strings::UniChar(1056)), RoadShieldType::Generic_Red},
+                           {Name('E', strings::UniChar(1045)), RoadShieldType::Generic_Green}})
+  {
+  }
+};
+
+class LatviaRoadShieldParser : public SimpleRoadShieldParser
+{
+public:
+  LatviaRoadShieldParser(std::string const & baseRoadNumber)
+    : SimpleRoadShieldParser(baseRoadNumber, {{'A', RoadShieldType::Generic_Red},
+                                              {'E', RoadShieldType::Generic_Green},
+                                              {'P', RoadShieldType::Generic_Blue}})
+  {
+  }
+};
+
+class NetherlandsRoadShieldParser : public SimpleRoadShieldParser
+{
+public:
+  NetherlandsRoadShieldParser(std::string const & baseRoadNumber)
+    : SimpleRoadShieldParser(baseRoadNumber, {{'A', RoadShieldType::Generic_Red},
+                                              {'E', RoadShieldType::Generic_Green},
+                                              {'N', RoadShieldType::Generic_Orange}})
   {}
 };
 
@@ -750,6 +842,14 @@ std::vector<RoadShield> GetRoadShields(FeatureType const & f)
     return RussiaRoadShieldParser(roadNumber).GetRoadShields();
   if (mwmName == "France")
     return FranceRoadShieldParser(roadNumber).GetRoadShields();
+  if (mwmName == "Ukraine")
+    return UkraineRoadShieldParser(roadNumber).GetRoadShields();
+  if (mwmName == "Belarus")
+    return BelarusRoadShieldParser(roadNumber).GetRoadShields();
+  if (mwmName == "Latvia")
+    return LatviaRoadShieldParser(roadNumber).GetRoadShields();
+  if (mwmName == "Netherlands")
+    return NetherlandsRoadShieldParser(roadNumber).GetRoadShields();
 
   return std::vector<RoadShield>{RoadShield(RoadShieldType::Default, roadNumber)};
 }

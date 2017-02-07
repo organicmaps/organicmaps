@@ -256,11 +256,10 @@ bool IsColoredRoadShield(ftypes::RoadShield const & shield)
 {
   return shield.m_type == ftypes::RoadShieldType::Default ||
          shield.m_type == ftypes::RoadShieldType::UK_Highway ||
-         shield.m_type == ftypes::RoadShieldType::UK_Motorway ||
-         shield.m_type == ftypes::RoadShieldType::Russia_Highway ||
-         shield.m_type == ftypes::RoadShieldType::Euro_Motorway ||
-         shield.m_type == ftypes::RoadShieldType::France_Motorway ||
-         shield.m_type == ftypes::RoadShieldType::France_Departmental;
+         shield.m_type == ftypes::RoadShieldType::Generic_Blue ||
+         shield.m_type == ftypes::RoadShieldType::Generic_Green ||
+         shield.m_type == ftypes::RoadShieldType::Generic_Red ||
+         shield.m_type == ftypes::RoadShieldType::Generic_Orange;
 }
 
 dp::FontDecl GetRoadShieldTextFont(MapStyle const & style, dp::FontDecl const & baseFont,
@@ -272,15 +271,13 @@ dp::FontDecl GetRoadShieldTextFont(MapStyle const & style, dp::FontDecl const & 
   using ftypes::RoadShieldType;
 
   static std::unordered_map<int, df::ColorConstant> kColors = {
-    {static_cast<int>(RoadShieldType::Euro_Motorway), df::RoadShieldWhiteText},
-    {static_cast<int>(RoadShieldType::UK_Motorway), df::RoadShieldWhiteText},
-    {static_cast<int>(RoadShieldType::UK_Highway), df::RoadShieldUKYellowText},
-    {static_cast<int>(RoadShieldType::US_Interstate), df::RoadShieldWhiteText},
-    {static_cast<int>(RoadShieldType::US_Highway), df::RoadShieldBlackText},
-    {static_cast<int>(RoadShieldType::Russia_Highway), df::RoadShieldWhiteText},
-    {static_cast<int>(RoadShieldType::France_Motorway), df::RoadShieldWhiteText},
-    {static_cast<int>(RoadShieldType::France_Departmental), df::RoadShieldBlackText}
-  };
+      {static_cast<int>(RoadShieldType::Generic_Green), df::RoadShieldWhiteText},
+      {static_cast<int>(RoadShieldType::Generic_Blue), df::RoadShieldWhiteText},
+      {static_cast<int>(RoadShieldType::UK_Highway), df::RoadShieldUKYellowText},
+      {static_cast<int>(RoadShieldType::US_Interstate), df::RoadShieldWhiteText},
+      {static_cast<int>(RoadShieldType::US_Highway), df::RoadShieldBlackText},
+      {static_cast<int>(RoadShieldType::Generic_Red), df::RoadShieldWhiteText},
+      {static_cast<int>(RoadShieldType::Generic_Orange), df::RoadShieldBlackText}};
 
   auto it = kColors.find(static_cast<int>(shield.m_type));
   if (it != kColors.end())
@@ -295,13 +292,11 @@ dp::Color GetRoadShieldColor(MapStyle const & style, dp::Color const & baseColor
   using ftypes::RoadShieldType;
 
   static std::unordered_map<int, df::ColorConstant> kColors = {
-    {static_cast<int>(RoadShieldType::Euro_Motorway), df::RoadShieldGreenBackground},
-    {static_cast<int>(RoadShieldType::UK_Motorway), df::RoadShieldBlueBackground},
-    {static_cast<int>(RoadShieldType::UK_Highway), df::RoadShieldGreenBackground},
-    {static_cast<int>(RoadShieldType::Russia_Highway), df::RoadShieldBlueBackground},
-    {static_cast<int>(RoadShieldType::France_Motorway), df::RoadShieldRedBackground},
-    {static_cast<int>(RoadShieldType::France_Departmental), df::RoadShieldOrangeBackground}
-  };
+      {static_cast<int>(RoadShieldType::Generic_Green), df::RoadShieldGreenBackground},
+      {static_cast<int>(RoadShieldType::Generic_Blue), df::RoadShieldBlueBackground},
+      {static_cast<int>(RoadShieldType::UK_Highway), df::RoadShieldGreenBackground},
+      {static_cast<int>(RoadShieldType::Generic_Red), df::RoadShieldRedBackground},
+      {static_cast<int>(RoadShieldType::Generic_Orange), df::RoadShieldOrangeBackground}};
 
   auto it = kColors.find(static_cast<int>(shield.m_type));
   if (it != kColors.end())
@@ -313,10 +308,9 @@ dp::Color GetRoadShieldColor(MapStyle const & style, dp::Color const & baseColor
 float GetRoadShieldOutlineWidth(float baseWidth, ftypes::RoadShield const & shield)
 {
   if (shield.m_type == ftypes::RoadShieldType::UK_Highway ||
-      shield.m_type == ftypes::RoadShieldType::UK_Motorway ||
-      shield.m_type == ftypes::RoadShieldType::Russia_Highway ||
-      shield.m_type == ftypes::RoadShieldType::Euro_Motorway ||
-      shield.m_type == ftypes::RoadShieldType::France_Motorway)
+      shield.m_type == ftypes::RoadShieldType::Generic_Blue ||
+      shield.m_type == ftypes::RoadShieldType::Generic_Green ||
+      shield.m_type == ftypes::RoadShieldType::Generic_Red)
     return 0.0f;
 
   return baseWidth;

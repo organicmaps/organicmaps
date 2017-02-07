@@ -253,14 +253,13 @@ HighwayClass GetHighwayClass(feature::TypesHolder const & types);
 enum class RoadShieldType
 {
   Default = 0,
+  Generic_Green,
+  Generic_Blue,
+  Generic_Red,
+  Generic_Orange,
   US_Interstate,
   US_Highway,
-  Euro_Motorway,
-  UK_Motorway,
   UK_Highway,
-  Russia_Highway,
-  France_Motorway,
-  France_Departmental,
   Count
 };
 
