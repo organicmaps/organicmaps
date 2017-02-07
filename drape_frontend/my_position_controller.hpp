@@ -175,6 +175,7 @@ private:
 
   bool m_isPositionAssigned;
   bool m_isDirectionAssigned;
+  bool m_isCompassAvailable;
 
   bool m_positionIsObsolete;
   bool m_needBlockAutoZoom;
