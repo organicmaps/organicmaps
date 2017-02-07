@@ -28,7 +28,7 @@ public:
   }
 
   constexpr Segment(NumMwmId mwmId, uint32_t featureId, uint32_t segmentIdx, bool forward)
-    : m_mwmId(mwmId), m_featureId(featureId), m_segmentIdx(segmentIdx), m_forward(forward)
+    : m_featureId(featureId), m_segmentIdx(segmentIdx), m_mwmId(mwmId), m_forward(forward)
   {
   }
 
@@ -67,10 +67,10 @@ public:
   bool operator!=(Segment const & seg) const { return !(*this == seg); }
 
 private:
-  // @TODO(bykoianko, dobriy-eeh). It's a placeholder. Init m_mwmId in a proper way.
-  NumMwmId m_mwmId = 0;
   uint32_t m_featureId = 0;
   uint32_t m_segmentIdx = 0;
+  // @TODO(bykoianko, dobriy-eeh). It's a placeholder. Init m_mwmId in a proper way.
+  NumMwmId m_mwmId = 0;
   bool m_forward = true;
 };
 

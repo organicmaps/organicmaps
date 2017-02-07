@@ -23,6 +23,8 @@ set(
   car_router.cpp
   car_router.hpp
   cross_mwm_index_graph.hpp
+  cross_mwm_index_graph_osrm.cpp
+  cross_mwm_index_graph_osrm.hpp
   cross_mwm_road_graph.cpp
   cross_mwm_road_graph.hpp
   cross_mwm_router.cpp

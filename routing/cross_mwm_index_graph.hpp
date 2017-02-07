@@ -40,7 +40,7 @@ public:
   /// * exit transition segments are exits from their mwms;
   /// \returns true if |s| is an exit (|isOutgoing| == true) or an enter (|isOutgoing| == false)
   /// transition segment.
-  virtual bool IsTransition(Segment const & s, bool isOutgoing) const = 0;
+  virtual bool IsTransition(Segment const & s, bool isOutgoing) = 0;
 
   /// \brief Fills |twins| with duplicates of |s| transition segment in neighbouring mwm.
   /// For most cases there is only one twin for |s|.
