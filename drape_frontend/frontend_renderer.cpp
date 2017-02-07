@@ -1198,6 +1198,7 @@ void FrontendRenderer::RenderTrafficAndRouteLayer(ScreenBase const & modelView)
     m_trafficRenderer->RenderTraffic(modelView, m_currentZoomLevel, 1.0f /* opacity */,
                                      make_ref(m_gpuProgramManager), m_generalUniforms);
   }
+  GLFunctions::glClearDepth();
   m_routeRenderer->RenderRoute(modelView, m_trafficRenderer->HasRenderData(),
                                make_ref(m_gpuProgramManager), m_generalUniforms);
 }
