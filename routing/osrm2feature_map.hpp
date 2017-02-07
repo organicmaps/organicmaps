@@ -57,6 +57,8 @@ namespace OsrmMappingTypes
 
     bool IsIntersect(FtSeg const & other) const;
 
+    bool IsForward() const { return m_pointEnd > m_pointStart; }
+
     bool IsValid() const
     {
       return m_fid != kInvalidFid;
