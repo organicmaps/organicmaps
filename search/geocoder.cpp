@@ -612,7 +612,7 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
     if (!m_context->GetFeature(l.m_featureId, ft))
       continue;
 
-    auto addRegionMaps = [&](size_t & count, size_t maxCount, Region::Type type)
+    auto addRegionMaps = [&](size_t maxCount, Region::Type type, size_t & count)
     {
       if (count < maxCount && ft.GetFeatureType() == feature::GEOM_POINT)
       {
@@ -664,12 +664,12 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
     }
     case SearchModel::SEARCH_TYPE_STATE:
     {
-      addRegionMaps(numStates, kMaxNumStates, Region::TYPE_STATE);
+      addRegionMaps(kMaxNumStates, Region::TYPE_STATE, numStates);
       break;
     }
     case SearchModel::SEARCH_TYPE_COUNTRY:
     {
-      addRegionMaps(numCountries, kMaxNumCountries, Region::TYPE_COUNTRY);
+      addRegionMaps(kMaxNumCountries, Region::TYPE_COUNTRY, numCountries);
       break;
     }
     default: break;
@@ -1184,7 +1184,7 @@ void Geocoder::FindPaths(BaseContext const & ctx)
   // Layers ordered by search type.
   vector<FeaturesLayer const *> sortedLayers;
   sortedLayers.reserve(layers.size());
-  for (auto & layer : layers)
+  for (auto const & layer : layers)
     sortedLayers.push_back(&layer);
   sort(sortedLayers.begin(), sortedLayers.end(), my::LessBy(&FeaturesLayer::m_type));
 
@@ -1225,7 +1225,7 @@ void Geocoder::EmitResult(BaseContext const & ctx, MwmSet::MwmId const & mwmId, 
   for (auto const * region : ctx.m_regions)
   {
     auto const regionType = Region::ToSearchType(region->m_type);
-    ASSERT(regionType != SearchModel::SEARCH_TYPE_COUNT, ());
+    ASSERT_NOT_EQUAL(regionType, SearchModel::SEARCH_TYPE_COUNT, ());
     info.m_tokenRange[regionType] = region->m_tokenRange;
   }
 

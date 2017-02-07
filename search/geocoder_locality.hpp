@@ -7,6 +7,7 @@
 
 #include "storage/country_info_getter.hpp"
 
+#include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
 #include <cstdint>
@@ -73,7 +74,6 @@ struct City : public Locality
   std::string m_defaultName;
 #endif
 };
-
 
 std::string DebugPrint(Locality const & locality);
 }  // namespace search

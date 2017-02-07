@@ -1,4 +1,4 @@
-#include "search/ranking_info.hpp"
+#include "search/pre_ranking_info.hpp"
 
 #include <sstream>
 
