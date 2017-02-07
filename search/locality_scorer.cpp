@@ -26,7 +26,7 @@ LocalityScorer::ExLocality::ExLocality() : m_numTokens(0), m_rank(0), m_nameScor
 {
 }
 
-LocalityScorer::ExLocality::ExLocality(Geocoder::Locality const & locality)
+LocalityScorer::ExLocality::ExLocality(Locality const & locality)
   : m_locality(locality)
   , m_numTokens(locality.m_tokenRange.Size())
   , m_rank(0)
@@ -42,7 +42,7 @@ LocalityScorer::LocalityScorer(QueryParams const & params, Delegate const & dele
 
 void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseContext const & ctx,
                                       CBV const & filter, size_t limit,
-                                      std::vector<Geocoder::Locality> & localities)
+                                      std::vector<Locality> & localities)
 {
   CHECK_EQUAL(ctx.m_numTokens, m_params.GetNumTokens(), ());
 
@@ -83,8 +83,7 @@ void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseConte
   LeaveTopLocalities(limit, localities);
 }
 
-void LocalityScorer::LeaveTopLocalities(size_t limit,
-                                        std::vector<Geocoder::Locality> & localities) const
+void LocalityScorer::LeaveTopLocalities(size_t limit, std::vector<Locality> & localities) const
 {
   std::vector<ExLocality> ls;
   ls.reserve(localities.size());

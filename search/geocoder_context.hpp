@@ -1,10 +1,13 @@
 #pragma once
 
 #include "search/cbv.hpp"
+#include "search/features_layer.hpp"
+#include "search/geocoder_locality.hpp"
 #include "search/hotels_filter.hpp"
 
-#include "std/unique_ptr.hpp"
-#include "std/vector.hpp"
+#include <cstddef>
+#include <memory>
+#include <vector>
 
 namespace search
 {
@@ -28,17 +31,25 @@ struct BaseContext
 
   // List of bit-vectors of features, where i-th element of the list
   // corresponds to the i-th token in the search query.
-  vector<CBV> m_features;
+  std::vector<CBV> m_features;
   CBV m_villages;
   CBV m_streets;
 
+  // Stack of layers filled during geocoding.
+  std::vector<FeaturesLayer> m_layers;
+
+  // Stack of regions filled during geocoding.
+  std::vector<Region const *> m_regions;
+
+  City const * m_city = nullptr;
+
   // This vector is used to indicate what tokens were already matched
   // and can't be re-used during the geocoding process.
-  vector<bool> m_usedTokens;
+  std::vector<bool> m_usedTokens;
 
   // Number of tokens in the query.
   size_t m_numTokens = 0;
 
-  unique_ptr<hotels_filter::HotelsFilter::ScopedFilter> m_hotelsFilter;
+  std::unique_ptr<hotels_filter::HotelsFilter::ScopedFilter> m_hotelsFilter;
 };
 }  // namespace search

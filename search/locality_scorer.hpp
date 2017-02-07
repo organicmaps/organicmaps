@@ -1,6 +1,6 @@
 #pragma once
 
-#include "search/geocoder.hpp"
+#include "search/geocoder_locality.hpp"
 #include "search/ranking_utils.hpp"
 
 #include <cstdint>
@@ -32,18 +32,17 @@ public:
   // Leaves at most |limit| elements of |localities|, ordered by their
   // features.
   void GetTopLocalities(MwmSet::MwmId const & countryId, BaseContext const & ctx,
-                        CBV const & filter, size_t limit,
-                        std::vector<Geocoder::Locality> & localities);
+                        CBV const & filter, size_t limit, std::vector<Locality> & localities);
 
 private:
   struct ExLocality
   {
     ExLocality();
-    explicit ExLocality(Geocoder::Locality const & locality);
+    explicit ExLocality(Locality const & locality);
 
     inline uint32_t GetId() const { return m_locality.m_featureId; }
 
-    Geocoder::Locality m_locality;
+    Locality m_locality;
     size_t m_numTokens;
     uint8_t m_rank;
     NameScore m_nameScore;
@@ -53,7 +52,7 @@ private:
 
   // Leaves at most |limit| elements of |localities|, ordered by some
   // combination of ranks and number of matched tokens.
-  void LeaveTopLocalities(size_t limit, std::vector<Geocoder::Locality> & localities) const;
+  void LeaveTopLocalities(size_t limit, std::vector<Locality> & localities) const;
 
   void RemoveDuplicates(std::vector<ExLocality> & ls) const;
   void LeaveTopByRankAndProb(size_t limit, std::vector<ExLocality> & ls) const;

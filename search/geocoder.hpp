@@ -7,6 +7,7 @@
 #include "search/features_layer.hpp"
 #include "search/features_layer_path_finder.hpp"
 #include "search/geocoder_context.hpp"
+#include "search/geocoder_locality.hpp"
 #include "search/geometry_cache.hpp"
 #include "search/hotels_filter.hpp"
 #include "search/mode.hpp"
@@ -86,64 +87,6 @@ public:
     shared_ptr<hotels_filter::Rule> m_hotelsFilter;
   };
 
-  enum RegionType
-  {
-    REGION_TYPE_STATE,
-    REGION_TYPE_COUNTRY,
-    REGION_TYPE_COUNT
-  };
-
-  struct Locality
-  {
-    Locality() = default;
-
-    Locality(MwmSet::MwmId const & countryId, uint32_t featureId, TokenRange const & tokenRange,
-             double prob)
-      : m_countryId(countryId)
-      , m_featureId(featureId)
-      , m_tokenRange(tokenRange)
-      , m_prob(prob)
-    {
-    }
-
-    MwmSet::MwmId m_countryId;
-    uint32_t m_featureId = 0;
-    TokenRange m_tokenRange;
-
-    // Measures our belief in the fact that tokens in the range
-    // [m_startToken, m_endToken) indeed specify a locality. Currently
-    // it is set only for villages.
-    double m_prob = 0.0;
-  };
-
-  // This struct represents a country or US- or Canadian- state.  It
-  // is used to filter maps before search.
-  struct Region : public Locality
-  {
-    Region(Locality const & l, RegionType type) : Locality(l), m_center(0, 0), m_type(type) {}
-
-    storage::CountryInfoGetter::TRegionIdSet m_ids;
-    string m_defaultName;
-    m2::PointD m_center;
-    RegionType m_type;
-  };
-
-  // This struct represents a city or a village. It is used to filter features
-  // during search.
-  // todo(@m) It works well as is, but consider a new naming scheme
-  // when counties etc. are added. E.g., Region for countries and
-  // states and Locality for smaller settlements.
-  struct City : public Locality
-  {
-    City(Locality const & l, SearchModel::SearchType type) : Locality(l), m_type(type) {}
-
-    m2::RectD m_rect;
-    SearchModel::SearchType m_type;
-#if defined(DEBUG)
-    string m_defaultName;
-#endif
-  };
-
   Geocoder(Index const & index, storage::CountryInfoGetter const & infoGetter,
            PreRanker & preRanker, VillagesCache & villagesCache,
            my::Cancellable const & cancellable);
@@ -210,7 +153,7 @@ private:
 
   // Tries to find all countries and states in a search query and then
   // performs matching of cities in found maps.
-  void MatchRegions(BaseContext & ctx, RegionType type);
+  void MatchRegions(BaseContext & ctx, Region::Type type);
 
   // Tries to find all cities in a search query and then performs
   // matching of streets in found cities.
@@ -245,7 +188,7 @@ private:
   // Returns true if current path in the search tree (see comment for
   // MatchPOIsAndBuildings()) looks sane. This method is used as a fast
   // pre-check to cut off unnecessary work.
-  bool IsLayerSequenceSane() const;
+  bool IsLayerSequenceSane(vector<FeaturesLayer> const & layers) const;
 
   // Finds all paths through layers and emits reachable features from
   // the lowest layer.
@@ -302,7 +245,7 @@ private:
   // m_cities stores both big cities that are visible at World.mwm
   // and small villages and hamlets that are not.
   LocalitiesCache<City> m_cities;
-  LocalitiesCache<Region> m_regions[REGION_TYPE_COUNT];
+  LocalitiesCache<Region> m_regions[Region::TYPE_COUNT];
 
   // Caches of features in rects. These caches are separated from
   // TLocalitiesCache because the latter are quite lightweight and not
@@ -327,14 +270,6 @@ private:
   vector<SearchTrieRequest<strings::LevenshteinDFA>> m_tokenRequests;
   SearchTrieRequest<strings::PrefixDFAModifier<strings::LevenshteinDFA>> m_prefixTokenRequest;
 
-  // Pointer to the most nested region filled during geocoding.
-  Region const * m_lastMatchedRegion;
-
-  // Stack of layers filled during geocoding.
-  vector<FeaturesLayer> m_layers;
-
   PreRanker & m_preRanker;
 };
-
-string DebugPrint(Geocoder::Locality const & locality);
 }  // namespace search

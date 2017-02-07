@@ -5,12 +5,10 @@
 #include "search/geometry_utils.hpp"
 #include "search/intermediate_result.hpp"
 #include "search/latlon_match.hpp"
-#include "search/locality.hpp"
 #include "search/pre_ranking_info.hpp"
 #include "search/query_params.hpp"
 #include "search/ranking_info.hpp"
 #include "search/ranking_utils.hpp"
-#include "search/region.hpp"
 #include "search/search_index_values.hpp"
 #include "search/utils.hpp"
 

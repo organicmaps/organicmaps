@@ -7,7 +7,8 @@
 
 #include "base/assert.hpp"
 
-#include "std/cstdint.hpp"
+#include <cstdint>
+#include <string>
 
 namespace search
 {
@@ -45,6 +46,5 @@ struct PreRankingInfo
   SearchModel::SearchType m_searchType = SearchModel::SEARCH_TYPE_COUNT;
 };
 
-string DebugPrint(PreRankingInfo const & info);
-
+std::string DebugPrint(PreRankingInfo const & info);
 }  // namespace search
