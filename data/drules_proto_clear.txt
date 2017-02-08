@@ -75951,3 +75951,169 @@ cont {
     }
   }
 }
+colors {
+  color {
+    name: "RoadShieldGreenText"
+    value: 16777215
+  }
+  color {
+    name: "TrackUnknownDistance"
+    value: 6381921
+  }
+  color {
+    name: "MyPositionAccuracy"
+    value: 3942645760
+  }
+  color {
+    name: "GuiText"
+    value: 609045837
+  }
+  color {
+    name: "PoiHotelTextOutline"
+    value: 1728053247
+  }
+  color {
+    name: "RoadShieldAddText"
+    value: 0
+  }
+  color {
+    name: "RoadShieldAddTextOutline"
+    value: 16777215
+  }
+  color {
+    name: "PoiDeletedMask"
+    value: 3019898879
+  }
+  color {
+    name: "RoadShieldBlueBackground"
+    value: 3043273
+  }
+  color {
+    name: "TrackHumanSpeed"
+    value: 1913758
+  }
+  color {
+    name: "RoadShieldUSInterstateText"
+    value: 16777215
+  }
+  color {
+    name: "TrafficArrowDark"
+    value: 7033108
+  }
+  color {
+    name: "RoadShieldBlueText"
+    value: 16777215
+  }
+  color {
+    name: "RoutePedestrian"
+    value: 857551774
+  }
+  color {
+    name: "Arrow3DOutline"
+    value: 16777215
+  }
+  color {
+    name: "RouteTrafficG0"
+    value: 10167040
+  }
+  color {
+    name: "Arrow3DShadow"
+    value: 3258727484
+  }
+  color {
+    name: "Route"
+    value: 34815
+  }
+  color {
+    name: "RouteOutline"
+    value: 352205
+  }
+  color {
+    name: "RoadShieldUSHighwayText"
+    value: 0
+  }
+  color {
+    name: "TrackPlaneSpeed"
+    value: 705791
+  }
+  color {
+    name: "TrafficG0"
+    value: 10167045
+  }
+  color {
+    name: "Arrow3D"
+    value: 5286655
+  }
+  color {
+    name: "TrafficG3"
+    value: 2163913763
+  }
+  color {
+    name: "TrafficG2"
+    value: 15088695
+  }
+  color {
+    name: "TrafficG1"
+    value: 15088695
+  }
+  color {
+    name: "TrackCarSpeed"
+    value: 1407476
+  }
+  color {
+    name: "TrafficTempBlock"
+    value: 4605510
+  }
+  color {
+    name: "TrafficG5"
+    value: 4622165
+  }
+  color {
+    name: "Selection"
+    value: 1545508592
+  }
+  color {
+    name: "Arrow3DObsolete"
+    value: 1216522952
+  }
+  color {
+    name: "TrafficUnknown"
+    value: 0
+  }
+  color {
+    name: "TrafficG4"
+    value: 10202935
+  }
+  color {
+    name: "RoadShieldGreenBackground"
+    value: 2257467
+  }
+  color {
+    name: "TrafficArrowLight"
+    value: 16777215
+  }
+  color {
+    name: "RouteTrafficG1"
+    value: 15744010
+  }
+  color {
+    name: "RoadShieldUKGreenText"
+    value: 16764006
+  }
+  color {
+    name: "RouteTrafficG3"
+    value: 2163595048
+  }
+  color {
+    name: "RouteTrafficG2"
+    value: 15744010
+  }
+  color {
+    name: "RouteBicycle"
+    value: 865871792
+  }
+  color {
+    name: "TrafficOutline"
+    value: 16777215
+  }
+}
