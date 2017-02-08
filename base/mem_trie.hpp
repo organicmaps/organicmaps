@@ -59,16 +59,6 @@ public:
       ForEachInNode(*root, prefix, std::forward<ToDo>(toDo));
   }
 
-  // Calls |toDo| for each value in the node that is reachable
-  // by |prefix| from the trie root. Does nothing if such node does
-  // not exist.
-  template <typename ToDo>
-  void ForEachValueInNode(String const & prefix, ToDo && toDo) const
-  {
-    if (auto const * root = MoveTo(prefix))
-      ForEachValueInNode(*root, std::forward<ToDo>(toDo));
-  }
-
   // Calls |toDo| for each key-value pair in a subtree that is
   // reachable by |prefix| from the trie root. Does nothing if such
   // subtree does not exist.
@@ -134,14 +124,6 @@ private:
   {
     for (auto const & value : node.m_values)
       toDo(prefix, value);
-  }
-
-  // Calls |toDo| for each value in |node|.
-  template <typename ToDo>
-  void ForEachValueInNode(Node const & node, ToDo && toDo) const
-  {
-    for (auto const & value : node.m_values)
-      toDo(value);
   }
 
   // Calls |toDo| for each key-value pair in subtree where |node| is a

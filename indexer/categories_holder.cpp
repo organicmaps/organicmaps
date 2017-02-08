@@ -201,7 +201,7 @@ void CategoriesHolder::AddCategory(Category & cat, vector<uint32_t> & types)
     for (auto const & synonym : p->m_synonyms)
     {
       auto const locale = synonym.m_locale;
-      ASSERT(locale != kUnsupportedLocaleCode, ());
+      ASSERT_NOT_EQUAL(locale, kUnsupportedLocaleCode, ());
 
       auto const uniName = search::NormalizeAndSimplifyString(synonym.m_name);
 
@@ -214,11 +214,8 @@ void CategoriesHolder::AddCategory(Category & cat, vector<uint32_t> & types)
           continue;
         for (uint32_t const t : types)
         {
-          if (m_name2type.find(locale) == m_name2type.end())
-            m_name2type[locale] = make_unique<Trie>();
-
-          auto * trie = m_name2type[locale].get();
-          trie->Add(token, t);
+          auto it = m_name2type.emplace(locale, make_unique<Trie>()).first;
+          it->second->Add(token, t);
         }
       }
     }

@@ -125,4 +125,28 @@ UNIT_TEST(SortUnique_VectorTest)
   TestSortUnique<vector>();
   TestSortUnique<deque>();
 }
+
+UNIT_TEST(IgnoreFirstArgument)
+{
+  {
+    int s = 0;
+    auto f1 = [&](int a, int b) { s += a + b; };
+    auto f2 = [&](int a, int b) { s -= a + b; };
+    auto f3 = my::MakeIgnoreFirstArgument(f2);
+
+    f1(2, 3);
+    TEST_EQUAL(s, 5, ());
+    f3(1, 2, 3);
+    TEST_EQUAL(s, 0, ());
+  }
+
+  {
+    auto f1 = [](int a, int b) -> int { return a + b; };
+    auto f2 = my::MakeIgnoreFirstArgument(f1);
+
+    auto const x = f1(2, 3);
+    auto const y = f2("ignored", 2, 3);
+    TEST_EQUAL(x, y, ());
+  }
+}
 }  // namespace

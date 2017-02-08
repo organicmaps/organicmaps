@@ -1,5 +1,7 @@
 #pragma once
+
 #include "base/mem_trie.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include "std/deque.hpp"
@@ -52,7 +54,10 @@ private:
   using Trie = my::MemTrie<String, uint32_t>;
 
   Type2CategoryCont m_type2cat;
+
+  // Maps locale and category token to the list of corresponding types.
   map<int8_t, unique_ptr<Trie>> m_name2type;
+
   GroupTranslations m_groupTranslations;
 
 public:
@@ -70,7 +75,7 @@ public:
   template <class ToDo>
   void ForEachCategory(ToDo && toDo) const
   {
-    for (auto & p : m_type2cat)
+    for (auto const & p : m_type2cat)
       toDo(*p.second);
   }
 
@@ -84,10 +89,9 @@ public:
   template <class ToDo>
   void ForEachName(ToDo && toDo) const
   {
-    for (auto & p : m_type2cat)
+    for (auto const & p : m_type2cat)
     {
-      shared_ptr<Category> cat = p.second;
-      for (auto const & synonym : cat->m_synonyms)
+      for (auto const & synonym : p.second->m_synonyms)
         toDo(synonym);
     }
   }
@@ -108,7 +112,7 @@ public:
     auto const it = m_name2type.find(locale);
     if (it == m_name2type.end())
       return;
-    it->second->ForEachValueInNode(name, forward<ToDo>(toDo));
+    it->second->ForEachInNode(name, my::MakeIgnoreFirstArgument(forward<ToDo>(toDo)));
   }
 
   inline GroupTranslations const & GetGroupTranslations() const { return m_groupTranslations; }
