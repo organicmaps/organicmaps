@@ -1,19 +1,27 @@
 #pragma once
 
+#include "routing/cross_mwm_index_graph.hpp"
+#include "routing/num_mwm_id.hpp"
+#include "routing/routing_mapping.hpp"
 #include "routing/segment.hpp"
 
+#include "base/math.hpp"
+
+#include <map>
+#include <memory>
+#include <set>
 #include <vector>
 
 namespace routing
 {
-/// \brief This is an interface for cross mwm routing.
-// @TODO(bykoianko) This interface will have two implementations.
-// * For orsm cross mwm section.
-// * For A* cross mwm section
-class CrossMwmIndexGraph
+/// \brief Getting information for cross mwm routing.
+class CrossMwmIndexGraph final
 {
 public:
-  virtual ~CrossMwmIndexGraph() = default;
+  CrossMwmIndexGraph(std::shared_ptr<NumMwmIds> numMwmIds, RoutingIndexManager & indexManager)
+    : m_indexManager(indexManager), m_numMwmIds(numMwmIds)
+  {
+  }
 
   /// \brief Transition segment is a segment which is crossed by mwm border. That means
   /// start and finsh of such segment have to lie in different mwms. If a segment is
@@ -40,14 +48,14 @@ public:
   /// * exit transition segments are exits from their mwms;
   /// \returns true if |s| is an exit (|isOutgoing| == true) or an enter (|isOutgoing| == false)
   /// transition segment.
-  virtual bool IsTransition(Segment const & s, bool isOutgoing) const = 0;
+  bool IsTransition(Segment const & s, bool isOutgoing);
 
   /// \brief Fills |twins| with duplicates of |s| transition segment in neighbouring mwm.
   /// For most cases there is only one twin for |s|.
   /// If |s| is an enter transition segment fills |twins| with appropriate exit transition segments.
   /// If |s| is an exit transition segment fills |twins| with appropriate enter transition segments.
-  /// \note GetTwin(...) shall be called only if IsTransition(s, ...) returns true.
-  virtual void GetTwin(Segment const & s, std::vector<Segment> & twins) const = 0;
+  /// \note GetTwins(...) shall be called only if IsTransition(s, ...) returns true.
+  void GetTwins(Segment const & s, std::vector<Segment> & twins) const;
 
   /// \brief Fills |edges| with edges outgoing from |s| (ingoing to |s|).
   /// If |isOutgoing| == true then |s| should be an enter transition segment.
@@ -58,6 +66,18 @@ public:
   /// enter transition segments of the mwm of |s| and ending at |s|.
   /// Weight of each edge is equal to weight of the route form |s| to |SegmentEdge::m_target|
   /// if |isOutgoing| == true and from |SegmentEdge::m_target| to |s| otherwise.
-  virtual void GetEdgeList(Segment const & s, bool isOutgoing, std::vector<SegmentEdge> & edges) const = 0;
+  void GetEdgeList(Segment const & s, bool isOutgoing, std::vector<SegmentEdge> & edges) const;
+
+private:
+  struct TransitionSegments
+  {
+    std::set<Segment> m_ingoing;
+    std::set<Segment> m_outgoing;
+  };
+
+  RoutingIndexManager & m_indexManager;
+  std::shared_ptr<NumMwmIds> m_numMwmIds;
+
+  std::map<NumMwmId, TransitionSegments> m_transitionCache;
 };
 }  // routing

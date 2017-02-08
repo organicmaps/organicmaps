@@ -27,6 +27,11 @@ public:
   {
   }
 
+  constexpr Segment(NumMwmId mwmId, uint32_t featureId, uint32_t segmentIdx, bool forward)
+    : m_featureId(featureId), m_segmentIdx(segmentIdx), m_mwmId(mwmId), m_forward(forward)
+  {
+  }
+
   NumMwmId GetMwmId() const { return m_mwmId; }
   uint32_t GetFeatureId() const { return m_featureId; }
   uint32_t GetSegmentIdx() const { return m_segmentIdx; }

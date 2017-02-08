@@ -59,8 +59,7 @@ bool FtSeg::Merge(FtSeg const & other)
   if (other.m_fid != m_fid)
     return false;
 
-  bool const dir = other.m_pointEnd > other.m_pointStart;
-  if (dir != (m_pointEnd > m_pointStart))
+  if (IsForward() != other.IsForward())
     return false;
 
   auto const s1 = min(m_pointStart, m_pointEnd);
@@ -72,7 +71,7 @@ bool FtSeg::Merge(FtSeg const & other)
   {
     m_pointStart = min(s1, s2);
     m_pointEnd = max(e1, e2);
-    if (!dir)
+    if (!other.IsForward())
       swap(m_pointStart, m_pointEnd);
 
     return true;
