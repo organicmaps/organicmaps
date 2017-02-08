@@ -20,6 +20,8 @@ UNIT_TEST(SmallSet_Smoke)
 {
   SmallSet<300> set;
   TEST_EQUAL(set.Size(), 0, ());
+  for (uint64_t i = 0; i < 300; ++i)
+    TEST(!set.Contains(i), ());
 
   set.Insert(0);
   TEST_EQUAL(set.Size(), 1, ());
