@@ -96,7 +96,7 @@ public:
     filter.SetFull();
 
     m_scorer.GetTopLocalities(MwmSet::MwmId(), ctx, filter, limit, m_localities);
-    sort(m_localities.begin(), m_localities.end(), my::LessBy(&Geocoder::Locality::m_featureId));
+    sort(m_localities.begin(), m_localities.end(), my::LessBy(&Locality::m_featureId));
   }
 
   // LocalityScorer::Delegate overrides:
@@ -111,7 +111,7 @@ public:
 
 protected:
   QueryParams m_params;
-  vector<Geocoder::Locality> m_localities;
+  vector<Locality> m_localities;
   unordered_map<uint32_t, vector<string>> m_names;
   LocalityScorer m_scorer;
 

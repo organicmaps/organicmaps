@@ -27,16 +27,18 @@ set(
   feature_offset_match.hpp
   features_filter.cpp
   features_filter.hpp
+  features_layer.cpp
+  features_layer.hpp
   features_layer_matcher.cpp
   features_layer_matcher.hpp
   features_layer_path_finder.cpp
   features_layer_path_finder.hpp
-  features_layer.cpp
-  features_layer.hpp
-  geocoder_context.cpp
-  geocoder_context.hpp
   geocoder.cpp
   geocoder.hpp
+  geocoder_context.cpp
+  geocoder_context.hpp
+  geocoder_locality.cpp
+  geocoder_locality.hpp
   geometry_cache.cpp
   geometry_cache.hpp
   geometry_utils.cpp
@@ -68,8 +70,6 @@ set(
   locality_finder.hpp
   locality_scorer.cpp
   locality_scorer.hpp
-  locality.cpp
-  locality.hpp
   mode.cpp
   mode.hpp
   model.cpp
@@ -84,9 +84,9 @@ set(
   pre_ranker.hpp
   pre_ranking_info.cpp
   pre_ranking_info.hpp
-  processor_factory.hpp
   processor.cpp
   processor.hpp
+  processor_factory.hpp
   projection_on_street.cpp
   projection_on_street.hpp
   query_params.cpp
@@ -101,8 +101,6 @@ set(
   ranking_info.hpp
   ranking_utils.cpp
   ranking_utils.hpp
-  region.cpp
-  region.hpp
   result.cpp
   result.hpp
   retrieval.cpp

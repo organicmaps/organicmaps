@@ -30,6 +30,7 @@ HEADERS += \
     features_layer_path_finder.hpp \
     geocoder.hpp \
     geocoder_context.hpp \
+    geocoder_locality.hpp \
     geometry_cache.hpp \
     geometry_utils.hpp \
     hotels_classifier.hpp \
@@ -44,7 +45,6 @@ HEADERS += \
     keyword_matcher.hpp \
     latlon_match.hpp \
     lazy_centers_table.hpp \
-    locality.hpp \
     locality_finder.hpp \
     locality_scorer.hpp \
     mode.hpp \
@@ -63,7 +63,6 @@ HEADERS += \
     ranker.hpp \
     ranking_info.hpp \
     ranking_utils.hpp \
-    region.hpp \
     result.hpp \
     retrieval.hpp \
     reverse_geocoder.hpp \
@@ -97,6 +96,7 @@ SOURCES += \
     features_layer_path_finder.cpp \
     geocoder.cpp \
     geocoder_context.cpp \
+    geocoder_locality.cpp \
     geometry_cache.cpp \
     geometry_utils.cpp \
     hotels_classifier.cpp \
@@ -110,7 +110,6 @@ SOURCES += \
     keyword_matcher.cpp \
     latlon_match.cpp \
     lazy_centers_table.cpp \
-    locality.cpp \
     locality_finder.cpp \
     locality_scorer.cpp \
     mode.cpp \
@@ -128,7 +127,6 @@ SOURCES += \
     ranker.cpp \
     ranking_info.cpp \
     ranking_utils.cpp \
-    region.cpp \
     result.cpp \
     retrieval.cpp \
     reverse_geocoder.cpp \
