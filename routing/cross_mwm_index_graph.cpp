@@ -1,4 +1,4 @@
-#include "routing/cross_mwm_index_graph_osrm.hpp"
+#include "routing/cross_mwm_index_graph.hpp"
 
 #include "platform/country_file.hpp"
 
@@ -25,14 +25,19 @@ void FillTransitionSegments(routing::OsrmFtSegMapping const & segMapping, routin
     transitionSegments.emplace(seg.m_fid, min(seg.m_pointStart, seg.m_pointEnd), mwmId, seg.IsForward());
     return;
   }
-  LOG(LERROR, ("No valid segments in the range returned by OsrmFtSegMapping::GetSegmentsRange(", nodeId, ")"));
+  LOG(LERROR, ("No valid segments in the range returned by OsrmFtSegMapping::GetSegmentsRange(", nodeId,
+               "). Num mwm id:", mwmId));
 }
 }  // namespace
 
 namespace routing
 {
-bool CrossMwmIndexGraphOsrm::IsTransition(Segment const & s, bool isOutgoing)
+bool CrossMwmIndexGraph::IsTransition(Segment const & s, bool isOutgoing)
 {
+  // @TODO(bykoianko) It's necessary to check if mwm of |s| contains an A* cross mwm section
+  // and if so to use it. If not, osrm cross mwm sections should be used.
+
+  // Checking if a segment |s| is a transition segment by osrm cross mwm sections.
   auto it = m_transitionCache.find(s.GetMwmId());
   if (it == m_transitionCache.cend())
   {
@@ -63,14 +68,18 @@ bool CrossMwmIndexGraphOsrm::IsTransition(Segment const & s, bool isOutgoing)
   return it->second.m_ingoing.count(s) != 0;
 }
 
-void CrossMwmIndexGraphOsrm::GetTwin(Segment const & /* s */, std::vector<Segment> & /* twins */) const
+void CrossMwmIndexGraph::GetTwins(Segment const & /* s */, std::vector<Segment> & /* twins */) const
 {
+  // @TODO(bykoianko) It's necessary to check if mwm of |s| contains an A* cross mwm section
+  // and if so to use it. If not, osrm cross mwm sections should be used.
   NOTIMPLEMENTED();
 }
 
-void CrossMwmIndexGraphOsrm::GetEdgeList(Segment const & /* s */,
+void CrossMwmIndexGraph::GetEdgeList(Segment const & /* s */,
                                          bool /* isOutgoing */, std::vector<SegmentEdge> & /* edges */) const
 {
+  // @TODO(bykoianko) It's necessary to check if mwm of |s| contains an A* cross mwm section
+  // and if so to use it. If not, osrm cross mwm sections should be used.
   NOTIMPLEMENTED();
 }
 }  // namespace routing
