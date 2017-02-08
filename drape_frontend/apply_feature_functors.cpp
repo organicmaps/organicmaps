@@ -14,6 +14,7 @@
 #include "indexer/drules_include.hpp"
 #include "indexer/map_style_reader.hpp"
 #include "indexer/osm_editor.hpp"
+#include "indexer/road_shields_parser.hpp"
 
 #include "geometry/clipping.hpp"
 

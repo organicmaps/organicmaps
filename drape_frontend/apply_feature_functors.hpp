@@ -21,6 +21,11 @@ class SymbolRuleProto;
 
 //#define CALC_FILTERED_POINTS
 
+namespace ftypes
+{
+class RoadShield;
+}
+
 namespace df
 {
 

@@ -206,6 +206,8 @@
 		67F183731BD4FCF500AB1840 /* map_style.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67F183721BD4FCF500AB1840 /* map_style.cpp */; };
 		E906DE3B1CF44934004C4F5E /* postcodes_matcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E906DE391CF44934004C4F5E /* postcodes_matcher.cpp */; };
 		E906DE3C1CF44934004C4F5E /* postcodes_matcher.hpp in Headers */ = {isa = PBXBuildFile; fileRef = E906DE3A1CF44934004C4F5E /* postcodes_matcher.hpp */; };
+		F61F83061E4B187500B37B7A /* road_shields_parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F61F83041E4B187500B37B7A /* road_shields_parser.cpp */; };
+		F61F83071E4B187500B37B7A /* road_shields_parser.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F61F83051E4B187500B37B7A /* road_shields_parser.hpp */; };
 		F6381BF91CD26C9C004CA943 /* new_feature_categories.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6381BF71CD26C9C004CA943 /* new_feature_categories.cpp */; };
 		F6381BFA1CD26C9C004CA943 /* new_feature_categories.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6381BF81CD26C9C004CA943 /* new_feature_categories.hpp */; };
 		F6DF5F2D1CD0FC9D00A87154 /* categories_index.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6DF5F2C1CD0FC9D00A87154 /* categories_index.cpp */; };
@@ -429,6 +431,8 @@
 		E906DE371CF44917004C4F5E /* postcodes_matcher_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = postcodes_matcher_tests.cpp; sourceTree = "<group>"; };
 		E906DE391CF44934004C4F5E /* postcodes_matcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = postcodes_matcher.cpp; sourceTree = "<group>"; };
 		E906DE3A1CF44934004C4F5E /* postcodes_matcher.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = postcodes_matcher.hpp; sourceTree = "<group>"; };
+		F61F83041E4B187500B37B7A /* road_shields_parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = road_shields_parser.cpp; sourceTree = "<group>"; };
+		F61F83051E4B187500B37B7A /* road_shields_parser.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = road_shields_parser.hpp; sourceTree = "<group>"; };
 		F6381BF71CD26C9C004CA943 /* new_feature_categories.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = new_feature_categories.cpp; sourceTree = "<group>"; };
 		F6381BF81CD26C9C004CA943 /* new_feature_categories.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = new_feature_categories.hpp; sourceTree = "<group>"; };
 		F6DF5F2C1CD0FC9D00A87154 /* categories_index.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = categories_index.cpp; sourceTree = "<group>"; };
@@ -753,6 +757,8 @@
 				675340FB1A3F540F00A0A8C3 /* types_mapping.cpp */,
 				675340FC1A3F540F00A0A8C3 /* types_mapping.hpp */,
 				670EE56B1B60033A001E8064 /* unique_index.hpp */,
+				F61F83041E4B187500B37B7A /* road_shields_parser.cpp */,
+				F61F83051E4B187500B37B7A /* road_shields_parser.hpp */,
 			);
 			name = indexer;
 			path = ../../indexer;
@@ -833,6 +839,7 @@
 				347F337C1C454242009758CC /* rank_table.hpp in Headers */,
 				0C5FEC731DDE1A140017688C /* routing_section.hpp in Headers */,
 				6753414B1A3F540F00A0A8C3 /* tesselator_decl.hpp in Headers */,
+				F61F83071E4B187500B37B7A /* road_shields_parser.hpp in Headers */,
 				347F33801C454242009758CC /* trie_reader.hpp in Headers */,
 				675341191A3F540F00A0A8C3 /* feature_decl.hpp in Headers */,
 				674125141B4C02F100A3E828 /* map_style_reader.hpp in Headers */,
@@ -1060,6 +1067,7 @@
 				675341251A3F540F00A0A8C3 /* feature.cpp in Sources */,
 				675341091A3F540F00A0A8C3 /* data_header.cpp in Sources */,
 				6753412C1A3F540F00A0A8C3 /* geometry_serialization.cpp in Sources */,
+				F61F83061E4B187500B37B7A /* road_shields_parser.cpp in Sources */,
 				670EE56C1B60033A001E8064 /* features_vector.cpp in Sources */,
 				34664CF31D49FEC1003D7096 /* altitude_loader.cpp in Sources */,
 				6726C1D11A49DAAC005EEA39 /* feature_meta.cpp in Sources */,

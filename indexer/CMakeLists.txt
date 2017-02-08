@@ -108,6 +108,8 @@ set(
   postcodes_matcher.hpp    # it's in indexer due to editor which is in indexer and depends on postcodes_marcher
   rank_table.cpp
   rank_table.hpp
+  road_shields_parser.cpp
+  road_shields_parser.hpp
   scale_index_builder.hpp
   scale_index.hpp
   scales.cpp
