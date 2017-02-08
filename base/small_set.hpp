@@ -154,11 +154,62 @@ uint64_t constexpr SmallSet<UpperBound>::kNumBlocks;
 template <uint64_t UpperBound>
 uint64_t constexpr SmallSet<UpperBound>::kOne;
 
-template<uint64_t UpperBound>
+template <uint64_t UpperBound>
 std::string DebugPrint(SmallSet<UpperBound> const & set)
 {
   std::ostringstream os;
   os << "SmallSet<" << UpperBound << "> [" << set.Size() << ": ";
+  for (auto const & v : set)
+    os << v << " ";
+  os << "]";
+  return os.str();
+}
+
+// This is a delegate for SmallSet<>, that checks the validity of
+// argument in Insert(), Remove() and Contains() methods and does
+// nothing when the argument is not valid.
+template <uint64_t UpperBound>
+class SafeSmallSet
+{
+public:
+  using Set = SmallSet<UpperBound>;
+  using Iterator = typename Set::Iterator;
+
+  void Insert(uint64_t value)
+  {
+    if (IsValid(value))
+      m_set.Insert(value);
+  }
+
+  void Remove(uint64_t value)
+  {
+    if (IsValid(value))
+      m_set.Remove(value);
+  }
+
+  bool Contains(uint64_t value) const { return IsValid(value) && m_set.Contains(value); }
+
+  uint64_t Size() const { return m_set.Size(); }
+
+  void Clear() { m_set.Clear(); }
+
+  Iterator begin() const { return m_set.begin(); }
+  Iterator cbegin() const { return m_set.cbegin(); }
+
+  Iterator end() const { return m_set.end(); }
+  Iterator cend() const { return m_set.cend(); }
+
+private:
+  bool IsValid(uint64_t value) const { return value < UpperBound; }
+
+  Set m_set;
+};
+
+template <uint64_t UpperBound>
+std::string DebugPrint(SafeSmallSet<UpperBound> const & set)
+{
+  std::ostringstream os;
+  os << "SafeSmallSet<" << UpperBound << "> [" << set.Size() << ": ";
   for (auto const & v : set)
     os << v << " ";
   os << "]";
