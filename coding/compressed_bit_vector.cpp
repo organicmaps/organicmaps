@@ -434,7 +434,7 @@ unique_ptr<CompressedBitVector> CompressedBitVectorBuilder::FromBitGroups(
   if (bitGroups.empty())
     return make_unique<SparseCBV>(move(bitGroups));
 
-  uint64_t const maxBit = kBlockSize * (bitGroups.size() - 1) + bits::CeilLog(bitGroups.back());
+  uint64_t const maxBit = kBlockSize * (bitGroups.size() - 1) + bits::FloorLog(bitGroups.back());
   uint64_t popCount = 0;
   for (size_t i = 0; i < bitGroups.size(); ++i)
     popCount += bits::PopCount(bitGroups[i]);

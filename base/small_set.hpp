@@ -54,7 +54,7 @@ public:
     {
       ASSERT_NOT_EQUAL(m_current_block, 0, ());
       auto const bit = m_current_block & -m_current_block;
-      return bits::PopCount(bit - 1) + m_current_block_index * 64;
+      return bits::FloorLog(bit) + m_current_block_index * 64;
     }
 
     Iterator const & operator++()
