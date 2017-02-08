@@ -1,4 +1,5 @@
 @import("colors.mapcss");
+@import("../include/common_colors.mapcss");
 @import("../include/defaults_new.mapcss");
 @import("../include/Basemap.mapcss");
 @import("../include/Basemap_label.mapcss");
@@ -13,4 +14,60 @@ canvas
   fill-color: @water;
   default-lines: false;
   default-points: false;
+}
+
+colors
+{
+  GuiText-color: #FFFFFF;
+  GuiText-opacity: 0.7;
+  MyPositionAccuracy-color: #FFFFFF;
+  MyPositionAccuracy-opacity: 0.06;
+  Selection-color: #4BB9E6;
+  Selection-opacity: 0.64;
+  Route-color: #0087FF;
+  RouteOutline-color: #055FCD;
+  RouteTrafficG0-color: #9B2300;
+  RouteTrafficG1-color: #F03C0A;
+  RouteTrafficG2-color: #F03C0A;
+  RouteTrafficG3-color: #F5D728;
+  RouteTrafficG3-opacity: @traffic_arrow_dark;
+  RoutePedestrian-color: #FFB94B;
+  RoutePedestrian-opacity: 0.7;
+  RouteBicycle-color: #FF4B8C;
+  RouteBicycle-opacity: 0.7;
+  Arrow3D-color: #41C8FF;
+  Arrow3DObsolete-color: #82AAC8;
+  Arrow3DObsolete-opacity: 0.72;
+  Arrow3DShadow-color: #3C3C3C;
+  Arrow3DShadow-opacity: 0.24;
+  Arrow3DOutline-color: #FFFFFF;
+  TrackHumanSpeed-color: #FF9800;
+  TrackCarSpeed-color: #FFCA28;
+  TrackPlaneSpeed-color: #FFF5A0;
+  TrackUnknownDistance-color: #969696;
+  TrafficG0-color: #410F00;
+  TrafficG1-color: #781919;
+  TrafficG2-color: #781919;
+  TrafficG3-color: #8C5A00;
+  TrafficG3-opacity: @traffic_arrow_dark;
+  TrafficG4-color: #555519;
+  TrafficG5-color: #285032;
+  TrafficTempBlock-color: #232323;
+  TrafficUnknown-color: #000000;
+  TrafficArrowLight-color: #AAAAAA;
+  TrafficArrowDark-color: #1E1E1E;
+  TrafficOutline-color: #000000;
+  RoadShieldAddText-color: #000000;
+  RoadShieldAddTextOutline-color: #FFFFFF;
+  RoadShieldUSInterstateText-color: #FFFFFF;
+  RoadShieldUSHighwayText-color: #000000;
+  RoadShieldBlueText-color: #FFFFFF;
+  RoadShieldGreenText-color: #FFFFFF;
+  RoadShieldUKGreenText-color: #FFCC66;
+  RoadShieldBlueBackground-color: #2E6FC9;
+  RoadShieldGreenBackground-color: #22723B;
+  PoiHotelTextOutline-color: #000000;
+  PoiHotelTextOutline-opacity: 0.6;
+  PoiDeletedMask-color: #FFFFFF;
+  PoiDeletedMask-opacity: 0.3;
 }
