@@ -677,7 +677,7 @@ void Processor::InitParams(QueryParams & params)
 
   auto & langs = params.GetLangs();
   for (int i = 0; i < LANG_COUNT; ++i)
-    langs.insert(GetLanguage(i));
+    langs.Insert(GetLanguage(i));
 
   RemoveStopWordsIfNeeded(params);
 

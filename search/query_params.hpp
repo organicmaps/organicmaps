@@ -2,7 +2,10 @@
 
 #include "indexer/scales.hpp"
 
+#include "coding/multilang_utf8_string.hpp"
+
 #include "base/assert.hpp"
+#include "base/small_set.hpp"
 #include "base/string_utils.hpp"
 
 #include "std/cstdint.hpp"
@@ -20,7 +23,39 @@ class QueryParams
 public:
   using String = strings::UniString;
   using TypeIndices = vector<uint32_t>;
-  using Langs = unordered_set<int8_t>;
+
+  class Langs
+  {
+  public:
+    using Set = base::SmallSet<StringUtf8Multilang::kMaxSupportedLanguages>;
+    using Iterator = Set::Iterator;
+
+    void Insert(int8_t lang)
+    {
+      if (IsValid(lang))
+        m_set.Insert(lang);
+    }
+
+    bool Contains(int8_t lang) const { return IsValid(lang) ? m_set.Contains(lang) : false; }
+
+    void Clear() { m_set.Clear(); }
+
+    Iterator begin() const { return m_set.begin(); }
+    Iterator cbegin() const { return m_set.cbegin(); }
+
+    Iterator end() const { return m_set.end(); }
+    Iterator cend() const { return m_set.cend(); }
+
+  private:
+    friend string DebugPrint(Langs const & langs) { return DebugPrint(langs.m_set); }
+
+    bool IsValid(int8_t lang) const
+    {
+      return lang >= 0 && lang < StringUtf8Multilang::kMaxSupportedLanguages;
+    }
+
+    Set m_set;
+  };
 
   struct Token
   {
@@ -110,7 +145,7 @@ public:
 
   inline Langs & GetLangs() { return m_langs; }
   inline Langs const & GetLangs() const { return m_langs; }
-  inline bool LangExists(int8_t lang) const { return m_langs.count(lang) != 0; }
+  inline bool LangExists(int8_t lang) const { return m_langs.Contains(lang); }
 
   inline int GetScale() const { return m_scale; }
 

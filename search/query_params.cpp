@@ -54,7 +54,7 @@ void QueryParams::Clear()
   m_prefixToken.Clear();
   m_hasPrefix = false;
   m_typeIndices.clear();
-  m_langs.clear();
+  m_langs.Clear();
   m_scale = scales::GetUpperScale();
 }
 
@@ -135,7 +135,7 @@ string DebugPrint(QueryParams const & params)
   os << "QueryParams [ m_tokens=" << ::DebugPrint(params.m_tokens)
      << ", m_prefixToken=" << DebugPrint(params.m_prefixToken)
      << ", m_typeIndices=" << ::DebugPrint(params.m_typeIndices)
-     << ", m_langs=" << ::DebugPrint(params.m_langs) << " ]";
+     << ", m_langs=" << DebugPrint(params.m_langs) << " ]";
   return os.str();
 }
 
