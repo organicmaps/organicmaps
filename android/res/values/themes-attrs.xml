@@ -70,11 +70,18 @@
 
     <attr name="bannerText" format="color"/>
     <attr name="bannerBackground" format="color"/>
+    <attr name="bannerButtonBackground" format="color"/>
+    <attr name="adsBackground" format="reference"/>
+    <attr name="adsText" format="color"/>
+    <attr name="adsActionBackground" format="reference"/>
+    <attr name="textBannerTitle" format="color"/>
 
     <attr name="steadyIconTint" format="color"/>
     <attr name="steadyIconBackground" format="reference"/>
     <attr name="activeIconTint" format="color"/>
     <attr name="activeIconBackground" format="reference"/>
+
+    <attr name="warmGray" format="color"/>
   </declare-styleable>
 
   <declare-styleable name="ThemeAttrs.NavButtons">

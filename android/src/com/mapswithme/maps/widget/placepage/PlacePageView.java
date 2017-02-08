@@ -43,7 +43,6 @@ import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.api.ParsedMwmRequest;
-import com.mapswithme.maps.bookmarks.data.Banner;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
@@ -98,7 +97,6 @@ public class PlacePageView extends RelativeLayout
                LineCountTextView.OnLineCountCalculatedListener,
                RecyclerClickListener,
                NearbyAdapter.OnItemClickListener,
-               BannerController.OnBannerClickListener,
                BottomPlacePageAnimationController.OnBannerOpenListener,
                EditBookmarkFragment.EditBookmarkListener
 {
@@ -356,7 +354,7 @@ public class PlacePageView extends RelativeLayout
 
     View bannerView = findViewById(R.id.banner);
     if (bannerView != null)
-      mBannerController = new BannerController(bannerView, this);
+      mBannerController = new BannerController(bannerView);
 
     mButtons = new PlacePageButtons(this, ppButtons, new PlacePageButtons.ItemListener()
     {
@@ -742,13 +740,6 @@ public class PlacePageView extends RelativeLayout
             }
           }
         });
-  }
-
-  @Override
-  public void onBannerClick(@NonNull Banner banner)
-  {
-    if (!TextUtils.isEmpty(banner.getUrl()))
-      followUrl(banner.getUrl());
   }
 
   @Override
@@ -1621,5 +1612,13 @@ public class PlacePageView extends RelativeLayout
   public void onBookmarkSaved(int categoryId, int bookmarkId)
   {
     setMapObject(BookmarkManager.INSTANCE.getBookmark(categoryId, bookmarkId), true, null);
+  }
+
+  public boolean isTouchBannerAction(@NonNull MotionEvent event)
+  {
+    if (mBannerController != null)
+      return mBannerController.isTouchActionButton(event);
+
+    return false;
   }
 }

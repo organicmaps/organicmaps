@@ -36,6 +36,7 @@ public final class Config
   private static final String KEY_MISC_USE_MOBILE_DATA = "UseMobileData";
   private static final String KEY_MISC_USE_MOBILE_DATA_TIMESTAMP = "UseMobileDataTimestamp";
   private static final String KEY_MISC_USE_MOBILE_DATA_ROAMING = "UseMobileDataRoaming";
+  private static final String KEY_MISC_AD_FORBIDDEN = "AdForbidden";
 
   private Config() {}
 
@@ -383,6 +384,16 @@ public final class Config
     setBool(KEY_MISC_USE_MOBILE_DATA_ROAMING, ConnectionState.isInRoaming());
   }
 
+  public static boolean getAdForbidden()
+  {
+    return getBool(KEY_MISC_AD_FORBIDDEN, false);
+  }
+
+  public static void setAdForbidden(boolean value)
+  {
+    setBool(KEY_MISC_AD_FORBIDDEN, value);
+  }
+
   public static void setMobileDataTimeStamp(long timestamp)
   {
     setLong(KEY_MISC_USE_MOBILE_DATA_TIMESTAMP, timestamp);
@@ -397,6 +408,7 @@ public final class Config
   {
     return getBool(KEY_MISC_USE_MOBILE_DATA_ROAMING, false);
   }
+
 
   private static native boolean nativeGetBoolean(String name, boolean defaultValue);
   private static native void nativeSetBoolean(String name, boolean value);
