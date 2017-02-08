@@ -1,6 +1,7 @@
 package com.mapswithme.maps;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -174,6 +175,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private boolean mPlacePageRestored;
 
   private boolean mLocationErrorDialogAnnoying = false;
+  @Nullable
+  private Dialog mLocationErrorDialog;
 
   @NonNull
   private final OnClickListener mOnMyPositionClickListener = new OnClickListener()
@@ -183,6 +186,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       mLocationErrorDialogAnnoying = false;
       LocationHelper.INSTANCE.switchToNextMode();
+      LocationHelper.INSTANCE.restart();
       Statistics.INSTANCE.trackEvent(Statistics.EventName.TOOLBAR_MY_POSITION);
       AlohaHelper.logClick(AlohaHelper.TOOLBAR_MY_POSITION);
     }
@@ -1013,6 +1017,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
             @Override
             public boolean run(MwmActivity target)
             {
+              //TODO: Check and remove
               if (LocationHelper.INSTANCE.isTurnedOn())
                 LocationHelper.INSTANCE.switchToNextMode();
               return false;
@@ -1792,7 +1797,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void showLocationErrorDialog(@NonNull final Intent intent)
   {
-    new AlertDialog.Builder(this)
+    if (mLocationErrorDialog != null && mLocationErrorDialog.isShowing())
+      return;
+
+    mLocationErrorDialog = new AlertDialog.Builder(this)
         .setTitle(R.string.enable_location_services)
         .setMessage(R.string.location_is_disabled_long_text)
         .setNegativeButton(R.string.close, new DialogInterface.OnClickListener()
@@ -1836,29 +1844,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                    getString(R.string.current_location_unknown_title));
     new AlertDialog.Builder(this)
         .setMessage(message)
-        .setNegativeButton(R.string.current_location_unknown_stop_button, new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dialog, int which)
-          {
-            LocationHelper.INSTANCE.stop();
-          }
-        })
+        .setNegativeButton(R.string.current_location_unknown_stop_button, null)
         .setPositiveButton(R.string.current_location_unknown_continue_button, new DialogInterface.OnClickListener()
         {
           @Override
           public void onClick(DialogInterface dialog, int which)
           {
-            LocationHelper.INSTANCE.switchToNextMode();
+            LocationHelper.INSTANCE.start();
           }
-        }).setOnDismissListener(new DialogInterface.OnDismissListener()
-    {
-      @Override
-      public void onDismiss(DialogInterface dialog)
-      {
-        LocationHelper.INSTANCE.stop();
-      }
-    }).show();
+        }).show();
   }
 
   private boolean shouldNotifyLocationNotFound()

@@ -1,6 +1,9 @@
 package com.mapswithme.maps.location;
 
-import com.mapswithme.maps.MwmApplication;
+import android.support.annotation.IntDef;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 public final class LocationState
 {
@@ -10,6 +13,11 @@ public final class LocationState
     void onMyPositionModeChanged(int newMode);
   }
 
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({ PENDING_POSITION, NOT_FOLLOW_NO_POSITION, NOT_FOLLOW, FOLLOW, FOLLOW_AND_ROTATE})
+
+  @interface Value {}
+
   // These values should correspond to location::EMyPositionMode enum (from platform/location.hpp)
   public static final int PENDING_POSITION = 0;
   public static final int NOT_FOLLOW_NO_POSITION = 1;
@@ -18,7 +26,8 @@ public final class LocationState
   public static final int FOLLOW_AND_ROTATE = 4;
 
   static native void nativeSwitchToNextMode();
-  private static native int nativeGetMode();
+  @Value
+  static native int nativeGetMode();
 
   static native void nativeSetListener(ModeChangeListener listener);
   static native void nativeRemoveListener();
@@ -30,7 +39,7 @@ public final class LocationState
    */
   static boolean isTurnedOn()
   {
-    return hasLocation(getMode());
+    return hasLocation(nativeGetMode());
   }
 
   static boolean hasLocation(int mode)
@@ -38,13 +47,7 @@ public final class LocationState
     return (mode > NOT_FOLLOW_NO_POSITION);
   }
 
-  public static int getMode()
-  {
-    MwmApplication.get().initNativeCore();
-    return nativeGetMode();
-  }
-
-  static String nameOf(int mode)
+  static String nameOf(@Value int mode)
   {
     switch (mode)
     {

@@ -134,6 +134,16 @@ public class LocationUtils
     {
       sb = new StringBuilder("There are no enabled location providers!");
     }
-    LOGGER.i(TAG, sb.toString(), new Throwable());
+    LOGGER.i(TAG, sb.toString());
+  }
+
+  public static boolean checkProvidersAvailability()
+  {
+    Context context = MwmApplication.get();
+    LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+    boolean networkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+    boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+    LocationUtils.logAvailableProviders();
+    return networkEnabled || gpsEnabled;
   }
 }

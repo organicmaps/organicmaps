@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 
+import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationState;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.util.Animations;
@@ -219,7 +220,7 @@ class NavigationButtonsAnimationController
 
   private boolean shouldBeHidden()
   {
-    return LocationState.getMode() == LocationState.FOLLOW_AND_ROTATE
+    return LocationHelper.INSTANCE.getMyPositionMode() == LocationState.FOLLOW_AND_ROTATE
            && (RoutingController.get().isPlanning() || RoutingController.get().isNavigating());
   }
 

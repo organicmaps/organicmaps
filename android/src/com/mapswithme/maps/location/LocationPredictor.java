@@ -38,7 +38,7 @@ class LocationPredictor
 
   void resume()
   {
-    onMyPositionModeChanged(LocationState.getMode());
+    onMyPositionModeChanged(LocationHelper.INSTANCE.getMyPositionMode());
   }
 
   void pause()
