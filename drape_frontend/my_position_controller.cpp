@@ -149,6 +149,7 @@ MyPositionController::MyPositionController(location::EMyPositionMode initMode, d
   , m_isPendingAnimation(false)
   , m_isPositionAssigned(false)
   , m_isDirectionAssigned(false)
+  , m_isCompassAvailable(false)
   , m_positionIsObsolete(false)
   , m_needBlockAutoZoom(false)
   , m_notFollowAfterPending(false)
@@ -470,6 +471,7 @@ void MyPositionController::LoseLocation()
 void MyPositionController::OnCompassUpdate(location::CompassInfo const & info, ScreenBase const & screen)
 {
   double const oldAzimut = GetDrawableAzimut();
+  m_isCompassAvailable = true;
 
   if ((IsInRouting() && m_mode == location::FollowAndRotate) ||
       m_lastGPSBearing.ElapsedSeconds() < kGpsBearingLifetimeSec)
@@ -823,6 +825,8 @@ void MyPositionController::DeactivateRouting()
   if (m_isInRouting)
   {
     m_isInRouting = false;
+
+    m_isDirectionAssigned = m_isCompassAvailable && m_isDirectionAssigned;
 
     ChangeMode(location::Follow);
     ChangeModelView(m_position, 0.0, m_visiblePixelRect.Center(), kDoNotChangeZoom);
