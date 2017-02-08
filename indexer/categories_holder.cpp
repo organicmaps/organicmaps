@@ -195,23 +195,32 @@ void CategoriesHolder::AddCategory(Category & cat, vector<uint32_t> & types)
     shared_ptr<Category> p(new Category());
     p->Swap(cat);
 
-    for (size_t i = 0; i < types.size(); ++i)
-      m_type2cat.insert(make_pair(types[i], p));
+    for (uint32_t const t : types)
+      m_type2cat.insert(make_pair(t, p));
 
-    for (size_t i = 0; i < p->m_synonyms.size(); ++i)
+    for (auto const & synonym : p->m_synonyms)
     {
-      ASSERT(p->m_synonyms[i].m_locale != kUnsupportedLocaleCode, ());
+      auto const locale = synonym.m_locale;
+      ASSERT(locale != kUnsupportedLocaleCode, ());
 
-      StringT const uniName = search::NormalizeAndSimplifyString(p->m_synonyms[i].m_name);
+      auto const uniName = search::NormalizeAndSimplifyString(synonym.m_name);
 
-      vector<StringT> tokens;
+      vector<String> tokens;
       SplitUniString(uniName, MakeBackInsertFunctor(tokens), search::Delimiters());
 
-      for (size_t j = 0; j < tokens.size(); ++j)
-        for (size_t k = 0; k < types.size(); ++k)
-          if (ValidKeyToken(tokens[j]))
-            m_name2type.insert(
-                make_pair(make_pair(p->m_synonyms[i].m_locale, tokens[j]), types[k]));
+      for (auto const & token : tokens)
+      {
+        if (!ValidKeyToken(token))
+          continue;
+        for (uint32_t const t : types)
+        {
+          if (m_name2type.find(locale) == m_name2type.end())
+            m_name2type[locale] = make_unique<Trie>();
+
+          auto * trie = m_name2type[locale].get();
+          trie->Add(token, t);
+        }
+      }
     }
   }
 
@@ -219,7 +228,7 @@ void CategoriesHolder::AddCategory(Category & cat, vector<uint32_t> & types)
   types.clear();
 }
 
-bool CategoriesHolder::ValidKeyToken(StringT const & s)
+bool CategoriesHolder::ValidKeyToken(String const & s)
 {
   if (s.size() > 2)
     return true;
@@ -306,17 +315,19 @@ void CategoriesHolder::LoadFromStream(istream & s)
 
 bool CategoriesHolder::GetNameByType(uint32_t type, int8_t locale, string & name) const
 {
-  pair<IteratorT, IteratorT> const range = m_type2cat.equal_range(type);
+  auto const range = m_type2cat.equal_range(type);
 
-  for (IteratorT i = range.first; i != range.second; ++i)
+  for (auto it = range.first; it != range.second; ++it)
   {
-    Category const & cat = *i->second;
-    for (size_t j = 0; j < cat.m_synonyms.size(); ++j)
-      if (cat.m_synonyms[j].m_locale == locale)
+    Category const & cat = *it->second;
+    for (auto const & synonym : cat.m_synonyms)
+    {
+      if (synonym.m_locale == locale)
       {
-        name = cat.m_synonyms[j].m_name;
+        name = synonym.m_name;
         return true;
       }
+    }
   }
 
   if (range.first != range.second)
@@ -352,7 +363,7 @@ string CategoriesHolder::GetReadableFeatureType(uint32_t type, int8_t locale) co
 
 bool CategoriesHolder::IsTypeExist(uint32_t type) const
 {
-  pair<IteratorT, IteratorT> const range = m_type2cat.equal_range(type);
+  auto const range = m_type2cat.equal_range(type);
   return range.first != range.second;
 }
 
@@ -379,8 +390,10 @@ int8_t CategoriesHolder::MapLocaleToInteger(string const & locale)
     strings::AsciiToLower(lower);
 
     for (char const * s : {"hant", "tw", "hk", "mo"})
+    {
       if (lower.find(s) != string::npos)
         return 12;  // Traditional Chinese
+    }
 
     return 17;  // Simplified Chinese by default for all other cases
   }
