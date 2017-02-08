@@ -19,7 +19,7 @@ _sym_db = _symbol_database.Default()
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='drules_struct.proto',
   package='',
-  serialized_pb=_b('\n\x13\x64rules_struct.proto\"*\n\x0c\x44\x61shDotProto\x12\n\n\x02\x64\x64\x18\x01 \x03(\x01\x12\x0e\n\x06offset\x18\x02 \x01(\x01\":\n\x0cPathSymProto\x12\x0c\n\x04name\x18\x01 \x02(\t\x12\x0c\n\x04step\x18\x02 \x02(\x01\x12\x0e\n\x06offset\x18\x03 \x01(\x01\"\xaf\x01\n\rLineRuleProto\x12\r\n\x05width\x18\x01 \x02(\x01\x12\r\n\x05\x63olor\x18\x02 \x02(\r\x12\x1e\n\x07\x64\x61shdot\x18\x03 \x01(\x0b\x32\r.DashDotProto\x12\x10\n\x08priority\x18\x04 \x02(\x05\x12\x1e\n\x07pathsym\x18\x05 \x01(\x0b\x32\r.PathSymProto\x12\x17\n\x04join\x18\x06 \x01(\x0e\x32\t.LineJoin\x12\x15\n\x03\x63\x61p\x18\x07 \x01(\x0e\x32\x08.LineCap\"\x9c\x01\n\x0cLineDefProto\x12\r\n\x05width\x18\x01 \x02(\x01\x12\r\n\x05\x63olor\x18\x02 \x02(\r\x12\x1e\n\x07\x64\x61shdot\x18\x03 \x01(\x0b\x32\r.DashDotProto\x12\x1e\n\x07pathsym\x18\x04 \x01(\x0b\x32\r.PathSymProto\x12\x17\n\x04join\x18\x06 \x01(\x0e\x32\t.LineJoin\x12\x15\n\x03\x63\x61p\x18\x07 \x01(\x0e\x32\x08.LineCap\"O\n\rAreaRuleProto\x12\r\n\x05\x63olor\x18\x01 \x02(\r\x12\x1d\n\x06\x62order\x18\x02 \x01(\x0b\x32\r.LineDefProto\x12\x10\n\x08priority\x18\x03 \x02(\x05\"_\n\x0fSymbolRuleProto\x12\x0c\n\x04name\x18\x01 \x02(\t\x12\x16\n\x0e\x61pply_for_type\x18\x02 \x01(\x05\x12\x10\n\x08priority\x18\x03 \x02(\x05\x12\x14\n\x0cmin_distance\x18\x04 \x01(\x05\"\x8d\x01\n\x0f\x43\x61ptionDefProto\x12\x0e\n\x06height\x18\x01 \x02(\x05\x12\r\n\x05\x63olor\x18\x02 \x02(\r\x12\x14\n\x0cstroke_color\x18\x03 \x01(\r\x12\x10\n\x08offset_x\x18\x04 \x01(\x05\x12\x10\n\x08offset_y\x18\x05 \x01(\x05\x12\x0c\n\x04text\x18\x06 \x01(\t\x12\x13\n\x0bis_optional\x18\x07 \x01(\x08\"l\n\x10\x43\x61ptionRuleProto\x12!\n\x07primary\x18\x01 \x02(\x0b\x32\x10.CaptionDefProto\x12#\n\tsecondary\x18\x02 \x01(\x0b\x32\x10.CaptionDefProto\x12\x10\n\x08priority\x18\x03 \x02(\x05\"a\n\x0f\x43ircleRuleProto\x12\x0e\n\x06radius\x18\x01 \x02(\x01\x12\r\n\x05\x63olor\x18\x02 \x02(\r\x12\x1d\n\x06\x62order\x18\x03 \x01(\x0b\x32\r.LineDefProto\x12\x10\n\x08priority\x18\x04 \x02(\x05\"m\n\x11PathTextRuleProto\x12!\n\x07primary\x18\x01 \x02(\x0b\x32\x10.CaptionDefProto\x12#\n\tsecondary\x18\x02 \x01(\x0b\x32\x10.CaptionDefProto\x12\x10\n\x08priority\x18\x03 \x02(\x05\"\x9d\x01\n\x0fShieldRuleProto\x12\x0e\n\x06height\x18\x01 \x02(\x05\x12\r\n\x05\x63olor\x18\x02 \x02(\r\x12\x14\n\x0cstroke_color\x18\x03 \x01(\r\x12\x10\n\x08priority\x18\x04 \x02(\x05\x12\x14\n\x0cmin_distance\x18\x05 \x01(\x05\x12\x12\n\ntext_color\x18\x06 \x02(\r\x12\x19\n\x11text_stroke_color\x18\x07 \x01(\r\"\xa1\x02\n\x10\x44rawElementProto\x12\r\n\x05scale\x18\x01 \x02(\x05\x12\x1d\n\x05lines\x18\x02 \x03(\x0b\x32\x0e.LineRuleProto\x12\x1c\n\x04\x61rea\x18\x03 \x01(\x0b\x32\x0e.AreaRuleProto\x12 \n\x06symbol\x18\x04 \x01(\x0b\x32\x10.SymbolRuleProto\x12\"\n\x07\x63\x61ption\x18\x05 \x01(\x0b\x32\x11.CaptionRuleProto\x12 \n\x06\x63ircle\x18\x06 \x01(\x0b\x32\x10.CircleRuleProto\x12%\n\tpath_text\x18\x07 \x01(\x0b\x32\x12.PathTextRuleProto\x12 \n\x06shield\x18\x08 \x01(\x0b\x32\x10.ShieldRuleProto\x12\x10\n\x08\x61pply_if\x18\t \x03(\t\"G\n\x13\x43lassifElementProto\x12\x0c\n\x04name\x18\x01 \x02(\t\x12\"\n\x07\x65lement\x18\x02 \x03(\x0b\x32\x11.DrawElementProto\"4\n\x0e\x43ontainerProto\x12\"\n\x04\x63ont\x18\x01 \x03(\x0b\x32\x14.ClassifElementProto*4\n\x08LineJoin\x12\r\n\tROUNDJOIN\x10\x00\x12\r\n\tBEVELJOIN\x10\x01\x12\n\n\x06NOJOIN\x10\x02*3\n\x07LineCap\x12\x0c\n\x08ROUNDCAP\x10\x00\x12\x0b\n\x07\x42UTTCAP\x10\x01\x12\r\n\tSQUARECAP\x10\x02\x42\x02H\x03')
+  serialized_pb=_b('\n\x13\x64rules_struct.proto\"*\n\x0c\x44\x61shDotProto\x12\n\n\x02\x64\x64\x18\x01 \x03(\x01\x12\x0e\n\x06offset\x18\x02 \x01(\x01\":\n\x0cPathSymProto\x12\x0c\n\x04name\x18\x01 \x02(\t\x12\x0c\n\x04step\x18\x02 \x02(\x01\x12\x0e\n\x06offset\x18\x03 \x01(\x01\"\xaf\x01\n\rLineRuleProto\x12\r\n\x05width\x18\x01 \x02(\x01\x12\r\n\x05\x63olor\x18\x02 \x02(\r\x12\x1e\n\x07\x64\x61shdot\x18\x03 \x01(\x0b\x32\r.DashDotProto\x12\x10\n\x08priority\x18\x04 \x02(\x05\x12\x1e\n\x07pathsym\x18\x05 \x01(\x0b\x32\r.PathSymProto\x12\x17\n\x04join\x18\x06 \x01(\x0e\x32\t.LineJoin\x12\x15\n\x03\x63\x61p\x18\x07 \x01(\x0e\x32\x08.LineCap\"\x9c\x01\n\x0cLineDefProto\x12\r\n\x05width\x18\x01 \x02(\x01\x12\r\n\x05\x63olor\x18\x02 \x02(\r\x12\x1e\n\x07\x64\x61shdot\x18\x03 \x01(\x0b\x32\r.DashDotProto\x12\x1e\n\x07pathsym\x18\x04 \x01(\x0b\x32\r.PathSymProto\x12\x17\n\x04join\x18\x06 \x01(\x0e\x32\t.LineJoin\x12\x15\n\x03\x63\x61p\x18\x07 \x01(\x0e\x32\x08.LineCap\"O\n\rAreaRuleProto\x12\r\n\x05\x63olor\x18\x01 \x02(\r\x12\x1d\n\x06\x62order\x18\x02 \x01(\x0b\x32\r.LineDefProto\x12\x10\n\x08priority\x18\x03 \x02(\x05\"_\n\x0fSymbolRuleProto\x12\x0c\n\x04name\x18\x01 \x02(\t\x12\x16\n\x0e\x61pply_for_type\x18\x02 \x01(\x05\x12\x10\n\x08priority\x18\x03 \x02(\x05\x12\x14\n\x0cmin_distance\x18\x04 \x01(\x05\"\x8d\x01\n\x0f\x43\x61ptionDefProto\x12\x0e\n\x06height\x18\x01 \x02(\x05\x12\r\n\x05\x63olor\x18\x02 \x02(\r\x12\x14\n\x0cstroke_color\x18\x03 \x01(\r\x12\x10\n\x08offset_x\x18\x04 \x01(\x05\x12\x10\n\x08offset_y\x18\x05 \x01(\x05\x12\x0c\n\x04text\x18\x06 \x01(\t\x12\x13\n\x0bis_optional\x18\x07 \x01(\x08\"l\n\x10\x43\x61ptionRuleProto\x12!\n\x07primary\x18\x01 \x02(\x0b\x32\x10.CaptionDefProto\x12#\n\tsecondary\x18\x02 \x01(\x0b\x32\x10.CaptionDefProto\x12\x10\n\x08priority\x18\x03 \x02(\x05\"a\n\x0f\x43ircleRuleProto\x12\x0e\n\x06radius\x18\x01 \x02(\x01\x12\r\n\x05\x63olor\x18\x02 \x02(\r\x12\x1d\n\x06\x62order\x18\x03 \x01(\x0b\x32\r.LineDefProto\x12\x10\n\x08priority\x18\x04 \x02(\x05\"m\n\x11PathTextRuleProto\x12!\n\x07primary\x18\x01 \x02(\x0b\x32\x10.CaptionDefProto\x12#\n\tsecondary\x18\x02 \x01(\x0b\x32\x10.CaptionDefProto\x12\x10\n\x08priority\x18\x03 \x02(\x05\"\x9d\x01\n\x0fShieldRuleProto\x12\x0e\n\x06height\x18\x01 \x02(\x05\x12\r\n\x05\x63olor\x18\x02 \x02(\r\x12\x14\n\x0cstroke_color\x18\x03 \x01(\r\x12\x10\n\x08priority\x18\x04 \x02(\x05\x12\x14\n\x0cmin_distance\x18\x05 \x01(\x05\x12\x12\n\ntext_color\x18\x06 \x02(\r\x12\x19\n\x11text_stroke_color\x18\x07 \x01(\r\"\xa1\x02\n\x10\x44rawElementProto\x12\r\n\x05scale\x18\x01 \x02(\x05\x12\x1d\n\x05lines\x18\x02 \x03(\x0b\x32\x0e.LineRuleProto\x12\x1c\n\x04\x61rea\x18\x03 \x01(\x0b\x32\x0e.AreaRuleProto\x12 \n\x06symbol\x18\x04 \x01(\x0b\x32\x10.SymbolRuleProto\x12\"\n\x07\x63\x61ption\x18\x05 \x01(\x0b\x32\x11.CaptionRuleProto\x12 \n\x06\x63ircle\x18\x06 \x01(\x0b\x32\x10.CircleRuleProto\x12%\n\tpath_text\x18\x07 \x01(\x0b\x32\x12.PathTextRuleProto\x12 \n\x06shield\x18\x08 \x01(\x0b\x32\x10.ShieldRuleProto\x12\x10\n\x08\x61pply_if\x18\t \x03(\t\"G\n\x13\x43lassifElementProto\x12\x0c\n\x04name\x18\x01 \x02(\t\x12\"\n\x07\x65lement\x18\x02 \x03(\x0b\x32\x11.DrawElementProto\"0\n\x11\x43olorElementProto\x12\x0c\n\x04name\x18\x01 \x02(\t\x12\r\n\x05value\x18\x02 \x02(\r\"7\n\x12\x43olorsElementProto\x12!\n\x05\x63olor\x18\x01 \x03(\x0b\x32\x12.ColorElementProto\"Y\n\x0e\x43ontainerProto\x12\"\n\x04\x63ont\x18\x01 \x03(\x0b\x32\x14.ClassifElementProto\x12#\n\x06\x63olors\x18\x02 \x01(\x0b\x32\x13.ColorsElementProto*4\n\x08LineJoin\x12\r\n\tROUNDJOIN\x10\x00\x12\r\n\tBEVELJOIN\x10\x01\x12\n\n\x06NOJOIN\x10\x02*3\n\x07LineCap\x12\x0c\n\x08ROUNDCAP\x10\x00\x12\x0b\n\x07\x42UTTCAP\x10\x01\x12\r\n\tSQUARECAP\x10\x02\x42\x02H\x03')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -44,8 +44,8 @@ _LINEJOIN = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1685,
-  serialized_end=1737,
+  serialized_start=1829,
+  serialized_end=1881,
 )
 _sym_db.RegisterEnumDescriptor(_LINEJOIN)
 
@@ -71,8 +71,8 @@ _LINECAP = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1739,
-  serialized_end=1790,
+  serialized_start=1883,
+  serialized_end=1934,
 )
 _sym_db.RegisterEnumDescriptor(_LINECAP)
 
@@ -805,15 +805,52 @@ _CLASSIFELEMENTPROTO = _descriptor.Descriptor(
 )
 
 
-_CONTAINERPROTO = _descriptor.Descriptor(
-  name='ContainerProto',
-  full_name='ContainerProto',
+_COLORELEMENTPROTO = _descriptor.Descriptor(
+  name='ColorElementProto',
+  full_name='ColorElementProto',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='cont', full_name='ContainerProto.cont', index=0,
+      name='name', full_name='ColorElementProto.name', index=0,
+      number=1, type=9, cpp_type=9, label=2,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='ColorElementProto.value', index=1,
+      number=2, type=13, cpp_type=3, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1631,
+  serialized_end=1679,
+)
+
+
+_COLORSELEMENTPROTO = _descriptor.Descriptor(
+  name='ColorsElementProto',
+  full_name='ColorsElementProto',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='color', full_name='ColorsElementProto.color', index=0,
       number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -830,8 +867,45 @@ _CONTAINERPROTO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1631,
-  serialized_end=1683,
+  serialized_start=1681,
+  serialized_end=1736,
+)
+
+
+_CONTAINERPROTO = _descriptor.Descriptor(
+  name='ContainerProto',
+  full_name='ContainerProto',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='cont', full_name='ContainerProto.cont', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='colors', full_name='ContainerProto.colors', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1738,
+  serialized_end=1827,
 )
 
 _LINERULEPROTO.fields_by_name['dashdot'].message_type = _DASHDOTPROTO
@@ -856,7 +930,9 @@ _DRAWELEMENTPROTO.fields_by_name['circle'].message_type = _CIRCLERULEPROTO
 _DRAWELEMENTPROTO.fields_by_name['path_text'].message_type = _PATHTEXTRULEPROTO
 _DRAWELEMENTPROTO.fields_by_name['shield'].message_type = _SHIELDRULEPROTO
 _CLASSIFELEMENTPROTO.fields_by_name['element'].message_type = _DRAWELEMENTPROTO
+_COLORSELEMENTPROTO.fields_by_name['color'].message_type = _COLORELEMENTPROTO
 _CONTAINERPROTO.fields_by_name['cont'].message_type = _CLASSIFELEMENTPROTO
+_CONTAINERPROTO.fields_by_name['colors'].message_type = _COLORSELEMENTPROTO
 DESCRIPTOR.message_types_by_name['DashDotProto'] = _DASHDOTPROTO
 DESCRIPTOR.message_types_by_name['PathSymProto'] = _PATHSYMPROTO
 DESCRIPTOR.message_types_by_name['LineRuleProto'] = _LINERULEPROTO
@@ -870,6 +946,8 @@ DESCRIPTOR.message_types_by_name['PathTextRuleProto'] = _PATHTEXTRULEPROTO
 DESCRIPTOR.message_types_by_name['ShieldRuleProto'] = _SHIELDRULEPROTO
 DESCRIPTOR.message_types_by_name['DrawElementProto'] = _DRAWELEMENTPROTO
 DESCRIPTOR.message_types_by_name['ClassifElementProto'] = _CLASSIFELEMENTPROTO
+DESCRIPTOR.message_types_by_name['ColorElementProto'] = _COLORELEMENTPROTO
+DESCRIPTOR.message_types_by_name['ColorsElementProto'] = _COLORSELEMENTPROTO
 DESCRIPTOR.message_types_by_name['ContainerProto'] = _CONTAINERPROTO
 DESCRIPTOR.enum_types_by_name['LineJoin'] = _LINEJOIN
 DESCRIPTOR.enum_types_by_name['LineCap'] = _LINECAP
@@ -964,6 +1042,20 @@ ClassifElementProto = _reflection.GeneratedProtocolMessageType('ClassifElementPr
   # @@protoc_insertion_point(class_scope:ClassifElementProto)
   ))
 _sym_db.RegisterMessage(ClassifElementProto)
+
+ColorElementProto = _reflection.GeneratedProtocolMessageType('ColorElementProto', (_message.Message,), dict(
+  DESCRIPTOR = _COLORELEMENTPROTO,
+  __module__ = 'drules_struct_pb2'
+  # @@protoc_insertion_point(class_scope:ColorElementProto)
+  ))
+_sym_db.RegisterMessage(ColorElementProto)
+
+ColorsElementProto = _reflection.GeneratedProtocolMessageType('ColorsElementProto', (_message.Message,), dict(
+  DESCRIPTOR = _COLORSELEMENTPROTO,
+  __module__ = 'drules_struct_pb2'
+  # @@protoc_insertion_point(class_scope:ColorsElementProto)
+  ))
+_sym_db.RegisterMessage(ColorsElementProto)
 
 ContainerProto = _reflection.GeneratedProtocolMessageType('ContainerProto', (_message.Message,), dict(
   DESCRIPTOR = _CONTAINERPROTO,

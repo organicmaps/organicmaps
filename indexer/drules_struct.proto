@@ -126,7 +126,19 @@ message ClassifElementProto
   repeated DrawElementProto element = 2;
 }
 
+message ColorElementProto
+{
+  required string name = 1;
+  required uint32 value = 2;
+}
+
+message ColorsElementProto
+{
+  repeated ColorElementProto color = 1;
+}
+
 message ContainerProto
 {
   repeated ClassifElementProto cont = 1;
+  optional ColorsElementProto colors = 2;
 }
