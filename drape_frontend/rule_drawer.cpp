@@ -11,8 +11,9 @@
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_visibility.hpp"
-#include "indexer/scales.hpp"
 #include "indexer/ftypes_matcher.hpp"
+#include "indexer/road_shields_parser.hpp"
+#include "indexer/scales.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"

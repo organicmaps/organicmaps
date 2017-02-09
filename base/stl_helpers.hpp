@@ -131,4 +131,10 @@ impl::Equals<false, T, C> EqualsBy(T (C::*p)() const)
 {
   return impl::Equals<false, T, C>(p);
 }
+
+template <typename T>
+typename std::underlying_type<T>::type Key(T value)
+{
+  return static_cast<typename std::underlying_type<T>::type>(value);
+}
 }  // namespace my
