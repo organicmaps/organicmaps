@@ -11,7 +11,7 @@
 
 namespace base
 {
-// A set of values less than |UpperBound|.
+// A set of nonnegative integers less than |UpperBound|.
 //
 // Requires UpperBound + O(1) bits of memory.  All operations except
 // Clear() and iteration are O(1).  Clear() and iteration require
