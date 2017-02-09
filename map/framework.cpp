@@ -403,8 +403,6 @@ Framework::Framework()
 
   m_displayedCategories = make_unique<search::DisplayedCategories>(GetDefaultCategories());
 
-  m_bannerSet.LoadBanners();
-
   // To avoid possible races - init country info getter once in constructor.
   InitCountryInfoGetter();
   LOG(LDEBUG, ("Country info getter initialized"));
@@ -859,9 +857,6 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
     info.m_sponsoredUrl = url;
     info.m_sponsoredDescriptionUrl = url;
   }
-
-  if (m_bannerSet.HasBannerForFeature(ft))
-    info.m_banner = m_bannerSet.GetBannerForFeature(ft);
 
   auto const mwmInfo = ft.GetID().m_mwmId.GetInfo();
   bool const isMapVersionEditable = mwmInfo && mwmInfo->m_version.IsEditableMap();

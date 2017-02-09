@@ -7,7 +7,7 @@ ROOT_DIR = ../..
 
 INCLUDEPATH *= $$ROOT_DIR/3party/jansson/src
 
-DEPENDENCIES = partners_api platform coding base jansson stats_client
+DEPENDENCIES = partners_api indexer platform coding geometry base jansson stats_client protobuf
 
 include($$ROOT_DIR/common.pri)
 
@@ -27,4 +27,5 @@ win*|linux* {
 SOURCES += \
     $$ROOT_DIR/testing/testingmain.cpp \
     booking_tests.cpp \
+    facebook_tests.cpp \
     uber_tests.cpp \

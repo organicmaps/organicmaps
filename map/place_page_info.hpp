@@ -79,13 +79,17 @@ public:
   /// @returns string with |kPricingSymbol| signs or empty string if it isn't booking object
   string GetApproximatePricing() const;
 
-  /// Returns true, if the current time is within the working range of the banner.
+  banners::Banner GetBanner() const;
+  /// Deprecated, there was not only removed in order not to break the build.
+  /// Should be removed in nearest time.
+  ///////////////////////////////////////////////////////////////////////////////
   bool HasBanner() const;
   string GetBannerTitleId() const;
   string GetBannerMessageId() const;
   string GetBannerIconId() const;
   string GetBannerUrl() const;
-  string GetBannerId() const;
+  string GetBannerId();
+  ///////////////////////////////////////////////////////////////////////////////
 
   bool IsReachableByTaxi() const;
 
@@ -117,9 +121,6 @@ public:
   /// Sponsored feature urls.
   string m_sponsoredUrl;
   string m_sponsoredDescriptionUrl;
-
-  /// A banner associated with the object.
-  banner::Banner m_banner;
 
   /// Which country this MapObject is in.
   /// For a country point it will be set to topmost node for country.

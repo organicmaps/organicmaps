@@ -28,7 +28,6 @@ HEADERS += \
 
 SOURCES += \
     ../../testing/testingmain.cpp \
-    banners_test.cpp \
     categories_test.cpp \
     cell_coverer_test.cpp \
     cell_id_test.cpp \

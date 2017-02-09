@@ -180,9 +180,6 @@
 		3454D7E51E07F045004AF2AD /* UIView+RuntimeAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3454D7B71E07F045004AF2AD /* UIView+RuntimeAttributes.mm */; };
 		3454D7E61E07F045004AF2AD /* UIView+RuntimeAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3454D7B71E07F045004AF2AD /* UIView+RuntimeAttributes.mm */; };
 		3454D7E71E07F045004AF2AD /* UIView+RuntimeAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3454D7B71E07F045004AF2AD /* UIView+RuntimeAttributes.mm */; };
-		3454E05F1DF00DAE00F40F46 /* banners.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3454E05E1DF00DAE00F40F46 /* banners.txt */; };
-		3454E0601DF00DC000F40F46 /* banners.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3454E05E1DF00DAE00F40F46 /* banners.txt */; };
-		3454E0611DF00DC100F40F46 /* banners.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3454E05E1DF00DAE00F40F46 /* banners.txt */; };
 		34570A3B1B13222600E6D4FD /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 34570A3A1B13222600E6D4FD /* libz.dylib */; settings = {ATTRIBUTES = (Required, ); }; };
 		34574A661E3B85F80061E839 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34574A651E3B85F80061E839 /* ThemeManager.swift */; };
 		34574A671E3B85F80061E839 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34574A651E3B85F80061E839 /* ThemeManager.swift */; };
@@ -1456,7 +1453,6 @@
 		3454D7B51E07F045004AF2AD /* UITextView+RuntimeAttributes.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UITextView+RuntimeAttributes.mm"; sourceTree = "<group>"; };
 		3454D7B61E07F045004AF2AD /* UIView+RuntimeAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+RuntimeAttributes.h"; sourceTree = "<group>"; };
 		3454D7B71E07F045004AF2AD /* UIView+RuntimeAttributes.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIView+RuntimeAttributes.mm"; sourceTree = "<group>"; };
-		3454E05E1DF00DAE00F40F46 /* banners.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = banners.txt; path = ../../data/banners.txt; sourceTree = "<group>"; };
 		34570A3A1B13222600E6D4FD /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		34574A651E3B85F80061E839 /* ThemeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		3462258C1DDC5DB9001E8752 /* MWMSearchNoResultsAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchNoResultsAlert.h; sourceTree = "<group>"; };
@@ -3736,7 +3732,6 @@
 		FA065FC61286143F00FEA989 /* External Resources */ = {
 			isa = PBXGroup;
 			children = (
-				3454E05E1DF00DAE00F40F46 /* banners.txt */,
 				F623DA6A1C9C2731006A3436 /* opening_hours_how_to_edit.html */,
 				6B9978341C89A316003B8AA0 /* editor.config */,
 				671182DE1C7F0DD400CB8177 /* countries_obsolete.txt */,
@@ -3972,7 +3967,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3454E05F1DF00DAE00F40F46 /* banners.txt in Resources */,
 				4519503A1B7A3E070085DA05 /* patterns.txt in Resources */,
 				346225911DDC5FBA001E8752 /* MWMSearchNoResultsAlert.xib in Resources */,
 				F6E2FEB41E097BA00083EBEC /* _MWMPPPSpace.xib in Resources */,
@@ -4225,7 +4219,6 @@
 				349C3AF01D33A96B002AC7A9 /* MWMNavigationInfoView.xib in Resources */,
 				6741A9741BF340DE002C974C /* resources-6plus_dark in Resources */,
 				34D3B04B1E389D05004100F9 /* MWMNoteCell.xib in Resources */,
-				3454E0601DF00DC000F40F46 /* banners.txt in Resources */,
 				6741A9751BF340DE002C974C /* WorldCoasts.mwm in Resources */,
 				3490D2E31CE9DD2500D0B838 /* MWMSideButtonsView.xib in Resources */,
 				6741A9761BF340DE002C974C /* packed_polygons.bin in Resources */,
@@ -4375,7 +4368,6 @@
 				F6E2FE6E1E097BA00083EBEC /* _MWMOHHeaderCell.xib in Resources */,
 				F6E2FF3A1E097BA00083EBEC /* MWMSearchSuggestionCell.xib in Resources */,
 				F6E2FE471E097BA00083EBEC /* MWMDirectionView.xib in Resources */,
-				3454E0611DF00DC100F40F46 /* banners.txt in Resources */,
 				849CF6381DE842290024A8A5 /* MWMiPadRoutePreview.xib in Resources */,
 				849CF6391DE842290024A8A5 /* copyright.html in Resources */,
 				F6E2FEB01E097BA00083EBEC /* _MWMPPPExternalTitle.xib in Resources */,

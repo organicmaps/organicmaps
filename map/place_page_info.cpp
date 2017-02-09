@@ -1,6 +1,8 @@
 #include "map/place_page_info.hpp"
 #include "map/reachable_by_taxi_checker.hpp"
 
+#include "partners_api/facebook_ads.hpp"
+
 #include "indexer/feature_utils.hpp"
 #include "indexer/osm_editor.hpp"
 
@@ -42,13 +44,6 @@ bool Info::ShouldShowEditPlace() const
 
 bool Info::HasApiUrl() const { return !m_apiUrl.empty(); }
 bool Info::HasWifi() const { return GetInternet() == osm::Internet::Wlan; }
-
-bool Info::HasBanner() const
-{
-  bool adForbidden = false;
-  UNUSED_VALUE(settings::Get("AdForbidden", adForbidden));
-  return !adForbidden && !m_banner.IsEmpty() && m_banner.IsActive();
-}
 
 string Info::FormatNewBookmarkName() const
 {
@@ -176,40 +171,26 @@ string Info::GetApproximatePricing() const
   return result;
 }
 
-string Info::GetBannerTitleId() const
+banners::Banner Info::GetBanner() const
 {
-  if (m_banner.IsEmpty())
-    return {};
-  return m_banner.GetMessageBase() + "_title";
+  using namespace banners;
+  auto const bannerId = facebook::Ads::Instance().GetBannerId(m_types);
+  if (!bannerId.empty())
+    return {Banner::Type::Facebook, bannerId};
+
+  return {Banner::Type::None, ""};
 }
 
-string Info::GetBannerMessageId() const
-{
-  if (m_banner.IsEmpty())
-    return {};
-  return m_banner.GetMessageBase() + "_message";
-}
-
-string Info::GetBannerIconId() const
-{
-  if (m_banner.IsEmpty())
-    return {};
-  return m_banner.GetIconName();
-}
-
-string Info::GetBannerUrl() const
-{
-  if (m_banner.IsEmpty())
-    return {};
-  return m_banner.GetFormattedUrl(m_metadata.Get(feature::Metadata::FMD_BANNER_URL));
-}
-
-string Info::GetBannerId() const
-{
-  if (m_banner.IsEmpty())
-    return {};
-  return m_banner.GetId();
-}
+/// Deprecated, there was not only removed in order not to break the build.
+/// Should be removed in nearest time.
+///////////////////////////////////////////////////////////////////////////////
+bool Info::HasBanner() const { return true; }
+string Info::GetBannerTitleId() const { return {}; }
+string Info::GetBannerMessageId() const { return {}; }
+string Info::GetBannerIconId() const { return {}; }
+string Info::GetBannerUrl() const { return {}; }
+string Info::GetBannerId() { return {}; }
+///////////////////////////////////////////////////////////////////////////////
 
 bool Info::IsReachableByTaxi() const
 {

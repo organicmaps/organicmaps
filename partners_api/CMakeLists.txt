@@ -6,6 +6,8 @@ set(
   SRC
   booking_api.hpp
   booking_api.cpp
+  facebook_ads.hpp
+  facebook_ads.cpp
   opentable_api.hpp
   opentable_api.cpp
   uber_api.hpp
