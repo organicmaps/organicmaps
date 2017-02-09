@@ -23,6 +23,7 @@
 #include "drape/utils/projection.hpp"
 
 #include "base/logging.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <mutex>
@@ -272,15 +273,15 @@ dp::FontDecl GetRoadShieldTextFont(MapStyle const & style, dp::FontDecl const & 
   using ftypes::RoadShieldType;
 
   static std::unordered_map<int, df::ColorConstant> kColors = {
-      {static_cast<int>(RoadShieldType::Generic_Green), df::RoadShieldWhiteText},
-      {static_cast<int>(RoadShieldType::Generic_Blue), df::RoadShieldWhiteText},
-      {static_cast<int>(RoadShieldType::UK_Highway), df::RoadShieldUKYellowText},
-      {static_cast<int>(RoadShieldType::US_Interstate), df::RoadShieldWhiteText},
-      {static_cast<int>(RoadShieldType::US_Highway), df::RoadShieldBlackText},
-      {static_cast<int>(RoadShieldType::Generic_Red), df::RoadShieldWhiteText},
-      {static_cast<int>(RoadShieldType::Generic_Orange), df::RoadShieldBlackText}};
+      {my::Key(RoadShieldType::Generic_Green), df::RoadShieldWhiteText},
+      {my::Key(RoadShieldType::Generic_Blue), df::RoadShieldWhiteText},
+      {my::Key(RoadShieldType::UK_Highway), df::RoadShieldUKYellowText},
+      {my::Key(RoadShieldType::US_Interstate), df::RoadShieldWhiteText},
+      {my::Key(RoadShieldType::US_Highway), df::RoadShieldBlackText},
+      {my::Key(RoadShieldType::Generic_Red), df::RoadShieldWhiteText},
+      {my::Key(RoadShieldType::Generic_Orange), df::RoadShieldBlackText}};
 
-  auto it = kColors.find(static_cast<int>(shield.m_type));
+  auto it = kColors.find(my::Key(shield.m_type));
   if (it != kColors.end())
     f.m_color = df::GetColorConstant(style, it->second);
 
@@ -293,13 +294,13 @@ dp::Color GetRoadShieldColor(MapStyle const & style, dp::Color const & baseColor
   using ftypes::RoadShieldType;
 
   static std::unordered_map<int, df::ColorConstant> kColors = {
-      {static_cast<int>(RoadShieldType::Generic_Green), df::RoadShieldGreenBackground},
-      {static_cast<int>(RoadShieldType::Generic_Blue), df::RoadShieldBlueBackground},
-      {static_cast<int>(RoadShieldType::UK_Highway), df::RoadShieldGreenBackground},
-      {static_cast<int>(RoadShieldType::Generic_Red), df::RoadShieldRedBackground},
-      {static_cast<int>(RoadShieldType::Generic_Orange), df::RoadShieldOrangeBackground}};
+      {my::Key(RoadShieldType::Generic_Green), df::RoadShieldGreenBackground},
+      {my::Key(RoadShieldType::Generic_Blue), df::RoadShieldBlueBackground},
+      {my::Key(RoadShieldType::UK_Highway), df::RoadShieldGreenBackground},
+      {my::Key(RoadShieldType::Generic_Red), df::RoadShieldRedBackground},
+      {my::Key(RoadShieldType::Generic_Orange), df::RoadShieldOrangeBackground}};
 
-  auto it = kColors.find(static_cast<int>(shield.m_type));
+  auto it = kColors.find(my::Key(shield.m_type));
   if (it != kColors.end())
     return df::GetColorConstant(style, it->second);
 
