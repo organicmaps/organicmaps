@@ -207,18 +207,18 @@ private:
 template <typename DFA>
 struct SearchTrieRequest
 {
-  inline bool IsLangExist(int8_t lang) const { return m_langs.count(lang) != 0; }
+  inline bool IsLangExist(int8_t lang) const { return m_langs.Contains(lang); }
 
   inline void Clear()
   {
     m_names.clear();
     m_categories.clear();
-    m_langs.clear();
+    m_langs.Clear();
   }
 
   vector<DFA> m_names;
   vector<strings::UniStringDFA> m_categories;
-  unordered_set<int8_t> m_langs;
+  QueryParams::Langs m_langs;
 };
 
 // Calls |toDo| for each feature accepted but at least one DFA.

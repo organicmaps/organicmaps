@@ -18,7 +18,7 @@ public:
     if (value == 0)
       return false;
 
-    uint8_t const n = bits::CeilLog(value);
+    uint8_t const n = bits::FloorLog(value);
     ASSERT_LESS_OR_EQUAL(n, 63, ());
 
     uint64_t const msb = static_cast<uint64_t>(1) << n;
@@ -50,7 +50,7 @@ public:
     if (value == 0)
       return false;
 
-    uint8_t const n = bits::CeilLog(value);
+    uint8_t const n = bits::FloorLog(value);
     ASSERT_LESS_OR_EQUAL(n, 63, ());
     if (!GammaCoder::Encode(writer, n + 1))
       return false;

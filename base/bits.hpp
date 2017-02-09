@@ -70,7 +70,7 @@ namespace bits
     return static_cast<uint32_t>(x);
   }
 
-  inline uint8_t CeilLog(uint64_t x) noexcept
+  inline uint8_t FloorLog(uint64_t x) noexcept
   {
 #define CHECK_RSH(x, msb, offset) \
     if (x >> offset)              \

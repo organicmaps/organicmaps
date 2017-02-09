@@ -66,6 +66,7 @@ HEADERS += \
     scope_guard.hpp \
     set_operations.hpp \
     shared_buffer_manager.hpp \
+    small_set.hpp \
     src_point.hpp \
     stats.hpp \
     std_serialization.hpp \

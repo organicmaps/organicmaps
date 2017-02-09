@@ -120,14 +120,14 @@ UNIT_TEST(PopCount64)
 
 UNIT_TEST(CeilLog)
 {
-  TEST_EQUAL(0, bits::CeilLog(0x0), ());
-  TEST_EQUAL(0, bits::CeilLog(0x1), ());
-  TEST_EQUAL(1, bits::CeilLog(0x2), ());
-  TEST_EQUAL(1, bits::CeilLog(0x3), ());
-  TEST_EQUAL(2, bits::CeilLog(0x4), ());
+  TEST_EQUAL(0, bits::FloorLog(0x0), ());
+  TEST_EQUAL(0, bits::FloorLog(0x1), ());
+  TEST_EQUAL(1, bits::FloorLog(0x2), ());
+  TEST_EQUAL(1, bits::FloorLog(0x3), ());
+  TEST_EQUAL(2, bits::FloorLog(0x4), ());
 
-  TEST_EQUAL(6, bits::CeilLog(0x7f), ());
-  TEST_EQUAL(7, bits::CeilLog(0x80), ());
-  TEST_EQUAL(31, bits::CeilLog(0xFFFFFFFF), ());
-  TEST_EQUAL(63, bits::CeilLog(0xFFFFFFFFFFFFFFFF), ());
+  TEST_EQUAL(6, bits::FloorLog(0x7f), ());
+  TEST_EQUAL(7, bits::FloorLog(0x80), ());
+  TEST_EQUAL(31, bits::FloorLog(0xFFFFFFFF), ());
+  TEST_EQUAL(63, bits::FloorLog(0xFFFFFFFFFFFFFFFF), ());
 }

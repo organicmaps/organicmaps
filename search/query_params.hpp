@@ -2,7 +2,10 @@
 
 #include "indexer/scales.hpp"
 
+#include "coding/multilang_utf8_string.hpp"
+
 #include "base/assert.hpp"
+#include "base/small_set.hpp"
 #include "base/string_utils.hpp"
 
 #include "std/cstdint.hpp"
@@ -20,7 +23,7 @@ class QueryParams
 public:
   using String = strings::UniString;
   using TypeIndices = vector<uint32_t>;
-  using Langs = unordered_set<int8_t>;
+  using Langs = base::SafeSmallSet<StringUtf8Multilang::kMaxSupportedLanguages>;
 
   struct Token
   {
@@ -110,7 +113,7 @@ public:
 
   inline Langs & GetLangs() { return m_langs; }
   inline Langs const & GetLangs() const { return m_langs; }
-  inline bool LangExists(int8_t lang) const { return m_langs.count(lang) != 0; }
+  inline bool LangExists(int8_t lang) const { return m_langs.Contains(lang); }
 
   inline int GetScale() const { return m_scale; }
 
