@@ -16,6 +16,11 @@
 namespace df
 {
 
+std::string kRouteColor = "Route";
+std::string kRouteOutlineColor = "RouteOutline";
+std::string kRoutePedestrian = "RoutePedestrian";
+std::string kRouteBicycle = "RouteBicycle";
+
 namespace
 {
 
@@ -114,12 +119,9 @@ bool AreEqualArrowBorders(vector<ArrowBorders> const & borders1, vector<ArrowBor
   return true;
 }
 
-dp::Color GetOutlineColor(df::ColorConstant routeColor)
+dp::Color GetOutlineColor(df::ColorConstant const & routeColor)
 {
-  df::ColorConstant c = routeColor;
-  if (routeColor == df::ColorConstant::Route)
-    c = df::ColorConstant::RouteOutline;
-  return df::GetColorConstant(GetStyleReader().GetCurrentStyle(), c);
+  return df::GetColorConstant(routeColor == kRouteColor ? kRouteOutlineColor : routeColor);
 }
 
 } // namespace
@@ -137,7 +139,7 @@ void RouteRenderer::InterpolateByZoom(ScreenBase const & screen, ColorConstant c
   float const lerpCoef = zoomLevel - zoom;
 
   float const * halfWidthInPixel = kHalfWidthInPixelVehicle;
-  if (color != ColorConstant::Route)
+  if (color != kRouteColor)
     halfWidthInPixel = kHalfWidthInPixelOthers;
 
   if (index < scales::UPPER_STYLE_SCALE)
@@ -249,8 +251,7 @@ void RouteRenderer::RenderRoute(ScreenBase const & screen, bool trafficShown,
     dp::UniformValuesStorage uniforms = commonUniforms;
     math::Matrix<float, 4, 4> mv = screen.GetModelView(m_routeData->m_pivot, kShapeCoordScalar);
     uniforms.SetMatrix4x4Value("modelView", mv.m_data);
-    glsl::vec4 const color = glsl::ToVec4(df::GetColorConstant(GetStyleReader().GetCurrentStyle(),
-                                                               m_routeData->m_color));
+    glsl::vec4 const color = glsl::ToVec4(df::GetColorConstant(m_routeData->m_color));
     uniforms.SetFloatValue("u_color", color.r, color.g, color.b, color.a);
     double const screenScale = screen.GetScale();
     uniforms.SetFloatValue("u_routeParams", m_currentHalfWidth, m_currentHalfWidth * screenScale,

@@ -31,6 +31,11 @@ float const kOutlineScale = 1.2f;
 
 int constexpr kComponentsInVertex = 4;
 
+df::ColorConstant const kArrow3DShadowColor = "Arrow3DShadow";
+df::ColorConstant const kArrow3DObsoleteColor = "Arrow3DObsolete";
+df::ColorConstant const kArrow3DColor = "Arrow3D";
+df::ColorConstant const kArrow3DOutlineColor = "Arrow3DOutline";
+
 Arrow3d::Arrow3d()
   : m_state(gpu::ARROW_3D_PROGRAM, dp::GLState::OverlayLayer)
 {
@@ -132,22 +137,20 @@ void Arrow3d::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> m
     m_isInitialized = true;
   }
 
-  auto const & style = GetStyleReader().GetCurrentStyle();
-
   // Render shadow.
   if (screen.isPerspective())
   {
     ref_ptr<dp::GpuProgram> shadowProgram = mng->GetProgram(gpu::ARROW_3D_SHADOW_PROGRAM);
-    RenderArrow(screen, shadowProgram, df::GetColorConstant(style, df::Arrow3DShadow), 0.05f /* dz */,
+    RenderArrow(screen, shadowProgram, df::GetColorConstant(df::kArrow3DShadowColor), 0.05f /* dz */,
                 routingMode ? kOutlineScale : 1.0f /* scaleFactor */, false /* hasNormals */);
   }
 
-  dp::Color const color = df::GetColorConstant(style, m_obsoletePosition ? df::Arrow3DObsolete : df::Arrow3D);
+  dp::Color const color = df::GetColorConstant(m_obsoletePosition ? df::kArrow3DObsoleteColor : df::kArrow3DColor);
 
   // Render outline.
   if (routingMode)
   {
-    dp::Color const outlineColor = df::GetColorConstant(style, df::Arrow3DOutline);
+    dp::Color const outlineColor = df::GetColorConstant(df::kArrow3DOutlineColor);
     ref_ptr<dp::GpuProgram> outlineProgram = mng->GetProgram(gpu::ARROW_3D_OUTLINE_PROGRAM);
     RenderArrow(screen, outlineProgram,
                 dp::Color(outlineColor.GetRed(), outlineColor.GetGreen(), outlineColor.GetBlue(), color.GetAlfa()),

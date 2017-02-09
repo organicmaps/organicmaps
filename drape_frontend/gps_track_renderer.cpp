@@ -23,6 +23,11 @@ namespace
 
 //#define SHOW_RAW_POINTS
 
+df::ColorConstant const kTrackUnknownDistanceColor = "TrackUnknownDistance";
+df::ColorConstant const kTrackCarSpeedColor = "TrackCarSpeed";
+df::ColorConstant const kTrackPlaneSpeedColor = "TrackPlaneSpeed";
+df::ColorConstant const kTrackHumanSpeedColor = "TrackHumanSpeed";
+
 int const kMinVisibleZoomLevel = 5;
 
 size_t const kAveragePointsCount = 512;
@@ -164,7 +169,7 @@ dp::Color GpsTrackRenderer::CalculatePointColor(size_t pointIndex, m2::PointD co
 
   if ((end.m_timestamp - start.m_timestamp) > kUnknownDistanceTime)
   {
-    dp::Color const color = df::GetColorConstant(style, df::TrackUnknownDistance);
+    dp::Color const color = df::GetColorConstant(df::kTrackUnknownDistanceColor);
     return dp::Color(color.GetRed(), color.GetGreen(), color.GetBlue(), alpha);
   }
 
@@ -179,13 +184,12 @@ dp::Color GpsTrackRenderer::CalculatePointColor(size_t pointIndex, m2::PointD co
 
 dp::Color GpsTrackRenderer::GetColorBySpeed(double speed) const
 {
-  auto const style = GetStyleReader().GetCurrentStyle();
   if (speed > kHumanSpeed && speed <= kCarSpeed)
-    return df::GetColorConstant(style, df::TrackCarSpeed);
+    return df::GetColorConstant(df::kTrackCarSpeedColor);
   else if (speed > kCarSpeed)
-    return df::GetColorConstant(style, df::TrackPlaneSpeed);
+    return df::GetColorConstant(df::kTrackPlaneSpeedColor);
 
-  return df::GetColorConstant(style, df::TrackHumanSpeed);
+  return df::GetColorConstant(df::kTrackHumanSpeedColor);
 }
 
 void GpsTrackRenderer::RenderTrack(ScreenBase const & screen, int zoomLevel,

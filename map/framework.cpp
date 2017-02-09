@@ -34,6 +34,7 @@
 
 #include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/gps_track_point.hpp"
+#include "drape_frontend/route_renderer.hpp"
 #include "drape_frontend/visual_params.hpp"
 #include "drape_frontend/watch/cpu_drawer.hpp"
 #include "drape_frontend/watch/feature_processor.hpp"
@@ -2539,16 +2540,16 @@ void Framework::InsertRoute(Route const & route)
     route.GetTurnsDistances(turns);
   }
 
-  df::ColorConstant routeColor = df::Route;
+  df::ColorConstant routeColor = df::kRouteColor;
   df::RoutePattern pattern;
   if (m_currentRouterType == RouterType::Pedestrian)
   {
-    routeColor = df::RoutePedestrian;
+    routeColor = df::kRoutePedestrian;
     pattern = df::RoutePattern(4.0, 2.0);
   }
   else if (m_currentRouterType == RouterType::Bicycle)
   {
-    routeColor = df::RouteBicycle;
+    routeColor = df::kRouteBicycle;
     pattern = df::RoutePattern(8.0, 2.0);
   }
 

@@ -11,6 +11,8 @@
 namespace gui
 {
 
+df::ColorConstant const kGuiTextColor = "GuiText";
+
 struct DrapeGui::Impl
 {
   DrapeGui::TLocalizeStringFn m_localizeFn;
@@ -37,7 +39,7 @@ RulerHelper & DrapeGui::GetRulerHelper()
 
 dp::FontDecl DrapeGui::GetGuiTextFont()
 {
-  return dp::FontDecl(df::GetColorConstant(GetStyleReader().GetCurrentStyle(), df::GuiText), 14);
+  return dp::FontDecl(df::GetColorConstant(kGuiTextColor), 14);
 }
 
 void DrapeGui::Destroy()

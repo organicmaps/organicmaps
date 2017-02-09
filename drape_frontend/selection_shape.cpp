@@ -19,9 +19,9 @@
 
 namespace df
 {
-
 namespace
 {
+df::ColorConstant const kSelectionColor = "Selection";
 
 struct Vertex
 {
@@ -55,8 +55,7 @@ dp::BindingInfo GetBindingInfo()
 
   return info;
 }
-
-} // namespace
+} //  namespace
 
 SelectionShape::SelectionShape(ref_ptr<dp::TextureManager> mng)
   : m_position(m2::PointD::Zero())
@@ -69,7 +68,7 @@ SelectionShape::SelectionShape(ref_ptr<dp::TextureManager> mng)
   float const etalonSector = math::twicePi / static_cast<double>(TriangleCount);
 
   dp::TextureManager::ColorRegion color;
-  mng->GetColorRegion(df::GetColorConstant(GetStyleReader().GetCurrentStyle(), df::Selection), color);
+  mng->GetColorRegion(df::GetColorConstant(df::kSelectionColor), color);
   glsl::vec2 colorCoord = glsl::ToVec2(color.GetTexRect().Center());
 
   buffer_vector<Vertex, TriangleCount> buffer;
