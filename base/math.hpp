@@ -189,7 +189,7 @@ Number constexpr GCD(Number const a, Number const b) { return b == 0 ? a : GCD(b
 template <typename Number,
           typename EnableIf = typename std::enable_if<
             std::is_integral<Number>::value, void>::type>
-// Lowest common multiple.
+// Lowest Common Multiple.
 Number constexpr LCM(Number const a, Number const b) { return a / GCD(a, b) * b; }
 
 /// Calculate hash for the pair of values.

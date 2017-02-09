@@ -5,6 +5,8 @@
 #include "indexer/index.hpp"
 #include "indexer/scales.hpp"
 
+#include "base/stl_add.hpp"
+
 #include "3party/pugixml/src/pugixml.hpp"
 
 #include <QItemSelection>
@@ -20,20 +22,16 @@ DecodedSample::DecodedSample(Index const & index, openlr::SamplePool const & sam
       auto const & fid = mwmSegment.m_fid;
       Index::FeaturesLoaderGuard g(index, fid.m_mwmId);
       CHECK(fid.m_mwmId.IsAlive(), ("Mwm id is not alive."));
-      if (m_points.find(fid) == end(m_points))
-      {
-        FeatureType ft;
-        CHECK(g.GetFeatureByIndex(fid.m_index, ft), ("Can't read feature", fid));
-        ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
+      if (m_points.find(fid) != end(m_points))
+        continue;
 
-        auto & v = m_points[fid];
-        v.reserve(ft.GetPointsCount());
-        auto insIt = back_inserter(v);
-        ft.ForEachPoint([insIt](m2::PointD const & p) mutable {
-            insIt++ = p;
-          },
-          scales::GetUpperScale());
-      }
+      FeatureType ft;
+      CHECK(g.GetFeatureByIndex(fid.m_index, ft), ("Can't read feature", fid));
+      ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
+
+      auto & v = m_points[fid];
+      v.reserve(ft.GetPointsCount());
+      ft.ForEachPoint(MakeBackInsertFunctor(v), scales::GetUpperScale());
     }
   }
 }
@@ -54,6 +52,7 @@ std::vector<m2::PointD> DecodedSample::GetPoints(size_t const index) const
     auto const ftIt = m_points.find(seg.m_fid);
     CHECK(ftIt != end(m_points), ("Can't find feature with id:", seg.m_fid));
     auto const & ftPoints = ftIt->second;
+    CHECK_LESS(seg.m_segId + 1, ftPoints.size(), ());
     auto const firstP = ftPoints[seg.m_segId];
     auto const secondP = ftPoints[seg.m_segId + 1];
     if (seg.m_isForward)

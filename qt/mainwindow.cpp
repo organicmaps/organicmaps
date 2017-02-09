@@ -167,7 +167,7 @@ MainWindow::MainWindow()
   m_saveTrafficSampleAction->setEnabled(false);
 
   m_quitTrafficModeAction = new QAction(tr("Quit traffic mode"), this);
-  // On Macos actions with names started with quit or exit are threadet specially,
+  // On macOS actions with names started with quit or exit are treated specially,
   // see QMenuBar documentation.
   m_quitTrafficModeAction->setMenuRole(QAction::MenuRole::NoRole);
   m_quitTrafficModeAction->setEnabled(false);
@@ -687,7 +687,6 @@ void MainWindow::OnRetryDownloadClicked()
 {
   m_pDrawWidget->RetryToDownloadCountry(m_lastCountry);
 }
-
 
 void MainWindow::OnTrafficEnabled()
 {

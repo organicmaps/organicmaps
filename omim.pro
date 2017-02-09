@@ -263,7 +263,7 @@ SUBDIRS = 3party base coding geometry editor indexer routing search openlr
     SUBDIRS *= traffic_tests
 
     openlr_tests.subdir = openlr/openlr_tests
-    opnelr_tests.depends = $$SUBDIRS platform_tests_support
+    openlr_tests.depends = $$SUBDIRS platform_tests_support
     SUBDIRS *= openlr_tests
   } # !no-tests
 } # !gtool

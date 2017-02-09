@@ -3,7 +3,9 @@
 #include "geometry/latlon.hpp"
 #include "geometry/point2d.hpp"
 
+#include <cstdint>
 #include <limits>
+#include <vector>
 
 namespace openlr
 {

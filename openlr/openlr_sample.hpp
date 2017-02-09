@@ -5,6 +5,7 @@
 #include "base/exception.hpp"
 #include "base/newtype.hpp"
 
+#include <cstdint>
 #include <string>
 #include <vector>
 

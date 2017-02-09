@@ -10,5 +10,6 @@ class xml_document;
 namespace openlr
 {
 struct LinearSegment;
+
 bool ParseOpenlr(pugi::xml_document const & document, vector<LinearSegment> & segments);
 }  // namespace openlr
