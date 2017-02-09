@@ -7,6 +7,7 @@ import android.preference.TwoStatePreference;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.location.LocationHelper;
@@ -71,7 +72,8 @@ public class MiscPrefsFragment extends BaseXmlSettingsFragment
       getPreferenceScreen().removePreference(findPreference(getString(R.string.pref_showcase_switched_on)));
 
     pref = findPreference(getString(R.string.pref_enable_logging));
-    if (!MwmApplication.prefs().getBoolean(SearchFragment.PREFS_SHOW_ENABLE_LOGGING_SETTING, false))
+    if (!MwmApplication.prefs().getBoolean(SearchFragment.PREFS_SHOW_ENABLE_LOGGING_SETTING,
+                                           BuildConfig.BUILD_TYPE.equals("beta")))
     {
       getPreferenceScreen().removePreference(pref);
     }
