@@ -300,7 +300,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   auto cell = static_cast<MWMBottomMenuCollectionViewCell *>(
       [collectionView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
   NSInteger item = indexPath.item;
-  if (isInterfaceRightToLeft())
+  if (isWideMenu && isInterfaceRightToLeft())
     item = [self collectionView:collectionView numberOfItemsInSection:indexPath.section] - item - 1;
   switch (item)
   {
