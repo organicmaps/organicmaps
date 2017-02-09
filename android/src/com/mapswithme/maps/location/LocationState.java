@@ -15,7 +15,6 @@ public final class LocationState
 
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ PENDING_POSITION, NOT_FOLLOW_NO_POSITION, NOT_FOLLOW, FOLLOW, FOLLOW_AND_ROTATE})
-
   @interface Value {}
 
   // These values should correspond to location::EMyPositionMode enum (from platform/location.hpp)

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.UiThread;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -43,7 +44,7 @@ public enum LocationHelper
   private final TransitionListener mOnTransition = new TransitionListener();
 
   @NonNull
-  private final LocationListener mLocationListener = new LocationListener()
+  private final LocationListener mCoreLocationListener = new LocationListener()
   {
     @Override
     public void onLocationUpdated(Location location)
@@ -93,7 +94,7 @@ public enum LocationHelper
     @Override
     public String toString()
     {
-      return "LocationHelper.mLocationListener";
+      return "LocationHelper.mCoreLocationListener";
     }
   };
 
@@ -109,12 +110,12 @@ public enum LocationHelper
   @Nullable
   private BaseLocationProvider mLocationProvider;
   @NonNull
-  private final LocationPredictor mPredictor = new LocationPredictor(mLocationListener);
+  private final LocationPredictor mPredictor = new LocationPredictor(mCoreLocationListener);
   @Nullable
   private UiCallback mUiCallback;
-
   private long mInterval;
   private CompassData mCompassData;
+  private boolean mInFirstRun;
 
   @SuppressWarnings("FieldCanBeLocal")
   private final LocationState.ModeChangeListener mMyPositionModeListener =
@@ -135,6 +136,14 @@ public enum LocationHelper
       switch (newMode)
       {
         case LocationState.NOT_FOLLOW_NO_POSITION:
+          // In the first run mode, the NOT_FOLLOW_NO_POSITION state doesn't mean that location
+          // is actually not found.
+          if (mInFirstRun)
+          {
+            mLogger.i(TAG, "It's the first run, so this state should be skipped");
+            return;
+          }
+
           stop();
           if (LocationUtils.areLocationServicesTurnedOn())
             notifyLocationNotFound();
@@ -149,7 +158,7 @@ public enum LocationHelper
     mLogger.d(LocationHelper.class.getSimpleName(), "ctor()");
   }
 
-  @android.support.annotation.UiThread
+  @UiThread
   public void initialize()
   {
     initProvider();
@@ -248,6 +257,15 @@ public enum LocationHelper
       return;
     }
 
+    // If we are still in the first run mode, i.e. user stays on the first run screens,
+    // not on the map, we mustn't post location update to the core. Only this preserving allows us
+    // to play nice zoom animation once a user will see map.
+    if (mInFirstRun)
+    {
+      mLogger.d(TAG, "Location update is obtained, but ignore, because it's a first run mode");
+      return;
+    }
+
     for (LocationListener listener : mListeners)
       listener.onLocationUpdated(mSavedLocation);
     mListeners.finishIterate();
@@ -308,7 +326,7 @@ public enum LocationHelper
    * @param listener listener to register.
    * @param forceUpdate instantly notify given listener about available location, if any.
    */
-  @android.support.annotation.UiThread
+  @UiThread
   public void addListener(@NonNull LocationListener listener, boolean forceUpdate)
   {
     mLogger.d(TAG, "addListener(): " + listener + ", forceUpdate: " + forceUpdate);
@@ -320,7 +338,7 @@ public enum LocationHelper
       notifyLocationUpdated(listener);
   }
 
-  @android.support.annotation.UiThread
+  @UiThread
   /**
    * Removes given location listener.
    * @param listener listener to unregister.
@@ -411,7 +429,7 @@ public enum LocationHelper
   }
 
   /**
-   * Adds the {@link #mLocationListener} to listen location updates and notify UI.
+   * Adds the {@link #mCoreLocationListener} to listen location updates and notify UI.
    * Notifies about {@link #ERROR_DENIED} if there are no enabled location providers.
    * Calculates minimum time interval for location updates.
    * Starts polling location updates.
@@ -423,11 +441,13 @@ public enum LocationHelper
     if (mLocationProvider.isActive())
       throw new AssertionError("Location provider '" + mLocationProvider + "' must be stopped first");
 
-    addListener(mLocationListener, true);
+    addListener(mCoreLocationListener, true);
 
     if (!LocationUtils.checkProvidersAvailability())
     {
-      notifyLocationError(ERROR_DENIED);
+      // No need to notify about an error in first run mode
+      if (!mInFirstRun)
+        notifyLocationError(ERROR_DENIED);
       return;
     }
 
@@ -439,8 +459,8 @@ public enum LocationHelper
   }
 
   /**
-   * Stops the polling location updates, i.e. removes the {@link #mLocationListener} and stops
-   * the current active provider. If the provider is not active the assertion error will be thrown.
+   * Stops the polling location updates, i.e. removes the {@link #mCoreLocationListener} and stops
+   * the current active provider.
    */
   private void stop()
   {
@@ -453,7 +473,7 @@ public enum LocationHelper
       return;
     }
 
-    removeListener(mLocationListener);
+    removeListener(mCoreLocationListener);
     stopInternal();
   }
 
@@ -462,7 +482,9 @@ public enum LocationHelper
    */
   private void startInternal()
   {
-    mLogger.d(TAG, "startInternal(), current provider is '" + mLocationProvider + "'");
+    mLogger.d(TAG, "startInternal(), current provider is '" + mLocationProvider
+                   + "' , my position mode = " + LocationState.nameOf(getMyPositionMode())
+                   + ", mInFirstRun = " + mInFirstRun);
     checkProviderInitialization();
     //noinspection ConstantConditions
     mLocationProvider.start();
@@ -470,7 +492,7 @@ public enum LocationHelper
 
     if (mLocationProvider.isActive())
     {
-      if (getMyPositionMode() == LocationState.NOT_FOLLOW_NO_POSITION)
+      if (!mInFirstRun && getMyPositionMode() == LocationState.NOT_FOLLOW_NO_POSITION)
         switchToNextMode();
       mPredictor.resume();
     }
@@ -502,7 +524,7 @@ public enum LocationHelper
   /**
    * Attach UI to helper.
    */
-  @android.support.annotation.UiThread
+  @UiThread
   public void attach(@NonNull UiCallback callback)
   {
     mLogger.d(TAG, "attach() callback = " + callback);
@@ -526,7 +548,7 @@ public enum LocationHelper
     if (mLocationProvider.isActive())
     {
       mLogger.d(TAG, "attach() provider '" + mLocationProvider + "' is active, just add the listener");
-      addListener(mLocationListener, true);
+      addListener(mCoreLocationListener, true);
     }
     else
     {
@@ -537,6 +559,7 @@ public enum LocationHelper
   /**
    * Detach UI from helper.
    */
+  @UiThread
   public void detach(boolean delayed)
   {
     mLogger.d(TAG, "detach(), delayed: " + delayed);
@@ -550,6 +573,46 @@ public enum LocationHelper
     Utils.keepScreenOn(false, mUiCallback.getActivity().getWindow());
     mUiCallback = null;
     stop();
+  }
+
+  @UiThread
+  public void onEnteredIntoFirstRun()
+  {
+    mLogger.i(TAG, "onEnteredIntoFirstRun");
+    mInFirstRun = true;
+  }
+
+  @UiThread
+  public void onExitFromFirstRun()
+  {
+    mLogger.i(TAG, "onExitFromFirstRun");
+    if (!mInFirstRun)
+      throw new AssertionError("Must be called only after 'onEnteredIntoFirstRun' method!");
+
+    mInFirstRun = false;
+
+    if (getMyPositionMode() != LocationState.NOT_FOLLOW_NO_POSITION)
+      throw new AssertionError("My position mode must be equal NOT_FOLLOW_NO_POSITION");
+
+    // If there is a location we need just to pass it to the listeners, so that
+    // my position state machine will be switched to the FOLLOW state.
+    Location location = getSavedLocation();
+    if (location != null)
+    {
+      notifyLocationUpdated();
+      mLogger.d(TAG, "Current location is available, so play the nice zoom animation");
+      Framework.nativeZoomToPoint(location.getLatitude(), location.getLongitude(), 14, true);
+      return;
+    }
+
+    checkProviderInitialization();
+    // If the location hasn't been obtained yet we need to switch to the next mode and wait for locations.
+    // Otherwise, try to restart location updates polling.
+    // noinspection ConstantConditions
+    if (mLocationProvider.isActive())
+      switchToNextMode();
+    else
+      restart();
   }
 
   /**

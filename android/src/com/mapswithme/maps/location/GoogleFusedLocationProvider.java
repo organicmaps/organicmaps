@@ -41,7 +41,7 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
   @Override
   protected void start()
   {
-    sLogger.d(TAG, "Google fused provider is started");
+    LOGGER.d(TAG, "Google fused provider is started");
     if (mGoogleApiClient.isConnected() || mGoogleApiClient.isConnecting())
     {
       setActive(true);
@@ -52,6 +52,8 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
     mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     long interval = LocationHelper.INSTANCE.getInterval();
     mLocationRequest.setInterval(interval);
+    LOGGER.d(TAG, "Request Google fused provider to provide locations at this interval = "
+                  + interval + " ms");
     mLocationRequest.setFastestInterval(interval / 2);
 
     mGoogleApiClient.connect();
@@ -61,7 +63,7 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
   @Override
   protected void stop()
   {
-    sLogger.d(TAG, "Google fused provider is stopped");
+    LOGGER.d(TAG, "Google fused provider is stopped");
     if (mGoogleApiClient.isConnected())
       LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, mListener);
 
@@ -75,13 +77,13 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
   @Override
   public void onConnected(Bundle bundle)
   {
-    sLogger.d(TAG, "Fused onConnected. Bundle " + bundle);
+    LOGGER.d(TAG, "Fused onConnected. Bundle " + bundle);
     checkSettingsAndRequestUpdates();
   }
 
   private void checkSettingsAndRequestUpdates()
   {
-    sLogger.d(TAG, "checkSettingsAndRequestUpdates()");
+    LOGGER.d(TAG, "checkSettingsAndRequestUpdates()");
     LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(mLocationRequest);
     builder.setAlwaysShow(true); // hides 'never' button in resolve dialog afterwards.
     mLocationSettingsResult = LocationServices.SettingsApi.checkLocationSettings(mGoogleApiClient, builder.build());
@@ -91,7 +93,7 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
       public void onResult(@NonNull LocationSettingsResult locationSettingsResult)
       {
         final Status status = locationSettingsResult.getStatus();
-        sLogger.d(TAG, "onResult status: " + status);
+        LOGGER.d(TAG, "onResult status: " + status);
         switch (status.getStatusCode())
         {
         case LocationSettingsStatusCodes.SUCCESS:
@@ -116,7 +118,7 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
 
   private static void resolveResolutionRequired()
   {
-    sLogger.d(TAG, "resolveResolutionRequired()");
+    LOGGER.d(TAG, "resolveResolutionRequired()");
     LocationHelper.INSTANCE.initNativeProvider();
     LocationHelper.INSTANCE.start();
   }
@@ -137,14 +139,14 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
   public void onConnectionSuspended(int i)
   {
     setActive(false);
-    sLogger.d(TAG, "Fused onConnectionSuspended. Code " + i);
+    LOGGER.d(TAG, "Fused onConnectionSuspended. Code " + i);
   }
 
   @Override
   public void onConnectionFailed(@NonNull ConnectionResult connectionResult)
   {
     setActive(false);
-    sLogger.d(TAG, "Fused onConnectionFailed. Fall back to native provider. ConnResult " + connectionResult);
+    LOGGER.d(TAG, "Fused onConnectionFailed. Fall back to native provider. ConnResult " + connectionResult);
     // TODO handle error in a smarter way
     LocationHelper.INSTANCE.initNativeProvider();
     LocationHelper.INSTANCE.start();

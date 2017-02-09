@@ -1010,21 +1010,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       mFirstStart = FirstStartFragment.showOn(this);
       if (mFirstStart)
-      {
-        if (LocationHelper.INSTANCE.isTurnedOn())
-          addTask(new MwmActivity.MapTask()
-          {
-            @Override
-            public boolean run(MwmActivity target)
-            {
-              //TODO: Check and remove
-              if (LocationHelper.INSTANCE.isTurnedOn())
-                LocationHelper.INSTANCE.switchToNextMode();
-              return false;
-            }
-          });
-      }
-      else if (!NewsFragment.showOn(this))
+        return;
+
+      if (!NewsFragment.showOn(this))
       {
         if (ViralFragment.shouldDisplay())
           new ViralFragment().show(getSupportFragmentManager(), "");
@@ -1832,9 +1820,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onLocationNotFound()
   {
-    if (!shouldNotifyLocationNotFound())
-      return;
-
     showLocationNotFoundDialog();
   }
 
@@ -1853,11 +1838,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
             LocationHelper.INSTANCE.start();
           }
         }).show();
-  }
-
-  private boolean shouldNotifyLocationNotFound()
-  {
-    return mMapFragment != null && !mMapFragment.isFirstStart();
   }
 
   public static class ShowAuthorizationTask implements MapTask

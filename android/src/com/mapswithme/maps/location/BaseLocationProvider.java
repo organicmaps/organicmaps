@@ -7,7 +7,7 @@ import com.mapswithme.util.log.LoggerFactory;
 
 abstract class BaseLocationProvider
 {
-  static final Logger sLogger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.LOCATION);
+  static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.LOCATION);
   private static final String TAG = BaseLocationProvider.class.getSimpleName();
   @NonNull
   private final LocationFixChecker mLocationFixChecker;
@@ -37,7 +37,7 @@ abstract class BaseLocationProvider
 
   final void setActive(boolean active)
   {
-    sLogger.d(TAG, "setActive active = " + active);
+    LOGGER.d(TAG, "setActive active = " + active);
     mActive = active;
   }
 }

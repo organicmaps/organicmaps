@@ -54,7 +54,6 @@ public class MapFragment extends BaseMwmFragment
   private int mWidth;
   private boolean mRequireResize;
   private boolean mContextCreated;
-  private boolean mFirstStart;
   private static boolean sWasCopyrightDisplayed;
 
   interface MapRenderingListener
@@ -167,11 +166,11 @@ public class MapFragment extends BaseMwmFragment
     getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
     final float exactDensityDpi = metrics.densityDpi;
 
-    mFirstStart = ((MwmActivity) getMwmActivity()).isFirstStart();
-    if (mFirstStart)
+    boolean firstStart = ((MwmActivity) getMwmActivity()).isFirstStart();
+    if (firstStart)
       PushwooshHelper.nativeProcessFirstLaunch();
 
-    if (!nativeCreateEngine(surface, (int) exactDensityDpi, mFirstStart))
+    if (!nativeCreateEngine(surface, (int) exactDensityDpi, firstStart))
     {
       reportUnsupported();
       return;
@@ -284,13 +283,6 @@ public class MapFragment extends BaseMwmFragment
                       event.getPointerId(1), event.getX(1), event.getY(1), pointerIndex);
         return true;
     }
-  }
-
-  boolean isFirstStart()
-  {
-    boolean res = mFirstStart;
-    mFirstStart = false;
-    return res;
   }
 
   boolean isContextCreated()
