@@ -4536,7 +4536,9 @@ void ClassifElementProto::Swap(ClassifElementProto* other) {
 
 #ifndef _MSC_VER
 const int ColorElementProto::kNameFieldNumber;
-const int ColorElementProto::kValueFieldNumber;
+const int ColorElementProto::kColorFieldNumber;
+const int ColorElementProto::kXFieldNumber;
+const int ColorElementProto::kYFieldNumber;
 #endif  // !_MSC_VER
 
 ColorElementProto::ColorElementProto()
@@ -4559,7 +4561,9 @@ void ColorElementProto::SharedCtor() {
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  value_ = 0u;
+  color_ = 0u;
+  x_ = 0;
+  y_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -4601,14 +4605,28 @@ ColorElementProto* ColorElementProto::New() const {
 }
 
 void ColorElementProto::Clear() {
-  if (_has_bits_[0 / 32] & 3) {
+#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
+  &reinterpret_cast<ColorElementProto*>(16)->f) - \
+   reinterpret_cast<char*>(16))
+
+#define ZR_(first, last) do {                              \
+    size_t f = OFFSET_OF_FIELD_(first);                    \
+    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
+    ::memset(&first, 0, n);                                \
+  } while (0)
+
+  if (_has_bits_[0 / 32] & 15) {
+    ZR_(color_, y_);
     if (has_name()) {
       if (name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         name_->clear();
       }
     }
-    value_ = 0u;
   }
+
+#undef OFFSET_OF_FIELD_
+#undef ZR_
+
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->clear();
 }
@@ -4635,18 +4653,48 @@ bool ColorElementProto::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(16)) goto parse_value;
+        if (input->ExpectTag(16)) goto parse_color;
         break;
       }
 
-      // required uint32 value = 2;
+      // required uint32 color = 2;
       case 2: {
         if (tag == 16) {
-         parse_value:
+         parse_color:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &value_)));
-          set_has_value();
+                 input, &color_)));
+          set_has_color();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(29)) goto parse_x;
+        break;
+      }
+
+      // optional float x = 3;
+      case 3: {
+        if (tag == 29) {
+         parse_x:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, &x_)));
+          set_has_x();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(37)) goto parse_y;
+        break;
+      }
+
+      // optional float y = 4;
+      case 4: {
+        if (tag == 37) {
+         parse_y:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, &y_)));
+          set_has_y();
         } else {
           goto handle_unusual;
         }
@@ -4685,9 +4733,19 @@ void ColorElementProto::SerializeWithCachedSizes(
       1, this->name(), output);
   }
 
-  // required uint32 value = 2;
-  if (has_value()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->value(), output);
+  // required uint32 color = 2;
+  if (has_color()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->color(), output);
+  }
+
+  // optional float x = 3;
+  if (has_x()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(3, this->x(), output);
+  }
+
+  // optional float y = 4;
+  if (has_y()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(4, this->y(), output);
   }
 
   output->WriteRaw(unknown_fields().data(),
@@ -4706,11 +4764,21 @@ int ColorElementProto::ByteSize() const {
           this->name());
     }
 
-    // required uint32 value = 2;
-    if (has_value()) {
+    // required uint32 color = 2;
+    if (has_color()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->value());
+          this->color());
+    }
+
+    // optional float x = 3;
+    if (has_x()) {
+      total_size += 1 + 4;
+    }
+
+    // optional float y = 4;
+    if (has_y()) {
+      total_size += 1 + 4;
     }
 
   }
@@ -4733,8 +4801,14 @@ void ColorElementProto::MergeFrom(const ColorElementProto& from) {
     if (from.has_name()) {
       set_name(from.name());
     }
-    if (from.has_value()) {
-      set_value(from.value());
+    if (from.has_color()) {
+      set_color(from.color());
+    }
+    if (from.has_x()) {
+      set_x(from.x());
+    }
+    if (from.has_y()) {
+      set_y(from.y());
     }
   }
   mutable_unknown_fields()->append(from.unknown_fields());
@@ -4755,7 +4829,9 @@ bool ColorElementProto::IsInitialized() const {
 void ColorElementProto::Swap(ColorElementProto* other) {
   if (other != this) {
     std::swap(name_, other->name_);
-    std::swap(value_, other->value_);
+    std::swap(color_, other->color_);
+    std::swap(x_, other->x_);
+    std::swap(y_, other->y_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.swap(other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
@@ -4770,7 +4846,7 @@ void ColorElementProto::Swap(ColorElementProto* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int ColorsElementProto::kColorFieldNumber;
+const int ColorsElementProto::kValueFieldNumber;
 #endif  // !_MSC_VER
 
 ColorsElementProto::ColorsElementProto()
@@ -4829,7 +4905,7 @@ ColorsElementProto* ColorsElementProto::New() const {
 }
 
 void ColorsElementProto::Clear() {
-  color_.Clear();
+  value_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->clear();
 }
@@ -4848,16 +4924,16 @@ bool ColorsElementProto::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // repeated .ColorElementProto color = 1;
+      // repeated .ColorElementProto value = 1;
       case 1: {
         if (tag == 10) {
-         parse_color:
+         parse_value:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-                input, add_color()));
+                input, add_value()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(10)) goto parse_color;
+        if (input->ExpectTag(10)) goto parse_value;
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -4887,10 +4963,10 @@ failure:
 void ColorsElementProto::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:ColorsElementProto)
-  // repeated .ColorElementProto color = 1;
-  for (int i = 0; i < this->color_size(); i++) {
+  // repeated .ColorElementProto value = 1;
+  for (int i = 0; i < this->value_size(); i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessage(
-      1, this->color(i), output);
+      1, this->value(i), output);
   }
 
   output->WriteRaw(unknown_fields().data(),
@@ -4901,12 +4977,12 @@ void ColorsElementProto::SerializeWithCachedSizes(
 int ColorsElementProto::ByteSize() const {
   int total_size = 0;
 
-  // repeated .ColorElementProto color = 1;
-  total_size += 1 * this->color_size();
-  for (int i = 0; i < this->color_size(); i++) {
+  // repeated .ColorElementProto value = 1;
+  total_size += 1 * this->value_size();
+  for (int i = 0; i < this->value_size(); i++) {
     total_size +=
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        this->color(i));
+        this->value(i));
   }
 
   total_size += unknown_fields().size();
@@ -4924,7 +5000,7 @@ void ColorsElementProto::CheckTypeAndMergeFrom(
 
 void ColorsElementProto::MergeFrom(const ColorsElementProto& from) {
   GOOGLE_CHECK_NE(&from, this);
-  color_.MergeFrom(from.color_);
+  value_.MergeFrom(from.value_);
   mutable_unknown_fields()->append(from.unknown_fields());
 }
 
@@ -4936,13 +5012,13 @@ void ColorsElementProto::CopyFrom(const ColorsElementProto& from) {
 
 bool ColorsElementProto::IsInitialized() const {
 
-  if (!::google::protobuf::internal::AllAreInitialized(this->color())) return false;
+  if (!::google::protobuf::internal::AllAreInitialized(this->value())) return false;
   return true;
 }
 
 void ColorsElementProto::Swap(ColorsElementProto* other) {
   if (other != this) {
-    color_.Swap(&other->color_);
+    value_.Swap(&other->value_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.swap(other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

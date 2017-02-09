@@ -75952,168 +75952,250 @@ cont {
   }
 }
 colors {
-  color {
+  value {
     name: "RoadShieldGreenText"
-    value: 16777215
+    color: 16777215
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "TrackUnknownDistance"
-    value: 6381921
+    color: 6381921
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "MyPositionAccuracy"
-    value: 3942645760
+    color: 3942645760
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "GuiText"
-    value: 609045837
+    color: 609045837
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "PoiHotelTextOutline"
-    value: 1728053247
+    color: 1728053247
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "RoadShieldAddText"
-    value: 0
+    color: 0
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "RoadShieldAddTextOutline"
-    value: 16777215
+    color: 16777215
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "PoiDeletedMask"
-    value: 3019898879
+    color: 3019898879
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "RoadShieldBlueBackground"
-    value: 3043273
+    color: 3043273
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "TrackHumanSpeed"
-    value: 1913758
+    color: 1913758
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "RoadShieldUSInterstateText"
-    value: 16777215
+    color: 16777215
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "TrafficArrowDark"
-    value: 7033108
+    color: 7033108
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "RoadShieldBlueText"
-    value: 16777215
+    color: 16777215
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "RoutePedestrian"
-    value: 857551774
+    color: 857551774
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "Arrow3DOutline"
-    value: 16777215
+    color: 16777215
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "RouteTrafficG0"
-    value: 10167040
+    color: 10167040
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "Arrow3DShadow"
-    value: 3258727484
+    color: 3258727484
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "Route"
-    value: 34815
+    color: 34815
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "RouteOutline"
-    value: 352205
+    color: 352205
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "RoadShieldUSHighwayText"
-    value: 0
+    color: 0
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "TrackPlaneSpeed"
-    value: 705791
+    color: 705791
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "TrafficG0"
-    value: 10167045
+    color: 10167045
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "Arrow3D"
-    value: 5286655
+    color: 5286655
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "TrafficG3"
-    value: 2163913763
+    color: 2163913763
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "TrafficG2"
-    value: 15088695
+    color: 15088695
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "TrafficG1"
-    value: 15088695
+    color: 15088695
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "TrackCarSpeed"
-    value: 1407476
+    color: 1407476
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "TrafficTempBlock"
-    value: 4605510
+    color: 4605510
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "TrafficG5"
-    value: 4622165
+    color: 4622165
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "Selection"
-    value: 1545508592
+    color: 1545508592
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "Arrow3DObsolete"
-    value: 1216522952
+    color: 1216522952
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "TrafficUnknown"
-    value: 0
+    color: 0
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "TrafficG4"
-    value: 10202935
+    color: 10202935
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "RoadShieldGreenBackground"
-    value: 2257467
+    color: 2257467
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "TrafficArrowLight"
-    value: 16777215
+    color: 16777215
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "RouteTrafficG1"
-    value: 15744010
+    color: 15744010
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "RoadShieldUKGreenText"
-    value: 16764006
+    color: 16764006
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "RouteTrafficG3"
-    value: 2163595048
+    color: 2163595048
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "RouteTrafficG2"
-    value: 15744010
+    color: 15744010
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "RouteBicycle"
-    value: 865871792
+    color: 865871792
+    x: 0
+    y: 0
   }
-  color {
+  value {
     name: "TrafficOutline"
-    value: 16777215
+    color: 16777215
+    x: 0
+    y: 0
   }
 }

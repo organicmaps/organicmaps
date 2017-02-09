@@ -129,12 +129,14 @@ message ClassifElementProto
 message ColorElementProto
 {
   required string name = 1;
-  required uint32 value = 2;
+  required uint32 color = 2;
+  optional float x = 3;
+  optional float y = 4;
 }
 
 message ColorsElementProto
 {
-  repeated ColorElementProto color = 1;
+  repeated ColorElementProto value = 1;
 }
 
 message ContainerProto
