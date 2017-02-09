@@ -189,7 +189,7 @@ string Info::GetBannerTitleId() const { return {}; }
 string Info::GetBannerMessageId() const { return {}; }
 string Info::GetBannerIconId() const { return {}; }
 string Info::GetBannerUrl() const { return {}; }
-string Info::GetBannerId() { return {}; }
+string Info::GetBannerId() const { return {}; }
 ///////////////////////////////////////////////////////////////////////////////
 
 bool Info::IsReachableByTaxi() const
