@@ -5,6 +5,7 @@ add_definitions(-DOMIM_UNIT_TEST_WITH_QT_EVENT_LOOP)
 set(
   SRC
   booking_tests.cpp
+  facebook_tests.cpp
   uber_tests.cpp
 )
 
