@@ -52,7 +52,8 @@ public class LoggerFactory
   public boolean isFileLoggingEnabled()
   {
     SharedPreferences prefs = MwmApplication.prefs();
-    return prefs.getBoolean(MwmApplication.get().getString(R.string.pref_enable_logging), false);
+    String enableLoggingKey = MwmApplication.get().getString(R.string.pref_enable_logging);
+    return prefs.getBoolean(enableLoggingKey, BuildConfig.BUILD_TYPE.equals("beta"));
   }
 
   public void setFileLoggingEnabled(boolean enabled)
@@ -110,9 +111,7 @@ public class LoggerFactory
   @NonNull
   private LoggerStrategy createLoggerStrategy(@NonNull Type type)
   {
-    SharedPreferences prefs = MwmApplication.prefs();
-    String enableLoggingKey = MwmApplication.get().getString(R.string.pref_enable_logging);
-    if (prefs.getBoolean(enableLoggingKey, BuildConfig.BUILD_TYPE.equals("beta")))
+    if (isFileLoggingEnabled())
     {
       String logsFolder = StorageUtils.getLogsFolder();
       if (!TextUtils.isEmpty(logsFolder))
