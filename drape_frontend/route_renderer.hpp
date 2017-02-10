@@ -7,8 +7,15 @@
 
 #include "geometry/screenbase.hpp"
 
+#include <string>
+
 namespace df
 {
+
+extern std::string const kRouteColor;
+extern std::string const kRouteOutlineColor;
+extern std::string const kRoutePedestrian;
+extern std::string const kRouteBicycle;
 
 class RouteRenderer final
 {

@@ -14,6 +14,7 @@
 
 namespace
 {
+df::ColorConstant const kPoiDeletedMaskColor = "PoiDeletedMask";
 
 using SV = gpu::SolidTexturingVertex;
 using MV = gpu::MaskedTexturingVertex;
@@ -130,9 +131,8 @@ void PoiSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManag
 
   if (m_params.m_obsoleteInEditor)
   {
-    dp::Color const mask = df::GetColorConstant(GetStyleReader().GetCurrentStyle(), df::PoiDeletedMask);
     dp::TextureManager::ColorRegion maskColorRegion;
-    textures->GetColorRegion(mask, maskColorRegion);
+    textures->GetColorRegion(df::GetColorConstant(kPoiDeletedMaskColor), maskColorRegion);
     Batch<MV>(batcher, move(handle), position, region, maskColorRegion);
   }
   else

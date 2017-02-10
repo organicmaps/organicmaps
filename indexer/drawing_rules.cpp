@@ -132,6 +132,7 @@ void RulesHolder::Clean()
   }
 
   m_rules.clear();
+  m_colors.clear();
 }
 
 Key RulesHolder::AddRule(int scale, rule_type_t type, BaseRule * p)
@@ -166,9 +167,20 @@ BaseRule const * RulesHolder::Find(Key const & k) const
 
 uint32_t RulesHolder::GetBgColor(int scale) const
 {
-  ASSERT_LESS(scale, m_bgColors.size(), ());
+  ASSERT_LESS(scale, static_cast<int>(m_bgColors.size()), ());
   ASSERT_GREATER_OR_EQUAL(scale, 0, ());
   return m_bgColors[scale];
+}
+
+uint32_t RulesHolder::GetColor(std::string const & name) const
+{
+  auto const it = m_colors.find(name);
+  if (it == m_colors.end())
+  {
+    LOG(LWARNING, ("Requested color '" + name + "' is not found"));
+    return 0;
+  }
+  return it->second;
 }
 
 void RulesHolder::ClearCaches()
@@ -496,6 +508,19 @@ void RulesHolder::InitBackgroundColors(ContainerProto const & cont)
   }
 }
 
+void RulesHolder::InitColors(ContainerProto const & cp)
+{
+  if (!cp.has_colors())
+    return;
+
+  ASSERT_EQUAL(m_colors.size(), 0, ());
+  for (int i = 0; i < cp.colors().value_size(); i++)
+  {
+    ColorElementProto const & proto = cp.colors().value(i);
+    m_colors.insert(std::make_pair(proto.name(), proto.color()));
+  }
+}
+
 void RulesHolder::LoadFromBinaryProto(string const & s)
 {
   Clean();
@@ -507,6 +532,7 @@ void RulesHolder::LoadFromBinaryProto(string const & s)
   classif().GetMutableRoot()->ForEachObject(ref(doSet));
 
   InitBackgroundColors(doSet.m_cont);
+  InitColors(doSet.m_cont);
 }
 
 void LoadRules()

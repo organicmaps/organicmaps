@@ -34,12 +34,28 @@
 namespace df
 {
 
+dp::Color ToDrapeColor(uint32_t src)
+{
+  return dp::Extract(src, 255 - (src >> 24));
+}
+
 namespace
 {
 double const kMinVisibleFontSize = 8.0;
 
-string const kStarSymbol = "★";
-string const kPriceSymbol = "$";
+std::string const kStarSymbol = "★";
+std::string const kPriceSymbol = "$";
+
+df::ColorConstant const kPoiHotelTextOutlineColor = "PoiHotelTextOutline";
+df::ColorConstant const kRoadShieldAddTextColor = "RoadShieldAddText";
+df::ColorConstant const kRoadShieldAddTextOutlineColor = "RoadShieldAddTextOutline";
+df::ColorConstant const kRoadShieldBlackTextColor = "RoadShieldBlackText";
+df::ColorConstant const kRoadShieldWhiteTextColor = "RoadShieldWhiteText";
+df::ColorConstant const kRoadShieldUKYellowTextColor = "RoadShieldUKYellowText";
+df::ColorConstant const kRoadShieldGreenBackgroundColor = "RoadShieldGreenBackground";
+df::ColorConstant const kRoadShieldBlueBackgroundColor = "RoadShieldBlueBackground";
+df::ColorConstant const kRoadShieldRedBackgroundColor = "RoadShieldRedBackground";
+df::ColorConstant const kRoadShieldOrangeBackgroundColor = "RoadShieldOrangeBackground";
 
 int const kLineSimplifyLevelStart = 10;
 int const kLineSimplifyLevelEnd = 12;
@@ -47,11 +63,6 @@ int const kLineSimplifyLevelEnd = 12;
 double const kPathTextBaseTextIndex = 0;
 double const kPathTextBaseTextStep = 100;
 double const kShieldBaseTextIndex = 1000;
-
-dp::Color ToDrapeColor(uint32_t src)
-{
-  return dp::Extract(src, 255 - (src >> 24));
-}
 
 #ifdef CALC_FILTERED_POINTS
 class LinesStat
@@ -264,8 +275,7 @@ bool IsColoredRoadShield(ftypes::RoadShield const & shield)
          shield.m_type == ftypes::RoadShieldType::Generic_Orange;
 }
 
-dp::FontDecl GetRoadShieldTextFont(MapStyle const & style, dp::FontDecl const & baseFont,
-                                   ftypes::RoadShield const & shield)
+dp::FontDecl GetRoadShieldTextFont(dp::FontDecl const & baseFont, ftypes::RoadShield const & shield)
 {
   dp::FontDecl f = baseFont;
   f.m_outlineColor = dp::Color::Transparent();
@@ -273,36 +283,37 @@ dp::FontDecl GetRoadShieldTextFont(MapStyle const & style, dp::FontDecl const & 
   using ftypes::RoadShieldType;
 
   static std::unordered_map<int, df::ColorConstant> kColors = {
-      {my::Key(RoadShieldType::Generic_Green), df::RoadShieldWhiteText},
-      {my::Key(RoadShieldType::Generic_Blue), df::RoadShieldWhiteText},
-      {my::Key(RoadShieldType::UK_Highway), df::RoadShieldUKYellowText},
-      {my::Key(RoadShieldType::US_Interstate), df::RoadShieldWhiteText},
-      {my::Key(RoadShieldType::US_Highway), df::RoadShieldBlackText},
-      {my::Key(RoadShieldType::Generic_Red), df::RoadShieldWhiteText},
-      {my::Key(RoadShieldType::Generic_Orange), df::RoadShieldBlackText}};
+      {my::Key(RoadShieldType::Generic_Green), kRoadShieldWhiteTextColor},
+      {my::Key(RoadShieldType::Generic_Blue), kRoadShieldWhiteTextColor},
+      {my::Key(RoadShieldType::UK_Highway), kRoadShieldUKYellowTextColor},
+      {my::Key(RoadShieldType::US_Interstate), kRoadShieldWhiteTextColor},
+      {my::Key(RoadShieldType::US_Highway), kRoadShieldBlackTextColor},
+      {my::Key(RoadShieldType::Generic_Red), kRoadShieldWhiteTextColor},
+      {my::Key(RoadShieldType::Generic_Orange), kRoadShieldBlackTextColor}
+  };
 
   auto it = kColors.find(my::Key(shield.m_type));
   if (it != kColors.end())
-    f.m_color = df::GetColorConstant(style, it->second);
+    f.m_color = df::GetColorConstant(it->second);
 
   return f;
 }
 
-dp::Color GetRoadShieldColor(MapStyle const & style, dp::Color const & baseColor,
-                             ftypes::RoadShield const & shield)
+dp::Color GetRoadShieldColor(dp::Color const & baseColor, ftypes::RoadShield const & shield)
 {
   using ftypes::RoadShieldType;
 
   static std::unordered_map<int, df::ColorConstant> kColors = {
-      {my::Key(RoadShieldType::Generic_Green), df::RoadShieldGreenBackground},
-      {my::Key(RoadShieldType::Generic_Blue), df::RoadShieldBlueBackground},
-      {my::Key(RoadShieldType::UK_Highway), df::RoadShieldGreenBackground},
-      {my::Key(RoadShieldType::Generic_Red), df::RoadShieldRedBackground},
-      {my::Key(RoadShieldType::Generic_Orange), df::RoadShieldOrangeBackground}};
+      {my::Key(RoadShieldType::Generic_Green), kRoadShieldGreenBackgroundColor},
+      {my::Key(RoadShieldType::Generic_Blue), kRoadShieldBlueBackgroundColor},
+      {my::Key(RoadShieldType::UK_Highway), kRoadShieldGreenBackgroundColor},
+      {my::Key(RoadShieldType::Generic_Red), kRoadShieldRedBackgroundColor},
+      {my::Key(RoadShieldType::Generic_Orange), kRoadShieldOrangeBackgroundColor}
+  };
 
   auto it = kColors.find(my::Key(shield.m_type));
   if (it != kColors.end())
-    return df::GetColorConstant(style, it->second);
+    return df::GetColorConstant(it->second);
 
   return baseColor;
 }
@@ -451,8 +462,7 @@ void ApplyPointFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
     {
       params.m_primaryOptional = false;
       params.m_primaryTextFont.m_size *= 1.2;
-      auto const style = GetStyleReader().GetCurrentStyle();
-      params.m_primaryTextFont.m_outlineColor = df::GetColorConstant(style, df::PoiHotelTextOutline);
+      params.m_primaryTextFont.m_outlineColor = df::GetColorConstant(df::kPoiHotelTextOutlineColor);
       params.m_secondaryTextFont = params.m_primaryTextFont;
       params.m_secondaryText = ExtractHotelInfo();
       params.m_secondaryOptional = false;
@@ -825,13 +835,12 @@ void ApplyLineFeature::GetRoadShieldsViewParams(ftypes::RoadShield const & shiel
 
   string const & roadNumber = shield.m_name;
   float const mainScale = df::VisualParams::Instance().GetVisualScale();
-  auto const style = GetStyleReader().GetCurrentStyle();
   double const fontScale = df::VisualParams::Instance().GetFontScale();
 
   // Text properties.
   dp::FontDecl baseFont;
   ShieldRuleProtoToFontDecl(m_shieldRule, baseFont);
-  dp::FontDecl font = GetRoadShieldTextFont(style, baseFont, shield);
+  dp::FontDecl font = GetRoadShieldTextFont(baseFont, shield);
   textParams.m_tileCenter = m_tileRect.Center();
   textParams.m_depth = m_shieldDepth;
   textParams.m_minVisibleScale = m_minVisibleScale;
@@ -869,7 +878,7 @@ void ApplyLineFeature::GetRoadShieldsViewParams(ftypes::RoadShield const & shiel
     }
     symbolParams.m_sizeInPixels = m2::PointF(shieldWidth, shieldHeight);
     symbolParams.m_outlineWidth = GetRoadShieldOutlineWidth(symbolParams.m_outlineWidth, shield);
-    symbolParams.m_color = GetRoadShieldColor(style, symbolParams.m_color, shield);
+    symbolParams.m_color = GetRoadShieldColor(symbolParams.m_color, shield);
   }
 
   // Image symbol properties.
@@ -881,8 +890,8 @@ void ApplyLineFeature::GetRoadShieldsViewParams(ftypes::RoadShield const & shiel
       textParams.m_anchor = dp::Top;
       textParams.m_secondaryText = shield.m_additionalText;
       textParams.m_secondaryTextFont = textParams.m_primaryTextFont;
-      textParams.m_secondaryTextFont.m_color = df::GetColorConstant(style, df::RoadShieldBlackText);
-      textParams.m_secondaryTextFont.m_outlineColor = df::GetColorConstant(style, df::RoadShieldWhiteText);
+      textParams.m_secondaryTextFont.m_color = df::GetColorConstant(kRoadShieldBlackTextColor);
+      textParams.m_secondaryTextFont.m_outlineColor = df::GetColorConstant(kRoadShieldWhiteTextColor);
       textParams.m_primaryOffset = m2::PointF(0.0f, -0.5f * textParams.m_primaryTextFont.m_size);
       textParams.m_secondaryTextFont.m_size *= 0.9f;
       textParams.m_secondaryOffset = m2::PointF(0.0f, 3.0f * mainScale);

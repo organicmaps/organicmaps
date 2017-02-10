@@ -75953,7 +75953,7 @@ cont {
 }
 colors {
   value {
-    name: "RoadShieldGreenText"
+    name: "RoadShieldWhiteText"
     color: 16777215
     x: 0
     y: 0
@@ -75983,20 +75983,14 @@ colors {
     y: 0
   }
   value {
-    name: "RoadShieldAddText"
-    color: 0
-    x: 0
-    y: 0
-  }
-  value {
-    name: "RoadShieldAddTextOutline"
-    color: 16777215
-    x: 0
-    y: 0
-  }
-  value {
     name: "PoiDeletedMask"
     color: 3019898879
+    x: 0
+    y: 0
+  }
+  value {
+    name: "RoadShieldUKYellowText"
+    color: 16764006
     x: 0
     y: 0
   }
@@ -76013,20 +76007,8 @@ colors {
     y: 0
   }
   value {
-    name: "RoadShieldUSInterstateText"
-    color: 16777215
-    x: 0
-    y: 0
-  }
-  value {
     name: "TrafficArrowDark"
     color: 7033108
-    x: 0
-    y: 0
-  }
-  value {
-    name: "RoadShieldBlueText"
-    color: 16777215
     x: 0
     y: 0
   }
@@ -76037,20 +76019,32 @@ colors {
     y: 0
   }
   value {
+    name: "RoadShieldOrangeBackground"
+    color: 16760320
+    x: 0
+    y: 0
+  }
+  value {
     name: "Arrow3DOutline"
     color: 16777215
     x: 0
     y: 0
   }
   value {
-    name: "RouteTrafficG0"
-    color: 10167040
+    name: "RoadShieldRedBackground"
+    color: 13445160
     x: 0
     y: 0
   }
   value {
     name: "Arrow3DShadow"
     color: 3258727484
+    x: 0
+    y: 0
+  }
+  value {
+    name: "RoadShieldBlackText"
+    color: 0
     x: 0
     y: 0
   }
@@ -76067,20 +76061,14 @@ colors {
     y: 0
   }
   value {
-    name: "RoadShieldUSHighwayText"
-    color: 0
-    x: 0
-    y: 0
-  }
-  value {
     name: "TrackPlaneSpeed"
     color: 705791
     x: 0
     y: 0
   }
   value {
-    name: "TrafficG0"
-    color: 10167045
+    name: "TrackCarSpeed"
+    color: 1407476
     x: 0
     y: 0
   }
@@ -76109,8 +76097,8 @@ colors {
     y: 0
   }
   value {
-    name: "TrackCarSpeed"
-    color: 1407476
+    name: "TrafficG0"
+    color: 10167045
     x: 0
     y: 0
   }
@@ -76169,8 +76157,8 @@ colors {
     y: 0
   }
   value {
-    name: "RoadShieldUKGreenText"
-    color: 16764006
+    name: "RouteTrafficG0"
+    color: 10167040
     x: 0
     y: 0
   }

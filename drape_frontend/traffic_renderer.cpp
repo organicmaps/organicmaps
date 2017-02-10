@@ -16,9 +16,11 @@
 
 namespace df
 {
-
 namespace
 {
+df::ColorConstant const kTrafficArrowLightColor = "TrafficArrowLight";
+df::ColorConstant const kTrafficArrowDarkColor = "TrafficArrowDark";
+df::ColorConstant const kTrafficOutlineColor = "TrafficOutline";
 
 int constexpr kMinVisibleArrowZoomLevel = 16;
 int constexpr kRoadClass2MinVisibleArrowZoomLevel = 17;
@@ -100,8 +102,7 @@ float CalculateHalfWidth(ScreenBase const & screen, RoadClass const & roadClass,
 
   return radius * VisualParams::Instance().GetVisualScale();
 }
-
-} // namespace
+} //  namespace
 
 void TrafficRenderer::AddRenderData(ref_ptr<dp::GpuProgramManager> mng, TrafficRenderData && renderData)
 {
@@ -150,10 +151,9 @@ void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel, fl
   if (m_renderData.empty() || zoomLevel < kRoadClass0ZoomLevel)
     return;
 
-  auto const style = GetStyleReader().GetCurrentStyle();
-  dp::Color const lightArrowColor = df::GetColorConstant(style, df::TrafficArrowLight);
-  dp::Color const darkArrowColor = df::GetColorConstant(style, df::TrafficArrowDark);
-  dp::Color const outlineColor = df::GetColorConstant(style, df::TrafficOutline);
+  dp::Color const lightArrowColor = df::GetColorConstant(df::kTrafficArrowLightColor);
+  dp::Color const darkArrowColor = df::GetColorConstant(df::kTrafficArrowDarkColor);
+  dp::Color const outlineColor = df::GetColorConstant(df::kTrafficOutlineColor);
 
   for (TrafficRenderData & renderData : m_renderData)
   {

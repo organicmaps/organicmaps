@@ -15,9 +15,9 @@
 
 namespace df
 {
-
 namespace
 {
+df::ColorConstant const kMyPositionAccuracyColor = "MyPositionAccuracy";
 
 struct Vertex
 {
@@ -51,8 +51,7 @@ dp::BindingInfo GetBindingInfo()
 
   return info;
 }
-
-} // namespace
+} //  namespace
 
 MyPosition::MyPosition(ref_ptr<dp::TextureManager> mng)
   : m_position(m2::PointF::Zero())
@@ -149,7 +148,7 @@ void MyPosition::CacheAccuracySector(ref_ptr<dp::TextureManager> mng)
   float const etalonSector = math::twicePi / static_cast<double>(TriangleCount);
 
   dp::TextureManager::ColorRegion color;
-  mng->GetColorRegion(df::GetColorConstant(GetStyleReader().GetCurrentStyle(), df::MyPositionAccuracy), color);
+  mng->GetColorRegion(df::GetColorConstant(df::kMyPositionAccuracyColor), color);
   glsl::vec2 colorCoord = glsl::ToVec2(color.GetTexRect().Center());
 
   buffer_vector<Vertex, TriangleCount> buffer;
