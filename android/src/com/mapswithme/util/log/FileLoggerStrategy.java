@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.Executor;
@@ -142,7 +143,7 @@ class FileLoggerStrategy implements LoggerStrategy
         {
           fw = new FileWriter(mFilePath, true);
         }
-        DateFormat formatter = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM);
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.US);
         fw.write(formatter.format(new Date()) + " " + mCallingThread + ": " + mData + "\n");
       }
       catch (IOException e)
