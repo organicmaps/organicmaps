@@ -14,6 +14,4 @@ public class PrivateVariables
    * @return interval in seconds
    */
   public static native long myTargetCheckInterval();
-  public static native String hockeyAppId();
-  public static native String hockeyAppBetaId();
 }

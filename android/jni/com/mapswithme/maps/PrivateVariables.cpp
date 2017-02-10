@@ -39,16 +39,4 @@ extern "C"
   {
     return static_cast<jlong>(AD_PERMISION_CHECK_DURATION);
   }
-
-  JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_PrivateVariables_hockeyAppId(JNIEnv * env, jclass clazz)
-  {
-    return env->NewStringUTF(HOCKEY_APP_KEY);
-  }
-
-  JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_PrivateVariables_hockeyAppBetaId(JNIEnv * env, jclass clazz)
-  {
-    return env->NewStringUTF(HOCKEY_APP_BETA_KEY);
-  }
 }
