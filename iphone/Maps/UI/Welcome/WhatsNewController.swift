@@ -2,6 +2,7 @@ import UIKit
 
 final class WhatsNewController: MWMViewController, WelcomeProtocol {
 
+  static var key: String { return "\(self)@" + "improved_search&filters_in_search&font_size" }
   typealias ConfigBlock = (WhatsNewController) -> Void
   static var pagesConfigBlocks: [ConfigBlock]! = [{
     $0.setup(image: #imageLiteral(resourceName: "wn_img_1"),
