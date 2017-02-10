@@ -134,6 +134,9 @@
 		3432E1781E49B3A2008477E9 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3432E1771E49B3A2008477E9 /* Bolts.framework */; };
 		3432E1791E49B3A2008477E9 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3432E1771E49B3A2008477E9 /* Bolts.framework */; };
 		3432E17A1E49B3A2008477E9 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3432E1771E49B3A2008477E9 /* Bolts.framework */; };
+		3432E17C1E49B484008477E9 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3432E17B1E49B484008477E9 /* FBAudienceNetwork.framework */; };
+		3432E17D1E49B484008477E9 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3432E17B1E49B484008477E9 /* FBAudienceNetwork.framework */; };
+		3432E17E1E49B484008477E9 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3432E17B1E49B484008477E9 /* FBAudienceNetwork.framework */; };
 		3432E1811E49BF09008477E9 /* FBAdsBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3432E1801E49BF09008477E9 /* FBAdsBanner.swift */; };
 		3432E1821E49BF09008477E9 /* FBAdsBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3432E1801E49BF09008477E9 /* FBAdsBanner.swift */; };
 		3432E1831E49BF09008477E9 /* FBAdsBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3432E1801E49BF09008477E9 /* FBAdsBanner.swift */; };
@@ -1425,6 +1428,7 @@
 		342EE40F1C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAuthorizationWebViewLoginViewController.h; sourceTree = "<group>"; };
 		342EE4101C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAuthorizationWebViewLoginViewController.mm; sourceTree = "<group>"; };
 		3432E1771E49B3A2008477E9 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		3432E17B1E49B484008477E9 /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
 		3432E1801E49BF09008477E9 /* FBAdsBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBAdsBanner.swift; sourceTree = "<group>"; };
 		3432E1841E49BF5C008477E9 /* FBAdsBanner.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FBAdsBanner.xib; sourceTree = "<group>"; };
 		3446C6761DDCA9A200146687 /* libtraffic.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtraffic.a; path = "../../../omim-build/xcode/Debug/libtraffic.a"; sourceTree = "<group>"; };
@@ -2124,6 +2128,7 @@
 				340474FC1E08199D00C92850 /* FBSDKShareKit.framework in Frameworks */,
 				340474F91E08199D00C92850 /* FBSDKLoginKit.framework in Frameworks */,
 				67B78B491E422E2E0018E590 /* iAd.framework in Frameworks */,
+				3432E17C1E49B484008477E9 /* FBAudienceNetwork.framework in Frameworks */,
 				3404750B1E08199E00C92850 /* MyTargetSDK.framework in Frameworks */,
 				340474F61E08199D00C92850 /* FBSDKCoreKit.framework in Frameworks */,
 				340474F01E08199D00C92850 /* Crashlytics.framework in Frameworks */,
@@ -2179,6 +2184,7 @@
 				6741AACF1BF356BA002C974C /* libosrm.a in Frameworks */,
 				6741AAD01BF356BA002C974C /* libplatform.a in Frameworks */,
 				3404750F1E08199E00C92850 /* MyTrackerSDK.framework in Frameworks */,
+				3432E17D1E49B484008477E9 /* FBAudienceNetwork.framework in Frameworks */,
 				6741AAD11BF356BA002C974C /* libprotobuf.a in Frameworks */,
 				6741AAD31BF356BA002C974C /* librouting.a in Frameworks */,
 				674A7E281C0DA573003D48E1 /* libstb_image.a in Frameworks */,
@@ -2206,6 +2212,7 @@
 				340474FE1E08199D00C92850 /* FBSDKShareKit.framework in Frameworks */,
 				340474FB1E08199D00C92850 /* FBSDKLoginKit.framework in Frameworks */,
 				67B78B4F1E422E300018E590 /* iAd.framework in Frameworks */,
+				3432E17E1E49B484008477E9 /* FBAudienceNetwork.framework in Frameworks */,
 				3404750D1E08199E00C92850 /* MyTargetSDK.framework in Frameworks */,
 				340474F81E08199D00C92850 /* FBSDKCoreKit.framework in Frameworks */,
 				340474F21E08199D00C92850 /* Crashlytics.framework in Frameworks */,
@@ -2355,6 +2362,7 @@
 				3432E1771E49B3A2008477E9 /* Bolts.framework */,
 				340474DC1E08199D00C92850 /* Crashlytics.framework */,
 				340474DD1E08199D00C92850 /* Fabric.framework */,
+				3432E17B1E49B484008477E9 /* FBAudienceNetwork.framework */,
 				340474DE1E08199D00C92850 /* FBSDKCoreKit.framework */,
 				340474DF1E08199D00C92850 /* FBSDKLoginKit.framework */,
 				340474E01E08199D00C92850 /* FBSDKShareKit.framework */,

@@ -1,0 +1,14 @@
+#include "../../../Configurations/FacebookSDK-DynamicFramework.xcconfig"
+
+PRODUCT_NAME = FBAudienceNetworkDynamicFramework
+
+INFOPLIST_FILE = $(SRCROOT)/FBAudienceNetwork/Info.plist
+MODULEMAP_FILE = $(SRCROOT)/FBAudienceNetwork/module.modulemap
+
+IPHONEOS_DEPLOYMENT_TARGET = 8.0
+
+GCC_SYMBOLS_PRIVATE_EXTERN = YES
+
+//FRAMEWORK_SEARCH_PATHS = $(inherited) "$(SRCROOT)/../../vendor"/**
+//LIBRARY_SEARCH_PATHS = $(inherited) "$(SRCROOT)/../../vendor"/**
+HEADER_SEARCH_PATHS = $(inherited) "$(SDKROOT)/usr/include/libxml2"
