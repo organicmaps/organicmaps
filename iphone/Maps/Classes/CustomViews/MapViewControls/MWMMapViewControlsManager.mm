@@ -9,6 +9,7 @@
 #import "MWMButton.h"
 #import "MWMCommon.h"
 #import "MWMFrameworkListener.h"
+#import "MWMNetworkPolicy.h"
 #import "MWMObjectsCategorySelectorController.h"
 #import "MWMPlacePageManager.h"
 #import "MWMRoutePreview.h"
@@ -22,7 +23,6 @@
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
-#import "MWMNetworkPolicy.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 

@@ -233,11 +233,7 @@ using namespace place_page;
              : nil;
 }
 
-- (banners::Banner)banner
-{
-  return m_info.GetBanner();
-}
-
+- (banners::Banner)banner { return m_info.GetBanner(); }
 - (void)assignOnlinePriceToLabel:(UILabel *)label
 {
   NSAssert(self.isBooking, @"Online price must be assigned to booking object!");

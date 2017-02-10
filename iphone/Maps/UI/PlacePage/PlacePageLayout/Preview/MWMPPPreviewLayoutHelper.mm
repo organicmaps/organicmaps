@@ -232,17 +232,18 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
   case PreviewRows::Banner:
     auto banner = [data banner];
     NSString * bannerId = @(banner.m_bannerId.c_str());
-    [Statistics logEvent:kStatPlacePageBannerShow withParameters:@{kStatTags : data.statisticsTags,
-                                                                 kStatBanner : bannerId,
-                                                                  kStatState : IPAD ? @1 : @0}];
+    [Statistics logEvent:kStatPlacePageBannerShow
+          withParameters:@{
+            kStatTags : data.statisticsTags,
+            kStatBanner : bannerId,
+            kStatState : IPAD ? @1 : @0
+          }];
     auto bannerCell = static_cast<MWMFBAdsBanner *>(c);
     using namespace banners;
     switch (banner.m_type)
     {
     case Banner::Type::None: NSAssert(false, @"Invalid banner type"); break;
-    case Banner::Type::Facebook:
-        [bannerCell configWithPlacementID:bannerId];
-        break;
+    case Banner::Type::Facebook: [bannerCell configWithPlacementID:bannerId]; break;
     }
     self.cachedBannerCell = bannerCell;
     return bannerCell;
