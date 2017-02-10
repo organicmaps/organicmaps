@@ -1,5 +1,4 @@
 protocol WelcomeProtocolBase: class {
-
   static var key: String { get }
 
   var pageIndex: Int! { get set }
@@ -21,9 +20,6 @@ protocol WelcomeProtocolBase: class {
 }
 
 extension WelcomeProtocolBase {
-
-  static var key: String { return "\(self)" + AppInfo.shared().bundleVersion! }
-
   static func controller(_ pageIndex: Int) -> UIViewController {
     let sb = UIStoryboard.instance(.welcome)
     let vc = sb.instantiateViewController(withIdentifier: toString(self))
@@ -50,20 +46,35 @@ extension WelcomeProtocolBase {
   }
 }
 
+struct WelcomeConfig {
+  let image: UIImage
+  let title: String
+  let text: String
+  let buttonTitle: String
+  let buttonAction: Selector
+}
+
 protocol WelcomeProtocol: WelcomeProtocolBase {
-
   typealias ConfigBlock = (Self) -> Void
-
-  static var pagesConfigBlocks: [ConfigBlock]! { get }
-
+  static var welcomeConfigs: [WelcomeConfig] { get }
+  static func configBlock(pageIndex: Int) -> ConfigBlock
   func config()
 }
 
 extension WelcomeProtocol {
+  static var key: String { return welcomeConfigs.reduce("\(self)@") { "\($0)\($1.title):" } }
 
-  static var pagesConfigBlocks: [ConfigBlock]! { return nil }
+  static func configBlock(pageIndex: Int) -> ConfigBlock {
+    let welcomeConfig = welcomeConfigs[pageIndex]
+    return {
+      $0.setup(image:welcomeConfig.image,
+               title:L(welcomeConfig.title),
+               text:L(welcomeConfig.text),
+               buttonTitle:L(welcomeConfig.buttonTitle),
+               buttonAction:welcomeConfig.buttonAction)
+    }
+  }
+  static var pagesCount: Int { return welcomeConfigs.count }
 
-  static var pagesCount: Int { return pagesConfigBlocks.count }
-
-  func config() { type(of: self).pagesConfigBlocks[pageIndex](self) }
+  func config() { type(of: self).configBlock(pageIndex: pageIndex)(self) }
 }

@@ -2,34 +2,28 @@ import UIKit
 
 final class FirstLaunchController: MWMViewController, WelcomeProtocol {
 
-  typealias ConfigBlock = (FirstLaunchController) -> Void
-  static var pagesConfigBlocks: [ConfigBlock]! = [{
-    $0.setup(image: #imageLiteral(resourceName: "img_onboarding_offline_maps"),
-             title: L("onboarding_offline_maps_title"),
-             text: L("onboarding_offline_maps_message"),
-             buttonTitle: L("whats_new_next_button"),
-             buttonAction: #selector(nextPage))
-  }, {
-    $0.setup(image: #imageLiteral(resourceName: "img_onboarding_geoposition"),
-             title: L("onboarding_location_title"),
-             text: L("onboarding_location_message"),
-             buttonTitle: L("whats_new_next_button"),
-             buttonAction: #selector(nextPage))
-  }, {
-    $0.setup(image: #imageLiteral(resourceName: "img_onboarding_notification"),
-             title: L("onboarding_notifications_title"),
-             text: L("onboarding_notifications_message"),
-             buttonTitle: L("whats_new_next_button"),
-             buttonAction: #selector(nextPage))
-  }, {
-    $0.setup(image: #imageLiteral(resourceName: "img_onboarding_done"),
-             title: L("first_launch_congrats_title"),
-             text: L("first_launch_congrats_text"),
-             buttonTitle: L("done"),
-             buttonAction: #selector(close))
-  }]
-
-  static var key: String { return "\(self)" }
+  static var welcomeConfigs: [WelcomeConfig] = [
+    WelcomeConfig(image:  #imageLiteral(resourceName: "img_onboarding_offline_maps"),
+                  title: "onboarding_offline_maps_title",
+                  text: "onboarding_offline_maps_message",
+                  buttonTitle: "whats_new_next_button",
+                  buttonAction: #selector(nextPage)),
+    WelcomeConfig(image:  #imageLiteral(resourceName: "img_onboarding_geoposition"),
+                  title: "onboarding_location_title",
+                  text: "onboarding_location_message",
+                  buttonTitle: "whats_new_next_button",
+                  buttonAction: #selector(nextPage)),
+    WelcomeConfig(image:  #imageLiteral(resourceName: "img_onboarding_notification"),
+                  title: "onboarding_notifications_title",
+                  text: "onboarding_notifications_message",
+                  buttonTitle: "whats_new_next_button",
+                  buttonAction: #selector(nextPage)),
+    WelcomeConfig(image:  #imageLiteral(resourceName: "img_onboarding_done"),
+                  title: "first_launch_congrats_title",
+                  text: "first_launch_congrats_text",
+                  buttonTitle: "done",
+                  buttonAction: #selector(close))
+  ]
 
   var pageIndex: Int!
   weak var pageController: WelcomePageController!
