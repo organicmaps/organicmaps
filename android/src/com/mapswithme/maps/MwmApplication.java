@@ -41,7 +41,6 @@ import com.my.tracker.MyTracker;
 import com.my.tracker.MyTrackerParams;
 import com.pushwoosh.PushManager;
 import io.fabric.sdk.android.Fabric;
-import net.hockeyapp.android.CrashManager;
 
 public class MwmApplication extends Application
 {
@@ -137,8 +136,6 @@ public class MwmApplication extends Application
     mLogger.d(TAG, "Application is created");
     mMainLoopHandler = new Handler(getMainLooper());
 
-    initHockeyApp();
-
     initCrashlytics();
     final boolean isInstallationIdFound =
       setInstallationIdToCrashlytics();
@@ -211,14 +208,6 @@ public class MwmApplication extends Application
     nativeAddLocalization("routing_failed_route_not_found", getString(R.string.routing_failed_route_not_found));
     nativeAddLocalization("routing_failed_internal_error", getString(R.string.routing_failed_internal_error));
     nativeAddLocalization("place_page_booking_rating", getString(R.string.place_page_booking_rating));
-  }
-
-  private void initHockeyApp()
-  {
-    String id = ("beta".equals(BuildConfig.BUILD_TYPE) ? PrivateVariables.hockeyAppBetaId()
-                                                       : PrivateVariables.hockeyAppId());
-    if (!TextUtils.isEmpty(id))
-      CrashManager.register(this, id);
   }
 
   private void initCrashlytics()
