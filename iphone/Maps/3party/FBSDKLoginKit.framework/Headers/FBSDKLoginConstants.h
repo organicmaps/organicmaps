@@ -20,56 +20,57 @@
 
 #import <FBSDKCoreKit/FBSDKMacros.h>
 
-/*!
- @abstract The error domain for all errors from FBSDKLoginKit
- @discussion Error codes from the SDK in the range 300-399 are reserved for this domain.
+/**
+  The error domain for all errors from FBSDKLoginKit
+
+ Error codes from the SDK in the range 300-399 are reserved for this domain.
  */
 FBSDK_EXTERN NSString *const FBSDKLoginErrorDomain;
 
-/*!
- @typedef NS_ENUM(NSInteger, FBSDKLoginErrorCode)
- @abstract Error codes for FBSDKLoginErrorDomain.
+/**
+ NS_ENUM(NSInteger, FBSDKLoginErrorCode)
+  Error codes for FBSDKLoginErrorDomain.
  */
 typedef NS_ENUM(NSInteger, FBSDKLoginErrorCode)
 {
-  /*!
-   @abstract Reserved.
+  /**
+    Reserved.
    */
   FBSDKLoginReservedErrorCode = 300,
-  /*!
-   @abstract The error code for unknown errors.
+  /**
+    The error code for unknown errors.
    */
   FBSDKLoginUnknownErrorCode,
 
-  /*!
-   @abstract The user's password has changed and must log in again
+  /**
+    The user's password has changed and must log in again
   */
   FBSDKLoginPasswordChangedErrorCode,
-  /*!
-   @abstract The user must log in to their account on www.facebook.com to restore access
+  /**
+    The user must log in to their account on www.facebook.com to restore access
   */
   FBSDKLoginUserCheckpointedErrorCode,
-  /*!
-   @abstract Indicates a failure to request new permissions because the user has changed.
+  /**
+    Indicates a failure to request new permissions because the user has changed.
    */
   FBSDKLoginUserMismatchErrorCode,
-  /*!
-   @abstract The user must confirm their account with Facebook before logging in
+  /**
+    The user must confirm their account with Facebook before logging in
   */
   FBSDKLoginUnconfirmedUserErrorCode,
 
-  /*!
-   @abstract The Accounts framework failed without returning an error, indicating the
+  /**
+    The Accounts framework failed without returning an error, indicating the
    app's slider in the iOS Facebook Settings (device Settings -> Facebook -> App Name) has
    been disabled.
    */
   FBSDKLoginSystemAccountAppDisabledErrorCode,
-  /*!
-   @abstract An error occurred related to Facebook system Account store
+  /**
+    An error occurred related to Facebook system Account store
   */
   FBSDKLoginSystemAccountUnavailableErrorCode,
-  /*!
-   @abstract The login response was missing a valid challenge string.
+  /**
+    The login response was missing a valid challenge string.
   */
   FBSDKLoginBadChallengeString,
 };

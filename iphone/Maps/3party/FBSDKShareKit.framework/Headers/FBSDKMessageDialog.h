@@ -20,15 +20,15 @@
 
 #import <FBSDKShareKit/FBSDKSharing.h>
 
-/*!
- @abstract A dialog for sharing content through Messenger.
+/**
+  A dialog for sharing content through Messenger.
  */
 @interface FBSDKMessageDialog : NSObject <FBSDKSharingDialog>
 
-/*!
- @abstract Convenience method to show a Message Share Dialog with content and a delegate.
- @param content The content to be shared.
- @param delegate The receiver's delegate.
+/**
+  Convenience method to show a Message Share Dialog with content and a delegate.
+ - Parameter content: The content to be shared.
+ - Parameter delegate: The receiver's delegate.
  */
 + (instancetype)showWithContent:(id<FBSDKSharingContent>)content delegate:(id<FBSDKSharingDelegate>)delegate;
 

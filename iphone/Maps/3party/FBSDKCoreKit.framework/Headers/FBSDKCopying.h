@@ -18,15 +18,16 @@
 
 #import <Foundation/Foundation.h>
 
-/*!
- @abstract Extension protocol for NSCopying that adds the copy method, which is implemented on NSObject.
- @discussion NSObject<NSCopying> implicitly conforms to this protocol.
+/**
+  Extension protocol for NSCopying that adds the copy method, which is implemented on NSObject.
+
+ NSObject<NSCopying> implicitly conforms to this protocol.
  */
 @protocol FBSDKCopying <NSCopying, NSObject>
 
-/*!
- @abstract Implemented by NSObject as a convenience to copyWithZone:.
- @return A copy of the receiver.
+/**
+  Implemented by NSObject as a convenience to copyWithZone:.
+ - Returns: A copy of the receiver.
  */
 - (id)copy;
 

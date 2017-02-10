@@ -23,88 +23,93 @@
 
 @protocol FBSDKAppInviteDialogDelegate;
 
-/*!
- @abstract A dialog for sending App Invites.
+/**
+  A dialog for sending App Invites.
  */
 @interface FBSDKAppInviteDialog : NSObject
 
-/*!
- @abstract Convenience method to show a FBSDKAppInviteDialog
- @param viewController A UIViewController to present the dialog from.
- @param content The content for the app invite.
- @param delegate The receiver's delegate.
+/**
+  Convenience method to show a FBSDKAppInviteDialog
+ - Parameter viewController: A UIViewController to present the dialog from.
+ - Parameter content: The content for the app invite.
+ - Parameter delegate: The receiver's delegate.
 */
 + (instancetype)showFromViewController:(UIViewController *)viewController
                            withContent:(FBSDKAppInviteContent *)content
                               delegate:(id<FBSDKAppInviteDialogDelegate>)delegate;
 
 
-/*!
- @deprecated use showFromViewController:withContent:delegate: instead
+/**
+
+- Warning:use showFromViewController:withContent:delegate: instead
  */
 + (instancetype)showWithContent:(FBSDKAppInviteContent *)content delegate:(id<FBSDKAppInviteDialogDelegate>)delegate
 __attribute__ ((deprecated("use showFromViewController:withContent:delegate: instead")));
 
-/*!
- @abstract A UIViewController to present the dialog from.
- @discussion If not specified, the top most view controller will be automatically determined as best as possible.
+/**
+  A UIViewController to present the dialog from.
+
+ If not specified, the top most view controller will be automatically determined as best as possible.
  */
 @property (nonatomic, weak) UIViewController *fromViewController;
 
-/*!
- @abstract The receiver's delegate or nil if it doesn't have a delegate.
+/**
+  The receiver's delegate or nil if it doesn't have a delegate.
  */
 @property (nonatomic, weak) id<FBSDKAppInviteDialogDelegate> delegate;
 
-/*!
- @abstract The content for app invite.
+/**
+  The content for app invite.
  */
 @property (nonatomic, copy) FBSDKAppInviteContent *content;
 
-/*!
- @abstract A Boolean value that indicates whether the receiver can initiate an app invite.
- @discussion May return NO if the appropriate Facebook app is not installed and is required or an access token is
+/**
+  A Boolean value that indicates whether the receiver can initiate an app invite.
+
+ May return NO if the appropriate Facebook app is not installed and is required or an access token is
  required but not available.  This method does not validate the content on the receiver, so this can be checked before
  building up the content.
- @see validateWithError:
- @result YES if the receiver can show the dialog, otherwise NO.
+
+- See:validateWithError:
+ - Returns: YES if the receiver can show the dialog, otherwise NO.
  */
 - (BOOL)canShow;
 
-/*!
- @abstract Begins the app invite from the receiver.
- @result YES if the receiver was able to show the dialog, otherwise NO.
+/**
+  Begins the app invite from the receiver.
+ - Returns: YES if the receiver was able to show the dialog, otherwise NO.
  */
 - (BOOL)show;
 
-/*!
- @abstract Validates the content on the receiver.
- @param errorRef If an error occurs, upon return contains an NSError object that describes the problem.
- @return YES if the content is valid, otherwise NO.
+/**
+  Validates the content on the receiver.
+ - Parameter errorRef: If an error occurs, upon return contains an NSError object that describes the problem.
+ - Returns: YES if the content is valid, otherwise NO.
  */
 - (BOOL)validateWithError:(NSError *__autoreleasing *)errorRef;
 
 @end
 
-/*!
- @abstract A delegate for FBSDKAppInviteDialog.
- @discussion The delegate is notified with the results of the app invite as long as the application has permissions to
+/**
+  A delegate for FBSDKAppInviteDialog.
+
+ The delegate is notified with the results of the app invite as long as the application has permissions to
  receive the information.  For example, if the person is not signed into the containing app, the shower may not be able
  to distinguish between completion of an app invite and cancellation.
  */
 @protocol FBSDKAppInviteDialogDelegate <NSObject>
 
-/*!
- @abstract Sent to the delegate when the app invite completes without error.
- @param appInviteDialog The FBSDKAppInviteDialog that completed.
- @param results The results from the dialog.  This may be nil or empty.
+/**
+  Sent to the delegate when the app invite completes without error.
+ - Parameter appInviteDialog: The FBSDKAppInviteDialog that completed.
+ - Parameter results: The results from the dialog.  This may be nil or empty.
  */
 - (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didCompleteWithResults:(NSDictionary *)results;
 
-/*!
- @abstract Sent to the delegate when the app invite encounters an error.
- @param appInviteDialog The FBSDKAppInviteDialog that completed.
- @param error The error.
+/**
+  Sent to the delegate when the app invite encounters an error.
+ - Parameter appInviteDialog: The FBSDKAppInviteDialog that completed.
+ - Parameter error: The error.
  */
 - (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didFailWithError:(NSError *)error;
 

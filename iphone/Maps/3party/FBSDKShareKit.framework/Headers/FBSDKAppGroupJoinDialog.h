@@ -20,80 +20,73 @@
 
 @protocol FBSDKAppGroupJoinDialogDelegate;
 
-/*!
- @abstract A dialog for joining app groups.
+/**
+
+- Warning:App and game groups are being deprecated. See https://developers.facebook.com/docs/games/services/game-groups for more information.
  */
+__attribute__ ((deprecated))
 @interface FBSDKAppGroupJoinDialog : NSObject
 
-/*!
- @abstract Convenience method to build up an app group dialog with content and a delegate.
- @param groupID The ID for the group.
- @param delegate The receiver's delegate.
+/**
+
+- Warning:App and game groups are being deprecated. See https://developers.facebook.com/docs/games/services/game-groups for more information.
  */
 + (instancetype)showWithGroupID:(NSString *)groupID
-                       delegate:(id<FBSDKAppGroupJoinDialogDelegate>)delegate;
+                       delegate:(id<FBSDKAppGroupJoinDialogDelegate>)delegate __attribute__ ((deprecated));
 
-/*!
- @abstract The receiver's delegate or nil if it doesn't have a delegate.
- */
-@property (nonatomic, weak) id<FBSDKAppGroupJoinDialogDelegate> delegate;
+/**
 
-/*!
- @abstract The ID for group.
- */
-@property (nonatomic, copy) NSString *groupID;
+- Warning:App and game groups are being deprecated. See https://developers.facebook.com/docs/games/services/game-groups for more information. */
+@property (nonatomic, weak) id<FBSDKAppGroupJoinDialogDelegate> delegate __attribute__ ((deprecated));
 
-/*!
- @abstract A Boolean value that indicates whether the receiver can initiate an app group dialog.
- @discussion May return NO if the appropriate Facebook app is not installed and is required or an access token is
- required but not available.  This method does not validate the content on the receiver, so this can be checked before
- building up the content.
- @see validateWithError:
- @result YES if the receiver can share, otherwise NO.
- */
-- (BOOL)canShow;
+/**
 
-/*!
- @abstract Begins the app group dialog from the receiver.
- @result YES if the receiver was able to show the dialog, otherwise NO.
- */
-- (BOOL)show;
+- Warning:App and game groups are being deprecated. See https://developers.facebook.com/docs/games/services/game-groups for more information. */
+@property (nonatomic, copy) NSString *groupID __attribute__ ((deprecated));
 
-/*!
- @abstract Validates the content on the receiver.
- @param errorRef If an error occurs, upon return contains an NSError object that describes the problem.
- @return YES if the content is valid, otherwise NO.
+/**
+
+- Warning:App and game groups are being deprecated. See https://developers.facebook.com/docs/games/services/game-groups for more information.
  */
-- (BOOL)validateWithError:(NSError *__autoreleasing *)errorRef;
+- (BOOL)canShow __attribute__ ((deprecated));
+
+/**
+
+- Warning:App and game groups are being deprecated. See https://developers.facebook.com/docs/games/services/game-groups for more information.
+ */
+- (BOOL)show __attribute__ ((deprecated));
+
+/**
+
+- Warning:App and game groups are being deprecated. See https://developers.facebook.com/docs/games/services/game-groups for more information.
+ */
+- (BOOL)validateWithError:(NSError *__autoreleasing *)errorRef __attribute__ ((deprecated));
 
 @end
 
-/*!
- @abstract A delegate for FBSDKAppGroupJoinDialog.
- @discussion The delegate is notified with the results of the app group request as long as the application has
- permissions to receive the information.  For example, if the person is not signed into the containing app, the shower
- may not be able to distinguish between completion of an app group request and cancellation.
+/**
+
+- Warning:App and game groups are being deprecated. See https://developers.facebook.com/docs/games/services/game-groups for more information.
  */
+__attribute__ ((deprecated))
 @protocol FBSDKAppGroupJoinDialogDelegate <NSObject>
 
-/*!
- @abstract Sent to the delegate when the app group request completes without error.
- @param appGroupJoinDialog The FBSDKAppGroupJoinDialog that completed.
- @param results The results from the dialog.  This may be nil or empty.
- */
-- (void)appGroupJoinDialog:(FBSDKAppGroupJoinDialog *)appGroupJoinDialog didCompleteWithResults:(NSDictionary *)results;
+/**
 
-/*!
- @abstract Sent to the delegate when the app group request encounters an error.
- @param appGroupJoinDialog The FBSDKAppGroupJoinDialog that completed.
- @param error The error.
+- Warning:App and game groups are being deprecated. See https://developers.facebook.com/docs/games/services/game-groups for more information.
  */
-- (void)appGroupJoinDialog:(FBSDKAppGroupJoinDialog *)appGroupJoinDialog didFailWithError:(NSError *)error;
+- (void)appGroupJoinDialog:(FBSDKAppGroupJoinDialog *)appGroupJoinDialog didCompleteWithResults:(NSDictionary *)results __attribute__ ((deprecated));
 
-/*!
- @abstract Sent to the delegate when the app group dialog is cancelled.
- @param appGroupJoinDialog The FBSDKAppGroupJoinDialog that completed.
+/**
+
+- Warning:App and game groups are being deprecated. See https://developers.facebook.com/docs/games/services/game-groups for more information.
  */
-- (void)appGroupJoinDialogDidCancel:(FBSDKAppGroupJoinDialog *)appGroupJoinDialog;
+- (void)appGroupJoinDialog:(FBSDKAppGroupJoinDialog *)appGroupJoinDialog didFailWithError:(NSError *)error __attribute__ ((deprecated));
+
+/**
+
+- Warning:App and game groups are being deprecated. See https://developers.facebook.com/docs/games/services/game-groups for more information.
+ */
+- (void)appGroupJoinDialogDidCancel:(FBSDKAppGroupJoinDialog *)appGroupJoinDialog __attribute__ ((deprecated));
 
 @end

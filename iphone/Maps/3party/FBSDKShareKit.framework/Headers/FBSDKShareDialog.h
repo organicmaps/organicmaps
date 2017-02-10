@@ -22,30 +22,32 @@
 #import <FBSDKShareKit/FBSDKSharing.h>
 #import <FBSDKShareKit/FBSDKSharingContent.h>
 
-/*!
- @abstract A dialog for sharing content on Facebook.
+/**
+  A dialog for sharing content on Facebook.
  */
 @interface FBSDKShareDialog : NSObject <FBSDKSharingDialog>
 
-/*!
- @abstract Convenience method to show an FBSDKShareDialog with a fromViewController, content and a delegate.
- @param viewController A UIViewController to present the dialog from, if appropriate.
- @param content The content to be shared.
- @param delegate The receiver's delegate.
+/**
+  Convenience method to show an FBSDKShareDialog with a fromViewController, content and a delegate.
+ - Parameter viewController: A UIViewController to present the dialog from, if appropriate.
+ - Parameter content: The content to be shared.
+ - Parameter delegate: The receiver's delegate.
  */
 + (instancetype)showFromViewController:(UIViewController *)viewController
                            withContent:(id<FBSDKSharingContent>)content
                               delegate:(id<FBSDKSharingDelegate>)delegate;
 
-/*!
- @abstract A UIViewController to present the dialog from.
- @discussion If not specified, the top most view controller will be automatically determined as best as possible.
+/**
+  A UIViewController to present the dialog from.
+
+ If not specified, the top most view controller will be automatically determined as best as possible.
  */
 @property (nonatomic, weak) UIViewController *fromViewController;
 
-/*!
- @abstract The mode with which to display the dialog.
- @discussion Defaults to FBSDKShareDialogModeAutomatic, which will automatically choose the best available mode.
+/**
+  The mode with which to display the dialog.
+
+ Defaults to FBSDKShareDialogModeAutomatic, which will automatically choose the best available mode.
  */
 @property (nonatomic, assign) FBSDKShareDialogMode mode;
 

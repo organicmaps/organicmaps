@@ -22,9 +22,10 @@
 
 #import <FBSDKShareKit/FBSDKShareOpenGraphValueContainer.h>
 
-/*!
- @abstract An Open Graph Object for sharing.
- @discussion The property keys MUST have namespaces specified on them, such as `og:image`,
+/**
+  An Open Graph Object for sharing.
+
+ The property keys MUST have namespaces specified on them, such as `og:image`,
   and `og:type` is required.
 
  See https://developers.facebook.com/docs/sharing/opengraph/object-properties for other properties.
@@ -42,16 +43,16 @@
  */
 @interface FBSDKShareOpenGraphObject : FBSDKShareOpenGraphValueContainer <FBSDKCopying, NSSecureCoding>
 
-/*!
- @abstract Convenience method to build a new action and set the object for the specified key.
- @param properties Properties for the Open Graph object, which will be parsed into the proper models
+/**
+  Convenience method to build a new action and set the object for the specified key.
+ - Parameter properties: Properties for the Open Graph object, which will be parsed into the proper models
  */
 + (instancetype)objectWithProperties:(NSDictionary *)properties;
 
-/*!
- @abstract Compares the receiver to another Open Graph Object.
- @param object The other object
- @return YES if the receiver's values are equal to the other object's values; otherwise NO
+/**
+  Compares the receiver to another Open Graph Object.
+ - Parameter object: The other object
+ - Returns: YES if the receiver's values are equal to the other object's values; otherwise NO
  */
 - (BOOL)isEqualToShareOpenGraphObject:(FBSDKShareOpenGraphObject *)object;
 

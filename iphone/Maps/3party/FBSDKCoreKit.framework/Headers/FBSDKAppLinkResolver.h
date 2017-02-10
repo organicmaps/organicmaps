@@ -29,18 +29,18 @@
 // Please note: Bolts.framework is still required for AppLink resolving to work,
 // but this allows FBSDKCoreKit to weakly link Bolts.framework as well as this enables clang modulemaps to work.
 
-/*!
+/**
  Implement this protocol to provide an alternate strategy for resolving
  App Links that may include pre-fetching, caching, or querying for App Link
  data from an index provided by a service provider.
  */
 @protocol BFAppLinkResolving <NSObject>
 
-/*!
+/**
  Asynchronously resolves App Link data for a given URL.
 
- @param url The URL to resolve into an App Link.
- @returns A BFTask that will return a BFAppLink for the given URL.
+ - Parameter url: The URL to resolve into an App Link.
+ - Returns: A BFTask that will return a BFAppLink for the given URL.
  */
 - (BFTask *)appLinkFromURLInBackground:(NSURL *)url;
 
@@ -48,34 +48,34 @@
 
 #endif
 
-/*!
- @class FBSDKAppLinkResolver
+/**
 
- @abstract
- Provides an implementation of the BFAppLinkResolving protocol that uses the Facebook App Link
+  Provides an implementation of the BFAppLinkResolving protocol that uses the Facebook App Link
  Index API to resolve App Links given a URL. It also provides an additional helper method that can resolve
  multiple App Links in a single call.
 
- @discussion
+
+
  Usage of this type requires a client token. See `[FBSDKSettings setClientToken:]` and linking
  Bolts.framework
  */
 @interface FBSDKAppLinkResolver : NSObject<BFAppLinkResolving>
 
-/*!
- @abstract Asynchronously resolves App Link data for multiple URLs.
+/**
+  Asynchronously resolves App Link data for multiple URLs.
 
- @param urls An array of NSURLs to resolve into App Links.
- @returns A BFTask that will return dictionary mapping input NSURLs to their
+ - Parameter urls: An array of NSURLs to resolve into App Links.
+ - Returns: A BFTask that will return dictionary mapping input NSURLs to their
   corresponding BFAppLink.
 
- @discussion
+
+
  You should set the client token before making this call. See `[FBSDKSettings setClientToken:]`
  */
 - (BFTask *)appLinksFromURLsInBackground:(NSArray *)urls;
 
-/*!
- @abstract Allocates and initializes a new instance of FBSDKAppLinkResolver.
+/**
+  Allocates and initializes a new instance of FBSDKAppLinkResolver.
  */
 + (instancetype)resolver;
 

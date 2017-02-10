@@ -20,45 +20,46 @@
 
 #import <FBSDKCoreKit/FBSDKMacros.h>
 
-/*!
- @typedef NS_ENUM(NSUInteger, FBSDKShareDialogMode)
- @abstract Modes for the FBSDKShareDialog.
- @discussion The automatic mode will progressively check the availability of different modes and open the most
+/**
+ NS_ENUM(NSUInteger, FBSDKShareDialogMode)
+  Modes for the FBSDKShareDialog.
+
+ The automatic mode will progressively check the availability of different modes and open the most
  appropriate mode for the dialog that is available.
  */
 typedef NS_ENUM(NSUInteger, FBSDKShareDialogMode)
 {
-  /*!
-   @abstract Acts with the most appropriate mode that is available.
+  /**
+    Acts with the most appropriate mode that is available.
    */
   FBSDKShareDialogModeAutomatic = 0,
-  /*!
+  /**
    @Displays the dialog in the main native Facebook app.
    */
   FBSDKShareDialogModeNative,
-  /*!
+  /**
    @Displays the dialog in the iOS integrated share sheet.
    */
   FBSDKShareDialogModeShareSheet,
-  /*!
+  /**
    @Displays the dialog in Safari.
    */
   FBSDKShareDialogModeBrowser,
-  /*!
+  /**
    @Displays the dialog in a UIWebView within the app.
    */
   FBSDKShareDialogModeWeb,
-  /*!
+  /**
    @Displays the feed dialog in Safari.
    */
   FBSDKShareDialogModeFeedBrowser,
-  /*!
+  /**
    @Displays the feed dialog in a UIWebView within the app.
    */
   FBSDKShareDialogModeFeedWeb,
 };
 
-/*!
- @abstract Converts an FBLikeControlObjectType to an NSString.
+/**
+  Converts an FBLikeControlObjectType to an NSString.
  */
 FBSDK_EXTERN NSString *NSStringFromFBSDKShareDialogMode(FBSDKShareDialogMode dialogMode);

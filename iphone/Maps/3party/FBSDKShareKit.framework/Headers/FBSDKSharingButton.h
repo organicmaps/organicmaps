@@ -20,15 +20,17 @@
 
 #import <FBSDKShareKit/FBSDKSharingContent.h>
 
-/*!
- @abstract The common interface for sharing buttons.
- @see FBSDKSendButton
- @see FBSDKShareButton
+/**
+  The common interface for sharing buttons.
+
+- See:FBSDKSendButton
+
+- See:FBSDKShareButton
  */
 @protocol FBSDKSharingButton <NSObject>
 
-/*!
- @abstract The content to be shared.
+/**
+  The content to be shared.
  */
 @property (nonatomic, copy) id<FBSDKSharingContent> shareContent;
 

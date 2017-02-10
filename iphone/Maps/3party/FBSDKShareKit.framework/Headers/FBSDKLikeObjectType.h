@@ -20,21 +20,21 @@
 
 #import <FBSDKCoreKit/FBSDKMacros.h>
 
-/*!
- @typedef NS_ENUM (NSUInteger, FBSDKLikeObjectType)
- @abstract Specifies the type of object referenced by the objectID for likes.
+/**
+ NS_ENUM (NSUInteger, FBSDKLikeObjectType)
+  Specifies the type of object referenced by the objectID for likes.
  */
 typedef NS_ENUM(NSUInteger, FBSDKLikeObjectType)
 {
-  /*! The objectID refers to an unknown object type. */
+  /** The objectID refers to an unknown object type. */
   FBSDKLikeObjectTypeUnknown = 0,
-  /*! The objectID refers to an Open Graph object. */
+  /** The objectID refers to an Open Graph object. */
   FBSDKLikeObjectTypeOpenGraph,
-  /*! The objectID refers to an Page object. */
+  /** The objectID refers to an Page object. */
   FBSDKLikeObjectTypePage,
 };
 
-/*!
- @abstract Converts an FBLikeControlObjectType to an NSString.
+/**
+  Converts an FBLikeControlObjectType to an NSString.
  */
 FBSDK_EXTERN NSString *NSStringFromFBSDKLikeObjectType(FBSDKLikeObjectType objectType);

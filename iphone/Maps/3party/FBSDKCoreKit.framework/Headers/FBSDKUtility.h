@@ -18,37 +18,37 @@
 
 #import <Foundation/Foundation.h>
 
-/*!
- @abstract Class to contain common utility methods.
+/**
+  Class to contain common utility methods.
  */
 @interface FBSDKUtility : NSObject
 
-/*!
- @abstract Parses a query string into a dictionary.
- @param queryString The query string value.
- @return A dictionary with the key/value pairs.
+/**
+  Parses a query string into a dictionary.
+ - Parameter queryString: The query string value.
+ - Returns: A dictionary with the key/value pairs.
  */
 + (NSDictionary *)dictionaryWithQueryString:(NSString *)queryString;
 
-/*!
- @abstract Constructs a query string from a dictionary.
- @param dictionary The dictionary with key/value pairs for the query string.
- @param errorRef If an error occurs, upon return contains an NSError object that describes the problem.
- @result Query string representation of the parameters.
+/**
+  Constructs a query string from a dictionary.
+ - Parameter dictionary: The dictionary with key/value pairs for the query string.
+ - Parameter errorRef: If an error occurs, upon return contains an NSError object that describes the problem.
+ - Returns: Query string representation of the parameters.
  */
 + (NSString *)queryStringWithDictionary:(NSDictionary *)dictionary error:(NSError *__autoreleasing *)errorRef;
 
-/*!
- @abstract Decodes a value from an URL.
- @param value The value to decode.
- @result The decoded value.
+/**
+  Decodes a value from an URL.
+ - Parameter value: The value to decode.
+ - Returns: The decoded value.
  */
 + (NSString *)URLDecode:(NSString *)value;
 
-/*!
- @abstract Encodes a value for an URL.
- @param value The value to encode.
- @result The encoded value.
+/**
+  Encodes a value for an URL.
+ - Parameter value: The value to encode.
+ - Returns: The encoded value.
  */
 + (NSString *)URLEncode:(NSString *)value;
 

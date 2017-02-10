@@ -26,102 +26,105 @@
 
 @protocol FBSDKLoginButtonDelegate;
 
-/*!
- @typedef NS_ENUM(NSUInteger, FBSDKLoginButtonTooltipBehavior)
- @abstract Indicates the desired login tooltip behavior.
+/**
+ NS_ENUM(NSUInteger, FBSDKLoginButtonTooltipBehavior)
+  Indicates the desired login tooltip behavior.
  */
 typedef NS_ENUM(NSUInteger, FBSDKLoginButtonTooltipBehavior)
 {
-  /*! The default behavior. The tooltip will only be displayed if
+  /** The default behavior. The tooltip will only be displayed if
    the app is eligible (determined by possible server round trip) */
   FBSDKLoginButtonTooltipBehaviorAutomatic = 0,
-  /*! Force display of the tooltip (typically for UI testing) */
+  /** Force display of the tooltip (typically for UI testing) */
   FBSDKLoginButtonTooltipBehaviorForceDisplay = 1,
-  /*! Force disable. In this case you can still exert more refined
+  /** Force disable. In this case you can still exert more refined
    control by manually constructing a `FBSDKLoginTooltipView` instance. */
   FBSDKLoginButtonTooltipBehaviorDisable = 2
 };
 
-/*!
- @abstract A button that initiates a log in or log out flow upon tapping.
- @discussion `FBSDKLoginButton` works with `[FBSDKAccessToken currentAccessToken]` to
+/**
+  A button that initiates a log in or log out flow upon tapping.
+
+ `FBSDKLoginButton` works with `[FBSDKAccessToken currentAccessToken]` to
   determine what to display, and automatically starts authentication when tapped (i.e.,
   you do not need to manually subscribe action targets).
 
   Like `FBSDKLoginManager`, you should make sure your app delegate is connected to
   `FBSDKApplicationDelegate` in order for the button's delegate to receive messages.
 
- `FBSDKLoginButton` has a fixed height, but you may change the width. `initWithFrame:CGRectZero`
+ `FBSDKLoginButton` has a fixed height of @c 30 pixels, but you may change the width. `initWithFrame:CGRectZero`
  will size the button to its minimum frame.
 */
 @interface FBSDKLoginButton : FBSDKButton
 
-/*!
- @abstract The default audience to use, if publish permissions are requested at login time.
+/**
+  The default audience to use, if publish permissions are requested at login time.
  */
 @property (assign, nonatomic) FBSDKDefaultAudience defaultAudience;
-/*!
- @abstract Gets or sets the delegate.
+/**
+  Gets or sets the delegate.
  */
 @property (weak, nonatomic) IBOutlet id<FBSDKLoginButtonDelegate> delegate;
-/*!
- @abstract Gets or sets the login behavior to use
+/**
+  Gets or sets the login behavior to use
  */
 @property (assign, nonatomic) FBSDKLoginBehavior loginBehavior;
-/*!
- @abstract The publish permissions to request.
+/**
+  The publish permissions to request.
 
- @discussion Use `defaultAudience` to specify the default audience to publish to.
+
+ Use `defaultAudience` to specify the default audience to publish to.
  Note this is converted to NSSet and is only
  an NSArray for the convenience of literal syntax.
  */
 @property (copy, nonatomic) NSArray *publishPermissions;
-/*!
- @abstract The read permissions to request.
+/**
+  The read permissions to request.
 
- @discussion Note, that if read permissions are specified, then publish permissions should not be specified. This is converted to NSSet and is only
+
+ Note, that if read permissions are specified, then publish permissions should not be specified. This is converted to NSSet and is only
  an NSArray for the convenience of literal syntax.
  */
 @property (copy, nonatomic) NSArray *readPermissions;
-/*!
- @abstract Gets or sets the desired tooltip behavior.
+/**
+  Gets or sets the desired tooltip behavior.
  */
 @property (assign, nonatomic) FBSDKLoginButtonTooltipBehavior tooltipBehavior;
-/*!
- @abstract Gets or sets the desired tooltip color style.
+/**
+  Gets or sets the desired tooltip color style.
  */
 @property (assign, nonatomic) FBSDKTooltipColorStyle tooltipColorStyle;
 
 @end
 
-/*!
+/**
  @protocol
- @abstract A delegate for `FBSDKLoginButton`
+  A delegate for `FBSDKLoginButton`
  */
 @protocol FBSDKLoginButtonDelegate <NSObject>
 
 @required
-/*!
- @abstract Sent to the delegate when the button was used to login.
- @param loginButton the sender
- @param result The results of the login
- @param error The error (if any) from the login
+/**
+  Sent to the delegate when the button was used to login.
+ - Parameter loginButton: the sender
+ - Parameter result: The results of the login
+ - Parameter error: The error (if any) from the login
  */
 - (void)  loginButton:(FBSDKLoginButton *)loginButton
 didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
                 error:(NSError *)error;
 
-/*!
- @abstract Sent to the delegate when the button was used to logout.
- @param loginButton The button that was clicked.
+/**
+  Sent to the delegate when the button was used to logout.
+ - Parameter loginButton: The button that was clicked.
 */
 - (void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton;
 
 @optional
-/*!
- @abstract Sent to the delegate when the button is about to login.
- @param loginButton the sender
- @return YES if the login should be allowed to proceed, NO otherwise
+/**
+  Sent to the delegate when the button is about to login.
+ - Parameter loginButton: the sender
+ - Returns: YES if the login should be allowed to proceed, NO otherwise
  */
 - (BOOL) loginButtonWillLogin:(FBSDKLoginButton *)loginButton;
 
