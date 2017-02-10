@@ -49,7 +49,7 @@ public:
     ForEachInSubtree(m_root, prefix, std::forward<ToDo>(toDo));
   }
 
-  // Calls |toDo| for each key-value pair in a node that is reachable
+  // Calls |toDo| for each key-value pair in the node that is reachable
   // by |prefix| from the trie root. Does nothing if such node does
   // not exist.
   template <typename ToDo>

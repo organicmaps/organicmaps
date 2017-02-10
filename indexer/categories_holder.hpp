@@ -1,4 +1,7 @@
 #pragma once
+
+#include "base/mem_trie.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include "std/deque.hpp"
@@ -10,7 +13,6 @@
 #include "std/unordered_map.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
-
 
 class Reader;
 
@@ -47,13 +49,15 @@ public:
   using GroupTranslations = unordered_map<string, vector<Category::Name>>;
 
 private:
-  typedef strings::UniString StringT;
-  typedef multimap<uint32_t, shared_ptr<Category> > Type2CategoryContT;
-  typedef multimap<pair<int8_t, StringT>, uint32_t> Name2CatContT;
-  typedef Type2CategoryContT::const_iterator IteratorT;
+  using String = strings::UniString;
+  using Type2CategoryCont = multimap<uint32_t, shared_ptr<Category>>;
+  using Trie = my::MemTrie<String, uint32_t>;
 
-  Type2CategoryContT m_type2cat;
-  Name2CatContT m_name2type;
+  Type2CategoryCont m_type2cat;
+
+  // Maps locale and category token to the list of corresponding types.
+  map<int8_t, unique_ptr<Trie>> m_name2type;
+
   GroupTranslations m_groupTranslations;
 
 public:
@@ -71,8 +75,8 @@ public:
   template <class ToDo>
   void ForEachCategory(ToDo && toDo) const
   {
-    for (IteratorT i = m_type2cat.begin(); i != m_type2cat.end(); ++i)
-      toDo(*i->second);
+    for (auto const & p : m_type2cat)
+      toDo(*p.second);
   }
 
   template <class ToDo>
@@ -85,9 +89,11 @@ public:
   template <class ToDo>
   void ForEachName(ToDo && toDo) const
   {
-    for (IteratorT i = m_type2cat.begin(); i != m_type2cat.end(); ++i)
-      for (size_t j = 0; j < i->second->m_synonyms.size(); ++j)
-        toDo(i->second->m_synonyms[j]);
+    for (auto const & p : m_type2cat)
+    {
+      for (auto const & synonym : p.second->m_synonyms)
+        toDo(synonym);
+    }
   }
 
   template <class ToDo>
@@ -101,16 +107,12 @@ public:
   }
 
   template <class ToDo>
-  void ForEachTypeByName(int8_t locale, StringT const & name, ToDo && toDo) const
+  void ForEachTypeByName(int8_t locale, String const & name, ToDo && toDo) const
   {
-    typedef typename Name2CatContT::const_iterator IterT;
-
-    pair<IterT, IterT> range = m_name2type.equal_range(make_pair(locale, name));
-    while (range.first != range.second)
-    {
-      toDo(range.first->second);
-      ++range.first;
-    }
+    auto const it = m_name2type.find(locale);
+    if (it == m_name2type.end())
+      return;
+    it->second->ForEachInNode(name, my::MakeIgnoreFirstArgument(forward<ToDo>(toDo)));
   }
 
   inline GroupTranslations const & GetGroupTranslations() const { return m_groupTranslations; }
@@ -142,7 +144,7 @@ public:
 
 private:
   void AddCategory(Category & cat, vector<uint32_t> & types);
-  static bool ValidKeyToken(StringT const & s);
+  static bool ValidKeyToken(String const & s);
 };
 
 inline void swap(CategoriesHolder & a, CategoriesHolder & b)

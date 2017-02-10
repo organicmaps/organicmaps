@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <functional>
+#include <type_traits>
 #include <utility>
 #include <vector>
 
@@ -136,5 +137,30 @@ template <typename T>
 typename std::underlying_type<T>::type Key(T value)
 {
   return static_cast<typename std::underlying_type<T>::type>(value);
+}
+
+// Use this if you want to make a functor whose first
+// argument is ignored and the rest are forwarded to |fn|.
+template <typename Fn>
+class IgnoreFirstArgument
+{
+public:
+  template <typename Gn>
+  IgnoreFirstArgument(Gn && gn) : m_fn(std::forward<Gn>(gn)) {}
+
+  template <typename Arg, typename... Args>
+  typename std::result_of<Fn(Args &&...)>::type operator()(Arg && arg, Args &&... args)
+  {
+    return m_fn(std::forward<Args>(args)...);
+  }
+
+private:
+  Fn m_fn;
+};
+
+template <typename Fn>
+IgnoreFirstArgument<Fn> MakeIgnoreFirstArgument(Fn && fn)
+{
+  return IgnoreFirstArgument<Fn>(std::forward<Fn>(fn));
 }
 }  // namespace my
