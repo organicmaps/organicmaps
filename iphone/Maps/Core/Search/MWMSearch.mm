@@ -84,6 +84,12 @@ using TObservers = NSHashTable<__kindof TObserver>;
         [self checkIsHotelResults:results];
         if (results.IsEndedNormal())
           self.everywhereSearchCompleted = YES;
+        if (IPAD || self.searchOnMap)
+        {
+          auto & f = GetFramework();
+          f.ShowSearchResults(m_everywhereResults);
+          f.SearchInViewport(m_viewportParams);
+        }
         [self onSearchCompleted];
       }
       else
@@ -145,24 +151,13 @@ using TObservers = NSHashTable<__kindof TObserver>;
 
 - (void)update
 {
-  [MWMSearch clear];
+  [MWMSearch reset];
   if (m_everywhereParams.m_query.empty())
     return;
   [self updateCallbacks];
   [self updateFilters];
   auto & f = GetFramework();
-  if (IPAD)
-  {
-    f.SearchEverywhere(m_everywhereParams);
-    f.SearchInViewport(m_viewportParams);
-  }
-  else
-  {
-    if (self.searchOnMap)
-      f.SearchInViewport(m_viewportParams);
-    else
-      f.SearchEverywhere(m_everywhereParams);
-  }
+  f.SearchEverywhere(m_everywhereParams);
   [self onSearchStarted];
 }
 
@@ -220,17 +215,22 @@ using TObservers = NSHashTable<__kindof TObserver>;
 
 + (void)update { [[MWMSearch manager] update]; }
 
-+ (void)clear
++ (void)reset
 {
   GetFramework().CancelAllSearches();
   MWMSearch * manager = [MWMSearch manager];
-  manager->m_everywhereResults.Clear();
   manager.everywhereSearchCompleted = NO;
   manager.viewportSearchCompleted = NO;
   if (manager->m_filterQuery != manager->m_everywhereParams.m_query)
     manager.isHotelResults = NO;
   manager.suggestionsCount = 0;
   [manager onSearchResultsUpdated];
+}
+
++ (void)clear
+{
+  [MWMSearch manager]->m_everywhereResults.Clear();
+  [self reset];
 }
 
 + (BOOL)isSearchOnMap { return [MWMSearch manager].searchOnMap; }
