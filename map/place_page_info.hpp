@@ -79,11 +79,11 @@ public:
   /// @returns string with |kPricingSymbol| signs or empty string if it isn't booking object
   string GetApproximatePricing() const;
 
+  bool HasBanner() const;
   banners::Banner GetBanner() const;
   /// Deprecated, there was not only removed in order not to break the build.
   /// Should be removed in nearest time.
   ///////////////////////////////////////////////////////////////////////////////
-  bool HasBanner() const;
   string GetBannerTitleId() const;
   string GetBannerMessageId() const;
   string GetBannerIconId() const;

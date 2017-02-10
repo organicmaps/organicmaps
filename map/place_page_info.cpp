@@ -171,6 +171,11 @@ string Info::GetApproximatePricing() const
   return result;
 }
 
+bool Info::HasBanner() const
+{
+  return facebook::Ads::Instance().HasBanner(m_types);
+}
+
 banners::Banner Info::GetBanner() const
 {
   using namespace banners;
@@ -184,7 +189,6 @@ banners::Banner Info::GetBanner() const
 /// Deprecated, there was not only removed in order not to break the build.
 /// Should be removed in nearest time.
 ///////////////////////////////////////////////////////////////////////////////
-bool Info::HasBanner() const { return true; }
 string Info::GetBannerTitleId() const { return {}; }
 string Info::GetBannerMessageId() const { return {}; }
 string Info::GetBannerIconId() const { return {}; }

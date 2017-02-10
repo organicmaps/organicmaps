@@ -3,6 +3,27 @@
 #include "indexer/classificator.hpp"
 #include "indexer/feature_data.hpp"
 
+namespace
+{
+using namespace facebook;
+
+template <typename It>
+It FindType(feature::TypesHolder const & types, It first, It last)
+{
+  for (auto const t : types)
+  {
+    auto const it = std::find_if(first, last, [t](TypeAndlevel const & tl) {
+      auto truncatedType = t;
+      ftype::TruncValue(truncatedType, tl.m_level);
+      return truncatedType == tl.m_type;
+    });
+    if (it != last)
+      return it;
+  }
+  return last;
+}
+}  // namespace
+
 namespace facebook
 {
 Ads::Ads()
@@ -59,6 +80,8 @@ Ads::Ads()
               "185237551520383_1384652351578891");
   // Financial.
   AppendEntry({{"amenity", "bank"}, {"amenity", "atm"}}, "185237551520383_1384652658245527");
+
+  SetExcludeTypes({{"sponsored", "booking"}});
 }
 
 void Ads::AppendEntry(std::vector<std::vector<std::string>> const & types, std::string const & id)
@@ -70,6 +93,12 @@ void Ads::AppendEntry(std::vector<std::vector<std::string>> const & types, std::
   m_typesToBanners.push_back(move(entry));
 }
 
+void Ads::SetExcludeTypes(std::vector<std::vector<std::string>> const & types)
+{
+  for (auto const & type : types)
+    m_excludeTypes.emplace_back(classif().GetTypeByPath(type), type.size());
+}
+
 // static
 Ads const & Ads::Instance()
 {
@@ -77,22 +106,21 @@ Ads const & Ads::Instance()
   return ads;
 }
 
+bool Ads::HasBanner(feature::TypesHolder const & types) const
+{
+  return FindType(types, m_excludeTypes.begin(), m_excludeTypes.end()) == m_excludeTypes.end();
+}
+
 std::string Ads::GetBannerId(feature::TypesHolder const & types) const
 {
+  if (!HasBanner(types))
+    return {};
+
   for (auto const & typesToBanner : m_typesToBanners)
   {
-    for (auto const t : types)
-    {
-      auto const it = std::find_if(typesToBanner.m_types.begin(), typesToBanner.m_types.end(),
-                                   [t](TypeAndlevel const & tl) {
-                                     auto truncatedType = t;
-                                     ftype::TruncValue(truncatedType, tl.m_level);
-                                     return truncatedType == tl.m_type;
-                                   });
-
-      if (it != typesToBanner.m_types.end())
-        return typesToBanner.m_bannerId;
-    }
+    auto const it = FindType(types, typesToBanner.m_types.begin(), typesToBanner.m_types.end());
+    if (it != typesToBanner.m_types.end())
+      return typesToBanner.m_bannerId;
   }
   return kBannerIdForOtherTypes;
 }

@@ -39,5 +39,16 @@ UNIT_TEST(Facebook_GetBanner)
     auto const bannerId = facebook::Ads::kBannerIdForOtherTypes;
     TEST_EQUAL(facebook::Ads::Instance().GetBannerId(holder), bannerId, ());
   }
+  {
+    feature::TypesHolder holder;
+    holder.Assign(c.GetTypeByPath({"sponsored", "opentable"}));
+    auto const bannerId = facebook::Ads::kBannerIdForOtherTypes;
+    TEST_EQUAL(facebook::Ads::Instance().GetBannerId(holder), bannerId, ());
+  }
+  {
+    feature::TypesHolder holder;
+    holder.Assign(c.GetTypeByPath({"sponsored", "booking"}));
+    TEST_EQUAL(facebook::Ads::Instance().GetBannerId(holder), "", ());
+  }
 }
 }  // namespace
