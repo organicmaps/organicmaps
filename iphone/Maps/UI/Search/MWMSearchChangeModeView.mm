@@ -44,7 +44,7 @@ extern NSString * const kSearchStateKey;
   {
   case MWMSearchManagerStateTableSearch:
     self.backgroundColor = [UIColor pressBackground];
-    [changeModeButton setTitle:L(@"search_on_map") forState:UIControlStateNormal];
+    [changeModeButton setTitle:L(@"search_show_on_map") forState:UIControlStateNormal];
     break;
   case MWMSearchManagerStateMapSearch:
     self.backgroundColor = [UIColor white];
