@@ -174,7 +174,7 @@ uint32_t RulesHolder::GetBgColor(int scale) const
 
 uint32_t RulesHolder::GetColor(std::string const & name) const
 {
-  auto it = m_colors.find(name);
+  auto const it = m_colors.find(name);
   if (it == m_colors.end())
   {
     LOG(LWARNING, ("Requested color '" + name + "' is not found"));

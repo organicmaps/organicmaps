@@ -12,10 +12,10 @@
 namespace df
 {
 
-extern std::string kRouteColor;
-extern std::string kRouteOutlineColor;
-extern std::string kRoutePedestrian;
-extern std::string kRouteBicycle;
+extern std::string const kRouteColor;
+extern std::string const kRouteOutlineColor;
+extern std::string const kRoutePedestrian;
+extern std::string const kRouteBicycle;
 
 class RouteRenderer final
 {

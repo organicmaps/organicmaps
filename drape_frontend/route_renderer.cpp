@@ -16,10 +16,10 @@
 namespace df
 {
 
-std::string kRouteColor = "Route";
-std::string kRouteOutlineColor = "RouteOutline";
-std::string kRoutePedestrian = "RoutePedestrian";
-std::string kRouteBicycle = "RouteBicycle";
+std::string const kRouteColor = "Route";
+std::string const kRouteOutlineColor = "RouteOutline";
+std::string const kRoutePedestrian = "RoutePedestrian";
+std::string const kRouteBicycle = "RouteBicycle";
 
 namespace
 {
