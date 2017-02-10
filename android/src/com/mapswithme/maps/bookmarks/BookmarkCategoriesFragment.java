@@ -64,7 +64,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
 
   private void updateResultsPlaceholder()
   {
-    showPlaceholder(getAdapter().getItemCount() == 1);
+    showPlaceholder(getAdapter().getItemCount() == 0);
   }
 
   @Override
