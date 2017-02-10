@@ -1,7 +1,10 @@
 #import "MWMPlacePageData.h"
 #import "MWMNetworkPolicy.h"
+#import "MWMSettings.h"
 
 #include "Framework.h"
+
+#include "indexer/banners.hpp"
 
 #include "base/string_utils.hpp"
 
@@ -75,7 +78,9 @@ using namespace place_page;
   
   NSAssert(!m_previewRows.empty(), @"Preview row's can't be empty!");
   m_previewRows.push_back(PreviewRows::Space);
-  if (m_info.HasBanner()) m_previewRows.push_back(PreviewRows::Banner);
+  BOOL const hasBanner = m_info.GetBanner().m_type != banners::Banner::Type::None;
+  if (hasBanner && network_policy::CanUseNetwork() && ![MWMSettings adForbidden])
+    m_previewRows.push_back(PreviewRows::Banner);
 }
 
 - (void)fillMetaInfoSection
@@ -228,7 +233,9 @@ using namespace place_page;
              : nil;
 }
 
+- (banners::Banner)banner
 {
+  return m_info.GetBanner();
 }
 
 - (void)assignOnlinePriceToLabel:(UILabel *)label

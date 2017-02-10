@@ -22,6 +22,7 @@
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
+#import "MWMNetworkPolicy.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
@@ -143,14 +144,22 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)showPlacePage:(place_page::Info const &)info
 {
-  self.trafficButtonHidden = YES;
-  [self.placePageManager show:info];
-  if (IPAD)
-  {
-    auto ownerView = self.ownerController.view;
-    [ownerView bringSubviewToFront:self.menuController.view];
-    [ownerView bringSubviewToFront:self.navigationManager.routePreview];
-  }
+  auto show = ^{
+    self.trafficButtonHidden = YES;
+    [self.placePageManager show:info];
+    if (IPAD)
+    {
+      auto ownerView = self.ownerController.view;
+      [ownerView bringSubviewToFront:self.menuController.view];
+      [ownerView bringSubviewToFront:self.navigationManager.routePreview];
+    }
+  };
+
+  using namespace network_policy;
+  if (!CanUseNetwork() && GetStage() == platform::NetworkPolicy::Stage::Session)
+    [[MWMAlertViewController activeAlertController] presentMobileInternetAlertWithBlock:show];
+  else
+    show();
 }
 
 - (void)searchViewDidEnterState:(MWMSearchManagerState)state

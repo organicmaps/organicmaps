@@ -1,14 +1,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-
-static NSString * const BOOKMARK_CATEGORY_DELETED_NOTIFICATION =
-    @"BookmarkCategoryDeletedNotification";
-
-static NSString * const BOOKMARK_DELETED_NOTIFICATION = @"BookmarkDeletedNotification";
-
-static NSString * const kMapsmeErrorDomain = @"com.mapsme.error";
-
-static CGFloat const kDefaultAnimationDuration = .2;
+#import "MWMConsts.h"
 
 static inline BOOL firstVersionIsLessThanSecond(NSString * first, NSString * second)
 {
@@ -45,9 +37,6 @@ static inline BOOL isInterfaceRightToLeft()
   return [UIApplication sharedApplication].userInterfaceLayoutDirection ==
          UIUserInterfaceLayoutDirectionRightToLeft;
 }
-
-static uint64_t const KB = 1024;
-static uint64_t const MB = 1024 * 1024;
 
 static inline NSString * formattedSize(uint64_t size)
 {

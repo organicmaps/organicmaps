@@ -124,7 +124,7 @@ namespace
 array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTitle class],
                                         [_MWMPPPSubtitle class], [_MWMPPPSchedule class],
                                         [_MWMPPPBooking class], [_MWMPPPAddress class],
-                                        [_MWMPPPSpace class], [MWMPPPreviewBannerCell class]}};
+                                        [_MWMPPPSpace class], [MWMFBAdsBanner class]}};
 }  // namespace
 
 @interface MWMPPPreviewLayoutHelper ()
@@ -142,6 +142,7 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
 @property(nonatomic) BOOL lastCellIsBanner;
 @property(nonatomic) NSUInteger distanceRow;
 
+@property(weak, nonatomic) MWMFBAdsBanner * cachedBannerCell;
 
 @end
 
@@ -229,8 +230,20 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
   case PreviewRows::Space:
     return c;
   case PreviewRows::Banner:
+    auto banner = [data banner];
+    NSString * bannerId = @(banner.m_bannerId.c_str());
     [Statistics logEvent:kStatPlacePageBannerShow withParameters:@{kStatTags : data.statisticsTags,
+                                                                 kStatBanner : bannerId,
                                                                   kStatState : IPAD ? @1 : @0}];
+    auto bannerCell = static_cast<MWMFBAdsBanner *>(c);
+    using namespace banners;
+    switch (banner.m_type)
+    {
+    case Banner::Type::None: NSAssert(false, @"Invalid banner type"); break;
+    case Banner::Type::Facebook:
+        [bannerCell configWithPlacementID:bannerId];
+        break;
+    }
     self.cachedBannerCell = bannerCell;
     return bannerCell;
   }
@@ -289,15 +302,17 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
 
 - (CGFloat)height
 {
-  CGFloat constexpr bannerDefaultHeight = 45;
   auto const rect = [self.tableView rectForRowAtIndexPath:self.lastCellIndexPath];
-  return rect.origin.y + (self.lastCellIsBanner ? bannerDefaultHeight : rect.size.height);
+  return rect.origin.y + rect.size.height + (self.lastCellIsBanner ? 4 : 0);
 }
 
 - (void)layoutInOpenState:(BOOL)isOpen
 {
   if (IPAD)
     return;
+  [self.tableView update:^{
+    self.cachedBannerCell.state = isOpen ? MWMFBAdsBannerStateDetailed : MWMFBAdsBannerStateCompact;
+  }];
 }
 
 - (MWMDirectionView *)directionView

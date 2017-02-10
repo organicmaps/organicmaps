@@ -8,6 +8,7 @@
 
 #import "AppInfo.h"
 #import "MWMController.h"
+#import "MWMConsts.h"
 #import "MWMFrameworkHelper.h"
 #import "MWMKeyboard.h"
 #import "MWMLocationManager.h"
