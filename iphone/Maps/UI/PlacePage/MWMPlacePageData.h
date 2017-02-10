@@ -81,11 +81,6 @@ enum class OpeningHours
 - (NSURL *)sponsoredURL;
 - (NSURL *)sponsoredDescriptionURL;
 - (NSString *)sponsoredId;
-- (NSString *)bannerTitle;
-- (NSString *)bannerContent;
-- (NSURL *)bannerIconURL;
-- (NSURL *)bannerURL;
-- (NSString *)bannerId;
 - (void)assignOnlinePriceToLabel:(UILabel *)label;
 
 // API

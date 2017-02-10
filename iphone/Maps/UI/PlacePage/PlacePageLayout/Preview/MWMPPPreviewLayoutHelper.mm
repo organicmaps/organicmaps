@@ -1,7 +1,6 @@
 #import "MWMPPPreviewLayoutHelper.h"
 #import "MWMCommon.h"
 #import "MWMDirectionView.h"
-#import "MWMPPPreviewBannerCell.h"
 #import "MWMPlacePageData.h"
 #import "MWMTableViewCell.h"
 #import "Statistics.h"
@@ -143,7 +142,6 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
 @property(nonatomic) BOOL lastCellIsBanner;
 @property(nonatomic) NSUInteger distanceRow;
 
-@property(weak, nonatomic) MWMPPPreviewBannerCell * cachedBannerCell;
 
 @end
 
@@ -232,10 +230,7 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
     return c;
   case PreviewRows::Banner:
     [Statistics logEvent:kStatPlacePageBannerShow withParameters:@{kStatTags : data.statisticsTags,
-                                                                 kStatBanner : data.bannerId,
                                                                   kStatState : IPAD ? @1 : @0}];
-    auto bannerCell = static_cast<MWMPPPreviewBannerCell *>(c);
-    [bannerCell configWithData:data];
     self.cachedBannerCell = bannerCell;
     return bannerCell;
   }
@@ -303,12 +298,6 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
 {
   if (IPAD)
     return;
-
-  auto cell = self.cachedBannerCell;
-  if (isOpen)
-    [cell configImageInOpenState];
-  else
-    [cell configImageInPreviewState];
 }
 
 - (MWMDirectionView *)directionView
