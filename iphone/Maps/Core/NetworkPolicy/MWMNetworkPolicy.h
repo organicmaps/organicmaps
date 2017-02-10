@@ -8,4 +8,6 @@ void CallPartnersApi(platform::PartnersApiFn fn, bool force = false);
 
 void SetStage(platform::NetworkPolicy::Stage state);
 platform::NetworkPolicy::Stage GetStage();
+
+bool CanUseNetwork();
 }  // namespace network_policy

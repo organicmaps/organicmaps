@@ -78,4 +78,16 @@ np::Stage GetStage()
     return np::Stage::Never;
   return np::Stage::Session;
 }
+
+bool CanUseNetwork()
+{
+  auto const connectionType = GetPlatform().ConnectionStatus();
+  if (connectionType == Platform::EConnectionType::CONNECTION_NONE)
+    return false;
+  if (connectionType == Platform::EConnectionType::CONNECTION_WIFI)
+    return true;
+  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  NSDate * policyDate = [ud objectForKey:kNetworkingPolicyTimeStamp];
+  return [policyDate compare:[NSDate date]] == NSOrderedDescending;
+}
 }  // namespace network_policy
