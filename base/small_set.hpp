@@ -30,7 +30,7 @@ public:
     using difference_type = uint64_t;
     using value_type = uint64_t;
     using pointer = void;
-    using reference = void;
+    using reference = uint64_t;
     using iterator_category = std::forward_iterator_tag;
 
     Iterator(uint64_t const * blocks, uint64_t current_block_index)

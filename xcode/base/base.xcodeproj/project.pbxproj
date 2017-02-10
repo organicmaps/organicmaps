@@ -110,6 +110,7 @@
 		67A609AF1C88642E001E641A /* deferred_task.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67A609AD1C88642E001E641A /* deferred_task.hpp */; };
 		67B52B601AD3C84E00664C17 /* thread_checker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67B52B5E1AD3C84E00664C17 /* thread_checker.cpp */; };
 		67B52B611AD3C84E00664C17 /* thread_checker.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67B52B5F1AD3C84E00664C17 /* thread_checker.hpp */; };
+		67E40EC81E4DC0D500A6D200 /* small_set_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E40EC71E4DC0D500A6D200 /* small_set_test.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -224,6 +225,7 @@
 		67B52B5E1AD3C84E00664C17 /* thread_checker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = thread_checker.cpp; sourceTree = "<group>"; };
 		67B52B5F1AD3C84E00664C17 /* thread_checker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = thread_checker.hpp; sourceTree = "<group>"; };
 		67C79B9E1E2929DB00C40034 /* checked_cast.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = checked_cast.hpp; sourceTree = "<group>"; };
+		67E40EC71E4DC0D500A6D200 /* small_set_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = small_set_test.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -248,6 +250,7 @@
 		39FD26C71CC659D200AFF551 /* base_tests */ = {
 			isa = PBXGroup;
 			children = (
+				67E40EC71E4DC0D500A6D200 /* small_set_test.cpp */,
 				3446C67E1DDCAA6E00146687 /* newtype_test.cpp */,
 				3446C67F1DDCAA6E00146687 /* ref_counted_tests.cpp */,
 				3446C6781DDCAA2500146687 /* levenshtein_dfa_test.cpp */,
@@ -595,6 +598,7 @@
 				675342081A3F57E400A0A8C3 /* thread.cpp in Sources */,
 				675342061A3F57E400A0A8C3 /* thread_pool.cpp in Sources */,
 				670E39441C46C76900E9C0A6 /* sunrise_sunset.cpp in Sources */,
+				67E40EC81E4DC0D500A6D200 /* small_set_test.cpp in Sources */,
 				6753420E1A3F57E400A0A8C3 /* timer.cpp in Sources */,
 				675341F61A3F57E400A0A8C3 /* shared_buffer_manager.cpp in Sources */,
 				675341DA1A3F57E400A0A8C3 /* exception.cpp in Sources */,
