@@ -2,27 +2,23 @@ import UIKit
 
 final class WhatsNewController: MWMViewController, WelcomeProtocol {
 
-  static var key: String { return "\(self)@" + "improved_search&filters_in_search&font_size" }
-  typealias ConfigBlock = (WhatsNewController) -> Void
-  static var pagesConfigBlocks: [ConfigBlock]! = [{
-    $0.setup(image: #imageLiteral(resourceName: "wn_img_1"),
-             title: L("whatsnew_improved_search"),
-             text: L("whatsnew_improved_search_text"),
-             buttonTitle: L("whats_new_next_button"),
-             buttonAction: #selector(nextPage))
-  }, {
-    $0.setup(image: #imageLiteral(resourceName: "wn_img_2"),
-             title: L("whatsnew_filters_in_search"),
-             text: L("whatsnew_filters_in_search_text"),
-             buttonTitle: L("whats_new_next_button"),
-             buttonAction: #selector(nextPage))
-  }, {
-    $0.setup(image: #imageLiteral(resourceName: "wn_img_3"),
-             title: L("whatsnew_font_size"),
-             text: L("whatsnew_font_size_text"),
-             buttonTitle: L("done"),
-             buttonAction: #selector(close))
-  }]
+  static var welcomeConfigs: [WelcomeConfig] = [
+    WelcomeConfig(image:  #imageLiteral(resourceName: "wn_img_1"),
+                  title: "whatsnew_improved_search",
+                  text: "whatsnew_improved_search_text",
+                  buttonTitle: "whats_new_next_button",
+                  buttonAction: #selector(nextPage)),
+    WelcomeConfig(image:  #imageLiteral(resourceName: "wn_img_2"),
+                  title: "whatsnew_filters_in_search",
+                  text: "whatsnew_filters_in_search_text",
+                  buttonTitle: "whats_new_next_button",
+                  buttonAction: #selector(nextPage)),
+    WelcomeConfig(image:  #imageLiteral(resourceName: "wn_img_3"),
+                  title: "whatsnew_font_size",
+                  text: "whatsnew_font_size_text",
+                  buttonTitle: "done",
+                  buttonAction: #selector(close))
+  ]
 
   var pageIndex: Int!
   weak var pageController: WelcomePageController!
