@@ -124,7 +124,6 @@ copy_resources(
   cuisine-strings
   eula.html
 
-  banners.txt
   categories.txt
   classificator.txt
   colors.txt
