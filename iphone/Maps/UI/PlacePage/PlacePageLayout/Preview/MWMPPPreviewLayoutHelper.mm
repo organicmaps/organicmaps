@@ -240,6 +240,7 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
           }];
     auto bannerCell = static_cast<MWMFBAdsBanner *>(c);
     using namespace banners;
+    [FBAdSettings addTestDevice:[FBAdSettings testDeviceHash]];
     switch (banner.m_type)
     {
     case Banner::Type::None: NSAssert(false, @"Invalid banner type"); break;
