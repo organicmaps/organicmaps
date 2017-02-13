@@ -247,7 +247,7 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
     SUBDIRS *= drape_frontend_tests
 
     partners_api_tests.subdir = partners_api/partners_api_tests
-    partners_api_tests.depends = base platform partners_api
+    partners_api_tests.depends = 3party base geometry coding platform indexer partners_api
     SUBDIRS *= partners_api_tests
 
     tracking_tests.subdir = tracking/tracking_tests
