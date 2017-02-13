@@ -37,6 +37,11 @@ final class BannerController implements AdListener
       .getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = BannerController.class.getName();
 
+  private static boolean isTouched(@Nullable View view, @NonNull MotionEvent event)
+  {
+    return view != null && !UiUtils.isHidden(view) && UiUtils.isViewTouched(event, view);
+  }
+
   @Nullable
   private Banner mBanner;
 
@@ -82,21 +87,24 @@ final class BannerController implements AdListener
       return;
 
     if (BuildConfig.DEBUG)
-      AdSettings.addTestDevice("21d362c12af63896f61c16f10d08214d");
+    {
+      AdSettings.addTestDevice("c36b141fff9e11866d8cf9c601d2b7e0");
+      AdSettings.addTestDevice("f73c8b5221b977caba1b60cd7a966587");
+    }
     mNativeAd = new NativeAd(mFrame.getContext(), mBanner.getId());
     mNativeAd.setAdListener(BannerController.this);
     mNativeAd.loadAd(EnumSet.of(NativeAd.MediaCacheFlag.ICON));
     UiUtils.show(mFrame);
   }
 
-  boolean isShowing()
+  boolean isBannerVisible()
   {
     return !UiUtils.isHidden(mFrame);
   }
 
   void open()
   {
-    if (!isShowing() || mNativeAd == null || mBanner == null || mOpened)
+    if (!isBannerVisible() || mNativeAd == null || mBanner == null || mOpened)
       return;
 
     mOpened = true;
@@ -119,7 +127,7 @@ final class BannerController implements AdListener
 
   boolean close()
   {
-    if (!isShowing() || mNativeAd == null || mBanner == null || !mOpened)
+    if (!isBannerVisible() || mNativeAd == null || mBanner == null || !mOpened)
       return false;
 
     mOpened = false;
@@ -213,10 +221,9 @@ final class BannerController implements AdListener
                                              .add("state:", mOpened ? "1" : "0"));
   }
 
-  boolean isTouchActionButton(@NonNull MotionEvent event)
+  boolean isActionButtonTouched(@NonNull MotionEvent event)
   {
-    return (mActionSmall != null && !UiUtils.isHidden(mActionSmall) && UiUtils.isViewTouched(event, mActionSmall))
-           || (mActionLarge != null && !UiUtils.isHidden(mActionLarge) && UiUtils.isViewTouched(event, mActionLarge))
-           || (mTitle != null && !UiUtils.isHidden(mTitle) && UiUtils.isViewTouched(event, mTitle));
+    return isTouched(mActionSmall, event) || isTouched(mActionLarge, event)
+           || isTouched(mTitle, event);
   }
 }

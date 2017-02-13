@@ -839,7 +839,7 @@ public class PlacePageView extends RelativeLayout
     if (!mIsDocked && !mIsFloating)
     {
       // After ninepatch background is set from code, all paddings are lost, so we need to restore it later.
-      int bottom = mBannerController != null && mBannerController.isShowing()
+      int bottom = mBannerController != null && mBannerController.isBannerVisible()
                    ? 0 : (int) getResources().getDimension(R.dimen.margin_base);
       int left = mPreview.getPaddingLeft();
       int right = mPreview.getPaddingRight();
@@ -1614,11 +1614,8 @@ public class PlacePageView extends RelativeLayout
     setMapObject(BookmarkManager.INSTANCE.getBookmark(categoryId, bookmarkId), true, null);
   }
 
-  public boolean isTouchBannerAction(@NonNull MotionEvent event)
+  public boolean isBannerTouched(@NonNull MotionEvent event)
   {
-    if (mBannerController != null)
-      return mBannerController.isTouchActionButton(event);
-
-    return false;
+    return mBannerController != null && mBannerController.isActionButtonTouched(event);
   }
 }

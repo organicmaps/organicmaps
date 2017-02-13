@@ -99,7 +99,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
         break;
       case MotionEvent.ACTION_UP:
         final boolean isInside = UiUtils.isViewTouched(event, mDetailsScroll);
-        final boolean isBannerTouch = mPlacePage.isTouchBannerAction(event);
+        final boolean isBannerTouch = mPlacePage.isBannerTouched(event);
         if (isInside && !isBannerTouch && mIsGestureStartedInsideView)
           mGestureDetector.onTouchEvent(event);
         break;
