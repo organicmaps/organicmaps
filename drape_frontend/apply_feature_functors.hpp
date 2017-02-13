@@ -23,7 +23,7 @@ class SymbolRuleProto;
 
 namespace ftypes
 {
-class RoadShield;
+struct RoadShield;
 }
 
 namespace df
