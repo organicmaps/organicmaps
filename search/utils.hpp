@@ -15,13 +15,14 @@
 #include <cctype>
 #include <functional>
 #include <queue>
+#include <set>
 
 namespace search
 {
-// my::MemTrie<strings::UniString, uint32_t>
 // todo(@m, @y). Unite with the similar function in search/feature_offset_match.hpp.
 template <typename Trie, typename DFA, typename ToDo>
-bool MatchInTrie(Trie const & trie, DFA const & dfa, ToDo && toDo)
+bool MatchInTrie(Trie const & /* trie */, typename Trie::Iterator const & trieStartIt,
+                 DFA const & dfa, ToDo && toDo)
 {
   using Char = typename Trie::Char;
   using TrieIt = typename Trie::Iterator;
@@ -34,7 +35,7 @@ bool MatchInTrie(Trie const & trie, DFA const & dfa, ToDo && toDo)
     auto it = dfa.Begin();
     if (it.Rejects())
       return false;
-    q.emplace(trie.GetRootIterator(), it);
+    q.emplace(trieStartIt, it);
   }
 
   bool found = false;
@@ -97,17 +98,25 @@ template <typename ToDo>
 void ForEachCategoryTypeFuzzy(StringSliceBase const & slice, TLocales const & locales,
                               CategoriesHolder const & categories, ToDo && todo)
 {
+  using Trie = my::MemTrie<strings::UniString, uint32_t>;
+
+  auto const & trie = categories.GetNameToTypesTrie();
+  auto const & trieRootIt = trie.GetRootIterator();
+  std::set<int8_t> localeSet(locales.begin(), locales.end());
+
   for (size_t i = 0; i < slice.Size(); ++i)
   {
     auto const & token = slice.Get(i);
     auto const & dfa =
         strings::LevenshteinDFA(token, 1 /* prefixCharsToKeep */, GetMaxErrorsForToken(token));
-    for (int8_t const locale : locales)
-    {
-      auto const * trie = categories.GetNameToTypesTrie(locale);
-      if (trie != nullptr)
-        MatchInTrie(*trie, dfa, std::bind<void>(todo, i, std::placeholders::_1));
-    }
+
+    trieRootIt.ForEachMove([&](Trie::Char const & c, Trie::Iterator const & moveIt) {
+      if (localeSet.count(static_cast<int8_t>(c)) != 0)
+      {
+        MatchInTrie(trie /* passed to infer the iterator's type */, moveIt, dfa,
+                    std::bind<void>(todo, i, std::placeholders::_1));
+      }
+    });
   }
 }
 }  // namespace search

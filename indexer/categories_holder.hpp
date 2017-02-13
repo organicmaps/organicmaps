@@ -56,7 +56,8 @@ private:
   Type2CategoryCont m_type2cat;
 
   // Maps locale and category token to the list of corresponding types.
-  map<int8_t, unique_ptr<Trie>> m_name2type;
+  // Locale is treated as a special symbol prepended to the token.
+  unique_ptr<Trie> m_name2type;
 
   GroupTranslations m_groupTranslations;
 
@@ -109,10 +110,9 @@ public:
   template <class ToDo>
   void ForEachTypeByName(int8_t locale, String const & name, ToDo && toDo) const
   {
-    auto const it = m_name2type.find(locale);
-    if (it == m_name2type.end())
-      return;
-    it->second->ForEachInNode(name, my::MakeIgnoreFirstArgument(forward<ToDo>(toDo)));
+    auto const localePrefix = String(1, static_cast<strings::UniChar>(locale));
+    m_name2type->ForEachInNode(localePrefix + name,
+                               my::MakeIgnoreFirstArgument(forward<ToDo>(toDo)));
   }
 
   inline GroupTranslations const & GetGroupTranslations() const { return m_groupTranslations; }
@@ -126,14 +126,7 @@ public:
   string GetReadableFeatureType(uint32_t type, int8_t locale) const;
 
   // Exposes the tries that map category tokens to types.
-  Trie const * GetNameToTypesTrie(int8_t locale) const
-  {
-    auto const it = m_name2type.find(locale);
-    if (it == m_name2type.end())
-      return nullptr;
-    return it->second.get();
-  }
-
+  Trie const & GetNameToTypesTrie() const { return *m_name2type; }
   bool IsTypeExist(uint32_t type) const;
 
   inline void Swap(CategoriesHolder & r)
