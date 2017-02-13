@@ -154,5 +154,15 @@ UNIT_TEST(TestFindingByPoint)
   TEST_EQUAL(node.size(), 2, ());
   TEST_EQUAL(node[0].m_nodeId, 5, ());
   TEST_EQUAL(node[1].m_nodeId, 6, ());
+
+  vector<OutgoingCrossNode> outgoingNode;
+  auto fnOutgoing = [&outgoingNode](OutgoingCrossNode const & nd) {outgoingNode.push_back(nd);};
+  TEST(newContext.ForEachOutgoingNodeNearPoint(ms::LatLon::Zero(), fnOutgoing), ());
+  TEST_EQUAL(outgoingNode.size(), 1, ());
+  TEST_EQUAL(outgoingNode[0].m_nodeId, 4, ());
+
+  outgoingNode.clear();
+  TEST(!newContext.ForEachOutgoingNodeNearPoint(p3, fnOutgoing), ());
+  TEST(outgoingNode.empty(), ());
 }
 }  // namespace
