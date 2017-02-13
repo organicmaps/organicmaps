@@ -106,7 +106,8 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Bookm
   @Override
   public int getItemCount()
   {
-    return super.getItemCount() + 1;
+    int count = super.getItemCount();
+    return count > 0 ? count + 1 : 0;
   }
 
   static class ViewHolder extends RecyclerView.ViewHolder
