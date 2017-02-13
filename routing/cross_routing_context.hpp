@@ -3,6 +3,7 @@
 #include "coding/file_container.hpp"
 
 #include "geometry/latlon.hpp"
+#include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 #include "geometry/tree4d.hpp"
@@ -19,6 +20,7 @@ using TWrittenEdgeWeight = uint32_t;
 TWrittenEdgeWeight constexpr kInvalidContextEdgeNodeId = std::numeric_limits<uint32_t>::max();
 TWrittenEdgeWeight constexpr kInvalidContextEdgeWeight = std::numeric_limits<TWrittenEdgeWeight>::max();
 size_t constexpr kInvalidAdjacencyIndex = numeric_limits<size_t>::max();
+double constexpr kMwmCrossingNodeEqualityMeters = 80;
 
 struct IngoingCrossNode
 {
@@ -91,13 +93,36 @@ public:
 
   const string & GetOutgoingMwmName(OutgoingCrossNode const & mwmIndex) const;
 
-  bool ForEachIngoingNodeNearPoint(ms::LatLon const & point, function<void(IngoingCrossNode const & node)> && fn) const;
-  bool ForEachOutgoingNodeNearPoint(ms::LatLon const & point, function<void(OutgoingCrossNode const & node)> && fn) const;
-
   TWrittenEdgeWeight GetAdjacencyCost(IngoingCrossNode const & ingoing,
                                      OutgoingCrossNode const & outgoing) const;
 
   vector<string> const & GetNeighboringMwmList() const { return m_neighborMwmList; }
+
+  template <class Fn>
+  bool ForEachIngoingNodeNearPoint(ms::LatLon const & point, Fn && fn) const
+  {
+    bool found = false;
+    m_ingoingIndex.ForEachInRect(MercatorBounds::RectByCenterLatLonAndSizeInMeters(
+                                   point.lat, point.lon, kMwmCrossingNodeEqualityMeters),
+                                 [&found, &fn](IngoingCrossNode const & node) {
+                                   fn(node);
+                                   found = true;
+                                 });
+    return found;
+  }
+
+  template <class Fn>
+  bool ForEachOutgoingNodeNearPoint(ms::LatLon const & point, Fn && fn) const
+  {
+    bool found = false;
+    m_outgoingIndex.ForEachInRect(MercatorBounds::RectByCenterLatLonAndSizeInMeters(
+                                    point.lat, point.lon, kMwmCrossingNodeEqualityMeters),
+                                  [&found, &fn](OutgoingCrossNode const & node) {
+                                    fn(node);
+                                    found = true;
+                                  });
+    return found;
+  }
 
   template <class TFunctor>
   void ForEachIngoingNode(TFunctor f) const

@@ -81,8 +81,14 @@ private:
     std::map<Segment, ms::LatLon> m_outgoing;
   };
 
-  void FillWholeMwmTransitionSegments(NumMwmId numMwmId);
-  TRoutingMappingPtr GetRoutingMapping(NumMwmId numMwmId);
+  /// \brief Inserts all ingoing and outgoing transition segments of mwm with |numMwmId|
+  /// to |m_transitionCache|.
+  void InsertWholeMwmTransitionSegments(NumMwmId numMwmId);
+
+  /// \returns routing mapping and guard for memory for succent stuctures in RoutingMapping::m_segMapping.
+  /// \note The result of GetRoutingMapping() call should be kept in a local value to prevent
+  /// an immediate unmaping some data after a GetRoutingMapping() call.
+  std::pair<TRoutingMappingPtr, std::unique_ptr<MappingGuard>> GetRoutingMapping(NumMwmId numMwmId);
 
   RoutingIndexManager & m_indexManager;
   std::shared_ptr<NumMwmIds> m_numMwmIds;

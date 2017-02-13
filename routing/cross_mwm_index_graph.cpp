@@ -3,11 +3,14 @@
 #include "platform/country_file.hpp"
 
 #include "base/macros.hpp"
+#include "base/stl_helpers.hpp"
 
+#include <algorithm>
 #include <utility>
 
 using namespace platform;
 using namespace routing;
+using namespace std;
 
 namespace
 {
@@ -37,9 +40,8 @@ void AddTransitionSegment(OsrmFtSegMapping const & segMapping, TWrittenNodeId no
                           NumMwmId numMwmId, std::vector<Segment> & segments)
 {
   Segment key;
-  if (!GetTransitionSegment(segMapping, nodeId, numMwmId, key))
-    return;
-  segments.push_back(move(key));
+  if (GetTransitionSegment(segMapping, nodeId, numMwmId, key))
+    segments.push_back(key);
 }
 
 void FillTransitionSegments(OsrmFtSegMapping const & segMapping, TWrittenNodeId nodeId,
@@ -50,20 +52,20 @@ void FillTransitionSegments(OsrmFtSegMapping const & segMapping, TWrittenNodeId 
   if (!GetTransitionSegment(segMapping, nodeId, numMwmId, key))
     return;
 
-  auto const p = transitionSegments.emplace(move(key), latLon);
+  auto const p = transitionSegments.emplace(key, latLon);
   if (p.second)
     return;
 
   // @TODO(bykoianko) It's necessary to investigate this case.
-  LOG(LWARNING, ("Trying to insert an inserted transition segment. The key:",
-                 *p.first, ". Inserted value", p.second, "Trying to insert value:", latLon));
+  LOG(LWARNING, ("Trying to insert a transition segment that was previously inserted. The key:",
+                 *p.first, ", the value:", latLon));
 }
 
-std::map<Segment, ms::LatLon>::const_iterator FindSegment(std::map<Segment, ms::LatLon> const & segMap, Segment const & s)
+ms::LatLon const & GetLatLon(std::map<Segment, ms::LatLon> const & segMap, Segment const & s)
 {
   auto it = segMap.find(s);
   CHECK(it != segMap.cend(), ());
-  return it;
+  return it->second;
 }
 }  // namespace
 
@@ -78,7 +80,7 @@ bool CrossMwmIndexGraph::IsTransition(Segment const & s, bool isOutgoing)
   auto it = m_transitionCache.find(s.GetMwmId());
   if (it == m_transitionCache.cend())
   {
-    FillWholeMwmTransitionSegments(s.GetMwmId());
+    InsertWholeMwmTransitionSegments(s.GetMwmId());
     it = m_transitionCache.find(s.GetMwmId());
   }
   CHECK(it != m_transitionCache.cend(),
@@ -91,40 +93,42 @@ bool CrossMwmIndexGraph::IsTransition(Segment const & s, bool isOutgoing)
 
 void CrossMwmIndexGraph::GetTwins(Segment const & s, bool isOutgoing, std::vector<Segment> & twins)
 {
-  CHECK(IsTransition(s, isOutgoing), ("IsTransition(", s, ",", isOutgoing, ") returns false."));
+  CHECK(IsTransition(s, isOutgoing), ("The segment is not a transition segment."));
   // @TODO(bykoianko) It's necessary to check if mwm of |s| contains an A* cross mwm section
   // and if so to use it. If not, osrm cross mwm sections should be used.
-  auto const segMwmMapping = GetRoutingMapping(s.GetMwmId());
-  CHECK(segMwmMapping, ("Mwm ", s.GetMwmId(), "has not been downloaded. s:", s, ". isOutgoing", isOutgoing));
+  auto segMapping = GetRoutingMapping(s.GetMwmId());
+  TRoutingMappingPtr const segMwmMapping = segMapping.first;
+  CHECK(segMwmMapping, ("Mwm", s.GetMwmId(), "has not been downloaded. s:", s, ". isOutgoing", isOutgoing));
 
   twins.clear();
   vector<string> const & neighboringMwm = segMwmMapping->m_crossContext.GetNeighboringMwmList();
 
   for (string const & name : neighboringMwm)
-    FillWholeMwmTransitionSegments(m_numMwmIds->GetId(CountryFile(name)));
+    InsertWholeMwmTransitionSegments(m_numMwmIds->GetId(CountryFile(name)));
 
   auto it = m_transitionCache.find(s.GetMwmId());
   CHECK(it != m_transitionCache.cend(), ());
 
-  std::map<Segment, ms::LatLon>::const_iterator segIt = isOutgoing ? FindSegment(it->second.m_outgoing, s)
-                                                                   : FindSegment(it->second.m_ingoing, s);
-  ms::LatLon const & latLog = segIt->second;
+  ms::LatLon const & latLon = isOutgoing ? GetLatLon(it->second.m_outgoing, s)
+                                         : GetLatLon(it->second.m_ingoing, s);
   for (string const & name : neighboringMwm)
   {
     NumMwmId const numMwmId = m_numMwmIds->GetId(CountryFile(name));
-    TRoutingMappingPtr mappingPtr = GetRoutingMapping(numMwmId);
+    auto mapping = GetRoutingMapping(numMwmId);
+    TRoutingMappingPtr const mappingPtr = mapping.first;
+
     if (mappingPtr == nullptr)
-      continue; // mwm was not loaded.
+      continue;  // mwm was not loaded.
 
     if (isOutgoing)
     {
-      mappingPtr->m_crossContext.ForEachIngoingNodeNearPoint(latLog, [&](IngoingCrossNode const & node){
+      mappingPtr->m_crossContext.ForEachIngoingNodeNearPoint(latLon, [&](IngoingCrossNode const & node){
         AddTransitionSegment(mappingPtr->m_segMapping, node.m_nodeId, numMwmId, twins);
       });
     }
     else
     {
-      mappingPtr->m_crossContext.ForEachOutgoingNodeNearPoint(latLog, [&](OutgoingCrossNode const & node){
+      mappingPtr->m_crossContext.ForEachOutgoingNodeNearPoint(latLon, [&](OutgoingCrossNode const & node){
         AddTransitionSegment(mappingPtr->m_segMapping, node.m_nodeId, numMwmId, twins);
       });
     }
@@ -141,17 +145,17 @@ void CrossMwmIndexGraph::GetEdgeList(Segment const & /* s */,
   NOTIMPLEMENTED();
 }
 
-TRoutingMappingPtr CrossMwmIndexGraph::GetRoutingMapping(NumMwmId numMwmId)
+pair<TRoutingMappingPtr, unique_ptr<MappingGuard>> CrossMwmIndexGraph::GetRoutingMapping(NumMwmId numMwmId)
 {
   CountryFile const & countryFile = m_numMwmIds->GetFile(numMwmId);
   TRoutingMappingPtr mappingPtr = m_indexManager.GetMappingByName(countryFile.GetName());
-  CHECK(mappingPtr, ("countryFile:", countryFile));
-  MappingGuard mappingPtrGuard(mappingPtr);
+  CHECK(mappingPtr, ("No routing mapping file for countryFile:", countryFile));
+  auto mappingPtrGuard = make_unique<MappingGuard>(mappingPtr);
 
   if (!mappingPtr->IsValid())
-    return nullptr; // mwm was not loaded.
+    return make_pair(nullptr, nullptr); // mwm was not loaded.
   mappingPtr->LoadCrossContext();
-  return mappingPtr;
+  return make_pair(mappingPtr, move(mappingPtrGuard));
 }
 
 void CrossMwmIndexGraph::Clear()
@@ -159,14 +163,19 @@ void CrossMwmIndexGraph::Clear()
   m_transitionCache.clear();
 }
 
-void CrossMwmIndexGraph::FillWholeMwmTransitionSegments(NumMwmId numMwmId)
+void CrossMwmIndexGraph::InsertWholeMwmTransitionSegments(NumMwmId numMwmId)
 {
   if (m_transitionCache.count(numMwmId) != 0)
     return;
 
-  TRoutingMappingPtr mappingPtr = GetRoutingMapping(numMwmId);
+  auto mapping = GetRoutingMapping(numMwmId);
+  TRoutingMappingPtr const mappingPtr = mapping.first;
+
   if (mappingPtr == nullptr)
+  {
+    m_transitionCache.emplace(numMwmId, TransitionSegments());
     return;
+  }
 
   TransitionSegments transitionSegments;
   mappingPtr->m_crossContext.ForEachOutgoingNode([&](OutgoingCrossNode const & node)
@@ -180,7 +189,7 @@ void CrossMwmIndexGraph::FillWholeMwmTransitionSegments(NumMwmId numMwmId)
                            node.m_point, transitionSegments.m_ingoing);
   });
   auto const p = m_transitionCache.emplace(numMwmId, move(transitionSegments));
-  CHECK(p.second, ("Mwm num id:", numMwmId, "has been inserted before. Country file name:",
-                   mappingPtr->GetCountryName()));
+  ASSERT(p.second, ("Mwm num id:", numMwmId, "has been inserted before. Country file name:",
+                    mappingPtr->GetCountryName()));
 }
 }  // namespace routing

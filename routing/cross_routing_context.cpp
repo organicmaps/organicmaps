@@ -1,21 +1,10 @@
 #include "routing/cross_routing_context.hpp"
 
-#include "geometry/mercator.hpp"
 #include "indexer/point_to_int64.hpp"
 
 namespace
 {
 uint32_t constexpr kCoordBits = POINT_COORD_BITS;
-
-double constexpr kMwmCrossingNodeEqualityRadiusDegrees = 0.001;
-
-m2::RectD GetMwmCrossingNodeEqualityRect(ms::LatLon const & point)
-{
-  return m2::RectD(point.lat - kMwmCrossingNodeEqualityRadiusDegrees,
-                   point.lon - kMwmCrossingNodeEqualityRadiusDegrees,
-                   point.lat + kMwmCrossingNodeEqualityRadiusDegrees,
-                   point.lon + kMwmCrossingNodeEqualityRadiusDegrees);
-}
 }  // namespace
 
 namespace routing
@@ -105,27 +94,6 @@ void CrossRoutingContextReader::Load(Reader const & r)
     m_neighborMwmList.push_back(string(&buffer[0], size));
     pos += size;
   }
-}
-
-bool CrossRoutingContextReader::ForEachIngoingNodeNearPoint(ms::LatLon const & point, function<void(IngoingCrossNode const & node)> && fn) const
-{
-  bool found = false;
-  m_ingoingIndex.ForEachInRect(GetMwmCrossingNodeEqualityRect(point), [&found, &fn](IngoingCrossNode const & node) {
-                                 fn(node);
-                                 found = true;
-                               });
-  return found;
-}
-
-bool CrossRoutingContextReader::ForEachOutgoingNodeNearPoint(ms::LatLon const & point,
-                                                             function<void(OutgoingCrossNode const & node)> && fn) const
-{
-  bool found = false;
-  m_outgoingIndex.ForEachInRect(GetMwmCrossingNodeEqualityRect(point), [&found, &fn](OutgoingCrossNode const & node) {
-                                  fn(node);
-                                  found = true;
-                                });
-  return found;
 }
 
 const string & CrossRoutingContextReader::GetOutgoingMwmName(
