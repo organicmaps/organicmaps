@@ -76,6 +76,8 @@ public:
   IRoadGraph::Mode GetMode() const override;
   void ClearState() override;
 
+  bool IsRoad(FeatureType const & ft) const;
+
 private:
   friend class CrossFeaturesLoader;
 
@@ -90,7 +92,6 @@ private:
     unique_ptr<feature::AltitudeLoader> m_altitudeLoader;
   };
 
-  bool IsRoad(FeatureType const & ft) const;
   bool IsOneWay(FeatureType const & ft) const;
   double GetSpeedKMPHFromFt(FeatureType const & ft) const;
 

@@ -180,50 +180,17 @@ inline uint32_t NextPowOf2(uint32_t v)
   return v + 1;
 }
 
+template <typename Number,
+          typename EnableIf = typename std::enable_if<
+            std::is_integral<Number>::value, void>::type>
 // Greatest Common Divisor
-template <typename T> T GCD(T a, T b)
-{
-  T multiplier = 1;
-  T gcd = 1;
-  while (true)
-  {
-    if (a == 0 || b == 0)
-    {
-      gcd = std::max(a, b);
-      break;
-    }
+Number constexpr GCD(Number const a, Number const b) { return b == 0 ? a : GCD(b, a % b); }
 
-    if (a == 1 || b == 1)
-    {
-      gcd = 1;
-      break;
-    }
-
-    if ((a & 0x1) == 0 && (b & 0x1) == 0)
-    {
-      multiplier <<= 1;
-      a >>= 1;
-      b >>= 1;
-      continue;
-    }
-
-    if ((a & 0x1) != 0 && (b & 0x1) != 0)
-    {
-      T const minV = std::min(a, b);
-      T const maxV = std::max(a, b);
-      a = (maxV - minV) >> 1;
-      b = minV;
-      continue;
-    }
-
-    if ((a & 0x1) != 0)
-      std::swap(a, b);
-
-    a >>= 1;
-  }
-
-  return multiplier * gcd;
-}
+template <typename Number,
+          typename EnableIf = typename std::enable_if<
+            std::is_integral<Number>::value, void>::type>
+// Lowest Common Multiple.
+Number constexpr LCM(Number const a, Number const b) { return a / GCD(a, b) * b; }
 
 /// Calculate hash for the pair of values.
 template <typename T1, typename T2>
@@ -233,4 +200,12 @@ size_t Hash(T1 const & t1, T2 const & t2)
   return (std::hash<T1>()(t1) ^ (std::hash<T2>()(t2) << 1));
 }
 
+template <typename Number,
+          typename EnableIf = typename std::enable_if<
+            std::is_integral<Number>::value || std::is_floating_point<Number>::value,
+            void>::type>
+int constexpr Sign(Number const number) noexcept
+{
+  return number == 0 ? 0 : number > 0 ? 1 : -1;
+}
 }

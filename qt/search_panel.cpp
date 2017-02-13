@@ -243,7 +243,7 @@ bool SearchPanel::TryDisplacementModeCmd(QString const & str)
 {
   bool const isDefaultDisplacementMode = (str == "?dm:default");
   bool const isHotelDisplacementMode = (str == "?dm:hotel");
-  
+
   if (!isDefaultDisplacementMode && !isHotelDisplacementMode)
     return false;
 

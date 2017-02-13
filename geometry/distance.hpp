@@ -60,7 +60,7 @@ protected:
   double m_D2;
 };
 
-}
+}  // namespace impl
 
 template <typename PointT> class DistanceToLineSquare : public impl::CalculatedSection<PointT>
 {

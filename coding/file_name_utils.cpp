@@ -12,6 +12,12 @@ void GetNameWithoutExt(string & name)
     name.erase(i);
 }
 
+string FilenameWithoutExt(string name)
+{
+  GetNameWithoutExt(name);
+  return name;
+}
+
 string GetFileExtension(string const & name)
 {
   size_t const pos = name.find_last_of("./\\");

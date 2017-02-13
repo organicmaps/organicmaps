@@ -23,7 +23,7 @@ HEADERS += defines.hpp
   CONFIG *= desktop
 }
 
-SUBDIRS = 3party base coding geometry editor indexer routing search
+SUBDIRS = 3party base coding geometry editor indexer routing search openlr
 
 !CONFIG(osrm) {
   SUBDIRS *= platform stats storage
@@ -34,6 +34,10 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
     generator_tool.subdir = generator/generator_tool
     generator_tool.depends = $$SUBDIRS
     SUBDIRS *= generator_tool
+
+    openlr_stat.subdir = openlr/openlr_stat
+    openlr_stat.depends = $$SUBDIRS
+    SUBDIRS *= openlr_stat
   }
 
   # Integration tests dependencies for gtool.
@@ -251,11 +255,15 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
     SUBDIRS *= partners_api_tests
 
     tracking_tests.subdir = tracking/tracking_tests
-    tracking_tests.depends = 3party base routing tracking platform_tests_support platform coding geometry 
+    tracking_tests.depends = 3party base routing tracking platform_tests_support platform coding geometry
     SUBDIRS *= tracking_tests
 
     traffic_tests.subdir = traffic/traffic_tests
     traffic_tests.depends = 3party base routing traffic platform_tests_support platform coding geometry
     SUBDIRS *= traffic_tests
+
+    openlr_tests.subdir = openlr/openlr_tests
+    openlr_tests.depends = $$SUBDIRS platform_tests_support
+    SUBDIRS *= openlr_tests
   } # !no-tests
 } # !gtool

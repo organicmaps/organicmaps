@@ -158,3 +158,25 @@ UNIT_TEST(GCD_Test)
   TEST_EQUAL(my::GCD(8, 3), 1, ());
   TEST_EQUAL(my::GCD(9, 3), 3, ());
 }
+
+UNIT_TEST(LCM_Test)
+{
+  TEST_EQUAL(my::LCM(6, 3), 6, ());
+  TEST_EQUAL(my::LCM(14, 7), 14, ());
+  TEST_EQUAL(my::LCM(100, 100), 100, ());
+  TEST_EQUAL(my::LCM(7, 3), 21, ());
+  TEST_EQUAL(my::LCM(8, 3), 24, ());
+  TEST_EQUAL(my::LCM(9, 3), 9, ());
+}
+
+UNIT_TEST(Sign_test)
+{
+  TEST_EQUAL(1, my::Sign(1), ());
+  TEST_EQUAL(1, my::Sign(10.4), ());
+
+  TEST_EQUAL(0, my::Sign(0), ());
+  TEST_EQUAL(0, my::Sign(0.0), ());
+
+  TEST_EQUAL(-1, my::Sign(-11), ());
+  TEST_EQUAL(-1, my::Sign(-10.4), ());
+}
