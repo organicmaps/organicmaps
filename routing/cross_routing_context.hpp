@@ -70,6 +70,8 @@ struct OutgoingCrossNode
   void Save(Writer & w) const;
 
   size_t Load(Reader const & r, size_t pos, size_t adjacencyIndex);
+
+  m2::RectD const GetLimitRect() const { return m2::RectD(m_point.lat, m_point.lon, m_point.lat, m_point.lon); }
 };
 
 using IngoingEdgeIteratorT = vector<IngoingCrossNode>::const_iterator;
@@ -82,6 +84,7 @@ class CrossRoutingContextReader
   vector<string> m_neighborMwmList;
   vector<TWrittenEdgeWeight> m_adjacencyMatrix;
   m4::Tree<IngoingCrossNode> m_ingoingIndex;
+  m4::Tree<OutgoingCrossNode> m_outgoingIndex;
 
 public:
   void Load(Reader const & r);
@@ -89,9 +92,12 @@ public:
   const string & GetOutgoingMwmName(OutgoingCrossNode const & mwmIndex) const;
 
   bool ForEachIngoingNodeNearPoint(ms::LatLon const & point, function<void(IngoingCrossNode const & node)> && fn) const;
+  bool ForEachOutgoingNodeNearPoint(ms::LatLon const & point, function<void(OutgoingCrossNode const & node)> && fn) const;
 
   TWrittenEdgeWeight GetAdjacencyCost(IngoingCrossNode const & ingoing,
                                      OutgoingCrossNode const & outgoing) const;
+
+  vector<string> const & GetNeighboringMwmList() const { return m_neighborMwmList; }
 
   template <class TFunctor>
   void ForEachIngoingNode(TFunctor f) const

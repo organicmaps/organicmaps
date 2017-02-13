@@ -8,6 +8,14 @@ namespace
 uint32_t constexpr kCoordBits = POINT_COORD_BITS;
 
 double constexpr kMwmCrossingNodeEqualityRadiusDegrees = 0.001;
+
+m2::RectD GetMwmCrossingNodeEqualityRect(ms::LatLon const & point)
+{
+  return m2::RectD(point.lat - kMwmCrossingNodeEqualityRadiusDegrees,
+                   point.lon - kMwmCrossingNodeEqualityRadiusDegrees,
+                   point.lat + kMwmCrossingNodeEqualityRadiusDegrees,
+                   point.lon + kMwmCrossingNodeEqualityRadiusDegrees);
+}
 }  // namespace
 
 namespace routing
@@ -74,7 +82,10 @@ void CrossRoutingContextReader::Load(Reader const & r)
   m_outgoingNodes.resize(size);
 
   for (size_t i = 0; i < size; ++i)
+  {
     pos = m_outgoingNodes[i].Load(r, pos, i);
+    m_outgoingIndex.Add(m_outgoingNodes[i]);
+  }
 
   size_t adjacencySize = ingoingSize * m_outgoingNodes.size();
   size_t const adjMatrixSize = sizeof(TWrittenEdgeWeight) * adjacencySize;
@@ -99,15 +110,21 @@ void CrossRoutingContextReader::Load(Reader const & r)
 bool CrossRoutingContextReader::ForEachIngoingNodeNearPoint(ms::LatLon const & point, function<void(IngoingCrossNode const & node)> && fn) const
 {
   bool found = false;
-  m_ingoingIndex.ForEachInRect(m2::RectD(point.lat - kMwmCrossingNodeEqualityRadiusDegrees,
-                                     point.lon - kMwmCrossingNodeEqualityRadiusDegrees,
-                                     point.lat + kMwmCrossingNodeEqualityRadiusDegrees,
-                                     point.lon + kMwmCrossingNodeEqualityRadiusDegrees),
-                               [&found, &fn](IngoingCrossNode const & node)
-                               {
+  m_ingoingIndex.ForEachInRect(GetMwmCrossingNodeEqualityRect(point), [&found, &fn](IngoingCrossNode const & node) {
                                  fn(node);
                                  found = true;
                                });
+  return found;
+}
+
+bool CrossRoutingContextReader::ForEachOutgoingNodeNearPoint(ms::LatLon const & point,
+                                                             function<void(OutgoingCrossNode const & node)> && fn) const
+{
+  bool found = false;
+  m_outgoingIndex.ForEachInRect(GetMwmCrossingNodeEqualityRect(point), [&found, &fn](OutgoingCrossNode const & node) {
+                                  fn(node);
+                                  found = true;
+                                });
   return found;
 }
 

@@ -1,15 +1,15 @@
 #pragma once
 
-#include "routing/cross_mwm_index_graph.hpp"
 #include "routing/num_mwm_id.hpp"
 #include "routing/routing_mapping.hpp"
 #include "routing/segment.hpp"
+
+#include "geometry/latlon.hpp"
 
 #include "base/math.hpp"
 
 #include <map>
 #include <memory>
-#include <set>
 #include <vector>
 
 namespace routing
@@ -52,10 +52,14 @@ public:
 
   /// \brief Fills |twins| with duplicates of |s| transition segment in neighbouring mwm.
   /// For most cases there is only one twin for |s|.
-  /// If |s| is an enter transition segment fills |twins| with appropriate exit transition segments.
-  /// If |s| is an exit transition segment fills |twins| with appropriate enter transition segments.
-  /// \note GetTwins(...) shall be called only if IsTransition(s, ...) returns true.
-  void GetTwins(Segment const & s, std::vector<Segment> & twins) const;
+  /// If |isOutgoing| == true |s| should be an exit transition segment and
+  /// the mehtod fills |twins| with appropriate enter transition segments.
+  /// If |isOutgoing| == false |s| should be an enter transition segment and
+  /// the method fills |twins| with appropriate exit transition segments.
+  /// \note GetTwins(s, isOutgoing, ...) shall be called only if IsTransition(s, isOutgoing) returns true.
+  /// \note GetTwins(s, isOutgoing, twins) fills |twins| only if mwm contained |twins| has been downloaded.
+  /// If not, |twins| could be emply after a GetTwins(...) call.
+  void GetTwins(Segment const & s, bool isOutgoing, std::vector<Segment> & twins);
 
   /// \brief Fills |edges| with edges outgoing from |s| (ingoing to |s|).
   /// If |isOutgoing| == true then |s| should be an enter transition segment.
@@ -68,12 +72,17 @@ public:
   /// if |isOutgoing| == true and from |SegmentEdge::m_target| to |s| otherwise.
   void GetEdgeList(Segment const & s, bool isOutgoing, std::vector<SegmentEdge> & edges) const;
 
+  void Clear();
+
 private:
   struct TransitionSegments
   {
-    std::set<Segment> m_ingoing;
-    std::set<Segment> m_outgoing;
+    std::map<Segment, ms::LatLon> m_ingoing;
+    std::map<Segment, ms::LatLon> m_outgoing;
   };
+
+  void FillWholeMwmTransitionSegments(NumMwmId numMwmId);
+  TRoutingMappingPtr GetRoutingMapping(NumMwmId numMwmId);
 
   RoutingIndexManager & m_indexManager;
   std::shared_ptr<NumMwmIds> m_numMwmIds;
