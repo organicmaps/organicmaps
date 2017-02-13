@@ -78,8 +78,7 @@ using namespace place_page;
   
   NSAssert(!m_previewRows.empty(), @"Preview row's can't be empty!");
   m_previewRows.push_back(PreviewRows::Space);
-  BOOL const hasBanner = m_info.GetBanner().m_type != banners::Banner::Type::None;
-  if (hasBanner && network_policy::CanUseNetwork() && ![MWMSettings adForbidden])
+  if (network_policy::CanUseNetwork() && ![MWMSettings adForbidden] && m_info.HasBanner())
     m_previewRows.push_back(PreviewRows::Banner);
 }
 

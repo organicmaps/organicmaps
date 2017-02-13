@@ -81,13 +81,17 @@ np::Stage GetStage()
 
 bool CanUseNetwork()
 {
-  auto const connectionType = GetPlatform().ConnectionStatus();
-  if (connectionType == Platform::EConnectionType::CONNECTION_NONE)
-    return false;
-  if (connectionType == Platform::EConnectionType::CONNECTION_WIFI)
-    return true;
-  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
-  NSDate * policyDate = [ud objectForKey:kNetworkingPolicyTimeStamp];
-  return [policyDate compare:[NSDate date]] == NSOrderedDescending;
+  using ct = Platform::EConnectionType;
+  switch (GetPlatform().ConnectionStatus())
+  {
+  case ct::CONNECTION_NONE: return false;
+  case ct::CONNECTION_WIFI: return true;
+  case ct::CONNECTION_WWAN:
+  {
+    NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+    NSDate * policyDate = [ud objectForKey:kNetworkingPolicyTimeStamp];
+    return [policyDate compare:[NSDate date]] == NSOrderedDescending;
+  }
+  }
 }
 }  // namespace network_policy
