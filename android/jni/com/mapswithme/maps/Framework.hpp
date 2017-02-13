@@ -52,7 +52,6 @@ namespace android
     void TrafficStateChanged(TrafficManager::TrafficState state);
 
     void MyPositionModeChanged(location::EMyPositionMode mode, bool routingActive);
-    void SetMyPositionMode(location::EMyPositionMode mode);
 
     location::TMyPositionModeChanged m_myPositionModeSignal;
     location::EMyPositionMode m_currentMode;

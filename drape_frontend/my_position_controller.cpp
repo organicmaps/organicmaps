@@ -124,9 +124,11 @@ double CalculateZoomBySpeed(double speed, bool isPerspectiveAllowed)
 } // namespace
 
 MyPositionController::MyPositionController(location::EMyPositionMode initMode, double timeInBackground,
-                                           bool isFirstLaunch, bool isRoutingActive, bool isAutozoomEnabled)
+                                           bool isFirstLaunch, bool isRoutingActive, bool isAutozoomEnabled,
+                                           location::TMyPositionModeChanged const & fn)
   : m_mode(location::PendingPosition)
   , m_desiredInitMode(initMode)
+  , m_modeChangeCallback(fn)
   , m_isFirstLaunch(isFirstLaunch)
   , m_isInRouting(isRoutingActive)
   , m_needBlockAnimation(false)
@@ -163,6 +165,9 @@ MyPositionController::MyPositionController(location::EMyPositionMode initMode, d
   {
     m_desiredInitMode = location::Follow;
   }
+
+  if (m_modeChangeCallback != nullptr)
+    m_modeChangeCallback(m_mode, m_isInRouting);
 }
 
 MyPositionController::~MyPositionController()
@@ -484,18 +489,6 @@ void MyPositionController::OnCompassUpdate(location::CompassInfo const & info, S
     CreateAnim(GetDrawablePosition(), oldAzimut, screen);
     m_isDirtyViewport = true;
   }
-}
-
-void MyPositionController::SetModeListener(location::TMyPositionModeChanged const & fn)
-{
-  m_modeChangeCallback = fn;
-
-  location::EMyPositionMode mode = m_mode;
-  if (m_isFirstLaunch)
-    mode = location::NotFollowNoPosition;
-
-  if (m_modeChangeCallback != nullptr)
-    m_modeChangeCallback(mode, m_isInRouting);
 }
 
 bool MyPositionController::IsInStateWithPosition() const

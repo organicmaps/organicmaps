@@ -6,6 +6,7 @@ import android.util.Pair;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationState;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
@@ -34,7 +35,7 @@ class ResultCodesHelper
     switch (errorCode)
     {
     case NO_POSITION:
-      if (LocationState.getMode() == LocationState.NOT_FOLLOW_NO_POSITION)
+      if (LocationHelper.INSTANCE.getMyPositionMode() == LocationState.NOT_FOLLOW_NO_POSITION)
       {
         titleRes = R.string.dialog_routing_location_turn_on;
         messages.add(resources.getString(R.string.dialog_routing_location_unknown_turn_on));

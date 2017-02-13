@@ -1,13 +1,10 @@
 package com.mapswithme.maps.location;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.location.Location;
-import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.UiThread;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -20,11 +17,8 @@ import com.mapswithme.util.Config;
 import com.mapswithme.util.Listeners;
 import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.Utils;
-import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-
-import static com.mapswithme.maps.background.AppBackgroundTracker.OnTransitionListener;
 
 public enum LocationHelper
 {
@@ -46,49 +40,11 @@ public enum LocationHelper
   private static final long INTERVAL_NAVIGATION_BICYCLE_MS = 1000;
   private static final long INTERVAL_NAVIGATION_PEDESTRIAN_MS = 1000;
 
-  private static final long STOP_DELAY_MS = 5000;
-
-  private boolean mErrorOccurred;
-
-  public interface UiCallback
-  {
-    Activity getActivity();
-    void onMyPositionModeChanged(int newMode);
-    void onLocationUpdated(@NonNull Location location);
-    void onCompassUpdated(@NonNull CompassData compass);
-    void onLocationError();
-    void onLocationNotFound();
-  }
-
-  private final OnTransitionListener mOnTransition = new OnTransitionListener()
-  {
-    private final GPSCheck mReceiver = new GPSCheck();
-    private boolean mReceiverRegistered;
-
-    @Override
-    public void onTransit(boolean foreground)
-    {
-      if (foreground && !mReceiverRegistered)
-      {
-        final IntentFilter filter = new IntentFilter();
-        filter.addAction(LocationManager.PROVIDERS_CHANGED_ACTION);
-        filter.addCategory(Intent.CATEGORY_DEFAULT);
-
-        MwmApplication.get().registerReceiver(mReceiver, filter);
-        mReceiverRegistered = true;
-        return;
-      }
-
-      if (!foreground && mReceiverRegistered)
-      {
-        MwmApplication.get().unregisterReceiver(mReceiver);
-        mReceiverRegistered = false;
-      }
-    }
-  };
+  @NonNull
+  private final TransitionListener mOnTransition = new TransitionListener();
 
   @NonNull
-  private final LocationListener mLocationListener = new LocationListener()
+  private final LocationListener mCoreLocationListener = new LocationListener()
   {
     @Override
     public void onLocationUpdated(Location location)
@@ -123,13 +79,11 @@ public enum LocationHelper
     @Override
     public void onLocationError(int errorCode)
     {
-      mErrorOccurred = true;
-      mLogger.d(TAG, "onLocationError errorCode = " + errorCode);
+      mLogger.d(TAG, "onLocationError errorCode = " + errorCode, new Throwable());
 
       nativeOnLocationError(errorCode);
       mLogger.d(TAG, "nativeOnLocationError errorCode = " + errorCode +
-                ", current state = " + LocationState.nameOf(LocationState.getMode()));
-      stop();
+                ", current state = " + LocationState.nameOf(getMyPositionMode()));
 
       if (mUiCallback == null)
         return;
@@ -140,7 +94,7 @@ public enum LocationHelper
     @Override
     public String toString()
     {
-      return "LocationHelper.mLocationListener";
+      return "LocationHelper.mCoreLocationListener";
     }
   };
 
@@ -148,128 +102,91 @@ public enum LocationHelper
   private final Logger mLogger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.LOCATION);
   @NonNull
   private final Listeners<LocationListener> mListeners = new Listeners<>();
-
-  private boolean mActive;
-  private boolean mLocationStopped;
-  private boolean mColdStart = true;
-
   private Location mSavedLocation;
   private MapObject mMyPosition;
   private long mSavedLocationTime;
   @NonNull
   private final SensorHelper mSensorHelper = new SensorHelper();
+  @Nullable
   private BaseLocationProvider mLocationProvider;
   @NonNull
-  private final LocationPredictor mPredictor = new LocationPredictor(mLocationListener);
+  private final LocationPredictor mPredictor = new LocationPredictor(mCoreLocationListener);
   @Nullable
   private UiCallback mUiCallback;
-
   private long mInterval;
-  private boolean mHighAccuracy;
   private CompassData mCompassData;
+  private boolean mInFirstRun;
 
   @SuppressWarnings("FieldCanBeLocal")
-  private final LocationState.ModeChangeListener mModeChangeListener = new LocationState.ModeChangeListener()
+  private final LocationState.ModeChangeListener mMyPositionModeListener =
+      new LocationState.ModeChangeListener()
   {
     @Override
     public void onMyPositionModeChanged(int newMode)
     {
       notifyMyPositionModeChanged(newMode);
-      mLogger.d(TAG, "onMyPositionModeChanged mode = " + LocationState.nameOf(newMode) +
-                " mColdStart = " + mColdStart + " mErrorOccurred = " + mErrorOccurred);
-      switch (newMode)
+      mLogger.d(TAG, "onMyPositionModeChanged mode = " + LocationState.nameOf(newMode));
+
+      if (mUiCallback == null)
       {
-      case LocationState.PENDING_POSITION:
-        addListener(mLocationListener, true);
-        break;
-
-      case LocationState.NOT_FOLLOW_NO_POSITION:
-        if (mColdStart && !mErrorOccurred)
-        {
-          LocationState.nativeSwitchToNextMode();
-          break;
-        }
-
-        removeListener(mLocationListener);
-
-        if (mLocationStopped)
-          break;
-
-        if (LocationUtils.areLocationServicesTurnedOn())
-        {
-          mLocationStopped = true;
-          notifyLocationNotFound();
-        }
-        break;
-
-      default:
-        mLocationStopped = false;
-        restart();
-        break;
+        mLogger.d(TAG, "UI is not ready to listen my position changes, i.e. it's not attached yet.");
+        return;
       }
 
-      mColdStart = false;
-      mErrorOccurred = false;
+      switch (newMode)
+      {
+        case LocationState.NOT_FOLLOW_NO_POSITION:
+          // In the first run mode, the NOT_FOLLOW_NO_POSITION state doesn't mean that location
+          // is actually not found.
+          if (mInFirstRun)
+          {
+            mLogger.i(TAG, "It's the first run, so this state should be skipped");
+            return;
+          }
+
+          stop();
+          if (LocationUtils.areLocationServicesTurnedOn())
+            notifyLocationNotFound();
+          break;
+      }
     }
   };
 
-  private final Runnable mStopLocationTask = new Runnable()
-  {
-    @Override
-    public void run()
-    {
-      mLogger.d(TAG, "mStopLocationTask.run(). Was active: " + mActive);
-
-      if (mActive)
-        stopInternal();
-    }
-  };
 
   LocationHelper()
   {
     mLogger.d(LocationHelper.class.getSimpleName(), "ctor()");
+  }
 
-    // TODO consider refactoring.
-    // Actually we shouldn't initialize Framework here,
-    // to allow app components to retrieve location updates without all heavy framework's stuff initialized.
-    // For now this is necessary to connect mModeChangeListener below.
-    MwmApplication.get().initNativeCore();
-    LocationState.nativeSetListener(mModeChangeListener);
-
-    calcParams();
-    initProvider(false);
+  @UiThread
+  public void initialize()
+  {
+    initProvider();
+    LocationState.nativeSetListener(mMyPositionModeListener);
     MwmApplication.backgroundTracker().addListener(mOnTransition);
   }
 
-  public void initProvider(boolean forceNative)
+  private void initProvider()
   {
-    mLogger.d(TAG, "initProvider forceNative = " + forceNative, new Throwable());
-    mActive = !mListeners.isEmpty();
-    if (mActive)
-    {
-      mLogger.d(TAG, "Stop the active provider '" + mLocationProvider + "' before starting the new one");
-      stopInternal();
-    }
-
+    mLogger.d(TAG, "initProvider", new Throwable());
     final MwmApplication application = MwmApplication.get();
     final boolean containsGoogleServices = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(application) == ConnectionResult.SUCCESS;
     final boolean googleServicesTurnedInSettings = Config.useGoogleServices();
-    if (!forceNative &&
-        containsGoogleServices &&
-        googleServicesTurnedInSettings)
+    if (containsGoogleServices && googleServicesTurnedInSettings)
     {
       mLogger.d(TAG, "Use fused provider.");
       mLocationProvider = new GoogleFusedLocationProvider(new FusedLocationFixChecker());
     }
     else
     {
-      mLogger.d(TAG, "Use native provider.");
-      mLocationProvider = new AndroidNativeProvider(new DefaultLocationFixChecker());
+      initNativeProvider();
     }
+  }
 
-    mActive = !mListeners.isEmpty();
-    if (mActive)
-      startInternal();
+  void initNativeProvider()
+  {
+    mLogger.d(TAG, "Use native provider");
+    mLocationProvider = new AndroidNativeProvider(new DefaultLocationFixChecker());
   }
 
   public void onLocationUpdated(@NonNull Location location)
@@ -313,12 +230,7 @@ public enum LocationHelper
 
   public void switchToNextMode()
   {
-    if (mErrorOccurred)
-    {
-      mLogger.d(TAG, "Location services are still not available, no need to switch to the next mode.");
-      notifyLocationError(ERROR_DENIED);
-      return;
-    }
+    mLogger.d(TAG, "switchToNextMode()");
     LocationState.nativeSwitchToNextMode();
   }
 
@@ -342,6 +254,15 @@ public enum LocationHelper
     if (mSavedLocation == null)
     {
       mLogger.d(TAG, "No saved location - skip");
+      return;
+    }
+
+    // If we are still in the first run mode, i.e. user stays on the first run screens,
+    // not on the map, we mustn't post location update to the core. Only this preserving allows us
+    // to play nice zoom animation once a user will see map.
+    if (mInFirstRun)
+    {
+      mLogger.d(TAG, "Location update is obtained, but ignore, because it's a first run mode");
       return;
     }
 
@@ -385,7 +306,7 @@ public enum LocationHelper
 
   private void notifyMyPositionModeChanged(int newMode)
   {
-    mLogger.d(TAG, "notifyMyPositionModeChanged(): " + LocationState.nameOf(newMode));
+    mLogger.d(TAG, "notifyMyPositionModeChanged(): " + LocationState.nameOf(newMode) , new Throwable());
 
     if (mUiCallback != null)
       mUiCallback.onMyPositionModeChanged(newMode);
@@ -400,105 +321,33 @@ public enum LocationHelper
       mUiCallback.onLocationNotFound();
   }
 
-  boolean isLocationStopped()
-  {
-    return mLocationStopped;
-  }
-
-  public void stop()
-  {
-    mLogger.d(TAG, "stop()");
-    mLocationStopped = true;
-    removeListener(mLocationListener, false);
-  }
-
-  void checkProvidersAndStartIfNeeded()
-  {
-    Context context = MwmApplication.get();
-    LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-    boolean networkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-    boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-    mLocationStopped = !networkEnabled && !gpsEnabled;
-    LocationUtils.logAvailableProviders();
-
-    if (mLocationStopped)
-    {
-      if (LocationState.getMode() == LocationState.PENDING_POSITION)
-        notifyLocationError(ERROR_DENIED);
-      return;
-    }
-
-    initProvider(false);
-    mLogger.i(TAG, "checkProvidersAndStartIfNeeded, current mode '" + LocationState.nameOf(LocationState.getMode()) + "'");
-    LocationState.nativeSwitchToNextMode();
-  }
-
   /**
-   * Registers listener about location changes. Starts polling on the first listener registration.
+   * Registers listener about location changes.
    * @param listener listener to register.
    * @param forceUpdate instantly notify given listener about available location, if any.
    */
-  @android.support.annotation.UiThread
-  public void addListener(LocationListener listener, boolean forceUpdate)
+  @UiThread
+  public void addListener(@NonNull LocationListener listener, boolean forceUpdate)
   {
     mLogger.d(TAG, "addListener(): " + listener + ", forceUpdate: " + forceUpdate);
     mLogger.d(TAG, " - listener count was: " + mListeners.getSize());
 
-    UiThread.cancelDelayedTasks(mStopLocationTask);
-
-    boolean wasEmpty = mListeners.isEmpty();
     mListeners.register(listener);
 
-    if (wasEmpty)
-    {
-      calcParams();
-      startInternal();
-    }
-
-    if (mActive && forceUpdate)
+    if (forceUpdate)
       notifyLocationUpdated(listener);
   }
 
-  @android.support.annotation.UiThread
-  private void removeListener(LocationListener listener, boolean delayed)
-  {
-    mLogger.d(TAG, "removeListener(), delayed: " + delayed + ", listener: " + listener);
-    mLogger.d(TAG, " - listener count was: " + mListeners.getSize());
-
-    boolean wasEmpty = mListeners.isEmpty();
-    mListeners.unregister(listener);
-
-    if (!wasEmpty && mListeners.isEmpty())
-    {
-      mLogger.d(TAG, " - was not empty");
-
-      if (delayed)
-      {
-        mLogger.d(TAG, " - schedule stop");
-        stopDelayed();
-      }
-      else
-      {
-        mLogger.d(TAG, " - stop now");
-        stopInternal();
-      }
-    }
-  }
-
+  @UiThread
   /**
-   * Removes given location listener. Stops polling if there are no listeners left.
+   * Removes given location listener.
    * @param listener listener to unregister.
    */
-  @android.support.annotation.UiThread
-  public void removeListener(LocationListener listener)
+  public void removeListener(@NonNull LocationListener listener)
   {
-    removeListener(listener, false);
-  }
-
-  @android.support.annotation.UiThread
-  public void removeListener()
-  {
-    removeListener(mLocationListener);
+    mLogger.d(TAG, "removeListener(), listener: " + listener);
+    mLogger.d(TAG, " - listener count was: " + mListeners.getSize());
+    mListeners.unregister(listener);
   }
 
   void startSensors()
@@ -511,11 +360,12 @@ public enum LocationHelper
     mSensorHelper.resetMagneticField(mSavedLocation, location);
   }
 
-  private void calcParams()
+  private void calcLocationUpdatesInterval()
   {
-    mHighAccuracy = true;
+    mLogger.d(TAG, "calcLocationUpdatesInterval()");
     if (RoutingController.get().isNavigating())
     {
+      mLogger.d(TAG, "calcLocationUpdatesInterval(), it's navigation mode");
       final @Framework.RouterType int router = Framework.nativeGetRouter();
       switch (router)
       {
@@ -538,22 +388,20 @@ public enum LocationHelper
       return;
     }
 
-    int mode = LocationState.getMode();
+    int mode = getMyPositionMode();
     switch (mode)
     {
-    default:
-    case LocationState.NOT_FOLLOW:
-      mHighAccuracy = false;
-      mInterval = INTERVAL_NOT_FOLLOW_MS;
-      break;
+      case LocationState.FOLLOW:
+        mInterval = INTERVAL_FOLLOW_MS;
+        break;
 
-    case LocationState.FOLLOW:
-      mInterval = INTERVAL_FOLLOW_MS;
-      break;
+      case LocationState.FOLLOW_AND_ROTATE:
+        mInterval = INTERVAL_FOLLOW_AND_ROTATE_MS;
+        break;
 
-    case LocationState.FOLLOW_AND_ROTATE:
-      mInterval = INTERVAL_FOLLOW_AND_ROTATE_MS;
-      break;
+      default:
+        mInterval = INTERVAL_NOT_FOLLOW_MS;
+        break;
     }
   }
 
@@ -562,41 +410,71 @@ public enum LocationHelper
     return mInterval;
   }
 
-  // TODO (trashkalmar): Usage of this method was temporarily commented out from GoogleFusedLocationProvider.start(). See comments there.
-  boolean isHighAccuracy()
-  {
-    return mHighAccuracy;
-  }
-
   /**
-   * Recalculates location parameters and restarts locator if it was in a progress before.
-   * <p>Does nothing if there were no subscribers.
+   * Stops the current provider. Then initialize the location provider again,
+   * because location settings could be changed and a new location provider can be used,
+   * such as Google fused provider. And we think that Google fused provider is preferable
+   * for the most cases. And starts the initialized location provider.
+   *
+   * @see #start()
+   *
    */
   public void restart()
   {
     mLogger.d(TAG, "restart()");
-    mActive &= !mListeners.isEmpty();
-    if (!mActive)
+    checkProviderInitialization();
+    stopInternal();
+    initProvider();
+    start();
+  }
+
+  /**
+   * Adds the {@link #mCoreLocationListener} to listen location updates and notify UI.
+   * Notifies about {@link #ERROR_DENIED} if there are no enabled location providers.
+   * Calculates minimum time interval for location updates.
+   * Starts polling location updates.
+   */
+  public void start()
+  {
+    checkProviderInitialization();
+    //noinspection ConstantConditions
+    if (mLocationProvider.isActive())
+      throw new AssertionError("Location provider '" + mLocationProvider + "' must be stopped first");
+
+    addListener(mCoreLocationListener, true);
+
+    if (!LocationUtils.checkProvidersAvailability())
     {
-      stopInternal();
+      // No need to notify about an error in first run mode
+      if (!mInFirstRun)
+        notifyLocationError(ERROR_DENIED);
       return;
     }
 
-    boolean oldHighAccuracy = mHighAccuracy;
     long oldInterval = mInterval;
-    mLogger.d(TAG, "restart. Old params: " + oldInterval + " / " + (oldHighAccuracy ? "high" : "normal"));
+    mLogger.d(TAG, "Old time interval (ms): " + oldInterval);
+    calcLocationUpdatesInterval();
+    mLogger.d(TAG, "start(), params: " + mInterval);
+    startInternal();
+  }
 
-    calcParams();
-    mLogger.d(TAG, "New params: " + mInterval + " / " + (mHighAccuracy ? "high" : "normal"));
-
-    if (mHighAccuracy != oldHighAccuracy || mInterval != oldInterval)
+  /**
+   * Stops the polling location updates, i.e. removes the {@link #mCoreLocationListener} and stops
+   * the current active provider.
+   */
+  private void stop()
+  {
+    mLogger.d(TAG, "stop()");
+    checkProviderInitialization();
+    //noinspection ConstantConditions
+    if (!mLocationProvider.isActive())
     {
-      boolean active = mActive;
-      stopInternal();
-
-      if (active)
-        startInternal();
+      mLogger.i(TAG, "Provider '" + mLocationProvider + "' is already stopped");
+      return;
     }
+
+    removeListener(mCoreLocationListener);
+    stopInternal();
   }
 
   /**
@@ -604,18 +482,30 @@ public enum LocationHelper
    */
   private void startInternal()
   {
-    mLogger.d(TAG, "startInternal(), current provider is '" + mLocationProvider + "'");
+    mLogger.d(TAG, "startInternal(), current provider is '" + mLocationProvider
+                   + "' , my position mode = " + LocationState.nameOf(getMyPositionMode())
+                   + ", mInFirstRun = " + mInFirstRun);
+    checkProviderInitialization();
+    //noinspection ConstantConditions
+    mLocationProvider.start();
+    mLogger.d(TAG, mLocationProvider.isActive() ? "SUCCESS" : "FAILURE");
 
-    mActive = mLocationProvider.start();
-    mLogger.d(TAG, mActive ? "SUCCESS" : "FAILURE");
-
-    if (mActive)
+    if (mLocationProvider.isActive())
     {
-      mErrorOccurred = false;
+      if (!mInFirstRun && getMyPositionMode() == LocationState.NOT_FOLLOW_NO_POSITION)
+        switchToNextMode();
       mPredictor.resume();
     }
-    else
-      notifyLocationError(LocationHelper.ERROR_DENIED);
+  }
+
+  private void checkProviderInitialization()
+  {
+    if (mLocationProvider == null)
+    {
+      String error = "A location provider must be initialized!";
+      mLogger.e(TAG, error, new Throwable());
+      throw new AssertionError(error);
+    }
   }
 
   /**
@@ -624,29 +514,20 @@ public enum LocationHelper
   private void stopInternal()
   {
     mLogger.d(TAG, "stopInternal()");
-
-    mActive = false;
+    checkProviderInitialization();
+    //noinspection ConstantConditions
     mLocationProvider.stop();
     mSensorHelper.stop();
     mPredictor.pause();
-    notifyMyPositionModeChanged(LocationState.getMode());
-  }
-
-  /**
-   * Schedules poll termination after {@link #STOP_DELAY_MS}.
-   */
-  private void stopDelayed()
-  {
-    mLogger.d(TAG, "stopDelayed()");
-    UiThread.runLater(mStopLocationTask, STOP_DELAY_MS);
   }
 
   /**
    * Attach UI to helper.
    */
-  public void attach(UiCallback callback)
+  @UiThread
+  public void attach(@NonNull UiCallback callback)
   {
-    mLogger.d(TAG, "attach() callback = " + callback + " mColdStart = " + mColdStart);
+    mLogger.d(TAG, "attach() callback = " + callback);
 
     if (mUiCallback != null)
     {
@@ -658,20 +539,27 @@ public enum LocationHelper
 
     Utils.keepScreenOn(true, mUiCallback.getActivity().getWindow());
 
-    mUiCallback.onMyPositionModeChanged(LocationState.getMode());
+    mUiCallback.onMyPositionModeChanged(getMyPositionMode());
     if (mCompassData != null)
       mUiCallback.onCompassUpdated(mCompassData);
 
-    if (!mLocationStopped)
-      addListener(mLocationListener, true);
+    checkProviderInitialization();
+    //noinspection ConstantConditions
+    if (mLocationProvider.isActive())
+    {
+      mLogger.d(TAG, "attach() provider '" + mLocationProvider + "' is active, just add the listener");
+      addListener(mCoreLocationListener, true);
+    }
     else
-      checkProvidersAndStartIfNeeded();
-
+    {
+      restart();
+    }
   }
 
   /**
    * Detach UI from helper.
    */
+  @UiThread
   public void detach(boolean delayed)
   {
     mLogger.d(TAG, "detach(), delayed: " + delayed);
@@ -684,7 +572,47 @@ public enum LocationHelper
 
     Utils.keepScreenOn(false, mUiCallback.getActivity().getWindow());
     mUiCallback = null;
-    removeListener(mLocationListener, delayed);
+    stop();
+  }
+
+  @UiThread
+  public void onEnteredIntoFirstRun()
+  {
+    mLogger.i(TAG, "onEnteredIntoFirstRun");
+    mInFirstRun = true;
+  }
+
+  @UiThread
+  public void onExitFromFirstRun()
+  {
+    mLogger.i(TAG, "onExitFromFirstRun");
+    if (!mInFirstRun)
+      throw new AssertionError("Must be called only after 'onEnteredIntoFirstRun' method!");
+
+    mInFirstRun = false;
+
+    if (getMyPositionMode() != LocationState.NOT_FOLLOW_NO_POSITION)
+      throw new AssertionError("My position mode must be equal NOT_FOLLOW_NO_POSITION");
+
+    // If there is a location we need just to pass it to the listeners, so that
+    // my position state machine will be switched to the FOLLOW state.
+    Location location = getSavedLocation();
+    if (location != null)
+    {
+      notifyLocationUpdated();
+      mLogger.d(TAG, "Current location is available, so play the nice zoom animation");
+      Framework.nativeZoomToPoint(location.getLatitude(), location.getLongitude(), 14, true);
+      return;
+    }
+
+    checkProviderInitialization();
+    // If the location hasn't been obtained yet we need to switch to the next mode and wait for locations.
+    // Otherwise, try to restart location updates polling.
+    // noinspection ConstantConditions
+    if (mLocationProvider.isActive())
+      switchToNextMode();
+    else
+      restart();
   }
 
   /**
@@ -712,8 +640,24 @@ public enum LocationHelper
     return mCompassData;
   }
 
+  @LocationState.Value
+  public int getMyPositionMode()
+  {
+    return LocationState.nativeGetMode();
+  }
+
   private static native void nativeOnLocationError(int errorCode);
   private static native void nativeLocationUpdated(long time, double lat, double lon, float accuracy,
                                                    double altitude, float speed, float bearing);
   static native float[] nativeUpdateCompassSensor(int ind, float[] arr);
+
+  public interface UiCallback
+  {
+    Activity getActivity();
+    void onMyPositionModeChanged(int newMode);
+    void onLocationUpdated(@NonNull Location location);
+    void onCompassUpdated(@NonNull CompassData compass);
+    void onLocationError();
+    void onLocationNotFound();
+  }
 }

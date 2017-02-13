@@ -47,11 +47,6 @@ public enum Statistics
     public static final String DOWNLOADER_ACTION = "Downloader_Map_action";
     public static final String DOWNLOADER_CANCEL = "Downloader_Cancel_downloading";
 
-    // First start
-    public static final String FIRST_START_SHOWN = "FirstStart_Dialog_show";
-    public static final String FIRST_START_NO_LOCATION = "FirstStart_Location_disable";
-    public static final String FIRST_START_DONT_ZOOM = "FirstStart_ZAnimation_disable";
-
     // bookmarks
     public static final String BMK_DESCRIPTION_CHANGED = "Bookmark. Description changed";
     public static final String BMK_GROUP_CREATED = "Bookmark. Group created";

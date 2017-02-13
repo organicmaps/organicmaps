@@ -119,7 +119,7 @@ public class LocationUtils
     }
   }
 
-  public static void logAvailableProviders()
+  private static void logAvailableProviders()
   {
     LocationManager locMngr = (LocationManager) MwmApplication.get().getSystemService(Context.LOCATION_SERVICE);
     List<String> providers = locMngr.getProviders(true);
@@ -134,6 +134,22 @@ public class LocationUtils
     {
       sb = new StringBuilder("There are no enabled location providers!");
     }
-    LOGGER.i(TAG, sb.toString(), new Throwable());
+    LOGGER.i(TAG, sb.toString());
+  }
+
+  public static boolean checkProvidersAvailability()
+  {
+    Context context = MwmApplication.get();
+    LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+    if (locationManager == null)
+    {
+      LOGGER.e(TAG, "This device doesn't support the location service.");
+      return false;
+    }
+
+    boolean networkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+    boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+    LocationUtils.logAvailableProviders();
+    return networkEnabled || gpsEnabled;
   }
 }

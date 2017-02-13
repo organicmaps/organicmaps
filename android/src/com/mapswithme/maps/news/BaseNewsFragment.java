@@ -277,12 +277,17 @@ abstract class BaseNewsFragment extends BaseMwmDialogFragment
       @Override
       public void onClick(View v)
       {
-        dismissAllowingStateLoss();
+        onDoneClick();
       }
     });
 
     update();
     return res;
+  }
+
+  protected void onDoneClick()
+  {
+    dismissAllowingStateLoss();
   }
 
   @SuppressWarnings("TryWithIdenticalCatches")

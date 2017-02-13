@@ -21,7 +21,6 @@ class AndroidNativeProvider extends BaseLocationProvider
                                                       LocationManager.GPS_PROVIDER };
   @NonNull
   private final LocationManager mLocationManager;
-  private boolean mIsActive;
   @NonNull
   private final List<LocationListener> mListeners = new ArrayList<>();
 
@@ -32,22 +31,27 @@ class AndroidNativeProvider extends BaseLocationProvider
   }
 
   @Override
-  protected boolean start()
+  protected void start()
   {
-    sLogger.d(TAG, "Android native provider is started");
-    if (mIsActive)
-      return true;
+    LOGGER.d(TAG, "Android native provider is started");
+    if (isActive())
+      return;
 
     List<String> providers = getAvailableProviders(mLocationManager);
     if (providers.isEmpty())
-      return false;
+    {
+      setActive(false);
+      return;
+    }
 
-    mIsActive = true;
+    setActive(true);
     for (String provider : providers)
     {
-      sLogger.d(TAG, "Request location updates from the provider: " + provider);
       LocationListener listener = new BaseLocationListener(getLocationFixChecker());
-      mLocationManager.requestLocationUpdates(provider, LocationHelper.INSTANCE.getInterval(), 0, listener);
+      long interval = LocationHelper.INSTANCE.getInterval();
+      LOGGER.d(TAG, "Request Android native provider '" + provider
+                    + "' to get locations at this interval = " + interval + " ms");
+      mLocationManager.requestLocationUpdates(provider, interval, 0, listener);
       mListeners.add(listener);
     }
 
@@ -61,14 +65,12 @@ class AndroidNativeProvider extends BaseLocationProvider
       if (location == null || LocationUtils.isExpired(location, LocationHelper.INSTANCE.getSavedLocationTime(),
                                                       LocationUtils.LOCATION_EXPIRATION_TIME_MILLIS_SHORT))
       {
-        return true;
+        return;
       }
     }
 
     if (location != null)
       onLocationChanged(location);
-
-    return true;
   }
 
   private void onLocationChanged(@NonNull Location location)
@@ -85,14 +87,14 @@ class AndroidNativeProvider extends BaseLocationProvider
   @Override
   protected void stop()
   {
-    sLogger.d(TAG, "Android native provider is stopped");
+    LOGGER.d(TAG, "Android native provider is stopped");
     ListIterator<LocationListener> iterator = mListeners.listIterator();
     // noinspection WhileLoopReplaceableByForEach
     while (iterator.hasNext())
       mLocationManager.removeUpdates(iterator.next());
 
     mListeners.clear();
-    mIsActive = false;
+    setActive(false);
   }
 
   @Nullable
