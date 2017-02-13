@@ -3,6 +3,7 @@
 #include "base/macros.hpp"
 #include "base/stl_add.hpp"
 
+#include <algorithm>
 #include <cstdint>
 #include <map>
 #include <memory>
@@ -32,25 +33,28 @@ public:
     return *this;
   }
 
-  // A read-only iterator. Any modification to the
+  // A read-only iterator wrapping a Node. Any modification to the
   // underlying trie is assumed to invalidate the iterator.
   class Iterator
   {
   public:
     Iterator(MemTrie::Node const & node) : m_node(node) {}
 
+    // Iterates over all possible moves from this Iterator's node
+    // and calls |toDo| with two arguments:
+    // (Char of the move, Iterator wrapping the node of the move).
     template <typename ToDo>
-    void ForEachMove(ToDo && todo) const
+    void ForEachMove(ToDo && toDo) const
     {
       for (auto const & move : m_node.m_moves)
-        todo(move.first, Iterator(*move.second));
+        toDo(move.first, Iterator(*move.second));
     }
 
+    // Calls |toDo| for every value in this Iterator's node.
     template <typename ToDo>
-    void ForEachInNode(ToDo && todo) const
+    void ForEachInNode(ToDo && toDo) const
     {
-      for (auto const & value : m_node.m_values)
-        todo(value);
+      std::for_each(m_node.m_values.begin(), m_node.m_values.end(), std::forward<ToDo>(toDo));
     }
 
   private:
@@ -71,32 +75,32 @@ public:
     cur->AddValue(value);
   }
 
-  // Traverses all key-value pairs in the trie and calls |todo| on each of them.
+  // Traverses all key-value pairs in the trie and calls |toDo| on each of them.
   template <typename ToDo>
-  void ForEachInTrie(ToDo && todo) const
+  void ForEachInTrie(ToDo && toDo) const
   {
     String prefix;
-    ForEachInSubtree(m_root, prefix, std::forward<ToDo>(todo));
+    ForEachInSubtree(m_root, prefix, std::forward<ToDo>(toDo));
   }
 
-  // Calls |todo| for each key-value pair in the node that is reachable
+  // Calls |toDo| for each key-value pair in the node that is reachable
   // by |prefix| from the trie root. Does nothing if such node does
   // not exist.
   template <typename ToDo>
-  void ForEachInNode(String const & prefix, ToDo && todo) const
+  void ForEachInNode(String const & prefix, ToDo && toDo) const
   {
     if (auto const * root = MoveTo(prefix))
-      ForEachInNode(*root, prefix, std::forward<ToDo>(todo));
+      ForEachInNode(*root, prefix, std::forward<ToDo>(toDo));
   }
 
-  // Calls |todo| for each key-value pair in a subtree that is
+  // Calls |toDo| for each key-value pair in a subtree that is
   // reachable by |prefix| from the trie root. Does nothing if such
   // subtree does not exist.
   template <typename ToDo>
-  void ForEachInSubtree(String prefix, ToDo && todo) const
+  void ForEachInSubtree(String prefix, ToDo && toDo) const
   {
     if (auto const * root = MoveTo(prefix))
-      ForEachInSubtree(*root, prefix, std::forward<ToDo>(todo));
+      ForEachInSubtree(*root, prefix, std::forward<ToDo>(toDo));
   }
 
   size_t GetNumNodes() const { return m_numNodes; }
@@ -149,27 +153,27 @@ private:
     return cur;
   }
 
-  // Calls |todo| for each key-value pair in a |node| that is
+  // Calls |toDo| for each key-value pair in a |node| that is
   // reachable by |prefix| from the trie root.
   template <typename ToDo>
-  void ForEachInNode(Node const & node, String const & prefix, ToDo && todo) const
+  void ForEachInNode(Node const & node, String const & prefix, ToDo && toDo) const
   {
     for (auto const & value : node.m_values)
-      todo(prefix, value);
+      toDo(prefix, value);
   }
 
-  // Calls |todo| for each key-value pair in subtree where |node| is a
+  // Calls |toDo| for each key-value pair in subtree where |node| is a
   // root of the subtree. |prefix| is a path from the trie root to the
   // |node|.
   template <typename ToDo>
-  void ForEachInSubtree(Node const & node, String & prefix, ToDo && todo) const
+  void ForEachInSubtree(Node const & node, String & prefix, ToDo && toDo) const
   {
-    ForEachInNode(node, prefix, todo);
+    ForEachInNode(node, prefix, toDo);
 
     for (auto const & move : node.m_moves)
     {
       prefix.push_back(move.first);
-      ForEachInSubtree(*move.second, prefix, todo);
+      ForEachInSubtree(*move.second, prefix, toDo);
       prefix.pop_back();
     }
   }

@@ -18,8 +18,6 @@
 
 namespace search
 {
-namespace
-{
 // my::MemTrie<strings::UniString, uint32_t>
 // todo(@m, @y). Unite with the similar function in search/feature_offset_match.hpp.
 template <typename Trie, typename DFA, typename ToDo>
@@ -65,7 +63,6 @@ bool MatchInTrie(Trie const & trie, DFA const & dfa, ToDo && toDo)
 
   return found;
 }
-}  // namespace
 
 using TLocales = buffer_vector<int8_t, 3>;
 
@@ -112,16 +109,5 @@ void ForEachCategoryTypeFuzzy(StringSliceBase const & slice, TLocales const & lo
         MatchInTrie(*trie, dfa, std::bind<void>(todo, i, std::placeholders::_1));
     }
   }
-}
-
-template <typename IterT1, typename IterT2>
-bool StartsWith(IterT1 beg, IterT1 end, IterT2 begPrefix, IterT2 endPrefix)
-{
-  while (beg != end && begPrefix != endPrefix && *beg == *begPrefix)
-  {
-    ++beg;
-    ++begPrefix;
-  }
-  return begPrefix == endPrefix;
 }
 }  // namespace search

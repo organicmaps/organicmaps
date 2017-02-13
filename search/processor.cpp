@@ -129,7 +129,7 @@ void SendStatistics(SearchParams const & params, m2::RectD const & viewport, Res
 }
 
 // Removes all full-token stop words from |params|.
-// Does nothing if all tokens in |params| are stop words.
+// Does nothing if all tokens in |params| are non-prefix stop words.
 void RemoveStopWordsIfNeeded(QueryParams & params)
 {
   size_t numStopWords = 0;
@@ -409,16 +409,16 @@ TLocales Processor::GetCategoryLocales() const
 }
 
 template <typename ToDo>
-void Processor::ForEachCategoryType(StringSliceBase const & slice, ToDo && todo) const
+void Processor::ForEachCategoryType(StringSliceBase const & slice, ToDo && toDo) const
 {
-  ::search::ForEachCategoryType(slice, GetCategoryLocales(), m_categories, forward<ToDo>(todo));
+  ::search::ForEachCategoryType(slice, GetCategoryLocales(), m_categories, forward<ToDo>(toDo));
 }
 
 template <typename ToDo>
-void Processor::ForEachCategoryTypeFuzzy(StringSliceBase const & slice, ToDo && todo) const
+void Processor::ForEachCategoryTypeFuzzy(StringSliceBase const & slice, ToDo && toDo) const
 {
   ::search::ForEachCategoryTypeFuzzy(slice, GetCategoryLocales(), m_categories,
-                                     forward<ToDo>(todo));
+                                     forward<ToDo>(toDo));
 }
 
 void Processor::Search(SearchParams const & params, m2::RectD const & viewport)
