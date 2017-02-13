@@ -17,7 +17,7 @@ namespace df
 {
 DrapeEngine::DrapeEngine(Params && params)
   : m_myPositionModeChanged(move(params.m_myPositionModeChanged))
-  , m_viewport(params.m_viewport)
+  , m_viewport(move(params.m_viewport))
 {
   VisualParams::Init(params.m_vs, df::CalculateTileSize(m_viewport.GetWidth(), m_viewport.GetHeight()));
 
