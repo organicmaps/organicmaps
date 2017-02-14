@@ -314,6 +314,7 @@ bool CategoriesHolder::GetNameByType(uint32_t type, int8_t locale, string & name
 {
   auto const range = m_type2cat.equal_range(type);
 
+  string enName;
   for (auto it = range.first; it != range.second; ++it)
   {
     Category const & cat = *it->second;
@@ -324,12 +325,16 @@ bool CategoriesHolder::GetNameByType(uint32_t type, int8_t locale, string & name
         name = synonym.m_name;
         return true;
       }
+      else if (enName.empty() && (synonym.m_locale == kEnglishCode))
+      {
+        enName = synonym.m_name;
+      }
     }
   }
 
-  if (range.first != range.second)
+  if (!enName.empty())
   {
-    name = range.first->second->m_synonyms[0].m_name;
+    name = enName;
     return true;
   }
 

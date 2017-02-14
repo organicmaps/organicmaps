@@ -118,7 +118,7 @@ public:
   inline GroupTranslations const & GetGroupTranslations() const { return m_groupTranslations; }
 
   /// Search name for type with preffered locale language.
-  /// If no name for this language, return first (en) name.
+  /// If no name for this language, return en name.
   /// @return false if no categories for type.
   bool GetNameByType(uint32_t type, int8_t locale, string & name) const;
 
