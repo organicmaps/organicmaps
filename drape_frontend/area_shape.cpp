@@ -28,6 +28,7 @@ void AreaShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
 {
   dp::TextureManager::ColorRegion region;
   textures->GetColorRegion(m_params.m_color, region);
+  m2::PointD const colorUv = region.GetTexRect().Center();
   m2::PointD outlineUv(0.0, 0.0);
   if (m_buildingOutline.m_generateOutline)
   {
@@ -38,9 +39,9 @@ void AreaShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
   }
 
   if (m_params.m_is3D)
-    DrawArea3D(batcher, region.GetTexRect().Center(), outlineUv, region.GetTexture());
+    DrawArea3D(batcher, colorUv, outlineUv, region.GetTexture());
   else
-    DrawArea(batcher, region.GetTexRect().Center(), outlineUv, region.GetTexture());
+    DrawArea(batcher, colorUv, outlineUv, region.GetTexture());
 }
 
 void AreaShape::DrawArea(ref_ptr<dp::Batcher> batcher, m2::PointD const & colorUv, m2::PointD const & outlineUv,
