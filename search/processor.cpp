@@ -128,8 +128,8 @@ void SendStatistics(SearchParams const & params, m2::RectD const & viewport, Res
   GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kSearchEmitResultsAndCoords, {});
 }
 
-// Removes all full-token stop words from |params|, unless |params|
-// consists of all such tokens.
+// Removes all full-token stop words from |params|.
+// Does nothing if all tokens in |params| are non-prefix stop words.
 void RemoveStopWordsIfNeeded(QueryParams & params)
 {
   size_t numStopWords = 0;
@@ -331,6 +331,7 @@ int8_t Processor::GetLanguage(int id) const
 {
   return m_ranker.GetLanguage(GetLangIndex(id));
 }
+
 m2::PointD Processor::GetPivotPoint() const
 {
   bool const viewportSearch = m_mode == Mode::Viewport;
@@ -408,9 +409,16 @@ TLocales Processor::GetCategoryLocales() const
 }
 
 template <typename ToDo>
-void Processor::ForEachCategoryType(StringSliceBase const & slice, ToDo && todo) const
+void Processor::ForEachCategoryType(StringSliceBase const & slice, ToDo && toDo) const
 {
-  ::search::ForEachCategoryType(slice, GetCategoryLocales(), m_categories, forward<ToDo>(todo));
+  ::search::ForEachCategoryType(slice, GetCategoryLocales(), m_categories, forward<ToDo>(toDo));
+}
+
+template <typename ToDo>
+void Processor::ForEachCategoryTypeFuzzy(StringSliceBase const & slice, ToDo && toDo) const
+{
+  ::search::ForEachCategoryTypeFuzzy(slice, GetCategoryLocales(), m_categories,
+                                     forward<ToDo>(toDo));
 }
 
 void Processor::Search(SearchParams const & params, m2::RectD const & viewport)
@@ -671,11 +679,9 @@ void Processor::InitParams(QueryParams & params)
       }
     }
   };
-  ForEachCategoryType(QuerySliceOnRawStrings<decltype(m_tokens)>(m_tokens, m_prefix), addSyms);
 
-  auto & langs = params.GetLangs();
-  for (int i = 0; i < LANG_COUNT; ++i)
-    langs.Insert(GetLanguage(i));
+  // todo(@m, @y). Shall we match prefix tokens for categories?
+  ForEachCategoryTypeFuzzy(QuerySliceOnRawStrings<decltype(m_tokens)>(m_tokens, m_prefix), addSyms);
 
   RemoveStopWordsIfNeeded(params);
 
@@ -687,6 +693,12 @@ void Processor::InitParams(QueryParams & params)
     if (IsStreetSynonym(token.m_original))
       params.GetTypeIndices(i).clear();
   }
+
+  for (size_t i = 0; i < params.GetNumTokens(); ++i)
+    my::SortUnique(params.GetTypeIndices(i));
+
+  for (int i = 0; i < LANG_COUNT; ++i)
+    params.GetLangs().Insert(GetLanguage(i));
 }
 
 void Processor::InitGeocoder(Geocoder::Params & params)

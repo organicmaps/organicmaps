@@ -754,6 +754,9 @@ UNIT_CLASS_TEST(ProcessorTest, FuzzyMatch)
   TestPOI bar(m2::PointD(0, 0), "Черчилль", "ru");
   bar.SetTypes({{"amenity", "pub"}});
 
+  TestPOI metro(m2::PointD(5.0, 5.0), "Liceu", "es");
+  metro.SetTypes({{"railway", "subway_entrance"}});
+
   BuildWorld([&](TestMwmBuilder & builder) {
     builder.Add(country);
     builder.Add(city);
@@ -762,6 +765,7 @@ UNIT_CLASS_TEST(ProcessorTest, FuzzyMatch)
   auto id = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
     builder.Add(street);
     builder.Add(bar);
+    builder.Add(metro);
   });
 
   SetViewport(m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)));
@@ -778,6 +782,17 @@ UNIT_CLASS_TEST(ProcessorTest, FuzzyMatch)
     TEST(ResultsMatch("масква ленинргадский чирчиль", "ru", TRules{}), ());
 
     TEST(ResultsMatch("моксва ленинргадский черчиль", "ru", rules), ());
+
+    TEST(ResultsMatch("food", "ru", rules), ());
+    TEST(ResultsMatch("foood", "ru", rules), ());
+    TEST(ResultsMatch("fod", "ru", TRules{}), ());
+
+    TRules rulesMetro = {ExactMatch(id, metro)};
+    TEST(ResultsMatch("transporte", "es", rulesMetro), ());
+    TEST(ResultsMatch("transport", "es", rulesMetro), ());
+    TEST(ResultsMatch("transpurt", "en", rulesMetro), ());
+    TEST(ResultsMatch("transpurrt", "es", rulesMetro), ());
+    TEST(ResultsMatch("transportation", "en", TRules{}), ());
   }
 }
 

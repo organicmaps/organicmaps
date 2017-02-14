@@ -3,6 +3,7 @@
 #include "base/macros.hpp"
 #include "base/stl_add.hpp"
 
+#include <algorithm>
 #include <cstdint>
 #include <map>
 #include <memory>
@@ -15,7 +16,12 @@ namespace my
 template <typename String, typename Value>
 class MemTrie
 {
+private:
+  struct Node;
+
 public:
+  using Char = typename String::value_type;
+
   MemTrie() = default;
   MemTrie(MemTrie && rhs) { *this = std::move(rhs); }
 
@@ -23,9 +29,37 @@ public:
   {
     m_root = std::move(rhs.m_root);
     m_numNodes = rhs.m_numNodes;
-    rhs.m_numNodes = 1;
+    rhs.Clear();
     return *this;
   }
+
+  // A read-only iterator wrapping a Node. Any modification to the
+  // underlying trie is assumed to invalidate the iterator.
+  class Iterator
+  {
+  public:
+    Iterator(MemTrie::Node const & node) : m_node(node) {}
+
+    // Iterates over all possible moves from this Iterator's node
+    // and calls |toDo| with two arguments:
+    // (Char of the move, Iterator wrapping the node of the move).
+    template <typename ToDo>
+    void ForEachMove(ToDo && toDo) const
+    {
+      for (auto const & move : m_node.m_moves)
+        toDo(move.first, Iterator(*move.second));
+    }
+
+    // Calls |toDo| for every value in this Iterator's node.
+    template <typename ToDo>
+    void ForEachInNode(ToDo && toDo) const
+    {
+      std::for_each(m_node.m_values.begin(), m_node.m_values.end(), std::forward<ToDo>(toDo));
+    }
+
+  private:
+    MemTrie::Node const & m_node;
+  };
 
   // Adds a key-value pair to the trie.
   void Add(String const & key, Value const & value)
@@ -69,12 +103,20 @@ public:
       ForEachInSubtree(*root, prefix, std::forward<ToDo>(toDo));
   }
 
+  void Clear()
+  {
+    m_root.Clear();
+    m_numNodes = 1;
+  }
+
   size_t GetNumNodes() const { return m_numNodes; }
+  Iterator GetRootIterator() const { return Iterator(m_root); }
+  Node const & GetRoot() const { return m_root; }
 
 private:
   struct Node
   {
-    using Char = typename String::value_type;
+    friend class MemTrie<String, Value>::Iterator;
 
     Node() = default;
     Node(Node && /* rhs */) = default;
@@ -97,6 +139,12 @@ private:
     }
 
     void AddValue(Value const & value) { m_values.push_back(value); }
+
+    void Clear()
+    {
+      m_moves.clear();
+      m_values.clear();
+    }
 
     std::map<Char, std::unique_ptr<Node>> m_moves;
     std::vector<Value> m_values;

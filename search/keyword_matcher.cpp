@@ -1,9 +1,10 @@
-#include "keyword_matcher.hpp"
+#include "search/keyword_matcher.hpp"
 
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 
 #include "base/stl_add.hpp"
+#include "base/string_utils.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/sstream.hpp"
@@ -67,7 +68,7 @@ KeywordMatcher::ScoreT KeywordMatcher::Score(StringT const * tokens, size_t coun
     bPrefixMatched = false;
     for (int j = 0; j < count && !bPrefixMatched; ++j)
       if (!isNameTokenMatched[j] &&
-          StartsWith(tokens[j].begin(), tokens[j].end(), m_prefix.begin(), m_prefix.end()))
+          strings::StartsWith(tokens[j].begin(), tokens[j].end(), m_prefix.begin(), m_prefix.end()))
       {
         isNameTokenMatched[j] = bPrefixMatched = true;
         int8_t const tokenMatchDistance = int(m_keywords.size()) - j;

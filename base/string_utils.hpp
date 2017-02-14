@@ -439,6 +439,17 @@ std::string to_string_dac(double d, int dac);
 inline std::string to_string_with_digits_after_comma(double d, int dac) { return to_string_dac(d, dac); }
 //@}
 
+template <typename IterT1, typename IterT2>
+bool StartsWith(IterT1 beg, IterT1 end, IterT2 begPrefix, IterT2 endPrefix)
+{
+  while (beg != end && begPrefix != endPrefix && *beg == *begPrefix)
+  {
+    ++beg;
+    ++begPrefix;
+  }
+  return begPrefix == endPrefix;
+}
+
 bool StartsWith(UniString const & s, UniString const & p);
 
 bool StartsWith(std::string const & s1, char const * s2);

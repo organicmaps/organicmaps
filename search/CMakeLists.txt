@@ -123,6 +123,7 @@ set(
   token_slice.hpp
   types_skipper.cpp
   types_skipper.hpp
+  utils.cpp
   utils.hpp
   viewport_search_callback.cpp
   viewport_search_callback.hpp

@@ -8,6 +8,7 @@
 #include "indexer/feature_algo.hpp"
 
 #include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/iterator.hpp"
@@ -433,7 +434,7 @@ void Ranker::MatchForSuggestions(strings::UniString const & token, int8_t locale
     if ((suggest.m_prefixLength <= token.size()) &&
         (token != s) &&                  // do not push suggestion if it already equals to token
         (suggest.m_locale == locale) &&  // push suggestions only for needed language
-        StartsWith(s.begin(), s.end(), token.begin(), token.end()))
+        strings::StartsWith(s.begin(), s.end(), token.begin(), token.end()))
     {
       string const utf8Str = strings::ToUtf8(s);
       Result r(utf8Str, prologue + utf8Str + " ");

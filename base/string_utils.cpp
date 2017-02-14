@@ -237,19 +237,14 @@ bool IsASCIIString(std::string const & str)
 
 bool IsASCIIDigit(UniChar c) { return c >= '0' && c <= '9'; }
 bool IsASCIILatin(UniChar c) { return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'); }
+
 bool StartsWith(UniString const & s, UniString const & p)
 {
-  if (p.size() > s.size())
-    return false;
-  for (size_t i = 0; i < p.size(); ++i)
-  {
-    if (s[i] != p[i])
-      return false;
-  }
-  return true;
+  return StartsWith(s.begin(), s.end(), p.begin(), p.end());
 }
 
 bool StartsWith(std::string const & s1, char const * s2) { return (s1.compare(0, strlen(s2), s2) == 0); }
+
 bool EndsWith(std::string const & s1, char const * s2)
 {
   size_t const n = s1.size();
