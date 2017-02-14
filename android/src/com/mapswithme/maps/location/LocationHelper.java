@@ -49,6 +49,16 @@ public enum LocationHelper
     @Override
     public void onLocationUpdated(Location location)
     {
+      // If we are still in the first run mode, i.e. user is staying on the first run screens,
+      // not on the map, we mustn't post location update to the core. Only this preserving allows us
+      // to play nice zoom animation once a user will leave first screens and will see a map.
+      if (mInFirstRun)
+      {
+        mLogger.d(TAG, "Location update is obtained and must be ignored, " +
+                       "because the app is in a first run mode");
+        return;
+      }
+
       mPredictor.onLocationUpdated(location);
 
       nativeLocationUpdated(location.getTime(),
@@ -257,15 +267,6 @@ public enum LocationHelper
       return;
     }
 
-    // If we are still in the first run mode, i.e. user stays on the first run screens,
-    // not on the map, we mustn't post location update to the core. Only this preserving allows us
-    // to play nice zoom animation once a user will see map.
-    if (mInFirstRun)
-    {
-      mLogger.d(TAG, "Location update is obtained, but ignore, because it's a first run mode");
-      return;
-    }
-
     for (LocationListener listener : mListeners)
       listener.onLocationUpdated(mSavedLocation);
     mListeners.finishIterate();
@@ -323,7 +324,8 @@ public enum LocationHelper
 
   /**
    * Registers listener about location changes.
-   * @param listener listener to register.
+   *
+   * @param listener    listener to register.
    * @param forceUpdate instantly notify given listener about available location, if any.
    */
   @UiThread
