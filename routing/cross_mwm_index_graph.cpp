@@ -43,6 +43,8 @@ bool CrossMwmIndexGraph::IsTransition(Segment const & s, bool isOutgoing)
   {
     platform::CountryFile const & countryFile = m_numMwmIds->GetFile(s.GetMwmId());
     TRoutingMappingPtr mappingPtr = m_indexManager.GetMappingByName(countryFile.GetName());
+    MappingGuard mappingPtrGuard(mappingPtr);
+
     CHECK(mappingPtr, ("countryFile:", countryFile));
     mappingPtr->LoadCrossContext();
 
