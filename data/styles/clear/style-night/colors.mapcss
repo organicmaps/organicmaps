@@ -80,6 +80,8 @@
 
 @building: #222222;
 @building_dark: #333333;
+@building_border: #303030;
+@building_dark_border: #474747;
 
 /* 5.ROADS */
 /* 5.1 All roads */

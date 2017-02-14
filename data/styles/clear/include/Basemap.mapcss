@@ -596,21 +596,21 @@ area|z16[building],
 area|z16[building:part],
 area|z16[landuse=garages],
 area|z16[building=train_station],
-{fill-color: @building;fill-opacity: 0.8;casing-width: 0;}
+{fill-color: @building;fill-opacity: 0.8;casing-width: 1;casing-color: @building_border;}
 
 area|z16[aeroway=terminal],
 area|z17[building],
 area|z17[building:part],
 area|z17[landuse=garages],
 area|z17[building=train_station],
-{fill-color: @building_dark;opacity: 0.9;casing-width: 0;}
+{fill-color: @building_dark;opacity: 0.9;casing-width: 1;casing-color: @building_dark_border;}
 
 area|z17-[aeroway=terminal]
 area|z18-[building],
 area|z18-[building:part],
 area|z18-[landuse=garages],
 area|z18-[building=train_station],
-{fill-color: @building_dark;opacity: 1;casing-width: 0;}
+{fill-color: @building_dark;opacity: 1;casing-width: 1;casing-color: @building_dark_border;}
 
 /* 8.3 Barrier */
 
