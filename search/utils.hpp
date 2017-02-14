@@ -15,7 +15,7 @@
 #include <cctype>
 #include <functional>
 #include <queue>
-#include <set>
+#include <vector>
 
 namespace search
 {
@@ -102,16 +102,19 @@ void ForEachCategoryTypeFuzzy(StringSliceBase const & slice, TLocales const & lo
 
   auto const & trie = categories.GetNameToTypesTrie();
   auto const & trieRootIt = trie.GetRootIterator();
-  std::set<int8_t> localeSet(locales.begin(), locales.end());
+  vector<int8_t> sortedLocales(locales.begin(), locales.end());
+  my::SortUnique(sortedLocales);
 
   for (size_t i = 0; i < slice.Size(); ++i)
   {
     auto const & token = slice.Get(i);
-    auto const & dfa =
-        strings::LevenshteinDFA(token, 1 /* prefixCharsToKeep */, GetMaxErrorsForToken(token));
+    // todo(@m, @y). We build dfa twice for each token: here and in geocoder.cpp.
+    // A possible optimization is to build each dfa once and save it. Note that
+    // dfas for the prefix tokens differ, i.e. we ignore slice.IsPrefix(i) here.
+    strings::LevenshteinDFA const dfa(token, 1 /* prefixCharsToKeep */, GetMaxErrorsForToken(token));
 
     trieRootIt.ForEachMove([&](Trie::Char const & c, Trie::Iterator const & moveIt) {
-      if (localeSet.count(static_cast<int8_t>(c)) != 0)
+      if (std::binary_search(sortedLocales.begin(), sortedLocales.end(), static_cast<int8_t>(c)))
       {
         MatchInTrie(trie /* passed to infer the iterator's type */, moveIt, dfa,
                     std::bind<void>(todo, i, std::placeholders::_1));

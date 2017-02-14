@@ -4,6 +4,7 @@
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
+#include "std/algorithm.hpp"
 #include "std/deque.hpp"
 #include "std/iostream.hpp"
 #include "std/map.hpp"
@@ -57,7 +58,7 @@ private:
 
   // Maps locale and category token to the list of corresponding types.
   // Locale is treated as a special symbol prepended to the token.
-  unique_ptr<Trie> m_name2type;
+  Trie m_name2type;
 
   GroupTranslations m_groupTranslations;
 
@@ -111,7 +112,7 @@ public:
   void ForEachTypeByName(int8_t locale, String const & name, ToDo && toDo) const
   {
     auto const localePrefix = String(1, static_cast<strings::UniChar>(locale));
-    m_name2type->ForEachInNode(localePrefix + name,
+    m_name2type.ForEachInNode(localePrefix + name,
                                my::MakeIgnoreFirstArgument(forward<ToDo>(toDo)));
   }
 
@@ -126,13 +127,13 @@ public:
   string GetReadableFeatureType(uint32_t type, int8_t locale) const;
 
   // Exposes the tries that map category tokens to types.
-  Trie const & GetNameToTypesTrie() const { return *m_name2type; }
+  Trie const & GetNameToTypesTrie() const { return m_name2type; }
   bool IsTypeExist(uint32_t type) const;
 
   inline void Swap(CategoriesHolder & r)
   {
     m_type2cat.swap(r.m_type2cat);
-    m_name2type.swap(r.m_name2type);
+    std::swap(m_name2type, r.m_name2type);
   }
 
   // Converts any language |locale| from UI to the corresponding

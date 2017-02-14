@@ -29,7 +29,7 @@ public:
   {
     m_root = std::move(rhs.m_root);
     m_numNodes = rhs.m_numNodes;
-    rhs.m_numNodes = 1;
+    rhs.Clear();
     return *this;
   }
 
@@ -103,6 +103,12 @@ public:
       ForEachInSubtree(*root, prefix, std::forward<ToDo>(toDo));
   }
 
+  void Clear()
+  {
+    m_root.Clear();
+    m_numNodes = 1;
+  }
+
   size_t GetNumNodes() const { return m_numNodes; }
   Iterator GetRootIterator() const { return Iterator(m_root); }
   Node const & GetRoot() const { return m_root; }
@@ -133,6 +139,12 @@ private:
     }
 
     void AddValue(Value const & value) { m_values.push_back(value); }
+
+    void Clear()
+    {
+      m_moves.clear();
+      m_values.clear();
+    }
 
     std::map<Char, std::unique_ptr<Node>> m_moves;
     std::vector<Value> m_values;

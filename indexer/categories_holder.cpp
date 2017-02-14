@@ -69,7 +69,7 @@ bool ParseEmoji(CategoriesHolder::Category::Name & name)
     return false;
   }
 
-  name.m_name = ToUtf8(UniString(1, static_cast<UniChar>(c)));
+  name.m_name = ToUtf8(UniString(1 /* numChars */, static_cast<UniChar>(c)));
 
   if (IsASCIIString(ToUtf8(search::NormalizeAndSimplifyString(name.m_name))))
   {
@@ -215,7 +215,7 @@ void CategoriesHolder::AddCategory(Category & cat, vector<uint32_t> & types)
         if (!ValidKeyToken(token))
           continue;
         for (uint32_t const t : types)
-          m_name2type->Add(localePrefix + token, t);
+          m_name2type.Add(localePrefix + token, t);
       }
     }
   }
@@ -242,7 +242,7 @@ bool CategoriesHolder::ValidKeyToken(String const & s)
 void CategoriesHolder::LoadFromStream(istream & s)
 {
   m_type2cat.clear();
-  m_name2type = make_unique<Trie>();
+  m_name2type.Clear();
   m_groupTranslations.clear();
 
   State state = EParseTypes;
