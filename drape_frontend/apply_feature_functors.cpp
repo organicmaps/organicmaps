@@ -506,11 +506,10 @@ void ApplyPointFeature::Finish()
 
 ApplyAreaFeature::ApplyAreaFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape, FeatureID const & id,
                                    bool isBuilding, float minPosZ, float posZ, int minVisibleScale,
-                                   uint8_t rank, bool generateOutline, CaptionDescription const & captions)
+                                   uint8_t rank, CaptionDescription const & captions)
   : TBase(tileKey, insertShape, id, minVisibleScale, rank, captions, posZ)
   , m_minPosZ(minPosZ)
   , m_isBuilding(isBuilding)
-  , m_generateOutline(generateOutline)
 {}
 
 void ApplyAreaFeature::operator()(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
@@ -679,7 +678,11 @@ void ApplyAreaFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
     BuildingOutline outline;
     if (m_isBuilding)
     {
-      outline.m_generateOutline = m_generateOutline;
+      outline.m_generateOutline = areaRule->has_border() &&
+                                  areaRule->color() != areaRule->border().color() &&
+                                  areaRule->border().width() > 0.0;
+      if (outline.m_generateOutline)
+        params.m_outlineColor = ToDrapeColor(areaRule->border().color());
       bool const calculateNormals = m_posZ > 0.0;
       CalculateBuildingOutline(calculateNormals, outline);
       params.m_is3D = !outline.m_indices.empty() && calculateNormals;

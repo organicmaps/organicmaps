@@ -39,6 +39,7 @@ struct PoiSymbolViewParams : CommonViewParams
 struct AreaViewParams : CommonViewParams
 {
   dp::Color m_color;
+  dp::Color m_outlineColor = dp::Color::Transparent();
   float m_minPosZ = 0.0f;
   float m_posZ = 0.0f;
   bool m_is3D = false;
