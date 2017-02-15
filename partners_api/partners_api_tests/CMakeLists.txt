@@ -15,10 +15,17 @@ omim_link_libraries(
   ${PROJECT_NAME}
   partners_api
   platform
+  geometry
   coding
+  editor
   base
+  indexer
   jansson
   stats_client
+  pugixml
+  protobuf
+  oauthcpp
+  opening_hours
   ${LIBZ}
   ${Qt5Widgets_LIBRARIES}
   ${Qt5Network_LIBRARIES}
