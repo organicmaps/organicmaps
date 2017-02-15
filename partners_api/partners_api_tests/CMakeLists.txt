@@ -14,11 +14,18 @@ omim_add_test(${PROJECT_NAME} ${SRC})
 omim_link_libraries(
   ${PROJECT_NAME}
   partners_api
+  indexer
   platform
+  editor
+  geometry 
   coding
   base
   jansson
   stats_client
+  pugixml
+  protobuf
+  oauthcpp
+  opening_hours
   ${LIBZ}
   ${Qt5Widgets_LIBRARIES}
   ${Qt5Network_LIBRARIES}
