@@ -123,7 +123,7 @@ public class MwmApplication extends Application
     return sSelf.mPrefs;
   }
 
-  private static boolean isCrashlyticsEnabled()
+  public static boolean isCrashlyticsEnabled()
   {
     return !BuildConfig.FABRIC_API_KEY.startsWith("0000");
   }

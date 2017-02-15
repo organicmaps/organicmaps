@@ -70,6 +70,7 @@ import com.mapswithme.maps.widget.recycler.DividerItemDecoration;
 import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Graphics;
+import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
@@ -235,6 +236,11 @@ public class PlacePageView extends RelativeLayout
     PREVIEW,
     DETAILS,
     FULLSCREEN
+  }
+
+  public interface SetMapObjectListener
+  {
+    void onSetMapObjectComplete();
   }
 
   public PlacePageView(Context context)
@@ -569,7 +575,7 @@ public class PlacePageView extends RelativeLayout
     }
 
     mSponsoredPrice = getContext().getString(R.string.place_page_starting_from, text);
-    refreshPreview();
+    refreshPreview(NetworkPolicy.newInstance(true));
   }
 
   @Override
@@ -866,15 +872,44 @@ public class PlacePageView extends RelativeLayout
   /**
    * @param mapObject new MapObject
    * @param force     if true, new object'll be set without comparison with the old one
+   * @param listener  listener
    */
-  public void setMapObject(MapObject mapObject, boolean force)
+  public void setMapObject(@Nullable MapObject mapObject, boolean force,
+                           @Nullable final SetMapObjectListener listener)
   {
     if (!force && MapObject.same(mMapObject, mapObject))
+    {
+      if (listener != null)
+        listener.onSetMapObjectComplete();
       return;
+    }
 
     mMapObject = mapObject;
     mSponsored = (mMapObject == null ? null : Sponsored.nativeGetCurrent());
 
+    if (isNetworkNeeded())
+    {
+      NetworkPolicy.checkNetworkPolicy(getContext(), new NetworkPolicy.NetworkPolicyListener()
+      {
+        @Override
+        public void onResult(@NonNull NetworkPolicy policy)
+        {
+          setMapObjectInternal(policy);
+          if (listener != null)
+            listener.onSetMapObjectComplete();
+        }
+      });
+    }
+    else
+    {
+      setMapObjectInternal(NetworkPolicy.newInstance(false));
+      if (listener != null)
+        listener.onSetMapObjectComplete();
+    }
+  }
+
+  private void setMapObjectInternal(@NonNull NetworkPolicy policy)
+  {
     detachCountry();
     if (mMapObject != null)
     {
@@ -886,10 +921,10 @@ public class PlacePageView extends RelativeLayout
         Locale locale = Locale.getDefault();
         Currency currency = Currency.getInstance(locale);
         if (mSponsored.getType() == Sponsored.TYPE_BOOKING && mSponsored.getId() != null)
-          Sponsored.requestPrice(getContext(), mSponsored.getId(), currency.getCurrencyCode());
+          Sponsored.requestPrice(mSponsored.getId(), currency.getCurrencyCode(), policy);
 //      TODO: remove this after booking_api.cpp will be done
         if (!USE_OLD_BOOKING)
-          Sponsored.requestInfo(getContext(), mSponsored, locale.toString());
+          Sponsored.requestInfo(mSponsored, locale.toString(), policy);
       }
 
       String country = MapManager.nativeGetSelectedCountry();
@@ -897,15 +932,20 @@ public class PlacePageView extends RelativeLayout
         attachCountry(country);
     }
 
-    refreshViews();
+    refreshViews(policy);
   }
 
-  public void refreshViews()
+  private boolean isNetworkNeeded()
+  {
+    return mMapObject != null && (isSponsored() || mMapObject.getBanner() != null);
+  }
+
+  public void refreshViews(@Nullable NetworkPolicy policy)
   {
     if (mMapObject == null)
       return;
 
-    refreshPreview();
+    refreshPreview(policy);
     refreshDetails();
     final Location loc = LocationHelper.INSTANCE.getSavedLocation();
 
@@ -963,7 +1003,7 @@ public class PlacePageView extends RelativeLayout
     }
   }
 
-  private void refreshPreview()
+  private void refreshPreview(@Nullable NetworkPolicy policy)
   {
     UiUtils.setTextAndHideIfEmpty(mTvTitle, mMapObject.getTitle());
     if (mToolbar != null)
@@ -973,7 +1013,7 @@ public class PlacePageView extends RelativeLayout
     UiUtils.hide(mAvDirection);
     UiUtils.setTextAndHideIfEmpty(mTvAddress, mMapObject.getAddress());
 
-    boolean sponsored = (mSponsored != null && mSponsored.getType() != Sponsored.TYPE_NONE);
+    boolean sponsored = isSponsored();
     UiUtils.showIf(sponsored, mSponsoredInfo);
     if (sponsored)
     {
@@ -986,7 +1026,15 @@ public class PlacePageView extends RelativeLayout
     }
 
     if (mBannerController != null)
-      mBannerController.updateData(mMapObject.getBanner());
+    {
+      mBannerController.updateData(policy != null && policy.сanUseNetwork()
+                                   ? mMapObject.getBanner() : null);
+    }
+  }
+
+  private boolean isSponsored()
+  {
+    return mSponsored != null && mSponsored.getType() != Sponsored.TYPE_NONE;
   }
 
   private void refreshDetails()
@@ -1375,10 +1423,10 @@ public class PlacePageView extends RelativeLayout
   private void toggleIsBookmark()
   {
     if (MapObject.isOfType(MapObject.BOOKMARK, mMapObject))
-      setMapObject(Framework.nativeDeleteBookmarkFromMapObject(), true);
+      setMapObject(Framework.nativeDeleteBookmarkFromMapObject(), true, null);
     else
       setMapObject(BookmarkManager.INSTANCE.addNewBookmark(BookmarkManager.nativeFormatNewBookmarkName(),
-                                                           mMapObject.getLat(), mMapObject.getLon()), true);
+                                                           mMapObject.getLat(), mMapObject.getLon()), true, null);
     post(new Runnable()
     {
       @Override
@@ -1571,6 +1619,6 @@ public class PlacePageView extends RelativeLayout
   @Override
   public void onBookmarkSaved(int categoryId, int bookmarkId)
   {
-    setMapObject(BookmarkManager.INSTANCE.getBookmark(categoryId, bookmarkId), true);
+    setMapObject(BookmarkManager.INSTANCE.getBookmark(categoryId, bookmarkId), true, null);
   }
 }

@@ -263,30 +263,23 @@ public final class Sponsored
    * Make request to obtain hotel price information.
    * This method also checks cache for requested hotel id
    * and if cache exists - call {@link #onPriceReceived(String, String, String) onPriceReceived} immediately
-   *
-   * @param id A Hotel id
+   *  @param id A Hotel id
    * @param currencyCode A user currency
+   * @param policy A network policy
    */
-  static void requestPrice(@NonNull Context context, @NonNull final String id,
-                           @NonNull final String currencyCode)
+  static void requestPrice(@NonNull String id, @NonNull String currencyCode,
+                           @NonNull NetworkPolicy policy)
   {
     Price p = sPriceCache.get(id);
     if (p != null)
       onPriceReceived(id, p.mPrice, p.mCurrency);
 
-    NetworkPolicy.checkNetworkPolicy(context, new NetworkPolicy.NetworkPolicyListener()
-    {
-      @Override
-      public void onResult(@NonNull NetworkPolicy policy)
-      {
-        nativeRequestPrice(policy, id, currencyCode);
-      }
-    });
+    nativeRequestPrice(policy, id, currencyCode);
   }
 
 
-  static void requestInfo(@NonNull Context context, @NonNull Sponsored sponsored,
-                          @NonNull String locale)
+  static void requestInfo(@NonNull Sponsored sponsored,
+                          @NonNull String locale, @NonNull NetworkPolicy policy)
   {
     String id = sponsored.getId();
     if (id == null)
@@ -295,7 +288,7 @@ public final class Sponsored
     switch (sponsored.getType())
     {
       case TYPE_BOOKING:
-        requestHotelInfo(context, id, locale);
+        requestHotelInfo(id, locale, policy);
         break;
       case TYPE_GEOCHAT:
 //        TODO: request geochat info
@@ -312,25 +305,18 @@ public final class Sponsored
    * Make request to obtain hotel information.
    * This method also checks cache for requested hotel id
    * and if cache exists - call {@link #onHotelInfoReceived(String, HotelInfo) onHotelInfoReceived} immediately
-   *
-   * @param id A Hotel id
+   *  @param id A Hotel id
    * @param locale A user locale
+   * @param policy A network policy
    */
-  private static void requestHotelInfo(@NonNull Context context, @NonNull final String id,
-                                       @NonNull final String locale)
+  private static void requestHotelInfo(@NonNull String id, @NonNull String locale,
+                                       @NonNull NetworkPolicy policy)
   {
     HotelInfo info = sInfoCache.get(id);
     if (info != null)
       onHotelInfoReceived(id, info);
 
-    NetworkPolicy.checkNetworkPolicy(context, new NetworkPolicy.NetworkPolicyListener()
-    {
-      @Override
-      public void onResult(@NonNull NetworkPolicy policy)
-      {
-        nativeRequestHotelInfo(policy, id, locale);
-      }
-    });
+    nativeRequestHotelInfo(policy, id, locale);
   }
 
   private static void onPriceReceived(@NonNull String id, @NonNull String price,

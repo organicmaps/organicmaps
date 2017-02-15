@@ -133,6 +133,11 @@ public final class NetworkPolicy
     sDialog = new WeakReference<>(dialog);
   }
 
+  public static NetworkPolicy newInstance(boolean canUse)
+  {
+    return new NetworkPolicy(canUse);
+  }
+
   private final boolean mCanUseNetwork;
 
   private NetworkPolicy(boolean canUse)

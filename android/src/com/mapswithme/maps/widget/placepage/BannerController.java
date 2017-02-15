@@ -108,7 +108,8 @@ final class BannerController implements View.OnClickListener
 
     if (TextUtils.isEmpty(labelId))
     {
-      Crashlytics.logException(new Resources.NotFoundException("An empty string id obtained for: "
+      if (MwmApplication.isCrashlyticsEnabled())
+        Crashlytics.logException(new Resources.NotFoundException("An empty string id obtained for: "
                                                                + mBanner));
       return;
     }
@@ -121,7 +122,8 @@ final class BannerController implements View.OnClickListener
     }
     catch (Resources.NotFoundException e)
     {
-      Crashlytics.logException(new IllegalStateException("Unknown banner is found: " + mBanner, e));
+      if (MwmApplication.isCrashlyticsEnabled())
+        Crashlytics.logException(new IllegalStateException("Unknown banner is found: " + mBanner, e));
     }
   }
 
