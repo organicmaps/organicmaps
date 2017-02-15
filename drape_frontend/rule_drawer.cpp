@@ -29,8 +29,6 @@
 
 namespace
 {
-int constexpr kOutlineMinZoomLevel = 16;
-
 // The first zoom level in kAverageSegmentsCount.
 int constexpr kFirstZoomInAverageSegments = 10;
 //                                             10     11    12     13    14    15    16    17    18   19
@@ -300,10 +298,9 @@ void RuleDrawer::operator()(FeatureType const & f)
     if (applyPointStyle || is3dBuilding)
       minVisibleScale = feature::GetMinDrawableScale(f);
 
-    bool const generateOutline = (zoomLevel >= kOutlineMinZoomLevel);
     ApplyAreaFeature apply(m_context->GetTileKey(), insertShape, f.GetID(),
                            isBuilding, areaMinHeight, areaHeight, minVisibleScale,
-                           f.GetRank(), generateOutline, s.GetCaptionDescription());
+                           f.GetRank(),  s.GetCaptionDescription());
     f.ForEachTriangle(apply, zoomLevel);
     apply.SetHotelData(ExtractHotelData(f));
     if (applyPointStyle)

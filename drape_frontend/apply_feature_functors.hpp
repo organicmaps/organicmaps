@@ -103,7 +103,7 @@ class ApplyAreaFeature : public ApplyPointFeature
 public:
   ApplyAreaFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape, FeatureID const & id,
                    bool isBuilding, float minPosZ, float posZ, int minVisibleScale,
-                   uint8_t rank, bool generateOutline, CaptionDescription const & captions);
+                   uint8_t rank, CaptionDescription const & captions);
 
   using TBase::operator ();
 
@@ -128,7 +128,6 @@ private:
 
   float const m_minPosZ;
   bool const m_isBuilding;
-  bool const m_generateOutline;
 };
 
 class ApplyLineFeature : public BaseApplyFeature

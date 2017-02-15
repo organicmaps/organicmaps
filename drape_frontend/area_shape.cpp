@@ -14,14 +14,6 @@
 
 #include "std/algorithm.hpp"
 
-namespace
-{
-
-float const kLightOutlineColorFactor = 0.8;
-float const kDarkOutlineColorFactor = 1.4;
-
-} // namespace
-
 namespace df
 {
 
@@ -34,19 +26,22 @@ AreaShape::AreaShape(vector<m2::PointD> && triangleList, BuildingOutline && buil
 
 void AreaShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
 {
-  auto const style = GetStyleReader().GetCurrentStyle();
-  float const colorFactor = (style == MapStyleDark) ? kDarkOutlineColorFactor : kLightOutlineColorFactor;
-
   dp::TextureManager::ColorRegion region;
   textures->GetColorRegion(m_params.m_color, region);
-  dp::TextureManager::ColorRegion outlineRegion;
-  textures->GetColorRegion(m_params.m_color * colorFactor, outlineRegion);
-  ASSERT_EQUAL(region.GetTexture(), outlineRegion.GetTexture(), ());
+  m2::PointD const colorUv = region.GetTexRect().Center();
+  m2::PointD outlineUv(0.0, 0.0);
+  if (m_buildingOutline.m_generateOutline)
+  {
+    dp::TextureManager::ColorRegion outlineRegion;
+    textures->GetColorRegion(m_params.m_outlineColor, outlineRegion);
+    ASSERT_EQUAL(region.GetTexture(), outlineRegion.GetTexture(), ());
+    outlineUv = outlineRegion.GetTexRect().Center();
+  }
 
   if (m_params.m_is3D)
-    DrawArea3D(batcher, region.GetTexRect().Center(), outlineRegion.GetTexRect().Center(), region.GetTexture());
+    DrawArea3D(batcher, colorUv, outlineUv, region.GetTexture());
   else
-    DrawArea(batcher, region.GetTexRect().Center(), outlineRegion.GetTexRect().Center(), region.GetTexture());
+    DrawArea(batcher, colorUv, outlineUv, region.GetTexture());
 }
 
 void AreaShape::DrawArea(ref_ptr<dp::Batcher> batcher, m2::PointD const & colorUv, m2::PointD const & outlineUv,
