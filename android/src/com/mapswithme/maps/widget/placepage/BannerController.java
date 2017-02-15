@@ -90,6 +90,11 @@ final class BannerController implements AdListener
     {
       AdSettings.addTestDevice("c36b141fff9e11866d8cf9c601d2b7e0");
       AdSettings.addTestDevice("f73c8b5221b977caba1b60cd7a966587");
+      AdSettings.addTestDevice("36dd04f33c4cf92e3b7d21e9a5a9d985");
+      AdSettings.addTestDevice("b39d3c00580d17b291ff4e161a423525");
+      AdSettings.addTestDevice("51bae0d8b2ba8290659840f9098e3026");
+      AdSettings.addTestDevice("583a068aa7293c6743855343251e1fad");
+      AdSettings.addTestDevice("c1c9f7f1c06b8c2c4e15607e5c766cb3");
     }
     mNativeAd = new NativeAd(mFrame.getContext(), mBanner.getId());
     mNativeAd.setAdListener(BannerController.this);
