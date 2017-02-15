@@ -1,5 +1,6 @@
 #pragma once
 
+#include "search/intersection_result.hpp"
 #include "search/model.hpp"
 #include "search/token_range.hpp"
 
@@ -38,6 +39,9 @@ struct PreRankingInfo
 
   // Tokens match to the feature name or house number.
   TokenRange m_tokenRange[SearchModel::SEARCH_TYPE_COUNT];
+
+  // Different geo-parts participated in search.
+  IntersectionResult m_geoParts;
 
   // Rank of the feature.
   uint8_t m_rank = 0;

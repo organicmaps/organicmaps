@@ -2,6 +2,7 @@
 
 #include "search/search_tests_support/test_results_matching.hpp"
 #include "search/search_tests_support/test_search_engine.hpp"
+#include "search/search_tests_support/test_search_request.hpp"
 
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
 
@@ -101,11 +102,16 @@ public:
   }
 
   inline void SetViewport(m2::RectD const & viewport) { m_viewport = viewport; }
+
   bool ResultsMatch(string const & query, TRules const & rules);
 
   bool ResultsMatch(string const & query, string const & locale, TRules const & rules);
 
   bool ResultsMatch(string const & query, Mode mode, TRules const & rules);
+
+  bool ResultsMatch(vector<search::Result> const & results, TRules const & rules);
+
+  unique_ptr<tests_support::TestSearchRequest> MakeRequest(string const & query);
 
   size_t CountFeatures(m2::RectD const & rect);
 

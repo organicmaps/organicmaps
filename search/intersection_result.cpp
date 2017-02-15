@@ -1,17 +1,11 @@
 #include "search/intersection_result.hpp"
 
-#include "std/limits.hpp"
-#include "std/sstream.hpp"
+#include <sstream>
 
 namespace search
 {
 // static
-uint32_t const IntersectionResult::kInvalidId = numeric_limits<uint32_t>::max();
-
-IntersectionResult::IntersectionResult()
-  : m_poi(kInvalidId), m_building(kInvalidId), m_street(kInvalidId)
-{
-}
+uint32_t const IntersectionResult::kInvalidId;
 
 void IntersectionResult::Set(SearchModel::SearchType type, uint32_t id)
 {
@@ -47,9 +41,9 @@ void IntersectionResult::Clear()
   m_street = kInvalidId;
 }
 
-string DebugPrint(IntersectionResult const & result)
+std::string DebugPrint(IntersectionResult const & result)
 {
-  ostringstream os;
+  std::ostringstream os;
   os << "IntersectionResult [ ";
   if (result.m_poi != IntersectionResult::kInvalidId)
     os << "POI:" << result.m_poi << " ";
@@ -60,5 +54,4 @@ string DebugPrint(IntersectionResult const & result)
   os << "]";
   return os.str();
 }
-
 }  // namespace search
