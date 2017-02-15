@@ -14,12 +14,12 @@ omim_add_test(${PROJECT_NAME} ${SRC})
 omim_link_libraries(
   ${PROJECT_NAME}
   partners_api
-  platform
-  geometry
-  coding
-  editor
-  base
   indexer
+  platform
+  editor
+  geometry 
+  coding
+  base
   jansson
   stats_client
   pugixml
