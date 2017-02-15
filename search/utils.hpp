@@ -12,7 +12,6 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
-#include <cctype>
 #include <functional>
 #include <queue>
 #include <vector>
