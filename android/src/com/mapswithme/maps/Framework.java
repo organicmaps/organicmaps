@@ -25,6 +25,8 @@ public class Framework
 {
   public static final int MAP_STYLE_CLEAR = 0;
   public static final int MAP_STYLE_DARK = 1;
+  public static final int MAP_STYLE_VEHICLE_CLEAR = 3;
+  public static final int MAP_STYLE_VEHICLE_DARK = 4;
 
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ROUTER_TYPE_VEHICLE, ROUTER_TYPE_PEDESTRIAN, ROUTER_TYPE_BICYCLE, ROUTER_TYPE_TAXI})

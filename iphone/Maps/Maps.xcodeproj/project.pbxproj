@@ -424,6 +424,12 @@
 		34FE4C451BCC013500066718 /* MWMMapWidgets.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34FE4C441BCC013500066718 /* MWMMapWidgets.mm */; };
 		4519503A1B7A3E070085DA05 /* patterns.txt in Resources */ = {isa = PBXBuildFile; fileRef = 451950391B7A3E070085DA05 /* patterns.txt */; };
 		452FCA3B1B6A3DF7007019AB /* colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = 452FCA3A1B6A3DF7007019AB /* colors.txt */; };
+		4554B6EA1E55F02B0084017F /* drules_proto_vehicle_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4554B6E81E55F02B0084017F /* drules_proto_vehicle_clear.bin */; };
+		4554B6EB1E55F02B0084017F /* drules_proto_vehicle_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4554B6E91E55F02B0084017F /* drules_proto_vehicle_dark.bin */; };
+		4554B6EC1E55F0EF0084017F /* drules_proto_vehicle_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4554B6E81E55F02B0084017F /* drules_proto_vehicle_clear.bin */; };
+		4554B6ED1E55F0F00084017F /* drules_proto_vehicle_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4554B6E81E55F02B0084017F /* drules_proto_vehicle_clear.bin */; };
+		4554B6EE1E55F0F30084017F /* drules_proto_vehicle_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4554B6E91E55F02B0084017F /* drules_proto_vehicle_dark.bin */; };
+		4554B6EF1E55F0F40084017F /* drules_proto_vehicle_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4554B6E91E55F02B0084017F /* drules_proto_vehicle_dark.bin */; };
 		46F26CD810F623BA00ECCA39 /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 46F26CD710F623BA00ECCA39 /* EAGLView.mm */; };
 		4A00DBDF1AB704C400113624 /* drules_proto_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4A00DBDE1AB704C400113624 /* drules_proto_dark.bin */; };
 		4A23D15B1B8B4DD700D4EB6F /* drules_proto_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4A23D1561B8B4DD700D4EB6F /* drules_proto_clear.bin */; };
@@ -1674,6 +1680,8 @@
 		3DDB4BC31DAB98F000F4D021 /* libpartners_api.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpartners_api.a; path = "../../../omim-xcode-build/Debug-iphonesimulator/libpartners_api.a"; sourceTree = "<group>"; };
 		451950391B7A3E070085DA05 /* patterns.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = patterns.txt; path = ../../data/patterns.txt; sourceTree = "<group>"; };
 		452FCA3A1B6A3DF7007019AB /* colors.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = colors.txt; path = ../../data/colors.txt; sourceTree = "<group>"; };
+		4554B6E81E55F02B0084017F /* drules_proto_vehicle_clear.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_vehicle_clear.bin; path = ../../data/drules_proto_vehicle_clear.bin; sourceTree = "<group>"; };
+		4554B6E91E55F02B0084017F /* drules_proto_vehicle_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_vehicle_dark.bin; path = ../../data/drules_proto_vehicle_dark.bin; sourceTree = "<group>"; };
 		458287C21AD3BE2000BA8940 /* DownloadIndicatorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadIndicatorProtocol.h; sourceTree = "<group>"; };
 		46F26CD610F623BA00ECCA39 /* EAGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = EAGLView.h; sourceTree = "<group>"; };
 		46F26CD710F623BA00ECCA39 /* EAGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = EAGLView.mm; sourceTree = "<group>"; };
@@ -3749,6 +3757,8 @@
 		FA065FC61286143F00FEA989 /* External Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4554B6E81E55F02B0084017F /* drules_proto_vehicle_clear.bin */,
+				4554B6E91E55F02B0084017F /* drules_proto_vehicle_dark.bin */,
 				F623DA6A1C9C2731006A3436 /* opening_hours_how_to_edit.html */,
 				6B9978341C89A316003B8AA0 /* editor.config */,
 				671182DE1C7F0DD400CB8177 /* countries_obsolete.txt */,
@@ -3984,6 +3994,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4554B6EA1E55F02B0084017F /* drules_proto_vehicle_clear.bin in Resources */,
+				4554B6EB1E55F02B0084017F /* drules_proto_vehicle_dark.bin in Resources */,
 				EEA61601134C496A003A9827 /* 01_dejavusans.ttf in Resources */,
 				341C2A571B72092A00AD41A1 /* 02_droidsans-fallback.ttf in Resources */,
 				EEA61603134C496A003A9827 /* 03_jomolhari-id-a3d.ttf in Resources */,
@@ -4155,6 +4167,7 @@
 				F6E2FEB21E097BA00083EBEC /* _MWMPPPSchedule.xib in Resources */,
 				F6E2FEB51E097BA00083EBEC /* _MWMPPPSpace.xib in Resources */,
 				F6E2FEB81E097BA00083EBEC /* _MWMPPPSubtitle.xib in Resources */,
+				4554B6EE1E55F0F30084017F /* drules_proto_vehicle_dark.bin in Resources */,
 				F6E2FEBB1E097BA00083EBEC /* _MWMPPPTitle.xib in Resources */,
 				6741A9781BF340DE002C974C /* AddSetTableViewCell.xib in Resources */,
 				340E1EEC1E2F614400CE49BF /* Authorization.storyboard in Resources */,
@@ -4224,6 +4237,7 @@
 				F6E2FDEF1E097BA00083EBEC /* MWMOpeningHoursAddClosedTableViewCell.xib in Resources */,
 				F6E2FDF51E097BA00083EBEC /* MWMOpeningHoursAddScheduleTableViewCell.xib in Resources */,
 				F6E2FDFB1E097BA00083EBEC /* MWMOpeningHoursAllDayTableViewCell.xib in Resources */,
+				4554B6EC1E55F0EF0084017F /* drules_proto_vehicle_clear.bin in Resources */,
 				F6E2FE761E097BA00083EBEC /* MWMOpeningHoursCell.xib in Resources */,
 				F6E2FE011E097BA00083EBEC /* MWMOpeningHoursClosedSpanTableViewCell.xib in Resources */,
 				F6E2FE071E097BA00083EBEC /* MWMOpeningHoursDaysSelectorTableViewCell.xib in Resources */,
@@ -4311,6 +4325,7 @@
 				F6E2FEB31E097BA00083EBEC /* _MWMPPPSchedule.xib in Resources */,
 				F6E2FEB61E097BA00083EBEC /* _MWMPPPSpace.xib in Resources */,
 				F6E2FEB91E097BA00083EBEC /* _MWMPPPSubtitle.xib in Resources */,
+				4554B6EF1E55F0F40084017F /* drules_proto_vehicle_dark.bin in Resources */,
 				F6E2FEBC1E097BA00083EBEC /* _MWMPPPTitle.xib in Resources */,
 				849CF6441DE842290024A8A5 /* AddSetTableViewCell.xib in Resources */,
 				340E1EED1E2F614400CE49BF /* Authorization.storyboard in Resources */,
@@ -4380,6 +4395,7 @@
 				F6E2FDF61E097BA00083EBEC /* MWMOpeningHoursAddScheduleTableViewCell.xib in Resources */,
 				F6E2FDFC1E097BA00083EBEC /* MWMOpeningHoursAllDayTableViewCell.xib in Resources */,
 				F6E2FE771E097BA00083EBEC /* MWMOpeningHoursCell.xib in Resources */,
+				4554B6ED1E55F0F00084017F /* drules_proto_vehicle_clear.bin in Resources */,
 				F6E2FE021E097BA00083EBEC /* MWMOpeningHoursClosedSpanTableViewCell.xib in Resources */,
 				F6E2FE081E097BA00083EBEC /* MWMOpeningHoursDaysSelectorTableViewCell.xib in Resources */,
 				F6E2FE0E1E097BA00083EBEC /* MWMOpeningHoursDeleteScheduleTableViewCell.xib in Resources */,
