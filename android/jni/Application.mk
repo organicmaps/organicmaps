@@ -1,4 +1,4 @@
-NDK_TOOLCHAIN_VERSION := clang3.6
+NDK_TOOLCHAIN_VERSION := clang
 APP_PLATFORM := android-15
 APP_STL := c++_static
 
@@ -8,7 +8,7 @@ APP_STL := c++_static
 APP_CPPFLAGS += -Wno-deprecated-register
 
 ifeq (x$(NDK_ABI_TO_BUILD), x)
-  APP_ABI := armeabi-v7a-hard x86
+  APP_ABI := armeabi-v7a x86
 else
   APP_ABI := $(NDK_ABI_TO_BUILD)
 endif
@@ -28,13 +28,5 @@ else
   APP_CFLAGS += -DRELEASE -D_RELEASE
   ifeq ($(PRODUCTION),1)
     APP_CFLAGS += -DOMIM_PRODUCTION
-    # Temporary workaround for crashes on x86 arch when throwing C++ exceptions, built with NDK r10e version.
-    # Requires patched NDK file "android-ndk-r10e/sources/cxx-stl/gabi++/src/cxxabi.cc" file,
-    # Patch can be found at "../tools/android/cxxabi.cc_patch".
-    # Gradle task patchNdkR10E will patch it for you.
-    # More details here: https://code.google.com/p/android/issues/detail?id=179410.
-    # TODO: Check if this workaround is needed in newer NDK versions. IMPORTANT - r11c version of NDK contains similar, but still unresolved bug, so we cant use it yet.
-    # Generated asm code int r11c contains 'movaps' instructions with unaligned(16 bytes) args, thus generating exceptions.
-    LIBCXX_FORCE_REBUILD := true
   endif
 endif

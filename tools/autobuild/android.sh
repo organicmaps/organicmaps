@@ -6,7 +6,7 @@ MY_PATH="`dirname \"$0\"`"              # relative
 MY_PATH="`( cd \"$MY_PATH\" && pwd )`"  # absolutized and normalized
 
 if [[ $# < 1 ]]; then
-  echo "Usage: $0 <debug|release|production> [armeabi-v7a-hard|x86] [android-PLATFORM_NUMBER]"
+  echo "Usage: $0 <debug|release|production> [armeabi-v7a|x86] [android-PLATFORM_NUMBER]"
   exit 1
 fi
 CONFIGURATION="$1"
@@ -28,7 +28,7 @@ fi
 if [[ $# > 1 ]] ; then
   NDK_ABI_LIST=$2
 else
-  NDK_ABI_LIST=(armeabi-v7a-hard x86)
+  NDK_ABI_LIST=(armeabi-v7a x86)
 fi
 
 

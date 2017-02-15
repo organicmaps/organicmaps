@@ -58,7 +58,7 @@ dependencies {
   // TODO remove this library when default LinearLayoutManager will be fixed.
   compile 'org.solovyev.android.views:linear-layout-manager:0.5@aar'
   compile 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
-  //Glide
+  // Glide
   compile 'com.github.bumptech.glide:glide:3.7.0'
   // Java concurrency annotations
   compile 'net.jcip:jcip-annotations:1.0'
@@ -328,7 +328,7 @@ project.ext.NDK_BUILD = android.getNdkDirectory().toString() + '/ndk-build'
 if (System.properties['os.name'].toLowerCase().contains('windows'))
   project.ext.NDK_BUILD += ".cmd"
 
-def archs = ['x86', 'armeabi-v7a-hard']
+def archs = ['x86', 'armeabi-v7a']
 def buildTypes = [[ndkType: 'release', cppType: "production", flags: propReleaseNdkFlags], [ndkType: 'debug', cppType: "debug", flags: propDebugNdkFlags]]
 
 buildTypes.each { type ->
@@ -431,9 +431,4 @@ task obbPush(dependsOn: ['obbGenerate', 'obbPushMain', 'obbPushPatch']) {
   tasks.create(type: Exec, name: 'obbPushPatch', dependsOn: 'obbRemoveOnDevice') {
     commandLine android.getAdbExe(), 'push', propObbWorldsOutput, "${obbPath}worlds.obb"
   }
-}
-
-task patchNdkR10E(type: Exec, description: 'Patches NDK r10e for bug described here https://code.google.com/p/android/issues/detail?id=179410') {
-  def cxxabiPath = "${android.getNdkDirectory().getAbsolutePath()}/sources/cxx-stl/gabi++/src/cxxabi.cc"
-  commandLine 'bash', '-c', "patch -p1 ${cxxabiPath} < ../tools/android/cxxabi.cc_patch"
 }
