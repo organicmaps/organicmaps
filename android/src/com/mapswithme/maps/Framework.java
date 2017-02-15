@@ -194,8 +194,6 @@ public class Framework
 
   public static native void nativeShowCountry(String countryId, boolean zoomToDownloadButton);
 
-  public static native double[] nativePredictLocation(double lat, double lon, double accuracy, double bearing, double speed, double elapsedSeconds);
-
   public static native void nativeSetMapStyle(int mapStyle);
 
   /**

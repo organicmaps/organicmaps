@@ -1039,20 +1039,6 @@ Java_com_mapswithme_maps_Framework_nativeDeactivatePopup(JNIEnv * env, jclass)
   return g_framework->DeactivatePopup();
 }
 
-JNIEXPORT jdoubleArray JNICALL
-Java_com_mapswithme_maps_Framework_nativePredictLocation(JNIEnv * env, jclass, jdouble lat, jdouble lon, jdouble accuracy,
-                                                         jdouble bearing, jdouble speed, jdouble elapsedSeconds)
-{
-  double latitude = lat;
-  double longitude = lon;
-  ::Framework::PredictLocation(lat, lon, accuracy, bearing, speed, elapsedSeconds);
-  double latlon[] = { lat, lon };
-  jdoubleArray jLatLon = env->NewDoubleArray(2);
-  env->SetDoubleArrayRegion(jLatLon, 0, 2, latlon);
-
-  return jLatLon;
-}
-
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeSetMapStyle(JNIEnv * env, jclass, jint mapStyle)
 {
