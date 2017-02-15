@@ -6,6 +6,8 @@
 
 #include "geometry/latlon.hpp"
 
+#include "platform/country_file.hpp"
+
 #include "base/math.hpp"
 
 #include <map>
@@ -85,10 +87,21 @@ private:
   /// to |m_transitionCache|.
   void InsertWholeMwmTransitionSegments(NumMwmId numMwmId);
 
-  /// \returns routing mapping and guard for memory for succent stuctures in RoutingMapping::m_segMapping.
-  /// \note The result of GetRoutingMapping() call should be kept in a local value to prevent
-  /// an immediate unmaping some data after a GetRoutingMapping() call.
-  std::pair<TRoutingMappingPtr, std::unique_ptr<MappingGuard>> GetRoutingMapping(NumMwmId numMwmId);
+  template <class Fn>
+  bool LoadWith(NumMwmId numMwmId, Fn && fn)
+  {
+    platform::CountryFile const & countryFile = m_numMwmIds->GetFile(numMwmId);
+    TRoutingMappingPtr mapping = m_indexManager.GetMappingByName(countryFile.GetName());
+    CHECK(mapping, ("No routing mapping file for countryFile:", countryFile));
+    MappingGuard mappingGuard(mapping);
+
+    if (!mapping->IsValid())
+      return false; // mwm was not loaded.
+
+    mapping->LoadCrossContext();
+    fn(mapping);
+    return true;
+  }
 
   RoutingIndexManager & m_indexManager;
   std::shared_ptr<NumMwmIds> m_numMwmIds;
