@@ -6,7 +6,6 @@
 namespace
 {
 inline bool IsValidEdgeWeight(EdgeWeight const & w) { return w != INVALID_EDGE_WEIGHT; }
-double constexpr kMwmCrossingNodeEqualityRadiusDegrees = 0.001;
 }
 
 namespace routing
@@ -159,7 +158,7 @@ bool CrossMwmGraph::ConstructBorderCrossImpl(OutgoingCrossNode const & startNode
   nextMapping->LoadCrossContext();
   nextMapping->m_crossContext.ForEachIngoingNodeNearPoint(startNode.m_point, [&](IngoingCrossNode const & node)
     {
-    if (node.m_point.EqualDxDy(startNode.m_point, kMwmCrossingNodeEqualityRadiusDegrees))
+    if (node.m_point.EqualDxDy(startNode.m_point, kMwmCrossingNodeEqualityMeters * MercatorBounds::degreeInMetres))
     {
       auto const toCross = CrossNode(node.m_nodeId, nextMapping->GetMwmId(), node.m_point);
       if (toCross.IsValid())

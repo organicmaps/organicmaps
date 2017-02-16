@@ -1,13 +1,10 @@
 #include "routing/cross_routing_context.hpp"
 
-#include "geometry/mercator.hpp"
 #include "indexer/point_to_int64.hpp"
 
 namespace
 {
 uint32_t constexpr kCoordBits = POINT_COORD_BITS;
-
-double constexpr kMwmCrossingNodeEqualityRadiusDegrees = 0.001;
 }  // namespace
 
 namespace routing
@@ -74,7 +71,10 @@ void CrossRoutingContextReader::Load(Reader const & r)
   m_outgoingNodes.resize(size);
 
   for (size_t i = 0; i < size; ++i)
+  {
     pos = m_outgoingNodes[i].Load(r, pos, i);
+    m_outgoingIndex.Add(m_outgoingNodes[i]);
+  }
 
   size_t adjacencySize = ingoingSize * m_outgoingNodes.size();
   size_t const adjMatrixSize = sizeof(TWrittenEdgeWeight) * adjacencySize;
@@ -96,21 +96,6 @@ void CrossRoutingContextReader::Load(Reader const & r)
   }
 }
 
-bool CrossRoutingContextReader::ForEachIngoingNodeNearPoint(ms::LatLon const & point, function<void(IngoingCrossNode const & node)> && fn) const
-{
-  bool found = false;
-  m_ingoingIndex.ForEachInRect(m2::RectD(point.lat - kMwmCrossingNodeEqualityRadiusDegrees,
-                                     point.lon - kMwmCrossingNodeEqualityRadiusDegrees,
-                                     point.lat + kMwmCrossingNodeEqualityRadiusDegrees,
-                                     point.lon + kMwmCrossingNodeEqualityRadiusDegrees),
-                               [&found, &fn](IngoingCrossNode const & node)
-                               {
-                                 fn(node);
-                                 found = true;
-                               });
-  return found;
-}
-
 const string & CrossRoutingContextReader::GetOutgoingMwmName(
     OutgoingCrossNode const & outgoingNode) const
 {
@@ -129,6 +114,15 @@ TWrittenEdgeWeight CrossRoutingContextReader::GetAdjacencyCost(IngoingCrossNode 
 
   size_t cost_index = m_outgoingNodes.size() * ingoing.m_adjacencyIndex + outgoing.m_adjacencyIndex;
   return cost_index < m_adjacencyMatrix.size() ? m_adjacencyMatrix[cost_index] : kInvalidContextEdgeWeight;
+}
+
+m2::RectD CrossRoutingContextReader::GetMwmCrossingNodeEqualityRect(ms::LatLon const & point) const
+{
+  double constexpr kMwmCrossingNodeEqualityDegrees = kMwmCrossingNodeEqualityMeters * MercatorBounds::degreeInMetres;
+  return m2::RectD(point.lat - kMwmCrossingNodeEqualityDegrees,
+                   point.lon - kMwmCrossingNodeEqualityDegrees,
+                   point.lat + kMwmCrossingNodeEqualityDegrees,
+                   point.lon + kMwmCrossingNodeEqualityDegrees);
 }
 
 void CrossRoutingContextWriter::Save(Writer & w) const
