@@ -177,15 +177,26 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
                                                          dateStyle:NSDateFormatterNoStyle
                                                          timeStyle:NSDateFormatterShortStyle];
   }
-  self.distanceLabel.text = info.targetDistance;
-  self.distanceLegendLabel.text = info.targetUnits;
-  NSMutableAttributedString * distance =
-      [[NSMutableAttributedString alloc] initWithString:info.targetDistance
-                                             attributes:routingNumberAttributes];
-  [distance
-      appendAttributedString:[[NSAttributedString alloc] initWithString:info.targetUnits
-                                                             attributes:routingLegendAttributes]];
-  self.distanceWithLegendLabel.attributedText = distance;
+  NSString * targetDistance = info.targetDistance;
+  NSMutableAttributedString * distance;
+  if (targetDistance)
+  {
+    self.distanceLabel.text = targetDistance;
+    distance = [[NSMutableAttributedString alloc] initWithString:targetDistance
+                                           attributes:routingNumberAttributes];
+  }
+
+  NSString * targetUnits = info.targetUnits;
+  if (targetUnits)
+  {
+    self.distanceLegendLabel.text = targetUnits;
+    if (distance)
+    {
+      [distance appendAttributedString:[[NSAttributedString alloc] initWithString:targetUnits
+                                                                       attributes:routingLegendAttributes]];
+      self.distanceWithLegendLabel.attributedText = distance;
+    }
+  }
 
   NSString * currentSpeed = info.speed ?: @"0";
   self.speedLabel.text = currentSpeed;
