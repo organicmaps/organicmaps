@@ -228,9 +228,9 @@ add_subdirectory(search)
 add_subdirectory(tracking)
 add_subdirectory(traffic)
 add_subdirectory(partners_api)
-add_subdirectory(openlr)
 
 if (PLATFORM_DESKTOP)
+  add_subdirectory(openlr)
   add_subdirectory(generator)
 endif()
 
