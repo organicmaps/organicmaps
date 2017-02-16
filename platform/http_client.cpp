@@ -40,7 +40,7 @@ HttpClient & HttpClient::SetReceivedFile(string const & received_file)
 
 HttpClient & HttpClient::SetUserAndPassword(string const & user, string const & password)
 {
-  m_headers.emplace("Authorization", "Basic" + base64::Encode(user + ":" + password));
+  m_headers.emplace("Authorization", "Basic " + base64::Encode(user + ":" + password));
   return *this;
 }
 

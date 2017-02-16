@@ -7,54 +7,42 @@ import android.support.annotation.Nullable;
 
 public class Review implements Parcelable
 {
-  @Nullable
-  private final String mReview;
-  @Nullable
-  private final String mReviewPositive;
-  @Nullable
-  private final String mReviewNegative;
+  private final long mDate;
+  private final float mRating;
   @NonNull
   private final String mAuthor;
-  @NonNull
-  private final String mAuthorAvatar;
-  private final float mRating;
-  private final long mDate;
+  @Nullable
+  private final String mPros;
+  @Nullable
+  private final String mCons;
 
-  public Review(@Nullable String review, @Nullable String reviewPositive,
-                @Nullable String reviewNegative, @NonNull String author,
-                @NonNull String authorAvatar,
-                float rating, long date)
+  public Review(long date, float rating, @NonNull String author, @Nullable String pros,
+                @Nullable String cons)
   {
-    mReview = review;
-    mReviewPositive = reviewPositive;
-    mReviewNegative = reviewNegative;
-    mAuthor = author;
-    mAuthorAvatar = authorAvatar;
-    mRating = rating;
     mDate = date;
+    mRating = rating;
+    mAuthor = author;
+    mPros = pros;
+    mCons = cons;
   }
 
   protected Review(Parcel in)
   {
-    mReview = in.readString();
-    mReviewPositive = in.readString();
-    mReviewNegative = in.readString();
-    mAuthor = in.readString();
-    mAuthorAvatar = in.readString();
-    mRating = in.readFloat();
     mDate = in.readLong();
+    mRating = in.readFloat();
+    mAuthor = in.readString();
+    mPros = in.readString();
+    mCons = in.readString();
   }
 
   @Override
   public void writeToParcel(Parcel dest, int flags)
   {
-    dest.writeString(mReview);
-    dest.writeString(mReviewPositive);
-    dest.writeString(mReviewNegative);
-    dest.writeString(mAuthor);
-    dest.writeString(mAuthorAvatar);
-    dest.writeFloat(mRating);
     dest.writeLong(mDate);
+    dest.writeFloat(mRating);
+    dest.writeString(mAuthor);
+    dest.writeString(mPros);
+    dest.writeString(mCons);
   }
 
   @Override
@@ -79,34 +67,21 @@ public class Review implements Parcelable
   };
 
   @Nullable
-  public String getReview()
+  public String getPros()
   {
-    return mReview;
+    return mPros;
   }
 
   @Nullable
-  public String getReviewPositive()
+  public String getCons()
   {
-    return mReviewPositive;
-  }
-
-  @Nullable
-  public String getReviewNegative()
-  {
-    return mReviewNegative;
+    return mCons;
   }
 
   @NonNull
   public String getAuthor()
   {
     return mAuthor;
-  }
-
-  @SuppressWarnings("unused")
-  @NonNull
-  public String getAuthorAvatar()
-  {
-    return mAuthorAvatar;
   }
 
   public float getRating()

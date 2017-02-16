@@ -141,7 +141,7 @@ void initFieldsMap()
       return;
     }
     auto success = [self, completion, failure, currency, currencyFormatter](
-        string const & minPrice, string const & priceCurrency) {
+        string const & hotelId, string const & minPrice, string const & priceCurrency) {
       if (currency != priceCurrency)
       {
         failure();

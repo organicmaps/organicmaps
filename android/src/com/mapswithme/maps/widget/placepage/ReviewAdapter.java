@@ -113,23 +113,23 @@ class ReviewAdapter extends BaseAdapter
       Date date = new Date(item.getDate());
       mCommentDate.setText(DateFormat.getMediumDateFormat(mCommentDate.getContext()).format(date));
       mRating.setText(String.format(Locale.getDefault(), "%.1f", item.getRating()));
-      if (TextUtils.isEmpty(item.getReviewPositive()))
+      if (TextUtils.isEmpty(item.getPros()))
       {
         UiUtils.hide(mPositiveReview);
       }
       else
       {
         UiUtils.show(mPositiveReview);
-        mTvPositiveReview.setText(item.getReviewPositive());
+        mTvPositiveReview.setText(item.getPros());
       }
-      if (TextUtils.isEmpty(item.getReviewNegative()))
+      if (TextUtils.isEmpty(item.getCons()))
       {
         UiUtils.hide(mNegativeReview);
       }
       else
       {
         UiUtils.show(mNegativeReview);
-        mTvNegativeReview.setText(item.getReviewNegative());
+        mTvNegativeReview.setText(item.getCons());
       }
     }
   }

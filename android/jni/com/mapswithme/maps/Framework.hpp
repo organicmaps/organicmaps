@@ -161,12 +161,12 @@ namespace android
 
     void SetPlacePageInfo(place_page::Info const & info);
     place_page::Info & GetPlacePageInfo();
-    void RequestBookingMinPrice(JNIEnv * env, jobject policy, string const & hotelId,
-                                string const & currency,
-                                function<void(string const &, string const &)> const & callback);
-    void RequestBookingInfo(JNIEnv * env, jobject policy, string const & hotelId,
-                            string const & lang,
-                            function<void(BookingApi::HotelInfo const &)> const & callback);
+    void RequestBookingMinPrice(JNIEnv * env, jobject policy, 
+                                string const & hotelId, string const & currency,
+                                booking::GetMinPriceCallback const & callback);
+    void RequestBookingInfo(JNIEnv * env, jobject policy, 
+                            string const & hotelId, string const & lang,
+                            booking::GetHotelInfoCallback const & callback);
 
     bool HasSpaceForMigration();
     storage::TCountryId PreMigrate(ms::LatLon const & position, storage::Storage::TChangeCountryFunction const & statusChangeListener,

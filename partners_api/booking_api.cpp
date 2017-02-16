@@ -1,37 +1,240 @@
 #include "partners_api/booking_api.hpp"
 
+#include "platform/http_client.hpp"
+#include "platform/platform.hpp"
+
 #include "base/gmtime.hpp"
 #include "base/logging.hpp"
+#include "base/thread.hpp"
 
-#include "std/chrono.hpp"
+#include "std/initializer_list.hpp"
+#include "std/iomanip.hpp"
 #include "std/iostream.hpp"
 #include "std/sstream.hpp"
+#include "std/utility.hpp"
 
 #include "3party/jansson/myjansson.hpp"
 
 #include "private.h"
 
-char constexpr BookingApi::kDefaultCurrency[1];
-
-BookingApi::BookingApi() : m_affiliateId(BOOKING_AFFILIATE_ID), m_testingMode(false)
+namespace
 {
-  stringstream ss;
-  ss << BOOKING_KEY << ":" << BOOKING_SECRET;
-  m_apiUrl = "https://" + ss.str() + "@distribution-xml.booking.com/json/bookings.";
+using namespace platform;
+using namespace booking;
+
+string const kBookingApiBaseUrl = "https://distribution-xml.booking.com/json/bookings";
+string const kExtendedHotelInfoBaseUrl = "";
+string const kPhotoOriginalUrl = "http://aff.bstatic.com/images/hotel/max500/";
+string const kPhotoSmallUrl = "http://aff.bstatic.com/images/hotel/square60/";
+
+bool RunSimpleHttpRequest(string const & url, string & result)
+{
+  HttpClient request(url);
+  request.SetUserAndPassword(BOOKING_KEY, BOOKING_SECRET);
+  if (request.RunHttpRequest() && !request.WasRedirected() && request.ErrorCode() == 200)
+  {
+    result = request.ServerResponse();
+    return true;
+  }
+  return false;
 }
 
-string BookingApi::GetBookHotelUrl(string const & baseUrl, string const & /* lang */) const
+string MakeApiUrl(string const & func, initializer_list<pair<string, string>> const & params,
+                  bool testing)
 {
-  return GetDescriptionUrl(baseUrl) + "#availability";
+  ostringstream os;
+  os << kBookingApiBaseUrl << "." << func << "?";
+
+  bool firstRun = true;
+  for (auto const & param : params)
+  {
+    if (firstRun)
+    {
+      firstRun = false;
+      os << "";
+    }
+    else
+    {
+      os << "&";
+    }
+    os << param.first << "=" << param.second;
+  }
+
+  if (testing)
+    os << "&show_test=1";
+
+  return os.str();
 }
 
-string BookingApi::GetDescriptionUrl(string const & baseUrl, string const & /* lang */) const
+void ClearHotelInfo(HotelInfo & info)
 {
-  return baseUrl + "?aid=" + m_affiliateId;
+  info.m_hotelId.clear();
+  info.m_description.clear();
+  info.m_photos.clear();
+  info.m_facilities.clear();
+  info.m_reviews.clear();
+  info.m_score = 0.0;
+  info.m_scoreCount = 0;
 }
 
-void BookingApi::GetMinPrice(string const & hotelId, string const & currency,
-                             function<void(string const &, string const &)> const & fn)
+vector<HotelFacility> ParseFacilities(json_t const * facilitiesArray)
+{
+  vector<HotelFacility> facilities;
+
+  if (facilitiesArray == nullptr || !json_is_array(facilitiesArray))
+    return facilities;
+
+  size_t sz = json_array_size(facilitiesArray);
+
+  for (size_t i = 0; i < sz; ++i)
+  {
+    auto item = json_array_get(facilitiesArray, i);
+
+    HotelFacility facility;
+    my::FromJSONObject(item, "facility_type", facility.m_facilityType);
+    my::FromJSONObject(item, "name", facility.m_name);
+
+    facilities.push_back(move(facility));
+  }
+
+  return facilities;
+}
+
+vector<HotelPhotoUrls> ParsePhotos(json_t const * photosArray)
+{
+  if (photosArray == nullptr || !json_is_array(photosArray))
+    return {};
+
+  vector<HotelPhotoUrls> photos;
+  size_t sz = json_array_size(photosArray);
+  string photoId;
+
+  for (size_t i = 0; i < sz; ++i)
+  {
+    auto item = json_array_get(photosArray, i);
+    my::FromJSON(item, photoId);
+
+    // First three digits of id are used as part of path to photo on the server.
+    if (photoId.size() < 3)
+    {
+      LOG(LWARNING, ("Incorrect photo id =", photoId));
+      continue;
+    }
+
+    string url(photoId.substr(0, 3) + "/" + photoId + ".jpg");
+    photos.push_back({kPhotoSmallUrl + url, kPhotoOriginalUrl + url});
+  }
+
+  return photos;
+}
+
+vector<HotelReview> ParseReviews(json_t const * reviewsArray)
+{
+  if (reviewsArray == nullptr || !json_is_array(reviewsArray))
+    return {};
+
+  vector<HotelReview> reviews;
+  size_t sz = json_array_size(reviewsArray);
+  string date;
+
+  for (size_t i = 0; i < sz; ++i)
+  {
+    auto item = json_array_get(reviewsArray, i);
+    HotelReview review;
+
+    my::FromJSONObject(item, "date", date);
+    istringstream ss(date);
+    tm t = {};
+    ss >> get_time(&t, "%Y-%m-%d %H:%M:%S");
+    if (ss.fail())
+    {
+      LOG(LWARNING, ("Incorrect review date =", date));
+      continue;
+    }
+    review.m_date = system_clock::from_time_t(mktime(&t));
+
+    double score;
+    my::FromJSONObject(item, "average_score", score);
+    review.m_score = static_cast<float>(score);
+
+    my::FromJSONObject(item, "author", review.m_author);
+    my::FromJSONObject(item, "pros", review.m_pros);
+    my::FromJSONObject(item, "cons", review.m_cons);
+
+    reviews.push_back(move(review));
+  }
+
+  return reviews;
+}
+
+void FillHotelInfo(string const & src, HotelInfo & info)
+{
+  my::Json root(src.c_str());
+
+  my::FromJSONObjectOptionalField(root.get(), "description", info.m_description);
+  double score;
+  my::FromJSONObjectOptionalField(root.get(), "average_score", score);
+  info.m_score = static_cast<float>(score);
+
+  json_int_t scoreCount = 0;
+  my::FromJSONObjectOptionalField(root.get(), "score_count", scoreCount);
+  info.m_scoreCount = scoreCount;
+
+  auto const facilitiesArray = json_object_get(root.get(), "facilities");
+  info.m_facilities = ParseFacilities(facilitiesArray);
+
+  auto const photosArray = json_object_get(root.get(), "photos");
+  info.m_photos = ParsePhotos(photosArray);
+
+  auto const reviewsArray = json_object_get(root.get(), "reviews");
+  info.m_reviews = ParseReviews(reviewsArray);
+}
+
+void FillPriceAndCurrency(string const & src, string const & currency, string & minPrice,
+                          string & priceCurrency)
+{
+  my::Json root(src.c_str());
+  if (!json_is_array(root.get()))
+    MYTHROW(my::Json::Exception, ("The answer must contain a json array."));
+  size_t const rootSize = json_array_size(root.get());
+
+  if (rootSize == 0)
+    return;
+
+  // Read default hotel price and currency.
+  auto obj = json_array_get(root.get(), 0);
+  my::FromJSONObject(obj, "min_price", minPrice);
+  my::FromJSONObject(obj, "currency_code", priceCurrency);
+
+  if (currency.empty() || priceCurrency == currency)
+    return;
+
+  // Try to get price in requested currency.
+  json_t * arr = json_object_get(obj, "other_currency");
+  if (arr == nullptr || !json_is_array(arr))
+    return;
+
+  size_t sz = json_array_size(arr);
+  string code;
+  for (size_t i = 0; i < sz; ++i)
+  {
+    auto el = json_array_get(arr, i);
+    my::FromJSONObject(el, "currency_code", code);
+    if (code == currency)
+    {
+      priceCurrency = code;
+      my::FromJSONObject(el, "min_price", minPrice);
+      break;
+    }
+  }
+}
+}  // namespace
+
+namespace booking
+{
+// static
+bool RawApi::GetHotelAvailability(string const & hotelId, string const & currency, string & result,
+                                  bool testing /* = false */)
 {
   char dateArrival[12]{};
   char dateDeparture[12]{};
@@ -45,48 +248,69 @@ void BookingApi::GetMinPrice(string const & hotelId, string const & currency,
   string url = MakeApiUrl("getHotelAvailability", {{"hotel_ids", hotelId},
                                                    {"currency_code", currency},
                                                    {"arrival_date", dateArrival},
-                                                   {"departure_date", dateDeparture}});
-  auto const callback = [this, fn, currency](downloader::HttpRequest & answer)
-  {
+                                                   {"departure_date", dateDeparture}},
+                          testing);
+  return RunSimpleHttpRequest(url, result);
+}
 
+// static
+bool RawApi::GetExtendedInfo(string const & hotelId, string const & lang, string & result)
+{
+  ostringstream os;
+  os << kExtendedHotelInfoBaseUrl;
+  // Last three digits of id are used as part of path to hotel extended info on the server.
+  if (hotelId.size() > 3)
+    os << hotelId.substr(hotelId.size() - 3);
+  else
+    os << "000";
+  string langCode;
+  if (lang.empty())
+  {
+    langCode = "en";
+  }
+  else
+  {
+    auto const pos = lang.find('_');
+    if (pos != string::npos)
+      langCode = lang.substr(0, pos);
+    else
+      langCode = lang;
+  }
+
+  os << "/" << hotelId << "/" << langCode << ".json";
+
+  return RunSimpleHttpRequest(os.str(), result);
+}
+
+string Api::GetBookHotelUrl(string const & baseUrl) const
+{
+  return GetDescriptionUrl(baseUrl) + "#availability";
+}
+
+string Api::GetDescriptionUrl(string const & baseUrl) const
+{
+  return baseUrl + string("?aid=") + BOOKING_AFFILIATE_ID;
+}
+
+void Api::GetMinPrice(string const & hotelId, string const & currency,
+                      GetMinPriceCallback const & fn)
+{
+  auto const testingMode = m_testingMode;
+
+  threads::SimpleThread([hotelId, currency, fn, testingMode]()
+  {
     string minPrice;
     string priceCurrency;
+    string httpResult;
+    if (!RawApi::GetHotelAvailability(hotelId, currency, httpResult, testingMode))
+    {
+      fn(hotelId, minPrice, priceCurrency);
+      return;
+    }
+
     try
     {
-      my::Json root(answer.Data().c_str());
-      if (!json_is_array(root.get()))
-        MYTHROW(my::Json::Exception, ("The answer must contain a json array."));
-      size_t const sz = json_array_size(root.get());
-
-      if (sz > 0)
-      {
-        // Read default hotel price and currency.
-        auto obj = json_array_get(root.get(), 0);
-        my::FromJSONObject(obj, "min_price", minPrice);
-        my::FromJSONObject(obj, "currency_code", priceCurrency);
-
-        // Try to get price in requested currency.
-        if (!currency.empty() && priceCurrency != currency)
-        {
-          json_t * arr = json_object_get(obj, "other_currency");
-          if (arr && json_is_array(arr))
-          {
-            size_t sz = json_array_size(arr);
-            for (size_t i = 0; i < sz; ++i)
-            {
-              auto el = json_array_get(arr, i);
-              string code;
-              my::FromJSONObject(el, "currency_code", code);
-              if (code == currency)
-              {
-                priceCurrency = code;
-                my::FromJSONObject(el, "min_price", minPrice);
-                break;
-              }
-            }
-          }
-        }
-      }
+      FillPriceAndCurrency(httpResult, currency, minPrice, priceCurrency);
     }
     catch (my::Json::Exception const & e)
     {
@@ -94,180 +318,35 @@ void BookingApi::GetMinPrice(string const & hotelId, string const & currency,
       minPrice.clear();
       priceCurrency.clear();
     }
-    fn(minPrice, priceCurrency);
-    m_request.reset();
-  };
-
-  m_request.reset(downloader::HttpRequest::Get(url, callback));
+    fn(hotelId, minPrice, priceCurrency);
+  }).detach();
 }
 
-// TODO(mgsergio): This is just a mockup, make it a real function.
-void BookingApi::GetHotelInfo(string const & hotelId, string const & /* lang */,
-                              function<void(HotelInfo const & hotelInfo)> const & fn)
+void Api::GetHotelInfo(string const & hotelId, string const & lang, GetHotelInfoCallback const & fn)
 {
-  HotelInfo info;
+  threads::SimpleThread([hotelId, lang, fn]()
+  {
+    HotelInfo info;
+    info.m_hotelId = hotelId;
 
-  info.m_hotelId = "000";
-  info.m_description = "Interesting place among SoHo, Little "
-      "Italy and China town. Modern design. "
-      "Great view from roof. Near subway. "
-      "Free refreshment every afternoon. "
-      "The staff was very friendly.";
+    string result;
+    if (!RawApi::GetExtendedInfo(hotelId, lang, result))
+    {
+      fn(info);
+      return;
+    }
 
-  info.m_photos.push_back({
-      "http://storage9.static.itmages.ru/i/16/0915/h_1473944906_4427771_63a7c2282b.jpg",
-      "http://storage7.static.itmages.ru/i/16/0915/h_1473945189_5545647_db54564f06.jpg"});
+    try
+    {
+      FillHotelInfo(result, info);
+    }
+    catch (my::Json::Exception const & e)
+    {
+      LOG(LERROR, (e.Msg()));
+      ClearHotelInfo(info);
+    }
 
-  info.m_photos.push_back({
-      "http://storage9.static.itmages.ru/i/16/0915/h_1473944906_1573275_450fcd78b0.jpg",
-      "http://storage8.static.itmages.ru/i/16/0915/h_1473945194_6402871_b68c63c705.jpg"});
-
-  info.m_photos.push_back({
-      "http://storage1.static.itmages.ru/i/16/0915/h_1473944906_6998375_f1ba6024a5.jpg",
-      "http://storage7.static.itmages.ru/i/16/0915/h_1473945188_9401486_7185c713bc.jpg"});
-
-  info.m_photos.push_back({
-      "http://storage7.static.itmages.ru/i/16/0915/h_1473944904_8294064_035b4328ee.jpg",
-      "http://storage9.static.itmages.ru/i/16/0915/h_1473945189_8999398_d9bfe0d56d.jpg"});
-
-  info.m_photos.push_back({
-      "http://storage6.static.itmages.ru/i/16/0915/h_1473944904_2231876_680171f67f.jpg",
-      "http://storage1.static.itmages.ru/i/16/0915/h_1473945190_2042562_c6cfcccd18.jpg"});
-
-  info.m_photos.push_back({
-      "http://storage7.static.itmages.ru/i/16/0915/h_1473944904_2871576_660e0aad58.jpg",
-           "http://storage1.static.itmages.ru/i/16/0915/h_1473945190_9605355_94164142b7.jpg"});
-
-  info.m_photos.push_back({
-      "http://storage8.static.itmages.ru/i/16/0915/h_1473944905_3578559_d4e95070e9.jpg",
-      "http://storage3.static.itmages.ru/i/16/0915/h_1473945190_3367031_145793d530.jpg"});
-
-  info.m_photos.push_back({
-      "http://storage8.static.itmages.ru/i/16/0915/h_1473944905_5596402_9bdce96ace.jpg",
-      "http://storage4.static.itmages.ru/i/16/0915/h_1473945191_2783367_2440027ece.jpg"});
-
-  info.m_photos.push_back({
-      "http://storage8.static.itmages.ru/i/16/0915/h_1473944905_4312757_433c687f4d.jpg",
-      "http://storage6.static.itmages.ru/i/16/0915/h_1473945191_1817571_b945aa1f3e.jpg"});
-
-  info.m_facilities = {
-    {"non_smoking_rooms", "Non smoking rooms"},
-    {"gym", "Training gym"},
-    {"pets_are_allowed", "Pets are allowed"}
-  };
-
-  info.m_reviews = {
-    HotelReview::CriticReview(
-      "Interesting place among SoHo, Little Italy and China town. Modern design. Great view from roof. Near subway. Free refreshment every afternoon. The staff was very friendly.",
-      "Little bit noise from outside",
-      "Anonymous1",
-      "http://storage2.static.itmages.ru/i/16/0915/h_1473945375_5332083_b44af613bd.jpg",
-      9.2,
-      system_clock::now()
-    ),
-    HotelReview::CriticReview(
-      "Interesting place among SoHo, Little Italy and China town. Modern design. Great view from roof. Near subway. Free refreshment every afternoon. The staff was very friendly.",
-      "Little bit noise from outside",
-      "Anonymous2",
-      "http://storage2.static.itmages.ru/i/16/0915/h_1473945375_7504873_be0fe246e3.jpg",
-      9.2,
-      system_clock::now()
-    ),
-    HotelReview::CriticReview(
-      "Interesting place among SoHo, Little Italy and China town. Modern design. Great view from roof. Near subway. Free refreshment every afternoon. The staff was very friendly.",
-      "Little bit noise from outside",
-      "Anonymous2",
-      "http://storage1.static.itmages.ru/i/16/0915/h_1473945374_9397526_996bbca0d7.jpg",
-      9.2,
-      system_clock::now()
-    ),
-    HotelReview::CriticReview(
-      "Interesting place among SoHo, Little Italy and China town. Modern design. Great view from roof. Near subway. Free refreshment every afternoon. The staff was very friendly.",
-      "Little bit noise from outside",
-      "Anonymous1",
-      "http://storage2.static.itmages.ru/i/16/0915/h_1473945375_5332083_b44af613bd.jpg",
-      9.2,
-      system_clock::now()
-    ),
-    HotelReview::CriticReview(
-      "Interesting place among SoHo, Little Italy and China town. Modern design. Great view from roof. Near subway. Free refreshment every afternoon. The staff was very friendly.",
-      "Little bit noise from outside",
-      "Anonymous2",
-      "http://storage2.static.itmages.ru/i/16/0915/h_1473945375_7504873_be0fe246e3.jpg",
-      9.2,
-      system_clock::now()
-    ),
-    HotelReview::CriticReview(
-      "Interesting place among SoHo, Little Italy and China town. Modern design. Great view from roof. Near subway. Free refreshment every afternoon. The staff was very friendly.",
-      "Little bit noise from outside",
-      "Anonymous2",
-      "http://storage1.static.itmages.ru/i/16/0915/h_1473945374_9397526_996bbca0d7.jpg",
-      9.2,
-      system_clock::now()
-    ),
-    HotelReview::CriticReview(
-      "Interesting place among SoHo, Little Italy and China town. Modern design. Great view from roof. Near subway. Free refreshment every afternoon. The staff was very friendly.",
-      "Little bit noise from outside",
-      "Anonymous1",
-      "http://storage2.static.itmages.ru/i/16/0915/h_1473945375_5332083_b44af613bd.jpg",
-      9.2,
-      system_clock::now()
-    ),
-    HotelReview::CriticReview(
-      "Interesting place among SoHo, Little Italy and China town. Modern design. Great view from roof. Near subway. Free refreshment every afternoon. The staff was very friendly.",
-      "Little bit noise from outside",
-      "Anonymous2",
-      "http://storage2.static.itmages.ru/i/16/0915/h_1473945375_7504873_be0fe246e3.jpg",
-      9.2,
-      system_clock::now()
-    ),
-    HotelReview::CriticReview(
-      "Interesting place among SoHo, Little Italy and China town. Modern design. Great view from roof. Near subway. Free refreshment every afternoon. The staff was very friendly.",
-      "Little bit noise from outside",
-      "Anonymous2",
-      "http://storage1.static.itmages.ru/i/16/0915/h_1473945374_9397526_996bbca0d7.jpg",
-      9.2,
-      system_clock::now()
-    ),
-    HotelReview::CriticReview(
-      "Interesting place among SoHo, Little Italy and China town. Modern design. Great view from roof. Near subway. Free refreshment every afternoon. The staff was very friendly.",
-      "Little bit noise from outside",
-      "Anonymous1",
-      "http://storage2.static.itmages.ru/i/16/0915/h_1473945375_5332083_b44af613bd.jpg",
-      9.2,
-      system_clock::now()
-    ),
-    HotelReview::CriticReview(
-      "Interesting place among SoHo, Little Italy and China town. Modern design. Great view from roof. Near subway. Free refreshment every afternoon. The staff was very friendly.",
-      "Little bit noise from outside",
-      "Anonymous2",
-      "http://storage2.static.itmages.ru/i/16/0915/h_1473945375_7504873_be0fe246e3.jpg",
-      9.2,
-      system_clock::now()
-    ),
-    HotelReview::CriticReview(
-      "Interesting place among SoHo, Little Italy and China town. Modern design. Great view from roof. Near subway. Free refreshment every afternoon. The staff was very friendly.",
-      "Little bit noise from outside",
-      "Anonymous2",
-      "http://storage1.static.itmages.ru/i/16/0915/h_1473945374_9397526_996bbca0d7.jpg",
-      9.2,
-      system_clock::now()
-   )
-  };
-
-  fn(info);
+    fn(info);
+  }).detach();
 }
-
-string BookingApi::MakeApiUrl(string const & func,
-                              initializer_list<pair<string, string>> const & params)
-{
-  stringstream ss;
-  ss << m_apiUrl << func << "?";
-  bool firstRun = true;
-  for (auto const & param : params)
-    ss << (firstRun ? firstRun = false, "" : "&") << param.first << "=" << param.second;
-  if (m_testingMode)
-    ss << "&show_test=1";
-
-  return ss.str();
-}
+}  // namespace booking

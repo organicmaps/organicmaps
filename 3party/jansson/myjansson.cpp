@@ -12,7 +12,7 @@ void FromJSON(json_t * root, string & result)
 void FromJSONObject(json_t * root, string const & field, string & result)
 {
   if (!json_is_object(root))
-    MYTHROW(my::Json::Exception, ("Bad json object when parsing", field));
+    MYTHROW(my::Json::Exception, ("Bad json object while parsing", field));
   json_t * val = json_object_get(root, field.c_str());
   if (!val)
     MYTHROW(my::Json::Exception, ("Obligatory field", field, "is absent."));
@@ -31,7 +31,7 @@ void FromJSONObject(json_t * root, string const & field, strings::UniString & re
 void FromJSONObject(json_t * root, string const & field, double & result)
 {
   if (!json_is_object(root))
-    MYTHROW(my::Json::Exception, ("Bad json object when parsing", field));
+    MYTHROW(my::Json::Exception, ("Bad json object while parsing", field));
   json_t * val = json_object_get(root, field.c_str());
   if (!val)
     MYTHROW(my::Json::Exception, ("Obligatory field", field, "is absent."));
@@ -43,7 +43,7 @@ void FromJSONObject(json_t * root, string const & field, double & result)
 void FromJSONObject(json_t * root, string const & field, json_int_t & result)
 {
   if (!json_is_object(root))
-    MYTHROW(my::Json::Exception, ("Bad json object when parsing", field));
+    MYTHROW(my::Json::Exception, ("Bad json object while parsing", field));
   json_t * val = json_object_get(root, field.c_str());
   if (!val)
     MYTHROW(my::Json::Exception, ("Obligatory field", field, "is absent."));
@@ -55,7 +55,7 @@ void FromJSONObject(json_t * root, string const & field, json_int_t & result)
 void FromJSONObjectOptionalField(json_t * root, string const & field, string & result)
 {
   if (!json_is_object(root))
-    MYTHROW(my::Json::Exception, ("Bad json object when parsing", field));
+    MYTHROW(my::Json::Exception, ("Bad json object while parsing", field));
   json_t * val = json_object_get(root, field.c_str());
   if (!val)
   {
@@ -70,7 +70,7 @@ void FromJSONObjectOptionalField(json_t * root, string const & field, string & r
 void FromJSONObjectOptionalField(json_t * root, string const & field, json_int_t & result)
 {
   if (!json_is_object(root))
-    MYTHROW(my::Json::Exception, ("Bad json object when parsing", field));
+    MYTHROW(my::Json::Exception, ("Bad json object while parsing", field));
   json_t * val = json_object_get(root, field.c_str());
   if (!val)
   {
@@ -82,10 +82,25 @@ void FromJSONObjectOptionalField(json_t * root, string const & field, json_int_t
   result = json_integer_value(val);
 }
 
+void FromJSONObjectOptionalField(json_t * root, string const & field, double & result)
+{
+  if (!json_is_object(root))
+    MYTHROW(my::Json::Exception, ("Bad json object while parsing", field));
+  json_t * val = json_object_get(root, field.c_str());
+  if (!val)
+  {
+    result = 0.0;
+    return;
+  }
+  if (!json_is_number(val))
+    MYTHROW(my::Json::Exception, ("The field", field, "must contain a json number."));
+  result = json_number_value(val);
+}
+
 void FromJSONObjectOptionalField(json_t * root, string const & field, bool & result, bool def)
 {
   if (!json_is_object(root))
-    MYTHROW(my::Json::Exception, ("Bad json object when parsing", field));
+    MYTHROW(my::Json::Exception, ("Bad json object while parsing", field));
   json_t * val = json_object_get(root, field.c_str());
   if (!val)
   {

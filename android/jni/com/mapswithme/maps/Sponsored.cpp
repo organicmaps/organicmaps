@@ -10,6 +10,8 @@
 
 namespace
 {
+using namespace booking;
+
 jclass g_sponsoredClass;
 jclass g_facilityTypeClass;
 jclass g_nearbyObjectClass;
@@ -24,6 +26,7 @@ jmethodID g_hotelInfoConstructor;
 jmethodID g_sponsoredClassConstructor;
 jmethodID g_priceCallback;
 jmethodID g_infoCallback;
+string g_lastRequestedHotelId;
 
 void PrepareClassRefs(JNIEnv * env, jclass sponsoredClass)
 {
@@ -47,8 +50,8 @@ void PrepareClassRefs(JNIEnv * env, jclass sponsoredClass)
   g_imageConstructor =
       jni::GetConstructorID(env, g_imageClass, "(Ljava/lang/String;Ljava/lang/String;)V");
   g_reviewConstructor = jni::GetConstructorID(env, g_reviewClass,
-                                              "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/"
-                                              "String;Ljava/lang/String;Ljava/lang/String;FJ)V");
+                                              "(JFLjava/lang/String;Ljava/lang/"
+                                              "String;Ljava/lang/String;)V");
   g_hotelInfoConstructor = jni::GetConstructorID(
       env, g_hotelInfoClass,
       "(Ljava/lang/String;[Lcom/mapswithme/maps/gallery/Image;[Lcom/mapswithme/maps/widget/"
@@ -69,10 +72,41 @@ void PrepareClassRefs(JNIEnv * env, jclass sponsoredClass)
       "(Ljava/lang/String;Lcom/mapswithme/maps/widget/placepage/Sponsored$HotelInfo;)V");
 }
 
+jobjectArray ToPhotosArray(JNIEnv * env, vector<HotelPhotoUrls> const & photos)
+{
+  return jni::ToJavaArray(env, g_imageClass, photos,
+                          [](JNIEnv * env, HotelPhotoUrls const & item) {
+                            return env->NewObject(g_imageClass, g_imageConstructor,
+                                                  jni::ToJavaString(env, item.m_original),
+                                                  jni::ToJavaString(env, item.m_small));
+                          });
+}
+
+jobjectArray ToFacilitiesArray(JNIEnv * env, vector<HotelFacility> const & facilities)
+{
+  return jni::ToJavaArray(env, g_facilityTypeClass, facilities,
+                          [](JNIEnv * env, HotelFacility const & item) {
+                            return env->NewObject(g_facilityTypeClass, g_facilityConstructor,
+                                                  jni::ToJavaString(env, item.m_facilityType),
+                                                  jni::ToJavaString(env, item.m_name));
+                          });
+}
+
+jobjectArray ToReviewsArray(JNIEnv * env, vector<HotelReview> const & reviews)
+{
+  return jni::ToJavaArray(env, g_reviewClass, reviews,
+                          [](JNIEnv * env, HotelReview const & item) {
+                            return env->NewObject(
+                                g_reviewClass, g_reviewConstructor,
+                                time_point_cast<milliseconds>(item.m_date).time_since_epoch().count(),
+                                item.m_score, jni::ToJavaString(env, item.m_author),
+                                jni::ToJavaString(env, item.m_pros), jni::ToJavaString(env, item.m_cons));
+                          });
+}
 }  // namespace
 
-extern "C" {
-
+extern "C"
+{
 // static Sponsored nativeGetCurrent();
 JNIEXPORT jobject JNICALL Java_com_mapswithme_maps_widget_placepage_Sponsored_nativeGetCurrent(
     JNIEnv * env, jclass clazz)
@@ -98,17 +132,21 @@ JNIEXPORT void JNICALL Java_com_mapswithme_maps_widget_placepage_Sponsored_nativ
   PrepareClassRefs(env, clazz);
 
   string const hotelId = jni::ToNativeString(env, id);
+  g_lastRequestedHotelId = hotelId;
+
   string const code = jni::ToNativeString(env, currencyCode);
 
-  g_framework->RequestBookingMinPrice(
-      env, policy, hotelId, code, [hotelId](string const & price, string const & currency) {
-        GetPlatform().RunOnGuiThread([=]() {
-          JNIEnv * env = jni::GetEnv();
-          env->CallStaticVoidMethod(g_sponsoredClass, g_priceCallback,
-                                    jni::ToJavaString(env, hotelId), jni::ToJavaString(env, price),
-                                    jni::ToJavaString(env, currency));
-        });
+  g_framework->RequestBookingMinPrice(env, policy, hotelId, code,
+    [](string const & hotelId, string const & price, string const & currency) {
+      GetPlatform().RunOnGuiThread([hotelId, price, currency]() {
+        if (g_lastRequestedHotelId != hotelId)
+          return;
+
+        JNIEnv * env = jni::GetEnv();
+        env->CallStaticVoidMethod(g_sponsoredClass, g_priceCallback, jni::ToJavaString(env, hotelId),
+                                  jni::ToJavaString(env, price), jni::ToJavaString(env, currency));
       });
+  });
 }
 
 // static void nativeRequestInfo(String id, String locale);
@@ -118,48 +156,26 @@ JNIEXPORT void JNICALL Java_com_mapswithme_maps_widget_placepage_Sponsored_nativ
   PrepareClassRefs(env, clazz);
 
   string const hotelId = jni::ToNativeString(env, id);
+  g_lastRequestedHotelId = hotelId;
+
   string const code = jni::ToNativeString(env, locale);
 
-  g_framework->RequestBookingInfo(
-      env, policy, hotelId, code, [hotelId](BookingApi::HotelInfo const & hotelInfo) {
-        GetPlatform().RunOnGuiThread([=]() {
-          JNIEnv * env = jni::GetEnv();
+  g_framework->RequestBookingInfo(env, policy, hotelId, code, [hotelId](HotelInfo const & hotelInfo) {
+    GetPlatform().RunOnGuiThread([hotelId, hotelInfo]() {
+      if (g_lastRequestedHotelId != hotelId)
+          return;
+      JNIEnv * env = jni::GetEnv();
 
-          auto description = jni::ToJavaString(env, hotelInfo.m_description);
-          auto photos =
-              jni::ToJavaArray(env, g_imageClass, hotelInfo.m_photos,
-                               [](JNIEnv * env, BookingApi::HotelPhotoUrls const & item) {
-                                 return env->NewObject(g_imageClass, g_imageConstructor,
-                                                       jni::ToJavaString(env, item.m_original),
-                                                       jni::ToJavaString(env, item.m_small));
-                               });
-          auto facilities = jni::ToJavaArray(env, g_facilityTypeClass, hotelInfo.m_facilities,
-                                             [](JNIEnv * env, BookingApi::Facility const & item) {
-                                               return env->NewObject(
-                                                   g_facilityTypeClass, g_facilityConstructor,
-                                                   jni::ToJavaString(env, item.m_id),
-                                                   jni::ToJavaString(env, item.m_localizedName));
-                                             });
-          auto reviews = jni::ToJavaArray(
-              env, g_reviewClass, hotelInfo.m_reviews,
-              [](JNIEnv * env, BookingApi::HotelReview const & item) {
-                return env->NewObject(
-                    g_reviewClass, g_reviewConstructor,
-                    jni::ToJavaString(env, item.m_reviewNeutral),
-                    jni::ToJavaString(env, item.m_reviewPositive),
-                    jni::ToJavaString(env, item.m_reviewNegative),
-                    jni::ToJavaString(env, item.m_author),
-                    jni::ToJavaString(env, item.m_authorPictUrl), item.m_rating,
-                    time_point_cast<milliseconds>(item.m_date).time_since_epoch().count());
-              });
-          auto nearby = env->NewObjectArray(0, g_nearbyObjectClass, 0);
+      auto description = jni::ToJavaString(env, hotelInfo.m_description);
+      auto photos = ToPhotosArray(env, hotelInfo.m_photos);
+      auto facilities = ToFacilitiesArray(env, hotelInfo.m_facilities);
+      auto reviews = ToReviewsArray(env, hotelInfo.m_reviews);
+      auto nearby = env->NewObjectArray(0, g_nearbyObjectClass, 0);
 
-          env->CallStaticVoidMethod(
-              g_sponsoredClass, g_infoCallback, jni::ToJavaString(env, hotelId),
-              env->NewObject(g_hotelInfoClass, g_hotelInfoConstructor, description, photos,
-                             facilities, reviews, nearby));
-        });
-      });
+      env->CallStaticVoidMethod(g_sponsoredClass, g_infoCallback, jni::ToJavaString(env, hotelId),
+                                env->NewObject(g_hotelInfoClass, g_hotelInfoConstructor, description,
+                                               photos, facilities, reviews, nearby));
+    });
+  });
 }
-
 }  // extern "C"

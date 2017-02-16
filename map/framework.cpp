@@ -471,7 +471,7 @@ Framework::~Framework()
   m_model.SetOnMapDeregisteredCallback(nullptr);
 }
 
-BookingApi * Framework::GetBookingApi(platform::NetworkPolicy const & policy)
+booking::Api * Framework::GetBookingApi(platform::NetworkPolicy const & policy)
 {
   if (policy.CanUse())
     return m_bookingApi.get();
@@ -479,7 +479,7 @@ BookingApi * Framework::GetBookingApi(platform::NetworkPolicy const & policy)
   return nullptr;
 }
 
-BookingApi const * Framework::GetBookingApi(platform::NetworkPolicy const & policy) const
+booking::Api const * Framework::GetBookingApi(platform::NetworkPolicy const & policy) const
 {
   if (policy.CanUse())
     return m_bookingApi.get();
