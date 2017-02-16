@@ -31,7 +31,6 @@ public:
   Joint::Id GetJointId(RoadPoint const & rp) const { return m_roadIndex.GetJointId(rp); }
 
   Geometry & GetGeometry() { return m_geometry; }
-  EdgeEstimator const & GetEstimator() const { return *m_estimator; }
   bool IsRoad(uint32_t featureId) const { return m_roadIndex.IsRoad(featureId); }
   RoadJointIds const & GetRoad(uint32_t featureId) const { return m_roadIndex.GetRoad(featureId); }
 

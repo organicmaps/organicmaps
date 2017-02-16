@@ -28,6 +28,7 @@ SOURCES += \
     features_road_graph.cpp \
     geometry.cpp \
     index_graph.cpp \
+    index_graph_loader.cpp \
     index_graph_serialization.cpp \
     index_graph_starter.cpp \
     index_road_graph.cpp \
@@ -62,6 +63,7 @@ SOURCES += \
     turns_sound_settings.cpp \
     turns_tts_text.cpp \
     vehicle_model.cpp \
+    world_graph.cpp \
 
 
 HEADERS += \
@@ -81,6 +83,7 @@ HEADERS += \
     features_road_graph.hpp \
     geometry.hpp \
     index_graph.hpp \
+    index_graph_loader.hpp \
     index_graph_serialization.hpp \
     index_graph_starter.hpp \
     index_road_graph.hpp \
@@ -118,6 +121,7 @@ HEADERS += \
     segment.hpp \
     single_mwm_router.hpp \
     speed_camera.hpp \
+    traffic_stash.hpp \
     turn_candidate.hpp \
     turns.hpp \
     turns_generator.hpp \
@@ -126,3 +130,4 @@ HEADERS += \
     turns_tts_text.hpp \
     vehicle_mask.hpp \
     vehicle_model.hpp \
+    world_graph.hpp \

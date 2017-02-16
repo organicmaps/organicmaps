@@ -1,6 +1,7 @@
 #pragma once
 
 #include "routing/index_graph_starter.hpp"
+#include "routing/num_mwm_id.hpp"
 #include "routing/road_graph.hpp"
 #include "routing/segment.hpp"
 
@@ -14,9 +15,9 @@ namespace routing
 class IndexRoadGraph : public RoadGraphBase
 {
 public:
-  IndexRoadGraph(MwmSet::MwmId const & mwmId, Index const & index, double maxSpeedKMPH,
-                 IndexGraphStarter & starter, vector<Segment> const & segments,
-                 vector<Junction> const & junctions);
+  IndexRoadGraph(shared_ptr<NumMwmIds> numMwmIds, IndexGraphStarter & starter,
+                 vector<Segment> const & segments, vector<Junction> const & junctions,
+                 Index & index);
 
   // IRoadGraphBase overrides:
   virtual void GetOutgoingEdges(Junction const & junction, TEdgeVector & edges) const override;
@@ -31,9 +32,8 @@ private:
   Junction GetJunction(Segment const & segment, bool front) const;
   vector<Segment> const & GetSegments(Junction const & junction, bool isOutgoing) const;
 
-  MwmSet::MwmId const & m_mwmId;
-  Index const & m_index;
-  double const m_maxSpeedKMPH;
+  Index & m_index;
+  shared_ptr<NumMwmIds> m_numMwmIds;
   IndexGraphStarter & m_starter;
   map<Junction, vector<Segment>> m_beginToSegment;
   map<Junction, vector<Segment>> m_endToSegment;

@@ -8,7 +8,7 @@ namespace routing
 using namespace traffic;
 
 void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
-                      shared_ptr<TrafficInfo::Coloring> const & trafficColoring,
+                      shared_ptr<TrafficStash> const & trafficStash,
                       my::Cancellable const & cancellable, vector<Junction> & path, Route & route)
 {
   if (path.empty())
@@ -28,8 +28,8 @@ void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
   vector<Junction> junctions;
   // @TODO(bykoianko) streetNames is not filled in Generate(). It should be done.
   Route::TStreets streetNames;
-  vector<TrafficInfo::RoadSegmentId> trafficSegs;
-  engine.Generate(graph, path, times, turnsDir, junctions, trafficSegs, cancellable);
+  vector<Segment> trafficSegs;
+  engine.Generate(graph, path, cancellable, times, turnsDir, junctions, trafficSegs);
 
   if (cancellable.IsCancelled())
     return;
@@ -57,14 +57,23 @@ void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
   route.SetAltitudes(move(altitudes));
 
   vector<traffic::SpeedGroup> traffic;
-  if (trafficColoring && !trafficSegs.empty())
+  if (trafficStash && !trafficSegs.empty())
   {
     traffic.reserve(2 * trafficSegs.size());
-    for (TrafficInfo::RoadSegmentId const & seg : trafficSegs)
+    for (Segment const & seg : trafficSegs)
     {
-      auto const it = trafficColoring->find(seg);
-      SpeedGroup const segTraffic = (it == trafficColoring->cend()) ? SpeedGroup::Unknown
-                                                               : it->second;
+      traffic::TrafficInfo::RoadSegmentId roadSegment(
+          seg.GetFeatureId(), seg.GetSegmentIdx(),
+          seg.IsForward() ? traffic::TrafficInfo::RoadSegmentId::kForwardDirection
+                          : traffic::TrafficInfo::RoadSegmentId::kReverseDirection);
+
+      auto segTraffic = SpeedGroup::Unknown;
+      if (auto trafficColoring = trafficStash->Get(seg.GetMwmId()))
+      {
+        auto const it = trafficColoring->find(roadSegment);
+        if (it != trafficColoring->cend())
+          segTraffic = it->second;
+      }
       // @TODO It's written to compensate an error. The problem is in case of any routing except for osrm
       // all route points except for begining and ending are duplicated.
       // See a TODO in BicycleDirectionsEngine::Generate() for details.

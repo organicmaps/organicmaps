@@ -8,6 +8,7 @@
 #include "routing/router.hpp"
 #include "routing/turns.hpp"
 #include "routing/turn_candidate.hpp"
+#include "routing/segment.hpp"
 
 #include "traffic/traffic_info.hpp"
 
@@ -50,7 +51,7 @@ IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result,
                                        vector<Junction> & points,
                                        Route::TTurns & turnsDir, Route::TTimes & times,
                                        Route::TStreets & streets,
-                                       vector<traffic::TrafficInfo::RoadSegmentId> & trafficSegs);
+                                       vector<Segment> & trafficSegs);
 
 /*!
  * \brief The TurnInfo struct is a representation of a junction.

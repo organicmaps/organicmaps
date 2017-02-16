@@ -277,7 +277,7 @@ unique_ptr<IRouter> CreateBicycleAStarBidirectionalRouter(Index & index, TCountr
 {
   unique_ptr<VehicleModelFactory> vehicleModelFactory(new BicycleModelFactory());
   unique_ptr<IRoutingAlgorithm> algorithm(new AStarBidirectionalRoutingAlgorithm());
-  unique_ptr<IDirectionsEngine> directionsEngine(new BicycleDirectionsEngine(index));
+  unique_ptr<IDirectionsEngine> directionsEngine(new BicycleDirectionsEngine(index, nullptr));
   unique_ptr<IRouter> router(new RoadGraphRouter(
       "astar-bidirectional-bicycle", index, countryFileFn, IRoadGraph::Mode::ObeyOnewayTag,
       move(vehicleModelFactory), move(algorithm), move(directionsEngine)));

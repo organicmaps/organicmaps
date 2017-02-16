@@ -8,8 +8,8 @@ namespace routing
 Segment constexpr IndexGraphStarter::kStartFakeSegment;
 Segment constexpr IndexGraphStarter::kFinishFakeSegment;
 
-IndexGraphStarter::IndexGraphStarter(IndexGraph & graph, FakeVertex const & start,
-                                     FakeVertex const & finish)
+IndexGraphStarter::IndexGraphStarter(FakeVertex const & start, FakeVertex const & finish,
+                                     WorldGraph & graph)
   : m_graph(graph), m_start(start), m_finish(finish)
 {
 }
@@ -22,7 +22,8 @@ m2::PointD const & IndexGraphStarter::GetPoint(Segment const & segment, bool fro
   if (segment == kFinishFakeSegment || (front && m_finish.Fits(segment)))
     return m_finish.GetPoint();
 
-  return m_graph.GetGeometry().GetPoint(segment.GetRoadPoint(front));
+  return m_graph.GetRoadGeometry(segment.GetMwmId(), segment.GetFeatureId())
+      .GetPoint(segment.GetPointId(front));
 }
 
 // static
@@ -74,14 +75,15 @@ void IndexGraphStarter::GetFakeToNormalEdges(FakeVertex const & fakeVertex,
 {
   GetFakeToNormalEdge(fakeVertex, true /* forward */, edges);
 
-  if (!m_graph.GetGeometry().GetRoad(fakeVertex.GetFeatureId()).IsOneWay())
+  if (!m_graph.GetRoadGeometry(fakeVertex.GetMwmId(), fakeVertex.GetFeatureId()).IsOneWay())
     GetFakeToNormalEdge(fakeVertex, false /* forward */, edges);
 }
 
 void IndexGraphStarter::GetFakeToNormalEdge(FakeVertex const & fakeVertex, bool forward,
                                             vector<SegmentEdge> & edges)
 {
-  Segment const segment(fakeVertex.GetFeatureId(), fakeVertex.GetSegmentIdx(), forward);
+  Segment const segment(fakeVertex.GetMwmId(), fakeVertex.GetFeatureId(),
+                        fakeVertex.GetSegmentIdx(), forward);
   m2::PointD const & pointTo = GetPoint(segment, true /* front */);
   double const weight = m_graph.GetEstimator().CalcHeuristic(fakeVertex.GetPoint(), pointTo);
   edges.emplace_back(segment, weight);
@@ -94,7 +96,7 @@ void IndexGraphStarter::GetNormalToFakeEdge(Segment const & segment, FakeVertex 
   if (!fakeVertex.Fits(segment))
     return;
 
-  m2::PointD const & pointFrom = m_graph.GetGeometry().GetPoint(segment.GetRoadPoint(isOutgoing));
+  m2::PointD const & pointFrom = GetPoint(segment, isOutgoing);
   double const weight = m_graph.GetEstimator().CalcHeuristic(pointFrom, fakeVertex.GetPoint());
   edges.emplace_back(fakeSegment, weight);
 }

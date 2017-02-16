@@ -208,7 +208,7 @@ IRouter::ResultCode FindSingleOsrmRoute(FeatureGraphNode const & source,
   Route::TTurns turns;
   Route::TTimes times;
   Route::TStreets streets;
-  vector<traffic::TrafficInfo::RoadSegmentId> trafficSegs;
+  vector<Segment> trafficSegs;
 
   LOG(LINFO, ("OSRM route from", MercatorBounds::ToLatLon(source.segmentPoint), "to",
               MercatorBounds::ToLatLon(target.segmentPoint)));
@@ -599,7 +599,8 @@ IRouter::ResultCode CarRouter::FindSingleRouteDispatcher(FeatureGraphNode const 
     }
     LOG(LINFO, (m_router->GetName(), "route from", MercatorBounds::ToLatLon(source.segmentPoint),
                 "to", MercatorBounds::ToLatLon(target.segmentPoint)));
-    result = m_router->CalculateRoute(source.mwmId, source.segmentPoint,
+    m_router->SetCountry(source.mwmId.GetInfo()->GetCountryName());
+    result = m_router->CalculateRoute(source.segmentPoint,
                                       m2::PointD(0, 0) /* direction */, target.segmentPoint,
                                       delegate, mwmRoute);
   }

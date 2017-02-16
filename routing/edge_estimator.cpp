@@ -2,7 +2,8 @@
 
 #include "traffic/traffic_info.hpp"
 
-#include "std/algorithm.hpp"
+#include <algorithm>
+#include <unordered_map>
 
 using namespace traffic;
 
@@ -37,35 +38,22 @@ inline double TimeBetweenSec(m2::PointD const & from, m2::PointD const & to, dou
 class CarEdgeEstimator : public EdgeEstimator
 {
 public:
-  CarEdgeEstimator(IVehicleModel const & vehicleModel, traffic::TrafficCache const & trafficCache);
+  CarEdgeEstimator(shared_ptr<TrafficStash> trafficStash, double maxSpeedKMpH);
 
   // EdgeEstimator overrides:
-  void Start(MwmSet::MwmId const & mwmId) override;
-  void Finish() override;
   double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road) const override;
   double CalcHeuristic(m2::PointD const & from, m2::PointD const & to) const override;
   double GetUTurnPenalty() const override;
 
 private:
-  TrafficCache const & m_trafficCache;
-  shared_ptr<traffic::TrafficInfo::Coloring> m_trafficColoring;
+  shared_ptr<TrafficStash> m_trafficStash;
   double const m_maxSpeedMPS;
 };
 
-CarEdgeEstimator::CarEdgeEstimator(IVehicleModel const & vehicleModel,
-                                   traffic::TrafficCache const & trafficCache)
-  : m_trafficCache(trafficCache), m_maxSpeedMPS(vehicleModel.GetMaxSpeed() * kKMPH2MPS)
+CarEdgeEstimator::CarEdgeEstimator(shared_ptr<TrafficStash> trafficStash, double maxSpeedKMpH)
+  : m_trafficStash(trafficStash), m_maxSpeedMPS(maxSpeedKMpH * kKMPH2MPS)
 {
-}
-
-void CarEdgeEstimator::Start(MwmSet::MwmId const & mwmId)
-{
-  m_trafficColoring = m_trafficCache.GetTrafficInfo(mwmId);
-}
-
-void CarEdgeEstimator::Finish()
-{
-  m_trafficColoring.reset();
+  CHECK_GREATER(m_maxSpeedMPS, 0.0, ());
 }
 
 double CarEdgeEstimator::CalcSegmentWeight(Segment const & segment, RoadGeometry const & road) const
@@ -84,14 +72,15 @@ double CarEdgeEstimator::CalcSegmentWeight(Segment const & segment, RoadGeometry
                                  road.GetPoint(segment.GetPointId(true /* front */)), speedMPS) *
                   kTimePenalty;
 
-  if (m_trafficColoring)
+  auto const * trafficColoring = m_trafficStash->Get(segment.GetMwmId());
+  if (trafficColoring)
   {
     auto const dir = segment.IsForward() ? TrafficInfo::RoadSegmentId::kForwardDirection
                                          : TrafficInfo::RoadSegmentId::kReverseDirection;
-    auto const it = m_trafficColoring->find(
+    auto const it = trafficColoring->find(
         TrafficInfo::RoadSegmentId(segment.GetFeatureId(), segment.GetSegmentIdx(), dir));
     SpeedGroup const speedGroup =
-        (it == m_trafficColoring->cend()) ? SpeedGroup::Unknown : it->second;
+        (it == trafficColoring->cend()) ? SpeedGroup::Unknown : it->second;
     ASSERT_LESS(speedGroup, SpeedGroup::Count, ());
     result *= CalcTrafficFactor(speedGroup);
   }
@@ -116,9 +105,9 @@ double CarEdgeEstimator::GetUTurnPenalty() const
 namespace routing
 {
 // static
-shared_ptr<EdgeEstimator> EdgeEstimator::CreateForCar(IVehicleModel const & vehicleModel,
-                                                      traffic::TrafficCache const & trafficCache)
+shared_ptr<EdgeEstimator> EdgeEstimator::CreateForCar(shared_ptr<TrafficStash> trafficStash,
+                                                      double maxSpeedKMpH)
 {
-  return make_shared<CarEdgeEstimator>(vehicleModel, trafficCache);
+  return make_shared<CarEdgeEstimator>(trafficStash, maxSpeedKMpH);
 }
 }  // namespace routing

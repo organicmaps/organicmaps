@@ -6,6 +6,7 @@
 #include "routing/pedestrian_model.hpp"
 #include "routing/road_graph.hpp"
 #include "routing/route.hpp"
+#include "routing/traffic_stash.hpp"
 
 #include "traffic/traffic_info.hpp"
 
@@ -26,6 +27,6 @@ bool IsRoad(TTypes const & types)
 }
 
 void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
-                      shared_ptr<traffic::TrafficInfo::Coloring> const & trafficColoring,
+                      shared_ptr<TrafficStash> const & trafficStash,
                       my::Cancellable const & cancellable, vector<Junction> & path, Route & route);
 }  // namespace rouing

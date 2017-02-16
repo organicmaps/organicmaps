@@ -26,7 +26,8 @@ protected:
   // RoutingTest overrides:
   unique_ptr<routing::IDirectionsEngine> CreateDirectionsEngine() override
   {
-    unique_ptr<routing::IDirectionsEngine> engine(new routing::BicycleDirectionsEngine(m_index));
+    unique_ptr<routing::IDirectionsEngine> engine(
+        new routing::BicycleDirectionsEngine(m_index, nullptr /* numMwmIds */));
     return engine;
   }
 

@@ -1,5 +1,6 @@
 #include "routing/bicycle_directions.hpp"
 #include "routing/car_model.hpp"
+#include "routing/num_mwm_id.hpp"
 #include "routing/road_point.hpp"
 #include "routing/router_delegate.hpp"
 #include "routing/routing_result_graph.hpp"
@@ -81,13 +82,16 @@ private:
 
 namespace routing
 {
-BicycleDirectionsEngine::BicycleDirectionsEngine(Index const & index) : m_index(index) {}
+BicycleDirectionsEngine::BicycleDirectionsEngine(Index const & index,
+                                                 shared_ptr<NumMwmIds> numMwmIds)
+  : m_index(index), m_numMwmIds(numMwmIds)
+{
+}
 
 void BicycleDirectionsEngine::Generate(RoadGraphBase const & graph, vector<Junction> const & path,
-                                       Route::TTimes & times, Route::TTurns & turns,
-                                       vector<Junction> & routeGeometry,
-                                       vector<TrafficInfo::RoadSegmentId> & trafficSegs,
-                                       my::Cancellable const & cancellable)
+                                       my::Cancellable const & cancellable, Route::TTimes & times,
+                                       Route::TTurns & turns, vector<Junction> & routeGeometry,
+                                       vector<Segment> & trafficSegs)
 {
   times.clear();
   turns.clear();
@@ -175,9 +179,14 @@ void BicycleDirectionsEngine::Generate(RoadGraphBase const & graph, vector<Junct
     // prevJunction == path[i - 1] and currJunction == path[i].
     if (inFeatureId.IsValid())
       LoadPathGeometry(uniNodeId, {prevJunction, currJunction}, pathSegment);
-    pathSegment.m_trafficSegs = {{inFeatureId.m_index, static_cast<uint16_t>(inSegId),
-                                  inIsForward ? TrafficInfo::RoadSegmentId::kForwardDirection
-                                              : TrafficInfo::RoadSegmentId::kReverseDirection}};
+
+    if (m_numMwmIds)
+    {
+      ASSERT(inFeatureId.m_mwmId.IsAlive(), ());
+      NumMwmId const numMwmId =
+          m_numMwmIds->GetId(inFeatureId.m_mwmId.GetInfo()->GetLocalFile().GetCountryFile());
+      pathSegment.m_trafficSegs = {{numMwmId, inFeatureId.m_index, inSegId, inIsForward}};
+    }
 
     auto const it = m_adjacentEdges.insert(make_pair(uniNodeId, move(adjacentEdges)));
     ASSERT(it.second, ());

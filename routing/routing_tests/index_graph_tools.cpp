@@ -25,6 +25,31 @@ void TestGeometryLoader::AddRoad(uint32_t featureId, bool oneWay, float speed,
   m_roads[featureId] = RoadGeometry(oneWay, speed, points);
 }
 
+IndexGraph & TestIndexGraphLoader::GetIndexGraph(NumMwmId mwmId)
+{
+  auto it = m_graphs.find(mwmId);
+  CHECK(it != m_graphs.end(), ("Not found mwm", mwmId));
+  return *it->second;
+}
+
+void TestIndexGraphLoader::AddGraph(NumMwmId mwmId, unique_ptr<IndexGraph> graph)
+{
+  auto it = m_graphs.find(mwmId);
+  CHECK(it == m_graphs.end(), ("Already contains mwm", mwmId));
+  m_graphs[mwmId] = move(graph);
+}
+
+unique_ptr<WorldGraph> BuildWorldGraph(unique_ptr<TestGeometryLoader> geometryLoader,
+                                       shared_ptr<EdgeEstimator> estimator,
+                                       vector<Joint> const & joints)
+{
+  auto graph = make_unique<IndexGraph>(move(geometryLoader), estimator);
+  graph->Import(joints);
+  auto indexLoader = make_unique<TestIndexGraphLoader>();
+  indexLoader->AddGraph(kTestNumMwmId, move(graph));
+  return make_unique<WorldGraph>(nullptr /* crossMwmGraph */, move(indexLoader), estimator);
+}
+
 Joint MakeJoint(vector<RoadPoint> const & points)
 {
   Joint joint;
@@ -34,10 +59,9 @@ Joint MakeJoint(vector<RoadPoint> const & points)
   return joint;
 }
 
-shared_ptr<EdgeEstimator> CreateEstimator(traffic::TrafficCache const & trafficCache)
+shared_ptr<EdgeEstimator> CreateEstimator(shared_ptr<TrafficStash> trafficStash)
 {
-  return EdgeEstimator::CreateForCar(*make_shared<CarModelFactory>()->GetVehicleModel(),
-                                     trafficCache);
+  return EdgeEstimator::CreateForCar(trafficStash, 90.0 /* maxSpeedKMpH */);
 }
 
 AStarAlgorithm<IndexGraphStarter>::Result CalculateRoute(IndexGraphStarter & starter,

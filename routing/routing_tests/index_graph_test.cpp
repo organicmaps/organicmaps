@@ -27,11 +27,11 @@ namespace
 using namespace routing;
 using namespace routing_test;
 
-void TestRoute(IndexGraph & graph, IndexGraphStarter::FakeVertex const & start,
+void TestRoute(IndexGraphStarter::FakeVertex const & start,
                IndexGraphStarter::FakeVertex const & finish, size_t expectedLength,
-               vector<Segment> const * expectedRoute = nullptr)
+               vector<Segment> const * expectedRoute, WorldGraph & graph)
 {
-  IndexGraphStarter starter(graph, start, finish);
+  IndexGraphStarter starter(start, finish, graph);
   vector<Segment> route;
   double timeSec;
   auto const resultCode = CalculateRoute(starter, route, timeSec);
@@ -116,7 +116,7 @@ UNIT_TEST(EdgesTest)
                   RoadGeometry::Points({{3.0, -1.0}, {3.0, 0.0}, {3.0, 1.0}}));
 
   traffic::TrafficCache const trafficCache;
-  IndexGraph graph(move(loader), CreateEstimator(trafficCache));
+  IndexGraph graph(move(loader), CreateEstimator(make_shared<TrafficStash>(trafficCache)));
 
   vector<Joint> joints;
   joints.emplace_back(MakeJoint({{0, 1}, {3, 1}}));  // J0
@@ -127,21 +127,33 @@ UNIT_TEST(EdgesTest)
   joints.emplace_back(MakeJoint({{2, 1}, {4, 2}}));  // J5
   graph.Import(joints);
 
-  TestOutgoingEdges(graph, {0, 0, true}, {{0, 0, false}, {0, 1, true}, {3, 1, true}});
-  TestIngoingEdges(graph, {0, 0, true}, {{0, 0, false}});
-  TestOutgoingEdges(graph, {0, 0, false}, {{0, 0, true}});
-  TestIngoingEdges(graph, {0, 0, false}, {{0, 0, true}, {0, 1, false}, {3, 0, true}});
+  TestOutgoingEdges(
+      graph, {kTestNumMwmId, 0 /* featureId */, 0 /* segmentIdx */, true /* forward */},
+      {{kTestNumMwmId, 0, 0, false}, {kTestNumMwmId, 0, 1, true}, {kTestNumMwmId, 3, 1, true}});
+  TestIngoingEdges(graph, {kTestNumMwmId, 0, 0, true}, {{kTestNumMwmId, 0, 0, false}});
+  TestOutgoingEdges(graph, {kTestNumMwmId, 0, 0, false}, {{kTestNumMwmId, 0, 0, true}});
+  TestIngoingEdges(
+      graph, {kTestNumMwmId, 0, 0, false},
+      {{kTestNumMwmId, 0, 0, true}, {kTestNumMwmId, 0, 1, false}, {kTestNumMwmId, 3, 0, true}});
 
-  TestOutgoingEdges(graph, {0, 2, true}, {{0, 2, false}, {0, 3, true}, {4, 1, true}});
-  TestIngoingEdges(graph, {0, 2, true}, {{0, 1, true}});
-  TestOutgoingEdges(graph, {0, 2, false}, {{0, 1, false}});
-  TestIngoingEdges(graph, {0, 2, false}, {{0, 2, true}, {0, 3, false}, {4, 0, true}});
+  TestOutgoingEdges(
+      graph, {kTestNumMwmId, 0, 2, true},
+      {{kTestNumMwmId, 0, 2, false}, {kTestNumMwmId, 0, 3, true}, {kTestNumMwmId, 4, 1, true}});
+  TestIngoingEdges(graph, {kTestNumMwmId, 0, 2, true}, {{kTestNumMwmId, 0, 1, true}});
+  TestOutgoingEdges(graph, {kTestNumMwmId, 0, 2, false}, {{kTestNumMwmId, 0, 1, false}});
+  TestIngoingEdges(
+      graph, {kTestNumMwmId, 0, 2, false},
+      {{kTestNumMwmId, 0, 2, true}, {kTestNumMwmId, 0, 3, false}, {kTestNumMwmId, 4, 0, true}});
 
-  TestOutgoingEdges(graph, {3, 0, true}, {{3, 1, true}, {0, 0, false}, {0, 1, true}});
-  TestIngoingEdges(graph, {3, 0, true}, {{2, 0, false}});
+  TestOutgoingEdges(
+      graph, {kTestNumMwmId, 3, 0, true},
+      {{kTestNumMwmId, 3, 1, true}, {kTestNumMwmId, 0, 0, false}, {kTestNumMwmId, 0, 1, true}});
+  TestIngoingEdges(graph, {kTestNumMwmId, 3, 0, true}, {{kTestNumMwmId, 2, 0, false}});
 
-  TestOutgoingEdges(graph, {4, 1, true}, {{2, 0, false}});
-  TestIngoingEdges(graph, {4, 1, true}, {{4, 0, true}, {0, 2, true}, {0, 3, false}});
+  TestOutgoingEdges(graph, {kTestNumMwmId, 4, 1, true}, {{kTestNumMwmId, 2, 0, false}});
+  TestIngoingEdges(
+      graph, {kTestNumMwmId, 4, 1, true},
+      {{kTestNumMwmId, 4, 0, true}, {kTestNumMwmId, 0, 2, true}, {kTestNumMwmId, 0, 3, false}});
 }
 
 //  Roads     R1:
@@ -163,15 +175,15 @@ UNIT_TEST(FindPathCross)
       RoadGeometry::Points({{0.0, -2.0}, {0.0, -1.0}, {0.0, 0.0}, {0.0, 1.0}, {0.0, 2.0}}));
 
   traffic::TrafficCache const trafficCache;
-  IndexGraph graph(move(loader), CreateEstimator(trafficCache));
-
-  graph.Import({MakeJoint({{0, 2}, {1, 2}})});
+  shared_ptr<EdgeEstimator> estimator = CreateEstimator(make_shared<TrafficStash>(trafficCache));
+  unique_ptr<WorldGraph> worldGraph =
+      BuildWorldGraph(move(loader), estimator, {MakeJoint({{0, 2}, {1, 2}})});
 
   vector<IndexGraphStarter::FakeVertex> endPoints;
   for (uint32_t i = 0; i < 4; ++i)
   {
-    endPoints.emplace_back(0, i, m2::PointD(-1.5 + i, 0.0));
-    endPoints.emplace_back(1, i, m2::PointD(0.0, -1.5 + i));
+    endPoints.emplace_back(kTestNumMwmId, 0, i, m2::PointD(-1.5 + i, 0.0));
+    endPoints.emplace_back(kTestNumMwmId, 1, i, m2::PointD(0.0, -1.5 + i));
   }
 
   for (auto const & start : endPoints)
@@ -195,7 +207,7 @@ UNIT_TEST(FindPathCross)
         else
           expectedLength += finish.GetSegmentIdx() - 1;
       }
-      TestRoute(graph, start, finish, expectedLength);
+      TestRoute(start, finish, expectedLength, nullptr, *worldGraph);
     }
   }
 }
@@ -228,7 +240,7 @@ UNIT_TEST(FindPathManhattan)
   }
 
   traffic::TrafficCache const trafficCache;
-  IndexGraph graph(move(loader), CreateEstimator(trafficCache));
+  shared_ptr<EdgeEstimator> estimator = CreateEstimator(make_shared<TrafficStash>(trafficCache));
 
   vector<Joint> joints;
   for (uint32_t i = 0; i < kCitySize; ++i)
@@ -236,15 +248,17 @@ UNIT_TEST(FindPathManhattan)
     for (uint32_t j = 0; j < kCitySize; ++j)
       joints.emplace_back(MakeJoint({{i, j}, {j + kCitySize, i}}));
   }
-  graph.Import(joints);
+
+  unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(move(loader), estimator, joints);
 
   vector<IndexGraphStarter::FakeVertex> endPoints;
   for (uint32_t featureId = 0; featureId < kCitySize; ++featureId)
   {
     for (uint32_t segmentId = 0; segmentId < kCitySize - 1; ++segmentId)
     {
-      endPoints.emplace_back(featureId, segmentId, m2::PointD(0.5 + segmentId, featureId));
-      endPoints.emplace_back(featureId + kCitySize, segmentId,
+      endPoints.emplace_back(kTestNumMwmId, featureId, segmentId,
+                             m2::PointD(0.5 + segmentId, featureId));
+      endPoints.emplace_back(kTestNumMwmId, featureId + kCitySize, segmentId,
                              m2::PointD(featureId, 0.5 + segmentId));
     }
   }
@@ -283,7 +297,7 @@ UNIT_TEST(FindPathManhattan)
           expectedLength += finish.GetSegmentIdx() - startFeatureOffset + 1;
       }
 
-      TestRoute(graph, start, finish, expectedLength);
+      TestRoute(start, finish, expectedLength, nullptr, *worldGraph);
     }
   }
 }
@@ -310,19 +324,24 @@ UNIT_TEST(RoadSpeed)
       RoadGeometry::Points({{0.0, 0.0}, {1.0, 0.0}, {3.0, 0.0}, {5.0, 0.0}, {6.0, 0.0}}));
 
   traffic::TrafficCache const trafficCache;
-  IndexGraph graph(move(loader), CreateEstimator(trafficCache));
+  shared_ptr<EdgeEstimator> estimator = CreateEstimator(make_shared<TrafficStash>(trafficCache));
 
   vector<Joint> joints;
   joints.emplace_back(MakeJoint({{0, 0}, {1, 1}}));  // J0
   joints.emplace_back(MakeJoint({{0, 4}, {1, 3}}));  // J1
-  graph.Import(joints);
 
-  IndexGraphStarter::FakeVertex const start(1, 0, m2::PointD(0.5, 0));
-  IndexGraphStarter::FakeVertex const finish(1, 3, m2::PointD(5.5, 0));
+  unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(move(loader), estimator, joints);
 
-  vector<Segment> const expectedRoute(
-      {{1, 0, true}, {0, 0, true}, {0, 1, true}, {0, 2, true}, {0, 3, true}, {1, 3, true}});
-  TestRoute(graph, start, finish, 6, &expectedRoute);
+  IndexGraphStarter::FakeVertex const start(kTestNumMwmId, 1, 0, m2::PointD(0.5, 0));
+  IndexGraphStarter::FakeVertex const finish(kTestNumMwmId, 1, 3, m2::PointD(5.5, 0));
+
+  vector<Segment> const expectedRoute({{kTestNumMwmId, 1, 0, true},
+                                       {kTestNumMwmId, 0, 0, true},
+                                       {kTestNumMwmId, 0, 1, true},
+                                       {kTestNumMwmId, 0, 2, true},
+                                       {kTestNumMwmId, 0, 3, true},
+                                       {kTestNumMwmId, 1, 3, true}});
+  TestRoute(start, finish, 6, &expectedRoute, *worldGraph);
 }
 
 // Roads                             y:
@@ -341,14 +360,14 @@ UNIT_TEST(OneSegmentWay)
                   RoadGeometry::Points({{0.0, 0.0}, {3.0, 0.0}}));
 
   traffic::TrafficCache const trafficCache;
-  IndexGraph graph(move(loader), CreateEstimator(trafficCache));
-  graph.Import(vector<Joint>());
+  shared_ptr<EdgeEstimator> estimator = CreateEstimator(make_shared<TrafficStash>(trafficCache));
+  unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(move(loader), estimator, vector<Joint>());
 
-  IndexGraphStarter::FakeVertex const start(0, 0, m2::PointD(1, 0));
-  IndexGraphStarter::FakeVertex const finish(0, 0, m2::PointD(2, 0));
+  IndexGraphStarter::FakeVertex const start(kTestNumMwmId, 0, 0, m2::PointD(1, 0));
+  IndexGraphStarter::FakeVertex const finish(kTestNumMwmId, 0, 0, m2::PointD(2, 0));
 
-  vector<Segment> const expectedRoute({{0, 0, true}});
-  TestRoute(graph, start, finish, 1 /* expectedLength */, &expectedRoute);
+  vector<Segment> const expectedRoute({{kTestNumMwmId, 0, 0, true}});
+  TestRoute(start, finish, 1 /* expectedLength */, &expectedRoute, *worldGraph);
 }
 
 //
@@ -439,7 +458,7 @@ UNIT_TEST(SerializeSimpleGraph)
 // 0                          * Start
 //   0         0.0001       0.0002
 // F0 is a two-way feature with a loop and F1 and F2 are an one-way one-segment features.
-unique_ptr<IndexGraph> BuildLoopGraph()
+unique_ptr<WorldGraph> BuildLoopGraph()
 {
   unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
   loader->AddRoad(0 /* feature id */, false /* one way */, 100.0 /* speed */,
@@ -466,10 +485,8 @@ unique_ptr<IndexGraph> BuildLoopGraph()
   };
 
   traffic::TrafficCache const trafficCache;
-  unique_ptr<IndexGraph> graph =
-      make_unique<IndexGraph>(move(loader), CreateEstimator(trafficCache));
-  graph->Import(joints);
-  return graph;
+  shared_ptr<EdgeEstimator> estimator = CreateEstimator(make_shared<TrafficStash>(trafficCache));
+  return BuildWorldGraph(move(loader), estimator, joints);
 }
 
 // This test checks that the route from Start to Finish doesn't make an extra loop in F0.
@@ -477,10 +494,10 @@ unique_ptr<IndexGraph> BuildLoopGraph()
 UNIT_CLASS_TEST(RestrictionTest, LoopGraph)
 {
   Init(BuildLoopGraph());
-  SetStarter(
-      routing::IndexGraphStarter::FakeVertex(1, 0 /* seg id */, m2::PointD(0.0002, 0)) /* start */,
-      routing::IndexGraphStarter::FakeVertex(2, 0 /* seg id */,
-                                             m2::PointD(0.00005, 0.0004)) /* finish */);
+  SetStarter(routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 1, 0 /* seg id */,
+                                                    m2::PointD(0.0002, 0)) /* start */,
+             routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 2, 0 /* seg id */,
+                                                    m2::PointD(0.00005, 0.0004)) /* finish */);
 
   double constexpr kExpectedRouteTimeSec = 3.48;
   TestRouteTime(*m_starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, kExpectedRouteTimeSec);
