@@ -12,9 +12,7 @@ namespace search
 // i.e. BUILDING and STREET for POI or STREET for BUILDING.
 struct IntersectionResult
 {
-  static uint32_t const kInvalidId = std::numeric_limits<uint32_t>::max();
-
-  IntersectionResult() = default;
+  static uint32_t constexpr kInvalidId = std::numeric_limits<uint32_t>::max();
 
   void Set(SearchModel::SearchType type, uint32_t id);
 

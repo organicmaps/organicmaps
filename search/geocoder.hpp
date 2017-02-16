@@ -197,7 +197,7 @@ private:
   // Forms result and feeds it to |m_preRanker|.
   void EmitResult(BaseContext const & ctx, MwmSet::MwmId const & mwmId, uint32_t ftId,
                   SearchModel::SearchType type, TokenRange const & tokenRange,
-                  IntersectionResult const * m_geoParts);
+                  IntersectionResult const * geoParts);
   void EmitResult(BaseContext const & ctx, Region const & region, TokenRange const & tokenRange);
   void EmitResult(BaseContext const & ctx, City const & city, TokenRange const & tokenRange);
 

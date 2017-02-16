@@ -5,7 +5,6 @@
 
 #include "generator/generator_tests_support/test_feature.hpp"
 
-
 using namespace generator::tests_support;
 using namespace search::tests_support;
 using namespace search;

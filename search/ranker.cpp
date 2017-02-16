@@ -179,7 +179,7 @@ class PreResult2Maker
     return true;
   }
 
-  // For the best performance, incoming id's should be sorted by id.first (mwm file id).
+  // For the best performance, incoming ids should be sorted by id.first (mwm file id).
   bool LoadFeature(FeatureID const & id, FeatureType & ft, m2::PointD & center, string & name,
                    string & country)
   {

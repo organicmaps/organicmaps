@@ -40,7 +40,8 @@ struct PreRankingInfo
   // Tokens match to the feature name or house number.
   TokenRange m_tokenRange[SearchModel::SEARCH_TYPE_COUNT];
 
-  // Different geo-parts participated in search.
+  // Different geo-parts extracted from query.  Currently only poi,
+  // building and street ids are in |m_geoParts|.
   IntersectionResult m_geoParts;
 
   // Rank of the feature.
