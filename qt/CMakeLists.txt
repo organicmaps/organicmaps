@@ -141,6 +141,8 @@ copy_resources(
   countries_obsolete.txt
   drules_proto_clear.bin
   drules_proto_dark.bin
+  drules_proto_vehicle_clear.bin
+  drules_proto_vehicle_dark.bin
   editor.config
   fonts_blacklist.txt
   fonts_whitelist.txt

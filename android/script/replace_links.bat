@@ -10,6 +10,8 @@ cp ../data/countries.txt assets/
 cp ../data/countries_obsolete.txt assets/
 cp ../data/drules_proto_dark.bin assets/
 cp ../data/drules_proto_clear.bin assets/
+cp ../data/drules_proto_vehicle_dark.bin assets/
+cp ../data/drules_proto_vehicle_clear.bin assets/
 cp ../data/editor.config assets/
 cp ../data/external_resources.txt assets/
 cp ../data/faq.html assets/

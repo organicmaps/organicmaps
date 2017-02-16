@@ -30,5 +30,10 @@ done
 # Building drawing rules
 BuildDrawingRules clear  clear _clear
 BuildDrawingRules clear  night _dark
+BuildDrawingRules vehicle  clear _vehicle_clear
+BuildDrawingRules vehicle  night _vehicle_dark
 
-cp "$DATA_PATH/drules_proto_clear.bin" "$DATA_PATH/drules_proto.bin"
+echo "Merging default and vehicle styles"
+python "$OMIM_PATH/tools/python/stylesheet/drules_merge.py" \
+  "$DATA_PATH/drules_proto_clear.bin" "$DATA_PATH/drules_proto_vehicle_clear.bin" \
+  "$DATA_PATH/drules_proto.bin" "$DATA_PATH/drules_proto.txt" > /dev/null

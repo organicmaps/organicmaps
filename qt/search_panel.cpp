@@ -154,10 +154,16 @@ void SearchPanel::OnSearchResult(ResultsT * results)
 bool SearchPanel::TryChangeMapStyleCmd(QString const & str)
 {
   // Hook for shell command on change map style
-  bool const isDark = (str == "mapstyle:dark") || (str == "?dark");
-  bool const isLight = isDark ? false : (str == "mapstyle:light") || (str == "?light");
-
-  if (!isDark && !isLight)
+  MapStyle desiredStyle = MapStyleCount;
+  if (str == "mapstyle:dark" || str == "?dark")
+    desiredStyle = MapStyleDark;
+  else if (str == "mapstyle:light" || str == "?light")
+    desiredStyle = MapStyleClear;
+  else if (str == "mapstyle:vehicle_dark" || str == "?vdark")
+    desiredStyle = MapStyleVehicleDark;
+  else if (str == "mapstyle:vehicle_light" || str == "?vlight")
+    desiredStyle = MapStyleVehicleClear;
+  else
     return false;
 
   // close Search panel
@@ -165,8 +171,7 @@ bool SearchPanel::TryChangeMapStyleCmd(QString const & str)
   parentWidget()->hide();
 
   // change color scheme for the Map activity
-  MapStyle const mapStyle = isDark ? MapStyleDark : MapStyleClear;
-  m_pDrawWidget->SetMapStyle(mapStyle);
+  m_pDrawWidget->SetMapStyle(desiredStyle);
 
   return true;
 }
