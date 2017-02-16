@@ -52,6 +52,8 @@ private:
                                        RouterDelegate const & delegate, Route & route);
   bool FindClosestEdge(platform::CountryFile const & file, m2::PointD const & point,
                        Edge & closestEdge) const;
+  IRouter::ResultCode ProcessLeaps(vector<Segment> const & input, RouterDelegate const & delegate,
+                                   IndexGraphStarter & starter, vector<Segment> & output);
   bool RedressRoute(vector<Segment> const & segments, RouterDelegate const & delegate,
                     IndexGraphStarter & starter, Route & route) const;
 

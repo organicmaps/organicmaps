@@ -25,6 +25,7 @@ public:
   virtual double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road) const = 0;
   virtual double CalcHeuristic(m2::PointD const & from, m2::PointD const & to) const = 0;
   virtual double GetUTurnPenalty() const = 0;
+  virtual bool AllowLeap(NumMwmId mwmId) const = 0;
 
   static shared_ptr<EdgeEstimator> CreateForCar(shared_ptr<TrafficStash> trafficStash,
                                                 double maxSpeedKMpH);

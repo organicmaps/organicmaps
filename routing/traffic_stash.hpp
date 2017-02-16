@@ -36,6 +36,11 @@ public:
     return it->second.get();
   }
 
+  bool Has(NumMwmId numMwmId) const
+  {
+    return m_mwmToTraffic.find(numMwmId) != m_mwmToTraffic.cend();
+  }
+
   void Load(MwmSet::MwmId const & mwmId, NumMwmId numMwmId)
   {
     auto traffic = m_source.GetTrafficInfo(mwmId);

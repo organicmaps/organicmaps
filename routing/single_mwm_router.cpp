@@ -112,6 +112,9 @@ IRouter::ResultCode SingleMwmRouter::DoCalculateRoute(m2::PointD const & startPo
                                             m_trafficStash, m_index),
                    m_estimator);
 
+  // TODO remove to activate CrossMwmGraph.
+  graph.BlockMwmBorders();
+
   IndexGraphStarter starter(start, finish, graph);
 
   AStarProgress progress(0, 100);
@@ -141,7 +144,15 @@ IRouter::ResultCode SingleMwmRouter::DoCalculateRoute(m2::PointD const & startPo
   case AStarAlgorithm<IndexGraphStarter>::Result::NoPath: return IRouter::RouteNotFound;
   case AStarAlgorithm<IndexGraphStarter>::Result::Cancelled: return IRouter::Cancelled;
   case AStarAlgorithm<IndexGraphStarter>::Result::OK:
-    if (!RedressRoute(routingResult.path, delegate, starter, route))
+    vector<Segment> segments;
+    IRouter::ResultCode const leapsResult =
+        ProcessLeaps(routingResult.path, delegate, starter, segments);
+    if (leapsResult != IRouter::NoError)
+      return leapsResult;
+
+    CHECK_GREATER_OR_EQUAL(segments.size(), routingResult.path.size(), ());
+
+    if (!RedressRoute(segments, delegate, starter, route))
       return IRouter::InternalError;
     if (delegate.IsCancelled())
       return IRouter::Cancelled;
@@ -185,6 +196,50 @@ bool SingleMwmRouter::FindClosestEdge(platform::CountryFile const & file, m2::Po
 
   closestEdge = candidates[minIndex].first;
   return true;
+}
+
+IRouter::ResultCode SingleMwmRouter::ProcessLeaps(vector<Segment> const & input,
+                                                  RouterDelegate const & delegate,
+                                                  IndexGraphStarter & starter,
+                                                  vector<Segment> & output)
+{
+  starter.GetGraph().BlockMwmBorders();
+
+  for (size_t i = 0; i < input.size(); ++i)
+  {
+    Segment const & current = input[i];
+    if (starter.IsLeap(current.GetMwmId()))
+    {
+      ++i;
+      CHECK_LESS(i, input.size(), ());
+      Segment const & next = input[i];
+      CHECK_EQUAL(current.GetMwmId(), next.GetMwmId(), ("i:", i));
+
+      IndexGraphStarter::FakeVertex const start(current,
+                                                starter.GetPoint(current, true /* front */));
+      IndexGraphStarter::FakeVertex const finish(next, starter.GetPoint(next, true /* front */));
+
+      IndexGraphStarter leapStarter(start, finish, starter.GetGraph());
+
+      AStarAlgorithm<IndexGraphStarter> algorithm;
+      RoutingResult<Segment> routingResult;
+      auto const resultCode =
+          algorithm.FindPathBidirectional(leapStarter, leapStarter.GetStart(),
+                                          leapStarter.GetFinish(), routingResult, delegate, {});
+
+      switch (resultCode)
+      {
+      case AStarAlgorithm<IndexGraphStarter>::Result::NoPath: return IRouter::RouteNotFound;
+      case AStarAlgorithm<IndexGraphStarter>::Result::Cancelled: return IRouter::Cancelled;
+      case AStarAlgorithm<IndexGraphStarter>::Result::OK:
+        output.insert(output.end(), routingResult.path.begin(), routingResult.path.end());
+      }
+    }
+    else
+      output.push_back(current);
+  }
+
+  return IRouter::NoError;
 }
 
 bool SingleMwmRouter::RedressRoute(vector<Segment> const & segments,
