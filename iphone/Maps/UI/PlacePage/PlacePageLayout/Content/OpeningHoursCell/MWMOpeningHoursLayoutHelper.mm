@@ -154,7 +154,11 @@ NSAttributedString * richStringFromDay(osmoh::Day const & day, BOOL isClosedNow)
 
     if (m_days.size() > 1)
     {
+      __weak auto weakSelf = self;
       cell.tapAction = ^{
+        __strong auto self = weakSelf;
+        if (!self)
+          return;
         self.isExtended = !self.isExtended;
 
         NSMutableArray<NSIndexPath *> * ip = [@[] mutableCopy];

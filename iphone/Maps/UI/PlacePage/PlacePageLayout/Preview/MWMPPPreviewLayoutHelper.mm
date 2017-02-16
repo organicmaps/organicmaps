@@ -264,8 +264,9 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
 {
   cell.trailing.priority = UILayoutPriorityDefaultLow;
   cell.distance.text = self.distance;
+  auto directionView = self.directionView;
   cell.tapOnDistance = ^{
-    [self.directionView show];
+    [directionView show];
   };
   [cell.contentView setNeedsLayout];
   self.compass = cell.compass;
