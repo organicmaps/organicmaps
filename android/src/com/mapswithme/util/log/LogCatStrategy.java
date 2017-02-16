@@ -3,7 +3,9 @@ package com.mapswithme.util.log;
 import android.util.Log;
 
 import com.mapswithme.maps.BuildConfig;
+import net.jcip.annotations.Immutable;
 
+@Immutable
 class LogCatStrategy implements LoggerStrategy
 {
   @Override
@@ -83,7 +85,7 @@ class LogCatStrategy implements LoggerStrategy
       Log.e(tag, msg, tr);
   }
 
-  private boolean canLog()
+  private static boolean canLog()
   {
     return BuildConfig.DEBUG;
   }

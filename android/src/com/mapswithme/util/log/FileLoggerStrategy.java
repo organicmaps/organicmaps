@@ -12,7 +12,7 @@ import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.util.StorageUtils;
 import com.mapswithme.util.Utils;
-import net.jcip.annotations.NotThreadSafe;
+import net.jcip.annotations.Immutable;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -23,7 +23,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.Executor;
 
-@NotThreadSafe
+@Immutable
 class FileLoggerStrategy implements LoggerStrategy
 {
   private static final String TAG = FileLoggerStrategy.class.getSimpleName();
