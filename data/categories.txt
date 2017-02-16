@@ -2296,7 +2296,7 @@ sw:Maporomoko ya maji
 
 historic-memorial|@tourism
 en:Memorial|monument|attraction|tourism|U+1F5FC|U+1F5FD|U+1F5FF
-ru:Мемориал|монумент|достопримечательность|туризм
+ru:Памятник|мемориал|достопримечательность|туризм
 ar:مبنى او نصب تزكارى
 cs:Pomník|památka|zajímavost
 da:Mindesmærke|mindesten
@@ -2327,7 +2327,7 @@ sw:Makumbusho|kumbukumbu ya kihistoria|kivutio|utalii
 
 historic-monument|@tourism
 en:Monument|attraction|tourism|U+1F5FD|U+1F5FF
-ru:Памятник|достопримечательность|туризм
+ru:Монумент|мавзолей|арка|достопримечательность|туризм
 ar:نصب تزكارى
 cs:Zajímavost|pomník|památka
 da:Monument
