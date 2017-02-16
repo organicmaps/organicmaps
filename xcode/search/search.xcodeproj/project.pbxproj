@@ -61,6 +61,8 @@
 		347F33301C4540A8009758CC /* suggest.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 347F33151C4540A8009758CC /* suggest.hpp */; };
 		349B65891D4F21E5001798E2 /* lazy_centers_table.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 349B65871D4F21E5001798E2 /* lazy_centers_table.cpp */; };
 		349B658A1D4F21E5001798E2 /* lazy_centers_table.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 349B65881D4F21E5001798E2 /* lazy_centers_table.hpp */; };
+		34EEAD701E55AE4300E95575 /* token_range.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34EEAD6F1E55AE4300E95575 /* token_range.hpp */; };
+		34EEAD721E55AE5C00E95575 /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34EEAD711E55AE5C00E95575 /* utils.cpp */; };
 		34F5583B1DBF2E0E00A4FC11 /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F5583A1DBF2E0E00A4FC11 /* libalohalitics.a */; };
 		34F5583D1DBF2E2700A4FC11 /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F5583C1DBF2E2700A4FC11 /* libeditor.a */; };
 		34F5583F1DBF2E3400A4FC11 /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F5583E1DBF2E3400A4FC11 /* libpugixml.a */; };
@@ -238,6 +240,8 @@
 		347F33151C4540A8009758CC /* suggest.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = suggest.hpp; sourceTree = "<group>"; };
 		349B65871D4F21E5001798E2 /* lazy_centers_table.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lazy_centers_table.cpp; sourceTree = "<group>"; };
 		349B65881D4F21E5001798E2 /* lazy_centers_table.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = lazy_centers_table.hpp; sourceTree = "<group>"; };
+		34EEAD6F1E55AE4300E95575 /* token_range.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = token_range.hpp; sourceTree = "<group>"; };
+		34EEAD711E55AE5C00E95575 /* utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utils.cpp; sourceTree = "<group>"; };
 		34F558371DBF2C8B00A4FC11 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
 		34F558381DBF2C8B00A4FC11 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
 		34F5583A1DBF2E0E00A4FC11 /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "../../../omim-xcode-build/Debug/libalohalitics.a"; sourceTree = "<group>"; };
@@ -596,10 +600,12 @@
 				345C8DAE1D2D15A50037E3A6 /* streets_matcher.hpp */,
 				F652D8E61CFDE21900FC29A0 /* string_intersection.hpp */,
 				347F33151C4540A8009758CC /* suggest.hpp */,
+				34EEAD6F1E55AE4300E95575 /* token_range.hpp */,
 				F652D8E71CFDE21900FC29A0 /* token_slice.cpp */,
 				F652D8E81CFDE21900FC29A0 /* token_slice.hpp */,
 				670F88721CE4C032003F68BA /* types_skipper.cpp */,
 				670F88731CE4C032003F68BA /* types_skipper.hpp */,
+				34EEAD711E55AE5C00E95575 /* utils.cpp */,
 				3461C9A11D79949600E6E6F5 /* utils.hpp */,
 				3465B27F1D5DE71A0021E14D /* viewport_search_callback.cpp */,
 				3465B2801D5DE71A0021E14D /* viewport_search_callback.hpp */,
@@ -630,6 +636,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34EEAD701E55AE4300E95575 /* token_range.hpp in Headers */,
 				3461C9A51D79949600E6E6F5 /* utils.hpp in Headers */,
 				345C8DB01D2D15A50037E3A6 /* cbv.hpp in Headers */,
 				F652D90C1CFDE21900FC29A0 /* street_vicinity_loader.hpp in Headers */,
@@ -833,6 +840,7 @@
 				F652D8F01CFDE21900FC29A0 /* geocoder.cpp in Sources */,
 				F652D8F21CFDE21900FC29A0 /* geometry_cache.cpp in Sources */,
 				34586B8C1DCB1E8300CF7FC9 /* locality_scorer_test.cpp in Sources */,
+				34EEAD721E55AE5C00E95575 /* utils.cpp in Sources */,
 				34586B8E1DCB1E8300CF7FC9 /* nearby_points_sweeper_test.cpp in Sources */,
 				345C8DB11D2D15A50037E3A6 /* geocoder_context.cpp in Sources */,
 				3461C9A31D79949600E6E6F5 /* editor_delegate.cpp in Sources */,
