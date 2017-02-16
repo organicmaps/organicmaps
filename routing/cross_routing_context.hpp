@@ -98,12 +98,13 @@ public:
 
   vector<string> const & GetNeighboringMwmList() const { return m_neighborMwmList; }
 
+  m2::RectD GetMwmCrossingNodeEqualityRect(ms::LatLon const & point) const;
+
   template <class Fn>
   bool ForEachIngoingNodeNearPoint(ms::LatLon const & point, Fn && fn) const
   {
     bool found = false;
-    m_ingoingIndex.ForEachInRect(MercatorBounds::RectByCenterLatLonAndSizeInMeters(
-                                   point.lat, point.lon, kMwmCrossingNodeEqualityMeters),
+    m_ingoingIndex.ForEachInRect(GetMwmCrossingNodeEqualityRect(point),
                                  [&found, &fn](IngoingCrossNode const & node) {
                                    fn(node);
                                    found = true;
@@ -115,8 +116,7 @@ public:
   bool ForEachOutgoingNodeNearPoint(ms::LatLon const & point, Fn && fn) const
   {
     bool found = false;
-    m_outgoingIndex.ForEachInRect(MercatorBounds::RectByCenterLatLonAndSizeInMeters(
-                                    point.lat, point.lon, kMwmCrossingNodeEqualityMeters),
+    m_outgoingIndex.ForEachInRect(GetMwmCrossingNodeEqualityRect(point),
                                   [&found, &fn](OutgoingCrossNode const & node) {
                                     fn(node);
                                     found = true;

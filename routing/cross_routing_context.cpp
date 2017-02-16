@@ -116,6 +116,15 @@ TWrittenEdgeWeight CrossRoutingContextReader::GetAdjacencyCost(IngoingCrossNode 
   return cost_index < m_adjacencyMatrix.size() ? m_adjacencyMatrix[cost_index] : kInvalidContextEdgeWeight;
 }
 
+m2::RectD CrossRoutingContextReader::GetMwmCrossingNodeEqualityRect(ms::LatLon const & point) const
+{
+  double constexpr kMwmCrossingNodeEqualityDegrees = kMwmCrossingNodeEqualityMeters * MercatorBounds::degreeInMetres;
+  return m2::RectD(point.lat - kMwmCrossingNodeEqualityDegrees,
+                   point.lon - kMwmCrossingNodeEqualityDegrees,
+                   point.lat + kMwmCrossingNodeEqualityDegrees,
+                   point.lon + kMwmCrossingNodeEqualityDegrees);
+}
+
 void CrossRoutingContextWriter::Save(Writer & w) const
 {
   uint32_t size = static_cast<uint32_t>(m_ingoingNodes.size());

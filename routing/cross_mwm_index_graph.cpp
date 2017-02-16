@@ -26,7 +26,7 @@ bool GetTransitionSegment(OsrmFtSegMapping const & segMapping, TWrittenNodeId no
       continue;
 
     CHECK_NOT_EQUAL(seg.m_pointStart, seg.m_pointEnd, ());
-    segment = Segment(seg.m_fid, min(seg.m_pointStart, seg.m_pointEnd), numMwmId, seg.IsForward());
+    segment = Segment(numMwmId, seg.m_fid, min(seg.m_pointStart, seg.m_pointEnd), seg.IsForward());
     return true;
   }
   LOG(LERROR, ("No valid segments in the range returned by OsrmFtSegMapping::GetSegmentsRange(", nodeId,
@@ -96,7 +96,7 @@ void CrossMwmIndexGraph::GetTwins(Segment const & s, bool isOutgoing, std::vecto
   // @TODO(bykoianko) It's necessary to check if mwm of |s| contains an A* cross mwm section
   // and if so to use it. If not, osrm cross mwm sections should be used.
 
-  auto const getTwins = [&](TRoutingMappingPtr const & segMapping)
+  auto const getTwins = [&](NumMwmId /* numMwmId */, TRoutingMappingPtr const & segMapping)
   {
     vector<string> const & neighboringMwm = segMapping->m_crossContext.GetNeighboringMwmList();
 
@@ -110,8 +110,7 @@ void CrossMwmIndexGraph::GetTwins(Segment const & s, bool isOutgoing, std::vecto
                                            : GetLatLon(it->second.m_ingoing, s);
     for (string const & name : neighboringMwm)
     {
-      NumMwmId const numMwmId = m_numMwmIds->GetId(CountryFile(name));
-      auto const addTransitionSegments = [&](TRoutingMappingPtr const & mapping)
+      auto const addTransitionSegments = [&](NumMwmId numMwmId, TRoutingMappingPtr const & mapping)
       {
         if (isOutgoing)
         {
@@ -127,7 +126,7 @@ void CrossMwmIndexGraph::GetTwins(Segment const & s, bool isOutgoing, std::vecto
         }
       };
 
-      if (!LoadWith(numMwmId, addTransitionSegments))
+      if (!LoadWith(m_numMwmIds->GetId(CountryFile(name)), addTransitionSegments))
         continue;  // mwm was not loaded.
     }
   };
@@ -154,7 +153,7 @@ void CrossMwmIndexGraph::InsertWholeMwmTransitionSegments(NumMwmId numMwmId)
   if (m_transitionCache.count(numMwmId) != 0)
     return;
 
-  auto const fillAllTransitionSegments = [&](TRoutingMappingPtr const & mapping){
+  auto const fillAllTransitionSegments = [this](NumMwmId numMwmId, TRoutingMappingPtr const & mapping){
     TransitionSegments transitionSegments;
     mapping->m_crossContext.ForEachOutgoingNode([&](OutgoingCrossNode const & node)
     {

@@ -93,13 +93,13 @@ private:
     platform::CountryFile const & countryFile = m_numMwmIds->GetFile(numMwmId);
     TRoutingMappingPtr mapping = m_indexManager.GetMappingByName(countryFile.GetName());
     CHECK(mapping, ("No routing mapping file for countryFile:", countryFile));
-    MappingGuard mappingGuard(mapping);
 
     if (!mapping->IsValid())
       return false; // mwm was not loaded.
 
+    MappingGuard mappingGuard(mapping);
     mapping->LoadCrossContext();
-    fn(mapping);
+    fn(numMwmId, mapping);
     return true;
   }
 
