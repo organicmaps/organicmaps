@@ -59,8 +59,6 @@ public enum LocationHelper
         return;
       }
 
-      mPredictor.onLocationUpdated(location);
-
       nativeLocationUpdated(location.getTime(),
                             location.getLatitude(),
                             location.getLongitude(),
@@ -119,8 +117,6 @@ public enum LocationHelper
   private final SensorHelper mSensorHelper = new SensorHelper();
   @Nullable
   private BaseLocationProvider mLocationProvider;
-  @NonNull
-  private final LocationPredictor mPredictor = new LocationPredictor(mCoreLocationListener);
   @Nullable
   private UiCallback mUiCallback;
   private long mInterval;
@@ -311,8 +307,6 @@ public enum LocationHelper
 
     if (mUiCallback != null)
       mUiCallback.onMyPositionModeChanged(newMode);
-
-    mPredictor.onMyPositionModeChanged(newMode);
   }
 
   private void notifyLocationNotFound()
@@ -496,7 +490,6 @@ public enum LocationHelper
     {
       if (!mInFirstRun && getMyPositionMode() == LocationState.NOT_FOLLOW_NO_POSITION)
         switchToNextMode();
-      mPredictor.resume();
     }
   }
 
@@ -520,7 +513,6 @@ public enum LocationHelper
     //noinspection ConstantConditions
     mLocationProvider.stop();
     mSensorHelper.stop();
-    mPredictor.pause();
   }
 
   /**
