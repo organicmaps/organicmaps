@@ -383,7 +383,7 @@ public final class Config
     setBool(KEY_MISC_USE_MOBILE_DATA_ROAMING, ConnectionState.isInRoaming());
   }
 
-  static void setMobileDataTimeStamp(long timestamp)
+  public static void setMobileDataTimeStamp(long timestamp)
   {
     setLong(KEY_MISC_USE_MOBILE_DATA_TIMESTAMP, timestamp);
   }

@@ -15,11 +15,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.crashlytics.android.Crashlytics;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.Banner;
 import com.mapswithme.util.ConnectionState;
+import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -108,8 +108,8 @@ final class BannerController implements View.OnClickListener
 
     if (TextUtils.isEmpty(labelId))
     {
-      Crashlytics.logException(new Resources.NotFoundException("An empty string id obtained for: "
-                                                               + mBanner));
+      CrashlyticsUtils.logException(new Resources.NotFoundException("An empty string id obtained for: "
+                                                                    + mBanner));
       return;
     }
 
@@ -121,7 +121,7 @@ final class BannerController implements View.OnClickListener
     }
     catch (Resources.NotFoundException e)
     {
-      Crashlytics.logException(new IllegalStateException("Unknown banner is found: " + mBanner, e));
+      CrashlyticsUtils.logException(new IllegalStateException("Unknown banner is found: " + mBanner, e));
     }
   }
 

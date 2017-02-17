@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:paddingBottom="@dimen/margin_half"
+  android:background="?cardBackground">
+
+  <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/margin_base_plus"
+    android:paddingLeft="@dimen/margin_base_plus"
+    android:paddingRight="@dimen/margin_base_plus">
+    <TextView
+      android:id="@+id/tv__title"
+      style="@style/MwmWidget.StackedButtonsDialogTitle"
+      tools:text="Use mobile internet to show detailed information?"
+      tools:targetApi="jelly_bean"/>
+
+    <TextView
+      android:id="@+id/tv__message"
+      style="@style/MwmWidget.StackedButtonsDialogMessage"
+      tools:text="Mobile internet is required for displaying detailed information about places, such as photographs, prices and reviews."/>
+  </LinearLayout>
+
+  <TextView
+    android:id="@+id/btn__positive"
+    style="@style/MwmWidget.Button.StackedButtonsDialog"
+    tools:text="Use Always"
+    tools:targetApi="jelly_bean"/>
+
+  <LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+      android:id="@+id/btn__neutral"
+      style="@style/MwmWidget.Button.StackedButtonsDialog"
+      android:layout_weight="1"
+      android:gravity="start|center_vertical"
+      tools:text="Only Today"
+      tools:targetApi="jelly_bean"/>
+
+    <TextView
+      android:id="@+id/btn__negative"
+      style="@style/MwmWidget.Button.StackedButtonsDialog"
+      android:layout_weight="1"
+      tools:text="Do not Use Today"
+      tools:targetApi="jelly_bean"/>
+  </LinearLayout>
+</LinearLayout>

@@ -89,6 +89,7 @@ import com.mapswithme.maps.widget.placepage.PlacePageView.State;
 import com.mapswithme.util.Animations;
 import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.InputUtils;
+import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -894,12 +895,19 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onRestoreInstanceState(savedInstanceState);
 
-    State state = State.values()[savedInstanceState.getInt(STATE_PP, 0)];
+    final State state = State.values()[savedInstanceState.getInt(STATE_PP, 0)];
     if (state != State.HIDDEN)
     {
       mPlacePageRestored = true;
-      mPlacePage.setMapObject((MapObject) savedInstanceState.getParcelable(STATE_MAP_OBJECT), true);
-      mPlacePage.setState(state);
+      mPlacePage.setMapObject((MapObject) savedInstanceState.getParcelable(STATE_MAP_OBJECT), true,
+                              new PlacePageView.SetMapObjectListener()
+      {
+        @Override
+        public void onSetMapObjectComplete()
+        {
+          mPlacePage.setState(state);
+        }
+      });
     }
 
     if (!mIsFragmentContainer && RoutingController.get().isPlanning())
@@ -1165,10 +1173,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     setFullscreen(false);
 
-    mPlacePage.setMapObject(object, true);
-    if (!mPlacePageRestored)
-      mPlacePage.setState(State.PREVIEW);
-    mPlacePageRestored = false;
+    mPlacePage.setMapObject(object, true, new PlacePageView.SetMapObjectListener()
+    {
+      @Override
+      public void onSetMapObjectComplete()
+      {
+        if (!mPlacePageRestored)
+          mPlacePage.setState(State.PREVIEW);
+        mPlacePageRestored = false;
+      }
+    });
 
     if (UiUtils.isVisible(mFadeView))
       mFadeView.fadeOut();
@@ -1281,7 +1295,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     else
     {
       Framework.nativeDeactivatePopup();
-      mPlacePage.setMapObject(null, false);
+      mPlacePage.setMapObject(null, false, null);
     }
   }
 
@@ -1583,7 +1597,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       updateSearchBar();
     }
 
-    mPlacePage.refreshViews();
+    mPlacePage.refreshViews(null);
   }
 
   private void adjustCompassAndTraffic(int offsetY)
@@ -1640,7 +1654,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void showNavigation(boolean show)
   {
-    mPlacePage.refreshViews();
+    mPlacePage.refreshViews(null);
     if (mNavigationController != null)
       mNavigationController.show(show);
     refreshFade();
