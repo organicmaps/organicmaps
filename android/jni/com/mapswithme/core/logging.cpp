@@ -1,10 +1,11 @@
-#include "jni_helper.hpp"
-#include "logging.hpp"
+#include "platform/platform.hpp"
+
 #include "base/exception.hpp"
 #include "base/logging.hpp"
-#include "coding/file_writer.hpp"
-#include "platform/platform.hpp"
-#include "../util/crashlytics.h"
+
+#include "com/mapswithme/core/jni_helper.hpp"
+#include "com/mapswithme/core/logging.hpp"
+#include "com/mapswithme/util/crashlytics.h"
 
 #include <android/log.h>
 #include <cassert>
@@ -36,7 +37,8 @@ void AndroidMessage(LogLevel level, SrcPoint const & src, string const & s)
      "logCoreMessage", "(ILjava/lang/String;)V");
 
   string const out = DebugPrint(src) + " " + s;
-  env->CallStaticVoidMethod(g_loggerFactoryClazz, logCoreMsgMethod, pr, jni::ToJavaString(env, out));
+  jni::TScopedLocalRef msg(env, jni::ToJavaString(env, out));
+  env->CallStaticVoidMethod(g_loggerFactoryClazz, logCoreMsgMethod, pr, msg.get());
   if (g_crashlytics)
     g_crashlytics->log(g_crashlytics, out.c_str());
 }
