@@ -269,7 +269,8 @@ extern NSString * const kAlohalyticsTapEventKey;
   {
     if (!self.searchHidden)
       self.searchManager.state = MWMSearchManagerStateHidden;
-    [MWMRouter stopRouting];
+    else
+      [MWMRouter stopRouting];
   }
   else
   {
