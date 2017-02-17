@@ -4,76 +4,109 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="@dimen/placepage_banner_height"
+  android:paddingLeft="@dimen/margin_base"
+  android:paddingRight="@dimen/margin_base"
+  android:paddingTop="@dimen/margin_half"
   android:background="?bannerBackground"
+  android:clipToPadding="false"
   tools:layout_height="wrap_content">
 
-  <ImageView
-    android:id="@+id/iv__banner_icon"
-    android:layout_width="@dimen/placepage_banner_icon_size"
-    android:layout_height="@dimen/placepage_banner_icon_size"
-    android:layout_marginTop="@dimen/margin_half_plus"
-    android:layout_marginLeft="@dimen/margin_base"
-    android:layout_marginStart="@dimen/margin_base"
-    android:layout_marginRight="@dimen/margin_base"
-    android:layout_marginEnd="@dimen/margin_base"
-    android:scaleType="centerCrop"
-    android:visibility="gone"
-    tools:src="@drawable/about_logo"
-    tools:visibility="visible"
-    tools:layout_width="@dimen/placepage_banner_icon_size_full"
-    tools:layout_height="@dimen/placepage_banner_icon_size_full"
-    tools:layout_marginRight="0dp"
-    tools:layout_marginEnd="0dp"
-    tools:layout_marginTop="@dimen/margin_base"/>
-
   <TextView
-    android:id="@+id/tv__banner_title"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/margin_base"
-    android:layout_marginLeft="@dimen/margin_base"
-    android:layout_marginRight="@dimen/margin_base"
-    android:layout_toEndOf="@id/iv__banner_icon"
-    android:layout_toRightOf="@id/iv__banner_icon"
-    android:maxLines="1"
-    android:minLines="1"
-    android:textAppearance="@style/MwmTextAppearance.Body3.Primary"
-    android:fontFamily="@string/robotoMedium"
-    tools:paddingTop="0dp"
-    tools:text="Закажи одежду в интернет-магазине Wildberries."
-    tools:targetApi="jelly_bean"
-    tools:maxLines="2"/>
-
-  <TextView
-    android:id="@+id/tv__banner_message"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/tv__banner_title"
-    android:layout_marginTop="@dimen/margin_half_plus"
-    android:layout_marginLeft="@dimen/margin_base"
-    android:layout_marginRight="@dimen/margin_base"
-    android:layout_toEndOf="@id/iv__banner_icon"
-    android:layout_toRightOf="@id/iv__banner_icon"
-    android:textAppearance="@style/MwmTextAppearance.Body4"
-    android:visibility="gone"
-    tools:text="Бесплатная курьерская доставка по России!\n\nКоллекции женской, мужской и детской одежды, обуви,
-а также товары для дома и спорта. Цены."
-    tools:visibility="visible"/>
-
-  <TextView
-    android:id="@+id/tv__banner"
+    android:id="@+id/tv__action_small"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/tv__banner_message"
-    android:layout_marginBottom="@dimen/margin_base"
-    android:layout_marginTop="@dimen/margin_half_plus"
-    android:layout_marginLeft="@dimen/margin_base"
-    android:layout_marginRight="@dimen/margin_base"
-    android:layout_toEndOf="@id/iv__banner_icon"
-    android:layout_toRightOf="@id/iv__banner_icon"
-    android:textAppearance="@style/MwmTextAppearance.Banner"
-    android:text="@string/advertisement"
-    android:visibility="gone"
+    android:layout_height="@dimen/margin_base_plus"
+    android:layout_centerVertical="true"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true"
+    android:layout_marginLeft="@dimen/margin_half"
+    android:layout_marginStart="@dimen/margin_half"
+    android:textSize="@dimen/text_size_body_4"
+    android:textColor="?warmGray"
+    android:background="?adsActionBackground"
+    android:foreground="?clickableBackground"
+    android:visibility="visible"
+    tools:text="Заказать"
     tools:visibility="visible"/>
 
+  <RelativeLayout
+    android:id="@+id/data_frame"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_toLeftOf="@id/tv__action_small"
+    android:layout_toStartOf="@id/tv__action_small"
+    android:layout_marginBottom="@dimen/margin_half">
+    <ImageView
+      android:id="@+id/iv__banner_icon"
+      android:layout_width="@dimen/placepage_banner_icon_size"
+      android:layout_height="@dimen/placepage_banner_icon_size"
+      android:layout_marginRight="@dimen/margin_half"
+      android:layout_marginEnd="@dimen/margin_half"
+      android:scaleType="centerCrop"
+      android:visibility="gone"
+      tools:src="@drawable/about_logo"
+      tools:visibility="visible"/>
+
+    <LinearLayout
+      android:id="@+id/banner_title"
+      android:orientation="horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_toEndOf="@id/iv__banner_icon"
+      android:layout_toRightOf="@id/iv__banner_icon"
+      android:gravity="center_vertical">
+      <TextView
+        android:id="@+id/tv__ads"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/margin_half_plus"
+        android:layout_marginRight="@dimen/margin_quarter"
+        android:layout_marginEnd="@dimen/margin_quarter"
+        android:textSize="@dimen/text_size_banner"
+        android:textColor="?adsText"
+        android:gravity="center"
+        android:background="?adsBackground"
+        android:text="@string/advertisement"/>
+
+      <TextView
+        android:id="@+id/tv__banner_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:minLines="1"
+        android:textAppearance="@style/MwmTextAppearance.Body4"
+        android:textColor="?textBannerTitle"
+        android:fontFamily="@string/robotoMedium"
+        android:ellipsize="end"
+        tools:text="Закажи одежду в интернет-магазине Wildberries."
+        tools:targetApi="jelly_bean"/>
+    </LinearLayout>
+
+    <TextView
+      android:id="@+id/tv__banner_message"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textAppearance="@style/MwmTextAppearance.Body4"
+      android:maxLines="3"
+      android:ellipsize="end"
+      tools:text="Бесплатная курьерская доставка по России!\n\nКоллекции женской, мужской и детской одежды, обуви,
+  а также товары для дома и спорта. Цены."
+      tools:maxLines="5"
+      android:layout_below="@+id/banner_title"
+      android:layout_toRightOf="@+id/iv__banner_icon"
+      android:layout_toEndOf="@+id/iv__banner_icon"/>
+  </RelativeLayout>
+
+  <TextView
+    android:id="@+id/tv__action_large"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/placepage_banner_button_height"
+    android:layout_below="@id/data_frame"
+    android:layout_marginLeft="@dimen/neg_margin_base"
+    android:layout_marginRight="@dimen/neg_margin_base"
+    android:textAppearance="@style/MwmTextAppearance.Body3"
+    android:background="?bannerButtonBackground"
+    android:foreground="?clickableBackground"
+    android:gravity="center"
+    android:visibility="gone"
+    tools:text="Заказать"
+    tools:visibility="visible"/>
 </RelativeLayout>

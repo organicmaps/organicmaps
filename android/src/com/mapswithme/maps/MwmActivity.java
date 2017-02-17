@@ -89,7 +89,6 @@ import com.mapswithme.maps.widget.placepage.PlacePageView.State;
 import com.mapswithme.util.Animations;
 import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.InputUtils;
-import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -1597,7 +1596,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       updateSearchBar();
     }
 
-    mPlacePage.refreshViews(null);
+    mPlacePage.refreshViews();
   }
 
   private void adjustCompassAndTraffic(int offsetY)
@@ -1654,7 +1653,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void showNavigation(boolean show)
   {
-    mPlacePage.refreshViews(null);
+    mPlacePage.refreshViews();
     if (mNavigationController != null)
       mNavigationController.show(show);
     refreshFade();

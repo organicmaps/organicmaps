@@ -43,7 +43,6 @@ import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.api.ParsedMwmRequest;
-import com.mapswithme.maps.bookmarks.data.Banner;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
@@ -98,7 +97,6 @@ public class PlacePageView extends RelativeLayout
                LineCountTextView.OnLineCountCalculatedListener,
                RecyclerClickListener,
                NearbyAdapter.OnItemClickListener,
-               BannerController.OnBannerClickListener,
                BottomPlacePageAnimationController.OnBannerOpenListener,
                EditBookmarkFragment.EditBookmarkListener
 {
@@ -356,7 +354,7 @@ public class PlacePageView extends RelativeLayout
 
     View bannerView = findViewById(R.id.banner);
     if (bannerView != null)
-      mBannerController = new BannerController(bannerView, this);
+      mBannerController = new BannerController(bannerView);
 
     mButtons = new PlacePageButtons(this, ppButtons, new PlacePageButtons.ItemListener()
     {
@@ -745,13 +743,6 @@ public class PlacePageView extends RelativeLayout
   }
 
   @Override
-  public void onBannerClick(@NonNull Banner banner)
-  {
-    if (!TextUtils.isEmpty(banner.getUrl()))
-      followUrl(banner.getUrl());
-  }
-
-  @Override
   public void onNeedOpenBanner()
   {
     if (mBannerController != null)
@@ -848,7 +839,7 @@ public class PlacePageView extends RelativeLayout
     if (!mIsDocked && !mIsFloating)
     {
       // After ninepatch background is set from code, all paddings are lost, so we need to restore it later.
-      int bottom = mBannerController != null && mBannerController.isShowing()
+      int bottom = mBannerController != null && mBannerController.isBannerVisible()
                    ? 0 : (int) getResources().getDimension(R.dimen.margin_base);
       int left = mPreview.getPaddingLeft();
       int right = mPreview.getPaddingRight();
@@ -941,13 +932,28 @@ public class PlacePageView extends RelativeLayout
     return mMapObject != null && (isSponsored() || mMapObject.getBanner() != null);
   }
 
-  public void refreshViews(@Nullable NetworkPolicy policy)
+  private void refreshViews(@NonNull NetworkPolicy policy)
   {
     if (mMapObject == null)
       return;
 
     refreshPreview(policy);
+    refreshViewsInternal();
+  }
+
+  public void refreshViews()
+  {
+    if (mMapObject == null)
+      return;
+
+    refreshPreview();
+    refreshViewsInternal();
+  }
+
+  private void refreshViewsInternal()
+  {
     refreshDetails();
+
     final Location loc = LocationHelper.INSTANCE.getSavedLocation();
 
     switch (mMapObject.getMapObjectType())
@@ -1004,7 +1010,18 @@ public class PlacePageView extends RelativeLayout
     }
   }
 
-  private void refreshPreview(@Nullable NetworkPolicy policy)
+  private void refreshPreview(@NonNull NetworkPolicy policy)
+  {
+    if (mBannerController != null)
+    {
+      mBannerController.updateData(policy.сanUseNetwork()
+                                   ? mMapObject.getBanner() : null);
+    }
+
+    refreshPreview();
+  }
+
+  private void refreshPreview()
   {
     UiUtils.setTextAndHideIfEmpty(mTvTitle, mMapObject.getTitle());
     if (mToolbar != null)
@@ -1024,12 +1041,6 @@ public class PlacePageView extends RelativeLayout
       UiUtils.showIf(!isPriceEmpty && !isRatingEmpty, mTvSponsoredRating);
       mTvSponsoredPrice.setText(mSponsoredPrice);
       UiUtils.showIf(!isPriceEmpty, mTvSponsoredPrice);
-    }
-
-    if (mBannerController != null)
-    {
-      mBannerController.updateData(policy != null && policy.сanUseNetwork()
-                                   ? mMapObject.getBanner() : null);
     }
   }
 
@@ -1621,5 +1632,10 @@ public class PlacePageView extends RelativeLayout
   public void onBookmarkSaved(int categoryId, int bookmarkId)
   {
     setMapObject(BookmarkManager.INSTANCE.getBookmark(categoryId, bookmarkId), true, null);
+  }
+
+  public boolean isBannerTouched(@NonNull MotionEvent event)
+  {
+    return mBannerController != null && mBannerController.isActionButtonTouched(event);
   }
 }

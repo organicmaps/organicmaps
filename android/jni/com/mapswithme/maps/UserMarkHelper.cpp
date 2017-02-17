@@ -24,20 +24,12 @@ void InjectMetadata(JNIEnv * env, jclass const clazz, jobject const mapObject, f
   }
 }
 
-jobject CreateBanner(JNIEnv * env, string const & id, string const & titleId,
-                     string const & messageId, string const & iconId,
-                     string const & url, vector<string> const & sourceTypes)
+jobject CreateBanner(JNIEnv * env, string const & id)
 {
-  auto const types = strings::JoinStrings(sourceTypes, ", ");
-  static jmethodID const bannerCtorId = jni::GetConstructorID(
-      env, g_bannerClazz,
-      "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;"
-      "Ljava/lang/String;)V");
+  static jmethodID const bannerCtorId =
+      jni::GetConstructorID(env, g_bannerClazz, "(Ljava/lang/String;)V");
 
-  return env->NewObject(g_bannerClazz, bannerCtorId, jni::ToJavaString(env, id),
-                        jni::ToJavaString(env, titleId), jni::ToJavaString(env, messageId),
-                        jni::ToJavaString(env, iconId), jni::ToJavaString(env, url),
-                        jni::ToJavaString(env, types));
+  return env->NewObject(g_bannerClazz, bannerCtorId, jni::ToJavaString(env, id));
 }
 
 jobject CreateMapObject(JNIEnv * env, int mapObjectType, string const & title,
@@ -65,9 +57,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
 {
   jobject jbanner = nullptr;
   if (info.HasBanner())
-    jbanner = CreateBanner(env, info.GetBannerId(), info.GetBannerTitleId(),
-                           info.GetBannerMessageId(), info.GetBannerIconId(),
-                           info.GetBannerUrl(), info.GetRawTypes());
+    jbanner = CreateBanner(env, info.GetBanner().m_bannerId);
   if (info.IsBookmark())
   {
     // public Bookmark(@IntRange(from = 0) int categoryId, @IntRange(from = 0) int bookmarkId,

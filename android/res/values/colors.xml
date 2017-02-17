@@ -21,11 +21,17 @@
   <color name="black_secondary">#8A000000</color> <!-- 54% black -->
   <color name="black_lightest">#61000000</color>  <!-- 38% black -->
   <color name="black_8">#14000000</color> <!-- 8% black -->
+  <color name="black_24">#3D000000</color> <!-- 24% black -->
+  <color name="black_60">#99000000</color> <!-- 24% black -->
   <color name="white_primary">#FFFFFFFF</color>   <!-- 100% white -->
   <color name="white_secondary">#B3FFFFFF</color> <!-- 70% white -->
   <color name="white_lightest">#4CFFFFFF</color>  <!-- 50% white -->
   <color name="white_8">#14FFFFFF</color> <!-- 8% white -->
-  
+  <color name="white_24">#3DFFFFFF</color> <!-- 24% black -->
+  <color name="white_60">#99FFFFFF</color> <!-- 24% black -->
+  <color name="warm_gray">#FF999691</color>
+  <color name="warm_gray_night">#FF999691</color>
+
 
   <color name="icon_tint">#FF757575</color>
   <color name="icon_tint_night">#FFC4C6C7</color>
@@ -151,9 +157,13 @@
   <color name="bg_brand_opentable_pressed">#FFFC5965</color>
 
   <!-- Banner colors-->
-  <color name="bg_banner_color">#FFF8E1</color>
-  <color name="bg_banner_color_night">#555A5A</color>
+  <color name="bg_banner_color">#FFFFFBF3</color>
+  <color name="bg_banner_color_night">#FF555A5A</color>
   <color name="text_banner_color">#28000000</color>
   <color name="text_banner_color_night">#28FFFFFF</color>
+  <color name="bg_banner_button_color">#FFF3EBDA</color>
+  <color name="bg_banner_button_color_night">#4CFFFAE1</color>
+  <color name="text_ads_color">#FFFFFBF2</color>
+  <color name="text_ads_color_night">#FFFFFBF2</color>
 
 </resources>

@@ -164,9 +164,10 @@
   <dimen name="placepage_margin_rating">20dp</dimen>
 
   <!-- Banner-->
-  <dimen name="placepage_banner_height">46dp</dimen>
-  <dimen name="placepage_banner_icon_size">22dp</dimen>
-  <dimen name="placepage_banner_icon_size_full">40dp</dimen>
+  <dimen name="placepage_banner_height">64dp</dimen>
+  <dimen name="placepage_banner_icon_size">40dp</dimen>
+  <dimen name="placepage_banner_button_height">36dp</dimen>
+  <dimen name="placepage_banner_button_margin_top">5dp</dimen>
 
   <!-- Place page taxi-->
   <dimen name="placepage_taxi_button_min_width">96dp</dimen>
