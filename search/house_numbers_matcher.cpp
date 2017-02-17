@@ -98,7 +98,7 @@ const char * const g_buildingPartSynonyms[] = {
     "корп",     "кор",  "литер", "лит", "строение", "стр",   "блок", "бл"};
 
 // List of common stop words for buildings. Constructed by hand.
-UniString const g_stopWords[] = {MakeUniString("дом"), MakeUniString("house")};
+UniString const g_stopWords[] = {MakeUniString("дом"), MakeUniString("house"), MakeUniString("д")};
 
 bool IsStopWord(UniString const & s, bool isPrefix)
 {
@@ -213,9 +213,14 @@ public:
           return false;
         // fallthrough
       }
+      case Token::TYPE_LETTER:
+      {
+        if (j == 0 && IsStopWord(token.m_value, token.m_prefix))
+          break;
+        // fallthrough
+      }
       case Token::TYPE_NUMBER:         // fallthrough
       case Token::TYPE_BUILDING_PART:  // fallthrough
-      case Token::TYPE_LETTER:         // fallthrough
       case Token::TYPE_BUILDING_PART_OR_LETTER:
         parse[i] = move(parse[j]);
         ++i;
