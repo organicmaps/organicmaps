@@ -89,7 +89,7 @@ final class BannerController implements AdListener
     if (BuildConfig.DEBUG)
     {
       AdSettings.addTestDevice("c36b141fff9e11866d8cf9c601d2b7e0");
-      AdSettings.addTestDevice("f73c8b5221b977caba1b60cd7a966587");
+      AdSettings.addTestDevice("189055740336d9d2687f41a775eaf867");
       AdSettings.addTestDevice("36dd04f33c4cf92e3b7d21e9a5a9d985");
       AdSettings.addTestDevice("b39d3c00580d17b291ff4e161a423525");
       AdSettings.addTestDevice("51bae0d8b2ba8290659840f9098e3026");
@@ -202,15 +202,22 @@ final class BannerController implements AdListener
 
     if (UiUtils.isLandscape(mFrame.getContext()))
     {
-      open();
+      if (!mOpened)
+        open();
+      else
+        loadIcon(mNativeAd);
     }
-    else
+    else if (!mOpened)
     {
       close();
       Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_BANNER_SHOW,
                                      Statistics.params()
                                                .add("banner:", mBanner.getId())
                                                .add("state:", "0"));
+    }
+    else
+    {
+      loadIcon(mNativeAd);
     }
   }
 
