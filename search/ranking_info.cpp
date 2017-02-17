@@ -11,17 +11,19 @@ namespace
 {
 // See search/search_quality/scoring_model.py for details.  In short,
 // these coeffs correspond to coeffs in a linear model.
-double const kDistanceToPivot = -0.7579760;
-double const kRank = 0.9185310;
-double const kFalseCats = -0.7996119;
+double const kDistanceToPivot = -1.0000000;
+double const kRank = 0.7165246;
+double const kFalseCats = -0.3833900;
 double const kNameScore[NameScore::NAME_SCORE_COUNT] = {
-    -1.0000000 /* Zero */, 0.3585180 /* Substring Prefix */, 0.3198080 /* Substring */,
-    0.3216740 /* Full Match Prefix */, 0.3216740 /* Full Match */
+    -0.1069757 /* Zero */, -0.0250079 /* Substring Prefix */, 0.0447104 /* Substring */,
+    0.0872732 /* Full Match Prefix */, 0.0872732 /* Full Match */
 };
+
 double const kSearchType[SearchModel::SEARCH_TYPE_COUNT] = {
-    -0.1419479 /* POI */,          -0.1419479 /* Building */, -0.1462099 /* Street */,
-    -0.1509122 /* Unclassified */, -0.2591458 /* Village */,  -0.0451342 /* City */,
-    0.2515398 /* State */,         0.4918102 /* Country */
+    -0.3884116 /* POI */,     -0.3884116 /* Building */,
+    -0.3214653 /* Street */,  -0.3357469 /* Unclassified */,
+    -0.4341714 /* Village */, 0.2721947 /* City */,
+    0.4708555 /* State */,    0.7367450 /* Country */
 };
 
 double TransformDistance(double distance)
