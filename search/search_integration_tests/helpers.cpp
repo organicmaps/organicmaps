@@ -67,13 +67,28 @@ bool SearchTest::ResultsMatch(string const & query, Mode mode,
   return MatchResults(m_engine, rules, request.Results());
 }
 
+bool SearchTest::ResultsMatch(vector<search::Result> const & results, TRules const & rules)
+{
+  return MatchResults(m_engine, rules, results);
+}
+
+unique_ptr<tests_support::TestSearchRequest> SearchTest::MakeRequest(string const & query)
+{
+  SearchParams params;
+  params.m_query = query;
+  params.m_inputLocale = "en";
+  params.m_mode = Mode::Everywhere;
+  params.m_suggestsEnabled = false;
+
+  auto request = make_unique<tests_support::TestSearchRequest>(m_engine, params, m_viewport);
+  request->Run();
+  return request;
+}
+
 size_t SearchTest::CountFeatures(m2::RectD const & rect)
 {
   size_t count = 0;
-  auto counter = [&count](const FeatureType & /* ft */)
-  {
-    ++count;
-  };
+  auto counter = [&count](const FeatureType & /* ft */) { ++count; };
   m_engine.ForEachInRect(counter, rect, scales::GetUpperScale());
   return count;
 }

@@ -965,7 +965,10 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
       filtered.ForEach([&](uint32_t id) {
         SearchModel::SearchType searchType;
         if (GetSearchTypeInGeocoding(ctx, id, searchType))
-          EmitResult(ctx, m_context->GetId(), id, searchType, m_postcodes.m_tokenRange);
+        {
+          EmitResult(ctx, m_context->GetId(), id, searchType, m_postcodes.m_tokenRange,
+                     nullptr /* geoParts */);
+        }
       });
       return;
     }
@@ -986,7 +989,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
         if (!m_postcodes.m_features.HasBit(id))
           continue;
         EmitResult(ctx, m_context->GetId(), id, SearchModel::SEARCH_TYPE_STREET,
-                   layers.back().m_tokenRange);
+                   layers.back().m_tokenRange, nullptr /* geoParts */);
       }
     }
 
@@ -1186,15 +1189,14 @@ void Geocoder::FindPaths(BaseContext const & ctx)
       *m_matcher, sortedLayers, [this, &ctx, &innermostLayer](IntersectionResult const & result)
       {
         ASSERT(result.IsValid(), ());
-        // TODO(@y, @m, @vng): use rest fields of IntersectionResult for
-        // better scoring.
         EmitResult(ctx, m_context->GetId(), result.InnermostResult(), innermostLayer.m_type,
-                   innermostLayer.m_tokenRange);
+                   innermostLayer.m_tokenRange, &result);
       });
 }
 
 void Geocoder::EmitResult(BaseContext const & ctx, MwmSet::MwmId const & mwmId, uint32_t ftId,
-                          SearchModel::SearchType type, TokenRange const & tokenRange)
+                          SearchModel::SearchType type, TokenRange const & tokenRange,
+                          IntersectionResult const * geoParts)
 {
   FeatureID id(mwmId, ftId);
 
@@ -1220,6 +1222,9 @@ void Geocoder::EmitResult(BaseContext const & ctx, MwmSet::MwmId const & mwmId, 
   if (ctx.m_city)
     info.m_tokenRange[SearchModel::SEARCH_TYPE_CITY] = ctx.m_city->m_tokenRange;
 
+  if (geoParts)
+    info.m_geoParts = *geoParts;
+
   m_preRanker.Emplace(id, info);
 }
 
@@ -1227,12 +1232,13 @@ void Geocoder::EmitResult(BaseContext const & ctx, Region const & region,
                           TokenRange const & tokenRange)
 {
   auto const type = Region::ToSearchType(region.m_type);
-  EmitResult(ctx, region.m_countryId, region.m_featureId, type, tokenRange);
+  EmitResult(ctx, region.m_countryId, region.m_featureId, type, tokenRange, nullptr /* geoParts */);
 }
 
 void Geocoder::EmitResult(BaseContext const & ctx, City const & city, TokenRange const & tokenRange)
 {
-  EmitResult(ctx, city.m_countryId, city.m_featureId, city.m_type, tokenRange);
+  EmitResult(ctx, city.m_countryId, city.m_featureId, city.m_type, tokenRange,
+             nullptr /* geoParts */);
 }
 
 void Geocoder::MatchUnclassified(BaseContext & ctx, size_t curToken)
@@ -1268,7 +1274,10 @@ void Geocoder::MatchUnclassified(BaseContext & ctx, size_t curToken)
     if (!GetSearchTypeInGeocoding(ctx, featureId, searchType))
       return;
     if (searchType == SearchModel::SEARCH_TYPE_UNCLASSIFIED)
-      EmitResult(ctx, m_context->GetId(), featureId, searchType, TokenRange(startToken, curToken));
+    {
+      EmitResult(ctx, m_context->GetId(), featureId, searchType, TokenRange(startToken, curToken),
+                 nullptr /* geoParts */);
+    }
   };
   allFeatures.ForEach(emitUnclassified);
 }

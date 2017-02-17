@@ -66,25 +66,6 @@ private:
 
 class ProcessorTest : public SearchTest
 {
-public:
-  unique_ptr<TestSearchRequest> MakeRequest(string const & query)
-  {
-    SearchParams params;
-    params.m_query = query;
-    params.m_inputLocale = "en";
-    params.m_mode = Mode::Everywhere;
-    params.m_suggestsEnabled = false;
-
-    auto request = make_unique<TestSearchRequest>(m_engine, params, m_viewport);
-    request->Run();
-    return request;
-  }
-
-  bool MatchResults(vector<shared_ptr<MatchingRule>> rules,
-                    vector<search::Result> const & actual) const
-  {
-    return ::MatchResults(m_engine, rules, actual);
-  }
 };
 
 UNIT_CLASS_TEST(ProcessorTest, Smoke)
@@ -337,7 +318,7 @@ UNIT_CLASS_TEST(ProcessorTest, DisableSuggests)
     request.Run();
     TRules rules = {ExactMatch(worldId, london1), ExactMatch(worldId, london2)};
 
-    TEST(MatchResults(rules, request.Results()), ());
+    TEST(ResultsMatch(request.Results(), rules), ());
   }
 }
 
@@ -399,7 +380,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo)
     TRules rules = {ExactMatch(wonderlandId, goldenGateBridge),
                     ExactMatch(wonderlandId, goldenGateStreet)};
 
-    TEST(MatchResults(rules, request->Results()), ());
+    TEST(ResultsMatch(request->Results(), rules), ());
     for (auto const & result : request->Results())
     {
       auto const & info = result.GetRankingInfo();
@@ -416,11 +397,11 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo)
 
     TRules rules{ExactMatch(wonderlandId, cafe1), ExactMatch(wonderlandId, cafe2),
                  ExactMatch(wonderlandId, lermontov)};
-    TEST(MatchResults(rules, results), ());
+    TEST(ResultsMatch(results, rules), ());
 
     TEST_EQUAL(3, results.size(), ("Unexpected number of retrieved cafes."));
     auto const & top = results.front();
-    TEST(MatchResults({ExactMatch(wonderlandId, lermontov)}, {top}), ());
+    TEST(ResultsMatch({top}, {ExactMatch(wonderlandId, lermontov)}), ());
   }
 
   {
@@ -640,7 +621,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategories)
                           ExactMatch(wonderlandId, busStop)};
 
     auto request = MakeRequest("atm");
-    TEST(MatchResults(rules, request->Results()), ());
+    TEST(ResultsMatch(request->Results(), rules), ());
     for (auto const & result : request->Results())
     {
       Index::FeaturesLoaderGuard loader(m_engine, wonderlandId);
@@ -713,7 +694,7 @@ UNIT_CLASS_TEST(ProcessorTest, HotelsFiltering)
     TestSearchRequest request(m_engine, params, m_viewport);
     request.Run();
     TRules rules = {ExactMatch(id, h1), ExactMatch(id, h2), ExactMatch(id, h3), ExactMatch(id, h4)};
-    TEST(MatchResults(rules, request.Results()), ());
+    TEST(ResultsMatch(request.Results(), rules), ());
   }
 
   using namespace hotels_filter;
@@ -723,7 +704,7 @@ UNIT_CLASS_TEST(ProcessorTest, HotelsFiltering)
     TestSearchRequest request(m_engine, params, m_viewport);
     request.Run();
     TRules rules = {ExactMatch(id, h1), ExactMatch(id, h3)};
-    TEST(MatchResults(rules, request.Results()), ());
+    TEST(ResultsMatch(request.Results(), rules), ());
   }
 
   params.m_hotelsFilter = Or(Eq<Rating>(9.0), Le<PriceRate>(4));
@@ -731,7 +712,7 @@ UNIT_CLASS_TEST(ProcessorTest, HotelsFiltering)
     TestSearchRequest request(m_engine, params, m_viewport);
     request.Run();
     TRules rules = {ExactMatch(id, h1), ExactMatch(id, h3), ExactMatch(id, h4)};
-    TEST(MatchResults(rules, request.Results()), ());
+    TEST(ResultsMatch(request.Results(), rules), ());
   }
 
   params.m_hotelsFilter = Or(And(Eq<Rating>(7.0), Eq<PriceRate>(5)), Eq<PriceRate>(4));
@@ -739,7 +720,7 @@ UNIT_CLASS_TEST(ProcessorTest, HotelsFiltering)
     TestSearchRequest request(m_engine, params, m_viewport);
     request.Run();
     TRules rules = {ExactMatch(id, h2), ExactMatch(id, h4)};
-    TEST(MatchResults(rules, request.Results()), ());
+    TEST(ResultsMatch(request.Results(), rules), ());
   }
 }
 
@@ -842,7 +823,7 @@ UNIT_CLASS_TEST(ProcessorTest, StopWords)
     TRules rules = {ExactMatch(id, street)};
 
     auto const & results = request->Results();
-    TEST(MatchResults(rules, results), ());
+    TEST(ResultsMatch(results, rules), ());
 
     auto const & info = results[0].GetRankingInfo();
     TEST_EQUAL(info.m_nameScore, NAME_SCORE_FULL_MATCH, ());

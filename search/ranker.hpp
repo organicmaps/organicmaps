@@ -81,8 +81,7 @@ public:
 
   bool IsResultExists(PreResult2 const & p, vector<IndexedValue> const & values);
 
-  void MakePreResult2(Geocoder::Params const & params, vector<IndexedValue> & cont,
-                      vector<FeatureID> & streets);
+  void MakePreResult2(Geocoder::Params const & params, vector<IndexedValue> & cont);
 
   Result MakeResult(PreResult2 const & r) const;
   void MakeResultHighlight(Result & res) const;

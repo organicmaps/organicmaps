@@ -2,8 +2,9 @@
 
 #include "search/model.hpp"
 
-#include "std/cstdint.hpp"
-#include "std/string.hpp"
+#include <cstdint>
+#include <limits>
+#include <string>
 
 namespace search
 {
@@ -11,9 +12,7 @@ namespace search
 // i.e. BUILDING and STREET for POI or STREET for BUILDING.
 struct IntersectionResult
 {
-  static uint32_t const kInvalidId;
-
-  IntersectionResult();
+  static uint32_t constexpr kInvalidId = std::numeric_limits<uint32_t>::max();
 
   void Set(SearchModel::SearchType type, uint32_t id);
 
@@ -27,10 +26,10 @@ struct IntersectionResult
   // Clears all fields to an invalid state.
   void Clear();
 
-  uint32_t m_poi;
-  uint32_t m_building;
-  uint32_t m_street;
+  uint32_t m_poi = kInvalidId;
+  uint32_t m_building = kInvalidId;
+  uint32_t m_street = kInvalidId;
 };
 
-string DebugPrint(IntersectionResult const & result);
+std::string DebugPrint(IntersectionResult const & result);
 }  // namespace search
