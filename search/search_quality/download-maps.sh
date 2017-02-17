@@ -50,6 +50,7 @@ then
 fi
 
 NAMES=("Australia_Brisbane.mwm"
+       "Belarus_Hrodna*.mwm"
        "Belarus_Minsk*.mwm"
        "Canada_Ontario_London.mwm"
        "Canada_Quebek_Montreal.mwm"
