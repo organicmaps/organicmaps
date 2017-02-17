@@ -663,6 +663,12 @@ shared_ptr<TrafficInfo::Coloring> RoutingSession::GetTrafficInfo(MwmSet::MwmId c
   return TrafficCache::GetTrafficInfo(mwmId);
 }
 
+void RoutingSession::CopyTraffic(std::map<MwmSet::MwmId, std::shared_ptr<traffic::TrafficInfo::Coloring>> & trafficColoring) const
+{
+  threads::MutexGuard guard(m_routingSessionMutex);
+  TrafficCache::CopyTraffic(trafficColoring);
+}
+
 string DebugPrint(RoutingSession::State state)
 {
   switch (state)

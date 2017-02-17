@@ -91,7 +91,7 @@ public:
   bool IsLeap(NumMwmId mwmId) const
   {
     return mwmId != kFakeNumMwmId && mwmId != m_start.GetMwmId() && mwmId != m_finish.GetMwmId() &&
-           m_graph.GetEstimator().AllowLeap(mwmId);
+           m_graph.GetEstimator().LeapIsAllowed(mwmId);
   }
 
   static bool IsFakeSegment(Segment const & segment)

@@ -12,10 +12,10 @@ WorldGraph::WorldGraph(unique_ptr<CrossMwmIndexGraph> crossMwmGraph,
   CHECK(m_estimator, ());
 }
 
-void WorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing, bool leap,
+void WorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing, bool isLeap,
                              vector<SegmentEdge> & edges)
 {
-  if (m_crossMwmGraph && leap)
+  if (m_crossMwmGraph && isLeap)
   {
     if (m_crossMwmGraph->IsTransition(segment, isOutgoing))
       GetTwins(segment, isOutgoing, edges);

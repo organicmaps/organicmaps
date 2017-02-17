@@ -68,6 +68,7 @@ class TestIndexGraphLoader final : public IndexGraphLoader
 public:
   // IndexGraphLoader overrides:
   IndexGraph & GetIndexGraph(NumMwmId mwmId) override;
+  virtual void Clear() override;
 
   void AddGraph(NumMwmId mwmId, unique_ptr<IndexGraph> graph);
 
@@ -81,6 +82,7 @@ unique_ptr<WorldGraph> BuildWorldGraph(unique_ptr<TestGeometryLoader> loader,
 
 routing::Joint MakeJoint(vector<routing::RoadPoint> const & points);
 
+shared_ptr<routing::EdgeEstimator> CreateEstimator(traffic::TrafficCache const & trafficCache);
 shared_ptr<routing::EdgeEstimator> CreateEstimator(shared_ptr<TrafficStash> trafficStash);
 
 routing::AStarAlgorithm<routing::IndexGraphStarter>::Result CalculateRoute(

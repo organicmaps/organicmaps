@@ -60,7 +60,7 @@ unique_ptr<WorldGraph> BuildCrossGraph()
       MakeJoint({{2, 1}, {3, 0}}), MakeJoint({{4, 1}, {5, 0}}), MakeJoint({{6, 1}, {7, 0}})};
 
   traffic::TrafficCache const trafficCache;
-  shared_ptr<EdgeEstimator> estimator = CreateEstimator(make_shared<TrafficStash>(trafficCache));
+  shared_ptr<EdgeEstimator> estimator = CreateEstimator(trafficCache);
   return BuildWorldGraph(move(loader), estimator, joints);
 }
 
@@ -138,7 +138,7 @@ unique_ptr<WorldGraph> BuildTriangularGraph()
   };
 
   traffic::TrafficCache const trafficCache;
-  shared_ptr<EdgeEstimator> estimator = CreateEstimator(make_shared<TrafficStash>(trafficCache));
+  shared_ptr<EdgeEstimator> estimator = CreateEstimator(trafficCache);
   return BuildWorldGraph(move(loader), estimator, joints);
 }
 
@@ -260,7 +260,7 @@ unique_ptr<WorldGraph> BuildTwowayCornerGraph()
       MakeJoint({{3, 0}}),                 /* joint at point (3, 0) */
   };
   traffic::TrafficCache const trafficCache;
-  shared_ptr<EdgeEstimator> estimator = CreateEstimator(make_shared<TrafficStash>(trafficCache));
+  shared_ptr<EdgeEstimator> estimator = CreateEstimator(trafficCache);
   return BuildWorldGraph(move(loader), estimator, joints);
 }
 
@@ -369,7 +369,7 @@ unique_ptr<WorldGraph> BuildTwoSquaresGraph()
   };
 
   traffic::TrafficCache const trafficCache;
-  shared_ptr<EdgeEstimator> estimator = CreateEstimator(make_shared<TrafficStash>(trafficCache));
+  shared_ptr<EdgeEstimator> estimator = CreateEstimator(trafficCache);
   return BuildWorldGraph(move(loader), estimator, joints);
 }
 
@@ -485,7 +485,7 @@ unique_ptr<WorldGraph> BuildFlagGraph()
   };
 
   traffic::TrafficCache const trafficCache;
-  shared_ptr<EdgeEstimator> estimator = CreateEstimator(make_shared<TrafficStash>(trafficCache));
+  shared_ptr<EdgeEstimator> estimator = CreateEstimator(trafficCache);
   return BuildWorldGraph(move(loader), estimator, joints);
 }
 
@@ -586,7 +586,7 @@ unique_ptr<WorldGraph> BuildPosterGraph()
   };
 
   traffic::TrafficCache const trafficCache;
-  shared_ptr<EdgeEstimator> estimator = CreateEstimator(make_shared<TrafficStash>(trafficCache));
+  shared_ptr<EdgeEstimator> estimator = CreateEstimator(trafficCache);
   return BuildWorldGraph(move(loader), estimator, joints);
 }
 
@@ -669,7 +669,7 @@ unique_ptr<WorldGraph> BuildTwoWayGraph()
   };
 
   traffic::TrafficCache const trafficCache;
-  shared_ptr<EdgeEstimator> estimator = CreateEstimator(make_shared<TrafficStash>(trafficCache));
+  shared_ptr<EdgeEstimator> estimator = CreateEstimator(trafficCache);
   return BuildWorldGraph(move(loader), estimator, joints);
 }
 
@@ -720,7 +720,7 @@ unique_ptr<WorldGraph> BuildSquaresGraph()
   };
 
   traffic::TrafficCache const trafficCache;
-  shared_ptr<EdgeEstimator> estimator = CreateEstimator(make_shared<TrafficStash>(trafficCache));
+  shared_ptr<EdgeEstimator> estimator = CreateEstimator(trafficCache);
   return BuildWorldGraph(move(loader), estimator, joints);
 }
 
@@ -774,7 +774,7 @@ unique_ptr<WorldGraph> BuildLineGraph()
   };
 
   traffic::TrafficCache const trafficCache;
-  shared_ptr<EdgeEstimator> estimator = CreateEstimator(make_shared<TrafficStash>(trafficCache));
+  shared_ptr<EdgeEstimator> estimator = CreateEstimator(trafficCache);
   return BuildWorldGraph(move(loader), estimator, joints);
 }
 
@@ -827,7 +827,7 @@ unique_ptr<WorldGraph> BuildFGraph()
   };
 
   traffic::TrafficCache const trafficCache;
-  shared_ptr<EdgeEstimator> estimator = CreateEstimator(make_shared<TrafficStash>(trafficCache));
+  shared_ptr<EdgeEstimator> estimator = CreateEstimator(trafficCache);
   return BuildWorldGraph(move(loader), estimator, joints);
 }
 

@@ -107,10 +107,10 @@ IRouter::ResultCode SingleMwmRouter::DoCalculateRoute(m2::PointD const & startPo
                                              finishEdge.GetSegId(), finalPoint);
 
   TrafficStash::Guard guard(*m_trafficStash);
-  WorldGraph graph(make_unique<CrossMwmIndexGraph>(m_numMwmIds, m_indexManager),
-                   IndexGraphLoader::Create(m_numMwmIds, m_vehicleModelFactory, m_estimator,
-                                            m_trafficStash, m_index),
-                   m_estimator);
+  WorldGraph graph(
+      make_unique<CrossMwmIndexGraph>(m_numMwmIds, m_indexManager),
+      IndexGraphLoader::Create(m_numMwmIds, m_vehicleModelFactory, m_estimator, m_index),
+      m_estimator);
 
   // TODO remove to activate CrossMwmGraph.
   graph.BlockMwmBorders();
@@ -203,40 +203,50 @@ IRouter::ResultCode SingleMwmRouter::ProcessLeaps(vector<Segment> const & input,
                                                   IndexGraphStarter & starter,
                                                   vector<Segment> & output)
 {
-  starter.GetGraph().BlockMwmBorders();
+  output.reserve(input.size());
+
+  WorldGraph & worldGraph = starter.GetGraph();
+  worldGraph.BlockMwmBorders();
 
   for (size_t i = 0; i < input.size(); ++i)
   {
     Segment const & current = input[i];
-    if (starter.IsLeap(current.GetMwmId()))
+    if (!starter.IsLeap(current.GetMwmId()))
     {
-      ++i;
-      CHECK_LESS(i, input.size(), ());
-      Segment const & next = input[i];
-      CHECK_EQUAL(current.GetMwmId(), next.GetMwmId(), ("i:", i));
+      output.push_back(current);
+      continue;
+    }
 
-      IndexGraphStarter::FakeVertex const start(current,
-                                                starter.GetPoint(current, true /* front */));
-      IndexGraphStarter::FakeVertex const finish(next, starter.GetPoint(next, true /* front */));
+    ++i;
+    CHECK_LESS(i, input.size(), ());
+    Segment const & next = input[i];
+    CHECK_EQUAL(current.GetMwmId(), next.GetMwmId(),
+                ("Different mwm ids for leap enter and exit, i:", i));
 
-      IndexGraphStarter leapStarter(start, finish, starter.GetGraph());
+    IndexGraphStarter::FakeVertex const start(current, starter.GetPoint(current, true /* front */));
+    IndexGraphStarter::FakeVertex const finish(next, starter.GetPoint(next, true /* front */));
+    IndexGraphStarter leapStarter(start, finish, starter.GetGraph());
 
-      AStarAlgorithm<IndexGraphStarter> algorithm;
-      RoutingResult<Segment> routingResult;
-      auto const resultCode =
-          algorithm.FindPathBidirectional(leapStarter, leapStarter.GetStart(),
-                                          leapStarter.GetFinish(), routingResult, delegate, {});
+    // Clear previous loaded graphs.
+    // Dont spend too much memory at one time.
+    worldGraph.ClearIndexGraphs();
 
-      switch (resultCode)
+    AStarAlgorithm<IndexGraphStarter> algorithm;
+    RoutingResult<Segment> routingResult;
+    auto const resultCode = algorithm.FindPathBidirectional(
+        leapStarter, leapStarter.GetStart(), leapStarter.GetFinish(), routingResult, delegate, {});
+
+    switch (resultCode)
+    {
+    case AStarAlgorithm<IndexGraphStarter>::Result::NoPath: return IRouter::RouteNotFound;
+    case AStarAlgorithm<IndexGraphStarter>::Result::Cancelled: return IRouter::Cancelled;
+    case AStarAlgorithm<IndexGraphStarter>::Result::OK:
+      for (Segment const & segment : routingResult.path)
       {
-      case AStarAlgorithm<IndexGraphStarter>::Result::NoPath: return IRouter::RouteNotFound;
-      case AStarAlgorithm<IndexGraphStarter>::Result::Cancelled: return IRouter::Cancelled;
-      case AStarAlgorithm<IndexGraphStarter>::Result::OK:
-        output.insert(output.end(), routingResult.path.begin(), routingResult.path.end());
+        if (!IndexGraphStarter::IsFakeSegment(segment))
+          output.push_back(segment);
       }
     }
-    else
-      output.push_back(current);
   }
 
   return IRouter::NoError;
@@ -300,7 +310,7 @@ unique_ptr<SingleMwmRouter> SingleMwmRouter::CreateCarRouter(
     maxSpeed = max(maxSpeed, mwmMaxSpeed);
   });
 
-  auto trafficStash = make_shared<TrafficStash>(trafficCache);
+  auto trafficStash = make_shared<TrafficStash>(trafficCache, numMwmIds);
 
   auto estimator = EdgeEstimator::CreateForCar(trafficStash, maxSpeed);
   auto router = make_unique<SingleMwmRouter>("astar-bidirectional-car", countryFileFn, numMwmIds,

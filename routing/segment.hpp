@@ -64,7 +64,7 @@ public:
 private:
   uint32_t m_featureId = 0;
   uint32_t m_segmentIdx = 0;
-  NumMwmId m_mwmId = 0;
+  NumMwmId m_mwmId = kFakeNumMwmId;
   bool m_forward = false;
 };
 

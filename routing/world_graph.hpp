@@ -19,7 +19,7 @@ public:
   WorldGraph(std::unique_ptr<CrossMwmIndexGraph> crossMwmGraph,
              std::unique_ptr<IndexGraphLoader> loader, std::shared_ptr<EdgeEstimator> estimator);
 
-  void GetEdgeList(Segment const & segment, bool isOutgoing, bool leap,
+  void GetEdgeList(Segment const & segment, bool isOutgoing, bool isLeap,
                    std::vector<SegmentEdge> & edges);
 
   IndexGraph & GetIndexGraph(NumMwmId numMwmId) { return m_loader->GetIndexGraph(numMwmId); }
@@ -27,7 +27,11 @@ public:
 
   RoadGeometry const & GetRoadGeometry(NumMwmId mwmId, uint32_t featureId);
 
+  // Disable edges between mwms.
+  // Unblocking is not implemented due to YAGNI principle.
   void BlockMwmBorders() { m_crossMwmGraph = nullptr; }
+  // Clear memory used by loaded index graphs.
+  void ClearIndexGraphs() { m_loader->Clear(); }
 
 private:  
   void GetTwins(Segment const & s, bool isOutgoing, std::vector<SegmentEdge> & edges);
