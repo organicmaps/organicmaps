@@ -16,6 +16,7 @@
   <dimen name="nav_zoom_bottom">250dp</dimen>
   <dimen name="nav_toggle_margin">16dp</dimen>
   <dimen name="nav_numbers_margin">16dp</dimen>
+  <dimen name="nav_menu_top_offset">-6dp</dimen>
 
   <!-- Altitude chart -->
   <dimen name="altitude_chart_image_width">720dp</dimen>
