@@ -932,13 +932,28 @@ public class PlacePageView extends RelativeLayout
     return mMapObject != null && (isSponsored() || mMapObject.getBanner() != null);
   }
 
-  public void refreshViews(@Nullable NetworkPolicy policy)
+  private void refreshViews(@NonNull NetworkPolicy policy)
   {
     if (mMapObject == null)
       return;
 
     refreshPreview(policy);
+    refreshViewsInternal();
+  }
+
+  public void refreshViews()
+  {
+    if (mMapObject == null)
+      return;
+
+    refreshPreview();
+    refreshViewsInternal();
+  }
+
+  private void refreshViewsInternal()
+  {
     refreshDetails();
+
     final Location loc = LocationHelper.INSTANCE.getSavedLocation();
 
     switch (mMapObject.getMapObjectType())
@@ -995,7 +1010,18 @@ public class PlacePageView extends RelativeLayout
     }
   }
 
-  private void refreshPreview(@Nullable NetworkPolicy policy)
+  private void refreshPreview(@NonNull NetworkPolicy policy)
+  {
+    if (mBannerController != null)
+    {
+      mBannerController.updateData(policy.сanUseNetwork()
+                                   ? mMapObject.getBanner() : null);
+    }
+
+    refreshPreview();
+  }
+
+  private void refreshPreview()
   {
     UiUtils.setTextAndHideIfEmpty(mTvTitle, mMapObject.getTitle());
     if (mToolbar != null)
@@ -1015,12 +1041,6 @@ public class PlacePageView extends RelativeLayout
       UiUtils.showIf(!isPriceEmpty && !isRatingEmpty, mTvSponsoredRating);
       mTvSponsoredPrice.setText(mSponsoredPrice);
       UiUtils.showIf(!isPriceEmpty, mTvSponsoredPrice);
-    }
-
-    if (mBannerController != null)
-    {
-      mBannerController.updateData(policy != null && policy.сanUseNetwork()
-                                   ? mMapObject.getBanner() : null);
     }
   }
 
