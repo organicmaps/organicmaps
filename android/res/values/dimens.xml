@@ -110,6 +110,7 @@
   <dimen name="nav_button_height">36dp</dimen>
   <dimen name="nav_icon_size">48dp</dimen>
   <dimen name="nav_bottom_gap">12dp</dimen>
+  <dimen name="nav_menu_top_offset">0dp</dimen>
 
   <dimen name="nav_frame_padding">@dimen/margin_eighth</dimen>
   <dimen name="nav_button">28dp</dimen>
