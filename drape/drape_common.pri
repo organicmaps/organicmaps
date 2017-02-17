@@ -4,8 +4,6 @@ CMDRES = $$system(python ../tools/autobuild/shader_preprocessor.py $$SHADER_COMP
 INCLUDEPATH *= $$ROOT_DIR/3party/freetype/include
 
 SOURCES += \
-    $$ROOT_DIR/3party/sdf_image/sdf_image.cpp \
-    $$ROOT_DIR/3party/stb_image/stb_image.c \
     $$DRAPE_DIR/attribute_buffer_mutator.cpp \
     $$DRAPE_DIR/attribute_provider.cpp \
     $$DRAPE_DIR/batcher.cpp \
@@ -52,8 +50,6 @@ SOURCES += \
     $$DRAPE_DIR/vertex_array_buffer.cpp \
 
 HEADERS += \
-    $$ROOT_DIR/3party/sdf_image/sdf_image.h \
-    $$ROOT_DIR/3party/stb_image/stb_image.h \
     $$DRAPE_DIR/attribute_buffer_mutator.hpp \
     $$DRAPE_DIR/attribute_provider.hpp \
     $$DRAPE_DIR/batcher.hpp \

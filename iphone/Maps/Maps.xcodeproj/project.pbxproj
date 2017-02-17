@@ -5807,6 +5807,8 @@
 					"-loauthcpp",
 					"-leditor",
 					"-ltraffic",
+					"-lstb_image",
+					"-lsdf_image",
 				);
 			};
 			name = Simulator;
@@ -5900,6 +5902,8 @@
 					"-loauthcpp",
 					"-leditor",
 					"-ltraffic",
+					"-lstb_image",
+					"-lsdf_image",
 				);
 			};
 			name = Debug;
@@ -5996,6 +6000,8 @@
 					"-loauthcpp",
 					"-leditor",
 					"-ltraffic",
+					"-lstb_image",
+					"-lsdf_image",
 				);
 			};
 			name = AdHoc;
@@ -6092,6 +6098,8 @@
 					"-loauthcpp",
 					"-leditor",
 					"-ltraffic",
+					"-lstb_image",
+					"-lsdf_image",
 				);
 			};
 			name = "Production Full";
@@ -6188,6 +6196,8 @@
 					"-loauthcpp",
 					"-leditor",
 					"-ltraffic",
+					"-lstb_image",
+					"-lsdf_image",
 				);
 			};
 			name = Release;
@@ -6285,6 +6295,8 @@
 					"-loauthcpp",
 					"-leditor",
 					"-ltraffic",
+					"-lstb_image",
+					"-lsdf_image",
 				);
 			};
 			name = "Simulator Release";

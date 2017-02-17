@@ -3,16 +3,11 @@ project(coding)
 include_directories(
   ${OMIM_ROOT}/coding
   ${OMIM_ROOT}/3party/expat
-  ${OMIM_ROOT}/3party/lodepng
 )
 
 set(
   SRC
    ${OMIM_ROOT}/3party/expat/expat_impl.h
-   ${OMIM_ROOT}/3party/lodepng/lodepng.hpp
-   ${OMIM_ROOT}/3party/lodepng/lodepng_io.hpp
-   ${OMIM_ROOT}/3party/lodepng/lodepng_io_private.hpp
-   ${OMIM_ROOT}/3party/lodepng/lodepng.cpp
 
   base64.cpp
   base64.hpp
@@ -54,8 +49,6 @@ set(
   multilang_utf8_string.cpp
   multilang_utf8_string.hpp
   parse_xml.hpp
-  png_memory_encoder.cpp
-  png_memory_encoder.hpp
   polymorph_reader.hpp
   read_write_utils.hpp
   reader.cpp

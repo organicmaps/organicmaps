@@ -73,7 +73,6 @@
 #include "coding/zip_reader.hpp"
 #include "coding/url_encode.hpp"
 #include "coding/file_name_utils.hpp"
-#include "coding/png_memory_encoder.hpp"
 
 #include "geometry/angles.hpp"
 #include "geometry/any_rect2d.hpp"

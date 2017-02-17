@@ -1,7 +1,7 @@
 # Head project for drape develop and debuging
 ROOT_DIR = ..
 DEPENDENCIES = map traffic drape_frontend drape indexer storage platform geometry coding base \
-               freetype expat protobuf jansson fribidi stats_client
+               freetype expat protobuf jansson fribidi stats_client stb_image sdf_image
 
 include($$ROOT_DIR/common.pri)
 

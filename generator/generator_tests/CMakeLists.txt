@@ -58,6 +58,8 @@ omim_link_libraries(
   gflags
   oauthcpp
   opening_hours
+  stb_image
+  sdf_image
   ${LIBZ}
 )
 

@@ -52,6 +52,8 @@ omim_link_libraries(
   oauthcpp
   drape_frontend
   drape
+  stb_image
+  sdf_image
   ${Qt5Widgets_LIBRARIES}
   ${Qt5Network_LIBRARIES}
   ${LIBZ}

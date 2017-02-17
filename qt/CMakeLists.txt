@@ -89,6 +89,9 @@ omim_link_libraries(
   oauthcpp
   opening_hours
   openlr
+  stb_image
+  sdf_image
+  ${Qt5Core_LIBRARIES}
   ${Qt5Gui_LIBRARIES}
   ${Qt5Network_LIBRARIES}
   ${Qt5Widgets_LIBRARIES}

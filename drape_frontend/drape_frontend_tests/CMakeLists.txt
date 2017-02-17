@@ -27,6 +27,8 @@ omim_link_libraries(
   base
   expat
   stats_client
+  stb_image
+  sdf_image
   ${LIBZ}
 )
 

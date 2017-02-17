@@ -7,15 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		675D21C51BFB8F2B00717E4F /* stb_image.c in Sources */ = {isa = PBXBuildFile; fileRef = 675D21C31BFB8F2B00717E4F /* stb_image.c */; };
+		4553E0E91E571AA400FA9CFF /* stb_image_write.h in Headers */ = {isa = PBXBuildFile; fileRef = 4553E0E71E571AA400FA9CFF /* stb_image_write.h */; };
+		4553E0EA1E571AA400FA9CFF /* stb_image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4553E0E81E571AA400FA9CFF /* stb_image.cpp */; };
 		675D21C61BFB8F2B00717E4F /* stb_image.h in Headers */ = {isa = PBXBuildFile; fileRef = 675D21C41BFB8F2B00717E4F /* stb_image.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		34EBB47E1DBF52D3005BE9B8 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
 		34EBB47F1DBF52D3005BE9B8 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
+		4553E0E71E571AA400FA9CFF /* stb_image_write.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image_write.h; sourceTree = "<group>"; };
+		4553E0E81E571AA400FA9CFF /* stb_image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stb_image.cpp; sourceTree = "<group>"; };
 		675D21BA1BFB8DBA00717E4F /* libstb_image.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libstb_image.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		675D21C31BFB8F2B00717E4F /* stb_image.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stb_image.c; sourceTree = "<group>"; };
 		675D21C41BFB8F2B00717E4F /* stb_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -51,7 +53,8 @@
 		675D21C21BFB8F1000717E4F /* stb_image */ = {
 			isa = PBXGroup;
 			children = (
-				675D21C31BFB8F2B00717E4F /* stb_image.c */,
+				4553E0E71E571AA400FA9CFF /* stb_image_write.h */,
+				4553E0E81E571AA400FA9CFF /* stb_image.cpp */,
 				675D21C41BFB8F2B00717E4F /* stb_image.h */,
 			);
 			name = stb_image;
@@ -65,6 +68,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4553E0E91E571AA400FA9CFF /* stb_image_write.h in Headers */,
 				675D21C61BFB8F2B00717E4F /* stb_image.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -125,7 +129,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				675D21C51BFB8F2B00717E4F /* stb_image.c in Sources */,
+				4553E0EA1E571AA400FA9CFF /* stb_image.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

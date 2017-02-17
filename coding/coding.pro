@@ -8,7 +8,6 @@ ROOT_DIR = ..
 include($$ROOT_DIR/common.pri)
 
 SOURCES += \
-    $$ROOT_DIR/3party/lodepng/lodepng.cpp \
     base64.cpp \
     compressed_bit_vector.cpp \
     file_container.cpp \
@@ -20,7 +19,6 @@ SOURCES += \
     internal/file_data.cpp \
     mmap_reader.cpp \
     multilang_utf8_string.cpp \
-    png_memory_encoder.cpp \
     reader.cpp \
     reader_streambuf.cpp \
     reader_writer_ops.cpp \
@@ -34,9 +32,6 @@ SOURCES += \
 
 HEADERS += \
     $$ROOT_DIR/3party/expat/expat_impl.h \
-    $$ROOT_DIR/3party/lodepng/lodepng.hpp \
-    $$ROOT_DIR/3party/lodepng/lodepng_io.hpp \
-    $$ROOT_DIR/3party/lodepng/lodepng_io_private.hpp \
     base64.hpp \
     bit_streams.hpp \
     buffer_reader.hpp \
@@ -68,7 +63,6 @@ HEADERS += \
     mmap_reader.hpp \
     multilang_utf8_string.hpp \
     parse_xml.hpp \
-    png_memory_encoder.hpp \
     polymorph_reader.hpp \
     read_write_utils.hpp \
     reader.hpp \

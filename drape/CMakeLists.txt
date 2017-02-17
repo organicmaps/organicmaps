@@ -14,8 +14,6 @@ include_directories(
   ${OMIM_ROOT}/3party/glm
 )
 
-append(CMAKE_CXX_FLAGS "-std=c++11 ")
-
 set(
   DRAPE_COMMON_SRC
   ${DRAPE_ROOT}/attribute_buffer_mutator.cpp
@@ -118,11 +116,6 @@ set(
   ${DRAPE_ROOT}/vertex_array_buffer.cpp
   ${DRAPE_ROOT}/vertex_array_buffer.hpp
   ${DRAPE_ROOT}/visual_scale.hpp
-
-  ${OMIM_ROOT}/3party/sdf_image/sdf_image.cpp
-  ${OMIM_ROOT}/3party/sdf_image/sdf_image.h
-  ${OMIM_ROOT}/3party/stb_image/stb_image.c
-  ${OMIM_ROOT}/3party/stb_image/stb_image.h
 )
 
 set(

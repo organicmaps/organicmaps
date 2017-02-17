@@ -47,6 +47,8 @@ omim_link_libraries(
   succinct
   pugixml
   oauthcpp
+  stb_image
+  sdf_image
   ${Qt5Widgets_LIBRARIES}
   ${Qt5Network_LIBRARIES}
   ${LIBZ}

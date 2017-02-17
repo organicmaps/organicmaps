@@ -46,12 +46,11 @@ bool LoadData(string const & textureName, string const & skinPathName,
   }
 
   int w, h, bpp;
-  unsigned char * data = stbi_png_load_from_memory(&rawData[0], static_cast<int>(rawData.size()),
-                                                   &w, &h, &bpp, 0);
+  unsigned char * data = stbi_load_from_memory(&rawData[0], static_cast<int>(rawData.size()), &w, &h, &bpp, 0);
   ASSERT_EQUAL(bpp, 4, ("Incorrect texture format"));
   ASSERT(glm::isPowerOfTwo(w), (w));
   ASSERT(glm::isPowerOfTwo(h), (h));
-  completionHandler(data, w, h);
+  completionHandler(data, static_cast<uint32_t>(w), static_cast<uint32_t>(h));
 
   stbi_image_free(data);
   return true;

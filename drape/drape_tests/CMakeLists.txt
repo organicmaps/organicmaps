@@ -61,6 +61,9 @@ omim_link_libraries(
   stats_client
   freetype
   gmock
+  stb_image
+  sdf_image
+  ${Qt5Core_LIBRARIES}
   ${Qt5Gui_LIBRARIES}
   ${Qt5Widgets_LIBRARIES}
   ${LIBZ}
