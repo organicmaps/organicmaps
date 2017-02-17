@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
@@ -22,7 +23,8 @@ public class LoggerFactory
 {
   public enum Type
   {
-    MISC, LOCATION, TRAFFIC, GPS_TRACKING, TRACK_RECORDER, ROUTING, NETWORK, STORAGE, DOWNLOADER
+    MISC, LOCATION, TRAFFIC, GPS_TRACKING, TRACK_RECORDER, ROUTING, NETWORK, STORAGE, DOWNLOADER,
+    CORE
   }
 
   public interface OnZipCompletedListener
@@ -41,6 +43,7 @@ public class LoggerFactory
   @NonNull
   @GuardedBy("this")
   private final EnumMap<Type, BaseLogger> mLoggers = new EnumMap<>(Type.class);
+  private final static String CORE_TAG = "Core";
   @Nullable
   @GuardedBy("this")
   private ExecutorService mFileLoggerExecutor;
@@ -58,6 +61,7 @@ public class LoggerFactory
 
   public void setFileLoggingEnabled(boolean enabled)
   {
+    nativeToggleCoreDebugLogs(enabled);
     SharedPreferences prefs = MwmApplication.prefs();
     SharedPreferences.Editor editor = prefs.edit();
     String enableLoggingKey = MwmApplication.get().getString(R.string.pref_enable_logging);
@@ -113,6 +117,7 @@ public class LoggerFactory
   {
     if (isFileLoggingEnabled())
     {
+      nativeToggleCoreDebugLogs(true);
       String logsFolder = StorageUtils.getLogsFolder();
       if (!TextUtils.isEmpty(logsFolder))
         return new FileLoggerStrategy(logsFolder + File.separator
@@ -129,4 +134,30 @@ public class LoggerFactory
       mFileLoggerExecutor = Executors.newSingleThreadExecutor();
     return mFileLoggerExecutor;
   }
+
+  // Called from JNI.
+  @SuppressWarnings("unused")
+  private static void logCoreMessage(int level, String msg)
+  {
+    Logger logger = INSTANCE.getLogger(Type.CORE);
+    switch (level)
+    {
+      case Log.DEBUG:
+        logger.d(CORE_TAG, msg);
+        break;
+      case Log.INFO:
+        logger.i(CORE_TAG, msg);
+        break;
+      case Log.WARN:
+        logger.w(CORE_TAG, msg);
+        break;
+      case Log.ERROR:
+        logger.e(CORE_TAG, msg);
+        break;
+      default:
+        logger.v(CORE_TAG, msg);
+    }
+  }
+
+  private static native void nativeToggleCoreDebugLogs(boolean enabled);
 }

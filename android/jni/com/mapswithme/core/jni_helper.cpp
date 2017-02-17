@@ -24,6 +24,7 @@ jclass g_platformSocketClazz;
 jclass g_utilsClazz;
 jclass g_bannerClazz;
 jclass g_arrayListClazz;
+jclass g_loggerFactoryClazz;
 
 extern "C"
 {
@@ -44,6 +45,7 @@ JNI_OnLoad(JavaVM * jvm, void *)
   g_platformSocketClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/location/PlatformSocket");
   g_utilsClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/Utils");
   g_bannerClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/bookmarks/data/Banner");
+  g_loggerFactoryClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/log/LoggerFactory");
 
   return JNI_VERSION_1_6;
 }
@@ -62,6 +64,7 @@ JNI_OnUnload(JavaVM *, void *)
   env->DeleteGlobalRef(g_platformSocketClazz);
   env->DeleteGlobalRef(g_utilsClazz);
   env->DeleteGlobalRef(g_bannerClazz);
+  env->DeleteGlobalRef(g_loggerFactoryClazz);
 }
 } // extern "C"
 

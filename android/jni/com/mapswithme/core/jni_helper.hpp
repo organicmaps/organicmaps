@@ -18,6 +18,7 @@ extern jclass g_httpHeaderClazz;
 extern jclass g_platformSocketClazz;
 extern jclass g_utilsClazz;
 extern jclass g_bannerClazz;
+extern jclass g_loggerFactoryClazz;
 
 namespace jni
 {

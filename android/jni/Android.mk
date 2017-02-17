@@ -110,6 +110,7 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/util/HttpClient.cpp \
 	com/mapswithme/util/StringUtils.cpp \
 	com/mapswithme/util/statistics/PushwooshHelper.cpp \
+	com/mapswithme/util/LoggerFactory.cpp \
 	com/mapswithme/util/NetworkPolicy.cpp \
 
 
