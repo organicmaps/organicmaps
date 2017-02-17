@@ -889,7 +889,8 @@ public class PlacePageView extends RelativeLayout
 
     if (isNetworkNeeded())
     {
-      NetworkPolicy.checkNetworkPolicy(getContext(), new NetworkPolicy.NetworkPolicyListener()
+      NetworkPolicy.checkNetworkPolicy(getActivity().getSupportFragmentManager(),
+                                       new NetworkPolicy.NetworkPolicyListener()
       {
         @Override
         public void onResult(@NonNull NetworkPolicy policy)

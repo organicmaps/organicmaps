@@ -1,16 +1,13 @@
 package com.mapswithme.util;
 
-import android.content.Context;
-import android.content.DialogInterface;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 
-import com.mapswithme.maps.R;
-import com.mapswithme.maps.widget.StackedButtonsDialog;
+import com.mapswithme.maps.widget.StackedButtonDialogFragment;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.lang.ref.WeakReference;
 import java.util.concurrent.TimeUnit;
 
 public final class NetworkPolicy
@@ -21,8 +18,7 @@ public final class NetworkPolicy
   public static final int NOT_TODAY = 3;
   public static final int TODAY = 4;
 
-  @NonNull
-  private static WeakReference<StackedButtonsDialog> sDialog = new WeakReference<>(null);
+  private static final String TAG_NETWORK_POLICY = "network_policy";
 
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ ASK, ALWAYS, NEVER, NOT_TODAY, TODAY })
@@ -30,7 +26,7 @@ public final class NetworkPolicy
   {
   }
 
-  public static void checkNetworkPolicy(@NonNull Context context,
+  public static void checkNetworkPolicy(@NonNull FragmentManager fragmentManager,
                                         @NonNull final NetworkPolicyListener listener)
   {
     if (ConnectionState.isWifiConnected())
@@ -52,11 +48,11 @@ public final class NetworkPolicy
     switch (type)
     {
       case ASK:
-        showDialog(context, listener);
+        showDialog(fragmentManager, listener);
         break;
       case ALWAYS:
         if (nowInRoaming && !acceptedInRoaming)
-          showDialog(context, listener);
+          showDialog(fragmentManager, listener);
         else
           listener.onResult(new NetworkPolicy(true));
         break;
@@ -64,18 +60,18 @@ public final class NetworkPolicy
         listener.onResult(new NetworkPolicy(false));
         break;
       case NOT_TODAY:
-        showDialogIfNeeded(context, listener, new NetworkPolicy(false));
+        showDialogIfNeeded(fragmentManager, listener, new NetworkPolicy(false));
         break;
       case TODAY:
         if (nowInRoaming && !acceptedInRoaming)
-          showDialog(context, listener);
+          showDialog(fragmentManager, listener);
         else
-          showDialogIfNeeded(context, listener, new NetworkPolicy(true));
+          showDialogIfNeeded(fragmentManager, listener, new NetworkPolicy(true));
         break;
     }
   }
 
-  private static void showDialogIfNeeded(@NonNull Context context,
+  private static void showDialogIfNeeded(@NonNull FragmentManager fragmentManager,
                                          @NonNull NetworkPolicyListener listener,
                                          @NonNull NetworkPolicy policy)
   {
@@ -86,51 +82,20 @@ public final class NetworkPolicy
       listener.onResult(policy);
       return;
     }
-    showDialog(context, listener);
+    showDialog(fragmentManager, listener);
   }
 
-  private static void showDialog(@NonNull Context context, @NonNull final NetworkPolicyListener listener)
+  private static void showDialog(@NonNull FragmentManager fragmentManager,
+                                 @NonNull NetworkPolicyListener listener)
   {
-    StackedButtonsDialog dialog = sDialog.get();
-    if (dialog != null && dialog.isShowing())
+    StackedButtonDialogFragment dialog = (StackedButtonDialogFragment) fragmentManager
+        .findFragmentByTag(TAG_NETWORK_POLICY);
+    if (dialog != null)
       dialog.dismiss();
 
-    dialog = new StackedButtonsDialog.Builder(context)
-        .setTitle(R.string.mobile_data_dialog)
-        .setMessage(R.string.mobile_data_description)
-        .setCancelable(false)
-        .setPositiveButton(R.string.mobile_data_option_always, new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dialog, int which)
-          {
-            Config.setUseMobileDataSettings(ALWAYS);
-            listener.onResult(new NetworkPolicy(true));
-          }
-        })
-        .setNegativeButton(R.string.mobile_data_option_not_today, new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dialog, int which)
-          {
-            Config.setUseMobileDataSettings(NOT_TODAY);
-            Config.setMobileDataTimeStamp(System.currentTimeMillis());
-            listener.onResult(new NetworkPolicy(false));
-          }
-        })
-        .setNeutralButton(R.string.mobile_data_option_today, new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dialog, int which)
-          {
-            Config.setUseMobileDataSettings(TODAY);
-            Config.setMobileDataTimeStamp(System.currentTimeMillis());
-            listener.onResult(new NetworkPolicy(true));
-          }
-        })
-        .build();
-    dialog.show();
-    sDialog = new WeakReference<>(dialog);
+    dialog = new StackedButtonDialogFragment();
+    dialog.setListener(listener);
+    dialog.show(fragmentManager, TAG_NETWORK_POLICY);
   }
 
   public static NetworkPolicy newInstance(boolean canUse)
