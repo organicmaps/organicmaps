@@ -216,7 +216,6 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     self.actionBar.downloadingState = MWMCircularProgressStateFailed;
     break;
   }
-  case NodeStatus::Partly: break;
   case NodeStatus::OnDisk:
   {
     self.isPlacePageButtonsEnabled = YES;
@@ -230,6 +229,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     self.actionBar.isAreaNotDownloaded = NO;
     break;
   }
+  case NodeStatus::Partly:
   case NodeStatus::NotDownloaded:
   {
     self.isPlacePageButtonsEnabled = NO;
