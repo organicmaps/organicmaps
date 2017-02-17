@@ -405,19 +405,24 @@ BOOL gIsFirstMyPositionMode = YES;
   case location::NotFollowNoPosition:
   {
     BOOL const hasLocation = [MWMLocationManager lastLocation] != nil;
-    if (hasLocation || (gIsFirstMyPositionMode && ![Alohalytics isFirstSession]))
+    if (hasLocation)
     {
       GetFramework().SwitchMyPositionNextMode();
+      break;
     }
-    else
+    if ([Alohalytics isFirstSession])
+      break;
+    if (gIsFirstMyPositionMode)
     {
-      BOOL const isMapVisible = (self.navigationController.visibleViewController == self);
-      if (isMapVisible && ![MWMLocationManager isLocationProhibited])
-      {
-        [self.alertController presentLocationNotFoundAlertWithOkBlock:^{
-          GetFramework().SwitchMyPositionNextMode();
-        }];
-      }
+      GetFramework().SwitchMyPositionNextMode();
+      break;
+    }
+    BOOL const isMapVisible = (self.navigationController.visibleViewController == self);
+    if (isMapVisible && ![MWMLocationManager isLocationProhibited])
+    {
+      [self.alertController presentLocationNotFoundAlertWithOkBlock:^{
+        GetFramework().SwitchMyPositionNextMode();
+      }];
     }
     break;
   }
