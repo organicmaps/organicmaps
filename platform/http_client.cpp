@@ -8,6 +8,11 @@
 
 namespace platform
 {
+HttpClient::HttpClient(string const & url) : m_urlRequested(url)
+{
+  m_headers.emplace("Accept-Encoding", "gzip");
+}
+
 HttpClient & HttpClient::SetUrlRequested(string const & url)
 {
   m_urlRequested = url;

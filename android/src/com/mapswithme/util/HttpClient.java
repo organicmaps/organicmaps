@@ -45,6 +45,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.zip.GZIPInputStream;
 
 public final class HttpClient
 {
@@ -201,7 +202,10 @@ public final class HttpClient
     InputStream in;
     try
     {
-      in = connection.getInputStream();
+      if ("gzip".equals(connection.getContentEncoding()))
+        in = new GZIPInputStream(connection.getInputStream());
+      else
+        in = connection.getInputStream();
     }
     catch (IOException e)
     {
