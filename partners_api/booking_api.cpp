@@ -23,11 +23,7 @@ using namespace platform;
 using namespace booking;
 
 string const kBookingApiBaseUrl = "https://distribution-xml.booking.com/json/bookings";
-#ifdef DEBUG
-  string const kExtendedHotelInfoBaseUrl = "http://hotels.milchakov.map6.devmail.ru/getDescription";
-#else
-  string const kExtendedHotelInfoBaseUrl = "";
-#endif
+string const kExtendedHotelInfoBaseUrl = "http://hotels.milchakov.map6.devmail.ru/getDescription";
 string const kPhotoOriginalUrl = "http://aff.bstatic.com/images/hotel/max500/";
 string const kPhotoSmallUrl = "http://aff.bstatic.com/images/hotel/max300/";
 
