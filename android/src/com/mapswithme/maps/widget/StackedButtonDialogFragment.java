@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Config;
@@ -58,6 +60,14 @@ public class StackedButtonDialogFragment extends DialogFragment
           }
         })
         .build();
+  }
+
+  @Override
+  public void show(@NonNull FragmentManager manager, @NonNull String tag)
+  {
+    FragmentTransaction ft = manager.beginTransaction();
+    ft.add(this, tag);
+    ft.commitAllowingStateLoss();
   }
 
   public void setListener(@Nullable NetworkPolicy.NetworkPolicyListener listener)
