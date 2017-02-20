@@ -5700,6 +5700,10 @@
     el = Αυτόματη μεγέθυνση
     sk = Automatický zoom
 
+  [pref_traffic_simplified_colors_title]
+    en = Simplified colour scheme for traffic
+    ru = Простая цветовая схема для пробок
+
   [duration_disabled]
     tags = ios,android
     en = Off
