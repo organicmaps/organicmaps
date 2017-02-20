@@ -71,6 +71,7 @@ public:
     UpdateTraffic,
     FlushTrafficData,
     ClearTrafficData,
+    SetSimplifiedTrafficColors,
     DrapeApiAddLines,
     DrapeApiRemove,
     DrapeApiFlush,

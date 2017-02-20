@@ -54,7 +54,8 @@ public:
            vector<m2::TriangleD> && boundAreaTriangles,
            bool firstLaunch,
            bool isRoutingActive,
-           bool isAutozoomEnabled)
+           bool isAutozoomEnabled,
+           bool simplifiedTrafficColors)
       : m_factory(factory)
       , m_stringsBundle(stringBundle)
       , m_viewport(viewport)
@@ -72,6 +73,7 @@ public:
       , m_isFirstLaunch(firstLaunch)
       , m_isRoutingActive(isRoutingActive)
       , m_isAutozoomEnabled(isAutozoomEnabled)
+      , m_simplifiedTrafficColors(simplifiedTrafficColors)
     {}
 
     ref_ptr<dp::OGLContextFactory> m_factory;
@@ -91,6 +93,7 @@ public:
     bool m_isFirstLaunch;
     bool m_isRoutingActive;
     bool m_isAutozoomEnabled;
+    bool m_simplifiedTrafficColors;
   };
 
   DrapeEngine(Params && params);
@@ -176,6 +179,7 @@ public:
   void EnableTraffic(bool trafficEnabled);
   void UpdateTraffic(traffic::TrafficInfo const & info);
   void ClearTrafficCache(MwmSet::MwmId const & mwmId);
+  void SetSimplifiedTrafficColors(bool simplified);
 
   void SetFontScaleFactor(double scaleFactor);
 

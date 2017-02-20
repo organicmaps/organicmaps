@@ -8,6 +8,7 @@ namespace dp
 class SupportManager : public noncopyable
 {
 public:
+  // This singleton must be available only from rendering threads.
   static SupportManager & Instance();
 
   // Initialization must be called only when OpenGL context is created.

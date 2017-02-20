@@ -67,7 +67,7 @@ DrapeEngine::DrapeEngine(Params && params)
                                    frParams.m_texMng, params.m_model,
                                    params.m_model.UpdateCurrentCountryFn(),
                                    make_ref(m_requestedTiles), params.m_allow3dBuildings,
-                                   params.m_trafficEnabled);
+                                   params.m_trafficEnabled, params.m_simplifiedTrafficColors);
   m_backend = make_unique_dp<BackendRenderer>(brParams);
 
   m_widgetsInfo = move(params.m_info);
@@ -557,6 +557,13 @@ void DrapeEngine::ClearTrafficCache(MwmSet::MwmId const & mwmId)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                   make_unique_dp<ClearTrafficDataMessage>(mwmId),
+                                  MessagePriority::Normal);
+}
+
+void DrapeEngine::SetSimplifiedTrafficColors(bool simplified)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<SetSimplifiedTrafficColorsMessage>(simplified),
                                   MessagePriority::Normal);
 }
 

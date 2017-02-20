@@ -39,13 +39,14 @@ public:
            ref_ptr<dp::TextureManager> texMng, MapDataProvider const & model,
            TUpdateCurrentCountryFn const & updateCurrentCountryFn,
            ref_ptr<RequestedTiles> requestedTiles, bool allow3dBuildings,
-           bool trafficEnabled)
+           bool trafficEnabled, bool simplifiedTrafficColors)
       : BaseRenderer::Params(commutator, factory, texMng)
       , m_model(model)
       , m_updateCurrentCountryFn(updateCurrentCountryFn)
       , m_requestedTiles(requestedTiles)
       , m_allow3dBuildings(allow3dBuildings)
       , m_trafficEnabled(trafficEnabled)
+      , m_simplifiedTrafficColors(simplifiedTrafficColors)
     {}
 
     MapDataProvider const & m_model;
@@ -53,6 +54,7 @@ public:
     ref_ptr<RequestedTiles> m_requestedTiles;
     bool m_allow3dBuildings;
     bool m_trafficEnabled;
+    bool m_simplifiedTrafficColors;
   };
 
   BackendRenderer(Params const & params);

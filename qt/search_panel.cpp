@@ -266,6 +266,21 @@ bool SearchPanel::TryDisplacementModeCmd(QString const & str)
   return true;
 }
 
+bool SearchPanel::TryTrafficSimplifiedColorsCmd(QString const & str)
+{
+  bool const simplifiedMode = (str == "?tc:simp");
+  bool const normalMode = (str == "?tc:norm");
+
+  if (!simplifiedMode && !normalMode)
+    return false;
+
+  bool const isSimplified = simplifiedMode;
+  m_pDrawWidget->GetFramework().GetTrafficManager().SetSimplifiedColorScheme(isSimplified);
+  m_pDrawWidget->GetFramework().SaveTrafficSimplifiedColors(isSimplified);
+
+  return true;
+}
+
 void SearchPanel::OnSearchTextChanged(QString const & str)
 {
   QString const normalized = str.normalized(QString::NormalizationForm_KC);
@@ -280,6 +295,8 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
   if (TryMigrate(normalized))
     return;
   if (TryDisplacementModeCmd(normalized))
+    return;
+  if (TryTrafficSimplifiedColorsCmd(normalized))
     return;
 
   // search even with empty query

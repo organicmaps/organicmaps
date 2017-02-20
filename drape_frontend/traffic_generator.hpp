@@ -147,6 +147,7 @@ public:
   void ClearCache(MwmSet::MwmId const & mwmId);
   void InvalidateTexturesCache();
 
+  static void SetSimplifiedColorSchemeEnabled(bool enabled);
   static df::ColorConstant GetColorBySpeedGroup(traffic::SpeedGroup const & speedGroup, bool route);
 
 private:
@@ -200,6 +201,8 @@ private:
 
   dp::AttributeProvider m_providerTriangles;
   dp::AttributeProvider m_providerLines;
+
+  static bool m_simplifiedColorScheme;
 };
 
 } // namespace df

@@ -126,6 +126,7 @@ char const kAllow3dKey[] = "Allow3d";
 char const kAllow3dBuildingsKey[] = "Buildings3d";
 char const kAllowAutoZoom[] = "AutoZoom";
 char const kTrafficEnabledKey[] = "TrafficEnabled";
+char const kTrafficSimplifiedColorsKey[] = "TrafficSimplifiedColors";
 char const kLargeFontsSize[] = "LargeFontsSize";
 
 double const kDistEqualQueryMeters = 100.0;
@@ -1676,6 +1677,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   bool const isAutozoomEnabled = LoadAutoZoom();
   bool const trafficEnabled = LoadTrafficEnabled();
   m_trafficManager.SetEnabled(trafficEnabled);
+  bool const simplifiedTrafficColors = LoadTrafficSimplifiedColors();
+  m_trafficManager.SetSimplifiedColorScheme(simplifiedTrafficColors);
 
   double const fontsScaleFactor = LoadLargeFontsSize() ? kLargeFontsScaleFactor : 1.0;
 
@@ -1687,7 +1690,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
                             make_pair(params.m_initialMyPositionState, params.m_hasMyPositionState),
                             move(myPositionModeChangedFn), allow3dBuildings, trafficEnabled, params.m_isChoosePositionMode,
                             params.m_isChoosePositionMode, GetSelectedFeatureTriangles(), params.m_isFirstLaunch,
-                            m_routingSession.IsActive() && m_routingSession.IsFollowing(), isAutozoomEnabled);
+                            m_routingSession.IsActive() && m_routingSession.IsFollowing(), isAutozoomEnabled,
+                            simplifiedTrafficColors);
 
   m_drapeEngine = make_unique_dp<df::DrapeEngine>(move(p));
   m_drapeEngine->SetModelViewListener([this](ScreenBase const & screen)
@@ -2767,6 +2771,18 @@ bool Framework::LoadTrafficEnabled()
 void Framework::SaveTrafficEnabled(bool trafficEnabled)
 {
   settings::Set(kTrafficEnabledKey, trafficEnabled);
+}
+
+bool Framework::LoadTrafficSimplifiedColors()
+{
+  bool simplified = true;
+  settings::Get(kTrafficSimplifiedColorsKey, simplified);
+  return simplified;
+}
+
+void Framework::SaveTrafficSimplifiedColors(bool simplified)
+{
+  settings::Set(kTrafficSimplifiedColorsKey, simplified);
 }
 
 bool Framework::LoadAutoZoom()
