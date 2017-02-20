@@ -193,9 +193,6 @@
          location = "container:agg/agg.xcodeproj">
       </FileRef>
       <FileRef
-         location = "container:lodepng/lodepng.xcodeproj">
-      </FileRef>
-      <FileRef
          location = "container:gflags/gflags.xcodeproj">
       </FileRef>
       <FileRef

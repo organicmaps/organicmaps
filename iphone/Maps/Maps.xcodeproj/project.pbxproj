@@ -5495,6 +5495,8 @@
 					"-loauthcpp",
 					"-leditor",
 					"-ltraffic",
+					"-lstb_image",
+					"-lsdf_image",
 				);
 				PRODUCT_NAME = "cm dbg";
 			};
@@ -5538,6 +5540,8 @@
 					"-loauthcpp",
 					"-leditor",
 					"-ltraffic",
+					"-lstb_image",
+					"-lsdf_image",
 				);
 				PRODUCT_NAME = "cm rel";
 			};
@@ -5581,6 +5585,8 @@
 					"-loauthcpp",
 					"-leditor",
 					"-ltraffic",
+					"-lstb_image",
+					"-lsdf_image",
 				);
 				PRODUCT_NAME = "cm dbg";
 			};
@@ -5624,6 +5630,8 @@
 					"-loauthcpp",
 					"-leditor",
 					"-ltraffic",
+					"-lstb_image",
+					"-lsdf_image",
 				);
 				PRODUCT_NAME = "cm beta";
 			};
@@ -5667,6 +5675,8 @@
 					"-loauthcpp",
 					"-leditor",
 					"-ltraffic",
+					"-lstb_image",
+					"-lsdf_image",
 				);
 				PRODUCT_NAME = "cm rel";
 			};
@@ -5710,6 +5720,8 @@
 					"-loauthcpp",
 					"-leditor",
 					"-ltraffic",
+					"-lstb_image",
+					"-lsdf_image",
 				);
 				PRODUCT_NAME = "cm pf";
 			};
