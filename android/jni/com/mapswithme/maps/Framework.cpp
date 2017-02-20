@@ -1145,9 +1145,23 @@ Java_com_mapswithme_maps_Framework_nativeSetAutoZoomEnabled(JNIEnv * env, jclass
 }
 
 JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_Framework_nativeGetAutoZoomEnabled(JNIEnv * env, jclass)
+Java_com_mapswithme_maps_Framework_nativeGetAutoZoomEnabled(JNIEnv *, jclass)
 {
   return frm()->LoadAutoZoom();
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeSetSimplifiedTrafficColorsEnabled(JNIEnv *, jclass, jboolean enabled)
+{
+  bool const simplifiedEnabled = static_cast<bool>(enabled);
+  frm()->GetTrafficManager().SetSimplifiedColorScheme(simplifiedEnabled);
+  frm()->SaveTrafficSimplifiedColors(simplifiedEnabled);
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetSimplifiedTrafficColorsEnabled(JNIEnv * env, jclass)
+{
+  return frm()->LoadTrafficSimplifiedColors();
 }
 
 // static void nativeZoomToPoint(double lat, double lon, int zoom, boolean animate);

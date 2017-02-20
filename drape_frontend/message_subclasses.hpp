@@ -1085,6 +1085,21 @@ private:
   MwmSet::MwmId m_mwmId;
 };
 
+class SetSimplifiedTrafficColorsMessage : public Message
+{
+public:
+  SetSimplifiedTrafficColorsMessage(bool isSimplified)
+    : m_isSimplified(isSimplified)
+  {}
+
+  Type GetType() const override { return Message::SetSimplifiedTrafficColors; }
+
+  bool IsSimplified() const { return m_isSimplified; }
+
+private:
+  bool const m_isSimplified;
+};
+
 class DrapeApiAddLinesMessage : public Message
 {
 public:

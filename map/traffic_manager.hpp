@@ -84,6 +84,8 @@ public:
   void OnEnterForeground();
   void OnEnterBackground();
 
+  void SetSimplifiedColorScheme(bool simplified);
+
 private:
   struct CacheEntry
   {

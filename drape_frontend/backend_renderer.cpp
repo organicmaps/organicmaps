@@ -38,6 +38,8 @@ BackendRenderer::BackendRenderer(Params const & params)
   m_isTeardowned = false;
 #endif
 
+  TrafficGenerator::SetSimplifiedColorSchemeEnabled(params.m_simplifiedTrafficColors);
+
   ASSERT(m_updateCurrentCountryFn != nullptr, ());
 
   m_routeBuilder = make_unique_dp<RouteBuilder>([this](drape_ptr<RouteData> && routeData)
@@ -380,6 +382,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
                                 MessagePriority::Normal);
       break;
     }
+
   case Message::ClearTrafficData:
     {
       ref_ptr<ClearTrafficDataMessage> msg = message;
@@ -391,6 +394,20 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
                                 MessagePriority::Normal);
       break;
     }
+
+  case Message::SetSimplifiedTrafficColors:
+    {
+      ref_ptr<SetSimplifiedTrafficColorsMessage> msg = message;
+
+      m_trafficGenerator->SetSimplifiedColorSchemeEnabled(msg->IsSimplified());
+      m_trafficGenerator->InvalidateTexturesCache();
+
+      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                make_unique_dp<SetSimplifiedTrafficColorsMessage>(msg->IsSimplified()),
+                                MessagePriority::Normal);
+      break;
+    }
+
   case Message::DrapeApiAddLines:
     {
       ref_ptr<DrapeApiAddLinesMessage> msg = message;

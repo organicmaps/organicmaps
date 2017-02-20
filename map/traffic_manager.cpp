@@ -558,6 +558,12 @@ void TrafficManager::Resume()
   Invalidate();
 }
 
+void TrafficManager::SetSimplifiedColorScheme(bool simplified)
+{
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->SetSimplifiedTrafficColors(simplified);
+}
+
 string DebugPrint(TrafficManager::TrafficState state)
 {
   switch (state)

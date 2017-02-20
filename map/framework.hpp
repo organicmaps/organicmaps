@@ -786,6 +786,9 @@ public:
   bool LoadTrafficEnabled();
   void SaveTrafficEnabled(bool trafficEnabled);
 
+  bool LoadTrafficSimplifiedColors();
+  void SaveTrafficSimplifiedColors(bool simplified);
+
   /// \returns true if altitude information along |m_route| is available and
   /// false otherwise.
   bool HasRouteAltitude() const;

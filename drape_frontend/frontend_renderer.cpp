@@ -737,6 +737,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     }
 
   case Message::RegenerateTraffic:
+  case Message::SetSimplifiedTrafficColors:
     {
       m_needRegenerateTraffic = true;
       break;

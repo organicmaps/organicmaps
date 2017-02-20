@@ -103,6 +103,8 @@ void GenerateCapTriangles(glsl::vec3 const & pivot, vector<glsl::vec2> const & n
 
 } // namespace
 
+bool TrafficGenerator::m_simplifiedColorScheme = true;
+
 void TrafficGenerator::Init()
 {
   int constexpr kBatchersCount = 3;
@@ -332,6 +334,12 @@ void TrafficGenerator::GenerateLineSegment(dp::TextureManager::ColorRegion const
 }
 
 // static
+void TrafficGenerator::SetSimplifiedColorSchemeEnabled(bool enabled)
+{
+  m_simplifiedColorScheme = enabled;
+}
+
+// static
 df::ColorConstant TrafficGenerator::GetColorBySpeedGroup(traffic::SpeedGroup const & speedGroup, bool route)
 {
   size_t constexpr kSpeedGroupsCount = static_cast<size_t>(traffic::SpeedGroup::Count);
@@ -359,7 +367,12 @@ df::ColorConstant TrafficGenerator::GetColorBySpeedGroup(traffic::SpeedGroup con
     "TrafficUnknown",
   }};
 
-  size_t const index = static_cast<size_t>(speedGroup);
+  traffic::SpeedGroup group = speedGroup;
+  // In simplified color scheme we reduce amount of speed groups visually.
+  if (m_simplifiedColorScheme && speedGroup == traffic::SpeedGroup::G4)
+    group = traffic::SpeedGroup::G3;
+
+  size_t const index = static_cast<size_t>(group);
   ASSERT_LESS(index, kSpeedGroupsCount, ());
   return route ? kColorMapRoute[index] : kColorMap[index];
 }
