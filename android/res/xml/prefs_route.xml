@@ -17,4 +17,8 @@
   <CheckBoxPreference
       android:key="@string/pref_auto_zoom"
       android:title="@string/pref_map_auto_zoom"/>
+
+  <CheckBoxPreference
+      android:key="@string/pref_traffic_simplified_colors"
+      android:title="@string/pref_traffic_simplified_colors_title"/>
 </PreferenceScreen>

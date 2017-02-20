@@ -181,6 +181,20 @@ public class RoutePrefsFragment extends PreferenceFragment
       }
     });
 
+    boolean simplifiedColorsEnabled = Framework.nativeGetSimplifiedTrafficColorsEnabled();
+    final TwoStatePreference prefSimplifiedColors = (TwoStatePreference)findPreference(
+        getString(R.string.pref_traffic_simplified_colors));
+    prefSimplifiedColors.setChecked(simplifiedColorsEnabled);
+    prefSimplifiedColors.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
+    {
+      @Override
+      public boolean onPreferenceChange(Preference preference, Object newValue)
+      {
+        Framework.nativeSetSimplifiedTrafficColorsEnabled((Boolean)newValue);
+        return true;
+      }
+    });
+
     update();
   }
 

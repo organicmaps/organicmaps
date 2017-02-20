@@ -51,6 +51,7 @@
   <string name="pref_auto_zoom" translatable="false">AutoZoom</string>
   <string name="pref_large_fonts_size" translatable="false">LargeFontSize</string>
   <string name="pref_use_mobile_data" translatable="false">UseMobileData</string>
+  <string name="pref_traffic_simplified_colors" translatable="false">TrafficSimplifiedColors</string>
 
   <string name="notification_ticker_ltr" translatable="false">%1$s: %2$s</string>
   <string name="notification_ticker_rtl" translatable="false">%2$s :%1$s</string>
