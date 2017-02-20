@@ -4,6 +4,16 @@ import FBAudienceNetwork
 enum FBAdsBannerState: Int {
   case compact
   case detailed
+
+  func config() -> (priority: UILayoutPriority, numberOfLines: Int) {
+    switch self {
+    case .compact:
+      return alternative(iPhone: (priority: UILayoutPriorityDefaultLow, numberOfLines: 2),
+                         iPad: (priority: UILayoutPriorityDefaultHigh, numberOfLines: 0))
+    case .detailed:
+      return (priority: UILayoutPriorityDefaultHigh, numberOfLines: 0)
+    }
+  }
 }
 
 @objc(MWMFBAdsBanner)
@@ -17,15 +27,10 @@ final class FBAdsBanner: UITableViewCell {
 
   var state = FBAdsBannerState.compact {
     didSet {
-      let priority: UILayoutPriority
-      let numberOfLines: Int
-      switch state {
-        case .compact: (priority, numberOfLines) = (UILayoutPriorityDefaultLow, 2)
-        case .detailed: (priority, numberOfLines) = (UILayoutPriorityDefaultHigh, 0)
-      }
+      let config = state.config()
       layoutIfNeeded()
-      adBodyLabel.numberOfLines = numberOfLines
-      detailedModeConstraints.forEach { $0.priority = priority }
+      adBodyLabel.numberOfLines = config.numberOfLines
+      detailedModeConstraints.forEach { $0.priority = config.priority }
       UIView.animate(withDuration: kDefaultAnimationDuration) { self.layoutIfNeeded() }
     }
   }
