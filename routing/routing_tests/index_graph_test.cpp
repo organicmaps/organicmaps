@@ -116,7 +116,7 @@ UNIT_TEST(EdgesTest)
                   RoadGeometry::Points({{3.0, -1.0}, {3.0, 0.0}, {3.0, 1.0}}));
 
   traffic::TrafficCache const trafficCache;
-  IndexGraph graph(move(loader), CreateEstimator(make_shared<TrafficStash>(trafficCache)));
+  IndexGraph graph(move(loader), CreateEstimator(trafficCache));
 
   vector<Joint> joints;
   joints.emplace_back(MakeJoint({{0, 1}, {3, 1}}));  // J0
@@ -175,7 +175,7 @@ UNIT_TEST(FindPathCross)
       RoadGeometry::Points({{0.0, -2.0}, {0.0, -1.0}, {0.0, 0.0}, {0.0, 1.0}, {0.0, 2.0}}));
 
   traffic::TrafficCache const trafficCache;
-  shared_ptr<EdgeEstimator> estimator = CreateEstimator(make_shared<TrafficStash>(trafficCache));
+  shared_ptr<EdgeEstimator> estimator = CreateEstimator(trafficCache);
   unique_ptr<WorldGraph> worldGraph =
       BuildWorldGraph(move(loader), estimator, {MakeJoint({{0, 2}, {1, 2}})});
 
@@ -240,7 +240,7 @@ UNIT_TEST(FindPathManhattan)
   }
 
   traffic::TrafficCache const trafficCache;
-  shared_ptr<EdgeEstimator> estimator = CreateEstimator(make_shared<TrafficStash>(trafficCache));
+  shared_ptr<EdgeEstimator> estimator = CreateEstimator(trafficCache);
 
   vector<Joint> joints;
   for (uint32_t i = 0; i < kCitySize; ++i)
@@ -324,7 +324,7 @@ UNIT_TEST(RoadSpeed)
       RoadGeometry::Points({{0.0, 0.0}, {1.0, 0.0}, {3.0, 0.0}, {5.0, 0.0}, {6.0, 0.0}}));
 
   traffic::TrafficCache const trafficCache;
-  shared_ptr<EdgeEstimator> estimator = CreateEstimator(make_shared<TrafficStash>(trafficCache));
+  shared_ptr<EdgeEstimator> estimator = CreateEstimator(trafficCache);
 
   vector<Joint> joints;
   joints.emplace_back(MakeJoint({{0, 0}, {1, 1}}));  // J0
@@ -360,7 +360,7 @@ UNIT_TEST(OneSegmentWay)
                   RoadGeometry::Points({{0.0, 0.0}, {3.0, 0.0}}));
 
   traffic::TrafficCache const trafficCache;
-  shared_ptr<EdgeEstimator> estimator = CreateEstimator(make_shared<TrafficStash>(trafficCache));
+  shared_ptr<EdgeEstimator> estimator = CreateEstimator(trafficCache);
   unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(move(loader), estimator, vector<Joint>());
 
   IndexGraphStarter::FakeVertex const start(kTestNumMwmId, 0, 0, m2::PointD(1, 0));
@@ -485,7 +485,7 @@ unique_ptr<WorldGraph> BuildLoopGraph()
   };
 
   traffic::TrafficCache const trafficCache;
-  shared_ptr<EdgeEstimator> estimator = CreateEstimator(make_shared<TrafficStash>(trafficCache));
+  shared_ptr<EdgeEstimator> estimator = CreateEstimator(trafficCache);
   return BuildWorldGraph(move(loader), estimator, joints);
 }
 

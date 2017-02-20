@@ -28,6 +28,14 @@ public:
     {
     }
 
+    FakeVertex(Segment const & segment, m2::PointD const & point)
+      : m_featureId(segment.GetFeatureId())
+      , m_segmentIdx(segment.GetSegmentIdx())
+      , m_mwmId(segment.GetMwmId())
+      , m_point(point)
+    {
+    }
+
     NumMwmId GetMwmId() const { return m_mwmId; }
     uint32_t GetFeatureId() const { return m_featureId; }
     uint32_t GetSegmentIdx() const { return m_segmentIdx; }
@@ -48,6 +56,7 @@ public:
 
   IndexGraphStarter(FakeVertex const & start, FakeVertex const & finish, WorldGraph & graph);
 
+  WorldGraph & GetGraph() { return m_graph; }
   Segment const & GetStart() const { return kStartFakeSegment; }
   Segment const & GetFinish() const { return kFinishFakeSegment; }
   m2::PointD const & GetPoint(Segment const & segment, bool front);
@@ -77,6 +86,12 @@ public:
   {
     return m_graph.GetEstimator().CalcSegmentWeight(
         segment, m_graph.GetRoadGeometry(segment.GetMwmId(), segment.GetFeatureId()));
+  }
+
+  bool IsLeap(NumMwmId mwmId) const
+  {
+    return mwmId != kFakeNumMwmId && mwmId != m_start.GetMwmId() && mwmId != m_finish.GetMwmId() &&
+           m_graph.GetEstimator().LeapIsAllowed(mwmId);
   }
 
   static bool IsFakeSegment(Segment const & segment)

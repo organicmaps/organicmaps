@@ -162,6 +162,7 @@ public:
 
   // TrafficCache overrides:
   shared_ptr<traffic::TrafficInfo::Coloring> GetTrafficInfo(MwmSet::MwmId const & mwmId) const override;
+  void CopyTraffic(std::map<MwmSet::MwmId, std::shared_ptr<traffic::TrafficInfo::Coloring>> & trafficColoring) const override;
 
 private:
   struct DoReadyCallback

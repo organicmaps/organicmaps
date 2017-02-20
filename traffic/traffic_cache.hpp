@@ -3,8 +3,8 @@
 
 #include "indexer/mwm_set.hpp"
 
-#include "std/map.hpp"
-#include "std/shared_ptr.hpp"
+#include <map>
+#include <memory>
 
 namespace traffic
 {
@@ -14,7 +14,11 @@ public:
   TrafficCache() : m_trafficColoring() {}
   virtual ~TrafficCache() = default;
 
-  virtual shared_ptr<traffic::TrafficInfo::Coloring> GetTrafficInfo(MwmSet::MwmId const & mwmId) const;
+  virtual shared_ptr<traffic::TrafficInfo::Coloring> GetTrafficInfo(
+      MwmSet::MwmId const & mwmId) const;
+  virtual void CopyTraffic(
+      std::map<MwmSet::MwmId, std::shared_ptr<traffic::TrafficInfo::Coloring>> & trafficColoring)
+      const;
 
 protected:
   void Set(MwmSet::MwmId const & mwmId, TrafficInfo::Coloring && mwmIdAndColoring);
@@ -22,6 +26,6 @@ protected:
   void Clear();
 
 private:
-  map<MwmSet::MwmId, shared_ptr<traffic::TrafficInfo::Coloring>> m_trafficColoring;
+  std::map<MwmSet::MwmId, std::shared_ptr<traffic::TrafficInfo::Coloring>> m_trafficColoring;
 };
 }  // namespace traffic

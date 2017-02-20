@@ -65,7 +65,7 @@ void IndexGraphStarter::GetEdgesList(Segment const & segment, bool isOutgoing,
     return;
   }
 
-  m_graph.GetEdgeList(segment, isOutgoing, edges);
+  m_graph.GetEdgeList(segment, isOutgoing, IsLeap(segment.GetMwmId()), edges);
   GetNormalToFakeEdge(segment, m_start, kStartFakeSegment, isOutgoing, edges);
   GetNormalToFakeEdge(segment, m_finish, kFinishFakeSegment, isOutgoing, edges);
 }

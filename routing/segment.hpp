@@ -64,9 +64,8 @@ public:
 private:
   uint32_t m_featureId = 0;
   uint32_t m_segmentIdx = 0;
-  // @TODO(bykoianko, dobriy-eeh). It's a placeholder. Init m_mwmId in a proper way.
-  NumMwmId m_mwmId = 0;
-  bool m_forward = true;
+  NumMwmId m_mwmId = kFakeNumMwmId;
+  bool m_forward = false;
 };
 
 class SegmentEdge final

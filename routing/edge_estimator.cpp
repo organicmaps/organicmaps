@@ -44,6 +44,7 @@ public:
   double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road) const override;
   double CalcHeuristic(m2::PointD const & from, m2::PointD const & to) const override;
   double GetUTurnPenalty() const override;
+  bool LeapIsAllowed(NumMwmId mwmId) const override;
 
 private:
   shared_ptr<TrafficStash> m_trafficStash;
@@ -100,6 +101,8 @@ double CarEdgeEstimator::GetUTurnPenalty() const
   // experiments.
   return 2 * 60;  // seconds
 }
+
+bool CarEdgeEstimator::LeapIsAllowed(NumMwmId mwmId) const { return !m_trafficStash->Has(mwmId); }
 }  // namespace
 
 namespace routing

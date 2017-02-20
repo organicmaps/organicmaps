@@ -32,6 +32,8 @@ IndexGraph & TestIndexGraphLoader::GetIndexGraph(NumMwmId mwmId)
   return *it->second;
 }
 
+void TestIndexGraphLoader::Clear() { m_graphs.clear(); }
+
 void TestIndexGraphLoader::AddGraph(NumMwmId mwmId, unique_ptr<IndexGraph> graph)
 {
   auto it = m_graphs.find(mwmId);
@@ -57,6 +59,13 @@ Joint MakeJoint(vector<RoadPoint> const & points)
     joint.AddPoint(point);
 
   return joint;
+}
+
+shared_ptr<EdgeEstimator> CreateEstimator(traffic::TrafficCache const & trafficCache)
+{
+  auto numMwmIds = make_shared<NumMwmIds>();
+  auto stash = make_shared<TrafficStash>(trafficCache, numMwmIds);
+  return CreateEstimator(stash);
 }
 
 shared_ptr<EdgeEstimator> CreateEstimator(shared_ptr<TrafficStash> trafficStash)

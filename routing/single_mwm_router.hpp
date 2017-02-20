@@ -52,6 +52,10 @@ private:
                                        RouterDelegate const & delegate, Route & route);
   bool FindClosestEdge(platform::CountryFile const & file, m2::PointD const & point,
                        Edge & closestEdge) const;
+  // Input route may contains 'leaps': shortcut edges from mwm border enter to exit.
+  // ProcessLeaps replaces each leap with calculated route through mwm.
+  IRouter::ResultCode ProcessLeaps(vector<Segment> const & input, RouterDelegate const & delegate,
+                                   IndexGraphStarter & starter, vector<Segment> & output);
   bool RedressRoute(vector<Segment> const & segments, RouterDelegate const & delegate,
                     IndexGraphStarter & starter, Route & route) const;
 

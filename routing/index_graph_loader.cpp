@@ -19,11 +19,11 @@ class IndexGraphLoaderImpl final : public IndexGraphLoader
 public:
   IndexGraphLoaderImpl(shared_ptr<NumMwmIds> numMwmIds,
                        shared_ptr<VehicleModelFactory> vehicleModelFactory,
-                       shared_ptr<EdgeEstimator> estimator, shared_ptr<TrafficStash> trafficStash,
-                       Index & index);
+                       shared_ptr<EdgeEstimator> estimator, Index & index);
 
   // IndexGraphLoader overrides:
   virtual IndexGraph & GetIndexGraph(NumMwmId numMwmId) override;
+  virtual void Clear() override;
 
 private:
   IndexGraph & Load(NumMwmId mwmId);
@@ -32,24 +32,20 @@ private:
   shared_ptr<NumMwmIds> m_numMwmIds;
   shared_ptr<VehicleModelFactory> m_vehicleModelFactory;
   shared_ptr<EdgeEstimator> m_estimator;
-  shared_ptr<TrafficStash> m_trafficStash;
   unordered_map<NumMwmId, unique_ptr<IndexGraph>> m_graphs;
 };
 
 IndexGraphLoaderImpl::IndexGraphLoaderImpl(shared_ptr<NumMwmIds> numMwmIds,
                                            shared_ptr<VehicleModelFactory> vehicleModelFactory,
-                                           shared_ptr<EdgeEstimator> estimator,
-                                           shared_ptr<TrafficStash> trafficStash, Index & index)
+                                           shared_ptr<EdgeEstimator> estimator, Index & index)
   : m_index(index)
   , m_numMwmIds(numMwmIds)
   , m_vehicleModelFactory(vehicleModelFactory)
   , m_estimator(estimator)
-  , m_trafficStash(trafficStash)
 {
   CHECK(m_numMwmIds, ());
   CHECK(m_vehicleModelFactory, ());
   CHECK(m_estimator, ());
-  CHECK(m_trafficStash, ());
 }
 
 IndexGraph & IndexGraphLoaderImpl::GetIndexGraph(NumMwmId numMwmId)
@@ -75,7 +71,6 @@ IndexGraph & IndexGraphLoaderImpl::Load(NumMwmId numMwmId)
   auto graphPtr =
       make_unique<IndexGraph>(GeometryLoader::Create(m_index, mwmId, vehicleModel), m_estimator);
   auto & graph = *graphPtr;
-  m_trafficStash->Load(mwmId, numMwmId);
 
   MwmValue const & mwmValue = *handle.GetValue<MwmValue>();
 
@@ -92,6 +87,8 @@ IndexGraph & IndexGraphLoaderImpl::Load(NumMwmId numMwmId)
               "seconds"));
   return graph;
 }
+
+void IndexGraphLoaderImpl::Clear() { m_graphs.clear(); }
 }  // namespace
 
 namespace routing
@@ -99,9 +96,8 @@ namespace routing
 // static
 unique_ptr<IndexGraphLoader> IndexGraphLoader::Create(
     shared_ptr<NumMwmIds> numMwmIds, shared_ptr<VehicleModelFactory> vehicleModelFactory,
-    shared_ptr<EdgeEstimator> estimator, shared_ptr<TrafficStash> trafficStash, Index & index)
+    shared_ptr<EdgeEstimator> estimator, Index & index)
 {
-  return make_unique<IndexGraphLoaderImpl>(numMwmIds, vehicleModelFactory, estimator, trafficStash,
-                                           index);
+  return make_unique<IndexGraphLoaderImpl>(numMwmIds, vehicleModelFactory, estimator, index);
 }
 }  // namespace routing
