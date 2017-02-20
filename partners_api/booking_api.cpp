@@ -29,7 +29,7 @@ string const kBookingApiBaseUrl = "https://distribution-xml.booking.com/json/boo
   string const kExtendedHotelInfoBaseUrl = "";
 #endif
 string const kPhotoOriginalUrl = "http://aff.bstatic.com/images/hotel/max500/";
-string const kPhotoSmallUrl = "http://aff.bstatic.com/images/hotel/square60/";
+string const kPhotoSmallUrl = "http://aff.bstatic.com/images/hotel/max300/";
 
 bool RunSimpleHttpRequest(bool const needAuth, string const & url, string & result)
 {
