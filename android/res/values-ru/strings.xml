@@ -333,6 +333,7 @@
 	<!-- Settings «Map» category: «Record track» title -->
 	<string name="pref_track_record_title">Недавний путь</string>
 	<string name="pref_map_auto_zoom">Автозум</string>
+	<string name="pref_traffic_simplified_colors_title">Простая цветовая схема для пробок</string>
 	<string name="duration_disabled">Выключено</string>
 	<string name="duration_1_hour">1 час</string>
 	<string name="duration_2_hours">2 часа</string>

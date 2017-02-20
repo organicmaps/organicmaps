@@ -19,8 +19,14 @@
     android:switchTextOff=""/>
 
   <SwitchPreference
-      android:key="@string/pref_auto_zoom"
-      android:title="@string/pref_map_auto_zoom"
-      android:switchTextOn=""
-      android:switchTextOff=""/>
+    android:key="@string/pref_auto_zoom"
+    android:title="@string/pref_map_auto_zoom"
+    android:switchTextOn=""
+    android:switchTextOff=""/>
+
+  <SwitchPreference
+    android:key="@string/pref_traffic_simplified_colors"
+    android:title="@string/pref_traffic_simplified_colors_title"
+    android:switchTextOn=""
+    android:switchTextOff=""/>
 </PreferenceScreen>
