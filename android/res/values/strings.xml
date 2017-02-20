@@ -335,6 +335,7 @@
 	<!-- Settings «Map» category: «Record track» title -->
 	<string name="pref_track_record_title">Recent track</string>
 	<string name="pref_map_auto_zoom">Auto zoom</string>
+	<string name="pref_traffic_simplified_colors_title">Simplified colour scheme for traffic</string>
 	<string name="duration_disabled">Off</string>
 	<string name="duration_1_hour">1 hour</string>
 	<string name="duration_2_hours">2 hours</string>

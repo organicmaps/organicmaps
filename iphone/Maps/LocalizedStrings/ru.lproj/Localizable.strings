@@ -519,6 +519,8 @@
 
 "pref_map_auto_zoom" = "Автозум";
 
+"pref_traffic_simplified_colors_title" = "Простая цветовая схема для пробок";
+
 "duration_disabled" = "Выключено";
 
 "duration_1_hour" = "1 час";

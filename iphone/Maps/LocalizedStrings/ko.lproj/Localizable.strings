@@ -519,6 +519,8 @@
 
 "pref_map_auto_zoom" = "자동 줌";
 
+"pref_traffic_simplified_colors_title" = "Simplified colour scheme for traffic";
+
 "duration_disabled" = "선택 안 함";
 
 "duration_1_hour" = "1시간";
