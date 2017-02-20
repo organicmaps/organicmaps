@@ -23,14 +23,21 @@ using namespace platform;
 using namespace booking;
 
 string const kBookingApiBaseUrl = "https://distribution-xml.booking.com/json/bookings";
-string const kExtendedHotelInfoBaseUrl = "";
+#ifdef DEBUG
+  string const kExtendedHotelInfoBaseUrl = "http://hotels.milchakov.map6.devmail.ru/getDescription";
+#else
+  string const kExtendedHotelInfoBaseUrl = "";
+#endif
 string const kPhotoOriginalUrl = "http://aff.bstatic.com/images/hotel/max500/";
 string const kPhotoSmallUrl = "http://aff.bstatic.com/images/hotel/square60/";
 
-bool RunSimpleHttpRequest(string const & url, string & result)
+bool RunSimpleHttpRequest(bool const needAuth, string const & url, string & result)
 {
   HttpClient request(url);
-  request.SetUserAndPassword(BOOKING_KEY, BOOKING_SECRET);
+
+  if (needAuth)
+    request.SetUserAndPassword(BOOKING_KEY, BOOKING_SECRET);
+
   if (request.RunHttpRequest() && !request.WasRedirected() && request.ErrorCode() == 200)
   {
     result = request.ServerResponse();
@@ -91,7 +98,7 @@ vector<HotelFacility> ParseFacilities(json_t const * facilitiesArray)
     auto item = json_array_get(facilitiesArray, i);
 
     HotelFacility facility;
-    my::FromJSONObject(item, "facility_type", facility.m_facilityType);
+    my::FromJSONObject(item, "type", facility.m_facilityType);
     my::FromJSONObject(item, "name", facility.m_name);
 
     facilities.push_back(move(facility));
@@ -178,7 +185,7 @@ void FillHotelInfo(string const & src, HotelInfo & info)
 
   json_int_t scoreCount = 0;
   my::FromJSONObjectOptionalField(root.get(), "score_count", scoreCount);
-  info.m_scoreCount = scoreCount;
+  info.m_scoreCount = static_cast<uint32_t>(scoreCount);
 
   auto const facilitiesArray = json_object_get(root.get(), "facilities");
   info.m_facilities = ParseFacilities(facilitiesArray);
@@ -250,36 +257,15 @@ bool RawApi::GetHotelAvailability(string const & hotelId, string const & currenc
                                                    {"arrival_date", dateArrival},
                                                    {"departure_date", dateDeparture}},
                           testing);
-  return RunSimpleHttpRequest(url, result);
+  return RunSimpleHttpRequest(true, url, result);
 }
 
 // static
 bool RawApi::GetExtendedInfo(string const & hotelId, string const & lang, string & result)
 {
   ostringstream os;
-  os << kExtendedHotelInfoBaseUrl;
-  // Last three digits of id are used as part of path to hotel extended info on the server.
-  if (hotelId.size() > 3)
-    os << hotelId.substr(hotelId.size() - 3);
-  else
-    os << "000";
-  string langCode;
-  if (lang.empty())
-  {
-    langCode = "en";
-  }
-  else
-  {
-    auto const pos = lang.find('_');
-    if (pos != string::npos)
-      langCode = lang.substr(0, pos);
-    else
-      langCode = lang;
-  }
-
-  os << "/" << hotelId << "/" << langCode << ".json";
-
-  return RunSimpleHttpRequest(os.str(), result);
+  os << kExtendedHotelInfoBaseUrl << "?hotel_id=" << hotelId << "&lang=" << lang;
+  return RunSimpleHttpRequest(false, os.str(), result);
 }
 
 string Api::GetBookHotelUrl(string const & baseUrl) const

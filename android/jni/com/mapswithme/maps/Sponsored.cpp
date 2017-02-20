@@ -158,7 +158,10 @@ JNIEXPORT void JNICALL Java_com_mapswithme_maps_widget_placepage_Sponsored_nativ
   string const hotelId = jni::ToNativeString(env, id);
   g_lastRequestedHotelId = hotelId;
 
-  string const code = jni::ToNativeString(env, locale);
+  string code = jni::ToNativeString(env, locale);
+
+  if (code.size() > 2)  // 2 - count of characters in country code
+    code.resize(2);
 
   g_framework->RequestBookingInfo(env, policy, hotelId, code, [hotelId](HotelInfo const & hotelInfo) {
     GetPlatform().RunOnGuiThread([hotelId, hotelInfo]() {
