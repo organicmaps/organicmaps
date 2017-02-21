@@ -319,6 +319,10 @@ struct OneOfRule final : public Rule
     os << "[ one of:";
     for (size_t i = 0; i < static_cast<size_t>(ftypes::IsHotelChecker::Type::Count); ++i)
     {
+      unsigned const bit = 1U << i;
+      if ((m_types & bit) == 0)
+        continue;
+
       auto const type = static_cast<ftypes::IsHotelChecker::Type>(i);
       os << " " << ftypes::IsHotelChecker::GetHotelTypeTag(type);
     }
