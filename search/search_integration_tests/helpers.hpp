@@ -111,6 +111,8 @@ public:
 
   bool ResultsMatch(vector<search::Result> const & results, TRules const & rules);
 
+  bool ResultsMatch(SearchParams const & params, TRules const & rules);
+
   unique_ptr<tests_support::TestSearchRequest> MakeRequest(string const & query);
 
   size_t CountFeatures(m2::RectD const & rect);

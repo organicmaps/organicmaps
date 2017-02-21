@@ -12,6 +12,7 @@
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
 
 #include "indexer/feature.hpp"
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/index.hpp"
 
 #include "geometry/mercator.hpp"
@@ -36,8 +37,10 @@ namespace
 class TestHotel : public TestPOI
 {
 public:
+  using Type = ftypes::IsHotelChecker::Type;
+
   TestHotel(m2::PointD const & center, string const & name, string const & lang, float rating,
-            int priceRate)
+            int priceRate, Type type)
     : TestPOI(center, name, lang), m_rating(rating), m_priceRate(priceRate)
   {
     CHECK_GREATER_OR_EQUAL(m_rating, 0.0, ());
@@ -46,7 +49,7 @@ public:
     CHECK_GREATER_OR_EQUAL(m_priceRate, 0, ());
     CHECK_LESS_OR_EQUAL(m_priceRate, 5, ());
 
-    SetTypes({{"tourism", "hotel"}});
+    SetTypes({{"tourism", ftypes::IsHotelChecker::GetHotelTypeTag(type)}});
   }
 
   // TestPOI overrides:
@@ -671,10 +674,14 @@ UNIT_CLASS_TEST(ProcessorTest, HotelsFiltering)
 {
   char const countryName[] = "Wonderland";
 
-  TestHotel h1(m2::PointD(0, 0), "h1", "en", 8.0 /* rating */, 2 /* priceRate */);
-  TestHotel h2(m2::PointD(0, 1), "h2", "en", 7.0 /* rating */, 5 /* priceRate */);
-  TestHotel h3(m2::PointD(1, 0), "h3", "en", 9.0 /* rating */, 0 /* priceRate */);
-  TestHotel h4(m2::PointD(1, 1), "h4", "en", 2.0 /* rating */, 4 /* priceRate */);
+  TestHotel h1(m2::PointD(0, 0), "h1", "en", 8.0 /* rating */, 2 /* priceRate */,
+               TestHotel::Type::Hotel);
+  TestHotel h2(m2::PointD(0, 1), "h2", "en", 7.0 /* rating */, 5 /* priceRate */,
+               TestHotel::Type::Hostel);
+  TestHotel h3(m2::PointD(1, 0), "h3", "en", 9.0 /* rating */, 0 /* priceRate */,
+               TestHotel::Type::GuestHouse);
+  TestHotel h4(m2::PointD(1, 1), "h4", "en", 2.0 /* rating */, 4 /* priceRate */,
+               TestHotel::Type::GuestHouse);
 
   auto id = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
     builder.Add(h1);
@@ -691,36 +698,47 @@ UNIT_CLASS_TEST(ProcessorTest, HotelsFiltering)
 
   SetViewport(m2::RectD(m2::PointD(-1, -1), m2::PointD(2, 2)));
   {
-    TestSearchRequest request(m_engine, params, m_viewport);
-    request.Run();
     TRules rules = {ExactMatch(id, h1), ExactMatch(id, h2), ExactMatch(id, h3), ExactMatch(id, h4)};
-    TEST(ResultsMatch(request.Results(), rules), ());
+    TEST(ResultsMatch(params, rules), ());
   }
 
   using namespace hotels_filter;
 
   params.m_hotelsFilter = And(Gt<Rating>(7.0), Le<PriceRate>(2));
   {
-    TestSearchRequest request(m_engine, params, m_viewport);
-    request.Run();
     TRules rules = {ExactMatch(id, h1), ExactMatch(id, h3)};
-    TEST(ResultsMatch(request.Results(), rules), ());
+    TEST(ResultsMatch(params, rules), ());
   }
 
   params.m_hotelsFilter = Or(Eq<Rating>(9.0), Le<PriceRate>(4));
   {
-    TestSearchRequest request(m_engine, params, m_viewport);
-    request.Run();
     TRules rules = {ExactMatch(id, h1), ExactMatch(id, h3), ExactMatch(id, h4)};
-    TEST(ResultsMatch(request.Results(), rules), ());
+    TEST(ResultsMatch(params, rules), ());
   }
 
   params.m_hotelsFilter = Or(And(Eq<Rating>(7.0), Eq<PriceRate>(5)), Eq<PriceRate>(4));
   {
-    TestSearchRequest request(m_engine, params, m_viewport);
-    request.Run();
     TRules rules = {ExactMatch(id, h2), ExactMatch(id, h4)};
-    TEST(ResultsMatch(request.Results(), rules), ());
+    TEST(ResultsMatch(params, rules), ());
+  }
+
+  params.m_hotelsFilter = Or(Is(TestHotel::Type::GuestHouse), Is(TestHotel::Type::Hostel));
+  {
+    TRules rules = {ExactMatch(id, h2), ExactMatch(id, h3), ExactMatch(id, h4)};
+    TEST(ResultsMatch(params, rules), ());
+  }
+
+  params.m_hotelsFilter = And(Gt<PriceRate>(3), Is(TestHotel::Type::GuestHouse));
+  {
+    TRules rules = {ExactMatch(id, h4)};
+    TEST(ResultsMatch(params, rules), ());
+  }
+
+  params.m_hotelsFilter = OneOf((1U << static_cast<unsigned>(TestHotel::Type::Hotel)) |
+                                (1U << static_cast<unsigned>(TestHotel::Type::Hostel)));
+  {
+    TRules rules = {ExactMatch(id, h1), ExactMatch(id, h2)};
+    TEST(ResultsMatch(params, rules), ());
   }
 }
 
