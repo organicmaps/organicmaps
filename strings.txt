@@ -5700,9 +5700,6 @@
     el = Αυτόματη μεγέθυνση
     sk = Automatický zoom
 
-  [pref_traffic_simplified_colors_title]
-    en = Simplified colour scheme for traffic
-    ru = Простая цветовая схема для пробок
 
   [duration_disabled]
     tags = ios,android
@@ -22637,3 +22634,52 @@
 
   [booking_filter_price_high]
     en = $$$
+
+  [pref_traffic_simplified_colors_title]
+    en = Simplified traffic colors
+    en_GB = Simplified traffic colours
+    ru = Простые цвета пробок
+
+  [enable_logging]
+    en = Enable logging
+    ru = Включить запись логов
+
+  [whatsnew_more_info_on_hotels_title]
+    en = More Information on Hotels
+    ru = Подробная информация об отелях
+
+  [whatsnew_more_info_on_hotels_message]
+    en = Brand new look for hotel pages: check out photos, user reviews and other information online.
+    ru = Новые расширенные карточки гостиниц: смотрите фотографии, отзывы и другую информацию онлайн.
+
+  [whatsnew_better_routing_title]
+    en = Improved Route Planning 
+    ru = Улучшено построение маршрутов
+
+  [whatsnew_better_routing_message]
+    en = • More accurate estimation of arrival time.\n• The app takes into account restricted areas and road signs.
+    ru = • Более точная оценка времени в пути.\n• Учитываем знаки и запрещенные дороги при построении маршрута.
+
+  [whatsnew_smaller_mwm_title]
+    en = Maps Got Smaller
+    ru = Карты стали меньше
+
+  [whatsnew_smaller_mwm_message]
+    en = Maps require up to 20% less storage.
+    ru = Занимают на 20% меньше места на телефоне.
+
+  [whatsnew_waypoints_title]
+    en = Waypoints in Routing
+    ru = Маршруты с промежуточными точками
+
+  [whatsnew_waypoints_message]
+    en = Tap places to add waypoints to your route. 
+    ru = Нажмите на объекты, чтобы включить их в маршрут.
+
+  [whatsnew_driving_style_title]
+    en = New Map Style for Driving
+    ru = Новый автомобильный стиль карт
+
+  [whatsnew_driving_style_message]
+    en = Car navigation mode got easier to use.
+    ru = Режим автомобильной навигации стал удобнее.

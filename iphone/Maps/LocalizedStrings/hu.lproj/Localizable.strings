@@ -519,8 +519,6 @@
 
 "pref_map_auto_zoom" = "Auto-zoom";
 
-"pref_traffic_simplified_colors_title" = "Simplified colour scheme for traffic";
-
 "duration_disabled" = "Kikapcsolva";
 
 "duration_1_hour" = "1 óra";
@@ -1811,3 +1809,27 @@
 "booking_filter_price_medium" = "$$";
 
 "booking_filter_price_high" = "$$$";
+
+"pref_traffic_simplified_colors_title" = "Simplified traffic colors";
+
+"enable_logging" = "Enable logging";
+
+"whatsnew_more_info_on_hotels_title" = "More Information on Hotels";
+
+"whatsnew_more_info_on_hotels_message" = "Brand new look for hotel pages: check out photos, user reviews and other information online.";
+
+"whatsnew_better_routing_title" = "Improved Route Planning";
+
+"whatsnew_better_routing_message" = "• More accurate estimation of arrival time.\n• The app takes into account restricted areas and road signs.";
+
+"whatsnew_smaller_mwm_title" = "Maps Got Smaller";
+
+"whatsnew_smaller_mwm_message" = "Maps require up to 20% less storage.";
+
+"whatsnew_waypoints_title" = "Waypoints in Routing";
+
+"whatsnew_waypoints_message" = "Tap places to add waypoints to your route.";
+
+"whatsnew_driving_style_title" = "New Map Style for Driving";
+
+"whatsnew_driving_style_message" = "Car navigation mode got easier to use.";
