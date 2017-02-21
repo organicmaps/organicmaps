@@ -1014,8 +1014,9 @@ public class PlacePageView extends RelativeLayout
   {
     if (mBannerController != null)
     {
-      mBannerController.updateData(policy.сanUseNetwork()
-                                   ? mMapObject.getBanner() : null);
+      boolean canShow = mMapObject.getMapObjectType() != MapObject.MY_POSITION
+                        && policy.сanUseNetwork();
+      mBannerController.updateData(canShow ? mMapObject.getBanner() : null);
     }
 
     refreshPreview();
