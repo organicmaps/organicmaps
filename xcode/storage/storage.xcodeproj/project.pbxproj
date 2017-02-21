@@ -81,7 +81,6 @@
 		67F90B791C6A278800CD458E /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B11C6215690093DD1B /* libeditor.a */; };
 		67F90B7A1C6A278800CD458E /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B21C6215690093DD1B /* libfreetype.a */; };
 		67F90B7B1C6A278800CD458E /* libfribidi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B31C6215690093DD1B /* libfribidi.a */; };
-		67F90B7C1C6A278800CD458E /* liblodepng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B41C6215690093DD1B /* liblodepng.a */; };
 		67F90B7D1C6A278800CD458E /* libminizip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B51C6215690093DD1B /* libminizip.a */; };
 		67F90B7E1C6A278800CD458E /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B61C6215690093DD1B /* liboauthcpp.a */; };
 		67F90B7F1C6A278800CD458E /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B71C6215690093DD1B /* libopening_hours.a */; };
@@ -118,7 +117,6 @@
 		67F90BD51C6A2A3000CD458E /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B11C6215690093DD1B /* libeditor.a */; };
 		67F90BD61C6A2A3000CD458E /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B21C6215690093DD1B /* libfreetype.a */; };
 		67F90BD71C6A2A3000CD458E /* libfribidi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B31C6215690093DD1B /* libfribidi.a */; };
-		67F90BD81C6A2A3000CD458E /* liblodepng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B41C6215690093DD1B /* liblodepng.a */; };
 		67F90BD91C6A2A3000CD458E /* libminizip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B51C6215690093DD1B /* libminizip.a */; };
 		67F90BDA1C6A2A3000CD458E /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B61C6215690093DD1B /* liboauthcpp.a */; };
 		67F90BDB1C6A2A3000CD458E /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B71C6215690093DD1B /* libopening_hours.a */; };
@@ -217,7 +215,6 @@
 		674709B11C6215690093DD1B /* libeditor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libeditor.a; path = "../../../omim-xcode-build/Debug/libeditor.a"; sourceTree = "<group>"; };
 		674709B21C6215690093DD1B /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = "../../../omim-xcode-build/Debug/libfreetype.a"; sourceTree = "<group>"; };
 		674709B31C6215690093DD1B /* libfribidi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfribidi.a; path = "../../../omim-xcode-build/Debug/libfribidi.a"; sourceTree = "<group>"; };
-		674709B41C6215690093DD1B /* liblodepng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblodepng.a; path = "../../../omim-xcode-build/Debug/liblodepng.a"; sourceTree = "<group>"; };
 		674709B51C6215690093DD1B /* libminizip.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libminizip.a; path = "../../../omim-xcode-build/Debug/libminizip.a"; sourceTree = "<group>"; };
 		674709B61C6215690093DD1B /* liboauthcpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liboauthcpp.a; path = "../../../omim-xcode-build/Debug/liboauthcpp.a"; sourceTree = "<group>"; };
 		674709B71C6215690093DD1B /* libopening_hours.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopening_hours.a; path = "../../../omim-xcode-build/Debug/libopening_hours.a"; sourceTree = "<group>"; };
@@ -291,7 +288,6 @@
 				67F90B791C6A278800CD458E /* libeditor.a in Frameworks */,
 				67F90B781C6A278800CD458E /* libapi.a in Frameworks */,
 				67F90B7F1C6A278800CD458E /* libopening_hours.a in Frameworks */,
-				67F90B7C1C6A278800CD458E /* liblodepng.a in Frameworks */,
 				67F90B8C1C6A278800CD458E /* libalohalitics.a in Frameworks */,
 				67F90B841C6A278800CD458E /* libsearch.a in Frameworks */,
 				67F90B831C6A278800CD458E /* libsdf_image.a in Frameworks */,
@@ -330,7 +326,6 @@
 				67F90BD51C6A2A3000CD458E /* libeditor.a in Frameworks */,
 				67F90BD41C6A2A3000CD458E /* libapi.a in Frameworks */,
 				67F90BDB1C6A2A3000CD458E /* libopening_hours.a in Frameworks */,
-				67F90BD81C6A2A3000CD458E /* liblodepng.a in Frameworks */,
 				67F90BE81C6A2A3000CD458E /* libalohalitics.a in Frameworks */,
 				67F90BE01C6A2A3000CD458E /* libsearch.a in Frameworks */,
 				67F90BDF1C6A2A3000CD458E /* libsdf_image.a in Frameworks */,
@@ -401,7 +396,6 @@
 				674709B11C6215690093DD1B /* libeditor.a */,
 				674709B21C6215690093DD1B /* libfreetype.a */,
 				674709B31C6215690093DD1B /* libfribidi.a */,
-				674709B41C6215690093DD1B /* liblodepng.a */,
 				674709B51C6215690093DD1B /* libminizip.a */,
 				674709B61C6215690093DD1B /* liboauthcpp.a */,
 				674709B71C6215690093DD1B /* libopening_hours.a */,

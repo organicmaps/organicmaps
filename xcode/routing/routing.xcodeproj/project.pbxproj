@@ -218,7 +218,6 @@
 		67BD35E61C69F198003AA26F /* libdrape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BD35D91C69F198003AA26F /* libdrape.a */; };
 		67BD35E71C69F198003AA26F /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BD35DA1C69F198003AA26F /* libexpat.a */; };
 		67BD35E91C69F198003AA26F /* libfribidi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BD35DC1C69F198003AA26F /* libfribidi.a */; };
-		67BD35EA1C69F198003AA26F /* liblodepng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BD35DD1C69F198003AA26F /* liblodepng.a */; };
 		67BD35EB1C69F198003AA26F /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BD35DE1C69F198003AA26F /* libmap.a */; };
 		67BD35EC1C69F198003AA26F /* libminizip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BD35DF1C69F198003AA26F /* libminizip.a */; };
 		67BD35ED1C69F198003AA26F /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BD35E01C69F198003AA26F /* libopening_hours.a */; };
@@ -432,7 +431,6 @@
 		67BD35DA1C69F198003AA26F /* libexpat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libexpat.a; path = "../../../omim-xcode-build/Debug/libexpat.a"; sourceTree = "<group>"; };
 		67BD35DB1C69F198003AA26F /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = "../../../omim-xcode-build/Debug/libfreetype.a"; sourceTree = "<group>"; };
 		67BD35DC1C69F198003AA26F /* libfribidi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfribidi.a; path = "../../../omim-xcode-build/Debug/libfribidi.a"; sourceTree = "<group>"; };
-		67BD35DD1C69F198003AA26F /* liblodepng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblodepng.a; path = "../../../omim-xcode-build/Debug/liblodepng.a"; sourceTree = "<group>"; };
 		67BD35DE1C69F198003AA26F /* libmap.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmap.a; path = "../../../omim-xcode-build/Debug/libmap.a"; sourceTree = "<group>"; };
 		67BD35DF1C69F198003AA26F /* libminizip.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libminizip.a; path = "../../../omim-xcode-build/Debug/libminizip.a"; sourceTree = "<group>"; };
 		67BD35E01C69F198003AA26F /* libopening_hours.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopening_hours.a; path = "../../../omim-xcode-build/Debug/libopening_hours.a"; sourceTree = "<group>"; };
@@ -537,7 +535,6 @@
 				67BD35E61C69F198003AA26F /* libdrape.a in Frameworks */,
 				67BD35E71C69F198003AA26F /* libexpat.a in Frameworks */,
 				67BD35E91C69F198003AA26F /* libfribidi.a in Frameworks */,
-				67BD35EA1C69F198003AA26F /* liblodepng.a in Frameworks */,
 				67BD35EB1C69F198003AA26F /* libmap.a in Frameworks */,
 				67BD35EC1C69F198003AA26F /* libminizip.a in Frameworks */,
 				67BD35ED1C69F198003AA26F /* libopening_hours.a in Frameworks */,
@@ -631,7 +628,6 @@
 				67BD35DA1C69F198003AA26F /* libexpat.a */,
 				67BD35DB1C69F198003AA26F /* libfreetype.a */,
 				67BD35DC1C69F198003AA26F /* libfribidi.a */,
-				67BD35DD1C69F198003AA26F /* liblodepng.a */,
 				67BD35DE1C69F198003AA26F /* libmap.a */,
 				67BD35DF1C69F198003AA26F /* libminizip.a */,
 				67BD35E01C69F198003AA26F /* libopening_hours.a */,
