@@ -43,7 +43,6 @@
 		675D21841BFB86F400717E4F /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D21831BFB86F400717E4F /* IOKit.framework */; };
 		675D21C91BFB8F7C00717E4F /* libsdf_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D21C71BFB8F7C00717E4F /* libsdf_image.a */; };
 		675D21CA1BFB8F7C00717E4F /* libstb_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D21C81BFB8F7C00717E4F /* libstb_image.a */; };
-		675D21CC1BFB907F00717E4F /* liblodepng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D21CB1BFB907F00717E4F /* liblodepng.a */; };
 		675D21CF1BFDDF9300717E4F /* libgflags.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D21CE1BFDDF9300717E4F /* libgflags.a */; };
 /* End PBXBuildFile section */
 
@@ -99,7 +98,6 @@
 		675D21831BFB86F400717E4F /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		675D21C71BFB8F7C00717E4F /* libsdf_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsdf_image.a; path = "../../../omim-xcode-build/Debug/libsdf_image.a"; sourceTree = "<group>"; };
 		675D21C81BFB8F7C00717E4F /* libstb_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libstb_image.a; path = "../../../omim-xcode-build/Debug/libstb_image.a"; sourceTree = "<group>"; };
-		675D21CB1BFB907F00717E4F /* liblodepng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblodepng.a; path = "../../../omim-xcode-build/Debug/liblodepng.a"; sourceTree = "<group>"; };
 		675D21CE1BFDDF9300717E4F /* libgflags.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgflags.a; path = "../../../omim-xcode-build/Debug/libgflags.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -114,7 +112,6 @@
 				346B76D31DC1ED3A00C7C87E /* libeditor.a in Frameworks */,
 				346B76D11DC1ED0B00C7C87E /* libpartners_api.a in Frameworks */,
 				675D21CF1BFDDF9300717E4F /* libgflags.a in Frameworks */,
-				675D21CC1BFB907F00717E4F /* liblodepng.a in Frameworks */,
 				675D21C91BFB8F7C00717E4F /* libsdf_image.a in Frameworks */,
 				675D21CA1BFB8F7C00717E4F /* libstb_image.a in Frameworks */,
 				675D21841BFB86F400717E4F /* IOKit.framework in Frameworks */,
@@ -196,7 +193,6 @@
 			isa = PBXGroup;
 			children = (
 				675D21CE1BFDDF9300717E4F /* libgflags.a */,
-				675D21CB1BFB907F00717E4F /* liblodepng.a */,
 				675D21C71BFB8F7C00717E4F /* libsdf_image.a */,
 				675D21C81BFB8F7C00717E4F /* libstb_image.a */,
 				675D21831BFB86F400717E4F /* IOKit.framework */,
