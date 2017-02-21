@@ -45,15 +45,17 @@ bool RunSimpleHttpRequest(bool const needAuth, string const & url, string & resu
 string MakeApiUrl(string const & func, initializer_list<pair<string, string>> const & params,
                   bool testing)
 {
+  ASSERT(!params.empty(), ());
+
   ostringstream os;
   os << kBookingApiBaseUrl << "." << func << "?";
 
-  bool firstRun = true;
+  bool firstParam = true;
   for (auto const & param : params)
   {
-    if (firstRun)
+    if (firstParam)
     {
-      firstRun = false;
+      firstParam = false;
       os << "";
     }
     else
