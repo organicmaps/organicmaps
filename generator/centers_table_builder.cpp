@@ -28,9 +28,14 @@ bool BuildCentersTableFromDataFile(string const & filename, bool forceRebuild)
       if (!forceRebuild && rcont.IsExist(CENTERS_FILE_TAG))
         return true;
 
-      feature::DataHeader header(rcont);
+      version::MwmVersion version;
+      if (!ReadVersion(rcont, version))
+      {
+        LOG(LERROR, ("Can't read version from", filename));
+        return false;
+      }
 
-      version::MwmTraits const traits(header.GetFormat());
+      version::MwmTraits const traits(version);
       if (!traits.HasOffsetsTable())
       {
         LOG(LERROR, (filename, "does not have an offsets table!"));
@@ -44,6 +49,7 @@ bool BuildCentersTableFromDataFile(string const & filename, bool forceRebuild)
         return false;
       }
 
+      feature::DataHeader const header(rcont);
       FeaturesVector const features(rcont, header, table.get());
 
       builder.SetCodingParams(header.GetDefCodingParams());

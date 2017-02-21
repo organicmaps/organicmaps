@@ -308,7 +308,7 @@ struct Selector
   template <typename... Args>
   unique_ptr<coding::CompressedBitVector> operator()(MwmContext const & context, Args &&... args)
   {
-    version::MwmTraits mwmTraits(context.m_value.GetMwmVersion().GetFormat());
+    version::MwmTraits mwmTraits(context.m_value.GetMwmVersion());
 
     if (mwmTraits.GetSearchIndexFormat() ==
         version::MwmTraits::SearchIndexFormat::FeaturesWithRankAndCenter)

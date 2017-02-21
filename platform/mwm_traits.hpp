@@ -38,7 +38,7 @@ public:
     Unknown
   };
 
-  MwmTraits(version::Format versionFormat);
+  MwmTraits(MwmVersion const & version);
 
   SearchIndexFormat GetSearchIndexFormat() const;
 
@@ -46,8 +46,12 @@ public:
 
   bool HasOffsetsTable() const;
 
+  // The new routing section with IndexGraph was added in december 2016.
+  // Check whether mwm has routing index section.
+  bool HasRoutingIndex() const;
+
 private:
-  version::Format m_versionFormat;
+  MwmVersion m_version;
 };
 
 string DebugPrint(MwmTraits::SearchIndexFormat format);

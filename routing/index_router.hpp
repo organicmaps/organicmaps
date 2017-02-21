@@ -22,14 +22,14 @@ namespace routing
 class IndexGraph;
 class IndexGraphStarter;
 
-class SingleMwmRouter : public IRouter
+class IndexRouter : public IRouter
 {
 public:
-  SingleMwmRouter(string const & name, TCountryFileFn const & countryFileFn,
-                  shared_ptr<NumMwmIds> numMwmIds, shared_ptr<TrafficStash> trafficStash,
-                  shared_ptr<VehicleModelFactory> vehicleModelFactory,
-                  shared_ptr<EdgeEstimator> estimator,
-                  unique_ptr<IDirectionsEngine> directionsEngine, Index & index);
+  IndexRouter(string const & name, TCountryFileFn const & countryFileFn,
+              shared_ptr<NumMwmIds> numMwmIds, shared_ptr<TrafficStash> trafficStash,
+              shared_ptr<VehicleModelFactory> vehicleModelFactory,
+              shared_ptr<EdgeEstimator> estimator, unique_ptr<IDirectionsEngine> directionsEngine,
+              Index & index);
 
   // IRouter overrides:
   virtual string GetName() const override { return m_name; }
@@ -39,16 +39,26 @@ public:
                                              RouterDelegate const & delegate,
                                              Route & route) override;
 
-  void SetCountry(string const & country) { m_country = country; }
+  IRouter::ResultCode CalculateRouteForSingleMwm(string const & country,
+                                                 m2::PointD const & startPoint,
+                                                 m2::PointD const & startDirection,
+                                                 m2::PointD const & finalPoint,
+                                                 RouterDelegate const & delegate, Route & route);
 
   /// \note |numMwmIds| should not be null.
-  static unique_ptr<SingleMwmRouter> CreateCarRouter(TCountryFileFn const & countryFileFn,
-                                                     shared_ptr<NumMwmIds> numMwmIds,
-                                                     traffic::TrafficCache const & trafficCache,
-                                                     Index & index);
+  static unique_ptr<IndexRouter> CreateCarRouter(TCountryFileFn const & countryFileFn,
+                                                 shared_ptr<NumMwmIds> numMwmIds,
+                                                 traffic::TrafficCache const & trafficCache,
+                                                 Index & index);
 
 private:
-  IRouter::ResultCode DoCalculateRoute(m2::PointD const & startPoint,
+  IRouter::ResultCode CalculateRoute(string const & startCountry, string const & finishCountry,
+                                     bool blockMwmBorders, m2::PointD const & startPoint,
+                                     m2::PointD const & startDirection,
+                                     m2::PointD const & finalPoint, RouterDelegate const & delegate,
+                                     Route & route);
+  IRouter::ResultCode DoCalculateRoute(string const & startCountry, string const & finishCountry,
+                                       bool blockMwmBorders, m2::PointD const & startPoint,
                                        m2::PointD const & startDirection,
                                        m2::PointD const & finalPoint,
                                        RouterDelegate const & delegate, Route & route);
@@ -62,7 +72,6 @@ private:
                     IndexGraphStarter & starter, Route & route) const;
 
   string const m_name;
-  string m_country;
   Index & m_index;
   TCountryFileFn const m_countryFileFn;
   shared_ptr<NumMwmIds> m_numMwmIds;

@@ -9,12 +9,12 @@
 #include "geometry/distance_on_sphere.hpp"
 #include "geometry/latlon.hpp"
 
+#include "routing/index_router.hpp"
 #include "routing/online_absent_fetcher.hpp"
 #include "routing/online_cross_fetcher.hpp"
 #include "routing/road_graph_router.hpp"
 #include "routing/route.hpp"
 #include "routing/router_delegate.hpp"
-#include "routing/single_mwm_router.hpp"
 
 #include "indexer/index.hpp"
 
@@ -91,7 +91,7 @@ namespace integration
       numMwmIds->RegisterFile(f.GetCountryFile());
 
     auto carRouter = make_unique<CarRouter>(index, countryFileGetter,
-                                            SingleMwmRouter::CreateCarRouter(countryFileGetter, numMwmIds,
+                                            IndexRouter::CreateCarRouter(countryFileGetter, numMwmIds,
                                                                              trafficCache, index));
     return carRouter;
   }

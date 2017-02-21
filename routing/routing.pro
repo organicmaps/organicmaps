@@ -32,6 +32,7 @@ SOURCES += \
     index_graph_serialization.cpp \
     index_graph_starter.cpp \
     index_road_graph.cpp \
+    index_router.cpp \
     joint.cpp \
     joint_index.cpp \
     nearest_edge_finder.cpp \
@@ -55,7 +56,6 @@ SOURCES += \
     routing_helpers.cpp \
     routing_mapping.cpp \
     routing_session.cpp \
-    single_mwm_router.cpp \
     speed_camera.cpp \
     turns.cpp \
     turns_generator.cpp \
@@ -87,6 +87,7 @@ HEADERS += \
     index_graph_serialization.hpp \
     index_graph_starter.hpp \
     index_road_graph.hpp \
+    index_router.hpp \
     joint.hpp \
     joint_index.hpp \
     loaded_path_segment.hpp \
@@ -119,7 +120,6 @@ HEADERS += \
     routing_session.hpp \
     routing_settings.hpp \
     segment.hpp \
-    single_mwm_router.hpp \
     speed_camera.hpp \
     traffic_stash.hpp \
     turn_candidate.hpp \

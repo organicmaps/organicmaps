@@ -13,6 +13,7 @@
 #include "traffic/traffic_info.hpp"
 
 #include "platform/country_file.hpp"
+#include "platform/mwm_traits.hpp"
 #include "platform/platform.hpp"
 
 #include "geometry/angles.hpp"
@@ -250,7 +251,7 @@ bool CarRouter::CheckRoutingAbility(m2::PointD const & startPoint, m2::PointD co
 }
 
 CarRouter::CarRouter(Index & index, TCountryFileFn const & countryFileFn,
-                     unique_ptr<SingleMwmRouter> localRouter)
+                     unique_ptr<IndexRouter> localRouter)
   : m_index(index), m_indexManager(countryFileFn, index), m_router(move(localRouter))
 {
 }
@@ -400,6 +401,9 @@ CarRouter::ResultCode CarRouter::CalculateRoute(m2::PointD const & startPoint,
                                                 m2::PointD const & finalPoint,
                                                 RouterDelegate const & delegate, Route & route)
 {
+  if (AllMwmsHaveRoutingIndex())
+    return m_router->CalculateRoute(startPoint, startDirection, finalPoint, delegate, route);
+
   my::HighResTimer timer(true);
 
   TRoutingMappingPtr startMapping = m_indexManager.GetMappingByPoint(startPoint);
@@ -578,6 +582,22 @@ bool CarRouter::DoesEdgeIndexExist(Index::MwmId const & mwmId)
   return true;
 }
 
+bool CarRouter::AllMwmsHaveRoutingIndex() const
+{
+  vector<shared_ptr<MwmInfo>> infos;
+  m_index.GetMwmsInfo(infos);
+  for (auto const & info : infos)
+  {
+    if (info->GetType() != MwmInfo::COUNTRY)
+      continue;
+
+    if (!version::MwmTraits(info->m_version).HasRoutingIndex())
+      return false;
+  }
+
+  return true;
+}
+
 IRouter::ResultCode CarRouter::FindSingleRouteDispatcher(FeatureGraphNode const & source,
                                                          FeatureGraphNode const & target,
                                                          RouterDelegate const & delegate,
@@ -599,10 +619,9 @@ IRouter::ResultCode CarRouter::FindSingleRouteDispatcher(FeatureGraphNode const 
     }
     LOG(LINFO, (m_router->GetName(), "route from", MercatorBounds::ToLatLon(source.segmentPoint),
                 "to", MercatorBounds::ToLatLon(target.segmentPoint)));
-    m_router->SetCountry(source.mwmId.GetInfo()->GetCountryName());
-    result = m_router->CalculateRoute(source.segmentPoint,
-                                      m2::PointD(0, 0) /* direction */, target.segmentPoint,
-                                      delegate, mwmRoute);
+    result = m_router->CalculateRouteForSingleMwm(
+        source.mwmId.GetInfo()->GetCountryName(), source.segmentPoint,
+        m2::PointD(0, 0) /* direction */, target.segmentPoint, delegate, mwmRoute);
   }
   else
   {
