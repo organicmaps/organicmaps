@@ -56,7 +56,6 @@ string MakeApiUrl(string const & func, initializer_list<pair<string, string>> co
     if (firstParam)
     {
       firstParam = false;
-      os << "";
     }
     else
     {

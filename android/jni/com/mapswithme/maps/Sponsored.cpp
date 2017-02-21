@@ -160,7 +160,7 @@ JNIEXPORT void JNICALL Java_com_mapswithme_maps_widget_placepage_Sponsored_nativ
 
   string code = jni::ToNativeString(env, locale);
 
-  if (code.size() > 2)  // 2 - count of characters in country code
+  if (code.size() > 2)  // 2 - number of characters in country code
     code.resize(2);
 
   g_framework->RequestBookingInfo(env, policy, hotelId, code, [hotelId](HotelInfo const & hotelInfo) {
