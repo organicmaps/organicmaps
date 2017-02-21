@@ -37,7 +37,7 @@ public:
   static auto constexpr kNoError = -1;
 
   HttpClient() = default;
-  HttpClient(string const & url) : m_urlRequested(url) {}
+  explicit HttpClient(string const & url);
 
   // Synchronous (blocking) call, should be implemented for each platform
   // @returns true if connection was made and server returned something (200, 404, etc.).

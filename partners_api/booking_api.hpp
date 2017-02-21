@@ -1,138 +1,77 @@
 #pragma once
 
-#include "platform/http_request.hpp"
-
 #include "std/chrono.hpp"
 #include "std/function.hpp"
-#include "std/initializer_list.hpp"
-#include "std/limits.hpp"
+#include "std/shared_ptr.hpp"
 #include "std/string.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/utility.hpp"
+#include "std/vector.hpp"
 
-class BookingApi
+namespace booking
 {
-  string m_affiliateId;
-  string m_apiUrl;
-  bool m_testingMode;
+struct HotelPhotoUrls
+{
+  string m_small;
+  string m_original;
+};
 
+struct HotelReview
+{
+  /// An issue date.
+  time_point<system_clock> m_date;
+  /// Author's hotel evaluation.
+  float m_score = 0.0;
+  /// Review author name.
+  string m_author;
+  /// Review text. There can be either one or both positive/negative review.
+  string m_pros;
+  string m_cons;
+};
+
+struct HotelFacility
+{
+  string m_facilityType;
+  string m_name;
+};
+
+struct HotelInfo
+{
+  string m_hotelId;
+
+  string m_description;
+  vector<HotelPhotoUrls> m_photos;
+  vector<HotelFacility> m_facilities;
+  vector<HotelReview> m_reviews;
+  float m_score = 0.0;
+  uint32_t m_scoreCount = 0;
+};
+
+class RawApi
+{
 public:
-  struct HotelPhotoUrls
-  {
-    string m_small;
-    string m_original;
-  };
+  static bool GetHotelAvailability(string const & hotelId, string const & currency, string & result,
+                                   bool testing = false);
+  static bool GetExtendedInfo(string const & hotelId, string const & lang, string & result);
+};
 
-  struct HotelReview
-  {
-    HotelReview() = default;
-    // C++11 doesn't allow aggragate initialization for structs with default member initializer.
-    // But C++14 does.
-    HotelReview(string const & reviewPositive,
-                string const & reviewNegative,
-                string const & reviewNeutral,
-                string const & author,
-                string const & authorPictUrl,
-                float const rating,
-                time_point<system_clock> const date)
-      : m_reviewPositive(reviewPositive)
-      , m_reviewNegative(reviewNegative)
-      , m_reviewNeutral(reviewNeutral)
-      , m_author(author)
-      , m_authorPictUrl(authorPictUrl)
-      , m_rating(rating)
-      , m_date(date)
-    {
-    }
+using GetMinPriceCallback = function<void(string const & hotelId, string const & price, string const & currency)>;
+using GetHotelInfoCallback = function<void(HotelInfo const & hotelInfo)>;
 
+class Api
+{
+public:
+  void SetTestingMode(bool testing) { m_testingMode = testing; }
 
-    static HotelReview CriticReview(string const & reviewPositive,
-                                    string const & reviewNegative,
-                                    string const & author,
-                                    string const & authorPictUrl,
-                                    float const rating,
-                                    time_point<system_clock> const date)
-    {
-      return {
-        reviewPositive,
-        reviewNegative,
-        "",
-        author,
-        authorPictUrl,
-        rating,
-        date
-     };
-    }
-
-    static HotelReview NeutralReview(string const & reviewNeutral,
-                                     string const & author,
-                                     string const & authorPictUrl,
-                                     float const rating,
-                                     time_point<system_clock> const date)
-    {
-      return {
-        "",
-        "",
-        reviewNeutral,
-        author,
-        authorPictUrl,
-        rating,
-        date
-     };
-    }
-
-    static auto constexpr kInvalidRating = numeric_limits<float>::max();
-
-    /// Review text. There can be either one or both positive/negative review or
-    /// a neutral one.
-    string m_reviewPositive;
-    string m_reviewNegative;
-    string m_reviewNeutral;
-    /// Review author name.
-    string m_author;
-    /// Url to a author's picture.
-    string m_authorPictUrl;
-    /// Author's hotel evaluation.
-    float m_rating = kInvalidRating;
-    /// An issue date.
-    time_point<system_clock> m_date;
-  };
-
-  struct Facility
-  {
-    string m_id;
-    string m_localizedName;
-  };
-
-  struct HotelInfo
-  {
-    string m_hotelId;
-
-    string m_description;
-    vector<HotelPhotoUrls> m_photos;
-    vector<Facility> m_facilities;
-    vector<HotelReview> m_reviews;
-  };
-
-  static constexpr const char kDefaultCurrency[1] = {0};
-
-  BookingApi();
-  string GetBookHotelUrl(string const & baseUrl, string const & lang = string()) const;
-  string GetDescriptionUrl(string const & baseUrl, string const & lang = string()) const;
-  inline void SetTestingMode(bool testing) { m_testingMode = testing; }
-
+  string GetBookHotelUrl(string const & baseUrl) const;
+  string GetDescriptionUrl(string const & baseUrl) const;
   // Real-time information methods (used for retriving rapidly changing information).
   // These methods send requests directly to Booking.
-  void GetMinPrice(string const & hotelId, string const & currency,
-                   function<void(string const &, string const &)> const & fn);
-
+  void GetMinPrice(string const & hotelId, string const & currency, GetMinPriceCallback const & fn);
 
   // Static information methods (use for information that can be cached).
   // These methods use caching server to prevent Booking from being ddossed.
-  void GetHotelInfo(string const & hotelId, string const & lang,
-                    function<void(HotelInfo const & hotelInfo)> const & fn);
+  void GetHotelInfo(string const & hotelId, string const & lang, GetHotelInfoCallback const & fn);
 
-protected:
-  unique_ptr<downloader::HttpRequest> m_request;
-  string MakeApiUrl(string const & func, initializer_list<pair<string, string>> const & params);
+private:
+  bool m_testingMode = false;
 };
+}  // namespace booking

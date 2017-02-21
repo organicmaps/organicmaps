@@ -127,7 +127,6 @@ class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.BaseViewHolder>
     final TextView mUserName;
     final TextView mCommentDate;
     final TextView mRating;
-    final TextView mReview;
     final View mPositiveReview;
     final TextView mTvPositiveReview;
     final View mNegativeReview;
@@ -140,7 +139,6 @@ class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.BaseViewHolder>
       mUserName = (TextView) itemView.findViewById(R.id.tv__user_name);
       mCommentDate = (TextView) itemView.findViewById(R.id.tv__comment_date);
       mRating = (TextView) itemView.findViewById(R.id.tv__user_rating);
-      mReview = (TextView) itemView.findViewById(R.id.tv__review);
       mPositiveReview = itemView.findViewById(R.id.ll__positive_review);
       mTvPositiveReview = (TextView) itemView.findViewById(R.id.tv__positive_review);
       mNegativeReview = itemView.findViewById(R.id.ll__negative_review);
@@ -156,31 +154,23 @@ class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.BaseViewHolder>
       Date date = new Date(item.getDate());
       mCommentDate.setText(DateFormat.getMediumDateFormat(mCommentDate.getContext()).format(date));
       mRating.setText(String.format(Locale.getDefault(), "%.1f", item.getRating()));
-      if (TextUtils.isEmpty(item.getReviewPositive()))
+      if (TextUtils.isEmpty(item.getPros()))
       {
         UiUtils.hide(mPositiveReview);
       }
       else
       {
         UiUtils.show(mPositiveReview);
-        mTvPositiveReview.setText(item.getReviewPositive());
+        mTvPositiveReview.setText(item.getPros());
       }
-      if (TextUtils.isEmpty(item.getReviewNegative()))
+      if (TextUtils.isEmpty(item.getCons()))
       {
         UiUtils.hide(mNegativeReview);
       }
       else
       {
         UiUtils.show(mNegativeReview);
-        mTvNegativeReview.setText(item.getReviewNegative());
-      }
-      if (UiUtils.isHidden(mNegativeReview) && UiUtils.isHidden(mPositiveReview))
-      {
-        UiUtils.showIf(!TextUtils.isEmpty(item.getReview()), mReview);
-      }
-      else
-      {
-        UiUtils.hide(mReview);
+        mTvNegativeReview.setText(item.getCons());
       }
     }
   }

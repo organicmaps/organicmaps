@@ -8,6 +8,11 @@
 
 namespace platform
 {
+HttpClient::HttpClient(string const & url) : m_urlRequested(url)
+{
+  m_headers.emplace("Accept-Encoding", "gzip");
+}
+
 HttpClient & HttpClient::SetUrlRequested(string const & url)
 {
   m_urlRequested = url;
@@ -40,7 +45,7 @@ HttpClient & HttpClient::SetReceivedFile(string const & received_file)
 
 HttpClient & HttpClient::SetUserAndPassword(string const & user, string const & password)
 {
-  m_headers.emplace("Authorization", "Basic" + base64::Encode(user + ":" + password));
+  m_headers.emplace("Authorization", "Basic " + base64::Encode(user + ":" + password));
   return *this;
 }
 

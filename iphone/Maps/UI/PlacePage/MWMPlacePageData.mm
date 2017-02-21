@@ -248,7 +248,8 @@ using namespace place_page;
 
   string const currency = currencyFormatter.currencyCode.UTF8String;
 
-  auto const func = [self, label, currency, currencyFormatter](string const & minPrice,
+  auto const func = [self, label, currency, currencyFormatter](string const & hotelId,
+                                                               string const & minPrice,
                                                                string const & priceCurrency) {
     if (currency != priceCurrency)
       return;

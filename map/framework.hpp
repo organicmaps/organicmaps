@@ -165,7 +165,7 @@ protected:
 
   BookmarkManager m_bmManager;
 
-  unique_ptr<BookingApi> m_bookingApi = make_unique<BookingApi>();
+  unique_ptr<booking::Api> m_bookingApi = make_unique<booking::Api>();
   unique_ptr<uber::Api> m_uberApi = make_unique<uber::Api>();
 
   df::DrapeApi m_drapeApi;
@@ -199,8 +199,8 @@ public:
   virtual ~Framework();
 
   /// Get access to booking api helpers
-  BookingApi * GetBookingApi(platform::NetworkPolicy const & policy);
-  BookingApi const * GetBookingApi(platform::NetworkPolicy const & policy) const;
+  booking::Api * GetBookingApi(platform::NetworkPolicy const & policy);
+  booking::Api const * GetBookingApi(platform::NetworkPolicy const & policy) const;
   uber::Api * GetUberApi(platform::NetworkPolicy const & policy);
 
   df::DrapeApi & GetDrapeApi() { return m_drapeApi; }

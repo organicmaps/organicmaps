@@ -487,18 +487,18 @@ place_page::Info & Framework::GetPlacePageInfo()
 {
   return m_info;
 }
-void Framework::RequestBookingMinPrice(
-    JNIEnv * env, jobject policy, string const & hotelId, string const & currencyCode,
-    function<void(string const &, string const &)> const & callback)
+void Framework::RequestBookingMinPrice(JNIEnv * env, jobject policy,
+                                       string const & hotelId, string const & currencyCode,
+                                       booking::GetMinPriceCallback const & callback)
 {
   auto const bookingApi = m_work.GetBookingApi(ToNativeNetworkPolicy(env, policy));
   if (bookingApi)
     bookingApi->GetMinPrice(hotelId, currencyCode, callback);
 }
 
-void Framework::RequestBookingInfo(JNIEnv * env, jobject policy, string const & hotelId,
-                                   string const & lang,
-                                   function<void(BookingApi::HotelInfo const &)> const & callback)
+void Framework::RequestBookingInfo(JNIEnv * env, jobject policy,
+                                   string const & hotelId, string const & lang,
+                                   booking::GetHotelInfoCallback const & callback)
 {
   auto const bookingApi = m_work.GetBookingApi(ToNativeNetworkPolicy(env, policy));
   if (bookingApi)
