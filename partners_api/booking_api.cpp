@@ -45,7 +45,7 @@ bool RunSimpleHttpRequest(bool const needAuth, string const & url, string & resu
 string MakeApiUrl(string const & func, initializer_list<pair<string, string>> const & params,
                   bool testing)
 {
-  ASSERT(!params.empty(), ());
+  ASSERT_NOT_EQUAL(params.size(), 0, ());
 
   ostringstream os;
   os << kBookingApiBaseUrl << "." << func << "?";
