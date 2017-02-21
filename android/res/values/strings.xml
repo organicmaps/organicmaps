@@ -335,7 +335,6 @@
 	<!-- Settings «Map» category: «Record track» title -->
 	<string name="pref_track_record_title">Recent track</string>
 	<string name="pref_map_auto_zoom">Auto zoom</string>
-	<string name="pref_traffic_simplified_colors_title">Simplified colour scheme for traffic</string>
 	<string name="duration_disabled">Off</string>
 	<string name="duration_1_hour">1 hour</string>
 	<string name="duration_2_hours">2 hours</string>
@@ -1075,4 +1074,16 @@
 	<string name="booking_filter_price_low">$</string>
 	<string name="booking_filter_price_medium">$$</string>
 	<string name="booking_filter_price_high">$$$</string>
+	<string name="pref_traffic_simplified_colors_title">Simplified traffic colors</string>
+	<string name="enable_logging">Enable logging</string>
+	<string name="whatsnew_more_info_on_hotels_title">More Information on Hotels</string>
+	<string name="whatsnew_more_info_on_hotels_message">Brand new look for hotel pages: check out photos, user reviews and other information online.</string>
+	<string name="whatsnew_better_routing_title">Improved Route Planning</string>
+	<string name="whatsnew_better_routing_message">• More accurate estimation of arrival time.\n• The app takes into account restricted areas and road signs.</string>
+	<string name="whatsnew_smaller_mwm_title">Maps Got Smaller</string>
+	<string name="whatsnew_smaller_mwm_message">Maps require up to 20% less storage.</string>
+	<string name="whatsnew_waypoints_title">Waypoints in Routing</string>
+	<string name="whatsnew_waypoints_message">Tap places to add waypoints to your route.</string>
+	<string name="whatsnew_driving_style_title">New Map Style for Driving</string>
+	<string name="whatsnew_driving_style_message">Car navigation mode got easier to use.</string>
 </resources>

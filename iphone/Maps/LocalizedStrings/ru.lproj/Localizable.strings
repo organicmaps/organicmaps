@@ -519,8 +519,6 @@
 
 "pref_map_auto_zoom" = "Автозум";
 
-"pref_traffic_simplified_colors_title" = "Простая цветовая схема для пробок";
-
 "duration_disabled" = "Выключено";
 
 "duration_1_hour" = "1 час";
@@ -1811,3 +1809,27 @@
 "booking_filter_price_medium" = "$$";
 
 "booking_filter_price_high" = "$$$";
+
+"pref_traffic_simplified_colors_title" = "Простые цвета пробок";
+
+"enable_logging" = "Включить запись логов";
+
+"whatsnew_more_info_on_hotels_title" = "Подробная информация об отелях";
+
+"whatsnew_more_info_on_hotels_message" = "Новые расширенные карточки гостиниц: смотрите фотографии, отзывы и другую информацию онлайн.";
+
+"whatsnew_better_routing_title" = "Улучшено построение маршрутов";
+
+"whatsnew_better_routing_message" = "• Более точная оценка времени в пути.\n• Учитываем знаки и запрещенные дороги при построении маршрута.";
+
+"whatsnew_smaller_mwm_title" = "Карты стали меньше";
+
+"whatsnew_smaller_mwm_message" = "Занимают на 20% меньше места на телефоне.";
+
+"whatsnew_waypoints_title" = "Маршруты с промежуточными точками";
+
+"whatsnew_waypoints_message" = "Нажмите на объекты, чтобы включить их в маршрут.";
+
+"whatsnew_driving_style_title" = "Новый автомобильный стиль карт";
+
+"whatsnew_driving_style_message" = "Режим автомобильной навигации стал удобнее.";
