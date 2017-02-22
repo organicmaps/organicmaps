@@ -4,10 +4,12 @@
 #include "search/cbv.hpp"
 #include "search/mwm_context.hpp"
 
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "std/map.hpp"
 #include "std/shared_ptr.hpp"
+#include "std/sstream.hpp"
 #include "std/string.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/utility.hpp"
@@ -63,6 +65,7 @@ struct Description
 
   Rating::Value m_rating = Rating::kDefault;
   PriceRate::Value m_priceRate = PriceRate::kDefault;
+  unsigned m_types = 0;
 };
 
 struct Rule
@@ -83,7 +86,7 @@ struct EqRule final : public Rule
 {
   using Value = typename Field::Value;
 
-  EqRule(Value value) : m_value(value) {}
+  explicit EqRule(Value value) : m_value(value) {}
 
   // Rule overrides:
   bool Matches(Description const & d) const override
@@ -112,7 +115,7 @@ struct LtRule final : public Rule
 {
   using Value = typename Field::Value;
 
-  LtRule(Value value) : m_value(value) {}
+  explicit LtRule(Value value) : m_value(value) {}
 
   // Rule overrides:
   bool Matches(Description const & d) const override
@@ -141,7 +144,7 @@ struct LeRule final : public Rule
 {
   using Value = typename Field::Value;
 
-  LeRule(Value value) : m_value(value) {}
+  explicit LeRule(Value value) : m_value(value) {}
 
   // Rule overrides:
   bool Matches(Description const & d) const override
@@ -171,7 +174,7 @@ struct GtRule final : public Rule
 {
   using Value = typename Field::Value;
 
-  GtRule(Value value) : m_value(value) {}
+  explicit GtRule(Value value) : m_value(value) {}
 
   // Rule overrides:
   bool Matches(Description const & d) const override
@@ -200,7 +203,7 @@ struct GeRule final : public Rule
 {
   using Value = typename Field::Value;
 
-  GeRule(Value value) : m_value(value) {}
+  explicit GeRule(Value value) : m_value(value) {}
 
   // Rule overrides:
   bool Matches(Description const & d) const override
@@ -297,6 +300,39 @@ struct OrRule final : public Rule
   shared_ptr<Rule> m_rhs;
 };
 
+struct OneOfRule final : public Rule
+{
+  explicit OneOfRule(unsigned types) : m_types(types) {}
+
+  // Rule overrides:
+  bool Matches(Description const & d) const override { return (d.m_types & m_types) != 0; }
+
+  bool IdenticalTo(Rule const & rhs) const override
+  {
+    auto const * r = dynamic_cast<OneOfRule const *>(&rhs);
+    return r && m_types == r->m_types;
+  }
+
+  string ToString() const override
+  {
+    ostringstream os;
+    os << "[ one of:";
+    for (size_t i = 0; i < static_cast<size_t>(ftypes::IsHotelChecker::Type::Count); ++i)
+    {
+      unsigned const bit = 1U << i;
+      if ((m_types & bit) == 0)
+        continue;
+
+      auto const type = static_cast<ftypes::IsHotelChecker::Type>(i);
+      os << " " << ftypes::IsHotelChecker::GetHotelTypeTag(type);
+    }
+    os << " ]";
+    return os.str();
+  }
+
+  unsigned m_types;
+};
+
 template <typename Field>
 shared_ptr<Rule> Eq(typename Field::Value value)
 {
@@ -336,6 +372,14 @@ inline shared_ptr<Rule> Or(shared_ptr<Rule> lhs, shared_ptr<Rule> rhs)
 {
   return make_shared<OrRule>(lhs, rhs);
 }
+
+inline shared_ptr<Rule> Is(ftypes::IsHotelChecker::Type type)
+{
+  CHECK(type != ftypes::IsHotelChecker::Type::Count, ());
+  return make_shared<OneOfRule>(1U << static_cast<unsigned>(type));
+}
+
+inline shared_ptr<Rule> OneOf(unsigned types) { return make_shared<OneOfRule>(types); }
 
 class HotelsFilter
 {

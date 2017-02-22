@@ -2,6 +2,7 @@
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_meta.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
 #include "base/assert.hpp"
 
@@ -40,6 +41,8 @@ void Description::FromFeature(FeatureType & ft)
     if (strings::to_int(priceRate, pr))
       m_priceRate = pr;
   }
+
+  m_types = ftypes::IsHotelChecker::Instance().GetHotelTypesMask(ft);
 }
 
 // Rule --------------------------------------------------------------------------------------------

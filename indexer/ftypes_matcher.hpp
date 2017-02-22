@@ -3,7 +3,9 @@
 #include "base/base.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/array.hpp"
 #include "std/initializer_list.hpp"
+#include "std/limits.hpp"
 #include "std/string.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
@@ -160,11 +162,34 @@ public:
 
 class IsHotelChecker : public BaseChecker
 {
+public:
+  enum class Type
+  {
+    Hotel,
+    Apartment,
+    CampSite,
+    Chalet,
+    GuestHouse,
+    Hostel,
+    Motel,
+    Resort,
+
+    Count
+  };
+
+  static_assert(static_cast<size_t>(Type::Count) <= CHAR_BIT * sizeof(unsigned),
+                "Too many types of hotels");
+
+  static IsHotelChecker const & Instance();
+
+  static char const * const GetHotelTypeTag(Type type);
+
+  unsigned GetHotelTypesMask(FeatureType const & ft) const;
+
+private:
   IsHotelChecker();
 
-public:
-  static IsHotelChecker const & Instance();
-  static vector<string> const & GetHotelTags();
+  array<pair<uint32_t, Type>, static_cast<size_t>(Type::Count)> m_sortedTypes;
 };
 
 // WiFi is a type in classificator.txt,

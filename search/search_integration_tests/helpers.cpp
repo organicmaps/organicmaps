@@ -72,6 +72,13 @@ bool SearchTest::ResultsMatch(vector<search::Result> const & results, TRules con
   return MatchResults(m_engine, rules, results);
 }
 
+bool SearchTest::ResultsMatch(SearchParams const & params, TRules const & rules)
+{
+  tests_support::TestSearchRequest request(m_engine, params, m_viewport);
+  request.Run();
+  return ResultsMatch(request.Results(), rules);
+}
+
 unique_ptr<tests_support::TestSearchRequest> SearchTest::MakeRequest(string const & query)
 {
   SearchParams params;

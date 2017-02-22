@@ -1,8 +1,11 @@
 #include "indexer/ftypes_matcher.hpp"
 
+#include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_data.hpp"
-#include "indexer/classificator.hpp"
+
+#include "base/assert.hpp"
+#include "base/buffer_vector.hpp"
 
 #include <algorithm>
 #include <map>
@@ -373,8 +376,19 @@ IsBookingChecker const & IsBookingChecker::Instance()
 IsHotelChecker::IsHotelChecker()
 {
   Classificator const & c = classif();
-  for (auto const & tag : GetHotelTags())
-    m_types.push_back(c.GetTypeByPath({"tourism", tag}));
+  for (size_t i = 0; i < static_cast<size_t>(Type::Count); ++i)
+  {
+    auto const hotelType = static_cast<Type>(i);
+    auto const * const tag = GetHotelTypeTag(hotelType);
+    auto const type = c.GetTypeByPath({"tourism", tag});
+
+    m_types.push_back(type);
+
+    m_sortedTypes[i].first = type;
+    m_sortedTypes[i].second = hotelType;
+  }
+
+  sort(m_sortedTypes.begin(), m_sortedTypes.end());
 }
 
 IsHotelChecker const & IsHotelChecker::Instance()
@@ -383,11 +397,51 @@ IsHotelChecker const & IsHotelChecker::Instance()
   return inst;
 }
 
-vector<string> const & IsHotelChecker::GetHotelTags()
+unsigned IsHotelChecker::GetHotelTypesMask(FeatureType const & ft) const
 {
-  static vector<string> hotelTags = {"hotel",       "apartment", "camp_site", "chalet",
-                                     "guest_house", "hostel",    "motel",     "resort"};
-  return hotelTags;
+  feature::TypesHolder types(ft);
+  buffer_vector<uint32_t, feature::kMaxTypesCount> sortedTypes(types.begin(), types.end());
+  sort(sortedTypes.begin(), sortedTypes.end());
+
+  unsigned mask = 0;
+  size_t i = 0;
+  size_t j = 0;
+  while (i < sortedTypes.size() && j < m_sortedTypes.size())
+  {
+    if (sortedTypes[i] < m_sortedTypes[j].first)
+    {
+      ++i;
+    }
+    else if (sortedTypes[i] > m_sortedTypes[j].first)
+    {
+      ++j;
+    }
+    else
+    {
+      mask |= 1U << static_cast<unsigned>(m_sortedTypes[j].second);
+      ++i;
+      ++j;
+    }
+  }
+
+  return mask;
+}
+
+// static
+char const * const IsHotelChecker::GetHotelTypeTag(Type type)
+{
+  switch (type)
+  {
+  case Type::Hotel: return "hotel";
+  case Type::Apartment: return "apartment";
+  case Type::CampSite: return "camp_site";
+  case Type::Chalet: return "chalet";
+  case Type::GuestHouse: return "guest_house";
+  case Type::Hostel: return "hostel";
+  case Type::Motel: return "motel";
+  case Type::Resort: return "resort";
+  case Type::Count: CHECK(false, ("Can't get hotel type tag")); return "";
+  }
 }
 
 IsWifiChecker::IsWifiChecker()
