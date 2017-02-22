@@ -14,6 +14,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -35,7 +36,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.Framework;
@@ -121,7 +121,7 @@ public class PlacePageView extends RelativeLayout
   private TextView mTvSponsoredRating;
   private TextView mTvSponsoredPrice;
   // Details.
-  private ScrollView mDetails;
+  private NestedScrollView mDetails;
   private View mPhone;
   private TextView mTvPhone;
   private View mWebsite;
@@ -288,7 +288,7 @@ public class PlacePageView extends RelativeLayout
     mTvSponsoredRating = (TextView) mSponsoredInfo.findViewById(R.id.tv__hotel_rating);
     mTvSponsoredPrice = (TextView) mSponsoredInfo.findViewById(R.id.tv__hotel_price);
 
-    mDetails = (ScrollView) findViewById(R.id.pp__details);
+    mDetails = (NestedScrollView) findViewById(R.id.pp__details);
     RelativeLayout address = (RelativeLayout) mDetails.findViewById(R.id.ll__place_name);
     mPhone = mDetails.findViewById(R.id.ll__place_phone);
     mPhone.setOnClickListener(this);
@@ -510,8 +510,12 @@ public class PlacePageView extends RelativeLayout
   private void initHotelRatingView()
   {
     mHotelReview = findViewById(R.id.ll__place_hotel_rating);
-    GridView gvHotelReview = (GridView) findViewById(R.id.gv__place_hotel_review);
-    gvHotelReview.setAdapter(mReviewAdapter);
+    RecyclerView rvHotelReview = (RecyclerView) findViewById(R.id.rv__place_hotel_review);
+    rvHotelReview.setLayoutManager(new LinearLayoutManager(getContext()));
+    rvHotelReview.getLayoutManager().setAutoMeasureEnabled(true);
+    rvHotelReview.setNestedScrollingEnabled(false);
+    rvHotelReview.setHasFixedSize(false);
+    rvHotelReview.setAdapter(mReviewAdapter);
     mHotelRating = (TextView) findViewById(R.id.tv__place_hotel_rating);
     mHotelRatingBase = (TextView) findViewById(R.id.tv__place_hotel_rating_base);
     View hotelMoreReviews = findViewById(R.id.tv__place_hotel_reviews_more);

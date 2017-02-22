@@ -6,7 +6,7 @@ import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
-import android.support.v7.internal.view.ContextThemeWrapper;
+import android.support.v7.view.ContextThemeWrapper;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 

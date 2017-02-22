@@ -1,12 +1,12 @@
 package com.mapswithme.maps.widget.placepage;
 
 import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-class ReviewAdapter extends BaseAdapter
+class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder>
 {
   private static final int MAX_COUNT = 3;
 
@@ -25,42 +25,22 @@ class ReviewAdapter extends BaseAdapter
   private ArrayList<Review> mItems = new ArrayList<>();
 
   @Override
-  public int getCount()
+  public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+  {
+    return  new ViewHolder(LayoutInflater.from(parent.getContext())
+                                         .inflate(R.layout.item_comment, parent, false));
+  }
+
+  @Override
+  public void onBindViewHolder(ViewHolder holder, int position)
+  {
+    holder.bind(mItems.get(position), position > 0);
+  }
+
+  @Override
+  public int getItemCount()
   {
     return Math.min(mItems.size(), MAX_COUNT);
-  }
-
-  @Override
-  public Object getItem(int position)
-  {
-    return mItems.get(position);
-  }
-
-  @Override
-  public long getItemId(int position)
-  {
-    return position;
-  }
-
-  @Override
-  public View getView(int position, View convertView, ViewGroup parent)
-  {
-    ViewHolder holder;
-    if (convertView == null)
-    {
-      convertView = LayoutInflater.from(parent.getContext())
-                                  .inflate(R.layout.item_comment, parent, false);
-      holder = new ViewHolder(convertView);
-      convertView.setTag(holder);
-    }
-    else
-    {
-      holder = (ViewHolder) convertView.getTag();
-    }
-
-    holder.bind(mItems.get(position), position > 0);
-
-    return convertView;
   }
 
   public void setItems(@NonNull ArrayList<Review> items)
@@ -75,7 +55,7 @@ class ReviewAdapter extends BaseAdapter
     return mItems;
   }
 
-  private static class ViewHolder
+  static class ViewHolder extends RecyclerView.ViewHolder
   {
     @NonNull
     final View mDivider;
@@ -96,6 +76,7 @@ class ReviewAdapter extends BaseAdapter
 
     public ViewHolder(View view)
     {
+      super(view);
       mDivider = view.findViewById(R.id.v__divider);
       mUserName = (TextView) view.findViewById(R.id.tv__user_name);
       mCommentDate = (TextView) view.findViewById(R.id.tv__comment_date);

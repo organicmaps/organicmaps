@@ -254,8 +254,8 @@ class SearchWheel implements View.OnClickListener
     final MwmActivity parent;
     if (context instanceof ContextThemeWrapper)
       parent = (MwmActivity)((ContextThemeWrapper)context).getBaseContext();
-    else if (context instanceof android.support.v7.internal.view.ContextThemeWrapper)
-      parent = (MwmActivity)((android.support.v7.internal.view.ContextThemeWrapper)context).getBaseContext();
+    else if (context instanceof android.support.v7.view.ContextThemeWrapper)
+      parent = (MwmActivity)((android.support.v7.view.ContextThemeWrapper)context).getBaseContext();
     else
       parent = (MwmActivity) context;
     parent.showSearch();
