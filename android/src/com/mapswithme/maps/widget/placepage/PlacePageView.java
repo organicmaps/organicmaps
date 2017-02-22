@@ -57,6 +57,7 @@ import com.mapswithme.maps.editor.data.TimeFormatUtils;
 import com.mapswithme.maps.editor.data.Timetable;
 import com.mapswithme.maps.gallery.FullScreenGalleryActivity;
 import com.mapswithme.maps.gallery.GalleryActivity;
+import com.mapswithme.maps.gallery.Image;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.review.ReviewActivity;
 import com.mapswithme.maps.routing.RoutingController;
@@ -1055,6 +1056,7 @@ public class PlacePageView extends RelativeLayout
   {
     refreshLatLon();
 
+    mGalleryAdapter.setItems(new ArrayList<Image>());
     if (mSponsored == null)
     {
       final String website = mMapObject.getMetadata(Metadata.MetadataType.FMD_WEBSITE);
