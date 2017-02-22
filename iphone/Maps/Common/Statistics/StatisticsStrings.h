@@ -193,6 +193,7 @@ static NSString * const kStatShare = @"Share";
 static NSString * const kStatShowBig2SmallMWM = @"Big mwms to small mwms dialog appearing counter";
 static NSString * const kStatShowOnMap = @"Show on map";
 static NSString * const kStatSignup = @"Signup";
+static NSString * const kStatSimplifiedColors = @"Simplified colors scheme";
 static NSString * const kStatSocial = @"Social";
 static NSString * const kStatSource = @"Source";
 static NSString * const kStatStart = @"Start";
