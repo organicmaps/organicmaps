@@ -664,7 +664,8 @@ public class PlacePageView extends RelativeLayout
   @Override
   public void onItemClick(View v, int position)
   {
-    if (position == GalleryAdapter.MAX_COUNT - 1)
+    if (position == GalleryAdapter.MAX_COUNT - 1
+        && mGalleryAdapter.getItems().size() > GalleryAdapter.MAX_COUNT)
     {
       GalleryActivity.start(getContext(), mGalleryAdapter.getItems(), mMapObject.getTitle());
     }
