@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mapswithme.maps.R;
 
@@ -76,7 +77,7 @@ class FacilitiesAdapter extends BaseAdapter
     notifyDataSetChanged();
   }
 
-  private static class ViewHolder
+  private static class ViewHolder implements View.OnClickListener
   {
     ImageView mIcon;
     TextView mName;
@@ -85,6 +86,13 @@ class FacilitiesAdapter extends BaseAdapter
     {
       mIcon = (ImageView) view.findViewById(R.id.iv__icon);
       mName = (TextView) view.findViewById(R.id.tv__facility);
+      view.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v)
+    {
+      Toast.makeText(mName.getContext(), mName.getText(), Toast.LENGTH_LONG).show();
     }
 
     public void bind(Sponsored.FacilityType facility)
