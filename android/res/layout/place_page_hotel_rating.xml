@@ -35,11 +35,10 @@
       tools:text="Based on 848 hotel reviews"/>
   </LinearLayout>
 
-  <com.mapswithme.maps.widget.StaticGridView
-    android:id="@+id/gv__place_hotel_review"
+  <android.support.v7.widget.RecyclerView
+    android:id="@+id/rv__place_hotel_review"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:numColumns="1"
     tools:listitem="@layout/item_comment"/>
 
   <View
