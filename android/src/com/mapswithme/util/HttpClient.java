@@ -46,6 +46,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.zip.GZIPInputStream;
+import java.util.zip.InflaterInputStream;
 
 public final class HttpClient
 {
@@ -204,6 +205,8 @@ public final class HttpClient
     {
       if ("gzip".equals(connection.getContentEncoding()))
         in = new GZIPInputStream(connection.getInputStream());
+      else if ("deflate".equals(connection.getContentEncoding()))
+        in = new InflaterInputStream(connection.getInputStream());
       else
         in = connection.getInputStream();
     }
