@@ -7,6 +7,7 @@
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #import "AppInfo.h"
+#import "MWMCollectionViewController.h"
 #import "MWMConsts.h"
 #import "MWMController.h"
 #import "MWMFrameworkHelper.h"

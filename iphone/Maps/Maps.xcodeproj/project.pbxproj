@@ -152,6 +152,9 @@
 		3432E1851E49BF5C008477E9 /* FBAdsBanner.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3432E1841E49BF5C008477E9 /* FBAdsBanner.xib */; };
 		3432E1861E49BF5C008477E9 /* FBAdsBanner.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3432E1841E49BF5C008477E9 /* FBAdsBanner.xib */; };
 		3432E1871E49BF5C008477E9 /* FBAdsBanner.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3432E1841E49BF5C008477E9 /* FBAdsBanner.xib */; };
+		343E75971E5B1EE20041226A /* MWMCollectionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 343E75961E5B1EE20041226A /* MWMCollectionViewController.mm */; };
+		343E75981E5B1EE20041226A /* MWMCollectionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 343E75961E5B1EE20041226A /* MWMCollectionViewController.mm */; };
+		343E75991E5B1EE20041226A /* MWMCollectionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 343E75961E5B1EE20041226A /* MWMCollectionViewController.mm */; };
 		3446C6771DDCA9A200146687 /* libtraffic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3446C6761DDCA9A200146687 /* libtraffic.a */; };
 		3454D7B81E07F045004AF2AD /* CALayer+RuntimeAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3454D79A1E07F045004AF2AD /* CALayer+RuntimeAttributes.mm */; };
 		3454D7B91E07F045004AF2AD /* CALayer+RuntimeAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3454D79A1E07F045004AF2AD /* CALayer+RuntimeAttributes.mm */; };
@@ -216,6 +219,30 @@
 		3465E7D81B6658C000854C4D /* MWMAPIBar.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3465E7D71B6658C000854C4D /* MWMAPIBar.mm */; };
 		346B42AB1DD5E3D20094EBEE /* MWMLocationNotFoundAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 346B42AA1DD5E3D20094EBEE /* MWMLocationNotFoundAlert.mm */; };
 		346B42AC1DD5E3D20094EBEE /* MWMLocationNotFoundAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 346B42AA1DD5E3D20094EBEE /* MWMLocationNotFoundAlert.mm */; };
+		346DB8271E5C4F6700E3123E /* GalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346DB81E1E5C4F6700E3123E /* GalleryCell.swift */; };
+		346DB8281E5C4F6700E3123E /* GalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346DB81E1E5C4F6700E3123E /* GalleryCell.swift */; };
+		346DB8291E5C4F6700E3123E /* GalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346DB81E1E5C4F6700E3123E /* GalleryCell.swift */; };
+		346DB82A1E5C4F6700E3123E /* GalleryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 346DB81F1E5C4F6700E3123E /* GalleryCell.xib */; };
+		346DB82B1E5C4F6700E3123E /* GalleryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 346DB81F1E5C4F6700E3123E /* GalleryCell.xib */; };
+		346DB82C1E5C4F6700E3123E /* GalleryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 346DB81F1E5C4F6700E3123E /* GalleryCell.xib */; };
+		346DB82D1E5C4F6700E3123E /* GalleryItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346DB8201E5C4F6700E3123E /* GalleryItemViewController.swift */; };
+		346DB82E1E5C4F6700E3123E /* GalleryItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346DB8201E5C4F6700E3123E /* GalleryItemViewController.swift */; };
+		346DB82F1E5C4F6700E3123E /* GalleryItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346DB8201E5C4F6700E3123E /* GalleryItemViewController.swift */; };
+		346DB8301E5C4F6700E3123E /* GalleryItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 346DB8211E5C4F6700E3123E /* GalleryItemViewController.xib */; };
+		346DB8311E5C4F6700E3123E /* GalleryItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 346DB8211E5C4F6700E3123E /* GalleryItemViewController.xib */; };
+		346DB8321E5C4F6700E3123E /* GalleryItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 346DB8211E5C4F6700E3123E /* GalleryItemViewController.xib */; };
+		346DB8331E5C4F6700E3123E /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346DB8221E5C4F6700E3123E /* GalleryViewController.swift */; };
+		346DB8341E5C4F6700E3123E /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346DB8221E5C4F6700E3123E /* GalleryViewController.swift */; };
+		346DB8351E5C4F6700E3123E /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346DB8221E5C4F6700E3123E /* GalleryViewController.swift */; };
+		346DB8361E5C4F6700E3123E /* GalleryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 346DB8231E5C4F6700E3123E /* GalleryViewController.xib */; };
+		346DB8371E5C4F6700E3123E /* GalleryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 346DB8231E5C4F6700E3123E /* GalleryViewController.xib */; };
+		346DB8381E5C4F6700E3123E /* GalleryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 346DB8231E5C4F6700E3123E /* GalleryViewController.xib */; };
+		346DB8391E5C4F6700E3123E /* GalleryItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346DB8251E5C4F6700E3123E /* GalleryItemModel.swift */; };
+		346DB83A1E5C4F6700E3123E /* GalleryItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346DB8251E5C4F6700E3123E /* GalleryItemModel.swift */; };
+		346DB83B1E5C4F6700E3123E /* GalleryItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346DB8251E5C4F6700E3123E /* GalleryItemModel.swift */; };
+		346DB83C1E5C4F6700E3123E /* GalleryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346DB8261E5C4F6700E3123E /* GalleryModel.swift */; };
+		346DB83D1E5C4F6700E3123E /* GalleryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346DB8261E5C4F6700E3123E /* GalleryModel.swift */; };
+		346DB83E1E5C4F6700E3123E /* GalleryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346DB8261E5C4F6700E3123E /* GalleryModel.swift */; };
 		346EDADB1B9F0E35004F8DB5 /* MWMMultilineLabel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 346EDADA1B9F0E35004F8DB5 /* MWMMultilineLabel.mm */; };
 		3476B8DC1BFDD30B00874594 /* tts-how-to-set-up-voice.html in Resources */ = {isa = PBXBuildFile; fileRef = 3476B8D51BFDD30B00874594 /* tts-how-to-set-up-voice.html */; };
 		3476B8DD1BFDD30B00874594 /* tts-how-to-set-up-voice.html in Resources */ = {isa = PBXBuildFile; fileRef = 3476B8D51BFDD30B00874594 /* tts-how-to-set-up-voice.html */; };
@@ -1481,6 +1508,8 @@
 		3432E17B1E49B484008477E9 /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
 		3432E1801E49BF09008477E9 /* FBAdsBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBAdsBanner.swift; sourceTree = "<group>"; };
 		3432E1841E49BF5C008477E9 /* FBAdsBanner.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FBAdsBanner.xib; sourceTree = "<group>"; };
+		343E75951E5B1EE20041226A /* MWMCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCollectionViewController.h; sourceTree = "<group>"; };
+		343E75961E5B1EE20041226A /* MWMCollectionViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCollectionViewController.mm; sourceTree = "<group>"; };
 		3446C6761DDCA9A200146687 /* libtraffic.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtraffic.a; path = "../../../omim-build/xcode/Debug/libtraffic.a"; sourceTree = "<group>"; };
 		345050211E028B8000A8DC59 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		3454D7991E07F045004AF2AD /* CALayer+RuntimeAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+RuntimeAttributes.h"; sourceTree = "<group>"; };
@@ -1527,6 +1556,14 @@
 		346B42A91DD5E3D20094EBEE /* MWMLocationNotFoundAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMLocationNotFoundAlert.h; sourceTree = "<group>"; };
 		346B42AA1DD5E3D20094EBEE /* MWMLocationNotFoundAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMLocationNotFoundAlert.mm; sourceTree = "<group>"; };
 		346B42AD1DD5E5450094EBEE /* MWMDefaultAlert_Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMDefaultAlert_Protected.h; sourceTree = "<group>"; };
+		346DB81E1E5C4F6700E3123E /* GalleryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryCell.swift; sourceTree = "<group>"; };
+		346DB81F1E5C4F6700E3123E /* GalleryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalleryCell.xib; sourceTree = "<group>"; };
+		346DB8201E5C4F6700E3123E /* GalleryItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryItemViewController.swift; sourceTree = "<group>"; };
+		346DB8211E5C4F6700E3123E /* GalleryItemViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalleryItemViewController.xib; sourceTree = "<group>"; };
+		346DB8221E5C4F6700E3123E /* GalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
+		346DB8231E5C4F6700E3123E /* GalleryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalleryViewController.xib; sourceTree = "<group>"; };
+		346DB8251E5C4F6700E3123E /* GalleryItemModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryItemModel.swift; sourceTree = "<group>"; };
+		346DB8261E5C4F6700E3123E /* GalleryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryModel.swift; sourceTree = "<group>"; };
 		346EDAD91B9F0E35004F8DB5 /* MWMMultilineLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMultilineLabel.h; sourceTree = "<group>"; };
 		346EDADA1B9F0E35004F8DB5 /* MWMMultilineLabel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMultilineLabel.mm; sourceTree = "<group>"; };
 		347526FA1DC0B00F00918CF5 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../../xcode/common-debug.xcconfig"; sourceTree = "<group>"; };
@@ -2664,12 +2701,12 @@
 				3454D7B31E07F045004AF2AD /* UITextField+RuntimeAttributes.mm */,
 				3454D7B41E07F045004AF2AD /* UITextView+RuntimeAttributes.h */,
 				3454D7B51E07F045004AF2AD /* UITextView+RuntimeAttributes.mm */,
+				34F5E0D21E3F254800B1C415 /* UIView+Hierarchy.swift */,
 				3454D7B61E07F045004AF2AD /* UIView+RuntimeAttributes.h */,
 				3454D7B71E07F045004AF2AD /* UIView+RuntimeAttributes.mm */,
+				349D1CE21E3F836900A878FD /* UIViewController+Hierarchy.swift */,
 				34F7422F1E0834F400AC1FD6 /* UIViewController+Navigation.h */,
 				34F742301E0834F400AC1FD6 /* UIViewController+Navigation.mm */,
-				34F5E0D21E3F254800B1C415 /* UIView+Hierarchy.swift */,
-				349D1CE21E3F836900A878FD /* UIViewController+Hierarchy.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -2750,6 +2787,37 @@
 			path = LocationNotFoundAlert;
 			sourceTree = "<group>";
 		};
+		346DB81C1E5C4F6700E3123E /* Gallery */ = {
+			isa = PBXGroup;
+			children = (
+				346DB81D1E5C4F6700E3123E /* Cells */,
+				346DB8201E5C4F6700E3123E /* GalleryItemViewController.swift */,
+				346DB8211E5C4F6700E3123E /* GalleryItemViewController.xib */,
+				346DB8221E5C4F6700E3123E /* GalleryViewController.swift */,
+				346DB8231E5C4F6700E3123E /* GalleryViewController.xib */,
+				346DB8241E5C4F6700E3123E /* Models */,
+			);
+			path = Gallery;
+			sourceTree = "<group>";
+		};
+		346DB81D1E5C4F6700E3123E /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				346DB81E1E5C4F6700E3123E /* GalleryCell.swift */,
+				346DB81F1E5C4F6700E3123E /* GalleryCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		346DB8241E5C4F6700E3123E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				346DB8251E5C4F6700E3123E /* GalleryItemModel.swift */,
+				346DB8261E5C4F6700E3123E /* GalleryModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		346EDAD81B9F0E15004F8DB5 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -2772,6 +2840,8 @@
 				34C9BD081C6DBCDA000DC38D /* MWMNavigationController.mm */,
 				34B924401DC8A29C0008D971 /* MWMMailViewController.h */,
 				34B924411DC8A29C0008D971 /* MWMMailViewController.mm */,
+				343E75951E5B1EE20041226A /* MWMCollectionViewController.h */,
+				343E75961E5B1EE20041226A /* MWMCollectionViewController.mm */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -3524,6 +3594,7 @@
 		F6E2FCA81E097B9F0083EBEC /* Content */ = {
 			isa = PBXGroup;
 			children = (
+				346DB81C1E5C4F6700E3123E /* Gallery */,
 				F6E2FCA91E097B9F0083EBEC /* BookmarkCell */,
 				F6E2FCAF1E097B9F0083EBEC /* ButtonCell */,
 				F6E2FCB31E097B9F0083EBEC /* OpeningHoursCell */,
@@ -4116,6 +4187,7 @@
 				34D3B0381E389D05004100F9 /* MWMEditorSelectTableViewCell.xib in Resources */,
 				34D3B03E1E389D05004100F9 /* MWMEditorSwitchTableViewCell.xib in Resources */,
 				34D3B0441E389D05004100F9 /* MWMEditorTextTableViewCell.xib in Resources */,
+				346DB8301E5C4F6700E3123E /* GalleryItemViewController.xib in Resources */,
 				F64D9CA21C899C760063FA30 /* MWMEditorViralAlert.xib in Resources */,
 				F6BC1E541ACBF9AB00EF0360 /* MWMFacebookAlert.xib in Resources */,
 				F6172FA51BBD5A3E0081D325 /* MWMiPadRoutePreview.xib in Resources */,
@@ -4167,6 +4239,7 @@
 				F6E2FF411E097BA00083EBEC /* MWMSearchTableViewController.xib in Resources */,
 				F6E2FEED1E097BA00083EBEC /* MWMSearchView.xib in Resources */,
 				3490D2E21CE9DD2500D0B838 /* MWMSideButtonsView.xib in Resources */,
+				346DB82A1E5C4F6700E3123E /* GalleryCell.xib in Resources */,
 				F6E2FE2D1E097BA00083EBEC /* MWMStreetEditorEditTableViewCell.xib in Resources */,
 				F68FCB8C1DA7BD20007CC7D7 /* MWMTaxiPreviewCell.xib in Resources */,
 				349B92701DF0526D007779DD /* MWMToast.xib in Resources */,
@@ -4198,6 +4271,7 @@
 				FAFF422A1347F101009BBB14 /* World.mwm in Resources */,
 				FA459EB414327AF700B5BB3C /* WorldCoasts.mwm in Resources */,
 				671182E31C7F0DD400CB8177 /* WorldCoasts_obsolete.mwm in Resources */,
+				346DB8361E5C4F6700E3123E /* GalleryViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4274,6 +4348,7 @@
 				34D3B03F1E389D05004100F9 /* MWMEditorSwitchTableViewCell.xib in Resources */,
 				34D3B0451E389D05004100F9 /* MWMEditorTextTableViewCell.xib in Resources */,
 				F64D9CA31C899C760063FA30 /* MWMEditorViralAlert.xib in Resources */,
+				346DB8311E5C4F6700E3123E /* GalleryItemViewController.xib in Resources */,
 				6741A9911BF340DE002C974C /* MWMFacebookAlert.xib in Resources */,
 				6741A9701BF340DE002C974C /* MWMiPadRoutePreview.xib in Resources */,
 				6741A96D1BF340DE002C974C /* MWMLocationAlert.xib in Resources */,
@@ -4325,6 +4400,7 @@
 				F6E2FF421E097BA00083EBEC /* MWMSearchTableViewController.xib in Resources */,
 				F6E2FEEE1E097BA00083EBEC /* MWMSearchView.xib in Resources */,
 				3490D2E31CE9DD2500D0B838 /* MWMSideButtonsView.xib in Resources */,
+				346DB82B1E5C4F6700E3123E /* GalleryCell.xib in Resources */,
 				F6E2FE2E1E097BA00083EBEC /* MWMStreetEditorEditTableViewCell.xib in Resources */,
 				F68FCB8D1DA7BD20007CC7D7 /* MWMTaxiPreviewCell.xib in Resources */,
 				349B92711DF0526D007779DD /* MWMToast.xib in Resources */,
@@ -4356,6 +4432,7 @@
 				6741A9521BF340DE002C974C /* World.mwm in Resources */,
 				6741A9751BF340DE002C974C /* WorldCoasts.mwm in Resources */,
 				671182E41C7F0DD800CB8177 /* WorldCoasts_obsolete.mwm in Resources */,
+				346DB8371E5C4F6700E3123E /* GalleryViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4432,6 +4509,7 @@
 				34D3B0401E389D05004100F9 /* MWMEditorSwitchTableViewCell.xib in Resources */,
 				34D3B0461E389D05004100F9 /* MWMEditorTextTableViewCell.xib in Resources */,
 				849CF66D1DE842290024A8A5 /* MWMEditorViralAlert.xib in Resources */,
+				346DB8321E5C4F6700E3123E /* GalleryItemViewController.xib in Resources */,
 				849CF66F1DE842290024A8A5 /* MWMFacebookAlert.xib in Resources */,
 				849CF6381DE842290024A8A5 /* MWMiPadRoutePreview.xib in Resources */,
 				849CF6301DE842290024A8A5 /* MWMLocationAlert.xib in Resources */,
@@ -4483,6 +4561,7 @@
 				F6E2FF431E097BA00083EBEC /* MWMSearchTableViewController.xib in Resources */,
 				F6E2FEEF1E097BA00083EBEC /* MWMSearchView.xib in Resources */,
 				849CF6471DE842290024A8A5 /* MWMSideButtonsView.xib in Resources */,
+				346DB82C1E5C4F6700E3123E /* GalleryCell.xib in Resources */,
 				F6E2FE2F1E097BA00083EBEC /* MWMStreetEditorEditTableViewCell.xib in Resources */,
 				849CF5FA1DE842290024A8A5 /* MWMTaxiPreviewCell.xib in Resources */,
 				349B92721DF0526D007779DD /* MWMToast.xib in Resources */,
@@ -4514,6 +4593,7 @@
 				849CF6021DE842290024A8A5 /* World.mwm in Resources */,
 				849CF6401DE842290024A8A5 /* WorldCoasts.mwm in Resources */,
 				849CF63D1DE842290024A8A5 /* WorldCoasts_obsolete.mwm in Resources */,
+				346DB8381E5C4F6700E3123E /* GalleryViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4653,6 +4733,7 @@
 				3454D7E51E07F045004AF2AD /* UIView+RuntimeAttributes.mm in Sources */,
 				34FE4C451BCC013500066718 /* MWMMapWidgets.mm in Sources */,
 				F6E2FE4B1E097BA00083EBEC /* MWMPlacePageManager.mm in Sources */,
+				346DB8391E5C4F6700E3123E /* GalleryItemModel.swift in Sources */,
 				3404757D1E081B3300C92850 /* iosOGLContext.mm in Sources */,
 				34D3AFF11E37945B004100F9 /* UITableView+Cells.swift in Sources */,
 				34D3B02F1E389D05004100F9 /* MWMEditorCategoryCell.mm in Sources */,
@@ -4675,11 +4756,13 @@
 				F6E2FE541E097BA00083EBEC /* MWMPlacePageActionBar.mm in Sources */,
 				34C9BD091C6DBCDA000DC38D /* MWMNavigationController.mm in Sources */,
 				34D3B0171E389D05004100F9 /* EditorAdditionalNamePlaceholderTableViewCell.swift in Sources */,
+				346DB8271E5C4F6700E3123E /* GalleryCell.swift in Sources */,
 				3406FA151C6E0C3300E9FAD2 /* MWMMapDownloadDialog.mm in Sources */,
 				3432E1811E49BF09008477E9 /* FBAdsBanner.swift in Sources */,
 				F6E2FECC1E097BA00083EBEC /* MWMSearchFilterTransitioningManager.mm in Sources */,
 				F6E2FF111E097BA00083EBEC /* MWMSearchHistoryRequestCell.mm in Sources */,
 				34C9BD021C6DB693000DC38D /* MWMTableViewController.mm in Sources */,
+				346DB8331E5C4F6700E3123E /* GalleryViewController.swift in Sources */,
 				F6E2FDFD1E097BA00083EBEC /* MWMOpeningHoursClosedSpanTableViewCell.mm in Sources */,
 				F6E2FEDB1E097BA00083EBEC /* MWMSearchManager+Filter.mm in Sources */,
 				34943BB61E26222300B14F84 /* WelcomeProtocol.swift in Sources */,
@@ -4710,6 +4793,7 @@
 				349D1AD71E2E325C004A2006 /* MWMBottomMenuLayout.mm in Sources */,
 				3462258E1DDC5DBA001E8752 /* MWMSearchNoResultsAlert.mm in Sources */,
 				F6E2FEBD1E097BA00083EBEC /* MWMPPPreviewLayoutHelper.mm in Sources */,
+				343E75971E5B1EE20041226A /* MWMCollectionViewController.mm in Sources */,
 				3454D7DF1E07F045004AF2AD /* UITextField+RuntimeAttributes.mm in Sources */,
 				3486B50C1E27A6DA0069C126 /* MWMPushNotifications.mm in Sources */,
 				F6E2FEF91E097BA00083EBEC /* MWMSearchCategoriesManager.mm in Sources */,
@@ -4744,6 +4828,7 @@
 				F6E2FF3B1E097BA00083EBEC /* MWMSearchTableView.mm in Sources */,
 				F6E2FF651E097BA00083EBEC /* MWMTTSSettingsViewController.mm in Sources */,
 				F6381BF51CD12045004CA943 /* LocaleTranslator.mm in Sources */,
+				346DB82D1E5C4F6700E3123E /* GalleryItemViewController.swift in Sources */,
 				340475551E081A4600C92850 /* Statistics.mm in Sources */,
 				F68FCB851DA7BBA6007CC7D7 /* MWMTaxiPreviewDataSource.mm in Sources */,
 				F653CE161C71F60200A453F1 /* MWMAddPlaceNavigationBar.mm in Sources */,
@@ -4830,6 +4915,7 @@
 				F6E2FE2A1E097BA00083EBEC /* MWMStreetEditorEditTableViewCell.mm in Sources */,
 				340475641E081A4600C92850 /* MWMRouter.mm in Sources */,
 				3454D7D61E07F045004AF2AD /* UIKitCategories.mm in Sources */,
+				346DB83C1E5C4F6700E3123E /* GalleryModel.swift in Sources */,
 				34B924421DC8A29C0008D971 /* MWMMailViewController.mm in Sources */,
 				F6E2FF171E097BA00083EBEC /* MWMSearchTabbedCollectionViewCell.mm in Sources */,
 				F64F199B1AB81A00006EAF7E /* MWMAlert.mm in Sources */,
@@ -4913,6 +4999,7 @@
 				3454D7E61E07F045004AF2AD /* UIView+RuntimeAttributes.mm in Sources */,
 				F6E2FE4C1E097BA00083EBEC /* MWMPlacePageManager.mm in Sources */,
 				3404757E1E081B3300C92850 /* iosOGLContext.mm in Sources */,
+				346DB83A1E5C4F6700E3123E /* GalleryItemModel.swift in Sources */,
 				F6E2FD5C1E097BA00083EBEC /* MWMMapDownloaderCellHeader.mm in Sources */,
 				34D3AFF21E37945B004100F9 /* UITableView+Cells.swift in Sources */,
 				34D3B0301E389D05004100F9 /* MWMEditorCategoryCell.mm in Sources */,
@@ -4935,11 +5022,13 @@
 				6741A9D41BF340DE002C974C /* MWMAlertViewController.mm in Sources */,
 				F6E2FECD1E097BA00083EBEC /* MWMSearchFilterTransitioningManager.mm in Sources */,
 				34D3B0181E389D05004100F9 /* EditorAdditionalNamePlaceholderTableViewCell.swift in Sources */,
+				346DB8281E5C4F6700E3123E /* GalleryCell.swift in Sources */,
 				F6E2FF121E097BA00083EBEC /* MWMSearchHistoryRequestCell.mm in Sources */,
 				3432E1821E49BF09008477E9 /* FBAdsBanner.swift in Sources */,
 				F6FE3C391CC50FFD00A73196 /* MWMPlaceDoesntExistAlert.mm in Sources */,
 				F6E2FDFE1E097BA00083EBEC /* MWMOpeningHoursClosedSpanTableViewCell.mm in Sources */,
 				F6E2FEDC1E097BA00083EBEC /* MWMSearchManager+Filter.mm in Sources */,
+				346DB8341E5C4F6700E3123E /* GalleryViewController.swift in Sources */,
 				34943BB71E26222300B14F84 /* WelcomeProtocol.swift in Sources */,
 				F6E2FD5F1E097BA00083EBEC /* MWMMapDownloaderLargeCountryTableViewCell.mm in Sources */,
 				F6E2FF481E097BA00083EBEC /* SettingsTableViewSelectableCell.swift in Sources */,
@@ -4970,6 +5059,7 @@
 				349D1AD81E2E325C004A2006 /* MWMBottomMenuLayout.mm in Sources */,
 				F6E2FEBE1E097BA00083EBEC /* MWMPPPreviewLayoutHelper.mm in Sources */,
 				3454D7E01E07F045004AF2AD /* UITextField+RuntimeAttributes.mm in Sources */,
+				343E75981E5B1EE20041226A /* MWMCollectionViewController.mm in Sources */,
 				F6E2FEFA1E097BA00083EBEC /* MWMSearchCategoriesManager.mm in Sources */,
 				F6E2FE431E097BA00083EBEC /* MWMDirectionView.mm in Sources */,
 				3486B50D1E27A6DA0069C126 /* MWMPushNotifications.mm in Sources */,
@@ -5004,6 +5094,7 @@
 				F6E2FF661E097BA00083EBEC /* MWMTTSSettingsViewController.mm in Sources */,
 				3454D7C21E07F045004AF2AD /* NSString+Categories.mm in Sources */,
 				6741A9FE1BF340DE002C974C /* SelectSetVC.mm in Sources */,
+				346DB82E1E5C4F6700E3123E /* GalleryItemViewController.swift in Sources */,
 				340475561E081A4600C92850 /* Statistics.mm in Sources */,
 				F6381BF61CD12045004CA943 /* LocaleTranslator.mm in Sources */,
 				F68FCB861DA7BBA6007CC7D7 /* MWMTaxiPreviewDataSource.mm in Sources */,
@@ -5090,6 +5181,7 @@
 				34B924431DC8A29C0008D971 /* MWMMailViewController.mm in Sources */,
 				340475651E081A4600C92850 /* MWMRouter.mm in Sources */,
 				F6E2FF181E097BA00083EBEC /* MWMSearchTabbedCollectionViewCell.mm in Sources */,
+				346DB83D1E5C4F6700E3123E /* GalleryModel.swift in Sources */,
 				3454D7D71E07F045004AF2AD /* UIKitCategories.mm in Sources */,
 				34AB39C21D2BD8310021857D /* MWMStopButton.mm in Sources */,
 				6741AA281BF340DE002C974C /* MWMAlert.mm in Sources */,
@@ -5173,6 +5265,7 @@
 				849CF6AF1DE842290024A8A5 /* MWMTextView.mm in Sources */,
 				849CF6B11DE842290024A8A5 /* MWMMapWidgets.mm in Sources */,
 				F6E2FE4D1E097BA00083EBEC /* MWMPlacePageManager.mm in Sources */,
+				346DB83B1E5C4F6700E3123E /* GalleryItemModel.swift in Sources */,
 				340475631E081A4600C92850 /* MWMNetworkPolicy.mm in Sources */,
 				34D3AFF31E37945B004100F9 /* UITableView+Cells.swift in Sources */,
 				34D3B0311E389D05004100F9 /* MWMEditorCategoryCell.mm in Sources */,
@@ -5195,11 +5288,13 @@
 				F6E2FE561E097BA00083EBEC /* MWMPlacePageActionBar.mm in Sources */,
 				849CF6CF1DE842290024A8A5 /* MWMAlertViewController.mm in Sources */,
 				34D3B0191E389D05004100F9 /* EditorAdditionalNamePlaceholderTableViewCell.swift in Sources */,
+				346DB8291E5C4F6700E3123E /* GalleryCell.swift in Sources */,
 				340475781E081A4600C92850 /* MWMTrafficManager.mm in Sources */,
 				3432E1831E49BF09008477E9 /* FBAdsBanner.swift in Sources */,
 				F6E2FECE1E097BA00083EBEC /* MWMSearchFilterTransitioningManager.mm in Sources */,
 				F6E2FF131E097BA00083EBEC /* MWMSearchHistoryRequestCell.mm in Sources */,
 				849CF6D21DE842290024A8A5 /* MWMNavigationController.mm in Sources */,
+				346DB8351E5C4F6700E3123E /* GalleryViewController.swift in Sources */,
 				F6E2FDFF1E097BA00083EBEC /* MWMOpeningHoursClosedSpanTableViewCell.mm in Sources */,
 				F6E2FEDD1E097BA00083EBEC /* MWMSearchManager+Filter.mm in Sources */,
 				34943BB81E26222300B14F84 /* WelcomeProtocol.swift in Sources */,
@@ -5230,6 +5325,7 @@
 				349D1AD91E2E325C004A2006 /* MWMBottomMenuLayout.mm in Sources */,
 				849CF6DF1DE842290024A8A5 /* MWMAuthorizationCommon.mm in Sources */,
 				F6E2FEBF1E097BA00083EBEC /* MWMPPPreviewLayoutHelper.mm in Sources */,
+				343E75991E5B1EE20041226A /* MWMCollectionViewController.mm in Sources */,
 				3454D7CF1E07F045004AF2AD /* UIFont+MapsMeFonts.mm in Sources */,
 				3486B50E1E27A6DA0069C126 /* MWMPushNotifications.mm in Sources */,
 				F6E2FEFB1E097BA00083EBEC /* MWMSearchCategoriesManager.mm in Sources */,
@@ -5264,6 +5360,7 @@
 				F6E2FF3D1E097BA00083EBEC /* MWMSearchTableView.mm in Sources */,
 				F6E2FF671E097BA00083EBEC /* MWMTTSSettingsViewController.mm in Sources */,
 				3454D7D81E07F045004AF2AD /* UIKitCategories.mm in Sources */,
+				346DB82F1E5C4F6700E3123E /* GalleryItemViewController.swift in Sources */,
 				849CF6FB1DE842290024A8A5 /* BookmarksVC.mm in Sources */,
 				849CF6FC1DE842290024A8A5 /* MWMSideButtonsView.mm in Sources */,
 				3454D7C01E07F045004AF2AD /* DateComponentsFormatter+ETA.swift in Sources */,
@@ -5350,6 +5447,7 @@
 				F6E2FE2C1E097BA00083EBEC /* MWMStreetEditorEditTableViewCell.mm in Sources */,
 				849CF75C1DE842290024A8A5 /* MWMNavigationView.mm in Sources */,
 				849CF7601DE842290024A8A5 /* MWMStopButton.mm in Sources */,
+				346DB83E1E5C4F6700E3123E /* GalleryModel.swift in Sources */,
 				849CF7611DE842290024A8A5 /* MWMMailViewController.mm in Sources */,
 				F6E2FF191E097BA00083EBEC /* MWMSearchTabbedCollectionViewCell.mm in Sources */,
 				3404754E1E081A4600C92850 /* MWMKeyboard.mm in Sources */,
