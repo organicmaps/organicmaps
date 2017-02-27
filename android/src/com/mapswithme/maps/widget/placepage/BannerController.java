@@ -86,7 +86,7 @@ final class BannerController implements AdListener
         || Config.getAdForbidden())
       return;
 
-    if (BuildConfig.DEBUG)
+    if (BuildConfig.DEBUG || BuildConfig.BUILD_TYPE.equals("beta"))
     {
       AdSettings.addTestDevice("c36b141fff9e11866d8cf9c601d2b7e0");
       AdSettings.addTestDevice("189055740336d9d2687f41a775eaf867");
