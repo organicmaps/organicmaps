@@ -106,8 +106,7 @@ public:
     template <typename ToDo>
     void ForEach(ToDo && toDo) const
     {
-      if (m_value)
-        toDo(m_value);
+      toDo(m_value);
     }
 
     void Clear() { m_value = false; }
@@ -115,7 +114,7 @@ public:
     bool m_value = false;
   };
 
-  template <typename Char, typename SubTree>
+  template <typename Char, typename Subtree>
   class Moves
   {
   public:
@@ -126,7 +125,7 @@ public:
         toDo(subtree.first, *subtree.second);
     }
 
-    SubTree * GetSubTree(Char const & c) const
+    Subtree * GetSubtree(Char const & c) const
     {
       for (auto const & subtree : m_subtrees)
       {
@@ -136,7 +135,7 @@ public:
       return nullptr;
     }
 
-    SubTree & GetOrCreateSubTree(Char const & c, bool & created)
+    Subtree & GetOrCreateSubtree(Char const & c, bool & created)
     {
       for (size_t i = 0; i < m_subtrees.size(); ++i)
       {
@@ -148,14 +147,14 @@ public:
       }
 
       created = true;
-      m_subtrees.emplace_back(c, make_unique<SubTree>());
+      m_subtrees.emplace_back(c, make_unique<Subtree>());
       return *m_subtrees.back().second;
     }
 
     void Clear() { m_subtrees.clear(); }
 
   private:
-    buffer_vector<pair<Char, std::unique_ptr<SubTree>>, 8> m_subtrees;
+    buffer_vector<pair<Char, std::unique_ptr<Subtree>>, 8> m_subtrees;
   };
 
   StreetsSynonymsHolder()
@@ -226,16 +225,15 @@ public:
     for (auto const * s : affics)
     {
       UniString const us = NormalizeAndSimplifyString(s);
-      m_strings.Add(us, true);
+      m_strings.Add(us, true /* end of string */);
     }
   }
 
   bool MatchPrefix(UniString const & s) const
   {
     bool found = false;
-    m_strings.ForEachInNode(s, [&](UniString const & prefix, bool value) {
+    m_strings.ForEachInNode(s, [&](UniString const & prefix, bool /* value */) {
       ASSERT_EQUAL(s, prefix, ());
-      ASSERT(value, ());
       found = true;
     });
     return found;
@@ -246,7 +244,6 @@ public:
     bool found = false;
     m_strings.ForEachInNode(s, [&](UniString const & prefix, bool value) {
       ASSERT_EQUAL(s, prefix, ());
-      ASSERT(value, ());
       found = value;
     });
     return found;

@@ -12,7 +12,7 @@
 
 namespace my
 {
-template <typename Char, typename SubTree>
+template <typename Char, typename Subtree>
 class MapMoves
 {
 public:
@@ -23,7 +23,7 @@ public:
       toDo(subtree.first, *subtree.second);
   }
 
-  SubTree * GetSubTree(Char const & c) const
+  Subtree * GetSubtree(Char const & c) const
   {
     auto const it = m_subtrees.find(c);
     if (it == m_subtrees.end())
@@ -31,12 +31,12 @@ public:
     return it->second.get();
   }
 
-  SubTree & GetOrCreateSubTree(Char const & c, bool & created)
+  Subtree & GetOrCreateSubtree(Char const & c, bool & created)
   {
     auto & node = m_subtrees[c];
     if (!node)
     {
-      node = my::make_unique<SubTree>();
+      node = my::make_unique<Subtree>();
       created = true;
     }
     else
@@ -49,7 +49,7 @@ public:
   void Clear() { m_subtrees.clear(); }
 
 private:
-  std::map<Char, std::unique_ptr<SubTree>> m_subtrees;
+  std::map<Char, std::unique_ptr<Subtree>> m_subtrees;
 };
 
 template <typename Value>
@@ -58,7 +58,7 @@ struct VectorValues
   template <typename V>
   void Add(V && v)
   {
-    m_values.push_back(std::forward<V>(v));
+    m_values.emplace_back(std::forward<V>(v));
   }
 
   template <typename ToDo>
@@ -186,7 +186,7 @@ private:
 
     Node & GetMove(Char const & c, bool & created)
     {
-      return m_moves.GetOrCreateSubTree(c, created);
+      return m_moves.GetOrCreateSubtree(c, created);
     }
 
     template <typename Value>
@@ -212,7 +212,7 @@ private:
     auto const * cur = &m_root;
     for (auto const & c : key)
     {
-      cur = cur->m_moves.GetSubTree(c);
+      cur = cur->m_moves.GetSubtree(c);
       if (!cur)
         break;
     }
@@ -224,7 +224,8 @@ private:
   template <typename ToDo>
   void ForEachInNode(Node const & node, String const & prefix, ToDo && toDo) const
   {
-    node.m_values.ForEach(std::bind(std::forward<ToDo>(toDo), prefix, std::placeholders::_1));
+    node.m_values.ForEach(
+        std::bind(std::forward<ToDo>(toDo), std::ref(prefix), std::placeholders::_1));
   }
 
   // Calls |toDo| for each key-value pair in subtree where |node| is a
