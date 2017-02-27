@@ -63,10 +63,6 @@ final class BannerController implements AdListener
   private final TextView mActionLarge;
   @Nullable
   private final View mAds;
-  @Nullable
-  private final View mProgressBar;
-  @Nullable
-  private final View mError;
 
   private final float mCloseFrameHeight;
 
@@ -74,6 +70,8 @@ final class BannerController implements AdListener
   private NativeAd mNativeAd;
 
   private boolean mOpened = false;
+  private boolean mProgress = false;
+  private boolean mError = false;
 
   BannerController(@NonNull View bannerView)
   {
@@ -86,50 +84,33 @@ final class BannerController implements AdListener
     mActionSmall = (TextView) bannerView.findViewById(R.id.tv__action_small);
     mActionLarge = (TextView) bannerView.findViewById(R.id.tv__action_large);
     mAds = bannerView.findViewById(R.id.tv__ads);
-    mProgressBar = bannerView.findViewById(R.id.progress_bar);
-    mError = bannerView.findViewById(R.id.error);
   }
 
   private void showProgress()
   {
-    if (mProgressBar != null)
-      UiUtils.show(mProgressBar);
-
+    mProgress = true;
     updateVisibility();
   }
 
   private void hideProgress()
   {
-    if (mProgressBar != null)
-      UiUtils.hide(mProgressBar);
-
+    mProgress = false;
     updateVisibility();
   }
 
   private boolean isDownloading()
   {
-    return mProgressBar != null && !UiUtils.isHidden(mProgressBar);
+    return mProgress;
   }
 
-  private void showError()
+  private void showError(boolean value)
   {
-    if (mError == null)
-      return;
-
-    UiUtils.show(mError);
-  }
-
-  private void hideError()
-  {
-    if (mError == null)
-      return;
-
-    UiUtils.hide(mError);
+    mError = value;
   }
 
   private boolean errorHasOccurred()
   {
-    return mError != null && !UiUtils.isHidden(mError);
+    return mError;
   }
 
   private void updateVisibility()
@@ -138,12 +119,9 @@ final class BannerController implements AdListener
         || mActionLarge == null || mAds == null)
       return;
 
-    boolean hasError = errorHasOccurred();
-    if (isDownloading() || hasError)
+    if (isDownloading() || errorHasOccurred())
     {
       UiUtils.hide(mIcon, mTitle, mMessage, mActionSmall, mActionLarge, mAds);
-      if (hasError && mProgressBar != null)
-        UiUtils.hide(mProgressBar);
     }
     else
     {
@@ -158,7 +136,7 @@ final class BannerController implements AdListener
   void updateData(@Nullable Banner banner)
   {
     UiUtils.hide(mFrame);
-    hideError();
+    showError(false);
 
     mBanner = banner;
     if (mBanner == null || TextUtils.isEmpty(mBanner.getId()) || !isShowcaseSwitchedOnLocal()
@@ -249,7 +227,7 @@ final class BannerController implements AdListener
   @Override
   public void onError(Ad ad, AdError adError)
   {
-    showError();
+    showError(true);
     updateVisibility();
     LOGGER.e(TAG, adError.getErrorMessage());
   }
