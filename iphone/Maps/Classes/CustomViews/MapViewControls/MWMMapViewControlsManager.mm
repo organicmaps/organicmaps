@@ -144,7 +144,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)showPlacePage:(place_page::Info const &)info
 {
-  auto show = ^{
+  auto show = ^(place_page::Info const & info) {
     self.trafficButtonHidden = YES;
     [self.placePageManager show:info];
     if (IPAD)
@@ -157,9 +157,10 @@ extern NSString * const kAlohalyticsTapEventKey;
 
   using namespace network_policy;
   if (!CanUseNetwork() && GetStage() == platform::NetworkPolicy::Stage::Session)
-    [[MWMAlertViewController activeAlertController] presentMobileInternetAlertWithBlock:show];
+    [[MWMAlertViewController activeAlertController]
+        presentMobileInternetAlertWithBlock:[show, info] { show(info); }];
   else
-    show();
+    show(info);
 }
 
 - (void)searchViewDidEnterState:(MWMSearchManagerState)state
