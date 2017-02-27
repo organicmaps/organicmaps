@@ -1065,6 +1065,7 @@
 	<string name="booking_filter_rating_num_very_good">8.0+</string>
 	<!-- Nine points and higher -->
 	<string name="booking_filter_rating_num_excellent">9.0+</string>
+	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">Простые цвета пробок</string>
 	<string name="enable_logging">Включить запись логов</string>
 	<string name="whatsnew_more_info_on_hotels_title">Подробная информация об отелях</string>

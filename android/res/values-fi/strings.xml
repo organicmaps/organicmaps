@@ -1048,4 +1048,17 @@
 	<string name="booking_filter_rating_num_very_good">8.0+</string>
 	<!-- Nine points and higher -->
 	<string name="booking_filter_rating_num_excellent">9.0+</string>
+	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
+	<string name="pref_traffic_simplified_colors_title">Simppelit liikennevärit</string>
+	<string name="enable_logging">Ota loki käyttöön</string>
+	<string name="whatsnew_more_info_on_hotels_title">Lisätietoa hotelleista</string>
+	<string name="whatsnew_more_info_on_hotels_message">Hotellisivujen uusi ulkoasu: katsele kuvia, käyttäjäarvioita ja muuta tietoa verkossa.</string>
+	<string name="whatsnew_better_routing_title">Parannettu reittisuunnittelu</string>
+	<string name="whatsnew_better_routing_message">• Tarkempi arvioitu saapumisaika.\n• Sovellus huomioi kielletyt alueet ja liikennemerkit.</string>
+	<string name="whatsnew_smaller_mwm_title">Kartat ovat pienempiä</string>
+	<string name="whatsnew_smaller_mwm_message">Kartat vaativat jopa 20 % vähemmän tilaa.</string>
+	<string name="whatsnew_waypoints_title">Reittipisteet reitillä</string>
+	<string name="whatsnew_waypoints_message">Lisää reittiisi reittipisteitä napauttamalla paikkoja.</string>
+	<string name="whatsnew_driving_style_title">Uusi karttatyyli ajettaessa</string>
+	<string name="whatsnew_driving_style_message">Auton navigointitila on helppokäyttöisempi.</string>
 </resources>

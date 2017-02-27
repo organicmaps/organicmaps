@@ -1810,26 +1810,27 @@
 
 "booking_filter_price_high" = "$$$";
 
-"pref_traffic_simplified_colors_title" = "Simplified traffic colors";
+/* Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible */
+"pref_traffic_simplified_colors_title" = "ألوان مرور مبسطة";
 
-"enable_logging" = "Enable logging";
+"enable_logging" = "تمكين التسجيل";
 
-"whatsnew_more_info_on_hotels_title" = "More Information on Hotels";
+"whatsnew_more_info_on_hotels_title" = "معلومات إضافية عن الفنادق";
 
-"whatsnew_more_info_on_hotels_message" = "Brand new look for hotel pages: check out photos, user reviews and other information online.";
+"whatsnew_more_info_on_hotels_message" = "مظهر جديد كلية لصفحات الفنادق: افحص الصور، ومراجعات المستخدمين والمعلومات الأخرى على الإنترنت.";
 
-"whatsnew_better_routing_title" = "Improved Route Planning";
+"whatsnew_better_routing_title" = "تخطيط المسارات المحسّن";
 
-"whatsnew_better_routing_message" = "• More accurate estimation of arrival time.\n• The app takes into account restricted areas and road signs.";
+"whatsnew_better_routing_message" = "• المزيد من التقدير الدقيق لوقت الوصول.\n• يضع التطبيق في الاعتبار المناطق المحظورة وعلامات الطريق.";
 
-"whatsnew_smaller_mwm_title" = "Maps Got Smaller";
+"whatsnew_smaller_mwm_title" = "الخرائط أصبحت أصغر";
 
-"whatsnew_smaller_mwm_message" = "Maps require up to 20% less storage.";
+"whatsnew_smaller_mwm_message" = "الخرائط تتطلب مساحة تخزين أقل بمقدار 20%.";
 
-"whatsnew_waypoints_title" = "Waypoints in Routing";
+"whatsnew_waypoints_title" = "نقاط الطريق في المسار";
 
-"whatsnew_waypoints_message" = "Tap places to add waypoints to your route.";
+"whatsnew_waypoints_message" = "المس الأماكن لإضافة نقاط طريق إلى المسار.";
 
-"whatsnew_driving_style_title" = "New Map Style for Driving";
+"whatsnew_driving_style_title" = "نمط خريطة جديد للقيادة";
 
-"whatsnew_driving_style_message" = "Car navigation mode got easier to use.";
+"whatsnew_driving_style_message" = "وضع التنقل بالسيارة أصبح سهل الاستخدام.";

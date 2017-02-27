@@ -1048,4 +1048,17 @@
 	<string name="booking_filter_rating_num_very_good">8.0+</string>
 	<!-- Nine points and higher -->
 	<string name="booking_filter_rating_num_excellent">9.0+</string>
+	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
+	<string name="pref_traffic_simplified_colors_title">Màu sắc giao thông đơn giản</string>
+	<string name="enable_logging">Bật nhật ký</string>
+	<string name="whatsnew_more_info_on_hotels_title">Thêm thông tin trên Khách sạn</string>
+	<string name="whatsnew_more_info_on_hotels_message">Giao diện hoàn toàn mới cho trang khách sạn: hãy xem các ảnh, đánh giá của người dùng và các thông tin khác trên mạng.</string>
+	<string name="whatsnew_better_routing_title">Cải thiện Lập Kế hoạch Lộ trình</string>
+	<string name="whatsnew_better_routing_message">• Ước tỉnh chính xác hơn về thời gian đến.\n• Ứng dụng sẽ tính đến các khu vực bị hạn chế và biển báo đường.</string>
+	<string name="whatsnew_smaller_mwm_title">Bản đồ nhỏ hơn</string>
+	<string name="whatsnew_smaller_mwm_message">Giảm đến 20% kích cỡ của các bản đồ.</string>
+	<string name="whatsnew_waypoints_title">Điểm tọa độ trong Lộ trình</string>
+	<string name="whatsnew_waypoints_message">Chạm vào các điểm để thêm điểm tọa độ vào lộ trình của bạn.</string>
+	<string name="whatsnew_driving_style_title">Phong cách Bản đồ Mới cho Lái xe</string>
+	<string name="whatsnew_driving_style_message">Chế độ điều hướng ô tô dễ sử dụng hơn.</string>
 </resources>

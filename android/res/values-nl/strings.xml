@@ -1048,4 +1048,17 @@
 	<string name="booking_filter_rating_num_very_good">8.0+</string>
 	<!-- Nine points and higher -->
 	<string name="booking_filter_rating_num_excellent">9.0+</string>
+	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
+	<string name="pref_traffic_simplified_colors_title">Eenvoudige verkeerskleuren</string>
+	<string name="enable_logging">Logboekregistratie inschakelen</string>
+	<string name="whatsnew_more_info_on_hotels_title">Meer Informatie over Hotels</string>
+	<string name="whatsnew_more_info_on_hotels_message">Gloednieuw uiterlijk van hotelpagina\\\&#39;s: bekijk foto\\\&#39;s, beoordelingen van gebruikers en andere informatie online.</string>
+	<string name="whatsnew_better_routing_title">Verbeterde Routeplanning</string>
+	<string name="whatsnew_better_routing_message">• Nauwkeurigere schatting van aankomsttijd\n• De app houdt rekening met afgezette gebieden en verkeersborden.</string>
+	<string name="whatsnew_smaller_mwm_title">Kaarten Werden Kleiner</string>
+	<string name="whatsnew_smaller_mwm_message">Kaarten vereisen tot 20% minder opslagruimte.</string>
+	<string name="whatsnew_waypoints_title">Tussenstops in Route</string>
+	<string name="whatsnew_waypoints_message">Tap op plaatsen om tussenstops toe te voegen aan uw route.</string>
+	<string name="whatsnew_driving_style_title">Nieuwe Kaartstijl voor het Rijden</string>
+	<string name="whatsnew_driving_style_message">Modus autonavigatie is eenvoudiger te gebruiken.</string>
 </resources>

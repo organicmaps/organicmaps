@@ -1054,4 +1054,17 @@
 	<string name="booking_filter_rating_num_very_good">8.0+</string>
 	<!-- Nine points and higher -->
 	<string name="booking_filter_rating_num_excellent">9.0+</string>
+	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
+	<string name="pref_traffic_simplified_colors_title">ไฟจราจรแบบง่าย</string>
+	<string name="enable_logging">เปิดใช้งานการเก็บล็อก</string>
+	<string name="whatsnew_more_info_on_hotels_title">ข้อมูลเพิ่มเติมเกี่ยวกับโรงแรม</string>
+	<string name="whatsnew_more_info_on_hotels_message">หน้าเว็บโรงแรมโฉมใหม่: ลองดูรูป รีวิวจากผู้ใช้งาน และข้อมูลอื่น ๆ ทางออนไลน์</string>
+	<string name="whatsnew_better_routing_title">การวางแผนเส้นทางที่ดีขึ้น</string>
+	<string name="whatsnew_better_routing_message">• การประมาณเวลาที่ไปถึงจุดหมายแม่นยำยิ่งขึ้น\n• แอปมีการคำนึงถึงพื้นที่ต้องห้ามและป้ายถนน</string>
+	<string name="whatsnew_smaller_mwm_title">แผนที่เล็กลง</string>
+	<string name="whatsnew_smaller_mwm_message">แผนที่ใช้พื้นที่เก็บน้อยลง 20%</string>
+	<string name="whatsnew_waypoints_title">จุดกำหนดในเส้นทาง</string>
+	<string name="whatsnew_waypoints_message">แตะสถานที่เพื่อเพิ่มจุดกำหนดเข้าไปยังเส้นทางของคุณ</string>
+	<string name="whatsnew_driving_style_title">แผนที่รูปแบบใหม่สำหรับการขับขี่</string>
+	<string name="whatsnew_driving_style_message">โหมดการนำทางรถยนต์ใช้งานได้ง่ายยิ่งขึ้น</string>
 </resources>

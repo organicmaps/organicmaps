@@ -1054,4 +1054,17 @@
 	<string name="booking_filter_rating_num_very_good">8.0+</string>
 	<!-- Nine points and higher -->
 	<string name="booking_filter_rating_num_excellent">9.0+</string>
+	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
+	<string name="pref_traffic_simplified_colors_title">ألوان مرور مبسطة</string>
+	<string name="enable_logging">تمكين التسجيل</string>
+	<string name="whatsnew_more_info_on_hotels_title">معلومات إضافية عن الفنادق</string>
+	<string name="whatsnew_more_info_on_hotels_message">مظهر جديد كلية لصفحات الفنادق: افحص الصور، ومراجعات المستخدمين والمعلومات الأخرى على الإنترنت.</string>
+	<string name="whatsnew_better_routing_title">تخطيط المسارات المحسّن</string>
+	<string name="whatsnew_better_routing_message">• المزيد من التقدير الدقيق لوقت الوصول.\n• يضع التطبيق في الاعتبار المناطق المحظورة وعلامات الطريق.</string>
+	<string name="whatsnew_smaller_mwm_title">الخرائط أصبحت أصغر</string>
+	<string name="whatsnew_smaller_mwm_message">الخرائط تتطلب مساحة تخزين أقل بمقدار 20%.</string>
+	<string name="whatsnew_waypoints_title">نقاط الطريق في المسار</string>
+	<string name="whatsnew_waypoints_message">المس الأماكن لإضافة نقاط طريق إلى المسار.</string>
+	<string name="whatsnew_driving_style_title">نمط خريطة جديد للقيادة</string>
+	<string name="whatsnew_driving_style_message">وضع التنقل بالسيارة أصبح سهل الاستخدام.</string>
 </resources>

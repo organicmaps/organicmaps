@@ -1810,26 +1810,27 @@
 
 "booking_filter_price_high" = "$$$";
 
-"pref_traffic_simplified_colors_title" = "Simplified traffic colors";
+/* Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible */
+"pref_traffic_simplified_colors_title" = "Warna lalu lintas sederhana";
 
-"enable_logging" = "Enable logging";
+"enable_logging" = "Aktifkan pencatatan";
 
-"whatsnew_more_info_on_hotels_title" = "More Information on Hotels";
+"whatsnew_more_info_on_hotels_title" = "Informasi Selengkapnya tentang Hotel";
 
-"whatsnew_more_info_on_hotels_message" = "Brand new look for hotel pages: check out photos, user reviews and other information online.";
+"whatsnew_more_info_on_hotels_message" = "Penampilan baru halaman hotel: lihat foto, ulasan pengguna, dan informasi lain secara online.";
 
-"whatsnew_better_routing_title" = "Improved Route Planning";
+"whatsnew_better_routing_title" = "Perencanaan Rute yang Lebih Baik";
 
-"whatsnew_better_routing_message" = "• More accurate estimation of arrival time.\n• The app takes into account restricted areas and road signs.";
+"whatsnew_better_routing_message" = "• Perkiraan waktu tiba yang lebih akurat.\n• Aplikasi ini mempertimbangkan area terbatas dan markah jalan.";
 
-"whatsnew_smaller_mwm_title" = "Maps Got Smaller";
+"whatsnew_smaller_mwm_title" = "Peta Semakin Kecil";
 
-"whatsnew_smaller_mwm_message" = "Maps require up to 20% less storage.";
+"whatsnew_smaller_mwm_message" = "Peta memerlukan pengurangan penyimpanan hingga 20%.";
 
-"whatsnew_waypoints_title" = "Waypoints in Routing";
+"whatsnew_waypoints_title" = "Titik Koordinat dalam Pembuatan Rute";
 
-"whatsnew_waypoints_message" = "Tap places to add waypoints to your route.";
+"whatsnew_waypoints_message" = "Ketuk tempat untuk menambahkan titik acuan koordinat ke rute Anda.";
 
-"whatsnew_driving_style_title" = "New Map Style for Driving";
+"whatsnew_driving_style_title" = "Model Peta Baru untuk Berkendara";
 
-"whatsnew_driving_style_message" = "Car navigation mode got easier to use.";
+"whatsnew_driving_style_message" = "Mode navigasi mobil menjadi semakin mudah digunakan.";

@@ -1052,4 +1052,17 @@
 	<string name="booking_filter_rating_num_very_good">8,0+</string>
 	<!-- Nine points and higher -->
 	<string name="booking_filter_rating_num_excellent">9,0+</string>
+	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
+	<string name="pref_traffic_simplified_colors_title">Спрощені кольори світлофору</string>
+	<string name="enable_logging">Підтримка журналювання</string>
+	<string name="whatsnew_more_info_on_hotels_title">Докладна інформація про готелі</string>
+	<string name="whatsnew_more_info_on_hotels_message">Оновлений дизайн сторінок готелів. Для вас — фотографії, відгуки користувачів та інша інформація онлайн.</string>
+	<string name="whatsnew_better_routing_title">Вдосконалена технологія планування маршруту</string>
+	<string name="whatsnew_better_routing_message">• Більш точне обчислення часу прибуття.\n• Врахування інформації про зони обмеженого руху та дорожні знаки.</string>
+	<string name="whatsnew_smaller_mwm_title">Зменшений розмір карт</string>
+	<string name="whatsnew_smaller_mwm_message">Тепер карти займають на 20% менше дискового простору.</string>
+	<string name="whatsnew_waypoints_title">Точки маршруту</string>
+	<string name="whatsnew_waypoints_message">Додавання точок до маршруту одним дотиком.</string>
+	<string name="whatsnew_driving_style_title">Новий дизайн карт для водіїв</string>
+	<string name="whatsnew_driving_style_message">Режим навігації став ще простішим.</string>
 </resources>

@@ -1054,4 +1054,17 @@
 	<string name="booking_filter_rating_num_very_good">8.0+</string>
 	<!-- Nine points and higher -->
 	<string name="booking_filter_rating_num_excellent">9.0+</string>
+	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
+	<string name="pref_traffic_simplified_colors_title">Sadeleştirilmiş trafik renkleri</string>
+	<string name="enable_logging">Günlüğü etkinleştir</string>
+	<string name="whatsnew_more_info_on_hotels_title">Oteller hakkında daha fazla bilgi</string>
+	<string name="whatsnew_more_info_on_hotels_message">Otel sayfalarına yeni bir bakış: fotoğraflara, kullanıcı yorumlarına ve diğer bilgilere çevrimiçi olarak gözatın.</string>
+	<string name="whatsnew_better_routing_title">Geliştirilmiş Güzergâh Planlama</string>
+	<string name="whatsnew_better_routing_message">• Daha doğru varış zamanı tahmini.\n• Uygulama, sınırlı alanları ve yol işaretlerini dikkate alır.</string>
+	<string name="whatsnew_smaller_mwm_title">Haritalar Küçültüldü</string>
+	<string name="whatsnew_smaller_mwm_message">Artık haritalar %20\&#39;ye kadar daha az depolama alanı gerektiriyor.</string>
+	<string name="whatsnew_waypoints_title">Güzergâhtaki Yol Noktaları</string>
+	<string name="whatsnew_waypoints_message">Güzergâhınıza yol noktası olarak eklemek istediğiniz yerlere dokunun.</string>
+	<string name="whatsnew_driving_style_title">Sürüş İçin Yeni Harita Stili</string>
+	<string name="whatsnew_driving_style_message">Araç navigasyon modunu kullanmak şimdi çok daha kolay.</string>
 </resources>

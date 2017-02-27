@@ -1074,6 +1074,7 @@
 	<string name="booking_filter_price_low">$</string>
 	<string name="booking_filter_price_medium">$$</string>
 	<string name="booking_filter_price_high">$$$</string>
+	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">Simplified traffic colors</string>
 	<string name="enable_logging">Enable logging</string>
 	<string name="whatsnew_more_info_on_hotels_title">More Information on Hotels</string>

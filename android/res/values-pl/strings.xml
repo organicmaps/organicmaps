@@ -1053,4 +1053,17 @@
 	<string name="booking_filter_rating_num_very_good">8,0+</string>
 	<!-- Nine points and higher -->
 	<string name="booking_filter_rating_num_excellent">9,0+</string>
+	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
+	<string name="pref_traffic_simplified_colors_title">Uproszczone kolory sygnalizacji</string>
+	<string name="enable_logging">Włącz logowanie</string>
+	<string name="whatsnew_more_info_on_hotels_title">Więcej informacji o hotelach</string>
+	<string name="whatsnew_more_info_on_hotels_message">Całkiem nowy wygląd stron hotelowych: przeglądaj zdjęcia, recenzje użytkowników i inne informacje online.</string>
+	<string name="whatsnew_better_routing_title">Ulepszone planowanie tras</string>
+	<string name="whatsnew_better_routing_message">• Dokładniejsze szacunki czasu przyjazdu.\n• Aplikacja uwzględnia obszary z ograniczonym dostępem i znaki drogowe.</string>
+	<string name="whatsnew_smaller_mwm_title">Mapy stały się mniejsze</string>
+	<string name="whatsnew_smaller_mwm_message">Mapy wymagają o 20% mniej pamięci.</string>
+	<string name="whatsnew_waypoints_title">Punkty nawigacyjne w trasowaniu</string>
+	<string name="whatsnew_waypoints_message">Naciśnij punkt nawigacyjny, aby dodać go do trasy.</string>
+	<string name="whatsnew_driving_style_title">Nowy styl mapy dla jazdy</string>
+	<string name="whatsnew_driving_style_message">Uproszczono tryb nawigacji pojazdu.</string>
 </resources>

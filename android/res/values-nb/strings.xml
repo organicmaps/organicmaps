@@ -1046,4 +1046,17 @@
 	<string name="booking_filter_rating_num_very_good">8,0+</string>
 	<!-- Nine points and higher -->
 	<string name="booking_filter_rating_num_excellent">9,0+</string>
+	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
+	<string name="pref_traffic_simplified_colors_title">Enkelt trafikkfargeoppsett</string>
+	<string name="enable_logging">Aktiver loggføring</string>
+	<string name="whatsnew_more_info_on_hotels_title">Mer informasjon om hoteller</string>
+	<string name="whatsnew_more_info_on_hotels_message">Splitter nytt utseende på hotellsidene. Sjekk ut bildene, brukervurderinger og annen informasjon online.</string>
+	<string name="whatsnew_better_routing_title">Bedre ruteplanlegger</string>
+	<string name="whatsnew_better_routing_message">• Mer presis beregning av ankomsttiden.\n• Appen tar hensyn til områder med begrenset tilgang og trafikkskilt.</string>
+	<string name="whatsnew_smaller_mwm_title">Kartene er blitt mindre</string>
+	<string name="whatsnew_smaller_mwm_message">Kartene trenger opptil 20 % mindre lagringsplass.</string>
+	<string name="whatsnew_waypoints_title">Rutepunkter</string>
+	<string name="whatsnew_waypoints_message">Trykk på steder for å legge til rutepunkter.</string>
+	<string name="whatsnew_driving_style_title">Ny kartstil for bruk under kjøring</string>
+	<string name="whatsnew_driving_style_message">Modusen for bilnavigering er blitt enklere å bruke.</string>
 </resources>

@@ -814,4 +814,17 @@
 	<string name="booking_filter_rating_num_very_good">8,0+</string>
 	<!-- Nine points and higher -->
 	<string name="booking_filter_rating_num_excellent">9,0+</string>
+	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
+	<string name="pref_traffic_simplified_colors_title">Εύκολα χρώματα για την κίνηση</string>
+	<string name="enable_logging">Ενεργοποίηση δυνατότητας καταγραφής</string>
+	<string name="whatsnew_more_info_on_hotels_title">Περισσότερες πληροφορίες για τα ξενοδοχεία</string>
+	<string name="whatsnew_more_info_on_hotels_message">Ολοκαίνουργια εμφάνιση για τις σελίδες των ξενοδοχείων: Δείτε φωτογραφίες, κριτικές χρηστών και άλλες πληροφορίες online.</string>
+	<string name="whatsnew_better_routing_title">Βελτιωμένη σχεδίαση διαδρομής</string>
+	<string name="whatsnew_better_routing_message">• Ακριβέστερη εκτίμηση ώρας άφιξης. \n• Η εφαρμογή λαμβάνει υπόψη τις περιοχές που απαγορεύονται και την οδική σήμανση.</string>
+	<string name="whatsnew_smaller_mwm_title">Μικρότερο μέγεθος χαρτών</string>
+	<string name="whatsnew_smaller_mwm_message">Οι χάρτες απαιτούν 20% λιγότερο αποθηκευτικό χώρο.</string>
+	<string name="whatsnew_waypoints_title">Ενδιάμεσα σημεία στη διαδρομή</string>
+	<string name="whatsnew_waypoints_message">Πατήστε στα μέρη για να προσθέσετε ενδιάμεσα σημεία στη διαδρομή σας.</string>
+	<string name="whatsnew_driving_style_title">Νέο στυλ χάρτη για την οδήγηση</string>
+	<string name="whatsnew_driving_style_message">Ευκολότερη λειτουργία πλοήγησης αυτοκινήτου.</string>
 </resources>
