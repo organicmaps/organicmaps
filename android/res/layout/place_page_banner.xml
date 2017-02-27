@@ -4,6 +4,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="@dimen/placepage_banner_height"
+  android:minHeight="@dimen/placepage_banner_height"
   android:paddingLeft="@dimen/margin_base"
   android:paddingRight="@dimen/margin_base"
   android:paddingTop="@dimen/margin_half"
@@ -109,4 +110,38 @@
     android:visibility="gone"
     tools:text="Заказать"
     tools:visibility="visible"/>
+
+  <LinearLayout
+    android:id="@+id/progress_bar"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:gravity="center_vertical"
+    android:visibility="gone"
+    tools:visibility="visible">
+    <ProgressBar
+      android:layout_width="@dimen/margin_base_plus"
+      android:layout_height="@dimen/margin_base_plus"
+      android:layout_marginRight="@dimen/margin_half"
+      android:layout_marginEnd="@dimen/margin_half"
+      style="@style/Widget.AppCompat.ProgressBar"/>
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textAppearance="@style/MwmTextAppearance.Body4"
+      android:lines="1"
+      android:text="@string/downloading"/>
+  </LinearLayout>
+
+  <TextView
+    android:id="@+id/error"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:textAppearance="@style/MwmTextAppearance.Body4"
+    android:lines="1"
+    android:text="@string/download_failed"
+    android:visibility="gone"/>
 </RelativeLayout>
