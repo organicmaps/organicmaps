@@ -48,8 +48,7 @@ struct HotelInfo
 class RawApi
 {
 public:
-  static bool GetHotelAvailability(string const & hotelId, string const & currency, string & result,
-                                   bool testing = false);
+  static bool GetHotelAvailability(string const & hotelId, string const & currency, string & result);
   static bool GetExtendedInfo(string const & hotelId, string const & lang, string & result);
 };
 
@@ -59,8 +58,6 @@ using GetHotelInfoCallback = function<void(HotelInfo const & hotelInfo)>;
 class Api
 {
 public:
-  void SetTestingMode(bool testing) { m_testingMode = testing; }
-
   string GetBookHotelUrl(string const & baseUrl) const;
   string GetDescriptionUrl(string const & baseUrl) const;
   // Real-time information methods (used for retriving rapidly changing information).
@@ -70,8 +67,7 @@ public:
   // Static information methods (use for information that can be cached).
   // These methods use caching server to prevent Booking from being ddossed.
   void GetHotelInfo(string const & hotelId, string const & lang, GetHotelInfoCallback const & fn);
-
-private:
-  bool m_testingMode = false;
 };
+
+void SetBookingUrlForTesting(string const & url);
 }  // namespace booking

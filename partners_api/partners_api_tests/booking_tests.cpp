@@ -2,14 +2,15 @@
 
 #include "partners_api/booking_api.hpp"
 
+#include "base/scope_guard.hpp"
+
 namespace
 {
-string const kHotelId = "98251";  // Special hotel id for testing.
-
 UNIT_TEST(Booking_GetHotelAvailability)
 {
+  string const kHotelId = "98251";  // Booking hotel id for testing.
   string result;
-  TEST(booking::RawApi::GetHotelAvailability(kHotelId, "", result, true), ());
+  TEST(booking::RawApi::GetHotelAvailability(kHotelId, "", result), ());
   TEST(!result.empty(), ());
 }
 
@@ -23,9 +24,11 @@ UNIT_TEST(Booking_GetExtendedInfo)
 
 UNIT_TEST(Booking_GetMinPrice)
 {
-  booking::Api api;
-  api.SetTestingMode(true);
+  booking::SetBookingUrlForTesting("http://localhost:34568/booking/min_price");
+  MY_SCOPE_GUARD(cleanup, []() { booking::SetBookingUrlForTesting(""); });
 
+  string const kHotelId = "0000000";  // Internal hotel id for testing.
+  booking::Api api;
   {
     string price;
     string currency;
