@@ -19,12 +19,10 @@
 namespace search
 {
 // todo(@m, @y). Unite with the similar function in search/feature_offset_match.hpp.
-template <typename Trie, typename DFA, typename ToDo>
-bool MatchInTrie(Trie const & /* trie */, typename Trie::Iterator const & trieStartIt,
-                 DFA const & dfa, ToDo && toDo)
+template <typename TrieIt, typename DFA, typename ToDo>
+bool MatchInTrie(TrieIt const & trieStartIt, DFA const & dfa, ToDo && toDo)
 {
-  using Char = typename Trie::Char;
-  using TrieIt = typename Trie::Iterator;
+  using Char = typename TrieIt::Char;
   using DFAIt = typename DFA::Iterator;
   using State = pair<TrieIt, DFAIt>;
 
@@ -97,7 +95,7 @@ template <typename ToDo>
 void ForEachCategoryTypeFuzzy(StringSliceBase const & slice, TLocales const & locales,
                               CategoriesHolder const & categories, ToDo && todo)
 {
-  using Trie = my::MemTrie<strings::UniString, uint32_t>;
+  using Trie = my::MemTrie<strings::UniString, my::VectorValues<uint32_t>>;
 
   auto const & trie = categories.GetNameToTypesTrie();
   auto const & trieRootIt = trie.GetRootIterator();
@@ -112,12 +110,9 @@ void ForEachCategoryTypeFuzzy(StringSliceBase const & slice, TLocales const & lo
     // dfas for the prefix tokens differ, i.e. we ignore slice.IsPrefix(i) here.
     strings::LevenshteinDFA const dfa(token, 1 /* prefixCharsToKeep */, GetMaxErrorsForToken(token));
 
-    trieRootIt.ForEachMove([&](Trie::Char const & c, Trie::Iterator const & moveIt) {
+    trieRootIt.ForEachMove([&](Trie::Char const & c, Trie::Iterator const & trieStartIt) {
       if (std::binary_search(sortedLocales.begin(), sortedLocales.end(), static_cast<int8_t>(c)))
-      {
-        MatchInTrie(trie /* passed to infer the iterator's type */, moveIt, dfa,
-                    std::bind<void>(todo, i, std::placeholders::_1));
-      }
+        MatchInTrie(trieStartIt, dfa, std::bind<void>(todo, i, std::placeholders::_1));
     });
   }
 }

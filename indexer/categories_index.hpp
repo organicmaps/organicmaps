@@ -69,6 +69,6 @@ private:
   // here because this class may be used from Objectvie-C
   // so a default constructor is needed.
   CategoriesHolder const * m_catHolder = nullptr;
-  my::MemTrie<string, uint32_t> m_trie;
+  my::MemTrie<string, my::VectorValues<uint32_t>> m_trie;
 };
 }  // namespace indexer
