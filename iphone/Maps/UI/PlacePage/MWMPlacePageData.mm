@@ -1,6 +1,8 @@
 #import "MWMPlacePageData.h"
+#import "AppInfo.h"
 #import "MWMNetworkPolicy.h"
 #import "MWMSettings.h"
+#import "SwiftBridge.h"
 
 #include "Framework.h"
 
@@ -26,6 +28,12 @@ using namespace place_page;
   vector<PreviewRows> m_previewRows;
   vector<MetainfoRows> m_metainfoRows;
   vector<ButtonsRows> m_buttonsRows;
+  vector<HotelPhotosRow> m_hotelPhotosRows;
+  vector<HotelDescriptionRow> m_hotelDescriptionRows;
+  vector<HotelFacilitiesRow> m_hotelFacilitiesRows;
+  vector<HotelReviewsRow> m_hotelReviewsRows;
+
+  booking::HotelInfo m_hotelInfo;
 }
 
 - (instancetype)initWithPlacePageInfo:(Info const &)info
@@ -46,6 +54,10 @@ using namespace place_page;
   m_previewRows.clear();
   m_metainfoRows.clear();
   m_buttonsRows.clear();
+  m_hotelPhotosRows.clear();
+  m_hotelDescriptionRows.clear();
+  m_hotelReviewsRows.clear();
+  m_hotelFacilitiesRows.clear();
 
   m_sections.push_back(Sections::Preview);
   [self fillPreviewSection];
@@ -140,6 +152,98 @@ using namespace place_page;
     m_buttonsRows.push_back(ButtonsRows::AddBusiness);
 }
 
+- (void)fillOnlineBookingSections
+{
+  if (!self.isBooking)
+    return;
+
+  if (Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
+    return;
+
+  network_policy::CallPartnersApi([self](platform::NetworkPolicy const & canUseNetwork)
+  {
+    if (auto const api = GetFramework().GetBookingApi(canUseNetwork))
+    {
+      string const hotelId = self.sponsoredId.UTF8String;
+      api->GetHotelInfo(hotelId, [[AppInfo sharedInfo] languageId].UTF8String, [hotelId, self](booking::HotelInfo const & hotelInfo)
+      {
+        if (hotelId != hotelInfo.m_hotelId)
+          return;
+
+        m_hotelInfo = hotelInfo;
+
+        auto & sections = self->m_sections;
+        auto const begin = sections.begin();
+        auto const end = sections.end();
+
+        NSUInteger const position = find(begin, end, Sections::Bookmark) != end ? 2 : 1;
+        NSUInteger length = 0;
+        auto it = m_sections.begin() + position;
+
+        if (!hotelInfo.m_photos.empty())
+        {
+          it = sections.insert(it, Sections::HotelPhotos) + 1;
+          m_hotelPhotosRows.emplace_back(HotelPhotosRow::Regular);
+          length++;
+        }
+
+        if (!hotelInfo.m_description.empty())
+        {
+          it = sections.insert(it, Sections::HotelDescription) + 1;
+          m_hotelDescriptionRows.emplace_back(HotelDescriptionRow::Regular);
+          length++;
+        }
+
+        auto constexpr maxNumberOfHotelCellsInPlacePage = 3UL;
+
+        auto const & facilities = hotelInfo.m_facilities;
+        if (!facilities.empty())
+        {
+          it = sections.insert(it, Sections::HotelFacilities) + 1;
+          auto & facilitiesRows = self->m_hotelFacilitiesRows;
+          auto const size = facilities.size();
+
+          if (size > maxNumberOfHotelCellsInPlacePage)
+          {
+            facilitiesRows.insert(facilitiesRows.begin(), maxNumberOfHotelCellsInPlacePage, HotelFacilitiesRow::Regular);
+            facilitiesRows.emplace_back(HotelFacilitiesRow::ShowMore);
+          }
+          else
+          {
+            facilitiesRows.insert(facilitiesRows.begin(), size, HotelFacilitiesRow::Regular);
+          }
+
+          length++;
+        }
+
+        auto const & reviews = hotelInfo.m_reviews;
+        if (!reviews.empty())
+        {
+          sections.insert(it, Sections::HotelReviews);
+          auto const size = reviews.size();
+          auto & reviewsRows = self->m_hotelReviewsRows;
+
+          reviewsRows.emplace_back(HotelReviewsRow::Header);
+          if (size > maxNumberOfHotelCellsInPlacePage)
+          {
+            reviewsRows.insert(reviewsRows.begin() + 1, maxNumberOfHotelCellsInPlacePage, HotelReviewsRow::Regular);
+            reviewsRows.emplace_back(HotelReviewsRow::ShowMore);
+          }
+          else
+          {
+            reviewsRows.insert(reviewsRows.begin() + 1, size, HotelReviewsRow::Regular);
+          }
+          length++;
+        }
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+          self.sectionsReadyCallback({position, length});
+        });
+      });
+    }
+  });
+}
+
 - (void)updateBookmarkStatus:(BOOL)isBookmark
 {
   auto & f = GetFramework();
@@ -202,16 +306,10 @@ using namespace place_page;
   return type::Unknown;
 }
 
-- (NSString *)bookingRating
-{
-  return self.isBooking ? @(m_info.GetRatingFormatted().c_str()) : nil;
-}
+#pragma mark - Sponsored
 
-- (NSString *)bookingApproximatePricing
-{
-  return self.isBooking ? @(m_info.GetApproximatePricing().c_str()) : nil;
-}
-
+- (NSString *)bookingRating { return self.isBooking ? @(m_info.GetRatingFormatted().c_str()) : nil; }
+- (NSString *)bookingApproximatePricing { return self.isBooking ? @(m_info.GetApproximatePricing().c_str()) : nil; }
 - (NSURL *)sponsoredURL
 {
   return m_info.IsSponsored() ? [NSURL URLWithString:@(m_info.GetSponsoredUrl().c_str())]
@@ -232,7 +330,6 @@ using namespace place_page;
              : nil;
 }
 
-- (banners::Banner)banner { return m_info.GetBanner(); }
 - (void)assignOnlinePriceToLabel:(UILabel *)label
 {
   NSAssert(self.isBooking, @"Online price must be assigned to booking object!");
@@ -278,11 +375,35 @@ using namespace place_page;
         auto const api = GetFramework().GetBookingApi(canUseNetwork);
         if (api)
           api->GetMinPrice(self.sponsoredId.UTF8String, currency, func);
-      });
+  });
 }
 
-- (NSString *)address { return @(m_info.GetAddress().c_str()); }
-- (NSString *)apiURL { return @(m_info.GetApiUrl().c_str()); }
+- (NSString *)hotelDescription { return @(m_hotelInfo.m_description.c_str()); }
+- (vector<booking::HotelFacility> const &)facilities { return m_hotelInfo.m_facilities; }
+- (vector<booking::HotelReview> const &)reviews { return m_hotelInfo.m_reviews; }
+- (NSUInteger)numberOfReviews { return m_hotelInfo.m_score; }
+- (NSArray<MWMGalleryItemModel *> *)photos
+{
+  NSMutableArray<MWMGalleryItemModel *> * res = [@[] mutableCopy];
+  for (auto const & p : m_hotelInfo.m_photos)
+  {
+    auto big = [NSURL URLWithString:@(p.m_original.c_str())];
+    auto preview = [NSURL URLWithString:@(p.m_small.c_str())];
+    if (!big || !preview)
+      continue;
+    
+    auto photo = [[MWMGalleryItemModel alloc] initWithImageURL:big previewURL:preview];
+    [res addObject:photo];
+  }
+  return res;
+}
+
+#pragma mark - Banner
+
+- (banners::Banner)banner { return m_info.GetBanner(); }
+
+#pragma mark - Bookmark
+
 - (NSString *)externalTitle
 {
   return m_info.IsBookmark() && m_info.m_bookmarkTitle != m_info.GetTitle()
@@ -312,11 +433,19 @@ using namespace place_page;
   return m_info.IsBookmark() ? m_info.m_bac : BookmarkAndCategory();
 }
 
+#pragma mark - Getters
+
+- (NSString *)address { return @(m_info.GetAddress().c_str()); }
+- (NSString *)apiURL { return @(m_info.GetApiUrl().c_str()); }
 - (vector<Sections> const &)sections { return m_sections; }
 - (vector<PreviewRows> const &)previewRows { return m_previewRows; }
 - (vector<MetainfoRows> const &)metainfoRows { return m_metainfoRows; }
 - (vector<MetainfoRows> &)mutableMetainfoRows { return m_metainfoRows; }
 - (vector<ButtonsRows> const &)buttonsRows { return m_buttonsRows; }
+- (vector<HotelPhotosRow> const &)photosRows { return m_hotelPhotosRows; }
+- (vector<HotelDescriptionRow> const &)descriptionRows { return m_hotelDescriptionRows; }
+- (vector<HotelFacilitiesRow> const &)hotelFacilitiesRows { return m_hotelFacilitiesRows; }
+- (vector<HotelReviewsRow> const &)hotelReviewsRows { return m_hotelReviewsRows; }
 - (NSString *)stringForRow:(MetainfoRows)row
 {
   switch (row)

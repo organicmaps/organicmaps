@@ -33,6 +33,7 @@ struct AddressInfo;
 - (void)openBookmarks;
 - (void)openMapsDownloader:(mwm::DownloaderMode)mode;
 - (void)openEditor;
+- (void)openHotelFacilities;
 - (void)openBookmarkEditorWithData:(MWMPlacePageData *)data;
 
 - (void)initialize;

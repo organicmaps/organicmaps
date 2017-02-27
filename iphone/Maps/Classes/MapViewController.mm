@@ -10,6 +10,7 @@
 #import "MWMCommon.h"
 #import "MWMEditBookmarkController.h"
 #import "MWMEditorViewController.h"
+#import "MWMFacilitiesController.h"
 #import "MWMFrameworkListener.h"
 #import "MWMKeyboard.h"
 #import "MWMLocationHelpers.h"
@@ -65,6 +66,7 @@ NSString * const kMigrationSegue = @"Map2MigrationSegue";
 NSString * const kEditorSegue = @"Map2EditorSegue";
 NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
 NSString * const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
+NSString * const kHotelFacilitiesSegue = @"Map2FacilitiesSegue";
 
 // The first launch after process started. Used to skip "Not follow, no position" state and to run
 // locator.
@@ -390,6 +392,11 @@ BOOL gIsFirstMyPositionMode = YES;
   [self performSegueWithIdentifier:kEditorSegue sender:self.controlsManager.featureHolder];
 }
 
+- (void)openHotelFacilities
+{
+  [self performSegueWithIdentifier:kHotelFacilitiesSegue sender:self.controlsManager.bookingInfoHolder];
+}
+
 - (void)openBookmarkEditorWithData:(MWMPlacePageData *)data
 {
   [self performSegueWithIdentifier:kPP2BookmarkEditingSegue sender:data];
@@ -550,6 +557,13 @@ BOOL gIsFirstMyPositionMode = YES;
   {
     MWMAuthorizationWebViewLoginViewController * dvc = segue.destinationViewController;
     dvc.authType = MWMWebViewAuthorizationTypeGoogle;
+  }
+  else if ([segue.identifier isEqualToString:kHotelFacilitiesSegue])
+  {
+    MWMFacilitiesController * dvc = segue.destinationViewController;
+    auto bookingInfo = id<MWMBookingInfoHolder>(sender);
+    dvc.facilities = bookingInfo.hotelFacilities;
+    dvc.hotelName = bookingInfo.hotelName;
   }
 }
 

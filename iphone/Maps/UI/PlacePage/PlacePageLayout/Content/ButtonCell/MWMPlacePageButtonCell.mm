@@ -24,22 +24,28 @@
 - (void)configForRow:(place_page::ButtonsRows)row
         withDelegate:(id<MWMPlacePageButtonsProtocol>)delegate
 {
+  using place_page::ButtonsRows;
+
   self.delegate = delegate;
   self.rowType = row;
   NSString * title = nil;
   switch (row)
   {
-  case place_page::ButtonsRows::AddPlace:
+  case ButtonsRows::AddPlace:
     title = L(@"placepage_add_place_button");
     break;
-  case place_page::ButtonsRows::EditPlace:
+  case ButtonsRows::EditPlace:
     title = L(@"edit_place");
     break;
-  case place_page::ButtonsRows::AddBusiness:
+  case ButtonsRows::AddBusiness:
     title = L(@"placepage_add_business_button");
     break;
-  case place_page::ButtonsRows::HotelDescription:
+  case ButtonsRows::HotelDescription:
     title = L(@"details");
+    break;
+  case ButtonsRows::BookingShowMoreFacilities:
+  case ButtonsRows::BookingShowMoreReviews:
+    title = L(@"booking_show_more");
     break;
   }
 
@@ -49,7 +55,8 @@
 
 - (IBAction)buttonTap
 {
-  using namespace place_page;
+  using place_page::ButtonsRows;
+  
   auto d = self.delegate;
   switch (self.rowType)
   {
@@ -57,6 +64,8 @@
   case ButtonsRows::EditPlace: [d editPlace]; break;
   case ButtonsRows::AddBusiness: [d addBusiness]; break;
   case ButtonsRows::HotelDescription: [d book:YES]; break;
+  case ButtonsRows::BookingShowMoreFacilities: [d showAllFacilities]; break;
+  case ButtonsRows::BookingShowMoreReviews: [d showAllReviews]; break;
   }
 }
 

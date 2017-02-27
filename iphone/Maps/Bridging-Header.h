@@ -14,6 +14,8 @@
 #import "MWMKeyboard.h"
 #import "MWMLocationManager.h"
 #import "MWMNoMapsViewController.h"
+#import "MWMPlacePageButtonsProtocol.h"
+#import "MWMPlacePageCellUpdateProtocol.h"
 #import "MWMPushNotifications.h"
 #import "MWMRouter.h"
 #import "MWMSearchNoResults.h"

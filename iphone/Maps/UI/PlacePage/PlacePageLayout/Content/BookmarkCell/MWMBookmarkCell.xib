@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,10 +16,11 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="240"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="45K-kk-B2o" id="wdW-iu-3p9">
-                <frame key="frameInset" width="320" height="239"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="239"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Fsd-1g-BiQ">
+                        <rect key="frame" x="16" y="0.0" width="288" height="161"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="161" id="9oh-yS-fXg"/>
@@ -35,6 +39,7 @@
                         </connections>
                     </textView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradient_light" translatesAutoresizingMaskIntoConstraints="NO" id="nxK-lC-JqY">
+                        <rect key="frame" x="16" y="137" width="288" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="lxX-KK-ccK"/>
                         </constraints>
@@ -43,6 +48,7 @@
                         </userDefinedRuntimeAttributes>
                     </imageView>
                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZiC-VG-fs0">
+                        <rect key="frame" x="0.0" y="161" width="320" height="33"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="33" id="I3z-10-2aB"/>
                         </constraints>
@@ -61,6 +67,7 @@
                         </connections>
                     </button>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_image" translatesAutoresizingMaskIntoConstraints="NO" id="ZHb-qS-nFh">
+                        <rect key="frame" x="16" y="194" width="304" height="1"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="Nie-DF-2Ki"/>
                         </constraints>
@@ -69,6 +76,7 @@
                         </userDefinedRuntimeAttributes>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fKp-HW-1bX">
+                        <rect key="frame" x="0.0" y="195" width="320" height="44"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="44" id="GrP-Iw-EEG"/>
                         </constraints>
@@ -87,6 +95,7 @@
                         </connections>
                     </button>
                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xqf-Fb-Ojj">
+                        <rect key="frame" x="142" y="199" width="36" height="36"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="36" id="gj2-Tn-x6I"/>
                             <constraint firstAttribute="height" constant="36" id="rzU-50-2nS"/>

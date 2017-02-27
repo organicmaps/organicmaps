@@ -586,4 +586,8 @@ extern NSString * const kAlohalyticsTapEventKey;
 #pragma mark - MWMFeatureHolder
 
 - (id<MWMFeatureHolder>)featureHolder { return self.placePageManager; }
+
+#pragma mark - MWMBookingInfoHolder
+- (id<MWMBookingInfoHolder>)bookingInfoHolder { return self.placePageManager; }
+
 @end

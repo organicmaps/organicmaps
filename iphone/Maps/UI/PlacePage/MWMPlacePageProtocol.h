@@ -1,4 +1,5 @@
 #import "MWMMapViewControlsManager.h"
+#import "MWMPlacePageButtonsProtocol.h"
 
 #include "Framework.h"
 
@@ -22,17 +23,6 @@
 
 @end
 
-@protocol MWMPlacePageButtonsProtocol<NSObject>
-
-- (void)editPlace;
-- (void)addPlace;
-- (void)addBusiness;
-- (void)book:(BOOL)isDescription;
-- (void)editBookmark;
-- (void)taxiTo;
-
-@end
-
 struct FeatureID;
 
 @protocol MWMFeatureHolder<NSObject>
@@ -41,7 +31,19 @@ struct FeatureID;
 
 @end
 
-@protocol MWMPlacePageProtocol<MWMActionBarProtocol, MWMPlacePageButtonsProtocol, MWMFeatureHolder>
+namespace booking
+{
+struct HotelFacility;
+}
+
+@protocol MWMBookingInfoHolder<NSObject>
+
+- (std::vector<booking::HotelFacility> const &)hotelFacilities;
+- (NSString *)hotelName;
+
+@end
+
+@protocol MWMPlacePageProtocol<MWMActionBarProtocol, MWMPlacePageButtonsProtocol, MWMFeatureHolder, MWMBookingInfoHolder>
 
 @property(nonatomic) CGFloat topBound;
 @property(nonatomic) CGFloat leftBound;

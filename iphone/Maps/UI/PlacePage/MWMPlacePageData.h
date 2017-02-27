@@ -2,6 +2,8 @@
 
 #include "std/vector.hpp"
 
+#include "partners_api/booking_api.hpp"
+
 namespace place_page
 {
 enum class Sections
@@ -9,7 +11,11 @@ enum class Sections
   Preview,
   Bookmark,
   Metainfo,
-  Buttons
+  Buttons,
+  HotelPhotos,
+  HotelDescription,
+  HotelFacilities,
+  HotelReviews
 };
 
 enum class PreviewRows
@@ -22,6 +28,29 @@ enum class PreviewRows
   Address,
   Space,
   Banner
+};
+
+enum class HotelDescriptionRow
+{
+  Regular
+};
+
+enum class HotelPhotosRow
+{
+  Regular
+};
+
+enum class HotelFacilitiesRow
+{
+  Regular,
+  ShowMore
+};
+
+enum class HotelReviewsRow
+{
+  Header,
+  Regular,
+  ShowMore
 };
 
 enum class MetainfoRows
@@ -44,7 +73,9 @@ enum class ButtonsRows
   AddBusiness,
   EditPlace,
   AddPlace,
-  HotelDescription
+  HotelDescription,
+  BookingShowMoreFacilities,
+  BookingShowMoreReviews
 };
 
 enum class OpeningHours
@@ -55,10 +86,17 @@ enum class OpeningHours
   Unknown
 };
 
-}  // namespace place_page_data
+using NewSectionsReady = void(^)(NSRange const & range);
+
+}  // namespace place_page
+
+
+@class MWMGalleryItemModel;
 
 /// ViewModel for place page.
 @interface MWMPlacePageData : NSObject
+
+@property (copy, nonatomic) place_page::NewSectionsReady sectionsReadyCallback;
 
 // ready callback will be called from main queue.
 - (instancetype)initWithPlacePageInfo:(place_page::Info const &)info;
@@ -76,13 +114,21 @@ enum class OpeningHours
 - (NSString *)address;
 
 // Booking
+- (void)fillOnlineBookingSections;
 - (NSString *)bookingRating;
 - (NSString *)bookingApproximatePricing;
 - (NSURL *)sponsoredURL;
 - (NSURL *)sponsoredDescriptionURL;
 - (NSString *)sponsoredId;
-- (banners::Banner)banner;
 - (void)assignOnlinePriceToLabel:(UILabel *)label;
+- (NSString *)hotelDescription;
+- (vector<booking::HotelFacility> const &)facilities;
+- (vector<booking::HotelReview> const &)reviews;
+- (NSUInteger)numberOfReviews;
+- (NSArray<MWMGalleryItemModel *> *)photos;
+
+// Banner
+- (banners::Banner)banner;
 
 // API
 - (NSString *)apiURL;
@@ -97,6 +143,10 @@ enum class OpeningHours
 // Table view's data
 - (vector<place_page::Sections> const &)sections;
 - (vector<place_page::PreviewRows> const &)previewRows;
+- (vector<place_page::HotelPhotosRow> const &)photosRows;
+- (vector<place_page::HotelDescriptionRow> const &)descriptionRows;
+- (vector<place_page::HotelFacilitiesRow> const &)hotelFacilitiesRows;
+- (vector<place_page::HotelReviewsRow> const &)hotelReviewsRows;
 - (vector<place_page::MetainfoRows> const &)metainfoRows;
 - (vector<place_page::ButtonsRows> const &)buttonsRows;
 

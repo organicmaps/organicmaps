@@ -18,6 +18,7 @@
 #import "MWMViewController.h"
 #import "MapViewController.h"
 #import "Statistics.h"
+#import "SwiftBridge.h"
 
 #include "geometry/distance_on_sphere.hpp"
 
@@ -298,6 +299,30 @@
   [[MapViewController controller].apiBar back];
 }
 
+- (void)showAllReviews
+{
+  // TODO: Open reviews url.
+}
+
+- (void)showPhotoAtIndex:(NSUInteger)index
+{
+  auto model = self.data.photos[index];
+  auto galleryVc = [MWMGalleryItemViewController instanceWithModel:model];
+  [[MapViewController controller].navigationController pushViewController:galleryVc animated:YES];
+}
+
+- (void)showGalery
+{
+  auto galleryVc = [MWMGalleryViewController instanceWithModel:[[MWMGalleryModel alloc]
+                                                                initWithTitle:self.hotelName items:self.data.photos]];
+  [[MapViewController controller].navigationController pushViewController:galleryVc animated:YES];
+}
+
+- (void)showAllFacilities
+{
+  [[MapViewController controller] openHotelFacilities];
+}
+
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
@@ -313,7 +338,12 @@
 
 - (FeatureID const &)featureId { return self.data.featureId; }
 
-#pragma mark - Owner
+#pragma mark - MWMBookingInfoHolder
+
+- (std::vector<booking::HotelFacility> const &)hotelFacilities { return self.data.facilities; }
+- (NSString *)hotelName { return self.data.title; }
+
+#pragma mark - Ownerfacilities
 
 - (MapViewController *)ownerViewController { return [MapViewController controller]; }
 

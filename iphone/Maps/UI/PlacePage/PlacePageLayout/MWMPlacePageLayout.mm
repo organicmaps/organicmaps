@@ -3,6 +3,7 @@
 #import "MWMCircularProgress.h"
 #import "MWMOpeningHoursLayoutHelper.h"
 #import "MWMPPPreviewLayoutHelper.h"
+#import "MWMPPReviewCell.h"
 #import "MWMPlacePageButtonCell.h"
 #import "MWMPlacePageCellUpdateProtocol.h"
 #import "MWMPlacePageData.h"
@@ -96,6 +97,11 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   auto tv = self.placePageView.tableView;
   [tv registerWithCellClass:[MWMPlacePageButtonCell class]];
   [tv registerWithCellClass:[MWMBookmarkCell class]];
+  [tv registerWithCellClass:[MWMPPHotelDescriptionCell class]];
+  [tv registerWithCellClass:[MWMPPHotelCarouselCell class]];
+  [tv registerWithCellClass:[MWMPPReviewHeaderCell class]];
+  [tv registerWithCellClass:[MWMPPReviewCell class]];
+  [tv registerWithCellClass:[MWMPPFacilityCell class]];
 
   // Register all meta info cells.
   for (auto const & pair : kMetaInfoCells)
@@ -112,6 +118,12 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 {
   self.isPlacePageButtonsEnabled = YES;
   self.data = data;
+  data.sectionsReadyCallback = ^(NSRange const & range)
+  {
+    [self.placePageView.tableView insertSections:[NSIndexSet indexSetWithIndexesInRange:range]
+                                withRowAnimation:UITableViewRowAnimationAutomatic];
+  };
+  
   self.bookmarkCell = nil;
 
   [self.actionBar configureWithData:static_cast<id<MWMActionBarSharedData>>(data)];
@@ -122,6 +134,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 
   [self.placePageView.tableView reloadData];
   [self.layoutImpl onShow];
+  [data fillOnlineBookingSections];
 }
 
 - (void)rotateDirectionArrowToAngle:(CGFloat)angle
@@ -285,6 +298,10 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   case Sections::Preview: return data.previewRows.size();
   case Sections::Metainfo: return data.metainfoRows.size();
   case Sections::Buttons: return data.buttonsRows.size();
+  case Sections::HotelPhotos: return data.photosRows.size();
+  case Sections::HotelDescription: return data.descriptionRows.size();
+  case Sections::HotelFacilities: return data.hotelFacilitiesRows.size();
+  case Sections::HotelReviews: return data.hotelReviewsRows.size();
   }
 }
 
@@ -358,6 +375,68 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     else
       [c setEnabled:YES];
 
+    return c;
+  }
+  case Sections::HotelPhotos:
+  {
+    Class cls = [MWMPPHotelCarouselCell class];
+    auto c = static_cast<MWMPPHotelCarouselCell *>([tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+    [c configWith:data.photos delegate:delegate];
+    return c;
+  }
+  case Sections::HotelFacilities:
+  {
+    auto const row = data.hotelFacilitiesRows[indexPath.row];
+    switch (row)
+    {
+    case HotelFacilitiesRow::Regular:
+    {
+      Class cls = [MWMPPFacilityCell class];
+      auto c = static_cast<MWMPPFacilityCell *>([tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+      [c configWith:@(data.facilities[indexPath.row].m_name.c_str())];
+      return c;
+    }
+    case HotelFacilitiesRow::ShowMore:
+      Class cls = [MWMPlacePageButtonCell class];
+      auto c = static_cast<MWMPlacePageButtonCell *>([tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+      [c configForRow:ButtonsRows::BookingShowMoreFacilities withDelegate:delegate];
+      return c;
+    }
+  }
+  case Sections::HotelReviews:
+  {
+    auto const row = data.hotelReviewsRows[indexPath.row];
+    switch (row)
+    {
+    case HotelReviewsRow::Header:
+    {
+      Class cls = [MWMPPReviewHeaderCell class];
+      auto c = static_cast<MWMPPReviewHeaderCell *>([tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+      [c configWith:data.bookingRating numberOfReviews:data.numberOfReviews];
+      return c;
+    }
+    case HotelReviewsRow::Regular:
+    {
+      Class cls = [MWMPPReviewCell class];
+      auto c = static_cast<MWMPPReviewCell *>([tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+      [c configWithReview:data.reviews[indexPath.row - 1]];
+      return c;
+    }
+    case HotelReviewsRow::ShowMore:
+    {
+      Class cls = [MWMPlacePageButtonCell class];
+      auto c = static_cast<MWMPlacePageButtonCell *>([tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+      [c configForRow:ButtonsRows::BookingShowMoreReviews withDelegate:delegate];
+      return c;
+    }
+    }
+  }
+  case Sections::HotelDescription:
+  {
+    Class cls = [MWMPPHotelDescriptionCell class];
+    auto c = static_cast<MWMPPHotelDescriptionCell *>(
+       [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+    [c configWith:data.hotelDescription delegate:self];
     return c;
   }
   }

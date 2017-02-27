@@ -29,7 +29,7 @@ final class GalleryItemViewController: MWMViewController {
     imageView.contentMode = .scaleAspectFit
     scrollView.addSubview(imageView)
     imageView.af_setImage(withURL: model.imageURL,
-                          placeholderImage: UIImage(named: "ic_placeholder"))
+                          placeholderImage: #imageLiteral(resourceName: "ic_placeholder"))
   }
 
   override func viewDidLayoutSubviews() {

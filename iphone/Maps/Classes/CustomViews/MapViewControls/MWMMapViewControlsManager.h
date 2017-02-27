@@ -7,6 +7,7 @@
 
 @class MapViewController;
 @protocol MWMFeatureHolder;
+@protocol MWMBookingInfoHolder;
 
 @interface MWMMapViewControlsManager : NSObject
 
@@ -63,5 +64,9 @@
 #pragma mark - MWMFeatureHolder
 
 - (id<MWMFeatureHolder>)featureHolder;
+
+#pragma mark - MWMBookingInfoHolder
+
+- (id<MWMBookingInfoHolder>)bookingInfoHolder;
 
 @end
