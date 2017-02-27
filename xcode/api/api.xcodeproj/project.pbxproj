@@ -211,7 +211,6 @@
 		3496AB8A1DC1F6CE00C5DDBA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = maps.me.api_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -221,7 +220,6 @@
 		3496AB8B1DC1F6CE00C5DDBA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = maps.me.api_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
