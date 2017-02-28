@@ -15,6 +15,8 @@ import xml.etree.ElementTree as ElementTree
 from optparse import OptionParser
 import re
 
+REPLACE_CHARS_RE = re.compile("[\x00-\x1f]")
+
 
 class PrefixesInLog:
     OK = "OK"
@@ -202,7 +204,7 @@ class Parser:
             if line == "All tests passed." or re.match("\d{1,} tests failed", line, re.IGNORECASE):
                 self.var_should_pass = True
                 return False
-            line = line.replace("\0", "\\0")
+            line = REPLACE_CHARS_RE.sub("_", line)
             self.test_info.append_comment(line)
         return False
 
