@@ -1810,6 +1810,7 @@
 
 "booking_filter_price_high" = "$$$";
 
+/* Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible */
 "pref_traffic_simplified_colors_title" = "Простые цвета пробок";
 
 "enable_logging" = "Включить запись логов";

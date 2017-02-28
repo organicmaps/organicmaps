@@ -1051,4 +1051,17 @@
 	<string name="booking_filter_rating_num_very_good">8,0 a viac</string>
 	<!-- Nine points and higher -->
 	<string name="booking_filter_rating_num_excellent">9,0 a viac</string>
+	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
+	<string name="pref_traffic_simplified_colors_title">Zjednodušené farby dopravy</string>
+	<string name="enable_logging">Zapnúť zaznamenávanie</string>
+	<string name="whatsnew_more_info_on_hotels_title">Viac informácií o hoteloch</string>
+	<string name="whatsnew_more_info_on_hotels_message">Úplne nový vzhľad stránok o hoteloch: pozrite si fotografie, recenzie a ďalšie informácie online.</string>
+	<string name="whatsnew_better_routing_title">Zlepšené plánovanie trás</string>
+	<string name="whatsnew_better_routing_message">• Presnejší odhad času príchodu.\\n • Aplikácia berie do úvahy obmedzenia a dopravné značky.</string>
+	<string name="whatsnew_smaller_mwm_title">Mapy Maps sa zmenšili</string>
+	<string name="whatsnew_smaller_mwm_message">Mapy Maps vyžadujú až o 20% menej ukladacieho priestoru.</string>
+	<string name="whatsnew_waypoints_title">Trasovanie cez určené body</string>
+	<string name="whatsnew_waypoints_message">Ťuknite na miesta, ak chcete do trasy pridať body.</string>
+	<string name="whatsnew_driving_style_title">Nový štýl máp pre jazdu</string>
+	<string name="whatsnew_driving_style_message">Režim navigácie v aute sa zjednodušil.</string>
 </resources>

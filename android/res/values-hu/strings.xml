@@ -1048,4 +1048,17 @@
 	<string name="booking_filter_rating_num_very_good">8.0+</string>
 	<!-- Nine points and higher -->
 	<string name="booking_filter_rating_num_excellent">9,0+</string>
+	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
+	<string name="pref_traffic_simplified_colors_title">Egyszerűsített forgalmi színek</string>
+	<string name="enable_logging">Naplózás engedélyezése</string>
+	<string name="whatsnew_more_info_on_hotels_title">További információ szállodákról</string>
+	<string name="whatsnew_more_info_on_hotels_message">A szálloda oldalak teljesen megújult arculata: Nézze meg online fényképeinket, a felhasználói véleményeket és egyéb tudnivalókat.</string>
+	<string name="whatsnew_better_routing_title">Továbbfejlesztett útvonaltervezés</string>
+	<string name="whatsnew_better_routing_message">• A várható érkezési időpont Pontosabb becslése. \n• Az alkalmazás figyelembe veszi a lezárt területeket és útjelző táblákat.</string>
+	<string name="whatsnew_smaller_mwm_title">A térképek kisebbek lettek</string>
+	<string name="whatsnew_smaller_mwm_message">A térképek 20 %-kal kevesebb tárolóterületet igényelnek.</string>
+	<string name="whatsnew_waypoints_title">Iránypontok az útvonaltervezésben</string>
+	<string name="whatsnew_waypoints_message">Érintsen meg helyeket iránypontok hozzáadásához az útvonatervhez.</string>
+	<string name="whatsnew_driving_style_title">Új térképstílus vezetéshez</string>
+	<string name="whatsnew_driving_style_message">Az autós navigáció üzemmód használata egyszerűbb lett.</string>
 </resources>

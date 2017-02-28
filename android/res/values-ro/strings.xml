@@ -1044,4 +1044,17 @@
 	<string name="booking_filter_rating_num_very_good">8.0+</string>
 	<!-- Nine points and higher -->
 	<string name="booking_filter_rating_num_excellent">9.0+</string>
+	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
+	<string name="pref_traffic_simplified_colors_title">Culori trafic simplificate</string>
+	<string name="enable_logging">Activare jurnalizare</string>
+	<string name="whatsnew_more_info_on_hotels_title">Informaţii suplimentare despre hoteluri</string>
+	<string name="whatsnew_more_info_on_hotels_message">Un aspect nou al paginilor hotelurilor: fotografii, recenzii ale utilizatorilor și alte informații online.</string>
+	<string name="whatsnew_better_routing_title">Planificare îmbunătățită a rutei</string>
+	<string name="whatsnew_better_routing_message">• Estimare mai exactă a timpului de sosire.\n• Aplicația ia în calcul zonele cu restricții și semnele de circulație.</string>
+	<string name="whatsnew_smaller_mwm_title">Hărţile sunt acum mai mici</string>
+	<string name="whatsnew_smaller_mwm_message">Hărţile necesită cu 20% mai puțin spațiu de stocare.</string>
+	<string name="whatsnew_waypoints_title">Puncte de schimbare a direcției de pe traseu</string>
+	<string name="whatsnew_waypoints_message">Atingeți locații pentru a adăuga puncte de schimbare a direcției pe traseu.</string>
+	<string name="whatsnew_driving_style_title">Un nou stil de hartă pentru condus</string>
+	<string name="whatsnew_driving_style_message">Modul de navigare din mașină este acum mai ușor de utilizat.</string>
 </resources>

@@ -1047,4 +1047,17 @@
 	<string name="booking_filter_rating_num_very_good">8,0+</string>
 	<!-- Nine points and higher -->
 	<string name="booking_filter_rating_num_excellent">9,0+</string>
+	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
+	<string name="pref_traffic_simplified_colors_title">Warna lalu lintas sederhana</string>
+	<string name="enable_logging">Aktifkan pencatatan</string>
+	<string name="whatsnew_more_info_on_hotels_title">Informasi Selengkapnya tentang Hotel</string>
+	<string name="whatsnew_more_info_on_hotels_message">Penampilan baru halaman hotel: lihat foto, ulasan pengguna, dan informasi lain secara online.</string>
+	<string name="whatsnew_better_routing_title">Perencanaan Rute yang Lebih Baik</string>
+	<string name="whatsnew_better_routing_message">• Perkiraan waktu tiba yang lebih akurat.\n• Aplikasi ini mempertimbangkan area terbatas dan markah jalan.</string>
+	<string name="whatsnew_smaller_mwm_title">Peta Semakin Kecil</string>
+	<string name="whatsnew_smaller_mwm_message">Peta memerlukan pengurangan penyimpanan hingga 20%.</string>
+	<string name="whatsnew_waypoints_title">Titik Koordinat dalam Pembuatan Rute</string>
+	<string name="whatsnew_waypoints_message">Ketuk tempat untuk menambahkan titik acuan koordinat ke rute Anda.</string>
+	<string name="whatsnew_driving_style_title">Model Peta Baru untuk Berkendara</string>
+	<string name="whatsnew_driving_style_message">Mode navigasi mobil menjadi semakin mudah digunakan.</string>
 </resources>

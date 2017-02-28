@@ -1810,26 +1810,27 @@
 
 "booking_filter_price_high" = "$$$";
 
-"pref_traffic_simplified_colors_title" = "Simplified traffic colors";
+/* Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible */
+"pref_traffic_simplified_colors_title" = "Zjednodušené barvy provozu";
 
-"enable_logging" = "Enable logging";
+"enable_logging" = "Povolit protokolování";
 
-"whatsnew_more_info_on_hotels_title" = "More Information on Hotels";
+"whatsnew_more_info_on_hotels_title" = "Více informací o hotelech";
 
-"whatsnew_more_info_on_hotels_message" = "Brand new look for hotel pages: check out photos, user reviews and other information online.";
+"whatsnew_more_info_on_hotels_message" = "Zbrusu nový vzhled stránek: Podívejte se na fotografie, recenze a další informace online.";
 
-"whatsnew_better_routing_title" = "Improved Route Planning";
+"whatsnew_better_routing_title" = "Vylepšené plánování trasy";
 
-"whatsnew_better_routing_message" = "• More accurate estimation of arrival time.\n• The app takes into account restricted areas and road signs.";
+"whatsnew_better_routing_message" = "• Přesnější odhad času příjezdu. \n• Aplikace bere v úvahu dopravní omezení a dopravní značky.";
 
-"whatsnew_smaller_mwm_title" = "Maps Got Smaller";
+"whatsnew_smaller_mwm_title" = "Mapy jsou menší";
 
-"whatsnew_smaller_mwm_message" = "Maps require up to 20% less storage.";
+"whatsnew_smaller_mwm_message" = "Mapy vyžadují až o 20 % méně místa.";
 
-"whatsnew_waypoints_title" = "Waypoints in Routing";
+"whatsnew_waypoints_title" = "Body průjezdu na trase";
 
-"whatsnew_waypoints_message" = "Tap places to add waypoints to your route.";
+"whatsnew_waypoints_message" = "Klepněte na místo a přidejte bod průjezdu.";
 
-"whatsnew_driving_style_title" = "New Map Style for Driving";
+"whatsnew_driving_style_title" = "Nový styl mapy pro vozidla";
 
-"whatsnew_driving_style_message" = "Car navigation mode got easier to use.";
+"whatsnew_driving_style_message" = "Navigační režim pro auto ještě snadnější.";

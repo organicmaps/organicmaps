@@ -1810,26 +1810,27 @@
 
 "booking_filter_price_high" = "$$$";
 
-"pref_traffic_simplified_colors_title" = "Simplified traffic colors";
+/* Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible */
+"pref_traffic_simplified_colors_title" = "Màu sắc giao thông đơn giản";
 
-"enable_logging" = "Enable logging";
+"enable_logging" = "Bật nhật ký";
 
-"whatsnew_more_info_on_hotels_title" = "More Information on Hotels";
+"whatsnew_more_info_on_hotels_title" = "Thêm thông tin trên Khách sạn";
 
-"whatsnew_more_info_on_hotels_message" = "Brand new look for hotel pages: check out photos, user reviews and other information online.";
+"whatsnew_more_info_on_hotels_message" = "Giao diện hoàn toàn mới cho trang khách sạn: hãy xem các ảnh, đánh giá của người dùng và các thông tin khác trên mạng.";
 
-"whatsnew_better_routing_title" = "Improved Route Planning";
+"whatsnew_better_routing_title" = "Cải thiện Lập Kế hoạch Lộ trình";
 
-"whatsnew_better_routing_message" = "• More accurate estimation of arrival time.\n• The app takes into account restricted areas and road signs.";
+"whatsnew_better_routing_message" = "• Ước tỉnh chính xác hơn về thời gian đến.\n• Ứng dụng sẽ tính đến các khu vực bị hạn chế và biển báo đường.";
 
-"whatsnew_smaller_mwm_title" = "Maps Got Smaller";
+"whatsnew_smaller_mwm_title" = "Bản đồ nhỏ hơn";
 
-"whatsnew_smaller_mwm_message" = "Maps require up to 20% less storage.";
+"whatsnew_smaller_mwm_message" = "Giảm đến 20% kích cỡ của các bản đồ.";
 
-"whatsnew_waypoints_title" = "Waypoints in Routing";
+"whatsnew_waypoints_title" = "Điểm tọa độ trong Lộ trình";
 
-"whatsnew_waypoints_message" = "Tap places to add waypoints to your route.";
+"whatsnew_waypoints_message" = "Chạm vào các điểm để thêm điểm tọa độ vào lộ trình của bạn.";
 
-"whatsnew_driving_style_title" = "New Map Style for Driving";
+"whatsnew_driving_style_title" = "Phong cách Bản đồ Mới cho Lái xe";
 
-"whatsnew_driving_style_message" = "Car navigation mode got easier to use.";
+"whatsnew_driving_style_message" = "Chế độ điều hướng ô tô dễ sử dụng hơn.";

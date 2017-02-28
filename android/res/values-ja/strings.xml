@@ -1047,4 +1047,17 @@
 	<string name="booking_filter_rating_num_very_good">8.0+</string>
 	<!-- Nine points and higher -->
 	<string name="booking_filter_rating_num_excellent">9.0+</string>
+	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
+	<string name="pref_traffic_simplified_colors_title">簡易的な交通状況色</string>
+	<string name="enable_logging">ログを有効化</string>
+	<string name="whatsnew_more_info_on_hotels_title">ホテルの詳細情報</string>
+	<string name="whatsnew_more_info_on_hotels_message">ホテルページの見映えを一新: 写真、ユーザーレビューやその他の情報をオンラインでチェックしてください。</string>
+	<string name="whatsnew_better_routing_title">ルート選定処理を改善</string>
+	<string name="whatsnew_better_routing_message">• より正確な到着時間の見積もりを出せるようになりました。\n• このアプリは制限区域や道路標識を考慮に入れています。</string>
+	<string name="whatsnew_smaller_mwm_title">地図のサイズが小さくなりました</string>
+	<string name="whatsnew_smaller_mwm_message">地図が必要とするストレージ容量が最大で 20% 少なくなりました。</string>
+	<string name="whatsnew_waypoints_title">ルート上の経由地</string>
+	<string name="whatsnew_waypoints_message">場所をタップしてルートに経由地を追加します。</string>
+	<string name="whatsnew_driving_style_title">運転用の新しい地図のスタイル</string>
+	<string name="whatsnew_driving_style_message">カーナビゲーションモードの使用がより簡単になりました。</string>
 </resources>

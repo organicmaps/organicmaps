@@ -1810,26 +1810,27 @@
 
 "booking_filter_price_high" = "$$$";
 
-"pref_traffic_simplified_colors_title" = "Simplified traffic colors";
+/* Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible */
+"pref_traffic_simplified_colors_title" = "Cores de trânsito simplificadas";
 
-"enable_logging" = "Enable logging";
+"enable_logging" = "Ativar o histórico";
 
-"whatsnew_more_info_on_hotels_title" = "More Information on Hotels";
+"whatsnew_more_info_on_hotels_title" = "Mais informações sobre Hotéis";
 
-"whatsnew_more_info_on_hotels_message" = "Brand new look for hotel pages: check out photos, user reviews and other information online.";
+"whatsnew_more_info_on_hotels_message" = "Novo aspeto para as páginas dos hotéis: veja fotos, comentários e outras informações on-line.";
 
-"whatsnew_better_routing_title" = "Improved Route Planning";
+"whatsnew_better_routing_title" = "Planeamento de rotas melhorado";
 
-"whatsnew_better_routing_message" = "• More accurate estimation of arrival time.\n• The app takes into account restricted areas and road signs.";
+"whatsnew_better_routing_message" = "• Estimativa mais precisa da hora de chegada.\n• A app leva em conta as áreas restritas e os sinais de trânsito.";
 
-"whatsnew_smaller_mwm_title" = "Maps Got Smaller";
+"whatsnew_smaller_mwm_title" = "Mapas Ficaram Menores";
 
-"whatsnew_smaller_mwm_message" = "Maps require up to 20% less storage.";
+"whatsnew_smaller_mwm_message" = "Mapas requer até 20% menos espaço de armazenamento.";
 
-"whatsnew_waypoints_title" = "Waypoints in Routing";
+"whatsnew_waypoints_title" = "Pontos de caminho (waypoints) no Roteamento";
 
-"whatsnew_waypoints_message" = "Tap places to add waypoints to your route.";
+"whatsnew_waypoints_message" = "Toque nos locais para adicionar pontos de caminho à sua rota.";
 
-"whatsnew_driving_style_title" = "New Map Style for Driving";
+"whatsnew_driving_style_title" = "Novo estilo de mapa para a condução";
 
-"whatsnew_driving_style_message" = "Car navigation mode got easier to use.";
+"whatsnew_driving_style_message" = "O modo de navegação do carro ficou mais fácil de utilizar.";

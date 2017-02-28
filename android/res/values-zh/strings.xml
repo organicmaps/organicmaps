@@ -1054,4 +1054,17 @@
 	<string name="booking_filter_rating_num_very_good">8.0+</string>
 	<!-- Nine points and higher -->
 	<string name="booking_filter_rating_num_excellent">9.0+</string>
+	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
+	<string name="pref_traffic_simplified_colors_title">简化的交通状况颜色</string>
+	<string name="enable_logging">启用记录</string>
+	<string name="whatsnew_more_info_on_hotels_title">了解酒店的更多信息</string>
+	<string name="whatsnew_more_info_on_hotels_message">全新的酒店页面：在线查看照片、用户评论和其他信息。</string>
+	<string name="whatsnew_better_routing_title">改进的路线规划</string>
+	<string name="whatsnew_better_routing_message">• 更准确地估计到达时间。\n• 应用已经考虑到限制性区域和道路标志。</string>
+	<string name="whatsnew_smaller_mwm_title">地图变小</string>
+	<string name="whatsnew_smaller_mwm_message">地图需要的存储空间减少 20%。</string>
+	<string name="whatsnew_waypoints_title">在路线中添加路径点</string>
+	<string name="whatsnew_waypoints_message">点按地点即可向您的路线添加路径点。</string>
+	<string name="whatsnew_driving_style_title">新的驾驶地图样式</string>
+	<string name="whatsnew_driving_style_message">汽车导航模式更加易用。</string>
 </resources>

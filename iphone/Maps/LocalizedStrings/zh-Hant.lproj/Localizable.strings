@@ -1810,26 +1810,27 @@
 
 "booking_filter_price_high" = "$$$";
 
-"pref_traffic_simplified_colors_title" = "Simplified traffic colors";
+/* Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible */
+"pref_traffic_simplified_colors_title" = "簡化的交通狀況顏色";
 
-"enable_logging" = "Enable logging";
+"enable_logging" = "啟用記錄";
 
-"whatsnew_more_info_on_hotels_title" = "More Information on Hotels";
+"whatsnew_more_info_on_hotels_title" = "了解飯店更多資訊";
 
-"whatsnew_more_info_on_hotels_message" = "Brand new look for hotel pages: check out photos, user reviews and other information online.";
+"whatsnew_more_info_on_hotels_message" = "飯店換新裝：線上查看相片、使用者評論和其他資訊。";
 
-"whatsnew_better_routing_title" = "Improved Route Planning";
+"whatsnew_better_routing_title" = "經過改良的路線規劃";
 
-"whatsnew_better_routing_message" = "• More accurate estimation of arrival time.\n• The app takes into account restricted areas and road signs.";
+"whatsnew_better_routing_message" = "• 更精準估計到達時間。\n• 該應用程式已經考慮到限制性區域和道路標誌。";
 
-"whatsnew_smaller_mwm_title" = "Maps Got Smaller";
+"whatsnew_smaller_mwm_title" = "Maps 變小";
 
-"whatsnew_smaller_mwm_message" = "Maps require up to 20% less storage.";
+"whatsnew_smaller_mwm_message" = "Maps 所需存儲空間減少 20%。";
 
-"whatsnew_waypoints_title" = "Waypoints in Routing";
+"whatsnew_waypoints_title" = "在路線中新增路徑點";
 
-"whatsnew_waypoints_message" = "Tap places to add waypoints to your route.";
+"whatsnew_waypoints_message" = "點按地點，即可向您的路線新增路徑點。";
 
-"whatsnew_driving_style_title" = "New Map Style for Driving";
+"whatsnew_driving_style_title" = "新的駕駛地圖模式";
 
-"whatsnew_driving_style_message" = "Car navigation mode got easier to use.";
+"whatsnew_driving_style_message" = "汽車導航模式更好用。";

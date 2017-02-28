@@ -1810,26 +1810,27 @@
 
 "booking_filter_price_high" = "$$$";
 
-"pref_traffic_simplified_colors_title" = "Simplified traffic colors";
+/* Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible */
+"pref_traffic_simplified_colors_title" = "Enkla trafikfärger";
 
-"enable_logging" = "Enable logging";
+"enable_logging" = "Aktivera loggning";
 
-"whatsnew_more_info_on_hotels_title" = "More Information on Hotels";
+"whatsnew_more_info_on_hotels_title" = "Mer Information om hotell";
 
-"whatsnew_more_info_on_hotels_message" = "Brand new look for hotel pages: check out photos, user reviews and other information online.";
+"whatsnew_more_info_on_hotels_message" = "Ett helt nytt utseende för hotellsidor: kolla in foton, användaromdömen och mer information online.";
 
-"whatsnew_better_routing_title" = "Improved Route Planning";
+"whatsnew_better_routing_title" = "Förbättrad ruttplanering";
 
-"whatsnew_better_routing_message" = "• More accurate estimation of arrival time.\n• The app takes into account restricted areas and road signs.";
+"whatsnew_better_routing_message" = "• En mer exakt beräknad ankomsttid.\n• Appen tar hänsyn till begränsade områden och vägskyltar.";
 
-"whatsnew_smaller_mwm_title" = "Maps Got Smaller";
+"whatsnew_smaller_mwm_title" = "Kartorna har blivit mindre";
 
-"whatsnew_smaller_mwm_message" = "Maps require up to 20% less storage.";
+"whatsnew_smaller_mwm_message" = "Kartor kräver upp till 20 % mindre lagringsutrymme.";
 
-"whatsnew_waypoints_title" = "Waypoints in Routing";
+"whatsnew_waypoints_title" = "Vägpunkter i ruttning";
 
-"whatsnew_waypoints_message" = "Tap places to add waypoints to your route.";
+"whatsnew_waypoints_message" = "Tryck på platser för att lägga till vägpunkter till din rutt.";
 
-"whatsnew_driving_style_title" = "New Map Style for Driving";
+"whatsnew_driving_style_title" = "En ny kartstil när du kör";
 
-"whatsnew_driving_style_message" = "Car navigation mode got easier to use.";
+"whatsnew_driving_style_message" = "Bilens navigeringsläge är lättare att använda.";
