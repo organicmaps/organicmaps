@@ -434,8 +434,6 @@
 		34D4FA661E265749003F53EF /* WhatsNewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D4FA651E265749003F53EF /* WhatsNewController.swift */; };
 		34D4FA671E265749003F53EF /* WhatsNewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D4FA651E265749003F53EF /* WhatsNewController.swift */; };
 		34D4FA681E265749003F53EF /* WhatsNewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D4FA651E265749003F53EF /* WhatsNewController.swift */; };
-		34DBA48B1E64356300164F91 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34DBA4871E64356300164F91 /* Alamofire.framework */; };
-		34DBA48E1E64356300164F91 /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34DBA4881E64356300164F91 /* AlamofireImage.framework */; };
 		34ED298A1E3BB9B40054D003 /* RoutePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34ED29891E3BB9B40054D003 /* RoutePoint.swift */; };
 		34ED298B1E3BB9B40054D003 /* RoutePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34ED29891E3BB9B40054D003 /* RoutePoint.swift */; };
 		34ED298C1E3BB9B40054D003 /* RoutePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34ED29891E3BB9B40054D003 /* RoutePoint.swift */; };
@@ -851,6 +849,10 @@
 		F6664C151E645A4100E703C2 /* MWMPPReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6664C111E645A4100E703C2 /* MWMPPReviewCell.xib */; };
 		F6664C161E645A4100E703C2 /* MWMPPReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6664C111E645A4100E703C2 /* MWMPPReviewCell.xib */; };
 		F6664C171E645A4100E703C2 /* MWMPPReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6664C111E645A4100E703C2 /* MWMPPReviewCell.xib */; };
+		F6664C181E6576B800E703C2 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34DBA4871E64356300164F91 /* Alamofire.framework */; };
+		F6664C191E6576B800E703C2 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 34DBA4871E64356300164F91 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F6664C1A1E6576B800E703C2 /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34DBA4881E64356300164F91 /* AlamofireImage.framework */; };
+		F6664C1B1E6576B800E703C2 /* AlamofireImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 34DBA4881E64356300164F91 /* AlamofireImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F6791B131C43DEA7007A8A6E /* MWMStartButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6791B121C43DEA7007A8A6E /* MWMStartButton.mm */; };
 		F6791B141C43DF0B007A8A6E /* MWMStartButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6791B121C43DEA7007A8A6E /* MWMStartButton.mm */; };
 		F67E751E1DB76DFC00D6741F /* MWMTaxiCollectionLayout.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6F778791DABC6D800B603E7 /* MWMTaxiCollectionLayout.mm */; };
@@ -1413,6 +1415,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				F6664C191E6576B800E703C2 /* Alamofire.framework in Embed Frameworks */,
+				F6664C1B1E6576B800E703C2 /* AlamofireImage.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2353,13 +2357,13 @@
 				67B78B511E422E300018E590 /* CoreSpotlight.framework in Frameworks */,
 				67B78B531E422E300018E590 /* CoreData.framework in Frameworks */,
 				340475131E08199E00C92850 /* Pushwoosh.framework in Frameworks */,
+				F6664C181E6576B800E703C2 /* Alamofire.framework in Frameworks */,
 				340474FE1E08199D00C92850 /* FBSDKShareKit.framework in Frameworks */,
-				34DBA48B1E64356300164F91 /* Alamofire.framework in Frameworks */,
-				34DBA48E1E64356300164F91 /* AlamofireImage.framework in Frameworks */,
 				340474FB1E08199D00C92850 /* FBSDKLoginKit.framework in Frameworks */,
 				67B78B4F1E422E300018E590 /* iAd.framework in Frameworks */,
 				3432E17E1E49B484008477E9 /* FBAudienceNetwork.framework in Frameworks */,
 				3404750D1E08199E00C92850 /* MyTargetSDK.framework in Frameworks */,
+				F6664C1A1E6576B800E703C2 /* AlamofireImage.framework in Frameworks */,
 				340474F81E08199D00C92850 /* FBSDKCoreKit.framework in Frameworks */,
 				340474F21E08199D00C92850 /* Crashlytics.framework in Frameworks */,
 				849CF7861DE842290024A8A5 /* libz.dylib in Frameworks */,
