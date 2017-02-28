@@ -28,8 +28,11 @@ public:
     JNIEnv * env = jni::GetEnv();
     static jmethodID const openMethod =
         jni::GetMethodID(env, m_self, "open", "(Ljava/lang/String;I)Z");
-    return env->CallBooleanMethod(m_self, openMethod, jni::ToJavaString(env, host),
-                                  static_cast<jint>(port));
+    jni::TScopedLocalRef hostRef(env, jni::ToJavaString(env, host));
+    jboolean result = env->CallBooleanMethod(m_self, openMethod, hostRef.get(), static_cast<jint>(port));
+    if (jni::HandleJavaException(env))
+      return false;
+    return result;
   }
 
   void Close()
@@ -37,6 +40,7 @@ public:
     JNIEnv * env = jni::GetEnv();
     static jmethodID const closeMethod = jni::GetMethodID(env, m_self, "close", "()V");
     env->CallVoidMethod(m_self, closeMethod);
+    jni::HandleJavaException(env);
   }
 
   bool Read(uint8_t * data, uint32_t count)
@@ -45,19 +49,26 @@ public:
     jbyteArray array = env->NewByteArray(count);
     static jmethodID const readMethod = jni::GetMethodID(env, m_self, "read", "([BI)Z");
     jboolean result = env->CallBooleanMethod(m_self, readMethod, array, static_cast<jint>(count));
+    if (jni::HandleJavaException(env))
+      return false;
     //this call copies java byte array to native buffer
     env->GetByteArrayRegion(array, 0, count, reinterpret_cast<jbyte *>(data));
+    if (jni::HandleJavaException(env))
+      return false;
     return result;
   }
 
   bool Write(uint8_t const * data, uint32_t count)
   {
     JNIEnv * env = jni::GetEnv();
-    jbyteArray array = env->NewByteArray(count);
+    jni::TScopedLocalByteArrayRef arrayRef(env, env->NewByteArray(count));
     //this call copies native buffer to java byte array
-    env->SetByteArrayRegion(array, 0, count, reinterpret_cast<const jbyte *>(data));
+    env->SetByteArrayRegion(arrayRef.get(), 0, count, reinterpret_cast<const jbyte *>(data));
     static jmethodID const writeMethod = jni::GetMethodID(env, m_self, "write", "([BI)Z");
-    return env->CallBooleanMethod(m_self, writeMethod, array, static_cast<jint>(count));
+    jboolean result = env->CallBooleanMethod(m_self, writeMethod, arrayRef.get(), static_cast<jint>(count));
+    if (jni::HandleJavaException(env))
+      return false;
+    return result;
   }
 
   void SetTimeout(uint32_t milliseconds)
@@ -65,6 +76,7 @@ public:
     JNIEnv * env = jni::GetEnv();
     static jmethodID const setTimeoutMethod = jni::GetMethodID(env, m_self, "setTimeout", "(I)V");
     env->CallVoidMethod(m_self, setTimeoutMethod, static_cast<jint>(milliseconds));
+    jni::HandleJavaException(env);
   };
 
 private:

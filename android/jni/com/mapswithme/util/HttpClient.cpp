@@ -38,14 +38,6 @@ SOFTWARE.
 
 DECLARE_EXCEPTION(JniException, RootException);
 
-#define CLEAR_AND_RETURN_FALSE_ON_EXCEPTION \
-  if (env->ExceptionCheck())                \
-  {                                         \
-    env->ExceptionDescribe();               \
-    env->ExceptionClear();                  \
-    return false;                           \
-  }
-
 namespace
 {
 void RethrowOnJniException(ScopedEnv & env)
@@ -199,14 +191,16 @@ bool HttpClient::RunHttpRequest()
   // Create and fill request params.
   jni::ScopedLocalRef<jstring> const jniUrl(env.get(),
                                             jni::ToJavaString(env.get(), m_urlRequested));
-  CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
+  if (jni::HandleJavaException(env.get()))
+    return false;
 
   static jmethodID const httpParamsConstructor =
       jni::GetConstructorID(env.get(), g_httpParamsClazz, "(Ljava/lang/String;)V");
 
   jni::ScopedLocalRef<jobject> const httpParamsObject(
       env.get(), env->NewObject(g_httpParamsClazz, httpParamsConstructor, jniUrl.get()));
-  CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
+  if (jni::HandleJavaException(env.get()))
+    return false;
 
   // Cache it on the first call.
   static jfieldID const dataField = env->GetFieldID(g_httpParamsClazz, "data", "[B");
@@ -214,14 +208,17 @@ bool HttpClient::RunHttpRequest()
   {
     jni::ScopedLocalRef<jbyteArray> const jniPostData(env.get(),
                                                       env->NewByteArray(m_bodyData.size()));
-    CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
+    if (jni::HandleJavaException(env.get()))
+      return false;
 
     env->SetByteArrayRegion(jniPostData.get(), 0, m_bodyData.size(),
                             reinterpret_cast<const jbyte *>(m_bodyData.data()));
-    CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
+    if (jni::HandleJavaException(env.get()))
+      return false;
 
     env->SetObjectField(httpParamsObject.get(), dataField, jniPostData.get());
-    CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
+    if (jni::HandleJavaException(env.get()))
+      return false;
   }
 
   ASSERT(!m_httpMethod.empty(), ("Http method type can not be empty."));
@@ -250,7 +247,8 @@ bool HttpClient::RunHttpRequest()
   // call DeleteLocalRef(response).
   jobject const response =
       env->CallStaticObjectMethod(g_httpClientClazz, httpClientClassRun, httpParamsObject.get());
-  CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
+  if (jni::HandleJavaException(env.get()))
+    return false;
 
   try
   {
@@ -266,7 +264,8 @@ bool HttpClient::RunHttpRequest()
   // dataField is already cached above.
   jni::ScopedLocalRef<jbyteArray> const jniData(
       env.get(), static_cast<jbyteArray>(env->GetObjectField(response, dataField)));
-  CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
+  if (jni::HandleJavaException(env.get()))
+    return false;
   if (jniData)
   {
     jbyte * buffer = env->GetByteArrayElements(jniData.get(), nullptr);
