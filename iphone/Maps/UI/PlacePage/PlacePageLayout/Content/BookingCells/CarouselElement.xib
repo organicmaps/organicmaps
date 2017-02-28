@@ -20,6 +20,9 @@
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="49T-yd-qah">
                         <rect key="frame" x="0.0" y="0.0" width="150" height="100"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="pressBackground"/>
+                        </userDefinedRuntimeAttributes>
                     </imageView>
                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mmh-sw-uHm">
                         <rect key="frame" x="0.0" y="0.0" width="150" height="100"/>
@@ -47,7 +50,6 @@
                 <outlet property="image" destination="49T-yd-qah" id="oUk-H9-V0F"/>
                 <outletCollection property="dimMask" destination="Mmh-sw-uHm" collectionClass="NSMutableArray" id="DdN-K1-Ytc"/>
                 <outletCollection property="dimMask" destination="2V7-Dd-KtM" collectionClass="NSMutableArray" id="BeV-h5-wJV"/>
-
             </connections>
             <point key="canvasLocation" x="43" y="118"/>
         </collectionViewCell>

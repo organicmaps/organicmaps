@@ -3,7 +3,7 @@ final class CarouselElement : UICollectionViewCell {
   @IBOutlet private var dimMask: [UIView]!
 
   func config(with url: URL, isLastCell: Bool) {
-    image.af_setImage(withURL: url, placeholderImage: #imageLiteral(resourceName: "ic_placeholder"))
+    image.af_setImage(withURL: url, imageTransition: .crossDissolve(kDefaultAnimationDuration))
     dimMask.forEach { $0.isHidden = !isLastCell }
   }
 }
@@ -39,7 +39,7 @@ extension PPHotelCarouselCell: UICollectionViewDelegate, UICollectionViewDataSou
     let cell = collectionView.dequeueReusableCell(withCellClass: CarouselElement.self,
                                                   indexPath: indexPath) as! CarouselElement
 
-    cell.config(with: dataSource[indexPath.item].previewURL, isLastCell: isLastCell(indexPath))
+    cell.config(with: dataSource[indexPath.item].imageURL, isLastCell: isLastCell(indexPath))
     return cell
   }
 
