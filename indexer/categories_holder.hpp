@@ -52,7 +52,7 @@ public:
 private:
   using String = strings::UniString;
   using Type2CategoryCont = multimap<uint32_t, shared_ptr<Category>>;
-  using Trie = my::MemTrie<String, uint32_t>;
+  using Trie = my::MemTrie<String, my::VectorValues<uint32_t>>;
 
   Type2CategoryCont m_type2cat;
 

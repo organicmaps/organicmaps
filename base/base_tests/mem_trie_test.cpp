@@ -9,7 +9,7 @@
 
 namespace
 {
-using Trie = my::MemTrie<string, int>;
+using Trie = my::MemTrie<string, my::VectorValues<int>>;
 using Data = std::vector<std::pair<std::string, int>>;
 
 void GetTrieContents(Trie const & trie, Data & data)

@@ -115,7 +115,7 @@ protected:
   unordered_map<uint32_t, vector<string>> m_names;
   LocalityScorer m_scorer;
 
-  my::MemTrie<UniString, uint32_t> m_searchIndex;
+  my::MemTrie<UniString, my::VectorValues<uint32_t>> m_searchIndex;
 };
 }  // namespace
 

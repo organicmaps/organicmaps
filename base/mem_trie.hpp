@@ -5,15 +5,76 @@
 
 #include <algorithm>
 #include <cstdint>
+#include <functional>
 #include <map>
 #include <memory>
 #include <vector>
 
 namespace my
 {
+template <typename Char, typename Subtree>
+class MapMoves
+{
+public:
+  template <typename ToDo>
+  void ForEach(ToDo && toDo) const
+  {
+    for (auto const & subtree : m_subtrees)
+      toDo(subtree.first, *subtree.second);
+  }
+
+  Subtree * GetSubtree(Char const & c) const
+  {
+    auto const it = m_subtrees.find(c);
+    if (it == m_subtrees.end())
+      return nullptr;
+    return it->second.get();
+  }
+
+  Subtree & GetOrCreateSubtree(Char const & c, bool & created)
+  {
+    auto & node = m_subtrees[c];
+    if (!node)
+    {
+      node = my::make_unique<Subtree>();
+      created = true;
+    }
+    else
+    {
+      created = false;
+    }
+    return *node;
+  }
+
+  void Clear() { m_subtrees.clear(); }
+
+private:
+  std::map<Char, std::unique_ptr<Subtree>> m_subtrees;
+};
+
+template <typename Value>
+struct VectorValues
+{
+  template <typename V>
+  void Add(V && v)
+  {
+    m_values.emplace_back(std::forward<V>(v));
+  }
+
+  template <typename ToDo>
+  void ForEach(ToDo && toDo) const
+  {
+    std::for_each(m_values.begin(), m_values.end(), std::forward<ToDo>(toDo));
+  }
+
+  void Clear() { m_values.clear(); }
+
+  std::vector<Value> m_values;
+};
+
 // This class is a simple in-memory trie which allows to add
 // key-value pairs and then traverse them in a sorted order.
-template <typename String, typename Value>
+template <typename String, typename Values, template <typename...> class Moves = MapMoves>
 class MemTrie
 {
 private:
@@ -38,6 +99,8 @@ public:
   class Iterator
   {
   public:
+    using Char = MemTrie::Char;
+
     Iterator(MemTrie::Node const & node) : m_node(node) {}
 
     // Iterates over all possible moves from this Iterator's node
@@ -46,15 +109,14 @@ public:
     template <typename ToDo>
     void ForEachMove(ToDo && toDo) const
     {
-      for (auto const & move : m_node.m_moves)
-        toDo(move.first, Iterator(*move.second));
+      m_node.m_moves.ForEach([&](Char c, Node const & node) { toDo(c, Iterator(node)); });
     }
 
     // Calls |toDo| for every value in this Iterator's node.
     template <typename ToDo>
     void ForEachInNode(ToDo && toDo) const
     {
-      std::for_each(m_node.m_values.begin(), m_node.m_values.end(), std::forward<ToDo>(toDo));
+      m_node.m_values.ForEach(std::forward<ToDo>(toDo));
     }
 
   private:
@@ -62,7 +124,8 @@ public:
   };
 
   // Adds a key-value pair to the trie.
-  void Add(String const & key, Value const & value)
+  template <typename Value>
+  void Add(String const & key, Value && value)
   {
     auto * cur = &m_root;
     for (auto const & c : key)
@@ -72,7 +135,7 @@ public:
       if (created)
         ++m_numNodes;
     }
-    cur->AddValue(value);
+    cur->Add(std::forward<Value>(value));
   }
 
   // Traverses all key-value pairs in the trie and calls |toDo| on each of them.
@@ -116,8 +179,6 @@ public:
 private:
   struct Node
   {
-    friend class MemTrie<String, Value>::Iterator;
-
     Node() = default;
     Node(Node && /* rhs */) = default;
 
@@ -125,29 +186,23 @@ private:
 
     Node & GetMove(Char const & c, bool & created)
     {
-      auto & node = m_moves[c];
-      if (!node)
-      {
-        node = my::make_unique<Node>();
-        created = true;
-      }
-      else
-      {
-        created = false;
-      }
-      return *node;
+      return m_moves.GetOrCreateSubtree(c, created);
     }
 
-    void AddValue(Value const & value) { m_values.push_back(value); }
+    template <typename Value>
+    void Add(Value && value)
+    {
+      m_values.Add(std::forward<Value>(value));
+    }
 
     void Clear()
     {
-      m_moves.clear();
-      m_values.clear();
+      m_moves.Clear();
+      m_values.Clear();
     }
 
-    std::map<Char, std::unique_ptr<Node>> m_moves;
-    std::vector<Value> m_values;
+    Moves<Char, Node> m_moves;
+    Values m_values;
 
     DISALLOW_COPY(Node);
   };
@@ -157,10 +212,9 @@ private:
     auto const * cur = &m_root;
     for (auto const & c : key)
     {
-      auto const it = cur->m_moves.find(c);
-      if (it == cur->m_moves.end())
-        return nullptr;
-      cur = it->second.get();
+      cur = cur->m_moves.GetSubtree(c);
+      if (!cur)
+        break;
     }
     return cur;
   }
@@ -170,8 +224,8 @@ private:
   template <typename ToDo>
   void ForEachInNode(Node const & node, String const & prefix, ToDo && toDo) const
   {
-    for (auto const & value : node.m_values)
-      toDo(prefix, value);
+    node.m_values.ForEach(
+        std::bind(std::forward<ToDo>(toDo), std::ref(prefix), std::placeholders::_1));
   }
 
   // Calls |toDo| for each key-value pair in subtree where |node| is a
@@ -182,12 +236,12 @@ private:
   {
     ForEachInNode(node, prefix, toDo);
 
-    for (auto const & move : node.m_moves)
-    {
-      prefix.push_back(move.first);
-      ForEachInSubtree(*move.second, prefix, toDo);
-      prefix.pop_back();
-    }
+    node.m_moves.ForEach([&](Char c, Node const & node)
+                         {
+                           prefix.push_back(c);
+                           ForEachInSubtree(node, prefix, toDo);
+                           prefix.pop_back();
+                         });
   }
 
   Node m_root;
