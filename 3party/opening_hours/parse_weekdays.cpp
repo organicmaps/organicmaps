@@ -1,7 +1,6 @@
 #include "parse_opening_hours.hpp"
 #include "opening_hours_parsers.hpp"
 
-#define BOOST_SPIRIT_USE_PHOENIX_V3
 #include <boost/spirit/include/phoenix_bind.hpp>
 #include <boost/spirit/include/phoenix_operator.hpp>
 

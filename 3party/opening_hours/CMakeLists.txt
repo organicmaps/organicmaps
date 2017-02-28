@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.2)
 
 project(opening_hours C CXX)
 
+add_definitions(-DBOOST_SPIRIT_USE_PHOENIX_V3)
+
 include_directories(src ../../)
 
 add_compile_options(

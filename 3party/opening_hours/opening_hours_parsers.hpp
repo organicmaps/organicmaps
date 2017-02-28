@@ -112,4 +112,3 @@ public:
 
 } // namespace parsing
 } // namespace osmoh
-#undef BOOST_SPIRIT_USE_PHOENIX_V3

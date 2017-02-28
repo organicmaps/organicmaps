@@ -5,7 +5,7 @@
 #include "std/algorithm.hpp"
 #include "std/limits.hpp"
 
-#include "3party/boost/boost/range/adaptor/transformed.hpp"
+#include <boost/range/adaptor/transformed.hpp>
 
 namespace coding
 {

@@ -73,6 +73,20 @@ endif()
 
 find_package(Threads)
 
+set(Boost_USE_MULTITHREADED ON)
+add_definitions(-DBOOST_BIND_NO_PLACEHOLDERS)
+
+if (PLATFORM_MAC)
+  set(Boost_USE_STATIC_LIBS ON)
+  set(Boost_USE_STATIC_RUNTIME ON)
+endif()
+
+if (PYBINDINGS)
+  find_package(Boost 1.54 REQUIRED COMPONENTS python)
+else()
+  find_package(Boost 1.54)
+endif()
+
 if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
   find_package(Qt5Core REQUIRED)
   find_package(Qt5Network REQUIRED)
@@ -103,7 +117,7 @@ include_directories(
   ${CMAKE_HOME_DIRECTORY}
   ${Qt5Core_INCLUDE_DIRS}
   ${Qt5Network_INCLUDE_DIRS}
-  ${CMAKE_HOME_DIRECTORY}/3party/boost
+  ${Boost_INCLUDE_DIRS}
 )
 
 # Functions for using in subdirectories

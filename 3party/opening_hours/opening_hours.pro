@@ -13,6 +13,8 @@ ROOT_DIR = ../..
 
 include($$ROOT_DIR/common.pri)
 
+DEFINES *= BOOST_SPIRIT_USE_PHOENIX_V3
+
 HEADERS += opening_hours.hpp \
            opening_hours_parsers.hpp \
            parse_opening_hours.hpp \
