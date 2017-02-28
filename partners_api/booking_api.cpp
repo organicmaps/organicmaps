@@ -26,6 +26,7 @@ string const kBookingApiBaseUrl = "https://distribution-xml.booking.com/json/boo
 string const kExtendedHotelInfoBaseUrl = "http://hotels.milchakov.map6.devmail.ru/getDescription";
 string const kPhotoOriginalUrl = "http://aff.bstatic.com/images/hotel/max500/";
 string const kPhotoSmallUrl = "http://aff.bstatic.com/images/hotel/max300/";
+string g_BookingUrlForTesting = "";
 
 bool RunSimpleHttpRequest(bool const needAuth, string const & url, string & result)
 {
@@ -42,13 +43,15 @@ bool RunSimpleHttpRequest(bool const needAuth, string const & url, string & resu
   return false;
 }
 
-string MakeApiUrl(string const & func, initializer_list<pair<string, string>> const & params,
-                  bool testing)
+string MakeApiUrl(string const & func, initializer_list<pair<string, string>> const & params)
 {
   ASSERT_NOT_EQUAL(params.size(), 0, ());
 
   ostringstream os;
-  os << kBookingApiBaseUrl << "." << func << "?";
+  if (!g_BookingUrlForTesting.empty())
+    os << g_BookingUrlForTesting << "." << func << "?";
+  else
+    os << kBookingApiBaseUrl << "." << func << "?";
 
   bool firstParam = true;
   for (auto const & param : params)
@@ -63,9 +66,6 @@ string MakeApiUrl(string const & func, initializer_list<pair<string, string>> co
     }
     os << param.first << "=" << param.second;
   }
-
-  if (testing)
-    os << "&show_test=1";
 
   return os.str();
 }
@@ -237,8 +237,7 @@ void FillPriceAndCurrency(string const & src, string const & currency, string & 
 namespace booking
 {
 // static
-bool RawApi::GetHotelAvailability(string const & hotelId, string const & currency, string & result,
-                                  bool testing /* = false */)
+bool RawApi::GetHotelAvailability(string const & hotelId, string const & currency, string & result)
 {
   char dateArrival[12]{};
   char dateDeparture[12]{};
@@ -252,8 +251,7 @@ bool RawApi::GetHotelAvailability(string const & hotelId, string const & currenc
   string url = MakeApiUrl("getHotelAvailability", {{"hotel_ids", hotelId},
                                                    {"currency_code", currency},
                                                    {"arrival_date", dateArrival},
-                                                   {"departure_date", dateDeparture}},
-                          testing);
+                                                   {"departure_date", dateDeparture}});
   return RunSimpleHttpRequest(true, url, result);
 }
 
@@ -278,14 +276,12 @@ string Api::GetDescriptionUrl(string const & baseUrl) const
 void Api::GetMinPrice(string const & hotelId, string const & currency,
                       GetMinPriceCallback const & fn)
 {
-  auto const testingMode = m_testingMode;
-
-  threads::SimpleThread([hotelId, currency, fn, testingMode]()
+  threads::SimpleThread([hotelId, currency, fn]()
   {
     string minPrice;
     string priceCurrency;
     string httpResult;
-    if (!RawApi::GetHotelAvailability(hotelId, currency, httpResult, testingMode))
+    if (!RawApi::GetHotelAvailability(hotelId, currency, httpResult))
     {
       fn(hotelId, minPrice, priceCurrency);
       return;
@@ -331,5 +327,10 @@ void Api::GetHotelInfo(string const & hotelId, string const & lang, GetHotelInfo
 
     fn(info);
   }).detach();
+}
+
+void SetBookingUrlForTesting(string const & url)
+{
+  g_BookingUrlForTesting = url;
 }
 }  // namespace booking

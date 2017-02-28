@@ -183,3 +183,28 @@ PARTNERS_TIME = """
     ]
 }
 """
+
+PARTNERS_MINPRICE = """
+[
+    {
+        "hotel_id":"0000000",
+        "currency_code":"USD",
+        "max_price":"5000.00",
+        "ranking":1,
+        "min_price":"250.00",
+        "available_rooms":37,
+        "other_currency": [
+            {
+                "currency_code":"RUB",
+                "max_price":"250000.00",
+                "min_price":"15000.00"
+            },
+            {
+                "currency_code":"ISK",
+                "max_price":"500000.00",
+                "min_price":"30000.00"
+            }
+        ]
+    }
+]
+"""
