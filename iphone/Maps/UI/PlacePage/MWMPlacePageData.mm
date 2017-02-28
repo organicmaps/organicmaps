@@ -381,7 +381,7 @@ using namespace place_page;
 - (NSString *)hotelDescription { return @(m_hotelInfo.m_description.c_str()); }
 - (vector<booking::HotelFacility> const &)facilities { return m_hotelInfo.m_facilities; }
 - (vector<booking::HotelReview> const &)reviews { return m_hotelInfo.m_reviews; }
-- (NSUInteger)numberOfReviews { return m_hotelInfo.m_score; }
+- (NSUInteger)numberOfReviews { return m_hotelInfo.m_scoreCount; }
 - (NSArray<MWMGalleryItemModel *> *)photos
 {
   NSMutableArray<MWMGalleryItemModel *> * res = [@[] mutableCopy];
