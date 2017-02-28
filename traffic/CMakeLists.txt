@@ -12,5 +12,5 @@ set(
 
 add_library(${PROJECT_NAME} ${SRC})
 
-add_subdirectory(pytraffic)
+omim_add_pybindings_subdirectory(pytraffic)
 omim_add_test_subdirectory(traffic_tests)

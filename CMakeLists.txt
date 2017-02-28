@@ -74,7 +74,6 @@ endif()
 find_package(Threads)
 
 set(Boost_USE_MULTITHREADED ON)
-add_definitions(-DBOOST_BIND_NO_PLACEHOLDERS)
 
 if (PLATFORM_MAC)
   set(Boost_USE_STATIC_LIBS ON)
@@ -85,6 +84,11 @@ if (PYBINDINGS)
   find_package(Boost 1.54 REQUIRED COMPONENTS python)
 else()
   find_package(Boost 1.54)
+endif()
+
+if (PYBINDINGS)
+  find_package(PythonLibs 2.7 REQUIRED)
+  include_directories(${PYTHON_INCLUDE_DIRS})
 endif()
 
 if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
@@ -133,6 +137,14 @@ function(omim_add_test_subdirectory subdir)
     add_subdirectory(${subdir})
   else()
     message("SKIP_TESTS: Skipping subdirectory ${subdir}")
+  endif()
+endfunction()
+
+function(omim_add_pybindings_subdirectory subdir)
+  if (PYBINDINGS)
+    add_subdirectory(${subdir})
+  else()
+    message("Skipping pybindings subdirectory ${subdir}")
   endif()
 endfunction()
 
@@ -193,13 +205,12 @@ function(link_qt5_core target)
   endif()
 endfunction()
 
-
-macro(check_pybindings)
-  if (NOT PYBINDINGS)
-    message("Skipping " + ${PROJECT_NAME} + " because the PYBINDINGS variale is not set or is set to FALSE")
-    return()
-  endif()
-endmacro()
+function(link_qt5_network target)
+  omim_link_libraries(
+    ${target}
+    ${Qt5Network_LIBRARIES}
+  )
+endfunction()
 
 # End of functions for subdirectories
 

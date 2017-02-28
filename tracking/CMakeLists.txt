@@ -12,5 +12,5 @@ set(
 
 add_library(${PROJECT_NAME} ${SRC})
 
+omim_add_pybindings_subdirectory(pytracking)
 omim_add_test_subdirectory(tracking_tests)
-add_subdirectory(pytracking)

@@ -1,14 +1,9 @@
 project(pytraffic)
 
-check_pybindings()
-
 set(
   SRC
   bindings.cpp
 )
-
-find_package(PythonLibs 2.7 REQUIRED)
-include_directories(${PYTHON_INCLUDE_DIRS})
 
 add_library(${PROJECT_NAME} MODULE ${SRC})
 

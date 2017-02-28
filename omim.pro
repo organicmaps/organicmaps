@@ -99,13 +99,6 @@ SUBDIRS = 3party base coding geometry editor indexer routing search openlr
     search_tests_support.subdir = search/search_tests_support
     SUBDIRS *= search_tests_support
 
-    # Desktop-only library, can be used as a search interface for Python2.7.
-    CONFIG(search_engine_pylib) {
-      search_engine_pylib.subdir = search/search_engine_pylib
-      search_engine_pylib.depends = $$SUBDIRS
-      SUBDIRS *= search_engine_pylib
-    }
-
     search_quality.subdir = search/search_quality
     search_quality.depends = $$SUBDIRS
     SUBDIRS *= search_quality

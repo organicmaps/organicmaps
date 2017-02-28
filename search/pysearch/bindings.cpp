@@ -17,18 +17,17 @@
 
 #include "geometry/rect2d.hpp"
 
-#include "std/limits.hpp"
-#include "std/shared_ptr.hpp"
-#include "std/sstream.hpp"
-#include "std/string.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/vector.hpp"
-
 #include "base/logging.hpp"
 
-#include "defines.hpp"
-
 #include <boost/python.hpp>
+
+#include <limits>
+#include <memory>
+#include <sstream>
+#include <string>
+#include <vector>
+
+#include "defines.hpp"
 
 namespace
 {
@@ -213,7 +212,7 @@ struct SearchEngineProxy
 };
 }  // namespace
 
-BOOST_PYTHON_MODULE(search_engine_pylib)
+BOOST_PYTHON_MODULE(pysearch)
 {
   using namespace boost::python;
 

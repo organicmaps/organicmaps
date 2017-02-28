@@ -4,7 +4,7 @@
 from __future__ import print_function
 import argparse
 import os
-import search_engine_pylib as search
+import pysearch as search
 
 
 DIR = os.path.dirname(__file__)

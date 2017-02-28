@@ -133,8 +133,9 @@ set(
 add_library(${PROJECT_NAME} ${SRC})
 
 if (PLATFORM_DESKTOP)
-  add_subdirectory(search_tests_support)
   add_subdirectory(search_quality)
+  add_subdirectory(search_tests_support)
 endif()
+omim_add_pybindings_subdirectory(pysearch)
 omim_add_test_subdirectory(search_tests)
 omim_add_test_subdirectory(search_integration_tests)

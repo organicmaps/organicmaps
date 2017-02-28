@@ -22,16 +22,16 @@ This document describes how to use this module.
    two implementations of the C++ standard library in the same
    application.
 
-   Then, invoke qmake from the shell, for example:
+   Then, invoke cmake from the shell, for example:
 
-     qmake CONFIG+=search_engine_pylib path-to-omim.pro
-     make -k -j8 all
+     cmake path-to-omim-directory -DPYBINDINGS=ON -DCMAKE_PREFIX_PATH=path-to-qt5.5
+     make -k -j8 pysearch
 
 2. How to use?
 
-   As search_engine_pylib is a custom Python module, all that you need
+   As pysearch is a custom Python module, all that you need
    is to customize PYTHONPATH environment variable before running your
    scripts. For example:
 
-     PYTHONPATH=path-to-the-directory-with-search_engine_pylib.so \
-       ./search/search_engine_pylib/run_search_engine.py
+     PYTHONPATH=path-to-the-directory-with-pysearch.so \
+       ./search/pysearch/run_search_engine.py
