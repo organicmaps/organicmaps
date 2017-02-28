@@ -36,6 +36,10 @@ final class BannerController implements AdListener
   private static final Logger LOGGER = LoggerFactory.INSTANCE
       .getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = BannerController.class.getName();
+  private static final int MAX_MESSAGE_LINES = 100;
+  private static final int MIN_MESSAGE_LINES = 3;
+  private static final int MAX_TITLE_LINES = 2;
+  private static final int MIN_TITLE_LINES = 1;
 
   private static boolean isTouched(@Nullable View view, @NonNull MotionEvent event)
   {
@@ -47,16 +51,18 @@ final class BannerController implements AdListener
 
   @NonNull
   private final View mFrame;
-  @Nullable
+  @NonNull
   private final ImageView mIcon;
-  @Nullable
+  @NonNull
   private final TextView mTitle;
-  @Nullable
+  @NonNull
   private final TextView mMessage;
-  @Nullable
+  @NonNull
   private final TextView mActionSmall;
-  @Nullable
+  @NonNull
   private final TextView mActionLarge;
+  @NonNull
+  private final View mAds;
 
   private final float mCloseFrameHeight;
 
@@ -64,6 +70,8 @@ final class BannerController implements AdListener
   private NativeAd mNativeAd;
 
   private boolean mOpened = false;
+  private boolean mProgress = false;
+  private boolean mError = false;
 
   BannerController(@NonNull View bannerView)
   {
@@ -75,11 +83,56 @@ final class BannerController implements AdListener
     mMessage = (TextView) bannerView.findViewById(R.id.tv__banner_message);
     mActionSmall = (TextView) bannerView.findViewById(R.id.tv__action_small);
     mActionLarge = (TextView) bannerView.findViewById(R.id.tv__action_large);
+    mAds = bannerView.findViewById(R.id.tv__ads);
+  }
+
+  private void showProgress()
+  {
+    mProgress = true;
+    updateVisibility();
+  }
+
+  private void hideProgress()
+  {
+    mProgress = false;
+    updateVisibility();
+  }
+
+  private boolean isDownloading()
+  {
+    return mProgress;
+  }
+
+  private void showError(boolean value)
+  {
+    mError = value;
+  }
+
+  private boolean hasErrorOccurred()
+  {
+    return mError;
+  }
+
+  private void updateVisibility()
+  {
+    if (isDownloading() || hasErrorOccurred())
+    {
+      UiUtils.hide(mIcon, mTitle, mMessage, mActionSmall, mActionLarge, mAds);
+    }
+    else
+    {
+      UiUtils.show(mIcon, mTitle, mMessage, mActionSmall, mActionLarge, mAds);
+      if (mOpened)
+        UiUtils.hide(mActionSmall);
+      else
+        UiUtils.hide(mActionLarge, mIcon);
+    }
   }
 
   void updateData(@Nullable Banner banner)
   {
     UiUtils.hide(mFrame);
+    showError(false);
 
     mBanner = banner;
     if (mBanner == null || TextUtils.isEmpty(mBanner.getId()) || !isShowcaseSwitchedOnLocal()
@@ -88,6 +141,7 @@ final class BannerController implements AdListener
 
     if (BuildConfig.DEBUG || BuildConfig.BUILD_TYPE.equals("beta"))
     {
+      AdSettings.addTestDevice("cbbc8cd2b6564ea727b5ca56bcf22622");
       AdSettings.addTestDevice("c36b141fff9e11866d8cf9c601d2b7e0");
       AdSettings.addTestDevice("189055740336d9d2687f41a775eaf867");
       AdSettings.addTestDevice("36dd04f33c4cf92e3b7d21e9a5a9d985");
@@ -100,6 +154,7 @@ final class BannerController implements AdListener
     mNativeAd.setAdListener(BannerController.this);
     mNativeAd.loadAd(EnumSet.of(NativeAd.MediaCacheFlag.ICON));
     UiUtils.show(mFrame);
+    showProgress();
   }
 
   boolean isBannerVisible()
@@ -115,14 +170,9 @@ final class BannerController implements AdListener
     mOpened = true;
     setFrameHeight(WRAP_CONTENT);
     loadIcon(mNativeAd);
-    if (mMessage != null)
-      mMessage.setMaxLines(Integer.MAX_VALUE);
-    if (mTitle != null)
-      mTitle.setMaxLines(2);
-    if (mActionSmall != null)
-      UiUtils.hide(mActionSmall);
-    if (mActionLarge != null)
-      UiUtils.show(mActionLarge);
+    mMessage.setMaxLines(MAX_MESSAGE_LINES);
+    mTitle.setMaxLines(MAX_TITLE_LINES);
+    updateVisibility();
 
     Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_BANNER_SHOW,
                                    Statistics.params()
@@ -138,14 +188,9 @@ final class BannerController implements AdListener
     mOpened = false;
     setFrameHeight((int) mCloseFrameHeight);
     UiUtils.hide(mIcon);
-    if (mMessage != null)
-      mMessage.setMaxLines(3);
-    if (mTitle != null)
-      mTitle.setMaxLines(1);
-    if (mActionSmall != null)
-      UiUtils.show(mActionSmall);
-    if (mActionLarge != null)
-      UiUtils.hide(mActionLarge);
+    mMessage.setMaxLines(MIN_MESSAGE_LINES);
+    mTitle.setMaxLines(MIN_TITLE_LINES);
+    updateVisibility();
 
     return true;
   }
@@ -164,9 +209,6 @@ final class BannerController implements AdListener
 
   private void loadIcon(@NonNull NativeAd nativeAd)
   {
-    if (mIcon == null)
-      return;
-
     UiUtils.show(mIcon);
     NativeAd.Image icon = nativeAd.getAdIcon();
     NativeAd.downloadAndDisplayImage(icon, mIcon);
@@ -175,7 +217,8 @@ final class BannerController implements AdListener
   @Override
   public void onError(Ad ad, AdError adError)
   {
-    UiUtils.hide(mFrame);
+    showError(true);
+    updateVisibility();
     LOGGER.e(TAG, adError.getErrorMessage());
   }
 
@@ -185,14 +228,13 @@ final class BannerController implements AdListener
     if (mNativeAd == null || mBanner == null)
       return;
 
-    if (mTitle != null)
-      mTitle.setText(mNativeAd.getAdTitle());
-    if (mMessage != null)
-      mMessage.setText(mNativeAd.getAdBody());
-    if (mActionSmall != null)
-      mActionSmall.setText(mNativeAd.getAdCallToAction());
-    if (mActionLarge != null)
-      mActionLarge.setText(mNativeAd.getAdCallToAction());
+    hideProgress();
+    updateVisibility();
+
+    mTitle.setText(mNativeAd.getAdTitle());
+    mMessage.setText(mNativeAd.getAdBody());
+    mActionSmall.setText(mNativeAd.getAdCallToAction());
+    mActionLarge.setText(mNativeAd.getAdCallToAction());
 
     List<View> clickableViews = new ArrayList<>();
     clickableViews.add(mTitle);

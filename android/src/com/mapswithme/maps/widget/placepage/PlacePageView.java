@@ -755,6 +755,16 @@ public class PlacePageView extends RelativeLayout
       mBannerController.open();
   }
 
+  private void compensateViewHeight(int height)
+  {
+    if (mHeightCompensationView == null)
+      return;
+
+    ViewGroup.LayoutParams lp = mHeightCompensationView.getLayoutParams();
+    lp.height = height;
+    mHeightCompensationView.setLayoutParams(lp);
+  }
+
   private void init(AttributeSet attrs, int defStyleAttr)
   {
     initViews();
@@ -832,12 +842,7 @@ public class PlacePageView extends RelativeLayout
       }
     }
 
-    if (mHeightCompensationView != null)
-    {
-      ViewGroup.LayoutParams lp = mHeightCompensationView.getLayoutParams();
-      lp.height = heightCompensation;
-      mHeightCompensationView.setLayoutParams(lp);
-    }
+    compensateViewHeight(heightCompensation);
 
     if (mMapObject != null)
       mAnimationController.setState(state, mMapObject.getMapObjectType());

@@ -4,6 +4,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="@dimen/placepage_banner_height"
+  android:minHeight="@dimen/placepage_banner_height"
   android:paddingLeft="@dimen/margin_base"
   android:paddingRight="@dimen/margin_base"
   android:paddingTop="@dimen/margin_half"
