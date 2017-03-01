@@ -51,6 +51,9 @@ public:
   bool HasRoutingIndex() const;
 
 private:
+  Format GetFormat() const { return m_version.GetFormat(); }
+  uint32_t GetVersion() const { return m_version.GetVersion(); }
+
   MwmVersion m_version;
 };
 
