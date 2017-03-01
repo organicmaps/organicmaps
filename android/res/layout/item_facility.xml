@@ -10,10 +10,10 @@
               android:clickable="true"
               tools:visibility="visible">
 
-  <ImageView
+<!--  <ImageView
     android:id="@+id/iv__icon"
     style="@style/PlacePageMetadataIcon"
-    android:src="@drawable/ic_entrance"/>
+    android:src="@drawable/ic_entrance"/>-->
 
   <TextView
     android:id="@+id/tv__facility"
