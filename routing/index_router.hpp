@@ -54,12 +54,12 @@ public:
 
 private:
   IRouter::ResultCode CalculateRoute(string const & startCountry, string const & finishCountry,
-                                     bool blockMwmBorders, m2::PointD const & startPoint,
+                                     bool forSingleMwm, m2::PointD const & startPoint,
                                      m2::PointD const & startDirection,
                                      m2::PointD const & finalPoint, RouterDelegate const & delegate,
                                      Route & route);
   IRouter::ResultCode DoCalculateRoute(string const & startCountry, string const & finishCountry,
-                                       bool blockMwmBorders, m2::PointD const & startPoint,
+                                       bool forSingleMwm, m2::PointD const & startPoint,
                                        m2::PointD const & startDirection,
                                        m2::PointD const & finalPoint,
                                        RouterDelegate const & delegate, Route & route);
@@ -70,7 +70,7 @@ private:
   IRouter::ResultCode ProcessLeaps(vector<Segment> const & input, RouterDelegate const & delegate,
                                    IndexGraphStarter & starter, vector<Segment> & output);
   bool RedressRoute(vector<Segment> const & segments, RouterDelegate const & delegate,
-                    IndexGraphStarter & starter, Route & route) const;
+                    bool forSingleMwm, IndexGraphStarter & starter, Route & route) const;
 
   string const m_name;
   Index & m_index;

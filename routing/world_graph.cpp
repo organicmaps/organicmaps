@@ -15,8 +15,9 @@ WorldGraph::WorldGraph(unique_ptr<CrossMwmIndexGraph> crossMwmGraph,
 void WorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing, bool isLeap,
                              vector<SegmentEdge> & edges)
 {
-  if (m_crossMwmGraph && m_bordersAreOpened && isLeap)
+  if (isLeap && m_mode == Mode::WorldWithLeaps)
   {
+    CHECK(m_crossMwmGraph, ());
     if (m_crossMwmGraph->IsTransition(segment, isOutgoing))
       GetTwins(segment, isOutgoing, edges);
     else
@@ -27,8 +28,12 @@ void WorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing, bool isLe
   IndexGraph & indexGraph = GetIndexGraph(segment.GetMwmId());
   indexGraph.GetEdgeList(segment, isOutgoing, edges);
 
-  if (m_crossMwmGraph && m_bordersAreOpened && m_crossMwmGraph->IsTransition(segment, isOutgoing))
-    GetTwins(segment, isOutgoing, edges);
+  if (m_mode != Mode::SingleMwm)
+  {
+    CHECK(m_crossMwmGraph, ());
+    if (m_crossMwmGraph->IsTransition(segment, isOutgoing))
+      GetTwins(segment, isOutgoing, edges);
+  }
 }
 
 m2::PointD const & WorldGraph::GetPoint(Segment const & segment, bool front)

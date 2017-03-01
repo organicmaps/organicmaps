@@ -16,6 +16,13 @@ namespace routing
 class WorldGraph final
 {
 public:
+  enum class Mode
+  {
+    SingleMwm,
+    WorldWithLeaps,
+    WorldWithoutLeaps,
+  };
+
   WorldGraph(std::unique_ptr<CrossMwmIndexGraph> crossMwmGraph,
              std::unique_ptr<IndexGraphLoader> loader, std::shared_ptr<EdgeEstimator> estimator);
 
@@ -28,12 +35,9 @@ public:
   m2::PointD const & GetPoint(Segment const & segment, bool front);
   RoadGeometry const & GetRoadGeometry(NumMwmId mwmId, uint32_t featureId);
 
-  // Disable edges between mwms.
-  void CloseBorders() { m_bordersAreOpened = false; }
-  // Enable edges between mwms.
-  void OpenBorders() { m_bordersAreOpened = true; }
   // Clear memory used by loaded index graphs.
   void ClearIndexGraphs() { m_loader->Clear(); }
+  void SetMode(Mode mode) { m_mode = mode; }
 
 private:  
   void GetTwins(Segment const & s, bool isOutgoing, std::vector<SegmentEdge> & edges);
@@ -42,6 +46,6 @@ private:
   std::unique_ptr<IndexGraphLoader> m_loader;
   std::shared_ptr<EdgeEstimator> m_estimator;
   std::vector<Segment> m_twins;
-  bool m_bordersAreOpened = true;
+  Mode m_mode = Mode::SingleMwm;
 };
 }  // namespace routing

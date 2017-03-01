@@ -1,5 +1,7 @@
 #include "routing/directions_engine.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "base/assert.hpp"
 
 namespace
@@ -78,7 +80,12 @@ bool IDirectionsEngine::ReconstructPath(RoadGraphBase const & graph, vector<Junc
     }
 
     if (!found)
+    {
+      LOG(LERROR, ("Can't find next edge, curr:", MercatorBounds::ToLatLon(curr.GetPoint()),
+                   ", next:", MercatorBounds::ToLatLon(next.GetPoint()), ", edges size:",
+                   currEdges.size(), ", i:", i));
       return false;
+    }
 
     curr = next;
   }

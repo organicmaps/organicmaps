@@ -83,7 +83,7 @@ IRouter::ResultCode IndexRouter::CalculateRouteForSingleMwm(
 }
 
 IRouter::ResultCode IndexRouter::CalculateRoute(string const & startCountry,
-                                                string const & finishCountry, bool blockMwmBorders,
+                                                string const & finishCountry, bool forSingleMwm,
                                                 m2::PointD const & startPoint,
                                                 m2::PointD const & startDirection,
                                                 m2::PointD const & finalPoint,
@@ -91,8 +91,8 @@ IRouter::ResultCode IndexRouter::CalculateRoute(string const & startCountry,
 {
   try
   {
-    return DoCalculateRoute(startCountry, finishCountry, blockMwmBorders, startPoint,
-                            startDirection, finalPoint, delegate, route);
+    return DoCalculateRoute(startCountry, finishCountry, forSingleMwm, startPoint, startDirection,
+                            finalPoint, delegate, route);
   }
   catch (RootException const & e)
   {
@@ -102,10 +102,12 @@ IRouter::ResultCode IndexRouter::CalculateRoute(string const & startCountry,
   }
 }
 
-IRouter::ResultCode IndexRouter::DoCalculateRoute(
-    string const & startCountry, string const & finishCountry, bool blockMwmBorders,
-    m2::PointD const & startPoint, m2::PointD const & /* startDirection */,
-    m2::PointD const & finalPoint, RouterDelegate const & delegate, Route & route)
+IRouter::ResultCode IndexRouter::DoCalculateRoute(string const & startCountry,
+                                                  string const & finishCountry, bool forSingleMwm,
+                                                  m2::PointD const & startPoint,
+                                                  m2::PointD const & /* startDirection */,
+                                                  m2::PointD const & finalPoint,
+                                                  RouterDelegate const & delegate, Route & route)
 {
   auto const startFile = platform::CountryFile(startCountry);
   auto const finishFile = platform::CountryFile(finishCountry);
@@ -130,9 +132,7 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(
       make_unique<CrossMwmIndexGraph>(m_numMwmIds, m_indexManager),
       IndexGraphLoader::Create(m_numMwmIds, m_vehicleModelFactory, m_estimator, m_index),
       m_estimator);
-
-  if (blockMwmBorders)
-    graph.CloseBorders();
+  graph.SetMode(forSingleMwm ? WorldGraph::Mode::SingleMwm : WorldGraph::Mode::WorldWithLeaps);
 
   IndexGraphStarter starter(start, finish, graph);
 
@@ -171,7 +171,7 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(
 
     CHECK_GREATER_OR_EQUAL(segments.size(), routingResult.path.size(), ());
 
-    if (!RedressRoute(segments, delegate, starter, route))
+    if (!RedressRoute(segments, delegate, forSingleMwm, starter, route))
       return IRouter::InternalError;
     if (delegate.IsCancelled())
       return IRouter::Cancelled;
@@ -224,7 +224,7 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
   output.reserve(input.size());
 
   WorldGraph & worldGraph = starter.GetGraph();
-  worldGraph.CloseBorders();
+  worldGraph.SetMode(WorldGraph::Mode::SingleMwm);
 
   for (size_t i = 0; i < input.size(); ++i)
   {
@@ -271,7 +271,7 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
 }
 
 bool IndexRouter::RedressRoute(vector<Segment> const & segments, RouterDelegate const & delegate,
-                               IndexGraphStarter & starter, Route & route) const
+                               bool forSingleMwm, IndexGraphStarter & starter, Route & route) const
 {
   vector<Junction> junctions;
   size_t const numPoints = IndexGraphStarter::GetRouteNumPoints(segments);
@@ -284,7 +284,8 @@ bool IndexRouter::RedressRoute(vector<Segment> const & segments, RouterDelegate 
   }
 
   IndexRoadGraph roadGraph(m_numMwmIds, starter, segments, junctions, m_index);
-  starter.GetGraph().OpenBorders();
+  if (!forSingleMwm)
+    starter.GetGraph().SetMode(WorldGraph::Mode::WorldWithoutLeaps);
 
   CHECK(m_directionsEngine, ());
   ReconstructRoute(*m_directionsEngine, roadGraph, m_trafficStash, delegate, junctions, route);
