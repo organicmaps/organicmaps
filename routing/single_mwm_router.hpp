@@ -40,6 +40,8 @@ public:
                                              Route & route) override;
 
   void SetCountry(string const & country) { m_country = country; }
+
+  /// \note |numMwmIds| should not be null.
   static unique_ptr<SingleMwmRouter> CreateCarRouter(TCountryFileFn const & countryFileFn,
                                                      shared_ptr<NumMwmIds> numMwmIds,
                                                      traffic::TrafficCache const & trafficCache,

@@ -297,6 +297,7 @@ unique_ptr<SingleMwmRouter> SingleMwmRouter::CreateCarRouter(
     TCountryFileFn const & countryFileFn, shared_ptr<NumMwmIds> numMwmIds,
     traffic::TrafficCache const & trafficCache, Index & index)
 {
+  CHECK(numMwmIds, ());
   auto vehicleModelFactory = make_shared<CarModelFactory>();
   // @TODO Bicycle turn generation engine is used now. It's ok for the time being.
   // But later a special car turn generation engine should be implemented.
