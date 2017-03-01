@@ -11,6 +11,7 @@ add_executable(${PROJECT_NAME} ${SRC})
 omim_link_libraries(${PROJECT_NAME}
   openlr
   routing
+  routing_common
   indexer
   editor
   platform

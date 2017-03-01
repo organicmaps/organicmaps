@@ -7,9 +7,10 @@
 #include "openlr/router.hpp"
 #include "openlr/way_point.hpp"
 
-#include "routing/car_model.hpp"
 #include "routing/features_road_graph.hpp"
 #include "routing/road_graph.hpp"
+
+#include "routing_common/car_model.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/index.hpp"

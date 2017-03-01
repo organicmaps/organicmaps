@@ -8,14 +8,13 @@
 #include "generator/osm2type.hpp"
 #include "generator/tag_admixer.hpp"
 
-#include "routing/car_model.hpp"
+#include "routing_common/car_model.hpp"
 
 #include "indexer/feature_data.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
 
 #include "std/iostream.hpp"
-
 
 using namespace tests;
 

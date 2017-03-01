@@ -1,4 +1,5 @@
 #include "routing/restriction_loader.hpp"
+
 #include "routing/restrictions_serialization.hpp"
 #include "routing/road_index.hpp"
 

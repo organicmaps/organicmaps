@@ -4,8 +4,8 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = generator_tests_support platform_tests_support generator drape_frontend routing search storage \
-               indexer drape map traffic platform editor geometry \
+DEPENDENCIES = generator_tests_support platform_tests_support generator drape_frontend routing \
+               search storage indexer drape map traffic routing_common platform editor geometry \
                coding base freetype expat fribidi jansson protobuf osrm stats_client \
                minizip succinct pugixml tess2 gflags oauthcpp stb_image sdf_image
 

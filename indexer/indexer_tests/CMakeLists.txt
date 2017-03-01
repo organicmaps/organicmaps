@@ -49,6 +49,7 @@ omim_link_libraries(
   generator
   search
   routing
+  routing_common
   indexer
   storage
   editor

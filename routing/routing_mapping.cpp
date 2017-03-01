@@ -1,4 +1,4 @@
-#include "routing_mapping.hpp"
+#include "routing/routing_mapping.hpp"
 
 #include "routing/cross_routing_context.hpp"
 #include "routing/osrm2feature_map.hpp"

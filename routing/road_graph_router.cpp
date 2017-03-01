@@ -1,14 +1,15 @@
 #include "routing/road_graph_router.hpp"
 
 #include "routing/bicycle_directions.hpp"
-#include "routing/bicycle_model.hpp"
-#include "routing/car_model.hpp"
 #include "routing/features_road_graph.hpp"
 #include "routing/nearest_edge_finder.hpp"
 #include "routing/pedestrian_directions.hpp"
-#include "routing/pedestrian_model.hpp"
 #include "routing/route.hpp"
 #include "routing/routing_helpers.hpp"
+
+#include "routing_common/bicycle_model.hpp"
+#include "routing_common/car_model.hpp"
+#include "routing_common/pedestrian_model.hpp"
 
 #include "coding/reader_wrapper.hpp"
 

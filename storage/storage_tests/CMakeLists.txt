@@ -32,6 +32,7 @@ omim_link_libraries(
   generator
   search
   routing
+  routing_common
   indexer
   platform_tests_support
   osrm

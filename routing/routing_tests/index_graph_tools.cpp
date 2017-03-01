@@ -2,7 +2,7 @@
 
 #include "testing/testing.hpp"
 
-#include "routing/car_model.hpp"
+#include "routing_common/car_model.hpp"
 
 namespace routing_test
 {

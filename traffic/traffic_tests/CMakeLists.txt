@@ -14,7 +14,7 @@ omim_add_test(${PROJECT_NAME} ${SRC})
 omim_link_libraries(
   ${PROJECT_NAME}
   traffic
-  routing
+  routing_common
   indexer
   editor
   pugixml

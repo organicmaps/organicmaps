@@ -1,7 +1,8 @@
 #pragma once
 
 #include "routing/road_point.hpp"
-#include "routing/vehicle_model.hpp"
+
+#include "routing_common/vehicle_model.hpp"
 
 #include "indexer/index.hpp"
 

@@ -26,7 +26,6 @@ set(
   turns_generator_test.cpp
   turns_sound_test.cpp
   turns_tts_text_tests.cpp
-  vehicle_model_test.cpp
 )
 
 omim_add_test(${PROJECT_NAME} ${SRC})
@@ -38,6 +37,7 @@ omim_link_libraries(
   platform_tests_support
   editor
   traffic
+  routing_common
   platform
   oauthcpp
   geometry

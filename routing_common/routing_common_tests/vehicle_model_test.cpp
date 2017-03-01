@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "routing/vehicle_model.hpp"
+#include "routing_common/vehicle_model.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
@@ -8,10 +8,8 @@
 
 #include "base/macros.hpp"
 
-
 namespace
 {
-
 routing::VehicleModel::InitListT const s_testLimits = {
     {{"highway", "trunk"}, 150},
     {{"highway", "primary"}, 120},

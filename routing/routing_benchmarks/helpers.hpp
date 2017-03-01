@@ -2,8 +2,9 @@
 
 #include "routing/road_graph.hpp"
 #include "routing/router.hpp"
-#include "routing/vehicle_model.hpp"
 #include "routing/road_graph_router.hpp"
+
+#include "routing_common/vehicle_model.hpp"
 
 #include "indexer/index.hpp"
 

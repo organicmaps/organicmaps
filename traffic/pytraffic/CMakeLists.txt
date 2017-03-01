@@ -24,8 +24,9 @@ endif()
 
 omim_link_libraries(
   ${PROJECT_NAME}
-  traffic
   routing
+  traffic
+  routing_common
   indexer
   editor
   platform

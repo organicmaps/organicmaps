@@ -1,4 +1,4 @@
-#include "speed_camera.hpp"
+#include "routing/speed_camera.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/ftypes_matcher.hpp"

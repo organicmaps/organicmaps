@@ -2,14 +2,14 @@
 
 #include "routing/cross_routing_context.hpp"
 
-#include "defines.hpp"
-
 #include "coding/file_container.hpp"
 #include "coding/read_write_utils.hpp"
 
 #include "base/bits.hpp"
 
 #include "std/string.hpp"
+
+#include "defines.hpp"
 
 #include "3party/succinct/elias_fano.hpp"
 #include "3party/succinct/elias_fano_compressed_list.hpp"

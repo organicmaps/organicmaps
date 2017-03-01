@@ -2,10 +2,11 @@
 
 #include "routing/routing_tests/index_graph_tools.hpp"
 
-#include "routing/car_model.hpp"
 #include "routing/geometry.hpp"
 
 #include "traffic/traffic_cache.hpp"
+
+#include "routing_common/car_model.hpp"
 
 #include "geometry/point2d.hpp"
 

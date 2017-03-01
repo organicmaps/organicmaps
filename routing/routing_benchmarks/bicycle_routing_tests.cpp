@@ -3,8 +3,9 @@
 #include "routing/routing_benchmarks/helpers.hpp"
 
 #include "routing/bicycle_directions.hpp"
-#include "routing/bicycle_model.hpp"
 #include "routing/road_graph.hpp"
+
+#include "routing_common/bicycle_model.hpp"
 
 #include "geometry/mercator.hpp"
 

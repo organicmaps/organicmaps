@@ -1,14 +1,15 @@
 #pragma once
 
-#include "routing/bicycle_model.hpp"
-#include "routing/car_model.hpp"
 #include "routing/directions_engine.hpp"
-#include "routing/pedestrian_model.hpp"
 #include "routing/road_graph.hpp"
 #include "routing/route.hpp"
 #include "routing/traffic_stash.hpp"
 
 #include "traffic/traffic_info.hpp"
+
+#include "routing_common/bicycle_model.hpp"
+#include "routing_common/car_model.hpp"
+#include "routing_common/pedestrian_model.hpp"
 
 #include "base/cancellable.hpp"
 

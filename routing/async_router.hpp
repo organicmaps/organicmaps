@@ -1,9 +1,9 @@
 #pragma once
 
-#include "online_absent_fetcher.hpp"
-#include "route.hpp"
-#include "router.hpp"
-#include "router_delegate.hpp"
+#include "routing/online_absent_fetcher.hpp"
+#include "routing/route.hpp"
+#include "routing/router.hpp"
+#include "routing/router_delegate.hpp"
 
 #include "base/thread.hpp"
 

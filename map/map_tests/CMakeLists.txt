@@ -26,6 +26,7 @@ omim_link_libraries(
   drape_frontend
   routing
   traffic
+  routing_common
   search
   storage
   tracking

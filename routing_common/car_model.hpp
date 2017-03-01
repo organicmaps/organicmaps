@@ -1,5 +1,6 @@
 #pragma once
-#include "vehicle_model.hpp"
+
+#include "routing_common/vehicle_model.hpp"
 
 #include "std/shared_ptr.hpp"
 

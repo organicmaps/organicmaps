@@ -6,8 +6,9 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = map drape_frontend routing traffic search storage tracking drape indexer partners_api platform editor geometry coding base \
-               freetype fribidi expat protobuf jansson osrm stats_client minizip succinct pugixml stats_client stb_image sdf_image
+DEPENDENCIES = map drape_frontend routing traffic routing_common search storage tracking drape \
+               indexer partners_api platform editor geometry coding base freetype fribidi expat \
+               protobuf jansson osrm stats_client minizip succinct pugixml stats_client stb_image sdf_image
 
 DEPENDENCIES *= opening_hours
 

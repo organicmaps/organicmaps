@@ -1,5 +1,6 @@
-#include "online_absent_fetcher.hpp"
-#include "online_cross_fetcher.hpp"
+#include "routing/online_absent_fetcher.hpp"
+
+#include "routing/online_cross_fetcher.hpp"
 
 #include "platform/platform.hpp"
 #include "platform/country_file.hpp"

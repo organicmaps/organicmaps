@@ -1,4 +1,4 @@
-#include "bicycle_model.hpp"
+#include "routing_common/pedestrian_model.hpp"
 
 #include "base/assert.hpp"
 #include "base/macros.hpp"
@@ -12,45 +12,45 @@ namespace
 
 // See model specifics in different countries here:
 //   http://wiki.openstreetmap.org/wiki/OSM_tags_for_routing/Access-Restrictions
-// Document contains proposals for some countries, but we assume that some kinds of roads are ready for bicycle routing,
+// Document contains proposals for some countries, but we assume that some kinds of roads are ready for pedestrian routing,
 // but not listed in tables in the document. For example, steps are not listed, paths, roads and services features also
-// can be treated as ready for bicycle routing.
-// Kinds of roads which we assume are ready for bicycles are marked by // * below.
+// can be treated as ready for pedestrian routing.
+// Kinds of roads which we assume footable are marked by // * below.
 
 // See road types here:
 //   http://wiki.openstreetmap.org/wiki/Key:highway
 
 // Heuristics:
-// For less bicycle roads we add fine by setting smaller value of speed, and for more bicycle roads we
-// set greater values of speed. Algorithm picks roads with greater speed first, preferencing a more bicycle roads over
-// less bicycle. As result of such heuristic road is not totally the shortest, but it avoids non bicycle roads, which were
-// not marked as "hwtag=nobicycle" in OSM.
+// For less pedestrian roads we add fine by setting smaller value of speed, and for more pedestrian roads we
+// set greater values of speed. Algorithm picks roads with greater speed first, preferencing a more pedestrian roads over
+// less pedestrian. As result of such heuristic road is not totally the shortest, but it avoids non pedestrian roads, which were
+// not marked as "foot=no" in OSM.
 
-double constexpr kSpeedTrunkKMpH = 3.0;
-double constexpr kSpeedTrunkLinkKMpH = 3.0;
-double constexpr kSpeedPrimaryKMpH = 5.0;
-double constexpr kSpeedPrimaryLinkKMpH = 5.0;
-double constexpr kSpeedSecondaryKMpH = 15.0;
-double constexpr kSpeedSecondaryLinkKMpH = 15.0;
-double constexpr kSpeedTertiaryKMpH = 15.0;
-double constexpr kSpeedTertiaryLinkKMpH = 15.0;
-double constexpr kSpeedServiceKMpH = 12.0;
-double constexpr kSpeedUnclassifiedKMpH = 12.0;
-double constexpr kSpeedRoadKMpH = 10.0;
-double constexpr kSpeedTrackKMpH = 8.0;
-double constexpr kSpeedPathKMpH = 6.0;
-double constexpr kSpeedBridlewayKMpH = 4.0;
-double constexpr kSpeedCyclewayKMpH = 15.0;
-double constexpr kSpeedResidentialKMpH = 8.0;
-double constexpr kSpeedLivingStreetKMpH = 7.0;
-double constexpr kSpeedStepsKMpH = 1.0;
+double constexpr kSpeedTrunkKMpH = 1.0;
+double constexpr kSpeedTrunkLinkKMpH = 1.0;
+double constexpr kSpeedPrimaryKMpH = 2.0;
+double constexpr kSpeedPrimaryLinkKMpH = 2.0;
+double constexpr kSpeedSecondaryKMpH = 3.0;
+double constexpr kSpeedSecondaryLinkKMpH = 3.0;
+double constexpr kSpeedTertiaryKMpH = 4.0;
+double constexpr kSpeedTertiaryLinkKMpH = 4.0;
+double constexpr kSpeedServiceKMpH = 5.0;
+double constexpr kSpeedUnclassifiedKMpH = 4.5;
+double constexpr kSpeedRoadKMpH = 4.0;
+double constexpr kSpeedTrackKMpH = 5.0;
+double constexpr kSpeedPathKMpH = 5.0;
+double constexpr kSpeedBridlewayKMpH = 1.0;
+double constexpr kSpeedCyclewayKMpH = 4.0;
+double constexpr kSpeedResidentialKMpH = 4.5;
+double constexpr kSpeedLivingStreetKMpH = 5.0;
+double constexpr kSpeedStepsKMpH = 4.9;
 double constexpr kSpeedPedestrianKMpH = 5.0;
-double constexpr kSpeedFootwayKMpH = 7.0;
-double constexpr kSpeedPlatformKMpH = 3.0;
-double constexpr kSpeedPierKMpH = 7.0;
+double constexpr kSpeedFootwayKMpH = 5.0;
+double constexpr kSpeedPlatformKMpH = 5.0;
+double constexpr kSpeedPierKMpH = 4.0;
 
 // Default
-routing::VehicleModel::InitListT const g_bicycleLimitsDefault =
+routing::VehicleModel::InitListT const g_pedestrianLimitsDefault =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
@@ -65,41 +65,42 @@ routing::VehicleModel::InitListT const g_bicycleLimitsDefault =
   { {"highway", "road"},           kSpeedRoadKMpH },
   { {"highway", "track"},          kSpeedTrackKMpH }, // *
   { {"highway", "path"},           kSpeedPathKMpH },
-  { {"highway", "cycleway"},       kSpeedCyclewayKMpH },
   { {"highway", "residential"},    kSpeedResidentialKMpH },
   { {"highway", "living_street"},  kSpeedLivingStreetKMpH },
   { {"highway", "steps"},          kSpeedStepsKMpH }, // *
+  { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
+  { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
 };
 
 // All options available.
-routing::VehicleModel::InitListT const g_bicycleLimitsAll =
+routing::VehicleModel::InitListT const g_pedestrianLimitsAll =
 {
-  { {"highway", "trunk"},          kSpeedCyclewayKMpH },
-  { {"highway", "trunk_link"},     kSpeedCyclewayKMpH },
-  { {"highway", "primary"},        kSpeedCyclewayKMpH },
-  { {"highway", "primary_link"},   kSpeedCyclewayKMpH },
-  { {"highway", "secondary"},      kSpeedCyclewayKMpH },
-  { {"highway", "secondary_link"}, kSpeedCyclewayKMpH },
-  { {"highway", "tertiary"},       kSpeedCyclewayKMpH },
-  { {"highway", "tertiary_link"},  kSpeedCyclewayKMpH },
-  { {"highway", "service"},        kSpeedCyclewayKMpH },
-  { {"highway", "unclassified"},   kSpeedCyclewayKMpH },
-  { {"highway", "road"},           kSpeedCyclewayKMpH },
-  { {"highway", "track"},          kSpeedCyclewayKMpH },
-  { {"highway", "path"},           kSpeedCyclewayKMpH },
-  { {"highway", "bridleway"},      kSpeedCyclewayKMpH },
-  { {"highway", "cycleway"},       kSpeedCyclewayKMpH },
-  { {"highway", "residential"},    kSpeedCyclewayKMpH },
-  { {"highway", "living_street"},  kSpeedCyclewayKMpH },
-  { {"highway", "steps"},          kSpeedCyclewayKMpH },
-  { {"highway", "pedestrian"},     kSpeedCyclewayKMpH },
-  { {"highway", "footway"},        kSpeedCyclewayKMpH },
-  { {"highway", "platform"},       kSpeedCyclewayKMpH },
+  { {"highway", "trunk"},          kSpeedPedestrianKMpH },
+  { {"highway", "trunk_link"},     kSpeedPedestrianKMpH },
+  { {"highway", "primary"},        kSpeedPedestrianKMpH },
+  { {"highway", "primary_link"},   kSpeedPedestrianKMpH },
+  { {"highway", "secondary"},      kSpeedPedestrianKMpH },
+  { {"highway", "secondary_link"}, kSpeedPedestrianKMpH },
+  { {"highway", "tertiary"},       kSpeedPedestrianKMpH },
+  { {"highway", "tertiary_link"},  kSpeedPedestrianKMpH },
+  { {"highway", "service"},        kSpeedPedestrianKMpH },
+  { {"highway", "unclassified"},   kSpeedPedestrianKMpH },
+  { {"highway", "road"},           kSpeedPedestrianKMpH },
+  { {"highway", "track"},          kSpeedPedestrianKMpH },
+  { {"highway", "path"},           kSpeedPedestrianKMpH },
+  { {"highway", "bridleway"},      kSpeedPedestrianKMpH },
+  { {"highway", "cycleway"},       kSpeedPedestrianKMpH },
+  { {"highway", "residential"},    kSpeedPedestrianKMpH },
+  { {"highway", "living_street"},  kSpeedPedestrianKMpH },
+  { {"highway", "steps"},          kSpeedPedestrianKMpH },
+  { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
+  { {"highway", "footway"},        kSpeedPedestrianKMpH },
+  { {"highway", "platform"},       kSpeedPedestrianKMpH },
 };
 
 // Australia
-routing::VehicleModel::InitListT const g_bicycleLimitsAustralia =
+routing::VehicleModel::InitListT const g_pedestrianLimitsAustralia =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
@@ -125,7 +126,7 @@ routing::VehicleModel::InitListT const g_bicycleLimitsAustralia =
 };
 
 // Austria
-routing::VehicleModel::InitListT const g_bicycleLimitsAustria =
+routing::VehicleModel::InitListT const g_pedestrianLimitsAustria =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
@@ -137,15 +138,18 @@ routing::VehicleModel::InitListT const g_bicycleLimitsAustria =
   { {"highway", "unclassified"},   kSpeedUnclassifiedKMpH },
   { {"highway", "road"},           kSpeedRoadKMpH },
   { {"highway", "track"},          kSpeedTrackKMpH },
+  { {"highway", "path"},           kSpeedPathKMpH },
   { {"highway", "cycleway"},       kSpeedCyclewayKMpH },
   { {"highway", "residential"},    kSpeedResidentialKMpH },
   { {"highway", "living_street"},  kSpeedLivingStreetKMpH },
   { {"highway", "steps"},          kSpeedStepsKMpH }, // *
+  { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
+  { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
 };
 
 // Belarus
-routing::VehicleModel::InitListT const g_bicycleLimitsBelarus =
+routing::VehicleModel::InitListT const g_pedestrianLimitsBelarus =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
@@ -170,7 +174,7 @@ routing::VehicleModel::InitListT const g_bicycleLimitsBelarus =
 };
 
 // Belgium
-routing::VehicleModel::InitListT const g_bicycleLimitsBelgium =
+routing::VehicleModel::InitListT const g_pedestrianLimitsBelgium =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
@@ -183,16 +187,18 @@ routing::VehicleModel::InitListT const g_bicycleLimitsBelgium =
   { {"highway", "road"},           kSpeedRoadKMpH }, // *
   { {"highway", "track"},          kSpeedTrackKMpH },
   { {"highway", "path"},           kSpeedPathKMpH },
+  { {"highway", "bridleway"},      kSpeedBridlewayKMpH },
   { {"highway", "cycleway"},       kSpeedCyclewayKMpH },
   { {"highway", "residential"},    kSpeedResidentialKMpH }, // *
   { {"highway", "living_street"},  kSpeedLivingStreetKMpH }, // *
   { {"highway", "steps"},          kSpeedStepsKMpH }, // *
   { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
+  { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
 };
 
 // Brazil
-routing::VehicleModel::InitListT const g_bicycleLimitsBrazil =
+routing::VehicleModel::InitListT const g_pedestrianLimitsBrazil =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
@@ -218,28 +224,7 @@ routing::VehicleModel::InitListT const g_bicycleLimitsBrazil =
 };
 
 // Denmark
-routing::VehicleModel::InitListT const g_bicycleLimitsDenmark =
-{
-  { {"highway", "primary"},        kSpeedPrimaryKMpH },
-  { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
-  { {"highway", "secondary"},      kSpeedSecondaryKMpH },
-  { {"highway", "secondary_link"}, kSpeedSecondaryLinkKMpH },
-  { {"highway", "tertiary"},       kSpeedTertiaryKMpH },
-  { {"highway", "tertiary_link"},  kSpeedTertiaryLinkKMpH },
-  { {"highway", "service"},        kSpeedServiceKMpH }, // *
-  { {"highway", "unclassified"},   kSpeedUnclassifiedKMpH },
-  { {"highway", "road"},           kSpeedRoadKMpH }, // *
-  { {"highway", "track"},          kSpeedTrackKMpH },
-  { {"highway", "path"},           kSpeedPathKMpH },
-  { {"highway", "cycleway"},       kSpeedCyclewayKMpH },
-  { {"highway", "residential"},    kSpeedResidentialKMpH },
-  { {"highway", "living_street"},  kSpeedLivingStreetKMpH },
-  { {"highway", "steps"},          kSpeedStepsKMpH }, // *
-  { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
-};
-
-// France
-routing::VehicleModel::InitListT const g_bicycleLimitsFrance =
+routing::VehicleModel::InitListT const g_pedestrianLimitsDenmark =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
@@ -257,11 +242,34 @@ routing::VehicleModel::InitListT const g_bicycleLimitsFrance =
   { {"highway", "living_street"},  kSpeedLivingStreetKMpH },
   { {"highway", "steps"},          kSpeedStepsKMpH }, // *
   { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
+  { {"highway", "footway"},        kSpeedFootwayKMpH },
+  { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
+};
+
+// France
+routing::VehicleModel::InitListT const g_pedestrianLimitsFrance =
+{
+  { {"highway", "primary"},        kSpeedPrimaryKMpH },
+  { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
+  { {"highway", "secondary"},      kSpeedSecondaryKMpH },
+  { {"highway", "secondary_link"}, kSpeedSecondaryLinkKMpH },
+  { {"highway", "tertiary"},       kSpeedTertiaryKMpH },
+  { {"highway", "tertiary_link"},  kSpeedTertiaryLinkKMpH },
+  { {"highway", "service"},        kSpeedServiceKMpH }, // *
+  { {"highway", "unclassified"},   kSpeedUnclassifiedKMpH },
+  { {"highway", "road"},           kSpeedRoadKMpH }, // *
+  { {"highway", "track"},          kSpeedTrackKMpH },
+  { {"highway", "path"},           kSpeedPathKMpH },
+  { {"highway", "residential"},    kSpeedResidentialKMpH },
+  { {"highway", "living_street"},  kSpeedLivingStreetKMpH },
+  { {"highway", "steps"},          kSpeedStepsKMpH }, // *
+  { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
+  { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
 };
 
 // Finland
-routing::VehicleModel::InitListT const g_bicycleLimitsFinland =
+routing::VehicleModel::InitListT const g_pedestrianLimitsFinland =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
@@ -281,11 +289,12 @@ routing::VehicleModel::InitListT const g_bicycleLimitsFinland =
   { {"highway", "living_street"},  kSpeedLivingStreetKMpH },
   { {"highway", "steps"},          kSpeedStepsKMpH },
   { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
+  { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
 };
 
 // Germany
-routing::VehicleModel::InitListT const g_bicycleLimitsGermany =
+routing::VehicleModel::InitListT const g_pedestrianLimitsGermany =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
@@ -300,15 +309,16 @@ routing::VehicleModel::InitListT const g_bicycleLimitsGermany =
   { {"highway", "road"},           kSpeedRoadKMpH },
   { {"highway", "track"},          kSpeedTrackKMpH },
   { {"highway", "path"},           kSpeedPathKMpH },
-  { {"highway", "cycleway"},       kSpeedCyclewayKMpH },
   { {"highway", "residential"},    kSpeedResidentialKMpH },
   { {"highway", "living_street"},  kSpeedLivingStreetKMpH },
   { {"highway", "steps"},          kSpeedStepsKMpH }, // *
+  { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
+  { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
 };
 
 // Hungary
-routing::VehicleModel::InitListT const g_bicycleLimitsHungary =
+routing::VehicleModel::InitListT const g_pedestrianLimitsHungary =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
@@ -321,15 +331,16 @@ routing::VehicleModel::InitListT const g_bicycleLimitsHungary =
   { {"highway", "road"},           kSpeedRoadKMpH },
   { {"highway", "track"},          kSpeedTrackKMpH }, // *
   { {"highway", "path"},           kSpeedPathKMpH }, // *
-  { {"highway", "cycleway"},       kSpeedCyclewayKMpH },
   { {"highway", "residential"},    kSpeedResidentialKMpH },
   { {"highway", "living_street"},  kSpeedLivingStreetKMpH },
   { {"highway", "steps"},          kSpeedStepsKMpH }, // *
+  { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
+  { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
 };
 
 // Netherlands
-routing::VehicleModel::InitListT const g_bicycleLimitsNetherlands =
+routing::VehicleModel::InitListT const g_pedestrianLimitsNetherlands =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
@@ -346,11 +357,13 @@ routing::VehicleModel::InitListT const g_bicycleLimitsNetherlands =
   { {"highway", "residential"},    kSpeedResidentialKMpH },
   { {"highway", "living_street"},  kSpeedLivingStreetKMpH },
   { {"highway", "steps"},          kSpeedStepsKMpH }, // *
+  { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
+  { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
 };
 
 // Norway
-routing::VehicleModel::InitListT const g_bicycleLimitsNorway =
+routing::VehicleModel::InitListT const g_pedestrianLimitsNorway =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
@@ -376,7 +389,7 @@ routing::VehicleModel::InitListT const g_bicycleLimitsNorway =
 };
 
 // Poland
-routing::VehicleModel::InitListT const g_bicycleLimitsPoland =
+routing::VehicleModel::InitListT const g_pedestrianLimitsPoland =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
@@ -389,15 +402,16 @@ routing::VehicleModel::InitListT const g_bicycleLimitsPoland =
   { {"highway", "road"},           kSpeedRoadKMpH },
   { {"highway", "track"},          kSpeedTrackKMpH }, // *
   { {"highway", "path"},           kSpeedPathKMpH },
-  { {"highway", "cycleway"},       kSpeedCyclewayKMpH },
   { {"highway", "residential"},    kSpeedResidentialKMpH },
   { {"highway", "living_street"},  kSpeedLivingStreetKMpH },
   { {"highway", "steps"},          kSpeedStepsKMpH }, // *
+  { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
+  { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
 };
 
 // Romania
-routing::VehicleModel::InitListT const g_bicycleLimitsRomania =
+routing::VehicleModel::InitListT const g_pedestrianLimitsRomania =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
@@ -410,15 +424,16 @@ routing::VehicleModel::InitListT const g_bicycleLimitsRomania =
   { {"highway", "road"},           kSpeedRoadKMpH },
   { {"highway", "track"},          kSpeedTrackKMpH },
   { {"highway", "path"},           kSpeedPathKMpH },
-  { {"highway", "cycleway"},       kSpeedCyclewayKMpH },
   { {"highway", "residential"},    kSpeedResidentialKMpH },
   { {"highway", "living_street"},  kSpeedLivingStreetKMpH },
   { {"highway", "steps"},          kSpeedStepsKMpH }, // *
+  { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
+  { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
 };
 
 // Russia
-routing::VehicleModel::InitListT const g_bicycleLimitsRussia =
+routing::VehicleModel::InitListT const g_pedestrianLimitsRussia =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
@@ -436,14 +451,14 @@ routing::VehicleModel::InitListT const g_bicycleLimitsRussia =
   { {"highway", "cycleway"},       kSpeedCyclewayKMpH },
   { {"highway", "residential"},    kSpeedResidentialKMpH },
   { {"highway", "living_street"},  kSpeedLivingStreetKMpH },
-  { {"highway", "steps"},          kSpeedStepsKMpH }, // *
+  { {"highway", "steps"},          kSpeedStepsKMpH },
   { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
-  { {"highway", "footway"},        kSpeedPedestrianKMpH },
+  { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
 };
 
 // Slovakia
-routing::VehicleModel::InitListT const g_bicycleLimitsSlovakia =
+routing::VehicleModel::InitListT const g_pedestrianLimitsSlovakia =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
@@ -456,15 +471,16 @@ routing::VehicleModel::InitListT const g_bicycleLimitsSlovakia =
   { {"highway", "road"},           kSpeedRoadKMpH },
   { {"highway", "track"},          kSpeedTrackKMpH }, // *
   { {"highway", "path"},           kSpeedPathKMpH },
-  { {"highway", "cycleway"},       kSpeedCyclewayKMpH },
   { {"highway", "residential"},    kSpeedResidentialKMpH },
   { {"highway", "living_street"},  kSpeedLivingStreetKMpH },
   { {"highway", "steps"},          kSpeedStepsKMpH }, // *
+  { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
+  { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
 };
 
 // Switzerland
-routing::VehicleModel::InitListT const g_bicycleLimitsSwitzerland =
+routing::VehicleModel::InitListT const g_pedestrianLimitsSwitzerland =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
@@ -477,7 +493,6 @@ routing::VehicleModel::InitListT const g_bicycleLimitsSwitzerland =
   { {"highway", "road"},           kSpeedRoadKMpH },
   { {"highway", "track"},          kSpeedTrackKMpH },
   { {"highway", "path"},           kSpeedPathKMpH },
-  { {"highway", "cycleway"},       kSpeedCyclewayKMpH },
   { {"highway", "residential"},    kSpeedResidentialKMpH },
   { {"highway", "living_street"},  kSpeedLivingStreetKMpH },
   { {"highway", "steps"},          kSpeedStepsKMpH }, // *
@@ -487,7 +502,7 @@ routing::VehicleModel::InitListT const g_bicycleLimitsSwitzerland =
 };
 
 // Turkey
-routing::VehicleModel::InitListT const g_bicycleLimitsTurkey =
+routing::VehicleModel::InitListT const g_pedestrianLimitsTurkey =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
@@ -502,15 +517,18 @@ routing::VehicleModel::InitListT const g_bicycleLimitsTurkey =
   { {"highway", "road"},           kSpeedRoadKMpH },
   { {"highway", "track"},          kSpeedTrackKMpH }, // *
   { {"highway", "path"},           kSpeedPathKMpH },
+  { {"highway", "bridleway"},      kSpeedBridlewayKMpH },
   { {"highway", "cycleway"},       kSpeedCyclewayKMpH },
   { {"highway", "residential"},    kSpeedResidentialKMpH },
   { {"highway", "living_street"},  kSpeedLivingStreetKMpH },
   { {"highway", "steps"},          kSpeedStepsKMpH }, // *
+  { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
+  { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
 };
 
 // Ukraine
-routing::VehicleModel::InitListT const g_bicycleLimitsUkraine =
+routing::VehicleModel::InitListT const g_pedestrianLimitsUkraine =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH },
@@ -523,17 +541,16 @@ routing::VehicleModel::InitListT const g_bicycleLimitsUkraine =
   { {"highway", "road"},           kSpeedRoadKMpH },
   { {"highway", "track"},          kSpeedTrackKMpH },
   { {"highway", "path"},           kSpeedPathKMpH },
-  { {"highway", "cycleway"},       kSpeedCyclewayKMpH },
   { {"highway", "residential"},    kSpeedResidentialKMpH },
   { {"highway", "living_street"},  kSpeedLivingStreetKMpH },
-  { {"highway", "steps"},          kSpeedStepsKMpH }, // *
+  { {"highway", "steps"},          kSpeedStepsKMpH },
   { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
   { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
 };
 
 // United Kingdom
-routing::VehicleModel::InitListT const g_bicycleLimitsUK =
+routing::VehicleModel::InitListT const g_pedestrianLimitsUK =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
@@ -553,11 +570,13 @@ routing::VehicleModel::InitListT const g_bicycleLimitsUK =
   { {"highway", "residential"},    kSpeedResidentialKMpH },
   { {"highway", "living_street"},  kSpeedLivingStreetKMpH },
   { {"highway", "steps"},          kSpeedStepsKMpH }, // *
+  { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
+  { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
 };
 
 // USA
-routing::VehicleModel::InitListT const g_bicycleLimitsUSA =
+routing::VehicleModel::InitListT const g_pedestrianLimitsUS =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH },
@@ -578,6 +597,7 @@ routing::VehicleModel::InitListT const g_bicycleLimitsUSA =
   { {"highway", "living_street"},  kSpeedLivingStreetKMpH },
   { {"highway", "steps"},          kSpeedStepsKMpH }, // *
   { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
+  { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
 };
 
@@ -586,30 +606,29 @@ routing::VehicleModel::InitListT const g_bicycleLimitsUSA =
 namespace routing
 {
 
-// If one of feature types will be disabled for bicycles, features of this type will be simplyfied
+// If one of feature types will be disabled for pedestrian, features of this type will be simplyfied
 // in generator. Look FeatureBuilder1::IsRoad() for more details.
-BicycleModel::BicycleModel()
-  : VehicleModel(classif(), g_bicycleLimitsAll)
+PedestrianModel::PedestrianModel()
+  : VehicleModel(classif(), g_pedestrianLimitsAll)
 {
   Init();
 }
 
-BicycleModel::BicycleModel(VehicleModel::InitListT const & speedLimits)
+PedestrianModel::PedestrianModel(VehicleModel::InitListT const & speedLimits)
   : VehicleModel(classif(), speedLimits)
 {
   Init();
 }
 
-void BicycleModel::Init()
+void PedestrianModel::Init()
 {
-  initializer_list<char const *> hwtagYesBicycle = {"hwtag", "yesbicycle"};
+  initializer_list<char const *> hwtagYesFoot = {"hwtag", "yesfoot"};
 
-  m_yesBicycleType = classif().GetTypeByPath(hwtagYesBicycle);
-  m_noBicycleType = classif().GetTypeByPath({"hwtag", "nobicycle"});
-  m_bidirBicycleType = classif().GetTypeByPath({"hwtag", "bidir_bicycle"});
+  m_noFootType = classif().GetTypeByPath({ "hwtag", "nofoot" });
+  m_yesFootType = classif().GetTypeByPath(hwtagYesFoot);
 
   vector<AdditionalRoadTags> const additionalTags = {
-      {hwtagYesBicycle, m_maxSpeedKMpH},
+      {hwtagYesFoot, m_maxSpeedKMpH},
       {{"route", "ferry"}, m_maxSpeedKMpH},
       {{"man_made", "pier"}, kSpeedPierKMpH},
   };
@@ -617,79 +636,64 @@ void BicycleModel::Init()
   SetAdditionalRoadTypes(classif(), additionalTags);
 }
 
-IVehicleModel::RoadAvailability BicycleModel::GetRoadAvailability(feature::TypesHolder const & types) const
+IVehicleModel::RoadAvailability PedestrianModel::GetRoadAvailability(feature::TypesHolder const & types) const
 {
-  if (types.Has(m_yesBicycleType))
+  if (types.Has(m_yesFootType))
     return RoadAvailability::Available;
-  if (types.Has(m_noBicycleType))
+  if (types.Has(m_noFootType))
     return RoadAvailability::NotAvailable;
   return RoadAvailability::Unknown;
 }
 
-bool BicycleModel::IsBicycleBidir(feature::TypesHolder const & types) const
-{
-  return types.Has(m_bidirBicycleType);
-}
-
-bool BicycleModel::IsOneWay(FeatureType const & f) const
-{
-  feature::TypesHolder const types(f);
-
-  if (IsBicycleBidir(types))
-    return false;
-
-  return VehicleModel::IsOneWay(f);
-}
-
 // static
-BicycleModel const & BicycleModel::AllLimitsInstance()
+PedestrianModel const & PedestrianModel::AllLimitsInstance()
 {
-  static BicycleModel const instance;
+  static PedestrianModel const instance;
   return instance;
 }
 
-BicycleModelFactory::BicycleModelFactory()
+PedestrianModelFactory::PedestrianModelFactory()
 {
-  m_models[string()] = make_shared<BicycleModel>(g_bicycleLimitsDefault);
-  m_models["Australia"] = make_shared<BicycleModel>(g_bicycleLimitsAustralia);
-  m_models["Austria"] = make_shared<BicycleModel>(g_bicycleLimitsAustria);
-  m_models["Belarus"] = make_shared<BicycleModel>(g_bicycleLimitsBelarus);
-  m_models["Belgium"] = make_shared<BicycleModel>(g_bicycleLimitsBelgium);
-  m_models["Brazil"] = make_shared<BicycleModel>(g_bicycleLimitsBrazil);
-  m_models["Denmark"] = make_shared<BicycleModel>(g_bicycleLimitsDenmark);
-  m_models["France"] = make_shared<BicycleModel>(g_bicycleLimitsFrance);
-  m_models["Finland"] = make_shared<BicycleModel>(g_bicycleLimitsFinland);
-  m_models["Germany"] = make_shared<BicycleModel>(g_bicycleLimitsGermany);
-  m_models["Hungary"] = make_shared<BicycleModel>(g_bicycleLimitsHungary);
-  m_models["Netherlands"] = make_shared<BicycleModel>(g_bicycleLimitsNetherlands);
-  m_models["Norway"] = make_shared<BicycleModel>(g_bicycleLimitsNorway);
-  m_models["Poland"] = make_shared<BicycleModel>(g_bicycleLimitsPoland);
-  m_models["Romania"] = make_shared<BicycleModel>(g_bicycleLimitsRomania);
-  m_models["Russia"] = make_shared<BicycleModel>(g_bicycleLimitsRussia);
-  m_models["Slovakia"] = make_shared<BicycleModel>(g_bicycleLimitsSlovakia);
-  m_models["Switzerland"] = make_shared<BicycleModel>(g_bicycleLimitsSwitzerland);
-  m_models["Turkey"] = make_shared<BicycleModel>(g_bicycleLimitsTurkey);
-  m_models["Ukraine"] = make_shared<BicycleModel>(g_bicycleLimitsUkraine);
-  m_models["UK"] = make_shared<BicycleModel>(g_bicycleLimitsUK);
-  m_models["USA"] = make_shared<BicycleModel>(g_bicycleLimitsUSA);
+  m_models[string()] = make_shared<PedestrianModel>(g_pedestrianLimitsDefault);
+  m_models["Australia"] = make_shared<PedestrianModel>(g_pedestrianLimitsAustralia);
+  m_models["Austria"] = make_shared<PedestrianModel>(g_pedestrianLimitsAustria);
+  m_models["Belarus"] = make_shared<PedestrianModel>(g_pedestrianLimitsBelarus);
+  m_models["Belgium"] = make_shared<PedestrianModel>(g_pedestrianLimitsBelgium);
+  m_models["Brazil"] = make_shared<PedestrianModel>(g_pedestrianLimitsBrazil);
+  m_models["Denmark"] = make_shared<PedestrianModel>(g_pedestrianLimitsDenmark);
+  m_models["France"] = make_shared<PedestrianModel>(g_pedestrianLimitsFrance);
+  m_models["Finland"] = make_shared<PedestrianModel>(g_pedestrianLimitsFinland);
+  m_models["Germany"] = make_shared<PedestrianModel>(g_pedestrianLimitsGermany);
+  m_models["Hungary"] = make_shared<PedestrianModel>(g_pedestrianLimitsHungary);
+  m_models["Netherlands"] = make_shared<PedestrianModel>(g_pedestrianLimitsNetherlands);
+  m_models["Norway"] = make_shared<PedestrianModel>(g_pedestrianLimitsNorway);
+  m_models["Poland"] = make_shared<PedestrianModel>(g_pedestrianLimitsPoland);
+  m_models["Romania"] = make_shared<PedestrianModel>(g_pedestrianLimitsRomania);
+  m_models["Russia"] = make_shared<PedestrianModel>(g_pedestrianLimitsRussia);
+  m_models["Slovakia"] = make_shared<PedestrianModel>(g_pedestrianLimitsSlovakia);
+  m_models["Switzerland"] = make_shared<PedestrianModel>(g_pedestrianLimitsSwitzerland);
+  m_models["Turkey"] = make_shared<PedestrianModel>(g_pedestrianLimitsTurkey);
+  m_models["Ukraine"] = make_shared<PedestrianModel>(g_pedestrianLimitsUkraine);
+  m_models["UK"] = make_shared<PedestrianModel>(g_pedestrianLimitsUK);
+  m_models["US"] = make_shared<PedestrianModel>(g_pedestrianLimitsUS);
 }
 
-shared_ptr<IVehicleModel> BicycleModelFactory::GetVehicleModel() const
+shared_ptr<IVehicleModel> PedestrianModelFactory::GetVehicleModel() const
 {
   auto const itr = m_models.find(string());
   ASSERT(itr != m_models.end(), ());
   return itr->second;
 }
 
-shared_ptr<IVehicleModel> BicycleModelFactory::GetVehicleModelForCountry(string const & country) const
+shared_ptr<IVehicleModel> PedestrianModelFactory::GetVehicleModelForCountry(string const & country) const
 {
   auto const itr = m_models.find(country);
   if (itr != m_models.end())
   {
-    LOG(LDEBUG, ("Bicycle model was found:", country));
+    LOG(LDEBUG, ("Pedestrian model was found:", country));
     return itr->second;
   }
-  LOG(LDEBUG, ("Bicycle model wasn't found, default bicycle model is used instead:", country));
-  return BicycleModelFactory::GetVehicleModel();
+  LOG(LDEBUG, ("Pedestrian model wasn't found, default model is used instead:", country));
+  return PedestrianModelFactory::GetVehicleModel();
 }
 }  // routing

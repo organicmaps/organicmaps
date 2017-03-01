@@ -69,6 +69,7 @@ omim_link_libraries(
   storage
   tracking
   traffic
+  routing_common
   indexer
   drape
   partners_api

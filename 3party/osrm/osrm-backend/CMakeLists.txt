@@ -232,6 +232,7 @@ include_directories(${Boost_INCLUDE_DIRS})
 #Common libraries from omim
 set(OMIM_LIBRARIES
   "${OMIM_BUILD_PATH}/librouting.a"
+  "${OMIM_BUILD_PATH}/librouting_common.a"
   "${OMIM_BUILD_PATH}/libindexer.a"
   "${OMIM_BUILD_PATH}/libgeometry.a"
   "${OMIM_BUILD_PATH}/libcoding.a"

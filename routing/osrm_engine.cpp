@@ -1,5 +1,5 @@
-#include "osrm_engine.hpp"
-#include "osrm2feature_map.hpp"
+#include "routing/osrm_engine.hpp"
+#include "routing/osrm2feature_map.hpp"
 
 #include "base/logging.hpp"
 #include "base/timer.hpp"

@@ -11,6 +11,7 @@ omim_link_libraries(
   generator
   routing
   traffic
+  routing_common
   search
   storage
   indexer

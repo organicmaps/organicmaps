@@ -1,4 +1,5 @@
 #include "routing/osrm_path_segment_factory.hpp"
+
 #include "routing/road_graph.hpp"
 #include "routing/routing_mapping.hpp"
 

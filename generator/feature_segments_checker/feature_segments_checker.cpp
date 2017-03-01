@@ -1,6 +1,6 @@
 #include "generator/srtm_parser.hpp"
 
-#include "routing/bicycle_model.hpp"
+#include "routing_common/bicycle_model.hpp"
 
 #include "coding/file_name_utils.hpp"
 
