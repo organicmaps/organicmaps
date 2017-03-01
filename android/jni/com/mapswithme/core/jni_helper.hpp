@@ -46,6 +46,7 @@ jclass GetStringClass(JNIEnv * env);
 char const * GetStringClassName();
 
 string DescribeException();
+bool HandleJavaException(JNIEnv * env);
 
 shared_ptr<jobject> make_global_ref(jobject obj);
 using TScopedLocalRef = ScopedLocalRef<jobject>;

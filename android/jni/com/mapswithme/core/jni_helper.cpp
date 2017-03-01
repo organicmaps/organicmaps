@@ -178,6 +178,32 @@ shared_ptr<jobject> make_global_ref(jobject obj)
   return shared_ptr<jobject>(ref, global_ref_deleter());
 }
 
+string ToNativeString(JNIEnv * env, const jthrowable & e)
+{
+  jni::TScopedLocalClassRef logClassRef(env, env->FindClass("android/util/Log"));
+  ASSERT(logClassRef.get(), ());
+  static jmethodID const getStacktraceMethod =
+    jni::GetStaticMethodID(env, logClassRef.get(), "getStackTraceString",
+                           "(Ljava/lang/Throwable;)Ljava/lang/String;");
+  ASSERT(getStacktraceMethod, ());
+  TScopedLocalRef resultRef(env, env->CallStaticObjectMethod(logClassRef.get(), getStacktraceMethod, e));
+  return ToNativeString(env, (jstring) resultRef.get());
+}
+
+
+bool HandleJavaException(JNIEnv * env)
+{
+  if (env->ExceptionCheck())
+   {
+     const jthrowable e = env->ExceptionOccurred();
+     env->ExceptionDescribe();
+     env->ExceptionClear();
+     LOG(LERROR, (ToNativeString(env, e)));
+     return true;
+   }
+   return false;
+}
+
 string DescribeException()
 {
   JNIEnv * env = GetEnv();
@@ -189,16 +215,9 @@ string DescribeException()
     // have to clear the exception before JNI will work again.
     env->ExceptionClear();
 
-    jclass eclass = env->GetObjectClass(e);
-
-    jmethodID mid = env->GetMethodID(eclass, "toString", "()Ljava/lang/String;");
-
-    jstring jErrorMsg = (jstring) env->CallObjectMethod(e, mid);
-
-    return ToNativeString(env, jErrorMsg);
+    return ToNativeString(env, e);
   }
-
-  return "";
+  return {};
 }
 
 jobject GetNewParcelablePointD(JNIEnv * env, m2::PointD const & point)
