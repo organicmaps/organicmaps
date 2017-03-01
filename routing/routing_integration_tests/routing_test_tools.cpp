@@ -79,14 +79,20 @@ namespace integration
 
   unique_ptr<CarRouter> CreateCarRouter(Index & index,
                                         storage::CountryInfoGetter const & infoGetter,
-                                        traffic::TrafficCache const & trafficCache)
+                                        traffic::TrafficCache const & trafficCache,
+                                        vector<LocalCountryFile> const & localFiles)
   {
     auto const countryFileGetter = [&infoGetter](m2::PointD const & pt) {
       return infoGetter.GetRegionCountryId(pt);
     };
 
+    shared_ptr<NumMwmIds> numMwmIds = make_shared<NumMwmIds>();
+    for (LocalCountryFile const & f : localFiles)
+      numMwmIds->RegisterFile(f.GetCountryFile());
+
     auto carRouter = make_unique<CarRouter>(index, countryFileGetter,
-                                            SingleMwmRouter::CreateCarRouter(countryFileGetter, nullptr, trafficCache, index));
+                                            SingleMwmRouter::CreateCarRouter(countryFileGetter, numMwmIds,
+                                                                             trafficCache, index));
     return carRouter;
   }
 
@@ -109,7 +115,8 @@ namespace integration
   public:
     OsrmRouterComponents(vector<LocalCountryFile> const & localFiles)
       : IRouterComponents(localFiles)
-      , m_carRouter(CreateCarRouter(m_featuresFetcher->GetIndex(), *m_infoGetter, m_trafficCache))
+      , m_carRouter(CreateCarRouter(m_featuresFetcher->GetIndex(), *m_infoGetter, m_trafficCache,
+                                    localFiles))
     {
     }
 
