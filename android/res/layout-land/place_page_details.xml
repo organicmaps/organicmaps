@@ -37,9 +37,15 @@
 
       <include layout="@layout/place_page_hotel_gallery"/>
 
+      <include layout="@layout/place_page_hotel_description"/>
+
+      <include layout="@layout/place_page_more"/>
+
       <include layout="@layout/place_page_hotel_facilities"/>
 
-      <include layout="@layout/place_page_hotel_description"/>
+      <include layout="@layout/place_page_hotel_nearby"/>
+
+      <include layout="@layout/place_page_hotel_rating"/>
 
       <include layout="@layout/place_page_placename"/>
 
@@ -66,13 +72,6 @@
       <include layout="@layout/divider_horizontal"/>
 
       <include layout="@layout/place_page_taxi"/>
-
-      <include layout="@layout/place_page_hotel_nearby"/>
-
-      <include layout="@layout/place_page_hotel_rating"/>
-
-      <!--TODO: remove this after booking_api.cpp will be done-->
-      <include layout="@layout/place_page_more"/>
 
       <include layout="@layout/divider_horizontal"/>
 

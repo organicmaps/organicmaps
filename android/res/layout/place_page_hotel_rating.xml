@@ -54,4 +54,6 @@
     android:background="?clickableBackground"
     android:gravity="center"
     android:text="@string/placepage_more_reviews_button"/>
+  <include
+    layout="@layout/divider_horizontal"/>
 </LinearLayout>
