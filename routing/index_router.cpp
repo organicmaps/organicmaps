@@ -1,4 +1,4 @@
-#include "routing/single_mwm_router.hpp"
+#include "routing/index_router.hpp"
 
 #include "routing/base/astar_algorithm.hpp"
 #include "routing/base/astar_progress.hpp"
@@ -38,12 +38,11 @@ uint32_t constexpr kDrawPointsPeriod = 10;
 
 namespace routing
 {
-SingleMwmRouter::SingleMwmRouter(string const & name, TCountryFileFn const & countryFileFn,
-                                 shared_ptr<NumMwmIds> numMwmIds,
-                                 shared_ptr<TrafficStash> trafficStash,
-                                 shared_ptr<VehicleModelFactory> vehicleModelFactory,
-                                 shared_ptr<EdgeEstimator> estimator,
-                                 unique_ptr<IDirectionsEngine> directionsEngine, Index & index)
+IndexRouter::IndexRouter(string const & name, TCountryFileFn const & countryFileFn,
+                         shared_ptr<NumMwmIds> numMwmIds, shared_ptr<TrafficStash> trafficStash,
+                         shared_ptr<VehicleModelFactory> vehicleModelFactory,
+                         shared_ptr<EdgeEstimator> estimator,
+                         unique_ptr<IDirectionsEngine> directionsEngine, Index & index)
   : m_name(name)
   , m_index(index)
   , m_countryFileFn(countryFileFn)
@@ -63,14 +62,36 @@ SingleMwmRouter::SingleMwmRouter(string const & name, TCountryFileFn const & cou
   CHECK(m_directionsEngine, ());
 }
 
-IRouter::ResultCode SingleMwmRouter::CalculateRoute(m2::PointD const & startPoint,
-                                                    m2::PointD const & startDirection,
-                                                    m2::PointD const & finalPoint,
-                                                    RouterDelegate const & delegate, Route & route)
+IRouter::ResultCode IndexRouter::CalculateRoute(m2::PointD const & startPoint,
+                                                m2::PointD const & startDirection,
+                                                m2::PointD const & finalPoint,
+                                                RouterDelegate const & delegate, Route & route)
+{
+  string const startCountry = m_countryFileFn(startPoint);
+  string const finishCountry = m_countryFileFn(finalPoint);
+  return CalculateRoute(startCountry, finishCountry, false /* blockMwmBorders */, startPoint,
+                        startDirection, finalPoint, delegate, route);
+}
+
+IRouter::ResultCode IndexRouter::CalculateRouteForSingleMwm(
+    string const & country, m2::PointD const & startPoint, m2::PointD const & startDirection,
+    m2::PointD const & finalPoint, RouterDelegate const & delegate, Route & route)
+{
+  return CalculateRoute(country, country, true /* blockMwmBorders */, startPoint, startDirection,
+                        finalPoint, delegate, route);
+}
+
+IRouter::ResultCode IndexRouter::CalculateRoute(string const & startCountry,
+                                                string const & finishCountry, bool blockMwmBorders,
+                                                m2::PointD const & startPoint,
+                                                m2::PointD const & startDirection,
+                                                m2::PointD const & finalPoint,
+                                                RouterDelegate const & delegate, Route & route)
 {
   try
   {
-    return DoCalculateRoute(startPoint, startDirection, finalPoint, delegate, route);
+    return DoCalculateRoute(startCountry, finishCountry, blockMwmBorders, startPoint,
+                            startDirection, finalPoint, delegate, route);
   }
   catch (RootException const & e)
   {
@@ -80,29 +101,26 @@ IRouter::ResultCode SingleMwmRouter::CalculateRoute(m2::PointD const & startPoin
   }
 }
 
-IRouter::ResultCode SingleMwmRouter::DoCalculateRoute(m2::PointD const & startPoint,
-                                                      m2::PointD const & /* startDirection */,
-                                                      m2::PointD const & finalPoint,
-                                                      RouterDelegate const & delegate,
-                                                      Route & route)
+IRouter::ResultCode IndexRouter::DoCalculateRoute(
+    string const & startCountry, string const & finishCountry, bool blockMwmBorders,
+    m2::PointD const & startPoint, m2::PointD const & /* startDirection */,
+    m2::PointD const & finalPoint, RouterDelegate const & delegate, Route & route)
 {
-  // TODO: remove field m_country.
-  // Use m_countryFileFn(startPoint), m_countryFileFn(finalPoint) here.
-  auto const startCountry = platform::CountryFile(m_country);
-  auto const finishCountry = platform::CountryFile(m_country);
+  auto const startFile = platform::CountryFile(startCountry);
+  auto const finishFile = platform::CountryFile(finishCountry);
 
   Edge startEdge;
-  if (!FindClosestEdge(startCountry, startPoint, startEdge))
+  if (!FindClosestEdge(startFile, startPoint, startEdge))
     return IRouter::StartPointNotFound;
 
   Edge finishEdge;
-  if (!FindClosestEdge(finishCountry, finalPoint, finishEdge))
+  if (!FindClosestEdge(finishFile, finalPoint, finishEdge))
     return IRouter::EndPointNotFound;
 
-  IndexGraphStarter::FakeVertex const start(m_numMwmIds->GetId(startCountry),
+  IndexGraphStarter::FakeVertex const start(m_numMwmIds->GetId(startFile),
                                             startEdge.GetFeatureId().m_index, startEdge.GetSegId(),
                                             startPoint);
-  IndexGraphStarter::FakeVertex const finish(m_numMwmIds->GetId(finishCountry),
+  IndexGraphStarter::FakeVertex const finish(m_numMwmIds->GetId(finishFile),
                                              finishEdge.GetFeatureId().m_index,
                                              finishEdge.GetSegId(), finalPoint);
 
@@ -112,8 +130,8 @@ IRouter::ResultCode SingleMwmRouter::DoCalculateRoute(m2::PointD const & startPo
       IndexGraphLoader::Create(m_numMwmIds, m_vehicleModelFactory, m_estimator, m_index),
       m_estimator);
 
-  // TODO remove to activate CrossMwmGraph.
-  graph.BlockMwmBorders();
+  if (blockMwmBorders)
+    graph.CloseBorders();
 
   IndexGraphStarter starter(start, finish, graph);
 
@@ -160,8 +178,8 @@ IRouter::ResultCode SingleMwmRouter::DoCalculateRoute(m2::PointD const & startPo
   }
 }
 
-bool SingleMwmRouter::FindClosestEdge(platform::CountryFile const & file, m2::PointD const & point,
-                                      Edge & closestEdge) const
+bool IndexRouter::FindClosestEdge(platform::CountryFile const & file, m2::PointD const & point,
+                                  Edge & closestEdge) const
 {
   MwmSet::MwmHandle handle = m_index.GetMwmHandleByCountryFile(file);
   if (!handle.IsAlive())
@@ -198,15 +216,14 @@ bool SingleMwmRouter::FindClosestEdge(platform::CountryFile const & file, m2::Po
   return true;
 }
 
-IRouter::ResultCode SingleMwmRouter::ProcessLeaps(vector<Segment> const & input,
-                                                  RouterDelegate const & delegate,
-                                                  IndexGraphStarter & starter,
-                                                  vector<Segment> & output)
+IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
+                                              RouterDelegate const & delegate,
+                                              IndexGraphStarter & starter, vector<Segment> & output)
 {
   output.reserve(input.size());
 
   WorldGraph & worldGraph = starter.GetGraph();
-  worldGraph.BlockMwmBorders();
+  worldGraph.CloseBorders();
 
   for (size_t i = 0; i < input.size(); ++i)
   {
@@ -252,9 +269,8 @@ IRouter::ResultCode SingleMwmRouter::ProcessLeaps(vector<Segment> const & input,
   return IRouter::NoError;
 }
 
-bool SingleMwmRouter::RedressRoute(vector<Segment> const & segments,
-                                   RouterDelegate const & delegate, IndexGraphStarter & starter,
-                                   Route & route) const
+bool IndexRouter::RedressRoute(vector<Segment> const & segments, RouterDelegate const & delegate,
+                               IndexGraphStarter & starter, Route & route) const
 {
   vector<Junction> junctions;
   size_t const numPoints = IndexGraphStarter::GetRouteNumPoints(segments);
@@ -267,6 +283,7 @@ bool SingleMwmRouter::RedressRoute(vector<Segment> const & segments,
   }
 
   IndexRoadGraph roadGraph(m_numMwmIds, starter, segments, junctions, m_index);
+  starter.GetGraph().OpenBorders();
 
   CHECK(m_directionsEngine, ());
   ReconstructRoute(*m_directionsEngine, roadGraph, m_trafficStash, delegate, junctions, route);
@@ -293,9 +310,10 @@ bool SingleMwmRouter::RedressRoute(vector<Segment> const & segments,
 }
 
 // static
-unique_ptr<SingleMwmRouter> SingleMwmRouter::CreateCarRouter(
-    TCountryFileFn const & countryFileFn, shared_ptr<NumMwmIds> numMwmIds,
-    traffic::TrafficCache const & trafficCache, Index & index)
+unique_ptr<IndexRouter> IndexRouter::CreateCarRouter(TCountryFileFn const & countryFileFn,
+                                                     shared_ptr<NumMwmIds> numMwmIds,
+                                                     traffic::TrafficCache const & trafficCache,
+                                                     Index & index)
 {
   CHECK(numMwmIds, ());
   auto vehicleModelFactory = make_shared<CarModelFactory>();
@@ -314,9 +332,9 @@ unique_ptr<SingleMwmRouter> SingleMwmRouter::CreateCarRouter(
   auto trafficStash = make_shared<TrafficStash>(trafficCache, numMwmIds);
 
   auto estimator = EdgeEstimator::CreateForCar(trafficStash, maxSpeed);
-  auto router = make_unique<SingleMwmRouter>("astar-bidirectional-car", countryFileFn, numMwmIds,
-                                             trafficStash, vehicleModelFactory, estimator,
-                                             move(directionsEngine), index);
+  auto router =
+      make_unique<IndexRouter>("astar-bidirectional-car", countryFileFn, numMwmIds, trafficStash,
+                               vehicleModelFactory, estimator, move(directionsEngine), index);
   return router;
 }
 }  // namespace routing

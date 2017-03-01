@@ -9,7 +9,6 @@
 #include "routing/pedestrian_model.hpp"
 #include "routing/route.hpp"
 #include "routing/routing_helpers.hpp"
-#include "routing/single_mwm_router.hpp"
 
 #include "coding/reader_wrapper.hpp"
 

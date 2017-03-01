@@ -25,11 +25,13 @@ public:
   IndexGraph & GetIndexGraph(NumMwmId numMwmId) { return m_loader->GetIndexGraph(numMwmId); }
   EdgeEstimator const & GetEstimator() const { return *m_estimator; }
 
+  m2::PointD const & GetPoint(Segment const & segment, bool front);
   RoadGeometry const & GetRoadGeometry(NumMwmId mwmId, uint32_t featureId);
 
   // Disable edges between mwms.
-  // Unblocking is not implemented due to YAGNI principle.
-  void BlockMwmBorders() { m_crossMwmGraph = nullptr; }
+  void CloseBorders() { m_bordersAreOpened = false; }
+  // Enable edges between mwms.
+  void OpenBorders() { m_bordersAreOpened = true; }
   // Clear memory used by loaded index graphs.
   void ClearIndexGraphs() { m_loader->Clear(); }
 
@@ -40,5 +42,6 @@ private:
   std::unique_ptr<IndexGraphLoader> m_loader;
   std::shared_ptr<EdgeEstimator> m_estimator;
   std::vector<Segment> m_twins;
+  bool m_bordersAreOpened = true;
 };
 }  // namespace routing

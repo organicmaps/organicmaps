@@ -15,7 +15,7 @@ WorldGraph::WorldGraph(unique_ptr<CrossMwmIndexGraph> crossMwmGraph,
 void WorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing, bool isLeap,
                              vector<SegmentEdge> & edges)
 {
-  if (m_crossMwmGraph && isLeap)
+  if (m_crossMwmGraph && m_bordersAreOpened && isLeap)
   {
     if (m_crossMwmGraph->IsTransition(segment, isOutgoing))
       GetTwins(segment, isOutgoing, edges);
@@ -27,8 +27,14 @@ void WorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing, bool isLe
   IndexGraph & indexGraph = GetIndexGraph(segment.GetMwmId());
   indexGraph.GetEdgeList(segment, isOutgoing, edges);
 
-  if (m_crossMwmGraph && m_crossMwmGraph->IsTransition(segment, isOutgoing))
+  if (m_crossMwmGraph && m_bordersAreOpened && m_crossMwmGraph->IsTransition(segment, isOutgoing))
     GetTwins(segment, isOutgoing, edges);
+}
+
+m2::PointD const & WorldGraph::GetPoint(Segment const & segment, bool front)
+{
+  return GetRoadGeometry(segment.GetMwmId(), segment.GetFeatureId())
+      .GetPoint(segment.GetPointId(front));
 }
 
 RoadGeometry const & WorldGraph::GetRoadGeometry(NumMwmId mwmId, uint32_t featureId)
@@ -41,6 +47,11 @@ void WorldGraph::GetTwins(Segment const & segment, bool isOutgoing, vector<Segme
   m_twins.clear();
   m_crossMwmGraph->GetTwins(segment, isOutgoing, m_twins);
   for (Segment const & twin : m_twins)
-    edges.emplace_back(twin, 0.0 /* weight */);
+  {
+    m2::PointD const & from = GetPoint(segment, true /* front */);
+    m2::PointD const & to = GetPoint(twin, true /* front */);
+    double const weight = m_estimator->CalcHeuristic(from, to);
+    edges.emplace_back(twin, weight);
+  }
 }
 }  // namespace routing

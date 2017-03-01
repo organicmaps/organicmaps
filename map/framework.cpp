@@ -10,13 +10,13 @@
 #include "private.h"
 
 #include "routing/car_router.hpp"
+#include "routing/index_router.hpp"
 #include "routing/num_mwm_id.hpp"
 #include "routing/online_absent_fetcher.hpp"
 #include "routing/road_graph_router.hpp"
 #include "routing/route.hpp"
 #include "routing/routing_algorithm.hpp"
 #include "routing/routing_helpers.hpp"
-#include "routing/single_mwm_router.hpp"
 
 #include "search/downloader_search_callback.hpp"
 #include "search/editor_delegate.hpp"
@@ -2498,7 +2498,7 @@ void Framework::SetRouterImpl(RouterType type)
 
     router.reset(
         new CarRouter(m_model.GetIndex(), countryFileGetter,
-                      SingleMwmRouter::CreateCarRouter(countryFileGetter, numMwmIds, m_routingSession, m_model.GetIndex())));
+                      IndexRouter::CreateCarRouter(countryFileGetter, numMwmIds, m_routingSession, m_model.GetIndex())));
     fetcher.reset(new OnlineAbsentCountriesFetcher(countryFileGetter, localFileChecker));
     m_routingSession.SetRoutingSettings(routing::GetCarRoutingSettings());
   }

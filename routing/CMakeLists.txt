@@ -48,6 +48,8 @@ set(
   index_graph_starter.hpp
   index_road_graph.cpp
   index_road_graph.hpp
+  index_router.cpp
+  index_router.hpp
   joint.cpp
   joint.hpp
   joint_index.cpp
@@ -103,8 +105,6 @@ set(
   routing_session.hpp
   routing_settings.hpp
   segment.hpp
-  single_mwm_router.cpp
-  single_mwm_router.hpp
   speed_camera.cpp
   speed_camera.hpp
   traffic_stash.hpp

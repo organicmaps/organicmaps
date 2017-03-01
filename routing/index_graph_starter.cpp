@@ -22,8 +22,7 @@ m2::PointD const & IndexGraphStarter::GetPoint(Segment const & segment, bool fro
   if (segment == kFinishFakeSegment || (front && m_finish.Fits(segment)))
     return m_finish.GetPoint();
 
-  return m_graph.GetRoadGeometry(segment.GetMwmId(), segment.GetFeatureId())
-      .GetPoint(segment.GetPointId(front));
+  return m_graph.GetPoint(segment, front);
 }
 
 // static

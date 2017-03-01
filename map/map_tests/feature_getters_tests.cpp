@@ -21,6 +21,7 @@ UNIT_TEST(Framework_ForEachFeatureAtPoint_And_Others)
   {
     "highway|footway|",
     "hwtag|yesfoot|",
+    "hwtag|yesbicycle|",
     "highway|service|parking_aisle|",
     "amenity|parking|",
     "barrier|lift_gate|"
