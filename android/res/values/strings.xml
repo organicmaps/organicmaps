@@ -1087,4 +1087,9 @@
 	<string name="whatsnew_waypoints_message">Tap places to add waypoints to your route.</string>
 	<string name="whatsnew_driving_style_title">New Map Style for Driving</string>
 	<string name="whatsnew_driving_style_message">Car navigation mode got easier to use.</string>
+	<string name="more_on_bookingcom">More on Booking.com</string>
+	<string name="details_on_bookingcom">Details on Booking.com</string>
+	<string name="reviews_on_bookingcom">More reviews on Booking.com</string>
+	<string name="offline_place_page_more_information">Connect to the internet to get more information about the place.</string>
+	<string name="failed_load_information">Failed to load information.</string>
 </resources>
