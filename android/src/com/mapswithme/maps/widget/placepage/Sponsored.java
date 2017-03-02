@@ -132,16 +132,19 @@ public final class Sponsored
     final Review[] mReviews;
     @Nullable
     final NearbyObject[] mNearby;
+    final long mReviewsAmount;
+
 
     public HotelInfo(@Nullable String description, @Nullable Image[] photos,
                      @Nullable FacilityType[] facilities, @Nullable Review[] reviews,
-                     @Nullable NearbyObject[] nearby)
+                     @Nullable NearbyObject[] nearby, long reviewsAmount)
     {
       mDescription = description;
       mPhotos = photos;
       mFacilities = facilities;
       mReviews = reviews;
       mNearby = nearby;
+      mReviewsAmount = reviewsAmount;
     }
   }
 

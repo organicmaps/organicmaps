@@ -56,7 +56,7 @@ void PrepareClassRefs(JNIEnv * env, jclass sponsoredClass)
       env, g_hotelInfoClass,
       "(Ljava/lang/String;[Lcom/mapswithme/maps/gallery/Image;[Lcom/mapswithme/maps/widget/"
       "placepage/Sponsored$FacilityType;[Lcom/mapswithme/maps/review/Review;[Lcom/mapswithme/"
-      "maps/widget/placepage/Sponsored$NearbyObject;)V");
+      "maps/widget/placepage/Sponsored$NearbyObject;J)V");
 
   // Sponsored(String rating, String price, String urlBook, String urlDescription)
   g_sponsoredClassConstructor = jni::GetConstructorID(
@@ -178,7 +178,7 @@ JNIEXPORT void JNICALL Java_com_mapswithme_maps_widget_placepage_Sponsored_nativ
 
       env->CallStaticVoidMethod(g_sponsoredClass, g_infoCallback, jni::ToJavaString(env, hotelId),
                                 env->NewObject(g_hotelInfoClass, g_hotelInfoConstructor, description,
-                                               photos, facilities, reviews, nearby));
+                                               photos, facilities, reviews, nearby, hotelInfo.m_scoreCount));
     });
   });
 }

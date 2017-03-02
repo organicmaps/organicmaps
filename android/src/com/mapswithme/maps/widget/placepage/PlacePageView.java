@@ -605,7 +605,7 @@ public class PlacePageView extends RelativeLayout
       mReviewAdapter.setItems(new ArrayList<>(Arrays.asList(info.mReviews)));
       mHotelRating.setText(mSponsored.getRating());
       mHotelRatingBase.setText(getResources().getQuantityString(R.plurals.place_page_booking_rating_base,
-                                                                info.mReviews.length, info.mReviews.length));
+                                                                info.mReviews.length, info.mReviewsAmount));
     }
   }
 
