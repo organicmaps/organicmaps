@@ -22,7 +22,7 @@ engine = search.SearchEngine()
 params = search.Params()
 params.query = 'кафе юность'
 params.locale = 'ru'
-params.lat_lon = search.LatLon(55.751633, 37.618705)
+params.position = search.Mercator(37.618705, 67.455669)
 params.viewport = search.Viewport(search.Mercator(37.1336, 67.1349),
                                   search.Mercator(38.0314, 67.7348))
 for result in engine.query(params):

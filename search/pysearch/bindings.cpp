@@ -15,6 +15,7 @@
 
 #include "coding/file_name_utils.hpp"
 
+#include "geometry/mercator.hpp"
 #include "geometry/rect2d.hpp"
 
 #include "base/logging.hpp"
@@ -69,22 +70,6 @@ void Init(string const & resource_path, string const & mwm_path)
   g_storage->Init(&DidDownload, &WillDelete);
 }
 
-struct LatLon
-{
-  LatLon() = default;
-  LatLon(double lat, double lon) : m_lat(lat), m_lon(lon) {}
-
-  string ToString() const
-  {
-    ostringstream os;
-    os << "lat: " << m_lat << ", lon: " << m_lon;
-    return os.str();
-  }
-
-  double m_lat = 0.0;
-  double m_lon = 0.0;
-};
-
 struct Mercator
 {
   Mercator() = default;
@@ -123,14 +108,14 @@ struct Params
   string ToString() const
   {
     ostringstream os;
-    os << m_query << ", " << m_locale << ", " << m_latLon.ToString() << ", "
+    os << m_query << ", " << m_locale << ", " << m_position.ToString() << ", "
        << m_viewport.ToString();
     return os.str();
   }
 
   string m_query;
   string m_locale;
-  LatLon m_latLon;
+  Mercator m_position;
   Viewport m_viewport;
 };
 
@@ -193,7 +178,8 @@ struct SearchEngineProxy
     sp.m_query = params.m_query;
     sp.m_inputLocale = params.m_locale;
     sp.m_mode = search::Mode::Everywhere;
-    sp.SetPosition(params.m_latLon.m_lat, params.m_latLon.m_lon);
+    sp.SetPosition(MercatorBounds::YToLat(params.m_position.m_y),
+                   MercatorBounds::XToLon(params.m_position.m_x));
     sp.m_suggestsEnabled = false;
 
     auto const & bottomLeft = params.m_viewport.m_min;
@@ -218,12 +204,6 @@ BOOST_PYTHON_MODULE(pysearch)
 
   def("init", &Init);
 
-  class_<LatLon>("LatLon")
-      .def(init<double, double>())
-      .def_readwrite("lat", &LatLon::m_lat)
-      .def_readwrite("lon", &LatLon::m_lon)
-      .def("to_string", &LatLon::ToString);
-
   class_<Mercator>("Mercator")
       .def(init<double, double>())
       .def_readwrite("x", &Mercator::m_x)
@@ -239,7 +219,7 @@ BOOST_PYTHON_MODULE(pysearch)
   class_<Params>("Params")
       .def_readwrite("query", &Params::m_query)
       .def_readwrite("locale", &Params::m_locale)
-      .def_readwrite("lat_lon", &Params::m_latLon)
+      .def_readwrite("position", &Params::m_position)
       .def_readwrite("viewport", &Params::m_viewport)
       .def("to_string", &Params::ToString);
 
