@@ -433,11 +433,25 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   }
   case Sections::HotelDescription:
   {
-    Class cls = [MWMPPHotelDescriptionCell class];
-    auto c = static_cast<MWMPPHotelDescriptionCell *>(
-       [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-    [c configWith:data.hotelDescription delegate:self];
-    return c;
+    auto const row = data.descriptionRows[indexPath.row];
+    switch (row)
+    {
+    case HotelDescriptionRow::Regular:
+    {
+      Class cls = [MWMPPHotelDescriptionCell class];
+      auto c = static_cast<MWMPPHotelDescriptionCell *>(
+                                                        [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+      [c configWith:data.hotelDescription delegate:self];
+      return c;
+    }
+    case HotelDescriptionRow::ShowMore:
+    {
+      Class cls = [MWMPlacePageButtonCell class];
+      auto c = static_cast<MWMPlacePageButtonCell *>([tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+      [c configForRow:ButtonsRows::BookingShowMoreOnSite withDelegate:delegate];
+      return c;
+    }
+    }
   }
   }
 }
