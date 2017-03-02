@@ -19,17 +19,9 @@ NSString * const kPushDeviceTokenLogEvent = @"iOSPushDeviceToken";
 
 + (void)setup:(NSDictionary *)launchOptions
 {
-  // Do not initialize Pushwoosh for open-source version.
-  if (string(PUSHWOOSH_APPLICATION_ID).empty())
-    return;
-  [PushNotificationManager
-      initializeWithAppCode:@(PUSHWOOSH_APPLICATION_ID)
-                    appName:[[NSBundle mainBundle]
-                                objectForInfoDictionaryKey:@"CFBundleDisplayName"]];
   PushNotificationManager * pushManager = [PushNotificationManager pushManager];
 
-  if (launchOptions)
-    [pushManager handlePushReceived:launchOptions];
+  [pushManager handlePushReceived:launchOptions];
 
   // make sure we count app open in Pushwoosh stats
   [pushManager sendAppOpen];
