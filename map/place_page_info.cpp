@@ -137,6 +137,7 @@ string Info::GetBookmarkCategoryName() const { return m_bookmarkCategoryName; }
 string const & Info::GetApiUrl() const { return m_apiUrl; }
 string const & Info::GetSponsoredUrl() const { return m_sponsoredUrl; }
 string const & Info::GetSponsoredDescriptionUrl() const { return m_sponsoredDescriptionUrl; }
+string const & Info::GetSponsoredReviewUrl() const { return m_sponsoredReviewUrl; }
 
 string Info::GetRatingFormatted() const
 {

@@ -192,6 +192,9 @@ void FillHotelInfo(string const & src, HotelInfo & info)
 
   auto const reviewsArray = json_object_get(root.get(), "reviews");
   info.m_reviews = ParseReviews(reviewsArray);
+
+  my::FromJSONObjectOptionalField(root.get(), "reviews_url", info.m_reviewsParamsUrl);
+  ASSERT(!info.m_reviewsParamsUrl.empty(), ("Booking reviews url format was changed!"));
 }
 
 void FillPriceAndCurrency(string const & src, string const & currency, string & minPrice,
@@ -265,12 +268,23 @@ bool RawApi::GetExtendedInfo(string const & hotelId, string const & lang, string
 
 string Api::GetBookHotelUrl(string const & baseUrl) const
 {
+  ASSERT(!baseUrl.empty(), ());
   return GetDescriptionUrl(baseUrl) + "#availability";
 }
 
 string Api::GetDescriptionUrl(string const & baseUrl) const
 {
+  ASSERT(!baseUrl.empty(), ());
   return baseUrl + string("?aid=") + BOOKING_AFFILIATE_ID;
+}
+
+string Api::GetHotelReviewsUrl(string const & hotelId, string const & baseUrl) const
+{
+  ASSERT(!baseUrl.empty(), ());
+  ASSERT(!hotelId.empty(), ());
+  ostringstream os;
+  os << GetDescriptionUrl(baseUrl) << "&tab=4&label=hotel-" << hotelId << "_reviews";
+  return os.str();
 }
 
 void Api::GetMinPrice(string const & hotelId, string const & currency,

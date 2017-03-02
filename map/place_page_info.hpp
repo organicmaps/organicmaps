@@ -73,6 +73,7 @@ public:
 
   string const & GetSponsoredUrl() const;
   string const & GetSponsoredDescriptionUrl() const;
+  string const & GetSponsoredReviewUrl() const;
 
   /// @returns formatted rating string for booking object, or empty if it isn't booking object
   string GetRatingFormatted() const;
@@ -121,6 +122,7 @@ public:
   /// Sponsored feature urls.
   string m_sponsoredUrl;
   string m_sponsoredDescriptionUrl;
+  string m_sponsoredReviewUrl;
 
   /// Which country this MapObject is in.
   /// For a country point it will be set to topmost node for country.
