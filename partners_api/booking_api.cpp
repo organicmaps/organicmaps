@@ -268,16 +268,20 @@ bool RawApi::GetExtendedInfo(string const & hotelId, string const & lang, string
 
 string Api::GetBookHotelUrl(string const & baseUrl) const
 {
+  ASSERT(!baseUrl.empty(), ());
   return GetDescriptionUrl(baseUrl) + "#availability";
 }
 
 string Api::GetDescriptionUrl(string const & baseUrl) const
 {
+  ASSERT(!baseUrl.empty(), ());
   return baseUrl + string("?aid=") + BOOKING_AFFILIATE_ID;
 }
 
 string Api::GetHotelReviewsUrl(string const & hotelId, string const & baseUrl) const
 {
+  ASSERT(!baseUrl.empty(), ());
+  ASSERT(!hotelId.empty(), ());
   ostringstream os;
   os << GetDescriptionUrl(baseUrl) << "&tab=4&label=hotel-" << hotelId << "_reviews";
   return os.str();
