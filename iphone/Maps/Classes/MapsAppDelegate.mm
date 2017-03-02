@@ -335,9 +335,8 @@ using namespace osm_auth_ios;
     else
       [Alohalytics disable];
     [self incrementSessionsCountAndCheckForAlert];
-    [MWMPushNotifications setup:launchOptions];
   }
-
+  [MWMPushNotifications setup:launchOptions];
   [self enableTTSForTheFirstTime];
 
   return returnValue;
