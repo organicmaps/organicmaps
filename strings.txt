@@ -22995,3 +22995,23 @@
     zh-Hant = 汽車導航模式更好用。
     el = Ευκολότερη λειτουργία πλοήγησης αυτοκινήτου.
     sk = Režim navigácie v aute sa zjednodušil.
+
+  [more_on_bookingcom]
+    en = More on Booking.com
+    ru = Больше на Booking.com
+
+  [details_on_bookingcom]
+    en = Details on Booking.com
+    ru = Подробней на Booking.com
+
+  [reviews_on_bookingcom]
+    en = More reviews on Booking.com
+    ru = Больше отзывов на Booking.com
+
+  [offline_place_page_more_information]
+    en = Connect to the internet to get more information about the place.
+    ru = Подключитесь к интернету, чтобы получить больше информации о месте.
+
+  [failed_load_information]
+    en = Failed to load information.
+    ru = Не удалось загрузить информацию.
