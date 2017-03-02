@@ -301,7 +301,7 @@
 
 - (void)showAllReviews
 {
-  // TODO: Open reviews url.
+  [[MapViewController controller] openUrl:self.data.URLToAllReviews];
 }
 
 - (void)showPhotoAtIndex:(NSUInteger)index

@@ -41,11 +41,16 @@
     title = L(@"placepage_add_business_button");
     break;
   case ButtonsRows::HotelDescription:
-    title = L(@"details");
+    title = L(@"details_on_bookingcom");
     break;
   case ButtonsRows::BookingShowMoreFacilities:
-  case ButtonsRows::BookingShowMoreReviews:
     title = L(@"booking_show_more");
+    break;
+  case ButtonsRows::BookingShowMoreReviews:
+    title = L(@"reviews_on_bookingcom");
+    break;
+  case ButtonsRows::BookingShowMoreOnSite:
+    title = L(@"more_on_bookingcom");
     break;
   }
 
@@ -63,6 +68,7 @@
   case ButtonsRows::AddPlace: [d addPlace]; break;
   case ButtonsRows::EditPlace: [d editPlace]; break;
   case ButtonsRows::AddBusiness: [d addBusiness]; break;
+  case ButtonsRows::BookingShowMoreOnSite:
   case ButtonsRows::HotelDescription: [d book:YES]; break;
   case ButtonsRows::BookingShowMoreFacilities: [d showAllFacilities]; break;
   case ButtonsRows::BookingShowMoreReviews: [d showAllReviews]; break;

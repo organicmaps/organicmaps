@@ -17,20 +17,19 @@ final class PPHotelDescriptionCell: MWMTableViewCell
     let isCompact = descriptionText.height > kMaximumDescriptionHeight;
     if (isCompact) {
       compactModeConstraints.forEach { $0.priority = UILayoutPriorityDefaultHigh }
-    } else {
-      hideButton()
     }
 
+    hideButton(!isCompact)
     setNeedsLayout()
   }
 
-  private func hideButton() {
-    button.isHidden = true
-    buttonZeroHeight.priority = UILayoutPriorityDefaultHigh
+  private func hideButton(_ isHidden:Bool = true) {
+    button.isHidden = isHidden
+    buttonZeroHeight.priority = isHidden ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow
   }
 
   @IBAction private func tap() {
-    compactModeConstraints.forEach { $0.isActive = false }
+    compactModeConstraints.forEach { $0.priority = UILayoutPriorityDefaultLow }
     hideButton()
     setNeedsLayout()
     UIView.animate(withDuration: kDefaultAnimationDuration, animations: { [weak self] in

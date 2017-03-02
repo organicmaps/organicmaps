@@ -32,7 +32,8 @@ enum class PreviewRows
 
 enum class HotelDescriptionRow
 {
-  Regular
+  Regular,
+  ShowMore
 };
 
 enum class HotelPhotosRow
@@ -75,7 +76,8 @@ enum class ButtonsRows
   AddPlace,
   HotelDescription,
   BookingShowMoreFacilities,
-  BookingShowMoreReviews
+  BookingShowMoreOnSite,
+  BookingShowMoreReviews,
 };
 
 enum class OpeningHours
@@ -125,6 +127,7 @@ using NewSectionsReady = void(^)(NSRange const & range);
 - (vector<booking::HotelFacility> const &)facilities;
 - (vector<booking::HotelReview> const &)reviews;
 - (NSUInteger)numberOfReviews;
+- (NSURL *)URLToAllReviews;
 - (NSArray<MWMGalleryItemModel *> *)photos;
 
 // Banner

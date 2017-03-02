@@ -191,10 +191,10 @@ using namespace place_page;
         {
           it = sections.insert(it, Sections::HotelDescription) + 1;
           m_hotelDescriptionRows.emplace_back(HotelDescriptionRow::Regular);
+          m_hotelDescriptionRows.emplace_back(HotelDescriptionRow::ShowMore);
           length++;
         }
 
-        auto constexpr maxNumberOfHotelCellsInPlacePage = 3UL;
 
         auto const & facilities = hotelInfo.m_facilities;
         if (!facilities.empty())
@@ -202,6 +202,7 @@ using namespace place_page;
           it = sections.insert(it, Sections::HotelFacilities) + 1;
           auto & facilitiesRows = self->m_hotelFacilitiesRows;
           auto const size = facilities.size();
+          auto constexpr maxNumberOfHotelCellsInPlacePage = 3UL;
 
           if (size > maxNumberOfHotelCellsInPlacePage)
           {
@@ -224,15 +225,8 @@ using namespace place_page;
           auto & reviewsRows = self->m_hotelReviewsRows;
 
           reviewsRows.emplace_back(HotelReviewsRow::Header);
-          if (size > maxNumberOfHotelCellsInPlacePage)
-          {
-            reviewsRows.insert(reviewsRows.begin() + 1, maxNumberOfHotelCellsInPlacePage, HotelReviewsRow::Regular);
-            reviewsRows.emplace_back(HotelReviewsRow::ShowMore);
-          }
-          else
-          {
-            reviewsRows.insert(reviewsRows.begin() + 1, size, HotelReviewsRow::Regular);
-          }
+          reviewsRows.insert(reviewsRows.end(), size, HotelReviewsRow::Regular);
+          reviewsRows.emplace_back(HotelReviewsRow::ShowMore);
           length++;
         }
 
@@ -382,6 +376,7 @@ using namespace place_page;
 - (vector<booking::HotelFacility> const &)facilities { return m_hotelInfo.m_facilities; }
 - (vector<booking::HotelReview> const &)reviews { return m_hotelInfo.m_reviews; }
 - (NSUInteger)numberOfReviews { return m_hotelInfo.m_scoreCount; }
+- (NSURL *)URLToAllReviews { return [NSURL URLWithString:@(m_info.GetSponsoredReviewUrl().c_str())]; }
 - (NSArray<MWMGalleryItemModel *> *)photos
 {
   NSMutableArray<MWMGalleryItemModel *> * res = [@[] mutableCopy];
