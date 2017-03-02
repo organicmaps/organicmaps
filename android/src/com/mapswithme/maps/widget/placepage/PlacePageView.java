@@ -37,7 +37,6 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;

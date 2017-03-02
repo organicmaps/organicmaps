@@ -3,7 +3,7 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:minHeight="@dimen/height_block_base"
+              android:minHeight="@dimen/placepage_facilities_item"
               android:orientation="horizontal"
               android:gravity="center_vertical"
               android:background="?clickableBackground"

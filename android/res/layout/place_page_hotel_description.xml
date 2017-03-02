@@ -47,7 +47,7 @@
     android:height="@dimen/height_block_base"
     android:background="?clickableBackground"
     android:gravity="center"
-    android:text="@string/details"/>
+    android:text="@string/more_on_bookingcom"/>
 
   <include layout="@layout/divider_horizontal"/>
 </LinearLayout>
