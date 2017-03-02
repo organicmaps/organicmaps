@@ -847,8 +847,10 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
     ASSERT(m_bookingApi, ());
     info.m_sponsoredType = SponsoredType::Booking;
     auto const & baseUrl = info.GetMetadata().Get(feature::Metadata::FMD_WEBSITE);
+    auto const & hotelId = info.GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
     info.m_sponsoredUrl = m_bookingApi->GetBookHotelUrl(baseUrl);
     info.m_sponsoredDescriptionUrl = m_bookingApi->GetDescriptionUrl(baseUrl);
+    info.m_sponsoredReviewUrl = m_bookingApi->GetHotelReviewsUrl(hotelId, baseUrl);
   }
   else if (ftypes::IsOpentableChecker::Instance()(ft))
   {
