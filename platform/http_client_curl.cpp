@@ -24,6 +24,8 @@
 #include "platform/http_client.hpp"
 #include "platform/platform.hpp"
 
+#include "coding/zlib.hpp"
+
 #include "base/assert.hpp"
 #include "base/exception.hpp"
 #include "base/logging.hpp"
@@ -46,6 +48,8 @@
 #else
 #include <unistd.h>  // close
 #endif
+
+using namespace coding;
 
 namespace
 {
@@ -143,6 +147,18 @@ bool WriteToFile(string const & fileName, string const & data)
 
   ofs << data;
   return true;
+}
+
+std::string Decompress(std::string const & compressed, std::string const & encoding)
+{
+  std::string decompressed;
+
+  if (encoding == "deflate")
+    ZLib::Inflate(compressed, back_inserter(decompressed));
+  else
+    ASSERT(false, ("Unsupported Content-Encoding:", encoding));
+
+  return decompressed;
 }
 }  // namespace
 // Used as a test stub for basic HTTP client implementation.
@@ -258,6 +274,13 @@ bool HttpClient::RunHttpRequest()
     m_urlReceived = redirect.UrlReceived();
     m_headers = move(redirect.m_headers);
     m_serverResponse = move(redirect.m_serverResponse);
+  }
+
+  auto const it = m_headers.find("content-encoding");
+  if (it != m_headers.end())
+  {
+    m_serverResponse = Decompress(m_serverResponse, it->second);
+    LOG(LDEBUG, ("Response with", it->second, "is decompressed."));
   }
 
   return true;
