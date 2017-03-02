@@ -99,6 +99,9 @@
 
           <include layout="@layout/place_page_taxi"/>
 
+          <include layout="@layout/divider_horizontal"/>
+
+          <include layout="@layout/place_page_more"/>
         </LinearLayout>
       </RelativeLayout>
 

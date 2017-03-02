@@ -153,6 +153,7 @@ public class PlacePageView extends RelativeLayout
   private View mHotelDescription;
   private LineCountTextView mTvHotelDescription;
   private View mHotelMoreDescription;
+  private View mHotelMoreDescriptionOnWeb;
   private View mHotelFacilities;
   private View mHotelMoreFacilities;
   private View mHotelGallery;
@@ -553,8 +554,10 @@ public class PlacePageView extends RelativeLayout
     mHotelDescription = findViewById(R.id.ll__place_hotel_description);
     mTvHotelDescription = (LineCountTextView) findViewById(R.id.tv__place_hotel_details);
     mHotelMoreDescription = findViewById(R.id.tv__place_hotel_more);
+    mHotelMoreDescriptionOnWeb = findViewById(R.id.tv__place_hotel_more_on_web);
     mTvHotelDescription.setListener(this);
     mHotelMoreDescription.setOnClickListener(this);
+    mHotelMoreDescriptionOnWeb.setOnClickListener(this);
   }
 
   @Override
@@ -1377,6 +1380,7 @@ public class PlacePageView extends RelativeLayout
         addPlace();
         break;
       case R.id.ll__more:
+      case R.id.tv__place_hotel_more_on_web:
         onSponsoredClick(false /* book */);
         break;
       case R.id.ll__place_latlon:

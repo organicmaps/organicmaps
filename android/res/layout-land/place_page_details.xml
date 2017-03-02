@@ -39,8 +39,6 @@
 
       <include layout="@layout/place_page_hotel_description"/>
 
-      <include layout="@layout/place_page_more"/>
-
       <include layout="@layout/place_page_hotel_facilities"/>
 
       <include layout="@layout/place_page_hotel_nearby"/>
@@ -72,6 +70,10 @@
       <include layout="@layout/divider_horizontal"/>
 
       <include layout="@layout/place_page_taxi"/>
+
+      <include layout="@layout/divider_horizontal"/>
+
+      <include layout="@layout/place_page_more"/>
 
       <include layout="@layout/divider_horizontal"/>
 

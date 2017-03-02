@@ -13,7 +13,4 @@
     android:background="?clickableBackground"
     android:gravity="center"
     android:text="@string/details"/>
-
-  <include
-    layout="@layout/divider_horizontal"/>
 </LinearLayout>
