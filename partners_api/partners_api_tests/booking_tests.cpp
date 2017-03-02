@@ -16,10 +16,10 @@ UNIT_TEST(Booking_GetHotelAvailability)
 
 UNIT_TEST(Booking_GetExtendedInfo)
 {
-//  Test hotel is not implemented yet.
-//  string result;
-//  TEST(booking::RawApi::GetExtendedInfo(kHotelId, "", result), ());
-//  TEST(!result.empty(), ());
+  string const kHotelId = "0000000";  // Internal hotel id for testing.
+  string result;
+  TEST(booking::RawApi::GetExtendedInfo(kHotelId, "en", result), ());
+  TEST(!result.empty(), ());
 }
 
 UNIT_TEST(Booking_GetMinPrice)
@@ -89,21 +89,21 @@ UNIT_TEST(Booking_GetMinPrice)
 
 UNIT_TEST(GetHotelInfo)
 {
-//  Test hotel is not implemented yet.
-//  booking::Api api;
-//  booking::HotelInfo info;
+  string const kHotelId = "0000000";  // Internal hotel id for testing.
+  booking::Api api;
+  booking::HotelInfo info;
 
-//  api.GetHotelInfo(kHotelId, "en", [&info](booking::HotelInfo const & i)
-//  {
-//    info = i;
-//    testing::StopEventLoop();
-//  });
-//  testing::RunEventLoop();
+  api.GetHotelInfo(kHotelId, "en", [&info](booking::HotelInfo const & i)
+  {
+    info = i;
+    testing::StopEventLoop();
+  });
+  testing::RunEventLoop();
 
-//  TEST_EQUAL(info.m_hotelId, kHotelId, ());
-//  TEST(!info.m_description.empty(), ());
-//  TEST_EQUAL(info.m_photos.size(), 5, ());
-//  TEST_EQUAL(info.m_facilities.size(), 3, ());
-//  TEST_EQUAL(info.m_reviews.size(), 12, ());
+  TEST_EQUAL(info.m_hotelId, kHotelId, ());
+  TEST(!info.m_description.empty(), ());
+  TEST_EQUAL(info.m_photos.size(), 2, ());
+  TEST_EQUAL(info.m_facilities.size(), 7, ());
+  TEST_EQUAL(info.m_reviews.size(), 4, ());
 }
 }
