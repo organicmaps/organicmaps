@@ -41,7 +41,6 @@ struct HotelInfo
   vector<HotelPhotoUrls> m_photos;
   vector<HotelFacility> m_facilities;
   vector<HotelReview> m_reviews;
-  string m_reviewsParamsUrl;
   float m_score = 0.0;
   uint32_t m_scoreCount = 0;
 };
