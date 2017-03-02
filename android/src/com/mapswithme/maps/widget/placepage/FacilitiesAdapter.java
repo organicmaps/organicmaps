@@ -79,12 +79,13 @@ class FacilitiesAdapter extends BaseAdapter
 
   private static class ViewHolder implements View.OnClickListener
   {
-    ImageView mIcon;
+//    ImageView mIcon;
     TextView mName;
 
     public ViewHolder(View view)
     {
-      mIcon = (ImageView) view.findViewById(R.id.iv__icon);
+//      TODO we need icons from designer
+//      mIcon = (ImageView) view.findViewById(R.id.iv__icon);
       mName = (TextView) view.findViewById(R.id.tv__facility);
       view.setOnClickListener(this);
     }
@@ -97,8 +98,8 @@ class FacilitiesAdapter extends BaseAdapter
 
     public void bind(Sponsored.FacilityType facility)
     {
-//    TODO map facility key to image resource id
-      mIcon.setImageResource(R.drawable.ic_entrance);
+//      TODO map facility key to image resource id
+//      mIcon.setImageResource(R.drawable.ic_entrance);
       mName.setText(facility.getName());
     }
   }

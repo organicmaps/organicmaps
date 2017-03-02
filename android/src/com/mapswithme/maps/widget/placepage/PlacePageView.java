@@ -59,7 +59,6 @@ import com.mapswithme.maps.gallery.FullScreenGalleryActivity;
 import com.mapswithme.maps.gallery.GalleryActivity;
 import com.mapswithme.maps.gallery.Image;
 import com.mapswithme.maps.location.LocationHelper;
-import com.mapswithme.maps.review.ReviewActivity;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.widget.ArrowView;
 import com.mapswithme.maps.widget.BaseShadowController;
@@ -102,9 +101,6 @@ public class PlacePageView extends RelativeLayout
                EditBookmarkFragment.EditBookmarkListener
 {
   private static final String PREF_USE_DMS = "use_dms";
-
-//TODO: remove this after booking_api.cpp will be done
-  private static final boolean USE_OLD_BOOKING = false;
 
   private boolean mIsDocked;
   private boolean mIsFloating;
@@ -156,6 +152,7 @@ public class PlacePageView extends RelativeLayout
   private View mHotelDescription;
   private LineCountTextView mTvHotelDescription;
   private View mHotelMoreDescription;
+  private View mHotelMoreDescriptionOnWeb;
   private View mHotelFacilities;
   private View mHotelMoreFacilities;
   private View mHotelGallery;
@@ -556,8 +553,10 @@ public class PlacePageView extends RelativeLayout
     mHotelDescription = findViewById(R.id.ll__place_hotel_description);
     mTvHotelDescription = (LineCountTextView) findViewById(R.id.tv__place_hotel_details);
     mHotelMoreDescription = findViewById(R.id.tv__place_hotel_more);
+    mHotelMoreDescriptionOnWeb = findViewById(R.id.tv__place_hotel_more_on_web);
     mTvHotelDescription.setListener(this);
     mHotelMoreDescription.setOnClickListener(this);
+    mHotelMoreDescriptionOnWeb.setOnClickListener(this);
   }
 
   @Override
@@ -604,9 +603,9 @@ public class PlacePageView extends RelativeLayout
     {
       UiUtils.show(mHotelReview);
       mReviewAdapter.setItems(new ArrayList<>(Arrays.asList(info.mReviews)));
-      mHotelRating.setText(mSponsored.mRating);
+      mHotelRating.setText(mSponsored.getRating());
       mHotelRatingBase.setText(getResources().getQuantityString(R.plurals.place_page_booking_rating_base,
-                                                                info.mReviews.length, info.mReviews.length));
+                                                                info.mReviews.length, info.mReviewsAmount));
     }
   }
 
@@ -738,7 +737,7 @@ public class PlacePageView extends RelativeLayout
 
             try
             {
-              followUrl(book ? info.mUrl : info.mUrlDescription);
+              followUrl(book ? info.getUrl() : info.getDescriptionUrl());
             }
             catch (ActivityNotFoundException e)
             {
@@ -919,15 +918,13 @@ public class PlacePageView extends RelativeLayout
       if (mSponsored != null)
       {
         mSponsored.updateId(mMapObject);
-        mSponsoredPrice = mSponsored.mPrice;
+        mSponsoredPrice = mSponsored.getPrice();
 
         Locale locale = Locale.getDefault();
         Currency currency = Currency.getInstance(locale);
         if (mSponsored.getType() == Sponsored.TYPE_BOOKING && mSponsored.getId() != null)
           Sponsored.requestPrice(mSponsored.getId(), currency.getCurrencyCode(), policy);
-//      TODO: remove this after booking_api.cpp will be done
-        if (!USE_OLD_BOOKING)
-          Sponsored.requestInfo(mSponsored, locale.toString(), policy);
+        Sponsored.requestInfo(mSponsored, locale.toString(), policy);
       }
 
       String country = MapManager.nativeGetSelectedCountry();
@@ -1048,8 +1045,8 @@ public class PlacePageView extends RelativeLayout
     if (sponsored)
     {
       boolean isPriceEmpty = TextUtils.isEmpty(mSponsoredPrice);
-      boolean isRatingEmpty = TextUtils.isEmpty(mSponsored.mRating);
-      mTvSponsoredRating.setText(mSponsored.mRating);
+      boolean isRatingEmpty = TextUtils.isEmpty(mSponsored.getRating());
+      mTvSponsoredRating.setText(mSponsored.getRating());
       UiUtils.showIf(!isPriceEmpty && !isRatingEmpty, mTvSponsoredRating);
       mTvSponsoredPrice.setText(mSponsoredPrice);
       UiUtils.showIf(!isPriceEmpty, mTvSponsoredPrice);
@@ -1081,8 +1078,7 @@ public class PlacePageView extends RelativeLayout
     else
     {
       UiUtils.hide(mWebsite);
-//    TODO: remove this after booking_api.cpp will be done
-      UiUtils.showIf(USE_OLD_BOOKING, mHotelMore);
+      UiUtils.show(mHotelMore);
 
       if (mSponsored.getType() != Sponsored.TYPE_BOOKING)
         UiUtils.hide(mHotelMore);
@@ -1383,6 +1379,7 @@ public class PlacePageView extends RelativeLayout
         addPlace();
         break;
       case R.id.ll__more:
+      case R.id.tv__place_hotel_more_on_web:
         onSponsoredClick(false /* book */);
         break;
       case R.id.ll__place_latlon:
@@ -1423,9 +1420,8 @@ public class PlacePageView extends RelativeLayout
         mFacilitiesAdapter.setShowAll(true);
         break;
       case R.id.tv__place_hotel_reviews_more:
-        ReviewActivity.start(getContext(), mReviewAdapter.getItems(), mMapObject.getTitle(),
-                             mSponsored.mRating, mReviewAdapter.getItems()
-                                                               .size(), mSponsored.mUrl);
+        if (isSponsored())
+          followUrl(mSponsored.getReviewUrl());
         break;
       case R.id.tv__place_page_order_taxi:
         RoutingController.get().prepare(LocationHelper.INSTANCE.getMyPosition(), mMapObject,

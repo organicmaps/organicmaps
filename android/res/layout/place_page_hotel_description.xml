@@ -15,7 +15,7 @@
     android:layout_marginRight="@dimen/margin_base"
     android:layout_marginTop="@dimen/margin_base"
     style="@style/PlacePageTitleText"
-    android:text="@string/details"/>
+    android:text="@string/placepage_place_description"/>
 
   <com.mapswithme.maps.widget.LineCountTextView
     android:id="@+id/tv__place_hotel_details"
@@ -38,6 +38,16 @@
     android:background="?clickableBackground"
     android:gravity="center"
     android:text="@string/placepage_more_button"/>
+
+  <include layout="@layout/divider_horizontal"/>
+
+  <TextView
+    android:id="@+id/tv__place_hotel_more_on_web"
+    style="@style/PlacePageMetadataText.Button"
+    android:height="@dimen/height_block_base"
+    android:background="?clickableBackground"
+    android:gravity="center"
+    android:text="@string/more_on_bookingcom"/>
 
   <include layout="@layout/divider_horizontal"/>
 </LinearLayout>

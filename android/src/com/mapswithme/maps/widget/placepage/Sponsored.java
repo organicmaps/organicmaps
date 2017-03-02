@@ -132,16 +132,19 @@ public final class Sponsored
     final Review[] mReviews;
     @Nullable
     final NearbyObject[] mNearby;
+    final long mReviewsAmount;
+
 
     public HotelInfo(@Nullable String description, @Nullable Image[] photos,
                      @Nullable FacilityType[] facilities, @Nullable Review[] reviews,
-                     @Nullable NearbyObject[] nearby)
+                     @Nullable NearbyObject[] nearby, long reviewsAmount)
     {
       mDescription = description;
       mPhotos = photos;
       mFacilities = facilities;
       mReviews = reviews;
       mNearby = nearby;
+      mReviewsAmount = reviewsAmount;
     }
   }
 
@@ -187,23 +190,27 @@ public final class Sponsored
   private String mId;
 
   @NonNull
-  final String mRating;
+  private final String mRating;
   @NonNull
-  final String mPrice;
+  private final String mPrice;
   @NonNull
-  final String mUrl;
+  private final String mUrl;
   @NonNull
-  final String mUrlDescription;
+  private final String mDescriptionUrl;
+  @NonNull
+  private final String mReviewUrl;
   @SponsoredType
   private final int mType;
 
   public Sponsored(@NonNull String rating, @NonNull String price, @NonNull String url,
-                   @NonNull String urlDescription, @SponsoredType int type)
+                   @NonNull String descriptionUrl, @NonNull String reviewUrl,
+                   @SponsoredType int type)
   {
     mRating = rating;
     mPrice = price;
     mUrl = url;
-    mUrlDescription = urlDescription;
+    mDescriptionUrl = descriptionUrl;
+    mReviewUrl = reviewUrl;
     mType = type;
   }
 
@@ -213,19 +220,19 @@ public final class Sponsored
   }
 
   @Nullable
-  public String getId()
+  String getId()
   {
     return mId;
   }
 
   @NonNull
-  public String getRating()
+  String getRating()
   {
     return mRating;
   }
 
   @NonNull
-  public String getPrice()
+  String getPrice()
   {
     return mPrice;
   }
@@ -237,9 +244,15 @@ public final class Sponsored
   }
 
   @NonNull
-  public String getUrlDescription()
+  String getDescriptionUrl()
   {
-    return mUrlDescription;
+    return mDescriptionUrl;
+  }
+
+  @NonNull
+  String getReviewUrl()
+  {
+    return mReviewUrl;
   }
 
   @SponsoredType

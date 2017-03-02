@@ -47,11 +47,14 @@
     android:layout_marginLeft="@dimen/margin_base"
     android:layout_marginRight="@dimen/margin_base"
     android:background="?dividerHorizontal"/>
+
   <TextView
     android:id="@+id/tv__place_hotel_reviews_more"
     style="@style/PlacePageMetadataText.Button"
     android:height="@dimen/height_block_base"
     android:background="?clickableBackground"
     android:gravity="center"
-    android:text="@string/placepage_more_reviews_button"/>
+    android:text="@string/reviews_on_bookingcom"/>
+
+  <include layout="@layout/divider_horizontal"/>
 </LinearLayout>

@@ -163,6 +163,9 @@
   <!-- Rating-->
   <dimen name="placepage_margin_rating">20dp</dimen>
 
+  <!-- Facilities-->
+  <dimen name="placepage_facilities_item">32dp</dimen>
+
   <!-- Banner-->
   <dimen name="placepage_banner_height">64dp</dimen>
   <dimen name="placepage_banner_icon_size">40dp</dimen>

@@ -54,7 +54,7 @@ public final class HttpClient
   // TODO(AlexZ): tune for larger files
   private final static int STREAM_BUFFER_SIZE = 1024 * 64;
   // Globally accessible for faster unit-testing
-  public static int TIMEOUT_IN_MILLISECONDS = 30000;
+  private static int TIMEOUT_IN_MILLISECONDS = 30000;
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.NETWORK);
 
   public static Params run(@NonNull final Params p) throws IOException, NullPointerException
@@ -142,7 +142,8 @@ public final class HttpClient
       }
       // GET data from the server or receive response body
       p.httpResponseCode = connection.getResponseCode();
-      LOGGER.d(TAG, "Received HTTP " + p.httpResponseCode + " from server.");
+      LOGGER.d(TAG, "Received HTTP " + p.httpResponseCode + " from server, content encoding = "
+                    + connection.getContentEncoding() + ", for request = " + p.url);
 
       if (p.httpResponseCode >= 300 && p.httpResponseCode < 400)
         p.receivedUrl = connection.getHeaderField("Location");
@@ -222,12 +223,12 @@ public final class HttpClient
   private static void logUrlSafely(@NonNull final String url)
   {
     String safeUrl = url.replaceAll("(token|password|key)=([^&]+)", "***");
-    LOGGER.d("Connecting to ", safeUrl);
+    LOGGER.d(TAG, "Connecting to " + safeUrl);
   }
 
   private static class HttpHeader
   {
-    public HttpHeader(@NonNull String key, @NonNull String value)
+    HttpHeader(@NonNull String key, @NonNull String value)
     {
       this.key = key;
       this.value = value;
@@ -251,22 +252,22 @@ public final class HttpClient
 
     public String url;
     // Can be different from url in case of redirects.
-    public String receivedUrl;
-    public String httpMethod;
+    String receivedUrl;
+    String httpMethod;
     // Should be specified for any request whose method allows non-empty body.
     // On return, contains received Content-Type or null.
     // Can be specified for any request whose method allows non-empty body.
     // On return, contains received Content-Encoding or null.
     public byte[] data;
     // Send from input file if specified instead of data.
-    public String inputFilePath;
+    String inputFilePath;
     // Received data is stored here if not null or in data otherwise.
-    public String outputFilePath;
-    public String cookies;
-    public ArrayList<HttpHeader> headers = new ArrayList<>();
-    public int httpResponseCode = -1;
-    public boolean followRedirects = true;
-    public boolean loadHeaders;
+    String outputFilePath;
+    String cookies;
+    ArrayList<HttpHeader> headers = new ArrayList<>();
+    int httpResponseCode = -1;
+    boolean followRedirects = true;
+    boolean loadHeaders;
 
     // Simple GET request constructor.
     public Params(String url)
