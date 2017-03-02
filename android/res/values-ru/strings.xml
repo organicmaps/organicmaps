@@ -1078,4 +1078,9 @@
 	<string name="whatsnew_waypoints_message">Нажмите на объекты, чтобы включить их в маршрут.</string>
 	<string name="whatsnew_driving_style_title">Новый автомобильный стиль карт</string>
 	<string name="whatsnew_driving_style_message">Режим автомобильной навигации стал удобнее.</string>
+	<string name="more_on_bookingcom">Больше на Booking.com</string>
+	<string name="details_on_bookingcom">Подробней на Booking.com</string>
+	<string name="reviews_on_bookingcom">Больше отзывов на Booking.com</string>
+	<string name="offline_place_page_more_information">Подключитесь к интернету, чтобы получить больше информации о месте.</string>
+	<string name="failed_load_information">Не удалось загрузить информацию.</string>
 </resources>

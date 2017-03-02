@@ -1834,3 +1834,13 @@
 "whatsnew_driving_style_title" = "運転用の新しい地図のスタイル";
 
 "whatsnew_driving_style_message" = "カーナビゲーションモードの使用がより簡単になりました。";
+
+"more_on_bookingcom" = "More on Booking.com";
+
+"details_on_bookingcom" = "Details on Booking.com";
+
+"reviews_on_bookingcom" = "More reviews on Booking.com";
+
+"offline_place_page_more_information" = "Connect to the internet to get more information about the place.";
+
+"failed_load_information" = "Failed to load information.";
