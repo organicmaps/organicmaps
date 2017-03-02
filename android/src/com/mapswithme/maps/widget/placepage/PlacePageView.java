@@ -601,7 +601,7 @@ public class PlacePageView extends RelativeLayout
     {
       UiUtils.show(mHotelReview);
       mReviewAdapter.setItems(new ArrayList<>(Arrays.asList(info.mReviews)));
-      mHotelRating.setText(mSponsored.mRating);
+      mHotelRating.setText(mSponsored.getRating());
       mHotelRatingBase.setText(getResources().getQuantityString(R.plurals.place_page_booking_rating_base,
                                                                 info.mReviews.length, info.mReviews.length));
     }
@@ -735,7 +735,7 @@ public class PlacePageView extends RelativeLayout
 
             try
             {
-              followUrl(book ? info.mUrl : info.mUrlDescription);
+              followUrl(book ? info.getUrl() : info.getDescriptionUrl());
             }
             catch (ActivityNotFoundException e)
             {
@@ -916,7 +916,7 @@ public class PlacePageView extends RelativeLayout
       if (mSponsored != null)
       {
         mSponsored.updateId(mMapObject);
-        mSponsoredPrice = mSponsored.mPrice;
+        mSponsoredPrice = mSponsored.getPrice();
 
         Locale locale = Locale.getDefault();
         Currency currency = Currency.getInstance(locale);
@@ -1043,8 +1043,8 @@ public class PlacePageView extends RelativeLayout
     if (sponsored)
     {
       boolean isPriceEmpty = TextUtils.isEmpty(mSponsoredPrice);
-      boolean isRatingEmpty = TextUtils.isEmpty(mSponsored.mRating);
-      mTvSponsoredRating.setText(mSponsored.mRating);
+      boolean isRatingEmpty = TextUtils.isEmpty(mSponsored.getRating());
+      mTvSponsoredRating.setText(mSponsored.getRating());
       UiUtils.showIf(!isPriceEmpty && !isRatingEmpty, mTvSponsoredRating);
       mTvSponsoredPrice.setText(mSponsoredPrice);
       UiUtils.showIf(!isPriceEmpty, mTvSponsoredPrice);
@@ -1417,7 +1417,8 @@ public class PlacePageView extends RelativeLayout
         mFacilitiesAdapter.setShowAll(true);
         break;
       case R.id.tv__place_hotel_reviews_more:
-        Toast.makeText(getContext(), "Not implemented yet!", Toast.LENGTH_SHORT).show();
+        if (isSponsored())
+          followUrl(mSponsored.getReviewUrl());
         break;
       case R.id.tv__place_page_order_taxi:
         RoutingController.get().prepare(LocationHelper.INSTANCE.getMyPosition(), mMapObject,
