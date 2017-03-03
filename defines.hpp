@@ -29,6 +29,7 @@
 #define ALTITUDES_FILE_TAG "altitudes"
 #define RESTRICTIONS_FILE_TAG "restrictions"
 #define ROUTING_FILE_TAG "routing"
+#define CROSS_MWM_FILE_TAG "cross_mwm"
 #define FEATURE_OFFSETS_FILE_TAG "offs"
 #define RANKS_FILE_TAG "ranks"
 #define REGION_INFO_FILE_TAG "rgninfo"

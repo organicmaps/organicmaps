@@ -75,6 +75,11 @@ public:
   Segment const & GetTarget() const { return m_target; }
   double GetWeight() const { return m_weight; }
 
+  bool operator==(SegmentEdge const & edge) const
+  {
+    return m_target == edge.m_target && m_weight == edge.m_weight;
+  }
+
 private:
   // Target is vertex going to for outgoing edges, vertex going from for ingoing edges.
   Segment m_target;
@@ -86,6 +91,13 @@ inline string DebugPrint(Segment const & segment)
   ostringstream out;
   out << "Segment(" << segment.GetMwmId() << ", " << segment.GetFeatureId() << ", "
       << segment.GetSegmentIdx() << ", " << segment.IsForward() << ")";
+  return out.str();
+}
+
+inline string DebugPrint(SegmentEdge const & edge)
+{
+  ostringstream out;
+  out << "Edge(" << DebugPrint(edge.GetTarget()) << ", " << edge.GetWeight() << ")";
   return out.str();
 }
 }  // namespace routing

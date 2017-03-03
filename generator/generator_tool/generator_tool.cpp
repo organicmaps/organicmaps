@@ -69,8 +69,9 @@ DEFINE_bool(split_by_polygons, false,
 // Routing.
 DEFINE_string(osrm_file_name, "", "Input osrm file to generate routing info.");
 DEFINE_bool(make_routing, false, "Make routing info based on osrm file.");
-DEFINE_bool(make_cross_section, false, "Make cross section in routing file for cross mwm routing.");
+DEFINE_bool(make_cross_section, false, "Make cross section in routing file for cross mwm routing (for old OSRM routing).");
 DEFINE_bool(make_routing_index, false, "Make sections with the routing information.");
+DEFINE_bool(make_cross_mwm, false, "Make section for cross mwm routing (for new AStar routing).");
 DEFINE_string(srtm_path, "",
               "Path to srtm directory. If set, generates a section with altitude information "
               "about roads.");
@@ -161,7 +162,7 @@ int main(int argc, char ** argv)
       FLAGS_generate_index || FLAGS_generate_search_index || FLAGS_calc_statistics ||
       FLAGS_type_statistics || FLAGS_dump_types || FLAGS_dump_prefixes ||
       FLAGS_dump_feature_names != "" || FLAGS_check_mwm || FLAGS_srtm_path != "" ||
-      FLAGS_make_routing_index || FLAGS_generate_traffic_keys)
+      FLAGS_make_routing_index || FLAGS_make_cross_mwm || FLAGS_generate_traffic_keys)
   {
     classificator::Load();
     classif().SortClassificator();
@@ -255,6 +256,9 @@ int main(int argc, char ** argv)
 
       routing::BuildRoutingIndex(datFile, country);
     }
+
+    if (FLAGS_make_cross_mwm)
+      routing::BuildCrossMwmSection(path, datFile, country);
 
     if (FLAGS_generate_traffic_keys)
     {

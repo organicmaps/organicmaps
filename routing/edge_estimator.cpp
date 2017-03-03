@@ -73,17 +73,20 @@ double CarEdgeEstimator::CalcSegmentWeight(Segment const & segment, RoadGeometry
                                  road.GetPoint(segment.GetPointId(true /* front */)), speedMPS) *
                   kTimePenalty;
 
-  auto const * trafficColoring = m_trafficStash->Get(segment.GetMwmId());
-  if (trafficColoring)
+  if (m_trafficStash)
   {
-    auto const dir = segment.IsForward() ? TrafficInfo::RoadSegmentId::kForwardDirection
-                                         : TrafficInfo::RoadSegmentId::kReverseDirection;
-    auto const it = trafficColoring->find(
-        TrafficInfo::RoadSegmentId(segment.GetFeatureId(), segment.GetSegmentIdx(), dir));
-    SpeedGroup const speedGroup =
-        (it == trafficColoring->cend()) ? SpeedGroup::Unknown : it->second;
-    ASSERT_LESS(speedGroup, SpeedGroup::Count, ());
-    result *= CalcTrafficFactor(speedGroup);
+    auto const * trafficColoring = m_trafficStash->Get(segment.GetMwmId());
+    if (trafficColoring)
+    {
+      auto const dir = segment.IsForward() ? TrafficInfo::RoadSegmentId::kForwardDirection
+                                           : TrafficInfo::RoadSegmentId::kReverseDirection;
+      auto const it = trafficColoring->find(
+          TrafficInfo::RoadSegmentId(segment.GetFeatureId(), segment.GetSegmentIdx(), dir));
+      SpeedGroup const speedGroup =
+          (it == trafficColoring->cend()) ? SpeedGroup::Unknown : it->second;
+      ASSERT_LESS(speedGroup, SpeedGroup::Count, ());
+      result *= CalcTrafficFactor(speedGroup);
+    }
   }
 
   return result;
