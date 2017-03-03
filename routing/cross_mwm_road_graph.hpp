@@ -72,6 +72,7 @@ struct BorderCross
   BorderCross(CrossNode const & from, CrossNode const & to) : fromNode(from), toNode(to) {}
   BorderCross() = default;
 
+  // TODO(bykoianko) Consider using fields |fromNode| and |toNode| in operator== and operator<.
   inline bool operator==(BorderCross const & a) const { return toNode == a.toNode; }
   inline bool operator<(BorderCross const & a) const { return toNode < a.toNode; }
 };
@@ -106,11 +107,14 @@ public:
 
   explicit CrossMwmGraph(RoutingIndexManager & indexManager) : m_indexManager(indexManager) {}
 
-  void GetOutgoingEdgesList(BorderCross const & v, vector<CrossWeightedEdge> & adj) const;
-  void GetIngoingEdgesList(BorderCross const & /* v */,
-                           vector<CrossWeightedEdge> & /* adj */) const
+  void GetOutgoingEdgesList(BorderCross const & v, vector<CrossWeightedEdge> & adj) const
   {
-    NOTIMPLEMENTED();
+    GetEdgesList(v, true /* isOutgoing */, adj);
+  }
+
+  void GetIngoingEdgesList(BorderCross const & v, vector<CrossWeightedEdge> & adj) const
+  {
+    GetEdgesList(v, false /* isOutgoing */, adj);
   }
 
   double HeuristicCostEstimate(BorderCross const & v, BorderCross const & w) const;
@@ -118,15 +122,20 @@ public:
   IRouter::ResultCode SetStartNode(CrossNode const & startNode);
   IRouter::ResultCode SetFinalNode(CrossNode const & finalNode);
 
-private:
-  // Cashing wrapper for the ConstructBorderCrossImpl function.
-  vector<BorderCross> const & ConstructBorderCross(OutgoingCrossNode const & startNode,
-                                                   TRoutingMappingPtr const & currentMapping) const;
+  // Cashing wrapper for the ConstructBorderCrossByOutgoingImpl function.
+  vector<BorderCross> const & ConstructBorderCrossByOutgoing(OutgoingCrossNode const & startNode,
+                                                            TRoutingMappingPtr const & currentMapping) const;
+  vector<BorderCross> const & ConstructBorderCrossByIngoing(IngoingCrossNode const & startNode,
+                                                            TRoutingMappingPtr const & currentMapping) const;
 
+private:
   // Pure function to construct boder cross by outgoing cross node.
-  bool ConstructBorderCrossImpl(OutgoingCrossNode const & startNode,
-                                TRoutingMappingPtr const & currentMapping,
-                                vector<BorderCross> & cross) const;
+  bool ConstructBorderCrossByOutgoingImpl(OutgoingCrossNode const & startNode,
+                                          TRoutingMappingPtr const & currentMapping,
+                                          vector<BorderCross> & cross) const;
+  bool ConstructBorderCrossByIngoingImpl(IngoingCrossNode const & startNode,
+                                         TRoutingMappingPtr const & currentMapping,
+                                         vector<BorderCross> & crosses) const;
   /*!
    * Adds a virtual edge to the graph so that it is possible to represent
    * the final segment of the path that leads from the map's border
@@ -135,6 +144,7 @@ private:
    */
   void AddVirtualEdge(IngoingCrossNode const & node, CrossNode const & finalNode,
                       EdgeWeight weight);
+  void GetEdgesList(BorderCross const & v, bool isOutgoing, vector<CrossWeightedEdge> & adj) const;
 
   map<CrossNode, vector<CrossWeightedEdge> > m_virtualEdges;
 
@@ -151,7 +161,9 @@ private:
     }
   };
 
-  mutable unordered_map<TCachingKey, vector<BorderCross>, Hash> m_cachedNextNodes;
+  // @TODO(bykoianko) Consider removing key work mutable.
+  mutable unordered_map<TCachingKey, vector<BorderCross>, Hash> m_cachedNextNodesByIngoing;
+  mutable unordered_map<TCachingKey, vector<BorderCross>, Hash> m_cachedNextNodesByOutgoing;
 };
 
 //--------------------------------------------------------------------------------------------------

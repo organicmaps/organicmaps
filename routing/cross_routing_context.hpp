@@ -91,7 +91,7 @@ class CrossRoutingContextReader
 public:
   void Load(Reader const & r);
 
-  const string & GetOutgoingMwmName(OutgoingCrossNode const & mwmIndex) const;
+  const string & GetOutgoingMwmName(OutgoingCrossNode const & outgoingNode) const;
 
   TWrittenEdgeWeight GetAdjacencyCost(IngoingCrossNode const & ingoing,
                                      OutgoingCrossNode const & outgoing) const;
