@@ -1,7 +1,11 @@
-#include "qt/qtoglcontextfactory.hpp"
+#include "qt/qt_common/qtoglcontextfactory.hpp"
 
 #include "base/assert.hpp"
 
+namespace qt
+{
+namespace common
+{
 QtOGLContextFactory::QtOGLContextFactory(QOpenGLContext * rootContext)
   : m_rootContext(rootContext)
   , m_drawContext(nullptr)
@@ -76,3 +80,5 @@ QOffscreenSurface * QtOGLContextFactory::createSurface()
 
   return result;
 }
+}  // namespace common
+}  // namespace qt

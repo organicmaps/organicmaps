@@ -1,4 +1,4 @@
-#include "qt/qtoglcontext.hpp"
+#include "qt/qt_common/qtoglcontext.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
@@ -7,6 +7,10 @@
 
 #include "drape/glfunctions.hpp"
 
+namespace qt
+{
+namespace common
+{
 QtRenderOGLContext::QtRenderOGLContext(QOpenGLContext * rootContext, QOffscreenSurface * surface)
   : m_surface(surface)
 {
@@ -126,3 +130,5 @@ void QtUploadOGLContext::setDefaultFramebuffer()
 {
   ASSERT(false, ());
 }
+}  // namespace common
+}  // namespace qt
