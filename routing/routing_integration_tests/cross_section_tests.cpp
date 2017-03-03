@@ -21,6 +21,8 @@
 
 #include "std/limits.hpp"
 
+#include <chrono>
+
 using namespace routing;
 
 namespace
@@ -149,17 +151,29 @@ UNIT_TEST(CrossMwmGraphTest)
     index.RegisterMap(file);
   }
 
-  Platform p;
-  unique_ptr<storage::CountryInfoGetter> infoGetter = storage::CountryInfoReader::CreateCountryInfoReader(p);
-  auto countryFileGetter = [&infoGetter](m2::PointD const & pt)
+  for (auto it = localFiles.begin(); it != localFiles.end();)
   {
+    string const & countryName = it->GetCountryName();
+    MwmSet::MwmId const mwmId = index.GetMwmIdByCountryFile(it->GetCountryFile());
+    if (countryName == "minsk-pass" || mwmId.GetInfo()->GetType() != MwmInfo::COUNTRY)
+      it = localFiles.erase(it);
+    else
+      ++it;
+  }
+
+  Platform p;
+  unique_ptr<storage::CountryInfoGetter> infoGetter =
+      storage::CountryInfoReader::CreateCountryInfoReader(p);
+  auto countryFileGetter = [&infoGetter](m2::PointD const & pt) {
     return infoGetter->GetRegionCountryId(pt);
   };
 
   RoutingIndexManager manager(countryFileGetter, index);
   CrossMwmGraph crossMwmGraph(manager);
 
-  std::minstd_rand rng;
+  auto const seed = std::chrono::system_clock::now().time_since_epoch().count();
+  LOG(LINFO, ("Seed for RandomSample:", seed));
+  std::minstd_rand rng(static_cast<unsigned int>(seed));
   std::vector<size_t> subset = base::RandomSample(localFiles.size(), 10 /* mwm number */, rng);
   std::vector<platform::LocalCountryFile> subsetCountryFiles;
   for (size_t i : subset)
@@ -168,23 +182,23 @@ UNIT_TEST(CrossMwmGraphTest)
   for (platform::LocalCountryFile const & file : subsetCountryFiles)
   {
     string const & countryName = file.GetCountryName();
+    LOG(LINFO, ("Processing", countryName));
     MwmSet::MwmId const mwmId = index.GetMwmIdByCountryFile(file.GetCountryFile());
-
-    if (countryName == "minsk-pass" || mwmId.GetInfo()->GetType() != MwmInfo::COUNTRY)
-      continue;
 
     TEST(mwmId.IsAlive(), ("Mwm name:", countryName, "Subset:", subsetCountryFiles));
     TRoutingMappingPtr currentMapping = manager.GetMappingById(mwmId);
     if (!currentMapping->IsValid())
-      continue; // No routing sections in the mwm.
+      continue;  // No routing sections in the mwm.
 
     currentMapping->LoadCrossContext();
     currentMapping->FreeFileIfPossible();
     CrossRoutingContextReader const & currentContext = currentMapping->m_crossContext;
 
-    currentContext.ForEachIngoingNode([&](IngoingCrossNode const & node)
-    {
-      vector<BorderCross> const & targets = crossMwmGraph.ConstructBorderCrossByIngoingNode(node, currentMapping);
+    size_t ingoingCounter = 0;
+    currentContext.ForEachIngoingNode([&](IngoingCrossNode const & node) {
+      ++ingoingCounter;
+      vector<BorderCross> const & targets =
+          crossMwmGraph.ConstructBorderCross(currentMapping, node);
       for (BorderCross const & t : targets)
       {
         vector<CrossWeightedEdge> outAdjs;
@@ -193,15 +207,22 @@ UNIT_TEST(CrossMwmGraphTest)
         {
           vector<CrossWeightedEdge> inAdjs;
           crossMwmGraph.GetIngoingEdgesList(out.GetTarget(), inAdjs);
-          TEST(find_if(inAdjs.cbegin(), inAdjs.cend(), [&](CrossWeightedEdge const & e){
+          TEST(find_if(inAdjs.cbegin(), inAdjs.cend(),
+                       [&](CrossWeightedEdge const & e) {
                          return e.GetTarget() == t && out.GetWeight() == e.GetWeight();
                        }) != inAdjs.cend(),
-              ("ForEachOutgoingNodeNearPoint() and ForEachIngoingNodeNearPoint() arn't correlated. Mwm:",
-               countryName, "Subset:", subsetCountryFiles));
+               ("ForEachOutgoingNodeNearPoint() and ForEachIngoingNodeNearPoint() arn't "
+                "correlated. Mwm:",
+                countryName, "Subset:", subsetCountryFiles));
         }
       }
     });
-    LOG(LINFO, ("Processed", countryName));
+
+    size_t outgoingCounter = 0;
+    currentContext.ForEachOutgoingNode(
+        [&](OutgoingCrossNode const & /* node */) { ++outgoingCounter; });
+
+    LOG(LINFO, ("Processed:", countryName, "Exits:", outgoingCounter, "Enters:", ingoingCounter));
   }
 }
 }  // namespace

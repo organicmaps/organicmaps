@@ -10,11 +10,11 @@ namespace
 using namespace routing;
 
 inline bool IsValidEdgeWeight(EdgeWeight const & w) { return w != INVALID_EDGE_WEIGHT; }
-
-template<class Node>
-struct FindingNode
+template <class Node>
+class ClosestNodeFinder
 {
-  FindingNode(CrossNode const & node, double & minDistance, Node & resultingCrossNode)
+public:
+  ClosestNodeFinder(CrossNode const & node, double & minDistance, Node & resultingCrossNode)
     : m_node(node), m_minDistance(minDistance), m_resultingCrossNode(resultingCrossNode)
   {
   }
@@ -32,6 +32,7 @@ struct FindingNode
     }
   }
 
+private:
   CrossNode const & m_node;
   double & m_minDistance;
   Node & m_resultingCrossNode;
@@ -51,13 +52,18 @@ double GetAdjacencyCost(CrossRoutingContextReader const & currentContext,
   return GetAdjacencyCost(currentContext, ingoingCrossNode, outgoingCrossNode);
 }
 
-template<class SourceNode, class TargetNode, bool isOutgoing>
-struct FillingEdges
+template <class SourceNode, class TargetNode>
+class EdgesFiller
 {
-  FillingEdges(TRoutingMappingPtr const & currentMapping, CrossRoutingContextReader const & currentContext,
-               SourceNode const & startingNode, CrossMwmGraph const & crossMwmGraph, vector<CrossWeightedEdge> & adj)
-    : m_currentMapping(currentMapping), m_currentContext(currentContext), m_startingNode(startingNode),
-      m_crossMwmGraph(crossMwmGraph), m_adj(adj)
+public:
+  EdgesFiller(TRoutingMappingPtr const & currentMapping,
+              CrossRoutingContextReader const & currentContext, SourceNode const & startingNode,
+              CrossMwmGraph const & crossMwmGraph, vector<CrossWeightedEdge> & adj)
+    : m_currentMapping(currentMapping)
+    , m_currentContext(currentContext)
+    , m_startingNode(startingNode)
+    , m_crossMwmGraph(crossMwmGraph)
+    , m_adj(adj)
   {
   }
 
@@ -66,7 +72,8 @@ struct FillingEdges
     TWrittenEdgeWeight const outWeight = GetAdjacencyCost(m_currentContext, m_startingNode, node);
     if (outWeight != kInvalidContextEdgeWeight && outWeight != 0)
     {
-      vector<BorderCross> const & targets = m_crossMwmGraph.ConstructBorderCross(m_currentMapping, node);
+      vector<BorderCross> const & targets =
+          m_crossMwmGraph.ConstructBorderCross(m_currentMapping, node);
       for (auto const & target : targets)
       {
         if (target.toNode.IsValid())
@@ -75,6 +82,7 @@ struct FillingEdges
     }
   }
 
+private:
   TRoutingMappingPtr const & m_currentMapping;
   CrossRoutingContextReader const & m_currentContext;
   SourceNode const & m_startingNode;
@@ -82,42 +90,44 @@ struct FillingEdges
   vector<CrossWeightedEdge> & m_adj;
 };
 
-void FindIngoingCrossNode(CrossRoutingContextReader const & currentContext, CrossNode const & toNode,
-                          IngoingCrossNode & ingoingNode)
+bool ForEachNodeNearPoint(CrossRoutingContextReader const & currentContext,
+                          CrossNode const & crossNode,
+                          ClosestNodeFinder<IngoingCrossNode> const & findingNode)
 {
-  double minDistance = std::numeric_limits<double>::max();
-  FindingNode<IngoingCrossNode> findingNode(toNode, minDistance, ingoingNode);
-
-  CHECK(currentContext.ForEachIngoingNodeNearPoint(toNode.point, findingNode), ("toNode.point:", toNode.point));
-  CHECK_NOT_EQUAL(minDistance, std::numeric_limits<double>::max(), ("toNode.point:", toNode.point));
+  return currentContext.ForEachIngoingNodeNearPoint(crossNode.point, findingNode);
 }
 
-void FindOutgoingCrossNode(CrossRoutingContextReader const & currentContext, CrossNode const & fromNode,
-                           OutgoingCrossNode & outgoingNode)
+bool ForEachNodeNearPoint(CrossRoutingContextReader const & currentContext,
+                          CrossNode const & crossNode,
+                          ClosestNodeFinder<OutgoingCrossNode> const & findingNode)
 {
-  double minDistance = std::numeric_limits<double>::max();
-  FindingNode<OutgoingCrossNode> findingNode(fromNode, minDistance, outgoingNode);
-  CHECK(currentContext.ForEachOutgoingNodeNearPoint(fromNode.point, findingNode), ("fromNode.point:", fromNode.point));
-  CHECK_NOT_EQUAL(minDistance, std::numeric_limits<double>::max(), ("fromNode.point:", fromNode.point));
+  return currentContext.ForEachOutgoingNodeNearPoint(crossNode.point, findingNode);
 }
 
-vector<BorderCross> & FindBorderCross(TWrittenNodeId nodeId,
-                                      TRoutingMappingPtr const & currentMapping,
-                                      unordered_map<CrossMwmGraph::TCachingKey, vector<BorderCross>,
-                                          CrossMwmGraph::Hash> & cachedNextNodes,
-                                      bool & result)
+template <class Node>
+void FindCrossNode(CrossRoutingContextReader const & currentContext, CrossNode const & crossNode,
+                   Node & node)
+{
+  double minDistance = std::numeric_limits<double>::max();
+  ClosestNodeFinder<Node> findingNode(crossNode, minDistance, node);
+  CHECK(ForEachNodeNearPoint(currentContext, crossNode, findingNode), ());
+  CHECK_NOT_EQUAL(minDistance, std::numeric_limits<double>::max(),
+                  ("crossNode.point:", crossNode.point));
+}
+
+template <class Fn>
+vector<BorderCross> const & ConstructBorderCrossImpl(
+    TWrittenNodeId nodeId, TRoutingMappingPtr const & currentMapping,
+    unordered_map<CrossMwmGraph::TCachingKey, vector<BorderCross>, CrossMwmGraph::Hash> const &
+        cachedNextNodes,
+    Fn && borderCrossConstructor /*bool & result*/)
 {
   auto const key = make_pair(nodeId, currentMapping->GetMwmId());
   auto const it = cachedNextNodes.find(key);
-  result = (it == cachedNextNodes.end()) ? false : true;
   if (it != cachedNextNodes.end())
-  {
-    result = true;
     return it->second;
-  }
-
-  result = false;
-  return cachedNextNodes[key];
+  borderCrossConstructor(key);
+  return cachedNextNodes.find(key)->second;
 }
 }  // namespace
 
@@ -167,7 +177,8 @@ IRouter::ResultCode CrossMwmGraph::SetStartNode(CrossNode const & startNode)
   {
     if (IsValidEdgeWeight(weights[i]))
     {
-      vector<BorderCross> const & nextCrosses = ConstructBorderCrossByOutgoingNode(outgoingNodes[i], startMapping);
+      vector<BorderCross> const & nextCrosses =
+          ConstructBorderCross(startMapping, outgoingNodes[i]);
       for (auto const & nextCross : nextCrosses)
       {
         if (nextCross.toNode.IsValid())
@@ -242,30 +253,6 @@ IRouter::ResultCode CrossMwmGraph::SetFinalNode(CrossNode const & finalNode)
   return IRouter::NoError;
 }
 
-vector<BorderCross> const & CrossMwmGraph::ConstructBorderCrossByOutgoingNode(OutgoingCrossNode const & startNode,
-                                                                              TRoutingMappingPtr const & currentMapping) const
-{
-  bool result = false;
-  vector<BorderCross> & crosses = FindBorderCross(startNode.m_nodeId, currentMapping, m_cachedNextNodesByOutgoing, result);
-  if (result)
-    return crosses;
-
-  ConstructBorderCrossByOutgoingImpl(startNode, currentMapping, crosses);
-  return crosses;
-}
-
-vector<BorderCross> const & CrossMwmGraph::ConstructBorderCrossByIngoingNode(IngoingCrossNode const & startNode,
-                                                                             TRoutingMappingPtr const & currentMapping) const
-{
-  bool result = false;
-  vector<BorderCross> & crosses = FindBorderCross(startNode.m_nodeId, currentMapping, m_cachedNextNodesByIngoing, result);
-  if (result)
-    return crosses;
-
-  ConstructBorderCrossByIngoingImpl(startNode, currentMapping, crosses);
-  return crosses;
-}
-
 bool CrossMwmGraph::ConstructBorderCrossByOutgoingImpl(OutgoingCrossNode const & startNode,
                                                        TRoutingMappingPtr const & currentMapping,
                                                        vector<BorderCross> & crosses) const
@@ -278,16 +265,18 @@ bool CrossMwmGraph::ConstructBorderCrossByOutgoingImpl(OutgoingCrossNode const &
     return false;
   ASSERT(crosses.empty(), ());
   nextMapping->LoadCrossContext();
-  nextMapping->m_crossContext.ForEachIngoingNodeNearPoint(startNode.m_point, [&](IngoingCrossNode const & node)
-  {
-    if (node.m_nodeId == INVALID_NODE_ID)
-      return;
+  nextMapping->m_crossContext.ForEachIngoingNodeNearPoint(
+      startNode.m_point, [&](IngoingCrossNode const & node) {
+        if (node.m_nodeId == INVALID_NODE_ID)
+          return;
 
-    if (!node.m_point.EqualDxDy(startNode.m_point, kMwmCrossingNodeEqualityMeters * MercatorBounds::degreeInMetres))
-      return;
+        if (!node.m_point.EqualDxDy(
+                startNode.m_point, kMwmCrossingNodeEqualityMeters * MercatorBounds::degreeInMetres))
+          return;
 
-    crosses.emplace_back(fromCross, CrossNode(node.m_nodeId, nextMapping->GetMwmId(), node.m_point));
-  });
+        crosses.emplace_back(fromCross,
+                             CrossNode(node.m_nodeId, nextMapping->GetMwmId(), node.m_point));
+      });
   return !crosses.empty();
 }
 
@@ -304,45 +293,62 @@ bool CrossMwmGraph::ConstructBorderCrossByIngoingImpl(IngoingCrossNode const & s
   // to check all neighboring mwms.
   for (string const & prevMwm : neighboringMwms)
   {
-    TRoutingMappingPtr nextMapping = m_indexManager.GetMappingByName(prevMwm);
-    if (!nextMapping->IsValid())
+    TRoutingMappingPtr prevMapping = m_indexManager.GetMappingByName(prevMwm);
+    if (!prevMapping->IsValid())
       continue;
 
-    nextMapping->LoadCrossContext();
-    nextMapping->m_crossContext.ForEachOutgoingNodeNearPoint(startNode.m_point, [&](OutgoingCrossNode const & node){
-      if (node.m_nodeId == INVALID_NODE_ID)
-        return;
+    prevMapping->LoadCrossContext();
+    prevMapping->m_crossContext.ForEachOutgoingNodeNearPoint(
+        startNode.m_point, [&](OutgoingCrossNode const & node) {
+          if (node.m_nodeId == INVALID_NODE_ID)
+            return;
 
-      if (nextMapping->m_crossContext.GetOutgoingMwmName(node) != currentMwm)
-        return;
+          if (prevMapping->m_crossContext.GetOutgoingMwmName(node) != currentMwm)
+            return;
 
-      if (!node.m_point.EqualDxDy(startNode.m_point, kMwmCrossingNodeEqualityMeters * MercatorBounds::degreeInMetres))
-        return;
+          if (!node.m_point.EqualDxDy(startNode.m_point, kMwmCrossingNodeEqualityMeters *
+                                                             MercatorBounds::degreeInMetres))
+            return;
 
-      crosses.emplace_back(CrossNode(node.m_nodeId, nextMapping->GetMwmId(), node.m_point), toCross);
-    });
+          crosses.emplace_back(CrossNode(node.m_nodeId, prevMapping->GetMwmId(), node.m_point),
+                               toCross);
+        });
   }
   return !crosses.empty();
 }
 
-vector<BorderCross> const & CrossMwmGraph::ConstructBorderCross(TRoutingMappingPtr const & currentMapping,
-                                                                OutgoingCrossNode const & node) const
+vector<BorderCross> const & CrossMwmGraph::ConstructBorderCross(
+    TRoutingMappingPtr const & currentMapping, OutgoingCrossNode const & node) const
 {
-  return ConstructBorderCrossByOutgoingNode(node, currentMapping);
+  return ConstructBorderCrossImpl(node.m_nodeId, currentMapping, m_cachedNextNodesByOutgoing,
+                                  [&](std::pair<TWrittenNodeId, Index::MwmId const &> const & key) {
+                                    vector<BorderCross> crosses;
+                                    ConstructBorderCrossByOutgoingImpl(node, currentMapping,
+                                                                       crosses);
+                                    m_cachedNextNodesByOutgoing[key] = move(crosses);
+                                  });
 }
 
-vector<BorderCross> const & CrossMwmGraph::ConstructBorderCross(TRoutingMappingPtr const & currentMapping,
-                                                                IngoingCrossNode const & node) const
+vector<BorderCross> const & CrossMwmGraph::ConstructBorderCross(
+    TRoutingMappingPtr const & currentMapping, IngoingCrossNode const & node) const
 {
-  return ConstructBorderCrossByIngoingNode(node, currentMapping);
+  return ConstructBorderCrossImpl(node.m_nodeId, currentMapping, m_cachedNextNodesByIngoing,
+                                  [&](std::pair<TWrittenNodeId, Index::MwmId const &> const & key) {
+                                    vector<BorderCross> crosses;
+                                    ConstructBorderCrossByIngoingImpl(node, currentMapping,
+                                                                      crosses);
+                                    m_cachedNextNodesByIngoing[key] = move(crosses);
+                                  });
 }
 
-void CrossMwmGraph::GetEdgesList(BorderCross const & v, bool isOutgoing, vector<CrossWeightedEdge> & adj) const
+void CrossMwmGraph::GetEdgesList(BorderCross const & v, bool isOutgoing,
+                                 vector<CrossWeightedEdge> & adj) const
 {
   // Check for virtual edges.
   adj.clear();
 
-  // Note. Code below processes virtual edges. This code does not work properly if isOutgoing == false.
+  // Note. Code below processes virtual edges. This code does not work properly if isOutgoing ==
+  // false.
   // At the same time when this method is called with isOutgoing == false |m_virtualEdges| is empty.
   if (!isOutgoing && !m_virtualEdges.empty())
   {
@@ -362,8 +368,8 @@ void CrossMwmGraph::GetEdgesList(BorderCross const & v, bool isOutgoing, vector<
   }
 
   // Loading cross routing section.
-  TRoutingMappingPtr currentMapping = m_indexManager.GetMappingById(isOutgoing ? v.toNode.mwmId
-                                                                               : v.fromNode.mwmId);
+  TRoutingMappingPtr currentMapping =
+      m_indexManager.GetMappingById(isOutgoing ? v.toNode.mwmId : v.fromNode.mwmId);
   ASSERT(currentMapping->IsValid(), ());
   currentMapping->LoadCrossContext();
   currentMapping->FreeFileIfPossible();
@@ -373,15 +379,15 @@ void CrossMwmGraph::GetEdgesList(BorderCross const & v, bool isOutgoing, vector<
   if (isOutgoing)
   {
     IngoingCrossNode ingoingNode;
-    FindIngoingCrossNode(currentContext, v.toNode, ingoingNode);
-    currentContext.ForEachOutgoingNode(FillingEdges<IngoingCrossNode, OutgoingCrossNode, true /* isOutgoing */>(
+    FindCrossNode<IngoingCrossNode>(currentContext, v.toNode, ingoingNode);
+    currentContext.ForEachOutgoingNode(EdgesFiller<IngoingCrossNode, OutgoingCrossNode>(
         currentMapping, currentContext, ingoingNode, *this, adj));
   }
   else
   {
     OutgoingCrossNode outgoingNode;
-    FindOutgoingCrossNode(currentContext, v.fromNode, outgoingNode);
-    currentContext.ForEachIngoingNode(FillingEdges<OutgoingCrossNode, IngoingCrossNode, false /* isOutgoing */>(
+    FindCrossNode<OutgoingCrossNode>(currentContext, v.fromNode, outgoingNode);
+    currentContext.ForEachIngoingNode(EdgesFiller<OutgoingCrossNode, IngoingCrossNode>(
         currentMapping, currentContext, outgoingNode, *this, adj));
   }
 }

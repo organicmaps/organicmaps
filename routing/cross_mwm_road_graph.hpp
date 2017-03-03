@@ -115,7 +115,6 @@ public:
   };
 
   explicit CrossMwmGraph(RoutingIndexManager & indexManager) : m_indexManager(indexManager) {}
-
   void GetOutgoingEdgesList(BorderCross const & v, vector<CrossWeightedEdge> & adj) const
   {
     GetEdgesList(v, true /* isOutgoing */, adj);
@@ -130,12 +129,6 @@ public:
 
   IRouter::ResultCode SetStartNode(CrossNode const & startNode);
   IRouter::ResultCode SetFinalNode(CrossNode const & finalNode);
-
-  // Cashing wrapper for the ConstructBorderCrossByOutgoingImpl function.
-  vector<BorderCross> const & ConstructBorderCrossByOutgoingNode(OutgoingCrossNode const & startNode,
-                                                                 TRoutingMappingPtr const & currentMapping) const;
-  vector<BorderCross> const & ConstructBorderCrossByIngoingNode(IngoingCrossNode const & startNode,
-                                                                TRoutingMappingPtr const & currentMapping) const;
 
   vector<BorderCross> const & ConstructBorderCross(TRoutingMappingPtr const & currentMapping,
                                                    OutgoingCrossNode const & node) const;
