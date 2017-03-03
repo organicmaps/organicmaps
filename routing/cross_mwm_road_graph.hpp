@@ -132,10 +132,15 @@ public:
   IRouter::ResultCode SetFinalNode(CrossNode const & finalNode);
 
   // Cashing wrapper for the ConstructBorderCrossByOutgoingImpl function.
-  vector<BorderCross> const & ConstructBorderCrossByOutgoing(OutgoingCrossNode const & startNode,
-                                                            TRoutingMappingPtr const & currentMapping) const;
-  vector<BorderCross> const & ConstructBorderCrossByIngoing(IngoingCrossNode const & startNode,
-                                                            TRoutingMappingPtr const & currentMapping) const;
+  vector<BorderCross> const & ConstructBorderCrossByOutgoingNode(OutgoingCrossNode const & startNode,
+                                                                 TRoutingMappingPtr const & currentMapping) const;
+  vector<BorderCross> const & ConstructBorderCrossByIngoingNode(IngoingCrossNode const & startNode,
+                                                                TRoutingMappingPtr const & currentMapping) const;
+
+  vector<BorderCross> const & ConstructBorderCross(TRoutingMappingPtr const & currentMapping,
+                                                   OutgoingCrossNode const & node) const;
+  vector<BorderCross> const & ConstructBorderCross(TRoutingMappingPtr const & currentMapping,
+                                                   IngoingCrossNode const & node) const;
 
 private:
   // Pure function to construct boder cross by outgoing cross node.
@@ -145,6 +150,7 @@ private:
   bool ConstructBorderCrossByIngoingImpl(IngoingCrossNode const & startNode,
                                          TRoutingMappingPtr const & currentMapping,
                                          vector<BorderCross> & crosses) const;
+
   /*!
    * Adds a virtual edge to the graph so that it is possible to represent
    * the final segment of the path that leads from the map's border

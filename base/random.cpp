@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <numeric>
 
-namespace my
+namespace base
 {
 std::vector<size_t> RandomSample(size_t n, size_t k, std::minstd_rand & rng)
 {
@@ -19,4 +19,4 @@ std::vector<size_t> RandomSample(size_t n, size_t k, std::minstd_rand & rng)
 
   return result;
 }
-}  // my
+}  // base

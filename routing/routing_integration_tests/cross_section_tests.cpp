@@ -17,6 +17,7 @@
 
 #include "base/buffer_vector.hpp"
 #include "base/logging.hpp"
+#include "base/random.hpp"
 
 #include "std/limits.hpp"
 
@@ -158,7 +159,13 @@ UNIT_TEST(CrossMwmGraphTest)
   RoutingIndexManager manager(countryFileGetter, index);
   CrossMwmGraph crossMwmGraph(manager);
 
-  for (platform::LocalCountryFile const & file : localFiles)
+  std::minstd_rand rng;
+  std::vector<size_t> subset = base::RandomSample(localFiles.size(), 10 /* mwm number */, rng);
+  std::vector<platform::LocalCountryFile> subsetCountryFiles;
+  for (size_t i : subset)
+    subsetCountryFiles.push_back(localFiles[i]);
+
+  for (platform::LocalCountryFile const & file : subsetCountryFiles)
   {
     string const & countryName = file.GetCountryName();
     MwmSet::MwmId const mwmId = index.GetMwmIdByCountryFile(file.GetCountryFile());
@@ -166,7 +173,7 @@ UNIT_TEST(CrossMwmGraphTest)
     if (countryName == "minsk-pass" || mwmId.GetInfo()->GetType() != MwmInfo::COUNTRY)
       continue;
 
-    TEST(mwmId.IsAlive(), ());
+    TEST(mwmId.IsAlive(), ("Mwm name:", countryName, "Subset:", subsetCountryFiles));
     TRoutingMappingPtr currentMapping = manager.GetMappingById(mwmId);
     if (!currentMapping->IsValid())
       continue; // No routing sections in the mwm.
@@ -177,7 +184,7 @@ UNIT_TEST(CrossMwmGraphTest)
 
     currentContext.ForEachIngoingNode([&](IngoingCrossNode const & node)
     {
-      vector<BorderCross> const & targets = crossMwmGraph.ConstructBorderCrossByIngoing(node, currentMapping);
+      vector<BorderCross> const & targets = crossMwmGraph.ConstructBorderCrossByIngoingNode(node, currentMapping);
       for (BorderCross const & t : targets)
       {
         vector<CrossWeightedEdge> outAdjs;
@@ -190,11 +197,11 @@ UNIT_TEST(CrossMwmGraphTest)
                          return e.GetTarget() == t && out.GetWeight() == e.GetWeight();
                        }) != inAdjs.cend(),
               ("ForEachOutgoingNodeNearPoint() and ForEachIngoingNodeNearPoint() arn't correlated. Mwm:",
-               file.GetCountryName()));
+               countryName, "Subset:", subsetCountryFiles));
         }
       }
     });
-    LOG(LINFO, ("Processed", file.GetCountryName()));
+    LOG(LINFO, ("Processed", countryName));
   }
 }
 }  // namespace
