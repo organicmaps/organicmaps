@@ -12,9 +12,6 @@
 
 namespace
 {
-// Osrm multiples seconds to 10, so we need to divide it back.
-double constexpr kOSRMWeightToSecondsMultiplier = 1. / 10.;
-
 using TSeg = routing::OsrmMappingTypes::FtSeg;
 
 void LoadPathGeometry(buffer_vector<TSeg, 8> const & buffer, size_t startIndex,

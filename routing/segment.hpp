@@ -80,6 +80,13 @@ public:
     return m_target == edge.m_target && m_weight == edge.m_weight;
   }
 
+  bool operator< (SegmentEdge const & edge) const
+  {
+    if (m_target != edge.m_target)
+      return m_target < edge.m_target;
+    return m_weight < edge.m_weight;
+  }
+
 private:
   // Target is vertex going to for outgoing edges, vertex going from for ingoing edges.
   Segment m_target;

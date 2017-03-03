@@ -34,10 +34,13 @@ struct IngoingCrossNode
     , m_adjacencyIndex(kInvalidAdjacencyIndex)
   {
   }
+
   IngoingCrossNode(TWrittenNodeId nodeId, ms::LatLon const & point, size_t const adjacencyIndex)
     : m_point(point), m_nodeId(nodeId), m_adjacencyIndex(adjacencyIndex)
   {
   }
+
+  bool IsValid() const { return m_nodeId != kInvalidContextEdgeNodeId; }
 
   void Save(Writer & w) const;
 
@@ -60,6 +63,7 @@ struct OutgoingCrossNode
     , m_adjacencyIndex(kInvalidAdjacencyIndex)
   {
   }
+
   OutgoingCrossNode(TWrittenNodeId nodeId, size_t const index, ms::LatLon const & point,
                     size_t const adjacencyIndex)
     : m_point(point)
@@ -68,6 +72,8 @@ struct OutgoingCrossNode
     , m_adjacencyIndex(adjacencyIndex)
   {
   }
+
+  bool IsValid() const { return m_nodeId != kInvalidContextEdgeNodeId; }
 
   void Save(Writer & w) const;
 

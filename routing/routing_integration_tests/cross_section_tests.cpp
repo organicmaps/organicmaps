@@ -199,6 +199,7 @@ UNIT_TEST(CrossMwmGraphTest)
       ++ingoingCounter;
       vector<BorderCross> const & targets =
           crossMwmGraph.ConstructBorderCross(currentMapping, node);
+
       for (BorderCross const & t : targets)
       {
         vector<CrossWeightedEdge> outAdjs;

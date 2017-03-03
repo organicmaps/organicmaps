@@ -1,6 +1,7 @@
 #pragma once
 
 #include "routing/car_router.hpp"
+#include "routing/cross_mwm_router.hpp"
 #include "routing/osrm_engine.hpp"
 #include "routing/router.hpp"
 
@@ -93,6 +94,16 @@ public:
   inline BorderCross const & GetTarget() const { return target; }
   inline double GetWeight() const { return weight; }
 
+  inline bool operator==(CrossWeightedEdge const & a) const
+  {
+    return target == a.target && weight == a.weight;
+  }
+
+  inline bool operator<(CrossWeightedEdge const & a) const
+  {
+    return target < a.target && weight < a.weight;
+  }
+
 private:
   BorderCross target;
   double weight;
@@ -115,6 +126,7 @@ public:
   };
 
   explicit CrossMwmGraph(RoutingIndexManager & indexManager) : m_indexManager(indexManager) {}
+
   void GetOutgoingEdgesList(BorderCross const & v, vector<CrossWeightedEdge> & adj) const
   {
     GetEdgesList(v, true /* isOutgoing */, adj);
