@@ -29,7 +29,7 @@ struct HotelReview
 
 struct HotelFacility
 {
-  string m_facilityType;
+  string m_type;
   string m_name;
 };
 

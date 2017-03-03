@@ -92,11 +92,13 @@ vector<HotelFacility> ParseFacilities(json_t const * facilitiesArray)
 
   for (size_t i = 0; i < sz; ++i)
   {
-    auto item = json_array_get(facilitiesArray, i);
+    auto itemArray = json_array_get(facilitiesArray, i);
+    ASSERT(json_is_array(itemArray), ());
+    ASSERT_EQUAL(json_array_size(itemArray), 2, ());
 
     HotelFacility facility;
-    my::FromJSONObject(item, "type", facility.m_facilityType);
-    my::FromJSONObject(item, "name", facility.m_name);
+    my::FromJSON(json_array_get(itemArray, 0), facility.m_type);
+    my::FromJSON(json_array_get(itemArray, 1), facility.m_name);
 
     facilities.push_back(move(facility));
   }
@@ -158,7 +160,7 @@ vector<HotelReview> ParseReviews(json_t const * reviewsArray)
     review.m_date = system_clock::from_time_t(mktime(&t));
 
     double score;
-    my::FromJSONObject(item, "average_score", score);
+    my::FromJSONObject(item, "score", score);
     review.m_score = static_cast<float>(score);
 
     my::FromJSONObject(item, "author", review.m_author);
@@ -177,7 +179,7 @@ void FillHotelInfo(string const & src, HotelInfo & info)
 
   my::FromJSONObjectOptionalField(root.get(), "description", info.m_description);
   double score;
-  my::FromJSONObjectOptionalField(root.get(), "average_score", score);
+  my::FromJSONObjectOptionalField(root.get(), "score", score);
   info.m_score = static_cast<float>(score);
 
   json_int_t scoreCount = 0;

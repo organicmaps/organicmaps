@@ -87,7 +87,7 @@ jobjectArray ToFacilitiesArray(JNIEnv * env, vector<HotelFacility> const & facil
   return jni::ToJavaArray(env, g_facilityTypeClass, facilities,
                           [](JNIEnv * env, HotelFacility const & item) {
                             return env->NewObject(g_facilityTypeClass, g_facilityConstructor,
-                                                  jni::ToJavaString(env, item.m_facilityType),
+                                                  jni::ToJavaString(env, item.m_type),
                                                   jni::ToJavaString(env, item.m_name));
                           });
 }
