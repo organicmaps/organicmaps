@@ -106,7 +106,7 @@ const string & CrossRoutingContextReader::GetOutgoingMwmName(
 }
 
 TWrittenEdgeWeight CrossRoutingContextReader::GetAdjacencyCost(IngoingCrossNode const & ingoing,
-                                                              OutgoingCrossNode const & outgoing) const
+                                                               OutgoingCrossNode const & outgoing) const
 {
   if (ingoing.m_adjacencyIndex == kInvalidAdjacencyIndex ||
       outgoing.m_adjacencyIndex == kInvalidAdjacencyIndex)

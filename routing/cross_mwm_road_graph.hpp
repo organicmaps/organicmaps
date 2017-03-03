@@ -102,8 +102,17 @@ private:
 class CrossMwmGraph
 {
 public:
+  using TCachingKey = pair<TWrittenNodeId, Index::MwmId>;
   using TVertexType = BorderCross;
   using TEdgeType = CrossWeightedEdge;
+
+  struct Hash
+  {
+    size_t operator()(TCachingKey const & p) const
+    {
+      return hash<TWrittenNodeId>()(p.first) ^ hash<string>()(p.second.GetInfo()->GetCountryName());
+    }
+  };
 
   explicit CrossMwmGraph(RoutingIndexManager & indexManager) : m_indexManager(indexManager) {}
 
@@ -149,17 +158,6 @@ private:
   map<CrossNode, vector<CrossWeightedEdge> > m_virtualEdges;
 
   mutable RoutingIndexManager m_indexManager;
-
-  // Caching stuff.
-  using TCachingKey = pair<TWrittenNodeId, Index::MwmId>;
-
-  struct Hash
-  {
-    size_t operator()(TCachingKey const & p) const
-    {
-      return hash<TWrittenNodeId>()(p.first) ^ hash<string>()(p.second.GetInfo()->GetCountryName());
-    }
-  };
 
   // @TODO(bykoianko) Consider removing key work mutable.
   mutable unordered_map<TCachingKey, vector<BorderCross>, Hash> m_cachedNextNodesByIngoing;
