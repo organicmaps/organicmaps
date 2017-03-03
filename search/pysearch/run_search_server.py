@@ -31,8 +31,9 @@ class HTTPHandler(BaseHTTPRequestHandler):
             params.query = sparam('query')
             params.locale = sparam('locale')
             params.position = pysearch.Mercator(fparam('posx'), fparam('posy'))
-            params.viewport = pysearch.Viewport(pysearch.Mercator(fparam('minx'), fparam('miny')),
-                                                pysearch.Mercator(fparam('maxx'), fparam('maxy')))
+            params.viewport = pysearch.Viewport(
+                pysearch.Mercator(fparam('minx'), fparam('miny')),
+                pysearch.Mercator(fparam('maxx'), fparam('maxy')))
         except KeyError:
             self.send_response(400)
             return
@@ -59,16 +60,14 @@ def main(args):
     engine = pysearch.SearchEngine()
     HTTPHandler.engine = pysearch.SearchEngine()
 
-    try:
-        print('Starting HTTP server on port', PORT)
-        server = HTTPServer(('', args.p), HTTPHandler)
-        server.serve_forever()
-    finally:
-        server.socket.close()
+    print('Starting HTTP server on port', PORT)
+    server = HTTPServer(('', args.p), HTTPHandler)
+    server.serve_forever()
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('-r', metavar='RESOURCE_PATH', default=RESOURCE_PATH,
                         help='Path to resources directory.')
     parser.add_argument('-m', metavar='MWM_PATH', default=MWM_PATH,
