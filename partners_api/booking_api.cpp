@@ -92,11 +92,13 @@ vector<HotelFacility> ParseFacilities(json_t const * facilitiesArray)
 
   for (size_t i = 0; i < sz; ++i)
   {
-    auto item = json_array_get(facilitiesArray, i);
+    auto itemArray = json_array_get(facilitiesArray, i);
+    ASSERT(json_is_array(itemArray), ());
+    ASSERT_EQUAL(json_array_size(itemArray), 2, ());
 
     HotelFacility facility;
-    my::FromJSONObject(item, "type", facility.m_facilityType);
-    my::FromJSONObject(item, "name", facility.m_name);
+    my::FromJSON(json_array_get(itemArray, 0), facility.m_type);
+    my::FromJSON(json_array_get(itemArray, 1), facility.m_name);
 
     facilities.push_back(move(facility));
   }
