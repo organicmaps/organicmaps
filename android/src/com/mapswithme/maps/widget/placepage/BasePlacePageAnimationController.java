@@ -174,4 +174,6 @@ public abstract class BasePlacePageAnimationController implements ObservableScro
     animator.setInterpolator(interpolator == null ? INTERPOLATOR : interpolator);
     animator.start();
   }
+
+  protected void onContentSizeChanged() {}
 }
