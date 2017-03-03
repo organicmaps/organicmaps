@@ -160,7 +160,7 @@ vector<HotelReview> ParseReviews(json_t const * reviewsArray)
     review.m_date = system_clock::from_time_t(mktime(&t));
 
     double score;
-    my::FromJSONObject(item, "average_score", score);
+    my::FromJSONObject(item, "score", score);
     review.m_score = static_cast<float>(score);
 
     my::FromJSONObject(item, "author", review.m_author);
@@ -179,7 +179,7 @@ void FillHotelInfo(string const & src, HotelInfo & info)
 
   my::FromJSONObjectOptionalField(root.get(), "description", info.m_description);
   double score;
-  my::FromJSONObjectOptionalField(root.get(), "average_score", score);
+  my::FromJSONObjectOptionalField(root.get(), "score", score);
   info.m_score = static_cast<float>(score);
 
   json_int_t scoreCount = 0;
