@@ -49,13 +49,10 @@
         android:orientation="vertical">
         <android.support.design.widget.TabLayout
           android:id="@+id/tabs"
-          android:theme="@style/ThemeOverlay.AppCompat"
+          style="@style/MwmWidget.TabLayout"
           android:layout_width="match_parent"
           android:layout_height="@dimen/tabs_height"
-          android:elevation="@dimen/appbar_elevation"
-          app:tabIndicatorColor="?colorAccent"
-          app:tabMode="fixed"
-          app:tabGravity="fill"/>
+          android:elevation="@dimen/appbar_elevation"/>
 
         <View
           android:id="@+id/tabs_divider"

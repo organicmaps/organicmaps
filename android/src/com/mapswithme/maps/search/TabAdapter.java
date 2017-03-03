@@ -2,7 +2,6 @@ package com.mapswithme.maps.search;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -10,16 +9,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.SparseArray;
-import android.view.LayoutInflater;
-import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.ThemeUtils;
-import com.mapswithme.util.UiUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 class TabAdapter extends FragmentPagerAdapter
 {
@@ -77,52 +73,56 @@ class TabAdapter extends FragmentPagerAdapter
     void onTabSelected(@NonNull Tab tab);
   }
 
-  // Workaround for https://code.google.com/p/android/issues/detail?id=180454
-  // TODO: Remove this class and replace with TabLayout.TabLayoutOnPageChangeListener after library fix
-  private class CustomTabLayoutOnPageChangeListener implements ViewPager.OnPageChangeListener
+  private class PageChangedListener extends TabLayout.TabLayoutOnPageChangeListener
   {
-    private final TabLayout mTabs;
-    private int mScrollState;
-    private int mPreviousScrollState;
-
-    public CustomTabLayoutOnPageChangeListener(TabLayout tabs)
+    PageChangedListener(TabLayout tabs)
     {
-      mTabs = tabs;
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state)
-    {
-      mPreviousScrollState = mScrollState;
-      mScrollState = state;
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
-    {
-      final boolean update = (mScrollState == ViewPager.SCROLL_STATE_DRAGGING ||
-                              (mScrollState == ViewPager.SCROLL_STATE_SETTLING &&
-                               mPreviousScrollState == ViewPager.SCROLL_STATE_DRAGGING));
-      mTabs.setScrollPosition(position, positionOffset, update);
+      super(tabs);
     }
 
     @Override
     public void onPageSelected(int position)
     {
-      mTabs.getTabAt(position).select();
+      super.onPageSelected(position);
       if (mTabSelectedListener != null)
         mTabSelectedListener.onTabSelected(TABS[position]);
     }
   }
 
-  public static final Tab[] TABS = Tab.values();
+  private static class OnTabSelectedListenerForViewPager extends TabLayout.ViewPagerOnTabSelectedListener
+  {
+    @NonNull
+    private final Context mContext;
+
+    OnTabSelectedListenerForViewPager(ViewPager viewPager)
+    {
+      super(viewPager);
+      mContext = viewPager.getContext();
+    }
+
+    @Override
+    public void onTabSelected(TabLayout.Tab tab)
+    {
+      super.onTabSelected(tab);
+      Graphics.tint(mContext, tab.getIcon(), R.attr.colorAccent);
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab)
+    {
+      super.onTabUnselected(tab);
+      Graphics.tint(mContext, tab.getIcon());
+    }
+  }
+
+  static final Tab[] TABS = Tab.values();
 
   private final ViewPager mPager;
   private final List<Class<? extends Fragment>> mClasses = new ArrayList<>();
   private final SparseArray<Fragment> mFragments = new SparseArray<>();
   private OnTabSelectedListener mTabSelectedListener;
 
-  public TabAdapter(FragmentManager fragmentManager, ViewPager pager, TabLayout tabs)
+  TabAdapter(FragmentManager fragmentManager, ViewPager pager, TabLayout tabs)
   {
     super(fragmentManager);
 
@@ -159,32 +159,24 @@ class TabAdapter extends FragmentPagerAdapter
   private void attachTo(TabLayout tabs)
   {
     final Context context = tabs.getContext();
-    final LayoutInflater inflater = LayoutInflater.from(context);
-    final boolean landscape = UiUtils.isLandscape(context);
 
-    int padding = UiUtils.dimen(landscape ? R.dimen.margin_half
-                                          : R.dimen.margin_eighth);
     for (Tab tab : TABS)
     {
-      final TextView tabView = (TextView) inflater.inflate(R.layout.tab, tabs, false);
-      tabView.setText(tab.getTitleRes());
-      tabView.setCompoundDrawablePadding(padding);
-      tabView.setCompoundDrawablesWithIntrinsicBounds(landscape ? tab.getIconRes() : 0, landscape ? 0 : tab.getIconRes(), 0, 0);
-
-      ColorStateList colors = getTabTextColor(context);
-      tabView.setTextColor(colors);
-      Graphics.tint(tabView, colors);
-
-      tabs.addTab(tabs.newTab().setCustomView(tabView), true);
+      TabLayout.Tab t = tabs.newTab();
+      t.setIcon(tab.getIconRes());
+      t.setText(tab.getTitleRes());
+      tabs.addTab(t, false);
+      tabs.setTabTextColors(getTabTextColor(context));
+      Graphics.tint(context, t.getIcon());
     }
 
-    ViewPager.OnPageChangeListener listener = new CustomTabLayoutOnPageChangeListener(tabs);
+    ViewPager.OnPageChangeListener listener = new PageChangedListener(tabs);
     mPager.addOnPageChangeListener(listener);
-    tabs.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mPager));
+    tabs.setOnTabSelectedListener(new OnTabSelectedListenerForViewPager(mPager));
     listener.onPageSelected(0);
   }
 
-  public void setTabSelectedListener(OnTabSelectedListener listener)
+  void setTabSelectedListener(OnTabSelectedListener listener)
   {
     mTabSelectedListener = listener;
   }
