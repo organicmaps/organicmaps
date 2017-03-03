@@ -20,6 +20,12 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 
 using namespace place_page;
 
+@interface MWMPlacePageData()
+
+@property(copy, nonatomic) NSString * cachedMinPrice;
+
+@end
+
 @implementation MWMPlacePageData
 {
   Info m_info;
@@ -170,67 +176,67 @@ using namespace place_page;
         if (hotelId != hotelInfo.m_hotelId)
           return;
 
-        m_hotelInfo = hotelInfo;
-
-        auto & sections = self->m_sections;
-        auto const begin = sections.begin();
-        auto const end = sections.end();
-
-        NSUInteger const position = find(begin, end, Sections::Bookmark) != end ? 2 : 1;
-        NSUInteger length = 0;
-        auto it = m_sections.begin() + position;
-
-        if (!hotelInfo.m_photos.empty())
+        dispatch_async(dispatch_get_main_queue(), [hotelInfo, self]
         {
-          it = sections.insert(it, Sections::HotelPhotos) + 1;
-          m_hotelPhotosRows.emplace_back(HotelPhotosRow::Regular);
-          length++;
-        }
+          m_hotelInfo = hotelInfo;
 
-        if (!hotelInfo.m_description.empty())
-        {
-          it = sections.insert(it, Sections::HotelDescription) + 1;
-          m_hotelDescriptionRows.emplace_back(HotelDescriptionRow::Regular);
-          m_hotelDescriptionRows.emplace_back(HotelDescriptionRow::ShowMore);
-          length++;
-        }
+          auto & sections = self->m_sections;
+          auto const begin = sections.begin();
+          auto const end = sections.end();
 
+          NSUInteger const position = find(begin, end, Sections::Bookmark) != end ? 2 : 1;
+          NSUInteger length = 0;
+          auto it = m_sections.begin() + position;
 
-        auto const & facilities = hotelInfo.m_facilities;
-        if (!facilities.empty())
-        {
-          it = sections.insert(it, Sections::HotelFacilities) + 1;
-          auto & facilitiesRows = self->m_hotelFacilitiesRows;
-          auto const size = facilities.size();
-          auto constexpr maxNumberOfHotelCellsInPlacePage = 3UL;
-
-          if (size > maxNumberOfHotelCellsInPlacePage)
+          if (!hotelInfo.m_photos.empty())
           {
-            facilitiesRows.insert(facilitiesRows.begin(), maxNumberOfHotelCellsInPlacePage, HotelFacilitiesRow::Regular);
-            facilitiesRows.emplace_back(HotelFacilitiesRow::ShowMore);
-          }
-          else
-          {
-            facilitiesRows.insert(facilitiesRows.begin(), size, HotelFacilitiesRow::Regular);
+            it = sections.insert(it, Sections::HotelPhotos) + 1;
+            m_hotelPhotosRows.emplace_back(HotelPhotosRow::Regular);
+            length++;
           }
 
-          length++;
-        }
+          if (!hotelInfo.m_description.empty())
+          {
+            it = sections.insert(it, Sections::HotelDescription) + 1;
+            m_hotelDescriptionRows.emplace_back(HotelDescriptionRow::Regular);
+            m_hotelDescriptionRows.emplace_back(HotelDescriptionRow::ShowMore);
+            length++;
+          }
 
-        auto const & reviews = hotelInfo.m_reviews;
-        if (!reviews.empty())
-        {
-          sections.insert(it, Sections::HotelReviews);
-          auto const size = reviews.size();
-          auto & reviewsRows = self->m_hotelReviewsRows;
+          auto const & facilities = hotelInfo.m_facilities;
+          if (!facilities.empty())
+          {
+            it = sections.insert(it, Sections::HotelFacilities) + 1;
+            auto & facilitiesRows = self->m_hotelFacilitiesRows;
+            auto const size = facilities.size();
+            auto constexpr maxNumberOfHotelCellsInPlacePage = 3UL;
 
-          reviewsRows.emplace_back(HotelReviewsRow::Header);
-          reviewsRows.insert(reviewsRows.end(), size, HotelReviewsRow::Regular);
-          reviewsRows.emplace_back(HotelReviewsRow::ShowMore);
-          length++;
-        }
+            if (size > maxNumberOfHotelCellsInPlacePage)
+            {
+              facilitiesRows.insert(facilitiesRows.begin(), maxNumberOfHotelCellsInPlacePage, HotelFacilitiesRow::Regular);
+              facilitiesRows.emplace_back(HotelFacilitiesRow::ShowMore);
+            }
+            else
+            {
+              facilitiesRows.insert(facilitiesRows.begin(), size, HotelFacilitiesRow::Regular);
+            }
 
-        dispatch_async(dispatch_get_main_queue(), ^{
+            length++;
+          }
+
+          auto const & reviews = hotelInfo.m_reviews;
+          if (!reviews.empty())
+          {
+            sections.insert(it, Sections::HotelReviews);
+            auto const size = reviews.size();
+            auto & reviewsRows = self->m_hotelReviewsRows;
+
+            reviewsRows.emplace_back(HotelReviewsRow::Header);
+            reviewsRows.insert(reviewsRows.end(), size, HotelReviewsRow::Regular);
+            reviewsRows.emplace_back(HotelReviewsRow::ShowMore);
+            length++;
+          }
+          
           self.sectionsReadyCallback({position, length});
         });
       });
@@ -327,6 +333,12 @@ using namespace place_page;
 - (void)assignOnlinePriceToLabel:(UILabel *)label
 {
   NSAssert(self.isBooking, @"Online price must be assigned to booking object!");
+  if (self.cachedMinPrice.length)
+  {
+    label.text = self.cachedMinPrice;
+    return;
+  }
+
   if (Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
     return;
 
@@ -359,8 +371,9 @@ using namespace place_page;
         [L(@"place_page_starting_from") stringByReplacingOccurrencesOfString:@"%s"
                                                                   withString:@"%@"];
 
+    self.cachedMinPrice = [NSString stringWithFormat:pattern, currencyString];
     dispatch_async(dispatch_get_main_queue(), ^{
-      label.text = [NSString stringWithFormat:pattern, currencyString];
+      label.text = self.cachedMinPrice;
     });
   };
 

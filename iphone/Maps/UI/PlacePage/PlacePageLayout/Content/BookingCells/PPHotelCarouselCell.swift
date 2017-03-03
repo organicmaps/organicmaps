@@ -19,6 +19,7 @@ final class PPHotelCarouselCell: MWMTableViewCell {
   func config(with ds: [GalleryItemModel], delegate d: MWMPlacePageButtonsProtocol?) {
     dataSource = ds
     delegate = d
+    collectionView.contentOffset = .zero
     collectionView.delegate = self
     collectionView.dataSource = self
     collectionView.register(cellClass: CarouselElement.self)

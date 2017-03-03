@@ -15,14 +15,14 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="109"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Sg7-wE-7Ir" id="aSG-gb-Vaa">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="108"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="108.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="5Cw-QQ-VRc">
                         <rect key="frame" x="0.0" y="4" width="375" height="100"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="100" id="BgC-ps-kiz"/>
+                            <constraint firstAttribute="height" priority="900" constant="100" id="BgC-ps-kiz"/>
                         </constraints>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="4" minimumInteritemSpacing="4" id="KiF-3P-pUG">
                             <size key="itemSize" width="150" height="100"/>
