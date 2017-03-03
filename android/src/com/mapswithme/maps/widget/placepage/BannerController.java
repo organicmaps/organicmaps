@@ -67,15 +67,19 @@ final class BannerController implements AdListener
   private final float mCloseFrameHeight;
 
   @Nullable
+  private final BannerListener mListener;
+
+  @Nullable
   private NativeAd mNativeAd;
 
   private boolean mOpened = false;
   private boolean mProgress = false;
   private boolean mError = false;
 
-  BannerController(@NonNull View bannerView)
+  BannerController(@NonNull View bannerView, @Nullable BannerListener listener)
   {
     mFrame = bannerView;
+    mListener = listener;
     Resources resources = mFrame.getResources();
     mCloseFrameHeight = resources.getDimension(R.dimen.placepage_banner_height);
     mIcon = (ImageView) bannerView.findViewById(R.id.iv__banner_icon);
@@ -115,6 +119,7 @@ final class BannerController implements AdListener
 
   private void updateVisibility()
   {
+    UiUtils.showIf(!hasErrorOccurred(), mFrame);
     if (isDownloading() || hasErrorOccurred())
     {
       UiUtils.hide(mIcon, mTitle, mMessage, mActionSmall, mActionLarge, mAds);
@@ -219,6 +224,8 @@ final class BannerController implements AdListener
   {
     showError(true);
     updateVisibility();
+    if (mListener != null)
+      mListener.onSizeChanged();
     LOGGER.e(TAG, adError.getErrorMessage());
   }
 
@@ -261,6 +268,9 @@ final class BannerController implements AdListener
     {
       loadIcon(mNativeAd);
     }
+
+    if (mListener != null && mOpened)
+      mListener.onSizeChanged();
   }
 
   @Override
@@ -279,5 +289,10 @@ final class BannerController implements AdListener
   {
     return isTouched(mActionSmall, event) || isTouched(mActionLarge, event)
            || isTouched(mTitle, event);
+  }
+
+  interface BannerListener
+  {
+    void onSizeChanged();
   }
 }

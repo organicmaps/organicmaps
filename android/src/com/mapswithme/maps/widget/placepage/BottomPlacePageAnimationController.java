@@ -560,6 +560,12 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
     mBannerOpenListener = bannerOpenListener;
   }
 
+  @Override
+  protected void onContentSizeChanged()
+  {
+    onStateChanged(getState(), getState(), mPlacePage.getMapObject().getMapObjectType());
+  }
+
   private class UpdateListener implements ValueAnimator.AnimatorUpdateListener
   {
     @Override

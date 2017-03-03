@@ -98,7 +98,8 @@ public class PlacePageView extends RelativeLayout
                RecyclerClickListener,
                NearbyAdapter.OnItemClickListener,
                BottomPlacePageAnimationController.OnBannerOpenListener,
-               EditBookmarkFragment.EditBookmarkListener
+               EditBookmarkFragment.EditBookmarkListener,
+               BannerController.BannerListener
 {
   private static final String PREF_USE_DMS = "use_dms";
 
@@ -352,7 +353,7 @@ public class PlacePageView extends RelativeLayout
 
     View bannerView = findViewById(R.id.banner);
     if (bannerView != null)
-      mBannerController = new BannerController(bannerView);
+      mBannerController = new BannerController(bannerView, this);
 
     mButtons = new PlacePageButtons(this, ppButtons, new PlacePageButtons.ItemListener()
     {
@@ -1646,5 +1647,21 @@ public class PlacePageView extends RelativeLayout
   public boolean isBannerTouched(@NonNull MotionEvent event)
   {
     return mBannerController != null && mBannerController.isActionButtonTouched(event);
+  }
+
+  @Override
+  public void onSizeChanged()
+  {
+    addOnLayoutChangeListener(new OnLayoutChangeListener()
+    {
+      @Override
+      public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft,
+                                 int oldTop, int oldRight, int oldBottom)
+      {
+        removeOnLayoutChangeListener(this);
+        mAnimationController.onContentSizeChanged();
+      }
+    });
+    requestLayout();
   }
 }
