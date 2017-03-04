@@ -9,7 +9,7 @@
 #include <string>
 #include <unordered_map>
 
-#include <QAbstractTableModel>
+#include <QtCore/QAbstractTableModel>
 
 class Index;
 class QItemSelection;

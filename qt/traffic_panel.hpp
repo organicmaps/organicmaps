@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QStyledItemDelegate>
+#include <QtWidgets/QStyledItemDelegate>
 
 class QAbstractItemModel;
 class QComboBox;

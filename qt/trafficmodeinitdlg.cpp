@@ -3,7 +3,7 @@
 
 #include "platform/settings.hpp"
 
-#include <QFileDialog>
+#include <QtWidgets/QFileDialog>
 
 namespace
 {

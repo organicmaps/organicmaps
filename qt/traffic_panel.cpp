@@ -1,12 +1,12 @@
 #include "qt/traffic_panel.hpp"
 #include "qt/traffic_mode.hpp"
 
-#include <QAbstractTableModel>
-#include <QBoxLayout>
-#include <QComboBox>
-#include <QHeaderView>
-#include <QStyledItemDelegate>
-#include <QTableView>
+#include <QtCore/QAbstractTableModel>
+#include <QtWidgets/QBoxLayout>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QStyledItemDelegate>
+#include <QtWidgets/QTableView>
 
 // ComboBoxDelegate --------------------------------------------------------------------------------
 ComboBoxDelegate::ComboBoxDelegate(QObject * parent)
