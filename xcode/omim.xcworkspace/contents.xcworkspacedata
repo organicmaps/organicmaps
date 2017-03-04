@@ -278,6 +278,9 @@
       location = "container:mapshot/mapshot.xcodeproj">
    </FileRef>
    <FileRef
+      location = "container:openlr/openlr.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "container:partners_api/partners_api.xcodeproj">
    </FileRef>
    <FileRef
@@ -285,6 +288,9 @@
    </FileRef>
    <FileRef
       location = "container:routing/routing.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:routing_common/routing_common.xcodeproj">
    </FileRef>
    <FileRef
       location = "container:search/search.xcodeproj">
