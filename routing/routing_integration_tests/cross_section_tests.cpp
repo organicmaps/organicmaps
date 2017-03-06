@@ -1,8 +1,13 @@
 #include "testing/testing.hpp"
 
+#include "routing/cross_mwm_road_graph.hpp"
 #include "routing/cross_routing_context.hpp"
 #include "routing/osrm2feature_map.hpp"
 #include "routing/routing_mapping.hpp"
+
+#include "storage/country_info_getter.hpp"
+
+#include "indexer/index.hpp"
 
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
@@ -12,8 +17,11 @@
 
 #include "base/buffer_vector.hpp"
 #include "base/logging.hpp"
+#include "base/random.hpp"
 
 #include "std/limits.hpp"
+
+#include <chrono>
 
 using namespace routing;
 
@@ -122,5 +130,99 @@ UNIT_TEST(CheckOsrmToFeatureMapping)
   }
   LOG(LINFO, ("Found", localFiles.size(), "countries. In", checked, "maps with routing have", errors, "with errors."));
   TEST_EQUAL(errors, 0, ("Some countries have osrm and features mismatch."));
+}
+
+// The idea behind the test is
+// 1. to go through all ingoing nodes of all mwms
+// 2. to find all cross mwm outgoing edges for each ingoing node
+// 3. to find all edges which are ingoing for the outgoing edges
+// 4. to check that an edge mentioned in (1) there's between the ingoing edges
+// Note. This test may take more than 3 hours.
+UNIT_TEST(CrossMwmGraphTest)
+{
+  vector<platform::LocalCountryFile> localFiles;
+  Index index;
+  platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* latestVersion */,
+                                       localFiles);
+
+  for (platform::LocalCountryFile & file : localFiles)
+  {
+    file.SyncWithDisk();
+    index.RegisterMap(file);
+  }
+
+  for (auto it = localFiles.begin(); it != localFiles.end();)
+  {
+    string const & countryName = it->GetCountryName();
+    MwmSet::MwmId const mwmId = index.GetMwmIdByCountryFile(it->GetCountryFile());
+    if (countryName == "minsk-pass" || mwmId.GetInfo()->GetType() != MwmInfo::COUNTRY)
+      it = localFiles.erase(it);
+    else
+      ++it;
+  }
+
+  Platform p;
+  unique_ptr<storage::CountryInfoGetter> infoGetter =
+      storage::CountryInfoReader::CreateCountryInfoReader(p);
+  auto countryFileGetter = [&infoGetter](m2::PointD const & pt) {
+    return infoGetter->GetRegionCountryId(pt);
+  };
+
+  RoutingIndexManager manager(countryFileGetter, index);
+  CrossMwmGraph crossMwmGraph(manager);
+
+  auto const seed = std::chrono::system_clock::now().time_since_epoch().count();
+  LOG(LINFO, ("Seed for RandomSample:", seed));
+  std::minstd_rand rng(static_cast<unsigned int>(seed));
+  std::vector<size_t> subset = base::RandomSample(localFiles.size(), 10 /* mwm number */, rng);
+  std::vector<platform::LocalCountryFile> subsetCountryFiles;
+  for (size_t i : subset)
+    subsetCountryFiles.push_back(localFiles[i]);
+
+  for (platform::LocalCountryFile const & file : subsetCountryFiles)
+  {
+    string const & countryName = file.GetCountryName();
+    LOG(LINFO, ("Processing", countryName));
+    MwmSet::MwmId const mwmId = index.GetMwmIdByCountryFile(file.GetCountryFile());
+
+    TEST(mwmId.IsAlive(), ("Mwm name:", countryName, "Subset:", subsetCountryFiles));
+    TRoutingMappingPtr currentMapping = manager.GetMappingById(mwmId);
+    if (!currentMapping->IsValid())
+      continue;  // No routing sections in the mwm.
+
+    currentMapping->LoadCrossContext();
+    currentMapping->FreeFileIfPossible();
+    CrossRoutingContextReader const & currentContext = currentMapping->m_crossContext;
+
+    size_t ingoingCounter = 0;
+    currentContext.ForEachIngoingNode([&](IngoingCrossNode const & node) {
+      ++ingoingCounter;
+      vector<BorderCross> const & targets =
+          crossMwmGraph.ConstructBorderCross(currentMapping, node);
+      for (BorderCross const & t : targets)
+      {
+        vector<CrossWeightedEdge> outAdjs;
+        crossMwmGraph.GetOutgoingEdgesList(t, outAdjs);
+        for (CrossWeightedEdge const & out : outAdjs)
+        {
+          vector<CrossWeightedEdge> inAdjs;
+          crossMwmGraph.GetIngoingEdgesList(out.GetTarget(), inAdjs);
+          TEST(find_if(inAdjs.cbegin(), inAdjs.cend(),
+                       [&](CrossWeightedEdge const & e) {
+                         return e.GetTarget() == t && out.GetWeight() == e.GetWeight();
+                       }) != inAdjs.cend(),
+               ("ForEachOutgoingNodeNearPoint() and ForEachIngoingNodeNearPoint() arn't "
+                "correlated. Mwm:",
+                countryName, "Subset:", subsetCountryFiles));
+        }
+      }
+    });
+
+    size_t outgoingCounter = 0;
+    currentContext.ForEachOutgoingNode(
+        [&](OutgoingCrossNode const & /* node */) { ++outgoingCounter; });
+
+    LOG(LINFO, ("Processed:", countryName, "Exits:", outgoingCounter, "Enters:", ingoingCounter));
+  }
 }
 }  // namespace
