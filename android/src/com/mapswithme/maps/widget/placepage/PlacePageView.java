@@ -15,6 +15,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -543,9 +544,13 @@ public class PlacePageView extends RelativeLayout
   private void initHotelFacilitiesView()
   {
     mHotelFacilities = findViewById(R.id.ll__place_hotel_facilities);
-    GridView gvHotelFacilities = (GridView) findViewById(R.id.gv__place_hotel_facilities);
+    RecyclerView rvHotelFacilities = (RecyclerView) findViewById(R.id.rv__place_hotel_facilities);
+    rvHotelFacilities.setLayoutManager(new GridLayoutManager(getContext(), 2));
+    rvHotelFacilities.getLayoutManager().setAutoMeasureEnabled(true);
+    rvHotelFacilities.setNestedScrollingEnabled(false);
+    rvHotelFacilities.setHasFixedSize(false);
     mHotelMoreFacilities = findViewById(R.id.tv__place_hotel_facilities_more);
-    gvHotelFacilities.setAdapter(mFacilitiesAdapter);
+    rvHotelFacilities.setAdapter(mFacilitiesAdapter);
     mHotelMoreFacilities.setOnClickListener(this);
   }
 
