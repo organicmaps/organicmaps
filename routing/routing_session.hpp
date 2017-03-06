@@ -126,6 +126,8 @@ public:
 
   void MatchLocationToRoute(location::GpsInfo & location,
                             location::RouteMatchingInfo & routeMatchingInfo) const;
+  // Get traffic speed for the current route position.
+  // Returns SpeedGroup::Unknown if any trouble happens: position doesn't match with route or something else.
   traffic::SpeedGroup MatchTraffic(location::RouteMatchingInfo const & routeMatchingInfo) const;
 
   void SetUserCurrentPosition(m2::PointD const & position);

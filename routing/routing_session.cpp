@@ -447,9 +447,12 @@ traffic::SpeedGroup RoutingSession::MatchTraffic(
   if (!routeMatchingInfo.IsMatched())
     return SpeedGroup::Unknown;
 
-  threads::MutexGuard guard(m_routingSessionMutex);
   size_t const index = routeMatchingInfo.GetIndexInRoute();
+  threads::MutexGuard guard(m_routingSessionMutex);
   vector<traffic::SpeedGroup> const & traffic = m_route->GetTraffic();
+
+  if (traffic.empty())
+    return SpeedGroup::Unknown;
 
   if (index >= traffic.size())
   {
