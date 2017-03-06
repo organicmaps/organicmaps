@@ -34,6 +34,7 @@ BOOST_PYTHON_MODULE(pytracking)
   enum_<Protocol::PacketType>("PacketType")
       .value("AuthV0", Protocol::PacketType::AuthV0)
       .value("DataV0", Protocol::PacketType::DataV0)
+      .value("DataV1", Protocol::PacketType::DataV1)
       .value("CurrentAuth", Protocol::PacketType::CurrentAuth)
       .value("CurrentData", Protocol::PacketType::CurrentData);
 

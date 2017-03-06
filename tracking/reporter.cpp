@@ -43,7 +43,7 @@ Reporter::~Reporter()
   m_thread.join();
 }
 
-void Reporter::AddLocation(location::GpsInfo const & info, traffic::SpeedGroup /* speedGroup */)
+void Reporter::AddLocation(location::GpsInfo const & info, traffic::SpeedGroup traffic)
 {
   lock_guard<mutex> lg(m_mutex);
 
@@ -54,7 +54,9 @@ void Reporter::AddLocation(location::GpsInfo const & info, traffic::SpeedGroup /
     return;
 
   m_lastGpsTime = info.m_timestamp;
-  m_input.push_back(DataPoint(info.m_timestamp, ms::LatLon(info.m_latitude, info.m_longitude)));
+  m_input.push_back(DataPoint(info.m_timestamp,
+                              ms::LatLon(info.m_latitude, info.m_longitude),
+                              static_cast<std::underlying_type<traffic::SpeedGroup>::type>(traffic)));
 }
 
 void Reporter::Run()

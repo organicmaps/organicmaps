@@ -23,15 +23,18 @@ public:
   {
     AuthV0 = 0x81,
     DataV0 = 0x82,
+    DataV1 = 0x92,
 
     CurrentAuth = AuthV0,
-    CurrentData = DataV0
+    CurrentData = DataV1
   };
 
   static vector<uint8_t> CreateHeader(PacketType type, uint32_t payloadSize);
   static vector<uint8_t> CreateAuthPacket(string const & clientId);
-  static vector<uint8_t> CreateDataPacket(DataElementsCirc const & points);
-  static vector<uint8_t> CreateDataPacket(DataElementsVec const & points);
+  static vector<uint8_t> CreateDataPacket(DataElementsCirc const & points,
+                                          PacketType type = PacketType::CurrentData);
+  static vector<uint8_t> CreateDataPacket(DataElementsVec const & points,
+                                          PacketType type = PacketType::CurrentData);
 
   static std::pair<PacketType, size_t> DecodeHeader(vector<uint8_t> const & data);
   static string DecodeAuthPacket(PacketType type, vector<uint8_t> const & data);

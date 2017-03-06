@@ -39,7 +39,7 @@ public:
            milliseconds pushDelay);
   ~Reporter();
 
-  void AddLocation(location::GpsInfo const & info, traffic::SpeedGroup speedGroup);
+  void AddLocation(location::GpsInfo const & info, traffic::SpeedGroup traffic);
 
   void SetAllowSendingPoints(bool allow) { m_allowSendingPoints = allow; }
 
