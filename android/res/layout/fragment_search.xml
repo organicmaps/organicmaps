@@ -18,6 +18,7 @@
       android:elevation="@dimen/margin_half_plus"
       tools:targetApi="lollipop">
       <android.support.design.widget.CollapsingToolbarLayout
+        android:id="@+id/collapsing_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_scrollFlags="scroll|enterAlways">
