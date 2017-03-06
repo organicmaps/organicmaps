@@ -8,19 +8,29 @@ final class PPHotelDescriptionCell: MWMTableViewCell
   @IBOutlet private weak var buttonZeroHeight: NSLayoutConstraint!
   @IBOutlet private weak var button: UIButton!
   private weak var updateDelegate: MWMPlacePageCellUpdateProtocol?
+  private var isNeedToForceLayout: Bool = false
 
   func config(with description: String, delegate: MWMPlacePageCellUpdateProtocol) {
     descriptionText.text = description;
     descriptionText.sizeToFit()
     updateDelegate = delegate
 
-    let isCompact = descriptionText.height > kMaximumDescriptionHeight;
-    if (isCompact) {
-      compactModeConstraints.forEach { $0.priority = UILayoutPriorityDefaultHigh }
-    }
-
-    hideButton(!isCompact)
     setNeedsLayout()
+    isNeedToForceLayout = true
+    layoutIfNeeded()
+  }
+
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    if isNeedToForceLayout {
+      isNeedToForceLayout = false
+      let isCompact = descriptionText.height > kMaximumDescriptionHeight;
+      if (isCompact) {
+        compactModeConstraints.forEach { $0.priority = UILayoutPriorityDefaultHigh }
+      }
+
+      hideButton(!isCompact)
+    }
   }
 
   private func hideButton(_ isHidden:Bool = true) {
