@@ -792,8 +792,11 @@ public class PlacePageView extends RelativeLayout
 
   public void restore()
   {
-//    if (mMapObject != null)
-    // FIXME query map object again
+    if (mMapObject == null)
+      // FIXME query map object again
+      return;
+
+    setMapObject(mMapObject, true, null);
   }
 
   @Override
