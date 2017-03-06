@@ -563,7 +563,9 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
   @Override
   protected void onContentSizeChanged()
   {
-    onStateChanged(getState(), getState(), mPlacePage.getMapObject().getMapObjectType());
+    MapObject object = mPlacePage.getMapObject();
+    if (object != null)
+      onStateChanged(getState(), getState(), object.getMapObjectType());
   }
 
   private class UpdateListener implements ValueAnimator.AnimatorUpdateListener

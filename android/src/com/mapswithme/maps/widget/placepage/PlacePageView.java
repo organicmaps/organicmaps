@@ -866,6 +866,7 @@ public class PlacePageView extends RelativeLayout
     mWvBookmarkNote.loadUrl("about:blank");
   }
 
+  @Nullable
   public MapObject getMapObject()
   {
     return mMapObject;
