@@ -52,16 +52,13 @@ public:
   {
     switch (version)
     {
-      case 0: return SerializeDataPointsV0(writer, points);
-      case 1: return SerializeDataPointsV1(writer, points);
+    case 0: return SerializeDataPointsV0(writer, points);
+    case 1: return SerializeDataPointsV1(writer, points);
 
-      default:
-        ASSERT(false, ("Unexpected serializer version:", version));
-        break;
+    default: ASSERT(false, ("Unexpected serializer version:", version)); break;
     }
     return 0;
   }
-
 
   // Deserializes the points from |source| and appends them to |result|.
   template <typename Source, typename Collection>
@@ -69,12 +66,10 @@ public:
   {
     switch (version)
     {
-      case 0: return DeserializeDataPointsV0(src, result);
-      case 1: return DeserializeDataPointsV1(src, result);
+    case 0: return DeserializeDataPointsV0(src, result);
+    case 1: return DeserializeDataPointsV1(src, result);
 
-      default:
-        ASSERT(false, ("Unexpected serializer version:", version));
-        break;
+    default: ASSERT(false, ("Unexpected serializer version:", version)); break;
     }
   }
 
@@ -92,9 +87,9 @@ private:
     {
       uint64_t const firstTimestamp = points[0].m_timestamp;
       uint32_t const firstLat =
-      DoubleToUint32(points[0].m_latLon.lat, ms::LatLon::kMinLat, ms::LatLon::kMaxLat);
+          DoubleToUint32(points[0].m_latLon.lat, ms::LatLon::kMinLat, ms::LatLon::kMaxLat);
       uint32_t const firstLon =
-      DoubleToUint32(points[0].m_latLon.lon, ms::LatLon::kMinLon, ms::LatLon::kMaxLon);
+          DoubleToUint32(points[0].m_latLon.lon, ms::LatLon::kMinLon, ms::LatLon::kMaxLon);
       WriteVarUint(writer, firstTimestamp);
       WriteVarUint(writer, firstLat);
       WriteVarUint(writer, firstLon);
@@ -129,9 +124,9 @@ private:
     {
       uint64_t const firstTimestamp = points[0].m_timestamp;
       uint32_t const firstLat =
-      DoubleToUint32(points[0].m_latLon.lat, ms::LatLon::kMinLat, ms::LatLon::kMaxLat);
+          DoubleToUint32(points[0].m_latLon.lat, ms::LatLon::kMinLat, ms::LatLon::kMaxLat);
       uint32_t const firstLon =
-      DoubleToUint32(points[0].m_latLon.lon, ms::LatLon::kMinLon, ms::LatLon::kMaxLon);
+          DoubleToUint32(points[0].m_latLon.lon, ms::LatLon::kMinLon, ms::LatLon::kMaxLon);
       uint32_t const traffic = points[0].m_traffic;
       WriteVarUint(writer, firstTimestamp);
       WriteVarUint(writer, firstLat);
@@ -176,9 +171,9 @@ private:
       {
         lastTimestamp = ReadVarUint<uint64_t>(src);
         lastLat =
-        Uint32ToDouble(ReadVarUint<uint32_t>(src), ms::LatLon::kMinLat, ms::LatLon::kMaxLat);
+            Uint32ToDouble(ReadVarUint<uint32_t>(src), ms::LatLon::kMinLat, ms::LatLon::kMaxLat);
         lastLon =
-        Uint32ToDouble(ReadVarUint<uint32_t>(src), ms::LatLon::kMinLon, ms::LatLon::kMaxLon);
+            Uint32ToDouble(ReadVarUint<uint32_t>(src), ms::LatLon::kMinLon, ms::LatLon::kMaxLon);
         result.push_back(DataPoint(lastTimestamp, ms::LatLon(lastLat, lastLon), traffic));
         first = false;
       }
@@ -207,9 +202,9 @@ private:
       {
         lastTimestamp = ReadVarUint<uint64_t>(src);
         lastLat =
-        Uint32ToDouble(ReadVarUint<uint32_t>(src), ms::LatLon::kMinLat, ms::LatLon::kMaxLat);
+            Uint32ToDouble(ReadVarUint<uint32_t>(src), ms::LatLon::kMinLat, ms::LatLon::kMaxLat);
         lastLon =
-        Uint32ToDouble(ReadVarUint<uint32_t>(src), ms::LatLon::kMinLon, ms::LatLon::kMaxLon);
+            Uint32ToDouble(ReadVarUint<uint32_t>(src), ms::LatLon::kMinLon, ms::LatLon::kMaxLon);
         traffic = static_cast<uint8_t>(ReadVarUint<uint32_t>(src));
         result.push_back(DataPoint(lastTimestamp, ms::LatLon(lastLat, lastLon), traffic));
         first = false;
@@ -224,6 +219,5 @@ private:
       }
     }
   }
-
 };
 }  // namespace coding

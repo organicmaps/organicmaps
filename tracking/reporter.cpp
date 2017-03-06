@@ -54,9 +54,9 @@ void Reporter::AddLocation(location::GpsInfo const & info, traffic::SpeedGroup t
     return;
 
   m_lastGpsTime = info.m_timestamp;
-  m_input.push_back(DataPoint(info.m_timestamp,
-                              ms::LatLon(info.m_latitude, info.m_longitude),
-                              static_cast<std::underlying_type<traffic::SpeedGroup>::type>(traffic)));
+  m_input.push_back(
+      DataPoint(info.m_timestamp, ms::LatLon(info.m_latitude, info.m_longitude),
+                static_cast<std::underlying_type<traffic::SpeedGroup>::type>(traffic)));
 }
 
 void Reporter::Run()

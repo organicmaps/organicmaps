@@ -70,7 +70,7 @@ UNIT_TEST(Protocol_DecodeAuthPacket)
   TEST_EQUAL(result, "ABC", ());
 }
 
-template< typename Container>
+template <typename Container>
 void DecodeDataPacketVersionTest(Container const & points, Protocol::PacketType version)
 {
   double const kEps = 1e-5;
