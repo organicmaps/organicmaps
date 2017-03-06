@@ -10,8 +10,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
-import android.support.v4.view.NestedScrollingChild;
-import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewPropertyAnimator;
@@ -204,32 +202,6 @@ public final class Animations
       }
     });
     animator.setDuration(DURATION_MENU);
-    animator.start();
-  }
-
-  public static <T extends View & NestedScrollingChild> void nestedScrollAnimation(
-      @NonNull final T view, final int deltaY, final int deltaX)
-  {
-    ViewCompat.startNestedScroll(view, ViewCompat.SCROLL_AXIS_VERTICAL);
-    ValueAnimator animator = ValueAnimator.ofFloat(0.0f, 1.0f);
-    animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
-    {
-      @Override
-      public void onAnimationUpdate(ValueAnimator animation)
-      {
-        ViewCompat.dispatchNestedPreScroll(view, deltaX, deltaY, null, null);
-        ViewCompat.dispatchNestedScroll(view, 0, 0, 0, 0, null);
-      }
-    });
-    animator.addListener(new UiUtils.SimpleAnimatorListener()
-    {
-      @Override
-      public void onAnimationEnd(Animator animation)
-      {
-        ViewCompat.stopNestedScroll(view);
-      }
-    });
-    animator.setDuration(DURATION_DEFAULT);
     animator.start();
   }
 

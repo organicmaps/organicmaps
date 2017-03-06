@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -33,7 +34,6 @@ import com.mapswithme.maps.location.LocationListener;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.widget.PlaceholderView;
 import com.mapswithme.maps.widget.SearchToolbarController;
-import com.mapswithme.util.Animations;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.LoggerFactory;
@@ -51,8 +51,6 @@ public class SearchFragment extends BaseMwmFragment
                                     HotelsFilterHolder
 {
   public static final String PREFS_SHOW_ENABLE_LOGGING_SETTING = "ShowEnableLoggingSetting";
-  private static final float NESTED_SCROLL_DELTA =
-      -MwmApplication.get().getResources().getDimension(R.dimen.margin_half);
 
   private long mLastQueryTimestamp;
 
@@ -161,6 +159,7 @@ public class SearchFragment extends BaseMwmFragment
   private PlaceholderView mResultsPlaceholder;
   private RecyclerView mResults;
   private AppBarLayout mAppBarLayout;
+  private CollapsingToolbarLayout mToolbarLayout;
   private View mFilterElevation;
   @Nullable
   private SearchFilterController mFilterController;
@@ -258,6 +257,10 @@ public class SearchFragment extends BaseMwmFragment
   {
     final boolean hasQuery = mToolbarController.hasQuery();
     UiUtils.showIf(hasQuery, mResultsFrame);
+    AppBarLayout.LayoutParams lp = (AppBarLayout.LayoutParams) mToolbarLayout.getLayoutParams();
+    lp.setScrollFlags(hasQuery ? AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
+                        | AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL : 0);
+    mToolbarLayout.setLayoutParams(lp);
     if (mFilterController != null)
       mFilterController.show(hasQuery && mSearchAdapter.getItemCount() != 0,
                              mSearchAdapter.showPopulateButton());
@@ -295,6 +298,7 @@ public class SearchFragment extends BaseMwmFragment
 
     ViewGroup root = (ViewGroup) view;
     mAppBarLayout = (AppBarLayout) root.findViewById(R.id.app_bar);
+    mToolbarLayout = (CollapsingToolbarLayout) mAppBarLayout.findViewById(R.id.collapsing_toolbar);
     mTabFrame = root.findViewById(R.id.tab_frame);
     ViewPager pager = (ViewPager) mTabFrame.findViewById(R.id.pages);
 
@@ -625,7 +629,6 @@ public class SearchFragment extends BaseMwmFragment
     if (mToolbarController.hasQuery())
     {
       mToolbarController.clear();
-      Animations.nestedScrollAnimation(mResults, (int) NESTED_SCROLL_DELTA, 0);
       return true;
     }
 
