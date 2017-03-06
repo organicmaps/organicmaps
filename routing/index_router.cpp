@@ -3,19 +3,20 @@
 #include "routing/base/astar_algorithm.hpp"
 #include "routing/base/astar_progress.hpp"
 #include "routing/bicycle_directions.hpp"
-#include "routing/bicycle_model.hpp"
-#include "routing/car_model.hpp"
 #include "routing/index_graph.hpp"
 #include "routing/index_graph_loader.hpp"
 #include "routing/index_graph_serialization.hpp"
 #include "routing/index_graph_starter.hpp"
 #include "routing/index_road_graph.hpp"
-#include "routing/pedestrian_model.hpp"
 #include "routing/restriction_loader.hpp"
 #include "routing/route.hpp"
 #include "routing/routing_helpers.hpp"
 #include "routing/turns_generator.hpp"
 #include "routing/vehicle_mask.hpp"
+
+#include "routing_common/bicycle_model.hpp"
+#include "routing_common/car_model.hpp"
+#include "routing_common/pedestrian_model.hpp"
 
 #include "indexer/feature_altitude.hpp"
 

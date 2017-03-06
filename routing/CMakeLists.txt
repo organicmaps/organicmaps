@@ -16,10 +16,6 @@ set(
   base/followed_polyline.hpp
   bicycle_directions.cpp
   bicycle_directions.hpp
-  bicycle_model.cpp
-  bicycle_model.hpp
-  car_model.cpp
-  car_model.hpp
   car_router.cpp
   car_router.hpp
   cross_mwm_index_graph.cpp
@@ -73,8 +69,6 @@ set(
   osrm_path_segment_factory.hpp
   pedestrian_directions.cpp
   pedestrian_directions.hpp
-  pedestrian_model.cpp
-  pedestrian_model.hpp
   restriction_loader.cpp
   restriction_loader.hpp
   restrictions_serialization.cpp
@@ -120,8 +114,6 @@ set(
   turns_tts_text.cpp
   turns_tts_text.hpp
   vehicle_mask.hpp
-  vehicle_model.cpp
-  vehicle_model.hpp
   world_graph.cpp
   world_graph.hpp
 )

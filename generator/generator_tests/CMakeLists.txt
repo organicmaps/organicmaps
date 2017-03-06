@@ -39,6 +39,7 @@ omim_link_libraries(
   indexer
   drape
   traffic
+  routing_common
   editor
   platform
   geometry

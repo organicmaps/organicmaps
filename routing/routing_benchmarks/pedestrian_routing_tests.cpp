@@ -3,8 +3,9 @@
 #include "routing/routing_benchmarks/helpers.hpp"
 
 #include "routing/pedestrian_directions.hpp"
-#include "routing/pedestrian_model.hpp"
 #include "routing/road_graph.hpp"
+
+#include "routing_common/pedestrian_model.hpp"
 
 #include "std/set.hpp"
 #include "std/string.hpp"

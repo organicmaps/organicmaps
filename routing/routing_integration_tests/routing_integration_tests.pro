@@ -11,7 +11,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = map routing traffic search storage indexer platform editor geometry coding base \
+DEPENDENCIES = map routing traffic routing_common search storage indexer platform editor geometry coding base \
                osrm jansson protobuf succinct stats_client pugixml
 
 DEPENDENCIES += opening_hours

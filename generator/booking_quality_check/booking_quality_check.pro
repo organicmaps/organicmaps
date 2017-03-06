@@ -10,6 +10,7 @@ DEPENDENCIES = \
     generator \
     search \
     routing \
+    routing_common \
     indexer \
     geometry \
     editor \

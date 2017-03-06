@@ -44,6 +44,16 @@
 		6714E5E61BD13F67008AB603 /* drules_proto_dark.bin in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6714E5E01BD13F67008AB603 /* drules_proto_dark.bin */; };
 		6714E6021BD14016008AB603 /* resources-mdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = 6714E6001BD14016008AB603 /* resources-mdpi_clear */; };
 		6714E6031BD14016008AB603 /* resources-mdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 6714E6011BD14016008AB603 /* resources-mdpi_dark */; };
+		671E78DC1E6A44C600B2859B /* traffic_mode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671E78D61E6A44C600B2859B /* traffic_mode.cpp */; };
+		671E78DD1E6A44C600B2859B /* traffic_panel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671E78D81E6A44C600B2859B /* traffic_panel.cpp */; };
+		671E78DE1E6A44C600B2859B /* trafficmodeinitdlg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671E78DA1E6A44C600B2859B /* trafficmodeinitdlg.cpp */; };
+		671E78E01E6A455D00B2859B /* trafficmodeinitdlg.ui in Resources */ = {isa = PBXBuildFile; fileRef = 671E78DF1E6A455D00B2859B /* trafficmodeinitdlg.ui */; };
+		671E78E31E6A4BE300B2859B /* trafficmodeinitdlg.ui in Sources */ = {isa = PBXBuildFile; fileRef = 671E78DF1E6A455D00B2859B /* trafficmodeinitdlg.ui */; };
+		671E78E51E6A4E1A00B2859B /* librouting_common.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671E78E41E6A4E1A00B2859B /* librouting_common.a */; };
+		671E78E61E6A4E4A00B2859B /* traffic_mode.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 671E78D71E6A44C600B2859B /* traffic_mode.hpp */; };
+		671E78E71E6A4E4A00B2859B /* traffic_panel.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 671E78D91E6A44C600B2859B /* traffic_panel.hpp */; };
+		671E78E91E6A4F3700B2859B /* trafficmodeinitdlg.h in Sources */ = {isa = PBXBuildFile; fileRef = 671E78DB1E6A44C600B2859B /* trafficmodeinitdlg.h */; };
+		671E79221E6A508600B2859B /* libopenlr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671E79211E6A508600B2859B /* libopenlr.a */; };
 		671F59021B8755FE0032311E /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 671F59011B8755FE0032311E /* libz.dylib */; };
 		671F59301B8759460032311E /* libminizip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671F592F1B8759460032311E /* libminizip.a */; };
 		672292B11DE307DC005BA3A7 /* libtraffic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 672292B01DE307DC005BA3A7 /* libtraffic.a */; };
@@ -123,10 +133,21 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
+		671E78E11E6A45BD00B2859B /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			filePatterns = "*.ui";
+			fileType = pattern.proxy;
+			isEditable = 1;
+			outputFiles = (
+				"$(DERIVED_FILE_DIR)/ui_$(INPUT_FILE_NAME).h",
+			);
+			script = "/usr/local/opt/qt5/bin/uic -o ${DERIVED_FILE_DIR}/ui_${INPUT_FILE_BASE}.h ${SCRIPT_INPUT_FILE}\n";
+		};
 		6729A45A1A684436007D5872 /* PBXBuildRule */ = {
 			isa = PBXBuildRule;
 			compilerSpec = com.apple.compilers.proxy.script;
-			filePatterns = "*.hpp";
+			filePatterns = "*.hpp *.h";
 			fileType = pattern.proxy;
 			isEditable = 1;
 			outputFiles = (
@@ -214,6 +235,15 @@
 		6714E5E01BD13F67008AB603 /* drules_proto_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = drules_proto_dark.bin; sourceTree = "<group>"; };
 		6714E6001BD14016008AB603 /* resources-mdpi_clear */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources-mdpi_clear"; sourceTree = "<group>"; };
 		6714E6011BD14016008AB603 /* resources-mdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources-mdpi_dark"; sourceTree = "<group>"; };
+		671E78D61E6A44C600B2859B /* traffic_mode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = traffic_mode.cpp; sourceTree = "<group>"; };
+		671E78D71E6A44C600B2859B /* traffic_mode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = traffic_mode.hpp; sourceTree = "<group>"; };
+		671E78D81E6A44C600B2859B /* traffic_panel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = traffic_panel.cpp; sourceTree = "<group>"; };
+		671E78D91E6A44C600B2859B /* traffic_panel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = traffic_panel.hpp; sourceTree = "<group>"; };
+		671E78DA1E6A44C600B2859B /* trafficmodeinitdlg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = trafficmodeinitdlg.cpp; sourceTree = "<group>"; };
+		671E78DB1E6A44C600B2859B /* trafficmodeinitdlg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = trafficmodeinitdlg.h; sourceTree = "<group>"; };
+		671E78DF1E6A455D00B2859B /* trafficmodeinitdlg.ui */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = trafficmodeinitdlg.ui; sourceTree = "<group>"; };
+		671E78E41E6A4E1A00B2859B /* librouting_common.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librouting_common.a; path = "/Users/darkserj/mapsme/omim/xcode/routing_common/../../../omim-build/xcode/Debug/librouting_common.a"; sourceTree = "<absolute>"; };
+		671E79211E6A508600B2859B /* libopenlr.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopenlr.a; path = "/Users/darkserj/mapsme/omim/xcode/openlr/../../../omim-build/xcode/Debug/libopenlr.a"; sourceTree = "<absolute>"; };
 		671F59011B8755FE0032311E /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		671F592F1B8759460032311E /* libminizip.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libminizip.a; path = "../../../omim-xcode-build/Debug/libminizip.a"; sourceTree = "<group>"; };
 		672292B01DE307DC005BA3A7 /* libtraffic.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtraffic.a; path = "../../../omim-build/xcode/Debug/libtraffic.a"; sourceTree = "<group>"; };
@@ -309,6 +339,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				671E79221E6A508600B2859B /* libopenlr.a in Frameworks */,
+				671E78E51E6A4E1A00B2859B /* librouting_common.a in Frameworks */,
 				672292B11DE307DC005BA3A7 /* libtraffic.a in Frameworks */,
 				3462FD8F1DC1E05D00906FD7 /* liboauthcpp.a in Frameworks */,
 				3462FD8D1DC1E03300906FD7 /* libpugixml.a in Frameworks */,
@@ -357,27 +389,8 @@
 		3475E0DC1DBF5772004C7E69 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				672292B01DE307DC005BA3A7 /* libtraffic.a */,
-				3462FD8E1DC1E05D00906FD7 /* liboauthcpp.a */,
-				3462FD8C1DC1E03300906FD7 /* libpugixml.a */,
-				3462FD881DC1DE4600906FD7 /* libeditor.a */,
-				3475E0E31DBF593D004C7E69 /* libtracking.a */,
-				3475E0DD1DBF5772004C7E69 /* libpartners_api.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		670D055E1B0C9A900013A7AC /* res */ = {
-			isa = PBXGroup;
-			children = (
-				6729A6671A69394D007D5872 /* resources.qrc */,
-			);
-			path = res;
-			sourceTree = "<group>";
-		};
-		6729A4591A684401007D5872 /* Libs */ = {
-			isa = PBXGroup;
-			children = (
+				671E79211E6A508600B2859B /* libopenlr.a */,
+				671E78E41E6A4E1A00B2859B /* librouting_common.a */,
 				674A7E321C0DB727003D48E1 /* libdrape_frontend.a */,
 				674A7E331C0DB727003D48E1 /* libdrape.a */,
 				674A7E341C0DB727003D48E1 /* libsdf_image.a */,
@@ -411,8 +424,22 @@
 				675345A71A40535E00A0A8C3 /* Cocoa.framework */,
 				675345A51A40534F00A0A8C3 /* CoreFoundation.framework */,
 				675345A31A40534500A0A8C3 /* IOKit.framework */,
+				672292B01DE307DC005BA3A7 /* libtraffic.a */,
+				3462FD8E1DC1E05D00906FD7 /* liboauthcpp.a */,
+				3462FD8C1DC1E03300906FD7 /* libpugixml.a */,
+				3462FD881DC1DE4600906FD7 /* libeditor.a */,
+				3475E0E31DBF593D004C7E69 /* libtracking.a */,
+				3475E0DD1DBF5772004C7E69 /* libpartners_api.a */,
 			);
-			name = Libs;
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		670D055E1B0C9A900013A7AC /* res */ = {
+			isa = PBXGroup;
+			children = (
+				6729A6671A69394D007D5872 /* resources.qrc */,
+			);
+			path = res;
 			sourceTree = "<group>";
 		};
 		6729A5C91A693045007D5872 /* Resources */ = {
@@ -472,7 +499,6 @@
 				34EBB4821DBF53D8005BE9B8 /* common-debug.xcconfig */,
 				34EBB4831DBF53D8005BE9B8 /* common-release.xcconfig */,
 				6729A5C91A693045007D5872 /* Resources */,
-				6729A4591A684401007D5872 /* Libs */,
 				6753454B1A404C6100A0A8C3 /* qtMapsMe */,
 				6753454A1A404C6100A0A8C3 /* Products */,
 				3475E0DC1DBF5772004C7E69 /* Frameworks */,
@@ -490,6 +516,13 @@
 		6753454B1A404C6100A0A8C3 /* qtMapsMe */ = {
 			isa = PBXGroup;
 			children = (
+				671E78DF1E6A455D00B2859B /* trafficmodeinitdlg.ui */,
+				671E78D61E6A44C600B2859B /* traffic_mode.cpp */,
+				671E78D71E6A44C600B2859B /* traffic_mode.hpp */,
+				671E78D81E6A44C600B2859B /* traffic_panel.cpp */,
+				671E78D91E6A44C600B2859B /* traffic_panel.hpp */,
+				671E78DA1E6A44C600B2859B /* trafficmodeinitdlg.cpp */,
+				671E78DB1E6A44C600B2859B /* trafficmodeinitdlg.h */,
 				45B5B5861CA4216B00D93E36 /* create_feature_dialog.cpp */,
 				45B5B5871CA4216B00D93E36 /* create_feature_dialog.hpp */,
 				45B5B5881CA4216B00D93E36 /* place_page_dialog.cpp */,
@@ -550,6 +583,7 @@
 				6729A5B81A692C7D007D5872 /* CopyFiles */,
 			);
 			buildRules = (
+				671E78E11E6A45BD00B2859B /* PBXBuildRule */,
 				6729A6661A6938AD007D5872 /* PBXBuildRule */,
 				6729A45A1A684436007D5872 /* PBXBuildRule */,
 			);
@@ -609,6 +643,7 @@
 				671182DD1C7F0D8C00CB8177 /* WorldCoasts_obsolete.mwm in Resources */,
 				671182F61C80E09A00CB8177 /* colors.txt in Resources */,
 				6714E6021BD14016008AB603 /* resources-mdpi_clear in Resources */,
+				671E78E01E6A455D00B2859B /* trafficmodeinitdlg.ui in Resources */,
 				6729A6681A69394D007D5872 /* resources.qrc in Resources */,
 				45B5B5A31CA422EE00D93E36 /* resources-hdpi_dark in Resources */,
 				45B5B5A61CA422EE00D93E36 /* resources-xxhdpi_dark in Resources */,
@@ -627,6 +662,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				671E78E91E6A4F3700B2859B /* trafficmodeinitdlg.h in Sources */,
+				671E78E61E6A4E4A00B2859B /* traffic_mode.hpp in Sources */,
+				671E78E71E6A4E4A00B2859B /* traffic_panel.hpp in Sources */,
+				671E78E31E6A4BE300B2859B /* trafficmodeinitdlg.ui in Sources */,
 				45B5B58C1CA4219C00D93E36 /* create_feature_dialog.hpp in Sources */,
 				45B5B58D1CA4219C00D93E36 /* place_page_dialog.hpp in Sources */,
 				675340A11C528A1C002CF0D9 /* editor_dialog.hpp in Sources */,
@@ -642,10 +681,13 @@
 				45B5B58B1CA4216B00D93E36 /* place_page_dialog.cpp in Sources */,
 				670D05971B0CBD320013A7AC /* slider_ctrl.hpp in Sources */,
 				670D05981B0CBD320013A7AC /* update_dialog.hpp in Sources */,
+				671E78DC1E6A44C600B2859B /* traffic_mode.cpp in Sources */,
+				671E78DD1E6A44C600B2859B /* traffic_panel.cpp in Sources */,
 				6729A6691A69395E007D5872 /* resources.qrc in Sources */,
 				675345901A404CB200A0A8C3 /* search_panel.cpp in Sources */,
 				45B5B58A1CA4216B00D93E36 /* create_feature_dialog.cpp in Sources */,
 				675345861A404CB200A0A8C3 /* about.cpp in Sources */,
+				671E78DE1E6A44C600B2859B /* trafficmodeinitdlg.cpp in Sources */,
 				675345911A404CB200A0A8C3 /* slider_ctrl.cpp in Sources */,
 				6753458D1A404CB200A0A8C3 /* proxystyle.cpp in Sources */,
 				6753409F1C5289E0002CF0D9 /* editor_dialog.cpp in Sources */,
@@ -672,6 +714,7 @@
 					"$(OMIM_ROOT)/3party/freetype/include",
 					"$(QT_PATH)/include",
 					"$(OMIM_ROOT)/3party/glm",
+					"$(DERIVED_FILE_DIR)",
 				);
 				SUPPORTED_PLATFORMS = macosx;
 				SYMROOT = build;
@@ -688,6 +731,7 @@
 					"$(OMIM_ROOT)/3party/freetype/include",
 					"$(QT_PATH)/include",
 					"$(OMIM_ROOT)/3party/glm",
+					"$(DERIVED_FILE_DIR)",
 				);
 				SUPPORTED_PLATFORMS = macosx;
 				SYMROOT = build;

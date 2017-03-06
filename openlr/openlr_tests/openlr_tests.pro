@@ -4,9 +4,8 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = routing search storage indexer editor platform_tests_support platform \
-               geometry coding base protobuf \
-               osrm stats_client pugixml openlr jansson succinct
+DEPENDENCIES = routing routing_common search storage indexer editor platform_tests_support platform \
+               geometry coding base protobuf osrm stats_client pugixml openlr jansson succinct
 
 include($$ROOT_DIR/common.pri)
 

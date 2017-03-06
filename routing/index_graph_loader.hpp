@@ -3,7 +3,8 @@
 #include "routing/edge_estimator.hpp"
 #include "routing/index_graph.hpp"
 #include "routing/num_mwm_id.hpp"
-#include "routing/vehicle_model.hpp"
+
+#include "routing_common/vehicle_model.hpp"
 
 #include "indexer/index.hpp"
 

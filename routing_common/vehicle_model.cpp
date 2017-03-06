@@ -1,4 +1,4 @@
-#include "routing/vehicle_model.hpp"
+#include "routing_common/vehicle_model.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"

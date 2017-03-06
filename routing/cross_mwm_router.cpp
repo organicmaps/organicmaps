@@ -1,5 +1,7 @@
-#include "cross_mwm_router.hpp"
-#include "cross_mwm_road_graph.hpp"
+#include "routing/cross_mwm_router.hpp"
+
+#include "routing/cross_mwm_road_graph.hpp"
+
 #include "base/astar_algorithm.hpp"
 #include "base/timer.hpp"
 

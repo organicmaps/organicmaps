@@ -7,7 +7,6 @@
 #include "std/array.hpp"
 #include "std/utility.hpp"
 
-
 namespace
 {
 using namespace routing::turns;

@@ -1,6 +1,8 @@
 #pragma once
+
 #include "routing/road_graph.hpp"
-#include "routing/vehicle_model.hpp"
+
+#include "routing_common/vehicle_model.hpp"
 
 #include "indexer/altitude_loader.hpp"
 #include "indexer/feature_data.hpp"

@@ -1,22 +1,23 @@
 #pragma once
 
+#include "routing_common/vehicle_model.hpp"
+
 #include "std/shared_ptr.hpp"
 #include "std/unordered_map.hpp"
-
-#include "vehicle_model.hpp"
 
 namespace routing
 {
 
-class PedestrianModel : public VehicleModel
+class BicycleModel : public VehicleModel
 {
 public:
-  PedestrianModel();
-  PedestrianModel(VehicleModel::InitListT const & speedLimits);
+  BicycleModel();
+  BicycleModel(VehicleModel::InitListT const & speedLimits);
 
   /// VehicleModel overrides:
-  bool IsOneWay(FeatureType const &) const override { return false; }
-  static PedestrianModel const & AllLimitsInstance();
+  bool IsOneWay(FeatureType const & f) const override;
+
+  static BicycleModel const & AllLimitsInstance();
 
 protected:
   RoadAvailability GetRoadAvailability(feature::TypesHolder const & types) const override;
@@ -24,14 +25,18 @@ protected:
 private:
   void Init();
 
-  uint32_t m_noFootType = 0;
-  uint32_t m_yesFootType = 0;
+  /// @return true if it is allowed to ride a bicycle in both directions.
+  bool IsBicycleBidir(feature::TypesHolder const & types) const;
+
+  uint32_t m_noBicycleType = 0;
+  uint32_t m_yesBicycleType = 0;
+  uint32_t m_bidirBicycleType = 0;
 };
 
-class PedestrianModelFactory : public VehicleModelFactory
+class BicycleModelFactory : public VehicleModelFactory
 {
 public:
-  PedestrianModelFactory();
+  BicycleModelFactory();
 
   /// @name Overrides from VehicleModelFactory.
   //@{

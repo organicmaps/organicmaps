@@ -9,7 +9,7 @@
 
 #include "3party/pugixml/src/pugixml.hpp"
 
-#include <QItemSelection>
+#include <QtCore/QItemSelection>
 
 // DecodedSample -----------------------------------------------------------------------------------
 DecodedSample::DecodedSample(Index const & index, openlr::SamplePool const & sample)

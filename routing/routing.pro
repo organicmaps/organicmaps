@@ -1,4 +1,4 @@
-# Base functions project.
+# Routing project.
 TARGET = routing
 TEMPLATE = lib
 CONFIG += staticlib warn_on c++11
@@ -16,8 +16,6 @@ SOURCES += \
     async_router.cpp \
     base/followed_polyline.cpp \
     bicycle_directions.cpp \
-    bicycle_model.cpp \
-    car_model.cpp \
     car_router.cpp \
     cross_mwm_index_graph.cpp \
     cross_mwm_road_graph.cpp \
@@ -43,7 +41,6 @@ SOURCES += \
     osrm_helpers.cpp \
     osrm_path_segment_factory.cpp \
     pedestrian_directions.cpp \
-    pedestrian_model.cpp \
     restriction_loader.cpp \
     restrictions_serialization.cpp \
     road_graph.cpp \
@@ -62,17 +59,13 @@ SOURCES += \
     turns_notification_manager.cpp \
     turns_sound_settings.cpp \
     turns_tts_text.cpp \
-    vehicle_model.cpp \
     world_graph.cpp \
-
 
 HEADERS += \
     async_router.hpp \
     base/astar_algorithm.hpp \
     base/followed_polyline.hpp \
     bicycle_directions.hpp \
-    bicycle_model.hpp \
-    car_model.hpp \
     car_router.hpp \
     cross_mwm_index_graph.hpp \
     cross_mwm_road_graph.hpp \
@@ -101,7 +94,6 @@ HEADERS += \
     osrm_helpers.hpp \
     osrm_path_segment_factory.hpp \
     pedestrian_directions.hpp \
-    pedestrian_model.hpp \
     restriction_loader.hpp \
     restrictions_serialization.hpp \
     road_graph.hpp \
@@ -129,5 +121,4 @@ HEADERS += \
     turns_sound_settings.hpp \
     turns_tts_text.hpp \
     vehicle_mask.hpp \
-    vehicle_model.hpp \
     world_graph.hpp \

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "car_router.hpp"
-#include "osrm_engine.hpp"
-#include "router.hpp"
+#include "routing/car_router.hpp"
+#include "routing/osrm_engine.hpp"
+#include "routing/router.hpp"
 
 #include "indexer/index.hpp"
 

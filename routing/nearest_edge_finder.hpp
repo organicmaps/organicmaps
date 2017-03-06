@@ -1,7 +1,8 @@
 #pragma once
 
 #include "routing/road_graph.hpp"
-#include "routing/vehicle_model.hpp"
+
+#include "routing_common/vehicle_model.hpp"
 
 #include "geometry/point2d.hpp"
 

@@ -19,6 +19,7 @@ omim_link_libraries(
   map
   routing
   traffic
+  routing_common
   search
   storage
   indexer

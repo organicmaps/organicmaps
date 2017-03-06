@@ -1,9 +1,10 @@
 #include "generator/traffic_generator.hpp"
 
-#include "routing/car_model.hpp"
 #include "routing/routing_helpers.hpp"
 
 #include "traffic/traffic_info.hpp"
+
+#include "routing_common/car_model.hpp"
 
 #include "platform/mwm_traits.hpp"
 

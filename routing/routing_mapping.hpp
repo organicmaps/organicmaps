@@ -1,8 +1,8 @@
 #pragma once
 
-#include "osrm2feature_map.hpp"
-#include "osrm_data_facade.hpp"
-#include "router.hpp"
+#include "routing/osrm2feature_map.hpp"
+#include "routing/osrm_data_facade.hpp"
+#include "routing/router.hpp"
 
 #include "indexer/index.hpp"
 

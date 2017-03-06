@@ -1,4 +1,5 @@
 #pragma once
+
 #include "traffic/traffic_info.hpp"
 
 #include "indexer/mwm_set.hpp"

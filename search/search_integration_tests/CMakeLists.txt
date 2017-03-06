@@ -23,6 +23,7 @@ omim_link_libraries(
   indexer_tests_support
   generator
   routing
+  routing_common
   search
   storage
   stats_client

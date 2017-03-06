@@ -33,6 +33,7 @@ omim_link_libraries(
   indexer
   editor
   traffic
+  routing_common
   platform
   oauthcpp
   geometry

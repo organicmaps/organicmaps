@@ -1,6 +1,6 @@
 #pragma once
 
-#include "routing_mapping.hpp"
+#include "routing/routing_mapping.hpp"
 
 #include "geometry/point2d.hpp"
 

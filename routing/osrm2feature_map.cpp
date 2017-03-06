@@ -1,7 +1,5 @@
 #include "routing/osrm2feature_map.hpp"
 
-#include "defines.hpp"
-
 #include "indexer/data_header.hpp"
 
 #include "platform/local_country_file_utils.hpp"
@@ -19,6 +17,8 @@
 #include "std/fstream.hpp"
 #include "std/sstream.hpp"
 #include "std/unordered_map.hpp"
+
+#include "defines.hpp"
 
 #include "3party/succinct/mapper.hpp"
 

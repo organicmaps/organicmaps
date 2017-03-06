@@ -1,8 +1,8 @@
 #pragma once
 
-#include "osrm_engine.hpp"
-#include "router.hpp"
-#include "routing_mapping.hpp"
+#include "routing/osrm_engine.hpp"
+#include "routing/router.hpp"
+#include "routing/routing_mapping.hpp"
 
 #include "std/string.hpp"
 #include "std/vector.hpp"

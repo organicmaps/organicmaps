@@ -1,8 +1,7 @@
-#include "router.hpp"
+#include "routing/router.hpp"
 
 namespace routing
 {
-
 std::string ToString(RouterType type)
 {
   switch(type)

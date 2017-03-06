@@ -1,5 +1,6 @@
-#include "car_model.hpp"
-#include "osrm_helpers.hpp"
+#include "routing/osrm_helpers.hpp"
+
+#include "routing_common/car_model.hpp"
 
 #include "indexer/scales.hpp"
 

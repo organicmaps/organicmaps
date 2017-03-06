@@ -1,11 +1,12 @@
 #include "generator/routing_index_generator.hpp"
 
-#include "routing/bicycle_model.hpp"
-#include "routing/car_model.hpp"
 #include "routing/index_graph.hpp"
 #include "routing/index_graph_serialization.hpp"
-#include "routing/pedestrian_model.hpp"
 #include "routing/vehicle_mask.hpp"
+
+#include "routing_common/bicycle_model.hpp"
+#include "routing_common/car_model.hpp"
+#include "routing_common/pedestrian_model.hpp"
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_processor.hpp"

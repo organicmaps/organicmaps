@@ -1,5 +1,6 @@
-#include "cross_mwm_road_graph.hpp"
-#include "cross_mwm_router.hpp"
+#include "routing/cross_mwm_road_graph.hpp"
+
+#include "routing/cross_mwm_router.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
 

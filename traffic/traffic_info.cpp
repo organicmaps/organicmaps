@@ -2,8 +2,7 @@
 
 #include "platform/http_client.hpp"
 
-#include "routing/car_model.hpp"
-#include "routing/routing_helpers.hpp"
+#include "routing_common/car_model.hpp"
 
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_processor.hpp"

@@ -2,8 +2,8 @@
 
 ROOT_DIR = ../..
 
-DEPENDENCIES = openlr routing search storage indexer editor platform geometry coding base protobuf \
-               osrm stats_client pugixml jansson succinct gflags
+DEPENDENCIES = openlr routing routing_common search storage indexer editor \
+               platform geometry coding base protobuf osrm stats_client pugixml jansson succinct gflags
 
 include($$ROOT_DIR/common.pri)
 

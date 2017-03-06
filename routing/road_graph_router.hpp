@@ -4,7 +4,8 @@
 #include "routing/road_graph.hpp"
 #include "routing/router.hpp"
 #include "routing/routing_algorithm.hpp"
-#include "routing/vehicle_model.hpp"
+
+#include "routing_common/vehicle_model.hpp"
 
 #include "indexer/mwm_set.hpp"
 

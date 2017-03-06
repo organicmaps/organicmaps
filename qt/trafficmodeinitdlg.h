@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include <QDialog>
+#include <QtWidgets/QDialog>
 
 class QLineEdit;
 

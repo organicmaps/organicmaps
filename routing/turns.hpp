@@ -4,12 +4,12 @@
 
 #include "geometry/point2d.hpp"
 
-#include "3party/osrm/osrm-backend/typedefs.h"
-
 #include "std/initializer_list.hpp"
 #include "std/limits.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
+
+#include "3party/osrm/osrm-backend/typedefs.h"
 
 namespace routing
 {

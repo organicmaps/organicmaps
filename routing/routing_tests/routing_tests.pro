@@ -1,4 +1,4 @@
- # Routing lib unit tests
+# Routing lib unit tests
 
 TARGET = routing_tests
 CONFIG += console warn_on
@@ -6,7 +6,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = routing indexer platform_tests_support platform editor geometry coding base \
+DEPENDENCIES = routing routing_common indexer platform_tests_support platform editor geometry coding base \
                osrm protobuf succinct jansson stats_client map traffic pugixml stats_client
 
 macx-*: LIBS *= "-framework IOKit" "-framework SystemConfiguration"
@@ -43,7 +43,6 @@ SOURCES += \
   turns_generator_test.cpp \
   turns_sound_test.cpp \
   turns_tts_text_tests.cpp \
-  vehicle_model_test.cpp \
 
 HEADERS += \
   index_graph_tools.hpp \

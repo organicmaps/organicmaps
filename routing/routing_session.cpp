@@ -1,6 +1,6 @@
-#include "routing_session.hpp"
+#include "routing/routing_session.hpp"
 
-#include "speed_camera.hpp"
+#include "routing/speed_camera.hpp"
 
 #include "geometry/mercator.hpp"
 
