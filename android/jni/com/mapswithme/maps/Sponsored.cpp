@@ -175,10 +175,10 @@ JNIEXPORT void JNICALL Java_com_mapswithme_maps_widget_placepage_Sponsored_nativ
       auto facilities = ToFacilitiesArray(env, hotelInfo.m_facilities);
       auto reviews = ToReviewsArray(env, hotelInfo.m_reviews);
       auto nearby = env->NewObjectArray(0, g_nearbyObjectClass, 0);
-
+      jlong reviewsCount = static_cast<jlong>(hotelInfo.m_scoreCount);
       env->CallStaticVoidMethod(g_sponsoredClass, g_infoCallback, jni::ToJavaString(env, hotelId),
                                 env->NewObject(g_hotelInfoClass, g_hotelInfoConstructor, description,
-                                               photos, facilities, reviews, nearby, hotelInfo.m_scoreCount));
+                                               photos, facilities, reviews, nearby, reviewsCount));
     });
   });
 }
