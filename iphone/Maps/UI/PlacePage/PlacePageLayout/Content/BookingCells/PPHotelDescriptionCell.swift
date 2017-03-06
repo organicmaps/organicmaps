@@ -15,9 +15,7 @@ final class PPHotelDescriptionCell: MWMTableViewCell
     descriptionText.sizeToFit()
     updateDelegate = delegate
 
-    setNeedsLayout()
     isNeedToForceLayout = true
-    layoutIfNeeded()
   }
 
   override func layoutSubviews() {
