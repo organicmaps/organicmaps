@@ -18,15 +18,15 @@ vector<uint8_t> CreateDataPacketImpl(Container const & points,
   vector<uint8_t> buffer;
   MemWriter<decltype(buffer)> writer(buffer);
 
-  uint32_t serializer_version = tracking::Protocol::Encoder::kLatestVersion;
+  uint32_t version = tracking::Protocol::Encoder::kLatestVersion;
   switch (type)
   {
-  case tracking::Protocol::PacketType::DataV0: serializer_version = 0; break;
-  case tracking::Protocol::PacketType::DataV1: serializer_version = 1; break;
-  case tracking::Protocol::PacketType::AuthV0: ASSERT(false, ("Not a DATA type.")); break;
+  case tracking::Protocol::PacketType::DataV0: version = 0; break;
+  case tracking::Protocol::PacketType::DataV1: version = 1; break;
+  case tracking::Protocol::PacketType::AuthV0: ASSERT(false, ("Not a DATA packet.")); break;
   }
 
-  tracking::Protocol::Encoder::SerializeDataPoints(serializer_version, writer, points);
+  tracking::Protocol::Encoder::SerializeDataPoints(version, writer, points);
 
   auto packet = tracking::Protocol::CreateHeader(type, static_cast<uint32_t>(buffer.size()));
   packet.insert(packet.end(), begin(buffer), end(buffer));
@@ -92,7 +92,7 @@ string Protocol::DecodeAuthPacket(Protocol::PacketType type, vector<uint8_t> con
   {
   case Protocol::PacketType::AuthV0: return string(begin(data), end(data));
   case Protocol::PacketType::DataV0:
-  case Protocol::PacketType::DataV1: ASSERT(false, ("Not AUTH packet.")); break;
+  case Protocol::PacketType::DataV1: ASSERT(false, ("Not an AUTH packet.")); break;
   }
   return string();
 }
@@ -111,7 +111,7 @@ Protocol::DataElementsVec Protocol::DecodeDataPacket(PacketType type, vector<uin
   case Protocol::PacketType::DataV1:
     Encoder::DeserializeDataPoints(1 /* version */, src, points);
     break;
-  case Protocol::PacketType::AuthV0: ASSERT(false, ("Not DATA packet.")); break;
+  case Protocol::PacketType::AuthV0: ASSERT(false, ("Not a DATA packet.")); break;
   }
   return points;
 }

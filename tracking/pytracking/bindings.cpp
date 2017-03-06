@@ -30,6 +30,7 @@ BOOST_PYTHON_MODULE(pytracking)
       .def(init<uint64_t, ms::LatLon const &>())
       .def_readwrite("timestamp", &coding::TrafficGPSEncoder::DataPoint::m_timestamp)
       .def_readwrite("coords", &coding::TrafficGPSEncoder::DataPoint::m_latLon);
+      .def_readwrite("traffic", &coding::TrafficGPSEncoder::DataPoint::m_traffic);
 
   enum_<Protocol::PacketType>("PacketType")
       .value("AuthV0", Protocol::PacketType::AuthV0)

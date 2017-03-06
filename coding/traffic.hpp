@@ -6,6 +6,8 @@
 
 #include "geometry/latlon.hpp"
 
+#include "base/checked_cast.hpp"
+
 #include "std/limits.hpp"
 #include "std/vector.hpp"
 
@@ -23,6 +25,7 @@ public:
 
   struct DataPoint
   {
+    // TODO(@m): document the version format
     DataPoint() = default;
 
     DataPoint(uint64_t timestamp, ms::LatLon latLon, uint8_t traffic)
@@ -33,7 +36,9 @@ public:
     // It is expected that |m_timestamp| stores time since epoch in seconds.
     uint64_t m_timestamp = 0;
     ms::LatLon m_latLon = ms::LatLon::Zero();
-    // TODO: comment the decision
+    // A pod type instead of the traffic::SpeedGroup enum
+    // so as not to introduce a cyclic dependency.
+    // This field was added in Version 1 (and was the only addition).
     uint8_t m_traffic = 0;
 
     bool operator==(DataPoint const & p) const
@@ -174,7 +179,7 @@ private:
             Uint32ToDouble(ReadVarUint<uint32_t>(src), ms::LatLon::kMinLat, ms::LatLon::kMaxLat);
         lastLon =
             Uint32ToDouble(ReadVarUint<uint32_t>(src), ms::LatLon::kMinLon, ms::LatLon::kMaxLon);
-        result.push_back(DataPoint(lastTimestamp, ms::LatLon(lastLat, lastLon), traffic));
+        result.emplace_back(lastTimestamp, ms::LatLon(lastLat, lastLon), traffic);
         first = false;
       }
       else
@@ -182,7 +187,7 @@ private:
         lastTimestamp += ReadVarUint<uint64_t>(src);
         lastLat += Uint32ToDouble(ReadVarUint<uint32_t>(src), kMinDeltaLat, kMaxDeltaLat);
         lastLon += Uint32ToDouble(ReadVarUint<uint32_t>(src), kMinDeltaLon, kMaxDeltaLon);
-        result.push_back(DataPoint(lastTimestamp, ms::LatLon(lastLat, lastLon), traffic));
+        result.emplace_back(lastTimestamp, ms::LatLon(lastLat, lastLon), traffic);
       }
     }
   }
@@ -205,8 +210,8 @@ private:
             Uint32ToDouble(ReadVarUint<uint32_t>(src), ms::LatLon::kMinLat, ms::LatLon::kMaxLat);
         lastLon =
             Uint32ToDouble(ReadVarUint<uint32_t>(src), ms::LatLon::kMinLon, ms::LatLon::kMaxLon);
-        traffic = static_cast<uint8_t>(ReadVarUint<uint32_t>(src));
-        result.push_back(DataPoint(lastTimestamp, ms::LatLon(lastLat, lastLon), traffic));
+        traffic = base::asserted_cast<uint8_t>(ReadVarUint<uint32_t>(src));
+        result.emplace_back(lastTimestamp, ms::LatLon(lastLat, lastLon), traffic);
         first = false;
       }
       else
@@ -214,8 +219,8 @@ private:
         lastTimestamp += ReadVarUint<uint64_t>(src);
         lastLat += Uint32ToDouble(ReadVarUint<uint32_t>(src), kMinDeltaLat, kMaxDeltaLat);
         lastLon += Uint32ToDouble(ReadVarUint<uint32_t>(src), kMinDeltaLon, kMaxDeltaLon);
-        traffic = static_cast<uint8_t>(ReadVarUint<uint32_t>(src));
-        result.push_back(DataPoint(lastTimestamp, ms::LatLon(lastLat, lastLon), traffic));
+        traffic = base::asserted_cast<uint8_t>(ReadVarUint<uint32_t>(src));
+        result.emplace_back(lastTimestamp, ms::LatLon(lastLat, lastLon), traffic);
       }
     }
   }

@@ -47,7 +47,7 @@ UNIT_TEST(Protocol_CreateDataPacket)
   TEST_EQUAL(packetV0[5], 227, ());
   TEST_EQUAL(packetV0[6], 241, ());
 
-  auto packetV1 = Protocol::CreateDataPacket(buffer);
+  auto packetV1 = Protocol::CreateDataPacket(buffer, Protocol::PacketType::DataV1);
   TEST_EQUAL(packetV1.size(), 28, ());
   TEST_EQUAL(Protocol::PacketType(packetV1[0]), Protocol::PacketType::DataV1, ());
   TEST_EQUAL(packetV1[1], 0x00, ());
