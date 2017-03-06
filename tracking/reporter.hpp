@@ -2,6 +2,8 @@
 
 #include "tracking/connection.hpp"
 
+#include "traffic/speed_groups.hpp"
+
 #include "base/thread.hpp"
 
 #include "std/atomic.hpp"
@@ -37,7 +39,7 @@ public:
            milliseconds pushDelay);
   ~Reporter();
 
-  void AddLocation(location::GpsInfo const & info);
+  void AddLocation(location::GpsInfo const & info, traffic::SpeedGroup speedGroup);
 
   void SetAllowSendingPoints(bool allow) { m_allowSendingPoints = allow; }
 

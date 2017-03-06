@@ -216,7 +216,7 @@ void Framework::OnLocationUpdate(GpsInfo const & info)
   CallDrapeFunction(bind(&df::DrapeEngine::SetGpsInfo, _1, rInfo,
                          m_routingSession.IsNavigable(), routeMatchingInfo));
   if (IsTrackingReporterEnabled())
-    m_trackingReporter.AddLocation(info);
+    m_trackingReporter.AddLocation(info, m_routingSession.MatchTraffic(routeMatchingInfo));
 }
 
 void Framework::OnCompassUpdate(CompassInfo const & info)

@@ -43,7 +43,7 @@ Reporter::~Reporter()
   m_thread.join();
 }
 
-void Reporter::AddLocation(location::GpsInfo const & info)
+void Reporter::AddLocation(location::GpsInfo const & info, traffic::SpeedGroup /* speedGroup */)
 {
   lock_guard<mutex> lg(m_mutex);
 

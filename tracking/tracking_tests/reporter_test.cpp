@@ -27,7 +27,7 @@ void TransferLocation(Reporter & reporter, TestSocket & testSocket, double times
   gpsInfo.m_latitude = latidute;
   gpsInfo.m_longitude = longtitude;
   gpsInfo.m_horizontalAccuracy = 1.0;
-  reporter.AddLocation(gpsInfo);
+  reporter.AddLocation(gpsInfo, traffic::SpeedGroup::Unknown);
 
   using Packet = tracking::Protocol::PacketType;
   vector<uint8_t> buffer;

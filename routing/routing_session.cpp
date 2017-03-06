@@ -441,6 +441,25 @@ void RoutingSession::MatchLocationToRoute(location::GpsInfo & location,
   m_route->MatchLocationToRoute(location, routeMatchingInfo);
 }
 
+traffic::SpeedGroup RoutingSession::MatchTraffic(
+    location::RouteMatchingInfo const & routeMatchingInfo) const
+{
+  if (!routeMatchingInfo.IsMatched())
+    return SpeedGroup::Unknown;
+
+  threads::MutexGuard guard(m_routingSessionMutex);
+  size_t const index = routeMatchingInfo.GetIndexInRoute();
+  vector<traffic::SpeedGroup> const & traffic = m_route->GetTraffic();
+
+  if (index >= traffic.size())
+  {
+    LOG(LERROR, ("Invalid index", index, "in RouteMatchingInfo, traffic.size():", traffic.size()));
+    return SpeedGroup::Unknown;
+  }
+
+  return traffic[index];
+}
+
 bool RoutingSession::DisableFollowMode()
 {
   LOG(LINFO, ("Routing disables a following mode. State: ", m_state.load()));
