@@ -16,7 +16,7 @@ UNIT_TEST(Booking_GetHotelAvailability)
 
 UNIT_TEST(Booking_GetExtendedInfo)
 {
-  string const kHotelId = "0000000";  // Internal hotel id for testing.
+  string const kHotelId = "0";  // Internal hotel id for testing.
   string result;
   TEST(booking::RawApi::GetExtendedInfo(kHotelId, "en", result), ());
   TEST(!result.empty(), ());
@@ -27,7 +27,7 @@ UNIT_TEST(Booking_GetMinPrice)
   booking::SetBookingUrlForTesting("http://localhost:34568/booking/min_price");
   MY_SCOPE_GUARD(cleanup, []() { booking::SetBookingUrlForTesting(""); });
 
-  string const kHotelId = "0000000";  // Internal hotel id for testing.
+  string const kHotelId = "0";  // Internal hotel id for testing.
   booking::Api api;
   {
     string price;
@@ -89,7 +89,7 @@ UNIT_TEST(Booking_GetMinPrice)
 
 UNIT_TEST(GetHotelInfo)
 {
-  string const kHotelId = "0000000";  // Internal hotel id for testing.
+  string const kHotelId = "0";  // Internal hotel id for testing.
   booking::Api api;
   booking::HotelInfo info;
 
