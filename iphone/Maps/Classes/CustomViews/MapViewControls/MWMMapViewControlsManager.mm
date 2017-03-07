@@ -29,6 +29,7 @@
 #include "Framework.h"
 
 #include "platform/local_country_file_utils.hpp"
+#include "platform/platform.hpp"
 
 #include "storage/storage_helpers.hpp"
 
@@ -156,11 +157,16 @@ extern NSString * const kAlohalyticsTapEventKey;
   };
 
   using namespace network_policy;
-  if (!CanUseNetwork() && GetStage() == platform::NetworkPolicy::Stage::Session)
+  if (GetPlatform().ConnectionStatus() == Platform::EConnectionType::CONNECTION_WWAN &&
+      !CanUseNetwork() && GetStage() == platform::NetworkPolicy::Stage::Session)
+  {
     [[MWMAlertViewController activeAlertController]
         presentMobileInternetAlertWithBlock:[show, info] { show(info); }];
+  }
   else
+  {
     show(info);
+  }
 }
 
 - (void)searchViewDidEnterState:(MWMSearchManagerState)state
