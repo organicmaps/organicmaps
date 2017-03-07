@@ -60,6 +60,7 @@ import com.mapswithme.maps.gallery.FullScreenGalleryActivity;
 import com.mapswithme.maps.gallery.GalleryActivity;
 import com.mapswithme.maps.gallery.Image;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.review.Review;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.widget.ArrowView;
 import com.mapswithme.maps.widget.BaseShadowController;
@@ -84,6 +85,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Currency;
 import java.util.HashMap;
 import java.util.List;
@@ -665,6 +667,19 @@ public class PlacePageView extends RelativeLayout
     mHotelMoreDescription.setVisibility(GONE);
   }
 
+  private void clearHotelViews()
+  {
+    mTvHotelDescription.setText("");
+    mHotelMoreDescription.setVisibility(GONE);
+    mFacilitiesAdapter.setItems(Collections.<Sponsored.FacilityType>emptyList());
+    mHotelMoreFacilities.setVisibility(GONE);
+    mGalleryAdapter.setItems(new ArrayList<Image>());
+    mNearbyAdapter.setItems(Collections.<Sponsored.NearbyObject>emptyList());
+    mReviewAdapter.setItems(new ArrayList<Review>());
+    mHotelRating.setText("");
+    mHotelRatingBase.setText("");
+  }
+
   @Override
   public void onLineCountCalculated(boolean grater)
   {
@@ -932,6 +947,7 @@ public class PlacePageView extends RelativeLayout
 
         Locale locale = Locale.getDefault();
         Currency currency = Currency.getInstance(locale);
+        clearHotelViews();
         if (mSponsored.getType() == Sponsored.TYPE_BOOKING && mSponsored.getId() != null)
           Sponsored.requestPrice(mSponsored.getId(), currency.getCurrencyCode(), policy);
         Sponsored.requestInfo(mSponsored, locale.toString(), policy);
