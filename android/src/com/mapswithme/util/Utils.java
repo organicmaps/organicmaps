@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.DimenRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
@@ -35,6 +36,8 @@ import com.mapswithme.util.statistics.AlohaHelper;
 import java.io.Closeable;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.util.Currency;
+import java.util.Locale;
 import java.util.Map;
 
 public class Utils
@@ -318,6 +321,33 @@ public class Utils
     {
       LOGGER.e(TAG, "Failed to call phone", e);
       AlohaHelper.logException(e);
+    }
+  }
+
+  @Nullable
+  public static String getCurrencyCode()
+  {
+    Locale[] locales = { Locale.getDefault(), Locale.US };
+    for (Locale locale : locales)
+    {
+      Currency currency = getCurrencyForLocale(locale);
+      if (currency != null)
+        return currency.getCurrencyCode();
+    }
+    return null;
+  }
+
+  @Nullable
+  public static Currency getCurrencyForLocale(@NonNull Locale locale)
+  {
+    try
+    {
+      return Currency.getInstance(locale);
+    }
+    catch (Throwable e)
+    {
+      LOGGER.e(TAG, "Failed to obtain a currency for locale: " + locale, e);
+      return null;
     }
   }
 

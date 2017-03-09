@@ -597,15 +597,7 @@ public class PlacePageView extends RelativeLayout
     if (mSponsored == null || !TextUtils.equals(id, mSponsored.getId()))
       return;
 
-    String text;
-    try
-    {
-      float value = Float.valueOf(price);
-      text = NumberFormat.getCurrencyInstance().format(value);
-    } catch (NumberFormatException e)
-    {
-      text = (price + " " + currencyCode);
-    }
+    String text = formatCurrencyString(price, currencyCode);
 
     mSponsoredPrice = getContext().getString(R.string.place_page_starting_from, text);
     if (mMapObject == null)
@@ -614,6 +606,29 @@ public class PlacePageView extends RelativeLayout
       return;
     }
     refreshPreview(mMapObject, NetworkPolicy.newInstance(true));
+  }
+
+  @NonNull
+  private String formatCurrencyString(@NonNull String price, @NonNull String currencyCode)
+  {
+    String text;
+    try
+    {
+      float value = Float.valueOf(price);
+      Locale locale = Locale.getDefault();
+      Currency currency = Utils.getCurrencyForLocale(locale);
+      // If the currency cannot be obtained for the default locale we will use Locale.US.
+      if (currency == null)
+        locale = Locale.US;
+      text = NumberFormat.getCurrencyInstance(locale).format(value);
+    }
+    catch (Throwable e)
+    {
+      LOGGER.e(TAG, "Failed to format string for price = " + price
+                    + " and currencyCode = " + currencyCode, e);
+      text = (price + " " + currencyCode);
+    }
+    return text;
   }
 
   @Override
@@ -982,11 +997,10 @@ public class PlacePageView extends RelativeLayout
         mSponsored.updateId(mMapObject);
         mSponsoredPrice = mSponsored.getPrice();
 
-        Locale locale = Locale.getDefault();
-        Currency currency = Currency.getInstance(locale);
-        if (mSponsored.getType() == Sponsored.TYPE_BOOKING && mSponsored.getId() != null)
-          Sponsored.requestPrice(mSponsored.getId(), currency.getCurrencyCode(), policy);
-        Sponsored.requestInfo(mSponsored, locale.toString(), policy);
+        String currencyCode = Utils.getCurrencyCode();
+        if (mSponsored.getType() == Sponsored.TYPE_BOOKING && mSponsored.getId() != null && !TextUtils.isEmpty(currencyCode))
+          Sponsored.requestPrice(mSponsored.getId(), currencyCode, policy);
+        Sponsored.requestInfo(mSponsored, Locale.getDefault().toString(), policy);
       }
 
       String country = MapManager.nativeGetSelectedCountry();
