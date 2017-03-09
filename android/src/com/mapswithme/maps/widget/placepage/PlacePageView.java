@@ -1726,6 +1726,7 @@ public class PlacePageView extends RelativeLayout
     mCurrentCountry = null;
     mDownloaderIcon.show(false);
     UiUtils.hide(mDownloaderInfo);
+    mAnimationController.onContentSizeChanged();
   }
 
   MwmActivity getActivity()
