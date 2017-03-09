@@ -640,8 +640,8 @@ public class PlacePageView extends RelativeLayout
       UiUtils.show(mHotelReview);
       mReviewAdapter.setItems(new ArrayList<>(Arrays.asList(info.mReviews)));
       mHotelRating.setText(mSponsored.getRating());
-      mHotelRatingBase.setText(getResources().getQuantityString(R.plurals.place_page_booking_rating_base,
-                                                                info.mReviews.length, info.mReviewsAmount));
+      mHotelRatingBase.setText(getResources().getString(R.string.booking_based_on_reviews,
+                                                        info.mReviewsAmount));
     }
   }
 
