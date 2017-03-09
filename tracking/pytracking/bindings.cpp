@@ -27,7 +27,7 @@ BOOST_PYTHON_MODULE(pytracking)
       .def_readwrite("lon", &ms::LatLon::lon);
 
   class_<coding::TrafficGPSEncoder::DataPoint>("DataPoint")
-      .def(init<uint64_t, ms::LatLon const &>())
+      .def(init<uint64_t, ms::LatLon const &, uint8_t>())
       .def_readwrite("timestamp", &coding::TrafficGPSEncoder::DataPoint::m_timestamp)
       .def_readwrite("coords", &coding::TrafficGPSEncoder::DataPoint::m_latLon)
       .def_readwrite("traffic", &coding::TrafficGPSEncoder::DataPoint::m_traffic);
@@ -39,9 +39,11 @@ BOOST_PYTHON_MODULE(pytracking)
       .value("CurrentAuth", Protocol::PacketType::CurrentAuth)
       .value("CurrentData", Protocol::PacketType::CurrentData);
 
-  vector<uint8_t> (*CreateDataPacket1)(Protocol::DataElementsCirc const &) =
+  vector<uint8_t> (*CreateDataPacket1)(Protocol::DataElementsCirc const &,
+                                       tracking::Protocol::PacketType) =
       &Protocol::CreateDataPacket;
-  vector<uint8_t> (*CreateDataPacket2)(Protocol::DataElementsVec const &) =
+  vector<uint8_t> (*CreateDataPacket2)(Protocol::DataElementsVec const &,
+                                       tracking::Protocol::PacketType) =
       &Protocol::CreateDataPacket;
 
   class_<Protocol>("Protocol")
