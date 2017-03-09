@@ -940,6 +940,7 @@ public class PlacePageView extends RelativeLayout
     detachCountry();
     if (mMapObject != null)
     {
+      clearHotelViews();
       if (mSponsored != null)
       {
         mSponsored.updateId(mMapObject);
@@ -947,7 +948,6 @@ public class PlacePageView extends RelativeLayout
 
         Locale locale = Locale.getDefault();
         Currency currency = Currency.getInstance(locale);
-        clearHotelViews();
         if (mSponsored.getType() == Sponsored.TYPE_BOOKING && mSponsored.getId() != null)
           Sponsored.requestPrice(mSponsored.getId(), currency.getCurrencyCode(), policy);
         Sponsored.requestInfo(mSponsored, locale.toString(), policy);
