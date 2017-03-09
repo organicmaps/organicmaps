@@ -171,7 +171,8 @@ using namespace place_page;
     if (auto const api = GetFramework().GetBookingApi(canUseNetwork))
     {
       string const hotelId = self.sponsoredId.UTF8String;
-      api->GetHotelInfo(hotelId, [[AppInfo sharedInfo] languageId].UTF8String, [hotelId, self](booking::HotelInfo const & hotelInfo)
+      api->GetHotelInfo(hotelId, [[AppInfo sharedInfo] twoLetterLanguageId].UTF8String,
+                        [hotelId, self](booking::HotelInfo const & hotelInfo)
       {
         if (hotelId != hotelInfo.m_hotelId)
           return;

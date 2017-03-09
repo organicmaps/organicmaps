@@ -198,6 +198,19 @@ NSDictionary * const kDeviceNamesWithMetalDriver = @{
   return languages.count == 0 ? nil : languages[0];
 }
 
+- (NSString *)twoLetterLanguageId
+{
+  NSString * languageId = self.languageId;
+  auto constexpr maxCodeLength = 2UL;
+  auto const length = languageId.length;
+  if (length > maxCodeLength)
+    languageId = [languageId substringToIndex:maxCodeLength];
+  else if (length < maxCodeLength)
+    languageId = @"en";
+
+  return languageId;
+}
+
 - (NSDate *)buildDate
 {
   if (!_buildDate)
