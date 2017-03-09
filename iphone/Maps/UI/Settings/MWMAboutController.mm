@@ -19,7 +19,6 @@ extern NSString * const kAlohalyticsTapEventKey;
 @property(weak, nonatomic) IBOutlet UILabel * dateLabel;
 
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * websiteCell;
-@property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * blogCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * facebookCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * twitterCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * subscribeCell;
@@ -61,11 +60,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   {
     [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"website"];
     [self openUrl:[NSURL URLWithString:@"https://maps.me"]];
-  }
-  else if (cell == self.blogCell)
-  {
-    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"blog"];
-    [self openUrl:[NSURL URLWithString:@"http://blog.maps.me"]];
   }
   else if (cell == self.facebookCell)
   {

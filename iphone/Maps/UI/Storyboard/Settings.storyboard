@@ -1348,35 +1348,8 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="orf-4x-6qF" customClass="SettingsTableViewLinkCell" customModule="cm_beta" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="79" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="orf-4x-6qF" id="HLu-xY-s47">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Блог" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Usf-eP-UhD">
-                                                    <rect key="frame" x="16" y="11" width="308" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="blog"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="Usf-eP-UhD" secondAttribute="trailing" constant="10" id="Cap-3y-gq7"/>
-                                                <constraint firstItem="Usf-eP-UhD" firstAttribute="top" secondItem="HLu-xY-s47" secondAttribute="topMargin" constant="3" id="Liw-qY-C5Z"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="Usf-eP-UhD" secondAttribute="bottom" constant="3.5" id="iKt-F4-EUb"/>
-                                                <constraint firstItem="Usf-eP-UhD" firstAttribute="leading" secondItem="HLu-xY-s47" secondAttribute="leadingMargin" constant="8" id="xJj-hO-Kkq"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="AwY-rw-AMm" customClass="SettingsTableViewLinkCell" customModule="cm_beta" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="123" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="79" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AwY-rw-AMm" id="AUp-Ql-usV">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
@@ -1403,7 +1376,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="PYl-5B-hBB" customClass="SettingsTableViewLinkCell" customModule="cm_beta" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="167" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="123" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PYl-5B-hBB" id="99g-g6-dgY">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
@@ -1430,7 +1403,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="q9S-xP-Mmy" customClass="SettingsTableViewLinkCell" customModule="cm_beta" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="211" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="167" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="q9S-xP-Mmy" id="itl-Sl-h7g">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
@@ -1462,7 +1435,7 @@
                             <tableViewSection id="wsr-ZV-X15">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="jhU-Ha-kE2" customClass="SettingsTableViewLinkCell" customModule="cm_beta" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="291" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="247" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jhU-Ha-kE2" id="BJb-8F-OEp">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
@@ -1494,7 +1467,7 @@
                             <tableViewSection id="Vce-Ld-skc">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="VXa-CM-OXP" customClass="SettingsTableViewLinkCell" customModule="cm_beta" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="371" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="327" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VXa-CM-OXP" id="Vot-vJ-3MU">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
@@ -1530,7 +1503,6 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <outlet property="blogCell" destination="orf-4x-6qF" id="tJz-x8-WA2"/>
                         <outlet property="copyrightCell" destination="VXa-CM-OXP" id="FpT-Rr-yha"/>
                         <outlet property="facebookCell" destination="AwY-rw-AMm" id="NUh-p9-2t4"/>
                         <outlet property="rateCell" destination="jhU-Ha-kE2" id="qi9-Y9-9BP"/>
