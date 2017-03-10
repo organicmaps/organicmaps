@@ -1061,4 +1061,9 @@
 	<string name="whatsnew_waypoints_message">Lisää reittiisi reittipisteitä napauttamalla paikkoja.</string>
 	<string name="whatsnew_driving_style_title">Uusi karttatyyli ajettaessa</string>
 	<string name="whatsnew_driving_style_message">Auton navigointitila on helppokäyttöisempi.</string>
+	<string name="more_on_bookingcom">Lisää osoitteessa Booking.com</string>
+	<string name="details_on_bookingcom">Lisätietoa osoitteessa Booking.com</string>
+	<string name="reviews_on_bookingcom">Lisää arvosteluja osoitteessa Booking.com</string>
+	<string name="offline_place_page_more_information">Yhdistä internetiin saadaksesi lisätietoa paikasta.</string>
+	<string name="failed_load_information">Tietojen lataaminen epäonnistui.</string>
 </resources>

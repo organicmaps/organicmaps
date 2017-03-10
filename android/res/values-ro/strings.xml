@@ -1057,4 +1057,9 @@
 	<string name="whatsnew_waypoints_message">Atingeți locații pentru a adăuga puncte de schimbare a direcției pe traseu.</string>
 	<string name="whatsnew_driving_style_title">Un nou stil de hartă pentru condus</string>
 	<string name="whatsnew_driving_style_message">Modul de navigare din mașină este acum mai ușor de utilizat.</string>
+	<string name="more_on_bookingcom">Mai multe pe Booking.com</string>
+	<string name="details_on_bookingcom">Detalii pe Booking.com</string>
+	<string name="reviews_on_bookingcom">Mai multe recenzii pe Booking.com</string>
+	<string name="offline_place_page_more_information">Conectați-vă la internet pentru a primi mai multe informații despre locație.</string>
+	<string name="failed_load_information">Încărcarea informațiilor a eșuat.</string>
 </resources>

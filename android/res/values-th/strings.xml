@@ -1067,4 +1067,9 @@
 	<string name="whatsnew_waypoints_message">แตะสถานที่เพื่อเพิ่มจุดกำหนดเข้าไปยังเส้นทางของคุณ</string>
 	<string name="whatsnew_driving_style_title">แผนที่รูปแบบใหม่สำหรับการขับขี่</string>
 	<string name="whatsnew_driving_style_message">โหมดการนำทางรถยนต์ใช้งานได้ง่ายยิ่งขึ้น</string>
+	<string name="more_on_bookingcom">เพิ่มเติมบน Booking.com</string>
+	<string name="details_on_bookingcom">รายละเอียดบน Booking.com</string>
+	<string name="reviews_on_bookingcom">รีวิวเพิ่มเติมบน Booking.com</string>
+	<string name="offline_place_page_more_information">เชื่อมต่ออินเทอร์เน็ตเพื่อรับข้อมูลเพิ่มเติมเกี่ยวกับสถานที่</string>
+	<string name="failed_load_information">ไม่สามารถโหลดข้อมูลได้</string>
 </resources>

@@ -1077,4 +1077,9 @@
 	<string name="whatsnew_waypoints_message">Tippen Sie auf Orte, um Wegpunkte zu Ihrer Route hinzuzufügen.</string>
 	<string name="whatsnew_driving_style_title">Neuer Kartenstil zum Fahren</string>
 	<string name="whatsnew_driving_style_message">Der Modus Autonavigation ist jetzt einfacher zu nutzen.</string>
+	<string name="more_on_bookingcom">Mehr bei Booking.com</string>
+	<string name="details_on_bookingcom">Einzelheiten bei Booking.com</string>
+	<string name="reviews_on_bookingcom">Weitere Bewertungen bei Booking.com</string>
+	<string name="offline_place_page_more_information">Stellen Sie eine Verbindung zum Internet her, um weitere Informationen über den Ort zu erhalten.</string>
+	<string name="failed_load_information">Informationen konnten nicht geladen werden.</string>
 </resources>

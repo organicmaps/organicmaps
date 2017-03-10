@@ -1065,4 +1065,9 @@
 	<string name="whatsnew_waypoints_message">Tryck på platser för att lägga till vägpunkter till din rutt.</string>
 	<string name="whatsnew_driving_style_title">En ny kartstil när du kör</string>
 	<string name="whatsnew_driving_style_message">Bilens navigeringsläge är lättare att använda.</string>
+	<string name="more_on_bookingcom">Mer på Booking.com</string>
+	<string name="details_on_bookingcom">Information på Booking.com</string>
+	<string name="reviews_on_bookingcom">Fler omdömen på Booking.com\u0020</string>
+	<string name="offline_place_page_more_information">Anslut till internet för att hämta mer information om platsen.</string>
+	<string name="failed_load_information">Det gick inte att ladda informationen.</string>
 </resources>

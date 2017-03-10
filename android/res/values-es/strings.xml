@@ -1054,4 +1054,9 @@
 	<string name="whatsnew_waypoints_message">Pulse sobre los lugares para añadir puntos de referencia a su ruta.</string>
 	<string name="whatsnew_driving_style_title">Nuevo estilo de mapa para la conducción</string>
 	<string name="whatsnew_driving_style_message">Modo de navegación más fácil de usar.</string>
+	<string name="more_on_bookingcom">Más información en Booking.com</string>
+	<string name="details_on_bookingcom">Detalles en Booking.com</string>
+	<string name="reviews_on_bookingcom">Más valoraciones en Booking.com</string>
+	<string name="offline_place_page_more_information">Conéctese a internet para obtener más información sobre este lugar.</string>
+	<string name="failed_load_information">No se ha podido cargar la información.</string>
 </resources>

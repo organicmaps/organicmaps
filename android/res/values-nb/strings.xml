@@ -1059,4 +1059,9 @@
 	<string name="whatsnew_waypoints_message">Trykk på steder for å legge til rutepunkter.</string>
 	<string name="whatsnew_driving_style_title">Ny kartstil for bruk under kjøring</string>
 	<string name="whatsnew_driving_style_message">Modusen for bilnavigering er blitt enklere å bruke.</string>
+	<string name="more_on_bookingcom">Mer på Booking.com</string>
+	<string name="details_on_bookingcom">Mer informasjon om Booking.com</string>
+	<string name="reviews_on_bookingcom">Flere anmeldelser på Booking.com</string>
+	<string name="offline_place_page_more_information">Koble til internett for å få mer informasjon om stedet.</string>
+	<string name="failed_load_information">Kunne ikke laste inn informasjon.</string>
 </resources>
