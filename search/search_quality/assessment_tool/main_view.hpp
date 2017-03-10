@@ -26,7 +26,7 @@ class MainView : public QMainWindow, public View
   Q_OBJECT
 
 public:
-  MainView(Framework & framework);
+  explicit MainView(Framework & framework);
 
   // View overrides:
   void SetSamples(std::vector<search::Sample> const & samples) override;

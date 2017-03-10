@@ -20,10 +20,8 @@ void MainModel::Open(std::string const & path)
     return;
   }
 
-  std::string contents;
-  std::copy(std::istreambuf_iterator<char>(ifs), std::istreambuf_iterator<char>(),
-            back_inserter(contents));
-
+  std::string const contents((std::istreambuf_iterator<char>(ifs)),
+                             (std::istreambuf_iterator<char>()));
   std::vector<search::Sample> samples;
   if (!search::Sample::DeserializeFromJSON(contents, samples))
   {

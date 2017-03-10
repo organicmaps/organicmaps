@@ -30,10 +30,10 @@ MainView::MainView(Framework & framework) : m_framework(framework)
 void MainView::SetSamples(std::vector<search::Sample> const & samples)
 {
   m_samplesModel->removeRows(0, m_samplesModel->rowCount());
-  for (size_t i = 0; i < samples.size(); ++i)
+  for (auto const & sample : samples)
   {
     m_samplesModel->appendRow(
-        new QStandardItem(QString::fromUtf8(strings::ToUtf8(samples[i].m_query).c_str())));
+        new QStandardItem(QString::fromUtf8(strings::ToUtf8(sample.m_query).c_str())));
   }
 }
 
