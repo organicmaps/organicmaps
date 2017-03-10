@@ -1060,4 +1060,9 @@
 	<string name="whatsnew_waypoints_message">Ketuk tempat untuk menambahkan titik acuan koordinat ke rute Anda.</string>
 	<string name="whatsnew_driving_style_title">Model Peta Baru untuk Berkendara</string>
 	<string name="whatsnew_driving_style_message">Mode navigasi mobil menjadi semakin mudah digunakan.</string>
+	<string name="more_on_bookingcom">Selengkapnya di Booking.com</string>
+	<string name="details_on_bookingcom">Perincian di Booking.com</string>
+	<string name="reviews_on_bookingcom">Ulasan lain di Booking.com</string>
+	<string name="offline_place_page_more_information">Sambungkan ke internet untuk mendapatkan informasi selengkapnya tentang tempat ini.</string>
+	<string name="failed_load_information">Gagal memuat informasi.</string>
 </resources>

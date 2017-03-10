@@ -1061,4 +1061,9 @@
 	<string name="whatsnew_waypoints_message">Érintsen meg helyeket iránypontok hozzáadásához az útvonatervhez.</string>
 	<string name="whatsnew_driving_style_title">Új térképstílus vezetéshez</string>
 	<string name="whatsnew_driving_style_message">Az autós navigáció üzemmód használata egyszerűbb lett.</string>
+	<string name="more_on_bookingcom">Továbbiak a Booking.com-on</string>
+	<string name="details_on_bookingcom">Részletek a Booking.com-on</string>
+	<string name="reviews_on_bookingcom">További vélemények a Booking.com-on</string>
+	<string name="offline_place_page_more_information">A helyszínről további tájékoztatást kaphat, ha csatlakozik az internethez.</string>
+	<string name="failed_load_information">Nem sikerült betölteni az adatokat.</string>
 </resources>

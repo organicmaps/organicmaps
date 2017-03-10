@@ -1061,4 +1061,9 @@
 	<string name="whatsnew_waypoints_message">Chạm vào các điểm để thêm điểm tọa độ vào lộ trình của bạn.</string>
 	<string name="whatsnew_driving_style_title">Phong cách Bản đồ Mới cho Lái xe</string>
 	<string name="whatsnew_driving_style_message">Chế độ điều hướng ô tô dễ sử dụng hơn.</string>
+	<string name="more_on_bookingcom">Xem thêm trên Booking.com</string>
+	<string name="details_on_bookingcom">Chi tiết trên Booking.com</string>
+	<string name="reviews_on_bookingcom">Xem thêm đánh giá trên Booking.com</string>
+	<string name="offline_place_page_more_information">Kết nối đến Internet để xem thêm thông tin về địa điểm này.</string>
+	<string name="failed_load_information">Không thể tải thông tin.</string>
 </resources>

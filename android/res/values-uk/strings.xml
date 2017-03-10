@@ -1065,4 +1065,9 @@
 	<string name="whatsnew_waypoints_message">Додавання точок до маршруту одним дотиком.</string>
 	<string name="whatsnew_driving_style_title">Новий дизайн карт для водіїв</string>
 	<string name="whatsnew_driving_style_message">Режим навігації став ще простішим.</string>
+	<string name="more_on_bookingcom">Більше на Booking.com</string>
+	<string name="details_on_bookingcom">Докладніше на Booking.com</string>
+	<string name="reviews_on_bookingcom">Більше відгуків на Booking.com</string>
+	<string name="offline_place_page_more_information">Підключіться до мережі Інтернет, щоб отримати більше інформації про місце.</string>
+	<string name="failed_load_information">Не вдалося завантажити інформацію.</string>
 </resources>

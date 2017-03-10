@@ -827,4 +827,9 @@
 	<string name="whatsnew_waypoints_message">Πατήστε στα μέρη για να προσθέσετε ενδιάμεσα σημεία στη διαδρομή σας.</string>
 	<string name="whatsnew_driving_style_title">Νέο στυλ χάρτη για την οδήγηση</string>
 	<string name="whatsnew_driving_style_message">Ευκολότερη λειτουργία πλοήγησης αυτοκινήτου.</string>
+	<string name="more_on_bookingcom">Περισσότερα στο Booking.com</string>
+	<string name="details_on_bookingcom">Λεπτομέρειες στο Booking.com</string>
+	<string name="reviews_on_bookingcom">Περισσότερες κριτικές στο Booking.com</string>
+	<string name="offline_place_page_more_information">Συνδεθείτε στο Internet για να λάβετε περισσότερες πληροφορίες για αυτό το μέρος.</string>
+	<string name="failed_load_information">Η φόρτωση πληροφοριών απέτυχε.</string>
 </resources>

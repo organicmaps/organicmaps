@@ -1068,4 +1068,9 @@
 	<string name="whatsnew_waypoints_message">Klepněte na místo a přidejte bod průjezdu.</string>
 	<string name="whatsnew_driving_style_title">Nový styl mapy pro vozidla</string>
 	<string name="whatsnew_driving_style_message">Navigační režim pro auto ještě snadnější.</string>
+	<string name="more_on_bookingcom">Více na Booking.com</string>
+	<string name="details_on_bookingcom">Podrobnosti na Booking.com</string>
+	<string name="reviews_on_bookingcom">Více recenzí na Booking.com</string>
+	<string name="offline_place_page_more_information">Připojte se k Internetu a získejte více informací o tomto místě.</string>
+	<string name="failed_load_information">Nepodařilo se načíst informace.</string>
 </resources>

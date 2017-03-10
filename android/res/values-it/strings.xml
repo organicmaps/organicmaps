@@ -1060,4 +1060,9 @@
 	<string name="whatsnew_waypoints_message">Tocca i luoghi e aggiungi waypoint al tuo percorso.</string>
 	<string name="whatsnew_driving_style_title">Nuovo stile di mappa per la guida</string>
 	<string name="whatsnew_driving_style_message">Modalità di navigazione in auto più semplice da usare.</string>
+	<string name="more_on_bookingcom">Altro su Booking.com</string>
+	<string name="details_on_bookingcom">Dettagli su Booking.com</string>
+	<string name="reviews_on_bookingcom">Altre recensioni su Booking.com</string>
+	<string name="offline_place_page_more_information">Connettiti a Internet per ottenere maggiori informazioni sul luogo.</string>
+	<string name="failed_load_information">Impossibile caricare le informazioni.</string>
 </resources>

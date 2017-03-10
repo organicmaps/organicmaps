@@ -1067,4 +1067,9 @@
 	<string name="whatsnew_waypoints_message">المس الأماكن لإضافة نقاط طريق إلى المسار.</string>
 	<string name="whatsnew_driving_style_title">نمط خريطة جديد للقيادة</string>
 	<string name="whatsnew_driving_style_message">وضع التنقل بالسيارة أصبح سهل الاستخدام.</string>
+	<string name="more_on_bookingcom">المزيد عن Booking.com</string>
+	<string name="details_on_bookingcom">تفاصيل حول Booking.com</string>
+	<string name="reviews_on_bookingcom">المزيد من المراجعات عن Booking.com</string>
+	<string name="offline_place_page_more_information">اتصل بالإنترنت للحصول على مزيد من التفاصيل حول المكان.</string>
+	<string name="failed_load_information">فشل تحميل المعلومات.</string>
 </resources>

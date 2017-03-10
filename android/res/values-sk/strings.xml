@@ -1064,4 +1064,9 @@
 	<string name="whatsnew_waypoints_message">Ťuknite na miesta, ak chcete do trasy pridať body.</string>
 	<string name="whatsnew_driving_style_title">Nový štýl máp pre jazdu</string>
 	<string name="whatsnew_driving_style_message">Režim navigácie v aute sa zjednodušil.</string>
+	<string name="more_on_bookingcom">Viac na Booking.com</string>
+	<string name="details_on_bookingcom">Podrobnosti na Booking.com</string>
+	<string name="reviews_on_bookingcom">Viac recenzií na Booking.com</string>
+	<string name="offline_place_page_more_information">Viac informácií o mieste získate po pripojení na internet.</string>
+	<string name="failed_load_information">Nepodarilo sa načítať informácie.</string>
 </resources>

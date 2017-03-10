@@ -1057,4 +1057,9 @@
 	<string name="whatsnew_waypoints_message">경로에 중간 지점을 추가할 위치를 탭하세요.</string>
 	<string name="whatsnew_driving_style_title">운전을 위한 새로운 지도 스타일</string>
 	<string name="whatsnew_driving_style_message">자동차 네비게이션 모드 사용이 더욱 쉬워졌습니다.</string>
+	<string name="more_on_bookingcom">Booking.com의 추가 정보</string>
+	<string name="details_on_bookingcom">Booking.com의 세부 정보</string>
+	<string name="reviews_on_bookingcom">Booking.com의 추가 리뷰</string>
+	<string name="offline_place_page_more_information">인터넷에 연결하여 그곳에 대한 자세한 정보를 얻으세요.</string>
+	<string name="failed_load_information">정보를 로드하지 못했습니다.</string>
 </resources>

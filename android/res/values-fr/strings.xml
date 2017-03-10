@@ -1076,4 +1076,9 @@
 	<string name="whatsnew_waypoints_message">Appuyez sur les lieux pour ajouter des points de repère à votre itinéraire.</string>
 	<string name="whatsnew_driving_style_title">Nouveau style de carte pour la conduite</string>
 	<string name="whatsnew_driving_style_message">Mode de navigation en voiture plus facile à utiliser.</string>
+	<string name="more_on_bookingcom">Plus d\&#39;infos sur Booking.com</string>
+	<string name="details_on_bookingcom">Détails sur Booking.com</string>
+	<string name="reviews_on_bookingcom">Plus d\&#39;avis sur Booking.com</string>
+	<string name="offline_place_page_more_information">Connectez-vous à Internet pour obtenir plus d’informations sur ce lieu.</string>
+	<string name="failed_load_information">Impossible de charger les informations.</string>
 </resources>

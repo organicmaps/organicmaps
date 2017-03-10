@@ -1066,4 +1066,9 @@
 	<string name="whatsnew_waypoints_message">Naciśnij punkt nawigacyjny, aby dodać go do trasy.</string>
 	<string name="whatsnew_driving_style_title">Nowy styl mapy dla jazdy</string>
 	<string name="whatsnew_driving_style_message">Uproszczono tryb nawigacji pojazdu.</string>
+	<string name="more_on_bookingcom">Więcej na Booking.com</string>
+	<string name="details_on_bookingcom">Szczegóły na Booking.com</string>
+	<string name="reviews_on_bookingcom">Więcej opinii na Booking.com</string>
+	<string name="offline_place_page_more_information">Połącz się z Internetem, aby uzyskać więcej informacji na temat miejsca.</string>
+	<string name="failed_load_information">Nie można załadować informacji.</string>
 </resources>

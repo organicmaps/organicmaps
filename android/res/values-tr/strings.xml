@@ -1067,4 +1067,9 @@
 	<string name="whatsnew_waypoints_message">Güzergâhınıza yol noktası olarak eklemek istediğiniz yerlere dokunun.</string>
 	<string name="whatsnew_driving_style_title">Sürüş İçin Yeni Harita Stili</string>
 	<string name="whatsnew_driving_style_message">Araç navigasyon modunu kullanmak şimdi çok daha kolay.</string>
+	<string name="more_on_bookingcom">Booking.com hakkında daha fazla</string>
+	<string name="details_on_bookingcom">Booking.com hakkında detaylar</string>
+	<string name="reviews_on_bookingcom">Booking.com hakkında daha fazla değerlendirme</string>
+	<string name="offline_place_page_more_information">Yerle ilgili daha fazla bilgi almak için internete bağlanın.</string>
+	<string name="failed_load_information">Bilgiler yüklenemedi.</string>
 </resources>

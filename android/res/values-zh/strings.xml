@@ -1067,4 +1067,9 @@
 	<string name="whatsnew_waypoints_message">点按地点即可向您的路线添加路径点。</string>
 	<string name="whatsnew_driving_style_title">新的驾驶地图样式</string>
 	<string name="whatsnew_driving_style_message">汽车导航模式更加易用。</string>
+	<string name="more_on_bookingcom">Booking.com 上的更多信息</string>
+	<string name="details_on_bookingcom">Booking.com 上的详细信息</string>
+	<string name="reviews_on_bookingcom">Booking.com 上的更多评价</string>
+	<string name="offline_place_page_more_information">连接到互联网来获取关于地点的更多信息。</string>
+	<string name="failed_load_information">无法加载信息。</string>
 </resources>
