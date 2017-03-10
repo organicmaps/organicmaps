@@ -51,12 +51,20 @@
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold12"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                        </userDefinedRuntimeAttributes>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="551" verticalHuggingPriority="249" horizontalCompressionResistancePriority="249" text="Как превратить обычный день в праздник? Просто сделай заказ через Delivery Club!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ev3-yY-ql1">
                         <rect key="frame" x="16" y="27" width="258.5" height="74.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular12"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                        </userDefinedRuntimeAttributes>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="551" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9qA-JC-fkn">
                         <rect key="frame" x="290" y="18" width="69" height="24"/>
@@ -70,6 +78,19 @@
                         <state key="normal" title="Заказать">
                             <color key="titleColor" red="0.59999999999999998" green="0.58823529411764708" blue="0.56862745098039214" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
                         </state>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular12"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="blackSecondaryText"/>
+                            <userDefinedRuntimeAttribute type="color" keyPath="layer.borderUIColor">
+                                <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                <integer key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="4"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NKM-3R-3g1">
                         <rect key="frame" x="0.0" y="109.5" width="375" height="36"/>
@@ -80,6 +101,11 @@
                         <state key="normal" title="Заказать">
                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
                         </state>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular15"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="bannerButtonBackground"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="blackSecondaryText"/>
+                        </userDefinedRuntimeAttributes>
                     </button>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -107,6 +133,9 @@
                     <constraint firstItem="zWu-Gh-Vf7" firstAttribute="leading" secondItem="f76-qn-ne4" secondAttribute="leading" priority="600" constant="16" id="vlX-zx-nfP"/>
                     <constraint firstItem="zWu-Gh-Vf7" firstAttribute="leading" secondItem="EuF-Rm-DHQ" secondAttribute="trailing" priority="250" constant="8" id="w5K-BT-1ED"/>
                 </constraints>
+                <userDefinedRuntimeAttributes>
+                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="bannerBackground"/>
+                </userDefinedRuntimeAttributes>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>

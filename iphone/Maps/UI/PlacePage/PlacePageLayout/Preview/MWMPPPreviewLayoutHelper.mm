@@ -134,6 +134,9 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
 @property(weak, nonatomic) NSLayoutConstraint * distanceCellTrailing;
 @property(weak, nonatomic) UIView * distanceView;
 
+@property(weak, nonatomic) MWMPlacePageData * data;
+@property(weak, nonatomic) id<MWMPPPreviewLayoutHelperDelegate> delegate;
+
 @property(nonatomic) CGFloat leading;
 @property(nonatomic) MWMDirectionView * directionView;
 @property(copy, nonatomic) NSString * distance;
@@ -168,9 +171,10 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
 
 - (void)configWithData:(MWMPlacePageData *)data
 {
+  self.data = data;
   auto const & previewRows = data.previewRows;
   using place_page::PreviewRows;
-  self.lastCellIsBanner = previewRows.back() == PreviewRows::Banner;
+  self.lastCellIsBanner = NO;
   self.lastCellIndexPath = [NSIndexPath indexPathForRow:previewRows.size() - 1 inSection:0];
   auto it = find(previewRows.begin(), previewRows.end(), PreviewRows::Space);
   if (it != previewRows.end())
@@ -230,21 +234,8 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
   case PreviewRows::Space:
     return c;
   case PreviewRows::Banner:
-    auto banner = [data banner];
-    NSString * bannerId = @(banner.m_bannerId.c_str());
-    [Statistics logEvent:kStatPlacePageBannerShow
-          withParameters:@{
-            kStatTags : data.statisticsTags,
-            kStatBanner : bannerId,
-            kStatState : IPAD ? @1 : @0
-          }];
     auto bannerCell = static_cast<MWMFBAdsBanner *>(c);
-    using namespace banners;
-    switch (banner.m_type)
-    {
-    case Banner::Type::None: NSAssert(false, @"Invalid banner type"); break;
-    case Banner::Type::Facebook: [bannerCell configWithPlacementID:bannerId]; break;
-    }
+    [bannerCell configWithAd:data.nativeAd];
     self.cachedBannerCell = bannerCell;
     return bannerCell;
   }
@@ -302,14 +293,39 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
   self.directionView.distanceLabel.text = distance;
 }
 
+- (void)insertRowAtTheEnd
+{
+  auto const & previewRows = self.data.previewRows;
+  auto const size = previewRows.size();
+  self.lastCellIsBanner = previewRows.back() == place_page::PreviewRows::Banner;
+  self.lastCellIndexPath =
+      [NSIndexPath indexPathForRow:size - 1
+                         inSection:static_cast<NSUInteger>(place_page::Sections::Preview)];
+  [self.tableView insertRowsAtIndexPaths:@[ self.lastCellIndexPath ]
+                        withRowAnimation:UITableViewRowAnimationLeft];
+  [self.delegate heightWasChanged];
+}
+
 - (CGFloat)height
 {
   auto const rect = [self.tableView rectForRowAtIndexPath:self.lastCellIndexPath];
-  return rect.origin.y + rect.size.height + (self.lastCellIsBanner ? 4 : 0);
+  auto const height = rect.origin.y + rect.size.height;
+  if (!self.lastCellIndexPath)
+    return height;
+
+  auto constexpr gapBannerHeight = 4.0;
+  CGFloat const excessHeight = self.cachedBannerCell.state == MWMFBAdsBannerStateDetailed
+                                   ? [MWMFBAdsBanner detailedBannerExcessHeight]
+                                   : 0;
+
+  return height + gapBannerHeight - excessHeight;
 }
 
 - (void)layoutInOpenState:(BOOL)isOpen
 {
+  if (IPAD)
+    return;
+
   [self.tableView update:^{
     self.cachedBannerCell.state = isOpen ? MWMFBAdsBannerStateDetailed : MWMFBAdsBannerStateCompact;
   }];

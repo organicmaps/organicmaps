@@ -118,12 +118,14 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 {
   self.isPlacePageButtonsEnabled = YES;
   self.data = data;
-  data.sectionsReadyCallback = ^(NSRange const & range)
-  {
+  data.sectionsAreReadyCallback = ^(NSRange const & range) {
     [self.placePageView.tableView insertSections:[NSIndexSet indexSetWithIndexesInRange:range]
                                 withRowAnimation:UITableViewRowAnimationAutomatic];
   };
-  
+
+  data.bannerIsReadyCallback = ^{
+    [self.previewLayoutHelper insertRowAtTheEnd];
+  };
   self.bookmarkCell = nil;
 
   [self.actionBar configureWithData:static_cast<id<MWMActionBarSharedData>>(data)];

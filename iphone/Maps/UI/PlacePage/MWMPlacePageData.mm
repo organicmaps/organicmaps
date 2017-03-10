@@ -2,7 +2,10 @@
 #import "AppInfo.h"
 #import "MWMNetworkPolicy.h"
 #import "MWMSettings.h"
+#import "Statistics.h"
 #import "SwiftBridge.h"
+
+#import <FBAudienceNetwork/FBAudienceNetwork.h>
 
 #include "Framework.h"
 
@@ -20,9 +23,10 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 
 using namespace place_page;
 
-@interface MWMPlacePageData()
+@interface MWMPlacePageData ()<FBNativeAdDelegate>
 
 @property(copy, nonatomic) NSString * cachedMinPrice;
+@property(nonatomic) FBNativeAd * nativeAd;
 
 @end
 
@@ -97,7 +101,13 @@ using namespace place_page;
   NSAssert(!m_previewRows.empty(), @"Preview row's can't be empty!");
   m_previewRows.push_back(PreviewRows::Space);
   if (network_policy::CanUseNetwork() && ![MWMSettings adForbidden] && m_info.HasBanner())
-    m_previewRows.push_back(PreviewRows::Banner);
+  {
+    self.nativeAd =
+        [[FBNativeAd alloc] initWithPlacementID:@(m_info.GetBanner().m_bannerId.c_str())];
+    self.nativeAd.delegate = self;
+    self.nativeAd.mediaCachePolicy = FBNativeAdsCachePolicyAll;
+    [self.nativeAd loadAd];
+  }
 }
 
 - (void)fillMetaInfoSection
@@ -237,8 +247,8 @@ using namespace place_page;
             reviewsRows.emplace_back(HotelReviewsRow::ShowMore);
             length++;
           }
-          
-          self.sectionsReadyCallback({position, length});
+
+          self.sectionsAreReadyCallback({position, length});
         });
       });
     }
@@ -407,10 +417,6 @@ using namespace place_page;
   return res;
 }
 
-#pragma mark - Banner
-
-- (banners::Banner)banner { return m_info.GetBanner(); }
-
 #pragma mark - Bookmark
 
 - (NSString *)externalTitle
@@ -508,6 +514,36 @@ using namespace place_page;
   for (auto const & s : m_info.GetRawTypes())
     [result addObject:@(s.c_str())];
   return [result componentsJoinedByString:@", "];
+}
+
+#pragma mark - FBNativeAdDelegate
+
+- (void)nativeAdDidLoad:(FBNativeAd *)nativeAd
+{
+  if (![nativeAd isEqual:self.nativeAd])
+    return;
+
+  [Statistics logEvent:kStatPlacePageBannerShow
+        withParameters:@{
+          kStatTags : self.statisticsTags,
+          kStatBanner : @(m_info.GetBanner().m_bannerId.c_str()),
+          kStatProvider : kStatFacebook
+        }];
+
+  dispatch_async(dispatch_get_main_queue(), ^{
+    self->m_previewRows.push_back(PreviewRows::Banner);
+    self.bannerIsReadyCallback();
+  });
+}
+
+- (void)nativeAd:(FBNativeAd *)nativeAd didFailWithError:(NSError *)error
+{
+  [Statistics logEvent:kStatPlacePageBannerError
+        withParameters:@{
+          kStatTags : self.statisticsTags,
+          kStatBanner : @(m_info.GetBanner().m_bannerId.c_str()),
+          kStatProvider : kStatFacebook
+        }];
 }
 
 @end

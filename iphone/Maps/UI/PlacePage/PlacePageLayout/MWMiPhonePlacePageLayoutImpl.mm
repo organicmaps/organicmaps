@@ -23,7 +23,8 @@ CGFloat const kLuftDraggingOffset = 30;
 CGFloat const kMinOffset = 1;
 }  // namespace
 
-@interface MWMiPhonePlacePageLayoutImpl () <UIScrollViewDelegate, UITableViewDelegate>
+@interface MWMiPhonePlacePageLayoutImpl ()<UIScrollViewDelegate, UITableViewDelegate,
+                                           MWMPPPreviewLayoutHelperDelegate>
 
 @property(nonatomic) MWMPPScrollView * scrollView;
 @property(nonatomic) ScrollDirection direction;
@@ -116,6 +117,29 @@ CGFloat const kMinOffset = 1;
 {
   auto const & size = self.ownerView.size;
   self.scrollView.contentSize = {size.width, size.height + self.placePageView.height};
+}
+
+- (void)setPreviewLayoutHelper:(MWMPPPreviewLayoutHelper *)previewLayoutHelper
+{
+  previewLayoutHelper.delegate = self;
+  _previewLayoutHelper = previewLayoutHelper;
+}
+
+#pragma mark - MWMPPPreviewLayoutHelperDelegate
+
+- (void)heightWasChanged
+{
+  auto scrollView = self.scrollView;
+  scrollView.scrollEnabled = NO;
+  dispatch_async(dispatch_get_main_queue(), ^{
+    auto actionBar = self.actionBar;
+    actionBar.maxY = actionBar.superview.height;
+    self.expandedContentOffset =
+        self.previewLayoutHelper.height + actionBar.height - self.placePageView.top.height;
+    if (self.state == State::Bottom)
+      [scrollView setContentOffset:{ 0, self.expandedContentOffset } animated:YES];
+    scrollView.scrollEnabled = YES;
+  });
 }
 
 #pragma mark - UIScrollViewDelegate

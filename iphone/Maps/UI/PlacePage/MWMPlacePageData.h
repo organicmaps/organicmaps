@@ -88,17 +88,20 @@ enum class OpeningHours
   Unknown
 };
 
-using NewSectionsReady = void(^)(NSRange const & range);
+using NewSectionsAreReady = void (^)(NSRange const & range);
+using BannerIsReady = void (^)();
 
 }  // namespace place_page
 
 
 @class MWMGalleryItemModel;
+@class FBNativeAd;
 
 /// ViewModel for place page.
 @interface MWMPlacePageData : NSObject
 
-@property (copy, nonatomic) place_page::NewSectionsReady sectionsReadyCallback;
+@property(copy, nonatomic) place_page::NewSectionsAreReady sectionsAreReadyCallback;
+@property(copy, nonatomic) place_page::BannerIsReady bannerIsReadyCallback;
 
 // ready callback will be called from main queue.
 - (instancetype)initWithPlacePageInfo:(place_page::Info const &)info;
@@ -131,7 +134,7 @@ using NewSectionsReady = void(^)(NSRange const & range);
 - (NSArray<MWMGalleryItemModel *> *)photos;
 
 // Banner
-- (banners::Banner)banner;
+- (FBNativeAd *)nativeAd;
 
 // API
 - (NSString *)apiURL;

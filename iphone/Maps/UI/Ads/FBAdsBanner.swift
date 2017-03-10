@@ -19,70 +19,37 @@ enum FBAdsBannerState: Int {
 @objc(MWMFBAdsBanner)
 final class FBAdsBanner: UITableViewCell {
   @IBOutlet private var detailedModeConstraints: [NSLayoutConstraint]!
-  @IBOutlet fileprivate weak var adIconImageView: UIImageView!
-  @IBOutlet fileprivate weak var adTitleLabel: UILabel!
-  @IBOutlet fileprivate weak var adBodyLabel: UILabel!
-  @IBOutlet fileprivate var adCallToActionButtonCompact: UIButton!
-  @IBOutlet fileprivate var adCallToActionButtonDetailed: UIButton!
+  @IBOutlet private weak var adIconImageView: UIImageView!
+  @IBOutlet private weak var adTitleLabel: UILabel!
+  @IBOutlet private weak var adBodyLabel: UILabel!
+  @IBOutlet private var adCallToActionButtonCompact: UIButton!
+  @IBOutlet private var adCallToActionButtonDetailed: UIButton!
+  static let detailedBannerExcessHeight: Float = 36
 
-  var state = FBAdsBannerState.compact {
+  var state = alternative(iPhone: FBAdsBannerState.compact, iPad: FBAdsBannerState.detailed) {
     didSet {
       let config = state.config()
-      layoutIfNeeded()
       adBodyLabel.numberOfLines = config.numberOfLines
       detailedModeConstraints.forEach { $0.priority = config.priority }
+      setNeedsLayout()
       UIView.animate(withDuration: kDefaultAnimationDuration) { self.layoutIfNeeded() }
     }
   }
 
-  fileprivate var nativeAd: FBNativeAd?
+  private var nativeAd: FBNativeAd?
 
-  func config(placementID: String) {
-    style()
-    contentView.alpha = 0
-    state = .compact
-    let nativeAd = FBNativeAd(placementID: placementID)
-    nativeAd.delegate = self
-    nativeAd.mediaCachePolicy = .all
-    nativeAd.load()
-  }
-
-  private func style() {
-    adTitleLabel.font = UIFont.bold12()
-    adBodyLabel.font = UIFont.regular12()
-    adCallToActionButtonCompact.titleLabel?.font = UIFont.regular12()
-    adCallToActionButtonDetailed.titleLabel?.font = UIFont.regular15()
-
-    backgroundColor = UIColor.bannerBackground()
-    let color = UIColor.blackSecondaryText()!
-    adTitleLabel.textColor = color
-    adBodyLabel.textColor = color
-    adCallToActionButtonCompact.setTitleColor(color, for: .normal)
-    adCallToActionButtonDetailed.setTitleColor(color, for: .normal)
-    adCallToActionButtonDetailed.backgroundColor = UIColor.bannerButtonBackground()
-
-    let layer = adCallToActionButtonCompact.layer
-    layer.borderColor = color.cgColor
-    layer.borderWidth = 1
-    layer.cornerRadius = 4
-  }
-}
-
-extension FBAdsBanner: FBNativeAdDelegate {
-  func nativeAdDidLoad(_ nativeAd: FBNativeAd) {
-    if let sNativeAd = self.nativeAd {
-      sNativeAd.unregisterView()
-    }
-    self.nativeAd = nativeAd
+  func config(ad: FBNativeAd) {
+    nativeAd = ad
+    ad.unregisterView()
     let adCallToActionButtons = [adCallToActionButtonCompact!, adCallToActionButtonDetailed!]
-    nativeAd.registerView(forInteraction: self, with: nil, withClickableViews: adCallToActionButtons)
+    ad.registerView(forInteraction: self, with: nil, withClickableViews: adCallToActionButtons)
 
-    nativeAd.icon?.loadAsync { [weak self] image in
+    ad.icon?.loadAsync { [weak self] image in
       self?.adIconImageView.image = image
     }
-    adTitleLabel.text = nativeAd.title
-    adBodyLabel.text = nativeAd.body
-    adCallToActionButtons.forEach { $0.setTitle(nativeAd.callToAction, for: .normal) }
-    UIView.animate(withDuration: kDefaultAnimationDuration) { self.contentView.alpha = 1 }
+
+    adTitleLabel.text = ad.title
+    adBodyLabel.text = ad.body
+    adCallToActionButtons.forEach { $0.setTitle(ad.callToAction, for: .normal) }
   }
 }
