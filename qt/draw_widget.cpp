@@ -43,7 +43,7 @@ DrawWidget::DrawWidget(Framework & framework, QWidget * parent)
 {
   m_framework.SetMapSelectionListeners(
       [this](place_page::Info const & info) { ShowPlacePage(info); },
-      [](bool /*switchFullScreenMode*/) {});  // Empty deactivation listener.
+      [](bool /* switchFullScreenMode */) {});  // Empty deactivation listener.
 
   m_framework.SetRouteBuildingListener(
       [](routing::IRouter::ResultCode, storage::TCountriesVec const &) {});
@@ -126,14 +126,16 @@ void DrawWidget::ShowAll()
 
 void DrawWidget::ChoosePositionModeEnable()
 {
-  m_framework.BlockTapEvents(true);
-  m_framework.EnableChoosePositionMode(true, false, false, m2::PointD());
+  m_framework.BlockTapEvents(true /* block */);
+  m_framework.EnableChoosePositionMode(true /* enable */, false /* enableBounds */,
+                                       false /* applyPosition */, m2::PointD() /* position */);
 }
 
 void DrawWidget::ChoosePositionModeDisable()
 {
-  m_framework.EnableChoosePositionMode(false, false, false, m2::PointD());
-  m_framework.BlockTapEvents(false);
+  m_framework.EnableChoosePositionMode(false /* enable */, false /* enableBounds */,
+                                       false /* applyPosition */, m2::PointD() /* position */);
+  m_framework.BlockTapEvents(false /* block */);
 }
 
 void DrawWidget::initializeGL()

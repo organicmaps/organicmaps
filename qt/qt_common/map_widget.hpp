@@ -80,7 +80,7 @@ protected:
   drape_ptr<QtOGLContextFactory> m_contextFactory;
   std::unique_ptr<gui::Skin> m_skin;
 
-  unique_ptr<QTimer> m_updateTimer;
+  std::unique_ptr<QTimer> m_updateTimer;
 };
 }  // namespace common
 }  // namespace qt
