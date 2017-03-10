@@ -33,15 +33,15 @@ UNIT_TEST(GetTextByIdRussianTest)
       "\
       {\
       \"in_800_meters\":\"Через восемьсот метров.\",\
-      \"make_a_slight_right_turn\":\"Плавный поворот направо.\",\
-      \"take_the_6_exit\":\"Шестой поворот с кольца.\",\
+      \"make_a_slight_right_turn\":\"Держитесь правее.\",\
+      \"take_the_6_exit\":\"Сверните на шестой съезд.\",\
       \"in_1_mile\":\"Через одну милю.\"\
       }";
 
   auto getRussian = platform::ForTestingGetTextByIdFactory(shortJson, "ru");
   TEST_EQUAL((*getRussian)("in_800_meters"), "Через восемьсот метров.", ());
-  TEST_EQUAL((*getRussian)("make_a_slight_right_turn"), "Плавный поворот направо.", ());
-  TEST_EQUAL((*getRussian)("take_the_6_exit"), "Шестой поворот с кольца.", ());
+  TEST_EQUAL((*getRussian)("make_a_slight_right_turn"), "Держитесь правее.", ());
+  TEST_EQUAL((*getRussian)("take_the_6_exit"), "Сверните на шестой съезд.", ());
   TEST_EQUAL((*getRussian)("in_1_mile"), "Через одну милю.", ());
 
   TEST_EQUAL((*getRussian)("some_nonexistent_key"), "", ());
