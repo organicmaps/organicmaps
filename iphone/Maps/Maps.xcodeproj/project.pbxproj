@@ -386,9 +386,9 @@
 		34D3B0231E389D05004100F9 /* MWMEditorAddAdditionalNameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34D3B0031E389D05004100F9 /* MWMEditorAddAdditionalNameTableViewCell.xib */; };
 		34D3B0241E389D05004100F9 /* MWMEditorAddAdditionalNameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34D3B0031E389D05004100F9 /* MWMEditorAddAdditionalNameTableViewCell.xib */; };
 		34D3B0251E389D05004100F9 /* MWMEditorAddAdditionalNameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34D3B0031E389D05004100F9 /* MWMEditorAddAdditionalNameTableViewCell.xib */; };
-		34D3B0261E389D05004100F9 /* MWMEditorAdditionalNamePlaceholderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34D3B0041E389D05004100F9 /* MWMEditorAdditionalNamePlaceholderTableViewCell.xib */; };
-		34D3B0271E389D05004100F9 /* MWMEditorAdditionalNamePlaceholderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34D3B0041E389D05004100F9 /* MWMEditorAdditionalNamePlaceholderTableViewCell.xib */; };
-		34D3B0281E389D05004100F9 /* MWMEditorAdditionalNamePlaceholderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34D3B0041E389D05004100F9 /* MWMEditorAdditionalNamePlaceholderTableViewCell.xib */; };
+		34D3B0261E389D05004100F9 /* EditorAdditionalNamePlaceholderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34D3B0041E389D05004100F9 /* EditorAdditionalNamePlaceholderTableViewCell.xib */; };
+		34D3B0271E389D05004100F9 /* EditorAdditionalNamePlaceholderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34D3B0041E389D05004100F9 /* EditorAdditionalNamePlaceholderTableViewCell.xib */; };
+		34D3B0281E389D05004100F9 /* EditorAdditionalNamePlaceholderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34D3B0041E389D05004100F9 /* EditorAdditionalNamePlaceholderTableViewCell.xib */; };
 		34D3B0291E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34D3B0061E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.mm */; };
 		34D3B02A1E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34D3B0061E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.mm */; };
 		34D3B02B1E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34D3B0061E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.mm */; };
@@ -1707,7 +1707,7 @@
 		34D3B0011E389D05004100F9 /* MWMEditorAddAdditionalNameTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMEditorAddAdditionalNameTableViewCell.h; sourceTree = "<group>"; };
 		34D3B0021E389D05004100F9 /* MWMEditorAddAdditionalNameTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMEditorAddAdditionalNameTableViewCell.mm; sourceTree = "<group>"; };
 		34D3B0031E389D05004100F9 /* MWMEditorAddAdditionalNameTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMEditorAddAdditionalNameTableViewCell.xib; sourceTree = "<group>"; };
-		34D3B0041E389D05004100F9 /* MWMEditorAdditionalNamePlaceholderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMEditorAdditionalNamePlaceholderTableViewCell.xib; sourceTree = "<group>"; };
+		34D3B0041E389D05004100F9 /* EditorAdditionalNamePlaceholderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditorAdditionalNamePlaceholderTableViewCell.xib; sourceTree = "<group>"; };
 		34D3B0051E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMEditorAdditionalNameTableViewCell.h; sourceTree = "<group>"; };
 		34D3B0061E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMEditorAdditionalNameTableViewCell.mm; sourceTree = "<group>"; };
 		34D3B0071E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMEditorAdditionalNameTableViewCell.xib; sourceTree = "<group>"; };
@@ -3073,13 +3073,13 @@
 			isa = PBXGroup;
 			children = (
 				34D3AFFD1E389D05004100F9 /* EditorAdditionalNamePlaceholderTableViewCell.swift */,
+				34D3B0041E389D05004100F9 /* EditorAdditionalNamePlaceholderTableViewCell.xib */,
 				34D3AFFE1E389D05004100F9 /* MWMButtonCell.h */,
 				34D3AFFF1E389D05004100F9 /* MWMButtonCell.mm */,
 				34D3B0001E389D05004100F9 /* MWMButtonCell.xib */,
 				34D3B0011E389D05004100F9 /* MWMEditorAddAdditionalNameTableViewCell.h */,
 				34D3B0021E389D05004100F9 /* MWMEditorAddAdditionalNameTableViewCell.mm */,
 				34D3B0031E389D05004100F9 /* MWMEditorAddAdditionalNameTableViewCell.xib */,
-				34D3B0041E389D05004100F9 /* MWMEditorAdditionalNamePlaceholderTableViewCell.xib */,
 				34D3B0051E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.h */,
 				34D3B0061E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.mm */,
 				34D3B0071E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.xib */,
@@ -4270,7 +4270,7 @@
 				F64F19A41AB81A00006EAF7E /* MWMDownloadTransitMapAlert.xib in Resources */,
 				F652B2EA1C6DE8E500D20C8C /* MWMDropDown.xib in Resources */,
 				34D3B0231E389D05004100F9 /* MWMEditorAddAdditionalNameTableViewCell.xib in Resources */,
-				34D3B0261E389D05004100F9 /* MWMEditorAdditionalNamePlaceholderTableViewCell.xib in Resources */,
+				34D3B0261E389D05004100F9 /* EditorAdditionalNamePlaceholderTableViewCell.xib in Resources */,
 				F6E2FDB81E097BA00083EBEC /* MWMEditorAdditionalNamesHeader.xib in Resources */,
 				34D3B02C1E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.xib in Resources */,
 				34D3B0321E389D05004100F9 /* MWMEditorCategoryCell.xib in Resources */,
@@ -4437,7 +4437,7 @@
 				6741A96C1BF340DE002C974C /* MWMDownloadTransitMapAlert.xib in Resources */,
 				F653CE0E1C6DEB2E00A453F1 /* MWMDropDown.xib in Resources */,
 				34D3B0241E389D05004100F9 /* MWMEditorAddAdditionalNameTableViewCell.xib in Resources */,
-				34D3B0271E389D05004100F9 /* MWMEditorAdditionalNamePlaceholderTableViewCell.xib in Resources */,
+				34D3B0271E389D05004100F9 /* EditorAdditionalNamePlaceholderTableViewCell.xib in Resources */,
 				F6E2FDB91E097BA00083EBEC /* MWMEditorAdditionalNamesHeader.xib in Resources */,
 				34D3B02D1E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.xib in Resources */,
 				34D3B0331E389D05004100F9 /* MWMEditorCategoryCell.xib in Resources */,
@@ -4604,7 +4604,7 @@
 				849CF62F1DE842290024A8A5 /* MWMDownloadTransitMapAlert.xib in Resources */,
 				849CF61B1DE842290024A8A5 /* MWMDropDown.xib in Resources */,
 				34D3B0251E389D05004100F9 /* MWMEditorAddAdditionalNameTableViewCell.xib in Resources */,
-				34D3B0281E389D05004100F9 /* MWMEditorAdditionalNamePlaceholderTableViewCell.xib in Resources */,
+				34D3B0281E389D05004100F9 /* EditorAdditionalNamePlaceholderTableViewCell.xib in Resources */,
 				F6E2FDBA1E097BA00083EBEC /* MWMEditorAdditionalNamesHeader.xib in Resources */,
 				34D3B02E1E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.xib in Resources */,
 				34D3B0341E389D05004100F9 /* MWMEditorCategoryCell.xib in Resources */,
