@@ -24,6 +24,31 @@
 
 #include "platform/measurement_utils.hpp"
 
+namespace
+{
+void logSponsoredEventEvent(MWMPlacePageData * data, NSString * eventName)
+{
+  auto const & latLon = data.latLon;
+  BOOL const isBooking = data.isBooking;
+
+  NSMutableDictionary * stat = [@{} mutableCopy];
+  if (isBooking)
+  {
+    stat[kStatProvider] = kStatBooking;
+    stat[kStatHotel] = data.sponsoredId;
+    stat[kStatHotelLocation] = makeLocationEventValue(latLon.lat, latLon.lon);
+  }
+  else
+  {
+    stat[kStatProvider] = kStatOpentable;
+    stat[kStatRestaurant] = data.sponsoredId;
+    stat[kStatRestaurantLocation] = makeLocationEventValue(latLon.lat, latLon.lon);
+  }
+
+  [Statistics logEvent:eventName withParameters:stat atLocation:[MWMLocationManager lastLocation]];
+}
+}  // namespace
+
 @interface MWMPlacePageManager ()<MWMFrameworkStorageObserver, MWMPlacePageLayoutDelegate,
                                   MWMPlacePageLayoutDataSource, MWMLocationObserver>
 
@@ -253,31 +278,12 @@
 - (void)editBookmark { [[MapViewController controller] openBookmarkEditorWithData:self.data]; }
 - (void)book:(BOOL)isDescription
 {
-  // TODO(Vlad): remove the same code from MWMPlacePageViewManager.mm
   MWMPlacePageData * data = self.data;
   BOOL const isBooking = data.isBooking;
-  auto const & latLon = data.latLon;
-  NSMutableDictionary * stat = [@{} mutableCopy];
-  if (isBooking)
-  {
-    stat[kStatProvider] = kStatBooking;
-    stat[kStatHotel] = data.sponsoredId;
-    stat[kStatHotelLocation] = makeLocationEventValue(latLon.lat, latLon.lon);
-  }
-  else
-  {
-    stat[kStatProvider] = kStatOpentable;
-    stat[kStatRestaurant] = data.sponsoredId;
-    stat[kStatRestaurantLocation] = makeLocationEventValue(latLon.lat, latLon.lon);
-  }
-
   NSString * eventName = isBooking ? kPlacePageHotelBook : kPlacePageRestaurantBook;
-  [Statistics logEvent:isDescription ? kPlacePageHotelDetails : eventName
-        withParameters:stat
-            atLocation:[MWMLocationManager lastLocation]];
-
+  logSponsoredEventEvent(data, eventName);
   UIViewController * vc = static_cast<UIViewController *>([MapViewController controller]);
-  NSURL * url = isDescription ? self.data.sponsoredDescriptionURL : self.data.sponsoredURL;
+  NSURL * url = isDescription ? data.sponsoredDescriptionURL : data.sponsoredURL;
   NSAssert(url, @"Sponsored url can't be nil!");
   [vc openUrl:url];
 }
@@ -301,6 +307,7 @@
 
 - (void)showAllReviews
 {
+  logSponsoredEventEvent(self.data, kPlacePageHotelReviews);
   [[MapViewController controller] openUrl:self.data.URLToAllReviews];
 }
 
@@ -313,6 +320,7 @@
 
 - (void)showGalery
 {
+  logSponsoredEventEvent(self.data, kPlacePageHotelGallery);
   auto galleryVc = [MWMGalleryViewController instanceWithModel:[[MWMGalleryModel alloc]
                                                                 initWithTitle:self.hotelName items:self.data.photos]];
   [[MapViewController controller].navigationController pushViewController:galleryVc animated:YES];
@@ -320,6 +328,7 @@
 
 - (void)showAllFacilities
 {
+  logSponsoredEventEvent(self.data, kPlacePageHotelFacilities);
   [[MapViewController controller] openHotelFacilities];
 }
 
