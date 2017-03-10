@@ -174,6 +174,9 @@ string Info::GetApproximatePricing() const
 
 bool Info::HasBanner() const
 {
+  if (IsMyPosition())
+    return false;
+
   return facebook::Ads::Instance().HasBanner(m_types);
 }
 
