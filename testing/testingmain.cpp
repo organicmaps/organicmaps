@@ -201,12 +201,12 @@ int main(int argc, char * argv[])
   {
     auto const & testName = testNames[iTest];
     if (g_testingOptions.m_filterRegExp &&
-        !regex_match(testName.begin(), testName.end(), filterRegExp))
+        !regex_search(testName.begin(), testName.end(), filterRegExp))
     {
       continue;
     }
     if (g_testingOptions.m_suppressRegExp &&
-        regex_match(testName.begin(), testName.end(), suppressRegExp))
+        regex_search(testName.begin(), testName.end(), suppressRegExp))
     {
       continue;
     }
