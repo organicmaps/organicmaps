@@ -83,12 +83,14 @@ using TObservers = NSHashTable<__kindof TObserver>;
       {
         [self checkIsHotelResults:results];
         if (results.IsEndedNormal())
-          self.everywhereSearchCompleted = YES;
-        if (IPAD || self.searchOnMap)
         {
-          auto & f = GetFramework();
-          f.ShowSearchResults(m_everywhereResults);
-          f.SearchInViewport(m_viewportParams);
+          self.everywhereSearchCompleted = YES;
+          if (IPAD || self.searchOnMap)
+          {
+            auto & f = GetFramework();
+            f.ShowSearchResults(m_everywhereResults);
+            f.SearchInViewport(m_viewportParams);
+          }
         }
         [self onSearchCompleted];
       }
@@ -217,8 +219,9 @@ using TObservers = NSHashTable<__kindof TObserver>;
 
 + (void)reset
 {
-  GetFramework().CancelAllSearches();
   MWMSearch * manager = [MWMSearch manager];
+  manager.lastSearchTimestamp = 0;
+  GetFramework().CancelAllSearches();
   manager.everywhereSearchCompleted = NO;
   manager.viewportSearchCompleted = NO;
   if (manager->m_filterQuery != manager->m_everywhereParams.m_query)
