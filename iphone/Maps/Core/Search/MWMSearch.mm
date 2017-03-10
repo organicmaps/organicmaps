@@ -27,7 +27,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
 
 @property(nonatomic) TObservers * observers;
 
-@property(nonatomic) NSTimeInterval lastSearchTimestamp;
+@property(nonatomic) NSUInteger lastSearchStamp;
 
 @property(nonatomic) BOOL isHotelResults;
 @property(nonatomic) MWMSearchFilterViewController * filter;
@@ -69,15 +69,14 @@ using TObservers = NSHashTable<__kindof TObserver>;
 
 - (void)updateCallbacks
 {
-  NSTimeInterval const timestamp = [NSDate date].timeIntervalSince1970;
-  self.lastSearchTimestamp = timestamp;
+  NSUInteger const timestamp = ++self.lastSearchStamp;
   {
     __weak auto weakSelf = self;
     m_everywhereParams.m_onResults = [weakSelf, timestamp](search::Results const & results) {
       __strong auto self = weakSelf;
       if (!self)
         return;
-      if (timestamp != self.lastSearchTimestamp)
+      if (timestamp != self.lastSearchStamp)
         return;
       if (results.IsEndMarker())
       {
@@ -220,7 +219,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
 + (void)reset
 {
   MWMSearch * manager = [MWMSearch manager];
-  manager.lastSearchTimestamp = 0;
+  manager.lastSearchStamp++;
   GetFramework().CancelAllSearches();
   manager.everywhereSearchCompleted = NO;
   manager.viewportSearchCompleted = NO;
