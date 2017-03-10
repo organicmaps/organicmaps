@@ -3,8 +3,9 @@
 #include "qt/mainwindow.hpp"
 #include "qt/osm_auth_dialog.hpp"
 #include "qt/preferences_dialog.hpp"
+#include "qt/qt_common/helpers.hpp"
+#include "qt/qt_common/scale_slider.hpp"
 #include "qt/search_panel.hpp"
-#include "qt/slider_ctrl.hpp"
 #include "qt/traffic_mode.hpp"
 #include "qt/traffic_panel.hpp"
 #include "qt/trafficmodeinitdlg.h"
@@ -120,7 +121,7 @@ namespace qt
 extern char const * kTokenKeySetting;
 extern char const * kTokenSecretSetting;
 
-MainWindow::MainWindow()
+MainWindow::MainWindow(Framework & framework)
   : m_Docks{}
   , m_locationService(CreateDesktopLocationService(*this))
 {
@@ -128,26 +129,7 @@ MainWindow::MainWindow()
   QDesktopWidget const * desktop(QApplication::desktop());
   setGeometry(desktop->screenGeometry(desktop->primaryScreen()));
 
-  m_pDrawWidget = new DrawWidget(this);
-  QSurfaceFormat format = m_pDrawWidget->format();
-
-  format.setMajorVersion(2);
-  format.setMinorVersion(1);
-
-  format.setAlphaBufferSize(8);
-  format.setBlueBufferSize(8);
-  format.setGreenBufferSize(8);
-  format.setRedBufferSize(8);
-  format.setStencilBufferSize(0);
-  format.setSamples(0);
-  format.setSwapBehavior(QSurfaceFormat::DoubleBuffer);
-  format.setSwapInterval(1);
-  format.setDepthBufferSize(16);
-
-  format.setProfile(QSurfaceFormat::CompatibilityProfile);
-  //format.setOption(QSurfaceFormat::DebugContext);
-  m_pDrawWidget->setFormat(format);
-  m_pDrawWidget->setMouseTracking(true);
+  m_pDrawWidget = new DrawWidget(framework, this);
   setCentralWidget(m_pDrawWidget);
 
   QObject::connect(m_pDrawWidget, SIGNAL(BeforeEngineCreation()), this, SLOT(OnBeforeEngineCreation()));
@@ -297,12 +279,6 @@ namespace
     }
   }
 
-  struct hotkey_t
-  {
-    int key;
-    char const * slot;
-  };
-
   void FormatMapSize(uint64_t sizeInBytes, string & units, size_t & sizeToDownload)
   {
     int const mbInBytes = 1024 * 1024;
@@ -332,22 +308,20 @@ void MainWindow::CreateNavigationBar()
   pToolBar->setIconSize(QSize(32, 32));
 
   {
+    m_pDrawWidget->BindHotkeys(*this);
+
     // Add navigation hot keys.
-    hotkey_t const arr[] = {
-      { Qt::Key_Equal, SLOT(ScalePlus()) },
-      { Qt::Key_Minus, SLOT(ScaleMinus()) },
-      { Qt::ALT + Qt::Key_Equal, SLOT(ScalePlusLight()) },
-      { Qt::ALT + Qt::Key_Minus, SLOT(ScaleMinusLight()) },
+    qt::common::Hotkey const hotkeys[] = {
       { Qt::Key_A, SLOT(ShowAll()) },
       // Use CMD+n (New Item hotkey) to activate Create Feature mode.
       { Qt::Key_Escape, SLOT(ChoosePositionModeDisable()) }
     };
 
-    for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
+    for (auto const & hotkey : hotkeys)
     {
       QAction * pAct = new QAction(this);
-      pAct->setShortcut(QKeySequence(arr[i].key));
-      connect(pAct, SIGNAL(triggered()), m_pDrawWidget, arr[i].slot);
+      pAct->setShortcut(QKeySequence(hotkey.m_key));
+      connect(pAct, SIGNAL(triggered()), m_pDrawWidget, hotkey.m_slot);
       addAction(pAct);
     }
   }
@@ -399,30 +373,9 @@ void MainWindow::CreateNavigationBar()
     m_pMyPositionAction->setToolTip(tr("My Position"));
 // #endif
 
-    // add view actions 1
-    button_t arr[] = {
-      { QString(), 0, 0 },
-      //{ tr("Show all"), ":/navig64/world.png", SLOT(ShowAll()) },
-      { tr("Scale +"), ":/navig64/plus.png", SLOT(ScalePlus()) }
-    };
-    add_buttons(pToolBar, arr, ARRAY_SIZE(arr), m_pDrawWidget);
   }
 
-  // add scale slider
-  QScaleSlider * pScale = new QScaleSlider(Qt::Vertical, this, 20);
-  pScale->SetRange(2, scales::GetUpperScale());
-  pScale->setTickPosition(QSlider::TicksRight);
-
-  pToolBar->addWidget(pScale);
-  m_pDrawWidget->SetScaleControl(pScale);
-
-  {
-    // add view actions 2
-    button_t arr[] = {
-      { tr("Scale -"), ":/navig64/minus.png", SLOT(ScaleMinus()) }
-    };
-    add_buttons(pToolBar, arr, ARRAY_SIZE(arr), m_pDrawWidget);
-  }
+  qt::common::ScaleSlider::Embed(Qt::Vertical, *pToolBar, *m_pDrawWidget);
 
 #ifndef NO_DOWNLOADER
   {

@@ -38,16 +38,8 @@ set(
   place_page_dialog.hpp
   preferences_dialog.cpp
   preferences_dialog.hpp
-  proxystyle.cpp
-  proxystyle.hpp
-  qtoglcontext.cpp
-  qtoglcontext.hpp
-  qtoglcontextfactory.cpp
-  qtoglcontextfactory.hpp
   search_panel.cpp
   search_panel.hpp
-  slider_ctrl.cpp
-  slider_ctrl.hpp
   traffic_mode.cpp
   traffic_mode.hpp
   traffic_panel.cpp
@@ -62,6 +54,7 @@ add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${RES_SOURCES} ${SRC})
 
 omim_link_libraries(
   ${PROJECT_NAME}
+  qt_common
   map
   drape_frontend
   routing
@@ -167,3 +160,5 @@ copy_resources(
   06_code2000.ttf
   07_roboto_medium.ttf
 )
+
+add_subdirectory(qt_common)

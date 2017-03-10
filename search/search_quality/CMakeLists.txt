@@ -11,5 +11,6 @@ set(SRC
 
 add_library(${PROJECT_NAME} ${SRC})
 
+add_subdirectory(assessment_tool)
 add_subdirectory(features_collector_tool)
 add_subdirectory(search_quality_tool)

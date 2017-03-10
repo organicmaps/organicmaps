@@ -7,6 +7,10 @@
 #include <QtGui/QOpenGLFramebufferObject>
 #include <QtGui/QOpenGLContext>
 
+namespace qt
+{
+namespace common
+{
 class QtRenderOGLContext : public dp::OGLContext
 {
 public:
@@ -51,3 +55,5 @@ private:
   QOpenGLContext * m_ctx = nullptr;
   QOffscreenSurface * m_surface = nullptr;
 };
+}  // namespace common
+}  // namespace qt

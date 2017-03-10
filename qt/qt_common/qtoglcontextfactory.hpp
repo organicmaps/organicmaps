@@ -1,11 +1,15 @@
 #pragma once
 
 #include "drape/oglcontextfactory.hpp"
-#include "qt/qtoglcontext.hpp"
+#include "qt/qt_common/qtoglcontext.hpp"
 
 #include <QtGui/QOpenGLContext>
 #include <QtGui/QOpenGLFramebufferObject>
 
+namespace qt
+{
+namespace common
+{
 class QtOGLContextFactory : public dp::OGLContextFactory
 {
 public:
@@ -33,3 +37,5 @@ private:
   QtUploadOGLContext * m_uploadContext;
   QOffscreenSurface * m_uploadSurface;
 };
+}  // namespace common
+}  // namespace qt

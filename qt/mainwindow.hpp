@@ -15,9 +15,10 @@
   #include <QtWidgets/QMainWindow>
 #endif
 
+class Framework;
 class QDockWidget;
-class QPushButton;
 class QLabel;
+class QPushButton;
 class TrafficMode;
 
 namespace search { class Result; }
@@ -54,7 +55,7 @@ namespace qt
     Q_OBJECT
 
   public:
-    MainWindow();
+    MainWindow(Framework & framework);
 
     virtual void OnLocationError(location::TLocationError errorCode);
     virtual void OnLocationUpdated(location::GpsInfo const & info);

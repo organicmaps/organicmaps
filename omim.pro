@@ -83,9 +83,13 @@ SUBDIRS = 3party base coding geometry editor indexer routing routing_common sear
     benchmark_tool.subdir = map/benchmark_tool
     benchmark_tool.depends = 3party base coding geometry platform indexer search map
     mapshot.depends = $$SUBDIRS
-    qt.depends = $$SUBDIRS
 
-    SUBDIRS *= benchmark_tool mapshot qt
+    qt_common.subdir = qt/qt_common
+    qt_common.depends = $$SUBDIRS
+
+    qt.depends = $$SUBDIRS qt_common
+
+    SUBDIRS *= benchmark_tool mapshot qt qt_common
     }
 
   CONFIG(desktop) {

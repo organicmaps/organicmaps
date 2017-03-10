@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/navig64">
+        <file>plus.png</file>
+        <file>minus.png</file>
+    </qresource>
+</RCC>
