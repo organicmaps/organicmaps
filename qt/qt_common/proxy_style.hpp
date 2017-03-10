@@ -11,47 +11,48 @@ class ProxyStyle : public QStyle
 public:
   explicit ProxyStyle(QStyle * p);
 
-  void drawComplexControl(ComplexControl control, const QStyleOptionComplex * option,
-                          QPainter * painter, const QWidget * widget = 0) const;
-  void drawControl(ControlElement element, const QStyleOption * option, QPainter * painter,
-                   const QWidget * widget = 0) const;
-  void drawItemPixmap(QPainter * painter, const QRect & rect, int alignment,
-                      const QPixmap & pixmap) const;
-  void drawItemText(QPainter * painter, const QRect & rect, int alignment, const QPalette & pal,
-                    bool enabled, const QString & text,
-                    QPalette::ColorRole textRole = QPalette::NoRole) const;
-  void drawPrimitive(PrimitiveElement elem, const QStyleOption * option, QPainter * painter,
-                     const QWidget * widget = 0) const;
-  QPixmap generatedIconPixmap(QIcon::Mode iconMode, const QPixmap & pixmap,
-                              const QStyleOption * option) const;
-  SubControl hitTestComplexControl(ComplexControl control, const QStyleOptionComplex * option,
-                                   const QPoint & pos, const QWidget * widget = 0) const;
-  QRect itemPixmapRect(const QRect & rect, int alignment, const QPixmap & pixmap) const;
-  QRect itemTextRect(const QFontMetrics & metrics, const QRect & rect, int alignment, bool enabled,
-                     const QString & text) const;
-  int pixelMetric(PixelMetric metric, const QStyleOption * option = 0,
-                  const QWidget * widget = 0) const;
-  void polish(QWidget * widget);
-  void polish(QApplication * app);
-  void polish(QPalette & pal);
-  QSize sizeFromContents(ContentsType type, const QStyleOption * option, const QSize & contentsSize,
-                         const QWidget * widget = 0) const;
-  QIcon standardIcon(StandardPixmap standardIcon, const QStyleOption * option = 0,
-                     const QWidget * widget = 0) const;
-  QPalette standardPalette() const;
-  QPixmap standardPixmap(StandardPixmap standardPixmap, const QStyleOption * option = 0,
-                         const QWidget * widget = 0) const;
-  int styleHint(StyleHint hint, const QStyleOption * option = 0, const QWidget * widget = 0,
-                QStyleHintReturn * returnData = 0) const;
-  QRect subControlRect(ComplexControl control, const QStyleOptionComplex * option,
-                       SubControl subControl, const QWidget * widget = 0) const;
-  QRect subElementRect(SubElement element, const QStyleOption * option,
-                       const QWidget * widget = 0) const;
-  void unpolish(QWidget * widget);
-  void unpolish(QApplication * app);
+  // QStyle overrides:
+  void drawComplexControl(ComplexControl control, QStyleOptionComplex const * option,
+                          QPainter * painter, QWidget const * widget = 0) const override;
+  void drawControl(ControlElement element, QStyleOption const * option, QPainter * painter,
+                   QWidget const * widget = 0) const override;
+  void drawItemPixmap(QPainter * painter, QRect const & rect, int alignment,
+                      QPixmap const & pixmap) const override;
+  void drawItemText(QPainter * painter, QRect const & rect, int alignment, QPalette const & pal,
+                    bool enabled, QString const & text,
+                    QPalette::ColorRole textRole = QPalette::NoRole) const override;
+  void drawPrimitive(PrimitiveElement elem, QStyleOption const * option, QPainter * painter,
+                     QWidget const * widget = 0) const override;
+  QPixmap generatedIconPixmap(QIcon::Mode iconMode, QPixmap const & pixmap,
+                              QStyleOption const * option) const override;
+  SubControl hitTestComplexControl(ComplexControl control, QStyleOptionComplex const * option,
+                                   QPoint const & pos, QWidget const * widget = 0) const override;
+  QRect itemPixmapRect(QRect const & rect, int alignment, QPixmap const & pixmap) const override;
+  QRect itemTextRect(QFontMetrics const & metrics, QRect const & rect, int alignment, bool enabled,
+                     QString const & text) const override;
+  int pixelMetric(PixelMetric metric, QStyleOption const * option = 0,
+                  QWidget const * widget = 0) const override;
+  void polish(QWidget * widget) override;
+  void polish(QApplication * app) override;
+  void polish(QPalette & pal) override;
+  QSize sizeFromContents(ContentsType type, QStyleOption const * option, QSize const & contentsSize,
+                         QWidget const * widget = 0) const override;
+  QIcon standardIcon(StandardPixmap standardIcon, QStyleOption const * option = 0,
+                     QWidget const * widget = 0) const override;
+  QPalette standardPalette() const override;
+  QPixmap standardPixmap(StandardPixmap standardPixmap, QStyleOption const * option = 0,
+                         QWidget const * widget = 0) const override;
+  int styleHint(StyleHint hint, QStyleOption const * option = 0, QWidget const * widget = 0,
+                QStyleHintReturn * returnData = 0) const override;
+  QRect subControlRect(ComplexControl control, QStyleOptionComplex const * option,
+                       SubControl subControl, QWidget const * widget = 0) const override;
+  QRect subElementRect(SubElement element, QStyleOption const * option,
+                       QWidget const * widget = 0) const override;
+  void unpolish(QWidget * widget) override;
+  void unpolish(QApplication * app) override;
   int layoutSpacing(QSizePolicy::ControlType control1, QSizePolicy::ControlType control2,
-                    Qt::Orientation orientation, const QStyleOption * option = 0,
-                    const QWidget * widget = 0) const;
+                    Qt::Orientation orientation, QStyleOption const * option = 0,
+                    QWidget const * widget = 0) const override;
 
 private:
   QStyle * style;

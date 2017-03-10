@@ -27,7 +27,7 @@ class MapWidget : public QOpenGLWidget
 
 public:
   MapWidget(Framework & framework, QWidget * parent);
-  ~MapWidget();
+  ~MapWidget() override;
 
   void BindHotkeys(QWidget & parent);
   void BindSlider(ScaleSlider & slider);
