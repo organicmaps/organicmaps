@@ -1,35 +1,30 @@
 #include "qt/qt_common/qtoglcontextfactory.hpp"
 
 #include "base/assert.hpp"
+#include "base/stl_add.hpp"
 
 namespace qt
 {
 namespace common
 {
-QtOGLContextFactory::QtOGLContextFactory(QOpenGLContext * rootContext)
-  : m_rootContext(rootContext)
-  , m_drawContext(nullptr)
-  , m_uploadContext(nullptr)
+QtOGLContextFactory::QtOGLContextFactory(QOpenGLContext * rootContext) : m_rootContext(rootContext)
 {
-  m_uploadSurface = createSurface();
-  m_drawSurface = createSurface();
+  m_uploadSurface = CreateSurface();
+  m_drawSurface = CreateSurface();
 }
 
 QtOGLContextFactory::~QtOGLContextFactory()
 {
-  delete m_drawContext;
-  delete m_uploadContext;
+  m_drawContext.reset();
+  m_uploadContext.reset();
 
   m_drawSurface->destroy();
   m_uploadSurface->destroy();
-
-  delete m_drawSurface;
-  delete m_uploadSurface;
 }
 
 bool QtOGLContextFactory::LockFrame()
 {
-  if (m_drawContext == nullptr)
+  if (!m_drawContext)
     return false;
 
   m_drawContext->lockFrame();
@@ -56,24 +51,24 @@ void QtOGLContextFactory::UnlockFrame()
 
 dp::OGLContext * QtOGLContextFactory::getDrawContext()
 {
-  if (m_drawContext == nullptr)
-    m_drawContext = new QtRenderOGLContext(m_rootContext, m_drawSurface);
+  if (!m_drawContext)
+    m_drawContext = my::make_unique<QtRenderOGLContext>(m_rootContext, m_drawSurface.get());
 
-  return m_drawContext;
+  return m_drawContext.get();
 }
 
 dp::OGLContext * QtOGLContextFactory::getResourcesUploadContext()
 {
-  if (m_uploadContext == nullptr)
-    m_uploadContext = new QtUploadOGLContext(m_rootContext, m_uploadSurface);
+  if (!m_uploadContext)
+    m_uploadContext = my::make_unique<QtUploadOGLContext>(m_rootContext, m_uploadSurface.get());
 
-  return m_uploadContext;
+  return m_uploadContext.get();
 }
 
-QOffscreenSurface * QtOGLContextFactory::createSurface()
+std::unique_ptr<QOffscreenSurface> QtOGLContextFactory::CreateSurface()
 {
   QSurfaceFormat format = m_rootContext->format();
-  QOffscreenSurface * result = new QOffscreenSurface(m_rootContext->screen());
+  auto result = my::make_unique<QOffscreenSurface>(m_rootContext->screen());
   result->setFormat(format);
   result->create();
   ASSERT(result->isValid(), ());

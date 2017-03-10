@@ -6,6 +6,8 @@
 #include <QtGui/QOpenGLContext>
 #include <QtGui/QOpenGLFramebufferObject>
 
+#include <memory>
+
 namespace qt
 {
 namespace common
@@ -14,28 +16,27 @@ class QtOGLContextFactory : public dp::OGLContextFactory
 {
 public:
   QtOGLContextFactory(QOpenGLContext * rootContext);
-  ~QtOGLContextFactory();
+  ~QtOGLContextFactory() override;
 
   bool LockFrame();
   GLuint GetTextureHandle() const;
   QRectF const & GetTexRect() const;
   void UnlockFrame();
 
-  virtual dp::OGLContext * getDrawContext();
-  virtual dp::OGLContext * getResourcesUploadContext();
-
-protected:
-  virtual bool isDrawContextCreated() const { return m_drawContext != nullptr; }
-  virtual bool isUploadContextCreated() const { return m_uploadContext != nullptr; }
-
-  QOffscreenSurface * createSurface();
+  // dp::OGLContextFactory overrides:
+  dp::OGLContext * getDrawContext() override;
+  dp::OGLContext * getResourcesUploadContext() override;
+  bool isDrawContextCreated() const override { return m_drawContext != nullptr; }
+  bool isUploadContextCreated() const override { return m_uploadContext != nullptr; }
 
 private:
+  std::unique_ptr<QOffscreenSurface> CreateSurface();
+
   QOpenGLContext * m_rootContext;
-  QtRenderOGLContext * m_drawContext;
-  QOffscreenSurface * m_drawSurface;
-  QtUploadOGLContext * m_uploadContext;
-  QOffscreenSurface * m_uploadSurface;
+  std::unique_ptr<QtRenderOGLContext> m_drawContext;
+  std::unique_ptr<QOffscreenSurface> m_drawSurface;
+  std::unique_ptr<QtUploadOGLContext> m_uploadContext;
+  std::unique_ptr<QOffscreenSurface> m_uploadSurface;
 };
 }  // namespace common
 }  // namespace qt

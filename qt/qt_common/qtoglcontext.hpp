@@ -7,6 +7,8 @@
 #include <QtGui/QOpenGLFramebufferObject>
 #include <QtGui/QOpenGLContext>
 
+#include <memory>
+
 namespace qt
 {
 namespace common
@@ -15,8 +17,8 @@ class QtRenderOGLContext : public dp::OGLContext
 {
 public:
   QtRenderOGLContext(QOpenGLContext * rootContext, QOffscreenSurface * surface);
-  ~QtRenderOGLContext();
 
+  // dp::OGLContext overrides:
   void present() override;
   void makeCurrent() override;
   void doneCurrent() override;
@@ -30,10 +32,10 @@ public:
 
 private:
   QOffscreenSurface * m_surface = nullptr;
-  QOpenGLContext * m_ctx = nullptr;
+  std::unique_ptr<QOpenGLContext> m_ctx;
 
-  QOpenGLFramebufferObject * m_frontFrame = nullptr;
-  QOpenGLFramebufferObject * m_backFrame = nullptr;
+  std::unique_ptr<QOpenGLFramebufferObject> m_frontFrame;
+  std::unique_ptr<QOpenGLFramebufferObject> m_backFrame;
   QRectF m_texRect = QRectF(0.0, 0.0, 0.0, 0.0);
 
   mutex m_lock;
@@ -44,16 +46,16 @@ class QtUploadOGLContext: public dp::OGLContext
 {
 public:
   QtUploadOGLContext(QOpenGLContext * rootContext, QOffscreenSurface * surface);
-  ~QtUploadOGLContext();
 
+  // dp::OGLContext overrides:
   void present() override;
   void makeCurrent() override;
   void doneCurrent() override;
   void setDefaultFramebuffer() override;
 
 private:
-  QOpenGLContext * m_ctx = nullptr;
-  QOffscreenSurface * m_surface = nullptr;
+  QOffscreenSurface * m_surface = nullptr;  // non-owning ptr
+  std::unique_ptr<QOpenGLContext> m_ctx;
 };
 }  // namespace common
 }  // namespace qt

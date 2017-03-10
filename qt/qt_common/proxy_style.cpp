@@ -6,64 +6,64 @@ namespace common
 {
 ProxyStyle::ProxyStyle(QStyle * p) : QStyle(), style(p) {}
 
-void ProxyStyle::drawComplexControl(ComplexControl control, const QStyleOptionComplex * option,
-                                    QPainter * painter, const QWidget * widget) const
+void ProxyStyle::drawComplexControl(ComplexControl control, QStyleOptionComplex const * option,
+                                    QPainter * painter, QWidget const * widget) const
 {
   style->drawComplexControl(control, option, painter, widget);
 }
 
-void ProxyStyle::drawControl(ControlElement element, const QStyleOption * option,
-                             QPainter * painter, const QWidget * widget) const
+void ProxyStyle::drawControl(ControlElement element, QStyleOption const * option,
+                             QPainter * painter, QWidget const * widget) const
 {
   style->drawControl(element, option, painter, widget);
 }
 
-void ProxyStyle::drawItemPixmap(QPainter * painter, const QRect & rect, int alignment,
-                                const QPixmap & pixmap) const
+void ProxyStyle::drawItemPixmap(QPainter * painter, QRect const & rect, int alignment,
+                                QPixmap const & pixmap) const
 {
   style->drawItemPixmap(painter, rect, alignment, pixmap);
 }
 
-void ProxyStyle::drawItemText(QPainter * painter, const QRect & rect, int alignment,
-                              const QPalette & pal, bool enabled, const QString & text,
+void ProxyStyle::drawItemText(QPainter * painter, QRect const & rect, int alignment,
+                              QPalette const & pal, bool enabled, QString const & text,
                               QPalette::ColorRole textRole) const
 {
   style->drawItemText(painter, rect, alignment, pal, enabled, text, textRole);
 }
 
-void ProxyStyle::drawPrimitive(PrimitiveElement elem, const QStyleOption * option,
-                               QPainter * painter, const QWidget * widget) const
+void ProxyStyle::drawPrimitive(PrimitiveElement elem, QStyleOption const * option,
+                               QPainter * painter, QWidget const * widget) const
 {
   style->drawPrimitive(elem, option, painter, widget);
 }
 
-QPixmap ProxyStyle::generatedIconPixmap(QIcon::Mode iconMode, const QPixmap & pixmap,
-                                        const QStyleOption * option) const
+QPixmap ProxyStyle::generatedIconPixmap(QIcon::Mode iconMode, QPixmap const & pixmap,
+                                        QStyleOption const * option) const
 {
   return style->generatedIconPixmap(iconMode, pixmap, option);
 }
 
 QStyle::SubControl ProxyStyle::hitTestComplexControl(ComplexControl control,
-                                                     const QStyleOptionComplex * option,
-                                                     const QPoint & pos,
-                                                     const QWidget * widget) const
+                                                     QStyleOptionComplex const * option,
+                                                     QPoint const & pos,
+                                                     QWidget const * widget) const
 {
   return style->hitTestComplexControl(control, option, pos, widget);
 }
 
-QRect ProxyStyle::itemPixmapRect(const QRect & rect, int alignment, const QPixmap & pixmap) const
+QRect ProxyStyle::itemPixmapRect(QRect const & rect, int alignment, QPixmap const & pixmap) const
 {
   return style->itemPixmapRect(rect, alignment, pixmap);
 }
 
-QRect ProxyStyle::itemTextRect(const QFontMetrics & metrics, const QRect & rect, int alignment,
-                               bool enabled, const QString & text) const
+QRect ProxyStyle::itemTextRect(QFontMetrics const & metrics, QRect const & rect, int alignment,
+                               bool enabled, QString const & text) const
 {
   return style->itemTextRect(metrics, rect, alignment, enabled, text);
 }
 
-int ProxyStyle::pixelMetric(PixelMetric metric, const QStyleOption * option,
-                            const QWidget * widget) const
+int ProxyStyle::pixelMetric(PixelMetric metric, QStyleOption const * option,
+                            QWidget const * widget) const
 {
   return style->pixelMetric(metric, option, widget);
 }
@@ -74,40 +74,40 @@ void ProxyStyle::polish(QApplication * app) { style->polish(app); }
 
 void ProxyStyle::polish(QPalette & pal) { style->polish(pal); }
 
-QSize ProxyStyle::sizeFromContents(ContentsType type, const QStyleOption * option,
-                                   const QSize & contentsSize, const QWidget * widget) const
+QSize ProxyStyle::sizeFromContents(ContentsType type, QStyleOption const * option,
+                                   QSize const & contentsSize, QWidget const * widget) const
 {
   return style->sizeFromContents(type, option, contentsSize, widget);
 }
 
-QIcon ProxyStyle::standardIcon(StandardPixmap standardIcon, const QStyleOption * option,
-                               const QWidget * widget) const
+QIcon ProxyStyle::standardIcon(StandardPixmap standardIcon, QStyleOption const * option,
+                               QWidget const * widget) const
 {
   return style->standardIcon(standardIcon, option, widget);
 }
 
 QPalette ProxyStyle::standardPalette() const { return style->standardPalette(); }
 
-QPixmap ProxyStyle::standardPixmap(StandardPixmap standardPixmap, const QStyleOption * option,
-                                   const QWidget * widget) const
+QPixmap ProxyStyle::standardPixmap(StandardPixmap standardPixmap, QStyleOption const * option,
+                                   QWidget const * widget) const
 {
   return style->standardPixmap(standardPixmap, option, widget);
 }
 
-int ProxyStyle::styleHint(StyleHint hint, const QStyleOption * option, const QWidget * widget,
+int ProxyStyle::styleHint(StyleHint hint, QStyleOption const * option, QWidget const * widget,
                           QStyleHintReturn * returnData) const
 {
   return style->styleHint(hint, option, widget, returnData);
 }
 
-QRect ProxyStyle::subControlRect(ComplexControl control, const QStyleOptionComplex * option,
-                                 SubControl subControl, const QWidget * widget) const
+QRect ProxyStyle::subControlRect(ComplexControl control, QStyleOptionComplex const * option,
+                                 SubControl subControl, QWidget const * widget) const
 {
   return style->subControlRect(control, option, subControl, widget);
 }
 
-QRect ProxyStyle::subElementRect(SubElement element, const QStyleOption * option,
-                                 const QWidget * widget) const
+QRect ProxyStyle::subElementRect(SubElement element, QStyleOption const * option,
+                                 QWidget const * widget) const
 {
   return style->subElementRect(element, option, widget);
 }
@@ -117,8 +117,8 @@ void ProxyStyle::unpolish(QWidget * widget) { style->unpolish(widget); }
 void ProxyStyle::unpolish(QApplication * app) { style->unpolish(app); }
 
 int ProxyStyle::layoutSpacing(QSizePolicy::ControlType control1, QSizePolicy::ControlType control2,
-                              Qt::Orientation orientation, const QStyleOption * option,
-                              const QWidget * widget) const
+                              Qt::Orientation orientation, QStyleOption const * option,
+                              QWidget const * widget) const
 {
   return style->layoutSpacing(control1, control2, orientation, option, widget);
 }
