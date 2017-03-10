@@ -10,7 +10,11 @@ namespace platform
 {
 HttpClient::HttpClient(string const & url) : m_urlRequested(url)
 {
-  m_headers.emplace("Accept-Encoding", "deflate");
+// Http client for linux supports only "deflate" encoding, but osrm server cannot
+// correctly process "Accept-Encoding: deflate" header, so do not encode data on linux.
+#if !defined(OMIM_OS_LINUX)
+  m_headers.emplace("Accept-Encoding", "gzip, deflate");
+#endif
 }
 
 HttpClient & HttpClient::SetUrlRequested(string const & url)
