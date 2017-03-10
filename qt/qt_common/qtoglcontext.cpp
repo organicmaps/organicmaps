@@ -59,7 +59,8 @@ void QtRenderOGLContext::resize(int w, int h)
   m_resizeLock = true;
 
   QSize size(my::NextPowOf2(w), my::NextPowOf2(h));
-  m_texRect = QRectF(0.0, 0.0, w / (float)size.width(), h / (float)size.height());
+  m_texRect =
+      QRectF(0.0, 0.0, w / static_cast<float>(size.width()), h / static_cast<float>(size.height()));
 
   m_frontFrame = my::make_unique<QOpenGLFramebufferObject>(size, QOpenGLFramebufferObject::Depth);
   m_backFrame = my::make_unique<QOpenGLFramebufferObject>(size, QOpenGLFramebufferObject::Depth);
