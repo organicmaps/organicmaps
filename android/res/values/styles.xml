@@ -90,7 +90,7 @@
   </style>
 
   <style name="MwmWidget.Floating.Panel">
-    <item name="android:background">?panel</item>
+    <item name="android:background">?ppBackground</item>
   </style>
 
   <style name="MwmWidget.PlacePage.EditText" parent="Widget.AppCompat.EditText">
