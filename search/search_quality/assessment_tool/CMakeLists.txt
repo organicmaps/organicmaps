@@ -1,9 +1,22 @@
 project(assessment_tool)
 
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+
 include_directories(${OMIM_ROOT}/3party/gflags/src)
 include_directories(${OMIM_ROOT}/3party/glm)
 
-set(SRC assessment_tool.cc)
+set(
+  SRC
+  assessment_tool.cc
+  main_model.cpp
+  main_model.hpp
+  main_model.hpp
+  main_view.cpp
+  main_view.hpp
+  model.hpp
+  view.hpp
+)
 
 add_executable(${PROJECT_NAME} ${SRC})
 
