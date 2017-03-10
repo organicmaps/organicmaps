@@ -48,6 +48,7 @@ import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT_LA
 import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT_LON;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.BOOKING_COM;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.OPENTABLE;
+import static com.mapswithme.util.statistics.Statistics.EventName.PP_HOTEL_REVIEWS_LAND;
 
 public enum Statistics
 {
