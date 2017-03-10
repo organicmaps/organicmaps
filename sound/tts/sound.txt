@@ -2,7 +2,7 @@
 
   [make_a_slight_right_turn]
     en = Slight right.
-    ru = Плавный поворот направо.
+    ru = Держитесь правее.
     ar = إلى اليمين قليلا.
     cs = Mírně doprava.
     da = Blødt til højre.
@@ -32,7 +32,7 @@
 
   [make_a_right_turn]
     en = Turn right.
-    ru = Поворот направо.
+    ru = Поверните направо.
     ar = انعطف يمينا.
     cs = Otočte se doprava.
     da = Drej til højre.
@@ -62,7 +62,7 @@
 
   [make_a_sharp_right_turn]
     en = Sharp right.
-    ru = Крутой поворот направо.
+    ru = Резко поверните направо.
     ar = إلى أقصى اليمين.
     cs = Ostře doprava.
     da = Skarpt til højre.
@@ -92,7 +92,7 @@
 
   [enter_the_roundabout]
     en = Enter the roundabout.
-    ru = Въезд на кольцо.
+    ru = Поверните на кольцо.
     ar = اتجه إلى الطريق الدوار.
     cs = Vjeďte na kruhový objezd.
     da = Kør ind i rundkørslen.
@@ -122,7 +122,7 @@
 
   [leave_the_roundabout]
     en = Exit from the roundabout.
-    ru = Съезд с кольца.
+    ru = Сверните с кольца.
     ar = اخرج من الدوار.
     cs = Vyjeďte z kruhového objezdu.
     da = Forlad rundkørslen.
@@ -152,7 +152,7 @@
 
   [make_a_slight_left_turn]
     en = Slight left.
-    ru = Плавный поворот налево.
+    ru = Держитесь левее.
     ar = إلى اليسار قليلاً.
     cs = Mírně doleva.
     da = Blødt til venstre.
@@ -182,7 +182,7 @@
 
   [make_a_left_turn]
     en = Turn left.
-    ru = Поворот налево.
+    ru = Поверните налево.
     ar = انعطف يسارا.
     cs = Otočte se doleva.
     da = Drej til venstre.
@@ -212,7 +212,7 @@
 
   [make_a_sharp_left_turn]
     en = Sharp left.
-    ru = Крутой поворот налево.
+    ru = Резко поверните налево.
     ar = إلى أقصى اليسار.
     cs = Ostře doleva.
     da = Skarpt til venstre.
@@ -242,7 +242,7 @@
 
   [make_a_u_turn]
     en = Make a u-turn.
-    ru = Разворот.
+    ru = Развернитесь.
     ar = انعطف بدوران كامل.
     cs = Otočte se o sto osmdesát stupňů.
     da = Vend om.
@@ -332,7 +332,7 @@
 
   [you_have_reached_the_destination]
     en = You have arrived.
-    ru = Вы прибыли.
+    ru = Вы прибыли в пункт назначения.
     ar = لقد وصلت.
     cs = Jste na místě.
     da = Du er ankommet.
@@ -902,7 +902,7 @@
 
   [take_the_1_exit]
     en = Take the first exit.
-    ru = Первый поворот с кольца.
+    ru = Сверните на первый съезд.
     ar = اسلك المخرج الأول.
     cs = Vyjeďte prvním výjezdem.
     da = Tag den første afkørsel.
@@ -932,7 +932,7 @@
 
   [take_the_2_exit]
     en = Take the second exit.
-    ru = Второй поворот с кольца.
+    ru = Сверните на второй съезд.
     ar = اسلك المخرج الثاني.
     cs = Vyjeďte druhým výjezdem.
     da = Tag den anden afkørsel.
@@ -962,7 +962,7 @@
 
   [take_the_3_exit]
     en = Take the third exit.
-    ru = Третий поворот с кольца.
+    ru = Сверните на третий съезд.
     ar = اسلك المخرج الثالث.
     cs = Vyjeďte třetím výjezdem.
     da = Tag den tredje afkørsel.
@@ -992,7 +992,7 @@
 
   [take_the_4_exit]
     en = Take the fourth exit.
-    ru = Четвертый поворот с кольца.
+    ru = Сверните на четвертый съезд.
     ar = اسلك المخرج الرابع.
     cs = Vyjeďte čtvrtým výjezdem.
     da = Tag den fjerde afkørsel.
@@ -1022,7 +1022,7 @@
 
   [take_the_5_exit]
     en = Take the fifth exit.
-    ru = Пятый  поворот с кольца.
+    ru = Сверните на пятый съезд.
     ar = اسلك المخرج الخامس.
     cs = Vyjeďte pátým výjezdem.
     da = Tag den femte afkørsel.
@@ -1052,7 +1052,7 @@
 
   [take_the_6_exit]
     en = Take the sixth exit.
-    ru = Шестой поворот с кольца.
+    ru = Сверните на шестой съезд.
     ar = اسلك المخرج السادس.
     cs = Vyjeďte šestým výjezdem.
     da = Tag den sjette afkørsel.
@@ -1082,7 +1082,7 @@
 
   [take_the_7_exit]
     en = Take the seventh exit.
-    ru = Седьмой поворот с кольца.
+    ru = Сверните на седьмой съезд.
     ar = اسلك المخرج السابع.
     cs = Vyjeďte sedmým výjezdem.
     da = Tag den syvende afkørsel.
@@ -1112,7 +1112,7 @@
 
   [take_the_8_exit]
     en = Take the eighth exit.
-    ru = Восьмой поворот с кольца.
+    ru = Сверните на восьмой съезд.
     ar = اسلك المخرج الثامن.
     cs = Vyjeďte osmým výjezdem.
     da = Tag den ottende afkørsel.
@@ -1142,7 +1142,7 @@
 
   [take_the_9_exit]
     en = Take the ninth exit.
-    ru = Девятый поворот с кольца.
+    ru = Сверните на девятый съезд.
     ar = اسلك المخرج التاسع.
     cs = Vyjeďte devátým výjezdem.
     da = Tag den niende afkørsel.
@@ -1172,7 +1172,7 @@
 
   [take_the_10_exit]
     en = Take the tenth exit.
-    ru = Десятый поворот с кольца.
+    ru = Сверните на десятый съезд.
     ar = اسلك المخرج العاشر.
     cs = Vyjeďte desátým výjezdem.
     da = Tag den tiende afkørsel.
@@ -1202,7 +1202,7 @@
 
   [take_the_11_exit]
     en = Take the eleventh exit.
-    ru = Одиннадцатый поворот с кольца.
+    ru = Сверните на одиннадцатый съезд.
     ar = اسلك المَخْرَج الحادي عشر.
     cs = Vyjeďte jedenáctým výjezdem.
     da = Tag den ellevte afkørsel.
