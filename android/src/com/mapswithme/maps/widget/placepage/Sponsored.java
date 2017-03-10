@@ -21,10 +21,10 @@ import java.util.Map;
 @UiThread
 public final class Sponsored
 {
-  static final int TYPE_NONE = 0;
-  static final int TYPE_BOOKING = 1;
-  static final int TYPE_OPENTABLE = 2;
-  static final int TYPE_GEOCHAT = 3;
+  public static final int TYPE_NONE = 0;
+  public static final int TYPE_BOOKING = 1;
+  public static final int TYPE_OPENTABLE = 2;
+  public static final int TYPE_GEOCHAT = 3;
 
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({TYPE_NONE, TYPE_BOOKING, TYPE_OPENTABLE, TYPE_GEOCHAT})
@@ -220,7 +220,7 @@ public final class Sponsored
   }
 
   @Nullable
-  String getId()
+  public String getId()
   {
     return mId;
   }

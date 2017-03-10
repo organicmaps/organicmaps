@@ -20,6 +20,8 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.editor.OsmOAuth;
+import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.widget.placepage.Sponsored;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.ConnectionState;
 
@@ -27,6 +29,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.mapswithme.util.statistics.Statistics.EventName.PP_HOTEL_REVIEWS_LAND;
+import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_BOOK;
+import static com.mapswithme.util.statistics.Statistics.EventParam.HOTEL;
+import static com.mapswithme.util.statistics.Statistics.EventParam.HOTEL_LAT;
+import static com.mapswithme.util.statistics.Statistics.EventParam.HOTEL_LON;
+import static com.mapswithme.util.statistics.Statistics.EventParam.PROVIDER;
+import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT;
+import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT_LAT;
+import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT_LON;
+import static com.mapswithme.util.statistics.Statistics.ParamValue.BOOKING_COM;
+import static com.mapswithme.util.statistics.Statistics.ParamValue.OPENTABLE;
 
 public enum Statistics
 {
@@ -76,6 +90,10 @@ public enum Statistics
     public static final String PP_METADATA_COPY = "PP. CopyMetadata";
     public static final String PP_BANNER_CLICK = "Placepage_Banner_click";
     public static final String PP_BANNER_SHOW = "Placepage_Banner_show";
+    public static final String PP_HOTEL_GALLERY_OPEN = "PlacePage_Hotel_Gallery_open";
+    public static final String PP_HOTEL_REVIEWS_LAND = "PlacePage_Hotel_Reviews_land";
+    public static final String PP_HOTEL_DESCRIPTION_LAND = "PlacePage_Hotel_Description_land";
+    public static final String PP_HOTEL_FACILITIES = "PlacePage_Hotel_Facilities_open";
 
     // toolbar actions
     public static final String TOOLBAR_MY_POSITION = "Toolbar. MyPosition";
@@ -214,11 +232,23 @@ public enum Statistics
     public static final String UID = "uid";
     public static final String SHOWN = "shown";
     public static final String PROVIDER = "provider";
+    public static final String HOTEL = "hotel";
+    public static final String HOTEL_LAT = "hotel_lat";
+    public static final String HOTEL_LON = "hotel_lon";
+    public static final String RESTAURANT = "restaurant";
+    public static final String RESTAURANT_LAT = "restaurant_lat";
+    public static final String RESTAURANT_LON = "restaurant_lon";
     public static final String FROM_LAT = "from_lat";
     public static final String FROM_LON = "from_lon";
     public static final String TO_LAT = "to_lat";
     public static final String TO_LON = "to_lon";
     private EventParam() {}
+  }
+
+  public static class ParamValue
+  {
+    public static final String BOOKING_COM = "Booking.Com";
+    public static final String OPENTABLE = "OpenTable";
   }
 
   // Initialized once in constructor and does not change until the process restarts.
@@ -445,6 +475,33 @@ public enum Statistics
     String event = isUberInstalled ? Statistics.EventName.ROUTING_TAXI_ORDER
                                    : Statistics.EventName.ROUTING_TAXI_INSTALL;
     trackEvent(event, location, params.get());
+  }
+
+  public void trackRestaurantEvent(@NonNull String eventName, @NonNull Sponsored restaurant,
+                                   @NonNull MapObject mapObject)
+  {
+    String provider = restaurant.getType() == Sponsored.TYPE_OPENTABLE ? OPENTABLE : "Unknown restaurant";
+    Statistics.INSTANCE.trackEvent(eventName, LocationHelper.INSTANCE.getLastKnownLocation(),
+                                   Statistics.params().add(PROVIDER, provider)
+                                             .add(RESTAURANT, restaurant.getId())
+                                             .add(RESTAURANT_LAT, mapObject.getLat())
+                                             .add(RESTAURANT_LON, mapObject.getLon()).get());
+  }
+
+  public void trackHotelEvent(@NonNull String eventName, @NonNull Sponsored hotel,
+                              @NonNull MapObject mapObject)
+  {
+    String provider = hotel.getType() == Sponsored.TYPE_BOOKING ? BOOKING_COM : "Unknown hotel";
+    Statistics.INSTANCE.trackEvent(eventName, LocationHelper.INSTANCE.getLastKnownLocation(),
+                                   Statistics.params().add(PROVIDER, provider)
+                                             .add(HOTEL, hotel.getId())
+                                             .add(HOTEL_LAT, mapObject.getLat())
+                                             .add(HOTEL_LON, mapObject.getLon()).get());
+  }
+
+  public void trackBookHotelEvent(@NonNull Sponsored hotel, @NonNull MapObject mapObject)
+  {
+    trackHotelEvent(PP_SPONSORED_BOOK, hotel, mapObject);
   }
 
   public static ParameterBuilder params()
