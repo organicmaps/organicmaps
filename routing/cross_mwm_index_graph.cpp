@@ -166,6 +166,7 @@ void CrossMwmIndexGraph::InsertWholeMwmTransitionSegments(NumMwmId numMwmId)
                              node.m_point, transitionSegments.m_ingoing);
     });
     auto const p = m_transitionCache.emplace(numMwmId, move(transitionSegments));
+    UNUSED_VALUE(p);
     ASSERT(p.second, ("Mwm num id:", numMwmId, "has been inserted before. Country file name:",
                       mapping->GetCountryName()));
   };

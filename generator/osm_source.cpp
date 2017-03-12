@@ -598,8 +598,6 @@ void ProcessOsmElementsFromXML(SourceReader & stream, function<void(OsmElement *
 template <typename TCache>
 void BuildIntermediateDataFromO5M(SourceReader & stream, TCache & cache, TownsDumper & towns)
 {
-  using TType = osm::O5MSource::EntityType;
-
   osm::O5MSource dataset([&stream](uint8_t * buffer, size_t size)
   {
     return stream.Read(reinterpret_cast<char *>(buffer), size);

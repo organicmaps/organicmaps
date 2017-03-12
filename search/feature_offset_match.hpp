@@ -281,8 +281,6 @@ void MatchFeaturesInTrie(SearchTrieRequest<DFA> const & request,
                          trie::Iterator<ValueList<Value>> const & trieRoot, Filter const & filter,
                          ToDo && toDo)
 {
-  using Iterator = trie::Iterator<ValueList<Value>>;
-
   TrieValuesHolder<Filter, Value> categoriesHolder(filter);
   bool const categoriesMatched = MatchCategoriesInTrie(request, trieRoot, categoriesHolder);
 
