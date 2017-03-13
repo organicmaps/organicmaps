@@ -152,6 +152,7 @@ static NSString * const kStatOther = @"Other";
 static NSString * const kStatOut = @"Out";
 static NSString * const kStatPedestrian = @"Pedestrian";
 static NSString * const kStatPlacePage = @"Place page";
+static NSString * const kStatPlacePageBannerEmpty = @"Placepage_Banner_empty";
 static NSString * const kStatPlacePageBannerError = @"Placepage_Banner_error";
 static NSString * const kStatPlacePageBannerShow = @"Placepage_Banner_show";
 static NSString * const kPlacePageHotelBook = @"Placepage_Hotel_book";

@@ -538,7 +538,8 @@ using namespace place_page;
 
 - (void)nativeAd:(FBNativeAd *)nativeAd didFailWithError:(NSError *)error
 {
-  [Statistics logEvent:kStatPlacePageBannerError
+  // https://developers.facebook.com/docs/audience-network/testing
+  [Statistics logEvent:error.code == 1001 ? kStatPlacePageBannerEmpty : kStatPlacePageBannerError
         withParameters:@{
           kStatTags : self.statisticsTags,
           kStatBanner : @(m_info.GetBanner().m_bannerId.c_str()),
