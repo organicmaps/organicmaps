@@ -162,6 +162,8 @@ final class BannerController implements AdListener
     mNativeAd.loadAd(EnumSet.of(NativeAd.MediaCacheFlag.ICON));
     UiUtils.show(mFrame);
     showProgress();
+    if (mOpened && mListener != null)
+      mListener.onSizeChanged();
   }
 
   boolean isBannerVisible()
