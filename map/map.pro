@@ -6,7 +6,7 @@ CONFIG += staticlib warn_on
 
 ROOT_DIR = ..
 
-INCLUDEPATH *= $$ROOT_DIR/3party/protobuf/src $$ROOT_DIR/3party/freetype/include $$ROOT_DIR/3party/jansson/src
+INCLUDEPATH *= $$ROOT_DIR/3party/protobuf/src $$ROOT_DIR/3party/freetype/include $$ROOT_DIR/3party/jansson/src $$ROOT_DIR/3party/icu/common $$ROOT_DIR/3party/icu/i18n
 
 include($$ROOT_DIR/common.pri)
 

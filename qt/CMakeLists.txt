@@ -72,6 +72,8 @@ omim_link_libraries(
   base
   freetype
   expat
+  icuuc
+  icui18n
   fribidi
   jansson
   protobuf

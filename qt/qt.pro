@@ -4,7 +4,7 @@ ROOT_DIR = ..
 DEPENDENCIES = qt_common map drape_frontend openlr routing search storage tracking traffic routing_common \
                indexer drape partners_api platform editor geometry \
                coding base freetype expat fribidi jansson protobuf osrm stats_client \
-               minizip succinct pugixml oauthcpp stb_image sdf_image
+               minizip succinct pugixml oauthcpp stb_image sdf_image icu
 
 DEPENDENCIES += opening_hours \
 

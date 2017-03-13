@@ -98,6 +98,11 @@
 
 #include "3party/Alohalytics/src/alohalytics.h"
 
+#include "3party/icu/i18n/unicode/translit.h"
+#include "3party/icu/i18n/unicode/utrans.h"
+#include "3party/icu/common/unicode/utypes.h"
+#include "3party/icu/common/unicode/unistr.h"
+
 #define KMZ_EXTENSION ".kmz"
 
 #define DEFAULT_BOOKMARK_TYPE "placemark-red"
@@ -140,6 +145,29 @@ vector<string> kSearchMarks =
   "search-result",
   "search-booking"
 };
+
+string Transliterate(string str)
+{
+  UnicodeString ustr(str.c_str());
+  UErrorCode status = U_ZERO_ERROR;
+
+  unique_ptr<Transliterator> latin_tl(Transliterator::createInstance("Any-Latin", UTRANS_FORWARD, status));
+  if (latin_tl == nullptr)
+    return "";
+
+  latin_tl->transliterate(ustr);
+
+  int32_t bufLen = 1024;
+  vector<char> outbuf(bufLen);
+  int32_t strLen = ustr.extract(outbuf.data(), bufLen, NULL, status);
+  if (status == U_BUFFER_OVERFLOW_ERROR)
+  {
+    outbuf.resize(strLen + 1);
+    ustr.extract(outbuf.data(), strLen + 1, NULL, status);
+  }
+  outbuf[strLen] = '\0';
+  return string(outbuf.data());
+}
 
 // TODO!
 // To adjust GpsTrackFilter was added secret command "?gpstrackaccuracy:xxx;"
@@ -2121,6 +2149,9 @@ void Framework::SetMapSelectionListeners(TActivateMapSelectionFn const & activat
 void Framework::ActivateMapSelection(bool needAnimation, df::SelectionShape::ESelectedObject selectionType,
                                      place_page::Info const & info)
 {
+  //string result = Transliterate("Москва");
+  //LOG(LWARNING, ("!!!!!!!!!!!!!!!!!! ", result));
+
   ASSERT_NOT_EQUAL(selectionType, df::SelectionShape::OBJECT_EMPTY, ("Empty selections are impossible."));
   m_selectedFeature = info.GetID();
   CallDrapeFunction(bind(&df::DrapeEngine::SelectObject, _1, selectionType, info.GetMercator(), info.GetID(),
