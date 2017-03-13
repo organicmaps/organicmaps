@@ -39,7 +39,6 @@ private Q_SLOTS:
 private:
   void InitMenuBar();
   void InitMapWidget();
-  void InitToolBar(qt::common::MapWidget & widget);
   void InitDocks();
 
   void Open();

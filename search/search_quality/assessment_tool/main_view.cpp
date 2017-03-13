@@ -14,6 +14,7 @@
 #include <QtCore/QList>
 #include <QtCore/Qt>
 #include <QtWidgets/QFileDialog>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QMessageBox>
@@ -92,19 +93,23 @@ void MainView::InitMenuBar()
 
 void MainView::InitMapWidget()
 {
-  auto widget = make_unique<qt::common::MapWidget>(m_framework, this);
-  widget->BindHotkeys(*this);
-  InitToolBar(*widget);
-  setCentralWidget(widget.release());
-}
+  auto widget = make_unique<QWidget>(this /* parent */);
 
-void MainView::InitToolBar(qt::common::MapWidget & widget)
-{
-  auto toolBar = make_unique<QToolBar>(this);
-  toolBar->setOrientation(Qt::Vertical);
-  toolBar->setIconSize(QSize(32, 32));
-  qt::common::ScaleSlider::Embed(Qt::Vertical, *toolBar, widget);
-  addToolBar(Qt::RightToolBarArea, toolBar.release());
+  auto layout = make_unique<QHBoxLayout>(widget.get() /* parent */);
+  layout->setContentsMargins(0 /* left */, 0 /* top */, 0 /* right */, 0 /* bottom */);
+  {
+    auto mapWidget = make_unique<qt::common::MapWidget>(m_framework, widget.get() /* parent */);
+    auto toolBar = make_unique<QToolBar>(widget.get() /* parent */);
+    toolBar->setOrientation(Qt::Vertical);
+    toolBar->setIconSize(QSize(32, 32));
+    qt::common::ScaleSlider::Embed(Qt::Vertical, *toolBar, *mapWidget);
+
+    layout->addWidget(mapWidget.release());
+    layout->addWidget(toolBar.release());
+  }
+
+  widget->setLayout(layout.release());
+  setCentralWidget(widget.release());
 }
 
 void MainView::InitDocks()
