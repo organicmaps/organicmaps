@@ -15,7 +15,8 @@
   <TextView
     android:id="@+id/tv__action_small"
     android:layout_width="wrap_content"
-    android:layout_height="@dimen/margin_base_plus"
+    android:layout_height="wrap_content"
+    android:gravity="center"
     android:layout_centerVertical="true"
     android:layout_alignParentRight="true"
     android:layout_alignParentEnd="true"
