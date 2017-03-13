@@ -2110,7 +2110,9 @@ void Framework::UpdatePlacePageInfoForCurrentSelection()
     return;
 
   place_page::Info info;
+
   df::SelectionShape::ESelectedObject const obj = OnTapEventImpl(*m_lastTapEvent, info);
+  info.m_countryId = m_infoGetter->GetRegionCountryId(info.GetMercator());
   if (obj != df::SelectionShape::OBJECT_EMPTY)
     ActivateMapSelection(false, obj, info);
 }
