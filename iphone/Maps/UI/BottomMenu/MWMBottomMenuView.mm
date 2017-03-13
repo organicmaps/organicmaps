@@ -101,6 +101,7 @@ CGFloat constexpr kTimeWidthRegular = 128;
 @property(nonatomic) IBOutletCollection(NSLayoutConstraint)
     NSArray * heightProfileContainerVerticalOrientation;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * routingViewManuButtonPffset;
+@property(nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray * mainButtonConstraintsLeftToRight;
 
 @property(nonatomic) CGFloat layoutDuration;
 
@@ -131,6 +132,12 @@ CGFloat constexpr kTimeWidthRegular = 128;
   [self.goButton setBackgroundColor:[UIColor linkBlueHighlighted]
                            forState:UIControlStateHighlighted];
   self.elevationImage.mwm_coloring = MWMImageColoringBlue;
+
+  if (isInterfaceRightToLeft())
+  {
+    for (NSLayoutConstraint * constraint in self.mainButtonConstraintsLeftToRight)
+      constraint.priority = UILayoutPriorityFittingSizeLevel;
+  }
 }
 
 - (void)layoutSubviews

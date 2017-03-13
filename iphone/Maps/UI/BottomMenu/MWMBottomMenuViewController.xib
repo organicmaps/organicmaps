@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -56,7 +56,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xQ0-ZK-UXk" userLabel="P2P" customClass="MWMButton">
-                            <rect key="frame" x="88" y="0.0" width="60" height="48"/>
+                            <rect key="frame" x="87.5" y="0.0" width="60" height="48"/>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                             <accessibility key="accessibilityConfiguration" identifier="p2pButton"/>
                             <constraints>
@@ -71,7 +71,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qVh-dm-DDH" userLabel="Bookmarks" customClass="MWMButton">
-                            <rect key="frame" x="176" y="0.0" width="60" height="48"/>
+                            <rect key="frame" x="175.5" y="0.0" width="60" height="48"/>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                             <accessibility key="accessibilityConfiguration" identifier="bookmarksButton"/>
                             <constraints>
@@ -412,16 +412,18 @@
                         <constraint firstItem="IzQ-aQ-aPH" firstAttribute="height" secondItem="kbJ-If-gUR" secondAttribute="height" id="JFI-3b-72w"/>
                         <constraint firstAttribute="trailing" secondItem="c75-ZF-hKn" secondAttribute="trailing" priority="500" id="L0y-Zo-LJu"/>
                         <constraint firstItem="c75-ZF-hKn" firstAttribute="top" secondItem="kbJ-If-gUR" secondAttribute="top" id="OyE-mG-Zi1"/>
-                        <constraint firstItem="xQ0-ZK-UXk" firstAttribute="centerX" secondItem="kbJ-If-gUR" secondAttribute="centerX" multiplier="22:30" id="RMv-Kx-9s6"/>
+                        <constraint firstItem="xQ0-ZK-UXk" firstAttribute="centerX" secondItem="kbJ-If-gUR" secondAttribute="centerX" multiplier="22:30" priority="999" id="RMv-Kx-9s6"/>
                         <constraint firstItem="qVh-dm-DDH" firstAttribute="centerY" secondItem="kbJ-If-gUR" secondAttribute="centerY" id="Rgu-Ok-h30"/>
+                        <constraint firstItem="qVh-dm-DDH" firstAttribute="centerX" secondItem="kbJ-If-gUR" secondAttribute="centerX" multiplier="22:30" priority="998" id="SJM-MP-uAt"/>
                         <constraint firstItem="xQ0-ZK-UXk" firstAttribute="height" secondItem="kbJ-If-gUR" secondAttribute="height" id="WRQ-HY-d1P"/>
-                        <constraint firstItem="qVh-dm-DDH" firstAttribute="centerX" secondItem="kbJ-If-gUR" secondAttribute="centerX" multiplier="385:300" id="Wda-vl-hB4"/>
+                        <constraint firstItem="qVh-dm-DDH" firstAttribute="centerX" secondItem="kbJ-If-gUR" secondAttribute="centerX" multiplier="385:300" priority="999" id="Wda-vl-hB4"/>
                         <constraint firstItem="qVh-dm-DDH" firstAttribute="height" secondItem="kbJ-If-gUR" secondAttribute="height" id="d2K-hv-PmH"/>
                         <constraint firstItem="iYj-za-A2N" firstAttribute="height" secondItem="kbJ-If-gUR" secondAttribute="height" id="erS-UF-ESy"/>
                         <constraint firstAttribute="bottom" secondItem="c75-ZF-hKn" secondAttribute="bottom" id="f6U-e7-mij"/>
                         <constraint firstItem="WLn-2O-Ivv" firstAttribute="centerX" secondItem="YLY-C4-SBu" secondAttribute="centerX" constant="8" id="lUQ-gw-psA"/>
                         <constraint firstItem="IzQ-aQ-aPH" firstAttribute="centerY" secondItem="kbJ-If-gUR" secondAttribute="centerY" id="nbW-x7-1M5"/>
                         <constraint firstItem="IzQ-aQ-aPH" firstAttribute="leading" secondItem="kbJ-If-gUR" secondAttribute="leading" id="qEI-fz-zc8"/>
+                        <constraint firstItem="xQ0-ZK-UXk" firstAttribute="centerX" secondItem="kbJ-If-gUR" secondAttribute="centerX" multiplier="385:300" priority="998" id="r8v-8m-Uxx"/>
                         <constraint firstAttribute="trailing" secondItem="qvF-jY-5Gi" secondAttribute="trailing" id="tRN-si-eTf"/>
                         <constraint firstItem="YLY-C4-SBu" firstAttribute="height" secondItem="kbJ-If-gUR" secondAttribute="height" id="wGb-xV-jeL"/>
                         <constraint firstItem="xQ0-ZK-UXk" firstAttribute="centerY" secondItem="kbJ-If-gUR" secondAttribute="centerY" id="xfg-wf-76Q"/>
@@ -608,6 +610,8 @@
                 <outletCollection property="heightProfileContainerVerticalOrientation" destination="ZCb-We-WNy" id="uzJ-Eb-Epe"/>
                 <outletCollection property="heightProfileContainerVerticalOrientation" destination="CRC-g9-WLM" id="Zr9-y7-E9U"/>
                 <outletCollection property="heightProfileContainerVerticalOrientation" destination="h5a-LJ-T8H" id="89A-IH-XBE"/>
+                <outletCollection property="mainButtonConstraintsLeftToRight" destination="RMv-Kx-9s6" id="bdV-lr-UW4"/>
+                <outletCollection property="mainButtonConstraintsLeftToRight" destination="Wda-vl-hB4" id="mlw-3b-7eT"/>
             </connections>
             <point key="canvasLocation" x="34" y="53.5"/>
         </view>
