@@ -309,7 +309,7 @@ uk:3^Банкомат
 vi:^ATM
 zh-Hans:^自动取款机
 zh-Hant:1^自動櫃員機
-el:ATM
+el:^ATM
 he:^כספומט
 sk:3^Bankomat
 sw:^Benki|fedha
@@ -371,7 +371,7 @@ uk:3^Банк
 vi:3^Ngânhàng
 zh-Hans:1^银行
 zh-Hant:1^銀行
-el:Τράπεζα
+el:^Τράπεζα
 he:^בנק
 sk:3^Banka
 sw:^Benki|fedha
@@ -611,7 +611,7 @@ uk:3бензин|газ
 vi:^Trạm xăng
 zh-Hans:1^加油站|燃料
 zh-Hant:2^加氣站|汽油|加油|天然氣
-el:Βενζινάδικο|καύσιμο|βενζίνη|πρατήριο
+el:^Βενζινάδικο|καύσιμο|βενζίνη|πρατήριο
 sk:3^Benzínová pumpa
 sw:^Sheli|mafuta
 
@@ -3155,7 +3155,7 @@ uk:3^Аптека
 vi:^Hiệuthuốc
 zh-Hans:1^药店
 zh-Hant:1^藥局
-el:Φαρμακείο
+el:^Φαρμακείο
 he:^ביתמרקחת
 sk:3^Lekáreň
 sw:^Duka la dawa
@@ -3236,7 +3236,7 @@ uk:3^Пошта
 vi:^Bưuđiện
 zh-Hans:1^邮政
 zh-Hant:1^郵局
-el:Δημοσίευση
+el:^Δημοσίευση
 he:^דואר
 sk:3^Pošta
 sw:^Posta
@@ -3438,7 +3438,7 @@ uk:3^Туалет
 vi:^Nhàvệsinh
 zh-Hans:1^厕所
 zh-Hant:1^廁所
-el:Τουαλέτα
+el:^Τουαλέτα
 he:^שירותים
 sk:^Záchody
 sw:^Choo
@@ -4744,7 +4744,7 @@ uk:4^Міліція
 vi:^Cảnhsát
 zh-Hans:2^警察
 zh-Hant:1^警察局
-el:Αστυνομία
+el:^Αστυνομία
 he:^משטרה
 sk:3^Polícia
 sw:^Polisi
@@ -5567,7 +5567,7 @@ uk:3^Інтернет|Internet
 vi:3^Internet
 zh-Hans:3^互联网|WiFi|3Internet
 zh-Hant:3^互聯網|WiFi|3Internet
-el:Ίντερνετ
+el:^Ίντερνετ
 sk:3^Internet
 sw:^Intaneti
 
@@ -6199,7 +6199,7 @@ uk:^Магазин побутової хімії
 vi:^Cửa hàng Dược phẩm
 zh-Hans:^药妆店
 zh-Hant:^藥妝店
-el:Φαρμακείο
+el:^Φαρμακείο
 sk:^Drogéria
 
 shop-pet|@shop
@@ -6229,7 +6229,7 @@ uk:^Зоотовари
 vi:^Cửa Hàng Vật Nuôi
 zh-Hans:^宠物店
 zh-Hant:^寵物店
-el:Κατάστημα για κατοικίδια
+el:^Κατάστημα για κατοικίδια
 sk:^Obchod zo zvieratami
 
 tourism-zoo|@tourism
@@ -6291,7 +6291,7 @@ uk:^Туристичний офіс
 vi:^Văn Phòng Du Lịch
 zh-Hans:^旅游服务处
 zh-Hant:^旅遊辦事處
-el:Τουριστικό γραφείο
+el:^Τουριστικό γραφείο
 sk:^Turistické informačné centrum
 
 amenity-community_centre
@@ -6651,7 +6651,7 @@ uk:^Рибна крамниця
 vi:^Người bán cá
 zh-Hans:^鱼商
 zh-Hant:^魚販
-el:Κατάστημα με θαλασσινά
+el:^Κατάστημα με θαλασσινά
 sk:^Obchodník s rybami
 
 shop-ticket|@shop
@@ -6681,7 +6681,7 @@ uk:^Білетна каса
 vi:^Phòng vé
 zh-Hans:^售票处
 zh-Hant:^售票處
-el:Κατάστημα πώλησης εισιτηρίων
+el:^Κατάστημα πώλησης εισιτηρίων
 sk:^Pokladnica
 
 shop-wine|@shop
@@ -6711,7 +6711,7 @@ uk:^Винна крамниця
 vi:^Rượu|Cửa hàng rượu
 zh-Hans:^酒店
 zh-Hant:^販酒處
-el:Οινοπωλείο
+el:^Οινοπωλείο
 sk:^Vinotéka
 
 shop-car_parts|@shop
@@ -6773,7 +6773,7 @@ uk:^Шале
 vi:^Nhà vệ sinh công cộng
 zh-Hans:^木屋
 zh-Hant:^木屋
-el:Σαλέ
+el:^Σαλέ
 sk:^Chata
 
 tourism-information-board|@tourism
@@ -6803,7 +6803,7 @@ uk:^Інформаційний щит
 vi:^Bảng Thông Tin
 zh-Hans:^公告板
 zh-Hant:^資訊中心
-el:Πίνακας πληροφοριών
+el:^Πίνακας πληροφοριών
 sk:^Informačné centrum
 
 tourism-information-map|@tourism
@@ -6833,7 +6833,7 @@ uk:^Мапа
 vi:^Bản Đồ Du Lịch
 zh-Hans:^旅游地图
 zh-Hant:^旅遊地圖
-el:Τουριστικός χάρτης
+el:^Τουριστικός χάρτης
 sk:^Turistická mapa
 
 aerialway-station
@@ -7673,7 +7673,7 @@ uk:^Апартаменти
 vi:^Căn hộ
 zh-Hans:^公寓
 zh-Hant:^公寓
-el:Διαμερίσματα
+el:^Διαμερίσματα
 sk:^Apartmány
 
 tourism-resort|@hotel
@@ -7703,5 +7703,5 @@ uk:^Будинок відпочинку
 vi:^Khu nghỉ dưỡng
 zh-Hans:^度假村
 zh-Hant:^度假酒店
-el:Θέρετρο
+el:^Θέρετρο
 sk:^Rezort
