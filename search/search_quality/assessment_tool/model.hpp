@@ -7,7 +7,7 @@ class View;
 class Model
 {
 public:
-  ~Model() = default;
+  virtual ~Model() = default;
 
   void SetView(View & view) { m_view = &view; }
 

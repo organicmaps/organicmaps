@@ -2,7 +2,8 @@
 
 #include "search/search_quality/sample.hpp"
 
-#include "std/vector.hpp"
+#include <string>
+#include <vector>
 
 class Model;
 
