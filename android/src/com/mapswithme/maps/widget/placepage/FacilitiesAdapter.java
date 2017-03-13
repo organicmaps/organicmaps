@@ -63,6 +63,11 @@ class FacilitiesAdapter extends RecyclerView.Adapter<FacilitiesAdapter.ViewHolde
     notifyDataSetChanged();
   }
 
+  boolean isShowAll()
+  {
+    return isShowAll;
+  }
+
   static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
   {
 //    ImageView mIcon;
