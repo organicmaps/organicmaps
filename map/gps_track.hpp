@@ -8,7 +8,6 @@
 
 #include "std/condition_variable.hpp"
 #include "std/mutex.hpp"
-#include "std/thread.hpp"
 #include "std/unique_ptr.hpp"
 
 class GpsTrack final
