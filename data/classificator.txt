@@ -773,6 +773,7 @@ world  +
             {}
         chemist  -
         clothes  -
+        coffee  -
         computer  -
         confectionery  -
         convenience  -
@@ -802,6 +803,7 @@ world  +
         shoes  -
         sports  -
         supermarket  -
+        tea  -
         ticket  -
         toys  -
         travel_agency  -

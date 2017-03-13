@@ -30502,7 +30502,7 @@ cont {
     scale: 15
     symbol {
       name: "monument-m"
-      priority: 16747
+      priority: 16852
       min_distance: 24
     }
     caption {
@@ -30511,14 +30511,14 @@ cont {
         color: 4473924
         offset_y: 10
       }
-      priority: 15747
+      priority: 15852
     }
   }
   element {
     scale: 16
     symbol {
       name: "monument-m"
-      priority: 16747
+      priority: 16852
       min_distance: 12
     }
     caption {
@@ -30527,14 +30527,14 @@ cont {
         color: 4473924
         offset_y: 10
       }
-      priority: 15747
+      priority: 15852
     }
   }
   element {
     scale: 17
     symbol {
       name: "monument-l"
-      priority: 16747
+      priority: 16852
     }
     caption {
       primary {
@@ -30542,14 +30542,14 @@ cont {
         color: 4473924
         offset_y: 10
       }
-      priority: 15747
+      priority: 15852
     }
   }
   element {
     scale: 18
     symbol {
       name: "monument-l"
-      priority: 16747
+      priority: 16852
     }
     caption {
       primary {
@@ -30557,14 +30557,14 @@ cont {
         color: 4473924
         offset_y: 10
       }
-      priority: 15747
+      priority: 15852
     }
   }
   element {
     scale: 19
     symbol {
       name: "monument-l"
-      priority: 16747
+      priority: 16852
     }
     caption {
       primary {
@@ -30572,7 +30572,7 @@ cont {
         color: 4473924
         offset_y: 10
       }
-      priority: 15747
+      priority: 15852
     }
   }
 }
@@ -30582,7 +30582,7 @@ cont {
     scale: 13
     symbol {
       name: "monument-s"
-      priority: 16747
+      priority: 16852
       min_distance: 12
     }
     caption {
@@ -30591,14 +30591,14 @@ cont {
         color: 4473924
         offset_y: 6
       }
-      priority: 15747
+      priority: 15852
     }
   }
   element {
     scale: 14
     symbol {
       name: "monument-s"
-      priority: 16747
+      priority: 16852
       min_distance: 12
     }
     caption {
@@ -30607,14 +30607,14 @@ cont {
         color: 4473924
         offset_y: 6
       }
-      priority: 15747
+      priority: 15852
     }
   }
   element {
     scale: 15
     symbol {
       name: "monument-m"
-      priority: 16747
+      priority: 16852
       min_distance: 24
     }
     caption {
@@ -30623,14 +30623,14 @@ cont {
         color: 4473924
         offset_y: 10
       }
-      priority: 15747
+      priority: 15852
     }
   }
   element {
     scale: 16
     symbol {
       name: "monument-m"
-      priority: 16747
+      priority: 16852
       min_distance: 12
     }
     caption {
@@ -30639,14 +30639,14 @@ cont {
         color: 4473924
         offset_y: 10
       }
-      priority: 15747
+      priority: 15852
     }
   }
   element {
     scale: 17
     symbol {
       name: "monument-l"
-      priority: 16747
+      priority: 16852
     }
     caption {
       primary {
@@ -30654,14 +30654,14 @@ cont {
         color: 4473924
         offset_y: 10
       }
-      priority: 15747
+      priority: 15852
     }
   }
   element {
     scale: 18
     symbol {
       name: "monument-l"
-      priority: 16747
+      priority: 16852
     }
     caption {
       primary {
@@ -30669,14 +30669,14 @@ cont {
         color: 4473924
         offset_y: 10
       }
-      priority: 15747
+      priority: 15852
     }
   }
   element {
     scale: 19
     symbol {
       name: "monument-l"
-      priority: 16747
+      priority: 16852
     }
     caption {
       primary {
@@ -30684,7 +30684,7 @@ cont {
         color: 4473924
         offset_y: 10
       }
-      priority: 15747
+      priority: 15852
     }
   }
 }
@@ -58335,6 +58335,73 @@ cont {
   }
 }
 cont {
+  name: "shop-coffee"
+  element {
+    scale: 16
+    symbol {
+      name: "shop-m"
+      priority: 16621
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15621
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "shop-l"
+      priority: 16621
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15621
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "shop-l"
+      priority: 16621
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15621
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "shop-l"
+      priority: 16621
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15621
+    }
+  }
+}
+cont {
   name: "shop-computer"
   element {
     scale: 16
@@ -60370,6 +60437,73 @@ cont {
         offset_y: 10
       }
       priority: 15673
+    }
+  }
+}
+cont {
+  name: "shop-tea"
+  element {
+    scale: 16
+    symbol {
+      name: "shop-m"
+      priority: 16621
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15621
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "shop-l"
+      priority: 16621
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15621
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "shop-l"
+      priority: 16621
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15621
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "shop-l"
+      priority: 16621
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15621
     }
   }
 }

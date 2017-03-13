@@ -40146,6 +40146,41 @@ cont {
   }
 }
 cont {
+  name: "shop-coffee"
+  element {
+    scale: 16
+    symbol {
+      name: "shop-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "shop-l"
+      priority: 16000
+      min_distance: 27
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "shop-l"
+      priority: 16000
+      min_distance: 27
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "shop-l"
+      priority: 16000
+      min_distance: 27
+    }
+  }
+}
+cont {
   name: "shop-computer"
   element {
     scale: 16
@@ -41317,6 +41352,41 @@ cont {
         offset_y: 8
       }
       priority: 15776
+    }
+  }
+}
+cont {
+  name: "shop-tea"
+  element {
+    scale: 16
+    symbol {
+      name: "shop-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "shop-l"
+      priority: 16000
+      min_distance: 27
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "shop-l"
+      priority: 16000
+      min_distance: 27
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "shop-l"
+      priority: 16000
+      min_distance: 27
     }
   }
 }
