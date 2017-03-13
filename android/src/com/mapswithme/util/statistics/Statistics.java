@@ -10,12 +10,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.facebook.ads.AdError;
 import com.facebook.appevents.AppEventsLogger;
 import com.flurry.android.FlurryAgent;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.api.ParsedMwmRequest;
+import com.mapswithme.maps.bookmarks.data.Banner;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
@@ -30,8 +32,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.mapswithme.util.statistics.Statistics.EventName.PP_HOTEL_REVIEWS_LAND;
+import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_BLANK;
+import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_BOOK;
+import static com.mapswithme.util.statistics.Statistics.EventParam.BANNER;
+import static com.mapswithme.util.statistics.Statistics.EventParam.BANNER_STATE;
+import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR_CODE;
+import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR_MESSAGE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.HOTEL;
 import static com.mapswithme.util.statistics.Statistics.EventParam.HOTEL_LAT;
 import static com.mapswithme.util.statistics.Statistics.EventParam.HOTEL_LON;
@@ -90,6 +97,8 @@ public enum Statistics
     public static final String PP_METADATA_COPY = "PP. CopyMetadata";
     public static final String PP_BANNER_CLICK = "Placepage_Banner_click";
     public static final String PP_BANNER_SHOW = "Placepage_Banner_show";
+    public static final String PP_BANNER_ERROR = "Placepage_Banner_error";
+    public static final String PP_BANNER_BLANK = "Placepage_Banner_blank";
     public static final String PP_HOTEL_GALLERY_OPEN = "PlacePage_Hotel_Gallery_open";
     public static final String PP_HOTEL_REVIEWS_LAND = "PlacePage_Hotel_Reviews_land";
     public static final String PP_HOTEL_DESCRIPTION_LAND = "PlacePage_Hotel_Description_land";
@@ -242,6 +251,10 @@ public enum Statistics
     public static final String FROM_LON = "from_lon";
     public static final String TO_LAT = "to_lat";
     public static final String TO_LON = "to_lon";
+    static final String BANNER = "banner";
+    static final String BANNER_STATE = "state";
+    static final String ERROR_CODE = "error_code";
+    static final String ERROR_MESSAGE = "error_message";
     private EventParam() {}
   }
 
@@ -502,6 +515,27 @@ public enum Statistics
   public void trackBookHotelEvent(@NonNull Sponsored hotel, @NonNull MapObject mapObject)
   {
     trackHotelEvent(PP_SPONSORED_BOOK, hotel, mapObject);
+  }
+
+  public void trackFacebookBanner(@NonNull String eventName, @NonNull Banner banner, int state)
+  {
+    trackEvent(eventName, Statistics.params()
+                                    .add(BANNER, banner.getId())
+                                    .add(PROVIDER, "FB")
+                                    .add(BANNER_STATE, String.valueOf(state)));
+  }
+
+  public void trackFacebookBannerError(@Nullable Banner banner, @Nullable AdError error, int state)
+  {
+    boolean isAdBlank = error != null && error.getErrorCode() == AdError.NO_FILL_ERROR_CODE;
+    String eventName = isAdBlank ? PP_BANNER_BLANK : PP_BANNER_ERROR;
+    Statistics.ParameterBuilder builder = Statistics.params();
+    builder.add(BANNER, banner != null ? banner.getId() : "N/A")
+           .add(ERROR_CODE, error != null ? String.valueOf(error.getErrorCode()) : "N/A")
+           .add(ERROR_MESSAGE, error != null ? error.getErrorMessage() : "N/A")
+           .add(PROVIDER, "FB")
+           .add(BANNER_STATE, String.valueOf(state));
+    trackEvent(eventName, builder.get());
   }
 
   public static ParameterBuilder params()

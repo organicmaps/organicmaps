@@ -30,6 +30,8 @@ import java.util.List;
 
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 import static com.mapswithme.util.SharedPropertiesUtils.isShowcaseSwitchedOnLocal;
+import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_CLICK;
+import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_SHOW;
 
 final class BannerController implements AdListener
 {
@@ -183,10 +185,7 @@ final class BannerController implements AdListener
     mTitle.setMaxLines(MAX_TITLE_LINES);
     updateVisibility();
 
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_BANNER_SHOW,
-                                   Statistics.params()
-                                             .add("banner:", mBanner.getId())
-                                             .add("state:", "1"));
+    Statistics.INSTANCE.trackFacebookBanner(PP_BANNER_SHOW, mBanner, 1);
   }
 
   boolean close()
@@ -231,6 +230,7 @@ final class BannerController implements AdListener
     if (mListener != null)
       mListener.onSizeChanged();
     LOGGER.e(TAG, adError.getErrorMessage());
+    Statistics.INSTANCE.trackFacebookBannerError(mBanner, adError, mOpened ? 1 : 0);
   }
 
   @Override
@@ -263,10 +263,7 @@ final class BannerController implements AdListener
     else if (!mOpened)
     {
       close();
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_BANNER_SHOW,
-                                     Statistics.params()
-                                               .add("banner:", mBanner.getId())
-                                               .add("state:", "0"));
+      Statistics.INSTANCE.trackFacebookBanner(PP_BANNER_SHOW, mBanner, 0);
     }
     else
     {
@@ -283,10 +280,7 @@ final class BannerController implements AdListener
     if (mBanner == null)
       return;
 
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_BANNER_CLICK,
-                                   Statistics.params()
-                                             .add("banner:", mBanner.getId())
-                                             .add("state:", mOpened ? "1" : "0"));
+    Statistics.INSTANCE.trackFacebookBanner(PP_BANNER_CLICK, mBanner, mOpened ? 1 : 0);
   }
 
   boolean isActionButtonTouched(@NonNull MotionEvent event)
