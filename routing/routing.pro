@@ -17,9 +17,9 @@ SOURCES += \
     base/followed_polyline.cpp \
     bicycle_directions.cpp \
     car_router.cpp \
+    cross_mwm_connector.cpp \
+    cross_mwm_connector_serialization.cpp \
     cross_mwm_index_graph.cpp \
-    cross_mwm_ramp.cpp \
-    cross_mwm_ramp_serialization.cpp \
     cross_mwm_road_graph.cpp \
     cross_mwm_router.cpp \
     cross_routing_context.cpp \
@@ -69,9 +69,9 @@ HEADERS += \
     base/followed_polyline.hpp \
     bicycle_directions.hpp \
     car_router.hpp \
+    cross_mwm_connector.hpp \
+    cross_mwm_connector_serialization.hpp \
     cross_mwm_index_graph.hpp \
-    cross_mwm_ramp.hpp \
-    cross_mwm_ramp_serialization.hpp \
     cross_mwm_road_graph.hpp \
     cross_mwm_router.hpp \
     cross_routing_context.hpp \

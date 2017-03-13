@@ -18,6 +18,10 @@ set(
   bicycle_directions.hpp
   car_router.cpp
   car_router.hpp
+  cross_mwm_connector.cpp
+  cross_mwm_connector.hpp
+  cross_mwm_connector_serialization.cpp
+  cross_mwm_connector_serialization.hpp
   cross_mwm_index_graph.cpp
   cross_mwm_index_graph.hpp
   cross_mwm_road_graph.cpp

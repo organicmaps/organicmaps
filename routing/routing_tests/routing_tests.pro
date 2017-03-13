@@ -26,7 +26,7 @@ SOURCES += \
   astar_progress_test.cpp \
   astar_router_test.cpp \
   async_router_test.cpp \
-  cross_mwm_ramp_test.cpp \
+  cross_mwm_connector_test.cpp \
   cross_routing_tests.cpp \
   cumulative_restriction_test.cpp \
   followed_polyline_test.cpp \

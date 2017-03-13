@@ -3,6 +3,8 @@
 #include "std/initializer_list.hpp"
 #include "std/string.hpp"
 
+#include <utility>
+
 namespace my
 {
   /// Remove extension from file name.
@@ -22,10 +24,19 @@ namespace my
   /// Get folder separator for specific platform
   string GetNativeSeparator();
 
-  /// Create full path from some folder using native folders separator
+  /// @deprecated use JoinPath instead.
   string JoinFoldersToPath(const string & folder, const string & file);
   string JoinFoldersToPath(initializer_list<string> const & folders, const string & file);
 
   /// Add the terminating slash to the folder path string if it's not already there.
   string AddSlashIfNeeded(string const & path);
+
+  inline std::string JoinPath(std::string const & file) { return file; }
+
+  /// Create full path from some folder using native folders separator.
+  template<typename... Args>
+  std::string JoinPath(std::string const & folder, Args&&... args)
+  {
+    return AddSlashIfNeeded(folder) + JoinPath(std::forward<Args>(args)...);
+  }
 }

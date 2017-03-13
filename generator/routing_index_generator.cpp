@@ -1,17 +1,20 @@
 #include "generator/routing_index_generator.hpp"
+
 #include "generator/borders_generator.hpp"
 #include "generator/borders_loader.hpp"
 
+#include "routing/cross_mwm_connector.hpp"
+#include "routing/cross_mwm_connector_serialization.hpp"
 #include "routing/index_graph.hpp"
 #include "routing/index_graph_serialization.hpp"
 #include "routing/vehicle_mask.hpp"
 
-#include "routing/cross_mwm_ramp.hpp"
-#include "routing/cross_mwm_ramp_serialization.hpp"
 #include "routing_common/bicycle_model.hpp"
 #include "routing_common/car_model.hpp"
 #include "routing_common/pedestrian_model.hpp"
 
+#include "indexer/coding_params.hpp"
+#include "indexer/data_header.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_processor.hpp"
 #include "indexer/point_to_int64.hpp"
@@ -22,10 +25,10 @@
 #include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 
-#include "std/bind.hpp"
-#include "std/shared_ptr.hpp"
-#include "std/unordered_map.hpp"
-#include "std/vector.hpp"
+#include <functional>
+#include <memory>
+#include <unordered_map>
+#include <vector>
 
 using namespace feature;
 using namespace platform;
@@ -33,10 +36,10 @@ using namespace routing;
 
 namespace
 {
-class VehicleMaskMaker final
+class VehicleMaskBuilder final
 {
 public:
-  explicit VehicleMaskMaker(string const & country)
+  explicit VehicleMaskBuilder(string const & country)
     : m_pedestrianModel(PedestrianModelFactory().GetVehicleModelForCountry(country))
     , m_bicycleModel(BicycleModelFactory().GetVehicleModelForCountry(country))
     , m_carModel(CarModelFactory().GetVehicleModelForCountry(country))
@@ -48,31 +51,31 @@ public:
 
   VehicleMask CalcRoadMask(FeatureType const & f) const
   {
-    VehicleMask mask = 0;
-    if (m_pedestrianModel->IsRoad(f))
-      mask |= kPedestrianMask;
-    if (m_bicycleModel->IsRoad(f))
-      mask |= kBicycleMask;
-    if (m_carModel->IsRoad(f))
-      mask |= kCarMask;
-
-    return mask;
+    return CalcMask(
+        f, [&](IVehicleModel const & model, FeatureType const & f) { return model.IsRoad(f); });
   }
 
   VehicleMask CalcOneWayMask(FeatureType const & f) const
   {
+    return CalcMask(
+        f, [&](IVehicleModel const & model, FeatureType const & f) { return model.IsOneWay(f); });
+  }
+
+private:
+  template <class Fn>
+  bool CalcMask(FeatureType const & f, Fn && fn) const
+  {
     VehicleMask mask = 0;
-    if (m_pedestrianModel->IsOneWay(f))
+    if (fn(*m_pedestrianModel, f))
       mask |= kPedestrianMask;
-    if (m_bicycleModel->IsOneWay(f))
+    if (fn(*m_bicycleModel, f))
       mask |= kBicycleMask;
-    if (m_carModel->IsOneWay(f))
+    if (fn(*m_carModel, f))
       mask |= kCarMask;
 
     return mask;
   }
 
-private:
   shared_ptr<IVehicleModel> const m_pedestrianModel;
   shared_ptr<IVehicleModel> const m_bicycleModel;
   shared_ptr<IVehicleModel> const m_carModel;
@@ -81,8 +84,7 @@ private:
 class Processor final
 {
 public:
-  explicit Processor(string const & country) : m_maskMaker(country) {}
-
+  explicit Processor(string const & country) : m_maskBuilder(country) {}
   void ProcessAllFeatures(string const & filename)
   {
     feature::ForEachFromDat(filename, bind(&Processor::ProcessFeature, this, _1, _2));
@@ -102,11 +104,10 @@ public:
   }
 
   unordered_map<uint32_t, VehicleMask> const & GetMasks() const { return m_masks; }
-
 private:
   void ProcessFeature(FeatureType const & f, uint32_t id)
   {
-    VehicleMask const mask = m_maskMaker.CalcRoadMask(f);
+    VehicleMask const mask = m_maskBuilder.CalcRoadMask(f);
     if (mask == 0)
       return;
 
@@ -120,14 +121,14 @@ private:
     }
   }
 
-  VehicleMaskMaker const m_maskMaker;
+  VehicleMaskBuilder const m_maskBuilder;
   unordered_map<uint64_t, Joint> m_posToJoint;
   unordered_map<uint32_t, VehicleMask> m_masks;
 };
 
-bool BordersContains(vector<m2::RegionD> const & borders, m2::PointD const & point)
+bool RegionsContain(vector<m2::RegionD> const & regions, m2::PointD const & point)
 {
-  for (m2::RegionD const & region : borders)
+  for (auto const & region : regions)
   {
     if (region.Contains(point))
       return true;
@@ -137,14 +138,14 @@ bool BordersContains(vector<m2::RegionD> const & borders, m2::PointD const & poi
 }
 
 void CalcCrossMwmTransitions(string const & path, string const & mwmFile, string const & country,
-                             vector<CrossMwmRampSerializer::Transition> & transitions,
-                             vector<CrossMwmRamp> & ramps)
+                             vector<CrossMwmConnectorSerializer::Transition> & transitions,
+                             CrossMwmConnectorPerVehicleType & connectors)
 {
-  string const polyFile = my::JoinFoldersToPath({path, BORDERS_DIR}, country + BORDERS_EXTENSION);
+  string const polyFile = my::JoinPath(path, BORDERS_DIR, country + BORDERS_EXTENSION);
   vector<m2::RegionD> borders;
   osm::LoadBorders(polyFile, borders);
 
-  VehicleMaskMaker const maskMaker(country);
+  VehicleMaskBuilder const maskMaker(country);
 
   feature::ForEachFromDat(mwmFile, [&](FeatureType const & f, uint32_t featureId) {
     VehicleMask const roadMask = maskMaker.CalcRoadMask(f);
@@ -153,51 +154,44 @@ void CalcCrossMwmTransitions(string const & path, string const & mwmFile, string
 
     f.ParseGeometry(FeatureType::BEST_GEOMETRY);
     size_t const pointsCount = f.GetPointsCount();
-    if (pointsCount <= 0)
+    if (pointsCount == 0)
       return;
 
-    bool prevPointIn = BordersContains(borders, f.GetPoint(0));
+    bool prevPointIn = RegionsContain(borders, f.GetPoint(0));
 
     for (size_t i = 1; i < pointsCount; ++i)
     {
-      bool const pointIn = BordersContains(borders, f.GetPoint(i));
-      if (pointIn != prevPointIn)
+      bool const currPointIn = RegionsContain(borders, f.GetPoint(i));
+      if (currPointIn == prevPointIn)
+        continue;
+
+      uint32_t const segmentIdx = base::asserted_cast<uint32_t>(i - 1);
+      VehicleMask const oneWayMask = maskMaker.CalcOneWayMask(f);
+
+      transitions.emplace_back(featureId, segmentIdx, roadMask, oneWayMask, currPointIn,
+                               f.GetPoint(i - 1), f.GetPoint(i));
+
+      for (size_t j = 0; j < connectors.size(); ++j)
       {
-        uint32_t const segmentIdx = base::asserted_cast<uint32_t>(i - 1);
-        VehicleMask const oneWayMask = maskMaker.CalcOneWayMask(f);
-
-        transitions.emplace_back(featureId, segmentIdx, roadMask, oneWayMask, pointIn,
-                                 f.GetPoint(i - 1), f.GetPoint(i));
-
-        for (size_t j = 0; j < ramps.size(); ++j)
-        {
-          VehicleMask const mask = GetVehicleMask(static_cast<VehicleType>(j));
-          CrossMwmRampSerializer::AddTransition(transitions.back(), mask, ramps[j]);
-        }
+        VehicleMask const mask = GetVehicleMask(static_cast<VehicleType>(j));
+        CrossMwmConnectorSerializer::AddTransition(transitions.back(), mask, connectors[j]);
       }
 
-      prevPointIn = pointIn;
+      prevPointIn = currPointIn;
     }
   });
 }
 
-void FillWeights(string const & path, string const & country, CrossMwmRamp & ramp)
+void FillWeights(string const & path, string const & country, CrossMwmConnector & connector)
 {
   shared_ptr<IVehicleModel> vehicleModel = CarModelFactory().GetVehicleModelForCountry(country);
   shared_ptr<EdgeEstimator> estimator =
       EdgeEstimator::CreateForCar(nullptr /* trafficStash */, vehicleModel->GetMaxSpeed());
 
-  Index index;
-  platform::CountryFile countryFile(country);
-  index.RegisterMap(LocalCountryFile(path, countryFile, 0));
-  MwmSet::MwmHandle handle = index.GetMwmHandleByCountryFile(countryFile);
-  CHECK(handle.IsAlive(), ());
-
-  Geometry geometry(GeometryLoader::Create(index, handle.GetId(), vehicleModel));
-
-  ramp.FillWeights([&](Segment const & enter, Segment const & exit) {
-    return estimator->CalcHeuristic(geometry.GetPoint(enter.GetRoadPoint(true)),
-                                    geometry.GetPoint(exit.GetRoadPoint(true)));
+  connector.FillWeights([&](Segment const & enter, Segment const & exit) {
+    // TODO replace fake weights with weights calculated by routing.
+    return estimator->CalcHeuristic(connector.GetPoint(enter, true /* front */),
+                                    connector.GetPoint(exit, true /* front */));
   });
 }
 }  // namespace
@@ -238,12 +232,12 @@ void BuildCrossMwmSection(string const & path, string const & mwmFile, string co
   LOG(LINFO, ("Building cross mwm section for", country));
   my::Timer timer;
 
-  vector<CrossMwmRamp> ramps(static_cast<size_t>(VehicleType::Count), kFakeNumMwmId);
+  CrossMwmConnectorPerVehicleType connectors;
 
-  vector<CrossMwmRampSerializer::Transition> transitions;
-  CalcCrossMwmTransitions(path, mwmFile, country, transitions, ramps);
+  vector<CrossMwmConnectorSerializer::Transition> transitions;
+  CalcCrossMwmTransitions(path, mwmFile, country, transitions, connectors);
 
-  FillWeights(path, country, ramps[static_cast<size_t>(VehicleType::Car)]);
+  FillWeights(path, country, connectors[static_cast<size_t>(VehicleType::Car)]);
 
   FilesContainerW cont(mwmFile, FileWriter::OP_WRITE_EXISTING);
   FileWriter writer = cont.GetWriter(CROSS_MWM_FILE_TAG);
@@ -252,7 +246,7 @@ void BuildCrossMwmSection(string const & path, string const & mwmFile, string co
   serial::CodingParams const & codingParams = dataHeader.GetDefCodingParams();
 
   auto const startPos = writer.Pos();
-  CrossMwmRampSerializer::Serialize(transitions, ramps, codingParams, writer);
+  CrossMwmConnectorSerializer::Serialize(transitions, connectors, codingParams, writer);
   auto const sectionSize = writer.Pos() - startPos;
 
   LOG(LINFO, ("Cross mwm section for", country, "generated in", timer.ElapsedSeconds(),

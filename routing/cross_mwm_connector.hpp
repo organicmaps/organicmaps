@@ -2,9 +2,9 @@
 
 #include "routing/segment.hpp"
 
-#include "base/assert.hpp"
-
 #include "geometry/point2d.hpp"
+
+#include "base/assert.hpp"
 
 #include <cmath>
 #include <limits>
@@ -13,10 +13,12 @@
 
 namespace routing
 {
-class CrossMwmRamp final
+class CrossMwmConnector final
 {
 public:
-  CrossMwmRamp(NumMwmId mwmId) : m_mwmId(mwmId) {}
+  CrossMwmConnector() : m_mwmId(kFakeNumMwmId) {}
+  explicit CrossMwmConnector(NumMwmId mwmId) : m_mwmId(mwmId) {}
+
   void AddTransition(uint32_t featureId, uint32_t segmentIdx, bool oneWay, bool forwardIsEnter,
                      m2::PointD const & backPoint, m2::PointD const & frontPoint);
 
@@ -28,24 +30,28 @@ public:
   std::vector<Segment> const & GetEnters() const { return m_enters; }
   std::vector<Segment> const & GetExits() const { return m_exits; }
   bool HasWeights() const { return !m_weights.empty(); }
-  bool WeightsWereLoaded() const { return m_weightsWereLoaded; }
+  bool WeightsWereLoaded() const;
+
   template <typename CalcWeight>
   void FillWeights(CalcWeight && calcWeight)
   {
+    CHECK_EQUAL(m_weightsLoadState, WeightsLoadState::Unknown, ());
     CHECK(m_weights.empty(), ());
+
     m_weights.reserve(m_enters.size() * m_exits.size());
-    for (size_t i = 0; i < m_enters.size(); ++i)
+    for (Segment const & enter : m_enters)
     {
-      for (size_t j = 0; j < m_exits.size(); ++j)
+      for (Segment const & exit : m_exits)
       {
-        double const weight = calcWeight(m_enters[i], m_exits[j]);
+        double const weight = calcWeight(enter, exit);
+        // Edges weights should be >= astar heuristic, so use std::ceil.
         m_weights.push_back(static_cast<Weight>(std::ceil(weight)));
       }
     }
   }
 
 private:
-  // This is internal type used for storing edges weights.
+  // This is an internal type for storing edges weights.
   // Weight is the time requred for the route to pass.
   // Weight is measured in seconds rounded upwards.
   using Weight = uint32_t;
@@ -60,7 +66,7 @@ private:
     {
     }
 
-    bool operator==(const Key & key) const
+    bool operator==(Key const & key) const
     {
       return m_featureId == key.m_featureId && m_segmentIdx == key.m_segmentIdx;
     }
@@ -71,7 +77,7 @@ private:
 
   struct HashKey
   {
-    size_t operator()(const Key & key) const
+    size_t operator()(Key const & key) const
     {
       return std::hash<uint64_t>()((static_cast<uint64_t>(key.m_featureId) << 32) +
                                    static_cast<uint64_t>(key.m_segmentIdx));
@@ -95,13 +101,28 @@ private:
 
     uint32_t m_enterIdx = 0;
     uint32_t m_exitIdx = 0;
-    m2::PointD m_backPoint = {0.0, 0.0};
-    m2::PointD m_frontPoint = {0.0, 0.0};
+    // Endpoints of transition segment.
+    // m_backPoint = points[segmentIdx]
+    // m_frontPoint = points[segmentIdx + 1]
+    m2::PointD m_backPoint = m2::PointD::Zero();
+    m2::PointD m_frontPoint = m2::PointD::Zero();
     bool m_oneWay = false;
+    // Transition represents both forward and backward segments with same featureId, segmentIdx.
+    // m_forwardIsEnter == true means: forward segment is enter to mwm:
+    // Enter means: m_backPoint is outside mwm borders, m_frontPoint is inside.
     bool m_forwardIsEnter = false;
   };
 
-  friend class CrossMwmRampSerializer;
+  enum class WeightsLoadState
+  {
+    Unknown,
+    NotExists,
+    ReadyToLoad,
+    Loaded
+  };
+
+  friend class CrossMwmConnectorSerializer;
+  friend std::string DebugPrint(WeightsLoadState state);
 
   void AddEdge(Segment const & segment, Weight weight, std::vector<SegmentEdge> & edges) const;
   Transition const & GetTransition(Segment const & segment) const;
@@ -111,7 +132,8 @@ private:
   std::vector<Segment> m_enters;
   std::vector<Segment> m_exits;
   std::unordered_map<Key, Transition, HashKey> m_transitions;
+  WeightsLoadState m_weightsLoadState = WeightsLoadState::Unknown;
+  uint64_t m_weightsOffset = 0;
   std::vector<Weight> m_weights;
-  bool m_weightsWereLoaded = false;
 };
 }  // namespace routing
