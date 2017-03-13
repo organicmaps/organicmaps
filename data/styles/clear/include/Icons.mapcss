@@ -299,10 +299,6 @@ area[building=train_station],
 node[railway=subway_entrance],
 node[railway=tram_stop],
 area[railway=tram_stop],
-node[historic=monument],
-area[historic=monument],
-node[historic=memorial],
-area[historic=memorial]
 {z-index: 2800;}
 
 node[tourism=motel],
@@ -346,6 +342,10 @@ area[tourism=attraction]
 {z-index: 2842;}
 node[tourism=gallery]
 {z-index: 2844;}
+node[historic=monument],
+area[historic=monument],
+node[historic=memorial],
+area[historic=memorial]
 node[tourism=museum],
 area[tourism=museum],
 {z-index: 2846;}
