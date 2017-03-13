@@ -17,14 +17,16 @@
 
 namespace
 {
-CGFloat constexpr kTurnsiPhoneWidth = 96;
-CGFloat constexpr kTurnsiPadWidth = 140;
+CGFloat const kTurnsiPhoneWidth = 96;
+CGFloat const kTurnsiPadWidth = 140;
 
-CGFloat constexpr kSearchButtonsViewHeightPortrait = 200;
-CGFloat constexpr kSearchButtonsViewWidthPortrait = 200;
-CGFloat constexpr kSearchButtonsViewHeightLandscape = 56;
-CGFloat constexpr kSearchButtonsViewWidthLandscape = 286;
-CGFloat constexpr kSearchButtonsSideSize = 44;
+CGFloat const kSearchButtonsViewHeightPortrait = 200;
+CGFloat const kSearchButtonsViewWidthPortrait = 200;
+CGFloat const kSearchButtonsViewHeightLandscape = 56;
+CGFloat const kSearchButtonsViewWidthLandscape = 286;
+CGFloat const kSearchButtonsSideSize = 44;
+CGFloat const kBaseTurnsTopOffset = 28;
+CGFloat const kShiftedTurnsTopOffset = 8;
 
 NSTimeInterval constexpr kCollapseSearchTimeout = 5.0;
 
@@ -77,6 +79,7 @@ BOOL defaultOrientation(CGSize const & size)
 @property(weak, nonatomic) IBOutlet MWMButton * searchFoodButton;
 @property(weak, nonatomic) IBOutlet MWMButton * searchShopButton;
 @property(weak, nonatomic) IBOutlet MWMButton * searchATMButton;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * turnsTopOffset;
 
 @property(nonatomic, readwrite) NavigationSearchState searchState;
 @property(nonatomic) BOOL isVisible;
@@ -101,6 +104,7 @@ BOOL defaultOrientation(CGSize const & size)
 - (void)remove { self.isVisible = NO; }
 - (void)layoutSubviews
 {
+  [super layoutSubviews];
   if (!CGRectEqualToRect(self.frame, self.defaultFrame))
   {
     self.frame = self.defaultFrame;
@@ -110,7 +114,6 @@ BOOL defaultOrientation(CGSize const & size)
 
   if (!self.isVisible)
     [self removeFromSuperview];
-  [super layoutSubviews];
 }
 
 - (CGFloat)leftHeight { return self.turnsView.maxY; }
@@ -383,15 +386,21 @@ BOOL defaultOrientation(CGSize const & size)
 
 - (CGRect)defaultFrame
 {
-  return CGRectMake(self.leftBound, 0.0, self.superview.width - self.leftBound,
-                    self.superview.height);
+  return {{self.leftBound, self.topBound},
+          {self.superview.width - self.leftBound, self.superview.height - self.topBound}};
+}
+
+- (void)setTopBound:(CGFloat)topBound
+{
+  _topBound = MAX(topBound, 0.0);
+  self.turnsTopOffset.constant = topBound > 0 ? kShiftedTurnsTopOffset : kBaseTurnsTopOffset;
+  [self setNeedsLayout];
 }
 
 - (void)setLeftBound:(CGFloat)leftBound
 {
   _leftBound = MAX(leftBound, 0.0);
   [self setNeedsLayout];
-  [self layoutIfNeeded];
 }
 
 @end

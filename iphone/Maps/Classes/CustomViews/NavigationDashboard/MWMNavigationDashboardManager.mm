@@ -261,7 +261,10 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
   _topBound = topBound;
   if (_routePreview)
     self.routePreview.topBound = topBound;
+  if (_navigationInfoView)
+    self.navigationInfoView.topBound = topBound;
 }
+
 - (void)setLeftBound:(CGFloat)leftBound
 {
   _leftBound = leftBound;
