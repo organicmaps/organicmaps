@@ -36,7 +36,9 @@ Ads::Ads()
                {"amenity", "pub"}},
               "185237551520383_1384650164912443");
   // Shops.
-  AppendEntry({{"shop"}}, "185237551520383_1384650804912379");
+  AppendEntry({{"shop"},
+               {"amenity", "marketplace"}},
+              "185237551520383_1384650804912379");
   // City Transport.
   AppendEntry({{"aerialway"},
                {"highway", "bus_stop"},
@@ -80,6 +82,17 @@ Ads::Ads()
               "185237551520383_1384652351578891");
   // Financial.
   AppendEntry({{"amenity", "bank"}, {"amenity", "atm"}}, "185237551520383_1384652658245527");
+  // Entertainment.
+  AppendEntry({{"amenity", "cinema"},
+               {"amenity", "brothel"},
+               {"amenity", "casino"},
+               {"amenity", "nightclub"},
+               {"amenity", "theatre"},
+               {"boundary", "national_park"},
+               {"leisure"}},
+              "185237551520383_1384653001578826");
+  // Building.
+  AppendEntry({{"building"}}, "185237551520383_1419317661445693");
 
   SetExcludeTypes({{"sponsored", "booking"}});
 }
