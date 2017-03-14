@@ -13,9 +13,7 @@ import android.widget.TextView;
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
 import com.facebook.ads.AdListener;
-import com.facebook.ads.AdSettings;
 import com.facebook.ads.NativeAd;
-import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.Banner;
 import com.mapswithme.util.Config;
@@ -146,19 +144,6 @@ final class BannerController implements AdListener
         || Config.getAdForbidden())
       return;
 
-    if (BuildConfig.DEBUG || BuildConfig.BUILD_TYPE.equals("beta"))
-    {
-      AdSettings.addTestDevice("ac468a4ec6502bc01749fea7b322f4a8");
-      AdSettings.addTestDevice("e1c32b26ad78c128cd6cdac09eb579a4");
-      AdSettings.addTestDevice("cbbc8cd2b6564ea727b5ca56bcf22622");
-      AdSettings.addTestDevice("c36b141fff9e11866d8cf9c601d2b7e0");
-      AdSettings.addTestDevice("189055740336d9d2687f41a775eaf867");
-      AdSettings.addTestDevice("36dd04f33c4cf92e3b7d21e9a5a9d985");
-      AdSettings.addTestDevice("b39d3c00580d17b291ff4e161a423525");
-      AdSettings.addTestDevice("51bae0d8b2ba8290659840f9098e3026");
-      AdSettings.addTestDevice("583a068aa7293c6743855343251e1fad");
-      AdSettings.addTestDevice("c1c9f7f1c06b8c2c4e15607e5c766cb3");
-    }
     mNativeAd = new NativeAd(mFrame.getContext(), mBanner.getId());
     mNativeAd.setAdListener(BannerController.this);
     mNativeAd.loadAd(EnumSet.of(NativeAd.MediaCacheFlag.ICON));
