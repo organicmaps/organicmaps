@@ -26,7 +26,7 @@
                         </constraints>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zWu-Gh-Vf7">
-                        <rect key="frame" x="16" y="9" width="20" height="12"/>
+                        <rect key="frame" x="16" y="10" width="20" height="12"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ads" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iWR-j0-gpt">
                                 <rect key="frame" x="0.0" y="0.0" width="20" height="12"/>
@@ -46,8 +46,8 @@
                             <constraint firstItem="iWR-j0-gpt" firstAttribute="leading" secondItem="zWu-Gh-Vf7" secondAttribute="leading" id="zek-Of-Clw"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="300" text="Delivery Club" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kIR-cO-v6L">
-                        <rect key="frame" x="40" y="8" width="234.5" height="15"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="300" text="Delivery Club" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kIR-cO-v6L">
+                        <rect key="frame" x="16" y="8" width="258.5" height="15"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -113,13 +113,15 @@
                     <constraint firstAttribute="trailing" secondItem="9qA-JC-fkn" secondAttribute="leading" priority="250" id="5CH-Fo-S70"/>
                     <constraint firstAttribute="bottom" secondItem="Ev3-yY-ql1" secondAttribute="bottom" priority="500" constant="8" id="FJI-xF-QTM"/>
                     <constraint firstItem="NKM-3R-3g1" firstAttribute="top" relation="greaterThanOrEqual" secondItem="EuF-Rm-DHQ" secondAttribute="bottom" constant="8" id="Fjs-IQ-LQv"/>
+                    <constraint firstItem="Ev3-yY-ql1" firstAttribute="top" secondItem="kIR-cO-v6L" secondAttribute="bottom" priority="250" constant="8" id="HHb-Vh-rIl"/>
                     <constraint firstItem="EuF-Rm-DHQ" firstAttribute="trailing" secondItem="f76-qn-ne4" secondAttribute="leading" priority="500" id="HLI-Zw-ETh"/>
                     <constraint firstItem="EuF-Rm-DHQ" firstAttribute="top" secondItem="f76-qn-ne4" secondAttribute="top" constant="8" id="KEp-1t-yK0"/>
                     <constraint firstItem="NKM-3R-3g1" firstAttribute="leading" secondItem="f76-qn-ne4" secondAttribute="leading" id="Ls8-rz-N1Q"/>
-                    <constraint firstItem="Ev3-yY-ql1" firstAttribute="top" secondItem="kIR-cO-v6L" secondAttribute="bottom" constant="4" id="NmE-r2-ZNA"/>
+                    <constraint firstItem="Ev3-yY-ql1" firstAttribute="top" secondItem="kIR-cO-v6L" secondAttribute="bottom" priority="700" constant="4" id="NmE-r2-ZNA"/>
                     <constraint firstAttribute="trailing" secondItem="kIR-cO-v6L" secondAttribute="trailing" priority="250" constant="16" id="POq-M6-rLU"/>
-                    <constraint firstItem="kIR-cO-v6L" firstAttribute="leading" secondItem="zWu-Gh-Vf7" secondAttribute="trailing" constant="4" id="POw-Zp-Qdv"/>
+                    <constraint firstItem="zWu-Gh-Vf7" firstAttribute="top" secondItem="kIR-cO-v6L" secondAttribute="top" constant="2" id="Q0s-7L-aih"/>
                     <constraint firstItem="9qA-JC-fkn" firstAttribute="leading" secondItem="Ev3-yY-ql1" secondAttribute="trailing" priority="500" constant="4" id="YNA-Lu-LXQ"/>
+                    <constraint firstItem="kIR-cO-v6L" firstAttribute="leading" secondItem="zWu-Gh-Vf7" secondAttribute="leading" id="ZVP-Gs-m00"/>
                     <constraint firstAttribute="trailing" secondItem="NKM-3R-3g1" secondAttribute="trailing" id="ZiW-Tk-SOB"/>
                     <constraint firstItem="kIR-cO-v6L" firstAttribute="top" secondItem="f76-qn-ne4" secondAttribute="top" constant="8" id="ajZ-XY-N1h"/>
                     <constraint firstAttribute="trailing" secondItem="9qA-JC-fkn" secondAttribute="trailing" priority="500" constant="16" id="dww-N9-1tY"/>
@@ -127,7 +129,6 @@
                     <constraint firstItem="EuF-Rm-DHQ" firstAttribute="leading" secondItem="f76-qn-ne4" secondAttribute="leading" priority="250" constant="16" id="gJI-DA-6rn"/>
                     <constraint firstItem="NKM-3R-3g1" firstAttribute="top" secondItem="Ev3-yY-ql1" secondAttribute="bottom" constant="8" id="hn7-T4-7Zo"/>
                     <constraint firstAttribute="bottom" secondItem="NKM-3R-3g1" secondAttribute="bottom" priority="250" id="hzn-4Y-A0H"/>
-                    <constraint firstItem="kIR-cO-v6L" firstAttribute="centerY" secondItem="zWu-Gh-Vf7" secondAttribute="centerY" id="mRh-XN-0wn"/>
                     <constraint firstItem="Ev3-yY-ql1" firstAttribute="leading" secondItem="zWu-Gh-Vf7" secondAttribute="leading" id="tVH-Tk-6D6"/>
                     <constraint firstItem="9qA-JC-fkn" firstAttribute="top" secondItem="f76-qn-ne4" secondAttribute="top" constant="18" id="u8g-fp-l2o"/>
                     <constraint firstItem="zWu-Gh-Vf7" firstAttribute="leading" secondItem="f76-qn-ne4" secondAttribute="leading" priority="600" constant="16" id="vlX-zx-nfP"/>
@@ -149,6 +150,7 @@
                 <outletCollection property="detailedModeConstraints" destination="gJI-DA-6rn" collectionClass="NSMutableArray" id="Bf5-KV-Yq1"/>
                 <outletCollection property="detailedModeConstraints" destination="hzn-4Y-A0H" collectionClass="NSMutableArray" id="iYa-dA-hgO"/>
                 <outletCollection property="detailedModeConstraints" destination="5CH-Fo-S70" collectionClass="NSMutableArray" id="U1k-ax-zNd"/>
+                <outletCollection property="detailedModeConstraints" destination="HHb-Vh-rIl" collectionClass="NSMutableArray" id="Xye-5k-1LM"/>
             </connections>
             <point key="canvasLocation" x="-285.5" y="-205"/>
         </tableViewCell>

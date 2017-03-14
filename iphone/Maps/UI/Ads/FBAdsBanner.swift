@@ -5,13 +5,13 @@ enum FBAdsBannerState: Int {
   case compact
   case detailed
 
-  func config() -> (priority: UILayoutPriority, numberOfLines: Int) {
+  func config() -> (priority: UILayoutPriority, numberOfTitleLines: Int, numberOfBodyLines: Int) {
     switch self {
     case .compact:
-      return alternative(iPhone: (priority: UILayoutPriorityDefaultLow, numberOfLines: 2),
-                         iPad: (priority: UILayoutPriorityDefaultHigh, numberOfLines: 0))
+      return alternative(iPhone: (priority: UILayoutPriorityDefaultLow, numberOfTitleLines: 1, numberOfBodyLines: 2),
+                         iPad: (priority: UILayoutPriorityDefaultHigh, numberOfTitleLines: 0, numberOfBodyLines: 0))
     case .detailed:
-      return (priority: UILayoutPriorityDefaultHigh, numberOfLines: 0)
+      return (priority: UILayoutPriorityDefaultHigh, numberOfTitleLines: 0, numberOfBodyLines: 0)
     }
   }
 }
@@ -29,7 +29,8 @@ final class FBAdsBanner: UITableViewCell {
   var state = alternative(iPhone: FBAdsBannerState.compact, iPad: FBAdsBannerState.detailed) {
     didSet {
       let config = state.config()
-      adBodyLabel.numberOfLines = config.numberOfLines
+      adTitleLabel.numberOfLines = config.numberOfTitleLines
+      adBodyLabel.numberOfLines = config.numberOfBodyLines
       detailedModeConstraints.forEach { $0.priority = config.priority }
       setNeedsLayout()
       UIView.animate(withDuration: kDefaultAnimationDuration) { self.layoutIfNeeded() }
@@ -48,8 +49,18 @@ final class FBAdsBanner: UITableViewCell {
       self?.adIconImageView.image = image
     }
 
-    adTitleLabel.text = ad.title
-    adBodyLabel.text = ad.body
+    let paragraphStyle = NSMutableParagraphStyle()
+    paragraphStyle.firstLineHeadIndent = 24
+    paragraphStyle.lineBreakMode = .byTruncatingTail
+    let adTitle = NSAttributedString(string: ad.title ?? "",
+                                     attributes: [NSParagraphStyleAttributeName: paragraphStyle,
+                                                  NSFontAttributeName: UIFont.bold12(),
+                                                  NSForegroundColorAttributeName: UIColor.blackSecondaryText()])
+    adTitleLabel.attributedText = adTitle
+    adBodyLabel.text = ad.body ?? ""
+    let config = state.config()
+    adTitleLabel.numberOfLines = config.numberOfTitleLines
+    adBodyLabel.numberOfLines = config.numberOfBodyLines
     adCallToActionButtons.forEach { $0.setTitle(ad.callToAction, for: .normal) }
   }
 }
