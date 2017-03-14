@@ -340,6 +340,7 @@ CGFloat constexpr kTimeWidthRegular = 128;
     BOOL const isNeedToShowTaxi = [MWMRouter isTaxi];
     self.estimateLabel.hidden = isNeedToShowTaxi;
     self.taxiContainer.hidden = !isNeedToShowTaxi || IPAD;
+    self.estimateLabel.hidden = self.state == MWMBottomMenuStatePlanning;
     break;
   }
   case MWMBottomMenuStateRoutingError:
