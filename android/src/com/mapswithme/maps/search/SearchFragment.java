@@ -94,10 +94,6 @@ public class SearchFragment extends BaseMwmFragment
         return;
       }
 
-      // TODO: This code only for demonstration purposes and will be removed soon
-      if (tryChangeMapStyle(query))
-        return;
-
       if (tryRecognizeLoggingCommand(query))
       {
         mSearchAdapter.clear();
@@ -446,27 +442,6 @@ public class SearchFragment extends BaseMwmFragment
     mToolbarController.deactivate();
     Utils.navigateToParent(getActivity());
   }
-
-  // FIXME: This code only for demonstration purposes and will be removed soon
-  private boolean tryChangeMapStyle(String str)
-  {
-    // Hook for shell command on change map style
-    final boolean isDark = str.equals("mapstyle:dark") || str.equals("?dark");
-    final boolean isLight = isDark ? false : str.equals("mapstyle:light") || str.equals("?light");
-    final boolean isOld = isDark || isLight ? false : str.equals("?oldstyle");
-
-    if (!isDark && !isLight && !isOld)
-      return false;
-
-    hideSearch();
-
-    // change map style for the Map activity
-    final int mapStyle = isDark ? Framework.MAP_STYLE_DARK : Framework.MAP_STYLE_CLEAR;
-    Framework.nativeSetMapStyle(mapStyle);
-
-    return true;
-  }
-  // FIXME END
 
   private boolean tryRecognizeLoggingCommand(@NonNull String str)
   {

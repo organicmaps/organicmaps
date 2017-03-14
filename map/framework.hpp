@@ -620,6 +620,8 @@ private:
   //void GetLocality(m2::PointD const & pt, search::AddressInfo & info) const;
   /// @returns true if command was handled by editor.
   bool ParseEditorDebugCommand(search::SearchParams const & params);
+  /// @returns true if command was handled by drape.
+  bool ParseDrapeDebugCommand(std::string const & query);
 
   void FillFeatureInfo(FeatureID const & fid, place_page::Info & info) const;
   /// @param customTitle, if not empty, overrides any other calculated name.
