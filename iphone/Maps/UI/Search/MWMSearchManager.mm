@@ -319,7 +319,7 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
   [self animateConstraints:^{
     self.actionBarViewBottom.priority = UILayoutPriorityDefaultHigh;
   }];
-  [self viewHidden:NO];
+  [self viewHidden:[MWMRouter isRoutingActive]];
   [MWMSearch setSearchOnMap:YES];
   [self.tableViewController reloadData];
 
