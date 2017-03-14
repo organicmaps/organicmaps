@@ -206,6 +206,8 @@ public class PlacePageView extends RelativeLayout
   private int mStorageCallbackSlot;
   private CountryItem mCurrentCountry;
 
+  private final int mMarginBase;
+
   private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback()
   {
     @Override
@@ -268,6 +270,7 @@ public class PlacePageView extends RelativeLayout
 
     mIsLatLonDms = MwmApplication.prefs().getBoolean(PREF_USE_DMS, false);
     mGalleryAdapter = new GalleryAdapter(context);
+    mMarginBase = (int) getResources().getDimension(R.dimen.margin_base);
     init(attrs, defStyleAttr);
   }
 
@@ -1775,6 +1778,11 @@ public class PlacePageView extends RelativeLayout
   @Override
   public void onSizeChanged()
   {
+    if (mBannerController != null && mBannerController.hasErrorOccurred())
+    {
+      mPreview.setPadding(mPreview.getPaddingLeft(), mPreview.getPaddingTop(),
+                          getPaddingRight(), mMarginBase);
+    }
     addOnLayoutChangeListener(new OnLayoutChangeListener()
     {
       @Override
