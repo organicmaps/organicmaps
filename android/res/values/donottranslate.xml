@@ -18,7 +18,7 @@
   <!-- roboto thin (android 4.2)-->
   <string name="robotoThin" translatable="false">sans-serif-thin</string>
   <!--  roboto medium (android 5.0)-->
-  <string name="robotoMedium" translatable="false">sans-serif-medium</string>
+  <string name="robotoMedium" translatable="false">sans-serif</string>
 
   <!--  Prefs -->
   <string name="pref_send_statistics" translatable="false">AllowStat</string>

@@ -77,6 +77,7 @@
         android:textAppearance="@style/MwmTextAppearance.Body4"
         android:textColor="?textBannerTitle"
         android:fontFamily="@string/robotoMedium"
+        android:textStyle="bold"
         android:ellipsize="end"
         tools:text="Закажи одежду в интернет-магазине Wildberries."
         tools:targetApi="jelly_bean"/>
