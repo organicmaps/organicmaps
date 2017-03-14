@@ -152,32 +152,6 @@ void SearchPanel::OnSearchResult(ResultsT * results)
 }
 
 // TODO: This code only for demonstration purposes and will be removed soon
-bool SearchPanel::TryChangeMapStyleCmd(QString const & str)
-{
-  // Hook for shell command on change map style
-  MapStyle desiredStyle = MapStyleCount;
-  if (str == "mapstyle:dark" || str == "?dark")
-    desiredStyle = MapStyleDark;
-  else if (str == "mapstyle:light" || str == "?light")
-    desiredStyle = MapStyleClear;
-  else if (str == "mapstyle:vehicle_dark" || str == "?vdark")
-    desiredStyle = MapStyleVehicleDark;
-  else if (str == "mapstyle:vehicle_light" || str == "?vlight")
-    desiredStyle = MapStyleVehicleClear;
-  else
-    return false;
-
-  // close Search panel
-  m_pEditor->setText("");
-  parentWidget()->hide();
-
-  // change color scheme for the Map activity
-  m_pDrawWidget->SetMapStyle(desiredStyle);
-
-  return true;
-}
-
-// TODO: This code only for demonstration purposes and will be removed soon
 bool SearchPanel::TryChangeRouterCmd(QString const & str)
 {
   routing::RouterType routerType;
@@ -287,8 +261,6 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
   QString const normalized = str.normalized(QString::NormalizationForm_KC);
 
   // TODO: This code only for demonstration purposes and will be removed soon
-  if (TryChangeMapStyleCmd(normalized))
-    return;
   if (TryChangeRouterCmd(normalized))
     return;
   if (Try3dModeCmd(normalized))

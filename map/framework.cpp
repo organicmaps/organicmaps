@@ -1394,6 +1394,9 @@ string Framework::GetCountryName(m2::PointD const & pt) const
 
 bool Framework::Search(search::SearchParams const & params)
 {
+  if (ParseDrapeDebugCommand(params.m_query))
+    return false;
+
   auto const mode = params.m_mode;
   auto & intent = m_searchIntents[static_cast<size_t>(mode)];
 
@@ -2866,6 +2869,29 @@ uint32_t GetBestType(FeatureType const & ft)
 {
   return feature::TypesHolder(ft).GetBestType();
 }
+}
+
+bool Framework::ParseDrapeDebugCommand(std::string const & query)
+{
+  MapStyle desiredStyle = MapStyleCount;
+  if (query == "?dark" || query == "mapstyle:dark")
+    desiredStyle = MapStyleDark;
+  else if (query == "?light" || query == "mapstyle:light")
+    desiredStyle = MapStyleClear;
+  else if (query == "?vdark" || query == "mapstyle:vehicle_dark")
+    desiredStyle = MapStyleVehicleDark;
+  else if (query == "?vlight" || query == "mapstyle:vehicle_light")
+    desiredStyle = MapStyleVehicleClear;
+  else
+    return false;
+
+#if defined(OMIM_OS_ANDROID)
+  MarkMapStyle(desiredStyle);
+#else
+  SetMapStyle(desiredStyle);
+#endif
+
+  return true;
 }
 
 bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
