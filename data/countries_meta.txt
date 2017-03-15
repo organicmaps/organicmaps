@@ -546,6 +546,9 @@
 "Taiwan": {
  "languages": ["zh"]
 },
+"Panama": {
+ "languages": ["es"]
+},
 "Peru": {
  "languages": ["es"]
 },
