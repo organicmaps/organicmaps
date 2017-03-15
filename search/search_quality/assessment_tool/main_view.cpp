@@ -28,6 +28,15 @@ MainView::MainView(Framework & framework) : m_framework(framework)
   InitMenuBar();
 }
 
+MainView::~MainView()
+{
+  if (m_framework.GetDrapeEngine() != nullptr)
+  {
+    m_framework.EnterBackground();
+    m_framework.DestroyDrapeEngine();
+  }
+}
+
 void MainView::SetSamples(std::vector<search::Sample> const & samples)
 {
   m_samplesModel->removeRows(0, m_samplesModel->rowCount());

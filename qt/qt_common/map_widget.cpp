@@ -53,7 +53,11 @@ MapWidget::MapWidget(Framework & framework, QWidget * parent)
   m_updateTimer->start(30);
 }
 
-MapWidget::~MapWidget() { m_framework.EnterBackground(); }
+MapWidget::~MapWidget()
+{
+  m_framework.EnterBackground();
+  m_framework.DestroyDrapeEngine();
+}
 
 void MapWidget::BindHotkeys(QWidget & parent)
 {
