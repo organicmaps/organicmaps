@@ -312,6 +312,9 @@ public class RoutingController
 
   private void showDisclaimer(final MapObject startPoint, final MapObject endPoint)
   {
+    if (mContainer == null)
+      return;
+
     StringBuilder builder = new StringBuilder();
     for (int resId : new int[] { R.string.dialog_routing_disclaimer_priority, R.string.dialog_routing_disclaimer_precision,
                                  R.string.dialog_routing_disclaimer_recommendations, R.string.dialog_routing_disclaimer_borders,
