@@ -275,6 +275,9 @@ public:
 
   Index const & GetIndex() const { return m_model.GetIndex(); }
 
+  search::Engine & GetSearchEngine() { return *m_searchEngine; }
+  search::Engine const & GetSearchEngine() const { return *m_searchEngine; }
+
   /// @name Bookmarks, Tracks and other UserMarks
   //@{
   /// Scans and loads all kml files with bookmarks in WritableDir.
@@ -571,7 +574,7 @@ public:
   void SetVisibleViewport(m2::RectD const & rect);
 
   /// - Check minimal visible scale according to downloaded countries.
-  void ShowRect(m2::RectD const & rect, int maxScale = -1);
+  void ShowRect(m2::RectD const & rect, int maxScale = -1, bool animation = true);
   void ShowRect(m2::AnyRectD const & rect);
 
   void GetTouchRect(m2::PointD const & center, uint32_t pxRadius, m2::AnyRectD & rect);

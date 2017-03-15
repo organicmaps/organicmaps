@@ -1089,9 +1089,10 @@ void Framework::SetVisibleViewport(m2::RectD const & rect)
   m_drapeEngine->SetVisibleViewport(rect);
 }
 
-void Framework::ShowRect(m2::RectD const & rect, int maxScale)
+void Framework::ShowRect(m2::RectD const & rect, int maxScale, bool animation)
 {
-  CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewRect, _1, rect, true, maxScale, true));
+  CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewRect, _1, rect, true /* applyRotation */,
+                         maxScale /* zoom */, animation));
 }
 
 void Framework::ShowRect(m2::AnyRectD const & rect)

@@ -1,6 +1,9 @@
 #include "search/search_quality/assessment_tool/main_view.hpp"
 
-#include "search/search_quality/assessment_tool/main_model.hpp"
+#include "search/search_quality/assessment_tool/helpers.hpp"
+#include "search/search_quality/assessment_tool/model.hpp"
+#include "search/search_quality/assessment_tool/sample_view.hpp"
+#include "search/search_quality/assessment_tool/samples_view.hpp"
 
 #include "qt/qt_common/map_widget.hpp"
 #include "qt/qt_common/scale_slider.hpp"
@@ -8,14 +11,12 @@
 #include "map/framework.hpp"
 
 #include "base/assert.hpp"
-#include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
 
-#include <QtCore/QList>
 #include <QtCore/Qt>
+#include <QtWidgets/QDockWidget>
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QHBoxLayout>
-#include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QToolBar>
@@ -39,17 +40,20 @@ MainView::~MainView()
 
 void MainView::SetSamples(std::vector<search::Sample> const & samples)
 {
-  m_samplesModel->removeRows(0, m_samplesModel->rowCount());
-  for (auto const & sample : samples)
-  {
-    m_samplesModel->appendRow(
-        new QStandardItem(QString::fromUtf8(strings::ToUtf8(sample.m_query).c_str())));
-  }
+  m_samplesView->SetSamples(samples);
 }
 
 void MainView::ShowSample(search::Sample const & sample)
 {
-  // TODO (@y): implement a dock view for search sample.
+  m_framework.ShowRect(sample.m_viewport, -1 /* maxScale */, false /* animation */);
+
+  m_sampleView->SetContents(sample);
+  m_sampleView->show();
+}
+
+void MainView::ShowResults(search::Results::Iter begin, search::Results::Iter end)
+{
+  m_sampleView->ShowResults(begin, end);
 }
 
 void MainView::ShowError(std::string const & msg)
@@ -70,84 +74,77 @@ void MainView::OnSampleSelected(QItemSelection const & current)
 
 void MainView::InitMenuBar()
 {
-  CHECK(m_samplesDock.get(), ());
-
   auto * bar = menuBar();
 
   auto * fileMenu = bar->addMenu(tr("&File"));
 
   {
-    auto open = make_unique<QAction>(tr("&Open queries..."), this);
+    auto * open = new QAction(tr("&Open queries..."), this /* parent */);
     open->setShortcuts(QKeySequence::Open);
     open->setStatusTip(tr("Open the file with queries for assessment"));
-    connect(open.get(), &QAction::triggered, this, &MainView::Open);
-    fileMenu->addAction(open.release());
+    connect(open, &QAction::triggered, this, &MainView::Open);
+    fileMenu->addAction(open);
   }
 
   fileMenu->addSeparator();
 
   {
-    auto quit = make_unique<QAction>(tr("&Quit"), this);
+    auto * quit = new QAction(tr("&Quit"), this /* parent */);
     quit->setShortcuts(QKeySequence::Quit);
     quit->setStatusTip(tr("Exit the tool"));
-    connect(quit.get(), &QAction::triggered, this, &QWidget::close);
-    fileMenu->addAction(quit.release());
+    connect(quit, &QAction::triggered, this, &QWidget::close);
+    fileMenu->addAction(quit);
   }
 
   auto * viewMenu = bar->addMenu(tr("&View"));
+
   {
+    CHECK(m_samplesDock != nullptr, ());
     viewMenu->addAction(m_samplesDock->toggleViewAction());
+  }
+
+  {
+    CHECK(m_sampleDock != nullptr, ());
+    viewMenu->addAction(m_sampleDock->toggleViewAction());
   }
 }
 
 void MainView::InitMapWidget()
 {
-  auto widget = make_unique<QWidget>(this /* parent */);
+  auto * widget = new QWidget(this /* parent */);
+  auto * layout = BuildLayoutWithoutMargins<QHBoxLayout>(widget /* parent */);
+  widget->setLayout(layout);
 
-  auto layout = make_unique<QHBoxLayout>(widget.get() /* parent */);
-  layout->setContentsMargins(0 /* left */, 0 /* top */, 0 /* right */, 0 /* bottom */);
   {
-    auto mapWidget = make_unique<qt::common::MapWidget>(m_framework, widget.get() /* parent */);
-    auto toolBar = make_unique<QToolBar>(widget.get() /* parent */);
+    auto * mapWidget = new qt::common::MapWidget(m_framework, widget /* parent */);
+    auto * toolBar = new QToolBar(widget /* parent */);
     toolBar->setOrientation(Qt::Vertical);
     toolBar->setIconSize(QSize(32, 32));
     qt::common::ScaleSlider::Embed(Qt::Vertical, *toolBar, *mapWidget);
 
-    layout->addWidget(mapWidget.release());
-    layout->addWidget(toolBar.release());
+    layout->addWidget(mapWidget);
+    layout->addWidget(toolBar);
   }
 
-  widget->setLayout(layout.release());
-  setCentralWidget(widget.release());
+  setCentralWidget(widget);
 }
 
 void MainView::InitDocks()
 {
-  m_samplesTable = my::make_unique<QTableView>(this /* parent */);
-  m_samplesTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
-  m_samplesTable->setSelectionMode(QAbstractItemView::SingleSelection);
+  m_samplesView = new SamplesView(this /* parent */);
 
   {
-    auto * header = m_samplesTable->horizontalHeader();
-    header->setStretchLastSection(true /* stretch */);
-    header->hide();
-  }
-
-  m_samplesModel =
-      my::make_unique<QStandardItemModel>(0 /* rows */, 1 /* columns */, this /* parent */);
-
-  m_samplesTable->setModel(m_samplesModel.get());
-
-  {
-    auto * model = m_samplesTable->selectionModel();
+    auto * model = m_samplesView->selectionModel();
     connect(model, SIGNAL(selectionChanged(QItemSelection const &, QItemSelection const &)), this,
             SLOT(OnSampleSelected(QItemSelection const &)));
   }
 
-  m_samplesDock = my::make_unique<QDockWidget>(tr("Samples"), this /* parent */, Qt::Widget);
-  m_samplesDock->setFeatures(QDockWidget::AllDockWidgetFeatures);
-  m_samplesDock->setWidget(m_samplesTable.get());
-  addDockWidget(Qt::RightDockWidgetArea, m_samplesDock.get());
+  m_samplesDock = CreateDock("Samples", *m_samplesView);
+  addDockWidget(Qt::RightDockWidgetArea, m_samplesDock);
+
+  m_sampleView = new SampleView(this /* parent */);
+  m_sampleDock = CreateDock("Sample", *m_sampleView);
+  addDockWidget(Qt::RightDockWidgetArea, m_sampleDock);
 }
 
 void MainView::Open()
@@ -161,4 +158,12 @@ void MainView::Open()
     return;
 
   m_model->Open(file);
+}
+
+QDockWidget * MainView::CreateDock(std::string const & title, QWidget & widget)
+{
+  auto * dock = new QDockWidget(ToQString(title), this /* parent */, Qt::Widget);
+  dock->setFeatures(QDockWidget::AllDockWidgetFeatures);
+  dock->setWidget(&widget);
+  return dock;
 }

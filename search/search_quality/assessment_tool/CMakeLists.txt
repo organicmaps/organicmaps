@@ -8,13 +8,21 @@ include_directories(${OMIM_ROOT}/3party/glm)
 
 set(
   SRC
-  assessment_tool.cc
+  assessment_tool.cpp
+  helpers.cpp
+  helpers.hpp
+  languages_list.cpp
+  languages_list.hpp
   main_model.cpp
   main_model.hpp
   main_model.hpp
   main_view.cpp
   main_view.hpp
   model.hpp
+  sample_view.cpp
+  sample_view.hpp
+  samples_view.cpp
+  samples_view.hpp
   view.hpp
 )
 
