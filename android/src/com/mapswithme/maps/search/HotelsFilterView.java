@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -25,7 +26,7 @@ public class HotelsFilterView extends FrameLayout
 {
   private static final String STATE_OPENED = "state_opened";
 
-  public interface HotelsFilterListener
+  interface HotelsFilterListener
   {
     void onCancel();
 
@@ -80,9 +81,11 @@ public class HotelsFilterView extends FrameLayout
     LayoutInflater.from(context).inflate(R.layout.hotels_filter, this, true);
   }
 
+  @CallSuper
   @Override
   protected void onFinishInflate()
   {
+    super.onFinishInflate();
     mFrame = findViewById(R.id.frame);
     mFrame.setTranslationY(mFrame.getResources().getDisplayMetrics().heightPixels);
     mFade = findViewById(R.id.fade);

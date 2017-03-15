@@ -7,6 +7,7 @@ import android.util.SparseArray;
 import java.lang.ref.WeakReference;
 
 import com.mapswithme.maps.BuildConfig;
+import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.concurrency.UiThread;
@@ -107,7 +108,7 @@ public enum LikesManager
       public void run()
       {
         final FragmentActivity activity = mActivityRef.get();
-        if (activity == null)
+        if (activity == null || RoutingController.get().isNavigating())
           return;
 
         final DialogFragment fragment;
