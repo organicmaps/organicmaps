@@ -1,0 +1,3 @@
+github "Alamofire/Alamofire"
+github "Alamofire/AlamofireImage"
+github "Pushwoosh/pushwoosh-ios-sdk"

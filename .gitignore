@@ -60,6 +60,15 @@ tools/emacsmode/build
 **/xcshareddata
 **/xcuserdata
 
+# Carthage
+iphone/Maps/3party/Carthage/Checkouts
+iphone/Maps/3party/Carthage/Build/Mac
+iphone/Maps/3party/Carthage/Build/tvOS
+iphone/Maps/3party/Carthage/Build/watchOS
+iphone/Maps/3party/Carthage/Build/iOS/*.bcsymbolmap
+iphone/Maps/3party/Carthage/Build/iOS/*.dSYM
+iphone/Maps/3party/Carthage/Build/*.version
+
 # GeneratedFiles
 version/version.hpp
 tools/win/MapsWithMe*

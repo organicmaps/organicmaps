@@ -36,9 +36,6 @@
 		3404750E1E08199E00C92850 /* MyTrackerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474EE1E08199D00C92850 /* MyTrackerSDK.framework */; };
 		3404750F1E08199E00C92850 /* MyTrackerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474EE1E08199D00C92850 /* MyTrackerSDK.framework */; };
 		340475101E08199E00C92850 /* MyTrackerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474EE1E08199D00C92850 /* MyTrackerSDK.framework */; };
-		340475111E08199E00C92850 /* Pushwoosh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474EF1E08199D00C92850 /* Pushwoosh.framework */; };
-		340475121E08199E00C92850 /* Pushwoosh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474EF1E08199D00C92850 /* Pushwoosh.framework */; };
-		340475131E08199E00C92850 /* Pushwoosh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474EF1E08199D00C92850 /* Pushwoosh.framework */; };
 		340475491E081A4600C92850 /* AppInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340475161E081A4600C92850 /* AppInfo.mm */; };
 		3404754A1E081A4600C92850 /* AppInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340475161E081A4600C92850 /* AppInfo.mm */; };
 		3404754B1E081A4600C92850 /* AppInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340475161E081A4600C92850 /* AppInfo.mm */; };
@@ -99,14 +96,6 @@
 		3406FA191C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3406FA171C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib */; };
 		340837131B7243CE00B5C185 /* MWMActivityViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340837121B7243CE00B5C185 /* MWMActivityViewController.mm */; };
 		340837161B72451A00B5C185 /* MWMShareActivityItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340837151B72451A00B5C185 /* MWMShareActivityItem.mm */; };
-		340D94371E643AA700CB037A /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34DBA4871E64356300164F91 /* Alamofire.framework */; };
-		340D94381E643AA700CB037A /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 34DBA4871E64356300164F91 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		340D94391E643AA700CB037A /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34DBA4881E64356300164F91 /* AlamofireImage.framework */; };
-		340D943A1E643AA700CB037A /* AlamofireImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 34DBA4881E64356300164F91 /* AlamofireImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		340D943C1E643ADE00CB037A /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34DBA4871E64356300164F91 /* Alamofire.framework */; };
-		340D943D1E643ADE00CB037A /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 34DBA4871E64356300164F91 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		340D943E1E643ADE00CB037A /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34DBA4881E64356300164F91 /* AlamofireImage.framework */; };
-		340D943F1E643ADE00CB037A /* AlamofireImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 34DBA4881E64356300164F91 /* AlamofireImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		340E1EEB1E2F614400CE49BF /* Authorization.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 340E1EE41E2F614400CE49BF /* Authorization.storyboard */; };
 		340E1EEC1E2F614400CE49BF /* Authorization.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 340E1EE41E2F614400CE49BF /* Authorization.storyboard */; };
 		340E1EED1E2F614400CE49BF /* Authorization.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 340E1EE41E2F614400CE49BF /* Authorization.storyboard */; };
@@ -434,6 +423,15 @@
 		34D4FA661E265749003F53EF /* WhatsNewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D4FA651E265749003F53EF /* WhatsNewController.swift */; };
 		34D4FA671E265749003F53EF /* WhatsNewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D4FA651E265749003F53EF /* WhatsNewController.swift */; };
 		34D4FA681E265749003F53EF /* WhatsNewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D4FA651E265749003F53EF /* WhatsNewController.swift */; };
+		34D8087B1E793606002F0584 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D8087A1E793606002F0584 /* Alamofire.framework */; };
+		34D8087D1E79360D002F0584 /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D8087C1E79360D002F0584 /* AlamofireImage.framework */; };
+		34D8087E1E79361A002F0584 /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D8087C1E79360D002F0584 /* AlamofireImage.framework */; };
+		34D8087F1E79361B002F0584 /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D8087C1E79360D002F0584 /* AlamofireImage.framework */; };
+		34D808801E79361E002F0584 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D8087A1E793606002F0584 /* Alamofire.framework */; };
+		34D808811E79361E002F0584 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D8087A1E793606002F0584 /* Alamofire.framework */; };
+		34D808861E793F91002F0584 /* Pushwoosh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D808851E793F91002F0584 /* Pushwoosh.framework */; };
+		34D808871E793FA3002F0584 /* Pushwoosh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D808851E793F91002F0584 /* Pushwoosh.framework */; };
+		34D808881E793FA4002F0584 /* Pushwoosh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D808851E793F91002F0584 /* Pushwoosh.framework */; };
 		34ED298A1E3BB9B40054D003 /* RoutePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34ED29891E3BB9B40054D003 /* RoutePoint.swift */; };
 		34ED298B1E3BB9B40054D003 /* RoutePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34ED29891E3BB9B40054D003 /* RoutePoint.swift */; };
 		34ED298C1E3BB9B40054D003 /* RoutePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34ED29891E3BB9B40054D003 /* RoutePoint.swift */; };
@@ -850,10 +848,6 @@
 		F6664C151E645A4100E703C2 /* MWMPPReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6664C111E645A4100E703C2 /* MWMPPReviewCell.xib */; };
 		F6664C161E645A4100E703C2 /* MWMPPReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6664C111E645A4100E703C2 /* MWMPPReviewCell.xib */; };
 		F6664C171E645A4100E703C2 /* MWMPPReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6664C111E645A4100E703C2 /* MWMPPReviewCell.xib */; };
-		F6664C181E6576B800E703C2 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34DBA4871E64356300164F91 /* Alamofire.framework */; };
-		F6664C191E6576B800E703C2 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 34DBA4871E64356300164F91 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		F6664C1A1E6576B800E703C2 /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34DBA4881E64356300164F91 /* AlamofireImage.framework */; };
-		F6664C1B1E6576B800E703C2 /* AlamofireImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 34DBA4881E64356300164F91 /* AlamofireImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F6791B131C43DEA7007A8A6E /* MWMStartButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6791B121C43DEA7007A8A6E /* MWMStartButton.mm */; };
 		F6791B141C43DF0B007A8A6E /* MWMStartButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6791B121C43DEA7007A8A6E /* MWMStartButton.mm */; };
 		F67E751E1DB76DFC00D6741F /* MWMTaxiCollectionLayout.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6F778791DABC6D800B603E7 /* MWMTaxiCollectionLayout.mm */; };
@@ -1392,8 +1386,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				340D94381E643AA700CB037A /* Alamofire.framework in Embed Frameworks */,
-				340D943A1E643AA700CB037A /* AlamofireImage.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1404,8 +1396,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				340D943D1E643ADE00CB037A /* Alamofire.framework in Embed Frameworks */,
-				340D943F1E643ADE00CB037A /* AlamofireImage.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1416,8 +1406,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				F6664C191E6576B800E703C2 /* Alamofire.framework in Embed Frameworks */,
-				F6664C1B1E6576B800E703C2 /* AlamofireImage.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1472,7 +1460,6 @@
 		340474EC1E08199D00C92850 /* MWMMyTargetDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMyTargetDelegate.h; sourceTree = "<group>"; };
 		340474ED1E08199D00C92850 /* MyTargetSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MyTargetSDK.framework; sourceTree = "<group>"; };
 		340474EE1E08199D00C92850 /* MyTrackerSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MyTrackerSDK.framework; sourceTree = "<group>"; };
-		340474EF1E08199D00C92850 /* Pushwoosh.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Pushwoosh.framework; sourceTree = "<group>"; };
 		340475151E081A4600C92850 /* AppInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppInfo.h; sourceTree = "<group>"; };
 		340475161E081A4600C92850 /* AppInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppInfo.mm; sourceTree = "<group>"; };
 		340475181E081A4600C92850 /* MWMKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMKeyboard.h; sourceTree = "<group>"; };
@@ -1729,8 +1716,9 @@
 		34D3B04D1E38A20C004100F9 /* Bundle+Init.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle+Init.swift"; sourceTree = "<group>"; };
 		34D4FA611E26572D003F53EF /* FirstLaunchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstLaunchController.swift; sourceTree = "<group>"; };
 		34D4FA651E265749003F53EF /* WhatsNewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhatsNewController.swift; sourceTree = "<group>"; };
-		34DBA4871E64356300164F91 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Alamofire.framework; sourceTree = "<group>"; };
-		34DBA4881E64356300164F91 /* AlamofireImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlamofireImage.framework; sourceTree = "<group>"; };
+		34D8087A1E793606002F0584 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		34D8087C1E79360D002F0584 /* AlamofireImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlamofireImage.framework; path = Carthage/Build/iOS/AlamofireImage.framework; sourceTree = "<group>"; };
+		34D808851E793F91002F0584 /* Pushwoosh.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pushwoosh.framework; path = Carthage/Build/iOS/Pushwoosh.framework; sourceTree = "<group>"; };
 		34ED29891E3BB9B40054D003 /* RoutePoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutePoint.swift; sourceTree = "<group>"; };
 		34F5E0D21E3F254800B1C415 /* UIView+Hierarchy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Hierarchy.swift"; sourceTree = "<group>"; };
 		34F5E0D61E3F334700B1C415 /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
@@ -2271,17 +2259,17 @@
 			files = (
 				67B78B4B1E422E2E0018E590 /* CoreSpotlight.framework in Frameworks */,
 				67B78B4D1E422E2E0018E590 /* CoreData.framework in Frameworks */,
-				340475111E08199E00C92850 /* Pushwoosh.framework in Frameworks */,
-				340D943C1E643ADE00CB037A /* Alamofire.framework in Frameworks */,
 				340474FC1E08199D00C92850 /* FBSDKShareKit.framework in Frameworks */,
+				34D808801E79361E002F0584 /* Alamofire.framework in Frameworks */,
 				340474F91E08199D00C92850 /* FBSDKLoginKit.framework in Frameworks */,
 				67B78B491E422E2E0018E590 /* iAd.framework in Frameworks */,
 				3432E17C1E49B484008477E9 /* FBAudienceNetwork.framework in Frameworks */,
+				34D808871E793FA3002F0584 /* Pushwoosh.framework in Frameworks */,
 				3404750B1E08199E00C92850 /* MyTargetSDK.framework in Frameworks */,
-				340D943E1E643ADE00CB037A /* AlamofireImage.framework in Frameworks */,
 				340474F61E08199D00C92850 /* FBSDKCoreKit.framework in Frameworks */,
 				340474F01E08199D00C92850 /* Crashlytics.framework in Frameworks */,
 				34570A3B1B13222600E6D4FD /* libz.dylib in Frameworks */,
+				34D8087E1E79361A002F0584 /* AlamofireImage.framework in Frameworks */,
 				340474FF1E08199D00C92850 /* libFlurry_7.8.2.a in Frameworks */,
 				67B78B4A1E422E2E0018E590 /* MessageUI.framework in Frameworks */,
 				3404750E1E08199E00C92850 /* MyTrackerSDK.framework in Frameworks */,
@@ -2298,11 +2286,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				671E78D31E6A423300B2859B /* librouting_common.a in Frameworks */,
+				34D808861E793F91002F0584 /* Pushwoosh.framework in Frameworks */,
+				34D8087B1E793606002F0584 /* Alamofire.framework in Frameworks */,
+				34D8087D1E79360D002F0584 /* AlamofireImage.framework in Frameworks */,
 				67B78B551E42333C0018E590 /* AdSupport.framework in Frameworks */,
 				67B78B471E422E0A0018E590 /* MobileCoreServices.framework in Frameworks */,
 				67B78B451E422C970018E590 /* iAd.framework in Frameworks */,
 				67B78B431E422C620018E590 /* MessageUI.framework in Frameworks */,
-				340D94371E643AA700CB037A /* Alamofire.framework in Frameworks */,
 				67B78B411E422C360018E590 /* CoreSpotlight.framework in Frameworks */,
 				67B78B3F1E422C110018E590 /* SafariServices.framework in Frameworks */,
 				67B78B3D1E422BF60018E590 /* CoreData.framework in Frameworks */,
@@ -2321,7 +2311,6 @@
 				6741AAC41BF356BA002C974C /* libfreetype.a in Frameworks */,
 				6741AAC51BF356BA002C974C /* libfribidi.a in Frameworks */,
 				340474F41E08199D00C92850 /* Fabric.framework in Frameworks */,
-				340D94391E643AA700CB037A /* AlamofireImage.framework in Frameworks */,
 				6741AAC61BF356BA002C974C /* libgeometry.a in Frameworks */,
 				674A7E291C0DA576003D48E1 /* libsdf_image.a in Frameworks */,
 				6741AAC91BF356BA002C974C /* libindexer.a in Frameworks */,
@@ -2342,7 +2331,6 @@
 				6741AAD41BF356BA002C974C /* libsearch.a in Frameworks */,
 				6741AAD51BF356BA002C974C /* libstorage.a in Frameworks */,
 				6741AAD61BF356BA002C974C /* libsuccinct.a in Frameworks */,
-				340475121E08199E00C92850 /* Pushwoosh.framework in Frameworks */,
 				6741AA361BF340DE002C974C /* libz.dylib in Frameworks */,
 				674A7E2B1C0DA57C003D48E1 /* libdrape_frontend.a in Frameworks */,
 				340474F71E08199D00C92850 /* FBSDKCoreKit.framework in Frameworks */,
@@ -2359,17 +2347,17 @@
 			files = (
 				67B78B511E422E300018E590 /* CoreSpotlight.framework in Frameworks */,
 				67B78B531E422E300018E590 /* CoreData.framework in Frameworks */,
-				340475131E08199E00C92850 /* Pushwoosh.framework in Frameworks */,
-				F6664C181E6576B800E703C2 /* Alamofire.framework in Frameworks */,
 				340474FE1E08199D00C92850 /* FBSDKShareKit.framework in Frameworks */,
+				34D808811E79361E002F0584 /* Alamofire.framework in Frameworks */,
 				340474FB1E08199D00C92850 /* FBSDKLoginKit.framework in Frameworks */,
 				67B78B4F1E422E300018E590 /* iAd.framework in Frameworks */,
 				3432E17E1E49B484008477E9 /* FBAudienceNetwork.framework in Frameworks */,
+				34D808881E793FA4002F0584 /* Pushwoosh.framework in Frameworks */,
 				3404750D1E08199E00C92850 /* MyTargetSDK.framework in Frameworks */,
-				F6664C1A1E6576B800E703C2 /* AlamofireImage.framework in Frameworks */,
 				340474F81E08199D00C92850 /* FBSDKCoreKit.framework in Frameworks */,
 				340474F21E08199D00C92850 /* Crashlytics.framework in Frameworks */,
 				849CF7861DE842290024A8A5 /* libz.dylib in Frameworks */,
+				34D8087F1E79361B002F0584 /* AlamofireImage.framework in Frameworks */,
 				340475011E08199D00C92850 /* libFlurry_7.8.2.a in Frameworks */,
 				67B78B501E422E300018E590 /* MessageUI.framework in Frameworks */,
 				340475101E08199E00C92850 /* MyTrackerSDK.framework in Frameworks */,
@@ -2512,8 +2500,9 @@
 		340474DB1E08199D00C92850 /* 3party */ = {
 			isa = PBXGroup;
 			children = (
-				34DBA4871E64356300164F91 /* Alamofire.framework */,
-				34DBA4881E64356300164F91 /* AlamofireImage.framework */,
+				34D808851E793F91002F0584 /* Pushwoosh.framework */,
+				34D8087C1E79360D002F0584 /* AlamofireImage.framework */,
+				34D8087A1E793606002F0584 /* Alamofire.framework */,
 				3432E1771E49B3A2008477E9 /* Bolts.framework */,
 				340474DC1E08199D00C92850 /* Crashlytics.framework */,
 				340474DD1E08199D00C92850 /* Fabric.framework */,
@@ -2524,7 +2513,6 @@
 				340474E11E08199D00C92850 /* Flurry */,
 				340474E91E08199D00C92850 /* MyTarget */,
 				340474EE1E08199D00C92850 /* MyTrackerSDK.framework */,
-				340474EF1E08199D00C92850 /* Pushwoosh.framework */,
 			);
 			path = 3party;
 			sourceTree = "<group>";
@@ -4053,6 +4041,7 @@
 				F6D434721AD2AB97007C7728 /* Embed App Extensions */,
 				34A62D4A1C9034D0007FDCB7 /* ShellScript */,
 				34DF99C31E5C6892005D79D7 /* Embed Frameworks */,
+				34D808831E7939DF002F0584 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -4073,6 +4062,7 @@
 				6741AA521BF340DE002C974C /* Embed App Extensions */,
 				34F7422E1E08328300AC1FD6 /* ShellScript */,
 				340D943B1E643AA700CB037A /* Embed Frameworks */,
+				34D808821E79363A002F0584 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -4094,6 +4084,7 @@
 				849CF79A1DE842290024A8A5 /* Embed App Extensions */,
 				849CF79B1DE842290024A8A5 /* ShellScript */,
 				34DF99CC1E5C689B005D79D7 /* Embed Frameworks */,
+				34D808841E793A01002F0584 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -4721,6 +4712,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "#!/bin/bash\n\nLOWERED_CONFIG=`echo $CONFIGURATION | tr [A-Z] [a-z]`\nif [[ \"$LOWERED_CONFIG\" == *production* || \"$LOWERED_CONFIG\" == *adhoc* ]]; then\n  LINE=`grep CRASHLYTICS_IOS_KEY ../../private.h`\n    if [[ $LINE =~ \\\"(.*)\\\" ]]; then\n      CRASHLYTICS_KEY=${BASH_REMATCH[1]}\n      if [[ \"$CRASHLYTICS_KEY\" ]]; then\n        bash \"./3party/Fabric.framework/run\" \"$CRASHLYTICS_KEY\"\n      fi\n    fi\nfi\n";
+		};
+		34D808821E79363A002F0584 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/3party/Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/AlamofireImage.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/Pushwoosh.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+		34D808831E7939DF002F0584 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/3party/Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/AlamofireImage.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/Pushwoosh.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
+		34D808841E793A01002F0584 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/3party/Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/AlamofireImage.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/Pushwoosh.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
 		};
 		34F7422E1E08328300AC1FD6 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -6024,6 +6063,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party",
 					"$(PROJECT_DIR)/3party/MyTarget",
+					"$(PROJECT_DIR)/3party/Carthage/Build/iOS",
 				);
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
@@ -6123,6 +6163,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party",
 					"$(PROJECT_DIR)/3party/MyTarget",
+					"$(PROJECT_DIR)/3party/Carthage/Build/iOS",
 				);
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
@@ -6220,6 +6261,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party",
 					"$(PROJECT_DIR)/3party/MyTarget",
+					"$(PROJECT_DIR)/3party/Carthage/Build/iOS",
 				);
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
@@ -6319,6 +6361,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party",
 					"$(PROJECT_DIR)/3party/MyTarget",
+					"$(PROJECT_DIR)/3party/Carthage/Build/iOS",
 				);
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
@@ -6417,6 +6460,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party",
 					"$(PROJECT_DIR)/3party/MyTarget",
+					"$(PROJECT_DIR)/3party/Carthage/Build/iOS",
 				);
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
@@ -6516,6 +6560,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party",
 					"$(PROJECT_DIR)/3party/MyTarget",
+					"$(PROJECT_DIR)/3party/Carthage/Build/iOS",
 				);
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
