@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "generator/generator_tests_support/restriction_helpers.hpp"
+#include "generator/generator_tests_support/routing_helpers.hpp"
 #include "generator/generator_tests_support/test_feature.hpp"
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
 
@@ -21,7 +21,6 @@
 #include "platform/platform.hpp"
 
 #include "base/logging.hpp"
-#include "base/scope_guard.hpp"
 
 #include "std/string.hpp"
 

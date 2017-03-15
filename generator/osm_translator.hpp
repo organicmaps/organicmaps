@@ -4,6 +4,7 @@
 #include "generator/osm2type.hpp"
 #include "generator/osm_element.hpp"
 #include "generator/restriction_writer.hpp"
+#include "generator/routing_helpers.hpp"
 #include "generator/ways_merger.hpp"
 
 #include "indexer/classificator.hpp"
@@ -29,8 +30,8 @@ namespace
 class RelationTagsBase
 {
 public:
-  RelationTagsBase(routing::RestrictionWriter & restrictionWriter)
-    : m_restrictionWriter(restrictionWriter), m_cache(14)
+  RelationTagsBase(routing::TagsProcessor & tagsProcessor)
+    : m_routingTagsProcessor(tagsProcessor), m_cache(14)
   {
   }
 
@@ -77,7 +78,7 @@ protected:
 protected:
   uint64_t m_featureID;
   OsmElement * m_current;
-  routing::RestrictionWriter & m_restrictionWriter;
+  routing::TagsProcessor & m_routingTagsProcessor;
 
 private:
   my::Cache<uint64_t, RelationElement> m_cache;
@@ -88,10 +89,7 @@ class RelationTagsNode : public RelationTagsBase
   using TBase = RelationTagsBase;
 
 public:
-  RelationTagsNode(routing::RestrictionWriter & restrictionWriter)
-    : RelationTagsBase(restrictionWriter)
-  {
-  }
+  RelationTagsNode(routing::TagsProcessor & tagsProcessor) : RelationTagsBase(tagsProcessor) {}
 
 protected:
   void Process(RelationElement const & e) override
@@ -102,7 +100,7 @@ protected:
 
     if (type == "restriction")
     {
-      m_restrictionWriter.Write(e);
+      m_routingTagsProcessor.m_restrictionWriter.Write(e);
       return;
     }
 
@@ -131,8 +129,8 @@ protected:
 class RelationTagsWay : public RelationTagsBase
 {
 public:
-  RelationTagsWay(routing::RestrictionWriter & restrictionWriter)
-    : RelationTagsBase(restrictionWriter)
+  RelationTagsWay(routing::TagsProcessor & routingTagsProcessor)
+    : RelationTagsBase(routingTagsProcessor)
   {
   }
 
@@ -161,7 +159,7 @@ protected:
 
     if (type == "restriction")
     {
-      m_restrictionWriter.Write(e);
+      m_routingTagsProcessor.m_restrictionWriter.Write(e);
       return;
     }
 
@@ -213,7 +211,7 @@ class OsmToFeatureTranslator
   uint32_t m_coastType;
   unique_ptr<FileWriter> m_addrWriter;
 
-  routing::RestrictionWriter m_restrictionWriter;
+  routing::TagsProcessor m_routingTagsProcessor;
 
   RelationTagsNode m_nodeRelations;
   RelationTagsWay m_wayRelations;
@@ -290,7 +288,11 @@ class OsmToFeatureTranslator
 
     // Get params from element tags.
     ftype::GetNameAndType(p, params);
-    return params.IsValid();
+    if (!params.IsValid())
+      return false;
+
+    m_routingTagsProcessor.m_roadAccessWriter.Process(p, params);
+    return true;
   }
 
   void EmitFeatureBase(FeatureBuilder1 & ft, FeatureParams const & params) const
@@ -517,17 +519,21 @@ public:
 
 public:
   OsmToFeatureTranslator(TEmitter & emitter, TCache & holder, uint32_t coastType,
-                         string const & addrFilePath = {}, string const & restrictionsFilePath = {})
+                         string const & addrFilePath = {}, string const & restrictionsFilePath = {},
+                         string const & roadAccessFilePath = {})
     : m_emitter(emitter)
     , m_holder(holder)
     , m_coastType(coastType)
-    , m_nodeRelations(m_restrictionWriter)
-    , m_wayRelations(m_restrictionWriter)
+    , m_nodeRelations(m_routingTagsProcessor)
+    , m_wayRelations(m_routingTagsProcessor)
   {
     if (!addrFilePath.empty())
       m_addrWriter.reset(new FileWriter(addrFilePath));
 
     if (!restrictionsFilePath.empty())
-      m_restrictionWriter.Open(restrictionsFilePath);
+      m_routingTagsProcessor.m_restrictionWriter.Open(restrictionsFilePath);
+
+    if (!roadAccessFilePath.empty())
+      m_routingTagsProcessor.m_roadAccessWriter.Open(roadAccessFilePath);
   }
 };

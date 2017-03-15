@@ -219,32 +219,29 @@ namespace ftype
   public:
     enum EType { ENTRANCE, HIGHWAY, ADDRESS, ONEWAY, PRIVATE, LIT, NOFOOT, YESFOOT,
                  NOBICYCLE, YESBICYCLE, BICYCLE_BIDIR, SURFPGOOD, SURFPBAD, SURFUGOOD, SURFUBAD,
-                 HASPARTS, NOCAR, YESCAR, WLAN,
-                 RW_STATION, RW_STATION_SUBWAY, WHEELCHAIR_YES };
+                 HASPARTS, NOCAR, YESCAR, WLAN, RW_STATION, RW_STATION_SUBWAY, WHEELCHAIR_YES,
+                 BARRIER_GATE
+               };
 
     CachedTypes()
     {
       Classificator const & c = classif();
 
-      for (auto const & e : (StringIL[]) { {"entrance"}, {"highway"} })
-        m_types.push_back(c.GetTypeByPath(e));
-
       StringIL arr[] =
       {
+        {"entrance"}, {"highway"},
         {"building", "address"}, {"hwtag", "oneway"}, {"hwtag", "private"},
         {"hwtag", "lit"}, {"hwtag", "nofoot"}, {"hwtag", "yesfoot"},
         {"hwtag", "nobicycle"}, {"hwtag", "yesbicycle"}, {"hwtag", "bidir_bicycle"},
         {"psurface", "paved_good"}, {"psurface", "paved_bad"},
         {"psurface", "unpaved_good"}, {"psurface", "unpaved_bad"},
         {"building", "has_parts"}, {"hwtag", "nocar"}, {"hwtag", "yescar"},
-        {"internet_access", "wlan"}
+        {"internet_access", "wlan"}, {"railway", "station"}, {"railway", "station", "subway"},
+        {"wheelchair", "yes"}, {"barrier", "gate"}
       };
+
       for (auto const & e : arr)
         m_types.push_back(c.GetTypeByPath(e));
-
-      m_types.push_back(c.GetTypeByPath({ "railway", "station" }));
-      m_types.push_back(c.GetTypeByPath({ "railway", "station", "subway" }));
-      m_types.push_back(c.GetTypeByPath({ "wheelchair", "yes" }));
     }
 
     uint32_t Get(EType t) const { return m_types[t]; }
@@ -254,10 +251,12 @@ namespace ftype
       ftype::TruncValue(t, 1);
       return t == Get(HIGHWAY);
     }
+
     bool IsRwStation(uint32_t t) const
     {
       return t == Get(RW_STATION);
     }
+
     bool IsRwSubway(uint32_t t) const
     {
       ftype::TruncValue(t, 3);
@@ -581,6 +580,8 @@ namespace ftype
 
           { "access", "private", [&params] { params.AddType(types.Get(CachedTypes::PRIVATE)); }},
           { "access", "!", [&params] { params.AddType(types.Get(CachedTypes::PRIVATE)); }},
+
+          { "barrier", "gate", [&params] { params.AddType(types.Get(CachedTypes::BARRIER_GATE)); }},
 
           { "lit", "~", [&params] { params.AddType(types.Get(CachedTypes::LIT)); }},
 

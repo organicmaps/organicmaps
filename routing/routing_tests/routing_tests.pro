@@ -36,6 +36,7 @@ SOURCES += \
   online_cross_fetcher_test.cpp \
   osrm_router_test.cpp \
   restriction_test.cpp \
+  road_access_test.cpp \
   road_graph_builder.cpp \
   road_graph_nearest_edges_test.cpp \
   route_tests.cpp \

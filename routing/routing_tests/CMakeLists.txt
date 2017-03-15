@@ -17,6 +17,7 @@ set(
   nearest_edge_finder_tests.cpp
   online_cross_fetcher_test.cpp
   osrm_router_test.cpp
+  road_access_test.cpp
   restriction_test.cpp
   road_graph_builder.cpp
   road_graph_builder.hpp

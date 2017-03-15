@@ -39,7 +39,9 @@ SOURCES += \
     restriction_collector.cpp \
     restriction_generator.cpp \
     restriction_writer.cpp \
+    road_access_generator.cpp \
     routing_generator.cpp \
+    routing_helpers.cpp \
     routing_index_generator.cpp \
     search_index_builder.cpp \
     sponsored_scoring.cpp \
@@ -81,7 +83,9 @@ HEADERS += \
     restriction_collector.hpp \
     restriction_generator.hpp \
     restriction_writer.hpp \
+    road_access_generator.hpp \
     routing_generator.hpp \
+    routing_helpers.hpp \
     routing_index_generator.hpp \
     search_index_builder.hpp \
     sponsored_dataset.hpp \

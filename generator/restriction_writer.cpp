@@ -52,12 +52,13 @@ void RestrictionWriter::Open(string const & fullPath)
     LOG(LINFO, ("Cannot open file", fullPath));
 }
 
-bool RestrictionWriter::IsOpened() { return m_stream.is_open() && !m_stream.fail(); }
-
 void RestrictionWriter::Write(RelationElement const & relationElement)
 {
   if (!IsOpened())
+  {
+    LOG(LWARNING, ("Tried to write to a closed restrictions writer"));
     return;
+  }
 
   CHECK_EQUAL(relationElement.GetType(), "restriction", ());
 
@@ -96,4 +97,6 @@ void RestrictionWriter::Write(RelationElement const & relationElement)
   // Adding restriction.
   m_stream << ToString(type) << "," << fromIt->first << ", " << toIt->first << '\n';
 }
+
+bool RestrictionWriter::IsOpened() { return m_stream.is_open() && !m_stream.fail(); }
 }  // namespace routing

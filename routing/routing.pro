@@ -43,6 +43,7 @@ SOURCES += \
     osrm_helpers.cpp \
     osrm_path_segment_factory.cpp \
     pedestrian_directions.cpp \
+    road_access_serialization.cpp \
     restriction_loader.cpp \
     restrictions_serialization.cpp \
     road_graph.cpp \
@@ -100,6 +101,8 @@ HEADERS += \
     pedestrian_directions.hpp \
     restriction_loader.hpp \
     restrictions_serialization.hpp \
+    road_access.hpp \
+    road_access_serialization.hpp \
     road_graph.hpp \
     road_graph_router.hpp \
     road_index.hpp \

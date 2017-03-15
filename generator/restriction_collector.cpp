@@ -1,9 +1,6 @@
 #include "generator/restriction_collector.hpp"
 
-#include "generator/gen_mwm_info.hpp"
-
-#include "coding/file_reader.hpp"
-#include "coding/reader.hpp"
+#include "generator/routing_helpers.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
@@ -43,7 +40,7 @@ RestrictionCollector::RestrictionCollector(string const & restrictionPath,
     m_restrictions.clear();
   });
 
-  if (!ParseOsmIdToFeatureIdMapping(osmIdsToFeatureIdPath))
+  if (!ParseOsmIdToFeatureIdMapping(osmIdsToFeatureIdPath, m_osmIdToFeatureId))
   {
     LOG(LWARNING, ("An error happened while parsing feature id to osm ids mapping from file:",
                    osmIdsToFeatureIdPath));
@@ -68,28 +65,6 @@ bool RestrictionCollector::IsValid() const
 {
   return find_if(begin(m_restrictions), end(m_restrictions),
                  [](Restriction const & r) { return !r.IsValid(); }) == end(m_restrictions);
-}
-
-bool RestrictionCollector::ParseOsmIdToFeatureIdMapping(string const & osmIdsToFeatureIdPath)
-{
-  gen::OsmID2FeatureID osmIdsToFeatureIds;
-  try
-  {
-    FileReader reader(osmIdsToFeatureIdPath);
-    ReaderSource<FileReader> src(reader);
-    osmIdsToFeatureIds.Read(src);
-  }
-  catch (FileReader::Exception const & e)
-  {
-    LOG(LWARNING, ("Exception while reading file:", osmIdsToFeatureIdPath, ". Msg:", e.Msg()));
-    return false;
-  }
-
-  osmIdsToFeatureIds.ForEach([this](gen::OsmID2FeatureID::ValueT const & p) {
-    AddFeatureId(p.second /* feature id */, p.first /* osm id */);
-  });
-
-  return true;
 }
 
 bool RestrictionCollector::ParseRestrictions(string const & path)
@@ -148,14 +123,7 @@ bool RestrictionCollector::AddRestriction(Restriction::Type type, vector<uint64_
 
 void RestrictionCollector::AddFeatureId(uint32_t featureId, uint64_t osmId)
 {
-  // Note. One |featureId| could correspond to several osm ids.
-  // But for road feature |featureId| corresponds to exactly one osm id.
-  auto const result = m_osmIdToFeatureId.insert(make_pair(osmId, featureId));
-  if (result.second == false)
-  {
-    LOG(LERROR, ("Osm id", osmId, "is included in two feature ids: ", featureId,
-                 m_osmIdToFeatureId.find(osmId)->second));
-  }
+  ::routing::AddFeatureId(m_osmIdToFeatureId, featureId, osmId);
 }
 
 bool FromString(string str, Restriction::Type & type)
