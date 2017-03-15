@@ -855,8 +855,6 @@ using namespace osm_auth_ios;
 
 - (void)showAlertIfRequired
 {
-  if (GetFramework().IsRoutingActive())
-    return;
   if ([self shouldShowRateAlert])
     [self performSelector:@selector(showRateAlert) withObject:nil afterDelay:30.0];
   else if ([self shouldShowFacebookAlert])
@@ -865,7 +863,7 @@ using namespace osm_auth_ios;
 
 - (void)showAlert:(BOOL)isRate
 {
-  if (!Platform::IsConnected())
+  if (!Platform::IsConnected() || GetFramework().IsRoutingActive())
     return;
 
   if (isRate)
