@@ -1848,7 +1848,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
           @Override
           public void onClick(DialogInterface dialog, int which)
           {
-            LocationHelper.INSTANCE.start();
+            if (!LocationHelper.INSTANCE.isActive())
+              LocationHelper.INSTANCE.start();
           }
         }).show();
   }

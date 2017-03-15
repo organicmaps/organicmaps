@@ -241,11 +241,12 @@ public enum LocationHelper
   }
 
   /**
-   * @see LocationState#isTurnedOn()
+   * Indicates about whether a location provider is polling location updates right now or not.
+   * @see BaseLocationProvider#isActive()
    */
-  public boolean isTurnedOn()
+  public boolean isActive()
   {
-    return LocationState.isTurnedOn();
+    return mLocationProvider != null && mLocationProvider.isActive();
   }
 
   void notifyCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
