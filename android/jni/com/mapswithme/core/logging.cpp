@@ -5,6 +5,7 @@
 
 #include "com/mapswithme/core/jni_helper.hpp"
 #include "com/mapswithme/core/logging.hpp"
+#include "com/mapswithme/core/ScopedEnv.hpp"
 #include "com/mapswithme/util/crashlytics.h"
 
 #include <android/log.h>
@@ -32,12 +33,12 @@ void AndroidMessage(LogLevel level, SrcPoint const & src, string const & s)
     case LCRITICAL: pr = ANDROID_LOG_ERROR; break;
   }
 
-  JNIEnv * env = jni::GetEnv();
-  static jmethodID const logCoreMsgMethod = jni::GetStaticMethodID(env, g_loggerFactoryClazz,
+  ScopedEnv env(jni::GetJVM());
+  static jmethodID const logCoreMsgMethod = jni::GetStaticMethodID(env.get(), g_loggerFactoryClazz,
      "logCoreMessage", "(ILjava/lang/String;)V");
 
   string const out = DebugPrint(src) + " " + s;
-  jni::TScopedLocalRef msg(env, jni::ToJavaString(env, out));
+  jni::TScopedLocalRef msg(env.get(), jni::ToJavaString(env.get(), out));
   env->CallStaticVoidMethod(g_loggerFactoryClazz, logCoreMsgMethod, pr, msg.get());
   if (g_crashlytics)
     g_crashlytics->log(g_crashlytics, out.c_str());
