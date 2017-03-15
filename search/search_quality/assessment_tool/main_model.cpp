@@ -1,9 +1,10 @@
 #include "search/search_quality/assessment_tool/main_model.hpp"
 
-#include "search/search_params.hpp"
 #include "search/search_quality/assessment_tool/view.hpp"
 
 #include "map/framework.hpp"
+
+#include "search/search_params.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -64,7 +65,7 @@ void MainModel::OnSampleSelected(int index)
     params.SetPosition(latLon.lat, latLon.lon);
 
     auto const timestamp = ++m_queryTimestamp;
-    m_lastShownResult = 0;
+    m_numShownResults = 0;
 
     params.m_onResults = [this, timestamp](search::Results const & results) {
       GetPlatform().RunOnGuiThread([this, timestamp, results]() { OnResults(timestamp, results); });
@@ -80,6 +81,7 @@ void MainModel::OnResults(uint64_t timestamp, search::Results const & results)
 {
   if (timestamp != m_queryTimestamp)
     return;
-  m_view->ShowResults(results.begin() + m_lastShownResult, results.end());
-  m_lastShownResult = results.GetCount();
+  CHECK_LESS_OR_EQUAL(m_numShownResults, results.GetCount(), ());
+  m_view->ShowResults(results.begin() + m_numShownResults, results.end());
+  m_numShownResults = results.GetCount();
 }

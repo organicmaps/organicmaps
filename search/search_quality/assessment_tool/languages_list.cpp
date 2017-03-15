@@ -6,12 +6,12 @@
 
 LanguagesList::LanguagesList(QWidget * parent) : QComboBox(parent)
 {
-  auto langs = StringUtf8Multilang::GetSupportedLanguages();
+  auto const langs = StringUtf8Multilang::GetSupportedLanguages();
   for (auto const & lang : langs)
     addItem(ToQString(lang.m_code));
 }
 
-void LanguagesList::Select(string const & lang)
+void LanguagesList::Select(std::string const & lang)
 {
   auto const index = StringUtf8Multilang::GetLangIndex(lang);
   if (index != StringUtf8Multilang::kUnsupportedLanguageCode)

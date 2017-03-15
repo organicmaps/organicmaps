@@ -18,7 +18,7 @@ class Results;
 class MainModel : public Model
 {
 public:
-  MainModel(Framework & framework);
+  explicit MainModel(Framework & framework);
 
   // Model overrides:
   void Open(std::string const & path) override;
@@ -32,5 +32,5 @@ private:
 
   std::weak_ptr<search::ProcessorHandle> m_queryHandle;
   uint64_t m_queryTimestamp = 0;
-  size_t m_lastShownResult = 0;
+  size_t m_numShownResults = 0;
 };
