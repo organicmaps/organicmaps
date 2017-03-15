@@ -145,6 +145,9 @@
 		343E75981E5B1EE20041226A /* MWMCollectionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 343E75961E5B1EE20041226A /* MWMCollectionViewController.mm */; };
 		343E75991E5B1EE20041226A /* MWMCollectionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 343E75961E5B1EE20041226A /* MWMCollectionViewController.mm */; };
 		3446C6771DDCA9A200146687 /* libtraffic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3446C6761DDCA9A200146687 /* libtraffic.a */; };
+		344D63171E795A2D006F17CB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 344D63161E795A2D006F17CB /* SystemConfiguration.framework */; };
+		344D63181E795A3C006F17CB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 344D63161E795A2D006F17CB /* SystemConfiguration.framework */; };
+		344D63191E795A3C006F17CB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 344D63161E795A2D006F17CB /* SystemConfiguration.framework */; };
 		3454D7B81E07F045004AF2AD /* CALayer+RuntimeAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3454D79A1E07F045004AF2AD /* CALayer+RuntimeAttributes.mm */; };
 		3454D7B91E07F045004AF2AD /* CALayer+RuntimeAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3454D79A1E07F045004AF2AD /* CALayer+RuntimeAttributes.mm */; };
 		3454D7BA1E07F045004AF2AD /* CALayer+RuntimeAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3454D79A1E07F045004AF2AD /* CALayer+RuntimeAttributes.mm */; };
@@ -1539,6 +1542,7 @@
 		343E75951E5B1EE20041226A /* MWMCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCollectionViewController.h; sourceTree = "<group>"; };
 		343E75961E5B1EE20041226A /* MWMCollectionViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCollectionViewController.mm; sourceTree = "<group>"; };
 		3446C6761DDCA9A200146687 /* libtraffic.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtraffic.a; path = "../../../omim-build/xcode/Debug/libtraffic.a"; sourceTree = "<group>"; };
+		344D63161E795A2D006F17CB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		345050211E028B8000A8DC59 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		3454D7991E07F045004AF2AD /* CALayer+RuntimeAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+RuntimeAttributes.h"; sourceTree = "<group>"; };
 		3454D79A1E07F045004AF2AD /* CALayer+RuntimeAttributes.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "CALayer+RuntimeAttributes.mm"; sourceTree = "<group>"; };
@@ -2257,6 +2261,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				344D63171E795A2D006F17CB /* SystemConfiguration.framework in Frameworks */,
 				67B78B4B1E422E2E0018E590 /* CoreSpotlight.framework in Frameworks */,
 				67B78B4D1E422E2E0018E590 /* CoreData.framework in Frameworks */,
 				340474FC1E08199D00C92850 /* FBSDKShareKit.framework in Frameworks */,
@@ -2296,6 +2301,7 @@
 				67B78B411E422C360018E590 /* CoreSpotlight.framework in Frameworks */,
 				67B78B3F1E422C110018E590 /* SafariServices.framework in Frameworks */,
 				67B78B3D1E422BF60018E590 /* CoreData.framework in Frameworks */,
+				344D63181E795A3C006F17CB /* SystemConfiguration.framework in Frameworks */,
 				3446C6771DDCA9A200146687 /* libtraffic.a in Frameworks */,
 				34201E0C1DC0E33100D24118 /* libtracking.a in Frameworks */,
 				341F09841C20138100F18AC5 /* libpugixml.a in Frameworks */,
@@ -2351,6 +2357,7 @@
 				34D808811E79361E002F0584 /* Alamofire.framework in Frameworks */,
 				340474FB1E08199D00C92850 /* FBSDKLoginKit.framework in Frameworks */,
 				67B78B4F1E422E300018E590 /* iAd.framework in Frameworks */,
+				344D63191E795A3C006F17CB /* SystemConfiguration.framework in Frameworks */,
 				3432E17E1E49B484008477E9 /* FBAudienceNetwork.framework in Frameworks */,
 				34D808881E793FA4002F0584 /* Pushwoosh.framework in Frameworks */,
 				3404750D1E08199E00C92850 /* MyTargetSDK.framework in Frameworks */,
@@ -2797,6 +2804,7 @@
 				67B78B421E422C620018E590 /* MessageUI.framework */,
 				67B78B401E422C360018E590 /* CoreSpotlight.framework */,
 				67B78B3E1E422C110018E590 /* SafariServices.framework */,
+				344D63161E795A2D006F17CB /* SystemConfiguration.framework */,
 				67B78B3C1E422BF60018E590 /* CoreData.framework */,
 				34570A3A1B13222600E6D4FD /* libz.dylib */,
 			);
