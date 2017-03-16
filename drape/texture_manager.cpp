@@ -37,6 +37,8 @@ size_t const kReservedColors = 20;
 float const kGlyphAreaMultiplier = 1.2f;
 float const kGlyphAreaCoverage = 0.9f;
 
+std::string kSymbolTextures[] = { "symbols" };
+
 namespace
 {
 
@@ -145,7 +147,9 @@ void TextureManager::BaseRegion::SetTexture(ref_ptr<Texture> texture)
 
 m2::PointF TextureManager::BaseRegion::GetPixelSize() const
 {
-  ASSERT(IsValid(), ());
+  if (!IsValid())
+    return m2::PointF(0.0f, 0.0f);
+
   m2::RectF const & texRect = m_info->GetTexRect();
   return m2::PointF(texRect.SizeX() * m_texture->GetWidth(),
                     texRect.SizeY() * m_texture->GetHeight());
@@ -153,11 +157,20 @@ m2::PointF TextureManager::BaseRegion::GetPixelSize() const
 
 float TextureManager::BaseRegion::GetPixelHeight() const
 {
+  if (!IsValid())
+    return 0.0f;
+
   return m_info->GetTexRect().SizeY() * m_texture->GetHeight();
 }
 
 m2::RectF const & TextureManager::BaseRegion::GetTexRect() const
 {
+  if (!IsValid())
+  {
+    static m2::RectF nilRect(0.0f, 0.0f, 0.0f, 0.0f);
+    return nilRect;
+  }
+
   return m_info->GetTexRect();
 }
 
@@ -207,7 +220,7 @@ void TextureManager::Release()
   m_glyphGroups.clear();
   m_hybridGlyphGroups.clear();
 
-  m_symbolTexture.reset();
+  m_symbolTextures.clear();
   m_stipplePenTexture.reset();
   m_colorTexture.reset();
 
@@ -380,7 +393,11 @@ void TextureManager::Init(Params const & params)
 
   GLFunctions::glPixelStore(gl_const::GLUnpackAlignment, 1);
 
-  m_symbolTexture = make_unique_dp<SymbolsTexture>(params.m_resPostfix, make_ref(m_textureAllocator));
+  for (size_t i = 0; i < ARRAY_SIZE(kSymbolTextures); ++i)
+  {
+    m_symbolTextures.push_back(make_unique_dp<SymbolsTexture>(params.m_resPostfix, kSymbolTextures[i],
+                                                              make_ref(m_textureAllocator)));
+  }
 
   m_trafficArrowTexture = make_unique_dp<StaticTexture>("traffic-arrow", params.m_resPostfix,
                                                         make_ref(m_textureAllocator));
@@ -454,9 +471,12 @@ void TextureManager::Init(Params const & params)
 
 void TextureManager::Invalidate(string const & resPostfix)
 {
-  ASSERT(m_symbolTexture != nullptr, ());
-  ref_ptr<SymbolsTexture> symbolsTexture = make_ref(m_symbolTexture);
-  symbolsTexture->Invalidate(resPostfix, make_ref(m_textureAllocator));
+  for (size_t i = 0; i < m_symbolTextures.size(); ++i)
+  {
+    ASSERT(m_symbolTextures[i] != nullptr, ());
+    ref_ptr<SymbolsTexture> symbolsTexture = make_ref(m_symbolTextures[i]);
+    symbolsTexture->Invalidate(resPostfix, make_ref(m_textureAllocator));
+  }
 
   ASSERT(m_trafficArrowTexture != nullptr, ());
   ref_ptr<StaticTexture> staticTexture = make_ref(m_trafficArrowTexture);
@@ -465,7 +485,17 @@ void TextureManager::Invalidate(string const & resPostfix)
 
 void TextureManager::GetSymbolRegion(string const & symbolName, SymbolRegion & region)
 {
-  GetRegionBase(make_ref(m_symbolTexture), region, SymbolsTexture::SymbolKey(symbolName));
+  for (size_t i = 0; i < m_symbolTextures.size(); ++i)
+  {
+    ASSERT(m_symbolTextures[i] != nullptr, ());
+    ref_ptr<SymbolsTexture> symbolsTexture = make_ref(m_symbolTextures[i]);
+    if (symbolsTexture->IsSymbolContained(symbolName))
+    {
+      GetRegionBase(symbolsTexture, region, SymbolsTexture::SymbolKey(symbolName));
+      return;
+    }
+  }
+  LOG(LWARNING, ("Detected using of unknown symbol ", symbolName));
 }
 
 void TextureManager::GetStippleRegion(TStipplePattern const & pen, StippleRegion & region)
@@ -515,7 +545,8 @@ bool TextureManager::AreGlyphsReady(strings::UniString const & str, int fixedHei
 
 ref_ptr<Texture> TextureManager::GetSymbolsTexture() const
 {
-  return make_ref(m_symbolTexture);
+  ASSERT(!m_symbolTextures.empty(), ());
+  return make_ref(m_symbolTextures[0]);
 }
 
 ref_ptr<Texture> TextureManager::GetTrafficArrowTexture() const
