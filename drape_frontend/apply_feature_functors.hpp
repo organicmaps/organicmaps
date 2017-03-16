@@ -1,5 +1,6 @@
 #pragma once
 
+#include "drape_frontend/custom_symbol.hpp"
 #include "drape_frontend/stylist.hpp"
 #include "drape_frontend/tile_key.hpp"
 #include "drape_frontend/shape_view_params.hpp"
@@ -56,7 +57,7 @@ public:
 protected:
   void ExtractCaptionParams(CaptionDefProto const * primaryProto,
                             CaptionDefProto const * secondaryProto,
-                            double depth, TextViewParams & params) const;
+                            float depth, TextViewParams & params) const;
   string ExtractHotelInfo() const;
 
   TInsertShapeFn m_insertShape;
@@ -81,7 +82,7 @@ public:
 
   void operator()(m2::PointD const & point, bool hasArea);
   void ProcessRule(Stylist::TRuleWrapper const & rule);
-  void Finish();
+  void Finish(CustomSymbolsContextPtr const & customSymbolsContext);
 
 protected:
   float const m_posZ;

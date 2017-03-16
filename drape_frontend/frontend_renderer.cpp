@@ -776,6 +776,13 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::SetCustomSymbols:
+    {
+      ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
+      InvalidateRect(screen.ClipRect());
+      break;
+    }
+
   default:
     ASSERT(false, ());
   }

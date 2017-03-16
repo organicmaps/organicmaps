@@ -4,6 +4,7 @@
 #include "drape_frontend/gui/skin.hpp"
 
 #include "drape_frontend/color_constants.hpp"
+#include "drape_frontend/custom_symbol.hpp"
 #include "drape_frontend/drape_api.hpp"
 #include "drape_frontend/drape_api_builder.hpp"
 #include "drape_frontend/gps_track_point.hpp"
@@ -1148,6 +1149,21 @@ public:
 
 private:
   TProperties m_properties;
+};
+
+class SetCustomSymbolsMessage : public Message
+{
+public:
+  explicit SetCustomSymbolsMessage(CustomSymbols && symbols)
+    : m_symbols(move(symbols))
+  {}
+
+  Type GetType() const override { return Message::SetCustomSymbols; }
+
+  CustomSymbols && AcceptSymbols() { return std::move(m_symbols); }
+
+private:
+  CustomSymbols m_symbols;
 };
 
 } // namespace df

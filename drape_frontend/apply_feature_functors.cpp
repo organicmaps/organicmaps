@@ -47,8 +47,6 @@ std::string const kStarSymbol = "★";
 std::string const kPriceSymbol = "$";
 
 df::ColorConstant const kPoiHotelTextOutlineColor = "PoiHotelTextOutline";
-df::ColorConstant const kRoadShieldAddTextColor = "RoadShieldAddText";
-df::ColorConstant const kRoadShieldAddTextOutlineColor = "RoadShieldAddTextOutline";
 df::ColorConstant const kRoadShieldBlackTextColor = "RoadShieldBlackText";
 df::ColorConstant const kRoadShieldWhiteTextColor = "RoadShieldWhiteText";
 df::ColorConstant const kRoadShieldUKYellowTextColor = "RoadShieldUKYellowText";
@@ -60,9 +58,9 @@ df::ColorConstant const kRoadShieldOrangeBackgroundColor = "RoadShieldOrangeBack
 int const kLineSimplifyLevelStart = 10;
 int const kLineSimplifyLevelEnd = 12;
 
-double const kPathTextBaseTextIndex = 0;
-double const kPathTextBaseTextStep = 100;
-double const kShieldBaseTextIndex = 1000;
+uint32_t const kPathTextBaseTextIndex = 0;
+uint32_t const kPathTextBaseTextStep = 100;
+uint32_t const kShieldBaseTextIndex = 1000;
 
 #ifdef CALC_FILTERED_POINTS
 class LinesStat
@@ -131,7 +129,7 @@ private:
 
 void Extract(::LineDefProto const * lineRule, df::LineViewParams & params)
 {
-  float const scale = df::VisualParams::Instance().GetVisualScale();
+  double const scale = df::VisualParams::Instance().GetVisualScale();
   params.m_color = ToDrapeColor(lineRule->color());
   params.m_width = max(lineRule->width() * scale, 1.0);
 
@@ -216,12 +214,12 @@ dp::Anchor GetAnchor(CaptionDefProto const * capRule)
 
 m2::PointF GetOffset(CaptionDefProto const * capRule)
 {
-  float vs = VisualParams::Instance().GetVisualScale();
+  double const vs = VisualParams::Instance().GetVisualScale();
   m2::PointF result(0, 0);
   if (capRule != nullptr && capRule->has_offset_x())
-    result.x = capRule->offset_x() * vs;
+    result.x = static_cast<float>(capRule->offset_x() * vs);
   if (capRule != nullptr && capRule->has_offset_y())
-    result.y = capRule->offset_y() * vs;
+    result.y = static_cast<float>(capRule->offset_y() * vs);
 
   return result;
 }
@@ -345,7 +343,7 @@ BaseApplyFeature::BaseApplyFeature(TileKey const & tileKey, TInsertShapeFn const
 
 void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto,
                                             CaptionDefProto const * secondaryProto,
-                                            double depth, TextViewParams & params) const
+                                            float depth, TextViewParams & params) const
 {
   dp::FontDecl decl;
   CaptionDefProtoToFontDecl(primaryProto, decl);
@@ -424,7 +422,7 @@ void ApplyPointFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
     return;
 
   drule::BaseRule const * pRule = rule.first;
-  float const depth = rule.second;
+  float const depth = static_cast<float>(rule.second);
 
   SymbolRuleProto const * symRule = pRule->GetSymbol();
   if (symRule != nullptr)
@@ -475,22 +473,35 @@ void ApplyPointFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
   }
 }
 
-void ApplyPointFeature::Finish()
+void ApplyPointFeature::Finish(CustomSymbolsContextPtr const & customSymbolsContext)
 {
   if (m_symbolRule == nullptr)
     return;
 
   PoiSymbolViewParams params(m_id);
   params.m_tileCenter = m_tileRect.Center();
-  params.m_depth = m_symbolDepth;
+  params.m_depth = static_cast<float>(m_symbolDepth);
   params.m_minVisibleScale = m_minVisibleScale;
   params.m_rank = m_rank;
+
   params.m_symbolName = m_symbolRule->name();
-  float const mainScale = df::VisualParams::Instance().GetVisualScale();
-  params.m_extendingSize = m_symbolRule->has_min_distance() ? mainScale * m_symbolRule->min_distance() : 0;
+  bool prioritized = false;
+  if (customSymbolsContext)
+  {
+    auto customSymbolIt = customSymbolsContext->m_symbols.find(m_id);
+    if (customSymbolIt != customSymbolsContext->m_symbols.end())
+    {
+      params.m_symbolName = customSymbolIt->second.m_symbolName;
+      prioritized = customSymbolIt->second.m_prioritized;
+    }
+  }
+
+  double const mainScale = df::VisualParams::Instance().GetVisualScale();
+  params.m_extendingSize = static_cast<uint32_t>(m_symbolRule->has_min_distance() ?
+                                                 mainScale * m_symbolRule->min_distance() : 0.0);
   params.m_posZ = m_posZ;
   params.m_hasArea = m_hasArea;
-  params.m_createdByEditor = m_createdByEditor;
+  params.m_prioritized = prioritized || m_createdByEditor;
   params.m_obsoleteInEditor = m_obsoleteInEditor;
 
   m_insertShape(make_unique_dp<PoiSymbolShape>(m_centerPoint, params, m_tileKey, 0 /* text index */,
@@ -728,7 +739,7 @@ void ApplyLineFeature::operator() (m2::PointD const & point)
   }
   else
   {
-    static float minSegmentLength = math::sqr(4.0 * df::VisualParams::Instance().GetVisualScale());
+    static double minSegmentLength = math::sqr(4.0 * df::VisualParams::Instance().GetVisualScale());
     if (m_simplify &&
         ((m_spline->GetSize() > 1 && point.SquareLength(m_lastAddedPoint) * m_sqrScale < minSegmentLength) ||
         m_spline->IsPrelonging(point)))
@@ -799,7 +810,7 @@ void ApplyLineFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
       params.m_minVisibleScale = m_minVisibleScale;
       params.m_rank = m_rank;
       params.m_symbolName = symRule.name();
-      float const mainScale = df::VisualParams::Instance().GetVisualScale();
+      double const mainScale = df::VisualParams::Instance().GetVisualScale();
       params.m_offset = symRule.offset() * mainScale;
       params.m_step = symRule.step() * mainScale;
       params.m_baseGtoPScale = m_currentScaleGtoP;
@@ -837,7 +848,7 @@ void ApplyLineFeature::GetRoadShieldsViewParams(ftypes::RoadShield const & shiel
   ASSERT (m_shieldRule != nullptr, ());
 
   string const & roadNumber = shield.m_name;
-  float const mainScale = df::VisualParams::Instance().GetVisualScale();
+  double const mainScale = df::VisualParams::Instance().GetVisualScale();
   double const fontScale = df::VisualParams::Instance().GetFontScale();
 
   // Text properties.
@@ -858,7 +869,7 @@ void ApplyLineFeature::GetRoadShieldsViewParams(ftypes::RoadShield const & shiel
   textParams.m_extendingSize = 0;
 
   // Calculate width and height of a shield.
-  float const shieldWidth = (font.m_size * 0.5 * roadNumber.size() + 10.0f * mainScale) * fontScale;
+  float const shieldWidth = (font.m_size * 0.5f * roadNumber.size() + 10.0f * mainScale) * fontScale;
   float const shieldHeight = (font.m_size + 3.0f * mainScale) * fontScale;
   textParams.m_limitedText = true;
   textParams.m_limits = m2::PointF(shieldWidth, shieldHeight) * 0.9f;
@@ -908,7 +919,7 @@ void ApplyLineFeature::GetRoadShieldsViewParams(ftypes::RoadShield const & shiel
     poiParams.m_extendingSize = 0;
     poiParams.m_posZ = 0.0f;
     poiParams.m_hasArea = false;
-    poiParams.m_createdByEditor = false;
+    poiParams.m_prioritized = false;
     poiParams.m_obsoleteInEditor = false;
   }
 }
@@ -923,7 +934,7 @@ void ApplyLineFeature::Finish(std::vector<ftypes::RoadShield> && roadShields)
     return;
 
   uint32_t constexpr kDefaultMinDistance = 50;
-  float const mainScale = df::VisualParams::Instance().GetVisualScale();
+  double const mainScale = df::VisualParams::Instance().GetVisualScale();
 
   m2::PointD shieldOffset(0.0, 0.0);
   for (size_t shieldIndex = 0; shieldIndex < roadShields.size(); shieldIndex++)
@@ -934,10 +945,10 @@ void ApplyLineFeature::Finish(std::vector<ftypes::RoadShield> && roadShields)
     PoiSymbolViewParams poiParams(m_id);
     GetRoadShieldsViewParams(shield, textParams, symbolParams, poiParams);
 
-    uint32_t minDistanceInPixels = mainScale * (m_shieldRule->has_min_distance() ?
-                                                m_shieldRule->min_distance() : kDefaultMinDistance);
+    uint32_t minDistanceInPixels = static_cast<uint32_t>(mainScale * (m_shieldRule->has_min_distance() ?
+                                                         m_shieldRule->min_distance() : kDefaultMinDistance));
     if (minDistanceInPixels == 0)
-      minDistanceInPixels = mainScale * kDefaultMinDistance;
+      minDistanceInPixels = static_cast<uint32_t>(mainScale * kDefaultMinDistance);
 
     uint32_t textIndex = kShieldBaseTextIndex * (shieldIndex + 1);
     for (auto const & spline : m_clippedSplines)

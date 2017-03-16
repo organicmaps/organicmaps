@@ -112,16 +112,18 @@ void ExtractTrafficGeometry(FeatureType const & f, df::RoadClass const & roadCla
 namespace df
 {
 
-RuleDrawer::RuleDrawer(TDrawerCallback const & fn,
+RuleDrawer::RuleDrawer(TDrawerCallback const & drawerFn,
                        TCheckCancelledCallback const & checkCancelled,
                        TIsCountryLoadedByNameFn const & isLoadedFn,
-                       ref_ptr<EngineContext> context,
+                       ref_ptr<EngineContext> engineContext,
+                       CustomSymbolsContextPtr customSymbolsContext,
                        bool is3dBuildings, bool trafficEnabled)
-  : m_callback(fn)
+  : m_callback(drawerFn)
   , m_checkCancelled(checkCancelled)
   , m_isLoadedFn(isLoadedFn)
-  , m_context(context)
-  , m_is3dBuidings(is3dBuildings)
+  , m_context(engineContext)
+  , m_customSymbolsContext(customSymbolsContext)
+  , m_is3dBuildings(is3dBuildings)
   , m_trafficEnabled(trafficEnabled)
   , m_wasCancelled(false)
 {
@@ -242,7 +244,7 @@ void RuleDrawer::operator()(FeatureType const & f)
                     !ftypes::IsBridgeChecker::Instance()(f) &&
                     !ftypes::IsTunnelChecker::Instance()(f);
     }
-    bool const is3dBuilding = m_is3dBuidings && isBuilding;
+    bool const is3dBuilding = m_is3dBuildings && isBuilding;
 
     m2::PointD featureCenter;
 
@@ -310,7 +312,7 @@ void RuleDrawer::operator()(FeatureType const & f)
       return;
 
     s.ForEachRule(bind(&ApplyAreaFeature::ProcessRule, &apply, _1));
-    apply.Finish();
+    apply.Finish(m_customSymbolsContext);
   }
   else if (s.LineStyleExists())
   {
@@ -378,7 +380,7 @@ void RuleDrawer::operator()(FeatureType const & f)
       return;
 
     s.ForEachRule(bind(&ApplyPointFeature::ProcessRule, &apply, _1));
-    apply.Finish();
+    apply.Finish(m_customSymbolsContext);
   }
 
 #ifdef DRAW_TILE_NET

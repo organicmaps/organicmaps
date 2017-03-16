@@ -1,5 +1,6 @@
 #pragma once
 
+#include "drape_frontend/custom_symbol.hpp"
 #include "drape_frontend/map_shape.hpp"
 #include "drape_frontend/tile_key.hpp"
 #include "drape_frontend/traffic_generator.hpp"
@@ -29,8 +30,11 @@ public:
   using TCheckCancelledCallback = function<bool ()>;
   using TIsCountryLoadedByNameFn = function<bool (string const &)>;
 
-  RuleDrawer(TDrawerCallback const & drawerFn, TCheckCancelledCallback const & checkCancelled,
-             TIsCountryLoadedByNameFn const & isLoadedFn, ref_ptr<EngineContext> context,
+  RuleDrawer(TDrawerCallback const & drawerFn,
+             TCheckCancelledCallback const & checkCancelled,
+             TIsCountryLoadedByNameFn const & isLoadedFn,
+             ref_ptr<EngineContext> engineContext,
+             CustomSymbolsContextPtr customSymbolsContext,
              bool is3dBuildings, bool trafficEnabled);
   ~RuleDrawer();
 
@@ -44,11 +48,12 @@ private:
   TIsCountryLoadedByNameFn m_isLoadedFn;
 
   ref_ptr<EngineContext> m_context;
+  CustomSymbolsContextPtr m_customSymbolsContext;
   m2::RectD m_globalRect;
   double m_currentScaleGtoP;
   double m_trafficScalePtoG;
 
-  bool const m_is3dBuidings;
+  bool const m_is3dBuildings;
 
   bool const m_trafficEnabled;
   TrafficSegmentsGeometry m_trafficGeometry;
