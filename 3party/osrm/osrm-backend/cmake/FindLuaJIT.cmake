@@ -39,7 +39,7 @@ ENDIF()
 FIND_PATH(LUAJIT_INCLUDE_DIR lua.h
   HINTS
   $ENV{LUAJIT_DIR}
-  PATH_SUFFIXES include/luajit-2.0 include/luajit2.0 include/luajit include
+  PATH_SUFFIXES include/luajit-2.1 include/luajit2.1 include/luajit-2.0 include/luajit2.0 include/luajit include
   PATHS
   ~/Library/Frameworks
   /Library/Frameworks

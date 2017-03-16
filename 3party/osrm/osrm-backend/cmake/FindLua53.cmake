@@ -1,6 +1,6 @@
 # Locate Lua library
 # This module defines
-#  LUA52_FOUND, if false, do not try to link to Lua
+#  LUA53_FOUND, if false, do not try to link to Lua
 #  LUA_LIBRARIES
 #  LUA_INCLUDE_DIR, where to find lua.h
 #  LUA_VERSION_STRING, the version of Lua found (since CMake 2.8.8)
@@ -15,6 +15,7 @@
 #=============================================================================
 # Copyright 2007-2009 Kitware, Inc.
 # Copyright 2013 for Project-OSRM, Lua5.1 => Lua5.2
+# Copyright 2017 for LinDev, Lua5.2 => Lua5.3
 #
 # Distributed under the OSI-approved BSD License (the "License");
 # see accompanying file Copyright.txt for details.
@@ -29,7 +30,7 @@
 find_path(LUA_INCLUDE_DIR lua.h
   HINTS
     ENV LUA_DIR
-  PATH_SUFFIXES include/lua52 include/lua5.2 include/lua-5.2 include/lua include
+  PATH_SUFFIXES include/lua53 include/lua5.3 include/lua-5.3 include/lua include
   PATHS
   ~/Library/Frameworks
   /Library/Frameworks
@@ -40,7 +41,7 @@ find_path(LUA_INCLUDE_DIR lua.h
 )
 
 find_library(LUA_LIBRARY
-  NAMES lua52 lua5.2 lua-5.2 lua
+  NAMES lua53 lua5.3 lua-5.3 lua
   HINTS
     ENV LUA_DIR
   PATH_SUFFIXES lib
@@ -74,7 +75,7 @@ endif()
 include(FindPackageHandleStandardArgs)
 # handle the QUIETLY and REQUIRED arguments and set LUA_FOUND to TRUE if
 # all listed variables are TRUE
-FIND_PACKAGE_HANDLE_STANDARD_ARGS(Lua52
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(Lua53
                                   REQUIRED_VARS LUA_LIBRARIES LUA_INCLUDE_DIR
                                   VERSION_VAR LUA_VERSION_STRING)
 
