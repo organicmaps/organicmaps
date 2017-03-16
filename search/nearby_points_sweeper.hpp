@@ -3,6 +3,7 @@
 #include "base/assert.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/cmath.hpp"
 #include "std/cstdint.hpp"
 #include "std/limits.hpp"
 #include "std/set.hpp"
