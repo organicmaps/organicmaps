@@ -14,10 +14,6 @@
 DEFINE_string(resources_path, "", "Path to resources directory");
 DEFINE_string(data_path, "", "Path to data directory");
 
-namespace
-{
-}  // namespace
-
 int main(int argc, char ** argv)
 {
   search::ChangeMaxNumberOfOpenFiles(search::kMaxOpenFiles);
@@ -36,7 +32,7 @@ int main(int argc, char ** argv)
 
   Framework framework;
   MainView view(framework);
-  MainModel model;
+  MainModel model(framework);
 
   model.SetView(view);
   view.SetModel(model);
