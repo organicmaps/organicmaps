@@ -63,6 +63,9 @@ Platform::Platform()
         device.systemVersion);
 }
 
+// static
+bool Platform::IsCustomTextureAllocatorSupported() { return !isIOS8; }
+
 Platform::EError Platform::MkDir(string const & dirName) const
 {
   if (::mkdir(dirName.c_str(), 0755))

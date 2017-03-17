@@ -3,6 +3,8 @@
 #include "glfunctions.hpp"
 #include "glextensions_list.hpp"
 
+#include "platform/platform.hpp"
+
 #include "base/math.hpp"
 
 #if defined(OMIM_OS_IPHONE)
@@ -173,6 +175,9 @@ drape_ptr<HWTexture> OpenGLHWTextureAllocator::CreateTexture()
 
 drape_ptr<HWTextureAllocator> CreateAllocator()
 {
+  if (!Platform::IsCustomTextureAllocatorSupported())
+    return make_unique_dp<OpenGLHWTextureAllocator>();;
+
 #if defined(OMIM_OS_IPHONE) && !defined(OMIM_OS_IPHONE_SIMULATOR)
   return make_unique_dp<HWTextureAllocatorApple>();
 #else

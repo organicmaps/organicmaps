@@ -145,11 +145,15 @@ Platform::EError Platform::GetFileType(string const & path, EFileType & type)
   return ERR_OK;
 }
 
+// static
 bool Platform::IsFileExistsByFullPath(string const & filePath)
 {
   struct stat s;
   return stat(filePath.c_str(), &s) == 0;
 }
+
+// static
+bool Platform::IsCustomTextureAllocatorSupported() { return true; }
 
 bool Platform::IsDirectoryEmpty(string const & directory)
 {
