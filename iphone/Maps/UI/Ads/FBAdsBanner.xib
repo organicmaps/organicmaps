@@ -56,8 +56,8 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
                         </userDefinedRuntimeAttributes>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="551" verticalHuggingPriority="249" horizontalCompressionResistancePriority="249" text="Как превратить обычный день в праздник? Просто сделай заказ через Delivery Club!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ev3-yY-ql1">
-                        <rect key="frame" x="16" y="27" width="258.5" height="74.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="451" verticalHuggingPriority="249" horizontalCompressionResistancePriority="249" text="Как " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ev3-yY-ql1">
+                        <rect key="frame" x="16" y="27" width="270" height="74.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
