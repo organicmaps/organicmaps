@@ -15,6 +15,8 @@
 namespace dp
 {
 
+extern std::string const kDefaultSymbolsTexture;
+
 class HWTextureAllocator;
 
 class TextureManager

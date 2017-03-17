@@ -37,7 +37,9 @@ size_t const kReservedColors = 20;
 float const kGlyphAreaMultiplier = 1.2f;
 float const kGlyphAreaCoverage = 0.9f;
 
-std::string kSymbolTextures[] = { "symbols", "symbols-ad" };
+std::string const kDefaultSymbolsTexture = "symbols";
+std::string const kSymbolTextures[] = { kDefaultSymbolsTexture, "symbols-ad" };
+uint32_t const kDefaultSymbolsIndex = 0;
 
 namespace
 {
@@ -546,7 +548,7 @@ bool TextureManager::AreGlyphsReady(strings::UniString const & str, int fixedHei
 ref_ptr<Texture> TextureManager::GetSymbolsTexture() const
 {
   ASSERT(!m_symbolTextures.empty(), ());
-  return make_ref(m_symbolTextures[0]);
+  return make_ref(m_symbolTextures[kDefaultSymbolsIndex]);
 }
 
 ref_ptr<Texture> TextureManager::GetTrafficArrowTexture() const
