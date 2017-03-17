@@ -46,11 +46,13 @@ void CallPartnersApi(platform::PartnersApiFn fn, bool force)
   if (checkAndApply())
     return;
 
-  MWMAlertViewController * alertController = [MWMAlertViewController activeAlertController];
-  [alertController presentMobileInternetAlertWithBlock:^{
-    if (!checkAndApply())
-      fn(false);
-  }];
+  dispatch_async(dispatch_get_main_queue(), ^{
+    MWMAlertViewController * alertController = [MWMAlertViewController activeAlertController];
+    [alertController presentMobileInternetAlertWithBlock:^{
+      if (!checkAndApply())
+        fn(false);
+    }];
+  });
 }
 
 void SetStage(np::Stage state)

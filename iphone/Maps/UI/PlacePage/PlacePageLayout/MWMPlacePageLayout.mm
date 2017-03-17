@@ -136,7 +136,10 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 
   [self.placePageView.tableView reloadData];
   [self.layoutImpl onShow];
-  [data fillOnlineBookingSections];
+
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [data fillOnlineBookingSections];
+  });
 }
 
 - (void)rotateDirectionArrowToAngle:(CGFloat)angle

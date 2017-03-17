@@ -178,80 +178,81 @@ using namespace place_page;
 
   network_policy::CallPartnersApi([self](platform::NetworkPolicy const & canUseNetwork)
   {
-    if (auto const api = GetFramework().GetBookingApi(canUseNetwork))
+    auto api = GetFramework().GetBookingApi(canUseNetwork);
+    if (!api)
+      return;
+
+    string const hotelId = self.sponsoredId.UTF8String;
+    api->GetHotelInfo(hotelId, [[AppInfo sharedInfo] twoLetterLanguageId].UTF8String,
+                      [hotelId, self](booking::HotelInfo const & hotelInfo)
     {
-      string const hotelId = self.sponsoredId.UTF8String;
-      api->GetHotelInfo(hotelId, [[AppInfo sharedInfo] twoLetterLanguageId].UTF8String,
-                        [hotelId, self](booking::HotelInfo const & hotelInfo)
+      if (hotelId != hotelInfo.m_hotelId)
+        return;
+
+      dispatch_async(dispatch_get_main_queue(), [hotelInfo, self]
       {
-        if (hotelId != hotelInfo.m_hotelId)
-          return;
+        m_hotelInfo = hotelInfo;
 
-        dispatch_async(dispatch_get_main_queue(), [hotelInfo, self]
+        auto & sections = self->m_sections;
+        auto const begin = sections.begin();
+        auto const end = sections.end();
+
+        NSUInteger const position = find(begin, end, Sections::Bookmark) != end ? 2 : 1;
+        NSUInteger length = 0;
+        auto it = m_sections.begin() + position;
+
+        if (!hotelInfo.m_photos.empty())
         {
-          m_hotelInfo = hotelInfo;
+          it = sections.insert(it, Sections::HotelPhotos) + 1;
+          m_hotelPhotosRows.emplace_back(HotelPhotosRow::Regular);
+          length++;
+        }
 
-          auto & sections = self->m_sections;
-          auto const begin = sections.begin();
-          auto const end = sections.end();
+        if (!hotelInfo.m_description.empty())
+        {
+          it = sections.insert(it, Sections::HotelDescription) + 1;
+          m_hotelDescriptionRows.emplace_back(HotelDescriptionRow::Regular);
+          m_hotelDescriptionRows.emplace_back(HotelDescriptionRow::ShowMore);
+          length++;
+        }
 
-          NSUInteger const position = find(begin, end, Sections::Bookmark) != end ? 2 : 1;
-          NSUInteger length = 0;
-          auto it = m_sections.begin() + position;
+        auto const & facilities = hotelInfo.m_facilities;
+        if (!facilities.empty())
+        {
+          it = sections.insert(it, Sections::HotelFacilities) + 1;
+          auto & facilitiesRows = self->m_hotelFacilitiesRows;
+          auto const size = facilities.size();
+          auto constexpr maxNumberOfHotelCellsInPlacePage = 3UL;
 
-          if (!hotelInfo.m_photos.empty())
+          if (size > maxNumberOfHotelCellsInPlacePage)
           {
-            it = sections.insert(it, Sections::HotelPhotos) + 1;
-            m_hotelPhotosRows.emplace_back(HotelPhotosRow::Regular);
-            length++;
+            facilitiesRows.insert(facilitiesRows.begin(), maxNumberOfHotelCellsInPlacePage, HotelFacilitiesRow::Regular);
+            facilitiesRows.emplace_back(HotelFacilitiesRow::ShowMore);
+          }
+          else
+          {
+            facilitiesRows.insert(facilitiesRows.begin(), size, HotelFacilitiesRow::Regular);
           }
 
-          if (!hotelInfo.m_description.empty())
-          {
-            it = sections.insert(it, Sections::HotelDescription) + 1;
-            m_hotelDescriptionRows.emplace_back(HotelDescriptionRow::Regular);
-            m_hotelDescriptionRows.emplace_back(HotelDescriptionRow::ShowMore);
-            length++;
-          }
+          length++;
+        }
 
-          auto const & facilities = hotelInfo.m_facilities;
-          if (!facilities.empty())
-          {
-            it = sections.insert(it, Sections::HotelFacilities) + 1;
-            auto & facilitiesRows = self->m_hotelFacilitiesRows;
-            auto const size = facilities.size();
-            auto constexpr maxNumberOfHotelCellsInPlacePage = 3UL;
+        auto const & reviews = hotelInfo.m_reviews;
+        if (!reviews.empty())
+        {
+          sections.insert(it, Sections::HotelReviews);
+          auto const size = reviews.size();
+          auto & reviewsRows = self->m_hotelReviewsRows;
 
-            if (size > maxNumberOfHotelCellsInPlacePage)
-            {
-              facilitiesRows.insert(facilitiesRows.begin(), maxNumberOfHotelCellsInPlacePage, HotelFacilitiesRow::Regular);
-              facilitiesRows.emplace_back(HotelFacilitiesRow::ShowMore);
-            }
-            else
-            {
-              facilitiesRows.insert(facilitiesRows.begin(), size, HotelFacilitiesRow::Regular);
-            }
+          reviewsRows.emplace_back(HotelReviewsRow::Header);
+          reviewsRows.insert(reviewsRows.end(), size, HotelReviewsRow::Regular);
+          reviewsRows.emplace_back(HotelReviewsRow::ShowMore);
+          length++;
+        }
 
-            length++;
-          }
-
-          auto const & reviews = hotelInfo.m_reviews;
-          if (!reviews.empty())
-          {
-            sections.insert(it, Sections::HotelReviews);
-            auto const size = reviews.size();
-            auto & reviewsRows = self->m_hotelReviewsRows;
-
-            reviewsRows.emplace_back(HotelReviewsRow::Header);
-            reviewsRows.insert(reviewsRows.end(), size, HotelReviewsRow::Regular);
-            reviewsRows.emplace_back(HotelReviewsRow::ShowMore);
-            length++;
-          }
-
-          self.sectionsAreReadyCallback({position, length});
-        });
+        self.sectionsAreReadyCallback({position, length});
       });
-    }
+    });
   });
 }
 
