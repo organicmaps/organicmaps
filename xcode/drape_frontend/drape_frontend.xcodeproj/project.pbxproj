@@ -43,6 +43,7 @@
 		454C19BD1CCE3EC0002A2C86 /* animation_system.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 454C19BA1CCE3EC0002A2C86 /* animation_system.hpp */; };
 		45580ABA1E28DB2600CD535D /* scenario_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45580AB81E28DB2600CD535D /* scenario_manager.cpp */; };
 		45580ABB1E28DB2600CD535D /* scenario_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45580AB91E28DB2600CD535D /* scenario_manager.hpp */; };
+		457D89251E7AE89500049500 /* custom_symbol.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 457D89241E7AE89500049500 /* custom_symbol.hpp */; };
 		45B4B8CB1CF5C16B00A54761 /* screen_animations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B4B8C71CF5C16B00A54761 /* screen_animations.cpp */; };
 		45B4B8CC1CF5C16B00A54761 /* screen_animations.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45B4B8C81CF5C16B00A54761 /* screen_animations.hpp */; };
 		45B4B8CD1CF5C16B00A54761 /* screen_operations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B4B8C91CF5C16B00A54761 /* screen_operations.cpp */; };
@@ -256,6 +257,7 @@
 		454C19BA1CCE3EC0002A2C86 /* animation_system.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = animation_system.hpp; sourceTree = "<group>"; };
 		45580AB81E28DB2600CD535D /* scenario_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scenario_manager.cpp; sourceTree = "<group>"; };
 		45580AB91E28DB2600CD535D /* scenario_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = scenario_manager.hpp; sourceTree = "<group>"; };
+		457D89241E7AE89500049500 /* custom_symbol.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = custom_symbol.hpp; sourceTree = "<group>"; };
 		45B4B8C71CF5C16B00A54761 /* screen_animations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = screen_animations.cpp; sourceTree = "<group>"; };
 		45B4B8C81CF5C16B00A54761 /* screen_animations.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = screen_animations.hpp; sourceTree = "<group>"; };
 		45B4B8C91CF5C16B00A54761 /* screen_operations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = screen_operations.cpp; sourceTree = "<group>"; };
@@ -466,6 +468,7 @@
 		670947411BDF9B99005014C0 /* drape_frontend */ = {
 			isa = PBXGroup;
 			children = (
+				457D89241E7AE89500049500 /* custom_symbol.hpp */,
 				453EEA6B1E3A28F400505E09 /* colored_symbol_shape.cpp */,
 				453EEA6C1E3A28F400505E09 /* colored_symbol_shape.hpp */,
 				347F52071DC2334A0064B273 /* drape_api_builder.cpp */,
@@ -749,6 +752,7 @@
 				670947AA1BDF9BE1005014C0 /* path_symbol_shape.hpp in Headers */,
 				6709483E1BDF9C48005014C0 /* copyright_label.hpp in Headers */,
 				675D21921BFB871D00717E4F /* text_engine.h in Headers */,
+				457D89251E7AE89500049500 /* custom_symbol.hpp in Headers */,
 				675D218D1BFB871D00717E4F /* proto_to_styles.hpp in Headers */,
 				670947951BDF9BE1005014C0 /* line_shape_helper.hpp in Headers */,
 				670948501BDF9C48005014C0 /* skin.hpp in Headers */,

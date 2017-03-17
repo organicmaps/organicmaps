@@ -137,3 +137,5 @@ server
 *.li
 
 *.autosave
+
+cmake-build-*

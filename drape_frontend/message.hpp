@@ -75,6 +75,7 @@ public:
     DrapeApiAddLines,
     DrapeApiRemove,
     DrapeApiFlush,
+    SetCustomSymbols,
   };
 
   virtual ~Message() {}

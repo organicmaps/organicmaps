@@ -2,6 +2,7 @@
 
 #include "drape_frontend/backend_renderer.hpp"
 #include "drape_frontend/color_constants.hpp"
+#include "drape_frontend/custom_symbol.hpp"
 #include "drape_frontend/frontend_renderer.hpp"
 #include "drape_frontend/route_shape.hpp"
 #include "drape_frontend/scenario_manager.hpp"
@@ -186,6 +187,8 @@ public:
   void RunScenario(ScenarioManager::ScenarioData && scenarioData,
                    ScenarioManager::ScenarioCallback const & onStartFn,
                    ScenarioManager::ScenarioCallback const & onFinishFn);
+
+  void SetCustomSymbols(CustomSymbols && symbols);
 
 private:
   void AddUserEvent(drape_ptr<UserEvent> && e);

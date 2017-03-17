@@ -428,6 +428,16 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::SetCustomSymbols:
+    {
+      ref_ptr<SetCustomSymbolsMessage> msg = message;
+      m_readManager->UpdateCustomSymbols(msg->AcceptSymbols());
+      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                make_unique_dp<SetCustomSymbolsMessage>(CustomSymbols()),
+                                MessagePriority::Normal);
+      break;
+    }
+
   default:
     ASSERT(false, ());
     break;

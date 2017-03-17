@@ -1,5 +1,6 @@
 #pragma once
 
+#include "drape_frontend/custom_symbol.hpp"
 #include "drape_frontend/engine_context.hpp"
 #include "drape_frontend/tile_key.hpp"
 
@@ -25,7 +26,8 @@ class TileInfo : private noncopyable
 public:
   DECLARE_EXCEPTION(ReadCanceledException, RootException);
 
-  TileInfo(drape_ptr<EngineContext> && context);
+  TileInfo(drape_ptr<EngineContext> && engineContext,
+           CustomSymbolsContextWeakPtr customSymbolsContext);
 
   void ReadFeatures(MapDataProvider const & model);
   void Cancel();
@@ -51,6 +53,7 @@ private:
 
 private:
   drape_ptr<EngineContext> m_context;
+  CustomSymbolsContextWeakPtr m_customSymbolsContext;
   vector<FeatureID> m_featureInfo;
   bool m_is3dBuildings;
   bool m_trafficEnabled;

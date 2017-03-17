@@ -1,16 +1,11 @@
 #include "drape_frontend/poi_symbol_shape.hpp"
-
 #include "drape_frontend/color_constants.hpp"
 
-#include "drape/utils/vertex_decl.hpp"
 #include "drape/attribute_provider.hpp"
 #include "drape/batcher.hpp"
-#include "drape/glstate.hpp"
 #include "drape/texture_manager.hpp"
-
 #include "drape/shader_def.hpp"
-
-#include "indexer/map_style_reader.hpp"
+#include "drape/utils/vertex_decl.hpp"
 
 namespace
 {
@@ -143,8 +138,8 @@ void PoiSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManag
 
 uint64_t PoiSymbolShape::GetOverlayPriority() const
 {
-  // Set up maximum priority for shapes which created by user in the editor.
-  if (m_params.m_createdByEditor)
+  // Set up maximum priority for some POI.
+  if (m_params.m_prioritized)
     return dp::kPriorityMaskAll;
 
   // Special displacement mode.

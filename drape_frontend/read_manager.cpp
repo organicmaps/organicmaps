@@ -203,7 +203,7 @@ bool ReadManager::MustDropAllTiles(ScreenBase const & screen) const
 void ReadManager::PushTaskBackForTileKey(TileKey const & tileKey, ref_ptr<dp::TextureManager> texMng)
 {
   shared_ptr<TileInfo> tileInfo(new TileInfo(make_unique_dp<EngineContext>(TileKey(tileKey, m_generationCounter),
-                                                                           m_commutator, texMng)));
+                                             m_commutator, texMng), m_customSymbolsContext));
   tileInfo->Set3dBuildings(m_have3dBuildings && m_allow3dBuildings);
   tileInfo->SetTrafficEnabled(m_trafficEnabled);
   m_tileInfos.insert(tileInfo);
@@ -278,6 +278,12 @@ void ReadManager::SetTrafficEnabled(bool trafficEnabled)
     m_modeChanged = true;
     m_trafficEnabled = trafficEnabled;
   }
+}
+
+void ReadManager::UpdateCustomSymbols(CustomSymbols && symbols)
+{
+  std::atomic_exchange(&m_customSymbolsContext,
+                       std::make_shared<CustomSymbolsContext>(std::move(symbols)));
 }
 
 } // namespace df

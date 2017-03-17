@@ -15,13 +15,14 @@
 namespace df
 {
 
-TileInfo::TileInfo(drape_ptr<EngineContext> && context)
-  : m_context(move(context))
+TileInfo::TileInfo(drape_ptr<EngineContext> && engineContext,
+                   CustomSymbolsContextWeakPtr customSymbolsContext)
+  : m_context(move(engineContext))
+  , m_customSymbolsContext(customSymbolsContext)
   , m_is3dBuildings(false)
   , m_trafficEnabled(false)
   , m_isCanceled(false)
-{
-}
+{}
 
 m2::RectD TileInfo::GetGlobalRect() const
 {
@@ -74,7 +75,8 @@ void TileInfo::ReadFeatures(MapDataProvider const & model)
     RuleDrawer drawer(bind(&TileInfo::InitStylist, this, _1, _2),
                       bind(&TileInfo::IsCancelled, this),
                       model.m_isCountryLoadedByName,
-                      make_ref(m_context), m_is3dBuildings, m_trafficEnabled);
+                      make_ref(m_context), m_customSymbolsContext.lock(),
+                      m_is3dBuildings, m_trafficEnabled);
     model.ReadFeatures(bind<void>(ref(drawer), _1), m_featureInfo);
   }
 #if defined(DRAPE_MEASURER) && defined(TILES_STATISTIC)

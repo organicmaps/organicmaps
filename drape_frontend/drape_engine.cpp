@@ -4,14 +4,7 @@
 
 #include "drape_frontend/gui/drape_gui.hpp"
 
-#include "storage/index.hpp"
-
-#include "drape/texture_manager.hpp"
-
 #include "platform/settings.hpp"
-
-#include "std/bind.hpp"
-#include "std/utility.hpp"
 
 namespace df
 {
@@ -584,6 +577,13 @@ void DrapeEngine::RunScenario(ScenarioManager::ScenarioData && scenarioData,
   auto const & manager = m_frontend->GetScenarioManager();
   if (manager != nullptr)
     manager->RunScenario(move(scenarioData), onStartFn, onFinishFn);
+}
+
+void DrapeEngine::SetCustomSymbols(CustomSymbols && symbols)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<SetCustomSymbolsMessage>(std::move(symbols)),
+                                  MessagePriority::Normal);
 }
 
 } // namespace df

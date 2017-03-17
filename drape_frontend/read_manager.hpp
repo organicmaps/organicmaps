@@ -1,5 +1,6 @@
 #pragma once
 
+#include "drape_frontend/custom_symbol.hpp"
 #include "drape_frontend/engine_context.hpp"
 #include "drape_frontend/read_mwm_task.hpp"
 #include "drape_frontend/tile_info.hpp"
@@ -41,6 +42,8 @@ public:
 
   void SetTrafficEnabled(bool trafficEnabled);
 
+  void UpdateCustomSymbols(CustomSymbols && symbols);
+
   static uint32_t ReadCount();
 
 private:
@@ -81,6 +84,8 @@ private:
 
   using TTileInfoCollection = buffer_vector<shared_ptr<TileInfo>, 8>;
   TTilesCollection m_activeTiles;
+
+  CustomSymbolsContextPtr m_customSymbolsContext;
 
   void CancelTileInfo(shared_ptr<TileInfo> const & tileToCancel);
   void ClearTileInfo(shared_ptr<TileInfo> const & tileToClear);

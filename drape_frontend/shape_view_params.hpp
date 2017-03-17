@@ -32,7 +32,7 @@ struct PoiSymbolViewParams : CommonViewParams
   uint32_t m_extendingSize;
   float m_posZ = 0.0f;
   bool m_hasArea = false;
-  bool m_createdByEditor = false;
+  bool m_prioritized = false;
   bool m_obsoleteInEditor = false;
 };
 

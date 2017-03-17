@@ -146,6 +146,7 @@ HEADERS += \
     batch_merge_helper.hpp \
     color_constants.hpp \
     colored_symbol_shape.hpp \
+    custom_symbol.hpp \
     drape_api.hpp \
     drape_api_builder.hpp \
     drape_api_renderer.hpp \

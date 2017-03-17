@@ -226,9 +226,9 @@ m2::RectD GetRectForDrawScale(double drawScale, m2::PointD const & center)
   return GetRectForDrawScale(my::rounds(drawScale), center);
 }
 
-int CalculateTileSize(int screenWidth, int screenHeight)
+uint32_t CalculateTileSize(uint32_t screenWidth, uint32_t screenHeight)
 {
-  int const maxSz = max(screenWidth, screenHeight);
+  uint32_t const maxSz = max(screenWidth, screenHeight);
 
   // we're calculating the tileSize based on (maxSz > 1024 ? rounded : ceiled)
   // to the nearest power of two value of the maxSz
@@ -237,7 +237,9 @@ int CalculateTileSize(int screenWidth, int screenHeight)
   int res = 0;
 
   if (maxSz < 1024)
+  {
     res = ceiledSz;
+  }
   else
   {
     int const flooredSz = ceiledSz / 2;
@@ -249,9 +251,9 @@ int CalculateTileSize(int screenWidth, int screenHeight)
   }
 
 #ifndef OMIM_OS_DESKTOP
-  return my::clamp(res / 2, 256, 1024);
+  return static_cast<uint32_t>(my::clamp(res / 2, 256, 1024));
 #else
-  return my::clamp(res / 2, 512, 1024);
+  return static_cast<uint32_t>(my::clamp(res / 2, 512, 1024));
 #endif
 }
 
