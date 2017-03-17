@@ -127,67 +127,67 @@ he:גז
 sk:3^Čerpacia stanica
 
 @parking
-en:Parking
-ru:Парковка
-ar:الاصطفاف
-cs:Parkoviště
-da:Parkering
-nl:Parkeerplaats
-fi:Parkkipaikka
-fr:Stationnement
-de:Parkplatz
-hu:Parkoló
-id:Parkir
-it:Parcheggio
-ja:駐車場
-ko:주차
-nb:Parkering
-pl:Parking
-pt:Estacionamento
-ro:Parcare
-es:Estacionamiento
-sv:Parkering
-th:ที่จอดรถ
-tr:Otopark
-uk:Парковка
-vi:đỗ xe
-zh-Hans:停车
-zh-Hant:停車場
-el:Χώρος στάθμευσης
-he:חניה
-sk:Parkovisko
+en:^Parking
+ru:^Парковка
+ar:^الاصطفاف
+cs:^Parkoviště
+da:^Parkering
+nl:^Parkeerplaats
+fi:^Parkkipaikka
+fr:^Stationnement
+de:^Parkplatz
+hu:^Parkoló
+id:^Parkir
+it:^Parcheggio
+ja:^駐車場
+ko:^주차
+nb:^Parkering
+pl:^Parking
+pt:^Estacionamento
+ro:^Parcare
+es:^Estacionamiento
+sv:^Parkering
+th:^ที่จอดรถ
+tr:^Otopark
+uk:^Парковка
+vi:^đỗ xe
+zh-Hans:^停车
+zh-Hant:^停車場
+el:^Χώρος στάθμευσης
+he:^חניה
+sk:^Parkovisko
 
 @shop
-en:Shop
-ru:Магазин
-ar:المتجر
-cs:Obchod
-da:Butik
-nl:Winkel
-fi:Kauppa
-fr:Magasin
-de:Geschäft
-hu:Bolt
-id:Toko
-it:Negozio
-ja:買い物
-ko:쇼핑
-nb:Butikk
-pl:Sklep
-pt:Compras
-ro:Magazin
-es:Tienda
-sv:Butik
-th:ร้านค้า
-tr:Mağaza
-uk:Крамниця
-vi:Cửa hàng
-zh-Hans:商店
-zh-Hant:購物
-el:Μαγαζί
-he:חנות
-sk:Obchod
-sw:Duka
+en:^Shop
+ru:^Магазин
+ar:^المتجر
+cs:^Obchod
+da:^Butik
+nl:^Winkel
+fi:^Kauppa
+fr:^Magasin
+de:^Geschäft
+hu:^Bolt
+id:^Toko
+it:^Negozio
+ja:^買い物
+ko:^쇼핑
+nb:^Butikk
+pl:^Sklep
+pt:^Compras
+ro:^Magazin
+es:^Tienda
+sv:^Butik
+th:^ร้านค้า
+tr:^Mağaza
+uk:^Крамниця
+vi:^Cửa hàng
+zh-Hans:^商店
+zh-Hant:^購物
+el:^Μαγαζί
+he:^חנות
+sk:^Obchod
+sw:^Duka
 
 @hotel
 en:^Hotel
@@ -647,18 +647,18 @@ sk:3^Pekáreň
 sw:^Kituo cha kuwoka mikate
 
 shop|@shop
-en:^U+1F3EA|U+1F3EC
-ar:^متجر
-da:^forretning
-de:3^Verbrauchermarkt|2Laden
-ja:^お買い物|ショップ|商店|雑貨
-ko:^가게
-pl:^towary
-pt:2^Loja
-uk:2^Магазин|крамниця
-zh-Hans:^商店
-zh-Hant:1^購物|店鋪|商店|雜貨店|便利商店
-el:^Κατάστημα
+en:U+1F3EA|U+1F3EC
+ar:متجر
+da:forretning
+de:3Verbrauchermarkt|2Laden
+ja:お買い物|ショップ|商店|雑貨
+ko:가게
+pl:towary
+pt:2Loja
+uk:2Магазин|крамниця
+zh-Hans:商店
+zh-Hant:1購物|店鋪|商店|雜貨店|便利商店
+el:Κατάστημα
 
 shop-cosmetics|@shop
 en:4^Beauty Care|home care|U+1F3EC|U+1F3EA
@@ -3114,19 +3114,19 @@ sk:3^Knižnica
 sw:^Maktaba
 
 amenity-parking|@parking
-en:^U+1F697|U+1F17F|U+1F698|U+1F699
-da:3^Parkeringsplads
-nl:^parking
-fr:3^parking
-de:^Parking
-ja:^パーキング|コインパーキング
-pt:3^Parking
-es:3^aparcamiento
-uk:^автостоянка|паркінг
-vi:^Đỗ xe
-zh-Hans:1^停车
-zh-Hant:1^停車場|停車|泊車
-sw:^Maegesho
+en:U+1F697|U+1F17F|U+1F698|U+1F699
+da:3Parkeringsplads
+nl:parking
+fr:3parking
+de:Parking
+ja:パーキング|コインパーキング
+pt:3Parking
+es:3aparcamiento
+uk:автостоянка|паркінг
+vi:Đỗ xe
+zh-Hans:1停车
+zh-Hant:1停車場|停車|泊車
+sw:Maegesho
 
 @pharmacy
 en:3^Pharmacy
