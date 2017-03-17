@@ -30,7 +30,9 @@ import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class NavigationController implements TrafficManager.TrafficCallback
@@ -281,8 +283,11 @@ public class NavigationController implements TrafficManager.TrafficCallback
   {
     final Calendar currentTime = Calendar.getInstance();
     currentTime.add(Calendar.SECOND, seconds);
-    UiUtils.setTextAndShow(mTimeMinuteValue, DateFormat.getTimeInstance(DateFormat.SHORT)
-                                                       .format(currentTime.getTime()));
+    final DateFormat timeFormat12 = new SimpleDateFormat("h:mm aa", Locale.getDefault());
+    final DateFormat timeFormat24 = new SimpleDateFormat("HH:mm", Locale.getDefault());
+    boolean is24Format = android.text.format.DateFormat.is24HourFormat(mTimeMinuteValue.getContext());
+    UiUtils.setTextAndShow(mTimeMinuteValue, is24Format ? timeFormat24.format(currentTime.getTime())
+                          : timeFormat12.format(currentTime.getTime()));
     UiUtils.hide(mTimeHourUnits, mTimeHourValue, mTimeMinuteUnits);
   }
 
