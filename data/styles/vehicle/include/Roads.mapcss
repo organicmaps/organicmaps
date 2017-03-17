@@ -124,7 +124,8 @@ line[highway=footway][bridge?]::bridgeblack,
 line[highway=steps][bridge?]::bridgeblack,
 line[highway=road][bridge?]::bridgeblack,
 line[highway=service][bridge?]::bridgeblack,
-line[railway=rail][bridge?]::bridgeblack
+line[railway=rail][bridge?]::bridgeblack,
+line[railway=tram][bridge?]::bridgeblack,
 {z-index: 390;}
 
 line[highway=motorway][bridge?]::bridgewhite,
@@ -144,7 +145,8 @@ line[highway=footway][bridge?]::bridgewhite,
 line[highway=steps][bridge?]::bridgewhite,
 line[highway=road][bridge?]::bridgewhite,
 line[highway=service][bridge?]::bridgewhite,
-line[railway=rail][bridge?]::bridgewhite
+line[railway=rail][bridge?]::bridgewhite,
+line[railway=tram][bridge?]::bridgewhite,
 {z-index: 400;}
 
 line[highway=construction],
@@ -202,8 +204,8 @@ line[highway=secondary_link]
 line[highway=secondary]
 {z-index: 800;}
 
-line[highway=primary_link]
-{z-index: 840;}
+/*line[highway=primary_link]
+{z-index: 840;}*/
 
 line[highway=motorway_link],
 line[highway=trunk_link],
@@ -212,14 +214,15 @@ line|z8-9[highway=world_level],
 {z-index: 850;}
 
 
+line[highway=primary_link],
 line[highway=primary],
-{z-index: 900;}
+{z-index: 910;}
 
 line|z4-7[highway=world_towns_level],
 line|z4-7[highway=world_level],
 line[highway=trunk],
 line[highway=motorway]
-{z-index: 910;}
+{z-index: 940;}
 
 line[railway=monorail],
 line[railway=narrow_gauge],
@@ -1075,11 +1078,13 @@ line|z16-[railway=yard]::dash
 {color: @railway_dash;opacity:1;}
 line|z14-[railway=rail][bridge?]::bridgewhite,
 line|z14-[railway=light_rail][bridge?]::bridgewhite,
-line|z14-[railway=yard][bridge?]::bridgewhite
+line|z14-[railway=yard][bridge?]::bridgewhite,
+line|z16-[railway=tram][bridge?]::bridgewhite,
 {casing-linecap: butt;casing-color:@bridge_background;}
 line|z14-[railway=rail][bridge?]::bridgeblack,
 line|z14-[railway=light_rail][bridge?]::bridgeblack,
-line|z14-[railway=yard][bridge?]::bridgeblack
+line|z14-[railway=yard][bridge?]::bridgeblack,
+line|z16-[railway=tram][bridge?]::bridgeblack,
 {casing-linecap: butt;casing-color:@bridge_casing;}
 
 /* 9.1 RAIL 11-22 ZOOM */
