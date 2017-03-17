@@ -1,7 +1,7 @@
 #include "search/ranking_info.hpp"
 #include "search/result.hpp"
 #include "search/search_quality/helpers.hpp"
-#include "search/search_quality/matching.hpp"
+#include "search/search_quality/matcher.hpp"
 #include "search/search_quality/sample.hpp"
 #include "search/search_tests_support/test_search_engine.hpp"
 #include "search/search_tests_support/test_search_request.hpp"

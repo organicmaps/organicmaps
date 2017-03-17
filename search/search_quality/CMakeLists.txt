@@ -5,8 +5,8 @@ include_directories(${OMIM_ROOT}/3party/jansson/src)
 set(SRC
   helpers.cpp
   helpers.hpp
-  matching.cpp
-  matching.hpp
+  matcher.cpp
+  matcher.hpp
   sample.cpp
   sample.hpp
 )

@@ -1,4 +1,4 @@
-#include "search/search_quality/matching.hpp"
+#include "search/search_quality/matcher.hpp"
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
