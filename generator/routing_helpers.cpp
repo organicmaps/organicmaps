@@ -7,6 +7,9 @@
 
 #include "base/logging.hpp"
 
+using std::map;
+using std::string;
+
 namespace routing
 {
 void AddFeatureId(map<uint64_t, uint32_t> & osmIdToFeatureId, uint32_t featureId, uint64_t osmId)

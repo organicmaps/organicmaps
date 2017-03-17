@@ -13,7 +13,6 @@
 #include "coding/file_writer.hpp"
 
 #include "base/logging.hpp"
-#include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
 #include "std/initializer_list.hpp"
@@ -32,12 +31,60 @@ namespace
 char const kAccessPrivate[] = "access=private";
 char const kBarrierGate[] = "barrier=gate";
 char const kDelim[] = " \t\r\n";
+
+bool ParseRoadAccess(string const & roadAccessPath,
+                     map<uint64_t, uint32_t> const & osmIdToFeatureId,
+                     routing::RoadAccess & roadAccess)
+{
+  ifstream stream(roadAccessPath);
+  if (!stream)
+  {
+    LOG(LWARNING, ("Could not open", roadAccessPath));
+    return false;
+  }
+
+  string line;
+  for (uint32_t lineNo = 0;; ++lineNo)
+  {
+    if (!getline(stream, line))
+      break;
+
+    strings::SimpleTokenizer iter(line, kDelim);
+
+    if (!iter)
+    {
+      LOG(LWARNING, ("Error when parsing road access: empty line", lineNo));
+      return false;
+    }
+
+    string const s = *iter;
+    ++iter;
+
+    uint64_t osmId;
+    if (!iter || !strings::to_uint64(*iter, osmId))
+    {
+      LOG(LWARNING, ("Error when parsing road access: bad osm id at line", lineNo));
+      return false;
+    }
+
+    auto const it = osmIdToFeatureId.find(osmId);
+    if (it == osmIdToFeatureId.cend())
+    {
+      LOG(LWARNING, ("Error when parsing road access: unknown osm id at line", lineNo));
+      return false;
+    }
+
+    uint32_t const featureId = it->second;
+    roadAccess.GetPrivateRoads().emplace_back(featureId);
+  }
+
+  return true;
+}
 }  // namespace
 
 namespace routing
 {
 // RoadAccessWriter ------------------------------------------------------------
-
 void RoadAccessWriter::Open(string const & filePath)
 {
   LOG(LINFO,
@@ -48,7 +95,7 @@ void RoadAccessWriter::Open(string const & filePath)
     LOG(LINFO, ("Cannot open file", filePath));
 }
 
-void RoadAccessWriter::Process(OsmElement * p, FeatureParams & params)
+void RoadAccessWriter::Process(OsmElement const & elem, FeatureParams const & params)
 {
   if (!IsOpened())
   {
@@ -65,29 +112,22 @@ void RoadAccessWriter::Process(OsmElement * p, FeatureParams & params)
   for (auto const & f : forbiddenRoadTypes)
   {
     auto const t = c.GetTypeByPath(f);
-    if (params.IsTypeExist(t) && p->type == OsmElement::EntityType::Way)
-      m_stream << kAccessPrivate << " " << p->id << "\n";
+    if (params.IsTypeExist(t) && elem.type == OsmElement::EntityType::Way)
+      m_stream << kAccessPrivate << " " << elem.id << "\n";
   }
 
   auto t = c.GetTypeByPath({"barrier", "gate"});
   if (params.IsTypeExist(t))
-    m_stream << kBarrierGate << " " << p->id << "\n";
+    m_stream << kBarrierGate << " " << elem.id << "\n";
 }
 
-bool RoadAccessWriter::IsOpened() { return m_stream.is_open() && !m_stream.fail(); }
+bool RoadAccessWriter::IsOpened() const { return m_stream.is_open() && !m_stream.fail(); }
 // RoadAccessCollector ----------------------------------------------------------
-
 RoadAccessCollector::RoadAccessCollector(string const & roadAccessPath,
                                          string const & osmIdsToFeatureIdsPath)
 {
-  MY_SCOPE_GUARD(clean, [this]() {
-    m_osmIdToFeatureId.clear();
-    m_roadAccess.Clear();
-  });
-
-  m_valid = true;
-
-  if (!ParseOsmIdToFeatureIdMapping(osmIdsToFeatureIdsPath, m_osmIdToFeatureId))
+  map<uint64_t, uint32_t> osmIdToFeatureId;
+  if (!ParseOsmIdToFeatureIdMapping(osmIdsToFeatureIdsPath, osmIdToFeatureId))
   {
     LOG(LWARNING, ("An error happened while parsing feature id to osm ids mapping from file:",
                    osmIdsToFeatureIdsPath));
@@ -95,51 +135,20 @@ RoadAccessCollector::RoadAccessCollector(string const & roadAccessPath,
     return;
   }
 
-  if (!ParseRoadAccess(roadAccessPath))
+  RoadAccess roadAccess;
+  if (!ParseRoadAccess(roadAccessPath, osmIdToFeatureId, roadAccess))
   {
     LOG(LWARNING, ("An error happened while parsing road access from file:", roadAccessPath));
     m_valid = false;
     return;
   }
 
-  clean.release();
-}
-
-bool RoadAccessCollector::ParseRoadAccess(string const & roadAccessPath)
-{
-  ifstream stream(roadAccessPath);
-  if (stream.fail())
-    return false;
-
-  string line;
-  while (getline(stream, line))
-  {
-    strings::SimpleTokenizer iter(line, kDelim);
-
-    // Empty line.
-    if (!iter)
-      return false;
-
-    string const s = *iter;
-    ++iter;
-
-    uint64_t osmId;
-    if (!iter || !strings::to_uint64(*iter, osmId))
-      return false;
-
-    auto const it = m_osmIdToFeatureId.find(osmId);
-    if (it == m_osmIdToFeatureId.cend())
-      return false;
-
-    uint32_t const featureId = it->second;
-    m_roadAccess.GetPrivateRoads().emplace_back(featureId);
-  }
-
-  return true;
+  m_valid = true;
+  m_osmIdToFeatureId.swap(osmIdToFeatureId);
+  m_roadAccess.Swap(roadAccess);
 }
 
 // Functions ------------------------------------------------------------------
-
 void BuildRoadAccessInfo(string const & dataFilePath, string const & roadAccessPath,
                          string const & osmIdsToFeatureIdsPath)
 {
@@ -156,7 +165,6 @@ void BuildRoadAccessInfo(string const & dataFilePath, string const & roadAccessP
   FilesContainerW cont(dataFilePath, FileWriter::OP_WRITE_EXISTING);
   FileWriter writer = cont.GetWriter(ROAD_ACCESS_FILE_TAG);
 
-  RoadAccessSerializer serializer;
-  serializer.Serialize(writer, collector.GetRoadAccess());
+  RoadAccessSerializer::Serialize(writer, collector.GetRoadAccess());
 }
 }  // namespace routing

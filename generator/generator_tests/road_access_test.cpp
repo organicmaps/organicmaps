@@ -8,9 +8,7 @@
 
 #include "routing/road_access_serialization.hpp"
 
-#include "indexer/index.hpp"
-#include "indexer/mwm_set.hpp"
-
+#include "coding/file_container.hpp"
 #include "coding/file_name_utils.hpp"
 
 #include "platform/platform_tests_support/scoped_dir.hpp"
@@ -21,13 +19,14 @@
 
 #include "base/logging.hpp"
 
-#include "std/string.hpp"
+#include <string>
 
 using namespace feature;
 using namespace generator;
 using namespace platform::tests_support;
 using namespace platform;
 using namespace routing;
+using std::string;
 
 namespace
 {
@@ -41,13 +40,14 @@ void BuildEmptyMwm(LocalCountryFile & country)
   generator::tests_support::TestMwmBuilder builder(country, feature::DataHeader::country);
 }
 
-void LoadRoadAccess(MwmValue const & mwmValue, RoadAccess & roadAccess)
+void LoadRoadAccess(string const & mwmFilePath, RoadAccess & roadAccess)
 {
-  TEST(mwmValue.m_cont.IsExist(ROAD_ACCESS_FILE_TAG), ());
+  FilesContainerR const cont(mwmFilePath);
+  TEST(cont.IsExist(ROAD_ACCESS_FILE_TAG), ());
 
   try
   {
-    FilesContainerR::TReader const reader = mwmValue.m_cont.GetReader(ROAD_ACCESS_FILE_TAG);
+    FilesContainerR::TReader const reader = cont.GetReader(ROAD_ACCESS_FILE_TAG);
     ReaderSource<FilesContainerR::TReader> src(reader);
 
     RoadAccessSerializer::Deserialize(src, roadAccess);
@@ -65,37 +65,31 @@ void TestRoadAccess(string const & roadAccessContent, string const & mappingCont
   string const writableDir = platform.WritableDir();
 
   // Building empty mwm.
-  LocalCountryFile country(my::JoinFoldersToPath(writableDir, kTestDir), CountryFile(kTestMwm), 1);
+  LocalCountryFile country(my::JoinPath(writableDir, kTestDir), CountryFile(kTestMwm),
+                           0 /* version */);
   ScopedDir const scopedDir(kTestDir);
-  string const mwmRelativePath = my::JoinFoldersToPath(kTestDir, kTestMwm + DATA_FILE_EXTENSION);
+  string const mwmRelativePath = my::JoinPath(kTestDir, kTestMwm + DATA_FILE_EXTENSION);
   ScopedFile const scopedMwm(mwmRelativePath);
   BuildEmptyMwm(country);
 
   // Creating a file with road access.
-  string const roadAccessRelativePath = my::JoinFoldersToPath(kTestDir, kRoadAccessFilename);
+  string const roadAccessRelativePath = my::JoinPath(kTestDir, kRoadAccessFilename);
   ScopedFile const roadAccessFile(roadAccessRelativePath, roadAccessContent);
 
   // Creating osm ids to feature ids mapping.
-  string const mappingRelativePath = my::JoinFoldersToPath(kTestDir, kOsmIdsToFeatureIdsName);
+  string const mappingRelativePath = my::JoinPath(kTestDir, kOsmIdsToFeatureIdsName);
   ScopedFile const mappingScopedFile(mappingRelativePath);
-  string const mappingFullPath = my::JoinFoldersToPath(writableDir, mappingRelativePath);
+  string const mappingFullPath = my::JoinPath(writableDir, mappingRelativePath);
   ReEncodeOsmIdsToFeatureIdsMapping(mappingContent, mappingFullPath);
 
   // Adding road access section to mwm.
-  string const roadAccessFullPath = my::JoinFoldersToPath(writableDir, roadAccessRelativePath);
-  string const mwmFullPath = my::JoinFoldersToPath(writableDir, mwmRelativePath);
+  string const roadAccessFullPath = my::JoinPath(writableDir, roadAccessRelativePath);
+  string const mwmFullPath = my::JoinPath(writableDir, mwmRelativePath);
   BuildRoadAccessInfo(mwmFullPath, roadAccessFullPath, mappingFullPath);
 
   // Reading from mwm section and testing road access.
-  Index index;
-  auto const regResult = index.RegisterMap(country);
-  TEST_EQUAL(regResult.second, MwmSet::RegResult::Success, ());
-
-  MwmSet::MwmHandle mwmHandle = index.GetMwmHandleById(regResult.first);
-  TEST(mwmHandle.IsAlive(), ());
-
   RoadAccess roadAccessFromMwm;
-  LoadRoadAccess(*mwmHandle.GetValue<MwmValue>(), roadAccessFromMwm);
+  LoadRoadAccess(mwmFullPath, roadAccessFromMwm);
   RoadAccessCollector const collector(roadAccessFullPath, mappingFullPath);
   TEST(collector.IsValid(), ());
   TEST(roadAccessFromMwm == collector.GetRoadAccess(), ());

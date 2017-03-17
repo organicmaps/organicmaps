@@ -14,10 +14,10 @@
 
 namespace routing
 {
-class RoadAccessSerializer
+class RoadAccessSerializer final
 {
 public:
-  uint32_t static const kLatestVersion;
+  ~RoadAccessSerializer() = delete;
 
   template <class Sink>
   static void Serialize(Sink & sink, RoadAccess const & roadAccess)
@@ -53,5 +53,8 @@ public:
       privateRoads[i] = privateRoads[i - 1] + delta;
     }
   }
+
+private:
+  uint32_t static const kLatestVersion;
 };
 }  // namespace routing

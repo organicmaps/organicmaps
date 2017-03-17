@@ -12,7 +12,7 @@ namespace routing
 // are known.
 // This results in the following pipeline:
 //   -- OsmToFeatureTranslator uses RestrictionsWriter to prepare a .csv file
-//      with resctrictions in terms of OSM ids while parsing the OSM source.
+//      with restrictions in terms of OSM ids while parsing the OSM source.
 //   -- OsmID2FeatureID saves the OSM id -> feature id mapping.
 //   -- After all features have been created, RestrictionCollector reads the csv
 //      and builds the mwm section with restrictions. The serialization/deserialization

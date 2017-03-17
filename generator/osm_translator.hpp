@@ -13,6 +13,7 @@
 
 #include "coding/file_writer.hpp"
 
+#include "base/assert.hpp"
 #include "base/cache.hpp"
 #include "base/logging.hpp"
 #include "base/stl_add.hpp"
@@ -291,7 +292,7 @@ class OsmToFeatureTranslator
     if (!params.IsValid())
       return false;
 
-    m_routingTagsProcessor.m_roadAccessWriter.Process(p, params);
+    m_routingTagsProcessor.m_roadAccessWriter.Process(*p, params);
     return true;
   }
 
@@ -367,6 +368,8 @@ public:
   void EmitElement(OsmElement * p)
   {
     enum class FeatureState {Unknown, Ok, EmptyTags, HasNoTypes, BrokenRef, ShortGeom, InvalidType};
+
+    CHECK(p, ("Tried to emit a null OsmElement"));
 
     FeatureParams params;
     FeatureState state = FeatureState::Unknown;

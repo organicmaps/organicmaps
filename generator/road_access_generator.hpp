@@ -6,6 +6,7 @@
 
 #include <cstdint>
 #include <fstream>
+#include <map>
 #include <string>
 
 struct OsmElement;
@@ -21,10 +22,10 @@ class RoadAccessWriter
 public:
   void Open(std::string const & filePath);
 
-  void Process(OsmElement * p, FeatureParams & params);
+  void Process(OsmElement const & elem, FeatureParams const & params);
 
 private:
-  bool IsOpened();
+  bool IsOpened() const;
 
   std::ofstream m_stream;
 };
@@ -34,15 +35,12 @@ class RoadAccessCollector
 public:
   RoadAccessCollector(std::string const & roadAccessPath, std::string const & osmIdsToFeatureIdsPath);
 
-  RoadAccess & GetRoadAccess() { return m_roadAccess; }
   RoadAccess const & GetRoadAccess() const { return m_roadAccess; }
 
   bool IsValid() const { return m_valid; }
 
 private:
-  bool ParseRoadAccess(std::string const & roadAccessPath);
-
-  map<uint64_t, uint32_t> m_osmIdToFeatureId;
+  std::map<uint64_t, uint32_t> m_osmIdToFeatureId;
   RoadAccess m_roadAccess;
   bool m_valid;
 };

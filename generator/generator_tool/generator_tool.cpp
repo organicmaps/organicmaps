@@ -252,8 +252,10 @@ int main(int argc, char ** argv)
     if (FLAGS_make_routing_index)
     {
       string const osmToFeatureFilename = genInfo.GetTargetFileName(country) + OSM2FEATURE_FILE_EXTENSION;
-      string const restrictionsFilename = genInfo.GetIntermediateFileName(RESTRICTIONS_FILENAME, "");
-      string const roadAccessFilename = genInfo.GetIntermediateFileName(ROAD_ACCESS_FILENAME, "");
+      string const restrictionsFilename =
+          genInfo.GetIntermediateFileName(RESTRICTIONS_FILENAME, "" /* extension */);
+      string const roadAccessFilename =
+          genInfo.GetIntermediateFileName(ROAD_ACCESS_FILENAME, "" /* extension */);
 
       routing::BuildRoadRestrictions(datFile, restrictionsFilename, osmToFeatureFilename);
       routing::BuildRoadAccessInfo(datFile, roadAccessFilename, osmToFeatureFilename);

@@ -20,7 +20,7 @@ public:
   void Write(RelationElement const & relationElement);
 
 private:
-  bool IsOpened();
+  bool IsOpened() const;
 
   ofstream m_stream;
 };
