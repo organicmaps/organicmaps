@@ -12,8 +12,10 @@ INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
 
 HEADERS += \
     helpers.hpp \
+    matcher.hpp \
     sample.hpp \
 
 SOURCES += \
     helpers.cpp \
+    matcher.cpp \
     sample.cpp \

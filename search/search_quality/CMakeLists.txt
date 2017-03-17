@@ -3,10 +3,12 @@ project(search_quality)
 include_directories(${OMIM_ROOT}/3party/jansson/src)
 
 set(SRC
-  helpers.hpp
   helpers.cpp
-  sample.hpp
+  helpers.hpp
+  matcher.cpp
+  matcher.hpp
   sample.cpp
+  sample.hpp
 )
 
 add_library(${PROJECT_NAME} ${SRC})

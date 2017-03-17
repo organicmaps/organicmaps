@@ -1,12 +1,12 @@
 #include "search/ranking_info.hpp"
 #include "search/result.hpp"
 #include "search/search_quality/helpers.hpp"
+#include "search/search_quality/matcher.hpp"
 #include "search/search_quality/sample.hpp"
 #include "search/search_tests_support/test_search_engine.hpp"
 #include "search/search_tests_support/test_search_request.hpp"
 
 #include "indexer/classificator_loader.hpp"
-#include "indexer/feature_algo.hpp"
 
 #include "storage/country_info_getter.hpp"
 #include "storage/index.hpp"
@@ -43,28 +43,10 @@ DEFINE_string(mwm_path, "", "Path to mwm files (writable dir)");
 DEFINE_string(stats_path, "", "Path to store stats about queries results (default: stderr)");
 DEFINE_string(json_in, "", "Path to the json file with samples (default: stdin)");
 
-size_t constexpr kInvalidId = numeric_limits<size_t>::max();
-
 struct Stats
 {
   // Indexes of not-found VITAL or RELEVANT results.
   vector<size_t> m_notFound;
-};
-
-struct Context
-{
-  Context(Index & index) : m_index(index) {}
-
-  WARN_UNUSED_RESULT bool GetFeature(FeatureID const & id, FeatureType & ft)
-  {
-    auto const & mwmId = id.m_mwmId;
-    if (!m_guard || m_guard->GetId() != mwmId)
-      m_guard = make_unique<Index::FeaturesLoaderGuard>(m_index, mwmId);
-    return m_guard->GetFeatureByIndex(id.m_index, ft);
-  }
-
-  Index & m_index;
-  unique_ptr<Index::FeaturesLoaderGuard> m_guard;
 };
 
 void GetContents(istream & is, string & contents)
@@ -74,73 +56,6 @@ void GetContents(istream & is, string & contents)
   {
     contents.append(line);
     contents.push_back('\n');
-  }
-}
-
-bool Matches(Context & context, Sample::Result const & golden, search::Result const & actual)
-{
-  static double constexpr kToleranceMeters = 50;
-  if (actual.GetResultType() != Result::RESULT_FEATURE)
-    return false;
-
-  FeatureType ft;
-  if (!context.GetFeature(actual.GetFeatureID(), ft))
-    return false;
-
-  auto const houseNumber = ft.GetHouseNumber();
-  auto const center = feature::GetCenter(ft);
-
-  bool nameMatches = false;
-  if (golden.m_name.empty())
-  {
-    nameMatches = true;
-  }
-  else
-  {
-    ft.ForEachName([&golden, &nameMatches](int8_t /* lang */, string const & name) {
-      if (golden.m_name == strings::MakeUniString(name))
-      {
-        nameMatches = true;
-        return false;  // breaks the loop
-      }
-      return true;  // continues the loop
-    });
-  }
-
-  return nameMatches && golden.m_houseNumber == houseNumber &&
-         MercatorBounds::DistanceOnEarth(golden.m_pos, center) < kToleranceMeters;
-}
-
-void MatchResults(Context & context, vector<Sample::Result> const & golden,
-                  vector<search::Result> const & actual, vector<size_t> & goldenMatching,
-                  vector<size_t> & actualMatching)
-{
-  auto const n = golden.size();
-  auto const m = actual.size();
-
-  goldenMatching.assign(n, kInvalidId);
-  actualMatching.assign(m, kInvalidId);
-
-  // TODO (@y, @m): use Kuhn algorithm here for maximum matching.
-  for (size_t i = 0; i < n; ++i)
-  {
-    if (goldenMatching[i] != kInvalidId)
-      continue;
-    auto const & g = golden[i];
-
-    for (size_t j = 0; j < m; ++j)
-    {
-      if (actualMatching[j] != kInvalidId)
-        continue;
-
-      auto const & a = actual[j];
-      if (Matches(context, g, a))
-      {
-        goldenMatching[i] = j;
-        actualMatching[j] = i;
-        break;
-      }
-    }
   }
 }
 
@@ -247,7 +162,7 @@ int main(int argc, char * argv[])
   }
 
   vector<Stats> stats(samples.size());
-  Context context(engine);
+  Matcher matcher(engine);
 
   cout << "SampleId,";
   RankingInfo::PrintCSVHeader(cout);
@@ -274,7 +189,7 @@ int main(int argc, char * argv[])
 
     vector<size_t> goldenMatching;
     vector<size_t> actualMatching;
-    MatchResults(context, sample.m_results, results, goldenMatching, actualMatching);
+    matcher.Match(sample.m_results, results, goldenMatching, actualMatching);
 
     for (size_t j = 0; j < results.size(); ++j)
     {
@@ -285,7 +200,7 @@ int main(int argc, char * argv[])
       info.ToCSV(cout);
 
       auto relevance = Sample::Result::RELEVANCE_IRRELEVANT;
-      if (actualMatching[j] != kInvalidId)
+      if (actualMatching[j] != Matcher::kInvalidId)
         relevance = sample.m_results[actualMatching[j]].m_relevance;
       cout << "," << DebugPrint(relevance) << endl;
     }
@@ -293,7 +208,7 @@ int main(int argc, char * argv[])
     auto & s = stats[i];
     for (size_t j = 0; j < goldenMatching.size(); ++j)
     {
-      if (goldenMatching[j] == kInvalidId &&
+      if (goldenMatching[j] == Matcher::kInvalidId &&
           sample.m_results[j].m_relevance != Sample::Result::RELEVANCE_IRRELEVANT)
       {
         s.m_notFound.push_back(j);
