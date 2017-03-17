@@ -56,6 +56,12 @@ void MainView::ShowResults(search::Results::Iter begin, search::Results::Iter en
   m_sampleView->ShowResults(begin, end);
 }
 
+void MainView::SetResultRelevances(
+    std::vector<search::Sample::Result::Relevance> const & relevances)
+{
+  m_sampleView->SetResultRelevances(relevances);
+}
+
 void MainView::ShowError(std::string const & msg)
 {
   QMessageBox box(QMessageBox::Critical /* icon */, tr("Error") /* title */,

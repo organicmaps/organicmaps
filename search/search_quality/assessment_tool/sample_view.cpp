@@ -3,6 +3,8 @@
 #include "search/result.hpp"
 #include "search/search_quality/assessment_tool/helpers.hpp"
 #include "search/search_quality/assessment_tool/languages_list.hpp"
+#include "search/search_quality/assessment_tool/result_view.hpp"
+#include "search/search_quality/assessment_tool/results_view.hpp"
 #include "search/search_quality/sample.hpp"
 
 #include <QtGui/QStandardItem>
@@ -13,36 +15,7 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
-#include <QtWidgets/QListWidget>
 #include <QtWidgets/QVBoxLayout>
-
-namespace
-{
-QWidget * CreateSampleWidget(QWidget & parent, search::Result const & result)
-{
-  auto * widget = new QWidget(&parent);
-  auto * layout = new QVBoxLayout(widget);
-  widget->setLayout(layout);
-
-  layout->addWidget(new QLabel(ToQString(result.GetString())));
-
-  if (result.GetResultType() == search::Result::RESULT_FEATURE && !result.GetFeatureType().empty())
-  {
-    auto * type = new QLabel(ToQString(result.GetFeatureType()), widget);
-    type->setStyleSheet("QLabel { font-size : 8pt }");
-    layout->addWidget(type);
-  }
-
-  if (!result.GetAddress().empty())
-  {
-    auto * address = new QLabel(ToQString(result.GetAddress()), widget);
-    address->setStyleSheet("QLabel { color : green ; font-size : 8pt }");
-    layout->addWidget(address);
-  }
-
-  return widget;
-}
-}  // namespace
 
 SampleView::SampleView(QWidget * parent) : QWidget(parent)
 {
@@ -71,8 +44,8 @@ SampleView::SampleView(QWidget * parent) : QWidget(parent)
 
     layout->addWidget(new QLabel(tr("Found results")));
 
-    m_results = new QListWidget(box /* parent */);
-    layout->addWidget(m_results);
+    m_results = new ResultsView(*box /* parent */);
+    layout->addWidget(m_results->GetWidget());
 
     mainLayout->addWidget(box);
   }
@@ -88,19 +61,19 @@ void SampleView::SetContents(search::Sample const & sample)
 
   m_langs->Select(sample.m_locale);
 
-  m_results->clear();
+  m_results->Clear();
 }
 
 void SampleView::ShowResults(search::Results::Iter begin, search::Results::Iter end)
 {
   for (auto it = begin; it != end; ++it)
-  {
-    auto * item = new QListWidgetItem(m_results);
-    m_results->addItem(item);
+    m_results->Add(*it /* result */);
+}
 
-    auto * widget = CreateSampleWidget(*m_results /* parent */, *it /* sample */);
-    item->setSizeHint(widget->minimumSizeHint());
-
-    m_results->setItemWidget(item, widget);
-  }
+void SampleView::SetResultRelevances(
+    std::vector<search::Sample::Result::Relevance> const & relevances)
+{
+  CHECK_EQUAL(relevances.size(), m_results->Size(), ());
+  for (size_t i = 0; i < relevances.size(); ++i)
+    m_results->Get(i).SetRelevance(relevances[i]);
 }

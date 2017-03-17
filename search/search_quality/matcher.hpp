@@ -22,7 +22,7 @@ class Matcher
 public:
   static size_t constexpr kInvalidId = std::numeric_limits<size_t>::max();
 
-  Matcher(Index & index);
+  Matcher(Index const & index);
 
   void Match(std::vector<Sample::Result> const & golden, std::vector<Result> const & actual,
              std::vector<size_t> & goldenMatching, std::vector<size_t> & actualMatching);
@@ -32,7 +32,7 @@ private:
 
   bool Matches(Sample::Result const & golden, Result const & actual);
 
-  Index & m_index;
+  Index const & m_index;
   std::unique_ptr<Index::FeaturesLoaderGuard> m_guard;
 };
 }  // namespace search

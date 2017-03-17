@@ -30,6 +30,8 @@ public:
   void SetSamples(std::vector<search::Sample> const & samples) override;
   void ShowSample(search::Sample const & sample) override;
   void ShowResults(search::Results::Iter begin, search::Results::Iter end) override;
+  void SetResultRelevances(
+      std::vector<search::Sample::Result::Relevance> const & relevances) override;
   void ShowError(std::string const & msg) override;
 
 private Q_SLOTS:

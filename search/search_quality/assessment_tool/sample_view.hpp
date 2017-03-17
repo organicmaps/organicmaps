@@ -1,17 +1,13 @@
 #pragma once
 
 #include "search/result.hpp"
+#include "search/search_quality/sample.hpp"
 
 #include <QtWidgets/QWidget>
 
 class LanguagesList;
 class QLineEdit;
-class QListWidget;
-
-namespace search
-{
-struct Sample;
-}
+class ResultsView;
 
 class SampleView : public QWidget
 {
@@ -20,9 +16,10 @@ public:
 
   void SetContents(search::Sample const & sample);
   void ShowResults(search::Results::Iter begin, search::Results::Iter end);
+  void SetResultRelevances(std::vector<search::Sample::Result::Relevance> const & relevances);
 
 private:
   QLineEdit * m_query = nullptr;
   LanguagesList * m_langs = nullptr;
-  QListWidget * m_results = nullptr;
+  ResultsView * m_results = nullptr;
 };
