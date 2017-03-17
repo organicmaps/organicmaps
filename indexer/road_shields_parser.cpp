@@ -309,7 +309,7 @@ std::vector<RoadShield> GetRoadShields(FeatureType const & f)
     return LatviaRoadShieldParser(roadNumber).GetRoadShields();
   if (mwmName == "Netherlands")
     return NetherlandsRoadShieldParser(roadNumber).GetRoadShields();
-  
-  return std::vector<RoadShield>{RoadShield(RoadShieldType::Default, roadNumber)};
+
+  return SimpleRoadShieldParser(roadNumber, SimpleRoadShieldParser::ShieldTypes()).GetRoadShields();
 }
-}  // namespece ftypes
+}  // namespace ftypes

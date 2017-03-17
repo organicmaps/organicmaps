@@ -36,7 +36,7 @@ namespace df
 
 dp::Color ToDrapeColor(uint32_t src)
 {
-  return dp::Extract(src, 255 - (src >> 24));
+  return dp::Extract(src, static_cast<uint8_t>(255 - (src >> 24)));
 }
 
 namespace
@@ -856,7 +856,7 @@ void ApplyLineFeature::GetRoadShieldsViewParams(ftypes::RoadShield const & shiel
   ShieldRuleProtoToFontDecl(m_shieldRule, baseFont);
   dp::FontDecl font = GetRoadShieldTextFont(baseFont, shield);
   textParams.m_tileCenter = m_tileRect.Center();
-  textParams.m_depth = m_shieldDepth;
+  textParams.m_depth = static_cast<float>(m_shieldDepth);
   textParams.m_minVisibleScale = m_minVisibleScale;
   textParams.m_rank = m_rank;
   textParams.m_anchor = dp::Center;
@@ -869,28 +869,28 @@ void ApplyLineFeature::GetRoadShieldsViewParams(ftypes::RoadShield const & shiel
   textParams.m_extendingSize = 0;
 
   // Calculate width and height of a shield.
-  float const shieldWidth = (font.m_size * 0.5f * roadNumber.size() + 10.0f * mainScale) * fontScale;
-  float const shieldHeight = (font.m_size + 3.0f * mainScale) * fontScale;
+  double const shieldWidth = (font.m_size * 0.5 * roadNumber.size() + 10.0 * mainScale) * fontScale;
+  double const shieldHeight = (font.m_size + 3.0 * mainScale) * fontScale;
   textParams.m_limitedText = true;
-  textParams.m_limits = m2::PointF(shieldWidth, shieldHeight) * 0.9f;
+  textParams.m_limits = m2::PointD(shieldWidth, shieldHeight) * 0.9;
 
   if (IsColoredRoadShield(shield))
   {
     // Generated symbol properties.
     symbolParams.m_featureID = m_id;
     symbolParams.m_tileCenter = m_tileRect.Center();
-    symbolParams.m_depth = m_shieldDepth;
+    symbolParams.m_depth = static_cast<float>(m_shieldDepth);
     symbolParams.m_minVisibleScale = m_minVisibleScale;
     symbolParams.m_rank = m_rank;
     symbolParams.m_shape = ColoredSymbolViewParams::Shape::RoundedRectangle;
-    symbolParams.m_radiusInPixels = 2.5f * mainScale;
+    symbolParams.m_radiusInPixels = static_cast<float>(2.5 * mainScale);
     symbolParams.m_color = ToDrapeColor(m_shieldRule->color());
     if (m_shieldRule->has_stroke_color())
     {
       symbolParams.m_outlineColor = ToDrapeColor(m_shieldRule->stroke_color());
-      symbolParams.m_outlineWidth = 1.0f * mainScale;
+      symbolParams.m_outlineWidth = static_cast<float>(1.0 * mainScale);
     }
-    symbolParams.m_sizeInPixels = m2::PointF(shieldWidth, shieldHeight);
+    symbolParams.m_sizeInPixels = m2::PointD(shieldWidth, shieldHeight);
     symbolParams.m_outlineWidth = GetRoadShieldOutlineWidth(symbolParams.m_outlineWidth, shield);
     symbolParams.m_color = GetRoadShieldColor(symbolParams.m_color, shield);
   }
@@ -908,11 +908,11 @@ void ApplyLineFeature::GetRoadShieldsViewParams(ftypes::RoadShield const & shiel
       textParams.m_secondaryTextFont.m_outlineColor = df::GetColorConstant(kRoadShieldWhiteTextColor);
       textParams.m_primaryOffset = m2::PointF(0.0f, -0.5f * textParams.m_primaryTextFont.m_size);
       textParams.m_secondaryTextFont.m_size *= 0.9f;
-      textParams.m_secondaryOffset = m2::PointF(0.0f, 3.0f * mainScale);
+      textParams.m_secondaryOffset = m2::PointD(0.0f, 3.0 * mainScale);
     }
 
     poiParams.m_tileCenter = m_tileRect.Center();
-    poiParams.m_depth = m_shieldDepth;
+    poiParams.m_depth = static_cast<float>(m_shieldDepth);
     poiParams.m_minVisibleScale = m_minVisibleScale;
     poiParams.m_rank = m_rank;
     poiParams.m_symbolName = symbolName;
@@ -933,7 +933,7 @@ void ApplyLineFeature::Finish(std::vector<ftypes::RoadShield> && roadShields)
   if (m_shieldRule == nullptr || m_clippedSplines.empty())
     return;
 
-  uint32_t constexpr kDefaultMinDistance = 50;
+  int32_t constexpr kDefaultMinDistance = 50;
   double const mainScale = df::VisualParams::Instance().GetVisualScale();
 
   m2::PointD shieldOffset(0.0, 0.0);
@@ -950,7 +950,7 @@ void ApplyLineFeature::Finish(std::vector<ftypes::RoadShield> && roadShields)
     if (minDistanceInPixels == 0)
       minDistanceInPixels = static_cast<uint32_t>(mainScale * kDefaultMinDistance);
 
-    uint32_t textIndex = kShieldBaseTextIndex * (shieldIndex + 1);
+    uint32_t textIndex = kShieldBaseTextIndex * (static_cast<uint32_t>(shieldIndex) + 1);
     for (auto const & spline : m_clippedSplines)
     {
       double const pathPixelLength = spline->GetLength() * m_currentScaleGtoP;
