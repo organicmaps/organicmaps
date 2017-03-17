@@ -84,7 +84,7 @@ private:
     std::map<Segment, std::vector<ms::LatLon>> m_outgoing;
   };
 
-  void InitCrossMwmGraph();
+  void ResetCrossMwmGraph();
 
   /// \brief Inserts all ingoing and outgoing transition segments of mwm with |numMwmId|
   /// to |m_transitionCache|.
@@ -96,12 +96,12 @@ private:
   /// \note |s| and |isOutgoing| params have the same restrictions which described in
   /// GetEdgeList() method.
   void GetBorderCross(TRoutingMappingPtr const & mapping, Segment const & s, bool isOutgoing,
-                      vector<BorderCross> & borderCrosses);
+                      std::vector<BorderCross> & borderCrosses);
 
   TransitionSegments const & GetSegmentMaps(NumMwmId numMwmId);
 
-  vector<ms::LatLon> const & GetIngoingTransitionPnt(Segment const & s);
-  vector<ms::LatLon> const & GetOutgoingTransitionPnt(Segment const & s);
+  std::vector<ms::LatLon> const & GetIngoingTransitionPoints(Segment const & s);
+  std::vector<ms::LatLon> const & GetOutgoingTransitionPoints(Segment const & s);
 
   template <class Fn>
   bool LoadWith(NumMwmId numMwmId, Fn && fn)
@@ -120,13 +120,13 @@ private:
       mapping->LoadCrossContext();
     }
 
-    fn(numMwmId, mapping);
+    fn(mapping);
     return true;
   }
 
   RoutingIndexManager & m_indexManager;
   std::shared_ptr<NumMwmIds> m_numMwmIds;
-  /// \note According to the constructor CrossMwmGraph is inited with RoutingIndexManager &.
+  /// \note According to the constructor CrossMwmGraph is initialized with RoutingIndexManager &.
   /// But then it is copied by value to CrossMwmGraph::RoutingIndexManager m_indexManager.
   /// It means that there're two copies of RoutingIndexManager in CrossMwmIndexGraph.
   std::unique_ptr<CrossMwmGraph> m_crossMwmGraph;

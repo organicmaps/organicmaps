@@ -109,16 +109,16 @@ template <class Node>
 bool FindCrossNode(CrossRoutingContextReader const & currentContext, CrossNode const & crossNode,
                    Node & node)
 {
-  double minDistance = std::numeric_limits<double>::max();
+  double constexpr kInvalidDistance = std::numeric_limits<double>::max();
+  double minDistance = kInvalidDistance;
   ClosestNodeFinder<Node> findingNode(crossNode, minDistance, node);
   CHECK(ForEachNodeNearPoint(currentContext, crossNode.point, findingNode), ());
-  if (minDistance == std::numeric_limits<double>::max())
+  if (minDistance == kInvalidDistance)
   {
     LOG(LWARNING, ("Cross node is not found. Point:", crossNode.point));
     return false;
   }
   return true;
-
 }
 
 template <class Fn>

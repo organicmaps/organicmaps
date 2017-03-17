@@ -239,8 +239,9 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
     CHECK_LESS(i, input.size(), ());
     Segment const & next = input[i];
 
-    CHECK_EQUAL(current.GetMwmId(), next.GetMwmId(),
-                ("Different mwm ids for leap enter and exit, i:", i, "size of input:", input.size()));
+    CHECK_EQUAL(
+        current.GetMwmId(), next.GetMwmId(),
+        ("Different mwm ids for leap enter and exit, i:", i, "size of input:", input.size()));
 
     IndexGraphStarter::FakeVertex const start(current, starter.GetPoint(current, true /* front */));
     IndexGraphStarter::FakeVertex const finish(next, starter.GetPoint(next, true /* front */));

@@ -2,7 +2,6 @@
 
 #include "base/assert.hpp"
 #include "base/cancellable.hpp"
-
 #include "std/algorithm.hpp"
 #include "std/functional.hpp"
 #include "std/iostream.hpp"
