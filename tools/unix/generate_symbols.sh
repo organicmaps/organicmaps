@@ -40,13 +40,18 @@ fi
 # Parameter $4 - symbol size
 # Parameter $5 - does color correction required
 # Parameter $6 - style suffix (none, _dark, _clear)
+# Parameter $7 - symbols folder (symbols, symbols-ad)
+# Parameter $8 - symbols suffix (none, -ad)
 function BuildSkin() {
   styleType=$1
   styleName=$2
   resourceName=$3
   symbolSize=$4
   colorCorrection=$5
-  suffix=${6-}
+  suffix=$6
+  symbolsFolder=$7
+  symbolsSuffix=${8-}
+
   echo "Building skin for $styleName/$resourceName"
   # Set environment
   STYLE_PATH="$DATA_PATH/styles/$styleType/style-$styleName"
@@ -59,8 +64,8 @@ function BuildSkin() {
   else
     COLOR_CORR=
   fi
-  "$SKIN_GENERATOR" --symbolWidth $symbolSize --symbolHeight $symbolSize --symbolsDir "$STYLE_PATH/symbols" \
-      --skinName "$DATA_PATH/resources-$resourceName$suffix/basic" --skinSuffix="" $COLOR_CORR
+  "$SKIN_GENERATOR" --symbolWidth $symbolSize --symbolHeight $symbolSize --symbolsDir "$STYLE_PATH/$symbolsFolder" \
+      --skinName "$DATA_PATH/resources-$resourceName$suffix/basic" --skinSuffix="$symbolsSuffix" $COLOR_CORR
   # Reset environment
   rm -r $PNG_PATH || true
 }
@@ -75,14 +80,26 @@ done
 
 # Build styles
 
-BuildSkin clear  night mdpi   18 false _dark
-BuildSkin clear  night hdpi   27 false _dark
-BuildSkin clear  night xhdpi  36 false _dark
-BuildSkin clear  night xxhdpi 54 false _dark
-BuildSkin clear  night 6plus  54 false _dark
+BuildSkin clear  night mdpi   18 false _dark symbols
+BuildSkin clear  night hdpi   27 false _dark symbols
+BuildSkin clear  night xhdpi  36 false _dark symbols
+BuildSkin clear  night xxhdpi 54 false _dark symbols
+BuildSkin clear  night 6plus  54 false _dark symbols
 
-BuildSkin clear  clear mdpi   18 false _clear
-BuildSkin clear  clear hdpi   27 false _clear
-BuildSkin clear  clear xhdpi  36 false _clear
-BuildSkin clear  clear xxhdpi 54 false _clear
-BuildSkin clear  clear 6plus  54 false _clear
+BuildSkin clear  clear mdpi   18 false _clear symbols
+BuildSkin clear  clear hdpi   27 false _clear symbols
+BuildSkin clear  clear xhdpi  36 false _clear symbols
+BuildSkin clear  clear xxhdpi 54 false _clear symbols
+BuildSkin clear  clear 6plus  54 false _clear symbols
+
+BuildSkin clear  night mdpi   18 false _dark symbols-ad -ad
+BuildSkin clear  night hdpi   27 false _dark symbols-ad -ad
+BuildSkin clear  night xhdpi  36 false _dark symbols-ad -ad
+BuildSkin clear  night xxhdpi 54 false _dark symbols-ad -ad
+BuildSkin clear  night 6plus  54 false _dark symbols-ad -ad
+
+BuildSkin clear  clear mdpi   18 false _clear symbols-ad -ad
+BuildSkin clear  clear hdpi   27 false _clear symbols-ad -ad
+BuildSkin clear  clear xhdpi  36 false _clear symbols-ad -ad
+BuildSkin clear  clear xxhdpi 54 false _clear symbols-ad -ad
+BuildSkin clear  clear 6plus  54 false _clear symbols-ad -ad

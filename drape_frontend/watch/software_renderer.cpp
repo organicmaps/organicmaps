@@ -2,6 +2,7 @@
 #include "drape_frontend/watch/proto_to_styles.hpp"
 
 #include "drape/symbols_texture.hpp"
+#include "drape/texture_manager.hpp"
 
 #include "platform/platform.hpp"
 
@@ -165,7 +166,8 @@ SoftwareRenderer::SoftwareRenderer(GlyphCache::Params const & glyphCacheParams, 
   pl.GetFontNames(fonts);
   m_glyphCache->addFonts(fonts);
 
-  VERIFY(dp::SymbolsTexture::DecodeToMemory(resourcesPostfix, m_symbolsSkin, m_symbolsIndex, m_skinWidth, m_skinHeight), ());
+  VERIFY(dp::SymbolsTexture::DecodeToMemory(resourcesPostfix, dp::kDefaultSymbolsTexture,
+                                            m_symbolsSkin, m_symbolsIndex, m_skinWidth, m_skinHeight), ());
   ASSERT_NOT_EQUAL(m_skinWidth, 0, ());
   ASSERT_NOT_EQUAL(m_skinHeight, 0, ());
 }

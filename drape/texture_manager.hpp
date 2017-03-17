@@ -8,11 +8,14 @@
 
 #include "base/string_utils.hpp"
 
-#include "std/atomic.hpp"
-#include "std/unordered_set.hpp"
+#include <atomic>
+#include <list>
+#include <vector>
 
 namespace dp
 {
+
+extern std::string const kDefaultSymbolsTexture;
 
 class HWTextureAllocator;
 
@@ -235,10 +238,10 @@ private:
   static constexpr size_t GetInvalidGlyphGroup();
 
 private:
-  drape_ptr<Texture> m_symbolTexture;
+  std::vector<drape_ptr<Texture>> m_symbolTextures;
   drape_ptr<Texture> m_stipplePenTexture;
   drape_ptr<Texture> m_colorTexture;
-  list<drape_ptr<Texture>> m_glyphTextures;
+  std::list<drape_ptr<Texture>> m_glyphTextures;
 
   drape_ptr<Texture> m_trafficArrowTexture;
 
@@ -248,7 +251,7 @@ private:
   buffer_vector<GlyphGroup, 64> m_glyphGroups;
   buffer_vector<HybridGlyphGroup, 4> m_hybridGlyphGroups;
 
-  atomic_flag m_nothingToUpload;
+  std::atomic_flag m_nothingToUpload;
 };
 
 } // namespace dp
