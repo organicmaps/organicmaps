@@ -37,7 +37,7 @@ size_t const kReservedColors = 20;
 float const kGlyphAreaMultiplier = 1.2f;
 float const kGlyphAreaCoverage = 0.9f;
 
-std::string kSymbolTextures[] = { "symbols" };
+std::string kSymbolTextures[] = { "symbols", "symbols-ad" };
 
 namespace
 {
