@@ -118,7 +118,7 @@ build_conf_osrm()
       mkdir -p "$DIRNAME"
       cd "$DIRNAME"
       cmake "$OMIM_PATH"
-      make routing indexer geometry coding base jansson -j $PROCESSES
+      make routing routing_common indexer geometry coding base jansson -j $PROCESSES
     else
       "$QMAKE" "$OMIM_PATH/omim.pro" ${SPEC:+-spec $SPEC} "CONFIG+=$CONF osrm no-tests" ${CONFIG+"CONFIG*=$CONFIG"}
       make -j $PROCESSES
