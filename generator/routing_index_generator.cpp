@@ -63,7 +63,7 @@ public:
 
 private:
   template <class Fn>
-  bool CalcMask(FeatureType const & f, Fn && fn) const
+  VehicleMask CalcMask(FeatureType const & f, Fn && fn) const
   {
     VehicleMask mask = 0;
     if (fn(*m_pedestrianModel, f))
