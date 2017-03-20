@@ -825,12 +825,18 @@
 		F623DA6B1C9C2731006A3436 /* opening_hours_how_to_edit.html in Resources */ = {isa = PBXBuildFile; fileRef = F623DA6A1C9C2731006A3436 /* opening_hours_how_to_edit.html */; };
 		F623DA6C1C9C2731006A3436 /* opening_hours_how_to_edit.html in Resources */ = {isa = PBXBuildFile; fileRef = F623DA6A1C9C2731006A3436 /* opening_hours_how_to_edit.html */; };
 		F623DA6F1C9C2E62006A3436 /* MWMAddPlaceNavigationBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = F653CE171C71F62400A453F1 /* MWMAddPlaceNavigationBar.xib */; };
+		F624592F1E80185500E7AE9E /* BannersCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F624592E1E80185500E7AE9E /* BannersCache.swift */; };
+		F62459301E80185500E7AE9E /* BannersCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F624592E1E80185500E7AE9E /* BannersCache.swift */; };
+		F62459311E80185500E7AE9E /* BannersCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F624592E1E80185500E7AE9E /* BannersCache.swift */; };
 		F626D52E1C3E6CAA00C17D15 /* MWMTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F626D52D1C3E6CAA00C17D15 /* MWMTableViewCell.mm */; };
 		F626D52F1C3E83F800C17D15 /* MWMTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F626D52D1C3E6CAA00C17D15 /* MWMTableViewCell.mm */; };
 		F63774E71B59375E00BCF54D /* MWMRoutingDisclaimerAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F63774E61B59375E00BCF54D /* MWMRoutingDisclaimerAlert.xib */; };
 		F63774EA1B59376F00BCF54D /* MWMRoutingDisclaimerAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F63774E91B59376F00BCF54D /* MWMRoutingDisclaimerAlert.mm */; };
 		F6381BF51CD12045004CA943 /* LocaleTranslator.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6381BF41CD12045004CA943 /* LocaleTranslator.mm */; };
 		F6381BF61CD12045004CA943 /* LocaleTranslator.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6381BF41CD12045004CA943 /* LocaleTranslator.mm */; };
+		F63B242F1E890C8F008C9D3C /* CacheableFacebookBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63B242E1E890C8F008C9D3C /* CacheableFacebookBanner.swift */; };
+		F63B24301E890C8F008C9D3C /* CacheableFacebookBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63B242E1E890C8F008C9D3C /* CacheableFacebookBanner.swift */; };
+		F63B24311E890C8F008C9D3C /* CacheableFacebookBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63B242E1E890C8F008C9D3C /* CacheableFacebookBanner.swift */; };
 		F64D9C9F1C899C350063FA30 /* MWMEditorViralAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64D9C9E1C899C350063FA30 /* MWMEditorViralAlert.mm */; };
 		F64D9CA01C899C350063FA30 /* MWMEditorViralAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64D9C9E1C899C350063FA30 /* MWMEditorViralAlert.mm */; };
 		F64D9CA21C899C760063FA30 /* MWMEditorViralAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F64D9CA11C899C760063FA30 /* MWMEditorViralAlert.xib */; };
@@ -1915,12 +1921,14 @@
 		F61579351AC2CEB60032D8E9 /* MWMRateAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMRateAlert.xib; sourceTree = "<group>"; };
 		F6172FA41BBD5A3E0081D325 /* MWMiPadRoutePreview.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMiPadRoutePreview.xib; sourceTree = "<group>"; };
 		F623DA6A1C9C2731006A3436 /* opening_hours_how_to_edit.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = opening_hours_how_to_edit.html; path = ../../data/opening_hours_how_to_edit.html; sourceTree = "<group>"; };
+		F624592E1E80185500E7AE9E /* BannersCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannersCache.swift; sourceTree = "<group>"; };
 		F626D52C1C3E6CAA00C17D15 /* MWMTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMTableViewCell.h; sourceTree = "<group>"; };
 		F626D52D1C3E6CAA00C17D15 /* MWMTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTableViewCell.mm; sourceTree = "<group>"; };
 		F63774E61B59375E00BCF54D /* MWMRoutingDisclaimerAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMRoutingDisclaimerAlert.xib; sourceTree = "<group>"; };
 		F63774E81B59376F00BCF54D /* MWMRoutingDisclaimerAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRoutingDisclaimerAlert.h; sourceTree = "<group>"; };
 		F63774E91B59376F00BCF54D /* MWMRoutingDisclaimerAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRoutingDisclaimerAlert.mm; sourceTree = "<group>"; };
 		F6381BF41CD12045004CA943 /* LocaleTranslator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LocaleTranslator.mm; sourceTree = "<group>"; };
+		F63B242E1E890C8F008C9D3C /* CacheableFacebookBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheableFacebookBanner.swift; sourceTree = "<group>"; };
 		F64D9C9D1C899C350063FA30 /* MWMEditorViralAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMEditorViralAlert.h; sourceTree = "<group>"; };
 		F64D9C9E1C899C350063FA30 /* MWMEditorViralAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMEditorViralAlert.mm; sourceTree = "<group>"; };
 		F64D9CA11C899C760063FA30 /* MWMEditorViralAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMEditorViralAlert.xib; sourceTree = "<group>"; };
@@ -3664,6 +3672,8 @@
 				F6E2FC931E097B9F0083EBEC /* DirectionView */,
 				F6E2FC971E097B9F0083EBEC /* MWMPlacePageData.h */,
 				F6E2FC981E097B9F0083EBEC /* MWMPlacePageData.mm */,
+				F624592E1E80185500E7AE9E /* BannersCache.swift */,
+				F63B242E1E890C8F008C9D3C /* CacheableFacebookBanner.swift */,
 				F6E2FC991E097B9F0083EBEC /* MWMPlacePageManager.h */,
 				F6E2FC9A1E097B9F0083EBEC /* MWMPlacePageManager.mm */,
 				F6E2FC9B1E097B9F0083EBEC /* MWMPlacePageProtocol.h */,
@@ -4975,6 +4985,7 @@
 				F6E2FD5E1E097BA00083EBEC /* MWMMapDownloaderLargeCountryTableViewCell.mm in Sources */,
 				F6558DA11E642CC0002203AE /* MWMFacilitiesController.mm in Sources */,
 				F6E2FF471E097BA00083EBEC /* SettingsTableViewSelectableCell.swift in Sources */,
+				F624592F1E80185500E7AE9E /* BannersCache.swift in Sources */,
 				349D1ACE1E2E325B004A2006 /* MWMBottomMenuCollectionViewCell.mm in Sources */,
 				F6E2FF261E097BA00083EBEC /* MWMSearchTabButtonsView.mm in Sources */,
 				F6E2FE901E097BA00083EBEC /* MWMPlacePageTaxiCell.mm in Sources */,
@@ -5107,6 +5118,7 @@
 				3404165B1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift in Sources */,
 				340475701E081A4600C92850 /* MWMSettings.mm in Sources */,
 				3404756D1E081A4600C92850 /* MWMSearch.mm in Sources */,
+				F63B242F1E890C8F008C9D3C /* CacheableFacebookBanner.swift in Sources */,
 				3486B5071E27A4B50069C126 /* LocalNotificationManager.mm in Sources */,
 				F6E2FEFC1E097BA00083EBEC /* MWMSearchCategoryCell.mm in Sources */,
 				3454D7CA1E07F045004AF2AD /* UIColor+MapsMeColor.mm in Sources */,
@@ -5255,6 +5267,7 @@
 				F6E2FF271E097BA00083EBEC /* MWMSearchTabButtonsView.mm in Sources */,
 				F6558DA21E642CC0002203AE /* MWMFacilitiesController.mm in Sources */,
 				F6E2FE911E097BA00083EBEC /* MWMPlacePageTaxiCell.mm in Sources */,
+				F62459301E80185500E7AE9E /* BannersCache.swift in Sources */,
 				349D1ACF1E2E325B004A2006 /* MWMBottomMenuCollectionViewCell.mm in Sources */,
 				F6E2FF451E097BA00083EBEC /* SettingsTableViewLinkCell.swift in Sources */,
 				34C9BD0A1C6DBCDA000DC38D /* MWMNavigationController.mm in Sources */,
@@ -5387,6 +5400,7 @@
 				3404165C1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift in Sources */,
 				34D4FA631E26572D003F53EF /* FirstLaunchController.swift in Sources */,
 				3404756E1E081A4600C92850 /* MWMSearch.mm in Sources */,
+				F63B24301E890C8F008C9D3C /* CacheableFacebookBanner.swift in Sources */,
 				6741AA191BF340DE002C974C /* MWMDownloaderDialogCell.mm in Sources */,
 				F6E2FEFD1E097BA00083EBEC /* MWMSearchCategoryCell.mm in Sources */,
 				3486B5081E27A4B50069C126 /* LocalNotificationManager.mm in Sources */,
@@ -5535,6 +5549,7 @@
 				F6E2FD601E097BA00083EBEC /* MWMMapDownloaderLargeCountryTableViewCell.mm in Sources */,
 				F6558DA31E642CC0002203AE /* MWMFacilitiesController.mm in Sources */,
 				F6E2FF491E097BA00083EBEC /* SettingsTableViewSelectableCell.swift in Sources */,
+				F62459311E80185500E7AE9E /* BannersCache.swift in Sources */,
 				349D1AD01E2E325B004A2006 /* MWMBottomMenuCollectionViewCell.mm in Sources */,
 				F6E2FF281E097BA00083EBEC /* MWMSearchTabButtonsView.mm in Sources */,
 				F6E2FE921E097BA00083EBEC /* MWMPlacePageTaxiCell.mm in Sources */,
@@ -5667,6 +5682,7 @@
 				3404165D1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift in Sources */,
 				340475571E081A4600C92850 /* Statistics.mm in Sources */,
 				3486B5091E27A4B50069C126 /* LocalNotificationManager.mm in Sources */,
+				F63B24311E890C8F008C9D3C /* CacheableFacebookBanner.swift in Sources */,
 				F6E2FEFE1E097BA00083EBEC /* MWMSearchCategoryCell.mm in Sources */,
 				3404754B1E081A4600C92850 /* AppInfo.mm in Sources */,
 				849CF73C1DE842290024A8A5 /* MWMMultilineLabel.mm in Sources */,

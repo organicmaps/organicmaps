@@ -87,6 +87,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 - (void)close
 {
   [self.layout close];
+  self.data = nil;
   [MWMLocationManager removeObserver:self];
   [MWMFrameworkListener removeObserver:self];
 }

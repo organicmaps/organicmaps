@@ -133,8 +133,6 @@ using namespace osm_auth_ios;
 
 @property(nonatomic) NSInteger standbyCounter;
 
-@property(weak, nonatomic) NSTimer * mapStyleSwitchTimer;
-
 @property(nonatomic, readwrite) LocationManager * locationManager;
 
 @end

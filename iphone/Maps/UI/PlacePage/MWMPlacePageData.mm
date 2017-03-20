@@ -23,7 +23,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 
 using namespace place_page;
 
-@interface MWMPlacePageData ()<FBNativeAdDelegate>
+@interface MWMPlacePageData ()
 
 @property(copy, nonatomic) NSString * cachedMinPrice;
 @property(nonatomic) FBNativeAd * nativeAd;
@@ -103,11 +103,17 @@ using namespace place_page;
   m_previewRows.push_back(PreviewRows::Space);
   if (network_policy::CanUseNetwork() && ![MWMSettings adForbidden] && m_info.HasBanner())
   {
-    self.nativeAd =
-        [[FBNativeAd alloc] initWithPlacementID:@(m_info.GetBanner().m_bannerId.c_str())];
-    self.nativeAd.delegate = self;
-    self.nativeAd.mediaCachePolicy = FBNativeAdsCachePolicyAll;
-    [self.nativeAd loadAd];
+    __weak auto wSelf = self;
+    [[MWMBannersCache cache] get:@(m_info.GetBanner().m_bannerId.c_str()) completion:^(FBNativeAd * ad, BOOL isAsync) {
+      __strong auto self = wSelf;
+      if (!self)
+        return;
+      
+      self.nativeAd = ad;
+      self->m_previewRows.push_back(PreviewRows::Banner);
+      if (isAsync)
+        self.bannerIsReadyCallback();
+    }];
   }
 }
 
@@ -291,6 +297,12 @@ using namespace place_page;
     m_info.m_bac = {};
     m_sections.erase(remove(m_sections.begin(), m_sections.end(), Sections::Bookmark));
   }
+}
+
+- (void)dealloc
+{
+  if (m_info.HasBanner())
+    [[MWMBannersCache cache] bannerIsOutOfScreen:@(m_info.GetBanner().m_bannerId.c_str())];
 }
 
 #pragma mark - Getters
@@ -522,49 +534,6 @@ using namespace place_page;
   for (auto const & s : m_info.GetRawTypes())
     [result addObject:@(s.c_str())];
   return [result componentsJoinedByString:@", "];
-}
-
-#pragma mark - FBNativeAdDelegate
-
-- (void)nativeAdDidLoad:(FBNativeAd *)nativeAd
-{
-  if (![nativeAd isEqual:self.nativeAd])
-    return;
-
-  [Statistics logEvent:kStatPlacePageBannerShow
-        withParameters:@{
-          kStatTags : self.statisticsTags,
-          kStatBanner : @(m_info.GetBanner().m_bannerId.c_str()),
-          kStatProvider : kStatFacebook
-        }];
-
-  dispatch_async(dispatch_get_main_queue(), ^{
-    self->m_previewRows.push_back(PreviewRows::Banner);
-    self.bannerIsReadyCallback();
-  });
-}
-
-- (void)nativeAd:(FBNativeAd *)nativeAd didFailWithError:(NSError *)error
-{
-  // https://developers.facebook.com/docs/audience-network/testing
-  NSMutableDictionary * params = [@{kStatTags : self.statisticsTags,
-                  kStatBanner : @(m_info.GetBanner().m_bannerId.c_str()),
-                  kStatProvider : kStatFacebook} mutableCopy];
-
-  NSString * event;
-  if (error.code == 1001)
-  {
-    event = kStatPlacePageBannerBlank;
-  }
-  else
-  {
-    event = kStatPlacePageBannerError;
-    params[kStatErrorCode] = @(error.code);
-    if (NSString * value = error.userInfo[@"FBAdErrorDetailKey"])
-      params[kStatErrorMessage] = value;
-  }
-
-  [Statistics logEvent:event withParameters:params];
 }
 
 @end
