@@ -17,6 +17,8 @@
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QVBoxLayout>
 
+using Relevance = search::Sample::Result::Relevance;
+
 SampleView::SampleView(QWidget * parent) : QWidget(parent)
 {
   auto * mainLayout = BuildLayoutWithoutMargins<QVBoxLayout>(this /* parent */);
@@ -70,8 +72,7 @@ void SampleView::ShowResults(search::Results::Iter begin, search::Results::Iter 
     m_results->Add(*it /* result */);
 }
 
-void SampleView::SetResultRelevances(
-    std::vector<search::Sample::Result::Relevance> const & relevances)
+void SampleView::SetResultRelevances(std::vector<Relevance> const & relevances)
 {
   CHECK_EQUAL(relevances.size(), m_results->Size(), ());
   for (size_t i = 0; i < relevances.size(); ++i)

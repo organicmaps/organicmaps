@@ -199,7 +199,7 @@ int main(int argc, char * argv[])
       cout << i << ",";
       info.ToCSV(cout);
 
-      auto relevance = Sample::Result::RELEVANCE_IRRELEVANT;
+      auto relevance = Sample::Result::Relevance::Irrelevant;
       if (actualMatching[j] != Matcher::kInvalidId)
         relevance = sample.m_results[actualMatching[j]].m_relevance;
       cout << "," << DebugPrint(relevance) << endl;
@@ -209,7 +209,7 @@ int main(int argc, char * argv[])
     for (size_t j = 0; j < goldenMatching.size(); ++j)
     {
       if (goldenMatching[j] == Matcher::kInvalidId &&
-          sample.m_results[j].m_relevance != Sample::Result::RELEVANCE_IRRELEVANT)
+          sample.m_results[j].m_relevance != Sample::Result::Relevance::Irrelevant)
       {
         s.m_notFound.push_back(j);
       }

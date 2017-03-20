@@ -15,11 +15,11 @@ struct Sample
 {
   struct Result
   {
-    enum Relevance
+    enum class Relevance
     {
-      RELEVANCE_IRRELEVANT,
-      RELEVANCE_RELEVANT,
-      RELEVANCE_VITAL
+      Irrelevant,
+      Relevant,
+      Vital
     };
 
     bool operator<(Result const & rhs) const;
@@ -30,7 +30,7 @@ struct Sample
     strings::UniString m_name;
     string m_houseNumber;
     vector<string> m_types;  // MAPS.ME types, not OSM types.
-    Relevance m_relevance = RELEVANCE_IRRELEVANT;
+    Relevance m_relevance = Relevance::Irrelevant;
   };
 
   bool DeserializeFromJSON(string const & jsonStr);

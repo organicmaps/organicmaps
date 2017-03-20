@@ -20,6 +20,8 @@
 #include <fstream>
 #include <iterator>
 
+using Relevance = search::Sample::Result::Relevance;
+
 MainModel::MainModel(Framework & framework)
   : m_framework(framework), m_index(m_framework.GetIndex())
 {
@@ -45,7 +47,7 @@ void MainModel::Open(std::string const & path)
     return;
   }
 
-  InvalidateSearch();
+  ResetSearch();
 
   m_samples.swap(samples);
   m_view->SetSamples(m_samples);
@@ -60,7 +62,7 @@ void MainModel::OnSampleSelected(int index)
   auto const & sample = m_samples[index];
   m_view->ShowSample(m_samples[index]);
 
-  InvalidateSearch();
+  ResetSearch();
 
   auto & engine = m_framework.GetSearchEngine();
   {
@@ -76,20 +78,21 @@ void MainModel::OnSampleSelected(int index)
     m_numShownResults = 0;
 
     params.m_onResults = [this, sample, timestamp](search::Results const & results) {
-      vector<search::Sample::Result::Relevance> relevances;
+      std::vector<Relevance> relevances;
       if (results.IsEndedNormal())
       {
         search::Matcher matcher(m_index);
 
-        vector<search::Result> const actual(results.begin(), results.end());
+        std::vector<search::Result> const actual(results.begin(), results.end());
         std::vector<size_t> goldenMatching;
         {
           std::vector<size_t> actualMatching;
           matcher.Match(sample.m_results, actual, goldenMatching, actualMatching);
         }
 
-        relevances.assign(actual.size(), search::Sample::Result::RELEVANCE_IRRELEVANT);
-        for (size_t i = 0; i < goldenMatching.size(); ++i) {
+        relevances.assign(actual.size(), Relevance::Irrelevant);
+        for (size_t i = 0; i < goldenMatching.size(); ++i)
+        {
           if (goldenMatching[i] != search::Matcher::kInvalidId)
             relevances[goldenMatching[i]] = sample.m_results[i].m_relevance;
         }
@@ -104,7 +107,7 @@ void MainModel::OnSampleSelected(int index)
 }
 
 void MainModel::OnResults(uint64_t timestamp, search::Results const & results,
-                          vector<search::Sample::Result::Relevance> const & relevances)
+                          std::vector<Relevance> const & relevances)
 {
   if (timestamp != m_queryTimestamp)
     return;
@@ -116,7 +119,7 @@ void MainModel::OnResults(uint64_t timestamp, search::Results const & results,
     m_view->SetResultRelevances(relevances);
 }
 
-void MainModel::InvalidateSearch()
+void MainModel::ResetSearch()
 {
   ++m_queryTimestamp;
   if (auto handle = m_queryHandle.lock())

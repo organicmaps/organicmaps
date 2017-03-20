@@ -10,6 +10,8 @@
 #include <QtWidgets/QRadioButton>
 #include <QtWidgets/QVBoxLayout>
 
+using Relevance = search::Sample::Result::Relevance;
+
 namespace
 {
 QLabel * CreateLabel(QWidget & parent)
@@ -38,16 +40,16 @@ ResultView::ResultView(search::Result const & result, QWidget & parent) : QWidge
   SetContents(result);
 }
 
-void ResultView::SetRelevance(search::Sample::Result::Relevance relevance)
+void ResultView::SetRelevance(Relevance relevance)
 {
   m_irrelevant->setChecked(false);
   m_relevant->setChecked(false);
   m_vital->setChecked(false);
   switch (relevance)
   {
-  case search::Sample::Result::RELEVANCE_IRRELEVANT: m_irrelevant->setChecked(true); break;
-  case search::Sample::Result::RELEVANCE_RELEVANT: m_relevant->setChecked(true); break;
-  case search::Sample::Result::RELEVANCE_VITAL: m_vital->setChecked(true); break;
+  case Relevance::Irrelevant: m_irrelevant->setChecked(true); break;
+  case Relevance::Relevant: m_relevant->setChecked(true); break;
+  case Relevance::Vital: m_vital->setChecked(true); break;
   }
 }
 

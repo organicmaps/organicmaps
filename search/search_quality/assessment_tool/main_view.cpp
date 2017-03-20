@@ -21,6 +21,8 @@
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QToolBar>
 
+using Relevance = search::Sample::Result::Relevance;
+
 MainView::MainView(Framework & framework) : m_framework(framework)
 {
   setWindowTitle(tr("Assessment tool"));
@@ -56,8 +58,7 @@ void MainView::ShowResults(search::Results::Iter begin, search::Results::Iter en
   m_sampleView->ShowResults(begin, end);
 }
 
-void MainView::SetResultRelevances(
-    std::vector<search::Sample::Result::Relevance> const & relevances)
+void MainView::SetResultRelevances(std::vector<Relevance> const & relevances)
 {
   m_sampleView->SetResultRelevances(relevances);
 }
