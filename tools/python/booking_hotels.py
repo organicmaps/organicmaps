@@ -60,7 +60,7 @@ class BookingApi:
             stream = urllib2.urlopen(request)
             payload = stream.read()
             data = json.loads(payload)
-            if isinstance(data, dict) and 'ruid' in data:
+            if isinstance(data, dict) and 'message' in data and 'code' in data:
                 logging.error('Api call failed with error: {0} Code: {1}'.format(data['message'], data['code']))
                 return None
             return data

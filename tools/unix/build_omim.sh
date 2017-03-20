@@ -57,9 +57,9 @@ fi
 # Find qmake, prefer qmake-qt5
 source "$OMIM_PATH/tools/autobuild/detect_qmake.sh"
 
-# Find cmake, prefer cmake28
+# Find cmake, prefer cmake3
 if [ ! -x "${CMAKE-}" ]; then
-  CMAKE=cmake28
+  CMAKE=cmake3
   if ! hash "$CMAKE" 2>/dev/null; then
     CMAKE=cmake
   fi
@@ -113,11 +113,11 @@ build_conf_osrm()
     export BOOST_INCLUDEDIR="$BOOST_PATH/include"
     cd "$DIRNAME"
 
-    if [[ -z ${CMAKE_OMIM+x} ]]; then
+    if [[ -n "${USE_CMAKE-}" ]]; then
       DIRNAME="$DIRNAME/out/$CONF"
       mkdir -p "$DIRNAME"
       cd "$DIRNAME"
-      cmake "$OMIM_PATH"
+      "$CMAKE" "$OMIM_PATH"
       make routing routing_common indexer geometry coding base jansson -j $PROCESSES
     else
       "$QMAKE" "$OMIM_PATH/omim.pro" ${SPEC:+-spec $SPEC} "CONFIG+=$CONF osrm no-tests" ${CONFIG+"CONFIG*=$CONFIG"}
