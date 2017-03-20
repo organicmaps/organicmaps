@@ -26,7 +26,7 @@
 
 namespace
 {
-void logSponsoredEventEvent(MWMPlacePageData * data, NSString * eventName)
+void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 {
   auto const & latLon = data.latLon;
   BOOL const isBooking = data.isBooking;
@@ -281,7 +281,7 @@ void logSponsoredEventEvent(MWMPlacePageData * data, NSString * eventName)
   MWMPlacePageData * data = self.data;
   BOOL const isBooking = data.isBooking;
   NSString * eventName = isBooking ? kPlacePageHotelBook : kPlacePageRestaurantBook;
-  logSponsoredEventEvent(data, eventName);
+  logSponsoredEvent(data, eventName);
   UIViewController * vc = static_cast<UIViewController *>([MapViewController controller]);
   NSURL * url = isDescription ? data.sponsoredDescriptionURL : data.sponsoredURL;
   NSAssert(url, @"Sponsored url can't be nil!");
@@ -307,12 +307,13 @@ void logSponsoredEventEvent(MWMPlacePageData * data, NSString * eventName)
 
 - (void)showAllReviews
 {
-  logSponsoredEventEvent(self.data, kPlacePageHotelReviews);
+  logSponsoredEvent(self.data, kPlacePageHotelReviews);
   [[MapViewController controller] openUrl:self.data.URLToAllReviews];
 }
 
 - (void)showPhotoAtIndex:(NSUInteger)index
 {
+  logSponsoredEvent(self.data, kPlacePageHotelGallery);
   auto model = self.data.photos[index];
   auto galleryVc = [MWMGalleryItemViewController instanceWithModel:model];
   [[MapViewController controller].navigationController pushViewController:galleryVc animated:YES];
@@ -320,7 +321,7 @@ void logSponsoredEventEvent(MWMPlacePageData * data, NSString * eventName)
 
 - (void)showGalery
 {
-  logSponsoredEventEvent(self.data, kPlacePageHotelGallery);
+  logSponsoredEvent(self.data, kPlacePageHotelGallery);
   auto galleryVc = [MWMGalleryViewController instanceWithModel:[[MWMGalleryModel alloc]
                                                                 initWithTitle:self.hotelName items:self.data.photos]];
   [[MapViewController controller].navigationController pushViewController:galleryVc animated:YES];
@@ -328,7 +329,7 @@ void logSponsoredEventEvent(MWMPlacePageData * data, NSString * eventName)
 
 - (void)showAllFacilities
 {
-  logSponsoredEventEvent(self.data, kPlacePageHotelFacilities);
+  logSponsoredEvent(self.data, kPlacePageHotelFacilities);
   [[MapViewController controller] openHotelFacilities];
 }
 

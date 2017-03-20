@@ -547,12 +547,24 @@ using namespace place_page;
 - (void)nativeAd:(FBNativeAd *)nativeAd didFailWithError:(NSError *)error
 {
   // https://developers.facebook.com/docs/audience-network/testing
-  [Statistics logEvent:error.code == 1001 ? kStatPlacePageBannerEmpty : kStatPlacePageBannerError
-        withParameters:@{
-          kStatTags : self.statisticsTags,
-          kStatBanner : @(m_info.GetBanner().m_bannerId.c_str()),
-          kStatProvider : kStatFacebook
-        }];
+  NSMutableDictionary * params = [@{kStatTags : self.statisticsTags,
+                  kStatBanner : @(m_info.GetBanner().m_bannerId.c_str()),
+                  kStatProvider : kStatFacebook} mutableCopy];
+
+  NSString * event;
+  if (error.code == 1001)
+  {
+    event = kStatPlacePageBannerBlank;
+  }
+  else
+  {
+    event = kStatPlacePageBannerError;
+    params[kStatErrorCode] = @(error.code);
+    if (NSString * value = error.userInfo[@"FBAdErrorDetailKey"])
+      params[kStatErrorMessage] = value;
+  }
+
+  [Statistics logEvent:event withParameters:params];
 }
 
 @end
