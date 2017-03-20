@@ -4,6 +4,8 @@
 
 #include "partners_api/booking_api.hpp"
 
+@class MWMPlacePageData;
+
 namespace place_page
 {
 enum class Sections
@@ -88,7 +90,7 @@ enum class OpeningHours
   Unknown
 };
 
-using NewSectionsAreReady = void (^)(NSRange const & range);
+using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * data);
 using BannerIsReady = void (^)();
 
 }  // namespace place_page

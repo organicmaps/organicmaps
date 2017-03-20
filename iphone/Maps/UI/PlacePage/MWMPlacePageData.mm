@@ -27,6 +27,7 @@ using namespace place_page;
 
 @property(copy, nonatomic) NSString * cachedMinPrice;
 @property(nonatomic) FBNativeAd * nativeAd;
+@property(copy, nonatomic) NSArray<MWMGalleryItemModel *> * photos;
 
 @end
 
@@ -186,6 +187,7 @@ using namespace place_page;
     api->GetHotelInfo(hotelId, [[AppInfo sharedInfo] twoLetterLanguageId].UTF8String,
                       [hotelId, self](booking::HotelInfo const & hotelInfo)
     {
+
       if (hotelId != hotelInfo.m_hotelId)
         return;
 
@@ -250,7 +252,7 @@ using namespace place_page;
           length++;
         }
 
-        self.sectionsAreReadyCallback({position, length});
+        self.sectionsAreReadyCallback({position, length}, self);
       });
     });
   });
@@ -404,6 +406,9 @@ using namespace place_page;
 - (NSURL *)URLToAllReviews { return [NSURL URLWithString:@(m_info.GetSponsoredReviewUrl().c_str())]; }
 - (NSArray<MWMGalleryItemModel *> *)photos
 {
+  if (_photos)
+    return _photos;
+
   NSMutableArray<MWMGalleryItemModel *> * res = [@[] mutableCopy];
   for (auto const & p : m_hotelInfo.m_photos)
   {
@@ -415,7 +420,9 @@ using namespace place_page;
     auto photo = [[MWMGalleryItemModel alloc] initWithImageURL:big previewURL:preview];
     [res addObject:photo];
   }
-  return res;
+
+  self.photos = res;
+  return _photos;
 }
 
 #pragma mark - Bookmark

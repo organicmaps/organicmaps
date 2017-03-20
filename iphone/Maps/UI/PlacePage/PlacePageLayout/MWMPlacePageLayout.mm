@@ -118,7 +118,11 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 {
   self.isPlacePageButtonsEnabled = YES;
   self.data = data;
-  data.sectionsAreReadyCallback = ^(NSRange const & range) {
+
+  data.sectionsAreReadyCallback = ^(NSRange const & range, MWMPlacePageData * d) {
+    if (![self.data isEqual:d])
+      return;
+
     [self.placePageView.tableView insertSections:[NSIndexSet indexSetWithIndexesInRange:range]
                                 withRowAnimation:UITableViewRowAnimationAutomatic];
   };
