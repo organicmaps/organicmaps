@@ -6,7 +6,6 @@
 
 #include <cstdint>
 #include <fstream>
-#include <map>
 #include <string>
 
 struct OsmElement;
@@ -40,9 +39,8 @@ public:
   bool IsValid() const { return m_valid; }
 
 private:
-  std::map<uint64_t, uint32_t> m_osmIdToFeatureId;
   RoadAccess m_roadAccess;
-  bool m_valid;
+  bool m_valid = true;
 };
 
 // The generator tool's interface to writing the section with

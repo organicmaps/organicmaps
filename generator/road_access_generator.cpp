@@ -22,15 +22,16 @@
 #include <algorithm>
 #include <fstream>
 #include <map>
+#include <ostream>
 #include <string>
 
 using namespace std;
 
 namespace
 {
-char const kAccessPrivate[] = "access=private";
-char const kBarrierGate[] = "barrier=gate";
-char const kDelim[] = " \t\r\n";
+char constexpr kAccessPrivate[] = "access=private";
+char constexpr kBarrierGate[] = "barrier=gate";
+char constexpr kDelim[] = " \t\r\n";
 
 bool ParseRoadAccess(string const & roadAccessPath,
                      map<uint64_t, uint32_t> const & osmIdToFeatureId,
@@ -44,7 +45,7 @@ bool ParseRoadAccess(string const & roadAccessPath,
   }
 
   string line;
-  for (uint32_t lineNo = 0;; ++lineNo)
+  for (uint32_t lineNo = 1;; ++lineNo)
   {
     if (!getline(stream, line))
       break;
@@ -70,7 +71,7 @@ bool ParseRoadAccess(string const & roadAccessPath,
     auto const it = osmIdToFeatureId.find(osmId);
     if (it == osmIdToFeatureId.cend())
     {
-      LOG(LWARNING, ("Error when parsing road access: unknown osm id at line", lineNo));
+      LOG(LWARNING, ("Error when parsing road access: unknown osm id", osmId, "at line", lineNo));
       return false;
     }
 
@@ -113,12 +114,12 @@ void RoadAccessWriter::Process(OsmElement const & elem, FeatureParams const & pa
   {
     auto const t = c.GetTypeByPath(f);
     if (params.IsTypeExist(t) && elem.type == OsmElement::EntityType::Way)
-      m_stream << kAccessPrivate << " " << elem.id << "\n";
+      m_stream << kAccessPrivate << " " << elem.id << endl;
   }
 
   auto t = c.GetTypeByPath({"barrier", "gate"});
   if (params.IsTypeExist(t))
-    m_stream << kBarrierGate << " " << elem.id << "\n";
+    m_stream << kBarrierGate << " " << elem.id << endl;
 }
 
 bool RoadAccessWriter::IsOpened() const { return m_stream.is_open() && !m_stream.fail(); }
@@ -144,7 +145,6 @@ RoadAccessCollector::RoadAccessCollector(string const & roadAccessPath,
   }
 
   m_valid = true;
-  m_osmIdToFeatureId.swap(osmIdToFeatureId);
   m_roadAccess.Swap(roadAccess);
 }
 

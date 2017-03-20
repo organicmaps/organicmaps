@@ -17,7 +17,7 @@ namespace routing
 class RoadAccessSerializer final
 {
 public:
-  ~RoadAccessSerializer() = delete;
+  RoadAccessSerializer() = delete;
 
   template <class Sink>
   static void Serialize(Sink & sink, RoadAccess const & roadAccess)
