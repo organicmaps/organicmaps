@@ -20,7 +20,7 @@ public:
                      shared_ptr<IVehicleModel> vehicleModel);
 
   // GeometryLoader overrides:
-  virtual void Load(uint32_t featureId, RoadGeometry & road) const override;
+  void Load(uint32_t featureId, RoadGeometry & road) const override;
 
 private:
   shared_ptr<IVehicleModel> m_vehicleModel;
@@ -54,7 +54,7 @@ public:
   FileGeometryLoader(string const & fileName, shared_ptr<IVehicleModel> vehicleModel);
 
   // GeometryLoader overrides:
-  virtual void Load(uint32_t featureId, RoadGeometry & road) const override;
+  void Load(uint32_t featureId, RoadGeometry & road) const override;
 
 private:
   FeaturesVectorTest m_featuresVector;

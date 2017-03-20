@@ -28,7 +28,6 @@
 #include "base/logging.hpp"
 
 #include <functional>
-#include <iostream>
 #include <memory>
 #include <unordered_map>
 #include <vector>
@@ -139,7 +138,7 @@ public:
   using TVertexType = Segment;
   using TEdgeType = SegmentEdge;
 
-  DijkstraWrapper(IndexGraph & graph) : m_graph(graph) {}
+  explicit DijkstraWrapper(IndexGraph & graph) : m_graph(graph) {}
 
   void GetOutgoingEdgesList(TVertexType const & vertex, vector<TEdgeType> & edges)
   {
@@ -153,7 +152,10 @@ public:
     m_graph.GetEdgeList(vertex, false /* isOutgoing */, edges);
   }
 
-  double HeuristicCostEstimate(TVertexType const & from, TVertexType const & to) { return 0.0; }
+  double HeuristicCostEstimate(TVertexType const & /* from */, TVertexType const & /* to */)
+  {
+    return 0.0;
+  }
 
 private:
   IndexGraph & m_graph;
@@ -223,25 +225,26 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
       GeometryLoader::CreateFromFile(mwmFile, vehicleModel),
       EdgeEstimator::CreateForCar(nullptr /* trafficStash */, vehicleModel->GetMaxSpeed()));
 
-  MwmValue mwmValue(LocalCountryFile(path, platform::CountryFile(country), 0));
+  MwmValue mwmValue(LocalCountryFile(path, platform::CountryFile(country), 0 /* version */));
   DeserializeIndexGraph(mwmValue, graph);
 
   map<Segment, map<Segment, double>> weights;
   map<Segment, double> distanceMap;
-  map<Segment, Segment> parent;
-
   auto const numEnters = connector.GetEnters().size();
-  cout << "Building leaps: 0/" << numEnters << " waves passed" << flush;
   for (size_t i = 0; i < numEnters; ++i)
   {
+    if ((i % 10 == 0) && (i != 0))
+      LOG(LINFO, ("Building leaps:", i, "/", numEnters, "waves passed"));
+
     Segment const & enter = connector.GetEnter(i);
 
     AStarAlgorithm<DijkstraWrapper> astar;
     DijkstraWrapper wrapper(graph);
     astar.PropagateWave(
-        wrapper, enter, [](Segment const & vertex) { return false; },
-        [](Segment const & vertex, SegmentEdge const & edge) { return edge.GetWeight(); },
-        distanceMap, parent);
+        wrapper, enter, [](Segment const & /* vertex */) { return false; },
+        [](Segment const & /* vertex */, SegmentEdge const & edge) { return edge.GetWeight(); },
+        [](Segment const & /* from */, Segment const & /* to */) {} /* putToParents */,
+        distanceMap);
 
     for (Segment const & exit : connector.GetExits())
     {
@@ -249,10 +252,7 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
       if (it != distanceMap.end())
         weights[enter][exit] = it->second;
     }
-
-    cout << "\rBuilding leaps: " << (i + 1) << "/" << numEnters << " waves passed" << flush;
   }
-  cout << endl;
 
   connector.FillWeights([&](Segment const & enter, Segment const & exit) {
     auto it0 = weights.find(enter);
@@ -321,7 +321,7 @@ void BuildCrossMwmSection(string const & path, string const & mwmFile, string co
   {
     VehicleType const vehicleType = static_cast<VehicleType>(i);
     CrossMwmConnector const & connector = connectors[i];
-    LOG(LINFO, (vehicleType, "model:", "enters:", connector.GetEnters().size(), ", exits:",
+    LOG(LINFO, (vehicleType, "model: enters:", connector.GetEnters().size(), ", exits:",
                 connector.GetExits().size()));
   }
   timer.Reset();

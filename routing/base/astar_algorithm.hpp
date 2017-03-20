@@ -61,11 +61,10 @@ public:
 
   using TOnVisitedVertexCallback = std::function<void(TVertexType const &, TVertexType const &)>;
 
-  template <typename CheckForStop, typename AdjustEdgeWeight>
+  template <typename CheckForStop, typename AdjustEdgeWeight, typename PutToParents>
   void PropagateWave(TGraphType & graph, TVertexType const & startVertex,
                      CheckForStop && checkForStop, AdjustEdgeWeight && adjustEdgeWeight,
-                     map<TVertexType, double> & bestDistance,
-                     map<TVertexType, TVertexType> & parent) const;
+                     PutToParents && putToParents, map<TVertexType, double> & bestDistance) const;
 
   Result FindPath(TGraphType & graph, TVertexType const & startVertex,
                   TVertexType const & finalVertex, RoutingResult<TVertexType> & result,
@@ -175,15 +174,14 @@ private:
 };
 
 template <typename TGraph>
-template <typename CheckForStop, typename AdjustEdgeWeight>
+template <typename CheckForStop, typename AdjustEdgeWeight, typename PutToParents>
 void AStarAlgorithm<TGraph>::PropagateWave(TGraphType & graph, TVertexType const & startVertex,
                                            CheckForStop && checkForStop,
                                            AdjustEdgeWeight && adjustEdgeWeight,
-                                           map<TVertexType, double> & bestDistance,
-                                           map<TVertexType, TVertexType> & parent) const
+                                           PutToParents && putToParents,
+                                           map<TVertexType, double> & bestDistance) const
 {
   bestDistance.clear();
-  parent.clear();
 
   priority_queue<State, vector<State>, greater<State>> queue;
 
@@ -219,7 +217,7 @@ void AStarAlgorithm<TGraph>::PropagateWave(TGraphType & graph, TVertexType const
 
       stateW.distance = newReducedDist;
       bestDistance[stateW.vertex] = newReducedDist;
-      parent[stateW.vertex] = stateV.vertex;
+      putToParents(stateW.vertex, stateV.vertex);
       queue.push(stateW);
     }
   }
@@ -247,7 +245,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
     onVisitedVertexCallback = [](TVertexType const &, TVertexType const &) {};
 
   map<TVertexType, double> bestDistance;
-  map<TVertexType, TVertexType> parent;
+  map<TVertexType, TVertexType> parents;
   uint32_t steps = 0;
   Result resultCode = Result::NoPath;
 
@@ -265,7 +263,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
 
     if (vertex == finalVertex)
     {
-      ReconstructPath(vertex, parent, result.path);
+      ReconstructPath(vertex, parents, result.path);
       result.distance = bestDistance[vertex] - graph.HeuristicCostEstimate(vertex, finalVertex) +
                         graph.HeuristicCostEstimate(startVertex, finalVertex);
       ASSERT_EQUAL(graph.HeuristicCostEstimate(vertex, finalVertex), 0, ());
@@ -286,7 +284,9 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
     return max(reducedLen, 0.0);
   };
 
-  PropagateWave(graph, startVertex, checkForStop, adjustEdgeWeight, bestDistance, parent);
+  auto putToParents = [&](TVertexType const & from, TVertexType const & to) { parents[from] = to; };
+
+  PropagateWave(graph, startVertex, checkForStop, adjustEdgeWeight, putToParents, bestDistance);
   return resultCode;
 }
 
