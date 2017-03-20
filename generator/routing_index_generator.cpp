@@ -194,6 +194,12 @@ void FillWeights(string const & path, string const & country, CrossMwmConnector 
                                     connector.GetPoint(exit, true /* front */));
   });
 }
+
+serial::CodingParams LoadCodingParams(string const & mwmFile)
+{
+  DataHeader const dataHeader(mwmFile);
+  return dataHeader.GetDefCodingParams();
+}
 }  // namespace
 
 namespace routing
@@ -239,12 +245,9 @@ void BuildCrossMwmSection(string const & path, string const & mwmFile, string co
 
   FillWeights(path, country, connectors[static_cast<size_t>(VehicleType::Car)]);
 
+  serial::CodingParams const codingParams = LoadCodingParams(mwmFile);
   FilesContainerW cont(mwmFile, FileWriter::OP_WRITE_EXISTING);
   FileWriter writer = cont.GetWriter(CROSS_MWM_FILE_TAG);
-
-  DataHeader const dataHeader(mwmFile);
-  serial::CodingParams const & codingParams = dataHeader.GetDefCodingParams();
-
   auto const startPos = writer.Pos();
   CrossMwmConnectorSerializer::Serialize(transitions, connectors, codingParams, writer);
   auto const sectionSize = writer.Pos() - startPos;
