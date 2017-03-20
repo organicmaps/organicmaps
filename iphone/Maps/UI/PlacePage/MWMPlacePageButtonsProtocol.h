@@ -8,7 +8,9 @@
 - (void)taxiTo;
 - (void)showAllReviews;
 - (void)showAllFacilities;
-- (void)showPhotoAtIndex:(NSUInteger)index;
+- (void)showPhotoAtIndex:(NSInteger)index
+           referenceView:(UIView *)referenceView
+           referenceViewWhenDismissingHandler:(UIView * (^)(NSInteger))referenceViewWhenDismissingHandler;
 - (void)showGalery;
 
 @end

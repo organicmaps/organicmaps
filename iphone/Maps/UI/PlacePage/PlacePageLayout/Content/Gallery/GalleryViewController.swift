@@ -63,6 +63,17 @@ final class GalleryViewController: MWMCollectionViewController {
 
   // MARK: UICollectionViewDelegate
   override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    show(GalleryItemViewController.instance(model: model.items[indexPath.item]), sender: nil)
+    let currentPhoto = model.items[indexPath.item]
+    let cell = collectionView.cellForItem(at: indexPath)
+    let photoVC = PhotosViewController(photos: model, initialPhoto: currentPhoto, referenceView: cell)
+
+    photoVC.referenceViewForPhotoWhenDismissingHandler = { [weak self] photo in
+      if let index = self?.model.items.index(where: {$0 === photo}) {
+        let indexPath = IndexPath(item: index, section: 0)
+        return collectionView.cellForItem(at: indexPath)
+      }
+      return nil
+    }
+    present(photoVC, animated: true, completion: nil)
   }
 }

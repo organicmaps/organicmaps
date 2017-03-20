@@ -9,6 +9,30 @@
 /* Begin PBXBuildFile section */
 		1D3623260D0F684500981E51 /* MapsAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* MapsAppDelegate.mm */; };
 		1D60589B0D05DD56006BFB54 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.mm */; };
+		3404163B1E7BDFE000E2B6D6 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404163A1E7BDFE000E2B6D6 /* PhotosViewController.swift */; };
+		3404163C1E7BDFE000E2B6D6 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404163A1E7BDFE000E2B6D6 /* PhotosViewController.swift */; };
+		3404163D1E7BDFE000E2B6D6 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404163A1E7BDFE000E2B6D6 /* PhotosViewController.swift */; };
+		340416431E7BED3900E2B6D6 /* PhotosTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340416421E7BED3900E2B6D6 /* PhotosTransitionAnimator.swift */; };
+		340416441E7BED3900E2B6D6 /* PhotosTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340416421E7BED3900E2B6D6 /* PhotosTransitionAnimator.swift */; };
+		340416451E7BED3900E2B6D6 /* PhotosTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340416421E7BED3900E2B6D6 /* PhotosTransitionAnimator.swift */; };
+		340416471E7BF28E00E2B6D6 /* UIView+Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340416461E7BF28E00E2B6D6 /* UIView+Snapshot.swift */; };
+		340416481E7BF28E00E2B6D6 /* UIView+Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340416461E7BF28E00E2B6D6 /* UIView+Snapshot.swift */; };
+		340416491E7BF28E00E2B6D6 /* UIView+Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340416461E7BF28E00E2B6D6 /* UIView+Snapshot.swift */; };
+		3404164B1E7BF42E00E2B6D6 /* UIView+Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404164A1E7BF42D00E2B6D6 /* UIView+Coordinates.swift */; };
+		3404164C1E7BF42E00E2B6D6 /* UIView+Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404164A1E7BF42D00E2B6D6 /* UIView+Coordinates.swift */; };
+		3404164D1E7BF42E00E2B6D6 /* UIView+Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404164A1E7BF42D00E2B6D6 /* UIView+Coordinates.swift */; };
+		3404164F1E7C085F00E2B6D6 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404164E1E7C085F00E2B6D6 /* PhotoViewController.swift */; };
+		340416501E7C086000E2B6D6 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404164E1E7C085F00E2B6D6 /* PhotoViewController.swift */; };
+		340416511E7C086000E2B6D6 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404164E1E7C085F00E2B6D6 /* PhotoViewController.swift */; };
+		340416531E7C09C200E2B6D6 /* PhotoScalingImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340416521E7C09C200E2B6D6 /* PhotoScalingImageView.swift */; };
+		340416541E7C09C200E2B6D6 /* PhotoScalingImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340416521E7C09C200E2B6D6 /* PhotoScalingImageView.swift */; };
+		340416551E7C09C200E2B6D6 /* PhotoScalingImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340416521E7C09C200E2B6D6 /* PhotoScalingImageView.swift */; };
+		340416571E7C0D4100E2B6D6 /* PhotosOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340416561E7C0D4100E2B6D6 /* PhotosOverlayView.swift */; };
+		340416581E7C0D4100E2B6D6 /* PhotosOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340416561E7C0D4100E2B6D6 /* PhotosOverlayView.swift */; };
+		340416591E7C0D4100E2B6D6 /* PhotosOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340416561E7C0D4100E2B6D6 /* PhotosOverlayView.swift */; };
+		3404165B1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404165A1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift */; };
+		3404165C1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404165A1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift */; };
+		3404165D1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404165A1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift */; };
 		340474F01E08199D00C92850 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474DC1E08199D00C92850 /* Crashlytics.framework */; };
 		340474F11E08199D00C92850 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474DC1E08199D00C92850 /* Crashlytics.framework */; };
 		340474F21E08199D00C92850 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474DC1E08199D00C92850 /* Crashlytics.framework */; };
@@ -1450,6 +1474,14 @@
 		1D3623250D0F684500981E51 /* MapsAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MapsAppDelegate.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		28A0AB4B0D9B1048005BE974 /* Maps_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Maps_Prefix.pch; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		29B97316FDCFA39411CA2CEA /* main.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = main.mm; sourceTree = "<group>"; };
+		3404163A1E7BDFE000E2B6D6 /* PhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
+		340416421E7BED3900E2B6D6 /* PhotosTransitionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosTransitionAnimator.swift; sourceTree = "<group>"; };
+		340416461E7BF28E00E2B6D6 /* UIView+Snapshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Snapshot.swift"; sourceTree = "<group>"; };
+		3404164A1E7BF42D00E2B6D6 /* UIView+Coordinates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Coordinates.swift"; sourceTree = "<group>"; };
+		3404164E1E7C085F00E2B6D6 /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
+		340416521E7C09C200E2B6D6 /* PhotoScalingImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoScalingImageView.swift; sourceTree = "<group>"; };
+		340416561E7C0D4100E2B6D6 /* PhotosOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosOverlayView.swift; sourceTree = "<group>"; };
+		3404165A1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosInteractionAnimator.swift; sourceTree = "<group>"; };
 		340474DC1E08199D00C92850 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		340474DD1E08199D00C92850 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		340474DE1E08199D00C92850 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
@@ -2504,6 +2536,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		340416391E7BDFB800E2B6D6 /* Photos */ = {
+			isa = PBXGroup;
+			children = (
+				340416521E7C09C200E2B6D6 /* PhotoScalingImageView.swift */,
+				3404165A1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift */,
+				340416561E7C0D4100E2B6D6 /* PhotosOverlayView.swift */,
+				340416421E7BED3900E2B6D6 /* PhotosTransitionAnimator.swift */,
+				3404163A1E7BDFE000E2B6D6 /* PhotosViewController.swift */,
+				3404164E1E7C085F00E2B6D6 /* PhotoViewController.swift */,
+			);
+			path = Photos;
+			sourceTree = "<group>";
+		};
 		340474DB1E08199D00C92850 /* 3party */ = {
 			isa = PBXGroup;
 			children = (
@@ -2761,6 +2806,8 @@
 				349D1CE21E3F836900A878FD /* UIViewController+Hierarchy.swift */,
 				34F7422F1E0834F400AC1FD6 /* UIViewController+Navigation.h */,
 				34F742301E0834F400AC1FD6 /* UIViewController+Navigation.mm */,
+				340416461E7BF28E00E2B6D6 /* UIView+Snapshot.swift */,
+				3404164A1E7BF42D00E2B6D6 /* UIView+Coordinates.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -2845,6 +2892,7 @@
 		346DB81C1E5C4F6700E3123E /* Gallery */ = {
 			isa = PBXGroup;
 			children = (
+				340416391E7BDFB800E2B6D6 /* Photos */,
 				346DB81D1E5C4F6700E3123E /* Cells */,
 				346DB8201E5C4F6700E3123E /* GalleryItemViewController.swift */,
 				346DB8211E5C4F6700E3123E /* GalleryItemViewController.xib */,
@@ -4869,6 +4917,7 @@
 				F6E2FF081E097BA00083EBEC /* MWMSearchHistoryManager.mm in Sources */,
 				F6E2FD8E1E097BA00083EBEC /* MWMNoMapsViewController.mm in Sources */,
 				34D3B0411E389D05004100F9 /* MWMEditorTextTableViewCell.mm in Sources */,
+				3404163B1E7BDFE000E2B6D6 /* PhotosViewController.swift in Sources */,
 				F6E2FE601E097BA00083EBEC /* MWMBookmarkCell.mm in Sources */,
 				F6E2FEA21E097BA00083EBEC /* MWMPPView.mm in Sources */,
 				F6791B131C43DEA7007A8A6E /* MWMStartButton.mm in Sources */,
@@ -4933,6 +4982,7 @@
 				F607C18E1C047FDC00B53A87 /* MWMSegue.mm in Sources */,
 				F6E2FE301E097BA00083EBEC /* MWMStreetEditorViewController.mm in Sources */,
 				F6E2FE3F1E097BA00083EBEC /* MWMPlacePageEntity.mm in Sources */,
+				340416471E7BF28E00E2B6D6 /* UIView+Snapshot.swift in Sources */,
 				F6E2FE271E097BA00083EBEC /* MWMOpeningHoursSection.mm in Sources */,
 				F6E2FE241E097BA00083EBEC /* MWMOpeningHoursModel.mm in Sources */,
 				F6BD33811B62403B00F2CE18 /* MWMRoutePreview.mm in Sources */,
@@ -5000,6 +5050,7 @@
 				F6E2FEC91E097BA00083EBEC /* MWMSearchFilterTransitioning.mm in Sources */,
 				FA054612155C465E001F4E37 /* SelectSetVC.mm in Sources */,
 				F6E2FE811E097BA00083EBEC /* MWMPlacePageOpeningHoursDayView.mm in Sources */,
+				340416571E7C0D4100E2B6D6 /* PhotosOverlayView.swift in Sources */,
 				F6E2FD6A1E097BA00083EBEC /* MWMMapDownloaderSubplaceTableViewCell.mm in Sources */,
 				FAA614B8155F16950031C345 /* AddSetVC.mm in Sources */,
 				F6E2FF681E097BA00083EBEC /* MWMUnitsController.mm in Sources */,
@@ -5037,12 +5088,14 @@
 				F6E2FE9F1E097BA00083EBEC /* MWMPlacePageLayout.mm in Sources */,
 				F6E2FEC31E097BA00083EBEC /* MWMSearchFilterPresentationController.mm in Sources */,
 				340475731E081A4600C92850 /* MWMStorage.mm in Sources */,
+				340416531E7C09C200E2B6D6 /* PhotoScalingImageView.swift in Sources */,
 				F6E2FD851E097BA00083EBEC /* MWMBaseMapDownloaderViewController.mm in Sources */,
 				34ABA6241C2D551900FE1BEC /* MWMInputValidatorFactory.mm in Sources */,
 				34943BBA1E2626B200B14F84 /* WelcomePageController.swift in Sources */,
 				F6E2FEE11E097BA00083EBEC /* MWMSearchManager.mm in Sources */,
 				34D3AFE11E376F7E004100F9 /* UITableView+Updates.swift in Sources */,
 				F6E2FE211E097BA00083EBEC /* MWMOpeningHoursEditorViewController.mm in Sources */,
+				3404164B1E7BF42E00E2B6D6 /* UIView+Coordinates.swift in Sources */,
 				349D1ADA1E2E325C004A2006 /* MWMBottomMenuView.mm in Sources */,
 				F6E2FD911E097BA00083EBEC /* MWMBookmarkColorViewController.mm in Sources */,
 				F6F7787A1DABC6D800B603E7 /* MWMTaxiCollectionLayout.mm in Sources */,
@@ -5051,6 +5104,7 @@
 				34D3B0291E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.mm in Sources */,
 				34D4FA621E26572D003F53EF /* FirstLaunchController.swift in Sources */,
 				34C9BD041C6DB693000DC38D /* MWMViewController.mm in Sources */,
+				3404165B1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift in Sources */,
 				340475701E081A4600C92850 /* MWMSettings.mm in Sources */,
 				3404756D1E081A4600C92850 /* MWMSearch.mm in Sources */,
 				3486B5071E27A4B50069C126 /* LocalNotificationManager.mm in Sources */,
@@ -5066,6 +5120,7 @@
 				F6E2FF021E097BA00083EBEC /* MWMSearchHistoryClearCell.mm in Sources */,
 				F63774EA1B59376F00BCF54D /* MWMRoutingDisclaimerAlert.mm in Sources */,
 				340475081E08199E00C92850 /* MWMMyTarget.mm in Sources */,
+				3404164F1E7C085F00E2B6D6 /* PhotoViewController.swift in Sources */,
 				F64F19A31AB81A00006EAF7E /* MWMDownloadTransitMapAlert.mm in Sources */,
 				3404754C1E081A4600C92850 /* MWMKeyboard.mm in Sources */,
 				F6BD33841B6240F200F2CE18 /* MWMNavigationView.mm in Sources */,
@@ -5083,6 +5138,7 @@
 				ED48BBB517C267F5003E7E92 /* ColorPickerView.mm in Sources */,
 				34F5E0D71E3F334700B1C415 /* Types.swift in Sources */,
 				F6E2FF561E097BA00083EBEC /* MWMMobileInternetViewController.mm in Sources */,
+				340416431E7BED3900E2B6D6 /* PhotosTransitionAnimator.swift in Sources */,
 				ED48BBBA17C2B1E2003E7E92 /* CircleView.mm in Sources */,
 				F6E2FEEA1E097BA00083EBEC /* MWMSearchTextField.mm in Sources */,
 				F6664C121E645A4100E703C2 /* MWMPPReviewCell.mm in Sources */,
@@ -5141,6 +5197,7 @@
 				F6E2FF091E097BA00083EBEC /* MWMSearchHistoryManager.mm in Sources */,
 				F6E2FD8F1E097BA00083EBEC /* MWMNoMapsViewController.mm in Sources */,
 				34D3B0421E389D05004100F9 /* MWMEditorTextTableViewCell.mm in Sources */,
+				3404163C1E7BDFE000E2B6D6 /* PhotosViewController.swift in Sources */,
 				F6E2FE611E097BA00083EBEC /* MWMBookmarkCell.mm in Sources */,
 				F6E2FEA31E097BA00083EBEC /* MWMPPView.mm in Sources */,
 				3454D7D11E07F045004AF2AD /* UIImage+RGBAData.mm in Sources */,
@@ -5205,6 +5262,7 @@
 				F6E2FE401E097BA00083EBEC /* MWMPlacePageEntity.mm in Sources */,
 				F6E2FE281E097BA00083EBEC /* MWMOpeningHoursSection.mm in Sources */,
 				3406FA161C6E0C3300E9FAD2 /* MWMMapDownloadDialog.mm in Sources */,
+				340416481E7BF28E00E2B6D6 /* UIView+Snapshot.swift in Sources */,
 				F6E2FE251E097BA00083EBEC /* MWMOpeningHoursModel.mm in Sources */,
 				34C9BD031C6DB693000DC38D /* MWMTableViewController.mm in Sources */,
 				F6E2FD8C1E097BA00083EBEC /* MWMNoMapsView.mm in Sources */,
@@ -5272,6 +5330,7 @@
 				F682249B1E5B104600BC1C18 /* PPHotelDescriptionCell.swift in Sources */,
 				F6E2FECA1E097BA00083EBEC /* MWMSearchFilterTransitioning.mm in Sources */,
 				3454D7DD1E07F045004AF2AD /* UISwitch+RuntimeAttributes.m in Sources */,
+				340416581E7C0D4100E2B6D6 /* PhotosOverlayView.swift in Sources */,
 				F6E2FE821E097BA00083EBEC /* MWMPlacePageOpeningHoursDayView.mm in Sources */,
 				F6E2FD6B1E097BA00083EBEC /* MWMMapDownloaderSubplaceTableViewCell.mm in Sources */,
 				6741AA021BF340DE002C974C /* BookmarksRootVC.mm in Sources */,
@@ -5309,12 +5368,14 @@
 				F6E2FF301E097BA00083EBEC /* MWMSearchCommonCell.mm in Sources */,
 				F6E2FEA01E097BA00083EBEC /* MWMPlacePageLayout.mm in Sources */,
 				F6E2FEC41E097BA00083EBEC /* MWMSearchFilterPresentationController.mm in Sources */,
+				340416541E7C09C200E2B6D6 /* PhotoScalingImageView.swift in Sources */,
 				34ABA6251C2D551900FE1BEC /* MWMInputValidatorFactory.mm in Sources */,
 				F6E2FD861E097BA00083EBEC /* MWMBaseMapDownloaderViewController.mm in Sources */,
 				F6E2FEE21E097BA00083EBEC /* MWMSearchManager.mm in Sources */,
 				F6E2FE221E097BA00083EBEC /* MWMOpeningHoursEditorViewController.mm in Sources */,
 				34943BBB1E2626B200B14F84 /* WelcomePageController.swift in Sources */,
 				34D3AFE21E376F7E004100F9 /* UITableView+Updates.swift in Sources */,
+				3404164C1E7BF42E00E2B6D6 /* UIView+Coordinates.swift in Sources */,
 				6741AA141BF340DE002C974C /* MWMMultilineLabel.mm in Sources */,
 				349D1ADB1E2E325C004A2006 /* MWMBottomMenuView.mm in Sources */,
 				F6E2FD921E097BA00083EBEC /* MWMBookmarkColorViewController.mm in Sources */,
@@ -5323,6 +5384,7 @@
 				3454D7CB1E07F045004AF2AD /* UIColor+MapsMeColor.mm in Sources */,
 				34D3B02A1E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.mm in Sources */,
 				340475711E081A4600C92850 /* MWMSettings.mm in Sources */,
+				3404165C1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift in Sources */,
 				34D4FA631E26572D003F53EF /* FirstLaunchController.swift in Sources */,
 				3404756E1E081A4600C92850 /* MWMSearch.mm in Sources */,
 				6741AA191BF340DE002C974C /* MWMDownloaderDialogCell.mm in Sources */,
@@ -5338,6 +5400,7 @@
 				6741AA221BF340DE002C974C /* MWMNavigationView.mm in Sources */,
 				F6E2FF031E097BA00083EBEC /* MWMSearchHistoryClearCell.mm in Sources */,
 				340475091E08199E00C92850 /* MWMMyTarget.mm in Sources */,
+				340416501E7C086000E2B6D6 /* PhotoViewController.swift in Sources */,
 				674A7E301C0DB10B003D48E1 /* MWMMapWidgets.mm in Sources */,
 				3404754D1E081A4600C92850 /* MWMKeyboard.mm in Sources */,
 				34EF94291C05A6F30050B714 /* MWMSegue.mm in Sources */,
@@ -5355,6 +5418,7 @@
 				6741AA281BF340DE002C974C /* MWMAlert.mm in Sources */,
 				F6E2FF571E097BA00083EBEC /* MWMMobileInternetViewController.mm in Sources */,
 				34F5E0D81E3F334700B1C415 /* Types.swift in Sources */,
+				340416441E7BED3900E2B6D6 /* PhotosTransitionAnimator.swift in Sources */,
 				6741AA291BF340DE002C974C /* ColorPickerView.mm in Sources */,
 				6741AA2B1BF340DE002C974C /* CircleView.mm in Sources */,
 				F6E2FEEB1E097BA00083EBEC /* MWMSearchTextField.mm in Sources */,
@@ -5413,6 +5477,7 @@
 				F6E2FF0A1E097BA00083EBEC /* MWMSearchHistoryManager.mm in Sources */,
 				F6E2FD901E097BA00083EBEC /* MWMNoMapsViewController.mm in Sources */,
 				34D3B0431E389D05004100F9 /* MWMEditorTextTableViewCell.mm in Sources */,
+				3404163D1E7BDFE000E2B6D6 /* PhotosViewController.swift in Sources */,
 				F6E2FE621E097BA00083EBEC /* MWMBookmarkCell.mm in Sources */,
 				F6E2FEA41E097BA00083EBEC /* MWMPPView.mm in Sources */,
 				849CF69F1DE842290024A8A5 /* MWMStartButton.mm in Sources */,
@@ -5477,6 +5542,7 @@
 				3404756C1E081A4600C92850 /* MWMSearch+CoreSpotlight.mm in Sources */,
 				F6E2FE321E097BA00083EBEC /* MWMStreetEditorViewController.mm in Sources */,
 				F6E2FE411E097BA00083EBEC /* MWMPlacePageEntity.mm in Sources */,
+				340416491E7BF28E00E2B6D6 /* UIView+Snapshot.swift in Sources */,
 				F6E2FE291E097BA00083EBEC /* MWMOpeningHoursSection.mm in Sources */,
 				849CF6D31DE842290024A8A5 /* MWMMapDownloadDialog.mm in Sources */,
 				F6E2FE261E097BA00083EBEC /* MWMOpeningHoursModel.mm in Sources */,
@@ -5544,6 +5610,7 @@
 				F6E2FECB1E097BA00083EBEC /* MWMSearchFilterTransitioning.mm in Sources */,
 				849CF70D1DE842290024A8A5 /* MWMAddPlaceNavigationBar.mm in Sources */,
 				F6E2FE831E097BA00083EBEC /* MWMPlacePageOpeningHoursDayView.mm in Sources */,
+				340416591E7C0D4100E2B6D6 /* PhotosOverlayView.swift in Sources */,
 				F6E2FD6C1E097BA00083EBEC /* MWMMapDownloaderSubplaceTableViewCell.mm in Sources */,
 				849CF70F1DE842290024A8A5 /* MWMNavigationInfoView.mm in Sources */,
 				F6E2FF6A1E097BA00083EBEC /* MWMUnitsController.mm in Sources */,
@@ -5581,12 +5648,14 @@
 				F6E2FEA11E097BA00083EBEC /* MWMPlacePageLayout.mm in Sources */,
 				F6E2FEC51E097BA00083EBEC /* MWMSearchFilterPresentationController.mm in Sources */,
 				F6E2FD871E097BA00083EBEC /* MWMBaseMapDownloaderViewController.mm in Sources */,
+				340416551E7C09C200E2B6D6 /* PhotoScalingImageView.swift in Sources */,
 				F6E2FEE31E097BA00083EBEC /* MWMSearchManager.mm in Sources */,
 				34943BBC1E2626B200B14F84 /* WelcomePageController.swift in Sources */,
 				F6E2FE231E097BA00083EBEC /* MWMOpeningHoursEditorViewController.mm in Sources */,
 				34D3AFE31E376F7E004100F9 /* UITableView+Updates.swift in Sources */,
 				849CF72F1DE842290024A8A5 /* MWMInputValidator.mm in Sources */,
 				349D1ADC1E2E325C004A2006 /* MWMBottomMenuView.mm in Sources */,
+				3404164D1E7BF42E00E2B6D6 /* UIView+Coordinates.swift in Sources */,
 				F6E2FD931E097BA00083EBEC /* MWMBookmarkColorViewController.mm in Sources */,
 				849CF7331DE842290024A8A5 /* MWMInputValidatorFactory.mm in Sources */,
 				F6E2FDA51E097BA00083EBEC /* MWMCuisineEditorViewController.mm in Sources */,
@@ -5595,6 +5664,7 @@
 				34D3B02B1E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.mm in Sources */,
 				849CF7371DE842290024A8A5 /* MWMTaxiCollectionLayout.mm in Sources */,
 				3454D7C61E07F045004AF2AD /* UIButton+Orientation.mm in Sources */,
+				3404165D1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift in Sources */,
 				340475571E081A4600C92850 /* Statistics.mm in Sources */,
 				3486B5091E27A4B50069C126 /* LocalNotificationManager.mm in Sources */,
 				F6E2FEFE1E097BA00083EBEC /* MWMSearchCategoryCell.mm in Sources */,
@@ -5610,6 +5680,7 @@
 				849CF74C1DE842290024A8A5 /* MWMLocationNotFoundAlert.mm in Sources */,
 				F6E2FF041E097BA00083EBEC /* MWMSearchHistoryClearCell.mm in Sources */,
 				340475541E081A4600C92850 /* MWMCustomFacebookEvents.mm in Sources */,
+				340416511E7C086000E2B6D6 /* PhotoViewController.swift in Sources */,
 				3404750A1E08199E00C92850 /* MWMMyTarget.mm in Sources */,
 				849CF7561DE842290024A8A5 /* MWMRoutingDisclaimerAlert.mm in Sources */,
 				849CF7581DE842290024A8A5 /* MWMDownloadTransitMapAlert.mm in Sources */,
@@ -5627,6 +5698,7 @@
 				849CF7631DE842290024A8A5 /* MWMAlert.mm in Sources */,
 				34F5E0D91E3F334700B1C415 /* Types.swift in Sources */,
 				F6E2FF581E097BA00083EBEC /* MWMMobileInternetViewController.mm in Sources */,
+				340416451E7BED3900E2B6D6 /* PhotosTransitionAnimator.swift in Sources */,
 				849CF7651DE842290024A8A5 /* ColorPickerView.mm in Sources */,
 				F6E2FEEC1E097BA00083EBEC /* MWMSearchTextField.mm in Sources */,
 				F6664C141E645A4100E703C2 /* MWMPPReviewCell.mm in Sources */,

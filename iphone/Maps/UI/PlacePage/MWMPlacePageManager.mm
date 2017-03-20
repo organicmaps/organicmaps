@@ -311,20 +311,33 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   [[MapViewController controller] openUrl:self.data.URLToAllReviews];
 }
 
-- (void)showPhotoAtIndex:(NSUInteger)index
+- (void)showPhotoAtIndex:(NSInteger)index
+           referenceView:(UIView *)referenceView
+           referenceViewWhenDismissingHandler:(UIView * (^)(NSInteger))referenceViewWhenDismissingHandler
 {
   logSponsoredEvent(self.data, kPlacePageHotelGallery);
-  auto model = self.data.photos[index];
-  auto galleryVc = [MWMGalleryItemViewController instanceWithModel:model];
-  [[MapViewController controller].navigationController pushViewController:galleryVc animated:YES];
+  auto galleryModel = self.galleryModel;
+  auto initialPhoto = galleryModel.items[index];
+  auto photoVC = [[MWMPhotosViewController alloc] initWithPhotos:galleryModel
+                                                    initialPhoto:initialPhoto
+                                                   referenceView:referenceView];
+  photoVC.referenceViewForPhotoWhenDismissingHandler = ^UIView *(MWMGalleryItemModel * photo) {
+    return referenceViewWhenDismissingHandler([galleryModel.items indexOfObject:photo]);
+  };
+
+  [[MapViewController controller] presentViewController:photoVC animated:YES completion:nil];
 }
 
 - (void)showGalery
 {
   logSponsoredEvent(self.data, kPlacePageHotelGallery);
-  auto galleryVc = [MWMGalleryViewController instanceWithModel:[[MWMGalleryModel alloc]
-                                                                initWithTitle:self.hotelName items:self.data.photos]];
+  auto galleryVc = [MWMGalleryViewController instanceWithModel:self.galleryModel];
   [[MapViewController controller].navigationController pushViewController:galleryVc animated:YES];
+}
+
+- (MWMGalleryModel *)galleryModel
+{
+  return [[MWMGalleryModel alloc] initWithTitle:self.hotelName items:self.data.photos];
 }
 
 - (void)showAllFacilities
