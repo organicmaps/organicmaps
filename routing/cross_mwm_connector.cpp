@@ -8,7 +8,7 @@ uint32_t constexpr kFakeId = std::numeric_limits<uint32_t>::max();
 namespace routing
 {
 // static
-CrossMwmConnector::Weight constexpr CrossMwmConnector::kNoRoute;
+double constexpr CrossMwmConnector::kNoRoute;
 
 void CrossMwmConnector::AddTransition(uint32_t featureId, uint32_t segmentIdx, bool oneWay,
                                       bool forwardIsEnter, m2::PointD const & backPoint,
@@ -112,7 +112,7 @@ std::string DebugPrint(CrossMwmConnector::WeightsLoadState state)
 void CrossMwmConnector::AddEdge(Segment const & segment, Weight weight,
                                 std::vector<SegmentEdge> & edges) const
 {
-  if (weight != kNoRoute)
+  if (weight != static_cast<Weight>(kNoRoute))
     edges.emplace_back(segment, static_cast<double>(weight));
 }
 

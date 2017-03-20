@@ -16,6 +16,8 @@ namespace routing
 class CrossMwmConnector final
 {
 public:
+  static double constexpr kNoRoute = 0.0;
+
   CrossMwmConnector() : m_mwmId(kFakeNumMwmId) {}
   explicit CrossMwmConnector(NumMwmId mwmId) : m_mwmId(mwmId) {}
 
@@ -28,7 +30,20 @@ public:
                    std::vector<SegmentEdge> & edges) const;
 
   std::vector<Segment> const & GetEnters() const { return m_enters; }
-  std::vector<Segment> const & GetExits() const { return m_exits; }
+  std::vector<Segment> const & GetExits() const { return m_exits; }  
+
+  Segment const & GetEnter(size_t i) const
+  {
+    ASSERT_LESS(i, m_enters.size(), ());
+    return m_enters[i];
+  }
+
+  Segment const & GetExit(size_t i) const
+  {
+    ASSERT_LESS(i, m_exits.size(), ());
+    return m_exits[i];
+  }
+
   bool HasWeights() const { return !m_weights.empty(); }
   bool WeightsWereLoaded() const;
 
@@ -55,8 +70,6 @@ private:
   // Weight is the time requred for the route to pass.
   // Weight is measured in seconds rounded upwards.
   using Weight = uint32_t;
-
-  static Weight constexpr kNoRoute = 0;
 
   struct Key
   {

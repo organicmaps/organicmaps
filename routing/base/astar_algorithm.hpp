@@ -61,9 +61,14 @@ public:
 
   using TOnVisitedVertexCallback = std::function<void(TVertexType const &, TVertexType const &)>;
 
-  Result FindPath(TGraphType & graph,
-                  TVertexType const & startVertex, TVertexType const & finalVertex,
-                  RoutingResult<TVertexType> & result,
+  template <typename CheckForStop, typename AdjustEdgeWeight>
+  void PropagateWave(TGraphType & graph, TVertexType const & startVertex,
+                     CheckForStop && checkForStop, AdjustEdgeWeight && adjustEdgeWeight,
+                     map<TVertexType, double> & bestDistance,
+                     map<TVertexType, TVertexType> & parent) const;
+
+  Result FindPath(TGraphType & graph, TVertexType const & startVertex,
+                  TVertexType const & finalVertex, RoutingResult<TVertexType> & result,
                   my::Cancellable const & cancellable = my::Cancellable(),
                   TOnVisitedVertexCallback onVisitedVertexCallback = nullptr) const;
 
@@ -169,6 +174,57 @@ private:
                                            vector<TVertexType> & path);
 };
 
+template <typename TGraph>
+template <typename CheckForStop, typename AdjustEdgeWeight>
+void AStarAlgorithm<TGraph>::PropagateWave(TGraphType & graph, TVertexType const & startVertex,
+                                           CheckForStop && checkForStop,
+                                           AdjustEdgeWeight && adjustEdgeWeight,
+                                           map<TVertexType, double> & bestDistance,
+                                           map<TVertexType, TVertexType> & parent) const
+{
+  bestDistance.clear();
+  parent.clear();
+
+  priority_queue<State, vector<State>, greater<State>> queue;
+
+  bestDistance[startVertex] = 0.0;
+  queue.push(State(startVertex, 0.0));
+
+  vector<TEdgeType> adj;
+
+  while (!queue.empty())
+  {
+    State const stateV = queue.top();
+    queue.pop();
+
+    if (stateV.distance > bestDistance[stateV.vertex])
+      continue;
+
+    if (checkForStop(stateV.vertex))
+      return;
+
+    graph.GetOutgoingEdgesList(stateV.vertex, adj);
+    for (auto const & edge : adj)
+    {
+      State stateW(edge.GetTarget(), 0.0);
+      if (stateV.vertex == stateW.vertex)
+        continue;
+
+      double const edgeWeight = adjustEdgeWeight(stateV.vertex, edge);
+      double const newReducedDist = stateV.distance + edgeWeight;
+
+      auto const t = bestDistance.find(stateW.vertex);
+      if (t != bestDistance.end() && newReducedDist >= t->second - kEpsilon)
+        continue;
+
+      stateW.distance = newReducedDist;
+      bestDistance[stateW.vertex] = newReducedDist;
+      parent[stateW.vertex] = stateV.vertex;
+      queue.push(stateW);
+    }
+  }
+}
+
 // This implementation is based on the view that the A* algorithm
 // is equivalent to Dijkstra's algorithm that is run on a reweighted
 // version of the graph. If an edge (v, w) has length l(v, w), its reduced
@@ -182,77 +238,56 @@ private:
 
 template <typename TGraph>
 typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
-    TGraphType & graph,
-    TVertexType const & startVertex, TVertexType const & finalVertex,
-    RoutingResult<TVertexType> & result,
-    my::Cancellable const & cancellable,
+    TGraphType & graph, TVertexType const & startVertex, TVertexType const & finalVertex,
+    RoutingResult<TVertexType> & result, my::Cancellable const & cancellable,
     TOnVisitedVertexCallback onVisitedVertexCallback) const
 {
   result.Clear();
   if (nullptr == onVisitedVertexCallback)
-    onVisitedVertexCallback = [](TVertexType const &, TVertexType const &){};
+    onVisitedVertexCallback = [](TVertexType const &, TVertexType const &) {};
 
   map<TVertexType, double> bestDistance;
-  priority_queue<State, vector<State>, greater<State>> queue;
   map<TVertexType, TVertexType> parent;
-
-  bestDistance[startVertex] = 0.0;
-  queue.push(State(startVertex, 0.0));
-
-  vector<TEdgeType> adj;
-
   uint32_t steps = 0;
-  while (!queue.empty())
-  {
+  Result resultCode = Result::NoPath;
+
+  auto checkForStop = [&](TVertexType const & vertex) {
     ++steps;
 
     if (steps % kCancelledPollPeriod == 0 && cancellable.IsCancelled())
-      return Result::Cancelled;
-
-    State const stateV = queue.top();
-    queue.pop();
-
-    if (stateV.distance > bestDistance[stateV.vertex])
-      continue;
+    {
+      resultCode = Result::Cancelled;
+      return true;
+    }
 
     if (steps % kVisitedVerticesPeriod == 0)
-      onVisitedVertexCallback(stateV.vertex, finalVertex);
+      onVisitedVertexCallback(vertex, finalVertex);
 
-    if (stateV.vertex == finalVertex)
+    if (vertex == finalVertex)
     {
-      ReconstructPath(stateV.vertex, parent, result.path);
-      result.distance = stateV.distance - graph.HeuristicCostEstimate(stateV.vertex, finalVertex) + graph.HeuristicCostEstimate(startVertex, finalVertex);
-      ASSERT_EQUAL(graph.HeuristicCostEstimate(stateV.vertex, finalVertex), 0, ());
-      return Result::OK;
+      ReconstructPath(vertex, parent, result.path);
+      result.distance = bestDistance[vertex] - graph.HeuristicCostEstimate(vertex, finalVertex) +
+                        graph.HeuristicCostEstimate(startVertex, finalVertex);
+      ASSERT_EQUAL(graph.HeuristicCostEstimate(vertex, finalVertex), 0, ());
+      resultCode = Result::OK;
+      return true;
     }
 
-    graph.GetOutgoingEdgesList(stateV.vertex, adj);
-    for (auto const & edge : adj)
-    {
-      State stateW(edge.GetTarget(), 0.0);
-      if (stateV.vertex == stateW.vertex)
-        continue;
+    return false;
+  };
 
-      double const len = edge.GetWeight();
-      double const piV = graph.HeuristicCostEstimate(stateV.vertex, finalVertex);
-      double const piW = graph.HeuristicCostEstimate(stateW.vertex, finalVertex);
-      double const reducedLen = len + piW - piV;
+  auto adjustEdgeWeight = [&](TVertexType const & vertex, TEdgeType const & edge) {
+    double const len = edge.GetWeight();
+    double const piV = graph.HeuristicCostEstimate(vertex, finalVertex);
+    double const piW = graph.HeuristicCostEstimate(edge.GetTarget(), finalVertex);
+    double const reducedLen = len + piW - piV;
 
-      CHECK(reducedLen >= -kEpsilon, ("Invariant violated:", reducedLen, "<", -kEpsilon));
-      double const newReducedDist = stateV.distance + max(reducedLen, 0.0);
+    CHECK(reducedLen >= -kEpsilon, ("Invariant violated:", reducedLen, "<", -kEpsilon));
+    return max(reducedLen, 0.0);
+  };
 
-      auto const t = bestDistance.find(stateW.vertex);
-      if (t != bestDistance.end() && newReducedDist >= t->second - kEpsilon)
-        continue;
-
-      stateW.distance = newReducedDist;
-      bestDistance[stateW.vertex] = newReducedDist;
-      parent[stateW.vertex] = stateV.vertex;
-      queue.push(stateW);
-    }
-  }
-
-  return Result::NoPath;
+  PropagateWave(graph, startVertex, checkForStop, adjustEdgeWeight, bestDistance, parent);
+  return resultCode;
 }
 
 template <typename TGraph>

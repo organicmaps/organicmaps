@@ -66,6 +66,9 @@ public:
   // mwmId should be alive: it is caller responsibility to check it.
   static unique_ptr<GeometryLoader> Create(Index const & index, MwmSet::MwmId const & mwmId,
                                            shared_ptr<IVehicleModel> vehicleModel);
+
+  static unique_ptr<GeometryLoader> CreateFromFile(string const & fileName,
+                                                   shared_ptr<IVehicleModel> vehicleModel);
 };
 
 class Geometry final
