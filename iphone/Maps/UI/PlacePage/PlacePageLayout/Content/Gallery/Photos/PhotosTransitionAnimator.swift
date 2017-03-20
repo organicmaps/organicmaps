@@ -1,7 +1,7 @@
 import UIKit
 
 final class PhotosTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
-  private struct Const {
+  private enum Settings {
     static let animationDurationWithZooming = 2 * kDefaultAnimationDuration
     static let animationDurationWithoutZooming = kDefaultAnimationDuration
     static let animationDurationEndingViewFadeInRatio = 0.1
@@ -28,12 +28,12 @@ final class PhotosTransitionAnimator: NSObject, UIViewControllerAnimatedTransiti
   }
 
   func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-    return shouldPerformZoomingAnimation ? Const.animationDurationWithZooming : Const.animationDurationWithoutZooming
+    return shouldPerformZoomingAnimation ? Settings.animationDurationWithZooming : Settings.animationDurationWithoutZooming
   }
 
   private func fadeDurationForTransitionContext(_ transitionContext: UIViewControllerContextTransitioning) -> TimeInterval {
     let transDuration = transitionDuration(using: transitionContext)
-    return shouldPerformZoomingAnimation ? transDuration * Const.animationDurationFadeRatio : transDuration
+    return shouldPerformZoomingAnimation ? transDuration * Settings.animationDurationFadeRatio : transDuration
   }
 
   private func setupTransitionContainerHierarchyWithTransitionContext(_ transitionContext: UIViewControllerContextTransitioning) {
@@ -81,8 +81,8 @@ final class PhotosTransitionAnimator: NSObject, UIViewControllerAnimatedTransiti
     startingView.alpha = 0.0
 
     let transDuration = transitionDuration(using: transitionContext)
-    let fadeInDuration = transDuration * Const.animationDurationEndingViewFadeInRatio
-    let fadeOutDuration = transDuration * Const.animationDurationStartingViewFadeOutRatio
+    let fadeInDuration = transDuration * Settings.animationDurationEndingViewFadeInRatio
+    let fadeOutDuration = transDuration * Settings.animationDurationStartingViewFadeOutRatio
 
     UIView.animate(withDuration: fadeInDuration,
                    delay: 0.0,
@@ -101,7 +101,7 @@ final class PhotosTransitionAnimator: NSObject, UIViewControllerAnimatedTransiti
 
     UIView.animate(withDuration: transDuration,
                    delay: 0.0,
-                   usingSpringWithDamping:Const.zoomingAnimationSpringDamping,
+                   usingSpringWithDamping:Settings.zoomingAnimationSpringDamping,
                    initialSpringVelocity:0,
                    options: [.allowAnimatedContent,.beginFromCurrentState],
                    animations: { () -> Void in

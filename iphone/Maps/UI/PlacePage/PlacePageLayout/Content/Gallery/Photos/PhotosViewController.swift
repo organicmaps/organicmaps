@@ -34,7 +34,7 @@ final class PhotosViewController: MWMViewController {
     super.init(nibName: nil, bundle: nil)
     initialSetupWithInitialPhoto(initialPhoto)
     transitionAnimator.startingView = referenceView
-    transitionAnimator.endingView = currentPhotoViewController?.scalingImageView.imageView
+    transitionAnimator.endingView = currentPhotoViewController?.scalingView.imageView
   }
   
   required init?(coder aDecoder: NSCoder) {
@@ -111,7 +111,7 @@ final class PhotosViewController: MWMViewController {
       super.dismiss(animated: flag, completion: completion)
       return
     }
-    transitionAnimator.startingView = currentPhotoViewController?.scalingImageView.imageView
+    transitionAnimator.startingView = currentPhotoViewController?.scalingView.imageView
     if let currentPhoto = currentPhoto {
       transitionAnimator.endingView = referenceViewForPhotoWhenDismissingHandler?(currentPhoto)
     } else {

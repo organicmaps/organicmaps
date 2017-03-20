@@ -1,7 +1,7 @@
 import UIKit
 
 final class PhotoViewController: UIViewController {
-  let scalingImageView = PhotoScalingImageView()
+  let scalingView = PhotoScalingView()
 
   let photo: GalleryItemModel
 
@@ -23,45 +23,45 @@ final class PhotoViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    scalingImageView.delegate = self
-    scalingImageView.frame = view.bounds
-    scalingImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    view.addSubview(scalingImageView)
+    scalingView.delegate = self
+    scalingView.frame = view.bounds
+    scalingView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    view.addSubview(scalingView)
 
     view.addGestureRecognizer(doubleTapGestureRecognizer)
 
-    scalingImageView.photo = photo
+    scalingView.photo = photo
   }
 
   override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
-    scalingImageView.frame = view.bounds
+    scalingView.frame = view.bounds
   }
 
   @objc
   private func handleDoubleTapWithGestureRecognizer(_ recognizer: UITapGestureRecognizer) {
-    let pointInView = recognizer.location(in: scalingImageView.imageView)
-    var newZoomScale = scalingImageView.maximumZoomScale
+    let pointInView = recognizer.location(in: scalingView.imageView)
+    var newZoomScale = scalingView.maximumZoomScale
 
-    if scalingImageView.zoomScale >= scalingImageView.maximumZoomScale ||
-       abs(scalingImageView.zoomScale - scalingImageView.maximumZoomScale) <= 0.01 {
-      newZoomScale = scalingImageView.minimumZoomScale
+    if scalingView.zoomScale >= scalingView.maximumZoomScale ||
+       abs(scalingView.zoomScale - scalingView.maximumZoomScale) <= 0.01 {
+      newZoomScale = scalingView.minimumZoomScale
     }
 
-    let scrollViewSize = scalingImageView.bounds.size
+    let scrollViewSize = scalingView.bounds.size
     let width = scrollViewSize.width / newZoomScale
     let height = scrollViewSize.height / newZoomScale
     let originX = pointInView.x - (width / 2.0)
     let originY = pointInView.y - (height / 2.0)
 
     let rectToZoom = CGRect(x: originX, y: originY, width: width, height: height)
-    scalingImageView.zoom(to: rectToZoom, animated: true)
+    scalingView.zoom(to: rectToZoom, animated: true)
   }
 }
 
 extension PhotoViewController: UIScrollViewDelegate {
   func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-    return scalingImageView.imageView
+    return scalingView.imageView
   }
 
   func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {

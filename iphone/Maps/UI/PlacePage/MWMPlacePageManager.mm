@@ -313,10 +313,10 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 
 - (void)showPhotoAtIndex:(NSInteger)index
            referenceView:(UIView *)referenceView
-           referenceViewWhenDismissingHandler:(UIView * (^)(NSInteger))referenceViewWhenDismissingHandler
+           referenceViewWhenDismissingHandler:(MWMPlacePageButtonsDismissBlock)referenceViewWhenDismissingHandler
 {
   logSponsoredEvent(self.data, kPlacePageHotelGallery);
-  auto galleryModel = self.galleryModel;
+  auto galleryModel = [[MWMGalleryModel alloc] initWithTitle:self.hotelName items:self.data.photos];
   auto initialPhoto = galleryModel.items[index];
   auto photoVC = [[MWMPhotosViewController alloc] initWithPhotos:galleryModel
                                                     initialPhoto:initialPhoto
@@ -331,13 +331,9 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 - (void)showGalery
 {
   logSponsoredEvent(self.data, kPlacePageHotelGallery);
-  auto galleryVc = [MWMGalleryViewController instanceWithModel:self.galleryModel];
+  auto galleryModel = [[MWMGalleryModel alloc] initWithTitle:self.hotelName items:self.data.photos];
+  auto galleryVc = [MWMGalleryViewController instanceWithModel:galleryModel];
   [[MapViewController controller].navigationController pushViewController:galleryVc animated:YES];
-}
-
-- (MWMGalleryModel *)galleryModel
-{
-  return [[MWMGalleryModel alloc] initWithTitle:self.hotelName items:self.data.photos];
 }
 
 - (void)showAllFacilities

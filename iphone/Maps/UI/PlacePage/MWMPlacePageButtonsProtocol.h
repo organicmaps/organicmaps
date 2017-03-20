@@ -1,3 +1,5 @@
+typedef UIView * (^MWMPlacePageButtonsDismissBlock)(NSInteger);
+
 @protocol MWMPlacePageButtonsProtocol<NSObject>
 
 - (void)editPlace;
@@ -10,7 +12,7 @@
 - (void)showAllFacilities;
 - (void)showPhotoAtIndex:(NSInteger)index
            referenceView:(UIView *)referenceView
-           referenceViewWhenDismissingHandler:(UIView * (^)(NSInteger))referenceViewWhenDismissingHandler;
+           referenceViewWhenDismissingHandler:(MWMPlacePageButtonsDismissBlock)referenceViewWhenDismissingHandler;
 - (void)showGalery;
 
 @end

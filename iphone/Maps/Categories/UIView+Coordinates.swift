@@ -2,7 +2,7 @@ import UIKit
 
 extension UIView {
   func center(inContainerView containerView: UIView) -> CGPoint {
-    guard let sv = superview else { return CGPoint.zero }
+    guard let sv = superview else { return .zero }
     var centerPoint = center
 
     if let scrollView = sv as? UIScrollView , scrollView.zoomScale != 1.0 {

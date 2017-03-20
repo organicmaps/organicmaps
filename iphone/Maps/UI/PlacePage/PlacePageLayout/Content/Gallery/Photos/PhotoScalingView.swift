@@ -1,8 +1,8 @@
 import AlamofireImage
 import UIKit
 
-final class PhotoScalingImageView: UIScrollView {
-  lazy var imageView: UIImageView = {
+final class PhotoScalingView: UIScrollView {
+  private(set) lazy var imageView: UIImageView = {
     let imageView = UIImageView(frame: self.bounds)
     self.addSubview(imageView)
     return imageView

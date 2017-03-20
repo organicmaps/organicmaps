@@ -1,7 +1,7 @@
 import UIKit
 
 final class PhotosInteractionAnimator: NSObject {
-  struct Const {
+  private enum Settings {
     static let returnToCenterVelocityAnimationRatio: CGFloat = 0.00007
     static let panDismissDistanceRatio: CGFloat = 0.075
     static let panDismissMaximumDuration: TimeInterval = 0.45
@@ -26,16 +26,14 @@ final class PhotosInteractionAnimator: NSObject {
     let backgroundAlpha = backgroundAlphaForPanningWithVerticalDelta(verticalDelta)
     fromView.backgroundColor = fromView.backgroundColor?.withAlphaComponent(backgroundAlpha)
 
-    if gestureRecognizer.state == .ended {
-      finishPanWithPanGestureRecognizer(gestureRecognizer, verticalDelta: verticalDelta,viewToPan: viewToPan, anchorPoint: anchorPoint)
+    if gestureRecognizer.state == .ended, let transitionContext = transitionContext, let fromView = transitionContext.view(forKey: UITransitionContextViewKey.from) {
+      let velocityY = gestureRecognizer.velocity(in: gestureRecognizer.view).y
+      finishPanWith(transitionContext: transitionContext, velocityY: velocityY, verticalDelta: verticalDelta, viewToPan: viewToPan, fromView: fromView, anchorPoint: anchorPoint)
     }
   }
 
-  private func finishPanWithPanGestureRecognizer(_ gestureRecognizer: UIPanGestureRecognizer, verticalDelta: CGFloat, viewToPan: UIView, anchorPoint: CGPoint) {
-    guard let transitionContext = transitionContext, let fromView = transitionContext.view(forKey: UITransitionContextViewKey.from) else {
-      return
-    }
-    let dismissDistance = Const.panDismissDistanceRatio * fromView.bounds.height
+  private func finishPanWith(transitionContext: UIViewControllerContextTransitioning, velocityY: CGFloat, verticalDelta: CGFloat, viewToPan: UIView, fromView: UIView, anchorPoint: CGPoint) {
+    let dismissDistance = Settings.panDismissDistanceRatio * fromView.bounds.height
     let isDismissing = abs(verticalDelta) > dismissDistance
 
     if isDismissing, shouldAnimateUsingAnimator, let animator = animator {
@@ -43,8 +41,6 @@ final class PhotosInteractionAnimator: NSObject {
       self.transitionContext = nil
       return
     }
-
-    let velocityY = gestureRecognizer.velocity(in: gestureRecognizer.view).y
 
     let finalPageViewCenterPoint: CGPoint
     let animationDuration: TimeInterval
@@ -56,11 +52,11 @@ final class PhotosInteractionAnimator: NSObject {
       finalPageViewCenterPoint = CGPoint(x: fromView.center.x, y: finalCenterY)
 
       let duration = TimeInterval(abs(finalPageViewCenterPoint.y - viewToPan.center.y) / abs(velocityY))
-      animationDuration = min(duration, Const.panDismissMaximumDuration)
+      animationDuration = min(duration, Settings.panDismissMaximumDuration)
       finalBackgroundAlpha = 0.0
     } else {
       finalPageViewCenterPoint = anchorPoint
-      animationDuration = TimeInterval(abs(velocityY) * Const.returnToCenterVelocityAnimationRatio) + kDefaultAnimationDuration
+      animationDuration = TimeInterval(abs(velocityY) * Settings.returnToCenterVelocityAnimationRatio) + kDefaultAnimationDuration
       finalBackgroundAlpha = 1.0
     }
     let finalBackgroundColor = fromView.backgroundColor?.withAlphaComponent(finalBackgroundAlpha)

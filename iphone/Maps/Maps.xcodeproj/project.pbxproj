@@ -24,9 +24,9 @@
 		3404164F1E7C085F00E2B6D6 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404164E1E7C085F00E2B6D6 /* PhotoViewController.swift */; };
 		340416501E7C086000E2B6D6 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404164E1E7C085F00E2B6D6 /* PhotoViewController.swift */; };
 		340416511E7C086000E2B6D6 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404164E1E7C085F00E2B6D6 /* PhotoViewController.swift */; };
-		340416531E7C09C200E2B6D6 /* PhotoScalingImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340416521E7C09C200E2B6D6 /* PhotoScalingImageView.swift */; };
-		340416541E7C09C200E2B6D6 /* PhotoScalingImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340416521E7C09C200E2B6D6 /* PhotoScalingImageView.swift */; };
-		340416551E7C09C200E2B6D6 /* PhotoScalingImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340416521E7C09C200E2B6D6 /* PhotoScalingImageView.swift */; };
+		340416531E7C09C200E2B6D6 /* PhotoScalingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340416521E7C09C200E2B6D6 /* PhotoScalingView.swift */; };
+		340416541E7C09C200E2B6D6 /* PhotoScalingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340416521E7C09C200E2B6D6 /* PhotoScalingView.swift */; };
+		340416551E7C09C200E2B6D6 /* PhotoScalingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340416521E7C09C200E2B6D6 /* PhotoScalingView.swift */; };
 		340416571E7C0D4100E2B6D6 /* PhotosOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340416561E7C0D4100E2B6D6 /* PhotosOverlayView.swift */; };
 		340416581E7C0D4100E2B6D6 /* PhotosOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340416561E7C0D4100E2B6D6 /* PhotosOverlayView.swift */; };
 		340416591E7C0D4100E2B6D6 /* PhotosOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340416561E7C0D4100E2B6D6 /* PhotosOverlayView.swift */; };
@@ -1479,7 +1479,7 @@
 		340416461E7BF28E00E2B6D6 /* UIView+Snapshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Snapshot.swift"; sourceTree = "<group>"; };
 		3404164A1E7BF42D00E2B6D6 /* UIView+Coordinates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Coordinates.swift"; sourceTree = "<group>"; };
 		3404164E1E7C085F00E2B6D6 /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
-		340416521E7C09C200E2B6D6 /* PhotoScalingImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoScalingImageView.swift; sourceTree = "<group>"; };
+		340416521E7C09C200E2B6D6 /* PhotoScalingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoScalingView.swift; sourceTree = "<group>"; };
 		340416561E7C0D4100E2B6D6 /* PhotosOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosOverlayView.swift; sourceTree = "<group>"; };
 		3404165A1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosInteractionAnimator.swift; sourceTree = "<group>"; };
 		340474DC1E08199D00C92850 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
@@ -2539,7 +2539,7 @@
 		340416391E7BDFB800E2B6D6 /* Photos */ = {
 			isa = PBXGroup;
 			children = (
-				340416521E7C09C200E2B6D6 /* PhotoScalingImageView.swift */,
+				340416521E7C09C200E2B6D6 /* PhotoScalingView.swift */,
 				3404165A1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift */,
 				340416561E7C0D4100E2B6D6 /* PhotosOverlayView.swift */,
 				340416421E7BED3900E2B6D6 /* PhotosTransitionAnimator.swift */,
@@ -5088,7 +5088,7 @@
 				F6E2FE9F1E097BA00083EBEC /* MWMPlacePageLayout.mm in Sources */,
 				F6E2FEC31E097BA00083EBEC /* MWMSearchFilterPresentationController.mm in Sources */,
 				340475731E081A4600C92850 /* MWMStorage.mm in Sources */,
-				340416531E7C09C200E2B6D6 /* PhotoScalingImageView.swift in Sources */,
+				340416531E7C09C200E2B6D6 /* PhotoScalingView.swift in Sources */,
 				F6E2FD851E097BA00083EBEC /* MWMBaseMapDownloaderViewController.mm in Sources */,
 				34ABA6241C2D551900FE1BEC /* MWMInputValidatorFactory.mm in Sources */,
 				34943BBA1E2626B200B14F84 /* WelcomePageController.swift in Sources */,
@@ -5368,7 +5368,7 @@
 				F6E2FF301E097BA00083EBEC /* MWMSearchCommonCell.mm in Sources */,
 				F6E2FEA01E097BA00083EBEC /* MWMPlacePageLayout.mm in Sources */,
 				F6E2FEC41E097BA00083EBEC /* MWMSearchFilterPresentationController.mm in Sources */,
-				340416541E7C09C200E2B6D6 /* PhotoScalingImageView.swift in Sources */,
+				340416541E7C09C200E2B6D6 /* PhotoScalingView.swift in Sources */,
 				34ABA6251C2D551900FE1BEC /* MWMInputValidatorFactory.mm in Sources */,
 				F6E2FD861E097BA00083EBEC /* MWMBaseMapDownloaderViewController.mm in Sources */,
 				F6E2FEE21E097BA00083EBEC /* MWMSearchManager.mm in Sources */,
@@ -5648,7 +5648,7 @@
 				F6E2FEA11E097BA00083EBEC /* MWMPlacePageLayout.mm in Sources */,
 				F6E2FEC51E097BA00083EBEC /* MWMSearchFilterPresentationController.mm in Sources */,
 				F6E2FD871E097BA00083EBEC /* MWMBaseMapDownloaderViewController.mm in Sources */,
-				340416551E7C09C200E2B6D6 /* PhotoScalingImageView.swift in Sources */,
+				340416551E7C09C200E2B6D6 /* PhotoScalingView.swift in Sources */,
 				F6E2FEE31E097BA00083EBEC /* MWMSearchManager.mm in Sources */,
 				34943BBC1E2626B200B14F84 /* WelcomePageController.swift in Sources */,
 				F6E2FE231E097BA00083EBEC /* MWMOpeningHoursEditorViewController.mm in Sources */,
