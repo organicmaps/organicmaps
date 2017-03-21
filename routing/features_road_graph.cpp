@@ -114,7 +114,7 @@ FeaturesRoadGraph::FeaturesRoadGraph(Index const & index, IRoadGraph::Mode mode,
 {
 }
 
-uint32_t FeaturesRoadGraph::GetStreetReadScale() { return scales::GetUpperScale(); }
+int FeaturesRoadGraph::GetStreetReadScale() { return scales::GetUpperScale(); }
 
 class CrossFeaturesLoader
 {

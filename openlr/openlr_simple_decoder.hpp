@@ -38,7 +38,7 @@ public:
   OpenLRSimpleDecoder(std::string const & dataFilename, std::vector<Index> const & indexes);
 
   void Decode(std::string const & outputFilename, int segmentsToHandle,
-              SegmentsFilter const & filter, int numThreads);
+              SegmentsFilter const & filter, uint32_t numThreads);
 
 private:
   std::vector<Index> const & m_indexes;

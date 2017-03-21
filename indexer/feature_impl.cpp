@@ -38,7 +38,7 @@ bool IsStreetNumber(strings::UniString const & s)
       bool flag = false;
       for (size_t j = 0; j < streetEndings[i].size(); ++j)
       {
-        if (streetEndings[i][j] != s[start + j])
+        if (streetEndings[i][j] != static_cast<char>(s[start + j]))
         {
           flag = true;
           break;

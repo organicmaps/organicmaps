@@ -115,8 +115,9 @@ UNIT_TEST(CategoriesHolder_Smoke)
   for (size_t i = 0; i < mappings.size(); ++i)
   {
     auto const & mapping  = mappings[i];
-    TEST_EQUAL(i + 1, mapping.m_code, ());
-    TEST_EQUAL(i + 1, CategoriesHolder::MapLocaleToInteger(mapping.m_name), ());
+    TEST_EQUAL(static_cast<int8_t>(i + 1), mapping.m_code, ());
+    TEST_EQUAL(static_cast<int8_t>(i + 1),
+               CategoriesHolder::MapLocaleToInteger(mapping.m_name), ());
     TEST_EQUAL(CategoriesHolder::MapIntegerToLocale(i + 1), mapping.m_name, ());
   }
 }

@@ -17,7 +17,7 @@ class ScaleIndexBase
 {
 public:
   static uint32_t GetBucketsCount() { return 18; }
-  static uint32_t BucketByScale(uint32_t scale) { return scale; }
+  static uint32_t BucketByScale(int scale) { return static_cast<uint32_t>(scale); }
   /// @return Range like [x, y).
   static pair<uint32_t, uint32_t> ScaleRangeForBucket(uint32_t bucket)
   {
@@ -58,9 +58,9 @@ public:
   }
 
   template <typename F>
-  void ForEachInIntervalAndScale(F const & f, uint64_t beg, uint64_t end, uint32_t scale) const
+  void ForEachInIntervalAndScale(F const & f, uint64_t beg, uint64_t end, int scale) const
   {
-    size_t const scaleBucket = BucketByScale(scale);
+    auto const scaleBucket = BucketByScale(scale);
     if (scaleBucket < m_IndexForScale.size())
     {
       IntervalIndexIFace::FunctionT f1(cref(f));

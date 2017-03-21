@@ -21,8 +21,8 @@ public:
   DECLARE_EXCEPTION(CreateDirException, Exception);
 
   virtual ~Writer() {}
-  virtual void Seek(int64_t pos) = 0;
-  virtual int64_t Pos() const = 0;
+  virtual void Seek(uint64_t pos) = 0;
+  virtual uint64_t Pos() const = 0;
   virtual void Write(void const * p, size_t size) = 0;
 };
 
@@ -35,14 +35,14 @@ public:
     static_assert(sizeof(typename ContainerT::value_type) == 1, "");
   }
 
-  inline void Seek(int64_t pos)
+  inline void Seek(uint64_t pos)
   {
-    ASSERT_EQUAL(pos, static_cast<intptr_t>(pos), ());
+    ASSERT_EQUAL(pos, static_cast<uintptr_t>(pos), ());
     ASSERT_GREATER_OR_EQUAL(pos, 0, ());
-    m_Pos = static_cast<intptr_t>(pos);
+    m_Pos = static_cast<uintptr_t>(pos);
   }
 
-  inline int64_t Pos() const
+  inline uint64_t Pos() const
   {
     return m_Pos;
   }
@@ -69,7 +69,7 @@ public:
 
 private:
   ContainerT & m_Data;
-  size_t m_Pos;
+  uint64_t m_Pos;
 };
 
 // Original writer should not be used when SubWriter is active!
@@ -93,7 +93,7 @@ public:
       Seek(m_maxPos);
   }
 
-  inline void Seek(int64_t pos)
+  inline void Seek(uint64_t pos)
   {
     ASSERT_EQUAL(m_offset, GetOffset(), ());
     m_writer.Seek(GetOffset() + pos);
@@ -102,7 +102,7 @@ public:
     m_maxPos = max(m_maxPos, m_pos);
   }
 
-  inline int64_t Pos() const
+  inline uint64_t Pos() const
   {
     ASSERT_EQUAL(m_offset, GetOffset(), ());
     return m_pos;
@@ -120,14 +120,14 @@ public:
   inline uint64_t Size() const { return m_maxPos; }
 
 private:
-  inline int64_t GetOffset() const { return m_writer.Pos() - m_pos; }
+  inline uint64_t GetOffset() const { return m_writer.Pos() - m_pos; }
 
 private:
   WriterT & m_writer;
-  int64_t m_pos;
-  int64_t m_maxPos;
+  uint64_t m_pos;
+  uint64_t m_maxPos;
 #ifdef DEBUG
-  int64_t const m_offset;
+  uint64_t const m_offset;
 #endif
 };
 
@@ -137,12 +137,12 @@ class WriterPtr
 public:
   WriterPtr(WriterT * p = 0) : m_p(p) {}
 
-  void Seek(int64_t pos)
+  void Seek(uint64_t pos)
   {
     m_p->Seek(pos);
   }
 
-  int64_t Pos() const
+  uint64_t Pos() const
   {
     return m_p->Pos();
   }
@@ -172,5 +172,5 @@ public:
 
 private:
   WriterT & m_writer;
-  int64_t m_pos;
+  uint64_t m_pos;
 };

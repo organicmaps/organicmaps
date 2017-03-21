@@ -237,7 +237,7 @@ inline int segment(std::vector<point_base<T> > const & v, double length, double 
   if (v.size() < 2)
     return -1;
 
-  int segment_num = 0;
+  size_t segment_num = 0;
   double segment_length = ml::distance(v[segment_num], v[segment_num + 1]);
   while ((length - segment_length >= 0) && (segment_num < v.size() - 1))
   {
@@ -247,7 +247,7 @@ inline int segment(std::vector<point_base<T> > const & v, double length, double 
   }
   if (out_length)
     *out_length = length;
-  return segment_num;
+  return static_cast<int>(segment_num);
 }
 
 template <typename T>

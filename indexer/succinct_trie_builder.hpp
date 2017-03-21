@@ -166,7 +166,7 @@ void BuildSuccinctTrie(TWriter & writer, TIter const beg, TIter const end)
     if (!node->m_isFinal)
       continue;
     finalNodeIds.push_back(static_cast<uint32_t>(i));
-    offsetTable.push_back(valueWriter.Pos());
+    offsetTable.push_back(static_cast<uint32_t>(valueWriter.Pos()));
     node->m_valueList.Dump(valueWriter);
   }
 

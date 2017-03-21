@@ -384,7 +384,7 @@ public:
     size_t const n = end - beg;
     if (m_size + n <= N)
     {
-      if (pos != m_size)
+      if (static_cast<size_t>(pos) != m_size)
         for (ptrdiff_t i = m_size - 1; i >= pos; --i)
           Swap(m_static[i], m_static[i + n]);
 

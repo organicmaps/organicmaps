@@ -267,7 +267,7 @@ int main(int argc, char ** argv)
     for (size_t ftIndex = 0; ftIndex < loader.GetNumFeatures(); ftIndex++)
     {
       FeatureType ft;
-      if (loader.GetFeatureByIndex(ftIndex, ft))
+      if (loader.GetFeatureByIndex(static_cast<uint32_t>(ftIndex), ft))
         doProcess.Process(ft);
     }
     doProcess.ClearCache();

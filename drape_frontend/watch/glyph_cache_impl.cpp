@@ -282,8 +282,11 @@ void GlyphCacheImpl::addFont(char const * fileName)
         }
     }
 
-    if ((ubIt->m_coverage.back() >= 0) && (ubIt->m_coverage.back() < ubIt->m_end + 1 - ubIt->m_start))
+    if ((ubIt->m_coverage.back() >= 0) &&
+        (static_cast<strings::UniChar>(ubIt->m_coverage.back()) < ubIt->m_end + 1 - ubIt->m_start))
+    {
       ++ubIt->m_coverage.back();
+    }
     ++ccIt;
   }
 

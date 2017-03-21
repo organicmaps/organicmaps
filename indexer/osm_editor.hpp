@@ -107,12 +107,12 @@ public:
   void ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
                                        TFeatureIDFunctor const & f,
                                        m2::RectD const & rect,
-                                       uint32_t scale);
+                                       int scale);
   using TFeatureTypeFunctor = function<void(FeatureType &)>;
   void ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
                                        TFeatureTypeFunctor const & f,
                                        m2::RectD const & rect,
-                                       uint32_t scale);
+                                       int scale);
 
   // TODO(mgsergio): Unify feature functions signatures.
 

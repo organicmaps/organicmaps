@@ -92,7 +92,7 @@ public:
       return;
     }
 
-    uint32_t const population = ftypes::GetPopulation(ft);
+    auto const population = ftypes::GetPopulation(ft);
     if (population == 0)
       return;
 
@@ -118,7 +118,7 @@ private:
 }  // namespace
 
 // LocalityItem ------------------------------------------------------------------------------------
-LocalityItem::LocalityItem(string const & name, m2::PointD const & center, uint32_t population)
+LocalityItem::LocalityItem(string const & name, m2::PointD const & center, uint64_t population)
   : m_name(name), m_center(center), m_population(population)
 {
 }

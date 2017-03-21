@@ -59,7 +59,7 @@ void SetUpTimeTable(osmoh::TTimespans spans, editor::ui::TimeTable & tt)
 
   // Add an end of a span of index i and start of following span
   // as exclude time.
-  for (auto i = 0; i + 1 < spans.size(); ++i)
+  for (size_t i = 0; i + 1 < spans.size(); ++i)
     tt.AddExcludeTime({spans[i].GetEnd(), spans[i + 1].GetStart()});
 }
 
@@ -156,7 +156,7 @@ osmoh::TTimespans MakeTimespans(editor::ui::TimeTable const & tt)
 
   osmoh::TTimespans spans{{tt.GetOpeningTime().GetStart(), excludeTime[0].GetStart()}};
 
-  for (auto i = 0; i + 1 < excludeTime.size(); ++i)
+  for (size_t i = 0; i + 1 < excludeTime.size(); ++i)
     spans.emplace_back(excludeTime[i].GetEnd(), excludeTime[i + 1].GetStart());
 
   spans.emplace_back(excludeTime.back().GetEnd(), tt.GetOpeningTime().GetEnd());

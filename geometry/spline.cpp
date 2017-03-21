@@ -181,7 +181,7 @@ double Spline::iterator::GetDistance() const
   return m_dist;
 }
 
-int Spline::iterator::GetIndex() const
+size_t Spline::iterator::GetIndex() const
 {
   return m_index;
 }
@@ -191,16 +191,18 @@ void Spline::iterator::AdvanceBackward(double step)
   m_dist += step;
   while(m_dist < 0.0f)
   {
-    m_index--;
-    if (m_index < 0)
+    if (m_index == 0)
     {
-      m_index = 0;
       m_checker = true;
       m_pos = m_spl->m_position[m_index];
       m_dir = m_spl->m_direction[m_index];
       m_avrDir = m2::PointD::Zero();
       m_dist = 0.0;
       return;
+    }
+    else
+    {
+      --m_index;
     }
 
     m_dist += m_spl->m_length[m_index];

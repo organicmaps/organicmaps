@@ -31,7 +31,7 @@ public:
   void UpdateStream(uint8_t streamIndex, ref_ptr<void> data);
 
 private:
-  int32_t m_vertexCount;
+  uint32_t m_vertexCount;
 
   struct AttributeStream
   {

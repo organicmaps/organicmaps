@@ -182,7 +182,7 @@ public:
 
   static IsHotelChecker const & Instance();
 
-  static char const * const GetHotelTypeTag(Type type);
+  static char const * GetHotelTypeTag(Type type);
 
   unsigned GetHotelTypesMask(FeatureType const & ft) const;
 
@@ -245,8 +245,8 @@ public:
 /// @param r Radius in meters.
 //@{
 uint64_t GetPopulation(FeatureType const & ft);
-double GetRadiusByPopulation(uint32_t p);
-uint32_t GetPopulationByRadius(double r);
+double GetRadiusByPopulation(uint64_t p);
+uint64_t GetPopulationByRadius(double r);
 //@}
 
 /// Check if type conforms the path. Strings in the path can be

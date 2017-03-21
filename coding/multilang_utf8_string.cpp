@@ -56,14 +56,14 @@ int8_t StringUtf8Multilang::GetLangIndex(string const & lang)
 // static
 char const * StringUtf8Multilang::GetLangByCode(int8_t langCode)
 {
-  if (langCode < 0 || langCode > g_languages.size() - 1)
+  if (langCode < 0 || langCode > static_cast<int8_t>(g_languages.size()) - 1)
     return "";
   return g_languages[langCode].m_code;
 }
 // static
 char const * StringUtf8Multilang::GetLangNameByCode(int8_t langCode)
 {
-  if (langCode < 0 || langCode > g_languages.size() - 1)
+  if (langCode < 0 || langCode > static_cast<int8_t>(g_languages.size()) - 1)
     return "";
   return g_languages[langCode].m_name;
 }

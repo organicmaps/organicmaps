@@ -31,8 +31,8 @@ public:
                       Op operation = OP_WRITE_TRUNCATE, bool bTruncOnClose = false);
   ~FileWriter();
 
-  void Seek(int64_t pos);
-  int64_t Pos() const;
+  void Seek(uint64_t pos);
+  uint64_t Pos() const;
   void Write(void const * p, size_t size);
 
   void WritePaddingByEnd(size_t factor);

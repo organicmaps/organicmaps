@@ -190,16 +190,6 @@ banners::Banner Info::GetBanner() const
   return {Banner::Type::None, ""};
 }
 
-/// Deprecated, there was not only removed in order not to break the build.
-/// Should be removed in nearest time.
-///////////////////////////////////////////////////////////////////////////////
-string Info::GetBannerTitleId() const { return {}; }
-string Info::GetBannerMessageId() const { return {}; }
-string Info::GetBannerIconId() const { return {}; }
-string Info::GetBannerUrl() const { return {}; }
-string Info::GetBannerId() const { return {}; }
-///////////////////////////////////////////////////////////////////////////////
-
 bool Info::IsReachableByTaxi() const
 {
   return IsReachableByTaxiChecker::Instance()(m_types);

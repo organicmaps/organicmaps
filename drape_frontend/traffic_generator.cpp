@@ -26,28 +26,28 @@ namespace
 
 // Values of the following arrays are based on traffic-arrow texture.
 static array<float, static_cast<size_t>(traffic::SpeedGroup::Count)> kCoordVOffsets =
-{
-  0.75f, // G0
-  0.75f, // G1
-  0.75f, // G2
-  0.5f, // G3
-  0.25f, // G4
-  0.0f, // G5
-  0.75f, // TempBlock
-  0.0f, // Unknown
-};
+{{
+  0.75f,  // G0
+  0.75f,  // G1
+  0.75f,  // G2
+  0.5f,   // G3
+  0.25f,  // G4
+  0.0f,   // G5
+  0.75f,  // TempBlock
+  0.0f,   // Unknown
+}};
 
 static array<float, static_cast<size_t>(traffic::SpeedGroup::Count)> kMinCoordU =
-{
-  0.15f, // G0
-  0.15f, // G1
-  0.15f, // G2
-  0.33f, // G3
-  0.5f, // G4
-  0.0f, // G5
-  0.15f, // TempBlock
-  0.0f, // Unknown
-};
+{{
+  0.15f,  // G0
+  0.15f,  // G1
+  0.15f,  // G2
+  0.33f,  // G3
+  0.5f,   // G4
+  0.0f,   // G5
+  0.15f,  // TempBlock
+  0.0f,   // Unknown
+}};
 
 dp::BindingInfo const & GetTrafficStaticBindingInfo()
 {
@@ -90,7 +90,7 @@ void GenerateCapTriangles(glsl::vec3 const & pivot, vector<glsl::vec2> const & n
   float const kEps = 1e-5;
   glsl::vec4 const uv = glsl::vec4(glsl::ToVec2(colorRegion.GetTexRect().Center()), 0.0f, 0.0f);
   size_t const trianglesCount = normals.size() / 3;
-  for (int j = 0; j < trianglesCount; j++)
+  for (size_t j = 0; j < trianglesCount; j++)
   {
     SubmitStaticVertex(pivot, normals[3 * j],
                        glsl::length(normals[3 * j]) < kEps ? 0.0f : 1.0f, 0.0f, uv, staticGeometry);

@@ -289,7 +289,7 @@ UNIT_TEST(FilesMappingContainer_Smoke)
   {
     FilesContainerW writer(fName);
 
-    for (size_t i = 0; i < ARRAY_SIZE(key); ++i)
+    for (uint32_t i = 0; i < ARRAY_SIZE(key); ++i)
     {
       FileWriter w = writer.GetWriter(key[i]);
       for (uint32_t j = 0; j < count; ++j)

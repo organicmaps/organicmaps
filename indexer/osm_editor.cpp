@@ -548,7 +548,7 @@ bool Editor::RollBackChanges(FeatureID const & fid)
 void Editor::ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
                                              TFeatureIDFunctor const & f,
                                              m2::RectD const & rect,
-                                             uint32_t /*scale*/)
+                                             int /*scale*/)
 {
   auto const mwmFound = m_features.find(id);
   if (mwmFound == m_features.end())
@@ -568,7 +568,7 @@ void Editor::ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
 void Editor::ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
                                              TFeatureTypeFunctor const & f,
                                              m2::RectD const & rect,
-                                             uint32_t /*scale*/)
+                                             int /*scale*/)
 {
   auto mwmFound = m_features.find(id);
   if (mwmFound == m_features.end())

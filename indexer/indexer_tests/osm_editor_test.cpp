@@ -120,7 +120,7 @@ template <typename T>
 uint32_t CountFeaturesInRect(MwmSet::MwmId const & mwmId, m2::RectD const & rect)
 {
   auto & editor = osm::Editor::Instance();
-  uint32_t unused = 0;
+  int unused = 0;
   uint32_t counter = 0;
   editor.ForEachFeatureInMwmRectAndScale(mwmId, [&counter](T const & ft)
   {

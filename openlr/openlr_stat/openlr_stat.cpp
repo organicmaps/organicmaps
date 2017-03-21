@@ -108,12 +108,14 @@ int main(int argc, char * argv[])
 
   classificator::Load();
 
-  vector<Index> indexes(FLAGS_num_threads);
+  auto const num_threads = static_cast<uint32_t>(FLAGS_num_threads);
+
+  vector<Index> indexes(num_threads);
   LoadIndexes(FLAGS_mwms_path, indexes);
 
   OpenLRSimpleDecoder::SegmentsFilter filter(FLAGS_ids_path, FLAGS_multipoints_only);
   OpenLRSimpleDecoder decoder(FLAGS_input, indexes);
-  decoder.Decode(FLAGS_output, FLAGS_limit, filter, FLAGS_num_threads);
+  decoder.Decode(FLAGS_output, FLAGS_limit, filter, num_threads);
 
   return 0;
 }

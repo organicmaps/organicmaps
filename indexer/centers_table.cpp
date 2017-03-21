@@ -277,7 +277,7 @@ void CentersTableBuilder::Freeze(Writer & writer) const
 {
   CentersTableV0::Header header;
 
-  int64_t const startOffset = writer.Pos();
+  auto const startOffset = writer.Pos();
   header.Write(writer);
 
   {
@@ -327,7 +327,7 @@ void CentersTableBuilder::Freeze(Writer & writer) const
     header.m_endOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
   }
 
-  int64_t const endOffset = writer.Pos();
+  auto const endOffset = writer.Pos();
 
   writer.Seek(startOffset);
   header.Write(writer);

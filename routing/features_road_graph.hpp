@@ -63,7 +63,7 @@ public:
   FeaturesRoadGraph(Index const & index, IRoadGraph::Mode mode,
                     shared_ptr<VehicleModelFactory> vehicleModelFactory);
 
-  static uint32_t GetStreetReadScale();
+  static int GetStreetReadScale();
 
   // IRoadGraph overrides:
   RoadInfo GetRoadInfo(FeatureID const & featureId) const override;

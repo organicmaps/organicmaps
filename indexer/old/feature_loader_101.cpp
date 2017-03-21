@@ -374,10 +374,10 @@ uint32_t LoaderImpl::ParseGeometry(int scale)
       ASSERT_LESS ( scaleIndex, m_Info.GetScalesCount(), () );
 
       points.push_back(m_pF->m_points.front());
-      for (size_t i = 1; i < count-1; ++i)
+      for (size_t i = 1; i < count - 1; ++i)
       {
         // check for point visibility in needed scaleIndex
-        if (((m_ptsSimpMask >> (2*(i-1))) & 0x3) <= scaleIndex)
+        if (static_cast<int>((m_ptsSimpMask >> (2 * (i - 1))) & 0x3) <= scaleIndex)
           points.push_back(m_pF->m_points[i]);
       }
       points.push_back(m_pF->m_points.back());
@@ -398,7 +398,7 @@ uint32_t LoaderImpl::ParseTriangles(int scale)
   {
     if (m_pF->m_triangles.empty())
     {
-      uint32_t const ind = GetScaleIndex(scale, m_trgOffsets);
+      auto const ind = GetScaleIndex(scale, m_trgOffsets);
       if (ind != -1)
       {
         ReaderSource<FilesContainerR::TReader> src(m_Info.GetTrianglesReader(ind));

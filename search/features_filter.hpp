@@ -12,7 +12,7 @@ class CBV;
 class FeaturesFilter
 {
 public:
-  FeaturesFilter(CBV const & filter, uint32_t threshold);
+  FeaturesFilter(CBV const & filter, uint64_t threshold);
 
   virtual ~FeaturesFilter() = default;
 
@@ -22,7 +22,7 @@ public:
 
 protected:
   CBV const & m_filter;
-  uint32_t const m_threshold;
+  uint64_t const m_threshold;
 };
 
 // Exact filter - leaves only features belonging to the set it was
@@ -44,7 +44,7 @@ public:
 class ViewportFilter : public FeaturesFilter
 {
 public:
-  ViewportFilter(CBV const & filter, uint32_t threshold);
+  ViewportFilter(CBV const & filter, uint64_t threshold);
 
   // FeaturesFilter overrides:
   CBV Filter(CBV const & cbv) const override;
