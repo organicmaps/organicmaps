@@ -50,8 +50,7 @@
     tableView.dataSource = self;
     [tableView registerWithCellClass:[MWMSearchHistoryRequestCell class]];
     [tableView registerWithCellClass:[MWMSearchHistoryClearCell class]];
-    if (isRouteSearch)
-      [tableView registerWithCellClass:[MWMSearchHistoryMyPositionCell class]];
+    [tableView registerWithCellClass:[MWMSearchHistoryMyPositionCell class]];
     [tableView reloadData];
   }
 }

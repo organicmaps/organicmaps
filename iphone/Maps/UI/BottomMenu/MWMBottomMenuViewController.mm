@@ -155,6 +155,10 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   if ([MWMRouter isTaxi])
     return;
 
+  self.navigationInfo = info;
+  if (!info)
+    return;
+
   NSDictionary * routingNumberAttributes = @{
     NSForegroundColorAttributeName : [UIColor blackPrimaryText],
     NSFontAttributeName : [UIFont bold24]
@@ -165,7 +169,6 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   };
 
   self.estimateLabel.attributedText = info.estimate;
-  self.navigationInfo = info;
   if (self.routingInfoPageControl.currentPage == 0)
   {
     self.timeLabel.text = [NSDateComponentsFormatter etaStringFrom:info.timeToTarget];
