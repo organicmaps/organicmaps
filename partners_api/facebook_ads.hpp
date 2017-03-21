@@ -24,7 +24,12 @@ struct TypeAndlevel
 class Ads
 {
 public:
+
+#if defined(OMIM_OS_IPHONE)
+  static auto constexpr kBannerIdForOtherTypes = "185237551520383_1425363454174447";
+#else
   static auto constexpr kBannerIdForOtherTypes = "185237551520383_1384653421578784";
+#endif
 
   static Ads const & Instance();
 
