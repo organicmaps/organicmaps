@@ -254,7 +254,7 @@ final class BannerController implements AdListener
     updateVisibility();
 
     BannerData newData = new BannerData(mNativeAd);
-    LOGGER.d(TAG, "A new banner was loaded");
+    LOGGER.d(TAG, "A new banner was loaded with placement id '" + ad.getPlacementId() + "'");
 
     // In general, if there is a cached banner, we have to show it instead of a just-downloaded banner.
     // Thus, we try to eliminate a number of situations when user sees a blank banner view until

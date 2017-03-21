@@ -48,7 +48,7 @@ dependencies {
   compile('com.crashlytics.sdk.android:crashlytics-ndk:1.1.2@aar') { transitive = true }
   // 3-party
   compile 'com.facebook.android:facebook-android-sdk:4.8.0'
-  compile('com.facebook.android:audience-network-sdk:4.8.0') {
+  compile('com.facebook.android:audience-network-sdk:4.20.0') {
     exclude group: 'com.google.android.gms'
   }
   compile 'com.google.code.gson:gson:2.6.1'
@@ -65,6 +65,7 @@ dependencies {
   compile 'com.github.bumptech.glide:glide:3.7.0'
   // Java concurrency annotations
   compile 'net.jcip:jcip-annotations:1.0'
+  compile 'com.android.support:multidex:1.0.1'
 }
 
 def getDate() {
@@ -110,6 +111,7 @@ android {
     manifestPlaceholders += ['PW_APPID': pwProps['pwAppId']]
     buildConfigField 'String', 'PW_APPID', /"${pwProps['pwAppId']}"/
     manifestPlaceholders += ['PW_PROJECT_ID': pwProps['pwProjectId']]
+    multiDexEnabled true
   }
 
   sourceSets.main {

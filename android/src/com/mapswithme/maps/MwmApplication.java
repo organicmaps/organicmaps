@@ -1,6 +1,7 @@
 package com.mapswithme.maps;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Environment;
@@ -9,6 +10,7 @@ import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.UiThread;
+import android.support.multidex.MultiDex;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -126,6 +128,13 @@ public class MwmApplication extends Application
   public static boolean isCrashlyticsEnabled()
   {
     return !BuildConfig.FABRIC_API_KEY.startsWith("0000");
+  }
+
+  @Override
+  protected void attachBaseContext(Context base)
+  {
+    super.attachBaseContext(base);
+    MultiDex.install(this);
   }
 
   @SuppressWarnings("ResultOfMethodCallIgnored")
