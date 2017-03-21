@@ -19,6 +19,10 @@ set(
   main_view.cpp
   main_view.hpp
   model.hpp
+  result_view.cpp
+  result_view.hpp
+  results_view.cpp
+  results_view.hpp
   sample_view.cpp
   sample_view.hpp
   samples_view.cpp

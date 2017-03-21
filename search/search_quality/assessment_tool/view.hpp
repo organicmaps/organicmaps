@@ -18,6 +18,8 @@ public:
   virtual void SetSamples(std::vector<search::Sample> const & samples) = 0;
   virtual void ShowSample(search::Sample const & sample) = 0;
   virtual void ShowResults(search::Results::Iter begin, search::Results::Iter end) = 0;
+  virtual void SetResultRelevances(
+      std::vector<search::Sample::Result::Relevance> const & relevances) = 0;
   virtual void ShowError(std::string const & msg) = 0;
 
 protected:

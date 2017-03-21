@@ -75,11 +75,11 @@ void FromJSONObject(json_t * root, string const & field, search::Sample::Result:
   string relevance;
   FromJSONObject(root, field, relevance);
   if (relevance == "vital")
-    r = search::Sample::Result::Relevance::RELEVANCE_VITAL;
+    r = search::Sample::Result::Relevance::Vital;
   else if (relevance == "relevant")
-    r = search::Sample::Result::Relevance::RELEVANCE_RELEVANT;
+    r = search::Sample::Result::Relevance::Relevant;
   else
-    r = search::Sample::Result::Relevance::RELEVANCE_IRRELEVANT;
+    r = search::Sample::Result::Relevance::Irrelevant;
 }
 
 void FromJSON(json_t * root, search::Sample::Result & result)
@@ -181,9 +181,9 @@ string DebugPrint(Sample::Result::Relevance r)
 {
   switch (r)
   {
-  case Sample::Result::RELEVANCE_IRRELEVANT: return "Irrelevant";
-  case Sample::Result::RELEVANCE_RELEVANT: return "Relevant";
-  case Sample::Result::RELEVANCE_VITAL: return "Vital";
+  case Sample::Result::Relevance::Irrelevant: return "Irrelevant";
+  case Sample::Result::Relevance::Relevant: return "Relevant";
+  case Sample::Result::Relevance::Vital: return "Vital";
   }
   return "Unknown";
 }

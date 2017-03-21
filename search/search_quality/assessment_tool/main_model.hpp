@@ -9,6 +9,7 @@
 #include <memory>
 
 class Framework;
+class Index;
 
 namespace search
 {
@@ -25,9 +26,13 @@ public:
   void OnSampleSelected(int index) override;
 
 private:
-  void OnResults(uint64_t timestamp, search::Results const & results);
+  void OnResults(uint64_t timestamp, search::Results const & results,
+                 std::vector<search::Sample::Result::Relevance> const & relevances);
+
+  void ResetSearch();
 
   Framework & m_framework;
+  Index const & m_index;
   std::vector<search::Sample> m_samples;
 
   std::weak_ptr<search::ProcessorHandle> m_queryHandle;

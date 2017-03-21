@@ -1,6 +1,7 @@
 #include "search/search_quality/assessment_tool/main_model.hpp"
 
 #include "search/search_quality/assessment_tool/view.hpp"
+#include "search/search_quality/matcher.hpp"
 
 #include "map/framework.hpp"
 
@@ -19,7 +20,12 @@
 #include <fstream>
 #include <iterator>
 
-MainModel::MainModel(Framework & framework) : m_framework(framework) {}
+using Relevance = search::Sample::Result::Relevance;
+
+MainModel::MainModel(Framework & framework)
+  : m_framework(framework), m_index(m_framework.GetIndex())
+{
+}
 
 void MainModel::Open(std::string const & path)
 {
@@ -41,6 +47,8 @@ void MainModel::Open(std::string const & path)
     return;
   }
 
+  ResetSearch();
+
   m_samples.swap(samples);
   m_view->SetSamples(m_samples);
 }
@@ -54,6 +62,8 @@ void MainModel::OnSampleSelected(int index)
   auto const & sample = m_samples[index];
   m_view->ShowSample(m_samples[index]);
 
+  ResetSearch();
+
   auto & engine = m_framework.GetSearchEngine();
   {
     auto latLon = MercatorBounds::ToLatLon(sample.m_pos);
@@ -64,24 +74,54 @@ void MainModel::OnSampleSelected(int index)
     params.m_suggestsEnabled = false;
     params.SetPosition(latLon.lat, latLon.lon);
 
-    auto const timestamp = ++m_queryTimestamp;
+    auto const timestamp = m_queryTimestamp;
     m_numShownResults = 0;
 
-    params.m_onResults = [this, timestamp](search::Results const & results) {
-      GetPlatform().RunOnGuiThread([this, timestamp, results]() { OnResults(timestamp, results); });
+    params.m_onResults = [this, sample, timestamp](search::Results const & results) {
+      std::vector<Relevance> relevances;
+      if (results.IsEndedNormal())
+      {
+        search::Matcher matcher(m_index);
+
+        std::vector<search::Result> const actual(results.begin(), results.end());
+        std::vector<size_t> goldenMatching;
+        {
+          std::vector<size_t> actualMatching;
+          matcher.Match(sample.m_results, actual, goldenMatching, actualMatching);
+        }
+
+        relevances.assign(actual.size(), Relevance::Irrelevant);
+        for (size_t i = 0; i < goldenMatching.size(); ++i)
+        {
+          if (goldenMatching[i] != search::Matcher::kInvalidId)
+            relevances[goldenMatching[i]] = sample.m_results[i].m_relevance;
+        }
+      }
+
+      GetPlatform().RunOnGuiThread(
+          [this, timestamp, results, relevances]() { OnResults(timestamp, results, relevances); });
     };
 
-    if (auto handle = m_queryHandle.lock())
-      handle->Cancel();
     m_queryHandle = engine.Search(params, sample.m_viewport);
   }
 }
 
-void MainModel::OnResults(uint64_t timestamp, search::Results const & results)
+void MainModel::OnResults(uint64_t timestamp, search::Results const & results,
+                          std::vector<Relevance> const & relevances)
 {
   if (timestamp != m_queryTimestamp)
     return;
   CHECK_LESS_OR_EQUAL(m_numShownResults, results.GetCount(), ());
   m_view->ShowResults(results.begin() + m_numShownResults, results.end());
   m_numShownResults = results.GetCount();
+
+  if (results.IsEndedNormal())
+    m_view->SetResultRelevances(relevances);
+}
+
+void MainModel::ResetSearch()
+{
+  ++m_queryTimestamp;
+  if (auto handle = m_queryHandle.lock())
+    handle->Cancel();
 }

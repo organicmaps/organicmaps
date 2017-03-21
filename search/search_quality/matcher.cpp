@@ -15,7 +15,7 @@ namespace search
 // static
 size_t constexpr Matcher::kInvalidId;
 
-Matcher::Matcher(Index & index) : m_index(index) {}
+Matcher::Matcher(Index const & index) : m_index(index) {}
 
 void Matcher::Match(std::vector<Sample::Result> const & golden, std::vector<Result> const & actual,
                     std::vector<size_t> & goldenMatching, std::vector<size_t> & actualMatching)
