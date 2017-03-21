@@ -2,8 +2,8 @@ project(generator_tests_support)
 
 set(
   SRC
-  restriction_helpers.cpp
-  restriction_helpers.hpp
+  routing_helpers.cpp
+  routing_helpers.hpp
   test_feature.cpp
   test_feature.hpp
   test_mwm_builder.cpp

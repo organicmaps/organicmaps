@@ -686,7 +686,9 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info, EmitterBase & emitter)
     // TODO(mgsergio): Get rid of EmitterBase template parameter.
     OsmToFeatureTranslator<EmitterBase, TDataCache> parser(
         emitter, cache, info.m_makeCoasts ? classif().GetCoastType() : 0,
-        info.GetAddressesFileName(), info.GetIntermediateFileName(RESTRICTIONS_FILENAME, ""));
+        info.GetAddressesFileName(), info.GetIntermediateFileName(RESTRICTIONS_FILENAME, ""),
+        info.GetIntermediateFileName(ROAD_ACCESS_FILENAME, "")
+        );
 
     TagAdmixer tagAdmixer(info.GetIntermediateFileName("ways", ".csv"),
                           info.GetIntermediateFileName("towns", ".csv"));

@@ -7,11 +7,11 @@ ROOT_DIR = ../..
 include($$ROOT_DIR/common.pri)
 
 SOURCES += \
-    restriction_helpers.cpp \
+    routing_helpers.cpp \
     test_feature.cpp \
     test_mwm_builder.cpp \
 
 HEADERS += \
-    restriction_helpers.hpp \
+    routing_helpers.hpp \
     test_feature.hpp \
     test_mwm_builder.hpp \

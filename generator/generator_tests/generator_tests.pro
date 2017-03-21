@@ -38,6 +38,7 @@ SOURCES += \
     osm_id_test.cpp \
     osm_o5m_source_test.cpp \
     osm_type_test.cpp \
+    road_access_test.cpp \
     restriction_collector_test.cpp \
     restriction_test.cpp \
     source_data.cpp \

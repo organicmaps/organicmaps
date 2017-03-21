@@ -61,8 +61,12 @@ set(SRC
   restriction_generator.hpp
   restriction_writer.cpp
   restriction_writer.hpp
+  road_access_generator.cpp
+  road_access_generator.hpp
   routing_generator.cpp
   routing_generator.hpp
+  routing_helpers.cpp
+  routing_helpers.hpp
   routing_index_generator.cpp
   routing_index_generator.hpp
   search_index_builder.cpp

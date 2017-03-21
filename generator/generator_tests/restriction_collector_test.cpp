@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "generator/generator_tests_support/restriction_helpers.hpp"
+#include "generator/generator_tests_support/routing_helpers.hpp"
 
 #include "generator/osm_id.hpp"
 #include "generator/restriction_collector.hpp"

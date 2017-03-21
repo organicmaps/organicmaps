@@ -38,8 +38,8 @@ bool BuildRoadRestrictions(string const & mwmPath, string const & restrictionPat
   header.m_noRestrictionCount = base::checked_cast<uint32_t>(distance(restrictions.cbegin(), firstOnlyIt));
   header.m_onlyRestrictionCount = base::checked_cast<uint32_t>(restrictions.size() - header.m_noRestrictionCount);
 
-  LOG(LINFO, ("Header info. There are", header.m_noRestrictionCount, "of type No restrictions and",
-              header.m_onlyRestrictionCount, "of type Only restrictions"));
+  LOG(LINFO, ("Header info. There are", header.m_noRestrictionCount, "restrictions of type No and",
+              header.m_onlyRestrictionCount, "restrictions of type Only"));
 
   FilesContainerW cont(mwmPath, FileWriter::OP_WRITE_EXISTING);
   FileWriter w = cont.GetWriter(RESTRICTIONS_FILE_TAG);

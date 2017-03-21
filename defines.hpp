@@ -27,6 +27,7 @@
 #define METADATA_FILE_TAG "meta"
 #define METADATA_INDEX_FILE_TAG "metaidx"
 #define ALTITUDES_FILE_TAG "altitudes"
+#define ROAD_ACCESS_FILE_TAG "roadaccess"
 #define RESTRICTIONS_FILE_TAG "restrictions"
 #define ROUTING_FILE_TAG "routing"
 #define CROSS_MWM_FILE_TAG "cross_mwm"
@@ -77,6 +78,7 @@
 
 #define GPS_TRACK_FILENAME "gps_track.dat"
 #define RESTRICTIONS_FILENAME "restrictions.csv"
+#define ROAD_ACCESS_FILENAME "road_access.csv"
 
 #define TRAFFIC_FILE_EXTENSION ".traffic"
 

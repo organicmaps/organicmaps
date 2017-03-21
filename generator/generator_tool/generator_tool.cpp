@@ -8,6 +8,7 @@
 #include "generator/feature_sorter.hpp"
 #include "generator/generate_info.hpp"
 #include "generator/osm_source.hpp"
+#include "generator/road_access_generator.hpp"
 #include "generator/restriction_generator.hpp"
 #include "generator/routing_generator.hpp"
 #include "generator/routing_index_generator.hpp"
@@ -250,10 +251,14 @@ int main(int argc, char ** argv)
 
     if (FLAGS_make_routing_index)
     {
-      routing::BuildRoadRestrictions(
-          datFile, genInfo.GetIntermediateFileName(RESTRICTIONS_FILENAME, ""),
-          genInfo.GetTargetFileName(country) + OSM2FEATURE_FILE_EXTENSION);
+      string const osmToFeatureFilename = genInfo.GetTargetFileName(country) + OSM2FEATURE_FILE_EXTENSION;
+      string const restrictionsFilename =
+          genInfo.GetIntermediateFileName(RESTRICTIONS_FILENAME, "" /* extension */);
+      string const roadAccessFilename =
+          genInfo.GetIntermediateFileName(ROAD_ACCESS_FILENAME, "" /* extension */);
 
+      routing::BuildRoadRestrictions(datFile, restrictionsFilename, osmToFeatureFilename);
+      routing::BuildRoadAccessInfo(datFile, roadAccessFilename, osmToFeatureFilename);
       routing::BuildRoutingIndex(datFile, country);
     }
 
