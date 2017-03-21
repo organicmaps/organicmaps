@@ -117,7 +117,7 @@ void AddSegmentEdge(NumMwmIds const & numMwmIds, OsrmFtSegMapping const & segMap
 
   // OSRM and AStar have different car models, therefore AStar heuristic doesn't work for OSRM node
   // ids (edges).
-  // This factor makes index graph (used in AStar) edge weight smaller then node ids weight.
+  // This factor makes index graph (used in AStar) edge weight smaller than node ids weight.
   //
   // As a result large cross mwm routes with connectors works as Dijkstra, but short and medium routes
   // without connectors works as AStar.
@@ -138,6 +138,7 @@ CrossMwmIndexGraph::CrossMwmIndexGraph(shared_ptr<NumMwmIds> numMwmIds,
 }
 
 CrossMwmIndexGraph::~CrossMwmIndexGraph() {}
+
 bool CrossMwmIndexGraph::IsTransition(Segment const & s, bool isOutgoing)
 {
   // @TODO(bykoianko) It's necessary to check if mwm of |s| contains an A* cross mwm section
