@@ -1,6 +1,7 @@
 #pragma once
 
 #include "routing/car_router.hpp"
+#include "routing/cross_mwm_router.hpp"
 #include "routing/osrm_engine.hpp"
 #include "routing/router.hpp"
 
@@ -17,7 +18,7 @@
 namespace routing
 {
 /// OSRM graph node representation with graph mwm name and border crossing point.
-struct CrossNode
+struct CrossNode final
 {
   NodeID node;
   NodeID reverseNode;
@@ -64,7 +65,7 @@ inline string DebugPrint(CrossNode const & t)
 }
 
 /// Representation of border crossing. Contains node on previous map and node on next map.
-struct BorderCross
+struct BorderCross final
 {
   CrossNode fromNode;
   CrossNode toNode;
@@ -74,6 +75,7 @@ struct BorderCross
 
   // TODO(bykoianko) Consider using fields |fromNode| and |toNode| in operator== and operator<.
   inline bool operator==(BorderCross const & a) const { return toNode == a.toNode; }
+  inline bool operator!=(BorderCross const & a) const { return !(*this == a); }
   inline bool operator<(BorderCross const & a) const { return toNode < a.toNode; }
 };
 
@@ -85,21 +87,35 @@ inline string DebugPrint(BorderCross const & t)
 }
 
 /// A class which represents an cross mwm weighted edge used by CrossMwmGraph.
-class CrossWeightedEdge
+class CrossWeightedEdge final
 {
 public:
-  CrossWeightedEdge(BorderCross const & target, double weight) : target(target), weight(weight) {}
+  CrossWeightedEdge(BorderCross const & target, double weight) : m_target(target), m_weight(weight)
+  {
+  }
 
-  inline BorderCross const & GetTarget() const { return target; }
-  inline double GetWeight() const { return weight; }
+  BorderCross const & GetTarget() const { return m_target; }
+  double GetWeight() const { return m_weight; }
+
+  bool operator==(CrossWeightedEdge const & a) const
+  {
+    return m_target == a.m_target && m_weight == a.m_weight;
+  }
+
+  bool operator<(CrossWeightedEdge const & a) const
+  {
+    if (m_target != a.m_target)
+      return m_target < a.m_target;
+    return m_weight < a.m_weight;
+  }
 
 private:
-  BorderCross target;
-  double weight;
+  BorderCross m_target;
+  double m_weight;
 };
 
 /// A graph used for cross mwm routing in an astar algorithms.
-class CrossMwmGraph
+class CrossMwmGraph final
 {
 public:
   using TCachingKey = pair<TWrittenNodeId, Index::MwmId>;

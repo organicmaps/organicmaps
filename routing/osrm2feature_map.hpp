@@ -166,6 +166,11 @@ public:
   /// @name For unit test purpose only.
   //@{
   /// @return STL-like range [s, e) of segments indexies for passed node.
+  /// @note Methods GetSegmentsRange(...) and GetOsrmNodes(...) are not symmetric.
+  /// For example in Tverskay Oblast for node id 161179 two FtSet can be gotten
+  /// with GetSegmentsRange() / GetSegmentByIndex().
+  /// But having these segments it's impossible to get node id 161179 with the help of
+  /// GetOsrmNodes(...).
   pair<size_t, size_t> GetSegmentsRange(TOsrmNodeId nodeId) const;
   /// @return Node id for segment's index.
   TOsrmNodeId GetNodeId(uint32_t segInd) const;

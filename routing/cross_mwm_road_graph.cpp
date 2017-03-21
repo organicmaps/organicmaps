@@ -92,28 +92,33 @@ private:
 };
 
 bool ForEachNodeNearPoint(CrossRoutingContextReader const & currentContext,
-                          CrossNode const & crossNode,
+                          ms::LatLon const & point,
                           ClosestNodeFinder<IngoingCrossNode> const & findingNode)
 {
-  return currentContext.ForEachIngoingNodeNearPoint(crossNode.point, findingNode);
+  return currentContext.ForEachIngoingNodeNearPoint(point, findingNode);
 }
 
 bool ForEachNodeNearPoint(CrossRoutingContextReader const & currentContext,
-                          CrossNode const & crossNode,
+                          ms::LatLon const & point,
                           ClosestNodeFinder<OutgoingCrossNode> const & findingNode)
 {
-  return currentContext.ForEachOutgoingNodeNearPoint(crossNode.point, findingNode);
+  return currentContext.ForEachOutgoingNodeNearPoint(point, findingNode);
 }
 
 template <class Node>
-void FindCrossNode(CrossRoutingContextReader const & currentContext, CrossNode const & crossNode,
+bool FindCrossNode(CrossRoutingContextReader const & currentContext, CrossNode const & crossNode,
                    Node & node)
 {
-  double minDistance = std::numeric_limits<double>::max();
+  double constexpr kInvalidDistance = std::numeric_limits<double>::max();
+  double minDistance = kInvalidDistance;
   ClosestNodeFinder<Node> findingNode(crossNode, minDistance, node);
-  CHECK(ForEachNodeNearPoint(currentContext, crossNode, findingNode), ());
-  CHECK_NOT_EQUAL(minDistance, std::numeric_limits<double>::max(),
-                  ("crossNode.point:", crossNode.point));
+  CHECK(ForEachNodeNearPoint(currentContext, crossNode.point, findingNode), ());
+  if (minDistance == kInvalidDistance)
+  {
+    LOG(LWARNING, ("Cross node is not found. Point:", crossNode.point));
+    return false;
+  }
+  return true;
 }
 
 template <class Fn>
@@ -121,7 +126,7 @@ vector<BorderCross> const & ConstructBorderCrossImpl(
     TWrittenNodeId nodeId, TRoutingMappingPtr const & currentMapping,
     unordered_map<CrossMwmGraph::TCachingKey, vector<BorderCross>, CrossMwmGraph::Hash> const &
         cachedNextNodes,
-    Fn && borderCrossConstructor /*bool & result*/)
+    Fn && borderCrossConstructor)
 {
   auto const key = make_pair(nodeId, currentMapping->GetMwmId());
   auto const it = cachedNextNodes.find(key);
@@ -180,6 +185,7 @@ IRouter::ResultCode CrossMwmGraph::SetStartNode(CrossNode const & startNode)
     {
       vector<BorderCross> const & nextCrosses =
           ConstructBorderCross(startMapping, outgoingNodes[i]);
+
       for (auto const & nextCross : nextCrosses)
       {
         if (nextCross.toNode.IsValid())
@@ -380,14 +386,22 @@ void CrossMwmGraph::GetEdgesList(BorderCross const & v, bool isOutgoing,
   if (isOutgoing)
   {
     IngoingCrossNode ingoingNode;
-    FindCrossNode<IngoingCrossNode>(currentContext, v.toNode, ingoingNode);
+    if (!FindCrossNode<IngoingCrossNode>(currentContext, v.toNode, ingoingNode))
+      return;
+    if (!ingoingNode.IsValid())
+      return;
+
     currentContext.ForEachOutgoingNode(EdgesFiller<IngoingCrossNode, OutgoingCrossNode>(
         currentMapping, currentContext, ingoingNode, *this, adj));
   }
   else
   {
     OutgoingCrossNode outgoingNode;
-    FindCrossNode<OutgoingCrossNode>(currentContext, v.fromNode, outgoingNode);
+    if (!FindCrossNode<OutgoingCrossNode>(currentContext, v.fromNode, outgoingNode))
+      return;
+    if (!outgoingNode.IsValid())
+      return;
+
     currentContext.ForEachIngoingNode(EdgesFiller<OutgoingCrossNode, IngoingCrossNode>(
         currentMapping, currentContext, outgoingNode, *this, adj));
   }

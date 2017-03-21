@@ -8,6 +8,9 @@ struct FeatureGraphNode;
 struct RawPathData;
 struct RoutingMapping;
 
+// Osrm multiples seconds to 10, so we need to divide it back.
+double constexpr kOSRMWeightToSecondsMultiplier = 0.1;
+
 // General constructor.
 void OsrmPathSegmentFactory(RoutingMapping & mapping, Index const & index,
                             RawPathData const & osrmPathSegment, LoadedPathSegment & loadedPathSegment);

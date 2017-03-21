@@ -43,7 +43,7 @@ struct FeatureGraphNode
 struct RawPathData
 {
   NodeID node;
-  EdgeWeight segmentWeight;
+  EdgeWeight segmentWeight;  // Time in tenths of a second to pass |node|.
 
   RawPathData() : node(SPECIAL_NODEID), segmentWeight(INVALID_EDGE_WEIGHT) {}
 

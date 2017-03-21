@@ -401,9 +401,8 @@ CarRouter::ResultCode CarRouter::CalculateRoute(m2::PointD const & startPoint,
                                                 m2::PointD const & finalPoint,
                                                 RouterDelegate const & delegate, Route & route)
 {
-// TODO uncomment this to activate cross mwm index router.
-//  if (AllMwmsHaveRoutingIndex())
-//    return m_router->CalculateRoute(startPoint, startDirection, finalPoint, delegate, route);
+  if (AllMwmsHaveRoutingIndex())
+    return m_router->CalculateRoute(startPoint, startDirection, finalPoint, delegate, route);
 
   my::HighResTimer timer(true);
 

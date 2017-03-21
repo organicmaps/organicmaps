@@ -37,6 +37,9 @@ public:
     return m_forward == front ? m_segmentIdx + 1 : m_segmentIdx;
   }
 
+  uint32_t GetMinPointId() const { return m_segmentIdx; }
+  uint32_t GetMaxPointId() const { return m_segmentIdx + 1; }
+
   RoadPoint GetRoadPoint(bool front) const { return RoadPoint(m_featureId, GetPointId(front)); }
 
   bool operator<(Segment const & seg) const
@@ -78,6 +81,13 @@ public:
   bool operator==(SegmentEdge const & edge) const
   {
     return m_target == edge.m_target && m_weight == edge.m_weight;
+  }
+
+  bool operator<(SegmentEdge const & edge) const
+  {
+    if (m_target != edge.m_target)
+      return m_target < edge.m_target;
+    return m_weight < edge.m_weight;
   }
 
 private:
