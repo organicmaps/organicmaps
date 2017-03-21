@@ -21,7 +21,7 @@ void FillGlobals()
   g_cuba.m_viewport = {37.1336, 67.1349, 38.0314, 67.7348};
   search::Sample::Result cubaRes;
   cubaRes.m_name = strings::MakeUniString("Cuba");
-  cubaRes.m_relevance = search::Sample::Result::RELEVANCE_RELEVANT;
+  cubaRes.m_relevance = search::Sample::Result::Relevance::Relevant;
   cubaRes.m_types.push_back("place-country");
   cubaRes.m_pos = {-80.832886, 15.521132748163712};
   cubaRes.m_houseNumber = "";
@@ -33,7 +33,7 @@ void FillGlobals()
   g_riga.m_viewport = {37.5064, 67.0476, 37.7799, 67.304};
   search::Sample::Result rigaRes;
   rigaRes.m_name = strings::MakeUniString("Rīga");
-  rigaRes.m_relevance = search::Sample::Result::RELEVANCE_VITAL;
+  rigaRes.m_relevance = search::Sample::Result::Relevance::Vital;
   rigaRes.m_types.push_back("place-city-capital-2");
   rigaRes.m_pos = {24.105186, 107.7819569220319};
   rigaRes.m_houseNumber = "";
