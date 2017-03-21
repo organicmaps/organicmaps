@@ -7,6 +7,7 @@
 struct FeatureID;
 class StringUtf8Multilang;
 
+void initICU(std::string const & icuDataDir);
 std::string Transliterate(std::string const & str, std::string const & lang);
 
 namespace feature

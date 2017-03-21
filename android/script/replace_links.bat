@@ -40,6 +40,8 @@ cp -r ../data/sound-strings/ assets/
 cp -r ../data/countries-strings/ assets/
 cp -r ../data/cuisine-strings/ assets/
 
+cp -r ../data/icudt57l.dat.zip/ assets/
+
 rm -rf flavors/mwm-ttf-assets
 mkdir flavors\\mwm-ttf-assets
 cp ../data/01_dejavusans.ttf flavors/mwm-ttf-assets/

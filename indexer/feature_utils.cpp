@@ -85,18 +85,13 @@ void GetBestName(StringUtf8Multilang const & src, vector<int8_t> const & priorit
 }
 }  // namespace
 
+void initICU(std::string const & icuDataDir)
+{
+  u_setDataDirectory(icuDataDir.c_str());
+}
+
 std::string Transliterate(std::string const & str, std::string const & lang)
 {
-  class ICUDataInitializer
-  {
-  public:
-    ICUDataInitializer(std::string const & icuDataDir)
-    {
-      u_setDataDirectory(icuDataDir.c_str());
-    }
-  };
-  static ICUDataInitializer icuInitializer("../../../../../../omim/3party/icu/data/in/");
-
   UnicodeString ustr(str.c_str());
   UErrorCode status = U_ZERO_ERROR;
 

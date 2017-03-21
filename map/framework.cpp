@@ -130,6 +130,8 @@ char const kTrafficEnabledKey[] = "TrafficEnabled";
 char const kTrafficSimplifiedColorsKey[] = "TrafficSimplifiedColors";
 char const kLargeFontsSize[] = "LargeFontsSize";
 
+char const kICUDataFile[] = "icudt57l.dat";
+
 double const kDistEqualQueryMeters = 100.0;
 double const kLargeFontsScaleFactor = 1.6;
 size_t constexpr kMaxTrafficCacheSizeBytes = 64 /* Mb */ * 1024 * 1024;
@@ -494,6 +496,21 @@ Framework::Framework()
   m_trafficManager.SetCurrentDataVersion(m_storage.GetCurrentDataVersion());
 
   m_cityFinder = make_unique<CityFinder>(m_model.GetIndex());
+
+  std::string const zippedData = std::string(kICUDataFile) + ".zip";
+#ifdef OMIM_OS_ANDROID
+  ZipFileReader::UnzipFile(GetPlatform().ResourcesDir(),
+                           "assets/" + zippedData,
+                           GetPlatform().WritableDir() + zippedData);
+  ZipFileReader::UnzipFile(GetPlatform().WritableDir() + zippedData,
+                           kICUDataFile,
+                           GetPlatform().WritableDir() + kICUDataFile);
+#else
+  ZipFileReader::UnzipFile(GetPlatform().ResourcesDir() + zippedData,
+                           kICUDataFile,
+                           GetPlatform().WritableDir() + kICUDataFile);
+#endif
+  initICU(GetPlatform().WritableDir());
 }
 
 Framework::~Framework()
