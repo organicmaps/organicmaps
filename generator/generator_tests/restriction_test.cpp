@@ -9,14 +9,13 @@
 
 #include "routing/restriction_loader.hpp"
 
-#include "coding/file_container.hpp"
-#include "coding/file_name_utils.hpp"
-
+#include "platform/country_file.hpp"
+#include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/platform_tests_support/scoped_file.hpp"
 
-#include "platform/country_file.hpp"
-#include "platform/platform.hpp"
+#include "coding/file_container.hpp"
+#include "coding/file_name_utils.hpp"
 
 #include "base/logging.hpp"
 
@@ -61,7 +60,7 @@ void LoadRestrictions(string const & mwmFilePath, RestrictionVec & restrictions)
   }
   catch (Reader::OpenException const & e)
   {
-    LOG(LERROR, ("Error while reading", RESTRICTIONS_FILE_TAG, "section.", e.Msg()));
+    TEST(false, ("Error while reading", ROAD_ACCESS_FILE_TAG, "section.", e.Msg()));
   }
 }
 
@@ -88,8 +87,8 @@ void TestRestrictionBuilding(string const & restrictionContent, string const & m
 
   // Creating osm ids to feature ids mapping.
   string const mappingRelativePath = my::JoinPath(kTestDir, kOsmIdsToFeatureIdsName);
-  ScopedFile const mappingScopedFile(mappingRelativePath);
-  string const mappingFullPath = my::JoinPath(writableDir, mappingRelativePath);
+  ScopedFile const mappingFile(mappingRelativePath);
+  string const mappingFullPath = mappingFile.GetFullPath();
   ReEncodeOsmIdsToFeatureIdsMapping(mappingContent, mappingFullPath);
 
   // Adding restriction section to mwm.

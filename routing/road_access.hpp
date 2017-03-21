@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <string>
 #include <vector>
 
 namespace routing
@@ -11,10 +12,10 @@ namespace routing
 class RoadAccess final
 {
 public:
-  std::vector<uint32_t> & GetPrivateRoads() { return m_privateRoads; }
   std::vector<uint32_t> const & GetPrivateRoads() const { return m_privateRoads; }
 
-  void StealPrivateRoads(std::vector<uint32_t> && v) { m_privateRoads = std::move(v); }
+  template <typename V>
+  void SetPrivateRoads(V && v) { m_privateRoads = std::forward<V>(v); }
 
   void Clear() { m_privateRoads.clear(); }
 
@@ -26,4 +27,6 @@ private:
   // Feature ids of blocked features in the corresponding mwm.
   std::vector<uint32_t> m_privateRoads;
 };
+
+std::string DebugPrint(RoadAccess const & r);
 }  // namespace routing

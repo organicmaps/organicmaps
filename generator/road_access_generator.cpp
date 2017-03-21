@@ -24,6 +24,7 @@
 #include <map>
 #include <ostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -43,6 +44,8 @@ bool ParseRoadAccess(string const & roadAccessPath,
     LOG(LWARNING, ("Could not open", roadAccessPath));
     return false;
   }
+
+  vector<uint32_t> privateRoads;
 
   string line;
   for (uint32_t lineNo = 1;; ++lineNo)
@@ -76,8 +79,10 @@ bool ParseRoadAccess(string const & roadAccessPath,
     }
 
     uint32_t const featureId = it->second;
-    roadAccess.GetPrivateRoads().emplace_back(featureId);
+    privateRoads.emplace_back(featureId);
   }
+
+  roadAccess.SetPrivateRoads(move(privateRoads));
 
   return true;
 }
@@ -122,7 +127,8 @@ void RoadAccessWriter::Process(OsmElement const & elem, FeatureParams const & pa
     m_stream << kBarrierGate << " " << elem.id << endl;
 }
 
-bool RoadAccessWriter::IsOpened() const { return m_stream.is_open() && !m_stream.fail(); }
+bool RoadAccessWriter::IsOpened() const { return m_stream && m_stream.is_open(); }
+
 // RoadAccessCollector ----------------------------------------------------------
 RoadAccessCollector::RoadAccessCollector(string const & roadAccessPath,
                                          string const & osmIdsToFeatureIdsPath)

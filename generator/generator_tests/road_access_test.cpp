@@ -8,14 +8,13 @@
 
 #include "routing/road_access_serialization.hpp"
 
-#include "coding/file_container.hpp"
-#include "coding/file_name_utils.hpp"
-
+#include "platform/country_file.hpp"
+#include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/platform_tests_support/scoped_file.hpp"
 
-#include "platform/country_file.hpp"
-#include "platform/platform.hpp"
+#include "coding/file_container.hpp"
+#include "coding/file_name_utils.hpp"
 
 #include "base/logging.hpp"
 
@@ -54,7 +53,7 @@ void LoadRoadAccess(string const & mwmFilePath, RoadAccess & roadAccess)
   }
   catch (Reader::OpenException const & e)
   {
-    LOG(LERROR, ("Error while reading", ROAD_ACCESS_FILE_TAG, "section.", e.Msg()));
+    TEST(false, ("Error while reading", ROAD_ACCESS_FILE_TAG, "section.", e.Msg()));
   }
 }
 
@@ -78,8 +77,8 @@ void TestRoadAccess(string const & roadAccessContent, string const & mappingCont
 
   // Creating osm ids to feature ids mapping.
   string const mappingRelativePath = my::JoinPath(kTestDir, kOsmIdsToFeatureIdsName);
-  ScopedFile const mappingScopedFile(mappingRelativePath);
-  string const mappingFullPath = my::JoinPath(writableDir, mappingRelativePath);
+  ScopedFile const mappingFile(mappingRelativePath);
+  string const mappingFullPath = mappingFile.GetFullPath();
   ReEncodeOsmIdsToFeatureIdsMapping(mappingContent, mappingFullPath);
 
   // Adding road access section to mwm.
@@ -92,7 +91,7 @@ void TestRoadAccess(string const & roadAccessContent, string const & mappingCont
   LoadRoadAccess(mwmFullPath, roadAccessFromMwm);
   RoadAccessCollector const collector(roadAccessFullPath, mappingFullPath);
   TEST(collector.IsValid(), ());
-  TEST(roadAccessFromMwm == collector.GetRoadAccess(), ());
+  TEST_EQUAL(roadAccessFromMwm, collector.GetRoadAccess(), ());
 }
 
 UNIT_TEST(RoadAccess_Smoke)

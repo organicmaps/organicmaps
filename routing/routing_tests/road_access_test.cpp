@@ -19,7 +19,7 @@ UNIT_TEST(RoadAccess_Serialization)
 {
   vector<uint32_t> privateRoads = {1, 2, 3, 100};
   RoadAccess roadAccess;
-  roadAccess.StealPrivateRoads(move(privateRoads));
+  roadAccess.SetPrivateRoads(move(privateRoads));
 
   vector<uint8_t> buf;
   {
@@ -34,7 +34,7 @@ UNIT_TEST(RoadAccess_Serialization)
     RoadAccessSerializer::Deserialize(src, deserializedRoadAccess);
   }
 
-  TEST_EQUAL(roadAccess.GetPrivateRoads(), deserializedRoadAccess.GetPrivateRoads(), ());
+  TEST_EQUAL(roadAccess, deserializedRoadAccess, ());
 
   {
     auto const & b = deserializedRoadAccess.GetPrivateRoads();

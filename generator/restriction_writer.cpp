@@ -98,5 +98,5 @@ void RestrictionWriter::Write(RelationElement const & relationElement)
   m_stream << ToString(type) << "," << fromIt->first << ", " << toIt->first << '\n';
 }
 
-bool RestrictionWriter::IsOpened() const { return m_stream.is_open() && !m_stream.fail(); }
+bool RestrictionWriter::IsOpened() const { return m_stream && m_stream.is_open(); }
 }  // namespace routing

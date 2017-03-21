@@ -1,8 +1,8 @@
 #pragma once
 
-#include "routing/road_access.hpp"
-
 #include "generator/intermediate_elements.hpp"
+
+#include "routing/road_access.hpp"
 
 #include <cstdint>
 #include <fstream>

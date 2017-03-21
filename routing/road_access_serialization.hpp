@@ -11,6 +11,7 @@
 
 #include <algorithm>
 #include <cstdint>
+#include <vector>
 
 namespace routing
 {
@@ -43,8 +44,7 @@ public:
     uint32_t const header = ReadPrimitiveFromSource<uint32_t>(src);
     CHECK_EQUAL(header, kLatestVersion, ());
     size_t numPrivateRoads = base::checked_cast<size_t>(ReadPrimitiveFromSource<uint32_t>(src));
-    auto & privateRoads = roadAccess.GetPrivateRoads();
-    privateRoads.resize(numPrivateRoads);
+    std::vector<uint32_t> privateRoads(numPrivateRoads);
     if (numPrivateRoads > 0)
       privateRoads[0] = ReadVarUint<uint32_t>(src);
     for (size_t i = 1; i < numPrivateRoads; ++i)
@@ -52,6 +52,7 @@ public:
       uint32_t delta = ReadVarUint<uint32_t>(src);
       privateRoads[i] = privateRoads[i - 1] + delta;
     }
+    roadAccess.SetPrivateRoads(move(privateRoads));
   }
 
 private:
