@@ -163,8 +163,15 @@ NSAttributedString * richStringFromDay(osmoh::Day const & day, BOOL isClosedNow)
 
         NSMutableArray<NSIndexPath *> * ip = [@[] mutableCopy];
 
+        auto const  metainfoSection = [self indexOfMetainfoSection];
+        if (metainfoSection == NSNotFound)
+        {
+          LOG(LERROR, ("Incorrect indexOfMetainfoSection!"));
+          return;
+        }
+
         for (auto i = 1; i < self->m_days.size(); i++)
-          [ip addObject:[NSIndexPath indexPathForRow:i inSection:1]];
+          [ip addObject:[NSIndexPath indexPathForRow:i inSection:metainfoSection]];
 
         if (self.isExtended)
         {
@@ -211,6 +218,15 @@ NSAttributedString * richStringFromDay(osmoh::Day const & day, BOOL isClosedNow)
     cell.breaks.text = day.m_breaks;
     return cell;
   }
+}
+
+- (NSInteger)indexOfMetainfoSection
+{
+  auto & sections = self.data.sections;
+  auto it = find(sections.begin(), sections.end(), place_page::Sections::Metainfo);
+  if (it == sections.end())
+    return NSNotFound;
+  return distance(sections.begin(), it);
 }
 
 - (BOOL)extendMetainfoRowsWithSize:(NSUInteger)size
