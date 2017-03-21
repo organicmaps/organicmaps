@@ -54,7 +54,12 @@ extension PPHotelCarouselCell: UICollectionViewDelegate, UICollectionViewDataSou
     if isLastCell(indexPath) {
       d.showGalery()
     } else {
-      d.showPhoto(at: UInt(indexPath.row))
+      let section = indexPath.section
+      d.showPhoto(at: indexPath.item,
+                  referenceView: collectionView.cellForItem(at: indexPath), referenceViewWhenDismissingHandler: { index -> UIView? in
+                    let indexPath = IndexPath(item: index, section: section)
+                    return collectionView.cellForItem(at: indexPath)
+      })
     }
   }
 }
