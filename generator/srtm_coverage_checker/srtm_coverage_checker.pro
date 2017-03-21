@@ -7,7 +7,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = generator map routing routing_common search storage indexer platform editor geometry coding base \
+DEPENDENCIES = generator map routing routing_common search storage icu indexer platform editor geometry coding base \
                osrm jansson protobuf succinct stats_client pugixml minizip gflags stats_client
 
 include($$ROOT_DIR/common.pri)

@@ -3,7 +3,7 @@
 ROOT_DIR = ../..
 
 DEPENDENCIES = openlr routing routing_common search storage indexer editor \
-               platform geometry coding base protobuf osrm stats_client pugixml jansson succinct gflags
+               platform geometry coding base protobuf osrm stats_client pugixml jansson succinct gflags icu
 
 include($$ROOT_DIR/common.pri)
 

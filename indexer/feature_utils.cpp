@@ -11,6 +11,11 @@
 
 #include "base/base.hpp"
 
+#include "3party/icu/i18n/unicode/translit.h"
+#include "3party/icu/i18n/unicode/utrans.h"
+#include "3party/icu/common/unicode/utypes.h"
+#include "3party/icu/common/unicode/unistr.h"
+
 #include "std/vector.hpp"
 
 namespace
@@ -26,6 +31,23 @@ void GetMwmLangName(feature::RegionData const & regionData, StringUtf8Multilang 
   {
     if (src.GetString(code, out))
       return;
+  }
+}
+
+void GetTransliteratedName(feature::RegionData const & regionData, StringUtf8Multilang const & src, string & out)
+{
+  vector<int8_t> mwmLangCodes;
+  regionData.GetLanguages(mwmLangCodes);
+
+  string srcName;
+  for (auto const code : mwmLangCodes)
+  {
+    if (src.GetString(code, srcName))
+    {
+      out = Transliterate(srcName, StringUtf8Multilang::GetLangEnNameByCode(code));
+      if (!out.empty())
+        return;
+    }
   }
 }
 
@@ -62,6 +84,39 @@ void GetBestName(StringUtf8Multilang const & src, vector<int8_t> const & priorit
   }
 }
 }  // namespace
+
+std::string Transliterate(std::string const & str, std::string const & lang)
+{
+  class ICUDataInitializer
+  {
+  public:
+    ICUDataInitializer(std::string const & icuDataDir)
+    {
+      u_setDataDirectory(icuDataDir.c_str());
+    }
+  };
+  static ICUDataInitializer icuInitializer("../../../../../../omim/3party/icu/data/in/");
+
+  UnicodeString ustr(str.c_str());
+  UErrorCode status = U_ZERO_ERROR;
+
+  const std::string id = lang + "-Latin/BGN";
+  std::unique_ptr<Transliterator> latinTransliterator(Transliterator::createInstance(id.c_str(), UTRANS_FORWARD, status));
+  if (latinTransliterator == nullptr)
+  {
+    LOG(LWARNING, ("Cannot create transliterator", id));
+    return "";
+  }
+
+  latinTransliterator->transliterate(ustr);
+
+  std::string resultStr;
+  ustr.toUTF8String(resultStr);
+
+  LOG(LDEBUG, ("Transliterated", str, "->", resultStr, "id =", id));
+
+  return resultStr;
+}
 
 namespace feature
 {
@@ -212,19 +267,21 @@ void GetPreferredNames(RegionData const & regionData, StringUtf8Multilang const 
   if (src.IsEmpty())
     return;
 
-  vector<int8_t> const primaryCodes = {deviceLang,
-                                       StrUtf8::kInternationalCode,
-                                       StrUtf8::kEnglishCode};
-  vector<int8_t> secondaryCodes = {StrUtf8::kDefaultCode,
-                                   StrUtf8::kInternationalCode};
+  GetBestName(src, {deviceLang, StrUtf8::kInternationalCode}, primary);
+  if (primary.empty())
+  {
+    GetTransliteratedName(regionData, src, primary);
+    if (primary.empty())
+      GetBestName(src, {StrUtf8::kEnglishCode}, primary);
+  }
 
   vector<int8_t> mwmLangCodes;
   regionData.GetLanguages(mwmLangCodes);
-
+  vector<int8_t> secondaryCodes = {StrUtf8::kDefaultCode,
+                                   StrUtf8::kInternationalCode};
   secondaryCodes.insert(secondaryCodes.end(), mwmLangCodes.begin(), mwmLangCodes.end());
   secondaryCodes.push_back(StrUtf8::kEnglishCode);
 
-  GetBestName(src, primaryCodes, primary);
   GetBestName(src, secondaryCodes, secondary);
 
   if (primary.empty())
@@ -243,14 +300,27 @@ void GetReadableName(RegionData const & regionData, StringUtf8Multilang const & 
 
   vector<int8_t> codes;
   // If MWM contains user's language.
-  if (regionData.HasLanguage(deviceLang))
-    codes = {deviceLang, StrUtf8::kDefaultCode, StrUtf8::kInternationalCode, StrUtf8::kEnglishCode};
+  bool const preferDefault = regionData.HasLanguage(deviceLang);
+  if (preferDefault)
+    codes = {deviceLang, StrUtf8::kDefaultCode, StrUtf8::kInternationalCode};
   else
-    codes = {deviceLang, StrUtf8::kInternationalCode, StrUtf8::kEnglishCode, StrUtf8::kDefaultCode};
+    codes = {deviceLang, StrUtf8::kInternationalCode};
 
   GetBestName(src, codes, out);
-
   if (out.empty())
-    GetMwmLangName(regionData, src, out);
+  {
+    GetTransliteratedName(regionData, src, out);
+    if (out.empty())
+    {
+      if (preferDefault)
+        codes = {StrUtf8::kEnglishCode};
+      else
+        codes = {StrUtf8::kEnglishCode, StrUtf8::kDefaultCode};
+      GetBestName(src, codes, out);
+      if (out.empty())
+        GetMwmLangName(regionData, src, out);
+    }
+  }
 }
+
 } // namespace feature

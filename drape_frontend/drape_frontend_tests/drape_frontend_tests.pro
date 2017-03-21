@@ -4,7 +4,7 @@ CONFIG += console warn_on
 CONFIG -= app_bundle
 TEMPLATE = app
 
-DEPENDENCIES = drape_frontend drape platform indexer geometry coding base expat stats_client stb_image sdf_image
+DEPENDENCIES = drape_frontend drape platform indexer geometry coding base expat stats_client stb_image sdf_image icu
 
 ROOT_DIR = ../..
 include($$ROOT_DIR/common.pri)

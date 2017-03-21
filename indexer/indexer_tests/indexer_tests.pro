@@ -6,7 +6,7 @@ TEMPLATE = app
 ROOT_DIR = ../..
 DEPENDENCIES =  generator_tests_support search_tests_support indexer_tests_support \
                 platform_tests_support generator search routing routing_common indexer storage editor \
-                platform coding geometry base stats_client jansson tess2 protobuf \
+                platform coding geometry base stats_client jansson tess2 protobuf icu \
                 succinct opening_hours pugixml
 
 include($$ROOT_DIR/common.pri)

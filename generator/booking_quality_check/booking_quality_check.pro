@@ -25,6 +25,7 @@ DEPENDENCIES = \
     oauthcpp \
     expat \
     protobuf \
+    icu \
 
 include($$ROOT_DIR/common.pri)
 

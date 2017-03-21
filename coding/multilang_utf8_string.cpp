@@ -9,22 +9,22 @@ namespace
 // Languages below were choosen after sorting name:<lang> tags in 2011.
 // Note, that it's not feasible to increase languages number here due to
 // our current encoding (6 bit to store language code).
-StringUtf8Multilang::Languages const g_languages = {{ {"default", "Native for each country"},
-    {"en", "English"}, {"ja", "日本語"}, {"fr", "Français"}, {"ko_rm", "Korean (Romanized)"},
-    {"ar", "العربية"}, {"de", "Deutsch"}, {"int_name", "International (Latin)"}, {"ru", "Русский"},
-    {"sv", "Svenska"}, {"zh", "中文"}, {"fi", "Suomi"}, {"be", "Беларуская"}, {"ka", "ქართული"},
-    {"ko", "한국어"}, {"he", "עברית"}, {"nl", "Nederlands"}, {"ga", "Gaeilge"},
-    {"ja_rm", "Japanese (Romanized)"}, {"el", "Ελληνικά"}, {"it", "Italiano"}, {"es", "Español"},
-    {"zh_pinyin", "Chinese (Pinyin)"}, {"th", "ไทย"}, {"cy", "Cymraeg"}, {"sr", "Српски"},
-    {"uk", "Українська"}, {"ca", "Català"}, {"hu", "Magyar"}, {"hsb", "Hornjoserbšćina"}, {"eu", "Euskara"},
-    {"fa", "فارسی"}, {"br", "Breton"}, {"pl", "Polski"}, {"hy", "Հայերէն"}, {"kn", "ಕನ್ನಡ"},
-    {"sl", "Slovenščina"}, {"ro", "Română"}, {"sq", "Shqipe"}, {"am", "አማርኛ"}, {"fy", "Frysk"},
-    {"cs", "Čeština"}, {"gd", "Gàidhlig"}, {"sk", "Slovenčina"}, {"af", "Afrikaans"},
-    {"ja_kana", "日本語(カタカナ)"}, {"lb", "Luxembourgish"}, {"pt", "Português"}, {"hr", "Hrvatski"},
-    {"fur", "Friulian"}, {"vi", "Tiếng Việt"}, {"tr", "Türkçe"}, {"bg", "Български"},
-    {"eo", "Esperanto"}, {"lt", "Lietuvių"}, {"la", "Latin"}, {"kk", "Қазақ"},
-    {"gsw", "Schwiizertüütsch"}, {"et", "Eesti"}, {"ku", "Kurdish"}, {"mn", "Mongolian"},
-    {"mk", "Македонски"}, {"lv", "Latviešu"}, {"hi", "हिन्दी"}
+StringUtf8Multilang::Languages const g_languages = {{ {"default", "Native for each country", "Any"},
+    {"en", "English", "English"}, {"ja", "日本語", "Japanese"}, {"fr", "Français", "French"}, {"ko_rm", "Korean (Romanized)", "Korean"},
+    {"ar", "العربية", "Arabic"}, {"de", "Deutsch", "German"}, {"int_name", "International (Latin)", "Latin"}, {"ru", "Русский", "Russian"},
+    {"sv", "Svenska", "Swedish"}, {"zh", "中文", "Chinese"}, {"fi", "Suomi", "Finnish"}, {"be", "Беларуская", "Belarusian"}, {"ka", "ქართული", "Georgian"},
+    {"ko", "한국어", "Korean"}, {"he", "עברית", "Hebrew"}, {"nl", "Nederlands", "Dutch"}, {"ga", "Gaeilge", "Irish"},
+    {"ja_rm", "Japanese (Romanized)", "Japanese"}, {"el", "Ελληνικά", "Greek"}, {"it", "Italiano", "Italian"}, {"es", "Español", "Spanish"},
+    {"zh_pinyin", "Chinese (Pinyin)", "Chinese"}, {"th", "ไทย", "Thailand"}, {"cy", "Cymraeg", "Welsh"}, {"sr", "Српски", "Serbian"},
+    {"uk", "Українська", "Ukrainian"}, {"ca", "Català", "Catalan"}, {"hu", "Magyar", "Hungarian"}, {"hsb", "Hornjoserbšćina", "Upper Sorbian"}, {"eu", "Euskara", "Basque"},
+    {"fa", "فارسی", "Farsi"}, {"br", "Breton", "Breton"}, {"pl", "Polski", "Polish"}, {"hy", "Հայերէն", "Armenian"}, {"kn", "ಕನ್ನಡ", "Kannada"},
+    {"sl", "Slovenščina", "Slovene"}, {"ro", "Română", "Romanian"}, {"sq", "Shqipe", "Shqipe"}, {"am", "አማርኛ", "Amharic"}, {"fy", "Frysk", "Frisian"},
+    {"cs", "Čeština", "Czech"}, {"gd", "Gàidhlig", "Scots Gaelic"}, {"sk", "Slovenčina", "Slovak"}, {"af", "Afrikaans", "Afrikaans"},
+    {"ja_kana", "日本語(カタカナ)", "Japanese (Katakana)"}, {"lb", "Luxembourgish", "Luxembourgish"}, {"pt", "Português", "Portuguese"}, {"hr", "Hrvatski", "Croatian"},
+    {"fur", "Friulian", "Friulian"}, {"vi", "Tiếng Việt", "Vietnamese"}, {"tr", "Türkçe", "Turkish"}, {"bg", "Български", "Bulgarian"},
+    {"eo", "Esperanto", "Esperanto"}, {"lt", "Lietuvių", "Lithuanian"}, {"la", "Latin", "Latin"}, {"kk", "Қазақ", "Kazakh"},
+    {"gsw", "Schwiizertüütsch", "Swiss German"}, {"et", "Eesti", "Estonian"}, {"ku", "Kurdish", "Kurdish"}, {"mn", "Mongolian", "Mongolian"},
+    {"mk", "Македонски", "Macedonian"}, {"lv", "Latviešu", "Latvian"}, {"hi", "हिन्दी", "Hindi"}
 }};
 
 static_assert(g_languages.size() == StringUtf8Multilang::kMaxSupportedLanguages,
@@ -44,6 +44,7 @@ StringUtf8Multilang::Languages const & StringUtf8Multilang::GetSupportedLanguage
   ASSERT_EQUAL(g_languages[kInternationalCode].m_code, string("int_name"), ());
   return g_languages;
 }
+
 // static
 int8_t StringUtf8Multilang::GetLangIndex(string const & lang)
 {
@@ -53,6 +54,7 @@ int8_t StringUtf8Multilang::GetLangIndex(string const & lang)
 
   return kUnsupportedLanguageCode;
 }
+
 // static
 char const * StringUtf8Multilang::GetLangByCode(int8_t langCode)
 {
@@ -60,12 +62,21 @@ char const * StringUtf8Multilang::GetLangByCode(int8_t langCode)
     return "";
   return g_languages[langCode].m_code;
 }
+
 // static
 char const * StringUtf8Multilang::GetLangNameByCode(int8_t langCode)
 {
   if (langCode < 0 || langCode >= static_cast<int8_t>(g_languages.size()))
     return "";
   return g_languages[langCode].m_name;
+}
+
+// static
+char const * StringUtf8Multilang::GetLangEnNameByCode(int8_t langCode)
+{
+  if (langCode < 0 || langCode >= static_cast<int8_t>(g_languages.size()))
+    return "";
+  return g_languages[langCode].m_enName;
 }
 
 size_t StringUtf8Multilang::GetNextIndex(size_t i) const

@@ -7,6 +7,8 @@
 struct FeatureID;
 class StringUtf8Multilang;
 
+std::string Transliterate(std::string const & str, std::string const & lang);
+
 namespace feature
 {
   class TypesHolder;
