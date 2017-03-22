@@ -493,14 +493,23 @@ BOOL gIsFirstMyPositionMode = YES;
 - (void)performAction:(NSString *)action
 {
   [self.navigationController popToRootViewControllerAnimated:NO];
-  self.controlsManager.searchHidden = YES;
-  [MWMRouter stopRouting];
-  if ([action isEqualToString:@"me.maps.3daction.bookmarks"])
-    [self openBookmarks];
-  else if ([action isEqualToString:@"me.maps.3daction.search"])
-    self.controlsManager.searchHidden = NO;
-  else if ([action isEqualToString:@"me.maps.3daction.route"])
-    [self.controlsManager onRoutePrepare];
+  if (self.isViewLoaded)
+  {
+    self.controlsManager.searchHidden = YES;
+    [MWMRouter stopRouting];
+    if ([action isEqualToString:@"me.maps.3daction.bookmarks"])
+      [self openBookmarks];
+    else if ([action isEqualToString:@"me.maps.3daction.search"])
+      self.controlsManager.searchHidden = NO;
+    else if ([action isEqualToString:@"me.maps.3daction.route"])
+      [self.controlsManager onRoutePrepare];
+  }
+  else
+  {
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [self performAction:action];
+    });
+  }
 }
 
 #pragma mark - API bar
