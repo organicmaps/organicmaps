@@ -4499,7 +4499,7 @@
     nb = Del med melding
     pl = Udostępnij przez wiadomość
     pt = Partilhar por mensagem
-    ro = Chia sẻ bằng tin nhắn
+    ro = Partajare ca mesaj
     es = Compartir por mensaje
     sv = Dela via meddelande
     th = แชร์จากข้อความ
@@ -4532,7 +4532,7 @@
     nb = Del
     pl = Udostępnij
     pt = Partilhar
-    ro = Chia sẻ
+    ro = Partajare
     es = Compartir
     sv = Dela
     th = แชร์
