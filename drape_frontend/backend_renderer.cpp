@@ -7,6 +7,7 @@
 #include "drape_frontend/drape_measurer.hpp"
 #include "drape_frontend/map_shape.hpp"
 #include "drape_frontend/message_subclasses.hpp"
+#include "drape_frontend/metaline_manager.hpp"
 #include "drape_frontend/read_manager.hpp"
 #include "drape_frontend/route_builder.hpp"
 #include "drape_frontend/user_mark_shapes.hpp"
@@ -33,6 +34,7 @@ BackendRenderer::BackendRenderer(Params && params)
   , m_trafficGenerator(make_unique_dp<TrafficGenerator>(bind(&BackendRenderer::FlushTrafficRenderData, this, _1)))
   , m_requestedTiles(params.m_requestedTiles)
   , m_updateCurrentCountryFn(params.m_updateCurrentCountryFn)
+  , m_metalineManager(make_unique_dp<MetalineManager>(params.m_commutator, m_model))
 {
 #ifdef DEBUG
   m_isTeardowned = false;
@@ -111,7 +113,8 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
         bool have3dBuildings;
         bool forceRequest;
         m_requestedTiles->GetParams(screen, have3dBuildings, forceRequest);
-        m_readManager->UpdateCoverage(screen, have3dBuildings, forceRequest, tiles, m_texMng);
+        m_readManager->UpdateCoverage(screen, have3dBuildings, forceRequest, tiles, m_texMng,
+                                      make_ref(m_metalineManager));
         m_updateCurrentCountryFn(screen.ClipRect().Center(), (*tiles.begin()).m_zoomLevel);
       }
       break;
@@ -468,6 +471,7 @@ void BackendRenderer::ReleaseResources()
   m_readManager->Stop();
 
   m_readManager.reset();
+  m_metalineManager.reset();
   m_batchersPool.reset();
   m_routeBuilder.reset();
   m_overlays.clear();

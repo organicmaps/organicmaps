@@ -12,11 +12,12 @@
 namespace dp
 {
 class TextureManager;
-} // namespace dp
+}  // namespace dp
 
 namespace df
 {
 class Message;
+class MetalineManager;
 
 class EngineContext
 {
@@ -24,6 +25,7 @@ public:
   EngineContext(TileKey tileKey,
                 ref_ptr<ThreadsCommutator> commutator,
                 ref_ptr<dp::TextureManager> texMng,
+                ref_ptr<MetalineManager> metalineMng,
                 CustomSymbolsContextWeakPtr customSymbolsContext,
                 bool is3dBuildingsEnabled,
                 bool isTrafficEnabled,
@@ -35,6 +37,7 @@ public:
   int GetDisplacementMode() const { return m_displacementMode; }
   CustomSymbolsContextWeakPtr GetCustomSymbolsContext() const { return m_customSymbolsContext; }
   ref_ptr<dp::TextureManager> GetTextureManager() const;
+  ref_ptr<MetalineManager> GetMetalineManager() const;
 
   void BeginReadTile();
   void Flush(TMapShapes && shapes);
@@ -48,6 +51,7 @@ private:
   TileKey m_tileKey;
   ref_ptr<ThreadsCommutator> m_commutator;
   ref_ptr<dp::TextureManager> m_texMng;
+  ref_ptr<MetalineManager> m_metalineMng;
   CustomSymbolsContextWeakPtr m_customSymbolsContext;
   bool m_3dBuildingsEnabled;
   bool m_trafficEnabled;

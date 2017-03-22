@@ -1260,4 +1260,10 @@ class RunFirstLaunchAnimationMessage : public Message
 public:
   Type GetType() const override { return Message::RunFirstLaunchAnimation; }
 };
+
+class UpdateMetalinesMessage : public Message
+{
+public:
+  Type GetType() const override { return Message::UpdateMetalines; }
+};
 }  // namespace df

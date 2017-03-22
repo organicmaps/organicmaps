@@ -82,6 +82,7 @@ public:
     SetPostprocessStaticTextures,
     SetPosteffectEnabled,
     RunFirstLaunchAnimation,
+    UpdateMetalines,
   };
 
   virtual ~Message() {}

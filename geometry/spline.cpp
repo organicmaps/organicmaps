@@ -285,9 +285,13 @@ Spline * SharedSpline::operator->()
 
 Spline const * SharedSpline::operator->() const
 {
+  return Get();
+}
+
+Spline const * SharedSpline::Get() const
+{
   ASSERT(!IsNull(), ());
   return m_spline.get();
 }
-
 }
 

@@ -2,6 +2,7 @@
 #include "drape_frontend/drape_measurer.hpp"
 #include "drape_frontend/engine_context.hpp"
 #include "drape_frontend/map_data_provider.hpp"
+#include "drape_frontend/metaline_manager.hpp"
 #include "drape_frontend/rule_drawer.hpp"
 #include "drape_frontend/stylist.hpp"
 
@@ -13,7 +14,6 @@
 #include "base/logging.hpp"
 
 #include <functional>
-#include <set>
 
 namespace df
 {
@@ -29,30 +29,25 @@ m2::RectD TileInfo::GetGlobalRect() const
 
 void TileInfo::ReadFeatureIndex(MapDataProvider const & model)
 {
-  if (DoNeedReadIndex())
+  if (!DoNeedReadIndex())
+    return;
+
+  CheckCanceled();
+
+  size_t const kAverageFeaturesCount = 256;
+  m_featureInfo.reserve(kAverageFeaturesCount);
+
+  MwmSet::MwmId lastMwm;
+  model.ReadFeaturesID([this, &lastMwm](FeatureID const & id)
   {
-    CheckCanceled();
-
-    size_t const kAverageFeaturesCount = 256;
-    m_featureInfo.reserve(kAverageFeaturesCount);
-
-#ifdef DEBUG
-    std::set<MwmSet::MwmId> existing;
-    MwmSet::MwmId lastMwm;
-    model.ReadFeaturesID([this, &existing, &lastMwm](FeatureID const & id)
+    if (m_mwms.empty() || lastMwm != id.m_mwmId)
     {
-      if (existing.empty() || lastMwm != id.m_mwmId)
-      {
-        ASSERT(existing.insert(id.m_mwmId).second, ());
-        lastMwm = id.m_mwmId;
-      }
-#else
-    model.ReadFeaturesID([this](FeatureID const & id)
-    {
-#endif
-      m_featureInfo.push_back(id);
-    }, GetGlobalRect(), GetZoomLevel());
-  }
+      auto result = m_mwms.insert(id.m_mwmId);
+      ASSERT(result.second, ());
+      lastMwm = id.m_mwmId;
+    }
+    m_featureInfo.push_back(id);
+  }, GetGlobalRect(), GetZoomLevel());
 }
 
 void TileInfo::ReadFeatures(MapDataProvider const & model)
@@ -68,13 +63,14 @@ void TileInfo::ReadFeatures(MapDataProvider const & model)
   ReadFeatureIndex(model);
   CheckCanceled();
 
+  m_context->GetMetalineManager()->Update(m_mwms);
+
   if (!m_featureInfo.empty())
   {
     auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
     RuleDrawer drawer(std::bind(&TileInfo::InitStylist, this, deviceLang, _1, _2),
                       std::bind(&TileInfo::IsCancelled, this),
-                      model.m_isCountryLoadedByName,
-                      make_ref(m_context));
+                      model.m_isCountryLoadedByName, make_ref(m_context));
     model.ReadFeatures(std::bind<void>(std::ref(drawer), _1), m_featureInfo);
   }
 #if defined(DRAPE_MEASURER) && defined(TILES_STATISTIC)

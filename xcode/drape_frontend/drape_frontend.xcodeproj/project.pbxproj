@@ -216,6 +216,10 @@
 		BB035F6F1E3A2AAE00519962 /* drape_measurer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB035F6D1E3A2AAE00519962 /* drape_measurer.cpp */; };
 		BB035F701E3A2AAE00519962 /* drape_measurer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB035F6E1E3A2AAE00519962 /* drape_measurer.hpp */; };
 		BBD8F8791E96A51A00BAEB72 /* drape_hints.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BBD8F8781E96A51A00BAEB72 /* drape_hints.hpp */; };
+		EB2B77FF1EEDD418002697B6 /* metaline_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB2B77FD1EEDD418002697B6 /* metaline_manager.cpp */; };
+		EB2B78001EEDD418002697B6 /* metaline_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EB2B77FE1EEDD418002697B6 /* metaline_manager.hpp */; };
+		EB2B78031EEDD439002697B6 /* read_metaline_task.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB2B78011EEDD439002697B6 /* read_metaline_task.cpp */; };
+		EB2B78041EEDD439002697B6 /* read_metaline_task.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EB2B78021EEDD439002697B6 /* read_metaline_task.hpp */; };
 		F6B283101C1B04680081957A /* gps_track_point.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6B2830B1C1B04680081957A /* gps_track_point.hpp */; };
 		F6B283111C1B04680081957A /* gps_track_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6B2830C1C1B04680081957A /* gps_track_renderer.cpp */; };
 		F6B283121C1B04680081957A /* gps_track_renderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6B2830D1C1B04680081957A /* gps_track_renderer.hpp */; };
@@ -506,6 +510,10 @@
 		BB035F6D1E3A2AAE00519962 /* drape_measurer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = drape_measurer.cpp; sourceTree = "<group>"; };
 		BB035F6E1E3A2AAE00519962 /* drape_measurer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drape_measurer.hpp; sourceTree = "<group>"; };
 		BBD8F8781E96A51A00BAEB72 /* drape_hints.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drape_hints.hpp; sourceTree = "<group>"; };
+		EB2B77FD1EEDD418002697B6 /* metaline_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = metaline_manager.cpp; sourceTree = "<group>"; };
+		EB2B77FE1EEDD418002697B6 /* metaline_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = metaline_manager.hpp; sourceTree = "<group>"; };
+		EB2B78011EEDD439002697B6 /* read_metaline_task.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = read_metaline_task.cpp; sourceTree = "<group>"; };
+		EB2B78021EEDD439002697B6 /* read_metaline_task.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = read_metaline_task.hpp; sourceTree = "<group>"; };
 		F6B2830B1C1B04680081957A /* gps_track_point.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gps_track_point.hpp; sourceTree = "<group>"; };
 		F6B2830C1C1B04680081957A /* gps_track_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gps_track_renderer.cpp; sourceTree = "<group>"; };
 		F6B2830D1C1B04680081957A /* gps_track_renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gps_track_renderer.hpp; sourceTree = "<group>"; };
@@ -609,6 +617,10 @@
 		670947411BDF9B99005014C0 /* drape_frontend */ = {
 			isa = PBXGroup;
 			children = (
+				EB2B78011EEDD439002697B6 /* read_metaline_task.cpp */,
+				EB2B78021EEDD439002697B6 /* read_metaline_task.hpp */,
+				EB2B77FD1EEDD418002697B6 /* metaline_manager.cpp */,
+				EB2B77FE1EEDD418002697B6 /* metaline_manager.hpp */,
 				451A2A801EE8464E003E05A4 /* circles_pack_shape.cpp */,
 				451A2A811EE8464E003E05A4 /* circles_pack_shape.hpp */,
 				456B3F971ED464FE009B3D1F /* postprocess_renderer.cpp */,
@@ -860,6 +872,7 @@
 			files = (
 				670947971BDF9BE1005014C0 /* line_shape.hpp in Headers */,
 				56BF56DB1C7608C0006DD7CB /* choose_position_mark.hpp in Headers */,
+				EB2B78001EEDD418002697B6 /* metaline_manager.hpp in Headers */,
 				45580ABB1E28DB2600CD535D /* scenario_manager.hpp in Headers */,
 				670948031BDF9BF5005014C0 /* drape_engine.hpp in Headers */,
 				6709486A1BDF9C7F005014C0 /* brush_info.hpp in Headers */,
@@ -901,6 +914,7 @@
 				457D89251E7AE89500049500 /* custom_symbol.hpp in Headers */,
 				675D218D1BFB871D00717E4F /* proto_to_styles.hpp in Headers */,
 				670947951BDF9BE1005014C0 /* line_shape_helper.hpp in Headers */,
+				EB2B78041EEDD439002697B6 /* read_metaline_task.hpp in Headers */,
 				670948501BDF9C48005014C0 /* skin.hpp in Headers */,
 				56D545671C74A44900E3719C /* overlay_batcher.hpp in Headers */,
 				670947B21BDF9BE1005014C0 /* read_mwm_task.hpp in Headers */,
@@ -1090,10 +1104,12 @@
 				670947FA1BDF9BF5005014C0 /* backend_renderer.cpp in Sources */,
 				45BB025D1EB8BE5200FE5C0C /* shader_def.cpp in Sources */,
 				670948451BDF9C48005014C0 /* gui_text.cpp in Sources */,
+				EB2B78031EEDD439002697B6 /* read_metaline_task.cpp in Sources */,
 				670948141BDF9C39005014C0 /* base_interpolator.cpp in Sources */,
 				670948491BDF9C48005014C0 /* ruler_helper.cpp in Sources */,
 				670947E41BDF9BEC005014C0 /* engine_context.cpp in Sources */,
 				670947B51BDF9BE1005014C0 /* render_node.cpp in Sources */,
+				EB2B77FF1EEDD418002697B6 /* metaline_manager.cpp in Sources */,
 				670947AF1BDF9BE1005014C0 /* read_manager.cpp in Sources */,
 				670947941BDF9BE1005014C0 /* line_shape_helper.cpp in Sources */,
 				670947C21BDF9BE1005014C0 /* stylist.cpp in Sources */,

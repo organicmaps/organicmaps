@@ -98,6 +98,8 @@ public:
   Spline * operator->();
   Spline const * operator->() const;
 
+  Spline const * Get() const;
+
 private:
   shared_ptr<Spline> m_spline;
 };
