@@ -27,6 +27,7 @@ omim_link_libraries(
   jansson
   oauthcpp
   stats_client
+  icu
   ${PYTHON_LIBRARIES}
   ${Boost_LIBRARIES}
   ${LIBZ}

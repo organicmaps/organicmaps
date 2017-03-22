@@ -25,6 +25,7 @@ omim_link_libraries(
   oauthcpp
   platform
   jansson
+  icu
   geometry
   coding
   base

@@ -46,6 +46,7 @@ omim_link_libraries(
   stats_client
   pugixml
   opening_hours
+  icu
   ${LIBZ}
 )
 

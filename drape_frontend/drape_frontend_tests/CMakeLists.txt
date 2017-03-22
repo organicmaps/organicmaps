@@ -29,6 +29,7 @@ omim_link_libraries(
   stats_client
   stb_image
   sdf_image
+  icu
   ${LIBZ}
 )
 

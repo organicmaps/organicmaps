@@ -26,6 +26,7 @@ omim_link_libraries(
   protobuf
   oauthcpp
   opening_hours
+  icu
   ${LIBZ}
   ${Qt5Widgets_LIBRARIES}
   ${Qt5Network_LIBRARIES}

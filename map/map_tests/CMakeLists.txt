@@ -40,6 +40,7 @@ omim_link_libraries(
   base
   freetype
   fribidi
+  icu
   expat
   protobuf
   jansson

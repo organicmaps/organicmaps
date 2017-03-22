@@ -40,6 +40,7 @@ omim_link_libraries(
   succinct
   pugixml
   opening_hours
+  icu
   ${Qt5Network_LIBRARIES}
   ${LIBZ}
 )

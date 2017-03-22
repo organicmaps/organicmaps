@@ -24,6 +24,7 @@ omim_link_libraries(
   freetype
   expat
   fribidi
+  icu
   jansson
   protobuf
   osrm

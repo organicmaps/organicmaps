@@ -27,6 +27,7 @@ omim_link_libraries(
   opening_hours
   freetype
   fribidi
+  icu
   expat
   oauthcpp
   protobuf
