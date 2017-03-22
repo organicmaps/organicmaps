@@ -188,6 +188,7 @@ void setPermissionRequested()
 
 - (void)dealloc
 {
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
   self.locationManager.delegate = nil;
 }
 + (void)start { [self manager].started = YES; }
