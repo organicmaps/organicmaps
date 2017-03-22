@@ -12,9 +12,9 @@ import android.widget.TextView;
 
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
-import com.facebook.ads.AdListener;
 import com.facebook.ads.NativeAd;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.ads.FacebookAdsLoader;
 import com.mapswithme.maps.bookmarks.data.Banner;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.UiUtils;
@@ -23,22 +23,19 @@ import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 import static com.mapswithme.util.SharedPropertiesUtils.isShowcaseSwitchedOnLocal;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_CLICK;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_SHOW;
 
-final class BannerController implements AdListener
+final class BannerController extends FacebookAdsLoader.FacebookAdsListener
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE
       .getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = BannerController.class.getName();
-  private static final Map<String, BannerData> CACHE = new HashMap<>();
+
   private static final int MAX_MESSAGE_LINES = 100;
   private static final int MIN_MESSAGE_LINES = 3;
   private static final int MAX_TITLE_LINES = 2;
@@ -72,12 +69,11 @@ final class BannerController implements AdListener
   @Nullable
   private final BannerListener mListener;
 
-  @Nullable
-  private NativeAd mNativeAd;
-
   private boolean mOpened = false;
-  private boolean mIsDownloading = false;
   private boolean mError = false;
+
+  @NonNull
+  private final FacebookAdsLoader mAdsLoader;
 
   BannerController(@NonNull View bannerView, @Nullable BannerListener listener)
   {
@@ -91,17 +87,8 @@ final class BannerController implements AdListener
     mActionSmall = (TextView) bannerView.findViewById(R.id.tv__action_small);
     mActionLarge = (TextView) bannerView.findViewById(R.id.tv__action_large);
     mAds = bannerView.findViewById(R.id.tv__ads);
-  }
-
-  private void setDownloadStatus(boolean status)
-  {
-    LOGGER.d(TAG, "Set the download status to '" + status + "'");
-    mIsDownloading = status;
-  }
-
-  private boolean isDownloading()
-  {
-    return mIsDownloading;
+    //TODO: pass as constructor arguments
+    mAdsLoader = new FacebookAdsLoader();
   }
 
   private void setErrorStatus(boolean value)
@@ -116,8 +103,12 @@ final class BannerController implements AdListener
 
   private void updateVisibility()
   {
+    if (mBanner == null || TextUtils.isEmpty(mBanner.getId()))
+      return;
+
     UiUtils.showIf(!hasErrorOccurred(), mFrame);
-    if ((isDownloading() || hasErrorOccurred()) && !isThereCachedBanner())
+    if ((mAdsLoader.isAdLoadingForId(mBanner.getId()) || hasErrorOccurred())
+        && mAdsLoader.isCacheEmptyForId(mBanner.getId()))
     {
       UiUtils.hide(mIcon, mTitle, mMessage, mActionSmall, mActionLarge, mAds);
     }
@@ -140,33 +131,21 @@ final class BannerController implements AdListener
     if (mBanner == null || TextUtils.isEmpty(mBanner.getId()) || !isShowcaseSwitchedOnLocal()
         || Config.getAdForbidden())
     {
-      LOGGER.i(TAG, "A banner cannot be updated for some reasons");
-      setDownloadStatus(false);
       return;
     }
 
-    if (isDownloading())
-    {
-      LOGGER.d(TAG, "A native ad is being downloaded, so a new download attempt is ignored");
-      return;
-    }
-
-    mNativeAd = new NativeAd(mFrame.getContext(), mBanner.getId());
-    mNativeAd.setAdListener(BannerController.this);
-    mNativeAd.loadAd(EnumSet.of(NativeAd.MediaCacheFlag.ICON));
-    setDownloadStatus(true);
-    updateVisibility();
-    LOGGER.d(TAG, "A native ad for a banner '" + mBanner + "' was requested");
     UiUtils.show(mFrame);
 
-    BannerData data = CACHE.get(mBanner.getId());
+    NativeAd data = mAdsLoader.load(mFrame.getContext(), mBanner.getId(), this);
     if (data != null)
     {
-      LOGGER.d(TAG, "A cached banner '" + mBanner + "' is shown");
+      LOGGER.d(TAG, "A cached ad '" + mBanner + "' is shown");
       fillViews(data);
-      registerViewsForInteraction(mNativeAd);
+      registerViewsForInteraction(data);
       loadIconAndOpenIfNeeded(data, mBanner);
     }
+
+    updateVisibility();
 
     if (mOpened && mListener != null)
       mListener.onSizeChanged();
@@ -179,14 +158,15 @@ final class BannerController implements AdListener
 
   void open()
   {
-    if (!isBannerVisible() || mNativeAd == null || mBanner == null || mOpened)
+    if (!isBannerVisible() || mBanner == null || mOpened)
       return;
 
     mOpened = true;
     setFrameHeight(WRAP_CONTENT);
-    BannerData data = CACHE.get(mBanner.getId());
+    //FIXME NPE
+    NativeAd data = mAdsLoader.getAdByIdFromCache(mBanner.getId());
     if (data != null)
-      loadIcon(data.getIcon());
+      loadIcon(data.getAdIcon());
     mMessage.setMaxLines(MAX_MESSAGE_LINES);
     mTitle.setMaxLines(MAX_TITLE_LINES);
     updateVisibility();
@@ -195,7 +175,7 @@ final class BannerController implements AdListener
 
   boolean close()
   {
-    if (!isBannerVisible() || mNativeAd == null || mBanner == null || !mOpened)
+    if (!isBannerVisible() || mBanner == null || !mOpened)
       return false;
 
     mOpened = false;
@@ -226,51 +206,30 @@ final class BannerController implements AdListener
     NativeAd.downloadAndDisplayImage(icon, mIcon);
   }
 
-  private boolean isThereCachedBanner()
-  {
-    return mBanner != null && CACHE.containsKey(mBanner.getId());
-  }
-
   @Override
-  public void onError(Ad ad, AdError adError)
+  public void onError(@NonNull Ad ad, @NonNull AdError adError, boolean isCacheEmpty)
   {
-    setDownloadStatus(false);
-    setErrorStatus(!isThereCachedBanner());
+    setErrorStatus(isCacheEmpty);
     updateVisibility();
 
-    if (mListener != null && !isThereCachedBanner())
+    if (mListener != null && isCacheEmpty)
       mListener.onSizeChanged();
-    LOGGER.e(TAG, " A error has occurred '" + adError.getErrorMessage() + "' for a banner '" + mBanner + "'");
     Statistics.INSTANCE.trackFacebookBannerError(mBanner, adError, mOpened ? 1 : 0);
   }
 
   @Override
-  public void onAdLoaded(Ad ad)
+  public void onFacebookAdLoaded(@NonNull NativeAd ad)
   {
-    if (mNativeAd == null || mBanner == null)
+    if (mBanner == null)
       return;
 
-    setDownloadStatus(false);
     updateVisibility();
 
-    BannerData newData = new BannerData(mNativeAd);
-    LOGGER.d(TAG, "A new banner was loaded with placement id '" + ad.getPlacementId() + "'");
+    fillViews(ad);
 
-    // In general, if there is a cached banner, we have to show it instead of a just-downloaded banner.
-    // Thus, we try to eliminate a number of situations when user sees a blank banner view until
-    // it is downloaded. And a just-downloaded banner will be shown next time.
-    if (!isThereCachedBanner())
-    {
-      LOGGER.d(TAG, "There is not a cached banner, so a just-downloaded banner must be displayed");
+    registerViewsForInteraction(ad);
 
-      fillViews(newData);
-
-      registerViewsForInteraction(mNativeAd);
-
-      loadIconAndOpenIfNeeded(newData, mBanner);
-    }
-
-    CACHE.put(mBanner.getId(), newData);
+    loadIconAndOpenIfNeeded(ad, mBanner);
 
     if (mListener != null && mOpened)
       mListener.onSizeChanged();
@@ -285,22 +244,22 @@ final class BannerController implements AdListener
     ad.registerViewForInteraction(mFrame, clickableViews);
   }
 
-  private void fillViews(@NonNull BannerData data)
+  private void fillViews(@NonNull NativeAd data)
   {
-    mTitle.setText(data.getTitle());
-    mMessage.setText(data.getBody());
-    mActionSmall.setText(data.getAction());
-    mActionLarge.setText(data.getAction());
+    mTitle.setText(data.getAdSubtitle());
+    mMessage.setText(data.getAdBody());
+    mActionSmall.setText(data.getAdCallToAction());
+    mActionLarge.setText(data.getAdCallToAction());
   }
 
-  private void loadIconAndOpenIfNeeded(BannerData data, @NonNull Banner banner)
+  private void loadIconAndOpenIfNeeded(@NonNull NativeAd data, @NonNull Banner banner)
   {
     if (UiUtils.isLandscape(mFrame.getContext()))
     {
       if (!mOpened)
         open();
       else
-        loadIcon(data.getIcon());
+        loadIcon(data.getAdIcon());
     }
     else if (!mOpened)
     {
@@ -309,7 +268,7 @@ final class BannerController implements AdListener
     }
     else
     {
-      loadIcon(data.getIcon());
+      loadIcon(data.getAdIcon());
     }
   }
 
@@ -331,49 +290,5 @@ final class BannerController implements AdListener
   interface BannerListener
   {
     void onSizeChanged();
-  }
-
-  private static class BannerData
-  {
-    @NonNull
-    NativeAd.Image mIcon;
-    @NonNull
-    String mTitle;
-    @NonNull
-    String mBody;
-    @NonNull
-    String mAction;
-
-    BannerData(@NonNull NativeAd ad)
-    {
-      mIcon = ad.getAdIcon();
-      mTitle = ad.getAdTitle();
-      mBody = ad.getAdBody();
-      mAction = ad.getAdCallToAction();
-    }
-
-    @NonNull
-    public NativeAd.Image getIcon()
-    {
-      return mIcon;
-    }
-
-    @NonNull
-    public String getTitle()
-    {
-      return mTitle;
-    }
-
-    @NonNull
-    public String getBody()
-    {
-      return mBody;
-    }
-
-    @NonNull
-    public String getAction()
-    {
-      return mAction;
-    }
   }
 }
