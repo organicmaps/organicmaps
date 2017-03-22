@@ -26,7 +26,7 @@ HEADERS += defines.hpp
 SUBDIRS = 3party base coding geometry editor indexer routing routing_common search openlr
 
 !CONFIG(osrm) {
-  SUBDIRS *= platform stats storage
+  SUBDIRS *= platform stats storage map
 
   CONFIG(desktop) {
     SUBDIRS *= traffic generator
@@ -43,8 +43,6 @@ SUBDIRS = 3party base coding geometry editor indexer routing routing_common sear
   # Integration tests dependencies for gtool.
   # TODO(AlexZ): Avoid duplication for routing_integration_tests.
   CONFIG(gtool):!CONFIG(no-tests) {
-    SUBDIRS *= map
-
     # Booking quality check
     booking_quality_check.subdir = generator/booking_quality_check
     booking_quality_check.depends = $$SUBDIRS
@@ -68,7 +66,7 @@ SUBDIRS = 3party base coding geometry editor indexer routing routing_common sear
 }
 
 !CONFIG(gtool):!CONFIG(osrm) {
-  SUBDIRS *= drape drape_frontend partners_api tracking traffic  map
+  SUBDIRS *= drape drape_frontend partners_api tracking traffic
 
   CONFIG(map_designer):CONFIG(desktop) {
     SUBDIRS *= skin_generator
@@ -107,16 +105,16 @@ SUBDIRS = 3party base coding geometry editor indexer routing routing_common sear
     search_quality.depends = $$SUBDIRS
     SUBDIRS *= search_quality
 
+    feature_list.subdir = feature_list
+    feature_list.depends = $$SUBDIRS
+    SUBDIRS *= feature_list
+
     search_quality_tool.subdir = search/search_quality/search_quality_tool
     search_quality_tool.depends = $$SUBDIRS
 
     features_collector_tool.subdir = search/search_quality/features_collector_tool
     features_collector_tool.depends = $$SUBDIRS
-
-    feature_list.subdir = feature_list
-    feature_list.depends = $$SUBDIRS
-
-    SUBDIRS *= feature_list features_collector_tool search_quality_tool
+    SUBDIRS *= features_collector_tool search_quality_tool
   }
 
   CONFIG(desktop):!CONFIG(no-tests) {

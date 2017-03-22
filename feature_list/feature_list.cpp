@@ -23,6 +23,7 @@
 #include "storage/index.hpp"
 #include "storage/storage.hpp"
 
+#include "std/algorithm.hpp"
 #include "std/iostream.hpp"
 
 class ClosestPoint
@@ -83,6 +84,25 @@ string GetReadableType(FeatureType const & f)
   return result == 0 ? string() : classif().GetReadableObjectName(result);
 }
 
+string GetWheelchairType(FeatureType const & f)
+{
+  static const uint32_t wheelchair = classif().GetTypeByPath({"wheelchair"});
+  string result;
+  f.ForEachType([&result](uint32_t type)
+  {
+    uint32_t truncated = type;
+    ftype::TruncValue(truncated, 1);
+    if (truncated == wheelchair)
+    {
+      string fullName = classif().GetReadableObjectName(type);
+      auto pos = fullName.find("-");
+      if (pos != string::npos)
+        result = fullName.substr(pos + 1);
+    }
+  });
+  return result;
+}
+
 string BuildUniqueId(ms::LatLon const & coords, string const & name)
 {
   ostringstream ss;
@@ -106,11 +126,16 @@ void AppendNames(FeatureType const & f, vector<string> & columns)
   columns.insert(columns.end(), next(names.begin()), names.end());
 }
 
-void PrintAsCSV(vector<string> const & columns, ostream & out, char delimiter = ',')
+void PrintAsCSV(vector<string> const & columns, char const delimiter, ostream & out)
 {
   bool first = true;
-  for (string const & value : columns)
+  for (string value : columns)
   {
+    // Newlines are hard to process, replace them with spaces. And trim the string.
+    replace(value.begin(), value.end(), '\r', ' ');
+    replace(value.begin(), value.end(), '\n', ' ');
+    strings::Trim(value);
+
     if (first)
       first = false;
     else
@@ -122,14 +147,13 @@ void PrintAsCSV(vector<string> const & columns, ostream & out, char delimiter = 
     }
     else
     {
-      string quoted(value);
       size_t pos = 0;
-      while ((pos = quoted.find('"', pos)) != string::npos)
+      while ((pos = value.find('"', pos)) != string::npos)
       {
-        quoted.insert(pos, 1, '"');
+        value.insert(pos, 1, '"');
         pos += 2;
       }
-      out << '"' << quoted << '"';
+      out << '"' << value << '"';
     }
   }
   out << endl;
@@ -173,29 +197,43 @@ public:
     string const & lat = strings::to_string_with_digits_after_comma(ll.lat, 6);
     string const & lon = strings::to_string_with_digits_after_comma(ll.lon, 6);
     search::ReverseGeocoder::Address addr;
-    string const & address = m_geocoder.GetExactAddress(f, addr)
-                                 ? addr.GetStreetName() + ", " + addr.GetHouseNumber()
-                                 : "";
+    string addrStreet = "";
+    string addrHouse = "";
+    if (m_geocoder.GetExactAddress(f, addr))
+    {
+      addrStreet = addr.GetStreetName();
+      addrHouse = addr.GetHouseNumber();
+    }
     string const & phone = f.GetMetadata().Get(feature::Metadata::FMD_PHONE_NUMBER);
     string const & website = f.GetMetadata().Get(feature::Metadata::FMD_WEBSITE);
-    string const & cuisine = strings::JoinStrings(obj.GetLocalizedCuisines(), ", ");
+    string cuisine = f.GetMetadata().Get(feature::Metadata::FMD_CUISINE);
+    replace(cuisine.begin(), cuisine.end(), ';', ',');
+    string const & stars = f.GetMetadata().Get(feature::Metadata::FMD_STARS);
+    string const & operatr = f.GetMetadata().Get(feature::Metadata::FMD_OPERATOR);
+    string const & internet = f.GetMetadata().Get(feature::Metadata::FMD_INTERNET);
+    string const & denomination = f.GetMetadata().Get(feature::Metadata::FMD_DENOMINATION);
+    string const & wheelchair = GetWheelchairType(f);
     string const & opening_hours = f.GetMetadata().Get(feature::Metadata::FMD_OPEN_HOURS);
 
-    vector<string> columns = {uid,  lat,     lon,   mwmName, category, name,
-                              city, address, phone, website, cuisine,  opening_hours};
+    vector<string> columns = {uid,          lat,        lon,          mwmName,   category,
+                              name,         city,       addrStreet,   addrHouse, phone,
+                              website,      cuisine,    stars,        operatr,   internet,
+                              denomination, wheelchair, opening_hours};
     AppendNames(f, columns);
-    PrintAsCSV(columns, cout, ';');
+    PrintAsCSV(columns, ';', cout);
   }
 };
 
 void PrintHeader()
 {
-  vector<string> columns = {"id",   "lat",     "lon",   "mwm",     "category", "name",
-                            "city", "address", "phone", "website", "cuisine",  "opening_hours"};
+  vector<string> columns = {"id",           "lat",        "lon",          "mwm",      "category",
+                            "name",         "city",       "street",       "house",    "phone",
+                            "website",      "cuisines",   "stars",        "operator", "internet",
+                            "denomination", "wheelchair", "opening_hours"};
   // Append all supported name languages in order.
   for (uint8_t idx = 1; idx < kLangCount; idx++)
     columns.push_back("name_" + string(StringUtf8Multilang::GetLangByCode(idx)));
-  PrintAsCSV(columns, cout, ';');
+  PrintAsCSV(columns, ';', cout);
 }
 
 void DidDownload(storage::TCountryId const & /* countryId */,
@@ -264,7 +302,7 @@ int main(int argc, char ** argv)
     LOG(LINFO, ("Processing", mwmInfo->GetCountryName()));
     MwmSet::MwmId mwmId(mwmInfo);
     Index::FeaturesLoaderGuard loader(index, mwmId);
-    for (size_t ftIndex = 0; ftIndex < loader.GetNumFeatures(); ftIndex++)
+    for (uint32_t ftIndex = 0; ftIndex < loader.GetNumFeatures(); ftIndex++)
     {
       FeatureType ft;
       if (loader.GetFeatureByIndex(ftIndex, ft))
