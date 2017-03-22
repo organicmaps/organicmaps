@@ -1,5 +1,6 @@
 #pragma once
 
+#include "search/search_quality/assessment_tool/edits.hpp"
 #include "search/search_quality/sample.hpp"
 
 #include <QtWidgets/QWidget>
@@ -15,13 +16,18 @@ class Result;
 class ResultView : public QWidget
 {
 public:
+  using Relevance = search::Sample::Result::Relevance;
+
   ResultView(search::Result const & result, QWidget & parent);
 
-  void SetRelevance(search::Sample::Result::Relevance relevance);
+  void EnableEditing(Edits::RelevanceEditor editor);
 
 private:
   void Init();
   void SetContents(search::Result const & result);
+
+  QRadioButton * CreateRatioButton(string const & label, QLayout & layout);
+  void OnRelevanceChanged();
 
   QLabel * m_string = nullptr;
   QLabel * m_type = nullptr;
@@ -30,4 +36,6 @@ private:
   QRadioButton * m_irrelevant = nullptr;
   QRadioButton * m_relevant = nullptr;
   QRadioButton * m_vital = nullptr;
+
+  Edits::RelevanceEditor m_editor;
 };

@@ -151,6 +151,12 @@ void MainView::InitDocks()
 
   m_sampleView = new SampleView(this /* parent */);
   m_sampleDock = CreateDock("Sample", *m_sampleView);
+  connect(m_sampleView, &SampleView::EditStateUpdated, this, [this](bool hasEdits) {
+    if (hasEdits)
+      m_sampleDock->setWindowTitle(tr("Sample *"));
+    else
+      m_sampleDock->setWindowTitle(tr("Sample"));
+  });
   addDockWidget(Qt::RightDockWidgetArea, m_sampleDock);
 }
 

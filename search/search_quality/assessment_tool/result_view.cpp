@@ -10,8 +10,6 @@
 #include <QtWidgets/QRadioButton>
 #include <QtWidgets/QVBoxLayout>
 
-using Relevance = search::Sample::Result::Relevance;
-
 namespace
 {
 QLabel * CreateLabel(QWidget & parent)
@@ -38,19 +36,29 @@ ResultView::ResultView(search::Result const & result, QWidget & parent) : QWidge
 {
   Init();
   SetContents(result);
+  setEnabled(false);
+  setObjectName("result");
 }
 
-void ResultView::SetRelevance(Relevance relevance)
+void ResultView::EnableEditing(Edits::RelevanceEditor editor)
 {
+  if (!editor.IsValid())
+    return;
+
+  m_editor = editor;
+
   m_irrelevant->setChecked(false);
   m_relevant->setChecked(false);
   m_vital->setChecked(false);
-  switch (relevance)
+
+  switch (m_editor.Get())
   {
   case Relevance::Irrelevant: m_irrelevant->setChecked(true); break;
   case Relevance::Relevant: m_relevant->setChecked(true); break;
   case Relevance::Vital: m_vital->setChecked(true); break;
   }
+
+  setEnabled(true);
 }
 
 void ResultView::Init()
@@ -75,13 +83,9 @@ void ResultView::Init()
     auto * groupLayout = new QHBoxLayout(group /* parent */);
     group->setLayout(groupLayout);
 
-    m_irrelevant = new QRadioButton("0", this /* parent */);
-    m_relevant = new QRadioButton("+1", this /* parent */);
-    m_vital = new QRadioButton("+2", this /* parent */);
-
-    groupLayout->addWidget(m_irrelevant);
-    groupLayout->addWidget(m_relevant);
-    groupLayout->addWidget(m_vital);
+    m_irrelevant = CreateRatioButton("0", *groupLayout);
+    m_relevant = CreateRatioButton("+1", *groupLayout);
+    m_vital = CreateRatioButton("+2", *groupLayout);
 
     layout->addWidget(group);
   }
@@ -96,4 +100,33 @@ void ResultView::SetContents(search::Result const & result)
   m_irrelevant->setChecked(false);
   m_relevant->setChecked(false);
   m_vital->setChecked(false);
+}
+
+QRadioButton * ResultView::CreateRatioButton(string const & text, QLayout & layout)
+{
+  QRadioButton * radio = new QRadioButton(QString::fromStdString(text), this /* parent */);
+  layout.addWidget(radio);
+
+  connect(radio, &QRadioButton::toggled, this, &ResultView::OnRelevanceChanged);
+  return radio;
+}
+
+void ResultView::OnRelevanceChanged()
+{
+  if (!m_editor.IsValid())
+    return;
+
+  auto relevance = Relevance::Irrelevant;
+  if (m_irrelevant->isChecked())
+    relevance = Relevance::Irrelevant;
+  else if (m_relevant->isChecked())
+    relevance = Relevance::Relevant;
+  else if (m_vital->isChecked())
+    relevance = Relevance::Vital;
+
+  bool changed = m_editor.Set(relevance);
+  if (changed)
+    setStyleSheet("#result {background: rgba(255, 255, 200, 50%)}");
+  else
+    setStyleSheet("");
 }

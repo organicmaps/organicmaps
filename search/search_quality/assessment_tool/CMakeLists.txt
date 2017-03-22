@@ -9,6 +9,8 @@ include_directories(${OMIM_ROOT}/3party/glm)
 set(
   SRC
   assessment_tool.cpp
+  edits.cpp
+  edits.hpp
   helpers.cpp
   helpers.hpp
   languages_list.cpp
