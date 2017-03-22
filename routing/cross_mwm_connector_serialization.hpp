@@ -8,6 +8,7 @@
 #include "indexer/geometry_serialization.hpp"
 
 #include "coding/bit_streams.hpp"
+#include "coding/elias_coder.hpp"
 #include "coding/reader.hpp"
 #include "coding/write_to_sink.hpp"
 #include "coding/writer.hpp"
@@ -17,6 +18,7 @@
 #include <array>
 #include <cstdint>
 #include <limits>
+#include <type_traits>
 #include <vector>
 
 namespace routing
@@ -49,12 +51,12 @@ public:
     void Serialize(serial::CodingParams const & codingParams, uint8_t bitsPerMask,
                    Sink & sink) const
     {
-      WriteToSink(sink, m_featureId);
-      WriteToSink(sink, m_segmentIdx);
       serial::SavePoint(sink, m_backPoint, codingParams);
       serial::SavePoint(sink, m_frontPoint, codingParams);
 
       BitWriter<Sink> writer(sink);
+      WriteDelta(writer, m_featureId + 1);
+      WriteDelta(writer, m_segmentIdx + 1);
       writer.WriteAtMost32Bits(base::asserted_cast<uint32_t>(m_roadMask), bitsPerMask);
       writer.WriteAtMost32Bits(base::asserted_cast<uint32_t>(m_oneWayMask), bitsPerMask);
       writer.Write(m_forwardIsEnter ? 0 : 1, 1);
@@ -63,12 +65,12 @@ public:
     template <class Source>
     void Deserialize(serial::CodingParams const & codingParams, uint8_t bitsPerMask, Source & src)
     {
-      m_featureId = ReadPrimitiveFromSource<decltype(m_featureId)>(src);
-      m_segmentIdx = ReadPrimitiveFromSource<decltype(m_segmentIdx)>(src);
       m_backPoint = serial::LoadPoint(src, codingParams);
       m_frontPoint = serial::LoadPoint(src, codingParams);
 
       BitReader<Source> reader(src);
+      m_featureId = ReadDelta<decltype(m_featureId)>(reader) - 1;
+      m_segmentIdx = ReadDelta<decltype(m_segmentIdx)>(reader) - 1;
       m_roadMask = base::asserted_cast<VehicleMask>(reader.ReadAtMost32Bits(bitsPerMask));
       m_oneWayMask = base::asserted_cast<VehicleMask>(reader.ReadAtMost32Bits(bitsPerMask));
       m_forwardIsEnter = reader.Read(1) == 0;
@@ -115,7 +117,6 @@ public:
 
       std::vector<uint8_t> & buffer = weightBuffers[i];
       WriteWeights(connector.m_weights, buffer);
-
       auto const numEnters = base::checked_cast<uint32_t>(connector.GetEnters().size());
       auto const numExits = base::checked_cast<uint32_t>(connector.GetExits().size());
       auto const vehicleType = static_cast<VehicleType>(i);
@@ -133,7 +134,7 @@ public:
   static void DeserializeTransitions(VehicleType requiredVehicle, CrossMwmConnector & connector,
                                      Source & src)
   {
-    CHECK(connector.m_weightsLoadState == CrossMwmConnector::WeightsLoadState::Unknown, ());
+    CHECK(connector.m_weightsLoadState == WeightsLoadState::Unknown, ());
 
     Header header;
     header.Deserialize(src);
@@ -180,30 +181,44 @@ public:
       }
 
       connector.m_weightsOffset = weightsOffset;
-      connector.m_weightsLoadState = CrossMwmConnector::WeightsLoadState::ReadyToLoad;
+      connector.m_accuracy = header.GetAccuracy();
+      connector.m_weightsLoadState = WeightsLoadState::ReadyToLoad;
       return;
     }
 
-    connector.m_weightsLoadState = CrossMwmConnector::WeightsLoadState::NotExists;
+    connector.m_weightsLoadState = WeightsLoadState::NotExists;
   }
 
   template <class Source>
   static void DeserializeWeights(VehicleType requiredVehicle, CrossMwmConnector & connector,
                                  Source & src)
   {
-    CHECK(connector.m_weightsLoadState == CrossMwmConnector::WeightsLoadState::ReadyToLoad, ());
+    CHECK(connector.m_weightsLoadState == WeightsLoadState::ReadyToLoad, ());
+    CHECK_GREATER(connector.m_accuracy, 0, ());
 
     src.Skip(connector.m_weightsOffset);
 
     size_t const amount = connector.GetEnters().size() * connector.GetExits().size();
     connector.m_weights.reserve(amount);
+
+    BitReader<Source> reader(src);
+
+    Weight prev = 1;
     for (size_t i = 0; i < amount; ++i)
     {
-      auto const weight = ReadPrimitiveFromSource<uint32_t>(src);
-      connector.m_weights.push_back(static_cast<CrossMwmConnector::Weight>(weight));
+      if (reader.Read(1) == kNoRouteBit)
+      {
+        connector.m_weights.push_back(CrossMwmConnector::kNoRoute);
+        continue;
+      }
+
+      Weight const delta = ReadDelta<Weight>(reader);
+      Weight const current = DecodePositivesDelta(prev, delta);
+      connector.m_weights.push_back(current * connector.m_accuracy);
+      prev = current;
     }
 
-    connector.m_weightsLoadState = CrossMwmConnector::WeightsLoadState::Loaded;
+    connector.m_weightsLoadState = WeightsLoadState::Loaded;
   }
 
   static void AddTransition(Transition const & transition, VehicleMask requiredMask,
@@ -219,7 +234,17 @@ public:
   }
 
 private:
+  using Weight = CrossMwmConnector::Weight;
+  using WeightsLoadState = CrossMwmConnector::WeightsLoadState;
+
   static uint32_t constexpr kLastVersion = 0;
+  static uint8_t constexpr kNoRouteBit = 0;
+  static uint8_t constexpr kRouteBit = 1;
+  // Accuracy is integral unit for storing Weight in section.
+  // Accuracy measured in seconds as well as the Weight.
+  // Accuracy is the way to tune section size.
+  static Weight constexpr kAccuracy = 4;
+  static_assert(kAccuracy > 0, "kAccuracy should be > 0");
 
   class Section final
   {
@@ -281,6 +306,7 @@ private:
       WriteToSink(sink, m_version);
       WriteToSink(sink, m_numTransitions);
       WriteToSink(sink, m_sizeTransitions);
+      WriteToSink(sink, m_accuracy);
       m_codingParams.Save(sink);
       WriteToSink(sink, m_bitsPerMask);
 
@@ -301,6 +327,7 @@ private:
 
       m_numTransitions = ReadPrimitiveFromSource<decltype(m_numTransitions)>(src);
       m_sizeTransitions = ReadPrimitiveFromSource<decltype(m_sizeTransitions)>(src);
+      m_accuracy = ReadPrimitiveFromSource<decltype(m_accuracy)>(src);
       m_codingParams.Load(src);
       m_bitsPerMask = ReadPrimitiveFromSource<decltype(m_bitsPerMask)>(src);
 
@@ -314,6 +341,7 @@ private:
 
     uint32_t GetNumTransitions() const { return m_numTransitions; }
     uint64_t GetSizeTransitions() const { return m_sizeTransitions; }
+    Weight GetAccuracy() const { return m_accuracy; }
     serial::CodingParams const & GetCodingParams() const { return m_codingParams; }
     uint8_t GetBitsPerMask() const { return m_bitsPerMask; }
     std::vector<Section> const & GetSections() const { return m_sections; }
@@ -322,10 +350,73 @@ private:
     uint32_t m_version = kLastVersion;
     uint32_t m_numTransitions = 0;
     uint64_t m_sizeTransitions = 0;
+    Weight m_accuracy = kAccuracy;
     serial::CodingParams m_codingParams;
     uint8_t m_bitsPerMask = 0;
     std::vector<Section> m_sections;
   };
+
+  template <typename T, typename Sink>
+  static void WriteDelta(BitWriter<Sink> & writer, T value)
+  {
+    static_assert(std::is_integral<T>::value, "T should be integral type");
+    ASSERT_GREATER(value, 0, ());
+
+    bool const success = coding::DeltaCoder::Encode(writer, static_cast<uint64_t>(value));
+    ASSERT(success, ());
+    UNUSED_VALUE(success);
+  }
+
+  template <typename T, typename Source>
+  static T ReadDelta(BitReader<Source> & reader)
+  {
+    static_assert(std::is_integral<T>::value, "T should be integral type");
+    uint64_t const decoded = coding::DeltaCoder::Decode(reader);
+    if (decoded > numeric_limits<T>::max())
+      MYTHROW(CorruptedDataException,
+              ("Decoded value", decoded, "out of limit", numeric_limits<T>::max()));
+
+    return static_cast<T>(decoded);
+  }
+
+  // Encodes current as delta compared with prev.
+  //
+  // Example:
+  // prev    =       3
+  // current = 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+  // delta   = 5, 3, 1, 2, 4, 6, 7, 8, 9, 10
+  template <typename T>
+  static T EncodePositivesDelta(T prev, T current)
+  {
+    static_assert(std::is_integral<T>::value, "T should be integral type");
+    ASSERT_GREATER(prev, 0, ());
+    ASSERT_GREATER(current, 0, ());
+
+    if (current <= prev)
+      return (prev - current) * 2 + 1;
+
+    if (current < prev * 2)
+      return (current - prev) * 2;
+
+    return current;
+  }
+
+  // Reverse function for EncodePositivesDelta.
+  template <typename T>
+  static T DecodePositivesDelta(T prev, T delta)
+  {
+    static_assert(std::is_integral<T>::value, "T should be integral type");
+    ASSERT_GREATER(prev, 0, ());
+    ASSERT_GREATER(delta, 0, ());
+
+    if (delta >= prev * 2)
+      return delta;
+
+    if (delta % 2 == 0)
+      return prev + delta / 2;
+
+    return prev - delta / 2;
+  }
 
   template <typename T>
   static T GetBitsPerMask()
@@ -347,7 +438,6 @@ private:
                                serial::CodingParams const & codingParams, uint8_t bitsPerMask,
                                std::vector<uint8_t> & buffer);
 
-  static void WriteWeights(std::vector<CrossMwmConnector::Weight> const & weights,
-                           std::vector<uint8_t> & buffer);
+  static void WriteWeights(std::vector<Weight> const & weights, std::vector<uint8_t> & buffer);
 };
 }  // namespace routing

@@ -19,12 +19,25 @@ void CrossMwmConnectorSerializer::WriteTransitions(vector<Transition> const & tr
 }
 
 // static
-void CrossMwmConnectorSerializer::WriteWeights(vector<CrossMwmConnector::Weight> const & weights,
+void CrossMwmConnectorSerializer::WriteWeights(vector<Weight> const & weights,
                                                vector<uint8_t> & buffer)
 {
   MemWriter<vector<uint8_t>> memWriter(buffer);
+  BitWriter<MemWriter<vector<uint8_t>>> writer(memWriter);
 
-  for (auto weight : weights)
-    WriteToSink(memWriter, weight);
+  CrossMwmConnector::Weight prevWeight = 1;
+  for (auto const weight : weights)
+  {
+    if (weight == CrossMwmConnector::kNoRoute)
+    {
+      writer.Write(kNoRouteBit, 1);
+      continue;
+    }
+
+    writer.Write(kRouteBit, 1);
+    auto const storedWeight = (weight + kAccuracy - 1) / kAccuracy;
+    WriteDelta(writer, EncodePositivesDelta(prevWeight, storedWeight));
+    prevWeight = storedWeight;
+  }
 }
 }  // namespace routing

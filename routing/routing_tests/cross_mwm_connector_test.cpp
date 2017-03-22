@@ -139,7 +139,7 @@ UNIT_TEST(TwoWayExit)
 
 UNIT_TEST(Serialization)
 {
-  float constexpr kEdgesWeight = 333;
+  float constexpr kEdgesWeight = 4444;
 
   vector<uint8_t> buffer;
   {
@@ -235,5 +235,77 @@ UNIT_TEST(Serialization)
   TestEdges(connector, Segment(mwmId, 20, 2, false /* forward */), false /* isOutgoing */,
             {{Segment(mwmId, 10, 1, true /* forward */), kEdgesWeight},
              {Segment(mwmId, 20, 2, true /* forward */), kEdgesWeight}});
+}
+
+UNIT_TEST(WeightsSerialization)
+{
+  size_t constexpr kNumTransitions = 3;
+  std::vector<double> const weights = {
+      4.0,  20.0, CrossMwmConnector::kNoRoute, 12.0, CrossMwmConnector::kNoRoute, 40.0, 48.0,
+      24.0, 12.0};
+  TEST_EQUAL(weights.size(), kNumTransitions * kNumTransitions, ());
+
+  vector<uint8_t> buffer;
+  {
+    vector<CrossMwmConnectorSerializer::Transition> transitions;
+    for (uint32_t featureId = 0; featureId < kNumTransitions; ++featureId)
+    {
+      transitions.emplace_back(featureId, 1 /* segmentIdx */, kCarMask, 0 /* oneWayMask */,
+                               true /* forwardIsEnter */, m2::PointD::Zero(), m2::PointD::Zero());
+    }
+
+    CrossMwmConnectorPerVehicleType connectors;
+    CrossMwmConnector & carConnector = connectors[static_cast<size_t>(VehicleType::Car)];
+    for (auto const & transition : transitions)
+      CrossMwmConnectorSerializer::AddTransition(transition, kCarMask, carConnector);
+
+    int weightIdx = 0;
+    carConnector.FillWeights(
+        [&](Segment const & enter, Segment const & exit) { return weights[weightIdx++]; });
+
+    serial::CodingParams const codingParams;
+    MemWriter<vector<uint8_t>> writer(buffer);
+    CrossMwmConnectorSerializer::Serialize(transitions, connectors, codingParams, writer);
+  }
+
+  CrossMwmConnector connector(mwmId);
+  {
+    MemReader reader(buffer.data(), buffer.size());
+    ReaderSource<MemReader> source(reader);
+    CrossMwmConnectorSerializer::DeserializeTransitions(VehicleType::Car, connector, source);
+  }
+
+  TestConnectorConsistency(connector);
+
+  TEST_EQUAL(connector.GetEnters().size(), kNumTransitions, ());
+  TEST_EQUAL(connector.GetExits().size(), kNumTransitions, ());
+
+  TEST(!connector.WeightsWereLoaded(), ());
+  TEST(!connector.HasWeights(), ());
+
+  {
+    MemReader reader(buffer.data(), buffer.size());
+    ReaderSource<MemReader> source(reader);
+    CrossMwmConnectorSerializer::DeserializeWeights(VehicleType::Car, connector, source);
+  }
+  TEST(connector.WeightsWereLoaded(), ());
+  TEST(connector.HasWeights(), ());
+
+  int weightIdx = 0;
+
+  for (uint32_t enterId = 0; enterId < kNumTransitions; ++enterId)
+  {
+    Segment const enter(mwmId, enterId, 1, true /* forward */);
+    vector<SegmentEdge> expectedEdges;
+    for (uint32_t exitId = 0; exitId < kNumTransitions; ++exitId)
+    {
+      auto const weight = weights[weightIdx];
+      if (weight != CrossMwmConnector::kNoRoute)
+        expectedEdges.emplace_back(Segment(mwmId, exitId, 1, false /* forward */), weight);
+      ++weightIdx;
+    }
+
+    TestEdges(connector, enter, true /* isOutgoing */, expectedEdges);
+  }
 }
 }  // namespace routing_test

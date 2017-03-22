@@ -27,6 +27,7 @@
 #include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 
+#include <algorithm>
 #include <functional>
 #include <memory>
 #include <unordered_map>
@@ -172,10 +173,42 @@ bool RegionsContain(vector<m2::RegionD> const & regions, m2::PointD const & poin
   return false;
 }
 
+double CalcClockwiseDistance(vector<m2::RegionD> const & borders,
+                             CrossMwmConnectorSerializer::Transition const & transition)
+{
+  double distance = 0.0;
+
+  for (m2::RegionD const & region : borders)
+  {
+    vector<m2::PointD> points = region.Data();
+
+    m2::PointD const * prev = &points.back();
+    for (m2::PointD const & curr : points)
+    {
+      m2::PointD intersection;
+      if (region.IsIntersect(transition.GetBackPoint(), transition.GetFrontPoint(), *prev, curr,
+                             intersection))
+      {
+        distance += prev->Length(intersection);
+        return distance;
+      }
+
+      distance += prev->Length(curr);
+      prev = &curr;
+    }
+  }
+
+  CHECK(false, ("Intersection not found, feature:", transition.GetFeatureId(), "segment:",
+                transition.GetSegmentIdx(), "back:", transition.GetBackPoint(), "front:",
+                transition.GetFrontPoint()));
+  return distance;
+}
+
 void CalcCrossMwmTransitions(string const & path, string const & mwmFile, string const & country,
                              vector<CrossMwmConnectorSerializer::Transition> & transitions,
                              CrossMwmConnectorPerVehicleType & connectors)
 {
+  my::Timer timer;
   string const polyFile = my::JoinPath(path, BORDERS_DIR, country + BORDERS_EXTENSION);
   vector<m2::RegionD> borders;
   osm::LoadBorders(polyFile, borders);
@@ -206,20 +239,36 @@ void CalcCrossMwmTransitions(string const & path, string const & mwmFile, string
       transitions.emplace_back(featureId, segmentIdx, roadMask, oneWayMask, currPointIn,
                                f.GetPoint(i - 1), f.GetPoint(i));
 
-      for (size_t j = 0; j < connectors.size(); ++j)
-      {
-        VehicleMask const mask = GetVehicleMask(static_cast<VehicleType>(j));
-        CrossMwmConnectorSerializer::AddTransition(transitions.back(), mask, connectors[j]);
-      }
-
       prevPointIn = currPointIn;
     }
   });
+  LOG(LINFO, ("Transitions finished, transitions:", transitions.size(), ", elapsed:",
+              timer.ElapsedSeconds(), "seconds"));
+
+  timer.Reset();
+  sort(transitions.begin(), transitions.end(),
+       [&](CrossMwmConnectorSerializer::Transition const & lhs,
+           CrossMwmConnectorSerializer::Transition const & rhs) {
+         return CalcClockwiseDistance(borders, lhs) < CalcClockwiseDistance(borders, rhs);
+       });
+
+  LOG(LINFO, ("Transition sorted in", timer.ElapsedSeconds(), "seconds"));
+
+  for (auto const & transition : transitions)
+  {
+    for (size_t j = 0; j < connectors.size(); ++j)
+    {
+      VehicleMask const mask = GetVehicleMask(static_cast<VehicleType>(j));
+      CrossMwmConnectorSerializer::AddTransition(transition, mask, connectors[j]);
+    }
+  }
 }
 
 void FillWeights(string const & path, string const & mwmFile, string const & country,
                  CrossMwmConnector & connector)
 {
+  my::Timer timer;
+
   shared_ptr<IVehicleModel> vehicleModel = CarModelFactory().GetVehicleModelForCountry(country);
   IndexGraph graph(
       GeometryLoader::CreateFromFile(mwmFile, vehicleModel),
@@ -231,6 +280,8 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
   map<Segment, map<Segment, double>> weights;
   map<Segment, double> distanceMap;
   auto const numEnters = connector.GetEnters().size();
+  size_t foundCount = 0;
+  size_t notFoundCount = 0;
   for (size_t i = 0; i < numEnters; ++i)
   {
     if ((i % 10 == 0) && (i != 0))
@@ -250,7 +301,14 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
     {
       auto it = distanceMap.find(exit);
       if (it != distanceMap.end())
+      {
         weights[enter][exit] = it->second;
+        ++foundCount;
+      }
+      else
+      {
+        ++notFoundCount;
+      }
     }
   }
 
@@ -265,6 +323,9 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
 
     return it1->second;
   });
+
+  LOG(LINFO, ("Leaps finished, elapsed:", timer.ElapsedSeconds(), "seconds, routes found:",
+              foundCount, ", not found:", notFoundCount));
 }
 
 serial::CodingParams LoadCodingParams(string const & mwmFile)
@@ -308,15 +369,12 @@ bool BuildRoutingIndex(string const & filename, string const & country)
 void BuildCrossMwmSection(string const & path, string const & mwmFile, string const & country)
 {
   LOG(LINFO, ("Building cross mwm section for", country));
-  my::Timer timer;
 
   CrossMwmConnectorPerVehicleType connectors;
 
   vector<CrossMwmConnectorSerializer::Transition> transitions;
   CalcCrossMwmTransitions(path, mwmFile, country, transitions, connectors);
 
-  LOG(LINFO, ("Transitions finished, transitions:", transitions.size(), ", elapsed:",
-              timer.ElapsedSeconds(), "seconds"));
   for (size_t i = 0; i < connectors.size(); ++i)
   {
     VehicleType const vehicleType = static_cast<VehicleType>(i);
@@ -324,10 +382,8 @@ void BuildCrossMwmSection(string const & path, string const & mwmFile, string co
     LOG(LINFO, (vehicleType, "model: enters:", connector.GetEnters().size(), ", exits:",
                 connector.GetExits().size()));
   }
-  timer.Reset();
 
   FillWeights(path, mwmFile, country, connectors[static_cast<size_t>(VehicleType::Car)]);
-  LOG(LINFO, ("Leaps finished, elapsed:", timer.ElapsedSeconds(), "seconds"));
 
   serial::CodingParams const codingParams = LoadCodingParams(mwmFile);
   FilesContainerW cont(mwmFile, FileWriter::OP_WRITE_EXISTING);

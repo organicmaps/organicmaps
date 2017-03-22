@@ -147,6 +147,7 @@ private:
   std::unordered_map<Key, Transition, HashKey> m_transitions;
   WeightsLoadState m_weightsLoadState = WeightsLoadState::Unknown;
   uint64_t m_weightsOffset = 0;
+  Weight m_accuracy = 0;
   std::vector<Weight> m_weights;
 };
 }  // namespace routing
