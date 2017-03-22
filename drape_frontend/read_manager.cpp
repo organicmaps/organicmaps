@@ -282,8 +282,16 @@ void ReadManager::SetTrafficEnabled(bool trafficEnabled)
 
 void ReadManager::UpdateCustomSymbols(CustomSymbols && symbols)
 {
-  std::atomic_exchange(&m_customSymbolsContext,
-                       std::make_shared<CustomSymbolsContext>(std::move(symbols)));
+  auto customSymbolsContext = std::make_shared<CustomSymbolsContext>(std::move(symbols));
+
+#if !defined(OMIM_OS_LINUX)
+  std::atomic_exchange(&m_customSymbolsContext, customSymbolsContext);
+#else
+  {
+    lock_guard<mutex> guard(m_customSymbolsContextMutex);
+    std::swap(m_customSymbolsContext, customSymbolsContext);
+  }
+#endif
 }
 
 } // namespace df

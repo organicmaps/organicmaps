@@ -18,6 +18,7 @@
 #include "std/mutex.hpp"
 #include "std/set.hpp"
 #include "std/shared_ptr.hpp"
+#include "std/target_os.hpp"
 
 namespace df
 {
@@ -86,6 +87,13 @@ private:
   TTilesCollection m_activeTiles;
 
   CustomSymbolsContextPtr m_customSymbolsContext;
+
+  // TODO (@y): unfortunately on Debian Jessie libstdc++ does not
+  // support atomic_exchange for shared pointers, so mutex is used
+  // instead.  Get rid of this as soon as new libstdc++ is released.
+#if defined(OMIM_OS_LINUX)
+  mutex m_customSymbolsContextMutex;
+#endif
 
   void CancelTileInfo(shared_ptr<TileInfo> const & tileToCancel);
   void ClearTileInfo(shared_ptr<TileInfo> const & tileToClear);
