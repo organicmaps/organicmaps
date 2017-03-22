@@ -123,6 +123,21 @@ bool GetBoundingBoxArea(FeatureType const & ft, double & sqM)
   return true;
 }
 
+// Feature tag value evaluator for tag 'rating'
+bool GetRating(FeatureType const & ft, double & rating)
+{
+  ftypes::IsHotelChecker hotelChecker;
+  if (!hotelChecker(ft))
+    return false;
+
+  double constexpr kDefaultRating = 0.0;
+
+  string ratingStr = ft.GetMetadata().Get(feature::Metadata::FMD_RATING);
+  if (ratingStr.empty() || !strings::to_double(ratingStr, rating))
+    rating = kDefaultRating;
+  return true;
+}
+
 // Add new tag value evaluator here
 
 }  // namespace
@@ -162,6 +177,17 @@ unique_ptr<ISelector> ParseSelector(string const & str)
       return unique_ptr<ISelector>();
     }
     return make_unique<Selector<double>>(&GetBoundingBoxArea, e.m_operator, value);
+  }
+  else if (e.m_tag == "rating")
+  {
+    double value = 0;
+    if (!e.m_value.empty() && (!strings::to_double(e.m_value, value) || value < 0))
+    {
+      // bad string format
+      LOG(LDEBUG, ("Invalid selector:", str));
+      return unique_ptr<ISelector>();
+    }
+    return make_unique<Selector<double>>(&GetRating, e.m_operator, value);
   }
 
   // Add new tag here
