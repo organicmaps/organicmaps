@@ -49,6 +49,8 @@ void GetTransliteratedName(feature::RegionData const & regionData, StringUtf8Mul
         return;
     }
   }
+  if (!mwmLangCodes.empty() && src.GetString(StringUtf8Multilang::kDefaultCode, srcName))
+    out = Transliterate(srcName, StringUtf8Multilang::GetLangEnNameByCode(mwmLangCodes[0]));
 }
 
 void GetBestName(StringUtf8Multilang const & src, vector<int8_t> const & priorityList, string & out)
