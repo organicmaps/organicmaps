@@ -3,6 +3,8 @@
 #include "search/search_quality/assessment_tool/edits.hpp"
 #include "search/search_quality/sample.hpp"
 
+#include <memory>
+
 #include <QtWidgets/QWidget>
 
 class QLabel;
@@ -20,7 +22,7 @@ public:
 
   ResultView(search::Result const & result, QWidget & parent);
 
-  void EnableEditing(Edits::RelevanceEditor editor);
+  void EnableEditing(Edits::RelevanceEditor && editor);
 
 private:
   void Init();
@@ -37,5 +39,5 @@ private:
   QRadioButton * m_relevant = nullptr;
   QRadioButton * m_vital = nullptr;
 
-  Edits::RelevanceEditor m_editor;
+  std::unique_ptr<Edits::RelevanceEditor> m_editor;
 };

@@ -10,7 +10,7 @@ class LanguagesList;
 class QLineEdit;
 class ResultsView;
 
-class SampleView : public QWidget, public Edits::Delegate
+class SampleView : public QWidget, public Edits::Observer
 {
   Q_OBJECT
 
@@ -23,8 +23,8 @@ public:
   void ShowResults(search::Results::Iter begin, search::Results::Iter end);
   void SetResultRelevances(std::vector<Relevance> const & relevances);
 
-  // Edits::Delegate overrides:
-  void OnUpdate();
+  // Edits::Observer overrides:
+  void OnUpdate() override;
 
 signals:
   void EditStateUpdated(bool hasEdits);

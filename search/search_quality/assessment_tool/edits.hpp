@@ -4,7 +4,7 @@
 
 #include "base/scope_guard.hpp"
 
-#include <set>
+#include <cstddef>
 #include <type_traits>
 #include <vector>
 
@@ -16,10 +16,7 @@ public:
   class RelevanceEditor
   {
   public:
-    RelevanceEditor() = default;
     RelevanceEditor(Edits & parent, size_t index);
-
-    bool IsValid() const { return m_parent != nullptr; }
 
     // Sets relevance to |relevance|. Returns true iff |relevance|
     // differs from the original one.
@@ -27,17 +24,17 @@ public:
     Relevance Get() const;
 
   private:
-    Edits * m_parent = nullptr;
+    Edits & m_parent;
     size_t m_index = 0;
   };
 
-  struct Delegate
+  struct Observer
   {
-    virtual ~Delegate() = default;
+    virtual ~Observer() = default;
     virtual void OnUpdate() = 0;
   };
 
-  Edits(Delegate & delegate);
+  explicit Edits(Observer & observer);
 
   void ResetRelevances(std::vector<Relevance> const & relevances);
 
@@ -52,16 +49,16 @@ public:
 
 private:
   template <typename Fn>
-  typename std::result_of<Fn()>::type WithDelegate(Fn && fn)
+  typename std::result_of<Fn()>::type WithObserver(Fn && fn)
   {
-    MY_SCOPE_GUARD(cleanup, [this]() { m_delegate.OnUpdate(); });
+    MY_SCOPE_GUARD(cleanup, [this]() { m_observer.OnUpdate(); });
     return fn();
   }
 
-  Delegate & m_delegate;
+  Observer & m_observer;
 
   std::vector<Relevance> m_origRelevances;
   std::vector<Relevance> m_currRelevances;
 
-  std::set<size_t> m_relevanceEdits;
+  size_t m_numEdits = 0;
 };

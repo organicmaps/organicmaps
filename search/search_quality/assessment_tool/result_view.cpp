@@ -3,7 +3,10 @@
 #include "search/result.hpp"
 #include "search/search_quality/assessment_tool/helpers.hpp"
 
+#include "base/stl_add.hpp"
+
 #include <string>
+#include <utility>
 
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
@@ -40,18 +43,15 @@ ResultView::ResultView(search::Result const & result, QWidget & parent) : QWidge
   setObjectName("result");
 }
 
-void ResultView::EnableEditing(Edits::RelevanceEditor editor)
+void ResultView::EnableEditing(Edits::RelevanceEditor && editor)
 {
-  if (!editor.IsValid())
-    return;
-
-  m_editor = editor;
+  m_editor = my::make_unique<Edits::RelevanceEditor>(std::move(editor));
 
   m_irrelevant->setChecked(false);
   m_relevant->setChecked(false);
   m_vital->setChecked(false);
 
-  switch (m_editor.Get())
+  switch (m_editor->Get())
   {
   case Relevance::Irrelevant: m_irrelevant->setChecked(true); break;
   case Relevance::Relevant: m_relevant->setChecked(true); break;
@@ -113,7 +113,7 @@ QRadioButton * ResultView::CreateRatioButton(string const & text, QLayout & layo
 
 void ResultView::OnRelevanceChanged()
 {
-  if (!m_editor.IsValid())
+  if (!m_editor)
     return;
 
   auto relevance = Relevance::Irrelevant;
@@ -124,7 +124,7 @@ void ResultView::OnRelevanceChanged()
   else if (m_vital->isChecked())
     relevance = Relevance::Vital;
 
-  bool changed = m_editor.Set(relevance);
+  bool changed = m_editor->Set(relevance);
   if (changed)
     setStyleSheet("#result {background: rgba(255, 255, 200, 50%)}");
   else

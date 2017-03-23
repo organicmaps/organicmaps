@@ -4,63 +4,62 @@
 
 // Edits::RelevanceEditor --------------------------------------------------------------------------
 Edits::RelevanceEditor::RelevanceEditor(Edits & parent, size_t index)
-  : m_parent(&parent), m_index(index)
+  : m_parent(parent), m_index(index)
 {
 }
 
 bool Edits::RelevanceEditor::Set(Relevance relevance)
 {
-  CHECK(IsValid(), ());
-  return m_parent->UpdateRelevance(m_index, relevance);
+  return m_parent.UpdateRelevance(m_index, relevance);
 }
 
 Edits::Relevance Edits::RelevanceEditor::Get() const
 {
-  CHECK(IsValid(), ());
-  auto const & relevances = m_parent->GetRelevances();
+  auto const & relevances = m_parent.GetRelevances();
   CHECK_LESS(m_index, relevances.size(), ());
   return relevances[m_index];
 }
 
 // Edits -------------------------------------------------------------------------------------------
-Edits::Edits(Delegate & delegate) : m_delegate(delegate) {}
+Edits::Edits(Observer & observer) : m_observer(observer) {}
 
 void Edits::ResetRelevances(std::vector<Relevance> const & relevances)
 {
-  WithDelegate([this, &relevances]() {
+  WithObserver([this, &relevances]() {
     m_origRelevances = relevances;
     m_currRelevances = relevances;
-    m_relevanceEdits.clear();
+    m_numEdits = 0;
   });
 }
 
 bool Edits::UpdateRelevance(size_t index, Relevance relevance)
 {
-  return WithDelegate([this, index, relevance]() {
+  return WithObserver([this, index, relevance]() {
     CHECK_LESS(index, m_currRelevances.size(), ());
-    m_currRelevances[index] = relevance;
-
     CHECK_EQUAL(m_currRelevances.size(), m_origRelevances.size(), ());
-    if (m_currRelevances[index] != m_origRelevances[index])
+
+    if (m_currRelevances[index] != m_origRelevances[index] && relevance == m_origRelevances[index])
     {
-      m_relevanceEdits.insert(index);
-      return true;
+      --m_numEdits;
     }
-    else
+    else if (m_currRelevances[index] == m_origRelevances[index] &&
+             relevance != m_origRelevances[index])
     {
-      m_relevanceEdits.erase(index);
-      return false;
+      ++m_numEdits;
     }
+
+    m_currRelevances[index] = relevance;
+    return m_currRelevances[index] != m_origRelevances[index];
   });
 }
 
 void Edits::Clear()
 {
-  WithDelegate([this]() {
+  WithObserver([this]() {
     m_origRelevances.clear();
     m_currRelevances.clear();
-    m_relevanceEdits.clear();
+    m_numEdits = 0;
   });
 }
 
-bool Edits::HasChanges() const { return !m_relevanceEdits.empty(); }
+bool Edits::HasChanges() const { return m_numEdits != 0; }
