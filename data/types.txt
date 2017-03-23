@@ -1153,3 +1153,4 @@ tourism|gallery
 historic|fort
 shop|coffee
 shop|tea
+sponsored|tinkoff

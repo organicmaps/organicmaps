@@ -825,6 +825,7 @@ world  +
             {}
         booking  -
         opentable  -
+        tinkoff  -
         {}
     sport  +
         american_football  -
