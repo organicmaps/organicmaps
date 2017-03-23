@@ -59,17 +59,6 @@ ZLib::DeflateProcessor::DeflateProcessor(void const * data, size_t size, ZLib::L
 
 ZLib::DeflateProcessor::~DeflateProcessor() noexcept
 {
-#if !defined(OMIM_OS_ANDROID) && ZLIB_VERNUM >= 0x1253
-  // deflatePending() was added in zlib 1.2.5.1 and refined in 1.2.5.3
-  unsigned bytes = 0;
-  int bits = 0;
-  auto const ret = deflatePending(&m_stream, &bytes, &bits);
-  UNUSED_VALUE(ret);
-  ASSERT_EQUAL(ret, Z_OK, ());
-  ASSERT_EQUAL(bytes, 0, (bytes, "bytes were not flushed"));
-  ASSERT_EQUAL(bits, 0, (bits, "bits were not flushed"));
-#endif
-
   if (m_init)
     deflateEnd(&m_stream);
 }
