@@ -136,7 +136,10 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
 
     if (mCurrentScrollY > 0 && mDetailsScroll.getTranslationY() > 0)
     {
-      mPlacePage.setState(State.HIDDEN);
+      if (mState != State.PREVIEW)
+        mPlacePage.setState(State.HIDDEN);
+      else
+        mDetailsScroll.scrollTo(0, 0);
     }
     refreshToolbarVisibility();
   }
