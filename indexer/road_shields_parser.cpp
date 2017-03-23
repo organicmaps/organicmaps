@@ -16,16 +16,21 @@ using ftypes::RoadShieldType;
 
 uint32_t constexpr kMaxRoadShieldBytesSize = 8;
 
-std::array<std::string, 63> const kStatesCode = {{
-    "US", "SR", "FSR", "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "HI", "ID",
-    "IL", "IN", "IA",  "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV",
-    "NH", "NJ", "NM",  "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT",
-    "VT", "VA", "WA",  "WV", "WI", "WY", "AS", "GU", "MP", "PR", "VI", "UM", "FM", "MH", "PW",
+std::array<std::string, 3> const kFederalCode = {{
+    "US", "SR", "FSR"
+}};
+
+std::array<std::string, 60> const kStatesCode = {{
+    "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "HI", "ID", "IL", "IN",
+    "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH",
+    "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT",
+    "VT", "VA", "WA", "WV", "WI", "WY", "AS", "GU", "MP", "PR", "VI", "UM", "FM", "MH", "PW",
 }};
 
 std::array<std::string, 13> const kModifiers = {{
     "alt",  "alternate", "bus",  "business",  "bypass", "historic", "connector",
-    "loop", "scenic",    "spur", "temporary", "toll",   "truck"}};
+    "loop", "scenic",    "spur", "temporary", "toll",   "truck"
+}};
 
 class RoadShieldParser
 {
@@ -89,7 +94,7 @@ public:
     if (shieldParts.size() <= 1)
       return RoadShield(RoadShieldType::Default, rawText);
 
-    std::string const & roadType = shieldParts[0]; // 'I' for interstates and kStatesCode for highways.
+    std::string const & roadType = shieldParts[0]; // 'I' for interstates and kFederalCode/kStatesCode for highways.
     std::string roadNumber = shieldParts[1];
     std::string additionalInfo;
     if (shieldParts.size() >= 3)
@@ -106,8 +111,11 @@ public:
     if (roadType == "I")
       return RoadShield(RoadShieldType::US_Interstate, roadNumber, additionalInfo);
 
-    if (std::find(kStatesCode.begin(), kStatesCode.end(), shieldParts[0]) != kStatesCode.end())
+    if (std::find(kFederalCode.begin(), kFederalCode.end(), shieldParts[0]) != kFederalCode.end())
       return RoadShield(RoadShieldType::US_Highway, roadNumber, additionalInfo);
+
+    if (std::find(kStatesCode.begin(), kStatesCode.end(), shieldParts[0]) != kStatesCode.end())
+      return RoadShield(RoadShieldType::Default, roadNumber, additionalInfo);
 
     return RoadShield(RoadShieldType::Default, rawText);
   }
