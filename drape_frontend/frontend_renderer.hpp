@@ -80,7 +80,7 @@ public:
            location::TMyPositionModeChanged myPositionModeCallback,
            location::EMyPositionMode initMode,
            ref_ptr<RequestedTiles> requestedTiles,
-           OverlayShowEventCallback && showEventCallback,
+           OverlaysShowStatsCallback && overlaysShowStatsCallback,
            double timeInBackground,
            bool allow3dBuildings,
            bool trafficEnabled,
@@ -96,7 +96,7 @@ public:
       , m_myPositionModeCallback(myPositionModeCallback)
       , m_initMyPositionMode(initMode)
       , m_requestedTiles(requestedTiles)
-      , m_showEventCallback(move(showEventCallback))
+      , m_overlaysShowStatsCallback(move(overlaysShowStatsCallback))
       , m_timeInBackground(timeInBackground)
       , m_allow3dBuildings(allow3dBuildings)
       , m_trafficEnabled(trafficEnabled)
@@ -113,7 +113,7 @@ public:
     location::TMyPositionModeChanged m_myPositionModeCallback;
     location::EMyPositionMode m_initMyPositionMode;
     ref_ptr<RequestedTiles> m_requestedTiles;
-    OverlayShowEventCallback m_showEventCallback;
+    OverlaysShowStatsCallback m_overlaysShowStatsCallback;
     double m_timeInBackground;
     bool m_allow3dBuildings;
     bool m_trafficEnabled;
@@ -337,7 +337,7 @@ private:
   bool m_trafficEnabled;
 
   drape_ptr<OverlaysTracker> m_overlaysTracker;
-  OverlayShowEventCallback m_showEventCallback;
+  OverlaysShowStatsCallback m_overlaysShowStatsCallback;
 
   drape_ptr<ScenarioManager> m_scenarioManager;
 

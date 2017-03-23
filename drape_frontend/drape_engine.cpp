@@ -50,7 +50,7 @@ DrapeEngine::DrapeEngine(Params && params)
                                     bind(&DrapeEngine::UserPositionChanged, this, _1),
                                     bind(&DrapeEngine::MyPositionModeChanged, this, _1, _2),
                                     mode, make_ref(m_requestedTiles),
-                                    move(params.m_showEventCallback), timeInBackground,
+                                    move(params.m_overlaysShowStatsCallback), timeInBackground,
                                     params.m_allow3dBuildings, params.m_trafficEnabled,
                                     params.m_blockTapEvents, params.m_isFirstLaunch,
                                     params.m_isRoutingActive, params.m_isAutozoomEnabled);

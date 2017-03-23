@@ -138,7 +138,7 @@ FrontendRenderer::FrontendRenderer(Params && params)
   , m_needRegenerateTraffic(false)
   , m_trafficEnabled(params.m_trafficEnabled)
   , m_overlaysTracker(new OverlaysTracker())
-  , m_showEventCallback(move(params.m_showEventCallback))
+  , m_overlaysShowStatsCallback(move(params.m_overlaysShowStatsCallback))
 #ifdef SCENARIO_ENABLE
   , m_scenarioManager(new ScenarioManager(this))
 #endif
@@ -780,7 +780,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::UpdateCustomSymbols:
     {
       ref_ptr<UpdateCustomSymbolsMessage> msg = message;
-      m_overlaysTracker->Init(msg->AcceptSymbolsFeatures());
+      m_overlaysTracker->SetTrackedOverlaysFeatures(msg->AcceptSymbolsFeatures());
       ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
       InvalidateRect(screen.ClipRect());
       break;
@@ -1943,8 +1943,8 @@ drape_ptr<ScenarioManager> const & FrontendRenderer::GetScenarioManager() const
 
 void FrontendRenderer::CollectShowOverlaysEvents()
 {
-  ASSERT(m_showEventCallback != nullptr, ());
-  m_showEventCallback(m_overlaysTracker->Collect());
+  ASSERT(m_overlaysShowStatsCallback != nullptr, ());
+  m_overlaysShowStatsCallback(m_overlaysTracker->Collect());
 }
 
 FrontendRenderer::RenderLayer::RenderLayerID FrontendRenderer::RenderLayer::GetLayerID(dp::GLState const & state)

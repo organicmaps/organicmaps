@@ -58,7 +58,7 @@ public:
            bool isRoutingActive,
            bool isAutozoomEnabled,
            bool simplifiedTrafficColors,
-           OverlayShowEventCallback && showEventCallback)
+           OverlaysShowStatsCallback && overlaysShowStatsCallback)
       : m_factory(factory)
       , m_stringsBundle(stringBundle)
       , m_viewport(viewport)
@@ -77,7 +77,7 @@ public:
       , m_isRoutingActive(isRoutingActive)
       , m_isAutozoomEnabled(isAutozoomEnabled)
       , m_simplifiedTrafficColors(simplifiedTrafficColors)
-      , m_showEventCallback(move(showEventCallback))
+      , m_overlaysShowStatsCallback(move(overlaysShowStatsCallback))
     {}
 
     ref_ptr<dp::OGLContextFactory> m_factory;
@@ -98,7 +98,7 @@ public:
     bool m_isRoutingActive;
     bool m_isAutozoomEnabled;
     bool m_simplifiedTrafficColors;
-    OverlayShowEventCallback m_showEventCallback;
+    OverlaysShowStatsCallback m_overlaysShowStatsCallback;
   };
 
   DrapeEngine(Params && params);

@@ -1673,7 +1673,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
     });
   };
 
-  auto showOverlaysEventFn = [](std::list<df::OverlayShowEvent> && events)
+  auto overlaysShowStatsFn = [](std::list<df::OverlayShowEvent> && events)
   {
     // TODO: implement sending events. This callback is called on a render thread,
     // so placing here not lightweight code is strictly prohibited! The best option is
@@ -1704,7 +1704,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
                             move(myPositionModeChangedFn), allow3dBuildings, trafficEnabled, params.m_isChoosePositionMode,
                             params.m_isChoosePositionMode, GetSelectedFeatureTriangles(), params.m_isFirstLaunch,
                             m_routingSession.IsActive() && m_routingSession.IsFollowing(), isAutozoomEnabled,
-                            simplifiedTrafficColors, showOverlaysEventFn);
+                            simplifiedTrafficColors, move(overlaysShowStatsFn));
 
   m_drapeEngine = make_unique_dp<df::DrapeEngine>(move(p));
   m_drapeEngine->SetModelViewListener([this](ScreenBase const & screen)

@@ -23,7 +23,7 @@ struct OverlayShowEvent
   {}
 };
 
-using OverlayShowEventCallback = std::function<void(std::list<OverlayShowEvent> &&)>;
+using OverlaysShowStatsCallback = std::function<void(std::list<OverlayShowEvent> &&)>;
 
 int constexpr kMinZoomLevel = 10;
 
@@ -32,7 +32,7 @@ class OverlaysTracker
 public:
   OverlaysTracker() = default;
 
-  void Init(std::vector<FeatureID> && ids);
+  void SetTrackedOverlaysFeatures(std::vector<FeatureID> && ids);
 
   bool StartTracking(int zoomLevel);
   void Track(FeatureID const & fid);

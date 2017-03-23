@@ -2,7 +2,7 @@
 
 namespace df
 {
-void OverlaysTracker::Init(std::vector<FeatureID> && ids)
+void OverlaysTracker::SetTrackedOverlaysFeatures(std::vector<FeatureID> && ids)
 {
   m_data.clear();
   for (auto const & fid : ids)
