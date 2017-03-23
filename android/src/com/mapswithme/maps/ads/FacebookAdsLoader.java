@@ -2,7 +2,6 @@ package com.mapswithme.maps.ads;
 
 import android.content.Context;
 import android.os.SystemClock;
-import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.UiThread;
@@ -22,57 +21,47 @@ import java.util.Map;
 import java.util.Set;
 
 @NotThreadSafe
-public class FacebookAdsLoader
+public class FacebookAdsLoader implements AdListener
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = FacebookAdsLoader.class.getSimpleName();
-  private static final long EXPIRATION_TIME_MS = 60 * 60 * 1000;
-  private static final Map<String, FacebookAd> CACHE = new HashMap<>();
-  private static final Set<String> PENDING_REQUESTS = new HashSet<>();
+  private static final long REQUEST_INTERVAL_MS = 30 * 1000;
+  private final Map<String, FacebookAd> mCache = new HashMap<>();
+  private final Set<String> mPendingRequests = new HashSet<>();
+  @Nullable
+  private FacebookAdsListener mAdsListener;
+  @Nullable
+  private OnAdCacheModifiedListener mCacheListener;
 
   /**
    * Loads an ad for a specified placement id. If there is a cached ad, and it's not expired,
-   * that ad will be returned immediately. Otherwise, this method returns null, and a listener will
-   * be notified when a requested ad is loaded.
+   * that ad will be returned immediately. Otherwise, this method returns null, and {@link #mAdsListener} will
+   * be notified when the requested ad is loaded.
    *
    * @param context An activity context.
    * @param placementId A placement id that ad will be loaded for.
-   * @param listener A listener to be notified when an ad is loaded.
    * @return A cached banner if it presents, otherwise <code>null</code>
    */
   @Nullable
   @UiThread
-  public NativeAd load(@NonNull Context context, @NonNull String placementId,
-                       @NonNull FacebookAdsListener listener)
+  public NativeAd load(@NonNull Context context, @NonNull String placementId)
   {
     LOGGER.d(TAG, "Load a facebook ad for a placement id '" + placementId + "'");
-    if (!PENDING_REQUESTS.contains(placementId))
-    {
-      NativeAd ad = new NativeAd(context, placementId);
-      ad.setAdListener(listener);
-      ad.loadAd(EnumSet.of(NativeAd.MediaCacheFlag.ICON));
-      LOGGER.d(TAG, "Loading is started");
-      PENDING_REQUESTS.add(placementId);
-    } else
-    {
-      LOGGER.d(TAG, "The ad request for placement id '" + placementId + "' hasn't been completed yet.");
-    }
 
-    FacebookAd cachedAd = CACHE.get(placementId);
+    FacebookAd cachedAd = mCache.get(placementId);
 
     if (cachedAd == null)
     {
-      LOGGER.d(TAG, "There is no an ad in a cache for a placement id '" + placementId + "'");
+      LOGGER.d(TAG, "There is no an ad in a cache");
+      loadAdInternal(context, placementId);
       return null;
     }
 
-    long cacheTime = SystemClock.elapsedRealtime() - cachedAd.getLoadedTime();
-    if (cacheTime >= EXPIRATION_TIME_MS)
+    if (/** Tracker.checkShowTime(placmenetId)  &&**/
+        SystemClock.elapsedRealtime() - cachedAd.getLoadedTime() >= REQUEST_INTERVAL_MS)
     {
-      LOGGER.d(TAG, "A facebook ad is expired for a placement id '" + placementId + "'. " +
-                    "An expiration time is " + (cacheTime - EXPIRATION_TIME_MS) + " ms");
-      CACHE.remove(placementId);
-      return null;
+      LOGGER.d(TAG, "Ad should be reloaded");
+      loadAdInternal(context, placementId);
     }
 
     return cachedAd.getAd();
@@ -84,9 +73,9 @@ public class FacebookAdsLoader
    * @param placementId A placement id that an ad is loading for.
    * @return true if an ad is loading, otherwise - false.
    */
-  public static boolean isAdLoadingForId(@NonNull String placementId)
+  public boolean isAdLoadingForId(@NonNull String placementId)
   {
-    return PENDING_REQUESTS.contains(placementId);
+    return mPendingRequests.contains(placementId);
   }
 
   /**
@@ -95,9 +84,9 @@ public class FacebookAdsLoader
    * @return A cached ad or <code>null</code> if it doesn't exist.
    */
   @Nullable
-  public static NativeAd getAdByIdFromCache(@NonNull String placementId)
+  public NativeAd getAdByIdFromCache(@NonNull String placementId)
   {
-    FacebookAd ad = CACHE.get(placementId);
+    FacebookAd ad = mCache.get(placementId);
     return ad != null ? ad.getAd() : null;
   }
 
@@ -106,38 +95,84 @@ public class FacebookAdsLoader
    *
    * @return <code>true</code> if there is a cached ad, otherwise - <code>false</code>
    */
-  public static boolean isCacheEmptyForId(@NonNull String placementId)
+  public boolean isCacheEmptyForId(@NonNull String placementId)
   {
     return getAdByIdFromCache(placementId) == null;
   }
 
-  public abstract static class FacebookAdsListener implements AdListener
+  @Override
+  public void onError(Ad ad, AdError adError)
   {
-    @Override
-    public final void onAdLoaded(Ad ad)
+    LOGGER.w(TAG, "A error '" + adError + "' is occurred while loading an ad for placement id " +
+                  "'" + ad.getPlacementId() + "'");
+    mPendingRequests.remove(ad.getPlacementId());
+    if (mAdsListener != null)
+      mAdsListener.onError(ad, adError, isCacheEmptyForId(ad.getPlacementId()));
+  }
+
+  @Override
+  public void onAdLoaded(Ad ad)
+  {
+    LOGGER.d(TAG, "An ad for id '" + ad.getPlacementId() + "' is loaded");
+    mPendingRequests.remove(ad.getPlacementId());
+
+    boolean isCacheWasEmpty = isCacheEmptyForId(ad.getPlacementId());
+
+    LOGGER.d(TAG, "Put a facebook ad to cache");
+    putInCache(ad.getPlacementId(), new FacebookAd((NativeAd)ad, SystemClock.elapsedRealtime()));
+
+    if (isCacheWasEmpty && mAdsListener != null)
+      mAdsListener.onFacebookAdLoaded((NativeAd) ad);
+  }
+
+  @Override
+  public void onAdClicked(Ad ad)
+  {
+    if (mAdsListener != null)
+      mAdsListener.onAdClicked(ad);
+  }
+
+  public void setAdsListener(@Nullable FacebookAdsListener adsListener)
+  {
+    mAdsListener = adsListener;
+  }
+
+  public void setCacheListener(@Nullable OnAdCacheModifiedListener cacheListener)
+  {
+    mCacheListener = cacheListener;
+  }
+
+  private void loadAdInternal(@NonNull Context context, @NonNull String placementId)
+  {
+    if (mPendingRequests.contains(placementId))
     {
-      LOGGER.d(TAG, "An ad for id '" + ad.getPlacementId() + "' is loaded");
-      PENDING_REQUESTS.remove(ad.getPlacementId());
-
-      boolean isCacheWasEmpty = isCacheEmptyForId(ad.getPlacementId());
-
-      LOGGER.d(TAG, "Put a facebook ad to cache for a placement id '" + ad.getPlacementId());
-      CACHE.put(ad.getPlacementId(), new FacebookAd((NativeAd)ad, SystemClock.elapsedRealtime()));
-
-      if (isCacheWasEmpty)
-        onFacebookAdLoaded((NativeAd) ad);
+      LOGGER.d(TAG, "The ad request for placement id '" + placementId + "' hasn't been completed yet.");
+      return;
     }
 
-    @Override
-    @CallSuper
-    public final void onError(Ad ad, AdError adError)
-    {
-      LOGGER.w(TAG, "A error '" + adError + "' is occurred while loading an ad for placement id " +
-                    "'" + ad.getPlacementId() + "'");
-      PENDING_REQUESTS.remove(ad.getPlacementId());
-      onError(ad, adError, isCacheEmptyForId(ad.getPlacementId()));
-    }
+    NativeAd ad = new NativeAd(context, placementId);
+    ad.setAdListener(this);
+    LOGGER.d(TAG, "Loading is started");
+    ad.loadAd(EnumSet.of(NativeAd.MediaCacheFlag.ICON));
+    mPendingRequests.add(placementId);
+  }
 
+  private void putInCache(@NonNull String key, @NonNull FacebookAd value)
+  {
+    mCache.put(key, value);
+    if (mCacheListener != null)
+      mCacheListener.onPut(key);
+  }
+
+  private void removeFromCache(@NonNull String key, @NonNull FacebookAd value)
+  {
+    mCache.remove(key);
+    if (mCacheListener != null)
+      mCacheListener.onRemove(key);
+  }
+
+  public interface FacebookAdsListener
+  {
     /**
      * Called <b>only if</b> there is no a cached ad for a corresponding placement id
      * contained within a downloaded ad object, i.e. {@link NativeAd#getPlacementId()}.
@@ -147,7 +182,7 @@ public class FacebookAdsLoader
      * @param ad A downloaded ad.
      */
     @UiThread
-    protected abstract void onFacebookAdLoaded(@NonNull NativeAd ad);
+    void onFacebookAdLoaded(@NonNull NativeAd ad);
 
     /**
      * Notifies about a error occurred while loading the ad.
@@ -156,7 +191,10 @@ public class FacebookAdsLoader
      *                     otherwise - false
      */
     @UiThread
-    protected abstract void onError(@NonNull Ad ad, @NonNull AdError adError, boolean isCacheEmpty);
+    void onError(@NonNull Ad ad, @NonNull AdError adError, boolean isCacheEmpty);
+
+    @UiThread
+    void onAdClicked(@NonNull Ad ad);
   }
 
   private static class FacebookAd

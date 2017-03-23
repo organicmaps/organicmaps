@@ -281,6 +281,19 @@ public class PlacePageView extends RelativeLayout
     return UiUtils.isViewTouched(event, mHotelGallery);
   }
 
+  public void onActivityResume()
+  {
+    if (mBannerController != null)
+      mBannerController.onChangedVisibility(true);
+
+  }
+
+  public void onActivityPause()
+  {
+    if (mBannerController != null)
+      mBannerController.onChangedVisibility(false);
+  }
+
   private void initViews()
   {
     LayoutInflater.from(getContext()).inflate(R.layout.place_page, this);
@@ -1431,7 +1444,7 @@ public class PlacePageView extends RelativeLayout
 
   public void setOnVisibilityChangedListener(BasePlacePageAnimationController.OnVisibilityChangedListener listener)
   {
-    mAnimationController.setOnVisibilityChangedListener(listener);
+    mAnimationController.setOnVisibilityChangedListener(new PlacePageVisibilityProxy(listener, mBannerController));
   }
 
   public void setOnAnimationListener(@Nullable BasePlacePageAnimationController.OnAnimationListener listener)

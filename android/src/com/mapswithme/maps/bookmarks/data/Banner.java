@@ -61,4 +61,21 @@ public final class Banner implements Parcelable
            "mId='" + mId + '\'' +
            '}';
   }
+
+  @Override
+  public boolean equals(Object o)
+  {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    Banner banner = (Banner) o;
+
+    return mId != null ? mId.equals(banner.mId) : banner.mId == null;
+  }
+
+  @Override
+  public int hashCode()
+  {
+    return mId != null ? mId.hashCode() : 0;
+  }
 }

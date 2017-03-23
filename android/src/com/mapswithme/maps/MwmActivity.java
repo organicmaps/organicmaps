@@ -999,6 +999,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mNavigationController.onResume();
     if (mNavAnimationController != null)
       mNavAnimationController.onResume();
+    mPlacePage.onActivityResume();
   }
 
   @Override
@@ -1041,6 +1042,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     TtsPlayer.INSTANCE.stop();
     LikesManager.INSTANCE.cancelDialogs();
     mOnmapDownloader.onPause();
+    mPlacePage.onActivityPause();
     super.onPause();
   }
 
