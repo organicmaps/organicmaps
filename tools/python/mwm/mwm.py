@@ -44,7 +44,7 @@ class MWM:
         with open(filename, 'r') as ft:
             for line in ft:
                 if len(line.strip()) > 0:
-                    self.type_mapping.append(line.strip())
+                    self.type_mapping.append(line.strip().replace('|', '-'))
 
     def read_info(self):
         self.f.seek(0)
@@ -239,7 +239,7 @@ class MWM:
         ftid = -1
         while self.inside_tag('dat'):
             ftid += 1
-            feature = {}
+            feature = {'id': ftid}
             feature_size = self.read_varuint()
             next_feature = self.f.tell() + feature_size
             feature['size'] = feature_size
@@ -325,42 +325,13 @@ class MWM:
     # BITWISE READERS
 
     def read_uint(self, bytelen=1):
-        if bytelen == 1:
-            fmt = 'B'
-        elif bytelen == 2:
-            fmt = 'H'
-        elif bytelen == 4:
-            fmt = 'I'
-        elif bytelen == 8:
-            fmt = 'Q'
-        else:
-            raise Exception('Bytelen {0} is not supported'.format(bytelen))
-        res = struct.unpack(fmt, self.f.read(bytelen))
-        return res[0]
+        return read_uint(self.f, bytelen)
 
     def read_varuint(self):
-        res = 0
-        shift = 0
-        more = True
-        while more:
-            b = self.f.read(1)
-            if not b:
-                return res
-            try:
-                bc = ord(b)
-            except TypeError:
-                bc = b
-            res |= (bc & 0x7F) << shift
-            shift += 7
-            more = bc >= 0x80
-        return res
-
-    def zigzag_decode(self, uint):
-        res = uint >> 1
-        return res if uint & 1 == 0 else -res
+        return read_varuint(self.f)
 
     def read_varint(self):
-        return self.zigzag_decode(self.read_varuint())
+        return read_varint(self.f)
 
     def mwm_unshuffle(self, x):
         x = ((x & 0x22222222) << 1) | ((x >> 1) & 0x22222222) | (x & 0x99999999)
@@ -378,7 +349,7 @@ class MWM:
 
     def mwm_decode_delta(self, v, ref):
         x, y = self.mwm_bitwise_split(v)
-        return ref[0] + self.zigzag_decode(x), ref[1] + self.zigzag_decode(y)
+        return ref[0] + zigzag_decode(x), ref[1] + zigzag_decode(y)
 
     def read_point(self, ref, packed=True):
         """Reads an unsigned point, returns (x, y)."""
@@ -470,3 +441,79 @@ class MWM:
                 langs[self.languages[lng]] = s[i+1:n].decode('utf-8')
             i = n
         return langs
+
+
+def read_uint(f, bytelen=1):
+    if bytelen == 1:
+        fmt = 'B'
+    elif bytelen == 2:
+        fmt = 'H'
+    elif bytelen == 4:
+        fmt = 'I'
+    elif bytelen == 8:
+        fmt = 'Q'
+    else:
+        raise Exception('Bytelen {0} is not supported'.format(bytelen))
+    res = struct.unpack(fmt, f.read(bytelen))
+    return res[0]
+
+
+def read_varuint(f):
+    res = 0
+    shift = 0
+    more = True
+    while more:
+        b = f.read(1)
+        if not b:
+            return res
+        try:
+            bc = ord(b)
+        except TypeError:
+            bc = b
+        res |= (bc & 0x7F) << shift
+        shift += 7
+        more = bc >= 0x80
+    return res
+
+
+def zigzag_decode(uint):
+    res = uint >> 1
+    return res if uint & 1 == 0 else -res
+
+
+def read_varint(f):
+    return zigzag_decode(read_varuint(f))
+
+
+NODE = 0x4000000000000000
+WAY = 0x8000000000000000
+RELATION = 0xC000000000000000
+RESET = ~(NODE | WAY | RELATION)
+
+
+def unpack_osmid(num):
+    if num & NODE == NODE:
+        typ = 'n'
+    elif num & WAY == WAY:
+        typ = 'w'
+    elif num & RELATION == RELATION:
+        typ = 'r'
+    else:
+        return None
+    return (typ, num & RESET)
+
+
+def read_osm2ft(f, ft2osm=False):
+    """Reads mwm.osm2ft file, returning a dict of feature id <-> osm way id."""
+    count = read_varuint(f)
+    result = {}
+    for i in range(count):
+        osmid = unpack_osmid(read_uint(f, 8))
+        fid = read_uint(f, 4)
+        read_uint(f, 4)  # filler
+        if osmid is not None:
+            if ft2osm:
+                result[fid] = osmid
+            else:
+                result[osmid] = fid
+    return result

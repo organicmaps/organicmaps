@@ -25,7 +25,6 @@ if cross:
     print('Outgoing points: {0}, incoming: {1}'.format(len(cross['out']), len(cross['in'])))
     print('Outgoing regions: {0}'.format(set(cross['neighbours'])))
 
-print('Sample features:')
 # Print some random features using reservoir sampling
 count = 5
 sample = []
@@ -34,5 +33,8 @@ for i, feature in enumerate(mwm.iter_features()):
         sample.append(feature)
     elif random.randint(0, i) < count:
         sample[random.randint(0, count-1)] = feature
+
+print('Feature count: {0}'.format(i))
+print('Sample features:')
 for feature in sample:
     print(json.dumps(feature, ensure_ascii=False))
