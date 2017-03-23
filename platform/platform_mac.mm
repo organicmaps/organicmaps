@@ -54,6 +54,12 @@ Platform::Platform()
       dataPath = "../../../../../../omim/data/";
       if (IsFileExistsByFullPath(m_resourcesDir + dataPath))
         m_writableDir = m_resourcesDir + dataPath;
+      if (m_writableDir.empty())
+      {
+        auto p = m_resourcesDir.find("/omim/");
+        if (p != std::string::npos)
+          m_writableDir = m_resourcesDir.substr(0, p) + "/omim/data/";
+      }
     }
 
     if (m_writableDir.empty())

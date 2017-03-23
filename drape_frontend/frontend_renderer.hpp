@@ -10,6 +10,7 @@
 #include "drape_frontend/gps_track_renderer.hpp"
 #include "drape_frontend/my_position_controller.hpp"
 #include "drape_frontend/navigator.hpp"
+#include "drape_frontend/overlays_tracker.hpp"
 #include "drape_frontend/render_group.hpp"
 #include "drape_frontend/requested_tiles.hpp"
 #include "drape_frontend/route_renderer.hpp"
@@ -79,6 +80,7 @@ public:
            location::TMyPositionModeChanged myPositionModeCallback,
            location::EMyPositionMode initMode,
            ref_ptr<RequestedTiles> requestedTiles,
+           OverlayShowEventCallback && showEventCallback,
            double timeInBackground,
            bool allow3dBuildings,
            bool trafficEnabled,
@@ -94,6 +96,7 @@ public:
       , m_myPositionModeCallback(myPositionModeCallback)
       , m_initMyPositionMode(initMode)
       , m_requestedTiles(requestedTiles)
+      , m_showEventCallback(move(showEventCallback))
       , m_timeInBackground(timeInBackground)
       , m_allow3dBuildings(allow3dBuildings)
       , m_trafficEnabled(trafficEnabled)
@@ -110,6 +113,7 @@ public:
     location::TMyPositionModeChanged m_myPositionModeCallback;
     location::EMyPositionMode m_initMyPositionMode;
     ref_ptr<RequestedTiles> m_requestedTiles;
+    OverlayShowEventCallback m_showEventCallback;
     double m_timeInBackground;
     bool m_allow3dBuildings;
     bool m_trafficEnabled;
@@ -119,7 +123,7 @@ public:
     bool m_isAutozoomEnabled;
   };
 
-  FrontendRenderer(Params const & params);
+  FrontendRenderer(Params && params);
   ~FrontendRenderer() override;
 
   void Teardown();
@@ -241,6 +245,8 @@ private:
 
   void OnCacheRouteArrows(int routeIndex, vector<ArrowBorders> const & borders);
 
+  void CollectShowOverlaysEvents();
+
   drape_ptr<dp::GpuProgramManager> m_gpuProgramManager;
 
   struct RenderLayer
@@ -329,6 +335,9 @@ private:
 
   bool m_needRegenerateTraffic;
   bool m_trafficEnabled;
+
+  drape_ptr<OverlaysTracker> m_overlaysTracker;
+  OverlayShowEventCallback m_showEventCallback;
 
   drape_ptr<ScenarioManager> m_scenarioManager;
 

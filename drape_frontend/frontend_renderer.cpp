@@ -13,7 +13,6 @@
 #include "drape_frontend/visual_params.hpp"
 #include "drape_frontend/user_mark_shapes.hpp"
 
-
 #include "drape/debug_rect_renderer.hpp"
 #include "drape/shader_def.hpp"
 #include "drape/support_manager.hpp"
@@ -114,7 +113,7 @@ struct RemoveTilePredicate
 
 } // namespace
 
-FrontendRenderer::FrontendRenderer(Params const & params)
+FrontendRenderer::FrontendRenderer(Params && params)
   : BaseRenderer(ThreadsCommutator::RenderThread, params)
   , m_gpuProgramManager(new dp::GpuProgramManager())
   , m_routeRenderer(new RouteRenderer())
@@ -138,6 +137,8 @@ FrontendRenderer::FrontendRenderer(Params const & params)
   , m_needRestoreSize(false)
   , m_needRegenerateTraffic(false)
   , m_trafficEnabled(params.m_trafficEnabled)
+  , m_overlaysTracker(new OverlaysTracker())
+  , m_showEventCallback(move(params.m_showEventCallback))
 #ifdef SCENARIO_ENABLE
   , m_scenarioManager(new ScenarioManager(this))
 #endif
@@ -776,8 +777,10 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::SetCustomSymbols:
+  case Message::UpdateCustomSymbols:
     {
+      ref_ptr<UpdateCustomSymbolsMessage> msg = message;
+      m_overlaysTracker->Init(msg->AcceptSymbolsFeatures());
       ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
       InvalidateRect(screen.ClipRect());
       break;
@@ -1076,7 +1079,20 @@ void FrontendRenderer::UpdateOverlayTree(ScreenBase const & modelView, drape_ptr
 void FrontendRenderer::EndUpdateOverlayTree()
 {
   if (m_overlayTree->IsNeedUpdate())
+  {
     m_overlayTree->EndOverlayPlacing();
+
+    // Track overlays.
+    if (m_overlaysTracker->StartTracking(m_currentZoomLevel))
+    {
+      for (auto const & handle : m_overlayTree->GetHandlesCache())
+      {
+        if (handle->IsVisible())
+          m_overlaysTracker->Track(handle->GetOverlayID().m_featureId);
+      }
+      m_overlaysTracker->FinishTracking();
+    }
+  }
 }
 
 void FrontendRenderer::RenderScene(ScreenBase const & modelView)
@@ -1702,9 +1718,11 @@ void FrontendRenderer::Routine::Do()
   m_renderer.OnContextCreate();
 
   double const kMaxInactiveSeconds = 2.0;
+  double const kShowOverlaysEventsPeriod = 5.0;
 
   my::Timer timer;
   my::Timer activityTimer;
+  my::Timer showOverlaysEventsTimer;
 
   double frameTime = 0.0;
   bool modelViewChanged = true;
@@ -1772,14 +1790,24 @@ void FrontendRenderer::Routine::Do()
 
     // Limit fps in following mode.
     double constexpr kFrameTime = 1.0 / 30.0;
-    if (isValidFrameTime && m_renderer.m_myPositionController->IsRouteFollowingActive() && frameTime < kFrameTime)
+    if (isValidFrameTime &&
+        m_renderer.m_myPositionController->IsRouteFollowingActive() && frameTime < kFrameTime)
     {
       uint32_t const ms = static_cast<uint32_t>((kFrameTime - frameTime) * 1000);
       this_thread::sleep_for(milliseconds(ms));
     }
 
+    if (m_renderer.m_overlaysTracker->IsValid() &&
+        showOverlaysEventsTimer.ElapsedSeconds() > kShowOverlaysEventsPeriod)
+    {
+      m_renderer.CollectShowOverlaysEvents();
+      showOverlaysEventsTimer.Reset();
+    }
+
     m_renderer.CheckRenderingEnabled();
   }
+
+  m_renderer.CollectShowOverlaysEvents();
 
 #ifdef RENDER_DEBUG_RECTS
   dp::DebugRectRenderer::Instance().Destroy();
@@ -1911,6 +1939,12 @@ void FrontendRenderer::OnCacheRouteArrows(int routeIndex, vector<ArrowBorders> c
 drape_ptr<ScenarioManager> const & FrontendRenderer::GetScenarioManager() const
 {
   return m_scenarioManager;
+}
+
+void FrontendRenderer::CollectShowOverlaysEvents()
+{
+  ASSERT(m_showEventCallback != nullptr, ());
+  m_showEventCallback(m_overlaysTracker->Collect());
 }
 
 FrontendRenderer::RenderLayer::RenderLayerID FrontendRenderer::RenderLayer::GetLayerID(dp::GLState const & state)

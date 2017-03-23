@@ -1155,7 +1155,7 @@ class SetCustomSymbolsMessage : public Message
 {
 public:
   explicit SetCustomSymbolsMessage(CustomSymbols && symbols)
-    : m_symbols(move(symbols))
+    : m_symbols(std::move(symbols))
   {}
 
   Type GetType() const override { return Message::SetCustomSymbols; }
@@ -1164,6 +1164,21 @@ public:
 
 private:
   CustomSymbols m_symbols;
+};
+
+class UpdateCustomSymbolsMessage : public Message
+{
+public:
+  explicit UpdateCustomSymbolsMessage(std::vector<FeatureID> && symbolsFeatures)
+    : m_symbolsFeatures(std::move(symbolsFeatures))
+  {}
+
+  Type GetType() const override { return Message::UpdateCustomSymbols; }
+
+  std::vector<FeatureID> && AcceptSymbolsFeatures() { return std::move(m_symbolsFeatures); }
+
+private:
+  std::vector<FeatureID> m_symbolsFeatures;
 };
 
 } // namespace df

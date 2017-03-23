@@ -47,6 +47,8 @@ class OverlayTree : public m4::Tree<ref_ptr<OverlayHandle>, detail::OverlayTrait
   using TBase = m4::Tree<ref_ptr<OverlayHandle>, detail::OverlayTraits>;
 
 public:
+  using HandlesCache = unordered_set<ref_ptr<OverlayHandle>, detail::OverlayHasher>;
+
   OverlayTree();
 
   bool Frame();
@@ -56,6 +58,8 @@ public:
   void Add(ref_ptr<OverlayHandle> handle);
   void Remove(ref_ptr<OverlayHandle> handle);
   void EndOverlayPlacing();
+
+  HandlesCache const & GetHandlesCache() const { return m_handlesCache; }
 
   void Select(m2::RectD const & rect, TOverlayContainer & result) const;
   void Select(m2::PointD const & glbPoint, TOverlayContainer & result) const;
@@ -94,7 +98,7 @@ private:
 
   int m_frameCounter;
   array<vector<ref_ptr<OverlayHandle>>, dp::OverlayRanksCount> m_handles;
-  unordered_set<ref_ptr<OverlayHandle>, detail::OverlayHasher> m_handlesCache;
+  HandlesCache m_handlesCache;
   bool m_followingMode;
 
   bool m_isDisplacementEnabled;
