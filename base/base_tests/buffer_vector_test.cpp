@@ -3,6 +3,7 @@
 #include "base/buffer_vector.hpp"
 #include "base/string_utils.hpp"
 
+#include "std/numeric.hpp"
 #include "std/unique_ptr.hpp"
 
 namespace
@@ -152,8 +153,7 @@ UNIT_TEST(BufferVectorInsert)
         }
 
         std::vector<int> dataToInsert(insertLength);
-        for (size_t i = 0; i < insertLength; ++i)
-          dataToInsert[i] = 'a' + static_cast<int>(i);
+        std::iota(dataToInsert.begin(), dataToInsert.end(), 'a');
 
         b.insert(b.begin() + insertPos, dataToInsert.begin(), dataToInsert.end());
         v.insert(v.begin() + insertPos, dataToInsert.begin(), dataToInsert.end());
@@ -210,8 +210,7 @@ UNIT_TEST(BufferVectorAppend)
       }
 
       std::vector<int> dataToInsert(insertLength);
-      for (size_t i = 0; i < insertLength; ++i)
-        dataToInsert[i] = 'a' + static_cast<int>(i);
+      std::iota(dataToInsert.begin(), dataToInsert.end(), 'a');
 
       b.append(dataToInsert.begin(), dataToInsert.end());
       v.insert(v.end(), dataToInsert.begin(), dataToInsert.end());

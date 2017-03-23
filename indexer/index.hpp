@@ -103,7 +103,7 @@ private:
         feature::DataHeader const & header = pValue->GetHeader();
 
         // Prepare needed covering.
-        int const lastScale = header.GetLastScale();
+        auto const lastScale = header.GetLastScale();
 
         // In case of WorldCoasts we should pass correct scale in ForEachInIntervalAndScale.
         if (scale > lastScale)

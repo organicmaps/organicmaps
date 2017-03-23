@@ -134,9 +134,9 @@ void text::warp(std::vector<ml::point_d> const & path, ml::text_options const & 
 void text::warp_text_line(text::string_range const & text_line,
                           std::vector<ml::point_d> const & path, ml::point_d & shift, bool flip)
 {
-  int segment_num = ml::segment(path, shift.x, &shift.x);
+  auto segment_num = ml::segment(path, shift.x, &shift.x);
 
-  if (segment_num == -1)
+  if (path.empty() || segment_num >= path.size() - 1)
     return;
 
   double tt_angle = path.front().angle(path.back());

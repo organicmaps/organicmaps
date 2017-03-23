@@ -128,7 +128,7 @@ void OpenLRSimpleDecoder::Decode(string const & outputFilename, int const segmen
   my::EraseIf(segments,
               [&filter](LinearSegment const & segment) { return !filter.Matches(segment); });
 
-  if (segmentsToHandle != kHandleAllSegments && segmentsToHandle > 0 &&
+  if (segmentsToHandle != kHandleAllSegments && segmentsToHandle >= 0 &&
       static_cast<size_t>(segmentsToHandle) < segments.size())
     segments.resize(segmentsToHandle);
 

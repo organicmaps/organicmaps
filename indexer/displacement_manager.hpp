@@ -127,7 +127,7 @@ public:
       static auto const maximumIgnoredZoom = feature::GetDrawableScaleRange(
         classif().GetTypeByPath({"railway", "station", "subway"})).first;
 
-      if (maximumIgnoredZoom != -1 && scale <= maximumIgnoredZoom)
+      if (maximumIgnoredZoom < 0 || scale <= maximumIgnoredZoom)
       {
         AddNodeToSorter(node, static_cast<uint32_t>(scale));
         acceptedNodes.Add(node);

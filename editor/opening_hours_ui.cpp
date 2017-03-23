@@ -110,7 +110,7 @@ osmoh::Timespan GetLongetsOpenSpan(osmoh::Timespan const & openingTime,
     return openingTime;
 
   osmoh::Timespan longestSpan{openingTime.GetStart(), excludeTime.front().GetStart()};
-  for (size_t i = 0; i < excludeTime.size() - 1; ++i)
+  for (size_t i = 0; i + 1 < excludeTime.size(); ++i)
   {
     osmoh::Timespan nextOpenSpan{excludeTime[i].GetEnd(), excludeTime[i + 1].GetStart()};
     longestSpan = SpanLength(longestSpan) > SpanLength(nextOpenSpan) ? longestSpan : nextOpenSpan;

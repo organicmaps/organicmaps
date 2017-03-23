@@ -30,7 +30,6 @@ uint64_t FileWriter::Pos() const
 
 void FileWriter::Seek(uint64_t pos)
 {
-  ASSERT_GREATER_OR_EQUAL(pos, 0, ());
   m_pFileData->Seek(pos);
 }
 

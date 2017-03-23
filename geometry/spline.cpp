@@ -200,10 +200,8 @@ void Spline::iterator::AdvanceBackward(double step)
       m_dist = 0.0;
       return;
     }
-    else
-    {
-      --m_index;
-    }
+
+    --m_index;
 
     m_dist += m_spl->m_length[m_index];
   }

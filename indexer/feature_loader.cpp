@@ -214,7 +214,7 @@ uint32_t LoaderCurrent::ParseGeometry(int scale)
       ASSERT_LESS ( scaleIndex, m_Info.GetScalesCount(), () );
 
       points.push_back(m_pF->m_points.front());
-      for (size_t i = 1; i < count - 1; ++i)
+      for (size_t i = 1; i + 1 < count; ++i)
       {
         // check for point visibility in needed scaleIndex
         if (static_cast<int>((m_ptsSimpMask >> (2 * (i - 1))) & 0x3) <= scaleIndex)

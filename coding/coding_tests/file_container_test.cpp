@@ -289,12 +289,12 @@ UNIT_TEST(FilesMappingContainer_Smoke)
   {
     FilesContainerW writer(fName);
 
-    for (uint32_t i = 0; i < ARRAY_SIZE(key); ++i)
+    for (size_t i = 0; i < ARRAY_SIZE(key); ++i)
     {
       FileWriter w = writer.GetWriter(key[i]);
       for (uint32_t j = 0; j < count; ++j)
       {
-        uint32_t v = j + i;
+        uint32_t v = j + static_cast<uint32_t>(i);
         w.Write(&v, sizeof(v));
       }
     }
