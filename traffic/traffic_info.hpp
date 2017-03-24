@@ -143,7 +143,7 @@ private:
   // Updates the coloring and changes the availability status if needed.
   bool UpdateTrafficData(vector<SpeedGroup> const & values);
 
-  ServerDataStatus ProcessFailure(platform::HttpClient const & request, uint64_t const mwmVersion);
+  ServerDataStatus ProcessFailure(platform::HttpClient const & request, int64_t const mwmVersion);
 
   // The mapping from feature segments to speed groups (see speed_groups.hpp).
   Coloring m_coloring;

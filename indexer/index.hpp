@@ -95,7 +95,7 @@ private:
       m_f(feature);
     }
 
-    void operator()(MwmHandle const & handle, covering::CoveringGetter & cov, uint32_t scale) const
+    void operator()(MwmHandle const & handle, covering::CoveringGetter & cov, int scale) const
     {
       MwmValue const * pValue = handle.GetValue<MwmValue>();
       if (pValue)
@@ -103,7 +103,7 @@ private:
         feature::DataHeader const & header = pValue->GetHeader();
 
         // Prepare needed covering.
-        uint32_t const lastScale = header.GetLastScale();
+        auto const lastScale = header.GetLastScale();
 
         // In case of WorldCoasts we should pass correct scale in ForEachInIntervalAndScale.
         if (scale > lastScale)
@@ -167,7 +167,7 @@ private:
       m_f(fid);
     }
 
-    void operator()(MwmHandle const & handle, covering::CoveringGetter & cov, uint32_t scale) const
+    void operator()(MwmHandle const & handle, covering::CoveringGetter & cov, int scale) const
     {
       MwmValue const * pValue = handle.GetValue<MwmValue>();
       if (pValue)
@@ -208,21 +208,21 @@ private:
 public:
 
   template <typename F>
-  void ForEachInRect(F && f, m2::RectD const & rect, uint32_t scale) const
+  void ForEachInRect(F && f, m2::RectD const & rect, int scale) const
   {
     ReadMWMFunctor<F> implFunctor(f);
     ForEachInIntervals(implFunctor, covering::ViewportWithLowLevels, rect, scale);
   }
 
   template <typename F>
-  void ForEachFeatureIDInRect(F && f, m2::RectD const & rect, uint32_t scale) const
+  void ForEachFeatureIDInRect(F && f, m2::RectD const & rect, int scale) const
   {
     ReadFeatureIndexFunctor<F> implFunctor(f);
     ForEachInIntervals(implFunctor, covering::LowLevelsOnly, rect, scale);
   }
 
   template <typename F>
-  void ForEachInScale(F && f, uint32_t scale) const
+  void ForEachInScale(F && f, int scale) const
   {
     ReadMWMFunctor<F> implFunctor(f);
     ForEachInIntervals(implFunctor, covering::FullCover, m2::RectD::GetInfiniteRect(), scale);
@@ -297,7 +297,7 @@ public:
   };
 
   template <typename F>
-  void ForEachInRectForMWM(F && f, m2::RectD const & rect, uint32_t scale, MwmId const & id) const
+  void ForEachInRectForMWM(F && f, m2::RectD const & rect, int scale, MwmId const & id) const
   {
     MwmHandle const handle = GetMwmHandleById(id);
     if (handle.IsAlive())
@@ -312,7 +312,7 @@ private:
 
   template <typename F>
   void ForEachInIntervals(F && f, covering::CoveringMode mode, m2::RectD const & rect,
-                          uint32_t scale) const
+                          int scale) const
   {
     vector<shared_ptr<MwmInfo>> mwms;
     GetMwmsInfo(mwms);

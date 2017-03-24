@@ -91,7 +91,7 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo)
     if (emo.GetStreet().m_defaultName.empty())
       cmb->addItem("");
 
-    for (int i = 0; i < nearbyStreets.size(); ++i)
+    for (size_t i = 0; i < nearbyStreets.size(); ++i)
     {
       string street = nearbyStreets[i].m_defaultName;
       if (!nearbyStreets[i].m_localizedName.empty())

@@ -129,7 +129,7 @@ int TrafficMode::rowCount(const QModelIndex & parent) const
 {
   if (!m_decodedSample)
     return 0;
-  return m_decodedSample->m_decodedItems.size();
+  return static_cast<int>(m_decodedSample->m_decodedItems.size());
 }
 
 int TrafficMode::columnCount(const QModelIndex & parent) const

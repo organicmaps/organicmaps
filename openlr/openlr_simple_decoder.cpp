@@ -117,7 +117,7 @@ OpenLRSimpleDecoder::OpenLRSimpleDecoder(string const & dataFilename, vector<Ind
 }
 
 void OpenLRSimpleDecoder::Decode(string const & outputFilename, int const segmentsToHandle,
-                                 SegmentsFilter const & filter, int const numThreads)
+                                 SegmentsFilter const & filter, uint32_t const numThreads)
 {
   // TODO(mgsergio): Feed segments directly to the decoder. Parsing should not
   // take place inside decoder process.
@@ -128,7 +128,8 @@ void OpenLRSimpleDecoder::Decode(string const & outputFilename, int const segmen
   my::EraseIf(segments,
               [&filter](LinearSegment const & segment) { return !filter.Matches(segment); });
 
-  if (segmentsToHandle != kHandleAllSegments && segmentsToHandle < segments.size())
+  if (segmentsToHandle != kHandleAllSegments && segmentsToHandle >= 0 &&
+      static_cast<size_t>(segmentsToHandle) < segments.size())
     segments.resize(segmentsToHandle);
 
   sort(segments.begin(), segments.end(), my::LessBy(&LinearSegment::m_segmentId));

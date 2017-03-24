@@ -39,6 +39,7 @@
 #include "std/fstream.hpp"
 #include "std/iomanip.hpp"
 #include "std/iostream.hpp"
+#include "std/limits.hpp"
 #include "std/map.hpp"
 #include "std/numeric.hpp"
 #include "std/sstream.hpp"
@@ -79,7 +80,7 @@ struct CompletenessQuery
   string m_query;
   unique_ptr<TestSearchRequest> m_request;
   string m_mwmName;
-  uint64_t m_featureId = 0;
+  uint32_t m_featureId = 0;
   double m_lat = 0;
   double m_lon = 0;
 };
@@ -197,17 +198,17 @@ void Split(string const & s, char delim, vector<string> & parts)
 
 // Returns the position of the result that is expected to be found by geocoder completeness
 // tests in the |result| vector or -1 if it does not occur there.
-int FindResult(TestSearchEngine & engine, string const & mwmName, uint64_t const featureId,
+int FindResult(TestSearchEngine & engine, string const & mwmName, uint32_t const featureId,
                double const lat, double const lon, vector<Result> const & results)
 {
+  CHECK_LESS_OR_EQUAL(results.size(), numeric_limits<int>::max(), ());
   auto const mwmId = engine.GetMwmIdByCountryFile(platform::CountryFile(mwmName));
   FeatureID const expectedFeatureId(mwmId, featureId);
   for (size_t i = 0; i < results.size(); ++i)
   {
     auto const & r = results[i];
-    auto const featureId = r.GetFeatureID();
-    if (featureId == expectedFeatureId)
-      return i;
+    if (r.GetFeatureID() == expectedFeatureId)
+      return static_cast<int>(i);
   }
 
   // Another attempt. If the queries are stale, feature id is useless.
@@ -222,7 +223,7 @@ int FindResult(TestSearchEngine & engine, string const & mwmName, uint64_t const
       double const dist = MercatorBounds::DistanceOnEarth(r.GetFeatureCenter(),
                                                           MercatorBounds::FromLatLon(lat, lon));
       LOG(LDEBUG, ("dist =", dist));
-      return i;
+      return static_cast<int>(i);
     }
   }
   return -1;
@@ -269,7 +270,7 @@ void ParseCompletenessQuery(string & s, CompletenessQuery & q)
 
   q.m_query = country + " " + city + " " + street + " " + house + " ";
   q.m_mwmName = mwmName;
-  q.m_featureId = featureId;
+  q.m_featureId = static_cast<uint32_t>(featureId);
   q.m_lat = lat;
   q.m_lon = lon;
 }

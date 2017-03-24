@@ -120,7 +120,7 @@ void BookingDataset::BuildObject(Object const & hotel,
     vector<string> parts;
     strings::ParseCSVRow(hotel.m_translations, '|', parts);
     CHECK_EQUAL(parts.size() % 3, 0, ("Invalid translation string:", hotel.m_translations));
-    for (auto i = 0; i < parts.size(); i += 3)
+    for (size_t i = 0; i < parts.size(); i += 3)
     {
       auto const langCode = StringUtf8Multilang::GetLangIndex(parts[i]);
       params.AddName(StringUtf8Multilang::GetLangByCode(langCode), parts[i + 1]);

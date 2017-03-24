@@ -82,15 +82,6 @@ public:
 
   bool HasBanner() const;
   banners::Banner GetBanner() const;
-  /// Deprecated, there was not only removed in order not to break the build.
-  /// Should be removed in nearest time.
-  ///////////////////////////////////////////////////////////////////////////////
-  string GetBannerTitleId() const;
-  string GetBannerMessageId() const;
-  string GetBannerIconId() const;
-  string GetBannerUrl() const;
-  string GetBannerId() const;
-  ///////////////////////////////////////////////////////////////////////////////
 
   bool IsReachableByTaxi() const;
 

@@ -437,7 +437,7 @@ TrafficInfo::ServerDataStatus TrafficInfo::ReceiveTrafficValues(string & etag, v
   if (!info)
     return ServerDataStatus::Error;
 
-  uint64_t const version = info->GetVersion();
+  auto const version = info->GetVersion();
   string const url = MakeRemoteURL(info->GetCountryName(), version);
 
   if (url.empty())
@@ -504,14 +504,14 @@ bool TrafficInfo::UpdateTrafficData(vector<SpeedGroup> const & values)
   return true;
 }
 
-TrafficInfo::ServerDataStatus TrafficInfo::ProcessFailure(platform::HttpClient const & request, uint64_t const mwmVersion)
+TrafficInfo::ServerDataStatus TrafficInfo::ProcessFailure(platform::HttpClient const & request, int64_t const mwmVersion)
 {
   switch (request.ErrorCode())
   {
   case 404: /* Not Found */
   {
-    uint64_t version = 0;
-    strings::to_uint64(request.ServerResponse().c_str(), version);
+    int64_t version = 0;
+    strings::to_int64(request.ServerResponse().c_str(), version);
 
     if (version > mwmVersion && version <= m_currentDataVersion)
       m_availability = Availability::ExpiredData;

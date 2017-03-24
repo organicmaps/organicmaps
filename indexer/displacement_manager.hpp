@@ -122,14 +122,14 @@ public:
 
     for (auto const & node : m_storage)
     {
-      uint32_t scale = node.m_minScale;
+      auto scale = node.m_minScale;
       // Do not filter high level objects. Including metro and country names.
-      static size_t const maximumIgnoredZoom = feature::GetDrawableScaleRange(
+      static auto const maximumIgnoredZoom = feature::GetDrawableScaleRange(
         classif().GetTypeByPath({"railway", "station", "subway"})).first;
 
-      if (scale <= maximumIgnoredZoom)
+      if (maximumIgnoredZoom < 0 || scale <= maximumIgnoredZoom)
       {
-        AddNodeToSorter(node,scale);
+        AddNodeToSorter(node, static_cast<uint32_t>(scale));
         acceptedNodes.Add(node);
         continue;
       }

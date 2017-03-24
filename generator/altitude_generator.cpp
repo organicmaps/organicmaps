@@ -177,7 +177,7 @@ void BuildRoadAltitudes(string const & mwmPath, AltitudeGetter & altitudeGetter)
     AltitudeHeader header;
     header.m_minAltitude = processor.GetMinAltitude();
 
-    int64_t const startOffset = w.Pos();
+    auto const startOffset = w.Pos();
     header.Serialize(w);
     {
       // Altitude availability serialization.
@@ -218,7 +218,7 @@ void BuildRoadAltitudes(string const & mwmPath, AltitudeGetter & altitudeGetter)
     header.m_endOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
 
     // Rewriting header info.
-    int64_t const endOffset = w.Pos();
+    auto const endOffset = w.Pos();
     w.Seek(startOffset);
     header.Serialize(w);
     w.Seek(endOffset);

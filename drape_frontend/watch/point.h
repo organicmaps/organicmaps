@@ -232,12 +232,12 @@ inline double length(Container const & v)
 }
 
 template <typename T>
-inline int segment(std::vector<point_base<T> > const & v, double length, double * out_length = NULL)
+inline size_t segment(std::vector<point_base<T> > const & v, double length, double * out_length = NULL)
 {
   if (v.size() < 2)
-    return -1;
+    return v.size();
 
-  int segment_num = 0;
+  size_t segment_num = 0;
   double segment_length = ml::distance(v[segment_num], v[segment_num + 1]);
   while ((length - segment_length >= 0) && (segment_num < v.size() - 1))
   {

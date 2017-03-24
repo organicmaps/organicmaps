@@ -26,6 +26,9 @@ StringUtf8Multilang::Languages const g_languages = {{ {"default", "Native for ea
     {"gsw", "Schwiizertüütsch"}, {"et", "Eesti"}, {"ku", "Kurdish"}, {"mn", "Mongolian"},
     {"mk", "Македонски"}, {"lv", "Latviešu"}, {"hi", "हिन्दी"}
 }};
+
+static_assert(g_languages.size() == StringUtf8Multilang::kMaxSupportedLanguages,
+              "With current encoding we are limited to 64 languages max.");
 }  // namespace
 
 int8_t constexpr StringUtf8Multilang::kUnsupportedLanguageCode;
@@ -44,9 +47,6 @@ StringUtf8Multilang::Languages const & StringUtf8Multilang::GetSupportedLanguage
 // static
 int8_t StringUtf8Multilang::GetLangIndex(string const & lang)
 {
-  static_assert(g_languages.size() == kMaxSupportedLanguages,
-                "With current encoding we are limited to 64 languages max.");
-
   for (size_t i = 0; i < g_languages.size(); ++i)
     if (lang == g_languages[i].m_code)
       return static_cast<int8_t>(i);
@@ -56,14 +56,14 @@ int8_t StringUtf8Multilang::GetLangIndex(string const & lang)
 // static
 char const * StringUtf8Multilang::GetLangByCode(int8_t langCode)
 {
-  if (langCode < 0 || langCode > g_languages.size() - 1)
+  if (langCode < 0 || langCode >= static_cast<int8_t>(g_languages.size()))
     return "";
   return g_languages[langCode].m_code;
 }
 // static
 char const * StringUtf8Multilang::GetLangNameByCode(int8_t langCode)
 {
-  if (langCode < 0 || langCode > g_languages.size() - 1)
+  if (langCode < 0 || langCode >= static_cast<int8_t>(g_languages.size()))
     return "";
   return g_languages[langCode].m_name;
 }

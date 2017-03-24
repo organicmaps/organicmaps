@@ -60,7 +60,7 @@ public:
       // This is not immediately obvious and in fact there was an idea to map
       // a bucket to a contiguous range of scales.
       // todo(@pimenov): We probably should remove scale_index.hpp altogether.
-      if (!FeatureShouldBeIndexed(ft, bucket, bucket == minScaleClassif /* needReset */))
+      if (!FeatureShouldBeIndexed(ft, static_cast<int>(bucket), bucket == minScaleClassif /* needReset */))
       {
         continue;
       }
@@ -82,7 +82,7 @@ private:
   //   -- it is allowed by the classificator.
   // If the feature is invisible at all scales, do not index it.
   template <class TFeature>
-  bool FeatureShouldBeIndexed(TFeature const & ft, uint32_t scale, bool needReset) const
+  bool FeatureShouldBeIndexed(TFeature const & ft, int scale, bool needReset) const
   {
     while (m_scalesIdx < m_header.GetScalesCount() && m_header.GetScale(m_scalesIdx) < scale)
     {

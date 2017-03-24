@@ -227,7 +227,7 @@ public:
         {
           size_t const dstBaseIndex = row * imageWidth + border;
           size_t const srcBaseIndex = (row - border) * bitmap.pitch;
-          for (size_t column = 0; column < bitmap.pitch; ++column)
+          for (int column = 0; column < bitmap.pitch; ++column)
             data->data()[dstBaseIndex + column] = bitmap.buffer[srcBaseIndex + column];
         }
       }

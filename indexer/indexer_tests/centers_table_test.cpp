@@ -93,7 +93,7 @@ UNIT_CLASS_TEST(CentersTableTest, Subset)
     auto table = CentersTable::Load(reader, codingParams);
     TEST(table.get(), ());
 
-    size_t i = 0;
+    uint32_t i = 0;
     size_t j = 0;
 
     while (i < 100)

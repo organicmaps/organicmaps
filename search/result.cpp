@@ -221,7 +221,7 @@ void Results::InsertResult(vector<Result>::iterator where, Result && result)
     r.SetPositionInResults(position + 1);
   }
 
-  result.SetPositionInResults(distance(m_results.begin(), where));
+  result.SetPositionInResults(static_cast<int32_t>(distance(m_results.begin(), where)));
   m_results.insert(where, move(result));
 }
 

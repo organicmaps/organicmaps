@@ -1,5 +1,6 @@
 #pragma once
 #include "base/assert.hpp"
+#include "base/checked_cast.hpp"
 #include "base/stl_iterator.hpp"
 
 #include <algorithm>
@@ -371,9 +372,8 @@ public:
 
   template <typename TIt> void insert(const_iterator where, TIt beg, TIt end)
   {
-    ptrdiff_t const pos = where - data();
-    ASSERT_GREATER_OR_EQUAL(pos, 0, ());
-    ASSERT_LESS_OR_EQUAL(pos, static_cast<ptrdiff_t>(size()), ());
+    size_t const pos = base::asserted_cast<size_t>(where - data());
+    ASSERT_LESS_OR_EQUAL(pos, size(), ());
 
     if (IsDynamic())
     {
@@ -385,8 +385,10 @@ public:
     if (m_size + n <= N)
     {
       if (pos != m_size)
-        for (ptrdiff_t i = m_size - 1; i >= pos; --i)
+      {
+        for (size_t i = m_size - 1; i >= pos && i < m_size; --i)
           Swap(m_static[i], m_static[i + n]);
+      }
 
       m_size += n;
       T * writableWhere = &m_static[0] + pos;

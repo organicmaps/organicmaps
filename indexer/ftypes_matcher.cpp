@@ -428,7 +428,7 @@ unsigned IsHotelChecker::GetHotelTypesMask(FeatureType const & ft) const
 }
 
 // static
-char const * const IsHotelChecker::GetHotelTypeTag(Type type)
+char const * IsHotelChecker::GetHotelTypeTag(Type type)
 {
   switch (type)
   {
@@ -579,12 +579,12 @@ uint64_t GetPopulation(FeatureType const & ft)
   return population;
 }
 
-double GetRadiusByPopulation(uint32_t p)
+double GetRadiusByPopulation(uint64_t p)
 {
   return pow(static_cast<double>(p), 0.277778) * 550.0;
 }
 
-uint32_t GetPopulationByRadius(double r)
+uint64_t GetPopulationByRadius(double r)
 {
   return my::rounds(pow(r / 550.0, 3.6));
 }

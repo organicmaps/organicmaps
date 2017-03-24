@@ -710,7 +710,6 @@ void CPUDrawer::Draw(FeatureData const & data)
 
   bool const isPath = !data.m_pathes.empty();
   bool const isArea = !data.m_areas.empty();
-  bool isCircleAndSymbol = false;
 
   drule::BaseRule const * pSymbolRule = nullptr;
   double symbolDepth = df::watch::minDepth;

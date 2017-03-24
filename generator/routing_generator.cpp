@@ -334,7 +334,7 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
       vector<IndexT> indices[2];
 
       // Match input segment points on feature points.
-      for (int j = 0; j < ft.GetPointsCount(); ++j)
+      for (size_t j = 0; j < ft.GetPointsCount(); ++j)
       {
         double const lon = MercatorBounds::XToLon(ft.GetPoint(j).x);
         double const lat = MercatorBounds::YToLat(ft.GetPoint(j).y);
@@ -420,7 +420,7 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
       int ind2 = -1;
       double dist1 = numeric_limits<double>::max();
       double dist2 = numeric_limits<double>::max();
-      for (int j = 0; j < ft.GetPointsCount(); ++j)
+      for (size_t j = 0; j < ft.GetPointsCount(); ++j)
       {
         double lon = MercatorBounds::XToLon(ft.GetPoint(j).x);
         double lat = MercatorBounds::YToLat(ft.GetPoint(j).y);
@@ -428,12 +428,12 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
         double const d2 = ms::DistanceOnEarth(pts[1].y, pts[1].x, lat, lon);
         if (d1 < dist1)
         {
-          ind1 = j;
+          ind1 = static_cast<int>(j);
           dist1 = d1;
         }
         if (d2 < dist2)
         {
-          ind2 = j;
+          ind2 = static_cast<int>(j);
           dist2 = d2;
         }
       }

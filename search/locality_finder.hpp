@@ -20,11 +20,11 @@ class VillagesCache;
 
 struct LocalityItem
 {
-  LocalityItem(string const & name, m2::PointD const & center, uint32_t population);
+  LocalityItem(string const & name, m2::PointD const & center, uint64_t population);
 
   string m_name;
   m2::PointD m_center;
-  uint32_t m_population;
+  uint64_t m_population;
 };
 
 string DebugPrint(LocalityItem const & item);

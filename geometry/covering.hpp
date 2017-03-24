@@ -90,15 +90,16 @@ public:
 
   void Simplify()
   {
-    int cellsSimplified = 0;
-    int const initialSize = m_Size;
+    size_t cellsSimplified = 0;
+    auto const initialSize = m_Size;
     for (int level = CellId::DEPTH_LEVELS - 1; level > 1; --level)
     {
       if (m_Covering[level].size() >= 2)
       {
-        int const initialLevelSize = static_cast<int>(m_Covering[level].size());
+        auto const initialLevelSize = m_Covering[level].size();
         SimplifyLevel(level);
-        cellsSimplified += initialLevelSize - static_cast<int>(m_Covering[level].size());
+        ASSERT_GREATER_OR_EQUAL(initialLevelSize, m_Covering[level].size(), ());
+        cellsSimplified += initialLevelSize - m_Covering[level].size();
         if (cellsSimplified > initialSize / 2)
           break;
       }
@@ -216,7 +217,7 @@ private:
   void RemoveFullSquares()
   {
     vector<CellId> cellsToAppend;
-    for (int level = m_Covering.size() - 1; level >= 0; --level)
+    for (int level = static_cast<int>(m_Covering.size()) - 1; level >= 0; --level)
     {
       // a -> b + parents
       vector<CellId> const & a = m_Covering[level];
