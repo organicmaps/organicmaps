@@ -36,7 +36,7 @@ struct CrossNode final
   {
   }
 
-  CrossNode() : node(INVALID_NODE_ID), reverseNode(INVALID_NODE_ID), point(ms::LatLon::Zero()) {}
+  CrossNode() : node(INVALID_NODE_ID), reverseNode(INVALID_NODE_ID), point(ms::LatLon::Zero()), isVirtual(false) {}
 
   inline bool IsValid() const { return node != INVALID_NODE_ID; }
 
@@ -86,7 +86,7 @@ inline string DebugPrint(BorderCross const & t)
   return out.str();
 }
 
-/// A class which represents an cross mwm weighted edge used by CrossMwmGraph.
+/// A class which represents an cross mwm weighted edge used by CrossMwmRoadGraph.
 class CrossWeightedEdge final
 {
 public:
@@ -115,7 +115,7 @@ private:
 };
 
 /// A graph used for cross mwm routing in an astar algorithms.
-class CrossMwmGraph final
+class CrossMwmRoadGraph final
 {
 public:
   using TCachingKey = pair<TWrittenNodeId, Index::MwmId>;
@@ -130,7 +130,7 @@ public:
     }
   };
 
-  explicit CrossMwmGraph(RoutingIndexManager & indexManager) : m_indexManager(indexManager) {}
+  explicit CrossMwmRoadGraph(RoutingIndexManager & indexManager) : m_indexManager(indexManager) {}
   void GetOutgoingEdgesList(BorderCross const & v, vector<CrossWeightedEdge> & adj) const
   {
     GetEdgesList(v, true /* isOutgoing */, adj);
@@ -184,7 +184,7 @@ private:
 //--------------------------------------------------------------------------------------------------
 
 /*!
- * \brief Convertor from CrossMwmGraph to cross mwm route task.
+ * \brief Convertor from CrossMwmRoadGraph to cross mwm route task.
  * \warning It's assumed that the first and the last BorderCrosses are always virtual and represents
  * routing inside mwm.
  */

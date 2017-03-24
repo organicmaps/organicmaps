@@ -12,10 +12,10 @@ namespace
 {
 /// Function to run AStar Algorithm from the base.
 IRouter::ResultCode CalculateRoute(BorderCross const & startPos, BorderCross const & finalPos,
-                                   CrossMwmGraph & roadGraph, RouterDelegate const & delegate,
+                                   CrossMwmRoadGraph & roadGraph, RouterDelegate const & delegate,
                                    RoutingResult<BorderCross> & route)
 {
-  using TAlgorithm = AStarAlgorithm<CrossMwmGraph>;
+  using TAlgorithm = AStarAlgorithm<CrossMwmRoadGraph>;
 
   TAlgorithm::TOnVisitedVertexCallback onVisitedVertex =
       [&delegate](BorderCross const & cross, BorderCross const & /* target */)
@@ -48,7 +48,7 @@ IRouter::ResultCode CalculateCrossMwmPath(TRoutingNodes const & startGraphNodes,
                                           double & cost,
                                           RouterDelegate const & delegate, TCheckedPath & route)
 {
-  CrossMwmGraph roadGraph(indexManager);
+  CrossMwmRoadGraph roadGraph(indexManager);
   FeatureGraphNode startGraphNode, finalGraphNode;
   CrossNode startNode, finalNode;
 

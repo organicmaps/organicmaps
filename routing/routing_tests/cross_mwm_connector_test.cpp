@@ -15,14 +15,14 @@ void TestConnectorConsistency(CrossMwmConnector const & connector)
 {
   for (Segment const & enter : connector.GetEnters())
   {
-    TEST(connector.IsTransition(enter, true /* isOutgoing */), ("enter:", enter));
-    TEST(!connector.IsTransition(enter, false /* isOutgoing */), ("enter:", enter));
+    TEST(connector.IsTransition(enter, false /* isOutgoing */), ("enter:", enter));
+    TEST(!connector.IsTransition(enter, true /* isOutgoing */), ("enter:", enter));
   }
 
   for (Segment const & exit : connector.GetExits())
   {
-    TEST(!connector.IsTransition(exit, true /* isOutgoing */), ("exit:", exit));
-    TEST(connector.IsTransition(exit, false /* isOutgoing */), ("exit:", exit));
+    TEST(!connector.IsTransition(exit, false /* isOutgoing */), ("exit:", exit));
+    TEST(connector.IsTransition(exit, true /* isOutgoing */), ("exit:", exit));
   }
 }
 
@@ -48,11 +48,11 @@ UNIT_TEST(OneWayEnter)
   TestConnectorConsistency(connector);
   TEST_EQUAL(connector.GetEnters().size(), 1, ());
   TEST_EQUAL(connector.GetExits().size(), 0, ());
-  TEST(connector.IsTransition(Segment(mwmId, featureId, segmentIdx, true /* forward */),
-                              true /* isOutgoing */),
-       ());
   TEST(!connector.IsTransition(Segment(mwmId, featureId, segmentIdx, true /* forward */),
-                               false /* isOutgoing */),
+                               true /* isOutgoing */),
+       ());
+  TEST(connector.IsTransition(Segment(mwmId, featureId, segmentIdx, true /* forward */),
+                              false /* isOutgoing */),
        ());
   TEST(!connector.IsTransition(Segment(mwmId, featureId, segmentIdx, false /* forward */),
                                true /* isOutgoing */),
@@ -73,11 +73,11 @@ UNIT_TEST(OneWayExit)
   TestConnectorConsistency(connector);
   TEST_EQUAL(connector.GetEnters().size(), 0, ());
   TEST_EQUAL(connector.GetExits().size(), 1, ());
-  TEST(!connector.IsTransition(Segment(mwmId, featureId, segmentIdx, true /* forward */),
-                               true /* isOutgoing */),
-       ());
   TEST(connector.IsTransition(Segment(mwmId, featureId, segmentIdx, true /* forward */),
-                              false /* isOutgoing */),
+                              true /* isOutgoing */),
+       ());
+  TEST(!connector.IsTransition(Segment(mwmId, featureId, segmentIdx, true /* forward */),
+                               false /* isOutgoing */),
        ());
   TEST(!connector.IsTransition(Segment(mwmId, featureId, segmentIdx, false /* forward */),
                                true /* isOutgoing */),
@@ -98,17 +98,17 @@ UNIT_TEST(TwoWayEnter)
   TestConnectorConsistency(connector);
   TEST_EQUAL(connector.GetEnters().size(), 1, ());
   TEST_EQUAL(connector.GetExits().size(), 1, ());
-  TEST(connector.IsTransition(Segment(mwmId, featureId, segmentIdx, true /* forward */),
-                              true /* isOutgoing */),
-       ());
   TEST(!connector.IsTransition(Segment(mwmId, featureId, segmentIdx, true /* forward */),
-                               false /* isOutgoing */),
-       ());
-  TEST(!connector.IsTransition(Segment(mwmId, featureId, segmentIdx, false /* forward */),
                                true /* isOutgoing */),
        ());
-  TEST(connector.IsTransition(Segment(mwmId, featureId, segmentIdx, false /* forward */),
+  TEST(connector.IsTransition(Segment(mwmId, featureId, segmentIdx, true /* forward */),
                               false /* isOutgoing */),
+       ());
+  TEST(connector.IsTransition(Segment(mwmId, featureId, segmentIdx, false /* forward */),
+                              true /* isOutgoing */),
+       ());
+  TEST(!connector.IsTransition(Segment(mwmId, featureId, segmentIdx, false /* forward */),
+                               false /* isOutgoing */),
        ());
 }
 
@@ -123,17 +123,17 @@ UNIT_TEST(TwoWayExit)
   TestConnectorConsistency(connector);
   TEST_EQUAL(connector.GetEnters().size(), 1, ());
   TEST_EQUAL(connector.GetExits().size(), 1, ());
-  TEST(!connector.IsTransition(Segment(mwmId, featureId, segmentIdx, true /* forward */),
-                               true /* isOutgoing */),
-       ());
   TEST(connector.IsTransition(Segment(mwmId, featureId, segmentIdx, true /* forward */),
-                              false /* isOutgoing */),
-       ());
-  TEST(connector.IsTransition(Segment(mwmId, featureId, segmentIdx, false /* forward */),
                               true /* isOutgoing */),
        ());
-  TEST(!connector.IsTransition(Segment(mwmId, featureId, segmentIdx, false /* forward */),
+  TEST(!connector.IsTransition(Segment(mwmId, featureId, segmentIdx, true /* forward */),
                                false /* isOutgoing */),
+       ());
+  TEST(!connector.IsTransition(Segment(mwmId, featureId, segmentIdx, false /* forward */),
+                               true /* isOutgoing */),
+       ());
+  TEST(connector.IsTransition(Segment(mwmId, featureId, segmentIdx, false /* forward */),
+                              false /* isOutgoing */),
        ());
 }
 
@@ -176,22 +176,22 @@ UNIT_TEST(Serialization)
 
   TEST(!connector.IsTransition(Segment(mwmId, 0, 0, true), true /* isOutgoing */), ());
 
-  TEST(connector.IsTransition(Segment(mwmId, 10, 1, true /* forward */), true /* isOutgoing */),
+  TEST(!connector.IsTransition(Segment(mwmId, 10, 1, true /* forward */), true /* isOutgoing */),
        ());
-  TEST(!connector.IsTransition(Segment(mwmId, 10, 1, true /* forward */), false /* isOutgoing */),
+  TEST(connector.IsTransition(Segment(mwmId, 10, 1, true /* forward */), false /* isOutgoing */),
        ());
   TEST(!connector.IsTransition(Segment(mwmId, 10, 1, false /* forward */), true /* isOutgoing */),
        ());
   TEST(!connector.IsTransition(Segment(mwmId, 10, 1, false /* forward */), false /* isOutgoing */),
        ());
 
-  TEST(connector.IsTransition(Segment(mwmId, 20, 2, true /* forward */), true /* isOutgoing */),
+  TEST(!connector.IsTransition(Segment(mwmId, 20, 2, true /* forward */), true /* isOutgoing */),
        ());
-  TEST(!connector.IsTransition(Segment(mwmId, 20, 2, true /* forward */), false /* isOutgoing */),
+  TEST(connector.IsTransition(Segment(mwmId, 20, 2, true /* forward */), false /* isOutgoing */),
        ());
-  TEST(!connector.IsTransition(Segment(mwmId, 20, 2, false /* forward */), true /* isOutgoing */),
+  TEST(connector.IsTransition(Segment(mwmId, 20, 2, false /* forward */), true /* isOutgoing */),
        ());
-  TEST(connector.IsTransition(Segment(mwmId, 20, 2, false /* forward */), false /* isOutgoing */),
+  TEST(!connector.IsTransition(Segment(mwmId, 20, 2, false /* forward */), false /* isOutgoing */),
        ());
 
   TEST(!connector.IsTransition(Segment(mwmId, 30, 3, true /* forward */), true /* isOutgoing */),

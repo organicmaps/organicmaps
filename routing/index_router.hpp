@@ -1,6 +1,6 @@
 #pragma once
 
-#include "routing/cross_mwm_index_graph.hpp"
+#include "routing/cross_mwm_graph.hpp"
 #include "routing/directions_engine.hpp"
 #include "routing/edge_estimator.hpp"
 #include "routing/features_road_graph.hpp"

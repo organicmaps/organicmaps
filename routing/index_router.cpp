@@ -129,7 +129,7 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(string const & startCountry,
 
   TrafficStash::Guard guard(*m_trafficStash);
   WorldGraph graph(
-      make_unique<CrossMwmIndexGraph>(m_numMwmIds, m_indexManager),
+      make_unique<CrossMwmGraph>(m_index, m_numMwmIds, m_vehicleModelFactory, m_indexManager),
       IndexGraphLoader::Create(m_numMwmIds, m_vehicleModelFactory, m_estimator, m_index),
       m_estimator);
   graph.SetMode(forSingleMwm ? WorldGraph::Mode::SingleMwm : WorldGraph::Mode::WorldWithLeaps);

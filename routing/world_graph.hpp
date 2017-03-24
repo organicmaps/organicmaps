@@ -1,6 +1,6 @@
 #pragma once
 
-#include "routing/cross_mwm_index_graph.hpp"
+#include "routing/cross_mwm_graph.hpp"
 #include "routing/edge_estimator.hpp"
 #include "routing/geometry.hpp"
 #include "routing/index_graph.hpp"
@@ -23,7 +23,7 @@ public:
     WorldWithoutLeaps,
   };
 
-  WorldGraph(std::unique_ptr<CrossMwmIndexGraph> crossMwmGraph,
+  WorldGraph(std::unique_ptr<CrossMwmGraph> crossMwmGraph,
              std::unique_ptr<IndexGraphLoader> loader, std::shared_ptr<EdgeEstimator> estimator);
 
   void GetEdgeList(Segment const & segment, bool isOutgoing, bool isLeap,
@@ -42,7 +42,7 @@ public:
 private:  
   void GetTwins(Segment const & s, bool isOutgoing, std::vector<SegmentEdge> & edges);
 
-  std::unique_ptr<CrossMwmIndexGraph> m_crossMwmGraph;
+  std::unique_ptr<CrossMwmGraph> m_crossMwmGraph;
   std::unique_ptr<IndexGraphLoader> m_loader;
   std::shared_ptr<EdgeEstimator> m_estimator;
   std::vector<Segment> m_twins;

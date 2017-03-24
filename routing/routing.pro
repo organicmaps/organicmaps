@@ -19,7 +19,9 @@ SOURCES += \
     car_router.cpp \
     cross_mwm_connector.cpp \
     cross_mwm_connector_serialization.cpp \
+    cross_mwm_graph.cpp \
     cross_mwm_index_graph.cpp \
+    cross_mwm_osrm_graph.cpp \
     cross_mwm_road_graph.cpp \
     cross_mwm_router.cpp \
     cross_routing_context.cpp \
@@ -74,7 +76,9 @@ HEADERS += \
     coding.hpp \
     cross_mwm_connector.hpp \
     cross_mwm_connector_serialization.hpp \
+    cross_mwm_graph.hpp \
     cross_mwm_index_graph.hpp \
+    cross_mwm_osrm_graph.hpp \
     cross_mwm_road_graph.hpp \
     cross_mwm_router.hpp \
     cross_routing_context.hpp \

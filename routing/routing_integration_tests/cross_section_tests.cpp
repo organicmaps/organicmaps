@@ -169,7 +169,7 @@ UNIT_TEST(CrossMwmGraphTest)
   };
 
   RoutingIndexManager manager(countryFileGetter, index);
-  CrossMwmGraph crossMwmGraph(manager);
+  CrossMwmRoadGraph crossMwmGraph(manager);
 
   auto const seed = std::chrono::system_clock::now().time_since_epoch().count();
   LOG(LINFO, ("Seed for RandomSample:", seed));

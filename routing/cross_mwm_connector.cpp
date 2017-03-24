@@ -54,7 +54,8 @@ bool CrossMwmConnector::IsTransition(Segment const & segment, bool isOutgoing) c
   if (transition.m_oneWay && !segment.IsForward())
     return false;
 
-  return (segment.IsForward() == transition.m_forwardIsEnter) == isOutgoing;
+  bool const isEnter = (segment.IsForward() == transition.m_forwardIsEnter);
+  return isEnter != isOutgoing;
 }
 
 m2::PointD const & CrossMwmConnector::GetPoint(Segment const & segment, bool front) const

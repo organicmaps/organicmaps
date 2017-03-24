@@ -59,7 +59,7 @@ class EdgesFiller
 public:
   EdgesFiller(TRoutingMappingPtr const & currentMapping,
               CrossRoutingContextReader const & currentContext, SourceNode const & startingNode,
-              CrossMwmGraph const & crossMwmGraph, vector<CrossWeightedEdge> & adj)
+              CrossMwmRoadGraph const & crossMwmGraph, vector<CrossWeightedEdge> & adj)
     : m_currentMapping(currentMapping)
     , m_currentContext(currentContext)
     , m_startingNode(startingNode)
@@ -87,7 +87,7 @@ private:
   TRoutingMappingPtr const & m_currentMapping;
   CrossRoutingContextReader const & m_currentContext;
   SourceNode const & m_startingNode;
-  CrossMwmGraph const & m_crossMwmGraph;
+  CrossMwmRoadGraph const & m_crossMwmGraph;
   vector<CrossWeightedEdge> & m_adj;
 };
 
@@ -124,7 +124,7 @@ bool FindCrossNode(CrossRoutingContextReader const & currentContext, CrossNode c
 template <class Fn>
 vector<BorderCross> const & ConstructBorderCrossImpl(
     TWrittenNodeId nodeId, TRoutingMappingPtr const & currentMapping,
-    unordered_map<CrossMwmGraph::TCachingKey, vector<BorderCross>, CrossMwmGraph::Hash> const &
+    unordered_map<CrossMwmRoadGraph::TCachingKey, vector<BorderCross>, CrossMwmRoadGraph::Hash> const &
         cachedNextNodes,
     Fn && borderCrossConstructor)
 {
@@ -139,7 +139,7 @@ vector<BorderCross> const & ConstructBorderCrossImpl(
 
 namespace routing
 {
-IRouter::ResultCode CrossMwmGraph::SetStartNode(CrossNode const & startNode)
+IRouter::ResultCode CrossMwmRoadGraph::SetStartNode(CrossNode const & startNode)
 {
   ASSERT(startNode.mwmId.IsAlive(), ());
   // TODO (ldragunov) make cancellation if necessary
@@ -198,8 +198,8 @@ IRouter::ResultCode CrossMwmGraph::SetStartNode(CrossNode const & startNode)
   return IRouter::NoError;
 }
 
-void CrossMwmGraph::AddVirtualEdge(IngoingCrossNode const & node, CrossNode const & finalNode,
-                                   EdgeWeight weight)
+void CrossMwmRoadGraph::AddVirtualEdge(IngoingCrossNode const & node, CrossNode const & finalNode,
+                                       EdgeWeight weight)
 {
   CrossNode start(node.m_nodeId, finalNode.mwmId, node.m_point);
   vector<CrossWeightedEdge> dummyEdges;
@@ -207,7 +207,7 @@ void CrossMwmGraph::AddVirtualEdge(IngoingCrossNode const & node, CrossNode cons
   m_virtualEdges.insert(make_pair(start, dummyEdges));
 }
 
-IRouter::ResultCode CrossMwmGraph::SetFinalNode(CrossNode const & finalNode)
+IRouter::ResultCode CrossMwmRoadGraph::SetFinalNode(CrossNode const & finalNode)
 {
   ASSERT(finalNode.mwmId.IsAlive(), ());
   TRoutingMappingPtr finalMapping = m_indexManager.GetMappingById(finalNode.mwmId);
@@ -260,9 +260,9 @@ IRouter::ResultCode CrossMwmGraph::SetFinalNode(CrossNode const & finalNode)
   return IRouter::NoError;
 }
 
-bool CrossMwmGraph::ConstructBorderCrossByOutgoingImpl(OutgoingCrossNode const & startNode,
-                                                       TRoutingMappingPtr const & currentMapping,
-                                                       vector<BorderCross> & crosses) const
+bool CrossMwmRoadGraph::ConstructBorderCrossByOutgoingImpl(OutgoingCrossNode const & startNode,
+                                                           TRoutingMappingPtr const & currentMapping,
+                                                           vector<BorderCross> & crosses) const
 {
   auto const fromCross = CrossNode(startNode.m_nodeId, currentMapping->GetMwmId(), startNode.m_point);
   string const & nextMwm = currentMapping->m_crossContext.GetOutgoingMwmName(startNode);
@@ -287,9 +287,9 @@ bool CrossMwmGraph::ConstructBorderCrossByOutgoingImpl(OutgoingCrossNode const &
   return !crosses.empty();
 }
 
-bool CrossMwmGraph::ConstructBorderCrossByIngoingImpl(IngoingCrossNode const & startNode,
-                                                      TRoutingMappingPtr const & currentMapping,
-                                                      vector<BorderCross> & crosses) const
+bool CrossMwmRoadGraph::ConstructBorderCrossByIngoingImpl(IngoingCrossNode const & startNode,
+                                                          TRoutingMappingPtr const & currentMapping,
+                                                          vector<BorderCross> & crosses) const
 {
   ASSERT(crosses.empty(), ());
   auto const toCross = CrossNode(startNode.m_nodeId, currentMapping->GetMwmId(), startNode.m_point);
@@ -324,7 +324,7 @@ bool CrossMwmGraph::ConstructBorderCrossByIngoingImpl(IngoingCrossNode const & s
   return !crosses.empty();
 }
 
-vector<BorderCross> const & CrossMwmGraph::ConstructBorderCross(
+vector<BorderCross> const & CrossMwmRoadGraph::ConstructBorderCross(
     TRoutingMappingPtr const & currentMapping, OutgoingCrossNode const & node) const
 {
   return ConstructBorderCrossImpl(node.m_nodeId, currentMapping, m_cachedNextNodesByOutgoing,
@@ -336,7 +336,7 @@ vector<BorderCross> const & CrossMwmGraph::ConstructBorderCross(
                                   });
 }
 
-vector<BorderCross> const & CrossMwmGraph::ConstructBorderCross(
+vector<BorderCross> const & CrossMwmRoadGraph::ConstructBorderCross(
     TRoutingMappingPtr const & currentMapping, IngoingCrossNode const & node) const
 {
   return ConstructBorderCrossImpl(node.m_nodeId, currentMapping, m_cachedNextNodesByIngoing,
@@ -348,8 +348,8 @@ vector<BorderCross> const & CrossMwmGraph::ConstructBorderCross(
                                   });
 }
 
-void CrossMwmGraph::GetEdgesList(BorderCross const & v, bool isOutgoing,
-                                 vector<CrossWeightedEdge> & adj) const
+void CrossMwmRoadGraph::GetEdgesList(BorderCross const & v, bool isOutgoing,
+                                     vector<CrossWeightedEdge> & adj) const
 {
   // Check for virtual edges.
   adj.clear();
@@ -407,7 +407,7 @@ void CrossMwmGraph::GetEdgesList(BorderCross const & v, bool isOutgoing,
   }
 }
 
-double CrossMwmGraph::HeuristicCostEstimate(BorderCross const & v, BorderCross const & w) const
+double CrossMwmRoadGraph::HeuristicCostEstimate(BorderCross const & v, BorderCross const & w) const
 {
   // Simple travel time heuristic works worse than simple Dijkstra's algorithm, represented by
   // always 0 heuristics estimation.
