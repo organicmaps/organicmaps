@@ -495,14 +495,15 @@ BOOL gIsFirstMyPositionMode = YES;
   [self.navigationController popToRootViewControllerAnimated:NO];
   if (self.isViewLoaded)
   {
-    self.controlsManager.searchHidden = YES;
+    BOOL isSearchHidden = YES;
     [MWMRouter stopRouting];
     if ([action isEqualToString:@"me.maps.3daction.bookmarks"])
       [self openBookmarks];
     else if ([action isEqualToString:@"me.maps.3daction.search"])
-      self.controlsManager.searchHidden = NO;
+      isSearchHidden = NO;
     else if ([action isEqualToString:@"me.maps.3daction.route"])
       [self.controlsManager onRoutePrepare];
+    self.controlsManager.searchHidden = isSearchHidden;
   }
   else
   {
