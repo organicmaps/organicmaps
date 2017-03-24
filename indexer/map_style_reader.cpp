@@ -6,15 +6,17 @@
 
 #include "platform/platform.hpp"
 
-#include "std/string.hpp"
+#include <string>
 
 namespace
 {
 
-const char * const kSuffixDark = "_dark";
-const char * const kSuffixClear = "_clear";
-const char * const kSuffixVehicleDark = "_vehicle_dark";
-const char * const kSuffixVehicleClear = "_vehicle_clear";
+std::string const kSuffixDark = "_dark";
+std::string const kSuffixClear = "_clear";
+std::string const kSuffixVehicleDark = "_vehicle_dark";
+std::string const kSuffixVehicleClear = "_vehicle_clear";
+
+std::string const kStylesOverrideDir = "styles";
 
 string GetStyleRulesSuffix(MapStyle mapStyle)
 {
@@ -79,14 +81,25 @@ MapStyle StyleReader::GetCurrentStyle()
 
 ReaderPtr<Reader> StyleReader::GetDrawingRulesReader()
 {
-  string const rulesFile = string("drules_proto") + GetStyleRulesSuffix(GetCurrentStyle()) + ".bin";
+  string rulesFile = string("drules_proto") + GetStyleRulesSuffix(GetCurrentStyle()) + ".bin";
+
+  auto overriddenRulesFile = my::JoinFoldersToPath({GetPlatform().WritableDir(), kStylesOverrideDir}, rulesFile);
+  if (GetPlatform().IsFileExistsByFullPath(overriddenRulesFile))
+    rulesFile = overriddenRulesFile;
+
   return GetPlatform().GetReader(rulesFile);
 }
 
 ReaderPtr<Reader> StyleReader::GetResourceReader(string const & file, string const & density)
 {
   string const resourceDir = string("resources-") + density + GetStyleResourcesSuffix(GetCurrentStyle());
-  return GetPlatform().GetReader(my::JoinFoldersToPath(resourceDir, file));
+  string resFile = my::JoinFoldersToPath(resourceDir, file);
+
+  auto overriddenResFile = my::JoinFoldersToPath({GetPlatform().WritableDir(), kStylesOverrideDir}, resFile);
+  if (GetPlatform().IsFileExistsByFullPath(overriddenResFile))
+    resFile = overriddenResFile;
+
+  return GetPlatform().GetReader(resFile);
 }
 
 StyleReader & GetStyleReader()
