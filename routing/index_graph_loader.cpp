@@ -70,18 +70,11 @@ IndexGraph & IndexGraphLoaderImpl::Load(NumMwmId numMwmId)
   auto const mwmId = MwmSet::MwmId(handle.GetInfo());
   auto graphPtr =
       make_unique<IndexGraph>(GeometryLoader::Create(m_index, mwmId, vehicleModel), m_estimator);
-  auto & graph = *graphPtr;
-
-  MwmValue const & mwmValue = *handle.GetValue<MwmValue>();
+  IndexGraph & graph = *graphPtr;
 
   my::Timer timer;
-  FilesContainerR::TReader reader(mwmValue.m_cont.GetReader(ROUTING_FILE_TAG));
-  ReaderSource<FilesContainerR::TReader> src(reader);
-  IndexGraphSerializer::Deserialize(graph, src, kCarMask);
-  RestrictionLoader restrictionLoader(mwmValue, graph);
-  if (restrictionLoader.HasRestrictions())
-    graph.SetRestrictions(restrictionLoader.StealRestrictions());
-
+  MwmValue const & mwmValue = *handle.GetValue<MwmValue>();
+  DeserializeIndexGraph(mwmValue, graph);
   m_graphs[numMwmId] = move(graphPtr);
   LOG(LINFO, (ROUTING_FILE_TAG, "section for", file.GetName(), "loaded in", timer.ElapsedSeconds(),
               "seconds"));
@@ -99,5 +92,15 @@ unique_ptr<IndexGraphLoader> IndexGraphLoader::Create(
     shared_ptr<EdgeEstimator> estimator, Index & index)
 {
   return make_unique<IndexGraphLoaderImpl>(numMwmIds, vehicleModelFactory, estimator, index);
+}
+
+void DeserializeIndexGraph(MwmValue const & mwmValue, IndexGraph & graph)
+{
+  FilesContainerR::TReader reader(mwmValue.m_cont.GetReader(ROUTING_FILE_TAG));
+  ReaderSource<FilesContainerR::TReader> src(reader);
+  IndexGraphSerializer::Deserialize(graph, src, kCarMask);
+  RestrictionLoader restrictionLoader(mwmValue, graph);
+  if (restrictionLoader.HasRestrictions())
+    graph.SetRestrictions(restrictionLoader.StealRestrictions());
 }
 }  // namespace routing

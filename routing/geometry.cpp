@@ -12,6 +12,7 @@ using namespace routing;
 
 namespace
 {
+// GeometryLoaderImpl ------------------------------------------------------------------------------
 class GeometryLoaderImpl final : public GeometryLoader
 {
 public:
@@ -19,7 +20,7 @@ public:
                      shared_ptr<IVehicleModel> vehicleModel);
 
   // GeometryLoader overrides:
-  virtual void Load(uint32_t featureId, RoadGeometry & road) const override;
+  void Load(uint32_t featureId, RoadGeometry & road) const override;
 
 private:
   shared_ptr<IVehicleModel> m_vehicleModel;
@@ -32,7 +33,7 @@ GeometryLoaderImpl::GeometryLoaderImpl(Index const & index, MwmSet::MwmId const 
                                        shared_ptr<IVehicleModel> vehicleModel)
   : m_vehicleModel(vehicleModel), m_guard(index, mwmId), m_country(country)
 {
-  ASSERT(m_vehicleModel, ());
+  CHECK(m_vehicleModel, ());
 }
 
 void GeometryLoaderImpl::Load(uint32_t featureId, RoadGeometry & road) const
@@ -42,6 +43,36 @@ void GeometryLoaderImpl::Load(uint32_t featureId, RoadGeometry & road) const
   if (!isFound)
     MYTHROW(RoutingException, ("Feature", featureId, "not found in ", m_country));
 
+  feature.ParseGeometry(FeatureType::BEST_GEOMETRY);
+  road.Load(*m_vehicleModel, feature);
+}
+
+// FileGeometryLoader ------------------------------------------------------------------------------
+class FileGeometryLoader final : public GeometryLoader
+{
+public:
+  FileGeometryLoader(string const & fileName, shared_ptr<IVehicleModel> vehicleModel);
+
+  // GeometryLoader overrides:
+  void Load(uint32_t featureId, RoadGeometry & road) const override;
+
+private:
+  FeaturesVectorTest m_featuresVector;
+  shared_ptr<IVehicleModel> m_vehicleModel;
+};
+
+FileGeometryLoader::FileGeometryLoader(string const & fileName,
+                                       shared_ptr<IVehicleModel> vehicleModel)
+  : m_featuresVector(FilesContainerR(make_unique<FileReader>(fileName)))
+  , m_vehicleModel(vehicleModel)
+{
+  CHECK(m_vehicleModel, ());
+}
+
+void FileGeometryLoader::Load(uint32_t featureId, RoadGeometry & road) const
+{
+  FeatureType feature;
+  m_featuresVector.GetVector().GetByIndex(featureId, feature);
   feature.ParseGeometry(FeatureType::BEST_GEOMETRY);
   road.Load(*m_vehicleModel, feature);
 }
@@ -103,5 +134,12 @@ unique_ptr<GeometryLoader> GeometryLoader::Create(Index const & index, MwmSet::M
   CHECK(mwmId.IsAlive(), ());
   return make_unique<GeometryLoaderImpl>(index, mwmId, mwmId.GetInfo()->GetCountryName(),
                                          vehicleModel);
+}
+
+// static
+unique_ptr<GeometryLoader> GeometryLoader::CreateFromFile(string const & fileName,
+                                                          shared_ptr<IVehicleModel> vehicleModel)
+{
+  return make_unique<FileGeometryLoader>(fileName, vehicleModel);
 }
 }  // namespace routing

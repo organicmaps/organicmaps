@@ -10,9 +10,10 @@
 
 #include "base/buffer_vector.hpp"
 
-#include "std/cstdint.hpp"
-#include "std/shared_ptr.hpp"
-#include "std/unique_ptr.hpp"
+#include <cstdint>
+#include <memory>
+#include <string>
+#include <unordered_map>
 
 namespace routing
 {
@@ -64,15 +65,20 @@ public:
   virtual void Load(uint32_t featureId, RoadGeometry & road) const = 0;
 
   // mwmId should be alive: it is caller responsibility to check it.
-  static unique_ptr<GeometryLoader> Create(Index const & index, MwmSet::MwmId const & mwmId,
-                                           shared_ptr<IVehicleModel> vehicleModel);
+  static std::unique_ptr<GeometryLoader> Create(Index const & index, MwmSet::MwmId const & mwmId,
+                                                std::shared_ptr<IVehicleModel> vehicleModel);
+
+  /// This is for stand-alone work.
+  /// Use in generator_tool and unit tests.
+  static std::unique_ptr<GeometryLoader> CreateFromFile(
+      std::string const & fileName, std::shared_ptr<IVehicleModel> vehicleModel);
 };
 
 class Geometry final
 {
 public:
   Geometry() = default;
-  explicit Geometry(unique_ptr<GeometryLoader> loader);
+  explicit Geometry(std::unique_ptr<GeometryLoader> loader);
 
   RoadGeometry const & GetRoad(uint32_t featureId);
 
@@ -83,7 +89,7 @@ public:
 
 private:
   // Feature id to RoadGeometry map.
-  unordered_map<uint32_t, RoadGeometry> m_roads;
-  unique_ptr<GeometryLoader> m_loader;
+  std::unordered_map<uint32_t, RoadGeometry> m_roads;
+  std::unique_ptr<GeometryLoader> m_loader;
 };
 }  // namespace routing

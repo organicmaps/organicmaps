@@ -1,6 +1,7 @@
 #pragma once
 
-#include "std/cstdint.hpp"
+#include <cstdint>
+#include <string>
 
 namespace routing
 {
@@ -25,4 +26,15 @@ VehicleMask constexpr kAllVehiclesMask = kNumVehicleMasks - 1;
 VehicleMask constexpr kPedestrianMask = GetVehicleMask(VehicleType::Pedestrian);
 VehicleMask constexpr kBicycleMask = GetVehicleMask(VehicleType::Bicycle);
 VehicleMask constexpr kCarMask = GetVehicleMask(VehicleType::Car);
+
+inline std::string DebugPrint(VehicleType vehicleType)
+{
+  switch (vehicleType)
+  {
+  case VehicleType::Pedestrian: return "Pedestrian";
+  case VehicleType::Bicycle: return "Bicycle";
+  case VehicleType::Car: return "Car";
+  case VehicleType::Count: return "Count";
+  }
+}
 }  // namespace routing

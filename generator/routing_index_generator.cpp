@@ -3,9 +3,11 @@
 #include "generator/borders_generator.hpp"
 #include "generator/borders_loader.hpp"
 
+#include "routing/base/astar_algorithm.hpp"
 #include "routing/cross_mwm_connector.hpp"
 #include "routing/cross_mwm_connector_serialization.hpp"
 #include "routing/index_graph.hpp"
+#include "routing/index_graph_loader.hpp"
 #include "routing/index_graph_serialization.hpp"
 #include "routing/vehicle_mask.hpp"
 
@@ -33,6 +35,7 @@
 using namespace feature;
 using namespace platform;
 using namespace routing;
+using namespace std;
 
 namespace
 {
@@ -85,6 +88,7 @@ class Processor final
 {
 public:
   explicit Processor(string const & country) : m_maskBuilder(country) {}
+
   void ProcessAllFeatures(string const & filename)
   {
     feature::ForEachFromDat(filename, bind(&Processor::ProcessFeature, this, _1, _2));
@@ -104,6 +108,7 @@ public:
   }
 
   unordered_map<uint32_t, VehicleMask> const & GetMasks() const { return m_masks; }
+
 private:
   void ProcessFeature(FeatureType const & f, uint32_t id)
   {
@@ -124,6 +129,36 @@ private:
   VehicleMaskBuilder const m_maskBuilder;
   unordered_map<uint64_t, Joint> m_posToJoint;
   unordered_map<uint32_t, VehicleMask> m_masks;
+};
+
+class DijkstraWrapper final
+{
+public:
+  // AStarAlgorithm types aliases:
+  using TVertexType = Segment;
+  using TEdgeType = SegmentEdge;
+
+  explicit DijkstraWrapper(IndexGraph & graph) : m_graph(graph) {}
+
+  void GetOutgoingEdgesList(TVertexType const & vertex, vector<TEdgeType> & edges)
+  {
+    edges.clear();
+    m_graph.GetEdgeList(vertex, true /* isOutgoing */, edges);
+  }
+
+  void GetIngoingEdgesList(TVertexType const & vertex, vector<TEdgeType> & edges)
+  {
+    edges.clear();
+    m_graph.GetEdgeList(vertex, false /* isOutgoing */, edges);
+  }
+
+  double HeuristicCostEstimate(TVertexType const & /* from */, TVertexType const & /* to */)
+  {
+    return 0.0;
+  }
+
+private:
+  IndexGraph & m_graph;
 };
 
 bool RegionsContain(vector<m2::RegionD> const & regions, m2::PointD const & point)
@@ -182,16 +217,53 @@ void CalcCrossMwmTransitions(string const & path, string const & mwmFile, string
   });
 }
 
-void FillWeights(string const & path, string const & country, CrossMwmConnector & connector)
+void FillWeights(string const & path, string const & mwmFile, string const & country,
+                 CrossMwmConnector & connector)
 {
   shared_ptr<IVehicleModel> vehicleModel = CarModelFactory().GetVehicleModelForCountry(country);
-  shared_ptr<EdgeEstimator> estimator =
-      EdgeEstimator::CreateForCar(nullptr /* trafficStash */, vehicleModel->GetMaxSpeed());
+  IndexGraph graph(
+      GeometryLoader::CreateFromFile(mwmFile, vehicleModel),
+      EdgeEstimator::CreateForCar(nullptr /* trafficStash */, vehicleModel->GetMaxSpeed()));
+
+  MwmValue mwmValue(LocalCountryFile(path, platform::CountryFile(country), 0 /* version */));
+  DeserializeIndexGraph(mwmValue, graph);
+
+  map<Segment, map<Segment, double>> weights;
+  map<Segment, double> distanceMap;
+  auto const numEnters = connector.GetEnters().size();
+  for (size_t i = 0; i < numEnters; ++i)
+  {
+    if ((i % 10 == 0) && (i != 0))
+      LOG(LINFO, ("Building leaps:", i, "/", numEnters, "waves passed"));
+
+    Segment const & enter = connector.GetEnter(i);
+
+    AStarAlgorithm<DijkstraWrapper> astar;
+    DijkstraWrapper wrapper(graph);
+    astar.PropagateWave(
+        wrapper, enter, [](Segment const & /* vertex */) { return false; },
+        [](Segment const & /* vertex */, SegmentEdge const & edge) { return edge.GetWeight(); },
+        [](Segment const & /* from */, Segment const & /* to */) {} /* putToParents */,
+        distanceMap);
+
+    for (Segment const & exit : connector.GetExits())
+    {
+      auto it = distanceMap.find(exit);
+      if (it != distanceMap.end())
+        weights[enter][exit] = it->second;
+    }
+  }
 
   connector.FillWeights([&](Segment const & enter, Segment const & exit) {
-    // TODO replace fake weights with weights calculated by routing.
-    return estimator->CalcHeuristic(connector.GetPoint(enter, true /* front */),
-                                    connector.GetPoint(exit, true /* front */));
+    auto it0 = weights.find(enter);
+    if (it0 == weights.end())
+      return CrossMwmConnector::kNoRoute;
+
+    auto it1 = it0->second.find(exit);
+    if (it1 == it0->second.end())
+      return CrossMwmConnector::kNoRoute;
+
+    return it1->second;
   });
 }
 
@@ -243,7 +315,19 @@ void BuildCrossMwmSection(string const & path, string const & mwmFile, string co
   vector<CrossMwmConnectorSerializer::Transition> transitions;
   CalcCrossMwmTransitions(path, mwmFile, country, transitions, connectors);
 
-  FillWeights(path, country, connectors[static_cast<size_t>(VehicleType::Car)]);
+  LOG(LINFO, ("Transitions finished, transitions:", transitions.size(), ", elapsed:",
+              timer.ElapsedSeconds(), "seconds"));
+  for (size_t i = 0; i < connectors.size(); ++i)
+  {
+    VehicleType const vehicleType = static_cast<VehicleType>(i);
+    CrossMwmConnector const & connector = connectors[i];
+    LOG(LINFO, (vehicleType, "model: enters:", connector.GetEnters().size(), ", exits:",
+                connector.GetExits().size()));
+  }
+  timer.Reset();
+
+  FillWeights(path, mwmFile, country, connectors[static_cast<size_t>(VehicleType::Car)]);
+  LOG(LINFO, ("Leaps finished, elapsed:", timer.ElapsedSeconds(), "seconds"));
 
   serial::CodingParams const codingParams = LoadCodingParams(mwmFile);
   FilesContainerW cont(mwmFile, FileWriter::OP_WRITE_EXISTING);
@@ -252,7 +336,6 @@ void BuildCrossMwmSection(string const & path, string const & mwmFile, string co
   CrossMwmConnectorSerializer::Serialize(transitions, connectors, codingParams, writer);
   auto const sectionSize = writer.Pos() - startPos;
 
-  LOG(LINFO, ("Cross mwm section for", country, "generated in", timer.ElapsedSeconds(),
-              "seconds, section size:", sectionSize, "bytes, transitions:", transitions.size()));
+  LOG(LINFO, ("Cross mwm section generated, size:", sectionSize, "bytes"));
 }
 }  // namespace routing
