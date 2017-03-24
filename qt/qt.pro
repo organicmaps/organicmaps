@@ -89,7 +89,7 @@ OTHER_RES.files += ../data/fonts_blacklist.txt \
                    ../data/unicode_blocks.txt
 
 ICU_RES.path = $$DATADIR
-ICU_RES.files = ../data/icudt57l.dat.zip
+ICU_RES.files = ../data/icudt57l.dat
 
 MWM_RES.path = $$DATADIR
 MWM_RES.files = ../data/World.mwm ../data/WorldCoasts.mwm

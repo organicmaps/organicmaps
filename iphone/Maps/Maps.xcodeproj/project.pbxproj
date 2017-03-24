@@ -802,9 +802,9 @@
 		978D4A31199A11E600D72CA7 /* faq.html in Resources */ = {isa = PBXBuildFile; fileRef = 978D4A30199A11E600D72CA7 /* faq.html */; };
 		97A5967F19B9CD47007A963F /* copyright.html in Resources */ = {isa = PBXBuildFile; fileRef = 97A5967E19B9CD47007A963F /* copyright.html */; };
 		A367C93B1B17334800E2B6E7 /* resources-default in Resources */ = {isa = PBXBuildFile; fileRef = A367C93A1B17334800E2B6E7 /* resources-default */; };
-		BBB165C91E81D0F30058BF1E /* icudt57l.dat.zip in Resources */ = {isa = PBXBuildFile; fileRef = BBB165C81E81D0F30058BF1E /* icudt57l.dat.zip */; };
-		BBB165CA1E81D0F30058BF1E /* icudt57l.dat.zip in Resources */ = {isa = PBXBuildFile; fileRef = BBB165C81E81D0F30058BF1E /* icudt57l.dat.zip */; };
-		BBB165CB1E81D0F30058BF1E /* icudt57l.dat.zip in Resources */ = {isa = PBXBuildFile; fileRef = BBB165C81E81D0F30058BF1E /* icudt57l.dat.zip */; };
+		BB7626B51E8559980031D71C /* icudt57l.dat in Resources */ = {isa = PBXBuildFile; fileRef = BB7626B41E8559980031D71C /* icudt57l.dat */; };
+		BB7626B61E85599C0031D71C /* icudt57l.dat in Resources */ = {isa = PBXBuildFile; fileRef = BB7626B41E8559980031D71C /* icudt57l.dat */; };
+		BB7626B71E85599C0031D71C /* icudt57l.dat in Resources */ = {isa = PBXBuildFile; fileRef = BB7626B41E8559980031D71C /* icudt57l.dat */; };
 		ED48BBB517C267F5003E7E92 /* ColorPickerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB417C267F5003E7E92 /* ColorPickerView.mm */; };
 		ED48BBBA17C2B1E2003E7E92 /* CircleView.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB917C2B1E2003E7E92 /* CircleView.mm */; };
 		EE026F0611D6AC0D00645242 /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE026F0511D6AC0D00645242 /* classificator.txt */; };
@@ -1901,7 +1901,7 @@
 		97A5967E19B9CD47007A963F /* copyright.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = copyright.html; path = ../../data/copyright.html; sourceTree = "<group>"; };
 		9DF04B231B71010E00DACAF1 /* 02_droidsans-fallback.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "02_droidsans-fallback.ttf"; path = "../../data/02_droidsans-fallback.ttf"; sourceTree = "<group>"; };
 		A367C93A1B17334800E2B6E7 /* resources-default */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-default"; path = "../../data/resources-default"; sourceTree = "<group>"; };
-		BBB165C81E81D0F30058BF1E /* icudt57l.dat.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; name = icudt57l.dat.zip; path = ../../data/icudt57l.dat.zip; sourceTree = "<group>"; };
+		BB7626B41E8559980031D71C /* icudt57l.dat */ = {isa = PBXFileReference; lastKnownFileType = file; name = icudt57l.dat; path = ../../data/icudt57l.dat; sourceTree = "<group>"; };
 		ED48BBB317C267F5003E7E92 /* ColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPickerView.h; sourceTree = "<group>"; };
 		ED48BBB417C267F5003E7E92 /* ColorPickerView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ColorPickerView.mm; sourceTree = "<group>"; };
 		ED48BBB817C2B1E2003E7E92 /* CircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleView.h; sourceTree = "<group>"; };
@@ -4027,7 +4027,7 @@
 		FA065FC61286143F00FEA989 /* External Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BBB165C81E81D0F30058BF1E /* icudt57l.dat.zip */,
+				BB7626B41E8559980031D71C /* icudt57l.dat */,
 				4554B6E81E55F02B0084017F /* drules_proto_vehicle_clear.bin */,
 				4554B6E91E55F02B0084017F /* drules_proto_vehicle_dark.bin */,
 				F623DA6A1C9C2731006A3436 /* opening_hours_how_to_edit.html */,
@@ -4327,7 +4327,6 @@
 				349A357B1B53D4C9009677EE /* MWMCircularProgress.xib in Resources */,
 				F64F199E1AB81A00006EAF7E /* MWMDefaultAlert.xib in Resources */,
 				F6E2FE451E097BA00083EBEC /* MWMDirectionView.xib in Resources */,
-				BBB165C91E81D0F30058BF1E /* icudt57l.dat.zip in Resources */,
 				F64F4B6F1B46A5380081A24A /* MWMDownloaderDialogCell.xib in Resources */,
 				F64F4B711B4A41D40081A24A /* MWMDownloaderDialogHeader.xib in Resources */,
 				F64F19A41AB81A00006EAF7E /* MWMDownloadTransitMapAlert.xib in Resources */,
@@ -4385,6 +4384,7 @@
 				F6E2FEFF1E097BA00083EBEC /* MWMSearchCategoryCell.xib in Resources */,
 				F69CE8DD1E5C51AB002B5881 /* CarouselElement.xib in Resources */,
 				F6E2FF321E097BA00083EBEC /* MWMSearchCommonCell.xib in Resources */,
+				BB7626B51E8559980031D71C /* icudt57l.dat in Resources */,
 				F6E2FF051E097BA00083EBEC /* MWMSearchHistoryClearCell.xib in Resources */,
 				F6E2FF0E1E097BA00083EBEC /* MWMSearchHistoryMyPositionCell.xib in Resources */,
 				F6E2FF141E097BA00083EBEC /* MWMSearchHistoryRequestCell.xib in Resources */,
@@ -4495,7 +4495,6 @@
 				6741A98B1BF340DE002C974C /* MWMCircularProgress.xib in Resources */,
 				6741A94F1BF340DE002C974C /* MWMDefaultAlert.xib in Resources */,
 				F6E2FE461E097BA00083EBEC /* MWMDirectionView.xib in Resources */,
-				BBB165CA1E81D0F30058BF1E /* icudt57l.dat.zip in Resources */,
 				6741A9951BF340DE002C974C /* MWMDownloaderDialogCell.xib in Resources */,
 				6741A9511BF340DE002C974C /* MWMDownloaderDialogHeader.xib in Resources */,
 				6741A96C1BF340DE002C974C /* MWMDownloadTransitMapAlert.xib in Resources */,
@@ -4553,6 +4552,7 @@
 				F6E2FF331E097BA00083EBEC /* MWMSearchCommonCell.xib in Resources */,
 				F6E2FF061E097BA00083EBEC /* MWMSearchHistoryClearCell.xib in Resources */,
 				F6E2FF0F1E097BA00083EBEC /* MWMSearchHistoryMyPositionCell.xib in Resources */,
+				BB7626B61E85599C0031D71C /* icudt57l.dat in Resources */,
 				F6E2FF151E097BA00083EBEC /* MWMSearchHistoryRequestCell.xib in Resources */,
 				F6E2FEE81E097BA00083EBEC /* MWMSearchNoResults.xib in Resources */,
 				346225921DDC5FBA001E8752 /* MWMSearchNoResultsAlert.xib in Resources */,
@@ -4663,7 +4663,6 @@
 				849CF6661DE842290024A8A5 /* MWMCircularProgress.xib in Resources */,
 				849CF5FE1DE842290024A8A5 /* MWMDefaultAlert.xib in Resources */,
 				F6E2FE471E097BA00083EBEC /* MWMDirectionView.xib in Resources */,
-				BBB165CB1E81D0F30058BF1E /* icudt57l.dat.zip in Resources */,
 				849CF6771DE842290024A8A5 /* MWMDownloaderDialogCell.xib in Resources */,
 				849CF6011DE842290024A8A5 /* MWMDownloaderDialogHeader.xib in Resources */,
 				849CF62F1DE842290024A8A5 /* MWMDownloadTransitMapAlert.xib in Resources */,
@@ -4721,6 +4720,7 @@
 				F6E2FF011E097BA00083EBEC /* MWMSearchCategoryCell.xib in Resources */,
 				F6E2FF341E097BA00083EBEC /* MWMSearchCommonCell.xib in Resources */,
 				F6E2FF071E097BA00083EBEC /* MWMSearchHistoryClearCell.xib in Resources */,
+				BB7626B71E85599C0031D71C /* icudt57l.dat in Resources */,
 				341B10761E55B15B00071C74 /* MWMMobileInternetAlert.xib in Resources */,
 				F6E2FF101E097BA00083EBEC /* MWMSearchHistoryMyPositionCell.xib in Resources */,
 				F6E2FF161E097BA00083EBEC /* MWMSearchHistoryRequestCell.xib in Resources */,
