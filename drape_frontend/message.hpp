@@ -76,6 +76,7 @@ public:
     DrapeApiRemove,
     DrapeApiFlush,
     SetCustomSymbols,
+    UpdateCustomSymbols,
   };
 
   virtual ~Message() {}

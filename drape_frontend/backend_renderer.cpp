@@ -25,7 +25,7 @@
 namespace df
 {
 
-BackendRenderer::BackendRenderer(Params const & params)
+BackendRenderer::BackendRenderer(Params && params)
   : BaseRenderer(ThreadsCommutator::ResourceUploadThread, params)
   , m_model(params.m_model)
   , m_readManager(make_unique_dp<ReadManager>(params.m_commutator, m_model,
@@ -431,9 +431,13 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::SetCustomSymbols:
     {
       ref_ptr<SetCustomSymbolsMessage> msg = message;
-      m_readManager->UpdateCustomSymbols(msg->AcceptSymbols());
+      CustomSymbols customSymbols = msg->AcceptSymbols();
+      std::vector<FeatureID> features;
+      for (auto const & symbol : customSymbols)
+        features.push_back(symbol.first);
+      m_readManager->UpdateCustomSymbols(std::move(customSymbols));
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                make_unique_dp<SetCustomSymbolsMessage>(CustomSymbols()),
+                                make_unique_dp<UpdateCustomSymbolsMessage>(std::move(features)),
                                 MessagePriority::Normal);
       break;
     }

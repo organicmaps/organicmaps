@@ -129,6 +129,8 @@ set(
   navigator.hpp
   overlay_batcher.cpp
   overlay_batcher.hpp
+  overlays_tracker.cpp
+  overlays_tracker.hpp
   path_symbol_shape.cpp
   path_symbol_shape.hpp
   path_text_shape.cpp

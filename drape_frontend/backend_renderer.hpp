@@ -57,7 +57,7 @@ public:
     bool m_simplifiedTrafficColors;
   };
 
-  BackendRenderer(Params const & params);
+  BackendRenderer(Params && params);
   ~BackendRenderer() override;
 
   void Teardown();

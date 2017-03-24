@@ -5,6 +5,7 @@
 #include "drape_frontend/custom_symbol.hpp"
 #include "drape_frontend/frontend_renderer.hpp"
 #include "drape_frontend/route_shape.hpp"
+#include "drape_frontend/overlays_tracker.hpp"
 #include "drape_frontend/scenario_manager.hpp"
 #include "drape_frontend/selection_shape.hpp"
 #include "drape_frontend/threads_commutator.hpp"
@@ -56,7 +57,8 @@ public:
            bool firstLaunch,
            bool isRoutingActive,
            bool isAutozoomEnabled,
-           bool simplifiedTrafficColors)
+           bool simplifiedTrafficColors,
+           OverlaysShowStatsCallback && overlaysShowStatsCallback)
       : m_factory(factory)
       , m_stringsBundle(stringBundle)
       , m_viewport(viewport)
@@ -75,6 +77,7 @@ public:
       , m_isRoutingActive(isRoutingActive)
       , m_isAutozoomEnabled(isAutozoomEnabled)
       , m_simplifiedTrafficColors(simplifiedTrafficColors)
+      , m_overlaysShowStatsCallback(move(overlaysShowStatsCallback))
     {}
 
     ref_ptr<dp::OGLContextFactory> m_factory;
@@ -95,6 +98,7 @@ public:
     bool m_isRoutingActive;
     bool m_isAutozoomEnabled;
     bool m_simplifiedTrafficColors;
+    OverlaysShowStatsCallback m_overlaysShowStatsCallback;
   };
 
   DrapeEngine(Params && params);
