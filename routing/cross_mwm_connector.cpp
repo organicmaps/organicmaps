@@ -1,5 +1,7 @@
 #include "routing/cross_mwm_connector.hpp"
 
+#include "geometry/mercator.hpp"
+
 namespace
 {
 uint32_t constexpr kFakeId = std::numeric_limits<uint32_t>::max();
@@ -10,11 +12,11 @@ namespace routing
 // static
 double constexpr CrossMwmConnector::kNoRoute;
 
-void CrossMwmConnector::AddTransition(uint32_t featureId, uint32_t segmentIdx, bool oneWay,
-                                      bool forwardIsEnter, m2::PointD const & backPoint,
-                                      m2::PointD const & frontPoint)
+void CrossMwmConnector::AddTransition(uint64_t osmId, uint32_t featureId, uint32_t segmentIdx,
+                                      bool oneWay, bool forwardIsEnter,
+                                      m2::PointD const & backPoint, m2::PointD const & frontPoint)
 {
-  Transition transition(kFakeId, kFakeId, oneWay, forwardIsEnter, backPoint, frontPoint);
+  Transition transition(kFakeId, kFakeId, osmId, oneWay, forwardIsEnter, backPoint, frontPoint);
 
   if (forwardIsEnter)
   {
@@ -61,6 +63,32 @@ bool CrossMwmConnector::IsTransition(Segment const & segment, bool isOutgoing) c
   // Please see documentation on CrossMwmGraph::IsTransition() method for details.
   bool const isEnter = (segment.IsForward() == transition.m_forwardIsEnter);
   return isEnter != isOutgoing;
+}
+
+Segment const * CrossMwmConnector::GetTransition(uint64_t osmId, bool isEnter) const
+{
+  auto it = m_osmIdToKey.find(osmId);
+  if (it == m_osmIdToKey.cend())
+    return nullptr;
+
+  Key const & key = it->second;
+  auto it2 = m_transitions.find(key);
+  CHECK(it2 != m_transitions.cend(), ("Can't find transition by key, osmId:", osmId, ", feature:",
+                                      key.m_featureId, ", segment:", key.m_segmentIdx));
+
+  Transition const & transition = it2->second;
+  CHECK_EQUAL(transition.m_osmId, osmId,
+              ("feature:", key.m_featureId, ", segment:", key.m_segmentIdx, ", point:",
+               MercatorBounds::ToLatLon(transition.m_frontPoint)));
+  bool const isForward = transition.m_forwardIsEnter == isEnter;
+  if (transition.m_oneWay && !isForward)
+    return nullptr;
+
+  Segment const & segment =
+      isEnter ? GetEnter(transition.m_enterIdx) : GetExit(transition.m_exitIdx);
+  CHECK_EQUAL(segment.IsForward(), isForward, ("osmId:", osmId, ", segment:", segment, ", point:",
+                                               MercatorBounds::ToLatLon(transition.m_frontPoint)));
+  return &segment;
 }
 
 m2::PointD const & CrossMwmConnector::GetPoint(Segment const & segment, bool front) const

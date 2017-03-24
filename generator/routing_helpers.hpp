@@ -28,4 +28,6 @@ void AddFeatureId(std::map<uint64_t, uint32_t> & osmIdToFeatureId, uint32_t feat
 // 138001, 5170228,
 bool ParseOsmIdToFeatureIdMapping(std::string const & osmIdsToFeatureIdPath,
                                   std::map<uint64_t, uint32_t> & osmIdToFeatureId);
+bool ParseFeatureIdToOsmIdMapping(std::string const & osmIdsToFeatureIdPath,
+                                  std::map<uint32_t, uint64_t> & featureIdToOsmId);
 }  // namespace routing

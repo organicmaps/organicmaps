@@ -2,6 +2,7 @@
 
 #include "generator/borders_generator.hpp"
 #include "generator/borders_loader.hpp"
+#include "generator/routing_helpers.hpp"
 
 #include "routing/base/astar_algorithm.hpp"
 #include "routing/cross_mwm_connector.hpp"
@@ -208,6 +209,7 @@ double CalcDistanceAlongTheBorders(vector<m2::RegionD> const & borders,
 }
 
 void CalcCrossMwmTransitions(string const & path, string const & mwmFile, string const & country,
+                             map<uint32_t, uint64_t> const & featureIdToOsmId,
                              vector<CrossMwmConnectorSerializer::Transition> & transitions,
                              CrossMwmConnectorPerVehicleType & connectors)
 {
@@ -228,6 +230,10 @@ void CalcCrossMwmTransitions(string const & path, string const & mwmFile, string
     if (pointsCount == 0)
       return;
 
+    auto osmIt = featureIdToOsmId.find(featureId);
+    CHECK(osmIt != featureIdToOsmId.end(), ("Can't find osm id for feature id", featureId));
+    uint64_t const osmId = osmIt->second;
+
     bool prevPointIn = RegionsContain(borders, f.GetPoint(0));
 
     for (size_t i = 1; i < pointsCount; ++i)
@@ -239,7 +245,7 @@ void CalcCrossMwmTransitions(string const & path, string const & mwmFile, string
       uint32_t const segmentIdx = base::asserted_cast<uint32_t>(i - 1);
       VehicleMask const oneWayMask = maskMaker.CalcOneWayMask(f);
 
-      transitions.emplace_back(featureId, segmentIdx, roadMask, oneWayMask, currPointIn,
+      transitions.emplace_back(osmId, featureId, segmentIdx, roadMask, oneWayMask, currPointIn,
                                f.GetPoint(i - 1), f.GetPoint(i));
 
       prevPointIn = currPointIn;
@@ -370,14 +376,18 @@ bool BuildRoutingIndex(string const & filename, string const & country)
   }
 }
 
-void BuildCrossMwmSection(string const & path, string const & mwmFile, string const & country)
+bool BuildCrossMwmSection(string const & path, string const & mwmFile, string const & country, string const & osmToFeatureFile)
 {
   LOG(LINFO, ("Building cross mwm section for", country));
+
+  map<uint32_t, uint64_t> featureIdToOsmId;
+  if (!ParseFeatureIdToOsmIdMapping(osmToFeatureFile, featureIdToOsmId))
+    return false;
 
   CrossMwmConnectorPerVehicleType connectors;
 
   vector<CrossMwmConnectorSerializer::Transition> transitions;
-  CalcCrossMwmTransitions(path, mwmFile, country, transitions, connectors);
+  CalcCrossMwmTransitions(path, mwmFile, country, featureIdToOsmId, transitions, connectors);
 
   for (size_t i = 0; i < connectors.size(); ++i)
   {
@@ -397,5 +407,6 @@ void BuildCrossMwmSection(string const & path, string const & mwmFile, string co
   auto const sectionSize = writer.Pos() - startPos;
 
   LOG(LINFO, ("Cross mwm section generated, size:", sectionSize, "bytes"));
+  return true;
 }
 }  // namespace routing

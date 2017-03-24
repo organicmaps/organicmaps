@@ -32,10 +32,11 @@ public:
   public:
     Transition() = default;
 
-    Transition(uint32_t featureId, uint32_t segmentIdx, VehicleMask roadMask,
+    Transition(uint64_t osmId, uint32_t featureId, uint32_t segmentIdx, VehicleMask roadMask,
                VehicleMask oneWayMask, bool forwardIsEnter, m2::PointD const & backPoint,
                m2::PointD const & frontPoint)
-      : m_featureId(featureId)
+      : m_osmId(osmId)
+      , m_featureId(featureId)
       , m_segmentIdx(segmentIdx)
       , m_backPoint(backPoint)
       , m_frontPoint(frontPoint)
@@ -46,13 +47,14 @@ public:
     }
 
     template <class Sink>
-    void Serialize(serial::CodingParams const & codingParams, uint8_t bitsPerMask,
-                   Sink & sink) const
+    void Serialize(serial::CodingParams const & codingParams, uint32_t bitsPerOsmId,
+                   uint8_t bitsPerMask, Sink & sink) const
     {
       serial::SavePoint(sink, m_backPoint, codingParams);
       serial::SavePoint(sink, m_frontPoint, codingParams);
 
       BitWriter<Sink> writer(sink);
+      writer.WriteAtMost64Bits(m_osmId, bitsPerOsmId);
       WriteDelta(writer, m_featureId + 1);
       WriteDelta(writer, m_segmentIdx + 1);
       writer.WriteAtMost32Bits(base::asserted_cast<uint32_t>(m_roadMask), bitsPerMask);
@@ -61,12 +63,14 @@ public:
     }
 
     template <class Source>
-    void Deserialize(serial::CodingParams const & codingParams, uint8_t bitsPerMask, Source & src)
+    void Deserialize(serial::CodingParams const & codingParams, uint32_t bitsPerOsmId,
+                     uint8_t bitsPerMask, Source & src)
     {
       m_backPoint = serial::LoadPoint(src, codingParams);
       m_frontPoint = serial::LoadPoint(src, codingParams);
 
       BitReader<Source> reader(src);
+      m_osmId = reader.ReadAtMost64Bits(bitsPerOsmId);
       m_featureId = ReadDelta<decltype(m_featureId)>(reader) - 1;
       m_segmentIdx = ReadDelta<decltype(m_segmentIdx)>(reader) - 1;
       m_roadMask = base::asserted_cast<VehicleMask>(reader.ReadAtMost32Bits(bitsPerMask));
@@ -74,6 +78,7 @@ public:
       m_forwardIsEnter = reader.Read(1) == 0;
     }
 
+    uint64_t GetOsmId() const { return m_osmId; }
     uint32_t GetFeatureId() const { return m_featureId; }
     uint32_t GetSegmentIdx() const { return m_segmentIdx; }
     m2::PointD const & GetBackPoint() const { return m_backPoint; }
@@ -83,6 +88,7 @@ public:
     VehicleMask GetOneWayMask() const { return m_oneWayMask; }
 
   private:
+    uint64_t m_osmId = 0;
     uint32_t m_featureId = 0;
     uint32_t m_segmentIdx = 0;
     m2::PointD m_backPoint = m2::PointD::Zero();
@@ -99,12 +105,14 @@ public:
                         CrossMwmConnectorPerVehicleType const & connectors,
                         serial::CodingParams const & codingParams, Sink & sink)
   {
+    uint32_t const bitsPerOsmId = CalcBitsPerOsmId(transitions);
     auto const bitsPerMask = GetBitsPerMask<uint8_t>();
     std::vector<uint8_t> transitionsBuf;
-    WriteTransitions(transitions, codingParams, bitsPerMask, transitionsBuf);
+    WriteTransitions(transitions, codingParams, bitsPerOsmId, bitsPerMask, transitionsBuf);
 
     Header header(base::checked_cast<uint32_t>(transitions.size()),
-                  base::checked_cast<uint64_t>(transitionsBuf.size()), codingParams, bitsPerMask);
+                  base::checked_cast<uint64_t>(transitionsBuf.size()), codingParams, bitsPerOsmId,
+                  bitsPerMask);
     std::vector<std::vector<uint8_t>> weightBuffers(connectors.size());
 
     for (size_t i = 0; i < connectors.size(); ++i)
@@ -144,7 +152,8 @@ public:
     for (size_t i = 0; i < numTransitions; ++i)
     {
       Transition transition;
-      transition.Deserialize(header.GetCodingParams(), header.GetBitsPerMask(), src);
+      transition.Deserialize(header.GetCodingParams(), header.GetBitsPerOsmId(),
+                             header.GetBitsPerMask(), src);
       AddTransition(transition, requiredMask, connector);
     }
 
@@ -226,9 +235,9 @@ public:
       return;
 
     bool const isOneWay = (transition.GetOneWayMask() & requiredMask) != 0;
-    connector.AddTransition(transition.GetFeatureId(), transition.GetSegmentIdx(), isOneWay,
-                            transition.ForwardIsEnter(), transition.GetBackPoint(),
-                            transition.GetFrontPoint());
+    connector.AddTransition(transition.GetOsmId(), transition.GetFeatureId(),
+                            transition.GetSegmentIdx(), isOneWay, transition.ForwardIsEnter(),
+                            transition.GetBackPoint(), transition.GetFrontPoint());
   }
 
 private:
@@ -291,10 +300,11 @@ private:
     Header() = default;
 
     Header(uint32_t numTransitions, uint64_t sizeTransitions,
-           serial::CodingParams const & codingParams, uint8_t bitsPerMask)
+           serial::CodingParams const & codingParams, uint32_t bitsPerOsmId, uint8_t bitsPerMask)
       : m_numTransitions(numTransitions)
       , m_sizeTransitions(sizeTransitions)
       , m_codingParams(codingParams)
+      , m_bitsPerOsmId(bitsPerOsmId)
       , m_bitsPerMask(bitsPerMask)
     {
     }
@@ -307,6 +317,7 @@ private:
       WriteToSink(sink, m_sizeTransitions);
       WriteToSink(sink, m_granularity);
       m_codingParams.Save(sink);
+      WriteToSink(sink, m_bitsPerOsmId);
       WriteToSink(sink, m_bitsPerMask);
 
       WriteToSink(sink, base::checked_cast<uint32_t>(m_sections.size()));
@@ -328,6 +339,7 @@ private:
       m_sizeTransitions = ReadPrimitiveFromSource<decltype(m_sizeTransitions)>(src);
       m_granularity = ReadPrimitiveFromSource<decltype(m_granularity)>(src);
       m_codingParams.Load(src);
+      m_bitsPerOsmId = ReadPrimitiveFromSource<decltype(m_bitsPerOsmId)>(src);
       m_bitsPerMask = ReadPrimitiveFromSource<decltype(m_bitsPerMask)>(src);
 
       auto const sectionsSize = ReadPrimitiveFromSource<uint32_t>(src);
@@ -342,6 +354,7 @@ private:
     uint64_t GetSizeTransitions() const { return m_sizeTransitions; }
     Weight GetGranularity() const { return m_granularity; }
     serial::CodingParams const & GetCodingParams() const { return m_codingParams; }
+    uint8_t GetBitsPerOsmId() const { return m_bitsPerOsmId; }
     uint8_t GetBitsPerMask() const { return m_bitsPerMask; }
     std::vector<Section> const & GetSections() const { return m_sections; }
 
@@ -351,9 +364,12 @@ private:
     uint64_t m_sizeTransitions = 0;
     Weight m_granularity = kGranularity;
     serial::CodingParams m_codingParams;
+    uint32_t m_bitsPerOsmId = 0;
     uint8_t m_bitsPerMask = 0;
     std::vector<Section> m_sections;
   };
+
+  static uint32_t CalcBitsPerOsmId(std::vector<Transition> const & transitions);
 
   template <typename T>
   static T GetBitsPerMask()
@@ -372,8 +388,8 @@ private:
   }
 
   static void WriteTransitions(std::vector<Transition> const & transitions,
-                               serial::CodingParams const & codingParams, uint8_t bitsPerMask,
-                               std::vector<uint8_t> & buffer);
+                               serial::CodingParams const & codingParams, uint32_t bitsPerOsmId,
+                               uint8_t bitsPerMask, std::vector<uint8_t> & buffer);
 
   static void WriteWeights(std::vector<Weight> const & weights, std::vector<uint8_t> & buffer);
 };

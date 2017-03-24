@@ -21,10 +21,14 @@ public:
   CrossMwmConnector() : m_mwmId(kFakeNumMwmId) {}
   explicit CrossMwmConnector(NumMwmId mwmId) : m_mwmId(mwmId) {}
 
-  void AddTransition(uint32_t featureId, uint32_t segmentIdx, bool oneWay, bool forwardIsEnter,
-                     m2::PointD const & backPoint, m2::PointD const & frontPoint);
+  void AddTransition(uint64_t osmId, uint32_t featureId, uint32_t segmentIdx, bool oneWay,
+                     bool forwardIsEnter, m2::PointD const & backPoint,
+                     m2::PointD const & frontPoint);
 
   bool IsTransition(Segment const & segment, bool isOutgoing) const;
+  uint64_t GetOsmId(Segment const & segment) const { return GetTransition(segment).m_osmId; }
+  // returns nullptr if there is no transition for such osm id.
+  Segment const * GetTransition(uint64_t osmId, bool isOutgoing) const;
   m2::PointD const & GetPoint(Segment const & segment, bool front) const;
   void GetEdgeList(Segment const & segment, bool isOutgoing,
                    std::vector<SegmentEdge> & edges) const;
@@ -101,10 +105,11 @@ private:
   {
     Transition() = default;
 
-    Transition(uint32_t enterIdx, uint32_t exitIdx, bool oneWay, bool forwardIsEnter,
-               m2::PointD const & backPoint, m2::PointD const & frontPoint)
+    Transition(uint32_t enterIdx, uint32_t exitIdx, uint64_t osmId, bool oneWay,
+               bool forwardIsEnter, m2::PointD const & backPoint, m2::PointD const & frontPoint)
       : m_enterIdx(enterIdx)
       , m_exitIdx(exitIdx)
+      , m_osmId(osmId)
       , m_backPoint(backPoint)
       , m_frontPoint(frontPoint)
       , m_oneWay(oneWay)
@@ -114,6 +119,7 @@ private:
 
     uint32_t m_enterIdx = 0;
     uint32_t m_exitIdx = 0;
+    uint64_t m_osmId = 0;
     // Endpoints of transition segment.
     // m_backPoint = points[segmentIdx]
     // m_frontPoint = points[segmentIdx + 1]
@@ -145,6 +151,7 @@ private:
   std::vector<Segment> m_enters;
   std::vector<Segment> m_exits;
   std::unordered_map<Key, Transition, HashKey> m_transitions;
+  std::unordered_map<uint64_t, Key> m_osmIdToKey;
   WeightsLoadState m_weightsLoadState = WeightsLoadState::Unknown;
   uint64_t m_weightsOffset = 0;
   Weight m_granularity = 0;

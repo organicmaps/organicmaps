@@ -249,9 +249,10 @@ int main(int argc, char ** argv)
     if (!FLAGS_srtm_path.empty())
       routing::BuildRoadAltitudes(datFile, FLAGS_srtm_path);
 
+    string const osmToFeatureFilename = genInfo.GetTargetFileName(country) + OSM2FEATURE_FILE_EXTENSION;
+
     if (FLAGS_make_routing_index)
     {
-      string const osmToFeatureFilename = genInfo.GetTargetFileName(country) + OSM2FEATURE_FILE_EXTENSION;
       string const restrictionsFilename =
           genInfo.GetIntermediateFileName(RESTRICTIONS_FILENAME, "" /* extension */);
       string const roadAccessFilename =
@@ -263,7 +264,10 @@ int main(int argc, char ** argv)
     }
 
     if (FLAGS_make_cross_mwm)
-      routing::BuildCrossMwmSection(path, datFile, country);
+    {
+      if (!routing::BuildCrossMwmSection(path, datFile, country, osmToFeatureFilename))
+        LOG(LCRITICAL, ("Error generating cross mwm section."));
+    }
 
     if (FLAGS_generate_traffic_keys)
     {

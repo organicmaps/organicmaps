@@ -39,10 +39,11 @@ namespace routing_test
 {
 UNIT_TEST(OneWayEnter)
 {
+  uint64_t constexpr osmId = 1;
   uint32_t constexpr featureId = 1;
   uint32_t constexpr segmentIdx = 1;
   CrossMwmConnector connector(mwmId);
-  connector.AddTransition(featureId, segmentIdx, true /* oneWay */, true /* forwardIsEnter */,
+  connector.AddTransition(osmId, featureId, segmentIdx, true /* oneWay */, true /* forwardIsEnter */,
                           {} /* backPoint */, {} /* frontPoint */);
 
   TestConnectorConsistency(connector);
@@ -64,10 +65,11 @@ UNIT_TEST(OneWayEnter)
 
 UNIT_TEST(OneWayExit)
 {
+  uint64_t constexpr osmId = 1;
   uint32_t constexpr featureId = 1;
   uint32_t constexpr segmentIdx = 1;
   CrossMwmConnector connector(mwmId);
-  connector.AddTransition(featureId, segmentIdx, true /* oneWay */, false /* forwardIsEnter */,
+  connector.AddTransition(osmId, featureId, segmentIdx, true /* oneWay */, false /* forwardIsEnter */,
                           {} /* backPoint */, {} /* frontPoint */);
 
   TestConnectorConsistency(connector);
@@ -89,10 +91,11 @@ UNIT_TEST(OneWayExit)
 
 UNIT_TEST(TwoWayEnter)
 {
+  uint64_t constexpr osmId = 1;
   uint32_t constexpr featureId = 1;
   uint32_t constexpr segmentIdx = 1;
   CrossMwmConnector connector(mwmId);
-  connector.AddTransition(featureId, segmentIdx, false /* oneWay */, true /* forwardIsEnter */,
+  connector.AddTransition(osmId, featureId, segmentIdx, false /* oneWay */, true /* forwardIsEnter */,
                           {} /* backPoint */, {} /* frontPoint */);
 
   TestConnectorConsistency(connector);
@@ -114,10 +117,11 @@ UNIT_TEST(TwoWayEnter)
 
 UNIT_TEST(TwoWayExit)
 {
+  uint64_t constexpr osmId = 1;
   uint32_t constexpr featureId = 1;
   uint32_t constexpr segmentIdx = 1;
   CrossMwmConnector connector(mwmId);
-  connector.AddTransition(featureId, segmentIdx, false /* oneWay */, false /* forwardIsEnter */,
+  connector.AddTransition(osmId, featureId, segmentIdx, false /* oneWay */, false /* forwardIsEnter */,
                           {} /* backPoint */, {} /* frontPoint */);
 
   TestConnectorConsistency(connector);
@@ -144,10 +148,10 @@ UNIT_TEST(Serialization)
   vector<uint8_t> buffer;
   {
     vector<CrossMwmConnectorSerializer::Transition> transitions = {
-        /* featureId, segmentIdx, roadMask, oneWayMask, forwardIsEnter, backPoint, frontPoint */
-        {10, 1, kCarMask, kCarMask, true, m2::PointD(1.1, 1.2), m2::PointD(1.3, 1.4)},
-        {20, 2, kCarMask, 0, true, m2::PointD(2.1, 2.2), m2::PointD(2.3, 2.4)},
-        {30, 3, kPedestrianMask, kCarMask, true, m2::PointD(3.1, 3.2), m2::PointD(3.3, 3.4)}};
+        /* osmId featureId, segmentIdx, roadMask, oneWayMask, forwardIsEnter, backPoint, frontPoint */
+        {100, 10, 1, kCarMask, kCarMask, true, m2::PointD(1.1, 1.2), m2::PointD(1.3, 1.4)},
+        {200, 20, 2, kCarMask, 0, true, m2::PointD(2.1, 2.2), m2::PointD(2.3, 2.4)},
+        {300, 30, 3, kPedestrianMask, kCarMask, true, m2::PointD(3.1, 3.2), m2::PointD(3.3, 3.4)}};
 
     CrossMwmConnectorPerVehicleType connectors;
     CrossMwmConnector & carConnector = connectors[static_cast<size_t>(VehicleType::Car)];
@@ -250,7 +254,8 @@ UNIT_TEST(WeightsSerialization)
     vector<CrossMwmConnectorSerializer::Transition> transitions;
     for (uint32_t featureId = 0; featureId < kNumTransitions; ++featureId)
     {
-      transitions.emplace_back(featureId, 1 /* segmentIdx */, kCarMask, 0 /* oneWayMask */,
+      auto const osmId = static_cast<uint64_t>(featureId * 10);
+      transitions.emplace_back(osmId, featureId, 1 /* segmentIdx */, kCarMask, 0 /* oneWayMask */,
                                true /* forwardIsEnter */, m2::PointD::Zero(), m2::PointD::Zero());
     }
 

@@ -10,6 +10,33 @@
 using std::map;
 using std::string;
 
+namespace
+{
+template <class ToDo>
+bool ForEachRoadFromFile(string const & filename, ToDo && toDo)
+{
+  gen::OsmID2FeatureID osmIdsToFeatureIds;
+  try
+  {
+    FileReader reader(filename);
+    ReaderSource<FileReader> src(reader);
+    osmIdsToFeatureIds.Read(src);
+  }
+  catch (FileReader::Exception const & e)
+  {
+    LOG(LERROR, ("Exception while reading file:", filename, ". Msg:", e.Msg()));
+    return false;
+  }
+
+  osmIdsToFeatureIds.ForEach([&](gen::OsmID2FeatureID::ValueT const & p) {
+    if (p.first.IsWay())
+      toDo(p.second /* feature id */, p.first.OsmId());
+  });
+
+  return true;
+}
+}  // namespace
+
 namespace routing
 {
 void AddFeatureId(map<uint64_t, uint32_t> & osmIdToFeatureId, uint32_t featureId, uint64_t osmId)
@@ -25,26 +52,31 @@ void AddFeatureId(map<uint64_t, uint32_t> & osmIdToFeatureId, uint32_t featureId
 bool ParseOsmIdToFeatureIdMapping(string const & osmIdsToFeatureIdPath,
                                   map<uint64_t, uint32_t> & osmIdToFeatureId)
 {
-  gen::OsmID2FeatureID osmIdsToFeatureIds;
-  try
-  {
-    FileReader reader(osmIdsToFeatureIdPath);
-    ReaderSource<FileReader> src(reader);
-    osmIdsToFeatureIds.Read(src);
-  }
-  catch (FileReader::Exception const & e)
-  {
-    LOG(LWARNING, ("Exception while reading file:", osmIdsToFeatureIdPath, ". Msg:", e.Msg()));
-    return false;
-  }
+  return ForEachRoadFromFile(osmIdsToFeatureIdPath, [&](uint32_t featureId, uint64_t osmId) {
+    AddFeatureId(osmIdToFeatureId, featureId, osmId);
+  });
+}
 
-  osmIdsToFeatureIds.ForEach([&](gen::OsmID2FeatureID::ValueT const & p) {
-    if (p.first.IsWay())
-    {
-      AddFeatureId(osmIdToFeatureId, p.second /* feature id */, p.first.OsmId() /* osm id */);
-    }
+bool ParseFeatureIdToOsmIdMapping(string const & osmIdsToFeatureIdPath,
+                                  map<uint32_t, uint64_t> & featureIdToOsmId)
+{
+  bool result = true;
+
+  result &= ForEachRoadFromFile(osmIdsToFeatureIdPath, [&](uint32_t featureId, uint64_t osmId) {
+    auto const emplaced = featureIdToOsmId.emplace(featureId, osmId);
+    if (emplaced.second)
+      return;
+
+    result = false;
+    LOG(LERROR,
+        ("Feature id", featureId, "is included in two osm ids:", emplaced.first->second, osmId));
   });
 
-  return true;
+  if (result)
+    return true;
+
+  LOG(LERROR, ("Can't load osm id mapping from", osmIdsToFeatureIdPath));
+  featureIdToOsmId.clear();
+  return false;
 }
 }  // namespace routing
