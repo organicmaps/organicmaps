@@ -14,6 +14,8 @@
 #include "base/string_utils.hpp"
 
 #include <QtCore/Qt>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QDesktopWidget>
 #include <QtWidgets/QDockWidget>
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QHBoxLayout>
@@ -25,6 +27,9 @@ using Relevance = search::Sample::Result::Relevance;
 
 MainView::MainView(Framework & framework) : m_framework(framework)
 {
+  QDesktopWidget const * desktop = QApplication::desktop();
+  setGeometry(desktop->screenGeometry(desktop->primaryScreen()));
+
   setWindowTitle(tr("Assessment tool"));
   InitMapWidget();
   InitDocks();
