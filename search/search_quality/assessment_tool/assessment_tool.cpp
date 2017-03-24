@@ -37,6 +37,6 @@ int main(int argc, char ** argv)
   model.SetView(view);
   view.SetModel(model);
 
-  view.show();
+  view.showMaximized();
   return app.exec();
 }

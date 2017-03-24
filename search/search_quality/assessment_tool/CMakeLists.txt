@@ -32,7 +32,7 @@ set(
   view.hpp
 )
 
-add_executable(${PROJECT_NAME} ${SRC})
+add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${SRC})
 
 omim_link_libraries(
   ${PROJECT_NAME}
@@ -76,3 +76,11 @@ omim_link_libraries(
 link_opengl(${PROJECT_NAME})
 link_qt5_core(${PROJECT_NAME})
 link_qt5_network(${PROJECT_NAME})
+
+if (PLATFORM_MAC)
+  set_target_properties(
+    ${PROJECT_NAME}
+    PROPERTIES
+    MACOSX_BUNDLE_INFO_PLIST ${PROJECT_SOURCE_DIR}/Info.plist
+  )
+endif()
