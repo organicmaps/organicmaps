@@ -14,6 +14,7 @@ import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
 import com.facebook.ads.NativeAd;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.ads.DefaultAdTracker;
 import com.mapswithme.maps.ads.FacebookAdsLoader;
 import com.mapswithme.maps.bookmarks.data.Banner;
 import com.mapswithme.util.Config;
@@ -74,6 +75,8 @@ final class BannerController
 
   @NonNull
   private final FacebookAdsLoader mAdsLoader;
+  @NonNull
+  private final DefaultAdTracker mAdTracker;
 
   BannerController(@NonNull View bannerView, @Nullable BannerListener listener)
   {
@@ -90,6 +93,8 @@ final class BannerController
     //TODO: pass as constructor arguments
     mAdsLoader = new FacebookAdsLoader();
     mAdsLoader.setAdsListener(new NativeAdsListener());
+    mAdTracker = new DefaultAdTracker();
+    mAdsLoader.setCacheListener(mAdTracker);
   }
 
   private void setErrorStatus(boolean value)
@@ -141,19 +146,7 @@ final class BannerController
 
     UiUtils.show(mFrame);
 
-    NativeAd data = mAdsLoader.load(mFrame.getContext(), mBanner.getId());
-    updateVisibility();
-
-    if (data != null)
-    {
-      LOGGER.d(TAG, "A cached ad '" + mBanner + "' is shown");
-      fillViews(data);
-      registerViewsForInteraction(data);
-      loadIconAndOpenIfNeeded(data, mBanner);
-    }
-
-    if (mOpened && mListener != null)
-      mListener.onSizeChanged();
+    mAdsLoader.load(mFrame.getContext(), mBanner.getId(), mAdTracker);
   }
 
   boolean isBannerVisible()
@@ -213,6 +206,16 @@ final class BannerController
 
   private void onChangedVisibility(@NonNull Banner banner, boolean isVisible)
   {
+    if (TextUtils.isEmpty(banner.getId()))
+    {
+      LOGGER.e(TAG, "Banner must have a non-null id!", new Throwable());
+      return;
+    }
+
+    if (isVisible)
+      mAdTracker.onViewShown(banner.getId());
+    else
+      mAdTracker.onViewHidden(banner.getId());
   }
 
   void onChangedVisibility(boolean isVisible)
@@ -304,6 +307,8 @@ final class BannerController
       registerViewsForInteraction(ad);
 
       loadIconAndOpenIfNeeded(ad, mBanner);
+
+      mAdTracker.onContentObtained(ad.getPlacementId());
 
       if (mListener != null && mOpened)
         mListener.onSizeChanged();

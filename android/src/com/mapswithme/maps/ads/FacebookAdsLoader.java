@@ -35,16 +35,19 @@ public class FacebookAdsLoader implements AdListener
 
   /**
    * Loads an ad for a specified placement id. If there is a cached ad, and it's not expired,
-   * that ad will be returned immediately. Otherwise, this method returns null, and {@link #mAdsListener} will
-   * be notified when the requested ad is loaded.
+   * the caller will be notified immediately through {@link FacebookAdsListener#onFacebookAdLoaded(NativeAd)}.
+   * Otherwise, the caller will be notified once an ad is loaded through the mentioned method.
+   *
+   * <br><br><b>Important note: </b> if there is a cached ad for the requested placement id, and that ad
+   * has a good impression indicator, and there is at least {@link #REQUEST_INTERVAL_MS} between the
+   * first time that ad was requested and the current time the new ad will be loaded.
    *
    * @param context An activity context.
    * @param placementId A placement id that ad will be loaded for.
-   * @return A cached banner if it presents, otherwise <code>null</code>
+   * @param tracker An ad tracker
    */
-  @Nullable
   @UiThread
-  public NativeAd load(@NonNull Context context, @NonNull String placementId)
+  public void load(@NonNull Context context, @NonNull String placementId, @NonNull AdTracker tracker)
   {
     LOGGER.d(TAG, "Load a facebook ad for a placement id '" + placementId + "'");
 
@@ -54,17 +57,18 @@ public class FacebookAdsLoader implements AdListener
     {
       LOGGER.d(TAG, "There is no an ad in a cache");
       loadAdInternal(context, placementId);
-      return null;
+      return;
     }
 
-    if (/** Tracker.checkShowTime(placmenetId)  &&**/
-        SystemClock.elapsedRealtime() - cachedAd.getLoadedTime() >= REQUEST_INTERVAL_MS)
+    if (tracker.isImpressionGood(placementId)
+        && SystemClock.elapsedRealtime() - cachedAd.getLoadedTime() >= REQUEST_INTERVAL_MS)
     {
-      LOGGER.d(TAG, "Ad should be reloaded");
+      LOGGER.d(TAG, "A new ad will be loaded because the previous one has a good impression");
       loadAdInternal(context, placementId);
     }
 
-    return cachedAd.getAd();
+    if (mAdsListener != null)
+      mAdsListener.onFacebookAdLoaded(cachedAd.getAd());
   }
 
   /**
@@ -168,7 +172,7 @@ public class FacebookAdsLoader implements AdListener
   {
     mCache.remove(key);
     if (mCacheListener != null)
-      mCacheListener.onRemove(key);
+      mCacheListener.onRemoved(key);
   }
 
   public interface FacebookAdsListener
