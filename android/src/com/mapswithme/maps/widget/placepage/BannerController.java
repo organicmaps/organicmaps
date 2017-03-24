@@ -90,7 +90,6 @@ final class BannerController
     mActionSmall = (TextView) bannerView.findViewById(R.id.tv__action_small);
     mActionLarge = (TextView) bannerView.findViewById(R.id.tv__action_large);
     mAds = bannerView.findViewById(R.id.tv__ads);
-    //TODO: pass as constructor arguments
     mAdsLoader = new FacebookAdsLoader();
     mAdsLoader.setAdsListener(new NativeAdsListener());
     mAdTracker = new DefaultAdTracker();
@@ -156,12 +155,11 @@ final class BannerController
 
   void open()
   {
-    if (!isBannerVisible() || mBanner == null || mOpened)
+    if (!isBannerVisible() || mBanner == null || TextUtils.isEmpty(mBanner.getId()) || mOpened)
       return;
 
     mOpened = true;
     setFrameHeight(WRAP_CONTENT);
-    //FIXME NPE
     NativeAd data = mAdsLoader.getAdByIdFromCache(mBanner.getId());
     if (data != null)
       loadIcon(data.getAdIcon());

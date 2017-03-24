@@ -2,7 +2,7 @@ package com.mapswithme.maps.ads;
 
 import android.support.annotation.NonNull;
 
-public interface AdTracker
+interface AdTracker
 {
   void onViewShown(@NonNull String bannerId);
   void onViewHidden(@NonNull String bannerId);

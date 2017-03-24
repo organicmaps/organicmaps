@@ -47,7 +47,7 @@ public class FacebookAdsLoader implements AdListener
    * @param tracker An ad tracker
    */
   @UiThread
-  public void load(@NonNull Context context, @NonNull String placementId, @NonNull AdTracker tracker)
+  public void load(@NonNull Context context, @NonNull String placementId, @Nullable AdTracker tracker)
   {
     LOGGER.d(TAG, "Load a facebook ad for a placement id '" + placementId + "'");
 
@@ -60,7 +60,7 @@ public class FacebookAdsLoader implements AdListener
       return;
     }
 
-    if (tracker.isImpressionGood(placementId)
+    if (tracker != null && tracker.isImpressionGood(placementId)
         && SystemClock.elapsedRealtime() - cachedAd.getLoadedTime() >= REQUEST_INTERVAL_MS)
     {
       LOGGER.d(TAG, "A new ad will be loaded because the previous one has a good impression");
@@ -204,7 +204,7 @@ public class FacebookAdsLoader implements AdListener
   private static class FacebookAd
   {
     @NonNull
-    private NativeAd mAd;
+    private final NativeAd mAd;
     private final long mLoadedTime;
 
     FacebookAd(@NonNull NativeAd ad, long timestamp)
