@@ -45,6 +45,7 @@ class MainWindow : public QMainWindow, location::LocationObserver
   QAction * m_pDrawDebugRectAction;
   QAction * m_pGetStatisticsAction;
   QAction * m_pRunTestsAction;
+  QAction * m_pBuildPhonePackAction;
 #endif // BUILD_DESIGNER
   DrawWidget * m_pDrawWidget;
     
@@ -130,6 +131,7 @@ protected Q_SLOTS:
     void OnDebugStyle();
     void OnGetStatistics();
     void OnRunTests();
+    void OnBuildPhonePackage();
 #endif // BUILD_DESIGNER
 };
 }

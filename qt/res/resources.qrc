@@ -23,6 +23,7 @@
         <file>chart.png</file>
         <file>test.png</file>
         <file>geom.png</file>
+        <file>phonepack.png</file>
     </qresource>
     <qresource prefix="/ui">
         <file>logo.png</file>

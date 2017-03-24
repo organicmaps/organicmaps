@@ -40,6 +40,7 @@ cp -r "$OMIM_PATH/tools/kothic" "$MAC_RESOURCES/kothic"
 cp "$OMIM_PATH/tools/python/stylesheet/drules_info.py" "$MAC_RESOURCES/kothic/src/drules_info.py"
 cp "$OMIM_PATH/protobuf/protobuf-2.6.1-py2.7.egg" "$MAC_RESOURCES/kothic"
 cp "$OMIM_PATH/tools/python/recalculate_geom_index.py" "$MAC_RESOURCES/recalculate_geom_index.py"
+cp "$OMIM_PATH/tools/python/generate_styles_override.py" "$MAC_RESOURCES/generate_styles_override.py"
 
 # Copy all drules and  resources (required for test environment)
 rm -rf $MAC_RESOURCES/drules_proto*

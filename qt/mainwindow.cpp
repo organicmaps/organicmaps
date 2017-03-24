@@ -21,9 +21,13 @@
 
 #include "std/target_os.hpp"
 
+#ifdef BUILD_DESIGNER
+#include "build_style/build_common.h"
+#include "build_style/build_phone_pack.h"
 #include "build_style/build_style.h"
 #include "build_style/build_statistics.h"
 #include "build_style/run_tests.h"
+#endif // BUILD_DESIGNER
 
 #include <QtGui/QCloseEvent>
 #include <QtWidgets/QAction>
@@ -124,6 +128,7 @@ MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3, QString const &
   , m_pDrawDebugRectAction(nullptr)
   , m_pGetStatisticsAction(nullptr)
   , m_pRunTestsAction(nullptr)
+  , m_pBuildPhonePackAction(nullptr)
 #endif
 {
   // Always runs on the first desktop
@@ -463,15 +468,14 @@ void MainWindow::CreateNavigationBar()
     m_pRunTestsAction->setCheckable(false);
     m_pRunTestsAction->setToolTip(tr("Run tests"));
 
+    // Add "Build phone package" button
+    m_pBuildPhonePackAction = pToolBar->addAction(QIcon(":/navig64/phonepack.png"),
+                                                  tr("Build phone package"),
+                                                  this,
+                                                  SLOT(OnBuildPhonePackage()));
+    m_pBuildPhonePackAction->setCheckable(false);
+    m_pBuildPhonePackAction->setToolTip(tr("Build phone package"));
 #endif // BUILD_DESIGNER
-
-    // add view actions 1
-    button_t arr[] = {
-      { QString(), 0, 0 },
-      //{ tr("Show all"), ":/navig64/world.png", SLOT(ShowAll()) },
-      { tr("Scale +"), ":/navig64/plus.png", SLOT(ScalePlus()) }
-    };
-    add_buttons(pToolBar, arr, ARRAY_SIZE(arr), m_pDrawWidget);
   }
 
   qt::common::ScaleSlider::Embed(Qt::Vertical, *pToolBar, *m_pDrawWidget);
@@ -754,6 +758,51 @@ void MainWindow::OnRunTests()
   {
     pair<bool, QString> res = build_style::RunCurrentStyleTests();
     InfoDialog dlg(QString("Style tests: ") + (res.first ? "OK" : "FAILED"), res.second, NULL);
+    dlg.exec();
+  }
+  catch (std::exception & e)
+  {
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Error");
+    msgBox.setText(e.what());
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.setDefaultButton(QMessageBox::Ok);
+    msgBox.exec();
+  }
+}
+
+void MainWindow::OnBuildPhonePackage()
+{
+  try
+  {
+    char const * const kStylesFolder = "styles";
+    char const * const kClearStyleFolder = "clear";
+
+    QString const targetDir = QFileDialog::getExistingDirectory(nullptr, "Choose output directory");
+    if (targetDir.isEmpty())
+      return;
+    auto outDir = QDir(JoinFoldersToPath({targetDir, kStylesFolder}));
+    if (outDir.exists())
+    {
+      QMessageBox msgBox;
+      msgBox.setWindowTitle("Warning");
+      msgBox.setText(QString("Folder ") + outDir.absolutePath() + " will be deleted?");
+      msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+      msgBox.setDefaultButton(QMessageBox::No);
+      auto result = msgBox.exec();
+      if (result == QMessageBox::No)
+        throw std::runtime_error(std::string("Target directory exists: ") + outDir.absolutePath().toStdString());
+    }
+
+    QString const stylesDir = JoinFoldersToPath({m_mapcssFilePath, "..", "..", ".."});
+    if (!QDir(JoinFoldersToPath({stylesDir, kClearStyleFolder})).exists())
+      throw std::runtime_error(std::string("Styles folder is not found in ") + stylesDir.toStdString());
+
+    QString text = build_style::RunBuildingPhonePack(stylesDir, targetDir);
+    text.append("\nMobile device style package is in the directory: ");
+    text.append(JoinFoldersToPath({targetDir, kStylesFolder}));
+    text.append(". Copy it to your mobile device.\n");
+    InfoDialog dlg(QString("Building phone pack"), text, nullptr);
     dlg.exec();
   }
   catch (std::exception & e)

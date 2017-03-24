@@ -34,3 +34,15 @@ bool CopyFile(QString const & oldFile, QString const & newFile)
     return false;
   return QFile::copy(oldFile, newFile);
 }
+
+QString JoinFoldersToPath(std::initializer_list<QString> const & folders)
+{
+  QString result;
+  for (auto it = folders.begin(); it != folders.end(); ++it)
+  {
+    if (it != folders.begin())
+      result.append(QDir::separator());
+    result.append(*it);
+  }
+  return QDir::cleanPath(result);
+}
