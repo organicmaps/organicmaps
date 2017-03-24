@@ -8,13 +8,9 @@
 #include "geometry/point2d.hpp"
 
 #include "coding/multilang_utf8_string.hpp"
+#include "coding/transliteration.hpp"
 
 #include "base/base.hpp"
-
-#include "3party/icu/i18n/unicode/translit.h"
-#include "3party/icu/i18n/unicode/utrans.h"
-#include "3party/icu/common/unicode/utypes.h"
-#include "3party/icu/common/unicode/unistr.h"
 
 #include "std/vector.hpp"
 
@@ -44,13 +40,13 @@ void GetTransliteratedName(feature::RegionData const & regionData, StringUtf8Mul
   {
     if (src.GetString(code, srcName))
     {
-      out = Transliterate(srcName, StringUtf8Multilang::GetLangEnNameByCode(code));
+      out = Transliteration::GetInstance().Transliterate(srcName, code);
       if (!out.empty())
         return;
     }
   }
   if (!mwmLangCodes.empty() && src.GetString(StringUtf8Multilang::kDefaultCode, srcName))
-    out = Transliterate(srcName, StringUtf8Multilang::GetLangEnNameByCode(mwmLangCodes[0]));
+    out = Transliteration::GetInstance().Transliterate(srcName, mwmLangCodes[0]);
 }
 
 void GetBestName(StringUtf8Multilang const & src, vector<int8_t> const & priorityList, string & out)
@@ -86,34 +82,6 @@ void GetBestName(StringUtf8Multilang const & src, vector<int8_t> const & priorit
   }
 }
 }  // namespace
-
-void initICU(std::string const & icuDataDir)
-{
-  u_setDataDirectory(icuDataDir.c_str());
-}
-
-std::string Transliterate(std::string const & str, std::string const & lang)
-{
-  UnicodeString ustr(str.c_str());
-  UErrorCode status = U_ZERO_ERROR;
-
-  const std::string id = lang + "-Latin/BGN";
-  std::unique_ptr<Transliterator> latinTransliterator(Transliterator::createInstance(id.c_str(), UTRANS_FORWARD, status));
-  if (latinTransliterator == nullptr)
-  {
-    LOG(LWARNING, ("Cannot create transliterator", id));
-    return "";
-  }
-
-  latinTransliterator->transliterate(ustr);
-
-  std::string resultStr;
-  ustr.toUTF8String(resultStr);
-
-  LOG(LDEBUG, ("Transliterated", str, "->", resultStr, "id =", id));
-
-  return resultStr;
-}
 
 namespace feature
 {

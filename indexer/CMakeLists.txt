@@ -1,6 +1,6 @@
 project(indexer)
 
-include_directories(${OMIM_ROOT}/3party/protobuf/src ${OMIM_ROOT}/3party/icu/common ${OMIM_ROOT}/3party/icu/i18n)
+include_directories(${OMIM_ROOT}/3party/protobuf/src)
 
 set(
   SRC

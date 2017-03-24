@@ -9,22 +9,22 @@ namespace
 // Languages below were choosen after sorting name:<lang> tags in 2011.
 // Note, that it's not feasible to increase languages number here due to
 // our current encoding (6 bit to store language code).
-StringUtf8Multilang::Languages const g_languages = {{ {"default", "Native for each country", "Any"},
-    {"en", "English", "English"}, {"ja", "日本語", "Japanese"}, {"fr", "Français", "French"}, {"ko_rm", "Korean (Romanized)", "Korean"},
-    {"ar", "العربية", "Arabic"}, {"de", "Deutsch", "German"}, {"int_name", "International (Latin)", "Latin"}, {"ru", "Русский", "Russian"},
-    {"sv", "Svenska", "Swedish"}, {"zh", "中文", "Chinese"}, {"fi", "Suomi", "Finnish"}, {"be", "Беларуская", "Belarusian"}, {"ka", "ქართული", "Georgian"},
-    {"ko", "한국어", "Korean"}, {"he", "עברית", "Hebrew"}, {"nl", "Nederlands", "Dutch"}, {"ga", "Gaeilge", "Irish"},
-    {"ja_rm", "Japanese (Romanized)", "Japanese"}, {"el", "Ελληνικά", "Greek"}, {"it", "Italiano", "Italian"}, {"es", "Español", "Spanish"},
-    {"zh_pinyin", "Chinese (Pinyin)", "Chinese"}, {"th", "ไทย", "Thailand"}, {"cy", "Cymraeg", "Welsh"}, {"sr", "Српски", "Serbian"},
-    {"uk", "Українська", "Ukrainian"}, {"ca", "Català", "Catalan"}, {"hu", "Magyar", "Hungarian"}, {"hsb", "Hornjoserbšćina", "Upper Sorbian"}, {"eu", "Euskara", "Basque"},
-    {"fa", "فارسی", "Farsi"}, {"br", "Breton", "Breton"}, {"pl", "Polski", "Polish"}, {"hy", "Հայերէն", "Armenian"}, {"kn", "ಕನ್ನಡ", "Kannada"},
-    {"sl", "Slovenščina", "Slovene"}, {"ro", "Română", "Romanian"}, {"sq", "Shqipe", "Shqipe"}, {"am", "አማርኛ", "Amharic"}, {"fy", "Frysk", "Frisian"},
-    {"cs", "Čeština", "Czech"}, {"gd", "Gàidhlig", "Scots Gaelic"}, {"sk", "Slovenčina", "Slovak"}, {"af", "Afrikaans", "Afrikaans"},
-    {"ja_kana", "日本語(カタカナ)", "Japanese (Katakana)"}, {"lb", "Luxembourgish", "Luxembourgish"}, {"pt", "Português", "Portuguese"}, {"hr", "Hrvatski", "Croatian"},
-    {"fur", "Friulian", "Friulian"}, {"vi", "Tiếng Việt", "Vietnamese"}, {"tr", "Türkçe", "Turkish"}, {"bg", "Български", "Bulgarian"},
-    {"eo", "Esperanto", "Esperanto"}, {"lt", "Lietuvių", "Lithuanian"}, {"la", "Latin", "Latin"}, {"kk", "Қазақ", "Kazakh"},
-    {"gsw", "Schwiizertüütsch", "Swiss German"}, {"et", "Eesti", "Estonian"}, {"ku", "Kurdish", "Kurdish"}, {"mn", "Mongolian", "Mongolian"},
-    {"mk", "Македонски", "Macedonian"}, {"lv", "Latviešu", "Latvian"}, {"hi", "हिन्दी", "Hindi"}
+StringUtf8Multilang::Languages const g_languages = {{ {"default", "Native for each country", "Any-Latin"},
+    {"en", "English", ""}, {"ja", "日本語", "Any-Latin"}, {"fr", "Français", ""}, {"ko_rm", "Korean (Romanized)", "Korean-Latin/BGN"},
+    {"ar", "العربية", "Any-Latin"}, {"de", "Deutsch", ""}, {"int_name", "International (Latin)", "Any-Latin"}, {"ru", "Русский", "Russian-Latin/BGN"},
+    {"sv", "Svenska", "Any-Latin"}, {"zh", "中文", "Any-Latin"}, {"fi", "Suomi", "Any-Latin"}, {"be", "Беларуская", "Belarusian-Latin/BGN"}, {"ka", "ქართული", "Georgian-Latin"},
+    {"ko", "한국어", "Hangul"}, {"he", "עברית", "Hebrew"}, {"nl", "Nederlands", ""}, {"ga", "Gaeilge", "Any-Latin"},
+    {"ja_rm", "Japanese (Romanized)", "Any-Latin"}, {"el", "Ελληνικά", "Greek-Latin"}, {"it", "Italiano", ""}, {"es", "Español", ""},
+    {"zh_pinyin", "Chinese (Pinyin)", "Any-Latin"}, {"th", "ไทย", "Thai-Latin"}, {"cy", "Cymraeg", "Any-Latin"}, {"sr", "Српски", "Serbian-Latin/BGN"},
+    {"uk", "Українська", "Ukrainian-Latin/BGN"}, {"ca", "Català", "Any-Latin"}, {"hu", "Magyar", "Any-Latin"}, {"hsb", "Hornjoserbšćina", "Any-Latin"}, {"eu", "Euskara", "Any-Latin"},
+    {"fa", "فارسی", "Any-Latin"}, {"br", "Breton", "Any-Latin"}, {"pl", "Polski", "Any-Latin"}, {"hy", "Հայերէն", "Armenian-Latin"}, {"kn", "ಕನ್ನಡ", "Kannada-Latin"},
+    {"sl", "Slovenščina", "Any-Latin"}, {"ro", "Română", "Any-Latin"}, {"sq", "Shqipe", "Any-Latin"}, {"am", "አማርኛ", "Amharic-Latin/BGN"}, {"fy", "Frysk", "Any-Latin"},
+    {"cs", "Čeština", "Any-Latin"}, {"gd", "Gàidhlig", "Any-Latin"}, {"sk", "Slovenčina", "Any-Latin"}, {"af", "Afrikaans", "Any-Latin"},
+    {"ja_kana", "日本語(カタカナ)", "Katakana-Latin"}, {"lb", "Luxembourgish", "Any-Latin"}, {"pt", "Português", "Any-Latin"}, {"hr", "Hrvatski", "Any-Latin"},
+    {"fur", "Friulian", "Any-Latin"}, {"vi", "Tiếng Việt", "Any-Latin"}, {"tr", "Türkçe", "Any-Latin"}, {"bg", "Български", "Bulgarian-Latin/BGN"},
+    {"eo", "Esperanto", "Any-Latin"}, {"lt", "Lietuvių", "Any-Latin"}, {"la", "Latin", ""}, {"kk", "Қазақ", "Kazakh-Latin/BGN"},
+    {"gsw", "Schwiizertüütsch", "Any-Latin"}, {"et", "Eesti", "Any-Latin"}, {"ku", "Kurdish", "Any-Latin"}, {"mn", "Mongolian", "Mongolian-Latin/BGN"},
+    {"mk", "Македонски", "Macedonian-Latin/BGN"}, {"lv", "Latviešu", "Any-Latin"}, {"hi", "हिन्दी", "Any-Latin"}
 }};
 
 static_assert(g_languages.size() == StringUtf8Multilang::kMaxSupportedLanguages,
@@ -72,11 +72,11 @@ char const * StringUtf8Multilang::GetLangNameByCode(int8_t langCode)
 }
 
 // static
-char const * StringUtf8Multilang::GetLangEnNameByCode(int8_t langCode)
+char const * StringUtf8Multilang::GetTransliteratorIdByCode(int8_t langCode)
 {
   if (langCode < 0 || langCode >= static_cast<int8_t>(g_languages.size()))
     return "";
-  return g_languages[langCode].m_enName;
+  return g_languages[langCode].m_transliteratorId;
 }
 
 size_t StringUtf8Multilang::GetNextIndex(size_t i) const

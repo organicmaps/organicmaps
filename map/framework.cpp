@@ -71,9 +71,10 @@
 #include "platform/socket.hpp"
 
 #include "coding/internal/file_data.hpp"
-#include "coding/zip_reader.hpp"
-#include "coding/url_encode.hpp"
 #include "coding/file_name_utils.hpp"
+#include "coding/transliteration.hpp"
+#include "coding/url_encode.hpp"
+#include "coding/zip_reader.hpp"
 
 #include "geometry/angles.hpp"
 #include "geometry/any_rect2d.hpp"
@@ -510,7 +511,7 @@ Framework::Framework()
                            kICUDataFile,
                            GetPlatform().WritableDir() + kICUDataFile);
 #endif
-  initICU(GetPlatform().WritableDir());
+  Transliteration::GetInstance().Init(GetPlatform().WritableDir());
 }
 
 Framework::~Framework()

@@ -50,8 +50,8 @@ public:
     char const * m_code;
     /// Native language name.
     char const * m_name;
-    /// Native language name in English.
-    char const * m_enName;
+    /// Transliterator to latin id.
+    char const * m_transliteratorId;
   };
   using Languages = array<Lang, kMaxSupportedLanguages>;
 
@@ -64,7 +64,7 @@ public:
   /// @returns empty string if langCode is invalid.
   static char const * GetLangNameByCode(int8_t langCode);
   /// @returns empty string if langCode is invalid.
-  static char const * GetLangEnNameByCode(int8_t langCode);
+  static char const * GetTransliteratorIdByCode(int8_t langCode);
 
   inline bool operator== (StringUtf8Multilang const & rhs) const
   {

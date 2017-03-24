@@ -1,8 +1,12 @@
 project(coding)
 
+add_definitions(-DU_DISABLE_RENAMING)
+
 include_directories(
   ${OMIM_ROOT}/coding
   ${OMIM_ROOT}/3party/expat
+  ${OMIM_ROOT}/3party/icu/common
+  ${OMIM_ROOT}/3party/icu/i18n
 )
 
 set(
@@ -66,7 +70,9 @@ set(
   streams_sink.hpp
   succinct_mapper.hpp
   traffic.cpp
-  traffic.hpp  
+  traffic.hpp
+  transliterator.cpp
+  transliterator.hpp
   uri.cpp
   uri.hpp
   url_encode.hpp
