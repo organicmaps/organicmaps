@@ -4,6 +4,8 @@
 
 #include "routing/nearest_edge_finder.hpp"
 
+#include "base/checked_cast.hpp"
+
 using namespace routing;
 using namespace routing_test;
 
@@ -16,7 +18,7 @@ void TestNearestOnMock1(m2::PointD const & point, size_t const candidatesCount,
   NearestEdgeFinder finder(point);
   for (size_t i = 0; i < graph->GetRoadCount(); ++i)
   {
-    FeatureID const featureId = MakeTestFeatureID(i);
+    FeatureID const featureId = MakeTestFeatureID(base::asserted_cast<uint32_t>(i));
     finder.AddInformationSource(featureId, graph->GetRoadInfo(featureId));
   }
 

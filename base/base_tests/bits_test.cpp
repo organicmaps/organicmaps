@@ -1,8 +1,9 @@
 #include "testing/testing.hpp"
 
 #include "base/bits.hpp"
-#include "std/cstdlib.hpp"
+#include "base/checked_cast.hpp"
 
+#include <cstdlib>
 #include <vector>
 
 namespace
@@ -37,8 +38,8 @@ UNIT_TEST(PopcountArray32)
     uint32_t expectedPopCount = 0;
     for (size_t i = 0; i < v.size(); ++i)
       expectedPopCount += PopCountSimple(v[i]);
-    TEST_EQUAL(bits::PopCount(v.empty() ? NULL : &v[0], v.size()), expectedPopCount,
-               (j, v.size(), expectedPopCount));
+    TEST_EQUAL(bits::PopCount(v.empty() ? NULL : &v[0], base::asserted_cast<uint32_t>(v.size())),
+               expectedPopCount, (j, v.size(), expectedPopCount));
   }
 }
 

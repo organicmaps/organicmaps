@@ -25,6 +25,8 @@
 #include "coding/compressed_bit_vector.hpp"
 #include "coding/reader_wrapper.hpp"
 
+#include "base/checked_cast.hpp"
+
 #include "std/algorithm.hpp"
 
 using namespace strings;
@@ -224,7 +226,9 @@ unique_ptr<coding::CompressedBitVector> RetrieveAddressFeaturesImpl(
   WithSearchTrieRoot<Value>(context.m_value, [&](TrieRoot<Value> const & root) {
     MatchFeaturesInTrie(
         request, root,
-        [&holder](uint32_t featureIndex) { return !holder.ModifiedOrDeleted(featureIndex); },
+        [&holder](uint64_t featureIndex) {
+          return !holder.ModifiedOrDeleted(base::asserted_cast<uint32_t>(featureIndex));
+        },
         collector);
   });
 
@@ -247,7 +251,9 @@ unique_ptr<coding::CompressedBitVector> RetrievePostcodeFeaturesImpl(
   WithSearchTrieRoot<Value>(context.m_value, [&](TrieRoot<Value> const & root) {
     MatchPostcodesInTrie(
         slice, root,
-        [&holder](uint32_t featureIndex) { return !holder.ModifiedOrDeleted(featureIndex); },
+        [&holder](uint64_t featureIndex) {
+          return !holder.ModifiedOrDeleted(base::asserted_cast<uint32_t>(featureIndex));
+        },
         collector);
   });
   holder.ForEachModifiedOrCreated([&](FeatureType & ft, uint64_t index) {

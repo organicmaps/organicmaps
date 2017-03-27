@@ -88,7 +88,7 @@ double RoadGraphMockSource::GetMaxSpeedKMPH() const
 void RoadGraphMockSource::ForEachFeatureClosestToCross(m2::PointD const & /* cross */,
                                                        ICrossEdgesLoader & edgesLoader) const
 {
-  for (size_t roadId = 0; roadId < m_roads.size(); ++roadId)
+  for (uint32_t roadId = 0; roadId < m_roads.size(); ++roadId)
     edgesLoader(MakeTestFeatureID(roadId), m_roads[roadId]);
 }
 

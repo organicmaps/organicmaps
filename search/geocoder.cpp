@@ -1007,7 +1007,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
 
     vector<uint32_t> features;
     m_postcodes.m_features.ForEach([&features](uint64_t bit) {
-	features.push_back(base::asserted_cast<uint32_t>(bit));
+      features.push_back(base::asserted_cast<uint32_t>(bit));
     });
     layer.m_sortedFeatures = &features;
     return FindPaths(ctx);
