@@ -21,6 +21,7 @@ static NSString * const kStatBack = @"Back";
 static NSString * const kStatBanner = @"banner";
 static NSString * const kStatBicycle = @"Bicycle";
 static NSString * const kStatBooking = @"Booking.com";
+static NSString * const kStatBookmarkCreated = @"Bookmark. Bookmark created"
 static NSString * const kStatBookmarks = @"Bookmarks";
 static NSString * const kStatBuildRoute = @"Build route";
 static NSString * const kStatButton = @"Button";
