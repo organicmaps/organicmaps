@@ -48,8 +48,8 @@ public:
 };
 
 template <typename CharT, typename CostF>
-uint32_t StringMatchCost(CharT const * sA, uint32_t sizeA,
-                         CharT const * sB, uint32_t sizeB,
+uint32_t StringMatchCost(CharT const * sA, size_t sizeA,
+                         CharT const * sB, size_t sizeB,
                          CostF const & costF, uint32_t maxCost,
                          bool bPrefixMatch = false)
 {
