@@ -235,16 +235,22 @@ void RuleDrawer::operator()(FeatureType const & f)
   if (s.AreaStyleExists())
   {
     bool isBuilding = false;
+    bool is3dBuilding = false;
+    bool isBuildingOutline = false;
     if (f.GetLayer() >= 0)
     {
+      bool const hasParts = IsBuildingHasPartsChecker::Instance()(f);
+      bool const isPart = IsBuildingPartChecker::Instance()(f);
+
       // Looks like nonsense, but there are some osm objects with types
       // highway-path-bridge and building (sic!) at the same time (pedestrian crossing).
-      isBuilding = (ftypes::IsBuildingChecker::Instance()(f) ||
-                    ftypes::IsBuildingPartChecker::Instance()(f)) &&
-                    !ftypes::IsBridgeChecker::Instance()(f) &&
-                    !ftypes::IsTunnelChecker::Instance()(f);
+      isBuilding = (isPart || ftypes::IsBuildingChecker::Instance()(f)) &&
+          !ftypes::IsBridgeChecker::Instance()(f) &&
+          !ftypes::IsTunnelChecker::Instance()(f);
+
+      isBuildingOutline = isBuilding && hasParts && !isPart;
+      is3dBuilding = m_is3dBuildings && (isBuilding && !isBuildingOutline);
     }
-    bool const is3dBuilding = m_is3dBuildings && isBuilding;
 
     m2::PointD featureCenter;
 
@@ -301,7 +307,8 @@ void RuleDrawer::operator()(FeatureType const & f)
       minVisibleScale = feature::GetMinDrawableScale(f);
 
     ApplyAreaFeature apply(m_context->GetTileKey(), insertShape, f.GetID(),
-                           isBuilding, areaMinHeight, areaHeight, minVisibleScale,
+                           isBuilding, m_is3dBuildings && isBuildingOutline,
+                           areaMinHeight, areaHeight, minVisibleScale,
                            f.GetRank(),  s.GetCaptionDescription());
     f.ForEachTriangle(apply, zoomLevel);
     apply.SetHotelData(ExtractHotelData(f));

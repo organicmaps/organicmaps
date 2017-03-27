@@ -516,18 +516,20 @@ void ApplyPointFeature::Finish(CustomSymbolsContextPtr const & customSymbolsCont
 }
 
 ApplyAreaFeature::ApplyAreaFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape, FeatureID const & id,
-                                   bool isBuilding, float minPosZ, float posZ, int minVisibleScale,
+                                   bool isBuilding, bool skipAreaGeometry, float minPosZ, float posZ, int minVisibleScale,
                                    uint8_t rank, CaptionDescription const & captions)
   : TBase(tileKey, insertShape, id, minVisibleScale, rank, captions, posZ)
   , m_minPosZ(minPosZ)
   , m_isBuilding(isBuilding)
+  , m_skipAreaGeometry(skipAreaGeometry)
 {}
 
 void ApplyAreaFeature::operator()(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
 {
   if (m_isBuilding)
   {
-    ProcessBuildingPolygon(p1, p2, p3);
+    if (!m_skipAreaGeometry)
+      ProcessBuildingPolygon(p1, p2, p3);
     return;
   }
 

@@ -326,17 +326,6 @@ IsBuildingChecker const & IsBuildingChecker::Instance()
   return inst;
 }
 
-IsBuildingPartChecker::IsBuildingPartChecker() : BaseChecker(1 /* level */)
-{
-  m_types.push_back(classif().GetTypeByPath({"building:part"}));
-}
-
-IsBuildingPartChecker const & IsBuildingPartChecker::Instance()
-{
-  static IsBuildingPartChecker const inst;
-  return inst;
-}
-
 IsBridgeChecker::IsBridgeChecker() : BaseChecker(3 /* level */) {}
 IsBridgeChecker const & IsBridgeChecker::Instance()
 {

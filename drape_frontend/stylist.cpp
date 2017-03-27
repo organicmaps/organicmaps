@@ -1,8 +1,8 @@
 #include "drape_frontend/stylist.hpp"
 
+#include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_visibility.hpp"
-#include "indexer/ftypes_matcher.hpp"
 #include "indexer/drawing_rules.hpp"
 #include "indexer/drules_include.hpp"
 #include "indexer/scales.hpp"
@@ -181,6 +181,30 @@ const uint8_t PointStyleFlag = 1 << 3;
 
 } // namespace
 
+IsBuildingHasPartsChecker::IsBuildingHasPartsChecker()
+{
+  m_types.push_back(classif().GetTypeByPath({"building", "has_parts"}));
+}
+
+// static
+IsBuildingHasPartsChecker const & IsBuildingHasPartsChecker::Instance()
+{
+  static const IsBuildingHasPartsChecker inst;
+  return inst;
+}
+
+IsBuildingPartChecker::IsBuildingPartChecker() : BaseChecker(1 /* level */)
+{
+  m_types.push_back(classif().GetTypeByPath({"building:part"}));
+}
+
+// static
+IsBuildingPartChecker const & IsBuildingPartChecker::Instance()
+{
+  static IsBuildingPartChecker const inst;
+  return inst;
+}
+
 // ==================================== //
 
 void CaptionDescription::Init(FeatureType const & f,
@@ -331,7 +355,7 @@ bool InitStylist(FeatureType const & f, int const zoomLevel, bool buildings3d, S
 {
   feature::TypesHolder const types(f);
 
-  if (!buildings3d && ftypes::IsBuildingPartChecker::Instance()(types) &&
+  if (!buildings3d && IsBuildingPartChecker::Instance()(types) &&
       !ftypes::IsBuildingChecker::Instance()(types))
     return false;
 

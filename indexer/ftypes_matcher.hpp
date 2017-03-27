@@ -128,13 +128,6 @@ public:
   uint32_t GetMainType() const { return m_types[0]; }
 };
 
-class IsBuildingPartChecker : public BaseChecker
-{
-  IsBuildingPartChecker();
-public:
-  static IsBuildingPartChecker const & Instance();
-};
-
 class IsBridgeChecker : public BaseChecker
 {
   virtual bool IsMatched(uint32_t type) const override;
