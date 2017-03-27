@@ -29,6 +29,7 @@ omim_link_libraries(
   stats_client
   ${PYTHON_LIBRARIES}
   ${Boost_LIBRARIES}
+  ${LIBZ}
 )
 
 link_qt5_core(${PROJECT_NAME})
