@@ -1,9 +1,10 @@
 #pragma once
 
-#include "std/string.hpp"
+#include <string>
 
 namespace routing
 {
-bool BuildRoutingIndex(string const & filename, string const & country);
-void BuildCrossMwmSection(string const & path, string const & mwmFile, string const & country);
+bool BuildRoutingIndex(std::string const & filename, std::string const & country);
+void BuildCrossMwmSection(std::string const & path, std::string const & mwmFile,
+                          std::string const & country);
 }  // namespace routing

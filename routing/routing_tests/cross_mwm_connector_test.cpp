@@ -240,7 +240,7 @@ UNIT_TEST(Serialization)
 UNIT_TEST(WeightsSerialization)
 {
   size_t constexpr kNumTransitions = 3;
-  std::vector<double> const weights = {
+  vector<double> const weights = {
       4.0,  20.0, CrossMwmConnector::kNoRoute, 12.0, CrossMwmConnector::kNoRoute, 40.0, 48.0,
       24.0, 12.0};
   TEST_EQUAL(weights.size(), kNumTransitions * kNumTransitions, ());
@@ -301,7 +301,10 @@ UNIT_TEST(WeightsSerialization)
     {
       auto const weight = weights[weightIdx];
       if (weight != CrossMwmConnector::kNoRoute)
-        expectedEdges.emplace_back(Segment(mwmId, exitId, 1, false /* forward */), weight);
+      {
+        expectedEdges.emplace_back(Segment(mwmId, exitId, 1 /* segmentIdx */, false /* forward */),
+                                   weight);
+      }
       ++weightIdx;
     }
 

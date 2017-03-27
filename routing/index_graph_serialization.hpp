@@ -1,12 +1,12 @@
 #pragma once
 
+#include "routing/coding.hpp"
 #include "routing/index_graph.hpp"
 #include "routing/joint.hpp"
 #include "routing/routing_exceptions.hpp"
 #include "routing/vehicle_mask.hpp"
 
 #include "coding/bit_streams.hpp"
-#include "coding/elias_coder.hpp"
 #include "coding/reader.hpp"
 #include "coding/write_to_sink.hpp"
 
@@ -81,17 +81,17 @@ public:
       uint32_t featureId = -1;
       for (uint32_t i = 0; i < section.GetNumRoads(); ++i)
       {
-        uint32_t const featureDelta = ReadGamma(reader);
+        uint32_t const featureDelta = ReadGamma<uint32_t>(reader);
         featureId += featureDelta;
 
-        uint32_t const jointsNumber = ConvertJointsNumber(ReadGamma(reader));
+        uint32_t const jointsNumber = ConvertJointsNumber(ReadGamma<uint32_t>(reader));
 
         // See comment above about -1.
         uint32_t pointId = -1;
 
         for (uint32_t j = 0; j < jointsNumber; ++j)
         {
-          uint32_t const pointDelta = ReadGamma(reader);
+          auto const pointDelta = ReadGamma<uint32_t>(reader);
           pointId += pointDelta;
           Joint::Id const jointId = jointIdDecoder.Read(reader);
           if (jointId >= section.GetEndJointId())
@@ -283,7 +283,7 @@ private:
       uint8_t const bit = reader.Read(1);
       if (bit == kRepeatJointIdBit)
       {
-        uint32_t const delta = ReadDelta(reader);
+        auto const delta = ReadDelta<uint32_t>(reader);
         if (delta > m_count)
           MYTHROW(CorruptedDataException, ("Joint id delta", delta, "> count =", m_count));
 
@@ -366,46 +366,6 @@ private:
     vector<uint32_t> m_featureIds;
     vector<uint8_t> m_buffer;
   };
-
-  template <typename Sink>
-  static void WriteGamma(BitWriter<Sink> & writer, uint32_t value)
-  {
-    ASSERT_NOT_EQUAL(value, 0, ());
-
-    bool const success = coding::GammaCoder::Encode(writer, static_cast<uint64_t>(value));
-    ASSERT(success, ());
-    UNUSED_VALUE(success);
-  }
-
-  template <class Source>
-  static uint32_t ReadGamma(BitReader<Source> & reader)
-  {
-    uint64_t const decoded = coding::GammaCoder::Decode(reader);
-    if (decoded > numeric_limits<uint32_t>::max())
-      MYTHROW(CorruptedDataException, ("Decoded uint32_t out of limit", decoded));
-
-    return static_cast<uint32_t>(decoded);
-  }
-
-  template <typename Sink>
-  static void WriteDelta(BitWriter<Sink> & writer, uint32_t value)
-  {
-    ASSERT_NOT_EQUAL(value, 0, ());
-
-    bool const success = coding::DeltaCoder::Encode(writer, static_cast<uint64_t>(value));
-    ASSERT(success, ());
-    UNUSED_VALUE(success);
-  }
-
-  template <class Source>
-  static uint32_t ReadDelta(BitReader<Source> & reader)
-  {
-    uint64_t const decoded = coding::DeltaCoder::Decode(reader);
-    if (decoded > numeric_limits<uint32_t>::max())
-      MYTHROW(CorruptedDataException, ("Decoded uint32_t out of limit", decoded));
-
-    return static_cast<uint32_t>(decoded);
-  }
 
   static VehicleMask GetRoadMask(unordered_map<uint32_t, VehicleMask> const & masks,
                                  uint32_t featureId);

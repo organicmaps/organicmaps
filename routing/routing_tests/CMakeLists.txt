@@ -8,6 +8,7 @@ set(
   astar_progress_test.cpp
   astar_router_test.cpp
   async_router_test.cpp
+  coding_test.cpp
   cross_mwm_connector_test.cpp
   cross_routing_tests.cpp
   cumulative_restriction_test.cpp

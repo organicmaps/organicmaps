@@ -1,5 +1,6 @@
 #pragma once
 
+#include "routing/coding.hpp"
 #include "routing/cross_mwm_connector.hpp"
 #include "routing/routing_exceptions.hpp"
 #include "routing/vehicle_mask.hpp"
@@ -8,7 +9,6 @@
 #include "indexer/geometry_serialization.hpp"
 
 #include "coding/bit_streams.hpp"
-#include "coding/elias_coder.hpp"
 #include "coding/reader.hpp"
 #include "coding/write_to_sink.hpp"
 #include "coding/writer.hpp"
@@ -17,8 +17,6 @@
 
 #include <array>
 #include <cstdint>
-#include <limits>
-#include <type_traits>
 #include <vector>
 
 namespace routing
@@ -181,7 +179,7 @@ public:
       }
 
       connector.m_weightsOffset = weightsOffset;
-      connector.m_accuracy = header.GetAccuracy();
+      connector.m_granularity = header.GetGranularity();
       connector.m_weightsLoadState = WeightsLoadState::ReadyToLoad;
       return;
     }
@@ -194,7 +192,7 @@ public:
                                  Source & src)
   {
     CHECK(connector.m_weightsLoadState == WeightsLoadState::ReadyToLoad, ());
-    CHECK_GREATER(connector.m_accuracy, 0, ());
+    CHECK_GREATER(connector.m_granularity, 0, ());
 
     src.Skip(connector.m_weightsOffset);
 
@@ -212,9 +210,9 @@ public:
         continue;
       }
 
-      Weight const delta = ReadDelta<Weight>(reader);
-      Weight const current = DecodePositivesDelta(prev, delta);
-      connector.m_weights.push_back(current * connector.m_accuracy);
+      Weight const delta = ReadDelta<Weight>(reader) - 1;
+      Weight const current = DecodeZigZagDelta(prev, delta);
+      connector.m_weights.push_back(current * connector.m_granularity);
       prev = current;
     }
 
@@ -240,11 +238,12 @@ private:
   static uint32_t constexpr kLastVersion = 0;
   static uint8_t constexpr kNoRouteBit = 0;
   static uint8_t constexpr kRouteBit = 1;
-  // Accuracy is integral unit for storing Weight in section.
-  // Accuracy measured in seconds as well as the Weight.
-  // Accuracy is the way to tune section size.
-  static Weight constexpr kAccuracy = 4;
-  static_assert(kAccuracy > 0, "kAccuracy should be > 0");
+
+  // Weight is rounded up to the next multiple of kGranularity before being stored in the section.
+  // kGranularity is measured in seconds as well as Weight.
+  // Increasing kGranularity will decrease the section's size.
+  static Weight constexpr kGranularity = 4;
+  static_assert(kGranularity > 0, "kGranularity should be > 0");
 
   class Section final
   {
@@ -306,7 +305,7 @@ private:
       WriteToSink(sink, m_version);
       WriteToSink(sink, m_numTransitions);
       WriteToSink(sink, m_sizeTransitions);
-      WriteToSink(sink, m_accuracy);
+      WriteToSink(sink, m_granularity);
       m_codingParams.Save(sink);
       WriteToSink(sink, m_bitsPerMask);
 
@@ -327,7 +326,7 @@ private:
 
       m_numTransitions = ReadPrimitiveFromSource<decltype(m_numTransitions)>(src);
       m_sizeTransitions = ReadPrimitiveFromSource<decltype(m_sizeTransitions)>(src);
-      m_accuracy = ReadPrimitiveFromSource<decltype(m_accuracy)>(src);
+      m_granularity = ReadPrimitiveFromSource<decltype(m_granularity)>(src);
       m_codingParams.Load(src);
       m_bitsPerMask = ReadPrimitiveFromSource<decltype(m_bitsPerMask)>(src);
 
@@ -341,7 +340,7 @@ private:
 
     uint32_t GetNumTransitions() const { return m_numTransitions; }
     uint64_t GetSizeTransitions() const { return m_sizeTransitions; }
-    Weight GetAccuracy() const { return m_accuracy; }
+    Weight GetGranularity() const { return m_granularity; }
     serial::CodingParams const & GetCodingParams() const { return m_codingParams; }
     uint8_t GetBitsPerMask() const { return m_bitsPerMask; }
     std::vector<Section> const & GetSections() const { return m_sections; }
@@ -350,73 +349,11 @@ private:
     uint32_t m_version = kLastVersion;
     uint32_t m_numTransitions = 0;
     uint64_t m_sizeTransitions = 0;
-    Weight m_accuracy = kAccuracy;
+    Weight m_granularity = kGranularity;
     serial::CodingParams m_codingParams;
     uint8_t m_bitsPerMask = 0;
     std::vector<Section> m_sections;
   };
-
-  template <typename T, typename Sink>
-  static void WriteDelta(BitWriter<Sink> & writer, T value)
-  {
-    static_assert(std::is_integral<T>::value, "T should be integral type");
-    ASSERT_GREATER(value, 0, ());
-
-    bool const success = coding::DeltaCoder::Encode(writer, static_cast<uint64_t>(value));
-    ASSERT(success, ());
-    UNUSED_VALUE(success);
-  }
-
-  template <typename T, typename Source>
-  static T ReadDelta(BitReader<Source> & reader)
-  {
-    static_assert(std::is_integral<T>::value, "T should be integral type");
-    uint64_t const decoded = coding::DeltaCoder::Decode(reader);
-    if (decoded > numeric_limits<T>::max())
-      MYTHROW(CorruptedDataException,
-              ("Decoded value", decoded, "out of limit", numeric_limits<T>::max()));
-
-    return static_cast<T>(decoded);
-  }
-
-  // Encodes current as delta compared with prev.
-  //
-  // Example:
-  // prev    =       3
-  // current = 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-  // delta   = 5, 3, 1, 2, 4, 6, 7, 8, 9, 10
-  template <typename T>
-  static T EncodePositivesDelta(T prev, T current)
-  {
-    static_assert(std::is_integral<T>::value, "T should be integral type");
-    ASSERT_GREATER(prev, 0, ());
-    ASSERT_GREATER(current, 0, ());
-
-    if (current <= prev)
-      return (prev - current) * 2 + 1;
-
-    if (current < prev * 2)
-      return (current - prev) * 2;
-
-    return current;
-  }
-
-  // Reverse function for EncodePositivesDelta.
-  template <typename T>
-  static T DecodePositivesDelta(T prev, T delta)
-  {
-    static_assert(std::is_integral<T>::value, "T should be integral type");
-    ASSERT_GREATER(prev, 0, ());
-    ASSERT_GREATER(delta, 0, ());
-
-    if (delta >= prev * 2)
-      return delta;
-
-    if (delta % 2 == 0)
-      return prev + delta / 2;
-
-    return prev - delta / 2;
-  }
 
   template <typename T>
   static T GetBitsPerMask()

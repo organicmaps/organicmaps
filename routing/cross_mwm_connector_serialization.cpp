@@ -35,8 +35,8 @@ void CrossMwmConnectorSerializer::WriteWeights(vector<Weight> const & weights,
     }
 
     writer.Write(kRouteBit, 1);
-    auto const storedWeight = (weight + kAccuracy - 1) / kAccuracy;
-    WriteDelta(writer, EncodePositivesDelta(prevWeight, storedWeight));
+    auto const storedWeight = (weight + kGranularity - 1) / kGranularity;
+    WriteDelta(writer, EncodeZigZagDelta(prevWeight, storedWeight) + 1);
     prevWeight = storedWeight;
   }
 }

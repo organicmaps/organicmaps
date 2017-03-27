@@ -154,12 +154,12 @@ namespace m2
       std::swap(m_rect, rhs.m_rect);
     }
 
-    ContainerT Data() const { return m_points; }
+    ContainerT const & Data() const { return m_points; }
 
     template <class TEqualF>
-    inline bool IsIntersect(CoordT const & x11, CoordT const & y11, CoordT const & x12, CoordT const & y12,
+    static inline bool IsIntersect(CoordT const & x11, CoordT const & y11, CoordT const & x12, CoordT const & y12,
                             CoordT const & x21, CoordT const & y21, CoordT const & x22, CoordT const & y22,
-                            TEqualF equalF, PointT & pt) const
+                            TEqualF equalF, PointT & pt)
     {
       double const divider = ((y12 - y11) * (x22 - x21) - (x12 - x11) * (y22-y21));
       if (equalF.EqualZeroSquarePrecision(divider))
@@ -180,7 +180,7 @@ namespace m2
       return true;
     }
 
-    inline bool IsIntersect(PointT const & p1, PointT const & p2, PointT const & p3, PointT const & p4 , PointT & pt) const
+    static inline bool IsIntersect(PointT const & p1, PointT const & p2, PointT const & p3, PointT const & p4 , PointT & pt)
     {
       return IsIntersect(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y, typename TraitsT::EqualType(), pt);
     }

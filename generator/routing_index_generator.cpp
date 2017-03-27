@@ -173,21 +173,24 @@ bool RegionsContain(vector<m2::RegionD> const & regions, m2::PointD const & poin
   return false;
 }
 
-double CalcClockwiseDistance(vector<m2::RegionD> const & borders,
-                             CrossMwmConnectorSerializer::Transition const & transition)
+// Calculate distance from the starting border point to the transition along the border.
+// It could be measured clockwise or counterclockwise, direction doesn't matter.
+double CalcDistanceAlongTheBorders(vector<m2::RegionD> const & borders,
+                                   CrossMwmConnectorSerializer::Transition const & transition)
 {
   double distance = 0.0;
 
   for (m2::RegionD const & region : borders)
   {
-    vector<m2::PointD> points = region.Data();
-
+    vector<m2::PointD> const & points = region.Data();
+    CHECK(!points.empty(), ());
     m2::PointD const * prev = &points.back();
+
     for (m2::PointD const & curr : points)
     {
       m2::PointD intersection;
-      if (region.IsIntersect(transition.GetBackPoint(), transition.GetFrontPoint(), *prev, curr,
-                             intersection))
+      if (m2::RegionD::IsIntersect(transition.GetBackPoint(), transition.GetFrontPoint(), *prev,
+                                   curr, intersection))
       {
         distance += prev->Length(intersection);
         return distance;
@@ -249,17 +252,18 @@ void CalcCrossMwmTransitions(string const & path, string const & mwmFile, string
   sort(transitions.begin(), transitions.end(),
        [&](CrossMwmConnectorSerializer::Transition const & lhs,
            CrossMwmConnectorSerializer::Transition const & rhs) {
-         return CalcClockwiseDistance(borders, lhs) < CalcClockwiseDistance(borders, rhs);
+         return CalcDistanceAlongTheBorders(borders, lhs) <
+                CalcDistanceAlongTheBorders(borders, rhs);
        });
 
   LOG(LINFO, ("Transition sorted in", timer.ElapsedSeconds(), "seconds"));
 
   for (auto const & transition : transitions)
   {
-    for (size_t j = 0; j < connectors.size(); ++j)
+    for (size_t i = 0; i < connectors.size(); ++i)
     {
-      VehicleMask const mask = GetVehicleMask(static_cast<VehicleType>(j));
-      CrossMwmConnectorSerializer::AddTransition(transition, mask, connectors[j]);
+      VehicleMask const mask = GetVehicleMask(static_cast<VehicleType>(i));
+      CrossMwmConnectorSerializer::AddTransition(transition, mask, connectors[i]);
     }
   }
 }

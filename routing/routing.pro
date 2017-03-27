@@ -71,6 +71,7 @@ HEADERS += \
     base/followed_polyline.hpp \
     bicycle_directions.hpp \
     car_router.hpp \
+    coding.hpp \
     cross_mwm_connector.hpp \
     cross_mwm_connector_serialization.hpp \
     cross_mwm_index_graph.hpp \
