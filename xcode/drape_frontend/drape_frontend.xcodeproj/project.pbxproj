@@ -185,6 +185,8 @@
 		670E393B1C46C59000E9C0A6 /* batch_merge_helper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670E39371C46C59000E9C0A6 /* batch_merge_helper.hpp */; };
 		670E393C1C46C59000E9C0A6 /* color_constants.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670E39381C46C59000E9C0A6 /* color_constants.cpp */; };
 		670E393D1C46C59000E9C0A6 /* color_constants.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670E39391C46C59000E9C0A6 /* color_constants.hpp */; };
+		672D249A1E892768004BB7B1 /* overlays_tracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 672D24981E892768004BB7B1 /* overlays_tracker.cpp */; };
+		672D249B1E892768004BB7B1 /* overlays_tracker.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 672D24991E892768004BB7B1 /* overlays_tracker.hpp */; };
 		6743D36D1C3A9F090095054B /* arrow3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6743D3671C3A9F090095054B /* arrow3d.cpp */; };
 		6743D36E1C3A9F090095054B /* arrow3d.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6743D3681C3A9F090095054B /* arrow3d.hpp */; };
 		6743D36F1C3A9F090095054B /* framebuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6743D3691C3A9F090095054B /* framebuffer.cpp */; };
@@ -410,6 +412,8 @@
 		670E39371C46C59000E9C0A6 /* batch_merge_helper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = batch_merge_helper.hpp; sourceTree = "<group>"; };
 		670E39381C46C59000E9C0A6 /* color_constants.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = color_constants.cpp; sourceTree = "<group>"; };
 		670E39391C46C59000E9C0A6 /* color_constants.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = color_constants.hpp; sourceTree = "<group>"; };
+		672D24981E892768004BB7B1 /* overlays_tracker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = overlays_tracker.cpp; sourceTree = "<group>"; };
+		672D24991E892768004BB7B1 /* overlays_tracker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = overlays_tracker.hpp; sourceTree = "<group>"; };
 		6743D3671C3A9F090095054B /* arrow3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = arrow3d.cpp; sourceTree = "<group>"; };
 		6743D3681C3A9F090095054B /* arrow3d.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = arrow3d.hpp; sourceTree = "<group>"; };
 		6743D3691C3A9F090095054B /* framebuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = framebuffer.cpp; sourceTree = "<group>"; };
@@ -468,6 +472,8 @@
 		670947411BDF9B99005014C0 /* drape_frontend */ = {
 			isa = PBXGroup;
 			children = (
+				672D24981E892768004BB7B1 /* overlays_tracker.cpp */,
+				672D24991E892768004BB7B1 /* overlays_tracker.hpp */,
 				457D89241E7AE89500049500 /* custom_symbol.hpp */,
 				453EEA6B1E3A28F400505E09 /* colored_symbol_shape.cpp */,
 				453EEA6C1E3A28F400505E09 /* colored_symbol_shape.hpp */,
@@ -769,6 +775,7 @@
 				6709487C1BDF9C7F005014C0 /* pen_info.hpp in Headers */,
 				6709487D1BDF9C7F005014C0 /* point.h in Headers */,
 				6709479A1BDF9BE1005014C0 /* map_shape.hpp in Headers */,
+				672D249B1E892768004BB7B1 /* overlays_tracker.hpp in Headers */,
 				670948731BDF9C7F005014C0 /* frame_image.hpp in Headers */,
 				347F52101DC2334A0064B273 /* drape_api_renderer.hpp in Headers */,
 				3492DA0F1CA2D9BF00C1F3B3 /* animation_utils.hpp in Headers */,
@@ -972,6 +979,7 @@
 				670948181BDF9C39005014C0 /* interpolations.cpp in Sources */,
 				670948021BDF9BF5005014C0 /* drape_engine.cpp in Sources */,
 				56D545661C74A44900E3719C /* overlay_batcher.cpp in Sources */,
+				672D249A1E892768004BB7B1 /* overlays_tracker.cpp in Sources */,
 				452C9ED81CEDCF3200A55E57 /* follow_animation.cpp in Sources */,
 				6709481C1BDF9C39005014C0 /* opacity_animation.cpp in Sources */,
 				670947E61BDF9BEC005014C0 /* frontend_renderer.cpp in Sources */,
