@@ -205,10 +205,9 @@ to SDK and NDK. Or specify these in command line:
 
 ## iOS
 
-For XCode configuration instructions, see [CONTRIBUTING.md](CONTRIBUTING.md).
-
-* Open `omim/iphone/Maps/Maps.xcodeproj` in XCode.
-* Open "Product → Scheme → Edit Scheme", then "Info" and change build configuration to Simulator.
+* Install [Homebrew](http://brew.sh/) and run `brew install carthage`.
+* Open `xcode/omim.xcworkspace` in XCode.
+* Select "xcMAPS.ME" product scheme for developing, or "MAPS.ME" to make a distribution package.
 * Run the project (Product → Run).
 
 If a script has trouble finding your Qt 5 installation, edit `omim/tools/autobuild/detect_qmake.sh`,
