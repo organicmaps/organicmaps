@@ -59,18 +59,18 @@ public class DefaultAdTracker implements AdTracker, OnAdCacheModifiedListener
   }
 
   @Override
-  public void onRemoved(@NonNull String id)
+  public void onRemoved(@NonNull String bannerId)
   {
-    mTracks.remove(id);
+    mTracks.remove(bannerId);
   }
 
   @Override
-  public void onPut(@NonNull String id)
+  public void onPut(@NonNull String bannerId)
   {
-    TrackInfo info = mTracks.get(id);
+    TrackInfo info = mTracks.get(bannerId);
     if (info == null)
     {
-      mTracks.put(id, new TrackInfo());
+      mTracks.put(bannerId, new TrackInfo());
       return;
     }
 

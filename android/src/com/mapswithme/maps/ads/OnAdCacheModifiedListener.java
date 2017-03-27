@@ -4,6 +4,6 @@ import android.support.annotation.NonNull;
 
 interface OnAdCacheModifiedListener
 {
-  void onRemoved(@NonNull String id);
-  void onPut(@NonNull String id);
+  void onRemoved(@NonNull String bannerId);
+  void onPut(@NonNull String bannerId);
 }

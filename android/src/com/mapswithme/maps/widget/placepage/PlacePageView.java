@@ -285,7 +285,6 @@ public class PlacePageView extends RelativeLayout
   {
     if (mBannerController != null)
       mBannerController.onChangedVisibility(true);
-
   }
 
   public void onActivityPause()
