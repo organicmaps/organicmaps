@@ -43,6 +43,9 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.ads.DefaultAdTracker;
+import com.mapswithme.maps.ads.Factory;
+import com.mapswithme.maps.ads.NativeAdLoader;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -379,7 +382,11 @@ public class PlacePageView extends RelativeLayout
 
     View bannerView = findViewById(R.id.banner);
     if (bannerView != null)
-      mBannerController = new BannerController(bannerView, this);
+    {
+      DefaultAdTracker tracker = new DefaultAdTracker();
+      NativeAdLoader loader = Factory.createFacebookAdLoader(tracker, tracker);
+      mBannerController = new BannerController(bannerView, this, loader, tracker);
+    }
 
     mButtons = new PlacePageButtons(this, ppButtons, new PlacePageButtons.ItemListener()
     {

@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.facebook.ads.AdError;
@@ -16,6 +17,8 @@ import com.flurry.android.FlurryAgent;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.PrivateVariables;
+import com.mapswithme.maps.ads.MwmNativeAd;
+import com.mapswithme.maps.ads.NativeAdError;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.bookmarks.data.Banner;
 import com.mapswithme.maps.bookmarks.data.MapObject;
@@ -526,15 +529,16 @@ public enum Statistics
                                     .add(BANNER_STATE, String.valueOf(state)));
   }
 
-  public void trackFacebookBannerError(@Nullable Banner banner, @Nullable AdError error, int state)
+  public void trackNativeAdError(@NonNull String bannerId, @NonNull MwmNativeAd ad,
+                                 @Nullable NativeAdError error, int state)
   {
-    boolean isAdBlank = error != null && error.getErrorCode() == AdError.NO_FILL_ERROR_CODE;
+    boolean isAdBlank = error != null && error.getCode() == AdError.NO_FILL_ERROR_CODE;
     String eventName = isAdBlank ? PP_BANNER_BLANK : PP_BANNER_ERROR;
     Statistics.ParameterBuilder builder = Statistics.params();
-    builder.add(BANNER, banner != null ? banner.getId() : "N/A")
-           .add(ERROR_CODE, error != null ? String.valueOf(error.getErrorCode()) : "N/A")
-           .add(ERROR_MESSAGE, error != null ? error.getErrorMessage() : "N/A")
-           .add(PROVIDER, "FB")
+    builder.add(BANNER, !TextUtils.isEmpty(bannerId) ? bannerId : "N/A")
+           .add(ERROR_CODE, error != null ? String.valueOf(error.getCode()) : "N/A")
+           .add(ERROR_MESSAGE, error != null ? error.getMessage() : "N/A")
+           .add(PROVIDER, ad.getProvider())
            .add(BANNER_STATE, String.valueOf(state));
     trackEvent(eventName, builder.get());
   }

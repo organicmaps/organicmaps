@@ -13,18 +13,18 @@ public class DefaultAdTracker implements AdTracker, OnAdCacheModifiedListener
 {
   private final static Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private final static String TAG = DefaultAdTracker.class.getSimpleName();
-  private final static int IMPRESSION_TIME_MS = 2000;
-  private final Map<String, TrackInfo> mTracks = new HashMap<>();
+  private final static int IMPRESSION_TIME_MS = 2500;
+  private final static Map<String, TrackInfo> TRACKS = new HashMap<>();
 
   @Override
   public void onViewShown(@NonNull String bannerId)
   {
     LOGGER.d(TAG, "onViewShown bannerId = " + bannerId);
-    TrackInfo info = mTracks.get(bannerId);
+    TrackInfo info = TRACKS.get(bannerId);
     if (info == null)
     {
       info = new TrackInfo();
-      mTracks.put(bannerId, info);
+      TRACKS.put(bannerId, info);
     }
     info.setVisible(true);
   }
@@ -33,18 +33,16 @@ public class DefaultAdTracker implements AdTracker, OnAdCacheModifiedListener
   public void onViewHidden(@NonNull String bannerId)
   {
     LOGGER.d(TAG, "onViewHidden bannerId = " + bannerId);
-    TrackInfo info = mTracks.get(bannerId);
-    if (info == null)
-      throw new AssertionError("A track info cannot be null because this method " +
-                               "is called only after onViewShown!");
-    info.setVisible(false);
+    TrackInfo info = TRACKS.get(bannerId);
+    if (info != null)
+      info.setVisible(false);
   }
 
   @Override
   public void onContentObtained(@NonNull String bannerId)
   {
     LOGGER.d(TAG, "onContentObtained bannerId = " + bannerId);
-    TrackInfo info = mTracks.get(bannerId);
+    TrackInfo info = TRACKS.get(bannerId);
     if (info == null)
       throw new AssertionError("A track info must be put in a cache before a content is obtained");
 
@@ -54,23 +52,23 @@ public class DefaultAdTracker implements AdTracker, OnAdCacheModifiedListener
   @Override
   public boolean isImpressionGood(@NonNull String bannerId)
   {
-    TrackInfo info = mTracks.get(bannerId);
+    TrackInfo info = TRACKS.get(bannerId);
     return info != null && info.getShowTime() > IMPRESSION_TIME_MS;
   }
 
   @Override
   public void onRemoved(@NonNull String bannerId)
   {
-    mTracks.remove(bannerId);
+    TRACKS.remove(bannerId);
   }
 
   @Override
   public void onPut(@NonNull String bannerId)
   {
-    TrackInfo info = mTracks.get(bannerId);
+    TrackInfo info = TRACKS.get(bannerId);
     if (info == null)
     {
-      mTracks.put(bannerId, new TrackInfo());
+      TRACKS.put(bannerId, new TrackInfo());
       return;
     }
 
@@ -128,6 +126,7 @@ public class DefaultAdTracker implements AdTracker, OnAdCacheModifiedListener
           return;
         }
         mShowTime += SystemClock.elapsedRealtime() - mTimestamp;
+        LOGGER.d(TAG, "A show time = " + mShowTime);
         mTimestamp = 0;
       }
     }
