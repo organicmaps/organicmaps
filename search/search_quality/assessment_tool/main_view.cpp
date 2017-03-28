@@ -50,12 +50,14 @@ void MainView::SetSamples(std::vector<search::Sample> const & samples)
   m_samplesView->SetSamples(samples);
 }
 
-void MainView::ShowSample(search::Sample const & sample)
+void MainView::ShowSample(size_t index, search::Sample const & sample, bool hasEdits)
 {
   m_framework.ShowRect(sample.m_viewport, -1 /* maxScale */, false /* animation */);
 
   m_sampleView->SetContents(sample);
   m_sampleView->show();
+
+  OnSampleChanged(index, hasEdits);
 }
 
 void MainView::ShowResults(search::Results::Iter begin, search::Results::Iter end)
@@ -63,9 +65,30 @@ void MainView::ShowResults(search::Results::Iter begin, search::Results::Iter en
   m_sampleView->ShowResults(begin, end);
 }
 
-void MainView::SetResultRelevances(std::vector<Relevance> const & relevances)
+void MainView::OnSampleChanged(size_t index, bool hasEdits)
 {
-  m_sampleView->SetResultRelevances(relevances);
+  if (m_samplesView->IsSelected(index))
+  {
+    if (hasEdits)
+      m_sampleDock->setWindowTitle(tr("Sample *"));
+    else
+      m_sampleDock->setWindowTitle(tr("Sample"));
+  }
+  m_samplesView->OnSampleChanged(index, hasEdits);
+}
+
+void MainView::OnSamplesChanged(bool hasEdits)
+{
+  if (hasEdits)
+    m_samplesDock->setWindowTitle("Samples *");
+  else
+    m_samplesDock->setWindowTitle("Samples");
+}
+
+void MainView::EnableSampleEditing(size_t index, Edits & edits)
+{
+  CHECK(m_samplesView->IsSelected(index), ());
+  m_sampleView->EnableEditing(edits);
 }
 
 void MainView::ShowError(std::string const & msg)
@@ -156,12 +179,6 @@ void MainView::InitDocks()
 
   m_sampleView = new SampleView(this /* parent */);
   m_sampleDock = CreateDock("Sample", *m_sampleView);
-  connect(m_sampleView, &SampleView::EditStateUpdated, this, [this](bool hasEdits) {
-    if (hasEdits)
-      m_sampleDock->setWindowTitle(tr("Sample *"));
-    else
-      m_sampleDock->setWindowTitle(tr("Sample"));
-  });
   addDockWidget(Qt::RightDockWidgetArea, m_sampleDock);
 }
 

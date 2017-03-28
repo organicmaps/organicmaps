@@ -10,7 +10,7 @@ Edits::RelevanceEditor::RelevanceEditor(Edits & parent, size_t index)
 
 bool Edits::RelevanceEditor::Set(Relevance relevance)
 {
-  return m_parent.UpdateRelevance(m_index, relevance);
+  return m_parent.SetRelevance(m_index, relevance);
 }
 
 Edits::Relevance Edits::RelevanceEditor::Get() const
@@ -21,8 +21,6 @@ Edits::Relevance Edits::RelevanceEditor::Get() const
 }
 
 // Edits -------------------------------------------------------------------------------------------
-Edits::Edits(Observer & observer) : m_observer(observer) {}
-
 void Edits::ResetRelevances(std::vector<Relevance> const & relevances)
 {
   WithObserver([this, &relevances]() {
@@ -32,7 +30,7 @@ void Edits::ResetRelevances(std::vector<Relevance> const & relevances)
   });
 }
 
-bool Edits::UpdateRelevance(size_t index, Relevance relevance)
+bool Edits::SetRelevance(size_t index, Relevance relevance)
 {
   return WithObserver([this, index, relevance]() {
     CHECK_LESS(index, m_currRelevances.size(), ());
