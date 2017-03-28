@@ -167,12 +167,9 @@ public enum LocationHelper
   @UiThread
   public void initialize()
   {
-    if (MwmApplication.get().isFrameworkInitialized())
-    {
-      initProvider();
-      LocationState.nativeSetListener(mMyPositionModeListener);
-      MwmApplication.backgroundTracker().addListener(mOnTransition);
-    }
+    initProvider();
+    LocationState.nativeSetListener(mMyPositionModeListener);
+    MwmApplication.backgroundTracker().addListener(mOnTransition);
   }
 
   private void initProvider()

@@ -320,9 +320,12 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
   private void initSimplifiedTrafficColorsPrefsCallbacks()
   {
-    boolean simplifiedColorsEnabled = Framework.nativeGetSimplifiedTrafficColorsEnabled();
     final TwoStatePreference prefSimplifiedColors = (TwoStatePreference)findPreference(
         getString(R.string.pref_traffic_simplified_colors));
+    if (prefSimplifiedColors == null)
+      return;
+
+    boolean simplifiedColorsEnabled = Framework.nativeGetSimplifiedTrafficColorsEnabled();
     prefSimplifiedColors.setChecked(simplifiedColorsEnabled);
     prefSimplifiedColors.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
     {
@@ -338,6 +341,9 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   private void initLargeFontSizePrefsCallbacks()
   {
     Preference pref = findPreference(getString(R.string.pref_large_fonts_size));
+    if (pref == null)
+      return;
+
     ((TwoStatePreference)pref).setChecked(Config.isLargeFontsSize());
     pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
     {
@@ -356,9 +362,13 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
   private void initUseMobileDataPrefsCallbacks()
   {
-    int curValue = Config.getUseMobileDataSettings();
     final ListPreference mobilePref = (ListPreference)findPreference(
         getString(R.string.pref_use_mobile_data));
+    if (mobilePref == null)
+      return;
+
+    int curValue = Config.getUseMobileDataSettings();
+
     if (curValue != NetworkPolicy.NOT_TODAY && curValue != NetworkPolicy.TODAY)
     {
       mobilePref.setValue(String.valueOf(curValue));
@@ -406,6 +416,9 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   private void initLoggingEnabledPrefsCallbacks()
   {
     Preference pref = findPreference(getString(R.string.pref_enable_logging));
+    if (pref == null)
+      return;
+
     if (!MwmApplication.prefs().getBoolean(SearchFragment.PREFS_SHOW_ENABLE_LOGGING_SETTING,
                                            BuildConfig.BUILD_TYPE.equals("beta")))
     {
