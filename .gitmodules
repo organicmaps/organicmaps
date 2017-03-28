@@ -7,3 +7,6 @@
 [submodule "3party/Alohalytics"]
 	path = 3party/Alohalytics
 	url = git://github.com/mapsme/Alohalytics.git
+[submodule "tools/macdeployqtfix"]
+	path = tools/macdeployqtfix
+	url = git://github.com/aurelien-rainone/macdeployqtfix.git

@@ -30,6 +30,8 @@ rm -rf "$RELEASE_PATH"
 # Prepare app package by copying Qt, Kothic, Skin Generator, Style tests
 for i in skin_generator style_tests generator_tool MAPS.ME.Designer; do
   "$(dirname "$QMAKE")/macdeployqt" "$RELEASE_PATH/$i.app"
+  [ -z "${QTPATH-}" ] && QTPATH="$(otool -L "$RELEASE_PATH/$i.app/Contents/Frameworks/QtGui.framework/QtGui" | grep QtCore | sed -e 's/^[[:space:]]*\(.*\)lib\/QtCore.framework.*$/\1/')"
+  python "$OMIM_PATH/tools/macdeployqtfix/macdeployqtfix.py" -q -nl "$RELEASE_PATH/$i.app/Contents/MacOS/$i" "$QTPATH"
 done
 
 MAC_RESOURCES="$RELEASE_PATH/MAPS.ME.Designer.app/Contents/Resources"
