@@ -284,23 +284,11 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         if (!setEdits())
           return;
 
-        // Save note
-        final String note = ((EditorFragment) getChildFragmentManager().findFragmentByTag(EditorFragment.class.getName())).getDescription();
-        if (note.length() != 0)
-          Editor.nativeCreateNote(note);
         // Save object edits
         if (!MwmApplication.prefs().contains(NOOB_ALERT_SHOWN))
-        {
-          MwmApplication.prefs().edit()
-            .putBoolean(NOOB_ALERT_SHOWN, true)
-            .apply();
-
           showNoobDialog();
-        }
         else
-        {
           saveMapObjectEdits();
-        }
 
         break;
       }
@@ -354,6 +342,14 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         @Override
         public void onClick(DialogInterface dlg, int which)
         {
+          MwmApplication.prefs().edit()
+                        .putBoolean(NOOB_ALERT_SHOWN, true)
+                        .apply();
+          // Save note
+          final String note = ((EditorFragment) getChildFragmentManager().findFragmentByTag(EditorFragment.class.getName())).getDescription();
+          if (note.length() != 0)
+            Editor.nativeCreateNote(note);
+          // Save edits
           saveMapObjectEdits();
         }
       })
