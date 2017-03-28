@@ -118,7 +118,7 @@ void TestMapping(InputDataT const & data,
 
     for (size_t i = 0; i < mapping.GetSegmentsCount(); ++i)
     {
-      TOsrmNodeId const node = mapping.GetNodeId(base::asserted_cast<uint32_t>(i));
+      TOsrmNodeId const node = mapping.GetNodeId(base::checked_cast<uint32_t>(i));
       size_t count = 0;
       mapping.ForEachFtSeg(node, [&] (OsrmMappingTypes::FtSeg const & s)
       {

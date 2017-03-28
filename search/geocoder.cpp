@@ -966,7 +966,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
       if (m_filter->NeedToFilter(m_postcodes.m_features))
         filtered = m_filter->Filter(m_postcodes.m_features);
       filtered.ForEach([&](uint64_t bit) {
-        uint32_t const featureId = base::asserted_cast<uint32_t>(bit);
+        auto const featureId = base::asserted_cast<uint32_t>(bit);
         SearchModel::SearchType searchType;
         if (GetSearchTypeInGeocoding(ctx, featureId, searchType))
         {
@@ -1025,7 +1025,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
   // any.
   auto clusterize = [&](uint64_t bit)
   {
-    uint32_t const featureId = base::asserted_cast<uint32_t>(bit);
+    auto const featureId = base::asserted_cast<uint32_t>(bit);
     SearchModel::SearchType searchType;
     if (!GetSearchTypeInGeocoding(ctx, featureId, searchType))
       return;
@@ -1088,7 +1088,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
         ends[i] = clusters[i].size();
       filtered.ForEach([&](uint64_t bit)
                        {
-                         uint32_t const featureId = base::asserted_cast<uint32_t>(bit);
+                         auto const featureId = base::asserted_cast<uint32_t>(bit);
                          bool found = false;
                          for (size_t i = 0; i < kNumClusters && !found; ++i)
                          {
@@ -1278,7 +1278,7 @@ void Geocoder::MatchUnclassified(BaseContext & ctx, size_t curToken)
 
   auto emitUnclassified = [&](uint64_t bit)
   {
-    uint32_t const featureId = base::asserted_cast<uint32_t>(bit);
+    auto const featureId = base::asserted_cast<uint32_t>(bit);
     SearchModel::SearchType searchType;
     if (!GetSearchTypeInGeocoding(ctx, featureId, searchType))
       return;

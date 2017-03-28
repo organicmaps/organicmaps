@@ -65,7 +65,7 @@ void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseConte
       if (!m_params.IsNumberTokens(tokenRange))
       {
         intersection.ForEach([&](uint64_t bit) {
-          uint32_t const featureId = base::asserted_cast<uint32_t>(bit);
+          auto const featureId = base::asserted_cast<uint32_t>(bit);
           double const prob = static_cast<double>(intersection.PopCount()) /
                               static_cast<double>(unfilteredIntersection.PopCount());
           localities.emplace_back(countryId, featureId, tokenRange, prob);

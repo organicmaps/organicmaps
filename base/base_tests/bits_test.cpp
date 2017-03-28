@@ -38,7 +38,7 @@ UNIT_TEST(PopcountArray32)
     uint32_t expectedPopCount = 0;
     for (size_t i = 0; i < v.size(); ++i)
       expectedPopCount += PopCountSimple(v[i]);
-    TEST_EQUAL(bits::PopCount(v.empty() ? NULL : &v[0], base::asserted_cast<uint32_t>(v.size())),
+    TEST_EQUAL(bits::PopCount(v.empty() ? NULL : &v[0], base::checked_cast<uint32_t>(v.size())),
                expectedPopCount, (j, v.size(), expectedPopCount));
   }
 }
