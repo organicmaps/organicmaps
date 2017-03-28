@@ -41,8 +41,8 @@ class FacebookAdsLoader extends BaseNativeAdLoader implements AdListener
   }
 
   /**
-   * Loads an ad for a specified banner id. If there is a cached ad, and it's not expired,
-   * the caller will be notified immediately through {@link NativeAdListener#onAdLoaded(MwmNativeAd)}.
+   * Loads an ad for a specified banner id. If there is a cached ad, the caller will be notified
+   * immediately through {@link NativeAdListener#onAdLoaded(MwmNativeAd)}.
    * Otherwise, the caller will be notified once an ad is loaded through the mentioned method.
    *
    * <br><br><b>Important note: </b> if there is a cached ad for the requested banner id, and that ad
@@ -55,7 +55,7 @@ class FacebookAdsLoader extends BaseNativeAdLoader implements AdListener
   {
     LOGGER.d(TAG, "Load a facebook ad for a banner id '" + bannerId + "'");
 
-    FacebookNativeAd cachedAd = CACHE.get(bannerId);
+    FacebookNativeAd cachedAd = getAdByIdFromCache(bannerId);
 
     if (cachedAd == null)
     {
@@ -100,8 +100,8 @@ class FacebookAdsLoader extends BaseNativeAdLoader implements AdListener
   @Override
   public void onError(Ad ad, AdError adError)
   {
-    LOGGER.w(TAG, "A error '" + adError + "' is occurred while loading an ad for banner id " +
-                  "'" + ad.getPlacementId() + "'");
+    LOGGER.w(TAG, "A error '" + adError.getErrorMessage() + "' is occurred while loading " +
+                  "an ad for banner id '" + ad.getPlacementId() + "'");
     PENDING_REQUESTS.remove(ad.getPlacementId());
     if (getAdListener() != null)
       getAdListener().onError(new FacebookNativeAd((NativeAd)ad), new FacebookAdError(adError));

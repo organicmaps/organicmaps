@@ -125,6 +125,10 @@ public class DefaultAdTracker implements AdTracker, OnAdCacheModifiedListener
           LOGGER.d(TAG, "it's a last time for this ad");
           return;
         }
+
+        if (mTimestamp == 0)
+          throw new AssertionError("A timestamp mustn't be 0 when ad is hidden!");
+
         mShowTime += SystemClock.elapsedRealtime() - mTimestamp;
         LOGGER.d(TAG, "A show time = " + mShowTime);
         mTimestamp = 0;

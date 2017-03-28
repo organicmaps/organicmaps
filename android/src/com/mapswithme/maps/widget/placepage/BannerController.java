@@ -295,11 +295,11 @@ final class BannerController
       if (mBanner == null || TextUtils.isEmpty(mBanner.getId()))
         return;
 
-      boolean isCacheEmpty = mCurrentAd != null;
-      setErrorStatus(isCacheEmpty);
+      boolean isNotCached = mCurrentAd == null;
+      setErrorStatus(isNotCached);
       updateVisibility();
 
-      if (mListener != null && isCacheEmpty)
+      if (mListener != null && isNotCached)
         mListener.onSizeChanged();
 
       Statistics.INSTANCE.trackNativeAdError(mBanner.getId(), ad, error, mOpened ? 1 : 0);
